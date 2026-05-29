@@ -1,0 +1,41 @@
+﻿# === API keys (CRÍTICO — NUNCA subir) ===
+config.py
+
+# === Entornos Python ===
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# === Datos generados pesados ===
+data/
+output/
+audio_library/
+
+# === Logs y outputs intermedios ===
+logs/
+researcher_steps/
+
+# === Outputs de tests viejos (lab_output, test_*_out, etc) ===
+lab_output_*/
+test_3movs_*/
+test_classifier_out/
+test_depthflow_out/
+test_explosion_all/
+
+# === Archivos sueltos de pruebas (mp3/txt/json en raíz) ===
+*.mp3
+narracion_*.txt
+*_audit.txt
+edge_density_scores.json
+hook_pripyat_*.json
+
+# === Backups locales ===
+*.bak_*
+
+# === IDE / sistema / Claude Code config ===
+.vscode/
+.idea/
+.claude/
+.DS_Store
+Thumbs.db
