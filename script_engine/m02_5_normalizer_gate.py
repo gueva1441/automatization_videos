@@ -53,7 +53,7 @@ CUSTOM_DICT_PATH: Path = DATA_DIR / "normalizer_custom_dict.json"
 VALID_LLM_CATEGORIES = (
     "acronym", "acronym_with_number", "abbreviation", "unit",
     "gender", "foreign_word", "time_format", "punctuation_artifact",
-    "year_format", "conjunction_y",  # ← agregadas #162
+    "year_format", "time_format_hm",  # time_format_hm agregada chat 33
 )
 
 # Mapping de category interna → category del custom_dict.json
@@ -68,12 +68,8 @@ _CATEGORY_TO_DICT = {
 # Categorías que JAMÁS van al dict (son one-off por definición).
 _CATEGORIES_NEVER_RECURRING = {
     "gender", "foreign_word", "time_format", "punctuation_artifact",
-    "year_format",  # ← one-off por cap, igual que time_format
+    "year_format", "time_format_hm",  # one-off por cap
 }
-# Nota #162: conjunction_y NO está acá a propósito. "Y" → "I" puede ser regla
-# global del canal (recurring=true → custom_dict) si el LLM lo decide así.
-# Si en validación palpable Pripyat resulta que siempre debería ser one-off,
-# moverla acá en chat 26.
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -104,13 +100,12 @@ default). Maneja BIEN sin tu intervención:
   - Decimales: 121.5, 3,14
   - Monedas: $2,500 → "dos mil quinientos dólares"
   - Fechas: 26 de abril de 1986
-  - Horas HH:MM: 14:30 → "catorce treinta"
   - Ordinales: 1.º, 2.ª
 
 NO marques estos casos. NO reescribas lo que ya funciona.
 
 ═══════════════════════════════════════════════════════════════
-TU TRABAJO: detectar SOLO los 7 casos donde ElevenLabs FALLA
+TU TRABAJO: detectar SOLO los 8 casos donde ElevenLabs FALLA
 ═══════════════════════════════════════════════════════════════
 
 1. ACRONYM — siglas no comunes en español que ElevenLabs deletrearía mal.
@@ -185,6 +180,22 @@ TU TRABAJO: detectar SOLO los 7 casos donde ElevenLabs FALLA
      "1986" → "mil novecientos ochenta y seis"
      "1991" → "mil novecientos noventa y uno"
      "2023" → "dos mil veintitrés"
+
+8. TIME_FORMAT_HM — horas en formato HH:MM (sin segundos), tipo "21:00",
+   "09:30", "14:45". Empíricamente ElevenLabs en español NO las lee como hora:
+   pega el número con los dígitos finales ("21:00" suena "veintiunoceocero").
+   → suggested = forma hablada en formato 24 horas documental.
+     "21:00" → "las veintiuna"
+     "22:00" → "las veintidós"
+     "09:30" → "las nueve y media"
+     "14:45" → "las catorce cuarenta y cinco"
+   ⚠ CRITERIO CON LA PALABRA "horas": si el texto ya dice "horas" pegado
+     (ej. "21:00 horas locales"), NO dupliques — convertí solo el número:
+     "21:00 horas locales" → "las veintiuna horas locales" (el "horas" del
+     texto se conserva, NO agregues otro). El span "original" debe ser SOLO
+     "21:00" en ese caso, para no pisar el "horas" que ya está en el texto.
+     Si NO hay "horas" cerca, podés incluirlo: "a las 21:00" → "a las
+     veintiuna horas".
 
 ═══════════════════════════════════════════════════════════════
 SIGLAS YA CONOCIDAS (custom_dict.json acumulado) — REUSÁ ESTAS
