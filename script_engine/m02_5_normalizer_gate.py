@@ -110,7 +110,7 @@ default). Maneja BIEN sin tu intervención:
 NO marques estos casos. NO reescribas lo que ya funciona.
 
 ═══════════════════════════════════════════════════════════════
-TU TRABAJO: detectar SOLO los 8 casos donde ElevenLabs FALLA
+TU TRABAJO: detectar SOLO los 7 casos donde ElevenLabs FALLA
 ═══════════════════════════════════════════════════════════════
 
 1. ACRONYM — siglas no comunes en español que ElevenLabs deletrearía mal.
@@ -186,13 +186,6 @@ TU TRABAJO: detectar SOLO los 8 casos donde ElevenLabs FALLA
      "1991" → "mil novecientos noventa y uno"
      "2023" → "dos mil veintitrés"
 
-8. CONJUNCTION_Y — la conjunción "Y" sola, mayúscula, palabra suelta.
-   ElevenLabs en voces cloned inglesas al español la lee "e" en vez de "i"
-   (el sonido natural de la conjunción "y").
-   → suggested = reemplazar "Y" por "I" para forzar pronunciación correcta.
-     " Y un hongo" → " I un hongo"
-     "¿Y qué" → "¿I qué"
-
 ═══════════════════════════════════════════════════════════════
 SIGLAS YA CONOCIDAS (custom_dict.json acumulado) — REUSÁ ESTAS
 ═══════════════════════════════════════════════════════════════
@@ -216,8 +209,6 @@ FLAG IS_RECURRING (crítico)
   "mil novecientos ochenta y seis" (year_format del topic Pripyat).
   Categorías SIEMPRE false: gender, foreign_word, time_format,
   punctuation_artifact, year_format.
-  Categoría conjunction_y: puede ser true (regla global del canal) o false
-  según contexto. El LLM decide caso por caso.
 
 ═══════════════════════════════════════════════════════════════
 SCHEMA DE OUTPUT (JSON estricto, sin markdown)

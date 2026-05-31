@@ -95,13 +95,13 @@ GENERIC_CONNECTORS = (
 # ═══════════════════════════════════════════════════════════════
 
 TONE_INSTRUCTIONS_BY_INTENT: dict[str, str] = {
-    "hook":           "Frases cortas y tensas. Promesa explícita. NO contexto largo. PAUSAS: arrancá el cap con '...' ANTES de la primera frase (deja que la música entre sola unos segundos). Sumá una '...' más alrededor del golpe de impacto. Densidad alta.",
-    "setup":          "Pacing calmo. Contexto eficiente sin rambling. PAUSAS: usá '...' con moderación, solo antes de un dato que merezca un beat. Densidad baja.",
-    "rising_tension": "Frases medias. 'Pero', 'lo que no sabían', 'sin embargo'. Foreshadowing. PAUSAS: una '...' justo antes de cada giro o revelación parcial, para crear suspenso. Densidad media.",
-    "shock":          "Frases muy cortas. Signos de exclamación posibles. Pacing acelerado. PAUSAS: usá '...' para cortar justo antes del golpe (pausa, después el impacto). Pocas pero filosas. Densidad media.",
-    "consequences":   "Frases más largas. Peso emocional. Reflexión sobre lo perdido. PAUSAS: '...' antes y después de la idea más dura, para que el peso emocional aterrice. Densidad media.",
-    "resolution":     "Pacing pausado. Frases reflexivas. Bajada de intensidad. PAUSAS: '...' frecuentes entre ideas; el ritmo es lento, dejá silencios que respiren. Densidad media-alta.",
-    "outro":          "Cierre con pregunta sin respuesta. Frase final corta y suspensiva. PAUSAS: cerrá con '...' ANTES de la frase final memorable, para dejarla flotando. Densidad alta en el cierre.",
+    "hook":           "Frases cortas y tensas. Promesa explícita. NO contexto largo. Densidad alta.",
+    "setup":          "Pacing calmo. Contexto eficiente sin rambling. Densidad baja.",
+    "rising_tension": "Frases medias. 'Pero', 'lo que no sabían', 'sin embargo'. Foreshadowing. Densidad media.",
+    "shock":          "Frases muy cortas. Signos de exclamación posibles. Pacing acelerado. Densidad media.",
+    "consequences":   "Frases más largas. Peso emocional. Reflexión sobre lo perdido. Densidad media.",
+    "resolution":     "Pacing pausado. Frases reflexivas. Bajada de intensidad. Densidad media-alta.",
+    "outro":          "Cierre con pregunta sin respuesta. Frase final corta y suspensiva. Densidad alta en el cierre.",
 }
 
 
@@ -197,12 +197,7 @@ PROSE_RULES = """REGLAS DE PROSA (todas inviolables):
 7. PROHIBIDO incluir referencias internas tipo [F##] o [F\\d+] en la narración
    final. Esos son IDs de facts del contexto del prompt, SOLO para tu
    razonamiento interno. La narración final va directo a TTS y los tags se
-   leen literal como "F cero ocho" — destruyendo el audio.
-8. PAUSAS DRAMÁTICAS: usá "..." (tres puntos) como marca de pausa. El TTS
-   (ElevenLabs) la lee como ~1 segundo de silencio — sirve para dar respiro
-   y dejar que la música suene sola. Seguí la densidad que indica el bloque
-   de TONO de este cap (alta / media / baja). NO la fuerces donde corta el
-   ritmo: una pausa mal puesta arruina el pacing."""
+   leen literal como "F cero ocho" — destruyendo el audio."""
 
 
 # ═══════════════════════════════════════════════════════════════
