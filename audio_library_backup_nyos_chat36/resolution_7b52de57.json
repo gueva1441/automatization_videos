@@ -1,0 +1,121 @@
+{
+  "track_id": "resolution_7b52de57",
+  "mp3_filename": "resolution_7b52de57.mp3",
+  "intent_origin": "resolution",
+  "fits_intents": [
+    "resolution"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "topic_source": "7b52de57-eee6-4018-ac25-8357e9779d92",
+  "topic_title": "7b52de57-eee6-4018-ac25-8357e9779d92",
+  "prompt_used": "Lingering cinematic underscore in D minor, recognizable instruments: solo cello sustained, viola sustained drone, pipe organ minor chord holding, sparse piano single notes in low register, bass clarinet sustained underneath. Dark mystery atmosphere with unresolved harmonic suspension that never fully releases. Designed for seamless background looping under documentary narration. 60 BPM, brooding and unresolved, consistent dark tension throughout. STRICTLY AVOID: vocals, lyrics, singing, choir, spoken word, drums, percussion, drum beat, rhythm patterns, kick drum, snare, hi-hat, melody hooks, memorable melodies, vocal-like leads, pop structure, EDM, synthwave, dubstep, trap, verse chorus structure, electric guitar, distortion, harsh synths, intro fade-in, outro fade-out, abrupt ending, sudden silence, build-up drops, upbeat, happy, energetic dance, playful.",
+  "duration_ms": 60000,
+  "cost_usd": null,
+  "generated_at": "2026-05-17T00:21:11.570448",
+  "approved_at": "2026-05-17T00:21:11.570448",
+  "elevenlabs_metadata": {
+    "title": "Unresolved Depths",
+    "description": "A lingering cinematic underscore in D minor at 60 BPM, creating a dark, mysterious, and brooding atmosphere. Features a consistent texture of solo cello, viola drone, pipe organ, bass clarinet, and sparse low piano notes. The harmony remains suspended and unresolved, designed for seamless looping as a background for documentary narration, maintaining a constant state of dark tension.",
+    "genres": [
+      "cinematic",
+      "underscore",
+      "dark ambient",
+      "background music",
+      "minimalist"
+    ],
+    "composition_plan": {
+      "positive_global_styles": [
+        "cinematic underscore",
+        "dark mystery",
+        "brooding atmosphere",
+        "unresolved harmonic suspension",
+        "instrumental",
+        "background music",
+        "D minor",
+        "60 bpm",
+        "dark tension"
+      ],
+      "negative_global_styles": [
+        "vocals",
+        "lyrics",
+        "singing",
+        "choir",
+        "spoken word",
+        "drums",
+        "percussion",
+        "drum beat",
+        "rhythm patterns",
+        "kick drum",
+        "snare",
+        "hi-hat",
+        "melody hooks",
+        "memorable melodies",
+        "vocal-like leads",
+        "pop structure",
+        "EDM",
+        "synthwave",
+        "dubstep",
+        "trap",
+        "verse chorus structure",
+        "electric guitar",
+        "distortion",
+        "harsh synths",
+        "intro fade-in",
+        "outro fade-out",
+        "abrupt ending",
+        "sudden silence",
+        "build-up drops",
+        "upbeat",
+        "happy",
+        "energetic dance",
+        "playful"
+      ],
+      "sections": [
+        {
+          "section_name": "Loop Section A",
+          "positive_local_styles": [
+            "solo cello sustained notes",
+            "viola sustained drone",
+            "pipe organ minor chord holding",
+            "bass clarinet sustained tones",
+            "sparse single low piano notes",
+            "lingering",
+            "minimalist texture"
+          ],
+          "negative_local_styles": [
+            "melodic phrases",
+            "rhythmic pulse",
+            "crescendo",
+            "any vocals"
+          ],
+          "duration_ms": 30000,
+          "lines": []
+        },
+        {
+          "section_name": "Loop Section B",
+          "positive_local_styles": [
+            "viola drone continues",
+            "pipe organ sustained chord shifting subtly",
+            "bass clarinet adds a slightly different sustained note",
+            "solo cello shifts to a new long sustained note",
+            "very sparse low piano notes",
+            "deep underscore",
+            "seamless transition"
+          ],
+          "negative_local_styles": [
+            "harmonic resolution",
+            "increase in volume",
+            "new instruments entering",
+            "any form of singing"
+          ],
+          "duration_ms": 30000,
+          "lines": []
+        }
+      ]
+    }
+  },
+  "times_used": 0,
+  "last_used_at": null
+}

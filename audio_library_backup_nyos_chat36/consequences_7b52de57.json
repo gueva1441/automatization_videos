@@ -1,0 +1,140 @@
+{
+  "track_id": "consequences_7b52de57",
+  "mp3_filename": "consequences_7b52de57.mp3",
+  "intent_origin": "consequences",
+  "fits_intents": [
+    "consequences"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "topic_source": "7b52de57-eee6-4018-ac25-8357e9779d92",
+  "topic_title": "7b52de57-eee6-4018-ac25-8357e9779d92",
+  "prompt_used": "Heavy cinematic underscore in D minor, recognizable instruments: solo cello sustained drone, double bass deep drone, pipe organ low chord swells, muted French horn sustained notes, distant timpani slow rolls. Dark mystery with crushing weighted gravity. Designed for seamless background looping under documentary narration. 60 BPM, brooding and ominous, consistent dark depth throughout. STRICTLY AVOID: vocals, lyrics, singing, choir, spoken word, drums, percussion, drum beat, rhythm patterns, kick drum, snare, hi-hat, melody hooks, memorable melodies, vocal-like leads, pop structure, EDM, synthwave, dubstep, trap, verse chorus structure, electric guitar, distortion, harsh synths, intro fade-in, outro fade-out, abrupt ending, sudden silence, build-up drops, upbeat, happy, energetic dance, playful.",
+  "duration_ms": 60000,
+  "cost_usd": null,
+  "generated_at": "2026-05-17T00:20:47.197734",
+  "approved_at": "2026-05-17T00:20:47.197734",
+  "elevenlabs_metadata": {
+    "title": "Crushing Gravity",
+    "description": "A heavy, brooding cinematic underscore in D minor at 60 BPM. Features a dark, mysterious atmosphere with solo cello and double bass drones, low pipe organ swells, muted French horn notes, and distant timpani rolls, creating a sense of crushing weight and gravity. Designed for seamless looping under documentary narration. Strictly instrumental.",
+    "genres": [
+      "cinematic underscore",
+      "dark ambient",
+      "background music",
+      "instrumental"
+    ],
+    "composition_plan": {
+      "positive_global_styles": [
+        "cinematic underscore",
+        "d minor",
+        "dark mystery",
+        "ominous",
+        "brooding",
+        "heavy gravity",
+        "60 bpm",
+        "background music",
+        "loopable",
+        "consistent depth",
+        "solo cello",
+        "double bass",
+        "pipe organ",
+        "muted french horn",
+        "timpani"
+      ],
+      "negative_global_styles": [
+        "vocals",
+        "lyrics",
+        "singing",
+        "choir",
+        "spoken word",
+        "drums",
+        "percussion",
+        "drum beat",
+        "rhythm patterns",
+        "kick drum",
+        "snare",
+        "hi-hat",
+        "melody hooks",
+        "memorable melodies",
+        "vocal-like leads",
+        "pop structure",
+        "edm",
+        "synthwave",
+        "dubstep",
+        "trap",
+        "verse chorus structure",
+        "electric guitar",
+        "distortion",
+        "harsh synths",
+        "intro fade-in",
+        "outro fade-out",
+        "abrupt ending",
+        "sudden silence",
+        "build-up drops",
+        "upbeat",
+        "happy",
+        "energetic dance",
+        "playful"
+      ],
+      "sections": [
+        {
+          "section_name": "Part A",
+          "positive_local_styles": [
+            "solo cello sustained drone",
+            "double bass deep drone",
+            "pipe organ low chord swells",
+            "subtle texture"
+          ],
+          "negative_local_styles": [
+            "french horn",
+            "timpani",
+            "dynamic changes",
+            "melodic phrases"
+          ],
+          "duration_ms": 20000,
+          "lines": []
+        },
+        {
+          "section_name": "Part B",
+          "positive_local_styles": [
+            "muted french horn enters with sustained notes",
+            "distant timpani slow rolls",
+            "pipe organ swells become slightly more prominent",
+            " cello and bass drones continue",
+            "increasing weight"
+          ],
+          "negative_local_styles": [
+            "loud",
+            "rhythmic",
+            "melodic solo",
+            "staccato"
+          ],
+          "duration_ms": 20000,
+          "lines": []
+        },
+        {
+          "section_name": "Part C",
+          "positive_local_styles": [
+            "all instruments sustaining",
+            "full texture",
+            "deep gravity",
+            "seamless transition",
+            "constant tension",
+            "french horn notes subtly shift"
+          ],
+          "negative_local_styles": [
+            "resolution",
+            "climax",
+            "crescendo",
+            "sudden change"
+          ],
+          "duration_ms": 20000,
+          "lines": []
+        }
+      ]
+    }
+  },
+  "times_used": 0,
+  "last_used_at": null
+}

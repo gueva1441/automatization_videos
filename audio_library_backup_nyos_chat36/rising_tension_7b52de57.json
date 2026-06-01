@@ -1,0 +1,157 @@
+{
+  "track_id": "rising_tension_7b52de57",
+  "mp3_filename": "rising_tension_7b52de57.mp3",
+  "intent_origin": "rising_tension",
+  "fits_intents": [
+    "rising_tension"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "topic_source": "7b52de57-eee6-4018-ac25-8357e9779d92",
+  "topic_title": "7b52de57-eee6-4018-ac25-8357e9779d92",
+  "prompt_used": "Building cinematic underscore in G sharp minor, recognizable instruments: cello sustained drone, viola tremolo with crescendoing intensity, ensemble strings building forward, low timpani rolls swelling, bass clarinet sustained low notes. Dark mystery atmosphere mounting forward unstoppable. Designed for seamless background looping under documentary narration. 75 BPM, mounting unease, dark intensity increasing gradually throughout. STRICTLY AVOID: vocals, lyrics, singing, choir, spoken word, drums, percussion, drum beat, rhythm patterns, kick drum, snare, hi-hat, melody hooks, memorable melodies, vocal-like leads, pop structure, EDM, synthwave, dubstep, trap, verse chorus structure, electric guitar, distortion, harsh synths, intro fade-in, outro fade-out, abrupt ending, sudden silence, build-up drops, upbeat, happy, energetic dance, playful.",
+  "duration_ms": 60000,
+  "cost_usd": null,
+  "generated_at": "2026-05-17T00:19:24.571395",
+  "approved_at": "2026-05-17T00:19:24.571395",
+  "elevenlabs_metadata": {
+    "title": "Unstoppable Unease",
+    "description": "A dark, cinematic underscore in G sharp minor at 75 BPM. It features a sustained cello drone, intensifying viola tremolos, building ensemble strings, swelling timpani rolls, and low bass clarinet notes to create a mounting atmosphere of mystery and unstoppable tension. Designed for seamless looping under documentary narration.",
+    "genres": [
+      "cinematic",
+      "underscore",
+      "dark ambient",
+      "orchestral",
+      "soundtrack"
+    ],
+    "composition_plan": {
+      "positive_global_styles": [
+        "cinematic underscore",
+        "dark mystery",
+        "mounting unease",
+        "instrumental",
+        "orchestral",
+        "75 bpm",
+        "g sharp minor",
+        "tense atmosphere",
+        "gradual intensity increase",
+        "seamless looping"
+      ],
+      "negative_global_styles": [
+        "vocals",
+        "lyrics",
+        "singing",
+        "choir",
+        "spoken word",
+        "drums",
+        "percussion",
+        "drum beat",
+        "kick drum",
+        "snare",
+        "hi-hat",
+        "melody hooks",
+        "memorable melodies",
+        "vocal-like leads",
+        "pop structure",
+        "EDM",
+        "synthwave",
+        "dubstep",
+        "trap",
+        "verse chorus structure",
+        "electric guitar",
+        "distortion",
+        "harsh synths",
+        "intro fade-in",
+        "outro fade-out",
+        "abrupt ending",
+        "sudden silence",
+        "build-up drops",
+        "upbeat",
+        "happy",
+        "energetic dance",
+        "playful"
+      ],
+      "sections": [
+        {
+          "section_name": "Part 1 - Foundation",
+          "positive_local_styles": [
+            "cello sustained drone",
+            "bass clarinet sustained low notes",
+            "subtle low timpani rolls",
+            "minimalist texture",
+            "deep and resonant",
+            "consistent volume"
+          ],
+          "negative_local_styles": [
+            "crescendo",
+            "viola",
+            "loud dynamics",
+            "rhythmic elements"
+          ],
+          "duration_ms": 15000,
+          "lines": []
+        },
+        {
+          "section_name": "Part 2 - Rising Tension",
+          "positive_local_styles": [
+            "viola tremolo enters",
+            "slight crescendo in viola",
+            "ensemble strings enter softly",
+            "cello drone continues",
+            "bass clarinet continues",
+            "timpani rolls swell slightly",
+            "building suspense"
+          ],
+          "negative_local_styles": [
+            "peak intensity",
+            "forte dynamics",
+            "melodic phrases"
+          ],
+          "duration_ms": 15000,
+          "lines": []
+        },
+        {
+          "section_name": "Part 3 - Mounting Pressure",
+          "positive_local_styles": [
+            "viola tremolo intensity increases",
+            "ensemble strings crescendoing",
+            "timpani rolls swell more noticeably",
+            "cello and bass clarinet drones remain constant",
+            "sense of forward momentum",
+            "thickening texture"
+          ],
+          "negative_local_styles": [
+            "climax",
+            "sudden changes",
+            "staccato"
+          ],
+          "duration_ms": 15000,
+          "lines": []
+        },
+        {
+          "section_name": "Part 4 - Peak Intensity",
+          "positive_local_styles": [
+            "full ensemble strings",
+            "viola tremolo at maximum intensity",
+            "sustained powerful timpani roll",
+            "cello drone continues underneath",
+            "bass clarinet holding firm low notes",
+            "dense and powerful atmosphere",
+            "unstoppable forward motion"
+          ],
+          "negative_local_styles": [
+            "fade out",
+            "resolution",
+            "melodic climax",
+            "silence"
+          ],
+          "duration_ms": 15000,
+          "lines": []
+        }
+      ]
+    }
+  },
+  "times_used": 0,
+  "last_used_at": null
+}

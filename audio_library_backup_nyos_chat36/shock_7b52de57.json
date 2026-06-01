@@ -1,0 +1,157 @@
+{
+  "track_id": "shock_7b52de57",
+  "mp3_filename": "shock_7b52de57.mp3",
+  "intent_origin": "shock",
+  "fits_intents": [
+    "shock"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "topic_source": "7b52de57-eee6-4018-ac25-8357e9779d92",
+  "topic_title": "7b52de57-eee6-4018-ac25-8357e9779d92",
+  "prompt_used": "Dramatic cinematic underscore in F sharp minor, recognizable instruments: heavy cello drone, dissonant string clusters in violin and viola, low brass stab on impacts, deep double bass sub-bass with long reverb tails, percussive piano clusters in low register. Dark seductive intensity with ominous atmosphere. Designed for seamless background looping under documentary narration. 80 BPM, dark and consistent throughout. STRICTLY AVOID: vocals, lyrics, singing, choir, spoken word, drums, percussion, drum beat, rhythm patterns, kick drum, snare, hi-hat, melody hooks, memorable melodies, vocal-like leads, pop structure, EDM, synthwave, dubstep, trap, verse chorus structure, electric guitar, distortion, harsh synths, intro fade-in, outro fade-out, abrupt ending, sudden silence, build-up drops, upbeat, happy, energetic dance, playful.",
+  "duration_ms": 60000,
+  "cost_usd": null,
+  "generated_at": "2026-05-17T00:19:50.542116",
+  "approved_at": "2026-05-17T00:19:50.542116",
+  "elevenlabs_metadata": {
+    "title": "F Sharp Minor Underscore",
+    "description": "A dark, dramatic, and intense cinematic underscore in F sharp minor at 80 BPM. Features a heavy cello drone, dissonant string clusters, low brass stabs, and deep double bass, creating an ominous and seductive atmosphere perfect for documentary narration. Designed for seamless looping.",
+    "genres": [
+      "cinematic",
+      "underscore",
+      "dark ambient",
+      "instrumental"
+    ],
+    "composition_plan": {
+      "positive_global_styles": [
+        "cinematic underscore",
+        "dramatic",
+        "dark",
+        "ominous atmosphere",
+        "intense",
+        "seductive",
+        "F sharp minor",
+        "80 bpm",
+        "instrumental",
+        "documentary background music",
+        "loopable",
+        "heavy cello drone",
+        "dissonant string clusters",
+        "low brass stabs",
+        "deep double bass sub-bass",
+        "long reverb tails",
+        "percussive piano clusters"
+      ],
+      "negative_global_styles": [
+        "vocals",
+        "lyrics",
+        "singing",
+        "choir",
+        "spoken word",
+        "drums",
+        "percussion",
+        "drum beat",
+        "rhythm patterns",
+        "kick drum",
+        "snare",
+        "hi-hat",
+        "melody hooks",
+        "memorable melodies",
+        "vocal-like leads",
+        "pop structure",
+        "EDM",
+        "synthwave",
+        "dubstep",
+        "trap",
+        "verse chorus structure",
+        "electric guitar",
+        "distortion",
+        "harsh synths",
+        "intro fade-in",
+        "outro fade-out",
+        "abrupt ending",
+        "sudden silence",
+        "build-up drops",
+        "upbeat",
+        "happy",
+        "energetic dance",
+        "playful"
+      ],
+      "sections": [
+        {
+          "section_name": "Dark Foundation",
+          "positive_local_styles": [
+            "heavy cello drone in F sharp",
+            "deep double bass sub-bass notes",
+            "long reverb tails",
+            "sparse texture",
+            "slowly evolving soundscape"
+          ],
+          "negative_local_styles": [
+            "brass",
+            "piano",
+            "impacts",
+            "sudden changes"
+          ],
+          "duration_ms": 15000,
+          "lines": []
+        },
+        {
+          "section_name": "Rising Tension",
+          "positive_local_styles": [
+            "dissonant string clusters",
+            "high violin scrapes",
+            "viola tremolo",
+            "continuous cello drone",
+            "subtle piano rumbles in low register"
+          ],
+          "negative_local_styles": [
+            "loud brass",
+            "melodic phrases",
+            "rhythmic patterns"
+          ],
+          "duration_ms": 15000,
+          "lines": []
+        },
+        {
+          "section_name": "Impact and Sspace",
+          "positive_local_styles": [
+            "low brass stab on the first beat",
+            "percussive piano cluster in low register",
+            "sustained string dissonance",
+            "lingering double bass reverb",
+            "tense atmosphere"
+          ],
+          "negative_local_styles": [
+            "fast rhythms",
+            "upbeat feel",
+            "clear melodies"
+          ],
+          "duration_ms": 15000,
+          "lines": []
+        },
+        {
+          "section_name": "Suspenseful Recede",
+          "positive_local_styles": [
+            "fading string cluster intensity",
+            "returning to heavy cello drone",
+            "deep double bass notes",
+            "subtle piano rumbles",
+            "designed for seamless loop"
+          ],
+          "negative_local_styles": [
+            "brass stabs",
+            "new elements",
+            "abrupt stop"
+          ],
+          "duration_ms": 15000,
+          "lines": []
+        }
+      ]
+    }
+  },
+  "times_used": 0,
+  "last_used_at": null
+}

@@ -1,0 +1,132 @@
+{
+  "track_id": "setup_7b52de57",
+  "mp3_filename": "setup_7b52de57.mp3",
+  "intent_origin": "setup",
+  "fits_intents": [
+    "setup"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "topic_source": "7b52de57-eee6-4018-ac25-8357e9779d92",
+  "topic_title": "7b52de57-eee6-4018-ac25-8357e9779d92",
+  "prompt_used": "Slow cinematic underscore in D minor, recognizable instruments: low cello sustained drone, double bass pizzicato on downbeats, distant pipe organ chord swells, sparse low-register piano accents, single muted French horn note holding in distance. Dark mystery atmosphere with ominous tension. Designed for seamless background looping under documentary narration. 65 BPM, brooding and weighted, consistent dark depth throughout. STRICTLY AVOID: vocals, lyrics, singing, choir, spoken word, drums, percussion, drum beat, rhythm patterns, kick drum, snare, hi-hat, melody hooks, memorable melodies, vocal-like leads, pop structure, EDM, synthwave, dubstep, trap, verse chorus structure, electric guitar, distortion, harsh synths, intro fade-in, outro fade-out, abrupt ending, sudden silence, build-up drops, upbeat, happy, energetic dance, playful.",
+  "duration_ms": 60000,
+  "cost_usd": null,
+  "generated_at": "2026-05-17T00:18:48.904958",
+  "approved_at": "2026-05-17T00:18:48.904958",
+  "elevenlabs_metadata": {
+    "title": "D Minor Underscore",
+    "description": "A slow, dark, and mysterious cinematic underscore in D minor at 65 BPM. Features a low cello drone, double bass pizzicato, distant pipe organ swells, sparse piano, and a muted French horn. Designed for seamless looping as background for documentary narration, maintaining a consistent atmosphere of ominous tension.",
+    "genres": [
+      "cinematic",
+      "underscore",
+      "ambient",
+      "dark ambient",
+      "instrumental"
+    ],
+    "composition_plan": {
+      "positive_global_styles": [
+        "cinematic underscore",
+        "d minor",
+        "dark",
+        "mystery",
+        "ominous",
+        "tension",
+        "brooding",
+        "65 bpm",
+        "instrumental"
+      ],
+      "negative_global_styles": [
+        "vocals",
+        "lyrics",
+        "singing",
+        "choir",
+        "spoken word",
+        "drums",
+        "percussion",
+        "drum beat",
+        "rhythm patterns",
+        "kick drum",
+        "snare",
+        "hi-hat",
+        "melody hooks",
+        "memorable melodies",
+        "vocal-like leads",
+        "pop structure",
+        "EDM",
+        "synthwave",
+        "dubstep",
+        "trap",
+        "verse chorus structure",
+        "electric guitar",
+        "distortion",
+        "harsh synths",
+        "intro fade-in",
+        "outro fade-out",
+        "abrupt ending",
+        "sudden silence",
+        "build-up",
+        "drops",
+        "upbeat",
+        "happy",
+        "energetic",
+        "dance",
+        "playful"
+      ],
+      "sections": [
+        {
+          "section_name": "Section A",
+          "positive_local_styles": [
+            "low cello sustained drone",
+            "double bass pizzicato on downbeats",
+            "distant pipe organ chord swells",
+            "sparse low-register piano accent"
+          ],
+          "negative_local_styles": [
+            "french horn",
+            "melody",
+            "rhythmic complexity"
+          ],
+          "duration_ms": 20000,
+          "lines": []
+        },
+        {
+          "section_name": "Section B",
+          "positive_local_styles": [
+            "low cello sustained drone",
+            "double bass pizzicato continues",
+            "single muted French horn note holding in distance",
+            "pipe organ swells become slightly more prominent"
+          ],
+          "negative_local_styles": [
+            "piano",
+            "staccato",
+            "dynamic change"
+          ],
+          "duration_ms": 20000,
+          "lines": []
+        },
+        {
+          "section_name": "Section C (Loop Point)",
+          "positive_local_styles": [
+            "low cello sustained drone",
+            "double bass pizzicato on downbeats",
+            "distant pipe organ chord swells",
+            "sparse low-register piano accents reappear",
+            "muted french horn fades out"
+          ],
+          "negative_local_styles": [
+            "crescendo",
+            "new instrumentation",
+            "bright timbres"
+          ],
+          "duration_ms": 20000,
+          "lines": []
+        }
+      ]
+    }
+  },
+  "times_used": 0,
+  "last_used_at": null
+}
