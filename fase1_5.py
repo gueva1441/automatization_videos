@@ -43,7 +43,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stderr.reconfigure(encoding="utf-8")
 
 from config import DATA_DIR, OUTPUT_DIR
-from csv_exporter import parse_decisions_csv, OUTPUT_CSV
+from csv_exporter import parse_decisions_csv, OUTPUT_CSV, export_single_topic_csv
 
 # Módulos del motor de guion
 import audio_manager
@@ -359,6 +359,97 @@ def process_topic(
 
 
 # ═══════════════════════════════════════════════════════════════
+#  MENÚ DE SELECCIÓN DE TEMA (chat 35)
+# ═══════════════════════════════════════════════════════════════
+
+def _select_topic_interactive() -> str | None:
+    """Lista los topics con status='validated' de topics_db.json y deja elegir
+    UNO. Devuelve el topic_id elegido, o None si no hay validados / se cancela.
+
+    NO consume APIs — solo lee topics_db.json.
+    """
+    if not TOPICS_DB.exists():
+        print(f"\n  ❌ No existe {TOPICS_DB}. Corré `python fase1.py` primero.")
+        return None
+
+    try:
+        data = json.loads(TOPICS_DB.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        print(f"\n  ❌ {TOPICS_DB} ilegible (JSON inválido).")
+        return None
+
+    topics = [t for t in data.get("topics", []) if t.get("status") == "validated"]
+    if not topics:
+        print(f"\n  ⚠ No hay topics con status='validated' en topics_db.json.")
+        print(f"     Corré `python fase1.py` para investigar y validar temas.")
+        return None
+
+    print(f"\n{'═' * 60}")
+    print(f"  🎬 SELECCIÓN DE TEMA — {len(topics)} validado(s)")
+    print(f"{'═' * 60}")
+    for i, t in enumerate(topics, start=1):
+        title = t.get("video_title") or "(sin título)"
+        verdict = t.get("market_verdict") or "?"
+        vtype = t.get("video_type") or "?"
+        print(f"    [{i}] {title}")
+        print(f"         veredicto: {verdict}  ·  tipo: {vtype}")
+
+    while True:
+        choice = input(f"\n  Elegí tema [1-{len(topics)}]  (Q para salir): ").strip()
+        if choice.upper() == "Q":
+            print(f"\n  Cancelado por el usuario.")
+            return None
+        if choice.isdigit() and 1 <= int(choice) <= len(topics):
+            return topics[int(choice) - 1].get("id")
+        print(f"  Inválido. Ingresá un número entre 1 y {len(topics)}, o Q.")
+
+
+def run_one_topic_from_menu(
+    from_step: str = "m01a",
+    stop_after_step: str | None = None,
+    voting_n: int = 3,
+    gate_interactive: bool = True,
+    music_gate_interactive: bool = True,
+    csv_path: "Path | None" = None,
+) -> int:
+    """Chat 35 — Punto de entrada interactivo de UN tema.
+
+    Flujo: menú → elegir 1 tema validado → reescribir el CSV con ese único tema
+    (para fase2a) → correr la cadena m01a→m06 sobre ese tema.
+
+    Lo usan: fase1_5.main() (cuando se corre SIN --topic) y fase1.py (encadenado
+    al final del Latido A). Devuelve exit code (0 ok / cancelado, 1 fail).
+    """
+    chosen_id = _select_topic_interactive()
+    if chosen_id is None:
+        return 0
+
+    export_single_topic_csv(chosen_id, csv_path)
+    print(f"\n  ✏  CSV reescrito con el tema elegido → {chosen_id}")
+    print(f"  Modo: 1 topic (menú) · from_step={from_step}")
+
+    result = process_topic(
+        topic_id=chosen_id,
+        from_step=from_step,
+        voting_n=voting_n,
+        gate_interactive=gate_interactive,
+        music_gate_interactive=music_gate_interactive,
+        stop_after_step=stop_after_step,
+    )
+
+    print(f"\n{'═' * 60}")
+    if result["status"] == "PASS":
+        verdict = result.get("judge_verdict", "—")
+        print(f"  ✅ {chosen_id}  (verdict m05: {verdict})")
+        print(f"     pasos: {result.get('steps_completed')}")
+        print(f"{'═' * 60}\n")
+        return 0
+    print(f"  ❌ {chosen_id}  ({result.get('error', '?')})")
+    print(f"{'═' * 60}\n")
+    return 1
+
+
+# ═══════════════════════════════════════════════════════════════
 #  MAIN
 # ═══════════════════════════════════════════════════════════════
 
@@ -401,21 +492,17 @@ def main():
         topic_ids = [args.topic]
         print(f"\n  Modo: 1 topic específico → {args.topic}")
     else:
-        csv_path = Path(args.csv) if args.csv else OUTPUT_CSV
-        if not csv_path.exists():
-            print(f"\n  ❌ CSV no encontrado en {csv_path}.")
-            print(f"     Corré primero `python fase1.py --export-only` para generar el CSV.")
-            sys.exit(1)
-
-        parsed = parse_decisions_csv(csv_path)
-        # parse_decisions_csv devuelve approved como dict {topic_id: {hook_index, outro_index, format_override}}
-        approved = parsed.get("approved", {})
-        if not approved:
-            print(f"\n  ⚠ El CSV no tiene topics aprobados. Editá {csv_path} y volvé a correr.")
-            sys.exit(0)
-
-        topic_ids = list(approved.keys())
-        print(f"\n  Modo: {len(topic_ids)} topic(s) aprobado(s) del CSV")
+        # Chat 35: sin --topic ya NO se procesa batch del CSV. Se muestra el
+        # menú interactivo (lee topics_db.json), se elige UN tema, se reescribe
+        # el CSV con ese único tema y se corre. Resume puntual: usar --topic.
+        sys.exit(run_one_topic_from_menu(
+            from_step=args.from_step,
+            stop_after_step=stop_after_step,
+            voting_n=args.voting_n,
+            gate_interactive=not args.no_gate,
+            music_gate_interactive=not args.no_music_gate,
+            csv_path=Path(args.csv) if args.csv else None,
+        ))
 
     # Procesar cada topic
     results = []

@@ -260,15 +260,15 @@ def run_latido_a(
     print(f"\n{'═' * 60}")
     print(f"  ✅ LATIDO A COMPLETADO")
     print(f"{'═' * 60}")
-    print(f"\n  Siguientes pasos:")
-    print(f"    1. Abrí el CSV en Excel/Sheets:")
-    print(f"       {OUTPUT_CSV}")
-    print(f"    2. Editá SOLO 3 columnas por fila:")
-    print(f"         HOOK_SEL   → 1, 2 o 3   (o 'N' para descartar)")
-    print(f"         OUTRO_SEL  → 1, 2 o 3   (o 'N' para descartar)")
-    print(f"         FORMAT_SEL → SHORT o LONG  (pre-llenado; podés cambiarlo)")
-    print(f"    3. Corré fase1_5 para generar los guiones:")
-    print(f"         python fase1_5.py\n")
+    # Chat 35: encadenar directo al menú de selección (sin parada manual).
+    # Import local para evitar cualquier riesgo de import circular a nivel módulo.
+    if not export_only:
+        from fase1_5 import run_one_topic_from_menu
+        print(f"\n  ➡  Pasando directo a la selección de tema...\n")
+        run_one_topic_from_menu()
+    else:
+        print(f"\n  (--export-only) CSV regenerado. Corré `python fase1_5.py` "
+              f"cuando quieras elegir un tema.\n")
 
 
 # ═══════════════════════════════════════════════════════════════

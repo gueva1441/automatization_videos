@@ -163,6 +163,62 @@ def export_fase1_csv(output_path: Path | None = None) -> Path:
     return output_path
 
 
+def export_single_topic_csv(
+    topic_id: str,
+    output_path: Path | None = None,
+) -> Path:
+    """Chat 35 — Escribe fase1_review.csv con UNA sola fila: la del topic elegido.
+
+    Reusa _build_row (mismo formato/columnas que el Dashboard completo) pero
+    pre-llena HOOK_SEL y OUTRO_SEL con "1" para que parse_decisions_csv marque
+    la fila como aprobada SIN que el humano edite nada y SIN tocar esa función.
+    Los valores son dummy: el motor (fase1_5) ya no consume hook_index /
+    outro_index / format_override.
+
+    fase2a lee solo la columna topic_id → sigue funcionando sin cambios.
+
+    Args:
+        topic_id: id del topic validado a escribir.
+        output_path: destino del CSV (default: OUTPUT_CSV).
+
+    Returns:
+        Path del CSV escrito.
+
+    Raises:
+        ValueError si topic_id no existe entre los validados de topics_db.json.
+    """
+    output_path = output_path or OUTPUT_CSV
+    db = _load_topics_db()
+    topic = next(
+        (
+            t for t in db.get("topics", [])
+            if t.get("id") == topic_id and t.get("status") == "validated"
+        ),
+        None,
+    )
+    if topic is None:
+        raise ValueError(
+            f"export_single_topic_csv: topic_id {topic_id!r} no encontrado "
+            f"entre los topics con status='validated' en topics_db.json."
+        )
+
+    row = _build_row(topic)
+    # Pre-llenado de aprobación. Valores dummy: el motor no los consume, pero
+    # parse_decisions_csv necesita HOOK_SEL y OUTRO_SEL en {1,2,3} para marcar
+    # la fila como 'approved'. Así el menú aprueba el tema sin intervención.
+    row["HOOK_SEL"] = "1"
+    row["OUTRO_SEL"] = "1"
+
+    with open(output_path, "w", newline="", encoding="utf-8-sig") as f:
+        writer = csv.DictWriter(
+            f, fieldnames=FIELDNAMES, quoting=csv.QUOTE_ALL
+        )
+        writer.writeheader()
+        writer.writerow(row)
+
+    return output_path
+
+
 def print_export_summary(output_path: Path | None = None) -> None:
     """Imprime resumen del CSV exportado + instrucciones de edición."""
     output_path = output_path or OUTPUT_CSV
