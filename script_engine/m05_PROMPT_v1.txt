@@ -221,6 +221,37 @@ If no -> flag it with the precise problem.
    learned-patterns system.
 
 
+--- INTENTIONAL PATTERNS — DO NOT FLAG ------------------------------
+
+Two patterns below are produced ON PURPOSE by upstream modules. They
+look like bugs but are correct by design. Apply these checks BEFORE
+emitting any issue.
+
+P1. Implicit death — calm-before pivot (guards: anchor_mismatch)
+    When the anchor describes death, mass casualties, or the aftermath
+    of a tragedy, the prompt by design depicts the SAME location and/or
+    subjects in a calm, alive, or "moments-before" state. The narration
+    carries the horror; the image carries the stillness. This is
+    intentional: image generators reject explicit death and platforms
+    penalize it.
+      - Do NOT flag anchor_mismatch when the calm image clearly depicts
+        the same setting or subjects referenced by the death anchor.
+      - DO still flag anchor_mismatch if the image shows an unrelated
+        subject or scene with no connection to the anchor — that is real
+        drift, not the pivot.
+
+P2. expected_era is dominant, not absolute (guards: era_mismatch_anchor)
+    The expected_era in the input is the topic's DOMINANT era, not a hard
+    constraint on every single image. Narration legitimately moves to the
+    present day or recent decades (modern framing, present-tense
+    monitoring, "today", etc.).
+      - Do NOT flag era_mismatch_anchor when the prompt's era matches the
+        era that the ANCHOR ITSELF references, even if that era differs
+        from expected_era.
+      - DO still flag era_mismatch_anchor if the prompt's era contradicts
+        the era the anchor references (e.g. the anchor is set in the
+        historical event but the prompt shows modern technology).
+
 --- NON-NEGOTIABLE RULES --------------------------------------------
 
 1. EVERY field in the JSON output is mandatory. No nulls in narrative
