@@ -44,6 +44,21 @@
   .status.ok { color:#7fd99a; } .status.err { color:#e88; } .status.work { color:#c0a06c; }
   code { background:#262b35; padding:1px 5px; border-radius:4px; font-size:12px; }
   .pill { background:#262b35; border-radius:20px; padding:2px 10px; font-size:12px; }
+  /* Modal de guardado (bloque 5) */
+  .overlay { position:fixed; inset:0; background:rgba(0,0,0,.6); display:none;
+             align-items:center; justify-content:center; z-index:50; }
+  .overlay.show { display:flex; }
+  .modal { background:#1b1e26; border:1px solid #2a3a2e; border-radius:12px;
+           padding:24px 26px; max-width:480px; box-shadow:0 12px 40px rgba(0,0,0,.5); }
+  .modal h2 { margin:0 0 14px; font-size:18px; color:#7fd99a; }
+  .modal .path { font-family:ui-monospace, monospace; font-size:13px; color:#cdd3dd;
+                 background:#0f1116; border-radius:6px; padding:10px 12px; margin-bottom:10px; }
+  .modal .kv { display:flex; justify-content:space-between; font-family:ui-monospace, monospace;
+               font-size:14px; padding:3px 4px; }
+  .modal .kv span:last-child { color:#6cc6ff; font-weight:700; }
+  .modal .exp { font-size:12.5px; color:#9aa0ac; line-height:1.6; margin:14px 0 18px; }
+  .modal .exp b { color:#cdd3dd; }
+  .modal button { width:100%; }
 </style>
 </head>
 <body>
@@ -102,6 +117,20 @@
   <div class="status" id="saveStatus"></div>
   <audio id="renderAudio" controls></audio>
   <div class="note" style="margin-top:8px">El render real es el <b>fiel</b> (ducking exacto de ffmpeg). El preview de Play arriba es aproximado. Guardar escribe el json del track al instante.</div>
+</div>
+
+<div class="overlay" id="saveModal">
+  <div class="modal">
+    <h2>✅ Guardado</h2>
+    <div class="path" id="modalPath">—</div>
+    <div class="kv"><span>music_volume</span><span id="modalMv">—</span></div>
+    <div class="kv"><span>music_volume_floor</span><span id="modalMvf">—</span></div>
+    <div class="exp">
+      Este es el <b>ÚNICO</b> lugar donde vive el volumen de este track.<br>
+      fase2b lo leerá en la próxima corrida → vas a ver <b>"(json)"</b> en la tabla, no <b>"(base)"</b>.
+    </div>
+    <button class="primary" id="modalClose">Cerrar</button>
+  </div>
 </div>
 
 <script>
@@ -263,10 +292,22 @@ $('saveBtn').onclick = async () => {
     $('savedPill').textContent = 'json: ' + res.music_volume + ' / ' + res.music_volume_floor;
     $('savedBtn').disabled = false;
     st.className='status ok';
-    st.textContent = `✓ guardado en ${res.json_path} (track=${res.track_id}): ${res.music_volume} / ${res.music_volume_floor}`;
+    st.textContent = `✓ guardado en ${res.json_path} (track=${res.track_id})`;
+    openSaveModal(res);   // popup SOLO en éxito (bloque 5)
   } catch(e) { st.className='status err'; st.textContent='❌ guardar falló: '+e.message; }
   finally { btn.disabled=false; }
 };
+
+// ─── modal de guardado (bloque 5) ───
+function openSaveModal(res) {
+  $('modalPath').textContent = res.json_path;
+  $('modalMv').textContent = res.music_volume;
+  $('modalMvf').textContent = res.music_volume_floor;
+  $('saveModal').classList.add('show');
+}
+function closeSaveModal() { $('saveModal').classList.remove('show'); }
+$('modalClose').onclick = closeSaveModal;
+$('saveModal').onclick = (e) => { if (e.target === $('saveModal')) closeSaveModal(); };  // click fuera cierra
 
 // ─── init ───
 (async () => {

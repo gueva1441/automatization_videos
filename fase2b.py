@@ -1425,6 +1425,47 @@ def _resolve_music_volumes(
     return ducked, floor
 
 
+def _classify_uncalibrated_tracks(
+    plans: list[ChapterPlan],
+    music_map: dict[str, dict[str, Any]],
+) -> tuple[list[tuple[str, str]], list[tuple[str, str]]]:
+    """
+    chat 40 — detector "track sin calibrar" (print-only en el caller). Clasifica los
+    caps cuyo track NO tiene la clave music_volume en su json (usan BASE):
+      - generated + sin clave → uncal_generated (track nuevo, warning FUERTE).
+      - reused    + sin clave → uncal_reused    (library en base, nota suave).
+    Devuelve (uncal_generated, uncal_reused) como listas de (chapter_id, track_id).
+
+    Robusto: mira PRESENCIA de la clave, NO el valor (un track calibrado justo a 0.26
+    no es falso positivo). Re-lee los jsons de los tracks (costo despreciable, 7
+    archivos chicos) para NO tocar la firma de _resolve_music_volumes (ya validada).
+    NO toca la lógica de mezcla ni el sidechain.
+    """
+    uncal_generated: list[tuple[str, str]] = []
+    uncal_reused: list[tuple[str, str]] = []
+    for p in plans:
+        ti = music_map.get(p.chapter_id) or {}
+        if not ti or ti.get("match_source") == "skipped":
+            continue
+        tid = ti.get("track_id", "?")
+        mp3 = _resolve_music_track_path(ti)
+        has_key = False
+        if mp3 is not None:
+            jp = mp3.with_suffix(".json")
+            if jp.exists():
+                try:
+                    has_key = "music_volume" in json.loads(
+                        jp.read_text(encoding="utf-8"))
+                except (json.JSONDecodeError, OSError):
+                    has_key = False
+        if not has_key:
+            if ti.get("match_source") == "generated":
+                uncal_generated.append((p.chapter_id, tid))
+            else:
+                uncal_reused.append((p.chapter_id, tid))
+    return uncal_generated, uncal_reused
+
+
 def _mix_music_into_video(
     video_path: Path,
     music_path: Path,
@@ -1944,6 +1985,23 @@ def _assemble_one_video(
             print(f"       [{p.chapter_id}] track={tid:<22} "
                   f"ducked={ducked_by_cap[p.chapter_id]:.3f} "
                   f"floor={floor_by_cap[p.chapter_id]:.3f} ({src})")
+
+        # CHAT 40 — detector "track sin calibrar" (print-only, después de la tabla).
+        # Regla backlog #197/#231: si un track usa BASE por falta de calibración,
+        # GRITAR (no caer calladito). La clasificación vive en un helper puro
+        # (_classify_uncalibrated_tracks) para que el smoke ejerza el código REAL;
+        # acá SOLO se imprime. NO toca _resolve_music_volumes ni el mix.
+        uncal_generated, uncal_reused = _classify_uncalibrated_tracks(plans, music_map)
+        if uncal_generated:
+            print("\n  ⚠⚠ TRACKS NUEVOS SIN CALIBRAR (generados, nunca pasaron por el mixer):")
+            for ch, tid in uncal_generated:
+                print(f"       [{ch}] {tid} → usando BASE. Corré el mixer "
+                      f"(python mixer_server.py) y calibrá este track ANTES de publicar.")
+        if uncal_reused:
+            print("\n  ℹ  tracks usando volumen BASE (no calibrados; OK si suenan bien, "
+                  "sino mixer):")
+            for ch, tid in uncal_reused:
+                print(f"       [{ch}] {tid}")
 
         # Construir track continuo de música (paso A) — DOS pistas pre-atenuadas por
         # cap: ducked-source y floor-source. Cada cap entra con su volumen horneado.
