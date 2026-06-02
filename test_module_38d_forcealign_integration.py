@@ -17,6 +17,7 @@ Valida OFFLINE (sin APIs, sin red, sin Flash, sin ElevenLabs):
 USO:
     python test_module_38d_forcealign_integration.py
 """
+import re
 import sys
 import tempfile
 from pathlib import Path
@@ -45,6 +46,40 @@ def _alignment_dos_palabras() -> list[dict]:
     chars.append({"text": " ", "start": 1.1, "end": 1.2})  # separador
     chars += _chars("después", 1.2)               # idx 12..18 (1.2 .. 1.9)
     return chars
+
+
+def _alignment_cinco_palabras() -> list[dict]:
+    """5 palabras multisílaba → fuerza ≥2 chunks con words_per_chunk=3.
+    'pelota casa mesa gato perro'. Timing creciente, espacio entre palabras."""
+    words = ["pelota", "casa", "mesa", "gato", "perro"]
+    chars: list[dict] = []
+    t = 0.0
+    for wi, w in enumerate(words):
+        if wi > 0:
+            chars.append({"text": " ", "start": round(t, 4), "end": round(t + 0.1, 4)})
+            t += 0.1
+        for ch in w:
+            chars.append({"text": ch, "start": round(t, 4), "end": round(t + 0.1, 4)})
+            t += 0.1
+    return chars
+
+
+def _bare(text: str) -> str:
+    """Texto visible sin tags ASS de override ({...})."""
+    return re.sub(r"\{[^}]*\}", "", text)
+
+
+def _bare_groups(dl: list) -> list:
+    """Runs consecutivos de texto desnudo igual → [(bare_text, count), ...].
+    Cada run == un chunk (el texto queda QUIETO mientras cambian las sílabas)."""
+    groups: list[list] = []
+    for _st, _en, t in dl:
+        b = _bare(t)
+        if not groups or groups[-1][0] != b:
+            groups.append([b, 1])
+        else:
+            groups[-1][1] += 1
+    return groups
 
 
 def _parse_ass_time(t: str) -> float:
@@ -106,43 +141,65 @@ def test_3_pyphen_acentos_sin_perder_chars() -> None:
     print("  ✓ test_3 pyphen acentos sin perder caracteres OK")
 
 
-def test_4_render_clamp_espacio_y_prepad() -> None:
+def test_4_render_chunk_estatico() -> None:
+    """Chunk ESTÁTICO (no marquesina): el texto desnudo queda QUIETO mientras
+    cambian las sílabas resaltadas; al cruzar de chunk el texto SÍ cambia;
+    ninguna palabra se parte entre chunks; clamp + espacio intra-chunk + pre_pad."""
+    PALABRAS = ["PELOTA", "CASA", "MESA", "GATO", "PERRO"]
     with tempfile.TemporaryDirectory() as d:
         out = Path(d) / "subs.ass"
-        syl = _chars_to_syllables(_alignment_dos_palabras())
+        syl = _chars_to_syllables(_alignment_cinco_palabras())
         _build_ass_from_syllables(
             syllables=syl,
             output_path=out,
-            audio_duration=10.0,
+            audio_duration=20.0,
             video_width=1080,
             video_height=1920,
+            words_per_chunk=3,
+            max_chars=18,
             pre_pad=0.0,
         )
-        ass = out.read_text(encoding="utf-8")
-        dl = _dialogue_lines(ass)
+        dl = _dialogue_lines(out.read_text(encoding="utf-8"))
         assert dl, "no se generaron Dialogue Viral"
-        # 4a. NO eventos end <= start (clamp)
+
+        # 4a. clamp: ningún evento con end <= start
         for st, en, _ in dl:
             assert en > st, f"evento con end<=start: {st} >= {en}"
-        # 4b. espacio en cambio de word_idx: en la ventana de la última sílaba de
-        #     la palabra 0 o primera de la palabra 1 debe aparecer un espacio entre
-        #     tokens de palabras distintas. Buscamos al menos un evento con " " que
-        #     separe DES/PUÉS de la palabra previa.
-        joined = "\n".join(t for _, _, t in dl)
-        assert " " in joined, "nunca se insertó espacio entre palabras"
-        # las palabras NO deben quedar pegadas tipo OBSERVACIÓNDESPUÉS
-        assert "NDESPUÉS" not in joined.replace(" ", "X").replace("X", ""), \
-            "palabras pegadas (no se insertó espacio en cambio de word_idx)"
 
-    # 4c. pre_pad=1.8 → la 1a sílaba arranca 1.8 más tarde (sílabas frescas)
+        groups = _bare_groups(dl)
+        distinct = [g[0] for g in groups]
+
+        # 4b. ≥2 chunks (texto desnudo cambia al menos una vez)
+        assert len(groups) >= 2, f"esperaba ≥2 chunks, hubo {len(groups)}: {distinct}"
+
+        # 4c. QUIETO dentro del chunk: al menos un chunk mantiene el MISMO texto
+        #     desnudo a través de varias sílabas consecutivas (no marquesina).
+        assert any(g[1] > 1 for g in groups), \
+            "ningún chunk se mantuvo quieto entre sílabas (parece marquesina)"
+
+        # 4d. al cruzar de chunk, el texto desnudo SÍ cambia
+        for k in range(1, len(groups)):
+            assert groups[k][0] != groups[k - 1][0], "dos chunks consecutivos con mismo texto"
+
+        # 4e. ninguna palabra partida entre chunks: cada palabra entera cae en
+        #     EXACTAMENTE un texto de chunk.
+        for w in PALABRAS:
+            hits = [tx for tx in set(distinct) if w in tx]
+            assert len(hits) == 1, f"'{w}' aparece en {len(hits)} chunks (¿partida?): {hits}"
+
+        # 4f. espacio entre palabras DENTRO de un chunk (no pegadas)
+        assert any(" " in tx for tx in distinct), "no hay espacio entre palabras dentro del chunk"
+        assert all("PELOTACASA" not in tx for tx in distinct), "palabras pegadas dentro del chunk"
+
+    # 4g. pre_pad=1.8 → el 1er evento arranca 1.8 más tarde (sílabas frescas)
     with tempfile.TemporaryDirectory() as d:
         out = Path(d) / "subs_pp.ass"
-        syl2 = _chars_to_syllables(_alignment_dos_palabras())
+        syl2 = _chars_to_syllables(_alignment_cinco_palabras())
         first_start_orig = syl2[0]["start"]
         _build_ass_from_syllables(
             syllables=syl2,
             output_path=out,
-            audio_duration=10.0,
+            audio_duration=20.0,
             video_width=1080,
             video_height=1920,
             pre_pad=1.8,
@@ -151,7 +208,8 @@ def test_4_render_clamp_espacio_y_prepad() -> None:
         first_event_start = min(st for st, _, _ in dl)
         assert abs(first_event_start - (first_start_orig + 1.8)) < 0.02, \
             f"pre_pad no aplicado: 1er start={first_event_start} (esperaba ~{first_start_orig + 1.8})"
-    print("  ✓ test_4 clamp + espacio por word_idx + pre_pad OK")
+    print("  ✓ test_4 chunk estático (quieto intra-chunk + cambia inter-chunk + "
+          "sin split + clamp + pre_pad) OK")
 
 
 def test_5_fallback_plan_alignment_path_default() -> None:
@@ -204,7 +262,7 @@ def main() -> int:
         test_1_syllables_word_idx_y_monotonia,
         test_2_cobertura_primer_y_ultimo_char,
         test_3_pyphen_acentos_sin_perder_chars,
-        test_4_render_clamp_espacio_y_prepad,
+        test_4_render_chunk_estatico,
         test_5_fallback_plan_alignment_path_default,
         test_6_mapeo_words_keys,
     ]

@@ -370,16 +370,19 @@ def _build_ass_from_syllables(
     audio_duration: float,
     video_width: int,
     video_height: int,
-    context_before: int = 2,
-    context_after: int = 3,
+    words_per_chunk: int = 3,
+    max_chars: int = 18,
     hook_text: str | None = None,
     hook_duration: float = HOOK_DURATION,
     pre_pad: float = 0.0,
 ) -> Path:
-    """Karaoke por SÍLABA, ventana deslizante centrada en la activa.
-    Reusa el header ASS y el efecto pop EXACTOS de _build_ass_from_words.
+    """Karaoke por SÍLABA con CHUNK ESTÁTICO (no marquesina).
+
+    El chunk (~words_per_chunk palabras enteras) queda FIJO en pantalla mientras
+    Bill lo pronuncia; solo popea la sílaba activa. Al terminar la última sílaba
+    del chunk, aparece el siguiente. Chunking por palabra entera (reusa
+    _chunk_words_adaptive) → una palabra nunca se parte.
     """
-    # ⚠ pre_pad: igual que _build_ass_from_words (cap 1 con hook lo necesita)
     if pre_pad > 0:
         for s in syllables:
             s["start"] = float(s["start"]) + pre_pad
@@ -389,7 +392,7 @@ def _build_ass_from_syllables(
         output_path.write_text("", encoding="utf-8")
         return output_path
 
-    # Header EXACTO de _build_ass_from_words (copiado verbatim).
+    # Header EXACTO de _build_ass_from_words (Anton 100 Viral / Anton 180 Hook).
     header = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: {video_width}
@@ -425,32 +428,53 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
             f"{hook_effect}{hook_formatted}"
         )
 
+    # 1. Reconstruir palabras desde las sílabas (agrupar por word_idx).
+    from itertools import groupby
+    words: list[dict] = []
+    for _wi, grp in groupby(enumerate(syllables), key=lambda t: t[1]["word_idx"]):
+        idxs = [i for i, _ in grp]
+        words.append({
+            "word": "".join(syllables[i]["text"] for i in idxs),  # para _chunk_words_adaptive
+            "syl_idxs": idxs,
+        })
+
+    # 2. Chunkear por palabra (MISMO criterio que el path por palabra).
+    chunks = _chunk_words_adaptive(words, target=words_per_chunk, max_chars=max_chars)
+
+    # 3. Map sílaba global -> índice de chunk.
+    syl_chunk: dict[int, int] = {}
+    for ci, chunk in enumerate(chunks):
+        for w in chunk:
+            for si in w["syl_idxs"]:
+                syl_chunk[si] = ci
+
+    # 4. Un evento por sílaba: chunk QUIETO, solo cambia el resaltado.
     n = len(syllables)
-    for i, syl in enumerate(syllables):
-        start = float(syl["start"])
+    for i in range(n):
+        start = float(syllables[i]["start"])
         if i + 1 < n:
-            end = float(syllables[i + 1]["start"])     # encadenado, como el word path
+            end = float(syllables[i + 1]["start"])      # encadenado (anti-gap)
         else:
-            end = min(float(syl["end"]) + 0.3, audio_duration)
-        if end <= start:                                # clamp defensivo (lab lo tenía)
+            end = min(float(syllables[i]["end"]) + 0.3, audio_duration)
+        if end <= start:                                 # clamp defensivo
             end = start + 0.05
 
-        lo = max(0, i - context_before)
-        hi = min(n, i + 1 + context_after)
+        chunk = chunks[syl_chunk[i]]
         parts: list[str] = []
-        for j in range(lo, hi):
-            # espacio si arranca una palabra distinta a la anterior visible
-            if parts and syllables[j]["word_idx"] != syllables[j - 1]["word_idx"]:
-                parts.append(" ")
-            txt = syllables[j]["text"].upper().replace("{", "").replace("}", "")
-            if j == i:
-                # pop amarillo EXACTO del word path
-                parts.append(
-                    r"{\c&H0000FFFF&\fscx115\fscy115\t(0,80,\fscx135\fscy135)\t(80,180,\fscx120\fscy120)}"
-                    + txt
-                )
-            else:
-                parts.append(r"{\c&H00FFFFFF&\fscx100\fscy100}" + txt)
+        for w_pos, w in enumerate(chunk):
+            if w_pos > 0:
+                parts.append(" ")                        # espacio entre palabras del chunk
+            for si in w["syl_idxs"]:
+                txt = syllables[si]["text"].upper().replace("{", "").replace("}", "")
+                if si == i:
+                    parts.append(
+                        r"{\c&H0000FFFF&\fscx115\fscy115"
+                        r"\t(0,80,\fscx135\fscy135)"
+                        r"\t(80,180,\fscx120\fscy120)}"
+                        + txt
+                    )
+                else:
+                    parts.append(r"{\c&H00FFFFFF&\fscx100\fscy100}" + txt)
         text = "".join(parts)
         events.append(
             f"Dialogue: 0,{_format_ass_time(start)},{_format_ass_time(end)},Viral,,0,0,0,,{text}"
@@ -902,7 +926,7 @@ def _build_chapter_segment(
         alignment_path = plan.alignment_path  # chat 38: characters de Forced Alignment
 
         if alignment_path and alignment_path.exists():
-            # NUEVO: render por sílaba (Forced Alignment + ventana deslizante)
+            # NUEVO: render por sílaba (Forced Alignment + chunk estático)
             characters = json.loads(alignment_path.read_text(encoding="utf-8"))
             syllables = _chars_to_syllables(characters)
             _build_ass_from_syllables(
@@ -1778,7 +1802,7 @@ def _assemble_one_video(
         no_music_path = final_path.with_name(
             f"{final_path.stem}{MUSIC_INTERMEDIATE_SUFFIX}{final_path.suffix}"
         )
-        final_path.rename(no_music_path)
+        final_path.replace(no_music_path)
         print(f"     backup: {no_music_path.name}")
 
         # Construir track continuo de música (paso A)
