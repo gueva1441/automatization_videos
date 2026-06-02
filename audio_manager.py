@@ -512,6 +512,36 @@ def _resolve_text_for_tts(
     return normalize_for_tts(raw_text, language=language)
 
 
+@error_handler.retry(PipelineStage.AUDIO)
+def _forced_align_elevenlabs(
+    audio_path: Path, text_for_tts: str, language: str = "es"
+) -> dict:
+    """Alinea el MP3 ya generado contra el texto que leyó el TTS, vía el
+    Forced Alignment API de ElevenLabs. Devuelve el dict con 'characters'
+    y 'words' (cada uno [{text, start, end}, ...]) tal cual lo da la API.
+
+    NO regenera audio. NO usa Whisper. El texto DEBE ser text_for_tts
+    (el normalizado que leyó el TTS), no el crudo del guion.
+
+    `language` se deja en la firma por compat / logging; la API de FA
+    NO lo exige (detecta del texto). No mandarlo en el form salvo que el
+    Bloque 0 confirme que el endpoint lo acepta.
+    """
+    url = "https://api.elevenlabs.io/v1/forced-alignment"
+    with open(audio_path, "rb") as f:
+        files = {"file": (audio_path.name, f, "audio/mpeg")}
+        data = {"text": text_for_tts}
+        resp = requests.post(
+            url,
+            headers={"xi-api-key": api.elevenlabs_api_key},
+            files=files,
+            data=data,
+            timeout=180,
+        )
+    resp.raise_for_status()
+    return resp.json()
+
+
 def generate_chapter_assets(
     chapter: dict[str, str],
     video_id: str,
@@ -570,6 +600,7 @@ def generate_chapter_assets(
             )
             audio_path.unlink(missing_ok=True)
             timestamps_path.unlink(missing_ok=True)
+            (audio_dir / f"{chapter_id}_alignment.json").unlink(missing_ok=True)  # NUEVO
 
     if skip_if_exists and audio_path.exists():
         error_handler.log_info(
@@ -591,25 +622,49 @@ def generate_chapter_assets(
 
     duration = _get_audio_duration(audio_path)
 
-    # ─── 2. Timestamps word-level + forced alignment ───
-    if skip_if_exists and timestamps_path.exists():
+    # ─── 2. Timestamps vía ElevenLabs Forced Alignment ───
+    alignment_path = audio_dir / f"{chapter_id}_alignment.json"
+    if skip_if_exists and timestamps_path.exists() and alignment_path.exists():
         error_handler.log_info(
             PipelineStage.AUDIO,
-            f"[{chapter_id}] Timestamps ya existen — re-alineando con guion",
+            f"[{chapter_id}] Timestamps + alignment ya existen — reusando",
         )
         words = json.loads(timestamps_path.read_text(encoding="utf-8"))
-        words = _force_align_to_script(words, text_for_tts)
     else:
         error_handler.log_info(
             PipelineStage.AUDIO,
-            f"[{chapter_id}] Transcribiendo con Whisper...",
+            f"[{chapter_id}] Forced Alignment (ElevenLabs)...",
         )
-        whisper_words = _transcribe_word_timestamps(audio_path, language=language)
-        words = _force_align_to_script(whisper_words, text_for_tts)
+        alignment = _forced_align_elevenlabs(audio_path, text_for_tts, language)
+
+        # Log de loss NO opcional: si FA dudó, queremos enterarnos (no caer callado).
+        loss = alignment.get("loss")
+        if loss is not None and float(loss) > 0.15:
+            error_handler.log_warning(
+                PipelineStage.AUDIO,
+                f"[{chapter_id}] Forced Alignment loss alto: {loss} (>0.15) — revisar sync",
+            )
+
+        words = [
+            {"word": w["text"], "start": float(w["start"]), "end": float(w["end"])}
+            for w in alignment.get("words", [])
+        ]
+
+        # Clamp defensivo de monotonía a nivel palabra (FA suele venir perfecto,
+        # pero NO confiamos a ciegas — antes lo garantizaba _enforce_monotonic).
+        for k in range(1, len(words)):
+            if words[k]["start"] < words[k - 1]["start"]:
+                words[k]["start"] = words[k - 1]["start"]
+            if words[k]["end"] < words[k]["start"]:
+                words[k]["end"] = words[k]["start"]
+
+        alignment_path.write_text(
+            json.dumps(alignment.get("characters", []), ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
 
     timestamps_path.write_text(
-        json.dumps(words, ensure_ascii=False, indent=2),
-        encoding="utf-8",
+        json.dumps(words, ensure_ascii=False, indent=2), encoding="utf-8",
     )
 
     # Persistir el text_hash para la próxima corrida (cache invalidation).

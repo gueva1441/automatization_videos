@@ -37,6 +37,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+import pyphen
+
 from config import BASE_DIR, OUTPUT_DIR, pipeline
 from cost_tracker import cost_tracker
 from error_handler import error_handler, PipelineStage
@@ -316,6 +318,149 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
 
 # ═══════════════════════════════════════════════════════════════
+#  Subtítulos por SÍLABA (chat 38 — Forced Alignment + ventana deslizante)
+# ═══════════════════════════════════════════════════════════════
+
+_DIC_ES = pyphen.Pyphen(lang="es_ES")
+
+
+def _chars_to_syllables(characters: list[dict]) -> list[dict]:
+    """characters: [{text, start, end}, ...] de ElevenLabs alignment.
+    Devuelve [{text, start, end, word_idx}, ...] por sílaba, timing REAL.
+    word_idx permite al render insertar espacio entre palabras distintas.
+    """
+    # 1. Reconstruir palabras con sus índices de char (la puntuación/espacio corta)
+    words = []  # [{text, idxs:[int,...]}]
+    cur = {"text": "", "idxs": []}
+    for i, c in enumerate(characters):
+        ch = c.get("text", "")
+        if ch == " " or ch in ".,;:!?\"'()¿¡":
+            if cur["text"]:
+                words.append(cur)
+                cur = {"text": "", "idxs": []}
+            continue
+        cur["text"] += ch
+        cur["idxs"].append(i)
+    if cur["text"]:
+        words.append(cur)
+
+    # 2. Partir cada palabra en sílabas y mapear a chars (timing real)
+    syllables = []
+    for wi, w in enumerate(words):
+        parts = _DIC_ES.inserted(w["text"]).split("-")
+        pos = 0
+        for part in parts:
+            if not part:
+                continue
+            idxs = w["idxs"][pos:pos + len(part)]
+            if not idxs:
+                continue
+            start = float(characters[idxs[0]]["start"])
+            end = float(characters[idxs[-1]]["end"])
+            syllables.append(
+                {"text": part, "start": start, "end": end, "word_idx": wi}
+            )
+            pos += len(part)
+    return syllables
+
+
+def _build_ass_from_syllables(
+    syllables: list[dict],
+    output_path: Path,
+    audio_duration: float,
+    video_width: int,
+    video_height: int,
+    context_before: int = 2,
+    context_after: int = 3,
+    hook_text: str | None = None,
+    hook_duration: float = HOOK_DURATION,
+    pre_pad: float = 0.0,
+) -> Path:
+    """Karaoke por SÍLABA, ventana deslizante centrada en la activa.
+    Reusa el header ASS y el efecto pop EXACTOS de _build_ass_from_words.
+    """
+    # ⚠ pre_pad: igual que _build_ass_from_words (cap 1 con hook lo necesita)
+    if pre_pad > 0:
+        for s in syllables:
+            s["start"] = float(s["start"]) + pre_pad
+            s["end"] = float(s["end"]) + pre_pad
+
+    if not syllables and not hook_text:
+        output_path.write_text("", encoding="utf-8")
+        return output_path
+
+    # Header EXACTO de _build_ass_from_words (copiado verbatim).
+    header = f"""[Script Info]
+ScriptType: v4.00+
+PlayResX: {video_width}
+PlayResY: {video_height}
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Viral,Anton,100,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,7,4,2,40,40,320,1
+Style: Hook,Anton,180,&H0000FFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,8,5,5,40,40,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+"""
+    events: list[str] = []
+
+    # ─── Hook overlay (VERBATIM de _build_ass_from_words) ───
+    if hook_text:
+        hook_txt_clean = hook_text.replace("{", "").replace("}", "").replace("\\", "")
+        hook_formatted, hook_fontsize = _calc_hook_layout(hook_txt_clean)
+        hook_effect = (
+            r"{\an5"
+            f"\\fs{hook_fontsize}"
+            r"\fscx0\fscy0"
+            r"\t(0,120,\fscx115\fscy115)"
+            r"\t(120,220,\fscx100\fscy100)"
+            r"\fad(0,150)}"
+        )
+        events.append(
+            f"Dialogue: 0,{_format_ass_time(0.0)},"
+            f"{_format_ass_time(hook_duration)},Hook,,0,0,0,,"
+            f"{hook_effect}{hook_formatted}"
+        )
+
+    n = len(syllables)
+    for i, syl in enumerate(syllables):
+        start = float(syl["start"])
+        if i + 1 < n:
+            end = float(syllables[i + 1]["start"])     # encadenado, como el word path
+        else:
+            end = min(float(syl["end"]) + 0.3, audio_duration)
+        if end <= start:                                # clamp defensivo (lab lo tenía)
+            end = start + 0.05
+
+        lo = max(0, i - context_before)
+        hi = min(n, i + 1 + context_after)
+        parts: list[str] = []
+        for j in range(lo, hi):
+            # espacio si arranca una palabra distinta a la anterior visible
+            if parts and syllables[j]["word_idx"] != syllables[j - 1]["word_idx"]:
+                parts.append(" ")
+            txt = syllables[j]["text"].upper().replace("{", "").replace("}", "")
+            if j == i:
+                # pop amarillo EXACTO del word path
+                parts.append(
+                    r"{\c&H0000FFFF&\fscx115\fscy115\t(0,80,\fscx135\fscy135)\t(80,180,\fscx120\fscy120)}"
+                    + txt
+                )
+            else:
+                parts.append(r"{\c&H00FFFFFF&\fscx100\fscy100}" + txt)
+        text = "".join(parts)
+        events.append(
+            f"Dialogue: 0,{_format_ass_time(start)},{_format_ass_time(end)},Viral,,0,0,0,,{text}"
+        )
+
+    output_path.write_text(header + "\n".join(events) + "\n", encoding="utf-8")
+    return output_path
+
+
+# ═══════════════════════════════════════════════════════════════
 #  Construcción de segmento por capítulo
 # ═══════════════════════════════════════════════════════════════
 
@@ -337,6 +482,10 @@ class ChapterPlan:
     supplemental_paths: list[Path] | None = None     # PNGs Flux suplementarios (solo cap veo híbrido)
     supplemental_anchors: list[str] | None = None    # anchors paralelos a supplemental_paths
     veo_position: str = "start"                      # "start" si role=hook, "end" si role=reveal_outro
+    # chat 38: path al chXX_alignment.json (characters de Forced Alignment) para
+    # subs por sílaba. Defaulted para respetar el orden del dataclass; se setea
+    # en la construcción del plan junto a timestamps_path.
+    alignment_path: Path | None = None
 
 
 def _compute_durations_from_anchors(
@@ -749,18 +898,36 @@ def _build_chapter_segment(
     # ─── Subs ASS (desde timestamps pre-existentes) ───
     subs_path: Path | None = None
     if not no_subs and plan.timestamps_path and plan.timestamps_path.exists():
-        words = json.loads(plan.timestamps_path.read_text(encoding="utf-8"))
         subs_path = work_dir / f"{plan.chapter_id}_subs.ass"
-        _build_ass_from_words(
-            words=words,
-            output_path=subs_path,
-            audio_duration=plan.audio_duration + pre_pad,
-            video_width=video_width,
-            video_height=video_height,
-            hook_text=hook_text if apply_hook else None,
-            hook_duration=HOOK_DURATION,
-            pre_pad=pre_pad,
-        )
+        alignment_path = plan.alignment_path  # chat 38: characters de Forced Alignment
+
+        if alignment_path and alignment_path.exists():
+            # NUEVO: render por sílaba (Forced Alignment + ventana deslizante)
+            characters = json.loads(alignment_path.read_text(encoding="utf-8"))
+            syllables = _chars_to_syllables(characters)
+            _build_ass_from_syllables(
+                syllables=syllables,
+                output_path=subs_path,
+                audio_duration=plan.audio_duration + pre_pad,
+                video_width=video_width,
+                video_height=video_height,
+                hook_text=hook_text if apply_hook else None,
+                hook_duration=HOOK_DURATION,
+                pre_pad=pre_pad,
+            )
+        else:
+            # FALLBACK retrocompat: videos viejos sin alignment.json → por palabra
+            words = json.loads(plan.timestamps_path.read_text(encoding="utf-8"))
+            _build_ass_from_words(
+                words=words,
+                output_path=subs_path,
+                audio_duration=plan.audio_duration + pre_pad,
+                video_width=video_width,
+                video_height=video_height,
+                hook_text=hook_text if apply_hook else None,
+                hook_duration=HOOK_DURATION,
+                pre_pad=pre_pad,
+            )
     elif apply_hook and not no_subs:
         # Hook sin timestamps: igual generamos un ASS solo con hook
         subs_path = work_dir / f"{plan.chapter_id}_hook_only.ass"
@@ -1350,6 +1517,8 @@ def _build_plans(
         if not audio_path.exists():
             raise FileNotFoundError(f"[{cid}] audio faltante: {audio_path}")
         ts_path = audio_dir / sm["timestamps_path"]
+        # chat 38: alignment al lado del timestamps, mismo audio_dir (NO inventar path).
+        align_path = audio_dir / f"{cid}_alignment.json"
 
         engine, asset_paths = _resolve_chapter_paths(mf, video_id)
 
@@ -1385,6 +1554,7 @@ def _build_plans(
             audio_duration=float(sm["duration_sec"]),
             asset_paths=asset_paths,
             timestamps_path=ts_path if ts_path.exists() else None,
+            alignment_path=align_path if align_path.exists() else None,
             is_first=(i == 0),
             art_profile=mf.get("art_profile") or scr.get("art_profile") or None,
             narration=scr.get("narration", ""),
