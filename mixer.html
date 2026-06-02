@@ -63,6 +63,10 @@
 </head>
 <body>
 
+<div id="topicHeader" style="background:#0f1116; border:1px solid #2a3a44; border-radius:8px; padding:10px 14px; margin-bottom:14px; font-size:13.5px; color:#cdd3dd;">
+  🎬 Calibrando: <span id="topicTxt" style="font-family:ui-monospace,monospace; color:#6cc6ff;">cargando…</span>
+</div>
+
 <h1>Mixer multi-cap — calibrar volumen por <i>track</i></h1>
 <div class="sub">Elegí un cap, ajustá de oído, escuchá el render real, y <b>Guardá en el track</b>. El número se escribe en <code>audio_library/&lt;track&gt;.json</code> y vale para todos los videos que usen ese track.</div>
 
@@ -117,6 +121,15 @@
   <div class="status" id="saveStatus"></div>
   <audio id="renderAudio" controls></audio>
   <div class="note" style="margin-top:8px">El render real es el <b>fiel</b> (ducking exacto de ffmpeg). El preview de Play arriba es aproximado. Guardar escribe el json del track al instante.</div>
+</div>
+
+<div class="card">
+  <div class="big">Re-armar el video</div>
+  <div class="note" style="margin:4px 0 10px">Corre <b>solo fase2b</b> (re-ensamblado barato, $0, sin gates) con el topic de arriba. Para el loop: Guardás un volumen → re-armás → escuchás, sin ir a la terminal.</div>
+  <button id="rerunBtn" class="primary">▶ Re-armar video (fase2b)</button>
+  <div class="status" id="rerunStatus"></div>
+  <pre id="rerunLog" style="display:none; background:#0b0d11; border:1px solid #2a2e38; border-radius:7px; padding:10px 12px; font-size:12px; line-height:1.45; max-height:320px; overflow:auto; white-space:pre-wrap; margin-top:10px; color:#c9d1d9;"></pre>
+  <div class="note" id="rerunDevNote" style="display:none; margin-top:8px; color:#c0a06c">⚠ fase2b marca el topic como <code>video_generated</code>. Si esto es PRUEBA, revertí con <code>revert_generation</code>.</div>
 </div>
 
 <div class="overlay" id="saveModal">
@@ -230,6 +243,12 @@ $('baseBtn').onclick    = () => CUR && setSliders(CUR.base.mv, CUR.base.mvf);
 async function onSelectCap() {
   const cap = capSel.value;
   $('renderStatus').textContent=''; $('saveStatus').textContent='';
+  // guard 7C: si por algún borde se elige un cap sin track, no romper.
+  const opt = capSel.options[capSel.selectedIndex];
+  if (opt && opt.disabled) {
+    $('measuredNote').textContent = `${cap}: este cap no tiene track asignado.`;
+    $('loadState').textContent = '—'; $('playBtn').disabled = true; return;
+  }
   try {
     const s = await (await fetch('/suggested_start?cap='+cap)).json();
     if (s.error) throw new Error(s.error);
@@ -309,19 +328,75 @@ function closeSaveModal() { $('saveModal').classList.remove('show'); }
 $('modalClose').onclick = closeSaveModal;
 $('saveModal').onclick = (e) => { if (e.target === $('saveModal')) closeSaveModal(); };  // click fuera cierra
 
+// ─── re-armar video (fase2b) — bloque 7D ───
+let rerunPoll = null;
+function renderRerun(s) {
+  const log = $('rerunLog');
+  log.style.display = 'block'; $('rerunDevNote').style.display = 'block';
+  log.textContent = (s.log_tail || []).join('\n');
+  log.scrollTop = log.scrollHeight;
+  if (s.running) {
+    $('rerunStatus').className = 'status work';
+    $('rerunStatus').textContent = '⏳ corriendo fase2b…';
+  } else {
+    if (rerunPoll) { clearInterval(rerunPoll); rerunPoll = null; }
+    $('rerunBtn').disabled = false;
+    const ok = s.returncode === 0;
+    $('rerunStatus').className = 'status ' + (ok ? 'ok' : 'err');
+    $('rerunStatus').textContent = ok ? '✅ Listo (rc=0)' : `❌ Falló (rc=${s.returncode})`;
+  }
+}
+async function pollRerun() {
+  try { renderRerun(await (await fetch('/rerun_status')).json()); }
+  catch(e) { /* transitorio, sigue */ }
+}
+$('rerunBtn').onclick = async () => {
+  const btn = $('rerunBtn'), st = $('rerunStatus');
+  btn.disabled = true;                          // single-run guard (front)
+  st.className = 'status work'; st.textContent = 'lanzando…';
+  try {
+    const r = await fetch('/rerun', { method: 'POST' });
+    if (r.status === 409) {
+      const e = await r.json().catch(()=>({error:'ya está corriendo'}));
+      st.className = 'status err'; st.textContent = '⚠ ' + (e.error || 'ya hay una corrida en curso');
+      btn.disabled = false; return;
+    }
+    if (!r.ok) throw new Error((await r.json().catch(()=>({}))).error || r.statusText);
+    $('rerunLog').style.display = 'block'; $('rerunLog').textContent = '';
+    if (rerunPoll) clearInterval(rerunPoll);
+    rerunPoll = setInterval(pollRerun, 2000);
+    pollRerun();
+  } catch(e) {
+    st.className = 'status err'; st.textContent = '❌ no se pudo lanzar: ' + e.message;
+    btn.disabled = false;
+  }
+};
+
 // ─── init ───
 (async () => {
+  try {
+    const t = await (await fetch('/topic')).json();
+    $('topicTxt').textContent = (t.title ? t.title + ' · ' : '') + t.topic_id;
+  } catch(e) { $('topicTxt').textContent = '(no se pudo leer el topic)'; }
+  // si ya hay una corrida en curso al cargar la página, retomar el poll
+  try {
+    const s = await (await fetch('/rerun_status')).json();
+    if (s.running) { $('rerunBtn').disabled = true; rerunPoll = setInterval(pollRerun, 2000); pollRerun(); }
+  } catch(e){}
   try { PROFILE = Object.assign(PROFILE, await (await fetch('/defaults')).json()); } catch(e){}
   try {
     const caps = await (await fetch('/caps')).json();
     capSel.innerHTML = '';
     caps.forEach(c => {
       const o = document.createElement('option');
-      o.value = c.cap; o.textContent = `${c.cap} — ${c.track_id}` + (c.skipped ? ' (skipped)' : '');
+      o.value = c.cap;
+      o.textContent = c.skipped ? `${c.cap} — (sin track)` : `${c.cap} — ${c.track_id}`;
       if (c.skipped) o.disabled = true;
       capSel.appendChild(o);
     });
-    if (caps.length) await onSelectCap();
+    // seleccionar el primer cap NO grisado
+    const firstOk = caps.find(c => !c.skipped);
+    if (firstOk) { capSel.value = firstOk.cap; await onSelectCap(); }
   } catch(e) { $('loadState').textContent = 'error cargando /caps: '+e.message; }
 })();
 </script>

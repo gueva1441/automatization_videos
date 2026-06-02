@@ -32,6 +32,7 @@ import re
 import shutil
 import subprocess
 import sys
+import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -154,6 +155,25 @@ def _caps_list() -> list[dict]:
         out.append({"cap": cap, "track_id": ti.get("track_id", "—"),
                     "skipped": ti.get("match_source") == "skipped"})
     return out
+
+
+def _topic_title() -> str | None:
+    """Título del topic si se puede leer TRIVIAL (sin deps nuevas): del sync_map.
+    El id es el must-have; el título es opcional (None si no está)."""
+    sm = BASE_DIR / "output" / "audio" / TOPIC_ID / "sync_map.json"
+    if not sm.exists():
+        return None
+    try:
+        data = json.loads(sm.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+    # Solo el título REAL del topic. NO usar profile_description (es del perfil de voz,
+    # no del topic → mostrarlo como "título" confunde). Si no está → None (solo id).
+    return data.get("topic_title") or None
+
+
+def _topic_info() -> dict:
+    return {"topic_id": TOPIC_ID, "title": _topic_title()}
 
 
 # ─────────────────────────────────────────────────────────────────
@@ -327,6 +347,66 @@ def _save_track_volume(cap: str, mv: float, mvf: float) -> dict:
 
 
 # ─────────────────────────────────────────────────────────────────
+#  Re-armar video (fase2b) — bloque 7D. Corre SOLO fase2b ($0, sin gate).
+# ─────────────────────────────────────────────────────────────────
+
+_RERUN: dict = {"running": False, "returncode": None, "log": []}
+_RERUN_LOCK = threading.Lock()
+_RERUN_LOG_MAX = 400  # líneas
+
+
+def _rerun_command() -> list[str]:
+    """Comando del re-armado. FACTORIZADO para que el smoke inyecte un stub rápido
+    (GATE 7-CC: el test NO corre la fase2b real). sys.executable = python del venv
+    desde donde se lanzó el server."""
+    return [sys.executable, "fase2b.py", TOPIC_ID]
+
+
+def _rerun_worker() -> None:
+    """Thread daemon: lanza el comando, streamea stdout+stderr al buffer _RERUN."""
+    try:
+        proc = subprocess.Popen(
+            _rerun_command(), cwd=str(BASE_DIR),
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1,
+        )
+        for line in proc.stdout:
+            with _RERUN_LOCK:
+                _RERUN["log"].append(line.rstrip("\n"))
+                if len(_RERUN["log"]) > _RERUN_LOG_MAX:
+                    _RERUN["log"] = _RERUN["log"][-_RERUN_LOG_MAX:]
+        proc.wait()
+        rc = proc.returncode
+    except Exception as e:  # noqa: BLE001
+        with _RERUN_LOCK:
+            _RERUN["log"].append(f"[mixer] error lanzando fase2b: {type(e).__name__}: {e}")
+        rc = -1
+    with _RERUN_LOCK:
+        _RERUN["returncode"] = rc
+        _RERUN["running"] = False
+
+
+def _start_rerun() -> dict:
+    """Arranca el re-armado si no hay otro en curso. {'started':True} o {'conflict':True}."""
+    with _RERUN_LOCK:
+        if _RERUN["running"]:
+            return {"conflict": True}
+        _RERUN["running"] = True
+        _RERUN["returncode"] = None
+        _RERUN["log"] = []
+    threading.Thread(target=_rerun_worker, daemon=True).start()
+    return {"started": True}
+
+
+def _rerun_status(tail: int = 40) -> dict:
+    with _RERUN_LOCK:
+        return {
+            "running": _RERUN["running"],
+            "returncode": _RERUN["returncode"],
+            "log_tail": list(_RERUN["log"][-tail:]),
+        }
+
+
+# ─────────────────────────────────────────────────────────────────
 #  HTTP handler
 # ─────────────────────────────────────────────────────────────────
 
@@ -379,6 +459,10 @@ class Handler(BaseHTTPRequestHandler):
                 self._send_json(_mixing_params())
             elif route == "/suggested_start":
                 self._send_json(_suggested_start(self._cap_param()))
+            elif route == "/topic":
+                self._send_json(_topic_info())
+            elif route == "/rerun_status":
+                self._send_json(_rerun_status())
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)
         except Exception as e:  # noqa: BLE001
@@ -387,6 +471,18 @@ class Handler(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
             route = urlparse(self.path).path
+
+            # /rerun no lleva body (usa el TOPIC_ID del server).
+            if route == "/rerun":
+                res = _start_rerun()
+                if res.get("conflict"):
+                    self._send_json({"error": "ya hay una corrida en curso"}, status=409)
+                    print("  ▶ rerun: rechazado (ya hay una corrida en curso)")
+                else:
+                    print(f"  ▶ rerun: lanzando fase2b para {TOPIC_ID[:8]}…")
+                    self._send_json({"started": True})
+                return
+
             length = int(self.headers.get("Content-Length", 0))
             body = json.loads(self.rfile.read(length) or b"{}")
             cap = body.get("cap")
@@ -436,6 +532,22 @@ def _preflight() -> list[str]:
     return problems
 
 
+def _die_no_assets(problems: list[str] | None = None, extra: str | None = None) -> None:
+    """Muere con un mensaje accionable cuando el topic no tiene assets de audio."""
+    print(f"❌ El topic {TOPIC_ID} no tiene assets de audio "
+          f"(falta music_map.json / chXX.mp3).")
+    print(f"   ¿Corriste fase1_5 + fase2a para este topic? El mixer necesita la voz "
+          f"+ el music_map.")
+    print(f"   Esperaba: output/audio/{TOPIC_ID}/music_map.json + chXX.mp3")
+    if problems:
+        print("   Detalle:")
+        for p in problems:
+            print(f"     - {p}")
+    elif extra:
+        print(f"   Detalle: {extra}")
+    sys.exit(1)
+
+
 def main():
     global MUSIC_MAP
     ap = argparse.ArgumentParser()
@@ -445,20 +557,26 @@ def main():
 
     try:
         MUSIC_MAP = _load_music_map()
-    except FileNotFoundError as e:
-        print(f"❌ {e}")
-        sys.exit(1)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        _die_no_assets(extra=str(e))
 
     problems = _preflight()
     if problems:
+        # Si lo que falta son assets de audio (music_map / voces), dar el mensaje
+        # accionable; si es otra cosa (ffmpeg, html), listar crudo.
+        assets_missing = any(("music_map" in p or "voz no existe" in p) for p in problems)
+        if assets_missing:
+            _die_no_assets(problems=problems)
         print("❌ Preflight falló:")
         for p in problems:
             print(f"   - {p}")
         sys.exit(1)
 
     prof = _mixing_params()
+    title = _topic_title()
     print("─" * 64)
-    print(f"  Mixer MULTI-CAP — topic {TOPIC_ID[:8]}…  (perfil {PROFILE_NAME})")
+    print(f"  Mixer MULTI-CAP — {('« ' + title + ' » · ') if title else ''}{TOPIC_ID}")
+    print(f"  perfil {PROFILE_NAME}")
     print(f"  base perfil (fallback): music_volume={prof['music_volume']}, "
           f"floor={prof['music_volume_floor']}")
     print(f"  caps ({len(MUSIC_MAP)}):")
