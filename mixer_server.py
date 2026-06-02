@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -365,9 +366,16 @@ def _rerun_command() -> list[str]:
 def _rerun_worker() -> None:
     """Thread daemon: lanza el comando, streamea stdout+stderr al buffer _RERUN."""
     try:
+        # Windows: text=True sin encoding decodifica con cp1252 (charmap) → los
+        # emojis utf-8 de fase2b (✓ ✅ ⚠ —) tumban el lector (rc=-1). Forzar utf-8 al
+        # decodificar + errors="replace" (un byte raro nunca mata el lector) + env
+        # PYTHONIOENCODING para que el hijo TAMBIÉN emita utf-8 (belt-and-suspenders).
+        env = {**os.environ, "PYTHONIOENCODING": "utf-8"}
         proc = subprocess.Popen(
             _rerun_command(), cwd=str(BASE_DIR),
-            stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+            text=True, bufsize=1,
+            encoding="utf-8", errors="replace", env=env,
         )
         for line in proc.stdout:
             with _RERUN_LOCK:
