@@ -510,6 +510,10 @@ class ChapterPlan:
     # subs por sílaba. Defaulted para respetar el orden del dataclass; se setea
     # en la construcción del plan junto a timestamps_path.
     alignment_path: Path | None = None
+    # chat 39: narrative_intent del cap (leído del sync_map). Usado por el mixer
+    # de música para modular el volumen por intent (music_by_intent). "" si el cap
+    # no tiene intent → usa el volumen base del perfil.
+    narrative_intent: str = ""
 
 
 def _compute_durations_from_anchors(
@@ -1189,6 +1193,7 @@ def _build_music_piece_for_chapter(
     cap_duration_sec: float,
     output_path: Path,
     sample_rate: int = 44100,
+    piece_volume: float = 1.0,
 ) -> Path:
     """
     Genera 1 piece WAV del largo exacto del cap.
@@ -1196,13 +1201,17 @@ def _build_music_piece_for_chapter(
     Si track_path is None → silencio puro del largo del cap.
     Si track_path existe → loop+trim del mp3 al largo del cap.
 
+    chat 39 (piece_volume): pre-atenúa la música del cap a su nivel por-intent
+    ANTES de entrar al mix (volumen POR CAP horneado en la pieza). Default 1.0 =
+    sin atenuar → ruta byte-idéntica a pre-chat39 (compat). No aplica a silencio.
+
     Output: WAV PCM 16-bit estéreo @44.1kHz para compatibilidad sidechain.
     """
     assert FFMPEG is not None
     cmd: list[str]
 
     if track_path is None:
-        # Silencio del largo del cap
+        # Silencio del largo del cap (piece_volume es moot: silencio × k = silencio)
         cmd = [
             FFMPEG, "-y",
             "-f", "lavfi",
@@ -1221,6 +1230,12 @@ def _build_music_piece_for_chapter(
             "-t", f"{cap_duration_sec:.3f}",
             "-ar", str(sample_rate),
             "-ac", "2",
+        ]
+        # chat 39: hornear el volumen por-cap solo si difiere de 1.0 (así la ruta
+        # default queda idéntica a pre-chat39).
+        if piece_volume != 1.0:
+            cmd += ["-af", f"volume={piece_volume}"]
+        cmd += [
             "-c:a", "pcm_s16le",
             str(output_path),
         ]
@@ -1240,6 +1255,8 @@ def _build_continuous_music_track(
     music_map: dict[str, dict[str, Any]],
     work_dir: Path,
     crossfade_sec: float = MUSIC_CROSSFADE_SEC,
+    piece_volumes: dict[str, float] | None = None,
+    output_filename: str | None = None,
 ) -> Path:
     """
     Construye un único WAV continuo del largo total del video, con
@@ -1256,12 +1273,21 @@ def _build_continuous_music_track(
         music_map: output de _load_music_map().
         work_dir: directorio temporal donde escribir pieces + output.
         crossfade_sec: duración del crossfade entre pieces.
+        piece_volumes: chat 39 — dict {chapter_id: volumen} para pre-atenuar la
+            música POR CAP (volumen por-intent horneado en la pieza). Si None o un
+            cap falta → 1.0 (sin atenuar). El acrossfade entre caps a distinto
+            volumen crea la transición natural en la costura (gate de oído de Omar).
+        output_filename: chat 39 — nombre del WAV de salida en work_dir. Default
+            None → CONTINUOUS_MUSIC_FILENAME. Se pasa distinto en cada llamada
+            (ducked vs floor) para que las dos pistas no se pisen.
 
     Returns:
         Path al WAV continuo en work_dir.
     """
     assert FFMPEG is not None
     work_dir.mkdir(parents=True, exist_ok=True)
+    piece_volumes = piece_volumes or {}
+    out_name = output_filename or CONTINUOUS_MUSIC_FILENAME
 
     # ─── Generar pieces individuales por cap ───
     piece_paths: list[Path] = []
@@ -1287,6 +1313,7 @@ def _build_continuous_music_track(
             track_path=track_path,
             cap_duration_sec=plan.audio_duration,
             output_path=piece_path,
+            piece_volume=piece_volumes.get(ch_id, 1.0),  # chat 39: volumen por-cap
         )
         piece_paths.append(piece_path)
 
@@ -1294,7 +1321,7 @@ def _build_continuous_music_track(
         raise RuntimeError("No se generaron pieces de música")
 
     # ─── Encadenar pieces con acrossfade en filter_complex ───
-    output_path = work_dir / CONTINUOUS_MUSIC_FILENAME
+    output_path = work_dir / out_name
 
     if len(piece_paths) == 1:
         # Caso trivial: 1 cap. Copia directa.
@@ -1353,11 +1380,44 @@ def _build_continuous_music_track(
     return output_path
 
 
+def _resolve_music_volumes(
+    plans: list[ChapterPlan],
+    mixing: dict,
+) -> tuple[dict[str, float], dict[str, float]]:
+    """
+    chat 39 — resuelve el volumen de música POR CAP según su narrative_intent.
+
+    Lee `mixing["music_by_intent"]` (override por intent, ver audio_profiles). Si el
+    intent del cap NO está en el dict (o el cap no tiene intent) → usa el volumen
+    BASE del perfil (music_volume / music_volume_floor). Así los 6 intents no
+    calibrados siguen con 0.26/0.16 y solo shock baja a 0.08/0.03.
+
+    Devuelve (ducked_by_cap, floor_by_cap): por chapter_id, el music_volume y el
+    music_volume_floor efectivos.
+    """
+    base_vol = float(mixing.get("music_volume", 0.25))
+    base_floor = float(mixing.get("music_volume_floor", 0.0))
+    by_intent = mixing.get("music_by_intent", {}) or {}
+
+    ducked: dict[str, float] = {}
+    floor: dict[str, float] = {}
+    for p in plans:
+        ov = by_intent.get(p.narrative_intent or "")
+        if ov:
+            ducked[p.chapter_id] = float(ov.get("music_volume", base_vol))
+            floor[p.chapter_id] = float(ov.get("music_volume_floor", base_floor))
+        else:
+            ducked[p.chapter_id] = base_vol
+            floor[p.chapter_id] = base_floor
+    return ducked, floor
+
+
 def _mix_music_into_video(
     video_path: Path,
     music_path: Path,
     sync_map: dict,
     output_path: Path,
+    music_floor_path: Path | None = None,
 ) -> Path:
     """
     Mezcla música con ducking sidechain sobre la narración del video.
@@ -1375,9 +1435,17 @@ def _mix_music_into_video(
 
     Args:
         video_path: MP4 con narración muxeada (no debe tener música).
-        music_path: WAV continuo del paso A.
+        music_path: WAV continuo del paso A (rama ducked).
         sync_map: dict cargado de sync_map.json (para leer params de mixing).
         output_path: MP4 final con música ducked.
+        music_floor_path: chat 39 — si se pasa, activa el modo VOLUMEN POR-CAP:
+            la música llega PRE-ATENUADA por cap en DOS WAVs (music_path = pista
+            ducked-source, music_floor_path = pista floor-source), cada uno con su
+            volumen por-intent ya horneado. El filtro aplica volume=1.0 (ya
+            horneado) y manda SOLO la rama ducked al sidechain; la rama floor va
+            directa. Los params del sidechain (threshold/ratio/attack/release)
+            quedan IDÉNTICOS al chat 32. Si es None → ruta chat 32 original
+            (1 WAV, asplit, volume del sync_map) intacta.
 
     Returns:
         Path al MP4 final.
@@ -1401,44 +1469,88 @@ def _mix_music_into_video(
           f"atk={duck_attack_ms}ms, rel={duck_release_ms}ms, "
           f"init_silence={pad_sec}s")
 
-    # filter_complex breakdown (CHAT 32: rama-piso + padding inicial):
-    # [0:v] = video → tpad clone primer frame por pad_sec al inicio → [v_pad]
-    # [0:a] = audio narración → adelay pad_sec → asplit en 2 → [narr_main][narr_sc]
-    # [1:a] = música → asplit en 2:
-    #   rama-ducked:    volume(music_volume) → sidechaincompress vs [narr_sc] → [music_ducked]
-    #   rama-floor:     volume(music_volume_floor) (SIN ducking) → [music_floor]
-    # amix(narr_main, music_ducked, music_floor) → [mixed]
     pad_ms = int(pad_sec * 1000)
-    filter_complex = (
-        f"[0:v]tpad=start_duration={pad_sec}:start_mode=clone[v_pad];"
-        f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
-        f"[1:a]aresample=44100,asplit=2[music_a][music_b];"
-        f"[music_a]volume={music_volume}[music_lvl];"
-        f"[music_lvl][narr_sc]sidechaincompress="
-        f"threshold={duck_threshold}:"
-        f"ratio={duck_ratio}:"
-        f"attack={duck_attack_ms}:"
-        f"release={duck_release_ms}"
-        f"[music_ducked];"
-        f"[music_b]volume={music_volume_floor}[music_floor];"
-        f"[narr_main][music_ducked][music_floor]amix=inputs=3:duration=longest:"
-        f"dropout_transition=0:normalize=0[mixed]"
-    )
 
-    cmd = [
-        FFMPEG, "-y",
-        "-i", str(video_path),
-        "-i", str(music_path),
-        "-filter_complex", filter_complex,
-        "-map", "[v_pad]",          # CHAT 32: usar el video padeado, no 0:v directo
-        "-map", "[mixed]",
-        "-c:v", "libx264",          # CHAT 32: tpad re-encodea → ya no podemos copy
-        "-pix_fmt", "yuv420p",
-        "-c:a", "aac",
-        "-b:a", "192k",
-        "-shortest",
-        str(output_path),
-    ]
+    if music_floor_path is None:
+        # ─── RUTA CHAT 32 (volumen global) — INTACTA ───
+        # filter_complex breakdown (CHAT 32: rama-piso + padding inicial):
+        # [0:v] = video → tpad clone primer frame por pad_sec al inicio → [v_pad]
+        # [0:a] = audio narración → adelay pad_sec → asplit en 2 → [narr_main][narr_sc]
+        # [1:a] = música → asplit en 2:
+        #   rama-ducked:    volume(music_volume) → sidechaincompress vs [narr_sc] → [music_ducked]
+        #   rama-floor:     volume(music_volume_floor) (SIN ducking) → [music_floor]
+        # amix(narr_main, music_ducked, music_floor) → [mixed]
+        filter_complex = (
+            f"[0:v]tpad=start_duration={pad_sec}:start_mode=clone[v_pad];"
+            f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
+            f"[1:a]aresample=44100,asplit=2[music_a][music_b];"
+            f"[music_a]volume={music_volume}[music_lvl];"
+            f"[music_lvl][narr_sc]sidechaincompress="
+            f"threshold={duck_threshold}:"
+            f"ratio={duck_ratio}:"
+            f"attack={duck_attack_ms}:"
+            f"release={duck_release_ms}"
+            f"[music_ducked];"
+            f"[music_b]volume={music_volume_floor}[music_floor];"
+            f"[narr_main][music_ducked][music_floor]amix=inputs=3:duration=longest:"
+            f"dropout_transition=0:normalize=0[mixed]"
+        )
+        cmd = [
+            FFMPEG, "-y",
+            "-i", str(video_path),
+            "-i", str(music_path),
+            "-filter_complex", filter_complex,
+            "-map", "[v_pad]",          # CHAT 32: usar el video padeado, no 0:v directo
+            "-map", "[mixed]",
+            "-c:v", "libx264",          # CHAT 32: tpad re-encodea → ya no podemos copy
+            "-pix_fmt", "yuv420p",
+            "-c:a", "aac",
+            "-b:a", "192k",
+            "-shortest",
+            str(output_path),
+        ]
+    else:
+        # ─── RUTA CHAT 39 (volumen POR CAP) — música pre-atenuada en 2 WAVs ───
+        # El volumen por-intent (p.ej. shock=0.08/0.03) YA está horneado en cada WAV
+        # (ver _build_music_piece_for_chapter piece_volume). Acá NO se aplica volume=
+        # (sería doble atenuación). El sidechain (threshold/ratio/attack/release) es
+        # BYTE-IDÉNTICO al chat 32 — solo cambia de dónde viene la música:
+        # [0:v] = video → tpad → [v_pad]
+        # [0:a] = narración → adelay → asplit → [narr_main][narr_sc]
+        # [1:a] = música ducked-source (vol por-cap horneado) → sidechaincompress vs [narr_sc]
+        # [2:a] = música floor-source  (vol por-cap horneado) → directa (sin ducking)
+        # amix(narr_main, music_ducked, music_floor) → [mixed]
+        print(f"     CHAT 39: volumen POR CAP (música pre-atenuada en 2 WAVs, "
+              f"sidechain intacto)")
+        filter_complex = (
+            f"[0:v]tpad=start_duration={pad_sec}:start_mode=clone[v_pad];"
+            f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
+            f"[1:a]aresample=44100[music_ducked_src];"
+            f"[music_ducked_src][narr_sc]sidechaincompress="
+            f"threshold={duck_threshold}:"
+            f"ratio={duck_ratio}:"
+            f"attack={duck_attack_ms}:"
+            f"release={duck_release_ms}"
+            f"[music_ducked];"
+            f"[2:a]aresample=44100[music_floor];"
+            f"[narr_main][music_ducked][music_floor]amix=inputs=3:duration=longest:"
+            f"dropout_transition=0:normalize=0[mixed]"
+        )
+        cmd = [
+            FFMPEG, "-y",
+            "-i", str(video_path),
+            "-i", str(music_path),
+            "-i", str(music_floor_path),
+            "-filter_complex", filter_complex,
+            "-map", "[v_pad]",
+            "-map", "[mixed]",
+            "-c:v", "libx264",
+            "-pix_fmt", "yuv420p",
+            "-c:a", "aac",
+            "-b:a", "192k",
+            "-shortest",
+            str(output_path),
+        ]
 
     print(f"     ejecutando ffmpeg sidechain mix...")
     result = _run_cmd(cmd, timeout=900)
@@ -1588,6 +1700,7 @@ def _build_plans(
             supplemental_paths=supp_paths if supp_paths else None,
             supplemental_anchors=supp_anchors if supp_anchors else None,
             veo_position=veo_position,
+            narrative_intent=sm.get("narrative_intent", "") or "",  # chat 39
         ))
     return plans
 
@@ -1805,26 +1918,52 @@ def _assemble_one_video(
         final_path.replace(no_music_path)
         print(f"     backup: {no_music_path.name}")
 
-        # Construir track continuo de música (paso A)
-        print(f"     paso A: track continuo...")
-        music_continuous_path = _build_continuous_music_track(
+        # CHAT 39: volumen de música POR CAP (por narrative_intent). Resolver el
+        # par (ducked, floor) efectivo de cada cap antes de hornear las pistas.
+        mixing = sync_map.get("mixing", {})
+        ducked_by_cap, floor_by_cap = _resolve_music_volumes(plans, mixing)
+        print(f"     volumen por cap (chat 39 por-intent):")
+        for p in plans:
+            base = ducked_by_cap[p.chapter_id] == float(mixing.get("music_volume", 0.25))
+            tag = "" if base else "  ← override"
+            print(f"       [{p.chapter_id}] intent={p.narrative_intent or '—':<12} "
+                  f"ducked={ducked_by_cap[p.chapter_id]:.3f} "
+                  f"floor={floor_by_cap[p.chapter_id]:.3f}{tag}")
+
+        # Construir track continuo de música (paso A) — DOS pistas pre-atenuadas por
+        # cap: ducked-source y floor-source. Cada cap entra con su volumen horneado.
+        print(f"     paso A: tracks continuos (ducked + floor, vol por-cap)...")
+        music_ducked_path = _build_continuous_music_track(
             plans=plans,
             music_map=music_map,
             work_dir=work_dir,
             crossfade_sec=MUSIC_CROSSFADE_SEC,
+            piece_volumes=ducked_by_cap,
+            output_filename="_music_continuous_ducked.wav",
+        )
+        music_floor_path = _build_continuous_music_track(
+            plans=plans,
+            music_map=music_map,
+            work_dir=work_dir,
+            crossfade_sec=MUSIC_CROSSFADE_SEC,
+            piece_volumes=floor_by_cap,
+            output_filename="_music_continuous_floor.wav",
         )
 
         # Mezclar con sidechain (paso B). Output: filename canónico final_path.
-        print(f"     paso B: sidechain mix...")
+        # music_floor_path activa la ruta por-cap (volume=1.0, sidechain intacto).
+        print(f"     paso B: sidechain mix (por-cap)...")
         _mix_music_into_video(
             video_path=no_music_path,
-            music_path=music_continuous_path,
+            music_path=music_ducked_path,
             sync_map=sync_map,
             output_path=final_path,
+            music_floor_path=music_floor_path,
         )
 
-        # Cleanup: WAV intermedio (no_music.mp4 se preserva como backup auditable)
-        music_continuous_path.unlink(missing_ok=True)
+        # Cleanup: WAVs intermedios (no_music.mp4 se preserva como backup auditable)
+        music_ducked_path.unlink(missing_ok=True)
+        music_floor_path.unlink(missing_ok=True)
         print(f"     ✅ música mezclada en {final_path.name}")
 
     final_dur = _get_duration(final_path)

@@ -26,6 +26,14 @@ AUDIO_PROFILES: dict[str, dict] = {
             "duck_ratio": 5,
             "duck_attack_ms": 80,
             "duck_release_ms": 200,
+            # CHAT 39: override de volumen POR narrative_intent. Si un intent NO está
+            # acá, usa los base de arriba (music_volume / music_volume_floor). shock
+            # calibrado de oído por Omar con el mixer tool (ch04) porque shock_curated
+            # es un track denso que se sienta encima de la voz al nivel base 0.26/0.16.
+            # Reusable: cualquier cap "shock" de cualquier video hereda este par.
+            "music_by_intent": {
+                "shock": {"music_volume": 0.08, "music_volume_floor": 0.03},
+            },
         },
         "music_prompt": (
             "Dark cinematic ambient, deep sub-bass, mysterious documentary "
