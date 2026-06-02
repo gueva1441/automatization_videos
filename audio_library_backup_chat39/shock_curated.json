@@ -1,0 +1,30 @@
+{
+  "track_id": "shock_curated",
+  "mp3_filename": "shock_curated.mp3",
+  "intent_origin": "shock",
+  "fits_intents": [
+    "shock"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "topic_source": "curated_chat36",
+  "topic_title": "Curated palette chat 36",
+  "prompt_used": "Dramatic cinematic underscore in F sharp minor. A heavy low cello drone beneath a high dissonant string cluster in violins and violas, screeching and unsettling in the upper register, cutting clearly through. Dark ominous intensity. Designed for seamless background looping under documentary narration. 80 BPM, dark and consistent throughout. STRICTLY AVOID: vocals, lyrics, singing, choir, spoken word, drums, percussion, drum beat, rhythm patterns, kick drum, snare, hi-hat, melody hooks, memorable melodies, vocal-like leads, pop structure, EDM, synthwave, dubstep, trap, verse chorus structure, electric guitar, distortion, harsh synths, intro fade-in, outro fade-out, abrupt ending, sudden silence, build-up drops, upbeat, happy, energetic dance, playful.",
+  "duration_ms": 60000,
+  "cost_usd": null,
+  "generated_at": "2026-06-01T00:53:48.339774",
+  "approved_at": "2026-06-01T00:53:48.339774",
+  "elevenlabs_metadata": {
+    "title": null,
+    "description": "Curated shock track (chat 36): cello bed + high audible color.",
+    "genres": [
+      "dark ambient",
+      "cinematic",
+      "documentary underscore"
+    ],
+    "composition_plan": {}
+  },
+  "times_used": 0,
+  "last_used_at": null
+}
