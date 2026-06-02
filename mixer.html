@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <!--
-  mixer.html — frontend del tool de mezcla ch04 (chat 39). Servido por mixer_server.py.
-  Web Audio para preview EN VIVO (ducking APROXIMADO). El número fiel sale del
-  render real de ffmpeg (botón "Confirmar"). Sin librerías externas. Sin localStorage.
+  mixer.html — frontend MULTI-CAP del tool de mezcla (chat 39 v1 → chat 40 bloque 4).
+  Servido por mixer_server.py. Dropdown de caps → calibrar de oído → render real
+  (ffmpeg, fiel) → GUARDAR en el json del track. Web Audio = preview aproximado del
+  ducking (sin sidechain real en el browser). Sin librerías externas. Sin localStorage.
 -->
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<title>Mixer ch04 — Tuskegee</title>
+<title>Mixer multi-cap — calibrar volumen por track</title>
 <style>
   :root { color-scheme: dark; }
   body { font-family: system-ui, sans-serif; background:#12141a; color:#e8e8ec;
-         margin:0; padding:24px; max-width:760px; }
+         margin:0; padding:24px; max-width:780px; }
   h1 { font-size:20px; margin:0 0 4px; }
   .sub { color:#8a8f9a; font-size:13px; margin-bottom:18px; }
   .card { background:#1b1e26; border:1px solid #2a2e38; border-radius:10px;
           padding:16px 18px; margin-bottom:16px; }
   .big { font-size:15px; }
-  .vals { font-size:26px; font-weight:700; letter-spacing:.5px; font-variant-numeric:tabular-nums; }
+  .vals { font-size:24px; font-weight:700; letter-spacing:.5px; font-variant-numeric:tabular-nums; }
   .vals span { color:#6cc6ff; }
   label { display:block; font-size:13px; color:#aeb4c0; margin:14px 0 4px; }
   .row { display:flex; align-items:center; gap:12px; }
+  select { background:#0f1116; color:#e8e8ec; border:1px solid #3a4356; border-radius:7px;
+           padding:9px 12px; font-size:15px; min-width:280px; }
   input[type=range] { flex:1; accent-color:#6cc6ff; }
   .num { min-width:52px; text-align:right; font-variant-numeric:tabular-nums;
          font-size:15px; font-weight:600; }
@@ -29,29 +32,41 @@
   button:hover { background:#343d50; }
   button.primary { background:#1f6feb; border-color:#1f6feb; }
   button.primary:hover { background:#2a7bf5; }
+  button.save { background:#1f9d57; border-color:#1f9d57; }
+  button.save:hover { background:#25b365; }
   button.small { padding:5px 10px; font-size:12px; }
   button:disabled { opacity:.5; cursor:not-allowed; }
   .note { font-size:12px; color:#8a8f9a; line-height:1.5; }
   .measured { background:#161d18; border-color:#2a3a2e; }
   .measured b { color:#7fd99a; }
   audio { width:100%; margin-top:10px; }
-  .help ol { margin:6px 0 0; padding-left:20px; font-size:12.5px; color:#9aa0ac; line-height:1.6; }
-  .status { font-size:12px; color:#c0a06c; min-height:16px; margin-top:6px; }
+  .status { font-size:12px; min-height:16px; margin-top:6px; }
+  .status.ok { color:#7fd99a; } .status.err { color:#e88; } .status.work { color:#c0a06c; }
   code { background:#262b35; padding:1px 5px; border-radius:4px; font-size:12px; }
+  .pill { background:#262b35; border-radius:20px; padding:2px 10px; font-size:12px; }
 </style>
 </head>
 <body>
 
-<h1>Mixer ch04 — Tuskegee</h1>
-<div class="sub">Encontrá de oído el par <code>music_volume</code> / <code>music_volume_floor</code> que deja oír a Bill claro. El tool imprime los números — vos decidís si los metés en <code>audio_profiles.py</code>.</div>
+<h1>Mixer multi-cap — calibrar volumen por <i>track</i></h1>
+<div class="sub">Elegí un cap, ajustá de oído, escuchá el render real, y <b>Guardá en el track</b>. El número se escribe en <code>audio_library/&lt;track&gt;.json</code> y vale para todos los videos que usen ese track.</div>
+
+<div class="card">
+  <div class="row">
+    <label style="margin:0">Cap</label>
+    <select id="capSel"></select>
+    <span class="pill" id="savedPill">—</span>
+  </div>
+  <div class="note" style="margin-top:8px">⚠ El volumen es del <b>track</b>, no del cap. Si dos caps usan el mismo track, calibrar uno los afecta a ambos. Esto aplica a TODOS los videos que reusen ese track.</div>
+</div>
 
 <div class="card">
   <div class="row" style="gap:16px">
-    <button id="playBtn" class="primary">▶ Play</button>
-    <span class="note" id="loadState">cargando audio…</span>
+    <button id="playBtn" class="primary" disabled>▶ Play</button>
+    <span class="note" id="loadState">elegí un cap…</span>
   </div>
 
-  <label>music_volume <span class="note">(rama ducked — baja cuando habla Bill)</span></label>
+  <label>music_volume <span class="note">(rama ducked — baja cuando habla la voz)</span></label>
   <div class="row">
     <input type="range" id="mvSlider" min="0" max="0.50" step="0.01" value="0.26">
     <span class="num" id="mvNum">0.26</span>
@@ -64,213 +79,209 @@
   </div>
 </div>
 
-<div class="card measured" id="measuredCard">
-  <div class="note" id="measuredNote">midiendo punto de partida…</div>
+<div class="card measured">
+  <div class="note" id="measuredNote">—</div>
   <div style="margin-top:10px">
-    <button class="small" id="defaultBtn">volver al default del perfil (0.26 / 0.16)</button>
-    <button class="small" id="suggestBtn">ir al punto medido</button>
+    <button class="small" id="savedBtn">ir al guardado</button>
+    <button class="small" id="suggestBtn">ir al medido</button>
+    <button class="small" id="baseBtn">ir al base del perfil</button>
   </div>
 </div>
 
 <div class="card">
-  <div class="big">Valores actuales (para copiar):</div>
+  <div class="big">Valores actuales:</div>
   <div class="vals">music_volume = <span id="mvBig">0.26</span> &nbsp; floor = <span id="mvfBig">0.16</span></div>
 </div>
 
 <div class="card">
-  <button id="renderBtn" class="primary">✓ Confirmar con render real (ffmpeg)</button>
-  <div class="status" id="renderStatus"></div>
-  <div class="note" style="margin-top:8px">El preview de arriba es <b>aproximado</b> en el ducking (Web Audio no tiene sidechain real). Este render es el <b>fiel</b> — el ducking exacto de ffmpeg con esos números.</div>
+  <div class="row" style="gap:12px; flex-wrap:wrap">
+    <button id="renderBtn" class="primary">✓ Render real (ffmpeg)</button>
+    <button id="saveBtn" class="save">💾 Guardar en el track</button>
+  </div>
+  <div class="status work" id="renderStatus"></div>
+  <div class="status" id="saveStatus"></div>
   <audio id="renderAudio" controls></audio>
-</div>
-
-<div class="card help">
-  <div class="big">Cómo usarlo</div>
-  <ol>
-    <li>Play → suena voz + música con los sliders.</li>
-    <li>Mové los sliders en vivo hasta que Bill se oiga claro y la cama siga presente.</li>
-    <li>"Confirmar con render real" → escuchá el ducking exacto de ffmpeg con esos números.</li>
-    <li>Si confirma al oído → copiá los 2 números del cartel.</li>
-    <li>(Manual, fuera del tool) decidís si los metés en <code>audio_profiles.py</code> MISTERIO_ABISAL. ⚠ Es <b>global</b> → afecta los 7 caps; validá los 7 al regenerar.</li>
-  </ol>
+  <div class="note" style="margin-top:8px">El render real es el <b>fiel</b> (ducking exacto de ffmpeg). El preview de Play arriba es aproximado. Guardar escribe el json del track al instante.</div>
 </div>
 
 <script>
-// ─── estado de params del perfil (llega de /defaults) ───
-let PROFILE = { music_volume:0.26, music_volume_floor:0.16, duck_threshold:0.03,
-                duck_ratio:5, duck_attack_ms:80, duck_release_ms:200 };
-
 const $ = id => document.getElementById(id);
-const mvSlider = $('mvSlider'), mvfSlider = $('mvfSlider');
+const capSel = $('capSel'), mvSlider = $('mvSlider'), mvfSlider = $('mvfSlider');
 
-// ─── Web Audio ───
-let audioCtx = null, voiceBuf = null, musicBuf = null;
-let voiceSrc = null, musicSrc = null;
-let musicDuckGain = null, musicFloorGain = null, voiceAnalyser = null;
-let playing = false, duckRAF = null;
+let PROFILE = { duck_threshold:0.03, duck_ratio:5, duck_attack_ms:80, duck_release_ms:200 };
+let CUR = null;   // {cap, suggested:{mv,mvf}, saved:{mv,mvf|null}, base:{mv,mvf}}
 
-async function loadBuffers() {
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  const fetchBuf = async url => {
-    const r = await fetch(url);
-    const ab = await r.arrayBuffer();
-    return await audioCtx.decodeAudioData(ab);
-  };
+// ─── Web Audio (preview aproximado) ───
+let audioCtx=null, voiceBuf=null, musicBuf=null, voiceSrc=null, musicSrc=null;
+let musicDuckGain=null, musicFloorGain=null, voiceAnalyser=null, playing=false, duckRAF=null;
+
+async function fetchBuf(url) {
+  const ab = await (await fetch(url)).arrayBuffer();
+  return await audioCtx.decodeAudioData(ab);
+}
+
+function stopPlayback() {
+  if (duckRAF) cancelAnimationFrame(duckRAF), duckRAF=null;
+  try { voiceSrc && voiceSrc.stop(); } catch(e){}
+  try { musicSrc && musicSrc.stop(); } catch(e){}
+  playing=false; $('playBtn').textContent='▶ Play';
+}
+
+async function loadCapAudio(cap) {
+  if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  stopPlayback();
+  $('playBtn').disabled = true;
+  $('loadState').textContent = 'cargando audio del cap…';
   [voiceBuf, musicBuf] = await Promise.all([
-    fetchBuf('/audio/voice'), fetchBuf('/audio/music')
+    fetchBuf('/audio/voice?cap='+cap), fetchBuf('/audio/music?cap='+cap)
   ]);
   $('loadState').textContent = 'audio listo — dale Play';
   $('playBtn').disabled = false;
 }
 
 function buildGraph() {
-  // voz → analyser (para detectar nivel) → destino (ref, ganancia fija 1.0)
-  voiceSrc = audioCtx.createBufferSource();
-  voiceSrc.buffer = voiceBuf;
-  voiceAnalyser = audioCtx.createAnalyser();
-  voiceAnalyser.fftSize = 1024;
-  voiceSrc.connect(voiceAnalyser);
-  voiceAnalyser.connect(audioCtx.destination);
-
-  // música → 2 ramas paralelas: ducked (modulada) + floor (constante)
-  musicSrc = audioCtx.createBufferSource();
-  musicSrc.buffer = musicBuf;
-  musicSrc.loop = true;                       // loop si es más corta que la voz
-  musicDuckGain = audioCtx.createGain();
-  musicFloorGain = audioCtx.createGain();
+  voiceSrc = audioCtx.createBufferSource(); voiceSrc.buffer = voiceBuf;
+  voiceAnalyser = audioCtx.createAnalyser(); voiceAnalyser.fftSize = 1024;
+  voiceSrc.connect(voiceAnalyser); voiceAnalyser.connect(audioCtx.destination);
+  musicSrc = audioCtx.createBufferSource(); musicSrc.buffer = musicBuf; musicSrc.loop = true;
+  musicDuckGain = audioCtx.createGain(); musicFloorGain = audioCtx.createGain();
   musicDuckGain.gain.value = parseFloat(mvSlider.value);
   musicFloorGain.gain.value = parseFloat(mvfSlider.value);
   musicSrc.connect(musicDuckGain).connect(audioCtx.destination);
   musicSrc.connect(musicFloorGain).connect(audioCtx.destination);
 }
 
-// Ducking APROXIMADO: NO es sidechaincompress real (Web Audio no lo tiene). Lee el
-// RMS de la voz por frame; si la voz supera el threshold, empuja musicDuckGain hacia
-// music_volume/ratio (release suave); si calla, vuelve a music_volume (attack). El
-// fiel es el render de confirmación.
+// Ducking APROXIMADO (no es sidechaincompress real). El fiel es el render.
 function duckLoop() {
   const buf = new Float32Array(voiceAnalyser.fftSize);
   const tick = () => {
     voiceAnalyser.getFloatTimeDomainData(buf);
-    let sum = 0;
-    for (let i = 0; i < buf.length; i++) sum += buf[i] * buf[i];
-    const rms = Math.sqrt(sum / buf.length);
+    let sum=0; for (let i=0;i<buf.length;i++) sum += buf[i]*buf[i];
+    const rms = Math.sqrt(sum/buf.length);
     const mv = parseFloat(mvSlider.value);
     const speaking = rms > PROFILE.duck_threshold;
-    const target = speaking ? mv / PROFILE.duck_ratio : mv;
-    const tc = speaking ? PROFILE.duck_attack_ms / 1000 : PROFILE.duck_release_ms / 1000;
-    musicDuckGain.gain.setTargetAtTime(target, audioCtx.currentTime, Math.max(tc, 0.01));
+    const target = speaking ? mv/PROFILE.duck_ratio : mv;
+    const tc = (speaking ? PROFILE.duck_attack_ms : PROFILE.duck_release_ms)/1000;
+    musicDuckGain.gain.setTargetAtTime(target, audioCtx.currentTime, Math.max(tc,0.01));
     duckRAF = requestAnimationFrame(tick);
   };
   tick();
 }
 
 async function play() {
-  if (!audioCtx) return;
+  if (!audioCtx || !voiceBuf) return;
   if (audioCtx.state === 'suspended') await audioCtx.resume();
   buildGraph();
-  const t0 = audioCtx.currentTime + 0.05;     // START sincronizado
-  voiceSrc.start(t0);
-  musicSrc.start(t0);
-  duckLoop();
-  playing = true;
-  $('playBtn').textContent = '⏸ Pause';
-  voiceSrc.onended = () => { if (playing) stop(); };
+  const t0 = audioCtx.currentTime + 0.05;
+  voiceSrc.start(t0); musicSrc.start(t0); duckLoop();
+  playing=true; $('playBtn').textContent='⏸ Pause';
+  voiceSrc.onended = () => { if (playing) stopPlayback(); };
 }
+$('playBtn').onclick = () => playing ? stopPlayback() : play();
 
-function stop() {
-  if (duckRAF) cancelAnimationFrame(duckRAF), duckRAF = null;
-  try { voiceSrc && voiceSrc.stop(); } catch(e){}
-  try { musicSrc && musicSrc.stop(); } catch(e){}
-  playing = false;
-  $('playBtn').textContent = '▶ Play';
-}
-
-$('playBtn').onclick = () => playing ? stop() : play();
-
-// ─── sliders → GainNodes en vivo + labels ───
+// ─── sliders ───
 function refreshLabels() {
-  const mv = parseFloat(mvSlider.value).toFixed(2);
-  const mvf = parseFloat(mvfSlider.value).toFixed(2);
-  $('mvNum').textContent = mv;  $('mvfNum').textContent = mvf;
-  $('mvBig').textContent = mv;  $('mvfBig').textContent = mvf;
+  const mv = parseFloat(mvSlider.value).toFixed(2), mvf = parseFloat(mvfSlider.value).toFixed(2);
+  $('mvNum').textContent=mv; $('mvfNum').textContent=mvf; $('mvBig').textContent=mv; $('mvfBig').textContent=mvf;
 }
-mvSlider.oninput = () => {
-  // musicDuckGain lo maneja el duckLoop (usa el slider directo); floor es directo
-  refreshLabels();
-};
+mvSlider.oninput = refreshLabels;
 mvfSlider.oninput = () => {
-  if (musicFloorGain) musicFloorGain.gain.setTargetAtTime(
-    parseFloat(mvfSlider.value), audioCtx.currentTime, 0.02);
+  if (musicFloorGain) musicFloorGain.gain.setTargetAtTime(parseFloat(mvfSlider.value), audioCtx.currentTime, 0.02);
   refreshLabels();
 };
-
-// ─── /defaults + /suggested_start ───
-async function loadDefaults() {
-  try {
-    const d = await (await fetch('/defaults')).json();
-    PROFILE = Object.assign(PROFILE, d);
-  } catch(e) { console.warn('defaults falló', e); }
-}
-
 function setSliders(mv, mvf) {
-  mvSlider.value = mv; mvfSlider.value = mvf;
-  refreshLabels();
+  mvSlider.value = mv; mvfSlider.value = mvf; refreshLabels();
   if (musicFloorGain) musicFloorGain.gain.setTargetAtTime(mvf, audioCtx.currentTime, 0.02);
 }
+$('savedBtn').onclick   = () => CUR && CUR.saved && setSliders(CUR.saved.mv, CUR.saved.mvf);
+$('suggestBtn').onclick = () => CUR && setSliders(CUR.suggested.mv, CUR.suggested.mvf);
+$('baseBtn').onclick    = () => CUR && setSliders(CUR.base.mv, CUR.base.mvf);
 
-let SUGGESTED = null;
-async function loadSuggested() {
+// ─── carga de cap ───
+async function onSelectCap() {
+  const cap = capSel.value;
+  $('renderStatus').textContent=''; $('saveStatus').textContent='';
   try {
-    const s = await (await fetch('/suggested_start')).json();
+    const s = await (await fetch('/suggested_start?cap='+cap)).json();
     if (s.error) throw new Error(s.error);
-    SUGGESTED = s;
+    CUR = {
+      cap,
+      suggested: { mv: s.music_volume_suggested, mvf: s.music_volume_floor_suggested },
+      saved: (s.music_volume_saved!=null) ? { mv: s.music_volume_saved, mvf: s.music_volume_floor_saved } : null,
+      base: { mv: s.base_music_volume, mvf: s.base_music_volume_floor },
+    };
+    const savedTxt = CUR.saved ? `${CUR.saved.mv} / ${CUR.saved.mvf}` : 'sin calibrar';
+    $('savedPill').textContent = 'json: ' + savedTxt;
+    $('savedBtn').disabled = !CUR.saved;
     $('measuredNote').innerHTML =
-      `<b>Punto de partida medido:</b> voz en banda 1–4 kHz = ${s.voz_band_db} dB, ` +
-      `música = ${s.mus_band_db} dB → arranco la música a ${s.headroom_db} dB debajo → ` +
-      `<b>music_volume ≈ ${s.music_volume_suggested}</b>, floor ≈ ${s.music_volume_floor_suggested}. ` +
+      `<b>${cap} — ${s.track_id}</b> · voz banda 1–4 kHz = ${s.voz_band_db} dB, música = ${s.mus_band_db} dB → ` +
+      `medido <b>${s.music_volume_suggested}/${s.music_volume_floor_suggested}</b> · ` +
+      `guardado ${CUR.saved ? '<b>'+CUR.saved.mv+'/'+CUR.saved.mvf+'</b>' : '—'} · ` +
+      `base ${s.base_music_volume}/${s.base_music_volume_floor}. ` +
       `<span class="note">${s.note}</span>`;
-    setSliders(s.music_volume_suggested, s.music_volume_floor_suggested);  // PRE-posicionar
+    // sliders: saved si hay, sino suggested
+    const init = CUR.saved || CUR.suggested;
+    setSliders(init.mv, init.mvf);
+    await loadCapAudio(cap);
   } catch(e) {
-    $('measuredNote').textContent = 'no se pudo medir el punto de partida (' + e.message + ') — arranco en el default del perfil';
-    setSliders(PROFILE.music_volume, PROFILE.music_volume_floor);
+    $('measuredNote').textContent = 'error cargando '+cap+': '+e.message;
+    $('loadState').textContent = '—';
   }
 }
-
-$('defaultBtn').onclick = () => setSliders(PROFILE.music_volume, PROFILE.music_volume_floor);
-$('suggestBtn').onclick = () => SUGGESTED && setSliders(SUGGESTED.music_volume_suggested, SUGGESTED.music_volume_floor_suggested);
+capSel.onchange = onSelectCap;
 
 // ─── render real ───
 $('renderBtn').onclick = async () => {
+  if (!CUR) return;
   const mv = parseFloat(mvSlider.value), mvf = parseFloat(mvfSlider.value);
-  const btn = $('renderBtn'), st = $('renderStatus');
-  btn.disabled = true;
-  st.textContent = `renderizando con ffmpeg (mv=${mv.toFixed(2)}, floor=${mvf.toFixed(2)})… puede tardar`;
+  const btn=$('renderBtn'), st=$('renderStatus');
+  btn.disabled=true; st.className='status work';
+  st.textContent = `renderizando ${CUR.cap} (mv=${mv.toFixed(2)}, floor=${mvf.toFixed(2)})… puede tardar`;
   try {
-    const r = await fetch('/render_confirm', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ music_volume: mv, music_volume_floor: mvf })
-    });
-    if (!r.ok) {
-      const err = await r.json().catch(()=>({error:r.statusText}));
-      throw new Error(err.error || r.statusText);
-    }
-    const blob = await r.blob();
-    $('renderAudio').src = URL.createObjectURL(blob);
-    st.textContent = `✓ render real listo (mv=${mv.toFixed(2)}, floor=${mvf.toFixed(2)}) — escuchá el ducking fiel abajo`;
-  } catch(e) {
-    st.textContent = '❌ render falló: ' + e.message;
-  } finally {
-    btn.disabled = false;
-  }
+    const r = await fetch('/render_confirm', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({cap: CUR.cap, music_volume: mv, music_volume_floor: mvf})});
+    if (!r.ok) { const e = await r.json().catch(()=>({error:r.statusText})); throw new Error(e.error||r.statusText); }
+    $('renderAudio').src = URL.createObjectURL(await r.blob());
+    st.className='status ok';
+    st.textContent = `✓ render real ${CUR.cap} (mv=${mv.toFixed(2)}, floor=${mvf.toFixed(2)}) — escuchá el ducking fiel`;
+  } catch(e) { st.className='status err'; st.textContent='❌ render falló: '+e.message; }
+  finally { btn.disabled=false; }
+};
+
+// ─── guardar en el track ───
+$('saveBtn').onclick = async () => {
+  if (!CUR) return;
+  const mv = parseFloat(mvSlider.value), mvf = parseFloat(mvfSlider.value);
+  const btn=$('saveBtn'), st=$('saveStatus');
+  btn.disabled=true; st.className='status work'; st.textContent='guardando en el json del track…';
+  try {
+    const r = await fetch('/save', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({cap: CUR.cap, music_volume: mv, music_volume_floor: mvf})});
+    const res = await r.json();
+    if (!r.ok || res.error) throw new Error(res.error||r.statusText);
+    CUR.saved = { mv: res.music_volume, mvf: res.music_volume_floor };
+    $('savedPill').textContent = 'json: ' + res.music_volume + ' / ' + res.music_volume_floor;
+    $('savedBtn').disabled = false;
+    st.className='status ok';
+    st.textContent = `✓ guardado en ${res.json_path} (track=${res.track_id}): ${res.music_volume} / ${res.music_volume_floor}`;
+  } catch(e) { st.className='status err'; st.textContent='❌ guardar falló: '+e.message; }
+  finally { btn.disabled=false; }
 };
 
 // ─── init ───
-$('playBtn').disabled = true;
 (async () => {
-  await loadDefaults();
-  await loadBuffers();
-  await loadSuggested();
+  try { PROFILE = Object.assign(PROFILE, await (await fetch('/defaults')).json()); } catch(e){}
+  try {
+    const caps = await (await fetch('/caps')).json();
+    capSel.innerHTML = '';
+    caps.forEach(c => {
+      const o = document.createElement('option');
+      o.value = c.cap; o.textContent = `${c.cap} — ${c.track_id}` + (c.skipped ? ' (skipped)' : '');
+      if (c.skipped) o.disabled = true;
+      capSel.appendChild(o);
+    });
+    if (caps.length) await onSelectCap();
+  } catch(e) { $('loadState').textContent = 'error cargando /caps: '+e.message; }
 })();
 </script>
 </body>
