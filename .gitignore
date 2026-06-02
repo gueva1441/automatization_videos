@@ -39,3 +39,8 @@ hook_pripyat_*.json
 .claude/
 .DS_Store
 Thumbs.db
+
+# Labs descartables chat 37
+_lab_forcealign_7caps_chat37/
+_lab_forcealign_chat37/
+_lab_timestamps_chat37/
