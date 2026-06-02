@@ -1383,32 +1383,45 @@ def _build_continuous_music_track(
 def _resolve_music_volumes(
     plans: list[ChapterPlan],
     mixing: dict,
+    music_map: dict[str, dict[str, Any]],
 ) -> tuple[dict[str, float], dict[str, float]]:
     """
-    chat 39 — resuelve el volumen de música POR CAP según su narrative_intent.
+    chat 40 — el volumen de música es propiedad del TRACK, no del intent ni del
+    video. Lee {music_volume, music_volume_floor} del audio_library/<track>.json
+    (al lado del mp3, via music_map). Si el json no tiene las claves → cae al BASE
+    del perfil (music_volume / music_volume_floor del sync_map mixing). Así los
+    tracks no calibrados quedan en 0.26/0.16 sin tocarse.
 
-    Lee `mixing["music_by_intent"]` (override por intent, ver audio_profiles). Si el
-    intent del cap NO está en el dict (o el cap no tiene intent) → usa el volumen
-    BASE del perfil (music_volume / music_volume_floor). Así los 6 intents no
-    calibrados siguen con 0.26/0.16 y solo shock baja a 0.08/0.03.
+    Por qué por-track y no por-intent (chat 39, eliminado): el 0.08 sale del masking
+    espectral del mp3 puntual; pinearlo al intent asume que detrás de "shock" siempre
+    está ese mismo track (falso al cambiar de nicho). El número viaja con el track.
 
     Devuelve (ducked_by_cap, floor_by_cap): por chapter_id, el music_volume y el
     music_volume_floor efectivos.
     """
     base_vol = float(mixing.get("music_volume", 0.25))
     base_floor = float(mixing.get("music_volume_floor", 0.0))
-    by_intent = mixing.get("music_by_intent", {}) or {}
-
     ducked: dict[str, float] = {}
     floor: dict[str, float] = {}
     for p in plans:
-        ov = by_intent.get(p.narrative_intent or "")
-        if ov:
-            ducked[p.chapter_id] = float(ov.get("music_volume", base_vol))
-            floor[p.chapter_id] = float(ov.get("music_volume_floor", base_floor))
-        else:
-            ducked[p.chapter_id] = base_vol
-            floor[p.chapter_id] = base_floor
+        vol, flr = base_vol, base_floor
+        track_info = music_map.get(p.chapter_id)
+        if track_info:
+            mp3_abs = _resolve_music_track_path(track_info)
+            if mp3_abs is not None:
+                json_path = mp3_abs.with_suffix(".json")
+                if json_path.exists():
+                    try:
+                        meta = json.loads(json_path.read_text(encoding="utf-8"))
+                        if "music_volume" in meta:
+                            vol = float(meta["music_volume"])
+                        if "music_volume_floor" in meta:
+                            flr = float(meta["music_volume_floor"])
+                    except (json.JSONDecodeError, OSError, ValueError) as e:
+                        print(f"     ⚠ [{p.chapter_id}] json del track ilegible "
+                              f"({type(e).__name__}) → base {base_vol}/{base_floor}")
+        ducked[p.chapter_id] = vol
+        floor[p.chapter_id] = flr
     return ducked, floor
 
 
@@ -1918,17 +1931,19 @@ def _assemble_one_video(
         final_path.replace(no_music_path)
         print(f"     backup: {no_music_path.name}")
 
-        # CHAT 39: volumen de música POR CAP (por narrative_intent). Resolver el
-        # par (ducked, floor) efectivo de cada cap antes de hornear las pistas.
+        # CHAT 40: volumen de música POR TRACK (leído del audio_library/<track>.json
+        # vía music_map; base del perfil como fallback). Resolver el par (ducked,
+        # floor) efectivo de cada cap antes de hornear las pistas.
         mixing = sync_map.get("mixing", {})
-        ducked_by_cap, floor_by_cap = _resolve_music_volumes(plans, mixing)
-        print(f"     volumen por cap (chat 39 por-intent):")
+        ducked_by_cap, floor_by_cap = _resolve_music_volumes(plans, mixing, music_map)
+        print(f"     volumen por cap (chat 40 por-track):")
         for p in plans:
-            base = ducked_by_cap[p.chapter_id] == float(mixing.get("music_volume", 0.25))
-            tag = "" if base else "  ← override"
-            print(f"       [{p.chapter_id}] intent={p.narrative_intent or '—':<12} "
+            src = "base" if ducked_by_cap[p.chapter_id] == float(mixing.get("music_volume", 0.25)) else "json"
+            ti = music_map.get(p.chapter_id) or {}
+            tid = ti.get("track_id", "—")
+            print(f"       [{p.chapter_id}] track={tid:<22} "
                   f"ducked={ducked_by_cap[p.chapter_id]:.3f} "
-                  f"floor={floor_by_cap[p.chapter_id]:.3f}{tag}")
+                  f"floor={floor_by_cap[p.chapter_id]:.3f} ({src})")
 
         # Construir track continuo de música (paso A) — DOS pistas pre-atenuadas por
         # cap: ducked-source y floor-source. Cada cap entra con su volumen horneado.

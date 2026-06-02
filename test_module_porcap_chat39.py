@@ -4,7 +4,10 @@ test_module_porcap_chat39.py — Smoke AISLADO del volumen de música POR INTENT
 NO corre el video entero. Valida por MEDICIÓN (ffmpeg volumedetect) las 4 cosas que
 cambiaron, sin tocar el pipeline:
 
-  A. _resolve_music_volumes: shock → 0.08/0.03, no-shock → 0.26/0.16 (base intacto).
+  (A. la resolución de volumen se movió a test_module_40_volumen_por_track.py en el
+      chat 40 — el volumen ahora es propiedad del track json, no de music_by_intent.
+      Este test quedó como cobertura de la MECÁNICA del mix, independiente del origen
+      de los números.)
   B. Nivel POR CAP horneado en la pieza: piece_volume atenúa exactamente 20·log10(v) dB.
   C. _build_continuous_music_track con piece_volumes + output_filename construye DOS
      pistas (ducked + floor) y cada CAP queda a su nivel (vs una pista de referencia
@@ -31,7 +34,6 @@ from fase2b import (
     _build_continuous_music_track,
     _build_music_piece_for_chapter,
     _get_duration,
-    _resolve_music_volumes,
     _run_cmd,
 )
 
@@ -76,25 +78,6 @@ def main() -> int:
     print(f"  track: {TRACK.name}\n")
 
     try:
-        # ─── A. resolver de volumen por intent ───
-        print("  [A] _resolve_music_volumes (shock override vs base)")
-        plans = [
-            _fake_plan("ch01", "setup", 8.0, tmp),   # no-shock → base
-            _fake_plan("ch04", "shock", 8.0, tmp),   # shock → override
-            _fake_plan("ch07", "", 8.0, tmp),        # sin intent → base
-        ]
-        ducked, floor = _resolve_music_volumes(plans, MIXING)
-        cases = [
-            ("ch04 ducked", ducked["ch04"], 0.08), ("ch04 floor", floor["ch04"], 0.03),
-            ("ch01 ducked", ducked["ch01"], 0.26), ("ch01 floor", floor["ch01"], 0.16),
-            ("ch07 ducked", ducked["ch07"], 0.26), ("ch07 floor", floor["ch07"], 0.16),
-        ]
-        for name, got, exp in cases:
-            ok = abs(got - exp) < 1e-9
-            print(f"      {name:14} = {got:.3f}  (esperado {exp})  {'OK' if ok else 'FAIL'}")
-            if not ok:
-                fails.append(f"A: {name} = {got}, esperado {exp}")
-
         # ─── B. nivel por-cap horneado en la pieza ───
         print("\n  [B] piece_volume hornea 20·log10(v) dB en la pieza")
         ref_piece = tmp / "piece_ref.wav"
@@ -120,7 +103,10 @@ def main() -> int:
             "ch04": {"mp3_path": "audio_library/shock_curated.mp3", "match_source": "reused"},
         }
         cplans = [_fake_plan("ch01", "setup", 8.0, tmp), _fake_plan("ch04", "shock", 8.0, tmp)]
-        cduck, cfloor = _resolve_music_volumes(cplans, MIXING)
+        # Volúmenes fijos (este test cubre la MECÁNICA del horneado, no la resolución
+        # — esa vive en test_module_40). ch04=shock 0.08/0.03, ch01=no-shock 0.26/0.16.
+        cduck = {"ch01": 0.26, "ch04": 0.08}
+        cfloor = {"ch01": 0.16, "ch04": 0.03}
         ref_wav = _build_continuous_music_track(
             cplans, cmusic_map, tmp, crossfade_sec=2.0,
             piece_volumes={"ch01": 1.0, "ch04": 1.0}, output_filename="cont_ref.wav")
@@ -187,7 +173,8 @@ def main() -> int:
         for f in fails:
             print(f"    - {f}")
         return 1
-    print("  [OK] smoke por-cap chat 39: A+B+C+D pasaron.")
+    print("  [OK] smoke mecánica del mix (chat 39): B+C+D pasaron. "
+          "(A → test_module_40)")
     print("  Tabla de niveles medidos arriba. Gate de oído (video completo) = Omar.")
     return 0
 
