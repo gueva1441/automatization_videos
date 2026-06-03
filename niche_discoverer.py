@@ -510,6 +510,24 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
         print("     Posibles causas: proxy caído, rate limit, o get_channel del fork falló.")
         return []
 
+    # ─── CHAT 42: dedupe CROSS-nicho (un video puede matchear puertas de 2 nichos,
+    # ej. UFO en espacio Y oceano). compute_outlier_filter ya dedupea DENTRO de un
+    # nicho; acá, sobre el pool unido, nos quedamos con la entrada de MAYOR ratio. ───
+    by_vid: dict[str, dict] = {}
+    for c in all_viral:
+        vid = c.get("video_id") or ""
+        if not vid:                       # sin video_id no se puede dedupe → conservar
+            by_vid[f"_novid_{id(c)}"] = c
+            continue
+        prev = by_vid.get(vid)
+        if prev is None or (c.get("ratio") or 0) > (prev.get("ratio") or 0):
+            by_vid[vid] = c
+    dropped = len(all_viral) - len(by_vid)
+    if dropped:
+        print(f"\n  🔁 dedupe cross-nicho: {dropped} duplicado(s) removido(s) "
+              f"(se conservó el de mayor ratio)")
+    all_viral = list(by_vid.values())
+
     # ─── GATE 4: dry-run → tabla + corte antes de Gemini/competencia/persistencia ───
     if dry_run:
         _print_dry_run_table(all_viral)
