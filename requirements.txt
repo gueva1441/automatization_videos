@@ -51,7 +51,7 @@ pytrends==4.9.2
 PyYAML==6.0.3
 requests==2.33.1
 rich==15.0.0
-scrapetube==2.6.0
+scrapetube @ git+https://github.com/night-0909/scrapetube  # CHAT 42: fork revive get_channel (oficial 2.6.0 cuelga)
 shellingham==1.5.4
 six==1.17.0
 sniffio==1.3.1

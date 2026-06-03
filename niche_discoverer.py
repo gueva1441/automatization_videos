@@ -49,6 +49,8 @@ from script_engine.youtube_scanner import (
     count_competing_spanish,
     extract_anchors,
     search_viral_english,
+    compute_outlier_filter,        # CHAT 42: filtro de unión (outlier ratio OR volumen)
+    EN_CANDIDATES_PER_QUERY,
 )
 
 
@@ -109,7 +111,11 @@ SPY_TOP_PER_QUERY: int = 3              # Top N virales EN por query
 SPY_ES_WINDOW_MONTHS: int = 3           # Ventana "fresco" ES para hueco de mercado
 SPY_ES_MIN_VIEWS: int = 50_000          # Umbral para contar como competencia
 SPY_MAX_COMPETING_FOR_GAP: int = 1      # ≤1 video ES con ≥50k en 3 meses = hueco
-SPY_MIN_EN_VIEWS: int = 300_000       # Viral EN = ≥ 1M views último mes
+# DEPRECATED chat42: el filtro absoluto se reemplazó por el filtro de unión
+# (youtube_scanner.compute_outlier_filter). Se CONSERVA solo como referencia de
+# comparación ("viejo≥300k") en el dry-run. El tuning del filtro nuevo vive en
+# youtube_scanner.py (OUTLIER_MIN / PISO_MEDIANA / ABS_FLOOR / PISO_DEMANDA).
+SPY_MIN_EN_VIEWS: int = 300_000       # (deprecado como filtro; ref de comparación)
 
 ARCH_MIN_CANDIDATES: int = 5            # Candidatos mínimos de Gemini
 ARCH_MAX_CANDIDATES: int = 10           # Candidatos máximos (evita gasto excesivo)
@@ -248,6 +254,10 @@ def _is_cache_fresh(entry: dict) -> bool:
 @error_handler.retry(PipelineStage.NICHE_DISCOVERER)
 def _gemini_generate_queries(niche_key: str) -> list[str]:
     """
+    DEPRECATED chat42: frente invertido, ya NO se llama (las queries ahora son las
+    PUERTAS fijas niche["en_queries"]). Se conserva para reversibilidad (ver §8 handoff).
+    NO borrar.
+
     Llama a Gemini Flash para generar DYNAMIC_QUERIES_COUNT queries virales
     en inglés para el nicho dado.
 
@@ -318,6 +328,9 @@ Formato exacto:
 
 def _get_dynamic_queries(niche_key: str) -> list[str]:
     """
+    DEPRECATED chat42: frente invertido, ya NO se llama desde _run_spy_arbitrage
+    (ahora usa niche["en_queries"] directo). Se conserva para reversibilidad. NO borrar.
+
     Devuelve las queries a usar para el nicho dado, priorizando:
       1. [CACHÉ]     — si existe y es reciente (<24h)
       2. [DINÁMICAS] — llamando a Gemini Flash
@@ -433,45 +446,80 @@ Formato:
             })
     return result
 
-def _run_spy_arbitrage(niche_keys: list[str]) -> list[dict]:
-    """
-    Modo A — SPY-ARBITRAGE.
-    Flujo:
-      1. Por cada nicho y query → search_viral_english (top N)
-      2. Traduce títulos a ES en bulk con Gemini (1 sola llamada)
-      3. Por cada tema ES → count_competing_spanish CON ANCLAS (últimos 3 meses)
-      4. Si competing_count ≤ 1 → HUECO DE MERCADO → se crea seed
-    """
-    print(f"\n  🕵️  Iniciando SPY-ARBITRAGE para {len(niche_keys)} nicho(s)\n")
+def _print_dry_run_table(rows: list[dict]) -> None:
+    """GATE 4 (chat 42): tabla de candidatos que pasaron el filtro de unión, con la
+    evidencia (views/median/ratio/razón) para el ojo de Omar. viejo = filtro absoluto
+    deprecado (≥300k) para comparar."""
+    print(f"\n  {'nicho':<11} {'título':<42} {'views':>11} {'mediana':>10} "
+          f"{'ratio':>7} {'razón':>8} {'viejo≥300k':>10}")
+    print("  " + "─" * 104)
+    for r in sorted(rows, key=lambda x: (x.get("root_niche") or "", -(x.get("ratio") or 0))):
+        t = r.get("original_title") or r.get("title") or ""
+        t = (t[:40] + "…") if len(t) > 41 else t
+        med = f"{r['median']:,.0f}" if r.get("median") is not None else "—"
+        ratio = f"{r['ratio']:.1f}x" if r.get("ratio") else "—"
+        old = "✅" if (r.get("views") or 0) >= SPY_MIN_EN_VIEWS else "·"
+        print(f"  {(r.get('root_niche') or '—'):<11} {t:<42} {r.get('views', 0):>11,} "
+              f"{med:>10} {ratio:>7} {r.get('passed_reason', ''):>8} {old:>10}")
 
-    # ─── Paso 1: recolectar virales EN ───
+
+def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dict]:
+    """
+    Modo A — SPY-ARBITRAGE (CHAT 42: flujo INVERTIDO).
+    Flujo:
+      1. Por nicho → PUERTAS FIJAS (niche["en_queries"]) → search_viral_english SIN
+         filtro absoluto → compute_outlier_filter (ratio get_channel-fork OR volumen,
+         + dedupe por video_id).                                          [NUEVO]
+      2. Traduce títulos a ES en bulk con Gemini (1 sola llamada).        [SE QUEDA]
+      3. Por cada tema ES → count_competing_spanish CON ANCLAS.           [SE QUEDA]
+      4. Si competing_count ≤ 1 → HUECO DE MERCADO → se crea seed.
+
+    dry_run=True (GATE 4): imprime la tabla de candidatos (views/median/ratio/passes)
+    y los corta ANTES de traducir/competir/persistir (no gasta Gemini ni escribe nada).
+    El frente Gemini viejo (_get_dynamic_queries) queda deprecado, no se llama.
+    """
+    print(f"\n  🕵️  Iniciando SPY-ARBITRAGE (flujo invertido) para {len(niche_keys)} nicho(s)\n")
+
+    # ─── Paso 1: recolectar candidatos EN por PUERTAS + filtro de unión ───
     all_viral = []
     for niche_key in niche_keys:
         niche = ROOT_NICHES[niche_key]
         print(f"  {niche['emoji']} {niche['es_name']}")
 
-        # Queries dinámicas (con caché 24h + fallback a estáticas)
-        queries = _get_dynamic_queries(niche_key)
-
+        queries = niche["en_queries"]   # CHAT 42: PUERTAS FIJAS (ya NO _get_dynamic_queries)
+        niche_candidates: list[dict] = []
         for query in queries:
             print(f"      🔍 '{query}'...")
-            viral = search_viral_english(
-                query,
-                min_views=SPY_MIN_EN_VIEWS,
-            )
-            for v in viral[:SPY_TOP_PER_QUERY]:
+            viral = search_viral_english(query)   # min_views=0 → sin filtro absoluto
+            for v in viral[:EN_CANDIDATES_PER_QUERY]:
                 v["root_niche"] = niche_key
                 v["source_query"] = query
-                all_viral.append(v)
-            print(f"         → {min(len(viral), SPY_TOP_PER_QUERY)} virales encontrados")
+                niche_candidates.append(v)
+            print(f"         → {min(len(viral), EN_CANDIDATES_PER_QUERY)} candidatos EN crudos")
             time.sleep(DELAY_BETWEEN_CALLS_SEC)
 
+        # Filtro de UNIÓN (outlier ratio OR volumen) + dedupe — scrapea get_channel.
+        print(f"      🧮 filtro de unión sobre {len(niche_candidates)} candidatos "
+              f"(get_channel-fork por canal)...")
+        passed = compute_outlier_filter(niche_candidates)
+        print(f"         → {len(passed)} pasaron (de {len(niche_candidates)})")
+        all_viral.extend(passed)
+
     if not all_viral:
-        print("\n  ⚠ No se encontraron virales EN con ≥1M views.")
-        print("     Posibles causas: proxy caído, rate limit, o queries muy específicas.")
+        print("\n  ⚠ Ningún candidato EN pasó el filtro de unión.")
+        print("     Posibles causas: proxy caído, rate limit, o get_channel del fork falló.")
         return []
 
-    print(f"\n  📊 Total virales EN: {len(all_viral)}")
+    # ─── GATE 4: dry-run → tabla + corte antes de Gemini/competencia/persistencia ───
+    if dry_run:
+        _print_dry_run_table(all_viral)
+        print(f"\n  🧪 DRY-RUN: {len(all_viral)} candidatos pasaron el filtro EN. "
+              f"NO se tradujo, NO se chequeó competencia ES, NO se escribió nada.")
+        print(f"     (En run real: estos van a Gemini translate → count_competing_spanish "
+              f"→ seed.)")
+        return all_viral
+
+    print(f"\n  📊 Total candidatos EN que pasaron: {len(all_viral)}")
     print(f"  🌐 Traduciendo y extrayendo temas centrales con Gemini...\n")
 
     # ─── Paso 2: traducir EN → ES ───
@@ -488,6 +536,10 @@ def _run_spy_arbitrage(niche_keys: list[str]) -> list[dict]:
     # ─── Paso 3: validar arbitraje (competencia ES con filtro de anclas) ───
     print(f"  🎯 Validando arbitraje (Regla <50k ES fresco, con anclas)...\n")
     seeds = []
+
+    # CHAT 42: lookup por video_id para sumar ratio/median al evidence (sin tocar el
+    # traductor Gemini, que no propaga esos campos).
+    evidence_by_vid = {v.get("video_id"): v for v in all_viral}
 
     for item in translated:
         if not item["spanish_topic"]:
@@ -528,6 +580,10 @@ def _run_spy_arbitrage(niche_keys: list[str]) -> list[dict]:
                         "views": item["views"],
                         "video_id": item["video_id"],
                         "query": item["source_query"],
+                        # CHAT 42: evidencia del filtro de unión
+                        "channel_median": (evidence_by_vid.get(item["video_id"]) or {}).get("median"),
+                        "outlier_ratio": (evidence_by_vid.get(item["video_id"]) or {}).get("ratio"),
+                        "passed_reason": (evidence_by_vid.get(item["video_id"]) or {}).get("passed_reason"),
                     },
                     "es_gap": {
                         "competing_count": comp["competing_count"],
