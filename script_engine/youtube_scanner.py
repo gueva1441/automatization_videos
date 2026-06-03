@@ -547,10 +547,18 @@ def fork_views(vid: dict) -> int:
 
 
 def _get_channel_videos(channel_id: str, limit: int) -> list:
-    """get_channel del FORK con fallback si la versión no acepta proxies. Nunca lanza."""
+    """get_channel del FORK con fallback si la versión no acepta proxies. Nunca lanza.
+
+    CHAT 42 — rotación POR CANAL (no por request): se pide UNA IP fresca para ESTE canal
+    (proxies se evalúa UNA vez acá) y se reusa en TODA su paginación interna → session_id
+    fijo → scrapegw sticky a la misma IP para todo el get_channel. El SIGUIENTE canal
+    (otra llamada a esta función) pide otra IP. NO rotar por request dentro de un canal:
+    rompería la paginación. proxies se captura en variable a propósito (no inline) para
+    que esta garantía sea explícita y no regrese."""
+    proxies = _proxies_dict()   # una IP para todo este canal (toda su paginación)
     try:
         return list(scrapetube.get_channel(
-            channel_id=channel_id, limit=limit, proxies=_proxies_dict()))
+            channel_id=channel_id, limit=limit, proxies=proxies))
     except TypeError:
         try:
             return list(scrapetube.get_channel(channel_id=channel_id, limit=limit))
