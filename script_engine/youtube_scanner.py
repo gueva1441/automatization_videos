@@ -438,11 +438,11 @@ def scan_competition(keyword: str, limit: int = YT_LIMIT_DEFAULT) -> dict:
 
 OUTLIER_MIN: float = 3.0          # ratio mínimo vs mediana del canal
 PISO_MEDIANA: int = 2_000         # mediana del canal mínima para CREER el ratio (mata canal muerto)
-ABS_FLOOR: int = 80_000           # views mínimas del video para la puerta outlier
+ABS_FLOOR: int = 50_000           # views mínimas (chat 43: 80K→50K, +2 joyas temáticas canal sano)
 PISO_DEMANDA: int = 3_000_000     # views que entran solo por VOLUMEN (demanda probada)
 BASELINE_N: int = 30              # uploads del canal para la mediana
 MIN_BASELINE_VIDEOS: int = 5      # < esto → baseline no confiable → no pasa por outlier
-EN_CANDIDATES_PER_QUERY: int = 5  # tope de candidatos EN por puerta (= N_CANDIDATES del lab)
+EN_CANDIDATES_PER_QUERY: int = 20  # tope de candidatos EN por puerta (chat 43: 5→20, joyas viven pos 9-17)
 EN_OUTLIER_SLEEP_SEC: float = 2.0  # anti-ban entre get_channel
 
 
