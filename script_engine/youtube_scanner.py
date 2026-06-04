@@ -465,6 +465,13 @@ EN_MIN_DURATION_SEC: int = 5 * 60    # CHAT 44: piso de duración (mata clips mu
 EN_MAX_DURATION_SEC: int = 50 * 60   # CHAT 44: techo (mata compilaciones 2-4h). ← el de alto valor.
 EN_OUTLIER_WORKERS: int = 3   # CHAT 44: workers para fetch de baselines (ceiling = proxy concurrency)
 
+# CHAT 44: score de saturación ES (reemplaza ≥50k/3meses en spy-arbitrage). Cortes del medio
+# (HUECO/DISPUTADO) son etiquetas BLANDAS para el ojo humano, no gates duros → tunables sin estrés.
+ES_DECAY_TIERS: list = [(12, 1.0), (36, 0.6), (60, 0.3)]   # (meses_max, peso); más viejo → floor
+ES_DECAY_FLOOR: float = 0.1
+ES_SAT_HUECO: int = 30_000        # >0 y < esto = HUECO
+ES_SAT_DISPUTADO: int = 150_000   # < esto = DISPUTADO; >= esto = SATURADO (se descarta)
+
 
 def parse_views_fixed(text: str) -> int:
     """
@@ -1048,6 +1055,72 @@ def count_competing_spanish(
                 "top_titles": [],
                 "error": f"Ambos fallaron: {e2}",
             }
+
+
+def _es_age_decay(months: int) -> float:
+    for max_m, w in ES_DECAY_TIERS:
+        if months <= max_m:
+            return w
+    return ES_DECAY_FLOOR
+
+
+def _es_saturation_label(sat: float) -> str:
+    if sat <= 0:                  return "VACIO"
+    if sat < ES_SAT_HUECO:        return "HUECO"
+    if sat < ES_SAT_DISPUTADO:    return "DISPUTADO"
+    return "SATURADO"
+
+
+def _es_pub_text(vid: dict) -> str:
+    """Texto de fecha robusto: simpleText, y si vacío cae a runs[].text."""
+    p = vid.get("publishedTimeText", {}) or {}
+    if p.get("simpleText"):
+        return p["simpleText"]
+    return "".join(r.get("text", "") for r in (p.get("runs") or []))
+
+
+def score_spanish_saturation(keyword: str, anchors: list[str] | None = None,
+                             limit: int = YT_LIMIT_ARCHAEOLOGY) -> dict:
+    """CHAT 44: mide saturación ES por cobertura ponderada (views × decay de edad), SIN ventana
+    cliff ni piso de 50k. Saturación del tema = competidor más pesado (max views efectivas).
+    Reemplaza count_competing_spanish SOLO en spy-arbitrage. (count_competing_spanish queda intacto
+    para topic_validator y Mode B.) Validado en lab chat 44: Apolo→SATURADO, Kielland→VACIO,
+    Kursk→SATURADO (cazó el viral ES fresco que el chequeo viejo se salteaba)."""
+    report = {"source": "scrapetube", "keyword": keyword, "saturation": 0.0, "label": "VACIO",
+              "heaviest": None, "ontopic_count": 0, "anchors_used": anchors or [], "error": None}
+    try:
+        vids = list(scrapetube.get_search(keyword, limit=limit, proxies=_proxies_dict()))
+    except Exception as e:
+        report["error"] = str(e); report["saturation"] = -1.0; report["label"] = "ERROR"
+        return report
+
+    best = None
+    count = 0
+    for v in vids:
+        try:
+            title = v["title"]["runs"][0]["text"]
+        except (KeyError, IndexError):
+            continue
+        if detect_language(title) != "es":
+            continue
+        if not title_contains_anchor(title, anchors):
+            continue
+        months = _parse_date_scrapetube_months_ago(_es_pub_text(v))
+        views = _parse_views_scrapetube(v)
+        decay = _es_age_decay(months)
+        eff = views * decay
+        count += 1
+        if best is None or eff > best["eff"]:
+            best = {"title": title[:80], "views": views, "months": months, "decay": decay, "eff": eff}
+
+    report["ontopic_count"] = count
+    if best:
+        report["saturation"] = best["eff"]
+        report["heaviest"] = best
+        report["label"] = _es_saturation_label(best["eff"])
+    return report
+
+
 # ═══════════════════════════════════════════════════════════════
 #  CLI de diagnóstico (opcional)
 # ═══════════════════════════════════════════════════════════════

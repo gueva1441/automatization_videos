@@ -50,6 +50,7 @@ from script_engine.youtube_scanner import (
     extract_anchors,
     search_viral_english,
     compute_outlier_filter,        # CHAT 42: filtro de unión (outlier ratio OR volumen)
+    score_spanish_saturation,      # CHAT 44: score de saturación ES (reemplaza count en spy-arbitrage)
     EN_CANDIDATES_PER_QUERY,
 )
 
@@ -555,6 +556,7 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
     # ─── Paso 3: validar arbitraje (competencia ES con filtro de anclas) ───
     print(f"  🎯 Validando arbitraje (Regla <50k ES fresco, con anclas)...\n")
     seeds = []
+    label_counts: dict[str, int] = {}
 
     # CHAT 42: lookup por video_id para sumar ratio/median al evidence (sin tocar el
     # traductor Gemini, que no propaga esos campos).
@@ -571,22 +573,16 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
         if anchors:
             print(f"       🎯 Anclas: {anchors}")
 
-        comp = count_competing_spanish(
-            item["spanish_topic"],
-            min_views=SPY_ES_MIN_VIEWS,
-            window_months=SPY_ES_WINDOW_MONTHS,
-            anchors=anchors,
-        )
+        sat = score_spanish_saturation(item["spanish_topic"], anchors=anchors)
 
-        if comp["competing_count"] < 0:
-            print(f"       ⚠ Error de competencia ES (fallo scraping)")
+        if sat["label"] == "ERROR":
+            print(f"       ⚠ Error de saturación ES (scrape): {sat.get('error')}")
             time.sleep(DELAY_BETWEEN_CALLS_SEC)
             continue
 
-        is_gap = comp["competing_count"] <= SPY_MAX_COMPETING_FOR_GAP
-
-        status = "🎯 HUECO DE MERCADO" if is_gap else f"❌ Saturado ({comp['competing_count']} videos ≥50k)"
-        print(f"       {status}")
+        label_counts[sat["label"]] = label_counts.get(sat["label"], 0) + 1
+        is_gap = sat["label"] != "SATURADO"   # VACIO/HUECO/DISPUTADO → seed; SATURADO → descartar
+        print(f"       {sat['label']} (saturación {sat['saturation']:,.0f})")
 
         if is_gap:
             seed = _build_seed(
@@ -605,12 +601,12 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
                         "passed_reason": (evidence_by_vid.get(item["video_id"]) or {}).get("passed_reason"),
                     },
                     "es_gap": {
-                        "competing_count": comp["competing_count"],
-                        "window_months": SPY_ES_WINDOW_MONTHS,
-                        "min_views_threshold": SPY_ES_MIN_VIEWS,
-                        "anchors_used": comp.get("anchors_used", []),
-                        "top_titles": comp.get("top_titles", []),
-                        "source": comp.get("source", "unknown"),
+                        "saturation": sat["saturation"],
+                        "label": sat["label"],
+                        "heaviest": sat["heaviest"],
+                        "ontopic_count": sat["ontopic_count"],
+                        "anchors_used": sat["anchors_used"],
+                        "source": sat["source"],
                     },
                 },
             )
@@ -618,6 +614,9 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
 
         time.sleep(DELAY_BETWEEN_CALLS_SEC)
 
+    if label_counts:
+        print(f"\n  📊 Saturación ES: " + " · ".join(f"{k}={v}" for k, v in sorted(label_counts.items())))
+        print(f"     → {len(seeds)} huecos (no-SATURADO) de {sum(label_counts.values())} temas evaluados")
     return seeds
 
 
