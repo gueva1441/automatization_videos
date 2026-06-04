@@ -66,9 +66,9 @@ ROOT_NICHES: dict = {
         "es_name": "Misterios del Océano",
         "emoji": "🌊",
         "en_queries": [
-            "deep ocean mysteries unexplained",
-            "terrifying ocean discoveries",
-            "declassified ocean phenomena",
+            "submarine disasters history",
+            "deep sea diving accidents",
+            "offshore oil rig disasters",
         ],
         "tags": ["océano", "misterio", "profundidades", "abismos"],
         "archaeology_focus": (
@@ -80,9 +80,9 @@ ROOT_NICHES: dict = {
         "es_name": "Datos del Espacio",
         "emoji": "🌌",
         "en_queries": [
-            "NASA declassified space mysteries",
-            "unexplained cosmic anomalies",
-            "lost space missions secrets",
+            "space program disasters",
+            "soviet space program disasters",
+            "abandoned space facilities",
         ],
         "tags": ["espacio", "NASA", "cosmos", "misterio"],
         "archaeology_focus": (
@@ -451,16 +451,17 @@ def _print_dry_run_table(rows: list[dict]) -> None:
     evidencia (views/median/ratio/razón) para el ojo de Omar. viejo = filtro absoluto
     deprecado (≥300k) para comparar."""
     print(f"\n  {'nicho':<11} {'título':<42} {'views':>11} {'mediana':>10} "
-          f"{'ratio':>7} {'razón':>8} {'viejo≥300k':>10}")
-    print("  " + "─" * 104)
-    for r in sorted(rows, key=lambda x: (x.get("root_niche") or "", -(x.get("ratio") or 0))):
+          f"{'ratio':>7} {'razón':>8} {'viejo≥300k':>10}  {'puerta':<26}")
+    print("  " + "─" * 132)
+    for r in sorted(rows, key=lambda x: (x.get("root_niche") or "", x.get("source_query") or "", -(x.get("ratio") or 0))):
         t = r.get("original_title") or r.get("title") or ""
         t = (t[:40] + "…") if len(t) > 41 else t
         med = f"{r['median']:,.0f}" if r.get("median") is not None else "—"
         ratio = f"{r['ratio']:.1f}x" if r.get("ratio") else "—"
         old = "✅" if (r.get("views") or 0) >= SPY_MIN_EN_VIEWS else "·"
+        sq = (r.get("source_query") or "")[:24]
         print(f"  {(r.get('root_niche') or '—'):<11} {t:<42} {r.get('views', 0):>11,} "
-              f"{med:>10} {ratio:>7} {r.get('passed_reason', ''):>8} {old:>10}")
+              f"{med:>10} {ratio:>7} {r.get('passed_reason', ''):>8} {old:>10}  {sq:<26}")
 
 
 def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dict]:
