@@ -409,6 +409,10 @@ Para CADA título, extrae el TEMA CENTRAL (no el clickbait) y tradúcelo a
 español natural y corto, como si alguien fuera a buscarlo en Google.
 
 REGLAS:
+- Si el evento, obra o lugar se conoce en español con un nombre o título DISTINTO al inglés
+  (películas/documentales con título traducido, nombres localizados), usá el nombre con el que
+  REALMENTE se busca en español — no la transliteración del nombre inglés. La búsqueda en YouTube
+  en español tiene que encontrar el contenido que ya existe sobre el tema.
 - "spanish_topic": máximo 8 palabras
 - Sin signos de interrogación ni exclamación
 - Sin "cómo", "por qué", "sabías que", "te voy a contar"
@@ -444,6 +448,7 @@ Formato:
                 "video_id": original.get("video_id", ""),
                 "source_query": original.get("source_query", ""),
                 "root_niche": original.get("root_niche"),
+                "en_age_months": original.get("en_age_months"),   # CHAT 44 D: edad del viral EN (ingrediente joya)
             })
     return result
 
@@ -553,6 +558,19 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
         print("  ⚠ Gemini no devolvió traducciones válidas.")
         return []
 
+    # CHAT 44: dedupe de spanish_topic. Gemini repite traducciones; cada dup se scrapearía aparte
+    # con labels inconsistentes (flip-flop) e inflaría el conteo. Normaliza y deja el primero.
+    _seen_topics: set[str] = set()
+    _deduped = []
+    for item in translated:
+        _key = (item.get("spanish_topic") or "").strip().lower()
+        if not _key or _key in _seen_topics:
+            continue
+        _seen_topics.add(_key)
+        _deduped.append(item)
+    print(f"     Dedupe ES: {len(translated)} → {len(_deduped)} temas únicos")
+    translated = _deduped
+
     # ─── Paso 3: validar arbitraje (competencia ES con filtro de anclas) ───
     print(f"  🎯 Validando arbitraje (Regla <50k ES fresco, con anclas)...\n")
     seeds = []
@@ -595,6 +613,7 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
                         "views": item["views"],
                         "video_id": item["video_id"],
                         "query": item["source_query"],
+                        "en_age_months": item.get("en_age_months"),
                         # CHAT 42: evidencia del filtro de unión
                         "channel_median": (evidence_by_vid.get(item["video_id"]) or {}).get("median"),
                         "outlier_ratio": (evidence_by_vid.get(item["video_id"]) or {}).get("ratio"),

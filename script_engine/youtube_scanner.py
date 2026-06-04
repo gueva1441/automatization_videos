@@ -471,6 +471,8 @@ ES_DECAY_TIERS: list = [(12, 1.0), (36, 0.6), (60, 0.3)]   # (meses_max, peso); 
 ES_DECAY_FLOOR: float = 0.1
 ES_SAT_HUECO: int = 30_000        # >0 y < esto = HUECO
 ES_SAT_DISPUTADO: int = 150_000   # < esto = DISPUTADO; >= esto = SATURADO (se descarta)
+ES_SCRAPE_PASSES: int = 2   # CHAT 44: pasadas de scrape unidas (denoise del flip-flop). Saturación
+                            # = max sobre la UNIÓN → si alguna pasada caza al competidor fuerte, queda.
 
 
 def parse_views_fixed(text: str) -> int:
@@ -716,6 +718,7 @@ def _scrape_viral_english(query: str, min_views: int, limit: int) -> list[dict]:
             "title": title,
             "views": views,
             "published_text": time_text,
+            "en_age_months": _parse_date_scrapetube_months_ago(time_text),
             "video_id": vid.get("videoId", ""),
             "channel_id": cid,
             "channel_name": _channel_name_of_search(vid),
@@ -1088,11 +1091,18 @@ def score_spanish_saturation(keyword: str, anchors: list[str] | None = None,
     Kursk→SATURADO (cazó el viral ES fresco que el chequeo viejo se salteaba)."""
     report = {"source": "scrapetube", "keyword": keyword, "saturation": 0.0, "label": "VACIO",
               "heaviest": None, "ontopic_count": 0, "anchors_used": anchors or [], "error": None}
-    try:
-        vids = list(scrapetube.get_search(keyword, limit=limit, proxies=_proxies_dict()))
-    except Exception as e:
-        report["error"] = str(e); report["saturation"] = -1.0; report["label"] = "ERROR"
-        return report
+    seen: dict[str, dict] = {}
+    for _ in range(ES_SCRAPE_PASSES):
+        try:
+            for v in scrapetube.get_search(keyword, limit=limit, proxies=_proxies_dict()):
+                vid_id = v.get("videoId")
+                if vid_id and vid_id not in seen:
+                    seen[vid_id] = v
+        except Exception as e:
+            if not seen:   # solo ERROR si NINGUNA pasada trajo nada
+                report["error"] = str(e); report["saturation"] = -1.0; report["label"] = "ERROR"
+                return report
+    vids = list(seen.values())
 
     best = None
     count = 0
