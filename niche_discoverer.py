@@ -422,10 +422,13 @@ REGLAS:
 - Sin "cómo", "por qué", "sabías que", "te voy a contar"
 - Tema concreto, buscable (ej: "misterio del triángulo de las bermudas")
 - Mantén el orden original (1, 2, 3, ...)
+- "event_key": slug corto en minúsculas del EVENTO REAL del título (ej. nombre propio del suceso).
+  Títulos que tratan del MISMO suceso real deben llevar el MISMO event_key, aunque el wording difiera.
+  Ante la duda, usá keys DISTINTAS (mejor no agrupar de más).
 
 RESPONDE ÚNICAMENTE con un JSON array válido. Sin markdown. Sin backticks.
 Formato:
-[{"index":1,"spanish_topic":"tema en español corto"}, ...]"""
+[{"index":1,"spanish_topic":"tema en español corto","event_key":"slug-del-evento"}, ...]"""
 
     response = gemini_client.models.generate_content(
         model=api.gemini_model,  # Flash (rápido y barato)
@@ -453,6 +456,7 @@ Formato:
                 "source_query": original.get("source_query", ""),
                 "root_niche": original.get("root_niche"),
                 "en_age_months": original.get("en_age_months"),   # CHAT 44 D: edad del viral EN (ingrediente joya)
+                "event_key": (t.get("event_key", "") or "").strip().lower(),
             })
     return result
 
@@ -605,44 +609,57 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
             if r:
                 gap_results.append(r)
 
-    # ─── post-proceso SECUENCIAL: label_counts + seeds (sin race) ───
+    # ─── post-proceso SECUENCIAL: agrupar variantes del MISMO evento real (event_key) ───
+    from collections import defaultdict
+    groups: dict[str, list] = defaultdict(list)
     for item, anchors, sat in gap_results:
         if sat["label"] == "ERROR":
             print(f"     ⚠ Error saturación ES '{item['spanish_topic']}': {sat.get('error')}")
             continue
+        key = item.get("event_key") or (item.get("spanish_topic") or "").strip().lower()
+        groups[key].append((item, anchors, sat))
 
-        label_counts[sat["label"]] = label_counts.get(sat["label"], 0) + 1
-        is_gap = sat["label"] != "SATURADO"   # VACIO/HUECO/DISPUTADO → seed; SATURADO → descartar
-        print(f"     {sat['label']:>9} ({sat['saturation']:>11,.0f}) · {item['spanish_topic']}")
+    # un seed por evento; saturación del evento = la MÁS ALTA entre variantes
+    for key, variants in groups.items():
+        worst_item, worst_anchors, worst_sat = max(variants, key=lambda v: v[2]["saturation"])
+        n = len(variants)
+        tag = f" [{n} variantes]" if n > 1 else ""
+        label_counts[worst_sat["label"]] = label_counts.get(worst_sat["label"], 0) + 1
 
-        if is_gap:
-            seed = _build_seed(
-                title=item["spanish_topic"],
-                mode="spy_arbitrage",
-                root_niche=item["root_niche"],
-                evidence={
-                    "en_viral": {
-                        "original_title": item["original_title"],
-                        "views": item["views"],
-                        "video_id": item["video_id"],
-                        "query": item["source_query"],
-                        "en_age_months": item.get("en_age_months"),
-                        # CHAT 42: evidencia del filtro de unión
-                        "channel_median": (evidence_by_vid.get(item["video_id"]) or {}).get("median"),
-                        "outlier_ratio": (evidence_by_vid.get(item["video_id"]) or {}).get("ratio"),
-                        "passed_reason": (evidence_by_vid.get(item["video_id"]) or {}).get("passed_reason"),
-                    },
-                    "es_gap": {
-                        "saturation": sat["saturation"],
-                        "label": sat["label"],
-                        "heaviest": sat["heaviest"],
-                        "ontopic_count": sat["ontopic_count"],
-                        "anchors_used": sat["anchors_used"],
-                        "source": sat["source"],
-                    },
+        if worst_sat["label"] == "SATURADO":
+            print(f"     SATURADO ({worst_sat['saturation']:>11,.0f}) · {key}{tag} → descartado")
+            continue
+
+        # representante EN = variante con más views (viral más fuerte); ES = la de mayor saturación
+        rep_item = max(variants, key=lambda v: v[0].get("views", 0))[0]
+        print(f"     {worst_sat['label']:>9} ({worst_sat['saturation']:>11,.0f}) · {rep_item['spanish_topic']}{tag}")
+        seed = _build_seed(
+            title=rep_item["spanish_topic"],
+            mode="spy_arbitrage",
+            root_niche=rep_item["root_niche"],
+            evidence={
+                "en_viral": {
+                    "original_title": rep_item["original_title"],
+                    "views": rep_item["views"],
+                    "video_id": rep_item["video_id"],
+                    "query": rep_item["source_query"],
+                    "en_age_months": rep_item.get("en_age_months"),
+                    "channel_median": (evidence_by_vid.get(rep_item["video_id"]) or {}).get("median"),
+                    "outlier_ratio": (evidence_by_vid.get(rep_item["video_id"]) or {}).get("ratio"),
+                    "passed_reason": (evidence_by_vid.get(rep_item["video_id"]) or {}).get("passed_reason"),
                 },
-            )
-            seeds.append(seed)
+                "es_gap": {
+                    "saturation": worst_sat["saturation"],
+                    "label": worst_sat["label"],
+                    "heaviest": worst_sat["heaviest"],
+                    "ontopic_count": worst_sat["ontopic_count"],
+                    "anchors_used": worst_sat["anchors_used"],
+                    "source": worst_sat["source"],
+                    "variants_grouped": n,
+                },
+            },
+        )
+        seeds.append(seed)
 
     if label_counts:
         print(f"\n  📊 Saturación ES: " + " · ".join(f"{k}={v}" for k, v in sorted(label_counts.items())))
