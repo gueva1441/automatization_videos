@@ -34,6 +34,7 @@ import re
 import statistics
 import string
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
 from typing import Literal
 
@@ -150,6 +151,22 @@ def _parse_views_scrapetube(vid: dict) -> int:
         return parse_views_fixed(views_text)
     except Exception:
         return 0
+
+
+def _parse_length_scrapetube(vid: dict) -> int | None:
+    """Duración en segundos desde lengthText de get_search ('M:SS'|'MM:SS'|'H:MM:SS').
+    None si falta/no parsea (fail-open → no descarta por las dudas)."""
+    txt = (vid.get("lengthText", {}) or {}).get("simpleText", "")
+    if not txt or ":" not in txt:
+        return None
+    try:
+        parts = [int(p) for p in txt.split(":")]
+    except ValueError:
+        return None
+    secs = 0
+    for p in parts:
+        secs = secs * 60 + p
+    return secs
 
 
 def _parse_date_scrapetube_months_ago(time_text: str) -> int:
@@ -444,6 +461,9 @@ BASELINE_N: int = 30              # uploads del canal para la mediana
 MIN_BASELINE_VIDEOS: int = 5      # < esto → baseline no confiable → no pasa por outlier
 EN_CANDIDATES_PER_QUERY: int = 20  # tope de candidatos EN por puerta (chat 43: 5→20, joyas viven pos 9-17)
 EN_OUTLIER_SLEEP_SEC: float = 2.0  # anti-ban entre get_channel
+EN_MIN_DURATION_SEC: int = 5 * 60    # CHAT 44: piso de duración (mata clips muy cortos). TUNABLE.
+EN_MAX_DURATION_SEC: int = 50 * 60   # CHAT 44: techo (mata compilaciones 2-4h). ← el de alto valor.
+EN_OUTLIER_WORKERS: int = 3   # CHAT 44: workers para fetch de baselines (ceiling = proxy concurrency)
 
 
 def parse_views_fixed(text: str) -> int:
@@ -602,17 +622,32 @@ def compute_outlier_filter(candidates: list[dict]) -> list[dict]:
             seen.add(vid_id)
         deduped.append(c)
 
+    # CHAT 44: baselines por canal en PARALELO (3 workers). Cada get_channel monta su IP via
+    # _proxies_dict() (rotación sticky por canal) → 3 workers = 3 IPs → spreads, no apila. Se quita
+    # el sleep secuencial (la rotación maneja el ban). La MATEMÁTICA del filtro NO cambia.
+    # exclude = views del PRIMER candidato de cada canal (mirror exacto del comportamiento secuencial).
+    first_views_by_cid: dict[str, int] = {}
+    for c in deduped:
+        cid = c.get("channel_id")
+        if cid and cid not in first_views_by_cid:
+            first_views_by_cid[cid] = int(c.get("views") or 0)
+
     baseline_cache: dict[str, float | None] = {}
+
+    def _fetch_baseline(cid: str, exclude_views: int):
+        return cid, _channel_baseline(cid, BASELINE_N, exclude=exclude_views)
+
+    with ThreadPoolExecutor(max_workers=EN_OUTLIER_WORKERS) as ex:
+        futures = [ex.submit(_fetch_baseline, cid, ev) for cid, ev in first_views_by_cid.items()]
+        for fut in as_completed(futures):
+            cid, median = fut.result()
+            baseline_cache[cid] = median
+
     kept: list[dict] = []
     for c in deduped:
         views = int(c.get("views") or 0)
         cid = c.get("channel_id")
-        median = None
-        if cid:
-            if cid not in baseline_cache:
-                baseline_cache[cid] = _channel_baseline(cid, BASELINE_N, exclude=views)
-                time.sleep(EN_OUTLIER_SLEEP_SEC)   # anti-ban tras cada get_channel
-            median = baseline_cache[cid]
+        median = baseline_cache.get(cid) if cid else None
         ratio = compute_ratio(views, median) if median else 0.0
         enriched = {**c, "views": views, "median": median, "ratio": ratio,
                     "passed_reason": ("volumen" if views >= PISO_DEMANDA
@@ -633,6 +668,7 @@ def _scrape_viral_english(query: str, min_views: int, limit: int) -> list[dict]:
     Agrega `channel_id` + `channel_name` al dict (necesarios para el baseline del canal).
     """
     results = []
+    dropped_dur = 0
     videos = list(
         scrapetube.get_search(
             query,
@@ -661,6 +697,13 @@ def _scrape_viral_english(query: str, min_views: int, limit: int) -> list[dict]:
         if views < min_views:   # CHAT 42: no-op con min_views=0 (filtro real = unión)
             continue
 
+        # CHAT 44: filtro de duración (lengthText gratis). Mata compilaciones 2-4h ANTES del
+        # compute_outlier_filter (ahorra get_channel). Fail-open: si no parsea, NO descarta.
+        dur = _parse_length_scrapetube(vid)
+        if dur is not None and not (EN_MIN_DURATION_SEC <= dur <= EN_MAX_DURATION_SEC):
+            dropped_dur += 1
+            continue
+
         cid, _ = extract_channel_id(vid)   # CHAT 42: para el baseline del canal
         results.append({
             "title": title,
@@ -672,6 +715,9 @@ def _scrape_viral_english(query: str, min_views: int, limit: int) -> list[dict]:
             "source": "scrapetube",
         })
 
+    if dropped_dur:
+        print(f"      ⏱ '{query}': {dropped_dur} descartados por duración "
+              f"({EN_MIN_DURATION_SEC // 60}-{EN_MAX_DURATION_SEC // 60} min)")
     # Ordenar por views descendente
     results.sort(key=lambda x: x["views"], reverse=True)
     return results
