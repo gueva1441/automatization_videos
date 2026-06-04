@@ -30,6 +30,7 @@ Consume:
 import json
 import re
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import uuid
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -112,6 +113,9 @@ SPY_TOP_PER_QUERY: int = 3              # Top N virales EN por query
 SPY_ES_WINDOW_MONTHS: int = 3           # Ventana "fresco" ES para hueco de mercado
 SPY_ES_MIN_VIEWS: int = 50_000          # Umbral para contar como competencia
 SPY_MAX_COMPETING_FOR_GAP: int = 1      # ≤1 video ES con ≥50k en 3 meses = hueco
+ES_GAP_WORKERS: int = 3   # CHAT 44: workers del loop del hueco ES. 3 IPs rotadas (_proxies_dict).
+                          # Compensa el 2× del doble-scrape (ES_SCRAPE_PASSES). Score es scrapetube
+                          # puro → sin límite de cuota Gemini.
 # DEPRECATED chat42: el filtro absoluto se reemplazó por el filtro de unión
 # (youtube_scanner.compute_outlier_filter). Se CONSERVA solo como referencia de
 # comparación ("viejo≥300k") en el dry-run. El tuning del filtro nuevo vive en
@@ -580,27 +584,36 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
     # traductor Gemini, que no propaga esos campos).
     evidence_by_vid = {v.get("video_id"): v for v in all_viral}
 
-    for item in translated:
-        if not item["spanish_topic"]:
-            continue
-
-        print(f"     Evaluando: '{item['spanish_topic']}'...")
-
-        # Anclas extraídas del título ES para filtrar falsos positivos
+    # ─── worker paralelizable: anchors + score, SIN estado compartido ni prints ───
+    def _check_gap_es(item):
+        if not item.get("spanish_topic"):
+            return None
         anchors = extract_anchors(item["spanish_topic"])
-        if anchors:
-            print(f"       🎯 Anclas: {anchors}")
-
         sat = score_spanish_saturation(item["spanish_topic"], anchors=anchors)
+        return (item, anchors, sat)
 
+    print(f"  ⚙ Evaluando {len(translated)} temas con {ES_GAP_WORKERS} workers...\n")
+    gap_results = []
+    with ThreadPoolExecutor(max_workers=ES_GAP_WORKERS) as ex:
+        futures = [ex.submit(_check_gap_es, it) for it in translated]
+        for fut in as_completed(futures):
+            try:
+                r = fut.result()
+            except Exception as e:
+                print(f"     ⚠ Worker gap ES falló: {e}")
+                continue
+            if r:
+                gap_results.append(r)
+
+    # ─── post-proceso SECUENCIAL: label_counts + seeds (sin race) ───
+    for item, anchors, sat in gap_results:
         if sat["label"] == "ERROR":
-            print(f"       ⚠ Error de saturación ES (scrape): {sat.get('error')}")
-            time.sleep(DELAY_BETWEEN_CALLS_SEC)
+            print(f"     ⚠ Error saturación ES '{item['spanish_topic']}': {sat.get('error')}")
             continue
 
         label_counts[sat["label"]] = label_counts.get(sat["label"], 0) + 1
         is_gap = sat["label"] != "SATURADO"   # VACIO/HUECO/DISPUTADO → seed; SATURADO → descartar
-        print(f"       {sat['label']} (saturación {sat['saturation']:,.0f})")
+        print(f"     {sat['label']:>9} ({sat['saturation']:>11,.0f}) · {item['spanish_topic']}")
 
         if is_gap:
             seed = _build_seed(
@@ -630,8 +643,6 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
                 },
             )
             seeds.append(seed)
-
-        time.sleep(DELAY_BETWEEN_CALLS_SEC)
 
     if label_counts:
         print(f"\n  📊 Saturación ES: " + " · ".join(f"{k}={v}" for k, v in sorted(label_counts.items())))
