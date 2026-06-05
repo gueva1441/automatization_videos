@@ -54,6 +54,7 @@ VALID_LLM_CATEGORIES = (
     "acronym", "acronym_with_number", "abbreviation", "unit",
     "gender", "foreign_word", "time_format", "punctuation_artifact",
     "year_format", "time_format_hm",  # time_format_hm agregada chat 33
+    "unit_symbol", "spelling_pron",   # chat 44: red de captura símbolos + ortografía-pronunciación
 )
 
 # Mapping de category interna → category del custom_dict.json
@@ -63,12 +64,14 @@ _CATEGORY_TO_DICT = {
     "acronym_with_number": "spelled",    # se persiste solo la sigla, no el número
     "abbreviation": "abbreviation",
     "unit": "unit",
+    "unit_symbol": "unit",               # chat 44: red de captura símbolos/unidades → dict "unit"
 }
 
 # Categorías que JAMÁS van al dict (son one-off por definición).
 _CATEGORIES_NEVER_RECURRING = {
     "gender", "foreign_word", "time_format", "punctuation_artifact",
     "year_format", "time_format_hm",  # one-off por cap
+    "spelling_pron",  # chat 44: tilde faltante = error puntual del guion de ESE topic
 }
 
 
@@ -197,6 +200,29 @@ TU TRABAJO: detectar SOLO los 8 casos donde ElevenLabs FALLA
      Si NO hay "horas" cerca, podés incluirlo: "a las 21:00" → "a las
      veintiuna horas".
 
+9. UNIT_SYMBOL — símbolos, unidades o tokens no-alfabéticos que ElevenLabs-ES puede leer mal.
+   ESTE CASO ES UNA RED DE CAPTURA GENERAL, NO una lista cerrada: si ves CUALQUIER símbolo o unidad
+   que no estés 100% seguro de que ElevenLabs en español neutro pronuncia natural, FLAGGEALO — aunque
+   no esté en los ejemplos de abajo. Ante la duda, marcá el span. Mejor un warning de más que audio
+   grabado al pedo.
+   Ejemplos (NO exhaustivos): "60°F", "20°C", "45%", "120 km/h", "5 µSv", "±3", "30 m²", "10 kg".
+   → suggested = la forma hablada COMPLETA en español:
+     "60°F"    → "sesenta grados Fahrenheit"
+     "20°C"    → "veinte grados centígrados"
+     "45%"     → "cuarenta y cinco por ciento"
+     "120 km/h"→ "ciento veinte kilómetros por hora"
+   ⚠ El "original" del span debe ser el fragmento que cubre número+símbolo (ej. "60°F", no solo "°F"),
+     para que el search-replace lo agarre entero.
+
+10. SPELLING_PRON — errores ortográficos del guion original que CAMBIAN LA PRONUNCIACIÓN.
+   ACOTADO Y ESTRICTO: marcá SOLO cuando el error altera cómo SUENA la palabra en ElevenLabs-ES.
+   El caso típico es la TILDE faltante o mal puesta que mueve la sílaba tónica o hace que EL lea raro
+   un nombre/palabra (ej. el guion trae una palabra sin su tilde y EL la acentúa mal).
+   → suggested = la palabra con la ortografía/tilde correcta que produce la pronunciación deseada.
+   ⚠ NO marques errores ortográficos que NO cambian el audio (ej. "haber" vs "a ver", "hecho" vs
+     "echo", mayúsculas, comas). Si no cambia cómo suena, NO es span. El criterio único es:
+     "¿esto hace que ElevenLabs lo pronuncie distinto/mal?". Si la respuesta no es un sí claro, NO marces.
+
 ═══════════════════════════════════════════════════════════════
 SIGLAS YA CONOCIDAS (custom_dict.json acumulado) — REUSÁ ESTAS
 ═══════════════════════════════════════════════════════════════
@@ -212,14 +238,14 @@ FLAG IS_RECURRING (crítico)
 - true → la corrección va a aparecer en otros videos del canal.
   Ejemplo: "RBMK" como sigla. Se persiste al custom_dict.json.
   Categorías que pueden ser recurring: acronym, acronym_with_number,
-  abbreviation, unit.
+  abbreviation, unit, unit_symbol.
 
 - false → es one-off del topic actual.
   Ejemplo: "treinta y una muertes" (gender), "01:23:45" (time_format),
   "sphaerospermum" (foreign_word del topic Pripyat),
   "mil novecientos ochenta y seis" (year_format del topic Pripyat).
   Categorías SIEMPRE false: gender, foreign_word, time_format,
-  punctuation_artifact, year_format.
+  punctuation_artifact, year_format, spelling_pron.
 
 ═══════════════════════════════════════════════════════════════
 SCHEMA DE OUTPUT (JSON estricto, sin markdown)
@@ -278,7 +304,7 @@ def _audit_with_llm(narration: dict) -> list[dict]:
     )
 
     user_prompt = f"""Auditá las siguientes narraciones documentales en español neutro
-para ElevenLabs. Detectá SOLO los 6 casos definidos en tu system_instruction.
+para ElevenLabs. Detectá SOLO los casos definidos en tu system_instruction.
 Devolvé el JSON con el schema indicado.
 
 {chapters_block}
