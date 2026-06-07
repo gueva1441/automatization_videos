@@ -413,11 +413,19 @@ Para CADA título, extrae el TEMA CENTRAL (no el clickbait) y tradúcelo a
 español natural y corto, como si alguien fuera a buscarlo en Google.
 
 REGLAS:
+- PRESERVÁ LA ENTIDAD ESPECÍFICA: si el título inglés menciona un nombre propio, lugar,
+  caso, persona o evento concreto (ej. "Corpsewood Manor", "Centralia", "USS Thresher"),
+  CONSERVALO TAL CUAL en el spanish_topic. NO lo generalices a la categoría
+  ("casa abandonada", "pueblo fantasma", "submarino hundido").
+- Solo generalizá cuando el título inglés NO tenga una entidad nombrable (es genuinamente
+  una compilación/listicle sin un caso único, ej. "top 10 lugares abandonados").
 - Si el evento, obra o lugar se conoce en español con un nombre o título DISTINTO al inglés
   (películas/documentales con título traducido, nombres localizados), usá el nombre con el que
   REALMENTE se busca en español — no la transliteración del nombre inglés. La búsqueda en YouTube
   en español tiene que encontrar el contenido que ya existe sobre el tema.
-- "spanish_topic": máximo 8 palabras
+- "spanish_topic": preferí 8 palabras o menos, PERO el límite es flexible si hace falta para
+  conservar el nombre propio: preferí "Mansión Corpsewood crimen sin resolver Georgia"
+  (específico) antes que "casa abandonada misteriosa Georgia" (genérico).
 - Sin signos de interrogación ni exclamación
 - Sin "cómo", "por qué", "sabías que", "te voy a contar"
 - Tema concreto, buscable (ej: "misterio del triángulo de las bermudas")
