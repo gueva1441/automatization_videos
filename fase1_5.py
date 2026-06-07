@@ -393,6 +393,10 @@ def _select_topic_interactive() -> str | None:
         vtype = t.get("video_type") or "?"
         print(f"    [{i}] {title}")
         print(f"         veredicto: {verdict}  ·  tipo: {vtype}")
+        judge = t.get("judge")
+        if judge:
+            print(f"         🤖 juez: {judge.get('verdict','?')} "
+                  f"({judge.get('cohort','?')})  ·  riesgo: {judge.get('risk','?')}")
 
     while True:
         choice = input(f"\n  Elegí tema [1-{len(topics)}]  (Q para salir): ").strip()

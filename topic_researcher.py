@@ -617,7 +617,14 @@ def _archive_seed(seed: dict, topic_id: str) -> bool:
 def _load_topics_db() -> dict:
     if TOPICS_DB_FILE.exists():
         try:
-            return json.loads(TOPICS_DB_FILE.read_text(encoding="utf-8"))
+            db = json.loads(TOPICS_DB_FILE.read_text(encoding="utf-8"))
+            if isinstance(db, dict):
+                db.setdefault("topics", [])
+                db.setdefault("created_at", datetime.now().isoformat())
+                return db
+            # si quedó como lista (formato viejo), envolver
+            if isinstance(db, list):
+                return {"created_at": datetime.now().isoformat(), "topics": db}
         except Exception:
             pass
     return {"created_at": datetime.now().isoformat(), "topics": []}
@@ -654,6 +661,7 @@ def _enrich_with_seed_metadata(topic_data: dict, seed: dict) -> dict:
         "root_niche": seed.get("root_niche"),
         "tags": seed.get("tags", []),
         "evidence_from_discovery": seed.get("evidence", {}),
+        "judge": seed.get("judge"),   # veredicto del juez pre-grounding (None si no aplica)
         "video_title": topic_data["video_title"],
         "search_keyword": topic_data.get("search_keyword", ""),
         "hook": topic_data.get("hook", ""),

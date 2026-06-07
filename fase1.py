@@ -90,6 +90,35 @@ def _load_seeds() -> list[dict]:
         return []
 
 
+def _save_seeds_with_judge(seeds: list[dict]) -> None:
+    """Persiste los seeds (con su seed["judge"]) en selected_seeds.json.
+
+    Mismo esquema que niche_discoverer._save_seeds ({"selected_at", "seeds":[...]})
+    para que el judge sobreviva al grounding y lo pueda leer el menú.
+    """
+    data = {
+        "selected_at": datetime.now().isoformat(),
+        "seeds": seeds,
+    }
+    SEEDS_FILE.write_text(
+        json.dumps(data, indent=2, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+
+def _print_judge_summary(seeds: list[dict]) -> None:
+    """Tabla del juez (solo seeds spy_arbitrage con judge). Display-only."""
+    judged = [s for s in seeds if s.get("judge")]
+    if not judged:
+        return
+    print(f"\n  🤖 Veredicto del juez (pre-grounding):")
+    print(f"     {'VEREDICTO':<11} {'COHORTE':<8} {'RIESGO':<14} TEMA")
+    for s in judged:
+        j = s["judge"]
+        print(f"     {j.get('verdict','?'):<11} {j.get('cohort','?'):<8} "
+              f"{j.get('risk','?'):<14} {s.get('seed_title','?')}")
+
+
 def _save_script(script: dict) -> None:
     """Persiste un script como JSON individual en data/scripts/."""
     SCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -222,6 +251,36 @@ def run_latido_a(
                 return
             print(f"\n  ⏭  Paso 1 saltado — {len(seeds)} seed(s) existentes")
 
+        # ═════ PASO 1.5 — Juez LLM pre-grounding (solo spy_arbitrage) ═════
+        # Marca cada seed spy con seed["judge"]; NO descarta. La auto-exclusión del
+        # grounding (solo descartar 3/3) se decide acá abajo. Enriquecimiento: si falla,
+        # se continúa SIN judge (no debe tumbar la corrida).
+        seeds_to_ground = seeds
+        if not skip_research and not skip_validate:
+            try:
+                from script_engine.m_judge_seeds import judge_seeds
+                print(f"\n{'─' * 60}")
+                print(f"  📌 PASO 1.5/4 — Juez LLM pre-grounding")
+                print(f"{'─' * 60}")
+                seeds = judge_seeds(seeds)          # agrega seed["judge"]
+                _save_seeds_with_judge(seeds)        # persistir el judge
+                _print_judge_summary(seeds)
+
+                # Auto-exclusión SOLO de descartar 3/3 (decisión Omar). El resto se groundea.
+                def _is_hard_discard(s: dict) -> bool:
+                    j = s.get("judge") or {}
+                    return j.get("verdict") == "descartar" and j.get("cohort") == "3/3"
+
+                seeds_to_ground = [s for s in seeds if not _is_hard_discard(s)]
+                excluded = [s for s in seeds if _is_hard_discard(s)]
+                if excluded:
+                    print(f"\n  ⏭  {len(excluded)} seed(s) excluidos del grounding "
+                          f"(descartar 3/3): "
+                          + ", ".join(s.get("seed_title", "?") for s in excluded))
+            except Exception as e:
+                print(f"\n  ⚠ Juez falló ({str(e)[:80]}) — se continúa SIN judge.")
+                seeds_to_ground = seeds
+
         # ═════ PASO 2 — Topic Researcher ═════
         if not skip_research and not skip_validate:
             print(f"\n{'─' * 60}")
@@ -229,7 +288,7 @@ def run_latido_a(
             if video_type == "long":
                 print(f"     🔬 Deep Research activado (4 llamadas/seed)")
             print(f"{'─' * 60}")
-            research_topics(seeds, video_type=video_type)
+            research_topics(seeds_to_ground, video_type=video_type)
         else:
             print(f"\n  ⏭  Paso 2 saltado")
 

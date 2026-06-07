@@ -346,6 +346,52 @@ def _compute_verdict(
     yt_max_fresh_for_gold = strictness["yt_max_fresh_for_gold"]
     trend_min_score = strictness["trend_min_score"]
 
+    # ─── BRANCH SPY-ARBITRAGE — Trends NO decide (demanda ya probada en sourcing) ───
+    # Estos temas llegan con la demanda YA validada por el filtro outlier del sourcing
+    # (vistas reales del viral EN). El veredicto solo traduce el hueco ES (es_gap.label)
+    # a veredicto de mercado. Retorna ANTES de leer `score`: Trends queda fuera del loop.
+    if topic is not None and topic.get("discovery_mode") == "spy_arbitrage":
+        evidence = topic.get("evidence_from_discovery") or {}
+        es_gap = evidence.get("es_gap") or {}
+        en_viral = evidence.get("en_viral") or {}
+        label = (es_gap.get("label") or "").upper()
+        en_views = en_viral.get("views", 0) or 0
+        en_ratio = en_viral.get("outlier_ratio", 0.0) or 0.0
+
+        #   VACIO / HUECO → ORO       (demanda probada + español libre)
+        #   DISPUTADO     → CALIENTE  (demanda probada + algo de competencia ES)
+        #   SATURADO      → FRÍO      (no debería llegar — el sourcing ya lo corta — defensa)
+        #   sin label     → DESCONOCIDO (evidencia incompleta; no inventar)
+        if label in ("VACIO", "VACÍO", "HUECO"):
+            return {
+                "verdict": "oro", "emoji": "🚀",
+                "reason": (f"Spy-arbitrage: demanda probada (EN {en_views:,} vistas, "
+                           f"ratio {en_ratio}x) + hueco ES {label}"),
+                "bypass": "spy_arbitrage_no_trends",
+                "applied_strictness": strictness,
+            }
+        if label == "DISPUTADO":
+            return {
+                "verdict": "caliente", "emoji": "🟡",
+                "reason": (f"Spy-arbitrage: demanda probada (EN {en_views:,} vistas) "
+                           f"pero ES DISPUTADO"),
+                "bypass": "spy_arbitrage_no_trends",
+                "applied_strictness": strictness,
+            }
+        if label == "SATURADO":
+            return {
+                "verdict": "frio", "emoji": "💀",
+                "reason": "Spy-arbitrage: ES SATURADO (no debería llegar del sourcing)",
+                "bypass": "spy_arbitrage_no_trends",
+                "applied_strictness": strictness,
+            }
+        return {
+            "verdict": "desconocido", "emoji": "⚪",
+            "reason": "Spy-arbitrage: es_gap.label ausente en evidence_from_discovery",
+            "applied_strictness": strictness,
+        }
+    # ─── fin branch spy-arbitrage; el resto (arqueología/Mode B) sigue usando Trends ───
+
     score = trend.get("final_score", -1)
     es_fresh = yt["es"].get("fresh", 0)
     en_fresh = yt["en"].get("fresh", 0)
@@ -588,6 +634,23 @@ def _detect_safety_block(response) -> str | None:
     return None
 
 
+def _facts_as_strings(topic: dict) -> list[str]:
+    """Normaliza verified_facts a list[str].
+    LONG  → list[{fact, source_block}]  → extrae el texto del fact.
+    SHORT → list[str]                   → tal cual.
+    """
+    out: list[str] = []
+    for f in (topic.get("verified_facts") or []):
+        if isinstance(f, dict):
+            txt = (f.get("fact") or "").strip()
+            if txt:
+                out.append(txt)
+        elif isinstance(f, str):
+            if f.strip():
+                out.append(f.strip())
+    return out
+
+
 def _generic_fallback_hooks_outros(topic: dict) -> dict:
     """
     Plan B: genera 3 hooks + 3 outros cuando Gemini falla.
@@ -611,7 +674,7 @@ def _generic_fallback_hooks_outros(topic: dict) -> dict:
     mystery: str = (topic.get("mystery") or "").strip()
     reveal: str = (topic.get("reveal") or "").strip()
 
-    facts: list[str] = topic.get("verified_facts") or []
+    facts: list[str] = _facts_as_strings(topic)
 
     # ─── Heurísticas para extraer cifras/fechas/nombres de verified_facts ───
     def _find_fact_with(pattern: str) -> str | None:
@@ -743,7 +806,7 @@ def _generate_human_options(topic: dict) -> dict:
 
     try:
         # ─── Construir bloque de verified_facts para el prompt ───
-        facts: list[str] = topic.get("verified_facts") or []
+        facts: list[str] = _facts_as_strings(topic)
         if facts:
             facts_block = "\n".join(f"  • {f}" for f in facts[:12])
         else:
@@ -997,8 +1060,21 @@ def _validate_topic(topic: dict, video_type: str = "short") -> dict:
     )
 
     # Capa 1 — Trends con auto-pivote (apunta a search_keyword)
-    trend = _get_trend_with_pivot(query)
-    query_for_yt = trend["final_topic"]  # Usamos el pivote si aplica
+    # SPY-ARBITRAGE: Trends NO decide (demanda ya probada en sourcing) → se SALTEA la
+    # llamada. Esto ahorra red y mata el bug del auto-pivote contaminado (turismo/Airbnb).
+    # Se pasa un trend neutro; _compute_verdict no lo usa para este modo.
+    if topic.get("discovery_mode") == "spy_arbitrage":
+        trend = {
+            "final_score": -1,
+            "final_topic": query,
+            "origin": "skipped_spy_arbitrage",
+            "has_momentum": False,
+            "has_breakout": False,
+            "momentum_ratio": 0.0,
+        }
+    else:
+        trend = _get_trend_with_pivot(query)
+    query_for_yt = trend["final_topic"]  # Usamos el pivote si aplica (no en spy_arbitrage)
 
     # Capas 2/3 — Delegadas al scanner (scrapetube → API fallback)
     yt = scan_competition(query_for_yt, limit=YT_LIMIT_SCRAPE)
