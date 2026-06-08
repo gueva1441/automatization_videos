@@ -28,6 +28,7 @@ Consume:
 """
 
 import json
+import os
 import re
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -121,6 +122,14 @@ ES_GAP_WORKERS: int = 3   # CHAT 44: workers del loop del hueco ES. 3 IPs rotada
 # comparación ("viejo≥300k") en el dry-run. El tuning del filtro nuevo vive en
 # youtube_scanner.py (OUTLIER_MIN / PISO_MEDIANA / ABS_FLOOR / PISO_DEMANDA).
 SPY_MIN_EN_VIEWS: int = 300_000       # (deprecado como filtro; ref de comparación)
+
+# CHAT 49 — fix spy-subtemas, rama INDIVIDUAL (contrato cerrado en addendums 1-3).
+# Flag de cableado: OFF por default = comportamiento IDÉNTICO al de hoy (cero regresión).
+# Activar con env var SUBTEMA_FANOUT=1. Cuando ON: lee el transcript del viral EN, clasifica
+# ATÓMICO/CONTENEDOR; los contenedores se abren en N seeds (uno por sujeto-de-segmento que
+# pase el medidor ES-primero+LAXO+relevancia), cap top-K por demanda EN.
+SUBTEMA_FANOUT: bool = os.getenv("SUBTEMA_FANOUT", "0") == "1"
+SUBTEMA_FANOUT_CAP_K: int = 8          # decisión Omar: top-K subtemas por demanda EN (top_rel_views)
 
 ARCH_MIN_CANDIDATES: int = 5            # Candidatos mínimos de Gemini
 ARCH_MAX_CANDIDATES: int = 10           # Candidatos máximos (evita gasto excesivo)
@@ -486,6 +495,87 @@ def _print_dry_run_table(rows: list[dict]) -> None:
               f"{med:>10} {ratio:>7} {r.get('passed_reason', ''):>8} {old:>10}  {sq:<26}")
 
 
+def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants: int) -> list[dict] | None:
+    """CHAT 49 — fan-out de subtemas (solo con SUBTEMA_FANOUT=1).
+
+    Lee el transcript del viral EN, lo clasifica ATÓMICO/CONTENEDOR:
+      - sin transcript / ATÓMICO / ERROR → devuelve None  → el caller cae al flujo de HOY
+        (1 seed genérico, con el descarte ES-evento de siempre).
+      - CONTENEDOR → SALTEA el descarte ES-evento (decisión Omar #4: medir ES por subtema),
+        extrae sujetos-de-segmento, mide cada uno (ES-primero + LAXO + relevancia EN),
+        emite top-K por demanda EN. Devuelve list[seed] (puede ser vacía).
+
+    NO persiste — solo construye seeds. Imports locales (evitar cualquier circular).
+    """
+    from script_engine.transcript_fetch import fetch_transcript
+    from script_engine.subtopic_classifier import classify
+    from script_engine.subtopic_extractor import extract_segment_subjects, verify_names
+    from script_engine.subtopic_measurer import measure
+
+    vid = rep_item.get("video_id")
+    en_title = rep_item.get("original_title") or rep_item.get("spanish_topic") or ""
+
+    transcript = fetch_transcript(vid)
+    if not transcript:
+        print(f"        [fanout] sin transcript ({vid}) → flujo de hoy (1 seed)")
+        return None
+
+    cls = classify(en_title, transcript)
+    if cls.get("tipo") != "CONTENEDOR":
+        print(f"        [fanout] {cls.get('tipo')} → flujo de hoy (1 seed)")
+        return None
+
+    subjects = extract_segment_subjects(en_title, transcript)
+    measured = []
+    for s in subjects:
+        m = measure(s)
+        if m.get("passes"):
+            measured.append((s, m))
+    measured.sort(key=lambda sm: (sm[1].get("en") or {}).get("top_rel_views", 0), reverse=True)
+    capped = measured[:SUBTEMA_FANOUT_CAP_K]
+    dropped = len(measured) - len(capped)
+
+    verif = verify_names([s for s, _ in capped])  # review-flag (D4), NUNCA dropea
+
+    out: list[dict] = []
+    for s, m in capped:
+        en = m.get("en") or {}
+        es = m.get("es") or {}
+        vf = verif.get(s, {})
+        out.append(_build_seed(
+            title=s,
+            mode="spy_arbitrage",
+            root_niche=root_niche,
+            evidence={
+                "en_viral": {
+                    "original_title": en.get("top_rel_title"),
+                    "views": en.get("top_rel_views"),
+                    "video_id": en.get("top_rel_video_id"),
+                    "query": s,
+                    "passed_reason": "laxo",
+                },
+                "es_gap": {
+                    "saturation": es.get("saturation"),
+                    "label": es.get("label"),
+                    "heaviest": es.get("heaviest"),
+                    "ontopic_count": es.get("ontopic_count"),
+                    "anchors_used": es.get("anchors_used"),
+                    "source": es.get("source"),
+                },
+                "subtema_of_container": {
+                    "parent_video_id": vid,
+                    "parent_title": en_title,
+                },
+                "asr_verify": {"canonical": vf.get("canonical"), "is_real": vf.get("is_real")},
+                "fanout": {"role": "subtema", "measured_passing": len(measured),
+                           "emitted": len(capped), "dropped_by_cap": dropped},
+            },
+        ))
+    print(f"        [fanout] CONTENEDOR: {len(subjects)} sujetos · {len(measured)} pasan medidor "
+          f"→ {len(capped)} seeds (cap K={SUBTEMA_FANOUT_CAP_K}, {dropped} drop)")
+    return out
+
+
 def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dict]:
     """
     Modo A — SPY-ARBITRAGE (CHAT 42: flujo INVERTIDO).
@@ -634,12 +724,22 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
         tag = f" [{n} variantes]" if n > 1 else ""
         label_counts[worst_sat["label"]] = label_counts.get(worst_sat["label"], 0) + 1
 
+        # representante EN = variante con más views (viral más fuerte); ES = la de mayor saturación
+        rep_item = max(variants, key=lambda v: v[0].get("views", 0))[0]
+
+        # CHAT 49 — fan-out de subtemas (solo con SUBTEMA_FANOUT=1). Si el viral es CONTENEDOR,
+        # se abre en N seeds y se SALTEA el descarte ES-evento (decisión #4: ES por subtema).
+        # Si devuelve None (flag OFF, sin transcript, o ATÓMICO) → cae al flujo de HOY.
+        if SUBTEMA_FANOUT:
+            fanned = _try_subtema_fanout(rep_item, rep_item.get("root_niche"), worst_sat, n)
+            if fanned is not None:
+                seeds.extend(fanned)
+                continue
+
         if worst_sat["label"] == "SATURADO":
             print(f"     SATURADO ({worst_sat['saturation']:>11,.0f}) · {key}{tag} → descartado")
             continue
 
-        # representante EN = variante con más views (viral más fuerte); ES = la de mayor saturación
-        rep_item = max(variants, key=lambda v: v[0].get("views", 0))[0]
         print(f"     {worst_sat['label']:>9} ({worst_sat['saturation']:>11,.0f}) · {rep_item['spanish_topic']}{tag}")
         seed = _build_seed(
             title=rep_item["spanish_topic"],
