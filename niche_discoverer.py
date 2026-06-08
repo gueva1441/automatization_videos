@@ -97,9 +97,9 @@ ROOT_NICHES: dict = {
         "es_name": "Lugares Abandonados",
         "emoji": "🏚️",
         "en_queries": [
-            "abandoned places mysterious history",
-            "ghost towns unexplained disappearance",
-            "forbidden abandoned military bases",
+            "abandoned asylum prison dark history",
+            "ghost town disaster abandoned",
+            "industrial disaster abandoned town",
         ],
         "tags": ["abandonados", "ruinas", "pueblos fantasma", "misterio"],
         "archaeology_focus": (
@@ -130,6 +130,11 @@ SPY_MIN_EN_VIEWS: int = 300_000       # (deprecado como filtro; ref de comparaci
 # pase el medidor ES-primero+LAXO+relevancia), cap top-K por demanda EN.
 SUBTEMA_FANOUT: bool = os.getenv("SUBTEMA_FANOUT", "0") == "1"
 SUBTEMA_FANOUT_CAP_K: int = 8          # decisión Omar: top-K subtemas por demanda EN (top_rel_views)
+
+# T1 (chat 49) — sentinel de "saltear el video": fallo de infra (transcript None o classify
+# ERROR). Distinto de None (=cae al flujo de hoy, 1 seed) y de list (=subtemas). El caller
+# hace `continue` sin crear seed: NO fabricar un atómico sobre un video que falló por infra.
+_FANOUT_SKIP = object()
 
 ARCH_MIN_CANDIDATES: int = 5            # Candidatos mínimos de Gemini
 ARCH_MAX_CANDIDATES: int = 10           # Candidatos máximos (evita gasto excesivo)
@@ -510,37 +515,66 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
     from script_engine.transcript_fetch import fetch_transcript
     from script_engine.subtopic_classifier import classify
     from script_engine.subtopic_extractor import extract_segment_subjects, verify_names
-    from script_engine.subtopic_measurer import measure
+    from script_engine.subtopic_measurer import (
+        _measure_en_laxo, _measure_es, ES_SATURATED_LABEL,
+    )
 
     vid = rep_item.get("video_id")
     en_title = rep_item.get("original_title") or rep_item.get("spanish_topic") or ""
 
     transcript = fetch_transcript(vid)
+    if transcript is None:
+        # T1: FALLO DE INFRA (no "sin subs"). NO fabricar atómico → saltear el video.
+        print(f"        [fanout] FALLO DE INFRA al traer transcript ({vid}) → SKIP (no se crea seed)")
+        return _FANOUT_SKIP
     if not transcript:
         print(f"        [fanout] sin transcript ({vid}) → flujo de hoy (1 seed)")
         return None
 
     cls = classify(en_title, transcript)
-    if cls.get("tipo") != "CONTENEDOR":
-        print(f"        [fanout] {cls.get('tipo')} → flujo de hoy (1 seed)")
+    tipo = cls.get("tipo")
+    if tipo == "ERROR":
+        # T1 (mismo principio que el transcript): clasificación falló por infra → SKIP, no
+        # fabricar un seed atómico sobre un video cuya clasificación nunca corrió de verdad.
+        print(f"        [fanout] classify ERROR ({vid}) → SKIP (no se crea seed): {cls.get('razon')}")
+        return _FANOUT_SKIP
+    if tipo != "CONTENEDOR":
+        print(f"        [fanout] {tipo} → flujo de hoy (1 seed)")
         return None
 
     subjects = extract_segment_subjects(en_title, transcript)
-    measured = []
-    for s in subjects:
-        m = measure(s)
-        if m.get("passes"):
-            measured.append((s, m))
-    measured.sort(key=lambda sm: (sm[1].get("en") or {}).get("top_rel_views", 0), reverse=True)
-    capped = measured[:SUBTEMA_FANOUT_CAP_K]
-    dropped = len(measured) - len(capped)
 
-    verif = verify_names([s for s, _ in capped])  # review-flag (D4), NUNCA dropea
+    # ── T3: FASE EN (BARATA) para TODOS los sujetos → ordenar por demanda EN → cap top-K ──
+    # Antes se medía EN+ES juntos por sujeto (se pagaba el ES caro de los que el cap tiraba).
+    # Ahora: EN-only para todos, cap, y RECIÉN ES a los ≤K ganadores.
+    en_passing: list[tuple] = []
+    for s in subjects:
+        en = _measure_en_laxo(s)
+        if en.get("error"):
+            continue                                  # EN_ERROR → no compite
+        if en.get("pasa_laxo"):
+            en_passing.append((s, en))
+    en_passing.sort(key=lambda se: se[1].get("top_rel_views", 0), reverse=True)
+    capped = en_passing[:SUBTEMA_FANOUT_CAP_K]
+    dropped = len(en_passing) - len(capped)           # tirados por el cap ANTES de pagar ES
+
+    # ── T3: FASE ES (CARA) solo a los ≤K ganadores. Compuerta ES-primero DENTRO del cap:
+    # un ganador EN que salga SATURADO en ES cae igual (orden final = EN-cap → ES-gate → seed).
+    survivors: list[tuple] = []                       # [(s, en, es)]
+    es_gated = 0
+    for s, en in capped:
+        es = _measure_es(s)
+        if es.get("label") == "ERROR":
+            continue                                  # ES_ERROR → no emite
+        if es.get("label") == ES_SATURATED_LABEL:
+            es_gated += 1                             # ganador EN pero saturado en ES → cae
+            continue
+        survivors.append((s, en, es))
+
+    verif = verify_names([s for s, _, _ in survivors])  # review-flag (D4), NUNCA dropea
 
     out: list[dict] = []
-    for s, m in capped:
-        en = m.get("en") or {}
-        es = m.get("es") or {}
+    for s, en, es in survivors:
         vf = verif.get(s, {})
         out.append(_build_seed(
             title=s,
@@ -567,12 +601,19 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
                     "parent_title": en_title,
                 },
                 "asr_verify": {"canonical": vf.get("canonical"), "is_real": vf.get("is_real")},
-                "fanout": {"role": "subtema", "measured_passing": len(measured),
-                           "emitted": len(capped), "dropped_by_cap": dropped},
+                "fanout": {"role": "subtema",
+                           "subjects_extracted": len(subjects),
+                           "en_passing": len(en_passing),
+                           "emitted": len(survivors),
+                           "dropped_by_cap": dropped,        # cap recortó ANTES de pagar ES
+                           "es_gated_in_cap": es_gated},
             },
         ))
-    print(f"        [fanout] CONTENEDOR: {len(subjects)} sujetos · {len(measured)} pasan medidor "
-          f"→ {len(capped)} seeds (cap K={SUBTEMA_FANOUT_CAP_K}, {dropped} drop)")
+    es_paid = len(capped)            # mediciones ES nuevas
+    es_old = len(subjects)           # lo que el flujo viejo (ES-primero a todos) habría pagado
+    print(f"        [fanout] CONTENEDOR: {len(subjects)} sujetos · {len(en_passing)} pasan EN "
+          f"→ cap K={SUBTEMA_FANOUT_CAP_K} ({dropped} drop pre-ES) · {es_gated} ES-saturados "
+          f"→ {len(out)} seeds  [ES medido {es_paid} vs {es_old} viejo, ahorro {es_old - es_paid}]")
     return out
 
 
@@ -732,6 +773,11 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
         # Si devuelve None (flag OFF, sin transcript, o ATÓMICO) → cae al flujo de HOY.
         if SUBTEMA_FANOUT:
             fanned = _try_subtema_fanout(rep_item, rep_item.get("root_niche"), worst_sat, n)
+            if fanned is _FANOUT_SKIP:
+                # T1: fallo de infra (transcript None / classify ERROR) → saltear el video
+                # SIN crear seed. NO caer al flujo de hoy (eso fabricaría un atómico falso).
+                print(f"     ⏭  SKIP (fallo de infra en transcript/clasificación) · {key}{tag}")
+                continue
             if fanned is not None:
                 seeds.extend(fanned)
                 continue

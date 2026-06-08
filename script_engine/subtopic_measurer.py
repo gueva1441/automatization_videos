@@ -17,7 +17,12 @@ Reusa prod SIN reescribir: score_spanish_saturation, search_viral_english, extra
 NO usa compute_outlier_filter.
 
 API:
-    measure(name) -> dict   # ver SHAPE abajo; measure(...)["passes"] = bool
+    measure(name) -> dict   # ver SHAPE abajo; measure(...)["passes"] = bool  (ES-primero + EN, JUNTOS)
+
+    # T3 (chat 49): el fan-out usa las DOS fases por separado para no pagar el ES caro de los
+    # sujetos que el cap K va a tirar. measure() queda como wrapper para quien quiera ambas.
+    _measure_en_laxo(name) -> dict   # solo demanda EN (LAXO + relevancia). Barato. {top_rel_views, pasa_laxo, ...}
+    _measure_es(name) -> dict        # solo saturación ES (score_spanish_saturation). Caro. {label, saturation, ...}
 """
 from __future__ import annotations
 

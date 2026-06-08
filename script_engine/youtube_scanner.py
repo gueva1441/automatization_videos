@@ -169,16 +169,22 @@ def _parse_length_scrapetube(vid: dict) -> int | None:
     return secs
 
 
-def _parse_date_scrapetube_months_ago(time_text: str) -> int:
+def _parse_date_scrapetube_months_ago(time_text: str) -> int | None:
     """
     Estima cuántos meses atrás fue publicado un video según scrapetube.
     "hace 2 días" → 0, "hace 3 semanas" → 0, "hace 2 meses" → 2, "hace 1 año" → 12.
-    Devuelve 999 si no se puede parsear (conservador: lo considera viejo).
+
+    T5 (chat 49): devuelve None (no 999) cuando NO se puede parsear la fecha. El sentinel
+    999 contaminaba el orden por edad y envenenaba al juez (un 999 se leía como "viejísimo").
+    Los consumidores manejan None explícito:
+      - count_competing_spanish: None → trata como "fuera de ventana" (mismo efecto que 999>window).
+      - _es_age_decay: None → ES_DECAY_FLOOR (idéntico al viejo 999, NO cambia la saturación).
+      - en_age_months (juez): None → "desconocida", el prompt NO penaliza por fecha.
     """
     t = time_text.lower()
     match = re.search(r"(\d+)", t)
     if not match:
-        return 999
+        return None
     n = int(match.group(1))
 
     if "día" in t or "dia" in t or "day" in t or "hora" in t or "hour" in t or "semana" in t or "week" in t:
@@ -187,7 +193,7 @@ def _parse_date_scrapetube_months_ago(time_text: str) -> int:
         return n
     if "año" in t or "year" in t:
         return n * 12
-    return 999
+    return None
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -888,7 +894,8 @@ def _scrape_spanish_competition(
 
         time_text = vid.get("publishedTimeText", {}).get("simpleText", "")
         months_ago = _parse_date_scrapetube_months_ago(time_text)
-        if months_ago > window_months:
+        # T5: fecha desconocida (None) → fuera de ventana (idéntico al viejo 999 > window).
+        if months_ago is None or months_ago > window_months:
             continue
 
         views = _parse_views_scrapetube(vid)
@@ -1060,7 +1067,10 @@ def count_competing_spanish(
             }
 
 
-def _es_age_decay(months: int) -> float:
+def _es_age_decay(months: int | None) -> float:
+    # T5: fecha desconocida (None) → floor, idéntico al viejo 999 (NO cambia la saturación ES).
+    if months is None:
+        return ES_DECAY_FLOOR
     for max_m, w in ES_DECAY_TIERS:
         if months <= max_m:
             return w

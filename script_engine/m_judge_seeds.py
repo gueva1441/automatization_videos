@@ -54,6 +54,11 @@ def _build_judge_prompt(seed: dict) -> str:
     ev = seed.get("evidence") or {}
     en = ev.get("en_viral") or {}
     es_gap = ev.get("es_gap") or {}
+    # T5 (chat 49): la edad puede ser None (fecha no parseable, o subtema de fan-out que no la
+    # propaga). Antes llegaba como 999 y el juez lo leía "viejísimo" → sesgaba el voto. Ahora
+    # se muestra "desconocida" y el prompt instruye NO penalizar por fecha en ese caso.
+    age = en.get("en_age_months")
+    age_str = f"{age} meses" if isinstance(age, int) else "desconocida"
     return f"""\
 Sos un analista de contenido para un canal faceless de YouTube en español, nicho historia
 oscura / desastres / misterio, documental 8-10 min.
@@ -67,13 +72,15 @@ DATA DEL CANDIDATO:
 - vistas EN: {en.get('views')}
 - ratio outlier: {en.get('outlier_ratio')}x  (vistas ÷ mediana del canal)
 - mediana del canal: {en.get('channel_median')}
-- edad del viral: {en.get('en_age_months')} meses
+- edad del viral: {age_str}
 - saturación ES: label={es_gap.get('label')}, competidor más pesado={_fmt_heaviest(es_gap)}
 
 CRITERIOS (en este orden):
 1. DEMANDA REAL vs RATIO INFLADO. Ratio alto (ej. 185x) sobre mediana chica (ej. 2.000) =
    golpe de suerte de un canal diminuto, NO demanda del tema. Vistas absolutas altas (1M+)
    sobre mediana grande = demanda sostenida real. Marcá cuál es.
+   Si la edad del viral es "desconocida", NO la uses como señal: no asumas que es viejo ni
+   penalices por fecha — decidí solo con vistas, ratio, mediana y saturación.
 2. ESPECIFICIDAD. Un título genérico ("sitios militares abandonados américa", "lugares
    prohibidos") compite en formato saturado aunque el label diga hueco. Un título con nombre
    propio / lugar / caso concreto ("Corpsewood Manor", "búnkeres de Albania") es defendible.
