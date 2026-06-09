@@ -54,6 +54,10 @@ from script_engine.youtube_scanner import (
     compute_outlier_filter,        # CHAT 42: filtro de unión (outlier ratio OR volumen)
     score_spanish_saturation,      # CHAT 44: score de saturación ES (reemplaza count en spy-arbitrage)
     EN_CANDIDATES_PER_QUERY,
+    _channel_baseline,             # CHAT 50: mediana del canal (fan-out enrichment)
+    compute_ratio,                 # CHAT 50: vistas ÷ mediana
+    BASELINE_N,                    # CHAT 50: uploads para la mediana (mismo que el directo)
+    EN_OUTLIER_WORKERS,            # CHAT 50: workers paralelos para el fetch de baselines
 )
 
 
@@ -573,9 +577,35 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
 
     verif = verify_names([s for s, _, _ in survivors])  # review-flag (D4), NUNCA dropea
 
+    # ── CHAT 50: ratio + mediana del canal SOLO sobre los ≤K survivors (DESPUÉS del cap T3
+    # y del ES-gate). El fetch get_channel es lo único caro → jamás antes del cap. En paralelo
+    # (mismo patrón que compute_outlier_filter), cacheado por channel_id (dos subtemas pueden
+    # compartir canal → un solo fetch). NO es filtro: se calcula como CAMPO (insumo del juez
+    # Criterio #1 + trazabilidad), nunca como condición de descarte (D5/LAXO sigue siendo el gate).
+    baseline_cache: dict[str, float | None] = {}
+    cids_to_fetch: dict[str, int] = {}   # channel_id → exclude views (del primer survivor del canal)
+    for _s, en, _es in survivors:
+        cid = en.get("top_rel_channel_id")
+        if cid and cid not in cids_to_fetch:
+            cids_to_fetch[cid] = int(en.get("top_rel_views") or 0)
+
+    def _fetch_baseline(cid: str, exclude_views: int):
+        return cid, _channel_baseline(cid, BASELINE_N, exclude=exclude_views)
+
+    if cids_to_fetch:
+        with ThreadPoolExecutor(max_workers=EN_OUTLIER_WORKERS) as ex:
+            futures = [ex.submit(_fetch_baseline, cid, ev) for cid, ev in cids_to_fetch.items()]
+            for fut in as_completed(futures):
+                cid, median = fut.result()
+                baseline_cache[cid] = median
+
     out: list[dict] = []
     for s, en, es in survivors:
         vf = verif.get(s, {})
+        cid = en.get("top_rel_channel_id")
+        views = int(en.get("top_rel_views") or 0)
+        median = baseline_cache.get(cid) if cid else None
+        ratio = compute_ratio(views, median) if median else 0.0
         out.append(_build_seed(
             title=s,
             mode="spy_arbitrage",
@@ -586,6 +616,11 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
                     "views": en.get("top_rel_views"),
                     "video_id": en.get("top_rel_video_id"),
                     "query": s,
+                    # CHAT 50: nombres idénticos al camino directo (path B) → el juez Criterio #1
+                    # y el menú rico los leen sin ramas especiales.
+                    "outlier_ratio": ratio,                        # 2.2 (solo survivors, post-cap)
+                    "channel_median": median,                      # 2.2
+                    "en_age_months": en.get("top_rel_age_months"),  # 2.1 (gratis)
                     "passed_reason": "laxo",
                 },
                 "es_gap": {

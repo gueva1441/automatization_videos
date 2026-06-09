@@ -130,6 +130,11 @@ def _measure_en_laxo(name: str) -> dict:
         "top_rel_title": (top_rel or {}).get("title"),
         "top_rel_video_id": (top_rel or {}).get("video_id"),
         "top_rel_views": top_rel_views,
+        # CHAT 50: el candidato EN ya trae channel_id + en_age_months precalculados
+        # (youtube_scanner._scrape_viral_english). Propagarlos GRATIS ($0, sin fetch) para
+        # que el fan-out pueda calcular outlier_ratio/channel_median sobre los survivors.
+        "top_rel_channel_id": (top_rel or {}).get("channel_id"),
+        "top_rel_age_months": (top_rel or {}).get("en_age_months"),
         "pasa_laxo": top_rel_views >= LAXO_FLOOR_VIEWS,
     }
 
