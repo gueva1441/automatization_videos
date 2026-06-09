@@ -12,7 +12,8 @@ translate_to_es NO es idempotente sobre texto ya-ES) y usa el juez-LLM de releva
 DOS bloques:
   A) UNIT (SIN red, determinista) — la garantía de no-regresión del fan-out:
        already_es=False  → SIGUE llamando translate_to_es (camino fan-out intacto).
-       already_es=True   → NO llama translate_to_es; es_query = el tema tal cual.
+       already_es=True   → NO reescribe la query (es_query = el tema tal cual). CHAT 52 B3: SÍ
+                           llama translate, pero solo para cosechar aliases (descarta la reescritura).
   B) LIVE (red + Gemini, lo que confirmó el lab) — corre si hay conectividad/API; si falla la
      infra reporta SKIP (no rompe el bloque A).
        · Pennhurst → VACIO: ASERCIÓN dura. El juez tira todo (es un hueco ES real, 9/9 dropped
@@ -51,7 +52,7 @@ def check(cond: bool, msg: str):
 #  A) UNIT — branching de already_es, SIN red (determinista, garantía fan-out)
 # ════════════════════════════════════════════════════════════════════════
 def test_unit_branching():
-    print("\n[UNIT] already_es controla SOLO el translate (resto idéntico)")
+    print("\n[UNIT] already_es: la query NO se reescribe (B3: translate solo para aliases)")
 
     calls = {"translate": 0, "list_q": [], "filter_entity": []}
 
@@ -73,9 +74,11 @@ def test_unit_branching():
     try:
         # already_es=True → NO traduce, es_query == input crudo
         r_es = _measure_es("Horrores del Asilo Pennhurst", already_es=True)
-        check(calls["translate"] == 0, "already_es=True NO llama translate_to_es")
+        # CHAT 52 B3: already_es=True AHORA sí llama translate (solo por los aliases), pero NO
+        # reescribe la query → el invariante real es que es_query queda CRUDO.
+        check(calls["translate"] == 1, "already_es=True llama translate SOLO por aliases (B3)")
         check(r_es.get("es_query") == "Horrores del Asilo Pennhurst",
-              f"already_es=True usa el tema tal cual (es_query={r_es.get('es_query')!r})")
+              f"already_es=True NO reescribe la query (es_query={r_es.get('es_query')!r})")
         check(calls["list_q"] == ["Horrores del Asilo Pennhurst"],
               "scrape ES corre sobre la query ES cruda")
         check(calls["filter_entity"] == ["Horrores del Asilo Pennhurst"],

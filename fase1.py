@@ -47,6 +47,7 @@ from csv_exporter import (
 from niche_discoverer import discover_niches
 from topic_researcher import research_topics
 from topic_validator import validate_topics
+from script_engine.subtopic_measurer import _measure_es   # CHAT 52 B2: gate de verificación del pick
 
 
 # ─────────────────────────────────────────────────────────────
@@ -233,6 +234,89 @@ def _select_seed_interactive(seeds: list[dict]) -> list[dict] | None:
         print(f"  Inválido. Ingresá número(s) entre 1 y {len(ordered)} (ej. 3 o 1,4), o Q.")
 
 
+# CHAT 52 B2 — orden de "saturación" de los labels ES (para quedarse con el PEOR al re-medir).
+_ES_LABEL_RANK = {"VACIO": 0, "HUECO": 1, "DISPUTADO": 2, "SATURADO": 3}
+
+
+def _verify_pick_es_saturation(chosen: list[dict], n: int = 3) -> list[dict] | None:
+    """CHAT 52 B2 — gate anti-varianza-de-scrape: re-mide ES `n` veces SOLO el/los pick(s) y se
+    queda con el PEOR label (más saturado), igual que el patrón conservador del discovery
+    (saturación del evento = la MÁS ALTA entre variantes). NO toca el discovery masivo.
+
+    Si el peor label de las n corridas es SATURADO o DISPUTADO, avisa y PREGUNTA a Omar
+    [P]roducir igual / [S]acar este pick / [Q]salir. NO auto-excluye. (El discovery masivo sigue
+    descartando SOLO SATURADO — embudo ancho; el gate del pick es la red FINAL, más estricta: tras
+    B1 los evergreen grandes sin fecha caen en DISPUTADO, no SATURADO, y no queremos producir sobre
+    ellos sin confirmar.) Imprime las n mediciones para que se vea la dispersión. Seeds sin receta
+    `remeasure` (Mode B / viejos) se conservan sin re-medir (no se puede re-medir lo que no se sabe medir).
+
+    Devuelve la lista de picks que sobreviven, o None si Omar sale (Q) o no queda ninguno."""
+    if not chosen:
+        return None
+    kept: list[dict] = []
+    for seed in chosen:
+        title = seed.get("seed_title") or "(sin título)"
+        recipe = seed.get("remeasure")
+        if not recipe or not recipe.get("es_query"):
+            print(f"\n  ℹ '{title}': sin receta remeasure (Mode B / seed viejo) — no se re-mide.")
+            kept.append(seed)
+            continue
+
+        print(f"\n  🔁 Verificando el pick '{title}' — re-mido ES {n}× (anti-varianza de scrape)...")
+        measurements: list[tuple[str, float]] = []
+        for k in range(n):
+            try:
+                r = _measure_es(recipe["es_query"], recipe.get("entity"),
+                                already_es=recipe.get("already_es", False))
+            except Exception as e:
+                print(f"      corrida {k + 1}/{n}: EXCEPCIÓN ({str(e)[:70]})")
+                continue
+            lab = r.get("label")
+            if lab == "ERROR":
+                print(f"      corrida {k + 1}/{n}: ERROR ({r.get('error')})")
+                continue
+            sat = r.get("saturation") or 0
+            measurements.append((lab, sat))
+            print(f"      corrida {k + 1}/{n}: {lab} (sat={sat:,.0f})")
+
+        if not measurements:
+            print(f"      ⚠ todas las corridas fallaron — no se pudo verificar. Conservo el pick.")
+            kept.append(seed)
+            continue
+
+        worst_lab, worst_sat = max(
+            measurements, key=lambda m: (_ES_LABEL_RANK.get(m[0], -1), m[1]))
+        orig_lab = ((seed.get("evidence") or {}).get("es_gap") or {}).get("label") or "—"
+        print(f"      → peor de {len(measurements)}: {worst_lab} (sat={worst_sat:,.0f}) "
+              f"· el seed decía: {orig_lab}")
+
+        if worst_lab not in ("SATURADO", "DISPUTADO"):
+            kept.append(seed)
+            continue
+
+        detail = ("el nicho NO está libre (competidor tamaño viral)" if worst_lab == "SATURADO"
+                  else "hay competencia real, no es hueco limpio — confirmá antes de gastar")
+        print(f"\n  ⚠ El pick '{title}' FLIPEÓ a {worst_lab} al re-medir — {detail}.")
+        while True:
+            ans = input(f"     [P]roducir igual · [S]acar este pick · [Q]salir: ").strip().upper()
+            if ans == "P":
+                print(f"     → producís igual (bajo tu criterio).")
+                kept.append(seed)
+                break
+            if ans == "S":
+                print(f"     → saco '{title}' del research.")
+                break
+            if ans == "Q":
+                print(f"     → salgo. No se investiga nada.")
+                return None
+            print(f"     Opción inválida (P/S/Q).")
+
+    if not kept:
+        print(f"\n  📌 Ningún pick sobrevivió la verificación — no se investiga nada.")
+        return None
+    return kept
+
+
 def _save_script(script: dict) -> None:
     """Persiste un script como JSON individual en data/scripts/."""
     SCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -406,6 +490,10 @@ def run_latido_a(
             if not chosen:
                 print(f"\n  📌 Sin selección — no se investiga nada. Fin del Latido A.")
                 return
+            # CHAT 52 B2 — GATE DE VERIFICACIÓN DEL PICK (mata la varianza de scrape del elegido):
+            chosen = _verify_pick_es_saturation(chosen, n=3)
+            if not chosen:
+                return    # Omar abortó (Q) o ningún pick sobrevivió tras re-medir
             seeds_to_ground = chosen
 
         # ═════ PASO 2 — Topic Researcher (SOLO el/los elegido(s)) ═════

@@ -178,7 +178,8 @@ def _parse_date_scrapetube_months_ago(time_text: str) -> int | None:
     999 contaminaba el orden por edad y envenenaba al juez (un 999 se leía como "viejísimo").
     Los consumidores manejan None explícito:
       - count_competing_spanish: None → trata como "fuera de ventana" (mismo efecto que 999>window).
-      - _es_age_decay: None → ES_DECAY_FLOOR (idéntico al viejo 999, NO cambia la saturación).
+      - _es_age_decay: None → ES_DECAY_UNKNOWN=0.6 (CHAT 52: decay NEUTRO, no floor; None
+        correlaciona con evergreen grandes y floorearlos ocultaba saturación real).
       - en_age_months (juez): None → "desconocida", el prompt NO penaliza por fecha.
     """
     t = time_text.lower()
@@ -475,6 +476,8 @@ EN_OUTLIER_WORKERS: int = 3   # CHAT 44: workers para fetch de baselines (ceilin
 # (HUECO/DISPUTADO) son etiquetas BLANDAS para el ojo humano, no gates duros → tunables sin estrés.
 ES_DECAY_TIERS: list = [(12, 1.0), (36, 0.6), (60, 0.3)]   # (meses_max, peso); más viejo → floor
 ES_DECAY_FLOOR: float = 0.1
+ES_DECAY_UNKNOWN: float = 0.6   # CHAT 52: decay para fecha None (neutro, NO floor). None correlaciona
+                                # con evergreen grandes; floorearlos ocultaba saturación real.
 ES_SAT_HUECO: int = 30_000        # >0 y < esto = HUECO
 ES_SAT_DISPUTADO: int = 150_000   # < esto = DISPUTADO; >= esto = SATURADO (se descarta)
 ES_SCRAPE_PASSES: int = 2   # CHAT 44: pasadas de scrape unidas (denoise del flip-flop). Saturación
@@ -1068,9 +1071,12 @@ def count_competing_spanish(
 
 
 def _es_age_decay(months: int | None) -> float:
-    # T5: fecha desconocida (None) → floor, idéntico al viejo 999 (NO cambia la saturación ES).
+    # CHAT 52: fecha desconocida (None) NO es lo mismo que "viejo". scrapetube falla la fecha
+    # justo en los evergreen GRANDES → flooreaarlos subestimaba la competencia sistemáticamente
+    # (Cowork: Centralia/Ashgabat/Plymouth SATURADO disfrazados de DISPUTADO). Tratar None como
+    # decay NEUTRO, no floor. (Revierte la decisión T5 con evidencia.)
     if months is None:
-        return ES_DECAY_FLOOR
+        return ES_DECAY_UNKNOWN
     for max_m, w in ES_DECAY_TIERS:
         if months <= max_m:
             return w

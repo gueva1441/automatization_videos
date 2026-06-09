@@ -69,6 +69,8 @@ from script_engine.subtopic_measurer import _measure_es
 # ═══════════════════════════════════════════════════════════════
 
 SEEDS_FILE: Path = DATA_DIR / "selected_seeds.json"
+# CHAT 52 B5: rastro en disco de los subtemas que el cap K tiró ANTES de medir ES (observabilidad).
+DROPPED_CAP_LOG: Path = DATA_DIR / "_steps" / "dropped_by_cap.jsonl"
 
 # ─── Nichos raíz (FIJOS, no editables desde el menú) ───
 ROOT_NICHES: dict = {
@@ -187,12 +189,18 @@ def _build_seed(
     evidence: dict,
     tags: list[str] | None = None,
     nombre_en: str | None = None,
+    remeasure: dict | None = None,
 ) -> dict:
     """Construye un seed estandarizado con trazabilidad completa.
 
     CHAT 51 — nombre_en (entidad canónica) es opcional: SOLO el fan-out lo pasa (el seed_title
     lleva el ángulo, así que la entidad pelada se guarda aparte para display/provenance). El
-    camino directo (path B) no lo pasa → el seed queda idéntico a antes (sin esa clave)."""
+    camino directo (path B) no lo pasa → el seed queda idéntico a antes (sin esa clave).
+
+    CHAT 52 (B2) — remeasure: receta mínima {es_query, entity, already_es} para que el gate de
+    verificación del pick (fase1._verify_pick_es_saturation) pueda re-medir ES n veces con el MISMO
+    insumo que produjo el seed. Solo lo pasan los caminos activos (atómico/fan-out); Mode B no →
+    el seed queda sin la clave y el gate lo saltea (no re-mide lo que no sabe medir)."""
     if tags is None and root_niche and root_niche in ROOT_NICHES:
         tags = ROOT_NICHES[root_niche]["tags"]
     elif tags is None:
@@ -209,6 +217,8 @@ def _build_seed(
     }
     if nombre_en is not None:
         seed["nombre_en"] = nombre_en      # entidad canónica (solo fan-out)
+    if remeasure is not None:
+        seed["remeasure"] = remeasure      # CHAT 52 B2: receta para re-medir ES en el gate del pick
     return seed
 
 
@@ -515,6 +525,36 @@ def _print_dry_run_table(rows: list[dict]) -> None:
               f"{med:>10} {ratio:>7} {r.get('passed_reason', ''):>8} {old:>10}  {sq:<26}")
 
 
+def _apply_fanout_cap(en_passing: list, k: int) -> tuple:
+    """CHAT 52 B5 — aplica el cap top-K y devuelve (capped, dropped_subtemas). El cap NO cambia
+    (sigue K): capped = top-K por demanda EN. dropped_subtemas = los que pasaron EN pero el cap
+    tiró ANTES de medir ES (un nicho ES VACIO real ya no se pierde en silencio). Cada uno:
+    {nombre_en, search_query_en, top_rel_views}. en_passing = lista de tuplas (subj, en)."""
+    capped = en_passing[:k]
+    dropped_subtemas = [
+        {"nombre_en": s.get("nombre_en"), "search_query_en": s.get("search_query_en"),
+         "top_rel_views": e.get("top_rel_views")}
+        for s, e in en_passing[k:]
+    ]
+    return capped, dropped_subtemas
+
+
+def _persist_dropped_by_cap(parent_video_id, parent_title: str, dropped_subtemas: list) -> None:
+    """CHAT 52 B5 — deja rastro EN DISCO de los subtemas que el cap tiró (append JSONL → sobrevive
+    aunque el contenedor emita 0 seeds, que es justo cuando se perderían en silencio). Solo
+    observabilidad: nunca lanza (un fallo de disco no debe romper el discovery)."""
+    if not dropped_subtemas:
+        return
+    try:
+        DROPPED_CAP_LOG.parent.mkdir(parents=True, exist_ok=True)
+        rec = {"at": datetime.now().isoformat(), "parent_video_id": parent_video_id,
+               "parent_title": parent_title, "dropped": dropped_subtemas}
+        with DROPPED_CAP_LOG.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except Exception as e:
+        print(f"        ⚠ no se pudo persistir dropped_by_cap: {e}")
+
+
 def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants: int) -> list[dict] | None:
     """CHAT 49 — fan-out de subtemas (solo con SUBTEMA_FANOUT=1).
 
@@ -571,8 +611,17 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
         if en.get("pasa_laxo"):
             en_passing.append((subj, en))
     en_passing.sort(key=lambda se: se[1].get("top_rel_views", 0), reverse=True)
-    capped = en_passing[:SUBTEMA_FANOUT_CAP_K]
-    dropped = len(en_passing) - len(capped)           # tirados por el cap ANTES de pagar ES
+    # CHAT 52 B5: el cap K=8 tira subtemas que PASARON EN (rankeados #K+1+) ANTES de medir ES — un
+    # nicho ES VACIO real se perdía en silencio. NO cambia el cap; solo deja rastro (consola + disco).
+    capped, dropped_subtemas = _apply_fanout_cap(en_passing, SUBTEMA_FANOUT_CAP_K)
+    dropped = len(dropped_subtemas)                    # tirados por el cap ANTES de pagar ES
+    if dropped_subtemas:
+        print(f"        [cap] {dropped} subtema(s) pasaron EN pero el cap K={SUBTEMA_FANOUT_CAP_K} "
+              f"los tiró ANTES de medir ES (posible oro ES sin verificar):")
+        for d in dropped_subtemas:
+            print(f"             · {d['nombre_en']} ({(d['top_rel_views'] or 0):,} v) "
+                  f"q='{d['search_query_en']}'")
+        _persist_dropped_by_cap(vid, en_title, dropped_subtemas)
 
     # ── T3: FASE ES (CARA) solo a los ≤K ganadores. Compuerta ES-primero DENTRO del cap:
     # un ganador EN que salga SATURADO en ES cae igual (orden final = EN-cap → ES-gate → seed).
@@ -636,6 +685,9 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
             mode="spy_arbitrage",
             root_niche=root_niche,
             nombre_en=nombre_en,
+            # CHAT 52 B2: receta = la MISMA llamada que midió este seed (_measure_es(search_query_en,
+            # nombre_en) → already_es=False, traduce). El gate re-mide con esto n veces.
+            remeasure={"es_query": subj["search_query_en"], "entity": nombre_en, "already_es": False},
             evidence={
                 "en_viral": {
                     "original_title": en.get("top_rel_title"),
@@ -675,6 +727,9 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
                            "en_passing": len(en_passing),
                            "emitted": len(survivors),
                            "dropped_by_cap": dropped,        # cap recortó ANTES de pagar ES
+                           # CHAT 52 B5: la LISTA de los tirados por el cap (no solo el count) —
+                           # nombre+query+views, para no perder oro ES sin verificar.
+                           "dropped_by_cap_list": dropped_subtemas,
                            "es_gated_in_cap": es_gated},
             },
         ))
@@ -684,6 +739,37 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
           f"→ cap K={SUBTEMA_FANOUT_CAP_K} ({dropped} drop pre-ES) · {es_gated} ES-saturados "
           f"→ {len(out)} seeds  [ES medido {es_paid} vs {es_old} viejo, ahorro {es_old - es_paid}]")
     return out
+
+
+def _atomic_es_gap(rep_sat: dict, worst_sat: dict, n: int) -> dict:
+    """CHAT 52 B4 — es_gap del seed atómico: campos PRINCIPALES del rep (el que titula → título y
+    label corresponden al mismo tema) + worst_variant_* (la variante más saturada del evento, sobre
+    la que decidió el gate). Si worst_variant_label != label, hay otra query del MISMO evento más
+    competida → señal de riesgo que no se pierde."""
+    return {
+        "saturation": rep_sat["saturation"],
+        "label": rep_sat["label"],
+        "heaviest": rep_sat["heaviest"],
+        "ontopic_count": rep_sat["ontopic_count"],
+        "anchors_used": rep_sat["anchors_used"],
+        "source": rep_sat["source"],
+        "variants_grouped": n,
+        "worst_variant_label": worst_sat["label"],
+        "worst_variant_saturation": worst_sat["saturation"],
+    }
+
+
+def _event_seed_inputs(variants: list) -> tuple:
+    """CHAT 52 B4 — dado el grupo de variantes de un MISMO evento (cada una = (item, anchors, sat)),
+    separa "qué muestro" de "cómo decido":
+      - rep = la variante con más VIEWS → titula el seed; su `sat` (rep_sat) es el es_gap que se
+        persiste y muestra, así título y label corresponden al MISMO tema.
+      - worst = la variante con mayor SATURACIÓN → sobre ESA decide el gate (conservador). Su label
+        viaja como es_gap.worst_variant_label para no perder la señal de la query más competida.
+    Devuelve (rep_item, rep_sat, worst_sat). Con n==1, rep y worst son la misma variante."""
+    rep_item, _rep_anchors, rep_sat = max(variants, key=lambda v: v[0].get("views", 0))
+    worst_sat = max(variants, key=lambda v: v[2]["saturation"])[2]
+    return rep_item, rep_sat, worst_sat
 
 
 def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dict]:
@@ -830,13 +916,12 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
 
     # un seed por evento; saturación del evento = la MÁS ALTA entre variantes
     for key, variants in groups.items():
-        worst_item, worst_anchors, worst_sat = max(variants, key=lambda v: v[2]["saturation"])
+        # CHAT 52 B4: rep = la de más views (titula → su es_gap se persiste/muestra); worst = la de
+        # mayor saturación (el gate decide sobre ESA, conservador). Separa "qué muestro" de "cómo decido".
+        rep_item, rep_sat, worst_sat = _event_seed_inputs(variants)
         n = len(variants)
         tag = f" [{n} variantes]" if n > 1 else ""
         label_counts[worst_sat["label"]] = label_counts.get(worst_sat["label"], 0) + 1
-
-        # representante EN = variante con más views (viral más fuerte); ES = la de mayor saturación
-        rep_item = max(variants, key=lambda v: v[0].get("views", 0))[0]
 
         # CHAT 49 — fan-out de subtemas (solo con SUBTEMA_FANOUT=1). Si el viral es CONTENEDOR,
         # se abre en N seeds y se SALTEA el descarte ES-evento (decisión #4: ES por subtema).
@@ -856,19 +941,27 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
             print(f"     SATURADO ({worst_sat['saturation']:>11,.0f}) · {key}{tag} → descartado")
             continue
 
-        print(f"     {worst_sat['label']:>9} ({worst_sat['saturation']:>11,.0f}) · {rep_item['spanish_topic']}{tag}")
+        # CHAT 52 B4: mostramos el label del rep (el que titula), no el de worst (otra variante).
+        print(f"     {rep_sat['label']:>9} ({rep_sat['saturation']:>11,.0f}) · {rep_item['spanish_topic']}{tag}")
+        if n > 1 and worst_sat["label"] != rep_sat["label"]:
+            print(f"        ⚠ otra variante del evento está más saturada: {worst_sat['label']} "
+                  f"({worst_sat['saturation']:,.0f}) — el gate decidió sobre ESA (conservador)")
         # CHAT 52: línea de auditoría ES para atómicos (espejo de la del fan-out ~L626-633; atómico =
         # solo lado ES, el viral EN es el original hallado). Trazable: search trajo data, cuántos
-        # quedaron tras el juez, si el fallback over-narrow disparó.
+        # quedaron tras el juez, si el fallback over-narrow disparó. B4: del rep (el del título).
         _fb = lambda b: "S" if b else "N"
         print(f"        [audit] {rep_item['spanish_topic']} · "
-              f"ES q='{worst_sat.get('es_query')}' cands={worst_sat.get('n_cands_es')} "
-              f"kept={worst_sat.get('ontopic_count')} fb={_fb(worst_sat.get('query_fallback'))} "
-              f"→ {worst_sat.get('label')}")
+              f"ES q='{rep_sat.get('es_query')}' cands={rep_sat.get('n_cands_es')} "
+              f"kept={rep_sat.get('ontopic_count')} fb={_fb(rep_sat.get('query_fallback'))} "
+              f"→ {rep_sat.get('label')}")
         seed = _build_seed(
             title=rep_item["spanish_topic"],
             mode="spy_arbitrage",
             root_niche=rep_item["root_niche"],
+            # CHAT 52 B2: receta = la MISMA llamada que midió este seed (_measure_es(spanish_topic,
+            # already_es=True) → entity = spanish_topic). El gate re-mide con esto n veces.
+            remeasure={"es_query": rep_item["spanish_topic"],
+                       "entity": rep_item["spanish_topic"], "already_es": True},
             evidence={
                 "en_viral": {
                     "original_title": rep_item["original_title"],
@@ -880,15 +973,10 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
                     "outlier_ratio": (evidence_by_vid.get(rep_item["video_id"]) or {}).get("ratio"),
                     "passed_reason": (evidence_by_vid.get(rep_item["video_id"]) or {}).get("passed_reason"),
                 },
-                "es_gap": {
-                    "saturation": worst_sat["saturation"],
-                    "label": worst_sat["label"],
-                    "heaviest": worst_sat["heaviest"],
-                    "ontopic_count": worst_sat["ontopic_count"],
-                    "anchors_used": worst_sat["anchors_used"],
-                    "source": worst_sat["source"],
-                    "variants_grouped": n,
-                },
+                # CHAT 52 B4: el es_gap persistido es el del REP (el que titula), no el de otra
+                # variante. worst_variant_* preserva la señal de la variante más saturada (sobre la
+                # que decidió el gate) → si difiere, hay otra query del MISMO evento más competida.
+                "es_gap": _atomic_es_gap(rep_sat, worst_sat, n),
             },
         )
         seeds.append(seed)

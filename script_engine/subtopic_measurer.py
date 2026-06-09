@@ -85,7 +85,14 @@ def _measure_es(search_query: str, entity: str | None = None, already_es: bool =
     # already_es: el caller ya pasó el tema EN ESPAÑOL (camino atómico) → NO traducir
     # (Q2 del lab: translate_to_es reescribe texto ya-ES, mancha el scrape). es_query = el tema tal cual.
     if already_es:
-        es_query, aliases = search_query, []
+        # CHAT 52 B3: NO traducir la query (Q2 lab: se mancha), PERO sí pedir aliases ES para darle
+        # más recall al juez (el fan-out ya los pasa). Descartamos el es_query reescrito; conservamos
+        # SOLO los aliases. La búsqueda ES no cambia (es_query = el tema crudo); solo gana el juez.
+        es_query = search_query
+        try:
+            aliases = translate_to_es(search_query).get("es_aliases") or []
+        except Exception:
+            aliases = []
     else:
         try:
             tr = translate_to_es(search_query)
