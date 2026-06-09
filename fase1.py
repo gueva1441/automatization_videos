@@ -196,7 +196,14 @@ def _select_seed_interactive(seeds: list[dict]) -> list[dict] | None:
 
         title = s.get("seed_title") or "(sin título)"
         tag = f"[{j.get('verdict', '—')} {j.get('cohort', '—')}]" if j else "[sin juez]"
-        print(f"  [{i}] {title:<48} {tag}")
+        # CHAT 51: marcar demanda medida con nombre pelado (over-narrow fallback) — puede ser
+        # off-angle (Lemieux→hockey, Sri Lanka→street food). Informativo, NO auto-excluye.
+        fallback = bool(en.get("query_fallback")) or bool(es.get("query_fallback"))
+        warn = "  ⚠ fallback" if fallback else ""
+        print(f"  [{i}] {title:<48} {tag}{warn}")
+        if fallback:
+            print(f"      ⚠ demanda medida con nombre pelado — puede ser off-angle "
+                  f"(verificá el viral EN)")
 
         en_title = en.get("original_title") or "—"
         en_title = (en_title[:48] + "…") if len(en_title) > 49 else en_title

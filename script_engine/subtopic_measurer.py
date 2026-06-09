@@ -138,6 +138,7 @@ def _measure_es(search_query: str, entity: str | None = None) -> dict:
         "anchors_used": [es_query],          # ahora = la query ES usada (ya no anclas substring EN)
         "source": "scrapetube+juez",
         "es_query": es_query,
+        "n_cands_es": len(cands),            # CHAT 51: crudo, ANTES del juez (VACÍO auditable)
         "query_fallback": query_fallback,
     }
 

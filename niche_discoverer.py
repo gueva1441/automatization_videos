@@ -620,6 +620,14 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
         # CHAT 51: el seed_title lleva el ÁNGULO (entidad + por-qué) → el research groundea sobre
         # la unidad correcta (no "Cambodia" pelado → research genérico). nombre_en va aparte.
         seed_title = f"{nombre_en}: {angle_en}" if angle_en and angle_en != nombre_en else nombre_en
+        # CHAT 51: línea de auditoría — cada label trazable en vivo (search trajo data, cuántos
+        # quedaron tras el juez, si el fallback over-narrow disparó).
+        _fb = lambda b: "S" if b else "N"
+        print(f"        [audit] {nombre_en} · EN q='{subj['search_query_en']}' "
+              f"cands={en.get('n_cands')} rel={en.get('n_relevantes')} "
+              f"fb={_fb(en.get('query_fallback'))} top={views}v")
+        print(f"                ES q='{es.get('es_query')}' cands={es.get('n_cands_es')} "
+              f"kept={es.get('ontopic_count')} fb={_fb(es.get('query_fallback'))} → {es.get('label')}")
         out.append(_build_seed(
             title=seed_title,
             mode="spy_arbitrage",
@@ -632,6 +640,9 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
                     "video_id": en.get("top_rel_video_id"),
                     "query": subj["search_query_en"],   # CHAT 51: lo que se buscó de verdad (trazabilidad)
                     "query_fallback": en.get("query_fallback", False),  # over-narrow → re-busca pelado
+                    # CHAT 51: observabilidad — distinguir hueco real de búsqueda vacía.
+                    "n_cands": en.get("n_cands"),                  # crudos del search EN
+                    "n_relevantes": en.get("n_relevantes"),        # tras is_relevant
                     # CHAT 50: nombres idénticos al camino directo (path B) → el juez Criterio #1
                     # y el menú rico los leen sin ramas especiales.
                     "outlier_ratio": ratio,                        # 2.2 (solo survivors, post-cap)
@@ -646,6 +657,10 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
                     "ontopic_count": es.get("ontopic_count"),
                     "anchors_used": es.get("anchors_used"),
                     "source": es.get("source"),
+                    # CHAT 51: observabilidad ES — ontopic_count=0 ambiguo (juez descartó vs search vacío).
+                    "es_query": es.get("es_query"),                # la query ES real usada
+                    "n_cands_es": es.get("n_cands_es"),            # crudos ANTES del juez
+                    "query_fallback": es.get("query_fallback", False),
                 },
                 "subtema_of_container": {
                     "parent_video_id": vid,
