@@ -120,6 +120,112 @@ def _print_judge_summary(seeds: list[dict]) -> None:
               f"{j.get('risk','?'):<14} {s.get('seed_title','?')}")
 
 
+# ═══════════════════════════════════════════════════════════════
+#  MENÚ RICO SOBRE SEEDS (chat 51 — selección ANTES del research caro)
+# ═══════════════════════════════════════════════════════════════
+
+# Orden del menú: oro arriba, luego dudoso, luego descartar (los descartar 3/3
+# ya se auto-excluyeron antes; un descartar 2/3 podría seguir acá).
+_VERDICT_ORDER = {"oro": 0, "dudoso": 1, "descartar": 2}
+
+
+def _fmt_views(v) -> str:
+    """3.2M / 850K / 191 / '—'. Redondeo para lectura, el dato crudo se conserva en el seed."""
+    try:
+        v = int(v or 0)
+    except (TypeError, ValueError):
+        return "—"
+    if v <= 0:
+        return "—"
+    if v >= 1_000_000:
+        return f"{v / 1_000_000:.1f}M"
+    if v >= 1_000:
+        return f"{v / 1_000:.0f}K"
+    return str(v)
+
+
+def _fmt_ratio(r) -> str:
+    """'14×' / '3.2×' / '—' (None o 0.0 → '—', edge fan-out sin channel_id)."""
+    if not r:
+        return "—"
+    return f"{r:.0f}×" if r >= 10 else f"{r:.1f}×"
+
+
+def _fmt_age(m) -> str:
+    """'hace 4 meses' / 'desconocida' (None → desconocida, no asumir viejo)."""
+    if not isinstance(m, int):
+        return "desconocida"
+    if m <= 0:
+        return "este mes"
+    return "hace 1 mes" if m == 1 else f"hace {m} meses"
+
+
+def _seed_sort_key(s: dict) -> tuple:
+    j = s.get("judge") or {}
+    en = (s.get("evidence") or {}).get("en_viral") or {}
+    rank = _VERDICT_ORDER.get(j.get("verdict"), 3)
+    views = int(en.get("views") or 0)
+    ratio = en.get("outlier_ratio") or 0.0
+    return (rank, -views, -ratio)
+
+
+def _select_seed_interactive(seeds: list[dict]) -> list[dict] | None:
+    """Menú RICO sobre SEEDS (pre-research, $0). Muestra evidencia del juez +
+    en_viral + es_gap y deja elegir uno (o varios, coma-separados). Devuelve los
+    seeds elegidos, o None si se cancela (Q) o no hay seeds que mostrar.
+
+    NO consume APIs — solo lee la lista de seeds en memoria (ya con seed["judge"]
+    y evidence puestos por PASO 1 / 1.5). Tolerante a None en los campos ricos
+    (edge fan-out cuyo video top no tenía channel_id → median/ratio/edad faltantes).
+    """
+    if not seeds:
+        print(f"\n  ⚠ No hay seeds para elegir (¿todos descartados por el juez?).")
+        return None
+
+    ordered = sorted(seeds, key=_seed_sort_key)
+
+    print(f"\n{'═' * 60}")
+    print(f"  🎬 SELECCIÓN DE TEMA (antes del research) — {len(ordered)} seed(s)")
+    print(f"{'═' * 60}")
+    print(f"  Elegí ANTES de gastar en research. Solo se investiga lo que elijas.\n")
+    for i, s in enumerate(ordered, start=1):
+        j = s.get("judge") or {}
+        ev = s.get("evidence") or {}
+        en = ev.get("en_viral") or {}
+        es = ev.get("es_gap") or {}
+
+        title = s.get("seed_title") or "(sin título)"
+        tag = f"[{j.get('verdict', '—')} {j.get('cohort', '—')}]" if j else "[sin juez]"
+        print(f"  [{i}] {title:<48} {tag}")
+
+        en_title = en.get("original_title") or "—"
+        en_title = (en_title[:48] + "…") if len(en_title) > 49 else en_title
+        print(f"      viral EN: \"{en_title}\" · {_fmt_views(en.get('views'))} vistas "
+              f"· ratio {_fmt_ratio(en.get('outlier_ratio'))} · {_fmt_age(en.get('en_age_months'))}")
+
+        label = es.get("label") or "—"
+        ontopic = es.get("ontopic_count")
+        ontopic_str = f"{ontopic} competidores" if isinstance(ontopic, int) else "—"
+        print(f"      hueco ES: {label} · {ontopic_str}")
+
+        if j:
+            reason = (j.get("reason") or "").strip()
+            reason = (reason[:70] + "…") if len(reason) > 71 else reason
+            print(f"      juez: riesgo={j.get('risk') or 'ninguno'} · {reason}")
+
+    while True:
+        choice = input(f"\n  Elegí tema [1-{len(ordered)}] "
+                       f"(coma para varios · Q para salir): ").strip()
+        if choice.upper() == "Q":
+            print(f"\n  Cancelado por el usuario — no se investiga nada.")
+            return None
+        parts = [p.strip() for p in choice.split(",") if p.strip()]
+        if parts and all(p.isdigit() and 1 <= int(p) <= len(ordered) for p in parts):
+            idxs = sorted({int(p) for p in parts})
+            return [ordered[i - 1] for i in idxs]
+        print(f"  Inválido. Ingresá número(s) entre 1 y {len(ordered)} (ej. 3 o 1,4), o Q.")
+
+
 def _save_script(script: dict) -> None:
     """Persiste un script como JSON individual en data/scripts/."""
     SCRIPTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -282,7 +388,20 @@ def run_latido_a(
                 print(f"\n  ⚠ Juez falló ({str(e)[:80]}) — se continúa SIN judge.")
                 seeds_to_ground = seeds
 
-        # ═════ PASO 2 — Topic Researcher ═════
+        # ═════ PASO 1.6 — MENÚ DE SELECCIÓN ($0, ANTES del research caro) ═════
+        # Chat 51: invertir el orden. Elegir sobre SEEDS (no sobre topics ya
+        # investigados) → research SOLO del elegido. Mueve el checkpoint humano
+        # antes del gasto de grounding (3 angle Pro + 4 sub-pasos Flash por seed):
+        # antes se investigaba el lote entero para producir 1 y se tiraba el resto.
+        # La auto-exclusión descartar-3/3 (PASO 1.5) ya ocurrió → esos ni se muestran.
+        if not skip_research and not skip_validate:
+            chosen = _select_seed_interactive(seeds_to_ground)
+            if not chosen:
+                print(f"\n  📌 Sin selección — no se investiga nada. Fin del Latido A.")
+                return
+            seeds_to_ground = chosen
+
+        # ═════ PASO 2 — Topic Researcher (SOLO el/los elegido(s)) ═════
         if not skip_research and not skip_validate:
             print(f"\n{'─' * 60}")
             print(f"  📌 PASO 2/4 — Investigación de temas")
