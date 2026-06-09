@@ -66,7 +66,7 @@ def is_relevant(entity: str, title: str) -> bool:
     return any(w in tl for w in words)
 
 
-def _measure_es(search_query: str, entity: str | None = None) -> dict:
+def _measure_es(search_query: str, entity: str | None = None, already_es: bool = False) -> dict:
     """Fix saturación ES (Diseño B): traducir grafía EN→ES → lista ES CRUDA (sin ancla substring,
     que era el bug Chernobyl→"Chernóbil") → juez-LLM de relevancia → label con la MISMA matemática
     y umbrales reusados (eff = views * _es_age_decay(months); saturación = max(eff);
@@ -81,12 +81,17 @@ def _measure_es(search_query: str, entity: str | None = None) -> dict:
     Fallos: traducción que falla → grafía EN (no rompe). Scrape ES totalmente caído o juez de
     relevancia que falla → label="ERROR" (no fabrica dato; el measurer lo trata como ES_ERROR)."""
     entity = entity or search_query
-    # Pieza 1 — traducir a grafía ES la QUERY angulada (fallback a EN si Gemini falla)
-    try:
-        tr = translate_to_es(search_query)
-        es_query, aliases = tr["es_query"], tr.get("es_aliases") or []
-    except Exception:
+    # Pieza 1 — traducir a grafía ES la QUERY angulada (fallback a EN si Gemini falla).
+    # already_es: el caller ya pasó el tema EN ESPAÑOL (camino atómico) → NO traducir
+    # (Q2 del lab: translate_to_es reescribe texto ya-ES, mancha el scrape). es_query = el tema tal cual.
+    if already_es:
         es_query, aliases = search_query, []
+    else:
+        try:
+            tr = translate_to_es(search_query)
+            es_query, aliases = tr["es_query"], tr.get("es_aliases") or []
+        except Exception:
+            es_query, aliases = search_query, []
 
     # Pieza 2 — lista ES cruda (sin ancla; tolera SSL: None = todas las pasadas cayeron)
     try:

@@ -59,6 +59,9 @@ from script_engine.youtube_scanner import (
     BASELINE_N,                    # CHAT 50: uploads para la mediana (mismo que el directo)
     EN_OUTLIER_WORKERS,            # CHAT 50: workers paralelos para el fetch de baselines
 )
+# CHAT 52: matcher ES atómico vía juez-LLM (reemplaza score_spanish_saturation/substring en el
+# camino atómico). Top-level para que _check_gap_es lo use (el fan-out ya lo importa lazy ~L530).
+from script_engine.subtopic_measurer import _measure_es
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -797,9 +800,10 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
     def _check_gap_es(item):
         if not item.get("spanish_topic"):
             return None
-        anchors = extract_anchors(item["spanish_topic"])
-        sat = score_spanish_saturation(item["spanish_topic"], anchors=anchors)
-        return (item, anchors, sat)
+        # CHAT 52: el atómico ya está en español → _measure_es(already_es=True): juez LLM en vez de
+        # substring (el substring fallaba en ambas direcciones — ver lab atomic_es_matcher).
+        sat = _measure_es(item["spanish_topic"], already_es=True)
+        return (item, None, sat)
 
     print(f"  ⚙ Evaluando {len(translated)} temas con {ES_GAP_WORKERS} workers...\n")
     gap_results = []
@@ -853,6 +857,14 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
             continue
 
         print(f"     {worst_sat['label']:>9} ({worst_sat['saturation']:>11,.0f}) · {rep_item['spanish_topic']}{tag}")
+        # CHAT 52: línea de auditoría ES para atómicos (espejo de la del fan-out ~L626-633; atómico =
+        # solo lado ES, el viral EN es el original hallado). Trazable: search trajo data, cuántos
+        # quedaron tras el juez, si el fallback over-narrow disparó.
+        _fb = lambda b: "S" if b else "N"
+        print(f"        [audit] {rep_item['spanish_topic']} · "
+              f"ES q='{worst_sat.get('es_query')}' cands={worst_sat.get('n_cands_es')} "
+              f"kept={worst_sat.get('ontopic_count')} fb={_fb(worst_sat.get('query_fallback'))} "
+              f"→ {worst_sat.get('label')}")
         seed = _build_seed(
             title=rep_item["spanish_topic"],
             mode="spy_arbitrage",
