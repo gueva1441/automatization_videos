@@ -15,7 +15,7 @@ OUTPUT:
       {"chapter_number": 1, "narration": "string (300-800 chars)"},
       {"chapter_number": 2, "narration": "string (800-1800 chars)"},
       ... cap 3-6 (800-1800)
-      {"chapter_number": 7, "narration": "string (400-900 chars)"}
+      {"chapter_number": 7, "narration": "string (400-1100 chars, objetivo ~750)"}
     ],
     "humanizer_phrases": ["...", "...", "..."]
   }
@@ -48,6 +48,10 @@ STEPS_DIR: Path = DATA_DIR / "scripts" / "_steps"
 LEN_HOOK = (300, 800)
 LEN_DEVELOPMENT = (800, 2000)
 LEN_OUTRO = (400, 1100)
+
+# Chat 51: margen del techo INSTRUIDO al outro en el reintento del lado largo (deja aire para
+# que el modelo no apunte al techo exacto y se pase por poco). NO cambia la banda del validador.
+OUTRO_RETRY_MARGIN = 120
 
 # Hook: primera oración debe ser corta y de impacto
 HOOK_FIRST_SENTENCE_MAX_WORDS = 12
@@ -627,6 +631,26 @@ def _persist(topic_id: str, data: dict) -> Path:
 #  RETRY CON FEEDBACK DE LARGO
 # ═══════════════════════════════════════════════════════════════
 
+# Split por límite de oración (lookbehind sobre el punto final + espacio). Maneja . ! ? …
+_SENT_SPLIT = re.compile(r'(?<=[.!?…])\s+')
+
+
+def _trim_to_sentence_boundary(text: str, max_chars: int) -> str:
+    """Devuelve el prefijo más largo de `text` que (a) termina en oración completa
+    y (b) mide ≤ max_chars. "" si ni la primera oración entra (→ el caller hace raise).
+
+    Red de seguridad del outro (chat 51): un cierre un toque largo se recorta en el
+    límite de la última oración que entra, sin partir palabras ni romper el arco.
+    """
+    out = ""
+    for s in _SENT_SPLIT.split(text.strip()):
+        cand = f"{out} {s}".strip() if out else s.strip()
+        if len(cand) > max_chars:
+            break
+        out = cand
+    return out
+
+
 def _call_with_length_retry(prompt: str, role: str, cap_number: int,
                              max_attempts: int = 2) -> str:
     """
@@ -662,14 +686,30 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
             # Retry SOLO si el único problema es largo
             is_length_issue = "largo" in msg or "primera oración" in msg
             if not is_length_issue or attempt == max_attempts:
+                # FIX DE RAÍZ (chat 51) — ÚLTIMO RECURSO, SOLO outro + SOLO lado largo:
+                # un outro un toque sobre el techo NO debe matar un topic ya investigado
+                # (3 angle Pro + Flash gastados). Recortar en límite de oración a ≤ hi y
+                # re-aceptar. Si ni la primera oración entra (oración gigante > hi) o el
+                # recorte cae < lo, el raise queda (falla legítima). hook/development NUNCA
+                # se recortan (cortarían el gancho o el arco).
+                if role == "reveal_outro" and len(narr) > hi:
+                    trimmed = _trim_to_sentence_boundary(narr, hi)
+                    if trimmed and lo <= len(trimmed) <= hi:
+                        print(f"  [01b] cap {cap_number}: recortado por oración "
+                              f"{len(narr)}→{len(trimmed)} chars (≤{hi}) — outro salvado")
+                        return trimmed
                 raise
             last_error = e
 
             actual_len = len(narr)
             if actual_len > hi:
+                # 1.2: para el outro, instruir un techo con margen (deja aire → no se pasa
+                # por poco). hook/development: instrucción intacta (techo = hi). La banda del
+                # validador NO cambia en ningún caso.
+                instructed_max = hi - OUTRO_RETRY_MARGIN if role == "reveal_outro" else hi
                 direction = (
                     f"DEMASIADO LARGO: tu intento previo tuvo {actual_len} chars. "
-                    f"Reescribilo con MÁXIMO {hi} chars (objetivo ~{target}). "
+                    f"Reescribilo con MÁXIMO {instructed_max} chars (objetivo ~{target}). "
                     "Quitá frases descriptivas secundarias, agrupá ideas afines, "
                     "eliminá adjetivos redundantes. NO quites datos duros."
                 )
@@ -756,7 +796,9 @@ def generate_narration(topic: dict, skeleton: dict) -> dict:
     # ─── CAP 7: OUTRO ───
     print(f"  [01b] generando cap 7 (reveal+outro)...")
     prompt7 = _prompt_outro(topic, skeleton, narrations)
-    narr7 = _call_with_length_retry(prompt7, role="reveal_outro", cap_number=7)
+    # 1.3 (chat 51): un intento más SOLO para el outro (que converja antes de tocar el
+    # recorte). hook/development quedan en max_attempts=2 (default).
+    narr7 = _call_with_length_retry(prompt7, role="reveal_outro", cap_number=7, max_attempts=3)
     narrations.append({"chapter_number": 7, "narration": narr7})
 
     # ─── HUMANIZER PHRASES ───
