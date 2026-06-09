@@ -1141,6 +1141,55 @@ def score_spanish_saturation(keyword: str, anchors: list[str] | None = None,
     return report
 
 
+def list_spanish_candidates(keyword: str, limit: int = YT_LIMIT_ARCHAEOLOGY) -> list[dict] | None:
+    """Fix saturación ES — Pieza 2 (chat fix Diseño B): devuelve los candidatos ES CRUDOS de una
+    query, SIN el filtro `title_contains_anchor` (ese substring de ancla EN era el bug
+    Chernobyl→"Chernóbil": el ancla inglesa no matchea la grafía española → 0 competidores
+    falsos). La relevancia la decide el juez-LLM aguas arriba, no el regex.
+
+    Reusa el MISMO scrape que score_spanish_saturation (ES_SCRAPE_PASSES, _proxies_dict, parsers)
+    — no reescribe el scraper, solo expone la lista que aquél hoy colapsa a "heaviest".
+    Filtra detect_language(title)=="es". NO aplica anclas.
+
+    Tolerancia SSL (igual que score_spanish_saturation): si TODAS las pasadas fallaron y no se
+    juntó nada → devuelve None (fallo de scrape, distinto de "0 competidores"). Si al menos una
+    pasada trajo algo (aunque sea 0 videos ES tras el filtro) → devuelve la lista (puede ser []).
+
+    Returns:
+        list[{"title": str, "views": int, "months": int|None, "video_id": str}]  ó  None (fallo).
+    """
+    seen: dict[str, dict] = {}
+    raised = 0
+    for _ in range(ES_SCRAPE_PASSES):
+        try:
+            for v in scrapetube.get_search(keyword, limit=limit, proxies=_proxies_dict()):
+                vid_id = v.get("videoId")
+                if vid_id and vid_id not in seen:
+                    seen[vid_id] = v
+        except Exception:
+            raised += 1
+            continue
+
+    if raised == ES_SCRAPE_PASSES and not seen:
+        return None   # ninguna pasada trajo nada → fallo de scrape (no "VACIO" legítimo)
+
+    out: list[dict] = []
+    for v in seen.values():
+        try:
+            title = v["title"]["runs"][0]["text"]
+        except (KeyError, IndexError):
+            continue
+        if detect_language(title) != "es":
+            continue
+        out.append({
+            "title": title,
+            "views": _parse_views_scrapetube(v),
+            "months": _parse_date_scrapetube_months_ago(_es_pub_text(v)),
+            "video_id": v.get("videoId", ""),
+        })
+    return out
+
+
 # ═══════════════════════════════════════════════════════════════
 #  CLI de diagnóstico (opcional)
 # ═══════════════════════════════════════════════════════════════
