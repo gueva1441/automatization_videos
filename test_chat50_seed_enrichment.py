@@ -44,11 +44,13 @@ def _install_fanout(subjects, en_fn, baseline_value):
     """Parchea las deps locales del fan-out + el _channel_baseline (módulo nd)."""
     tf.fetch_transcript = lambda vid, *a, **k: "transcript real"
     sc.classify = lambda title, tr: {"tipo": "CONTENEDOR", "razon": "mock"}
-    se.extract_segment_subjects = lambda title, tr: list(subjects)
+    # CHAT 51: extractor devuelve dicts; acá los 3 campos = el mismo string (seed_title = nombre).
+    se.extract_segment_subjects = lambda title, tr: [
+        {"nombre_en": s, "search_query_en": s, "angle_en": s} for s in subjects]
     se.verify_names = lambda names, *a, **k: {}
     sm._measure_en_laxo = en_fn
-    sm._measure_es = lambda name: {"label": "VACIO", "saturation": 0.0, "heaviest": None,
-                                   "ontopic_count": 0, "anchors_used": [name.lower()], "source": "mock"}
+    sm._measure_es = lambda sq, entity=None: {"label": "VACIO", "saturation": 0.0, "heaviest": None,
+                                              "ontopic_count": 0, "anchors_used": [sq.lower()], "source": "mock"}
     BASELINE_CALLS.clear()
 
     def _counting_baseline(channel_id, n, exclude):
@@ -64,8 +66,9 @@ def _install_fanout(subjects, en_fn, baseline_value):
 
 
 def _en(views, cid, age):
-    """Fabrica un _measure_en_laxo mockeado (un sujeto que pasa LAXO)."""
-    def _fn(name):
+    """Fabrica un _measure_en_laxo mockeado (un sujeto que pasa LAXO). Firma CHAT 51."""
+    def _fn(search_query, entity=None):
+        name = search_query
         return {
             "pasa_laxo": True,
             "top_rel_views": views(name) if callable(views) else views,

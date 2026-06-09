@@ -9,8 +9,16 @@ de un video CONTENEDOR (contrato cerrado, chat 49 Addendum 3 D9).
 - verify_names() = review-flag de ASR (D4): grafía canónica o is_real=False. NUNCA dropea.
 
 API:
-    extract_segment_subjects(title, transcript) -> list[str]   # nombres de entidad
+    extract_segment_subjects(title, transcript) -> list[dict]   # {nombre_en, search_query_en, angle_en}
     verify_names(names) -> dict[str, {"canonical": str|None, "is_real": bool}]   # review-flag
+
+CHAT 51 — cada sujeto ahora es un dict de 3 campos (antes un str pelado), cada uno a su destino:
+  - nombre_en       : entidad canónica → relevancia + dedup + provenance.
+  - search_query_en : entidad + 2-3 palabras del ángulo → con qué se BUSCA (EN/ES). Ni pelado
+                      (trae genérico), ni oración (over-narrow → 0 resultados).
+  - angle_en        : frase corta del ángulo del segmento → seed_title que groundea el research.
+El transcript es SEÑAL (clasificar/extraer/ángulo), NUNCA base del guion (la narración la hace
+el research independiente — copyright + reused-content).
 """
 from __future__ import annotations
 
@@ -34,7 +42,18 @@ SEGMENT_SYSTEM = (
     "Ejemplo abstracto: si el video dedica un tramo a la desaparición de cierto barco, y dentro "
     "de ese tramo menciona el mar donde ocurrió y el puerto de origen, el SUJETO es el barco; "
     "el mar y el puerto son menciones incidentales, NO sujetos.\n"
-    "NO juzgues si el tema es producible, popular ni de ningún nicho — solo su rol estructural. "
+    "NO juzgues si el tema es producible, popular ni de ningún nicho — solo su rol estructural.\n\n"
+    "Para CADA sujeto-de-segmento devolvé TRES campos:\n"
+    "1. nombre_en — el nombre canónico real de la entidad (lugar, caso, obra), pelado.\n"
+    "2. angle_en — una frase CORTA y específica del ángulo que ESTE video le da a la entidad "
+    "(el por-qué aparece: qué le pasó, qué la vuelve un caso). El calificador concreto del "
+    "segmento, no una oración larga.\n"
+    "3. search_query_en — con qué buscarías ESE segmento en YouTube: el nombre del lugar MÁS "
+    "2-3 palabras del ángulo. El nombre pelado solo trae resultados genéricos de turismo o "
+    "geografía que no son el tema; una oración entera no devuelve resultados. El punto medio: "
+    "la entidad acompañada del calificador clave en pocas palabras.\n"
+    "Patrón conceptual (no copies estas palabras literalmente): <nombre del lugar> + <2-3 "
+    "palabras del por-qué del segmento>.\n"
     "Dá el nombre canónico real de cada sujeto. Sin duplicados."
 )
 
@@ -42,12 +61,18 @@ _SEGMENT_SCHEMA = types.Schema(
     type=types.Type.OBJECT, required=["subtemas"],
     properties={"subtemas": types.Schema(
         type=types.Type.ARRAY, items=types.Schema(
-            type=types.Type.OBJECT, required=["nombre_en"],
-            properties={"nombre_en": types.Schema(type=types.Type.STRING)}))})
+            type=types.Type.OBJECT,
+            required=["nombre_en", "search_query_en", "angle_en"],
+            properties={
+                "nombre_en": types.Schema(type=types.Type.STRING),
+                "search_query_en": types.Schema(type=types.Type.STRING),
+                "angle_en": types.Schema(type=types.Type.STRING),
+            }))})
 
 
-def extract_segment_subjects(title: str, transcript: str) -> list[str]:
-    """Devuelve la lista de sujetos-de-segmento (nombres de entidad). [] si falla."""
+def extract_segment_subjects(title: str, transcript: str) -> list[dict]:
+    """Devuelve la lista de sujetos-de-segmento como dicts {nombre_en, search_query_en,
+    angle_en}. [] si falla. search_query_en/angle_en caen a nombre_en si el modelo los omite."""
     transcript = (transcript or "")[:TRANSCRIPT_CAP]
     prompt = (f"TÍTULO: {title}\n\nTRANSCRIPT (limpio):\n{transcript}\n\n"
               "Devolvé SOLO los sujetos-de-segmento (los N casos del recorrido). Excluí las "
@@ -66,9 +91,12 @@ def extract_segment_subjects(title: str, transcript: str) -> list[str]:
         out, seen = [], set()
         for s in (d.get("subtemas") or []):
             nm = (s.get("nombre_en") or "").strip()
-            if nm and nm.lower() not in seen:
-                seen.add(nm.lower())
-                out.append(nm)
+            if not nm or nm.lower() in seen:
+                continue
+            seen.add(nm.lower())
+            sq = (s.get("search_query_en") or "").strip() or nm   # fallback al pelado si falta
+            ang = (s.get("angle_en") or "").strip() or nm
+            out.append({"nombre_en": nm, "search_query_en": sq, "angle_en": ang})
         return out
     except Exception:
         return []

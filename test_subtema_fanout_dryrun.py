@@ -52,30 +52,32 @@ def main():
     print(f"  sujetos-de-segmento: {len(subjects)}")
 
     measured = []
-    for s in subjects:
-        m = measure(s)
+    for subj in subjects:   # CHAT 51: subj = {nombre_en, search_query_en, angle_en}
+        m = measure(subj["search_query_en"], subj["nombre_en"])
         cost["es_scrape"] += 1
         if m["verdict"] not in ("CORTADO_ES", "ES_ERROR"):
             cost["en_scrape"] += 1
         if m.get("passes"):
-            measured.append((s, m))
+            measured.append((subj, m))
     measured.sort(key=lambda sm: (sm[1].get("en") or {}).get("top_rel_views", 0), reverse=True)
     capped = measured[:SUBTEMA_FANOUT_CAP_K]
     dropped = len(measured) - len(capped)
 
-    verif = verify_names([s for s, _ in capped]); cost["gemini"] += 1
+    verif = verify_names([subj["nombre_en"] for subj, _ in capped]); cost["gemini"] += 1
 
     # construir seeds (sin persistir)
     seeds = []
-    for s, m in capped:
-        en, es, vf = m["en"], m["es"], verif.get(s, {})
+    for subj, m in capped:
+        en, es, vf = m["en"], m["es"], verif.get(subj["nombre_en"], {})
+        nombre_en = subj["nombre_en"]; angle_en = subj.get("angle_en") or nombre_en
+        seed_title = f"{nombre_en}: {angle_en}" if angle_en != nombre_en else nombre_en
         seeds.append(_build_seed(
-            title=s, mode="spy_arbitrage", root_niche=v.get("subnicho"),
+            title=seed_title, mode="spy_arbitrage", root_niche=v.get("subnicho"), nombre_en=nombre_en,
             evidence={
                 "en_viral": {"original_title": en.get("top_rel_title"),
                              "views": en.get("top_rel_views"),
                              "video_id": en.get("top_rel_video_id"),
-                             "query": s, "passed_reason": "laxo"},
+                             "query": subj["search_query_en"], "passed_reason": "laxo"},
                 "es_gap": {"saturation": es.get("saturation"), "label": es.get("label")},
                 "subtema_of_container": {"parent_video_id": vid, "parent_title": en_title},
                 "asr_verify": {"canonical": vf.get("canonical"), "is_real": vf.get("is_real")},

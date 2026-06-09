@@ -37,15 +37,19 @@ def _install(transcript, tipo, subjects, en_fn, es_fn):
     """Parchea las dependencias que _try_subtema_fanout importa localmente."""
     tf.fetch_transcript = lambda vid, *a, **k: transcript
     sc.classify = lambda title, tr: {"tipo": tipo, "razon": "mock"}
-    se.extract_segment_subjects = lambda title, tr: list(subjects)
+    # CHAT 51: el extractor ahora devuelve dicts {nombre_en, search_query_en, angle_en}.
+    # Acá los 3 campos = el mismo string → seed_title queda igual ("S00"), búsqueda y relevancia
+    # usan ese string, y los asserts de título/orden de este test no cambian.
+    se.extract_segment_subjects = lambda title, tr: [
+        {"nombre_en": s, "search_query_en": s, "angle_en": s} for s in subjects]
     se.verify_names = lambda names, *a, **k: {}
-    # los dos medidores partidos (T3)
-    def _en(name):
+    # los dos medidores partidos (T3) — firma CHAT 51 (search_query, entity)
+    def _en(search_query, entity=None):
         COUNT["en"] += 1
-        return en_fn(name)
-    def _es(name):
+        return en_fn(search_query)
+    def _es(search_query, entity=None):
         COUNT["es"] += 1
-        return es_fn(name)
+        return es_fn(search_query)
     sm._measure_en_laxo = _en
     sm._measure_es = _es
 

@@ -45,14 +45,15 @@ def main():
         subs = extract_segment_subjects(v.get("title", ""), clean(v.get("transcript") or ""))
         cnt = len(subs)
         in_range = lo <= cnt <= hi
-        joined = " | ".join(s.lower() for s in subs)
+        # CHAT 51: subs ahora son dicts {nombre_en, search_query_en, angle_en}
+        joined = " | ".join((s.get("nombre_en") or "").lower() for s in subs)
         miss_must = [m for m in must if m not in joined]
         ok = in_range and not miss_must
         all_pass = all_pass and ok
         print(f"  #{n:>2} n={cnt:<3} esperado[{lo}-{hi}] {'OK' if in_range else 'FUERA'}"
               + (f"  falta:{miss_must}" if miss_must else ""))
         if n in (15, 17, 20):
-            print("       " + " · ".join(subs[:10]))
+            print("       " + " · ".join((s.get("nombre_en") or "") for s in subs[:10]))
     print(f"\nC1 extractor: {'PASS' if all_pass else 'FAIL — revisar promoción'}")
 
 

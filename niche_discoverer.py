@@ -183,14 +183,19 @@ def _build_seed(
     root_niche: str | None,
     evidence: dict,
     tags: list[str] | None = None,
+    nombre_en: str | None = None,
 ) -> dict:
-    """Construye un seed estandarizado con trazabilidad completa."""
+    """Construye un seed estandarizado con trazabilidad completa.
+
+    CHAT 51 — nombre_en (entidad canónica) es opcional: SOLO el fan-out lo pasa (el seed_title
+    lleva el ángulo, así que la entidad pelada se guarda aparte para display/provenance). El
+    camino directo (path B) no lo pasa → el seed queda idéntico a antes (sin esa clave)."""
     if tags is None and root_niche and root_niche in ROOT_NICHES:
         tags = ROOT_NICHES[root_niche]["tags"]
     elif tags is None:
         tags = []
 
-    return {
+    seed = {
         "seed_id": str(uuid.uuid4()),
         "seed_title": title.strip(),
         "discovery_mode": mode,           # spy_arbitrage | digital_archaeology | manual
@@ -199,6 +204,9 @@ def _build_seed(
         "evidence": evidence,              # Datos crudos que justificaron la elección
         "created_at": datetime.now().isoformat(),
     }
+    if nombre_en is not None:
+        seed["nombre_en"] = nombre_en      # entidad canónica (solo fan-out)
+    return seed
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -546,36 +554,37 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
         print(f"        [fanout] {tipo} → flujo de hoy (1 seed)")
         return None
 
-    subjects = extract_segment_subjects(en_title, transcript)
+    subjects = extract_segment_subjects(en_title, transcript)   # CHAT 51: dicts {nombre_en, search_query_en, angle_en}
 
     # ── T3: FASE EN (BARATA) para TODOS los sujetos → ordenar por demanda EN → cap top-K ──
     # Antes se medía EN+ES juntos por sujeto (se pagaba el ES caro de los que el cap tiraba).
     # Ahora: EN-only para todos, cap, y RECIÉN ES a los ≤K ganadores.
-    en_passing: list[tuple] = []
-    for s in subjects:
-        en = _measure_en_laxo(s)
+    # CHAT 51: BUSCA con search_query_en (angulado → on-topic), relevancia vs nombre_en (entidad).
+    en_passing: list[tuple] = []                      # [(subj, en)]
+    for subj in subjects:
+        en = _measure_en_laxo(subj["search_query_en"], subj["nombre_en"])
         if en.get("error"):
             continue                                  # EN_ERROR → no compite
         if en.get("pasa_laxo"):
-            en_passing.append((s, en))
+            en_passing.append((subj, en))
     en_passing.sort(key=lambda se: se[1].get("top_rel_views", 0), reverse=True)
     capped = en_passing[:SUBTEMA_FANOUT_CAP_K]
     dropped = len(en_passing) - len(capped)           # tirados por el cap ANTES de pagar ES
 
     # ── T3: FASE ES (CARA) solo a los ≤K ganadores. Compuerta ES-primero DENTRO del cap:
     # un ganador EN que salga SATURADO en ES cae igual (orden final = EN-cap → ES-gate → seed).
-    survivors: list[tuple] = []                       # [(s, en, es)]
+    survivors: list[tuple] = []                       # [(subj, en, es)]
     es_gated = 0
-    for s, en in capped:
-        es = _measure_es(s)
+    for subj, en in capped:
+        es = _measure_es(subj["search_query_en"], subj["nombre_en"])
         if es.get("label") == "ERROR":
             continue                                  # ES_ERROR → no emite
         if es.get("label") == ES_SATURATED_LABEL:
             es_gated += 1                             # ganador EN pero saturado en ES → cae
             continue
-        survivors.append((s, en, es))
+        survivors.append((subj, en, es))
 
-    verif = verify_names([s for s, _, _ in survivors])  # review-flag (D4), NUNCA dropea
+    verif = verify_names([subj["nombre_en"] for subj, _, _ in survivors])  # review-flag (D4), por ENTIDAD, NUNCA dropea
 
     # ── CHAT 50: ratio + mediana del canal SOLO sobre los ≤K survivors (DESPUÉS del cap T3
     # y del ES-gate). El fetch get_channel es lo único caro → jamás antes del cap. En paralelo
@@ -584,7 +593,7 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
     # Criterio #1 + trazabilidad), nunca como condición de descarte (D5/LAXO sigue siendo el gate).
     baseline_cache: dict[str, float | None] = {}
     cids_to_fetch: dict[str, int] = {}   # channel_id → exclude views (del primer survivor del canal)
-    for _s, en, _es in survivors:
+    for _subj, en, _es in survivors:
         cid = en.get("top_rel_channel_id")
         if cid and cid not in cids_to_fetch:
             cids_to_fetch[cid] = int(en.get("top_rel_views") or 0)
@@ -600,22 +609,29 @@ def _try_subtema_fanout(rep_item: dict, root_niche, worst_sat: dict, n_variants:
                 baseline_cache[cid] = median
 
     out: list[dict] = []
-    for s, en, es in survivors:
-        vf = verif.get(s, {})
+    for subj, en, es in survivors:
+        nombre_en = subj["nombre_en"]
+        angle_en = subj.get("angle_en") or nombre_en
+        vf = verif.get(nombre_en, {})
         cid = en.get("top_rel_channel_id")
         views = int(en.get("top_rel_views") or 0)
         median = baseline_cache.get(cid) if cid else None
         ratio = compute_ratio(views, median) if median else 0.0
+        # CHAT 51: el seed_title lleva el ÁNGULO (entidad + por-qué) → el research groundea sobre
+        # la unidad correcta (no "Cambodia" pelado → research genérico). nombre_en va aparte.
+        seed_title = f"{nombre_en}: {angle_en}" if angle_en and angle_en != nombre_en else nombre_en
         out.append(_build_seed(
-            title=s,
+            title=seed_title,
             mode="spy_arbitrage",
             root_niche=root_niche,
+            nombre_en=nombre_en,
             evidence={
                 "en_viral": {
                     "original_title": en.get("top_rel_title"),
                     "views": en.get("top_rel_views"),
                     "video_id": en.get("top_rel_video_id"),
-                    "query": s,
+                    "query": subj["search_query_en"],   # CHAT 51: lo que se buscó de verdad (trazabilidad)
+                    "query_fallback": en.get("query_fallback", False),  # over-narrow → re-busca pelado
                     # CHAT 50: nombres idénticos al camino directo (path B) → el juez Criterio #1
                     # y el menú rico los leen sin ramas especiales.
                     "outlier_ratio": ratio,                        # 2.2 (solo survivors, post-cap)
