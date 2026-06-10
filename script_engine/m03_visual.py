@@ -198,6 +198,19 @@ HARD RULES:
    peace, an ambient quiet scene (a peaceful village at dusk, livestock
    grazing at dawn, soft lamplight through a window). The narration carries
    the death; the image stays alive and calm.
+   APPARATUS OF KILLING — when a scene's subject would otherwise BE the
+   instrument or structure used to carry out a killing (a device of execution,
+   a mechanism of death), the content filter trips even with no person present.
+   For THAT scene only, do not center the device. DEFAULT to the charged empty
+   space: dramatic light, oppressive scale, and ONE single weighted object that
+   implies what happened — never the mechanism as a whole. All other scenes
+   (people, rooms, daily life, environment) follow the normal rules above and
+   are NOT emptied out.
+   ✓ "a single coiled length of rough rope resting in a hard shaft of light, a
+      vast cold stone chamber dwarfing it, deep shadow, oppressive scale"
+   ✓ "a heavy worn iron ring set into a damp stone wall, one grey beam of light
+      across it, the empty room stretching into darkness"
+   The empty charged room reads stronger than the device and clears the filter.
    Avoid: graphic injury, visible distress symptoms, anything depicting the
    moment of harm itself.
 

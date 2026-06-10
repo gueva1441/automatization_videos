@@ -157,8 +157,17 @@ la imagen muestra la calma anterior (seres vivos en paz, escena ambiental).
 - ✓ CONCEPTO correcto: la escena viva y tranquila previa (aldea al atardecer,
   ganado pastando al amanecer, luz de lámpara).
 
-Vive en `SYSTEM_INSTRUCTION_VISUAL` regla 5 (chat 32). Topics conocidos que
-disparan filter en Flux: Lake Nyos (ganado, cap5) — chat 31.
+**APARATO de ejecución (chat 54):** el filtro también dispara con el OBJETO o
+ESTRUCTURA construido para matar (horca, dispositivo de ejecución), aunque NO
+haya ninguna persona en cuadro. Reemplazo = el espacio cargado y vacío (luz
+dramática + escala opresiva + UN objeto cargado que implica lo que pasó: una soga
+sola, un banco volcado), NUNCA el mecanismo entero. Trigger estrecho al objeto:
+las demás escenas (gente, cuartos, vida diaria) NO se vacían. Detectado:
+Charleston cap5 (horca) — chat 53/54.
+
+Vive en `SYSTEM_INSTRUCTION_VISUAL` regla 5 (chat 32, sub-cláusula APPARATUS OF
+KILLING chat 54). Topics conocidos que disparan filter en Flux: Lake Nyos
+(ganado, cap5) — chat 31; Charleston (horca, cap5) — chat 53.
 
 ---
 
@@ -388,10 +397,13 @@ Síntoma: humanos sin etnia explícita salen con rasgos no coincidentes con el G
 
 ### AP9. Content filter en desastre/muerte (Veo Y Flux)
 Síntoma: HTTP 422 en prompts con figuras inmóviles, cuerpos, aftermath de
-muerte (incluso "quieto"). Fix: pivote semántico "muerte implícita → calma
-previa". La narración hace el horror, no la imagen. Aplica a personas, animales
-y víctimas masivas.
-*Detectado: chat 29 fix #210 (Veo) + chat 31 ganado cap5 (Flux). Aplica a: Veo 3.1 + Flux 2 Pro.*
+muerte (incluso "quieto"), Y TAMBIÉN con la estructura/dispositivo construido
+para matar (horca, aparato de ejecución) aunque NO haya persona en cuadro. Fix:
+pivote semántico "muerte implícita → calma previa". La narración hace el horror,
+no la imagen. Aplica a personas, animales y víctimas masivas. Para el APARATO de
+matar: redirigir al espacio cargado vacío (luz + escala + un objeto cargado), no
+el mecanismo (sub-cláusula APPARATUS OF KILLING en regla 5, chat 54).
+*Detectado: chat 29 fix #210 (Veo) + chat 31 ganado cap5 (Flux) + chat 53/54 horca cap5 (Flux). Aplica a: Veo 3.1 + Flux 2 Pro.*
 
 ---
 
@@ -401,6 +413,7 @@ y víctimas masivas.
 |---|---|---|---|
 | 2026-05-25 | 30 | Creación del archivo con §1 (Flux 2), §2 (Veo 3.1), §3 (Gemini 2.5 Flash), §4 (anti-patrones AP1–AP9) | Patrón #91: dejamos de parchear regla 4 de m03 (3 veces ya) y consolidamos las reglas de prompting de los 3 modelos en una sola fuente de verdad. Iniciativa de Omar tras descubrir en chat 30 que el problema "humanos con cara india en escenas camerunesas" no era falta de la regla "etnia obligatoria" sino estructura del prompt (subject-first, sin negativos, sin CSV final) — info que ya teníamos validada en el pasado pero se perdió en transitions Claude Code ↔ Claude web. |
 | 2026-05-28 | 32 | §1.8 content-safety Flux + AP9 ampliado a Flux. m03: afilada regla 5 (muerte→calma cubre animales/masivo), regla 7 (pantallas/proyecciones→abstracto), regla 4 (presente=tangible, no sci-fi), regla 3 path Veo (negativo "no readable text"→positivo). | #232 (ganado 422) + #235 (cap6 holograms+texto "Lake Kivu"). Las reglas existían pero tenían huecos; se afilaron en vez de agregar bloque nuevo. |
+| 2026-06-10 | 54 | regla 5 — sub-cláusula APPARATUS OF KILLING (calma tensa): cuando el sujeto sería el mecanismo de matar, el default se invierte al espacio cargado vacío (luz + escala + UN objeto cargado), nunca el aparato. §1.8 + AP9 extendidos al aparato (no solo cuerpos). | cap5 Charleston 422 con la horca; AP9 cubría cuerpos pero no el dispositivo de ejecución. Trigger estrecho al objeto (las demás escenas no se vacían), default invertido, validado en lab de regresión: control Nyos sin flip, ejecución redirige sola (horca→soga/banco volcado), caps normales intactos. |
 
 ---
 
