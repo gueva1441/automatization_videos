@@ -55,6 +55,7 @@ from script_engine.topics_db import (
 from flow_profiles import FlowSpec
 from script_engine.transition_applier import concat_with_transitions
 from subs_remap import remap_words_to_original
+from anchor_timing import compute_anchor_starts
 
 # Estados procesables por fase2b
 ASSETS_READY_STATUS: str = "assets_rendered"
@@ -552,7 +553,6 @@ def _compute_durations_from_anchors(
     bit-a-bit al pre-chat29 — sin imputación de gap, sin sum check, sin
     starts[0] >= offset check (que con offset=0 siempre pasaría trivialmente).
     """
-    import re
     if not anchors or not timestamps_path.exists():
         return None
     try:
@@ -562,42 +562,13 @@ def _compute_durations_from_anchors(
     if not words:
         return None
 
-    def _norm(tok: str) -> str:
-        # quita puntuación + lower
-        return re.sub(r"[^\w]", "", tok or "", flags=re.UNICODE).lower()
-
-    def _first_n_tokens(text: str, n: int = 3) -> list[str]:
-        toks = [_norm(t) for t in text.split() if _norm(t)]
-        return toks[:n]
-
-    word_norm = [_norm(w.get("word", "")) for w in words]
-
-    starts: list[float] = []
-    cursor = 0  # avanza para asegurar orden
-    for anchor in anchors:
-        needle = _first_n_tokens(anchor, n=3)
-        if not needle:
-            return None
-        found = -1
-        for i in range(cursor, len(words) - len(needle) + 1):
-            if word_norm[i:i + len(needle)] == needle:
-                found = i
-                break
-        if found < 0:
-            # fallback más laxo: solo primer token
-            for i in range(cursor, len(words)):
-                if word_norm[i] == needle[0]:
-                    found = i
-                    break
-        if found < 0:
-            return None
-        starts.append(float(words[found].get("start", 0.0)))
-        cursor = found + 1
-
-    # Validación: starts crecientes
-    for i in range(1, len(starts)):
-        if starts[i] <= starts[i - 1]:
-            return None
+    # Chat 54: matcher anchor→tiempo extraído a helper compartido (anchor_timing)
+    # para que m03 (timing-aware merge) mida IDÉNTICO. Comportamiento byte-a-byte
+    # igual al matcher inline previo (3-tokens → word_norm, fallback primer token,
+    # cursor de orden, None si no matchea o starts no crecientes).
+    starts = compute_anchor_starts(anchors, words)
+    if starts is None:
+        return None
 
     # Chat 29 #175: solo en modo híbrido (offset > 0) validar que el primer
     # anchor no caiga ANTES del offset (caso: LLM matcheó zona Veo por error).

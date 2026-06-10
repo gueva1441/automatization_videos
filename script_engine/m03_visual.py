@@ -105,9 +105,10 @@ import re
 from difflib import SequenceMatcher
 from pathlib import Path
 
-from config import DATA_DIR
+from config import DATA_DIR, OUTPUT_DIR
 from gemini_helpers import call_flash_json
 from nicho_config import get_active_nicho
+from anchor_timing import compute_anchor_starts
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -260,6 +261,15 @@ FLUX_CHAPTERS = (2, 3, 4, 5, 6)
 SECONDS_PER_IMAGE_TARGET = 7.0
 MIN_IMAGES_FLUX = 6
 MAX_IMAGES_FLUX = 18   # subido de 12 en chat 27 PR 3, acorde a backlog #176
+
+# Chat 54 — timing-aware anchor merge. Piso temporal entre starts de anchors
+# consecutivos: si dos anchors caen más juntos que esto en el audio, la imagen del
+# segundo se mostraría <este_gap y DepthFlow comprime su ciclo entero → flash
+# (caso ch07 supp #3 a 0.60s). m03 fusiona el anchor apretado ANTES del Paso 2
+# (la imagen anterior absorbe el tiempo). PERILLA a calibrar mirando videos; no
+# clavada a fuego. Calibrado a 1.0s (chat 54): mata el flash de 0.60s pero deja
+# pasar gaps ~2s que se leen bien (con 2.0s fusionaba un 1.98s sano de cap3).
+MIN_ANCHOR_GAP_SEC = 1.0
 
 # Híbrido Veo+Flux ch01/ch07 (chat 29 #175).
 # Duración nominal del clip Veo 3.1 Lite (fal.ai). El clip real puede
@@ -1291,6 +1301,93 @@ def _plan_anchors(
 
 
 # ═══════════════════════════════════════════════════════════════
+#  RECONCILIACIÓN TEMPORAL (chat 54 — timing-aware anchor merge)
+# ═══════════════════════════════════════════════════════════════
+
+def _load_cap_word_timestamps(video_id: str, cap_id: str) -> list[dict] | None:
+    """Carga los word-timestamps del cap (output/audio/{video_id}/{cap_id}_timestamps.json).
+
+    MISMO path que fase2b. Estos archivos los escribe audio_manager ANTES de m03
+    (el audio corre antes de los prompts). None si no existe/ilegible → sin
+    reconciliación (fallback seguro: el cap conserva su n original).
+    """
+    p = OUTPUT_DIR / "audio" / video_id / f"{cap_id}_timestamps.json"
+    if not p.exists():
+        return None
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+
+def _reconcile_anchor_timing(
+    plan: dict,
+    engine: str,
+    words: list[dict],
+    min_count: int,
+    cap_number: int = 0,
+) -> tuple[dict, int]:
+    """Fusiona anchors temporalmente apretados ANTES del Paso 2 (sin LLM).
+
+    Mide el `start` de cada anchor con el MISMO matcher que fase2b
+    (compute_anchor_starts). Si gap[i+1]-gap[i] < MIN_ANCHOR_GAP_SEC, descarta el
+    anchor i+1 (el apretado) → el anterior (i) absorbe su tiempo. Repite hasta que
+    todos los gaps queden ≥ el piso. Fusionar = sacar el dict entero de la lista.
+
+    Guarda de mínimo: nunca baja de `min_count` (MIN_IMAGES_FLUX flux /
+    MIN_FLUX_EXTRAS veo). Si tocaría el mínimo, deja de fusionar y loguea [audit].
+
+    Si el matcher falla (algún anchor no matchea / starts no crecientes) → no toca
+    nada (fallback seguro; fase2b igual repartirá con su piso 0.05 como última red).
+
+    Aplica a AMBOS caminos: el plan trae los anchors en `anchors` (flux) o en
+    `supplementals` (veo). El `veo_anchor` (el clip Veo) NO se toca.
+
+    Returns:
+        (plan, n_dropped). El plan tiene la lista reducida; n' = len(lista). Los
+        renderers (_render_prompts_*) derivan n de len(plan[...]) → reciben n' solo.
+    """
+    key = "supplementals" if engine == "veo" else "anchors"
+    items = plan.get(key) or []
+    if len(items) < 2:
+        return plan, 0
+
+    starts = compute_anchor_starts([it.get("anchor", "") for it in items], words)
+    if starts is None:
+        print(f"  [03][audit] cap {cap_number}: matcher anchor→tiempo no resolvió "
+              f"(anchor sin match o starts no crecientes) — sin reconciliación temporal")
+        return plan, 0
+
+    survivors = list(items)
+    s = list(starts)
+    dropped = 0
+    i = 0
+    while i + 1 < len(survivors):
+        gap = s[i + 1] - s[i]
+        if gap < MIN_ANCHOR_GAP_SEC:
+            if len(survivors) <= min_count:
+                print(f"  [03][audit] cap {cap_number}: gap {gap:.2f}s < "
+                      f"{MIN_ANCHOR_GAP_SEC}s en img #{i + 2} pero ya en mínimo "
+                      f"({min_count}) — NO fusiono (¿_calculate_*_count pidió de más?)")
+                break
+            # Descartar el anchor apretado (i+1): el anterior (i) absorbe su tiempo.
+            # NO avanzar i: re-chequear el gap del nuevo i+1 contra el mismo i.
+            del survivors[i + 1]
+            del s[i + 1]
+            dropped += 1
+        else:
+            i += 1
+
+    if dropped:
+        plan[key] = survivors
+        print(f"  [03] cap {cap_number}: timing-aware merge — {dropped} anchor(s) "
+              f"fusionado(s) por gap < {MIN_ANCHOR_GAP_SEC}s → {len(survivors)} "
+              f"{'supplementals' if engine == 'veo' else 'imgs'} (el anterior absorbe el tiempo)")
+
+    return plan, dropped
+
+
+# ═══════════════════════════════════════════════════════════════
 #  VALIDACIÓN
 # ═══════════════════════════════════════════════════════════════
 
@@ -2208,6 +2305,10 @@ def assign_visual_prompts(
     if not topic_id:
         raise ValueError("topic sin 'id' ni 'topic_id'")
 
+    # Chat 54: video_id para resolver los chXX_timestamps.json (timing-aware merge).
+    # En este pipeline video_id == topic_id; el sync_map lo trae explícito.
+    video_id = (sync_map or {}).get("video_id") or topic_id
+
     skel_chapters = skeleton.get("chapters") or []
     narr_chapters = narration.get("chapters") or []
 
@@ -2287,6 +2388,12 @@ def assign_visual_prompts(
                 narration_text, n_flux_extras, "veo",
                 veo_position=veo_position, veo_zone_chars=veo_zone_chars, cap_number=cap_n,
             )
+            # Chat 54: reconciliación temporal — fusiona supplementals apretados
+            # (mata el flash de DepthFlow) ANTES del Paso 2. Guarda: MIN_FLUX_EXTRAS.
+            words_ts = _load_cap_word_timestamps(video_id, cap_id)
+            if words_ts:
+                plan, _ = _reconcile_anchor_timing(
+                    plan, "veo", words_ts, MIN_FLUX_EXTRAS, cap_n)
             cap_out = _render_prompts_veo(topic, sch, narration_text, plan, veo_position, cap_n)
             # No-op desde chat 19 (catálogo desconectado): el prompt ya
             # viene completo del LLM. Llamada preservada por compat.
@@ -2328,6 +2435,12 @@ def assign_visual_prompts(
             # vacío" Y el "anchor fuera de orden" (el Paso 1 los ordena). cap_out sale del MISMO
             # _validate_flux_cap final (dentro de _render_prompts_flux) → shape idéntico al viejo.
             plan = _plan_anchors(narration_text, n_images, "flux", cap_number=cap_n)
+            # Chat 54: reconciliación temporal — fusiona anchors apretados (mata el
+            # flash de DepthFlow) ANTES del Paso 2. Guarda: MIN_IMAGES_FLUX.
+            words_ts = _load_cap_word_timestamps(video_id, cap_id)
+            if words_ts:
+                plan, _ = _reconcile_anchor_timing(
+                    plan, "flux", words_ts, MIN_IMAGES_FLUX, cap_n)
             cap_out = _render_prompts_flux(topic, sch, narration_text, plan, cap_n)
 
             # Ensamblaje v7 chat 30: el LLM emite el prompt completo en prosa.
