@@ -714,6 +714,14 @@ def _build_rules_block() -> str:
 #  PROMPT VEO (caps 1, 7)
 # ═══════════════════════════════════════════════════════════════
 
+# 🚩 FLAG CÓDIGO MUERTO (chat 52 B5) — tras cablear el two-step (Pasos 1+2) en assign_visual_prompts,
+# los builders de UN paso `_build_veo_prompt` y `_build_flux_prompt` quedaron SIN caller en prod
+# (assign ahora usa _plan_anchors + _render_prompts_veo/_flux). NO se borran en este push (decisión
+# remove-or-keep diferida): se conservan como referencia + por si hay que rollback. `_validate_veo_cap`/
+# `_validate_flux_cap`/`_call_with_validation_retry` SIGUEN en uso (los llama el Paso 2). Las constantes
+# _VEO_* las comparten _build_veo_prompt (vivo pero sin caller) y _build_veo_prompt_step2 (en uso).
+
+
 # ─── Bloques visuales REUSABLES del prompt veo (chat 52 m03 two-step) ───
 # Se extraen VERBATIM para que el Paso 2 (_build_veo_prompt_step2) reuse las MISMAS reglas/few-shots
 # sin forkearlas (candado #1: reglas visuales intactas, single-source). El output de _build_veo_prompt
@@ -2258,17 +2266,15 @@ def assign_visual_prompts(
                 f"Flux extras (audio {cap_duration_sec:.1f}s, "
                 f"veo_zone≈{veo_zone_chars} chars), llamando Flash..."
             )
-            prompt = _build_veo_prompt(
-                topic, sch, narration_text,
-                cap_duration_sec, n_flux_extras, veo_position,
-                veo_zone_chars,
+            # CHAT 52 (m03 two-step): PASO 1 elige los anchors (productor LLM + fallback
+            # determinístico), PASO 2 escribe los prompts con cada anchor YA fijo. El "anchor vacío"
+            # es imposible por construcción (anchor = input). cap_out sale del MISMO _validate_veo_cap
+            # final (dentro de _render_prompts_veo) → shape idéntico al flujo viejo (contrato sagrado).
+            plan = _plan_anchors(
+                narration_text, n_flux_extras, "veo",
+                veo_position=veo_position, veo_zone_chars=veo_zone_chars, cap_number=cap_n,
             )
-            cap_out = _call_with_validation_retry(
-                prompt,
-                validator_fn=lambda parsed, n=narration_text, cn=cap_n, vp=veo_position: _validate_veo_cap(parsed, n, cn, vp),
-                cap_number=cap_n,
-                system_instruction=SYSTEM_INSTRUCTION_VISUAL,
-            )
+            cap_out = _render_prompts_veo(topic, sch, narration_text, plan, veo_position, cap_n)
             # No-op desde chat 19 (catálogo desconectado): el prompt ya
             # viene completo del LLM. Llamada preservada por compat.
             cap_out = _stitch_zone2_into_cap_veo(cap_out)
@@ -2304,13 +2310,12 @@ def assign_visual_prompts(
                 f"(audio {cap_duration_sec:.1f}s ÷ {SECONDS_PER_IMAGE_TARGET}s "
                 f"target, role={sch.get('role','?')}), llamando Flash..."
             )
-            prompt = _build_flux_prompt(topic, sch, narration_text, n_images)
-            cap_out = _call_with_validation_retry(
-                prompt,
-                validator_fn=lambda parsed, n=narration_text, cn=cap_n, ni=n_images: _validate_flux_cap(parsed, n, cn, ni),
-                cap_number=cap_n,
-                system_instruction=SYSTEM_INSTRUCTION_VISUAL,
-            )
+            # CHAT 52 (m03 two-step): PASO 1 elige los anchors (productor LLM + fallback
+            # determinístico), PASO 2 escribe los prompts con cada anchor YA fijo. Mata el "anchor
+            # vacío" Y el "anchor fuera de orden" (el Paso 1 los ordena). cap_out sale del MISMO
+            # _validate_flux_cap final (dentro de _render_prompts_flux) → shape idéntico al viejo.
+            plan = _plan_anchors(narration_text, n_images, "flux", cap_number=cap_n)
+            cap_out = _render_prompts_flux(topic, sch, narration_text, plan, cap_n)
 
             # Ensamblaje v7 chat 30: el LLM emite el prompt completo en prosa.
             # m03 solo agrega el style del nicho AL FINAL (subject-first según
