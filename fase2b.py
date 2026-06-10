@@ -54,6 +54,7 @@ from script_engine.topics_db import (
 )
 from flow_profiles import FlowSpec
 from script_engine.transition_applier import concat_with_transitions
+from subs_remap import remap_words_to_original
 
 # Estados procesables por fase2b
 ASSETS_READY_STATUS: str = "assets_rendered"
@@ -823,11 +824,16 @@ def _build_chapter_segment(
     *, hook_text: str | None, no_subs: bool, video_width: int,
     video_height: int, fps: int,
     flow_spec: FlowSpec | None = None,
+    reuse_visuals: bool = False,
 ) -> Path:
     """
     Genera UN segmento MP4 completo de un capítulo (visual + audio + subs).
     Aplica loop fix (-stream_loop) si audio > clip; padding si clip > audio.
     Si engine='flux' y hay flow_spec, usa DepthFlow 2.5D guiado.
+
+    reuse_visuals: si True y el clip visual base (flux_visual / hybrid_visual)
+    ya existe en work_dir, NO se regenera (se reutiliza el DepthFlow/parallax ya
+    horneado). Usado para re-quemar subtítulos sin re-correr DepthFlow.
     """
     assert FFMPEG is not None
     is_first = plan.is_first
@@ -838,7 +844,13 @@ def _build_chapter_segment(
     if plan.engine == "veo":
         veo_clip = plan.asset_paths[0]
 
-        if plan.supplemental_paths:
+        hybrid_path = work_dir / f"{plan.chapter_id}_hybrid_visual.mp4"
+        if plan.supplemental_paths and reuse_visuals and hybrid_path.exists():
+            # Re-burn: reutilizar el híbrido Veo+Flux ya horneado (sin DepthFlow).
+            base_clip = hybrid_path
+            print(f"  [fase2b] {plan.chapter_id} reuse-visuals: "
+                  f"{hybrid_path.name} (sin DepthFlow)")
+        elif plan.supplemental_paths:
             # ═══ HÍBRIDO chat 29 #175 ═══════════════════════════════
             # Concat Veo + DepthFlow de supplementals Flux dentro del cap.
             # Mide la duración REAL del clip Veo (fal.ai Veo 3.1 Lite puede
@@ -907,13 +919,18 @@ def _build_chapter_segment(
 
     elif plan.engine == "flux":
         base_clip = work_dir / f"{plan.chapter_id}_flux_visual.mp4"
-        _build_flux_visual(
-            plan.asset_paths, base_clip, plan.audio_duration,
-            video_width, video_height, fps, work_dir, plan.art_profile,
-            flow_spec=flow_spec,
-            narration_anchors=plan.narration_anchors,
-            timestamps_path=plan.timestamps_path,
-        )
+        if reuse_visuals and base_clip.exists():
+            # Re-burn: reutilizar el slideshow DepthFlow ya horneado.
+            print(f"  [fase2b] {plan.chapter_id} reuse-visuals: "
+                  f"{base_clip.name} (sin DepthFlow)")
+        else:
+            _build_flux_visual(
+                plan.asset_paths, base_clip, plan.audio_duration,
+                video_width, video_height, fps, work_dir, plan.art_profile,
+                flow_spec=flow_spec,
+                narration_anchors=plan.narration_anchors,
+                timestamps_path=plan.timestamps_path,
+            )
     else:
         raise ValueError(f"engine desconocido: {plan.engine}")
 
@@ -924,38 +941,40 @@ def _build_chapter_segment(
     needs_audio_pad = clip_duration > effective_audio
 
     # ─── Subs ASS (desde timestamps pre-existentes) ───
+    # FIX subs fonéticos (CAMINO B): el forced-alignment corrió sobre el texto
+    # NORMALIZADO para TTS, así que los timestamps/alignment traen el texto
+    # fonético (años expandidos, nombres EN fonetizados). Remapeamos esos timings
+    # al texto ORIGINAL legible (plan.narration) vía diff token-a-token y armamos
+    # el .ass con karaoke por PALABRA (_build_ass_from_words). El switch desde la
+    # rama por sílaba (_build_ass_from_syllables) es INTENCIONAL — Omar prefiere
+    # el karaoke por palabra (sin el efecto de la sílaba agrandándose).
     subs_path: Path | None = None
     if not no_subs and plan.timestamps_path and plan.timestamps_path.exists():
         subs_path = work_dir / f"{plan.chapter_id}_subs.ass"
-        alignment_path = plan.alignment_path  # chat 38: characters de Forced Alignment
+        norm_words = json.loads(plan.timestamps_path.read_text(encoding="utf-8"))
 
-        if alignment_path and alignment_path.exists():
-            # NUEVO: render por sílaba (Forced Alignment + chunk estático)
-            characters = json.loads(alignment_path.read_text(encoding="utf-8"))
-            syllables = _chars_to_syllables(characters)
-            _build_ass_from_syllables(
-                syllables=syllables,
-                output_path=subs_path,
-                audio_duration=plan.audio_duration + pre_pad,
-                video_width=video_width,
-                video_height=video_height,
-                hook_text=hook_text if apply_hook else None,
-                hook_duration=HOOK_DURATION,
-                pre_pad=pre_pad,
-            )
+        original_text = (plan.narration or "").strip()
+        if original_text:
+            words = remap_words_to_original(original_text, norm_words)
+            if not words:
+                # Remap vacío (caso patológico) → usar normalizado como red de
+                # seguridad para no perder subtítulos.
+                words = norm_words
         else:
-            # FALLBACK retrocompat: videos viejos sin alignment.json → por palabra
-            words = json.loads(plan.timestamps_path.read_text(encoding="utf-8"))
-            _build_ass_from_words(
-                words=words,
-                output_path=subs_path,
-                audio_duration=plan.audio_duration + pre_pad,
-                video_width=video_width,
-                video_height=video_height,
-                hook_text=hook_text if apply_hook else None,
-                hook_duration=HOOK_DURATION,
-                pre_pad=pre_pad,
-            )
+            # Sin narración original en el script (no debería pasar en LONG) →
+            # fallback al texto normalizado tal cual.
+            words = norm_words
+
+        _build_ass_from_words(
+            words=words,
+            output_path=subs_path,
+            audio_duration=plan.audio_duration + pre_pad,
+            video_width=video_width,
+            video_height=video_height,
+            hook_text=hook_text if apply_hook else None,
+            hook_duration=HOOK_DURATION,
+            pre_pad=pre_pad,
+        )
     elif apply_hook and not no_subs:
         # Hook sin timestamps: igual generamos un ASS solo con hook
         subs_path = work_dir / f"{plan.chapter_id}_hook_only.ass"
@@ -1830,6 +1849,7 @@ def _assemble_one_video(
     no_subs: bool,
     keep_segments: bool,
     dry_run: bool,
+    reuse_visuals: bool = False,
 ) -> tuple[int, Path | None]:
     """
     Ensambla un único video. Retorna (returncode, final_path | None).
@@ -1887,42 +1907,50 @@ def _assemble_one_video(
     started_tracker = (cost_tracker.current_video is not None
                        and cost_tracker.current_video.video_id == video_id)
 
-    print(f"\n  🎥 Decidiendo movimientos cinematográficos...")
-    flow_specs = _dispatch_flow_specs(plans)
+    if reuse_visuals:
+        # Re-burn: NO se decide movimiento ni se llama a flow_director (los clips
+        # visuales ya están horneados). Se deja el flow_plan.json existente intacto.
+        print(f"\n  ♻  reuse-visuals: salteando flow_director (clips ya horneados)")
+        flow_specs = {}
+    else:
+        print(f"\n  🎥 Decidiendo movimientos cinematográficos...")
+        flow_specs = _dispatch_flow_specs(plans)
 
-    # Persistir flow_plan para inspección post-corrida
-    flow_plan_path = OUTPUT_DIR / video_id / "flow_plan.json"
-    flow_plan_path.parent.mkdir(parents=True, exist_ok=True)
-    flow_plan_data = {
-        "video_id": video_id,
-        "generated_at": datetime.now().isoformat(timespec="seconds"),
-        "chapters": [
-            {
-                "chapter_id": p.chapter_id,
-                "engine": p.engine,
-                "art_profile": p.art_profile,
-                "audio_duration_sec": round(p.audio_duration, 2),
-                "narration_anchors_count": len(p.narration_anchors) if p.narration_anchors else 0,
-                "flow_spec": (
-                    {
-                        "movement": flow_specs[p.chapter_id]["movement"],
-                        "intensity_base": float(flow_specs[p.chapter_id]["intensity"]),
-                        "steady": float(flow_specs[p.chapter_id]["steady"]),
-                        "dof": bool(flow_specs[p.chapter_id]["dof"]),
-                        "rationale": flow_specs[p.chapter_id].get("rationale", ""),
-                    }
-                    if p.chapter_id in flow_specs and p.engine == "flux"
-                    else None
-                ),
-            }
-            for p in plans
-        ],
-    }
-    flow_plan_path.write_text(
-        json.dumps(flow_plan_data, indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
-    print(f"     💾 flow_plan persistido en {flow_plan_path.name}")
+    # Persistir flow_plan para inspección post-corrida (se omite en re-burn para
+    # no clobberear el flow_plan.json original con flow_specs vacíos).
+    if not reuse_visuals:
+        flow_plan_path = OUTPUT_DIR / video_id / "flow_plan.json"
+        flow_plan_path.parent.mkdir(parents=True, exist_ok=True)
+        flow_plan_data = {
+            "video_id": video_id,
+            "generated_at": datetime.now().isoformat(timespec="seconds"),
+            "chapters": [
+                {
+                    "chapter_id": p.chapter_id,
+                    "engine": p.engine,
+                    "art_profile": p.art_profile,
+                    "audio_duration_sec": round(p.audio_duration, 2),
+                    "narration_anchors_count": len(p.narration_anchors) if p.narration_anchors else 0,
+                    "flow_spec": (
+                        {
+                            "movement": flow_specs[p.chapter_id]["movement"],
+                            "intensity_base": float(flow_specs[p.chapter_id]["intensity"]),
+                            "steady": float(flow_specs[p.chapter_id]["steady"]),
+                            "dof": bool(flow_specs[p.chapter_id]["dof"]),
+                            "rationale": flow_specs[p.chapter_id].get("rationale", ""),
+                        }
+                        if p.chapter_id in flow_specs and p.engine == "flux"
+                        else None
+                    ),
+                }
+                for p in plans
+            ],
+        }
+        flow_plan_path.write_text(
+            json.dumps(flow_plan_data, indent=2, ensure_ascii=False),
+            encoding="utf-8",
+        )
+        print(f"     💾 flow_plan persistido en {flow_plan_path.name}")
 
     work_dir = OUTPUT_DIR / video_id / "_fase2b_work"
     work_dir.mkdir(parents=True, exist_ok=True)
@@ -1941,6 +1969,7 @@ def _assemble_one_video(
                 video_width=pipeline.video_width,
                 video_height=pipeline.video_height,
                 fps=pipeline.fps, flow_spec=spec,
+                reuse_visuals=reuse_visuals,
             )
         except Exception as e:
             print(f"     ❌ {type(e).__name__}: {e}")
@@ -2078,6 +2107,10 @@ def main() -> int:
                         help="Mostrar plan sin ejecutar FFmpeg.")
     parser.add_argument("--keep-segments", action="store_true",
                         help="No borrar los MP4 intermedios.")
+    parser.add_argument("--reuse-visuals", action="store_true",
+                        help="Re-quemar reutilizando los clips visuales ya horneados "
+                             "(flux_visual/hybrid_visual en _fase2b_work) sin re-correr "
+                             "DepthFlow ni flow_director. Para re-generar solo subs/música.")
     parser.add_argument("--limit", type=int, default=None,
                         help="Solo en modo batch: tope de videos a procesar en esta corrida.")
     parser.add_argument("--force", action="store_true",
@@ -2130,6 +2163,7 @@ def main() -> int:
             no_subs=args.no_subs,
             keep_segments=args.keep_segments,
             dry_run=args.dry_run,
+            reuse_visuals=args.reuse_visuals,
         )
 
         if rc == 0 and final_path is not None and not args.dry_run:
