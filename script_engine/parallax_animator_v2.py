@@ -270,6 +270,15 @@ def _build_options(flow_spec: FlowSpec, duration_seconds: float) -> dict[str, An
         opts["isometric"] = 0.6      # ← clave que faltaba: pronuncia el efecto
     elif movement == "orbital":
         opts["depth"] = 0.9           # ← clave que faltaba: pronuncia el efecto
+    elif movement in ("zoom_in", "zoom_out"):
+        # Camino A (chat 55): el zoom NO usa isometric/depth ni steady — su
+        # amplitud es la intensity. La DIRECCIÓN depende del SIGNO de intensity
+        # (positivo=in, negativo=out), pero clamp_intensity la deja siempre
+        # POSITIVA, así que zoom_out zoomearía IN si dependiéramos del LLM.
+        # Fix: derivamos la dirección del NOMBRE. zoom_in queda como está
+        # (positivo); zoom_out niega la intensity ya escalada.
+        if movement == "zoom_out":
+            opts["intensity"] = -opts["intensity"]
 
     return opts
 

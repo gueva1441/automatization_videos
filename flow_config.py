@@ -57,11 +57,15 @@ class DepthFlowMovement:
 
 # Inventario reducido en chat 21: de 4 → 3 movimientos UNIVERSALMENTE robustos.
 # Validado empíricamente sobre las 10 imágenes de Pripyat (incluyendo las complejas:
-# explosión, fuego, ruinas con varillas finas). Los 3 sobrevivientes NO piden
+# explosión, fuego, ruinas con varillas finas). Los 3 robustos NO piden
 # recomposición 3D agresiva al depth map mal estimado.
 #
-# Eliminados en chat 21: zoom_in, zoom_out, dolly — rompían en ~30% de imágenes
-# documentales (las complejas) por texture-stretching de bordes filosos.
+# Camino A (chat 55): zoom_in/zoom_out RE-EXPUESTOS al LLM, pero con un GATE
+# conservador vía el campo `risk` (lo lee Gemini) + regla semántica DURA en
+# flow_director. El ~30% que rompía en chat 21 eran planos/texturas/niebla; el
+# gate los excluye (zoom SOLO con sujeto claro + fondo que recede). El renderer
+# siempre soportó zoom (parallax_animator_v2: zoom_in/zoom_out → scene.zoom()).
+# `dolly` sigue fuera (no se re-expone).
 DEPTHFLOW_INVENTORY: tuple[DepthFlowMovement, ...] = (
     DepthFlowMovement(
         name="horizontal",
@@ -77,6 +81,18 @@ DEPTHFLOW_INVENTORY: tuple[DepthFlowMovement, ...] = (
         name="orbital",
         description="La cámara orbita ligeramente alrededor de un punto fijo, dando sensación de tridimensionalidad sutil.",
         best_for="objetos centrales, retratos, productos, cuando querés enfatizar volumen sin desplazamiento lateral.",
+    ),
+    DepthFlowMovement(
+        name="zoom_in",
+        description="Acercamiento progresivo de cámara (push-in). Avanza hacia el sujeto revelando profundidad.",
+        best_for="revelar/acercar a un sujeto u objeto claro con fondo que recede detrás (retrato, figura, objeto cargado).",
+        risk="rompe en imágenes planas/texturas/muros/niebla — usar SOLO con sujeto claro y fondo que recede.",
+    ),
+    DepthFlowMovement(
+        name="zoom_out",
+        description="Alejamiento progresivo de cámara (pull-back). Retrocede abriendo desde un detalle hacia el espacio.",
+        best_for="abrir desde un detalle/sujeto hacia un espacio con profundidad (revelar contexto detrás de la figura).",
+        risk="rompe en imágenes planas/texturas/muros/niebla — usar SOLO con sujeto claro y fondo que recede.",
     ),
 )
 

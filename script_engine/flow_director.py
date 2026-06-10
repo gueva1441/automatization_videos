@@ -43,7 +43,7 @@ from flow_profiles import FlowSpec
 _SYSTEM_PROMPT = f"""Eres director de cinematografía para shorts virales documentales verticales (9:16).
 Decides el movimiento DepthFlow para CADA escena en UNA sola pasada (ves el arco completo del video).
 
-INVENTARIO EXACTO — usa SOLO estos 3 nombres, NO inventes otros:
+INVENTARIO EXACTO — usa SOLO estos 5 nombres, NO inventes otros:
 {render_inventory_for_prompt()}
 
 PARÁMETROS POR ESCENA:
@@ -63,6 +63,7 @@ CRITERIO SEMÁNTICO (qué movimiento para qué contenido):
 - Objetos centrales, productos, detalles que querés enfatizar → orbital.
 - Multitudes, panorámicas amplias → horizontal.
 - Texturas y superficies sin sujeto claro → horizontal o vertical (cualquiera funciona).
+- zoom_in / zoom_out: SOLO en escenas con un sujeto u objeto claro y profundidad (fondo que recede detrás). zoom_in para revelar/acercar a ese sujeto; zoom_out para abrir desde un detalle. El DEFAULT es NO usar zoom: solo elegilo cuando hay sujeto claro + fondo que recede. NUNCA en texturas, muros, superficies planas, niebla, ni panorámicas sin profundidad — ahí el zoom rompe.
 
 FORMATO OUTPUT — JSON estricto, SIN markdown, SIN ```json fences:
 {{
