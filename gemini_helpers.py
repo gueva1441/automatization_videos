@@ -83,7 +83,8 @@ def _safe_json_parse(raw_text: str) -> dict:
         ) from e
 
 
-def call_flash_json(prompt: str, system_instruction: str | None = None) -> dict:
+def call_flash_json(prompt: str, system_instruction: str | None = None,
+                    response_schema=None) -> dict:
     """Llama a Gemini Flash y devuelve la respuesta parseada como dict.
 
     Args:
@@ -91,11 +92,17 @@ def call_flash_json(prompt: str, system_instruction: str | None = None) -> dict:
         system_instruction: opcional. Si se pasa, se envía como system_instruction
             del config (separado del user prompt). Si es None, no se incluye el
             field — comportamiento idéntico al previo.
+        response_schema: opcional (MODEL_PROMPTING_RULES R4). Si se pasa, se agrega
+            a config_kwargs para forzar la estructura del output (los campos del
+            schema pasan a ser obligatorios). Si es None, NO se incluye el field —
+            comportamiento idéntico al previo (default).
     """
     def _do():
         config_kwargs = {"response_mime_type": "application/json"}
         if system_instruction is not None:
             config_kwargs["system_instruction"] = system_instruction
+        if response_schema is not None:
+            config_kwargs["response_schema"] = response_schema
         response = _client.models.generate_content(
             model=_cfg.gemini_model,
             contents=prompt,
@@ -105,7 +112,8 @@ def call_flash_json(prompt: str, system_instruction: str | None = None) -> dict:
     return _with_retry(_do)
 
 
-def call_pro_json(prompt: str, system_instruction: str | None = None) -> dict:
+def call_pro_json(prompt: str, system_instruction: str | None = None,
+                  response_schema=None) -> dict:
     """Llama a Gemini Pro y devuelve la respuesta parseada como dict.
 
     Args:
@@ -113,11 +121,16 @@ def call_pro_json(prompt: str, system_instruction: str | None = None) -> dict:
         system_instruction: opcional. Si se pasa, se envía como system_instruction
             del config (separado del user prompt). Si es None, no se incluye el
             field — comportamiento idéntico al previo.
+        response_schema: opcional (MODEL_PROMPTING_RULES R4). Si se pasa, se agrega
+            a config_kwargs. Si es None, NO se incluye — comportamiento idéntico
+            al previo (default).
     """
     def _do():
         config_kwargs = {"response_mime_type": "application/json"}
         if system_instruction is not None:
             config_kwargs["system_instruction"] = system_instruction
+        if response_schema is not None:
+            config_kwargs["response_schema"] = response_schema
         response = _client.models.generate_content(
             model=_cfg.gemini_model_research,
             contents=prompt,

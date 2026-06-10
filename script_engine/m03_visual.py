@@ -714,6 +714,68 @@ def _build_rules_block() -> str:
 #  PROMPT VEO (caps 1, 7)
 # ═══════════════════════════════════════════════════════════════
 
+# ─── Bloques visuales REUSABLES del prompt veo (chat 52 m03 two-step) ───
+# Se extraen VERBATIM para que el Paso 2 (_build_veo_prompt_step2) reuse las MISMAS reglas/few-shots
+# sin forkearlas (candado #1: reglas visuales intactas, single-source). El output de _build_veo_prompt
+# queda byte-idéntico (verificado por hash en test_module_03_prompt_por_anchor). NO editar reglas acá.
+_VEO_IMG_VIDEO_SUBJECT_SPEC = """- 1 image_prompt: la escena completa (Subject + Action + Environment +
+  marcador temporal + lighting/atmosphere específico de la escena).
+  120-400 chars EN, target 180-300. El lighting lo decidís vos según el
+  contenido de la escena, dentro del marco "documentary photography,
+  period-correct natural lighting, slightly desaturated palette" del
+  system_instruction.
+- 1 video_prompt: cómo se mueve el SUJETO y el AMBIENT específico de la
+  escena (120-400 chars EN, target 180-300). Describe MOVIMIENTO concreto:
+  movimiento del sujeto (coat swaying, eyes blinking, hair in wind),
+  camera arc específico al cap (slow push in al rostro, slow pull out),
+  y ambient particular de la escena (smoke from cigarette, water dripping,
+  dust drifting). PROHIBIDO cuts, jumps, fast cuts, zoom rapid.
+- 1 subject_ref: identificador del sujeto. "main_subject" si es el
+  protagonista; otros nombres si la escena no tiene protagonista humano
+  (ej. "establishing_shot", "interior_scene", "landscape_view")."""
+
+_VEO_VIDEO_PROMPT_STRUCT = """ESTRUCTURA video_prompt:
+- Camera movement: slow push in, slow pull out, slow pan left/right,
+  static with subtle drift, orbit. PROHIBIDO cuts, jumps, fast cuts,
+  zoom rapid.
+- Ambient: dust drifting, fog rolling, water flowing, wind through grass,
+  light slowly intensifying.
+- Motion sutil sobre el sujeto: figure breathing, hair moving in wind,
+  eyes blinking. NO acción fuerte (Veo prioriza estabilidad).
+- Lighting consistency: la luz no cambia durante el clip.
+- COMPATIBILIDAD: el video_prompt debe describir movimiento de elementos
+  que ya están en el image_prompt. No agregar elementos nuevos."""
+
+_VEO_EXAMPLES = """✓ CORRECTO (cap hook documental, marcador temporal explícito + lighting de escena):
+{
+  "image_prompt": "An elderly miner in dusty 1960s work clothes standing alone on a deserted outback road, vast emptiness around the figure, distant period-correct mining headframe barely visible on the horizon, harsh midday outback sun, drifting fine red dust, wide shot of the open terrain",
+  "video_prompt": "The miner's coat swaying gently in the wind, fine dust particles drifting slowly through the air, distant heat shimmer warping the horizon line, the figure standing still while the desert breathes around him",
+  "subject_ref": "main_subject",
+  "narration_anchor": "Más de 2,000 personas perdieron la vida en Wittenoom, un pueblo minero borrado de los mapas en 2007"
+}
+
+✓ CORRECTO (cap reveal, persona de DOCUMENTED_PEOPLE, lighting de interior):
+{
+  "image_prompt": "A mid-30s American naval officer in 1960s U.S. Navy service uniform on the cramped control bridge of a 1968 Skipjack-class submarine, focused authoritative expression, period-correct analog instruments around him, brass detail visible on the bulkhead behind, dim interior lit by warm overhead bulbs and the glow of analog gauges",
+  "video_prompt": "Slow push in toward the officer's face, instrument needles flickering subtly, faint vapor drifting through the cramped compartment, his shoulders rising slowly with controlled breathing",
+  "subject_ref": "main_subject",
+  "narration_anchor": "el comandante revisó por última vez la posición del submarino, sin saber que esa sería la última transmisión que enviaría al mando"
+}
+   ↑ Nota: usa el `appearance_canon` de PERSONAS DOCUMENTADAS sin nombre,
+     y ancla temporalmente con "1960s", "1968", "period-correct". El
+     image_prompt incluye el lighting específico de la escena (dim interior
+     lit by warm overhead bulbs and the glow of analog gauges), elegido por
+     el contenido (interior submarino) dentro del marco documental.
+
+✗ INCORRECTO (varios errores):
+{
+  "image_prompt": "John Smith born 1932 mining at Wittenoom in 1956",   ← inventó nombre, nombre propio prohibido
+  "video_prompt": "Fast cuts between three locations, dramatic zoom",   ← prohibido cuts/fast/zoom rapid
+  "subject_ref": "main_subject",
+  "narration_anchor": "más de dos mil personas murieron"   ← reformulado, no substring exacto
+}"""
+
+
 def _build_veo_prompt(
     topic: dict,
     cap_data: dict,
@@ -786,38 +848,14 @@ ESPECÍFICO PARA VEO (este cap)
 ═══════════════════════════════════════════════════
 
 Este cap es {role}, render_engine=veo. Generás:
-- 1 image_prompt: la escena completa (Subject + Action + Environment +
-  marcador temporal + lighting/atmosphere específico de la escena).
-  120-400 chars EN, target 180-300. El lighting lo decidís vos según el
-  contenido de la escena, dentro del marco "documentary photography,
-  period-correct natural lighting, slightly desaturated palette" del
-  system_instruction.
-- 1 video_prompt: cómo se mueve el SUJETO y el AMBIENT específico de la
-  escena (120-400 chars EN, target 180-300). Describe MOVIMIENTO concreto:
-  movimiento del sujeto (coat swaying, eyes blinking, hair in wind),
-  camera arc específico al cap (slow push in al rostro, slow pull out),
-  y ambient particular de la escena (smoke from cigarette, water dripping,
-  dust drifting). PROHIBIDO cuts, jumps, fast cuts, zoom rapid.
-- 1 subject_ref: identificador del sujeto. "main_subject" si es el
-  protagonista; otros nombres si la escena no tiene protagonista humano
-  (ej. "establishing_shot", "interior_scene", "landscape_view").
+{_VEO_IMG_VIDEO_SUBJECT_SPEC}
 - 1 narration_anchor GLOBAL del cap: substring EXACTO y AMPLIO de la
   narración del cap. Debe abarcar la idea central del cap entero, no una
   frase breve aislada. Apuntá a 60-200 chars (~10-30 palabras). NO recortes
   a una frase corta de impacto: el anchor representa el cap completo para
   validación cruzada en m05.
 
-ESTRUCTURA video_prompt:
-- Camera movement: slow push in, slow pull out, slow pan left/right,
-  static with subtle drift, orbit. PROHIBIDO cuts, jumps, fast cuts,
-  zoom rapid.
-- Ambient: dust drifting, fog rolling, water flowing, wind through grass,
-  light slowly intensifying.
-- Motion sutil sobre el sujeto: figure breathing, hair moving in wind,
-  eyes blinking. NO acción fuerte (Veo prioriza estabilidad).
-- Lighting consistency: la luz no cambia durante el clip.
-- COMPATIBILIDAD: el video_prompt debe describir movimiento de elementos
-  que ya están en el image_prompt. No agregar elementos nuevos.
+{_VEO_VIDEO_PROMPT_STRUCT}
 
 ═══════════════════════════════════════════════════
 HÍBRIDO VEO + FLUX SUPPLEMENTALS (chat 29 #175)
@@ -871,34 +909,7 @@ NARRACIÓN COMPLETA DEL CAP (fuente del narration_anchor):
 EJEMPLOS
 ═══════════════════════════════════════════════════
 
-✓ CORRECTO (cap hook documental, marcador temporal explícito + lighting de escena):
-{{
-  "image_prompt": "An elderly miner in dusty 1960s work clothes standing alone on a deserted outback road, vast emptiness around the figure, distant period-correct mining headframe barely visible on the horizon, harsh midday outback sun, drifting fine red dust, wide shot of the open terrain",
-  "video_prompt": "The miner's coat swaying gently in the wind, fine dust particles drifting slowly through the air, distant heat shimmer warping the horizon line, the figure standing still while the desert breathes around him",
-  "subject_ref": "main_subject",
-  "narration_anchor": "Más de 2,000 personas perdieron la vida en Wittenoom, un pueblo minero borrado de los mapas en 2007"
-}}
-
-✓ CORRECTO (cap reveal, persona de DOCUMENTED_PEOPLE, lighting de interior):
-{{
-  "image_prompt": "A mid-30s American naval officer in 1960s U.S. Navy service uniform on the cramped control bridge of a 1968 Skipjack-class submarine, focused authoritative expression, period-correct analog instruments around him, brass detail visible on the bulkhead behind, dim interior lit by warm overhead bulbs and the glow of analog gauges",
-  "video_prompt": "Slow push in toward the officer's face, instrument needles flickering subtly, faint vapor drifting through the cramped compartment, his shoulders rising slowly with controlled breathing",
-  "subject_ref": "main_subject",
-  "narration_anchor": "el comandante revisó por última vez la posición del submarino, sin saber que esa sería la última transmisión que enviaría al mando"
-}}
-   ↑ Nota: usa el `appearance_canon` de PERSONAS DOCUMENTADAS sin nombre,
-     y ancla temporalmente con "1960s", "1968", "period-correct". El
-     image_prompt incluye el lighting específico de la escena (dim interior
-     lit by warm overhead bulbs and the glow of analog gauges), elegido por
-     el contenido (interior submarino) dentro del marco documental.
-
-✗ INCORRECTO (varios errores):
-{{
-  "image_prompt": "John Smith born 1932 mining at Wittenoom in 1956",   ← inventó nombre, nombre propio prohibido
-  "video_prompt": "Fast cuts between three locations, dramatic zoom",   ← prohibido cuts/fast/zoom rapid
-  "subject_ref": "main_subject",
-  "narration_anchor": "más de dos mil personas murieron"   ← reformulado, no substring exacto
-}}
+{_VEO_EXAMPLES}
 
 ═══════════════════════════════════════════════════
 FORMATO DE OUTPUT (JSON estricto, nada más)
@@ -978,6 +989,284 @@ DISTRIBUTION OF emotional_rank:
 
 JSON only. No markdown. No preamble.
 """
+
+
+# ═══════════════════════════════════════════════════════════════
+#  PASO 1 — PLANIFICACIÓN DE ANCHORS (chat 52, m03 two-step)
+#
+#  El LLM elige SOLO las ventanas (anchors), como un productor que marca
+#  beats. NO escribe prompts de imagen (eso es el Paso 2). Schema fuerza la
+#  CANTIDAD; _validate_anchor_substring + _check_supp_ordering son la red real
+#  (un "" pasa el schema pero NO la validación); el fallback determinístico es
+#  el último seguro y SIEMPRE devuelve exactamente n ventanas válidas.
+# ═══════════════════════════════════════════════════════════════
+
+def _carve_veo_zones(narration_text: str, veo_position: str, veo_zone_chars: int) -> tuple:
+    """Carveo de zonas idéntico a _build_veo_prompt (líneas 753-763). Devuelve
+    (veo_lo, veo_hi, supps_lo, supps_hi)."""
+    narration_len = len(narration_text)
+    if veo_position == "start":
+        return 0, veo_zone_chars, veo_zone_chars, narration_len
+    # "end"
+    return narration_len - veo_zone_chars, narration_len, 0, narration_len - veo_zone_chars
+
+
+# ─── FALLBACK determinístico (candado de Omar #3: EXACTAMENTE n ventanas, SIEMPRE) ───
+
+def _sentence_content_spans(text: str, lo: int, hi: int) -> list[tuple]:
+    """Spans (start,end) de oraciones CON contenido dentro de [lo,hi). Corta tras .!?…"""
+    spans: list[tuple] = []
+    start = lo
+    for m in re.finditer(r"[.!?…]+", text[lo:hi]):
+        end = lo + m.end()
+        if text[start:end].strip():
+            spans.append((start, end))
+        start = end
+    if start < hi and text[start:hi].strip():
+        spans.append((start, hi))
+    return spans
+
+
+def _merge_spans_to_n(spans: list[tuple], n: int) -> list[tuple]:
+    """Funde S>=n spans en EXACTAMENTE n buckets contiguos, lo más parejo posible."""
+    S = len(spans)
+    base, extra, idx, out = S // n, S % n, 0, []
+    for g in range(n):
+        size = base + (1 if g < extra else 0)
+        grp = spans[idx:idx + size]
+        idx += size
+        out.append((grp[0][0], grp[-1][1]))
+    return out
+
+
+def _merge_indices_to_n(indices: list[int], n: int) -> list[tuple]:
+    """Funde C>=n índices de char en EXACTAMENTE n spans contiguos (span = first..last+1)."""
+    C = len(indices)
+    base, extra, idx, out = C // n, C % n, 0, []
+    for g in range(n):
+        size = base + (1 if g < extra else 0)
+        grp = indices[idx:idx + size]
+        idx += size
+        out.append((grp[0], grp[-1] + 1))
+    return out
+
+
+def _fallback_anchor_windows(text: str, lo: int, hi: int, n: int) -> list[tuple]:
+    """Devuelve EXACTAMENTE n (anchor, pos, end) contiguos, no-vacíos, no-solapados, en [lo,hi).
+    Degradación (candado #3): oraciones → palabras → caracteres, para garantizar n ventanas
+    incluso si hay menos oraciones (o palabras) que n. pos/end son los del span ya recortado
+    (NO via narration.find → evita colisiones con substrings repetidos)."""
+    sents = _sentence_content_spans(text, lo, hi)
+    if len(sents) >= n:
+        spans = _merge_spans_to_n(sents, n)
+    else:
+        words = [(lo + m.start(), lo + m.end()) for m in re.finditer(r"\S+", text[lo:hi])]
+        if len(words) >= n:
+            spans = _merge_spans_to_n(words, n)
+        else:
+            chars = [lo + i for i in range(hi - lo) if not text[lo + i].isspace()]
+            if len(chars) < n:
+                raise VisualValidationError(
+                    f"fallback: zona [{lo},{hi}) tiene {len(chars)} chars de contenido < n={n}"
+                )
+            spans = _merge_indices_to_n(chars, n)
+
+    out: list[tuple] = []
+    for s, e in spans:
+        raw = text[s:e]
+        lead = len(raw) - len(raw.lstrip())
+        anchor = raw.strip()
+        pos = s + lead
+        out.append((anchor, pos, pos + len(anchor)))
+    return out
+
+
+# ─── Schemas (R4): el schema fuerza la CANTIDAD, no el contenido ───
+
+def _veo_anchor_schema(n: int) -> dict:
+    return {
+        "type": "OBJECT",
+        "properties": {
+            "veo_anchor": {"type": "STRING"},
+            "supplemental_anchors": {
+                "type": "ARRAY", "items": {"type": "STRING"},
+                "minItems": n, "maxItems": n,
+            },
+        },
+        "required": ["veo_anchor", "supplemental_anchors"],
+    }
+
+
+def _flux_anchor_schema(n: int) -> dict:
+    return {
+        "type": "OBJECT",
+        "properties": {
+            "anchors": {
+                "type": "ARRAY", "items": {"type": "STRING"},
+                "minItems": n, "maxItems": n,
+            },
+        },
+        "required": ["anchors"],
+    }
+
+
+# ─── Prompts del Paso 1 (SOLO anchors; NADA de reglas de prompt de imagen) ───
+
+def _build_plan_anchors_prompt_veo(narration_text, n, veo_position, veo_zone_text, supps_zone_text):
+    return f"""Sos un editor de documentales. Tu ÚNICA tarea es ELEGIR los cortes de la narración
+(anchors) que se van a ilustrar, como un productor que marca beats con sentido. NO escribís prompts
+de imagen ni descripciones visuales — SOLO seleccionás fragmentos LITERALES de la narración.
+
+El cap se ilustra con 1 clip Veo (posición={veo_position}) + {n} imágenes Flux supplementals.
+
+[ZONA VEO] (de acá sale el anchor GLOBAL del clip Veo, 1 solo):
+\"\"\"
+{veo_zone_text}
+\"\"\"
+
+[ZONA SUPPLEMENTALS] (de acá salen los {n} anchors de las imágenes Flux):
+\"\"\"
+{supps_zone_text}
+\"\"\"
+
+REGLAS (el validador rechaza si se violan):
+1. Cada anchor es substring EXACTO y literal de SU zona (copiá tal cual: sin reformular, sin
+   traducir, sin recortar palabras del medio, sin cambiar puntuación).
+2. EXACTAMENTE {n} anchors de supplementals, en ORDEN cronológico ascendente, SIN solaparse.
+3. El `veo_anchor` sale SOLO de [ZONA VEO]; los supplementals SOLO de [ZONA SUPPLEMENTALS].
+4. Cada anchor abarca un beat con sentido (no una palabra suelta). Apuntá ~40-200 chars.
+
+OUTPUT (JSON estricto, nada más):
+{{"veo_anchor": "<substring literal de ZONA VEO>", "supplemental_anchors": ["<substring 1>", "... EXACTAMENTE {n} items"]}}
+
+NO agregues texto fuera del JSON. NO uses markdown.
+"""
+
+
+def _build_plan_anchors_prompt_flux(narration_text, n):
+    return f"""Sos un editor de documentales. Tu ÚNICA tarea es ELEGIR los cortes de la narración
+(anchors) que se van a ilustrar, como un productor que marca beats con sentido. NO escribís prompts
+de imagen ni descripciones visuales — SOLO seleccionás fragmentos LITERALES de la narración.
+
+NARRACIÓN COMPLETA DEL CAP:
+\"\"\"
+{narration_text}
+\"\"\"
+
+REGLAS (el validador rechaza si se violan):
+1. Cada anchor es substring EXACTO y literal de la narración (sin reformular/traducir/recortar
+   palabras del medio/cambiar puntuación).
+2. EXACTAMENTE {n} anchors, en ORDEN cronológico ascendente, SIN solaparse. Partí mentalmente la
+   narración en {n} segmentos en orden: el anchor 1 cae en el primero, el anchor {n} en el último.
+3. Cada anchor abarca un beat con sentido (no una palabra suelta). Apuntá ~40-200 chars.
+
+OUTPUT (JSON estricto, nada más):
+{{"anchors": ["<substring 1>", "... EXACTAMENTE {n} items en orden"]}}
+
+NO agregues texto fuera del JSON. NO uses markdown.
+"""
+
+
+# ─── Validadores del Paso 1 (reusan _validate_anchor_substring + _check_supp_ordering) ───
+
+def _validate_plan_veo(parsed, narration, n, veo_position, cap_number):
+    if not isinstance(parsed, dict):
+        raise VisualValidationError(f"cap {cap_number} (plan veo): output no es dict ({type(parsed).__name__})")
+    veo_anchor = parsed.get("veo_anchor")
+    va_pos, va_end = _validate_anchor_substring(veo_anchor, narration, f"cap {cap_number} (plan veo) veo_anchor")
+
+    supps = parsed.get("supplemental_anchors")
+    if not isinstance(supps, list):
+        raise VisualValidationError(f"cap {cap_number} (plan veo): supplemental_anchors no es lista")
+    if len(supps) != n:
+        raise VisualValidationError(
+            f"cap {cap_number} (plan veo): {len(supps)} anchors (esperado EXACTAMENTE {n})"
+        )
+    out_supps: list[dict] = []
+    last_pos = last_end = -1
+    for idx, a in enumerate(supps, start=1):
+        lbl = f"cap {cap_number} (plan veo) supp {idx}"
+        pos, end = _validate_anchor_substring(a, narration, lbl)
+        _check_supp_ordering(pos, end, last_pos, last_end, lbl,
+                             veo_position=veo_position, veo_anchor_pos=va_pos, veo_anchor_end=va_end)
+        last_pos, last_end = pos, end
+        out_supps.append({"anchor": a.strip(), "pos": pos, "end": end})
+    return {"veo_anchor": {"anchor": veo_anchor.strip(), "pos": va_pos, "end": va_end},
+            "supplementals": out_supps}
+
+
+def _validate_plan_flux(parsed, narration, n, cap_number):
+    if not isinstance(parsed, dict):
+        raise VisualValidationError(f"cap {cap_number} (plan flux): output no es dict ({type(parsed).__name__})")
+    anchors = parsed.get("anchors")
+    if not isinstance(anchors, list):
+        raise VisualValidationError(f"cap {cap_number} (plan flux): 'anchors' no es lista")
+    if len(anchors) != n:
+        raise VisualValidationError(
+            f"cap {cap_number} (plan flux): {len(anchors)} anchors (esperado EXACTAMENTE {n})"
+        )
+    out: list[dict] = []
+    last_pos = last_end = -1
+    for idx, a in enumerate(anchors, start=1):
+        lbl = f"cap {cap_number} (plan flux) anchor {idx}"
+        pos, end = _validate_anchor_substring(a, narration, lbl)
+        _check_supp_ordering(pos, end, last_pos, last_end, lbl)  # veo_position=None → sin disjunción Veo
+        last_pos, last_end = pos, end
+        out.append({"anchor": a.strip(), "pos": pos, "end": end})
+    return {"anchors": out}
+
+
+def _plan_anchors(
+    narration_text: str,
+    n: int,
+    engine: str,
+    veo_position: str | None = None,
+    veo_zone_chars: int | None = None,
+    cap_number: int = 0,
+) -> dict:
+    """PASO 1 — el LLM elige los anchors (productor). Schema fuerza cantidad; validación real =
+    _validate_anchor_substring + _check_supp_ordering; si no converge → fallback determinístico
+    (EXACTAMENTE n ventanas SIEMPRE). OUT (pos/end ya calculados para que el Paso 2 no recompute):
+
+      veo : {"veo_anchor": {anchor,pos,end}, "supplementals": [{anchor,pos,end} × n]}
+      flux: {"anchors": [{anchor,pos,end} × n]}
+    """
+    engine = (engine or "").lower()
+    if engine == "veo":
+        vlo, vhi, slo, shi = _carve_veo_zones(narration_text, veo_position, veo_zone_chars)
+        prompt = _build_plan_anchors_prompt_veo(
+            narration_text, n, veo_position, narration_text[vlo:vhi], narration_text[slo:shi])
+        try:
+            return _call_with_validation_retry(
+                prompt,
+                validator_fn=lambda p: _validate_plan_veo(p, narration_text, n, veo_position, cap_number),
+                cap_number=cap_number,
+                checklist=_ANCHOR_ONLY_RETRY_CHECKLIST,
+                response_schema=_veo_anchor_schema(n),
+            )
+        except VisualValidationError as e:
+            print(f"  [03] cap {cap_number}: anchors por fallback determinístico (LLM no convergió) — {str(e)[:80]}")
+            va = _fallback_anchor_windows(narration_text, vlo, vhi, 1)[0]
+            supps = _fallback_anchor_windows(narration_text, slo, shi, n)
+            return {"veo_anchor": {"anchor": va[0], "pos": va[1], "end": va[2]},
+                    "supplementals": [{"anchor": a, "pos": p, "end": e} for (a, p, e) in supps]}
+
+    elif engine == "flux":
+        prompt = _build_plan_anchors_prompt_flux(narration_text, n)
+        try:
+            return _call_with_validation_retry(
+                prompt,
+                validator_fn=lambda p: _validate_plan_flux(p, narration_text, n, cap_number),
+                cap_number=cap_number,
+                checklist=_ANCHOR_ONLY_RETRY_CHECKLIST,
+                response_schema=_flux_anchor_schema(n),
+            )
+        except VisualValidationError as e:
+            print(f"  [03] cap {cap_number}: anchors por fallback determinístico (LLM no convergió) — {str(e)[:80]}")
+            w = _fallback_anchor_windows(narration_text, 0, len(narration_text), n)
+            return {"anchors": [{"anchor": a, "pos": p, "end": e} for (a, p, e) in w]}
+
+    raise ValueError(f"_plan_anchors: engine '{engine}' inválido (esperado 'veo' o 'flux')")
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1192,6 +1481,51 @@ def _validate_anchor_substring(
     )
 
 
+def _check_supp_ordering(
+    sp_pos: int,
+    sp_end: int,
+    last_pos: int,
+    last_end: int,
+    sup_label: str,
+    veo_position: str | None = None,
+    veo_anchor_pos: int | None = None,
+    veo_anchor_end: int | None = None,
+) -> None:
+    """Chequeos de orden cronológico estricto + no-solapa entre anchors + disjunción con la zona
+    Veo. Extraído VERBATIM del loop de _validate_veo_cap (chat 52 m03 two-step) para REUSO en
+    _plan_anchors (Paso 1). Lógica y mensajes idénticos. Raises VisualValidationError; no devuelve.
+
+    veo_position=None (camino flux/plan sin Veo) → se saltean los dos checks de disjunción con Veo.
+    """
+    # Orden cronológico estricto entre supplementals
+    if sp_pos <= last_pos:
+        raise VisualValidationError(
+            f"{sup_label}: anchor fuera de orden. Pos actual ({sp_pos}) "
+            f"<= pos del anchor previo ({last_pos}). Los anchors de "
+            f"supplementals deben estar en orden cronológico estricto."
+        )
+    if sp_pos < last_end:
+        raise VisualValidationError(
+            f"{sup_label}: anchor solapa con el supplemental anterior."
+        )
+
+    # No solapamiento con el anchor del Veo según veo_position
+    if veo_position == "start" and veo_anchor_end is not None and sp_pos < veo_anchor_end:
+        raise VisualValidationError(
+            f"{sup_label}: anchor solapa con la zona Veo "
+            f"(veo_position=start, veo_anchor_end={veo_anchor_end}, "
+            f"sp_pos={sp_pos}). Los supplementals deben venir DESPUÉS "
+            f"del anchor Veo."
+        )
+    if veo_position == "end" and veo_anchor_pos is not None and sp_end > veo_anchor_pos:
+        raise VisualValidationError(
+            f"{sup_label}: anchor solapa con la zona Veo "
+            f"(veo_position=end, veo_anchor_pos={veo_anchor_pos}, "
+            f"sp_end={sp_end}). Los supplementals deben venir ANTES "
+            f"del anchor Veo."
+        )
+
+
 def _validate_veo_cap(
     parsed: dict,
     narration: str,
@@ -1263,33 +1597,13 @@ def _validate_veo_cap(
         sp_pos, sp_end = _validate_anchor_substring(sp_anchor, narration, sup_label)
         sp_anchor = sp_anchor.strip()
 
-        # Orden cronológico estricto entre supplementals
-        if sp_pos <= last_pos:
-            raise VisualValidationError(
-                f"{sup_label}: anchor fuera de orden. Pos actual ({sp_pos}) "
-                f"<= pos del anchor previo ({last_pos}). Los anchors de "
-                f"supplementals deben estar en orden cronológico estricto."
-            )
-        if sp_pos < last_end:
-            raise VisualValidationError(
-                f"{sup_label}: anchor solapa con el supplemental anterior."
-            )
-
-        # No solapamiento con el anchor del Veo según veo_position
-        if veo_position == "start" and sp_pos < veo_anchor_end:
-            raise VisualValidationError(
-                f"{sup_label}: anchor solapa con la zona Veo "
-                f"(veo_position=start, veo_anchor_end={veo_anchor_end}, "
-                f"sp_pos={sp_pos}). Los supplementals deben venir DESPUÉS "
-                f"del anchor Veo."
-            )
-        if veo_position == "end" and sp_end > veo_anchor_pos:
-            raise VisualValidationError(
-                f"{sup_label}: anchor solapa con la zona Veo "
-                f"(veo_position=end, veo_anchor_pos={veo_anchor_pos}, "
-                f"sp_end={sp_end}). Los supplementals deben venir ANTES "
-                f"del anchor Veo."
-            )
+        # Orden estricto + no-solapa + disjunción con la zona Veo (chat 52: extraído a
+        # _check_supp_ordering para REUSO en _plan_anchors; lógica/mensajes idénticos).
+        _check_supp_ordering(
+            sp_pos, sp_end, last_pos, last_end, sup_label,
+            veo_position=veo_position,
+            veo_anchor_pos=veo_anchor_pos, veo_anchor_end=veo_anchor_end,
+        )
 
         last_pos = sp_pos
         last_end = sp_end
@@ -1437,12 +1751,40 @@ def _validate_flux_cap(
 #  LLAMADA FLASH CON RETRY POR FEEDBACK
 # ═══════════════════════════════════════════════════════════════
 
+# Checklist por defecto (caps veo/flux completos): reglas de prompt 6/9 + anchor 7/8.
+_DEFAULT_RETRY_CHECKLIST = """  □ REGLA 6 — Largo del prompt: 120-400 chars (target 180-300).
+    Pasarte de 400 indica metadatos técnicos o redundancia.
+
+  □ REGLA 7 — narration_anchor = SUBSTRING EXACTO de la narración del
+    cap. Sin reformular, sin traducir, sin recortar palabras del medio,
+    sin cambiar puntuación. Copiá literal.
+
+  □ REGLA 8 — anchors en orden ESTRICTAMENTE creciente sobre la
+    narración, SIN solapamiento (el final de un anchor < el inicio
+    del siguiente).
+
+  □ REGLA 9 — Cada prompt incluye al menos UN marcador temporal
+    explícito ('1960s', 'vintage', 'period-correct', '1968', etc.)."""
+
+# Checklist recortado SOLO a reglas 7/8 (Paso 1 _plan_anchors: solo elige anchors, sin reglas
+# de prompt — esas viven en el Paso 2). Chat 52 m03 two-step.
+_ANCHOR_ONLY_RETRY_CHECKLIST = """  □ REGLA 7 — cada anchor = SUBSTRING EXACTO de la narración del cap.
+    Sin reformular, sin traducir, sin recortar palabras del medio, sin
+    cambiar puntuación. Copiá literal de la zona indicada.
+
+  □ REGLA 8 — anchors en orden ESTRICTAMENTE creciente sobre la
+    narración, SIN solapamiento (el final de un anchor < el inicio del
+    siguiente). Cantidad EXACTA pedida, ni más ni menos."""
+
+
 def _call_with_validation_retry(
     prompt: str,
     validator_fn,
     cap_number: int,
     system_instruction: str | None = None,
     max_attempts: int = MAX_RETRY_ATTEMPTS,
+    checklist: str | None = None,
+    response_schema=None,
 ) -> dict:
     """Llama Flash, valida, reintenta con feedback si falla.
 
@@ -1458,12 +1800,19 @@ def _call_with_validation_retry(
         system_instruction: system_instruction opcional para call_flash_json
             (chat 19: documentary photography style).
         max_attempts: incluye el intento original. 2 = 1 intento + 1 retry.
+        checklist: bloque de checklist para el feedback. None (default) usa el
+            checklist completo 6/7/8/9 (comportamiento idéntico al previo).
+            _plan_anchors pasa el recortado a 7/8.
+        response_schema: opcional, se pasa a call_flash_json (R4). None (default)
+            = sin schema, comportamiento idéntico al previo.
     """
+    checklist_block = checklist if checklist is not None else _DEFAULT_RETRY_CHECKLIST
     attempt_prompt = prompt
     last_error: VisualValidationError | None = None
 
     for attempt in range(1, max_attempts + 1):
-        raw = call_flash_json(attempt_prompt, system_instruction=system_instruction)
+        raw = call_flash_json(attempt_prompt, system_instruction=system_instruction,
+                              response_schema=response_schema)
         try:
             return validator_fn(raw)
         except VisualValidationError as e:
@@ -1487,19 +1836,7 @@ CHECKLIST DE REGLAS CRÍTICAS — TODAS deben cumplirse a la vez
 ═══════════════════════════════════════════════════
 Mientras arreglás el problema de arriba, NO rompas ninguna de estas:
 
-  □ REGLA 6 — Largo del prompt: 120-400 chars (target 180-300).
-    Pasarte de 400 indica metadatos técnicos o redundancia.
-
-  □ REGLA 7 — narration_anchor = SUBSTRING EXACTO de la narración del
-    cap. Sin reformular, sin traducir, sin recortar palabras del medio,
-    sin cambiar puntuación. Copiá literal.
-
-  □ REGLA 8 — anchors en orden ESTRICTAMENTE creciente sobre la
-    narración, SIN solapamiento (el final de un anchor < el inicio
-    del siguiente).
-
-  □ REGLA 9 — Cada prompt incluye al menos UN marcador temporal
-    explícito ('1960s', 'vintage', 'period-correct', '1968', etc.).
+{checklist_block}
 
 CORREGÍLO. Reescribí el JSON COMPLETO respetando TODAS las reglas
 de arriba a la vez. Generá la respuesta nueva desde cero, no parches
@@ -1511,6 +1848,260 @@ sobre la anterior.
     if last_error:
         raise last_error
     raise VisualValidationError(f"cap {cap_number}: retry exhausted sin error capturado")
+
+
+# ═══════════════════════════════════════════════════════════════
+#  PASO 2 — PROMPT DE IMAGEN POR ANCHOR (chat 52, m03 two-step)
+#
+#  Con cada anchor YA fijo (del Paso 1), el LLM escribe SOLO lo creativo (el/los
+#  `prompt`, + subject_ref/emotional_rank en flux). El narration_anchor se INYECTA
+#  por código VERBATIM desde el Paso 1 (candado #2: nunca del eco del LLM). El
+#  batch se bindea por índice y se exige count==n (candado #3). La validación REUSA
+#  _validate_veo_cap/_validate_flux_cap (longitud + campos) + _validate_no_text_leakage
+#  (candado #4). Las reglas visuales NO se reescriben: se reusan _build_rules_block,
+#  los bloques _VEO_* y SYSTEM_INSTRUCTION_VISUAL (candado #1).
+# ═══════════════════════════════════════════════════════════════
+
+def _veo_step2_schema(n: int) -> dict:
+    return {
+        "type": "OBJECT",
+        "properties": {
+            "image_prompt": {"type": "STRING"},
+            "video_prompt": {"type": "STRING"},
+            "subject_ref": {"type": "STRING"},
+            "supplemental_image_prompts": {
+                "type": "ARRAY", "minItems": n, "maxItems": n,
+                "items": {"type": "OBJECT",
+                          "properties": {"prompt": {"type": "STRING"}},
+                          "required": ["prompt"]},
+            },
+        },
+        "required": ["image_prompt", "video_prompt", "subject_ref", "supplemental_image_prompts"],
+    }
+
+
+def _flux_step2_schema(n: int) -> dict:
+    return {
+        "type": "ARRAY", "minItems": n, "maxItems": n,
+        "items": {"type": "OBJECT",
+                  "properties": {"prompt": {"type": "STRING"},
+                                 "subject_ref": {"type": "STRING"},
+                                 "emotional_rank": {"type": "STRING"}},
+                  "required": ["prompt", "subject_ref", "emotional_rank"]},
+    }
+
+
+def _build_veo_prompt_step2(topic, cap_data, narration_text, veo_anchor, supp_anchors, veo_position):
+    """Paso 2 veo: anchors DADOS (del Paso 1) → el LLM escribe SOLO los prompts. Reusa los MISMOS
+    bloques de reglas/few-shots que _build_veo_prompt (topic/canon/rules + _VEO_* constantes);
+    lo único distinto es que el anchor ENTRA como dato y NO se pide elegirlo (ni devolverlo)."""
+    cap_n = cap_data["chapter_number"]
+    role = cap_data.get("role") or "?"
+    cap_title = cap_data.get("title") or "(sin título)"
+    bullets_block = _format_bullets(cap_data.get("bullets") or [])
+    topic_block = _build_topic_block(topic)
+    visual_canon_block = _format_visual_canon_block(topic)
+    rules_block = _build_rules_block()
+    n = len(supp_anchors)
+    supp_list = "\n".join(f"  [{i + 1}] «{a}»" for i, a in enumerate(supp_anchors))
+
+    return f"""Sos un director de fotografía documental. Generás prompts visuales en INGLÉS para Veo
+(motion video) que ilustran narraciones documentales en español. Tu output es JSON puro, sin markdown.
+
+═══════════════════════════════════════════════════
+TEMA
+═══════════════════════════════════════════════════
+{topic_block}
+
+═══════════════════════════════════════════════════
+DATOS VISUALES CANÓNICOS (verdad sellada — NO re-inferir)
+═══════════════════════════════════════════════════
+{visual_canon_block}
+
+═══════════════════════════════════════════════════
+REGLAS INVIOLABLES
+═══════════════════════════════════════════════════
+{rules_block}
+
+═══════════════════════════════════════════════════
+ESPECÍFICO PARA VEO (este cap)
+═══════════════════════════════════════════════════
+
+Este cap es {role}, render_engine=veo. Generás:
+{_VEO_IMG_VIDEO_SUBJECT_SPEC}
+
+{_VEO_VIDEO_PROMPT_STRUCT}
+
+═══════════════════════════════════════════════════
+ANCHORS YA ELEGIDOS (Paso 1) — NO los elijas, ya están DADOS
+═══════════════════════════════════════════════════
+
+El clip Veo ilustra ESTE fragmento (dado, NO lo cambies ni lo devuelvas):
+  «{veo_anchor}»
+
+Las {n} imágenes Flux supplementals ilustran ESTOS fragmentos (dados, EN ESTE ORDEN):
+{supp_list}
+
+Tu tarea: por CADA fragmento dado, escribí SOLO el `prompt` de imagen que lo ILUSTRA, siguiendo
+TODAS las reglas visuales de arriba. NO devuelvas el fragmento/anchor (el código lo inyecta).
+Devolvé EXACTAMENTE {n} supplementals, en el MISMO orden que los fragmentos.
+
+═══════════════════════════════════════════════════
+CAP {cap_n} — {role}
+═══════════════════════════════════════════════════
+title         : {cap_title}
+bullets       :
+{bullets_block}
+
+NARRACIÓN COMPLETA DEL CAP (contexto):
+{narration_text}
+
+═══════════════════════════════════════════════════
+EJEMPLOS (calidad visual; el `narration_anchor` de los ejemplos es ilustrativo — vos NO lo devolvés)
+═══════════════════════════════════════════════════
+
+{_VEO_EXAMPLES}
+
+═══════════════════════════════════════════════════
+FORMATO DE OUTPUT (JSON estricto, nada más)
+═══════════════════════════════════════════════════
+
+{{
+  "image_prompt": "string EN, 120-400 chars (target 180-300) — Subject + Action + Environment + marcador temporal + lighting/atmosphere de la escena",
+  "video_prompt": "string EN, 120-400 chars (target 180-300) — motion del sujeto + camera arc + ambient específico",
+  "subject_ref": "main_subject",
+  "supplemental_image_prompts": [
+    {{
+      "prompt": "string EN, 120-400 chars — formato Flux puro (Subject + Action + Environment + marcador temporal + lighting)"
+    }}
+    // ... EXACTAMENTE {n} items, en el ORDEN de los fragmentos dados. SIN narration_anchor.
+  ]
+}}
+
+NO agregues texto fuera del JSON. NO uses bloque markdown ```.
+"""
+
+
+def _build_flux_prompt_step2(topic, cap_data, narration_text, anchors):
+    """Paso 2 flux: anchors DADOS → el LLM escribe SOLO prompt + subject_ref + emotional_rank por
+    fragmento. Reusa las reglas visuales de SYSTEM_INSTRUCTION_VISUAL (system_instruction, intacto)
+    y la MISMA guía de estructura/emotional_rank de _build_flux_prompt; lo único distinto es que los
+    anchors entran como dato (no se eligen ni se devuelven)."""
+    cap_n = cap_data["chapter_number"]
+    role = cap_data.get("role") or "development"
+    cap_title = cap_data.get("title") or "(sin título)"
+    n = len(anchors)
+    anchor_list = "\n".join(f"  [{i + 1}] «{a}»" for i, a in enumerate(anchors))
+
+    return f"""Narration (Spanish, for context only — emit JSON in English):
+
+{narration_text}
+
+CAP {cap_n} — {role}, title: {cap_title}
+
+The narration fragments to illustrate are ALREADY CHOSEN (Paso 1). Do NOT pick anchors.
+Write ONE image prompt for EACH given fragment below, in the SAME order (item i illustrates fragment i):
+{anchor_list}
+
+Generate EXACTLY {n} prompts as JSON array. Each item MUST have:
+
+{{
+  "prompt": "string EN — single natural-language sentence, 30-80 words, following PROMPT STRUCTURE in system instruction (Subject with physical descriptors integrated → Action → Setting → Mood). Subject FIRST.",
+  "subject_ref": "main_subject" | "establishing_shot" | "interior_scene" | etc,
+  "emotional_rank": "R1" | "R2" | "R3"
+}}
+
+Do NOT return narration_anchor — the code injects it VERBATIM from the given fragments.
+
+DISTRIBUTION OF emotional_rank:
+- 1-2 items R1 (peak of cap: closing, revelation, biggest impact).
+- 2-3 items R2 (action, strong transition, person in tension).
+- Rest R3 (descriptive scene, context, ambience).
+
+JSON only. No markdown. No preamble.
+"""
+
+
+def _render_prompts_veo(topic, cap_data, narration, plan, veo_position, cap_number):
+    """Paso 2 veo: llama Flash (anchors dados), inyecta los anchors del Paso 1 VERBATIM, exige
+    count==n y REUSA _validate_veo_cap + _validate_no_text_leakage. Devuelve el MISMO shape que
+    _validate_veo_cap (contrato intacto)."""
+    veo_anchor = plan["veo_anchor"]["anchor"]
+    supp_anchors = [s["anchor"] for s in plan["supplementals"]]
+    n = len(supp_anchors)
+    prompt = _build_veo_prompt_step2(topic, cap_data, narration, veo_anchor, supp_anchors, veo_position)
+
+    def _validator(parsed):
+        if not isinstance(parsed, dict):
+            raise VisualValidationError(f"cap {cap_number} (veo paso2): output no es dict ({type(parsed).__name__})")
+        supps_llm = parsed.get("supplemental_image_prompts")
+        if not isinstance(supps_llm, list) or len(supps_llm) != n:
+            got = len(supps_llm) if isinstance(supps_llm, list) else "no-lista"
+            raise VisualValidationError(
+                f"cap {cap_number} (veo paso2): se esperaban EXACTAMENTE {n} supplementals, llegaron {got}. "
+                f"Generá uno por cada fragmento dado, en orden."
+            )
+        # candado #2: anchors VERBATIM del Paso 1; se IGNORA cualquier anchor que devuelva el LLM.
+        assembled = {
+            "image_prompt": parsed.get("image_prompt"),
+            "video_prompt": parsed.get("video_prompt"),
+            "subject_ref": parsed.get("subject_ref"),
+            "narration_anchor": veo_anchor,
+            "supplemental_image_prompts": [
+                {"prompt": (supps_llm[i].get("prompt") if isinstance(supps_llm[i], dict) else None),
+                 "narration_anchor": supp_anchors[i]}
+                for i in range(n)
+            ],
+        }
+        out = _validate_veo_cap(assembled, narration, cap_number, veo_position)  # candado #4 (longitud+campos+anchors)
+        # regla 9 (handoff §5): text-leakage por prompt (validador existente, antes sin cablear)
+        _validate_no_text_leakage(out["image_prompt"], f"cap {cap_number} (veo) image_prompt")
+        for i, s in enumerate(out["supplemental_image_prompts"], start=1):
+            _validate_no_text_leakage(s["prompt"], f"cap {cap_number} (veo) supp {i}")
+        return out
+
+    return _call_with_validation_retry(
+        prompt, _validator, cap_number,
+        system_instruction=SYSTEM_INSTRUCTION_VISUAL,
+        response_schema=_veo_step2_schema(n),
+    )
+
+
+def _render_prompts_flux(topic, cap_data, narration, plan, cap_number):
+    """Paso 2 flux: llama Flash (anchors dados), inyecta los anchors del Paso 1 VERBATIM, exige
+    count==n y REUSA _validate_flux_cap + _validate_no_text_leakage. Devuelve el MISMO shape que
+    _validate_flux_cap (contrato intacto; el ensamblaje del ancla_global lo hace el wiring)."""
+    anchors = [a["anchor"] for a in plan["anchors"]]
+    n = len(anchors)
+    prompt = _build_flux_prompt_step2(topic, cap_data, narration, anchors)
+
+    def _validator(parsed):
+        # _safe_json_parse envuelve un array suelto como {"image_prompts": [...]}.
+        items = parsed.get("image_prompts") if isinstance(parsed, dict) else None
+        if not isinstance(items, list) or len(items) != n:
+            got = len(items) if isinstance(items, list) else "no-lista"
+            raise VisualValidationError(
+                f"cap {cap_number} (flux paso2): se esperaban EXACTAMENTE {n} prompts, llegaron {got}."
+            )
+        # candado #2: anchors VERBATIM del Paso 1; se ignora cualquier anchor del LLM.
+        assembled = {"image_prompts": [
+            {"prompt": (items[i].get("prompt") if isinstance(items[i], dict) else None),
+             "subject_ref": (items[i].get("subject_ref") if isinstance(items[i], dict) else None),
+             "emotional_rank": (items[i].get("emotional_rank") if isinstance(items[i], dict) else None),
+             "narration_anchor": anchors[i]}
+            for i in range(n)
+        ]}
+        out = _validate_flux_cap(assembled, narration, cap_number, n)  # candado #4 (longitud+campos+anchors)
+        for i, it in enumerate(out["image_prompts"], start=1):
+            _validate_no_text_leakage(it["prompt"], f"cap {cap_number} img #{i}")
+        return out
+
+    return _call_with_validation_retry(
+        prompt, _validator, cap_number,
+        system_instruction=SYSTEM_INSTRUCTION_VISUAL,
+        response_schema=_flux_step2_schema(n),
+    )
+
 
 # ═══════════════════════════════════════════════════════════════
 #  PERSISTENCIA
