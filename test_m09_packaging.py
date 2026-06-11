@@ -190,6 +190,33 @@ def test_review_html():
     return ok
 
 
+def test_hero_user_prompt():
+    _section("7· hero user prompt incluye la narración + personaje (PASO 1)")
+    canonical = {
+        "video_title": "La Antigua Cárcel",
+        "canonical_subject_description": "una vieja cárcel de piedra",
+        "chapters": [
+            {"chapter_number": 1, "narration": "Una historia oscura comienza."},
+            {"chapter_number": 3, "narration": "La novia espectral Lavinia Fisher recorre los pasillos al anochecer."},
+            {"chapter_number": 7, "narration": "Z" * 2000},  # para probar el truncado por cap
+        ],
+    }
+    u = m._hero_user_prompt(canonical)
+    ok = True
+    checks = [
+        ("Lavinia Fisher" in u, "incluye el personaje de la narración"),
+        ("NARRACIÓN COMPLETA" in u and "PASO 1" in u, "instruye PASO 1 con la narración"),
+        ("[Cap 3]" in u, "narración por capítulo"),
+        ("[…]" in u and u.count("Z") <= m.HERO_NARRATION_PER_CAP, "trunca cap largo al tope"),
+    ]
+    for cond, label in checks:
+        if not cond:
+            ok = False; print(f"  ✗ {label}")
+        else:
+            print(f"  ✓ {label}")
+    return ok
+
+
 def main() -> int:
     print("=" * 68 + "\n  TESTS m09a packaging (sin red)\n" + "=" * 68)
     results = {
@@ -199,6 +226,7 @@ def main() -> int:
         "truncate_tags": test_truncate_tags(),
         "focus_crop": test_focus_crop(),
         "review_html": test_review_html(),
+        "hero_user_prompt": test_hero_user_prompt(),
     }
     print("\n" + "=" * 68)
     for k, v in results.items():

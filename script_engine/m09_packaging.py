@@ -216,6 +216,13 @@ _HERO_SYSTEM = """Sos director de arte de MINIATURAS (thumbnails) de YouTube. Tu
 ilustrar el tema: es DETENER EL SCROLL y generar intriga de click. Escribís UN prompt en inglés
 para Flux 2 Pro.
 
+PASO 1 — ELEGIR EL SUJETO: leé la narración completa e identificá al PERSONAJE o ELEMENTO más
+icónico y visualmente magnético de la historia. Prioridad: una PERSONA concreta (la figura que
+encarna el drama) > un OBJETO cargado > el LUGAR. El edificio o el espacio genérico SOLO si no
+hay nada mejor.
+PASO 2 — CONSTRUIR EL PROMPT: armá el prompt CTR alrededor de ESE sujeto, cumpliendo todos los
+requisitos de abajo.
+
 Requisitos DUROS:
 - UNA figura o sujeto icónico DOMINANTE sacado del material (nunca ambientes vacíos): el rostro
   o la figura que la gente asocia a esta historia.
@@ -236,13 +243,36 @@ Requisitos DUROS:
   negativos. SIN texto en la imagen. Period-correct."""
 
 
-def generate_hero_prompt(canonical: dict) -> str:
-    user = (
+HERO_NARRATION_PER_CAP = 1400   # tope por cap para que la narración de los 7 caps entre holgada
+
+
+def _narration_for_hero(canonical: dict) -> str:
+    """Narración de los 7 caps para que el hero elija el sujeto (PASO 1). Cada cap se trunca a
+    HERO_NARRATION_PER_CAP para no exceder contexto (se anota el truncado)."""
+    parts = []
+    for c in canonical.get("chapters", []):
+        n = c.get("chapter_number", "?")
+        txt = (c.get("narration") or "").strip()
+        if len(txt) > HERO_NARRATION_PER_CAP:
+            txt = txt[:HERO_NARRATION_PER_CAP] + " […]"
+        parts.append(f"[Cap {n}] {txt}")
+    return "\n\n".join(parts)
+
+
+def _hero_user_prompt(canonical: dict) -> str:
+    """Arma el user prompt del hero (PASO 1 necesita la narración). Puro/testeable."""
+    return (
         f"TÍTULO: {canonical.get('video_title','')}\n"
         f"SUJETO CANÓNICO: {canonical.get('canonical_subject_description','')}\n\n"
-        f"Escribí el prompt EN para la miniatura (hero shot)."
+        f"NARRACIÓN COMPLETA (PASO 1 — leela y elegí el sujeto más icónico):\n"
+        f"{_narration_for_hero(canonical)}\n\n"
+        f"Escribí el prompt EN para la miniatura (hero shot) alrededor de ese sujeto."
     )
-    return str(_gemini_json(_HERO_SYSTEM, user, _HERO_SCHEMA, 0.4).get("prompt", "")).strip()
+
+
+def generate_hero_prompt(canonical: dict) -> str:
+    return str(_gemini_json(_HERO_SYSTEM, _hero_user_prompt(canonical), _HERO_SCHEMA, 0.4)
+               .get("prompt", "")).strip()
 
 
 def _flux_16x9(prompt: str, out_path: Path, timeout: int = 180) -> None:
