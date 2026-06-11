@@ -357,6 +357,10 @@ def build_depthflow_clip(
     runner_env = _os.environ.copy()
     runner_env["TORCH_DEVICE"] = "cuda"
     runner_env["CUDA_VISIBLE_DEVICES"] = "0"
+    # Camino B (chat 55): caché de depth maps grande para que el probe (depth_probe.py)
+    # y este render compartan el DiskCache sin evictions (default 50MB se queda corto
+    # en videos largos con ~60+ mapas) → el render pega en caché lo que ya midió el probe.
+    runner_env["DEPTHMAP_CACHE_SIZE_MB"] = "500"
 
     try:
         result = subprocess.run(
