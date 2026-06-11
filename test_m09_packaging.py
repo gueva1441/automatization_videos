@@ -128,6 +128,37 @@ def test_truncate_tags():
     return ok
 
 
+def test_focus_crop():
+    _section("5· _fit_cover --focus (top preserva tercio superior de fuente vertical)")
+    import numpy as np
+    # Fuente vertical 1080×1920: banda ROJA en el tope (cara alta), resto oscuro
+    src = Image.new("RGB", (1080, 1920), (20, 20, 20))
+    for y in range(0, 220):
+        for x in range(1080):
+            src.putpixel((x, y), (220, 30, 30))
+    def red_in_top(im):
+        a = np.asarray(im.convert("RGB"), dtype=int)
+        top = a[:140]  # franja superior del thumb 1280×720
+        return int(((top[..., 0] > 150) & (top[..., 1] < 90)).sum())
+    top_img = m._fit_cover(src, m.THUMB_W, m.THUMB_H, "top")
+    ctr_img = m._fit_cover(src, m.THUMB_W, m.THUMB_H, "center")
+    ok = True
+    if top_img.size != (m.THUMB_W, m.THUMB_H) or ctr_img.size != (m.THUMB_W, m.THUMB_H):
+        ok = False; print("  ✗ tamaño incorrecto")
+    rt, rc = red_in_top(top_img), red_in_top(ctr_img)
+    if rt <= 0:
+        ok = False; print(f"  ✗ focus=top NO preservó la banda superior (rojo={rt})")
+    else:
+        print(f"  ✓ focus=top preserva el tope (rojo={rt})")
+    if rc != 0:
+        ok = False; print(f"  ✗ focus=center mostró la banda superior (rojo={rc}, debería decapitarla)")
+    else:
+        print("  ✓ focus=center NO muestra el tope (crop centrado, como el bug de existing_02)")
+    if rt <= rc:
+        ok = False; print("  ✗ top no preserva más tope que center")
+    return ok
+
+
 def main() -> int:
     print("=" * 68 + "\n  TESTS m09a packaging (sin red)\n" + "=" * 68)
     results = {
@@ -135,6 +166,7 @@ def main() -> int:
         "overlay": test_overlay(),
         "metadata_norm": test_metadata_norm(),
         "truncate_tags": test_truncate_tags(),
+        "focus_crop": test_focus_crop(),
     }
     print("\n" + "=" * 68)
     for k, v in results.items():

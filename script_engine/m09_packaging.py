@@ -54,7 +54,7 @@ THUMB_MAX_LINES = 2
 MAX_TITLE_CHARS = 90
 MAX_TAGS_CHARS = 450
 SHORTLIST_EXISTING = 4
-FRESH_THUMBS = 2
+FRESH_THUMBS = 3        # subido de 2 (chat 56): más tiros = más chance de ganadora, son centavos
 
 META_TEMP = 0.35                 # generación creativa con gate humano (no clasificación)
 
@@ -209,18 +209,28 @@ def _resolve_png(tid: str, filename: str) -> Path | None:
 # ═══════════════════════════════════════════════════════════════
 _HERO_SCHEMA = {"type": "OBJECT", "properties": {"prompt": {"type": "STRING"}}, "required": ["prompt"]}
 
-_HERO_SYSTEM = """Sos director de arte. A partir del material de un documental de historia
-oscura, escribís UN prompt en inglés para generar una MINIATURA (thumbnail) con Flux 2 Pro.
-Reglas inviolables:
-- Subject-first: el sujeto principal arranca el prompt, con etnia/edad/ropa y época integradas
-  al sujeto (no al final). Prosa natural de 30 a 80 palabras. SIN prompts negativos.
-- Composición de miniatura: UN sujeto u objeto dominante, contraste alto, profundidad y luz
-  dramática, legible a 120px de ancho. Nada de texto en la imagen.
-- Calma tensa (obligatorio): NUNCA cuerpos, muerte, aftermath, ni el aparato de matar (horca,
-  mecanismo de ejecución). Si el tema es muerte/ejecución, redirigí al espacio cargado vacío:
-  luz + escala opresiva + UN objeto cargado que implique lo que pasó (una soga sola, un banco
-  volcado), nunca el mecanismo entero.
-- Estilo documental, period-correct, paleta levemente desaturada."""
+_HERO_SYSTEM = """Sos director de arte de MINIATURAS (thumbnails) de YouTube. Tu objetivo NO es
+ilustrar el tema: es DETENER EL SCROLL y generar intriga de click. Escribís UN prompt en inglés
+para Flux 2 Pro.
+
+Requisitos DUROS:
+- UNA figura o sujeto icónico DOMINANTE sacado del material (nunca ambientes vacíos): el rostro
+  o la figura que la gente asocia a esta historia.
+- INTRIGA VISUAL: la imagen plantea una pregunta sin responderla. Mirada directa a cámara, o algo
+  levemente "mal" en la escena (una figura donde no debería haber nadie, una puerta abierta hacia
+  la oscuridad, una silueta a medio revelar). El espectador debe NECESITAR el video para entender
+  la foto.
+- EMOCIÓN LEGIBLE a 120px de ancho: inquietud, desasosiego — NUNCA gore ni shock. La intriga sale
+  de la sugerencia, no del horror explícito.
+- Calma tensa inviolable (AP9): nada de cuerpos, muerte explícita, aftermath ni el aparato de
+  matar. Si el tema es muerte/ejecución, la tensión viene de un sujeto vivo inquietante o de UN
+  objeto cargado, jamás del mecanismo.
+- COMPOSICIÓN: el sujeto va a la DERECHA del cuadro; el tercio IZQUIERDO queda oscuro y despejado
+  (ahí se sobreimprime el texto).
+- UN acento de color fuerte (cálido o frío) como punto focal sobre una paleta oscura — alto
+  contraste, luz dramática, profundidad real.
+- Subject-first: etnia/edad/ropa y época integradas al sujeto. Prosa 30-80 palabras. SIN prompts
+  negativos. SIN texto en la imagen. Period-correct."""
 
 
 def generate_hero_prompt(canonical: dict) -> str:
@@ -266,13 +276,21 @@ def _flux_16x9(prompt: str, out_path: Path, timeout: int = 180) -> None:
 # ═══════════════════════════════════════════════════════════════
 #  OVERLAY (Pillow)
 # ═══════════════════════════════════════════════════════════════
-def _fit_cover(im: Image.Image, w: int, h: int) -> Image.Image:
-    """Escala (cover) + center-crop a (w,h). Preserva el centro (donde suele estar el sujeto)."""
+def _fit_cover(im: Image.Image, w: int, h: int, focus: str = "center") -> Image.Image:
+    """Escala (cover) + crop a (w,h). `focus` controla la franja VERTICAL del crop en
+    fuentes verticales: 'center' (default), 'top' (preserva el tercio superior — caras
+    altas), 'bottom'. Horizontal siempre centrado."""
     im = im.convert("RGB")
     scale = max(w / im.width, h / im.height)
     nw, nh = round(im.width * scale), round(im.height * scale)
     im = im.resize((nw, nh), Image.LANCZOS)
-    left, top = (nw - w) // 2, (nh - h) // 2
+    left = (nw - w) // 2
+    if focus == "top":
+        top = 0
+    elif focus == "bottom":
+        top = nh - h
+    else:
+        top = (nh - h) // 2
     return im.crop((left, top, left + w, top + h))
 
 
@@ -287,11 +305,12 @@ def _wrap_lines(text: str, max_lines: int) -> list[str]:
     return [" ".join(words[:mid]), " ".join(words[mid:])][:max_lines]
 
 
-def compose_thumbnail(base_path: Path, text: str, out_path: Path) -> Path:
+def compose_thumbnail(base_path: Path, text: str, out_path: Path, focus: str = "center") -> Path:
     """Compone la miniatura final 1280×720 con overlay de texto (Anton, blanco + stroke negro,
-    tercio inferior-izquierdo, esquina inf-DER libre). Devuelve el path realmente escrito
-    (puede ser .jpg si el PNG superaba 2MB). Sin red — testeable."""
-    base = _fit_cover(Image.open(base_path), THUMB_W, THUMB_H)
+    tercio inferior-izquierdo, esquina inf-DER libre). `focus` controla el cover-crop de bases
+    verticales. Devuelve el path realmente escrito (puede ser .jpg si el PNG superaba 2MB).
+    Sin red — testeable."""
+    base = _fit_cover(Image.open(base_path), THUMB_W, THUMB_H, focus)
     draw = ImageDraw.Draw(base)
     text = (text or "").upper().strip()
     lines = _wrap_lines(text, THUMB_MAX_LINES) if text else []
@@ -334,10 +353,55 @@ def _validate_text(text: str) -> str:
 # ═══════════════════════════════════════════════════════════════
 #  PASO 1 — candidates
 # ═══════════════════════════════════════════════════════════════
-def run_candidates(tid: str, skip_fresh: bool = False) -> None:
+def _next_fresh_index(cand_dir: Path) -> int:
+    """Próximo índice de fresh_NN.png sin pisar los existentes."""
+    nums = []
+    for p in cand_dir.glob("fresh_*.png"):
+        part = p.stem.split("_", 1)[1]
+        if part.isdigit():
+            nums.append(int(part))
+    return (max(nums) + 1) if nums else 1
+
+
+def _generate_fresh(canonical: dict, cand_dir: Path, count: int, start_idx: int) -> list[str]:
+    """Genera `count` bases frescas Flux 16:9 desde UN hero prompt CTR, numerando desde
+    start_idx (sin pisar). Devuelve líneas .md describiendo el resultado."""
+    try:
+        hero = generate_hero_prompt(canonical)
+    except Exception as e:
+        return [f"- ⚠ hero prompt falló ({type(e).__name__}: {e}) — sin frescas."]
+    lines = [f"- hero prompt (CTR): _{hero[:160]}_"]
+    ok = 0
+    for k in range(count):
+        idx = start_idx + k
+        out = cand_dir / f"fresh_{idx:02d}.png"
+        try:
+            _flux_16x9(hero, out)
+            lines.append(f"- fresh_{idx:02d}.png ✓"); ok += 1
+        except Exception as e:
+            lines.append(f"- fresh_{idx:02d}.png ✗ ({type(e).__name__}: {str(e)[:80]})")
+    if ok == 0:
+        lines.append("- ⚠ Flux falló en todas — seguí con las existentes.")
+    return lines
+
+
+def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False) -> None:
     canonical = _load_canonical(tid)
     pub = _publish_dir(tid); cand = _candidates_dir(tid)
     cand.mkdir(parents=True, exist_ok=True)
+
+    # ── Modo --only-fresh: NO re-quema metadata ni re-copia existentes; solo más frescas ──
+    if only_fresh:
+        start = _next_fresh_index(cand)
+        print(f"  [m09a] --only-fresh: {FRESH_THUMBS} frescas más desde fresh_{start:02d} (CTR)...")
+        lines = _generate_fresh(canonical, cand, FRESH_THUMBS, start)
+        md_path = pub / "metadata_candidatos.md"
+        prev = md_path.read_text(encoding="utf-8") if md_path.exists() else ""
+        md_path.write_text(prev + "\n\n## Frescas adicionales (--only-fresh)\n\n" + "\n".join(lines),
+                           encoding="utf-8")
+        print("\n".join("     " + l for l in lines))
+        print(f"  ✅ frescas adicionales en {cand}")
+        return
 
     print(f"  [m09a] metadata (Gemini, temp {META_TEMP})...")
     meta = generate_metadata(canonical)
@@ -371,25 +435,12 @@ def run_candidates(tid: str, skip_fresh: bool = False) -> None:
     else:
         md.append("- ⚠ audit_map.csv no encontrado — sin bases existentes.")
 
-    # Thumbnails frescas Flux 16:9
+    # Thumbnails frescas Flux 16:9 (CTR)
     md.append("\n## Miniaturas — bases frescas (Flux 16:9)\n")
     if skip_fresh:
         md.append("- (omitidas: --skip-fresh)")
     else:
-        try:
-            hero = generate_hero_prompt(canonical)
-            md.append(f"- hero prompt: _{hero[:140]}_")
-            ok = 0
-            for i in range(1, FRESH_THUMBS + 1):
-                try:
-                    _flux_16x9(hero, cand / f"fresh_{i:02d}.png")
-                    md.append(f"- fresh_{i:02d}.png ✓"); ok += 1
-                except Exception as e:
-                    md.append(f"- fresh_{i:02d}.png ✗ ({type(e).__name__}: {str(e)[:80]})")
-            if ok == 0:
-                md.append("- ⚠ Flux falló en ambas — seguí con las existentes.")
-        except Exception as e:
-            md.append(f"- ⚠ hero prompt falló ({type(e).__name__}: {e}) — solo existentes.")
+        md += _generate_fresh(canonical, cand, FRESH_THUMBS, _next_fresh_index(cand))
 
     (pub / "metadata_candidatos.md").write_text("\n".join(md), encoding="utf-8")
     print(f"  ✅ candidates en {pub}")
@@ -427,7 +478,7 @@ _CHECKLIST_TMPL = """# Checklist de publicación — {title}
 """
 
 
-def run_compose(tid: str, base: str, text: str, title_idx: int) -> None:
+def run_compose(tid: str, base: str, text: str, title_idx: int, focus: str = "center") -> None:
     pub = _publish_dir(tid)
     meta = json.loads((pub / "metadata.json").read_text(encoding="utf-8"))
     titulos = meta.get("titulos", [])
@@ -441,7 +492,7 @@ def run_compose(tid: str, base: str, text: str, title_idx: int) -> None:
     text = _validate_text(text)
 
     thumb_out = pub / "thumb_final.png"
-    written = compose_thumbnail(base_path, text, thumb_out)
+    written = compose_thumbnail(base_path, text, thumb_out, focus)
 
     # metadata.json final
     meta.update({"stage": "final", "titulo_elegido": title,
@@ -465,20 +516,24 @@ def main() -> int:
     ap.add_argument("topic_id")
     ap.add_argument("--candidates", action="store_true", help="Paso 1: metadata + bases de thumbnail.")
     ap.add_argument("--skip-fresh", action="store_true", help="No generar frescas Flux (solo existentes).")
+    ap.add_argument("--only-fresh", action="store_true",
+                    help="Solo regenerar hero+frescas (no re-quema metadata ni re-copia existentes).")
     ap.add_argument("--compose", action="store_true", help="Paso 2: overlay + checklist.")
     ap.add_argument("--base", help="Archivo base elegido (en thumb_candidates/).")
     ap.add_argument("--text", help="Texto del thumb (2-4 palabras, MAYÚSCULAS).")
     ap.add_argument("--title", type=int, default=1, help="Índice del título elegido (1-3).")
+    ap.add_argument("--focus", choices=["top", "center", "bottom"], default="center",
+                    help="Franja del cover-crop para bases verticales (default center).")
     args = ap.parse_args()
 
     if args.candidates == args.compose:
         ap.error("elegí exactamente uno: --candidates o --compose")
     if args.candidates:
-        run_candidates(args.topic_id, skip_fresh=args.skip_fresh)
+        run_candidates(args.topic_id, skip_fresh=args.skip_fresh, only_fresh=args.only_fresh)
     else:
         if not args.base or not args.text:
             ap.error("--compose requiere --base y --text")
-        run_compose(args.topic_id, args.base, args.text, args.title)
+        run_compose(args.topic_id, args.base, args.text, args.title, focus=args.focus)
     return 0
 
 
