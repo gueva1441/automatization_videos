@@ -14,7 +14,7 @@ fina. Las funciones de m09_packaging se llaman vía el módulo (monkeypatcheable
 """
 from __future__ import annotations
 
-import html as _html
+import hashlib
 import json
 import socket
 import threading
@@ -71,11 +71,15 @@ class ReviewState:
             except (json.JSONDecodeError, OSError):
                 titles = []
         finals = sorted(p.name for p in self.pub.glob("thumb_final*.png"))
+        # rev = versión del INVENTARIO (candidatas). El JS solo redibuja la grilla cuando
+        # cambia → sin flasheo ni tiles negros por recarga cada ciclo de polling.
+        inv = [(c["name"], c["w"], c["h"], c["subject"]) for c in cands]
+        rev = hashlib.sha1(json.dumps(inv, ensure_ascii=False).encode("utf-8")).hexdigest()[:12]
         with self.lock:
             gen, err = self.generating, self.last_error
         return {"tid": self.tid, "candidates": cands, "hero": hero, "titles": titles,
                 "generating": gen, "last_error": err, "thumb_final": self.last_thumb,
-                "finals": finals}
+                "finals": finals, "rev": rev}
 
     # ── generación (hero iter + frescas) en background ──
     def start_generate(self, critique: str | None) -> bool:
@@ -179,7 +183,7 @@ _PAGE = r"""<!doctype html><html lang="es"><head><meta charset="utf-8">
    <div class="muted">elegida: <b id="chosen">(ninguna)</b></div>
    <label>Texto del overlay (2-4 palabras)</label>
    <input id="text" type="text" placeholder="MUERTE EN CHARLESTON">
-   <label>Título</label>
+   <label>Título del VIDEO en YouTube (va al checklist, no a la imagen)</label>
    <div id="titles"></div>
    <label>Focus del crop (bases verticales)</label>
    <select id="focus"><option value="center">center</option><option value="top">top</option><option value="bottom">bottom</option></select>
@@ -189,8 +193,20 @@ _PAGE = r"""<!doctype html><html lang="es"><head><meta charset="utf-8">
  </div>
 </div>
 <script>
-let chosen=null;
+let chosen=null, lastRev=null;
 function esc(s){const d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML;}
+function applySel(){document.querySelectorAll('#grid figure').forEach(f=>{f.classList.toggle('sel',f.dataset.name===chosen);});}
+function renderGrid(st){
+  const g=document.getElementById('grid');
+  g.innerHTML = st.candidates.map(c=>{
+    const subj = c.subject?('<div class="subj">'+esc(c.subject)+'</div>'):'';
+    return '<figure data-name="'+esc(c.name)+'" onclick="pick(this.dataset.name)">'
+      +'<div class="badge">'+c.w+'×'+c.h+(c.vertical?' ↕':'')+'</div>'
+      +'<img src="/img/'+encodeURIComponent(c.name)+'" loading="lazy">'
+      +'<figcaption>'+esc(c.name)+subj+'</figcaption></figure>';
+  }).join('') || '<div class="muted">(sin candidatas — usá GENERAR MÁS)</div>';
+  applySel();
+}
 async function refresh(){
   let st; try{ st=await (await fetch('/state')).json(); }catch(e){ return; }
   document.getElementById('tid').textContent=st.tid;
@@ -200,16 +216,8 @@ async function refresh(){
   document.getElementById('genbtn').disabled=st.generating;
   document.getElementById('subject').textContent=st.hero?st.hero.subject||'—':'—';
   document.getElementById('hero').textContent=st.hero?st.hero.prompt||'(sin hero)':'(sin candidatas — generá la primera tanda)';
-  // grid
-  const g=document.getElementById('grid');
-  g.innerHTML = st.candidates.map(c=>{
-    const sel = (c.name===chosen)?' sel':'';
-    const subj = c.subject?('<div class="subj">'+esc(c.subject)+'</div>'):'';
-    return '<figure class="'+sel.trim()+'" onclick="pick(\''+c.name+'\')">'
-      +'<div class="badge">'+c.w+'×'+c.h+(c.vertical?' ↕':'')+'</div>'
-      +'<img src="/img/'+encodeURIComponent(c.name)+'?t='+Date.now()+'" loading="lazy">'
-      +'<figcaption>'+esc(c.name)+subj+'</figcaption></figure>';
-  }).join('') || '<div class="muted">(sin candidatas — usá GENERAR MÁS)</div>';
+  // GRILLA: solo redibujar si el inventario cambió (rev) → sin flasheo ni tiles negros
+  if(st.rev!==lastRev){ renderGrid(st); lastRev=st.rev; }
   // titles
   const t=document.getElementById('titles');
   if(t.dataset.n!=String(st.titles.length)){
@@ -218,7 +226,7 @@ async function refresh(){
     t.dataset.n=String(st.titles.length);
   }
 }
-function pick(name){chosen=name;document.getElementById('chosen').textContent=name;refresh();}
+function pick(name){chosen=name;document.getElementById('chosen').textContent=name;applySel();}
 async function generate(){
   document.getElementById('genbtn').disabled=true;
   const critique=document.getElementById('critique').value;
@@ -236,8 +244,7 @@ async function compose(){
   btn.disabled=false;
   const pv=document.getElementById('preview');
   if(res.error){pv.innerHTML='<div class="err" style="display:block">⚠ '+esc(res.error)+'</div>';}
-  else{pv.innerHTML='<div class="muted">'+esc(res.thumb)+' · CHECKLIST escrito</div><img src="/img/'+encodeURIComponent(res.thumb)+'?t='+Date.now()+'">';}
-  refresh();
+  else{pv.innerHTML='<div class="muted">'+esc(res.thumb)+' · CHECKLIST escrito</div><img src="/img/'+encodeURIComponent(res.thumb)+'">';}
 }
 refresh(); setInterval(refresh,2000);
 </script></body></html>"""

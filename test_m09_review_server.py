@@ -149,12 +149,51 @@ def test_generate_fake():
     return ok
 
 
+def test_rev():
+    _section("4· /state rev cambia SOLO cuando el inventario cambia (anti-flasheo)")
+    orig = (pkg._publish_dir, pkg._candidates_dir, pkg._final_mp4)
+    tmp = Path(tempfile.mkdtemp())
+    try:
+        pub, cand = _setup(tmp)
+        Image.new("RGB", (1280, 720), (20, 20, 20)).save(cand / "fresh_01.png")
+        st = srv.ReviewState("TID")
+        snap = st.snapshot()
+        rev_a = snap.get("rev")
+        ok = True
+        if not rev_a:
+            ok = False; print("  ✗ /state no incluye rev")
+        else:
+            print("  ✓ /state incluye rev")
+        # re-snapshot sin cambios → mismo rev
+        if st.snapshot()["rev"] != rev_a:
+            ok = False; print("  ✗ rev inestable sin cambios")
+        else:
+            print("  ✓ rev estable cuando el inventario no cambia")
+        # generating toggle NO cambia rev (rev es del inventario, no del estado de corrida)
+        st.generating = True
+        rev_gen = st.snapshot()["rev"]; st.generating = False
+        if rev_gen != rev_a:
+            ok = False; print("  ✗ generating cambió rev")
+        else:
+            print("  ✓ generating NO cambia rev")
+        # nueva candidata → rev cambia
+        Image.new("RGB", (1280, 720), (30, 30, 30)).save(cand / "fresh_02.png")
+        if st.snapshot()["rev"] == rev_a:
+            ok = False; print("  ✗ nueva candidata no cambió rev")
+        else:
+            print("  ✓ nueva candidata cambia rev")
+    finally:
+        pkg._publish_dir, pkg._candidates_dir, pkg._final_mp4 = orig
+    return ok
+
+
 def main() -> int:
     print("=" * 68 + "\n  TESTS m09 review server (sin red)\n" + "=" * 68)
     results = {
         "state": test_state(),
         "compose_versioned": test_compose_versioned(),
         "generate_fake": test_generate_fake(),
+        "rev": test_rev(),
     }
     print("\n" + "=" * 68)
     for k, v in results.items():
