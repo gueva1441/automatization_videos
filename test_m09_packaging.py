@@ -159,6 +159,37 @@ def test_focus_crop():
     return ok
 
 
+def test_review_html():
+    _section("6· review.html (grilla + dims + hero escapado + índices)")
+    tmp = Path(tempfile.mkdtemp())
+    cand = tmp / "thumb_candidates"; cand.mkdir()
+    Image.new("RGB", (1280, 720), (40, 40, 40)).save(cand / "existing_01.png")
+    Image.new("RGB", (1280, 720), (50, 40, 40)).save(cand / "fresh_01.png")
+    orig = m._candidates_dir
+    try:
+        m._candidates_dir = lambda tid: cand
+        out = m._write_review_html("TID", "Hero <con> & símbolos raros", tmp)
+    finally:
+        m._candidates_dir = orig
+    html = out.read_text(encoding="utf-8")
+    ok = True
+    checks = [
+        (out.name == "review.html" and out.exists(), "review.html escrito"),
+        ("existing_01.png" in html and "fresh_01.png" in html, "lista ambas candidatas"),
+        ("1280×720" in html, "muestra dimensiones"),
+        ("&lt;con&gt;" in html and "&amp;" in html, "hero prompt escapado (XSS-safe)"),
+        ('class="grid"' in html, "grilla presente"),
+        ('class="idx">1<' in html and 'class="idx">2<' in html, "índices 1 y 2"),
+        ("thumb_candidates/existing_01.png" in html, "src relativo correcto"),
+    ]
+    for cond, label in checks:
+        if not cond:
+            ok = False; print(f"  ✗ {label}")
+        else:
+            print(f"  ✓ {label}")
+    return ok
+
+
 def main() -> int:
     print("=" * 68 + "\n  TESTS m09a packaging (sin red)\n" + "=" * 68)
     results = {
@@ -167,6 +198,7 @@ def main() -> int:
         "metadata_norm": test_metadata_norm(),
         "truncate_tags": test_truncate_tags(),
         "focus_crop": test_focus_crop(),
+        "review_html": test_review_html(),
     }
     print("\n" + "=" * 68)
     for k, v in results.items():

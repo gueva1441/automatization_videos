@@ -22,10 +22,13 @@ from __future__ import annotations
 
 import argparse
 import csv
+import html as _html
 import json
+import os
 import shutil
 import sys
 import time
+import webbrowser
 from pathlib import Path
 from typing import Any
 
@@ -363,29 +366,72 @@ def _next_fresh_index(cand_dir: Path) -> int:
     return (max(nums) + 1) if nums else 1
 
 
-def _generate_fresh(canonical: dict, cand_dir: Path, count: int, start_idx: int) -> list[str]:
-    """Genera `count` bases frescas Flux 16:9 desde UN hero prompt CTR, numerando desde
-    start_idx (sin pisar). Devuelve líneas .md describiendo el resultado."""
-    try:
-        hero = generate_hero_prompt(canonical)
-    except Exception as e:
-        return [f"- ⚠ hero prompt falló ({type(e).__name__}: {e}) — sin frescas."]
-    lines = [f"- hero prompt (CTR): _{hero[:160]}_"]
-    ok = 0
+def _render_fresh_from_hero(hero: str, cand_dir: Path, count: int, start_idx: int) -> tuple[list[str], list[str]]:
+    """Renderiza `count` frescas Flux 16:9 desde un hero dado, numerando desde start_idx
+    (sin pisar). Devuelve (líneas .md, nombres de archivo generados)."""
+    lines: list[str] = []
+    files: list[str] = []
     for k in range(count):
         idx = start_idx + k
         out = cand_dir / f"fresh_{idx:02d}.png"
         try:
             _flux_16x9(hero, out)
-            lines.append(f"- fresh_{idx:02d}.png ✓"); ok += 1
+            lines.append(f"- fresh_{idx:02d}.png ✓"); files.append(out.name)
         except Exception as e:
             lines.append(f"- fresh_{idx:02d}.png ✗ ({type(e).__name__}: {str(e)[:80]})")
-    if ok == 0:
+    if not files:
         lines.append("- ⚠ Flux falló en todas — seguí con las existentes.")
-    return lines
+    return lines, files
 
 
-def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False) -> None:
+def _generate_fresh(canonical: dict, cand_dir: Path, count: int,
+                    start_idx: int) -> tuple[list[str], str | None, list[str]]:
+    """Genera hero CTR + `count` frescas. Devuelve (líneas .md, hero_prompt, archivos)."""
+    try:
+        hero = generate_hero_prompt(canonical)
+    except Exception as e:
+        return [f"- ⚠ hero prompt falló ({type(e).__name__}: {e}) — sin frescas."], None, []
+    lines = [f"- hero prompt (CTR): _{hero[:160]}_"]
+    l2, files = _render_fresh_from_hero(hero, cand_dir, count, start_idx)
+    return lines + l2, hero, files
+
+
+def generate_hero_prompt_iter(prev_prompt: str, critique: str) -> str:
+    """Reescribe el hero prompt incorporando la crítica de Omar, SIN perder las reglas CTR
+    del _HERO_SYSTEM (la crítica SUMA, no reemplaza: las reglas siguen como system)."""
+    user = (
+        f"PROMPT ANTERIOR:\n«{prev_prompt}»\n\n"
+        f"El cliente (director) recibió esta imagen y pidió estas CORRECCIONES:\n«{critique}»\n\n"
+        f"Reescribí el prompt incorporando la crítica, SIN perder ninguna de las reglas del "
+        f"sistema (intriga CTR, sujeto a la derecha, tercio izquierdo despejado, acento de "
+        f"color, AP9 calma-tensa). La crítica se SUMA a las reglas, no las reemplaza."
+    )
+    return str(_gemini_json(_HERO_SYSTEM, user, _HERO_SCHEMA, 0.4).get("prompt", "")).strip()
+
+
+def _iterations_path(pub: Path) -> Path:
+    return pub / "hero_iterations.json"
+
+
+def _load_iterations(pub: Path) -> list[dict]:
+    p = _iterations_path(pub)
+    if p.exists():
+        try:
+            return json.loads(p.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return []
+    return []
+
+
+def _record_iteration(pub: Path, hero: str, feedback: str | None, files: list[str]) -> None:
+    """Anexa una vuelta a hero_iterations.json (trazabilidad: prompt + feedback + archivos)."""
+    hist = _load_iterations(pub)
+    hist.append({"iteration": len(hist), "hero_prompt": hero, "feedback": feedback, "files": files})
+    _iterations_path(pub).write_text(json.dumps(hist, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False,
+                   review: bool = False) -> None:
     canonical = _load_canonical(tid)
     pub = _publish_dir(tid); cand = _candidates_dir(tid)
     cand.mkdir(parents=True, exist_ok=True)
@@ -394,13 +440,17 @@ def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False)
     if only_fresh:
         start = _next_fresh_index(cand)
         print(f"  [m09a] --only-fresh: {FRESH_THUMBS} frescas más desde fresh_{start:02d} (CTR)...")
-        lines = _generate_fresh(canonical, cand, FRESH_THUMBS, start)
+        lines, hero, files = _generate_fresh(canonical, cand, FRESH_THUMBS, start)
+        if hero:
+            _record_iteration(pub, hero, None, files)
         md_path = pub / "metadata_candidatos.md"
         prev = md_path.read_text(encoding="utf-8") if md_path.exists() else ""
         md_path.write_text(prev + "\n\n## Frescas adicionales (--only-fresh)\n\n" + "\n".join(lines),
                            encoding="utf-8")
         print("\n".join("     " + l for l in lines))
         print(f"  ✅ frescas adicionales en {cand}")
+        if review:
+            run_review(tid)
         return
 
     print(f"  [m09a] metadata (Gemini, temp {META_TEMP})...")
@@ -440,11 +490,16 @@ def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False)
     if skip_fresh:
         md.append("- (omitidas: --skip-fresh)")
     else:
-        md += _generate_fresh(canonical, cand, FRESH_THUMBS, _next_fresh_index(cand))
+        fresh_lines, hero, files = _generate_fresh(canonical, cand, FRESH_THUMBS, _next_fresh_index(cand))
+        md += fresh_lines
+        if hero:
+            _record_iteration(pub, hero, None, files)
 
     (pub / "metadata_candidatos.md").write_text("\n".join(md), encoding="utf-8")
     print(f"  ✅ candidates en {pub}")
     print(f"     Elegí título + base y corré: --compose --base <archivo> --text \"TEXTO\" --title N")
+    if review:
+        run_review(tid)
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -476,6 +531,135 @@ _CHECKLIST_TMPL = """# Checklist de publicación — {title}
 ## Pre-vuelo
 - ⚠ Verificar **cap3 sin texto fantasma** antes de subir (pendiente de backlog).
 """
+
+
+# ═══════════════════════════════════════════════════════════════
+#  REVIEW LOOP visual (--review)
+# ═══════════════════════════════════════════════════════════════
+def _candidate_files(cand_dir: Path) -> list[Path]:
+    """Bases candidatas en orden estable: existing_* y luego fresh_*."""
+    return sorted(cand_dir.glob("existing_*.png")) + sorted(cand_dir.glob("fresh_*.png"))
+
+
+def _write_review_html(tid: str, hero_prompt: str, pub: Path) -> Path:
+    """Escribe publish/review.html: grilla responsive de TODAS las candidatas (grandes, con
+    filename + dimensiones e índice) + el hero prompt arriba. Refrescable (F5). Puro/testeable."""
+    files = _candidate_files(_candidates_dir(tid))
+    cells = []
+    for i, p in enumerate(files, 1):
+        try:
+            w, h = Image.open(p).size
+        except Exception:
+            w, h = "?", "?"
+        rel = _html.escape(f"thumb_candidates/{p.name}")
+        cells.append(
+            f'<figure><div class="idx">{i}</div>'
+            f'<img src="{rel}" loading="lazy">'
+            f'<figcaption>{_html.escape(p.name)} · {w}×{h}</figcaption></figure>'
+        )
+    grid = "\n".join(cells) or "<p>(sin candidatas todavía)</p>"
+    doc = f"""<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Review thumbnails — {_html.escape(tid)}</title>
+<style>
+ body{{background:#111;color:#eee;font-family:system-ui,sans-serif;margin:0;padding:24px}}
+ h1{{font-size:19px}} h2{{font-size:14px;color:#9ad}}
+ .hero{{background:#1c1c22;border:1px solid #333;border-radius:8px;padding:14px 16px;margin:10px 0 24px;white-space:pre-wrap;line-height:1.45;color:#cdd}}
+ .tip{{color:#888;font-size:13px;margin:6px 0 18px}}
+ .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:18px}}
+ figure{{margin:0;background:#000;border:1px solid #333;border-radius:8px;overflow:hidden;position:relative}}
+ figure img{{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}}
+ figcaption{{padding:8px 10px;font-size:13px;color:#bbb;font-family:ui-monospace,monospace}}
+ .idx{{position:absolute;top:8px;left:8px;background:#e0b020;color:#000;font-weight:700;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center}}
+</style></head><body>
+<h1>Review de miniaturas — {_html.escape(tid)}</h1>
+<div class="tip">F5 para refrescar tras nuevas frescas. En la terminal: <b>A &lt;n&gt;</b> aprobar · <b>F</b> feedback · <b>S</b> salir.</div>
+<h2>Hero prompt actual (CTR)</h2>
+<div class="hero">{_html.escape(hero_prompt or '(sin hero prompt)')}</div>
+<div class="grid">
+{grid}
+</div></body></html>"""
+    out = pub / "review.html"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(doc, encoding="utf-8")
+    return out
+
+
+def _open(path: Path) -> None:
+    try:
+        if os.name == "nt":
+            os.startfile(str(path))  # type: ignore[attr-defined]
+        else:
+            webbrowser.open(path.as_uri())
+    except Exception as e:
+        print(f"  (no pude abrir el navegador: {e} — abrí a mano {path})")
+
+
+def _read_multiline(prompt: str) -> str:
+    print(prompt + " (terminá con una línea vacía):")
+    out = []
+    while True:
+        try:
+            ln = input()
+        except EOFError:
+            break
+        if ln.strip() == "":
+            break
+        out.append(ln)
+    return "\n".join(out).strip()
+
+
+def run_review(tid: str) -> None:
+    pub = _publish_dir(tid); cand = _candidates_dir(tid)
+    hist = _load_iterations(pub)
+    hero = hist[-1]["hero_prompt"] if hist else ""
+    html_path = _write_review_html(tid, hero, pub)
+    _open(html_path)
+    print(f"\n  🖼  review.html: {html_path}")
+    while True:
+        files = _candidate_files(cand)
+        print("\n  Candidatas:")
+        for i, p in enumerate(files, 1):
+            print(f"    [{i}] {p.name}")
+        print("  [A <n>] aprobar · [F] feedback → más frescas · [S] salir")
+        try:
+            cmd = input("  > ").strip()
+        except EOFError:
+            return
+        if not cmd:
+            continue
+        op = cmd[0].upper()
+        if op == "S":
+            print("  (salida sin aprobar)"); return
+        if op == "A":
+            parts = cmd.split()
+            if len(parts) < 2 or not parts[1].isdigit():
+                print("  usar: A <n>"); continue
+            n = int(parts[1])
+            if not (1 <= n <= len(files)):
+                print(f"  fuera de rango (1-{len(files)})"); continue
+            base = files[n - 1].name
+            print(f"\n  ✅ Aprobada {base}. Comando --compose (editá TEXTO y --title):\n")
+            print(f'    python -m script_engine.m09_packaging {tid} --compose '
+                  f'--base {base} --text "TU TEXTO" --title 1\n')
+            return
+        if op == "F":
+            crit = _read_multiline("  Feedback del director")
+            if not crit:
+                print("  (feedback vacío)"); continue
+            print("  reescribiendo hero con la crítica (reglas CTR preservadas)...")
+            try:
+                hero = generate_hero_prompt_iter(hero, crit)
+            except Exception as e:
+                print(f"  ✗ iteración falló: {e}"); continue
+            start = _next_fresh_index(cand)
+            lines, gen = _render_fresh_from_hero(hero, cand, FRESH_THUMBS, start)
+            _record_iteration(pub, hero, crit, gen)
+            _write_review_html(tid, hero, pub)
+            print("\n".join("    " + l for l in lines))
+            print("  ✅ nuevas frescas + review.html actualizado (F5 en el navegador).")
+            continue
+        print("  comando no reconocido.")
 
 
 def run_compose(tid: str, base: str, text: str, title_idx: int, focus: str = "center") -> None:
@@ -518,6 +702,8 @@ def main() -> int:
     ap.add_argument("--skip-fresh", action="store_true", help="No generar frescas Flux (solo existentes).")
     ap.add_argument("--only-fresh", action="store_true",
                     help="Solo regenerar hero+frescas (no re-quema metadata ni re-copia existentes).")
+    ap.add_argument("--review", action="store_true",
+                    help="Tras generar: review.html + loop interactivo (A aprobar / F feedback / S salir).")
     ap.add_argument("--compose", action="store_true", help="Paso 2: overlay + checklist.")
     ap.add_argument("--base", help="Archivo base elegido (en thumb_candidates/).")
     ap.add_argument("--text", help="Texto del thumb (2-4 palabras, MAYÚSCULAS).")
@@ -529,7 +715,8 @@ def main() -> int:
     if args.candidates == args.compose:
         ap.error("elegí exactamente uno: --candidates o --compose")
     if args.candidates:
-        run_candidates(args.topic_id, skip_fresh=args.skip_fresh, only_fresh=args.only_fresh)
+        run_candidates(args.topic_id, skip_fresh=args.skip_fresh, only_fresh=args.only_fresh,
+                       review=args.review)
     else:
         if not args.base or not args.text:
             ap.error("--compose requiere --base y --text")
