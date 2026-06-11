@@ -22,7 +22,6 @@ from __future__ import annotations
 
 import argparse
 import csv
-import html as _html
 import json
 import os
 import shutil
@@ -210,16 +209,23 @@ def _resolve_png(tid: str, filename: str) -> Path | None:
 # ═══════════════════════════════════════════════════════════════
 #  THUMB — hero prompt (Gemini) + render Flux 16:9 (clon mínimo fal.ai)
 # ═══════════════════════════════════════════════════════════════
-_HERO_SCHEMA = {"type": "OBJECT", "properties": {"prompt": {"type": "STRING"}}, "required": ["prompt"]}
+_HERO_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {
+        "subject": {"type": "STRING"},   # casting: quién/qué eligió (PASO 1, trazabilidad)
+        "prompt": {"type": "STRING"},
+    },
+    "required": ["subject", "prompt"],
+}
 
 _HERO_SYSTEM = """Sos director de arte de MINIATURAS (thumbnails) de YouTube. Tu objetivo NO es
 ilustrar el tema: es DETENER EL SCROLL y generar intriga de click. Escribís UN prompt en inglés
 para Flux 2 Pro.
 
-PASO 1 — ELEGIR EL SUJETO: leé la narración completa e identificá al PERSONAJE o ELEMENTO más
-icónico y visualmente magnético de la historia. Prioridad: una PERSONA concreta (la figura que
-encarna el drama) > un OBJETO cargado > el LUGAR. El edificio o el espacio genérico SOLO si no
-hay nada mejor.
+PASO 1 — CASTING: leé la narración completa e identificá al sujeto más icónico y visualmente
+magnético de ESTA historia. Prioridad: una PERSONA/personaje (la figura que encarna el drama) >
+un OBJETO cargado > el LUGAR. El edificio o el espacio genérico SOLO si no hay nada mejor.
+Devolvé en `subject` una frase corta con quién/qué elegiste.
 PASO 2 — CONSTRUIR EL PROMPT: armá el prompt CTR alrededor de ESE sujeto, cumpliendo todos los
 requisitos de abajo.
 
@@ -270,9 +276,10 @@ def _hero_user_prompt(canonical: dict) -> str:
     )
 
 
-def generate_hero_prompt(canonical: dict) -> str:
-    return str(_gemini_json(_HERO_SYSTEM, _hero_user_prompt(canonical), _HERO_SCHEMA, 0.4)
-               .get("prompt", "")).strip()
+def generate_hero_prompt(canonical: dict) -> dict:
+    """Devuelve {'prompt': str, 'subject': str}. subject = el casting (PASO 1)."""
+    d = _gemini_json(_HERO_SYSTEM, _hero_user_prompt(canonical), _HERO_SCHEMA, 0.4)
+    return {"prompt": str(d.get("prompt", "")).strip(), "subject": str(d.get("subject", "")).strip()}
 
 
 def _flux_16x9(prompt: str, out_path: Path, timeout: int = 180) -> None:
@@ -377,10 +384,18 @@ def compose_thumbnail(base_path: Path, text: str, out_path: Path, focus: str = "
 def _validate_text(text: str) -> str:
     n = len((text or "").split())
     if n == 0:
-        raise SystemExit("--text vacío. Pasá 2-4 palabras en MAYÚSCULAS.")
+        raise ValueError("--text vacío. Pasá 2-4 palabras en MAYÚSCULAS.")
     if n > 5:
         print(f"  ⚠ --text tiene {n} palabras (>5): puede quedar ilegible en miniatura.")
     return text
+
+
+def next_thumb_name(tid: str) -> str:
+    """Próximo thumb_final_NN.png versionado (el form compone varias veces; Omar compara)."""
+    pub = _publish_dir(tid)
+    nums = [int(p.stem.rsplit("_", 1)[1]) for p in pub.glob("thumb_final_*.png")
+            if p.stem.rsplit("_", 1)[1].isdigit()]
+    return f"thumb_final_{(max(nums) + 1) if nums else 1:02d}.png"
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -415,28 +430,30 @@ def _render_fresh_from_hero(hero: str, cand_dir: Path, count: int, start_idx: in
 
 
 def _generate_fresh(canonical: dict, cand_dir: Path, count: int,
-                    start_idx: int) -> tuple[list[str], str | None, list[str]]:
-    """Genera hero CTR + `count` frescas. Devuelve (líneas .md, hero_prompt, archivos)."""
+                    start_idx: int) -> tuple[list[str], dict | None, list[str]]:
+    """Genera hero CTR (casting) + `count` frescas. Devuelve (líneas .md, hero {prompt,subject}, archivos)."""
     try:
         hero = generate_hero_prompt(canonical)
     except Exception as e:
         return [f"- ⚠ hero prompt falló ({type(e).__name__}: {e}) — sin frescas."], None, []
-    lines = [f"- hero prompt (CTR): _{hero[:160]}_"]
-    l2, files = _render_fresh_from_hero(hero, cand_dir, count, start_idx)
+    lines = [f"- casting: _{hero['subject'][:90]}_",
+             f"- hero prompt (CTR): _{hero['prompt'][:160]}_"]
+    l2, files = _render_fresh_from_hero(hero["prompt"], cand_dir, count, start_idx)
     return lines + l2, hero, files
 
 
-def generate_hero_prompt_iter(prev_prompt: str, critique: str) -> str:
+def generate_hero_prompt_iter(prev_prompt: str, critique: str) -> dict:
     """Reescribe el hero prompt incorporando la crítica de Omar, SIN perder las reglas CTR
-    del _HERO_SYSTEM (la crítica SUMA, no reemplaza: las reglas siguen como system)."""
+    del _HERO_SYSTEM (la crítica SUMA, no reemplaza). Devuelve {'prompt', 'subject'}."""
     user = (
         f"PROMPT ANTERIOR:\n«{prev_prompt}»\n\n"
         f"El cliente (director) recibió esta imagen y pidió estas CORRECCIONES:\n«{critique}»\n\n"
         f"Reescribí el prompt incorporando la crítica, SIN perder ninguna de las reglas del "
-        f"sistema (intriga CTR, sujeto a la derecha, tercio izquierdo despejado, acento de "
-        f"color, AP9 calma-tensa). La crítica se SUMA a las reglas, no las reemplaza."
+        f"sistema (casting del sujeto, intriga CTR, sujeto a la derecha, tercio izquierdo "
+        f"despejado, acento de color, AP9 calma-tensa). La crítica se SUMA a las reglas."
     )
-    return str(_gemini_json(_HERO_SYSTEM, user, _HERO_SCHEMA, 0.4).get("prompt", "")).strip()
+    d = _gemini_json(_HERO_SYSTEM, user, _HERO_SCHEMA, 0.4)
+    return {"prompt": str(d.get("prompt", "")).strip(), "subject": str(d.get("subject", "")).strip()}
 
 
 def _iterations_path(pub: Path) -> Path:
@@ -453,10 +470,12 @@ def _load_iterations(pub: Path) -> list[dict]:
     return []
 
 
-def _record_iteration(pub: Path, hero: str, feedback: str | None, files: list[str]) -> None:
-    """Anexa una vuelta a hero_iterations.json (trazabilidad: prompt + feedback + archivos)."""
+def _record_iteration(pub: Path, hero_prompt: str, subject: str,
+                      feedback: str | None, files: list[str]) -> None:
+    """Anexa una vuelta a hero_iterations.json (trazabilidad: prompt + subject + feedback + archivos)."""
     hist = _load_iterations(pub)
-    hist.append({"iteration": len(hist), "hero_prompt": hero, "feedback": feedback, "files": files})
+    hist.append({"iteration": len(hist), "hero_prompt": hero_prompt, "subject": subject,
+                 "feedback": feedback, "files": files})
     _iterations_path(pub).write_text(json.dumps(hist, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
@@ -472,7 +491,7 @@ def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False,
         print(f"  [m09a] --only-fresh: {FRESH_THUMBS} frescas más desde fresh_{start:02d} (CTR)...")
         lines, hero, files = _generate_fresh(canonical, cand, FRESH_THUMBS, start)
         if hero:
-            _record_iteration(pub, hero, None, files)
+            _record_iteration(pub, hero["prompt"], hero["subject"], None, files)
         md_path = pub / "metadata_candidatos.md"
         prev = md_path.read_text(encoding="utf-8") if md_path.exists() else ""
         md_path.write_text(prev + "\n\n## Frescas adicionales (--only-fresh)\n\n" + "\n".join(lines),
@@ -523,7 +542,7 @@ def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False,
         fresh_lines, hero, files = _generate_fresh(canonical, cand, FRESH_THUMBS, _next_fresh_index(cand))
         md += fresh_lines
         if hero:
-            _record_iteration(pub, hero, None, files)
+            _record_iteration(pub, hero["prompt"], hero["subject"], None, files)
 
     (pub / "metadata_candidatos.md").write_text("\n".join(md), encoding="utf-8")
     print(f"  ✅ candidates en {pub}")
@@ -571,155 +590,63 @@ def _candidate_files(cand_dir: Path) -> list[Path]:
     return sorted(cand_dir.glob("existing_*.png")) + sorted(cand_dir.glob("fresh_*.png"))
 
 
-def _write_review_html(tid: str, hero_prompt: str, pub: Path) -> Path:
-    """Escribe publish/review.html: grilla responsive de TODAS las candidatas (grandes, con
-    filename + dimensiones e índice) + el hero prompt arriba. Refrescable (F5). Puro/testeable."""
-    files = _candidate_files(_candidates_dir(tid))
-    cells = []
-    for i, p in enumerate(files, 1):
-        try:
-            w, h = Image.open(p).size
-        except Exception:
-            w, h = "?", "?"
-        rel = _html.escape(f"thumb_candidates/{p.name}")
-        cells.append(
-            f'<figure><div class="idx">{i}</div>'
-            f'<img src="{rel}" loading="lazy">'
-            f'<figcaption>{_html.escape(p.name)} · {w}×{h}</figcaption></figure>'
-        )
-    grid = "\n".join(cells) or "<p>(sin candidatas todavía)</p>"
-    doc = f"""<!doctype html><html lang="es"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Review thumbnails — {_html.escape(tid)}</title>
-<style>
- body{{background:#111;color:#eee;font-family:system-ui,sans-serif;margin:0;padding:24px}}
- h1{{font-size:19px}} h2{{font-size:14px;color:#9ad}}
- .hero{{background:#1c1c22;border:1px solid #333;border-radius:8px;padding:14px 16px;margin:10px 0 24px;white-space:pre-wrap;line-height:1.45;color:#cdd}}
- .tip{{color:#888;font-size:13px;margin:6px 0 18px}}
- .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:18px}}
- figure{{margin:0;background:#000;border:1px solid #333;border-radius:8px;overflow:hidden;position:relative}}
- figure img{{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}}
- figcaption{{padding:8px 10px;font-size:13px;color:#bbb;font-family:ui-monospace,monospace}}
- .idx{{position:absolute;top:8px;left:8px;background:#e0b020;color:#000;font-weight:700;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center}}
-</style></head><body>
-<h1>Review de miniaturas — {_html.escape(tid)}</h1>
-<div class="tip">F5 para refrescar tras nuevas frescas. En la terminal: <b>A &lt;n&gt;</b> aprobar · <b>F</b> feedback · <b>S</b> salir.</div>
-<h2>Hero prompt actual (CTR)</h2>
-<div class="hero">{_html.escape(hero_prompt or '(sin hero prompt)')}</div>
-<div class="grid">
-{grid}
-</div></body></html>"""
-    out = pub / "review.html"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(doc, encoding="utf-8")
-    return out
-
-
-def _open(path: Path) -> None:
+def _open(path_or_url) -> None:
+    """Abre un archivo o URL en el navegador (Windows os.startfile / webbrowser fallback)."""
     try:
-        if os.name == "nt":
-            os.startfile(str(path))  # type: ignore[attr-defined]
+        s = str(path_or_url)
+        if os.name == "nt" and not s.startswith("http"):
+            os.startfile(s)  # type: ignore[attr-defined]
         else:
-            webbrowser.open(path.as_uri())
+            webbrowser.open(s)
     except Exception as e:
-        print(f"  (no pude abrir el navegador: {e} — abrí a mano {path})")
-
-
-def _read_multiline(prompt: str) -> str:
-    print(prompt + " (terminá con una línea vacía):")
-    out = []
-    while True:
-        try:
-            ln = input()
-        except EOFError:
-            break
-        if ln.strip() == "":
-            break
-        out.append(ln)
-    return "\n".join(out).strip()
+        print(f"  (no pude abrir el navegador: {e} — abrí a mano {path_or_url})")
 
 
 def run_review(tid: str) -> None:
-    pub = _publish_dir(tid); cand = _candidates_dir(tid)
-    hist = _load_iterations(pub)
-    hero = hist[-1]["hero_prompt"] if hist else ""
-    html_path = _write_review_html(tid, hero, pub)
-    _open(html_path)
-    print(f"\n  🖼  review.html: {html_path}")
-    while True:
-        files = _candidate_files(cand)
-        print("\n  Candidatas:")
-        for i, p in enumerate(files, 1):
-            print(f"    [{i}] {p.name}")
-        print("  [A <n>] aprobar · [F] feedback → más frescas · [S] salir")
-        try:
-            cmd = input("  > ").strip()
-        except EOFError:
-            return
-        if not cmd:
-            continue
-        op = cmd[0].upper()
-        if op == "S":
-            print("  (salida sin aprobar)"); return
-        if op == "A":
-            parts = cmd.split()
-            if len(parts) < 2 or not parts[1].isdigit():
-                print("  usar: A <n>"); continue
-            n = int(parts[1])
-            if not (1 <= n <= len(files)):
-                print(f"  fuera de rango (1-{len(files)})"); continue
-            base = files[n - 1].name
-            print(f"\n  ✅ Aprobada {base}. Comando --compose (editá TEXTO y --title):\n")
-            print(f'    python -m script_engine.m09_packaging {tid} --compose '
-                  f'--base {base} --text "TU TEXTO" --title 1\n')
-            return
-        if op == "F":
-            crit = _read_multiline("  Feedback del director")
-            if not crit:
-                print("  (feedback vacío)"); continue
-            print("  reescribiendo hero con la crítica (reglas CTR preservadas)...")
-            try:
-                hero = generate_hero_prompt_iter(hero, crit)
-            except Exception as e:
-                print(f"  ✗ iteración falló: {e}"); continue
-            start = _next_fresh_index(cand)
-            lines, gen = _render_fresh_from_hero(hero, cand, FRESH_THUMBS, start)
-            _record_iteration(pub, hero, crit, gen)
-            _write_review_html(tid, hero, pub)
-            print("\n".join("    " + l for l in lines))
-            print("  ✅ nuevas frescas + review.html actualizado (F5 en el navegador).")
-            continue
-        print("  comando no reconocido.")
+    """--review levanta el FORM web local (reemplaza el viejo loop de terminal+HTML estático)."""
+    from script_engine.m09_review_server import serve
+    serve(tid)
 
 
-def run_compose(tid: str, base: str, text: str, title_idx: int, focus: str = "center") -> None:
+def _resolve_base(tid: str, base: str) -> Path:
+    return (_candidates_dir(tid) / base) if not Path(base).is_absolute() else Path(base)
+
+
+def compose_and_package(tid: str, base: str, text: str, title_idx: int,
+                        focus: str = "center", out_name: str = "thumb_final.png") -> Path:
+    """Compone la miniatura final + escribe metadata.json(final) + CHECKLIST. Reusable por el
+    CLI (--compose, out_name fijo) y por el form (out_name versionado). Devuelve el thumb escrito.
+    Lanza ValueError/FileNotFoundError (el caller decide cómo mostrarlo)."""
     pub = _publish_dir(tid)
     meta = json.loads((pub / "metadata.json").read_text(encoding="utf-8"))
     titulos = meta.get("titulos", [])
     if not (1 <= title_idx <= len(titulos)):
-        raise SystemExit(f"--title {title_idx} fuera de rango (hay {len(titulos)} títulos).")
+        raise ValueError(f"título {title_idx} fuera de rango (hay {len(titulos)}).")
     title = titulos[title_idx - 1]
-
-    base_path = (_candidates_dir(tid) / base) if not Path(base).is_absolute() else Path(base)
+    base_path = _resolve_base(tid, base)
     if not base_path.exists():
-        raise SystemExit(f"Base no encontrada: {base_path}")
+        raise FileNotFoundError(f"Base no encontrada: {base_path}")
     text = _validate_text(text)
 
-    thumb_out = pub / "thumb_final.png"
-    written = compose_thumbnail(base_path, text, thumb_out, focus)
-
-    # metadata.json final
+    written = compose_thumbnail(base_path, text, pub / out_name, focus)
     meta.update({"stage": "final", "titulo_elegido": title,
                  "base_thumb": base, "thumb_final": written.name})
     (pub / "metadata.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
-
     checklist = _CHECKLIST_TMPL.format(
         title=title, mp4=_final_mp4(tid), thumb=written,
         desc=meta.get("descripcion", ""), tags=", ".join(meta.get("tags", [])),
     )
     (pub / "CHECKLIST_PUBLICACION.md").write_text(checklist, encoding="utf-8")
+    return written
+
+
+def run_compose(tid: str, base: str, text: str, title_idx: int, focus: str = "center") -> None:
+    try:
+        written = compose_and_package(tid, base, text, title_idx, focus, "thumb_final.png")
+    except (ValueError, FileNotFoundError) as e:
+        raise SystemExit(str(e))
     print(f"  ✅ thumb_final: {written.name} ({written.stat().st_size//1024} KB)")
-    print(f"  ✅ CHECKLIST_PUBLICACION.md + metadata.json (final) en {pub}")
+    print(f"  ✅ CHECKLIST_PUBLICACION.md + metadata.json (final) en {_publish_dir(tid)}")
 
 
 # ═══════════════════════════════════════════════════════════════
