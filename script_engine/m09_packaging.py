@@ -652,6 +652,21 @@ def run_compose(tid: str, base: str, text: str, title_idx: int, focus: str = "ce
 # ═══════════════════════════════════════════════════════════════
 #  CLI
 # ═══════════════════════════════════════════════════════════════
+def _resolve_mode(candidates: bool, compose: bool, review: bool) -> str:
+    """Valida la combinación de flags y devuelve el modo: 'candidates' | 'compose' | 'review'.
+    --review puede acompañar a --candidates (genera y abre el form); solo, abre el form sin
+    generar. --compose es excluyente. Lanza ValueError en combinaciones inválidas."""
+    if compose and (candidates or review):
+        raise ValueError("--compose no se combina con --candidates ni --review")
+    if candidates:
+        return "candidates"   # review (si viene) se maneja dentro de run_candidates
+    if compose:
+        return "compose"
+    if review:
+        return "review"       # form solo, sin generar nada
+    raise ValueError("elegí un modo: --candidates, --compose o --review")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="m09a — paquete de publicación (metadata + thumbnail).")
     ap.add_argument("topic_id")
@@ -660,7 +675,8 @@ def main() -> int:
     ap.add_argument("--only-fresh", action="store_true",
                     help="Solo regenerar hero+frescas (no re-quema metadata ni re-copia existentes).")
     ap.add_argument("--review", action="store_true",
-                    help="Tras generar: review.html + loop interactivo (A aprobar / F feedback / S salir).")
+                    help="Levanta el form web local. Solo (--review) abre el form sin generar; "
+                         "junto a --candidates genera y abre el form.")
     ap.add_argument("--compose", action="store_true", help="Paso 2: overlay + checklist.")
     ap.add_argument("--base", help="Archivo base elegido (en thumb_candidates/).")
     ap.add_argument("--text", help="Texto del thumb (2-4 palabras, MAYÚSCULAS).")
@@ -669,15 +685,19 @@ def main() -> int:
                     help="Franja del cover-crop para bases verticales (default center).")
     args = ap.parse_args()
 
-    if args.candidates == args.compose:
-        ap.error("elegí exactamente uno: --candidates o --compose")
-    if args.candidates:
+    try:
+        mode = _resolve_mode(args.candidates, args.compose, args.review)
+    except ValueError as e:
+        ap.error(str(e))
+    if mode == "candidates":
         run_candidates(args.topic_id, skip_fresh=args.skip_fresh, only_fresh=args.only_fresh,
                        review=args.review)
-    else:
+    elif mode == "compose":
         if not args.base or not args.text:
             ap.error("--compose requiere --base y --text")
         run_compose(args.topic_id, args.base, args.text, args.title, focus=args.focus)
+    else:  # review solo → form sin generar
+        run_review(args.topic_id)
     return 0
 
 

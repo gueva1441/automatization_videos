@@ -186,6 +186,36 @@ def test_hero_user_prompt():
     return ok
 
 
+def test_resolve_mode():
+    _section("8· _resolve_mode (--review solo válido; combos inválidos fallan)")
+    ok = True
+    # (candidates, compose, review) → modo esperado | None si debe lanzar ValueError
+    cases = [
+        ((True, False, False), "candidates"),
+        ((True, False, True), "candidates"),   # --review acompaña a --candidates
+        ((False, True, False), "compose"),
+        ((False, False, True), "review"),      # --review SOLO (el bug)
+        ((True, True, False), None),           # candidates + compose inválido
+        ((False, True, True), None),           # compose + review inválido
+        ((False, False, False), None),         # nada
+    ]
+    for (c, co, r), exp in cases:
+        try:
+            got = m._resolve_mode(c, co, r)
+            if exp is None:
+                ok = False; print(f"  ✗ ({c},{co},{r}) debía fallar, dio {got!r}")
+            elif got != exp:
+                ok = False; print(f"  ✗ ({c},{co},{r}) → {got!r} != {exp!r}")
+            else:
+                print(f"  ✓ ({c},{co},{r}) → {got}")
+        except ValueError:
+            if exp is not None:
+                ok = False; print(f"  ✗ ({c},{co},{r}) lanzó pero esperaba {exp!r}")
+            else:
+                print(f"  ✓ ({c},{co},{r}) → ValueError (inválido)")
+    return ok
+
+
 def main() -> int:
     print("=" * 68 + "\n  TESTS m09a packaging (sin red)\n" + "=" * 68)
     results = {
@@ -195,6 +225,7 @@ def main() -> int:
         "truncate_tags": test_truncate_tags(),
         "focus_crop": test_focus_crop(),
         "hero_user_prompt": test_hero_user_prompt(),
+        "resolve_mode": test_resolve_mode(),
     }
     print("\n" + "=" * 68)
     for k, v in results.items():
