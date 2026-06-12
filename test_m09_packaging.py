@@ -216,6 +216,32 @@ def test_resolve_mode():
     return ok
 
 
+def test_fill_color():
+    _section("9· compose --fill (blanco / amarillo / rojo)")
+    import numpy as np
+    tmpd = Path(tempfile.mkdtemp())
+    base = tmpd / "base.png"
+    Image.new("RGB", (1280, 720), (15, 15, 15)).save(base)
+    targets = {"blanco": (255, 255, 255), "amarillo": (255, 214, 0), "rojo": (231, 29, 29)}
+    ok = True
+    for name, tgt in targets.items():
+        out = tmpd / f"{name}.png"
+        m.compose_thumbnail(base, "TEXTO COLOR", out, fill=name)
+        a = np.asarray(Image.open(out).convert("RGB"), dtype=int)
+        region = a[m.THUMB_H - 260:, :m.THUMB_W // 2]   # tercio inferior-izquierdo
+        hits = int((np.abs(region - np.array(tgt)).sum(axis=2) < 60).sum())
+        if hits < 50:
+            ok = False; print(f"  ✗ {name}: solo {hits} px ≈ {tgt}")
+        else:
+            print(f"  ✓ {name}: {hits} px del color {tgt}")
+    # default = blanco
+    if m.THUMB_FILL_DEFAULT != "blanco":
+        ok = False; print("  ✗ default no es blanco")
+    else:
+        print("  ✓ default = blanco")
+    return ok
+
+
 def main() -> int:
     print("=" * 68 + "\n  TESTS m09a packaging (sin red)\n" + "=" * 68)
     results = {
@@ -226,6 +252,7 @@ def main() -> int:
         "focus_crop": test_focus_crop(),
         "hero_user_prompt": test_hero_user_prompt(),
         "resolve_mode": test_resolve_mode(),
+        "fill_color": test_fill_color(),
     }
     print("\n" + "=" * 68)
     for k, v in results.items():

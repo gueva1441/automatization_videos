@@ -114,10 +114,12 @@ class ReviewState:
                 self.generating = False
 
     # ── composición (versionada) ──
-    def compose(self, base: str, text: str, title_idx: int, focus: str) -> dict:
+    def compose(self, base: str, text: str, title_idx: int, focus: str,
+                fill: str = pkg.THUMB_FILL_DEFAULT) -> dict:
         try:
             out_name = pkg.next_thumb_name(self.tid)
-            written = pkg.compose_and_package(self.tid, base, text, int(title_idx), focus, out_name)
+            written = pkg.compose_and_package(self.tid, base, text, int(title_idx),
+                                              focus, fill, out_name)
             self.last_thumb = written.name
             return {"thumb": written.name}
         except Exception as e:  # noqa: BLE001
@@ -187,6 +189,8 @@ _PAGE = r"""<!doctype html><html lang="es"><head><meta charset="utf-8">
    <div id="titles"></div>
    <label>Focus del crop (bases verticales)</label>
    <select id="focus"><option value="center">center</option><option value="top">top</option><option value="bottom">bottom</option></select>
+   <label>Color del texto (stroke negro siempre)</label>
+   <select id="fill"><option value="blanco">blanco</option><option value="amarillo">amarillo</option><option value="rojo">rojo</option></select>
    <button id="composebtn" onclick="compose()">COMPONER</button>
    <div id="preview"></div>
   </div>
@@ -239,8 +243,9 @@ async function compose(){
   const tr=document.querySelector('input[name=title]:checked');
   const title=tr?parseInt(tr.value):1;
   const focus=document.getElementById('focus').value;
+  const fill=document.getElementById('fill').value;
   const btn=document.getElementById('composebtn');btn.disabled=true;
-  const res=await (await fetch('/compose',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({base:chosen,text,title,focus})})).json();
+  const res=await (await fetch('/compose',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({base:chosen,text,title,focus,fill})})).json();
   btn.disabled=false;
   const pv=document.getElementById('preview');
   if(res.error){pv.innerHTML='<div class="err" style="display:block">⚠ '+esc(res.error)+'</div>';}
@@ -306,7 +311,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._json({"started": started, "busy": not started})
             elif route == "/compose":
                 self._json(self.state.compose(body.get("base", ""), body.get("text", ""),
-                                              body.get("title", 1), body.get("focus", "center")))
+                                              body.get("title", 1), body.get("focus", "center"),
+                                              body.get("fill", pkg.THUMB_FILL_DEFAULT)))
             else:
                 self._json({"error": "ruta no encontrada"}, 404)
         except Exception as e:  # noqa: BLE001

@@ -50,6 +50,13 @@ THUMB_TEXT_SCALE = 0.15          # alto de fuente por línea ≈ 15% del alto de
 THUMB_STROKE_PX = 8              # borde negro (≥6px a 1280×720)
 THUMB_POSITION = "bottom-left"   # tercio inferior-izquierdo (esquina inf-DER libre = duración YT)
 THUMB_MARGIN = 56
+
+# Color del texto del overlay (stroke negro SIEMPRE). Default blanco.
+THUMB_FILL_BLANCO = (255, 255, 255)
+THUMB_FILL_AMARILLO = (255, 214, 0)
+THUMB_FILL_ROJO = (231, 29, 29)
+THUMB_FILLS = {"blanco": THUMB_FILL_BLANCO, "amarillo": THUMB_FILL_AMARILLO, "rojo": THUMB_FILL_ROJO}
+THUMB_FILL_DEFAULT = "blanco"
 THUMB_MAX_BYTES = 2 * 1024 * 1024
 THUMB_MAX_LINES = 2
 
@@ -345,15 +352,17 @@ def _wrap_lines(text: str, max_lines: int) -> list[str]:
     return [" ".join(words[:mid]), " ".join(words[mid:])][:max_lines]
 
 
-def compose_thumbnail(base_path: Path, text: str, out_path: Path, focus: str = "center") -> Path:
-    """Compone la miniatura final 1280×720 con overlay de texto (Anton, blanco + stroke negro,
-    tercio inferior-izquierdo, esquina inf-DER libre). `focus` controla el cover-crop de bases
-    verticales. Devuelve el path realmente escrito (puede ser .jpg si el PNG superaba 2MB).
-    Sin red — testeable."""
+def compose_thumbnail(base_path: Path, text: str, out_path: Path, focus: str = "center",
+                      fill: str = THUMB_FILL_DEFAULT) -> Path:
+    """Compone la miniatura final 1280×720 con overlay de texto (Anton, color `fill` +
+    stroke negro, tercio inferior-izquierdo, esquina inf-DER libre). `fill` ∈
+    {blanco, amarillo, rojo}. `focus` controla el cover-crop de bases verticales. Devuelve
+    el path realmente escrito (puede ser .jpg si el PNG superaba 2MB). Sin red — testeable."""
     base = _fit_cover(Image.open(base_path), THUMB_W, THUMB_H, focus)
     draw = ImageDraw.Draw(base)
     text = (text or "").upper().strip()
     lines = _wrap_lines(text, THUMB_MAX_LINES) if text else []
+    color = THUMB_FILLS.get(fill, THUMB_FILLS[THUMB_FILL_DEFAULT])
 
     if lines:
         font_px = int(THUMB_H * THUMB_TEXT_SCALE)
@@ -362,7 +371,7 @@ def compose_thumbnail(base_path: Path, text: str, out_path: Path, focus: str = "
         total_h = line_h * len(lines)
         y = THUMB_H - THUMB_MARGIN - total_h   # tercio inferior
         for ln in lines:
-            draw.text((THUMB_MARGIN, y), ln, font=font, fill=(255, 255, 255),
+            draw.text((THUMB_MARGIN, y), ln, font=font, fill=color,
                       stroke_width=THUMB_STROKE_PX, stroke_fill=(0, 0, 0))
             y += line_h
 
@@ -613,7 +622,8 @@ def _resolve_base(tid: str, base: str) -> Path:
 
 
 def compose_and_package(tid: str, base: str, text: str, title_idx: int,
-                        focus: str = "center", out_name: str = "thumb_final.png") -> Path:
+                        focus: str = "center", fill: str = THUMB_FILL_DEFAULT,
+                        out_name: str = "thumb_final.png") -> Path:
     """Compone la miniatura final + escribe metadata.json(final) + CHECKLIST. Reusable por el
     CLI (--compose, out_name fijo) y por el form (out_name versionado). Devuelve el thumb escrito.
     Lanza ValueError/FileNotFoundError (el caller decide cómo mostrarlo)."""
@@ -628,7 +638,7 @@ def compose_and_package(tid: str, base: str, text: str, title_idx: int,
         raise FileNotFoundError(f"Base no encontrada: {base_path}")
     text = _validate_text(text)
 
-    written = compose_thumbnail(base_path, text, pub / out_name, focus)
+    written = compose_thumbnail(base_path, text, pub / out_name, focus, fill)
     meta.update({"stage": "final", "titulo_elegido": title,
                  "base_thumb": base, "thumb_final": written.name})
     (pub / "metadata.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
@@ -640,9 +650,10 @@ def compose_and_package(tid: str, base: str, text: str, title_idx: int,
     return written
 
 
-def run_compose(tid: str, base: str, text: str, title_idx: int, focus: str = "center") -> None:
+def run_compose(tid: str, base: str, text: str, title_idx: int,
+                focus: str = "center", fill: str = THUMB_FILL_DEFAULT) -> None:
     try:
-        written = compose_and_package(tid, base, text, title_idx, focus, "thumb_final.png")
+        written = compose_and_package(tid, base, text, title_idx, focus, fill, "thumb_final.png")
     except (ValueError, FileNotFoundError) as e:
         raise SystemExit(str(e))
     print(f"  ✅ thumb_final: {written.name} ({written.stat().st_size//1024} KB)")
@@ -683,6 +694,8 @@ def main() -> int:
     ap.add_argument("--title", type=int, default=1, help="Índice del título elegido (1-3).")
     ap.add_argument("--focus", choices=["top", "center", "bottom"], default="center",
                     help="Franja del cover-crop para bases verticales (default center).")
+    ap.add_argument("--fill", choices=list(THUMB_FILLS), default=THUMB_FILL_DEFAULT,
+                    help="Color del texto del overlay (stroke negro siempre). Default blanco.")
     args = ap.parse_args()
 
     try:
@@ -695,7 +708,7 @@ def main() -> int:
     elif mode == "compose":
         if not args.base or not args.text:
             ap.error("--compose requiere --base y --text")
-        run_compose(args.topic_id, args.base, args.text, args.title, focus=args.focus)
+        run_compose(args.topic_id, args.base, args.text, args.title, focus=args.focus, fill=args.fill)
     else:  # review solo → form sin generar
         run_review(args.topic_id)
     return 0
