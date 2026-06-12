@@ -92,16 +92,26 @@ def test_overlay():
 
 
 def test_metadata_norm():
-    _section("3· normalización metadata (títulos ≤90, tags ≤450, 3 títulos)")
+    _section("3· normalización metadata (títulos ≤90, tags ≤450, 3 títulos, 3 overlays MAYÚS)")
     ok = True
     long_title = "x" * 120
     tags = [f"tag{i}aaaaaaaaaa" for i in range(60)]  # muchos → debe truncar
-    data = {"titulos": [long_title, "b", "c", "d"], "descripcion": "  hola  ", "tags": tags}
+    data = {"titulos": [long_title, "b", "c", "d"],
+            "overlays": ["  muerte en x  ", "tensión cruda", "¿quién fue?", "sobrante"],
+            "descripcion": "  hola  ", "tags": tags}
     norm = m._normalize_metadata(data)
     if len(norm["titulos"]) != 3:
         ok = False; print(f"  ✗ títulos={len(norm['titulos'])} (esperaba 3)")
     else:
         print("  ✓ exactamente 3 títulos")
+    if len(norm["overlays"]) != 3:
+        ok = False; print(f"  ✗ overlays={len(norm['overlays'])} (esperaba 3)")
+    elif not all(o == o.upper() for o in norm["overlays"]):
+        ok = False; print(f"  ✗ overlays no en MAYÚSCULAS: {norm['overlays']}")
+    elif norm["overlays"][0] != "MUERTE EN X":
+        ok = False; print(f"  ✗ overlay no strip+upper: {norm['overlays'][0]!r}")
+    else:
+        print(f"  ✓ 3 overlays en MAYÚSCULAS (strip): {norm['overlays']}")
     if len(norm["titulos"][0]) > m.MAX_TITLE_CHARS:
         ok = False; print(f"  ✗ título sin truncar: {len(norm['titulos'][0])}")
     else:
@@ -242,6 +252,75 @@ def test_fill_color():
     return ok
 
 
+def test_run_compose_title_idx():
+    _section("10· run_compose: --title N → string (N fuera de rango → SystemExit)")
+    orig = (m._publish_dir, m._candidates_dir, m._final_mp4)
+    tmp = Path(tempfile.mkdtemp())
+    ok = True
+    try:
+        pub = tmp / "publish"; cand = pub / "thumb_candidates"; cand.mkdir(parents=True)
+        m._publish_dir = lambda tid: pub
+        m._candidates_dir = lambda tid: cand
+        m._final_mp4 = lambda tid: tmp / "v.mp4"
+        Image.new("RGB", (1280, 720), (20, 20, 20)).save(cand / "fresh_01.png")
+        (pub / "metadata.json").write_text(
+            '{"titulos": ["Título uno", "Título dos", "Título tres"], "descripcion": "d", "tags": ["a"]}',
+            encoding="utf-8")
+        # N válido → resuelve el string y compone; metadata final guarda el título elegido
+        m.run_compose("TID", "fresh_01.png", "TEXTO", 2, video_path="/x/v.mp4")
+        import json as _json
+        meta = _json.loads((pub / "metadata.json").read_text(encoding="utf-8"))
+        if meta.get("titulo_elegido") != "Título dos":
+            ok = False; print(f"  ✗ título elegido mal: {meta.get('titulo_elegido')!r}")
+        else:
+            print("  ✓ --title 2 → 'Título dos' (índice resuelto a string)")
+        # N fuera de rango → SystemExit
+        try:
+            m.run_compose("TID", "fresh_01.png", "TEXTO", 9, video_path="/x/v.mp4")
+            ok = False; print("  ✗ --title 9 no lanzó SystemExit")
+        except SystemExit as e:
+            if "fuera de rango" not in str(e):
+                ok = False; print(f"  ✗ SystemExit con mensaje raro: {e}")
+            else:
+                print("  ✓ --title 9 (fuera de rango) → SystemExit")
+    finally:
+        m._publish_dir, m._candidates_dir, m._final_mp4 = orig
+    return ok
+
+
+def test_compose_title_string():
+    _section("11· compose_and_package: title STRING (libre / vacío → ValueError)")
+    orig = (m._publish_dir, m._candidates_dir, m._final_mp4)
+    tmp = Path(tempfile.mkdtemp())
+    ok = True
+    try:
+        pub = tmp / "publish"; cand = pub / "thumb_candidates"; cand.mkdir(parents=True)
+        m._publish_dir = lambda tid: pub
+        m._candidates_dir = lambda tid: cand
+        m._final_mp4 = lambda tid: tmp / "v.mp4"
+        Image.new("RGB", (1280, 720), (20, 20, 20)).save(cand / "fresh_01.png")
+        (pub / "metadata.json").write_text('{"titulos": ["A"], "descripcion": "d", "tags": ["a"]}',
+                                           encoding="utf-8")
+        # título escrito a mano (NO está en titulos) → se acepta tal cual
+        written = m.compose_and_package("TID", "fresh_01.png", "TEXTO", "Título a mano",
+                                        out_name="thumb_final.png", video_path="/x/v.mp4")
+        import json as _json
+        meta = _json.loads((pub / "metadata.json").read_text(encoding="utf-8"))
+        if meta.get("titulo_elegido") != "Título a mano" or not written.exists():
+            ok = False; print(f"  ✗ título libre no se guardó: {meta.get('titulo_elegido')!r}")
+        else:
+            print("  ✓ título escrito a mano se acepta (combobox editable)")
+        # título vacío → ValueError
+        try:
+            m.compose_and_package("TID", "fresh_01.png", "TEXTO", "   ", video_path="/x/v.mp4")
+            ok = False; print("  ✗ título vacío no lanzó ValueError")
+        except ValueError:
+            print("  ✓ título vacío → ValueError")
+    finally:
+        m._publish_dir, m._candidates_dir, m._final_mp4 = orig
+    return ok
+
+
 def main() -> int:
     print("=" * 68 + "\n  TESTS m09a packaging (sin red)\n" + "=" * 68)
     results = {
@@ -253,6 +332,8 @@ def main() -> int:
         "hero_user_prompt": test_hero_user_prompt(),
         "resolve_mode": test_resolve_mode(),
         "fill_color": test_fill_color(),
+        "run_compose_title_idx": test_run_compose_title_idx(),
+        "compose_title_string": test_compose_title_string(),
     }
     print("\n" + "=" * 68)
     for k, v in results.items():

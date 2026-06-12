@@ -114,10 +114,11 @@ _META_SCHEMA = {
     "type": "OBJECT",
     "properties": {
         "titulos": {"type": "ARRAY", "items": {"type": "STRING"}, "minItems": 3, "maxItems": 3},
+        "overlays": {"type": "ARRAY", "items": {"type": "STRING"}, "minItems": 3, "maxItems": 3},
         "descripcion": {"type": "STRING"},
         "tags": {"type": "ARRAY", "items": {"type": "STRING"}},
     },
-    "required": ["titulos", "descripcion", "tags"],
+    "required": ["titulos", "overlays", "descripcion", "tags"],
 }
 
 _META_SYSTEM = """Sos el editor de empaquetado de un canal de YouTube de historia oscura
@@ -130,6 +131,11 @@ TÍTULOS (3 candidatos, ≤90 caracteres cada uno):
 - Los 3 deben ser ESTRATEGIAS distintas entre sí, no variaciones de una: por ejemplo uno de
   misterio, uno de dato brutal/concreto, uno en forma de pregunta.
 - Sin clickbait mentiroso, sin mayúsculas sostenidas, sin emojis.
+
+OVERLAYS (3 candidatos, 2-4 palabras, MAYÚSCULAS):
+- Texto que va SOBRE la miniatura: impacto + intriga en 2-4 palabras.
+- Anclado en el material (lugar/dato/sujeto). Sin clickbait mentiroso.
+- Los 3 distintos: uno de lugar/dato, uno de tensión, uno de pregunta corta.
 
 DESCRIPCIÓN (150-300 palabras):
 - La PRIMERA oración es el gancho (es lo único visible antes de "ver más"): que dé intriga sin
@@ -164,10 +170,11 @@ def generate_metadata(canonical: dict) -> dict:
 
 def _normalize_metadata(data: dict) -> dict:
     titulos = [str(t).strip()[:MAX_TITLE_CHARS] for t in (data.get("titulos") or [])][:3]
+    overlays = [str(o).strip().upper() for o in (data.get("overlays") or [])][:3]
     desc = str(data.get("descripcion", "")).strip()
     tags = _truncate_tags([str(t).strip() for t in (data.get("tags") or []) if str(t).strip()],
                           MAX_TAGS_CHARS)
-    return {"titulos": titulos, "descripcion": desc, "tags": tags}
+    return {"titulos": titulos, "overlays": overlays, "descripcion": desc, "tags": tags}
 
 
 def _truncate_tags(tags: list[str], max_chars: int) -> list[str]:
@@ -238,7 +245,9 @@ requisitos de abajo.
 
 Requisitos DUROS:
 - UNA figura o sujeto icónico DOMINANTE sacado del material (nunca ambientes vacíos): el rostro
-  o la figura que la gente asocia a esta historia.
+  o la figura que la gente asocia a esta historia. En PLANO MEDIO o PRIMER PLANO — cara + torso
+  GRANDES, ocupando buena parte de la mitad derecha, legibles a 120px. NUNCA cuerpo entero en
+  plano abierto ni figura chica perdida en la arquitectura.
 - INTRIGA VISUAL: la imagen plantea una pregunta sin responderla. Mirada directa a cámara, o algo
   levemente "mal" en la escena (una figura donde no debería haber nadie, una puerta abierta hacia
   la oscuridad, una silueta a medio revelar). El espectador debe NECESITAR el video para entender
@@ -248,8 +257,9 @@ Requisitos DUROS:
 - Calma tensa inviolable (AP9): nada de cuerpos, muerte explícita, aftermath ni el aparato de
   matar. Si el tema es muerte/ejecución, la tensión viene de un sujeto vivo inquietante o de UN
   objeto cargado, jamás del mecanismo.
-- COMPOSICIÓN: el sujeto va a la DERECHA del cuadro; el tercio IZQUIERDO queda oscuro y despejado
-  (ahí se sobreimprime el texto).
+- COMPOSICIÓN: el sujeto va a la DERECHA del cuadro, GRANDE (plano medio/primer plano); el tercio
+  IZQUIERDO queda oscuro y despejado (ahí se sobreimprime el texto). El lugar/contexto queda
+  RECONOCIBLE pero SECUNDARIO detrás del sujeto (no desaparece — da el misterio del lugar).
 - UN acento de color fuerte (cálido o frío) como punto focal sobre una paleta oscura — alto
   contraste, luz dramática, profundidad real.
 - Subject-first: etnia/edad/ropa y época integradas al sujeto. Prosa 30-80 palabras. SIN prompts
@@ -522,7 +532,8 @@ def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False,
     # metadata.json (parcial — los 3 títulos, sin elección aún)
     (pub / "metadata.json").write_text(json.dumps({
         "topic_id": tid, "stage": "candidates",
-        "titulos": meta["titulos"], "descripcion": meta["descripcion"], "tags": meta["tags"],
+        "titulos": meta["titulos"], "overlays": meta["overlays"],
+        "descripcion": meta["descripcion"], "tags": meta["tags"],
     }, indent=2, ensure_ascii=False), encoding="utf-8")
 
     # metadata_candidatos.md (legible)
@@ -627,20 +638,20 @@ def _resolve_base(tid: str, base: str) -> Path:
     return (_candidates_dir(tid) / base) if not Path(base).is_absolute() else Path(base)
 
 
-def compose_and_package(tid: str, base: str, text: str, title_idx: int,
+def compose_and_package(tid: str, base: str, text: str, title: str,
                         focus: str = "center", fill: str = THUMB_FILL_DEFAULT,
                         out_name: str = "thumb_final.png",
                         video_path: str | None = None) -> Path:
     """Compone la miniatura final + escribe metadata.json(final) + CHECKLIST. Reusable por el
-    CLI (--compose, out_name fijo) y por el form (out_name versionado). El CHECKLIST referencia
+    CLI (--compose, out_name fijo) y por el form (out_name versionado). `title` es el título
+    ELEGIDO (string libre: una de las sugerencias o uno escrito a mano). El CHECKLIST referencia
     `video_path` si viene (fase3 lo resuelve desde topics_db); si no, cae al nombre v3 histórico.
     Devuelve el thumb escrito. Lanza ValueError/FileNotFoundError (el caller decide cómo mostrarlo)."""
     pub = _publish_dir(tid)
     meta = json.loads((pub / "metadata.json").read_text(encoding="utf-8"))
-    titulos = meta.get("titulos", [])
-    if not (1 <= title_idx <= len(titulos)):
-        raise ValueError(f"título {title_idx} fuera de rango (hay {len(titulos)}).")
-    title = titulos[title_idx - 1]
+    title = (title or "").strip()[:MAX_TITLE_CHARS]
+    if not title:
+        raise ValueError("título vacío")
     base_path = _resolve_base(tid, base)
     if not base_path.exists():
         raise FileNotFoundError(f"Base no encontrada: {base_path}")
@@ -661,8 +672,13 @@ def compose_and_package(tid: str, base: str, text: str, title_idx: int,
 def run_compose(tid: str, base: str, text: str, title_idx: int,
                 focus: str = "center", fill: str = THUMB_FILL_DEFAULT,
                 video_path: str | None = None) -> None:
+    # CLI sigue eligiendo por índice (--title N, 1-3): resolvemos N→string acá, antes de componer.
+    meta = json.loads((_publish_dir(tid) / "metadata.json").read_text(encoding="utf-8"))
+    titulos = meta.get("titulos", [])
+    if not (1 <= title_idx <= len(titulos)):
+        raise SystemExit(f"--title {title_idx} fuera de rango (hay {len(titulos)}).")
     try:
-        written = compose_and_package(tid, base, text, title_idx, focus, fill,
+        written = compose_and_package(tid, base, text, titulos[title_idx - 1], focus, fill,
                                       "thumb_final.png", video_path)
     except (ValueError, FileNotFoundError) as e:
         raise SystemExit(str(e))

@@ -41,7 +41,8 @@ def test_state():
         (pub / "hero_iterations.json").write_text(json.dumps([
             {"iteration": 0, "hero_prompt": "un prompt", "subject": "la novia espectral", "files": ["fresh_01.png"]}
         ]), encoding="utf-8")
-        (pub / "metadata.json").write_text(json.dumps({"titulos": ["T1", "T2", "T3"]}), encoding="utf-8")
+        (pub / "metadata.json").write_text(json.dumps(
+            {"titulos": ["T1", "T2", "T3"], "overlays": ["O1", "O2", "O3"]}), encoding="utf-8")
         st = srv.ReviewState("TID").snapshot()
     finally:
         pkg._publish_dir, pkg._candidates_dir, pkg._final_mp4 = orig
@@ -53,6 +54,7 @@ def test_state():
         (next(c for c in st["candidates"] if c["name"] == "fresh_01.png")["subject"] == "la novia espectral", "subject de la iteración"),
         (st["hero"]["subject"] == "la novia espectral" and st["hero"]["prompt"] == "un prompt", "hero actual"),
         (st["titles"] == ["T1", "T2", "T3"], "3 títulos de metadata"),
+        (st["overlays"] == ["O1", "O2", "O3"], "3 overlays de metadata"),
         (st["generating"] is False, "generating False"),
     ]
     for cond, label in checks:
@@ -74,9 +76,10 @@ def test_compose_versioned():
             {"titulos": ["Título uno", "Título dos", "Título tres"], "descripcion": "desc", "tags": ["a", "b"]}
         ), encoding="utf-8")
         state = srv.ReviewState("TID")
-        r1 = state.compose("existing_01.png", "MUERTE EN X", 2, "center")
-        r2 = state.compose("existing_01.png", "OTRA VEZ", 1, "top")
-        bad = state.compose("existing_01.png", "", 1, "center")  # texto vacío → error
+        # title llega STRING desde el combobox (sugerencia elegida o escrita a mano)
+        r1 = state.compose("existing_01.png", "MUERTE EN X", "Título dos", "center")
+        r2 = state.compose("existing_01.png", "OTRA VEZ", "Título a mano", "top")
+        bad = state.compose("existing_01.png", "", "Título uno", "center")  # texto vacío → error
         ok = True
         if r1.get("thumb") != "thumb_final_01.png" or r2.get("thumb") != "thumb_final_02.png":
             ok = False; print(f"  ✗ versionado: {r1} {r2}")

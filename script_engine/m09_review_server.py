@@ -65,13 +65,15 @@ class ReviewState:
         hist = pkg._load_iterations(self.pub)
         hero = ({"prompt": hist[-1].get("hero_prompt", ""), "subject": hist[-1].get("subject", "")}
                 if hist else None)
-        titles = []
+        titles, overlays = [], []
         mp = self.pub / "metadata.json"
         if mp.exists():
             try:
-                titles = json.loads(mp.read_text(encoding="utf-8")).get("titulos", [])
+                meta = json.loads(mp.read_text(encoding="utf-8"))
+                titles = meta.get("titulos", [])
+                overlays = meta.get("overlays", [])   # defensivo: metadata vieja no lo trae
             except (json.JSONDecodeError, OSError):
-                titles = []
+                titles, overlays = [], []
         finals = sorted(p.name for p in self.pub.glob("thumb_final*.png"))
         # rev = versión del INVENTARIO (candidatas). El JS solo redibuja la grilla cuando
         # cambia → sin flasheo ni tiles negros por recarga cada ciclo de polling.
@@ -80,8 +82,8 @@ class ReviewState:
         with self.lock:
             gen, err = self.generating, self.last_error
         return {"tid": self.tid, "candidates": cands, "hero": hero, "titles": titles,
-                "generating": gen, "last_error": err, "thumb_final": self.last_thumb,
-                "finals": finals, "rev": rev}
+                "overlays": overlays, "generating": gen, "last_error": err,
+                "thumb_final": self.last_thumb, "finals": finals, "rev": rev}
 
     # ── generación (hero iter + frescas) en background ──
     def start_generate(self, critique: str | None) -> bool:
@@ -116,11 +118,11 @@ class ReviewState:
                 self.generating = False
 
     # ── composición (versionada) ──
-    def compose(self, base: str, text: str, title_idx: int, focus: str,
+    def compose(self, base: str, text: str, title: str, focus: str,
                 fill: str = pkg.THUMB_FILL_DEFAULT) -> dict:
         try:
             out_name = pkg.next_thumb_name(self.tid)
-            written = pkg.compose_and_package(self.tid, base, text, int(title_idx),
+            written = pkg.compose_and_package(self.tid, base, text, title,
                                               focus, fill, out_name, self.video_path)
             self.last_thumb = written.name
             if self.on_compose:
@@ -190,10 +192,12 @@ _PAGE = r"""<!doctype html><html lang="es"><head><meta charset="utf-8">
   <div class="panel">
    <h2 style="margin-top:0">Componer la elegida</h2>
    <div class="muted">elegida: <b id="chosen">(ninguna)</b></div>
-   <label>Texto del overlay (2-4 palabras)</label>
-   <input id="text" type="text" placeholder="MUERTE EN CHARLESTON">
+   <label>Texto del overlay (2-4 palabras) — desplegá las sugerencias o escribí el tuyo</label>
+   <input list="overlaylist" id="text" type="text" placeholder="MUERTE EN CHARLESTON" autocomplete="off">
+   <datalist id="overlaylist"></datalist>
    <label>Título del VIDEO en YouTube (va al checklist, no a la imagen)</label>
-   <div id="titles"></div>
+   <input list="titlelist" id="titletext" type="text" placeholder="elegí o escribí el título" autocomplete="off">
+   <datalist id="titlelist"></datalist>
    <label>Focus del crop (bases verticales)</label>
    <select id="focus"><option value="center">center</option><option value="top">top</option><option value="bottom">bottom</option></select>
    <label>Color del texto (stroke negro siempre)</label>
@@ -229,13 +233,16 @@ async function refresh(){
   document.getElementById('hero').textContent=st.hero?st.hero.prompt||'(sin hero)':'(sin candidatas — generá la primera tanda)';
   // GRILLA: solo redibujar si el inventario cambió (rev) → sin flasheo ni tiles negros
   if(st.rev!==lastRev){ renderGrid(st); lastRev=st.rev; }
-  // titles
-  const t=document.getElementById('titles');
-  if(t.dataset.n!=String(st.titles.length)){
-    t.innerHTML=st.titles.map((ti,i)=>'<label style="color:#ddd"><input type="radio" name="title" value="'+(i+1)+'"'+(i==0?' checked':'')+'> '+esc(ti)+'</label>').join('')
-      || '<div class="muted">(sin metadata.json: corré --candidates primero)</div>';
-    t.dataset.n=String(st.titles.length);
-  }
+  // comboboxes: poblar los datalist de título y overlay con las sugerencias de la IA
+  fillDatalist('titlelist', st.titles);
+  fillDatalist('overlaylist', st.overlays||[]);
+}
+function fillDatalist(id, opts){
+  const dl=document.getElementById(id);
+  const sig=opts.join('');
+  if(dl.dataset.sig===sig) return;   // sin cambios → no redibujar (evita pisar mientras se escribe)
+  dl.innerHTML=opts.map(o=>'<option value="'+esc(o)+'">').join('');
+  dl.dataset.sig=sig;
 }
 function pick(name){chosen=name;document.getElementById('chosen').textContent=name;applySel();}
 async function generate(){
@@ -247,8 +254,8 @@ async function generate(){
 async function compose(){
   if(!chosen){alert('Elegí una candidata primero (click).');return;}
   const text=document.getElementById('text').value;
-  const tr=document.querySelector('input[name=title]:checked');
-  const title=tr?parseInt(tr.value):1;
+  const title=document.getElementById('titletext').value.trim();
+  if(!title){alert('Elegí o escribí un título');return;}
   const focus=document.getElementById('focus').value;
   const fill=document.getElementById('fill').value;
   const btn=document.getElementById('composebtn');btn.disabled=true;
@@ -318,7 +325,7 @@ class Handler(BaseHTTPRequestHandler):
                 self._json({"started": started, "busy": not started})
             elif route == "/compose":
                 self._json(self.state.compose(body.get("base", ""), body.get("text", ""),
-                                              body.get("title", 1), body.get("focus", "center"),
+                                              body.get("title", ""), body.get("focus", "center"),
                                               body.get("fill", pkg.THUMB_FILL_DEFAULT)))
             else:
                 self._json({"error": "ruta no encontrada"}, 404)
