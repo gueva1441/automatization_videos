@@ -151,12 +151,16 @@ def _aggregate(votes: list[dict], n: int) -> dict:
 #  API PÚBLICA
 # ───────────────────────────────────────────────────────────────────
 
-def judge_seeds(seeds: list[dict], n_votes: int = N_VOTES) -> list[dict]:
+def judge_seeds(seeds: list[dict], n_votes: int = N_VOTES, force: bool = False) -> list[dict]:
     """
     Juzga seeds spy_arbitrage pre-grounding. Devuelve los MISMOS seeds con
     seed["judge"] agregado. NO descarta, NO reordena destructivamente, NO toca otros modos.
 
     Otros discovery_mode pasan intactos (sin la clave "judge"), sin gastar llamadas.
+
+    Cache: si seed["judge"] YA está persistido (fase1 lo guarda en selected_seeds.json
+    para que el juicio sobreviva), NO se re-juzga — evita N llamadas LLM repetidas por
+    corrida con seeds reusados. `force=True` (fase1 --rejudge) fuerza el re-juzgado.
     """
     if not seeds:
         return seeds
@@ -166,9 +170,14 @@ def judge_seeds(seeds: list[dict], n_votes: int = N_VOTES) -> list[dict]:
         print("  🤖 Juez: no hay seeds spy_arbitrage para juzgar (otros modos intactos).")
         return seeds
 
-    print(f"\n  🤖 Juez LLM pre-grounding — {len(spy)} seed(s) spy_arbitrage · N={n_votes} votos")
+    print(f"\n  🤖 Juez LLM pre-grounding — {len(spy)} seed(s) spy_arbitrage · N={n_votes} votos"
+          f"{' · --rejudge (forzado)' if force else ''}")
     for i, seed in enumerate(spy, 1):
         title = seed.get("seed_title", "?")
+        if seed.get("judge") and not force:
+            j = seed["judge"]
+            print(f"    [{i}/{len(spy)}] {title} → (cacheado) {j.get('verdict')} ({j.get('cohort')})")
+            continue
         votes = [_judge_once(seed) for _ in range(n_votes)]
         seed["judge"] = _aggregate(votes, n_votes)
         j = seed["judge"]

@@ -391,6 +391,7 @@ def run_latido_a(
     skip_research: bool = False,
     skip_validate: bool = False,
     export_only: bool = False,
+    rejudge: bool = False,
 ) -> None:
     """Latido A: de cero (o desde un checkpoint) hasta el CSV Dashboard 2.0."""
     print(f"\n{'═' * 60}")
@@ -460,7 +461,7 @@ def run_latido_a(
                 print(f"\n{'─' * 60}")
                 print(f"  📌 PASO 1.5/4 — Juez LLM pre-grounding")
                 print(f"{'─' * 60}")
-                seeds = judge_seeds(seeds)          # agrega seed["judge"]
+                seeds = judge_seeds(seeds, force=rejudge)   # agrega/respeta seed["judge"]
                 _save_seeds_with_judge(seeds)        # persistir el judge
                 _print_judge_summary(seeds)
 
@@ -598,6 +599,11 @@ if __name__ == "__main__":
         "--export-only", action="store_true",
         help="(Latido A) Solo regenerar el CSV",
     )
+    parser.add_argument(
+        "--rejudge", action="store_true",
+        help="(Latido A) Forzar re-juzgado de seeds spy aunque ya tengan seed['judge'] "
+             "cacheado (default: respeta el judge persistido, sin re-llamar al LLM).",
+    )
 
     args = parser.parse_args()
 
@@ -610,4 +616,5 @@ if __name__ == "__main__":
             skip_research=args.skip_research,
             skip_validate=args.skip_validate,
             export_only=args.export_only,
+            rejudge=args.rejudge,
         )
