@@ -62,10 +62,12 @@ def test_resolve():
 
 def test_packaged_on_compose():
     _section("2· PACKAGED se setea tras COMPONER (callback de fase3.package)")
-    orig = (m09.run_review, topics_db.mark_as_packaged, topics_db.get_topic_by_id)
+    orig = (m09.run_review, m09.candidates_ready, topics_db.mark_as_packaged, topics_db.get_topic_by_id)
     marked = {"ids": []}
     ok = True
     try:
+        # candidatas ya generadas → NO entra a run_candidates, va directo al form
+        m09.candidates_ready = lambda tid: True
         # run_review fake: invoca el on_compose como lo haría el form al componer
         m09.run_review = lambda tid, video_path=None, on_compose=None: on_compose and on_compose("thumb_final_01.png")
         topics_db.mark_as_packaged = lambda tid: marked["ids"].append(tid) or True
@@ -76,7 +78,32 @@ def test_packaged_on_compose():
         else:
             print("  ✓ COMPONER → mark_as_packaged('TID')")
     finally:
-        m09.run_review, topics_db.mark_as_packaged, topics_db.get_topic_by_id = orig
+        m09.run_review, m09.candidates_ready, topics_db.mark_as_packaged, topics_db.get_topic_by_id = orig
+    return ok
+
+
+def test_package_genera_si_faltan():
+    _section("2b· package genera candidatas si faltan (run_candidates 1× → run_review)")
+    orig = (m09.run_candidates, m09.run_review, m09.candidates_ready)
+    calls = {"candidates": 0, "review": 0, "order": []}
+    ok = True
+    try:
+        m09.candidates_ready = lambda tid: False   # crudo: sin metadata.json
+        m09.run_candidates = lambda tid, video_path=None: (
+            calls.__setitem__("candidates", calls["candidates"] + 1), calls["order"].append("candidates"))
+        m09.run_review = lambda tid, video_path=None, on_compose=None: (
+            calls.__setitem__("review", calls["review"] + 1), calls["order"].append("review"))
+        fase3.package("TID", "/x/v.mp4")
+        if calls["candidates"] != 1:
+            ok = False; print(f"  ✗ run_candidates llamado {calls['candidates']}× (esperado 1)")
+        elif calls["review"] != 1:
+            ok = False; print(f"  ✗ run_review llamado {calls['review']}× (esperado 1)")
+        elif calls["order"] != ["candidates", "review"]:
+            ok = False; print(f"  ✗ orden incorrecto: {calls['order']}")
+        else:
+            print("  ✓ sin candidatas → run_candidates 1× y luego run_review")
+    finally:
+        m09.run_candidates, m09.run_review, m09.candidates_ready = orig
     return ok
 
 
@@ -123,6 +150,7 @@ def main() -> int:
     results = {
         "resolve": test_resolve(),
         "packaged_on_compose": test_packaged_on_compose(),
+        "package_genera_si_faltan": test_package_genera_si_faltan(),
         "headless_argv": test_headless_argv(),
         "volatile_warning": test_volatile_warning(),
     }

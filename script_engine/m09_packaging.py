@@ -488,6 +488,11 @@ def _record_iteration(pub: Path, hero_prompt: str, subject: str,
     _iterations_path(pub).write_text(json.dumps(hist, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
+def candidates_ready(tid: str) -> bool:
+    """True si ya existe metadata.json (las candidatas fueron generadas)."""
+    return (_publish_dir(tid) / "metadata.json").exists()
+
+
 def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False,
                    review: bool = False, video_path: str | None = None) -> None:
     canonical = _load_canonical(tid)

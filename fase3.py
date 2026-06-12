@@ -72,7 +72,10 @@ def _mark_packaged(topic_id: str) -> None:
 
 
 def package(topic_id: str, video_path: str) -> None:
-    """Modo normal: abre el form de m09; al COMPONER marca PACKAGED (idempotente)."""
+    """Modo normal: genera candidatas si faltan, abre el form; al COMPONER marca PACKAGED."""
+    if not m09.candidates_ready(topic_id):
+        print("  [fase3] sin candidatas previas → generando metadata + thumbnails (primera vez)…")
+        m09.run_candidates(topic_id, video_path=video_path)
     m09.run_review(topic_id, video_path=video_path,
                    on_compose=lambda _name: _mark_packaged(topic_id))
 
