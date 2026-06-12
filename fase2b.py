@@ -2380,6 +2380,11 @@ def main() -> int:
         print(f"  ❌ Fallidos:")
         for vid, rc in failed:
             print(f"     - {vid} (rc={rc})")
+    if success and not args.dry_run:
+        print(f"  ▶ Siguiente paso (empaquetar para publicar):")
+        for vid, tid in targets:
+            if vid in success:
+                print(f"       python fase3.py {tid or vid}")
     print(f"{'═' * 60}\n")
     return 0 if not failed else 2
 

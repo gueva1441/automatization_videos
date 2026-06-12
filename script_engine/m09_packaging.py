@@ -489,7 +489,7 @@ def _record_iteration(pub: Path, hero_prompt: str, subject: str,
 
 
 def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False,
-                   review: bool = False) -> None:
+                   review: bool = False, video_path: str | None = None) -> None:
     canonical = _load_canonical(tid)
     pub = _publish_dir(tid); cand = _candidates_dir(tid)
     cand.mkdir(parents=True, exist_ok=True)
@@ -508,7 +508,7 @@ def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False,
         print("\n".join("     " + l for l in lines))
         print(f"  ✅ frescas adicionales en {cand}")
         if review:
-            run_review(tid)
+            run_review(tid, video_path=video_path)
         return
 
     print(f"  [m09a] metadata (Gemini, temp {META_TEMP})...")
@@ -557,7 +557,7 @@ def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False,
     print(f"  ✅ candidates en {pub}")
     print(f"     Elegí título + base y corré: --compose --base <archivo> --text \"TEXTO\" --title N")
     if review:
-        run_review(tid)
+        run_review(tid, video_path=video_path)
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -611,10 +611,11 @@ def _open(path_or_url) -> None:
         print(f"  (no pude abrir el navegador: {e} — abrí a mano {path_or_url})")
 
 
-def run_review(tid: str) -> None:
-    """--review levanta el FORM web local (reemplaza el viejo loop de terminal+HTML estático)."""
+def run_review(tid: str, video_path: str | None = None, on_compose=None) -> None:
+    """--review levanta el FORM web local. video_path (de fase3/topics_db) va al CHECKLIST;
+    on_compose(thumb_name) se llama tras cada COMPONER exitoso (fase3 lo usa para PACKAGED)."""
     from script_engine.m09_review_server import serve
-    serve(tid)
+    serve(tid, video_path=video_path, on_compose=on_compose)
 
 
 def _resolve_base(tid: str, base: str) -> Path:
@@ -623,10 +624,12 @@ def _resolve_base(tid: str, base: str) -> Path:
 
 def compose_and_package(tid: str, base: str, text: str, title_idx: int,
                         focus: str = "center", fill: str = THUMB_FILL_DEFAULT,
-                        out_name: str = "thumb_final.png") -> Path:
+                        out_name: str = "thumb_final.png",
+                        video_path: str | None = None) -> Path:
     """Compone la miniatura final + escribe metadata.json(final) + CHECKLIST. Reusable por el
-    CLI (--compose, out_name fijo) y por el form (out_name versionado). Devuelve el thumb escrito.
-    Lanza ValueError/FileNotFoundError (el caller decide cómo mostrarlo)."""
+    CLI (--compose, out_name fijo) y por el form (out_name versionado). El CHECKLIST referencia
+    `video_path` si viene (fase3 lo resuelve desde topics_db); si no, cae al nombre v3 histórico.
+    Devuelve el thumb escrito. Lanza ValueError/FileNotFoundError (el caller decide cómo mostrarlo)."""
     pub = _publish_dir(tid)
     meta = json.loads((pub / "metadata.json").read_text(encoding="utf-8"))
     titulos = meta.get("titulos", [])
@@ -643,7 +646,7 @@ def compose_and_package(tid: str, base: str, text: str, title_idx: int,
                  "base_thumb": base, "thumb_final": written.name})
     (pub / "metadata.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
     checklist = _CHECKLIST_TMPL.format(
-        title=title, mp4=_final_mp4(tid), thumb=written,
+        title=title, mp4=video_path or _final_mp4(tid), thumb=written,
         desc=meta.get("descripcion", ""), tags=", ".join(meta.get("tags", [])),
     )
     (pub / "CHECKLIST_PUBLICACION.md").write_text(checklist, encoding="utf-8")
@@ -651,9 +654,11 @@ def compose_and_package(tid: str, base: str, text: str, title_idx: int,
 
 
 def run_compose(tid: str, base: str, text: str, title_idx: int,
-                focus: str = "center", fill: str = THUMB_FILL_DEFAULT) -> None:
+                focus: str = "center", fill: str = THUMB_FILL_DEFAULT,
+                video_path: str | None = None) -> None:
     try:
-        written = compose_and_package(tid, base, text, title_idx, focus, fill, "thumb_final.png")
+        written = compose_and_package(tid, base, text, title_idx, focus, fill,
+                                      "thumb_final.png", video_path)
     except (ValueError, FileNotFoundError) as e:
         raise SystemExit(str(e))
     print(f"  ✅ thumb_final: {written.name} ({written.stat().st_size//1024} KB)")
@@ -696,6 +701,9 @@ def main() -> int:
                     help="Franja del cover-crop para bases verticales (default center).")
     ap.add_argument("--fill", choices=list(THUMB_FILLS), default=THUMB_FILL_DEFAULT,
                     help="Color del texto del overlay (stroke negro siempre). Default blanco.")
+    ap.add_argument("--video-path", default=None,
+                    help="Ruta del MP4 para el CHECKLIST (fase3 la resuelve desde topics_db). "
+                         "Si falta, cae al nombre v3 histórico.")
     args = ap.parse_args()
 
     try:
@@ -704,13 +712,14 @@ def main() -> int:
         ap.error(str(e))
     if mode == "candidates":
         run_candidates(args.topic_id, skip_fresh=args.skip_fresh, only_fresh=args.only_fresh,
-                       review=args.review)
+                       review=args.review, video_path=args.video_path)
     elif mode == "compose":
         if not args.base or not args.text:
             ap.error("--compose requiere --base y --text")
-        run_compose(args.topic_id, args.base, args.text, args.title, focus=args.focus, fill=args.fill)
+        run_compose(args.topic_id, args.base, args.text, args.title, focus=args.focus,
+                    fill=args.fill, video_path=args.video_path)
     else:  # review solo → form sin generar
-        run_review(args.topic_id)
+        run_review(args.topic_id, video_path=args.video_path)
     return 0
 
 

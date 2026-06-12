@@ -33,8 +33,10 @@ HOST = "127.0.0.1"
 #  Estado (lógica testeable, sin socket)
 # ═══════════════════════════════════════════════════════════════
 class ReviewState:
-    def __init__(self, tid: str):
+    def __init__(self, tid: str, video_path: str | None = None, on_compose=None):
         self.tid = tid
+        self.video_path = video_path        # va al CHECKLIST (fase3 lo resuelve desde topics_db)
+        self.on_compose = on_compose        # callback tras COMPONER exitoso (fase3 → PACKAGED)
         self.pub = pkg._publish_dir(tid)
         self.cand = pkg._candidates_dir(tid)
         self.cand.mkdir(parents=True, exist_ok=True)
@@ -119,8 +121,13 @@ class ReviewState:
         try:
             out_name = pkg.next_thumb_name(self.tid)
             written = pkg.compose_and_package(self.tid, base, text, int(title_idx),
-                                              focus, fill, out_name)
+                                              focus, fill, out_name, self.video_path)
             self.last_thumb = written.name
+            if self.on_compose:
+                try:
+                    self.on_compose(written.name)   # fase3 → mark_as_packaged (idempotente)
+                except Exception:
+                    pass  # el callback NO debe romper la composición
             return {"thumb": written.name}
         except Exception as e:  # noqa: BLE001
             return {"error": f"{type(e).__name__}: {e}"}
@@ -327,8 +334,8 @@ def _free_port() -> int:
     return port
 
 
-def serve(tid: str) -> None:
-    Handler.state = ReviewState(tid)
+def serve(tid: str, video_path: str | None = None, on_compose=None) -> None:
+    Handler.state = ReviewState(tid, video_path=video_path, on_compose=on_compose)
     port = _free_port()
     httpd = ThreadingHTTPServer((HOST, port), Handler)
     url = f"http://{HOST}:{port}/"

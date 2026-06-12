@@ -103,9 +103,34 @@ def mark_as_generated(
     return False
 
 
+def mark_as_packaged(topic_id: str) -> bool:
+    """Marca un topic ya generado como PACKAGED (paquete de publicación armado en fase3).
+
+    Es un FLAG aparte ('packaged'), NO cambia status='video_generated' — así no rompe los
+    filtros existentes (get_generated_topics / revert_generation). Idempotente: el timestamp
+    'packaged_at' se sella la PRIMERA vez (primer COMPONER) y no se pisa después.
+
+    Returns:
+        True si se marcó, False si no se encontró el topic.
+    """
+    db = load_db()
+    for t in db.get("topics", []):
+        if t.get("id") == topic_id:
+            t["packaged"] = True
+            t.setdefault("packaged_at", datetime.now().isoformat())
+            save_db(db)
+            return True
+    return False
+
+
+def get_unpackaged_generated() -> list[dict]:
+    """Temas con video DONE que todavía NO se empaquetaron (menú de fase3)."""
+    return [t for t in get_generated_topics() if not t.get("packaged")]
+
+
 def revert_generation(topic_id: str) -> bool:
     """Revierte un topic de vuelta a 'validated' (útil si el video falló).
-    
+
     Returns:
         True si se revirtió, False si no aplica.
     """
