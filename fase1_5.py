@@ -149,6 +149,7 @@ def process_topic(
     gate_interactive: bool = True,
     music_gate_interactive: bool = True,
     stop_after_step: str | None = None,
+    m06_interactive: bool = True,
 ) -> dict:
     """Corre la cadena m01a → m05 para 1 topic, reanudando desde from_step.
 
@@ -164,6 +165,10 @@ def process_topic(
         stop_after_step: PR --only chat 24. Si != None, después de ejecutar
             ese step la cadena se corta (no avanza al siguiente). Útil para
             validar 1 módulo aislado sin gastar plata en m05/m06.
+        m06_interactive: chat 57. Default True (menú [P]/[R]/[E] del humano). Si
+            False (--batch), m06 corre desatendido con auto_pass=True: ensambla el
+            JSON final como [P] en vez de cortar. Tercer gate del medio que --batch
+            desatiende (junto a gate_interactive y music_gate_interactive).
 
     Returns:
       dict {topic_id, steps_completed: list[str], status: 'PASS'|'FAIL', error?: str}
@@ -339,8 +344,13 @@ def process_topic(
 
         # m06 — clasificador + assembler (siempre, salvo --from no llegue acá)
         if from_step in ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03", "m05", "m06"):
-            print(f"  [06] Clasificando issues + decisión interactiva...")
-            m06_result = classify_and_decide(topic_id, judge_result, interactive=True)
+            print(f"  [06] Clasificando issues + decisión "
+                  f"{'interactiva' if m06_interactive else 'auto-pass (batch)'}...")
+            m06_result = classify_and_decide(
+                topic_id, judge_result,
+                interactive=m06_interactive,
+                auto_pass=not m06_interactive,
+            )
             result["steps_completed"].append("m06")
             result["m06_decision"] = m06_result.get("decision")
             result["final_path"] = m06_result.get("final_path")
@@ -415,6 +425,7 @@ def run_one_topic_from_menu(
     gate_interactive: bool = True,
     music_gate_interactive: bool = True,
     csv_path: "Path | None" = None,
+    m06_interactive: bool = True,
 ) -> int:
     """Chat 35 — Punto de entrada interactivo de UN tema.
 
@@ -439,6 +450,7 @@ def run_one_topic_from_menu(
         gate_interactive=gate_interactive,
         music_gate_interactive=music_gate_interactive,
         stop_after_step=stop_after_step,
+        m06_interactive=m06_interactive,
     )
 
     print(f"\n{'═' * 60}")
@@ -477,7 +489,17 @@ def main():
                         help="Skipear el gate interactivo de m07 music_director "
                              "(modo batch nocturno; todos los tracks generados "
                              "se aprueban automáticamente)")
+    parser.add_argument("--batch", action="store_true",
+                        help="Modo batch desatendido: desactiva los 3 gates del medio "
+                             "(normalizer_gate, music_gate y m06). Equivale a "
+                             "--no-gate --no-music-gate + m06 auto-pass.")
     args = parser.parse_args()
+
+    # --batch desatiende los 3 gates del medio de una. m06 corre con auto_pass=True
+    # (ensambla como [P] en vez de cortar en NON_INTERACTIVE).
+    gate_interactive = not (args.no_gate or args.batch)
+    music_gate_interactive = not (args.no_music_gate or args.batch)
+    m06_interactive = not args.batch
 
     # --only <step> equivale a --from <step> + stop_after_step=<step>.
     # Bug fix latente: si --only no se pasa, args.from_step nunca se setea
@@ -503,9 +525,10 @@ def main():
             from_step=args.from_step,
             stop_after_step=stop_after_step,
             voting_n=args.voting_n,
-            gate_interactive=not args.no_gate,
-            music_gate_interactive=not args.no_music_gate,
+            gate_interactive=gate_interactive,
+            music_gate_interactive=music_gate_interactive,
             csv_path=Path(args.csv) if args.csv else None,
+            m06_interactive=m06_interactive,
         ))
 
     # Procesar cada topic
@@ -515,9 +538,10 @@ def main():
             topic_id=tid,
             from_step=args.from_step,
             voting_n=args.voting_n,
-            gate_interactive=not args.no_gate,
-            music_gate_interactive=not args.no_music_gate,
+            gate_interactive=gate_interactive,
+            music_gate_interactive=music_gate_interactive,
             stop_after_step=stop_after_step,
+            m06_interactive=m06_interactive,
         ))
         
     # Resumen final

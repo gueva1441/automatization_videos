@@ -15,11 +15,16 @@ NO usa el auto-chain fase1→fase1_5 (ahí el tid queda enterrado dentro de
 run_one_topic_from_menu y no se puede secuenciar el resto).
 
 USO:
-    python run_pipeline.py --topic <id>   # salta el menú, corre ese topic
-    python run_pipeline.py                # menú de validados → elegís uno
+    python run_pipeline.py --topic <id>           # salta el menú, corre ese topic
+    python run_pipeline.py                         # menú de validados → elegís uno
+    python run_pipeline.py --topic <id> --batch    # desatendido (fase1_5 --batch, sin form)
 
 Secuencia (asistida):
     GUION (fase1_5) → ASSETS (fase2a) → VIDEO (fase2b) → PACKAGING (fase3, form).
+
+Modo --batch: fase1_5 corre con --batch (3 gates del medio desatendidos) y el
+PACKAGING NO levanta el form — solo reporta `python fase3.py <id>` para que Omar
+empaquete cuando quiera.
 
 Regla: cualquier exit≠0 o artefacto faltante → frenar, decir en qué fase y por qué,
 NO seguir. Reporte final SIEMPRE (fases corridas, dónde frenó, próximo comando).
@@ -196,6 +201,9 @@ def main() -> int:
         description="run_pipeline — secuenciador subprocess del pipeline (1 topic).")
     ap.add_argument("--topic", type=str, default=None,
                     help="Topic_id a correr. Sin esto, abre el menú de validados.")
+    ap.add_argument("--batch", action="store_true",
+                    help="Desatendido: fase1_5 corre con --batch (gates del medio "
+                         "desactivados) y el PACKAGING no levanta el form (solo reporta).")
     args = ap.parse_args()
 
     tid = _resolve_tid(args.topic)
@@ -203,7 +211,7 @@ def main() -> int:
         print("\n  Cancelado (sin tema elegido).")
         return 0
 
-    return sequence(tid, batch=False)
+    return sequence(tid, batch=args.batch)
 
 
 if __name__ == "__main__":

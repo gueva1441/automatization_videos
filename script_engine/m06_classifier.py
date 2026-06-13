@@ -565,6 +565,7 @@ def classify_and_decide(
     topic_id: str,
     judge_result: dict,
     interactive: bool = True,
+    auto_pass: bool = False,
 ) -> dict:
     """Clasifica issues 3/3+2/3 emitidos por m05 y muestra menú interactivo.
 
@@ -572,10 +573,16 @@ def classify_and_decide(
       topic_id: UUID del topic.
       judge_result: output de judge_topic_with_voting (con all_issues+cohort).
       interactive: si True (default), muestra menú [P]/[R]/[E].
-                   Si False, solo persiste JSONs y retorna.
+                   Si False, solo persiste JSONs y retorna (audit-only).
+      auto_pass: solo aplica con interactive=False. Si True (batch desatendido),
+                 en vez de cortar en NON_INTERACTIVE (que dejaría final_path=None y
+                 rompería el batch sin script.json), ensambla el JSON final como si
+                 el humano hubiera elegido [P]. Los issues YA quedan logueados por
+                 _persist_issue_payload. interactive=False SIN auto_pass sigue siendo
+                 audit-only (comportamiento histórico intacto).
 
     Returns:
-      dict {decision: "P"|"R"|"E"|"NO_ISSUES"|"PASS_VERDICT",
+      dict {decision: "P"|"R"|"E"|"NO_ISSUES"|"PASS_VERDICT"|"AUTO_PASS"|"NON_INTERACTIVE",
             payloads: list, final_path: str | None,
             rerun_command: str | None, fps_added: int}
     """
@@ -632,6 +639,22 @@ def classify_and_decide(
 
     # 5. Menú o salida no-interactiva
     if not interactive:
+        if auto_pass:
+            # Batch desatendido: ensamblar como [P] (los issues ya quedaron logueados).
+            # Sin esto, NON_INTERACTIVE deja final_path=None y el batch rompe sin
+            # data/scripts/<id>.json.
+            final_path = str(assemble_final_script(topic_id))
+            fps_added = _approve_false_positives(payloads)
+            print(f"\n  ✅ [06 auto-pass] JSON final escrito: {final_path}")
+            if fps_added:
+                print(f"  ✅ {fps_added} false positive(s) agregados a known_fps.json")
+            return {
+                "decision":      "AUTO_PASS",
+                "payloads":      payloads,
+                "final_path":    final_path,
+                "rerun_command": None,
+                "fps_added":     fps_added,
+            }
         return {
             "decision":      "NON_INTERACTIVE",
             "payloads":      payloads,

@@ -164,6 +164,33 @@ def test_assisted_calls_fase3():
     return ok
 
 
+def test_batch_skips_fase3():
+    _section("5· --batch → NO llama fase3; fase1_5 recibe --batch")
+    tid = "top_b"
+    tmp = Path(tempfile.mkdtemp())
+    calls, _status, restore = _install(tmp, tid)
+    ok = True
+    try:
+        rc = rp.sequence(tid, batch=True)
+        scripts = [s for s, _ in calls]
+        if "fase3.py" in scripts:
+            ok = False; print(f"  ✗ batch llamó fase3: {scripts}")
+        else:
+            print(f"  ✓ batch NO llama fase3: {scripts}")
+        f15 = next(cmd for s, cmd in calls if s == "fase1_5.py")
+        if "--batch" not in f15:
+            ok = False; print(f"  ✗ fase1_5 sin --batch: {f15}")
+        else:
+            print("  ✓ fase1_5 recibe --batch")
+        if rc != 0:
+            ok = False; print(f"  ✗ rc={rc} (esperaba 0)")
+        else:
+            print("  ✓ rc=0 (cadena batch completa hasta video)")
+    finally:
+        restore()
+    return ok
+
+
 def main() -> int:
     print("=" * 68 + "\n  TESTS run_pipeline (sin red)\n" + "=" * 68)
     results = {
@@ -171,6 +198,7 @@ def main() -> int:
         "stop_on_nonzero": test_stop_on_nonzero(),
         "stop_missing_script": test_stop_missing_script(),
         "assisted_calls_fase3": test_assisted_calls_fase3(),
+        "batch_skips_fase3": test_batch_skips_fase3(),
     }
     print("\n" + "=" * 68)
     for k, v in results.items():
