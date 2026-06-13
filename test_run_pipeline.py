@@ -191,6 +191,67 @@ def test_batch_skips_fase3():
     return ok
 
 
+def test_research_runs_fase1_then_sequences():
+    _section("6· --research → fase1.py --no-chain primero, después secuencia con el validated")
+    tid = "top_research"
+    tmp = Path(tempfile.mkdtemp())
+    calls, _status, restore = _install(tmp, tid)
+    orig_load = rp.topics_db.load_db
+    orig_argv = sys.argv[:]
+    ok = True
+    try:
+        rp.topics_db.load_db = lambda: {"topics": [{"id": tid, "status": "validated"}]}
+        sys.argv = ["run_pipeline.py", "--research"]
+        rc = rp.main()
+        scripts = [s for s, _ in calls]
+        if not scripts or scripts[0] != "fase1.py" or "--no-chain" not in calls[0][1]:
+            ok = False; print(f"  ✗ primer subprocess no es fase1 --no-chain: {calls[:1]}")
+        else:
+            print("  ✓ primer subprocess: fase1.py --no-chain")
+        # con 1 validated → secuencia con ese tid
+        if "fase1_5.py" not in scripts:
+            ok = False; print(f"  ✗ no secuenció tras fase1: {scripts}")
+        else:
+            f15 = next(cmd for s, cmd in calls if s == "fase1_5.py")
+            if tid not in f15:
+                ok = False; print(f"  ✗ secuenció con otro tid: {f15}")
+            else:
+                print(f"  ✓ secuenció con el validated ({tid})")
+        if rc != 0:
+            ok = False; print(f"  ✗ rc={rc} (esperaba 0)")
+        else:
+            print("  ✓ rc=0")
+    finally:
+        restore(); rp.topics_db.load_db = orig_load; sys.argv = orig_argv
+    return ok
+
+
+def test_research_fase1_fails_no_sequence():
+    _section("7· --research con fase1 exit≠0 → NO secuencia")
+    tid = "top_rf"
+    tmp = Path(tempfile.mkdtemp())
+    calls, _status, restore = _install(tmp, tid, rc_overrides={"fase1.py": 1})
+    orig_load = rp.topics_db.load_db
+    orig_argv = sys.argv[:]
+    ok = True
+    try:
+        rp.topics_db.load_db = lambda: {"topics": [{"id": tid, "status": "validated"}]}
+        sys.argv = ["run_pipeline.py", "--research"]
+        rc = rp.main()
+        scripts = [s for s, _ in calls]
+        if scripts != ["fase1.py"]:
+            ok = False; print(f"  ✗ secuenció pese al fallo de fase1: {scripts}")
+        else:
+            print("  ✓ frenó tras fase1 (no llamó fase1_5/2a/2b/3)")
+        if rc != 1:
+            ok = False; print(f"  ✗ rc={rc} (esperaba 1, el de fase1)")
+        else:
+            print("  ✓ rc=1 (propaga el exit de fase1)")
+    finally:
+        restore(); rp.topics_db.load_db = orig_load; sys.argv = orig_argv
+    return ok
+
+
 def main() -> int:
     print("=" * 68 + "\n  TESTS run_pipeline (sin red)\n" + "=" * 68)
     results = {
@@ -199,6 +260,8 @@ def main() -> int:
         "stop_missing_script": test_stop_missing_script(),
         "assisted_calls_fase3": test_assisted_calls_fase3(),
         "batch_skips_fase3": test_batch_skips_fase3(),
+        "research_runs_fase1_then_sequences": test_research_runs_fase1_then_sequences(),
+        "research_fase1_fails_no_sequence": test_research_fase1_fails_no_sequence(),
     }
     print("\n" + "=" * 68)
     for k, v in results.items():

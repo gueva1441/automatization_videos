@@ -392,6 +392,7 @@ def run_latido_a(
     skip_validate: bool = False,
     export_only: bool = False,
     rejudge: bool = False,
+    no_chain: bool = False,
 ) -> None:
     """Latido A: de cero (o desde un checkpoint) hasta el CSV Dashboard 2.0."""
     print(f"\n{'═' * 60}")
@@ -537,13 +538,19 @@ def run_latido_a(
     print(f"{'═' * 60}")
     # Chat 35: encadenar directo al menú de selección (sin parada manual).
     # Import local para evitar cualquier riesgo de import circular a nivel módulo.
-    if not export_only:
+    # Chat 57 (--no-chain): cuando run_pipeline --research maneja el resto, fase1 NO
+    # debe auto-encadenar al guion (ahí el tid queda enterrado en run_one_topic_from_menu
+    # y no se puede secuenciar 2a/2b/3). El default (no_chain=False) encadena como hoy.
+    if export_only:
+        print(f"\n  (--export-only) CSV regenerado. Corré `python fase1_5.py` "
+              f"cuando quieras elegir un tema.\n")
+    elif no_chain:
+        print(f"\n  ✅ Tema validado. Seguí con: python run_pipeline.py --research "
+              f"(ya encadena)\n")
+    else:
         from fase1_5 import run_one_topic_from_menu
         print(f"\n  ➡  Pasando directo a la selección de tema...\n")
         run_one_topic_from_menu()
-    else:
-        print(f"\n  (--export-only) CSV regenerado. Corré `python fase1_5.py` "
-              f"cuando quieras elegir un tema.\n")
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -604,6 +611,11 @@ if __name__ == "__main__":
         help="(Latido A) Forzar re-juzgado de seeds spy aunque ya tengan seed['judge'] "
              "cacheado (default: respeta el judge persistido, sin re-llamar al LLM).",
     )
+    parser.add_argument(
+        "--no-chain", action="store_true",
+        help="(Latido A) NO auto-encadenar al guion (fase1_5) al final. Para cuando "
+             "run_pipeline --research toma el control y secuencia el resto.",
+    )
 
     args = parser.parse_args()
 
@@ -617,4 +629,5 @@ if __name__ == "__main__":
             skip_validate=args.skip_validate,
             export_only=args.export_only,
             rejudge=args.rejudge,
+            no_chain=args.no_chain,
         )

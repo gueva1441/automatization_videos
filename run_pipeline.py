@@ -188,10 +188,16 @@ def sequence(tid: str, *, batch: bool = False) -> int:
 # ═══════════════════════════════════════════════════════════════
 #  Resolución de tid + CLI
 # ═══════════════════════════════════════════════════════════════
-def _resolve_tid(explicit: str | None) -> str | None:
-    """--topic → directo. Sino, menú interactivo de validados (reusa fase1_5)."""
-    if explicit:
-        return explicit
+def _resolve_validated_tid() -> str | None:
+    """Tras `fase1.py --no-chain`: si hay EXACTAMENTE 1 validated → ese (auto, sin
+    click); si hay varios (leftover) → menú para desambiguar; 0 → None."""
+    db = topics_db.load_db()
+    vals = [t for t in db.get("topics", []) if t.get("status") == "validated"]
+    if len(vals) == 1:
+        print(f"  ▶ Tema validado: {vals[0].get('id')}")
+        return vals[0].get("id")
+    if not vals:
+        return None
     from fase1_5 import _select_topic_interactive
     return _select_topic_interactive()
 
@@ -201,15 +207,34 @@ def main() -> int:
         description="run_pipeline — secuenciador subprocess del pipeline (1 topic).")
     ap.add_argument("--topic", type=str, default=None,
                     help="Topic_id a correr. Sin esto, abre el menú de validados.")
+    ap.add_argument("--research", action="store_true",
+                    help="Research-on-demand: corre fase1 --no-chain (pick de seed + "
+                         "research + validate, interactivo) y después secuencia el resto.")
     ap.add_argument("--batch", action="store_true",
                     help="Desatendido: fase1_5 corre con --batch (gates del medio "
-                         "desactivados) y el PACKAGING no levanta el form (solo reporta).")
+                         "desactivados) y el PACKAGING no levanta el form (solo reporta). "
+                         "Convive con --research (el pick de seed SIEMPRE es interactivo).")
     args = ap.parse_args()
 
-    tid = _resolve_tid(args.topic)
-    if not tid:
-        print("\n  Cancelado (sin tema elegido).")
-        return 0
+    if args.research:
+        # El pick de seed (gasto de grounding) SIEMPRE es interactivo: --batch solo
+        # gobierna los gates del medio + skip del form, ya en sequence().
+        rc = _run(["fase1.py", "--no-chain"])
+        if rc != 0:
+            print("  ⛔ fase1 falló o se canceló — no hay tema para seguir.")
+            return rc
+        tid = _resolve_validated_tid()
+        if not tid:
+            print("  ℹ Sin tema validated tras fase1 (¿cancelaste el menú de seeds?).")
+            return 0
+    elif args.topic:
+        tid = args.topic
+    else:
+        from fase1_5 import _select_topic_interactive
+        tid = _select_topic_interactive()
+        if not tid:
+            print("\n  Cancelado (sin tema elegido).")
+            return 0
 
     return sequence(tid, batch=args.batch)
 
