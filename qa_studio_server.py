@@ -588,6 +588,14 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def _write(self, data: bytes) -> None:
+        """Escribe al socket tolerando que el browser corte la conexión (seek/pause de
+        media abortan el request a media camino → BrokenPipe normal, no es error)."""
+        try:
+            self.wfile.write(data)
+        except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
+            pass
+
     def _send_file(self, path: Path | None, content_type: str):
         if path is None or not path.exists():
             self._send_json({"error": "no encontrado"}, status=404)
@@ -596,10 +604,59 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(data)))
-        # v1: archivo entero (como m09). Range requests → diferido (DEFERIDOS handoff).
         self.send_header("Accept-Ranges", "none")
         self.end_headers()
-        self.wfile.write(data)
+        self._write(data)
+
+    def _send_media(self, path: Path | None, content_type: str):
+        """Sirve audio/video con soporte de HTTP Range (206) → el <audio>/<video> puede
+        SEEKEAR (currentTime = start del span). Sin esto el browser arranca de 0 y
+        reproduce todo el cap. (handoff: range requests cuando el seek se traba.)"""
+        if path is None or not path.exists():
+            self._send_json({"error": "no encontrado"}, status=404)
+            return
+        size = path.stat().st_size
+        rng = self.headers.get("Range")
+        if not rng:
+            self.send_response(200)
+            self.send_header("Content-Type", content_type)
+            self.send_header("Content-Length", str(size))
+            self.send_header("Accept-Ranges", "bytes")
+            self.end_headers()
+            with open(path, "rb") as f:
+                self._write(f.read())
+            return
+        # Parseo de "bytes=START-END" (incluye sufijo "bytes=-N" y abierto "bytes=N-").
+        start, end = 0, size - 1
+        try:
+            unit, _, spec = rng.partition("=")
+            if unit.strip() != "bytes":
+                raise ValueError("unidad no soportada")
+            s_str, _, e_str = spec.strip().partition("-")
+            if s_str == "":  # sufijo: últimos N bytes
+                start = max(0, size - int(e_str))
+            else:
+                start = int(s_str)
+                end = int(e_str) if e_str else size - 1
+            end = min(end, size - 1)
+            if start > end or start >= size:
+                raise ValueError("rango fuera de límites")
+        except (ValueError, OverflowError):
+            self.send_response(416)
+            self.send_header("Content-Range", f"bytes */{size}")
+            self.end_headers()
+            return
+        length = end - start + 1
+        with open(path, "rb") as f:
+            f.seek(start)
+            chunk = f.read(length)
+        self.send_response(206)
+        self.send_header("Content-Type", content_type)
+        self.send_header("Content-Range", f"bytes {start}-{end}/{size}")
+        self.send_header("Accept-Ranges", "bytes")
+        self.send_header("Content-Length", str(len(chunk)))
+        self.end_headers()
+        self._write(chunk)
 
     # ─── routing ───
 
@@ -617,9 +674,9 @@ class Handler(BaseHTTPRequestHandler):
                 name = self._qs().get("name", [""])[0]
                 self._send_file(STATE.resolve_image(self._cap_str(), name), "image/png")
             elif route == "/audio":
-                self._send_file(STATE.resolve_audio(self._cap_str()), "audio/mpeg")
+                self._send_media(STATE.resolve_audio(self._cap_str()), "audio/mpeg")
             elif route == "/clip":
-                self._send_file(STATE.resolve_clip(self._cap_str()), "video/mp4")
+                self._send_media(STATE.resolve_clip(self._cap_str()), "video/mp4")
             elif route == "/topic":
                 self._send_json(STATE.topic_info())
             elif route == "/assemble_status":

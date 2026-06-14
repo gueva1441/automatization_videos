@@ -539,14 +539,29 @@ function onPreviewBtn(){
   playSeg(previewIdx);
 }
 
+// Seek robusto: espera metadata si hace falta, seekea y RECIÉN ahí play() (evita el
+// arranque desde 0 mientras el browser todavía está saltando). Requiere Range en el
+// server (206) para poder saltar a `t` sin bajar todo el archivo.
+function seekAndPlay(t){
+  const go=()=>{
+    if(Math.abs(audio.currentTime - t) < 0.06){ audio.play().catch(()=>{}); return; }
+    const onSeek=()=>{ audio.play().catch(()=>{}); };
+    audio.addEventListener('seeked', onSeek, {once:true});
+    try{ audio.currentTime = t; }catch(e){ audio.play().catch(()=>{}); }
+  };
+  if(audio.readyState >= 1) go();              // HAVE_METADATA o más → seekable
+  else audio.addEventListener('loadedmetadata', go, {once:true});
+}
+
 function playSeg(i){
   const s=CUR.segments[i]; if(!s) return;
   setActive(i);
   if(s.is_clip){ playClip(i); return; }
   if(s.start==null){ return; } // clip-tile sin sync en fallback: no reproducible por tramo
-  mode='seg'; audio.currentTime=s.start; audio.play();
+  mode='seg';
   $('playhead').style.display='block';
   refreshControls();
+  seekAndPlay(s.start);
 }
 function playClip(i){
   const s=CUR.segments[i]; setActive(i);
@@ -557,10 +572,11 @@ function playClip(i){
 }
 function togglePlayAll(){
   if(mode==='all'){ stopPlayback(); return; }
-  mode='all'; audio.currentTime=0; audio.play();
+  mode='all';
   $('playhead').style.display='block';
   $('readout') && ($('readout').style.display='inline');
   refreshControls();
+  seekAndPlay(0);
 }
 function stopPlayback(){
   mode=null; try{audio.pause();}catch(e){}
