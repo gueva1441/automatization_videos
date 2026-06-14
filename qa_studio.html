@@ -511,7 +511,8 @@ function setActive(i){
 }
 
 function refreshControls(){
-  const s=CUR.segments?CUR.segments[previewIdx]:null; if(!s){return;}
+  if(!CUR||!CUR.segments) return;   // Option A (sin segments) o aún sin cargar
+  const s=CUR.segments[previewIdx]; if(!s){return;}
   const btn=$('pvBtn'); if(!btn) return;
   const isClip=!!s.is_clip;
   const playingThis = (mode==='seg'&&activeIdx===previewIdx) || (mode==='clip'&&activeIdx===previewIdx);
