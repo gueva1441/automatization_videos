@@ -130,6 +130,7 @@ class QAState:
                         supp.append(ip.strip())
             lookup[cid] = {
                 "render_engine": str(item.get("render_engine", "")).lower(),
+                "veo_position": str(item.get("veo_position", "start")).lower() or "start",
                 "anchors": anchors,
                 "supp_anchors": supp,
                 "base_anchor": (item.get("narration_anchor") or "").strip(),
@@ -230,12 +231,22 @@ class QAState:
 
     # ─── derivaciones ───
 
-    def _is_single(self, cid: str) -> bool:
-        """single = cap VEO (1,7). Disco manda: si hay clip veo → single. Fallback al
-        render_engine del script."""
+    def _is_veo(self, cid: str) -> bool:
+        """cap VEO = tiene clip en disco, o el script lo marca render_engine=veo."""
         if self.resolve_clip(cid) is not None:
             return True
         return self._script.get(cid, {}).get("render_engine") == "veo"
+
+    def _veo_position(self, cid: str) -> str:
+        """'start' (clip primero — Option A) | 'end' (clip último — modelo timeline).
+        Default 'start' (compat con caps veo legacy sin el campo)."""
+        return self._script.get(cid, {}).get("veo_position", "start") or "start"
+
+    def _is_single(self, cid: str) -> bool:
+        """single = vista Option A (clip + galería, SIN timeline). SÓLO los caps veo con
+        veo_position=='start' (el clip va primero → los supps tienen offset de 8s, no se
+        distribuyen como flux). Los veo_position=='end' pasan a modelo timeline (v1.1)."""
+        return self._is_veo(cid) and self._veo_position(cid) == "start"
 
     def _role(self, n: int, n_max: int) -> str:
         cid = self._cap_id(n)
@@ -271,7 +282,11 @@ class QAState:
         for n in nums:
             cid = self._cap_id(n)
             single = self._is_single(cid)
-            count = len(self._supp_imgs(cid)) if single else len(self._flux_imgs(cid))
+            # count = nº de FOTOS (el clip nunca cuenta). veo (start o end) → supps; flux → imgs.
+            if self._is_veo(cid):
+                count = len(self._supp_imgs(cid))
+            else:
+                count = len(self._flux_imgs(cid))
             out.append({
                 "num": n,
                 "cap": cid,
@@ -286,8 +301,10 @@ class QAState:
         nums = self._cap_nums()
         n_max = nums[-1] if nums else n
         role = self._role(n, n_max)
-        if self._is_single(cid):
-            return self._cap_veo(cid, role)
+        if self._is_veo(cid):
+            if self._veo_position(cid) == "end":
+                return self._cap_veo_timeline(cid, role)  # v1.1: clip al final → timeline
+            return self._cap_veo(cid, role)               # Option A: clip primero + galería
         return self._cap_flux(cid, role)
 
     def _cap_flux(self, cid: str, role: str) -> dict:
@@ -336,6 +353,7 @@ class QAState:
     @staticmethod
     def _seg(cid, p, anchors, i, start, end, dur) -> dict:
         return {
+            "is_clip": False,
             "img_name": p.name,
             "anchor": anchors[i] if i < len(anchors) else None,
             "start": round(float(start), 3),
@@ -370,6 +388,86 @@ class QAState:
             "clip_url": f"/clip?cap={cid}" if clip else None,
             "base_anchor": self._script.get(cid, {}).get("base_anchor", ""),
             "gallery": gallery,
+        }
+
+    def _cap_veo_timeline(self, cid: str, role: str) -> dict:
+        """v1.1 — cap veo con veo_position=='end': el clip va ÚLTIMO, así los supps
+        arrancan en offset=0 y se distribuyen IDÉNTICO a un cap flux (MISMO matcher,
+        compute_anchor_starts). El clip es el segmento final.
+
+        ⚠ Precisión a propósito: el `start` del clip sale de dónde arranca SU narración
+        (base_anchor), no del frame exacto donde fase2b concatena el clip visual. Para el
+        QA es lo correcto (querés ver que supps+clip ilustran su narración); el borde
+        exacto del clip queda aproximado."""
+        sc = self._script.get(cid, {})
+        supp_anchors = sc.get("supp_anchors", [])
+        base_anchor = sc.get("base_anchor", "")
+        clip = self.resolve_clip(cid)
+        imgs = self._supp_imgs(cid)
+        words = self._load_words(cid)
+        total = float(words[-1]["end"]) if words else 0.0
+        n = len(imgs)
+        has_base = bool(base_anchor)
+
+        all_anchors = list(supp_anchors[:n]) + ([base_anchor] if has_base else [])
+        # ¿la cuenta cuadra para el matcher? supps + (1 clip si hay base_anchor).
+        expect = n + (1 if has_base else 0)
+        starts = None
+        if all_anchors and words and len(all_anchors) == expect and expect > 0:
+            starts = compute_anchor_starts(all_anchors, words)
+
+        segments: list[dict] = []
+        sync_approx = False
+        if starts is not None:
+            # supps: cada uno hasta el arranque del siguiente anchor (supp o clip).
+            for i, p in enumerate(imgs):
+                start = starts[i]
+                end = starts[i + 1] if i + 1 < len(starts) else total
+                dur = end - start
+                segments.append(self._seg(cid, p, supp_anchors, i, start, end, dur))
+            if has_base:
+                cstart = starts[n]
+                segments.append({
+                    "is_clip": True,
+                    "img_name": None,
+                    "anchor": base_anchor,
+                    "start": round(cstart, 3),
+                    "end": round(total, 3),
+                    "dur": round(total - cstart, 3),
+                    "clip_url": f"/clip?cap={cid}" if clip else None,
+                })
+            if any(s["dur"] <= 0 for s in segments):
+                segments, starts = [], None
+
+        if starts is None:
+            # fallback: supps con reparto uniforme + clip como tile final SIN sync.
+            sync_approx = True
+            seg = (total / n) if n else 0.0
+            for i, p in enumerate(imgs):
+                start = i * seg
+                end = (i + 1) * seg
+                segments.append(self._seg(cid, p, supp_anchors, i, start, end, seg))
+            if has_base:
+                segments.append({
+                    "is_clip": True,
+                    "img_name": None,
+                    "anchor": base_anchor,
+                    "start": None,
+                    "end": None,
+                    "dur": None,
+                    "clip_url": f"/clip?cap={cid}" if clip else None,
+                })
+
+        return {
+            "cap": cid,
+            "single": False,
+            "role": role,
+            "count": n,
+            "total": round(total, 3),
+            "sync_approx": sync_approx,
+            "audio_url": f"/audio?cap={cid}",
+            "segments": segments,
+            "has_clip": has_base and clip is not None,
         }
 
     def topic_info(self) -> dict:
@@ -595,7 +693,12 @@ def serve(topic_id: str) -> None:
     print(f"  QA STUDIO v1 — {('« ' + title + ' » · ') if title else ''}{topic_id}")
     print(f"  caps ({len(caps)}):")
     for c in caps:
-        kind = "VEO (single)" if c["single"] else f"FLUX ×{c['count']}"
+        if c["single"]:
+            kind = "VEO start (Option A)"
+        elif STATE._is_veo(c["cap"]):
+            kind = f"VEO end (timeline ×{c['count']}+clip)"
+        else:
+            kind = f"FLUX ×{c['count']}"
         print(f"     {c['cap']} — {c['role']:<14} {kind}")
     url = f"http://{HOST}:{PORT}"
     print("─" * 64)

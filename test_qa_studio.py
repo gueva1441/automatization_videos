@@ -43,9 +43,17 @@ def _words(phrases: list[str], step: float = 0.5) -> list[dict]:
     return words
 
 
-def build_topic(base: Path, *, matching_anchors: bool = True) -> str:
+# supps ORDENADOS (en orden de narración) para el cap 7 "limpio" → matchea como flux.
+_CAP7_SUPPS_ORDERED = ["sierra uno dos", "tango tres cuatro", "uniform cinco seis"]
+_CAP7_BASE_ANCHOR = "victor siete ocho cierre del clip"
+
+
+def build_topic(base: Path, *, matching_anchors: bool = True,
+                cap7_clean: bool = False) -> str:
     """Crea el topic sintético. matching_anchors=False rompe el match anchor→words
-    (anchors que NO aparecen en el audio) para forzar el reparto uniforme."""
+    (anchors que NO aparecen en el audio) para forzar el reparto uniforme.
+    cap7_clean=True hace que el cap 7 (veo_position=end) tenga supps ORDENADOS +
+    base_anchor que matchean → camino timeline sincronizado."""
     # ── script: 7 caps, 1 y 7 veo, 2-6 flux ──
     chapters = []
     # anchors flux pensados para matchear las primeras palabras de cada segmento
@@ -57,16 +65,35 @@ def build_topic(base: Path, *, matching_anchors: bool = True) -> str:
         6: ["mike pp", "november qq"],
     }
     for n in range(1, 8):
-        if n in (1, 7):
+        if n == 1:
+            # veo_position=start → Option A (clip + galería).
             chapters.append({
-                "chapter_number": n,
+                "chapter_number": 1,
                 "render_engine": "veo",
-                "narration": f"narración cap {n}",
-                "narration_anchor": f"apertura del cap {n}",
+                "veo_position": "start",
+                "narration": "apertura del cap 1",
+                "narration_anchor": "apertura del cap 1",
                 "supplemental_image_prompts": [
-                    {"prompt": "x", "narration_anchor": f"supp {n}-1"},
-                    {"prompt": "y", "narration_anchor": f"supp {n}-2"},
+                    {"prompt": "x", "narration_anchor": "supp 1-1"},
+                    {"prompt": "y", "narration_anchor": "supp 1-2"},
                 ],
+            })
+        elif n == 7:
+            # veo_position=end → modelo timeline (v1.1).
+            if cap7_clean:
+                supps = [{"prompt": "p", "narration_anchor": a} for a in _CAP7_SUPPS_ORDERED]
+                base_anchor = _CAP7_BASE_ANCHOR
+            else:
+                supps = [{"prompt": "x", "narration_anchor": "supp 7-1"},
+                         {"prompt": "y", "narration_anchor": "supp 7-2"}]
+                base_anchor = "apertura del cap 7"
+            chapters.append({
+                "chapter_number": 7,
+                "render_engine": "veo",
+                "veo_position": "end",
+                "narration": "cierre del cap 7",
+                "narration_anchor": base_anchor,
+                "supplemental_image_prompts": supps,
             })
         else:
             anchors = flux_anchor_sets[n]
@@ -102,9 +129,15 @@ def build_topic(base: Path, *, matching_anchors: bool = True) -> str:
             _png(assets / f"{cid}_veo" / f"{cid}_img_01.png")
             (assets / f"{cid}_veo" / f"{cid}_clip_01.mp4").parent.mkdir(parents=True, exist_ok=True)
             (assets / f"{cid}_veo" / f"{cid}_clip_01.mp4").write_bytes(b"\x00" * 8)
-            for m in range(1, 3):
+            if n == 7 and cap7_clean:
+                supp_anchors = _CAP7_SUPPS_ORDERED
+                n_supp = len(supp_anchors)
+                words = _words(supp_anchors + [_CAP7_BASE_ANCHOR, "cola final"])
+            else:
+                n_supp = 2
+                words = _words([f"apertura del cap {n}"])
+            for m in range(1, n_supp + 1):
                 _png(assets / f"{cid}_flux" / f"{cid}_supp_{m:02d}.png")
-            words = _words([f"apertura del cap {n}"])
         else:
             anchors = flux_anchor_sets[n]
             for m in range(1, len(anchors) + 1):
@@ -121,14 +154,15 @@ def build_topic(base: Path, *, matching_anchors: bool = True) -> str:
 #  Tests
 # ─────────────────────────────────────────────────────────────────
 
-def test_caps_seven_single_in_1_and_7(tmp_path):
+def test_caps_seven_single_only_veo_start(tmp_path):
     build_topic(tmp_path)
     st = qa.QAState(TID, base_dir=tmp_path)
     caps = st.caps()
     assert len(caps) == 7, f"esperaba 7 caps, hay {len(caps)}"
     by_num = {c["num"]: c for c in caps}
+    # v1.1: single SÓLO para veo_position=start (cap 1). cap 7 (veo end) → timeline.
     assert by_num[1]["single"] is True
-    assert by_num[7]["single"] is True
+    assert by_num[7]["single"] is False, "cap 7 (veo end) ya no es Option A"
     for n in (2, 3, 4, 5, 6):
         assert by_num[n]["single"] is False, f"cap {n} no debería ser single"
     # role del skeleton
@@ -194,6 +228,60 @@ def test_veo_cap_gallery_and_clip(tmp_path):
     # resolve_clip apunta al mp4 real
     assert st.resolve_clip("ch01") is not None
     assert st.resolve_clip("ch02") is None  # flux no tiene clip
+
+
+def test_veo_end_timeline_synced(tmp_path):
+    """cap 7 (veo_position=end) con supps ORDENADOS + base_anchor que matchean →
+    segmentos = supps + 1 segmento is_clip final; starts crecientes; el clip
+    arranca en el start de su base_anchor."""
+    build_topic(tmp_path, cap7_clean=True)
+    st = qa.QAState(TID, base_dir=tmp_path)
+    p = st.cap(7)
+    assert p["single"] is False
+    assert p["sync_approx"] is False, "con anchors ordenados NO debería ser aproximado"
+    assert p["has_clip"] is True
+    segs = p["segments"]
+    n_supp = len(_CAP7_SUPPS_ORDERED)
+    assert len(segs) == n_supp + 1, "supps + 1 clip"
+    # los primeros n_supp son fotos, el último es el clip
+    assert all(not s["is_clip"] for s in segs[:n_supp])
+    assert segs[-1]["is_clip"] is True
+    assert segs[-1]["clip_url"] == "/clip?cap=ch07"
+    # starts estrictamente crecientes a lo largo de TODOS los segmentos (supps + clip)
+    starts = [s["start"] for s in segs]
+    assert all(a < b for a, b in zip(starts, starts[1:])), f"starts no crecientes: {starts}"
+    for s in segs:
+        assert s["start"] < s["end"] and s["dur"] > 0
+    # el clip arranca donde arranca su base_anchor (último anchor) — > último supp
+    assert segs[-1]["start"] > segs[-2]["start"]
+    assert segs[-1]["end"] == p["total"]
+
+
+def test_veo_end_fallback_uniform_clip_tile(tmp_path):
+    """cap 7 veo end SIN match de anchors → supps uniforme + sync_approx + clip como
+    tile final SIN sync (start/end/dur nulos)."""
+    build_topic(tmp_path, cap7_clean=False)
+    st = qa.QAState(TID, base_dir=tmp_path)
+    p = st.cap(7)
+    assert p["single"] is False
+    assert p["sync_approx"] is True
+    segs = p["segments"]
+    assert segs[-1]["is_clip"] is True
+    assert segs[-1]["start"] is None and segs[-1]["end"] is None and segs[-1]["dur"] is None
+    # supps con reparto uniforme
+    supp_durs = [s["dur"] for s in segs if not s["is_clip"]]
+    assert len(supp_durs) == 2
+    assert max(supp_durs) - min(supp_durs) < 1e-6
+
+
+def test_veo_start_stays_option_a(tmp_path):
+    """cap 1 (veo_position=start) sigue Option A: single, galería, sin timeline."""
+    build_topic(tmp_path, cap7_clean=True)
+    st = qa.QAState(TID, base_dir=tmp_path)
+    p = st.cap(1)
+    assert p["single"] is True
+    assert "gallery" in p and "segments" not in p
+    assert p["clip_url"] == "/clip?cap=ch01"
 
 
 # ── runner directo (sin pytest) ──
