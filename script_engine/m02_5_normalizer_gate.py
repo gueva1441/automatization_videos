@@ -55,6 +55,7 @@ VALID_LLM_CATEGORIES = (
     "gender", "foreign_word", "time_format", "punctuation_artifact",
     "year_format", "time_format_hm",  # time_format_hm agregada chat 33
     "unit_symbol", "spelling_pron",   # chat 44: red de captura símbolos + ortografía-pronunciación
+    "large_number",                   # red de captura números grandes (EL los recita mal)
 )
 
 # Mapping de category interna → category del custom_dict.json
@@ -72,6 +73,7 @@ _CATEGORIES_NEVER_RECURRING = {
     "gender", "foreign_word", "time_format", "punctuation_artifact",
     "year_format", "time_format_hm",  # one-off por cap
     "spelling_pron",  # chat 44: tilde faltante = error puntual del guion de ESE topic
+    "large_number",   # one-off por cap: un número puntual no se repite entre videos
 }
 
 
@@ -99,7 +101,6 @@ CONTEXTO TÉCNICO IMPORTANTE
 ═══════════════════════════════════════════════════════════════
 ElevenLabs aplica normalización automática (apply_text_normalization=on por
 default). Maneja BIEN sin tu intervención:
-  - Cardinales: 1980, 13500, 200000 → "mil novecientos ochenta", etc.
   - Decimales: 121.5, 3,14
   - Monedas: $2,500 → "dos mil quinientos dólares"
   - Fechas: 26 de abril de 1986
@@ -222,6 +223,18 @@ TU TRABAJO: detectar SOLO los 8 casos donde ElevenLabs FALLA
    ⚠ NO marques errores ortográficos que NO cambian el audio (ej. "haber" vs "a ver", "hecho" vs
      "echo", mayúsculas, comas). Si no cambia cómo suena, NO es span. El criterio único es:
      "¿esto hace que ElevenLabs lo pronuncie distinto/mal?". Si la respuesta no es un sí claro, NO marces.
+
+11. LARGE_NUMBER — números de 4+ cifras o con separador de miles que NO
+    sean años de 4 dígitos (esos van a YEAR_FORMAT). Empíricamente, con voz
+    clonada al español, EL parte/recita mal los números grandes. Red de
+    captura: ante la duda, marcá.
+    → suggested = la forma hablada COMPLETA en español.
+      "1.232.000" → "un millón doscientos treinta y dos mil"
+      "47.500"    → "cuarenta y siete mil quinientos"
+    ⚠ Si el número va seguido de sustantivo femenino, aplicá la concordancia
+      de GENDER en la forma hablada (no dupliques el span con GENDER:
+      usá LARGE_NUMBER con el género ya resuelto).
+    ⚠ El "original" del span = el número entero con sus separadores.
 
 ═══════════════════════════════════════════════════════════════
 SIGLAS YA CONOCIDAS (custom_dict.json acumulado) — REUSÁ ESTAS
