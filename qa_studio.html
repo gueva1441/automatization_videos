@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<!--
+  qa_studio.html — QA STUDIO v1 · VISOR (read-only) + ENSAMBLAR.
+  Servido por qa_studio_server.py. Reimplementación en HTML/JS PLANO del mockup de
+  Claude Design (sin <x-dc>/DCLogic/support.js). Sin librerías externas.
+
+  Mantiene el diseño del spec: glows, rail de 7 pastillas, timeline segmentada por
+  imagen, heat (teal/ámbar/rojo), tarjetas 9:16, 3 tipografías. Playback con <audio>
+  real driveado por `timeupdate`. Botones de fix VISIBLES pero DESHABILITADOS (v2).
+  ENSAMBLAR cableado → POST /assemble + poll /assemble_status.
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>QA Studio — revisión por capítulo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Spectral:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* ── HEAT THRESHOLDS (perilla; afinar con videos reales — NO hardcodear repartido) ── */
+  /* dur ≤ TEAL → frío/ok · ≤ AMBER → atención · > AMBER → caliente (imagen se sostiene mucho) */
+  :root {
+    --heat-teal-max: 8;    /* seg */
+    --heat-amber-max: 13;  /* seg */
+    color-scheme: dark;
+
+    --bg:#0a0c12; --bg2:#0f121b; --panel:#141826; --panel2:#1a1f30;
+    --line:#252b3d; --line2:#313a52;
+    --ink:#e9ecf5; --ink-dim:#9aa3bd; --ink-faint:#69718c;
+    --teal:#3ad6c5; --amber:#f0b454; --red:#f06a6a;
+    --accent:#7c6cff; --accent2:#a594ff;
+    --glow-teal:0 0 22px rgba(58,214,197,.35);
+    --glow-acc:0 0 26px rgba(124,108,255,.45);
+    --mono:'JetBrains Mono', ui-monospace, monospace;
+    --display:'Space Grotesk', system-ui, sans-serif;
+    --serif:'Spectral', Georgia, serif;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:
+           radial-gradient(900px 500px at 80% -10%, rgba(124,108,255,.10), transparent 60%),
+           radial-gradient(700px 400px at -5% 110%, rgba(58,214,197,.08), transparent 60%),
+           var(--bg);
+         color:var(--ink); font-family:var(--display); padding:22px 26px 60px; }
+  h1 { font-size:19px; font-weight:700; letter-spacing:.2px; margin:0; }
+  .sub { color:var(--ink-faint); font-size:12px; font-family:var(--mono); margin-top:3px; }
+
+  .topbar { display:flex; align-items:flex-start; justify-content:space-between; gap:20px;
+            margin-bottom:18px; flex-wrap:wrap; }
+
+  /* ── ENSAMBLAR ── */
+  .asm-wrap { display:flex; flex-direction:column; align-items:flex-end; gap:8px; min-width:280px; }
+  button { font-family:var(--display); cursor:pointer; border-radius:9px; border:1px solid var(--line2);
+           background:var(--panel2); color:var(--ink); padding:9px 16px; font-size:13.5px; }
+  button:hover:not(:disabled) { background:#222942; }
+  button:disabled { opacity:.4; cursor:not-allowed; }
+  button.assemble { font-weight:700; letter-spacing:.4px; padding:12px 26px; font-size:15px;
+                    background:linear-gradient(180deg,#8a7bff,#6a59f0); border:none;
+                    box-shadow:var(--glow-acc); }
+  button.assemble:hover:not(:disabled) { filter:brightness(1.08); }
+  .asm-log { display:none; width:420px; max-width:48vw; max-height:230px; overflow:auto;
+             background:#06080d; border:1px solid var(--line); border-radius:9px; padding:10px 12px;
+             font-family:var(--mono); font-size:11.5px; line-height:1.55; color:var(--ink-dim);
+             white-space:pre-wrap; }
+  .asm-log.show { display:block; }
+  .asm-state { font-family:var(--mono); font-size:11.5px; min-height:15px; }
+  .asm-state.work { color:var(--amber); } .asm-state.ok { color:var(--teal); } .asm-state.err { color:var(--red); }
+
+  /* ── RAIL de pastillas ── */
+  .rail { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
+  .pill { position:relative; min-width:118px; padding:11px 14px; border-radius:13px;
+          background:var(--panel); border:1px solid var(--line); cursor:pointer;
+          transition:transform .12s, border-color .12s, box-shadow .12s; }
+  .pill:hover { transform:translateY(-2px); border-color:var(--line2); }
+  .pill.active { border-color:var(--accent); box-shadow:var(--glow-acc); background:var(--panel2); }
+  .pill .pn { font-family:var(--mono); font-size:11px; color:var(--ink-faint); }
+  .pill .role { font-size:13.5px; font-weight:600; text-transform:capitalize; margin-top:2px; }
+  .pill .meta { font-family:var(--mono); font-size:10.5px; color:var(--ink-dim); margin-top:5px; }
+  .pill .tag { position:absolute; top:9px; right:10px; font-family:var(--mono); font-size:9px;
+               letter-spacing:.5px; padding:2px 6px; border-radius:6px; }
+  .pill .tag.veo { background:rgba(58,214,197,.14); color:var(--teal); border:1px solid rgba(58,214,197,.3); }
+  .pill .tag.flux { background:rgba(124,108,255,.14); color:var(--accent2); border:1px solid rgba(124,108,255,.3); }
+
+  /* ── stage ── */
+  .stage { display:grid; grid-template-columns:minmax(280px,340px) 1fr; gap:26px; align-items:start; }
+  @media (max-width:880px){ .stage { grid-template-columns:1fr; } }
+
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:16px; overflow:hidden;
+          aspect-ratio:9/16; width:100%; position:relative; box-shadow:0 10px 40px rgba(0,0,0,.5); }
+  .card img, .card video { width:100%; height:100%; object-fit:cover; display:block; background:#05060a; }
+  .card .badge { position:absolute; top:12px; left:12px; font-family:var(--mono); font-size:10px;
+                 background:rgba(6,8,13,.78); border:1px solid var(--line2); color:var(--ink-dim);
+                 padding:3px 8px; border-radius:7px; backdrop-filter:blur(4px); }
+  .card .sync { position:absolute; top:12px; right:12px; font-family:var(--mono); font-size:10px;
+                background:rgba(240,180,84,.16); border:1px solid rgba(240,180,84,.4); color:var(--amber);
+                padding:3px 8px; border-radius:7px; }
+
+  .right { min-width:0; }
+  .cap-head { display:flex; align-items:baseline; gap:12px; margin-bottom:4px; }
+  .cap-head h2 { font-size:22px; margin:0; font-weight:700; text-transform:capitalize; }
+  .cap-head .cid { font-family:var(--mono); font-size:13px; color:var(--ink-faint); }
+  .cap-sub { font-family:var(--mono); font-size:11.5px; color:var(--ink-dim); margin-bottom:16px; }
+
+  .anchor { font-family:var(--serif); font-size:16px; line-height:1.55; color:#dfe3f2;
+            border-left:2px solid var(--accent); padding:2px 0 2px 14px; margin:6px 0 18px;
+            min-height:24px; font-style:italic; }
+  .anchor .none { color:var(--ink-faint); font-style:normal; font-family:var(--mono); font-size:12px; }
+
+  /* ── timeline segmentada ── */
+  .tl-wrap { margin:8px 0 14px; }
+  .timeline { position:relative; display:flex; gap:2px; height:46px; border-radius:9px; overflow:hidden;
+              background:#06080d; border:1px solid var(--line); }
+  .seg { position:relative; min-width:3px; cursor:pointer; display:flex; align-items:flex-end;
+         justify-content:center; padding-bottom:4px; transition:filter .1s; }
+  .seg:hover { filter:brightness(1.25); }
+  .seg.active { outline:2px solid #fff; outline-offset:-2px; z-index:2; }
+  .seg .idx { font-family:var(--mono); font-size:9px; color:rgba(0,0,0,.7); font-weight:600; }
+  .seg.teal  { background:linear-gradient(180deg,rgba(58,214,197,.55),rgba(58,214,197,.28)); }
+  .seg.amber { background:linear-gradient(180deg,rgba(240,180,84,.55),rgba(240,180,84,.28)); }
+  .seg.red   { background:linear-gradient(180deg,rgba(240,106,106,.6),rgba(240,106,106,.3)); }
+  .playhead { position:absolute; top:0; bottom:0; width:2px; background:#fff; box-shadow:0 0 8px #fff;
+              left:0; pointer-events:none; display:none; z-index:3; }
+  .playhead.show { display:block; }
+  .tl-legend { display:flex; gap:16px; margin-top:8px; font-family:var(--mono); font-size:10.5px;
+               color:var(--ink-dim); align-items:center; }
+  .tl-legend .dot { display:inline-block; width:9px; height:9px; border-radius:3px; margin-right:5px; vertical-align:-1px; }
+  .dot.teal{background:var(--teal);} .dot.amber{background:var(--amber);} .dot.red{background:var(--red);}
+
+  .controls { display:flex; gap:10px; align-items:center; margin:6px 0 18px; flex-wrap:wrap; }
+  button.play { background:var(--panel2); border:1px solid var(--line2); box-shadow:var(--glow-teal); }
+  audio { width:100%; margin-top:4px; filter:saturate(.9); }
+
+  /* ── galería de supps (caps veo) ── */
+  .gal { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:12px; margin-top:8px; }
+  .gal .item { background:var(--panel); border:1px solid var(--line); border-radius:11px; overflow:hidden; }
+  .gal .item img { width:100%; aspect-ratio:9/16; object-fit:cover; display:block; }
+  .gal .item .cap { font-family:var(--mono); font-size:10px; color:var(--ink-dim); padding:6px 8px; line-height:1.4; }
+
+  /* ── fix buttons (deshabilitados v2) ── */
+  .fixbar { display:flex; gap:9px; margin-top:22px; padding-top:16px; border-top:1px solid var(--line); flex-wrap:wrap; }
+  .fixbar button { font-size:12.5px; }
+  .fixbar .hint { font-family:var(--mono); font-size:10.5px; color:var(--ink-faint); align-self:center; }
+
+  .empty { color:var(--ink-faint); font-family:var(--mono); font-size:13px; padding:40px 0; }
+  .err { color:var(--red); font-family:var(--mono); font-size:12.5px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <h1>QA Studio <span style="color:var(--ink-faint);font-weight:400;font-size:14px;">· gate fase 2.5</span></h1>
+    <div class="sub" id="topicSub">cargando…</div>
+  </div>
+  <div class="asm-wrap">
+    <button class="assemble" id="asmBtn">⚙ ENSAMBLAR</button>
+    <div class="asm-state" id="asmState"></div>
+    <div class="asm-log" id="asmLog"></div>
+  </div>
+</div>
+
+<div class="rail" id="rail"></div>
+
+<div id="view"><div class="empty">Elegí un capítulo arriba.</div></div>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const TEAL_MAX  = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--heat-teal-max'));
+const AMBER_MAX = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--heat-amber-max'));
+
+function heatClass(dur){ return dur <= TEAL_MAX ? 'teal' : (dur <= AMBER_MAX ? 'amber' : 'red'); }
+function fmt(t){ if(t==null||isNaN(t))return '—'; const m=Math.floor(t/60), s=(t%60); return `${m}:${s.toFixed(1).padStart(4,'0')}`; }
+
+let CAPS = [];
+let CUR = null;          // payload del cap activo
+const player = new Audio();
+let mode = null;         // 'seg' | 'all'
+let segIdx = -1;
+let rafId = null;
+
+// ── carga inicial ──
+async function boot(){
+  try {
+    const t = await (await fetch('/topic')).json();
+    $('topicSub').textContent = (t.title ? t.title+' · ' : '') + t.topic_id;
+  } catch(e){ $('topicSub').textContent = '(topic desconocido)'; }
+  try {
+    CAPS = await (await fetch('/caps')).json();
+    renderRail();
+    if (CAPS.length) selectCap(CAPS[0].cap);
+  } catch(e){
+    $('view').innerHTML = `<div class="err">No pude cargar /caps: ${e.message}</div>`;
+  }
+}
+
+function renderRail(){
+  const rail = $('rail'); rail.innerHTML='';
+  CAPS.forEach(c=>{
+    const el = document.createElement('div');
+    el.className='pill'; el.dataset.cap=c.cap;
+    const tag = c.single ? '<span class="tag veo">VEO</span>' : '<span class="tag flux">FLUX</span>';
+    const meta = c.single ? `${c.count} supps` : `${c.count} imgs`;
+    el.innerHTML = `${tag}<div class="pn">cap ${c.num} · ${c.cap}</div>
+                    <div class="role">${c.role}</div><div class="meta">${meta}</div>`;
+    el.onclick = ()=>selectCap(c.cap);
+    rail.appendChild(el);
+  });
+}
+function markActive(cap){
+  document.querySelectorAll('.pill').forEach(p=>p.classList.toggle('active', p.dataset.cap===cap));
+}
+
+async function selectCap(cap){
+  stopPlayback();
+  markActive(cap);
+  $('view').innerHTML = `<div class="empty">cargando ${cap}…</div>`;
+  try {
+    CUR = await (await fetch('/cap?cap='+cap)).json();
+    if (CUR.error) throw new Error(CUR.error);
+    player.src = CUR.audio_url;
+    CUR.single ? renderVeo(CUR) : renderFlux(CUR);
+  } catch(e){
+    $('view').innerHTML = `<div class="err">error cargando ${cap}: ${e.message}</div>`;
+  }
+}
+
+// ── render FLUX (timeline segmentada + audio real) ──
+function renderFlux(c){
+  const segs = c.segments || [];
+  const total = c.total || segs.reduce((a,s)=>a+s.dur,0) || 1;
+  const syncBadge = c.sync_approx ? `<div class="sync">sync aproximado</div>` : '';
+  const first = segs[0];
+
+  $('view').innerHTML = `
+    <div class="stage">
+      <div>
+        <div class="card">
+          <div class="badge" id="imgBadge"></div>${syncBadge}
+          <img id="hero" src="${first?first.url:''}" alt="">
+        </div>
+      </div>
+      <div class="right">
+        <div class="cap-head"><h2>${c.role}</h2><span class="cid">${c.cap} · ${c.count} imágenes · ${fmt(total)}</span></div>
+        <div class="cap-sub">timeline segmentada por imagen · color = cuánto se sostiene (heat)</div>
+
+        <div class="anchor" id="anchorBox"></div>
+
+        <div class="tl-wrap">
+          <div class="timeline" id="timeline">
+            <div class="playhead" id="playhead"></div>
+          </div>
+          <div class="tl-legend">
+            <span><span class="dot teal"></span>≤${TEAL_MAX}s</span>
+            <span><span class="dot amber"></span>≤${AMBER_MAX}s</span>
+            <span><span class="dot red"></span>&gt;${AMBER_MAX}s</span>
+            <span style="margin-left:auto">clic en un segmento = reproducir esa imagen</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="play" id="playAll">▶ Reproducir todo</button>
+          <button class="play" id="stopBtn">■ Stop</button>
+          <span class="cap-sub" id="segInfo" style="margin:0"></span>
+        </div>
+        <audio id="audioEl" controls preload="auto"></audio>
+
+        ${fixbar()}
+      </div>
+    </div>`;
+
+  // timeline segments
+  const tl = $('timeline');
+  segs.forEach((s,i)=>{
+    const seg = document.createElement('div');
+    seg.className = `seg ${heatClass(s.dur)}`;
+    seg.style.flexGrow = Math.max(s.dur,0.05);
+    seg.dataset.i = i;
+    seg.title = `img ${i+1} · ${s.dur.toFixed(1)}s\n${s.anchor||'(sin anchor)'}`;
+    seg.innerHTML = `<span class="idx">${i+1}</span>`;
+    seg.onclick = ()=>playSeg(i);
+    tl.appendChild(seg);
+  });
+
+  // wire audio element to our single player (share src)
+  const ae = $('audioEl'); ae.src = c.audio_url;
+  // keep the visible <audio> and our logic in sync: use the visible element as the player
+  bindPlayer(ae, total, segs);
+
+  $('playAll').onclick = ()=>playAll();
+  $('stopBtn').onclick = ()=>stopPlayback();
+  setActiveSeg(0);
+}
+
+// ── render VEO (clip + galería, SIN timeline) — OPCIÓN A ──
+function renderVeo(c){
+  const clip = c.clip_url
+    ? `<video src="${c.clip_url}" controls preload="metadata"></video>`
+    : `<div class="badge" style="position:static;margin:14px">sin clip Veo en disco</div>`;
+  const gal = (c.gallery||[]).map((g,i)=>`
+    <div class="item">
+      <img src="${g.url}" alt="" loading="lazy">
+      <div class="cap">supp ${i+1}${g.anchor?` · ${escapeHtml(g.anchor)}`:''}</div>
+    </div>`).join('') || `<div class="empty">sin supplementals en disco</div>`;
+
+  $('view').innerHTML = `
+    <div class="stage">
+      <div><div class="card">${clip}</div></div>
+      <div class="right">
+        <div class="cap-head"><h2>${c.role}</h2><span class="cid">${c.cap} · VEO · ${c.count} supps</span></div>
+        <div class="cap-sub">OPCIÓN A: clip Veo + galería de supplementals (sin sync fino del offset)</div>
+        ${c.base_anchor?`<div class="anchor">${escapeHtml(c.base_anchor)}</div>`:''}
+        <audio src="${c.audio_url}" controls preload="auto"></audio>
+        <div class="gal" style="margin-top:16px">${gal}</div>
+        ${fixbar()}
+      </div>
+    </div>`;
+}
+
+function fixbar(){
+  return `<div class="fixbar">
+    <button disabled title="v2">✎ Pedir fix</button>
+    <button disabled title="v2">⟳ Regenerar imagen</button>
+    <button disabled title="v2">✎ Corregir narración/audio</button>
+    <span class="hint">fixes → v2 (deshabilitados)</span>
+  </div>`;
+}
+
+// ── playback (un solo <audio>, driveado por timeupdate) ──
+let BOUND = null;
+function bindPlayer(ae, total, segs){
+  BOUND = {ae, total, segs};
+  ae.ontimeupdate = ()=>{
+    const t = ae.currentTime;
+    if (mode==='seg'){
+      const s = segs[segIdx];
+      if (s && t >= s.end){ ae.pause(); mode=null; }
+    } else if (mode==='all'){
+      const i = segIndexAt(t, segs);
+      if (i>=0 && i!==segIdx) setActiveSeg(i);
+    }
+    updatePlayhead(t/total);
+  };
+  ae.onended = ()=>{ mode=null; updatePlayhead(1); };
+  ae.onpause = ()=>{ if(mode==='seg') mode=null; };
+}
+function segIndexAt(t, segs){
+  for(let i=0;i<segs.length;i++) if(t>=segs[i].start && t<segs[i].end) return i;
+  return segs.length-1;
+}
+function playSeg(i){
+  if(!BOUND) return;
+  setActiveSeg(i);
+  mode='seg'; segIdx=i;
+  BOUND.ae.currentTime = BOUND.segs[i].start;
+  BOUND.ae.play();
+  $('playhead').classList.add('show');
+}
+function playAll(){
+  if(!BOUND) return;
+  mode='all'; BOUND.ae.currentTime = 0; BOUND.ae.play();
+  $('playhead').classList.add('show');
+  setActiveSeg(0);
+}
+function stopPlayback(){
+  mode=null;
+  try { if(BOUND){ BOUND.ae.pause(); } } catch(e){}
+  const ph=$('playhead'); if(ph){ ph.classList.remove('show'); }
+}
+function setActiveSeg(i){
+  segIdx=i;
+  const segs = CUR && CUR.segments ? CUR.segments : [];
+  const s = segs[i]; if(!s) return;
+  document.querySelectorAll('.seg').forEach(el=>el.classList.toggle('active', +el.dataset.i===i));
+  const hero=$('hero'); if(hero) hero.src=s.url;
+  const badge=$('imgBadge'); if(badge) badge.textContent=`img ${i+1}/${segs.length} · ${s.dur.toFixed(1)}s`;
+  const ab=$('anchorBox'); if(ab) ab.innerHTML = s.anchor ? escapeHtml(s.anchor) : `<span class="none">(sin narration_anchor → reparto uniforme)</span>`;
+  const si=$('segInfo'); if(si) si.textContent=`${fmt(s.start)} → ${fmt(s.end)}`;
+}
+function updatePlayhead(frac){
+  const ph=$('playhead'); if(!ph) return;
+  ph.style.left = Math.max(0,Math.min(1,frac))*100 + '%';
+}
+function escapeHtml(s){ return (s||'').replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+// ── ENSAMBLAR ──
+let asmPoll=null;
+$('asmBtn').onclick = async ()=>{
+  if (!confirm('Lanzar ENSAMBLE (fase2b)? Gasta tiempo de render.')) return;
+  const btn=$('asmBtn'), st=$('asmState'), log=$('asmLog');
+  btn.disabled=true; st.className='asm-state work'; st.textContent='lanzando…';
+  log.classList.add('show'); log.textContent='';
+  try{
+    const r = await fetch('/assemble',{method:'POST'});
+    if(r.status===409){ st.className='asm-state err'; st.textContent='ya hay un ensamble en curso'; btn.disabled=false; return; }
+    if(!r.ok){ const e=await r.json().catch(()=>({})); throw new Error(e.error||r.statusText); }
+    st.textContent='ensamblando… (mirá el log)';
+    asmPoll = setInterval(pollAssemble, 1500);
+  }catch(e){ st.className='asm-state err'; st.textContent='error: '+e.message; btn.disabled=false; }
+};
+async function pollAssemble(){
+  try{
+    const s = await (await fetch('/assemble_status')).json();
+    $('asmLog').textContent = (s.log_tail||[]).join('\n');
+    $('asmLog').scrollTop = $('asmLog').scrollHeight;
+    if(!s.running && s.returncode!=null){
+      clearInterval(asmPoll); asmPoll=null;
+      const ok = s.returncode===0;
+      $('asmState').className = 'asm-state '+(ok?'ok':'err');
+      $('asmState').textContent = ok ? '✅ ensamble OK — listo para packaging' : `❌ ensamble falló (código ${s.returncode})`;
+      $('asmBtn').disabled=false;
+    }
+  }catch(e){ /* reintenta en el próximo tick */ }
+}
+
+boot();
+</script>
+</body>
+</html>
