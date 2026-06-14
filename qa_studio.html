@@ -181,6 +181,26 @@
   .fixbar{display:flex;gap:9px;margin-top:22px;flex-wrap:wrap;align-items:center;}
   .fixbar .hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);}
 
+  /* ── fix panel inline por tarjeta (Zona 1) ── */
+  .fixlink.on{color:#2dd4bf;cursor:pointer;}
+  .fixpanel{padding:0 14px 14px;animation:slideDown .22s ease;}
+  .fixpanel .top{border-top:1px solid rgba(45,212,191,.18);padding-top:12px;}
+  .fixpanel .tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9px;
+    letter-spacing:.05em;color:#2dd4bf;background:rgba(45,212,191,.12);border:1px solid rgba(45,212,191,.3);padding:3px 8px;border-radius:6px;}
+  .fixpanel .tag .d{width:6px;height:6px;border-radius:50%;background:#2dd4bf;box-shadow:0 0 6px #2dd4bf;}
+  .fixpanel textarea{margin-top:10px;width:100%;height:60px;resize:vertical;background:rgba(8,8,14,.5);
+    border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:9px 11px;color:var(--ink);
+    font-family:var(--display);font-size:12.5px;line-height:1.4;outline:none;}
+  .fixpanel textarea:focus{border-color:rgba(45,212,191,.5);}
+  .fixpanel .row{display:flex;align-items:center;gap:9px;margin-top:9px;flex-wrap:wrap;}
+  .btn-regen{display:flex;align-items:center;gap:7px;font-family:var(--display);font-weight:600;font-size:12px;
+    background:var(--grad);color:#0a0a12;padding:8px 14px;border-radius:9px;cursor:pointer;border:none;
+    box-shadow:0 6px 16px rgba(124,92,255,.4);}
+  .btn-regen:disabled{opacity:.7;cursor:default;}
+  .fixcancel{font-family:var(--display);font-size:12px;color:#8a8a98;cursor:pointer;padding:8px 4px;}
+  .fixstatus{font-family:var(--mono);font-size:10.5px;margin-left:auto;}
+  .fixstatus.work{color:var(--amber);} .fixstatus.ok{color:var(--teal);} .fixstatus.err{color:var(--red);}
+
   /* ── assemble log + toast ── */
   .asm-log{display:none;margin-top:16px;max-height:240px;overflow:auto;background:#06080d;border:1px solid rgba(255,255,255,.1);
     border-radius:12px;padding:12px 14px;font-family:var(--mono);font-size:11.5px;line-height:1.55;color:var(--dim);white-space:pre-wrap;}
@@ -255,6 +275,14 @@ let CAPS=[], CUR=null, curCap=null;
 const audio = new Audio();
 let mode=null;            // 'all' | 'seg' | 'clip'
 let activeIdx=0, previewIdx=0;
+let FIXBUST={};           // index → timestamp para cache-bust tras un fix
+let fixPoll=null;
+
+// src de la imagen del segmento i, con cache-bust si fue regenerada por un fix.
+function imgSrc(i){
+  const s=CUR&&CUR.segments?CUR.segments[i]:null; if(!s||!s.url) return '';
+  return s.url + (FIXBUST[i]?('?t='+FIXBUST[i]):'');
+}
 
 // ── boot ──
 async function boot(){
@@ -287,6 +315,8 @@ function markActive(cap){ document.querySelectorAll('.pill').forEach(p=>p.classL
 
 async function selectCap(cap){
   stopPlayback(); curCap=cap; markActive(cap);
+  if(fixPoll){ clearInterval(fixPoll); fixPoll=null; }
+  FIXBUST={};
   $('view').innerHTML=`<div class="empty">cargando ${cap}…</div>`;
   try{
     CUR = await (await fetch('/cap?cap='+cap)).json();
@@ -377,7 +407,23 @@ function renderTimeline(c){
     const card=document.createElement('div'); card.className='pcard'+(isClip?' clip':''); card.dataset.i=i;
     const media = isClip
       ? `<video src="${s.clip_url||''}" muted preload="metadata" style="aspect-ratio:16/9;object-fit:cover"></video>`
-      : `<img src="${s.url}" loading="lazy" style="aspect-ratio:9/16;object-fit:cover" alt="">`;
+      : `<img src="${imgSrc(i)}" loading="lazy" style="aspect-ratio:9/16;object-fit:cover" alt="">`;
+    // Fix sólo en fotos (NO en el tile is_clip → Zona 1.5).
+    const fixCtl = isClip
+      ? '<span class="clipbadge">▶ CLIP DE VIDEO</span>'
+      : `<span class="fixlink on" data-fix="${i}">✎ pedir fix</span>`;
+    const fixPanel = isClip ? '' : `
+      <div class="fixpanel" id="fixpanel-${i}" style="display:none">
+        <div class="top">
+          <span class="tag"><span class="d"></span>FIX LOCAL · regenera solo esta imagen</span>
+          <textarea id="fixtext-${i}" placeholder="Describí qué cambiar en esta foto (en español)…"></textarea>
+          <div class="row">
+            <button class="btn-regen" id="fixbtn-${i}">⟳ Regenerar imagen</button>
+            <span class="fixcancel" data-cancel="${i}">Cancelar</span>
+            <span class="fixstatus" id="fixstatus-${i}"></span>
+          </div>
+        </div>
+      </div>`;
     card.innerHTML=`
       <div class="pimg" data-sel="${i}" style="${isClip?'aspect-ratio:16/9':'aspect-ratio:9/16'}">
         <div class="pidx">${isClip?'CLIP':(i+1)+'/'+photoCount}</div>
@@ -390,11 +436,16 @@ function renderTimeline(c){
         <div class="foot">
           <div class="heat"><span class="heatdot" style="background:${h.solid};box-shadow:0 0 7px ${h.border}"></span>
             <span class="pv-time">${s.start!=null?fmt(s.start)+'–'+fmt(s.end)+' · '+s.dur+'s':'sin sync'}</span></div>
-          ${isClip?'<span class="clipbadge">▶ CLIP DE VIDEO</span>':'<span class="fixlink" title="v2">✎ pedir fix</span>'}
+          ${fixCtl}
         </div>
-      </div>`;
+      </div>${fixPanel}`;
     card.querySelector('[data-sel]').onclick=()=>setActive(i);
     card.querySelector('[data-play]').onclick=(e)=>{e.stopPropagation();playSeg(i);};
+    if(!isClip){
+      card.querySelector('[data-fix]').onclick=()=>toggleFixPanel(i);
+      card.querySelector('[data-cancel]').onclick=()=>closeFixPanel(i);
+      card.querySelector('#fixbtn-'+i).onclick=()=>submitFix(c.cap, s.img_name, i);
+    }
     grid.appendChild(card);
   });
 
@@ -430,6 +481,7 @@ function renderOptionA(c){
         <div class="pv-media" id="pvMedia"></div>
         <button class="btn-img" id="pvBtn"></button>
         <div class="pv-anchor" id="pvAnchor"></div>
+        <div id="pvFix"></div>
         <audio src="${c.audio_url}" controls preload="auto" style="width:100%;margin-top:12px"></audio>
       </div>
       <div class="grid-wrap">
@@ -458,7 +510,7 @@ function renderOptionA(c){
 function selectOptionA(sel,c){
   previewIdx=sel;
   document.querySelectorAll('#gal .galitem').forEach(el=>el.classList.toggle('sel',+el.dataset.sel===sel));
-  const m=$('pvMedia'); const btn=$('pvBtn');
+  const m=$('pvMedia'); const btn=$('pvBtn'); const fix=$('pvFix');
   if(sel===-1){
     m.innerHTML=`<div class="corner" style="background:#22d3ee;box-shadow:0 0 18px rgba(124,92,255,.6)"></div>
       <video id="pvVideo" src="${c.clip_url||''}" controls preload="metadata" style="aspect-ratio:9/16;object-fit:cover"></video>`;
@@ -466,6 +518,7 @@ function selectOptionA(sel,c){
     $('pvAnchor').innerHTML = c.base_anchor?esc(c.base_anchor):'';
     btn.innerHTML='<span style="font-size:12px">▶</span> Reproducir clip de video';
     btn.onclick=()=>{ const v=$('pvVideo'); if(v){ v.currentTime=0; v.play(); } };
+    fix.innerHTML='';   // el clip NO se fixea (Zona 1.5)
   }else{
     const g=c.gallery[sel];
     m.innerHTML=`<div class="corner" style="background:#7c5cff"></div>
@@ -474,6 +527,29 @@ function selectOptionA(sel,c){
     $('pvAnchor').innerHTML = g.anchor?esc(g.anchor):'<span style="color:#6f6f84">(sin anchor)</span>';
     btn.innerHTML='<span style="font-size:12px">▶</span> Reproducir audio del capítulo';
     btn.onclick=()=>{ audio.currentTime=0; audio.play(); };
+    // fix de supp (cap veo start, _supp_). El img_name viene del propio gallery item.
+    fix.innerHTML=`
+      <div style="margin-top:10px"><span class="fixlink on" id="oaFixLink">✎ pedir fix</span></div>
+      <div class="fixpanel" id="oaFixPanel" style="display:none;padding:10px 0 0">
+        <div class="top">
+          <span class="tag"><span class="d"></span>FIX LOCAL · regenera solo esta imagen</span>
+          <textarea id="oaFixText" placeholder="Describí qué cambiar en esta foto (en español)…"></textarea>
+          <div class="row">
+            <button class="btn-regen" id="oaFixBtn">⟳ Regenerar imagen</button>
+            <span class="fixstatus" id="oaFixStatus"></span>
+          </div>
+        </div>
+      </div>`;
+    $('oaFixLink').onclick=()=>{ const p=$('oaFixPanel'); p.style.display=p.style.display==='none'?'block':'none';
+      if(p.style.display==='block') $('oaFixText').focus(); };
+    $('oaFixBtn').onclick=()=>{
+      const fb=($('oaFixText').value||'').trim();
+      const onReload=()=>{ const t=Date.now();
+        const pv=document.querySelector('#pvMedia img'); if(pv) pv.src=g.url+'?t='+t;
+        const gi=document.querySelector('#gal .galitem[data-sel="'+sel+'"] img'); if(gi) gi.src=g.url+'?t='+t;
+      };
+      startFix(c.cap, g.img_name, fb, $('oaFixStatus'), $('oaFixBtn'), onReload);
+    };
   }
 }
 
@@ -499,7 +575,7 @@ function setActive(i){
       <video id="pvVideo" src="${s.clip_url||''}" controls preload="metadata" style="aspect-ratio:16/9;object-fit:cover"></video>`;
   }else{
     m.innerHTML=`<div class="corner" style="background:${h.solid};box-shadow:${h.glow}"></div>
-      <img src="${s.url}" style="aspect-ratio:9/16;object-fit:cover" alt="">`;
+      <img src="${imgSrc(i)}" style="aspect-ratio:9/16;object-fit:cover" alt="">`;
   }
   const photoCount=segs.filter(x=>!x.is_clip).length;
   $('pvIdx').textContent = isClip?'CLIP':(i+1)+'/'+photoCount;
@@ -616,7 +692,7 @@ function showTip(i){
   const mid = s.start!=null ? ((s.start+s.end)/2/total)*100 : ((i+0.5)/CUR.segments.length)*100;
   tip.style.left=mid+'%'; tip.style.display='block';
   const h=s.is_clip?CLIP_HEAT:heat(s.dur);
-  $('tipImg').src = s.is_clip ? '' : s.url;
+  $('tipImg').src = s.is_clip ? '' : imgSrc(i);
   $('tipImg').style.visibility = s.is_clip ? 'hidden':'visible';
   $('tipAnchor').textContent = s.anchor||(s.is_clip?'Clip de video':'(sin anchor)');
   $('tipDot').style.background=h.solid;
@@ -626,10 +702,56 @@ function hideTip(){ const t=$('tip'); if(t) t.style.display='none'; }
 
 function fixbar(){
   return `<div class="fixbar">
-    <button class="btn" disabled title="v2" style="font-size:12.5px;padding:8px 14px">⟳ Regenerar imagen</button>
-    <button class="btn" disabled title="v2" style="font-size:12.5px;padding:8px 14px">✎ Pedir fix</button>
-    <span class="hint">fixes → v2 (deshabilitados)</span>
+    <span class="hint">✎ pedir fix → en cada foto (regenera solo esa imagen) · corregir narración/audio (Zona 2) → v2</span>
   </div>`;
+}
+
+/* ════════ ZONA 1 — FIX DE FOTO ════════ */
+function toggleFixPanel(i){
+  const p=$('fixpanel-'+i); if(!p) return;
+  const open = p.style.display!=='none';
+  document.querySelectorAll('.fixpanel').forEach(el=>{ if(el!==p) el.style.display='none'; });
+  p.style.display = open ? 'none' : 'block';
+  if(!open){ const t=$('fixtext-'+i); if(t) t.focus(); }
+}
+function closeFixPanel(i){ const p=$('fixpanel-'+i); if(p) p.style.display='none'; }
+
+function reloadImage(i){
+  FIXBUST[i]=Date.now();
+  const cardImg=document.querySelector('.pcard[data-i="'+i+'"] .pimg img');
+  if(cardImg) cardImg.src=imgSrc(i);
+  if(previewIdx===i){ const pv=document.querySelector('#pvMedia img'); if(pv) pv.src=imgSrc(i); }
+}
+
+// Core genérico (lo usan tarjetas timeline y galería Option A). onReload() corre al ok.
+function startFix(cap, img_name, feedback, st, btn, onReload){
+  if(!feedback){ st.className='fixstatus err'; st.textContent='describí el cambio'; return; }
+  if(btn) btn.disabled=true; st.className='fixstatus work'; st.textContent='enviando…';
+  fetch('/fix_image',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({cap, img_name, feedback})})
+   .then(async r=>{
+      if(r.status===409){ throw new Error('ya hay un fix en curso'); }
+      if(!r.ok){ const e=await r.json().catch(()=>({})); throw new Error(e.error||r.statusText); }
+      st.textContent='regenerando… (~15-40s)';
+      if(fixPoll) clearInterval(fixPoll);
+      fixPoll=setInterval(()=>pollFix(img_name, st, btn, onReload), 1500);
+   })
+   .catch(e=>{ st.className='fixstatus err'; st.textContent='⚠ '+e.message; if(btn) btn.disabled=false; });
+}
+function pollFix(img_name, st, btn, onReload){
+  fetch('/fix_status').then(r=>r.json()).then(s=>{
+    if(!document.body.contains(st)){ if(fixPoll){clearInterval(fixPoll);fixPoll=null;} return; } // cambió de cap
+    if(!s.running && s.done && s.img_name===img_name){
+      clearInterval(fixPoll); fixPoll=null; if(btn) btn.disabled=false;
+      if(s.ok){ st.className='fixstatus ok'; st.textContent='✅ lista'; onReload(); toast('Imagen regenerada · solo esta foto'); }
+      else { st.className='fixstatus err'; st.textContent='⚠ '+(s.reason||'falló'); }
+    }
+  }).catch(()=>{});
+}
+// Tarjeta timeline.
+function submitFix(cap, img_name, i){
+  const ta=$('fixtext-'+i);
+  startFix(cap, img_name, (ta?ta.value:'').trim(), $('fixstatus-'+i), $('fixbtn-'+i), ()=>reloadImage(i));
 }
 
 /* ════════ ENSAMBLAR ════════ */

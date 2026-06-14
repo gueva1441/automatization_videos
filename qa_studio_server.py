@@ -43,10 +43,12 @@ import argparse
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import threading
 import webbrowser
+from datetime import datetime
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -470,6 +472,54 @@ class QAState:
             "has_clip": has_base and clip is not None,
         }
 
+    def resolve_fix_entry(self, img_name: str) -> dict | None:
+        """Re-lee data/scripts/{topic}.json FRESCO y ubica la entrada del prompt para
+        `img_name` (Zona 1 fix). El kind (img|supp) sale del PROPIO img_name → evita la
+        ambigüedad _img_ vs _supp_. Normaliza igual que asset_manager._iter_image_items
+        (dict nuevo o str legacy). None si no resuelve.
+
+        Devuelve {cap, img_name, kind, idx, prompt, art_profile, subject_ref, narration_anchor}.
+        idx es 1-indexed (el de _img_NN / _supp_NN)."""
+        m = re.match(r"^(ch\d{2})_(img|supp)_(\d+)\.png$", img_name)
+        if not m:
+            return None
+        cid, kind, idx = m.group(1), m.group(2), int(m.group(3))
+        if not self.script_path.exists():
+            return None
+        try:
+            raw = json.loads(self.script_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return None
+        chap = next(
+            (c for c in raw.get("chapters", [])
+             if c.get("chapter_number") == int(cid[2:])),
+            None,
+        )
+        if not chap:
+            return None
+        key = "supplemental_image_prompts" if kind == "supp" else "image_prompts"
+        items = chap.get(key) or []
+        if not isinstance(items, list) or not (1 <= idx <= len(items)):
+            return None
+        rawi = items[idx - 1]
+        if isinstance(rawi, dict):
+            prompt = str(rawi.get("prompt", "") or "").strip()
+            art_profile = rawi.get("art_profile") or chap.get("art_profile") or ""
+            subject_ref = rawi.get("subject_ref") if "subject_ref" in rawi else chap.get("subject_ref")
+            anchor = (rawi.get("narration_anchor") or "").strip()
+        else:
+            prompt = str(rawi or "").strip()
+            art_profile = chap.get("art_profile") or ""
+            subject_ref = chap.get("subject_ref")
+            anchor = ""
+        if not prompt:
+            return None
+        return {
+            "cap": cid, "img_name": img_name, "kind": kind, "idx": idx,
+            "prompt": prompt, "art_profile": art_profile,
+            "subject_ref": subject_ref or None, "narration_anchor": anchor,
+        }
+
     def topic_info(self) -> dict:
         """topic_id (must-have) + título si se puede leer trivial del sync_map (opcional)."""
         title = None
@@ -549,6 +599,185 @@ def _assemble_status(tail: int = 60) -> dict:
             "running": _ASM["running"],
             "returncode": _ASM["returncode"],
             "log_tail": list(_ASM["log"][-tail:]),
+        }
+
+
+# ═════════════════════════════════════════════════════════════════
+#  ZONA 1 — FIX DE FOTO (/fix_image) · regenera 1 imagen sola
+#  (clona el molde threaded de _ASM; reusa asset_manager + gemini, read-only)
+# ═════════════════════════════════════════════════════════════════
+
+# Instrucción DEDICADA del rewrite (NO la de m03, que es traductor). Embebe las
+# reglas de MODEL_PROMPTING_RULES §1 (Flux) y §1.8 (content-safety). El gate es Omar
+# mirando la IMAGEN; este LLM solo aplica el cambio que pide, en inglés, cuidando las
+# reglas. NUNCA se le muestra el prompt a Omar para aprobar.
+_FIX_REWRITE_INSTRUCTION = """\
+Sos un editor de prompts de imagen para Flux 2 Pro (generación documental en 9:16).
+Te paso un PROMPT ACTUAL en inglés, su narration_anchor (lo que la imagen DEBE
+ilustrar), y un CAMBIO que pide el usuario en español. Tu tarea: devolver el prompt
+reescrito EN INGLÉS aplicando ESE cambio y manteniendo TODO lo demás (sujeto, setting,
+estilo, consistencia del personaje). NO inventes una escena nueva: editás la existente.
+
+El narration_anchor es la VERDAD de lo que la toma debe mostrar — no te alejes de él.
+
+REGLAS DE FLUX (inviolables — el prompt resultante DEBE cumplirlas):
+1. Subject-first: el sujeto principal va al INICIO, nunca después de un prefijo técnico
+   largo. El estilo/cámara/iluminación van integrados o al final, no al principio.
+2. SIN negativos: Flux 2 NO soporta prompts negativos. No escribas "no people", "no
+   text", "no blur". Para excluir → describí en positivo: "an empty scene", "clean
+   surfaces", "sharp focus throughout".
+3. Descriptores físicos (etnia, edad, rasgos, ropa con período) INTEGRADOS al bloque del
+   sujeto al inicio, no esparcidos al final (lo que llega tarde, llega diluido).
+4. Prosa natural descriptiva, NO keyword-soup ni CSV de props al final.
+5. Longitud objetivo 30–80 palabras (medium). Si el cambio no lo exige, no lo infles.
+6. Para fotorealismo, cámara/lente/película específicas > genéricos.
+
+CONTENT-SAFETY (§1.8 — Flux devuelve 422 y rechaza; evitalo SIEMPRE):
+- Muerte → calma previa. NUNCA cuerpos/figuras inmóviles ni aftermath de muerte (aunque
+  sea "quieto" dispara el filtro). Mostrá la escena VIVA y tranquila anterior (la narración
+  hace el horror, la imagen muestra la calma): aldea al atardecer, ganado pastando, luz de
+  lámpara. Aplica a personas, animales y víctimas masivas.
+- Aparato de ejecución (horca, mecanismo de matar): NUNCA el mecanismo entero, ni aunque no
+  haya gente. Reemplazo = el espacio cargado y vacío (luz dramática + escala opresiva + UN
+  objeto que implica lo que pasó: una soga sola, un banco volcado).
+- Si el cambio del usuario empuja hacia muerte/aparato explícito, aplicá el pivote y cumplí
+  el espíritu del pedido sin disparar el filtro.
+
+Devolvé SOLO el JSON {"new_prompt": "<prompt reescrito en inglés>"}. Sin markdown.
+"""
+
+_FIX: dict = {"running": False, "done": False, "ok": None, "reason": None, "img_name": None}
+_FIX_LOCK = threading.Lock()
+
+
+def _build_fix_user_prompt(entry: dict, feedback: str) -> str:
+    return (
+        f"PROMPT ACTUAL (inglés, para Flux):\n{entry['prompt']}\n\n"
+        f"narration_anchor (lo que la imagen DEBE ilustrar): "
+        f"{entry.get('narration_anchor') or '(sin anchor)'}\n\n"
+        f"CAMBIO QUE PIDE EL USUARIO (español): {feedback}\n\n"
+        "Reescribí el prompt en inglés aplicando ese cambio, manteniendo todo lo demás "
+        "y respetando las reglas. Devolvé solo {\"new_prompt\": ...}."
+    )
+
+
+def _fix_core(
+    state: "QAState",
+    topic_id: str,
+    cap: str,
+    img_name: str,
+    feedback: str,
+    *,
+    rewrite_fn=None,        # (system_instruction, user_prompt) -> {"new_prompt": str}
+    seed_fn=None,           # (video_id, subject_ref) -> int | None
+    generate_fn=None,       # (prompt, art_profile, out_path, use_ultra, seed) -> dict
+    is_hook_fn=None,        # (cap) -> bool
+    content_rejected_exc=None,
+    now_ts: str | None = None,
+) -> tuple[bool, str | None]:
+    """Lógica del fix, TESTEABLE con deps inyectadas (sin red ni Flux real).
+    Devuelve (ok, reason). En producción las deps se resuelven lazy desde
+    asset_manager + gemini_helpers (import pesado → solo al pedir un fix, no al boot)."""
+    # ── deps reales (lazy; los tests pasan TODAS para no importar pesado) ──
+    if rewrite_fn is None:
+        from gemini_helpers import call_flash_json, types  # noqa: PLC0415
+        _schema = types.Schema(
+            type=types.Type.OBJECT, required=["new_prompt"],
+            properties={"new_prompt": types.Schema(type=types.Type.STRING)},
+        )
+        rewrite_fn = lambda si, up: call_flash_json(  # noqa: E731
+            prompt=up, system_instruction=si, response_schema=_schema)
+    if seed_fn is None or generate_fn is None or is_hook_fn is None or content_rejected_exc is None:
+        import asset_manager as am  # noqa: PLC0415
+        seed_fn = seed_fn or am._seed_for_subject
+        generate_fn = generate_fn or am._generate_flux_image_at
+        is_hook_fn = is_hook_fn or am._is_hook_chapter
+        content_rejected_exc = content_rejected_exc or am.ContentRejectedError
+
+    # 1. Resolver la entrada en el script (fresco).
+    entry = state.resolve_fix_entry(img_name)
+    if not entry:
+        return False, "no se pudo resolver la entrada del prompt en el script"
+
+    # 2. Rewrite del prompt (obedece reglas Flux).
+    try:
+        res = rewrite_fn(_FIX_REWRITE_INSTRUCTION, _build_fix_user_prompt(entry, feedback))
+        new_prompt = str((res or {}).get("new_prompt", "")).strip()
+        if not new_prompt:
+            return False, "el rewrite devolvió un prompt vacío"
+    except Exception as e:  # noqa: BLE001
+        return False, f"rewrite falló: {type(e).__name__}: {str(e)[:140]}"
+
+    # 3. Resolver el path real (el que el visor ya renderiza) + backup ANTES de pisar.
+    out_path = state.resolve_image(cap, img_name)
+    if out_path is None:
+        out_path = state.assets_dir / f"{cap}_flux" / img_name
+    try:
+        if out_path.exists():
+            bdir = state.assets_dir / "_qa_backups"
+            bdir.mkdir(parents=True, exist_ok=True)
+            ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
+            shutil.copy2(out_path, bdir / f"{img_name}.{ts}.bak.png")
+    except OSError as e:
+        return False, f"backup falló: {e}"
+
+    # 4. seed por sujeto (consistencia de personaje) + 5. generar (pisa el mismo nombre).
+    seed = seed_fn(topic_id, entry.get("subject_ref"))
+    try:
+        # ⚠ use_ultra: flux_config tiene ultra_model == standard_model (flux-2-pro) →
+        #   use_ultra es cosmético hoy (mismo modelo). Respetamos _is_hook_chapter igual.
+        generate_fn(new_prompt, entry.get("art_profile", ""), out_path,
+                    use_ultra=is_hook_fn(cap), seed=seed)
+    except content_rejected_exc as e:
+        return False, f"filtro: {str(e)[:160]}"
+    except Exception as e:  # noqa: BLE001
+        return False, f"{type(e).__name__}: {str(e)[:160]}"
+
+    # 6. (flag #1 del handoff) Invalidar el clip visual horneado del cap para que
+    # ENSAMBLAR (fase2b) RE-RENDERICE el slideshow desde el PNG nuevo. El fix pisa el
+    # mismo filename (conteo intacto → no toca el bug de manifest-honesto), pero en modo
+    # reuse-baked fase2b reusaría el MP4 viejo y el fix NO llegaría al video. Borramos un
+    # artefacto DERIVADO (no toca fase2b ni data sagrada): así, exista o no reuse, base_clip
+    # no estará y fase2b re-renderiza ese cap desde disco.
+    work = state.base / "output" / topic_id / "_fase2b_work"
+    for stale in (f"{cap}_flux_visual.mp4", f"{cap}_hybrid_visual.mp4"):
+        try:
+            (work / stale).unlink(missing_ok=True)
+        except OSError:
+            pass
+
+    return True, None
+
+
+def _fix_worker(cap: str, img_name: str, feedback: str) -> None:
+    """Thread daemon: corre _fix_core y cierra el status."""
+    try:
+        ok, reason = _fix_core(STATE, TOPIC_ID, cap, img_name, feedback)
+    except Exception as e:  # noqa: BLE001
+        ok, reason = False, f"{type(e).__name__}: {e}"
+    with _FIX_LOCK:
+        _FIX.update(running=False, done=True, ok=ok, reason=reason)
+    tag = "✓ ok" if ok else f"✗ {reason}"
+    print(f"  ✎ fix {img_name}: {tag}")
+
+
+def _start_fix(cap: str, img_name: str, feedback: str) -> dict:
+    with _FIX_LOCK:
+        if _FIX["running"]:
+            return {"conflict": True}
+        _FIX.update(running=True, done=False, ok=None, reason=None, img_name=img_name)
+    threading.Thread(target=_fix_worker, args=(cap, img_name, feedback), daemon=True).start()
+    return {"started": True}
+
+
+def _fix_status() -> dict:
+    with _FIX_LOCK:
+        return {
+            "running": _FIX["running"],
+            "done": _FIX["done"],
+            "ok": _FIX["ok"],
+            "reason": _FIX["reason"],
+            "img_name": _FIX["img_name"],
         }
 
 
@@ -681,6 +910,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._send_json(STATE.topic_info())
             elif route == "/assemble_status":
                 self._send_json(_assemble_status())
+            elif route == "/fix_status":
+                self._send_json(_fix_status())
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)
         except Exception as e:  # noqa: BLE001
@@ -696,6 +927,33 @@ class Handler(BaseHTTPRequestHandler):
                     print("  ▶ assemble: rechazado (ya hay uno en curso)")
                 else:
                     print(f"  ▶ assemble: lanzando fase2b para {TOPIC_ID[:8]}…")
+                    self._send_json({"started": True})
+            elif route == "/fix_image":
+                length = int(self.headers.get("Content-Length", 0))
+                body = json.loads(self.rfile.read(length) or b"{}")
+                cap = str(body.get("cap", ""))
+                img_name = str(body.get("img_name", ""))
+                feedback = str(body.get("feedback", "")).strip()
+                # anti path-traversal (reusa las regex del archivo) + sanity.
+                if not _CAP_RE.match(cap) or not _IMG_NAME_RE.match(img_name):
+                    self._send_json({"error": "cap/img_name inválido"}, status=400)
+                    return
+                if not img_name.startswith(cap + "_"):
+                    self._send_json({"error": "img_name no corresponde al cap"}, status=400)
+                    return
+                if not feedback:
+                    self._send_json({"error": "falta 'feedback'"}, status=400)
+                    return
+                # El tile del clip NO se fixea en v1 (Zona 1.5).
+                if "_img_" not in img_name and "_supp_" not in img_name:
+                    self._send_json({"error": "solo fotos (_img_/_supp_)"}, status=400)
+                    return
+                res = _start_fix(cap, img_name, feedback)
+                if res.get("conflict"):
+                    self._send_json({"error": "ya hay un fix en curso"}, status=409)
+                    print("  ✎ fix: rechazado (ya hay uno en curso)")
+                else:
+                    print(f"  ✎ fix: {img_name} ← {feedback[:50]!r}")
                     self._send_json({"started": True})
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)

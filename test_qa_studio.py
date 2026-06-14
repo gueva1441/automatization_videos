@@ -284,6 +284,138 @@ def test_veo_start_stays_option_a(tmp_path):
     assert p["clip_url"] == "/clip?cap=ch01"
 
 
+# ─────────────────────────────────────────────────────────────────
+#  Zona 1 — fix de foto (/fix_image)
+# ─────────────────────────────────────────────────────────────────
+
+class _Rejected(Exception):
+    """Stub local de ContentRejectedError (no importa asset_manager)."""
+
+
+def _fix_deps(generate_fn, *, new_prompt="A rewritten english prompt"):
+    """Deps inyectadas para _fix_core → tests sin red, sin Flux, sin Gemini."""
+    return dict(
+        rewrite_fn=lambda si, up: {"new_prompt": new_prompt},
+        seed_fn=lambda vid, sref: 123,
+        generate_fn=generate_fn,
+        is_hook_fn=lambda cap: cap == "ch01",
+        content_rejected_exc=_Rejected,
+        now_ts="20260614_000000",
+    )
+
+
+def test_fix_resolve_entry_flux_and_supp(tmp_path):
+    build_topic(tmp_path)
+    st = qa.QAState(TID, base_dir=tmp_path)
+    # flux _img_ → image_prompts[idx-1]
+    e = st.resolve_fix_entry("ch02_img_03.png")
+    assert e and e["kind"] == "img" and e["idx"] == 3
+    assert e["prompt"] == "p" and e["narration_anchor"] == "charlie cinco seis"
+    # veo _supp_ → supplemental_image_prompts[idx-1]
+    e2 = st.resolve_fix_entry("ch01_supp_02.png")
+    assert e2 and e2["kind"] == "supp" and e2["idx"] == 2
+    assert e2["narration_anchor"] == "supp 1-2"
+    # basura / fuera de rango / traversal → None
+    for bad in ("../x.png", "ch02_img_99.png", "ch02_img_03.PNG",
+                "ch99_img_01.png", "ch02_clip_01.mp4", "ch02_img_03.png/../x"):
+        assert st.resolve_fix_entry(bad) is None, f"debería rechazar {bad!r}"
+
+
+def test_fix_core_happy_path_backup_before_generate(tmp_path):
+    build_topic(tmp_path)
+    st = qa.QAState(TID, base_dir=tmp_path)
+    seen = {}
+
+    def gen(prompt, art_profile, out_path, use_ultra, seed):
+        # el backup DEBE existir ANTES de pisar
+        baks = list((st.assets_dir / "_qa_backups").glob("ch02_img_03.png.*.bak.png"))
+        seen["backup_before"] = (len(baks) == 1)
+        seen.update(prompt=prompt, seed=seed, ultra=use_ultra)
+        out_path.write_bytes(b"NEWPNGDATA")
+        return {"path": out_path}
+
+    ok, reason = qa._fix_core(st, TID, "ch02", "ch02_img_03.png", "más oscuro",
+                              **_fix_deps(gen))
+    assert ok is True and reason is None
+    assert seen["backup_before"] is True
+    assert seen["prompt"] == "A rewritten english prompt"
+    assert seen["seed"] == 123 and seen["ultra"] is False  # ch02 no es hook
+    assert (st.assets_dir / "ch02_flux" / "ch02_img_03.png").read_bytes() == b"NEWPNGDATA"
+
+
+def test_fix_core_supp_uses_ultra_for_hook(tmp_path):
+    build_topic(tmp_path)
+    st = qa.QAState(TID, base_dir=tmp_path)
+    seen = {}
+
+    def gen(prompt, art_profile, out_path, use_ultra, seed):
+        seen["ultra"] = use_ultra
+        out_path.write_bytes(b"X")
+        return {}
+
+    ok, _ = qa._fix_core(st, TID, "ch01", "ch01_supp_01.png", "cambio",
+                         **_fix_deps(gen))
+    assert ok is True and seen["ultra"] is True  # ch01 = hook → use_ultra (cosmético hoy)
+
+
+def test_fix_invalidates_baked_visual(tmp_path):
+    """Tras un fix OK, el clip visual horneado del cap se borra → ENSAMBLAR re-renderiza
+    desde el PNG nuevo (flag #1)."""
+    build_topic(tmp_path)
+    st = qa.QAState(TID, base_dir=tmp_path)
+    work = tmp_path / "output" / TID / "_fase2b_work"
+    work.mkdir(parents=True, exist_ok=True)
+    baked = work / "ch02_flux_visual.mp4"
+    baked.write_bytes(b"OLDBAKED")
+    other = work / "ch03_flux_visual.mp4"   # otro cap NO se toca
+    other.write_bytes(b"KEEP")
+
+    def gen(prompt, art_profile, out_path, use_ultra, seed):
+        out_path.write_bytes(b"X")
+        return {}
+
+    ok, _ = qa._fix_core(st, TID, "ch02", "ch02_img_03.png", "x", **_fix_deps(gen))
+    assert ok is True
+    assert not baked.exists(), "el clip horneado del cap fixeado debe invalidarse"
+    assert other.exists(), "otros caps NO se tocan"
+
+
+def test_fix_core_content_rejected(tmp_path):
+    build_topic(tmp_path)
+    st = qa.QAState(TID, base_dir=tmp_path)
+
+    def gen(*a, **k):
+        raise _Rejected("content_policy violation")
+
+    ok, reason = qa._fix_core(st, TID, "ch02", "ch02_img_03.png", "x", **_fix_deps(gen))
+    assert ok is False and reason.startswith("filtro:")
+
+
+def test_fix_core_empty_rewrite_skips_generate(tmp_path):
+    build_topic(tmp_path)
+    st = qa.QAState(TID, base_dir=tmp_path)
+
+    def gen(*a, **k):
+        raise AssertionError("no debe generar si el rewrite quedó vacío")
+
+    deps = _fix_deps(gen)
+    deps["rewrite_fn"] = lambda si, up: {"new_prompt": "   "}
+    ok, reason = qa._fix_core(st, TID, "ch02", "ch02_img_03.png", "x", **deps)
+    assert ok is False and "vacío" in reason
+
+
+def test_fix_guard_one_at_a_time(tmp_path):
+    build_topic(tmp_path)
+    qa.STATE = qa.QAState(TID, base_dir=tmp_path)
+    qa.TOPIC_ID = TID
+    qa._FIX.update(running=True, done=False, ok=None, reason=None, img_name=None)
+    try:
+        res = qa._start_fix("ch02", "ch02_img_01.png", "x")
+        assert res == {"conflict": True}
+    finally:
+        qa._FIX.update(running=False, done=False, ok=None, reason=None, img_name=None)
+
+
 # ── runner directo (sin pytest) ──
 if __name__ == "__main__":
     import tempfile
