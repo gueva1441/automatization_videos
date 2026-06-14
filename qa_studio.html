@@ -201,6 +201,21 @@
   .fixstatus{font-family:var(--mono);font-size:10.5px;margin-left:auto;}
   .fixstatus.work{color:var(--amber);} .fixstatus.ok{color:var(--teal);} .fixstatus.err{color:var(--red);}
 
+  /* ── flash "actualizada" sobre la tarjeta regenerada (ÍTEM 2) ── */
+  .pimg .flash{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    background:rgba(45,212,191,.20);color:#0a0a12;font-family:var(--mono);font-size:12px;font-weight:700;
+    letter-spacing:.08em;z-index:6;animation:slideDown .2s ease;}
+  .pimg .flash span{background:#2dd4bf;padding:5px 12px;border-radius:8px;box-shadow:0 6px 18px rgba(45,212,191,.5);}
+
+  /* ── lightbox (ÍTEM 1: doble-click agranda) ── */
+  .lightbox{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;
+    background:rgba(4,5,9,.92);backdrop-filter:blur(6px);cursor:zoom-out;}
+  .lightbox.show{display:flex;}
+  .lightbox img{max-height:94vh;max-width:94vw;aspect-ratio:9/16;object-fit:contain;border-radius:12px;
+    box-shadow:0 30px 90px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.12);}
+  .lightbox .hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-family:var(--mono);
+    font-size:11px;color:var(--dim);letter-spacing:.06em;}
+
   /* ── assemble log + toast ── */
   .asm-log{display:none;margin-top:16px;max-height:240px;overflow:auto;background:#06080d;border:1px solid rgba(255,255,255,.1);
     border-radius:12px;padding:12px 14px;font-family:var(--mono);font-size:11.5px;line-height:1.55;color:var(--dim);white-space:pre-wrap;}
@@ -217,6 +232,7 @@
 <body>
 <div class="glow g1"></div><div class="glow g2"></div>
 <div id="toast"></div>
+<div class="lightbox" id="lightbox"><img id="lightboxImg" src="" alt=""><div class="hint">click afuera o ESC para cerrar</div></div>
 
 <div class="wrap">
   <!-- TOP BAR -->
@@ -408,17 +424,17 @@ function renderTimeline(c){
     const media = isClip
       ? `<video src="${s.clip_url||''}" muted preload="metadata" style="aspect-ratio:16/9;object-fit:cover"></video>`
       : `<img src="${imgSrc(i)}" loading="lazy" style="aspect-ratio:9/16;object-fit:cover" alt="">`;
-    // Fix sólo en fotos (NO en el tile is_clip → Zona 1.5).
+    // Foto → fix de imagen. Clip → regenerar clip (Zona 1.5: cambia el MOVIMIENTO).
     const fixCtl = isClip
-      ? '<span class="clipbadge">▶ CLIP DE VIDEO</span>'
+      ? `<span class="fixlink on" data-clipfix="${i}">✎ regenerar clip</span>`
       : `<span class="fixlink on" data-fix="${i}">✎ pedir fix</span>`;
-    const fixPanel = isClip ? '' : `
+    const fixPanel = `
       <div class="fixpanel" id="fixpanel-${i}" style="display:none">
         <div class="top">
-          <span class="tag"><span class="d"></span>FIX LOCAL · regenera solo esta imagen</span>
-          <textarea id="fixtext-${i}" placeholder="Describí qué cambiar en esta foto (en español)…"></textarea>
+          <span class="tag"><span class="d"></span>${isClip?'REGENERAR CLIP · mismo primer frame, cambia el MOVIMIENTO/cámara':'FIX LOCAL · regenera solo esta imagen'}</span>
+          <textarea id="fixtext-${i}" placeholder="${isClip?'Describí qué cambiar del MOVIMIENTO / la cámara (en español)…':'Describí qué cambiar en esta foto (en español)…'}"></textarea>
           <div class="row">
-            <button class="btn-regen" id="fixbtn-${i}">⟳ Regenerar imagen</button>
+            <button class="btn-regen" id="fixbtn-${i}">${isClip?'⟳ Regenerar clip':'⟳ Regenerar imagen'}</button>
             <span class="fixcancel" data-cancel="${i}">Cancelar</span>
             <span class="fixstatus" id="fixstatus-${i}"></span>
           </div>
@@ -441,9 +457,12 @@ function renderTimeline(c){
       </div>${fixPanel}`;
     card.querySelector('[data-sel]').onclick=()=>setActive(i);
     card.querySelector('[data-play]').onclick=(e)=>{e.stopPropagation();playSeg(i);};
-    if(!isClip){
+    card.querySelector('[data-cancel]').onclick=()=>closeFixPanel(i);
+    if(isClip){
+      card.querySelector('[data-clipfix]').onclick=()=>toggleFixPanel(i);
+      card.querySelector('#fixbtn-'+i).onclick=()=>submitClipFix(c.cap, i);
+    }else{
       card.querySelector('[data-fix]').onclick=()=>toggleFixPanel(i);
-      card.querySelector('[data-cancel]').onclick=()=>closeFixPanel(i);
       card.querySelector('#fixbtn-'+i).onclick=()=>submitFix(c.cap, s.img_name, i);
     }
     grid.appendChild(card);
@@ -518,7 +537,29 @@ function selectOptionA(sel,c){
     $('pvAnchor').innerHTML = c.base_anchor?esc(c.base_anchor):'';
     btn.innerHTML='<span style="font-size:12px">▶</span> Reproducir clip de video';
     btn.onclick=()=>{ const v=$('pvVideo'); if(v){ v.currentTime=0; v.play(); } };
-    fix.innerHTML='';   // el clip NO se fixea (Zona 1.5)
+    // Zona 1.5: regenerar el clip Veo (cambia el MOVIMIENTO, mismo primer frame).
+    fix.innerHTML=`
+      <div style="margin-top:10px"><span class="fixlink on" id="oaClipLink">✎ regenerar clip</span></div>
+      <div class="fixpanel" id="oaClipPanel" style="display:none;padding:10px 0 0">
+        <div class="top">
+          <span class="tag"><span class="d"></span>REGENERAR CLIP · mismo primer frame, cambia el MOVIMIENTO/cámara</span>
+          <textarea id="oaClipText" placeholder="Describí qué cambiar del MOVIMIENTO / la cámara (en español)…"></textarea>
+          <div class="row">
+            <button class="btn-regen" id="oaClipBtn">⟳ Regenerar clip</button>
+            <span class="fixstatus" id="oaClipStatus"></span>
+          </div>
+        </div>
+      </div>`;
+    $('oaClipLink').onclick=()=>{ const p=$('oaClipPanel'); p.style.display=p.style.display==='none'?'block':'none';
+      if(p.style.display==='block') $('oaClipText').focus(); };
+    $('oaClipBtn').onclick=()=>{
+      const fb=($('oaClipText').value||'').trim();
+      const onReload=()=>{ const t=Date.now();
+        const pv=$('pvVideo'); if(pv){ pv.src=(c.clip_url||'')+'?t='+t; pv.load(); }
+        const gv=document.querySelector('#gal .galitem[data-sel="-1"] video'); if(gv){ gv.src=(c.clip_url||'')+'?t='+t; gv.load(); }
+      };
+      startClipFix(c.cap, fb, $('oaClipStatus'), $('oaClipBtn'), onReload);
+    };
   }else{
     const g=c.gallery[sel];
     m.innerHTML=`<div class="corner" style="background:#7c5cff"></div>
@@ -716,12 +757,43 @@ function toggleFixPanel(i){
 }
 function closeFixPanel(i){ const p=$('fixpanel-'+i); if(p) p.style.display='none'; }
 
+// ÍTEM 2: recarga reforzada — tarjeta + preview (si muestra i) con ?t= nuevo + flash visible.
 function reloadImage(i){
   FIXBUST[i]=Date.now();
+  const src=imgSrc(i);
   const cardImg=document.querySelector('.pcard[data-i="'+i+'"] .pimg img');
-  if(cardImg) cardImg.src=imgSrc(i);
-  if(previewIdx===i){ const pv=document.querySelector('#pvMedia img'); if(pv) pv.src=imgSrc(i); }
+  if(cardImg) cardImg.src=src;
+  if(previewIdx===i){ const pv=document.querySelector('#pvMedia img'); if(pv) pv.src=src; }
+  flashUpdated('.pcard[data-i="'+i+'"] .pimg');
 }
+function flashUpdated(sel){
+  const host=document.querySelector(sel); if(!host) return;
+  const f=document.createElement('div'); f.className='flash'; f.innerHTML='<span>✓ actualizada</span>';
+  host.appendChild(f); setTimeout(()=>f.remove(),1500);
+}
+// Recarga del <video> del clip (tarjeta + preview) tras un fix de clip.
+function reloadClip(i){
+  const s=CUR&&CUR.segments?CUR.segments[i]:null; if(!s||!s.clip_url) return;
+  const t=Date.now();
+  const cv=document.querySelector('.pcard[data-i="'+i+'"] .pimg video');
+  if(cv){ cv.src=s.clip_url+'?t='+t; cv.load(); }
+  if(previewIdx===i){ const pv=$('pvVideo'); if(pv){ pv.src=s.clip_url+'?t='+t; pv.load(); } }
+  flashUpdated('.pcard[data-i="'+i+'"] .pimg');
+}
+
+// ── lightbox (ÍTEM 1) ──
+function openLightbox(src){
+  if(!src) return;
+  $('lightboxImg').src=src; $('lightbox').classList.add('show');
+}
+function closeLightbox(){ $('lightbox').classList.remove('show'); $('lightboxImg').src=''; }
+$('lightbox').onclick=closeLightbox;
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
+// delegación: doble-click en cualquier <img> de foto (tarjeta, preview, galería) → agranda.
+document.addEventListener('dblclick', e=>{
+  const img=e.target.closest('.pcard .pimg img, #pvMedia img, .galitem img');
+  if(img && img.tagName==='IMG'){ openLightbox(img.src); }
+});
 
 // Core genérico (lo usan tarjetas timeline y galería Option A). onReload() corre al ok.
 function startFix(cap, img_name, feedback, st, btn, onReload){
@@ -752,6 +824,28 @@ function pollFix(img_name, st, btn, onReload){
 function submitFix(cap, img_name, i){
   const ta=$('fixtext-'+i);
   startFix(cap, img_name, (ta?ta.value:'').trim(), $('fixstatus-'+i), $('fixbtn-'+i), ()=>reloadImage(i));
+}
+
+// ── fix de CLIP (Zona 1.5) — reescribe el video_prompt, regenera con Veo ──
+function startClipFix(cap, feedback, st, btn, onReload){
+  if(!feedback){ st.className='fixstatus err'; st.textContent='describí el cambio de movimiento'; return; }
+  if(btn) btn.disabled=true; st.className='fixstatus work'; st.textContent='enviando…';
+  fetch('/fix_clip',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({cap, feedback})})
+   .then(async r=>{
+      if(r.status===409){ throw new Error('ya hay un regen en curso'); }
+      const j=await r.json().catch(()=>({}));
+      if(!r.ok){ throw new Error(j.error||r.statusText); }
+      const mk=j.marker || (cap+'_clip_01.mp4');
+      st.textContent='regenerando clip… (Veo, puede tardar)';
+      if(fixPoll) clearInterval(fixPoll);
+      fixPoll=setInterval(()=>pollFix(mk, st, btn, onReload), 2500);  // Veo es lento
+   })
+   .catch(e=>{ st.className='fixstatus err'; st.textContent='⚠ '+e.message; if(btn) btn.disabled=false; });
+}
+function submitClipFix(cap, i){
+  const ta=$('fixtext-'+i);
+  startClipFix(cap, (ta?ta.value:'').trim(), $('fixstatus-'+i), $('fixbtn-'+i), ()=>reloadClip(i));
 }
 
 /* ════════ ENSAMBLAR ════════ */

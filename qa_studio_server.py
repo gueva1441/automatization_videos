@@ -520,6 +520,56 @@ class QAState:
             "subject_ref": subject_ref or None, "narration_anchor": anchor,
         }
 
+    def resolve_clip_entry(self, cap: str) -> dict | None:
+        """Re-lee el script FRESCO y saca, para un cap VEO, el video_prompt (movimiento/
+        cámara) + image_prompt (contexto del primer frame) + base_anchor + el path del
+        primer frame y del clip de salida. None si no es un cap veo / no resuelve.
+
+        Schema: el script usa singular `video_prompt`/`image_prompt` en caps veo; toleramos
+        también listas `video_prompts[]`/`image_prompts[]` (schema runtime) por las dudas."""
+        if not _CAP_RE.match(cap) or not self._is_veo(cap):
+            return None
+        if not self.script_path.exists():
+            return None
+        try:
+            raw = json.loads(self.script_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            return None
+        chap = next(
+            (c for c in raw.get("chapters", [])
+             if c.get("chapter_number") == int(cap[2:])),
+            None,
+        )
+        if not chap:
+            return None
+
+        def _first(singular, plural):
+            v = chap.get(singular)
+            if not v:
+                lst = chap.get(plural)
+                v = lst[0] if isinstance(lst, list) and lst else ""
+            return str(v or "").strip()
+
+        video_prompt = _first("video_prompt", "video_prompts")
+        if not video_prompt:
+            return None
+        image_prompt = _first("image_prompt", "image_prompts")
+        base_anchor = (chap.get("narration_anchor") or "").strip()
+
+        veo_dir = self.assets_dir / f"{cap}_veo"
+        frames = sorted(veo_dir.glob(f"{cap}_img_*.png")) if veo_dir.exists() else []
+        first_frame = frames[0] if frames else (veo_dir / f"{cap}_img_01.png")
+        out_clip = self.resolve_clip(cap) or (veo_dir / f"{cap}_clip_01.mp4")
+        return {
+            "cap": cap,
+            "video_prompt": video_prompt,
+            "image_prompt": image_prompt,
+            "base_anchor": base_anchor,
+            "first_frame": str(first_frame),
+            "out_clip": str(out_clip),
+            "clip_name": Path(out_clip).name,
+        }
+
     def topic_info(self) -> dict:
         """topic_id (must-have) + título si se puede leer trivial del sync_map (opcional)."""
         title = None
@@ -782,6 +832,154 @@ def _fix_status() -> dict:
 
 
 # ═════════════════════════════════════════════════════════════════
+#  ZONA 1.5 — FIX DE CLIP (/fix_clip) · regenera el video de un cap veo
+#  Reescribe el video_prompt (MOVIMIENTO/cámara), mantiene el MISMO primer frame.
+#  Reusa el estado _FIX + _FIX_LOCK (un solo regen a la vez: foto O clip).
+# ═════════════════════════════════════════════════════════════════
+
+# Instrucción DEDICADA del rewrite del clip (NO la de foto). Embebe MODEL_PROMPTING_RULES
+# §2 (Veo) y §2.3 (content-safety). Edita SOLO el movimiento/cámara; el primer frame (la
+# imagen Flux) no se toca acá.
+_FIX_CLIP_REWRITE_INSTRUCTION = """\
+Sos un editor de prompts de VIDEO para Veo 3.1 (image-to-video, clip de 8s en 9:16).
+Te paso el VIDEO_PROMPT ACTUAL en inglés (describe el MOVIMIENTO y la cámara sobre un
+primer frame fijo), el IMAGE_PROMPT del primer frame (CONTEXTO, NO lo repitas), el
+narration_anchor (lo que el clip ilustra) y un CAMBIO que pide el usuario en español
+sobre el MOVIMIENTO / la cámara. Devolvé el video_prompt reescrito EN INGLÉS aplicando
+ESE cambio y manteniendo el resto. El primer frame NO cambia: editás cómo se mueve la
+cámara y qué cambia en el tiempo, no qué se ve en el cuadro.
+
+REGLAS DE VEO (inviolables — el prompt resultante DEBE cumplirlas):
+1. Cinematografía AL INICIO: empezá con shot type + camera movement (Veo genera movimiento
+   y el movimiento empieza por la cámara).
+2. Vocabulario cinematográfico específico: dolly shot, tracking shot, crane shot, aerial
+   view, slow pan, POV shot; wide shot, close-up, low angle; shallow depth of field, etc.
+3. Describí MOVIMIENTO + temporalidad, NO repitas la descripción visual del primer frame
+   (eso ya está en el image_prompt → redundancia = ruido).
+4. SIN audio: en este pipeline NO usamos audio de Veo. NO incluyas diálogo entre comillas,
+   NI 'SFX:', NI 'Ambient noise:'. Solo cámara y movimiento.
+5. SIN negativos: describí en positivo ("a desolate landscape with no buildings", no "no
+   buildings").
+6. Longitud objetivo 100–200 palabras. Clip de 8s fijos — NO menciones duración en el prompt.
+
+CONTENT-SAFETY (§2.3 — Veo es MUY estricto, devuelve 422 y rechaza):
+- Muerte → calma previa. Evitá "motionless", "abandoned", "eerie", "deep night", "no human
+  figures" y cualquier referencia a muerte/destrucción humana. La narración hace el horror;
+  el clip muestra la calma viva anterior (aldea al atardecer, luz de lámpara, brisa suave).
+
+Devolvé SOLO el JSON {"new_video_prompt": "<video_prompt reescrito en inglés>"}. Sin markdown.
+"""
+
+
+def _build_clipfix_user_prompt(entry: dict, feedback: str) -> str:
+    return (
+        f"VIDEO_PROMPT ACTUAL (inglés — movimiento/cámara):\n{entry['video_prompt']}\n\n"
+        f"IMAGE_PROMPT del primer frame (CONTEXTO, no lo repitas):\n"
+        f"{entry.get('image_prompt') or '(n/d)'}\n\n"
+        f"narration_anchor (lo que el clip ilustra): "
+        f"{entry.get('base_anchor') or '(sin anchor)'}\n\n"
+        f"CAMBIO QUE PIDE EL USUARIO sobre el MOVIMIENTO/cámara (español): {feedback}\n\n"
+        "Reescribí el video_prompt en inglés aplicando ese cambio, manteniendo el resto y "
+        "respetando las reglas. Devolvé solo {\"new_video_prompt\": ...}."
+    )
+
+
+def _clipfix_core(
+    state: "QAState",
+    topic_id: str,
+    cap: str,
+    feedback: str,
+    *,
+    rewrite_fn=None,          # (system_instruction, user_prompt) -> {"new_video_prompt": str}
+    generate_veo_fn=None,     # (image_path: Path, prompt: str, out_path: Path) -> Path
+    content_rejected_exc=None,
+    now_ts: str | None = None,
+) -> tuple[bool, str | None]:
+    """Misma forma testeable que _fix_core (deps inyectadas, imports lazy). Regenera el
+    clip Veo de un cap veo reescribiendo el video_prompt; mantiene el primer frame."""
+    if rewrite_fn is None:
+        from gemini_helpers import call_flash_json, types  # noqa: PLC0415
+        _schema = types.Schema(
+            type=types.Type.OBJECT, required=["new_video_prompt"],
+            properties={"new_video_prompt": types.Schema(type=types.Type.STRING)},
+        )
+        rewrite_fn = lambda si, up: call_flash_json(  # noqa: E731
+            prompt=up, system_instruction=si, response_schema=_schema)
+    if generate_veo_fn is None or content_rejected_exc is None:
+        import asset_manager as am  # noqa: PLC0415
+        generate_veo_fn = generate_veo_fn or am._generate_veo_clip
+        content_rejected_exc = content_rejected_exc or am.ContentRejectedError
+
+    # 1. Resolver la entrada (video_prompt + primer frame + out clip).
+    entry = state.resolve_clip_entry(cap)
+    if not entry:
+        return False, "no se pudo resolver el clip del cap en el script"
+    first_frame = Path(entry["first_frame"])
+    out_clip = Path(entry["out_clip"])
+    if not first_frame.exists():
+        return False, f"falta el primer frame del clip: {first_frame.name}"
+
+    # 2. Rewrite del video_prompt (reglas Veo).
+    try:
+        res = rewrite_fn(_FIX_CLIP_REWRITE_INSTRUCTION, _build_clipfix_user_prompt(entry, feedback))
+        new_vp = str((res or {}).get("new_video_prompt", "")).strip()
+        if not new_vp:
+            return False, "el rewrite devolvió un video_prompt vacío"
+    except Exception as e:  # noqa: BLE001
+        return False, f"rewrite falló: {type(e).__name__}: {str(e)[:140]}"
+
+    # 3. Backup del clip viejo ANTES de pisar.
+    try:
+        if out_clip.exists():
+            bdir = state.assets_dir / "_qa_backups"
+            bdir.mkdir(parents=True, exist_ok=True)
+            ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
+            shutil.copy2(out_clip, bdir / f"{entry['clip_name']}.{ts}.bak.mp4")
+    except OSError as e:
+        return False, f"backup falló: {e}"
+
+    # 4. Re-generar el clip Veo i2v desde el MISMO primer frame (pisa el mismo nombre).
+    try:
+        generate_veo_fn(first_frame, new_vp, out_clip)
+    except content_rejected_exc as e:
+        return False, f"filtro: {str(e)[:160]}"
+    except Exception as e:  # noqa: BLE001
+        return False, f"{type(e).__name__}: {str(e)[:160]}"
+
+    # 5. Invalidar el baked del cap (mismo borrado que el fix de foto) → fase2b re-concatena
+    #    desde el clip nuevo. Para caps veo el relevante es el hybrid (veo+flux); borramos
+    #    ambos por las dudas. Artefacto derivado; no toca fase2b ni data sagrada.
+    work = state.base / "output" / topic_id / "_fase2b_work"
+    for stale in (f"{cap}_hybrid_visual.mp4", f"{cap}_flux_visual.mp4"):
+        try:
+            (work / stale).unlink(missing_ok=True)
+        except OSError:
+            pass
+
+    return True, None
+
+
+def _clipfix_worker(cap: str, feedback: str) -> None:
+    try:
+        ok, reason = _clipfix_core(STATE, TOPIC_ID, cap, feedback)
+    except Exception as e:  # noqa: BLE001
+        ok, reason = False, f"{type(e).__name__}: {e}"
+    with _FIX_LOCK:
+        _FIX.update(running=False, done=True, ok=ok, reason=reason)
+    print(f"  ✎ clip-fix {cap}: {'✓ ok' if ok else '✗ ' + str(reason)}")
+
+
+def _start_clipfix(cap: str, feedback: str) -> dict:
+    marker = f"{cap}_clip_01.mp4"   # el front machea /fix_status.img_name contra esto
+    with _FIX_LOCK:
+        if _FIX["running"]:
+            return {"conflict": True}
+        _FIX.update(running=True, done=False, ok=None, reason=None, img_name=marker)
+    threading.Thread(target=_clipfix_worker, args=(cap, feedback), daemon=True).start()
+    return {"started": True, "marker": marker}
+
+
+# ═════════════════════════════════════════════════════════════════
 #  HTTP handler (capa fina)
 # ═════════════════════════════════════════════════════════════════
 
@@ -955,6 +1153,27 @@ class Handler(BaseHTTPRequestHandler):
                 else:
                     print(f"  ✎ fix: {img_name} ← {feedback[:50]!r}")
                     self._send_json({"started": True})
+            elif route == "/fix_clip":
+                length = int(self.headers.get("Content-Length", 0))
+                body = json.loads(self.rfile.read(length) or b"{}")
+                cap = str(body.get("cap", ""))
+                feedback = str(body.get("feedback", "")).strip()
+                if not _CAP_RE.match(cap):
+                    self._send_json({"error": "cap inválido"}, status=400)
+                    return
+                if not feedback:
+                    self._send_json({"error": "falta 'feedback'"}, status=400)
+                    return
+                if STATE is None or STATE.resolve_clip_entry(cap) is None:
+                    self._send_json({"error": "el cap no tiene clip Veo regenerable"}, status=400)
+                    return
+                res = _start_clipfix(cap, feedback)
+                if res.get("conflict"):
+                    self._send_json({"error": "ya hay un regen en curso"}, status=409)
+                    print("  ✎ clip-fix: rechazado (ya hay uno en curso)")
+                else:
+                    print(f"  ✎ clip-fix: {cap} ← {feedback[:50]!r}")
+                    self._send_json({"started": True, "marker": res.get("marker")})
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)
         except Exception as e:  # noqa: BLE001

@@ -73,6 +73,8 @@ def build_topic(base: Path, *, matching_anchors: bool = True,
                 "veo_position": "start",
                 "narration": "apertura del cap 1",
                 "narration_anchor": "apertura del cap 1",
+                "image_prompt": "A wide panoramic city view at dawn",
+                "video_prompt": "Static camera with subtle upward drift over the skyline",
                 "supplemental_image_prompts": [
                     {"prompt": "x", "narration_anchor": "supp 1-1"},
                     {"prompt": "y", "narration_anchor": "supp 1-2"},
@@ -93,6 +95,8 @@ def build_topic(base: Path, *, matching_anchors: bool = True,
                 "veo_position": "end",
                 "narration": "cierre del cap 7",
                 "narration_anchor": base_anchor,
+                "image_prompt": "A vast white marble boulevard",
+                "video_prompt": "Slow pull out from a towering building, panning across the plaza",
                 "supplemental_image_prompts": supps,
             })
         else:
@@ -411,6 +415,100 @@ def test_fix_guard_one_at_a_time(tmp_path):
     qa._FIX.update(running=True, done=False, ok=None, reason=None, img_name=None)
     try:
         res = qa._start_fix("ch02", "ch02_img_01.png", "x")
+        assert res == {"conflict": True}
+    finally:
+        qa._FIX.update(running=False, done=False, ok=None, reason=None, img_name=None)
+
+
+# ─────────────────────────────────────────────────────────────────
+#  Zona 1.5 — fix de clip (/fix_clip)
+# ─────────────────────────────────────────────────────────────────
+
+def _clipfix_deps(generate_veo_fn, *, new_vp="A slow dolly shot tracking across the plaza"):
+    return dict(
+        rewrite_fn=lambda si, up: {"new_video_prompt": new_vp},
+        generate_veo_fn=generate_veo_fn,
+        content_rejected_exc=_Rejected,
+        now_ts="20260614_000000",
+    )
+
+
+def test_resolve_clip_entry(tmp_path):
+    build_topic(tmp_path)
+    st = qa.QAState(TID, base_dir=tmp_path)
+    e = st.resolve_clip_entry("ch01")
+    assert e and e["cap"] == "ch01"
+    assert "upward drift" in e["video_prompt"]
+    assert e["image_prompt"].startswith("A wide panoramic")
+    assert e["first_frame"].endswith("ch01_img_01.png")
+    assert e["out_clip"].endswith("ch01_clip_01.mp4")
+    assert e["clip_name"] == "ch01_clip_01.mp4"
+    # flux cap → no tiene clip → None
+    assert st.resolve_clip_entry("ch02") is None
+    # cap inexistente / basura → None
+    assert st.resolve_clip_entry("ch99") is None
+    assert st.resolve_clip_entry("../x") is None
+
+
+def test_clipfix_core_happy_backup_and_invalidate(tmp_path):
+    build_topic(tmp_path)
+    st = qa.QAState(TID, base_dir=tmp_path)
+    work = tmp_path / "output" / TID / "_fase2b_work"
+    work.mkdir(parents=True, exist_ok=True)
+    (work / "ch01_hybrid_visual.mp4").write_bytes(b"OLD")
+    (work / "ch01_flux_visual.mp4").write_bytes(b"OLD")
+    seen = {}
+
+    def gen(image_path, prompt, out_path):
+        seen["frame"] = str(image_path)
+        seen["prompt"] = prompt
+        baks = list((st.assets_dir / "_qa_backups").glob("ch01_clip_01.mp4.*.bak.mp4"))
+        seen["backup_before"] = (len(baks) == 1)
+        out_path.write_bytes(b"NEWCLIP")
+        return out_path
+
+    ok, reason = qa._clipfix_core(st, TID, "ch01", "más lento, dolly",
+                                  **_clipfix_deps(gen))
+    assert ok is True and reason is None
+    assert seen["frame"].endswith("ch01_img_01.png")          # mismo primer frame
+    assert seen["prompt"] == "A slow dolly shot tracking across the plaza"
+    assert seen["backup_before"] is True                       # backup ANTES de pisar
+    assert (st.assets_dir / "ch01_veo" / "ch01_clip_01.mp4").read_bytes() == b"NEWCLIP"
+    assert not (work / "ch01_hybrid_visual.mp4").exists()      # baked invalidado
+    assert not (work / "ch01_flux_visual.mp4").exists()
+
+
+def test_clipfix_core_content_rejected(tmp_path):
+    build_topic(tmp_path)
+    st = qa.QAState(TID, base_dir=tmp_path)
+
+    def gen(*a, **k):
+        raise _Rejected("content_policy 422")
+
+    ok, reason = qa._clipfix_core(st, TID, "ch07", "x", **_clipfix_deps(gen))
+    assert ok is False and reason.startswith("filtro:")
+
+
+def test_clipfix_core_empty_rewrite_skips_generate(tmp_path):
+    build_topic(tmp_path)
+    st = qa.QAState(TID, base_dir=tmp_path)
+
+    def gen(*a, **k):
+        raise AssertionError("no debe generar si el rewrite quedó vacío")
+
+    deps = _clipfix_deps(gen)
+    deps["rewrite_fn"] = lambda si, up: {"new_video_prompt": "  "}
+    ok, reason = qa._clipfix_core(st, TID, "ch01", "x", **deps)
+    assert ok is False and "vacío" in reason
+
+
+def test_clipfix_guard_shared_with_photo(tmp_path):
+    build_topic(tmp_path)
+    qa.STATE = qa.QAState(TID, base_dir=tmp_path)
+    qa.TOPIC_ID = TID
+    qa._FIX.update(running=True, done=False, ok=None, reason=None, img_name=None)
+    try:
+        res = qa._start_clipfix("ch01", "x")
         assert res == {"conflict": True}
     finally:
         qa._FIX.update(running=False, done=False, ok=None, reason=None, img_name=None)
