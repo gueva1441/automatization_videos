@@ -46,10 +46,12 @@ def _words(phrases: list[str], step: float = 0.5) -> list[dict]:
 # supps ORDENADOS (en orden de narración) para el cap 7 "limpio" → matchea como flux.
 _CAP7_SUPPS_ORDERED = ["sierra uno dos", "tango tres cuatro", "uniform cinco seis"]
 _CAP7_BASE_ANCHOR = "victor siete ocho cierre del clip"
+# supps ORDENADOS para el cap 1 (veo start) "limpio" → sincroniza por supps solos.
+_CAP1_SUPPS_ORDERED = ["alfa bravo charlie", "delta echo foxtrot"]
 
 
 def build_topic(base: Path, *, matching_anchors: bool = True,
-                cap7_clean: bool = False) -> str:
+                cap7_clean: bool = False, cap1_clean: bool = False) -> str:
     """Crea el topic sintético. matching_anchors=False rompe el match anchor→words
     (anchors que NO aparecen en el audio) para forzar el reparto uniforme.
     cap7_clean=True hace que el cap 7 (veo_position=end) tenga supps ORDENADOS +
@@ -67,6 +69,11 @@ def build_topic(base: Path, *, matching_anchors: bool = True,
     for n in range(1, 8):
         if n == 1:
             # veo_position=start → Option A (clip + galería).
+            if cap1_clean:
+                supps1 = [{"prompt": "x", "narration_anchor": a} for a in _CAP1_SUPPS_ORDERED]
+            else:
+                supps1 = [{"prompt": "x", "narration_anchor": "supp 1-1"},
+                          {"prompt": "y", "narration_anchor": "supp 1-2"}]
             chapters.append({
                 "chapter_number": 1,
                 "render_engine": "veo",
@@ -75,10 +82,7 @@ def build_topic(base: Path, *, matching_anchors: bool = True,
                 "narration_anchor": "apertura del cap 1",
                 "image_prompt": "A wide panoramic city view at dawn",
                 "video_prompt": "Static camera with subtle upward drift over the skyline",
-                "supplemental_image_prompts": [
-                    {"prompt": "x", "narration_anchor": "supp 1-1"},
-                    {"prompt": "y", "narration_anchor": "supp 1-2"},
-                ],
+                "supplemental_image_prompts": supps1,
             })
         elif n == 7:
             # veo_position=end → modelo timeline (v1.1).
@@ -137,6 +141,11 @@ def build_topic(base: Path, *, matching_anchors: bool = True,
                 supp_anchors = _CAP7_SUPPS_ORDERED
                 n_supp = len(supp_anchors)
                 words = _words(supp_anchors + [_CAP7_BASE_ANCHOR, "cola final"])
+            elif n == 1 and cap1_clean:
+                n_supp = len(_CAP1_SUPPS_ORDERED)
+                # narración del clip PRIMERO (no es anchor de supp) → clip ocupa [0, supp1].
+                words = _words(["intro narrada del clip uno dos"]
+                               + _CAP1_SUPPS_ORDERED + ["cola final del cap"])
             else:
                 n_supp = 2
                 words = _words([f"apertura del cap {n}"])
@@ -286,6 +295,35 @@ def test_veo_start_stays_option_a(tmp_path):
     assert p["single"] is True
     assert "gallery" in p and "segments" not in p
     assert p["clip_url"] == "/clip?cap=ch01"
+
+
+def test_veo_start_spans_synced(tmp_path):
+    """cap 1 (Option A) con supps ordenados → start/end por supp + clip span, cronológicos,
+    sin overlap. El clip ocupa [0, primer supp] (va primero)."""
+    build_topic(tmp_path, cap1_clean=True)
+    st = qa.QAState(TID, base_dir=tmp_path)
+    p = st.cap(1)
+    assert p["single"] is True and p["sync_approx"] is False
+    g = p["gallery"]
+    starts = [x["start"] for x in g]
+    assert all(s is not None for s in starts), "todos los supps con start"
+    assert starts == sorted(starts) and len(set(starts)) == len(starts)  # crecientes, sin dup
+    for x in g:
+        assert x["start"] < x["end"]
+    # el clip va antes del primer supp
+    assert p["clip_start"] == 0.0 and p["clip_end"] == g[0]["start"]
+    # el último supp cierra en total
+    assert g[-1]["end"] == p["total"]
+
+
+def test_veo_start_spans_fallback_when_unmatched(tmp_path):
+    """cap 1 sin match de supps → fallback: sync_approx, spans/clip nulos."""
+    build_topic(tmp_path)  # cap1 default: words no contienen los anchors de los supps
+    st = qa.QAState(TID, base_dir=tmp_path)
+    p = st.cap(1)
+    assert p["sync_approx"] is True
+    assert p["clip_start"] is None and p["clip_end"] is None
+    assert all(x["start"] is None and x["end"] is None for x in p["gallery"])
 
 
 # ─────────────────────────────────────────────────────────────────

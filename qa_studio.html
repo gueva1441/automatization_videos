@@ -291,17 +291,20 @@ let CAPS=[], CUR=null, curCap=null;
 const audio = new Audio();
 let mode=null;            // 'all' | 'seg' | 'clip'
 let activeIdx=0, previewIdx=0;
+let playEnd=null;         // fin del tramo a reproducir en mode 'seg' (independiente de CUR.segments)
 let FIXBUST={};           // index → timestamp para cache-bust tras un fix
 let fixPoll=null;
 
 // src de la imagen del segmento i, con cache-bust si fue regenerada por un fix.
 function imgSrc(i){
   const s=CUR&&CUR.segments?CUR.segments[i]:null; if(!s||!s.url) return '';
-  return s.url + (FIXBUST[i]?('?t='+FIXBUST[i]):'');
+  return s.url + (FIXBUST[i]?('&t='+FIXBUST[i]):'');
 }
 
 // ── boot ──
 async function boot(){
+  audio.ontimeupdate=onTimeUpdate;          // motor de tramo, también para caps veo
+  audio.onended=()=>{ mode=null; playEnd=null; updatePlayhead(1); refreshControls(); };
   try{ const t=await (await fetch('/topic')).json();
     $('topicTitle').textContent = t.title || 'documental';
     $('topicTid').textContent = '#'+String(t.topic_id).slice(0,8);
@@ -469,8 +472,6 @@ function renderTimeline(c){
   });
 
   $('playAll').onclick=togglePlayAll;
-  audio.ontimeupdate=onTimeUpdate;
-  audio.onended=()=>{ mode=null; updatePlayhead(1); refreshControls(); };
   setActive(0);
 }
 
@@ -535,8 +536,9 @@ function selectOptionA(sel,c){
       <video id="pvVideo" src="${c.clip_url||''}" controls preload="metadata" style="aspect-ratio:9/16;object-fit:cover"></video>`;
     $('pvIdx').textContent='CLIP';
     $('pvAnchor').innerHTML = c.base_anchor?esc(c.base_anchor):'';
-    btn.innerHTML='<span style="font-size:12px">▶</span> Reproducir clip de video';
-    btn.onclick=()=>{ const v=$('pvVideo'); if(v){ v.currentTime=0; v.play(); } };
+    btn.innerHTML='<span style="font-size:12px">▶</span> Reproducir clip + narración';
+    btn.onclick=()=>{ const v=$('pvVideo'); if(v){ v.currentTime=0; v.play(); }
+      playAudioSpan(c.clip_start, c.clip_end); };   // narración del tramo del clip, en paralelo
     // Zona 1.5: regenerar el clip Veo (cambia el MOVIMIENTO, mismo primer frame).
     fix.innerHTML=`
       <div style="margin-top:10px"><span class="fixlink on" id="oaClipLink">✎ regenerar clip</span></div>
@@ -555,8 +557,8 @@ function selectOptionA(sel,c){
     $('oaClipBtn').onclick=()=>{
       const fb=($('oaClipText').value||'').trim();
       const onReload=()=>{ const t=Date.now();
-        const pv=$('pvVideo'); if(pv){ pv.src=(c.clip_url||'')+'?t='+t; pv.load(); }
-        const gv=document.querySelector('#gal .galitem[data-sel="-1"] video'); if(gv){ gv.src=(c.clip_url||'')+'?t='+t; gv.load(); }
+        const pv=$('pvVideo'); if(pv){ pv.src=(c.clip_url||'')+'&t='+t; pv.load(); }
+        const gv=document.querySelector('#gal .galitem[data-sel="-1"] video'); if(gv){ gv.src=(c.clip_url||'')+'&t='+t; gv.load(); }
       };
       startClipFix(c.cap, fb, $('oaClipStatus'), $('oaClipBtn'), onReload);
     };
@@ -566,8 +568,8 @@ function selectOptionA(sel,c){
       <img src="${g.url}" style="aspect-ratio:9/16;object-fit:cover" alt="">`;
     $('pvIdx').textContent=(sel+1)+'/'+c.count;
     $('pvAnchor').innerHTML = g.anchor?esc(g.anchor):'<span style="color:#6f6f84">(sin anchor)</span>';
-    btn.innerHTML='<span style="font-size:12px">▶</span> Reproducir audio del capítulo';
-    btn.onclick=()=>{ audio.currentTime=0; audio.play(); };
+    btn.innerHTML='<span style="font-size:12px">▶</span> Reproducir audio de esta imagen';
+    btn.onclick=()=>{ if(!playAudioSpan(g.start, g.end)){ audio.currentTime=0; audio.play(); } };
     // fix de supp (cap veo start, _supp_). El img_name viene del propio gallery item.
     fix.innerHTML=`
       <div style="margin-top:10px"><span class="fixlink on" id="oaFixLink">✎ pedir fix</span></div>
@@ -586,8 +588,8 @@ function selectOptionA(sel,c){
     $('oaFixBtn').onclick=()=>{
       const fb=($('oaFixText').value||'').trim();
       const onReload=()=>{ const t=Date.now();
-        const pv=document.querySelector('#pvMedia img'); if(pv) pv.src=g.url+'?t='+t;
-        const gi=document.querySelector('#gal .galitem[data-sel="'+sel+'"] img'); if(gi) gi.src=g.url+'?t='+t;
+        const pv=document.querySelector('#pvMedia img'); if(pv) pv.src=g.url+'&t='+t;
+        const gi=document.querySelector('#gal .galitem[data-sel="'+sel+'"] img'); if(gi) gi.src=g.url+'&t='+t;
       };
       startFix(c.cap, g.img_name, fb, $('oaFixStatus'), $('oaFixBtn'), onReload);
     };
@@ -670,33 +672,46 @@ function seekAndPlay(t){
   else audio.addEventListener('loadedmetadata', go, {once:true});
 }
 
+// Reproduce un tramo de narración [start,end] del cap (reusa el motor con Range).
+// Independiente de CUR.segments → lo usan timeline Y caps veo (Option A).
+function playAudioSpan(start, end){
+  if(start==null) return false;
+  mode='seg'; playEnd=(end!=null?end:null);
+  seekAndPlay(start);
+  return true;
+}
 function playSeg(i){
   const s=CUR.segments[i]; if(!s) return;
   setActive(i);
   if(s.is_clip){ playClip(i); return; }
-  if(s.start==null){ return; } // clip-tile sin sync en fallback: no reproducible por tramo
-  mode='seg';
+  if(s.start==null){ return; } // foto sin sync en fallback: no reproducible por tramo
   $('playhead').style.display='block';
   refreshControls();
-  seekAndPlay(s.start);
+  playAudioSpan(s.start, s.end);
 }
+// Tile del clip: reproduce el <video> + la narración acotada al tramo del clip (en paralelo).
 function playClip(i){
   const s=CUR.segments[i]; setActive(i);
-  audio.pause(); mode='clip';
-  const v=$('pvVideo'); if(v){ v.currentTime=0; v.play(); }
-  $('readout') && ($('readout').style.display='none');
+  const v=$('pvVideo');
+  if(s && s.start!=null){
+    $('playhead').style.display='block';
+    playAudioSpan(s.start, s.end);     // seek narración al tramo del clip
+  }else{
+    audio.pause(); mode='clip';        // sin sync → solo el video
+  }
+  if(v){ v.currentTime=0; v.play(); }
   refreshControls();
 }
 function togglePlayAll(){
   if(mode==='all'){ stopPlayback(); return; }
-  mode='all';
+  mode='all'; playEnd=null;
   $('playhead').style.display='block';
   $('readout') && ($('readout').style.display='inline');
   refreshControls();
   seekAndPlay(0);
 }
 function stopPlayback(){
-  mode=null; try{audio.pause();}catch(e){}
+  mode=null; playEnd=null; try{audio.pause();}catch(e){}
   const ph=$('playhead'); if(ph) ph.style.display='none';
   const r=$('readout'); if(r) r.style.display='none';
   document.querySelectorAll('.pcard').forEach(el=>el.classList.remove('dim'));
@@ -710,12 +725,14 @@ function segIndexAt(t){
   return last;
 }
 function onTimeUpdate(){
-  if(!CUR||!CUR.segments) return;
-  const t=audio.currentTime; const total=CUR.total||1;
+  const t=audio.currentTime;
+  // corte por tramo: vale para timeline Y caps veo (Option A no tiene segments).
   if(mode==='seg'){
-    const s=CUR.segments[activeIdx];
-    if(s&&s.end!=null&&t>=s.end){ stopPlayback(); return; }
-  }else if(mode==='all'){
+    if(playEnd!=null && t>=playEnd){ stopPlayback(); return; }
+  }
+  if(!CUR||!CUR.segments) return;   // el resto (playhead/all) es solo del timeline
+  const total=CUR.total||1;
+  if(mode==='all'){
     const i=segIndexAt(t); if(i!==activeIdx) setActive(i);
     const clk=$('clk'); if(clk) clk.textContent=fmt(t);
   }
@@ -757,7 +774,7 @@ function toggleFixPanel(i){
 }
 function closeFixPanel(i){ const p=$('fixpanel-'+i); if(p) p.style.display='none'; }
 
-// ÍTEM 2: recarga reforzada — tarjeta + preview (si muestra i) con ?t= nuevo + flash visible.
+// ÍTEM 2: recarga reforzada — tarjeta + preview (si muestra i) con &t= nuevo + flash visible.
 function reloadImage(i){
   FIXBUST[i]=Date.now();
   const src=imgSrc(i);
@@ -776,8 +793,8 @@ function reloadClip(i){
   const s=CUR&&CUR.segments?CUR.segments[i]:null; if(!s||!s.clip_url) return;
   const t=Date.now();
   const cv=document.querySelector('.pcard[data-i="'+i+'"] .pimg video');
-  if(cv){ cv.src=s.clip_url+'?t='+t; cv.load(); }
-  if(previewIdx===i){ const pv=$('pvVideo'); if(pv){ pv.src=s.clip_url+'?t='+t; pv.load(); } }
+  if(cv){ cv.src=s.clip_url+'&t='+t; cv.load(); }
+  if(previewIdx===i){ const pv=$('pvVideo'); if(pv){ pv.src=s.clip_url+'&t='+t; pv.load(); } }
   flashUpdated('.pcard[data-i="'+i+'"] .pimg');
 }
 
