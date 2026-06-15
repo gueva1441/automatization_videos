@@ -687,13 +687,15 @@ def test_narrfix_content_rejected(tmp_path):
 #  Form asistido (marcador fase1 + validación de stdin)
 # ─────────────────────────────────────────────────────────────────
 
-def test_form_line_regex(tmp_path):
-    """El validador de stdin acepta int_csv|Q y rechaza inyección."""
-    rx = qa._FORM_LINE_RE
-    for good in ("7", "1,4", "10,2,3", "Q", "q"):
-        assert rx.match(good), f"debería aceptar {good!r}"
-    for bad in ("", "1;2", "rm -rf", "1,", ",1", "1 2", "Q,1", "1\n2"):
-        assert not rx.match(bad), f"debería rechazar {bad!r}"
+def test_form_line_sanitize(tmp_path):
+    """_sanitize_form_line acepta cualquier respuesta de UNA línea y rechaza inyección
+    multilínea / líneas absurdas. Saca el salto final."""
+    for good in ("7", "1,4", "Q", "S", "L", "long", ""):
+        assert qa._sanitize_form_line(good) == good, f"debería aceptar {good!r}"
+    assert qa._sanitize_form_line("7\n") == "7"      # saca el salto final
+    assert qa._sanitize_form_line("1,4\r\n") == "1,4"
+    for bad in ("1\n2", "a\rb", "x" * 501):           # multilínea / absurda → None
+        assert qa._sanitize_form_line(bad) is None, f"debería rechazar {bad!r}"
 
 
 def test_fase1_form_item_mapping(tmp_path):

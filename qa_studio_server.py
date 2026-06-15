@@ -1255,8 +1255,6 @@ HTML_FORM_PATH = BASE_DIR / "qa_form.html"
 _FORM_MARKER = "@@QAFORM@@ "
 _FORM_PHASES = ["RESEARCH", "GUION", "ASSETS", "VIDEO", "PACKAGING"]
 _FORM_CONSOLE_MAX = 600
-# accept=int_csv: números coma-separados, o Q (cancelar) — exactamente lo que parsea fase1.
-_FORM_LINE_RE = re.compile(r"^(?:[Qq]|\d+(?:,\d+)*)$")
 # HTML por menú (seed_pick hoy; el protocolo vale para los 8 menús).
 _FORM_MENU_HTML = {"seed_pick": BASE_DIR / "qa_seed_pick.html"}
 
@@ -1334,12 +1332,23 @@ def _start_form() -> dict:
     return {"started": True}
 
 
+def _sanitize_form_line(line: str) -> str | None:
+    """Una sola línea para el stdin del subprocess (lo que su input() ya parsea). Saca el
+    salto final; rechaza saltos embebidos (anti-inyección de varias líneas) y líneas
+    absurdamente largas. Permite cualquier respuesta de menú: 7 · 1,4 · Q · S · L · …"""
+    line = (line or "").rstrip("\r\n")
+    if "\n" in line or "\r" in line or len(line) > 500:
+        return None
+    return line
+
+
 def _form_answer(line: str) -> dict:
-    """Escribe `line`+\\n al stdin del subprocess (lo que el input() de fase1 ya parsea).
-    Valida int_csv|Q (single line) — no inyecta nada raro al stdin."""
-    line = (line or "").strip()
-    if not _FORM_LINE_RE.match(line):
-        return {"error": "respuesta inválida (esperaba números coma-separados o Q)"}
+    """Escribe `line`+\\n al stdin del subprocess (lo que el input() del gate ya parsea).
+    Acepta cualquier respuesta de UNA línea (números/Q del seed_pick, S/L del tipo de
+    video, etc.) — la valida el propio prompt del subprocess, no nosotros."""
+    line = _sanitize_form_line(line)
+    if line is None:
+        return {"error": "respuesta inválida (una sola línea)"}
     proc = _FORM_PROC.get("p")
     if proc is None or proc.poll() is not None:
         return {"error": "no hay corrida activa"}

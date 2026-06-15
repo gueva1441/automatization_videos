@@ -42,7 +42,15 @@
 
   #consoleWrap{background:#08080b;border:1px solid #222229;border-radius:12px;padding:14px 16px;}
   #console{font-family:var(--mono);font-size:12px;line-height:1.55;color:#b6b6be;white-space:pre-wrap;
-    max-height:62vh;overflow:auto;}
+    max-height:58vh;overflow:auto;}
+  #stdinRow{display:none;align-items:center;gap:9px;margin-top:12px;padding-top:12px;border-top:1px solid #1c1c22;}
+  #stdinRow .pmt{font-family:var(--mono);color:#2ea043;font-size:14px;}
+  #stdinInput{flex:1;background:#0f0f13;border:1px solid #2a2a32;border-radius:9px;padding:10px 12px;
+    color:#e8e8ec;font-family:var(--mono);font-size:13px;outline:none;}
+  #stdinInput:focus{border-color:#2ea043;}
+  #stdinSend{font-family:var(--disp);font-weight:600;font-size:13px;color:#06140a;background:#2ea043;border:none;
+    padding:10px 18px;border-radius:9px;cursor:pointer;}
+  #stdinRow .hint{font-family:var(--mono);font-size:10px;color:#5e5e68;}
   #dialog{display:none;border:1px solid #222229;border-radius:12px;overflow:hidden;background:#0f0f12;}
   #dialog iframe{width:100%;height:78vh;border:0;display:block;background:#0f0f12;}
   .empty{font-family:var(--mono);font-size:12.5px;color:#5e5e68;}
@@ -65,7 +73,13 @@
 
   <div id="dialog"></div>
   <div id="consoleWrap">
-    <div id="console"><span class="empty">Apretá «Lanzar» para arrancar. La consola del pipeline aparece acá; cuando haya que elegir algo, se abre el diálogo.</span></div>
+    <div id="console"><span class="empty">Apretá «Lanzar» para arrancar. La consola del pipeline aparece acá; cuando haya que elegir un tema, se abre el diálogo lindo. Para prompts simples (ej. tipo de video S/L) usá la barra de abajo.</span></div>
+    <div id="stdinRow">
+      <span class="pmt">›</span>
+      <input id="stdinInput" type="text" placeholder="respondé el prompt de arriba y Enter (ej: L · S · 7 · 1,4 · Q)" autocomplete="off">
+      <button id="stdinSend">Enter</button>
+      <span class="hint">↑ se escribe en la consola del pipeline</span>
+    </div>
   </div>
 </div>
 
@@ -98,7 +112,18 @@ function renderState(s){
     el.innerHTML = ok?'<span class="ok">✓ pipeline terminó OK</span>':('<span class="err">✗ pipeline terminó (código '+s.returncode+')</span>');
     b.disabled=false; b.textContent='▶ Lanzar de nuevo';
   } else { el.textContent=''; b.disabled=false; }
+  // barra de stdin: visible mientras corre (y sin diálogo abierto; el diálogo tapa la consola).
+  $('stdinRow').style.display = s.running ? 'flex' : 'none';
 }
+
+function sendStdin(){
+  const inp=$('stdinInput'); const line=inp.value;
+  if(line==null) return;
+  fetch('/form_answer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({line})})
+    .then(r=>r.json()).then(res=>{ if(!res.error){ inp.value=''; } }).catch(()=>{});
+}
+$('stdinSend').onclick=sendStdin;
+$('stdinInput').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); sendStdin(); } });
 
 function markerKey(m){ try{ return m.menu+'|'+(m.payload.seeds||[]).map(x=>x.idx).join(','); }catch(e){ return m.menu; } }
 function handleMarker(m){
