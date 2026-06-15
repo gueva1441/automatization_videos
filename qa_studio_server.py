@@ -746,6 +746,20 @@ def _build_fix_user_prompt(entry: dict, feedback: str) -> str:
     )
 
 
+def _invalidate_baked(state, topic_id: str, cap: str) -> None:
+    """Borra el clip visual horneado del cap en _fase2b_work para que ENSAMBLAR (fase2b)
+    RE-RENDERICE ese cap desde el asset nuevo (PNG del fix de foto o clip del fix de clip).
+    El fix pisa el mismo filename (conteo intacto → NO toca el bug de manifest-honesto), pero
+    en modo reuse-baked fase2b reusaría el MP4 viejo y el fix no llegaría al video. Borramos un
+    artefacto DERIVADO: no toca fase2b ni data sagrada. Cubre ambos engines (flux + hybrid)."""
+    work = state.base / "output" / topic_id / "_fase2b_work"
+    for stale in (f"{cap}_flux_visual.mp4", f"{cap}_hybrid_visual.mp4"):
+        try:
+            (work / stale).unlink(missing_ok=True)
+        except OSError:
+            pass
+
+
 def _fix_core(
     state: "QAState",
     topic_id: str,
@@ -818,18 +832,8 @@ def _fix_core(
     except Exception as e:  # noqa: BLE001
         return False, f"{type(e).__name__}: {str(e)[:160]}"
 
-    # 6. (flag #1 del handoff) Invalidar el clip visual horneado del cap para que
-    # ENSAMBLAR (fase2b) RE-RENDERICE el slideshow desde el PNG nuevo. El fix pisa el
-    # mismo filename (conteo intacto → no toca el bug de manifest-honesto), pero en modo
-    # reuse-baked fase2b reusaría el MP4 viejo y el fix NO llegaría al video. Borramos un
-    # artefacto DERIVADO (no toca fase2b ni data sagrada): así, exista o no reuse, base_clip
-    # no estará y fase2b re-renderiza ese cap desde disco.
-    work = state.base / "output" / topic_id / "_fase2b_work"
-    for stale in (f"{cap}_flux_visual.mp4", f"{cap}_hybrid_visual.mp4"):
-        try:
-            (work / stale).unlink(missing_ok=True)
-        except OSError:
-            pass
+    # Invalidar el baked → ENSAMBLAR re-renderiza el cap desde el PNG nuevo.
+    _invalidate_baked(state, topic_id, cap)
 
     return True, None
 
@@ -981,15 +985,8 @@ def _clipfix_core(
     except Exception as e:  # noqa: BLE001
         return False, f"{type(e).__name__}: {str(e)[:160]}"
 
-    # 5. Invalidar el baked del cap (mismo borrado que el fix de foto) → fase2b re-concatena
-    #    desde el clip nuevo. Para caps veo el relevante es el hybrid (veo+flux); borramos
-    #    ambos por las dudas. Artefacto derivado; no toca fase2b ni data sagrada.
-    work = state.base / "output" / topic_id / "_fase2b_work"
-    for stale in (f"{cap}_hybrid_visual.mp4", f"{cap}_flux_visual.mp4"):
-        try:
-            (work / stale).unlink(missing_ok=True)
-        except OSError:
-            pass
+    # Invalidar el baked → ENSAMBLAR re-concatena el cap desde el clip nuevo.
+    _invalidate_baked(state, topic_id, cap)
 
     return True, None
 
