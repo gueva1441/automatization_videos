@@ -733,6 +733,31 @@ def test_fase1_marker_ascii_and_shape(tmp_path):
     assert len(m["payload"]["seeds"]) == 1 and m["payload"]["seeds"][0]["idx"] == 1
 
 
+def test_fase1_choice_marker(tmp_path):
+    """Marcador genérico de choice: accept='key', options[], default, body. ASCII puro."""
+    import io, contextlib, fase1
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        fase1._emit_qaform_choice_marker(
+            "video_type", "Tipo de video",
+            [{"key": "S", "label": "SHORT — corto"}, {"key": "L", "label": "LONG — largo"}],
+            default="S")
+    line = buf.getvalue().strip()
+    assert line.startswith("@@QAFORM@@ ") and line.isascii()
+    m = json.loads(line[len("@@QAFORM@@ "):])
+    assert m["menu"] == "video_type" and m["accept"] == "key" and m["default"] == "S"
+    assert [o["key"] for o in m["options"]] == ["S", "L"] and m["body"] is None
+    # con body + opción deshabilitada
+    buf2 = io.StringIO()
+    with contextlib.redirect_stdout(buf2):
+        fase1._emit_qaform_choice_marker(
+            "reuse_seeds", "¿Usar seeds?",
+            [{"key": "S", "label": "Usar"}, {"key": "n", "label": "Buscar", "disabled": True}],
+            default="S", body="prev seeds")
+    m2 = json.loads(buf2.getvalue().strip()[len("@@QAFORM@@ "):])
+    assert m2["body"] == "prev seeds" and m2["options"][1]["disabled"] is True
+
+
 # ── runner directo (sin pytest) ──
 if __name__ == "__main__":
     import tempfile

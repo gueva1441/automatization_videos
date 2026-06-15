@@ -125,7 +125,12 @@ function sendStdin(){
 $('stdinSend').onclick=sendStdin;
 $('stdinInput').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); sendStdin(); } });
 
-function markerKey(m){ try{ return m.menu+'|'+(m.payload.seeds||[]).map(x=>x.idx).join(','); }catch(e){ return m.menu; } }
+function markerKey(m){
+  try{
+    if(m.accept==='key') return m.menu+'|key|'+(m.options||[]).map(o=>o.key).join(',');
+    return m.menu+'|'+((m.payload&&m.payload.seeds)||[]).map(x=>x.idx).join(',');
+  }catch(e){ return m.menu; }
+}
 function handleMarker(m){
   if(m){
     const k=markerKey(m);
@@ -135,13 +140,18 @@ function handleMarker(m){
 function showDialog(marker){
   $('consoleWrap').style.display='none';
   const area=$('dialog'); area.style.display='block'; area.innerHTML='';
+  const isChoice = marker.accept==='key';        // diálogo genérico de botones
+  const menuFile = isChoice ? '__choice__' : marker.menu;
   const ifr=document.createElement('iframe');
-  ifr.src='/form_menu?menu='+encodeURIComponent(marker.menu);
+  ifr.src='/form_menu?menu='+encodeURIComponent(menuFile);
   ifr.onload=()=>{
     try{
       ifr.contentWindow.qaFormAnswer=(payload)=>onAnswer(payload);
-      const seeds=(marker.payload&&marker.payload.seeds)||[];
-      if(typeof ifr.contentWindow.renderSeeds==='function') ifr.contentWindow.renderSeeds(seeds);
+      if(isChoice && typeof ifr.contentWindow.renderChoice==='function'){
+        ifr.contentWindow.renderChoice(marker);
+      }else if(typeof ifr.contentWindow.renderSeeds==='function'){
+        ifr.contentWindow.renderSeeds((marker.payload&&marker.payload.seeds)||[]);
+      }
     }catch(e){ console.error('dialog wiring', e); }
   };
   area.appendChild(ifr);

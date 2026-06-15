@@ -1255,8 +1255,12 @@ HTML_FORM_PATH = BASE_DIR / "qa_form.html"
 _FORM_MARKER = "@@QAFORM@@ "
 _FORM_PHASES = ["RESEARCH", "GUION", "ASSETS", "VIDEO", "PACKAGING"]
 _FORM_CONSOLE_MAX = 600
-# HTML por menú (seed_pick hoy; el protocolo vale para los 8 menús).
-_FORM_MENU_HTML = {"seed_pick": BASE_DIR / "qa_seed_pick.html"}
+# HTML por menú. seed_pick = diálogo a medida; __choice__ = diálogo genérico de botones
+# (accept='key': video_type, reuse_seeds, …). El host elige cuál según marker.accept.
+_FORM_MENU_HTML = {
+    "seed_pick": BASE_DIR / "qa_seed_pick.html",
+    "__choice__": BASE_DIR / "qa_choice.html",
+}
 
 _FORM: dict = {"running": False, "returncode": None, "console": [], "marker": None, "phase": None}
 _FORM_LOCK = threading.Lock()

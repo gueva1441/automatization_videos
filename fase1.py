@@ -216,6 +216,24 @@ def _seed_to_form_item(idx: int, s: dict) -> dict:
     }
 
 
+def _emit_qaform_choice_marker(
+    menu: str, prompt: str, options: list[dict],
+    *, default: str | None = None, body: str | None = None,
+) -> None:
+    """Marcador GENÉRICO de choice (botones) — accept='key'. Para los menús de letras
+    (S/L, S/n, etc.). El form dibuja un botón por option; el `key` es lo que el input()
+    ya parsea. ASCII puro, 1 línea. Igual que el seed: solo se emite con _QA_FORM."""
+    marker = {
+        "menu": menu,
+        "accept": "key",
+        "prompt": prompt,
+        "options": options,   # [{key, label, disabled?}]
+        "default": default,
+        "body": body,
+    }
+    print("@@QAFORM@@ " + json.dumps(marker, ensure_ascii=True), flush=True)
+
+
 def _emit_qaform_seed_marker(ordered: list[dict]) -> None:
     """Imprime el marcador @@QAFORM@@ (1 línea, JSON ASCII puro — Windows-safe) que el
     form detecta para renderizar el diálogo de selección de seeds. El input()/parseo de
@@ -399,6 +417,13 @@ def _ask_video_type() -> str:
     print(f"{'═' * 60}")
     print(f"     [S] SHORT  — 45-60s, vertical, pipeline rápido")
     print(f"     [L] LONG   — 8-10 min, documental (híbrido Veo + Leonardo)")
+    if _QA_FORM:
+        _emit_qaform_choice_marker(
+            "video_type", "Tipo de video para esta corrida",
+            [{"key": "S", "label": "SHORT — 45-60s, vertical, pipeline rápido"},
+             {"key": "L", "label": "LONG — 8-10 min, documental (híbrido Veo + Leonardo)"}],
+            default="S",
+        )
     choice = input(f"\n  👉 [S/L] (default S): ").strip().upper()
     return "long" if choice == "L" else "short"
 
@@ -488,6 +513,21 @@ def run_latido_a(
                     print(f"     → [{mode}] {title}")
                 if len(existing) > 5:
                     print(f"     ... y {len(existing) - 5} más")
+                if _QA_FORM:
+                    _prev = "\n".join(
+                        f"[{s.get('discovery_mode', '?')}] {s.get('seed_title', '?')}"
+                        for s in existing[:5])
+                    if len(existing) > 5:
+                        _prev += f"\n... y {len(existing) - 5} más"
+                    _emit_qaform_choice_marker(
+                        "reuse_seeds", f"Tenés {len(existing)} seed(s) previos — ¿usarlos?",
+                        # 'n' (discovery) abre menús anidados todavía sin marcador → colgaría
+                        # en el form; lo dejamos deshabilitado (el happy path asistido es reusar).
+                        [{"key": "S", "label": "Usar estos seeds"},
+                         {"key": "n", "label": "Buscar nuevos (discovery) — desde la terminal",
+                          "disabled": True}],
+                        default="S", body=_prev,
+                    )
                 reuse = input("\n  ¿Usar estos seeds? [S/n]: ").strip().lower()
                 if reuse in ("n", "no"):
                     print(f"\n{'─' * 60}")
