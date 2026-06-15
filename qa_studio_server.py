@@ -1244,6 +1244,128 @@ def _start_narrfix(cap: str, feedback: str) -> dict:
 
 
 # ═════════════════════════════════════════════════════════════════
+#  FORM ASISTIDO — driver del subprocess run_pipeline + gates al browser
+#  (contrato chat 61). Lanza `run_pipeline.py --research` con QA_FORM=1; lee stdout
+#  linea a linea; al ver el marcador @@QAFORM@@ lo expone como dialogo; la respuesta
+#  del HTML (window.qaFormAnswer) se traduce a una linea de stdin. La terminal NO
+#  cambia: el marcador solo se emite con QA_FORM seteada.
+# ═════════════════════════════════════════════════════════════════
+
+HTML_FORM_PATH = BASE_DIR / "qa_form.html"
+_FORM_MARKER = "@@QAFORM@@ "
+_FORM_PHASES = ["RESEARCH", "GUION", "ASSETS", "VIDEO", "PACKAGING"]
+_FORM_CONSOLE_MAX = 600
+# accept=int_csv: números coma-separados, o Q (cancelar) — exactamente lo que parsea fase1.
+_FORM_LINE_RE = re.compile(r"^(?:[Qq]|\d+(?:,\d+)*)$")
+# HTML por menú (seed_pick hoy; el protocolo vale para los 8 menús).
+_FORM_MENU_HTML = {"seed_pick": BASE_DIR / "qa_seed_pick.html"}
+
+_FORM: dict = {"running": False, "returncode": None, "console": [], "marker": None, "phase": None}
+_FORM_LOCK = threading.Lock()
+_FORM_PROC: dict = {"p": None}
+
+
+def _form_command() -> list[str]:
+    """Comando del run asistido. FACTORIZADO para que el smoke inyecte un stub."""
+    return [sys.executable, "run_pipeline.py", "--research"]
+
+
+def _form_reader(proc) -> None:
+    """Thread daemon: lee stdout. Marcador → _FORM['marker']; header de fase → progreso;
+    el resto → consola. (PYTHONUNBUFFERED=1 en el env mantiene a run_pipeline Y a fase1
+    sin buffer → el marcador llega al toque.)"""
+    try:
+        for line in proc.stdout:
+            line = line.rstrip("\n")
+            if line.startswith(_FORM_MARKER):
+                try:
+                    marker = json.loads(line[len(_FORM_MARKER):])
+                except json.JSONDecodeError:
+                    marker = None
+                if marker:
+                    with _FORM_LOCK:
+                        _FORM["marker"] = marker
+                continue  # el marcador NO va a la consola
+            if "  ▶ " in line:
+                for ph in _FORM_PHASES:
+                    if ph in line:
+                        with _FORM_LOCK:
+                            _FORM["phase"] = ph
+                        break
+            with _FORM_LOCK:
+                _FORM["console"].append(line)
+                if len(_FORM["console"]) > _FORM_CONSOLE_MAX:
+                    _FORM["console"] = _FORM["console"][-_FORM_CONSOLE_MAX:]
+        proc.wait()
+        rc = proc.returncode
+    except Exception as e:  # noqa: BLE001
+        with _FORM_LOCK:
+            _FORM["console"].append(f"[qa_form] error leyendo subprocess: {type(e).__name__}: {e}")
+        rc = -1
+    with _FORM_LOCK:
+        _FORM["returncode"] = rc
+        _FORM["running"] = False
+        _FORM["marker"] = None
+
+
+def _start_form() -> dict:
+    with _FORM_LOCK:
+        if _FORM["running"]:
+            return {"conflict": True}
+        _FORM.update(running=True, returncode=None, console=[], marker=None, phase=None)
+    # QA_FORM=1 → fase1 emite el marcador. PYTHONUNBUFFERED → run_pipeline Y fase1 sin
+    # buffer (el marcador llega al toque). PYTHONIOENCODING=utf-8 → el hijo emite utf-8 en
+    # Windows (sin esto, los ▶/emojis de fase1 tumban el child con cp1252; igual que el
+    # assemble worker). El reader decodifica utf-8 con errors="replace".
+    env = {**os.environ, "QA_FORM": "1", "PYTHONUNBUFFERED": "1", "PYTHONIOENCODING": "utf-8"}
+    try:
+        proc = subprocess.Popen(
+            _form_command(), cwd=str(BASE_DIR),
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+            text=True, bufsize=1, encoding="utf-8", errors="replace", env=env,
+        )
+    except Exception as e:  # noqa: BLE001
+        with _FORM_LOCK:
+            _FORM.update(running=False, returncode=-1)
+            _FORM["console"].append(f"[qa_form] no pude lanzar run_pipeline: {e}")
+        return {"error": str(e)}
+    _FORM_PROC["p"] = proc
+    threading.Thread(target=_form_reader, args=(proc,), daemon=True).start()
+    return {"started": True}
+
+
+def _form_answer(line: str) -> dict:
+    """Escribe `line`+\\n al stdin del subprocess (lo que el input() de fase1 ya parsea).
+    Valida int_csv|Q (single line) — no inyecta nada raro al stdin."""
+    line = (line or "").strip()
+    if not _FORM_LINE_RE.match(line):
+        return {"error": "respuesta inválida (esperaba números coma-separados o Q)"}
+    proc = _FORM_PROC.get("p")
+    if proc is None or proc.poll() is not None:
+        return {"error": "no hay corrida activa"}
+    try:
+        proc.stdin.write(line + "\n")
+        proc.stdin.flush()
+    except (BrokenPipeError, OSError) as e:
+        return {"error": f"no pude escribir al subprocess: {e}"}
+    with _FORM_LOCK:
+        _FORM["marker"] = None  # el diálogo ya fue respondido → el form vuelve a consola
+    return {"ok": True}
+
+
+def _form_state(tail: int = 200) -> dict:
+    with _FORM_LOCK:
+        return {
+            "running": _FORM["running"],
+            "returncode": _FORM["returncode"],
+            "phase": _FORM["phase"],
+            "phases": _FORM_PHASES,
+            "marker": _FORM["marker"],
+            "console_tail": list(_FORM["console"][-tail:]),
+        }
+
+
+# ═════════════════════════════════════════════════════════════════
 #  HTTP handler (capa fina)
 # ═════════════════════════════════════════════════════════════════
 
@@ -1374,6 +1496,13 @@ class Handler(BaseHTTPRequestHandler):
                 self._send_json(_assemble_status())
             elif route == "/fix_status":
                 self._send_json(_fix_status())
+            elif route == "/form":
+                self._send_file(HTML_FORM_PATH, "text/html; charset=utf-8")
+            elif route == "/form_menu":
+                menu = self._qs().get("menu", [""])[0]
+                self._send_file(_FORM_MENU_HTML.get(menu), "text/html; charset=utf-8")
+            elif route == "/form_state":
+                self._send_json(_form_state())
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)
         except Exception as e:  # noqa: BLE001
@@ -1456,6 +1585,24 @@ class Handler(BaseHTTPRequestHandler):
                 else:
                     print(f"  ✎ narr-fix: {cap} ← {feedback[:50]!r}")
                     self._send_json({"started": True, "marker": res.get("marker")})
+            elif route == "/form_launch":
+                res = _start_form()
+                if res.get("conflict"):
+                    self._send_json({"error": "ya hay una corrida en curso"}, status=409)
+                elif res.get("error"):
+                    self._send_json(res, status=500)
+                else:
+                    print("  ▶ form: lanzando run_pipeline --research (QA_FORM=1)…")
+                    self._send_json({"started": True})
+            elif route == "/form_answer":
+                length = int(self.headers.get("Content-Length", 0))
+                body = json.loads(self.rfile.read(length) or b"{}")
+                res = _form_answer(str(body.get("line", "")))
+                if res.get("error"):
+                    self._send_json(res, status=400)
+                else:
+                    print(f"  ▶ form: stdin ← {str(body.get('line',''))[:40]!r}")
+                    self._send_json(res)
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)
         except Exception as e:  # noqa: BLE001

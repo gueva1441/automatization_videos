@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<!--
+  qa_seed_pick.html — diálogo de selección de seeds (Claude Design, contrato chat 61).
+  Servido por qa_studio_server (/form_menu/seed_pick) y embebido en un iframe por el host
+  (qa_form.html). El host define window.qaFormAnswer y llama window.renderSeeds(seeds).
+  Estética de Claude Design — NO modificar colores/layout. Solo se corrigió el encoding.
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selección de tema — seed pick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0f0f12; color: #e8e8ec; }
+
+  @keyframes producePulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(46,160,67,.45), 0 8px 30px rgba(46,160,67,.35); }
+    50%     { box-shadow: 0 0 0 7px rgba(46,160,67,0),   0 8px 34px rgba(46,160,67,.5); }
+  }
+
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 42px 24px 150px; }
+
+  /* HEADER */
+  .head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; color: #5e5e68; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 600; color: #f4f4f6; margin: 10px 0 0; letter-spacing: -.01em; }
+  .head-right { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #7a7a82; text-align: right; line-height: 1.6; }
+  .head-right .sub { color: #5e5e68; }
+
+  /* LEGEND */
+  .legend { display: flex; gap: 18px; margin-top: 18px; flex-wrap: wrap; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8a8a92; }
+  .legend .item { display: flex; align-items: center; gap: 7px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .legend .sep { width: 1px; height: 13px; background: #2c2c33; }
+  .legend .note { color: #6a6a72; }
+
+  /* COLUMN HEADER + ROWS share the grid */
+  .grid { display: grid; grid-template-columns: 112px 1fr 128px 60px 120px; gap: 14px; align-items: center; }
+  .colhead { padding: 24px 16px 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; color: #54545e; }
+  .colhead .r { text-align: right; }
+
+  .list { display: flex; flex-direction: column; gap: 9px; }
+
+  .row { position: relative; cursor: pointer; padding: 15px 16px; border-radius: 10px;
+         background: #16161b; border: 1px solid #262630; border-left: 5px solid #444;
+         transition: background .12s, box-shadow .12s; }
+  .row:hover { background: #1d1d24; }
+  .row.dud { background: #141418; border-color: #222229; opacity: .82; transition: background .12s, box-shadow .12s, opacity .12s; }
+  .row.dud:hover { background: #1b1b21; opacity: 1; }
+  .row.selected { box-shadow: 0 0 0 2px #0f0f12, 0 0 0 4px #f4f4f5; }
+
+  .c-state { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+  .c-state .comp { color: #5a5a62; font-weight: 500; }
+
+  .c-title { display: flex; align-items: center; gap: 7px; min-width: 0; }
+  .warn { flex: none; font-size: 12px; color: #d8a02a; }
+  .title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 500; color: #eaeaef; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .row.dud .title { color: #d6d6dc; }
+
+  .c-num { text-align: right; }
+  .views { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #b6b6be; }
+  .row.dud .views { color: #9a9aa2; }
+  .fresh { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; margin-top: 3px; }
+
+  .ratio { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: #f0f0f3; text-align: right; }
+  .row.dud .ratio { color: #ceced6; }
+
+  .risk { display: flex; align-items: center; justify-content: flex-end; gap: 7px; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .risk-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  .chosen { position: absolute; top: -8px; right: 14px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .1em; color: #0c0c0d; background: #f4f4f5; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+
+  /* DUDOSOS */
+  .dud-toggle { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8a8a92; transition: color .12s; }
+  .dud-toggle:hover { color: #c4c4cc; }
+  .dud-toggle .cnt { color: #54545e; }
+  .dud-list { margin-top: 14px; padding-top: 16px; border-top: 1px dashed #2a2a32; }
+
+  /* STICKY ACTION BAR */
+  .bar { position: fixed; left: 0; right: 0; bottom: 0; background: rgba(18,18,22,.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid #2a2a32; }
+  .bar-inner { max-width: 1000px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 72px; }
+  .bar-msg { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #8a8a92; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-msg.empty { color: #6e6e78; }
+  .bar-msg .idx { color: #5e5e68; }
+  .bar-msg .t { color: #f0f0f3; }
+
+  .produce { flex: none; display: flex; align-items: center; gap: 9px; font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: .01em; color: #06140a; background: #2ea043; padding: 14px 30px; border-radius: 11px; cursor: pointer; animation: producePulse 2s ease-in-out infinite; transition: transform .1s; border: none; }
+  .produce:hover { transform: translateY(-2px) scale(1.015); }
+  .produce .g { font-size: 13px; }
+  .produce-off { flex: none; font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #5a5a62; background: #222229; padding: 11px 22px; border-radius: 10px; cursor: default; }
+</style>
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="eyebrow">PRODUCCIÓN · COLA DE HOY</div>
+        <h1>Elegí el tema de hoy</h1>
+      </div>
+      <div class="head-right">
+        <div id="mainCount">— candidatos</div>
+        <div class="sub">ordenados por hueco</div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="item"><span class="dot" style="background:#2ea043"></span>VACÍO · sin competencia</div>
+      <div class="item"><span class="dot" style="background:#d8a02a"></span>HUECO · pocos</div>
+      <div class="item"><span class="dot" style="background:#e5484d"></span>DISPUTADO · muchos</div>
+      <div class="item"><span class="dot" style="background:#93233a"></span>SATURADO · viral ES grande</div>
+      <div class="sep"></div>
+      <div class="note">↑↓ frescura del viral EN</div>
+    </div>
+
+    <div class="grid colhead">
+      <div>HUECO</div>
+      <div>TEMA</div>
+      <div class="r">DEMANDA EN</div>
+      <div class="r">RATIO</div>
+      <div class="r">RIESGO</div>
+    </div>
+
+    <div id="mainList" class="list"></div>
+
+    <div id="dudToggle" class="dud-toggle">
+      <span id="dudToggleLabel">▸ Ver dudosos</span>
+      <span id="dudCount" class="cnt">· — temas de menor confianza</span>
+    </div>
+
+    <div id="dudList" class="list dud-list" style="display:none"></div>
+  </div>
+
+  <div class="bar">
+    <div id="barInner" class="bar-inner"></div>
+  </div>
+
+<script>
+(function () {
+  'use strict';
+
+  // ----------------------------------------------------------------------
+  // PUNTO DE ENTRADA: el host llama window.renderSeeds(arrayReal).
+  // Forma de cada item:
+  //   { idx, title, es_label, competidores, en_views, en_ratio,
+  //     en_age_months, risk, reason, fallback, dudoso }
+  //   es_label : 'VACIO' | 'HUECO' | 'DISPUTADO' | 'SATURADO'
+  //   risk     : 'ninguno' | 'disputado' | 'inflado'
+  //   en_views / en_ratio llegan CRUDOS (el formateo bonito lo hace este JS).
+  //   dudoso:true -> lista colapsada. fallback:true -> warning antes del titulo.
+  // ----------------------------------------------------------------------
+  var SAMPLE = [
+    { idx: 1, title: 'El hospital psiquiatrico mas peligroso de Gran Bretana', es_label: 'VACIO', competidores: 0, en_views: 8000000, en_ratio: 200, en_age_months: 4, risk: 'ninguno', reason: 'Sin competidores en espanol; viral EN reciente y fortisimo.', fallback: false, dudoso: false },
+    { idx: 2, title: 'Wittenoom: el Chernobil secreto de Australia', es_label: 'HUECO', competidores: 1, en_views: 2900000, en_ratio: 16, en_age_months: 3, risk: 'ninguno', reason: 'Un solo competidor ES; viral EN muy fresco.', fallback: false, dudoso: false },
+    { idx: 3, title: 'Villa Epecuen: el pueblo que el agua se trago', es_label: 'DISPUTADO', competidores: 24, en_views: 16400000, en_ratio: 1.5, en_age_months: 6, risk: 'disputado', reason: 'Mucha competencia ES; ratio bajo pese a la demanda enorme.', fallback: false, dudoso: false },
+    { idx: 4, title: 'Kolmanskop: la ciudad minera tragada por el desierto', es_label: 'HUECO', competidores: 8, en_views: 1400000, en_ratio: 16, en_age_months: 11, risk: 'inflado', reason: 'Ratio inflado por baja base ES; nombre pelado.', fallback: true, dudoso: true }
+  ];
+
+  // -- CANAL DE SALIDA (lo define el HOST; aca solo lo invocamos) -----------
+  // window.qaFormAnswer({ menu:'seed_pick', action:'produce', value: idx });
+  //   multi-select -> value: [idx, ...]   ·   cancelar -> action:'cancel'
+  // NO-OP seguro si el host no lo definio (preview suelto).
+  function qaAnswer(payload) {
+    try {
+      if (typeof window.qaFormAnswer === 'function') window.qaFormAnswer(payload);
+    } catch (e) { /* no romper el HTML si el host falla */ }
+  }
+
+  // -- STATE ---------------------------------------------------------------
+  var DATA = [];
+  var selectedIdx = null;
+  var showDudosos = false;
+
+  // -- FORMATO / MAPEOS ----------------------------------------------------
+  function fmtViews(n) {
+    if (n == null) return '—';
+    if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+    if (n >= 1e3) return Math.round(n / 1e3) + 'K';
+    return String(n);
+  }
+  function fmtRatio(n) { if (n == null) return '—'; return (Number.isInteger(n) ? n : Number(n).toFixed(1)) + '×'; }
+
+  var STATES = {
+    VACIO:     { label: 'VACÍO',     color: '#2ea043' },
+    HUECO:     { label: 'HUECO',     color: '#d8a02a' },
+    DISPUTADO: { label: 'DISPUTADO', color: '#e5484d' },
+    SATURADO:  { label: 'SATURADO',  color: '#93233a' }
+  };
+  function stateOf(label) { return STATES[label] || STATES.HUECO; }
+
+  function riskOf(r) {
+    if (r === 'disputado') return { label: 'disputado',  color: '#caa15a', dot: '#d8a02a' };
+    if (r === 'inflado')   return { label: 'inflado',    color: '#c98a8a', dot: '#e5484d' };
+    return { label: 'sin riesgo', color: '#54545e', dot: '#34343c' };
+  }
+
+  // La flecha mide FRESCURA del viral EN (en_age_months), no tendencia de demanda.
+  function fresh(m) {
+    if (m == null) return { text: '— s/d', color: '#5e5e68' };
+    if (m <= 6)  return { text: '↑ fresco ' + m + 'm', color: '#cfcfd6' };
+    if (m <= 18) return { text: '→ medio ' + m + 'm',  color: '#86868e' };
+    return { text: '↓ viejo ' + m + 'm', color: '#5e5e68' };
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  // -- RENDER --------------------------------------------------------------
+  function rowHTML(it) {
+    var st = stateOf(it.es_label);
+    var rk = riskOf(it.risk);
+    var fr = fresh(it.en_age_months);
+    var sel = it.idx === selectedIdx;
+    var cls = 'row grid' + (it.dudoso ? ' dud' : '') + (sel ? ' selected' : '');
+    var warn = it.fallback
+      ? '<span class="warn" title="demanda medida con nombre pelado · puede ser off-angle">⚠</span>'
+      : '';
+    var badge = sel ? '<div class="chosen">ELEGIDO</div>' : '';
+    var comp = (it.competidores == null ? '—' : it.competidores);
+    return '' +
+      '<div class="' + cls + '" data-idx="' + it.idx + '" title="' + esc(it.reason) + '" style="border-left-color:' + st.color + '">' +
+        '<div class="c-state" style="color:' + st.color + '">' + esc(st.label) + '<span class="comp"> [' + esc(comp) + ']</span></div>' +
+        '<div class="c-title">' + warn + '<span class="title">' + esc(it.title) + '</span></div>' +
+        '<div class="c-num">' +
+          '<div class="views">' + esc(fmtViews(it.en_views)) + '</div>' +
+          '<div class="fresh" style="color:' + fr.color + '">' + esc(fr.text) + '</div>' +
+        '</div>' +
+        '<div class="ratio">' + esc(fmtRatio(it.en_ratio)) + '</div>' +
+        '<div class="risk" style="color:' + rk.color + '"><span class="risk-dot" style="background:' + rk.dot + '"></span><span>' + esc(rk.label) + '</span></div>' +
+        badge +
+      '</div>';
+  }
+
+  function renderBar() {
+    var bar = document.getElementById('barInner');
+    var sel = null;
+    for (var i = 0; i < DATA.length; i++) { if (DATA[i].idx === selectedIdx) { sel = DATA[i]; break; } }
+    if (!sel) {
+      bar.innerHTML =
+        '<div class="bar-msg empty">Elegí un tema de la lista para producir.</div>' +
+        '<div class="produce-off">▶ Producir este tema</div>';
+      return;
+    }
+    bar.innerHTML =
+      '<div class="bar-msg">Elegido&nbsp;&nbsp;<span class="idx">#' + esc(sel.idx) + '</span>&nbsp;&nbsp;<span class="t">' + esc(sel.title) + '</span></div>' +
+      '<button class="produce" id="produceBtn"><span class="g">▶</span>Producir este tema</button>';
+    document.getElementById('produceBtn').addEventListener('click', onProduce);
+  }
+
+  function render() {
+    var main = DATA.filter(function (i) { return !i.dudoso; });
+    var dud  = DATA.filter(function (i) { return i.dudoso; });
+
+    document.getElementById('mainList').innerHTML = main.map(rowHTML).join('');
+    document.getElementById('dudList').innerHTML = dud.map(rowHTML).join('');
+
+    document.getElementById('mainCount').textContent = main.length + (main.length === 1 ? ' candidato' : ' candidatos');
+    document.getElementById('dudCount').textContent = '· ' + dud.length + ' temas de menor confianza';
+    document.getElementById('dudToggleLabel').textContent = showDudosos ? '▾ Ocultar dudosos' : '▸ Ver dudosos';
+    document.getElementById('dudList').style.display = showDudosos ? 'flex' : 'none';
+    document.getElementById('dudToggle').style.display = dud.length ? 'inline-flex' : 'none';
+
+    renderBar();
+  }
+
+  function onProduce() {
+    if (selectedIdx == null) return;
+    // single -> value: idx (number). Para multi-select: value seria [idx, ...].
+    qaAnswer({ menu: 'seed_pick', action: 'produce', value: selectedIdx });
+    // El host cierra el dialogo; no mostramos estado de cola/Deshacer.
+  }
+
+  // -- EVENTOS (delegacion; sobreviven al re-render) -----------------------
+  function onListClick(e) {
+    var row = e.target.closest('.row');
+    if (!row) return;
+    selectedIdx = Number(row.getAttribute('data-idx'));
+    render();
+  }
+  document.getElementById('mainList').addEventListener('click', onListClick);
+  document.getElementById('dudList').addEventListener('click', onListClick);
+  document.getElementById('dudToggle').addEventListener('click', function () {
+    showDudosos = !showDudosos;
+    render();
+  });
+
+  // -- API PUBLICA ---------------------------------------------------------
+  // renderSeeds(items): inyecta filas y resetea seleccion. Unico punto a cablear.
+  function renderSeeds(items) {
+    DATA = Array.isArray(items) ? items.slice() : [];
+    selectedIdx = null;
+    render();
+  }
+  window.renderSeeds = renderSeeds;
+
+  // Arranque con el sample (el host lo reemplaza con renderSeeds(arrayReal)).
+  renderSeeds(SAMPLE);
+})();
+</script>
+</body>
+</html>

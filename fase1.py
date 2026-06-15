@@ -33,6 +33,7 @@ NOTAS:
 
 import argparse
 import json
+import os
 from datetime import datetime
 from pathlib import Path
 
@@ -170,6 +171,64 @@ def _seed_sort_key(s: dict) -> tuple:
     return (rank, -views, -ratio)
 
 
+# ─────────────────────────────────────────────────────────────────
+#  Marcador del FORM (QA Studio). La terminal NO cambia: el marcador se imprime
+#  SOLO si está seteada la env var QA_FORM (la setea el form al lanzar el subprocess).
+#  Corrida por terminal pura (sin QA_FORM) = byte-idéntica a hoy. Contrato chat 61.
+# ─────────────────────────────────────────────────────────────────
+
+_QA_FORM = bool(os.environ.get("QA_FORM"))  # módulo-level, una vez
+
+
+def _normalize_form_risk(risk: str | None) -> str:
+    """judge.risk (ninguno|ratio_inflado|generico|disputado) → vocabulario del HTML
+    de Design (ninguno|disputado|inflado). 'generico'/desconocido → 'ninguno'."""
+    if risk == "disputado":
+        return "disputado"
+    if risk == "ratio_inflado":
+        return "inflado"
+    return "ninguno"
+
+
+def _seed_to_form_item(idx: int, s: dict) -> dict:
+    """Serializa UN seed de `ordered` al item del payload del form (§3 del contrato).
+    Números CRUDOS (el formateo 8.0M / 200× lo hace el HTML)."""
+    j = s.get("judge") or {}
+    ev = s.get("evidence") or {}
+    en = ev.get("en_viral") or {}
+    es = ev.get("es_gap") or {}
+    verdict = j.get("verdict")
+    return {
+        "idx": idx,
+        "title": s.get("seed_title") or "(sin título)",
+        "es_label": es.get("label") or "—",
+        "competidores": es.get("ontopic_count"),
+        "en_views": en.get("views"),
+        "en_ratio": en.get("outlier_ratio"),
+        "en_title": en.get("original_title"),
+        "en_age_months": en.get("en_age_months"),
+        "fallback": bool(en.get("query_fallback")) or bool(es.get("query_fallback")),
+        "risk": _normalize_form_risk(j.get("risk")),
+        "reason": (j.get("reason") or "").strip(),
+        "verdict": verdict,
+        "cohort": j.get("cohort"),
+        "dudoso": verdict != "oro",   # oro → main; resto (dudoso/descartar) → dudosos
+    }
+
+
+def _emit_qaform_seed_marker(ordered: list[dict]) -> None:
+    """Imprime el marcador @@QAFORM@@ (1 línea, JSON ASCII puro — Windows-safe) que el
+    form detecta para renderizar el diálogo de selección de seeds. El input()/parseo de
+    abajo NO se tocan: el form escribe en stdin lo que ese input() ya parsea."""
+    marker = {
+        "menu": "seed_pick",
+        "accept": "int_csv",
+        "prompt": f"Elegí tema [1-{len(ordered)}] (coma para varios · Q para salir)",
+        "payload": {"seeds": [_seed_to_form_item(i, s) for i, s in enumerate(ordered, start=1)]},
+    }
+    print("@@QAFORM@@ " + json.dumps(marker, ensure_ascii=True), flush=True)
+
+
 def _select_seed_interactive(seeds: list[dict]) -> list[dict] | None:
     """Menú RICO sobre SEEDS (pre-research, $0). Muestra evidencia del juez +
     en_viral + es_gap y deja elegir uno (o varios, coma-separados). Devuelve los
@@ -220,6 +279,11 @@ def _select_seed_interactive(seeds: list[dict]) -> list[dict] | None:
             reason = (j.get("reason") or "").strip()
             reason = (reason[:70] + "…") if len(reason) > 71 else reason
             print(f"      juez: riesgo={j.get('risk') or 'ninguno'} · {reason}")
+
+    # Marcador del form (env-gated): el form lo detecta y renderiza el diálogo de Design.
+    # Sin QA_FORM no se imprime → corrida por terminal idéntica.
+    if _QA_FORM:
+        _emit_qaform_seed_marker(ordered)
 
     while True:
         choice = input(f"\n  Elegí tema [1-{len(ordered)}] "

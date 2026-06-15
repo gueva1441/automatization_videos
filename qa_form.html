@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--
+  qa_form.html — HOST del form asistido (contrato chat 61). Lanza run_pipeline --research
+  (via /form_launch), muestra consola en vivo + barra de progreso (polling /form_state), y
+  cuando llega un marcador @@QAFORM@@ embebe el HTML de Design en un iframe, define
+  window.qaFormAnswer ahí y rutea la respuesta a stdin (/form_answer). CC = cableado; la
+  estética del diálogo es de Design (qa_seed_pick.html, servido por /form_menu).
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Producción asistida — QA Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ color-scheme:dark; --mono:'JetBrains Mono',ui-monospace,monospace; --disp:'Space Grotesk',system-ui,sans-serif; }
+  *{box-sizing:border-box;}
+  body{margin:0;background:#0f0f12;color:#e8e8ec;font-family:var(--disp);}
+  .wrap{max-width:1040px;margin:0 auto;padding:26px 24px 60px;}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:#5e5e68;}
+  h1{font-size:24px;font-weight:600;color:#f4f4f6;margin:6px 0 0;}
+  .btn{font-family:var(--disp);font-weight:700;font-size:15px;color:#06140a;background:#2ea043;border:none;
+    padding:12px 24px;border-radius:11px;cursor:pointer;box-shadow:0 8px 26px rgba(46,160,67,.35);}
+  .btn:hover:not(:disabled){filter:brightness(1.06);} .btn:disabled{opacity:.5;cursor:not-allowed;}
+
+  .prog{display:flex;gap:8px;margin:22px 0 16px;}
+  .seg{flex:1;height:8px;border-radius:5px;background:#1a1a20;border:1px solid #26262f;overflow:hidden;position:relative;}
+  .seg.done{background:linear-gradient(90deg,#2ea043,#3fbf57);border-color:#2ea043;}
+  .seg.cur{background:#1a1a20;border-color:#2ea043;}
+  .seg.cur::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(46,160,67,.5),transparent);
+    animation:sh 1.1s linear infinite;}
+  @keyframes sh{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+  .proglabels{display:flex;gap:8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:#5e5e68;margin-bottom:18px;}
+  .proglabels span{flex:1;text-align:center;}
+  .proglabels span.on{color:#86e29a;}
+
+  .state{font-family:var(--mono);font-size:12px;color:#8a8a92;min-height:16px;margin-bottom:10px;}
+  .state .ok{color:#2ea043;} .state .err{color:#e5484d;} .state .run{color:#d8a02a;}
+
+  #consoleWrap{background:#08080b;border:1px solid #222229;border-radius:12px;padding:14px 16px;}
+  #console{font-family:var(--mono);font-size:12px;line-height:1.55;color:#b6b6be;white-space:pre-wrap;
+    max-height:62vh;overflow:auto;}
+  #dialog{display:none;border:1px solid #222229;border-radius:12px;overflow:hidden;background:#0f0f12;}
+  #dialog iframe{width:100%;height:78vh;border:0;display:block;background:#0f0f12;}
+  .empty{font-family:var(--mono);font-size:12.5px;color:#5e5e68;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="eyebrow">QA STUDIO · PRODUCCIÓN ASISTIDA</div>
+      <h1>Producir un tema (research → guion → assets → video)</h1>
+    </div>
+    <button class="btn" id="launchBtn">▶ Lanzar producción asistida</button>
+  </div>
+
+  <div class="prog" id="prog"></div>
+  <div class="proglabels" id="progLabels"></div>
+
+  <div class="state" id="state"></div>
+
+  <div id="dialog"></div>
+  <div id="consoleWrap">
+    <div id="console"><span class="empty">Apretá «Lanzar» para arrancar. La consola del pipeline aparece acá; cuando haya que elegir algo, se abre el diálogo.</span></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+let pollTimer=null, curMarkerKey=null;
+
+function renderProgress(phase, phases){
+  const prog=$('prog'), labels=$('progLabels');
+  if(prog.children.length!==phases.length){
+    prog.innerHTML=''; labels.innerHTML='';
+    phases.forEach(p=>{ const s=document.createElement('div'); s.className='seg'; prog.appendChild(s);
+      const l=document.createElement('span'); l.textContent=p; labels.appendChild(l); });
+  }
+  const idx=phase?phases.indexOf(phase):-1;
+  [...prog.children].forEach((s,i)=>{ s.className='seg'+(i<idx?' done':(i===idx?' cur':'')); });
+  [...labels.children].forEach((l,i)=>{ l.className=(i<=idx&&idx>=0)?'on':''; });
+}
+function renderConsole(lines){
+  const c=$('console'); const atBottom=c.scrollTop+c.clientHeight>=c.scrollHeight-30;
+  c.textContent=(lines||[]).join('\n');
+  if(atBottom) c.scrollTop=c.scrollHeight;
+}
+function renderState(s){
+  const el=$('state'); const b=$('launchBtn');
+  if(s.running){ el.innerHTML='<span class="run">● corriendo</span> '+(s.phase?('· fase '+s.phase):''); b.disabled=true; b.textContent='▶ corriendo…'; }
+  else if(s.returncode!=null){
+    const ok=s.returncode===0;
+    el.innerHTML = ok?'<span class="ok">✓ pipeline terminó OK</span>':('<span class="err">✗ pipeline terminó (código '+s.returncode+')</span>');
+    b.disabled=false; b.textContent='▶ Lanzar de nuevo';
+  } else { el.textContent=''; b.disabled=false; }
+}
+
+function markerKey(m){ try{ return m.menu+'|'+(m.payload.seeds||[]).map(x=>x.idx).join(','); }catch(e){ return m.menu; } }
+function handleMarker(m){
+  if(m){
+    const k=markerKey(m);
+    if(k!==curMarkerKey){ curMarkerKey=k; showDialog(m); }
+  } else if(curMarkerKey!==null){ curMarkerKey=null; hideDialog(); }
+}
+function showDialog(marker){
+  $('consoleWrap').style.display='none';
+  const area=$('dialog'); area.style.display='block'; area.innerHTML='';
+  const ifr=document.createElement('iframe');
+  ifr.src='/form_menu?menu='+encodeURIComponent(marker.menu);
+  ifr.onload=()=>{
+    try{
+      ifr.contentWindow.qaFormAnswer=(payload)=>onAnswer(payload);
+      const seeds=(marker.payload&&marker.payload.seeds)||[];
+      if(typeof ifr.contentWindow.renderSeeds==='function') ifr.contentWindow.renderSeeds(seeds);
+    }catch(e){ console.error('dialog wiring', e); }
+  };
+  area.appendChild(ifr);
+}
+function hideDialog(){ const a=$('dialog'); a.style.display='none'; a.innerHTML=''; $('consoleWrap').style.display='block'; }
+
+// §4: traduce la respuesta del HTML de Design a una línea de stdin.
+function onAnswer(payload){
+  let line;
+  if(!payload || payload.action==='cancel') line='Q';
+  else if(Array.isArray(payload.value)) line=payload.value.join(',');
+  else line=String(payload.value);
+  fetch('/form_answer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({line})})
+    .then(r=>r.json()).then(()=>{ curMarkerKey=null; hideDialog(); }).catch(()=>{});
+}
+
+async function poll(){
+  try{
+    const s=await (await fetch('/form_state')).json();
+    renderProgress(s.phase, s.phases||[]);
+    renderConsole(s.console_tail);
+    renderState(s);
+    handleMarker(s.marker);
+  }catch(e){ /* reintenta */ }
+}
+function startPolling(){ if(pollTimer) clearInterval(pollTimer); poll(); pollTimer=setInterval(poll,1000); }
+
+$('launchBtn').onclick=async()=>{
+  $('launchBtn').disabled=true;
+  try{
+    const r=await fetch('/form_launch',{method:'POST'});
+    if(r.status===409){ $('state').innerHTML='<span class="run">● ya hay una corrida en curso</span>'; }
+    else if(!r.ok){ const e=await r.json().catch(()=>({})); $('state').innerHTML='<span class="err">✗ '+(e.error||'no pude lanzar')+'</span>'; }
+  }catch(e){ $('state').innerHTML='<span class="err">✗ '+e.message+'</span>'; }
+  startPolling();
+};
+
+// Si ya había una corrida (refresh), engancha el polling.
+startPolling();
+</script>
+</body>
+</html>

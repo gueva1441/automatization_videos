@@ -683,6 +683,54 @@ def test_narrfix_content_rejected(tmp_path):
     assert ok is False and reason.startswith("filtro:")
 
 
+# ─────────────────────────────────────────────────────────────────
+#  Form asistido (marcador fase1 + validación de stdin)
+# ─────────────────────────────────────────────────────────────────
+
+def test_form_line_regex(tmp_path):
+    """El validador de stdin acepta int_csv|Q y rechaza inyección."""
+    rx = qa._FORM_LINE_RE
+    for good in ("7", "1,4", "10,2,3", "Q", "q"):
+        assert rx.match(good), f"debería aceptar {good!r}"
+    for bad in ("", "1;2", "rm -rf", "1,", ",1", "1 2", "Q,1", "1\n2"):
+        assert not rx.match(bad), f"debería rechazar {bad!r}"
+
+
+def test_fase1_form_item_mapping(tmp_path):
+    """fase1._seed_to_form_item: risk normalizado, dudoso derivado, números crudos."""
+    import fase1
+    seed = {"seed_title": "T", "judge": {"verdict": "oro", "cohort": "3/3",
+            "risk": "ratio_inflado", "reason": "r"},
+            "evidence": {"en_viral": {"views": 2900000, "outlier_ratio": 16.0,
+                         "en_age_months": 3, "original_title": "EN", "query_fallback": False},
+                         "es_gap": {"label": "HUECO", "ontopic_count": 1, "query_fallback": True}}}
+    it = fase1._seed_to_form_item(1, seed)
+    assert it["idx"] == 1 and it["title"] == "T" and it["es_label"] == "HUECO"
+    assert it["competidores"] == 1 and it["en_views"] == 2900000 and it["en_ratio"] == 16.0
+    assert it["risk"] == "inflado"          # ratio_inflado → inflado
+    assert it["fallback"] is True           # OR de los dos query_fallback
+    assert it["dudoso"] is False            # oro → main
+    # verdict != oro → dudoso
+    seed2 = {"seed_title": "T2", "judge": {"verdict": "descartar", "risk": "disputado"}, "evidence": {}}
+    it2 = fase1._seed_to_form_item(2, seed2)
+    assert it2["dudoso"] is True and it2["risk"] == "disputado" and it2["es_label"] == "—"
+
+
+def test_fase1_marker_ascii_and_shape(tmp_path):
+    """El marcador @@QAFORM@@ es 1 línea ASCII pura con el schema del contrato."""
+    import io, contextlib, fase1
+    seed = {"seed_title": "Café água", "judge": {"verdict": "oro", "risk": "ninguno"},
+            "evidence": {"en_viral": {"views": 100}, "es_gap": {"label": "VACIO", "ontopic_count": 0}}}
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        fase1._emit_qaform_seed_marker([seed])
+    line = buf.getvalue().strip()
+    assert line.startswith("@@QAFORM@@ ") and line.isascii()  # Windows-safe
+    m = json.loads(line[len("@@QAFORM@@ "):])
+    assert m["menu"] == "seed_pick" and m["accept"] == "int_csv"
+    assert len(m["payload"]["seeds"]) == 1 and m["payload"]["seeds"][0]["idx"] == 1
+
+
 # ── runner directo (sin pytest) ──
 if __name__ == "__main__":
     import tempfile
