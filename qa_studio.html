@@ -294,6 +294,7 @@ let activeIdx=0, previewIdx=0;
 let playEnd=null;         // fin del tramo a reproducir en mode 'seg' (independiente de CUR.segments)
 let FIXBUST={};           // index → timestamp para cache-bust tras un fix
 let fixPoll=null;
+let audioBust=0;          // cache-bust del /audio del cap tras un fix de narración
 
 // src de la imagen del segmento i, con cache-bust si fue regenerada por un fix.
 function imgSrc(i){
@@ -340,7 +341,7 @@ async function selectCap(cap){
   try{
     CUR = await (await fetch('/cap?cap='+cap)).json();
     if(CUR.error) throw new Error(CUR.error);
-    audio.src = CUR.audio_url;
+    audio.src = CUR.audio_url + (audioBust ? '&t='+audioBust : '');  // &t= si hubo fix de narración
     activeIdx=0; previewIdx=0;
     renderTimeline(CUR);   // v1.7: TODOS los caps usan timeline (caps veo con el clip como segmento)
   }catch(e){ $('view').innerHTML=`<div class="err">error cargando ${cap}: ${e.message}</div>`; }
@@ -365,7 +366,17 @@ function renderTimeline(c){
           ${c.sync_approx?'<span class="badge-sync">sync aproximado</span>':''}
           <span class="readout" id="readout" style="display:none"><b id="clk">0:00</b> / ${fmt(total)}</span>
           <button class="btn" id="playAll"><span style="font-size:13px">▶</span> Reproducir capítulo completo</button>
-          <button class="btn amberish" disabled title="v2">✎ Corregir narración / audio</button>
+          <button class="btn amberish" id="narrFixBtn">✎ Corregir pronunciación / audio</button>
+        </div>
+      </div>
+      <div class="fixpanel" id="narrPanel" style="display:none;padding:14px 0 0">
+        <div class="top" style="border-top-color:rgba(245,165,36,.25)">
+          <span class="tag" style="color:#f5a524;background:rgba(245,165,36,.12);border-color:rgba(245,165,36,.3)"><span class="d" style="background:#f5a524;box-shadow:0 0 6px #f5a524"></span>CORREGIR PRONUNCIACIÓN · re-TTS de ESTE cap (la narración NO cambia, solo cómo suena)</span>
+          <textarea id="narrText" placeholder="Describí la mala pronunciación (ej: «ElevenLabs lee mal la sigla DEA»)…"></textarea>
+          <div class="row">
+            <button class="btn-regen" id="narrSubmit" style="background:linear-gradient(135deg,#f5a524,#f0506b)">⟳ Corregir y re-generar audio</button>
+            <span class="fixstatus" id="narrStatus"></span>
+          </div>
         </div>
       </div>
 
@@ -472,6 +483,12 @@ function renderTimeline(c){
   });
 
   $('playAll').onclick=togglePlayAll;
+  const nb=$('narrFixBtn');
+  if(nb){
+    nb.onclick=()=>{ const p=$('narrPanel'); p.style.display=p.style.display==='none'?'block':'none';
+      if(p.style.display==='block') $('narrText').focus(); };
+    $('narrSubmit').onclick=()=>submitNarrFix(c.cap);
+  }
   setActive(0);
 }
 
@@ -742,6 +759,39 @@ function startClipFix(cap, feedback, st, btn, onReload){
 function submitClipFix(cap, i){
   const ta=$('fixtext-'+i);
   startClipFix(cap, (ta?ta.value:'').trim(), $('fixstatus-'+i), $('fixbtn-'+i), ()=>reloadClip(i));
+}
+
+// ── Zona 2: fix de pronunciación/audio (re-TTS del cap) ──
+function submitNarrFix(cap){
+  const ta=$('narrText'), st=$('narrStatus'), btn=$('narrSubmit');
+  const fb=(ta?ta.value:'').trim();
+  if(!fb){ st.className='fixstatus err'; st.textContent='describí la mala pronunciación'; return; }
+  if(btn) btn.disabled=true; st.className='fixstatus work'; st.textContent='enviando…';
+  fetch('/fix_narration',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({cap, feedback:fb})})
+   .then(async r=>{
+      if(r.status===409){ throw new Error('ya hay un regen en curso'); }
+      const j=await r.json().catch(()=>({}));
+      if(!r.ok){ throw new Error(j.error||r.statusText); }
+      const mk=j.marker || (cap+'_audio');
+      st.textContent='re-generando audio… (TTS + alineación, puede tardar)';
+      if(fixPoll) clearInterval(fixPoll);
+      fixPoll=setInterval(()=>pollNarr(mk, cap, st, btn), 2500);
+   })
+   .catch(e=>{ st.className='fixstatus err'; st.textContent='⚠ '+e.message; if(btn) btn.disabled=false; });
+}
+function pollNarr(marker, cap, st, btn){
+  fetch('/fix_status').then(r=>r.json()).then(s=>{
+    if(!document.body.contains(st)){ if(fixPoll){clearInterval(fixPoll);fixPoll=null;} return; }
+    if(!s.running && s.done && s.img_name===marker){
+      clearInterval(fixPoll); fixPoll=null; if(btn) btn.disabled=false;
+      if(s.ok){
+        st.className='fixstatus ok'; st.textContent='✅ audio actualizado';
+        toast('Audio actualizado · '+cap);
+        if(curCap===cap){ audioBust=Date.now(); selectCap(cap); }  // re-fetch: spans nuevos + audio &t=
+      } else { st.className='fixstatus err'; st.textContent='⚠ '+(s.reason||'falló'); }
+    }
+  }).catch(()=>{});
 }
 
 /* ════════ ENSAMBLAR ════════ */

@@ -562,6 +562,127 @@ def test_clipfix_guard_shared_with_photo(tmp_path):
         qa._FIX.update(running=False, done=False, ok=None, reason=None, img_name=None)
 
 
+# ─────────────────────────────────────────────────────────────────
+#  Zona 2 — fix de pronunciación/audio (/fix_narration)
+# ─────────────────────────────────────────────────────────────────
+
+def _setup_narr(tmp_path, *, norm_text="La DEA cerró el DEAL grande.", with_sync=True):
+    """Topic sintético + 01b_narration_normalized + sync_map + audio del cap 2."""
+    build_topic(tmp_path)
+    nm = {"chapters": [{"chapter_number": 2, "narration_original": "orig",
+                        "narration_normalized": norm_text, "spans_applied": []}]}
+    npth = tmp_path / "data" / "scripts" / "_steps" / TID / "01b_narration_normalized.json"
+    npth.parent.mkdir(parents=True, exist_ok=True)
+    npth.write_text(json.dumps(nm, ensure_ascii=False), encoding="utf-8")
+    if with_sync:
+        sm = {"video_id": TID, "chapters": [
+            {"id": "ch02", "text": "La DEA cerro el DEAL grande.", "narrative_intent": "development"}]}
+        smp = tmp_path / "output" / "audio" / TID / "sync_map.json"
+        smp.parent.mkdir(parents=True, exist_ok=True)
+        smp.write_text(json.dumps(sm, ensure_ascii=False), encoding="utf-8")
+    adir = tmp_path / "output" / "audio" / TID
+    (adir / "ch02_alignment.json").write_text("[]", encoding="utf-8")
+    (adir / "ch02.meta.json").write_text("{}", encoding="utf-8")
+    return qa.QAState(TID, base_dir=tmp_path)
+
+
+def _narr_deps(process_fn, *, found=True, token="DEA", pron="de e a", category="spelled"):
+    return dict(
+        rewrite_fn=lambda si, up: {"token": token, "pronunciation": pron,
+                                   "category": category, "found": found, "note": "x"},
+        process_fn=process_fn,
+        content_rejected_exc=_Rejected,
+        now_ts="20260615_000000",
+    )
+
+
+def test_narrfix_happy_boundary_dict_backup_invalidate(tmp_path):
+    st = _setup_narr(tmp_path)
+    work = tmp_path / "output" / TID / "_fase2b_work"
+    work.mkdir(parents=True, exist_ok=True)
+    (work / "ch02_flux_visual.mp4").write_bytes(b"OLD")
+    calls = {}
+
+    def proc(script):
+        calls["script"] = script
+
+    ok, reason = qa._narrfix_core(st, TID, "ch02", "lee mal la sigla DEA", **_narr_deps(proc))
+    assert ok is True and reason is None
+    # patch con LÍMITE DE PALABRA: DEA→"de e a", DEAL intacto
+    nm = json.loads((st.base / "data" / "scripts" / "_steps" / TID
+                     / "01b_narration_normalized.json").read_text(encoding="utf-8"))
+    assert nm["chapters"][0]["narration_normalized"] == "La de e a cerró el DEAL grande."
+    # custom_dict idempotente con la entry
+    cd = json.loads((st.base / "data" / "normalizer_custom_dict.json").read_text(encoding="utf-8"))
+    assert [e["token"] for e in cd["entries"]].count("DEA") == 1
+    assert cd["entries"][0] == {"token": "DEA", "pronunciation": "de e a", "category": "spelled"}
+    # backups (normalized + audio viejo)
+    bdir = st.assets_dir / "_qa_backups"
+    assert list(bdir.glob("01b_narration_normalized.*.bak.json"))
+    assert list(bdir.glob("ch02.mp3.*.bak")) and list(bdir.glob("ch02_timestamps.json.*.bak"))
+    # re-TTS: process_fn con script reconstruido del sync_map (text ORIGINAL del cap)
+    assert calls["script"]["video_id"] == TID
+    assert calls["script"]["chapters"][0]["id"] == "ch02"
+    assert "DEAL" in calls["script"]["chapters"][0]["text"]
+    # baked invalidado
+    assert not (work / "ch02_flux_visual.mp4").exists()
+
+
+def test_narrfix_idempotent_dict(tmp_path):
+    st = _setup_narr(tmp_path)
+    qa._narrfix_core(st, TID, "ch02", "DEA mal", **_narr_deps(lambda s: None))
+    # 2º fix mismo token (sobre el texto ya patcheado no estaría DEA → usar otro norm)
+    # reescribimos el normalized para que DEA vuelva a estar y re-fixear:
+    npth = st.base / "data" / "scripts" / "_steps" / TID / "01b_narration_normalized.json"
+    nm = json.loads(npth.read_text(encoding="utf-8"))
+    nm["chapters"][0]["narration_normalized"] = "Otra vez la DEA."
+    npth.write_text(json.dumps(nm, ensure_ascii=False), encoding="utf-8")
+    qa._narrfix_core(st, TID, "ch02", "DEA mal", **_narr_deps(lambda s: None))
+    cd = json.loads((st.base / "data" / "normalizer_custom_dict.json").read_text(encoding="utf-8"))
+    assert [e["token"] for e in cd["entries"]].count("DEA") == 1  # no duplica
+
+
+def test_narrfix_not_found_no_regen(tmp_path):
+    st = _setup_narr(tmp_path)
+    before = (st.base / "data" / "scripts" / "_steps" / TID
+              / "01b_narration_normalized.json").read_text(encoding="utf-8")
+    called = {"n": 0}
+
+    def proc(s):
+        called["n"] += 1
+
+    ok, reason = qa._narrfix_core(st, TID, "ch02", "no sé qué suena raro",
+                                  **_narr_deps(proc, found=False))
+    assert ok is False and "reformulá" in reason
+    assert called["n"] == 0  # no re-TTS
+    after = (st.base / "data" / "scripts" / "_steps" / TID
+             / "01b_narration_normalized.json").read_text(encoding="utf-8")
+    assert before == after  # normalized intacto
+
+
+def test_narrfix_token_absent_aborts(tmp_path):
+    st = _setup_narr(tmp_path, norm_text="Un texto sin la sigla buscada.")
+    called = {"n": 0}
+
+    def proc(s):
+        called["n"] += 1
+
+    ok, reason = qa._narrfix_core(st, TID, "ch02", "lee mal DEA",
+                                  **_narr_deps(proc, token="DEA"))
+    assert ok is False and "no aparece" in reason
+    assert called["n"] == 0  # no regenera al pedo
+
+
+def test_narrfix_content_rejected(tmp_path):
+    st = _setup_narr(tmp_path)
+
+    def proc(s):
+        raise _Rejected("content_policy")
+
+    ok, reason = qa._narrfix_core(st, TID, "ch02", "DEA mal", **_narr_deps(proc))
+    assert ok is False and reason.startswith("filtro:")
+
+
 # ── runner directo (sin pytest) ──
 if __name__ == "__main__":
     import tempfile

@@ -1012,6 +1012,238 @@ def _start_clipfix(cap: str, feedback: str) -> dict:
 
 
 # ═════════════════════════════════════════════════════════════════
+#  ZONA 2 — FIX DE NARRACIÓN/PRONUNCIACIÓN (/fix_narration) · Sabor 1, per-cap
+#  Omar describe criollo una mala pronunciación → LLM emite la entrada de
+#  normalización → patch del narration_normalized DE ESTE CAP + append al dict
+#  global → re-TTS del cap (process_script reusa los demás) → spans se recalculan
+#  solos (anchors INTACTOS). Reusa _FIX/_FIX_LOCK (un regen a la vez).
+# ═════════════════════════════════════════════════════════════════
+
+_VALID_DICT_CATEGORIES = ("spelled", "pronounceable", "abbreviation", "unit")
+_WORD_CHARS = "A-Za-z0-9ÁÉÍÓÚÑáéíóúñ"
+
+# §3 (Gemini): UNA destilación (solo identifica la entrada, NO reescribe el texto →
+# evita drift), response_schema (R4), sin ejemplos ✗ MAL con texto copiable (R3/AP3).
+_NARRFIX_INSTRUCTION = """\
+Sos un auditor de pronunciación TTS (ElevenLabs, español neutro). El usuario escuchó el
+audio de UN capítulo y reporta —con sus palabras— UN término que el TTS pronuncia mal
+(típicamente una sigla que deletrea raro, una palabra extranjera, o una abreviatura).
+
+Tu ÚNICA tarea: identificar ESE token tal cual aparece en el texto normalizado que te paso,
+y decir cómo debería pronunciarse en español para que el TTS lo lea bien. NO reescribas el
+texto, NO cambies QUÉ dice la narración: solo emitís la entrada de normalización.
+
+- token: el término EXACTO como aparece en el texto (copialo literal, misma capitalización).
+- pronunciation: la forma hablada en español que arregla la lectura.
+    · Sigla deletreada → los nombres de las letras en español separados por espacio
+      (categoría "spelled").
+    · Palabra que el TTS debería leer tal cual o casi → aproximación fonética
+      (categoría "pronounceable").
+    · Abreviatura → su forma expandida hablada (categoría "abbreviation").
+    · Unidad/símbolo → su forma hablada (categoría "unit").
+- category: una de exactamente {spelled, pronounceable, abbreviation, unit}.
+- found: true sólo si identificás con confianza UN token del texto que matchea el reporte;
+    si el reporte es ambiguo o el término no está en el texto, found=false (y no inventes).
+- note: una línea legible explicando la decisión.
+
+Si dudás entre categorías para una sigla que se deletrea, usá "spelled".
+Devolvé SOLO el JSON del schema. Sin markdown, sin texto fuera del JSON.
+"""
+
+
+def _build_narrfix_user_prompt(normalized_text: str, feedback: str) -> str:
+    return (
+        f"NARRACIÓN NORMALIZADA DEL CAP (es lo que lee el TTS):\n{normalized_text}\n\n"
+        f"REPORTE DEL USUARIO (mala pronunciación, español criollo): {feedback}\n\n"
+        "Identificá el ÚNICO token mal pronunciado y devolvé "
+        "{token, pronunciation, category, found, note}."
+    )
+
+
+def _boundary_replace(text: str, token: str, replacement: str) -> tuple[str, int]:
+    """Reemplazo con LÍMITE DE PALABRA (espejo de tts_normalizer._replace_acronyms).
+    NO usa str.replace pelado: 'DEA' NO pega dentro de 'DEAL'. Devuelve (texto, n_reemplazos)."""
+    pat = r"(?<![" + _WORD_CHARS + r"])" + re.escape(token) + r"(?![" + _WORD_CHARS + r"])"
+    new, n = re.subn(pat, replacement, text)
+    if n:
+        new = re.sub(r"[ \t]{2,}", " ", new)  # el suggested puede traer espacios extra
+    return new, n
+
+
+def _custom_dict_path(state: "QAState") -> Path:
+    # Igual convención que el resto de QAState (base/data == DATA_DIR en producción).
+    return state.base / "data" / "normalizer_custom_dict.json"
+
+
+def _append_custom_dict(state: "QAState", token: str, pronunciation: str, category: str) -> None:
+    """Append IDEMPOTENTE al normalizer_custom_dict.json (token único → reemplaza la entry).
+    Global: solo afecta VIDEOS FUTUROS (este video ya se arregla vía el normalized patcheado)."""
+    p = _custom_dict_path(state)
+    data = {"entries": []}
+    if p.exists():
+        try:
+            data = json.loads(p.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            data = {"entries": []}
+    entries = data.setdefault("entries", [])
+    entries[:] = [e for e in entries if e.get("token") != token]  # dedup → idempotente
+    entries.append({"token": token, "pronunciation": pronunciation, "category": category})
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _narrfix_core(
+    state: "QAState",
+    topic_id: str,
+    cap: str,
+    feedback: str,
+    *,
+    rewrite_fn=None,          # (system_instruction, user_prompt) -> {token,pronunciation,category,found,note}
+    process_fn=None,          # (script_dict) -> re-TTS + rebuild sync_map (default audio_manager.process_script)
+    content_rejected_exc=None,
+    now_ts: str | None = None,
+) -> tuple[bool, str | None]:
+    """Sabor 1 (pronunciación), per-cap. TESTEABLE con deps inyectadas (sin red, sin TTS).
+
+    El lever obligatorio es el narration_normalized (lo que _resolve_text_for_tts lee primero
+    en un LONG con gate corrido) → patchearlo arregla ESTE video. El custom_dict se agrega
+    aparte para herencia global. Anchors / narración ORIGINAL INTACTOS → spans se recalculan."""
+    if rewrite_fn is None:
+        from gemini_helpers import call_flash_json, types  # noqa: PLC0415
+        _schema = types.Schema(
+            type=types.Type.OBJECT, required=["token", "pronunciation", "category", "found"],
+            properties={
+                "token": types.Schema(type=types.Type.STRING),
+                "pronunciation": types.Schema(type=types.Type.STRING),
+                "category": types.Schema(type=types.Type.STRING, enum=list(_VALID_DICT_CATEGORIES)),
+                "found": types.Schema(type=types.Type.BOOLEAN),
+                "note": types.Schema(type=types.Type.STRING),
+            },
+        )
+        rewrite_fn = lambda si, up: call_flash_json(  # noqa: E731
+            prompt=up, system_instruction=si, response_schema=_schema)
+    if process_fn is None or content_rejected_exc is None:
+        import audio_manager as am  # noqa: PLC0415
+        import asset_manager as am2  # noqa: PLC0415
+        process_fn = process_fn or am.process_script
+        content_rejected_exc = content_rejected_exc or am2.ContentRejectedError
+
+    cap_n = int(cap[2:])
+    norm_path = (state.base / "data" / "scripts" / "_steps" / topic_id
+                 / "01b_narration_normalized.json")
+    if not norm_path.exists():
+        return False, "no hay narration_normalized para este topic (¿corrió el gate?)"
+    try:
+        norm_data = json.loads(norm_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError) as e:
+        return False, f"narration_normalized ilegible: {e}"
+    cap_entry = next(
+        (c for c in norm_data.get("chapters", []) if c.get("chapter_number") == cap_n), None)
+    if cap_entry is None:
+        return False, "el cap no está en el narration_normalized"
+    norm_text = cap_entry.get("narration_normalized") or ""
+
+    # 1. LLM: identifica la entrada (NO reescribe el texto).
+    try:
+        res = rewrite_fn(_NARRFIX_INSTRUCTION, _build_narrfix_user_prompt(norm_text, feedback)) or {}
+    except Exception as e:  # noqa: BLE001
+        return False, f"LLM falló: {type(e).__name__}: {str(e)[:140]}"
+    if not res.get("found"):
+        return False, "no encontré un término claro — reformulá el feedback"
+    token = str(res.get("token", "")).strip()
+    pron = str(res.get("pronunciation", "")).strip()
+    cat = str(res.get("category", "")).strip()
+    if not token or not pron:
+        return False, "el LLM no devolvió token/pronunciación"
+    if cat not in _VALID_DICT_CATEGORIES:
+        cat = "spelled"
+
+    # 2. Patch del normalized (determinístico, límite de palabra). Si el token no está → abortar.
+    new_text, count = _boundary_replace(norm_text, token, pron)
+    if count == 0:
+        return False, f"'{token}' no aparece en este cap"
+    cap_entry["narration_normalized"] = new_text
+
+    ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
+    bdir = state.assets_dir / "_qa_backups"
+    bdir.mkdir(parents=True, exist_ok=True)
+    try:
+        shutil.copy2(norm_path, bdir / f"01b_narration_normalized.{ts}.bak.json")
+    except OSError:
+        pass
+    norm_path.write_text(json.dumps(norm_data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # 3. Append al custom_dict (global, idempotente).
+    try:
+        _append_custom_dict(state, token, pron, cat)
+    except OSError:
+        pass
+
+    # 4. Backup del audio viejo del cap (mp3 + timestamps + alignment + meta).
+    for fn in (f"{cap}.mp3", f"{cap}_timestamps.json", f"{cap}_alignment.json", f"{cap}.meta.json"):
+        src = state.audio_dir / fn
+        if src.exists():
+            try:
+                shutil.copy2(src, bdir / f"{fn}.{ts}.bak")
+            except OSError:
+                pass
+
+    # 5. Re-TTS vía process_script (DECISIÓN: opción (b) del handoff). Reconstruyo el script
+    #    desde el sync_map existente (cada entry trae text ORIGINAL + narrative_intent) y dejo
+    #    que process_script(skip_if_exists=True) regenere SOLO este cap (text_hash difiere por el
+    #    normalized patcheado) y reuse los demás (hash match + alignment) → recomputa offsets y
+    #    reescribe sync_map sin merge a mano. Un solo productor.
+    sm_path = state.audio_dir / "sync_map.json"
+    if not sm_path.exists():
+        return False, "no hay sync_map.json (¿corrió fase2a?)"
+    try:
+        sm = json.loads(sm_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError) as e:
+        return False, f"sync_map ilegible: {e}"
+    script = {
+        "video_id": topic_id,
+        "chapters": [
+            {"id": e.get("id"), "text": e.get("text", ""),
+             "narrative_intent": e.get("narrative_intent", "")}
+            for e in sm.get("chapters", []) if e.get("id")
+        ],
+    }
+    try:
+        process_fn(script)
+    except content_rejected_exc as e:
+        return False, f"filtro: {str(e)[:160]}"
+    except Exception as e:  # noqa: BLE001
+        low = str(e).lower()
+        if any(k in low for k in ("content", "policy", "moderation", "safety", "blocked", "prohibited")):
+            return False, f"filtro: {str(e)[:160]}"
+        return False, f"{type(e).__name__}: {str(e)[:160]}"
+
+    # 6. Invalidar el baked → ENSAMBLAR re-renderiza el cap con el audio nuevo.
+    _invalidate_baked(state, topic_id, cap)
+    return True, None
+
+
+def _narrfix_worker(cap: str, feedback: str) -> None:
+    try:
+        ok, reason = _narrfix_core(STATE, TOPIC_ID, cap, feedback)
+    except Exception as e:  # noqa: BLE001
+        ok, reason = False, f"{type(e).__name__}: {e}"
+    with _FIX_LOCK:
+        _FIX.update(running=False, done=True, ok=ok, reason=reason)
+    print(f"  ✎ narr-fix {cap}: {'✓ ok' if ok else '✗ ' + str(reason)}")
+
+
+def _start_narrfix(cap: str, feedback: str) -> dict:
+    marker = f"{cap}_audio"   # el front machea /fix_status.img_name contra esto
+    with _FIX_LOCK:
+        if _FIX["running"]:
+            return {"conflict": True}
+        _FIX.update(running=True, done=False, ok=None, reason=None, img_name=marker)
+    threading.Thread(target=_narrfix_worker, args=(cap, feedback), daemon=True).start()
+    return {"started": True, "marker": marker}
+
+
+# ═════════════════════════════════════════════════════════════════
 #  HTTP handler (capa fina)
 # ═════════════════════════════════════════════════════════════════
 
@@ -1205,6 +1437,24 @@ class Handler(BaseHTTPRequestHandler):
                     print("  ✎ clip-fix: rechazado (ya hay uno en curso)")
                 else:
                     print(f"  ✎ clip-fix: {cap} ← {feedback[:50]!r}")
+                    self._send_json({"started": True, "marker": res.get("marker")})
+            elif route == "/fix_narration":
+                length = int(self.headers.get("Content-Length", 0))
+                body = json.loads(self.rfile.read(length) or b"{}")
+                cap = str(body.get("cap", ""))
+                feedback = str(body.get("feedback", "")).strip()
+                if not _CAP_RE.match(cap):
+                    self._send_json({"error": "cap inválido"}, status=400)
+                    return
+                if not feedback:
+                    self._send_json({"error": "falta 'feedback'"}, status=400)
+                    return
+                res = _start_narrfix(cap, feedback)
+                if res.get("conflict"):
+                    self._send_json({"error": "ya hay un regen en curso"}, status=409)
+                    print("  ✎ narr-fix: rechazado (ya hay uno en curso)")
+                else:
+                    print(f"  ✎ narr-fix: {cap} ← {feedback[:50]!r}")
                     self._send_json({"started": True, "marker": res.get("marker")})
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)
