@@ -342,7 +342,7 @@ async function selectCap(cap){
     if(CUR.error) throw new Error(CUR.error);
     audio.src = CUR.audio_url;
     activeIdx=0; previewIdx=0;
-    CUR.single ? renderOptionA(CUR) : renderTimeline(CUR);
+    renderTimeline(CUR);   // v1.7: TODOS los caps usan timeline (caps veo con el clip como segmento)
   }catch(e){ $('view').innerHTML=`<div class="err">error cargando ${cap}: ${e.message}</div>`; }
 }
 
@@ -475,7 +475,7 @@ function renderTimeline(c){
   setActive(0);
 }
 
-/* ════════ OPTION A (veo start, cap 1) ════════ */
+/* ════════ OPTION A — DEPRECADO (v1.7: cap 1 unificado a timeline; ya no se invoca) ════════ */
 function renderOptionA(c){
   const rc=roleColor(c.role);
   // media seleccionable: clip primero, después los supps. previewIdx: -1 = clip.

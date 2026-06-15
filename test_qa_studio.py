@@ -167,17 +167,15 @@ def build_topic(base: Path, *, matching_anchors: bool = True,
 #  Tests
 # ─────────────────────────────────────────────────────────────────
 
-def test_caps_seven_single_only_veo_start(tmp_path):
+def test_caps_seven_no_single_v17(tmp_path):
     build_topic(tmp_path)
     st = qa.QAState(TID, base_dir=tmp_path)
     caps = st.caps()
     assert len(caps) == 7, f"esperaba 7 caps, hay {len(caps)}"
     by_num = {c["num"]: c for c in caps}
-    # v1.1: single SÓLO para veo_position=start (cap 1). cap 7 (veo end) → timeline.
-    assert by_num[1]["single"] is True
-    assert by_num[7]["single"] is False, "cap 7 (veo end) ya no es Option A"
-    for n in (2, 3, 4, 5, 6):
-        assert by_num[n]["single"] is False, f"cap {n} no debería ser single"
+    # v1.7: Option A retirada → NINGÚN cap es single (todos timeline).
+    for n in range(1, 8):
+        assert by_num[n]["single"] is False, f"cap {n} no debería ser single (v1.7)"
     # role del skeleton
     assert by_num[1]["role"] == "hook"
     assert by_num[7]["role"] == "reveal_outro"
@@ -230,14 +228,20 @@ def test_resolve_image_rejects_traversal(tmp_path):
     assert st.resolve_image("ch02", "ch03_img_01.png") is None
 
 
-def test_veo_cap_gallery_and_clip(tmp_path):
+def test_veo_cap_timeline_shape(tmp_path):
+    """v1.7: cap 1 (veo start) es TIMELINE — single False, segments con el clip PRIMERO
+    + supps, sin gallery."""
     build_topic(tmp_path)
     st = qa.QAState(TID, base_dir=tmp_path)
     payload = st.cap(1)
-    assert payload["single"] is True
-    assert payload["clip_url"] == "/clip?cap=ch01"
-    assert len(payload["gallery"]) == 2
-    assert payload["gallery"][0]["anchor"] == "supp 1-1"
+    assert payload["single"] is False
+    assert "gallery" not in payload and "segments" in payload
+    assert payload["has_clip"] is True
+    segs = payload["segments"]
+    assert segs[0]["is_clip"] is True and segs[0]["clip_url"] == "/clip?cap=ch01"
+    # las supps vienen después del clip
+    supp_segs = [s for s in segs if not s["is_clip"]]
+    assert len(supp_segs) == 2
     # resolve_clip apunta al mp4 real
     assert st.resolve_clip("ch01") is not None
     assert st.resolve_clip("ch02") is None  # flux no tiene clip
@@ -287,43 +291,49 @@ def test_veo_end_fallback_uniform_clip_tile(tmp_path):
     assert max(supp_durs) - min(supp_durs) < 1e-6
 
 
-def test_veo_start_stays_option_a(tmp_path):
-    """cap 1 (veo_position=start) sigue Option A: single, galería, sin timeline."""
+def test_veo_start_is_timeline(tmp_path):
+    """v1.7: cap 1 (veo_position=start) es timeline (no Option A): single False, segments."""
     build_topic(tmp_path, cap7_clean=True)
     st = qa.QAState(TID, base_dir=tmp_path)
     p = st.cap(1)
-    assert p["single"] is True
-    assert "gallery" in p and "segments" not in p
-    assert p["clip_url"] == "/clip?cap=ch01"
+    assert p["single"] is False
+    assert "segments" in p and "gallery" not in p
+    assert p["segments"][0]["is_clip"] is True
 
 
 def test_veo_start_spans_synced(tmp_path):
-    """cap 1 (Option A) con supps ordenados → start/end por supp + clip span, cronológicos,
-    sin overlap. El clip ocupa [0, primer supp] (va primero)."""
+    """cap 1 timeline con supps ordenados → clip como PRIMER segmento [0, primer supp] +
+    supps tiled, cronológicos, sin overlap."""
     build_topic(tmp_path, cap1_clean=True)
     st = qa.QAState(TID, base_dir=tmp_path)
     p = st.cap(1)
-    assert p["single"] is True and p["sync_approx"] is False
-    g = p["gallery"]
-    starts = [x["start"] for x in g]
-    assert all(s is not None for s in starts), "todos los supps con start"
-    assert starts == sorted(starts) and len(set(starts)) == len(starts)  # crecientes, sin dup
-    for x in g:
-        assert x["start"] < x["end"]
-    # el clip va antes del primer supp
-    assert p["clip_start"] == 0.0 and p["clip_end"] == g[0]["start"]
-    # el último supp cierra en total
-    assert g[-1]["end"] == p["total"]
+    assert p["single"] is False and p["sync_approx"] is False
+    segs = p["segments"]
+    # segmento 0 = clip, [0, primer supp]
+    assert segs[0]["is_clip"] is True
+    assert segs[0]["start"] == 0.0
+    supp_segs = [s for s in segs if not s["is_clip"]]
+    assert segs[0]["end"] == supp_segs[0]["start"]   # clip antes del primer supp
+    # spans crecientes y sin overlap a lo largo de TODO
+    starts = [s["start"] for s in segs]
+    assert all(a < b for a, b in zip(starts, starts[1:])), f"no crecientes: {starts}"
+    for s in segs:
+        assert s["start"] < s["end"] and s["dur"] > 0
+    assert supp_segs[-1]["end"] == p["total"]
 
 
 def test_veo_start_spans_fallback_when_unmatched(tmp_path):
-    """cap 1 sin match de supps → fallback: sync_approx, spans/clip nulos."""
+    """cap 1 sin match de supps → fallback: sync_approx, clip como tile inicial sin sync,
+    supps uniformes."""
     build_topic(tmp_path)  # cap1 default: words no contienen los anchors de los supps
     st = qa.QAState(TID, base_dir=tmp_path)
     p = st.cap(1)
     assert p["sync_approx"] is True
-    assert p["clip_start"] is None and p["clip_end"] is None
-    assert all(x["start"] is None and x["end"] is None for x in p["gallery"])
+    segs = p["segments"]
+    assert segs[0]["is_clip"] is True
+    assert segs[0]["start"] is None and segs[0]["end"] is None  # clip tile sin sync
+    supp_durs = [s["dur"] for s in segs if not s["is_clip"]]
+    assert len(supp_durs) == 2 and max(supp_durs) - min(supp_durs) < 1e-6  # uniformes
 
 
 # ─────────────────────────────────────────────────────────────────

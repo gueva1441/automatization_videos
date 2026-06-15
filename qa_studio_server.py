@@ -245,10 +245,10 @@ class QAState:
         return self._script.get(cid, {}).get("veo_position", "start") or "start"
 
     def _is_single(self, cid: str) -> bool:
-        """single = vista Option A (clip + galería, SIN timeline). SÓLO los caps veo con
-        veo_position=='start' (el clip va primero → los supps tienen offset de 8s, no se
-        distribuyen como flux). Los veo_position=='end' pasan a modelo timeline (v1.1)."""
-        return self._is_veo(cid) and self._veo_position(cid) == "start"
+        """v1.7: Option A retirada — TODOS los caps usan la estructura timeline (los veo
+        con el clip como segmento, primero si veo_position=='start', último si 'end').
+        Se mantiene el método (lo usa caps()/print) devolviendo siempre False."""
+        return False
 
     def _role(self, n: int, n_max: int) -> str:
         cid = self._cap_id(n)
@@ -365,14 +365,14 @@ class QAState:
         }
 
     def _cap_veo(self, cid: str, role: str) -> dict:
-        """OPCIÓN A (Omar): clip Veo + galería de supps. v1.6: ahora con sync por item
-        (start/end por supp + clip_start/clip_end) vía el MISMO matcher que el timeline,
-        para que en el front cada supp/clip reproduzca su tramo de narración.
+        """v1.7 — cap veo con veo_position=='start': MISMA estructura timeline que los
+        flux y que el cap 7, pero con el CLIP como PRIMER segmento (va primero, ocupa
+        [0, primer supp]); las supps se reparten después. Antes era "Option A" (galería),
+        pero ya tenemos el sync por ítem → unificamos la vista.
 
-        Orden cronológico (DECISIÓN documentada): veo_position=='start' → el clip va
-        PRIMERO, así que el orden de narración es [base_anchor] + supp_anchors. Es el
-        espejo de _cap_veo_timeline (supps + [base_anchor], clip último). Si el matcher
-        no valida (anchors desordenados/no-match), fallback SIN sync por item."""
+        Sincronizamos por los SUPPS solos (el base_anchor del clip suele venir con números
+        normalizados —ej. "1948"→"mil novecientos cuarenta y ocho"— que no matchean el
+        texto crudo). Fallback sin sync → clip como tile inicial + supps uniformes."""
         clip = self.resolve_clip(cid)
         supps = self._supp_imgs(cid)
         sa = self._script.get(cid, {}).get("supp_anchors", [])
@@ -380,62 +380,51 @@ class QAState:
         words = self._load_words(cid)
         total = float(words[-1]["end"]) if words else 0.0
         n = len(supps)
+        has_clip = clip is not None
+        clip_url = f"/clip?cap={cid}" if has_clip else None
 
-        # DECISIÓN: veo_position=='start' → el clip va PRIMERO, así que ocupa
-        # [0, primer supp]. Sincronizamos por los SUPPS solos (matcher idéntico al
-        # timeline) y derivamos el span del clip; NO dependemos del base_anchor del clip
-        # —que suele ser narración con números normalizados (ej. "1948"→"mil novecientos
-        # cuarenta y ocho") y no matchea el texto crudo—. Más robusto. Fallback sin sync
-        # si los supps tampoco matchean.
         starts = None
         if n and words and len(sa[:n]) == n:
             starts = compute_anchor_starts(list(sa[:n]), words)
 
-        clip_start = clip_end = None
-        supp_spans: list[tuple] = [(None, None)] * n
+        segments: list[dict] = []
         sync_approx = False
-        if starts is not None:
-            for k in range(n):
+        # camino sincronizado: clip [0, primer supp] + supps tiled.
+        matched = starts is not None and starts[0] > 0
+        if matched:
+            segments.append({
+                "is_clip": True, "img_name": None, "anchor": base_anchor or None,
+                "start": 0.0, "end": round(starts[0], 3), "dur": round(starts[0], 3),
+                "clip_url": clip_url,
+            })
+            for k, p in enumerate(supps):
                 s_start = starts[k]
                 s_end = starts[k + 1] if (k + 1) < n else total
-                supp_spans[k] = (s_start, s_end)
-            # el clip va antes del primer supp.
-            clip_start, clip_end = 0.0, starts[0]
-            bad = clip_end - clip_start <= 0 or any(
-                (a is not None and b is not None and b - a <= 0) for a, b in supp_spans)
-            if bad:
-                starts = None
-        if starts is None:
+                segments.append(self._seg(cid, p, sa, k, s_start, s_end, s_end - s_start))
+            if any(s["dur"] <= 0 for s in segments):
+                segments, matched = [], False
+
+        if not matched:
             sync_approx = True
-            clip_start = clip_end = None
-            supp_spans = [(None, None)] * n
+            if has_clip:   # clip como tile inicial SIN sync
+                segments.append({
+                    "is_clip": True, "img_name": None, "anchor": base_anchor or None,
+                    "start": None, "end": None, "dur": None, "clip_url": clip_url,
+                })
+            seg = (total / n) if n else 0.0
+            for k, p in enumerate(supps):
+                segments.append(self._seg(cid, p, sa, k, k * seg, (k + 1) * seg, seg))
 
-        def _r(x):
-            return round(x, 3) if x is not None else None
-
-        gallery = []
-        for i, p in enumerate(supps):
-            st, en = supp_spans[i]
-            gallery.append({
-                "img_name": p.name,
-                "anchor": (sa[i] if i < len(sa) and sa[i] else None),
-                "url": f"/img?cap={cid}&name={p.name}",
-                "start": _r(st),
-                "end": _r(en),
-            })
         return {
             "cap": cid,
-            "single": True,
+            "single": False,            # v1.7: ya no es Option A → timeline
             "role": role,
             "count": n,
             "total": round(total, 3),
             "sync_approx": sync_approx,
             "audio_url": f"/audio?cap={cid}",
-            "clip_url": f"/clip?cap={cid}" if clip else None,
-            "base_anchor": base_anchor,
-            "clip_start": _r(clip_start),
-            "clip_end": _r(clip_end),
-            "gallery": gallery,
+            "segments": segments,
+            "has_clip": has_clip,
         }
 
     def _cap_veo_timeline(self, cid: str, role: str) -> dict:
@@ -1273,10 +1262,9 @@ def serve(topic_id: str) -> None:
     print(f"  QA STUDIO v1 — {('« ' + title + ' » · ') if title else ''}{topic_id}")
     print(f"  caps ({len(caps)}):")
     for c in caps:
-        if c["single"]:
-            kind = "VEO start (Option A)"
-        elif STATE._is_veo(c["cap"]):
-            kind = f"VEO end (timeline ×{c['count']}+clip)"
+        if STATE._is_veo(c["cap"]):
+            pos = STATE._veo_position(c["cap"])
+            kind = f"VEO {pos} (timeline ×{c['count']}+clip)"
         else:
             kind = f"FLUX ×{c['count']}"
         print(f"     {c['cap']} — {c['role']:<14} {kind}")
