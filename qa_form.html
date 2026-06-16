@@ -41,6 +41,12 @@
   .state{font-family:var(--mono);font-size:12px;color:#8a8a92;min-height:16px;margin-bottom:10px;}
   .state .ok{color:#2ea043;} .state .err{color:#e5484d;} .state .run{color:#d8a02a;}
 
+  /* Franja de error: solo visible en fallo (returncode != 0). Una línea, nunca la consola entera. */
+  #errstrip{display:none;font-family:var(--mono);font-size:11.5px;line-height:1.5;color:#f1a3a6;
+    background:rgba(229,72,77,.10);border:1px solid rgba(229,72,77,.45);border-left:3px solid #e5484d;
+    border-radius:8px;padding:9px 13px;margin-bottom:14px;white-space:pre-wrap;word-break:break-word;}
+  #errstrip .code{color:#e5484d;font-weight:700;}
+
   #placeholder{background:#08080b;border:1px solid #222229;border-radius:12px;padding:22px 18px;}
   #dialog{display:none;border:1px solid #222229;border-radius:12px;overflow:hidden;background:#0f0f12;}
   #dialog iframe{width:100%;height:78vh;border:0;display:block;background:#0f0f12;}
@@ -54,16 +60,17 @@
       <div class="eyebrow">QA STUDIO · PRODUCCIÓN ASISTIDA</div>
       <h1>Producir un tema (research → guion → assets → video)</h1>
     </div>
-    <button class="btn" id="launchBtn">▶ Lanzar producción asistida</button>
+    <button class="btn" id="launchBtn">↻ Reiniciar corrida</button>
   </div>
 
   <div class="prog" id="prog"></div>
   <div class="proglabels" id="progLabels"></div>
 
   <div class="state" id="state"></div>
+  <div id="errstrip"></div>
 
   <div id="dialog"></div>
-  <div id="placeholder"><span class="empty">Apretá «Lanzar» para empezar. Cuando el pipeline necesite una decisión, se abre el diálogo acá.</span></div>
+  <div id="placeholder"><span class="empty">Arrancando la corrida… cuando el pipeline necesite una decisión, se abre el diálogo acá.</span></div>
 </div>
 
 <script>
@@ -84,13 +91,26 @@ function renderProgress(phase, phases){
 }
 function renderState(s){
   const el=$('state'); const b=$('launchBtn');
-  if(s.running){ el.innerHTML='<span class="run">● corriendo</span> '+(s.phase?('· fase '+s.phase):''); b.disabled=true; b.textContent='▶ corriendo…'; }
+  if(s.running){ el.innerHTML='<span class="run">● corriendo</span> '+(s.phase?('· fase '+s.phase):''); b.disabled=true; b.textContent='● corriendo…'; }
   else if(s.returncode!=null){
     const ok=s.returncode===0;
     el.innerHTML = ok?'<span class="ok">✓ pipeline terminó OK</span>':('<span class="err">✗ pipeline terminó (código '+s.returncode+')</span>');
-    b.disabled=false; b.textContent='▶ Lanzar de nuevo';
-  } else { el.textContent=''; b.disabled=false; }
+    b.disabled=false; b.textContent='↻ Reiniciar corrida';
+  } else { el.textContent=''; b.disabled=false; b.textContent='↻ Reiniciar corrida'; }
+  renderErr(s);
 }
+
+// ITEM 3 — franja de error: SOLO en fallo (returncode != 0). Una línea = última de console_tail.
+function renderErr(s){
+  const e=$('errstrip');
+  if(s.returncode!=null && s.returncode!==0){
+    const tail=s.console_tail||[];
+    const last=tail.length?String(tail[tail.length-1]).trim():'';
+    e.innerHTML='<span class="code">✗ código '+s.returncode+'</span>'+(last?(' · '+esc(last)):'');
+    e.style.display='block';
+  } else { e.style.display='none'; e.textContent=''; }
+}
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function markerKey(m){
   try{
@@ -149,18 +169,28 @@ async function poll(){
 }
 function startPolling(){ if(pollTimer) clearInterval(pollTimer); poll(); pollTimer=setInterval(poll,1000); }
 
-$('launchBtn').onclick=async()=>{
+async function launch(){
   $('launchBtn').disabled=true;
+  $('errstrip').style.display='none';
   try{
     const r=await fetch('/form_launch',{method:'POST'});
     if(r.status===409){ $('state').innerHTML='<span class="run">● ya hay una corrida en curso</span>'; }
     else if(!r.ok){ const e=await r.json().catch(()=>({})); $('state').innerHTML='<span class="err">✗ '+(e.error||'no pude lanzar')+'</span>'; }
   }catch(e){ $('state').innerHTML='<span class="err">✗ '+e.message+'</span>'; }
   startPolling();
-};
+}
+$('launchBtn').onclick=launch;   // vía manual de reiniciar (el server da 409 si ya hay corrida)
 
-// Si ya había una corrida (refresh), engancha el polling.
-startPolling();
+// ITEM 1 — auto-run al abrir: si está fresco (nada corriendo y sin returncode) → lanzar solo,
+// sin click. El run frena en el primer diálogo esperando input → $0 de gasto hasta que Omar
+// elige. Si ya hay corrida (refresh a mitad) → NO relanzar, solo enganchar el polling.
+(async function init(){
+  try{
+    const s=await (await fetch('/form_state')).json();
+    if(!s.running && s.returncode==null){ await launch(); return; }
+  }catch(e){ /* si /form_state falla, igual enganchamos polling abajo */ }
+  startPolling();
+})();
 </script>
 </body>
 </html>

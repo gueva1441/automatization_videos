@@ -219,10 +219,15 @@ def _seed_to_form_item(idx: int, s: dict) -> dict:
 def _emit_qaform_choice_marker(
     menu: str, prompt: str, options: list[dict],
     *, default: str | None = None, body: str | None = None,
+    payload: dict | None = None,
 ) -> None:
     """Marcador GENÉRICO de choice (botones) — accept='key'. Para los menús de letras
     (S/L, S/n, etc.). El form dibuja un botón por option; el `key` es lo que el input()
-    ya parsea. ASCII puro, 1 línea. Igual que el seed: solo se emite con _QA_FORM."""
+    ya parsea. ASCII puro, 1 línea. Igual que el seed: solo se emite con _QA_FORM.
+
+    `payload` es DISPLAY-ONLY (ej. reuse_seeds → tarjetas de seeds): NO cambia la acción
+    (siguen siendo los botones/`key`), no hay mapeo de índices. El seam de respuesta
+    {menu, action, value} queda intacto."""
     marker = {
         "menu": menu,
         "accept": "key",
@@ -231,6 +236,8 @@ def _emit_qaform_choice_marker(
         "default": default,
         "body": body,
     }
+    if payload is not None:
+        marker["payload"] = payload
     print("@@QAFORM@@ " + json.dumps(marker, ensure_ascii=True), flush=True)
 
 
@@ -514,11 +521,14 @@ def run_latido_a(
                 if len(existing) > 5:
                     print(f"     ... y {len(existing) - 5} más")
                 if _QA_FORM:
-                    _prev = "\n".join(
-                        f"[{s.get('discovery_mode', '?')}] {s.get('seed_title', '?')}"
-                        for s in existing[:5])
-                    if len(existing) > 5:
-                        _prev += f"\n... y {len(existing) - 5} más"
+                    # payload DISPLAY-ONLY → el form dibuja una tarjeta por seed (título +
+                    # badge de nicho). NO hay mapeo de índices: estos seeds son pre-juez; el
+                    # panel rico numerado viene después en seed_pick. La acción son los 2 botones.
+                    _seed_cards = [
+                        {"title": s.get("seed_title") or "(sin título)",
+                         "mode": s.get("discovery_mode") or "?"}
+                        for s in existing
+                    ]
                     _emit_qaform_choice_marker(
                         "reuse_seeds", f"Tenés {len(existing)} seed(s) previos — ¿usarlos?",
                         # 'n' → discover_niches(): sus menús A/B ya están cableados con marcador
@@ -526,7 +536,7 @@ def run_latido_a(
                         # el panel rico de seeds (seed_pick) que ya existe.
                         [{"key": "S", "label": "Usar estos seeds"},
                          {"key": "n", "label": "+ Generar nuevos seeds"}],
-                        default="S", body=_prev,
+                        default="S", payload={"seeds": _seed_cards},
                     )
                 reuse = input("\n  ¿Usar estos seeds? [S/n]: ").strip().lower()
                 if reuse in ("n", "no"):

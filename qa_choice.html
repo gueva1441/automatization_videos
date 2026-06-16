@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <!--
   qa_choice.html — diálogo GENÉRICO de choice (botones) del form asistido (contrato chat 61).
-  Data-driven: el host llama window.renderChoice(marker) con {menu, prompt, options[], default, body}.
+  Data-driven: el host llama window.renderChoice(marker) con {menu, prompt, options[], default, body, payload}.
   Un botón por option; al click → window.qaFormAnswer({menu, action:'choose', value:key}).
+  Si marker.payload.seeds existe (reuse_seeds) → panel de TARJETAS (título + badge de nicho), sin dump monospace.
   Paleta EXACTA copiada de qa_seed_pick.html (Claude Design) — NO inventar colores.
 -->
 <html lang="es">
@@ -22,6 +23,18 @@
   .body { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #8a8a92;
           white-space: pre-wrap; background: #16161b; border: 1px solid #262630; border-radius: 10px;
           padding: 14px 16px; margin-top: 18px; }
+  /* Panel de tarjetas de seeds (aterrizaje reuse_seeds) */
+  .seeds { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
+  .seeds-cap { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .14em;
+               color: #5e5e68; margin-bottom: 2px; }
+  .seed { display: flex; align-items: center; justify-content: space-between; gap: 14px;
+          background: #16161b; border: 1px solid #262630; border-radius: 12px; padding: 15px 18px; }
+  .seed .ttl { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600;
+               color: #f4f4f6; letter-spacing: -.01em; line-height: 1.3; }
+  .seed .badge { flex: none; display: inline-flex; align-items: center; gap: 6px;
+                 font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500;
+                 letter-spacing: .03em; color: #b6b6be; background: #222229;
+                 border: 1px solid #34343c; border-radius: 999px; padding: 5px 11px; white-space: nowrap; }
   .opts { display: flex; flex-direction: column; gap: 12px; margin-top: 26px; }
   .opt { display: flex; align-items: center; gap: 14px; text-align: left; cursor: pointer; width: 100%;
          background: #222229; border: 1px solid #34343c; border-radius: 12px; padding: 16px 18px;
@@ -46,6 +59,7 @@
     <div class="eyebrow" id="eyebrow">ELEGÍ UNA OPCIÓN</div>
     <div class="prompt" id="prompt">…</div>
     <div class="body" id="body" style="display:none"></div>
+    <div class="seeds" id="seeds" style="display:none"></div>
     <div class="opts" id="opts"></div>
     <div class="hint">Click en una opción, o apretá su tecla. El default va resaltado en verde.</div>
   </div>
@@ -68,14 +82,57 @@
 
   function choose(key) { qaAnswer({ menu: MENU, action: 'choose', value: key }); }
 
+  // Mapeo de badge de nicho por mode del seed (emoji + label lindo).
+  var MODE_BADGES = {
+    spy_arbitrage:       { emoji: '🕵️', label: 'Spy-Arbitrage' },
+    digital_archaeology: { emoji: '🏛️', label: 'Arqueología' },
+    manual:              { emoji: '✏️', label: 'Manual' }
+  };
+  function badgeFor(mode) {
+    var m = MODE_BADGES[mode];
+    if (m) return '<span class="badge">' + m.emoji + ' ' + esc(m.label) + '</span>';
+    var raw = (mode == null || mode === '') ? '—' : mode;
+    return '<span class="badge">' + esc(raw) + '</span>';
+  }
+
+  // Renderiza el panel de tarjetas de seeds (aterrizaje reuse_seeds).
+  function renderSeeds(seeds) {
+    var box = document.getElementById('seeds');
+    box.innerHTML = '';
+    var cap = document.createElement('div');
+    cap.className = 'seeds-cap';
+    cap.textContent = 'SEEDS ENCONTRADOS · ' + seeds.length;
+    box.appendChild(cap);
+    seeds.forEach(function (s) {
+      s = s || {};
+      var card = document.createElement('div');
+      card.className = 'seed';
+      card.innerHTML = '<span class="ttl">' + esc(s.title) + '</span>' + badgeFor(s.mode);
+      box.appendChild(card);
+    });
+    box.style.display = 'flex';
+  }
+
   function renderChoice(marker) {
     marker = marker || {};
     MENU = marker.menu || '';
     KEYMAP = {};
     document.getElementById('prompt').textContent = marker.prompt || 'Elegí una opción';
     var bodyEl = document.getElementById('body');
-    if (marker.body) { bodyEl.textContent = marker.body; bodyEl.style.display = 'block'; }
-    else { bodyEl.style.display = 'none'; }
+    var seedsEl = document.getElementById('seeds');
+    var payload = marker.payload || {};
+    var seeds = Array.isArray(payload.seeds) ? payload.seeds : null;
+
+    if (seeds) {
+      // Con payload de seeds: tarjetas en vez del dump monospace.
+      bodyEl.style.display = 'none';
+      renderSeeds(seeds);
+    } else {
+      seedsEl.style.display = 'none';
+      seedsEl.innerHTML = '';
+      if (marker.body) { bodyEl.textContent = marker.body; bodyEl.style.display = 'block'; }
+      else { bodyEl.style.display = 'none'; }
+    }
 
     var opts = document.getElementById('opts');
     opts.innerHTML = '';
