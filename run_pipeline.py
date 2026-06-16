@@ -210,6 +210,9 @@ def main() -> int:
     ap.add_argument("--research", action="store_true",
                     help="Research-on-demand: corre fase1 --no-chain (pick de seed + "
                          "research + validate, interactivo) y después secuencia el resto.")
+    ap.add_argument("--video-type", choices=["short", "long"], default=None,
+                    help="(con --research) Reenvía el tipo a fase1 para saltar el prompt "
+                         "S/L. Sin esto, fase1 pregunta igual que hoy. Lo usa el form.")
     ap.add_argument("--batch", action="store_true",
                     help="Desatendido: fase1_5 corre con --batch (gates del medio "
                          "desactivados) y el PACKAGING no levanta el form (solo reporta). "
@@ -219,7 +222,8 @@ def main() -> int:
     if args.research:
         # El pick de seed (gasto de grounding) SIEMPRE es interactivo: --batch solo
         # gobierna los gates del medio + skip del form, ya en sequence().
-        rc = _run(["fase1.py", "--no-chain"])
+        rc = _run(["fase1.py", "--no-chain"]
+                  + (["--video-type", args.video_type] if args.video_type else []))
         if rc != 0:
             print("  ⛔ fase1 falló o se canceló — no hay tema para seguir.")
             return rc

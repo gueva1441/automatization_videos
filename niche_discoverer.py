@@ -65,6 +65,41 @@ from script_engine.subtopic_measurer import _measure_es
 
 
 # ═══════════════════════════════════════════════════════════════
+#  MARCADORES DEL FORM ASISTIDO (contrato chat 61, ver fase1.py)
+# ═══════════════════════════════════════════════════════════════
+# Mismo contrato que fase1._emit_qaform_*: ASCII puro, 1 línea, flush, SOLO con QA_FORM.
+# Se replican acá (no se importan de fase1) porque fase1 importa niche_discoverer →
+# importarlo al revés sería circular. La forma del marcador está LOCKEADA.
+_QA_FORM = bool(os.environ.get("QA_FORM"))
+
+
+def _emit_qaform_choice_marker(
+    menu: str, prompt: str, options: list[dict],
+    *, default: str | None = None, body: str | None = None,
+) -> None:
+    """Marcador GENÉRICO de choice (botones) — accept='key'. Para menús de letras
+    (A/B/C/S, s/N). El `key` es lo que el input() de abajo ya parsea. Solo con QA_FORM."""
+    marker = {
+        "menu": menu, "accept": "key", "prompt": prompt,
+        "options": options, "default": default, "body": body,
+    }
+    print("@@QAFORM@@ " + json.dumps(marker, ensure_ascii=True), flush=True)
+
+
+def _emit_qaform_multi_marker(
+    menu: str, prompt: str, options: list[dict], *, body: str | None = None,
+) -> None:
+    """Marcador MULTI-SELECT (checkboxes) — accept='keys'. Para el submenú de nichos:
+    el host manda value=['1','3'] → el host lo une con coma → '1,3' (o ['A'] → 'A'),
+    que es exactamente lo que parsea el input() de abajo. Solo con QA_FORM."""
+    marker = {
+        "menu": menu, "accept": "keys", "prompt": prompt,
+        "options": options, "body": body,
+    }
+    print("@@QAFORM@@ " + json.dumps(marker, ensure_ascii=True), flush=True)
+
+
+# ═══════════════════════════════════════════════════════════════
 #  CONSTANTES
 # ═══════════════════════════════════════════════════════════════
 
@@ -1231,6 +1266,17 @@ def _select_niches_submenu() -> list[str]:
         print(f"    [{i}] {niche['emoji']} {niche['es_name']}")
     print(f"    [A] Todos")
 
+    if _QA_FORM:
+        # key = número 1..N (lo que parsea el input de abajo), label = emoji + es_name.
+        # 'A' = Todos (el host manda ['A'] → 'A').
+        _opts = [{"key": str(i), "label": f"{ROOT_NICHES[k]['emoji']} {ROOT_NICHES[k]['es_name']}"}
+                 for i, k in enumerate(keys, 1)]
+        _opts.append({"key": "A", "label": "Todos"})
+        _emit_qaform_multi_marker(
+            "niches", "¿Qué nichos escanear?", _opts,
+            body="Marcá uno o varios. «Todos» escanea el set completo.",
+        )
+
     choice = input("  👉 (números separados por coma, o A): ").strip().upper()
 
     if choice == "A" or choice == "":
@@ -1341,6 +1387,18 @@ def discover_niches() -> list[dict]:
         if all_seeds:
             print(f"\n  📊 Seeds acumulados en esta sesión: {len(all_seeds)}")
 
+        if _QA_FORM:
+            # Modo C (inyección manual) corre de terminal → deshabilitado en el form.
+            _emit_qaform_choice_marker(
+                "discovery_mode", "¿Cómo buscar nuevos seeds?",
+                [{"key": "A", "label": "🕵️ Spy-Arbitrage — virales EN, huecos ES"},
+                 {"key": "B", "label": "🏛️ Arqueología Digital — misterios 1950-2000 sin competencia ES"},
+                 {"key": "C", "label": "✏️ Inyección manual — desde la terminal", "disabled": True},
+                 {"key": "S", "label": "Cancelar"}],
+                default="A",
+                body=(f"Seeds acumulados en esta sesión: {len(all_seeds)}" if all_seeds else None),
+            )
+
         choice = input("\n  👉 ").strip().upper()
 
         # ─── Modo A ───
@@ -1388,6 +1446,14 @@ def discover_niches() -> list[dict]:
         # ─── Salir ───
         elif choice == "S":
             if all_seeds:
+                if _QA_FORM:
+                    _emit_qaform_choice_marker(
+                        "discard_seeds",
+                        f"¿Descartar {len(all_seeds)} seed(s) sin guardar?",
+                        [{"key": "s", "label": "Descartar"},
+                         {"key": "N", "label": "Volver"}],
+                        default="N",
+                    )
                 confirm = input(
                     f"\n  ¿Descartar {len(all_seeds)} seed(s) sin guardar? [s/N]: "
                 ).strip().lower()
@@ -1402,6 +1468,13 @@ def discover_niches() -> list[dict]:
             continue
 
         # Preguntar si quiere seguir agregando desde otro modo
+        if _QA_FORM:
+            _emit_qaform_choice_marker(
+                "add_more", "¿Agregar más seeds desde otro modo?",
+                [{"key": "s", "label": "Agregar otro modo"},
+                 {"key": "N", "label": "Listo, guardar"}],
+                default="N",
+            )
         more = input("\n  ¿Agregar más seeds desde otro modo? [s/N]: ").strip().lower()
         if more not in ("s", "si", "sí"):
             break

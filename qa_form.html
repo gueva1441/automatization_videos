@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <!--
   qa_form.html — HOST del form asistido (contrato chat 61). Lanza run_pipeline --research
-  (via /form_launch), muestra consola en vivo + barra de progreso (polling /form_state), y
-  cuando llega un marcador @@QAFORM@@ embebe el HTML de Design en un iframe, define
+  (via /form_launch), muestra barra de progreso (polling /form_state), y cuando llega un
+  marcador @@QAFORM@@ embebe el HTML de Design en un iframe (choice/multi/seed_pick), define
   window.qaFormAnswer ahí y rutea la respuesta a stdin (/form_answer). CC = cableado; la
-  estética del diálogo es de Design (qa_seed_pick.html, servido por /form_menu).
+  estética del diálogo es de Design (qa_seed_pick.html, servido por /form_menu). Wizard de
+  botones: sin consola ni barra de stdin — solo barra de progreso + diálogos.
 -->
 <html lang="es">
 <head>
@@ -40,17 +41,7 @@
   .state{font-family:var(--mono);font-size:12px;color:#8a8a92;min-height:16px;margin-bottom:10px;}
   .state .ok{color:#2ea043;} .state .err{color:#e5484d;} .state .run{color:#d8a02a;}
 
-  #consoleWrap{background:#08080b;border:1px solid #222229;border-radius:12px;padding:14px 16px;}
-  #console{font-family:var(--mono);font-size:12px;line-height:1.55;color:#b6b6be;white-space:pre-wrap;
-    max-height:58vh;overflow:auto;}
-  #stdinRow{display:none;align-items:center;gap:9px;margin-top:12px;padding-top:12px;border-top:1px solid #1c1c22;}
-  #stdinRow .pmt{font-family:var(--mono);color:#2ea043;font-size:14px;}
-  #stdinInput{flex:1;background:#0f0f13;border:1px solid #2a2a32;border-radius:9px;padding:10px 12px;
-    color:#e8e8ec;font-family:var(--mono);font-size:13px;outline:none;}
-  #stdinInput:focus{border-color:#2ea043;}
-  #stdinSend{font-family:var(--disp);font-weight:600;font-size:13px;color:#06140a;background:#2ea043;border:none;
-    padding:10px 18px;border-radius:9px;cursor:pointer;}
-  #stdinRow .hint{font-family:var(--mono);font-size:10px;color:#5e5e68;}
+  #placeholder{background:#08080b;border:1px solid #222229;border-radius:12px;padding:22px 18px;}
   #dialog{display:none;border:1px solid #222229;border-radius:12px;overflow:hidden;background:#0f0f12;}
   #dialog iframe{width:100%;height:78vh;border:0;display:block;background:#0f0f12;}
   .empty{font-family:var(--mono);font-size:12.5px;color:#5e5e68;}
@@ -72,15 +63,7 @@
   <div class="state" id="state"></div>
 
   <div id="dialog"></div>
-  <div id="consoleWrap">
-    <div id="console"><span class="empty">Apretá «Lanzar» para arrancar. La consola del pipeline aparece acá; cuando haya que elegir un tema, se abre el diálogo lindo. Para prompts simples (ej. tipo de video S/L) usá la barra de abajo.</span></div>
-    <div id="stdinRow">
-      <span class="pmt">›</span>
-      <input id="stdinInput" type="text" placeholder="respondé el prompt de arriba y Enter (ej: L · S · 7 · 1,4 · Q)" autocomplete="off">
-      <button id="stdinSend">Enter</button>
-      <span class="hint">↑ se escribe en la consola del pipeline</span>
-    </div>
-  </div>
+  <div id="placeholder"><span class="empty">Apretá «Lanzar» para empezar. Cuando el pipeline necesite una decisión, se abre el diálogo acá.</span></div>
 </div>
 
 <script>
@@ -99,11 +82,6 @@ function renderProgress(phase, phases){
   [...prog.children].forEach((s,i)=>{ s.className='seg'+(i<idx?' done':(i===idx?' cur':'')); });
   [...labels.children].forEach((l,i)=>{ l.className=(i<=idx&&idx>=0)?'on':''; });
 }
-function renderConsole(lines){
-  const c=$('console'); const atBottom=c.scrollTop+c.clientHeight>=c.scrollHeight-30;
-  c.textContent=(lines||[]).join('\n');
-  if(atBottom) c.scrollTop=c.scrollHeight;
-}
 function renderState(s){
   const el=$('state'); const b=$('launchBtn');
   if(s.running){ el.innerHTML='<span class="run">● corriendo</span> '+(s.phase?('· fase '+s.phase):''); b.disabled=true; b.textContent='▶ corriendo…'; }
@@ -112,22 +90,12 @@ function renderState(s){
     el.innerHTML = ok?'<span class="ok">✓ pipeline terminó OK</span>':('<span class="err">✗ pipeline terminó (código '+s.returncode+')</span>');
     b.disabled=false; b.textContent='▶ Lanzar de nuevo';
   } else { el.textContent=''; b.disabled=false; }
-  // barra de stdin: visible mientras corre (y sin diálogo abierto; el diálogo tapa la consola).
-  $('stdinRow').style.display = s.running ? 'flex' : 'none';
 }
-
-function sendStdin(){
-  const inp=$('stdinInput'); const line=inp.value;
-  if(line==null) return;
-  fetch('/form_answer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({line})})
-    .then(r=>r.json()).then(res=>{ if(!res.error){ inp.value=''; } }).catch(()=>{});
-}
-$('stdinSend').onclick=sendStdin;
-$('stdinInput').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); sendStdin(); } });
 
 function markerKey(m){
   try{
-    if(m.accept==='key') return m.menu+'|key|'+(m.options||[]).map(o=>o.key).join(',');
+    if(m.accept==='key')  return m.menu+'|key|'+(m.options||[]).map(o=>o.key).join(',');
+    if(m.accept==='keys') return m.menu+'|keys|'+(m.options||[]).map(o=>o.key).join(',');
     return m.menu+'|'+((m.payload&&m.payload.seeds)||[]).map(x=>x.idx).join(',');
   }catch(e){ return m.menu; }
 }
@@ -138,10 +106,11 @@ function handleMarker(m){
   } else if(curMarkerKey!==null){ curMarkerKey=null; hideDialog(); }
 }
 function showDialog(marker){
-  $('consoleWrap').style.display='none';
+  $('placeholder').style.display='none';
   const area=$('dialog'); area.style.display='block'; area.innerHTML='';
-  const isChoice = marker.accept==='key';        // diálogo genérico de botones
-  const menuFile = isChoice ? '__choice__' : marker.menu;
+  const isChoice = marker.accept==='key';         // diálogo genérico de botones
+  const isMulti  = marker.accept==='keys';        // diálogo de checkboxes (multi-select)
+  const menuFile = isChoice ? '__choice__' : (isMulti ? '__multi__' : marker.menu);
   const ifr=document.createElement('iframe');
   ifr.src='/form_menu?menu='+encodeURIComponent(menuFile);
   ifr.onload=()=>{
@@ -149,6 +118,8 @@ function showDialog(marker){
       ifr.contentWindow.qaFormAnswer=(payload)=>onAnswer(payload);
       if(isChoice && typeof ifr.contentWindow.renderChoice==='function'){
         ifr.contentWindow.renderChoice(marker);
+      }else if(isMulti && typeof ifr.contentWindow.renderMulti==='function'){
+        ifr.contentWindow.renderMulti(marker);
       }else if(typeof ifr.contentWindow.renderSeeds==='function'){
         ifr.contentWindow.renderSeeds((marker.payload&&marker.payload.seeds)||[]);
       }
@@ -156,7 +127,7 @@ function showDialog(marker){
   };
   area.appendChild(ifr);
 }
-function hideDialog(){ const a=$('dialog'); a.style.display='none'; a.innerHTML=''; $('consoleWrap').style.display='block'; }
+function hideDialog(){ const a=$('dialog'); a.style.display='none'; a.innerHTML=''; $('placeholder').style.display='block'; }
 
 // §4: traduce la respuesta del HTML de Design a una línea de stdin.
 function onAnswer(payload){
@@ -172,7 +143,6 @@ async function poll(){
   try{
     const s=await (await fetch('/form_state')).json();
     renderProgress(s.phase, s.phases||[]);
-    renderConsole(s.console_tail);
     renderState(s);
     handleMarker(s.marker);
   }catch(e){ /* reintenta */ }

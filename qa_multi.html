@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--
+  qa_multi.html — diálogo MULTI-SELECT (checkboxes) del form asistido (contrato chat 61).
+  Data-driven: el host llama window.renderMulti(marker) con {menu, prompt, options[], body}.
+  Marcás uno o varios → botón Confirmar → window.qaFormAnswer({menu, action:'choose', value:[keys...]}).
+  El host une el array con coma → stdin (ej. ['1','3'] → '1,3'; ['A'] → 'A').
+  Paleta EXACTA copiada de qa_choice.html (Claude Design) — NO inventar colores.
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elegí nichos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0f0f12; color: #e8e8ec; font-family: 'Space Grotesk', sans-serif; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 54px 24px 60px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; color: #5e5e68; }
+  .prompt { font-size: 26px; font-weight: 600; color: #f4f4f6; margin: 12px 0 0; letter-spacing: -.01em; }
+  .body { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #8a8a92;
+          white-space: pre-wrap; background: #16161b; border: 1px solid #262630; border-radius: 10px;
+          padding: 14px 16px; margin-top: 18px; }
+  .opts { display: flex; flex-direction: column; gap: 12px; margin-top: 26px; }
+  .opt { display: flex; align-items: center; gap: 14px; text-align: left; cursor: pointer; width: 100%;
+         background: #222229; border: 1px solid #34343c; border-radius: 12px; padding: 16px 18px;
+         color: #e8e8ec; font-family: 'Space Grotesk', sans-serif; transition: background .12s, border-color .12s, transform .08s; }
+  .opt:hover { border-color: #2ea043; background: #1d1d24; }
+  .opt:active { transform: scale(.992); }
+  .opt .box { flex: none; width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center;
+              justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 16px;
+              background: #0f0f12; border: 1px solid #34343c; color: #b6b6be; }
+  .opt .lab { font-size: 15.5px; font-weight: 500; color: #f0f0f3; }
+  .opt.sel { background: #2ea043; border-color: #2ea043; color: #06140a; box-shadow: 0 8px 26px rgba(46,160,67,.35); }
+  .opt.sel .box { background: rgba(6,20,10,.18); border-color: rgba(6,20,10,.25); color: #06140a; }
+  .opt.sel .lab { color: #06140a; }
+  .opt.sel:hover { filter: brightness(1.05); }
+  .opt.disabled { opacity: .42; cursor: not-allowed; }
+  .opt.disabled:hover { border-color: #34343c; background: #222229; }
+  .confirm { margin-top: 22px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px;
+             color: #06140a; background: #2ea043; border: none; padding: 14px 26px; border-radius: 12px;
+             cursor: pointer; box-shadow: 0 8px 26px rgba(46,160,67,.35); }
+  .confirm:hover:not(:disabled) { filter: brightness(1.06); }
+  .confirm:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+  .hint { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5e5e68; margin-top: 22px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow" id="eyebrow">ELEGÍ NICHOS</div>
+    <div class="prompt" id="prompt">…</div>
+    <div class="body" id="body" style="display:none"></div>
+    <div class="opts" id="opts"></div>
+    <button class="confirm" id="confirm" disabled>Confirmar</button>
+    <div class="hint">Marcá uno o varios y apretá Confirmar. «Todos» es exclusivo.</div>
+  </div>
+
+<script>
+(function () {
+  'use strict';
+  var MENU = '';
+  var SEL = {};         // key real → true (seleccionado)
+  var ALL_KEY = 'A';    // opción exclusiva "Todos"
+
+  function qaAnswer(p) {
+    try { if (typeof window.qaFormAnswer === 'function') window.qaFormAnswer(p); }
+    catch (e) { /* no romper si el host falla */ }
+  }
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function selectedKeys() {
+    return Object.keys(SEL).filter(function (k) { return SEL[k]; });
+  }
+  function refresh() {
+    var btns = document.querySelectorAll('.opt');
+    btns.forEach(function (b) {
+      var k = b.getAttribute('data-key');
+      if (b.classList.contains('disabled')) return;
+      b.classList.toggle('sel', !!SEL[k]);
+    });
+    document.getElementById('confirm').disabled = selectedKeys().length === 0;
+  }
+  function toggle(key) {
+    if (key === ALL_KEY) {            // "Todos" es exclusivo: limpia el resto
+      var on = !SEL[ALL_KEY];
+      SEL = {};
+      if (on) SEL[ALL_KEY] = true;
+    } else {
+      SEL[ALL_KEY] = false;           // marcar un nicho desmarca "Todos"
+      SEL[key] = !SEL[key];
+    }
+    refresh();
+  }
+  function confirm() {
+    var keys = selectedKeys();
+    if (!keys.length) return;
+    if (SEL[ALL_KEY]) keys = [ALL_KEY];   // Todos → ['A'] → 'A'
+    qaAnswer({ menu: MENU, action: 'choose', value: keys });
+  }
+
+  function renderMulti(marker) {
+    marker = marker || {};
+    MENU = marker.menu || '';
+    SEL = {};
+    document.getElementById('prompt').textContent = marker.prompt || 'Elegí una o varias opciones';
+    var bodyEl = document.getElementById('body');
+    if (marker.body) { bodyEl.textContent = marker.body; bodyEl.style.display = 'block'; }
+    else { bodyEl.style.display = 'none'; }
+
+    var opts = document.getElementById('opts');
+    opts.innerHTML = '';
+    (marker.options || []).forEach(function (o) {
+      var disabled = !!o.disabled;
+      var b = document.createElement('button');
+      b.className = 'opt' + (disabled ? ' disabled' : '');
+      b.setAttribute('data-key', o.key);
+      b.innerHTML = '<span class="box">' + esc(o.key) + '</span><span class="lab">' + esc(o.label) + '</span>';
+      if (disabled) { b.disabled = true; }
+      else { b.addEventListener('click', function () { toggle(o.key); }); }
+      opts.appendChild(b);
+    });
+    refresh();
+  }
+
+  document.getElementById('confirm').addEventListener('click', confirm);
+  window.renderMulti = renderMulti;
+})();
+</script>
+</body>
+</html>

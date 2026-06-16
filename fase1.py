@@ -521,11 +521,11 @@ def run_latido_a(
                         _prev += f"\n... y {len(existing) - 5} más"
                     _emit_qaform_choice_marker(
                         "reuse_seeds", f"Tenés {len(existing)} seed(s) previos — ¿usarlos?",
-                        # 'n' (discovery) abre menús anidados todavía sin marcador → colgaría
-                        # en el form; lo dejamos deshabilitado (el happy path asistido es reusar).
+                        # 'n' → discover_niches(): sus menús A/B ya están cableados con marcador
+                        # (discovery_mode + submenú de nichos). 'Usar estos' corre el juez y abre
+                        # el panel rico de seeds (seed_pick) que ya existe.
                         [{"key": "S", "label": "Usar estos seeds"},
-                         {"key": "n", "label": "Buscar nuevos (discovery) — desde la terminal",
-                          "disabled": True}],
+                         {"key": "n", "label": "+ Generar nuevos seeds"}],
                         default="S", body=_prev,
                     )
                 reuse = input("\n  ¿Usar estos seeds? [S/n]: ").strip().lower()
