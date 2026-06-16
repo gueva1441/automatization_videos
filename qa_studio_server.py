@@ -1261,6 +1261,7 @@ _FORM_MENU_HTML = {
     "seed_pick": BASE_DIR / "qa_seed_pick.html",
     "__choice__": BASE_DIR / "qa_choice.html",
     "__multi__": BASE_DIR / "qa_multi.html",   # accept='keys': submenú de nichos (checkboxes)
+    "__gallery__": BASE_DIR / "qa_gallery.html",  # reuse_seeds: galería pickeable de seeds pendientes
 }
 
 _FORM: dict = {"running": False, "returncode": None, "console": [], "marker": None, "phase": None}
@@ -1270,9 +1271,12 @@ _FORM_PROC: dict = {"p": None}
 
 def _form_command() -> list[str]:
     """Comando del run asistido. FACTORIZADO para que el smoke inyecte un stub.
-    El form arranca long directo (sin S/L): el flag lo agrega SOLO este lanzamiento;
-    correr run_pipeline/fase1 a mano por terminal sigue preguntando igual que hoy."""
-    return [sys.executable, "run_pipeline.py", "--research", "--video-type", "long"]
+    El form arranca long directo (sin S/L) y con --batch: tras el pick de seed corre
+    GUION->ASSETS->VIDEO solo (gates del medio auto-decididos en fase1_5). El pick de
+    seed SIGUE interactivo (--batch solo gobierna del guion en adelante). Los flags los
+    agrega SOLO este lanzamiento; correr run_pipeline/fase1 a mano por terminal sigue
+    interactivo igual que hoy."""
+    return [sys.executable, "run_pipeline.py", "--research", "--video-type", "long", "--batch"]
 
 
 def _form_reader(proc) -> None:

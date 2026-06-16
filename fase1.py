@@ -521,19 +521,29 @@ def run_latido_a(
                 if len(existing) > 5:
                     print(f"     ... y {len(existing) - 5} más")
                 if _QA_FORM:
-                    # payload DISPLAY-ONLY → el form dibuja una tarjeta por seed (título +
-                    # badge de nicho). NO hay mapeo de índices: estos seeds son pre-juez; el
-                    # panel rico numerado viene después en seed_pick. La acción son los 2 botones.
-                    _seed_cards = [
-                        {"title": s.get("seed_title") or "(sin título)",
-                         "mode": s.get("discovery_mode") or "?"}
-                        for s in existing
-                    ]
+                    # payload DISPLAY-ONLY → el form dibuja una galería pickeable: una tarjeta
+                    # por seed (título + badge de nicho + competencia + señal viral EN). Todo
+                    # dato YA guardado (cero costo: NO corre el juez acá). NO hay mapeo de
+                    # índices: estos seeds son pre-juez; el panel rico numerado viene después
+                    # en seed_pick. La identidad para el puente del host es `title` (seed_title,
+                    # mismo origen que el payload de seed_pick). El input("[S/n]") queda intacto.
+                    _seed_cards = []
+                    for s in existing:
+                        _ev = s.get("evidence") or {}
+                        _en = _ev.get("en_viral") or {}
+                        _es = _ev.get("es_gap") or {}
+                        _seed_cards.append({
+                            "title": s.get("seed_title") or "(sin título)",
+                            "mode": s.get("discovery_mode") or "?",
+                            "es_label": _es.get("label"),
+                            "en_views": _en.get("views"),
+                            "en_ratio": _en.get("outlier_ratio"),
+                        })
                     _emit_qaform_choice_marker(
-                        "reuse_seeds", f"Tenés {len(existing)} seed(s) previos — ¿usarlos?",
-                        # 'n' → discover_niches(): sus menús A/B ya están cableados con marcador
-                        # (discovery_mode + submenú de nichos). 'Usar estos' corre el juez y abre
-                        # el panel rico de seeds (seed_pick) que ya existe.
+                        "reuse_seeds", f"Tenés {len(existing)} seed(s) pendientes — elegí uno",
+                        # 'n' → discover_niches(): menús A/B ya cableados. 'S' no es un botón:
+                        # el host lo manda al hacer click en una tarjeta (pick_seed → "S") y
+                        # recuerda la identidad para matchear el verdict en seed_pick.
                         [{"key": "S", "label": "Usar estos seeds"},
                          {"key": "n", "label": "+ Generar nuevos seeds"}],
                         default="S", payload={"seeds": _seed_cards},

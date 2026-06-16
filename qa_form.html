@@ -77,6 +77,10 @@
 "use strict";
 const $=id=>document.getElementById(id);
 let pollTimer=null, curMarkerKey=null;
+// PUENTE (HANDOFF 62c): el gate reuse_seeds (pre-juez) elige por identidad; cuando llega
+// seed_pick (post-juez, con verdict) el host matchea y auto-responde / confirma.
+let pickedSeedTitle=null;      // título del seed elegido en la galería (identidad, NO índice)
+let pendingSeedMarker=null;    // marcador seed_pick guardado, por si hay que "elegir otro"
 
 function renderProgress(phase, phases){
   const prog=$('prog'), labels=$('progLabels');
@@ -122,21 +126,30 @@ function markerKey(m){
 function handleMarker(m){
   if(m){
     const k=markerKey(m);
-    if(k!==curMarkerKey){ curMarkerKey=k; showDialog(m); }
+    if(k!==curMarkerKey){
+      curMarkerKey=k;
+      // Si elegimos un seed en la galería, el seed_pick post-juez lo resuelve el puente
+      // (auto-producir si es oro · confirm si es dudoso/descartar). Si no, diálogo normal.
+      if(m.menu==='seed_pick' && pickedSeedTitle!=null){ bridgeSeedPick(m); }
+      else showDialog(m);
+    }
   } else if(curMarkerKey!==null){ curMarkerKey=null; hideDialog(); }
 }
 function showDialog(marker){
   $('placeholder').style.display='none';
   const area=$('dialog'); area.style.display='block'; area.innerHTML='';
-  const isChoice = marker.accept==='key';         // diálogo genérico de botones
-  const isMulti  = marker.accept==='keys';        // diálogo de checkboxes (multi-select)
-  const menuFile = isChoice ? '__choice__' : (isMulti ? '__multi__' : marker.menu);
+  const isGallery = marker.menu==='reuse_seeds';  // aterrizaje pickeable (galería de seeds)
+  const isChoice  = marker.accept==='key';        // diálogo genérico de botones
+  const isMulti   = marker.accept==='keys';       // diálogo de checkboxes (multi-select)
+  const menuFile = isGallery ? '__gallery__' : (isChoice ? '__choice__' : (isMulti ? '__multi__' : marker.menu));
   const ifr=document.createElement('iframe');
   ifr.src='/form_menu?menu='+encodeURIComponent(menuFile);
   ifr.onload=()=>{
     try{
       ifr.contentWindow.qaFormAnswer=(payload)=>onAnswer(payload);
-      if(isChoice && typeof ifr.contentWindow.renderChoice==='function'){
+      if(isGallery && typeof ifr.contentWindow.renderGallery==='function'){
+        ifr.contentWindow.renderGallery(marker);
+      }else if(isChoice && typeof ifr.contentWindow.renderChoice==='function'){
         ifr.contentWindow.renderChoice(marker);
       }else if(isMulti && typeof ifr.contentWindow.renderMulti==='function'){
         ifr.contentWindow.renderMulti(marker);
@@ -149,14 +162,67 @@ function showDialog(marker){
 }
 function hideDialog(){ const a=$('dialog'); a.style.display='none'; a.innerHTML=''; $('placeholder').style.display='block'; }
 
+function postLine(line){
+  return fetch('/form_answer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({line})})
+    .then(r=>r.json()).catch(()=>({error:'net'}));
+}
+
 // §4: traduce la respuesta del HTML de Design a una línea de stdin.
 function onAnswer(payload){
+  // PUENTE — click en una tarjeta de la galería reuse_seeds: recordá la identidad (título)
+  // y mandá "S" (NO el título: el input del gate parsea S/n). El seed_pick post-juez lo resuelve.
+  if(payload && payload.action==='pick_seed'){
+    pickedSeedTitle = payload.value;
+    postLine('S').then(()=>{ curMarkerKey=null; hideDialog(); });
+    return;
+  }
+  // Confirm del juez (diálogo host-sintético): "Elegir otro" → panel rico seed_pick;
+  // cualquier otro value es el idx → producir igual.
+  if(payload && payload.menu==='judge_confirm'){
+    if(payload.value==='__other__'){
+      if(pendingSeedMarker) showDialog(pendingSeedMarker);   // pick manual; curMarkerKey sigue en seed_pick
+      return;
+    }
+    postLine(String(payload.value)).then(()=>{ curMarkerKey=null; hideDialog(); });
+    return;
+  }
   let line;
   if(!payload || payload.action==='cancel') line='Q';
   else if(Array.isArray(payload.value)) line=payload.value.join(',');
   else line=String(payload.value);
-  fetch('/form_answer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({line})})
-    .then(r=>r.json()).then(()=>{ curMarkerKey=null; hideDialog(); }).catch(()=>{});
+  postLine(line).then(()=>{ curMarkerKey=null; hideDialog(); });
+}
+
+// PUENTE post-juez: matchea por IDENTIDAD (título) el seed elegido pre-juez contra el
+// payload de seed_pick (que ya trae verdict/reason) y decide. NO usa índices (el orden
+// cambia tras el juez). Si no matchea (ej. vino por discovery) → panel rico normal.
+function bridgeSeedPick(marker){
+  const seeds=(marker.payload&&marker.payload.seeds)||[];
+  const want=pickedSeedTitle;
+  pickedSeedTitle=null;            // se consume (cualquiera sea el resultado)
+  pendingSeedMarker=marker;        // por si el confirm ofrece "elegir otro"
+  const match=seeds.find(s=>s && s.title===want);
+  if(!match){ showDialog(marker); return; }       // no matcheó → panel rico normal
+  if(match.verdict==='oro'){
+    postLine(String(match.idx)).then(()=>{ curMarkerKey=null; hideDialog(); });   // oro → auto-producir, sin diálogo
+    return;
+  }
+  showJudgeConfirm(match);         // dudoso/descartar → confirm del juez (no auto)
+}
+
+// Confirm host-sintético (reusa qa_choice.html vía showDialog): muestra verdict + reason
+// y dos acciones. El idx va como `key` de "Producir igual" → onAnswer lo manda a stdin.
+function showJudgeConfirm(match){
+  const verd=String(match.verdict||'—').toUpperCase();
+  const reason=String(match.reason||'').trim();
+  showDialog({
+    menu:'judge_confirm', accept:'key',
+    prompt:'El juez marcó este tema como “'+verd+'”',
+    body: reason ? ('Motivo del juez:\n'+reason) : 'El juez no dejó un motivo.',
+    options:[{key:String(match.idx), label:'▶ Producir igual'},
+             {key:'__other__', label:'Elegir otro tema'}],
+    default:String(match.idx),
+  });
 }
 
 async function poll(){
