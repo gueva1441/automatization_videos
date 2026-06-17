@@ -38,6 +38,15 @@
   .proglabels span{flex:1;text-align:center;}
   .proglabels span.on{color:#86e29a;}
 
+  /* Actividad viva: última línea útil del pipeline (paso/script en curso). Siempre muestra algo
+     si el proceso está vivo → mata la sensación de "se quedó pegado" en RESEARCH/ASSETS. */
+  #activity{display:none;align-items:center;gap:9px;font-family:var(--mono);font-size:11.5px;
+    color:#9a9aa2;background:#0c0c0f;border:1px solid #1c1c22;border-radius:9px;padding:9px 13px;
+    margin-bottom:12px;min-width:0;}
+  #activity .gear{flex:none;color:#2ea043;display:inline-block;animation:spin 2.4s linear infinite;}
+  #activity .txt{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
   .state{font-family:var(--mono);font-size:12px;color:#8a8a92;min-height:16px;margin-bottom:10px;}
   .state .ok{color:#2ea043;} .state .err{color:#e5484d;} .state .run{color:#d8a02a;}
 
@@ -82,6 +91,8 @@
 
   <div class="prog" id="prog"></div>
   <div class="proglabels" id="progLabels"></div>
+
+  <div id="activity"><span class="gear">⚙</span><span class="txt"></span></div>
 
   <div class="state" id="state"></div>
   <div id="errstrip"></div>
@@ -136,6 +147,25 @@ function renderErr(s){
   } else { e.style.display='none'; e.textContent=''; }
 }
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ② Actividad viva: última línea NO vacía de console_tail (sin separadores ═══/───). Solo
+// mientras corre → la zona siempre muestra movimiento si el proceso está vivo.
+const ACT_SEP=/^[\s═─=_·•.\-–—]+$/;
+function lastLiveLine(lines){
+  if(!lines || !lines.length) return '';
+  for(let i=lines.length-1;i>=0;i--){
+    const t=String(lines[i]==null?'':lines[i]).trim();
+    if(t && !ACT_SEP.test(t)) return t;
+  }
+  return '';
+}
+function renderActivity(s){
+  const a=$('activity');
+  if(s.running){
+    a.querySelector('.txt').textContent = lastLiveLine(s.console_tail) || 'trabajando…';
+    a.style.display='flex';
+  }else{ a.style.display='none'; }
+}
 
 function markerKey(m){
   try{
@@ -298,6 +328,7 @@ async function poll(){
     const s=await (await fetch('/form_state')).json();
     renderProgress(s.phase, s.phases||[]);
     renderState(s);
+    renderActivity(s);
     handleMarker(s.marker);
   }catch(e){ /* reintenta */ }
 }
