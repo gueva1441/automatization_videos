@@ -153,7 +153,7 @@ function handleMarker(m){
       // (auto-producir si es oro · confirm si es dudoso/descartar). Si no, diálogo normal.
       if(m.menu==='seed_pick' && pickedSeedTitle!=null){ bridgeSeedPick(m); }
       // Gates: NO abren diálogo de una → plantan el banner ámbar con botón(es).
-      else if(m.menu==='judge_action' || m.menu==='visor_gate'){ showGate(m); }
+      else if(m.menu==='judge_action' || m.menu==='visor_gate' || m.menu==='remeasure_pick'){ showGate(m); }
       else showDialog(m);
     }
   } else if(curMarkerKey!==null){ curMarkerKey=null; hideDialog(); hideGate(); }
@@ -212,6 +212,13 @@ function showGate(m){
     const cont=document.createElement('button'); cont.className='gbtn';
     cont.textContent='Continuar → hornear video'; cont.onclick=visorContinue;
     btns.appendChild(open); btns.appendChild(cont);
+  }else if(m.menu==='remeasure_pick'){
+    const wl=(m.payload&&m.payload.worst_label)||'?';
+    msg.innerHTML='<span class="tag">⚠ GATE · RE-MEDIR</span>'+esc(m.prompt||'El pick flipeó al re-medir');
+    const b=document.createElement('button'); b.className='gbtn amber';
+    b.textContent='Resolver pick · '+wl;
+    b.onclick=openGateDialog;
+    btns.appendChild(b);
   }
   g.appendChild(msg); g.appendChild(btns);
 }

@@ -386,6 +386,29 @@ def _verify_pick_es_saturation(chosen: list[dict], n: int = 3) -> list[dict] | N
         detail = ("el nicho NO está libre (competidor tamaño viral)" if worst_lab == "SATURADO"
                   else "hay competencia real, no es hueco limpio — confirmá antes de gastar")
         print(f"\n  ⚠ El pick '{title}' FLIPEÓ a {worst_lab} al re-medir — {detail}.")
+        # GATE RE-MEDIR (form): condicional — solo llegamos acá si el pick flipeó a
+        # SATURADO/DISPUTADO (decisión de plata de Omar). Marcador env-gated, ANTES del
+        # while/input de SIEMPRE (que NO se toca). Sin _QA_FORM no emite → terminal idéntica.
+        if _QA_FORM:
+            _emit_qaform_choice_marker(
+                "remeasure_pick",
+                f"El pick flipeó a {worst_lab} al re-medir — ¿qué hacés?",
+                [{"key": "P", "label": "Producir igual (bajo tu criterio)"},
+                 {"key": "S", "label": "Sacar este pick del research"},
+                 {"key": "Q", "label": "Salir (no investigar nada)"}],
+                default="S",
+                body=(
+                    f"'{title}'\n\n"
+                    f"El seed decía: {orig_lab} · al re-medir {len(measurements)}x el PEOR fue: "
+                    f"{worst_lab} (sat={worst_sat:,.0f})\n\n{detail}"
+                ),
+                payload={
+                    "title": title,
+                    "worst_label": worst_lab,
+                    "orig_label": orig_lab,
+                    "measurements": [{"label": _l, "sat": _s} for (_l, _s) in measurements],
+                },
+            )
         while True:
             ans = input(f"     [P]roducir igual · [S]acar este pick · [Q]salir: ").strip().upper()
             if ans == "P":
