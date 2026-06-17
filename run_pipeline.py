@@ -241,6 +241,10 @@ def main() -> int:
     if args.research:
         # El pick de seed (gasto de grounding) SIEMPRE es interactivo: --batch solo
         # gobierna los gates del medio + skip del form, ya en sequence().
+        # Header de fase con el MISMO formato que sequence() (_phase_header vive ahí, fuera
+        # de scope acá): contiene "  ▶ " y "RESEARCH" → el reader del form marca la fase
+        # activa igual que GUION/ASSETS (sin esto, RESEARCH —la fase más larga— quedaba gris).
+        print(f"\n{'─' * 60}\n  ▶ RESEARCH (fase1)\n{'─' * 60}")
         rc = _run(["fase1.py", "--no-chain"]
                   + (["--video-type", args.video_type] if args.video_type else []))
         if rc != 0:
