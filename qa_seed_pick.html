@@ -73,6 +73,10 @@
   .risk-dot { width: 6px; height: 6px; border-radius: 50%; }
 
   .chosen { position: absolute; top: -8px; right: 14px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .1em; color: #0c0c0d; background: #f4f4f5; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+  /* HANDOFF 64d — ✕ por seed: borra (archiva, recuperable). Subtil; se enciende al hover de la fila. */
+  .del { position: absolute; top: 5px; right: 6px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 12px; line-height: 1; color: #7a4a4f; background: transparent; border: 0; border-radius: 6px; cursor: pointer; opacity: .3; transition: opacity .12s, color .12s, background .12s; padding: 0; }
+  .row:hover .del { opacity: .7; }
+  .del:hover { opacity: 1; color: #e5484d; background: #2a1518; }
 
   /* DUDOSOS */
   .dud-toggle { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8a8a92; transition: color .12s; }
@@ -235,6 +239,7 @@
         '<div class="ratio">' + esc(fmtRatio(it.en_ratio)) + '</div>' +
         '<div class="risk" style="color:' + rk.color + '"><span class="risk-dot" style="background:' + rk.dot + '"></span><span>' + esc(rk.label) + '</span></div>' +
         badge +
+        '<button class="del" data-del="' + it.idx + '" title="Borrar (se archiva · recuperable)">✕</button>' +
       '</div>';
   }
 
@@ -279,6 +284,13 @@
 
   // -- EVENTOS (delegacion; sobreviven al re-render) -----------------------
   function onListClick(e) {
+    // ✕ → borrar este seed: el host manda "d<idx>" por stdin; fase1 archiva + re-emite la lista.
+    // No seleccionamos: el panel se re-renderiza con la lista nueva al re-llegar el marcador.
+    var del = e.target.closest('.del');
+    if (del) {
+      qaAnswer({ menu: 'seed_pick', action: 'delete', value: Number(del.getAttribute('data-del')) });
+      return;
+    }
     var row = e.target.closest('.row');
     if (!row) return;
     selectedIdx = Number(row.getAttribute('data-idx'));

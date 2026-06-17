@@ -109,6 +109,23 @@ def _save_seeds_with_judge(seeds: list[dict]) -> None:
     )
 
 
+def _archive_seed_local(seed: dict) -> None:
+    """Appendea un seed borrado por el usuario a seeds_archive.json (recuperable).
+    No es el _archive_seed de topic_researcher (ese pide topic_id); este es para borrado manual."""
+    arch = DATA_DIR / "seeds_archive.json"
+    try:
+        existing = []
+        if arch.exists():
+            loaded = json.loads(arch.read_text(encoding="utf-8"))
+            existing = loaded.get("seeds", []) if isinstance(loaded, dict) else (loaded or [])
+        rec = dict(seed); rec["archived_reason"] = "user_deleted"
+        existing.append(rec)
+        arch.write_text(json.dumps({"seeds": existing}, ensure_ascii=False, indent=2),
+                        encoding="utf-8")
+    except Exception as e:  # noqa: BLE001 — el archivo no debe tumbar el borrado
+        print(f"  ⚠ no pude archivar el seed borrado: {e}")
+
+
 def _print_judge_summary(seeds: list[dict]) -> None:
     """Tabla del juez (solo seeds spy_arbitrage con judge). Display-only."""
     judged = [s for s in seeds if s.get("judge")]
@@ -316,6 +333,23 @@ def _select_seed_interactive(seeds: list[dict]) -> list[dict] | None:
         if choice.upper() == "Q":
             print(f"\n  Cancelado por el usuario — no se investiga nada.")
             return None
+        # BORRAR (solo form): "d<n>" → archiva + saca de selected_seeds.json (para siempre) + re-emite.
+        # Gateado por _QA_FORM → terminal pura byte-idéntica (un "d3" en terminal cae al "Inválido").
+        cu = choice.upper()
+        if _QA_FORM and len(cu) >= 2 and cu[0] == "D" and cu[1:].strip().isdigit():
+            n = int(cu[1:].strip())
+            if 1 <= n <= len(ordered):
+                victim = ordered[n - 1]
+                _archive_seed_local(victim)                       # recuperable (seeds_archive.json)
+                seeds = [s for s in seeds if s is not victim]     # saca de la lista en memoria
+                _save_seeds_with_judge(seeds)                     # reescribe selected_seeds.json (para siempre)
+                ordered = sorted(seeds, key=_seed_sort_key)       # re-indexa
+                print(f"  🗑  Borrado [{n}] {victim.get('seed_title','?')} (archivado). "
+                      f"Quedan {len(ordered)}.")
+                _emit_qaform_seed_marker(ordered)                 # re-render del form (lista nueva)
+                continue
+            print(f"  Número inválido para borrar (1-{len(ordered)}).")
+            continue
         parts = [p.strip() for p in choice.split(",") if p.strip()]
         if parts and all(p.isdigit() and 1 <= int(p) <= len(ordered) for p in parts):
             idxs = sorted({int(p) for p in parts})
