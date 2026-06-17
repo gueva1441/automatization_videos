@@ -1284,6 +1284,7 @@ def _form_reader(proc) -> None:
     """Thread daemon: lee stdout. Marcador → _FORM['marker']; header de fase → progreso;
     el resto → consola. (PYTHONUNBUFFERED=1 en el env mantiene a run_pipeline Y a fase1
     sin buffer → el marcador llega al toque.)"""
+    global TOPIC_ID
     try:
         for line in proc.stdout:
             line = line.rstrip("\n")
@@ -1295,6 +1296,13 @@ def _form_reader(proc) -> None:
                 if marker:
                     with _FORM_LOCK:
                         _FORM["marker"] = marker
+                    # Gate del visor: apuntar el visor (y /assemble, y los fixes de foto/
+                    # clip/audio) al topic de la corrida en vivo. No hace falta reiniciar.
+                    if marker.get("menu") == "visor_gate":
+                        try:
+                            TOPIC_ID = marker["payload"]["topic_id"]
+                        except (KeyError, TypeError):
+                            pass
                 continue  # el marcador NO va a la consola
             if "  ▶ " in line:
                 for ph in _FORM_PHASES:

@@ -39,6 +39,10 @@ from pathlib import Path
 from config import DATA_DIR, OUTPUT_DIR
 from script_engine import topics_db
 
+# Gate del VISOR fase2.5 (form asistido): marcador env-gated por QA_FORM. Sin QA_FORM
+# (terminal pura) NO se emite ni se bloquea → fase2a corre directo a fase2b igual que hoy.
+from qa_form_markers import QA_FORM, emit_choice_marker
+
 if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -146,6 +150,21 @@ def sequence(tid: str, *, batch: bool = False) -> int:
                 why=f"fase2a no dejó {mf.as_posix()}",
                 next_cmd=f"python fase2a.py --topic {tid}")
         return 1
+
+    # ── 2.5) VISOR — gate OBLIGADO (solo modo form) ─────────────────
+    # Entre los assets (fase2a) y el horneado (fase2b): el form frena SIEMPRE acá para que
+    # Omar revise/arregle foto/clip/audio en el visor (que lee data/scripts/<tid>.json, el
+    # MISMO archivo que fase2b → preview == render). El server, al captar el marcador,
+    # apunta su TOPIC_ID a este tid. input() bloquea sin timeout hasta que el form mande "C".
+    # En terminal pura (sin QA_FORM) este bloque no corre → fase2b sigue de corrido.
+    if QA_FORM:
+        emit_choice_marker(
+            menu="visor_gate",
+            prompt="Revisá el video en el visor y arreglá lo que haga falta. Cuando estés listo, horneá.",
+            options=[{"key": "C", "label": "Continuar -> hornear video"}],
+            payload={"topic_id": tid},
+        )
+        input()  # bloquea hasta que el form escriba "C" (cualquier línea) por stdin
 
     # ── 3) VIDEO — fase2b (video_id posicional == topic_id en LONG) ──
     _phase_header("VIDEO (fase2b)")
