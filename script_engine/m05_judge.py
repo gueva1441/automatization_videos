@@ -37,6 +37,11 @@ from gemini_helpers import call_flash_json
 
 from script_engine.learned_patterns import LEARNED_REGEX_PATTERNS, get_root_cause
 
+# Form asistido (contrato chat 61): marcadores env-gated por QA_FORM, emitidos ANTES de
+# cada input() del juez. Sin QA_FORM no emite → terminal byte-idéntica. El input()/parseo
+# de _read_main_menu_choice / _read_issue_choice NO se tocan.
+from qa_form_markers import QA_FORM, emit_choice_marker
+
 
 # ════════════════════════════════════════════════════════════════════════
 #  EXCEPCIÓN PROPIA (espejo de VisualValidationError de m03)
@@ -1578,6 +1583,36 @@ def prompt_user_action(judge_output: dict) -> dict:
         return {"action": "no_op_pass", "decisions": [], "plan_str": None}
 
     issues = judge_output.get("all_issues", []) or []
+    # GATE JUEZ (form): PASS ya salió arriba sin marcador → la barra sigue sola. Acá hay
+    # issues: emitimos el marcador (display-only) ANTES del input de SIEMPRE, que no se toca.
+    if QA_FORM:
+        emit_choice_marker(
+            menu="judge_action",
+            prompt=f"El juez marcó {len(issues)} issue(s) — revisá antes de gastar en imágenes",
+            options=[
+                {"key": "V", "label": "Ver issues uno por uno"},
+                {"key": "A", "label": "Aprobar todos los fixes"},
+                {"key": "R", "label": "Rechazar todos (seguir igual)"},
+                {"key": "S", "label": "Salir sin acción"},
+            ],
+            default="R",
+            payload={
+                "verdict": judge_output.get("global_verdict"),
+                "issues": [
+                    {
+                        "id": i.get("issue_id"),
+                        "cap": i.get("chapter_id"),
+                        "img": i.get("image_index"),
+                        "cat": i.get("category"),
+                        "sev": i.get("severity"),
+                        "cohort": i.get("cohort"),
+                        "cohort_total": i.get("cohort_total"),
+                        "reason": (i.get("what_happened") or "")[:200],
+                    }
+                    for i in issues
+                ],
+            },
+        )
     choice = _read_main_menu_choice()
 
     if choice == "S":
@@ -1623,6 +1658,25 @@ def prompt_user_action(judge_output: dict) -> dict:
             f"img {issue.get('image_index', '?')}, "
             f"severity={issue.get('severity', '?')}"
         )
+        # SUB-GATE JUEZ (form): el sub-loop [y/n/s] también necesita su marcador, o cuelga
+        # mudo. Env-gated, ANTES del input de _read_issue_choice (que no se toca).
+        if QA_FORM:
+            emit_choice_marker(
+                menu="judge_issue",
+                prompt=f"Issue {i}/{total}: {issue.get('category', '?')} — ¿aprobar el fix?",
+                options=[
+                    {"key": "y", "label": "Aprobar este fix"},
+                    {"key": "n", "label": "Rechazar"},
+                    {"key": "s", "label": "Saltear"},
+                ],
+                default="s",
+                body=(
+                    f"Cap {issue.get('chapter_id', '?')} · img {issue.get('image_index', '?')} "
+                    f"· severidad {issue.get('severity', '?')}\n\n"
+                    f"Qué pasó:\n{issue.get('what_happened', '')}\n\n"
+                    f"Cómo arreglar:\n{issue.get('how_to_fix', '')}"
+                ),
+            )
         sub = _read_issue_choice()
         decisions.append({
             "issue_id": issue.get("issue_id"),

@@ -1262,6 +1262,7 @@ _FORM_MENU_HTML = {
     "__choice__": BASE_DIR / "qa_choice.html",
     "__multi__": BASE_DIR / "qa_multi.html",   # accept='keys': submenú de nichos (checkboxes)
     "__gallery__": BASE_DIR / "qa_gallery.html",  # reuse_seeds: galería pickeable de seeds pendientes
+    "__judge__": BASE_DIR / "qa_judge.html",   # judge_action: lista de issues + V/A/R/S
 }
 
 _FORM: dict = {"running": False, "returncode": None, "console": [], "marker": None, "phase": None}

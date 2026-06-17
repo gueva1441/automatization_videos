@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!--
+  qa_judge.html — form del GATE JUEZ (auditor del guion, contrato chat 61 / HANDOFF 63a).
+  Embebido en un iframe (~78vh) por el host (qa_form.html); el host define window.qaFormAnswer
+  y llama window.renderJudge(marker) con {menu:'judge_action', accept:'key', prompt, options[],
+  default, payload:{verdict, issues[]}}.
+
+  Layout: HEADER FIJO (eyebrow + prompt + badge de verdict) · LISTA de issues scrollable
+  (informativa) · BARRA de acciones fija abajo (V/A/R/S).
+
+  SEAM (lockeado): click/tecla de acción → qaFormAnswer({menu:'judge_action', action:'choose', value:<key>}).
+  Paleta EXACTA de qa_choice.html / qa_seed_pick.html (Claude Design) — NO inventar colores.
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juez — revisá los issues</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: #0f0f12; color: #e8e8ec; font-family: 'Space Grotesk', sans-serif;
+         height: 100vh; display: flex; flex-direction: column; }
+
+  /* HEADER FIJO */
+  .head { flex: none; padding: 28px 28px 18px; border-bottom: 1px solid #1f1f26; background: #0f0f12; }
+  .head-inner { max-width: 1000px; margin: 0 auto; display: flex; align-items: flex-end;
+                justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .head-left { min-width: 0; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .2em; color: #d8a02a; }
+  .prompt { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 600; color: #f4f4f6;
+            margin: 10px 0 0; letter-spacing: -.01em; line-height: 1.25; }
+  .verdict { flex: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700;
+             letter-spacing: .08em; padding: 7px 13px; border-radius: 999px; white-space: nowrap; }
+  .verdict.flag { color: #d8a02a; background: rgba(216,160,42,.12); border: 1px solid rgba(216,160,42,.5); }
+  .verdict.pass { color: #2ea043; background: rgba(46,160,67,.12); border: 1px solid rgba(46,160,67,.5); }
+
+  /* LISTA scrollable */
+  .scroll { flex: 1; overflow: auto; padding: 20px 28px 26px; }
+  .list { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 11px; }
+  .cap { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .14em;
+         color: #5e5e68; margin: 2px 0 4px; }
+
+  .issue { background: #16161b; border: 1px solid #262630; border-left: 4px solid #34343c;
+           border-radius: 12px; padding: 15px 18px; }
+  .issue.high { border-left-color: #e5484d; }
+  .issue.medium { border-left-color: #d8a02a; }
+  .issue.low { border-left-color: #2ea043; }
+  .issue-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .cat { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #f0f0f3;
+         letter-spacing: -.01em; margin-right: auto; min-width: 0; }
+  .badge { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace;
+           font-size: 11px; font-weight: 700; letter-spacing: .04em; color: #b6b6be; background: #222229;
+           border: 1px solid #34343c; border-radius: 999px; padding: 4px 10px; white-space: nowrap; }
+  .badge.sev-high { color: #e5484d; border-color: #e5484d55; }
+  .badge.sev-medium { color: #d8a02a; border-color: #d8a02a55; }
+  .badge.sev-low { color: #7faf86; border-color: #2ea04355; }
+  .badge.cohort { color: #8a8a92; }
+  .meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5e5e68; margin-top: 9px; }
+  .reason { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; line-height: 1.6; color: #9a9aa2;
+            white-space: pre-wrap; margin-top: 8px; }
+  .empty { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6e6e78;
+           background: #16161b; border: 1px dashed #2a2a32; border-radius: 12px; padding: 22px; text-align: center; }
+
+  /* BARRA de acciones FIJA */
+  .bar { flex: none; border-top: 1px solid #1f1f26; background: rgba(18,18,22,.96); padding: 14px 28px; }
+  .bar-inner { max-width: 1000px; margin: 0 auto; display: flex; gap: 10px; flex-wrap: wrap; }
+  .act { display: flex; align-items: center; gap: 11px; cursor: pointer; flex: 1 1 200px;
+         background: #222229; border: 1px solid #34343c; border-radius: 11px; padding: 13px 16px;
+         color: #e8e8ec; font-family: 'Space Grotesk', sans-serif; text-align: left;
+         transition: background .12s, border-color .12s, transform .08s; }
+  .act:hover { border-color: #2ea043; background: #1d1d24; }
+  .act:active { transform: scale(.99); }
+  .act .key { flex: none; width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center;
+              justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 13px;
+              background: #0f0f12; border: 1px solid #34343c; color: #b6b6be; }
+  .act .lab { font-size: 14px; font-weight: 500; color: #f0f0f3; }
+  .act.primary { background: #2ea043; border-color: #2ea043; }
+  .act.primary .key { background: rgba(6,20,10,.18); border-color: rgba(6,20,10,.25); color: #06140a; }
+  .act.primary .lab { color: #06140a; }
+  .act.primary:hover { filter: brightness(1.05); }
+</style>
+</head>
+<body>
+
+  <div class="head">
+    <div class="head-inner">
+      <div class="head-left">
+        <div class="eyebrow">GATE · JUEZ</div>
+        <div class="prompt" id="prompt">…</div>
+      </div>
+      <div class="verdict flag" id="verdict">—</div>
+    </div>
+  </div>
+
+  <div class="scroll">
+    <div class="list">
+      <div class="cap" id="cap"></div>
+      <div id="issues"></div>
+    </div>
+  </div>
+
+  <div class="bar"><div class="bar-inner" id="acts"></div></div>
+
+<script>
+(function () {
+  'use strict';
+  var MENU = 'judge_action';
+  var KEYMAP = {};   // tecla (lower) → key real (V/A/R/S)
+
+  function qaAnswer(p) {
+    try { if (typeof window.qaFormAnswer === 'function') window.qaFormAnswer(p); }
+    catch (e) { /* no romper si el host falla */ }
+  }
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function choose(key) { qaAnswer({ menu: MENU, action: 'choose', value: key }); }
+
+  function sevClass(sev) {
+    if (sev === 'high' || sev === 'medium' || sev === 'low') return 'sev-' + sev;
+    return '';
+  }
+
+  function issueHTML(it) {
+    it = it || {};
+    var sev = it.sev;
+    var sevBadge = sev ? '<span class="badge ' + sevClass(sev) + '">' + esc(sev) + '</span>' : '';
+    var cohortBadge = (it.cohort != null && it.cohort_total != null)
+      ? '<span class="badge cohort">' + esc(it.cohort) + '/' + esc(it.cohort_total) + '</span>' : '';
+    var sideClass = (sev === 'high' || sev === 'medium' || sev === 'low') ? (' ' + sev) : '';
+    var cap = (it.cap == null ? '?' : it.cap);
+    var img = (it.img == null ? '?' : it.img);
+    var reason = it.reason ? '<div class="reason">' + esc(it.reason) + '</div>' : '';
+    return '' +
+      '<div class="issue' + sideClass + '">' +
+        '<div class="issue-top">' +
+          '<span class="cat">' + esc(it.cat || 'issue') + '</span>' +
+          sevBadge + cohortBadge +
+        '</div>' +
+        '<div class="meta">Cap ' + esc(cap) + ' · img ' + esc(img) + '</div>' +
+        reason +
+      '</div>';
+  }
+
+  function renderJudge(marker) {
+    marker = marker || {};
+    MENU = marker.menu || 'judge_action';
+    var payload = marker.payload || {};
+    var issues = Array.isArray(payload.issues) ? payload.issues : [];
+
+    document.getElementById('prompt').textContent = marker.prompt || 'El juez marcó issues — revisá';
+
+    var verd = String(payload.verdict || '—').toUpperCase();
+    var vEl = document.getElementById('verdict');
+    vEl.textContent = verd;
+    vEl.className = 'verdict ' + (verd === 'PASS' ? 'pass' : 'flag');
+
+    document.getElementById('cap').textContent = 'ISSUES DETECTADOS · ' + issues.length;
+
+    var list = document.getElementById('issues');
+    list.innerHTML = issues.length
+      ? issues.map(issueHTML).join('')
+      : '<div class="empty">Sin issues en el payload.</div>';
+
+    // Botones de acción (V/A/R/S) desde marker.options; el default va resaltado.
+    KEYMAP = {};
+    var acts = document.getElementById('acts');
+    acts.innerHTML = '';
+    (marker.options || []).forEach(function (o) {
+      var isDef = marker.default != null && o.key === marker.default;
+      var b = document.createElement('button');
+      b.className = 'act' + (isDef ? ' primary' : '');
+      b.innerHTML = '<span class="key">' + esc(o.key) + '</span><span class="lab">' + esc(o.label) + '</span>';
+      KEYMAP[String(o.key).toLowerCase()] = o.key;
+      b.addEventListener('click', function () { choose(o.key); });
+      acts.appendChild(b);
+    });
+  }
+
+  // Atajo de teclado: apretar la letra de una acción la elige.
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = (e.key || '').toLowerCase();
+    if (KEYMAP.hasOwnProperty(k)) { e.preventDefault(); choose(KEYMAP[k]); }
+  });
+
+  window.renderJudge = renderJudge;
+
+  // SAMPLE para previsualización suelta (el host lo reemplaza con renderJudge(markerReal)).
+  renderJudge({
+    menu: 'judge_action', accept: 'key',
+    prompt: 'El juez marcó 3 issue(s) — revisá antes de gastar en imágenes',
+    options: [
+      { key: 'V', label: 'Ver issues uno por uno' },
+      { key: 'A', label: 'Aprobar todos los fixes' },
+      { key: 'R', label: 'Rechazar todos (seguir igual)' },
+      { key: 'S', label: 'Salir sin acción' }
+    ],
+    default: 'R',
+    payload: {
+      verdict: 'FLAG',
+      issues: [
+        { id: 'i1', cap: 3, img: 2, cat: 'name_leakage', sev: 'high', cohort: 3, cohort_total: 3,
+          reason: 'El narrador nombra a "Lemieux" pero la imagen mostraría texto con el nombre en pantalla.' },
+        { id: 'i2', cap: 5, img: 1, cat: 'anachronism_visual', sev: 'medium', cohort: 2, cohort_total: 3,
+          reason: 'Escena de 1960 con un auto que parece de los 2000.' },
+        { id: 'i3', cap: 7, img: 4, cat: 'text_in_image', sev: 'low', reason: 'Cartel con texto legible en inglés.' }
+      ]
+    }
+  });
+})();
+</script>
+</body>
+</html>

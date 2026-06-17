@@ -47,6 +47,23 @@
     border-radius:8px;padding:9px 13px;margin-bottom:14px;white-space:pre-wrap;word-break:break-word;}
   #errstrip .code{color:#e5484d;font-weight:700;}
 
+  /* Banner de GATE (juez / visor): freno ámbar con botón(es). La barra corre sola y solo
+     se planta acá donde una decisión de Omar cambia algo (plata o calidad). */
+  #gate{display:none;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    background:rgba(216,160,42,.09);border:1px solid rgba(216,160,42,.5);border-left:3px solid #d8a02a;
+    border-radius:12px;padding:15px 18px;margin-bottom:14px;}
+  #gate .gmsg{font-family:var(--disp);font-size:15px;color:#f0e2c0;min-width:0;}
+  #gate .gmsg .tag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:#d8a02a;display:block;margin-bottom:4px;}
+  #gate .gbtns{display:flex;gap:10px;flex-wrap:wrap;flex:none;}
+  #gate .gbtn{font-family:var(--disp);font-weight:700;font-size:14px;color:#06140a;background:#2ea043;border:none;
+    padding:11px 20px;border-radius:10px;cursor:pointer;box-shadow:0 8px 22px rgba(46,160,67,.3);}
+  #gate .gbtn:hover{filter:brightness(1.06);}
+  #gate .gbtn.amber{color:#1c1402;background:#d8a02a;box-shadow:0 8px 22px rgba(216,160,42,.3);}
+  #gate .gbtn.ghost{color:#e8e8ec;background:#222229;border:1px solid #34343c;box-shadow:none;}
+  /* Con un gate activo, el segmento actual de la barra late en ámbar en vez de verde. */
+  .prog.paused .seg.cur{border-color:#d8a02a;}
+  .prog.paused .seg.cur::after{background:linear-gradient(90deg,transparent,rgba(216,160,42,.5),transparent);}
+
   #placeholder{background:#08080b;border:1px solid #222229;border-radius:12px;padding:22px 18px;}
   #dialog{display:none;border:1px solid #222229;border-radius:12px;overflow:hidden;background:#0f0f12;}
   #dialog iframe{width:100%;height:78vh;border:0;display:block;background:#0f0f12;}
@@ -68,6 +85,7 @@
 
   <div class="state" id="state"></div>
   <div id="errstrip"></div>
+  <div id="gate"></div>
 
   <div id="dialog"></div>
   <div id="placeholder"><span class="empty">Arrancando la corrida… cuando el pipeline necesite una decisión, se abre el diálogo acá.</span></div>
@@ -81,6 +99,9 @@ let pollTimer=null, curMarkerKey=null;
 // seed_pick (post-juez, con verdict) el host matchea y auto-responde / confirma.
 let pickedSeedTitle=null;      // título del seed elegido en la galería (identidad, NO índice)
 let pendingSeedMarker=null;    // marcador seed_pick guardado, por si hay que "elegir otro"
+// GATES (HANDOFF 63a): juez (freno condicional) y visor (freno obligado). El marcador no
+// abre diálogo de una: planta un banner ámbar con botón(es); el diálogo del juez se abre al click.
+let gateMarker=null;           // marcador del gate activo (judge_action / visor_gate)
 
 function renderProgress(phase, phases){
   const prog=$('prog'), labels=$('progLabels');
@@ -131,17 +152,20 @@ function handleMarker(m){
       // Si elegimos un seed en la galería, el seed_pick post-juez lo resuelve el puente
       // (auto-producir si es oro · confirm si es dudoso/descartar). Si no, diálogo normal.
       if(m.menu==='seed_pick' && pickedSeedTitle!=null){ bridgeSeedPick(m); }
+      // Gates: NO abren diálogo de una → plantan el banner ámbar con botón(es).
+      else if(m.menu==='judge_action' || m.menu==='visor_gate'){ showGate(m); }
       else showDialog(m);
     }
-  } else if(curMarkerKey!==null){ curMarkerKey=null; hideDialog(); }
+  } else if(curMarkerKey!==null){ curMarkerKey=null; hideDialog(); hideGate(); }
 }
 function showDialog(marker){
   $('placeholder').style.display='none';
   const area=$('dialog'); area.style.display='block'; area.innerHTML='';
   const isGallery = marker.menu==='reuse_seeds';  // aterrizaje pickeable (galería de seeds)
+  const isJudge   = marker.menu==='judge_action'; // form del juez (lista de issues + V/A/R/S)
   const isChoice  = marker.accept==='key';        // diálogo genérico de botones
   const isMulti   = marker.accept==='keys';       // diálogo de checkboxes (multi-select)
-  const menuFile = isGallery ? '__gallery__' : (isChoice ? '__choice__' : (isMulti ? '__multi__' : marker.menu));
+  const menuFile = isGallery ? '__gallery__' : (isJudge ? '__judge__' : (isChoice ? '__choice__' : (isMulti ? '__multi__' : marker.menu)));
   const ifr=document.createElement('iframe');
   ifr.src='/form_menu?menu='+encodeURIComponent(menuFile);
   ifr.onload=()=>{
@@ -149,6 +173,8 @@ function showDialog(marker){
       ifr.contentWindow.qaFormAnswer=(payload)=>onAnswer(payload);
       if(isGallery && typeof ifr.contentWindow.renderGallery==='function'){
         ifr.contentWindow.renderGallery(marker);
+      }else if(isJudge && typeof ifr.contentWindow.renderJudge==='function'){
+        ifr.contentWindow.renderJudge(marker);
       }else if(isChoice && typeof ifr.contentWindow.renderChoice==='function'){
         ifr.contentWindow.renderChoice(marker);
       }else if(isMulti && typeof ifr.contentWindow.renderMulti==='function'){
@@ -160,7 +186,41 @@ function showDialog(marker){
   };
   area.appendChild(ifr);
 }
-function hideDialog(){ const a=$('dialog'); a.style.display='none'; a.innerHTML=''; $('placeholder').style.display='block'; }
+function hideDialog(){ const a=$('dialog'); a.style.display='none'; a.innerHTML=''; if($('gate').style.display!=='flex') $('placeholder').style.display='block'; }
+
+// ── GATES (juez / visor): banner ámbar que frena la barra hasta una decisión de Omar ──
+function setPaused(on){ $('prog').classList.toggle('paused', !!on); }
+function showGate(m){
+  gateMarker=m;
+  const d=$('dialog'); d.style.display='none'; d.innerHTML='';
+  $('placeholder').style.display='none';
+  setPaused(true);
+  const g=$('gate'); g.style.display='flex'; g.innerHTML='';
+  const msg=document.createElement('div'); msg.className='gmsg';
+  const btns=document.createElement('div'); btns.className='gbtns';
+  if(m.menu==='judge_action'){
+    const n=((m.payload&&m.payload.issues)||[]).length;
+    msg.innerHTML='<span class="tag">⚖ GATE · JUEZ</span>'+esc(m.prompt||('El juez marcó '+n+' issue(s)'));
+    const b=document.createElement('button'); b.className='gbtn amber';
+    b.textContent='Abrir juez · '+n+' issue'+(n===1?'':'s');
+    b.onclick=openGateDialog;
+    btns.appendChild(b);
+  }else if(m.menu==='visor_gate'){
+    msg.innerHTML='<span class="tag">👁 GATE · VISOR</span>'+esc(m.prompt||'Revisá el video en el visor antes de hornear');
+    const open=document.createElement('button'); open.className='gbtn ghost';
+    open.textContent='Abrir visor'; open.onclick=()=>{ window.open('/','_blank'); };
+    const cont=document.createElement('button'); cont.className='gbtn';
+    cont.textContent='Continuar → hornear video'; cont.onclick=visorContinue;
+    btns.appendChild(open); btns.appendChild(cont);
+  }
+  g.appendChild(msg); g.appendChild(btns);
+}
+function hideGate(){ const g=$('gate'); g.style.display='none'; g.innerHTML=''; gateMarker=null; setPaused(false);
+  if($('dialog').style.display!=='block') $('placeholder').style.display='block'; }
+// "Abrir juez" → abre el form del juez (issues + V/A/R/S). El banner se oculta; al responder se cierra todo.
+function openGateDialog(){ $('gate').style.display='none'; setPaused(false); if(gateMarker) showDialog(gateMarker); }
+// "Continuar → hornear" del visor: manda "C" por stdin → run_pipeline desbloquea el input() → fase2b.
+function visorContinue(){ postLine('C').then(()=>{ curMarkerKey=null; hideGate(); }); }
 
 function postLine(line){
   return fetch('/form_answer',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({line})})
