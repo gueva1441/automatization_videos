@@ -31,9 +31,16 @@
   .seg{flex:1;height:8px;border-radius:5px;background:#1a1a20;border:1px solid #26262f;overflow:hidden;position:relative;}
   .seg.done{background:linear-gradient(90deg,#2ea043,#3fbf57);border-color:#2ea043;}
   .seg.cur{background:#1a1a20;border-color:#2ea043;}
+  /* Llenado gradual del segmento activo: se va llenando hasta ~88% y "respira" ahí mientras la
+     fase corre; salta a 100% (done) cuando llega el header de la próxima fase. Sin parsear el log. */
+  .seg.cur::before{content:'';position:absolute;left:0;top:0;bottom:0;width:6%;border-radius:5px;
+    background:linear-gradient(90deg,#2ea043,#3fbf57);
+    animation:fill 26s cubic-bezier(.15,.7,.2,1) forwards, breathe 2.2s ease-in-out infinite;}
   .seg.cur::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(46,160,67,.5),transparent);
     animation:sh 1.1s linear infinite;}
   @keyframes sh{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+  @keyframes fill{from{width:6%}to{width:88%}}
+  @keyframes breathe{0%,100%{opacity:.8}50%{opacity:1}}
   .proglabels{display:flex;gap:8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:#5e5e68;margin-bottom:18px;}
   .proglabels span{flex:1;text-align:center;}
   .proglabels span.on{color:#86e29a;}
@@ -71,6 +78,7 @@
   #gate .gbtn.ghost{color:#e8e8ec;background:#222229;border:1px solid #34343c;box-shadow:none;}
   /* Con un gate activo, el segmento actual de la barra late en ámbar en vez de verde. */
   .prog.paused .seg.cur{border-color:#d8a02a;}
+  .prog.paused .seg.cur::before{background:linear-gradient(90deg,#d8a02a,#e3b450);}
   .prog.paused .seg.cur::after{background:linear-gradient(90deg,transparent,rgba(216,160,42,.5),transparent);}
 
   #placeholder{background:#08080b;border:1px solid #222229;border-radius:12px;padding:22px 18px;}
