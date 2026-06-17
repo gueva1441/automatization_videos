@@ -484,6 +484,24 @@ def _save_script(script: dict) -> None:
     )
 
 
+# HANDOFF 66a — sentinel de orquestación fase1 --no-chain ↔ run_pipeline --research.
+RESEARCH_SENTINEL = DATA_DIR / "_last_research.json"   # data/ es gitignored → artefacto local
+
+
+def _write_research_sentinel(tids: list[str]) -> None:
+    """Chat 66: declara qué topic(s) produjo ESTA corrida --no-chain. run_pipeline --research
+    consume SOLO esto (no escanea el DB). Lista vacía = no se produjo nada (pick soltado /
+    menú cancelado) → run_pipeline frena limpio. utf-8 sin BOM (json.dump no agrega BOM)."""
+    try:
+        RESEARCH_SENTINEL.parent.mkdir(parents=True, exist_ok=True)
+        RESEARCH_SENTINEL.write_text(
+            json.dumps({"tids": tids, "at": datetime.now().isoformat()}, ensure_ascii=False),
+            encoding="utf-8",
+        )
+    except Exception as e:  # no tumbar la corrida por el sentinel
+        print(f"  ⚠ no pude escribir el sentinel de research: {e}")
+
+
 def _ask_video_type() -> str:
     """Prompt interactivo para elegir video_type de la corrida (Latido A)."""
     print(f"\n{'═' * 60}")
@@ -574,6 +592,13 @@ def run_latido_a(
     if not video_type:
         video_type = _ask_video_type()
     print(f"\n  ✓ video_type de esta corrida: {video_type.upper()}")
+
+    # HANDOFF 66a — parte limpio: si un early-return (pick soltado / menú cancelado) corta antes
+    # de validar, el sentinel queda en "no produje nada" → run_pipeline --research frena limpio.
+    if no_chain:
+        _write_research_sentinel([])
+
+    validated: list[dict] = []   # HANDOFF 66a — topics validados ESTA corrida (para el sentinel)
 
     try:
         # ═════ PASO 1 — Niche Discoverer ═════
@@ -757,7 +782,7 @@ def run_latido_a(
             print(f"\n{'─' * 60}")
             print(f"  📌 PASO 3/4 — Validación de mercado ({video_type.upper()})")
             print(f"{'─' * 60}")
-            validate_topics(video_type=video_type)
+            validated = validate_topics(video_type=video_type)   # HANDOFF 66a — capturar el retorno
         else:
             print(f"\n  ⏭  Paso 3 saltado")
 
@@ -783,6 +808,10 @@ def run_latido_a(
         print(f"\n  (--export-only) CSV regenerado. Corré `python fase1_5.py` "
               f"cuando quieras elegir un tema.\n")
     elif no_chain:
+        # HANDOFF 66a — declarar qué topic(s) produjo esta corrida. run_pipeline --research lee
+        # SOLO esto (no escanea el DB). Si validate no devolvió nada → lista vacía → frena limpio.
+        tids = [t.get("id") for t in validated if t.get("id")]
+        _write_research_sentinel(tids)
         print(f"\n  ✅ Tema validado. Seguí con: python run_pipeline.py --research "
               f"(ya encadena)\n")
     else:

@@ -32,6 +32,7 @@ NO seguir. Reporte final SIEMPRE (fases corridas, dónde frenó, próximo comand
 from __future__ import annotations
 
 import argparse
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -207,18 +208,33 @@ def sequence(tid: str, *, batch: bool = False) -> int:
 # ═══════════════════════════════════════════════════════════════
 #  Resolución de tid + CLI
 # ═══════════════════════════════════════════════════════════════
-def _resolve_validated_tid() -> str | None:
-    """Tras `fase1.py --no-chain`: si hay EXACTAMENTE 1 validated → ese (auto, sin
-    click); si hay varios (leftover) → menú para desambiguar; 0 → None."""
+# HANDOFF 66a — el path --research consume el SENTINEL que fase1 --no-chain declara (qué topic
+# produjo ESTA corrida), en vez de escanear el DB por cualquier 'validated' (raíz del bug:
+# agarraba un leftover viejo y horneaba el video equivocado; con 2+ leftover abría un input()
+# no env-gated que colgaba el form). Contrato fase1 ↔ run_pipeline, gateado por --no-chain.
+RESEARCH_SENTINEL = DATA_DIR / "_last_research.json"
+
+
+def _read_research_sentinel() -> list[str]:
+    """Lee SOLO lo que fase1 --no-chain declaró que produjo esta corrida. Ausente/ilegible = []."""
+    try:
+        d = json.loads(RESEARCH_SENTINEL.read_text(encoding="utf-8"))
+        return [t for t in d.get("tids", []) if t]
+    except Exception:
+        return []
+
+
+def _newest_validated(tids: list[str]) -> str:
+    """Desempate determinístico por validated_at — SIN input() (no cuelga el form).
+    topic_validator escribe el timestamp en competition_data.validated_at (no top-level)."""
     db = topics_db.load_db()
-    vals = [t for t in db.get("topics", []) if t.get("status") == "validated"]
-    if len(vals) == 1:
-        print(f"  ▶ Tema validado: {vals[0].get('id')}")
-        return vals[0].get("id")
-    if not vals:
-        return None
-    from fase1_5 import _select_topic_interactive
-    return _select_topic_interactive()
+    by_id = {t.get("id"): t for t in db.get("topics", [])}
+
+    def _ts(x: str) -> str:
+        t = by_id.get(x, {}) or {}
+        return (t.get("competition_data", {}) or {}).get("validated_at", "") or t.get("validated_at", "")
+
+    return max(tids, key=_ts)
 
 
 def main() -> int:
@@ -250,10 +266,11 @@ def main() -> int:
         if rc != 0:
             print("  ⛔ fase1 falló o se canceló — no hay tema para seguir.")
             return rc
-        tid = _resolve_validated_tid()
-        if not tid:
-            print("  ℹ Sin tema validated tras fase1 (¿cancelaste el menú de seeds?).")
+        tids = _read_research_sentinel()          # consume el sentinel; NO escanea el DB
+        if not tids:
+            print("  ℹ Esta corrida no produjo tema (soltaste el pick o cancelaste). Stop limpio.")
             return 0
+        tid = tids[0] if len(tids) == 1 else _newest_validated(tids)
     elif args.topic:
         tid = args.topic
     else:
