@@ -43,6 +43,9 @@
     animation:sh 1.1s linear infinite;}
   @keyframes sh{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
   @keyframes fill{from{width:6%}to{width:88%}}
+  /* ASSETS con % REAL (HANDOFF 64b): el ancho lo manda el server (imgs en disco / total),
+     no la animación heurística. El shimmer ::after sigue para que "respire" igual. */
+  .seg.cur.real::before{animation:none;width:var(--pct,6%);transition:width .45s cubic-bezier(.15,.7,.2,1);}
   @keyframes breathe{0%,100%{opacity:.8}50%{opacity:1}}
   .proglabels{display:flex;gap:8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:#5e5e68;margin-bottom:18px;}
   .proglabels span{flex:1;text-align:center;}
@@ -130,7 +133,7 @@ let pendingSeedMarker=null;    // marcador seed_pick guardado, por si hay que "e
 // abre diálogo de una: planta un banner ámbar con botón(es); el diálogo del juez se abre al click.
 let gateMarker=null;           // marcador del gate activo (judge_action / visor_gate)
 
-function renderProgress(phase, phases){
+function renderProgress(phase, phases, assets){
   const prog=$('prog'), labels=$('progLabels');
   if(prog.children.length!==phases.length){
     prog.innerHTML=''; labels.innerHTML='';
@@ -138,7 +141,14 @@ function renderProgress(phase, phases){
       const l=document.createElement('span'); l.textContent=p; labels.appendChild(l); });
   }
   const idx=phase?phases.indexOf(phase):-1;
-  [...prog.children].forEach((s,i)=>{ s.className='seg'+(i<idx?' done':(i===idx?' cur':'')); });
+  // % REAL solo en ASSETS-con-data; las otras 4 fases quedan con la animación CSS de siempre.
+  const real = phase==='ASSETS' && assets && assets.total>0;
+  [...prog.children].forEach((s,i)=>{
+    const cur=i===idx;
+    s.className='seg'+(i<idx?' done':(cur?' cur':''))+(cur&&real?' real':'');
+    if(cur&&real){ const pct=Math.max(6,Math.round(assets.done/assets.total*100)); s.style.setProperty('--pct',pct+'%'); }
+    else s.style.removeProperty('--pct');
+  });
   [...labels.children].forEach((l,i)=>{ l.className=(i<=idx&&idx>=0)?'on':''; });
 }
 function renderState(s){
@@ -197,7 +207,12 @@ function liveStep(s){
 }
 function renderActivity(s){
   const a=$('activity');
-  if(s.running){ a.querySelector('.txt').textContent = liveStep(s); a.style.display='flex'; }
+  if(s.running){
+    let txt=liveStep(s);
+    // ASSETS con % real: pegamos el conteo "N/total" a la línea de actividad.
+    if(s.phase==='ASSETS' && s.assets && s.assets.total>0) txt+=' '+s.assets.done+'/'+s.assets.total;
+    a.querySelector('.txt').textContent=txt; a.style.display='flex';
+  }
   else{ a.style.display='none'; }
 }
 
@@ -361,7 +376,7 @@ async function poll(){
   if(serverClosed) return;       // server cerrado a pedido → no seguir golpeando /form_state
   try{
     const s=await (await fetch('/form_state')).json();
-    renderProgress(s.phase, s.phases||[]);
+    renderProgress(s.phase, s.phases||[], s.assets);
     renderState(s);
     renderActivity(s);
     handleMarker(s.marker);

@@ -1265,7 +1265,7 @@ _FORM_MENU_HTML = {
     "__judge__": BASE_DIR / "qa_judge.html",   # judge_action: lista de issues + V/A/R/S
 }
 
-_FORM: dict = {"running": False, "returncode": None, "console": [], "marker": None, "phase": None}
+_FORM: dict = {"running": False, "returncode": None, "console": [], "marker": None, "phase": None, "run_tid": None}
 _FORM_LOCK = threading.Lock()
 _FORM_PROC: dict = {"p": None}
 
@@ -1314,6 +1314,13 @@ def _form_reader(proc) -> None:
                         with _FORM_LOCK:
                             _FORM["phase"] = ph
                         break
+                # tid del header "▶ <fase> — <tid>" (lo emite _phase_header). Para el % real
+                # de ASSETS. RESEARCH no trae tid; GUION sí → run_tid llega antes de ASSETS.
+                if " — " in line:
+                    cand = line.rsplit(" — ", 1)[-1].strip()
+                    if cand and "/" not in cand and 0 < len(cand) <= 64:
+                        with _FORM_LOCK:
+                            _FORM["run_tid"] = cand
             with _FORM_LOCK:
                 _FORM["console"].append(line)
                 if len(_FORM["console"]) > _FORM_CONSOLE_MAX:
@@ -1334,7 +1341,7 @@ def _start_form() -> dict:
     with _FORM_LOCK:
         if _FORM["running"]:
             return {"conflict": True}
-        _FORM.update(running=True, returncode=None, console=[], marker=None, phase=None)
+        _FORM.update(running=True, returncode=None, console=[], marker=None, phase=None, run_tid=None)
     # QA_FORM=1 → fase1 emite el marcador. PYTHONUNBUFFERED → run_pipeline Y fase1 sin
     # buffer (el marcador llega al toque). PYTHONIOENCODING=utf-8 → el hijo emite utf-8 en
     # Windows (sin esto, los ▶/emojis de fase1 tumban el child con cp1252; igual que el
@@ -1401,16 +1408,39 @@ def _form_shutdown() -> dict:
     return {"bye": True, "killed_run": killed}
 
 
+def _assets_progress(tid: str | None) -> dict | None:
+    """{done,total} de imágenes para el % real del segmento ASSETS. Read-only:
+    total = anchors+supp_anchors del script; done = .png en disco (caps()). Mismo patrón
+    de disco que el visor; NO toca el motor. Nunca tira excepción hacia /form_state."""
+    if not tid:
+        return None
+    try:
+        st = QAState(tid, BASE_DIR)
+        total = sum(len(v.get("anchors", [])) + len(v.get("supp_anchors", []))
+                    for v in st._script.values())
+        if total <= 0:
+            return None
+        done = sum(c["count"] for c in st.caps())
+        return {"done": min(done, total), "total": total}
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def _form_state(tail: int = 200) -> dict:
     with _FORM_LOCK:
-        return {
+        phase = _FORM["phase"]
+        run_tid = _FORM["run_tid"]
+        base = {
             "running": _FORM["running"],
             "returncode": _FORM["returncode"],
-            "phase": _FORM["phase"],
+            "phase": phase,
             "phases": _FORM_PHASES,
             "marker": _FORM["marker"],
             "console_tail": list(_FORM["console"][-tail:]),
         }
+    # disco fuera del lock; solo cuando importa (ASSETS)
+    base["assets"] = _assets_progress(run_tid) if phase == "ASSETS" else None
+    return base
 
 
 # ═════════════════════════════════════════════════════════════════
