@@ -102,7 +102,7 @@
     </div>
     <div class="topbtns">
       <button class="btn" id="launchBtn">↻ Reiniciar corrida</button>
-      <button class="btn ghost" id="closeBtn">✕ Cerrar server</button>
+      <button class="btn ghost" id="closeBtn">✕ Salir</button>
     </div>
   </div>
 
@@ -399,16 +399,21 @@ $('launchBtn').onclick=launch;   // vía manual de reiniciar (el server da 409 s
 // CERRAR SERVER (HANDOFF 64a) — mata la corrida hija (si la hay) y apaga el server (os._exit).
 // Confirm OBLIGATORIO si hay corrida en curso: research/imgs = plata.
 async function closeServer(){
-  if(lastRunning && !confirm('Hay una corrida en curso (research/imgs = plata). ¿Cerrar el server igual?')) return;
+  if(lastRunning && !confirm('Hay una corrida en curso (research/imgs = plata). ¿Salir igual?')) return;
   $('closeBtn').disabled=true;
   try{ await fetch('/form_shutdown',{method:'POST'}); }catch(e){ /* el server ya cayó: ok */ }
-  // estado terminal: cortar polling y mostrar banner claro. Los /form_state siguientes
-  // fallarían con connection refused → serverClosed los silencia.
+  // estado terminal: cortar polling. Los /form_state siguientes fallarían con
+  // connection refused → serverClosed los silencia.
   serverClosed=true;
   if(pollTimer) clearInterval(pollTimer);
+  // cerrar la ventana del browser. OJO: el browser SOLO deja cerrar pestañas abiertas por script
+  // (window.open). Esta la abre el server (webbrowser.open) → puede bloquearlo. Como se abre directo
+  // a /form (sin historial), Chrome/Edge suele permitirlo. Si NO → cae al cartel fallback de abajo.
+  window.close();
+  // fallback (browser bloqueó el cierre): estado terminal claro.
   $('launchBtn').disabled=true;
   hideGate();
-  $('state').innerHTML='<span class="ok">✓ Server cerrado · podés cerrar esta pestaña</span>';
+  $('state').innerHTML='<span class="ok">✓ Listo · cerrá esta pestaña</span>';
 }
 $('closeBtn').onclick=closeServer;
 
