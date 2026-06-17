@@ -129,6 +129,7 @@ let serverClosed=false;        // true tras pedir /form_shutdown → corta polli
 // seed_pick (post-juez, con verdict) el host matchea y auto-responde / confirma.
 let pickedSeedTitle=null;      // título del seed elegido en la galería (identidad, NO índice)
 let pendingSeedMarker=null;    // marcador seed_pick guardado, por si hay que "elegir otro"
+let pendingConfirmMatch=null;  // el seed del confirm del juez actual (para "🗑 Borrar este seed")
 // GATES (HANDOFF 63a): juez (freno condicional) y visor (freno obligado). El marcador no
 // abre diálogo de una: planta un banner ámbar con botón(es); el diálogo del juez se abre al click.
 let gateMarker=null;           // marcador del gate activo (judge_action / visor_gate)
@@ -330,6 +331,13 @@ function onAnswer(payload){
       if(pendingSeedMarker) showDialog(pendingSeedMarker);   // pick manual; curMarkerKey sigue en seed_pick
       return;
     }
+    if(payload.value==='__delete__'){
+      // borra el seed del confirm vía el mismo "d<idx>" que fase1 ya parsea (64d) → fase1 borra
+      // y RE-EMITE seed_pick; como pickedSeedTitle ya se consumió, cae al panel-lista para re-elegir.
+      const idx = pendingConfirmMatch ? pendingConfirmMatch.idx : payload.value;
+      postLine('d'+String(idx)).then(()=>{ curMarkerKey=null; hideDialog(); });
+      return;
+    }
     postLine(String(payload.value)).then(()=>{ curMarkerKey=null; hideDialog(); });
     return;
   }
@@ -356,16 +364,13 @@ function bridgeSeedPick(marker){
   pendingSeedMarker=marker;        // por si el confirm ofrece "elegir otro"
   const match=seeds.find(s=>s && s.title===want);
   if(!match){ showDialog(marker); return; }       // no matcheó → panel rico normal
-  if(match.verdict==='oro'){
-    postLine(String(match.idx)).then(()=>{ curMarkerKey=null; hideDialog(); });   // oro → auto-producir, sin diálogo
-    return;
-  }
-  showJudgeConfirm(match);         // dudoso/descartar → confirm del juez (no auto)
+  showJudgeConfirm(match);         // SIEMPRE confirma (oro o dudoso) — Omar revisa antes de gastar
 }
 
 // Confirm host-sintético (reusa qa_choice.html vía showDialog): muestra verdict + reason
 // y dos acciones. El idx va como `key` de "Producir igual" → onAnswer lo manda a stdin.
 function showJudgeConfirm(match){
+  pendingConfirmMatch=match;       // el seed del confirm actual (para el borrado __delete__)
   const verd=String(match.verdict||'—').toUpperCase();
   const reason=String(match.reason||'').trim();
   showDialog({
@@ -373,7 +378,8 @@ function showJudgeConfirm(match){
     prompt:'El juez marcó este tema como “'+verd+'”',
     body: reason ? ('Motivo del juez:\n'+reason) : 'El juez no dejó un motivo.',
     options:[{key:String(match.idx), label:'▶ Producir igual'},
-             {key:'__other__', label:'Elegir otro tema'}],
+             {key:'__delete__',      label:'🗑 Borrar este seed'},
+             {key:'__other__',       label:'Elegir otro tema'}],
     default:String(match.idx),
   });
 }
