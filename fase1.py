@@ -196,6 +196,11 @@ def _seed_sort_key(s: dict) -> tuple:
 
 _QA_FORM = bool(os.environ.get("QA_FORM"))  # módulo-level, una vez
 
+# HANDOFF 65a — sentinela form-only para "Generar nuevos" desde el menú post-juez.
+# _select_seed_interactive lo devuelve SOLO si el form manda "G" (gated _QA_FORM); en terminal
+# puro nunca se produce → el loop de PASO 1.5/1.6 corre una sola vez (comportamiento idéntico).
+_REGENERATE = object()
+
 
 def _normalize_form_risk(risk: str | None) -> str:
     """judge.risk (ninguno|ratio_inflado|generico|disputado) → vocabulario del HTML
@@ -218,6 +223,7 @@ def _seed_to_form_item(idx: int, s: dict) -> dict:
     return {
         "idx": idx,
         "title": s.get("seed_title") or "(sin título)",
+        "mode": s.get("discovery_mode") or "?",   # HANDOFF 65a — badge de nicho en la galería única
         "es_label": es.get("label") or "—",
         "competidores": es.get("ontopic_count"),
         "en_views": en.get("views"),
@@ -333,9 +339,13 @@ def _select_seed_interactive(seeds: list[dict]) -> list[dict] | None:
         if choice.upper() == "Q":
             print(f"\n  Cancelado por el usuario — no se investiga nada.")
             return None
+        cu = choice.upper()
+        # GENERAR NUEVOS (solo form): "G" → vuelve al discovery. Gateado por _QA_FORM → en terminal
+        # puro un "G" cae al "Inválido" de siempre (nunca se devuelve _REGENERATE). HANDOFF 65a.
+        if _QA_FORM and cu == "G":
+            return _REGENERATE
         # BORRAR (solo form): "d<n>" → archiva + saca de selected_seeds.json (para siempre) + re-emite.
         # Gateado por _QA_FORM → terminal pura byte-idéntica (un "d3" en terminal cae al "Inválido").
-        cu = choice.upper()
         if _QA_FORM and len(cu) >= 2 and cu[0] == "D" and cu[1:].strip().isdigit():
             n = int(cu[1:].strip())
             if 1 <= n <= len(ordered):
@@ -585,18 +595,28 @@ def run_latido_a(
                         # por seed (título + badge de nicho + competencia + señal viral EN). Todo
                         # dato YA guardado (cero costo: NO corre el juez acá). La identidad para el
                         # puente del host es `title`; `idx` es para el ✕ (borrar). input("[S/n]") intacto.
+                        # HANDOFF 65a — payload RICO: serializa TODO lo que el seed ya tenga
+                        # (incl. verdict/risk/reason si el juez ya corrió y persistió). Graceful:
+                        # en lote nuevo sin juez, verdict=None y el HTML no lo dibuja. Cero producción.
                         _seed_cards = []
                         for _i, s in enumerate(existing, start=1):
                             _ev = s.get("evidence") or {}
                             _en = _ev.get("en_viral") or {}
                             _es = _ev.get("es_gap") or {}
+                            _j = s.get("judge") or {}
                             _seed_cards.append({
-                                "idx": _i,                                  # NUEVO: identidad para el ✕
+                                "idx": _i,                                  # identidad para el ✕
                                 "title": s.get("seed_title") or "(sin título)",
                                 "mode": s.get("discovery_mode") or "?",
                                 "es_label": _es.get("label"),
+                                "competidores": _es.get("ontopic_count"),
                                 "en_views": _en.get("views"),
                                 "en_ratio": _en.get("outlier_ratio"),
+                                "en_age_months": _en.get("en_age_months"),
+                                "fallback": bool(_en.get("query_fallback")) or bool(_es.get("query_fallback")),
+                                "verdict": _j.get("verdict"),               # graceful: None pre-juez
+                                "risk": _normalize_form_risk(_j.get("risk")),
+                                "reason": (_j.get("reason") or "").strip(),
                             })
                         _emit_qaform_choice_marker(
                             "reuse_seeds", f"Tenés {len(existing)} seed(s) pendientes — elegí uno",
@@ -656,52 +676,65 @@ def run_latido_a(
                 return
             print(f"\n  ⏭  Paso 1 saltado — {len(seeds)} seed(s) existentes")
 
-        # ═════ PASO 1.5 — Juez LLM pre-grounding (solo spy_arbitrage) ═════
-        # Marca cada seed spy con seed["judge"]; NO descarta. La auto-exclusión del
-        # grounding (solo descartar 3/3) se decide acá abajo. Enriquecimiento: si falla,
-        # se continúa SIN judge (no debe tumbar la corrida).
-        seeds_to_ground = seeds
-        if not skip_research and not skip_validate:
-            try:
-                from script_engine.m_judge_seeds import judge_seeds
-                print(f"\n{'─' * 60}")
-                print(f"  📌 PASO 1.5/4 — Juez LLM pre-grounding")
-                print(f"{'─' * 60}")
-                seeds = judge_seeds(seeds, force=rejudge)   # agrega/respeta seed["judge"]
-                _save_seeds_with_judge(seeds)        # persistir el judge
-                _print_judge_summary(seeds)
+        # ═════ PASO 1.5 + 1.6 — loop para "Generar nuevos" desde el form (HANDOFF 65a) ═════
+        # En terminal puro corre UNA sola vez (nunca llega _REGENERATE: la "G" solo la manda el
+        # form). El loop re-juzga + re-pickea el lote nuevo. discover_niches() REESCRIBE
+        # selected_seeds.json (no appendea) → tras regenerar el menú muestra SOLO el lote nuevo.
+        while True:
+            # ═════ PASO 1.5 — Juez LLM pre-grounding (solo spy_arbitrage) ═════
+            # Marca cada seed spy con seed["judge"]; NO descarta. La auto-exclusión del
+            # grounding (solo descartar 3/3) se decide acá abajo. Enriquecimiento: si falla,
+            # se continúa SIN judge (no debe tumbar la corrida).
+            seeds_to_ground = seeds
+            if not skip_research and not skip_validate:
+                try:
+                    from script_engine.m_judge_seeds import judge_seeds
+                    print(f"\n{'─' * 60}")
+                    print(f"  📌 PASO 1.5/4 — Juez LLM pre-grounding")
+                    print(f"{'─' * 60}")
+                    seeds = judge_seeds(seeds, force=rejudge)   # agrega/respeta seed["judge"]
+                    _save_seeds_with_judge(seeds)        # persistir el judge
+                    _print_judge_summary(seeds)
 
-                # Auto-exclusión SOLO de descartar 3/3 (decisión Omar). El resto se groundea.
-                def _is_hard_discard(s: dict) -> bool:
-                    j = s.get("judge") or {}
-                    return j.get("verdict") == "descartar" and j.get("cohort") == "3/3"
+                    # Auto-exclusión SOLO de descartar 3/3 (decisión Omar). El resto se groundea.
+                    def _is_hard_discard(s: dict) -> bool:
+                        j = s.get("judge") or {}
+                        return j.get("verdict") == "descartar" and j.get("cohort") == "3/3"
 
-                seeds_to_ground = [s for s in seeds if not _is_hard_discard(s)]
-                excluded = [s for s in seeds if _is_hard_discard(s)]
-                if excluded:
-                    print(f"\n  ⏭  {len(excluded)} seed(s) excluidos del grounding "
-                          f"(descartar 3/3): "
-                          + ", ".join(s.get("seed_title", "?") for s in excluded))
-            except Exception as e:
-                print(f"\n  ⚠ Juez falló ({str(e)[:80]}) — se continúa SIN judge.")
-                seeds_to_ground = seeds
+                    seeds_to_ground = [s for s in seeds if not _is_hard_discard(s)]
+                    excluded = [s for s in seeds if _is_hard_discard(s)]
+                    if excluded:
+                        print(f"\n  ⏭  {len(excluded)} seed(s) excluidos del grounding "
+                              f"(descartar 3/3): "
+                              + ", ".join(s.get("seed_title", "?") for s in excluded))
+                except Exception as e:
+                    print(f"\n  ⚠ Juez falló ({str(e)[:80]}) — se continúa SIN judge.")
+                    seeds_to_ground = seeds
 
-        # ═════ PASO 1.6 — MENÚ DE SELECCIÓN ($0, ANTES del research caro) ═════
-        # Chat 51: invertir el orden. Elegir sobre SEEDS (no sobre topics ya
-        # investigados) → research SOLO del elegido. Mueve el checkpoint humano
-        # antes del gasto de grounding (3 angle Pro + 4 sub-pasos Flash por seed):
-        # antes se investigaba el lote entero para producir 1 y se tiraba el resto.
-        # La auto-exclusión descartar-3/3 (PASO 1.5) ya ocurrió → esos ni se muestran.
-        if not skip_research and not skip_validate:
-            chosen = _select_seed_interactive(seeds_to_ground)
-            if not chosen:
-                print(f"\n  📌 Sin selección — no se investiga nada. Fin del Latido A.")
-                return
-            # CHAT 52 B2 — GATE DE VERIFICACIÓN DEL PICK (mata la varianza de scrape del elegido):
-            chosen = _verify_pick_es_saturation(chosen, n=3)
-            if not chosen:
-                return    # Omar abortó (Q) o ningún pick sobrevivió tras re-medir
-            seeds_to_ground = chosen
+            # ═════ PASO 1.6 — MENÚ DE SELECCIÓN ($0, ANTES del research caro) ═════
+            # Chat 51: invertir el orden. Elegir sobre SEEDS (no sobre topics ya
+            # investigados) → research SOLO del elegido. Mueve el checkpoint humano
+            # antes del gasto de grounding (3 angle Pro + 4 sub-pasos Flash por seed):
+            # antes se investigaba el lote entero para producir 1 y se tiraba el resto.
+            # La auto-exclusión descartar-3/3 (PASO 1.5) ya ocurrió → esos ni se muestran.
+            if not skip_research and not skip_validate:
+                chosen = _select_seed_interactive(seeds_to_ground)
+                if chosen is _REGENERATE:
+                    print(f"\n  ↻ Generando nuevos seeds…")
+                    seeds = discover_niches()            # REESCRIBE selected_seeds.json (lote nuevo)
+                    if not seeds:
+                        print("\n  ⚠ No se generaron seeds. Abortando.")
+                        return
+                    continue                              # re-juzga + re-pickea el lote nuevo
+                if not chosen:
+                    print(f"\n  📌 Sin selección — no se investiga nada. Fin del Latido A.")
+                    return
+                # CHAT 52 B2 — GATE DE VERIFICACIÓN DEL PICK (mata la varianza de scrape del elegido):
+                chosen = _verify_pick_es_saturation(chosen, n=3)
+                if not chosen:
+                    return    # Omar abortó (Q) o ningún pick sobrevivió tras re-medir
+                seeds_to_ground = chosen
+            break
 
         # ═════ PASO 2 — Topic Researcher (SOLO el/los elegido(s)) ═════
         if not skip_research and not skip_validate:

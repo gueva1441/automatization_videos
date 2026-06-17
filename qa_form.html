@@ -2,9 +2,9 @@
 <!--
   qa_form.html — HOST del form asistido (contrato chat 61). Lanza run_pipeline --research
   (via /form_launch), muestra barra de progreso (polling /form_state), y cuando llega un
-  marcador @@QAFORM@@ embebe el HTML de Design en un iframe (choice/multi/seed_pick), define
+  marcador @@QAFORM@@ embebe el HTML de Design en un iframe (choice/multi/galería de seeds), define
   window.qaFormAnswer ahí y rutea la respuesta a stdin (/form_answer). CC = cableado; la
-  estética del diálogo es de Design (qa_seed_pick.html, servido por /form_menu). Wizard de
+  estética del diálogo es de Design (qa_gallery.html / qa_choice.html, servidos por /form_menu). Wizard de
   botones: sin consola ni barra de stdin — solo barra de progreso + diálogos.
 -->
 <html lang="es">
@@ -130,6 +130,7 @@ let serverClosed=false;        // true tras pedir /form_shutdown → corta polli
 let pickedSeedTitle=null;      // título del seed elegido en la galería (identidad, NO índice)
 let pendingSeedMarker=null;    // marcador seed_pick guardado, por si hay que "elegir otro"
 let pendingConfirmMatch=null;  // el seed del confirm del juez actual (para "🗑 Borrar este seed")
+let curGalleryMarker=null;     // último marcador renderizado en la galería (resuelve match en seed_pick)
 // GATES (HANDOFF 63a): juez (freno condicional) y visor (freno obligado). El marcador no
 // abre diálogo de una: planta un banner ámbar con botón(es); el diálogo del juez se abre al click.
 let gateMarker=null;           // marcador del gate activo (judge_action / visor_gate)
@@ -241,7 +242,9 @@ function handleMarker(m){
 function showDialog(marker){
   $('placeholder').style.display='none';
   const area=$('dialog'); area.style.display='block'; area.innerHTML='';
-  const isGallery = marker.menu==='reuse_seeds';  // aterrizaje pickeable (galería de seeds)
+  // HANDOFF 65a — galería ÚNICA: reuse_seeds (aterrizaje) Y seed_pick (post-juez) usan qa_gallery.html.
+  const isGallery = (marker.menu==='reuse_seeds' || marker.menu==='seed_pick');
+  if(isGallery) curGalleryMarker=marker;          // para resolver el match en pick_seed (seed_pick)
   const isJudge   = marker.menu==='judge_action'; // form del juez (lista de issues + V/A/R/S)
   const isChoice  = marker.accept==='key';        // diálogo genérico de botones
   const isMulti   = marker.accept==='keys';       // diálogo de checkboxes (multi-select)
@@ -317,11 +320,26 @@ function postLine(line){
 
 // §4: traduce la respuesta del HTML de Design a una línea de stdin.
 function onAnswer(payload){
-  // PUENTE — click en una tarjeta de la galería reuse_seeds: recordá la identidad (título)
-  // y mandá "S" (NO el título: el input del gate parsea S/n). El seed_pick post-juez lo resuelve.
+  // PICK de tarjeta — la galería única (HANDOFF 65a) rinde en DOS contextos:
+  //  · reuse_seeds (aterrizaje): recordá la identidad (título) y mandá "S" (el gate parsea S/n);
+  //    el seed_pick post-juez lo resuelve el puente (bridgeSeedPick → confirm del 64f).
+  //  · seed_pick (post-juez): abrí el confirm del juez (64f) para ESA tarjeta (verdict + producir/
+  //    borrar/elegir-otro). El idx va por stdin desde el confirm.
   if(payload && payload.action==='pick_seed'){
+    if(payload.menu==='seed_pick'){
+      const seeds=(curGalleryMarker&&curGalleryMarker.payload&&curGalleryMarker.payload.seeds)||[];
+      const match=seeds.find(s=>s && s.title===payload.value);
+      if(match){ showJudgeConfirm(match); return; }
+      // sin match (raro) → mandá el título igual; el gate lo resolverá
+    }
     pickedSeedTitle = payload.value;
     postLine('S').then(()=>{ curMarkerKey=null; hideDialog(); });
+    return;
+  }
+  // GENERAR NUEVOS — botón de la galería (visible en ambos modos). reuse_seeds → "n" (rama ya
+  // cableada del gate de aterrizaje); seed_pick → "G" (sentinela _REGENERATE del 65a en fase1).
+  if(payload && payload.action==='regenerate'){
+    postLine(payload.menu==='seed_pick' ? 'G' : 'n').then(()=>{ curMarkerKey=null; hideDialog(); });
     return;
   }
   // Confirm del juez (diálogo host-sintético): "Elegir otro" → panel rico seed_pick;

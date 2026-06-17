@@ -1255,13 +1255,13 @@ HTML_FORM_PATH = BASE_DIR / "qa_form.html"
 _FORM_MARKER = "@@QAFORM@@ "
 _FORM_PHASES = ["RESEARCH", "GUION", "ASSETS", "VIDEO", "PACKAGING"]
 _FORM_CONSOLE_MAX = 600
-# HTML por menú. seed_pick = diálogo a medida; __choice__ = diálogo genérico de botones
-# (accept='key': video_type, reuse_seeds, …). El host elige cuál según marker.accept.
+# HTML por menú. __choice__ = diálogo genérico de botones (accept='key': video_type, …).
+# El host elige cuál según marker.accept. HANDOFF 65a: seed_pick y reuse_seeds van ambos a
+# __gallery__ (galería única) → qa_seed_pick.html jubilado (ya no se sirve).
 _FORM_MENU_HTML = {
-    "seed_pick": BASE_DIR / "qa_seed_pick.html",
     "__choice__": BASE_DIR / "qa_choice.html",
     "__multi__": BASE_DIR / "qa_multi.html",   # accept='keys': submenú de nichos (checkboxes)
-    "__gallery__": BASE_DIR / "qa_gallery.html",  # reuse_seeds: galería pickeable de seeds pendientes
+    "__gallery__": BASE_DIR / "qa_gallery.html",  # reuse_seeds + seed_pick: galería única de seeds
     "__judge__": BASE_DIR / "qa_judge.html",   # judge_action: lista de issues + V/A/R/S
 }
 

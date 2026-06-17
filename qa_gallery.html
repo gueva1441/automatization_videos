@@ -78,13 +78,24 @@
            letter-spacing: .03em; color: #b6b6be; background: #222229;
            border: 1px solid #34343c; border-radius: 999px; padding: 5px 11px; white-space: nowrap; }
   .badge.comp { font-weight: 700; letter-spacing: .04em; }
+  .badge.verdict { font-weight: 700; letter-spacing: .06em; }
   .comp-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 
-  .signal { display: flex; align-items: center; gap: 16px; margin-top: 12px;
+  /* HANDOFF 65a — ⚠ fallback (nombre pelado) antes del título */
+  .warn { color: #d8a02a; font-weight: 700; }
+
+  .signal { display: flex; align-items: center; gap: 16px; margin-top: 12px; flex-wrap: wrap;
             font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6e6e78; }
   .signal .met { display: inline-flex; align-items: baseline; gap: 6px; }
   .signal .met .k { color: #54545e; letter-spacing: .08em; font-size: 10px; }
   .signal .met .v { color: #b6b6be; font-weight: 500; }
+
+  /* HANDOFF 65a — línea del juez (riesgo + motivo), post-juez graceful */
+  .jline { display: flex; align-items: baseline; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+  .risk-pill { flex: none; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600;
+               letter-spacing: .04em; background: #1c1c22; border: 1px solid #34343c;
+               border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+  .reason { font-family: 'Space Grotesk', sans-serif; font-size: 12.5px; color: #8a8a92; line-height: 1.4; }
 
   .empty { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6e6e78;
            background: #16161b; border: 1px dashed #2a2a32; border-radius: 12px; padding: 22px; text-align: center; }
@@ -180,14 +191,55 @@
            '</span>';
   }
 
-  // -- SEÑAL VIRAL EN (opcional, discreta) ---------------------------------
+  // -- BADGE DE VERDICT (juez) — graceful: solo si existe. HANDOFF 65a -------
+  // Colores ya presentes en la paleta (gold #e3b450, ámbar #d8a02a, rojo #e5484d). No se inventan.
+  var VERDICTS = {
+    oro:       { label: 'ORO',       color: '#e3b450' },
+    dudoso:    { label: 'DUDOSO',    color: '#d8a02a' },
+    descartar: { label: 'DESCARTAR', color: '#e5484d' }
+  };
+  function verdictBadge(v) {
+    if (!v) return '';   // pre-juez → no se dibuja (graceful)
+    var x = VERDICTS[v] || { label: String(v).toUpperCase(), color: '#b6b6be' };
+    return '<span class="badge verdict" style="color:' + x.color + ';border-color:' + x.color + '40">' +
+             esc(x.label) + '</span>';
+  }
+
+  // -- RIESGO (mismos colores que qa_seed_pick) ----------------------------
+  function riskOf(r) {
+    if (r === 'disputado') return { label: 'disputado', color: '#caa15a' };
+    if (r === 'inflado')   return { label: 'inflado',   color: '#c98a8a' };
+    return null;  // 'ninguno'/None → no se dibuja
+  }
+
+  // -- ANTIGÜEDAD del viral EN (frescura) ----------------------------------
+  function freshOf(m) {
+    if (m == null) return null;
+    if (m <= 6)  return { text: '↑ fresco ' + m + 'm', color: '#cfcfd6' };
+    if (m <= 18) return { text: '→ medio ' + m + 'm',  color: '#86868e' };
+    return { text: '↓ viejo ' + m + 'm', color: '#5e5e68' };
+  }
+
+  // -- SEÑAL VIRAL EN (opcional, discreta) — + competidores + antigüedad ----
   function signalHTML(s) {
-    var hasViews = s.en_views != null;
-    var hasRatio = s.en_ratio != null;
-    if (!hasViews && !hasRatio) return '';
-    var out = '<div class="signal">';
-    if (hasViews) out += '<span class="met"><span class="k">DEMANDA EN</span><span class="v">' + esc(fmtViews(s.en_views)) + '</span></span>';
-    if (hasRatio) out += '<span class="met"><span class="k">RATIO</span><span class="v">' + esc(fmtRatio(s.en_ratio)) + '</span></span>';
+    var parts = [];
+    if (s.competidores != null) parts.push('<span class="met"><span class="k">COMPET.</span><span class="v">[' + esc(s.competidores) + ']</span></span>');
+    if (s.en_views != null)     parts.push('<span class="met"><span class="k">DEMANDA EN</span><span class="v">' + esc(fmtViews(s.en_views)) + '</span></span>');
+    if (s.en_ratio != null)     parts.push('<span class="met"><span class="k">RATIO</span><span class="v">' + esc(fmtRatio(s.en_ratio)) + '</span></span>');
+    var fr = freshOf(s.en_age_months);
+    if (fr) parts.push('<span class="met"><span class="k">EN</span><span class="v" style="color:' + fr.color + '">' + esc(fr.text) + '</span></span>');
+    if (!parts.length) return '';
+    return '<div class="signal">' + parts.join('') + '</div>';
+  }
+
+  // -- RIESGO + MOTIVO del juez (post-juez, graceful) ----------------------
+  function judgeLineHTML(s) {
+    var rk = riskOf(s.risk);
+    var reason = (s.reason == null ? '' : String(s.reason)).trim();
+    if (!rk && !reason) return '';
+    var out = '<div class="jline">';
+    if (rk) out += '<span class="risk-pill" style="color:' + rk.color + ';border-color:' + rk.color + '40">⚠ ' + esc(rk.label) + '</span>';
+    if (reason) out += '<span class="reason">' + esc(reason) + '</span>';
     out += '</div>';
     return out;
   }
@@ -195,21 +247,30 @@
   // -- RENDER --------------------------------------------------------------
   function seedHTML(s) {
     s = s || {};
+    var warn = s.fallback === true
+      ? '<span class="warn" title="demanda medida con nombre pelado · puede ser off-angle">⚠</span> '
+      : '';
     return '' +
       '<button class="seed" data-title="' + esc(s.title) + '">' +
         '<span class="del" data-del="' + esc(s.idx) + '" title="Borrar (se archiva · recuperable)">✕</span>' +
         '<div class="seed-top">' +
-          '<span class="ttl">' + esc(s.title) + '</span>' +
-          '<span class="badges">' + compBadge(s.es_label) + nicheBadge(s.mode) + '</span>' +
+          '<span class="ttl">' + warn + esc(s.title) + '</span>' +
+          '<span class="badges">' + verdictBadge(s.verdict) + compBadge(s.es_label) + nicheBadge(s.mode) + '</span>' +
         '</div>' +
         signalHTML(s) +
+        judgeLineHTML(s) +
       '</button>';
   }
+
+  // HANDOFF 65a — la galería rinde en DOS contextos (aterrizaje reuse_seeds · post-juez seed_pick).
+  // Guardamos el menú actual para que pick/delete/regenerate viajen con el menú correcto.
+  var CUR_MENU = 'reuse_seeds';
 
   function renderGallery(marker) {
     marker = marker || {};
     var payload = marker.payload || {};
     var seeds = Array.isArray(payload.seeds) ? payload.seeds : [];
+    CUR_MENU = marker.menu || 'reuse_seeds';
 
     document.getElementById('prompt').textContent = marker.prompt || 'Elegí un seed';
 
@@ -237,16 +298,17 @@
     // ✕ → borrar este seed: el host manda "d<idx>" por stdin; fase1 archiva + re-emite la galería.
     var del = e.target.closest('.del');
     if (del) {
-      qaAnswer({ menu: 'reuse_seeds', action: 'delete', value: Number(del.getAttribute('data-del')) });
+      qaAnswer({ menu: CUR_MENU, action: 'delete', value: Number(del.getAttribute('data-del')) });
       return;   // NO disparar el pick de la tarjeta
     }
     var card = e.target.closest('.seed');
     if (!card) return;
-    qaAnswer({ menu: 'reuse_seeds', action: 'pick_seed', value: card.getAttribute('data-title') });
+    qaAnswer({ menu: CUR_MENU, action: 'pick_seed', value: card.getAttribute('data-title') });
   });
-  // Click en «+ Generar nuevos seeds» → choose 'n'.
+  // «Generar nuevos seeds» — visible SIEMPRE (ambos modos). El host traduce: reuse_seeds → 'n',
+  // seed_pick → 'G' (regenerar desde el menú post-juez).
   document.getElementById('genBtn').addEventListener('click', function () {
-    qaAnswer({ menu: 'reuse_seeds', action: 'choose', value: 'n' });
+    qaAnswer({ menu: CUR_MENU, action: 'regenerate' });
   });
 
   // -- API PÚBLICA ---------------------------------------------------------
