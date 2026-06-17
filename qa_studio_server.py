@@ -1284,7 +1284,7 @@ def _form_reader(proc) -> None:
     """Thread daemon: lee stdout. Marcador → _FORM['marker']; header de fase → progreso;
     el resto → consola. (PYTHONUNBUFFERED=1 en el env mantiene a run_pipeline Y a fase1
     sin buffer → el marcador llega al toque.)"""
-    global TOPIC_ID
+    global TOPIC_ID, STATE
     try:
         for line in proc.stdout:
             line = line.rstrip("\n")
@@ -1296,13 +1296,17 @@ def _form_reader(proc) -> None:
                 if marker:
                     with _FORM_LOCK:
                         _FORM["marker"] = marker
-                    # Gate del visor: apuntar el visor (y /assemble, y los fixes de foto/
-                    # clip/audio) al topic de la corrida en vivo. No hace falta reiniciar.
+                    # Gate del visor: apuntar el visor al topic de la corrida en vivo. NO basta
+                    # con TOPIC_ID (eso alimenta /assemble y los fixes): el visor LEE de STATE,
+                    # así que hay que RECONSTRUIRLO o se ve el topic viejo. Mismo patrón que serve().
                     if marker.get("menu") == "visor_gate":
                         try:
                             TOPIC_ID = marker["payload"]["topic_id"]
-                        except (KeyError, TypeError):
-                            pass
+                            STATE = QAState(TOPIC_ID, BASE_DIR)
+                        except Exception as e:  # noqa: BLE001 — no tumbar el reader si falla
+                            with _FORM_LOCK:
+                                _FORM["console"].append(
+                                    f"[qa_form] no pude reapuntar STATE: {type(e).__name__}: {e}")
                 continue  # el marcador NO va a la consola
             if "  ▶ " in line:
                 for ph in _FORM_PHASES:

@@ -208,7 +208,8 @@ function showGate(m){
   }else if(m.menu==='visor_gate'){
     msg.innerHTML='<span class="tag">👁 GATE · VISOR</span>'+esc(m.prompt||'Revisá el video en el visor antes de hornear');
     const open=document.createElement('button'); open.className='gbtn ghost';
-    open.textContent='Abrir visor'; open.onclick=()=>{ window.open('/','_blank'); };
+    // cache-buster: URL nueva en cada click → imposible ver el topic viejo cacheado.
+    open.textContent='Abrir visor'; open.onclick=()=>{ window.open('/?t='+Date.now(),'_blank'); };
     const cont=document.createElement('button'); cont.className='gbtn';
     cont.textContent='Continuar → hornear video'; cont.onclick=visorContinue;
     btns.appendChild(open); btns.appendChild(cont);
