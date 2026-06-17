@@ -26,6 +26,9 @@
   .btn{font-family:var(--disp);font-weight:700;font-size:15px;color:#06140a;background:#2ea043;border:none;
     padding:12px 24px;border-radius:11px;cursor:pointer;box-shadow:0 8px 26px rgba(46,160,67,.35);}
   .btn:hover:not(:disabled){filter:brightness(1.06);} .btn:disabled{opacity:.5;cursor:not-allowed;}
+  .topbtns{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .btn.ghost{color:#e07a7a;background:#1a1113;border:1px solid #3a2226;box-shadow:none;font-size:14px;padding:11px 20px;}
+  .btn.ghost:hover:not(:disabled){background:#22151a;filter:none;}
 
   .prog{display:flex;gap:8px;margin:22px 0 16px;}
   .seg{flex:1;height:8px;border-radius:5px;background:#1a1a20;border:1px solid #26262f;overflow:hidden;position:relative;}
@@ -94,7 +97,10 @@
       <div class="eyebrow">QA STUDIO · PRODUCCIÓN ASISTIDA</div>
       <h1>Producir un tema (research → guion → assets → video)</h1>
     </div>
-    <button class="btn" id="launchBtn">↻ Reiniciar corrida</button>
+    <div class="topbtns">
+      <button class="btn" id="launchBtn">↻ Reiniciar corrida</button>
+      <button class="btn ghost" id="closeBtn">✕ Cerrar server</button>
+    </div>
   </div>
 
   <div class="prog" id="prog"></div>
@@ -114,6 +120,8 @@
 "use strict";
 const $=id=>document.getElementById(id);
 let pollTimer=null, curMarkerKey=null;
+let lastRunning=false;         // último s.running conocido (para confirmar antes de cerrar)
+let serverClosed=false;        // true tras pedir /form_shutdown → corta polling, no spamea errores
 // PUENTE (HANDOFF 62c): el gate reuse_seeds (pre-juez) elige por identidad; cuando llega
 // seed_pick (post-juez, con verdict) el host matchea y auto-responde / confirma.
 let pickedSeedTitle=null;      // título del seed elegido en la galería (identidad, NO índice)
@@ -135,6 +143,7 @@ function renderProgress(phase, phases){
 }
 function renderState(s){
   const el=$('state'); const b=$('launchBtn');
+  lastRunning=!!s.running;
   if(s.running){ el.innerHTML='<span class="run">● corriendo</span> '+(s.phase?('· fase '+s.phase):''); b.disabled=true; b.textContent='● corriendo…'; }
   else if(s.returncode!=null){
     const ok=s.returncode===0;
@@ -349,6 +358,7 @@ function showJudgeConfirm(match){
 }
 
 async function poll(){
+  if(serverClosed) return;       // server cerrado a pedido → no seguir golpeando /form_state
   try{
     const s=await (await fetch('/form_state')).json();
     renderProgress(s.phase, s.phases||[]);
@@ -370,6 +380,22 @@ async function launch(){
   startPolling();
 }
 $('launchBtn').onclick=launch;   // vía manual de reiniciar (el server da 409 si ya hay corrida)
+
+// CERRAR SERVER (HANDOFF 64a) — mata la corrida hija (si la hay) y apaga el server (os._exit).
+// Confirm OBLIGATORIO si hay corrida en curso: research/imgs = plata.
+async function closeServer(){
+  if(lastRunning && !confirm('Hay una corrida en curso (research/imgs = plata). ¿Cerrar el server igual?')) return;
+  $('closeBtn').disabled=true;
+  try{ await fetch('/form_shutdown',{method:'POST'}); }catch(e){ /* el server ya cayó: ok */ }
+  // estado terminal: cortar polling y mostrar banner claro. Los /form_state siguientes
+  // fallarían con connection refused → serverClosed los silencia.
+  serverClosed=true;
+  if(pollTimer) clearInterval(pollTimer);
+  $('launchBtn').disabled=true;
+  hideGate();
+  $('state').innerHTML='<span class="ok">✓ Server cerrado · podés cerrar esta pestaña</span>';
+}
+$('closeBtn').onclick=closeServer;
 
 // ITEM 1 — auto-run al abrir: si está fresco (nada corriendo y sin returncode) → lanzar solo,
 // sin click. El run frena en el primer diálogo esperando input → $0 de gasto hasta que Omar

@@ -1386,6 +1386,21 @@ def _form_answer(line: str) -> dict:
     return {"ok": True}
 
 
+def _form_shutdown() -> dict:
+    """Mata la corrida hija (si la hay) y apaga el server. El os._exit va en un timer
+    corto para que la respuesta HTTP alcance a llegar al browser antes de morir."""
+    killed = False
+    proc = _FORM_PROC.get("p")
+    if proc is not None and proc.poll() is None:
+        try:
+            proc.terminate()
+            killed = True
+        except Exception:  # noqa: BLE001
+            pass
+    threading.Timer(0.4, lambda: os._exit(0)).start()
+    return {"bye": True, "killed_run": killed}
+
+
 def _form_state(tail: int = 200) -> dict:
     with _FORM_LOCK:
         return {
@@ -1636,6 +1651,9 @@ class Handler(BaseHTTPRequestHandler):
                 else:
                     print(f"  ▶ form: stdin ← {str(body.get('line',''))[:40]!r}")
                     self._send_json(res)
+            elif route == "/form_shutdown":
+                print("  ▶ form: cerrando server (pedido desde el form)…")
+                self._send_json(_form_shutdown())
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)
         except Exception as e:  # noqa: BLE001
@@ -1668,7 +1686,7 @@ def _preflight(state: QAState) -> list[str]:
     return problems
 
 
-def serve(topic_id: str) -> None:
+def serve(topic_id: str, open_form: bool = True) -> None:
     global STATE, TOPIC_ID, PORT
     TOPIC_ID = topic_id
     STATE = QAState(topic_id, BASE_DIR)
@@ -1695,12 +1713,13 @@ def serve(topic_id: str) -> None:
         else:
             kind = f"FLUX ×{c['count']}"
         print(f"     {c['cap']} — {c['role']:<14} {kind}")
-    url = f"http://{HOST}:{PORT}"
+    base_url = f"http://{HOST}:{PORT}"
+    open_url = f"{base_url}/form" if open_form else base_url
     print("─" * 64)
-    print(f"  ▶ Abrí en el navegador:  {url}    (Ctrl+C para frenar)")
+    print(f"  ▶ Abrí en el navegador:  {open_url}    (Ctrl+C para frenar)")
     print("─" * 64)
     try:
-        webbrowser.open(url)
+        webbrowser.open(open_url)
     except Exception:  # noqa: BLE001
         pass
     server = ThreadingHTTPServer((HOST, PORT), Handler)
@@ -1712,10 +1731,15 @@ def serve(topic_id: str) -> None:
 
 
 def main():
-    ap = argparse.ArgumentParser(description="QA Studio v1 — visor read-only + ENSAMBLAR.")
-    ap.add_argument("--topic", default=TOPIC_ID, help="topic_id (default: el cableado)")
+    ap = argparse.ArgumentParser(description="QA Studio v1 — form + visor read-only + ENSAMBLAR.")
+    ap.add_argument(
+        "--topic",
+        default=None,
+        help="topic_id explícito → abre el VISOR de ese topic. Sin --topic → abre el FORM.",
+    )
     args = ap.parse_args()
-    serve(args.topic)
+    tid = args.topic or TOPIC_ID
+    serve(tid, open_form=(args.topic is None))
 
 
 if __name__ == "__main__":
