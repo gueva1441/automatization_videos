@@ -7,9 +7,11 @@
   Layout: HEADER FIJO (eyebrow + prompt + botón «+ Generar nuevos seeds») que NO scrollea,
   y una GALERÍA scrollable (flex:1) con una TARJETA CLICKEABLE por seed.
 
-  SEAM (lockeado):
-    - click tarjeta → qaFormAnswer({ menu:'reuse_seeds', action:'pick_seed', value:<title> })
-    - click «+ Generar» → qaFormAnswer({ menu:'reuse_seeds', action:'choose', value:'n' })
+  SEAM (lockeado) — menu = 'reuse_seeds' (aterrizaje) | 'seed_pick' (post-juez):
+    - click tarjeta → SELECCIONA (local, resalta + barra inferior). No emite nada todavía.
+    - barra «▶ Producir» → qaFormAnswer({ menu, action:'produce', value:<idx>, title:<title> })
+    - ✕ por tarjeta   → qaFormAnswer({ menu, action:'delete', value:<idx> })
+    - «+ Generar»      → qaFormAnswer({ menu, action:'regenerate' })
 
   Paleta EXACTA copiada de qa_seed_pick.html / qa_choice.html (Claude Design) — NO inventar colores.
 -->
@@ -45,6 +47,25 @@
   .gen:active { transform: scale(.99); }
   .gen .plus { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 15px; color: #2ea043; }
 
+  /* HANDOFF 65b — BARRA INFERIOR DE ACCIÓN (selección → Producir) */
+  .prodbar { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 18px;
+             padding: 16px 28px; background: #131318; border-top: 1px solid #2a2a32;
+             box-shadow: 0 -8px 28px rgba(0,0,0,.45); }
+  .prodbar[hidden] { display: none; }
+  .prodbar-label { min-width: 0; font-family: 'Space Grotesk', sans-serif; font-size: 15px; color: #9a9aa2;
+                   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .prodbar-label #prodbar-title { color: #f4f4f6; font-weight: 600; }
+  .prodbar-actions { flex: none; display: flex; align-items: center; gap: 10px; }
+  .prodbar-go { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: #06140a;
+                background: #2ea043; border: none; border-radius: 11px; padding: 13px 26px; cursor: pointer;
+                box-shadow: 0 6px 22px rgba(46,160,67,.32); transition: filter .12s, transform .08s; }
+  .prodbar-go:hover { filter: brightness(1.06); }
+  .prodbar-go:active { transform: scale(.99); }
+  .prodbar-x { font-family: 'Space Grotesk', sans-serif; font-size: 15px; color: #b6b6be;
+               background: #222229; border: 1px solid #34343c; border-radius: 11px; padding: 12px 16px;
+               cursor: pointer; transition: background .12s, color .12s; }
+  .prodbar-x:hover { background: #2a1518; color: #e5484d; border-color: #4a2329; }
+
   /* GALERÍA scrollable */
   .scroll { flex: 1; overflow: auto; padding: 22px 28px 40px; }
   .gallery { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 11px; }
@@ -59,6 +80,8 @@
           transition: background .12s, border-color .12s, transform .08s; }
   .seed:hover { border-color: #2ea043; background: #1d1d24; }
   .seed:active { transform: scale(.995); }
+  /* HANDOFF 65b — tarjeta seleccionada (la barra inferior muestra cuál se va a producir) */
+  .seed.selected { border-color: #2ea043; background: #15201a; box-shadow: 0 0 0 1px #2ea043 inset; }
 
   /* HANDOFF 64e — ✕ por tarjeta: borra (archiva, recuperable). VISIBLE sin hover; full rojo al hover. */
   .del { position: absolute; top: 11px; right: 13px; z-index: 2; width: 24px; height: 24px;
@@ -117,6 +140,15 @@
     <div class="gallery">
       <div class="cap" id="cap"></div>
       <div id="list"></div>
+    </div>
+  </div>
+
+  <!-- HANDOFF 65b — barra fija de acción: aparece al seleccionar una tarjeta. Reemplaza el confirm. -->
+  <div class="prodbar" id="prodbar" hidden>
+    <div class="prodbar-label">▶ Producir: <span id="prodbar-title">—</span></div>
+    <div class="prodbar-actions">
+      <button class="prodbar-go" id="prodbarGo">▶ Producir</button>
+      <button class="prodbar-x" id="prodbarX" title="Cancelar selección">✕</button>
     </div>
   </div>
 
@@ -251,7 +283,7 @@
       ? '<span class="warn" title="demanda medida con nombre pelado · puede ser off-angle">⚠</span> '
       : '';
     return '' +
-      '<button class="seed" data-title="' + esc(s.title) + '">' +
+      '<button class="seed" data-idx="' + esc(s.idx) + '" data-title="' + esc(s.title) + '">' +
         '<span class="del" data-del="' + esc(s.idx) + '" title="Borrar (se archiva · recuperable)">✕</span>' +
         '<div class="seed-top">' +
           '<span class="ttl">' + warn + esc(s.title) + '</span>' +
@@ -266,11 +298,30 @@
   // Guardamos el menú actual para que pick/delete/regenerate viajen con el menú correcto.
   var CUR_MENU = 'reuse_seeds';
 
+  // HANDOFF 65b — selección local: click resalta la tarjeta y muestra la barra inferior.
+  // La acción 'produce' se emite recién al clickear "Producir" (no en el click de tarjeta).
+  var SELECTED = null;   // { idx, title }
+  function clearSelection() {
+    SELECTED = null;
+    var prev = document.querySelector('.seed.selected');
+    if (prev) prev.classList.remove('selected');
+    document.getElementById('prodbar').hidden = true;
+  }
+  function selectCard(card) {
+    var prev = document.querySelector('.seed.selected');
+    if (prev) prev.classList.remove('selected');
+    card.classList.add('selected');
+    SELECTED = { idx: Number(card.getAttribute('data-idx')), title: card.getAttribute('data-title') };
+    document.getElementById('prodbar-title').textContent = SELECTED.title;
+    document.getElementById('prodbar').hidden = false;
+  }
+
   function renderGallery(marker) {
     marker = marker || {};
     var payload = marker.payload || {};
     var seeds = Array.isArray(payload.seeds) ? payload.seeds : [];
     CUR_MENU = marker.menu || 'reuse_seeds';
+    clearSelection();   // la lista cambió (re-render / borrado) → la selección vieja ya no aplica
 
     document.getElementById('prompt').textContent = marker.prompt || 'Elegí un seed';
 
@@ -293,18 +344,25 @@
   }
 
   // -- EVENTOS (delegación; sobreviven al re-render) -----------------------
-  // Click en una tarjeta → pick_seed con el TITLE crudo del seed.
+  // Click en una tarjeta → SELECCIONA (resalta + barra). La acción se emite en "Producir".
   document.getElementById('list').addEventListener('click', function (e) {
     // ✕ → borrar este seed: el host manda "d<idx>" por stdin; fase1 archiva + re-emite la galería.
     var del = e.target.closest('.del');
     if (del) {
       qaAnswer({ menu: CUR_MENU, action: 'delete', value: Number(del.getAttribute('data-del')) });
-      return;   // NO disparar el pick de la tarjeta
+      return;   // NO disparar la selección de la tarjeta
     }
     var card = e.target.closest('.seed');
     if (!card) return;
-    qaAnswer({ menu: CUR_MENU, action: 'pick_seed', value: card.getAttribute('data-title') });
+    selectCard(card);   // resalta + muestra barra. Click en otra tarjeta = "elegir otro".
   });
+  // Barra inferior — "Producir": emite la acción con el seed seleccionado (idx + title).
+  document.getElementById('prodbarGo').addEventListener('click', function () {
+    if (!SELECTED) return;
+    qaAnswer({ menu: CUR_MENU, action: 'produce', value: SELECTED.idx, title: SELECTED.title });
+  });
+  // Barra inferior — "✕": cancela la selección (no borra el seed).
+  document.getElementById('prodbarX').addEventListener('click', clearSelection);
   // «Generar nuevos seeds» — visible SIEMPRE (ambos modos). El host traduce: reuse_seeds → 'n',
   // seed_pick → 'G' (regenerar desde el menú post-juez).
   document.getElementById('genBtn').addEventListener('click', function () {
