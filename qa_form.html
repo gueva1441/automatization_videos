@@ -156,23 +156,40 @@ function renderErr(s){
 }
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-// ② Actividad viva: última línea NO vacía de console_tail (sin separadores ═══/───). Solo
-// mientras corre → la zona siempre muestra movimiento si el proceso está vivo.
-const ACT_SEP=/^[\s═─=_·•.\-–—]+$/;
-function lastLiveLine(lines){
-  if(!lines || !lines.length) return '';
-  for(let i=lines.length-1;i>=0;i--){
-    const t=String(lines[i]==null?'':lines[i]).trim();
-    if(t && !ACT_SEP.test(t)) return t;
-  }
-  return '';
+// ② Actividad viva: en vez de la línea cruda del pipeline (detalle interno), mostramos un
+// nombre humano por etapa, en inglés (lo pidió Omar). Mapeamos el tag/módulo de la línea más
+// reciente reconocible a un label; si no reconocemos nada → label de la fase → "Working…".
+// NUNCA volvemos a mostrar la línea cruda. Parseo host-only sobre console_tail (datos ya existen).
+const PHASE_LABEL={RESEARCH:'Researching topic…',GUION:'Building script…',ASSETS:'Generating assets…',
+  VIDEO:'Assembling video…',PACKAGING:'Packaging…'};
+function activityLabel(line){
+  const l=String(line==null?'':line);
+  if(/\[cost_tracker\]/i.test(l)) return null;                       // ruido → seguir buscando
+  if(/\[image_generator\]|ch\d+_img|Flux/i.test(l)) return 'Generating images…';
+  if(/\[video_generator\]|\bVeo\b/i.test(l)) return 'Generating clips…';
+  if(/\[topic_researcher\]|deep-|research_summary|RESEARCH \(/i.test(l)) return 'Researching topic…';
+  if(/\[audio\]|sync_map|\bTTS\b|voiceover/i.test(l)) return 'Generating voiceover…';
+  if(/\bm07\b|\bmusic\b|música/i.test(l)) return 'Choosing music…';
+  if(/\bm03\b/i.test(l)) return 'Planning visuals…';
+  if(/\bm05\b|judge|juez/i.test(l)) return 'Auditing script…';
+  if(/\bm06\b/i.test(l)) return 'Classifying issues…';
+  if(/normalizer/i.test(l)) return 'Normalizing text…';
+  if(/\bm01a\b|\bm01b\b/i.test(l)) return 'Writing narration…';
+  if(/ASSETS \(/i.test(l)) return 'Generating assets…';
+  if(/GUION \(/i.test(l)) return 'Building script…';
+  if(/VIDEO \(|fase2b/i.test(l)) return 'Assembling video…';
+  if(/PACKAGING \(|\bm09\b/i.test(l)) return 'Packaging…';
+  return undefined;                                                  // desconocido → seguir buscando
+}
+function liveStep(s){
+  const lines=s.console_tail||[];
+  for(let i=lines.length-1;i>=0;i--){ const lab=activityLabel(lines[i]); if(lab) return lab; }
+  return PHASE_LABEL[s.phase] || 'Working…';
 }
 function renderActivity(s){
   const a=$('activity');
-  if(s.running){
-    a.querySelector('.txt').textContent = lastLiveLine(s.console_tail) || 'trabajando…';
-    a.style.display='flex';
-  }else{ a.style.display='none'; }
+  if(s.running){ a.querySelector('.txt').textContent = liveStep(s); a.style.display='flex'; }
+  else{ a.style.display='none'; }
 }
 
 function markerKey(m){
