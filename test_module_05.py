@@ -24,7 +24,7 @@ try:
 except ImportError:
     fake_gemini = types.ModuleType("gemini_helpers")
 
-    def _default_fake_flash(prompt):
+    def _default_fake_flash(prompt, **kwargs):  # HANDOFF 66b: acepta response_schema
         return {"chapter_id": 1, "verdict": "PASS", "issues": []}
 
     fake_gemini.call_flash_json = _default_fake_flash
@@ -120,7 +120,7 @@ def _set_fake_flash(fn):
 def _make_sequence_flash(*responses):
     state = {"i": 0}
 
-    def _fake(prompt):
+    def _fake(prompt, **kwargs):  # HANDOFF 66b: acepta response_schema
         idx = state["i"]
         state["i"] += 1
         if idx >= len(responses):
@@ -1496,7 +1496,7 @@ def test_judge_topic_happy_path_pass():
         _setup_workspace(tmp, topic_id)
 
         # Mock Flash para retornar PASS en cada cap
-        def fake_flash_pass(prompt):
+        def fake_flash_pass(prompt, **kwargs):  # HANDOFF 66b: acepta response_schema
             # Detectar chapter_id desde el prompt
             if "CHAPTER 1" in prompt:
                 return {"chapter_id": 1, "verdict": "PASS", "issues": []}
@@ -1530,7 +1530,7 @@ def test_judge_topic_persiste_output():
         topic_id = "test-uuid-persist"
         ws = _setup_workspace(tmp, topic_id)
 
-        def fake(prompt):
+        def fake(prompt, **kwargs):  # HANDOFF 66b: acepta response_schema
             return {"chapter_id": 1 if "CHAPTER 1" in prompt else 2,
                     "verdict": "PASS", "issues": []}
         _set_fake_flash(fake)
@@ -1561,7 +1561,7 @@ def test_judge_topic_flag_global():
         topic_id = "test-uuid-flag"
         _setup_workspace(tmp, topic_id)
 
-        def fake(prompt):
+        def fake(prompt, **kwargs):  # HANDOFF 66b: acepta response_schema
             if "CHAPTER 1" in prompt:
                 # Cap 1 PASS
                 return {"chapter_id": 1, "verdict": "PASS", "issues": []}
@@ -1639,7 +1639,7 @@ def test_judge_topic_chapter_id_inyectado_en_issues():
         topic_id = "test-uuid-inject"
         _setup_workspace(tmp, topic_id)
 
-        def fake(prompt):
+        def fake(prompt, **kwargs):  # HANDOFF 66b: acepta response_schema
             cap = 1 if "CHAPTER 1" in prompt else 2
             return {
                 "chapter_id": cap, "verdict": "FLAG",

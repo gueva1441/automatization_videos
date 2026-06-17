@@ -198,6 +198,35 @@ def _earliest_module(modules: list[str]) -> str:
 #  CLASIFICACIÓN POR ISSUE
 # ═══════════════════════════════════════════════════════════════
 
+def _classification_schema() -> dict:
+    """HANDOFF 66b (R4) — response_schema para call_flash_json del clasificador.
+
+    Derivado del contrato de salida que lee classify_one_issue desde
+    `classification` (ver más abajo). Solo `bucket` es hard-required: el código
+    bifurca lógica defensiva sobre él y aguas abajo (persist/menú/assembler) lo
+    usa como clave. El resto se lee con .get() y es null-tolerante (campos por
+    bucket: prompt_corregido/fix_sugerido/razon_fp/etc), por eso van opcionales.
+    """
+    return {
+        "type": "OBJECT",
+        "properties": {
+            "bucket":                  {"type": "STRING"},
+            "prompt_corregido":        {"type": "STRING"},
+            "diagnostico_m06":         {"type": "STRING"},
+            "evidencia_narracion":     {"type": "STRING"},
+            "facts_topic_relevantes":  {"type": "STRING"},
+            "modulo_culpable":         {"type": "STRING"},
+            "fix_sugerido":            {"type": "STRING"},
+            "archivo_linea_sugerida":  {"type": "STRING"},
+            "razon_fp":                {"type": "STRING"},
+            "patron_para_log":         {"type": "STRING"},
+            "matched_known_fp_id":     {"type": "STRING"},
+            "por_que_leve":            {"type": "STRING"},
+        },
+        "required": ["bucket"],
+    }
+
+
 def classify_one_issue(
     issue: dict,
     topic_id: str,
@@ -227,7 +256,7 @@ def classify_one_issue(
         known_fps_block=known_fps_block,
     )
 
-    classification = call_flash_json(prompt)
+    classification = call_flash_json(prompt, response_schema=_classification_schema())  # HANDOFF 66b (R4)
 
     # Construir payload final (lo que se persiste)
     payload = {

@@ -300,6 +300,43 @@ Solo JSON. Sin markdown. Sin texto fuera del JSON.
 #  AUDITOR LLM
 # ═══════════════════════════════════════════════════════════════
 
+def _normalizer_schema() -> dict:
+    """HANDOFF 66b (R4): response_schema del LLM auditor.
+
+    Derivado del contrato existente: el código lee response["spans"] (lista de
+    objetos), y de cada span: chapter_number(int), original(str), suggested(str),
+    category(str ∈ VALID_LLM_CATEGORIES), is_recurring(bool) — todos hard-required
+    por el validador en _audit_with_llm. `reasoning` se lee en la CLI/persistencia
+    pero NO se valida → opcional. La forma es OBJECT con clave "spans" (no array
+    bare): coincide con el SCHEMA documentado en _build_system_instruction y con
+    response.get("spans", []).
+    """
+    return {
+        "type": "OBJECT",
+        "properties": {
+            "spans": {
+                "type": "ARRAY",
+                "items": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "chapter_number": {"type": "INTEGER"},
+                        "original": {"type": "STRING"},
+                        "suggested": {"type": "STRING"},
+                        "category": {"type": "STRING", "enum": list(VALID_LLM_CATEGORIES)},
+                        "is_recurring": {"type": "BOOLEAN"},
+                        "reasoning": {"type": "STRING"},
+                    },
+                    "required": [
+                        "chapter_number", "original", "suggested",
+                        "category", "is_recurring",
+                    ],
+                },
+            },
+        },
+        "required": ["spans"],
+    }
+
+
 def _audit_with_llm(narration: dict) -> list[dict]:
     """LLM auditor: emite spans de normalización para los 6 casos donde
     ElevenLabs falla en español neutro.
@@ -332,6 +369,7 @@ Devolvé el JSON con el schema indicado.
         response = call_flash_json(
             prompt=user_prompt,
             system_instruction=system_instruction,
+            response_schema=_normalizer_schema(),  # HANDOFF 66b (R4)
         )
         spans = response.get("spans", [])
         if not isinstance(spans, list):

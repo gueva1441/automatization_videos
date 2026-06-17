@@ -508,6 +508,45 @@ def _enforce_structure(chapters: list) -> list:
 
 
 # ═══════════════════════════════════════════════════════════════
+#  RESPONSE SCHEMA (HANDOFF 66b · R4) — derivado de _validate_skeleton /
+#  _validate_distribution_plan. Fuerza a Gemini a decodificar JSON válido
+#  (mata la clase "comillas dobles sin escapar" en la fuente).
+# ═══════════════════════════════════════════════════════════════
+
+def _skeleton_schema() -> dict:
+    dev_caps = {f"cap_{i}": {"type": "ARRAY", "items": {"type": "STRING"}}
+                for i in DEVELOPMENT_CAPS}
+    return {
+        "type": "OBJECT",
+        "properties": {
+            "_distribution_plan": {
+                "type": "OBJECT",
+                "properties": dev_caps,
+                "required": [f"cap_{i}" for i in DEVELOPMENT_CAPS],
+            },
+            "chapters": {
+                "type": "ARRAY", "minItems": 7, "maxItems": 7,
+                "items": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "chapter_number": {"type": "INTEGER"},
+                        "title": {"type": "STRING"},
+                        "narrative_intent": {"type": "STRING"},
+                        "bullets": {
+                            "type": "ARRAY", "items": {"type": "STRING"},
+                            "minItems": MIN_BULLETS_PER_CHAPTER,
+                            "maxItems": MAX_BULLETS_PER_CHAPTER,
+                        },
+                    },
+                    "required": ["chapter_number", "title", "narrative_intent", "bullets"],
+                },
+            },
+        },
+        "required": ["_distribution_plan", "chapters"],
+    }
+
+
+# ═══════════════════════════════════════════════════════════════
 #  PERSISTENCIA
 # ═══════════════════════════════════════════════════════════════
 
@@ -558,7 +597,7 @@ def _call_with_validation_retry(
     last_error: SkeletonValidationError | None = None
 
     for attempt in range(1, max_attempts + 1):
-        raw = call_flash_json(attempt_prompt)
+        raw = call_flash_json(attempt_prompt, response_schema=_skeleton_schema())  # HANDOFF 66b (R4)
         try:
             plan = raw.get("_distribution_plan") or {}
             _validate_distribution_plan(plan, expected_fact_ids)

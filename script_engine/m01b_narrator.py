@@ -504,6 +504,43 @@ class NarrationValidationError(ValueError):
     """Narración emitida por Flash no cumple el contrato del módulo 01b."""
 
 
+# ═══════════════════════════════════════════════════════════════
+#  RESPONSE SCHEMAS (Gemini) — HANDOFF 66b (R4)
+#  Schemas PLAIN DICT, tipos UPPERCASE (estilo m03_visual._flux_anchor_schema).
+#  DERIVADOS de los validadores y del contrato de salida de cada prompt.
+# ═══════════════════════════════════════════════════════════════
+
+def _narration_schema() -> dict:
+    """Schema de la salida per-cap. El prompt pide {"narration": "..."} (el
+    chapter_number lo agrega el código, NO el modelo). _validate_narration
+    exige narration como string no vacío → único campo required."""
+    return {
+        "type": "OBJECT",
+        "properties": {
+            "narration": {"type": "STRING"},
+        },
+        "required": ["narration"],
+    }
+
+
+def _humanizer_schema() -> dict:
+    """Schema de la salida del humanizer. El prompt pide
+    {"humanizer_phrases": [3 strings]} y _validate_humanizer exige
+    exactamente HUMANIZER_COUNT frases → array de strings con min/maxItems."""
+    return {
+        "type": "OBJECT",
+        "properties": {
+            "humanizer_phrases": {
+                "type": "ARRAY",
+                "items": {"type": "STRING"},
+                "minItems": HUMANIZER_COUNT,
+                "maxItems": HUMANIZER_COUNT,
+            },
+        },
+        "required": ["humanizer_phrases"],
+    }
+
+
 _SENTENCE_END = re.compile(r"[.!?]+")
 
 
@@ -676,7 +713,8 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
     last_error: NarrationValidationError | None = None
 
     for attempt in range(1, max_attempts + 1):
-        raw = call_flash_json(attempt_prompt)
+        # HANDOFF 66b (R4): response_schema fuerza el shape {"narration": str}
+        raw = call_flash_json(attempt_prompt, response_schema=_narration_schema())
         narr = (raw.get("narration") or "").strip()
         try:
             _validate_narration(narr, role=role, cap_number=cap_number)
@@ -803,7 +841,8 @@ def generate_narration(topic: dict, skeleton: dict) -> dict:
 
     # ─── HUMANIZER PHRASES ───
     print(f"  [01b] generando humanizer phrases...")
-    raw_h = call_flash_json(_prompt_humanizer(topic, narrations))
+    # HANDOFF 66b (R4): response_schema fuerza {"humanizer_phrases": [3 strings]}
+    raw_h = call_flash_json(_prompt_humanizer(topic, narrations), response_schema=_humanizer_schema())
     humanizer = _validate_humanizer(raw_h.get("humanizer_phrases") or [])
 
     out = {

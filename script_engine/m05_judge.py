@@ -164,6 +164,44 @@ _ISSUE_ID_REGEX = re.compile(r"^cap\d+_img\d+_issue\d+$")
 
 
 # ════════════════════════════════════════════════════════════════════════
+#  RESPONSE SCHEMA (HANDOFF 66b · R4) — derivado de _validate_chapter_output
+#  / _validate_single_issue. Cubre AMBAS formas: PASS (issues=[]) y FLAG
+#  (issues con ≥1 item). issues siempre presente (ARRAY); los items, cuando
+#  existen, traen los 10 campos mandatorios. Fuerza JSON válido en la fuente.
+# ════════════════════════════════════════════════════════════════════════
+
+def _judge_schema() -> dict:
+    return {
+        "type": "OBJECT",
+        "properties": {
+            "chapter_id": {"type": "INTEGER"},
+            "verdict": {"type": "STRING", "enum": sorted(VALID_VERDICTS)},
+            "issues": {
+                "type": "ARRAY",
+                "items": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "issue_id": {"type": "STRING"},
+                        "image_index": {"type": "INTEGER"},
+                        "anchor_excerpt": {"type": "STRING"},
+                        "category": {"type": "STRING", "enum": sorted(VALID_CATEGORIES)},
+                        "severity": {"type": "STRING", "enum": sorted(VALID_SEVERITIES)},
+                        "what_happened": {"type": "STRING"},
+                        "why_happened": {"type": "STRING"},
+                        "how_to_fix": {"type": "STRING"},
+                        "proposed_root_cause_module": {
+                            "type": "STRING", "enum": sorted(VALID_ROOT_CAUSE_MODULES)},
+                        "proposed_regex_pattern": {"type": "STRING"},
+                    },
+                    "required": list(ISSUE_REQUIRED_FIELDS),
+                },
+            },
+        },
+        "required": ["chapter_id", "verdict", "issues"],
+    }
+
+
+# ════════════════════════════════════════════════════════════════════════
 #  HELPERS — NORMALIZACIÓN
 # ════════════════════════════════════════════════════════════════════════
 
@@ -493,7 +531,7 @@ def call_flash_for_chapter(
     last_raw = None
 
     for attempt in range(1, max_attempts + 1):
-        raw = call_flash_json(attempt_prompt)
+        raw = call_flash_json(attempt_prompt, response_schema=_judge_schema())  # HANDOFF 66b (R4)
         last_raw = raw
         try:
             return validator_fn(raw)

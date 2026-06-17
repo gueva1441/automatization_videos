@@ -24,12 +24,21 @@ def _with_retry(fn, max_attempts: int = 3):
             time.sleep(wait)
 
 
-def _safe_json_parse(raw_text: str) -> dict:
-    """Parsea JSON tolerando markdown fences y texto extra.
+# HANDOFF 66b — LEVER A: resiliencia de parseo centralizada. Si el modelo devuelve JSON roto
+# (ej. comillas dobles sin escapar dentro de un string), se RE-LLAMA (generación fresca) hasta
+# PARSE_MAX_ATTEMPTS. Solo el fallo FINAL dumpea + propaga, con el MISMO mensaje de error que
+# antes (hay UI/consola que lo lee). Protege a los 6 módulos de una, sin tocar su retry.
+PARSE_MAX_ATTEMPTS = 3
 
-    Cuando falla, dumpea raw_text COMPLETO + texto post-clean a un archivo
-    en data/_debug/ y menciona el path en la excepción para diagnóstico.
-    """
+
+class _JsonParseError(ValueError):
+    """Parse falló (SIN dump). El loop decide re-llamar o dumpear+propagar.
+    args[0] = (raw_text, text_post_clean, JSONDecodeError)."""
+
+
+def _try_json_parse(raw_text: str) -> dict:
+    """Igual que el viejo _safe_json_parse PERO sin dump: lanza _JsonParseError en falla.
+    Tolera markdown fences / texto extra recortando al objeto/array más externo."""
     text = raw_text.strip()
 
     # Tolerar tanto objetos {...} como arrays [...] como output principal.
@@ -43,44 +52,67 @@ def _safe_json_parse(raw_text: str) -> dict:
             start = min(candidates)
             end = max(text.rfind("}"), text.rfind("]"))
             if end > start:
-                text = text[start:end+1]
+                text = text[start:end + 1]
 
     try:
         result = json.loads(text)
         # Si el modelo devolvió array directo donde el caller esperaba dict
-        # con wrapper, normalizar al shape esperado por m03.
+        # con wrapper, normalizar al shape esperado por m03. (PRESERVADO).
         if isinstance(result, list):
             result = {"image_prompts": result}
         return result
     except json.JSONDecodeError as e:
-        # Dump completo a disco para diagnosticar
-        from datetime import datetime
-        from config import DATA_DIR
-        debug_dir = DATA_DIR / "_debug"
-        debug_dir.mkdir(parents=True, exist_ok=True)
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]
-        dump_path = debug_dir / f"json_invalid_{timestamp}.txt"
+        raise _JsonParseError((raw_text, text, e))
 
-        dump_content = (
-            f"=== JSON INVALIDO ===\n"
-            f"Timestamp: {datetime.now().isoformat()}\n"
-            f"JSONDecodeError: {e}\n"
-            f"Error pos: line {e.lineno} col {e.colno} (char {e.pos})\n"
-            f"raw_text length: {len(raw_text)} chars\n"
-            f"text post-clean length: {len(text)} chars\n"
-            f"\n=== RAW_TEXT (input crudo de Gemini) ===\n{raw_text}\n"
-            f"\n=== TEXT POST-CLEAN (lo que se intentó parsear) ===\n{text}\n"
-        )
+
+def _dump_invalid_json(raw_text: str, text: str, e: "json.JSONDecodeError") -> str:
+    """Escribe el dump a data/_debug/ y devuelve el sufijo ' | Dump completo: <path>'
+    (cuerpo idéntico al except viejo — preserva el diagnóstico en disco)."""
+    from datetime import datetime
+    from config import DATA_DIR
+    debug_dir = DATA_DIR / "_debug"
+    debug_dir.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]
+    dump_path = debug_dir / f"json_invalid_{timestamp}.txt"
+
+    dump_content = (
+        f"=== JSON INVALIDO ===\n"
+        f"Timestamp: {datetime.now().isoformat()}\n"
+        f"JSONDecodeError: {e}\n"
+        f"Error pos: line {e.lineno} col {e.colno} (char {e.pos})\n"
+        f"raw_text length: {len(raw_text)} chars\n"
+        f"text post-clean length: {len(text)} chars\n"
+        f"\n=== RAW_TEXT (input crudo de Gemini) ===\n{raw_text}\n"
+        f"\n=== TEXT POST-CLEAN (lo que se intentó parsear) ===\n{text}\n"
+    )
+    try:
+        dump_path.write_text(dump_content, encoding="utf-8")
+        return f" | Dump completo: {dump_path}"
+    except Exception:
+        return " | (no se pudo escribir dump)"
+
+
+def _parse_with_retry(get_text_fn) -> dict:
+    """Llama get_text_fn() (que devuelve el .text del modelo, con su propio retry de 503) y
+    parsea. Si el parseo falla, re-llama (generación fresca) hasta PARSE_MAX_ATTEMPTS. Solo el
+    fallo FINAL dumpea + propaga, con el MISMO mensaje de error que hoy."""
+    last = None
+    for attempt in range(1, PARSE_MAX_ATTEMPTS + 1):
+        raw = get_text_fn()
         try:
-            dump_path.write_text(dump_content, encoding="utf-8")
-            dump_msg = f" | Dump completo: {dump_path}"
-        except Exception:
-            dump_msg = " | (no se pudo escribir dump)"
-
-        raise ValueError(
-            f"Gemini devolvió JSON inválido en char {e.pos} "
-            f"(line {e.lineno} col {e.colno}): {e.msg}.{dump_msg}"
-        ) from e
+            return _try_json_parse(raw)
+        except _JsonParseError as pe:
+            last = pe.args[0]
+            if attempt < PARSE_MAX_ATTEMPTS:
+                _rt, _tx, _e = last
+                print(f"[gemini] JSON inválido (intento {attempt}/{PARSE_MAX_ATTEMPTS}) "
+                      f"char {_e.pos}: {_e.msg} — re-llamando")
+    raw_text, text, e = last
+    dump_msg = _dump_invalid_json(raw_text, text, e)
+    raise ValueError(
+        f"Gemini devolvió JSON inválido en char {e.pos} "
+        f"(line {e.lineno} col {e.colno}): {e.msg}.{dump_msg}"
+    )
 
 
 def call_flash_json(prompt: str, system_instruction: str | None = None,
@@ -97,19 +129,19 @@ def call_flash_json(prompt: str, system_instruction: str | None = None,
             schema pasan a ser obligatorios). Si es None, NO se incluye el field —
             comportamiento idéntico al previo (default).
     """
-    def _do():
+    def _get_text():
         config_kwargs = {"response_mime_type": "application/json"}
         if system_instruction is not None:
             config_kwargs["system_instruction"] = system_instruction
         if response_schema is not None:
             config_kwargs["response_schema"] = response_schema
-        response = _client.models.generate_content(
+        resp = _with_retry(lambda: _client.models.generate_content(
             model=_cfg.gemini_model,
             contents=prompt,
             config=types.GenerateContentConfig(**config_kwargs),
-        )
-        return _safe_json_parse(response.text)
-    return _with_retry(_do)
+        ))
+        return resp.text
+    return _parse_with_retry(_get_text)
 
 
 def call_pro_json(prompt: str, system_instruction: str | None = None,
@@ -125,16 +157,16 @@ def call_pro_json(prompt: str, system_instruction: str | None = None,
             a config_kwargs. Si es None, NO se incluye — comportamiento idéntico
             al previo (default).
     """
-    def _do():
+    def _get_text():
         config_kwargs = {"response_mime_type": "application/json"}
         if system_instruction is not None:
             config_kwargs["system_instruction"] = system_instruction
         if response_schema is not None:
             config_kwargs["response_schema"] = response_schema
-        response = _client.models.generate_content(
+        resp = _with_retry(lambda: _client.models.generate_content(
             model=_cfg.gemini_model_research,
             contents=prompt,
             config=types.GenerateContentConfig(**config_kwargs),
-        )
-        return _safe_json_parse(response.text)
-    return _with_retry(_do)
+        ))
+        return resp.text
+    return _parse_with_retry(_get_text)

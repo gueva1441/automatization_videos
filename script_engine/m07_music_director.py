@@ -282,6 +282,25 @@ def _build_matcher_user_prompt(
     return "\n".join(parts)
 
 
+def _match_schema() -> dict:
+    """HANDOFF 66b (R4): response_schema para el matcher de m07.
+
+    Deriva del contrato de salida documentado en _build_matcher_user_prompt
+    (winner/match_score/reasoning) y de las keys que lee _match_intent_to_track.
+    Los 3 campos son hard-required por el código consumidor (set `required`
+    en _match_intent_to_track). NO inventa campos.
+    """
+    return {
+        "type": "OBJECT",
+        "properties": {
+            "winner": {"type": "STRING"},
+            "match_score": {"type": "INTEGER"},
+            "reasoning": {"type": "STRING"},
+        },
+        "required": ["winner", "match_score", "reasoning"],
+    }
+
+
 def _match_intent_to_track(
     intent: str,
     anchor: str,
@@ -345,6 +364,7 @@ def _match_intent_to_track(
         result = call_flash_json(
             user_prompt,
             system_instruction=_MATCHER_SYSTEM_INSTRUCTION,
+            response_schema=_match_schema(),  # HANDOFF 66b (R4)
         )
     except Exception as e:
         # Cualquier fallo del LLM (timeout, parse error, etc) → red de
