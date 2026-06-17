@@ -577,45 +577,69 @@ def run_latido_a(
                     print(f"     → [{mode}] {title}")
                 if len(existing) > 5:
                     print(f"     ... y {len(existing) - 5} más")
-                if _QA_FORM:
-                    # payload DISPLAY-ONLY → el form dibuja una galería pickeable: una tarjeta
-                    # por seed (título + badge de nicho + competencia + señal viral EN). Todo
-                    # dato YA guardado (cero costo: NO corre el juez acá). NO hay mapeo de
-                    # índices: estos seeds son pre-juez; el panel rico numerado viene después
-                    # en seed_pick. La identidad para el puente del host es `title` (seed_title,
-                    # mismo origen que el payload de seed_pick). El input("[S/n]") queda intacto.
-                    _seed_cards = []
-                    for s in existing:
-                        _ev = s.get("evidence") or {}
-                        _en = _ev.get("en_viral") or {}
-                        _es = _ev.get("es_gap") or {}
-                        _seed_cards.append({
-                            "title": s.get("seed_title") or "(sin título)",
-                            "mode": s.get("discovery_mode") or "?",
-                            "es_label": _es.get("label"),
-                            "en_views": _en.get("views"),
-                            "en_ratio": _en.get("outlier_ratio"),
-                        })
-                    _emit_qaform_choice_marker(
-                        "reuse_seeds", f"Tenés {len(existing)} seed(s) pendientes — elegí uno",
-                        # 'n' → discover_niches(): menús A/B ya cableados. 'S' no es un botón:
-                        # el host lo manda al hacer click en una tarjeta (pick_seed → "S") y
-                        # recuerda la identidad para matchear el verdict en seed_pick.
-                        [{"key": "S", "label": "Usar estos seeds"},
-                         {"key": "n", "label": "+ Generar nuevos seeds"}],
-                        default="S", payload={"seeds": _seed_cards},
-                    )
-                reuse = input("\n  ¿Usar estos seeds? [S/n]: ").strip().lower()
-                if reuse in ("n", "no"):
-                    print(f"\n{'─' * 60}")
-                    print(f"  📌 PASO 1/4 — Dashboard de Inteligencia")
-                    print(f"{'─' * 60}")
-                    seeds = discover_niches()
-                    if not seeds:
-                        print("\n  ⚠ No se generaron seeds. Abortando.")
-                        return
-                else:
+                # GATE reuse_seeds — loop para soportar BORRADO (form) + re-render. En terminal
+                # pura es UNA vuelta (el branch de borrado está gateado por _QA_FORM).
+                while True:
+                    if _QA_FORM:
+                        # payload DISPLAY-ONLY → el form dibuja una galería pickeable: una tarjeta
+                        # por seed (título + badge de nicho + competencia + señal viral EN). Todo
+                        # dato YA guardado (cero costo: NO corre el juez acá). La identidad para el
+                        # puente del host es `title`; `idx` es para el ✕ (borrar). input("[S/n]") intacto.
+                        _seed_cards = []
+                        for _i, s in enumerate(existing, start=1):
+                            _ev = s.get("evidence") or {}
+                            _en = _ev.get("en_viral") or {}
+                            _es = _ev.get("es_gap") or {}
+                            _seed_cards.append({
+                                "idx": _i,                                  # NUEVO: identidad para el ✕
+                                "title": s.get("seed_title") or "(sin título)",
+                                "mode": s.get("discovery_mode") or "?",
+                                "es_label": _es.get("label"),
+                                "en_views": _en.get("views"),
+                                "en_ratio": _en.get("outlier_ratio"),
+                            })
+                        _emit_qaform_choice_marker(
+                            "reuse_seeds", f"Tenés {len(existing)} seed(s) pendientes — elegí uno",
+                            # 'n' → discover_niches(): menús A/B ya cableados. 'S' no es un botón:
+                            # el host lo manda al hacer click en una tarjeta (pick_seed → "S") y
+                            # recuerda la identidad para matchear el verdict en seed_pick.
+                            [{"key": "S", "label": "Usar estos seeds"},
+                             {"key": "n", "label": "+ Generar nuevos seeds"}],
+                            default="S", payload={"seeds": _seed_cards},
+                        )
+                    reuse = input("\n  ¿Usar estos seeds? [S/n]: ").strip().lower()
+                    # BORRAR (form): "d<n>" → archiva + saca de selected_seeds.json + re-emite la galería.
+                    # Gateado por _QA_FORM → terminal pura byte-idéntica.
+                    if _QA_FORM and len(reuse) >= 2 and reuse[0] == "d" and reuse[1:].strip().isdigit():
+                        n = int(reuse[1:].strip())
+                        if 1 <= n <= len(existing):
+                            victim = existing[n - 1]
+                            _archive_seed_local(victim)
+                            existing = [s for s in existing if s is not victim]
+                            _save_seeds_with_judge(existing)
+                            print(f"  🗑  Borrado [{n}] {victim.get('seed_title','?')} "
+                                  f"(archivado). Quedan {len(existing)}.")
+                            if not existing:
+                                print("  ⚠ No quedan seeds — generá nuevos.")
+                                seeds = discover_niches()
+                                if not seeds:
+                                    print("\n  ⚠ No se generaron seeds. Abortando.")
+                                    return
+                                break
+                            continue  # re-emite la galería (loop) sin el seed borrado
+                        print(f"  Número inválido para borrar (1-{len(existing)}).")
+                        continue
+                    if reuse in ("n", "no"):
+                        print(f"\n{'─' * 60}")
+                        print(f"  📌 PASO 1/4 — Dashboard de Inteligencia")
+                        print(f"{'─' * 60}")
+                        seeds = discover_niches()
+                        if not seeds:
+                            print("\n  ⚠ No se generaron seeds. Abortando.")
+                            return
+                        break
                     seeds = existing
+                    break
             else:
                 print(f"\n{'─' * 60}")
                 print(f"  📌 PASO 1/4 — Dashboard de Inteligencia")

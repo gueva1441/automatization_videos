@@ -341,9 +341,10 @@ function onAnswer(payload){
     postLine(String(payload.value)).then(()=>{ curMarkerKey=null; hideDialog(); });
     return;
   }
-  // BORRAR seed: fase1 parsea "d<idx>", borra y RE-EMITE la lista. No cerramos el diálogo:
-  // el marcador re-emitido re-renderiza el panel con la lista actualizada.
-  if(payload && payload.menu==='seed_pick' && payload.action==='delete'){
+  // BORRAR seed (galería reuse_seeds O panel seed_pick): fase1 parsea "d<idx>", borra y RE-EMITE
+  // la lista. No cerramos el diálogo: el marcador re-emitido re-renderiza sin el seed borrado.
+  if(payload && payload.action==='delete' &&
+     (payload.menu==='seed_pick' || payload.menu==='reuse_seeds')){
     postLine('d'+String(payload.value));
     return;
   }

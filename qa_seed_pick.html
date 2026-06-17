@@ -73,10 +73,9 @@
   .risk-dot { width: 6px; height: 6px; border-radius: 50%; }
 
   .chosen { position: absolute; top: -8px; right: 14px; font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: .1em; color: #0c0c0d; background: #f4f4f5; padding: 2px 6px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
-  /* HANDOFF 64d — ✕ por seed: borra (archiva, recuperable). Subtil; se enciende al hover de la fila. */
-  .del { position: absolute; top: 5px; right: 6px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 12px; line-height: 1; color: #7a4a4f; background: transparent; border: 0; border-radius: 6px; cursor: pointer; opacity: .3; transition: opacity .12s, color .12s, background .12s; padding: 0; }
-  .row:hover .del { opacity: .7; }
-  .del:hover { opacity: 1; color: #e5484d; background: #2a1518; }
+  /* HANDOFF 64d/64e — ✕ por seed: borra (archiva, recuperable). VISIBLE sin hover; full rojo al hover. */
+  .del { position: absolute; top: 5px; right: 6px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 13px; line-height: 1; color: #d98a8a; background: #2a1518; border: 1px solid #4a2329; border-radius: 6px; cursor: pointer; opacity: .85; transition: opacity .12s, color .12s, background .12s, border-color .12s; padding: 0; }
+  .del:hover { opacity: 1; color: #fff; background: #e5484d; border-color: #e5484d; }
 
   /* DUDOSOS */
   .dud-toggle { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8a8a92; transition: color .12s; }
