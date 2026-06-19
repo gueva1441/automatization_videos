@@ -105,7 +105,7 @@ import re
 from difflib import SequenceMatcher
 from pathlib import Path
 
-from config import DATA_DIR, OUTPUT_DIR
+from config import DATA_DIR, OUTPUT_DIR, api
 from gemini_helpers import call_flash_json
 from nicho_config import get_active_nicho
 from anchor_timing import compute_anchor_starts
@@ -2365,16 +2365,48 @@ NO agregues texto fuera del JSON. NO uses bloque markdown ```.
 """
 
 
-def _build_flux_prompt_step2(topic, cap_data, narration_text, anchors):
-    """Paso 2 flux: anchors DADOS → el LLM escribe SOLO prompt + subject_ref + emotional_rank por
-    fragmento. Reusa las reglas visuales de SYSTEM_INSTRUCTION_VISUAL (system_instruction, intacto)
-    y la MISMA guía de estructura/emotional_rank de _build_flux_prompt; lo único distinto es que los
-    anchors entran como dato (no se eligen ni se devuelven)."""
+def _build_flux_prompt_step2(topic, cap_data, narration_text, anchors, is_kling=False):
+    """Paso 2 flux/kling: anchors DADOS → el LLM escribe SOLO los prompts por fragmento. El
+    system_instruction es la única fuente de reglas; el user-prompt solo lista los campos del item.
+    is_kling (bake §Kling, chat 80) cambia SOLO el bloque de campos del item + el hint de largo
+    (80-300, pide shot_scale/light_mode); el resto del armado queda igual. Con is_kling=False el
+    string es byte-idéntico al de antes del bake (test §5.2)."""
     cap_n = cap_data["chapter_number"]
     role = cap_data.get("role") or "development"
     cap_title = cap_data.get("title") or "(sin título)"
     n = len(anchors)
     anchor_list = "\n".join(f"  [{i + 1}] «{a}»" for i, a in enumerate(anchors))
+
+    if is_kling:
+        return f"""Narration (Spanish, for context only — emit JSON in English):
+
+{narration_text}
+
+CAP {cap_n} — {role}, title: {cap_title}
+
+The narration fragments to illustrate are ALREADY CHOSEN (Paso 1). Do NOT pick anchors.
+Write ONE image prompt for EACH given fragment below, in the SAME order (item i illustrates fragment i):
+{anchor_list}
+
+Generate EXACTLY {n} prompts as JSON array. Each item MUST have:
+
+{{
+  "prompt": "string EN — dense descriptive PROSE, 80-300 words, following the Kling PROMPT STRUCTURE in the system instruction (state the shot scale first; anchor subject/location early; integrate materials/clothing, then environment, then light; end at the scene + composition; do NOT write a style/grain/lighting tail).",
+  "subject_ref": "main_subject" | "establishing_shot" | "interior_scene" | etc,
+  "emotional_rank": "R1" | "R2" | "R3",
+  "shot_scale": "extreme_wide" | "wide" | "medium" | "close" | "detail",
+  "light_mode": "night" | "day" | "golden"
+}}
+
+Do NOT return narration_anchor — the code injects it VERBATIM from the given fragments.
+
+DISTRIBUTION OF emotional_rank:
+- 1-2 items R1 (peak of cap: closing, revelation, biggest impact).
+- 2-3 items R2 (action, strong transition, person in tension).
+- Rest R3 (descriptive scene, context, ambience).
+
+JSON only. No markdown. No preamble.
+"""
 
     return f"""Narration (Spanish, for context only — emit JSON in English):
 
@@ -2451,12 +2483,15 @@ def _render_prompts_veo(topic, cap_data, narration, plan, veo_position, cap_numb
 
 
 def _render_prompts_flux(topic, cap_data, narration, plan, cap_number):
-    """Paso 2 flux: llama Flash (anchors dados), inyecta los anchors del Paso 1 VERBATIM, exige
-    count==n y REUSA _validate_flux_cap + _validate_no_text_leakage. Devuelve el MISMO shape que
-    _validate_flux_cap (contrato intacto; el ensamblaje del ancla_global lo hace el wiring)."""
+    """Paso 2 flux/kling: llama Flash (anchors dados), inyecta los anchors del Paso 1 VERBATIM,
+    exige count==n y valida + text-leakage. Dispatch por api.image_engine (bake §Kling, chat 80):
+    Kling usa SYSTEM_INSTRUCTION_VISUAL_KLING + _kling_step2_schema + _validate_kling_cap (y arrastra
+    shot_scale/light_mode); Flux queda byte-idéntico. Devuelve el MISMO shape (contrato intacto; el
+    ensamblaje del tail/ancla lo hace el wiring)."""
     anchors = [a["anchor"] for a in plan["anchors"]]
     n = len(anchors)
-    prompt = _build_flux_prompt_step2(topic, cap_data, narration, anchors)
+    is_kling = (api.image_engine == "kling")
+    prompt = _build_flux_prompt_step2(topic, cap_data, narration, anchors, is_kling=is_kling)
 
     def _validator(parsed):
         # _safe_json_parse envuelve un array suelto como {"image_prompts": [...]}.
@@ -2471,18 +2506,20 @@ def _render_prompts_flux(topic, cap_data, narration, plan, cap_number):
             {"prompt": (items[i].get("prompt") if isinstance(items[i], dict) else None),
              "subject_ref": (items[i].get("subject_ref") if isinstance(items[i], dict) else None),
              "emotional_rank": (items[i].get("emotional_rank") if isinstance(items[i], dict) else None),
+             **({"shot_scale": items[i].get("shot_scale"), "light_mode": items[i].get("light_mode")}
+                if is_kling and isinstance(items[i], dict) else {}),
              "narration_anchor": anchors[i]}
             for i in range(n)
         ]}
-        out = _validate_flux_cap(assembled, narration, cap_number, n)  # candado #4 (longitud+campos+anchors)
+        out = (_validate_kling_cap if is_kling else _validate_flux_cap)(assembled, narration, cap_number, n)
         for i, it in enumerate(out["image_prompts"], start=1):
             _validate_no_text_leakage(it["prompt"], f"cap {cap_number} img #{i}")
         return out
 
     return _call_with_validation_retry(
         prompt, _validator, cap_number,
-        system_instruction=SYSTEM_INSTRUCTION_VISUAL,
-        response_schema=_flux_step2_schema(n),
+        system_instruction=(SYSTEM_INSTRUCTION_VISUAL_KLING if is_kling else SYSTEM_INSTRUCTION_VISUAL),
+        response_schema=(_kling_step2_schema(n) if is_kling else _flux_step2_schema(n)),
     )
 
 
@@ -2708,26 +2745,45 @@ def assign_visual_prompts(
                     plan, "flux", words_ts, MIN_IMAGES_FLUX, cap_n)
             cap_out = _render_prompts_flux(topic, sch, narration_text, plan, cap_n)
 
-            # Ensamblaje v7 chat 30: el LLM emite el prompt completo en prosa.
-            # m03 solo agrega el style del nicho AL FINAL (subject-first según
-            # MODEL_PROMPTING_RULES.md §1 R1 — el sujeto va primero).
-            # Se persiste el raw_llm_prompt para auditoría m05.
-            nicho = get_active_nicho()
-            ancla_global = nicho["ancla_global"]
-            for item in cap_out.get("image_prompts", []):
-                raw_prompt = item["prompt"].strip()
-                prompt_final = raw_prompt + " " + ancla_global
-                if not (PROMPT_MIN_CHARS <= len(prompt_final) <= PROMPT_MAX_CHARS):
-                    raise VisualValidationError(
-                        f"cap {cap_n}: prompt ensamblado fuera de rango "
-                        f"({len(prompt_final)} chars, target "
-                        f"{PROMPT_MIN_CHARS}-{PROMPT_MAX_CHARS})."
-                    )
-                item["raw_llm_prompt"] = raw_prompt  # auditoría m05
-                item["prompt"] = prompt_final
-                item["art_profile"] = ""
+            # Ensamblaje: el LLM emite el prompt completo en prosa; el harness apendiza el
+            # tail/ancla AL FINAL. Se persiste raw_llm_prompt para auditoría m05.
+            # Bake §Kling (chat 80): en el path Kling el tail dialed por shot_scale+light_mode
+            # REEMPLAZA a ancla_global (Camino B). El path Flux queda byte-idéntico (else).
+            if api.image_engine == "kling":
+                for item in cap_out.get("image_prompts", []):
+                    raw_prompt = item["prompt"].strip()
+                    dial = anti_plastic_dial(item["shot_scale"])
+                    tail = pick_tail(item["light_mode"], dial)
+                    prompt_final = f"{raw_prompt.rstrip('.')}. {tail}"[:KLING_PROMPT_MAX_CHARS]
+                    if len(prompt_final) < PROMPT_MIN_CHARS:
+                        raise VisualValidationError(
+                            f"cap {cap_n}: prompt Kling ensamblado < {PROMPT_MIN_CHARS} chars "
+                            f"({len(prompt_final)})."
+                        )
+                    item["raw_llm_prompt"] = raw_prompt  # auditoría m05
+                    item["prompt"] = prompt_final
+                    item["art_profile"] = ""
+                    # shot_scale/light_mode quedan en el item (metadata extra para m05;
+                    # no rompen el contrato sagrado de fase2a).
+            else:
+                # Path Flux (subject-first según MODEL_PROMPTING_RULES.md §1 R1): ancla_global
+                # al final. byte-idéntico al pre-bake.
+                nicho = get_active_nicho()
+                ancla_global = nicho["ancla_global"]
+                for item in cap_out.get("image_prompts", []):
+                    raw_prompt = item["prompt"].strip()
+                    prompt_final = raw_prompt + " " + ancla_global
+                    if not (PROMPT_MIN_CHARS <= len(prompt_final) <= PROMPT_MAX_CHARS):
+                        raise VisualValidationError(
+                            f"cap {cap_n}: prompt ensamblado fuera de rango "
+                            f"({len(prompt_final)} chars, target "
+                            f"{PROMPT_MIN_CHARS}-{PROMPT_MAX_CHARS})."
+                        )
+                    item["raw_llm_prompt"] = raw_prompt  # auditoría m05
+                    item["prompt"] = prompt_final
+                    item["art_profile"] = ""
 
-            # No-op desde chat 19 (catálogo desconectado).
+            # No-op desde chat 19 (catálogo desconectado). NO tocar.
             cap_out = _stitch_zone2_into_cap_flux(cap_out)
             print(f"  [03] cap {cap_n} (flux) ✓ {len(cap_out['image_prompts'])} imgs validadas")
 
