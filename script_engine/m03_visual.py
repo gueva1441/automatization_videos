@@ -246,6 +246,114 @@ JSON only. No markdown. No preamble.
 
 
 # ═══════════════════════════════════════════════════════════════
+#  SYSTEM INSTRUCTION — KLING o3 (bake §Kling, chat 80 · path flux caps 2-6)
+# ═══════════════════════════════════════════════════════════════
+#
+# Sibling generativo de SYSTEM_INSTRUCTION_VISUAL (que queda intacto para el
+# fallback Flux). Framing GENERATIVO (escribe de cero, NO "rewrite"). El LLM
+# emite shot_scale + light_mode y NO escribe tail de estilo/grano: el harness
+# apendiza el tail dialed (Camino B, ver assign_visual_prompts). Doctrina
+# verbatim del HANDOFF_80 §2.1 (depurada del relleno cap4 del lab v6).
+
+SYSTEM_INSTRUCTION_VISUAL_KLING = """You write image prompts for Kling o3 (text-to-image), in ENGLISH, for a faceless documentary YouTube channel about dark history and mystery. Goal: MORE retentive and MORE explicit (fear / mystery) while staying MONETIZABLE. You write each prompt from scratch given its narration fragment; you do not rewrite anything.
+
+CRITICAL — OUTPUT LANGUAGE:
+ALL prompts MUST be in ENGLISH. Kling renders Latin-script gibberish on surfaces when fed Spanish.
+
+OUTPUT: JSON array of N objects. Each object has: `prompt` (the scene), `subject_ref`, `emotional_rank`, `shot_scale`, and `light_mode` (all defined in the user prompt). The `prompt` field is dense descriptive PROSE — no CSV, no keyword soup.
+
+PROMPT STRUCTURE (Kling o3):
+Open by stating the SHOT SCALE in words. Anchor the subject/location EARLY and clearly. Integrate materials / texture / clothing into the subject, then the environment, then the LIGHT. END at the scene and its composition. The aspect ratio does NOT go in the text — describe "wide horizontal composition", never write "16:9". Denser and longer than a Flux prompt is fine. Target 80-300 words.
+
+DO NOT WRITE A STYLE / GRAIN / FILM / LIGHTING TAIL:
+End your prompt at the scene + composition. Do NOT append film-stock, grain, palette, or a final lighting key — the harness appends the house texture tail, dialed by your shot_scale and light_mode. Writing your own tail double-styles the image. Set the in-scene mood only through the light you describe.
+
+HARD RULES:
+
+1. ETHNIC DEFAULT FOR HUMANS:
+   Integrate ethnicity into the subject phrase at the START, period-correct, faithful to the topic facts. DEFAULT = local ethnicity of the topic's GEO. Use a different ethnicity ONLY if the narration explicitly names the subject as a foreigner. No whitewashing. On an R1 hero beat, the face is to the front.
+
+2. POSITIVE DESCRIPTIONS ONLY (Kling has no negative prompt):
+   Describe what you WANT to see, never what you don't. For surfaces that could carry text but shouldn't, simply do not mention text; describe them as smooth, plain or worn.
+
+3. PHYSICAL DESCRIPTIONS, NO PROPER NAMES, NO LEGIBLE TEXT:
+   Describe people and objects by physical appearance (ethnicity + age + clothing material + era), never by a bare role label, never by a proper name — not even the protagonist's name, written nowhere. Translate dates into era descriptors ("an 1820s scene", not "April 1822"). Never render legible signs, inscriptions, letters or numbers; Kling hallucinates text — keep surfaces plain or weathered.
+
+4. HARD ERA — PERIOD ACCURATE, ANTI-MEDIEVAL:
+   Identify the era from the narration and put an explicit time marker in EVERY prompt (clothing, materials, ironwork, architecture of that decade). Affirm the correct period firmly. Do NOT drift to a generic medieval / castle / dungeon look (vaulted ceilings, pointed arches, torch-lit stone keeps) when the era is later — anchor to the real period's brick, stone, timber and ironwork. Affirm the correct period; do not name the forbidden styles.
+
+5. MONETIZATION CEILING + APPARATUS OF KILLING (hard cap, not optional):
+   Show literally what the anchor says — where a beat narrates an execution, show the apparatus (a scaffold, a row of EMPTY nooses) at the scale the anchor implies; where it narrates blood, show a wall of dark dried blood. But NEVER cross the ceiling: never lifeless bodies in frame, never visible hanged people, never fresh graphic blood, never mutilation, never the moment of harm itself. Terror is built from SCALE + LIGHT + EMPTY nooses + loaded LIVING faces, not from the body. When a scene's subject would BE the instrument of killing and no execution beat justifies it, default to the charged empty space: dramatic light, oppressive scale, ONE weighted object that implies what happened. Illustrate the OUTCOME, not a warning; plurals (a leader and his many followers) → show several, not one. This ceiling is what keeps the image publishable; it is non-negotiable.
+
+6. PHYSICAL TRANSLATION OF METAPHORS:
+   If the narration uses a metaphor or an undrawable abstraction ("a sense of dread", "an eerie silence"), identify the underlying physical matter and describe THAT (a reddish glow, sunken eyes, a low dirty haze) — never the abstract word.
+
+7. SHOT SCALE — WIDE MUST DOMINATE (16:9):
+   Begin every prompt by stating the shot scale in words, then compose at it. Emit your chosen `shot_scale` from {extreme_wide, wide, medium, close, detail}. DEFAULT to WIDE / EXTREME WIDE for establishment, architecture, mass events, aftermath and landscape: the subject small inside a vast environment, showing SCALE, DEPTH and AIR. Go MEDIUM / CLOSE ONLY for a single human emotion (one face, eyes as the subject) or one deliberate texture detail. GOLDEN RULE: place / event / scale → open WIDE with lots of air; ONE human emotion → medium / close. It is FORBIDDEN for a whole chapter to be medium / close — WIDE shots must dominate. A mass-event beat is shown from a DISTANCE (extreme wide, low angle) so the scale reads — never a tight close-up of the apparatus.
+
+8. RETENTION BY RANK:
+   R1 = peak / hero: a specific action, eyes / emotion as the focus. R2 = the moment of ACTION (struggle, raid, panic) — dynamic, not static. R3 = atmosphere / architecture, but always with ONE loaded focal point — never an empty plate. Dense texture throughout (materials, weather, grime).
+
+9. ONE OWNER PER SIGNATURE MOTIF (no repetition):
+   You write the whole chapter's images together, so coordinate them: vary angle, scale and subject across the N images; never two near-identical shots. Any signature image (an execution apparatus, a blood-stained wall) is carried by EXACTLY ONE beat — the beat whose anchor narrates that act itself. If an anchor only REFERENCES an execution in the past or by its consequence (memory, dried blood, "the executions that..."), it is NOT the apparatus beat — show ZERO scaffold / noose / gallows anywhere, not even in the background; pick a different concrete subject (shackles bolted into stone, hands gripping iron bars, guards dragging a prisoner, a fearful crowd, an empty fog-filled yard, a terrified face). One owner per motif, zero repetition.
+
+10. DRESS AND PLACE THE SUBJECT BY THE NARRATION, NOT BY CLICHÉ:
+   Show the subject in the state the narration of THIS beat describes, not the stereotype of the topic. A free person at their trade is shown free and dignified at their work in daylight — no bars, no cell, no shackles. An accused person is in a tense plain interior. A prisoner is in plain coarse period clothing. ANTI-ANACHRONISM (hard): striped prison uniforms are FORBIDDEN — anachronistic for most historical periods and wrong for a free person. Plain period clothing only, matched to the decade.
+
+11. RENDER THE EXACT MOMENT OF THE ANCHOR, NOT THE AFTERMATH:
+   Draw the precise moment the anchor narrates; do not jump ahead to the consequence and do not swap the subject. A calm-before-disaster beat is the LIVING calm just before — a lush, alive, warm scene at golden hour, with at most ONE small foreboding cue as a background detail (a distant flock fleeing, a faint hairline crack beginning) — never the disaster itself, never the cold aftermath. A disaster-in-progress beat is the event unfolding with depth (a collapsing street, people fleeing in the open), not a single facade. Match light_mode to the moment.
+
+12. LIGHT / HOUR BY EVENT COHERENCE:
+   Beats that narrate the SAME event share ONE light. Decide by the real event, not by the loose wording of one sentence. Emit `light_mode` from {night, day, golden}: night = deep murky gloom; day = natural period daylight (free life, dignified); golden = the warm living golden-hour of a calm-before beat. Keep the in-scene light consistent within an event cluster.
+
+JSON only. No markdown. No preamble.
+"""
+
+
+# ── Tails de grano del Camino B (verbatim lab v6 _lab_kling_cap4_probe.py L148-184) ──
+# El LLM escribe la escena SIN tail; el harness apendiza el tail dialed por
+# (light_mode, shot_scale). NO resucitar el catálogo art_profiles — solo esto.
+_AP = ("heavy organic analog film grain, coarse tactile surface texture, degraded emulsion with dust specks "
+    "and fine imperfections, rough non-digital finish -- break any smooth plastic AI-rendered look")
+# NIGHT STRONG: wides/arquitectura/evento/detalle.
+TAIL_NIGHT_STRONG = (_AP + "; cold near-monochrome desaturated palette with a faint sickly cast, murky "
+    "underexposed gloom, crushed deep shadows swallowing detail, oppressive claustrophobic decay, faint "
+    "dirty haze, low murky light (not a clean dramatic key), period-correct documentary realism, wide "
+    "horizontal composition")
+# NIGHT MODERATE: rostro R1/R2. FIX1 76e: cara/ojos +15-20% expuestos, grano SOLO en el entorno.
+TAIL_NIGHT_MOD = ("organic analog film grain and tactile surface texture on the surroundings (bars, walls, "
+    "background) to break any smooth plastic AI-rendered look, BUT the face and eyes are clearly lifted out "
+    "of shadow, well exposed (~15-20% brighter than the murky surroundings), sharp, clean and fully legible "
+    "-- never bury the face in grain or darkness; cold desaturated palette with a faint sickly cast, murky "
+    "underexposed environment, oppressive claustrophobic decay, period-correct documentary realism, "
+    "horizontal composition")
+# DAY MODERATE (FIX3 a04 carpintero libre): luz diurna natural, digno, cara legible, textura suave.
+TAIL_DAY_MOD = ("organic analog film grain and tactile surface texture to break any smooth plastic "
+    "AI-rendered look, but the face and eyes stay sharp, well lit and fully legible; natural overcast "
+    "period daylight, dignified and naturalistic, cold slightly desaturated palette, documentary realism, "
+    "horizontal composition")
+TAIL_DAY_STRONG = (_AP + "; natural overcast period daylight, cold desaturated palette, faint dirty haze, "
+    "period-correct documentary realism, wide horizontal composition")
+# GOLDEN (76f FIX a09 calma-antes): carve-out ESTETICO -> verde/vivo/golden-hour, NO frio/decay/ruina.
+TAIL_GOLDEN = ("lush green living landscape, warm golden-hour light, calm peaceful nature, gentle haze, "
+    "faint organic film grain, period-correct documentary realism, wide horizontal composition")
+
+def anti_plastic_dial(shot_scale):
+    return "moderate" if shot_scale in ("close", "medium") else "strong"
+
+def pick_tail(light_mode, dial):
+    if light_mode == "day":    return TAIL_DAY_MOD if dial == "moderate" else TAIL_DAY_STRONG
+    if light_mode == "golden": return TAIL_GOLDEN   # 76f: calma-antes verde/vivo
+    return TAIL_NIGHT_MOD if dial == "moderate" else TAIL_NIGHT_STRONG
+
+# Enums Kling (validador) + largo del tail más extenso (budget del raw kling prompt).
+VALID_SHOT_SCALES = frozenset({"extreme_wide", "wide", "medium", "close", "detail"})
+VALID_LIGHT_MODES = frozenset({"night", "day", "golden"})
+LONGEST_TAIL_LEN = max(len(t) for t in (TAIL_NIGHT_STRONG, TAIL_NIGHT_MOD,
+                                        TAIL_DAY_MOD, TAIL_DAY_STRONG, TAIL_GOLDEN))
+
+
+# ═══════════════════════════════════════════════════════════════
 #  PATHS Y CONSTANTES
 # ═══════════════════════════════════════════════════════════════
 
@@ -298,6 +406,7 @@ BONUS_POSITION_MIDDLE = 0
 # Caps veo (1, 7) siguen formato viejo y no requieren ensamblaje.
 PROMPT_MIN_CHARS = 120
 PROMPT_MAX_CHARS = 700
+KLING_PROMPT_MAX_CHARS = 2500   # endpoint Kling clampa a 2500; prompts densos (no aplica el 700 de Flux)
 
 VALID_RANKS = frozenset({"R1", "R2", "R3"})
 
@@ -1865,6 +1974,146 @@ def _validate_flux_cap(
     }
 
 
+def _validate_kling_cap(
+    parsed: dict,
+    narration: str,
+    cap_number: int,
+    n_expected: int,
+) -> dict:
+    """Hermano de _validate_flux_cap para el path Kling (bake §Kling, chat 80).
+
+    Mismo contrato que flux (prompt/subject_ref/emotional_rank/narration_anchor con
+    substring exacto, orden estricto, sin solape) MÁS: valida shot_scale/light_mode y
+    LOS CARGA al normalized (el append loop los necesita para elegir el tail). Budget =
+    KLING_PROMPT_MAX_CHARS - LONGEST_TAIL_LEN (el raw + ". " + tail más largo entra en 2500).
+    _validate_flux_cap queda byte-idéntico (es el fallback Flux).
+    """
+    if not isinstance(parsed, dict):
+        raise VisualValidationError(
+            f"cap {cap_number} (kling): output no es dict ({type(parsed).__name__})"
+        )
+
+    items = parsed.get("image_prompts")
+    if not isinstance(items, list):
+        raise VisualValidationError(
+            f"cap {cap_number} (kling): falta lista 'image_prompts'"
+        )
+    if len(items) != n_expected:
+        raise VisualValidationError(
+            f"cap {cap_number} (kling): se esperaban EXACTAMENTE {n_expected} imgs, "
+            f"llegaron {len(items)}. Generá un array con la cantidad exacta."
+        )
+
+    normalized: list[dict] = []
+    last_pos = -1
+    last_end = -1
+
+    # El raw kling prompt debe dejar lugar para ". " + el tail más largo dentro de 2500.
+    KLING_RAW_BUDGET = KLING_PROMPT_MAX_CHARS - LONGEST_TAIL_LEN
+
+    for i, item in enumerate(items, start=1):
+        label = f"cap {cap_number} img #{i}"
+        if not isinstance(item, dict):
+            raise VisualValidationError(f"{label}: item no es dict")
+
+        # 1. prompt
+        if "prompt" not in item:
+            raise VisualValidationError(f"{label}: falta campo 'prompt'.")
+        if not isinstance(item["prompt"], str):
+            raise VisualValidationError(
+                f"{label}: campo 'prompt' debe ser str, recibido {type(item['prompt']).__name__}."
+            )
+        if not item["prompt"].strip():
+            raise VisualValidationError(f"{label}: prompt vacío.")
+        prompt_text = item["prompt"].strip()
+
+        # 1b. budget Kling (raw + tail entra en 2500 sin truncar a mitad de palabra)
+        if len(prompt_text) > KLING_RAW_BUDGET:
+            raise VisualValidationError(
+                f"{label}: prompt {len(prompt_text)} chars excede budget Kling {KLING_RAW_BUDGET} "
+                f"(KLING_PROMPT_MAX={KLING_PROMPT_MAX_CHARS} - tail más largo={LONGEST_TAIL_LEN}). "
+                f"Acortá el prompt."
+            )
+
+        # 2. subject_ref
+        subject_ref = item.get("subject_ref")
+        if not isinstance(subject_ref, str) or not subject_ref.strip():
+            raise VisualValidationError(f"{label}: subject_ref vacío o no string")
+        subject_ref = subject_ref.strip()
+
+        # 3. emotional_rank
+        rank = item.get("emotional_rank")
+        if not isinstance(rank, str):
+            raise VisualValidationError(
+                f"{label}: emotional_rank no es string ({type(rank).__name__})"
+            )
+        rank_norm = rank.strip().upper()
+        if rank_norm not in VALID_RANKS:
+            raise VisualValidationError(
+                f"{label}: emotional_rank='{rank}' inválido. Válidos: {sorted(VALID_RANKS)}"
+            )
+
+        # 3b. shot_scale
+        shot_scale = item.get("shot_scale")
+        if not isinstance(shot_scale, str):
+            raise VisualValidationError(
+                f"{label}: shot_scale no es string ({type(shot_scale).__name__})"
+            )
+        shot_scale_norm = shot_scale.strip().lower()
+        if shot_scale_norm not in VALID_SHOT_SCALES:
+            raise VisualValidationError(
+                f"{label}: shot_scale='{shot_scale}' inválido. Válidos: {sorted(VALID_SHOT_SCALES)}"
+            )
+
+        # 3c. light_mode
+        light_mode = item.get("light_mode")
+        if not isinstance(light_mode, str):
+            raise VisualValidationError(
+                f"{label}: light_mode no es string ({type(light_mode).__name__})"
+            )
+        light_mode_norm = light_mode.strip().lower()
+        if light_mode_norm not in VALID_LIGHT_MODES:
+            raise VisualValidationError(
+                f"{label}: light_mode='{light_mode}' inválido. Válidos: {sorted(VALID_LIGHT_MODES)}"
+            )
+
+        # 4. narration_anchor — substring exacto (reusa el validador de flux)
+        anchor = item.get("narration_anchor")
+        pos, anchor_end = _validate_anchor_substring(anchor, narration, label)
+        anchor = anchor.strip() if isinstance(anchor, str) else anchor
+
+        # 5. orden estricto
+        if pos <= last_pos:
+            raise VisualValidationError(
+                f"{label}: anchor fuera de orden. Posición actual ({pos}) <= previa ({last_pos}). "
+                f"Los anchors deben aparecer en orden ESTRICTAMENTE creciente."
+            )
+
+        # 6. sin solapamiento
+        if pos < last_end:
+            raise VisualValidationError(
+                f"{label}: anchor solapa con el anterior. Inicio actual ({pos}) "
+                f"< final del anterior ({last_end}). Sin solapamiento."
+            )
+
+        last_pos = pos
+        last_end = anchor_end
+
+        normalized.append({
+            "prompt": prompt_text,
+            "subject_ref": subject_ref,
+            "emotional_rank": rank_norm,
+            "narration_anchor": anchor,
+            "shot_scale": shot_scale_norm,
+            "light_mode": light_mode_norm,
+        })
+
+    return {
+        "chapter_number": cap_number,
+        "image_prompts": normalized,
+    }
+
+
 # ═══════════════════════════════════════════════════════════════
 #  LLAMADA FLASH CON RETRY POR FEEDBACK
 # ═══════════════════════════════════════════════════════════════
@@ -2006,6 +2255,22 @@ def _flux_step2_schema(n: int) -> dict:
                                  "subject_ref": {"type": "STRING"},
                                  "emotional_rank": {"type": "STRING"}},
                   "required": ["prompt", "subject_ref", "emotional_rank"]},
+    }
+
+
+def _kling_step2_schema(n: int) -> dict:
+    # = flux schema + shot_scale + light_mode (bake §Kling, chat 80).
+    return {
+        "type": "ARRAY", "minItems": n, "maxItems": n,
+        "items": {"type": "OBJECT",
+                  "properties": {"prompt": {"type": "STRING"},
+                                 "subject_ref": {"type": "STRING"},
+                                 "emotional_rank": {"type": "STRING"},
+                                 "shot_scale": {"type": "STRING",
+                                     "enum": ["extreme_wide", "wide", "medium", "close", "detail"]},
+                                 "light_mode": {"type": "STRING",
+                                     "enum": ["night", "day", "golden"]}},
+                  "required": ["prompt", "subject_ref", "emotional_rank", "shot_scale", "light_mode"]},
     }
 
 
