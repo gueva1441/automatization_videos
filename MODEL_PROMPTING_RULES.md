@@ -171,6 +171,77 @@ KILLING chat 54). Topics conocidos que disparan filter en Flux: Lake Nyos
 
 ---
 
+## §1bis KLING o3 (image generation — motor base del canal)
+
+**Modelo activo:** `fal-ai/kling-image/o3/text-to-image` (SYNC, `fal.run`). Ganó el gate B73-1
+(probe cap4 Charleston, lab v6) como motor de imagen base: pasa en ejecución/horca donde Flux
+devolvía 422, con framing implícito + filtro CAC interno. **Flux 2 Pro (§1) queda como fallback**
+(`api.image_engine="flux"`); el dispatch vive en `m03_visual._render_prompts_flux` y en el append
+de `assign_visual_prompts` (bake chat 80, path flux caps 2-6).
+
+**Diferencias estructurales vs Flux:**
+- Prompt **generativo** (el LLM escribe la escena de cero, NO "rewrite"), PROSA densa, **80-300
+  palabras** (no el 30-80 de Flux). El aspecto NUNCA va en el texto ("wide horizontal composition",
+  nunca "16:9").
+- El LLM emite además `shot_scale` ∈ {extreme_wide, wide, medium, close, detail} y `light_mode` ∈
+  {night, day, golden}.
+- **Camino B (grano determinístico):** el LLM termina la escena SIN tail de estilo/grano; el harness
+  **apendiza** un tail dialed por `(light_mode, shot_scale)` (`anti_plastic_dial` → `pick_tail`). En el
+  path Kling ese tail **reemplaza** al `ancla_global` del nicho (apendizar ambos = doble textura).
+
+**Las 12 reglas (`SYSTEM_INSTRUCTION_VISUAL_KLING`, misma numeración que el código):**
+1. **Etnia por defecto** = la local del GEO, integrada al sujeto al inicio, period-correct; otra solo si
+   la narración nombra al sujeto como extranjero. Cara al frente en R1.
+2. **Solo descripciones positivas** (Kling no tiene negative prompt): describir lo que se quiere ver;
+   superficies sin texto = lisas/gastadas.
+3. **Sin nombres propios, sin texto legible:** describir por apariencia física (etnia+edad+ropa+era),
+   nunca por rol pelado ni nombre (ni el del protagonista). Fechas → descriptores de era. Kling
+   alucina texto: superficies planas/desgastadas.
+4. **Era dura, anti-medieval:** marcador temporal explícito en CADA prompt (ropa/materiales/herrería/
+   arquitectura de la década); no derivar a castillo/mazmorra genérico; afirmar el período, no nombrar
+   los estilos prohibidos.
+5. **Techo de monetización + aparato de matar:** mostrar literal lo que dice el anchor (cadalso / fila
+   de sogas VACÍAS a la escala que implica; muro de sangre seca) PERO nunca cuerpos sin vida, ahorcados
+   visibles, sangre fresca, mutilación, ni el momento del daño. Terror = escala+luz+sogas vacías+caras
+   vivas cargadas. Si el sujeto sería el mecanismo y no hay beat de ejecución → espacio cargado vacío.
+6. **Traducción física de metáforas:** lo indibujable ("sensación de pavor") → la materia física
+   subyacente (un resplandor rojizo, ojos hundidos), nunca la palabra abstracta.
+7. **Shot scale — el WIDE domina (16:9):** abrir cada prompt enunciando la escala. DEFAULT wide/extreme
+   wide para lugar/arquitectura/evento masivo/aftermath/paisaje; medium/close SOLO para una emoción
+   humana o un detalle de textura. PROHIBIDO que un cap entero sea medium/close.
+8. **Retención por rank:** R1 = pico/héroe (acción específica, ojos/emoción). R2 = momento de ACCIÓN
+   (dinámico). R3 = atmósfera/arquitectura con UN punto focal cargado (nunca placa vacía). Textura densa.
+9. **Un dueño por motivo-firma (cero repetición):** se escribe el cap junto → coordinar ángulo/escala/
+   sujeto; cualquier imagen-firma (aparato de ejecución, muro de sangre) la lleva EXACTAMENTE UN beat
+   (el que narra el acto). Si un anchor solo REFERENCIA la ejecución por su consecuencia → CERO
+   cadalso/soga en ninguna parte; elegir otro sujeto concreto.
+10. **Vestir/ubicar por la narración, no por cliché:** mostrar al sujeto en el estado que narra ESTE
+    beat (libre y digno en su oficio de día; acusado en interior tenso; preso con ropa tosca de época).
+    ANTI-ANACRONISMO duro: uniformes a rayas PROHIBIDOS; solo ropa lisa de la década.
+11. **El momento exacto del anchor, no el aftermath:** dibujar el instante que narra; calma-antes =
+    la calma viva justo antes (golden-hour, con UN indicio mínimo de fondo); desastre-en-curso = el
+    evento con profundidad; nunca el aftermath frío. `light_mode` casa con el momento.
+12. **Luz/hora por coherencia de evento:** beats del MISMO evento comparten una luz. `light_mode`:
+    night = penumbra murky; day = luz natural de época (vida libre, digna); golden = golden-hour viva
+    de un beat calma-antes.
+
+> **Etiquetas (decisión chat 79 D1):** m03 escribe el cap entero junto → NO hay clasificador/pasito
+> previo de flags. `compute_flags` del lab NO se porta. 3 etiquetas se vuelven reglas escritas
+> (no-repetir-motivo / vestir-según-narración / momento-exacto); la 4ª (ejecución) se le confía a la
+> IA, con la revisión humana antes de publicar como red de seguridad.
+
+> **Matiz chat-19 (anti-pánico para futuros chats):** chat 19 dijo "Python ya no concatena nada
+> post-LLM", pero el `ancla_global` SIEMPRE se concatenó en el append del flux branch de
+> `assign_visual_prompts`. El Camino B **extiende ESE mecanismo existente** (el tail dialed reemplaza al
+> ancla en el path Kling); NO reabre el catálogo `art_profiles`, NO re-enciende `_stitch_zone2`
+> (sigue no-op).
+
+**Bake flux-only (chat 80):** este bake aplica al path flux (caps 2-6). Los caps veo (1,7) también
+generan imágenes Kling (first-frame i2v + supplementals) y la doctrina les aplica, pero con un bloque
+de forma distinta + grano pesado sobre un frame que Veo anima → **bake dedicado pendiente** (no en este push).
+
+---
+
 ## §2 Veo 3.1 (video generation)
 
 **Modelo activo:** `fal-ai/veo-3.1-lite` (con `flux-2-pro` como image input para hooks/outros)
@@ -416,6 +487,8 @@ el mecanismo (sub-cláusula APPARATUS OF KILLING en regla 5, chat 54).
 | 2026-06-10 | 54 | regla 5 — sub-cláusula APPARATUS OF KILLING (calma tensa): cuando el sujeto sería el mecanismo de matar, el default se invierte al espacio cargado vacío (luz + escala + UN objeto cargado), nunca el aparato. §1.8 + AP9 extendidos al aparato (no solo cuerpos). | cap5 Charleston 422 con la horca; AP9 cubría cuerpos pero no el dispositivo de ejecución. Trigger estrecho al objeto (las demás escenas no se vacían), default invertido, validado en lab de regresión: control Nyos sin flip, ejecución redirige sola (horca→soga/banco volcado), caps normales intactos. |
 | 2026-06-11 | 55 | Clasificador visual CIEGO de 5 categorías (`zoom_judge.py`): Gemini Flash vision, temp 0, `response_schema` enum `sujeto_con_fondo\|cara_closeup\|superficie_plana\|corredor_tunel\|otro` + confianza + razón. Test ciego (sin filename/expectativa/mención de zoom). Es el sensor semántico del gate de zoom v3 (geometría depth_probe pre-filtra, el juez decide). Solo `sujeto_con_fondo` promueve a zoom_in. | El depth map geométrico no distingue sujeto-digno-de-zoom de cara close-up o muro con relieve fantasma (labs 1.5). El juez de visión sí: validado lab 1.6 sobre 12 imágenes reales de Charleston, **12/12 estable** entre 2 corridas a temp 0, atrapó la cara (ch04_img_06) y la fachada plana (ch05_img_05) que la geometría dejaba pasar. Veredictos cacheados en `zoom_verdicts.json` (determinismo entre re-animaciones por construcción). |
 | 2026-06-17 | 66 | **R4 aplicada a los 6 módulos del motor que llamaban Gemini SIN `response_schema`** (m01a, m01b ×2, m02_5, m05, m06, m07) — cada uno define su schema (dict, patrón m03 `_xxx_schema()`) derivado de su validador existente y lo pasa a `call_flash_json`. + **resiliencia centralizada en `gemini_helpers`**: `_parse_with_retry` re-llama (generación fresca) hasta 3× si el parseo falla, dumpea+propaga solo en el fallo final (mismo mensaje de error). | Crash en vivo (chat 66): m01a recibió de Gemini comillas dobles SIN escapar en un bullet (`"Estancia "aterradora""`) → `json.loads` reventó y tumbó la corrida. Dos raíces: (1) sin schema, el mime-type JSON no garantiza el escape (R4 incumplido en 6 módulos); (2) ningún punto reintentaba un fallo de parseo. Schema mata la clase "comillas sin escapar" en la fuente; el retry centralizado es el piso de seguridad para los 6 de una. Labs read-only por módulo (assert estructural schema↔validador) + lab de resiliencia del helper; suite 49/49 verde, 0 regresiones (m03/m09 que ya usaban schema, estrictamente más robustos). |
+| 2026-06-(67→78) | 67-78 | **Línea de probes Kling o3** (labs gitignored, `_lab_kling_cap4_probe.py`): Kling elegido como motor de imagen base (gate B73-1 PASS, probe cap4 Charleston) sobre Flux; tails anti-plástico dialed por `shot_scale`+`light_mode` (v6 FIX1-4: cara expuesta de noche, día digno, golden calma-antes), grano como Camino B (apendizado por el harness, no por el LLM). **EJE 1 (chats 77-78):** canal a 16:9 1440p (2560×1440) + dispatch Flux↔Kling en `asset_manager` (`api.image_engine`, default `kling`, SYNC `fal.run`). | Flux devolvía 422 en ejecución/horca; Kling pasa con framing implícito + filtro CAC interno. Resumen de la línea de probes que precede al bake. |
+| 2026-06-19 | 80 | **Bake §Kling flux-only en m03** (path flux, caps 2-6): doctrina generativa Kling (`SYSTEM_INSTRUCTION_VISUAL_KLING`, dispatch por `api.image_engine`), schema +`shot_scale`/`light_mode`, `_validate_kling_cap` (carga ambos campos, budget 2500−tail), tail de grano dialed apendizado en el append branch de `assign_visual_prompts` (**reemplaza** `ancla_global` en el path Kling, Camino B). `compute_flags` NO portado (D1: m03 escribe el cap junto; la ejecución se le confía a la IA + revisión humana). **Flux fallback byte-idéntico** (`SYSTEM_INSTRUCTION_VISUAL`/`_validate_flux_cap`/append flux intactos; test byte-idéntico vs db2bae3 verde). | Flux 422 en ejecución; Kling pasa con framing implícito. Caps veo (1,7) = bake dedicado pendiente. |
 
 ---
 
