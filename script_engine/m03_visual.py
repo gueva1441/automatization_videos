@@ -1853,6 +1853,135 @@ def _validate_veo_cap(
     }
 
 
+def _validate_veo_kling_cap(
+    parsed: dict,
+    narration: str,
+    cap_number: int,
+    veo_position: str = "start",
+) -> dict:
+    """Hermano de _validate_veo_cap para el path veo bajo Kling (bake §Kling veo, chat 81).
+
+    MISMO shape que _validate_veo_cap (contrato sagrado fase2a intacto) + en cada supplemental
+    shot_scale/light_mode como metadata extra (no consumida por fase2a). Difs vs flux:
+    - image_prompt (first-frame i2v): budget = KLING_PROMPT_MAX_CHARS (NO lleva tail → no resta).
+    - supplementals (stills DepthFlow = caso flux): budget = KLING_PROMPT_MAX_CHARS - LONGEST_TAIL_LEN
+      (SÍ llevan tail) + valida y carga shot_scale/light_mode.
+    - video_prompt: longitud Veo de hoy (_validate_prompt_length) — NO Kling.
+    _validate_veo_cap queda byte-idéntico (es el fallback Flux).
+    """
+    if not isinstance(parsed, dict):
+        raise VisualValidationError(
+            f"cap {cap_number} (veo-kling): output no es dict ({type(parsed).__name__})"
+        )
+
+    image_prompt = parsed.get("image_prompt")
+    if not isinstance(image_prompt, str) or not image_prompt.strip():
+        raise VisualValidationError(f"cap {cap_number} (veo-kling): image_prompt vacío o no string")
+    image_prompt = image_prompt.strip()
+    # first-frame i2v: SIN tail → budget = KLING_PROMPT_MAX_CHARS completo.
+    if len(image_prompt) > KLING_PROMPT_MAX_CHARS:
+        raise VisualValidationError(
+            f"cap {cap_number} (veo-kling) image_prompt: {len(image_prompt)} chars excede "
+            f"KLING_PROMPT_MAX_CHARS={KLING_PROMPT_MAX_CHARS}. Acortá el prompt."
+        )
+    if len(image_prompt) < PROMPT_MIN_CHARS:
+        raise VisualValidationError(
+            f"cap {cap_number} (veo-kling) image_prompt: {len(image_prompt)} chars "
+            f"(mínimo {PROMPT_MIN_CHARS}). Agregá más detalle visual."
+        )
+
+    video_prompt = parsed.get("video_prompt")
+    if not isinstance(video_prompt, str) or not video_prompt.strip():
+        raise VisualValidationError(f"cap {cap_number} (veo-kling): video_prompt vacío o no string")
+    video_prompt = video_prompt.strip()
+    _validate_prompt_length(video_prompt, f"cap {cap_number} (veo-kling) video_prompt")  # longitud Veo de hoy
+
+    subject_ref = parsed.get("subject_ref")
+    if not isinstance(subject_ref, str) or not subject_ref.strip():
+        raise VisualValidationError(f"cap {cap_number} (veo-kling): subject_ref vacío o no string")
+    subject_ref = subject_ref.strip()
+
+    anchor = parsed.get("narration_anchor")
+    veo_anchor_pos, veo_anchor_end = _validate_anchor_substring(anchor, narration, f"cap {cap_number} (veo-kling)")
+    anchor = anchor.strip()
+
+    supplementals = parsed.get("supplemental_image_prompts")
+    if not isinstance(supplementals, list):
+        raise VisualValidationError(
+            f"cap {cap_number} (veo-kling): supplemental_image_prompts no es lista"
+        )
+    if len(supplementals) < MIN_FLUX_EXTRAS or len(supplementals) > MAX_FLUX_EXTRAS:
+        raise VisualValidationError(
+            f"cap {cap_number} (veo-kling): {len(supplementals)} supplementals "
+            f"(esperado {MIN_FLUX_EXTRAS}-{MAX_FLUX_EXTRAS})"
+        )
+
+    SUPP_RAW_BUDGET = KLING_PROMPT_MAX_CHARS - LONGEST_TAIL_LEN  # supp lleva tail
+    validated_supplementals: list[dict] = []
+    last_pos = -1
+    last_end = -1
+    for idx, item in enumerate(supplementals, start=1):
+        sup_label = f"cap {cap_number} (veo-kling) supp {idx}"
+        if not isinstance(item, dict):
+            raise VisualValidationError(f"{sup_label}: no es dict")
+
+        sp_prompt = item.get("prompt")
+        if not isinstance(sp_prompt, str) or not sp_prompt.strip():
+            raise VisualValidationError(f"{sup_label}: prompt vacío o no string")
+        sp_prompt = sp_prompt.strip()
+        if len(sp_prompt) > SUPP_RAW_BUDGET:
+            raise VisualValidationError(
+                f"{sup_label}: prompt {len(sp_prompt)} chars excede budget Kling {SUPP_RAW_BUDGET} "
+                f"(KLING_PROMPT_MAX={KLING_PROMPT_MAX_CHARS} - tail más largo={LONGEST_TAIL_LEN}). Acortá."
+            )
+        if len(sp_prompt) < PROMPT_MIN_CHARS:
+            raise VisualValidationError(
+                f"{sup_label}: {len(sp_prompt)} chars (mínimo {PROMPT_MIN_CHARS}). Agregá más detalle."
+            )
+
+        sp_shot = item.get("shot_scale")
+        if not isinstance(sp_shot, str) or sp_shot.strip().lower() not in VALID_SHOT_SCALES:
+            raise VisualValidationError(f"{sup_label}: shot_scale='{sp_shot}' inválido. Válidos: {sorted(VALID_SHOT_SCALES)}")
+        sp_shot_norm = sp_shot.strip().lower()
+
+        sp_light = item.get("light_mode")
+        if not isinstance(sp_light, str) or sp_light.strip().lower() not in VALID_LIGHT_MODES:
+            raise VisualValidationError(f"{sup_label}: light_mode='{sp_light}' inválido. Válidos: {sorted(VALID_LIGHT_MODES)}")
+        sp_light_norm = sp_light.strip().lower()
+
+        sp_anchor = item.get("narration_anchor")
+        sp_pos, sp_end = _validate_anchor_substring(sp_anchor, narration, sup_label)
+        sp_anchor = sp_anchor.strip()
+
+        _check_supp_ordering(
+            sp_pos, sp_end, last_pos, last_end, sup_label,
+            veo_position=veo_position,
+            veo_anchor_pos=veo_anchor_pos, veo_anchor_end=veo_anchor_end,
+        )
+
+        last_pos = sp_pos
+        last_end = sp_end
+
+        validated_supplementals.append({
+            "prompt": sp_prompt,
+            "narration_anchor": sp_anchor,
+            "art_profile": "",
+            "shot_scale": sp_shot_norm,
+            "light_mode": sp_light_norm,
+        })
+
+    return {
+        "chapter_number": cap_number,
+        "image_prompt": image_prompt,
+        "video_prompt": video_prompt,
+        "subject_ref": subject_ref,
+        "art_profile": "",
+        "narration_anchor": anchor,
+        "veo_position": veo_position,
+        "supplemental_image_prompts": validated_supplementals,
+    }
+
+
 def _validate_flux_cap(
     parsed: dict,
     narration: str,
@@ -2247,6 +2376,31 @@ def _veo_step2_schema(n: int) -> dict:
     }
 
 
+def _veo_kling_step2_schema(n: int) -> dict:
+    # Bake §Kling veo (chat 81): image_prompt SIN shot_scale/light_mode (no recibe tail i2v);
+    # supplementals (stills DepthFlow = caso flux) SÍ los llevan (los necesita el dial del tail).
+    # video_prompt = motion Veo (§2), sin doctrina Kling. _veo_step2_schema (flux) queda byte-idéntico.
+    return {
+        "type": "OBJECT",
+        "properties": {
+            "image_prompt": {"type": "STRING"},
+            "video_prompt": {"type": "STRING"},
+            "subject_ref": {"type": "STRING"},
+            "supplemental_image_prompts": {
+                "type": "ARRAY", "minItems": n, "maxItems": n,
+                "items": {"type": "OBJECT",
+                          "properties": {"prompt": {"type": "STRING"},
+                                         "shot_scale": {"type": "STRING",
+                                             "enum": ["extreme_wide", "wide", "medium", "close", "detail"]},
+                                         "light_mode": {"type": "STRING",
+                                             "enum": ["night", "day", "golden"]}},
+                          "required": ["prompt", "shot_scale", "light_mode"]},
+            },
+        },
+        "required": ["image_prompt", "video_prompt", "subject_ref", "supplemental_image_prompts"],
+    }
+
+
 def _flux_step2_schema(n: int) -> dict:
     return {
         "type": "ARRAY", "minItems": n, "maxItems": n,
@@ -2274,10 +2428,16 @@ def _kling_step2_schema(n: int) -> dict:
     }
 
 
-def _build_veo_prompt_step2(topic, cap_data, narration_text, veo_anchor, supp_anchors, veo_position):
-    """Paso 2 veo: anchors DADOS (del Paso 1) → el LLM escribe SOLO los prompts. Reusa los MISMOS
-    bloques de reglas/few-shots que _build_veo_prompt (topic/canon/rules + _VEO_* constantes);
-    lo único distinto es que el anchor ENTRA como dato y NO se pide elegirlo (ni devolverlo)."""
+def _build_veo_prompt_step2(topic, cap_data, narration_text, veo_anchor, supp_anchors, veo_position, is_kling=False):
+    """Paso 2 veo: anchors DADOS (del Paso 1) → el LLM escribe SOLO los prompts. El anchor ENTRA como
+    dato y NO se pide elegirlo (ni devolverlo).
+
+    is_kling (bake §Kling veo, chat 81): el user-prompt DROPEA _build_rules_block + _VEO_EXAMPLES +
+    _VEO_IMG_VIDEO_SUBJECT_SPEC (la doctrina-imagen vive en SYSTEM_INSTRUCTION_VISUAL_KLING; el split
+    espeja el bake flux) y CONSERVA topic/canon/narración/bullets + _VEO_VIDEO_PROMPT_STRUCT (motion) +
+    anchors. image_prompt + supplementals = prosa densa Kling 80-300 words SIN tail (el harness lo
+    apendiza a los supp; el image_prompt first-frame i2v NO lleva tail). Con is_kling=False el string
+    es byte-idéntico al de hoy (candado test §5.1)."""
     cap_n = cap_data["chapter_number"]
     role = cap_data.get("role") or "?"
     cap_title = cap_data.get("title") or "(sin título)"
@@ -2287,6 +2447,82 @@ def _build_veo_prompt_step2(topic, cap_data, narration_text, veo_anchor, supp_an
     rules_block = _build_rules_block()
     n = len(supp_anchors)
     supp_list = "\n".join(f"  [{i + 1}] «{a}»" for i, a in enumerate(supp_anchors))
+
+    if is_kling:
+        return f"""Sos un director de fotografía documental. Generás prompts visuales en INGLÉS para Veo
+(motion video) que ilustran narraciones documentales en español. Tu output es JSON puro, sin markdown.
+
+═══════════════════════════════════════════════════
+TEMA
+═══════════════════════════════════════════════════
+{topic_block}
+
+═══════════════════════════════════════════════════
+DATOS VISUALES CANÓNICOS (verdad sellada — NO re-inferir)
+═══════════════════════════════════════════════════
+{visual_canon_block}
+
+═══════════════════════════════════════════════════
+ESPECÍFICO PARA VEO (este cap) — motor Kling o3
+═══════════════════════════════════════════════════
+
+Este cap es {role}, render_engine=veo. Generás:
+- 1 image_prompt: el FIRST-FRAME que Veo anima (i2v). Prosa densa 80-300 words siguiendo la PROMPT
+  STRUCTURE Kling del system instruction (state the shot scale first; anchor subject/location/era
+  early; integrate materials/clothing → environment → light; end at the scene + composition). NO
+  escribas tail de estilo/grano/film/lighting — el first-frame NO lo lleva.
+- 1 video_prompt: el MOVIMIENTO (motion Veo), según la ESTRUCTURA de abajo. NO doctrina de imagen.
+- {n} supplemental_image_prompts: stills DepthFlow. Cada uno = prosa densa 80-300 words con la MISMA
+  PROMPT STRUCTURE Kling; NO escribas tail (el harness lo apendiza). Emití shot_scale y light_mode.
+- 1 subject_ref: identificador del sujeto ("main_subject" si hay protagonista; si no,
+  "establishing_shot" / "interior_scene" / "landscape_view").
+
+{_VEO_VIDEO_PROMPT_STRUCT}
+
+═══════════════════════════════════════════════════
+ANCHORS YA ELEGIDOS (Paso 1) — NO los elijas, ya están DADOS
+═══════════════════════════════════════════════════
+
+El clip Veo ilustra ESTE fragmento (dado, NO lo cambies ni lo devuelvas):
+  «{veo_anchor}»
+
+Las {n} imágenes supplementals ilustran ESTOS fragmentos (dados, EN ESTE ORDEN):
+{supp_list}
+
+Tu tarea: por CADA fragmento dado, escribí SOLO el `prompt` que lo ILUSTRA, siguiendo TODAS las
+reglas del system instruction. NO devuelvas el fragmento/anchor (el código lo inyecta). Devolvé
+EXACTAMENTE {n} supplementals, en el MISMO orden que los fragmentos.
+
+═══════════════════════════════════════════════════
+CAP {cap_n} — {role}
+═══════════════════════════════════════════════════
+title         : {cap_title}
+bullets       :
+{bullets_block}
+
+NARRACIÓN COMPLETA DEL CAP (contexto):
+{narration_text}
+
+═══════════════════════════════════════════════════
+FORMATO DE OUTPUT (JSON estricto, nada más)
+═══════════════════════════════════════════════════
+
+{{
+  "image_prompt": "string EN — dense PROSE 80-300 words, Kling structure (shot scale first; subject/era early; NO style/grain/lighting tail)",
+  "video_prompt": "string EN — motion del sujeto + camera arc + ambient (ver ESTRUCTURA video_prompt). PROHIBIDO cuts, fast cuts, zoom rapid",
+  "subject_ref": "main_subject",
+  "supplemental_image_prompts": [
+    {{
+      "prompt": "string EN — dense PROSE 80-300 words, Kling structure, NO style/grain tail",
+      "shot_scale": "extreme_wide" | "wide" | "medium" | "close" | "detail",
+      "light_mode": "night" | "day" | "golden"
+    }}
+    // ... EXACTAMENTE {n} items, en el ORDEN de los fragmentos dados. SIN narration_anchor.
+  ]
+}}
+
+NO agregues texto fuera del JSON. NO uses bloque markdown ```.
+"""
 
     return f"""Sos un director de fotografía documental. Generás prompts visuales en INGLÉS para Veo
 (motion video) que ilustran narraciones documentales en español. Tu output es JSON puro, sin markdown.
@@ -2439,12 +2675,15 @@ JSON only. No markdown. No preamble.
 
 def _render_prompts_veo(topic, cap_data, narration, plan, veo_position, cap_number):
     """Paso 2 veo: llama Flash (anchors dados), inyecta los anchors del Paso 1 VERBATIM, exige
-    count==n y REUSA _validate_veo_cap + _validate_no_text_leakage. Devuelve el MISMO shape que
-    _validate_veo_cap (contrato intacto)."""
+    count==n y valida + text-leakage. Dispatch por api.image_engine (bake §Kling veo, chat 81):
+    Kling usa SYSTEM_INSTRUCTION_VISUAL_KLING + _veo_kling_step2_schema + _validate_veo_kling_cap
+    (los supplementals arrastran shot_scale/light_mode); Flux queda byte-idéntico. Devuelve el MISMO
+    shape (contrato sagrado fase2a intacto)."""
     veo_anchor = plan["veo_anchor"]["anchor"]
     supp_anchors = [s["anchor"] for s in plan["supplementals"]]
     n = len(supp_anchors)
-    prompt = _build_veo_prompt_step2(topic, cap_data, narration, veo_anchor, supp_anchors, veo_position)
+    is_kling = (api.image_engine == "kling")
+    prompt = _build_veo_prompt_step2(topic, cap_data, narration, veo_anchor, supp_anchors, veo_position, is_kling=is_kling)
 
     def _validator(parsed):
         if not isinstance(parsed, dict):
@@ -2464,12 +2703,14 @@ def _render_prompts_veo(topic, cap_data, narration, plan, veo_position, cap_numb
             "narration_anchor": veo_anchor,
             "supplemental_image_prompts": [
                 {"prompt": (supps_llm[i].get("prompt") if isinstance(supps_llm[i], dict) else None),
+                 **({"shot_scale": supps_llm[i].get("shot_scale"), "light_mode": supps_llm[i].get("light_mode")}
+                    if is_kling and isinstance(supps_llm[i], dict) else {}),
                  "narration_anchor": supp_anchors[i]}
                 for i in range(n)
             ],
         }
-        out = _validate_veo_cap(assembled, narration, cap_number, veo_position)  # candado #4 (longitud+campos+anchors)
-        # regla 9 (handoff §5): text-leakage por prompt (validador existente, antes sin cablear)
+        out = (_validate_veo_kling_cap if is_kling else _validate_veo_cap)(assembled, narration, cap_number, veo_position)
+        # regla 9 (handoff §5): text-leakage por prompt (image_prompt + cada supplemental, ambos motores)
         _validate_no_text_leakage(out["image_prompt"], f"cap {cap_number} (veo) image_prompt")
         for i, s in enumerate(out["supplemental_image_prompts"], start=1):
             _validate_no_text_leakage(s["prompt"], f"cap {cap_number} (veo) supp {i}")
@@ -2477,8 +2718,8 @@ def _render_prompts_veo(topic, cap_data, narration, plan, veo_position, cap_numb
 
     return _call_with_validation_retry(
         prompt, _validator, cap_number,
-        system_instruction=SYSTEM_INSTRUCTION_VISUAL,
-        response_schema=_veo_step2_schema(n),
+        system_instruction=(SYSTEM_INSTRUCTION_VISUAL_KLING if is_kling else SYSTEM_INSTRUCTION_VISUAL),
+        response_schema=(_veo_kling_step2_schema(n) if is_kling else _veo_step2_schema(n)),
     )
 
 
@@ -2700,6 +2941,24 @@ def assign_visual_prompts(
             # No-op desde chat 19 (catálogo desconectado): el prompt ya
             # viene completo del LLM. Llamada preservada por compat.
             cap_out = _stitch_zone2_into_cap_veo(cap_out)
+            # Bake §Kling veo (chat 81): apendizar el tail dialed SOLO a los supplementals
+            # (stills DepthFlow = caso flux). El image_prompt (first-frame i2v) NO recibe tail
+            # (decisión b: Veo re-encodea → grano pesado = boil/crawl). Flux fallback: sin append.
+            if api.image_engine == "kling":
+                for supp in cap_out.get("supplemental_image_prompts", []):
+                    raw = supp["prompt"].strip()
+                    dial = anti_plastic_dial(supp["shot_scale"])
+                    tail = pick_tail(supp["light_mode"], dial)
+                    prompt_final = f"{raw.rstrip('.')}. {tail}"[:KLING_PROMPT_MAX_CHARS]
+                    if len(prompt_final) < PROMPT_MIN_CHARS:
+                        raise VisualValidationError(
+                            f"cap {cap_n}: supp Kling (veo) ensamblado < {PROMPT_MIN_CHARS} chars "
+                            f"({len(prompt_final)})."
+                        )
+                    supp["raw_llm_prompt"] = raw  # auditoría m05
+                    supp["prompt"] = prompt_final
+                    # shot_scale/light_mode quedan en el supp (metadata extra para m05; no rompen fase2a).
+                # image_prompt: SIN tail (decisión b). NO tocar.
             print(
                 f"  [03] cap {cap_n} (veo)  ✓ Veo prompt + "
                 f"{len(cap_out['supplemental_image_prompts'])} supplementals"

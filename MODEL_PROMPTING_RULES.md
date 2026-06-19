@@ -236,9 +236,22 @@ de `assign_visual_prompts` (bake chat 80, path flux caps 2-6).
 > ancla en el path Kling); NO reabre el catálogo `art_profiles`, NO re-enciende `_stitch_zone2`
 > (sigue no-op).
 
-**Bake flux-only (chat 80):** este bake aplica al path flux (caps 2-6). Los caps veo (1,7) también
-generan imágenes Kling (first-frame i2v + supplementals) y la doctrina les aplica, pero con un bloque
-de forma distinta + grano pesado sobre un frame que Veo anima → **bake dedicado pendiente** (no en este push).
+**§Veo-i2v (path veo bajo Kling, caps 1,7 — bake chat 81):** la doctrina Kling también aplica a los
+caps veo, con esta forma:
+- **`image_prompt`** (el first-frame que Veo anima i2v) → prosa densa Kling **SIN tail de grano**: Veo
+  re-encodea/regenera temporalmente el frame y el grano analógico pesado dispara boil/crawl. Si un MP4
+  real saliera plástico en gancho/outro, se evalúa ahí un tail liviano solo-paleta, con evidencia (B71-3).
+- **`supplemental_image_prompts[]`** (stills puros DepthFlow = **caso flux**) → **tail dialed completo**
+  (emiten `shot_scale`+`light_mode`, el harness apendiza el tail).
+- **`video_prompt`** = §2 Veo, **intacto** (motion, no imagen Kling; no recibe `shot_scale`/`light_mode`).
+
+La doctrina de imagen viene del **system** (`SYSTEM_INSTRUCTION_VISUAL_KLING`); el **user-prompt** veo
+dropea `_build_rules_block` + `_VEO_EXAMPLES` + `_VEO_IMG_VIDEO_SUBJECT_SPEC` (conflicto de longitud:
+Kling words vs Flux chars + AP3) y conserva `topic_block` + `visual_canon_block` +
+`_VEO_VIDEO_PROMPT_STRUCT` (motion) + anchors. El swap del system es lo que mata la **fuga vertical** del
+`SYSTEM_INSTRUCTION_VISUAL`. Dispatch global por `api.image_engine` (all-or-nothing: nunca mezcla motores
+en un video); Flux fallback byte-idéntico. `_validate_veo_kling_cap` es hermano de `_validate_veo_cap`
+(este queda intacto).
 
 ---
 
@@ -489,6 +502,7 @@ el mecanismo (sub-cláusula APPARATUS OF KILLING en regla 5, chat 54).
 | 2026-06-17 | 66 | **R4 aplicada a los 6 módulos del motor que llamaban Gemini SIN `response_schema`** (m01a, m01b ×2, m02_5, m05, m06, m07) — cada uno define su schema (dict, patrón m03 `_xxx_schema()`) derivado de su validador existente y lo pasa a `call_flash_json`. + **resiliencia centralizada en `gemini_helpers`**: `_parse_with_retry` re-llama (generación fresca) hasta 3× si el parseo falla, dumpea+propaga solo en el fallo final (mismo mensaje de error). | Crash en vivo (chat 66): m01a recibió de Gemini comillas dobles SIN escapar en un bullet (`"Estancia "aterradora""`) → `json.loads` reventó y tumbó la corrida. Dos raíces: (1) sin schema, el mime-type JSON no garantiza el escape (R4 incumplido en 6 módulos); (2) ningún punto reintentaba un fallo de parseo. Schema mata la clase "comillas sin escapar" en la fuente; el retry centralizado es el piso de seguridad para los 6 de una. Labs read-only por módulo (assert estructural schema↔validador) + lab de resiliencia del helper; suite 49/49 verde, 0 regresiones (m03/m09 que ya usaban schema, estrictamente más robustos). |
 | 2026-06-(67→78) | 67-78 | **Línea de probes Kling o3** (labs gitignored, `_lab_kling_cap4_probe.py`): Kling elegido como motor de imagen base (gate B73-1 PASS, probe cap4 Charleston) sobre Flux; tails anti-plástico dialed por `shot_scale`+`light_mode` (v6 FIX1-4: cara expuesta de noche, día digno, golden calma-antes), grano como Camino B (apendizado por el harness, no por el LLM). **EJE 1 (chats 77-78):** canal a 16:9 1440p (2560×1440) + dispatch Flux↔Kling en `asset_manager` (`api.image_engine`, default `kling`, SYNC `fal.run`). | Flux devolvía 422 en ejecución/horca; Kling pasa con framing implícito + filtro CAC interno. Resumen de la línea de probes que precede al bake. |
 | 2026-06-19 | 80 | **Bake §Kling flux-only en m03** (path flux, caps 2-6): doctrina generativa Kling (`SYSTEM_INSTRUCTION_VISUAL_KLING`, dispatch por `api.image_engine`), schema +`shot_scale`/`light_mode`, `_validate_kling_cap` (carga ambos campos, budget 2500−tail), tail de grano dialed apendizado en el append branch de `assign_visual_prompts` (**reemplaza** `ancla_global` en el path Kling, Camino B). `compute_flags` NO portado (D1: m03 escribe el cap junto; la ejecución se le confía a la IA + revisión humana). **Flux fallback byte-idéntico** (`SYSTEM_INSTRUCTION_VISUAL`/`_validate_flux_cap`/append flux intactos; test byte-idéntico vs db2bae3 verde). | Flux 422 en ejecución; Kling pasa con framing implícito. Caps veo (1,7) = bake dedicado pendiente. |
+| 2026-06-19 | 81 | **Bake §Kling path VEO en m03** (caps 1,7 — B80-1): espeja el bake flux sobre el bloque veo. `_veo_kling_step2_schema` (`shot_scale`/`light_mode` SOLO en supplementals, NO en `image_prompt`), `_build_veo_prompt_step2(is_kling)` (dropea `_build_rules_block`+`_VEO_EXAMPLES`+`_VEO_IMG_VIDEO_SUBJECT_SPEC`, conserva canon+`_VEO_VIDEO_PROMPT_STRUCT`+anchors), `_validate_veo_kling_cap` (hermano; `image_prompt` budget=2500 SIN tail, supp budget=2500−tail + carga campos, `video_prompt` longitud Veo), dispatch en `_render_prompts_veo`, append solo-supplementals. **(b) conservador:** `image_prompt` first-frame i2v SIN tail (Veo re-encodea→boil/crawl), supps con tail dialed. Ver §Veo-i2v. **Flux fallback byte-idéntico** (`_validate_veo_cap`/`_veo_step2_schema`/funciones flux intactas; test byte-idéntico vs 085d05c verde). | Cierra B70-1: el path veo queda bajo doctrina Kling; el swap del system mata la fuga vertical. Grano sobre el first-frame se valida en B71-3 (full-run), sin probe dedicado. |
 
 ---
 
