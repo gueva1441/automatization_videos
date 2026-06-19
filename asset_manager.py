@@ -224,14 +224,79 @@ def _seed_for_subject(video_id: str, subject_ref: str | None) -> int | None:
     return int.from_bytes(digest[:4], "big") % _FLUX_SEED_MAX
 
 
+def _kling_payload_for(prompt: str) -> dict[str, Any]:
+    """Payload Kling o3 t2i (SYNC). SIN enable_safety_checker (usa filtro CAC interno).
+
+    Kling usa resolution+aspect_ratio (NO image_size). "2K"@16:9 → 2720x1536, que
+    entra al canvas 2560x1440 por downsample (sin upscale).
+    """
+    return {
+        "prompt": prompt[:2500],
+        "resolution": api.fal_kling_resolution,   # "2K"
+        "aspect_ratio": api.fal_kling_aspect,      # "16:9"
+        "output_format": "png",
+        "result_type": "single",
+        "num_images": 1,
+    }
+
+
 @error_handler.retry(PipelineStage.IMAGE, max_server_retries=2)
-def _flux_generate_raw(
+def _generate_image_raw(
     prompt: str,
     output_path: Path,
     use_ultra: bool,
     seed: int | None = None,
 ) -> dict[str, Any]:
-    """Llamada cruda a fal.ai Flux Pro (sin validación de visión)."""
+    """Llamada cruda al motor de imagen activo (api.image_engine), sin validación de visión.
+
+    - "kling": Kling o3 t2i, SYNC (fal.run, status 200 → images[0].url, SIN poll).
+      use_ultra queda inerte (Kling tiene un solo endpoint).
+    - "flux":  Flux.2 Pro vía queue.fal.run (path histórico, byte-idéntico salvo
+      image_size que ahora sale de pipeline).
+    El manejo de 422 (ContentRejectedError) es idéntico en ambos motores.
+    """
+    if api.image_engine == "kling":
+        submit_url = f"{api.fal_sync_base_url}/{api.fal_kling_model}"   # SYNC
+        payload = _kling_payload_for(prompt)
+
+        try:
+            resp = requests.post(submit_url, headers=_fal_headers(),
+                                 json=payload, timeout=240)
+            resp.raise_for_status()
+        except requests.HTTPError as e:
+            body = e.response.text if e.response is not None else str(e)
+            if _is_content_rejection(body):
+                raise ContentRejectedError(
+                    f"Kling rechazó prompt: {body[:300]}"
+                )
+            raise
+
+        data = resp.json()                       # SYNC: respuesta directa, SIN _flux_poll
+        if "images" not in data or not data["images"]:
+            raise RuntimeError(f"Kling sin imágenes: {json.dumps(data)[:300]}")
+
+        img = data["images"][0]
+        image_url = img["url"]
+
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        img_resp = requests.get(image_url, timeout=60)
+        img_resp.raise_for_status()
+        output_path.write_bytes(img_resp.content)
+
+        cost_tracker.track_kling(
+            description=f"{output_path.stem}: {prompt[:60]}...", images=1
+        )
+
+        nsfw_list = data.get("has_nsfw_concepts") or [False]
+        return {
+            "endpoint": api.fal_kling_model,
+            "width": img.get("width"),
+            "height": img.get("height"),
+            "seed": data.get("seed"),
+            "nsfw_flag": nsfw_list[0] if nsfw_list else False,
+        }
+
+    # ── "flux" — path histórico, byte-idéntico (image_size sale de pipeline) ──
     endpoint = api.fal_image_model_ultra if use_ultra else api.fal_image_model
     payload = _flux_payload_for(endpoint, prompt, seed=seed)
     submit_url = f"{api.fal_base_url}/{endpoint}"
@@ -283,6 +348,10 @@ def _flux_generate_raw(
     }
 
 
+# Alias backward-compat: scripts externos (p.ej. _gen_cap5_missing.py) importan el nombre viejo.
+_flux_generate_raw = _generate_image_raw
+
+
 # ═══════════════════════════════════════════
 #  Flux + Vision Guardrail (2 intentos)
 # ═══════════════════════════════════════════
@@ -312,7 +381,7 @@ def _generate_flux_image_at(
             PipelineStage.IMAGE,
             f"Flux-{model_tag} [validator OFF]{seed_tag} → {output_path.name}",
         )
-        last_meta = _flux_generate_raw(final_prompt, output_path, use_ultra, seed=seed)
+        last_meta = _generate_image_raw(final_prompt, output_path, use_ultra, seed=seed)
         return {
             "path": output_path,
             "attempts": 1,
@@ -338,7 +407,7 @@ def _generate_flux_image_at(
             f"{seed_tag} → {output_path.name}",
         )
 
-        last_meta = _flux_generate_raw(final_prompt, output_path, use_ultra, seed=seed)
+        last_meta = _generate_image_raw(final_prompt, output_path, use_ultra, seed=seed)
 
         # Validar contra el prompt CRUDO (Protocolo v2)
         verdict = validate_image(output_path, raw_prompt)
@@ -1039,6 +1108,7 @@ def process_script(
             "ultra_chapter_id": HOOK_CHAPTER_ID,
             "resolution_standard": f"{pipeline.image_width}x{pipeline.image_height}",
             "resolution_ultra_aspect": api.fal_image_aspect_ultra,   # ya neutralizado a "16:9"
+            "image_engine": api.image_engine,
             "safety_checker": True,
         },
         "veo_config": {
