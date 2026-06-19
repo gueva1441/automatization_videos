@@ -197,7 +197,7 @@ def _chunk_words_adaptive(
     return chunks
 
 
-def _calc_hook_layout(text: str, max_width: int = 640) -> tuple[str, int]:
+def _calc_hook_layout(text: str, max_width: int = 1800) -> tuple[str, int]:   # ≈70% de 2560
     """Divide hook en 1-2 líneas y calcula fontsize. Retorna (texto_con_\\N, fontsize)."""
     text = text.upper().strip()
     words = text.split()
@@ -267,8 +267,8 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Viral,Anton,100,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,7,4,2,40,40,320,1
-Style: Hook,Anton,180,&H0000FFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,8,5,5,40,40,0,1
+Style: Viral,Anton,84,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,7,4,2,40,40,96,1
+Style: Hook,Anton,128,&H0000FFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,8,5,5,40,40,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -408,8 +408,8 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Viral,Anton,100,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,7,4,2,40,40,320,1
-Style: Hook,Anton,180,&H0000FFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,8,5,5,40,40,0,1
+Style: Viral,Anton,84,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,7,4,2,40,40,96,1
+Style: Hook,Anton,128,&H0000FFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,8,5,5,40,40,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -745,8 +745,8 @@ def _concat_visual_clips(
     clip Veo + el slideshow Flux DepthFlow dentro de un mismo cap.
 
     Por qué filter_complex y NO -c copy:
-      - Veo MP4: H.264 + AAC, 1080×1920, fps variable.
-      - DepthFlow MP4: H.264 sin audio, 1080×1920, fps fijo.
+      - Veo MP4: H.264 + AAC, fps variable (aspect de salida pendiente de medir, caveat #6).
+      - DepthFlow MP4: H.264 sin audio, 2560×1440, fps fijo.
       - Sample rates / encoding flags pueden diferir → concat demuxer +
         -c copy fallaría con "Non-monotonous DTS" o "different codec params".
       - Re-encode con filter_complex concat uniforma todo a H.264 + yuv420p

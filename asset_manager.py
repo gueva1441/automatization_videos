@@ -66,9 +66,7 @@ RATE_LIMIT_BACKOFF_SECONDS = 20
 # Capítulo del gancho → usa Flux Ultra (máxima calidad)
 HOOK_CHAPTER_ID = "ch01"
 
-# Resolución objetivo (Flux 1.1 Pro v1.1 acepta custom image_size)
-HOOK_WIDTH = 1080
-HOOK_HEIGHT = 1920
+# (dims viven en config.pipeline.image_* — DRY, siguen el flip 16:9)
 
 CONTENT_REJECTION_KEYWORDS = (
     "content_policy", "content policy",
@@ -197,7 +195,7 @@ def _flux_payload_for(
         "num_images": 1,
         "enable_safety_checker": True,         # Safety Shield SIEMPRE ON
         "output_format": "png",
-        "image_size": {"width": HOOK_WIDTH, "height": HOOK_HEIGHT},  # 1080x1920
+        "image_size": {"width": pipeline.image_width, "height": pipeline.image_height},
     }
 
     if seed is not None:
@@ -1039,8 +1037,8 @@ def process_script(
             "standard_model": api.fal_image_model,
             "ultra_model": api.fal_image_model_ultra,
             "ultra_chapter_id": HOOK_CHAPTER_ID,
-            "resolution_standard": f"{HOOK_WIDTH}x{HOOK_HEIGHT}",
-            "resolution_ultra_aspect": api.fal_image_aspect_ultra,
+            "resolution_standard": f"{pipeline.image_width}x{pipeline.image_height}",
+            "resolution_ultra_aspect": api.fal_image_aspect_ultra,   # ya neutralizado a "16:9"
             "safety_checker": True,
         },
         "veo_config": {

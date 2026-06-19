@@ -194,7 +194,7 @@ scene.main(
     fps=params["fps"],
     ssaa=params["ssaa"],
     time=params["duration"],   # API real: el kwarg se llama 'time', no 'duration'
-    ratio="9:16",              # forzar aspecto vertical para Shorts
+    ratio="16:9",              # 16:9 horizontal (YouTube long); coincide con width/height de pipeline
 )
 print("OK")
 """
@@ -301,7 +301,7 @@ def build_depthflow_clip(
     introspect_tiling: bool = False,
 ) -> Path:
     """
-    Genera MP4 silencioso 9:16 con animación DepthFlow 2.5D.
+    Genera MP4 silencioso 16:9 con animación DepthFlow 2.5D.
 
     Args:
         tiling_mode: modo de wrap del shader cuando se muestrean pixels

@@ -40,7 +40,7 @@ from flow_profiles import FlowSpec
 #  PROMPT TEMPLATES
 # ═══════════════════════════════════════════════════════════════
 
-_SYSTEM_PROMPT = f"""Eres director de cinematografía para shorts virales documentales verticales (9:16).
+_SYSTEM_PROMPT = f"""Eres director de cinematografía para documentales largos horizontales (16:9, YouTube long).
 Decides el movimiento DepthFlow para CADA escena en UNA sola pasada (ves el arco completo del video).
 
 INVENTARIO EXACTO — usa SOLO estos 3 nombres, NO inventes otros:
@@ -54,15 +54,15 @@ PARÁMETROS POR ESCENA:
 
 REGLAS DURAS:
 - VARIÁ los movimientos. NO repitas el mismo más de 2 veces seguidas.
-- ARCO NARRATIVO: la primera escena (hook) preferí orbital o vertical para enganchar con dramatismo. Las del medio mezclá los 3. La última (outro/reveal) preferí horizontal u orbital para cerrar suave.
+- ARCO NARRATIVO: la primera escena (hook) preferí orbital para enganchar con dramatismo. Las del medio mezclá los 3. La última (outro/reveal) preferí horizontal u orbital para cerrar suave.
 
-CRITERIO SEMÁNTICO (qué movimiento para qué contenido):
-- Rostro frontal, retrato, sujeto humano definido → vertical (recorre de pelo a mentón) u orbital (enfatiza volumen).
-- Paisaje amplio, horizonte, líneas de costa/edificios/gente, escena extendida lateralmente → horizontal.
-- Sujetos verticales (chimeneas, edificios altos, árboles, columnas) → vertical.
-- Objetos centrales, productos, detalles que querés enfatizar → orbital.
+CRITERIO SEMÁNTICO (DEFAULT horizontal en 16:9; vertical solo como excepción):
+- Paisaje amplio, horizonte, líneas de costa/edificios/gente, interiores anchos, escena lateral → horizontal.
 - Multitudes, panorámicas amplias → horizontal.
-- Texturas y superficies sin sujeto claro → horizontal o vertical (cualquiera funciona).
+- Rostro frontal, retrato, sujeto humano definido → orbital (enfatiza volumen) u horizontal suave.
+- Sujeto genuinamente vertical y dominante (una torre/chimenea/árbol que llena el alto del cuadro) → vertical.
+- Objetos centrales, detalles que querés enfatizar → orbital.
+- Texturas y superficies sin sujeto claro → horizontal.
 
 FORMATO OUTPUT — JSON estricto, SIN markdown, SIN ```json fences:
 {{
@@ -115,8 +115,8 @@ def _fallback_spec(scene_position: str, total_scenes: int) -> FlowSpec:
         movement = "horizontal"
         reasoning = "fallback outro"
     else:
-        # Alterna vertical/horizontal por paridad para no repetir el mismo
-        movement = "vertical" if n % 2 == 0 else "horizontal"
+        # Default horizontal en 16:9; orbital para variar (vertical NO en fallback)
+        movement = "orbital" if n % 2 == 0 else "horizontal"
         reasoning = "fallback genérico"
 
     return FlowSpec(
