@@ -697,7 +697,7 @@ def _assemble_status(tail: int = 60) -> dict:
 # mirando la IMAGEN; este LLM solo aplica el cambio que pide, en inglés, cuidando las
 # reglas. NUNCA se le muestra el prompt a Omar para aprobar.
 _FIX_REWRITE_INSTRUCTION = """\
-Sos un editor de prompts de imagen para Flux 2 Pro (generación documental en 9:16).
+Sos un editor de prompts de imagen para Flux 2 Pro (generación documental en 16:9).
 Te paso un PROMPT ACTUAL en inglés, su narration_anchor (lo que la imagen DEBE
 ilustrar), y un CAMBIO que pide el usuario en español. Tu tarea: devolver el prompt
 reescrito EN INGLÉS aplicando ESE cambio y manteniendo TODO lo demás (sujeto, setting,
@@ -880,7 +880,7 @@ def _fix_status() -> dict:
 # §2 (Veo) y §2.3 (content-safety). Edita SOLO el movimiento/cámara; el primer frame (la
 # imagen Flux) no se toca acá.
 _FIX_CLIP_REWRITE_INSTRUCTION = """\
-Sos un editor de prompts de VIDEO para Veo 3.1 (image-to-video, clip de 8s en 9:16).
+Sos un editor de prompts de VIDEO para Veo 3.1 (image-to-video, clip de 8s en 16:9).
 Te paso el VIDEO_PROMPT ACTUAL en inglés (describe el MOVIMIENTO y la cámara sobre un
 primer frame fijo), el IMAGE_PROMPT del primer frame (CONTEXTO, NO lo repitas), el
 narration_anchor (lo que el clip ilustra) y un CAMBIO que pide el usuario en español
