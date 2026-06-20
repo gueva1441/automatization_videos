@@ -419,19 +419,31 @@ MAX_RETRY_ATTEMPTS = 3
 # ─── Validación regla 3 (anti-text-leakage) ───
 # Patrones que indican intent de renderizar texto en la imagen, incluso si
 # el LLM intenta camuflarlos con "blurred", "faded", "indistinct" etc.
+#
+# DOS GRUPOS por razón de CASING (no juntar):
+#   - TEXT_LEAKAGE_PATTERNS: eufemismos en inglés → se corren sobre prompt.lower()
+#     con IGNORECASE (matchean en cualquier capitalización, que es lo deseado).
+#   - TEXT_LEAKAGE_PATTERN_PROPER_NOUN: nombre propio CAPITALIZADO entre comillas
+#     (= cartel/signage literal). Depende de [A-Z] → se corre CASE-SENSITIVE sobre
+#     el prompt ORIGINAL. Correrlo sobre prompt.lower()+IGNORECASE anula el [A-Z]
+#     y la regla pasa a cazar "cualquier palabra de 4+ letras entre comillas",
+#     disparando falsos positivos sobre comillas de énfasis ("scarred", "echoes").
+#     Bug latente desde chat 32, despertado por la prosa densa de la doctrina Kling.
 TEXT_LEAKAGE_PATTERNS = (
     # Frases tipo "where X name/text/label was/once was"
     r"\bwhere\s+(?:the\s+|a\s+|an\s+)?(?:name|text|label|word|words|inscription|title|sign)\s+(?:was|once was|used to be|had been)\b",
     r"\bwhere\s+(?:a\s+|the\s+)?town\s+name\b",
     # "blurred/faded/indistinct + area + name/text"
     r"\b(?:blurred|faded|indistinct|obscured)\s+(?:area|patch|spot|region)\s+(?:where|with|of|showing)\s+(?:name|text|word|label)\b",
-    # Construcciones con comillas que el LLM mete como nombre literal
-    r"['\"][A-Z][a-zA-Z]{3,}['\"]",  # texto entre comillas con palabra capitalizada
     # "the name/word X" cuando X es algo que el LLM va a dibujar
     r"\bthe\s+(?:name|word|label|inscription)\s+['\"][^'\"]+['\"]",
     # "showing the X name/text" donde X es ubicación o entidad
     r"\bshowing\s+the\s+\w+\s+(?:name|text|label|title)\b",
 )
+
+# Nombre propio capitalizado entre comillas (cartel literal). CASE-SENSITIVE,
+# se corre sobre el prompt ORIGINAL (ver comentario arriba — NO lowercasear).
+TEXT_LEAKAGE_PATTERN_PROPER_NOUN = r"['\"][A-Z][a-zA-Z]{3,}['\"]"
 
 # ═══════════════════════════════════════════════════════════════
 #  EXCEPCIÓN
@@ -1520,25 +1532,44 @@ def _validate_no_text_leakage(prompt: str, label: str) -> None:
     El LLM a veces esquiva la regla 3 del prompt con eufemismos tipo
     "blurred area where name was". Acá los detectamos por regex.
     Raise VisualValidationError con mensaje educativo si encuentra match.
+
+    Dos pasadas por CASING (ver comentario en TEXT_LEAKAGE_PATTERNS):
+      1) eufemismos en inglés → case-insensitive sobre prompt.lower()
+      2) nombre propio capitalizado entre comillas → CASE-SENSITIVE sobre el
+         prompt ORIGINAL (si se lowercasea o se usa IGNORECASE, [A-Z] queda
+         anulado y caza comillas de énfasis = falso positivo).
     """
+    matched_fragment = None
+
+    # Pasada 1 — eufemismos (case-insensitive sobre minúscula).
     prompt_lc = prompt.lower()
     for pattern in TEXT_LEAKAGE_PATTERNS:
         m = re.search(pattern, prompt_lc, re.IGNORECASE)
         if m:
             matched_fragment = m.group(0)
-            raise VisualValidationError(
-                f"{label}: regla 3 violada (text-leakage detectado).\n"
-                f"  FRAGMENTO PROBLEMÁTICO: '{matched_fragment}'\n"
-                f"  CAUSA: el prompt indica al image generator que dibuje "
-                f"texto/nombres aunque sea blurred o indistinct.\n"
-                f"  REGLA 3: el prompt NO debe describir áreas, sellos, "
-                f"carteles ni espacios que 'tenían texto'. Si querés mostrar "
-                f"ausencia, describí un OBJETO sin texto (poste vacío sin "
-                f"cartel, mapa con manchas de tiempo en lugar de área "
-                f"borrada con nombre).\n"
-                f"  Reescribí el prompt eliminando cualquier referencia a "
-                f"'name', 'text', 'label', 'words' o lo equivalente."
-            )
+            break
+
+    # Pasada 2 — nombre propio capitalizado entre comillas (case-sensitive,
+    # prompt ORIGINAL, SIN IGNORECASE). Solo si la pasada 1 no encontró nada.
+    if matched_fragment is None:
+        m = re.search(TEXT_LEAKAGE_PATTERN_PROPER_NOUN, prompt)
+        if m:
+            matched_fragment = m.group(0)
+
+    if matched_fragment is not None:
+        raise VisualValidationError(
+            f"{label}: regla 3 violada (text-leakage detectado).\n"
+            f"  FRAGMENTO PROBLEMÁTICO: '{matched_fragment}'\n"
+            f"  CAUSA: el prompt indica al image generator que dibuje "
+            f"texto/nombres aunque sea blurred o indistinct.\n"
+            f"  REGLA 3: el prompt NO debe describir áreas, sellos, "
+            f"carteles ni espacios que 'tenían texto'. Si querés mostrar "
+            f"ausencia, describí un OBJETO sin texto (poste vacío sin "
+            f"cartel, mapa con manchas de tiempo en lugar de área "
+            f"borrada con nombre).\n"
+            f"  Reescribí el prompt eliminando cualquier referencia a "
+            f"'name', 'text', 'label', 'words' o lo equivalente."
+        )
 
 
 def _find_closest_narration_fragment(anchor: str, narration: str) -> str | None:
