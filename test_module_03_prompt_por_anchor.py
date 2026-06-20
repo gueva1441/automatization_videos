@@ -24,6 +24,14 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
 
 import script_engine.m03_visual as m
 
+# Este test valida los candados ENGINE-AGNÓSTICOS del two-step (no-rewrite, anchors
+# verbatim, count==n, text-leakage). shot_scale/light_mode son payload kling ortogonal,
+# cubierto por los tests kling dedicados. Se pinea el engine a "flux" para ejercer los
+# validadores originales (_validate_veo_cap/_validate_flux_cap) bajo los que se escribieron
+# los fixtures; sin esto, el default kling exige shot_scale en los fakes y el test rompe.
+# (El bake de producción está OK — la corrida real emite esos campos vía Gemini.)
+m.api.image_engine = "flux"
+
 _fails: list[str] = []
 
 
