@@ -182,7 +182,7 @@ def _merge_punctuation_words(words: list[dict]) -> list[dict]:
 
 
 def _chunk_words_adaptive(
-    words: list[dict], target: int = 3, max_chars: int = 18,
+    words: list[dict], target: int = 3, max_chars: int = 26,
 ) -> list[list[dict]]:
     chunks: list[list[dict]] = []
     i = 0
@@ -250,7 +250,7 @@ def _build_ass_from_words(
         output_path.write_text("", encoding="utf-8")
         return output_path
 
-    chunks = _chunk_words_adaptive(words, target=words_per_chunk, max_chars=18)
+    chunks = _chunk_words_adaptive(words, target=words_per_chunk, max_chars=26)
     word_map: dict[int, tuple[int, int]] = {}
     gidx = 0
     for ch_idx, chunk in enumerate(chunks):
@@ -267,7 +267,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Viral,Anton,84,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,7,4,2,40,40,96,1
+Style: Viral,Anton,150,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,10,5,2,40,40,108,1
 Style: Hook,Anton,128,&H0000FFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,8,5,5,40,40,0,1
 
 [Events]
@@ -377,7 +377,7 @@ def _build_ass_from_syllables(
     video_width: int,
     video_height: int,
     words_per_chunk: int = 3,
-    max_chars: int = 18,
+    max_chars: int = 26,
     hook_text: str | None = None,
     hook_duration: float = HOOK_DURATION,
     pre_pad: float = 0.0,
@@ -398,7 +398,7 @@ def _build_ass_from_syllables(
         output_path.write_text("", encoding="utf-8")
         return output_path
 
-    # Header EXACTO de _build_ass_from_words (Anton 100 Viral / Anton 180 Hook).
+    # Header EXACTO de _build_ass_from_words (Anton 150 Viral / Anton 128 Hook).
     header = f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: {video_width}
@@ -408,7 +408,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Viral,Anton,84,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,7,4,2,40,40,96,1
+Style: Viral,Anton,150,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,10,5,2,40,40,108,1
 Style: Hook,Anton,128,&H0000FFFF,&H000000FF,&H00000000,&H80000000,1,0,0,0,100,100,0,0,1,8,5,5,40,40,0,1
 
 [Events]
@@ -989,7 +989,8 @@ def _build_chapter_segment(
         f"pad={video_width}:{video_height}:(ow-iw)/2:(oh-ih)/2",
     ]
     if subs_path is not None and subs_path.stat().st_size > 0:
-        vf_parts.append(f"ass='{_escape_ass_path_for_ffmpeg(subs_path)}'")
+        _fontsdir = _escape_ass_path_for_ffmpeg(BASE_DIR / "script_engine" / "fonts")
+        vf_parts.append(f"ass='{_escape_ass_path_for_ffmpeg(subs_path)}':fontsdir='{_fontsdir}'")
     vf = ",".join(vf_parts)
 
     # ─── Filtro de audio (delay para hook + padding final) ───
