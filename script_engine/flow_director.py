@@ -56,13 +56,12 @@ REGLAS DURAS:
 - VARIÁ los movimientos. NO repitas el mismo más de 2 veces seguidas.
 - ARCO NARRATIVO: la primera escena (hook) preferí orbital para enganchar con dramatismo. Las del medio mezclá los 3. La última (outro/reveal) preferí horizontal u orbital para cerrar suave.
 
-CRITERIO SEMÁNTICO (DEFAULT horizontal en 16:9; vertical solo como excepción):
-- Paisaje amplio, horizonte, líneas de costa/edificios/gente, interiores anchos, escena lateral → horizontal.
-- Multitudes, panorámicas amplias → horizontal.
-- Rostro frontal, retrato, sujeto humano definido → orbital (enfatiza volumen) u horizontal suave.
-- Sujeto genuinamente vertical y dominante (una torre/chimenea/árbol que llena el alto del cuadro) → vertical.
+CRITERIO SEMÁNTICO (DEFAULT vertical en 16:9 — el eje corto del cuadro da más moción aparente; horizontal solo como excepción):
+- Rostro frontal, retrato, sujeto humano definido → orbital (enfatiza volumen) o vertical suave.
 - Objetos centrales, detalles que querés enfatizar → orbital.
-- Texturas y superficies sin sujeto claro → horizontal.
+- Sujeto vertical dominante (torre/chimenea/árbol/figura que llena el alto del cuadro) → vertical.
+- Paisaje ambiguo, interiores anchos, multitudes, texturas y superficies sin sujeto claro → vertical (el default residual).
+- Paisaje GENUINAMENTE apaisado y dominante (horizonte/costa/skyline que llena el ANCHO, panorámica lateral) → horizontal, solo si el vertical chocaría la composición.
 
 FORMATO OUTPUT — JSON estricto, SIN markdown, SIN ```json fences:
 {{
@@ -100,8 +99,8 @@ def _fallback_spec(scene_position: str, total_scenes: int) -> FlowSpec:
 
     Inventario reducido en chat 21 a 3 movimientos universalmente robustos:
     - ch01 (hook) → orbital (dramático, enfatiza volumen)
-    - última (outro) → horizontal (cierre suave)
-    - resto → vertical o horizontal (alterna por paridad para variar)
+    - última (outro) → horizontal (cierre suave, baja energía — único hogar de horizontal)
+    - resto → vertical (par) u orbital (impar) — B-QA-3: vertical-default, horizontal sale del medio
     """
     try:
         n = int(scene_position.replace("ch", ""))
@@ -115,8 +114,8 @@ def _fallback_spec(scene_position: str, total_scenes: int) -> FlowSpec:
         movement = "horizontal"
         reasoning = "fallback outro"
     else:
-        # Default horizontal en 16:9; orbital para variar (vertical NO en fallback)
-        movement = "orbital" if n % 2 == 0 else "horizontal"
+        # B-QA-3: vertical-default en 16:9 (eje corto = +moción). Horizontal sale del medio → solo outro.
+        movement = "vertical" if n % 2 == 0 else "orbital"
         reasoning = "fallback genérico"
 
     return FlowSpec(
