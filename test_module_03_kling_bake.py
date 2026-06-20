@@ -38,15 +38,18 @@ def kling_items():
     scales = ["wide", "extreme_wide", "medium"]
     lights = ["day", "night", "night"]
     return [{"prompt": p, "subject_ref": "main_subject", "emotional_rank": r,
-             "shot_scale": s, "light_mode": l, "narration_anchor": a}
+             "shot_scale": s, "light_mode": l, "narration_anchor": a,
+             "has_human_subject": True}
             for p, r, s, l, a in zip(prompts, ["R1", "R2", "R3"], scales, lights, ANCHORS)]
 
 # ════════ TEST 5.5 — tail dialed ════════
 print("[5.5] tail dialed")
-check("anti_plastic_dial(close)==moderate", m.anti_plastic_dial("close") == "moderate")
-check("anti_plastic_dial(medium)==moderate", m.anti_plastic_dial("medium") == "moderate")
-check("anti_plastic_dial(wide)==strong", m.anti_plastic_dial("wide") == "strong")
-check("anti_plastic_dial(extreme_wide)==strong", m.anti_plastic_dial("extreme_wide") == "strong")
+check("anti_plastic_dial(close,human)==moderate", m.anti_plastic_dial("close", True) == "moderate")
+check("anti_plastic_dial(medium,human)==moderate", m.anti_plastic_dial("medium", True) == "moderate")
+check("anti_plastic_dial(wide,human)==strong", m.anti_plastic_dial("wide", True) == "strong")
+check("anti_plastic_dial(extreme_wide,human)==strong", m.anti_plastic_dial("extreme_wide", True) == "strong")
+check("anti_plastic_dial(close,FACELESS)==strong", m.anti_plastic_dial("close", False) == "strong")    # B-QA-1
+check("anti_plastic_dial(medium,FACELESS)==strong", m.anti_plastic_dial("medium", False) == "strong")  # B-QA-1
 check("pick_tail(night,moderate)==TAIL_NIGHT_MOD", m.pick_tail("night", "moderate") == m.TAIL_NIGHT_MOD)
 check("pick_tail(night,strong)==TAIL_NIGHT_STRONG", m.pick_tail("night", "strong") == m.TAIL_NIGHT_STRONG)
 check("pick_tail(day,moderate)==TAIL_DAY_MOD", m.pick_tail("day", "moderate") == m.TAIL_DAY_MOD)
@@ -58,7 +61,7 @@ print("[5.3] schema Kling")
 sc = m._kling_step2_schema(4)
 props = sc["items"]["properties"]
 req = sc["items"]["required"]
-check("5 campos requeridos", set(req) == {"prompt", "subject_ref", "emotional_rank", "shot_scale", "light_mode"}, str(req))
+check("6 campos requeridos", set(req) == {"prompt", "subject_ref", "emotional_rank", "shot_scale", "light_mode", "has_human_subject"}, str(req))
 check("light_mode enum incluye golden", "golden" in props["light_mode"]["enum"])
 check("shot_scale enum 5 valores",
       set(props["shot_scale"]["enum"]) == {"extreme_wide", "wide", "medium", "close", "detail"})
@@ -71,6 +74,12 @@ norm = out["image_prompts"]
 check("normalized tiene shot_scale", all("shot_scale" in it for it in norm))
 check("normalized tiene light_mode", all("light_mode" in it for it in norm))
 check("valores cargados correctos", norm[0]["shot_scale"] == "wide" and norm[1]["light_mode"] == "night")
+check("normalized tiene has_human_subject", all("has_human_subject" in it for it in norm))
+badh = kling_items(); badh[0]["has_human_subject"] = "yes"
+try:
+    m._validate_kling_cap({"image_prompts": badh}, NARR, 3, 3); raisedh = False
+except m.VisualValidationError: raisedh = True
+check("rechaza has_human_subject no-bool", raisedh)
 # rechazo enum
 bad = kling_items(); bad[0]["shot_scale"] = "panoramic"
 try:
@@ -106,7 +115,7 @@ check("raw kling de budget exacto pasa", ok_pass)
 print("[5.6] append Kling")
 it = norm[0]  # wide/day -> TAIL_DAY_STRONG
 raw = it["prompt"].strip()
-dial = m.anti_plastic_dial(it["shot_scale"]); tail = m.pick_tail(it["light_mode"], dial)
+dial = m.anti_plastic_dial(it["shot_scale"], it["has_human_subject"]); tail = m.pick_tail(it["light_mode"], dial)
 prompt_final = f"{raw.rstrip('.')}. {tail}"[:m.KLING_PROMPT_MAX_CHARS]
 check("append = raw.rstrip('.') + '. ' + tail", prompt_final == f"{raw.rstrip('.')}. {tail}"[:m.KLING_PROMPT_MAX_CHARS])
 check("termina con el tail correcto (wide/day=DAY_STRONG)", prompt_final.endswith(m.TAIL_DAY_STRONG))

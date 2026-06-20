@@ -260,7 +260,9 @@ SYSTEM_INSTRUCTION_VISUAL_KLING = """You write image prompts for Kling o3 (text-
 CRITICAL — OUTPUT LANGUAGE:
 ALL prompts MUST be in ENGLISH. Kling renders Latin-script gibberish on surfaces when fed Spanish.
 
-OUTPUT: JSON array of N objects. Each object has: `prompt` (the scene), `subject_ref`, `emotional_rank`, `shot_scale`, and `light_mode` (all defined in the user prompt). The `prompt` field is dense descriptive PROSE — no CSV, no keyword soup.
+OUTPUT: JSON array of N objects. Each object has: `prompt` (the scene), `subject_ref`, `emotional_rank`, `shot_scale`, `light_mode`, and `has_human_subject` (all defined in the user prompt). The `prompt` field is dense descriptive PROSE — no CSV, no keyword soup.
+
+`has_human_subject` is a boolean: set it TRUE only when a living person is the visible subject of the scene (a face, a body, people acting). Set it FALSE when the scene is an object, a place, architecture, a landscape or an empty space with no person in frame. Be honest: an empty noose, a brick wall, a foggy yard are FALSE.
 
 PROMPT STRUCTURE (Kling o3):
 Open by stating the SHOT SCALE in words. Anchor the subject/location EARLY and clearly. Integrate materials / texture / clothing into the subject, then the environment, then the LIGHT. END at the scene and its composition. The aspect ratio does NOT go in the text — describe "wide horizontal composition", never write "16:9". Denser and longer than a Flux prompt is fine. Target 80-300 words.
@@ -277,7 +279,7 @@ HARD RULES:
    Describe what you WANT to see, never what you don't. For surfaces that could carry text but shouldn't, simply do not mention text; describe them as smooth, plain or worn.
 
 3. PHYSICAL DESCRIPTIONS, NO PROPER NAMES, NO LEGIBLE TEXT:
-   Describe people and objects by physical appearance (ethnicity + age + clothing material + era), never by a bare role label, never by a proper name — not even the protagonist's name, written nowhere. Translate dates into era descriptors ("an 1820s scene", not "April 1822"). Never render legible signs, inscriptions, letters or numbers; Kling hallucinates text — keep surfaces plain or weathered.
+   Describe people and objects by physical appearance (ethnicity + age + clothing material + era), never by a bare role label, never by a proper name — not even the protagonist's name, written nowhere. Translate dates into era descriptors ("an 1820s scene", not "April 1822"). Never render legible signs, inscriptions, letters or numbers; Kling hallucinates text — keep surfaces plain or weathered. Write the prompt in plain prose and wrap NO word in quotation marks: Kling paints any quoted word as literal letters on the surface. Carry emphasis through the physical description itself, not through quotes — and when you refer to what the narration mentions, describe the thing, never quote its words.
 
 4. HARD ERA — PERIOD ACCURATE, ANTI-MEDIEVAL:
    Identify the era from the narration and put an explicit time marker in EVERY prompt (clothing, materials, ironwork, architecture of that decade). Affirm the correct period firmly. Do NOT drift to a generic medieval / castle / dungeon look (vaulted ceilings, pointed arches, torch-lit stone keeps) when the era is later — anchor to the real period's brick, stone, timber and ironwork. Affirm the correct period; do not name the forbidden styles.
@@ -286,7 +288,7 @@ HARD RULES:
    Show literally what the anchor says — where a beat narrates an execution, show the apparatus (a scaffold, a row of EMPTY nooses) at the scale the anchor implies; where it narrates blood, show a wall of dark dried blood. But NEVER cross the ceiling: never lifeless bodies in frame, never visible hanged people, never fresh graphic blood, never mutilation, never the moment of harm itself. Terror is built from SCALE + LIGHT + EMPTY nooses + loaded LIVING faces, not from the body. When a scene's subject would BE the instrument of killing and no execution beat justifies it, default to the charged empty space: dramatic light, oppressive scale, ONE weighted object that implies what happened. Illustrate the OUTCOME, not a warning; plurals (a leader and his many followers) → show several, not one. This ceiling is what keeps the image publishable; it is non-negotiable.
 
 6. PHYSICAL TRANSLATION OF METAPHORS:
-   If the narration uses a metaphor or an undrawable abstraction ("a sense of dread", "an eerie silence"), identify the underlying physical matter and describe THAT (a reddish glow, sunken eyes, a low dirty haze) — never the abstract word.
+   If the narration uses a metaphor or an undrawable abstraction ("a sense of dread", "an eerie silence"), identify the underlying physical matter and describe THAT (a reddish glow, sunken eyes, a low dirty haze) — never the abstract word. The physical matter you pick MUST belong to the era of the scene: translate the metaphor into an object, light or texture that existed in that decade, never a modern thing.
 
 7. SHOT SCALE — WIDE MUST DOMINATE (16:9):
    Begin every prompt by stating the shot scale in words, then compose at it. Emit your chosen `shot_scale` from {extreme_wide, wide, medium, close, detail}. DEFAULT to WIDE / EXTREME WIDE for establishment, architecture, mass events, aftermath and landscape: the subject small inside a vast environment, showing SCALE, DEPTH and AIR. Go MEDIUM / CLOSE ONLY for a single human emotion (one face, eyes as the subject) or one deliberate texture detail. GOLDEN RULE: place / event / scale → open WIDE with lots of air; ONE human emotion → medium / close. It is FORBIDDEN for a whole chapter to be medium / close — WIDE shots must dominate. A mass-event beat is shown from a DISTANCE (extreme wide, low angle) so the scale reads — never a tight close-up of the apparatus.
@@ -338,7 +340,11 @@ TAIL_DAY_STRONG = (_AP + "; natural overcast period daylight, cold desaturated p
 TAIL_GOLDEN = ("lush green living landscape, warm golden-hour light, calm peaceful nature, gentle haze, "
     "faint organic film grain, period-correct documentary realism, wide horizontal composition")
 
-def anti_plastic_dial(shot_scale):
+def anti_plastic_dial(shot_scale, has_human_subject):
+    # B-QA-1: sin humano en cuadro → "strong" (tail SIN cláusula de cara), ignorando shot_scale.
+    # La cláusula de cara (tails MOD) queda gateada a (hay humano) Y (close/medium).
+    if not has_human_subject:
+        return "strong"
     return "moderate" if shot_scale in ("close", "medium") else "strong"
 
 def pick_tail(light_mode, dial):
@@ -1980,6 +1986,10 @@ def _validate_veo_kling_cap(
             raise VisualValidationError(f"{sup_label}: light_mode='{sp_light}' inválido. Válidos: {sorted(VALID_LIGHT_MODES)}")
         sp_light_norm = sp_light.strip().lower()
 
+        sp_hhs = item.get("has_human_subject")
+        if not isinstance(sp_hhs, bool):
+            raise VisualValidationError(f"{sup_label}: has_human_subject no es bool ({type(sp_hhs).__name__})")
+
         sp_anchor = item.get("narration_anchor")
         sp_pos, sp_end = _validate_anchor_substring(sp_anchor, narration, sup_label)
         sp_anchor = sp_anchor.strip()
@@ -1999,6 +2009,7 @@ def _validate_veo_kling_cap(
             "art_profile": "",
             "shot_scale": sp_shot_norm,
             "light_mode": sp_light_norm,
+            "has_human_subject": sp_hhs,
         })
 
     return {
@@ -2237,6 +2248,13 @@ def _validate_kling_cap(
                 f"{label}: light_mode='{light_mode}' inválido. Válidos: {sorted(VALID_LIGHT_MODES)}"
             )
 
+        # 3d. has_human_subject (B-QA-1: gatea la cláusula de cara del tail MOD)
+        hhs = item.get("has_human_subject")
+        if not isinstance(hhs, bool):
+            raise VisualValidationError(
+                f"{label}: has_human_subject no es bool ({type(hhs).__name__})"
+            )
+
         # 4. narration_anchor — substring exacto (reusa el validador de flux)
         anchor = item.get("narration_anchor")
         pos, anchor_end = _validate_anchor_substring(anchor, narration, label)
@@ -2266,6 +2284,7 @@ def _validate_kling_cap(
             "narration_anchor": anchor,
             "shot_scale": shot_scale_norm,
             "light_mode": light_mode_norm,
+            "has_human_subject": hhs,
         })
 
     return {
@@ -2424,8 +2443,9 @@ def _veo_kling_step2_schema(n: int) -> dict:
                                          "shot_scale": {"type": "STRING",
                                              "enum": ["extreme_wide", "wide", "medium", "close", "detail"]},
                                          "light_mode": {"type": "STRING",
-                                             "enum": ["night", "day", "golden"]}},
-                          "required": ["prompt", "shot_scale", "light_mode"]},
+                                             "enum": ["night", "day", "golden"]},
+                                         "has_human_subject": {"type": "BOOLEAN"}},
+                          "required": ["prompt", "shot_scale", "light_mode", "has_human_subject"]},
             },
         },
         "required": ["image_prompt", "video_prompt", "subject_ref", "supplemental_image_prompts"],
@@ -2454,8 +2474,9 @@ def _kling_step2_schema(n: int) -> dict:
                                  "shot_scale": {"type": "STRING",
                                      "enum": ["extreme_wide", "wide", "medium", "close", "detail"]},
                                  "light_mode": {"type": "STRING",
-                                     "enum": ["night", "day", "golden"]}},
-                  "required": ["prompt", "subject_ref", "emotional_rank", "shot_scale", "light_mode"]},
+                                     "enum": ["night", "day", "golden"]},
+                                 "has_human_subject": {"type": "BOOLEAN"}},
+                  "required": ["prompt", "subject_ref", "emotional_rank", "shot_scale", "light_mode", "has_human_subject"]},
     }
 
 
@@ -2734,7 +2755,7 @@ def _render_prompts_veo(topic, cap_data, narration, plan, veo_position, cap_numb
             "narration_anchor": veo_anchor,
             "supplemental_image_prompts": [
                 {"prompt": (supps_llm[i].get("prompt") if isinstance(supps_llm[i], dict) else None),
-                 **({"shot_scale": supps_llm[i].get("shot_scale"), "light_mode": supps_llm[i].get("light_mode")}
+                 **({"shot_scale": supps_llm[i].get("shot_scale"), "light_mode": supps_llm[i].get("light_mode"), "has_human_subject": supps_llm[i].get("has_human_subject")}
                     if is_kling and isinstance(supps_llm[i], dict) else {}),
                  "narration_anchor": supp_anchors[i]}
                 for i in range(n)
@@ -2778,7 +2799,7 @@ def _render_prompts_flux(topic, cap_data, narration, plan, cap_number):
             {"prompt": (items[i].get("prompt") if isinstance(items[i], dict) else None),
              "subject_ref": (items[i].get("subject_ref") if isinstance(items[i], dict) else None),
              "emotional_rank": (items[i].get("emotional_rank") if isinstance(items[i], dict) else None),
-             **({"shot_scale": items[i].get("shot_scale"), "light_mode": items[i].get("light_mode")}
+             **({"shot_scale": items[i].get("shot_scale"), "light_mode": items[i].get("light_mode"), "has_human_subject": items[i].get("has_human_subject")}
                 if is_kling and isinstance(items[i], dict) else {}),
              "narration_anchor": anchors[i]}
             for i in range(n)
@@ -2978,7 +2999,7 @@ def assign_visual_prompts(
             if api.image_engine == "kling":
                 for supp in cap_out.get("supplemental_image_prompts", []):
                     raw = supp["prompt"].strip()
-                    dial = anti_plastic_dial(supp["shot_scale"])
+                    dial = anti_plastic_dial(supp["shot_scale"], supp["has_human_subject"])
                     tail = pick_tail(supp["light_mode"], dial)
                     prompt_final = f"{raw.rstrip('.')}. {tail}"[:KLING_PROMPT_MAX_CHARS]
                     if len(prompt_final) < PROMPT_MIN_CHARS:
@@ -3042,7 +3063,7 @@ def assign_visual_prompts(
             if api.image_engine == "kling":
                 for item in cap_out.get("image_prompts", []):
                     raw_prompt = item["prompt"].strip()
-                    dial = anti_plastic_dial(item["shot_scale"])
+                    dial = anti_plastic_dial(item["shot_scale"], item["has_human_subject"])
                     tail = pick_tail(item["light_mode"], dial)
                     prompt_final = f"{raw_prompt.rstrip('.')}. {tail}"[:KLING_PROMPT_MAX_CHARS]
                     if len(prompt_final) < PROMPT_MIN_CHARS:

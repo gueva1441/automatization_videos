@@ -30,7 +30,7 @@ PLAN = {"veo_anchor": {"anchor": VEO_ANCHOR},
 EN = ("A wide establishing shot of a tall weathered brick tower rising over an empty courtyard at "
       "dawn, period ironwork and worn stone, cold pale light, oppressive scale, documentary realism.")  # ~150 chars
 def supp_items(shot="wide", light="night"):
-    return [{"prompt": EN, "shot_scale": shot, "light_mode": light, "narration_anchor": s} for s in SUPPS]
+    return [{"prompt": EN, "shot_scale": shot, "light_mode": light, "narration_anchor": s, "has_human_subject": True} for s in SUPPS]
 def parsed_ok():
     return {"image_prompt": EN, "video_prompt": EN, "subject_ref": "main_subject",
             "narration_anchor": VEO_ANCHOR, "supplemental_image_prompts": supp_items()}
@@ -43,14 +43,15 @@ check("image_prompt SIN shot_scale/light_mode", "properties" not in img_props or
       not ({"shot_scale", "light_mode"} & set(img_props.get("properties", {}))))
 supp_props = sc["properties"]["supplemental_image_prompts"]["items"]["properties"]
 check("supp tiene shot_scale + light_mode", "shot_scale" in supp_props and "light_mode" in supp_props)
-check("supp required = prompt/shot_scale/light_mode",
-      set(sc["properties"]["supplemental_image_prompts"]["items"]["required"]) == {"prompt", "shot_scale", "light_mode"})
+check("supp required = prompt/shot_scale/light_mode/has_human_subject",
+      set(sc["properties"]["supplemental_image_prompts"]["items"]["required"]) == {"prompt", "shot_scale", "light_mode", "has_human_subject"})
 
 # ════════ TEST 4 — validador kling ════════
 print("[4] _validate_veo_kling_cap")
 out = m._validate_veo_kling_cap(parsed_ok(), NARR, 1, "start")
 check("normalized supps cargan shot_scale/light_mode",
       all("shot_scale" in s and "light_mode" in s for s in out["supplemental_image_prompts"]))
+check("normalized supps cargan has_human_subject", all("has_human_subject" in s for s in out["supplemental_image_prompts"]))
 check("shape sagrado intacto", set(out) == {"chapter_number", "image_prompt", "video_prompt", "subject_ref",
                                             "art_profile", "narration_anchor", "veo_position", "supplemental_image_prompts"})
 # image_prompt budget = KLING_PROMPT_MAX_CHARS (2501 falla, 2500 pasa)
@@ -87,7 +88,7 @@ check("video_prompt > longitud Veo de hoy dispara", r6)
 print("[5] append veo kling")
 s0 = out["supplemental_image_prompts"][0]  # wide/night -> TAIL_NIGHT_STRONG
 raw = s0["prompt"].strip()
-tail = m.pick_tail(s0["light_mode"], m.anti_plastic_dial(s0["shot_scale"]))
+tail = m.pick_tail(s0["light_mode"], m.anti_plastic_dial(s0["shot_scale"], s0["has_human_subject"]))
 prompt_final = f"{raw.rstrip('.')}. {tail}"[:m.KLING_PROMPT_MAX_CHARS]
 check("supp termina en TAIL_* (wide/night=NIGHT_STRONG)", prompt_final.endswith(m.TAIL_NIGHT_STRONG))
 check("len <= KLING_PROMPT_MAX_CHARS", len(prompt_final) <= m.KLING_PROMPT_MAX_CHARS)
@@ -155,8 +156,9 @@ try:
         check("_validate_veo_cap output idéntico (flux)", nv == ov)
         # TEST 7 regresión: funciones flux/kling-flux byte-idénticas vs 085d05c
         print("[7] regresión: funciones flux intactas vs 085d05c")
-        for fn in ["_validate_flux_cap", "_validate_kling_cap", "_build_flux_prompt_step2",
-                   "_render_prompts_flux", "_validate_veo_cap", "_veo_step2_schema"]:
+        # _validate_kling_cap + _render_prompts_flux SACADOS: B-QA-1 (chat 86) los modifica a propósito.
+        for fn in ["_validate_flux_cap", "_build_flux_prompt_step2",
+                   "_validate_veo_cap", "_veo_step2_schema"]:
             same = inspect.getsource(getattr(m, fn)) == inspect.getsource(getattr(old, fn))
             check(f"{fn} byte-idéntico", same)
     finally:
