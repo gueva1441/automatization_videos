@@ -43,6 +43,18 @@ servers aparte: qa_studio_server (botón Ensamblar) · mixer_server (mezcla audi
 | **cost_tracker** | Rastreador de costos (singleton): acumula por video, reporta + historial | `track_*` (singleton) |
 | **csv_exporter** | Dashboard CSV `fase1_review.csv` (1 fila/topic, celdas editables) + parse de vuelta | `export_fase1_csv()` |
 
+### Sub-pasos LONG de topic_researcher  (`researcher_steps/`, encadenados — cada uno recibe los previos CERRADOS)
+
+| módulo | OWNS | entry-point |
+|---|---|---|
+| **step_4a_facts** | Extrae verified_facts + sources de los bloques angulares; taggea cada fact con su source_block (rompe bug 1943↔1937) | `extract_facts_and_sources()` |
+| **step_4b_canonical** | Descripción canónica del sujeto recurrente (EN, 20-35 palabras); hereda geo+era literales de facts | `extract_canonical()` |
+| **step_4c_meta** | Meta narrativa (title/hook/mystery/reveal/angle/virality); toda fecha debe existir literal en facts | `extract_meta()` |
+| **step_4d_summary** | research_summary (1500-3000 chars), materia prima del guionista; contexto narrativo, no redunda facts | `extract_research_summary()` |
+| **step_4e_visual_canon** | Canon visual: era_visual_canon + documented_people (appearance SIN nombre = guard anti-likeness) + anachronism_blocklist; lo consumen m03 + m05 | `extract_visual_canon()` |
+
+Bus: 4a→4b→4c→4d ; 4e recibe facts+canonical+angle_blocks.
+
 ## FASE 1.5 — guión (skeleton→narración→visual→jueces→audio→música)
 
 | módulo | OWNS | entry-point |
