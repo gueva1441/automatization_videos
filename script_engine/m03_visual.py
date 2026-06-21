@@ -109,6 +109,7 @@ from config import DATA_DIR, OUTPUT_DIR, api
 from gemini_helpers import call_flash_json
 from nicho_config import get_active_nicho
 from anchor_timing import compute_anchor_starts
+from name_matching import scrub_documented_names
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -2762,6 +2763,12 @@ def _render_prompts_veo(topic, cap_data, narration, plan, veo_position, cap_numb
             ],
         }
         out = (_validate_veo_kling_cap if is_kling else _validate_veo_cap)(assembled, narration, cap_number, veo_position)
+        # B-name-scrub (chat 87): limpiar nombres documentados ANTES del validate de leakage.
+        # Solo el texto que va a Kling; el narration_anchor NUNCA pasa por scrub.
+        _documented = topic.get("documented_people")
+        out["image_prompt"], _ = scrub_documented_names(out["image_prompt"], _documented)
+        for s in out["supplemental_image_prompts"]:
+            s["prompt"], _ = scrub_documented_names(s["prompt"], _documented)
         # regla 9 (handoff §5): text-leakage por prompt (image_prompt + cada supplemental, ambos motores)
         _validate_no_text_leakage(out["image_prompt"], f"cap {cap_number} (veo) image_prompt")
         for i, s in enumerate(out["supplemental_image_prompts"], start=1):
@@ -2805,6 +2812,10 @@ def _render_prompts_flux(topic, cap_data, narration, plan, cap_number):
             for i in range(n)
         ]}
         out = (_validate_kling_cap if is_kling else _validate_flux_cap)(assembled, narration, cap_number, n)
+        # B-name-scrub (chat 87): limpiar nombres documentados ANTES del validate de leakage.
+        _documented = topic.get("documented_people")
+        for it in out["image_prompts"]:
+            it["prompt"], _ = scrub_documented_names(it["prompt"], _documented)
         for i, it in enumerate(out["image_prompts"], start=1):
             _validate_no_text_leakage(it["prompt"], f"cap {cap_number} img #{i}")
         return out

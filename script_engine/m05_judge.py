@@ -29,13 +29,21 @@ ROADMAP — 8 piezas (implementación incremental):
 # ════════════════════════════════════════════════════════════════════════
 import json
 import re
-import unicodedata
 from difflib import SequenceMatcher
 from pathlib import Path
 
 from gemini_helpers import call_flash_json
 
 from script_engine.learned_patterns import LEARNED_REGEX_PATTERNS, get_root_cause
+# B-name-scrub (chat 87): la lógica de matcheo de nombres documentados vive ahora en
+# name_matching (módulo hoja, único dueño). m05 la consume y re-exporta los helpers que
+# su test sigue importando por nombre (_normalize_text, _extract_last_name); m03 reusa el
+# mismo matcher vía scrub_documented_names.
+from script_engine.name_matching import (
+    _extract_last_name,
+    _normalize_text,
+    iter_name_patterns,
+)
 
 # Form asistido (contrato chat 61): marcadores env-gated por QA_FORM, emitidos ANTES de
 # cada input() del juez. Sin QA_FORM no emite → terminal byte-idéntica. El input()/parseo
@@ -61,21 +69,9 @@ class M05ValidationError(ValueError):
 #  CONSTANTES — STAGE 1
 # ════════════════════════════════════════════════════════════════════════
 
-#: Apellidos comunes en inglés que generan falsos positivos masivos.
-COMMON_LAST_NAME_BLACKLIST = frozenset({
-    "smith", "king", "wood", "brown", "white", "black", "green", "young",
-    "hall", "ford", "lake", "stone", "rivers", "fields", "hills", "lane",
-    "page", "cook", "bell", "may", "moore", "long", "short", "small",
-    "free", "rich", "rose", "fair", "wise", "best", "key", "reed",
-})
-
-#: Partículas de last_names compuestos (von Braun, de la Cruz, ...).
-_COMPOUND_PARTICLES = frozenset({
-    "von", "van", "de", "del", "la", "da", "di", "der", "den", "du", "le",
-})
-
-#: Min length de un last_name antes del chequeo de blacklist.
-_MIN_LAST_NAME_LEN = 5
+#: COMMON_LAST_NAME_BLACKLIST / _COMPOUND_PARTICLES / _MIN_LAST_NAME_LEN movidos a
+#: name_matching (B-name-scrub, chat 87). El gating de nombres vive ahí; m05 lo consume
+#: vía iter_name_patterns.
 
 #: Regex predefinidos para detect_text_in_image. Aplicados case-insensitive.
 PREDEFINED_TEXT_REGEX = (
@@ -204,29 +200,8 @@ def _judge_schema() -> dict:
 # ════════════════════════════════════════════════════════════════════════
 #  HELPERS — NORMALIZACIÓN
 # ════════════════════════════════════════════════════════════════════════
-
-def _normalize_text(s: str) -> str:
-    """NFKD-normaliza, decompone diacríticos, lowercase. Idempotente."""
-    if not s:
-        return ""
-    nfkd = unicodedata.normalize("NFKD", s)
-    return "".join(c for c in nfkd if not unicodedata.combining(c)).lower()
-
-
-def _extract_last_name(full_name: str) -> str:
-    """Extrae el last_name normalizado de un nombre completo."""
-    tokens = (full_name or "").strip().split()
-    if not tokens:
-        return ""
-    if len(tokens) == 1:
-        return _normalize_text(tokens[0])
-
-    last_tokens = [tokens[-1]]
-    i = len(tokens) - 2
-    while i >= 1 and _normalize_text(tokens[i]) in _COMPOUND_PARTICLES:
-        last_tokens.insert(0, tokens[i])
-        i -= 1
-    return _normalize_text(" ".join(last_tokens))
+# _normalize_text + _extract_last_name movidos a name_matching (B-name-scrub, chat 87) y
+# se importan arriba. m05 los sigue usando idéntico (sin cambio de comportamiento).
 
 
 # ════════════════════════════════════════════════════════════════════════
@@ -234,46 +209,33 @@ def _extract_last_name(full_name: str) -> str:
 # ════════════════════════════════════════════════════════════════════════
 
 def detect_name_leakage(prompt: str, documented_people: list) -> list:
-    """Detecta menciones explícitas de personas documentadas en el prompt."""
+    """Detecta menciones explícitas de personas documentadas en el prompt.
+
+    B-name-scrub (chat 87): el set de patrones (full_name siempre / last_name gateado por
+    largo+blacklist) lo provee iter_name_patterns — único dueño del gating. El matcheo se
+    mantiene sobre el texto NORMALIZADO y conserva el comportamiento original: si el full_name
+    caza para una persona, su last_name NO se chequea (evita el doble hit full+last del mismo
+    nombre).
+    """
     if not prompt or not documented_people:
         return []
 
     norm_prompt = _normalize_text(prompt)
     hits = []
     seen_patterns = set()
+    matched_people = set()  # id(person) cuyo full_name ya cazó → saltear su last_name
 
-    for person in documented_people:
-        full_name = (person.get("name") or "").strip()
-        if not full_name:
+    for _pat, label, person in iter_name_patterns(documented_people):
+        if id(person) in matched_people:
             continue
-
-        norm_full = _normalize_text(full_name)
-
-        if re.search(rf"\b{re.escape(norm_full)}\b", norm_prompt):
-            if full_name not in seen_patterns:
+        if re.search(rf"\b{re.escape(_normalize_text(label))}\b", norm_prompt):
+            matched_people.add(id(person))
+            if label not in seen_patterns:
                 hits.append({
                     "category": "name_leakage",
-                    "matched_pattern": full_name,
+                    "matched_pattern": label,
                 })
-                seen_patterns.add(full_name)
-            continue
-
-        last_name = _extract_last_name(full_name)
-        if not last_name:
-            continue
-        if len(last_name.replace(" ", "")) < _MIN_LAST_NAME_LEN:
-            continue
-        core_token = last_name.split()[-1]
-        if core_token in COMMON_LAST_NAME_BLACKLIST:
-            continue
-
-        if re.search(rf"\b{re.escape(last_name)}\b", norm_prompt):
-            if last_name not in seen_patterns:
-                hits.append({
-                    "category": "name_leakage",
-                    "matched_pattern": last_name,
-                })
-                seen_patterns.add(last_name)
+                seen_patterns.add(label)
 
     return hits
 
