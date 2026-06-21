@@ -14,7 +14,8 @@ audio_library/
 
 # === Logs y outputs intermedios ===
 logs/
-researcher_steps/
+researcher_steps/*
+!researcher_steps/*.py
 
 # === Outputs de tests viejos (lab_output, test_*_out, etc) ===
 lab_output_*/
@@ -49,3 +50,7 @@ _music_shock_lab_chat39/
 
 # === Outputs de labs (regenerables, no subir) ===
 _lab_out/
+_lab_kling/
+
+# === Scratch de auditoria de estructura (Claude-chat) ===
+_repo_audit/
