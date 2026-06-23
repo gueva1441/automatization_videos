@@ -46,6 +46,7 @@ import requests
 from config import api, pipeline, OUTPUT_DIR
 from error_handler import error_handler, PipelineStage
 from cost_tracker import cost_tracker
+from engine_profiles import select_profile
 
 from script_engine.vision_validator import validate_image, build_corrected_prompt
 
@@ -240,6 +241,39 @@ def _kling_payload_for(prompt: str) -> dict[str, Any]:
     }
 
 
+def _seedream_payload_for(prompt: str, seed: int | None = None) -> dict[str, Any]:
+    """Payload Seedream 4.5 t2i (SYNC) — SEEDREAM_4.5_REFERENCIA §2, §8.
+
+    ★ Seedream 4.5 NO tiene guidance_scale NI negative_prompt (eran de la v3).
+      Meterlos rompe la call. Las negaciones van EN EL TEXTO del prompt (3b).
+    image_size sale del perfil (render.image_size = "landscape_16_9"). seed se
+    incluye solo si no es None (reproducibilidad por sujeto, como Flux).
+    """
+    profile = select_profile("seedream")
+    payload: dict[str, Any] = {
+        "prompt": prompt,
+        "image_size": profile.render.image_size,
+        "num_images": 1,
+        "enable_safety_checker": True,
+    }
+    if seed is not None:
+        payload["seed"] = seed
+    return payload
+
+
+# ── Lookup por engine_key (el "selector" del 5º dispatch — NO elif disperso) ──
+# Builders y cost trackers de los motores SYNC (kling/seedream). El path "flux"
+# (queue) NO es de perfil y queda en su rama legacy.
+_SYNC_PAYLOAD_BUILDERS = {
+    "kling":    lambda prompt, seed: _kling_payload_for(prompt),       # Kling ignora seed (byte-idéntico)
+    "seedream": lambda prompt, seed: _seedream_payload_for(prompt, seed),
+}
+_SYNC_COST_TRACKERS = {
+    "kling":    cost_tracker.track_kling,
+    "seedream": cost_tracker.track_seedream,
+}
+
+
 @error_handler.retry(PipelineStage.IMAGE, max_server_retries=2)
 def _generate_image_raw(
     prompt: str,
@@ -249,15 +283,20 @@ def _generate_image_raw(
 ) -> dict[str, Any]:
     """Llamada cruda al motor de imagen activo (api.image_engine), sin validación de visión.
 
-    - "kling": Kling o3 t2i, SYNC (fal.run, status 200 → images[0].url, SIN poll).
-      use_ultra queda inerte (Kling tiene un solo endpoint).
-    - "flux":  Flux.2 Pro vía queue.fal.run (path histórico, byte-idéntico salvo
-      image_size que ahora sale de pipeline).
-    El manejo de 422 (ContentRejectedError) es idéntico en ambos motores.
+    Motores SYNC (perfil): "kling" | "seedream" → fal.run, status 200 → images[0].url,
+      SIN poll. El selector (engine_profiles.select_profile) elige el perfil; la URL y
+      el payload salen del perfil + el lookup por engine_key. use_ultra queda inerte
+      (estos motores tienen un solo endpoint). Con api.image_engine="kling" el render
+      es BYTE-IDÉNTICO al del código viejo (los valores del perfil salen de api.*).
+    Motor "flux": Flux.2 Pro vía queue.fal.run (path histórico legacy, NO de perfil).
+    El manejo de 422 (ContentRejectedError) es idéntico en todos los motores.
     """
-    if api.image_engine == "kling":
-        submit_url = f"{api.fal_sync_base_url}/{api.fal_kling_model}"   # SYNC
-        payload = _kling_payload_for(prompt)
+    profile = select_profile(api.image_engine)
+    if profile is not None:
+        # ── Motores SYNC de perfil (kling/seedream) ──
+        engine = profile.engine_key
+        submit_url = f"{profile.render.base_url}/{profile.render.model_id}"   # SYNC
+        payload = _SYNC_PAYLOAD_BUILDERS[engine](prompt, seed)
 
         try:
             resp = requests.post(submit_url, headers=_fal_headers(),
@@ -267,13 +306,13 @@ def _generate_image_raw(
             body = e.response.text if e.response is not None else str(e)
             if _is_content_rejection(body):
                 raise ContentRejectedError(
-                    f"Kling rechazó prompt: {body[:300]}"
+                    f"{engine} rechazó prompt: {body[:300]}"
                 )
             raise
 
         data = resp.json()                       # SYNC: respuesta directa, SIN _flux_poll
         if "images" not in data or not data["images"]:
-            raise RuntimeError(f"Kling sin imágenes: {json.dumps(data)[:300]}")
+            raise RuntimeError(f"{engine} sin imágenes: {json.dumps(data)[:300]}")
 
         img = data["images"][0]
         image_url = img["url"]
@@ -283,13 +322,13 @@ def _generate_image_raw(
         img_resp.raise_for_status()
         output_path.write_bytes(img_resp.content)
 
-        cost_tracker.track_kling(
+        _SYNC_COST_TRACKERS[engine](
             description=f"{output_path.stem}: {prompt[:60]}...", images=1
         )
 
         nsfw_list = data.get("has_nsfw_concepts") or [False]
         return {
-            "endpoint": api.fal_kling_model,
+            "endpoint": profile.render.model_id,
             "width": img.get("width"),
             "height": img.get("height"),
             "seed": data.get("seed"),

@@ -75,7 +75,8 @@ Bus: 4a→4b→4c→4d ; 4e recibe facts+canonical+angle_blocks (incl. `visual`)
 | módulo | OWNS | entry-point |
 |---|---|---|
 | **fase2a** | Orquestador 2A: lee contrato → corre audio_manager + asset_manager (no ensambla) | `main()` · CLI |
-| **asset_manager** | **Motor ciego de assets**: PNG (Flux.2/Kling o3) + clips Veo 3.1 vía fal.ai → `assets_manifest.json` | `process_script()` · CLI |
+| **asset_manager** | **Motor ciego de assets**: PNG (Flux.2/Kling o3/Seedream 4.5) + clips Veo 3.1 vía fal.ai → `assets_manifest.json`. El render t2i SYNC es profile-driven (lookup por `engine_profiles.select_profile`) | `process_script()` · CLI |
+| **engine_profiles** | **Capa modular de perfiles de motor de imagen** (eslabón 3a): `EngineProfile` (render: model_id/base_url/image_size/cost + mitad-prompt para 3b) + `PERFIL_KLING`/`PERFIL_SEEDREAM` + selector. Hace el motor t2i model-swappable. Kling default → render byte-idéntico; Seedream cargado e inerte hasta 3b | `select_profile()` |
 | **error_handler** | Errores centralizados: logging + `@retry` backoff + `PipelineStage` enum | `error_handler` (singleton) |
 
 ## FASE 2B — ensamble del video final

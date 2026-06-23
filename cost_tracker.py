@@ -149,6 +149,22 @@ class CostTracker:
             cost_per_unit=cost_per,
         )
 
+    def track_seedream(self, description: str, images: int = 1) -> None:
+        """Registra costo de generación con Seedream 4.5 t2i (fal.run, SYNC).
+
+        Costo fijo $0.04/img (no depende del tamaño); el campo de costo NO viene
+        en la respuesta de fal, igual que Kling → se confirma por delta dashboard.
+        """
+        cost_per = pipeline.costs.get("seedream_per_image", 0.04)
+        self._add_entry(
+            stage=PipelineStage.IMAGE.value,
+            service="fal.ai Seedream 4.5 (t2i)",
+            description=description,
+            units=images,
+            unit_label="images",
+            cost_per_unit=cost_per,
+        )
+
     def track_leonardo(self, description: str, images: int = 1) -> None:
         """[DEPRECATED] Leonardo AI fue reemplazado por Flux. Mantener solo para compatibilidad."""
         cost_per = pipeline.costs["leonardo_per_image"]
