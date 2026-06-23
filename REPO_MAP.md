@@ -51,9 +51,9 @@ servers aparte: qa_studio_server (botón Ensamblar) · mixer_server (mezcla audi
 | **step_4b_canonical** | Descripción canónica del sujeto recurrente (EN, 20-35 palabras); hereda geo+era literales de facts | `extract_canonical()` |
 | **step_4c_meta** | Meta narrativa (title/hook/mystery/reveal/angle/virality); toda fecha debe existir literal en facts | `extract_meta()` |
 | **step_4d_summary** | research_summary (1500-3000 chars), materia prima del guionista; contexto narrativo, no redunda facts | `extract_research_summary()` |
-| **step_4e_visual_canon** | Canon visual: era_visual_canon + documented_people (appearance SIN nombre = guard anti-likeness) + anachronism_blocklist; lo consumen m03 + m05 | `extract_visual_canon()` |
+| **step_4e_visual_canon** | Canon visual de 2 CAPAS: era_visual_canon = capa ÉPOCA genérica (7 keys viejas) + capa SUJETO PUNTUAL sourced (materials_textures, color_palette flat-string, scale_dimensions, distinctive_features, demographics, visual_reference_availability, condition_evolution{at_event,later}) que consume el 4º ángulo `visual` (eslabón 1); + documented_people (appearance SIN nombre NI era = guards anti-likeness/anti-C5 deterministas) + anachronism_blocklist. color_palette forzado a string vía response_schema nullable. Lo consumen m03 + m05 | `extract_visual_canon()` |
 
-Bus: 4a→4b→4c→4d ; 4e recibe facts+canonical+angle_blocks.
+Bus: 4a→4b→4c→4d ; 4e recibe facts+canonical+angle_blocks (incl. `visual`).
 
 ## FASE 1.5 — guión (skeleton→narración→visual→jueces→audio→música)
 
