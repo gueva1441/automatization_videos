@@ -22,7 +22,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from config import api
+from config import api, pipeline
 
 
 @dataclass(frozen=True)
@@ -71,7 +71,7 @@ PERFIL_SEEDREAM = EngineProfile(
     render=RenderProfile(
         model_id="fal-ai/bytedance/seedream/v4.5/text-to-image",
         base_url="https://fal.run",
-        image_size="landscape_16_9",          # 16:9; swappable a {"width":2560,"height":1440}
+        image_size={"width": pipeline.image_width, "height": pipeline.image_height},   # 2560×1440 = canvas (1 fuente de verdad)
         cost_usd=0.04,
     ),
     # ── mitad PROMPT (3b — DOC_SKELETON §3): orden oficial del ensamblador ──
