@@ -412,7 +412,7 @@ def _seedream_slots_schema(n: int) -> dict:
     """Schema de los SLOTS (array de N). response_schema vuelve todo required
     (gemini_helpers) — text_in_image lleva present:false cuando no aplica."""
     return {
-        "type": "ARRAY", "minItems": n, "maxItems": n,
+        "type": "ARRAY",
         "items": {
             "type": "OBJECT",
             "properties": {
