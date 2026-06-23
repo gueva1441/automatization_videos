@@ -524,24 +524,45 @@ llena lo que el fact no tiene."""
 # Lockea MEDIDA (numeral + unidad) y FECHA (año), NUNCA NOMBRE ("Building 93").
 # El fact puede venir en ES; se lockea el NUMERAL (invariante de idioma) y el
 # fluidificador escribe la unidad en inglés. Ante la duda → NO lockear.
-# Unidades de medida — separadas por idioma. El post-check exige el PAR (número +
-# unidad EN) en la prosa inglesa (FIX_GUARDA1): "13 rows" falla, "13 floors" pasa.
-# La DETECCIÓN en el fact usa EN+ES (el fact puede venir en español).
-_MEASURE_UNITS_EN = (
-    r"acres?|feet|foot|ft|floors?|stor(?:y|ies)|storeys?|patients?|inmates?|graves?|miles?|"
-    r"yards?|met(?:er|re)s?|inches|beds?|buildings?|deaths?|victims?|years?|months?|"
-    r"weeks?|days?|hours?|kilomet(?:er|re)s?|km|tons?|tonnes?|pounds?|lbs?|kg|hectares?"
-)
-_MEASURE_UNITS_ES = (
-    r"pisos?|pies|pacientes?|internos?|tumbas?|millas?|metros?|edificios?|muertos?|"
-    r"v[ií]ctimas?|a[ñn]os?|meses|d[ií]as?|toneladas?|hect[aá]reas?"
-)
+# Unidades de medida agrupadas por TIPO (CANDADO_2BIS). El post-check exige el PAR
+# (número + unidad EN DEL MISMO TIPO): "13 rows" falla (rows ∉ unidad); "111 feet"
+# para un fact "111 años" TAMBIÉN falla (feet=length ≠ duration). "13 floors" pasa.
+# Cada grupo lista (unidades_EN, unidades_ES) — el fact puede venir en español; la
+# DETECCIÓN usa EN+ES, la ADYACENCIA en la prosa inglesa usa solo EN del grupo.
+_UNIT_GROUPS: dict[str, tuple[str, str]] = {
+    "length":    (r"feet|foot|ft|yards?|met(?:er|re)s?|inches|miles?|kilomet(?:er|re)s?|km",
+                  r"pies|metros?|millas?|kil[oó]metros?"),
+    "height":    (r"floors?|stor(?:y|ies)|storeys?", r"pisos?"),
+    "area":      (r"acres?|hectares?", r"hect[aá]reas?"),
+    "duration":  (r"years?|months?|weeks?|days?|hours?", r"a[ñn]os?|meses|d[ií]as?|horas?|semanas?"),
+    "count_ppl": (r"patients?|inmates?|victims?|deaths?|graves?|beds?",
+                  r"pacientes?|internos?|v[ií]ctimas?|muertos?|tumbas?|camas?"),
+    "mass":      (r"tons?|tonnes?|pounds?|lbs?|kg", r"toneladas?"),
+    "count_bld": (r"buildings?", r"edificios?"),
+}
+_GROUP_EN: dict[str, str] = {g: en for g, (en, es) in _UNIT_GROUPS.items()}
+_GROUP_ANY_RE: dict[str, "re.Pattern"] = {
+    g: re.compile(rf"^(?:{en}|{es})$", re.I) for g, (en, es) in _UNIT_GROUPS.items()
+}
+_MEASURE_UNITS_EN = "|".join(en for en, es in _UNIT_GROUPS.values())
+_MEASURE_UNITS_ES = "|".join(es for en, es in _UNIT_GROUPS.values())
 _MEASURE_UNITS = _MEASURE_UNITS_EN + r"|" + _MEASURE_UNITS_ES   # detección (EN+ES)
 _NAME_PREFIX_RE = re.compile(
     r"\b(?:building|ward|room|block|route|unit|section|cottage|wing|hall|gate|pier|"
     r"edificio|sala|pabell[oó]n|bloque|unidad|secci[oó]n|ala|sector)\s*$", re.I)
-_MEASURE_RE = re.compile(rf"(\d[\d.,]*\d|\d)\s*[-–]?\s*(?:{_MEASURE_UNITS})\b", re.I)
+# group(1)=numeral, group(2)=unidad (CAPTURADA → se mapea a su TIPO).
+_MEASURE_RE = re.compile(rf"(\d[\d.,]*\d|\d)\s*[-–]?\s*({_MEASURE_UNITS})\b", re.I)
 _YEAR_RE = re.compile(r"\b(1[0-9]\d{2}|20\d{2}|21\d{2})\b")
+
+
+def _unit_to_mtype(unit: str) -> str | None:
+    """Mapea una unidad (EN o ES) a su grupo de TIPO. None si no encaja (→ fallback
+    a 'cualquier unidad EN' en la adyacencia, comportamiento previo, no rompe)."""
+    u = unit.strip().lower()
+    for g, rx in _GROUP_ANY_RE.items():
+        if rx.match(u):
+            return g
+    return None
 
 
 def _has_name_prefix(text: str, num_start: int) -> bool:
@@ -559,11 +580,14 @@ def _classify_locked_facts(verbatim_facts: list[str]) -> list[dict]:
     out: list[dict] = []
     seen: set[str] = set()
 
-    def _add(num: str, kind: str):
+    def _add(num: str, kind: str, mtype: str | None = None):
         num = num.strip(" .,")
         if num and num not in seen:
             seen.add(num)
-            out.append({"num": num, "kind": kind})
+            entry = {"num": num, "kind": kind}
+            if kind == "measure":
+                entry["mtype"] = mtype     # CANDADO_2BIS: el TIPO de la unidad detectada
+            out.append(entry)
 
     for ft in verbatim_facts:
         if not ft:
@@ -571,7 +595,7 @@ def _classify_locked_facts(verbatim_facts: list[str]) -> list[dict]:
         # MEDIDA primero (gana sobre año si un mismo numeral cae en ambos, ej "1500 patients").
         for m in _MEASURE_RE.finditer(ft):
             if not _has_name_prefix(ft, m.start()):
-                _add(m.group(1), "measure")
+                _add(m.group(1), "measure", _unit_to_mtype(m.group(2)))
         for m in _YEAR_RE.finditer(ft):
             if not _has_name_prefix(ft, m.start()):    # "Building 1939" → NOMBRE, no fecha
                 _add(m.group(1), "year")
@@ -590,30 +614,35 @@ _SPANISH_UNIT_WORDS = (
 )
 
 
-def _measure_unit_adjacent(prose: str, num: str) -> bool:
+def _measure_unit_adjacent(prose: str, num: str, mtype: str | None = None) -> bool:
     """True si el numeral aparece en la prosa PEGADO a una unidad de medida EN
-    (FIX_GUARDA1 §2): candar el PAR, no el pelado. "13 floors"/"13-story" → True;
-    "13 rows of vegetables" → False (rows ∉ unidades de medida) → atrapa la invención."""
+    DEL MISMO TIPO (CANDADO_2BIS). "13 floors"/"13-story" (height) → True;
+    "13 rows" → False (rows ∉ unidad); "111 feet" con mtype=duration → False
+    (feet=length ≠ duration) → atrapa el "111 años" disfrazado de longitud.
+    mtype None → fallback a CUALQUIER unidad EN (comportamiento previo, no rompe)."""
+    en_units = _GROUP_EN.get(mtype, _MEASURE_UNITS_EN) if mtype else _MEASURE_UNITS_EN
     for v in _digit_variants(num):
-        if re.search(rf"{re.escape(v)}\s*[-–]?\s*(?:{_MEASURE_UNITS_EN})\b", prose, re.I):
+        if re.search(rf"{re.escape(v)}\s*[-–]?\s*(?:{en_units})\b", prose, re.I):
             return True
     return False
 
 
 def _post_check_locked(prose: str, locked: list[dict]) -> tuple[list[str], list[str]]:
-    """Guarda dura determinista (DOC_GUARDA1 §2 + HANDOFF_PROBE_FASE_B §3.2):
-      - MEDIDA: el numeral debe aparecer PEGADO a su unidad EN (no suelto).
-                "13 rows of vegetables" NO cuenta como "13 floors" → FALLA.
+    """Guarda dura determinista (DOC_GUARDA1 §2 + CANDADO_2BIS):
+      - MEDIDA: el numeral debe aparecer PEGADO a su unidad EN DEL MISMO TIPO.
+                "13 rows" → FALLA (sin unidad); "111 feet" cuando el fact era
+                "111 años" → FALLA (length ≠ duration).
       - AÑO:    el numeral pelado debe aparecer (tolerando separador ES/EN).
     Además: ninguna unidad española suelta debe quedar en la prosa inglesa.
-    Devuelve (missing, spanish_left). missing etiqueta el cajón para el log."""
+    Devuelve (missing, spanish_left). missing etiqueta cajón+tipo para el log."""
     missing: list[str] = []
     for it in locked:
         num, kind = it["num"], it["kind"]
         if kind == "measure":
-            ok = _measure_unit_adjacent(prose, num)
+            mtype = it.get("mtype")
+            ok = _measure_unit_adjacent(prose, num, mtype)
             if not ok:
-                missing.append(f"{num} (+English measure unit)")
+                missing.append(f"{num} (+{mtype or 'measure'} unit EN)")
         else:  # year
             ok = any(v in prose for v in _digit_variants(num))
             if not ok:
