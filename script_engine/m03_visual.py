@@ -106,10 +106,11 @@ from difflib import SequenceMatcher
 from pathlib import Path
 
 from config import DATA_DIR, OUTPUT_DIR, api
-from gemini_helpers import call_flash_json
+from gemini_helpers import call_flash_json, call_pro_json
 from nicho_config import get_active_nicho
 from anchor_timing import compute_anchor_starts
 from name_matching import scrub_documented_names
+from engine_profiles import select_profile
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -358,6 +359,432 @@ VALID_SHOT_SCALES = frozenset({"extreme_wide", "wide", "medium", "close", "detai
 VALID_LIGHT_MODES = frozenset({"night", "day", "golden"})
 LONGEST_TAIL_LEN = max(len(t) for t in (TAIL_NIGHT_STRONG, TAIL_NIGHT_MOD,
                                         TAIL_DAY_MOD, TAIL_DAY_STRONG, TAIL_GOLDEN))
+
+
+# ═══════════════════════════════════════════════════════════════
+#  SEEDREAM 4.5 — SKELETON + FLUIDIFICADOR + GUARDA 1 (eslabón 3b)
+# ═══════════════════════════════════════════════════════════════
+#
+# Corazón de B (DOC_SKELETON + HANDOFF_PROBE_FASE_B, validado lab 102). El LLM
+# NO redacta prosa libre: RELLENA SLOTS (skeleton). Un fluidificador (2º call
+# Pro) teje los slots en prosa Seedream siguiendo el ORDEN del perfil (3a). Un
+# POST-CHECK determinista LOCKEA las cifras-con-significado (Guarda 1) — atrapa
+# si el fluidificador redondea/borra/traduce un número.
+#
+# Camino aditivo: se activa con api.image_engine == "seedream". Kling/Flux quedan
+# byte-idénticos (FALLBACK vivo). El craft del director Kling se CONSERVA acá como
+# definición de cada slot (no se re-inventa, se re-ordena).
+
+# Slots que emite el LLM (craft Kling re-empaquetado como casilleros).
+SEEDREAM_SLOT_KEYS = (
+    "subject", "action", "gaze_interaction", "setting", "color_palette",
+    "props_detail", "shot_scale", "camera_angle", "lens_technique",
+    "lighting", "mood", "style",
+)
+
+SYSTEM_INSTRUCTION_VISUAL_SEEDREAM = """You are the IMAGE DIRECTOR of a faceless dark-history documentary channel. You do NOT write a free prose prompt: you FILL the slots (casilleros) of EACH image. Emit a JSON ARRAY of N slot-objects, one per given narration fragment, in the SAME order (item i fills the slots for fragment i). All slot VALUES in ENGLISH.
+
+Definition of each slot (what goes in each casillero — this is the craft, model-agnostic):
+
+- subject: who/what is the focus. For people: integrate the LOCAL ethnicity of the topic's GEO (R1), period-correct, NEVER a person's proper name (R3a) — describe by appearance/role.
+- action: the VERB of the anchor — the EXACT moment it narrates (R11), not the aftermath. What is happening. For a place/object with no human action, the state/movement of the scene.
+- gaze_interaction: where the subject looks / how it touches objects; on an R1 hero beat the face/eyes to the front (R8). If no human, the focal direction of the scene.
+- setting: the place, period-correct (R4, anti-medieval), dressed/placed by the narration of THIS beat, not by cliché (R10). No striped prison uniforms.
+- color_palette: the palette of the era AND of THIS specific place (from the visual canon provided — era layer + sourced place layer).
+- props_detail: ONE loaded focal prop, never an empty plate (R8).
+- shot_scale: one of extreme_wide|wide|medium|close|detail. WIDE/EXTREME_WIDE dominates for establishing/architecture/scale/mass events; medium/close ONLY for one human emotion or one texture detail (R7).
+- camera_angle: e.g. low angle for scale, eye-level, high angle (R7).
+- lens_technique: e.g. deep depth of field, shallow depth of field, 85mm lens.
+- lighting: light by the EVENT (R12) — beats of the SAME event share ONE light. overcast daylight, golden hour, low-key night, etc.
+- mood: the emotional tone, WITHIN the monetization ceiling (R5, HARD CAP, do not soften): terror is built from SCALE + LIGHT + EMPTY apparatus + loaded LIVING faces — NEVER lifeless bodies, never fresh graphic blood, never the moment of harm. Show the OUTCOME/charged empty space, never the mechanism centered.
+- style: the channel constant — documentary photographic realism, dark-history, faceless. (This is a slot, NOT a harness tail.)
+- text_in_image: a label ONLY if the anchor narrates a literal sign/inscription/number (a building number, a carved place name). present=false for people scenes; NEVER a person's proper name. If present=true: text (the literal content), font (carved/block/serif...), location (over the entrance...). Seedream renders quoted text legibly — this is allowed and intended.
+- hard_fact_ids: the 0-based indices of the provided verified_facts whose FIGURES this image weaves. Do NOT write the figures yourself — ONLY pick the indices relevant to THIS anchor's moment (do not bring foundation-era figures into a peak-era beat). [] if none apply.
+- subject_ref: "main_subject" if there is a protagonist; else "establishing_shot" / "interior_scene" / "landscape_view".
+- emotional_rank: "R1" (peak/hero) | "R2" (action) | "R3" (atmosphere) — see distribution in the user prompt.
+
+Fill ALL slots for EVERY item. Each value is a SHORT English phrase (not a paragraph). Do NOT write aspect ratio, negations, or a style/grain tail — the profile/assembler adds those afterward.
+
+JSON only. No markdown. No preamble."""
+
+
+def _seedream_slots_schema(n: int) -> dict:
+    """Schema de los SLOTS (array de N). response_schema vuelve todo required
+    (gemini_helpers) — text_in_image lleva present:false cuando no aplica."""
+    return {
+        "type": "ARRAY", "minItems": n, "maxItems": n,
+        "items": {
+            "type": "OBJECT",
+            "properties": {
+                "subject": {"type": "STRING"},
+                "action": {"type": "STRING"},
+                "gaze_interaction": {"type": "STRING"},
+                "setting": {"type": "STRING"},
+                "color_palette": {"type": "STRING"},
+                "props_detail": {"type": "STRING"},
+                "shot_scale": {"type": "STRING",
+                               "enum": ["extreme_wide", "wide", "medium", "close", "detail"]},
+                "camera_angle": {"type": "STRING"},
+                "lens_technique": {"type": "STRING"},
+                "lighting": {"type": "STRING"},
+                "mood": {"type": "STRING"},
+                "style": {"type": "STRING"},
+                "text_in_image": {
+                    "type": "OBJECT",
+                    "properties": {
+                        "present": {"type": "BOOLEAN"},
+                        "text": {"type": "STRING"},
+                        "font": {"type": "STRING"},
+                        "location": {"type": "STRING"},
+                    },
+                    "required": ["present", "text", "font", "location"],
+                },
+                "hard_fact_ids": {"type": "ARRAY", "items": {"type": "INTEGER"}},
+                "subject_ref": {"type": "STRING"},
+                "emotional_rank": {"type": "STRING"},
+            },
+            "required": list(SEEDREAM_SLOT_KEYS) + [
+                "text_in_image", "hard_fact_ids", "subject_ref", "emotional_rank"],
+        },
+    }
+
+
+def _format_seedream_canon_block(topic: dict) -> str:
+    """Canon de 2 CAPAS para el user-prompt del skeleton (eslabón 3b cablea el 2).
+
+    Espejo de _format_visual_canon_block PERO extendido con la capa SOURCED del
+    sujeto puntual (eslabón 2): materials_textures, color_palette, scale_dimensions,
+    distinctive_features, demographics, visual_reference_availability,
+    condition_evolution. NO modifica el bloque viejo (Kling/Flux byte-idénticos);
+    es una función aparte que solo usa el path seedream.
+    """
+    era = topic.get("era_visual_canon") or {}
+    people = topic.get("documented_people") or []
+    blocklist = topic.get("anachronism_blocklist") or []
+
+    if era.get("primary_decade"):
+        epoca = [
+            "ERA (capa genérica de la época):",
+            f"  primary_decade        : {era.get('primary_decade', '')}",
+            f"  spans                 : {era.get('spans', '')}",
+            f"  clothing              : {era.get('clothing', '')}",
+            f"  technology            : {era.get('technology', '')}",
+            f"  vehicles_machinery    : {era.get('vehicles_machinery', '')}",
+            f"  interiors             : {era.get('interiors', '')}",
+            f"  forbidden_anachronisms: {era.get('forbidden_anachronisms', '')}",
+        ]
+        cond = era.get("condition_evolution") or {}
+        sourced = [
+            "LUGAR PUNTUAL (capa sourced — específica de ESTE lugar, eslabón 2):",
+            f"  materials_textures           : {era.get('materials_textures', '')}",
+            f"  color_palette                : {era.get('color_palette', '')}",
+            f"  scale_dimensions             : {era.get('scale_dimensions', '')}",
+            f"  distinctive_features         : {era.get('distinctive_features', '')}",
+            f"  demographics                 : {era.get('demographics', '')}",
+            f"  visual_reference_availability : {era.get('visual_reference_availability', '')}",
+            f"  condition_evolution.at_event : {cond.get('at_event', '')}",
+            f"  condition_evolution.later    : {cond.get('later', '')}",
+        ]
+        era_block = "\n".join(epoca) + "\n\n" + "\n".join(sourced)
+    else:
+        era_block = ("CANON VISUAL: (vacío — no disponible). Inferí de verified_facts "
+                     "y canonical_subject_description.")
+
+    if people:
+        plines = ["PERSONAS DOCUMENTADAS (usar appearance_canon, NUNCA el nombre):"]
+        for p in people:
+            age = p.get("age_at_event")
+            age_str = f"age {age}" if age is not None else "age unknown"
+            plines.append(f"  • role: {p.get('role','?')} | {age_str} | era: {p.get('era','?')}")
+            plines.append(f"    appearance_canon: {p.get('appearance_canon','')}")
+        people_block = "\n".join(plines)
+    else:
+        people_block = ("PERSONAS DOCUMENTADAS: (vacío) — si la narración nombra a alguien, "
+                        "describilo por rol+aspecto+era, NUNCA por nombre.")
+
+    if blocklist:
+        blocklist_block = "ANACRONISMOS PROHIBIDOS:\n" + "\n".join(f"  - {b}" for b in blocklist)
+    else:
+        blocklist_block = "ANACRONISMOS PROHIBIDOS: (vacío)."
+
+    return f"""{era_block}
+
+{people_block}
+
+{blocklist_block}
+
+USO (2 capas): la capa ÉPOCA es genérica; la capa LUGAR PUNTUAL es específica de
+ESTE lugar (úsala para color_palette / setting / props_detail / subject). GUARDA-B:
+el canon NUNCA pisa una cifra más precisa de los verified_facts — "over 800 acres"
+(canon) NO reemplaza "873 acres" (fact). Donde hay fact, manda el fact; el canon
+llena lo que el fact no tiene."""
+
+
+# ── GUARDA 1: candado de cifras por SIGNIFICADO (DOC_GUARDA1_CANDADO) ──
+# Lockea MEDIDA (numeral + unidad) y FECHA (año), NUNCA NOMBRE ("Building 93").
+# El fact puede venir en ES; se lockea el NUMERAL (invariante de idioma) y el
+# fluidificador escribe la unidad en inglés. Ante la duda → NO lockear.
+_MEASURE_UNITS = (
+    r"acres?|feet|foot|ft|floors?|stor(?:y|ies)|patients?|inmates?|graves?|miles?|"
+    r"yards?|met(?:er|re)s?|inches|beds?|buildings?|deaths?|victims?|years?|months?|"
+    r"weeks?|days?|hours?|kilomet(?:er|re)s?|km|tons?|tonnes?|pounds?|lbs?|kg|"
+    r"hectares?|"
+    # español (el fact puede estar en ES)
+    r"pisos?|pies|pacientes?|internos?|tumbas?|millas?|metros?|edificios?|muertos?|"
+    r"v[ií]ctimas?|a[ñn]os?|meses|d[ií]as?|toneladas?|hect[aá]reas?"
+)
+_NAME_PREFIX_RE = re.compile(
+    r"\b(?:building|ward|room|block|route|unit|section|cottage|wing|hall|gate|pier|"
+    r"edificio|sala|pabell[oó]n|bloque|unidad|secci[oó]n|ala|sector)\s*$", re.I)
+_MEASURE_RE = re.compile(rf"(\d[\d.,]*\d|\d)\s*[-–]?\s*(?:{_MEASURE_UNITS})\b", re.I)
+_YEAR_RE = re.compile(r"\b(1[0-9]\d{2}|20\d{2}|21\d{2})\b")
+
+
+def _has_name_prefix(text: str, num_start: int) -> bool:
+    """True si el número en num_start viene PEGADO a un sustantivo identificador
+    (Building/Ward/...) → es NOMBRE, no cifra."""
+    return bool(_NAME_PREFIX_RE.search(text[:num_start]))
+
+
+def _classify_locked_facts(verbatim_facts: list[str]) -> list[str]:
+    """Devuelve los NUMERALES a lockear: medidas (num+unidad) + años. NOMBRE nunca.
+    Dedup conservando orden. Ante la duda (número pelado sin unidad/año/prefijo) → no entra."""
+    out: list[str] = []
+    seen: set[str] = set()
+
+    def _add(num: str):
+        num = num.strip(" .,")
+        if num and num not in seen:
+            seen.add(num)
+            out.append(num)
+
+    for ft in verbatim_facts:
+        if not ft:
+            continue
+        for m in _MEASURE_RE.finditer(ft):
+            if not _has_name_prefix(ft, m.start()):   # "Building 93 floors" no debería, pero por las dudas
+                _add(m.group(1))
+        for m in _YEAR_RE.finditer(ft):
+            if not _has_name_prefix(ft, m.start()):    # "Building 1939" → NOMBRE, no fecha
+                _add(m.group(1))
+    return out
+
+
+def _digit_variants(d: str) -> set[str]:
+    """ES usa '.' como separador de miles, EN usa ','. Aceptar ambas formas."""
+    return {d, d.replace(",", "."), d.replace(".", ",")}
+
+
+_SPANISH_UNIT_WORDS = (
+    "pisos", "piso", "pies", "pacientes", "paciente", "internos", "tumbas",
+    "años", "año", "anos", "edificios", "metros", "muertos",
+    "víctimas", "victimas", "millas", "toneladas", "hectáreas",
+)
+
+
+def _post_check_locked(prose: str, locked: list[str]) -> tuple[list[str], list[str]]:
+    """Guarda dura determinista (HANDOFF_PROBE_FASE_B §3.2): cada numeral locked
+    debe aparecer literal (tolerando separador ES/EN); ninguna unidad española
+    debe quedar en la prosa inglesa. Devuelve (missing, spanish_left)."""
+    missing = [d for d in locked if not any(v in prose for v in _digit_variants(d))]
+    spanish = sorted({u for u in _SPANISH_UNIT_WORDS
+                      if re.search(rf"\b{re.escape(u)}\b", prose, re.I)})
+    return missing, spanish
+
+
+# ── FLUIDIFICADOR (2º call Pro): teje los slots en prosa Seedream ──
+FLUIDIFICADOR_SYSTEM = """You are an image-prompt editor for Seedream 4.5. You receive the SLOTS of ONE image (already decided — do NOT change them) in formula order, and a list of MANDATORY NUMBERS. Your only task: WEAVE them into ONE natural, fluent English prose prompt.
+
+HARD RULES:
+- Complete sentences, one cohesive description. FORBIDDEN: token lists, double commas, fragments capitalized mid-sentence, "An wide shot".
+- Follow the ORDER of the slots as given.
+- The MANDATORY NUMBERS appear EXACT and as NUMERALS (do not spell them out), each with its unit IN ENGLISH: e.g. "13 floors", "159 feet", "873 acres", "9,303 patients"; years as-is ("1885", "1939"). Do NOT round, do NOT drop, do NOT use a Spanish unit word.
+- Do NOT add new facts. Do NOT use any person's proper name (describe by appearance/role).
+- If TEXT_IN_IMAGE is present: render the label with the Seedream recipe — a sign/inscription reads "THE TEXT" in the given font and location, in clear crisp lettering. The label is of a PLACE/object, NEVER a person's name.
+- Close EXACTLY with the aspect-ratio line given in the input. Do NOT add anachronism negations (those are added later by the reviewer).
+
+Return ONLY the prose field (no wrapping quotes, no markdown)."""
+
+_FLUIDIFICADOR_SCHEMA = {"type": "OBJECT",
+                         "properties": {"prose": {"type": "STRING"}},
+                         "required": ["prose"]}
+
+
+def _build_fluidificador_user(slots: dict, locked: list[str], profile) -> str:
+    """Arma el input del fluidificador caminando profile.formula (orden del perfil)."""
+    tii = slots.get("text_in_image") or {}
+    if tii.get("present"):
+        text_line = (f'render: reads "{tii.get("text","")}" · font={tii.get("font","")} '
+                     f'· location={tii.get("location","")}')
+    else:
+        text_line = "(none — do not render text)"
+    lines = ["SLOTS (in profile formula order):"]
+    for key in profile.formula:
+        if key in SEEDREAM_SLOT_KEYS:
+            lines.append(f"  {key}: {(slots.get(key) or '').strip()}")
+        elif key == "text_in_image":
+            lines.append(f"  text_in_image: {text_line}")
+        # hard_facts / aspect_ratio / negations se manejan abajo (no son slots de texto libre)
+    body = "\n".join(lines)
+    locked_str = ", ".join(locked) if locked else "(none)"
+    return f"""{body}
+
+MANDATORY NUMBERS (exact, numerals, unit in English): {locked_str}
+
+Weave everything into ONE fluent English prose prompt following the order above,
+and close with: {profile.aspect_ratio_text}"""
+
+
+def _fluidify_item(slots: dict, locked: list[str], profile, label: str,
+                   max_attempts: int = 3) -> str:
+    """Llama el fluidificador y verifica la Guarda 1 (post-check determinista).
+    Reintenta si una cifra se perdió/redondeó o quedó unidad española. Si tras
+    max_attempts sigue fallando → VisualValidationError RUIDOSO (§4)."""
+    user = _build_fluidificador_user(slots, locked, profile)
+    last_missing: list[str] = []
+    last_spanish: list[str] = []
+    for attempt in range(1, max_attempts + 1):
+        out = call_pro_json(user, system_instruction=FLUIDIFICADOR_SYSTEM,
+                            response_schema=_FLUIDIFICADOR_SCHEMA)
+        prose = (out or {}).get("prose", "") if isinstance(out, dict) else ""
+        prose = re.sub(r"\s+", " ", prose).strip()
+        missing, spanish = _post_check_locked(prose, locked)
+        if not missing and not spanish and prose:
+            return prose
+        last_missing, last_spanish = missing, spanish
+        if attempt < max_attempts:
+            user = (_build_fluidificador_user(slots, locked, profile) +
+                    f"\n\nRETRY: the previous weave broke Guarda 1. Missing numerals: "
+                    f"{missing or '-'}. Spanish unit words left: {spanish or '-'}. "
+                    f"Re-weave keeping EVERY mandatory number exact (numeral) with its "
+                    f"English unit.")
+    raise VisualValidationError(
+        f"{label}: fluidificador rompió Guarda 1 tras {max_attempts} intentos "
+        f"(missing={last_missing}, spanish_units={last_spanish}). "
+        f"Las cifras locked deben aparecer literales con unidad en inglés."
+    )
+
+
+def _seedream_facts_verbatim(hard_fact_ids, facts: list) -> list[str]:
+    """verbatim de los facts elegidos por el LLM (para el candado)."""
+    ids = [i for i in (hard_fact_ids or []) if isinstance(i, int) and 0 <= i < len(facts)]
+    out = []
+    for i in ids:
+        f = facts[i]
+        out.append((f.get("fact", "") if isinstance(f, dict) else str(f)))
+    return out
+
+
+def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors) -> str:
+    """User-prompt del skeleton seedream: canon 2-capas + facts + anchors → pedir
+    N slot-sets (uno por fragmento). El LLM elige hard_fact_ids; NO escribe cifras."""
+    cap_n = cap_data["chapter_number"]
+    role = cap_data.get("role") or "development"
+    cap_title = cap_data.get("title") or "(sin título)"
+    n = len(anchors)
+    anchor_list = "\n".join(f"  [{i + 1}] «{a}»" for i, a in enumerate(anchors))
+    topic_block = _build_topic_block(topic)
+    canon_block = _format_seedream_canon_block(topic)
+    return f"""Narration (Spanish, for context only — emit JSON in English):
+
+{narration_text}
+
+CAP {cap_n} — {role}, title: {cap_title}
+
+═══════════════════════════════════════════════════
+TEMA
+═══════════════════════════════════════════════════
+{topic_block}
+
+═══════════════════════════════════════════════════
+CANON VISUAL (2 capas — verdad sellada, NO re-inferir)
+═══════════════════════════════════════════════════
+{canon_block}
+
+═══════════════════════════════════════════════════
+ANCHORS YA ELEGIDOS (Paso 1) — NO los elijas, ya están DADOS
+═══════════════════════════════════════════════════
+Fill the slots for EACH fragment below, in the SAME order (item i ↔ fragment i):
+{anchor_list}
+
+Emit EXACTLY {n} slot-objects as a JSON array.
+
+DISTRIBUTION OF emotional_rank:
+- 1-2 items R1 (peak of cap: closing, revelation, biggest impact).
+- 2-3 items R2 (action, strong transition, person in tension).
+- Rest R3 (descriptive scene, context, ambience).
+
+For hard_fact_ids: pick the indices of verified_facts whose FIGURES this image
+weaves — and ONLY those relevant to THIS anchor's moment (do NOT bring
+foundation-era figures into a peak-era beat). Do NOT rewrite the figures.
+
+JSON only. No markdown. No preamble."""
+
+
+def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
+    """Paso 2 SEEDREAM (caps flux): skeleton (slots, Pro) → fluidificador per-item
+    (teje prosa + Guarda 1 post-check) → scrub nombres + text-leakage invertida.
+    Devuelve el MISMO shape que _render_prompts_flux (image_prompts con prompt final),
+    contrato fase2a intacto."""
+    anchors = [a["anchor"] for a in plan["anchors"]]
+    n = len(anchors)
+    facts = topic.get("verified_facts") or []
+    documented = topic.get("documented_people")
+    profile = select_profile("seedream")
+    prompt = _build_seedream_prompt_step2(topic, cap_data, narration, anchors)
+
+    def _validator(parsed):
+        items = parsed.get("image_prompts") if isinstance(parsed, dict) else None
+        if not isinstance(items, list) or len(items) != n:
+            got = len(items) if isinstance(items, list) else "no-lista"
+            raise VisualValidationError(
+                f"cap {cap_number} (seedream paso2): se esperaban EXACTAMENTE {n} "
+                f"slot-objects, llegaron {got}."
+            )
+        for i, it in enumerate(items, start=1):
+            if not isinstance(it, dict):
+                raise VisualValidationError(f"cap {cap_number} (seedream) item {i}: no es objeto")
+            ss = it.get("shot_scale")
+            if ss not in VALID_SHOT_SCALES:
+                raise VisualValidationError(
+                    f"cap {cap_number} (seedream) item {i}: shot_scale inválido ({ss!r})")
+            if not (it.get("subject") or "").strip():
+                raise VisualValidationError(
+                    f"cap {cap_number} (seedream) item {i}: slot 'subject' vacío")
+        # candado #2: narration_anchor VERBATIM del Paso 1 (nunca del eco del LLM).
+        assembled = {"image_prompts": [
+            {**items[i], "narration_anchor": anchors[i]} for i in range(n)
+        ]}
+        return assembled
+
+    slots_out = _call_with_validation_retry(
+        prompt, _validator, cap_number,
+        system_instruction=SYSTEM_INSTRUCTION_VISUAL_SEEDREAM,
+        response_schema=_seedream_slots_schema(n),
+        use_pro=True,
+    )
+
+    # ── fluidificador per-item + Guarda 1 + scrub + text-leakage (R3 invertida) ──
+    for i, it in enumerate(slots_out["image_prompts"], start=1):
+        verbatim = _seedream_facts_verbatim(it.get("hard_fact_ids"), facts)
+        locked = _classify_locked_facts(verbatim)
+        prose = _fluidify_item(it, locked, profile, f"cap {cap_number} img #{i}")
+        # raw_llm_prompt = los slots crudos (auditoría m05, se conserva)
+        it["raw_llm_prompt"] = json.dumps(
+            {k: it.get(k) for k in (*SEEDREAM_SLOT_KEYS, "text_in_image", "hard_fact_ids")},
+            ensure_ascii=False)
+        # scrub nombres de PERSONA (conservado, los dos motores) ANTES del leakage.
+        prose, _ = scrub_documented_names(prose, documented)
+        # R3 invertida: text_in_image (rótulo de lugar) PERMITIDO; eufemismos siguen prohibidos.
+        _validate_no_text_leakage(prose, f"cap {cap_number} (seedream) img #{i}",
+                                  allow_intentional_text=True)
+        if not (PROMPT_MIN_CHARS <= len(prose) <= KLING_PROMPT_MAX_CHARS):
+            raise VisualValidationError(
+                f"cap {cap_number} (seedream) img #{i}: prosa fuera de rango "
+                f"({len(prose)} chars, target {PROMPT_MIN_CHARS}-{KLING_PROMPT_MAX_CHARS}).")
+        it["prompt"] = prose
+        it["art_profile"] = ""
+    return slots_out
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1533,7 +1960,8 @@ def _validate_prompt_length(prompt: str, label: str) -> None:
         )
 
 
-def _validate_no_text_leakage(prompt: str, label: str) -> None:
+def _validate_no_text_leakage(prompt: str, label: str,
+                              allow_intentional_text: bool = False) -> None:
     """Regla 3: detecta patrones de instrucción de texto en imagen.
 
     El LLM a veces esquiva la regla 3 del prompt con eufemismos tipo
@@ -1545,10 +1973,16 @@ def _validate_no_text_leakage(prompt: str, label: str) -> None:
       2) nombre propio capitalizado entre comillas → CASE-SENSITIVE sobre el
          prompt ORIGINAL (si se lowercasea o se usa IGNORECASE, [A-Z] queda
          anulado y caza comillas de énfasis = falso positivo).
+
+    allow_intentional_text (eslabón 3b, R3 INVERTIDA para Seedream): cuando True,
+    se SALTEA la pasada 2 (texto entrecomillado = rótulo intencional del slot
+    text_in_image, herramienta legítima de Seedream). La pasada 1 (eufemismos)
+    se mantiene; los nombres de PERSONA los sigue cortando scrub_documented_names
+    (aplicado aparte, en los dos motores). Default False → Kling/Flux intactos.
     """
     matched_fragment = None
 
-    # Pasada 1 — eufemismos (case-insensitive sobre minúscula).
+    # Pasada 1 — eufemismos (case-insensitive sobre minúscula). SIEMPRE corre.
     prompt_lc = prompt.lower()
     for pattern in TEXT_LEAKAGE_PATTERNS:
         m = re.search(pattern, prompt_lc, re.IGNORECASE)
@@ -1558,7 +1992,8 @@ def _validate_no_text_leakage(prompt: str, label: str) -> None:
 
     # Pasada 2 — nombre propio capitalizado entre comillas (case-sensitive,
     # prompt ORIGINAL, SIN IGNORECASE). Solo si la pasada 1 no encontró nada.
-    if matched_fragment is None:
+    # Seedream (allow_intentional_text) la saltea: las comillas son su herramienta.
+    if matched_fragment is None and not allow_intentional_text:
         m = re.search(TEXT_LEAKAGE_PATTERN_PROPER_NOUN, prompt)
         if m:
             matched_fragment = m.group(0)
@@ -2332,6 +2767,7 @@ def _call_with_validation_retry(
     max_attempts: int = MAX_RETRY_ATTEMPTS,
     checklist: str | None = None,
     response_schema=None,
+    use_pro: bool = False,
 ) -> dict:
     """Llama Flash, valida, reintenta con feedback si falla.
 
@@ -2356,10 +2792,13 @@ def _call_with_validation_retry(
     checklist_block = checklist if checklist is not None else _DEFAULT_RETRY_CHECKLIST
     attempt_prompt = prompt
     last_error: VisualValidationError | None = None
+    # use_pro (eslabón 3b): el skeleton seedream razona (slots + relevancia de facts) →
+    # Pro, como el lab. Kling/Flux quedan en Flash (default) → byte-idénticos.
+    _caller = call_pro_json if use_pro else call_flash_json
 
     for attempt in range(1, max_attempts + 1):
-        raw = call_flash_json(attempt_prompt, system_instruction=system_instruction,
-                              response_schema=response_schema)
+        raw = _caller(attempt_prompt, system_instruction=system_instruction,
+                      response_schema=response_schema)
         try:
             return validator_fn(raw)
         except VisualValidationError as e:
@@ -3065,45 +3504,50 @@ def assign_visual_prompts(
             if words_ts:
                 plan, _ = _reconcile_anchor_timing(
                     plan, "flux", words_ts, MIN_IMAGES_FLUX, cap_n)
-            cap_out = _render_prompts_flux(topic, sch, narration_text, plan, cap_n)
-
-            # Ensamblaje: el LLM emite el prompt completo en prosa; el harness apendiza el
-            # tail/ancla AL FINAL. Se persiste raw_llm_prompt para auditoría m05.
-            # Bake §Kling (chat 80): en el path Kling el tail dialed por shot_scale+light_mode
-            # REEMPLAZA a ancla_global (Camino B). El path Flux queda byte-idéntico (else).
-            if api.image_engine == "kling":
-                for item in cap_out.get("image_prompts", []):
-                    raw_prompt = item["prompt"].strip()
-                    dial = anti_plastic_dial(item["shot_scale"], item["has_human_subject"])
-                    tail = pick_tail(item["light_mode"], dial)
-                    prompt_final = f"{raw_prompt.rstrip('.')}. {tail}"[:KLING_PROMPT_MAX_CHARS]
-                    if len(prompt_final) < PROMPT_MIN_CHARS:
-                        raise VisualValidationError(
-                            f"cap {cap_n}: prompt Kling ensamblado < {PROMPT_MIN_CHARS} chars "
-                            f"({len(prompt_final)})."
-                        )
-                    item["raw_llm_prompt"] = raw_prompt  # auditoría m05
-                    item["prompt"] = prompt_final
-                    item["art_profile"] = ""
-                    # shot_scale/light_mode quedan en el item (metadata extra para m05;
-                    # no rompen el contrato sagrado de fase2a).
+            # ESLABÓN 3b: Seedream usa el skeleton + fluidificador (prosa ya FINAL,
+            # con Guarda 1 aplicada dentro) → NO tail-bake. Kling/Flux byte-idénticos.
+            if api.image_engine == "seedream":
+                cap_out = _render_prompts_seedream(topic, sch, narration_text, plan, cap_n)
             else:
-                # Path Flux (subject-first según MODEL_PROMPTING_RULES.md §1 R1): ancla_global
-                # al final. byte-idéntico al pre-bake.
-                nicho = get_active_nicho()
-                ancla_global = nicho["ancla_global"]
-                for item in cap_out.get("image_prompts", []):
-                    raw_prompt = item["prompt"].strip()
-                    prompt_final = raw_prompt + " " + ancla_global
-                    if not (PROMPT_MIN_CHARS <= len(prompt_final) <= PROMPT_MAX_CHARS):
-                        raise VisualValidationError(
-                            f"cap {cap_n}: prompt ensamblado fuera de rango "
-                            f"({len(prompt_final)} chars, target "
-                            f"{PROMPT_MIN_CHARS}-{PROMPT_MAX_CHARS})."
-                        )
-                    item["raw_llm_prompt"] = raw_prompt  # auditoría m05
-                    item["prompt"] = prompt_final
-                    item["art_profile"] = ""
+                cap_out = _render_prompts_flux(topic, sch, narration_text, plan, cap_n)
+
+                # Ensamblaje: el LLM emite el prompt completo en prosa; el harness apendiza el
+                # tail/ancla AL FINAL. Se persiste raw_llm_prompt para auditoría m05.
+                # Bake §Kling (chat 80): en el path Kling el tail dialed por shot_scale+light_mode
+                # REEMPLAZA a ancla_global (Camino B). El path Flux queda byte-idéntico (else).
+                if api.image_engine == "kling":
+                    for item in cap_out.get("image_prompts", []):
+                        raw_prompt = item["prompt"].strip()
+                        dial = anti_plastic_dial(item["shot_scale"], item["has_human_subject"])
+                        tail = pick_tail(item["light_mode"], dial)
+                        prompt_final = f"{raw_prompt.rstrip('.')}. {tail}"[:KLING_PROMPT_MAX_CHARS]
+                        if len(prompt_final) < PROMPT_MIN_CHARS:
+                            raise VisualValidationError(
+                                f"cap {cap_n}: prompt Kling ensamblado < {PROMPT_MIN_CHARS} chars "
+                                f"({len(prompt_final)})."
+                            )
+                        item["raw_llm_prompt"] = raw_prompt  # auditoría m05
+                        item["prompt"] = prompt_final
+                        item["art_profile"] = ""
+                        # shot_scale/light_mode quedan en el item (metadata extra para m05;
+                        # no rompen el contrato sagrado de fase2a).
+                else:
+                    # Path Flux (subject-first según MODEL_PROMPTING_RULES.md §1 R1): ancla_global
+                    # al final. byte-idéntico al pre-bake.
+                    nicho = get_active_nicho()
+                    ancla_global = nicho["ancla_global"]
+                    for item in cap_out.get("image_prompts", []):
+                        raw_prompt = item["prompt"].strip()
+                        prompt_final = raw_prompt + " " + ancla_global
+                        if not (PROMPT_MIN_CHARS <= len(prompt_final) <= PROMPT_MAX_CHARS):
+                            raise VisualValidationError(
+                                f"cap {cap_n}: prompt ensamblado fuera de rango "
+                                f"({len(prompt_final)} chars, target "
+                                f"{PROMPT_MIN_CHARS}-{PROMPT_MAX_CHARS})."
+                            )
+                        item["raw_llm_prompt"] = raw_prompt  # auditoría m05
+                        item["prompt"] = prompt_final
+                        item["art_profile"] = ""
 
             # No-op desde chat 19 (catálogo desconectado). NO tocar.
             cap_out = _stitch_zone2_into_cap_flux(cap_out)

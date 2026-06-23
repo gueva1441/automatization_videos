@@ -63,7 +63,7 @@ Bus: 4a→4b→4c→4d ; 4e recibe facts+canonical+angle_blocks (incl. `visual`)
 | **m01a_skeleton** `script_engine` | Genera esqueleto fijo de 7 caps (1 call Flash) | `generate_skeleton()` |
 | **m01b_narrator** `script_engine` | Narración cap-por-cap (hook/5 dev/outro) en 8 calls Flash | `generate_narration()` |
 | **m02_5_normalizer_gate** `script_engine` | Gate humano de pronunciación TTS (detecta spans, CLI V/E/R/S) | `gate_normalizer_for_topic()` |
-| **m03_visual** `script_engine` | **Genera image_prompts EN con anchor exacto por imagen** (two-step), bakea el motor activo | `assign_visual_prompts()` |
+| **m03_visual** `script_engine` | **Genera image_prompts EN con anchor exacto por imagen** (two-step), dispatch por motor: Flux (prosa+ancla) / Kling (prosa+tail-bake) / **Seedream (eslabón 3b: SKELETON de slots → FLUIDIFICADOR Pro per-item teje prosa por la fórmula del perfil 3a → GUARDA 1 candado de cifras por significado + post-check determinista). Lee el canon 2-capas del eslabón 2; R3 invertida (text_in_image rótulo permitido). Path flux migrado; veo bajo seedream cae a prosa flux-style (no skeleton, flag)** | `assign_visual_prompts()` |
 | **m05_judge** `script_engine` | Juez visual híbrido (regex + Flash) anchor↔prompt, voting N=3 | `judge_topic_with_voting()` |
 | **m06_classifier** `script_engine` | Post-m05: buckea issues (auto_fixable/grave/FP), genera handoff CC | `classify_and_decide()` |
 | **m06_assembler** `script_engine` | Ensambla el **"contrato sagrado"** `data/scripts/<id>.json` (topic+narr+visual) | `assemble_final_script()` |
