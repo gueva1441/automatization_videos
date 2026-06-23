@@ -399,7 +399,7 @@ Definition of each slot (what goes in each casillero — this is the craft, mode
 - mood: the emotional tone, WITHIN the monetization ceiling (R5, HARD CAP, do not soften): terror is built from SCALE + LIGHT + EMPTY apparatus + loaded LIVING faces — NEVER lifeless bodies, never fresh graphic blood, never the moment of harm. Show the OUTCOME/charged empty space, never the mechanism centered.
 - style: the channel constant — documentary photographic realism, dark-history, faceless. (This is a slot, NOT a harness tail.)
 - text_in_image: a label ONLY if the anchor narrates a literal sign/inscription/number (a building number, a carved place name). present=false for people scenes; NEVER a person's proper name. If present=true: text (the literal content), font (carved/block/serif...), location (over the entrance...). Seedream renders quoted text legibly — this is allowed and intended.
-- hard_fact_ids: the 0-based indices of the provided verified_facts whose FIGURES this image weaves. Do NOT write the figures yourself — ONLY pick the indices relevant to THIS anchor's moment (do not bring foundation-era figures into a peak-era beat). [] if none apply.
+- hard_fact_ids: the 0-based indices of the provided verified_facts whose FIGURES this image actually shows. Do NOT write the figures yourself — ONLY pick indices RELEVANT to THIS anchor's moment AND place. A figure belongs here only if THIS image depicts it: do NOT attach a building's structural figures (floors, height, year built) to a people/farm/landscape anchor, nor foundation/closing figures to a peak beat. When in doubt, leave it EMPTY — an honest [] is better than an irrelevant figure forced into the scene (which the locked-figures guard will reject downstream). [] if none apply.
 - subject_ref: "main_subject" if there is a protagonist; else "establishing_shot" / "interior_scene" / "landscape_view".
 - emotional_rank: "R1" (peak/hero) | "R2" (action) | "R3" (atmosphere) — see distribution in the user prompt.
 
@@ -524,15 +524,19 @@ llena lo que el fact no tiene."""
 # Lockea MEDIDA (numeral + unidad) y FECHA (año), NUNCA NOMBRE ("Building 93").
 # El fact puede venir en ES; se lockea el NUMERAL (invariante de idioma) y el
 # fluidificador escribe la unidad en inglés. Ante la duda → NO lockear.
-_MEASURE_UNITS = (
-    r"acres?|feet|foot|ft|floors?|stor(?:y|ies)|patients?|inmates?|graves?|miles?|"
+# Unidades de medida — separadas por idioma. El post-check exige el PAR (número +
+# unidad EN) en la prosa inglesa (FIX_GUARDA1): "13 rows" falla, "13 floors" pasa.
+# La DETECCIÓN en el fact usa EN+ES (el fact puede venir en español).
+_MEASURE_UNITS_EN = (
+    r"acres?|feet|foot|ft|floors?|stor(?:y|ies)|storeys?|patients?|inmates?|graves?|miles?|"
     r"yards?|met(?:er|re)s?|inches|beds?|buildings?|deaths?|victims?|years?|months?|"
-    r"weeks?|days?|hours?|kilomet(?:er|re)s?|km|tons?|tonnes?|pounds?|lbs?|kg|"
-    r"hectares?|"
-    # español (el fact puede estar en ES)
+    r"weeks?|days?|hours?|kilomet(?:er|re)s?|km|tons?|tonnes?|pounds?|lbs?|kg|hectares?"
+)
+_MEASURE_UNITS_ES = (
     r"pisos?|pies|pacientes?|internos?|tumbas?|millas?|metros?|edificios?|muertos?|"
     r"v[ií]ctimas?|a[ñn]os?|meses|d[ií]as?|toneladas?|hect[aá]reas?"
 )
+_MEASURE_UNITS = _MEASURE_UNITS_EN + r"|" + _MEASURE_UNITS_ES   # detección (EN+ES)
 _NAME_PREFIX_RE = re.compile(
     r"\b(?:building|ward|room|block|route|unit|section|cottage|wing|hall|gate|pier|"
     r"edificio|sala|pabell[oó]n|bloque|unidad|secci[oó]n|ala|sector)\s*$", re.I)
@@ -546,27 +550,31 @@ def _has_name_prefix(text: str, num_start: int) -> bool:
     return bool(_NAME_PREFIX_RE.search(text[:num_start]))
 
 
-def _classify_locked_facts(verbatim_facts: list[str]) -> list[str]:
-    """Devuelve los NUMERALES a lockear: medidas (num+unidad) + años. NOMBRE nunca.
-    Dedup conservando orden. Ante la duda (número pelado sin unidad/año/prefijo) → no entra."""
-    out: list[str] = []
+def _classify_locked_facts(verbatim_facts: list[str]) -> list[dict]:
+    """Devuelve las CIFRAS-CON-SIGNIFICADO a lockear, cada una con su CAJÓN:
+      {"num": "13",   "kind": "measure"}   ← se lockea el PAR (num + unidad EN en prosa)
+      {"num": "1939", "kind": "year"}      ← se lockea el numeral pelado
+    NOMBRE ("Building 93") nunca entra. Dedup por num (el primer cajón gana).
+    Ante la duda (pelado sin unidad/año/prefijo) → no entra (asimetría DOC §4)."""
+    out: list[dict] = []
     seen: set[str] = set()
 
-    def _add(num: str):
+    def _add(num: str, kind: str):
         num = num.strip(" .,")
         if num and num not in seen:
             seen.add(num)
-            out.append(num)
+            out.append({"num": num, "kind": kind})
 
     for ft in verbatim_facts:
         if not ft:
             continue
+        # MEDIDA primero (gana sobre año si un mismo numeral cae en ambos, ej "1500 patients").
         for m in _MEASURE_RE.finditer(ft):
-            if not _has_name_prefix(ft, m.start()):   # "Building 93 floors" no debería, pero por las dudas
-                _add(m.group(1))
+            if not _has_name_prefix(ft, m.start()):
+                _add(m.group(1), "measure")
         for m in _YEAR_RE.finditer(ft):
             if not _has_name_prefix(ft, m.start()):    # "Building 1939" → NOMBRE, no fecha
-                _add(m.group(1))
+                _add(m.group(1), "year")
     return out
 
 
@@ -582,11 +590,34 @@ _SPANISH_UNIT_WORDS = (
 )
 
 
-def _post_check_locked(prose: str, locked: list[str]) -> tuple[list[str], list[str]]:
-    """Guarda dura determinista (HANDOFF_PROBE_FASE_B §3.2): cada numeral locked
-    debe aparecer literal (tolerando separador ES/EN); ninguna unidad española
-    debe quedar en la prosa inglesa. Devuelve (missing, spanish_left)."""
-    missing = [d for d in locked if not any(v in prose for v in _digit_variants(d))]
+def _measure_unit_adjacent(prose: str, num: str) -> bool:
+    """True si el numeral aparece en la prosa PEGADO a una unidad de medida EN
+    (FIX_GUARDA1 §2): candar el PAR, no el pelado. "13 floors"/"13-story" → True;
+    "13 rows of vegetables" → False (rows ∉ unidades de medida) → atrapa la invención."""
+    for v in _digit_variants(num):
+        if re.search(rf"{re.escape(v)}\s*[-–]?\s*(?:{_MEASURE_UNITS_EN})\b", prose, re.I):
+            return True
+    return False
+
+
+def _post_check_locked(prose: str, locked: list[dict]) -> tuple[list[str], list[str]]:
+    """Guarda dura determinista (DOC_GUARDA1 §2 + HANDOFF_PROBE_FASE_B §3.2):
+      - MEDIDA: el numeral debe aparecer PEGADO a su unidad EN (no suelto).
+                "13 rows of vegetables" NO cuenta como "13 floors" → FALLA.
+      - AÑO:    el numeral pelado debe aparecer (tolerando separador ES/EN).
+    Además: ninguna unidad española suelta debe quedar en la prosa inglesa.
+    Devuelve (missing, spanish_left). missing etiqueta el cajón para el log."""
+    missing: list[str] = []
+    for it in locked:
+        num, kind = it["num"], it["kind"]
+        if kind == "measure":
+            ok = _measure_unit_adjacent(prose, num)
+            if not ok:
+                missing.append(f"{num} (+English measure unit)")
+        else:  # year
+            ok = any(v in prose for v in _digit_variants(num))
+            if not ok:
+                missing.append(num)
     spanish = sorted({u for u in _SPANISH_UNIT_WORDS
                       if re.search(rf"\b{re.escape(u)}\b", prose, re.I)})
     return missing, spanish
@@ -610,7 +641,7 @@ _FLUIDIFICADOR_SCHEMA = {"type": "OBJECT",
                          "required": ["prose"]}
 
 
-def _build_fluidificador_user(slots: dict, locked: list[str], profile) -> str:
+def _build_fluidificador_user(slots: dict, locked: list[dict], profile) -> str:
     """Arma el input del fluidificador caminando profile.formula (orden del perfil)."""
     tii = slots.get("text_in_image") or {}
     if tii.get("present"):
@@ -626,16 +657,23 @@ def _build_fluidificador_user(slots: dict, locked: list[str], profile) -> str:
             lines.append(f"  text_in_image: {text_line}")
         # hard_facts / aspect_ratio / negations se manejan abajo (no son slots de texto libre)
     body = "\n".join(lines)
-    locked_str = ", ".join(locked) if locked else "(none)"
+    measures = [it["num"] for it in locked if it["kind"] == "measure"]
+    years = [it["num"] for it in locked if it["kind"] == "year"]
+    meas_str = ", ".join(measures) if measures else "(none)"
+    years_str = ", ".join(years) if years else "(none)"
     return f"""{body}
 
-MANDATORY NUMBERS (exact, numerals, unit in English): {locked_str}
+MANDATORY MEASURES — each MUST appear in the prose as the numeral IMMEDIATELY
+followed by its English measure unit (e.g. "13 floors", "159 feet", "873 acres",
+"9,303 patients"). Pick the correct unit for what THIS image actually shows; if a
+number does not fit this image, it does NOT belong here — do not invent a unit: {meas_str}
+MANDATORY YEARS (exact, as-is, e.g. "1885", "1939"): {years_str}
 
 Weave everything into ONE fluent English prose prompt following the order above,
 and close with: {profile.aspect_ratio_text}"""
 
 
-def _fluidify_item(slots: dict, locked: list[str], profile, label: str,
+def _fluidify_item(slots: dict, locked: list[dict], profile, label: str,
                    max_attempts: int = 3) -> str:
     """Llama el fluidificador y verifica la Guarda 1 (post-check determinista).
     Reintenta si una cifra se perdió/redondeó o quedó unidad española. Si tras
