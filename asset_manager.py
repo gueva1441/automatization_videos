@@ -533,6 +533,9 @@ def _call_veo_once(image_path: Path, prompt: str, output_path: Path) -> Path:
         "prompt": prompt,
         "image_url": f"data:image/png;base64,{image_b64}",
         "generate_audio": False,
+        # FIX B: sin esto fal cae al default "720p". Configurable vía api.* (gitignored);
+        # getattr con default para no romper si el campo no está en config.
+        "resolution": getattr(api, "fal_veo_resolution", "1080p"),
     }
     submit_url = f"{api.fal_base_url}/{api.fal_video_model}"
 
