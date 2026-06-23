@@ -109,7 +109,7 @@ from config import DATA_DIR, OUTPUT_DIR, api
 from gemini_helpers import call_flash_json, call_pro_json
 from nicho_config import get_active_nicho
 from anchor_timing import compute_anchor_starts
-from name_matching import scrub_documented_names
+from script_engine.name_matching import scrub_documented_names
 from engine_profiles import select_profile
 
 
