@@ -3259,6 +3259,93 @@ def _render_prompts_veo(topic, cap_data, narration, plan, veo_position, cap_numb
     )
 
 
+# ── SEEDREAM path VEO (eslabón VEO_SEEDREAM_1080 · FIX A) ──
+# Un cap veo es HÍBRIDO: 1 foto Veo (image_prompt, animada con i2v) + N stills
+# DepthFlow (supplementals). TODAS las fotos son fotos → van por el skeleton
+# seedream (canon 2-capas + slots + fluidificador + candado), igual que caps 2-6.
+# Lo único que NO es foto es el video_prompt (movimiento de la foto Veo): no es
+# slot del skeleton → call de motion dedicada, sembrada por el first-frame.
+
+_SEEDREAM_MOTION_SYSTEM = """You are a Veo motion editor. Given a FIRST-FRAME still (already final — do NOT change it) you write ONLY the camera/ambient motion that animates THAT still. Describe movement of elements ALREADY present in the first-frame; add NO new elements, NO new facts, NO numbers, NO on-image text, NO person names. Keep lighting constant during the clip. English prose, 2-3 sentences. Return ONLY the video_prompt field."""
+
+_SEEDREAM_MOTION_SCHEMA = {"type": "OBJECT",
+                          "properties": {"video_prompt": {"type": "STRING"}},
+                          "required": ["video_prompt"]}
+
+
+def _seedream_video_prompt(image_prompt: str, label: str, max_attempts: int = 3) -> str:
+    """Genera el video_prompt (motion) de la foto Veo con una call Pro dedicada,
+    sembrada por la prosa del first-frame + la doctrina _VEO_VIDEO_PROMPT_STRUCT.
+    El motion NO pasa por el candado (no lleva cifras) — el system le prohíbe
+    inventar datos/texto. Reintenta si la longitud cae fuera de rango."""
+    user = f"""FIRST-FRAME (the still that Veo will animate — already final):
+{image_prompt}
+
+{_VEO_VIDEO_PROMPT_STRUCT}
+
+Write ONLY the Veo motion prompt for THIS first-frame: camera movement + ambient
+motion + subtle motion on the subject, all of elements ALREADY in the first-frame.
+2-3 sentences of fluent English."""
+    last = ""
+    for attempt in range(1, max_attempts + 1):
+        out = call_pro_json(user, system_instruction=_SEEDREAM_MOTION_SYSTEM,
+                            response_schema=_SEEDREAM_MOTION_SCHEMA)
+        vp = (out or {}).get("video_prompt", "") if isinstance(out, dict) else ""
+        vp = re.sub(r"\s+", " ", vp).strip()
+        last = vp
+        try:
+            _validate_prompt_length(vp, label)
+            return vp
+        except VisualValidationError:
+            if attempt < max_attempts:
+                user += (f"\n\nRETRY: the previous motion was {len(vp)} chars; it must be "
+                         f"between {PROMPT_MIN_CHARS} and {PROMPT_MAX_CHARS} chars. Adjust length.")
+    # último intento: revalidar para propagar el error real (RUIDOSO)
+    _validate_prompt_length(last, label)
+    return last
+
+
+def _render_prompts_seedream_veo(topic, cap_data, narration, plan, veo_position, cap_number):
+    """Paso 2 VEO bajo seedream. Reusa el skeleton de caps flux para TODAS las fotos
+    vía un plan sintético [veo_anchor]+supplementals → resultado[0]=foto Veo
+    (image_prompt), resultado[1..N]=stills DepthFlow (supplementals). El video_prompt
+    (motion de la foto Veo) sale de una call dedicada. Devuelve el MISMO shape que
+    _render_prompts_veo (contrato fase2a intacto)."""
+    veo_anchor = plan["veo_anchor"]["anchor"]
+    supp_anchors = [s["anchor"] for s in plan["supplementals"]]
+
+    # Plan sintético: la foto Veo PRIMERO, luego las N stills. El skeleton trata a
+    # todas como fotos (canon 2-capas + candado), igual que caps 2-6.
+    synth_plan = {"anchors": [{"anchor": veo_anchor}] + [{"anchor": a} for a in supp_anchors]}
+    seed_out = _render_prompts_seedream(topic, cap_data, narration, synth_plan, cap_number)
+    items = seed_out["image_prompts"]
+    if not items:
+        raise VisualValidationError(f"cap {cap_number} (veo-seedream): skeleton no devolvió fotos")
+    image_item = items[0]
+    supp_items = items[1:]
+
+    # video_prompt (motion) de la foto Veo — call dedicada, sembrada por el first-frame.
+    video_prompt = _seedream_video_prompt(
+        image_item["prompt"], f"cap {cap_number} (veo-seedream) video_prompt")
+
+    return {
+        "chapter_number": cap_number,
+        "image_prompt": image_item["prompt"],
+        "video_prompt": video_prompt,
+        "subject_ref": (image_item.get("subject_ref") or "establishing_shot"),
+        "art_profile": "",
+        "narration_anchor": veo_anchor,
+        "veo_position": veo_position,
+        "supplemental_image_prompts": [
+            {"prompt": it["prompt"],
+             "narration_anchor": it["narration_anchor"],
+             "art_profile": "",
+             "raw_llm_prompt": it.get("raw_llm_prompt")}
+            for it in supp_items
+        ],
+    }
+
+
 def _render_prompts_flux(topic, cap_data, narration, plan, cap_number):
     """Paso 2 flux/kling: llama Flash (anchors dados), inyecta los anchors del Paso 1 VERBATIM,
     exige count==n y valida + text-leakage. Dispatch por api.image_engine (bake §Kling, chat 80):
@@ -3477,7 +3564,13 @@ def assign_visual_prompts(
             if words_ts:
                 plan, _ = _reconcile_anchor_timing(
                     plan, "veo", words_ts, MIN_FLUX_EXTRAS, cap_n)
-            cap_out = _render_prompts_veo(topic, sch, narration_text, plan, veo_position, cap_n)
+            # VEO_SEEDREAM (FIX A): bajo seedream, las fotos del cap veo (foto Veo +
+            # N stills) van por el skeleton; el motion por call dedicada. Prosa FINAL
+            # → NO tail-bake. Kling/Flux byte-idénticos.
+            if api.image_engine == "seedream":
+                cap_out = _render_prompts_seedream_veo(topic, sch, narration_text, plan, veo_position, cap_n)
+            else:
+                cap_out = _render_prompts_veo(topic, sch, narration_text, plan, veo_position, cap_n)
             # No-op desde chat 19 (catálogo desconectado): el prompt ya
             # viene completo del LLM. Llamada preservada por compat.
             cap_out = _stitch_zone2_into_cap_veo(cap_out)
