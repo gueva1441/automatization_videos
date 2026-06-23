@@ -117,6 +117,33 @@ DEEP_RESEARCH_ANGLES: list[dict] = [
             "siguen estudiando hoy."
         ),
     },
+    # ─── ESLABÓN 1: 4º ángulo VISUAL/MATERIAL ───
+    # Foco SOURCED-vs-INFERIDO (del probe _lab_4e_visual_canon_v3).
+    # OJO: este ángulo NO usa el builder genérico (pierde [ARQUITECTURA]/
+    # [SOURCED vs INFERIDO]); tiene su propio _build_visual_angle_prompt.
+    # Por ahora solo se PRODUCE y persiste en angle_blocks; nadie lo
+    # consume aguas abajo todavía (eso es eslabón 2).
+    {
+        "key": "visual",
+        "label": "VISUAL/MATERIAL",
+        "focus": (
+            "Como se ve REALMENTE el tema segun FUENTES DOCUMENTADAS (fotos, "
+            "footage, planos, registros de archivo), NO inferencia de epoca. "
+            "Arquitectura del lugar puntual: estilo constructivo, materiales y "
+            "texturas de fachada e interior, dimensiones (altura, pisos, "
+            "huella/escala), y los rasgos distintivos que identifican a ESTE "
+            "lugar y no a otro de su tipo. Paleta de color exterior e interior. "
+            "Condicion fisica y su evolucion en el tiempo (de intacto a "
+            "deterioro o demolicion). Composicion demografica documentada de la "
+            "poblacion o del rol del lugar (etnia, nacionalidad, perfil del "
+            "grupo), tratada como GRUPO o ROL, nunca como rasgo de un individuo "
+            "nombrable. Vestimenta y uniformes especificos del lugar o funcion, "
+            "documentados, no genericos de la decada. Por CADA afirmacion visual "
+            "indica si proviene de FUENTE REAL (foto/footage/plano/archivo "
+            "identificable) o si es INFERENCIA de contexto. Lista que "
+            "referencias visuales reales sobreviven hoy y donde."
+        ),
+    },
 ]
 
 
@@ -164,6 +191,64 @@ RESPONDE SOLO CON EL BLOQUE DE TEXTO ESTRUCTURADO ARRIBA.
 Sin preámbulos. Sin cierres. Sin markdown."""
 
 
+def _build_visual_angle_prompt(seed: dict, angle: dict) -> str:
+    """Prompt del ángulo VISUAL/MATERIAL (ESLABÓN 1).
+
+    Builder PROPIO: el genérico (_build_angle_query_prompt) usaría
+    [DATOS DUROS]/[CRONOLOGÍA] y perdería la estructura que necesita el
+    canon visual ([ARQUITECTURA / MATERIALES], [SOURCED vs INFERIDO], etc.).
+    Portado verbatim del probe _lab_4e_visual_canon_v3._build_visual_angle_prompt.
+    """
+    seed_title = seed["seed_title"]
+    return f"""Eres un investigador de documentales para History Channel / Netflix.
+
+TEMA: "{seed_title}"
+ANGULO DE ESTA QUERY: {angle['label']}
+
+FOCO DE ESTA INVESTIGACION:
+{angle['focus']}
+
+INSTRUCCIONES:
+1. Investiga el tema EN PROFUNDIDAD con Google Search grounding.
+2. Enfocate EXCLUSIVAMENTE en el angulo visual/material.
+3. Extrae datos concretos (materiales, dimensiones, colores, condicion). Sin
+   adjetivos vacios.
+4. Cuando cites fuentes, usa formato textual con autor/publicacion/anio.
+   NO inventes URLs.
+
+FORMATO DE SALIDA -- texto plano estructurado:
+
+=== HALLAZGOS VISUALES: {seed_title} ===
+
+[ARQUITECTURA / MATERIALES]
+- estilo constructivo, materiales y texturas (fachada e interior)
+- dimensiones: altura / pisos / huella / escala
+- rasgos distintivos que identifican a ESTE lugar
+
+[PALETA DE COLOR]
+- exterior:
+- interior:
+
+[CONDICION Y EVOLUCION]
+- estado en la epoca del evento -> estado posterior
+
+[DEMOGRAFIA DOCUMENTADA]  (grupo/rol, NUNCA individuo nombrable)
+- composicion etnica/nacional de la poblacion o rol del lugar
+- vestimenta/uniformes especificos del lugar o funcion
+
+[REFERENCIAS VISUALES SOBREVIVIENTES]
+- que material visual real existe hoy (fotos/footage/planos/archivo) y donde
+
+[SOURCED vs INFERIDO]
+- por cada afirmacion de arriba: (FUENTE REAL: ...) o (INFERENCIA)
+
+RESPONDE SOLO CON EL BLOQUE DE TEXTO. Sin preambulos. Sin cierres. Sin markdown."""
+
+
+# Builder por key: el ángulo visual usa el propio; el resto, el genérico.
+_ANGLE_PROMPT_BUILDERS = {"visual": _build_visual_angle_prompt}
+
+
 @error_handler.retry(PipelineStage.TOPIC_RESEARCHER)
 def _research_angle(seed: dict, angle: dict) -> str:
     """
@@ -175,7 +260,8 @@ def _research_angle(seed: dict, angle: dict) -> str:
         f"  [deep-{angle['key']}] investigando '{seed['seed_title']}'...",
     )
 
-    prompt = _build_angle_query_prompt(seed, angle)
+    builder = _ANGLE_PROMPT_BUILDERS.get(angle["key"], _build_angle_query_prompt)
+    prompt = builder(seed, angle)
 
     response = gemini_client.models.generate_content(
         model=api.gemini_model_research,
