@@ -55,6 +55,37 @@ for p in RAISE:
         raised = True
     check(f"raise: {p[:48]}...", raised)
 
-print("\n" + (f"ALL GREEN ({len(PASA)} pasa + {len(RAISE)} raise = {len(PASA)+len(RAISE)}/12)"
+# ── CAMINO C (fix 110b): regla 3 NO debe rechazar SU PROPIO titular sancionado ──
+# (slot text_in_image). El titular entre comillas == intentional_text → exento.
+# Otra comilla distinta = fuga real → raise. Eufemismo sin comillas → raise.
+print("[CAMINO C] titular sancionado del slot text_in_image (allow_intentional_text):")
+TITULAR = "NO APTOS PARA SU PROPÓSITO"
+try:  # 1. el titular propio, renderizado por el fluidificador → NO raise
+    m._validate_no_text_leakage(
+        'A brass plaque, the inscription "no aptos para su propósito" engraved deep',
+        "test", allow_intentional_text=True, intentional_text=TITULAR)
+    ok = True
+except m.VisualValidationError:
+    ok = False
+check("camino C: titular sancionado → no-raise", ok)
+try:  # 2. fuga NO-titular (otra comilla distinta) → SÍ raise
+    m._validate_no_text_leakage(
+        'A door with the label "acceso restringido" stenciled on it',
+        "test", allow_intentional_text=True, intentional_text=TITULAR)
+    raised = False
+except m.VisualValidationError:
+    raised = True
+check("camino C: fuga no-titular → raise", raised)
+try:  # 3. eufemismo sin comillas → SÍ raise aunque allow_intentional_text
+    m._validate_no_text_leakage(
+        "A prison wall, a blurred area where the name was once painted",
+        "test", allow_intentional_text=True, intentional_text=TITULAR)
+    raised = False
+except m.VisualValidationError:
+    raised = True
+check("camino C: eufemismo sin comillas → raise", raised)
+
+_total = len(PASA) + len(RAISE) + 3
+print("\n" + (f"ALL GREEN ({len(PASA)} pasa + {len(RAISE)} raise + 3 camino C = {_total})"
               if not FAILS else f"FAILS ({len(FAILS)}): " + ", ".join(FAILS)))
 sys.exit(1 if FAILS else 0)

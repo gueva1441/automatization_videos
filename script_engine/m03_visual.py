@@ -898,7 +898,8 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
         prose, _ = scrub_documented_names(prose, documented)
         # R3 invertida: text_in_image (rótulo de lugar) PERMITIDO; eufemismos siguen prohibidos.
         _validate_no_text_leakage(prose, f"cap {cap_number} (seedream) img #{i}",
-                                  allow_intentional_text=True)
+                                  allow_intentional_text=True,
+                                  intentional_text=(it.get("text_in_image") or {}).get("text", ""))
         if not (PROMPT_MIN_CHARS <= len(prose) <= KLING_PROMPT_MAX_CHARS):
             raise VisualValidationError(
                 f"cap {cap_number} (seedream) img #{i}: prosa fuera de rango "
@@ -2083,7 +2084,8 @@ def _validate_prompt_length(prompt: str, label: str) -> None:
 
 
 def _validate_no_text_leakage(prompt: str, label: str,
-                              allow_intentional_text: bool = False) -> None:
+                              allow_intentional_text: bool = False,
+                              intentional_text: str = "") -> None:
     """Regla 3: detecta patrones de instrucción de texto en imagen.
 
     El LLM a veces esquiva la regla 3 del prompt con eufemismos tipo
@@ -2101,16 +2103,35 @@ def _validate_no_text_leakage(prompt: str, label: str,
     text_in_image, herramienta legítima de Seedream). La pasada 1 (eufemismos)
     se mantiene; los nombres de PERSONA los sigue cortando scrub_documented_names
     (aplicado aparte, en los dos motores). Default False → Kling/Flux intactos.
+
+    intentional_text (camino C, fix 110b): el TITULAR sancionado del slot
+    text_in_image. Con allow_intentional_text=True, si un patrón de Pasada 1 matchea
+    pero el texto ENTRE COMILLAS del match es ese titular (normalizado), NO es fuga —
+    es la propia salida legítima de Seedream → se exime y se sigue. Los eufemismos sin
+    comillas (ocultar texto) no tienen contenido comparable → siguen FATALES. Vacío
+    (default) → no exime nada (present=false: cualquier comilla sigue siendo fuga real).
     """
     matched_fragment = None
+    norm_intentional = intentional_text.strip().casefold() if intentional_text else ""
 
     # Pasada 1 — eufemismos (case-insensitive sobre minúscula). SIEMPRE corre.
     prompt_lc = prompt.lower()
     for pattern in TEXT_LEAKAGE_PATTERNS:
         m = re.search(pattern, prompt_lc, re.IGNORECASE)
-        if m:
-            matched_fragment = m.group(0)
-            break
+        if not m:
+            continue
+        frag = m.group(0)
+        # Camino C: si el match es el TITULAR sancionado (texto entre comillas ==
+        # intentional_text, normalizado, igual o uno contiene al otro) → NO es fuga;
+        # seguir evaluando los demás patrones. Sin comillas (eufemismo) → no exime.
+        if allow_intentional_text and norm_intentional:
+            q = re.search(r"['\"]([^'\"]+)['\"]", frag)
+            if q:
+                qn = q.group(1).strip().casefold()
+                if qn == norm_intentional or qn in norm_intentional or norm_intentional in qn:
+                    continue
+        matched_fragment = frag
+        break
 
     # Pasada 2 — nombre propio capitalizado entre comillas (case-sensitive,
     # prompt ORIGINAL, SIN IGNORECASE). Solo si la pasada 1 no encontró nada.
