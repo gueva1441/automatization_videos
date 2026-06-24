@@ -399,7 +399,7 @@ Definition of each slot (what goes in each casillero — this is the craft, mode
 - mood: the emotional tone, WITHIN the monetization ceiling (R5, HARD CAP, do not soften): terror is built from SCALE + LIGHT + EMPTY apparatus + loaded LIVING faces — NEVER lifeless bodies, never fresh graphic blood, never the moment of harm. Show the OUTCOME/charged empty space, never the mechanism centered.
 - style: the channel constant — documentary photographic realism, dark-history, faceless. (This is a slot, NOT a harness tail.)
 - text_in_image: a label when the scene legitimately carries text — a literal sign/inscription/number (building number, carved place name), OR a period newspaper headline / wanted-notice when the anchor narrates a notable EVENT (an escape, a scandal, a ruling) and a headline would authentically illustrate it. Use SPARINGLY — only when it ADDS to the beat, never decorative, a minority of images per cap at most. present=false for ordinary people/atmosphere scenes with no narrated text; NEVER a person's proper name. If present=true: text = the literal content IN SPANISH (the audience reads Spanish — a headline reads 'PRÓFUGO', not 'ESCAPED'), font (carved/block/serif/newsprint...), location (over the entrance / front page...). Seedream renders quoted text legibly — allowed and intended.
-- hard_fact_ids: the 0-based indices of the provided verified_facts whose FIGURES this image actually shows. Do NOT write the figures yourself — ONLY pick indices RELEVANT to THIS anchor's moment AND place. A figure belongs here only if THIS image depicts it: do NOT attach a building's structural figures (floors, height, year built) to a people/farm/landscape anchor, nor foundation/closing figures to a peak beat. When in doubt, leave it EMPTY — an honest [] is better than an irrelevant figure forced into the scene (which the locked-figures guard will reject downstream). [] if none apply.
+- hard_fact_ids: the F-labels (e.g. ["F03","F10"]) of the provided verified_facts whose FIGURES this image actually shows, copied EXACTLY as labeled in the list. Do NOT write the figures yourself — ONLY pick labels RELEVANT to THIS anchor's moment AND place. A figure belongs here only if THIS image depicts it: do NOT attach a building's structural figures (floors, height, year built) to a people/farm/landscape anchor, nor foundation/closing figures to a peak beat. When in doubt, leave it EMPTY — an honest [] is better than an irrelevant figure forced into the scene (which the locked-figures guard will reject downstream). [] if none apply.
 - subject_ref: "main_subject" if there is a protagonist; else "establishing_shot" / "interior_scene" / "landscape_view".
 - emotional_rank: "R1" (peak/hero) | "R2" (action) | "R3" (atmosphere) — see distribution in the user prompt.
 
@@ -441,7 +441,7 @@ def _seedream_slots_schema(n: int) -> dict:
                     },
                     "required": ["present", "text", "font", "location"],
                 },
-                "hard_fact_ids": {"type": "ARRAY", "items": {"type": "INTEGER"}},
+                "hard_fact_ids": {"type": "ARRAY", "items": {"type": "STRING"}},
                 "subject_ref": {"type": "STRING"},
                 "emotional_rank": {"type": "STRING"},
             },
@@ -743,11 +743,19 @@ def _fluidify_item(slots: dict, locked: list[dict], profile, label: str,
 
 
 def _seedream_facts_verbatim(hard_fact_ids, facts: list) -> list[str]:
-    """verbatim de los facts elegidos por el LLM (para el candado)."""
-    ids = [i for i in (hard_fact_ids or []) if isinstance(i, int) and 0 <= i < len(facts)]
+    """verbatim de los facts elegidos por el LLM (para el candado).
+
+    El LLM manda las ETIQUETAS F## tal como las VE en el display (_format_facts usa
+    enumerate(..., start=1) → "F01"=facts[0], "F11"=facts[10]). Se resuelve por CLAVE,
+    nunca por posición — eso mata el off-by-one (el display base-1 chocaba con el
+    consumer base-0). Etiqueta inexistente/mal formada → se descarta (no fatal),
+    igual que antes filtraba el índice fuera de rango."""
+    by_label = {f"F{i:02d}": f for i, f in enumerate(facts, start=1)}
     out = []
-    for i in ids:
-        f = facts[i]
+    for fid in (hard_fact_ids or []):
+        f = by_label.get(str(fid).strip().upper()) if fid is not None else None
+        if f is None:
+            continue
         out.append((f.get("fact", "") if isinstance(f, dict) else str(f)))
     return out
 
@@ -826,9 +834,10 @@ DISTRIBUTION OF emotional_rank:
 - 2-3 items R2 (action, strong transition, person in tension).
 - Rest R3 (descriptive scene, context, ambience).
 
-For hard_fact_ids: pick the indices of verified_facts whose FIGURES this image
-weaves — and ONLY those relevant to THIS anchor's moment (do NOT bring
-foundation-era figures into a peak-era beat). Do NOT rewrite the figures.
+For hard_fact_ids: pick the F-labels (e.g. "F03") of verified_facts whose FIGURES
+this image weaves, copied EXACTLY as labeled — and ONLY those relevant to THIS
+anchor's moment (do NOT bring foundation-era figures into a peak-era beat). Do NOT
+rewrite the figures.
 
 JSON only. No markdown. No preamble."""
 
