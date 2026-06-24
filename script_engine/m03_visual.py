@@ -670,7 +670,7 @@ HARD RULES:
 - Follow the ORDER of the slots as given.
 - The MANDATORY NUMBERS appear EXACT and as NUMERALS (do not spell them out), each with its unit IN ENGLISH: e.g. "13 floors", "159 feet", "873 acres", "9,303 patients"; years as-is ("1885", "1939"). Do NOT round, do NOT drop, do NOT use a Spanish unit word.
 - Do NOT add new facts. Do NOT use any person's proper name (describe by appearance/role).
-- If TEXT_IN_IMAGE is present: render the label with the Seedream recipe — a sign/inscription/headline reads "THE TEXT" in the given font and location, in clear crisp lettering. The label is of a PLACE/object/event headline, NEVER a person's name.
+- If TEXT_IN_IMAGE is present: render the label with the Seedream recipe — a sign/inscription/headline reads "THE TEXT" in the given font and location, in clear crisp lettering. COPY the label text VERBATIM in its original language (usually Spanish) — NEVER translate it, never alter the digits inside it. The label is of a PLACE/object/event headline, NEVER a person's name.
 - Close EXACTLY with the aspect-ratio line given in the input. Do NOT add anachronism negations (those are added later by the reviewer).
 
 Return ONLY the prose field (no wrapping quotes, no markdown)."""
