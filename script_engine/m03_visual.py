@@ -652,8 +652,13 @@ def _post_check_locked(prose: str, locked: list[dict]) -> tuple[list[str], list[
             ok = any(v in prose for v in _digit_variants(num))
             if not ok:
                 missing.append(num)
+    # El titular (text_in_image) va entre comillas y en español A PROPÓSITO (camino C).
+    # Se excluye del chequeo de "español suelto", que caza traducciones olvidadas en la
+    # prosa DESCRIPTIVA. El español dentro de comillas es intencional (mismo criterio que
+    # el control 3 con allow_intentional_text); el español FUERA de comillas se sigue cazando.
+    prose_sin_titular = re.sub(r"['\"][^'\"]*['\"]", " ", prose)
     spanish = sorted({u for u in _SPANISH_UNIT_WORDS
-                      if re.search(rf"\b{re.escape(u)}\b", prose, re.I)})
+                      if re.search(rf"\b{re.escape(u)}\b", prose_sin_titular, re.I)})
     return missing, spanish
 
 
