@@ -896,6 +896,7 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
                 f"({len(prose)} chars, target {PROMPT_MIN_CHARS}-{KLING_PROMPT_MAX_CHARS}).")
         it["prompt"] = prose
         it["art_profile"] = ""
+    slots_out["chapter_number"] = cap_number
     return slots_out
 
 
