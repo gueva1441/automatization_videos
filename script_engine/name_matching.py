@@ -37,20 +37,23 @@ def _normalize_text(s: str) -> str:
     return "".join(c for c in nfkd if not unicodedata.combining(c)).lower()
 
 
-def _extract_last_name(full_name: str) -> str:
-    """Extrae el last_name normalizado de un nombre completo."""
+def _extract_last_name(full_name: str, raw: bool = False) -> str:
+    """Extrae el last_name de un nombre completo.
+    raw=False (default): normalizado (minúscula, sin diacríticos) — blacklist-check + label.
+    raw=True: PRESERVA el caso original — para el pattern case-sensitive del scrub."""
     tokens = (full_name or "").strip().split()
     if not tokens:
         return ""
     if len(tokens) == 1:
-        return _normalize_text(tokens[0])
+        return tokens[0] if raw else _normalize_text(tokens[0])
 
     last_tokens = [tokens[-1]]
     i = len(tokens) - 2
     while i >= 1 and _normalize_text(tokens[i]) in _COMPOUND_PARTICLES:
         last_tokens.insert(0, tokens[i])
         i -= 1
-    return _normalize_text(" ".join(last_tokens))
+    joined = " ".join(last_tokens)
+    return joined if raw else _normalize_text(joined)
 
 
 def iter_name_patterns(documented_people):
@@ -66,10 +69,13 @@ def iter_name_patterns(documented_people):
         if not full:
             continue
         yield (rf"\b{re.escape(full)}\b", full, person)
-        last = _extract_last_name(full)
+        last = _extract_last_name(full)               # normalizado: blacklist-check + label (m05)
+        raw_last = _extract_last_name(full, raw=True)  # caso preservado: para el pattern
         if (last and len(last.replace(" ", "")) >= _MIN_LAST_NAME_LEN
                 and last.split()[-1] not in COMMON_LAST_NAME_BLACKLIST):
-            yield (rf"\b{re.escape(last)}\b", last, person)
+            # (?-i:...) sobre la forma CAPITALIZADA: "Orange" (apellido) matchea,
+            # "orange" (color) NO. El label yieldeado sigue normalizado (m05 lo espera así).
+            yield (rf"\b(?-i:{re.escape(raw_last)})\b", last, person)
 
 
 def _neutral_descriptor(person):
