@@ -595,7 +595,10 @@ def _classify_locked_facts(verbatim_facts: list[str]) -> list[dict]:
         # MEDIDA primero (gana sobre año si un mismo numeral cae en ambos, ej "1500 patients").
         for m in _MEASURE_RE.finditer(ft):
             if not _has_name_prefix(ft, m.start()):
-                _add(m.group(1), "measure", _unit_to_mtype(m.group(2)))
+                mtype = _unit_to_mtype(m.group(2))
+                if mtype == "duration":        # duraciones NO se lockean: no son dibujables
+                    continue
+                _add(m.group(1), "measure", mtype)
         for m in _YEAR_RE.finditer(ft):
             if not _has_name_prefix(ft, m.start()):    # "Building 1939" → NOMBRE, no fecha
                 _add(m.group(1), "year")
@@ -742,6 +745,40 @@ def _seedream_facts_verbatim(hard_fact_ids, facts: list) -> list[str]:
     return out
 
 
+# ═══════════════════════════════════════════════════════════════
+#  DIRECCIÓN VISUAL POR INTENT (arco de retención · chat 108)
+#  Espejo de TONE_INSTRUCTIONS_BY_INTENT de m01b, pero para la imagen.
+#  STEERING al LLM de la Etapa 1 — NO re-reparte emotional_rank (eso es versión B).
+# ═══════════════════════════════════════════════════════════════
+VISUAL_INTENT_BY_INTENT: dict[str, str] = {
+    "hook":           "Wide, distant framing. A figure or scene seen from afar, partly hidden. Fog/haze, cold muted palette. Mystery — pose a visual question. Avoid close detail.",
+    "setup":          "Establishing, calm framing. Context-rich, neutral light. Steady and observational. Low visual tension.",
+    "rising_tension": "Tighter framing creeping in. Growing shadows, off-balance composition. Unease building. Medium tension.",
+    "shock":          "Close-up or extreme close-up on the decisive detail. Hard, high-contrast light. Claustrophobic, the instant itself. Peak visual tension.",
+    "consequences":   "Medium framing, heavier mood. Emptiness, aftermath, weight. Subdued light. Reflective.",
+    "resolution":     "Framing opens up again. Softer, calmer light. Tension releasing. Settled.",
+    "outro":          "Wide, often elevated/aerial. Stillness, dawn or quiet. An open, suspended note — the silence after. Calm.",
+}
+
+
+def _visual_arc_block(narrative_intent: str | None) -> str:
+    """Bloque DIRECCIÓN VISUAL para inyectar en el prompt de la Etapa 1.
+    Si intent es None o desconocido → string vacío (fallback seguro, el prompt
+    funciona igual que hoy)."""
+    if not narrative_intent:
+        return ""
+    instr = VISUAL_INTENT_BY_INTENT.get(narrative_intent)
+    if not instr:
+        return ""
+    return f"""
+═══════════════════════════════════════════════════
+VISUAL ARC OF THIS CAP — narrative_intent={narrative_intent!r}
+═══════════════════════════════════════════════════
+Bias the shot_scale, lighting and mood of these images toward:
+{instr}
+"""
+
+
 def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors) -> str:
     """User-prompt del skeleton seedream: canon 2-capas + facts + anchors → pedir
     N slot-sets (uno por fragmento). El LLM elige hard_fact_ids; NO escribe cifras."""
@@ -752,6 +789,7 @@ def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors) -> st
     anchor_list = "\n".join(f"  [{i + 1}] «{a}»" for i, a in enumerate(anchors))
     topic_block = _build_topic_block(topic)
     canon_block = _format_seedream_canon_block(topic)
+    arc_block = _visual_arc_block(cap_data.get("narrative_intent"))
     return f"""Narration (Spanish, for context only — emit JSON in English):
 
 {narration_text}
@@ -775,7 +813,7 @@ Fill the slots for EACH fragment below, in the SAME order (item i ↔ fragment i
 {anchor_list}
 
 Emit EXACTLY {n} slot-objects as a JSON array.
-
+{arc_block}
 DISTRIBUTION OF emotional_rank:
 - 1-2 items R1 (peak of cap: closing, revelation, biggest impact).
 - 2-3 items R2 (action, strong transition, person in tension).
