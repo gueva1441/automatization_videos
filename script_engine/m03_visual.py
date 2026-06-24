@@ -398,12 +398,14 @@ Definition of each slot (what goes in each casillero — this is the craft, mode
 - lighting: light by the EVENT (R12) — beats of the SAME event share ONE light. overcast daylight, golden hour, low-key night, etc.
 - mood: the emotional tone, WITHIN the monetization ceiling (R5, HARD CAP, do not soften): terror is built from SCALE + LIGHT + EMPTY apparatus + loaded LIVING faces — NEVER lifeless bodies, never fresh graphic blood, never the moment of harm. Show the OUTCOME/charged empty space, never the mechanism centered.
 - style: the channel constant — documentary photographic realism, dark-history, faceless. (This is a slot, NOT a harness tail.)
-- text_in_image: a label ONLY if the anchor narrates a literal sign/inscription/number (a building number, a carved place name). present=false for people scenes; NEVER a person's proper name. If present=true: text (the literal content), font (carved/block/serif...), location (over the entrance...). Seedream renders quoted text legibly — this is allowed and intended.
+- text_in_image: a label when the scene legitimately carries text — a literal sign/inscription/number (building number, carved place name), OR a period newspaper headline / wanted-notice when the anchor narrates a notable EVENT (an escape, a scandal, a ruling) and a headline would authentically illustrate it. Use SPARINGLY — only when it ADDS to the beat, never decorative, a minority of images per cap at most. present=false for ordinary people/atmosphere scenes with no narrated text; NEVER a person's proper name. If present=true: text = the literal content IN SPANISH (the audience reads Spanish — a headline reads 'PRÓFUGO', not 'ESCAPED'), font (carved/block/serif/newsprint...), location (over the entrance / front page...). Seedream renders quoted text legibly — allowed and intended.
 - hard_fact_ids: the 0-based indices of the provided verified_facts whose FIGURES this image actually shows. Do NOT write the figures yourself — ONLY pick indices RELEVANT to THIS anchor's moment AND place. A figure belongs here only if THIS image depicts it: do NOT attach a building's structural figures (floors, height, year built) to a people/farm/landscape anchor, nor foundation/closing figures to a peak beat. When in doubt, leave it EMPTY — an honest [] is better than an irrelevant figure forced into the scene (which the locked-figures guard will reject downstream). [] if none apply.
 - subject_ref: "main_subject" if there is a protagonist; else "establishing_shot" / "interior_scene" / "landscape_view".
 - emotional_rank: "R1" (peak/hero) | "R2" (action) | "R3" (atmosphere) — see distribution in the user prompt.
 
 Fill ALL slots for EVERY item. Each value is a SHORT English phrase (not a paragraph). Do NOT write aspect ratio, negations, or a style/grain tail — the profile/assembler adds those afterward.
+
+TEXT DISCIPLINE: any text meant to appear in the image goes ONLY through the text_in_image slot, in Spanish. The prose slots (subject/action/setting/...) describe the scene — never embed letters or words to be rendered inside them.
 
 JSON only. No markdown. No preamble."""
 
@@ -663,7 +665,7 @@ HARD RULES:
 - Follow the ORDER of the slots as given.
 - The MANDATORY NUMBERS appear EXACT and as NUMERALS (do not spell them out), each with its unit IN ENGLISH: e.g. "13 floors", "159 feet", "873 acres", "9,303 patients"; years as-is ("1885", "1939"). Do NOT round, do NOT drop, do NOT use a Spanish unit word.
 - Do NOT add new facts. Do NOT use any person's proper name (describe by appearance/role).
-- If TEXT_IN_IMAGE is present: render the label with the Seedream recipe — a sign/inscription reads "THE TEXT" in the given font and location, in clear crisp lettering. The label is of a PLACE/object, NEVER a person's name.
+- If TEXT_IN_IMAGE is present: render the label with the Seedream recipe — a sign/inscription/headline reads "THE TEXT" in the given font and location, in clear crisp lettering. The label is of a PLACE/object/event headline, NEVER a person's name.
 - Close EXACTLY with the aspect-ratio line given in the input. Do NOT add anachronism negations (those are added later by the reviewer).
 
 Return ONLY the prose field (no wrapping quotes, no markdown)."""
