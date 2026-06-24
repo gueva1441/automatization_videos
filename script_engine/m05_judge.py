@@ -590,14 +590,23 @@ def _validate_single_issue(
     position: int,
     chapter_id: int,
     images_by_index: dict,
-) -> None:
-    """Valida un issue individual. Levanta M05ValidationError si falla.
+    full_cap_anchor: str,
+) -> bool:
+    """Valida un issue individual. Levanta M05ValidationError en fallos ESTRUCTURALES
+    (schema, enums, image_index inexistente, regex inválido). El único fallo NO-fatal es
+    el anchor_excerpt que no matchea la narración: ahí descarta el issue y devuelve False.
 
     Args:
       issue:           el dict del issue (1 entry de la lista issues).
       position:        índice en la lista (0-based) — solo para mensajes.
       chapter_id:      el chapter_id esperado.
-      images_by_index: dict {image_index: img_dict} para validar anchor_excerpt.
+      images_by_index: dict {image_index: img_dict} (para chequear que image_index existe).
+      full_cap_anchor: narración COMPLETA del cap (superset de los anchors) contra la que
+                       se valida el anchor_excerpt (A1).
+
+    Returns:
+      True  → issue válido, conservar.
+      False → anchor_excerpt no matchea la narración del cap → DESCARTAR (no-fatal, A2).
     """
     label = f"issue at position {position}"
 
@@ -686,15 +695,18 @@ def _validate_single_issue(
             f"Should be a 10-25 word verbatim substring of the anchor."
         )
 
-    anchor = (images_by_index[img_idx].get("narration_anchor") or "").strip()
-    if not _is_substring_match(excerpt, anchor):
-        raise M05ValidationError(
-            f"{label}: anchor_excerpt is NOT a verbatim substring of the "
-            f"anchor for image_index={img_idx}. "
-            f"Excerpt: {excerpt!r}. "
-            f"Anchor: {anchor!r}. "
-            f"Use a verbatim substring of the anchor, do NOT paraphrase."
+    # A1: validar contra la narración COMPLETA del cap (full_cap_anchor = superset de todos
+    # los anchors), NO la rebanada de 1 imagen. Flash cita narración real cruzando el borde
+    # entre rebanadas; con la rebanada angosta el fuzzy 0.85 rechazaba un excerpt legítimo.
+    # A2: el mismatch NO es fatal — se DESCARTA el issue (cita = metadata diagnóstica) y se
+    # sigue. Una cita mal copiada nunca debe matar el topic; los demás issues sobreviven.
+    if not _is_substring_match(excerpt, full_cap_anchor):
+        print(
+            f"  [05] {label}: anchor_excerpt no matchea la narración del cap "
+            f"(image_index={img_idx}) — issue DESCARTADO (no-fatal). "
+            f"Excerpt: {excerpt[:60]!r}..."
         )
+        return False
 
     # 8. proposed_regex_pattern: null o regex válido
     regex = issue["proposed_regex_pattern"]
@@ -711,6 +723,8 @@ def _validate_single_issue(
                 f"{label}: proposed_regex_pattern {regex!r} is not a valid "
                 f"Python regex: {e}"
             )
+
+    return True
 
 
 def validate_chapter_output(
@@ -782,8 +796,22 @@ def validate_chapter_output(
         for img in images
         if "image_index" in img
     }
-    for position, issue in enumerate(issues):
-        _validate_single_issue(issue, position, chapter_id, images_by_index)
+    # A1: superset = unión de los anchors de TODAS las imágenes del cap (orden de image_index),
+    # construido 1 vez por cap. El anchor_excerpt (narración real que cruza bordes entre
+    # rebanadas) matchea contra el superset aunque no caiga dentro de una sola rebanada.
+    full_cap_anchor = " ".join(
+        (images_by_index[i].get("narration_anchor") or "")
+        for i in sorted(images_by_index)
+    )
+    # A2: los issues cuyo anchor_excerpt no matchea se DESCARTAN (no-fatal); el resto sobrevive.
+    kept_issues = [
+        issue
+        for position, issue in enumerate(issues)
+        if _validate_single_issue(
+            issue, position, chapter_id, images_by_index, full_cap_anchor
+        )
+    ]
+    parsed["issues"] = kept_issues
 
     return parsed
 

@@ -712,17 +712,18 @@ def test_validate_issue_id_chapter_mismatch():
 
 
 def test_validate_anchor_excerpt_no_substring():
-    _section("PIEZA 3 — validate issue: anchor_excerpt no es substring del anchor")
+    _section("PIEZA 3 — validate issue: anchor_excerpt no-substring → DESCARTADO (no-fatal)")
     images = _make_valid_images()
     bad = _make_valid_issue(
         anchor_excerpt="something completely unrelated to the actual anchor"
     )
     parsed = {"chapter_id": 1, "verdict": "FLAG", "issues": [bad]}
-    _assert_raises(
-        M05ValidationError,
-        lambda: validate_chapter_output(parsed, 1, images),
-        "anchor_excerpt no relacionado → error",
-        expected_substr="NOT a verbatim substring",
+    # Contrato nuevo (FIX A2, handoff 109): una cita que no matchea la narración del cap NO
+    # mata el topic — se DESCARTA el issue (metadata diagnóstica) y se sigue. No levanta.
+    result = validate_chapter_output(parsed, 1, images)
+    _assert(
+        result["issues"] == [],
+        "anchor_excerpt no relacionado → issue descartado (no raise)",
     )
 
 
