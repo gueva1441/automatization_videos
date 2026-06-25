@@ -779,11 +779,51 @@ def _process_flux_chapter(
                         "path": None,
                         "status": "failed",
                         "error": str(e)[:200],
+                        # reject_reason: solo etiqueta para el manifest (auditable). El piso
+                        # anti-desync de abajo aplica a TODOS los fallos por igual.
+                        "reject_reason": "content" if isinstance(e, ContentRejectedError) else "error",
                         "model_used": "flux_ultra" if use_ultra else "flux_pro",
                     }
     
+    # ── 2da pasada — PISO anti-desync (HANDOFF_112 · P2/RAÍZ1) ───────────────────
+    # Cada item 'failed' deja path:None → fase2b ve menos fotos que narration_anchors
+    # y cae a timing UNIFORME → desync silencioso de TODO el cap. Piso: copiar en disco
+    # una still VECINA OK del mismo cap al slot caído. Preserva la CUENTA del cap (no la
+    # calidad de ESE beat, que se recupera con el one-off de P3). Va DESPUÉS del loop
+    # concurrente (las vecinas ya están todas resueltas) y NO re-renderiza (el filtro
+    # re-rechazaría el prompt). Cubre rechazo de contenido Y red/timeout por igual.
+    path_by_idx = {p["idx"]: p["path"] for p in plan}
+    donor_idxs = [i for i, r in results_by_idx.items()
+                  if r.get("status") in ("ok", "skipped_exists")]
+    failed_idxs = [i for i, r in results_by_idx.items()
+                   if r.get("status") == "failed"]
+    if failed_idxs and not donor_idxs:
+        # Degenerado: TODO el cap falló → no hay still para copiar. Hard-fail explícito
+        # (NUNCA dejar path:None → desync). Un cap sin imágenes es inservible igual.
+        raise RuntimeError(
+            f"[{chapter_id}] las {len(failed_idxs)} imágenes del cap fallaron; no hay "
+            f"still OK para el piso anti-desync. Revisar prompts/filtro de contenido."
+        )
+    for idx in failed_idxs:
+        # Vecino OK más cercano: empata por distancia, desempata al ANTERIOR (idx-1).
+        donor = min(donor_idxs, key=lambda j: (abs(j - idx), j > idx))
+        src = path_by_idx[donor]
+        dst = path_by_idx[idx]
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        dst.write_bytes(src.read_bytes())          # copia REAL a disco (no pasa por fal.ai)
+        r = results_by_idx[idx]
+        r["path"] = str(dst.relative_to(OUTPUT_DIR))
+        r["status"] = "neighbor_fallback"
+        r["fallback_from"] = donor
+        r.setdefault("reject_reason", "error")
+        error_handler.log_warning(
+            PipelineStage.IMAGE,
+            f"[{chapter_id}] img {idx} ({r.get('reject_reason', 'error')}) → piso: "
+            f"copiada still vecina img {donor} (cuenta preservada, beat duplicado).",
+        )
+
     ordered = [results_by_idx[i] for i in sorted(results_by_idx.keys())]
-    
+
     # Manifest del cap: campos default mantienen retrocompatibilidad con
     # consumidores que esperan profile/subject a nivel cap.
     return {
