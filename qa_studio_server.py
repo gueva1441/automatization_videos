@@ -603,6 +603,10 @@ class QAState:
             "first_frame": str(first_frame),
             "out_clip": str(out_clip),
             "clip_name": Path(out_clip).name,
+            # art_profile/subject_ref del cap (los necesita el clip-regen para regenerar la
+            # still del primer frame, igual que resolve_fix_entry).
+            "art_profile": chap.get("art_profile") or "",
+            "subject_ref": chap.get("subject_ref") or None,
         }
 
     def topic_info(self) -> dict:
@@ -868,10 +872,15 @@ def _fix_status() -> dict:
 
 # ═════════════════════════════════════════════════════════════════
 #  ZONA 1.5 — FIX DE CLIP (/fix_clip) · regenera el video de un cap veo
-#  Reescribe el video_prompt (MOVIMIENTO/cámara), mantiene el MISMO primer frame.
+#  "regenerar video" = MISMA animación (video_prompt INTACTO) + FOTO nueva (primer frame
+#  regenerado con el rewriter seedream in-place de A) + Veo i2v sobre la foto nueva.
 #  Reusa el estado _FIX + _FIX_LOCK (un solo regen a la vez: foto O clip).
 # ═════════════════════════════════════════════════════════════════
 
+# ⚠ DORMIDO (HANDOFF clip-regen, chat 113): el clip-regen ahora regenera la FOTO y reusa el
+# video_prompt INTACTO → este rewriter de MOVIMIENTO ya NO se usa. Se conserva (NO borrar sin
+# decisión de Omar) por si se agrega un 2do botón "editar solo el movimiento". Junto con
+# _build_clipfix_user_prompt, quedan sin call-site activo.
 # Instrucción DEDICADA del rewrite del clip (NO la de foto). Embebe MODEL_PROMPTING_RULES
 # §2 (Veo) y §2.3 (content-safety). Edita SOLO el movimiento/cámara; el primer frame (la
 # imagen Flux) no se toca acá.
@@ -925,27 +934,37 @@ def _clipfix_core(
     cap: str,
     feedback: str,
     *,
-    rewrite_fn=None,          # (system_instruction, user_prompt) -> {"new_video_prompt": str}
-    generate_veo_fn=None,     # (image_path: Path, prompt: str, out_path: Path) -> Path
+    rewrite_fn=None,          # (system_instruction, user_prompt) -> {"new_prompt": str}  (rewriter de A)
+    seed_fn=None,             # (video_id, subject_ref) -> int | None
+    generate_fn=None,         # (prompt, art_profile, out_path, use_ultra, seed) -> dict  (still seedream)
+    is_hook_fn=None,          # (cap) -> bool
+    generate_veo_fn=None,     # (image_path: Path, prompt: str, out_path: Path) -> Path  (Veo i2v)
     content_rejected_exc=None,
     now_ts: str | None = None,
 ) -> tuple[bool, str | None]:
-    """Misma forma testeable que _fix_core (deps inyectadas, imports lazy). Regenera el
-    clip Veo de un cap veo reescribiendo el video_prompt; mantiene el primer frame."""
+    """Regenera el clip Veo de un cap veo (HANDOFF clip-regen, DEPENDE de b432446).
+    "regenerar video" = MISMA animación (video_prompt INTACTO) + FOTO nueva (primer frame
+    regenerado con el rewriter seedream in-place de A) + Veo i2v sobre la foto nueva. Misma
+    forma testeable que _fix_core (deps inyectadas, imports lazy)."""
+    # ── deps reales (lazy; los tests pasan TODAS para no importar pesado) ──
     if rewrite_fn is None:
         from gemini_helpers import call_flash_json, types  # noqa: PLC0415
         _schema = types.Schema(
-            type=types.Type.OBJECT, required=["new_video_prompt"],
-            properties={"new_video_prompt": types.Schema(type=types.Type.STRING)},
+            type=types.Type.OBJECT, required=["new_prompt"],
+            properties={"new_prompt": types.Schema(type=types.Type.STRING)},
         )
         rewrite_fn = lambda si, up: call_flash_json(  # noqa: E731
             prompt=up, system_instruction=si, response_schema=_schema)
-    if generate_veo_fn is None or content_rejected_exc is None:
+    if (seed_fn is None or generate_fn is None or is_hook_fn is None
+            or generate_veo_fn is None or content_rejected_exc is None):
         import asset_manager as am  # noqa: PLC0415
+        seed_fn = seed_fn or am._seed_for_subject
+        generate_fn = generate_fn or am._generate_flux_image_at
+        is_hook_fn = is_hook_fn or am._is_hook_chapter
         generate_veo_fn = generate_veo_fn or am._generate_veo_clip
         content_rejected_exc = content_rejected_exc or am.ContentRejectedError
 
-    # 1. Resolver la entrada (video_prompt + primer frame + out clip).
+    # 1. Resolver la entrada (video_prompt + image_prompt + primer frame + clip + profile/subject).
     entry = state.resolve_clip_entry(cap)
     if not entry:
         return False, "no se pudo resolver el clip del cap en el script"
@@ -954,32 +973,50 @@ def _clipfix_core(
     if not first_frame.exists():
         return False, f"falta el primer frame del clip: {first_frame.name}"
 
-    # 2. Rewrite del video_prompt (reglas Veo).
+    # 2. Rewrite del IMAGE_PROMPT (la FOTO) con el rewriter seedream in-place de A — NO el de
+    #    movimiento. anchor = base_anchor del cap veo. El video_prompt NO se toca.
     try:
-        res = rewrite_fn(_FIX_CLIP_REWRITE_INSTRUCTION, _build_clipfix_user_prompt(entry, feedback))
-        new_vp = str((res or {}).get("new_video_prompt", "")).strip()
-        if not new_vp:
-            return False, "el rewrite devolvió un video_prompt vacío"
+        photo_entry = {"prompt": entry["image_prompt"],
+                       "narration_anchor": entry.get("base_anchor", "")}
+        res = rewrite_fn(_FIX_REWRITE_INSTRUCTION, _build_fix_user_prompt(photo_entry, feedback))
+        new_image_prompt = str((res or {}).get("new_prompt", "")).strip()
+        if not new_image_prompt:
+            return False, "el rewrite devolvió un image_prompt vacío"
     except Exception as e:  # noqa: BLE001
         return False, f"rewrite falló: {type(e).__name__}: {str(e)[:140]}"
 
-    # 3. Backup del clip viejo ANTES de pisar.
+    # 3. Backups de la still vieja Y el clip viejo ANTES de pisar.
     try:
-        if out_clip.exists():
-            bdir = state.assets_dir / "_qa_backups"
+        bdir = state.assets_dir / "_qa_backups"
+        ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
+        if first_frame.exists():
             bdir.mkdir(parents=True, exist_ok=True)
-            ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
+            shutil.copy2(first_frame, bdir / f"{first_frame.name}.{ts}.bak.png")
+        if out_clip.exists():
+            bdir.mkdir(parents=True, exist_ok=True)
             shutil.copy2(out_clip, bdir / f"{entry['clip_name']}.{ts}.bak.mp4")
     except OSError as e:
         return False, f"backup falló: {e}"
 
-    # 4. Re-generar el clip Veo i2v desde el MISMO primer frame (pisa el mismo nombre).
+    # 4. Regenerar el PRIMER FRAME (still) con el image_prompt nuevo → render seedream
+    #    (profile-driven). seed por subject_ref = consistencia de personaje; la foto cambia
+    #    porque cambió el prompt. Pisa el mismo filename (conteo intacto).
     try:
-        generate_veo_fn(first_frame, new_vp, out_clip)
+        seed = seed_fn(topic_id, entry.get("subject_ref"))
+        generate_fn(new_image_prompt, entry.get("art_profile", ""), first_frame,
+                    use_ultra=is_hook_fn(cap), seed=seed)
     except content_rejected_exc as e:
-        return False, f"filtro: {str(e)[:160]}"
+        return False, f"filtro (still): {str(e)[:160]}"
     except Exception as e:  # noqa: BLE001
-        return False, f"{type(e).__name__}: {str(e)[:160]}"
+        return False, f"still {type(e).__name__}: {str(e)[:160]}"
+
+    # 5. Re-correr Veo i2v sobre la still NUEVA, con el video_prompt SIN TOCAR (verbatim).
+    try:
+        generate_veo_fn(first_frame, entry["video_prompt"], out_clip)
+    except content_rejected_exc as e:
+        return False, f"filtro (veo): {str(e)[:160]}"
+    except Exception as e:  # noqa: BLE001
+        return False, f"veo {type(e).__name__}: {str(e)[:160]}"
 
     # Invalidar el baked → ENSAMBLAR re-concatena el cap desde el clip nuevo.
     _invalidate_baked(state, topic_id, cap)

@@ -82,6 +82,8 @@ def build_topic(base: Path, *, matching_anchors: bool = True,
                 "narration_anchor": "apertura del cap 1",
                 "image_prompt": "A wide panoramic city view at dawn",
                 "video_prompt": "Static camera with subtle upward drift over the skyline",
+                "art_profile": "doc",
+                "subject_ref": "establishing_shot",
                 "supplemental_image_prompts": supps1,
             })
         elif n == 7:
@@ -101,6 +103,8 @@ def build_topic(base: Path, *, matching_anchors: bool = True,
                 "narration_anchor": base_anchor,
                 "image_prompt": "A vast white marble boulevard",
                 "video_prompt": "Slow pull out from a towering building, panning across the plaza",
+                "art_profile": "doc",
+                "subject_ref": "establishing_shot",
                 "supplemental_image_prompts": supps,
             })
         else:
@@ -472,9 +476,19 @@ def test_fix_guard_one_at_a_time(tmp_path):
 #  Zona 1.5 — fix de clip (/fix_clip)
 # ─────────────────────────────────────────────────────────────────
 
-def _clipfix_deps(generate_veo_fn, *, new_vp="A slow dolly shot tracking across the plaza"):
+def _clipfix_deps(generate_veo_fn, *, generate_fn=None,
+                  new_prompt="A rewritten english image prompt"):
+    """Deps inyectadas para _clipfix_core (contrato nuevo, HANDOFF clip-regen):
+    regenera la FOTO (rewrite del image_prompt con el rewriter de A → still seedream) y
+    re-corre Veo con el video_prompt INTACTO."""
+    def _default_still(prompt, art_profile, out_path, use_ultra, seed):
+        out_path.write_bytes(b"NEWSTILL")
+        return {}
     return dict(
-        rewrite_fn=lambda si, up: {"new_video_prompt": new_vp},
+        rewrite_fn=lambda si, up: {"new_prompt": new_prompt},   # schema de A (foto)
+        seed_fn=lambda vid, sref: 123,
+        generate_fn=generate_fn or _default_still,
+        is_hook_fn=lambda cap: cap == "ch01",
         generate_veo_fn=generate_veo_fn,
         content_rejected_exc=_Rejected,
         now_ts="20260614_000000",
@@ -491,6 +505,8 @@ def test_resolve_clip_entry(tmp_path):
     assert e["first_frame"].endswith("ch01_img_01.png")
     assert e["out_clip"].endswith("ch01_clip_01.mp4")
     assert e["clip_name"] == "ch01_clip_01.mp4"
+    # §4a: art_profile + subject_ref del cap (los necesita el clip-regen para la still)
+    assert e["art_profile"] == "doc" and e["subject_ref"] == "establishing_shot"
     # flux cap → no tiene clip → None
     assert st.resolve_clip_entry("ch02") is None
     # cap inexistente / basura → None
@@ -498,7 +514,9 @@ def test_resolve_clip_entry(tmp_path):
     assert st.resolve_clip_entry("../x") is None
 
 
-def test_clipfix_core_happy_backup_and_invalidate(tmp_path):
+def test_clipfix_core_regenera_foto_video_prompt_intacto(tmp_path):
+    """Contrato nuevo: regenerar video = FOTO nueva (rewrite del image_prompt → still seedream)
+    + Veo i2v con el video_prompt SIN TOCAR. Backups de still vieja Y clip viejo; baked invalidado."""
     build_topic(tmp_path)
     st = qa.QAState(TID, base_dir=tmp_path)
     work = tmp_path / "output" / TID / "_fase2b_work"
@@ -507,45 +525,78 @@ def test_clipfix_core_happy_backup_and_invalidate(tmp_path):
     (work / "ch01_flux_visual.mp4").write_bytes(b"OLD")
     seen = {}
 
-    def gen(image_path, prompt, out_path):
-        seen["frame"] = str(image_path)
-        seen["prompt"] = prompt
+    def still(prompt, art_profile, out_path, use_ultra, seed):
+        seen["still_prompt"] = prompt
+        seen["seed"] = seed
+        baks = list((st.assets_dir / "_qa_backups").glob("ch01_img_01.png.*.bak.png"))
+        seen["still_backup_before"] = (len(baks) == 1)
+        out_path.write_bytes(b"NEWSTILL")
+        return {}
+
+    def veo(image_path, prompt, out_path):
+        seen["veo_frame"] = str(image_path)
+        seen["veo_prompt"] = prompt
         baks = list((st.assets_dir / "_qa_backups").glob("ch01_clip_01.mp4.*.bak.mp4"))
-        seen["backup_before"] = (len(baks) == 1)
+        seen["clip_backup_before"] = (len(baks) == 1)
         out_path.write_bytes(b"NEWCLIP")
         return out_path
 
-    ok, reason = qa._clipfix_core(st, TID, "ch01", "más lento, dolly",
-                                  **_clipfix_deps(gen))
+    ok, reason = qa._clipfix_core(st, TID, "ch01", "más oscuro, niebla",
+                                  **_clipfix_deps(veo, generate_fn=still))
     assert ok is True and reason is None
-    assert seen["frame"].endswith("ch01_img_01.png")          # mismo primer frame
-    assert seen["prompt"] == "A slow dolly shot tracking across the plaza"
-    assert seen["backup_before"] is True                       # backup ANTES de pisar
+    # 1. la FOTO se regeneró con el image_prompt EDITADO (rewriter de A), seed por subject_ref
+    assert seen["still_prompt"] == "A rewritten english image prompt" and seen["seed"] == 123
+    # 2. Veo corrió sobre la still nueva con el video_prompt ORIGINAL (intacto, verbatim)
+    assert seen["veo_frame"].endswith("ch01_img_01.png")
+    assert "upward drift" in seen["veo_prompt"]            # = entry["video_prompt"] sin tocar
+    # 3. backups de la still vieja Y el clip viejo, ANTES de pisar
+    assert seen["still_backup_before"] is True and seen["clip_backup_before"] is True
+    # 4. still + clip nuevos pisaron el MISMO filename (conteo intacto)
+    assert (st.assets_dir / "ch01_veo" / "ch01_img_01.png").read_bytes() == b"NEWSTILL"
     assert (st.assets_dir / "ch01_veo" / "ch01_clip_01.mp4").read_bytes() == b"NEWCLIP"
-    assert not (work / "ch01_hybrid_visual.mp4").exists()      # baked invalidado
+    # 5. baked invalidado → ENSAMBLAR re-concatena desde el clip nuevo
+    assert not (work / "ch01_hybrid_visual.mp4").exists()
     assert not (work / "ch01_flux_visual.mp4").exists()
 
 
-def test_clipfix_core_content_rejected(tmp_path):
+def test_clipfix_core_content_rejected_veo(tmp_path):
     build_topic(tmp_path)
     st = qa.QAState(TID, base_dir=tmp_path)
 
-    def gen(*a, **k):
+    def veo(*a, **k):
         raise _Rejected("content_policy 422")
 
-    ok, reason = qa._clipfix_core(st, TID, "ch07", "x", **_clipfix_deps(gen))
-    assert ok is False and reason.startswith("filtro:")
+    ok, reason = qa._clipfix_core(st, TID, "ch07", "x", **_clipfix_deps(veo))
+    assert ok is False and reason.startswith("filtro (veo):")
+
+
+def test_clipfix_core_content_rejected_still(tmp_path):
+    build_topic(tmp_path)
+    st = qa.QAState(TID, base_dir=tmp_path)
+
+    def still(*a, **k):
+        raise _Rejected("content_policy 422 en la foto")
+
+    def veo(*a, **k):
+        raise AssertionError("no debe correr Veo si la still fue rechazada")
+
+    ok, reason = qa._clipfix_core(st, TID, "ch07", "x",
+                                  **_clipfix_deps(veo, generate_fn=still))
+    assert ok is False and reason.startswith("filtro (still):")
 
 
 def test_clipfix_core_empty_rewrite_skips_generate(tmp_path):
     build_topic(tmp_path)
     st = qa.QAState(TID, base_dir=tmp_path)
 
-    def gen(*a, **k):
-        raise AssertionError("no debe generar si el rewrite quedó vacío")
+    def still(*a, **k):
+        raise AssertionError("no debe regenerar la still si el rewrite quedó vacío")
 
-    deps = _clipfix_deps(gen)
-    deps["rewrite_fn"] = lambda si, up: {"new_video_prompt": "  "}
+    def veo(*a, **k):
+        raise AssertionError("no debe correr Veo si el rewrite quedó vacío")
+
+    deps = _clipfix_deps(veo, generate_fn=still)
+    deps["rewrite_fn"] = lambda si, up: {"new_prompt": "  "}
     ok, reason = qa._clipfix_core(st, TID, "ch01", "x", **deps)
     assert ok is False and "vacío" in reason
 
