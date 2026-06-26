@@ -697,38 +697,34 @@ def _assemble_status(tail: int = 60) -> dict:
 # mirando la IMAGEN; este LLM solo aplica el cambio que pide, en inglés, cuidando las
 # reglas. NUNCA se le muestra el prompt a Omar para aprobar.
 _FIX_REWRITE_INSTRUCTION = """\
-Sos un editor de prompts de imagen para Flux 2 Pro (generación documental en 16:9).
-Te paso un PROMPT ACTUAL en inglés, su narration_anchor (lo que la imagen DEBE
-ilustrar), y un CAMBIO que pide el usuario en español. Tu tarea: devolver el prompt
-reescrito EN INGLÉS aplicando ESE cambio y manteniendo TODO lo demás (sujeto, setting,
-estilo, consistencia del personaje). NO inventes una escena nueva: editás la existente.
+Sos un editor de prompts de imagen para Seedream 4.5 (documental 16:9, canal FACELESS de
+dark-history). Te paso un PROMPT ACTUAL en inglés (ya generado por el pipeline, con toda su
+estructura y disciplina), su narration_anchor (lo que la imagen DEBE ilustrar), y un CAMBIO
+que pide el usuario en español.
+
+Tu tarea: aplicar EXCLUSIVAMENTE el cambio pedido y devolver el prompt con TODO LO DEMÁS
+INTACTO — mismas frases, mismo orden, misma estructura. NO reescribas, NO reordenes, NO lo
+achiques, NO lo "naturalices". Editás IN-PLACE: tocás solo lo que el cambio pide; el resto se
+copia palabra por palabra. El prompt ya viene en la forma correcta de seedream — preservala.
 
 El narration_anchor es la VERDAD de lo que la toma debe mostrar — no te alejes de él.
 
-REGLAS DE FLUX (inviolables — el prompt resultante DEBE cumplirlas):
-1. Subject-first: el sujeto principal va al INICIO, nunca después de un prefijo técnico
-   largo. El estilo/cámara/iluminación van integrados o al final, no al principio.
-2. SIN negativos: Flux 2 NO soporta prompts negativos. No escribas "no people", "no
-   text", "no blur". Para excluir → describí en positivo: "an empty scene", "clean
-   surfaces", "sharp focus throughout".
-3. Descriptores físicos (etnia, edad, rasgos, ropa con período) INTEGRADOS al bloque del
-   sujeto al inicio, no esparcidos al final (lo que llega tarde, llega diluido).
-4. Prosa natural descriptiva, NO keyword-soup ni CSV de props al final.
-5. Longitud objetivo 30–80 palabras (medium). Si el cambio no lo exige, no lo infles.
-6. Para fotorealismo, cámara/lente/película específicas > genéricos.
+GUARDRAILS (el prompt resultante DEBE cumplirlos; si el cambio del usuario empuja a violar
+uno, cumplí el ESPÍRITU del pedido sin romperlo):
+1. FACELESS — nunca una cara identificable. Si hay persona, el rostro va oculto por GEOMETRÍA
+   determinista: silhouetted against the light / features lost to deep shadow / back to camera
+   / face turned into darkness. NUNCA cara nítida e iluminada al frente. (Si el usuario pide
+   "mostrá/cambiá la cara", reinterpretá como tratamiento de la figura SIN revelar el rostro.)
+2. SIN NOMBRES PROPIOS — describí por apariencia/rol, nunca el nombre de una persona.
+3. MOOD CEILING (HARD CAP, no ablandar) — el terror se construye con escala + luz + aparato
+   vacío + caras VIVAS cargadas; NUNCA cuerpos sin vida, sangre gráfica fresca, ni el momento
+   del daño. Mostrá el resultado / el espacio vacío cargado, nunca el mecanismo centrado.
+   Muerte → calma previa. Aparato de ejecución → espacio cargado vacío + UN objeto que implica
+   (una soga sola, un banco volcado), nunca el mecanismo entero.
+4. TEXTO en español únicamente, y solo si la escena legítimamente lo lleva — nunca un nombre
+   propio. Seedream renderiza el texto entre comillas legible — permitido e intencional.
 
-CONTENT-SAFETY (§1.8 — Flux devuelve 422 y rechaza; evitalo SIEMPRE):
-- Muerte → calma previa. NUNCA cuerpos/figuras inmóviles ni aftermath de muerte (aunque
-  sea "quieto" dispara el filtro). Mostrá la escena VIVA y tranquila anterior (la narración
-  hace el horror, la imagen muestra la calma): aldea al atardecer, ganado pastando, luz de
-  lámpara. Aplica a personas, animales y víctimas masivas.
-- Aparato de ejecución (horca, mecanismo de matar): NUNCA el mecanismo entero, ni aunque no
-  haya gente. Reemplazo = el espacio cargado y vacío (luz dramática + escala opresiva + UN
-  objeto que implica lo que pasó: una soga sola, un banco volcado).
-- Si el cambio del usuario empuja hacia muerte/aparato explícito, aplicá el pivote y cumplí
-  el espíritu del pedido sin disparar el filtro.
-
-Devolvé SOLO el JSON {"new_prompt": "<prompt reescrito en inglés>"}. Sin markdown.
+Devolvé SOLO el JSON {"new_prompt": "<prompt editado en inglés>"}. Sin markdown.
 """
 
 _FIX: dict = {"running": False, "done": False, "ok": None, "reason": None, "img_name": None}
@@ -737,7 +733,7 @@ _FIX_LOCK = threading.Lock()
 
 def _build_fix_user_prompt(entry: dict, feedback: str) -> str:
     return (
-        f"PROMPT ACTUAL (inglés, para Flux):\n{entry['prompt']}\n\n"
+        f"PROMPT ACTUAL (inglés, seedream):\n{entry['prompt']}\n\n"
         f"narration_anchor (lo que la imagen DEBE ilustrar): "
         f"{entry.get('narration_anchor') or '(sin anchor)'}\n\n"
         f"CAMBIO QUE PIDE EL USUARIO (español): {feedback}\n\n"
@@ -798,7 +794,7 @@ def _fix_core(
     if not entry:
         return False, "no se pudo resolver la entrada del prompt en el script"
 
-    # 2. Rewrite del prompt (obedece reglas Flux).
+    # 2. Rewrite del prompt (editor in-place seedream + guardrails faceless/mood/texto).
     try:
         res = rewrite_fn(_FIX_REWRITE_INSTRUCTION, _build_fix_user_prompt(entry, feedback))
         new_prompt = str((res or {}).get("new_prompt", "")).strip()
