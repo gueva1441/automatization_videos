@@ -501,7 +501,18 @@ RESPONDE SOLO CON EL JSON."""
 # ═══════════════════════════════════════════════════════════════
 
 class NarrationValidationError(ValueError):
-    """Narración emitida por Flash no cumple el contrato del módulo 01b."""
+    """Narración emitida por Flash no cumple el contrato del módulo 01b.
+
+    `kind` tipa la falla para que el retry decida sin string-matchear el mensaje:
+      "empty" | "length" | "first_sentence" | "phrase" | "other".
+    `detail` lleva el dato accionable (p.ej. la frase prohibida emitida) para
+    armar la dirección targeteada del reintento.
+    """
+
+    def __init__(self, msg: str, *, kind: str = "other", detail: str | None = None):
+        super().__init__(msg)
+        self.kind = kind
+        self.detail = detail
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -575,7 +586,7 @@ def _contains_any(text: str, needles: tuple[str, ...]) -> str | None:
 def _validate_narration(text: str, role: str, cap_number: int) -> None:
     """Valida largo, primera oración (si hook), y frases prohibidas."""
     if not isinstance(text, str) or not text.strip():
-        raise NarrationValidationError(f"cap {cap_number}: narration vacía")
+        raise NarrationValidationError(f"cap {cap_number}: narration vacía", kind="empty")
 
     n = len(text)
 
@@ -589,7 +600,8 @@ def _validate_narration(text: str, role: str, cap_number: int) -> None:
 
     if n < lo or n > hi:
         raise NarrationValidationError(
-            f"cap {cap_number} ({role}): largo {n} fuera de rango [{lo}, {hi}]"
+            f"cap {cap_number} ({role}): largo {n} fuera de rango [{lo}, {hi}]",
+            kind="length",
         )
 
     # Hook: primera oración corta
@@ -599,7 +611,8 @@ def _validate_narration(text: str, role: str, cap_number: int) -> None:
         if wc > HOOK_FIRST_SENTENCE_MAX_WORDS:
             raise NarrationValidationError(
                 f"cap 1 (hook): primera oración tiene {wc} palabras "
-                f"(máx {HOOK_FIRST_SENTENCE_MAX_WORDS}): \"{first}\""
+                f"(máx {HOOK_FIRST_SENTENCE_MAX_WORDS}): \"{first}\"",
+                kind="first_sentence",
             )
 
     # Frases prohibidas en apertura
@@ -607,7 +620,8 @@ def _validate_narration(text: str, role: str, cap_number: int) -> None:
     bad = _contains_any(head, FORBIDDEN_OPENINGS)
     if bad:
         raise NarrationValidationError(
-            f"cap {cap_number}: apertura prohibida — contiene \"{bad}\""
+            f"cap {cap_number}: apertura prohibida — contiene \"{bad}\"",
+            kind="phrase", detail=bad,
         )
 
     # Frases prohibidas en cierre (especialmente outro)
@@ -615,7 +629,8 @@ def _validate_narration(text: str, role: str, cap_number: int) -> None:
     bad = _contains_any(tail, FORBIDDEN_CLOSINGS)
     if bad:
         raise NarrationValidationError(
-            f"cap {cap_number}: cierre prohibido — contiene \"{bad}\""
+            f"cap {cap_number}: cierre prohibido — contiene \"{bad}\"",
+            kind="phrase", detail=bad,
         )
 
     # Conectores genéricos en cualquier parte (suaves, sólo log/warn-style:
@@ -623,7 +638,8 @@ def _validate_narration(text: str, role: str, cap_number: int) -> None:
     bad = _contains_any(text.lower(), GENERIC_CONNECTORS)
     if bad:
         raise NarrationValidationError(
-            f"cap {cap_number}: conector genérico prohibido — contiene \"{bad}\""
+            f"cap {cap_number}: conector genérico prohibido — contiene \"{bad}\"",
+            kind="phrase", detail=bad,
         )
 
 
@@ -691,14 +707,15 @@ def _trim_to_sentence_boundary(text: str, max_chars: int) -> str:
 def _call_with_length_retry(prompt: str, role: str, cap_number: int,
                              max_attempts: int = 2) -> str:
     """
-    Llama Flash, valida largo y reglas, reintenta con feedback si la única
-    falla es largo. Otros errores (frase prohibida, leak de inglés, etc.)
-    rompen sin retry.
+    Llama Flash, valida largo y reglas, reintenta con feedback targeteado si la
+    falla es reintentar-able (largo, primera-oración del hook, o FRASE prohibida
+    —apertura/cierre/conector—). `kind="empty"`/`"other"` rompen sin retry.
 
     Funcionamiento:
       Intento 1: prompt original.
-      Intento 2: prompt + sección "RETRY: tu intento previo tuvo N chars,
-                 hay que ajustarlo (más corto/largo, objetivo ~target)".
+      Intento 2: prompt + sección RETRY con la dirección según el tipo de falla
+                 (ajustar largo, acortar la 1ª oración, o sacar la frase prohibida
+                 y reescribir ese pasaje).
     """
     if role == "hook":
         lo, hi = LEN_HOOK
@@ -720,10 +737,10 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
             _validate_narration(narr, role=role, cap_number=cap_number)
             return narr
         except NarrationValidationError as e:
-            msg = str(e)
-            # Retry SOLO si el único problema es largo
-            is_length_issue = "largo" in msg or "primera oración" in msg
-            if not is_length_issue or attempt == max_attempts:
+            # Retry si la falla es largo, primera-oración del hook, o frase prohibida.
+            # (gate tipado: ya no se string-matchea el mensaje). "empty"/"other" → no retry.
+            retryable = e.kind in ("length", "first_sentence", "phrase")
+            if not retryable or attempt == max_attempts:
                 # FIX DE RAÍZ (chat 51) — ÚLTIMO RECURSO, SOLO outro + SOLO lado largo:
                 # un outro un toque sobre el techo NO debe matar un topic ya investigado
                 # (3 angle Pro + Flash gastados). Recortar en límite de oración a ≤ hi y
@@ -740,7 +757,17 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
             last_error = e
 
             actual_len = len(narr)
-            if actual_len > hi:
+            if e.kind == "phrase":
+                # Frase prohibida (apertura/cierre/conector): pedir que saque ESA frase y
+                # reescriba el pasaje encadenando por contenido. El largo ya está en rango.
+                direction = (
+                    f'FRASE PROHIBIDA: tu intento previo usó "{e.detail}". Reescribí ESE '
+                    "pasaje SIN esa frase, encadenando por el contenido (causa→efecto, "
+                    "tensión→revelación). Mantené el largo dentro de rango y NO toques "
+                    "los datos duros."
+                )
+                reason = f'frase prohibida "{e.detail}"'
+            elif actual_len > hi:
                 # 1.2: para el outro, instruir un techo con margen (deja aire → no se pasa
                 # por poco). hook/development: instrucción intacta (techo = hi). La banda del
                 # validador NO cambia en ningún caso.
@@ -751,6 +778,7 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
                     "Quitá frases descriptivas secundarias, agrupá ideas afines, "
                     "eliminá adjetivos redundantes. NO quites datos duros."
                 )
+                reason = f"{actual_len} chars fuera de [{lo}, {hi}]"
             elif actual_len < lo:
                 direction = (
                     f"DEMASIADO CORTO: tu intento previo tuvo {actual_len} chars. "
@@ -758,6 +786,7 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
                     "Profundizá con descripciones sensoriales del canonical o "
                     "detalles narrativos del summary (sin agregar cifras nuevas)."
                 )
+                reason = f"{actual_len} chars fuera de [{lo}, {hi}]"
             else:
                 # Falla específica: primera oración del hook con muchas palabras
                 direction = (
@@ -765,11 +794,12 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
                     f"de máximo {HOOK_FIRST_SENTENCE_MAX_WORDS} palabras. "
                     "Empezá con una frase de impacto cortísima."
                 )
+                reason = "primera oración del hook demasiado larga"
 
             feedback = f"""
 
 ═══════════════════════════════════════════════════
-RETRY {attempt + 1}/{max_attempts} — INSTRUCCIÓN ADICIONAL DE LARGO
+RETRY {attempt + 1}/{max_attempts} — INSTRUCCIÓN ADICIONAL DE REESCRITURA
 ═══════════════════════════════════════════════════
 {direction}
 
@@ -777,8 +807,8 @@ Reescribí la narración respetando TODAS las reglas anteriores.
 Devolvé el JSON con la nueva versión completa.
 """
             attempt_prompt = prompt + feedback
-            print(f"  [01b] cap {cap_number}: {actual_len} chars fuera de "
-                  f"[{lo}, {hi}], reintentando ({attempt + 1}/{max_attempts})...")
+            print(f"  [01b] cap {cap_number}: {reason}, "
+                  f"reintentando ({attempt + 1}/{max_attempts})...")
 
     # En teoría inalcanzable
     if last_error:
