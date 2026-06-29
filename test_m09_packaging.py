@@ -321,6 +321,70 @@ def test_compose_title_string():
     return ok
 
 
+def test_render_fresh_routes_to_producer():
+    _section("12· _render_fresh_from_hero rutea por el productor (seedream), NO por el clon Flux")
+    import asset_manager as am
+    ok = True
+    calls = []
+
+    def fake_raw(prompt, output_path, use_ultra, seed=None):
+        calls.append({"prompt": prompt, "out": output_path, "use_ultra": use_ultra})
+        Image.new("RGB", (2560, 1440), (10, 10, 10)).save(output_path)  # seedream 16:9
+        return {"endpoint": "seedream/v4.5/t2i"}
+
+    orig = am._generate_image_raw
+    am._generate_image_raw = fake_raw
+    try:
+        # ── caso feliz: llama al productor con (hero, out, use_ultra=False) y ESCRIBE ──
+        cand = Path(tempfile.mkdtemp())
+        lines, files = m._render_fresh_from_hero("HERO PROMPT", cand, count=2, start_idx=1)
+        if len(calls) != 2:
+            ok = False; print(f"  ✗ se esperaban 2 llamadas al productor, hubo {len(calls)}")
+        elif any(c["prompt"] != "HERO PROMPT" or c["use_ultra"] is not False for c in calls):
+            ok = False; print(f"  ✗ args al productor mal: {calls}")
+        else:
+            print("  ✓ productor llamado con (hero, out, use_ultra=False)")
+        if files != ["fresh_01.png", "fresh_02.png"] or not all((cand / f).exists() for f in files):
+            ok = False; print(f"  ✗ no escribió las frescas: {files}")
+        else:
+            print("  ✓ escribió fresh_01/02.png en cand_dir")
+        if not all("✓" in ln for ln in lines):
+            ok = False; print(f"  ✗ líneas .md sin ✓: {lines}")
+        else:
+            print("  ✓ líneas .md marcan ✓")
+    finally:
+        am._generate_image_raw = orig
+
+    # ── el clon murió: ni el módulo ni el path del thumbnail referencian el wiring Flux ──
+    src = Path(m.__file__).read_text(encoding="utf-8")
+    if "_flux_16x9" in src:
+        ok = False; print("  ✗ _flux_16x9 sigue vivo en el módulo")
+    elif "fal_image_model" in src or "track_flux_pro" in src:
+        ok = False; print("  ✗ quedó api.fal_image_model / track_flux_pro en el módulo")
+    else:
+        print("  ✓ _flux_16x9 / fal_image_model / track_flux_pro eliminados del módulo")
+
+    # ── caso de fallo: el productor levanta Exception → '✗' y '⚠ render falló en todas' ──
+    def fake_boom(prompt, output_path, use_ultra, seed=None):
+        raise RuntimeError("boom")
+
+    am._generate_image_raw = fake_boom
+    try:
+        cand2 = Path(tempfile.mkdtemp())
+        lines2, files2 = m._render_fresh_from_hero("HERO", cand2, count=2, start_idx=1)
+    finally:
+        am._generate_image_raw = orig
+    if files2:
+        ok = False; print(f"  ✗ no debía escribir nada en fallo: {files2}")
+    elif not any("✗" in ln for ln in lines2):
+        ok = False; print("  ✗ no marcó '✗' en fallo")
+    elif not any("render falló en todas" in ln for ln in lines2):
+        ok = False; print("  ✗ no apareció '⚠ render falló en todas'")
+    else:
+        print("  ✓ fallo → '✗' + '⚠ render falló en todas' (resiliencia preservada)")
+    return ok
+
+
 def main() -> int:
     print("=" * 68 + "\n  TESTS m09a packaging (sin red)\n" + "=" * 68)
     results = {
@@ -334,6 +398,7 @@ def main() -> int:
         "fill_color": test_fill_color(),
         "run_compose_title_idx": test_run_compose_title_idx(),
         "compose_title_string": test_compose_title_string(),
+        "render_fresh_routes_to_producer": test_render_fresh_routes_to_producer(),
     }
     print("\n" + "=" * 68)
     for k, v in results.items():

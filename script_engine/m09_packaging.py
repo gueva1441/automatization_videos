@@ -26,12 +26,10 @@ import json
 import os
 import shutil
 import sys
-import time
 import webbrowser
 from pathlib import Path
 from typing import Any
 
-import requests
 from PIL import Image, ImageDraw, ImageFont
 
 from config import OUTPUT_DIR, gemini_client, api
@@ -221,7 +219,7 @@ def _resolve_png(tid: str, filename: str) -> Path | None:
 
 
 # ═══════════════════════════════════════════════════════════════
-#  THUMB — hero prompt (Gemini) + render Flux 16:9 (clon mínimo fal.ai)
+#  THUMB — hero prompt (Gemini) + render seedream (vía productor)
 # ═══════════════════════════════════════════════════════════════
 _HERO_SCHEMA = {
     "type": "OBJECT",
@@ -297,37 +295,6 @@ def generate_hero_prompt(canonical: dict) -> dict:
     """Devuelve {'prompt': str, 'subject': str}. subject = el casting (PASO 1)."""
     d = _gemini_json(_HERO_SYSTEM, _hero_user_prompt(canonical), _HERO_SCHEMA, 0.4)
     return {"prompt": str(d.get("prompt", "")).strip(), "subject": str(d.get("subject", "")).strip()}
-
-
-def _flux_16x9(prompt: str, out_path: Path, timeout: int = 180) -> None:
-    """Render Flux 2 Pro 16:9 (1280×720) — clon mínimo del wiring fal.ai (no toca asset_manager)."""
-    headers = {"Authorization": f"Key {api.fal_api_key}", "Content-Type": "application/json"}
-    payload = {
-        "prompt": prompt, "num_images": 1, "enable_safety_checker": True,
-        "output_format": "png", "image_size": {"width": THUMB_W, "height": THUMB_H},
-    }
-    submit = f"{api.fal_base_url}/{api.fal_image_model}"
-    resp = requests.post(submit, headers=headers, json=payload, timeout=30)
-    resp.raise_for_status()
-    data = resp.json()
-    if "images" not in data:
-        start = time.time()
-        status_url, response_url = data["status_url"], data["response_url"]
-        while time.time() - start < timeout:
-            s = requests.get(status_url, headers=headers, timeout=15); s.raise_for_status()
-            st = s.json().get("status", "").upper()
-            if st == "COMPLETED":
-                data = requests.get(response_url, headers=headers, timeout=15).json(); break
-            if st in ("FAILED", "ERROR"):
-                raise RuntimeError(f"Flux thumbnail falló: {json.dumps(s.json())[:200]}")
-            time.sleep(2)
-        else:
-            raise TimeoutError(f"Flux thumbnail timeout {timeout}s")
-    if not data.get("images"):
-        raise RuntimeError("Flux thumbnail sin imágenes")
-    url = data["images"][0]["url"]
-    out_path.write_bytes(requests.get(url, timeout=60).content)
-    cost_tracker.track_flux_pro(description=f"thumb: {prompt[:50]}", images=1)
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -431,20 +398,21 @@ def _next_fresh_index(cand_dir: Path) -> int:
 
 
 def _render_fresh_from_hero(hero: str, cand_dir: Path, count: int, start_idx: int) -> tuple[list[str], list[str]]:
-    """Renderiza `count` frescas Flux 16:9 desde un hero dado, numerando desde start_idx
+    """Renderiza `count` frescas seedream 16:9 desde un hero dado, numerando desde start_idx
     (sin pisar). Devuelve (líneas .md, nombres de archivo generados)."""
+    import asset_manager as am   # noqa: PLC0415
     lines: list[str] = []
     files: list[str] = []
     for k in range(count):
         idx = start_idx + k
         out = cand_dir / f"fresh_{idx:02d}.png"
         try:
-            _flux_16x9(hero, out)
+            am._generate_image_raw(hero, out, use_ultra=False)
             lines.append(f"- fresh_{idx:02d}.png ✓"); files.append(out.name)
         except Exception as e:
             lines.append(f"- fresh_{idx:02d}.png ✗ ({type(e).__name__}: {str(e)[:80]})")
     if not files:
-        lines.append("- ⚠ Flux falló en todas — seguí con las existentes.")
+        lines.append("- ⚠ render falló en todas — seguí con las existentes.")
     return lines, files
 
 
@@ -559,8 +527,8 @@ def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False,
     else:
         md.append("- ⚠ audit_map.csv no encontrado — sin bases existentes.")
 
-    # Thumbnails frescas Flux 16:9 (CTR)
-    md.append("\n## Miniaturas — bases frescas (Flux 16:9)\n")
+    # Thumbnails frescas seedream 16:9 (CTR)
+    md.append("\n## Miniaturas — bases frescas (seedream 16:9)\n")
     if skip_fresh:
         md.append("- (omitidas: --skip-fresh)")
     else:
@@ -708,7 +676,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="m09a — paquete de publicación (metadata + thumbnail).")
     ap.add_argument("topic_id")
     ap.add_argument("--candidates", action="store_true", help="Paso 1: metadata + bases de thumbnail.")
-    ap.add_argument("--skip-fresh", action="store_true", help="No generar frescas Flux (solo existentes).")
+    ap.add_argument("--skip-fresh", action="store_true",
+                    help="No generar frescas (render del motor activo); solo existentes.")
     ap.add_argument("--only-fresh", action="store_true",
                     help="Solo regenerar hero+frescas (no re-quema metadata ni re-copia existentes).")
     ap.add_argument("--review", action="store_true",

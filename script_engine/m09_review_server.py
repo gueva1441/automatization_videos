@@ -109,7 +109,7 @@ class ReviewState:
                                   critique or None, files)
             if not files:
                 with self.lock:
-                    self.last_error = "Flux no generó ninguna imagen (ver terminal)."
+                    self.last_error = "el render no generó ninguna imagen (ver terminal)."
         except Exception as e:  # noqa: BLE001
             with self.lock:
                 self.last_error = f"{type(e).__name__}: {e}"
