@@ -607,6 +607,36 @@ def _classify_locked_facts(verbatim_facts: list[str]) -> list[dict]:
     return out
 
 
+# B1 · RAÍZ (productor, chat 114 §2-B): el skeleton no debe encajar >1 medida en una
+# imagen que no puede hospedar dos unidades distintas (el fluidificador no puede cumplir
+# las dos → Guarda 1 muere). Tope tweakable, NO hardcodeado inline.
+MAX_MEASURES_PER_IMAGE = 1
+
+
+def _enforce_measure_fit(locked: list[dict], label: str,
+                         max_measures: int = MAX_MEASURES_PER_IMAGE) -> list[dict]:
+    """Control de FIT determinístico: si una imagen trae más de `max_measures` cifras-MEDIDA,
+    conserva las primeras (la 1ra medida = la del primer hard_fact, proxy de centralidad) y
+    SUELTA las sobrantes ANTES de lockear, con WARN ruidoso. Los AÑOS no se tocan (un año y
+    una medida coexisten sin romper la guarda). Así el fluidificador nunca recibe carga
+    imposible. Devuelve el locked filtrado (no muta el original)."""
+    kept: list[dict] = []
+    dropped: list[dict] = []
+    seen_measures = 0
+    for it in locked:
+        if it["kind"] == "measure":
+            if seen_measures >= max_measures:
+                dropped.append(it)
+                continue
+            seen_measures += 1
+        kept.append(it)
+    if dropped:
+        drop_str = ", ".join(f'{d["num"]} (+{d.get("mtype") or "measure"})' for d in dropped)
+        print(f"  ⚠ [m03] {label}: FIT — {len(dropped)} medida(s) sobrante(s) soltada(s) "
+              f"antes de lockear (máx {max_measures}/imagen): {drop_str}")
+    return kept
+
+
 def _digit_variants(d: str) -> set[str]:
     """ES usa '.' como separador de miles, EN usa ','. Aceptar ambas formas."""
     return {d, d.replace(",", "."), d.replace(".", ",")}
@@ -715,11 +745,20 @@ and close with: {profile.aspect_ratio_text}"""
 def _fluidify_item(slots: dict, locked: list[dict], profile, label: str,
                    max_attempts: int = 3) -> str:
     """Llama el fluidificador y verifica la Guarda 1 (post-check determinista).
-    Reintenta si una cifra se perdió/redondeó o quedó unidad española. Si tras
-    max_attempts sigue fallando → VisualValidationError RUIDOSO (§4)."""
+    Reintenta si una cifra se perdió/redondeó o quedó unidad española.
+
+    BACKSTOP (chat 114 §2-A): si tras max_attempts sigue fallando, NO mata el run.
+    DEGRADA: acepta la MEJOR prosa producida (la de menos faltantes), soltando las
+    cifras que no entraron, con WARN ruidoso (qué cifra, qué cap/img). Honra el propio
+    prompt del fluidificador ("si una cifra no entra, no la metas"). Solo si NINGÚN
+    intento devolvió prosa utilizable → VisualValidationError (fallo legítimo)."""
     user = _build_fluidificador_user(slots, locked, profile)
     last_missing: list[str] = []
     last_spanish: list[str] = []
+    best_prose: str = ""
+    best_score: int | None = None
+    best_missing: list[str] = []
+    best_spanish: list[str] = []
     for attempt in range(1, max_attempts + 1):
         out = call_pro_json(user, system_instruction=FLUIDIFICADOR_SYSTEM,
                             response_schema=_FLUIDIFICADOR_SCHEMA)
@@ -728,6 +767,11 @@ def _fluidify_item(slots: dict, locked: list[dict], profile, label: str,
         missing, spanish = _post_check_locked(prose, locked)
         if not missing and not spanish and prose:
             return prose
+        # Trackear la MEJOR prosa parcial (menos faltantes+ES) para el backstop.
+        score = len(missing) + len(spanish)
+        if prose and (best_score is None or score < best_score):
+            best_score, best_prose = score, prose
+            best_missing, best_spanish = missing, spanish
         last_missing, last_spanish = missing, spanish
         if attempt < max_attempts:
             user = (_build_fluidificador_user(slots, locked, profile) +
@@ -735,10 +779,16 @@ def _fluidify_item(slots: dict, locked: list[dict], profile, label: str,
                     f"{missing or '-'}. Spanish unit words left: {spanish or '-'}. "
                     f"Re-weave keeping EVERY mandatory number exact (numeral) with its "
                     f"English unit.")
+    # ── BACKSTOP §2-A: degradar en vez de raise (el run SIGUE) ──
+    if best_prose:
+        print(f"  ⚠ [m03] {label}: Guarda 1 DEGRADADA tras {max_attempts} intentos — "
+              f"cifras no embebidas: {best_missing or '-'}; unidades ES residuales: "
+              f"{best_spanish or '-'}. Prosa aceptada SIN esas cifras (run sigue).")
+        return best_prose
+    # Ningún intento devolvió prosa utilizable → fallo legítimo (no hay qué degradar).
     raise VisualValidationError(
-        f"{label}: fluidificador rompió Guarda 1 tras {max_attempts} intentos "
-        f"(missing={last_missing}, spanish_units={last_spanish}). "
-        f"Las cifras locked deben aparecer literales con unidad en inglés."
+        f"{label}: fluidificador no devolvió prosa utilizable en {max_attempts} intentos "
+        f"(missing={last_missing}, spanish_units={last_spanish})."
     )
 
 
@@ -889,6 +939,9 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
     for i, it in enumerate(slots_out["image_prompts"], start=1):
         verbatim = _seedream_facts_verbatim(it.get("hard_fact_ids"), facts)
         locked = _classify_locked_facts(verbatim)
+        # B1 §2-B: suelta medidas sobrantes (>1/imagen) ANTES de lockear → el fluidificador
+        # nunca recibe una carga imposible (raíz del crash Guarda 1).
+        locked = _enforce_measure_fit(locked, f"cap {cap_number} img #{i}")
         prose = _fluidify_item(it, locked, profile, f"cap {cap_number} img #{i}")
         # raw_llm_prompt = los slots crudos (auditoría m05, se conserva)
         it["raw_llm_prompt"] = json.dumps(
