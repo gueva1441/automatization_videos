@@ -22,10 +22,6 @@ from script_engine.m03_visual import (
     assign_visual_prompts,
     VisualValidationError,
     _calculate_image_count,
-    _build_flux_prompt,
-    _build_veo_prompt,
-    _build_rules_block,
-    SYSTEM_INSTRUCTION_VISUAL,
     MIN_IMAGES_FLUX,
     MAX_IMAGES_FLUX,
     SECONDS_PER_IMAGE_TARGET,
@@ -447,7 +443,7 @@ def _print_assignment(out: dict, skeleton: dict, narration: dict) -> None:
 #  CHECKS OFFLINE — DEPRECADOS
 # ═══════════════════════════════════════════════════════════════
 # Chat 30: eliminado _offline_prompt_checks (validaba literales del
-# SYSTEM_INSTRUCTION_VISUAL viejo del chat 19; chat 30 reescribió completo
+# system_instruction viejo del chat 19; chat 30 reescribió completo
 # el system_instruction y los checks quedaron desactualizados).
 # Si en el futuro se quieren checks offline del SYSTEM_INSTRUCTION nuevo,
 # armarlos como tests aislados separados (test_module_03_offline.py) que

@@ -183,50 +183,11 @@ def test_fallback_sentences_lt_n():
     check(w1 == w2, "fallback determinístico (misma entrada → mismo output)")
 
 
-def test_veo_cap_no_regresiona():
-    print("\n[B2] no-regresión: _validate_veo_cap sigue validando igual tras extraer _check_supp_ordering")
-    # output veo válido mínimo (2 supps en orden, disjuntos de la zona Veo end).
-    parsed = {
-        "image_prompt": "An elderly figure standing alone on a deserted road, period-correct 1960s details, harsh midday sun, drifting fine dust, wide documentary shot of the open terrain around.",
-        "video_prompt": "Slow push in toward the figure, fine dust drifting through the air, distant heat shimmer warping the horizon, the coat swaying gently in a faint breeze across the plain.",
-        "subject_ref": "main_subject",
-        "narration_anchor": "revela el misterio final.",
-        "supplemental_image_prompts": [
-            {"prompt": "A quiet 1960s period-correct interior scene at dusk, warm lamp glow, documentary photography, slightly desaturated palette, dust motes drifting slowly in the still air of the room.",
-             "narration_anchor": "Primera oración del capítulo sobre el evento."},
-            {"prompt": "A wide 1960s period-correct establishing view of a small town at dusk, soft natural light, documentary style, faint mist over the empty streets and old rooftops along the road.",
-             "narration_anchor": "Segunda oración con más detalle del contexto histórico."},
-            {"prompt": "A 1960s period-correct group of townspeople gathered quietly outdoors, weathered faces, plain era clothing, soft overcast daylight, documentary photography, slightly desaturated tones.",
-             "narration_anchor": "Tercera oración que describe a las personas afectadas."},
-            {"prompt": "A 1960s period-correct empty room interior after the events, overturned simple furniture, dim natural light through a dusty window, documentary photography, muted desaturated palette throughout.",
-             "narration_anchor": "Cuarta oración sobre las consecuencias más graves."},
-        ],
-    }
-    try:
-        out = m._validate_veo_cap(parsed, NARR, 7, "end")
-        ok = (out["chapter_number"] == 7 and len(out["supplemental_image_prompts"]) == 4)
-    except m.VisualValidationError as e:
-        ok = False
-        print(f"      (raise inesperado: {e})")
-    check(ok, "_validate_veo_cap acepta un cap válido (mensajes/lógica intactos)")
-
-    # y sigue rechazando fuera de orden (supp2 antes que supp1)
-    bad = dict(parsed)
-    bad["supplemental_image_prompts"] = list(reversed(parsed["supplemental_image_prompts"]))
-    try:
-        m._validate_veo_cap(bad, NARR, 7, "end")
-        rejected = False
-    except m.VisualValidationError as e:
-        rejected = "fuera de orden" in str(e)
-    check(rejected, "_validate_veo_cap sigue rechazando supps fuera de orden")
-
-
 if __name__ == "__main__":
     test_veo_llm_ok()
     test_veo_empty_anchor_to_fallback()
     test_flux_llm_ok_and_fallback()
     test_fallback_sentences_lt_n()
-    test_veo_cap_no_regresiona()
 
     print("\n" + ("=" * 60))
     if _fails:

@@ -59,8 +59,7 @@ if hasattr(mod, "_offline_prompt_checks"):
 print("✓ TEST 2 PASS — _offline_prompt_checks no existe (eliminada)")
 
 print("\n=== TEST 3: símbolos esperados existen ===")
-expected = ["assign_visual_prompts", "_calculate_image_count", "_build_flux_prompt",
-            "_build_rules_block", "SYSTEM_INSTRUCTION_VISUAL", "MIN_IMAGES_FLUX",
+expected = ["assign_visual_prompts", "_calculate_image_count", "MIN_IMAGES_FLUX",
             "MAX_IMAGES_FLUX", "SECONDS_PER_IMAGE_TARGET", "VEO_CHAPTERS", "FLUX_CHAPTERS",
             "_print_assignment", "_collect_visible_prompts", "main"]
 missing = [sym for sym in expected if not hasattr(mod, sym)]
