@@ -1,0 +1,24 @@
+[
+  {
+    "id": "PASO0",
+    "endpoint": "t2i",
+    "prompt": "An extreme wide shot of a Soviet Hotel-class ballistic missile submarine, 1960s, on the surface of the North Atlantic: long black steel hull with rounded bow, dark red lower hull below the waterline, an unusually tall and bulky conning tower elongated rearward housing three vertical ballistic missile silos, small rectangular bridge windows, no hull numbers. Cold overcast daylight, desaturated steel and teal sea, dark documentary, photorealistic, no text anywhere, 16:9.",
+    "image_urls_in": [],
+    "url_out": "https://v3b.fal.media/files/b/0aa073b9/WJn9yYZJuTIeUq48I-vN3_fac6c16652c9446595fa40c946185ac4.png",
+    "seed": 1387285193,
+    "file": "PASO0.png",
+    "note": "ancla del submarino; url_out = url_sub_ancla para H2"
+  },
+  {
+    "id": "SMOKE_edit_sub",
+    "endpoint": "edit",
+    "prompt": "This exact submarine, now surfacing through drifting arctic ice fog under a pale low sun. Keep the hull shape, conning tower proportions and silhouette identical. Desaturated, photorealistic, 16:9.",
+    "image_urls_in": [
+      "https://v3b.fal.media/files/b/0aa073b9/WJn9yYZJuTIeUq48I-vN3_fac6c16652c9446595fa40c946185ac4.png"
+    ],
+    "url_out": "https://v3b.fal.media/files/b/0aa073bb/j2klsRPEbihQp_9KETrHn_8e8a993505b74011929b4022e2af7280.png",
+    "seed": null,
+    "file": "SMOKE_edit_sub.png",
+    "note": "smoke-test de /edit sobre el SUB (no el reactor). Confirma endpoint + gestalt del sub."
+  }
+]
