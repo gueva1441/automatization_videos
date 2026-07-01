@@ -73,7 +73,7 @@ def _post(model: str, payload: dict, timeout: int = 240) -> dict:
 
 
 def t2i(prompt: str) -> dict:
-    """Text-to-image Seedream 4.5. Devuelve {url_out, seed}."""
+    """Text-to-image Seedream 4.5. Devuelve {url_out, seed, secs} (secs = latencia del POST API)."""
     payload = {
         "prompt": prompt,
         "image_size": IMAGE_SIZE,
@@ -81,12 +81,15 @@ def t2i(prompt: str) -> dict:
         "enable_safety_checker": True,
         "output_format": "png",
     }
+    t0 = time.perf_counter()
     data = _post(T2I_MODEL, payload)
-    return {"url_out": data["images"][0]["url"], "seed": data.get("seed")}
+    secs = time.perf_counter() - t0
+    return {"url_out": data["images"][0]["url"], "seed": data.get("seed"), "secs": round(secs, 2)}
 
 
 def edit(prompt: str, image_urls: list[str]) -> dict:
-    """Seedream 4.5 /edit con image_urls de referencia. Devuelve {url_out, seed}."""
+    """Seedream 4.5 /edit con image_urls de referencia. Devuelve {url_out, seed, secs}.
+    secs = SOLO la latencia de la llamada POST al endpoint /edit (no incluye el download)."""
     payload = {
         "prompt": prompt,
         "image_urls": image_urls,
@@ -95,8 +98,10 @@ def edit(prompt: str, image_urls: list[str]) -> dict:
         "enable_safety_checker": True,
         "output_format": "png",
     }
+    t0 = time.perf_counter()
     data = _post(EDIT_MODEL, payload)
-    return {"url_out": data["images"][0]["url"], "seed": data.get("seed")}
+    secs = time.perf_counter() - t0
+    return {"url_out": data["images"][0]["url"], "seed": data.get("seed"), "secs": round(secs, 2)}
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -126,9 +131,9 @@ def _record(results: list, *, id_: str, endpoint: str, prompt: str,
     results.append({
         "id": id_, "endpoint": endpoint, "prompt": prompt,
         "image_urls_in": refs, "url_out": out["url_out"], "seed": out.get("seed"),
-        "file": filename, "note": note,
+        "api_secs": out.get("secs"), "file": filename, "note": note,
     })
-    print(f"  ✓ {id_} [{endpoint}] → {filename}  (seed={out.get('seed')})")
+    print(f"  ✓ {id_} [{endpoint}] → {filename}  (seed={out.get('seed')}, api={out.get('secs')}s)")
     print(f"      url_out: {out['url_out']}")
 
 
@@ -186,10 +191,47 @@ def main() -> int:
     ap.add_argument("--paso0", action="store_true", help="Solo las anclas t2i (sub + reactor), sin /edit.")
     ap.add_argument("--smoke-edit", action="store_true",
                     help="Solo sub + smoke-test de /edit (sub como ref throwaway; NO corre H1/H2).")
+    ap.add_argument("--edits-only", action="store_true",
+                    help="Re-corre SOLO los 4 edits (H1×3 + H2) reusando las urls de las anclas "
+                         "guardadas en results.json (NO regenera t2i). Mide segundos por edit.")
     args = ap.parse_args()
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     results: list = []
+
+    # ── --edits-only: reusar anclas de results.json, medir latencia por /edit ──
+    if args.edits_only:
+        prev = {r["id"]: r for r in json.loads(RESULTS_JSON.read_text(encoding="utf-8"))}
+        url_sub = prev["PASO0"]["url_out"]
+        url_reactor = prev["PASO0bis"]["url_out"]
+        print(f"[edits-only] reusando anclas de results.json (sin regenerar t2i):")
+        print(f"   sub     = {url_sub}")
+        print(f"   reactor = {url_reactor}")
+        results = [prev["PASO0"], prev["PASO0bis"]]   # anclas tal cual (no re-corridas)
+        edits = [
+            ("H1_edit1", P_H1_1, [url_reactor], "H1_edit1.png", "H1: gestalt del reactor entre escenas"),
+            ("H1_edit2", P_H1_2, [url_reactor], "H1_edit2.png", "H1: gestalt del reactor entre escenas"),
+            ("H1_edit3", P_H1_3, [url_reactor], "H1_edit3.png", "H1: gestalt del reactor entre escenas"),
+            ("H2_multi", P_H2, [url_sub, url_reactor], "H2_multi.png", "H2: sub+reactor en una foto"),
+        ]
+        timings: list[tuple[str, float]] = []
+        for id_, prompt, refs, fname, note in edits:
+            print(f"\n[{id_}] /edit ({len(refs)} ref)...")
+            out = edit(prompt, refs)
+            _download(out["url_out"], OUT_DIR / fname)
+            _record(results, id_=id_, endpoint="edit", prompt=prompt,
+                    image_urls_in=refs, out=out, filename=fname, note=note)
+            timings.append((id_, out["secs"]))
+            _flush(results)
+        print("\n" + "═" * 52)
+        print("  TIMING /edit — segundos por llamada API (POST, sin download)")
+        print("═" * 52)
+        for id_, s in timings:
+            print(f"    {id_:10s} : {s:6.2f} s")
+        avg = sum(s for _, s in timings) / len(timings)
+        print(f"    {'promedio':10s} : {avg:6.2f} s  (n={len(timings)})")
+        print(f"\n✅ edits-only OK — api_secs por imagen en {RESULTS_JSON}")
+        return 0
 
     # ── PASO 0 — foto-ancla del submarino (t2i) ──
     print("\n[PASO 0] t2i submarino (canon v2 verbatim)...")
