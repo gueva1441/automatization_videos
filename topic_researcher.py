@@ -16,7 +16,7 @@ CAMBIOS vs versión vieja:
     para debuggeo y reanudación si crashea.
 
   - SHORT mantiene su flujo actual (1 llamada Pro simple).
-  - Las 3 angle queries Pro+grounding (TÉCNICA/HUMANA/MISTERIO) se reusan
+  - Las 4 angle queries Pro+grounding (TÉCNICA/HUMANA/MISTERIO/VISUAL) se reusan
     intactas — ya están bien diseñadas (SRP correcto).
 
 CONTRATO DE SALIDA (topic en topics_db) — extendido con el 4e:
@@ -47,6 +47,7 @@ import json
 import re
 import time
 import uuid
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
 
@@ -79,7 +80,7 @@ DELAY_BETWEEN_ANGLES_SEC: int = 6    # Entre queries angulares del mismo seed
 #  ANGLE QUERIES (DEEP RESEARCH para video_type == "long")
 # ═══════════════════════════════════════════════════════════════
 #
-# Las 3 angle queries Pro+grounding se mantienen intactas (SRP correcto).
+# Las 4 angle queries Pro+grounding se mantienen intactas (SRP correcto).
 # Lo que se rediseñó es la 4ta llamada (síntesis), ahora partida en 4
 # sub-pasos Flash que viven en researcher_steps/.
 
@@ -283,6 +284,43 @@ def _research_angle(seed: dict, angle: dict) -> str:
     return raw.strip()
 
 
+# HANDOFF_121: wrapper de backoff canónico (error_handler.retry → exponential + jitter ante
+# 429/503). Gemini NO hace cola como fal: un burst paralelo puede pegar el RPM → 429. NO toca
+# _research_angle (invariante ⑥): solo envuelve la invocación. max_server_retries=3 (spec §3).
+@error_handler.retry(PipelineStage.TOPIC_RESEARCHER, max_server_retries=3)
+def _research_angle_with_backoff(seed: dict, angle: dict) -> str:
+    return _research_angle(seed, angle)
+
+
+def _gather_angle_blocks(seed: dict) -> dict[str, str]:
+    """HANDOFF_121 · corre los N ángulos EN PARALELO (ThreadPool, porque _research_angle es
+    SYNC), cada uno con backoff 429/503 y aislamiento de fallo por-ángulo (block='' y sigue —
+    invariante ③). Devuelve {key: block} SOLO para los ángulos que devolvieron texto → forma y
+    contenido idénticos al serial (invariante ①; el orden de escritura del dict no importa)."""
+    def _worker(angle: dict) -> tuple[str, str, str]:
+        try:
+            block = _research_angle_with_backoff(seed, angle)
+        except Exception as e:
+            error_handler.log_warning(
+                PipelineStage.TOPIC_RESEARCHER,
+                f"  ángulo '{angle['key']}' falló para '{seed['seed_title']}': {e}",
+            )
+            block = ""
+        return angle["key"], angle["label"], block
+
+    blocks: dict[str, str] = {}
+    with ThreadPoolExecutor(max_workers=len(DEEP_RESEARCH_ANGLES)) as pool:
+        futures = [pool.submit(_worker, angle) for angle in DEEP_RESEARCH_ANGLES]
+        for fut in as_completed(futures):
+            key, label, block = fut.result()
+            if block:
+                blocks[key] = block
+                print(f"       ✓ ángulo {label}: {len(block)} chars")
+            else:
+                print(f"       ⚠ ángulo {label}: vacío")
+    return blocks
+
+
 # ═══════════════════════════════════════════════════════════════
 #  SANITIZADORES DE search_keyword (reusados del archivo viejo)
 # ═══════════════════════════════════════════════════════════════
@@ -391,11 +429,11 @@ def _save_step_output(topic_id: str, step_name: str, data: dict) -> None:
 
 def _research_seed_deep(seed: dict, existing_titles: list[str]) -> dict:
     """
-    Deep Research para LONG: 3 angle queries Pro + 4 sub-pasos Flash.
+    Deep Research para LONG: 4 angle queries Pro (incl. visual/material) + sub-pasos Flash.
 
     Flujo:
       1. Pre-genera topic_id (para persistencia incremental)
-      2. Corre las 3 angle queries → angle_blocks
+      2. Corre las 4 angle queries EN PARALELO → angle_blocks
       3. Sub-paso 4a → verified_facts + sources
       4. Sub-paso 4b → canonical
       5. Sub-paso 4c → meta (title, search_keyword, hook, mystery, reveal, angle, virality)
@@ -405,29 +443,15 @@ def _research_seed_deep(seed: dict, existing_titles: list[str]) -> dict:
     Cada sub-paso recibe los anteriores cerrados como input fijo.
     """
     topic_id = str(uuid.uuid4())
-    angle_blocks: dict[str, str] = {}
 
-    # ─── Paso 1: 3 angle queries Pro ───
-    for i, angle in enumerate(DEEP_RESEARCH_ANGLES):
-        if i > 0:
-            time.sleep(DELAY_BETWEEN_ANGLES_SEC)
-        try:
-            block = _research_angle(seed, angle)
-        except Exception as e:
-            error_handler.log_warning(
-                PipelineStage.TOPIC_RESEARCHER,
-                f"  ángulo '{angle['key']}' falló para '{seed['seed_title']}': {e}",
-            )
-            block = ""
-        if block:
-            angle_blocks[angle["key"]] = block
-            print(f"       ✓ ángulo {angle['label']}: {len(block)} chars")
-        else:
-            print(f"       ⚠ ángulo {angle['label']}: vacío")
+    # ─── Paso 1: 4 angle queries Pro EN PARALELO (HANDOFF_121) ───
+    # Cada ángulo depende SOLO de (seed, angle) → independiente. Antes: serie + sleeps entre
+    # ángulos (~4×T). Ahora: ThreadPool con backoff 429/503 por ángulo → ~1×T + overhead.
+    angle_blocks = _gather_angle_blocks(seed)
 
     if not angle_blocks:
         raise RuntimeError(
-            "Los 3 ángulos de Deep Research fallaron. Seed no investigado."
+            "Los 4 ángulos de Deep Research fallaron. Seed no investigado."
         )
 
     # Persistir bloques crudos
@@ -783,7 +807,7 @@ def research_topics(
 
     Args:
         seeds: lista de seeds. Si None, carga de selected_seeds.json.
-        video_type: "short" (1 llamada Pro) | "long" (3 angle queries + 4 sub-pasos Flash)
+        video_type: "short" (1 llamada Pro) | "long" (4 angle queries en paralelo + 4 sub-pasos Flash)
 
     Returns:
         Lista de topics investigados.
@@ -810,7 +834,7 @@ def research_topics(
 
     print(f"\n  🔬 Investigando {len(pending)} seed(s) en modo {video_type.upper()}...")
     if video_type == "long":
-        print(f"     (3 angle queries Pro + 4 sub-pasos Flash por seed)")
+        print(f"     (4 angle queries Pro en paralelo + 4 sub-pasos Flash por seed)")
 
     researched: list[dict] = []
 
