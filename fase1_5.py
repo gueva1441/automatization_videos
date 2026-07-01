@@ -1,29 +1,29 @@
 """
-fase1_5.py — Orchestrator del motor de guion (m01a → m05 → m06)
+fase1_5.py — Orchestrator del motor de guion (m01a → m03 → assemble)
 
 Toma topics aprobados desde el CSV editado de fase1 (latido A) y los corre
-por la cadena m01a → m01b → m03 → m05 → m06.
+por la cadena m01a → m01b → normalizer_gate → audio → m07 → m03 → assemble.
+Tras m03 se ensambla directo data/scripts/<topic_id>.json (contrato sagrado
+que lee fase2a) con assemble_final_script.
 
-m06 clasifica issues, muestra menú interactivo [P]/[R]/[E] al usuario:
-  [P] Pasar todo → ensambla data/scripts/<topic_id>.json (contrato sagrado)
-  [R] Rerun     → imprime comando para re-correr desde el módulo culpable
-  [E] Exit      → deja JSONs por issue en data/issues_log/<topic_id>/
+Chat 119: el juez (m05 voting + m06 clasificador/menú [P]/[R]/[E]) fue
+DESCONECTADO del chain. m05_judge.py y m06_classifier.py siguen VIVOS en el
+repo; para re-enchufarlos → git revert del commit de desconexión (o tag juez-vivo).
 
 Cada módulo persiste su output en data/scripts/_steps/<topic_id>/.
 
 Uso:
   python fase1_5.py                              corre todos los topics aprobados desde m01a
   python fase1_5.py --topic <id>                 corre solo 1 topic específico
-  python fase1_5.py --topic <id> --from m03      reanuda 1 topic desde m03 (asume m01a/m01b ya corrieron)
-  python fase1_5.py --from m05                   solo audita (m05) todos los topics aprobados
-  python fase1_5.py --topic <id> --only m01b     corre SOLO m01b y corta (sin arrastrar la cadena)
+  python fase1_5.py --topic <id> --only m03      corre SOLO m03 y corta (sin arrastrar la cadena)
+  python fase1_5.py --topic <id> --only m01b     corre SOLO m01b y corta
 
 Flags:
   --topic <id>      Procesar solo el topic con este UUID (default: todos los aprobados del CSV).
   --only <step>     Correr SOLO ese módulo (equivale a --from <step> + cortar después).
   --csv <path>      Path al CSV editado (default: data/fase1_review.csv).
-  --voting-n <int>  Cantidad de corridas voting de m05 (default: 3).
   --no-gate         Modo batch del normalizer_gate (sin CLI interactivo).
+  --batch           Desatiende los gates del medio (normalizer_gate + music_gate).
 
 Salida:
   Imprime resumen al final con PASS/FAIL por topic.
@@ -51,12 +51,14 @@ from script_engine.m01a_skeleton import generate_skeleton
 from script_engine.m01b_narrator import generate_narration
 from script_engine import m02_5_normalizer_gate
 from script_engine.m03_visual import assign_visual_prompts
-from script_engine.m05_judge import judge_topic_with_voting
-from script_engine.m06_classifier import classify_and_decide
+# Chat 119: el juez (m05_judge + m06_classifier) fue DESCONECTADO del chain — assemble
+# directo tras m03. Los módulos siguen VIVOS en el repo; para re-enchufarlos: git revert
+# de este commit (o partir del tag juez-vivo). Ver m06_assembler.assemble_final_script.
+from script_engine.m06_assembler import assemble_final_script
 from script_engine import m07_music_director
 
 
-VALID_FROM_STEPS = ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03", "m05", "m06")
+VALID_FROM_STEPS = ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03")
 STEPS_DIR: Path = DATA_DIR / "scripts" / "_steps"
 TOPICS_DB: Path = DATA_DIR / "topics_db.json"
 
@@ -145,13 +147,14 @@ def _load_narration(topic_id: str) -> dict:
 def process_topic(
     topic_id: str,
     from_step: str = "m01a",
-    voting_n: int = 3,
     gate_interactive: bool = True,
     music_gate_interactive: bool = True,
     stop_after_step: str | None = None,
-    m06_interactive: bool = True,
 ) -> dict:
-    """Corre la cadena m01a → m05 para 1 topic, reanudando desde from_step.
+    """Corre la cadena m01a → m03 + assemble para 1 topic, reanudando desde from_step.
+
+    Chat 119: el juez (m05 + m06) fue DESCONECTADO — tras m03 se ensambla directo el
+    JSON final con assemble_final_script. Los módulos del juez siguen vivos en el repo.
 
     Args:
         gate_interactive: PR 2.0 chat 24. Default True (CLI humano para
@@ -164,11 +167,7 @@ def process_topic(
             generados se aprueban automáticamente — modo batch nocturno.
         stop_after_step: PR --only chat 24. Si != None, después de ejecutar
             ese step la cadena se corta (no avanza al siguiente). Útil para
-            validar 1 módulo aislado sin gastar plata en m05/m06.
-        m06_interactive: chat 57. Default True (menú [P]/[R]/[E] del humano). Si
-            False (--batch), m06 corre desatendido con auto_pass=True: ensambla el
-            JSON final como [P] en vez de cortar. Tercer gate del medio que --batch
-            desatiende (junto a gate_interactive y music_gate_interactive).
+            validar 1 módulo aislado sin arrastrar la cadena.
 
     Returns:
       dict {topic_id, steps_completed: list[str], status: 'PASS'|'FAIL', error?: str}
@@ -320,42 +319,15 @@ def process_topic(
                 print(f"\n  ✅ Topic {topic_id} OK (stop after m03) — pasos: {result['steps_completed']}")
                 return result
 
-        # m05 — juez (voting N)
-        if from_step in ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03", "m05"):
-            print(f"  [05] Auditando con voting N={voting_n}...")
-            judge_result = judge_topic_with_voting(topic_id, n=voting_n)
-            result["steps_completed"].append("m05")
-            result["judge_verdict"] = judge_result.get("global_verdict", "?")
-            if stop_after_step == "m05":
-                result["status"] = "PASS"
-                print(f"\n  ✅ Topic {topic_id} OK (stop after m05) — pasos: {result['steps_completed']}")
-                return result
-        elif from_step == "m06":
-            # Reanudar solo m06: leer output de m05 desde disco
-            from script_engine.m05_judge import _resolve_data_paths
-            _, sd = _resolve_data_paths(None)
-            judge_path = sd / topic_id / "05_judge.json"
-            if not judge_path.exists():
-                raise FileNotFoundError(
-                    f"fase1.5: --from m06 requiere 05_judge.json existente en {judge_path}"
-                )
-            judge_result = json.loads(judge_path.read_text(encoding="utf-8"))
-            result["judge_verdict"] = judge_result.get("global_verdict", "?")
-
-        # m06 — clasificador + assembler (siempre, salvo --from no llegue acá)
-        if from_step in ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03", "m05", "m06"):
-            print(f"  [06] Clasificando issues + decisión "
-                  f"{'interactiva' if m06_interactive else 'auto-pass (batch)'}...")
-            m06_result = classify_and_decide(
-                topic_id, judge_result,
-                interactive=m06_interactive,
-                auto_pass=not m06_interactive,
-            )
-            result["steps_completed"].append("m06")
-            result["m06_decision"] = m06_result.get("decision")
-            result["final_path"] = m06_result.get("final_path")
-            if m06_result.get("rerun_command"):
-                result["rerun_command"] = m06_result["rerun_command"]
+        # assemble — ensambla data/scripts/<id>.json (contrato sagrado que lee fase2a)
+        # DIRECTO tras m03. Chat 119: el juez (m05 voting + m06 clasificador/menú) fue
+        # DESCONECTADO del chain. assemble_final_script recibe SOLO topic_id (ya desacoplado
+        # del juez) y escribe el JSON final. Gate = MISMO alcance que tenía m06.
+        if from_step in ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03"):
+            print(f"  [assemble] Ensamblando data/scripts/{topic_id}.json...")
+            final_path = str(assemble_final_script(topic_id))
+            result["steps_completed"].append("assemble")
+            result["final_path"] = final_path
 
         result["status"] = "PASS"
         print(f"\n  ✅ Topic {topic_id} OK — pasos: {result['steps_completed']}")
@@ -421,16 +393,14 @@ def _select_topic_interactive() -> str | None:
 def run_one_topic_from_menu(
     from_step: str = "m01a",
     stop_after_step: str | None = None,
-    voting_n: int = 3,
     gate_interactive: bool = True,
     music_gate_interactive: bool = True,
     csv_path: "Path | None" = None,
-    m06_interactive: bool = True,
 ) -> int:
     """Chat 35 — Punto de entrada interactivo de UN tema.
 
     Flujo: menú → elegir 1 tema validado → reescribir el CSV con ese único tema
-    (para fase2a) → correr la cadena m01a→m06 sobre ese tema.
+    (para fase2a) → correr la cadena m01a→m03+assemble sobre ese tema.
 
     Lo usan: fase1_5.main() (cuando se corre SIN --topic) y fase1.py (encadenado
     al final del Latido A). Devuelve exit code (0 ok / cancelado, 1 fail).
@@ -446,17 +416,14 @@ def run_one_topic_from_menu(
     result = process_topic(
         topic_id=chosen_id,
         from_step=from_step,
-        voting_n=voting_n,
         gate_interactive=gate_interactive,
         music_gate_interactive=music_gate_interactive,
         stop_after_step=stop_after_step,
-        m06_interactive=m06_interactive,
     )
 
     print(f"\n{'═' * 60}")
     if result["status"] == "PASS":
-        verdict = result.get("judge_verdict", "—")
-        print(f"  ✅ {chosen_id}  (verdict m05: {verdict})")
+        print(f"  ✅ {chosen_id}")
         print(f"     pasos: {result.get('steps_completed')}")
         print(f"{'═' * 60}\n")
         return 0
@@ -470,18 +437,15 @@ def run_one_topic_from_menu(
 # ═══════════════════════════════════════════════════════════════
 
 def main():
-    parser = argparse.ArgumentParser(description="fase1.5 — orchestrator m01a→m05→m06")
+    parser = argparse.ArgumentParser(description="fase1.5 — orchestrator m01a→m03→assemble")
     parser.add_argument("--topic", type=str, default=None,
                         help="Procesar solo este topic_id (default: todos los aprobados del CSV)")
     parser.add_argument("--only", dest="only_step", type=str, default=None,
                         choices=VALID_FROM_STEPS,
                         help="Correr SOLO este módulo (equivale a --from <step> + cortar "
-                             "después). Útil para validar 1 módulo aislado sin gastar plata "
-                             "en m05/m06 ni arrastrar la cadena.")
+                             "después). Útil para validar 1 módulo aislado sin arrastrar la cadena.")
     parser.add_argument("--csv", type=str, default=None,
                         help="Path al CSV editado (default: data/fase1_review.csv)")
-    parser.add_argument("--voting-n", type=int, default=3,
-                        help="Corridas voting de m05 (default: 3)")
     parser.add_argument("--no-gate", dest="no_gate", action="store_true",
                         help="Skipear el gate interactivo del normalizer "
                              "(modo batch nocturno; sospechosos solo se loguean)")
@@ -490,16 +454,14 @@ def main():
                              "(modo batch nocturno; todos los tracks generados "
                              "se aprueban automáticamente)")
     parser.add_argument("--batch", action="store_true",
-                        help="Modo batch desatendido: desactiva los 3 gates del medio "
-                             "(normalizer_gate, music_gate y m06). Equivale a "
-                             "--no-gate --no-music-gate + m06 auto-pass.")
+                        help="Modo batch desatendido: desactiva los gates del medio "
+                             "(normalizer_gate + music_gate). Equivale a "
+                             "--no-gate --no-music-gate.")
     args = parser.parse_args()
 
-    # --batch desatiende los 3 gates del medio de una. m06 corre con auto_pass=True
-    # (ensambla como [P] en vez de cortar en NON_INTERACTIVE).
+    # --batch desatiende los gates del medio de una (normalizer + music).
     gate_interactive = not (args.no_gate or args.batch)
     music_gate_interactive = not (args.no_music_gate or args.batch)
-    m06_interactive = not args.batch
 
     # --only <step> equivale a --from <step> + stop_after_step=<step>.
     # Bug fix latente: si --only no se pasa, args.from_step nunca se setea
@@ -524,11 +486,9 @@ def main():
         sys.exit(run_one_topic_from_menu(
             from_step=args.from_step,
             stop_after_step=stop_after_step,
-            voting_n=args.voting_n,
             gate_interactive=gate_interactive,
             music_gate_interactive=music_gate_interactive,
             csv_path=Path(args.csv) if args.csv else None,
-            m06_interactive=m06_interactive,
         ))
 
     # Procesar cada topic
@@ -537,11 +497,9 @@ def main():
         results.append(process_topic(
             topic_id=tid,
             from_step=args.from_step,
-            voting_n=args.voting_n,
             gate_interactive=gate_interactive,
             music_gate_interactive=music_gate_interactive,
             stop_after_step=stop_after_step,
-            m06_interactive=m06_interactive,
         ))
         
     # Resumen final
@@ -553,9 +511,8 @@ def main():
     print(f"  Total: {len(results)}  |  PASS: {n_pass}  |  FAIL: {n_fail}\n")
 
     for r in results:
-        verdict = r.get("judge_verdict", "—")
         if r["status"] == "PASS":
-            print(f"  ✅ {r['topic_id']}  (verdict m05: {verdict})")
+            print(f"  ✅ {r['topic_id']}")
         else:
             print(f"  ❌ {r['topic_id']}  ({r.get('error', '?')})")
 

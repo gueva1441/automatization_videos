@@ -55,7 +55,7 @@ VIDEO_DONE_STATUS = "video_generated"
 #  Artefactos en disco (monkeypatcheables en tests)
 # ═══════════════════════════════════════════════════════════════
 def _script_path(tid: str) -> Path:
-    """data/scripts/<id>.json — lo escribe m06 (assemble_final_script) al final del guion."""
+    """data/scripts/<id>.json — lo escribe fase1_5 vía assemble_final_script tras m03."""
     return DATA_DIR / "scripts" / f"{tid}.json"
 
 
