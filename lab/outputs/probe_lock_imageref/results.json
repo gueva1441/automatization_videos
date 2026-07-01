@@ -4,21 +4,68 @@
     "endpoint": "t2i",
     "prompt": "An extreme wide shot of a Soviet Hotel-class ballistic missile submarine, 1960s, on the surface of the North Atlantic: long black steel hull with rounded bow, dark red lower hull below the waterline, an unusually tall and bulky conning tower elongated rearward housing three vertical ballistic missile silos, small rectangular bridge windows, no hull numbers. Cold overcast daylight, desaturated steel and teal sea, dark documentary, photorealistic, no text anywhere, 16:9.",
     "image_urls_in": [],
-    "url_out": "https://v3b.fal.media/files/b/0aa073b9/WJn9yYZJuTIeUq48I-vN3_fac6c16652c9446595fa40c946185ac4.png",
-    "seed": 1387285193,
+    "url_out": "https://v3b.fal.media/files/b/0aa07424/2OVErbV8M5K2TgcL5l7mS_53d3e41f75d94fb6b62292ccf2a520de.png",
+    "seed": 220231867,
     "file": "PASO0.png",
     "note": "ancla del submarino; url_out = url_sub_ancla para H2"
   },
   {
-    "id": "SMOKE_edit_sub",
+    "id": "PASO0bis",
+    "endpoint": "t2i",
+    "prompt": "A wide shot of a large vertical cylindrical steel pressurized-water naval reactor vessel, tall — its height roughly twice its diameter — shallow domed top and rounded base, bare unmarked riveted steel plating, insulated pipework wrapped horizontally around the body, one manual valve wheel, one small analog pressure gauge with a plain unmarked white dial face, no digital screens. Radioactive, scorched, streaked with rust, resting on a heavy railway flatcar inside a cavernous Soviet shipyard, 1964, harsh overhead lights. Desaturated steel, dark documentary, photorealistic, no signage, no text anywhere, 16:9.",
+    "image_urls_in": [],
+    "url_out": "https://v3b.fal.media/files/b/0aa0741c/q8mstdG97sPAIxCfGgdiL_3badc5338bd14790ac4e9cbc4d4a783b.png",
+    "seed": 161532034,
+    "file": "PASO0bis.png",
+    "note": "ancla del reactor generada por el propio probe; url_out = url_reactor_ancla para H1/H2"
+  },
+  {
+    "id": "H1_edit1",
     "endpoint": "edit",
-    "prompt": "This exact submarine, now surfacing through drifting arctic ice fog under a pale low sun. Keep the hull shape, conning tower proportions and silhouette identical. Desaturated, photorealistic, 16:9.",
+    "prompt": "This exact reactor vessel, now resting on the dark silted seabed of an arctic bay, partially covered in sediment, murky green water, deep underwater gloom. Keep the vessel's shape, proportions and riveted plating identical. Desaturated, photorealistic, 16:9.",
     "image_urls_in": [
-      "https://v3b.fal.media/files/b/0aa073b9/WJn9yYZJuTIeUq48I-vN3_fac6c16652c9446595fa40c946185ac4.png"
+      "https://v3b.fal.media/files/b/0aa0741c/q8mstdG97sPAIxCfGgdiL_3badc5338bd14790ac4e9cbc4d4a783b.png"
     ],
-    "url_out": "https://v3b.fal.media/files/b/0aa073bb/j2klsRPEbihQp_9KETrHn_8e8a993505b74011929b4022e2af7280.png",
+    "url_out": "https://v3b.fal.media/files/b/0aa0741e/ON409U7pfSskrxPhtjn47_211e62eff3584205bed4be38e21b6edb.png",
     "seed": null,
-    "file": "SMOKE_edit_sub.png",
-    "note": "smoke-test de /edit sobre el SUB (no el reactor). Confirma endpoint + gestalt del sub."
+    "file": "H1_edit1.png",
+    "note": "H1: ¿la gestalt del reactor sobrevive el cambio de escena?"
+  },
+  {
+    "id": "H1_edit2",
+    "endpoint": "edit",
+    "prompt": "This exact reactor vessel, now sealed inside a heavy welded steel containment shell, being lowered by crane cables toward dark icy water from a barge. Keep the vessel's shape and proportions identical. Desaturated, photorealistic, 16:9.",
+    "image_urls_in": [
+      "https://v3b.fal.media/files/b/0aa0741c/q8mstdG97sPAIxCfGgdiL_3badc5338bd14790ac4e9cbc4d4a783b.png"
+    ],
+    "url_out": "https://v3b.fal.media/files/b/0aa0742a/0XRufQ2OY7ewcgPW-PM-d_5ca6fe5a60374736aa0da38294a8dc79.png",
+    "seed": null,
+    "file": "H1_edit2.png",
+    "note": "H1: ¿la gestalt del reactor sobrevive el cambio de escena?"
+  },
+  {
+    "id": "H1_edit3",
+    "endpoint": "edit",
+    "prompt": "This exact reactor vessel decades later, heavily rusted and corroded, abandoned in a frozen scrapyard under grey sky. Keep the vessel's shape, proportions and riveted plating identical, only aged and rusted. Desaturated, photorealistic, 16:9.",
+    "image_urls_in": [
+      "https://v3b.fal.media/files/b/0aa0741c/q8mstdG97sPAIxCfGgdiL_3badc5338bd14790ac4e9cbc4d4a783b.png"
+    ],
+    "url_out": "https://v3b.fal.media/files/b/0aa07423/WmJL_g-c83X8NF-dAT_j7_efc8b567e5384ddfa14ca793e941a8e4.png",
+    "seed": null,
+    "file": "H1_edit3.png",
+    "note": "H1: ¿la gestalt del reactor sobrevive el cambio de escena?"
+  },
+  {
+    "id": "H2_multi",
+    "endpoint": "edit",
+    "prompt": "Cutaway cross-section of the submarine from the first reference image, hull opened to reveal its interior. Integrated inside the exposed reactor bay, the cylindrical reactor vessel from the second reference image, matching its shape and riveted plating. 1963 shipyard, harsh work lights. Desaturated steel, dark documentary, photorealistic, no text anywhere, 16:9.",
+    "image_urls_in": [
+      "https://v3b.fal.media/files/b/0aa07424/2OVErbV8M5K2TgcL5l7mS_53d3e41f75d94fb6b62292ccf2a520de.png",
+      "https://v3b.fal.media/files/b/0aa0741c/q8mstdG97sPAIxCfGgdiL_3badc5338bd14790ac4e9cbc4d4a783b.png"
+    ],
+    "url_out": "https://v3b.fal.media/files/b/0aa07426/ieNQxaymdmoL6oiF62akV_7e9bfa4eb3054e15aa97580fe851e97d.png",
+    "seed": null,
+    "file": "H2_multi.png",
+    "note": "H2: ¿ambos reconocibles y el reactor ADENTRO del sub?"
   }
 ]

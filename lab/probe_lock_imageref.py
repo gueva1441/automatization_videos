@@ -147,6 +147,14 @@ P_SUB = ("An extreme wide shot of a Soviet Hotel-class ballistic missile submari
          "Cold overcast daylight, desaturated steel and teal sea, dark documentary, photorealistic, "
          "no text anywhere, 16:9.")
 
+P_REACTOR = ("A wide shot of a large vertical cylindrical steel pressurized-water naval reactor vessel, "
+             "tall — its height roughly twice its diameter — shallow domed top and rounded base, bare "
+             "unmarked riveted steel plating, insulated pipework wrapped horizontally around the body, "
+             "one manual valve wheel, one small analog pressure gauge with a plain unmarked white dial "
+             "face, no digital screens. Radioactive, scorched, streaked with rust, resting on a heavy "
+             "railway flatcar inside a cavernous Soviet shipyard, 1964, harsh overhead lights. "
+             "Desaturated steel, dark documentary, photorealistic, no signage, no text anywhere, 16:9.")
+
 P_H1_1 = ("This exact reactor vessel, now resting on the dark silted seabed of an arctic bay, partially "
           "covered in sediment, murky green water, deep underwater gloom. Keep the vessel's shape, "
           "proportions and riveted plating identical. Desaturated, photorealistic, 16:9.")
@@ -173,10 +181,11 @@ P_SMOKE = ("This exact submarine, now surfacing through drifting arctic ice fog 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Probe lock por referencia-imagen (Seedream 4.5 /edit).")
     ap.add_argument("--reactor", default=None,
-                    help="Ancla del reactor (Image A): URL http(s) o path local. REQUERIDO para H1/H2.")
-    ap.add_argument("--paso0", action="store_true", help="Solo PASO 0 (t2i del submarino).")
+                    help="OVERRIDE opcional de la ancla del reactor (URL http(s) o path local). "
+                         "Por defecto el probe la GENERA por t2i (PASO 0-bis).")
+    ap.add_argument("--paso0", action="store_true", help="Solo las anclas t2i (sub + reactor), sin /edit.")
     ap.add_argument("--smoke-edit", action="store_true",
-                    help="PASO 0 + smoke-test de /edit (usa el sub como ref throwaway; NO es H1).")
+                    help="Solo sub + smoke-test de /edit (sub como ref throwaway; NO corre H1/H2).")
     args = ap.parse_args()
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -192,7 +201,7 @@ def main() -> int:
     _flush(results)
     url_sub_ancla = sub["url_out"]
 
-    # ── smoke-test de /edit (opcional; answers §4 antes de tener Image A) ──
+    # ── smoke-test de /edit (opcional, aislado) ──
     if args.smoke_edit and not args.reactor:
         print("\n[SMOKE] /edit availability con el sub como ref throwaway (NO es H1)...")
         sm = edit(P_SMOKE, [url_sub_ancla])
@@ -201,19 +210,30 @@ def main() -> int:
                 image_urls_in=[url_sub_ancla], out=sm, filename="SMOKE_edit_sub.png",
                 note="smoke-test de /edit sobre el SUB (no el reactor). Confirma endpoint + gestalt del sub.")
         _flush(results)
-
-    if args.paso0 or (args.smoke_edit and not args.reactor):
-        print(f"\n✅ Parcial OK — sin --reactor no se corren H1/H2. results.json en {RESULTS_JSON}")
+        print(f"\n✅ Smoke OK — results.json en {RESULTS_JSON}")
         return 0
 
-    # ── H1 + H2 requieren la ancla del reactor (Image A) ──
-    if not args.reactor:
-        print("\n⛔ FALTA --reactor (Image A del reactor). H1/H2 no pueden correr.")
-        print("   Pasá: --reactor <path|url>  (o corré --smoke-edit para solo probar /edit).")
-        return 2
+    # ── PASO 0-bis — foto-ancla del REACTOR (t2i, o override --reactor) ──
+    if args.reactor:
+        print(f"\n[PASO 0-bis] override: usando ancla del reactor provista ({args.reactor[:70]})...")
+        reactor_ref = _to_ref(args.reactor)
+        reactor_ref_label = args.reactor
+    else:
+        print("\n[PASO 0-bis] t2i reactor (ficha, sin nombre VM-A)...")
+        reactor = t2i(P_REACTOR)
+        _download(reactor["url_out"], OUT_DIR / "PASO0bis.png")
+        _record(results, id_="PASO0bis", endpoint="t2i", prompt=P_REACTOR,
+                image_urls_in=[], out=reactor, filename="PASO0bis.png",
+                note="ancla del reactor generada por el propio probe; url_out = url_reactor_ancla para H1/H2")
+        _flush(results)
+        reactor_ref = reactor["url_out"]
+        reactor_ref_label = reactor["url_out"]
 
-    reactor_ref = _to_ref(args.reactor)
-    print(f"\n[H1] mismo reactor, 3 escenas (/edit, ref = {args.reactor[:70]})...")
+    if args.paso0:
+        print(f"\n✅ Anclas OK (sin /edit) — results.json en {RESULTS_JSON}")
+        return 0
+
+    print(f"\n[H1] mismo reactor, 3 escenas (/edit, ref = {reactor_ref_label[:70]})...")
     for tag, prompt, fname in (
         ("H1_edit1", P_H1_1, "H1_edit1.png"),
         ("H1_edit2", P_H1_2, "H1_edit2.png"),
@@ -222,7 +242,7 @@ def main() -> int:
         out = edit(prompt, [reactor_ref])
         _download(out["url_out"], OUT_DIR / fname)
         _record(results, id_=tag, endpoint="edit", prompt=prompt,
-                image_urls_in=[args.reactor], out=out, filename=fname,
+                image_urls_in=[reactor_ref_label], out=out, filename=fname,
                 note="H1: ¿la gestalt del reactor sobrevive el cambio de escena?")
         _flush(results)
 
@@ -230,11 +250,11 @@ def main() -> int:
     h2 = edit(P_H2, [url_sub_ancla, reactor_ref])
     _download(h2["url_out"], OUT_DIR / "H2_multi.png")
     _record(results, id_="H2_multi", endpoint="edit", prompt=P_H2,
-            image_urls_in=[url_sub_ancla, args.reactor], out=h2, filename="H2_multi.png",
+            image_urls_in=[url_sub_ancla, reactor_ref_label], out=h2, filename="H2_multi.png",
             note="H2: ¿ambos reconocibles y el reactor ADENTRO del sub?")
     _flush(results)
 
-    print(f"\n✅ Probe COMPLETO — 5 imágenes + results.json en {RESULTS_JSON}")
+    print(f"\n✅ Probe COMPLETO — anclas (sub+reactor) + H1×3 + H2 + results.json en {RESULTS_JSON}")
     return 0
 
 
