@@ -229,6 +229,19 @@ def _audit(canon: dict, expected: dict, label: str) -> tuple[int, int]:
         "blocklist incluye ropa contemporánea",
     )
 
+    # ─── Bloque 4: documented_props (eslabón 2) ───
+    props = canon.get("documented_props", [])
+    check(isinstance(props, list), "documented_props es lista")
+    for pr in props:
+        nombre = (pr.get("nombre") or "").strip()
+        forma = (pr.get("forma") or "").strip()
+        anclado = pr.get("anclado")
+        foto_madre = pr.get("foto_madre")
+        check(bool(nombre), f"prop nombre no vacío (got: {nombre!r})")
+        check(bool(forma), f"prop '{nombre}' forma no vacía")
+        check(anclado in ("si", "no"), f"prop '{nombre}' anclado in {{si,no}} (got: {anclado!r})")
+        check(foto_madre == "", f"prop '{nombre}' foto_madre == '' (got: {foto_madre!r})")
+
     return passed, total
 
 
@@ -270,6 +283,12 @@ def _pretty_print_canon(canon: dict, label: str):
     print(f"\n    [anachronism_blocklist] ({len(blocklist)} items)")
     for item in blocklist:
         print(f"      - {item}")
+
+    props = canon.get("documented_props", [])
+    print(f"\n    [documented_props] ({len(props)} objetos)")
+    for pr in props:
+        print(f"      • {pr.get('nombre')}  [anclado={pr.get('anclado')}]")
+        print(f"          forma: {(pr.get('forma') or '')[:120]}...")
 
 
 # ═══════════════════════════════════════════════════════════════

@@ -8,7 +8,7 @@ CAMBIOS vs versión vieja:
       step_4b_canonical    → canonical_subject_description
       step_4c_meta         → video_title + search_keyword + hook + mystery + reveal + angle + virality_score
       step_4d_summary      → research_summary masivo
-      step_4e_visual_canon → era_visual_canon + documented_people + anachronism_blocklist
+      step_4e_visual_canon → era_visual_canon + documented_people + anachronism_blocklist + documented_props
   - Cada sub-paso recibe los anteriores ya cerrados como input fijo.
     Imposible auto-contradicción.
   - Persistencia intermedia: cada sub-paso guarda su output en
@@ -37,6 +37,7 @@ CONTRATO DE SALIDA (topic en topics_db) — extendido con el 4e:
     "era_visual_canon": {...},   (LONG: dict del 4e; SHORT: {} vacío)
     "documented_people": [...],  (LONG: list[dict] del 4e; SHORT: [] vacía)
     "anachronism_blocklist": [...],  (LONG: list[str] del 4e; SHORT: [] vacía)
+    "documented_props": [...],   (LONG: list[dict] del 4e {nombre,forma,anclado,foto_madre}; SHORT: [] vacía)
     "virality_score": int 1-10,
     "status": "researched",
     "created_at": iso
@@ -514,6 +515,7 @@ def _research_seed_deep(seed: dict, existing_titles: list[str]) -> dict:
     era_visual_canon = step_4e.get("era_visual_canon", {})
     documented_people = step_4e.get("documented_people", [])
     anachronism_blocklist = step_4e.get("anachronism_blocklist", [])
+    documented_props = step_4e.get("documented_props", [])
 
     # Aviso suave si el 4e degradó (no rompemos: el pipeline sigue,
     # pero queda flag de que m03/m05 van a tener menos contexto)
@@ -541,6 +543,7 @@ def _research_seed_deep(seed: dict, existing_titles: list[str]) -> dict:
         "era_visual_canon": era_visual_canon,
         "documented_people": documented_people,
         "anachronism_blocklist": anachronism_blocklist,
+        "documented_props": documented_props,
     }
 
     # ─── Sanitización defensiva (espejo del archivo viejo) ───
@@ -805,6 +808,7 @@ def _enrich_with_seed_metadata(topic_data: dict, seed: dict) -> dict:
         "era_visual_canon": topic_data.get("era_visual_canon", {}),
         "documented_people": topic_data.get("documented_people", []),
         "anachronism_blocklist": topic_data.get("anachronism_blocklist", []),
+        "documented_props": topic_data.get("documented_props", []),
         "virality_score": topic_data.get("virality_score", 5),
         "status": "researched",
         "competition_level": None,

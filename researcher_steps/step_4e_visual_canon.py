@@ -13,6 +13,9 @@ Bloques que produce:
     intente likeness).
   - anachronism_blocklist: array plano de elementos visuales prohibidos
     específicos del tema.
+  - documented_props: objetos físicos centrales (eslabón 2), tomados del bloque
+    [OBJETOS] del ángulo visual, con nombre/forma/anclado/foto_madre. Filtro
+    fino: solo entra el objeto que ES el evento (no evidencia ni auxiliar).
 
 Recibe verified_facts + canonical CERRADOS y angle_blocks como contexto
 de época. NO inventa fechas/personas/lugares — los hereda de los facts.
@@ -52,7 +55,11 @@ OUTPUT: {
      "appearance_canon": str},
     ...
   ],
-  "anachronism_blocklist": [str, ...]
+  "anachronism_blocklist": [str, ...],
+  "documented_props": [
+    {"nombre": str, "forma": str, "anclado": "si"|"no", "foto_madre": ""},
+    ...
+  ]
 }
 
 NUMERACIÓN EN DISCO: el orquestador persiste este sub-paso como
@@ -142,8 +149,8 @@ BLOQUES DE INVESTIGACIÓN (3 viejos = contexto de época; VISUAL = fuente source
 TU TAREA
 ═══════════════════════════════════════════════════
 
-Emití un objeto JSON con TRES bloques: era_visual_canon, documented_people,
-anachronism_blocklist. Strings en INGLÉS (los consumirán Flux y Veo).
+Emití un objeto JSON con CUATRO bloques: era_visual_canon, documented_people,
+anachronism_blocklist, documented_props. Strings en INGLÉS (los consumirán Flux y Veo).
 
 ═══ BLOQUE 1: era_visual_canon ═══
 
@@ -289,6 +296,40 @@ Mínimo 6, máximo 12 items. Incluí AL MENOS:
   para un tema naval de los 60s, "modern industrial safety equipment"
   para un tema minero de mediados de siglo).
 
+═══ BLOQUE 4: documented_props ═══
+
+Array de objetos físicos centrales, tomados de la sección
+[OBJETOS / EQUIPO RECURRENTE] del ángulo visual — NO de verified_facts.
+
+Cada entrada:
+- nombre: el objeto puntual tal como aparece en [OBJETOS].
+- forma: 1-2 frases EN con la forma física, TOMADA de los datos que [OBJETOS]
+         ya trae (silueta/proporción/rasgos/material/escala). NO re-inventes:
+         si [OBJETOS] marcó HUECO en un dato, no lo rellenes — dejalo afuera.
+- anclado: "si" o "no" (regla abajo).
+- foto_madre: siempre "" (vacío — no lo llenás vos).
+
+QUÉ INCLUIR — el default es NO incluir:
+  Incluí un objeto SOLO si el evento en sí ES ese objeto — si el tema
+  literalmente trata sobre él. Test: ¿el evento sucede igual sin este objeto?
+   · si el evento pasa igual, y el objeto solo aportó PRUEBAS de lo que pasó
+     (cómo lo sabemos) o cumplió una función de APOYO → NO entra.
+   · entra únicamente si, sacándolo, el evento no existiría.
+
+anclado — cómo sugerís meterlo en la imagen, según su FORMA:
+  · "no" (default): la forma se arma con PALABRAS — objeto de partes
+     descriptibles (mecanismos, instrumentos con piezas).
+  · "si": SOLO si la forma NO se arma con palabras — silueta o proporción
+     continua (curvas, domos, cascos).
+  · ante la duda → "no".
+
+Ejemplos conceptuales (de OTRO tema, no copiar):
+✗ MAL incluir: un objeto que registró o probó lo que pasó → es evidencia, no el evento.
+✗ MAL incluir: un objeto que sirvió de apoyo a otra tarea → función auxiliar.
+✓ BIEN incluir: un objeto sobre cuyo uso o falla gira el evento entero.
+
+Si ningún objeto de [OBJETOS] pasa el test → array vacío [].
+
 ═══════════════════════════════════════════════════
 FORMATO DE SALIDA — JSON puro, sin markdown:
 ═══════════════════════════════════════════════════
@@ -329,6 +370,14 @@ FORMATO DE SALIDA — JSON puro, sin markdown:
     "modern flat panels",
     "modern cars post-1980",
     "branded modern logos"
+  ],
+  "documented_props": [
+    {{
+      "nombre": "the object the case is literally about",
+      "forma": "1-2 sentences EN: physical form taken from [OBJETOS] (silhouette/proportion/features/material/scale)",
+      "anclado": "no",
+      "foto_madre": ""
+    }}
   ]
 }}
 
@@ -426,6 +475,21 @@ _VISUAL_CANON_SCHEMA = genai_types.Schema(
             nullable=True,
             items=genai_types.Schema(type=genai_types.Type.STRING),
         ),
+        # documented_props (eslabón 2): anclado = STRING plano, NO enum — _clean_prop
+        # lo normaliza a "si"/"no". nullable + nada en required → no presiona alucinar.
+        "documented_props": genai_types.Schema(
+            type=genai_types.Type.ARRAY,
+            nullable=True,
+            items=genai_types.Schema(
+                type=genai_types.Type.OBJECT,
+                properties={
+                    "nombre": _STR,
+                    "forma": _STR,
+                    "anclado": _STR,
+                    "foto_madre": _STR,
+                },
+            ),
+        ),
     },
 )
 
@@ -438,6 +502,7 @@ def _empty_canon() -> dict:
         "era_visual_canon": era,
         "documented_people": [],
         "anachronism_blocklist": [],
+        "documented_props": [],
     }
 
 
@@ -575,6 +640,34 @@ def _clean_person(raw: dict) -> dict | None:
     }
 
 
+def _clean_prop(raw: dict) -> dict | None:
+    """Valida y limpia una entrada de documented_props. None si inválida.
+
+    Espejo EXACTO de _clean_person: determinista, NO juzga (el juicio
+    central/evidencia-auxiliar vive en el prompt/BLOQUE 4, no acá). nombre+forma
+    son obligatorios; anclado se normaliza a "si"/"no" con default conservador
+    "no"; foto_madre se fuerza a "" (el 4e NUNCA la llena — la completa m03)."""
+    if not isinstance(raw, dict):
+        return None
+    nombre = str(raw.get("nombre", "")).strip()
+    forma = str(raw.get("forma", "")).strip()
+    anclado = str(raw.get("anclado", "")).strip().lower()
+
+    # nombre + forma obligatorios (espejo de name+role+appearance)
+    if not (nombre and forma):
+        return None
+
+    # anclado: normalizar a "si"/"no". default conservador "no" (= va por TEXTO).
+    anclado = "si" if anclado in {"si", "sí", "yes", "true", "y"} else "no"
+
+    return {
+        "nombre": nombre,
+        "forma": forma,
+        "anclado": anclado,
+        "foto_madre": "",  # el 4e NUNCA la llena (check determinista)
+    }
+
+
 def _clean_blocklist(raw: list) -> list[str]:
     """Lista plana de strings no vacíos, deduplicada conservando orden."""
     if not isinstance(raw, list):
@@ -609,7 +702,8 @@ def extract_visual_canon(
         canonical: canonical_subject_description del 4b (puede ser None).
 
     Returns:
-        dict con era_visual_canon, documented_people, anachronism_blocklist.
+        dict con era_visual_canon, documented_people, anachronism_blocklist,
+        documented_props.
         Si verified_facts está vacío o Flash falla, retorna estructura
         vacía pero con shape correcto (no rompe el pipeline).
     """
@@ -660,8 +754,15 @@ def extract_visual_canon(
     # ─── BLOQUE 3: anachronism_blocklist ───
     blocklist = _clean_blocklist(data.get("anachronism_blocklist", []))
 
+    # ─── BLOQUE 4: documented_props (eslabón 2) ───
+    raw_props = data.get("documented_props", [])
+    if not isinstance(raw_props, list):  # el schema es nullable → puede venir None
+        raw_props = []
+    cleaned_props = [cp for rp in raw_props if (cp := _clean_prop(rp)) is not None]
+
     return {
         "era_visual_canon": era_canon,
         "documented_people": cleaned_people,
         "anachronism_blocklist": blocklist,
+        "documented_props": cleaned_props,
     }
