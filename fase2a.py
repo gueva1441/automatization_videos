@@ -45,6 +45,7 @@ from script_engine.topics_db import load_db, save_db
 # Módulos nuevos (si los tenés dentro de modules/, cambiá los imports)
 from audio_manager import process_script as audio_process
 from asset_manager import process_script as asset_process
+from foto_madre import generate_foto_madre_for_topic
 
 
 SCRIPTS_DIR: Path = DATA_DIR / "scripts"
@@ -312,6 +313,17 @@ def _process_single_script(
             sync_map_path = audio_process(normalized, language="es")
         result["audio_ok"] = True
         print(f"     ✓ sync_map: {sync_map_path.name}")
+
+        # 2.0 · paso0 EAGER: foto madre del sujeto-objeto + props anclados (topic-level).
+        # Corre DESPUÉS del audio, ANTES de asset_process → la foto madre existe (en disco +
+        # db) antes de las imágenes de capítulo. CONSUMO-B todavía no la lee (asset sigue t2i).
+        if result["topic_id"]:
+            db = load_db()
+            for t in db.get("topics", []):
+                if t.get("id") == result["topic_id"]:
+                    generate_foto_madre_for_topic(t, video_id)
+                    save_db(db)
+                    break
 
         # 2. Assets (imágenes Leonardo + clips Veo)
         print(f"     🎨 Assets...")
