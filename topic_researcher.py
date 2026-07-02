@@ -516,6 +516,7 @@ def _research_seed_deep(seed: dict, existing_titles: list[str]) -> dict:
     documented_people = step_4e.get("documented_people", [])
     anachronism_blocklist = step_4e.get("anachronism_blocklist", [])
     documented_props = step_4e.get("documented_props", [])
+    central_subject = step_4e.get("central_subject", {"kind": "other", "foto_madre": ""})
 
     # Aviso suave si el 4e degradó (no rompemos: el pipeline sigue,
     # pero queda flag de que m03/m05 van a tener menos contexto)
@@ -544,6 +545,7 @@ def _research_seed_deep(seed: dict, existing_titles: list[str]) -> dict:
         "documented_people": documented_people,
         "anachronism_blocklist": anachronism_blocklist,
         "documented_props": documented_props,
+        "central_subject": central_subject,
     }
 
     # ─── Sanitización defensiva (espejo del archivo viejo) ───
@@ -809,6 +811,7 @@ def _enrich_with_seed_metadata(topic_data: dict, seed: dict) -> dict:
         "documented_people": topic_data.get("documented_people", []),
         "anachronism_blocklist": topic_data.get("anachronism_blocklist", []),
         "documented_props": topic_data.get("documented_props", []),
+        "central_subject": topic_data.get("central_subject", {"kind": "other", "foto_madre": ""}),
         "virality_score": topic_data.get("virality_score", 5),
         "status": "researched",
         "competition_level": None,
