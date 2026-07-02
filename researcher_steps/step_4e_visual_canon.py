@@ -309,6 +309,12 @@ Cada entrada:
 - anclado: "si" o "no" (regla abajo).
 - foto_madre: siempre "" (vacío — no lo llenás vos).
 
+CONJUNTO vs PIEZA: si [OBJETOS] lista varias PARTES de UN mismo objeto central
+(sub-ensambles, paneles, compartimentos de una sola máquina o de un solo espacio),
+emitilas como UNA sola entrada que nombra el objeto ENTERO, con `forma` describiendo
+el conjunto — NO una entrada por parte. Entradas separadas SOLO para objetos que son
+cosas genuinamente distintas.
+
 QUÉ INCLUIR — el default es NO incluir:
   Incluí un objeto SOLO si el evento en sí ES ese objeto — si el tema
   literalmente trata sobre él. Test: ¿el evento sucede igual sin este objeto?
@@ -316,17 +322,22 @@ QUÉ INCLUIR — el default es NO incluir:
      (cómo lo sabemos) o cumplió una función de APOYO → NO entra.
    · entra únicamente si, sacándolo, el evento no existiría.
 
-anclado — cómo sugerís meterlo en la imagen, según su FORMA:
-  · "no" (default): la forma se arma con PALABRAS — objeto de partes
-     descriptibles (mecanismos, instrumentos con piezas).
-  · "si": SOLO si la forma NO se arma con palabras — silueta o proporción
-     continua (curvas, domos, cascos).
-  · ante la duda → "no".
+anclado — "si" o "no", según su RECURRENCIA (no su forma):
+  · "si": el objeto es un FOCO CENTRAL y RECURRENTE del tema — vuelve como sujeto de
+     las imágenes a lo largo de la pieza — SIN IMPORTAR si su forma es una silueta
+     continua o está armada de partes. Si el tema vuelve una y otra vez a este objeto,
+     tiene que verse IGUAL cada vez → anclalo.
+  · "no" (default): el objeto aparece una sola vez, o solo como fondo/contexto, o es
+     mera evidencia de lo que pasó. Ante la duda → "no".
 
 Ejemplos conceptuales (de OTRO tema, no copiar):
 ✗ MAL incluir: un objeto que registró o probó lo que pasó → es evidencia, no el evento.
 ✗ MAL incluir: un objeto que sirvió de apoyo a otra tarea → función auxiliar.
 ✓ BIEN incluir: un objeto sobre cuyo uso o falla gira el evento entero.
+
+Ejemplos conceptuales de anclado (recurrencia, NO forma; de OTRO tema, no copiar):
+✓ anclado="si": un objeto al que el tema vuelve como protagonista visual capítulo tras capítulo.
+✗ anclado="no": un objeto que aparece en una sola escena, o solo de fondo.
 
 Si ningún objeto de [OBJETOS] pasa el test → array vacío [].
 

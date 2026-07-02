@@ -262,17 +262,18 @@ def _seedream_payload_for(prompt: str, seed: int | None = None) -> dict[str, Any
 
 
 def _seedream_edit_payload_for(
-    prompt: str, image_data_uri: str, seed: int | None = None,
+    prompt: str, image_data_uris: list[str], seed: int | None = None,
 ) -> dict[str, Any]:
     """Payload Seedream 4.5 /edit — espejo de _seedream_payload_for + image_urls.
 
     HANDOFF_129 (Consumo-B): ancla la foto madre como referencia-imagen. La key
     `image_urls` (lista) y el data-URI base64 son los que validó el probe
-    lock_imageref (H1/H2 verde, 127). model_id del /edit lo resuelve _generate_image_raw."""
+    lock_imageref (H1/H2 verde, 127). model_id del /edit lo resuelve _generate_image_raw.
+    HANDOFF_131 (B): image_urls acepta hasta 2 anclas (cutaway) — la lista viaja tal cual."""
     profile = select_profile("seedream")
     payload: dict[str, Any] = {
         "prompt": prompt,
-        "image_urls": [image_data_uri],
+        "image_urls": list(image_data_uris),
         "image_size": profile.render.image_size,
         "num_images": 1,
         "enable_safety_checker": True,
@@ -307,7 +308,7 @@ def _generate_image_raw(
     output_path: Path,
     use_ultra: bool,
     seed: int | None = None,
-    foto_madre_data_uri: str | None = None,
+    foto_madre_data_uris: list[str] | None = None,
 ) -> dict[str, Any]:
     """Llamada cruda al motor de imagen activo (api.image_engine), sin validación de visión.
 
@@ -325,12 +326,13 @@ def _generate_image_raw(
         engine = profile.engine_key
         # HANDOFF_129 (Consumo-B): con foto madre + seedream → /edit (ancla por
         # referencia-imagen) en vez de t2i. Cualquier otro caso = t2i byte-idéntico.
-        if foto_madre_data_uri and engine == "seedream":
+        # HANDOFF_131 (B): la lista lleva hasta 2 anclas (cutaway submarino+reactor).
+        if foto_madre_data_uris and engine == "seedream":
             model_id = profile.render.model_id.replace("text-to-image", "edit")
-            payload = _seedream_edit_payload_for(prompt, foto_madre_data_uri, seed)
+            payload = _seedream_edit_payload_for(prompt, foto_madre_data_uris, seed)
             error_handler.log_info(
                 PipelineStage.IMAGE,
-                f"[/edit] {engine} anclando foto madre → {output_path.name}",
+                f"[/edit] {engine} anclando {len(foto_madre_data_uris)} foto(s) madre → {output_path.name}",
             )
         else:
             model_id = profile.render.model_id
@@ -440,7 +442,7 @@ def _generate_flux_image_at(
     output_path: Path,
     use_ultra: bool,
     seed: int | None = None,
-    foto_madre_data_uri: str | None = None,
+    foto_madre_data_uris: list[str] | None = None,
 ) -> dict[str, Any]:
     """
     Genera imagen Flux con validación Vision (2 intentos).
@@ -461,7 +463,7 @@ def _generate_flux_image_at(
             f"Flux-{model_tag} [validator OFF]{seed_tag} → {output_path.name}",
         )
         last_meta = _generate_image_raw(final_prompt, output_path, use_ultra, seed=seed,
-                                        foto_madre_data_uri=foto_madre_data_uri)
+                                        foto_madre_data_uris=foto_madre_data_uris)
         return {
             "path": output_path,
             "attempts": 1,
@@ -488,7 +490,7 @@ def _generate_flux_image_at(
         )
 
         last_meta = _generate_image_raw(final_prompt, output_path, use_ultra, seed=seed,
-                                        foto_madre_data_uri=foto_madre_data_uri)
+                                        foto_madre_data_uris=foto_madre_data_uris)
 
         # Validar contra el prompt CRUDO (Protocolo v2)
         verdict = validate_image(output_path, raw_prompt)
@@ -655,6 +657,22 @@ def _generate_veo_clip(image_path: Path, prompt: str, output_path: Path) -> Path
 # ═══════════════════════════════════════════
 
 
+def _norm_foto_madre_refs(v: Any) -> list[str]:
+    """Normaliza foto_madre_ref a lista de hasta 2 refs no vacíos (dedup, orden preservado).
+    Acepta: lista (HANDOFF_131, nuevo), string (contrato 129, viejo), o vacío/None → [].
+    El techo de 2 lo fuerza acá (Gemini no garantiza maxItems del schema)."""
+    if isinstance(v, str):
+        v = [v]
+    if not isinstance(v, (list, tuple)):
+        return []
+    out: list[str] = []
+    for r in v:
+        s = str(r or "").strip()
+        if s and s not in out:
+            out.append(s)
+    return out[:2]
+
+
 def _iter_image_items(
     chapter: dict[str, Any],
 ) -> list[dict[str, Any]]:
@@ -686,12 +704,12 @@ def _iter_image_items(
             prompt_text = str(raw.get("prompt", "") or "").strip()
             profile = raw.get("art_profile") or default_profile or ""
             subject = raw.get("subject_ref") if "subject_ref" in raw else default_subject
-            foto_madre_ref = str(raw.get("foto_madre_ref", "") or "").strip()
+            foto_madre_refs = _norm_foto_madre_refs(raw.get("foto_madre_ref"))
         else:
             prompt_text = str(raw or "").strip()
             profile = default_profile or ""
             subject = default_subject
-            foto_madre_ref = ""   # legacy list[str] → sin ancla
+            foto_madre_refs = []   # legacy list[str] de PROMPTS → sin ancla
 
         if not prompt_text:
             continue
@@ -701,7 +719,7 @@ def _iter_image_items(
             "prompt": prompt_text,
             "art_profile": profile,
             "subject_ref": subject if subject else None,
-            "foto_madre_ref": foto_madre_ref,   # HANDOFF_129: routing /edit (o "" → t2i)
+            "foto_madre_refs": foto_madre_refs,   # HANDOFF_131: 0..2 refs → /edit; [] → t2i
         })
     return out
 
@@ -736,19 +754,24 @@ def _process_flux_chapter(
     for item in items:
         out_path = ch_dir / _image_filename(chapter_id, item["idx"])
         seed = _seed_for_subject(video_id, item["subject_ref"])
-        # HANDOFF_129 (Consumo-B): pedido-no-orden. Ancla /edit SOLO si el ref resuelve
-        # a una foto madre que EXISTE. Ref vacío / no-en-registry / archivo ausente → t2i.
-        ref = item.get("foto_madre_ref") or ""
-        fm_path = registry.get(ref) if ref else None
-        fm_data_uri = (_path_to_data_uri(fm_path)
-                       if fm_path and Path(fm_path).exists() else None)
+        # HANDOFF_129/131 (Consumo-B): pedido-no-orden. Resolvé cada ref (0..2) contra el
+        # registry; quedate SOLO con los que apuntan a una foto madre que EXISTE. Si ≥1
+        # resuelve → /edit con esa lista (cutaway = 2). Si 0 → t2i. Nunca crashear por un ref sin foto.
+        refs = item.get("foto_madre_refs") or []
+        resolved_refs: list[str] = []
+        data_uris: list[str] = []
+        for r in refs:
+            p = registry.get(r)
+            if p and Path(p).exists():
+                resolved_refs.append(r)
+                data_uris.append(_path_to_data_uri(p))
         plan.append({
             "idx": item["idx"],
             "prompt": item["prompt"],
             "art_profile": item["art_profile"],
             "subject_ref": item["subject_ref"],
-            "foto_madre_ref": ref if fm_data_uri else "",   # solo si ancló de verdad
-            "foto_madre_data_uri": fm_data_uri,
+            "foto_madre_refs": resolved_refs,   # solo los que anclaron de verdad
+            "foto_madre_data_uris": data_uris,
             "seed": seed,
             "path": out_path,
             "needs": not out_path.exists(),
@@ -780,7 +803,7 @@ def _process_flux_chapter(
                 "prompt": p["prompt"],
                 "art_profile": p["art_profile"],
                 "subject_ref": p["subject_ref"],
-                "foto_madre_ref": p["foto_madre_ref"],
+                "foto_madre_refs": p["foto_madre_refs"],
                 "seed_used": p["seed"],
                 "path": str(p["path"].relative_to(OUTPUT_DIR)),
                 "status": "skipped_exists",
@@ -799,7 +822,7 @@ def _process_flux_chapter(
                     p["path"],
                     use_ultra,
                     p["seed"],
-                    p["foto_madre_data_uri"],
+                    p["foto_madre_data_uris"],
                 ): p
                 for p in to_generate
             }
@@ -813,7 +836,7 @@ def _process_flux_chapter(
                         "prompt": p["prompt"],
                         "art_profile": p["art_profile"],
                         "subject_ref": p["subject_ref"],
-                        "foto_madre_ref": p["foto_madre_ref"],
+                        "foto_madre_refs": p["foto_madre_refs"],
                         "seed_used": p["seed"],
                         "path": str(p["path"].relative_to(OUTPUT_DIR)),
                         "status": "ok",
@@ -833,7 +856,7 @@ def _process_flux_chapter(
                         "prompt": p["prompt"],
                         "art_profile": p["art_profile"],
                         "subject_ref": p["subject_ref"],
-                        "foto_madre_ref": p["foto_madre_ref"],
+                        "foto_madre_refs": p["foto_madre_refs"],
                         "seed_used": p["seed"],
                         "path": None,
                         "status": "failed",
