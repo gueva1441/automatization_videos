@@ -212,6 +212,7 @@ def _format_seedream_canon_block(topic: dict) -> str:
     era = topic.get("era_visual_canon") or {}
     people = topic.get("documented_people") or []
     blocklist = topic.get("anachronism_blocklist") or []
+    props = topic.get("documented_props") or []
 
     if era.get("primary_decade"):
         epoca = [
@@ -253,6 +254,19 @@ def _format_seedream_canon_block(topic: dict) -> str:
         people_block = ("PERSONAS DOCUMENTADAS: (vacío) — si la narración nombra a alguien, "
                         "describilo por rol+aspecto+era, NUNCA por nombre.")
 
+    # OBJETOS DOCUMENTADOS (eslabón 3): espejo de personas. SOLO nombre + forma
+    # (anclado/foto_madre NO se surfacean acá — es el NUDO 2, aparte). Contexto pasivo.
+    if props:
+        prlines = ["OBJETOS DOCUMENTADOS (mantené la FORMA GENERAL constante entre imágenes;",
+                   "la narración puede nombrarlos por metáfora, función o material):"]
+        for p in props:
+            prlines.append(f"  • objeto: {p.get('nombre','?')}")
+            prlines.append(f"    forma: {p.get('forma','')}")
+        props_block = "\n".join(prlines)
+    else:
+        props_block = ("OBJETOS DOCUMENTADOS: (vacío) — describí cualquier objeto que nombre la "
+                       "narración por su forma física según el relato, sin inventar detalles no dichos.")
+
     if blocklist:
         blocklist_block = "ANACRONISMOS PROHIBIDOS:\n" + "\n".join(f"  - {b}" for b in blocklist)
     else:
@@ -262,10 +276,15 @@ def _format_seedream_canon_block(topic: dict) -> str:
 
 {people_block}
 
+{props_block}
+
 {blocklist_block}
 
 USO (2 capas): la capa ÉPOCA es genérica; la capa LUGAR PUNTUAL es específica de
-ESTE lugar (úsala para color_palette / setting / props_detail / subject). GUARDA-B:
+ESTE lugar (úsala para color_palette / setting / props_detail / subject).
+OBJETOS: cuando un beat se refiere a uno de estos objetos —aunque el relato lo
+llame por metáfora o por su función— su forma general NO cambia entre imágenes:
+usá la forma canónica del catálogo, no reinventes su silueta. GUARDA-B:
 el canon NUNCA pisa una cifra más precisa de los verified_facts — "over 800 acres"
 (canon) NO reemplaza "873 acres" (fact). Donde hay fact, manda el fact; el canon
 llena lo que el fact no tiene."""
