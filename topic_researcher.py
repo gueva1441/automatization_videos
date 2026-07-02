@@ -226,6 +226,26 @@ FORMATO DE SALIDA -- texto plano estructurado:
 - dimensiones: altura / pisos / huella / escala
 - rasgos distintivos que identifican a ESTE lugar
 
+[OBJETOS / EQUIPO RECURRENTE]  (objetos fisicos que NO son el escenario ni el sujeto principal)
+- incluí los objetos que cumplan LAS TRES: (a) aparecen de forma recurrente en el tema;
+  (b) el caso NO EXISTIRIA sin este objeto: el evento central gira alrededor de el, es aquello
+      sobre lo que trata la historia. Test: si este objeto no hubiera estado, ¿el tema sigue siendo
+      el mismo tema? Si la respuesta es "si, pasa igual" → NO entra (es contexto o acompañamiento,
+      por mas que aparezca seguido). El PAPEL en la historia decide, NO la categoria del objeto:
+      una herramienta, un instrumento o un arma PUEDEN ser centrales si el caso gira sobre ellos;
+  (c) son ESTE objeto puntual del caso (un modelo/unidad especifica), no un generico.
+  NO exijas que su forma ya sea conocida para incluirlo: la forma se evalua ABAJO, no en la puerta.
+- por CADA objeto incluido, completá 6 datos: silueta · proporcion · orientacion · rasgos · material/color · escala
+- llená CADA dato siguiendo esta jerarquia, en orden:
+    1. EJEMPLAR: hay fuente de la forma de ESTE ejemplar exacto → usala.  Marcá (EJEMPLAR: fuente).
+    2. TIPO:     el ejemplar exacto no tiene forma documentada, pero su tipo/modelo/clase SI →
+                 traé la forma del TIPO.  Marcala (TIPO: fuente). Es representativa de la categoria,
+                 NO del ejemplar exacto.
+    3. HUECO:    ni ejemplar ni tipo tienen forma documentada → HUECO. NO inventes.
+  DEFAULT = bajar lo MAS especifico que exista (EJEMPLAR antes que TIPO antes que HUECO).
+  Un TIPO honestamente marcado vale; un dato inventado NO. Nunca rellenes con suposiciones.
+- si ningun objeto cumple (a)+(b)+(c), dejá esta seccion vacia.
+
 [PALETA DE COLOR]
 - exterior:
 - interior:
