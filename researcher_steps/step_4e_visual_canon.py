@@ -149,8 +149,8 @@ BLOQUES DE INVESTIGACIÓN (3 viejos = contexto de época; VISUAL = fuente source
 TU TAREA
 ═══════════════════════════════════════════════════
 
-Emití un objeto JSON con CUATRO bloques: era_visual_canon, documented_people,
-anachronism_blocklist, documented_props. Strings en INGLÉS (los consumirán Flux y Veo).
+Emití un objeto JSON con CINCO bloques: era_visual_canon, documented_people,
+anachronism_blocklist, documented_props, central_subject. Strings en INGLÉS (los consumirán Flux y Veo).
 
 ═══ BLOQUE 1: era_visual_canon ═══
 
@@ -330,6 +330,31 @@ Ejemplos conceptuales (de OTRO tema, no copiar):
 
 Si ningún objeto de [OBJETOS] pasa el test → array vacío [].
 
+═══ BLOQUE 5: central_subject ═══
+
+Clasificá el SUJETO CENTRAL del tema —eso de lo que el video habla una y otra
+vez— en UNA de cuatro categorías. El criterio NO es gramatical (cosa/persona/
+lugar) sino UNO SOLO: ¿tiene una SILUETA propia y reconocible que debe verse
+IGUAL en imagen tras imagen?
+
+- "object": el sujeto es un objeto físico con silueta única y anclable que se
+  repite a lo largo del tema (un submarino, un barco, un dirigible, un
+  transbordador, un avión, un faro, una máquina singular). Su forma ya la
+  escribiste en distinctive_features; acá SOLO marcás que ES de este tipo.
+- "person": el sujeto es UNA persona real nombrable (su aspecto ya vive en
+  documented_people).
+- "place": el sujeto es un lugar o entorno SIN una silueta-objeto única (una
+  ciudad, un pueblo, un bosque, una región). No hay una forma que repetir.
+- "other": no hay un sujeto físico dominante, o dudás (un fenómeno, una
+  epidemia, un evento difuso).
+
+REGLA DEL DEFAULT: "object" es la categoría FUERTE (dispara la foto madre). En
+la duda entre "object" y cualquier otra, elegí la otra. Un objeto mal marcado
+como "object" cuesta más que uno marcado conservador. Si no estás seguro de que
+hay UNA silueta única y anclable, poné "other".
+
+foto_madre: siempre "" (vacío — no lo llenás vos, se completa después).
+
 ═══════════════════════════════════════════════════
 FORMATO DE SALIDA — JSON puro, sin markdown:
 ═══════════════════════════════════════════════════
@@ -378,7 +403,11 @@ FORMATO DE SALIDA — JSON puro, sin markdown:
       "anclado": "no",
       "foto_madre": ""
     }}
-  ]
+  ],
+  "central_subject": {{
+    "kind": "object",
+    "foto_madre": ""
+  }}
 }}
 
 LANGUAGE: Output EVERY field value in English, regardless of the language of
@@ -490,6 +519,16 @@ _VISUAL_CANON_SCHEMA = genai_types.Schema(
                 },
             ),
         ),
+        # central_subject: kind = STRING plano, NO enum — _clean_central_subject lo normaliza
+        # a object/person/place/other (default "other"). nullable → no presiona.
+        "central_subject": genai_types.Schema(
+            type=genai_types.Type.OBJECT,
+            nullable=True,
+            properties={
+                "kind": _STR,
+                "foto_madre": _STR,
+            },
+        ),
     },
 )
 
@@ -503,6 +542,7 @@ def _empty_canon() -> dict:
         "documented_people": [],
         "anachronism_blocklist": [],
         "documented_props": [],
+        "central_subject": {"kind": "other", "foto_madre": ""},
     }
 
 
@@ -544,6 +584,20 @@ def _clean_condition_evolution(raw) -> dict:
     if isinstance(raw, str) and raw.strip():
         return {"at_event": raw.strip(), "later": ""}
     return {"at_event": "", "later": ""}
+
+
+_SUBJECT_KINDS = {"object", "person", "place", "other"}
+
+
+def _clean_central_subject(raw) -> dict:
+    """central_subject = {kind, foto_madre}. kind normalizado a uno de 4 valores,
+    default conservador "other". foto_madre SIEMPRE "" (el 4e nunca la llena)."""
+    kind = ""
+    if isinstance(raw, dict):
+        kind = str(raw.get("kind", "")).strip().lower()
+    if kind not in _SUBJECT_KINDS:
+        kind = "other"          # default conservador: no ancla
+    return {"kind": kind, "foto_madre": ""}
 
 
 # ── FIX C5 (Patrón #91): tokens de ERA que NO deben vivir en appearance_canon ──
@@ -765,4 +819,5 @@ def extract_visual_canon(
         "documented_people": cleaned_people,
         "anachronism_blocklist": blocklist,
         "documented_props": cleaned_props,
+        "central_subject": _clean_central_subject(data.get("central_subject")),
     }
