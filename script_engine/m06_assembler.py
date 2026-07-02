@@ -61,6 +61,18 @@ def assemble_final_script(topic_id: str) -> Path:
     narration = _load_step(topic_id, "01b_narration.json")
     visual = _load_step(topic_id, "03_visual.json")
 
+    # HANDOFF_129 (Consumo-B) — foto_madre_registry {ref → path absoluto} al contrato.
+    # Solo entran los que TIENEN foto madre (no vacío): ese es el gate. Lo que no está
+    # acá degrada a t2i en asset_manager. El consumidor lee del contrato que ya consume
+    # (P2, sin dependencia lateral a topics_db — la lección del seam del 128).
+    foto_madre_registry: dict[str, str] = {}
+    cs = topic.get("central_subject") or {}
+    if cs.get("kind") == "object" and cs.get("foto_madre"):
+        foto_madre_registry["__subject__"] = cs["foto_madre"]
+    for prop in (topic.get("documented_props") or []):
+        if prop.get("anclado") == "si" and prop.get("foto_madre") and prop.get("nombre"):
+            foto_madre_registry[prop["nombre"]] = prop["foto_madre"]
+
     narration_by_cap = {c["chapter_number"]: c for c in narration.get("chapters", [])}
     visual_by_cap = {c["chapter_number"]: c for c in visual.get("chapters", [])}
 
@@ -105,6 +117,7 @@ def assemble_final_script(topic_id: str) -> Path:
         "prompt_protocol_version":   "v2",
         "video_title":               topic.get("video_title", ""),
         "chapters":                  chapters_final,
+        "foto_madre_registry":       foto_madre_registry,
         "humanizer_phrases":         narration.get("humanizer_phrases", []),
         # metadata trazable:
         "verified_facts":            topic.get("verified_facts", []),

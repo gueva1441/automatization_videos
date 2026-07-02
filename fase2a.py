@@ -141,6 +141,9 @@ def _normalize_long(script: dict) -> dict:
         "video_type": "long",
         "prompt_protocol_version": "v2",
         "chapters": normalized_chapters,
+        # HANDOFF_129: pasar el registry del contrato al manager (sin esto el whitelist
+        # de normalize lo tiraría — mismo seam que central_subject en el 128).
+        "foto_madre_registry": script.get("foto_madre_registry", {}),
         "humanizer_phrases": script.get("humanizer_phrases", []),
     }
 
