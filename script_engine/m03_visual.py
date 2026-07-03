@@ -138,6 +138,12 @@ SEEDREAM_SLOT_KEYS = (
 # 16 es conservador (pico ~16 RPM). Bajalo si otro proceso comparte la cuota del proyecto.
 FLUIDIFY_MAX_WORKERS = 16
 
+# Paralelismo por-CAP (los 7 caps son independientes: leen skel/narr/sync_map read-only,
+# escriben solo su propio cap_out). Solapa las 7 llamadas de "slots" (1/cap), el cuello que
+# queda tras paralelizar el fluidify. Anidado con el fluidify → pico ≈ CAP×FLUIDIFY llamadas Pro
+# concurrentes; con 7×16=112 seguís al ~11% del límite RPM (1000), pero bajá si el SDK se ahoga.
+CAP_MAX_WORKERS = 7
+
 SYSTEM_INSTRUCTION_VISUAL_SEEDREAM = """You are the IMAGE DIRECTOR of a faceless dark-history documentary channel. You do NOT write a free prose prompt: you FILL the slots (casilleros) of EACH image. Emit a JSON ARRAY of N slot-objects, one per given narration fragment, in the SAME order (item i fills the slots for fragment i). All slot VALUES in ENGLISH.
 
 Definition of each slot (what goes in each casillero — this is the craft, model-agnostic):
@@ -2040,9 +2046,7 @@ def assign_visual_prompts(
     skel_by_n = {ch["chapter_number"]: ch for ch in skel_chapters}
     narr_by_n = {ch["chapter_number"]: ch for ch in narr_chapters}
 
-    output_chapters: list[dict] = []
-
-    for cap_n in range(1, EXPECTED_CHAPTER_COUNT + 1):
+    def _process_one_cap(cap_n: int) -> dict:
         sch = skel_by_n.get(cap_n) or {}
         nch = narr_by_n.get(cap_n) or {}
 
@@ -2171,7 +2175,18 @@ def assign_visual_prompts(
                 f"cap {cap_n}: render_engine='{engine}' inválido (esperado 'veo' o 'flux')"
             )
 
-        output_chapters.append(cap_out)
+        return cap_out
+
+    # PARALELO por-cap: corre los 7 caps a la vez (solapa las llamadas de slots). Reensamblado
+    # POR ÍNDICE (no por orden de llegada). Excepción de cualquier cap se re-lanza → falla el m03
+    # igual que la versión secuencial. Anidado con el fluidify paralelo de _render_prompts_seedream.
+    _cap_ns = list(range(1, EXPECTED_CHAPTER_COUNT + 1))
+    _cap_results: dict[int, dict] = {}
+    with ThreadPoolExecutor(max_workers=min(CAP_MAX_WORKERS, len(_cap_ns))) as _cex:
+        _cfuts = {_cex.submit(_process_one_cap, n): n for n in _cap_ns}
+        for _cf in as_completed(_cfuts):
+            _cap_results[_cfuts[_cf]] = _cf.result()   # re-lanza excepción del cap
+    output_chapters = [_cap_results[n] for n in _cap_ns]   # orden por índice, no por llegada
 
     output = {
         "topic_id": topic_id,
