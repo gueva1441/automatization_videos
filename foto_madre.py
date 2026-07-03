@@ -15,16 +15,31 @@ El style constante es el del canal (m03:149, byte-idéntico).
 """
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 
-from config import OUTPUT_DIR
+import requests
+
+from config import OUTPUT_DIR, api
 from error_handler import error_handler, PipelineStage
-# Reúso del motor de imagen activo (kling/seedream/flux) y su error de content-safety.
-from asset_manager import _generate_image_raw, ContentRejectedError
+# Motor de imagen activo (kling/seedream/flux) como FALLBACK, su error de content-safety,
+# y los helpers fal compartidos (headers, poll de la queue, detección de rechazo).
+from asset_manager import (
+    _generate_image_raw,
+    ContentRejectedError,
+    _fal_headers,
+    _flux_poll,
+    _is_content_rejection,
+)
 
 # Style constante del canal — VERBATIM del slot `style` de m03 (m03_visual.py:149).
 _STYLE = "documentary photographic realism, dark-history, faceless"
+
+# Motor de las FOTOS MADRE (HANDOFF_132): GPT Image 2 vía fal. Constante arriba para
+# cambiarlo sin tocar lógica. La calidad de la madre manda la del video entero, y este
+# motor rinde el canon completo mejor que Seedream (que se queda para el resto del pipeline).
+MADRE_IMAGE_MODEL = "openai/gpt-image-2"
 
 
 def _slug(nombre: str) -> str:
@@ -32,42 +47,127 @@ def _slug(nombre: str) -> str:
     return (s or "objeto")[:60]
 
 
+def _clean(s: str | None) -> str:
+    """Normaliza un campo del canon: sin espacios ni punto final colgando. Evita los
+    '..' dobles al concatenar campos que YA vienen con punto — el template pone el suyo."""
+    return (s or "").strip().rstrip(".").strip()
+
+
+def _ensure_real_png(path: Path) -> None:
+    """Garantiza que `path` sea un PNG REAL. Si los bytes no arrancan con el magic PNG
+    (89 50 4e 47…), re-encoda con PIL a PNG de verdad. Lección del probe GPT→Seedream:
+    GPT Image puede devolver JPEG con la URL/extensión .png (renombrar NO alcanza)."""
+    with open(path, "rb") as f:
+        sig = f.read(8)
+    if sig.startswith(b"\x89PNG\r\n\x1a\n"):
+        return
+    from PIL import Image
+    with Image.open(path) as im:
+        im.convert("RGB").save(path, format="PNG", optimize=True)
+    print(f"     [foto_madre] re-encodada a PNG real: {path.name}")
+
+
+def _generate_madre_gpt(prompt: str, dest: Path) -> dict:
+    """Genera una foto madre con GPT Image 2 (fal `openai/gpt-image-2`, t2i) y la deja en
+    `dest` como PNG real. Mismo cliente/patrón fal que asset_manager (misma FAL_KEY, misma
+    queue + poll). NO lleva @error_handler.retry a propósito: ese decorador envuelve el fallo
+    final en PipelineError y se comería el ContentRejectedError; la resiliencia la da el
+    fallback del caller (que sí cae en el motor decorado). Levanta ContentRejectedError si fal
+    rechaza por content-safety, o la excepción de red/API cruda."""
+    payload = {
+        "prompt": prompt,
+        "image_size": "landscape_16_9",
+        "quality": "high",
+        "num_images": 1,
+        "output_format": "png",
+    }
+    submit_url = f"{api.fal_base_url}/{MADRE_IMAGE_MODEL}"
+    try:
+        resp = requests.post(submit_url, headers=_fal_headers(), json=payload, timeout=120)
+        resp.raise_for_status()
+    except requests.HTTPError as e:
+        body = e.response.text if e.response is not None else str(e)
+        if _is_content_rejection(body):
+            raise ContentRejectedError(f"{MADRE_IMAGE_MODEL} rechazó prompt: {body[:300]}")
+        raise
+
+    result = resp.json()
+    # queue.fal.run → respuesta con status_url/response_url; algunos endpoints responden
+    # directo con images. Cubrimos ambos (espejo del path flux de _generate_image_raw).
+    data = result if "images" in result else _flux_poll(result["status_url"], result["response_url"])
+    if "images" not in data or not data["images"]:
+        raise RuntimeError(f"{MADRE_IMAGE_MODEL} sin imágenes: {json.dumps(data)[:300]}")
+
+    image_url = data["images"][0]["url"]
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    img_resp = requests.get(image_url, timeout=60)
+    img_resp.raise_for_status()
+    dest.write_bytes(img_resp.content)
+    _ensure_real_png(dest)   # GPT puede devolver JPEG → re-encoda a PNG real
+    return {"endpoint": MADRE_IMAGE_MODEL, "path": str(dest)}
+
+
 # ═══════════════════════════════════════════════════════════════
 #  PROMPTS (autorados por Claude-chat, MPR R4 — forma aislada, fondo neutro)
 # ═══════════════════════════════════════════════════════════════
 def _prompt_subject(topic: dict) -> str:
-    """Forma del sujeto-objeto. Campos de era_visual_canon; omite la línea si el campo
-    está vacío (no dejar 'Scale: .' colgando)."""
+    """Forma del sujeto-objeto con el canon COMPLETO (HANDOFF_132). Campos de
+    era_visual_canon; se omite la línea si el campo está vacío. El sujeto va en su MEDIO
+    natural (a un objeto gigante su entorno es parte de la forma), 3/4 a nivel de piso/mar
+    (el ángulo en que los caps lo consumen). 'Archival documentary photograph' mata el look
+    juguete/maqueta. _clean corta el punto colgante de cada campo → sin '..' dobles."""
     era = topic.get("era_visual_canon") or {}
-    df = (era.get("distinctive_features") or "").strip()
-    mt = (era.get("materials_textures") or "").strip()
-    sc = (era.get("scale_dimensions") or "").strip()
+    df = _clean(era.get("distinctive_features"))
+    mt = _clean(era.get("materials_textures"))
+    sc = _clean(era.get("scale_dimensions"))
+    cp = _clean(era.get("color_palette"))
+    dec = _clean(era.get("primary_decade"))
+    fb = _clean(era.get("forbidden_anachronisms"))
 
-    lines = [f"Isolated technical study of a single subject: {df}"]
-    ms = []
+    era_tag = f" from the {dec}" if dec else ""
+    lines = [f"Archival{era_tag} documentary photograph of a single subject: {df}."]
+    detail = []
     if mt:
-        ms.append(f"Materials and texture: {mt}.")
+        detail.append(f"Materials and texture: {mt}")
+    if cp:
+        detail.append(f"Color: {cp}")
     if sc:
-        ms.append(f"Scale: {sc}.")
-    if ms:
-        lines.append(" ".join(ms))
+        detail.append(f"Scale: {sc}")
+    if detail:
+        lines.append(". ".join(detail) + ".")
+    if fb:
+        lines.append(f"Period-correct technology only — strictly avoid: {fb}.")
     lines.append(
-        "The subject is centered and fully visible against a plain, neutral, seamless "
-        "background — no scenery, no people, no event, no action, even neutral lighting "
-        f"that reveals the full silhouette and proportions. {_STYLE}."
+        "The subject is shown alone in its natural operating environment (open sea, "
+        "open sky or bare terrain as appropriate), plain and empty — no people, no "
+        "other vehicles or structures, no event, no action. Seen from ground/sea "
+        "level at a three-quarter profile view, the whole subject fully visible from "
+        f"its base or waterline to its highest point. {_STYLE}."
     )
     return "\n".join(lines)
 
 
-def _prompt_prop(prop: dict) -> str:
-    """Forma de un prop anclado="si"."""
-    forma = (prop.get("forma") or "").strip()
-    return (
-        f"Isolated technical study of a single object: {forma}\n"
+def _prompt_prop(prop: dict, topic: dict) -> str:
+    """Forma de un prop anclado="si". Sigue AISLADO en fondo neutro (objeto chico, el
+    estudio le queda bien); HANDOFF_132 solo le suma época + prohibidos del canon."""
+    era = topic.get("era_visual_canon") or {}
+    forma = _clean(prop.get("forma"))
+    dec = _clean(era.get("primary_decade"))
+    fb = _clean(era.get("forbidden_anachronisms"))
+
+    dec_tag = f" {dec}" if dec else ""
+    lines = [
+        f"Archival{dec_tag} documentary photograph, isolated technical study of a "
+        f"single object: {forma}."
+    ]
+    if fb:
+        lines.append(f"Period-correct only — strictly avoid: {fb}.")
+    lines.append(
         "The object is centered and fully visible against a plain, neutral, seamless "
         "background — no scenery, no people, no event, even neutral lighting revealing "
         f"its full form. {_STYLE}."
     )
+    return "\n".join(lines)
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -86,7 +186,7 @@ def generate_foto_madre_for_topic(topic: dict, video_id: str) -> dict:
         candidatos.append(("subject", cs, _prompt_subject(topic)))
     for prop in (topic.get("documented_props") or []):
         if prop.get("anclado") == "si":
-            candidatos.append(("prop", prop, _prompt_prop(prop)))
+            candidatos.append(("prop", prop, _prompt_prop(prop, topic)))
 
     if not candidatos:
         return topic
@@ -96,21 +196,45 @@ def generate_foto_madre_for_topic(topic: dict, video_id: str) -> dict:
         label = "subject" if tag == "subject" else (holder.get("nombre") or "prop")
         dest = madre_dir / f"{_slug(label)}.png"
 
-        # SKIP / reúso: holder ya apunta a un archivo que EXISTE → no regenerar.
+        # SKIP / reúso por DB: holder ya apunta a un archivo que EXISTE → no regenerar.
         existing = holder.get("foto_madre")
         if existing and Path(existing).exists():
             print(f"     [foto_madre] skip {tag}:{label} (ya existe)")
             continue
 
+        # ADOPCIÓN de madre manual (HANDOFF_132): si Omar dejó un archivo en el destino,
+        # ESE es el gate humano oficial (sin UI nueva). NO generar: adoptar el path y
+        # persistirlo. Cubre el topic NUEVO (db sin path → el skip de arriba no lo agarra),
+        # que antes se PISABA con una madre generada.
+        if dest.exists():
+            _ensure_real_png(dest)   # el archivo manual puede venir JPEG → PNG real
+            holder["foto_madre"] = str(dest.resolve())
+            print(f"     [foto_madre] ADOPTADA manual: {label}")
+            continue
+
+        # GENERAR: motor GPT Image 2, con FALLBACK al motor activo (seedream/kling/flux) si
+        # GPT falla por lo que sea (error API o content-reject). La madre NUNCA bloquea el topic.
         try:
-            _generate_image_raw(prompt, dest, use_ultra=False, seed=None)
+            try:
+                _generate_madre_gpt(prompt, dest)
+                motor = MADRE_IMAGE_MODEL
+            except Exception as e_gpt:
+                error_handler.log_warning(
+                    PipelineStage.VIDEO,
+                    f"foto_madre GPT falló ({tag}:{label}): {str(e_gpt)[:150]} "
+                    f"→ fallback a {api.image_engine}",
+                )
+                _generate_image_raw(prompt, dest, use_ultra=False, seed=None)
+                _ensure_real_png(dest)
+                motor = api.image_engine
             holder["foto_madre"] = str(dest.resolve())   # PATH ABSOLUTO (Consumo-B lo lee)
-            print(f"     [foto_madre] ✓ {tag}:{label} → {dest.name}")
-        except ContentRejectedError as e:
-            # NO crashear el topic: dejar foto_madre="" y seguir con el resto.
+            print(f"     [foto_madre] ✓ {tag}:{label} → {dest.name}  ({motor})")
+        except Exception as e:
+            # Ni GPT ni el fallback pudieron (p.ej. ambos content-reject): no crashear el
+            # topic → foto_madre="" y seguir. Consumo-B degrada ese ancla a t2i.
             error_handler.log_warning(
                 PipelineStage.VIDEO,
-                f"foto_madre rechazada por content-safety ({tag}:{label}): {str(e)[:150]}",
+                f"foto_madre no generada ({tag}:{label}): {str(e)[:150]}",
             )
             holder["foto_madre"] = ""
 
