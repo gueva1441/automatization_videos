@@ -55,7 +55,10 @@ from script_engine.vision_validator import validate_image, build_corrected_promp
 #  Constantes operativas
 # ═══════════════════════════════════════════
 
-FLUX_MAX_WORKERS = 5
+# Concurrencia de render de imágenes (fal). = el límite de CONCURRENCIA de fal de la cuenta.
+# Los caps se procesan SECUENCIALES (process_script) → el pico global es este número, no ×caps.
+# NO paralelizar además los caps del asset_manager: caps × workers superaría el límite fal → 429.
+FLUX_MAX_WORKERS = 20
 FLUX_POLL_TIMEOUT = 180
 VEO_POLL_TIMEOUT = 600
 VEO_MAX_ATTEMPTS_NON_REJECTION = 3
