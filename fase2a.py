@@ -319,7 +319,9 @@ def _process_single_script(
 
         # 2.0 · paso0 EAGER: foto madre del sujeto-objeto + props anclados (topic-level).
         # Corre DESPUÉS del audio, ANTES de asset_process → la foto madre existe (en disco +
-        # db) antes de las imágenes de capítulo. CONSUMO-B todavía no la lee (asset sigue t2i).
+        # db) antes de las imágenes de capítulo.
+        # paso0 red de seguridad (HANDOFF_132): el paso0 REAL corre en fase1_5 ANTES del assemble.
+        # Este call queda como reintento idempotente (p.ej. content-reject transitorio en fase1_5).
         if result["topic_id"]:
             db = load_db()
             for t in db.get("topics", []):

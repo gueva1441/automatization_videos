@@ -57,6 +57,10 @@ from script_engine.m03_visual import assign_visual_prompts
 from script_engine.m06_assembler import assemble_final_script
 from script_engine import m07_music_director
 
+# paso0 EAGER (HANDOFF_132): foto madre debe existir en topics_db ANTES del assemble.
+from foto_madre import generate_foto_madre_for_topic
+from script_engine.topics_db import load_db, save_db
+
 
 VALID_FROM_STEPS = ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03")
 STEPS_DIR: Path = DATA_DIR / "scripts" / "_steps"
@@ -318,6 +322,18 @@ def process_topic(
                 result["status"] = "PASS"
                 print(f"\n  ✅ Topic {topic_id} OK (stop after m03) — pasos: {result['steps_completed']}")
                 return result
+
+        # paso0 EAGER (HANDOFF_132): la foto madre DEBE existir en topics_db ANTES de que
+        # m06 hornee el foto_madre_registry en el contrato. Sin esto, topics nuevos ensamblan
+        # registry {} y TODAS las anclas de m03 degradan a t2i (seam detectado en ec3d7c7f).
+        # Idempotente: si el PNG existe, skip (reúso built-in de foto_madre.py).
+        print(f"  [paso0] Foto madre (sujeto + props anclados)...")
+        db = load_db()
+        for t in db.get("topics", []):
+            if t.get("id") == topic_id:
+                generate_foto_madre_for_topic(t, topic_id)   # video_id == topic_id en LONG
+                save_db(db)
+                break
 
         # assemble — ensambla data/scripts/<id>.json (contrato sagrado que lee fase2a)
         # DIRECTO tras m03. Chat 119: el juez (m05 voting + m06 clasificador/menú) fue
