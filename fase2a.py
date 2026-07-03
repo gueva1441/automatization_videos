@@ -37,6 +37,14 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+# Fix #155 (paridad con fase1_5): PowerShell en Windows usa cp1252 default y rompe con
+# caracteres como "═" (═) y emojis cuando la salida se redirige a archivo/pipe.
+# Reconfigurar stdout/stderr a utf-8. El guard `sys.stdout.encoding and ...` evita
+# AttributeError cuando encoding es None (stdout capturado en tests/CI).
+if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 from config import DATA_DIR, OUTPUT_DIR
 from cost_tracker import cost_tracker
 from error_handler import error_handler, PipelineStage
