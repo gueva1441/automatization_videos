@@ -94,6 +94,7 @@ RETRY:
 
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from difflib import SequenceMatcher
 from pathlib import Path
 
@@ -130,6 +131,12 @@ SEEDREAM_SLOT_KEYS = (
     "props_detail", "shot_scale", "camera_angle", "lens_technique",
     "lighting", "mood", "style",
 )
+
+# Paralelismo del fluidificador per-imagen (el 55% de las ~90 llamadas Pro por topic).
+# Los ítems son independientes (cada uno muta su propio slot-dict; sin estado compartido;
+# call_pro_json no toca cost_tracker). Techo real = límite RPM de Gemini Pro (1000) → sobra;
+# 16 es conservador (pico ~16 RPM). Bajalo si otro proceso comparte la cuota del proyecto.
+FLUIDIFY_MAX_WORKERS = 16
 
 SYSTEM_INSTRUCTION_VISUAL_SEEDREAM = """You are the IMAGE DIRECTOR of a faceless dark-history documentary channel. You do NOT write a free prose prompt: you FILL the slots (casilleros) of EACH image. Emit a JSON ARRAY of N slot-objects, one per given narration fragment, in the SAME order (item i fills the slots for fragment i). All slot VALUES in ENGLISH.
 
@@ -707,7 +714,12 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
     )
 
     # ── fluidificador per-item + Guarda 1 + scrub + text-leakage (R3 invertida) ──
-    for i, it in enumerate(slots_out["image_prompts"], start=1):
+    # PARALELO: los ítems son INDEPENDIENTES (cada uno muta SÓLO su propio `it`; facts/profile/
+    # documented son read-only; call_pro_json NO toca cost_tracker → sin estado compartido). Era
+    # el grueso de las ~90 llamadas Pro secuenciales del topic. Orden PRESERVADO: se muta `it`
+    # in-place, la lista NO se reordena. Una excepción de cualquier ítem (Guarda 1 / leakage /
+    # rango) se re-lanza → falla el cap IGUAL que la versión secuencial. Cuerpo byte-idéntico.
+    def _fluidify_one(i: int, it: dict) -> None:
         verbatim = _seedream_facts_verbatim(it.get("hard_fact_ids"), facts)
         locked = _classify_locked_facts(verbatim)
         # B1 §2-B: suelta medidas sobrantes (>1/imagen) ANTES de lockear → el fluidificador
@@ -730,6 +742,16 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
                 f"({len(prose)} chars, target {PROMPT_MIN_CHARS}-{KLING_PROMPT_MAX_CHARS}).")
         it["prompt"] = prose
         it["art_profile"] = ""
+
+    items = list(enumerate(slots_out["image_prompts"], start=1))
+    if len(items) <= 1:
+        for i, it in items:
+            _fluidify_one(i, it)
+    else:
+        with ThreadPoolExecutor(max_workers=min(FLUIDIFY_MAX_WORKERS, len(items))) as _ex:
+            _futs = [_ex.submit(_fluidify_one, i, it) for i, it in items]
+            for _f in as_completed(_futs):
+                _f.result()   # re-lanza la 1ª excepción (falla el cap, como la versión secuencial)
     slots_out["chapter_number"] = cap_number
     return slots_out
 
