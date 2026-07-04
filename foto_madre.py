@@ -170,6 +170,54 @@ def _prompt_prop(prop: dict, topic: dict) -> str:
     return "\n".join(lines)
 
 
+def _prompt_place(topic: dict) -> str:
+    """Retrato del ESTABLECIMIENTO — RUTA B (HANDOFF_134d): la vista canónica identificatoria
+    de un kind=place (aérea/establishing 3/4, silueta y footprint completos) para anclar la
+    IDENTIDAD del sitio (la torre, la disposición del complejo) que driftea render a render.
+
+    A DIFERENCIA de _prompt_subject (object): época-DEL-SUJETO (arquitectura period-correct),
+    NUNCA época-de-la-foto — sin 'archival photograph from [era]' que fuerza B&N/placa (lección
+    133); la plantilla nace SIN ese bug (dice 'full-color', ata la década a la arquitectura, no
+    a la foto). Estado explícito desde condition_evolution (el dominante; si ambiguo, at_event),
+    coherente con R1. Suma anachronism_blocklist."""
+    era = topic.get("era_visual_canon") or {}
+    df = _clean(era.get("distinctive_features"))
+    sc = _clean(era.get("scale_dimensions"))
+    mt = _clean(era.get("materials_textures"))
+    cp = _clean(era.get("color_palette"))
+    dec = _clean(era.get("primary_decade"))
+    fb = _clean(era.get("forbidden_anachronisms"))
+    cond = era.get("condition_evolution") or {}
+    state = _clean(cond.get("at_event")) or _clean(cond.get("later"))
+    blocklist = [str(b).strip() for b in (topic.get("anachronism_blocklist") or []) if str(b).strip()]
+
+    arch = f"period-correct {dec} " if dec else ""
+    lines = [f"A wide, full-color establishing view of a single place — its identifying "
+             f"{arch}architecture: {df}."]
+    detail = []
+    if mt:
+        detail.append(f"Materials and texture: {mt}")
+    if cp:
+        detail.append(f"Color: {cp}")
+    if sc:
+        detail.append(f"Scale and layout: {sc}")
+    if detail:
+        lines.append(". ".join(detail) + ".")
+    if state:
+        lines.append(f"Shown in this condition: {state}.")
+    if fb:
+        lines.append(f"Period-correct only — strictly avoid: {fb}.")
+    if blocklist:
+        lines.append("Never show: " + ", ".join(blocklist) + ".")
+    lines.append(
+        "The whole complex is seen from a high three-quarter aerial establishing angle, its "
+        "full footprint and silhouette visible — every building, wing and tower in its real "
+        "arrangement — set plainly in its surroundings, no people, no event, no action, in even "
+        f"natural daylight that reveals the layout. {_STYLE}."
+    )
+    return "\n".join(lines)
+
+
 # ═══════════════════════════════════════════════════════════════
 #  PRODUCTOR
 # ═══════════════════════════════════════════════════════════════
@@ -182,13 +230,22 @@ def generate_foto_madre_for_topic(topic: dict, video_id: str) -> dict:
     candidatos: list[tuple[str, dict, str]] = []
 
     cs = topic.get("central_subject") or {}
-    if cs.get("kind") == "object":
+    kind = cs.get("kind")
+    if kind == "object":
         candidatos.append(("subject", cs, _prompt_subject(topic)))
+    elif kind == "place":
+        # RUTA B (HANDOFF_134d): un LUGAR también tiene foto carnet — la vista canónica del
+        # establecimiento. Mismo tag "subject" → mismo bucket del registry (__subject__); el
+        # resto de la cadena ni se entera de que es place. Toda la mecánica se hereda.
+        candidatos.append(("subject", cs, _prompt_place(topic)))
     for prop in (topic.get("documented_props") or []):
         if prop.get("anclado") == "si":
             candidatos.append(("prop", prop, _prompt_prop(prop, topic)))
 
     if not candidatos:
+        # CHASCADA 1 (HANDOFF_134d): EL SILENCIO GRITADO. Con object+place soportados, esto
+        # queda para person/other → que NUNCA MÁS un topic pierda todas las anclas en silencio.
+        print(f"     [paso0] central_subject kind={kind!r} → SIN madre/anclas (por diseño)")
         return topic
 
     madre_dir = OUTPUT_DIR / video_id / "foto_madre"

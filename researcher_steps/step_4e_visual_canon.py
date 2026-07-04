@@ -309,12 +309,6 @@ Cada entrada:
 - anclado: "si" o "no" (regla abajo).
 - foto_madre: siempre "" (vacío — no lo llenás vos).
 
-CONJUNTO vs PIEZA: si [OBJETOS] lista varias PARTES de UN mismo objeto central
-(sub-ensambles, paneles, compartimentos de una sola máquina o de un solo espacio),
-emitilas como UNA sola entrada que nombra el objeto ENTERO, con `forma` describiendo
-el conjunto — NO una entrada por parte. Entradas separadas SOLO para objetos que son
-cosas genuinamente distintas.
-
 QUÉ INCLUIR — el default es NO incluir:
   Incluí un objeto SOLO si el evento en sí ES ese objeto — si el tema
   literalmente trata sobre él. Test: ¿el evento sucede igual sin este objeto?
