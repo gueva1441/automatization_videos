@@ -1,0 +1,1427 @@
+{
+  "topic": "ba6c3cac-a091-41c0-8dad-afd2f4364747",
+  "min_gap": 1.0,
+  "caps": [
+    {
+      "cap": 1,
+      "engine": "veo",
+      "anchors": 4,
+      "rows": [
+        {
+          "anchor_idx": 0,
+          "anchor8": "día que el huracán Katrina devastó Nueva Orleans.",
+          "needle": [
+            "día",
+            "que",
+            "el"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 34,
+          "matched_word": "día",
+          "start_s": 9.399,
+          "duration_s": 1.899
+        },
+        {
+          "anchor_idx": 1,
+          "anchor8": "El agua contaminada subió implacable hasta el nivel",
+          "needle": [
+            "el",
+            "agua",
+            "contaminada"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 38,
+          "matched_word": "el",
+          "start_s": 9.899,
+          "duration_s": 17.3
+        },
+        {
+          "anchor_idx": 2,
+          "anchor8": "Días de infierno, sin luz, sin salida.",
+          "needle": [
+            "días",
+            "de",
+            "infierno"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 108,
+          "matched_word": "Días",
+          "start_s": 27.199,
+          "duration_s": 4.1
+        },
+        {
+          "anchor_idx": 3,
+          "anchor8": "Pero lo que sucedió después, es un misterio",
+          "needle": [
+            "pero",
+            "lo",
+            "que"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 122,
+          "matched_word": "Pero",
+          "start_s": 31.299,
+          "duration_s": 4.506
+        }
+      ],
+      "offset": 8.0,
+      "total": 27.805,
+      "veo_dur": 8.0,
+      "veo_position": "start",
+      "s0_in_band": true,
+      "uniform_fallback": false,
+      "audio_regen_post_m03": false,
+      "timestamps_mtime": "2026-07-04 13:06:18"
+    },
+    {
+      "cap": 2,
+      "engine": "flux",
+      "anchors": 15,
+      "rows": [
+        {
+          "anchor_idx": 0,
+          "anchor8": "Aquel misterio, gestado en el corazón de una",
+          "needle": [
+            "aquel",
+            "misterio",
+            "gestado"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 0,
+          "matched_word": "Aquel",
+          "start_s": 0.079,
+          "duration_s": 5.08
+        },
+        {
+          "anchor_idx": 1,
+          "anchor8": "comenzó a tejerse el 29 de agosto de",
+          "needle": [
+            "comenzó",
+            "a",
+            "tejerse"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 22,
+          "matched_word": "comenzó",
+          "start_s": 5.159,
+          "duration_s": 4.32
+        },
+        {
+          "anchor_idx": 2,
+          "anchor8": "Ese día, el huracán Katrina desató su furia",
+          "needle": [
+            "ese",
+            "día",
+            "el"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 40,
+          "matched_word": "Ese",
+          "start_s": 9.479,
+          "duration_s": 6.32
+        },
+        {
+          "anchor_idx": 3,
+          "anchor8": "Las defensas de la ciudad, sus diques, cedieron",
+          "needle": [
+            "las",
+            "defensas",
+            "de"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 64,
+          "matched_word": "Las",
+          "start_s": 15.799,
+          "duration_s": 5.98
+        },
+        {
+          "anchor_idx": 4,
+          "anchor8": "Rápidamente, un ochenta por ciento de la vibrante",
+          "needle": [
+            "rápidamente",
+            "un",
+            "ochenta"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 92,
+          "matched_word": "Rápidamente,",
+          "start_s": 21.779,
+          "duration_s": 8.78
+        },
+        {
+          "anchor_idx": 5,
+          "anchor8": "Calles y hogares enteros desaparecieron, sumergidos bajo hasta",
+          "needle": [
+            "calles",
+            "y",
+            "hogares"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 132,
+          "matched_word": "Calles",
+          "start_s": 30.559,
+          "duration_s": 9.68
+        },
+        {
+          "anchor_idx": 6,
+          "anchor8": "En medio de este caos líquido y generalizado,",
+          "needle": [
+            "en",
+            "medio",
+            "de"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 164,
+          "matched_word": "En",
+          "start_s": 40.239,
+          "duration_s": 5.34
+        },
+        {
+          "anchor_idx": 7,
+          "anchor8": "un coloso de hormigón y hierro, albergaba a",
+          "needle": [
+            "un",
+            "coloso",
+            "de"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 190,
+          "matched_word": "un",
+          "start_s": 45.579,
+          "duration_s": 6.66
+        },
+        {
+          "anchor_idx": 8,
+          "anchor8": "Hombres, mujeres y niños, todos ellos, observaban con",
+          "needle": [
+            "hombres",
+            "mujeres",
+            "y"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 216,
+          "matched_word": "Hombres,",
+          "start_s": 52.239,
+          "duration_s": 8.08
+        },
+        {
+          "anchor_idx": 9,
+          "anchor8": "Desde sus celdas, la catástrofe parecía una fuerza",
+          "needle": [
+            "desde",
+            "sus",
+            "celdas"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 246,
+          "matched_word": "Desde",
+          "start_s": 60.319,
+          "duration_s": 6.46
+        },
+        {
+          "anchor_idx": 10,
+          "anchor8": "Pero esta devastación externa era solo el primer",
+          "needle": [
+            "pero",
+            "esta",
+            "devastación"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 272,
+          "matched_word": "Pero",
+          "start_s": 66.779,
+          "duration_s": 7.401
+        },
+        {
+          "anchor_idx": 11,
+          "anchor8": "Los prisioneros, ya de por sí vulnerables, estaban",
+          "needle": [
+            "los",
+            "prisioneros",
+            "ya"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 306,
+          "matched_word": "Los",
+          "start_s": 74.18,
+          "duration_s": 6.659
+        },
+        {
+          "anchor_idx": 12,
+          "anchor8": "donde la oscuridad no solo sería física, sino",
+          "needle": [
+            "donde",
+            "la",
+            "oscuridad"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 340,
+          "matched_word": "donde",
+          "start_s": 80.839,
+          "duration_s": 4.741
+        },
+        {
+          "anchor_idx": 13,
+          "anchor8": "envolviéndolos en un silencio tan espeso como las",
+          "needle": [
+            "envolviéndolos",
+            "en",
+            "un"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 360,
+          "matched_word": "envolviéndolos",
+          "start_s": 85.58,
+          "duration_s": 5.899
+        },
+        {
+          "anchor_idx": 14,
+          "anchor8": "¿Podría la prisión, diseñada para contener, resistir la",
+          "needle": [
+            "podría",
+            "la",
+            "prisión"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 386,
+          "matched_word": "¿Podría",
+          "start_s": 91.479,
+          "duration_s": 6.231
+        }
+      ],
+      "offset": 0.0,
+      "total": 97.71,
+      "veo_dur": null,
+      "veo_position": null,
+      "s0_in_band": null,
+      "uniform_fallback": false,
+      "audio_regen_post_m03": false,
+      "timestamps_mtime": "2026-07-04 13:06:36"
+    },
+    {
+      "cap": 3,
+      "engine": "flux",
+      "anchors": 17,
+      "rows": [
+        {
+          "anchor_idx": 0,
+          "anchor8": "La respuesta a esa pregunta no tardó en",
+          "needle": [
+            "la",
+            "respuesta",
+            "a"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 0,
+          "matched_word": "La",
+          "start_s": 0.1,
+          "duration_s": 4.22
+        },
+        {
+          "anchor_idx": 1,
+          "anchor8": "La prisión, una fortaleza de concreto, empezó a",
+          "needle": [
+            "la",
+            "prisión",
+            "una"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 24,
+          "matched_word": "La",
+          "start_s": 4.32,
+          "duration_s": 5.42
+        },
+        {
+          "anchor_idx": 2,
+          "anchor8": "El mismo 29 de agosto de 2005, el",
+          "needle": [
+            "el",
+            "mismo",
+            "29"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 46,
+          "matched_word": "El",
+          "start_s": 9.74,
+          "duration_s": 1.14
+        },
+        {
+          "anchor_idx": 3,
+          "anchor8": "De pronto, una oscuridad densa, palpable, se apoderó",
+          "needle": [
+            "de",
+            "pronto",
+            "una"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 52,
+          "matched_word": "de",
+          "start_s": 10.88,
+          "duration_s": 17.06
+        },
+        {
+          "anchor_idx": 4,
+          "anchor8": "Las luces parpadearon una última vez antes de",
+          "needle": [
+            "las",
+            "luces",
+            "parpadearon"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 116,
+          "matched_word": "Las",
+          "start_s": 27.94,
+          "duration_s": 8.96
+        },
+        {
+          "anchor_idx": 5,
+          "anchor8": "La ventilación se detuvo, el aire se volvió",
+          "needle": [
+            "la",
+            "ventilación",
+            "se"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 152,
+          "matched_word": "La",
+          "start_s": 36.9,
+          "duration_s": 10.7
+        },
+        {
+          "anchor_idx": 6,
+          "anchor8": "La prisión dejó de respirar. Pero la oscuridad",
+          "needle": [
+            "la",
+            "prisión",
+            "dejó"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 196,
+          "matched_word": "La",
+          "start_s": 47.6,
+          "duration_s": 7.56
+        },
+        {
+          "anchor_idx": 7,
+          "anchor8": "Desde las entrañas de la inundación exterior, el",
+          "needle": [
+            "desde",
+            "las",
+            "entrañas"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 230,
+          "matched_word": "Desde",
+          "start_s": 55.16,
+          "duration_s": 6.34
+        },
+        {
+          "anchor_idx": 8,
+          "anchor8": "Un goteo constante se convirtió en un torrente",
+          "needle": [
+            "un",
+            "goteo",
+            "constante"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 260,
+          "matched_word": "Un",
+          "start_s": 61.5,
+          "duration_s": 4.52
+        },
+        {
+          "anchor_idx": 9,
+          "anchor8": "Lentamente, inexorablemente, el líquido ascendía. En edificios clave",
+          "needle": [
+            "lentamente",
+            "inexorablemente",
+            "el"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 278,
+          "matched_word": "Lentamente,",
+          "start_s": 66.02,
+          "duration_s": 12.7
+        },
+        {
+          "anchor_idx": 10,
+          "anchor8": "Subió centímetro a centímetro, hasta alcanzar el nivel",
+          "needle": [
+            "subió",
+            "centímetro",
+            "a"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 326,
+          "matched_word": "Subió",
+          "start_s": 78.72,
+          "duration_s": 12.72
+        },
+        {
+          "anchor_idx": 11,
+          "anchor8": "Imaginen el terror. En celdas herméticamente cerradas, sin",
+          "needle": [
+            "imaginen",
+            "el",
+            "terror"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 380,
+          "matched_word": "Imaginen",
+          "start_s": 91.44,
+          "duration_s": 0.66
+        },
+        {
+          "anchor_idx": 12,
+          "anchor8": "El frío cortante del agua contaminada se mezclaba",
+          "needle": [
+            "el",
+            "frío",
+            "cortante"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 382,
+          "matched_word": "el",
+          "start_s": 92.1,
+          "duration_s": 10.08
+        },
+        {
+          "anchor_idx": 13,
+          "anchor8": "Las condiciones se volvieron inhumanas en cuestión de",
+          "needle": [
+            "las",
+            "condiciones",
+            "se"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 424,
+          "matched_word": "las",
+          "start_s": 102.18,
+          "duration_s": 5.16
+        },
+        {
+          "anchor_idx": 14,
+          "anchor8": "La prisión, diseñada para contener, se había transformado",
+          "needle": [
+            "la",
+            "prisión",
+            "diseñada"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 444,
+          "matched_word": "la",
+          "start_s": 107.34,
+          "duration_s": 1.24
+        },
+        {
+          "anchor_idx": 15,
+          "anchor8": "El mundo exterior había colapsado, pero la tragedia",
+          "needle": [
+            "el",
+            "mundo",
+            "exterior"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 448,
+          "matched_word": "El",
+          "start_s": 108.58,
+          "duration_s": 38.06
+        },
+        {
+          "anchor_idx": 16,
+          "anchor8": "¿Cuánto tiempo podrían los prisioneros resistir esa agonía",
+          "needle": [
+            "cuánto",
+            "tiempo",
+            "podrían"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 608,
+          "matched_word": "¿Cuánto",
+          "start_s": 146.64,
+          "duration_s": 5.497
+        }
+      ],
+      "offset": 0.0,
+      "total": 152.137,
+      "veo_dur": null,
+      "veo_position": null,
+      "s0_in_band": null,
+      "uniform_fallback": false,
+      "audio_regen_post_m03": false,
+      "timestamps_mtime": "2026-07-04 13:07:03"
+    },
+    {
+      "cap": 4,
+      "engine": "flux",
+      "anchors": 17,
+      "rows": [
+        {
+          "anchor_idx": 0,
+          "anchor8": "La resistencia se midió en días.",
+          "needle": [
+            "la",
+            "resistencia",
+            "se"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 0,
+          "matched_word": "La",
+          "start_s": 0.1,
+          "duration_s": 2.86
+        },
+        {
+          "anchor_idx": 1,
+          "anchor8": "Una eternidad de sufrimiento en la penumbra asfixiante.",
+          "needle": [
+            "una",
+            "eternidad",
+            "de"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 12,
+          "matched_word": "Una",
+          "start_s": 2.96,
+          "duration_s": 4.46
+        },
+        {
+          "anchor_idx": 2,
+          "anchor8": "Los prisioneros, atrapados, vivieron un calvario ininterrumpido.",
+          "needle": [
+            "los",
+            "prisioneros",
+            "atrapados"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 28,
+          "matched_word": "Los",
+          "start_s": 7.42,
+          "duration_s": 5.86
+        },
+        {
+          "anchor_idx": 3,
+          "anchor8": "Días interminables de terror y desesperación, en los",
+          "needle": [
+            "días",
+            "interminables",
+            "de"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 42,
+          "matched_word": "Días",
+          "start_s": 13.28,
+          "duration_s": 6.62
+        },
+        {
+          "anchor_idx": 4,
+          "anchor8": "El agua sucia, putrefacta, no retrocedía; por el",
+          "needle": [
+            "el",
+            "agua",
+            "sucia"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 70,
+          "matched_word": "el",
+          "start_s": 19.9,
+          "duration_s": 10.78
+        },
+        {
+          "anchor_idx": 5,
+          "anchor8": "Celdas enteras quedaron anegadas con una mezcla nauseabunda",
+          "needle": [
+            "celdas",
+            "enteras",
+            "quedaron"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 112,
+          "matched_word": "Celdas",
+          "start_s": 30.68,
+          "duration_s": 7.16
+        },
+        {
+          "anchor_idx": 6,
+          "anchor8": "¡El hedor era insoportable!",
+          "needle": [
+            "el",
+            "hedor",
+            "era"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 138,
+          "matched_word": "el",
+          "start_s": 37.84,
+          "duration_s": 7.24
+        },
+        {
+          "anchor_idx": 7,
+          "anchor8": "No había un solo respiro del aire cargado,",
+          "needle": [
+            "no",
+            "había",
+            "un"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 166,
+          "matched_word": "No",
+          "start_s": 45.08,
+          "duration_s": 7.52
+        },
+        {
+          "anchor_idx": 8,
+          "anchor8": "Pero la tragedia tenía rostros aún más inocentes.",
+          "needle": [
+            "pero",
+            "la",
+            "tragedia"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 202,
+          "matched_word": "Pero",
+          "start_s": 52.6,
+          "duration_s": 4.12
+        },
+        {
+          "anchor_idx": 9,
+          "anchor8": "Entre la masa de seis mil quinientas almas,",
+          "needle": [
+            "entre",
+            "la",
+            "masa"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 218,
+          "matched_word": "Entre",
+          "start_s": 56.72,
+          "duration_s": 4.94
+        },
+        {
+          "anchor_idx": 10,
+          "anchor8": "Pequeños, algunos de apenas diez años, también estaban",
+          "needle": [
+            "pequeños",
+            "algunos",
+            "de"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 240,
+          "matched_word": "Pequeños,",
+          "start_s": 61.66,
+          "duration_s": 6.59
+        },
+        {
+          "anchor_idx": 11,
+          "anchor8": "Sus ojos infantiles presenciaron horrores impensables.",
+          "needle": [
+            "sus",
+            "ojos",
+            "infantiles"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 268,
+          "matched_word": "Sus",
+          "start_s": 68.25,
+          "duration_s": 5.09
+        },
+        {
+          "anchor_idx": 12,
+          "anchor8": "La población juvenil, abrumadoramente afroamericana, se sumó a",
+          "needle": [
+            "la",
+            "población",
+            "juvenil"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 280,
+          "matched_word": "La",
+          "start_s": 73.34,
+          "duration_s": 8.78
+        },
+        {
+          "anchor_idx": 13,
+          "anchor8": "Su vulnerabilidad era extrema. Aislados, sin voz, sin",
+          "needle": [
+            "su",
+            "vulnerabilidad",
+            "era"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 310,
+          "matched_word": "Su",
+          "start_s": 82.12,
+          "duration_s": 10.37
+        },
+        {
+          "anchor_idx": 14,
+          "anchor8": "¿Qué sucedió con ellos? Sus pequeñas vidas se",
+          "needle": [
+            "qué",
+            "sucedió",
+            "con"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 346,
+          "matched_word": "¿Qué",
+          "start_s": 92.49,
+          "duration_s": 9.84
+        },
+        {
+          "anchor_idx": 15,
+          "anchor8": "¿Cuántos de estos jóvenes, o de los miles",
+          "needle": [
+            "cuántos",
+            "de",
+            "estos"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 388,
+          "matched_word": "¿Cuántos",
+          "start_s": 102.33,
+          "duration_s": 6.9
+        },
+        {
+          "anchor_idx": 16,
+          "anchor8": "¿Y qué vieron sus ojos en esos días",
+          "needle": [
+            "y",
+            "qué",
+            "vieron"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 418,
+          "matched_word": "¿Y",
+          "start_s": 109.23,
+          "duration_s": 6.87
+        }
+      ],
+      "offset": 0.0,
+      "total": 116.1,
+      "veo_dur": null,
+      "veo_position": null,
+      "s0_in_band": null,
+      "uniform_fallback": false,
+      "audio_regen_post_m03": false,
+      "timestamps_mtime": "2026-07-04 13:07:24"
+    },
+    {
+      "cap": 5,
+      "engine": "flux",
+      "anchors": 16,
+      "rows": [
+        {
+          "anchor_idx": 0,
+          "anchor8": "Esos ojos infantiles y adultos, atrapados en la",
+          "needle": [
+            "esos",
+            "ojos",
+            "infantiles"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 0,
+          "matched_word": "Esos",
+          "start_s": 0.08,
+          "duration_s": 1.34
+        },
+        {
+          "anchor_idx": 1,
+          "anchor8": "Y con razón. Porque no solo la integridad",
+          "needle": [
+            "y",
+            "con",
+            "razón"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 6,
+          "matched_word": "y",
+          "start_s": 1.42,
+          "duration_s": 1.84
+        },
+        {
+          "anchor_idx": 2,
+          "anchor8": "La organización Human Rights Watch denunció, con alarmante",
+          "needle": [
+            "la",
+            "organización",
+            "human"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 14,
+          "matched_word": "la",
+          "start_s": 3.26,
+          "duration_s": 22.36
+        },
+        {
+          "anchor_idx": 3,
+          "anchor8": "simplemente no figuraban en las listas oficiales de",
+          "needle": [
+            "simplemente",
+            "no",
+            "figuraban"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 108,
+          "matched_word": "simplemente",
+          "start_s": 25.62,
+          "duration_s": 4.81
+        },
+        {
+          "anchor_idx": 4,
+          "anchor8": "¿Quinientas almas borradas del registro?",
+          "needle": [
+            "quinientas",
+            "almas",
+            "borradas"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 126,
+          "matched_word": "¿Quinientas",
+          "start_s": 30.43,
+          "duration_s": 3.18
+        },
+        {
+          "anchor_idx": 5,
+          "anchor8": "¿Quinientas historias desvanecidas en el caos?",
+          "needle": [
+            "quinientas",
+            "historias",
+            "desvanecidas"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 136,
+          "matched_word": "¿Quinientas",
+          "start_s": 33.61,
+          "duration_s": 3.75
+        },
+        {
+          "anchor_idx": 6,
+          "anchor8": "Este abismo numérico abrió un pozo de interrogantes,",
+          "needle": [
+            "este",
+            "abismo",
+            "numérico"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 148,
+          "matched_word": "Este",
+          "start_s": 37.36,
+          "duration_s": 7.3
+        },
+        {
+          "anchor_idx": 7,
+          "anchor8": "Las escenas más macabras se revelaron el primero",
+          "needle": [
+            "las",
+            "escenas",
+            "más"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 178,
+          "matched_word": "Las",
+          "start_s": 44.66,
+          "duration_s": 5.74
+        },
+        {
+          "anchor_idx": 8,
+          "anchor8": "en medio de un rescate tardío y desorganizado,",
+          "needle": [
+            "en",
+            "medio",
+            "de"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 204,
+          "matched_word": "en",
+          "start_s": 50.4,
+          "duration_s": 9.58
+        },
+        {
+          "anchor_idx": 9,
+          "anchor8": "A medida que avanzaban penosamente a través de",
+          "needle": [
+            "a",
+            "medida",
+            "que"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 246,
+          "matched_word": "A",
+          "start_s": 59.98,
+          "duration_s": 8.2
+        },
+        {
+          "anchor_idx": 10,
+          "anchor8": "Testimonios desgarradores confirmaron la visión de cadáveres flotando,",
+          "needle": [
+            "testimonios",
+            "desgarradores",
+            "confirmaron"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 286,
+          "matched_word": "Testimonios",
+          "start_s": 68.18,
+          "duration_s": 8.76
+        },
+        {
+          "anchor_idx": 11,
+          "anchor8": "Cuerpos sin vida a la deriva en la",
+          "needle": [
+            "cuerpos",
+            "sin",
+            "vida"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 320,
+          "matched_word": "Cuerpos",
+          "start_s": 76.94,
+          "duration_s": 7.32
+        },
+        {
+          "anchor_idx": 12,
+          "anchor8": "Esta imagen fantasmal, la de almas perdidas flotando",
+          "needle": [
+            "esta",
+            "imagen",
+            "fantasmal"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 352,
+          "matched_word": "Esta",
+          "start_s": 84.26,
+          "duration_s": 9.03
+        },
+        {
+          "anchor_idx": 13,
+          "anchor8": "¿Cuántos de esos quinientos desaparecidos terminaron como espectros",
+          "needle": [
+            "cuántos",
+            "de",
+            "esos"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 386,
+          "matched_word": "¿Cuántos",
+          "start_s": 93.29,
+          "duration_s": 6.33
+        },
+        {
+          "anchor_idx": 14,
+          "anchor8": "¿Y qué justicia podría reparar el agravio de",
+          "needle": [
+            "y",
+            "qué",
+            "justicia"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 410,
+          "matched_word": "¿Y",
+          "start_s": 99.62,
+          "duration_s": 6.62
+        },
+        {
+          "anchor_idx": 15,
+          "anchor8": "sino que, quizás, fueron borrados de la existencia",
+          "needle": [
+            "sino",
+            "que",
+            "quizás"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 442,
+          "matched_word": "sino",
+          "start_s": 106.24,
+          "duration_s": 4.844
+        }
+      ],
+      "offset": 0.0,
+      "total": 111.084,
+      "veo_dur": null,
+      "veo_position": null,
+      "s0_in_band": null,
+      "uniform_fallback": false,
+      "audio_regen_post_m03": false,
+      "timestamps_mtime": "2026-07-04 13:07:44"
+    },
+    {
+      "cap": 6,
+      "engine": "flux",
+      "anchors": 15,
+      "rows": [
+        {
+          "anchor_idx": 0,
+          "anchor8": "Aunque la justicia plena permaneció esquiva para la",
+          "needle": [
+            "aunque",
+            "la",
+            "justicia"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 0,
+          "matched_word": "Aunque",
+          "start_s": 0.079,
+          "duration_s": 8.681
+        },
+        {
+          "anchor_idx": 1,
+          "anchor8": "Robie Waganfeald y Paul Kunkel Jr., turistas atrapados",
+          "needle": [
+            "robie",
+            "waganfeald",
+            "y"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 36,
+          "matched_word": "Robie",
+          "start_s": 8.76,
+          "duration_s": 6.719
+        },
+        {
+          "anchor_idx": 2,
+          "anchor8": "lograron una victoria legal que arrojó luz sobre",
+          "needle": [
+            "lograron",
+            "una",
+            "victoria"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 60,
+          "matched_word": "lograron",
+          "start_s": 15.479,
+          "duration_s": 5.34
+        },
+        {
+          "anchor_idx": 3,
+          "anchor8": "En el año 2010, les fue concedida una",
+          "needle": [
+            "en",
+            "el",
+            "año"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 82,
+          "matched_word": "En",
+          "start_s": 20.819,
+          "duration_s": 7.16
+        },
+        {
+          "anchor_idx": 4,
+          "anchor8": "Esta suma no fue un simple resarcimiento; representó",
+          "needle": [
+            "esta",
+            "suma",
+            "no"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 118,
+          "matched_word": "Esta",
+          "start_s": 27.979,
+          "duration_s": 1.1
+        },
+        {
+          "anchor_idx": 5,
+          "anchor8": "Fue una sentencia contundente contra el encarcelamiento falso",
+          "needle": [
+            "fue",
+            "una",
+            "sentencia"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 124,
+          "matched_word": "fue",
+          "start_s": 29.079,
+          "duration_s": 9.64
+        },
+        {
+          "anchor_idx": 6,
+          "anchor8": "y la flagrante indiferencia deliberada hacia sus derechos",
+          "needle": [
+            "y",
+            "la",
+            "flagrante"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 158,
+          "matched_word": "y",
+          "start_s": 38.719,
+          "duration_s": 5.1
+        },
+        {
+          "anchor_idx": 7,
+          "anchor8": "confirmando que el abandono vivido no era un",
+          "needle": [
+            "confirmando",
+            "que",
+            "el"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 176,
+          "matched_word": "confirmando",
+          "start_s": 43.819,
+          "duration_s": 6.881
+        },
+        {
+          "anchor_idx": 8,
+          "anchor8": "Aquella compensación marcó un hito, una fisura en",
+          "needle": [
+            "aquella",
+            "compensación",
+            "marcó"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 204,
+          "matched_word": "Aquella",
+          "start_s": 50.7,
+          "duration_s": 8.779
+        },
+        {
+          "anchor_idx": 9,
+          "anchor8": "Sin embargo, ¿pueden los dólares borrar las profundas",
+          "needle": [
+            "sin",
+            "embargo",
+            "pueden"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 244,
+          "matched_word": "Sin",
+          "start_s": 59.479,
+          "duration_s": 2.68
+        },
+        {
+          "anchor_idx": 10,
+          "anchor8": "Las experiencias de Robie y Paul son solo",
+          "needle": [
+            "las",
+            "experiencias",
+            "de"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 256,
+          "matched_word": "las",
+          "start_s": 62.159,
+          "duration_s": 10.82
+        },
+        {
+          "anchor_idx": 11,
+          "anchor8": "por el devastador 'tiempo Katrina', un período de",
+          "needle": [
+            "por",
+            "el",
+            "devastador"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 300,
+          "matched_word": "por",
+          "start_s": 72.979,
+          "duration_s": 5.84
+        },
+        {
+          "anchor_idx": 12,
+          "anchor8": "Para miles, el trauma sigue latiendo, una herida",
+          "needle": [
+            "para",
+            "miles",
+            "el"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 320,
+          "matched_word": "Para",
+          "start_s": 78.819,
+          "duration_s": 9.94
+        },
+        {
+          "anchor_idx": 13,
+          "anchor8": "¿Y para aquellos quinientos prisioneros, cuyas vidas se",
+          "needle": [
+            "y",
+            "para",
+            "aquellos"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 354,
+          "matched_word": "¿Y",
+          "start_s": 88.759,
+          "duration_s": 6.54
+        },
+        {
+          "anchor_idx": 14,
+          "anchor8": "qué forma de justicia podría existir?",
+          "needle": [
+            "qué",
+            "forma",
+            "de"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 378,
+          "matched_word": "qué",
+          "start_s": 95.299,
+          "duration_s": 2.968
+        }
+      ],
+      "offset": 0.0,
+      "total": 98.267,
+      "veo_dur": null,
+      "veo_position": null,
+      "s0_in_band": null,
+      "uniform_fallback": false,
+      "audio_regen_post_m03": false,
+      "timestamps_mtime": "2026-07-04 13:08:02"
+    },
+    {
+      "cap": 7,
+      "engine": "veo",
+      "anchors": 10,
+      "rows": [
+        {
+          "anchor_idx": 0,
+          "anchor8": "La dolorosa verdad es que, para la mayoría,",
+          "needle": [
+            "la",
+            "dolorosa",
+            "verdad"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 0,
+          "matched_word": "La",
+          "start_s": 0.079,
+          "duration_s": 7.381
+        },
+        {
+          "anchor_idx": 1,
+          "anchor8": "El caso de Robie Waganfeald y Paul Kunkel",
+          "needle": [
+            "el",
+            "caso",
+            "de"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 32,
+          "matched_word": "El",
+          "start_s": 7.46,
+          "duration_s": 9.419
+        },
+        {
+          "anchor_idx": 2,
+          "anchor8": "que sepultó a la Prisión Parroquial de Orleans.",
+          "needle": [
+            "que",
+            "sepultó",
+            "a"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 72,
+          "matched_word": "que",
+          "start_s": 16.879,
+          "duration_s": 3.5
+        },
+        {
+          "anchor_idx": 3,
+          "anchor8": "Seis mil quinientas vidas, muchos niños, quedaron abandonadas.",
+          "needle": [
+            "seis",
+            "mil",
+            "quinientas"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 88,
+          "matched_word": "Seis",
+          "start_s": 20.379,
+          "duration_s": 5.461
+        },
+        {
+          "anchor_idx": 4,
+          "anchor8": "El agua, fría y putrefacta, subió hasta el",
+          "needle": [
+            "el",
+            "agua",
+            "fría"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 104,
+          "matched_word": "El",
+          "start_s": 25.84,
+          "duration_s": 8.079
+        },
+        {
+          "anchor_idx": 5,
+          "anchor8": "Más de quinientos prisioneros jamás figuraron en los",
+          "needle": [
+            "más",
+            "de",
+            "quinientos"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 136,
+          "matched_word": "Más",
+          "start_s": 33.919,
+          "duration_s": 3.121
+        },
+        {
+          "anchor_idx": 6,
+          "anchor8": "Los escalofriantes relatos de reclusos, que vieron cadáveres",
+          "needle": [
+            "los",
+            "escalofriantes",
+            "relatos"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 150,
+          "matched_word": "los",
+          "start_s": 37.04,
+          "duration_s": 14.759
+        },
+        {
+          "anchor_idx": 7,
+          "anchor8": "¿Cuántas vidas se perdieron realmente, cuántas más fueron",
+          "needle": [
+            "cuántas",
+            "vidas",
+            "se"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 206,
+          "matched_word": "¿Cuántas",
+          "start_s": 51.799,
+          "duration_s": 7.16
+        },
+        {
+          "anchor_idx": 8,
+          "anchor8": "Este oscuro capítulo en la historia de Nueva",
+          "needle": [
+            "este",
+            "oscuro",
+            "capítulo"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 234,
+          "matched_word": "Este",
+          "start_s": 58.959,
+          "duration_s": 6.64
+        },
+        {
+          "anchor_idx": 9,
+          "anchor8": "el costo tangible de una sociedad que",
+          "needle": [
+            "el",
+            "costo",
+            "tangible"
+          ],
+          "matched_by": "fallback-1tok",
+          "word_idx": 266,
+          "matched_word": "el",
+          "start_s": 65.599,
+          "duration_s": 2.888
+        }
+      ],
+      "offset": 0.0,
+      "total": 68.487,
+      "veo_dur": 8.0,
+      "veo_position": "end",
+      "s0_in_band": null,
+      "uniform_fallback": false,
+      "audio_regen_post_m03": false,
+      "timestamps_mtime": "2026-07-04 13:08:16"
+    }
+  ]
+}
