@@ -506,8 +506,13 @@ _FLUIDIFICADOR_SCHEMA = {"type": "OBJECT",
                          "required": ["prose"]}
 
 
-def _build_fluidificador_user(slots: dict, locked: list[dict], profile) -> str:
-    """Arma el input del fluidificador caminando profile.formula (orden del perfil)."""
+def _build_fluidificador_user(slots: dict, locked: list[dict], profile,
+                              extra_feedback: str = "") -> str:
+    """Arma el input del fluidificador caminando profile.formula (orden del perfil).
+
+    extra_feedback (HANDOFF_134): feedback de retry de REGLA 3 (text-leakage). Se apendiza
+    al final para que persista a través de los reintentos de Guarda 1 dentro de esta llamada.
+    Vacío (default) → prompt idéntico al de antes."""
     tii = slots.get("text_in_image") or {}
     if tii.get("present"):
         text_line = (f'render: reads "{tii.get("text","")}" · font={tii.get("font","")} '
@@ -526,6 +531,7 @@ def _build_fluidificador_user(slots: dict, locked: list[dict], profile) -> str:
     years = [it["num"] for it in locked if it["kind"] == "year"]
     meas_str = ", ".join(measures) if measures else "(none)"
     years_str = ", ".join(years) if years else "(none)"
+    tail = f"\n\n{extra_feedback.strip()}" if extra_feedback.strip() else ""
     return f"""{body}
 
 MANDATORY MEASURES — each MUST appear in the prose as the numeral IMMEDIATELY
@@ -535,11 +541,11 @@ number does not fit this image, it does NOT belong here — do not invent a unit
 MANDATORY YEARS (exact, as-is, e.g. "1885", "1939"): {years_str}
 
 Weave everything into ONE fluent English prose prompt following the order above,
-and close with: {profile.aspect_ratio_text}"""
+and close with: {profile.aspect_ratio_text}{tail}"""
 
 
 def _fluidify_item(slots: dict, locked: list[dict], profile, label: str,
-                   max_attempts: int = 3) -> str:
+                   max_attempts: int = 3, extra_feedback: str = "") -> str:
     """Llama el fluidificador y verifica la Guarda 1 (post-check determinista).
     Reintenta si una cifra se perdió/redondeó o quedó unidad española.
 
@@ -547,8 +553,13 @@ def _fluidify_item(slots: dict, locked: list[dict], profile, label: str,
     DEGRADA: acepta la MEJOR prosa producida (la de menos faltantes), soltando las
     cifras que no entraron, con WARN ruidoso (qué cifra, qué cap/img). Honra el propio
     prompt del fluidificador ("si una cifra no entra, no la metas"). Solo si NINGÚN
-    intento devolvió prosa utilizable → VisualValidationError (fallo legítimo)."""
-    user = _build_fluidificador_user(slots, locked, profile)
+    intento devolvió prosa utilizable → VisualValidationError (fallo legítimo).
+
+    extra_feedback (HANDOFF_134): feedback de REGLA 3 del ciclo externo de re-tejido; se
+    apendiza al prompt en TODOS los intentos de Guarda 1 de esta llamada. Presupuesto
+    INDEPENDIENTE del de Guarda 1: el ciclo de leakage (en _fluidify_one) re-llama a
+    _fluidify_item completo, cada uno con sus max_attempts de Guarda 1."""
+    user = _build_fluidificador_user(slots, locked, profile, extra_feedback)
     last_missing: list[str] = []
     last_spanish: list[str] = []
     best_prose: str = ""
@@ -570,7 +581,7 @@ def _fluidify_item(slots: dict, locked: list[dict], profile, label: str,
             best_missing, best_spanish = missing, spanish
         last_missing, last_spanish = missing, spanish
         if attempt < max_attempts:
-            user = (_build_fluidificador_user(slots, locked, profile) +
+            user = (_build_fluidificador_user(slots, locked, profile, extra_feedback) +
                     f"\n\nRETRY: the previous weave broke Guarda 1. Missing numerals: "
                     f"{missing or '-'}. Spanish unit words left: {spanish or '-'}. "
                     f"Re-weave keeping EVERY mandatory number exact (numeral) with its "
@@ -586,6 +597,66 @@ def _fluidify_item(slots: dict, locked: list[dict], profile, label: str,
         f"{label}: fluidificador no devolvió prosa utilizable en {max_attempts} intentos "
         f"(missing={last_missing}, spanish_units={last_spanish})."
     )
+
+
+# Máximo de RE-TEJIDOS por imagen cuando fuga la regla 3. Presupuesto INDEPENDIENTE de
+# Guarda 1 (cada _fluidify_item lleva su propio retry ×3 de cifras). Worst-case por imagen
+# fugada = (1+2) tejidos × 3 intentos Guarda 1, todos calls Pro que pasan por track_gemini_*.
+LEAK_MAX_RETEJIDOS = 2
+
+
+def _fluidify_with_leakage_guard(it: dict, locked: list[dict], profile, documented,
+                                 cap_number: int, i: int) -> str:
+    """Teje la prosa de UN ítem con Guarda 1 (_fluidify_item) + REGLA 3 (text-leakage) DENTRO
+    del ciclo de re-tejido — espejo COMPLETO de Guarda 1 (HANDOFF_134):
+
+      teje → scrub_documented_names (ANTES del check, igual que hoy) → _find_text_leakage
+      (camino-C exime el rótulo sancionado de text_in_image) → si FUGA y quedan re-tejidos
+      (máx 2): re-teje SOLO ese ítem con feedback (el fragmento + instrucción educativa) →
+      si tras los intentos SIGUE fugando: BACKSTOP scrub quirúrgico + WARN (run SIGUE) →
+      re-check post-scrub acotado → recién si queda fuera de rango: VisualValidationError.
+
+    Devuelve la prosa final (limpia o degradada). Levanta solo en el terminal legítimo."""
+    intentional = (it.get("text_in_image") or {}).get("text", "")
+    feedback = ""
+    prose = ""
+    for leak_try in range(1, LEAK_MAX_RETEJIDOS + 2):   # 1 inicial + LEAK_MAX_RETEJIDOS
+        prose = _fluidify_item(it, locked, profile, f"cap {cap_number} img #{i}",
+                               extra_feedback=feedback)
+        prose, _ = scrub_documented_names(prose, documented)   # ANTES del check
+        found = _find_text_leakage(prose, allow_intentional_text=True,
+                                   intentional_text=intentional)
+        if found is None:
+            break   # prosa limpia
+        frag = found[2]
+        if leak_try <= LEAK_MAX_RETEJIDOS:
+            feedback = (
+                "TEXT LEAKAGE (rule 3): the previous weave described on-image text/words "
+                f'(offending fragment: "{frag}"). Describe the OBJECT itself plainly WITHOUT '
+                "naming or spelling any word, text, label, sign, inscription or title on it. "
+                "Show a surface that is simply worn, blank or bare — no 'the word ...', no "
+                "'a label reading ...', no 'letters spelling ...'.")
+            continue
+        # ── BACKSTOP: scrub quirúrgico + re-check acotado (nunca 1 img mata el topic) ──
+        scrubbed = prose
+        for _ in range(5):
+            if _find_text_leakage(scrubbed, allow_intentional_text=True,
+                                  intentional_text=intentional) is None:
+                break
+            scrubbed = _scrub_text_leakage(scrubbed, allow_intentional_text=True,
+                                           intentional_text=intentional)
+        print(f"  ⚠ [m03] cap {cap_number} img #{i}: Regla 3 DEGRADADA tras "
+              f"{LEAK_MAX_RETEJIDOS} intentos — fragmento scrubeado: '{frag}'. "
+              f"Prosa aceptada SIN esa referencia (run sigue).")
+        prose = scrubbed
+        break
+    # rango: si tras todo (incl. scrub) la prosa quedó inutilizable → fallo legítimo
+    # (terminal hermano del de Guarda 1).
+    if not (PROMPT_MIN_CHARS <= len(prose) <= KLING_PROMPT_MAX_CHARS):
+        raise VisualValidationError(
+            f"cap {cap_number} (seedream) img #{i}: prosa fuera de rango "
+            f"({len(prose)} chars, target {PROMPT_MIN_CHARS}-{KLING_PROMPT_MAX_CHARS}).")
+    return prose
 
 
 def _seedream_facts_verbatim(hard_fact_ids, facts: list) -> list[str]:
@@ -743,22 +814,17 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
         # B1 §2-B: suelta medidas sobrantes (>1/imagen) ANTES de lockear → el fluidificador
         # nunca recibe una carga imposible (raíz del crash Guarda 1).
         locked = _enforce_measure_fit(locked, f"cap {cap_number} img #{i}")
-        prose = _fluidify_item(it, locked, profile, f"cap {cap_number} img #{i}")
-        # raw_llm_prompt = los slots crudos (auditoría m05, se conserva)
+        # raw_llm_prompt = los slots crudos (auditoría m05); sale de los slots, NO de la prosa
+        # → se fija una vez, independiente de los re-tejidos de leakage.
         it["raw_llm_prompt"] = json.dumps(
             {k: it.get(k) for k in (*SEEDREAM_SLOT_KEYS, "text_in_image", "hard_fact_ids")},
             ensure_ascii=False)
-        # scrub nombres de PERSONA (conservado, los dos motores) ANTES del leakage.
-        prose, _ = scrub_documented_names(prose, documented)
-        # R3 invertida: text_in_image (rótulo de lugar) PERMITIDO; eufemismos siguen prohibidos.
-        _validate_no_text_leakage(prose, f"cap {cap_number} (seedream) img #{i}",
-                                  allow_intentional_text=True,
-                                  intentional_text=(it.get("text_in_image") or {}).get("text", ""))
-        if not (PROMPT_MIN_CHARS <= len(prose) <= KLING_PROMPT_MAX_CHARS):
-            raise VisualValidationError(
-                f"cap {cap_number} (seedream) img #{i}: prosa fuera de rango "
-                f"({len(prose)} chars, target {PROMPT_MIN_CHARS}-{KLING_PROMPT_MAX_CHARS}).")
-        it["prompt"] = prose
+        # REGLA 3 con RETRY + feedback → BACKSTOP scrub (HANDOFF_134): extraído a función
+        # module-level (testeable) que mete el leakage-guard en el ciclo de re-tejido, espejo
+        # de Guarda 1. Antes _validate_no_text_leakage era FATAL de un tiro → 1 img fugada
+        # mataba el topic entero + todo el gasto Pro.
+        it["prompt"] = _fluidify_with_leakage_guard(
+            it, locked, profile, documented, cap_number, i)
         it["art_profile"] = ""
 
     items = list(enumerate(slots_out["image_prompts"], start=1))
@@ -1540,6 +1606,82 @@ def _validate_no_text_leakage(prompt: str, label: str,
             f"  Reescribí el prompt eliminando cualquier referencia a "
             f"'name', 'text', 'label', 'words' o lo equivalente."
         )
+
+
+# ── HANDOFF_134: detección que INFORMA (span) en vez de raise, + scrub quirúrgico ──
+# Mismos patrones/pasadas/exención que _validate_no_text_leakage (la detección NO se afloja);
+# solo cambia la RESPUESTA: el path seedream (site 754) usa esto para retry+backstop.
+def _find_text_leakage(prose: str, allow_intentional_text: bool = False,
+                       intentional_text: str = "") -> "tuple[int, int, str] | None":
+    """Devuelve (start, end, fragmento) del PRIMER match de text-leakage sobre la prosa
+    ORIGINAL, o None si está limpia. Espejo de la detección de _validate_no_text_leakage:
+    Pasada 1 (eufemismos, IGNORECASE), camino-C (exime el rótulo sancionado de text_in_image),
+    y Pasada 2 (nombre propio) SALTEADA para seedream (allow_intentional_text=True)."""
+    norm_intentional = intentional_text.strip().casefold() if intentional_text else ""
+    for pattern in TEXT_LEAKAGE_PATTERNS:
+        m = re.search(pattern, prose, re.IGNORECASE)
+        if not m:
+            continue
+        frag = m.group(0)
+        if allow_intentional_text and norm_intentional:
+            q = re.search(r"['\"]([^'\"]+)['\"]", frag)
+            if q:
+                qn = q.group(1).strip().casefold()
+                if qn == norm_intentional or qn in norm_intentional or norm_intentional in qn:
+                    continue   # es el rótulo sancionado → no es fuga (camino C)
+        return (m.start(), m.end(), frag)
+    if not allow_intentional_text:
+        m = re.search(TEXT_LEAKAGE_PATTERN_PROPER_NOUN, prose)
+        if m:
+            return (m.start(), m.end(), m.group(0))
+    return None
+
+
+# Palabras que ATAN una cláusula de rótulo al objeto ("a vial BEARING the word ..."). El scrub
+# arranca desde acá para no dejar inglés roto ("bearing  in faded ink").
+_LEAK_ATTACH_WORDS = (
+    "bearing", "reading", "that reads", "that read", "labeled", "labelled", "marked",
+    "inscribed", "showing", "displaying", "stamped", "engraved", "etched", "printed",
+    "spelling", "titled", "named", "featuring", "with the words", "with the word",
+)
+_LEAK_ATTACH_RE = re.compile(
+    r"\b(?:" + "|".join(w.replace(" ", r"\s+") for w in _LEAK_ATTACH_WORDS) + r")\b\s*$",
+    re.IGNORECASE)
+
+
+def _scrub_text_leakage(prose: str, allow_intentional_text: bool = False,
+                        intentional_text: str = "") -> str:
+    """Backstop de REGLA 3 (134): saca QUIRÚRGICAMENTE la cláusula que nombra texto-en-imagen
+    y limpia la prosa (nada de 'bearing  in faded ink', ni comas colgantes, ni doble espacio).
+    Expande el match a límites de cláusula (attach-word / coma previa / próxima coma o punto).
+    UNA pasada; el caller repite hasta que _find_text_leakage devuelva None (loop acotado).
+    NO afloja la detección — solo repara la prosa cuando el retry no alcanzó."""
+    found = _find_text_leakage(prose, allow_intentional_text, intentional_text)
+    if found is None:
+        return prose
+    lo, hi, _frag = found
+    # IZQUIERDA: attach-word pegado antes del match; si no, la coma previa cercana.
+    pre = prose[:lo]
+    ma = _LEAK_ATTACH_RE.search(pre)
+    if ma:
+        lo = ma.start()
+    else:
+        ci = pre.rfind(",")
+        if ci != -1 and (lo - ci) <= 80:
+            lo = ci   # se come la coma introductoria de la cláusula
+    # DERECHA: hasta la próxima coma (la consume) o punto (lo conserva).
+    post = prose[hi:]
+    me = re.search(r"[,.]", post)
+    if me:
+        hi = hi + me.start() + (1 if post[me.start()] == "," else 0)
+    scrubbed = prose[:lo].rstrip() + " " + prose[hi:].lstrip()
+    # Limpieza: espacios dobles, espacio-antes-de-puntuación, comas colgantes/dobles.
+    scrubbed = re.sub(r"\s+", " ", scrubbed)
+    scrubbed = re.sub(r"\s+([,.;:])", r"\1", scrubbed)
+    scrubbed = re.sub(r",\s*,", ",", scrubbed)
+    scrubbed = re.sub(r",\s*\.", ".", scrubbed)
+    scrubbed = re.sub(r"\(\s*\)", "", scrubbed)
+    return scrubbed.strip().strip(",").strip()
 
 
 def _find_closest_narration_fragment(anchor: str, narration: str) -> str | None:

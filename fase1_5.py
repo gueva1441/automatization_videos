@@ -67,6 +67,20 @@ VALID_FROM_STEPS = ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03")
 STEPS_DIR: Path = DATA_DIR / "scripts" / "_steps"
 TOPICS_DB: Path = DATA_DIR / "topics_db.json"
 
+# Orden completo de la cadena (incluye assemble, que VALID_FROM_STEPS no lista).
+_PIPELINE_ORDER = ("m01a", "m01b", "normalizer_gate", "audio", "m07", "m03", "assemble")
+
+
+def _derive_failed_step(from_step: str, steps_completed) -> str | None:
+    """YAPA (HANDOFF_134): el paso REAL donde falló = el primer paso (en orden, DESDE
+    from_step) que NO quedó en steps_completed. from_step es el paso DESDE donde ARRANCÓ
+    la corrida, NO donde falló (rótulo mentiroso: 'FAIL en m01a' para un crash de m03).
+    Devuelve None si no es determinable (todos los pasos previstos completaron) → el caller
+    imprime un rótulo honesto en vez del mentiroso."""
+    done = set(steps_completed or [])
+    start = _PIPELINE_ORDER.index(from_step) if from_step in _PIPELINE_ORDER else 0
+    return next((s for s in _PIPELINE_ORDER[start:] if s not in done), None)
+
 
 def _build_audio_script(
     topic_id: str,
@@ -352,7 +366,11 @@ def process_topic(
     except Exception as e:
         result["status"] = "FAIL"
         result["error"] = f"{type(e).__name__}: {e}"
-        print(f"\n  ❌ Topic {topic_id} FAIL en {from_step}: {result['error']}")
+        # YAPA (HANDOFF_134): rótulo HONESTO del paso REAL donde falló, no from_step.
+        failed_step = _derive_failed_step(from_step, result.get("steps_completed"))
+        result["failed_step"] = failed_step
+        _label = failed_step or f"(paso desconocido, arrancó en {from_step})"
+        print(f"\n  ❌ Topic {topic_id} FAIL en {_label}: {result['error']}")
 
     return result
 
