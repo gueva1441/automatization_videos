@@ -43,6 +43,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stderr.reconfigure(encoding="utf-8")
 
 from config import DATA_DIR, OUTPUT_DIR
+from cost_tracker import cost_tracker   # HANDOFF_133: resumen de costo Gemini al cerrar la corrida
 from csv_exporter import parse_decisions_csv, OUTPUT_CSV, export_single_topic_csv
 
 # Módulos del motor de guion
@@ -442,10 +443,21 @@ def run_one_topic_from_menu(
         print(f"  ✅ {chosen_id}")
         print(f"     pasos: {result.get('steps_completed')}")
         print(f"{'═' * 60}\n")
+        _print_gemini_cost()
         return 0
     print(f"  ❌ {chosen_id}  ({result.get('error', '?')})")
     print(f"{'═' * 60}\n")
+    _print_gemini_cost()
     return 1
+
+
+def _print_gemini_cost() -> None:
+    """HANDOFF_133: resumen de costo Gemini al cerrar la corrida (m03 corre 2.5-pro).
+    Defensivo: nunca rompe el cierre por un fallo de telemetría."""
+    try:
+        cost_tracker.print_gemini_report()
+    except Exception:
+        pass
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -533,6 +545,7 @@ def main():
             print(f"  ❌ {r['topic_id']}  ({r.get('error', '?')})")
 
     print()
+    _print_gemini_cost()
     sys.exit(0 if n_fail == 0 else 1)
 
 

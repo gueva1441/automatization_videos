@@ -55,6 +55,7 @@ from pathlib import Path
 from google.genai import types
 
 from config import api, gemini_client, DATA_DIR
+from cost_tracker import cost_tracker   # HANDOFF_133: telemetría de las deep-research Pro+search
 from error_handler import error_handler, PipelineStage
 
 from researcher_steps.step_4a_facts import extract_facts_and_sources
@@ -293,6 +294,8 @@ def _research_angle(seed: dict, angle: dict) -> str:
             temperature=0.7,
         ),
     )
+    # Tracking de costo por tokens (HANDOFF_133) — Pro + google_search (deep-research, caro).
+    cost_tracker.track_gemini_response(response, api.gemini_model_research, f"deep-{angle['key']}")
 
     raw = ""
     try:
@@ -629,6 +632,8 @@ RESPONDE SOLO CON EL JSON. Sin markdown."""
             temperature=0.7,
         ),
     )
+    # Tracking de costo por tokens (HANDOFF_133) — Pro + google_search (research seed simple).
+    cost_tracker.track_gemini_response(response, api.gemini_model_research, "research_seed_simple")
 
     raw = ""
     for part in (response.candidates[0].content.parts or []):

@@ -17,6 +17,30 @@ from config import DATA_DIR, pipeline
 from error_handler import error_handler, PipelineStage
 
 
+# Tarifas Gemini POR TOKEN (HANDOFF_133) — USD por 1M tokens, precios lista Google al
+# 2026-07-04 (prompt ≤200k). El thinking se COBRA como output. DEFAULTS commiteados acá
+# (config.py está gitignored → no viajan); pipeline.costs["gemini_rates_per_1m"] los OVERRIDEA
+# por-modelo si existe. "_default" = fallback conservador (tarifa Pro) si el modelo no está.
+_DEFAULT_GEMINI_RATES_PER_1M = {
+    "gemini-2.5-pro":         {"input": 1.25, "output": 10.00},
+    "gemini-2.5-flash":       {"input": 0.30, "output": 2.50},
+    "gemini-3-flash-preview": {"input": 0.30, "output": 2.50},
+    "_default":               {"input": 1.25, "output": 10.00},
+}
+
+
+def _gemini_rates_for(model: str) -> dict:
+    """Tarifa {input,output} del modelo: defaults commiteados + override de config."""
+    merged = {**_DEFAULT_GEMINI_RATES_PER_1M, **(pipeline.costs.get("gemini_rates_per_1m") or {})}
+    return merged.get(model) or merged.get("_default") or {"input": 1.25, "output": 10.0}
+
+
+def _gemini_service_name(model: str) -> str:
+    """Deriva el nombre de servicio del string del modelo (no hardcodea Pro/Flash —
+    mañana cambia la versión). "gemini-2.5-pro" → "Gemini 2.5 Pro"."""
+    return (model or "gemini").replace("-", " ").title()
+
+
 @dataclass
 class CostEntry:
     """Una entrada individual de costo."""
@@ -25,9 +49,16 @@ class CostEntry:
     service: str
     description: str
     units: float          # cantidad (chars, imágenes, clips, etc.)
-    unit_label: str       # "images", "characters", "clips", "calls"
+    unit_label: str       # "images", "characters", "clips", "calls", "tokens"
     cost_per_unit: float
     total_cost: float
+    # ── Telemetría de tokens (HANDOFF_133) — 0 para entries no-Gemini. thinking se
+    # factura como output pero se guarda aparte para poder verlo. usage_ok=False marca
+    # una llamada cuyo usage_metadata faltó (se cuenta con tokens 0, no se pierde). ──
+    tokens_in: int = 0
+    tokens_out: int = 0
+    tokens_thinking: int = 0
+    usage_ok: bool = True
 
 
 @dataclass
@@ -91,6 +122,49 @@ class CostTracker:
             units=calls,
             unit_label="calls",
             cost_per_unit=cost_per,
+        )
+
+    def track_gemini_tokens(self, description: str, model: str,
+                            input_tokens: int, output_tokens: int,
+                            thinking_tokens: int = 0, usage_ok: bool = True) -> None:
+        """Registra costo de Gemini POR TOKENS (HANDOFF_133). Pro/Flash se distinguen
+        por el string del modelo; la tarifa sale de pipeline.costs["gemini_rates_per_1m"].
+        El thinking se cobra como output pero se guarda en su propio campo para verlo."""
+        rate = _gemini_rates_for(model)
+        input_tokens = int(input_tokens or 0)
+        output_tokens = int(output_tokens or 0)
+        thinking_tokens = int(thinking_tokens or 0)
+        billed_out = output_tokens + thinking_tokens   # thinking factura como output
+        cost = input_tokens / 1e6 * rate["input"] + billed_out / 1e6 * rate["output"]
+        self._add_entry(
+            stage=PipelineStage.SCRIPT.value,
+            service=_gemini_service_name(model),
+            description=description,
+            units=input_tokens + billed_out,
+            unit_label="tokens",
+            cost_per_unit=0.0,          # no aplica (tarifa in/out distinta)
+            total_cost=cost,
+            tokens_in=input_tokens,
+            tokens_out=output_tokens,
+            tokens_thinking=thinking_tokens,
+            usage_ok=usage_ok,
+        )
+
+    def track_gemini_response(self, response, model: str, description: str = "") -> None:
+        """Atajo para los productores: extrae usage_metadata de la respuesta Gemini
+        (tolerante a ausencia → tokens 0 + usage_ok=False, no se pierde la llamada) y
+        delega en track_gemini_tokens. Una sola costura para todos los call sites."""
+        um = getattr(response, "usage_metadata", None)
+        if um is None:
+            self.track_gemini_tokens(description or "gemini", model, 0, 0, 0, usage_ok=False)
+            return
+        self.track_gemini_tokens(
+            description=description or "gemini",
+            model=model,
+            input_tokens=getattr(um, "prompt_token_count", 0) or 0,
+            output_tokens=getattr(um, "candidates_token_count", 0) or 0,
+            thinking_tokens=getattr(um, "thoughts_token_count", 0) or 0,
+            usage_ok=True,
         )
 
     def track_gemini_vision(self, description: str, calls: int = 1) -> None:
@@ -215,12 +289,18 @@ class CostTracker:
     # ─── Internos ───
 
     def _add_entry(self, stage: str, service: str, description: str,
-                   units: float, unit_label: str, cost_per_unit: float) -> None:
+                   units: float, unit_label: str, cost_per_unit: float,
+                   total_cost: float | None = None, tokens_in: int = 0,
+                   tokens_out: int = 0, tokens_thinking: int = 0,
+                   usage_ok: bool = True) -> None:
         """
         Acumula un CostEntry en el bucket correcto:
           · Si hay video activo → entry va al video.
           · Si NO hay video activo → entry va a session_overhead (Fase 1,
             research, descubrimiento). Sin warning.
+
+        total_cost explícito (HANDOFF_133): cuando la tarifa no es units×cost_per_unit
+        (p.ej. Gemini con tarifa input/output distinta), el caller lo pasa ya calculado.
         """
         entry = CostEntry(
             timestamp=datetime.now().isoformat(),
@@ -230,7 +310,11 @@ class CostTracker:
             units=units,
             unit_label=unit_label,
             cost_per_unit=cost_per_unit,
-            total_cost=round(units * cost_per_unit, 6),
+            total_cost=round(total_cost if total_cost is not None else units * cost_per_unit, 6),
+            tokens_in=tokens_in,
+            tokens_out=tokens_out,
+            tokens_thinking=tokens_thinking,
+            usage_ok=usage_ok,
         )
 
         if self.current_video:
@@ -316,12 +400,79 @@ class CostTracker:
             print(f"    {svc:<30s} ${cost:.4f}")
         print("=" * 50 + "\n")
 
+    def _all_entries(self):
+        """Itera TODAS las entries de la sesión (videos + overhead)."""
+        for video in self.session_videos:
+            yield from video.entries
+        if self.current_video:
+            yield from self.current_video.entries
+        yield from self.session_overhead
+
+    def get_gemini_summary(self) -> dict:
+        """Agrega las entries de Gemini (unit_label='tokens') por modelo/servicio:
+        #llamadas, tokens in/out/thinking, $ y llamadas con usage_metadata ausente."""
+        by_model: dict[str, dict] = {}
+        for e in self._all_entries():
+            if e.unit_label != "tokens":
+                continue
+            m = by_model.setdefault(e.service, {
+                "calls": 0, "tokens_in": 0, "tokens_out": 0,
+                "tokens_thinking": 0, "cost_usd": 0.0, "usage_missing": 0,
+            })
+            m["calls"] += 1
+            m["tokens_in"] += e.tokens_in
+            m["tokens_out"] += e.tokens_out
+            m["tokens_thinking"] += e.tokens_thinking
+            m["cost_usd"] += e.total_cost
+            if not e.usage_ok:
+                m["usage_missing"] += 1
+        for m in by_model.values():
+            m["cost_usd"] = round(m["cost_usd"], 4)
+        totals = {
+            "calls": sum(m["calls"] for m in by_model.values()),
+            "tokens_in": sum(m["tokens_in"] for m in by_model.values()),
+            "tokens_out": sum(m["tokens_out"] for m in by_model.values()),
+            "tokens_thinking": sum(m["tokens_thinking"] for m in by_model.values()),
+            "cost_usd": round(sum(m["cost_usd"] for m in by_model.values()), 4),
+            "usage_missing": sum(m["usage_missing"] for m in by_model.values()),
+        }
+        return {"by_model": by_model, "totals": totals}
+
+    def print_gemini_report(self) -> None:
+        """Bloque Gemini del resumen — que Omar vea el $ al cerrar la corrida sin abrir
+        el dashboard de Google. No imprime nada si no hubo llamadas Gemini trackeadas."""
+        g = self.get_gemini_summary()
+        if g["totals"]["calls"] == 0:
+            return
+        t = g["totals"]
+        print("\n" + "─" * 50)
+        print("  🧠 GEMINI (por tokens — thinking incluido)")
+        print("─" * 50)
+        for svc, m in sorted(g["by_model"].items()):
+            print(f"    {svc:<22} {m['calls']:>4} calls  "
+                  f"in {m['tokens_in']:>8,}  out {m['tokens_out']:>8,}  "
+                  f"think {m['tokens_thinking']:>8,}  ${m['cost_usd']:.4f}")
+            if m["usage_missing"]:
+                print(f"      ⚠ {m['usage_missing']} llamada(s) sin usage_metadata (contadas con 0 tokens)")
+        print("─" * 50)
+        print(f"    TOTAL Gemini: {t['calls']} calls · in {t['tokens_in']:,} · "
+              f"out {t['tokens_out']:,} · think {t['tokens_thinking']:,} · "
+              f"${t['cost_usd']:.4f} USD")
+
+    def print_summary(self) -> None:
+        """Resumen completo de la corrida: servicios (fal/seedream/...) + bloque Gemini.
+        (HANDOFF_133: fase2a ya llamaba a print_summary — antes no existía y el except la
+        tragaba; ahora existe e incluye Gemini.)"""
+        self.print_session_report()
+        self.print_gemini_report()
+
     def save_session_report(self, filepath: Path | None = None) -> Path:
         """Guarda el reporte de sesión como JSON."""
         if filepath is None:
             filepath = DATA_DIR / f"session_report_{datetime.now():%Y%m%d_%H%M%S}.json"
         report = {
             "session": self.get_session_summary(),
+            "gemini": self.get_gemini_summary(),
             "historical": self.get_historical_summary(),
             "videos": [asdict(v) for v in self.session_videos],
             "session_overhead": [asdict(e) for e in self.session_overhead],

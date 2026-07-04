@@ -384,11 +384,8 @@ Formato exacto:
         ),
     )
 
-    # Tracking de costo (regla del proyecto)
-    cost_tracker.track_gemini(
-        description=f"dynamic_queries: {niche_key}",
-        calls=1,
-    )
+    # Tracking de costo por tokens (HANDOFF_133)
+    cost_tracker.track_gemini_response(response, api.gemini_model, f"dynamic_queries: {niche_key}")
 
     text = _concat_response_text(response)
     raw = _extract_json_array(text)
@@ -1090,6 +1087,9 @@ Formato:
             temperature=0.8,
         ),
     )
+
+    # Tracking de costo por tokens (HANDOFF_133) — Pro + google_search (discovery, caro).
+    cost_tracker.track_gemini_response(response, api.gemini_model_research, "niche_archetypes")
 
     text = _concat_response_text(response)
     candidates = _extract_json_array(text)

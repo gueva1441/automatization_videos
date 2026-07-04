@@ -6,6 +6,10 @@ from google import genai
 from google.genai import types
 from google.genai import errors as genai_errors
 from config import APIConfig
+# HANDOFF_133: telemetría de costo por tokens en EL productor (una sola costura para
+# todos los módulos que llaman via call_flash_json/call_pro_json). cost_tracker NO importa
+# gemini_helpers → sin ciclo.
+from cost_tracker import cost_tracker
 
 _cfg = APIConfig()
 _client = genai.Client(api_key=_cfg.gemini_api_key)
@@ -140,6 +144,8 @@ def call_flash_json(prompt: str, system_instruction: str | None = None,
             contents=prompt,
             config=types.GenerateContentConfig(**config_kwargs),
         ))
+        # HANDOFF_133: trackear cada generación REAL (incluye re-llamadas por parseo).
+        cost_tracker.track_gemini_response(resp, _cfg.gemini_model, "call_flash_json")
         return resp.text
     return _parse_with_retry(_get_text)
 
@@ -168,5 +174,7 @@ def call_pro_json(prompt: str, system_instruction: str | None = None,
             contents=prompt,
             config=types.GenerateContentConfig(**config_kwargs),
         ))
+        # HANDOFF_133: trackear cada generación REAL (incluye re-llamadas por parseo).
+        cost_tracker.track_gemini_response(resp, _cfg.gemini_model_research, "call_pro_json")
         return resp.text
     return _parse_with_retry(_get_text)
