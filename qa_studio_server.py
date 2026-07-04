@@ -1332,6 +1332,65 @@ _FORM: dict = {"running": False, "returncode": None, "console": [], "marker": No
 _FORM_LOCK = threading.Lock()
 _FORM_PROC: dict = {"p": None}
 
+# ═════════════════════════════════════════════════════════════════
+#  HANDOFF_135 — review server de MINIATURAS embebido (spawn a demanda)
+#  Patrón ENSAMBLAR: subprocess, NO import (m09_packaging arrastra config/gemini/cost_tracker
+#  que este server evita a propósito, docstring L10-11). Huérfano si el QA Studio muere =
+#  igual que lanzarlo a mano; aceptado, no se blinda acá.
+# ═════════════════════════════════════════════════════════════════
+_THUMBS: dict = {"proc": None, "port": None}
+_THUMBS_LOCK = threading.Lock()
+
+
+def _free_port_local() -> int:
+    """Puerto libre (socket-bind-0). qa_studio_server no tiene uno propio → local."""
+    import socket
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(("127.0.0.1", 0))
+    port = s.getsockname()[1]
+    s.close()
+    return port
+
+
+def _port_responds(port, timeout: float = 0.25) -> bool:
+    """True si algo acepta conexión en 127.0.0.1:port (el review server ya levantó)."""
+    if not port:
+        return False
+    import socket
+    try:
+        with socket.create_connection(("127.0.0.1", int(port)), timeout=timeout):
+            return True
+    except OSError:
+        return False
+
+
+def _thumbs_start() -> dict:
+    """Spawnea el review server de thumbnails (--review --port --no-browser) sobre el TOPIC_ID
+    en proceso. Idempotente: si ya hay uno vivo, devuelve {already, port} sin relanzar."""
+    with _THUMBS_LOCK:
+        p = _THUMBS["proc"]
+        if p is not None and p.poll() is None:
+            return {"already": True, "port": _THUMBS["port"]}
+        port = _free_port_local()
+        proc = subprocess.Popen(
+            [sys.executable, "-m", "script_engine.m09_packaging", TOPIC_ID,
+             "--review", "--port", str(port), "--no-browser"],
+            cwd=str(BASE_DIR),
+            env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+        )
+        _THUMBS["proc"] = proc
+        _THUMBS["port"] = port
+        return {"started": True, "port": port}
+
+
+def _thumbs_status() -> dict:
+    """{running: proc vivo, port, ready: el puerto ya responde}."""
+    with _THUMBS_LOCK:
+        p = _THUMBS["proc"]
+        port = _THUMBS["port"]
+    running = p is not None and p.poll() is None
+    return {"running": running, "port": port, "ready": bool(running and _port_responds(port))}
+
 
 def _form_command() -> list[str]:
     """Comando del run asistido. FACTORIZADO para que el smoke inyecte un stub.
@@ -1656,6 +1715,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._send_file(_FORM_MENU_HTML.get(menu), "text/html; charset=utf-8")
             elif route == "/form_state":
                 self._send_json(_form_state())
+            elif route == "/thumbs_status":
+                self._send_json(_thumbs_status())   # HANDOFF_135
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)
         except Exception as e:  # noqa: BLE001
@@ -1759,6 +1820,11 @@ class Handler(BaseHTTPRequestHandler):
             elif route == "/form_shutdown":
                 print("  ▶ form: cerrando server (pedido desde el form)…")
                 self._send_json(_form_shutdown())
+            elif route == "/thumbs_start":
+                res = _thumbs_start()   # HANDOFF_135: spawn a demanda del review server
+                tag = "ya vivo" if res.get("already") else "lanzado"
+                print(f"  🖼 thumbs: {tag} en :{res.get('port')} ({TOPIC_ID[:8]}…)")
+                self._send_json(res)
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)
         except Exception as e:  # noqa: BLE001

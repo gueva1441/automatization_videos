@@ -330,10 +330,23 @@ function renderRail(){
     el.onclick=()=>selectCap(c.cap);
     rail.appendChild(el);
   });
+  // HANDOFF_135 — card MINIATURAS tras los caps: review server embebido (spawn a demanda).
+  const tp=document.createElement('div'); tp.className='pill'; tp.dataset.cap='__thumbs__';
+  tp.innerHTML=`<div class="top"><div class="num">🖼</div><div class="dot"></div></div>
+    <div class="role" style="color:var(--violet)">MINIATURAS</div>
+    <div class="cnt">post-assets</div>`;
+  tp.onclick=()=>selectCap('__thumbs__');
+  rail.appendChild(tp);
 }
 function markActive(cap){ document.querySelectorAll('.pill').forEach(p=>p.classList.toggle('active',p.dataset.cap===cap)); }
 
 async function selectCap(cap){
+  // HANDOFF_135 — card MINIATURAS: no es un cap real → panel embebido, sin fetch /cap ni audio.
+  if(cap==='__thumbs__'){
+    stopPlayback(); curCap=cap; markActive(cap);
+    if(fixPoll){ clearInterval(fixPoll); fixPoll=null; }
+    renderThumbsPanel(); return;
+  }
   stopPlayback(); curCap=cap; markActive(cap);
   if(fixPoll){ clearInterval(fixPoll); fixPoll=null; }
   FIXBUST={};
@@ -345,6 +358,36 @@ async function selectCap(cap){
     activeIdx=0; previewIdx=0;
     renderTimeline(CUR);   // v1.7: TODOS los caps usan timeline (caps veo con el clip como segmento)
   }catch(e){ $('view').innerHTML=`<div class="err">error cargando ${cap}: ${e.message}</div>`; }
+}
+
+/* ════════ HANDOFF_135 — card MINIATURAS: review server de thumbnails embebido ════════ */
+let thumbsPoll=null;
+async function renderThumbsPanel(){
+  if(thumbsPoll){ clearInterval(thumbsPoll); thumbsPoll=null; }
+  const view=$('view');
+  const shell=(msg)=>`<div class="chcard"><div class="chhead"><div>
+      <div class="chrole" style="color:var(--violet)">MINIATURAS</div>
+      <div class="chtitle">Review de thumbnails</div></div></div>
+      <div style="padding:18px 2px 4px;color:var(--dim);font-family:var(--mono);font-size:12px">${msg}</div></div>`;
+  view.innerHTML=shell('arrancando form de miniaturas…');
+  let start;
+  try{ start=await (await fetch('/thumbs_start',{method:'POST'})).json(); }
+  catch(e){ view.innerHTML=shell('no pude lanzar el form: '+esc(e.message)+' — revisá la consola del server.'); return; }
+  if(start.error){ view.innerHTML=shell('error: '+esc(start.error)+' — revisá la consola del server.'); return; }
+  const t0=Date.now();
+  thumbsPoll=setInterval(async()=>{
+    if(curCap!=='__thumbs__'){ clearInterval(thumbsPoll); thumbsPoll=null; return; }  // cambió de card
+    let st;
+    try{ st=await (await fetch('/thumbs_status')).json(); }catch(e){ return; }
+    if(st.ready && st.port){
+      clearInterval(thumbsPoll); thumbsPoll=null;
+      view.innerHTML=`<div class="chcard" style="padding:12px"><iframe src="http://127.0.0.1:${st.port}/"
+        style="width:100%;height:78vh;border:0;border-radius:12px;background:#0b0b12"></iframe></div>`;
+    }else if(Date.now()-t0>20000){
+      clearInterval(thumbsPoll); thumbsPoll=null;
+      view.innerHTML=shell('el form no respondió en 20s — revisá la consola del server.');
+    }
+  },700);
 }
 
 /* ════════ TIMELINE CAP (flux 2-6 + veo-end 7) ════════ */

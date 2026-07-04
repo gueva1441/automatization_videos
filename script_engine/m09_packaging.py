@@ -595,11 +595,15 @@ def _open(path_or_url) -> None:
         print(f"  (no pude abrir el navegador: {e} — abrí a mano {path_or_url})")
 
 
-def run_review(tid: str, video_path: str | None = None, on_compose=None) -> None:
+def run_review(tid: str, video_path: str | None = None, on_compose=None,
+               port: int | None = None, open_browser: bool = True) -> None:
     """--review levanta el FORM web local. video_path (de fase3/topics_db) va al CHECKLIST;
-    on_compose(thumb_name) se llama tras cada COMPONER exitoso (fase3 lo usa para PACKAGED)."""
+    on_compose(thumb_name) se llama tras cada COMPONER exitoso (fase3 lo usa para PACKAGED).
+    port/open_browser (HANDOFF_135): el QA Studio lo spawnea con puerto fijo y sin abrir
+    pestaña (lo embebe en iframe). Default = comportamiento de siempre (puerto libre + abre)."""
     from script_engine.m09_review_server import serve
-    serve(tid, video_path=video_path, on_compose=on_compose)
+    serve(tid, video_path=video_path, on_compose=on_compose,
+          port=port, open_browser=open_browser)
 
 
 def _resolve_base(tid: str, base: str) -> Path:
@@ -694,6 +698,10 @@ def main() -> int:
     ap.add_argument("--video-path", default=None,
                     help="Ruta del MP4 para el CHECKLIST (fase3 la resuelve desde topics_db). "
                          "Si falta, cae al nombre v3 histórico.")
+    ap.add_argument("--port", type=int, default=None,
+                    help="(HANDOFF_135, modo review) puerto fijo del form; default = libre.")
+    ap.add_argument("--no-browser", action="store_true",
+                    help="(HANDOFF_135, modo review) NO abrir pestaña (el QA Studio lo embebe).")
     args = ap.parse_args()
 
     try:
@@ -709,7 +717,8 @@ def main() -> int:
         run_compose(args.topic_id, args.base, args.text, args.title, focus=args.focus,
                     fill=args.fill, video_path=args.video_path)
     else:  # review solo → form sin generar
-        run_review(args.topic_id, video_path=args.video_path)
+        run_review(args.topic_id, video_path=args.video_path,
+                   port=args.port, open_browser=not args.no_browser)
     return 0
 
 

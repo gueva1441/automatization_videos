@@ -341,16 +341,21 @@ def _free_port() -> int:
     return port
 
 
-def serve(tid: str, video_path: str | None = None, on_compose=None) -> None:
+def serve(tid: str, video_path: str | None = None, on_compose=None,
+          port: int | None = None, open_browser: bool = True) -> None:
+    """port=None → puerto libre (compat fase3/CLI). open_browser=False → NO abre pestaña
+    (HANDOFF_135: el QA Studio lo embebe en iframe; abrir sería una pestaña duplicada)."""
     Handler.state = ReviewState(tid, video_path=video_path, on_compose=on_compose)
-    port = _free_port()
+    if port is None:
+        port = _free_port()
     httpd = ThreadingHTTPServer((HOST, port), Handler)
     url = f"http://{HOST}:{port}/"
     print("─" * 60)
     print(f"  Form de review de thumbnails — {tid}")
     print(f"  ▶ {url}    (Ctrl+C para frenar)")
     print("─" * 60)
-    pkg._open(url)
+    if open_browser:
+        pkg._open(url)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
