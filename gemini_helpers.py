@@ -120,7 +120,8 @@ def _parse_with_retry(get_text_fn) -> dict:
 
 
 def call_flash_json(prompt: str, system_instruction: str | None = None,
-                    response_schema=None) -> dict:
+                    response_schema=None, thinking_budget: int | None = None,
+                    description: str | None = None) -> dict:
     """Llama a Gemini Flash y devuelve la respuesta parseada como dict.
 
     Args:
@@ -132,6 +133,11 @@ def call_flash_json(prompt: str, system_instruction: str | None = None,
             a config_kwargs para forzar la estructura del output (los campos del
             schema pasan a ser obligatorios). Si es None, NO se incluye el field —
             comportamiento idéntico al previo (default).
+        thinking_budget: opcional (HANDOFF_134b). Si se pasa (p.ej. 0 para tareas
+            mecánicas como el fluidificador), fija ThinkingConfig(thinking_budget=N).
+            None (default) → NO se incluye → comportamiento idéntico al previo.
+        description: opcional (HANDOFF_134b). Tag de módulo/paso para la telemetría por
+            call. None → "call_flash_json" (comportamiento previo).
     """
     def _get_text():
         config_kwargs = {"response_mime_type": "application/json"}
@@ -139,19 +145,22 @@ def call_flash_json(prompt: str, system_instruction: str | None = None,
             config_kwargs["system_instruction"] = system_instruction
         if response_schema is not None:
             config_kwargs["response_schema"] = response_schema
+        if thinking_budget is not None:
+            config_kwargs["thinking_config"] = types.ThinkingConfig(thinking_budget=thinking_budget)
         resp = _with_retry(lambda: _client.models.generate_content(
             model=_cfg.gemini_model,
             contents=prompt,
             config=types.GenerateContentConfig(**config_kwargs),
         ))
         # HANDOFF_133: trackear cada generación REAL (incluye re-llamadas por parseo).
-        cost_tracker.track_gemini_response(resp, _cfg.gemini_model, "call_flash_json")
+        cost_tracker.track_gemini_response(resp, _cfg.gemini_model, description or "call_flash_json")
         return resp.text
     return _parse_with_retry(_get_text)
 
 
 def call_pro_json(prompt: str, system_instruction: str | None = None,
-                  response_schema=None) -> dict:
+                  response_schema=None, thinking_budget: int | None = None,
+                  description: str | None = None) -> dict:
     """Llama a Gemini Pro y devuelve la respuesta parseada como dict.
 
     Args:
@@ -162,6 +171,11 @@ def call_pro_json(prompt: str, system_instruction: str | None = None,
         response_schema: opcional (MODEL_PROMPTING_RULES R4). Si se pasa, se agrega
             a config_kwargs. Si es None, NO se incluye — comportamiento idéntico
             al previo (default).
+        thinking_budget: opcional (HANDOFF_134b). None (default) → NO se incluye →
+            comportamiento idéntico al previo. (2.5 Pro NO permite thinking_budget=0;
+            este handoff NO se lo pasa a Pro — el 🥈 gatea los caps de Pro aparte.)
+        description: opcional (HANDOFF_134b). Tag de módulo/paso para la telemetría.
+            None → "call_pro_json" (comportamiento previo).
     """
     def _get_text():
         config_kwargs = {"response_mime_type": "application/json"}
@@ -169,12 +183,14 @@ def call_pro_json(prompt: str, system_instruction: str | None = None,
             config_kwargs["system_instruction"] = system_instruction
         if response_schema is not None:
             config_kwargs["response_schema"] = response_schema
+        if thinking_budget is not None:
+            config_kwargs["thinking_config"] = types.ThinkingConfig(thinking_budget=thinking_budget)
         resp = _with_retry(lambda: _client.models.generate_content(
             model=_cfg.gemini_model_research,
             contents=prompt,
             config=types.GenerateContentConfig(**config_kwargs),
         ))
         # HANDOFF_133: trackear cada generación REAL (incluye re-llamadas por parseo).
-        cost_tracker.track_gemini_response(resp, _cfg.gemini_model_research, "call_pro_json")
+        cost_tracker.track_gemini_response(resp, _cfg.gemini_model_research, description or "call_pro_json")
         return resp.text
     return _parse_with_retry(_get_text)

@@ -132,6 +132,12 @@ SEEDREAM_SLOT_KEYS = (
     "lighting", "mood", "style",
 )
 
+# HANDOFF_134b: el skeleton de SLOTS (razonamiento: elige escena + relevancia de facts) va en
+# Pro. Single-source: lo usan el caller (use_pro) Y el print de fase — que hardcodeaba "Flash"
+# (3er rótulo mentiroso de la saga). Derivar SIEMPRE de acá, nunca texto fijo.
+SEEDREAM_SLOTS_USE_PRO = True
+_SEEDREAM_SLOTS_MODEL_LABEL = "Pro" if SEEDREAM_SLOTS_USE_PRO else "Flash"
+
 # Paralelismo del fluidificador per-imagen (el 55% de las ~90 llamadas Pro por topic).
 # Los ítems son independientes (cada uno muta su propio slot-dict; sin estado compartido;
 # call_pro_json no toca cost_tracker). Techo real = límite RPM de Gemini Pro (1000) → sobra;
@@ -567,8 +573,13 @@ def _fluidify_item(slots: dict, locked: list[dict], profile, label: str,
     best_missing: list[str] = []
     best_spanish: list[str] = []
     for attempt in range(1, max_attempts + 1):
-        out = call_pro_json(user, system_instruction=FLUIDIFICADOR_SYSTEM,
-                            response_schema=_FLUIDIFICADOR_SCHEMA)
+        # HANDOFF_134b: el fluidificador es TAREA MECÁNICA (tejer slots ya decididos en prosa)
+        # → Flash + thinking_budget=0. Antes Pro con ~82% thinking (medido) = plata quemada.
+        # A/B aprobado por Omar. Los re-tejidos (leakage 134) y retries de Guarda 1 heredan
+        # este caller → también Flash+tb0. Slots (razonamiento) siguen en Pro, aparte.
+        out = call_flash_json(user, system_instruction=FLUIDIFICADOR_SYSTEM,
+                              response_schema=_FLUIDIFICADOR_SCHEMA,
+                              thinking_budget=0, description="m03:fluidificador")
         prose = (out or {}).get("prose", "") if isinstance(out, dict) else ""
         prose = re.sub(r"\s+", " ", prose).strip()
         missing, spanish = _post_check_locked(prose, locked)
@@ -799,7 +810,8 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
         prompt, _validator, cap_number,
         system_instruction=SYSTEM_INSTRUCTION_VISUAL_SEEDREAM,
         response_schema=_seedream_slots_schema(n),
-        use_pro=True,
+        use_pro=SEEDREAM_SLOTS_USE_PRO,
+        description="m03:slots",
     )
 
     # ── fluidificador per-item + Guarda 1 + scrub + text-leakage (R3 invertida) ──
@@ -1935,6 +1947,7 @@ def _call_with_validation_retry(
     checklist: str | None = None,
     response_schema=None,
     use_pro: bool = False,
+    description: str | None = None,
 ) -> dict:
     """Llama Flash, valida, reintenta con feedback si falla.
 
@@ -1965,7 +1978,7 @@ def _call_with_validation_retry(
 
     for attempt in range(1, max_attempts + 1):
         raw = _caller(attempt_prompt, system_instruction=system_instruction,
-                      response_schema=response_schema)
+                      response_schema=response_schema, description=description)
         try:
             return validator_fn(raw)
         except VisualValidationError as e:
@@ -2033,7 +2046,8 @@ motion + subtle motion on the subject, all of elements ALREADY in the first-fram
     last = ""
     for attempt in range(1, max_attempts + 1):
         out = call_pro_json(user, system_instruction=_SEEDREAM_MOTION_SYSTEM,
-                            response_schema=_SEEDREAM_MOTION_SCHEMA)
+                            response_schema=_SEEDREAM_MOTION_SCHEMA,
+                            description="m03:motion")
         vp = (out or {}).get("video_prompt", "") if isinstance(out, dict) else ""
         vp = re.sub(r"\s+", " ", vp).strip()
         last = vp
@@ -2252,7 +2266,7 @@ def assign_visual_prompts(
                 f"  [03] cap {cap_n} (veo, pos={veo_position}) → "
                 f"1 clip Veo {VEO_CLIP_DURATION_SEC:.0f}s + {n_flux_extras} "
                 f"Flux extras (audio {cap_duration_sec:.1f}s, "
-                f"veo_zone≈{veo_zone_chars} chars), llamando Flash..."
+                f"veo_zone≈{veo_zone_chars} chars), slots {_SEEDREAM_SLOTS_MODEL_LABEL} + weave Flash..."
             )
             # CHAT 52 (m03 two-step): PASO 1 elige los anchors (productor LLM + fallback
             # determinístico), PASO 2 escribe los prompts con cada anchor YA fijo. El "anchor vacío"
@@ -2304,7 +2318,7 @@ def assign_visual_prompts(
             print(
                 f"  [03] cap {cap_n} (flux) → {n_images} imgs "
                 f"(audio {cap_duration_sec:.1f}s ÷ {SECONDS_PER_IMAGE_TARGET}s "
-                f"target, role={sch.get('role','?')}), llamando Flash..."
+                f"target, role={sch.get('role','?')}), slots {_SEEDREAM_SLOTS_MODEL_LABEL} + weave Flash..."
             )
             # CHAT 52 (m03 two-step): PASO 1 elige los anchors (productor LLM + fallback
             # determinístico), PASO 2 escribe los prompts con cada anchor YA fijo. Mata el "anchor

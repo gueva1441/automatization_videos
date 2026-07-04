@@ -415,10 +415,24 @@ class CostTracker:
             yield from self.current_video.entries
         yield from self.session_overhead
 
+    @staticmethod
+    def _gemini_module_of(description: str) -> str:
+        """Módulo/paso de una entry Gemini para el desglose (HANDOFF_134b). Usa el `description`
+        del call site: 'm03:fluidificador'/'m03:slots'/'m03:motion', 'deep-*'/'niche_*'/
+        'dynamic_queries' (discovery), y los genéricos 'call_flash_json'/'call_pro_json' (los
+        callers del motor sin tag → agrupan como 'motor (sin tag)')."""
+        d = (description or "").strip()
+        if d in ("call_flash_json", "call_pro_json", ""):
+            return "motor (sin tag)"
+        if ": " in d:              # sufijo free-text (p.ej. "dynamic_queries: <niche>")
+            return d.split(": ", 1)[0]
+        return d                   # "m03:fluidificador", "deep-tecnico", etc.
+
     def get_gemini_summary(self) -> dict:
-        """Agrega las entries de Gemini (unit_label='tokens') por modelo/servicio:
-        #llamadas, tokens in/out/thinking, $ y llamadas con usage_metadata ausente."""
+        """Agrega las entries de Gemini (unit_label='tokens') por modelo/servicio Y por módulo
+        (description): #llamadas, tokens in/out/thinking, $ y llamadas con usage_metadata ausente."""
         by_model: dict[str, dict] = {}
+        by_desc: dict[str, dict] = {}
         for e in self._all_entries():
             if e.unit_label != "tokens":
                 continue
@@ -426,15 +440,22 @@ class CostTracker:
                 "calls": 0, "tokens_in": 0, "tokens_out": 0,
                 "tokens_thinking": 0, "cost_usd": 0.0, "usage_missing": 0,
             })
-            m["calls"] += 1
-            m["tokens_in"] += e.tokens_in
-            m["tokens_out"] += e.tokens_out
-            m["tokens_thinking"] += e.tokens_thinking
-            m["cost_usd"] += e.total_cost
+            d = by_desc.setdefault(self._gemini_module_of(e.description), {
+                "calls": 0, "tokens_in": 0, "tokens_out": 0,
+                "tokens_thinking": 0, "cost_usd": 0.0,
+            })
+            for bucket in (m, d):
+                bucket["calls"] += 1
+                bucket["tokens_in"] += e.tokens_in
+                bucket["tokens_out"] += e.tokens_out
+                bucket["tokens_thinking"] += e.tokens_thinking
+                bucket["cost_usd"] += e.total_cost
             if not e.usage_ok:
                 m["usage_missing"] += 1
         for m in by_model.values():
             m["cost_usd"] = round(m["cost_usd"], 4)
+        for d in by_desc.values():
+            d["cost_usd"] = round(d["cost_usd"], 4)
         totals = {
             "calls": sum(m["calls"] for m in by_model.values()),
             "tokens_in": sum(m["tokens_in"] for m in by_model.values()),
@@ -443,7 +464,7 @@ class CostTracker:
             "cost_usd": round(sum(m["cost_usd"] for m in by_model.values()), 4),
             "usage_missing": sum(m["usage_missing"] for m in by_model.values()),
         }
-        return {"by_model": by_model, "totals": totals}
+        return {"by_model": by_model, "by_desc": by_desc, "totals": totals}
 
     def print_gemini_report(self) -> None:
         """Bloque Gemini del resumen — que Omar vea el $ al cerrar la corrida sin abrir
@@ -461,6 +482,16 @@ class CostTracker:
                   f"think {m['tokens_thinking']:>8,}  ${m['cost_usd']:.4f}")
             if m["usage_missing"]:
                 print(f"      ⚠ {m['usage_missing']} llamada(s) sin usage_metadata (contadas con 0 tokens)")
+        # Desglose POR MÓDULO (HANDOFF_134b chascada 2) — para gatear el 🥈 con dato fino.
+        if g["by_desc"]:
+            print("  · por módulo:")
+            for mod, d in sorted(g["by_desc"].items(), key=lambda kv: -kv[1]["cost_usd"]):
+                th = d["tokens_thinking"]
+                billed = d["tokens_out"] + th
+                pct = f"{round(th / billed * 100)}% think" if billed else "—"
+                print(f"    {mod:<20} {d['calls']:>4} calls  "
+                      f"in {d['tokens_in']:>8,}  out {d['tokens_out']:>8,}  "
+                      f"think {th:>8,}  ${d['cost_usd']:.4f}  ({pct})")
         print("─" * 50)
         print(f"    TOTAL Gemini: {t['calls']} calls · in {t['tokens_in']:,} · "
               f"out {t['tokens_out']:,} · think {t['tokens_thinking']:,} · "
