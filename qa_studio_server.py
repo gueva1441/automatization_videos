@@ -1338,7 +1338,7 @@ _FORM_PROC: dict = {"p": None}
 #  que este server evita a propósito, docstring L10-11). Huérfano si el QA Studio muere =
 #  igual que lanzarlo a mano; aceptado, no se blinda acá.
 # ═════════════════════════════════════════════════════════════════
-_THUMBS: dict = {"proc": None, "port": None}
+_THUMBS: dict = {"proc": None, "port": None, "tid": None}
 _THUMBS_LOCK = threading.Lock()
 
 
@@ -1366,11 +1366,26 @@ def _port_responds(port, timeout: float = 0.25) -> bool:
 
 def _thumbs_start() -> dict:
     """Spawnea el review server de thumbnails (--review --port --no-browser) sobre el TOPIC_ID
-    en proceso. Idempotente: si ya hay uno vivo, devuelve {already, port} sin relanzar."""
+    en proceso. Idempotente POR TOPIC (HANDOFF_135b): si el vivo es del MISMO tid → {already};
+    si es de OTRO tid (el visor reapuntó TOPIC_ID) → mata el viejo y relanza {relaunched}, para
+    no servir miniaturas del topic equivocado. p muerto/None → {started}."""
     with _THUMBS_LOCK:
         p = _THUMBS["proc"]
-        if p is not None and p.poll() is None:
+        alive = p is not None and p.poll() is None
+        if alive and _THUMBS["tid"] == TOPIC_ID:
             return {"already": True, "port": _THUMBS["port"]}
+        relaunched = False
+        old_tid = _THUMBS["tid"]
+        if alive:   # vivo pero de OTRO topic → matar el viejo antes de relanzar
+            try:
+                p.terminate()
+                p.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                p.kill()
+                p.wait()
+            except Exception:  # noqa: BLE001 — ya moribundo: no bloquear el relanzamiento
+                pass
+            relaunched = True
         port = _free_port_local()
         proc = subprocess.Popen(
             [sys.executable, "-m", "script_engine.m09_packaging", TOPIC_ID,
@@ -1380,6 +1395,12 @@ def _thumbs_start() -> dict:
         )
         _THUMBS["proc"] = proc
         _THUMBS["port"] = port
+        _THUMBS["tid"] = TOPIC_ID
+        if relaunched:
+            # rótulo derivado del dato REAL (los dos tids), no texto fijo.
+            print(f"  🖼 thumbs: topic cambió ({(old_tid or '?')[:8]}→{TOPIC_ID[:8]}), "
+                  f"relanzando en :{port}")
+            return {"relaunched": True, "port": port}
         return {"started": True, "port": port}
 
 
@@ -1822,8 +1843,9 @@ class Handler(BaseHTTPRequestHandler):
                 self._send_json(_form_shutdown())
             elif route == "/thumbs_start":
                 res = _thumbs_start()   # HANDOFF_135: spawn a demanda del review server
-                tag = "ya vivo" if res.get("already") else "lanzado"
-                print(f"  🖼 thumbs: {tag} en :{res.get('port')} ({TOPIC_ID[:8]}…)")
+                if not res.get("relaunched"):   # el relaunch ya loguea su propia línea (135b)
+                    tag = "ya vivo" if res.get("already") else "lanzado"
+                    print(f"  🖼 thumbs: {tag} en :{res.get('port')} ({TOPIC_ID[:8]}…)")
                 self._send_json(res)
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)

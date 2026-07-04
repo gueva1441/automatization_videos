@@ -36,9 +36,22 @@ class _FakeHTTPD:
 class _FakeProc:
     def __init__(self):
         self.alive = True
+        self.terminated = False
+        self.killed = False
 
     def poll(self):
         return None if self.alive else 0
+
+    def terminate(self):
+        self.terminated = True
+        self.alive = False
+
+    def kill(self):
+        self.killed = True
+        self.alive = False
+
+    def wait(self, timeout=None):
+        return 0
 
 
 def main() -> int:
@@ -60,8 +73,10 @@ def main() -> int:
     finally:
         rs.ThreadingHTTPServer, rs.ReviewState, pkg._open = o_httpd, o_state, o_open
 
-    # ── (2) _thumbs_start() doble ──
+    # ── (2) _thumbs_start() idempotente POR TID (HANDOFF_135b) ──
     o_popen = q.subprocess.Popen
+    o_thumbs = dict(q._THUMBS)
+    o_tid = q.TOPIC_ID
     procs: list = []
 
     def _fake_popen(*a, **k):
@@ -70,22 +85,37 @@ def main() -> int:
         return p
 
     q.subprocess.Popen = _fake_popen
-    o_thumbs = dict(q._THUMBS)
-    q._THUMBS.update(proc=None, port=None)
     try:
+        q.TOPIC_ID = "AAAAAAAA-topic-a"
+        q._THUMBS.update(proc=None, port=None, tid=None)
         r1 = q._thumbs_start()
         _check(r1.get("started") and r1.get("port"), f"(2) 1er start sin 'started'/port: {r1}", fails)
+        _check(q._THUMBS["tid"] == "AAAAAAAA-topic-a", "(2) no guardó el tid al lanzar", fails)
+
+        # proc vivo + MISMO tid → already, terminate NO llamado (caso feliz, regresión)
         r2 = q._thumbs_start()
         _check(r2.get("already") and r2.get("port") == r1.get("port"),
-               f"(2) 2do start (proc vivo) no dio 'already' mismo port: {r2}", fails)
-        _check(len(procs) == 1, f"(2) relanzó con proc vivo (procs={len(procs)})", fails)
-        procs[0].alive = False   # el proc murió
+               f"(2) mismo tid no dio 'already' mismo port: {r2}", fails)
+        _check(not procs[0].terminated, "(2) mató el server del caso feliz (mismo tid)", fails)
+        _check(len(procs) == 1, f"(2) relanzó con mismo tid (procs={len(procs)})", fails)
+
+        # proc vivo + tid DISTINTO → relaunched, terminate SÍ, tid actualizado
+        q.TOPIC_ID = "BBBBBBBB-topic-b"
         r3 = q._thumbs_start()
-        _check(r3.get("started"), f"(2) proc muerto no relanzó: {r3}", fails)
-        _check(len(procs) == 2, f"(2) no spawneó uno nuevo tras muerte (procs={len(procs)})", fails)
+        _check(r3.get("relaunched") and r3.get("port"), f"(2) tid distinto no dio 'relaunched': {r3}", fails)
+        _check(procs[0].terminated, "(2) NO mató el server viejo al cambiar de topic (bug 135b)", fails)
+        _check(len(procs) == 2, f"(2) no spawneó uno nuevo al cambiar topic (procs={len(procs)})", fails)
+        _check(q._THUMBS["tid"] == "BBBBBBBB-topic-b", "(2) no actualizó _THUMBS['tid']", fails)
+
+        # proc muerto → started (camino sin relaunch)
+        procs[1].alive = False
+        r4 = q._thumbs_start()
+        _check(r4.get("started"), f"(2) proc muerto no relanzó 'started': {r4}", fails)
+        _check(len(procs) == 3, f"(2) no spawneó tras muerte (procs={len(procs)})", fails)
     finally:
         q.subprocess.Popen = o_popen
         q._THUMBS.update(o_thumbs)
+        q.TOPIC_ID = o_tid
 
     # ── (3) _port_responds() ──
     srv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
