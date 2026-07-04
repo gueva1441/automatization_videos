@@ -481,16 +481,40 @@ def build_animated_clip(
     Router: intenta DepthFlow → si falla → Ken Burns 2D.
     Devuelve 'depthflow' | 'kenburns' según qué se usó realmente.
     Esta es la API que llama fase2b.py.
+
+    HANDOFF_135d — ventanas LARGAS: hoy `loop=True` estira UN ciclo a toda la ventana; la
+    velocidad validada al ojo a ~7s se ralentiza a 12-17s (casi estático). Si la ventana
+    supera CYCLE_S+2s, se renderiza UN ciclo seamless de CYCLE_S (loop=True → termina donde
+    empieza) y se extiende con -stream_loop -1 + -t (corte invisible, sin crossfade/reverse).
+    El escalado de intensity para imágenes CORTAS (duration < referencia) NO se toca.
     """
+    fps = fps or flow_render.fps
+    CYCLE_S = _DURATION_REFERENCE_S           # 7.0 — la referencia validada al ojo
+    LOOP_THRESHOLD_S = CYCLE_S + 2.0          # 9.0 — un ciclo hasta 9s todavía se lee bien
     try:
-        build_depthflow_clip(
-            image_path=image_path, output_path=output_path,
-            duration=duration, flow_spec=flow_spec,
-            width=width, height=height, fps=fps,
-            tiling_mode=tiling_mode,
-        )
+        if duration <= LOOP_THRESHOLD_S:
+            # Camino de HOY, intacto: un ciclo = la ventana.
+            build_depthflow_clip(
+                image_path=image_path, output_path=output_path,
+                duration=duration, flow_spec=flow_spec,
+                width=width, height=height, fps=fps,
+                tiling_mode=tiling_mode,
+            )
+        else:
+            # Ventana larga: 1 ciclo seamless de CYCLE_S + stream_loop hasta `duration`.
+            cycle_clip = output_path.with_name(f"{output_path.stem}_cycle{output_path.suffix}")
+            build_depthflow_clip(
+                image_path=image_path, output_path=cycle_clip,
+                duration=CYCLE_S, flow_spec=flow_spec,
+                width=width, height=height, fps=fps,
+                tiling_mode=tiling_mode,
+            )
+            _loop_extend_clip(cycle_clip, output_path, duration, fps)
+            cycle_clip.unlink(missing_ok=True)
         return "depthflow"
-    except (DepthFlowError, FileNotFoundError) as e:
+    except (DepthFlowError, FileNotFoundError, RuntimeError) as e:
+        # RuntimeError incluido (HANDOFF_135d): si el stream_loop del camino largo falla,
+        # se degrada a Ken Burns con la ventana COMPLETA, preservando la resiliencia.
         if not flow_render.fallback_to_kenburns:
             raise
         error_handler.log_warning(
@@ -502,6 +526,39 @@ def build_animated_clip(
             duration=duration, width=width, height=height, fps=fps,
         )
         return "kenburns"
+
+
+def _loop_extend_clip(cycle_clip: Path, output_path: Path, duration: float, fps: int) -> None:
+    """HANDOFF_135d — extiende un ciclo DepthFlow seamless (loop=True) a `duration` con
+    -stream_loop -1 + -t. Molde EXACTO de fase2b (loop del clip veo, fase2b:1006-1024) +
+    re-encode consistente con el resto del pipeline (libx264/yuv420p, preset/crf del hook).
+    Silencioso (-an). Levanta RuntimeError si ffmpeg falla → el router cae a Ken Burns."""
+    cmd = [
+        api.ffmpeg_path, "-y",
+        "-stream_loop", "-1",       # input option: ANTES de -i (loop infinito del ciclo)
+        "-i", str(cycle_clip),
+        "-t", f"{duration:.3f}",    # corta a la ventana exacta
+        "-c:v", "libx264",
+        "-preset", "medium",
+        "-crf", "18",
+        "-r", str(fps),             # mismo fps que emitió build_depthflow_clip
+        "-pix_fmt", "yuv420p",
+        "-an",
+        str(output_path),
+    ]
+    try:
+        result = subprocess.run(
+            cmd, capture_output=True, text=True,
+            timeout=180, encoding="utf-8", errors="replace",
+        )
+    except subprocess.TimeoutExpired:
+        cycle_clip.unlink(missing_ok=True)
+        raise RuntimeError(f"FFmpeg stream_loop timeout (180s) sobre {cycle_clip.name}")
+    if result.returncode != 0 or not output_path.exists():
+        cycle_clip.unlink(missing_ok=True)
+        raise RuntimeError(
+            f"FFmpeg stream_loop falló sobre {cycle_clip.name}: {result.stderr[-300:]}"
+        )
 
 
 # ═══════════════════════════════════════════════════════════════
