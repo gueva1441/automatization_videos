@@ -200,6 +200,22 @@ def _run_cmd(cmd: list[str], timeout: int = 600) -> subprocess.CompletedProcess:
     return subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
 
 
+def _scaled_timeout(total_dur: float, floor: int) -> int:
+    """Timeout proporcional a la duración del contenido (5× realtime), con piso.
+
+    El costo de un re-encode FFmpeg escala con la duración del video; un timeout
+    fijo se queda corto en videos largos. `total_dur` no-positivo/None → el piso.
+    """
+    if not total_dur or total_dur <= 0:
+        return floor
+    return max(floor, int(total_dur * 5))
+
+
+def _concat_timeout(total_dur: float) -> int:
+    """Timeout del concat final (piso 900). 60s→900 · 687s→3435 · 0/neg→900."""
+    return _scaled_timeout(total_dur, 900)
+
+
 def _get_duration(filepath: Path, ffprobe: str) -> float:
     result = _run_cmd(
         [ffprobe, "-v", "quiet", "-print_format", "json",
@@ -214,8 +230,17 @@ def _get_duration(filepath: Path, ffprobe: str) -> float:
 
 def _concat_demuxer_fallback(
     segments: list[Path], final_path: Path, work_dir: Path, ffmpeg: str,
+    ffprobe: str, total_dur: float | None = None,
 ) -> Path:
-    """Concat demuxer puro (hard cut sin transiciones). Mismo comportamiento histórico."""
+    """Concat demuxer puro (hard cut sin transiciones). Mismo comportamiento histórico.
+
+    Re-encodea todo el video (libx264), así que el timeout escala con la duración
+    total igual que el concat con transiciones. `total_dur` se reusa si el caller ya
+    lo midió; si es None se mide aquí (ffprobe barato). Piso 600 (histórico).
+    """
+    if total_dur is None:
+        total_dur = sum(_get_duration(s, ffprobe) for s in segments)
+    timeout = _scaled_timeout(total_dur, 600)
     concat_file = work_dir / "_final_concat.txt"
     concat_file.write_text(
         "\n".join(f"file '{s.resolve()}'" for s in segments),
@@ -231,7 +256,7 @@ def _concat_demuxer_fallback(
         "-movflags", "+faststart",
         str(final_path),
     ]
-    result = _run_cmd(cmd, timeout=600)
+    result = _run_cmd(cmd, timeout=timeout)
     concat_file.unlink(missing_ok=True)
     if result.returncode != 0:
         raise RuntimeError(f"FFmpeg concat fallback falló: {result.stderr[-300:]}")
@@ -270,11 +295,16 @@ def concat_with_transitions(
     if len(segments) == 0:
         raise ValueError("No hay segmentos para concatenar")
     if len(segments) == 1:
-        # Un solo segmento → solo copiarlo
+        # Un solo segmento → solo copiarlo (re-encode: escala con SU duración)
+        try:
+            dur = _get_duration(segments[0], ffprobe)
+        except Exception:
+            dur = 0.0
+        timeout = _scaled_timeout(dur, 300)
         cmd = [ffmpeg, "-y", "-i", str(segments[0]),
                "-c:v", "libx264", "-c:a", "aac",
                "-movflags", "+faststart", str(final_path)]
-        result = _run_cmd(cmd, timeout=300)
+        result = _run_cmd(cmd, timeout=timeout)
         if result.returncode != 0:
             raise RuntimeError(f"FFmpeg copia 1-seg falló: {result.stderr[-300:]}")
         return final_path
@@ -282,7 +312,7 @@ def concat_with_transitions(
     # Master switch
     if not transition_render.enable_transitions:
         print("     ↩  transitions DESHABILITADAS (master switch) → concat demuxer")
-        return _concat_demuxer_fallback(segments, final_path, work_dir, ffmpeg)
+        return _concat_demuxer_fallback(segments, final_path, work_dir, ffmpeg, ffprobe)
 
     # Construir plan
     plans = build_transition_plan(len(segments), art_profiles)
@@ -290,7 +320,7 @@ def concat_with_transitions(
     # Si todas son hard_cut → no vale la pena filter_complex
     if all(p.transition_name == "hard_cut" for p in plans):
         print("     ↩  todas hard_cut → concat demuxer")
-        return _concat_demuxer_fallback(segments, final_path, work_dir, ffmpeg)
+        return _concat_demuxer_fallback(segments, final_path, work_dir, ffmpeg, ffprobe)
 
     # Resumen de transiciones (visible en logs)
     summary = " · ".join(
@@ -300,6 +330,7 @@ def concat_with_transitions(
 
     # Calcular duraciones reales
     durations = [_get_duration(s, ffprobe) for s in segments]
+    total_dur = sum(durations)
 
     # Construir filter_complex
     try:
@@ -307,7 +338,9 @@ def concat_with_transitions(
     except Exception as e:
         if transition_render.fallback_to_hard_cut:
             print(f"     ⚠ filter_complex inválido ({e}) → fallback hard cut")
-            return _concat_demuxer_fallback(segments, final_path, work_dir, ffmpeg)
+            return _concat_demuxer_fallback(
+                segments, final_path, work_dir, ffmpeg, ffprobe, total_dur
+            )
         raise
 
     # Construir comando FFmpeg
@@ -327,12 +360,16 @@ def concat_with_transitions(
         str(final_path),
     ])
 
-    result = _run_cmd(cmd, timeout=900)
+    timeout = _concat_timeout(total_dur)
+    print(f"     ⏱ concat final: {total_dur:.0f}s de video → timeout {timeout}s")
+    result = _run_cmd(cmd, timeout=timeout)
     if result.returncode != 0:
         if transition_render.fallback_to_hard_cut:
             print(f"     ⚠ FFmpeg xfade falló → fallback hard cut")
             print(f"        stderr: {result.stderr[-300:]}")
-            return _concat_demuxer_fallback(segments, final_path, work_dir, ffmpeg)
+            return _concat_demuxer_fallback(
+                segments, final_path, work_dir, ffmpeg, ffprobe, total_dur
+            )
         raise RuntimeError(
             f"FFmpeg concat con transiciones falló: {result.stderr[-300:]}"
         )
