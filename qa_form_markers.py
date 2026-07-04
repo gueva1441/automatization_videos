@@ -42,3 +42,19 @@ def emit_choice_marker(menu, prompt, options, *, default=None, body=None, payloa
     if payload is not None:
         marker["payload"] = payload
     print("@@QAFORM@@ " + json.dumps(marker, ensure_ascii=True), flush=True)
+
+
+# ── Marcador de COSTO (HANDOFF_133 · pedido Omar): línea aparte @@QAFORM_COST@@ que el
+# server bucketea por la fase activa (RESEARCH/GUION/…) → el form muestra el $ Gemini
+# sumando por etapa mientras corre. NO es un diálogo (no toca el gate). Solo con QA_FORM. ──
+def emit_cost_marker(model, usd, tokens_in, tokens_out, tokens_thinking):
+    if not QA_FORM:
+        return
+    marker = {
+        "model": model,
+        "usd": round(float(usd or 0.0), 6),
+        "in": int(tokens_in or 0),
+        "out": int(tokens_out or 0),
+        "think": int(tokens_thinking or 0),
+    }
+    print("@@QAFORM_COST@@ " + json.dumps(marker, ensure_ascii=True), flush=True)

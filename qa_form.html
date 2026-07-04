@@ -109,6 +109,10 @@
   <div class="prog" id="prog"></div>
   <div class="proglabels" id="progLabels"></div>
 
+  <!-- HANDOFF_133: costo Gemini en vivo, sumando por etapa. Oculto hasta que llega el 1er $ -->
+  <div id="costPanel" style="display:none;margin:10px 0;padding:10px 14px;border:1px solid #2a2f3a;
+       border-radius:8px;background:#12151c;font-size:13px;line-height:1.5"></div>
+
   <div id="activity"><span class="gear">⚙</span><span class="txt"></span></div>
 
   <div class="state" id="state"></div>
@@ -369,8 +373,33 @@ async function poll(){
     renderProgress(s.phase, s.phases||[], s.assets);
     renderState(s);
     renderActivity(s);
+    renderCost(s.gemini_cost);
     handleMarker(s.marker);
   }catch(e){ /* reintenta */ }
+}
+// HANDOFF_133 — panel de costo Gemini: total + desglose por ETAPA (fase activa) y por modelo.
+// Va sumando en vivo mientras corre el research/guion (el server bucketea cada llamada).
+const PHASE_ES={RESEARCH:'Research',GUION:'Guion',ASSETS:'Assets',VIDEO:'Video',PACKAGING:'Packaging','(inicio)':'Inicio'};
+function fmtUsd(n){ return '$'+(Number(n||0)).toFixed(4); }
+function renderCost(gc){
+  const el=$('costPanel'); if(!el) return;
+  if(!gc || !gc.calls){ el.style.display='none'; return; }
+  el.style.display='block';
+  const think=gc.tokens_thinking||0, out=gc.tokens_out||0;
+  const pct = (out+think)>0 ? Math.round(think/(out+think)*100) : 0;
+  let byPhase=Object.entries(gc.by_phase||{}).sort((a,b)=>b[1].usd-a[1].usd)
+      .map(([ph,v])=>`<span style="margin-right:14px">${PHASE_ES[ph]||ph}: <b>${fmtUsd(v.usd)}</b> <span style="opacity:.6">(${v.calls})</span></span>`).join('');
+  let byModel=Object.entries(gc.by_model||{}).sort((a,b)=>b[1].usd-a[1].usd)
+      .map(([m,v])=>`${m.replace('Gemini ','')} ${fmtUsd(v.usd)}`).join(' · ');
+  el.innerHTML =
+    `<div style="display:flex;justify-content:space-between;align-items:baseline">`+
+      `<span>🧠 <b>Gemini</b> — costo de esta corrida</span>`+
+      `<span style="font-size:16px"><b>${fmtUsd(gc.total_usd)}</b> USD</span>`+
+    `</div>`+
+    `<div style="margin-top:6px">${byPhase||'<span style="opacity:.6">—</span>'}</div>`+
+    `<div style="margin-top:6px;opacity:.75;font-size:12px">`+
+      `${gc.calls} llamadas · in ${(gc.tokens_in||0).toLocaleString()} · out ${out.toLocaleString()} · `+
+      `think ${think.toLocaleString()} (${pct}%) · ${byModel}</div>`;
 }
 function startPolling(){ if(pollTimer) clearInterval(pollTimer); poll(); pollTimer=setInterval(poll,1000); }
 

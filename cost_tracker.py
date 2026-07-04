@@ -149,6 +149,13 @@ class CostTracker:
             tokens_thinking=thinking_tokens,
             usage_ok=usage_ok,
         )
+        # QA form (HANDOFF_133): emitir el costo en vivo → el server lo suma por etapa.
+        # No-op fuera del subprocess del form (guardado por QA_FORM adentro del emisor).
+        try:
+            from qa_form_markers import emit_cost_marker
+            emit_cost_marker(model, cost, input_tokens, output_tokens, thinking_tokens)
+        except Exception:
+            pass   # la telemetría del form nunca rompe el tracking
 
     def track_gemini_response(self, response, model: str, description: str = "") -> None:
         """Atajo para los productores: extrae usage_metadata de la respuesta Gemini

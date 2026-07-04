@@ -1286,6 +1286,35 @@ def _start_narrfix(cap: str, feedback: str) -> dict:
 
 HTML_FORM_PATH = BASE_DIR / "qa_form.html"
 _FORM_MARKER = "@@QAFORM@@ "
+_FORM_COST_MARKER = "@@QAFORM_COST@@ "   # HANDOFF_133: costo Gemini en vivo, bucketeado por fase
+
+
+def _empty_gemini_cost() -> dict:
+    """Estructura del costo Gemini acumulado del run: total + desglose por etapa y por modelo."""
+    return {"total_usd": 0.0, "calls": 0, "tokens_in": 0, "tokens_out": 0,
+            "tokens_thinking": 0, "by_phase": {}, "by_model": {}}
+
+
+def _form_apply_cost(gc: dict, marker: dict, phase) -> None:
+    """Acumula un marcador de costo en el bucket `gc`, atribuido a la fase ACTIVA (etapa).
+    Función pura (testeable): muta gc in-place. phase None → etapa '(inicio)'."""
+    etapa = phase or "(inicio)"
+    usd = float(marker.get("usd") or 0.0)
+    tin = int(marker.get("in") or 0)
+    tout = int(marker.get("out") or 0)
+    tthink = int(marker.get("think") or 0)
+    model = marker.get("model") or "gemini"
+    gc["total_usd"] = round(gc["total_usd"] + usd, 6)
+    gc["calls"] += 1
+    gc["tokens_in"] += tin
+    gc["tokens_out"] += tout
+    gc["tokens_thinking"] += tthink
+    ph = gc["by_phase"].setdefault(etapa, {"usd": 0.0, "calls": 0})
+    ph["usd"] = round(ph["usd"] + usd, 6)
+    ph["calls"] += 1
+    md = gc["by_model"].setdefault(model, {"usd": 0.0, "calls": 0})
+    md["usd"] = round(md["usd"] + usd, 6)
+    md["calls"] += 1
 _FORM_PHASES = ["RESEARCH", "GUION", "ASSETS", "VIDEO", "PACKAGING"]
 _FORM_CONSOLE_MAX = 600
 # HTML por menú. __choice__ = diálogo genérico de botones (accept='key': video_type, …).
@@ -1298,7 +1327,8 @@ _FORM_MENU_HTML = {
     "__judge__": BASE_DIR / "qa_judge.html",   # judge_action: lista de issues + V/A/R/S
 }
 
-_FORM: dict = {"running": False, "returncode": None, "console": [], "marker": None, "phase": None, "run_tid": None}
+_FORM: dict = {"running": False, "returncode": None, "console": [], "marker": None,
+               "phase": None, "run_tid": None, "gemini_cost": _empty_gemini_cost()}
 _FORM_LOCK = threading.Lock()
 _FORM_PROC: dict = {"p": None}
 
@@ -1321,6 +1351,16 @@ def _form_reader(proc) -> None:
     try:
         for line in proc.stdout:
             line = line.rstrip("\n")
+            if line.startswith(_FORM_COST_MARKER):
+                # HANDOFF_133: costo Gemini en vivo → sumar por la fase activa (etapa).
+                try:
+                    cm = json.loads(line[len(_FORM_COST_MARKER):])
+                except json.JSONDecodeError:
+                    cm = None
+                if cm:
+                    with _FORM_LOCK:
+                        _form_apply_cost(_FORM["gemini_cost"], cm, _FORM["phase"])
+                continue  # no va a la consola
             if line.startswith(_FORM_MARKER):
                 try:
                     marker = json.loads(line[len(_FORM_MARKER):])
@@ -1374,7 +1414,8 @@ def _start_form() -> dict:
     with _FORM_LOCK:
         if _FORM["running"]:
             return {"conflict": True}
-        _FORM.update(running=True, returncode=None, console=[], marker=None, phase=None, run_tid=None)
+        _FORM.update(running=True, returncode=None, console=[], marker=None, phase=None,
+                     run_tid=None, gemini_cost=_empty_gemini_cost())
     # QA_FORM=1 → fase1 emite el marcador. PYTHONUNBUFFERED → run_pipeline Y fase1 sin
     # buffer (el marcador llega al toque). PYTHONIOENCODING=utf-8 → el hijo emite utf-8 en
     # Windows (sin esto, los ▶/emojis de fase1 tumban el child con cp1252; igual que el
@@ -1470,6 +1511,7 @@ def _form_state(tail: int = 200) -> dict:
             "phases": _FORM_PHASES,
             "marker": _FORM["marker"],
             "console_tail": list(_FORM["console"][-tail:]),
+            "gemini_cost": json.loads(json.dumps(_FORM["gemini_cost"])),  # copia para no filtrar el dict vivo
         }
     # disco fuera del lock; solo cuando importa (ASSETS)
     base["assets"] = _assets_progress(run_tid) if phase == "ASSETS" else None
