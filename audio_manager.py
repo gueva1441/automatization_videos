@@ -57,6 +57,7 @@ from error_handler import error_handler, PipelineStage
 from cost_tracker import cost_tracker
 
 from tts_normalizer import normalize_for_tts
+from anchor_timing import _norm as _anchor_norm  # HANDOFF_135e: filtra entries no-palabra
 
 
 # ═══════════════════════════════════════════
@@ -645,9 +646,13 @@ def generate_chapter_assets(
                 f"[{chapter_id}] Forced Alignment loss alto: {loss} (>0.15) — revisar sync",
             )
 
+        # HANDOFF_135e: el FA de ElevenLabs intercala entries de ESPACIO/PUNTUACIÓN pura;
+        # se filtran para que chXX_timestamps.json sea la "lista pura" que promete el docstring
+        # (el matcher anchor_timing igual las tolera; subs_remap ya las filtraba — gate OK).
         words = [
             {"word": w["text"], "start": float(w["start"]), "end": float(w["end"])}
             for w in alignment.get("words", [])
+            if _anchor_norm(w.get("text", ""))
         ]
 
         # Clamp defensivo de monotonía a nivel palabra (FA suele venir perfecto,

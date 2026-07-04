@@ -9,8 +9,8 @@ import json
 import re
 from pathlib import Path
 
-from anchor_timing import _norm, _first_n_tokens   # el matcher REAL comparte estos
-from fase2b import _get_duration                    # ffprobe, MISMO criterio que fase2b
+from anchor_timing import _norm, _needle_normalized   # el matcher REAL comparte estos
+from fase2b import _get_duration                       # ffprobe, MISMO criterio que fase2b
 
 TOPIC = "ba6c3cac-a091-41c0-8dad-afd2f4364747"
 MIN_GAP = 1.0   # MIN_ANCHOR_GAP_SEC de m03
@@ -19,7 +19,7 @@ SCRIPT = Path(f"data/scripts/{TOPIC}.json")
 AUDIO = Path(f"output/audio/{TOPIC}")
 ASSETS = Path(f"output/{TOPIC}/assets")
 BACKUPS = ASSETS / "_qa_backups"
-OUT_JSON = Path("lab/outputs/diag_235_matcher_ba6c.json")
+OUT_JSON = Path("lab/outputs/diag_235_matcher_ba6c_postfix.json")   # 135e: post-fix (el prefix queda como evidencia del bug)
 
 
 def _load(p):
@@ -27,34 +27,43 @@ def _load(p):
 
 
 def _match_instrumented(anchors, words):
-    """Réplica EXACTA de anchor_timing.compute_anchor_starts + instrumentación por anchor
-    (matched_by, word_idx, palabra, start). Devuelve (rows, starts, monotonic_ok)."""
-    word_norm = [_norm(w.get("word", "")) for w in words]
-    rows = []
-    starts = []
+    """Espejo del matcher REAL anchor_timing.compute_anchor_starts (POST-fix 135e: filtra
+    entries no-palabra, needle normalizado como el TTS, escalera 3→2→1(≥4)) + instrumentación
+    por anchor (matched_by, word_idx, palabra, start). Devuelve (rows, starts, monotonic_ok)."""
+    real_norm, real_idx = [], []
+    for idx, w in enumerate(words):
+        n = _norm(w.get("word", ""))
+        if n:
+            real_norm.append(n); real_idx.append(idx)
+    rows, starts = [], []
     cursor = 0
     for ai, anchor in enumerate(anchors):
-        needle = _first_n_tokens(anchor, n=3)
+        needle = _needle_normalized(anchor, n=3)
         row = {"anchor_idx": ai, "anchor8": " ".join((anchor or "").split()[:8]),
                "needle": needle, "matched_by": None, "word_idx": None,
                "matched_word": None, "start_s": None}
         if not needle:
-            row["matched_by"] = "NO-TOKENS"
-            rows.append(row); starts.append(None); continue
-        found, matched_by = -1, "3-tokens"
-        for i in range(cursor, len(words) - len(needle) + 1):
-            if word_norm[i:i + len(needle)] == needle:
-                found = i; break
+            row["matched_by"] = "NO-TOKENS"; rows.append(row); starts.append(None); continue
+        found, matched_by = -1, None
+        for nlen in (3, 2):
+            if len(needle) < nlen:
+                continue
+            sub = needle[:nlen]
+            for i in range(cursor, len(real_norm) - nlen + 1):
+                if real_norm[i:i + nlen] == sub:
+                    found, matched_by = i, f"{nlen}-tokens"; break
+            if found >= 0:
+                break
+        if found < 0 and len(needle[0]) >= 4:
+            for i in range(cursor, len(real_norm)):
+                if real_norm[i] == needle[0]:
+                    found, matched_by = i, "1-token"; break
         if found < 0:
-            for i in range(cursor, len(words)):
-                if word_norm[i] == needle[0]:
-                    found = i; matched_by = "fallback-1tok"; break
-        if found < 0:
-            row["matched_by"] = "NO-MATCH"
-            rows.append(row); starts.append(None); continue
-        st = float(words[found].get("start", 0.0))
-        row.update(matched_by=matched_by, word_idx=found,
-                   matched_word=words[found].get("word", ""), start_s=round(st, 3))
+            row["matched_by"] = "NO-MATCH"; rows.append(row); starts.append(None); continue
+        orig_i = real_idx[found]
+        st = float(words[orig_i].get("start", 0.0))
+        row.update(matched_by=matched_by, word_idx=orig_i,
+                   matched_word=words[orig_i].get("word", ""), start_s=round(st, 3))
         rows.append(row); starts.append(st); cursor = found + 1
     mono_ok = all(starts[i] is not None and starts[i - 1] is not None and starts[i] > starts[i - 1]
                   for i in range(1, len(starts))) and all(s is not None for s in starts)
