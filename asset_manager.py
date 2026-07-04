@@ -327,10 +327,13 @@ def _generate_image_raw(
     if profile is not None:
         # ── Motores SYNC de perfil (kling/seedream) ──
         engine = profile.engine_key
+        # is_edit (HANDOFF_133): la MISMA condición del gate /edit, capturada UNA vez para
+        # reusarla en el model_id, el log y la etiqueta de costo → la telemetría no miente.
+        is_edit = bool(foto_madre_data_uris and engine == "seedream")
         # HANDOFF_129 (Consumo-B): con foto madre + seedream → /edit (ancla por
         # referencia-imagen) en vez de t2i. Cualquier otro caso = t2i byte-idéntico.
         # HANDOFF_131 (B): la lista lleva hasta 2 anclas (cutaway submarino+reactor).
-        if foto_madre_data_uris and engine == "seedream":
+        if is_edit:
             model_id = profile.render.model_id.replace("text-to-image", "edit")
             payload = _seedream_edit_payload_for(prompt, foto_madre_data_uris, seed)
             error_handler.log_info(
@@ -366,13 +369,16 @@ def _generate_image_raw(
         img_resp.raise_for_status()
         output_path.write_bytes(img_resp.content)
 
+        # mode="edit" (HANDOFF_133) solo aplica al seedream anclado; is_edit ya lo garantiza
+        # (kling nunca es edit) → el kwarg extra jamás llega a track_kling.
+        _edit_kw = {"mode": "edit"} if is_edit else {}
         _SYNC_COST_TRACKERS[engine](
-            description=f"{output_path.stem}: {prompt[:60]}...", images=1
+            description=f"{output_path.stem}: {prompt[:60]}...", images=1, **_edit_kw
         )
 
         nsfw_list = data.get("has_nsfw_concepts") or [False]
         return {
-            "endpoint": profile.render.model_id,
+            "endpoint": model_id,   # el REAL enviado a fal (t2i o /edit) — la telemetría no miente
             "width": img.get("width"),
             "height": img.get("height"),
             "seed": data.get("seed"),

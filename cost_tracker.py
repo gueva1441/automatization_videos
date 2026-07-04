@@ -149,16 +149,18 @@ class CostTracker:
             cost_per_unit=cost_per,
         )
 
-    def track_seedream(self, description: str, images: int = 1) -> None:
-        """Registra costo de generación con Seedream 4.5 t2i (fal.run, SYNC).
+    def track_seedream(self, description: str, images: int = 1, mode: str = "t2i") -> None:
+        """Registra costo de generación con Seedream 4.5 (fal.run, SYNC).
 
-        Costo fijo $0.04/img (no depende del tamaño); el campo de costo NO viene
-        en la respuesta de fal, igual que Kling → se confirma por delta dashboard.
+        mode ∈ {"t2i","edit"} (HANDOFF_133): SOLO cambia la etiqueta del service para que
+        el costo del /edit anclado no se disfrace de t2i. La TARIFA queda 0.04 para ambos
+        modos — la real del /edit se confirma por delta dashboard (no inventar precio).
+        El campo de costo NO viene en la respuesta de fal, igual que Kling.
         """
         cost_per = pipeline.costs.get("seedream_per_image", 0.04)
         self._add_entry(
             stage=PipelineStage.IMAGE.value,
-            service="fal.ai Seedream 4.5 (t2i)",
+            service=f"fal.ai Seedream 4.5 ({mode})",
             description=description,
             units=images,
             unit_label="images",
