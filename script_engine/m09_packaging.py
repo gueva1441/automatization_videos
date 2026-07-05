@@ -15,7 +15,7 @@ Flujo en DOS pasos con gate humano en el medio:
 Salida: output/<topic_id>/publish/.
 
 Disciplina: metadata anclada en verified_facts (anti-alucinación). Thumbnail fresco
-respeta §1 Flux R1-R6 + AP9 calma-tensa (regla 5 / APPARATUS OF KILLING). Fuente bundleada
+hereda la doctrina Seedream de m03 (bloques DOCTRINE_*) + capa CTR propia. Fuente bundleada
 (Anton OFL en script_engine/fonts/), NO depende de fuentes del sistema.
 """
 from __future__ import annotations
@@ -35,6 +35,12 @@ from PIL import Image, ImageDraw, ImageFont
 from config import OUTPUT_DIR, gemini_client, api
 from google.genai import types as gt
 from cost_tracker import cost_tracker
+# HANDOFF_138a: el hero HEREDA la doctrina Seedream de m03 (una sola fuente; mata el doc-drift
+# de la doctrina paralela). m03_visual NO importa m09 → sin ciclo.
+from script_engine.m03_visual import (
+    DOCTRINE_R6_PHYSICAL_TRANSLATION, DOCTRINE_BODY_CARRIES,
+    DOCTRINE_PEOPLE, DOCTRINE_R5_CEILING,
+)
 
 if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -145,6 +151,14 @@ OVERLAYS (6 candidatos, 2-4 palabras, MAYÚSCULAS):
   consecuencia. Sin clickbait mentiroso. Si el TÍTULO elegido probablemente lleve la cifra,
   al menos 3 de los 6 overlays NO deben repetir cifra (título cuantifica, overlay acusa).
 - Los 6 distintos entre sí: 2 acusación · 2 pregunta · 1 cifra · 1 consecuencia.
+- CONTRATO DE RETENCIÓN (inviolable): cada overlay de pregunta o acusación debe
+  ser RESPONDIDA explícitamente por la narración de algún capítulo. Antes de
+  incluir un overlay, identificá QUÉ capítulo la paga; si ningún capítulo la
+  responde, descartalo y generá otro. Una promesa que el video no paga infla el
+  click y envenena la retención — y la retención manda sobre el click.
+- El overlay NUNCA repite el título: el título CUENTA (la cifra verificada), el
+  overlay MUESTRA la pregunta. Miniatura+título funcionan como UNA unidad que no
+  se duplica. Overlay: 2-4 palabras, MAYÚSCULAS (regla existente, no cambia).
 
 DESCRIPCIÓN (150-300 palabras):
 - La PRIMERA oración es el gancho (es lo único visible antes de "ver más"): que dé intriga sin
@@ -257,9 +271,12 @@ _HERO_SCHEMA = {
 # Schema del ITERADOR con crítica: refina UN concepto → devuelve UN {subject, prompt}.
 _HERO_ITER_SCHEMA = _HERO_CONCEPT_SCHEMA
 
-_HERO_SYSTEM = """Sos director de arte de MINIATURAS (thumbnails) de YouTube. Tu objetivo NO es
-ilustrar el tema: es DETENER EL SCROLL y generar intriga de click. Escribís UN prompt en inglés
-para Flux 2 Pro.
+_HERO_SYSTEM = (
+    """Sos director de arte de MINIATURAS (thumbnails) de YouTube de un canal documental
+de dark-history. Tu objetivo NO es ilustrar el tema: es DETENER EL SCROLL y generar
+intriga de click. Escribís UN prompt en inglés EN PROSA para SEEDREAM 4.5
+(30-80 palabras, subject-first, SIN prompts negativos, SIN texto en la imagen —
+el texto lo sobreimprime el compositor después). Period-correct siempre.
 
 PASO 1 — CASTING: leé la narración completa e identificá al sujeto más icónico y visualmente
 magnético de ESTA historia. Prioridad: una PERSONA/personaje (la figura que encarna el drama) >
@@ -268,36 +285,34 @@ Devolvé en `subject` una frase corta con quién/qué elegiste.
 PASO 2 — CONSTRUIR EL PROMPT: armá el prompt CTR alrededor de ESE sujeto, cumpliendo todos los
 requisitos de abajo.
 
-Requisitos DUROS:
-- UNA figura o sujeto icónico DOMINANTE sacado del material (nunca ambientes vacíos): el rostro
-  o la figura que la gente asocia a esta historia. En PLANO MEDIO o PRIMER PLANO — cara + torso
-  GRANDES, ocupando buena parte de la mitad derecha, legibles a 120px. NUNCA cuerpo entero en
-  plano abierto ni figura chica perdida en la arquitectura.
-- INTRIGA VISUAL: la imagen plantea una pregunta sin responderla. Mirada directa a cámara, o algo
-  levemente "mal" en la escena (una figura donde no debería haber nadie, una puerta abierta hacia
-  la oscuridad, una silueta a medio revelar). El espectador debe NECESITAR el video para entender
-  la foto.
-- EMOCIÓN LEGIBLE a 120px de ancho — SOLO como física pintable: NUNCA la emoción
-  como palabra abstracta ("miedo", "inquietud" a secas no renderizan). Escribila
-  como evidencia física: mandíbula tensa, ojos muy abiertos con blanco visible,
-  labios apretados, lágrimas surcando la mugre, nudillos blancos. UNA emoción
-  dominante, 2-3 señales concretas. NUNCA gore ni shock — la intriga sale de la
-  sugerencia, no del horror explícito.
-- EL CUERPO CARGA LA SITUACIÓN: si la historia pone al sujeto en agua, fuego,
-  encierro o intemperie, la miniatura lo muestra MARCADO por eso — empapado, pelo
-  pegado al cráneo, ropa oscurecida por el agua, hollín, mugre con líneas de agua
-  en cara y cuello. PROHIBIDO el sujeto seco, limpio y prolijo en una historia de
-  desastre: es un error de continuidad que mata la credibilidad del click.
-- Calma tensa inviolable (AP9): nada de cuerpos, muerte explícita, aftermath ni el aparato de
-  matar. Si el tema es muerte/ejecución, la tensión viene de un sujeto vivo inquietante o de UN
-  objeto cargado, jamás del mecanismo.
-- COMPOSICIÓN: el sujeto va a la DERECHA del cuadro, GRANDE (plano medio/primer plano); el tercio
-  IZQUIERDO queda oscuro y despejado (ahí se sobreimprime el texto). El lugar/contexto queda
-  RECONOCIBLE pero SECUNDARIO detrás del sujeto (no desaparece — da el misterio del lugar).
-- UN acento de color fuerte (cálido o frío) como punto focal sobre una paleta oscura — alto
-  contraste, luz dramática, profundidad real.
-- Subject-first: etnia/edad/ropa y época integradas al sujeto. Prosa 30-80 palabras. SIN prompts
-  negativos. SIN texto en la imagen. Period-correct.
+DOCTRINA DEL CANAL (compartida con producción — no se ablanda):
+""" + DOCTRINE_R6_PHYSICAL_TRANSLATION + """
+
+""" + DOCTRINE_BODY_CARRIES + """
+
+""" + DOCTRINE_PEOPLE + """
+
+Calma tensa inviolable: """ + DOCTRINE_R5_CEILING + """
+
+CAPA CTR (delta propio de miniaturas — auditable regla por regla):
+- UNA figura humana GRANDE y DOMINANTE del material: plano medio o primer plano,
+  cara y torso ocupando la mitad DERECHA del cuadro, emoción legible a 120px
+  (la miniatura se consume a ~120-150px en el teléfono).
+- TERCIO IZQUIERDO oscuro, despejado, en espacio negativo — ahí va el overlay de
+  texto. El contexto/lugar queda RECONOCIBLE pero SECUNDARIO detrás del sujeto.
+- ZONA MUERTA: nada crítico en la esquina INFERIOR DERECHA (el badge de duración
+  de YouTube la tapa) ni pegado al borde inferior (barra de progreso).
+- SIMPLEZA: UN sujeto dominante, máximo 3 elementos visuales, 30-40% del cuadro
+  como espacio negativo. La miniatura se lee en UN segundo o no se lee.
+- INTRIGA VISUAL: mirada directa a cámara, o algo levemente "mal" en la escena
+  que abre una pregunta sin responderla. El espectador NECESITA el video para
+  entender la foto.
+- EMOCIÓN CALIBRADA AL NICHO: documental serio — emoción REAL y contenida en
+  física pintable, NUNCA cara de shock exagerada de gaming (en audiencias
+  documentales lee como falsa y mata la confianza). La emoción falsa infla el
+  CTR y destruye la recomendación del canal.
+- UN acento de color fuerte (cálido o frío) como punto focal sobre paleta oscura
+  — alto contraste que separe sujeto de fondo a tamaño chico.
 
 DEVOLVÉS TRES CONCEPTOS, NO UNO. REGLA INVIOLABLE: los TRES cumplen TODOS los requisitos
 duros de arriba SIN EXCEPCIÓN — en los tres hay UNA figura humana GRANDE (plano medio o
@@ -314,6 +329,7 @@ PROHIBIDO en cualquier concepto: siluetas lejanas, figuras chicas en la arquitec
 donde la cara no se lee a 120px, ambientes sin persona dominante.
 TEST DE CLICK antes de devolver: por cada concepto preguntate "¿un desconocido scrolleando
 a las 2am frena el dedo Y se queda con una pregunta?" Si un concepto no pasa, reemplazalo."""
+)
 
 
 HERO_NARRATION_PER_CAP = 1400   # tope por cap para que la narración de los 7 caps entre holgada

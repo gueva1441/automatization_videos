@@ -24,7 +24,9 @@ def main() -> int:
     hs = m09._HERO_SYSTEM
 
     # ── doctrina nueva presente ──
-    for token in ["física pintable", "EL CUERPO CARGA LA SITUACIÓN"]:
+    # HANDOFF_138a: la doctrina LEY 1 ahora se HEREDA de m03 (bloques DOCTRINE_* en inglés);
+    # 'física pintable' sigue en la capa CTR propia del hero.
+    for token in ["física pintable", "BODY CARRIES THE SITUATION", "PHYSICAL TRANSLATION"]:
         _check(token in hs, f"LEY1 falta {token!r} en _HERO_SYSTEM", fails)
 
     # ── forma vieja (abstracción) ELIMINADA ──

@@ -150,7 +150,41 @@ FLUIDIFY_MAX_WORKERS = 16
 # concurrentes; con 7×16=112 seguís al ~11% del límite RPM (1000), pero bajá si el SDK se ahoga.
 CAP_MAX_WORKERS = 7
 
-SYSTEM_INSTRUCTION_VISUAL_SEEDREAM = """You are the IMAGE DIRECTOR of a faceless dark-history documentary channel. You do NOT write a free prose prompt: you FILL the slots (casilleros) of EACH image. Emit a JSON ARRAY of N slot-objects, one per given narration fragment, in the SAME order (item i fills the slots for fragment i). All slot VALUES in ENGLISH.
+# HANDOFF_138a: la doctrina Seedream se NOMBRA en bloques para compartirla con m09
+# (hero de miniaturas) SIN copiar-pegar. El SI ensamblado abajo queda IDÉNTICO char-a-char
+# al anterior — cero cambio de doctrina, solo se nombra (concatenación, no f-string).
+DOCTRINE_R6_PHYSICAL_TRANSLATION = """PHYSICAL TRANSLATION — THE ENGINE IS A PAINTER, NOT AN ACTOR (R6):
+- Internal states DO NOT render. Never write a bare abstract emotion ("fear",
+  "terror", "dread", "panic", "despair") and never stack two or more emotions on
+  one face (a triple like "terror, defiance and plea" renders as a neutral
+  composite). ONE dominant emotion per face.
+- Every emotion is written ONLY as its paintable physical evidence: facial
+  musculature (jaw clenched, lips pressed thin, brow knotted), eyes (pupils
+  dilated, whites visible above the iris, eyelids strained open), posture
+  (shoulders drawn up, knuckles white around a bar, body pressed against a wall),
+  and involuntary signs (tears cutting clean tracks through grime, a trembling
+  jaw, rapid shallow breathing shown as a half-open mouth).
+- State the emotion through 2-3 concrete physical signs — the emotion word alone
+  is FORBIDDEN in any slot."""
+
+DOCTRINE_BODY_CARRIES = """BODY CARRIES THE SITUATION (applies to EVERY human figure): the body physically
+wears the conditions THIS beat narrates, BEFORE the face even shows emotion.
+Chest-deep floodwater → clothes soaked dark and clinging, hair plastered to the
+skull, skin slick with dirty water, grime waterlines on face and neck. Days
+trapped without rescue → hollow exhausted eyes, cracked lips, accumulated filth.
+Fire or smoke → soot streaks, sweat tracks through ash. A clean, dry, groomed
+face in a disaster scene is a CONTINUITY ERROR. Draw the specific marks from the
+beat's narrated conditions; never default to a presentable face."""
+
+DOCTRINE_PEOPLE = """PEOPLE:
+- DEMOGRAPHY IS MANDATORY: every human figure states ethnicity + approximate age + build, taken from demographics (and from a documented person's appearance_canon when it is one), matching what the beat narrates. State the ethnicity explicitly whenever the canon gives it — a vague collective descriptor for a crowd (e.g. "a diverse group") does not satisfy this.
+- GROUPS — compose first, then individuate: in a group shot most figures read by FORM, not face — shown from behind, in a wide plane within the architecture, by a detail of hands or feet, or as a rim-lit silhouette whose shape reads cleanly. A front-lit face sunk into flat black shadow is NOT a valid technique; it reads as a mistake. The 2-3 figures that DO show a face are each described distinctly and concretely (its own age, build, position and action) — never one collective description applied to N people.
+- ORDINARY PERIOD FACES: visible faces carry ordinary, period-worn features (weathered, lined, work-hardened, an incomplete set of teeth). Describe by appearance and era, never by a proper name, and never by reference to an actor, a celebrity or a film character."""
+
+DOCTRINE_R5_CEILING = """WITHIN the monetization ceiling (R5, HARD CAP, do not soften): terror is built from SCALE + LIGHT + EMPTY apparatus + loaded LIVING faces — NEVER lifeless bodies, never fresh graphic blood, never the moment of harm. Show the OUTCOME/charged empty space, never the mechanism centered."""
+
+SYSTEM_INSTRUCTION_VISUAL_SEEDREAM = (
+    """You are the IMAGE DIRECTOR of a faceless dark-history documentary channel. You do NOT write a free prose prompt: you FILL the slots (casilleros) of EACH image. Emit a JSON ARRAY of N slot-objects, one per given narration fragment, in the SAME order (item i fills the slots for fragment i). All slot VALUES in ENGLISH.
 
 Definition of each slot (what goes in each casillero — this is the craft, model-agnostic):
 
@@ -164,7 +198,7 @@ Definition of each slot (what goes in each casillero — this is the craft, mode
 - camera_angle: e.g. low angle for scale, eye-level, high angle (R7).
 - lens_technique: e.g. deep depth of field, shallow depth of field, 85mm lens.
 - lighting: light by the EVENT (R12) — beats of the SAME event share ONE light. overcast daylight, golden hour, low-key night, etc.
-- mood: the emotional register stated ONLY through paintable physics (R6): light, weather, and the human physical signs defined in PHYSICAL TRANSLATION — never a bare emotion word. WITHIN the monetization ceiling (R5, HARD CAP, do not soften): terror is built from SCALE + LIGHT + EMPTY apparatus + loaded LIVING faces — NEVER lifeless bodies, never fresh graphic blood, never the moment of harm. Show the OUTCOME/charged empty space, never the mechanism centered.
+- mood: the emotional register stated ONLY through paintable physics (R6): light, weather, and the human physical signs defined in PHYSICAL TRANSLATION — never a bare emotion word. """ + DOCTRINE_R5_CEILING + """
 - style: the channel constant — documentary photographic realism, dark-history, faceless. (This is a slot, NOT a harness tail.)
 - text_in_image: a label when the scene legitimately carries text — a literal sign/inscription/number (building number, carved place name), OR a period newspaper headline / wanted-notice when the anchor narrates a notable EVENT (an escape, a scandal, a ruling) and a headline would authentically illustrate it. Use SPARINGLY — only when it ADDS to the beat, never decorative, a minority of images per cap at most. present=false for ordinary people/atmosphere scenes with no narrated text; NEVER a person's proper name. If present=true: text = the literal content IN SPANISH (the audience reads Spanish — a headline reads 'PRÓFUGO', not 'ESCAPED'), font (carved/block/serif/newsprint...), location (over the entrance / front page...). Seedream renders quoted text legibly — allowed and intended.
 - hard_fact_ids: the F-labels (e.g. ["F03","F10"]) of the provided verified_facts whose FIGURES this image actually shows, copied EXACTLY as labeled in the list. Do NOT write the figures yourself — ONLY pick labels RELEVANT to THIS anchor's moment AND place. A figure belongs here only if THIS image depicts it: do NOT attach a building's structural figures (floors, height, year built) to a people/farm/landscape anchor, nor foundation/closing figures to a peak beat. When in doubt, leave it EMPTY — an honest [] is better than an irrelevant figure forced into the scene (which the locked-figures guard will reject downstream). [] if none apply.
@@ -176,33 +210,14 @@ DIRECTIVES — the visual canon is a CONTRACT, not decoration. Draw from it:
 
 STATE BY BEAT (applies to EVERY item, anchored or not): each image declares the subject's physical state consistent with the moment it narrates, drawing that state from condition_evolution (at_event for the event moment, later for the aftermath). Never blend two states in one image.
 
-PHYSICAL TRANSLATION — THE ENGINE IS A PAINTER, NOT AN ACTOR (R6):
-- Internal states DO NOT render. Never write a bare abstract emotion ("fear",
-  "terror", "dread", "panic", "despair") and never stack two or more emotions on
-  one face (a triple like "terror, defiance and plea" renders as a neutral
-  composite). ONE dominant emotion per face.
-- Every emotion is written ONLY as its paintable physical evidence: facial
-  musculature (jaw clenched, lips pressed thin, brow knotted), eyes (pupils
-  dilated, whites visible above the iris, eyelids strained open), posture
-  (shoulders drawn up, knuckles white around a bar, body pressed against a wall),
-  and involuntary signs (tears cutting clean tracks through grime, a trembling
-  jaw, rapid shallow breathing shown as a half-open mouth).
-- State the emotion through 2-3 concrete physical signs — the emotion word alone
-  is FORBIDDEN in any slot.
+"""
+    + DOCTRINE_R6_PHYSICAL_TRANSLATION + """
 
-BODY CARRIES THE SITUATION (applies to EVERY human figure): the body physically
-wears the conditions THIS beat narrates, BEFORE the face even shows emotion.
-Chest-deep floodwater → clothes soaked dark and clinging, hair plastered to the
-skull, skin slick with dirty water, grime waterlines on face and neck. Days
-trapped without rescue → hollow exhausted eyes, cracked lips, accumulated filth.
-Fire or smoke → soot streaks, sweat tracks through ash. A clean, dry, groomed
-face in a disaster scene is a CONTINUITY ERROR. Draw the specific marks from the
-beat's narrated conditions; never default to a presentable face.
+"""
+    + DOCTRINE_BODY_CARRIES + """
 
-PEOPLE:
-- DEMOGRAPHY IS MANDATORY: every human figure states ethnicity + approximate age + build, taken from demographics (and from a documented person's appearance_canon when it is one), matching what the beat narrates. State the ethnicity explicitly whenever the canon gives it — a vague collective descriptor for a crowd (e.g. "a diverse group") does not satisfy this.
-- GROUPS — compose first, then individuate: in a group shot most figures read by FORM, not face — shown from behind, in a wide plane within the architecture, by a detail of hands or feet, or as a rim-lit silhouette whose shape reads cleanly. A front-lit face sunk into flat black shadow is NOT a valid technique; it reads as a mistake. The 2-3 figures that DO show a face are each described distinctly and concretely (its own age, build, position and action) — never one collective description applied to N people.
-- ORDINARY PERIOD FACES: visible faces carry ordinary, period-worn features (weathered, lined, work-hardened, an incomplete set of teeth). Describe by appearance and era, never by a proper name, and never by reference to an actor, a celebrity or a film character.
+"""
+    + DOCTRINE_PEOPLE + """
 
 ERA FIELDS ON DEMAND: when a beat enters a field's terrain, its material comes from the canon, not from invention — people present → clothing · an interior → interiors (including any unique features listed there) · transport, tools or lighting → vehicles_machinery / technology. When the beat does not touch that terrain, do not force the field in.
 
@@ -211,6 +226,7 @@ Fill ALL slots for EVERY item. Each value is a SHORT English phrase (not a parag
 TEXT DISCIPLINE: any text meant to appear in the image goes ONLY through the text_in_image slot, in Spanish. The prose slots (subject/action/setting/...) describe the scene — never embed letters or words to be rendered inside them.
 
 JSON only. No markdown. No preamble."""
+)
 
 
 def _seedream_slots_schema(n: int) -> dict:
