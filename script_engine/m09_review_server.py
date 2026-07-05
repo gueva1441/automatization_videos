@@ -45,15 +45,27 @@ class ReviewState:
         self.last_error: str | None = None
         self.last_thumb: str | None = None
 
-    def _subject_by_file(self) -> dict[str, str]:
-        out: dict[str, str] = {}
+    def _meta_by_file(self) -> dict[str, dict]:
+        """file → {subject, prompt} de las iteraciones. HANDOFF_137d §4: `concepts` va ALINEADO
+        a `files` (per-concepto). Compat con records viejos que traían un `subject`/`hero_prompt`
+        único para todos los files."""
+        out: dict[str, dict] = {}
         for it in pkg._load_iterations(self.pub):
-            for f in it.get("files", []):
-                out[f] = it.get("subject", "") or ""
+            files = it.get("files", []) or []
+            concepts = it.get("concepts")
+            if concepts:
+                for f, c in zip(files, concepts):
+                    c = c or {}
+                    out[f] = {"subject": c.get("subject", "") or "", "prompt": c.get("prompt", "") or ""}
+            else:
+                subj = it.get("subject", "") or ""
+                prm = it.get("hero_prompt", "") or ""
+                for f in files:
+                    out[f] = {"subject": subj, "prompt": prm}
         return out
 
     def snapshot(self) -> dict:
-        subj = self._subject_by_file()
+        meta_by_file = self._meta_by_file()
         cands = []
         for p in pkg._candidate_files(self.cand):
             try:
@@ -61,10 +73,13 @@ class ReviewState:
             except Exception:
                 w, h = 0, 0
             cands.append({"name": p.name, "w": w, "h": h,
-                          "vertical": h > w, "subject": subj.get(p.name, "")})
-        hist = pkg._load_iterations(self.pub)
-        hero = ({"prompt": hist[-1].get("hero_prompt", ""), "subject": hist[-1].get("subject", "")}
-                if hist else None)
+                          "vertical": h > w, "subject": (meta_by_file.get(p.name) or {}).get("subject", "")})
+        # hero panel: el concepto de la ÚLTIMA candidata (representativo; la crítica real va sobre
+        # la candidata ELEGIDA, que el cliente resuelve). Compat: None si no hay candidatas.
+        hero = None
+        if cands:
+            hm = meta_by_file.get(cands[-1]["name"]) or {}
+            hero = {"prompt": hm.get("prompt", ""), "subject": hm.get("subject", "")}
         titles, overlays = [], []
         mp = self.pub / "metadata.json"
         if mp.exists():
@@ -85,37 +100,58 @@ class ReviewState:
                 "overlays": overlays, "generating": gen, "last_error": err,
                 "thumb_final": self.last_thumb, "finals": finals, "rev": rev}
 
-    # ── generación (hero iter + frescas) en background ──
-    def start_generate(self, critique: str | None) -> bool:
+    # ── generación (3 conceptos / iteración de concepto elegido) en background ──
+    def start_generate(self, critique: str | None, selected: str | None = None) -> bool:
         with self.lock:
             if self.generating:
                 return False
             self.generating = True
             self.last_error = None
-        threading.Thread(target=self._run_generate, args=(critique,), daemon=True).start()
+        threading.Thread(target=self._run_generate, args=(critique, selected), daemon=True).start()
         return True
 
-    def _run_generate(self, critique: str | None) -> None:
+    def _run_generate(self, critique: str | None, selected: str | None = None) -> None:
+        """HANDOFF_137d §4.b:
+        - crítica + candidata ELEGIDA → refina ESE concepto y renderiza FRESH_THUMBS variaciones.
+        - si no hay elegida (o no se puede resolver su concepto) → regenera 3 CONCEPTOS distintos."""
         try:
-            hist = pkg._load_iterations(self.pub)
-            if critique and hist:
-                hero = pkg.generate_hero_prompt_iter(hist[-1]["hero_prompt"], critique)
-            else:
-                hero = pkg.generate_hero_prompt(pkg._load_canonical(self.tid))
             start = pkg._next_fresh_index(self.cand)
-            _lines, files = pkg._render_fresh_from_hero(hero["prompt"], self.cand,
-                                                        pkg.FRESH_THUMBS, start)
-            pkg._record_iteration(self.pub, hero["prompt"], hero["subject"],
-                                  critique or None, files)
+            prev = (self._meta_by_file().get(selected) or {}).get("prompt", "") if selected else ""
+            if critique and prev:
+                refined = pkg.generate_hero_prompt_iter(prev, critique)
+                _lines, files = pkg._render_concept_variations(
+                    refined["prompt"], self.cand, pkg.FRESH_THUMBS, start)
+                concepts = [refined] * len(files)
+            else:
+                _lines, concepts, files = pkg._generate_fresh(
+                    pkg._load_canonical(self.tid), self.cand, pkg.FRESH_THUMBS, start)
             if not files:
                 with self.lock:
                     self.last_error = "el render no generó ninguna imagen (ver terminal)."
+                return
+            pkg._record_iteration(self.pub, critique or None, files, concepts)
         except Exception as e:  # noqa: BLE001
             with self.lock:
                 self.last_error = f"{type(e).__name__}: {e}"
         finally:
             with self.lock:
                 self.generating = False
+
+    def delete_candidate(self, name: str) -> dict:
+        """EXTRA (Omar): saca una candidata de la grilla moviéndola a _qa_backups (NO borrado
+        duro → recuperable). Solo basenames de candidatas (existing_*/fresh_*)."""
+        p = self.cand / name
+        if ("/" in name or "\\" in name or not name.lower().endswith(".png")
+                or not p.exists() or p.parent.resolve() != self.cand.resolve()):
+            return {"error": "nombre de candidata inválido"}
+        try:
+            bdir = self.pub / "_qa_backups"
+            bdir.mkdir(parents=True, exist_ok=True)
+            import shutil as _sh
+            _sh.move(str(p), str(bdir / name))
+            return {"deleted": name}
+        except OSError as e:
+            return {"error": f"no se pudo borrar: {e}"}
 
     # ── primera tanda COMPLETA (metadata + hero + frescas) en background ──
     def start_first_batch(self) -> bool:
@@ -144,11 +180,12 @@ class ReviewState:
 
     # ── composición (versionada) ──
     def compose(self, base: str, text: str, title: str, focus: str,
-                fill: str = pkg.THUMB_FILL_DEFAULT) -> dict:
+                fill: str = pkg.THUMB_FILL_DEFAULT, size_factor: float = 1.0) -> dict:
         try:
             out_name = pkg.next_thumb_name(self.tid)
             written = pkg.compose_and_package(self.tid, base, text, title,
-                                              focus, fill, out_name, self.video_path)
+                                              focus, fill, out_name, self.video_path,
+                                              size_factor=size_factor)
             self.last_thumb = written.name
             if self.on_compose:
                 try:
@@ -196,6 +233,20 @@ _PAGE = r"""<!doctype html><html lang="es"><head><meta charset="utf-8">
  .muted{color:#888;font-size:12px}
  #preview img{width:100%;border-radius:8px;border:1px solid #333;margin-top:8px}
  .badge{position:absolute;top:6px;left:6px;background:#000a;padding:2px 7px;border-radius:10px;font-size:11px}
+ .field{position:relative}
+ .menu{position:absolute;left:0;right:0;top:100%;z-index:30;background:#0c0c11;border:1px solid #3a3a44;
+   border-radius:8px;margin-top:3px;max-height:300px;overflow:auto;box-shadow:0 12px 30px rgba(0,0,0,.6);display:none}
+ .menu.show{display:block}
+ .menu .opt{padding:9px 11px;font-size:13px;line-height:1.35;color:#e6e6ee;cursor:pointer;
+   white-space:normal;border-bottom:1px solid #1c1c22}
+ .menu .opt:last-child{border-bottom:0}
+ .menu .opt:hover{background:#20202a;color:#fff}
+ .menu .opt .n{color:#7a7a88;font-family:ui-monospace,monospace;font-size:11px;margin-right:6px}
+ .sizerow{display:flex;align-items:center;gap:8px;margin-top:6px}
+ .szbtn{width:38px;padding:8px 0;margin:0;text-align:center}
+ .szval{font-family:ui-monospace,monospace;font-size:13px;color:#cdd;min-width:44px;text-align:center}
+ .delbtn{background:#7a2222;color:#fdd;margin-top:0}
+ .delbtn:hover{background:#9a2a2a}
 </style></head><body>
 <h1>Review de miniaturas — <span id="tid" class="muted"></span></h1>
 <div class="muted">Click en una candidata para elegirla. La grilla se actualiza sola.</div>
@@ -207,26 +258,32 @@ _PAGE = r"""<!doctype html><html lang="es"><head><meta charset="utf-8">
  </div>
  <div>
   <div class="panel">
-   <h2 style="margin-top:0">Iterar (casting + crítica)</h2>
-   <div class="muted">sujeto: <b id="subject">—</b></div>
+   <h2 style="margin-top:0">Iterar (3 conceptos / crítica)</h2>
+   <div class="muted">sujeto de la elegida: <b id="subject">—</b></div>
    <div class="hero" id="hero">—</div>
-   <label>Crítica del director (qué cambiar)</label>
+   <label>Crítica del director — se aplica al CONCEPTO de la candidata ELEGIDA (sin elegida, regenera los 3)</label>
    <textarea id="critique" rows="4" placeholder="Ej: basta de edificios, quiero a la novia espectral mirando a cámara…"></textarea>
    <button id="genbtn" onclick="generate()">GENERAR MÁS</button>
+   <button id="delbtn" class="delbtn" onclick="deleteChosen()">BORRAR ELEGIDA</button>
   </div>
   <div class="panel">
    <h2 style="margin-top:0">Componer la elegida</h2>
    <div class="muted">elegida: <b id="chosen">(ninguna)</b></div>
-   <label>Texto del overlay (2-4 palabras) — ya sugerido por la IA; reescribilo si querés (▾ hay más)</label>
-   <input list="overlaylist" id="text" type="text" placeholder="MUERTE EN CHARLESTON" autocomplete="off">
-   <datalist id="overlaylist"></datalist>
-   <label>Título del VIDEO en YouTube (va al checklist, no a la imagen) — ya sugerido; reescribilo si querés (▾ hay más)</label>
-   <input list="titlelist" id="titletext" type="text" placeholder="elegí o escribí el título" autocomplete="off">
-   <datalist id="titlelist"></datalist>
+   <label>Texto del overlay (2-4 palabras) — click para ver las 6 sugerencias; editable libre</label>
+   <div class="field"><input id="text" type="text" placeholder="MUERTE EN CHARLESTON" autocomplete="off">
+     <div class="menu" id="overlaymenu"></div></div>
+   <label>Título del VIDEO en YouTube (va al checklist, no a la imagen) — click para ver las 6; editable libre</label>
+   <div class="field"><input id="titletext" type="text" placeholder="elegí o escribí el título" autocomplete="off">
+     <div class="menu" id="titlemenu"></div></div>
    <label>Focus del crop (bases verticales)</label>
    <select id="focus"><option value="center">center</option><option value="top">top</option><option value="bottom">bottom</option></select>
-   <label>Color del texto (stroke negro siempre)</label>
-   <select id="fill"><option value="blanco">blanco</option><option value="amarillo">amarillo</option><option value="rojo">rojo</option></select>
+   <label>Color y TAMAÑO del texto (stroke negro siempre)</label>
+   <div class="sizerow">
+     <select id="fill" style="flex:1"><option value="blanco">blanco</option><option value="amarillo">amarillo</option><option value="rojo">rojo</option></select>
+     <button class="szbtn" onclick="bumpSize(-1)" title="texto más chico">A−</button>
+     <span class="szval" id="szval">1.00×</span>
+     <button class="szbtn" onclick="bumpSize(1)" title="texto más grande">A+</button>
+   </div>
    <button id="composebtn" onclick="compose()">COMPONER</button>
    <div id="preview"></div>
   </div>
@@ -259,11 +316,9 @@ async function refresh(){
   // GRILLA: solo redibujar si el inventario cambió (rev) → sin flasheo ni tiles negros
   if(st.rev!==lastRev){ renderGrid(st); lastRev=st.rev; }
   // comboboxes: poblar los datalist de título y overlay con las sugerencias de la IA
-  fillDatalist('titlelist', st.titles);
-  fillDatalist('overlaylist', st.overlays||[]);
-  // pre-llenar las cajas con la 1a sugerencia del LLM (una sola vez, sin pisar lo que Omar escriba)
-  prefillOnce('titletext', (st.titles&&st.titles[0])||'');
-  prefillOnce('text', (st.overlays&&st.overlays[0])||'');
+  latestTitles = st.titles||[]; latestOverlays = st.overlays||[];
+  prefillOnce('titletext', latestTitles[0]||'');
+  prefillOnce('text', latestOverlays[0]||'');
 }
 function prefillOnce(id, val){
   const el=document.getElementById(id);
@@ -284,11 +339,43 @@ function fillDatalist(id, opts){
   dl.innerHTML=opts.map(o=>'<option value="'+esc(o)+'">').join('');
   dl.dataset.sig=sig;
 }
+let latestTitles=[], latestOverlays=[];
+// menú propio: click en el input despliega las 6 sugerencias COMPLETAS (multilínea); click en una llena. Editable libre.
+function buildMenu(menuId, inputId, opts){
+  const m=document.getElementById(menuId);
+  m.innerHTML = (opts&&opts.length)
+    ? opts.map((o,i)=>'<div class="opt" data-v="'+esc(o)+'"><span class="n">'+(i+1)+'</span>'+esc(o)+'</div>').join('')
+    : '<div class="opt">(sin sugerencias todavia - genera la primera tanda)</div>';
+  m.querySelectorAll('.opt[data-v]').forEach(el=>el.onclick=()=>{
+    const inp=document.getElementById(inputId); inp.value=el.dataset.v; inp.dataset.touched='1';
+    m.classList.remove('show');
+  });
+}
+function attachMenu(inputId, menuId, getOpts){
+  const inp=document.getElementById(inputId), m=document.getElementById(menuId);
+  const open=()=>{ buildMenu(menuId, inputId, getOpts()); m.classList.add('show'); };
+  inp.addEventListener('focus', open); inp.addEventListener('click', open);
+}
+attachMenu('titletext','titlemenu',()=>latestTitles);
+attachMenu('text','overlaymenu',()=>latestOverlays);
+document.addEventListener('click',e=>{ if(!e.target.closest('.field')){ document.querySelectorAll('.menu').forEach(m=>m.classList.remove('show')); } });
+async function deleteChosen(){
+  if(!chosen){alert('Elegi una candidata primero (click).');return;}
+  if(!confirm('Borrar '+chosen+'? Se mueve a _qa_backups (recuperable).'))return;
+  const res=await (await fetch('/delete_candidate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:chosen})})).json();
+  if(res.error){alert('No se pudo borrar: '+res.error);return;}
+  chosen=null; document.getElementById('chosen').textContent='(ninguna)'; lastRev=null; refresh();
+}
+let sizeFactor=1.0;
+function bumpSize(dir){
+  sizeFactor=Math.min(1.6, Math.max(0.7, Math.round((sizeFactor+dir*0.15)*100)/100));
+  document.getElementById('szval').textContent=sizeFactor.toFixed(2)+'x';
+}
 function pick(name){chosen=name;document.getElementById('chosen').textContent=name;applySel();}
 async function generate(){
   document.getElementById('genbtn').disabled=true;
   const critique=document.getElementById('critique').value;
-  await fetch('/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({critique})});
+  await fetch('/generate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({critique, selected:chosen})});
   setTimeout(refresh,400);
 }
 async function compose(){
@@ -299,11 +386,11 @@ async function compose(){
   const focus=document.getElementById('focus').value;
   const fill=document.getElementById('fill').value;
   const btn=document.getElementById('composebtn');btn.disabled=true;
-  const res=await (await fetch('/compose',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({base:chosen,text,title,focus,fill})})).json();
+  const res=await (await fetch('/compose',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({base:chosen,text,title,focus,fill,size_factor:sizeFactor})})).json();
   btn.disabled=false;
   const pv=document.getElementById('preview');
   if(res.error){pv.innerHTML='<div class="err" style="display:block">⚠ '+esc(res.error)+'</div>';}
-  else{pv.innerHTML='<div class="muted">'+esc(res.thumb)+' · CHECKLIST escrito</div><img src="/img/'+encodeURIComponent(res.thumb)+'">';}
+  else{pv.innerHTML='<div class="muted">'+esc(res.thumb)+' · tamaño '+sizeFactor.toFixed(2)+'× · CHECKLIST escrito</div><img src="/img/'+encodeURIComponent(res.thumb)+'?t='+Date.now()+'">';}
 }
 refresh(); setInterval(refresh,2000);
 </script></body></html>"""
@@ -361,12 +448,16 @@ class Handler(BaseHTTPRequestHandler):
             body = json.loads(self.rfile.read(length) or b"{}")
             if route == "/generate":
                 crit = (body.get("critique") or "").strip() or None
-                started = self.state.start_generate(crit)
+                selected = (body.get("selected") or "").strip() or None
+                started = self.state.start_generate(crit, selected)
                 self._json({"started": started, "busy": not started})
             elif route == "/compose":
                 self._json(self.state.compose(body.get("base", ""), body.get("text", ""),
                                               body.get("title", ""), body.get("focus", "center"),
-                                              body.get("fill", pkg.THUMB_FILL_DEFAULT)))
+                                              body.get("fill", pkg.THUMB_FILL_DEFAULT),
+                                              size_factor=float(body.get("size_factor", 1.0) or 1.0)))
+            elif route == "/delete_candidate":
+                self._json(self.state.delete_candidate(body.get("name", "")))
             else:
                 self._json({"error": "ruta no encontrada"}, 404)
         except Exception as e:  # noqa: BLE001

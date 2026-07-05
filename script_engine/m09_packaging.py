@@ -111,8 +111,8 @@ def _gemini_json(system: str, user: str, schema: dict, temperature: float) -> di
 _META_SCHEMA = {
     "type": "OBJECT",
     "properties": {
-        "titulos": {"type": "ARRAY", "items": {"type": "STRING"}, "minItems": 3, "maxItems": 3},
-        "overlays": {"type": "ARRAY", "items": {"type": "STRING"}, "minItems": 3, "maxItems": 3},
+        "titulos": {"type": "ARRAY", "items": {"type": "STRING"}, "minItems": 6, "maxItems": 6},
+        "overlays": {"type": "ARRAY", "items": {"type": "STRING"}, "minItems": 6, "maxItems": 6},
         "descripcion": {"type": "STRING"},
         "tags": {"type": "ARRAY", "items": {"type": "STRING"}},
     },
@@ -124,16 +124,27 @@ documental, en ESPAÑOL neutro-latino. Generás el paquete de metadata de un vid
 su guion. Todo se ancla en los hechos dados: NO inventes datos, nombres, fechas ni cifras que
 no estén en el material; si dudás, omití.
 
-TÍTULOS (3 candidatos, ≤90 caracteres cada uno):
-- Estilo dark-history: intriga + especificidad concreta (lugar, año o dato del material).
-- Los 3 deben ser ESTRATEGIAS distintas entre sí, no variaciones de una: por ejemplo uno de
-  misterio, uno de dato brutal/concreto, uno en forma de pregunta.
+TÍTULOS (6 candidatos, ≤70 caracteres cada uno — YouTube trunca ~70 en móvil):
+- TODA cifra, fecha, nombre o dato del título debe salir LITERALMENTE de los VERIFIED FACTS
+  provistos (no de tu memoria, no deducido, no redondeado inventando). Si un dato no está en
+  esa lista, NO existe para el título. Cero excepciones: un canal documental muere por un
+  número falso en el título.
+- El GANCHO (la cifra o el dato brutal) va AL PRINCIPIO del título, nunca al final donde el
+  truncado se lo come.
+- Los 6 son ESTRATEGIAS distintas entre sí, no variaciones: (1) dato brutal/cifra,
+  (2) misterio/pregunta, (3) acusación ("los dejaron..."), (4) lugar+año concreto,
+  (5) contradicción/ironía histórica, (6) consecuencia humana.
+- El título es un CONTRATO: solo prometé lo que la narración de verdad cuenta.
 - Sin clickbait mentiroso, sin mayúsculas sostenidas, sin emojis.
 
-OVERLAYS (3 candidatos, 2-4 palabras, MAYÚSCULAS):
-- Texto que va SOBRE la miniatura: impacto + intriga en 2-4 palabras.
-- Anclado en el material (lugar/dato/sujeto). Sin clickbait mentiroso.
-- Los 3 distintos: uno de lugar/dato, uno de tensión, uno de pregunta corta.
+OVERLAYS (6 candidatos, 2-4 palabras, MAYÚSCULAS):
+- Texto que va SOBRE la miniatura. REGLA DE ORO: la imagen ya muestra la escena — el overlay
+  NO la describe, ABRE UNA PREGUNTA que solo el video responde. "PRISIÓN INUNDADA" describe
+  (mal); "LOS DEJARON MORIR AQUÍ" intriga (bien).
+- Anclado en el material: acusación, pregunta corta, cifra de los VERIFIED FACTS, o
+  consecuencia. Sin clickbait mentiroso. Si el TÍTULO elegido probablemente lleve la cifra,
+  al menos 3 de los 6 overlays NO deben repetir cifra (título cuantifica, overlay acusa).
+- Los 6 distintos entre sí: 2 acusación · 2 pregunta · 1 cifra · 1 consecuencia.
 
 DESCRIPCIÓN (150-300 palabras):
 - La PRIMERA oración es el gancho (es lo único visible antes de "ver más"): que dé intriga sin
@@ -151,24 +162,27 @@ def generate_metadata(canonical: dict) -> dict:
         f"[Cap {c.get('chapter_number','?')}] {c.get('narration','').strip()}"
         for c in canonical.get("chapters", [])
     )
+    # HANDOFF_137d §1.b: los facts se etiquetan F01..Fnn con el MISMO criterio del contrato
+    # (m03: {f"F{i:02d}": facts[i-1]}) → una sola fuente de verdad para cifras del título.
     facts = canonical.get("verified_facts", [])
     facts_txt = "\n".join(
-        f"- {f.get('fact', f) if isinstance(f, dict) else f}" for f in facts
+        f"F{i:02d}: {f.get('fact', f) if isinstance(f, dict) else f}"
+        for i, f in enumerate(facts, start=1)
     )
     user = (
         f"TÍTULO DE TRABAJO: {canonical.get('video_title','')}\n\n"
         f"SUJETO CANÓNICO: {canonical.get('canonical_subject_description','')}\n\n"
-        f"HECHOS VERIFICADOS (única fuente de datos permitida):\n{facts_txt}\n\n"
+        f"VERIFIED FACTS (única fuente válida de cifras/fechas/nombres):\n{facts_txt}\n\n"
         f"NARRACIÓN COMPLETA:\n{narr}\n\n"
-        f"Generá el paquete de metadata (3 títulos, descripción, tags)."
+        f"Generá el paquete de metadata (6 títulos, 6 overlays, descripción, tags)."
     )
     data = _gemini_json(_META_SYSTEM, user, _META_SCHEMA, META_TEMP)
     return _normalize_metadata(data)
 
 
 def _normalize_metadata(data: dict) -> dict:
-    titulos = [str(t).strip()[:MAX_TITLE_CHARS] for t in (data.get("titulos") or [])][:3]
-    overlays = [str(o).strip().upper() for o in (data.get("overlays") or [])][:3]
+    titulos = [str(t).strip()[:MAX_TITLE_CHARS] for t in (data.get("titulos") or [])][:6]
+    overlays = [str(o).strip().upper() for o in (data.get("overlays") or [])][:6]
     desc = str(data.get("descripcion", "")).strip()
     tags = _truncate_tags([str(t).strip() for t in (data.get("tags") or []) if str(t).strip()],
                           MAX_TAGS_CHARS)
@@ -221,7 +235,7 @@ def _resolve_png(tid: str, filename: str) -> Path | None:
 # ═══════════════════════════════════════════════════════════════
 #  THUMB — hero prompt (Gemini) + render seedream (vía productor)
 # ═══════════════════════════════════════════════════════════════
-_HERO_SCHEMA = {
+_HERO_CONCEPT_SCHEMA = {
     "type": "OBJECT",
     "properties": {
         "subject": {"type": "STRING"},   # casting: quién/qué eligió (PASO 1, trazabilidad)
@@ -229,6 +243,19 @@ _HERO_SCHEMA = {
     },
     "required": ["subject", "prompt"],
 }
+
+# HANDOFF_137d §4: el hero devuelve TRES CONCEPTOS distintos (mata las trillizas — antes se
+# renderizaba 3× el mismo prompt). Cada concepto = su propio casting + prompt.
+_HERO_SCHEMA = {
+    "type": "OBJECT",
+    "properties": {
+        "concepts": {"type": "ARRAY", "items": _HERO_CONCEPT_SCHEMA, "minItems": 3, "maxItems": 3},
+    },
+    "required": ["concepts"],
+}
+
+# Schema del ITERADOR con crítica: refina UN concepto → devuelve UN {subject, prompt}.
+_HERO_ITER_SCHEMA = _HERO_CONCEPT_SCHEMA
 
 _HERO_SYSTEM = """Sos director de arte de MINIATURAS (thumbnails) de YouTube. Tu objetivo NO es
 ilustrar el tema: es DETENER EL SCROLL y generar intriga de click. Escribís UN prompt en inglés
@@ -270,7 +297,18 @@ Requisitos DUROS:
 - UN acento de color fuerte (cálido o frío) como punto focal sobre una paleta oscura — alto
   contraste, luz dramática, profundidad real.
 - Subject-first: etnia/edad/ropa y época integradas al sujeto. Prosa 30-80 palabras. SIN prompts
-  negativos. SIN texto en la imagen. Period-correct."""
+  negativos. SIN texto en la imagen. Period-correct.
+
+DEVOLVÉS TRES CONCEPTOS, NO UNO. Los tres cumplen TODOS los requisitos de arriba, pero son
+IDEAS COMPLETAMENTE DISTINTAS de miniatura — distinto sujeto o distinta escena o distinto
+momento de la historia. NUNCA tres variaciones de la misma toma (mismo sujeto mismo lugar con
+otro ángulo NO cuenta como concepto distinto). Guía de diversidad (adaptala al material):
+  concepto 1 — la PERSONA que encarna el drama, primer plano emocional (física pintable);
+  concepto 2 — otro SUJETO u otra ESCENA clave de la historia (otro personaje, el rescate,
+               la multitud, el después);
+  concepto 3 — un OBJETO cargado o el LUGAR en su momento más dramático, con figura humana
+               secundaria si suma.
+Cada concepto lleva su propio `subject` (el casting de ESE concepto) y su propio `prompt`."""
 
 
 HERO_NARRATION_PER_CAP = 1400   # tope por cap para que la narración de los 7 caps entre holgada
@@ -294,16 +332,23 @@ def _hero_user_prompt(canonical: dict) -> str:
     return (
         f"TÍTULO: {canonical.get('video_title','')}\n"
         f"SUJETO CANÓNICO: {canonical.get('canonical_subject_description','')}\n\n"
-        f"NARRACIÓN COMPLETA (PASO 1 — leela y elegí el sujeto más icónico):\n"
+        f"NARRACIÓN COMPLETA (PASO 1 — leela y elegí los sujetos más icónicos):\n"
         f"{_narration_for_hero(canonical)}\n\n"
-        f"Escribí el prompt EN para la miniatura (hero shot) alrededor de ese sujeto."
+        f"Devolvé los TRES conceptos de miniatura (cada uno con su `subject` y su `prompt` EN), "
+        f"como pide el sistema: ideas COMPLETAMENTE distintas entre sí, no variaciones."
     )
 
 
-def generate_hero_prompt(canonical: dict) -> dict:
-    """Devuelve {'prompt': str, 'subject': str}. subject = el casting (PASO 1)."""
+def generate_hero_prompt(canonical: dict) -> list[dict]:
+    """HANDOFF_137d §4: devuelve TRES conceptos [{'prompt','subject'}] DISTINTOS entre sí
+    (mata las trillizas). Filtra los que vengan sin prompt."""
     d = _gemini_json(_HERO_SYSTEM, _hero_user_prompt(canonical), _HERO_SCHEMA, 0.4)
-    return {"prompt": str(d.get("prompt", "")).strip(), "subject": str(d.get("subject", "")).strip()}
+    out = []
+    for c in (d.get("concepts") or []):
+        p = str(c.get("prompt", "")).strip()
+        if p:
+            out.append({"prompt": p, "subject": str(c.get("subject", "")).strip()})
+    return out
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -339,19 +384,21 @@ def _wrap_lines(text: str, max_lines: int) -> list[str]:
 
 
 def compose_thumbnail(base_path: Path, text: str, out_path: Path, focus: str = "center",
-                      fill: str = THUMB_FILL_DEFAULT) -> Path:
+                      fill: str = THUMB_FILL_DEFAULT, size_factor: float = 1.0) -> Path:
     """Compone la miniatura final 1280×720 con overlay de texto (Anton, color `fill` +
     stroke negro, tercio inferior-izquierdo, esquina inf-DER libre). `fill` ∈
-    {blanco, amarillo, rojo}. `focus` controla el cover-crop de bases verticales. Devuelve
+    {blanco, amarillo, rojo}. `focus` controla el cover-crop de bases verticales.
+    HANDOFF_137d §3.c: `size_factor` escala el font (clamp 0.7–1.6, default 1.0). Devuelve
     el path realmente escrito (puede ser .jpg si el PNG superaba 2MB). Sin red — testeable."""
     base = _fit_cover(Image.open(base_path), THUMB_W, THUMB_H, focus)
     draw = ImageDraw.Draw(base)
     text = (text or "").upper().strip()
     lines = _wrap_lines(text, THUMB_MAX_LINES) if text else []
     color = THUMB_FILLS.get(fill, THUMB_FILLS[THUMB_FILL_DEFAULT])
+    sf = max(0.7, min(1.6, float(size_factor or 1.0)))
 
     if lines:
-        font_px = int(THUMB_H * THUMB_TEXT_SCALE)
+        font_px = int(THUMB_H * THUMB_TEXT_SCALE * sf)
         font = ImageFont.truetype(str(THUMB_FONT_PATH), font_px)
         line_h = font_px + 10
         total_h = line_h * len(lines)
@@ -426,29 +473,51 @@ def _render_fresh_from_hero(hero: str, cand_dir: Path, count: int, start_idx: in
 
 
 def _generate_fresh(canonical: dict, cand_dir: Path, count: int,
-                    start_idx: int) -> tuple[list[str], dict | None, list[str]]:
-    """Genera hero CTR (casting) + `count` frescas. Devuelve (líneas .md, hero {prompt,subject}, archivos)."""
+                    start_idx: int) -> tuple[list[str], list[dict], list[str]]:
+    """HANDOFF_137d §4: genera 3 CONCEPTOS distintos y renderiza 1 frescas POR concepto
+    (3 total, mismo costo que antes). Devuelve (líneas .md, concepts ALINEADOS a files, files).
+    `concepts[i]` es el {prompt,subject} del que salió `files[i]`."""
     try:
-        hero = generate_hero_prompt(canonical)
+        concepts = generate_hero_prompt(canonical)
     except Exception as e:
-        return [f"- ⚠ hero prompt falló ({type(e).__name__}: {e}) — sin frescas."], None, []
-    lines = [f"- casting: _{hero['subject'][:90]}_",
-             f"- hero prompt (CTR): _{hero['prompt'][:160]}_"]
-    l2, files = _render_fresh_from_hero(hero["prompt"], cand_dir, count, start_idx)
-    return lines + l2, hero, files
+        return [f"- ⚠ hero prompt falló ({type(e).__name__}: {e}) — sin frescas."], [], []
+    if not concepts:
+        return ["- ⚠ hero no devolvió conceptos — sin frescas."], [], []
+    lines: list[str] = []
+    files: list[str] = []
+    file_concepts: list[dict] = []
+    for k, concept in enumerate(concepts):
+        idx = start_idx + k
+        lines.append(f"- concepto {k+1} · casting: _{concept['subject'][:80]}_")
+        l2, f2 = _render_fresh_from_hero(concept["prompt"], cand_dir, 1, idx)
+        lines += l2
+        for fn in f2:
+            files.append(fn)
+            file_concepts.append(concept)
+    return lines, file_concepts, files
+
+
+def _render_concept_variations(concept_prompt: str, cand_dir: Path, count: int,
+                               start_idx: int) -> tuple[list[str], list[str]]:
+    """Renderiza `count` VARIACIONES del MISMO concepto (usado por GENERAR MÁS sobre una
+    candidata elegida — el director ya eligió el concepto y quiere más tiros de ESE)."""
+    return _render_fresh_from_hero(concept_prompt, cand_dir, count, start_idx)
 
 
 def generate_hero_prompt_iter(prev_prompt: str, critique: str) -> dict:
-    """Reescribe el hero prompt incorporando la crítica de Omar, SIN perder las reglas CTR
-    del _HERO_SYSTEM (la crítica SUMA, no reemplaza). Devuelve {'prompt', 'subject'}."""
+    """Reescribe UN concepto de hero incorporando la crítica de Omar, SIN perder las reglas CTR
+    del _HERO_SYSTEM (la crítica SUMA, no reemplaza). Devuelve UN {'prompt','subject'} refinado
+    (HANDOFF_137d §4.b: la iteración con crítica trabaja sobre EL concepto elegido, no los tres)."""
     user = (
-        f"PROMPT ANTERIOR:\n«{prev_prompt}»\n\n"
+        f"PROMPT ANTERIOR (UN concepto):\n«{prev_prompt}»\n\n"
         f"El cliente (director) recibió esta imagen y pidió estas CORRECCIONES:\n«{critique}»\n\n"
-        f"Reescribí el prompt incorporando la crítica, SIN perder ninguna de las reglas del "
+        f"Reescribí ESE prompt incorporando la crítica, SIN perder ninguna de las reglas del "
         f"sistema (casting del sujeto, intriga CTR, sujeto a la derecha, tercio izquierdo "
-        f"despejado, acento de color, AP9 calma-tensa). La crítica se SUMA a las reglas."
+        f"despejado, acento de color, AP9 calma-tensa). La crítica se SUMA a las reglas.\n"
+        f"IMPORTANTE: acá NO devolvés tres conceptos — refinás UN SOLO concepto (el elegido) "
+        f"y devolvés UN objeto {{\"subject\", \"prompt\"}}."
     )
-    d = _gemini_json(_HERO_SYSTEM, user, _HERO_SCHEMA, 0.4)
+    d = _gemini_json(_HERO_SYSTEM, user, _HERO_ITER_SCHEMA, 0.4)
     return {"prompt": str(d.get("prompt", "")).strip(), "subject": str(d.get("subject", "")).strip()}
 
 
@@ -466,12 +535,14 @@ def _load_iterations(pub: Path) -> list[dict]:
     return []
 
 
-def _record_iteration(pub: Path, hero_prompt: str, subject: str,
-                      feedback: str | None, files: list[str]) -> None:
-    """Anexa una vuelta a hero_iterations.json (trazabilidad: prompt + subject + feedback + archivos)."""
+def _record_iteration(pub: Path, feedback: str | None, files: list[str],
+                      concepts: list[dict]) -> None:
+    """Anexa una vuelta a hero_iterations.json. HANDOFF_137d §4: `concepts` va ALINEADO a
+    `files` (concepts[i] = {subject,prompt} del que salió files[i]) → cada candidata muestra
+    el casting de SU concepto. Compat lectura: los records viejos traían `subject` único."""
     hist = _load_iterations(pub)
-    hist.append({"iteration": len(hist), "hero_prompt": hero_prompt, "subject": subject,
-                 "feedback": feedback, "files": files})
+    hist.append({"iteration": len(hist), "feedback": feedback,
+                 "files": files, "concepts": concepts})
     _iterations_path(pub).write_text(json.dumps(hist, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
@@ -490,9 +561,9 @@ def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False,
     if only_fresh:
         start = _next_fresh_index(cand)
         print(f"  [m09a] --only-fresh: {FRESH_THUMBS} frescas más desde fresh_{start:02d} (CTR)...")
-        lines, hero, files = _generate_fresh(canonical, cand, FRESH_THUMBS, start)
-        if hero:
-            _record_iteration(pub, hero["prompt"], hero["subject"], None, files)
+        lines, concepts, files = _generate_fresh(canonical, cand, FRESH_THUMBS, start)
+        if files:
+            _record_iteration(pub, None, files, concepts)
         md_path = pub / "metadata_candidatos.md"
         prev = md_path.read_text(encoding="utf-8") if md_path.exists() else ""
         md_path.write_text(prev + "\n\n## Frescas adicionales (--only-fresh)\n\n" + "\n".join(lines),
@@ -541,10 +612,10 @@ def run_candidates(tid: str, skip_fresh: bool = False, only_fresh: bool = False,
     if skip_fresh:
         md.append("- (omitidas: --skip-fresh)")
     else:
-        fresh_lines, hero, files = _generate_fresh(canonical, cand, FRESH_THUMBS, _next_fresh_index(cand))
+        fresh_lines, concepts, files = _generate_fresh(canonical, cand, FRESH_THUMBS, _next_fresh_index(cand))
         md += fresh_lines
-        if hero:
-            _record_iteration(pub, hero["prompt"], hero["subject"], None, files)
+        if files:
+            _record_iteration(pub, None, files, concepts)
 
     (pub / "metadata_candidatos.md").write_text("\n".join(md), encoding="utf-8")
     print(f"  ✅ candidates en {pub}")
@@ -626,7 +697,7 @@ def _resolve_base(tid: str, base: str) -> Path:
 def compose_and_package(tid: str, base: str, text: str, title: str,
                         focus: str = "center", fill: str = THUMB_FILL_DEFAULT,
                         out_name: str = "thumb_final.png",
-                        video_path: str | None = None) -> Path:
+                        video_path: str | None = None, size_factor: float = 1.0) -> Path:
     """Compone la miniatura final + escribe metadata.json(final) + CHECKLIST. Reusable por el
     CLI (--compose, out_name fijo) y por el form (out_name versionado). `title` es el título
     ELEGIDO (string libre: una de las sugerencias o uno escrito a mano). El CHECKLIST referencia
@@ -642,7 +713,7 @@ def compose_and_package(tid: str, base: str, text: str, title: str,
         raise FileNotFoundError(f"Base no encontrada: {base_path}")
     text = _validate_text(text)
 
-    written = compose_thumbnail(base_path, text, pub / out_name, focus, fill)
+    written = compose_thumbnail(base_path, text, pub / out_name, focus, fill, size_factor)
     meta.update({"stage": "final", "titulo_elegido": title,
                  "base_thumb": base, "thumb_final": written.name})
     (pub / "metadata.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")

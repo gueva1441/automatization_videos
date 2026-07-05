@@ -111,7 +111,9 @@ def test_generate_fake():
     try:
         pub, cand = _setup(tmp)
         pkg._load_canonical = lambda tid: {"video_title": "x", "chapters": []}
-        pkg.generate_hero_prompt = lambda canonical: {"prompt": "PROMPT FAKE", "subject": "SUJETO FAKE"}
+        # HANDOFF_137d §4: generate_hero_prompt devuelve TRES conceptos distintos
+        pkg.generate_hero_prompt = lambda canonical: [
+            {"prompt": f"PROMPT FAKE {i}", "subject": f"SUJETO FAKE {i}"} for i in range(3)]
 
         def _fake_render(hero, cand_dir, count, start):
             files = []
@@ -119,7 +121,7 @@ def test_generate_fake():
                 idx = start + k
                 Image.new("RGB", (1280, 720), (10, 10, 10)).save(cand_dir / f"fresh_{idx:02d}.png")
                 files.append(f"fresh_{idx:02d}.png")
-            return [f"- {f} ✓" for f in files], files
+            return [f"- {f} ok" for f in files], files
         pkg._render_fresh_from_hero = _fake_render
         pkg.FRESH_THUMBS = 3
 
@@ -127,14 +129,15 @@ def test_generate_fake():
         state._run_generate(None)  # síncrono (sin thread) para el test
         ok = True
         hist = json.loads((pub / "hero_iterations.json").read_text(encoding="utf-8"))
-        if len(hist) != 1 or hist[0]["subject"] != "SUJETO FAKE":
-            ok = False; print(f"  ✗ iteración no registrada: {hist}")
+        concepts = hist[0].get("concepts") if hist else None
+        if len(hist) != 1 or not concepts or concepts[0]["subject"] != "SUJETO FAKE 0":
+            ok = False; print(f"  ✗ iteración no registrada (concepts): {hist}")
         else:
-            print("  ✓ iteración registrada (prompt+subject+files)")
+            print("  ✓ iteración registrada (concepts alineados a files)")
         if len(hist[0]["files"]) != 3:
-            ok = False; print(f"  ✗ esperaba 3 frescas, {hist[0]['files']}")
+            ok = False; print(f"  ✗ esperaba 3 frescas (1 por concepto), {hist[0]['files']}")
         else:
-            print("  ✓ 3 frescas generadas (FRESH_THUMBS)")
+            print("  ✓ 3 frescas generadas (1 por concepto)")
         if state.generating is not False:
             ok = False; print("  ✗ generating no se reseteó")
         else:
