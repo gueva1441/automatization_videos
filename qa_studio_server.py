@@ -1389,7 +1389,7 @@ def _thumbs_start() -> dict:
         port = _free_port_local()
         proc = subprocess.Popen(
             [sys.executable, "-m", "script_engine.m09_packaging", TOPIC_ID,
-             "--review", "--port", str(port), "--no-browser"],
+             "--review", "--auto-first", "--port", str(port), "--no-browser"],
             cwd=str(BASE_DIR),
             env={**os.environ, "PYTHONIOENCODING": "utf-8"},
         )

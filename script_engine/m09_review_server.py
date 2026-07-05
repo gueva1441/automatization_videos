@@ -117,6 +117,31 @@ class ReviewState:
             with self.lock:
                 self.generating = False
 
+    # ── primera tanda COMPLETA (metadata + hero + frescas) en background ──
+    def start_first_batch(self) -> bool:
+        """HANDOFF_136b: corre run_candidates ENTERO (títulos/overlays/desc/tags por Gemini
+        + hero + frescas) — el mismo flujo que el --candidates original. Así el form abre y
+        se autollena con las sugerencias del LLM sin que Omar apriete nada. En background:
+        el puerto ya respondió, el /state va exponiendo metadata y candidatas a medida que
+        aparecen. El caller (serve) solo lo dispara si falta metadata → idempotente."""
+        with self.lock:
+            if self.generating:
+                return False
+            self.generating = True
+            self.last_error = None
+        threading.Thread(target=self._run_first_batch, daemon=True).start()
+        return True
+
+    def _run_first_batch(self) -> None:
+        try:
+            pkg.run_candidates(self.tid, video_path=self.video_path)
+        except Exception as e:  # noqa: BLE001
+            with self.lock:
+                self.last_error = f"{type(e).__name__}: {e}"
+        finally:
+            with self.lock:
+                self.generating = False
+
     # ── composición (versionada) ──
     def compose(self, base: str, text: str, title: str, focus: str,
                 fill: str = pkg.THUMB_FILL_DEFAULT) -> dict:
@@ -192,10 +217,10 @@ _PAGE = r"""<!doctype html><html lang="es"><head><meta charset="utf-8">
   <div class="panel">
    <h2 style="margin-top:0">Componer la elegida</h2>
    <div class="muted">elegida: <b id="chosen">(ninguna)</b></div>
-   <label>Texto del overlay (2-4 palabras) — desplegá las sugerencias o escribí el tuyo</label>
+   <label>Texto del overlay (2-4 palabras) — ya sugerido por la IA; reescribilo si querés (▾ hay más)</label>
    <input list="overlaylist" id="text" type="text" placeholder="MUERTE EN CHARLESTON" autocomplete="off">
    <datalist id="overlaylist"></datalist>
-   <label>Título del VIDEO en YouTube (va al checklist, no a la imagen)</label>
+   <label>Título del VIDEO en YouTube (va al checklist, no a la imagen) — ya sugerido; reescribilo si querés (▾ hay más)</label>
    <input list="titlelist" id="titletext" type="text" placeholder="elegí o escribí el título" autocomplete="off">
    <datalist id="titlelist"></datalist>
    <label>Focus del crop (bases verticales)</label>
@@ -236,7 +261,22 @@ async function refresh(){
   // comboboxes: poblar los datalist de título y overlay con las sugerencias de la IA
   fillDatalist('titlelist', st.titles);
   fillDatalist('overlaylist', st.overlays||[]);
+  // pre-llenar las cajas con la 1a sugerencia del LLM (una sola vez, sin pisar lo que Omar escriba)
+  prefillOnce('titletext', (st.titles&&st.titles[0])||'');
+  prefillOnce('text', (st.overlays&&st.overlays[0])||'');
 }
+function prefillOnce(id, val){
+  const el=document.getElementById(id);
+  if(!el || !val) return;
+  if(el.dataset.touched==='1' || el.dataset.prefilled==='1') return;  // ya lo tocó / ya lo pre-llenamos
+  if(el.value.trim()!=='') return;                                    // el usuario ya escribió algo
+  el.value=val; el.dataset.prefilled='1';
+}
+function bindTouch(id){
+  const el=document.getElementById(id);
+  if(el && !el.dataset.bound){ el.addEventListener('input',()=>{el.dataset.touched='1';}); el.dataset.bound='1'; }
+}
+bindTouch('text'); bindTouch('titletext');
 function fillDatalist(id, opts){
   const dl=document.getElementById(id);
   const sig=opts.join('');
@@ -342,9 +382,17 @@ def _free_port() -> int:
 
 
 def serve(tid: str, video_path: str | None = None, on_compose=None,
-          port: int | None = None, open_browser: bool = True) -> None:
+          port: int | None = None, open_browser: bool = True,
+          auto_generate_if_empty: bool = False) -> None:
     """port=None → puerto libre (compat fase3/CLI). open_browser=False → NO abre pestaña
-    (HANDOFF_135: el QA Studio lo embebe en iframe; abrir sería una pestaña duplicada)."""
+    (HANDOFF_135: el QA Studio lo embebe en iframe; abrir sería una pestaña duplicada).
+
+    auto_generate_if_empty (HANDOFF_136b): si falta metadata (candidates_ready=False), dispara
+    la primera tanda COMPLETA (metadata Gemini con títulos/overlays + hero + frescas) en
+    background al arrancar — así un click en MINIATURAS del QA Studio genera solo (y el form se
+    autollena con las sugerencias del LLM), sin apretar GENERAR MÁS. Idempotente: con metadata ya
+    en disco no dispara (fase3 corre run_candidates ANTES → no se ve afectado). El puerto se
+    bindea primero, la generación es en thread → el form responde al toque y muestra 'generando'."""
     Handler.state = ReviewState(tid, video_path=video_path, on_compose=on_compose)
     if port is None:
         port = _free_port()
@@ -354,6 +402,13 @@ def serve(tid: str, video_path: str | None = None, on_compose=None,
     print(f"  Form de review de thumbnails — {tid}")
     print(f"  ▶ {url}    (Ctrl+C para frenar)")
     print("─" * 60)
+    # Guard = candidates_ready (existe metadata.json), el MISMO criterio que fase3.
+    # NO alcanza con mirar si hay PNGs: una corrida vieja pudo dejar frescas SIN metadata
+    # (títulos/overlays) → los textbox quedarían vacíos. Si falta la metadata, regeneramos.
+    if auto_generate_if_empty and not pkg.candidates_ready(tid):
+        if Handler.state.start_first_batch():
+            print("  🖼 sin metadata (candidates_ready=False) → generando primera tanda "
+                  "COMPLETA (metadata + hero + frescas) en background…")
     if open_browser:
         pkg._open(url)
     try:

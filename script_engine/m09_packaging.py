@@ -250,8 +250,17 @@ Requisitos DUROS:
   levemente "mal" en la escena (una figura donde no debería haber nadie, una puerta abierta hacia
   la oscuridad, una silueta a medio revelar). El espectador debe NECESITAR el video para entender
   la foto.
-- EMOCIÓN LEGIBLE a 120px de ancho: inquietud, desasosiego — NUNCA gore ni shock. La intriga sale
-  de la sugerencia, no del horror explícito.
+- EMOCIÓN LEGIBLE a 120px de ancho — SOLO como física pintable: NUNCA la emoción
+  como palabra abstracta ("miedo", "inquietud" a secas no renderizan). Escribila
+  como evidencia física: mandíbula tensa, ojos muy abiertos con blanco visible,
+  labios apretados, lágrimas surcando la mugre, nudillos blancos. UNA emoción
+  dominante, 2-3 señales concretas. NUNCA gore ni shock — la intriga sale de la
+  sugerencia, no del horror explícito.
+- EL CUERPO CARGA LA SITUACIÓN: si la historia pone al sujeto en agua, fuego,
+  encierro o intemperie, la miniatura lo muestra MARCADO por eso — empapado, pelo
+  pegado al cráneo, ropa oscurecida por el agua, hollín, mugre con líneas de agua
+  en cara y cuello. PROHIBIDO el sujeto seco, limpio y prolijo en una historia de
+  desastre: es un error de continuidad que mata la credibilidad del click.
 - Calma tensa inviolable (AP9): nada de cuerpos, muerte explícita, aftermath ni el aparato de
   matar. Si el tema es muerte/ejecución, la tensión viene de un sujeto vivo inquietante o de UN
   objeto cargado, jamás del mecanismo.
@@ -596,14 +605,18 @@ def _open(path_or_url) -> None:
 
 
 def run_review(tid: str, video_path: str | None = None, on_compose=None,
-               port: int | None = None, open_browser: bool = True) -> None:
+               port: int | None = None, open_browser: bool = True,
+               auto_generate_if_empty: bool = False) -> None:
     """--review levanta el FORM web local. video_path (de fase3/topics_db) va al CHECKLIST;
     on_compose(thumb_name) se llama tras cada COMPONER exitoso (fase3 lo usa para PACKAGED).
     port/open_browser (HANDOFF_135): el QA Studio lo spawnea con puerto fijo y sin abrir
-    pestaña (lo embebe en iframe). Default = comportamiento de siempre (puerto libre + abre)."""
+    pestaña (lo embebe en iframe). Default = comportamiento de siempre (puerto libre + abre).
+    auto_generate_if_empty (HANDOFF_136b): primera tanda automática si el topic no tiene
+    candidatas (el QA Studio lo usa; ver serve())."""
     from script_engine.m09_review_server import serve
     serve(tid, video_path=video_path, on_compose=on_compose,
-          port=port, open_browser=open_browser)
+          port=port, open_browser=open_browser,
+          auto_generate_if_empty=auto_generate_if_empty)
 
 
 def _resolve_base(tid: str, base: str) -> Path:
@@ -702,6 +715,9 @@ def main() -> int:
                     help="(HANDOFF_135, modo review) puerto fijo del form; default = libre.")
     ap.add_argument("--no-browser", action="store_true",
                     help="(HANDOFF_135, modo review) NO abrir pestaña (el QA Studio lo embebe).")
+    ap.add_argument("--auto-first", action="store_true",
+                    help="(HANDOFF_136b, modo review) si el topic no tiene candidatas, generar "
+                         "la primera tanda (hero + frescas) en background al abrir el form.")
     args = ap.parse_args()
 
     try:
@@ -716,9 +732,10 @@ def main() -> int:
             ap.error("--compose requiere --base y --text")
         run_compose(args.topic_id, args.base, args.text, args.title, focus=args.focus,
                     fill=args.fill, video_path=args.video_path)
-    else:  # review solo → form sin generar
+    else:  # review solo → form (con --auto-first genera la primera tanda si falta)
         run_review(args.topic_id, video_path=args.video_path,
-                   port=args.port, open_browser=not args.no_browser)
+                   port=args.port, open_browser=not args.no_browser,
+                   auto_generate_if_empty=args.auto_first)
     return 0
 
 

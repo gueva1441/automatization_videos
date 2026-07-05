@@ -156,7 +156,7 @@ Definition of each slot (what goes in each casillero — this is the craft, mode
 
 - subject: who/what is the focus. For people: integrate the LOCAL ethnicity of the topic's GEO (R1), period-correct, NEVER a person's proper name (R3a) — describe by appearance/role. — if the focus object is in foto_madre_ref, name it but do NOT re-describe its shape/pose (the anchor holds it).
 - action: the VERB of the anchor — the EXACT moment it narrates (R11), not the aftermath. What is happening. For a place/object with no human action, the state/movement of the scene. — for an anchored object, narrate the action WITHOUT forcing its orientation or structure (no "suspended vertically", no "encased in").
-- gaze_interaction: where the subject looks / how it touches objects; on an R1 hero beat the face/eyes to the front (R8). If no human, the focal direction of the scene.
+- gaze_interaction: where the subject looks / how it touches objects; on an R1 hero beat the face/eyes to the front (R8). If no human, the focal direction of the scene. Emotion on the face follows PHYSICAL TRANSLATION (R6): physical signs, never the emotion word.
 - setting: the place, period-correct (R4, anti-medieval), dressed/placed by the narration of THIS beat, not by cliché (R10). No striped prison uniforms.
 - color_palette: the palette of the era AND of THIS specific place (from the visual canon provided — era layer + sourced place layer).
 - props_detail: ONE loaded focal prop, never an empty plate (R8). — never restate the form of an object already in foto_madre_ref.
@@ -164,7 +164,7 @@ Definition of each slot (what goes in each casillero — this is the craft, mode
 - camera_angle: e.g. low angle for scale, eye-level, high angle (R7).
 - lens_technique: e.g. deep depth of field, shallow depth of field, 85mm lens.
 - lighting: light by the EVENT (R12) — beats of the SAME event share ONE light. overcast daylight, golden hour, low-key night, etc.
-- mood: the emotional tone, WITHIN the monetization ceiling (R5, HARD CAP, do not soften): terror is built from SCALE + LIGHT + EMPTY apparatus + loaded LIVING faces — NEVER lifeless bodies, never fresh graphic blood, never the moment of harm. Show the OUTCOME/charged empty space, never the mechanism centered.
+- mood: the emotional register stated ONLY through paintable physics (R6): light, weather, and the human physical signs defined in PHYSICAL TRANSLATION — never a bare emotion word. WITHIN the monetization ceiling (R5, HARD CAP, do not soften): terror is built from SCALE + LIGHT + EMPTY apparatus + loaded LIVING faces — NEVER lifeless bodies, never fresh graphic blood, never the moment of harm. Show the OUTCOME/charged empty space, never the mechanism centered.
 - style: the channel constant — documentary photographic realism, dark-history, faceless. (This is a slot, NOT a harness tail.)
 - text_in_image: a label when the scene legitimately carries text — a literal sign/inscription/number (building number, carved place name), OR a period newspaper headline / wanted-notice when the anchor narrates a notable EVENT (an escape, a scandal, a ruling) and a headline would authentically illustrate it. Use SPARINGLY — only when it ADDS to the beat, never decorative, a minority of images per cap at most. present=false for ordinary people/atmosphere scenes with no narrated text; NEVER a person's proper name. If present=true: text = the literal content IN SPANISH (the audience reads Spanish — a headline reads 'PRÓFUGO', not 'ESCAPED'), font (carved/block/serif/newsprint...), location (over the entrance / front page...). Seedream renders quoted text legibly — allowed and intended.
 - hard_fact_ids: the F-labels (e.g. ["F03","F10"]) of the provided verified_facts whose FIGURES this image actually shows, copied EXACTLY as labeled in the list. Do NOT write the figures yourself — ONLY pick labels RELEVANT to THIS anchor's moment AND place. A figure belongs here only if THIS image depicts it: do NOT attach a building's structural figures (floors, height, year built) to a people/farm/landscape anchor, nor foundation/closing figures to a peak beat. When in doubt, leave it EMPTY — an honest [] is better than an irrelevant figure forced into the scene (which the locked-figures guard will reject downstream). [] if none apply.
@@ -175,6 +175,29 @@ Definition of each slot (what goes in each casillero — this is the craft, mode
 DIRECTIVES — the visual canon is a CONTRACT, not decoration. Draw from it:
 
 STATE BY BEAT (applies to EVERY item, anchored or not): each image declares the subject's physical state consistent with the moment it narrates, drawing that state from condition_evolution (at_event for the event moment, later for the aftermath). Never blend two states in one image.
+
+PHYSICAL TRANSLATION — THE ENGINE IS A PAINTER, NOT AN ACTOR (R6):
+- Internal states DO NOT render. Never write a bare abstract emotion ("fear",
+  "terror", "dread", "panic", "despair") and never stack two or more emotions on
+  one face (a triple like "terror, defiance and plea" renders as a neutral
+  composite). ONE dominant emotion per face.
+- Every emotion is written ONLY as its paintable physical evidence: facial
+  musculature (jaw clenched, lips pressed thin, brow knotted), eyes (pupils
+  dilated, whites visible above the iris, eyelids strained open), posture
+  (shoulders drawn up, knuckles white around a bar, body pressed against a wall),
+  and involuntary signs (tears cutting clean tracks through grime, a trembling
+  jaw, rapid shallow breathing shown as a half-open mouth).
+- State the emotion through 2-3 concrete physical signs — the emotion word alone
+  is FORBIDDEN in any slot.
+
+BODY CARRIES THE SITUATION (applies to EVERY human figure): the body physically
+wears the conditions THIS beat narrates, BEFORE the face even shows emotion.
+Chest-deep floodwater → clothes soaked dark and clinging, hair plastered to the
+skull, skin slick with dirty water, grime waterlines on face and neck. Days
+trapped without rescue → hollow exhausted eyes, cracked lips, accumulated filth.
+Fire or smoke → soot streaks, sweat tracks through ash. A clean, dry, groomed
+face in a disaster scene is a CONTINUITY ERROR. Draw the specific marks from the
+beat's narrated conditions; never default to a presentable face.
 
 PEOPLE:
 - DEMOGRAPHY IS MANDATORY: every human figure states ethnicity + approximate age + build, taken from demographics (and from a documented person's appearance_canon when it is one), matching what the beat narrates. State the ethnicity explicitly whenever the canon gives it — a vague collective descriptor for a crowd (e.g. "a diverse group") does not satisfy this.

@@ -57,6 +57,13 @@ def main() -> int:
         _check("condition_evolution.at_event" in cb,
                "R4: el bloque perdió 'condition_evolution' (regresión)", fails)
 
+    # ── LEY 1 (HANDOFF_137): PINTOR-NO-ACTOR — R6 restaurada + cuerpo-por-situación ──
+    for token in ["PHYSICAL TRANSLATION", "BODY CARRIES THE SITUATION",
+                  "never a bare emotion word"]:
+        _check(token in si, f"LEY1/R6 falta {token!r} en la system-instruction", fails)
+    _check("the emotional tone," not in si,
+           "LEY1/R6: el slot mood TODAVÍA dice 'the emotional tone,' (forma vieja)", fails)
+
     # ── ALCANCE: el builder viejo sigue sin callers (dead code, no lo tocamos) ──
     import inspect
     src = inspect.getsource(m03)
