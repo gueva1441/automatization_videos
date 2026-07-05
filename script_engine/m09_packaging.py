@@ -299,16 +299,21 @@ Requisitos DUROS:
 - Subject-first: etnia/edad/ropa y época integradas al sujeto. Prosa 30-80 palabras. SIN prompts
   negativos. SIN texto en la imagen. Period-correct.
 
-DEVOLVÉS TRES CONCEPTOS, NO UNO. Los tres cumplen TODOS los requisitos de arriba, pero son
-IDEAS COMPLETAMENTE DISTINTAS de miniatura — distinto sujeto o distinta escena o distinto
-momento de la historia. NUNCA tres variaciones de la misma toma (mismo sujeto mismo lugar con
-otro ángulo NO cuenta como concepto distinto). Guía de diversidad (adaptala al material):
-  concepto 1 — la PERSONA que encarna el drama, primer plano emocional (física pintable);
-  concepto 2 — otro SUJETO u otra ESCENA clave de la historia (otro personaje, el rescate,
-               la multitud, el después);
-  concepto 3 — un OBJETO cargado o el LUGAR en su momento más dramático, con figura humana
-               secundaria si suma.
-Cada concepto lleva su propio `subject` (el casting de ESE concepto) y su propio `prompt`."""
+DEVOLVÉS TRES CONCEPTOS, NO UNO. REGLA INVIOLABLE: los TRES cumplen TODOS los requisitos
+duros de arriba SIN EXCEPCIÓN — en los tres hay UNA figura humana GRANDE (plano medio o
+primer plano, cara y torso dominando la mitad derecha, emoción LEGIBLE en física pintable a
+120px, mirada a cámara o algo levemente "mal" que abre pregunta). Lo que varía entre
+conceptos es LA HISTORIA que cuenta el cuadro, nunca la gramática del click:
+  concepto 1 — el PROTAGONISTA en su momento pico (la cara que encarna el drama).
+  concepto 2 — OTRO personaje u OTRO momento de la historia (el rescatista, el guardia que
+               se fue, el sobreviviente después) — igual de GRANDE y frontal.
+  concepto 3 — persona GRANDE interactuando con UN objeto cargado del material (las manos
+               aferrando la reja, sosteniendo la pertenencia perdida, tocando la marca del
+               agua) — el objeto SUMA intriga, la persona DOMINA el cuadro.
+PROHIBIDO en cualquier concepto: siluetas lejanas, figuras chicas en la arquitectura, planos
+donde la cara no se lee a 120px, ambientes sin persona dominante.
+TEST DE CLICK antes de devolver: por cada concepto preguntate "¿un desconocido scrolleando
+a las 2am frena el dedo Y se queda con una pregunta?" Si un concepto no pasa, reemplazalo."""
 
 
 HERO_NARRATION_PER_CAP = 1400   # tope por cap para que la narración de los 7 caps entre holgada

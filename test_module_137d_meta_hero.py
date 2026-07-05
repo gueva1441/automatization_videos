@@ -30,7 +30,13 @@ def main() -> int:
     _check("3 candidatos, ≤90" not in ms,
            "137d _META_SYSTEM TODAVÍA tiene la forma vieja '3 candidatos, ≤90'", fails)
 
-    _check("TRES CONCEPTOS" in pkg._HERO_SYSTEM, "137d _HERO_SYSTEM falta 'TRES CONCEPTOS'", fails)
+    hs = pkg._HERO_SYSTEM
+    _check("TRES CONCEPTOS" in hs, "137d _HERO_SYSTEM falta 'TRES CONCEPTOS'", fails)
+    # 137e: la gramática CTR es INVIOLABLE en los 3 conceptos (fix contradicción "el LUGAR")
+    for tok in ["REGLA INVIOLABLE", "TEST DE CLICK"]:
+        _check(tok in hs, f"137e _HERO_SYSTEM falta {tok!r}", fails)
+    _check("el LUGAR en su momento más dramático" not in hs,
+           "137e: _HERO_SYSTEM TODAVÍA tiene la guía vieja 'el LUGAR en su momento más dramático'", fails)
 
     # schemas
     props = pkg._META_SCHEMA["properties"]
