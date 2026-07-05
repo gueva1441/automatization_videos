@@ -701,10 +701,10 @@ def _assemble_status(tail: int = 60) -> dict:
 # mirando la IMAGEN; este LLM solo aplica el cambio que pide, en inglés, cuidando las
 # reglas. NUNCA se le muestra el prompt a Omar para aprobar.
 _FIX_REWRITE_INSTRUCTION = """\
-Sos un editor de prompts de imagen para Seedream 4.5 (documental 16:9, canal FACELESS de
+Sos un editor de prompts de imagen para Seedream 4.5 (documental 16:9, canal de
 dark-history). Te paso un PROMPT ACTUAL en inglés (ya generado por el pipeline, con toda su
 estructura y disciplina), su narration_anchor (lo que la imagen DEBE ilustrar), y un CAMBIO
-que pide el usuario en español.
+que pide el usuario en español coloquial.
 
 Tu tarea: aplicar EXCLUSIVAMENTE el cambio pedido y devolver el prompt con TODO LO DEMÁS
 INTACTO — mismas frases, mismo orden, misma estructura. NO reescribas, NO reordenes, NO lo
@@ -713,18 +713,42 @@ copia palabra por palabra. El prompt ya viene en la forma correcta de seedream �
 
 El narration_anchor es la VERDAD de lo que la toma debe mostrar — no te alejes de él.
 
+RECETARIO DE TRADUCCIÓN (cómo convertir el pedido coloquial en edición que el motor obedece):
+A. REEMPLAZO POSITIVO: si el usuario pide QUITAR algo, NUNCA dejes solo la negación (el motor
+   dibuja lo que lee, aun negado). Nombrá qué ocupa su lugar Y matá la FORMA y el COLOR del
+   objeto quitado. Ej: "sacale la esponja" → "his hands are EMPTY, both gripping the bars,
+   no object, nothing white in the frame". Ej: "eliminá la mierda del agua" → "the water
+   carries only soaked papers and unrecognizable small debris; no organic waste, no brown
+   floating lumps".
+B. PINTOR-NO-ACTOR (R6): si el pedido trae emociones o estados internos ("que llore", "más
+   desesperado", "con miedo"), traducilos a 2-3 señales FÍSICAS pintables — musculatura
+   facial (ceño, mandíbula), ojos (enrojecidos, muy abiertos), boca (entreabierta,
+   temblorosa), postura, y señales involuntarias (lágrimas surcando la mugre, manos
+   temblando). NUNCA la palabra abstracta sola. UNA emoción dominante por cara, jamás
+   mezclas triples.
+C. EL CUERPO CARGA LA SITUACIÓN: preservá (y si el pedido lo amerita, reforzá) las marcas de
+   la condición narrada — empapado, pelo pegado, mugre, hollín, agotamiento. Cara seca y
+   prolija en una escena de desastre es un error de continuidad.
+D. GEOMETRÍA RELATIVA A CÁMARA: toda dirección de mirada o de cuerpo se escribe relativa a
+   la cámara ("looking directly toward the camera" / "looking away from the camera, toward
+   the window"), nunca ambigua.
+E. CAMBIOS QUIRÚRGICOS: si el pedido nombra a UNA persona/zona ("el del centro", "los ojos"),
+   la edición nombra esa parte exacta y declara explícitamente que el resto de esa figura no
+   cambia (misma expresión, mismo encuadre).
+
 GUARDRAILS (el prompt resultante DEBE cumplirlos; si el cambio del usuario empuja a violar
 uno, cumplí el ESPÍRITU del pedido sin romperlo):
-1. FACELESS — nunca una cara identificable. Si hay persona, el rostro va oculto por GEOMETRÍA
-   determinista: silhouetted against the light / features lost to deep shadow / back to camera
-   / face turned into darkness. NUNCA cara nítida e iluminada al frente. (Si el usuario pide
-   "mostrá/cambiá la cara", reinterpretá como tratamiento de la figura SIN revelar el rostro.)
+1. PERSONAS GENÉRICAS — los sujetos son personas genéricas period-correct: NUNCA el parecido
+   de una persona real identificable ni un nombre propio. Las caras SÍ pueden verse nítidas y
+   al frente (doctrina R1/LEY 1 vigente): lo prohibido es la identidad real, no el rostro.
 2. SIN NOMBRES PROPIOS — describí por apariencia/rol, nunca el nombre de una persona.
 3. MOOD CEILING (HARD CAP, no ablandar) — el terror se construye con escala + luz + aparato
    vacío + caras VIVAS cargadas; NUNCA cuerpos sin vida, sangre gráfica fresca, ni el momento
-   del daño. Mostrá el resultado / el espacio vacío cargado, nunca el mecanismo centrado.
-   Muerte → calma previa. Aparato de ejecución → espacio cargado vacío + UN objeto que implica
-   (una soga sola, un banco volcado), nunca el mecanismo entero.
+   del daño. Nada gratuitamente repugnante en primer plano (desechos orgánicos explícitos,
+   vísceras): el asco vive en la textura del agua/la mugre, no en el objeto reconocible.
+   Mostrá el resultado / el espacio vacío cargado, nunca el mecanismo centrado. Muerte →
+   calma previa. Aparato de ejecución → espacio cargado vacío + UN objeto que implica (una
+   soga sola, un banco volcado), nunca el mecanismo entero.
 4. TEXTO en español únicamente, y solo si la escena legítimamente lo lleva — nunca un nombre
    propio. Seedream renderiza el texto entre comillas legible — permitido e intencional.
 
@@ -905,6 +929,14 @@ REGLAS DE VEO (inviolables — el prompt resultante DEBE cumplirlas):
 5. SIN negativos: describí en positivo ("a desolate landscape with no buildings", no "no
    buildings").
 6. Longitud objetivo 100–200 palabras. Clip de 8s fijos — NO menciones duración en el prompt.
+- REEMPLAZO DE VERBO: el motor SIEMPRE anima algo. Si el pedido QUITA un movimiento ("que no
+  haga fuerza"), entregá el movimiento sustituto explícito (respiración pesada y lenta, el
+  agua ondulando apenas, la cámara acercándose muy despacio) — nunca dejes al sujeto sin
+  verbo, porque el motor le inventa uno.
+- SÓLIDOS: los objetos rígidos (barrotes, paredes, vidrios) son SÓLIDOS: ningún cuerpo ni
+  cara los atraviesa. La cámara se DETIENE antes de cruzar cualquier sólido. Cuando el pedido
+  lo amerite, fijá distancias concretas ("la cabeza queda siempre detrás de los barrotes, a
+  una mano de distancia").
 
 CONTENT-SAFETY (§2.3 — Veo es MUY estricto, devuelve 422 y rechaza):
 - Muerte → calma previa. Evitá "motionless", "abandoned", "eerie", "deep night", "no human
