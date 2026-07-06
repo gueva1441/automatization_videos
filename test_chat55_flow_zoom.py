@@ -155,10 +155,12 @@ def check6_flow_specs_cache():
     ok, notes = True, []
     tmp = Path(tempfile.mkdtemp())
     cache = tmp / "flow_specs.json"
+    # HANDOFF_140b (C2): cache nuevo cap→LISTA `specs` (una por imagen). ch02 anima
+    # 1 imagen (asset_paths abajo) → lista de largo 1.
     cache.write_text(
         '{"video_id":"x","chapters":{'
         '"ch01":{"reuse_baked":true},'
-        '"ch02":{"movement":"horizontal","intensity":0.85,"steady":0.0,"dof":false,"reasoning":"v2"}}}',
+        '"ch02":{"specs":[{"movement":"horizontal","intensity":0.85,"steady":0.0,"dof":false,"reasoning":"v2"}]}}}',
         encoding="utf-8",
     )
 
@@ -175,7 +177,7 @@ def check6_flow_specs_cache():
     orig_path = fase2b._flow_specs_cache_path
     orig_dispatch = fase2b._dispatch_flow_specs
     called = {"llm": False}
-    def _boom(_plans):
+    def _boom(_plans, _vid=None):   # C2: firma nueva (plans, video_id)
         called["llm"] = True
         raise AssertionError("NO debía llamarse al LLM con cache presente")
     try:
@@ -190,10 +192,11 @@ def check6_flow_specs_cache():
         ok = False; notes.append("✗ se llamó al LLM pese al cache")
     else:
         notes.append("cache presente → NO se llamó al LLM ✓")
-    if "ch02" not in specs or specs["ch02"]["movement"] != "horizontal":
+    if ("ch02" not in specs or not isinstance(specs["ch02"], list)
+            or not specs["ch02"] or specs["ch02"][0]["movement"] != "horizontal"):
         ok = False; notes.append(f"✗ spec ch02 mal recuperado: {specs.get('ch02')}")
     else:
-        notes.append("ch02 spec recuperado del cache (horizontal) ✓")
+        notes.append("ch02 spec[list] recuperado del cache (horizontal) ✓")
     if "ch01" not in reuse:
         ok = False; notes.append(f"✗ ch01 no marcado reuse_baked: {reuse}")
     else:

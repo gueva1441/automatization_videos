@@ -29,7 +29,10 @@ from flow_config import flow_render
 # ═══════════════════════════════════════════════════════════════
 
 DEPTH_ZOOM_CB_MIN: float = 0.15      # c-b mínimo para ser CANDIDATA a zoom (pre-filtro)
-MAX_ZOOMS_PER_CHAPTER: int = 2       # tope anti-spam de promociones por capítulo
+MAX_ZOOMS_PER_CHAPTER: int = 7       # HANDOFF_140b (C4): 2→7. El juez de visión ya
+                                     # evaluó las candidatas; subir el tope solo deja
+                                     # promover más de las YA aprobadas (no gatilla
+                                     # más visión). DEPTH_ZOOM_CB_MIN NO se toca.
 
 
 # ═══════════════════════════════════════════════════════════════

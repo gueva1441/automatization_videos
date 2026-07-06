@@ -32,6 +32,7 @@ import json
 import shutil
 import subprocess
 import sys
+from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -1630,20 +1631,44 @@ def _mix_music_into_video(
     return output_path
 
 
-def _dispatch_flow_specs(plans: list[ChapterPlan]) -> dict[str, FlowSpec]:
+def _load_image_prompts(video_id: str) -> dict[str, str]:
+    """{img_stem: prompt} desde assets_manifest.json (images + supplemental_images).
+
+    HANDOFF_140b (C2): fuente de los prompts POR IMAGEN para el director. Match por
+    stem del PNG (robusto ante ordenamiento). Vacío si el manifest falta/ilegible →
+    el director cae al image_prompt de cap (degradación suave, no rompe)."""
+    manifest = OUTPUT_DIR / video_id / "assets" / "assets_manifest.json"
+    if not manifest.exists():
+        return {}
+    try:
+        data = json.loads(manifest.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+    out: dict[str, str] = {}
+    for ch in data.get("chapters", []):
+        for key in ("images", "supplemental_images"):
+            for im in (ch.get(key) or []):
+                stem = Path(im.get("path") or "").stem
+                if stem:
+                    out[stem] = (im.get("prompt") or "").strip()
+    return out
+
+
+def _dispatch_flow_specs(plans: list[ChapterPlan], video_id: str) -> dict[str, list[FlowSpec]]:
     """
-    Llama a flow_director.select_movements_batch() UNA SOLA VEZ pasándole
-    todas las escenas que necesitan FlowSpec para DepthFlow (ordenadas por
-    chapter_id para que el director vea el arco narrativo completo).
+    HANDOFF_140b (C2): el director decide POR IMAGEN, no por cap.
 
-    Refactor chat 19: ya no agrupa por art_profile (catálogo desconectado).
-    Una sola batch call por video.
+    Junta TODAS las imágenes animables de todos los caps flux/híbridos (misma fuente
+    que el gate de zoom: _animated_images_for_cap), en orden chapter_id→img, y las
+    manda en UNA sola batch a select_movements_batch. El arco vive en el label (primer
+    cap=hook, último=outro); el prompt por-imagen sale del manifest, la narración del
+    anchor. Devuelve {chapter_id: [FlowSpec por imagen, en orden]}.
 
-    Chat 29 #175: incluye caps veo HÍBRIDOS (engine=="veo" + supplementals).
-    Sus PNGs Flux supplementals necesitan FlowSpec para animarse con DepthFlow.
-    Caps veo legacy SIN supps NO entran (movimiento embebido en el clip Veo).
+    Chat 29 #175: incluye caps veo HÍBRIDOS (engine=="veo" + supplementals). Sus PNGs
+    Flux supplementals necesitan FlowSpec. Caps veo legacy SIN supps NO entran.
 
-    Devuelve {chapter_id: FlowSpec}.
+    FLAG-A: acá NO hay zoom. El director asigna la base; el gate depth+visión corre
+    DESPUÉS (_apply_zoom_gate) y sobreescribe con zoom_in las promovidas.
     """
     plans_needing_spec = [
         p for p in plans
@@ -1653,45 +1678,62 @@ def _dispatch_flow_specs(plans: list[ChapterPlan]) -> dict[str, FlowSpec]:
     if not plans_needing_spec:
         return {}
 
-    # Ordenar por chapter_id para que el director vea el arco narrativo
+    # Ordenar por chapter_id para que el director vea el arco narrativo completo
     plans_needing_spec.sort(key=lambda p: p.chapter_id)
 
-    scenes_payload: list[dict] = []
-    for i, p in enumerate(plans_needing_spec, start=1):
-        # Chat 29 #175: hint semántico "hibrido" para que el director sepa
-        # que el cap mezcla Veo + Flux. Permite (en el futuro) elegir
-        # movimientos que complementen el motion de Veo en vez de competir.
-        label = p.label or ("hibrido" if p.engine == "veo" else "desarrollo")
-        scenes_payload.append({
-            "scene_number": i,
-            "label": label,
-            "narration": p.narration,
-            "image_prompt": p.image_prompt,
-        })
+    prompt_by_stem = _load_image_prompts(video_id)
+    first_cap = plans_needing_spec[0].chapter_id
+    last_cap = plans_needing_spec[-1].chapter_id
 
-    print(f"  🎬 flow_director: {len(plans_needing_spec)} escena(s) "
-          f"({', '.join(p.chapter_id for p in plans_needing_spec)})...")
+    scenes_payload: list[dict] = []
+    cap_counts: list[tuple[str, int]] = []   # (cap, n_imgs) — para repartir el resultado
+    n = 0
+    for p in plans_needing_spec:
+        imgs = _animated_images_for_cap(p)      # misma fuente que el gate de zoom
+        anchors = (p.supplemental_anchors if p.engine == "veo"
+                   else p.narration_anchors) or []
+        if p.chapter_id == first_cap:
+            pos = "hook"
+        elif p.chapter_id == last_cap:
+            pos = "outro"
+        else:
+            pos = p.label or ("hibrido" if p.engine == "veo" else "desarrollo")
+        for i, img in enumerate(imgs):
+            n += 1
+            scenes_payload.append({
+                "scene_number": n,
+                "label": f"{p.chapter_id} ({pos})",
+                "chapter_id": p.chapter_id,
+                "narration": (anchors[i] if i < len(anchors) else "").strip(),
+                "image_prompt": prompt_by_stem.get(img.stem, p.image_prompt or "").strip(),
+            })
+        cap_counts.append((p.chapter_id, len(imgs)))
+
+    total = sum(c for _, c in cap_counts)
+    print(f"  🎬 flow_director: {total} imagen(es) de {len(plans_needing_spec)} cap(s) "
+          f"({', '.join(c for c, _ in cap_counts)})...")
 
     try:
         specs = select_movements_batch(scenes_payload)
+        if len(specs) != total:
+            raise ValueError(f"director devolvió {len(specs)} specs, esperaba {total}")
     except Exception as e:
         print(f"     ⚠ flow_director falló ({type(e).__name__}: {e}) → "
-              f"fallback dolly estático")
+              f"fallback vertical por imagen")
         specs = [
-            FlowSpec(
-                movement="dolly", intensity=0.7, steady=0.5,
-                dof=True, reasoning="fallback global",
-            )
-            for _ in plans_needing_spec
+            FlowSpec(movement="vertical", intensity=0.95, steady=0.3,
+                     dof=True, reasoning="fallback global")
+            for _ in range(total)
         ]
 
-    # Mapear de vuelta a chapter_id (orden preservado por sort + zip)
-    flow_specs: dict[str, FlowSpec] = {}
-    for p, spec in zip(plans_needing_spec, specs):
-        flow_specs[p.chapter_id] = spec
-        print(f"     [{p.chapter_id}] {spec['movement']} "
-              f"(i={spec['intensity']:.2f}, s={spec['steady']:.2f}, "
-              f"dof={spec['dof']})")
+    # Repartir el resultado plano de vuelta por cap (orden preservado por sort + splits)
+    flow_specs: dict[str, list[FlowSpec]] = {}
+    k = 0
+    for cap, cnt in cap_counts:
+        flow_specs[cap] = specs[k:k + cnt]
+        k += cnt
+        dist = Counter(s["movement"] for s in flow_specs[cap])
+        print(f"     [{cap}] {cnt} img → " + ", ".join(f"{m}×{c}" for m, c in dist.items()))
 
     return flow_specs
 
@@ -1710,15 +1752,21 @@ def _caps_needing_spec(plans: list[ChapterPlan]) -> list[str]:
             if p.engine == "flux" or (p.engine == "veo" and p.supplemental_paths)]
 
 
-def _write_flow_specs_cache(video_id: str, flow_specs: dict[str, FlowSpec],
+def _write_flow_specs_cache(video_id: str, flow_specs: dict[str, list[FlowSpec]],
                             reuse_caps: set[str], promotions: dict | None = None) -> None:
-    """Escribe output/<id>/assets/flow_specs.json (cap→spec base, reuse_baked, promociones)."""
+    """Escribe output/<id>/assets/flow_specs.json.
+
+    HANDOFF_140b (C2): formato NUEVO cap→LISTA de specs (una por imagen), bajo la
+    clave `specs`. Antes era cap→spec único. reuse_baked/promociones igual."""
     chapters: dict[str, Any] = {}
-    for cap, s in flow_specs.items():
+    for cap, specs in flow_specs.items():
         chapters[cap] = {
-            "movement": s["movement"], "intensity": float(s["intensity"]),
-            "steady": float(s["steady"]), "dof": bool(s["dof"]),
-            "reasoning": s.get("reasoning", ""),
+            "specs": [
+                {"movement": s["movement"], "intensity": float(s["intensity"]),
+                 "steady": float(s["steady"]), "dof": bool(s["dof"]),
+                 "reasoning": s.get("reasoning", "")}
+                for s in specs
+            ]
         }
     for cap in reuse_caps:
         chapters.setdefault(cap, {})["reuse_baked"] = True
@@ -1730,45 +1778,52 @@ def _write_flow_specs_cache(video_id: str, flow_specs: dict[str, FlowSpec],
     path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
-def _resolve_flow_specs(plans: list[ChapterPlan], video_id: str) -> tuple[dict[str, FlowSpec], set[str]]:
-    """Devuelve (flow_specs cap→FlowSpec, reuse_caps).
+def _resolve_flow_specs(plans: list[ChapterPlan], video_id: str) -> tuple[dict[str, list[FlowSpec]], set[str]]:
+    """Devuelve (flow_specs cap→LISTA de FlowSpec por imagen, reuse_caps).
 
-    Lee el cache flow_specs.json: caps con `movement` → FlowSpec; caps con
-    `reuse_baked` → reuse_caps (se reusa el clip horneado, no se re-anima). Si el
-    cache CUBRE todos los caps que necesitan spec → REUSA (no llama al LLM →
-    re-animaciones reproducibles). Si no hay cache o está incompleto → llama a
-    flow_director (1 batch) y escribe el cache.
+    HANDOFF_140b (C2): el cache es cap→lista `specs` (una por imagen). Un cap está
+    CUBIERTO solo si su lista existe Y su largo coincide con el nº de imágenes que
+    ese cap anima hoy (_animated_images_for_cap) — así un cache viejo (formato
+    cap→spec único) o desalineado (regen cambió el nº de imgs) NO cubre → re-dispatch.
+    Caps con `reuse_baked` → reuse_caps. Si TODO cubre → reusa (sin LLM, reproducible).
     """
     needed = _caps_needing_spec(plans)
+    # nº de imágenes que cada cap anima hoy → valida el largo de la lista cacheada
+    expected = {p.chapter_id: len(_animated_images_for_cap(p)) for p in plans}
     cache_path = _flow_specs_cache_path(video_id)
     if cache_path.exists():
         try:
             chapters = json.loads(cache_path.read_text(encoding="utf-8")).get("chapters", {})
-            specs: dict[str, FlowSpec] = {}
+            specs: dict[str, list[FlowSpec]] = {}
             reuse: set[str] = set()
             covered = True
             for cap in needed:
                 e = chapters.get(cap)
                 if isinstance(e, dict) and e.get("reuse_baked"):
                     reuse.add(cap)
-                elif isinstance(e, dict) and "movement" in e:
-                    specs[cap] = FlowSpec(
-                        movement=e["movement"], intensity=float(e["intensity"]),
-                        steady=float(e["steady"]), dof=bool(e["dof"]),
-                        reasoning=str(e.get("reasoning", "cache")),
-                    )
+                elif (isinstance(e, dict) and isinstance(e.get("specs"), list)
+                      and len(e["specs"]) == expected.get(cap, -1)):
+                    specs[cap] = [
+                        FlowSpec(
+                            movement=s["movement"], intensity=float(s["intensity"]),
+                            steady=float(s["steady"]), dof=bool(s["dof"]),
+                            reasoning=str(s.get("reasoning", "cache")),
+                        )
+                        for s in e["specs"]
+                    ]
                 else:
                     covered = False
                     break
             if covered:
-                print(f"  ♻  flow_specs cache: {len(specs)} spec(s) + "
+                nimg = sum(len(v) for v in specs.values())
+                print(f"  ♻  flow_specs cache: {len(specs)} cap(s)/{nimg} img spec(s) + "
                       f"{len(reuse)} reuse_baked (sin LLM, reproducible)")
                 return specs, reuse
         except (json.JSONDecodeError, OSError, KeyError, ValueError, TypeError) as e:
             print(f"  ⚠  flow_specs cache ilegible ({type(e).__name__}) → flow_director")
 
     print(f"  🎥 flow_specs cache ausente/incompleto → flow_director (LLM)")
-    flow_specs = _dispatch_flow_specs(plans)
+    flow_specs = _dispatch_flow_specs(plans, video_id)
     _write_flow_specs_cache(video_id, flow_specs, reuse_caps=set())
     return flow_specs, set()
 
@@ -1783,17 +1838,19 @@ def _animated_images_for_cap(plan: ChapterPlan) -> list[Path]:
 
 
 def _apply_zoom_gate(
-    plans: list[ChapterPlan], flow_specs: dict[str, FlowSpec],
+    plans: list[ChapterPlan], flow_specs: dict[str, list[FlowSpec]],
     video_id: str, reuse_caps: set[str],
 ) -> tuple[dict[str, list[FlowSpec]], dict[str, list[dict]]]:
     """Gate de zoom v3 por IMAGEN (geometría + visión, determinístico + cacheado).
 
     Pipeline: depth_probe (c-b ≥ DEPTH_ZOOM_CB_MIN) → zoom_judge (solo
-    `sujeto_con_fondo`) → por cap, top-MAX_ZOOMS_PER_CHAPTER por c-b → clonar el
-    spec base del cap con movement="zoom_in" en esas imágenes.
+    `sujeto_con_fondo`) → por cap, top-MAX_ZOOMS_PER_CHAPTER por c-b → SOBREESCRIBIR
+    con movement="zoom_in" la spec por-imagen del director en esas imágenes.
 
-    Devuelve (per_image_specs_by_cap, promotions_log). Caps en reuse_caps (clip v2
-    reusado) se saltan: no se re-animan, no se promueven.
+    HANDOFF_140b (C2/FLAG-A): flow_specs ya es cap→LISTA por-imagen (base del
+    director). Este gate corre DESPUÉS y solo pisa las promovidas; el resto conserva
+    su base variada. Devuelve la lista por-imagen FINAL de CADA cap animable (no solo
+    los que tienen promoción). Caps en reuse_caps se saltan (clip v2 reusado).
     """
     assets_dir = OUTPUT_DIR / video_id / "assets"
     cap_images: dict[str, list[Path]] = {}
@@ -1840,21 +1897,30 @@ def _apply_zoom_gate(
                  "categoria": verdicts[stem]["categoria"]}
             )
 
-    # 4. per_image_specs por cap (solo donde hay promoción; None ⇒ legacy)
+    # 4. Lista por-imagen FINAL de cada cap animable: base del director (varía img a
+    #    img) con zoom_in sobreescrito en las promovidas. Se emite para TODOS los caps
+    #    (no solo con promoción) — la base por-imagen debe llegar entera al render.
     per_image_by_cap: dict[str, list[FlowSpec]] = {}
     for cap, imgs in cap_images.items():
-        if not any(img.stem in promoted for img in imgs):
-            continue
         base = flow_specs[cap]
+        if not base:
+            continue
+        if len(base) != len(imgs):
+            error_handler.log_warning(
+                PipelineStage.ASSEMBLY,
+                f"[zoom_gate] {cap}: {len(base)} specs base != {len(imgs)} imgs — "
+                f"alineación por índice clampeada",
+            )
         specs: list[FlowSpec] = []
-        for img in imgs:
+        for j, img in enumerate(imgs):
+            b = base[j] if j < len(base) else base[-1]
             if img.stem in promoted:
-                z = dict(base)
+                z = dict(b)
                 z["movement"] = "zoom_in"
                 z["reasoning"] = "gate v3: depth+visión → zoom_in"
                 specs.append(z)  # FlowSpec es TypedDict → dict literal sirve
             else:
-                specs.append(base)
+                specs.append(b)
         per_image_by_cap[cap] = specs
 
     return per_image_by_cap, promotions
@@ -2110,15 +2176,20 @@ def _assemble_one_video(
                     "art_profile": p.art_profile,
                     "audio_duration_sec": round(p.audio_duration, 2),
                     "narration_anchors_count": len(p.narration_anchors) if p.narration_anchors else 0,
-                    "flow_spec": (
-                        {
-                            "movement": flow_specs[p.chapter_id]["movement"],
-                            "intensity_base": float(flow_specs[p.chapter_id]["intensity"]),
-                            "steady": float(flow_specs[p.chapter_id]["steady"]),
-                            "dof": bool(flow_specs[p.chapter_id]["dof"]),
-                            "rationale": flow_specs[p.chapter_id].get("rationale", ""),
-                        }
-                        if p.chapter_id in flow_specs and p.engine == "flux"
+                    # HANDOFF_140b (C2): per-imagen. Antes era `flow_spec` (dict único
+                    # por cap); ahora `flow_specs` (lista, una por imagen).
+                    "flow_specs": (
+                        [
+                            {
+                                "movement": s["movement"],
+                                "intensity_base": float(s["intensity"]),
+                                "steady": float(s["steady"]),
+                                "dof": bool(s["dof"]),
+                                "reasoning": s.get("reasoning", ""),
+                            }
+                            for s in flow_specs[p.chapter_id]
+                        ]
+                        if p.chapter_id in flow_specs
                         else None
                     ),
                 }
@@ -2138,14 +2209,19 @@ def _assemble_one_video(
     segments: list[Path] = []
     for i, plan in enumerate(plans, start=1):
         seg_path = work_dir / f"seg_{i:02d}_{plan.chapter_id}.mp4"
-        spec = flow_specs.get(plan.chapter_id)
+        # HANDOFF_140b (C2): flow_specs[cap] es una LISTA por-imagen. per_image_by_cap
+        # (base + zoom) es lo que MANEJA el render; el `flow_spec` único queda solo
+        # como fallback (1ra spec, representativa) + para el label.
+        cap_specs = flow_specs.get(plan.chapter_id)
+        spec_repr = cap_specs[0] if cap_specs else None
         cap_pis = per_image_by_cap.get(plan.chapter_id)
         cap_reuse = reuse_visuals or (plan.chapter_id in reuse_caps)
         nz = len(promotions.get(plan.chapter_id, []))
         if plan.chapter_id in reuse_caps:
             spec_label = " reuse-v2"
         else:
-            spec_label = f" {spec['movement']}" if spec else ""
+            n_moves = len({s["movement"] for s in cap_specs}) if cap_specs else 0
+            spec_label = f" {n_moves}mov/{len(cap_specs)}img" if cap_specs else ""
             if nz:
                 spec_label += f" +{nz}zoom"
         print(f"\n  🔧 [{i}/{len(plans)}] {plan.chapter_id} ({plan.engine}{spec_label})...")
@@ -2155,7 +2231,7 @@ def _assemble_one_video(
                 hook_text=hook, no_subs=no_subs,
                 video_width=pipeline.video_width,
                 video_height=pipeline.video_height,
-                fps=pipeline.fps, flow_spec=spec,
+                fps=pipeline.fps, flow_spec=spec_repr,
                 reuse_visuals=cap_reuse,
                 per_image_specs=cap_pis,
             )
