@@ -1,10 +1,12 @@
 """
-test_module_135d_loop.py — HANDOFF_135d (offline, sin render real).
+test_module_135d_loop.py — HANDOFF_135d + HANDOFF_140a (offline, sin render real).
 
-Ciclo DepthFlow fijo (7s) + stream_loop para ventanas largas:
-  1. duration=17.3 → DepthFlow llamado con 7.0 (a un _cycle), ffmpeg con -stream_loop -1 y -t 17.300.
-  2. duration=6.0 → camino viejo: DepthFlow con 6.0 al output directo, SIN ffmpeg stream_loop.
-  3. umbral: 9.0 → viejo · 9.01 → loop.
+VELOCIDAD CONSTANTE (140a): para los movimientos que loopean (horizontal/vertical/orbital),
+CUALQUIER duración → 1 ciclo dulce de 7.0s + stream_loop -t (cortado/extendido a la ventana).
+El umbral de 9s murió. Casos:
+  1. loop largo 17.3 → DepthFlow(7.0 a _cycle) + ffmpeg -stream_loop -1 -t 17.300.
+  2. loop CORTO 6.0 → TAMBIÉN DepthFlow(7.0) + ffmpeg -t 6.000 (antes iba directo; ese acople murió).
+  3. FLAG-1 zoom_in (6.0 y 12.0) → camino viejo INTACTO: DepthFlow directo, SIN stream_loop.
   Ken Burns NO se llama (no hay fallo).
 
 Mockea build_depthflow_clip y subprocess.run del módulo.
@@ -54,10 +56,10 @@ def _install_stubs():
     return calls, restore
 
 
-def _run(duration, out):
+def _run(duration, out, movement="horizontal"):
     return pav.build_animated_clip(
         image_path=Path("fake.png"), output_path=out, duration=duration,
-        flow_spec={"movement": "horizontal", "intensity": 0.5, "steady": 0.5, "dof": False},
+        flow_spec={"movement": movement, "intensity": 0.5, "steady": 0.5, "dof": False},
         width=2560, height=1440, fps=30,
     )
 
@@ -67,7 +69,7 @@ def main() -> int:
     tmp = Path(tempfile.mkdtemp())
     calls, restore = _install_stubs()
     try:
-        # ── (1) ventana larga 17.3 → ciclo 7.0 + stream_loop -t 17.300 ──
+        # ── (1) loop largo 17.3 → ciclo 7.0 + stream_loop -t 17.300 ──
         out = tmp / "long.mp4"
         r = _run(17.3, out)
         _check(r == "depthflow", f"(1) no devolvió depthflow: {r}", fails)
@@ -82,22 +84,26 @@ def main() -> int:
         _check(calls["kb"] == 0, "(1) Ken Burns se llamó sin fallo", fails)
         _check(not out.with_name("long_cycle.mp4").exists(), "(1) no limpió el _cycle temporal", fails)
 
-        # ── (2) ventana corta 6.0 → camino viejo, sin stream_loop ──
+        # ── (2) HANDOFF_140a: loop CORTO 6.0 → TAMBIÉN ciclo 7.0 + stream_loop -t 6.000 ──
         calls["df"].clear(); calls["ff"].clear()
         out2 = tmp / "short.mp4"
         _run(6.0, out2)
-        _check(calls["df"] == [(6.0, out2)], f"(2) DepthFlow no fue directo con 6.0: {calls['df']}", fails)
-        _check(len(calls["ff"]) == 0, "(2) camino corto igual llamó ffmpeg stream_loop", fails)
+        _check(calls["df"] == [(7.0, out2.with_name("short_cycle.mp4"))],
+               f"(2) loop corto no usó el ciclo dulce 7.0: {calls['df']}", fails)
+        _check(len(calls["ff"]) == 1, "(2) loop corto NO llamó stream_loop (velocidad no constante)", fails)
+        cmd2 = calls["ff"][0] if calls["ff"] else []
+        _check("-t" in cmd2 and cmd2[cmd2.index("-t") + 1] == "6.000",
+               f"(2) -t del corto no es 6.000: {cmd2[cmd2.index('-t')+1] if '-t' in cmd2 else 'n/a'}", fails)
 
-        # ── (3) umbral exacto: 9.0 viejo · 9.01 loop ──
-        calls["df"].clear(); calls["ff"].clear()
-        _run(9.0, tmp / "t90.mp4")
-        _check(calls["df"] == [(9.0, tmp / "t90.mp4")] and not calls["ff"],
-               f"(3) 9.0 debía ser camino viejo: df={calls['df']} ff={len(calls['ff'])}", fails)
-        calls["df"].clear(); calls["ff"].clear()
-        _run(9.01, tmp / "t901.mp4")
-        _check(calls["df"] and calls["df"][0][0] == 7.0 and len(calls["ff"]) == 1,
-               f"(3) 9.01 debía ser loop: df={calls['df']} ff={len(calls['ff'])}", fails)
+        # ── (3) FLAG-1: zoom_in queda INTACTO (directo, sin stream_loop) a cualquier duración ──
+        for dz in (6.0, 12.0):
+            calls["df"].clear(); calls["ff"].clear()
+            oz = tmp / f"zoom_{dz}.mp4"
+            _run(dz, oz, movement="zoom_in")
+            _check(calls["df"] == [(round(dz, 3), oz)],
+                   f"(3) zoom {dz} no fue DepthFlow directo: {calls['df']}", fails)
+            _check(len(calls["ff"]) == 0,
+                   f"(3) zoom {dz} llamó stream_loop (FLAG-1: debía quedar intacto)", fails)
     finally:
         restore()
 
@@ -106,7 +112,7 @@ def main() -> int:
         for f in fails:
             print(f"   ✗ {f}")
         return 1
-    print("[PASS] ventana larga → ciclo 7s + stream_loop -t exacto; corta → camino viejo; umbral 9.0/9.01")
+    print("[PASS] 140a: loop (corto y largo) → ciclo 7s + stream_loop -t exacto; zoom_in intacto")
     return 0
 
 

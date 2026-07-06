@@ -482,26 +482,23 @@ def build_animated_clip(
     Devuelve 'depthflow' | 'kenburns' según qué se usó realmente.
     Esta es la API que llama fase2b.py.
 
-    HANDOFF_135d — ventanas LARGAS: hoy `loop=True` estira UN ciclo a toda la ventana; la
-    velocidad validada al ojo a ~7s se ralentiza a 12-17s (casi estático). Si la ventana
-    supera CYCLE_S+2s, se renderiza UN ciclo seamless de CYCLE_S (loop=True → termina donde
-    empieza) y se extiende con -stream_loop -1 + -t (corte invisible, sin crossfade/reverse).
-    El escalado de intensity para imágenes CORTAS (duration < referencia) NO se toca.
+    HANDOFF_140a — VELOCIDAD CONSTANTE: para los movimientos que loopean (horizontal, vertical,
+    orbital) SIEMPRE se renderiza UN ciclo dulce de CYCLE_S=7s (la velocidad validada al ojo en
+    ch03_img_03) y se extiende/corta a la ventana con -stream_loop -1 + -t (corte invisible). La
+    duración deja de gobernar velocidad/amplitud: solo decide CUÁNTO ARCO se ve. Antes (135d) la
+    velocidad dependía de la duración (ciclo estirado en clips ≤9s = casi estático) — ese acople
+    murió. FLAG-1: zoom_in/zoom_out u otros movimientos NO-loop quedan por el camino de hoy,
+    INTACTOS (el ciclo de 7s no aplica al empuje del zoom). El escalador de intensity para
+    imágenes cortas (_build_options, chat-32) queda muerto para este camino (siempre recibe
+    duration=7.0) pero vivo para build_hook_clip.
     """
     fps = fps or flow_render.fps
-    CYCLE_S = _DURATION_REFERENCE_S           # 7.0 — la referencia validada al ojo
-    LOOP_THRESHOLD_S = CYCLE_S + 2.0          # 9.0 — un ciclo hasta 9s todavía se lee bien
+    CYCLE_S = _DURATION_REFERENCE_S           # 7.0 — velocidad dulce validada (img_03)
+    _LOOP_MOVEMENTS = ("horizontal", "vertical", "orbital")
     try:
-        if duration <= LOOP_THRESHOLD_S:
-            # Camino de HOY, intacto: un ciclo = la ventana.
-            build_depthflow_clip(
-                image_path=image_path, output_path=output_path,
-                duration=duration, flow_spec=flow_spec,
-                width=width, height=height, fps=fps,
-                tiling_mode=tiling_mode,
-            )
-        else:
-            # Ventana larga: 1 ciclo seamless de CYCLE_S + stream_loop hasta `duration`.
+        if flow_spec["movement"] in _LOOP_MOVEMENTS:
+            # VELOCIDAD CONSTANTE: SIEMPRE 1 ciclo dulce de 7s + loop-extend a la ventana.
+            # La duración deja de gobernar velocidad/amplitud. Sin umbral de 9s.
             cycle_clip = output_path.with_name(f"{output_path.stem}_cycle{output_path.suffix}")
             build_depthflow_clip(
                 image_path=image_path, output_path=cycle_clip,
@@ -511,6 +508,14 @@ def build_animated_clip(
             )
             _loop_extend_clip(cycle_clip, output_path, duration, fps)
             cycle_clip.unlink(missing_ok=True)
+        else:
+            # FLAG-1: zoom_in/zoom_out u otros → comportamiento de HOY, INTACTO.
+            build_depthflow_clip(
+                image_path=image_path, output_path=output_path,
+                duration=duration, flow_spec=flow_spec,
+                width=width, height=height, fps=fps,
+                tiling_mode=tiling_mode,
+            )
         return "depthflow"
     except (DepthFlowError, FileNotFoundError, RuntimeError) as e:
         # RuntimeError incluido (HANDOFF_135d): si el stream_loop del camino largo falla,
