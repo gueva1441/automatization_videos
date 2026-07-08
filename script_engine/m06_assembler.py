@@ -65,9 +65,16 @@ def assemble_final_script(topic_id: str) -> Path:
     # Solo entran los que TIENEN foto madre (no vacío): ese es el gate. Lo que no está
     # acá degrada a t2i en asset_manager. El consumidor lee del contrato que ya consume
     # (P2, sin dependencia lateral a topics_db — la lección del seam del 128).
+    #
+    # HANDOFF_140+ (FIX huérfanas place): el gate es SOLO "tiene foto madre". Antes exigía
+    # kind == "object", lo que dejaba huérfana la madre de todo `place` (foto_madre.py la
+    # genera para object Y place; m03 asigna __subject__ a sus establishing) → registry
+    # vacío → 0 /edit. El productor manda: si hay madre, entra. person/other nunca tienen
+    # madre (foto_madre.py no la genera) → el truthiness ya los excluye. Qué imágenes
+    # anclan lo decide m03 per-imagen (foto_madre_ref), no este gate por-kind.
     foto_madre_registry: dict[str, str] = {}
     cs = topic.get("central_subject") or {}
-    if cs.get("kind") == "object" and cs.get("foto_madre"):
+    if cs.get("foto_madre"):
         foto_madre_registry["__subject__"] = cs["foto_madre"]
     for prop in (topic.get("documented_props") or []):
         if prop.get("anclado") == "si" and prop.get("foto_madre") and prop.get("nombre"):

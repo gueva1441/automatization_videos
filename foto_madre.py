@@ -76,7 +76,12 @@ def _generate_madre_gpt(prompt: str, dest: Path) -> dict:
     rechaza por content-safety, o la excepción de red/API cruda."""
     payload = {
         "prompt": prompt,
-        "image_size": "landscape_16_9",
+        # HANDOFF_140+ (FIX resolución madre): el preset "landscape_16_9" salía
+        # 1088×608 — muy chico para anclar vía /edit. openai/gpt-image-2 en fal acepta
+        # {width,height} explícito (múltiplos de 16, edge≤3840, aspecto≤3:1, px 655K–8.3M).
+        # 2560×1440 = IGUAL al output de los caps (seedream/edit rinde 2560×1440) → la
+        # referencia tiene el mismo detalle que el target, sin upscaling. 3.69M px.
+        "image_size": {"width": 2560, "height": 1440},
         "quality": "high",
         "num_images": 1,
         "output_format": "png",
@@ -94,7 +99,11 @@ def _generate_madre_gpt(prompt: str, dest: Path) -> dict:
     result = resp.json()
     # queue.fal.run → respuesta con status_url/response_url; algunos endpoints responden
     # directo con images. Cubrimos ambos (espejo del path flux de _generate_image_raw).
-    data = result if "images" in result else _flux_poll(result["status_url"], result["response_url"])
+    # HANDOFF_140+ (FIX poll madre): timeout 300s (default 180). A 2560×1440 gpt-image-2
+    # tarda ~150-200s; 180s dejaba margen mínimo → timeouts transitorios caían al fallback
+    # seedream. 300s cubre la variación de cola sin cambiar el resto.
+    data = result if "images" in result else _flux_poll(
+        result["status_url"], result["response_url"], timeout=300)
     if "images" not in data or not data["images"]:
         raise RuntimeError(f"{MADRE_IMAGE_MODEL} sin imágenes: {json.dumps(data)[:300]}")
 
