@@ -733,7 +733,7 @@ def _seedream_facts_verbatim(hard_fact_ids, facts: list) -> list[str]:
 #  STEERING al LLM de la Etapa 1 — NO re-reparte emotional_rank (eso es versión B).
 # ═══════════════════════════════════════════════════════════════
 VISUAL_INTENT_BY_INTENT: dict[str, str] = {
-    "hook":           "Wide, distant framing. A figure or scene seen from afar, partly hidden. Fog/haze, cold muted palette. Mystery — pose a visual question. Avoid close detail.",
+    "hook":           "Close or medium framing on a single charged object or human detail that carries the dread by implication — a legible carved number, a marked grave, a personal object left behind, hands or a face caught in the decisive instant. Cold, desaturated blue-grey palette matching the channel's documentary look — overcast or hard COLD directional light isolating the detail; explicitly NO warm, golden, amber or memorial glow. Morbid pull through the loaded evidence, NOT through gore: no corpses, no still bodies, no full killing apparatus — the narration carries the death, the image shows the charged trace it left.",
     "setup":          "Establishing, calm framing. Context-rich, neutral light. Steady and observational. Low visual tension.",
     "rising_tension": "Tighter framing creeping in. Growing shadows, off-balance composition. Unease building. Medium tension.",
     "shock":          "Close-up or extreme close-up on the decisive detail. Hard, high-contrast light. Claustrophobic, the instant itself. Peak visual tension.",
@@ -772,6 +772,18 @@ def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors) -> st
     topic_block = _build_topic_block(topic)
     canon_block = _format_seedream_canon_block(topic)
     arc_block = _visual_arc_block(cap_data.get("narrative_intent"))
+    # HANDOFF_142b PALANCA B.1: en el HOOK, el item [1] es el beat del CLIP de apertura (lo PRIMERO
+    # que ve el espectador). Regla dura: close/medium sobre el detalle, NUNCA establishing/aéreo/wide.
+    # El hook es siempre el cap veo (cap1); ningún cap flux tiene narrative_intent=="hook".
+    opening_clip_rule = ""
+    if cap_data.get("narrative_intent") == "hook":
+        opening_clip_rule = (
+            "\nOPENING MOTION CLIP — SOLO el item [1]: es lo PRIMERO que ve el espectador. DEBE ser "
+            "un plano close o medium sobre el ÚNICO detalle cargado de su anchor. Un plano "
+            "establishing / aéreo / wide del sitio entero está PROHIBIDO para el item [1], aunque su "
+            "narración introduzca el lugar — elegí el detalle DENTRO de esa narración, no el panorama. "
+            "Para el item [1]: shot_scale ∈ {detail, close, medium}, NUNCA wide/extreme_wide.\n"
+        )
     return f"""Narration (Spanish, for context only — emit JSON in English):
 
 {narration_text}
@@ -795,7 +807,7 @@ Fill the slots for EACH fragment below, in the SAME order (item i ↔ fragment i
 {anchor_list}
 
 Emit EXACTLY {n} slot-objects as a JSON array.
-{arc_block}
+{arc_block}{opening_clip_rule}
 DISTRIBUTION OF emotional_rank:
 - 1-2 items R1 (peak of cap: closing, revelation, biggest impact).
 - 2-3 items R2 (action, strong transition, person in tension).
@@ -1353,6 +1365,17 @@ def _flux_anchor_schema(n: int) -> dict:
 # ─── Prompts del Paso 1 (SOLO anchors; NADA de reglas de prompt de imagen) ───
 
 def _build_plan_anchors_prompt_veo(narration_text, n, veo_position, veo_zone_text, supps_zone_text):
+    # HANDOFF_142b PALANCA A: SOLO el hook (veo_position=="start") — forzar que el veo_anchor
+    # caiga en el DETALLE cargado, no en la presentación del sitio. El outro (pos=="end") NO.
+    hook_rule = ""
+    if veo_position == "start":
+        hook_rule = (
+            "\n5. REGLA HOOK (solo clip de apertura): el `veo_anchor` DEBE caer en el fragmento de "
+            "[ZONA VEO] que nombra el DETALLE más concreto y cargado (un número, una tumba/lápida, "
+            "una persona, un gesto en el instante decisivo) — NUNCA el fragmento que solo presenta "
+            "o nombra el LUGAR/sitio. El opener ilustra el detalle visceral, no la presentación del "
+            "sitio. Si la zona tiene varios, elegí el más impactante."
+        )
     return f"""Sos un editor de documentales. Tu ÚNICA tarea es ELEGIR los cortes de la narración
 (anchors) que se van a ilustrar, como un productor que marca beats con sentido. NO escribís prompts
 de imagen ni descripciones visuales — SOLO seleccionás fragmentos LITERALES de la narración.
@@ -1374,7 +1397,7 @@ REGLAS (el validador rechaza si se violan):
    traducir, sin recortar palabras del medio, sin cambiar puntuación).
 2. EXACTAMENTE {n} anchors de supplementals, en ORDEN cronológico ascendente, SIN solaparse.
 3. El `veo_anchor` sale SOLO de [ZONA VEO]; los supplementals SOLO de [ZONA SUPPLEMENTALS].
-4. Cada anchor abarca un beat con sentido (no una palabra suelta). Apuntá ~40-200 chars.
+4. Cada anchor abarca un beat con sentido (no una palabra suelta). Apuntá ~40-200 chars.{hook_rule}
 
 OUTPUT (JSON estricto, nada más):
 {{"veo_anchor": "<substring literal de ZONA VEO>", "supplemental_anchors": ["<substring 1>", "... EXACTAMENTE {n} items"]}}
@@ -2158,7 +2181,12 @@ def _render_prompts_seedream_veo(topic, cap_data, narration, plan, veo_position,
         "chapter_number": cap_number,
         "image_prompt": image_item["prompt"],
         "video_prompt": video_prompt,
-        "subject_ref": (image_item.get("subject_ref") or "establishing_shot"),
+        # HANDOFF_142b PALANCA B.2: en el HOOK (veo_position=="start") NO defaultear a
+        # establishing_shot (fuerza aéreo + ancla la madre aérea vía _apply_place_exterior_filter).
+        # Default no-exterior "detail" → el opener queda close/sin-ancla. El outro (pos=="end")
+        # conserva su default establishing (correcto para el cierre).
+        "subject_ref": (image_item.get("subject_ref")
+                        or ("detail" if veo_position == "start" else "establishing_shot")),
         "art_profile": "",
         "narration_anchor": veo_anchor,
         "veo_position": veo_position,
