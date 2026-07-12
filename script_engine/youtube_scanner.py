@@ -655,11 +655,32 @@ def compute_outlier_filter(candidates: list[dict]) -> list[dict]:
     def _fetch_baseline(cid: str, exclude_views: int):
         return cid, _channel_baseline(cid, BASELINE_N, exclude=exclude_views)
 
+    _t0 = time.perf_counter()
     with ThreadPoolExecutor(max_workers=EN_OUTLIER_WORKERS) as ex:
         futures = [ex.submit(_fetch_baseline, cid, ev) for cid, ev in first_views_by_cid.items()]
         for fut in as_completed(futures):
             cid, median = fut.result()
             baseline_cache[cid] = median
+
+    # HANDOFF_144d (2.2): CONTROL de salud del proxy — observabilidad, NO validador. El baseline es
+    # I/O-bound contra un proxy de latencia VARIABLE. Medido: día bueno ~2.8s/fetch (144c/d, 4
+    # corridas en 2h, rango 2.8-2.9s), día malo ~23s/fetch (144b, anomalía de 330s). Sin esto, un
+    # proxy lento se lee como "el research está roto" y dispara investigación fantasma. El WARN lo
+    # dice en 1 línea. Umbral 8s/fetch = ~3× lo normal, muy por debajo del día malo.
+    _n = len(first_views_by_cid)
+    if _n:
+        _elapsed = time.perf_counter() - _t0
+        _none = sum(1 for m in baseline_cache.values() if m is None)
+        _s_fetch = _elapsed / _n * EN_OUTLIER_WORKERS   # tiempo real por fetch (ajustado por workers)
+        _health = (f"[baseline] {_n} canales en {_elapsed:.1f}s "
+                   f"({_s_fetch:.1f}s/fetch ×{EN_OUTLIER_WORKERS}w · {_none} sin baseline)")
+        if _s_fetch > 8.0:
+            error_handler.log_warning(
+                PipelineStage.NICHE_DISCOVERER,
+                f"⚠ PROXY DEGRADADO: {_s_fetch:.1f}s/fetch (normal ~2.8s). "
+                f"El research va lento por RED, no por bug. {_health}")
+        else:
+            error_handler.log_info(PipelineStage.NICHE_DISCOVERER, _health)
 
     kept: list[dict] = []
     for c in deduped:
