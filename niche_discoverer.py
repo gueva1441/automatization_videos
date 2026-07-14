@@ -333,9 +333,11 @@ def _is_cache_fresh(entry: dict) -> bool:
 @error_handler.retry(PipelineStage.NICHE_DISCOVERER)
 def _gemini_generate_queries(niche_key: str) -> list[str]:
     """
-    DEPRECATED chat42: frente invertido, ya NO se llama (las queries ahora son las
-    PUERTAS fijas niche["en_queries"]). Se conserva para reversibilidad (ver §8 handoff).
-    NO borrar.
+    HANDOFF_145: RE-ACTIVO. El generador vuelve al circuito como fuente DINÁMICA del
+    pool unificado (fijas ∪ dinámicas). Ya NO está deprecado — lo consume
+    _get_dynamic_queries → _build_query_pool → _run_spy_arbitrage. El piso reproducible
+    (las 3 PUERTAS fijas de niche["en_queries"]) se conserva íntegro: estas dinámicas
+    lo AUMENTAN, no lo reemplazan.
 
     Llama a Gemini Flash para generar DYNAMIC_QUERIES_COUNT queries virales
     en inglés para el nicho dado.
@@ -404,27 +406,26 @@ Formato exacto:
 
 def _get_dynamic_queries(niche_key: str) -> list[str]:
     """
-    DEPRECATED chat42: frente invertido, ya NO se llama desde _run_spy_arbitrage
-    (ahora usa niche["en_queries"] directo). Se conserva para reversibilidad. NO borrar.
+    HANDOFF_145: RE-ACTIVO. Proveedor de queries SOLO DINÁMICAS del nicho, priorizando:
+      1. [CACHÉ]     — dinámicas guardadas (<24h)
+      2. [DINÁMICAS] — llamando a Gemini Flash (y cacheándolas)
 
-    Devuelve las queries a usar para el nicho dado, priorizando:
-      1. [CACHÉ]     — si existe y es reciente (<24h)
-      2. [DINÁMICAS] — llamando a Gemini Flash
-      3. [FALLBACK]  — queries estáticas de ROOT_NICHES si Gemini falla
+    IMPORTANTE — cambio de semántica vs. su versión vieja: acá ya NO hay fallback a las
+    fijas. Si Gemini falla o el caché está vacío devuelve **lista vacía**. El PISO
+    reproducible (las 3 fijas) lo garantiza _build_query_pool, que es la única fuente del
+    pool unificado (fijas ∪ dinámicas). Mantener el piso acá duplicaría la lógica y
+    escondería el fallo en el dedupe del pool.
 
-    Siempre devuelve una lista no vacía (mínimo las estáticas).
-    Loggea en consola qué fuente se usó para trazabilidad.
+    El caché sigue guardando SOLO dinámicas (§3.2): la unión con las fijas se arma en
+    runtime dentro de _build_query_pool, nunca se congela en disco.
     """
-    niche = ROOT_NICHES[niche_key]
-    static_queries = niche["en_queries"]
-
     # ─── 1. Intentar caché ───
     cache = _load_dynamic_queries_cache()
     entry = cache.get(niche_key)
     if entry and _is_cache_fresh(entry):
         cached_queries = entry.get("queries", [])
         if cached_queries:
-            print(f"      [CACHÉ] usando {len(cached_queries)} queries guardadas (<24h)")
+            print(f"      [CACHÉ] usando {len(cached_queries)} dinámicas guardadas (<24h)")
             return cached_queries
 
     # ─── 2. Intentar generar dinámicas con Gemini ───
@@ -432,7 +433,7 @@ def _get_dynamic_queries(niche_key: str) -> list[str]:
         dynamic = _gemini_generate_queries(niche_key)
         print(f"      [DINÁMICAS] Gemini generó {len(dynamic)} queries nuevas")
 
-        # Actualizar caché
+        # Actualizar caché (solo dinámicas)
         cache[niche_key] = {
             "generated_at": datetime.now().isoformat(),
             "queries": dynamic,
@@ -442,16 +443,78 @@ def _get_dynamic_queries(niche_key: str) -> list[str]:
         return dynamic
 
     except Exception as e:
-        # ─── 3. Fallback a estáticas ───
+        # ─── Gemini falló → devolver vacío. El PISO lo pone _build_query_pool. ───
         error_handler.log_error(
             PipelineStage.NICHE_DISCOVERER, e,
             context={"niche_key": niche_key, "step": "dynamic_queries"},
         )
-        print(
-            f"      [FALLBACK/ESTÁTICAS] Gemini falló → usando "
-            f"{len(static_queries)} queries estáticas de ROOT_NICHES"
+        print(f"      [DINÁMICAS] Gemini falló → 0 dinámicas (el pool cae al piso fijo)")
+        return []
+
+
+def _build_query_pool(niche_key: str) -> list[tuple[str, str]]:
+    """
+    HANDOFF_145 — ÚNICA fuente del pool de queries por nicho: **fijas ∪ dinámicas**.
+
+    Devuelve una lista de tuplas (query, kind) con kind ∈ {"fija", "dinamica"}:
+      • Orden: FIJAS primero, dinámicas después → el piso reproducible siempre encabeza.
+      • Dedupe: case-insensitive + trim. Una dinámica idéntica a una fija NO se duplica
+        (gana la fija, que ya está antes).
+      • PISO garantizado: si Gemini falla, el caché está vacío o el JSON viene roto,
+        _get_dynamic_queries devuelve [] → el pool queda con las 3 fijas. Nunca lista
+        vacía, nunca excepción que corte la corrida.
+      • Loguea en 1 línea qué fuente se usó (fijas solas vs. unión).
+
+    NO reemplaza las fijas: las AUMENTA (§FIX del handoff). El caché nunca ve la unión.
+    """
+    niche = ROOT_NICHES[niche_key]
+
+    # ─── Fijas primero (dedupe interno preservando orden) ───
+    pool: list[tuple[str, str]] = []
+    seen: set[str] = set()
+    for q in niche["en_queries"]:
+        qn = (q or "").strip()
+        if not qn:
+            continue
+        key = qn.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        pool.append((qn, "fija"))
+    n_fijas = len(pool)
+
+    # ─── Dinámicas (nunca lanzan: _get_dynamic_queries ya come sus propias excepciones) ───
+    try:
+        dynamic = _get_dynamic_queries(niche_key)
+    except Exception as e:
+        # Cinturón + tirantes: aunque _get_dynamic_queries promete no lanzar, el pool
+        # jamás debe cortar la corrida por las dinámicas.
+        error_handler.log_error(
+            PipelineStage.NICHE_DISCOVERER, e,
+            context={"niche_key": niche_key, "step": "build_query_pool"},
         )
-        return static_queries
+        dynamic = []
+
+    added = 0
+    for q in dynamic:
+        qn = (q or "").strip()
+        if not qn:
+            continue
+        key = qn.lower()
+        if key in seen:          # ya es fija (o dinámica repetida) → no duplicar
+            continue
+        seen.add(key)
+        pool.append((qn, "dinamica"))
+        added += 1
+
+    if added:
+        print(f"      [POOL] {niche_key}: {len(pool)} queries — UNIÓN "
+              f"({n_fijas} fijas + {added} dinámicas nuevas)")
+    else:
+        print(f"      [POOL] {niche_key}: {len(pool)} queries — SOLO FIJAS "
+              f"(sin dinámicas: Gemini vacío/caído o todas duplicaban fijas)")
+
+    return pool
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -533,6 +596,7 @@ Formato:
                 "views": original.get("views", 0),
                 "video_id": original.get("video_id", ""),
                 "source_query": original.get("source_query", ""),
+                "source_query_kind": original.get("source_query_kind", ""),   # HANDOFF_145 §3.3
                 "root_niche": original.get("root_niche"),
                 "en_age_months": original.get("en_age_months"),   # CHAT 44 D: edad del viral EN (ingrediente joya)
                 "event_key": (t.get("event_key", "") or "").strip().lower(),
@@ -552,7 +616,10 @@ def _print_dry_run_table(rows: list[dict]) -> None:
         med = f"{r['median']:,.0f}" if r.get("median") is not None else "—"
         ratio = f"{r['ratio']:.1f}x" if r.get("ratio") else "—"
         old = "✅" if (r.get("views") or 0) >= SPY_MIN_EN_VIEWS else "·"
-        sq = (r.get("source_query") or "")[:24]
+        # HANDOFF_145: marca fija/dinámica pegada a la puerta (D=dinámica, F=fija).
+        kind = r.get("source_query_kind") or ""
+        kmark = {"dinamica": "D", "fija": "F"}.get(kind, "?")
+        sq = f"[{kmark}] " + (r.get("source_query") or "")[:22]
         print(f"  {(r.get('root_niche') or '—'):<11} {t:<42} {r.get('views', 0):>11,} "
               f"{med:>10} {ratio:>7} {r.get('passed_reason', ''):>8} {old:>10}  {sq:<26}")
 
@@ -817,7 +884,12 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
 
     dry_run=True (GATE 4): imprime la tabla de candidatos (views/median/ratio/passes)
     y los corta ANTES de traducir/competir/persistir (no gasta Gemini ni escribe nada).
-    El frente Gemini viejo (_get_dynamic_queries) queda deprecado, no se llama.
+
+    HANDOFF_145: el pool de queries por nicho es AUMENTADO — fijas ∪ dinámicas vía
+    _build_query_pool (3 fijas + hasta 5 dinámicas). El piso reproducible (las fijas)
+    se conserva; las dinámicas amplían la cobertura. Cada candidato carga
+    source_query_kind (fija|dinamica) para poder medir si las dinámicas aportan temas
+    nuevos.
     """
     print(f"\n  🕵️  Iniciando SPY-ARBITRAGE (flujo invertido) para {len(niche_keys)} nicho(s)\n")
 
@@ -827,14 +899,16 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
         niche = ROOT_NICHES[niche_key]
         print(f"  {niche['emoji']} {niche['es_name']}")
 
-        queries = niche["en_queries"]   # CHAT 42: PUERTAS FIJAS (ya NO _get_dynamic_queries)
+        # HANDOFF_145: pool AUMENTADO — fijas ∪ dinámicas (antes: solo niche["en_queries"]).
+        pool = _build_query_pool(niche_key)
         niche_candidates: list[dict] = []
-        for query in queries:
-            print(f"      🔍 '{query}'...")
+        for query, query_kind in pool:
+            print(f"      🔍 '{query}' [{query_kind}]...")
             viral = search_viral_english(query)   # min_views=0 → sin filtro absoluto
             for v in viral[:EN_CANDIDATES_PER_QUERY]:
                 v["root_niche"] = niche_key
                 v["source_query"] = query
+                v["source_query_kind"] = query_kind   # HANDOFF_145 §3.3: trazabilidad fija/dinámica
                 niche_candidates.append(v)
             print(f"         → {min(len(viral), EN_CANDIDATES_PER_QUERY)} candidatos EN crudos")
             time.sleep(DELAY_BETWEEN_CALLS_SEC)
@@ -872,8 +946,15 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
     # ─── GATE 4: dry-run → tabla + corte antes de Gemini/competencia/persistencia ───
     if dry_run:
         _print_dry_run_table(all_viral)
+        # HANDOFF_145 §5: trazabilidad del augment — cuántos de los que pasaron el filtro
+        # vienen de una query DINÁMICA vs. FIJA (mide si las dinámicas aportan candidatos).
+        n_din = sum(1 for c in all_viral if c.get("source_query_kind") == "dinamica")
+        n_fij = sum(1 for c in all_viral if c.get("source_query_kind") == "fija")
+        pct_din = (100.0 * n_din / len(all_viral)) if all_viral else 0.0
         print(f"\n  🧪 DRY-RUN: {len(all_viral)} candidatos pasaron el filtro EN. "
               f"NO se tradujo, NO se chequeó competencia ES, NO se escribió nada.")
+        print(f"     [HANDOFF_145] procedencia de los que pasaron: "
+              f"{n_fij} fija · {n_din} dinámica · {pct_din:.0f}% dinámica")
         print(f"     (En run real: estos van a Gemini translate → count_competing_spanish "
               f"→ seed.)")
         return all_viral
@@ -1000,6 +1081,7 @@ def _run_spy_arbitrage(niche_keys: list[str], dry_run: bool = False) -> list[dic
                     "views": rep_item["views"],
                     "video_id": rep_item["video_id"],
                     "query": rep_item["source_query"],
+                    "query_kind": rep_item.get("source_query_kind"),   # HANDOFF_145 §3.3: fija|dinamica → sobrevive al seed
                     "en_age_months": rep_item.get("en_age_months"),
                     "channel_median": (evidence_by_vid.get(rep_item["video_id"]) or {}).get("median"),
                     "outlier_ratio": (evidence_by_vid.get(rep_item["video_id"]) or {}).get("ratio"),
