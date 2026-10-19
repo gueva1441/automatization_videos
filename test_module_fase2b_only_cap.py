@@ -30,14 +30,22 @@ def test_flags_en_cli():
 def test_only_cap_sin_gfx_byte_identico():
     final = REPO / "output" / VID / f"{VID}_final.mp4"
     db = REPO / "data" / "topics_db.json"
-    before = (final.stat().st_mtime, db.read_bytes())
-    r = subprocess.run([sys.executable, "fase2b.py", VID, "--reuse-visuals", "--only-cap", "ch02"],
-                       cwd=REPO, capture_output=True, text=True, encoding="utf-8", errors="replace",
-                       env={**__import__("os").environ, "PYTHONIOENCODING": "utf-8"}, timeout=900)
-    assert r.returncode == 0, r.stdout[-500:]
     seg = WORK / "ch02_segment_only.mp4"
-    assert hashlib.sha256(seg.read_bytes()).hexdigest()[:16] == REF_SHA16
-    assert (final.stat().st_mtime, db.read_bytes()) == before      # ni _final.mp4 ni topics_db
+    # el test NO debe pisar el segmento que el usuario esté revisando (gfx_review_ch02.html lo usa)
+    backup = seg.with_name(seg.name + ".test_bak")
+    if seg.exists():
+        seg.replace(backup)
+    try:
+        before = (final.stat().st_mtime, db.read_bytes())
+        r = subprocess.run([sys.executable, "fase2b.py", VID, "--reuse-visuals", "--only-cap", "ch02"],
+                           cwd=REPO, capture_output=True, text=True, encoding="utf-8", errors="replace",
+                           env={**__import__("os").environ, "PYTHONIOENCODING": "utf-8"}, timeout=900)
+        assert r.returncode == 0, r.stdout[-500:]
+        assert hashlib.sha256(seg.read_bytes()).hexdigest()[:16] == REF_SHA16
+        assert (final.stat().st_mtime, db.read_bytes()) == before      # ni _final.mp4 ni topics_db
+    finally:
+        if backup.exists():
+            backup.replace(seg)
 
 
 if __name__ == "__main__":
