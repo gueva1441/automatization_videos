@@ -53,6 +53,8 @@ def event_windows(plan: dict[str, Any], scenes: list[GfxScene], fps: int, dur: f
         iv.append((cq["start"], cq["start"] + cq["duration"]))
     for e in plan.get("emphasis", []) or []:                  # F2b §2: capa de mood + sello
         iv.append((e["start"], e["start"] + e["duration"]))
+    if plan.get("icon_array"):                                # F2b §3
+        iv.append((plan["icon_array"]["start"], plan["icon_array"]["start"] + plan["icon_array"]["duration"]))
 
     def _scene_end(t: float) -> float:
         return next((s.end for s in scenes if s.start <= t < s.end), dur)
@@ -132,6 +134,10 @@ def compose_sparse(plan: dict[str, Any], scenes: list[GfxScene], windows: list[t
     for e in p.get("emphasis", []) or []:
         e["start"] = m(e["start"])
     p["emphasis"] = [e for e in p.get("emphasis", []) or [] if e["start"] is not None]
+    if p.get("icon_array"):
+        p["icon_array"]["start"] = m(p["icon_array"]["start"])
+        if p["icon_array"]["start"] is None:
+            p["icon_array"] = None
     if p.get("evidence_zoom"):
         ez = p["evidence_zoom"]
         sc = scenes[ez["scene_idx"]]

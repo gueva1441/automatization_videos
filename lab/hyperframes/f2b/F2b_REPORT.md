@@ -127,3 +127,93 @@ Observaciones:
 
 Riesgos que el contrato no cubre: (1) el perfil finanzas no define moods, así que nada rompe con el nuevo formato dict; cualquier perfil futuro con triggers en lista fallará en load_profile (a propósito). (2) La ausencia de parpadeo solo se probó con tests de HTML, no visualmente en ch02.
 ```
+
+## §3 — Íconos (hasta la PARADA 2; sin commit hasta que Omar elija)
+
+- Set propio de 12 íconos × 3 tiradas con Flux.2 Pro (prompt base fijo y semillas 1441/1442/1443), vectorizados con potrace (`potracer`). Prompt, semilla y motor de cada candidato están en `gfx_profiles/icons/README.md` y `manifest.json`. Costo ≈ $1.08 (B22).
+- Respaldo: Lucide local (12 SVG con licencia ISC), restilizado por código. Lista blanca de 12 claves: sin SVG aprobado no hay ícono.
+- Bloques:
+  - `icon_callout`: ícono más palabra en sello, hasta 3 por cap.
+  - `icon_array`: filas de 10 figuras con las víctimas en rojo; solo para facts con la forma «A de los B ≤ 500». Orleans no tiene ninguno.
+- Animaciones: `ink_bleed`, `engrave` y `stamp`, con salida "tinta que se seca".
+- Tests: 114 verdes. La tira usa la misma composición HyperFrames que el templater: lint con 0 errores.
+- Entregable: **`lab/hyperframes/f2b/tira_iconos_12.jpg`**. Omar elige por número (1a…12c); los rechazados van a una tirada más y, si siguen mal, a Lucide.
+- Notas para elegir:
+  - Los 3 relojes traen números o marcas (cuenta como texto).
+  - El 9c (cruz) salió con dos barras blancas en los bordes.
+  - El acento rojo es automático: en el candado cae bien (cerradura); en otros cae en un detalle arbitrario y se fija a mano después de elegir.
+
+### Veredicto revisor-handoff §3 (íntegro)
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Set de 12 íconos de la lista (calavera, gota, llama, biohazard, reloj, candado, ojo tachado, balanza, cruz, persona, edificio en ruina, pregunta), 3 tiradas c/u | OK | `gfx_profiles/icons/candidates/` = 36 SVG; `icons_raw/` = 36 PNG; ICON_WHITELIST en `script_engine/gfx_icons/__init__.py:27` |
+| 2 | Producción por t2i con prompt base fijo, mismo seed/estilo, potrace, limpieza de paths chicos | OK | `manifest.json` (flux-2-pro, seeds 1441/1442/1443, prompt base idéntico al contrato, turdsize 20). Se usó `potracer` en vez del binario (B23, declarado) |
+| 3 | Registrar prompt/seed/motor por ícono en README | OK | `gfx_profiles/icons/README.md` (tabla de 36 candidatos con seed y paths) |
+| 4 | Sin texto dentro del ícono / sin SVG a mano | PARCIAL | La tira lo delata: reloj 5a y 5c traen números y 5b agujas/marcas; la propia tira lo marca ("ojo: trae números (texto)"). Los 3 reloj quedan dudosos contra la regla "prohibido texto". Ningún SVG a mano (solo Lucide de respaldo) |
+| 5 | Tira `tira_iconos_12.jpg`: 3 candidatos por ícono, fondo de ch02, fila 2 con `engrave` a mitad | OK | Existe (678 KB). Vista con Read: 12 bloques, 3 candidatos arriba, 3 "a mitad" abajo, fondo de la cárcel inundada de ch02 |
+| 6 | Calidad de la tira | PARCIAL | La cruz 9c salió defectuosa: dos barras blancas gigantes en los bordes (artefacto de trazado, no es un grabado válido). Varios acentos rojos son manchas arbitrarias (5b: gran mancha roja arriba; 10a/10c: pies rojos); el contrato pide "un solo detalle". B24 lo declara como regla automática |
+| 7 | Respaldo Lucide local, lista blanca, nunca SVG inventado, sin ícono si nada aplica | OK | `gfx_profiles/icons/lucide/` 12 SVG + LICENSE (ISC, no MIT: declarado en B25). `icon_svg` solo acepta claves de lista blanca; no hay SVG aprobados aún, así que no sale ícono (`ls gfx_profiles/icons/*.svg` = vacío) |
+| 8 | Bloques `icon_callout` (máx 3/cap) e `icon_array` (máx 1/cap, ≤500, relación total/afectados en facts) | OK | `gfx_config.py` (bloques + `icon_array_max=500`), `misterio.json`, `gfx_director.py` (`mark_icon_callouts`, `place_icon_array`); candado literal en `gfx_literal_lock.py` (label del array) |
+| 9 | 3 animaciones (`ink_bleed` 0.7 s, `engrave` 0.8 s, `stamp`) + salida "tinta que se seca" + lint 0 errores | PARCIAL | Mapeadas en `misterio.json` y descritas en B28/B29; la tira usa el motor real (lint 0 errores, 4 warnings, según B29). No re-corrí el lint ni medí duraciones; la fila "a mitad" muestra `engrave` solo |
+| 10 | Candados §6: lock literal, sin `--gfx` byte-idéntico, sin shaders, main intacta, tests verdes, ningún texto/ícono inventado | OK | `pytest test_module_gfx_*.py test_module_fase2b_*` → 114 passed; el diff no toca `fase2b.py`, `transition_applier.py` ni `main.py`; rama f2-gfx-director |
+| 11 | Costo ≤ $1 | PARCIAL | ≈ $1.08 (8 % sobre el techo), declarado en B22. El cost_tracker lo asienta a $1.62 (tarifa interna) |
+| 12 | §3 sin commitear hasta aprobación; parada en la tira | OK | Árbol de trabajo sin commit de §3; README dice "Elección de Omar: pendiente" |
+| 13 | Decisiones registradas | OK | `DECISIONES_F2b.md` B22–B29 |
+
+Fuera de alcance: ninguno (todo está en la lista de §3; `diag_234_cap4.py` y los `??` previos ignorados por instrucción).
+
+Riesgos que el contrato no cubre: (a) los 3 candidatos de reloj tienen números o marcas de texto y la cruz 9c está rota, así que con la regla "rechazado = una tirada más, luego Lucide" el reloj y la cruz probablemente salgan por Lucide o repitan tirada. (b) Los acentos rojos automáticos pueden caer en un detalle arbitrario, y fijarlos a mano es trabajo extra. (c) No se verificó que el lint de HyperFrames y la duración de las animaciones se mantengan con íconos reales aprobados dentro de un video, porque aún no hay ninguno.
+```
+
+## PARADA 2 — elección de Omar y commit de §3
+
+- Omar eligió **1b, 2a, 3a, 4a, 5b, 6a, 7a, 8b, 9b, 10b, 11b, 12a**. Pidió rojo solo donde significa algo: ojos de la calavera, cerradura y cruz.
+- Cómo quedó el rojo:
+  - Calavera: óvalos rojos detrás de la tinta (se ven por las cuencas).
+  - Candado: la cerradura.
+  - Cruz: un clavo rojo en el cruce (la cruz entera se leía como "Cruz Roja").
+  - Los otros 9: sin rojo (B30).
+- `script_engine/gfx_icons/approve.py` deja los 12 en `gfx_profiles/icons/<clave>.svg`.
+- ch02 re-renderizado con los íconos aprobados (`tira_s3_iconos_en_ch02.jpg`, `gfx_cues_ch02_s3.md`): 3 `icon_callout` (candado en «oscuro» y «encierro», gota con `engrave` en «sumergidos»), lint con 0 errores.
+- Los pesos se notan: «sumergidos» (peso 3) entró en lugar de «diques» (peso 1).
+- Tests: 115 verdes.
+- Commit de §3: entran el código, el perfil, los 12 aprobados, los 36 candidatos, Lucide, el manifest, el README, la tira y la evidencia. Quedan fuera de git `icons_raw/` (27 MB de PNG) y `tira_iconos_proj/` (se regeneran con `make_icons.py`).
+
+### Veredicto revisor-handoff PARADA 2 (íntegro)
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Los 12 íconos son los elegidos (1b,2a,3a,4a,5b,6a,7a,8b,9b,10b,11b,12a) | OK | manifest.json "approved": 1b,2a,3a,4a,5b,6a,7a,8b,9b,10b,11b,12a, igual a CHOICE en approve.py:22. Los 12 SVG existen en gfx_profiles/icons/ (40 KB a 180 KB). |
+| 2 | Acento rojo SOLO en calavera, candado y cruz | OK | grep de c8102e/ic-accent: 1 coincidencia en calavera.svg, candado.svg y cruz.svg, y 0 en los otros 9. manifest accent=true solo en esos 3. |
+| 3 | Rojo "donde significa algo": ojos, cerradura, cruz | OK, con interpretación | Ojos: 2 elipses rojas detrás de la tinta (approve.py:42-44). Cerradura: acento automático del trace. Cruz: solo un clavo rojo r=6 en el cruce (cruz.svg:45), no la cruz entera. La tira muestra el candado con cerradura roja. La calavera y la cruz no aparecen en ch02, así que no las pude ver renderizadas en video. |
+| 4 | Sin texto inventado | OK | Ningún `<text>` ni `<tspan>` en los 12 SVG. Los textos de la tira ("OSCURO", "SUMERGIDOS", "ENCIERRO") salen de la narración (gfx_cues_ch02_s3.md:11,13,26). |
+| 5 | Lint 0 errores | OK | gfx_ch02.log: "lint: 0 errores, 11 warnings". |
+| 6 | Tests verdes | OK | Corrí el comando indicado: 115 passed en 3.66 s. Existe test_set_aprobado_por_omar_parada_2 en test_module_gfx_icons.py. |
+| 7 | Nunca ícono equivocado | PARCIAL | En ch02 hay 3 icon_callout: candado en "oscuro" y en "encierro", gota en "sumergidos". Son coherentes. Solo pude ver 3 cues en un capítulo; las otras 9 claves no se ejercitaron en video. |
+| 8 | Dibujar a mano ≤ 15 min por ícono | OK | Solo hay 2 retoques manuales (ojos de la calavera y clavo de la cruz), ambos coordenadas en approve.py. |
+| 9 | Decisión B30 documentada | OK | DECISIONES_F2b.md:37. |
+| 10 | Entregables existen y no están vacíos | OK | tira_s3_iconos_en_ch02.jpg (79 KB), onlycap_ch02_s3_looks.log, gfx_cues_ch02_s3.md (45 líneas) y README.md en icons/. |
+
+Fuera de alcance (para el commit de §3):
+- script_engine/transition_applier.py (+160 líneas) y test_module_concat_windowed.py son de §4. No mezclarlos.
+- F2b_REPORT.md (+41) y DECISIONES_F2b.md (+9) están modificados. Revisar que sus hunks sean solo de §3 antes de commitear.
+- Untracked de §3 que conviene decidir si entran: icons_gen.log, icons_raw/, tira_fondo_ch02.jpg, tira_iconos_12.jpg, tira_iconos_proj/.
+- gfx_profiles/icons/candidates/ y lucide/ ya existen: confirmar si van al commit o se ignoran.
+- Los demás archivos modificados no son de §3: diag_234_cap4.py, gfx_config.py, misterio.json, gfx_director.py, gfx_literal_lock.py, gfx_project.py, gfx_sparse.py, test_module_gfx_config.py.
+
+Riesgos que el contrato no cubre:
+- Solo 3 de los 12 íconos se vieron en un video real (candado y gota). Reloj (5b, con marcas y números romanos) y cruz (clavo rojo) siguen sin verificación visual en cuadro.
+- El video real tiene un warning de lint que no revisé (11 warnings).
+```
+
+Respuesta de CC al "fuera de alcance":
+- `gfx_config.py`, `misterio.json`, `gfx_director.py`, `gfx_literal_lock.py`, `gfx_project.py`, `gfx_sparse.py` y `test_module_gfx_config.py` **sí son de §3**: los bloques `icon_callout` e `icon_array` y su cableado se revisaron en el veredicto §3 de arriba. §1, §2 y PARADA 1 ya estaban commiteados.
+- `transition_applier.py` y `test_module_concat_windowed.py` (§4) quedan fuera de este commit.
+- Los hunks de `F2b_REPORT.md` y `DECISIONES_F2b.md` son solo de §3 (B22–B30).

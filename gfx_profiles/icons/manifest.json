@@ -1,0 +1,453 @@
+{
+ "engine": "fal-ai/flux-2-pro",
+ "size": {
+  "width": 1024,
+  "height": 1024
+ },
+ "seeds": [
+  1441,
+  1442,
+  1443
+ ],
+ "trace": {
+  "px": 768,
+  "threshold": 140,
+  "border_frac": 0.06,
+  "turdsize": 20,
+  "keep_margin": 0.04
+ },
+ "icons": {
+  "calavera": {
+   "num": 1,
+   "object": "human skull",
+   "prompt": "1890 poison label woodcut, single human skull, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "1a": {
+     "file": "calavera_1.svg",
+     "seed": 1441,
+     "paths": 255,
+     "accent": true,
+     "dropped": 3,
+     "kb": 190.3
+    },
+    "1b": {
+     "file": "calavera_2.svg",
+     "seed": 1442,
+     "paths": 209,
+     "accent": false,
+     "dropped": 4,
+     "kb": 177.3
+    },
+    "1c": {
+     "file": "calavera_3.svg",
+     "seed": 1443,
+     "paths": 268,
+     "accent": false,
+     "dropped": 0,
+     "kb": 163.2
+    }
+   },
+   "approved": {
+    "candidate": "1b",
+    "file": "calavera.svg",
+    "accent": true
+   }
+  },
+  "gota": {
+   "num": 2,
+   "object": "drop of liquid",
+   "prompt": "1890 poison label woodcut, single drop of liquid, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "2a": {
+     "file": "gota_1.svg",
+     "seed": 1441,
+     "paths": 100,
+     "accent": false,
+     "dropped": 13,
+     "kb": 98.5
+    },
+    "2b": {
+     "file": "gota_2.svg",
+     "seed": 1442,
+     "paths": 39,
+     "accent": true,
+     "dropped": 0,
+     "kb": 35.6
+    },
+    "2c": {
+     "file": "gota_3.svg",
+     "seed": 1443,
+     "paths": 43,
+     "accent": false,
+     "dropped": 7,
+     "kb": 44.4
+    }
+   },
+   "approved": {
+    "candidate": "2a",
+    "file": "gota.svg",
+    "accent": false
+   }
+  },
+  "llama": {
+   "num": 3,
+   "object": "flame",
+   "prompt": "1890 poison label woodcut, single flame, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "3a": {
+     "file": "llama_1.svg",
+     "seed": 1441,
+     "paths": 57,
+     "accent": true,
+     "dropped": 41,
+     "kb": 94.9
+    },
+    "3b": {
+     "file": "llama_2.svg",
+     "seed": 1442,
+     "paths": 46,
+     "accent": true,
+     "dropped": 0,
+     "kb": 68.6
+    },
+    "3c": {
+     "file": "llama_3.svg",
+     "seed": 1443,
+     "paths": 83,
+     "accent": true,
+     "dropped": 5,
+     "kb": 53.2
+    }
+   },
+   "approved": {
+    "candidate": "3a",
+    "file": "llama.svg",
+    "accent": false
+   }
+  },
+  "biohazard": {
+   "num": 4,
+   "object": "biohazard symbol",
+   "prompt": "1890 poison label woodcut, single biohazard symbol, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "4a": {
+     "file": "biohazard_1.svg",
+     "seed": 1441,
+     "paths": 152,
+     "accent": true,
+     "dropped": 2,
+     "kb": 120.1
+    },
+    "4b": {
+     "file": "biohazard_2.svg",
+     "seed": 1442,
+     "paths": 129,
+     "accent": true,
+     "dropped": 14,
+     "kb": 178.7
+    },
+    "4c": {
+     "file": "biohazard_3.svg",
+     "seed": 1443,
+     "paths": 158,
+     "accent": true,
+     "dropped": 0,
+     "kb": 71.6
+    }
+   },
+   "approved": {
+    "candidate": "4a",
+    "file": "biohazard.svg",
+    "accent": false
+   }
+  },
+  "reloj": {
+   "num": 5,
+   "object": "pocket watch",
+   "prompt": "1890 poison label woodcut, single pocket watch, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "5a": {
+     "file": "reloj_1.svg",
+     "seed": 1441,
+     "paths": 199,
+     "accent": true,
+     "dropped": 26,
+     "kb": 141.4
+    },
+    "5b": {
+     "file": "reloj_2.svg",
+     "seed": 1442,
+     "paths": 104,
+     "accent": true,
+     "dropped": 0,
+     "kb": 77.0
+    },
+    "5c": {
+     "file": "reloj_3.svg",
+     "seed": 1443,
+     "paths": 150,
+     "accent": true,
+     "dropped": 3,
+     "kb": 146.9
+    }
+   },
+   "approved": {
+    "candidate": "5b",
+    "file": "reloj.svg",
+    "accent": false
+   }
+  },
+  "candado": {
+   "num": 6,
+   "object": "padlock",
+   "prompt": "1890 poison label woodcut, single padlock, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "6a": {
+     "file": "candado_1.svg",
+     "seed": 1441,
+     "paths": 193,
+     "accent": true,
+     "dropped": 0,
+     "kb": 164.6
+    },
+    "6b": {
+     "file": "candado_2.svg",
+     "seed": 1442,
+     "paths": 156,
+     "accent": true,
+     "dropped": 0,
+     "kb": 196.8
+    },
+    "6c": {
+     "file": "candado_3.svg",
+     "seed": 1443,
+     "paths": 62,
+     "accent": true,
+     "dropped": 0,
+     "kb": 73.1
+    }
+   },
+   "approved": {
+    "candidate": "6a",
+    "file": "candado.svg",
+    "accent": true
+   }
+  },
+  "ojo_tachado": {
+   "num": 7,
+   "object": "eye crossed out by one diagonal slash",
+   "prompt": "1890 poison label woodcut, single eye crossed out by one diagonal slash, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "7a": {
+     "file": "ojo_tachado_1.svg",
+     "seed": 1441,
+     "paths": 106,
+     "accent": true,
+     "dropped": 0,
+     "kb": 65.1
+    },
+    "7b": {
+     "file": "ojo_tachado_2.svg",
+     "seed": 1442,
+     "paths": 247,
+     "accent": true,
+     "dropped": 1,
+     "kb": 172.2
+    },
+    "7c": {
+     "file": "ojo_tachado_3.svg",
+     "seed": 1443,
+     "paths": 96,
+     "accent": true,
+     "dropped": 0,
+     "kb": 127.3
+    }
+   },
+   "approved": {
+    "candidate": "7a",
+    "file": "ojo_tachado.svg",
+    "accent": false
+   }
+  },
+  "balanza": {
+   "num": 8,
+   "object": "balance scale of justice",
+   "prompt": "1890 poison label woodcut, single balance scale of justice, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "8a": {
+     "file": "balanza_1.svg",
+     "seed": 1441,
+     "paths": 93,
+     "accent": true,
+     "dropped": 5,
+     "kb": 52.8
+    },
+    "8b": {
+     "file": "balanza_2.svg",
+     "seed": 1442,
+     "paths": 182,
+     "accent": true,
+     "dropped": 0,
+     "kb": 131.7
+    },
+    "8c": {
+     "file": "balanza_3.svg",
+     "seed": 1443,
+     "paths": 273,
+     "accent": true,
+     "dropped": 0,
+     "kb": 147.4
+    }
+   },
+   "approved": {
+    "candidate": "8b",
+    "file": "balanza.svg",
+    "accent": false
+   }
+  },
+  "cruz": {
+   "num": 9,
+   "object": "grave cross",
+   "prompt": "1890 poison label woodcut, single grave cross, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "9a": {
+     "file": "cruz_1.svg",
+     "seed": 1441,
+     "paths": 113,
+     "accent": true,
+     "dropped": 5,
+     "kb": 71.9
+    },
+    "9b": {
+     "file": "cruz_2.svg",
+     "seed": 1442,
+     "paths": 85,
+     "accent": true,
+     "dropped": 0,
+     "kb": 53.0
+    },
+    "9c": {
+     "file": "cruz_3.svg",
+     "seed": 1443,
+     "paths": 77,
+     "accent": true,
+     "dropped": 0,
+     "kb": 33.4
+    }
+   },
+   "approved": {
+    "candidate": "9b",
+    "file": "cruz.svg",
+    "accent": true
+   }
+  },
+  "persona": {
+   "num": 10,
+   "object": "standing human figure",
+   "prompt": "1890 poison label woodcut, single standing human figure, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "10a": {
+     "file": "persona_1.svg",
+     "seed": 1441,
+     "paths": 147,
+     "accent": true,
+     "dropped": 30,
+     "kb": 98.4
+    },
+    "10b": {
+     "file": "persona_2.svg",
+     "seed": 1442,
+     "paths": 86,
+     "accent": true,
+     "dropped": 0,
+     "kb": 95.7
+    },
+    "10c": {
+     "file": "persona_3.svg",
+     "seed": 1443,
+     "paths": 122,
+     "accent": true,
+     "dropped": 1,
+     "kb": 74.2
+    }
+   },
+   "approved": {
+    "candidate": "10b",
+    "file": "persona.svg",
+    "accent": false
+   }
+  },
+  "edificio_ruina": {
+   "num": 11,
+   "object": "ruined building",
+   "prompt": "1890 poison label woodcut, single ruined building, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "11a": {
+     "file": "edificio_ruina_1.svg",
+     "seed": 1441,
+     "paths": 571,
+     "accent": true,
+     "dropped": 0,
+     "kb": 253.8
+    },
+    "11b": {
+     "file": "edificio_ruina_2.svg",
+     "seed": 1442,
+     "paths": 344,
+     "accent": true,
+     "dropped": 0,
+     "kb": 137.8
+    },
+    "11c": {
+     "file": "edificio_ruina_3.svg",
+     "seed": 1443,
+     "paths": 738,
+     "accent": true,
+     "dropped": 0,
+     "kb": 191.1
+    }
+   },
+   "approved": {
+    "candidate": "11b",
+    "file": "edificio_ruina.svg",
+    "accent": false
+   }
+  },
+  "pregunta": {
+   "num": 12,
+   "object": "question mark symbol",
+   "prompt": "1890 poison label woodcut, single question mark symbol, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "12a": {
+     "file": "pregunta_1.svg",
+     "seed": 1441,
+     "paths": 96,
+     "accent": true,
+     "dropped": 0,
+     "kb": 40.4
+    },
+    "12b": {
+     "file": "pregunta_2.svg",
+     "seed": 1442,
+     "paths": 110,
+     "accent": true,
+     "dropped": 9,
+     "kb": 146.2
+    },
+    "12c": {
+     "file": "pregunta_3.svg",
+     "seed": 1443,
+     "paths": 75,
+     "accent": true,
+     "dropped": 0,
+     "kb": 138.9
+    }
+   },
+   "approved": {
+    "candidate": "12a",
+    "file": "pregunta.svg",
+    "accent": false
+   }
+  }
+ }
+}

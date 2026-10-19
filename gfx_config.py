@@ -173,6 +173,20 @@ _ENGINE_INVENTORY: tuple[GfxBlock, ...] = (
         max_per_cap=5, llm_decides=False,
     ),
     GfxBlock(
+        name="icon_callout",
+        description="Ícono del set (grabado 1890) + la palabra de énfasis; reemplaza al sello de texto cuando la categoría del mood tiene ícono.",
+        params="(ninguno: sale del énfasis de palabra y del ícono de su categoría en el perfil)",
+        rules="el LLM no lo elige; solo íconos de la lista blanca; sin ícono aprobado → sello de texto solo.",
+        max_per_cap=3, llm_decides=False,
+    ),
+    GfxBlock(
+        name="icon_array",
+        description="Cifra = N figuras humanas dibujándose en filas de 10; las víctimas en rojo.",
+        params="(ninguno: sale de un fact con relación afectados/total, p. ej. '12 de los 300')",
+        rules="el LLM no lo elige; solo cifras ≤ 500 con relación total/afectados en el fact; la voz tiene que decir la cifra.",
+        max_per_cap=1, llm_decides=False,
+    ),
+    GfxBlock(
         name="shot_transition",
         description="Transición CSS en cada corte intra-cap según emotional_rank: R1 flash 30 % (≤ 2), R2 crossfade 20 f, R3 disolvencia 30 f.",
         params="(ninguno: determinista desde emotional_rank)",
@@ -292,6 +306,12 @@ class GfxRules:
     emphasis_stamp: bool = True              # sello rojo con la palabra (opcional por perfil)
     emphasis_stamp_sec: float = 1.6          # el sello se ve 1.6 s dentro del mood
     emphasis_stamp_px: int = 112
+    # íconos (F2b §3)
+    icon_px: int = 190                       # lado del ícono del icon_callout
+    icon_fallback_lucide: bool = False       # respaldo Lucide solo para claves rechazadas por Omar (se prende por perfil)
+    icon_array_max: int = 500
+    icon_array_dur: float = 4.0
+    icon_array_px: int = 34                  # lado de cada figura
     mood_dark_flicker: bool = True           # mood oscuridad: 2 parpadeos de luz (PARADA 1: OFF en misterio)
     grade_default: str = "off"
     grain_opacity: float = 0.15              # F2 §0c: tokens del perfil (antes constantes de _GRADE_OFF)
@@ -374,8 +394,11 @@ def load_profile(name: str | None = None) -> dict[str, Any]:
     bad |= {f"sfx.{k}" for k, v in prof.get("sfx", {}).items()
             if k not in VALID_BLOCKS or not (SFX_DIR / str(v.get("file", ""))).exists()}
     for cat, m in (prof.get("moods") or {}).items():
-        if set(m) - {"active", "triggers", "layer", "icon"}:
-            bad.add(f"moods.{cat}: claves {sorted(set(m) - {'active', 'triggers', 'layer', 'icon'})}")
+        extra = set(m) - {"active", "triggers", "layer", "icon", "icon_anim"}
+        if extra:
+            bad.add(f"moods.{cat}: claves {sorted(extra)}")
+        if m.get("icon_anim") not in (None, "ink_bleed", "engrave", "stamp"):
+            bad.add(f"moods.{cat}.icon_anim={m.get('icon_anim')!r}")
         if m.get("active") and (m.get("layer") not in VALID_MOOD_LAYERS or len(m.get("triggers", {})) < MIN_TRIGGERS_ACTIVE):
             bad.add(f"moods.{cat} (activa: capa válida y ≥ {MIN_TRIGGERS_ACTIVE} disparadores)")
         # PARADA 1 F2b: triggers = {palabra: peso 1–3}

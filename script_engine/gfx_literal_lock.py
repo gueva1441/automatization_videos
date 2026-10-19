@@ -89,6 +89,11 @@ def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int,
     if ok.get("emphasis"):
         ok["emphasis"] = [e for e in ok["emphasis"] if not e.get("stamp") or _check("keyword_emphasis", {"word": e.get("word", "")})]
 
+    # F2b §3: la etiqueta del icon_array ('12 de los 300') es fragmento literal del fact
+    ia = ok.get("icon_array")
+    if ia and not _check("icon_array", {"label": ia.get("label", "")}):
+        ok["icon_array"] = None
+
     # F2 §0d: chapter_question es reformulación (no literal): su candado es "toda palabra de contenido
     # existe en bullets/narración del próximo cap"
     q = ok.get("chapter_question")
@@ -121,4 +126,6 @@ def plan_strings(plan: dict[str, Any]) -> list[str]:
     if plan.get("chapter_question"):
         out.append(plan["chapter_question"].get("text", ""))
     out += [e.get("word", "") for e in plan.get("emphasis", []) or [] if e.get("stamp")]
+    if plan.get("icon_array"):
+        out.append(plan["icon_array"].get("label", ""))
     return [s for s in out if s]

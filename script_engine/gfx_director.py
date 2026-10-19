@@ -675,6 +675,11 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
 
     out["punch_in"] = [round(t_of(wi), 3) for wi in plan.get("punch_in_word_idx", [])]
 
+    # F2b §3: icon_array (cifra afectados/total ≤ 500 de un fact, cuando la voz la dice)
+    out["icon_array"] = None
+    if max_per_cap("icon_array") > 0 and words:
+        out["icon_array"] = place_icon_array(busy, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
+
     # F2b §2: keyword_emphasis (regex sobre la narración, sin LLM): las palabras de carga más raras del cap
     out["emphasis"] = []
     if max_per_cap("keyword_emphasis") > 0 and active_moods() and words:
@@ -684,6 +689,7 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
     # F2 §1: hueco > interrupt_max_sec → el VALIDADOR rellena (callout con fact elegible dicho en el
     # tramo; si no hay, punch_in en la palabra de más énfasis). gap_warning queda como MÉTRICA.
     fill_gaps(out, busy, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
+    mark_icon_callouts(out, log)                             # F2b §3: hasta 3 énfasis llevan su ícono
     gaps = find_gaps(out, busy, dur)
     for g in gaps:
         log.append(f"gap_warning: {g[1] - g[0]:.1f}s sin bloque ({g[0]:.1f}–{g[1]:.1f}s)")
@@ -741,6 +747,8 @@ def sfx_events(out: dict[str, Any], words: list[dict], time_offset: float, sfx_f
     if out.get("chapter_question"):
         marks.append((out["chapter_question"]["start"], "chapter_question"))
     marks += [(e["start"], "keyword_emphasis") for e in out.get("emphasis", []) or []]     # F2b §2: tic sordo
+    if out.get("icon_array"):
+        marks.append((out["icon_array"]["start"], "icon_array"))
     spans = [(float(w["start"]) + time_offset, float(w["end"]) + time_offset, str(w.get("word", ""))) for w in words]
     gaps = [(spans[i][1], spans[i + 1][0]) for i in range(len(spans) - 1) if spans[i + 1][0] > spans[i][1]]
     win = gfx_rules.sfx_shift_max_ms / 1000.0
@@ -902,7 +910,8 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
         word = re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "", word)
         sc = scene_at(scenes, t)
         out["emphasis"].append({"word": word, "category": cat, "layer": moods[cat]["layer"],
-                                "icon": moods[cat].get("icon"), "start": round(t, 3),
+                                "icon": moods[cat].get("icon"), "icon_anim": moods[cat].get("icon_anim") or "stamp",
+                                "start": round(t, 3),
                                 "duration": round(gfx_rules.mood_dur, 3), "side": getattr(sc, "quiet_side", "right"),
                                 "stamp": gfx_rules.emphasis_stamp, "sid": sids[i], "rarity": rarity,
                                 "weight": -neg_wt})
@@ -917,7 +926,62 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
 
 def emphasis_without_icon(plan: dict[str, Any]) -> list[str]:
     """Palabras de énfasis que salieron sin ícono (entran al vigilante mensual, F2b §3)."""
-    return [e["word"] for e in plan.get("emphasis", []) or [] if not e.get("icon")]
+    return [e["word"] for e in plan.get("emphasis", []) or [] if not e.get("icon_callout")]
+
+
+def mark_icon_callouts(out: dict[str, Any], log: list[str] | None = None) -> None:
+    """F2b §3: los primeros max_per_cap('icon_callout') énfasis (por tiempo) cuya categoría tiene un ícono
+    APROBADO de la lista blanca llevan icon_callout=True. El resto queda con el sello de texto solo.
+    Nunca un ícono equivocado: sin SVG aprobado (o respaldo habilitado) → sin ícono."""
+    from script_engine.gfx_icons import icon_svg
+    n = 0
+    for e in sorted(out.get("emphasis", []) or [], key=lambda e: e["start"]):
+        has = bool(e.get("icon")) and icon_svg(e["icon"], fallback=gfx_rules.icon_fallback_lucide) is not None
+        e["icon_callout"] = bool(has and n < max_per_cap("icon_callout"))
+        n += e["icon_callout"]
+        if log is not None and e.get("icon") and not e["icon_callout"]:
+            log.append(f"icon_callout omitido: {e['word']!r} ({e['icon']}: " + ("sin SVG aprobado)" if not has else "tope por cap)"))
+
+
+_ARRAY_RE = re.compile(r"\b(\d{1,3}) de (?:los |las |sus |esos |esas )?(\d{1,3})\b")
+
+
+def array_candidates(facts: list[str], eligible: dict[int, bool] | None) -> list[tuple[int, int, int, str]]:
+    """(fact_idx, afectados, total, fragmento literal) para facts con relación 'A de (los) B', A < B ≤ icon_array_max."""
+    out = []
+    for fi in sorted(eligible if eligible is not None else range(len(facts))):
+        if eligible and eligible.get(fi):                    # foráneos solo valen para data_callout
+            continue
+        for m in _ARRAY_RE.finditer(facts[fi]):
+            a, b = int(m.group(1)), int(m.group(2))
+            if 0 < a < b <= gfx_rules.icon_array_max:
+                out.append((fi, a, b, m.group(0)))
+    return out
+
+
+def place_icon_array(busy: list[tuple[float, float]], *, ctx: dict[str, Any], words: list[dict], scenes: list[Any],
+                     time_offset: float, log: list[str]) -> dict[str, Any] | None:
+    """F2b §3: icon_array cuando la voz dice la cifra de afectados (o el fragmento entero) y hay lugar libre."""
+    from script_engine.gfx_icons import icon_svg
+    from script_engine.gfx_project import scene_at
+    if icon_svg("persona", fallback=gfx_rules.icon_fallback_lucide) is None:
+        return None
+    dur = scenes[-1].end
+    for fi, a, b, frag in array_candidates(ctx["facts"], ctx.get("eligible")):
+        wi = _find_spoken(frag, words)
+        wi = wi if wi is not None else _find_spoken(str(a), words)
+        if wi is None:
+            continue
+        t = float(words[wi]["start"]) + time_offset
+        t1 = t + gfx_rules.icon_array_dur
+        if t1 > dur or not all(t1 <= s or t >= e for s, e in busy):
+            log.append(f"icon_array omitido (solape/fuera de rango @ {t:.1f}s): {frag!r}")
+            continue
+        busy.append((t, t1))
+        log.append(f"icon_array: {frag!r} (fact {fi}) @ {t:.1f}s")
+        return {"affected": a, "total": b, "label": frag, "start": round(t, 3), "duration": gfx_rules.icon_array_dur,
+                "side": getattr(scene_at(scenes, t), "quiet_side", "right"), "fact_idx": fi}
+    return None
 
 
 def fill_gaps(out: dict[str, Any], busy: list[tuple[float, float]], *, ctx: dict[str, Any], words: list[dict],

@@ -182,6 +182,76 @@ def mood_layer(i: int, layer: str, t0: float, d: float, width: int, height: int)
     return html_, init, js
 
 
+# ═══════════════════════════════════════════════════════════════
+#  F2b §3: icon_callout + icon_array
+# ═══════════════════════════════════════════════════════════════
+
+def icon_callout_html(i: int, e: dict[str, Any], st: float, duration: float) -> tuple[str, list[str], list[str]]:
+    """Ícono aprobado (animación de su categoría) + la palabra en sello debajo. ("", [], []) si no hay SVG."""
+    from script_engine.gfx_icons import anim_js, icon_svg, scoped_svg
+    svg = icon_svg(e.get("icon"), fallback=gfx_rules.icon_fallback_lucide)
+    if not svg:
+        return "", [], []
+    uid = f"ic{i}"
+    view = re.search(r'viewBox="([^"]+)"', svg)
+    k = float(view.group(1).split()[2]) / 200.0 if view else 1.0
+    d = e["duration"]
+    side = "right:7%" if e.get("side", "right") == "right" else "left:7%"
+    word = (f'<div class="em-text" style="display:inline-block;margin-top:10px;font:400 {round(gfx_rules.emphasis_stamp_px * .72)}px/1 '
+            f'&quot;{gfx_rules.figure_font}&quot;,sans-serif;text-transform:uppercase;color:{gfx_rules.accent_hex};'
+            f'border:6px solid {gfx_rules.accent_hex};padding:6px 20px 3px;background:rgba(10,10,10,.35);white-space:nowrap">'
+            f'{_esc(e["word"])}</div>') if e.get("stamp") and e.get("word") else ""
+    html_ = (f'      <div id="icc{i}" class="clip" data-start="{st:.3f}" data-duration="{d:.3f}" '
+             f'style="position:absolute;top:30%;{side};z-index:6;text-align:center">'
+             f'{scoped_svg(svg, uid, gfx_rules.icon_px)}<br/>{word}</div>')
+    init, js = anim_js(uid, e.get("icon_anim") or "stamp", st, st + d, k=k, strokes_only="lucide-ink" in svg)
+    if word:
+        a_init, a_js = _anim_in_js(f"#icc{i} .em-text", "stamp", st + .35)
+        init += a_init
+        js += a_js
+        js.append(f'      tl.to("#icc{i} .em-text", {{ opacity: 0, duration: .3, ease: "power1.in" }}, {st + d - .45:.3f});')
+    return html_, init, js
+
+
+def icon_array_html(ia: dict[str, Any], duration: float) -> tuple[str, list[str], list[str]]:
+    """Filas de 10 figuras (símbolo <use>: el SVG va una sola vez); las primeras `affected` en el acento.
+    Las figuras se dibujan en orden (fila por fila) y la etiqueta literal ('12 de los 300') va arriba."""
+    from script_engine.gfx_icons import DRY_SEC, icon_svg
+    svg = icon_svg("persona", fallback=gfx_rules.icon_fallback_lucide)
+    if not svg:
+        return "", [], []
+    view = re.search(r'viewBox="([^"]+)"', svg)
+    vb = view.group(1) if view else "0 0 200 200"
+    body = re.sub(r"(?s)^.*?<svg[^>]*>|</svg>\s*$", "", svg)
+    body = re.sub(r'<path class="ic-accent"[^>]*/>', "", body)                     # en la grilla, una sola tinta
+    body = re.sub(r'(?s)<g class="ic-strokes"[^>]*>.*?</g>', "", body) if 'class="ic-fill"' in body else body
+    body = re.sub(r'(fill|stroke)="#e8e0cc"', r'\1="currentColor"', body)
+    n, a, px = ia["total"], ia["affected"], gfx_rules.icon_array_px
+    st, d = min(ia["start"], max(0.0, duration - ia["duration"])), ia["duration"]
+    cols = 10
+    rows = (n + cols - 1) // cols
+    gap = round(px * .25)
+    W, H = cols * (px + gap), rows * (px + gap)
+    uses = "".join(f'<use href="#ia-sym" x="{(j % cols) * (px + gap)}" y="{(j // cols) * (px + gap)}" width="{px}" '
+                   f'height="{px}" class="ia-f" style="color:{gfx_rules.accent_hex if j < a else "#e8e0cc"}"/>'
+                   for j in range(n))
+    side = "right:7%" if ia.get("side", "right") == "right" else "left:7%"
+    scale = min(1.0, 0.55 * 1440 / max(H, 1))                                 # la grilla nunca pasa de ~55 % del alto
+    html_ = (f'      <div id="ia" class="clip" data-start="{st:.3f}" data-duration="{d:.3f}" '
+             f'style="position:absolute;top:22%;{side};z-index:6;transform-origin:top {"right" if "right" in side else "left"};'
+             f'transform:scale({scale:.3f})">'
+             f'<div class="ia-label" style="font:400 64px/1 &quot;{gfx_rules.figure_font}&quot;,sans-serif;color:#f4f1ea;'
+             f'text-transform:uppercase;margin-bottom:18px;text-shadow:{gfx_rules.callout_shadow}">{_esc(ia["label"])}</div>'
+             f'<svg width="{W}" height="{H}" viewBox="0 0 {W} {H}"><defs><symbol id="ia-sym" viewBox="{vb}">{body}</symbol></defs>'
+             f'{uses}</svg></div>')
+    init = ['      gsap.set("#ia .ia-f", { opacity: 0 }); gsap.set("#ia .ia-label", { opacity: 0, y: 20 });']
+    draw = min(1.6, 0.012 * n + 0.4)                                          # 300 figuras ≈ 1.6 s
+    js = [f'      tl.to("#ia .ia-label", {{ opacity: 1, y: 0, duration: .35, ease: "power3.out" }}, {st:.3f})'
+          f'.to("#ia .ia-f", {{ opacity: 1, duration: .12, stagger: {{ amount: {draw:.2f} }} }}, {st + .2:.3f})'
+          f'.to("#ia", {{ opacity: 0, duration: {DRY_SEC}, ease: "power1.in" }}, {st + d - DRY_SEC:.3f});']
+    return html_, init, js
+
+
 def load_grade_preset() -> dict[str, Any]:
     """Preset de grade versionado (D4)."""
     return json.loads((GFX_TEMPLATES_DIR / "gfx_grade.json").read_text(encoding="utf-8"))
@@ -447,8 +517,12 @@ def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[d
         add(z0, sc.end - z0, "evidence_zoom", f"box {ez['box']}")
     for t in plan.get("punch_in", []):
         add(t, gfx_rules.punch_in_sec + gfx_rules.punch_out_sec, "punch_in")
-    for e in plan.get("emphasis", []) or []:                    # F2b §2
-        add(e["start"], e["duration"], f"keyword_emphasis:{e['category']}", e["word"])
+    for e in plan.get("emphasis", []) or []:                    # F2b §2 (+ §3: ícono)
+        add(e["start"], e["duration"], f"{'icon_callout' if e.get('icon_callout') else 'keyword_emphasis'}:{e['category']}",
+            e["word"] + (f" [{e['icon']} · {e.get('icon_anim', 'stamp')}]" if e.get("icon_callout") else ""))
+    if plan.get("icon_array"):                                  # F2b §3
+        ia = plan["icon_array"]
+        add(ia["start"], ia["duration"], "icon_array", f"{ia['label']} ({ia['affected']}/{ia['total']})")
     for idx, tr in plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx")).items():
         sc = scenes[idx]
         label = (f"{tr['frames']} f" if tr["frames"] else
@@ -558,6 +632,13 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         overlays.append(m_html)
         init += m_init
         js += m_js
+        if e.get("icon_callout"):
+            ic_html, ic_init, ic_js = icon_callout_html(i, e, st, duration)
+            if ic_html:
+                overlays.append(ic_html)
+                init += ic_init
+                js += ic_js
+                continue
         if e.get("stamp") and e.get("word"):
             sd = gfx_rules.emphasis_stamp_sec
             side = "right:8%" if e.get("side", "right") == "right" else "left:8%"
@@ -571,6 +652,14 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
             init += a_init
             js += a_js
             js.append(f'      tl.to("#em{i}", {{ opacity: 0, duration: .3, ease: "power1.in" }}, {st + sd - .3:.3f});')
+
+    # ── F2b §3: icon_array (N figuras en filas de 10, afectados en rojo)
+    if plan.get("icon_array"):
+        a_html, a_init, a_js = icon_array_html(plan["icon_array"], duration)
+        if a_html:
+            overlays.append(a_html)
+            init += a_init
+            js += a_js
 
     # ── title_card (F2: 3.0 s, 30 % más chica, fade de salida 0.4 s, video vivo oscurecido 40 %)
     tc = plan.get("title_card")
