@@ -33,10 +33,10 @@ def test_prompt_incluye_todos_los_bloques():
 
 
 def test_maximos_por_cap():
-    assert gc.max_per_cap("data_callout") == 3
+    assert gc.max_per_cap("data_callout") == 5             # F2 §1: techo 5/cap
     assert gc.max_per_cap("punch_in") == 2
     assert gc.max_per_cap("archive_clipping") == 2          # F2 §0b.6
-    assert gc.clamp_count([1, 2, 3, 4, 5, 6], "data_callout") == [1, 2, 3]
+    assert gc.clamp_count([1, 2, 3, 4, 5, 6], "data_callout") == [1, 2, 3, 4, 5]
 
 
 def test_clamps():

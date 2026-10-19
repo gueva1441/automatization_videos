@@ -54,7 +54,7 @@
   },
   "blocks": {
     "title_card":       {"enabled": true, "max_per_cap": 1, "where": "todos los caps"},
-    "data_callout":     {"enabled": true, "max_per_cap": 3, "where": "todos los caps"},
+    "data_callout":     {"enabled": true, "max_per_cap": 5, "where": "todos los caps; facts del cap (foráneos solo acá)"},
     "archive_clipping": {"enabled": true, "max_per_cap": 2, "where": "escenas de ≥ 4 s con facts de texto suficiente"},
     "evidence_zoom":    {"enabled": true, "max_per_cap": 1, "where": "escenas de ≥ 3.1 s"},
     "count_up":         {"enabled": true, "max_per_cap": 1, "where": "cifras literales del fact"},

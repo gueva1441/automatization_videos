@@ -120,7 +120,7 @@ _ENGINE_INVENTORY: tuple[GfxBlock, ...] = (
         description="Dato grande (año, cifra, nombre, lugar) en el tercio superior cuando la voz lo dice.",
         params="fact_idx (índice de verified_facts), trigger_word_idx (índice en WORDS donde la voz dice el dato), kind year|figure|name|place.",
         rules="omitir si el texto en imagen de esa escena ya muestra el dato; el texto sale del fact, no lo escribís vos.",
-        max_per_cap=3, llm_decides=True,
+        max_per_cap=5, llm_decides=True,
     ),
     GfxBlock(
         name="archive_clipping",

@@ -225,6 +225,14 @@ def assign_quiet_sides(scenes: list[GfxScene], base: Path) -> list[GfxScene]:
     return scenes
 
 
+def _zoom_frame(base: Path, scene: GfxScene, out: Path) -> Path | None:
+    """Frame donde arrancaría el zoom (final de la escena − zoom_dur) para el juez de visión."""
+    t = max(scene.start + 0.1, scene.end - gfx_rules.zoom_dur)
+    r = subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t:.3f}", "-i", str(base), "-frames:v", "1",
+                        "-vf", "scale=1280:-2", "-q:v", "3", str(out)], capture_output=True, timeout=120)
+    return out if r.returncode == 0 and out.exists() else None
+
+
 def _text_in_image(prompt: dict[str, Any]) -> str:
     tii = prompt.get("text_in_image")
     if isinstance(tii, dict):
@@ -337,6 +345,11 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         else:
             from script_engine.gfx_literal_lock import lock
             raw_plan = select_gfx_plan(plan, ctx=ctx, words=words, scenes=scenes, work_dir=work_dir, log=log)
+            # F2 §1: el box del zoom lo decide visión sobre el frame real (cache por escena)
+            from script_engine.gfx_director import apply_zoom_vision
+            raw_plan = apply_zoom_vision(raw_plan, frame_for_scene=lambda si: _zoom_frame(
+                project / "public" / "base.mp4", scenes[si], work_dir / f"gfx_zoomframe_{cap}_s{si:02d}.jpg"),
+                cache=work_dir / f"gfx_zoom_box_{cap}.json", log=log)
             resolved = resolve_plan(raw_plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
             resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"])
         log.append(f"  plan: {json.dumps(resolved, ensure_ascii=False)}")

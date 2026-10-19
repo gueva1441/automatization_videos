@@ -169,11 +169,11 @@ def test_indices_fuera_de_rango(monkeypatch, tmp_path):
     assert plan["punch_in_word_idx"] == [2]
 
 
-def test_seis_callouts_quedan_tres_y_texto_no_literal_se_descarta(monkeypatch, tmp_path):
+def test_seis_callouts_quedan_cinco_y_texto_no_literal_se_descarta(monkeypatch, tmp_path):
     cs = [{"fact_idx": 1, "text": "4.6 metros", "trigger_word_idx": i, "kind": "figure"} for i in range(6)]
     cs.append({"fact_idx": 1, "text": "cinco metros", "trigger_word_idx": 3, "kind": "figure"})  # no literal
     plan = _run(monkeypatch, tmp_path, {"callouts": cs})
-    assert len(plan["callouts"]) == 3
+    assert len(plan["callouts"]) == 5                       # F2 §1: techo 5/cap
     assert all(c["text"] == "4.6 metros" for c in plan["callouts"])
 
 
@@ -181,7 +181,7 @@ def test_omision_por_text_in_image(monkeypatch, tmp_path):
     raw = {"callouts": [{"fact_idx": 0, "text": "29 de agosto de 2005", "trigger_word_idx": 3, "kind": "year"}]}
     plan = _run(monkeypatch, tmp_path, raw)
     res = gd.resolve_plan(plan, ctx=CTX, words=WORDS, scenes=SCENES)
-    assert res["callouts"] == []           # escena 0 ya muestra "AGOSTO 2005"
+    assert all(c["text"] != "29 de agosto de 2005" for c in res["callouts"])   # escena 0 ya muestra "AGOSTO 2005"
 
 
 def test_gemini_caido_no_lanza(monkeypatch, tmp_path):
@@ -199,12 +199,102 @@ def test_basura_no_lanza(monkeypatch, tmp_path):
         assert isinstance(plan, dict)
 
 
-def test_gap_warning_solo_loguea():
+def test_hueco_lo_rellena_el_validador_con_texto_literal():
+    """F2 §1: hueco > 35 s → callout con un fragmento LITERAL de un fact que la voz dice en el tramo;
+    lo que no se puede tapar (sin palabras) queda como gap_warning (métrica)."""
     long_scenes = [GfxScene(0, 0.0, 90.0, "R3", "")]
     log = []
     res = gd.resolve_plan({"title_card": {"use": True}}, ctx=CTX, words=WORDS, scenes=long_scenes, log=log)
-    assert res["gap_warnings"] and any("gap_warning" in l for l in log)
-    assert res["callouts"] == []           # no inventa bloques
+    assert res["callouts"] and any("gap_fill: callout" in l for l in log)
+    assert all(any(c["text"] in f for f in FACTS) for c in res["callouts"])   # nunca texto inventado
+    assert all(c.get("gap_fill") for c in res["callouts"])
+    assert res["gap_warnings"]                                  # 20–90 s sin palabras: no se puede tapar
+
+
+def test_hueco_sin_fact_dicho_pone_punch_in():
+    words = [{"word": w, "start": float(i), "end": float(i) + .9} for i, w in enumerate(
+        ("Las paredes guardaban silencio mientras el agua subía " * 8).split())]
+    scenes = [GfxScene(0, 0.0, 60.0, "R3", "")]
+    log = []
+    res = gd.resolve_plan({}, ctx={**CTX, "eligible": {}}, words=words, scenes=scenes, log=log)
+    assert res["callouts"] == [] and res["punch_in"] and any("gap_fill: punch_in" in l for l in log)
+    assert res["gap_warnings"] == []
+
+
+def _orleans():
+    import json
+    from pathlib import Path
+    d = json.loads((Path(__file__).parent / "data/scripts/ba6c3cac-a091-41c0-8dad-afd2f4364747.json").read_text(encoding="utf-8"))
+    return [f["fact"] for f in d["verified_facts"]], d["chapters"]
+
+
+def test_epoca_el_fact_de_2010_no_cae_en_ch02():
+    facts, chapters = _orleans()
+    i2010 = next(i for i, f in enumerate(facts) if "2010" in f)
+    elig, era = gd.eligible_facts(facts, chapters, 2, chapters[1]["narration"])
+    assert era == [2004, 2006] and i2010 not in elig
+    elig6, _ = gd.eligible_facts(facts, chapters, 6, chapters[5]["narration"])
+    assert i2010 in elig6                                       # en su cap sí
+
+
+def test_facts_por_cap_y_foraneos():
+    facts = ["Juan Pérez llegó en 1990 a la isla.", "El faro de Punta Gris se apagó en 1991.",
+             "La familia Ortiz vendió el barco en 1992."]
+    chapters = [{"chapter_number": 1, "narration": "Todo empezó cuando Juan Pérez llegó.", "image_prompts": []},
+                {"chapter_number": 2, "narration": "Nadie sabe por qué pasó.", "image_prompts": [{"hard_fact_ids": ["F02"]}]},
+                {"chapter_number": 3, "narration": "El final llegó con la familia Ortiz.", "image_prompts": [{"hard_fact_ids": ["F03"]}]}]
+    elig, _ = gd.eligible_facts(facts, chapters, 2, chapters[1]["narration"])
+    assert elig[1] is False                                     # propio por hard_fact_ids
+    assert elig.get(2) is True                                  # < 2 propios → vecino foráneo
+    plan = gd.validate_plan({"archive_clippings": [{"fact_idx": 2, "scene_idx": 0, "headline": "vendió el barco", "kicker": ""}],
+                             "callouts": [{"fact_idx": 2, "text": "1992", "trigger_word_idx": 0, "kind": "year"}]},
+                            n_facts=3, n_words=5, scenes=[GfxScene(0, 0, 10)], facts=facts, eligible=elig)
+    assert plan["archive_clippings"] == [] and plan["callouts"][0]["foreign"]     # foráneo: solo callout
+
+
+def test_anti_spoiler_en_ch01():
+    facts, chapters = _orleans()
+    i2010 = next(i for i, f in enumerate(facts) if "2010" in f)      # F07: solo aparece en ch06
+    elig, _ = gd.eligible_facts(facts, chapters, 1, chapters[0]["narration"] + " Robie Waganfeald")
+    assert i2010 not in elig
+
+
+def test_titular_nunca_substring_del_cuerpo():
+    log: list[str] = []
+    fact = "Más de 500 prisioneros no figuraban en la lista. Según Human Rights Watch, nadie los buscó."
+    head, body = gd.headline_vs_body("Más de 500 prisioneros", "Más de 500 prisioneros no figuraban en la lista.",
+                                     "Human Rights Watch", fact, log)
+    assert body == "" and head == "Más de 500 prisioneros"      # kicker + año no es literal → sin cuerpo
+    fact2 = "El informe de Human Rights Watch 2005 dice que más de 500 prisioneros no figuraban."
+    head2, _ = gd.headline_vs_body("más de 500 prisioneros", "más de 500 prisioneros no figuraban.",
+                                   "Human Rights Watch", fact2, log)
+    assert head2 == "Human Rights Watch 2005"
+
+
+def test_zoom_box_null_sin_zoom(tmp_path):
+    import unittest.mock as um
+    plan = {"evidence_zoom": {"scene_idx": 0, "box": [0.4, 0.4, 0.1, 0.1]}}
+    log: list[str] = []
+    with um.patch.object(gd, "judge_zoom_box", return_value={"box": None, "detalle": "solo cielo"}):
+        out = gd.apply_zoom_vision(plan, frame_for_scene=lambda si: tmp_path / "f.jpg",
+                                   cache=tmp_path / "zb.json", log=log)
+    assert out["evidence_zoom"] is None and any("visión" in l for l in log)
+    with um.patch.object(gd, "judge_zoom_box", side_effect=AssertionError("no debe re-llamar")):
+        again = gd.apply_zoom_vision(plan, frame_for_scene=lambda si: None, cache=tmp_path / "zb.json", log=log)
+    assert again["evidence_zoom"] is None                       # cacheado
+    with um.patch.object(gd, "judge_zoom_box", return_value={"box": [0.5, 0.5, 0.1, 0.1], "detalle": "candado"}):
+        ok = gd.apply_zoom_vision({"evidence_zoom": {"scene_idx": 1, "box": [0, 0, .2, .2]}},
+                                  frame_for_scene=lambda si: tmp_path / "f.jpg", cache=tmp_path / "zb.json", log=log)
+    assert ok["evidence_zoom"]["box"] == [0.5, 0.5, 0.1, 0.1]
+
+
+def test_cache_de_version_anterior_se_re_llama(monkeypatch, tmp_path):
+    import json
+    (tmp_path / "gfx_plan_ch02.json").write_text(json.dumps({"raw": {"callouts": []}}), encoding="utf-8")
+    calls = []
+    monkeypatch.setattr(gd, "call_flash_json", lambda *a, **k: calls.append(1) or {"title_card": {"use": True}})
+    gd.select_gfx_plan(CHPLAN, ctx=CTX, words=WORDS, scenes=SCENES, work_dir=tmp_path)
+    assert calls and json.loads((tmp_path / "gfx_plan_ch02.json").read_text(encoding="utf-8"))["director"] == "v1"
 
 
 if __name__ == "__main__":
