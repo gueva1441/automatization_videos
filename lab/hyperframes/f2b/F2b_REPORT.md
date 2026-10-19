@@ -39,3 +39,54 @@ Riesgos que el contrato no cubre: (1) fase2b.py:2112 envuelve la visión nueva e
 ```
 
 Respuesta de CC a las observaciones: 1.4 se completa en §2 (el énfasis de palabra entra primero en el orden de relleno). 6d verificado después del veredicto: md5 `38e5ba14…` ✔.
+
+## §2 — Léxico de moods + énfasis de palabra
+
+- `gfx_profiles/misterio.json` → `moods`: 4 categorías activas (veneno_enfermedad 54 disparadores, agua 39, muerte 33, oscuridad_encierro 29) y 5 de reserva inactivas.
+- `keyword_emphasis`: se detecta por regex sobre la narración, sin LLM. Por cap entran primero las 3 palabras más raras; el relleno de huecos suma más, hasta 5. Máximo 1 por frase y ≥ 20 s entre moods de la misma categoría. Cada una dispara su capa de mood (CSS, 2.5 s), el sello rojo con la palabra literal y el SFX `tic_sordo.wav`.
+- Orden de relleno de §1.4 completo: énfasis → callout → punch_in.
+- Render de ch02 en looks (`--only-cap`):
+  - **2 recortes** (antes 0): «El huracán Katrina tocó tierra» con kicker 2005, y «Los prisioneros quedaron atrapados durante días en celdas».
+  - 3 énfasis: diques/agua, oscuro y encierro/oscuridad.
+  - 0 huecos > 18 s y lint con 0 errores.
+  - Sin zoom: el LLM no propuso ninguno.
+  - Render: 283 s; total del cap: 6 min 10 s.
+- Detalle: al primer intento `--reuse-visuals` reusó el `ch02_gfx.mp4` de F2 y no rerenderizó. El viejo quedó respaldado en `_fase2b_work/_bak_f2_pre_f2b/`. **Para el render completo de §4 hay que mover los `chXX_gfx.mp4` de F2 antes de correrlo.**
+- Entregables: `gfx_review_ch02.html` (página de revisión), `gfx_cues_ch02_s2.md`, `gfx_plan_ch02_s2.resolved.json` y `tira_s2_enfasis_ch02.jpg`.
+- Límite: en ch02 solo aparecen las capas agua y oscuridad. Veneno y muerte están cubiertas por tests (templater y lock); su evidencia visual llega con el render completo.
+
+### Veredicto revisor-handoff §2 (íntegro)
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | `moods` en misterio.json: 4 activas, ≥25 disparadores, preset de capa | OK | Conteo por script: veneno_enfermedad 54, agua 39, muerte 33, oscuridad_encierro 29. gfx_config.py valida capa y mínimo 25 en `load_profile` (+ test) |
+| 2 | Reserva inactiva en el JSON (fuego, caos_gritos, radiacion_quimico, frio_abandono, silencio) | OK | misterio.json: las 5 con `active:false` y `layer:null` |
+| 3 | 4 capas CSS (veneno, agua, muerte, oscuridad), 1–3 s, intensidad baja | OK | gfx_project.py `mood_layer`: las 4 ramas con duración de 2.5 s (`mood_dur`). Hay capa de bloque y de render para el sello y los moods |
+| 4 | Detección por regex, sin LLM; literal por construcción | OK | gfx_director.py `emphasis_candidates`/`place_emphasis`. `llm_decides=False` en gfx_config.py. Decisión B12 |
+| 5 | 3–5 palabras por cap, más raras si hay más de 5 | OK | `emphasis_base_per_cap=3`, `max_per_cap=5`; orden por rareza (frecuencia en la narración completa) |
+| 6 | Máx 1 por frase, ≥20 s entre moods de la misma categoría | OK | `place_emphasis` (sid, `emphasis_same_cat_gap_sec`). test_module_gfx_emphasis.py: `test_maximo_uno_por_frase…` y `test_misma_categoria_separada_20_s` |
+| 7 | Sello rojo con la palabra pasa por el lock literal | OK | gfx_literal_lock.py: sello fuera si la palabra no es literal. `test_lock_y_cues_y_templater` |
+| 8 | SFX tic sordo asociado | OK | tic_sordo.wav existe (21 KB), `sfx.keyword_emphasis` en el perfil, `sfx_events` lo marca. `make_sfx.py` gana `only=` y deja los demás WAV intactos |
+| 9 | §1.4 orden de relleno: énfasis, callout, punch_in | OK | gfx_director.py `fill_gaps`: énfasis primero, luego callout. Test `test_resolve_pone_enfasis_y_rellena_hueco_primero_con_enfasis`. Salvedad: la nota B9 del DECISIONES dice "callout → punch_in hasta que §2…" y no se actualizó, aunque B12–B19 lo cubren |
+| 10 | Intervalo máximo 18 s y gap_warning del reporte | OK | gfx_review.py usa `interrupt_max_sec`. Cues de ch02: "gap_warning (> 18 s) ninguno" |
+| 11 | Íconos por categoría quedan para §3 | OK | `icon:null` en el léxico y `emphasis_without_icon()`. Decisión B19. §3 sin hacer no es falla |
+| 12 | Evidencia de render real en ch02 con looks | OK | onlycap_ch02_s2_looks.log, gfx_cues_ch02_s2.md (3 énfasis: diques/agua, oscuro y encierro/oscuridad), resolved.json, tira_s2…jpg (114 KB), gfx_review_ch02.html. Log del cap: "lint: 0 errores, 8 warnings" |
+| 13 | Tests verdes | OK | Corrí pytest con el comando indicado: 106 passed en 3.7 s |
+| 14 | Sin `--gfx` byte-idéntico (no toca fase2b.py) | OK | `git diff HEAD --stat -- fase2b.py script_engine/transition_applier.py` sin salida. Verificación estructural, no corrí un render comparado |
+| 15 | Sin shaders, sin texto ni ícono inventado por el LLM | OK | Todo CSS/GSAP con blend modes. El texto sale solo de la narración de la voz y pasa por el lock |
+| 16 | Decisiones B12–B19 anotadas | OK | DECISIONES_F2b.md (+8 líneas) |
+
+Fuera de alcance: diag_234_cap4.py (M, ya declarado como ajeno, ignorado). lab/hyperframes/_handoff_adjuntos/HANDOFF_F1_gfx_layer.md aparece sin trackear. No me consta que sea de este trabajo. F2b_REPORT.md no está modificado. Todo lo demás está dentro del alcance de §2.
+
+Observaciones (no bloquean):
+- En el render de ch02 solo se ven las capas `agua` y `oscuridad`. `veneno` y `muerte` no tienen evidencia visual real; solo tests.
+- "Muerte" hace un push-in (1.015) de la capa de video y desatura con blend `saturation`. Lo pide el handoff, pero es lo más cercano a tocar la imagen. B17 lo documenta.
+- Hay 8 warnings de lint en el render. No miré cuáles son.
+
+Riesgos que el contrato no cubre: el match exacto por token depende de listar a mano cada flexión, así que un tema fuera del léxico no dispara nada. El sello activado por defecto (B16) quedó como decisión visual de Omar en la PARADA 1.
+```
+
+Respuesta de CC: la nota B9 ya está actualizada. `HANDOFF_F1_gfx_layer.md` es un archivo previo, ajeno a F2b, y no se commitea.

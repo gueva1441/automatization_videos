@@ -166,6 +166,13 @@ _ENGINE_INVENTORY: tuple[GfxBlock, ...] = (
         max_per_cap=999, llm_decides=False,
     ),
     GfxBlock(
+        name="keyword_emphasis",
+        description="Palabra de carga de la narración (léxico de moods del perfil) → capa de mood de 1–3 s (CSS, intensidad baja) + sello rojo con la palabra.",
+        params="(ninguno: detección por regex sobre la narración con el léxico del perfil)",
+        rules="el LLM no lo elige; máx 1 por frase; ≥ 20 s entre moods de la misma categoría; si hay más disparadores que el máximo, quedan las palabras más raras.",
+        max_per_cap=5, llm_decides=False,
+    ),
+    GfxBlock(
         name="shot_transition",
         description="Transición CSS en cada corte intra-cap según emotional_rank: R1 flash 30 % (≤ 2), R2 crossfade 20 f, R3 disolvencia 30 f.",
         params="(ninguno: determinista desde emotional_rank)",
@@ -278,6 +285,13 @@ class GfxRules:
     source_tag_scale: float = 0.4            # 40 % del tamaño del callout
     sfx_gain_db: float = -18.0               # bajo la voz
     sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano
+    # keyword_emphasis + moods (F2b §2)
+    emphasis_base_per_cap: int = 3          # selección inicial (las más raras); el relleno de huecos sube hasta max_per_cap
+    emphasis_same_cat_gap_sec: float = 20.0  # mínimo entre moods de la misma categoría
+    mood_dur: float = 2.5                    # duración de la capa de mood (1–3 s)
+    emphasis_stamp: bool = True              # sello rojo con la palabra (opcional por perfil)
+    emphasis_stamp_sec: float = 1.6          # el sello se ve 1.6 s dentro del mood
+    emphasis_stamp_px: int = 112
     grade_default: str = "off"
     grain_opacity: float = 0.15              # F2 §0c: tokens del perfil (antes constantes de _GRADE_OFF)
     vignette_opacity: float = 0.20
@@ -315,7 +329,10 @@ _GRADE_B = {"gr-halation": 0.35, "gr-haze": 0.0, "gr-palette": 0.0, "gr-shadowte
 # ═══════════════════════════════════════════════════════════════
 
 _RULE_FIELDS: frozenset[str] = frozenset(f.name for f in fields(GfxRules))
-_PROFILE_KEYS: frozenset[str] = frozenset({"name", "description", "nichos", "fonts", "tokens", "blocks", "sfx"})
+_PROFILE_KEYS: frozenset[str] = frozenset({"name", "description", "nichos", "fonts", "tokens", "blocks", "sfx", "moods"})
+# F2b §2: capas de mood que el templater sabe dibujar (CSS, nunca toca píxeles)
+VALID_MOOD_LAYERS: frozenset[str] = frozenset({"veneno", "agua", "muerte", "oscuridad"})
+MIN_TRIGGERS_ACTIVE: int = 25
 _FONT_KEYS: frozenset[str] = frozenset({"subs", "title", "callout", "callout_figure", "clipping"})
 # fuentes que el templater sabe cargar (@font-face en gfx_common.css → script_engine/fonts)
 KNOWN_FONTS: frozenset[str] = frozenset({"Anton", "Playfair Display SC"})
@@ -355,6 +372,11 @@ def load_profile(name: str | None = None) -> dict[str, Any]:
     bad |= {f"fonts.{k}={v!r} (sin @font-face)" for k, v in prof.get("fonts", {}).items() if v not in KNOWN_FONTS}
     bad |= {f"sfx.{k}" for k, v in prof.get("sfx", {}).items()
             if k not in VALID_BLOCKS or not (SFX_DIR / str(v.get("file", ""))).exists()}
+    for cat, m in (prof.get("moods") or {}).items():
+        if set(m) - {"active", "triggers", "layer", "icon"}:
+            bad.add(f"moods.{cat}: claves {sorted(set(m) - {'active', 'triggers', 'layer', 'icon'})}")
+        if m.get("active") and (m.get("layer") not in VALID_MOOD_LAYERS or len(m.get("triggers", [])) < MIN_TRIGGERS_ACTIVE):
+            bad.add(f"moods.{cat} (activa: capa válida y ≥ {MIN_TRIGGERS_ACTIVE} disparadores)")
     if bad:
         raise ValueError(f"perfil gfx '{name}': claves desconocidas {sorted(bad)}")
     return prof
@@ -400,6 +422,11 @@ gfx_rules = rules_from_profile(ACTIVE_PROFILE)
 GFX_INVENTORY: tuple[GfxBlock, ...] = inventory_from_profile(ACTIVE_PROFILE)
 GRADE_VARIANTS: dict[str, dict] = grade_variants(gfx_rules)
 LLM_BLOCKS: frozenset[str] = frozenset(b.name for b in GFX_INVENTORY if b.llm_decides and b.enabled)
+
+
+def active_moods() -> dict[str, dict[str, Any]]:
+    """F2b §2: categorías de mood ACTIVAS del perfil {categoría: {triggers, layer, icon}} (las de reserva no)."""
+    return {k: v for k, v in (ACTIVE_PROFILE.get("moods") or {}).items() if v.get("active")}
 
 
 def max_per_cap(block: str) -> int:

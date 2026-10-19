@@ -99,6 +99,88 @@ def _source_html(source: str) -> str:
     return f'        <div class="co-src">{_esc(source)}</div>\n' if source else ""
 
 
+# ═══════════════════════════════════════════════════════════════
+#  F2b §2: capas de mood (CSS, 1–3 s, intensidad baja; nunca toca píxeles del video)
+# ═══════════════════════════════════════════════════════════════
+
+_ABS = "position:absolute;pointer-events:none;"
+
+
+def mood_layer(i: int, layer: str, t0: float, d: float, width: int, height: int) -> tuple[str, list[str], list[str]]:
+    """(html, init, timeline) de la capa de mood `layer` (veneno | agua | muerte | oscuridad) en [t0, t0 + d)."""
+    rid = f"md{i}"
+    kids: list[str] = []
+    init: list[str] = []
+    js: list[str] = []
+    out_at = t0 + d - 0.5
+
+    def fade(sel: str, peak: float, t_in: float, d_in: float, t_out: float = out_at, d_out: float = 0.5) -> None:
+        init.append(f'      gsap.set("{sel}", {{ opacity: 0 }});')
+        js.append(f'      tl.to("{sel}", {{ opacity: {peak}, duration: {d_in:.3f}, ease: "sine.out" }}, {t_in:.3f})'
+                  f'.to("{sel}", {{ opacity: 0, duration: {d_out:.3f}, ease: "sine.in" }}, {t_out:.3f});')
+
+    if layer == "veneno":
+        # viraje verde-amarillo 1 s (multiply: pesa en sombras y medios) + partículas oscuras + viñeta −10 %
+        kids.append(f'<div id="{rid}-tint" style="{_ABS}inset:0;background:#c9d36a;mix-blend-mode:multiply"></div>')
+        fade(f"#{rid}-tint", 0.38, t0, 0.25, t0 + 1.0, 0.5)
+        rnd = random.Random(1441 + i)
+        for k in range(14):
+            r = rnd.randint(4, 9)
+            x, y = rnd.uniform(0.05, 0.95) * width, rnd.uniform(0.15, 0.9) * height
+            kids.append(f'<div id="{rid}-p{k}" class="{rid}-pt" style="{_ABS}left:{x:.0f}px;top:{y:.0f}px;width:{2 * r}px;'
+                        f'height:{2 * r}px;border-radius:50%;background:rgba(18,22,8,.6);filter:blur(1px)"></div>')
+            js.append(f'      tl.to("#{rid}-p{k}", {{ x: {rnd.uniform(-25, 25):.0f}, y: {rnd.uniform(-60, -20):.0f}, '
+                      f'duration: {d:.3f}, ease: "none" }}, {t0:.3f});')
+        fade(f".{rid}-pt", 1.0, t0, 0.4)
+        kids.append(f'<div id="{rid}-vig" style="{_ABS}inset:0;background:radial-gradient(ellipse 80% 80% at 50% 45%,'
+                    f'rgba(0,0,0,0) 55%,rgba(0,0,0,.9) 100%)"></div>')
+        fade(f"#{rid}-vig", 0.35, t0, 0.6)
+    elif layer == "agua":
+        # cáusticas de luz sutiles (screen) + sombra oscura que sube desde abajo hasta 1/3
+        kids.append(f'<div id="{rid}-cau" style="{_ABS}left:-10%;top:-10%;width:120%;height:120%;mix-blend-mode:screen;'
+                    'background:repeating-radial-gradient(circle at 30% 40%,rgba(170,215,255,0) 0 18px,'
+                    'rgba(170,215,255,.10) 22px,rgba(170,215,255,0) 30px),repeating-radial-gradient(circle at 70% 65%,'
+                    'rgba(170,215,255,0) 0 26px,rgba(170,215,255,.08) 30px,rgba(170,215,255,0) 38px)"></div>')
+        fade(f"#{rid}-cau", 0.6, t0, 0.5)
+        js.append(f'      tl.to("#{rid}-cau", {{ x: 40, y: 20, rotation: 3, duration: {d:.3f}, ease: "none" }}, {t0:.3f});')
+        kids.append(f'<div id="{rid}-rise" style="{_ABS}left:0;right:0;bottom:0;height:34%;'
+                    'background:linear-gradient(to top,rgba(2,10,20,.78),rgba(2,10,20,0))"></div>')
+        init.append(f'      gsap.set("#{rid}-rise", {{ yPercent: 100 }});')
+        js.append(f'      tl.to("#{rid}-rise", {{ yPercent: 0, duration: 1.2, ease: "power2.out" }}, {t0:.3f})'
+                  f'.to("#{rid}-rise", {{ opacity: 0, duration: .5, ease: "sine.in" }}, {out_at:.3f});')
+    elif layer == "muerte":
+        # desaturación 80 % en 1.5 s (gris en blend saturation) + letterbox 2 s + viñeta cerrada (push-in: en la escena)
+        kids.append(f'<div id="{rid}-ds" style="{_ABS}inset:0;background:#808080;mix-blend-mode:saturation"></div>')
+        fade(f"#{rid}-ds", 0.8, t0, 1.5)
+        bar = round(height * 0.10)
+        for k, pos in enumerate(("top:0", "bottom:0")):
+            kids.append(f'<div id="{rid}-lb{k}" style="{_ABS}left:0;right:0;{pos};height:{bar}px;background:#000;'
+                        f'transform-origin:50% {"0%" if k == 0 else "100%"}"></div>')
+            init.append(f'      gsap.set("#{rid}-lb{k}", {{ scaleY: 0 }});')
+            js.append(f'      tl.to("#{rid}-lb{k}", {{ scaleY: 1, duration: .35, ease: "power2.out" }}, {t0:.3f})'
+                      f'.to("#{rid}-lb{k}", {{ scaleY: 0, duration: .35, ease: "power2.in" }}, {t0 + 2.0 - .35:.3f});')
+        kids.append(f'<div id="{rid}-vig" style="{_ABS}inset:0;background:radial-gradient(ellipse 75% 75% at 50% 45%,'
+                    f'rgba(0,0,0,0) 45%,rgba(0,0,0,.9) 100%)"></div>')
+        fade(f"#{rid}-vig", 0.5, t0, 0.8)
+    elif layer == "oscuridad":
+        # oscuridad desde los bordes + haz de linterna que deriva ±2.5° + parpadeo de luz 2 veces
+        kids.append(f'<div id="{rid}-edge" style="{_ABS}inset:0;background:radial-gradient(ellipse 62% 58% at 50% 45%,'
+                    f'rgba(0,0,0,0) 35%,rgba(0,0,0,.92) 100%)"></div>')
+        fade(f"#{rid}-edge", 0.85, t0, 0.8)
+        kids.append(f'<div id="{rid}-beam" style="{_ABS}left:-50%;top:-50%;width:200%;height:200%;transform-origin:50% 75%;'
+                    'background:radial-gradient(ellipse 18% 26% at 50% 46%,rgba(0,0,0,0) 0,rgba(0,0,0,0) 45%,rgba(0,0,0,.5) 100%)"></div>')
+        fade(f"#{rid}-beam", 1.0, t0, 0.6)
+        init.append(f'      gsap.set("#{rid}-beam", {{ rotation: -2.5 }});')
+        js.append(f'      tl.to("#{rid}-beam", {{ rotation: 2.5, duration: {d:.3f}, ease: "sine.inOut" }}, {t0:.3f});')
+        kids.append(f'<div id="{rid}-fl" style="{_ABS}inset:0;background:#000"></div>')
+        init.append(f'      gsap.set("#{rid}-fl", {{ opacity: 0 }});')
+        for tf, pk in ((t0 + 0.9, 0.5), (t0 + 1.25, 0.45)):
+            js.append(f'      tl.set("#{rid}-fl", {{ opacity: {pk} }}, {tf:.3f}).set("#{rid}-fl", {{ opacity: 0 }}, {tf + 0.07:.3f});')
+    html_ = (f'      <div id="{rid}" class="clip" data-start="{t0:.3f}" data-duration="{d:.3f}" '
+             f'style="{_ABS}inset:0;overflow:hidden;z-index:2">' + "".join(kids) + "</div>")
+    return html_, init, js
+
+
 def load_grade_preset() -> dict[str, Any]:
     """Preset de grade versionado (D4)."""
     return json.loads((GFX_TEMPLATES_DIR / "gfx_grade.json").read_text(encoding="utf-8"))
@@ -273,6 +355,14 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
             if not gfx_rules.punch_hold:   # F2 §0b.3: por default se sostiene hasta el corte
                 js.append(f'        tl.to("#vw{tag}", {{ scale: 1, duration: {gfx_rules.punch_out_sec}, ease: "power2.inOut" }}, {lt + gfx_rules.punch_in_sec:.3f});')
 
+    # ── F2b §2: mood "muerte" → push-in lentísimo de la capa de video (solo si la escena no tiene punch/zoom)
+    has_punch = any(s.start <= t < s.end for t in plan.get("punch_in", []))
+    has_zoom = bool(plan.get("evidence_zoom")) and plan["evidence_zoom"].get("scene_idx") == s.idx
+    for e in plan.get("emphasis", []) or []:
+        if e.get("layer") == "muerte" and s.start <= e["start"] < s.end and not (has_punch or has_zoom):
+            js.append(f'        tl.to("#vw{tag}", {{ scale: 1.015, duration: {e["duration"]:.3f}, ease: "none" }}, {e["start"] - s.start:.3f});')
+            break
+
     # ── evidence_zoom sobre el FRAME DE VIDEO, salida en corte
     ez = plan.get("evidence_zoom")
     if ez and ez["scene_idx"] == s.idx:
@@ -356,6 +446,8 @@ def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[d
         add(z0, sc.end - z0, "evidence_zoom", f"box {ez['box']}")
     for t in plan.get("punch_in", []):
         add(t, gfx_rules.punch_in_sec + gfx_rules.punch_out_sec, "punch_in")
+    for e in plan.get("emphasis", []) or []:                    # F2b §2
+        add(e["start"], e["duration"], f"keyword_emphasis:{e['category']}", e["word"])
     for idx, tr in plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx")).items():
         sc = scenes[idx]
         label = (f"{tr['frames']} f" if tr["frames"] else
@@ -457,6 +549,27 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
             pts = ",".join(f"[{rnd.randint(-180, 180)},{rnd.randint(-180, 180)}]"
                            for _ in range(int(duration * gfx_rules.grain_jumps_per_sec)))
             js.append(f'      [{pts}].forEach(function (p, k) {{ tl.set("#gr-grain", {{ x: p[0], y: p[1] }}, k / {gfx_rules.grain_jumps_per_sec}); }});')
+
+    # ── F2b §2: capas de mood (debajo de los textos) + sello rojo con la palabra
+    for i, e in enumerate(plan.get("emphasis", []) or []):
+        st = min(e["start"], max(0.0, duration - e["duration"]))
+        m_html, m_init, m_js = mood_layer(i, e["layer"], st, e["duration"], width, height)
+        overlays.append(m_html)
+        init += m_init
+        js += m_js
+        if e.get("stamp") and e.get("word"):
+            sd = gfx_rules.emphasis_stamp_sec
+            side = "right:8%" if e.get("side", "right") == "right" else "left:8%"
+            overlays.append(f'      <div id="em{i}" class="clip" data-start="{st:.3f}" data-duration="{sd:.3f}" '
+                            f'style="position:absolute;top:44%;{side};z-index:6">'
+                            f'<span class="em-text" style="display:inline-block;font:400 {gfx_rules.emphasis_stamp_px}px/1 '
+                            f'&quot;{gfx_rules.figure_font}&quot;,sans-serif;text-transform:uppercase;color:{gfx_rules.accent_hex};'
+                            f'border:7px solid {gfx_rules.accent_hex};padding:8px 26px 4px;background:rgba(10,10,10,.35);'
+                            f'white-space:nowrap">{_esc(e["word"])}</span></div>')
+            a_init, a_js = _anim_in_js(f"#em{i} .em-text", "stamp", st + 0.05)
+            init += a_init
+            js += a_js
+            js.append(f'      tl.to("#em{i}", {{ opacity: 0, duration: .3, ease: "power1.in" }}, {st + sd - .3:.3f});')
 
     # ── title_card (F2: 3.0 s, 30 % más chica, fade de salida 0.4 s, video vivo oscurecido 40 %)
     tc = plan.get("title_card")

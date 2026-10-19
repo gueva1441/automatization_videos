@@ -42,6 +42,7 @@ from gemini_helpers import call_flash_json
 
 from gfx_config import (
     VALID_CALLOUT_KINDS,
+    active_moods,
     clamp_box,
     gfx_rules,
     max_per_cap,
@@ -98,8 +99,10 @@ def load_chapter_context(video_id: str, chplan: Any) -> dict[str, Any]:
         nsk = next((c for c in sk.get("chapters", []) if c.get("chapter_number") == n + 1), {})
         for j, b in enumerate(nsk.get("bullets", []) or []):
             next_sources[f"next.bullets[{j}]"] = b
+    # F2b §2: narración completa del video (rareza de las palabras de énfasis)
+    narration_all = " ".join(str(c.get("narration", "")) for c in script.get("chapters", []))
     return {
-        "video_id": video_id, "chapter_number": n, "script_chapter": chapter,
+        "video_id": video_id, "chapter_number": n, "script_chapter": chapter, "narration_all": narration_all,
         "facts": facts, "skeleton": skeleton_ch, "canonical": canonical, "sources": sources,
         "eligible": eligible, "era_window": era,
         "fact_source": fact_sources(facts, src_list), "next_sources": next_sources,
@@ -672,6 +675,12 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
 
     out["punch_in"] = [round(t_of(wi), 3) for wi in plan.get("punch_in_word_idx", [])]
 
+    # F2b §2: keyword_emphasis (regex sobre la narración, sin LLM): las palabras de carga más raras del cap
+    out["emphasis"] = []
+    if max_per_cap("keyword_emphasis") > 0 and active_moods() and words:
+        n0 = min(gfx_rules.emphasis_base_per_cap, max_per_cap("keyword_emphasis"))
+        place_emphasis(out, busy, words=words, scenes=scenes, ctx=ctx, time_offset=time_offset, limit=n0, log=log)
+
     # F2 §1: hueco > interrupt_max_sec → el VALIDADOR rellena (callout con fact elegible dicho en el
     # tramo; si no hay, punch_in en la palabra de más énfasis). gap_warning queda como MÉTRICA.
     fill_gaps(out, busy, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
@@ -731,6 +740,7 @@ def sfx_events(out: dict[str, Any], words: list[dict], time_offset: float, sfx_f
         marks.append((ez["start"] + gfx_rules.zoom_rect_sec, "evidence_zoom"))
     if out.get("chapter_question"):
         marks.append((out["chapter_question"]["start"], "chapter_question"))
+    marks += [(e["start"], "keyword_emphasis") for e in out.get("emphasis", []) or []]     # F2b §2: tic sordo
     spans = [(float(w["start"]) + time_offset, float(w["end"]) + time_offset, str(w.get("word", ""))) for w in words]
     gaps = [(spans[i][1], spans[i + 1][0]) for i in range(len(spans) - 1) if spans[i + 1][0] > spans[i][1]]
     win = gfx_rules.sfx_shift_max_ms / 1000.0
@@ -815,6 +825,100 @@ def _find_spoken(fragment: str, words: list[dict], lo: int = 0) -> int | None:
     return None
 
 
+# ═══════════════════════════════════════════════════════════════
+#  F2b §2: léxico de moods + énfasis de palabra (determinista, sin LLM)
+# ═══════════════════════════════════════════════════════════════
+
+def _tok(w: Any) -> str:
+    return re.sub(r"[^\wáéíóúñü]", "", str(w).lower())
+
+
+def word_freq(text: str) -> dict[str, int]:
+    """Frecuencia de cada palabra en la narración completa (rareza = menor frecuencia)."""
+    freq: dict[str, int] = {}
+    for w in str(text).split():
+        t = _tok(w)
+        if t:
+            freq[t] = freq.get(t, 0) + 1
+    return freq
+
+
+def emphasis_candidates(words: list[dict], moods: dict[str, dict[str, Any]]) -> list[tuple[int, int, str]]:
+    """(índice de palabra, cantidad de palabras, categoría) por cada disparador del léxico dicho por la voz.
+    Match exacto de tokens (las flexiones están listadas en el léxico); frases ("sin luz") antes que palabras."""
+    toks = [_tok(w.get("word", "")) for w in words]
+    trig = sorted(((cat, tuple(_tok(x) for x in t.split())) for cat, m in moods.items() for t in m.get("triggers", [])),
+                  key=lambda ct: -len(ct[1]))
+    out: list[tuple[int, int, str]] = []
+    i = 0
+    while i < len(toks):
+        hit = next(((cat, tt) for cat, tt in trig if tt and tuple(toks[i:i + len(tt)]) == tt), None)
+        if hit:
+            out.append((i, len(hit[1]), hit[0]))
+            i += len(hit[1])
+        else:
+            i += 1
+    return out
+
+
+def _sentence_ids(words: list[dict]) -> list[int]:
+    """Id de frase por palabra (una frase termina en . ! ? …)."""
+    sid, out = 0, []
+    for w in words:
+        out.append(sid)
+        if re.search(r"[.!?…]['\"»”)]*$", str(w.get("word", "")).strip()):
+            sid += 1
+    return out
+
+
+def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, words: list[dict], scenes: list[Any],
+                   ctx: dict[str, Any], time_offset: float, limit: int, window: tuple[float, float] | None = None,
+                   log: list[str] | None = None) -> int:
+    """Agrega hasta `limit` énfasis a out["emphasis"] (y a busy). Reglas: máx 1 por frase, ≥ emphasis_same_cat_gap_sec
+    entre moods de la misma categoría, intervalo del mood libre, tope max_per_cap; prioridad = palabra más rara
+    en la narración completa. El texto del sello es la palabra LITERAL de la voz. Devuelve cuántos agregó."""
+    from script_engine.gfx_project import scene_at
+    moods = active_moods()
+    dur = scenes[-1].end
+    freq = word_freq(ctx.get("narration_all") or " ".join(str(w.get("word", "")) for w in words))
+    sids = _sentence_ids(words)
+    cands = []
+    for i, n, cat in emphasis_candidates(words, moods):
+        rarity = min(freq.get(_tok(w.get("word", "")), 1) for w in words[i:i + n])
+        cands.append((rarity, float(words[i]["start"]) + time_offset, i, n, cat))
+    used_sids = {e["sid"] for e in out["emphasis"]}
+    added = 0
+    for rarity, t, i, n, cat in sorted(cands):
+        if added >= limit or len(out["emphasis"]) >= max_per_cap("keyword_emphasis"):
+            break
+        if window and not (window[0] + 1.0 < t < window[1] - 1.0):
+            continue
+        a, b = t, t + gfx_rules.mood_dur
+        if sids[i] in used_sids or b > dur or not all(b <= s or a >= e for s, e in busy):
+            continue
+        if any(e["category"] == cat and abs(e["start"] - t) < gfx_rules.emphasis_same_cat_gap_sec for e in out["emphasis"]):
+            continue
+        word = " ".join(str(w.get("word", "")).strip() for w in words[i:i + n])
+        word = re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "", word)
+        sc = scene_at(scenes, t)
+        out["emphasis"].append({"word": word, "category": cat, "layer": moods[cat]["layer"],
+                                "icon": moods[cat].get("icon"), "start": round(t, 3),
+                                "duration": round(gfx_rules.mood_dur, 3), "side": getattr(sc, "quiet_side", "right"),
+                                "stamp": gfx_rules.emphasis_stamp, "sid": sids[i], "rarity": rarity})
+        out["emphasis"].sort(key=lambda e: e["start"])
+        busy.append((a, b))
+        used_sids.add(sids[i])
+        added += 1
+        if log is not None:
+            log.append(f"emphasis: {word!r} ({cat}, frec {rarity}) @ {t:.1f}s" + (" [relleno de hueco]" if window else ""))
+    return added
+
+
+def emphasis_without_icon(plan: dict[str, Any]) -> list[str]:
+    """Palabras de énfasis que salieron sin ícono (entran al vigilante mensual, F2b §3)."""
+    return [e["word"] for e in plan.get("emphasis", []) or [] if not e.get("icon")]
+
+
 def fill_gaps(out: dict[str, Any], busy: list[tuple[float, float]], *, ctx: dict[str, Any], words: list[dict],
               scenes: list[Any], time_offset: float, log: list[str]) -> None:
     """Rellena huecos > interrupt_max_sec. Nunca escribe texto: solo fragmentos literales de facts elegibles."""
@@ -830,7 +934,11 @@ def fill_gaps(out: dict[str, Any], busy: list[tuple[float, float]], *, ctx: dict
             return
         a, b = gaps[0]
         placed = False
-        if len(out["callouts"]) < max_per_cap("data_callout"):
+        # F2b §1.4: orden del relleno = énfasis de palabra → callout de fact → punch_in
+        if "emphasis" in out and len(out["emphasis"]) < max_per_cap("keyword_emphasis") and active_moods():
+            placed = place_emphasis(out, busy, words=words, scenes=scenes, ctx=ctx, time_offset=time_offset,
+                                    limit=1, window=(a, b), log=log) > 0
+        if not placed and len(out["callouts"]) < max_per_cap("data_callout"):
             best = None
             for fi in sorted(elig if elig is not None else range(len(facts))):
                 for text, kind in _fragments(facts[fi]):

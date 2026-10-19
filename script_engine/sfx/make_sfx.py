@@ -37,15 +37,19 @@ _SOUNDS: dict[str, tuple[float, str]] = {
     "click": (0.08, "sine=f=1800:d=0.08,volume='exp(-90*t)':eval=frame"),
     # tic de callout: nota corta aguda
     "tic": (0.18, "sine=f=1320:d=0.18,volume='0.7*exp(-28*t)':eval=frame"),
+    # tic sordo (F2b §2, énfasis de palabra): tono grave con el agudo filtrado, apagado
+    "tic_sordo": (0.22, "sine=f=520:d=0.22,lowpass=f=900,volume='0.9*exp(-24*t)':eval=frame"),
     # latido: dos golpes graves (lub-dub)
     "latido": (0.9, "sine=f=55:d=0.9,volume='1.3*(exp(-25*t)+0.8*exp(-25*abs(t-0.28))*gte(t,0.28))':eval=frame"),
 }
 
 
-def make_all(out_dir: Path = SFX_DIR) -> list[Path]:
-    """Sintetiza todos los SFX como WAV 48 kHz mono con un fade de 5 ms en cada borde."""
+def make_all(out_dir: Path = SFX_DIR, only: list[str] | None = None) -> list[Path]:
+    """Sintetiza los SFX (todos, o solo `only`) como WAV 48 kHz mono con un fade de 5 ms en cada borde."""
     out: list[Path] = []
     for name, (dur, graph) in _SOUNDS.items():
+        if only and name not in only:
+            continue
         dst = out_dir / f"{name}.wav"
         fade = f"afade=t=in:d=0.005,afade=t=out:st={dur - 0.005:.3f}:d=0.005,aformat=sample_rates={SR}:channel_layouts=mono"
         filt = f"{graph},{fade}" if "[" not in graph else f"{graph}[m];[m]{fade}"
@@ -64,5 +68,6 @@ def make_all(out_dir: Path = SFX_DIR) -> list[Path]:
 
 
 if __name__ == "__main__":
-    for p in make_all():
+    import sys
+    for p in make_all(only=sys.argv[1:] or None):        # python make_sfx.py tic_sordo → solo ese
         print(p.name, p.stat().st_size)

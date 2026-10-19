@@ -85,6 +85,10 @@ def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int,
         if blk.get("source") and not _check("source_tag", {"source": blk["source"]}):
             blk["source"] = ""
 
+    # F2b §2: el sello de énfasis muestra la palabra LITERAL de la voz; si falla, sale el énfasis entero
+    if ok.get("emphasis"):
+        ok["emphasis"] = [e for e in ok["emphasis"] if not e.get("stamp") or _check("keyword_emphasis", {"word": e.get("word", "")})]
+
     # F2 §0d: chapter_question es reformulación (no literal): su candado es "toda palabra de contenido
     # existe en bullets/narración del próximo cap"
     q = ok.get("chapter_question")
@@ -116,4 +120,5 @@ def plan_strings(plan: dict[str, Any]) -> list[str]:
         out.append(cu.get("source", ""))
     if plan.get("chapter_question"):
         out.append(plan["chapter_question"].get("text", ""))
+    out += [e.get("word", "") for e in plan.get("emphasis", []) or [] if e.get("stamp")]
     return [s for s in out if s]

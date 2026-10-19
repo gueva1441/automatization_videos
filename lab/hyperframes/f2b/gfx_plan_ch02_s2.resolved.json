@@ -1,0 +1,94 @@
+{
+ "plan": {
+  "chapter_number": 2,
+  "title_card": {
+   "kicker": "CAPÍTULO 2",
+   "title": "La Tormenta Perfecta"
+  },
+  "callouts": [
+   {
+    "text": "15 pies",
+    "start": 37.299,
+    "kind": "figure",
+    "duration": 2.5,
+    "side": "right",
+    "source": ""
+   }
+  ],
+  "count_up": {
+   "value_text": "6,500",
+   "unit": "personas",
+   "start": 49.979,
+   "source": ""
+  },
+  "archive_clippings": [
+   {
+    "kicker": "2005",
+    "headline": "El huracán Katrina tocó tierra",
+    "body": "",
+    "scene_idx": 1,
+    "era_decade": 2000,
+    "start": 9.9,
+    "duration": 6.0,
+    "side": "left"
+   },
+   {
+    "kicker": "",
+    "headline": "Los prisioneros quedaron atrapados durante días en celdas",
+    "body": "",
+    "scene_idx": 9,
+    "era_decade": 2000,
+    "start": 60.733,
+    "duration": 6.0,
+    "side": "left"
+   }
+  ],
+  "evidence_zoom": null,
+  "punch_in": [
+   6.579,
+   49.979,
+   70.659
+  ],
+  "chapter_question": null,
+  "emphasis": [
+   {
+    "word": "diques",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "start": 17.719,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 2,
+    "rarity": 1
+   },
+   {
+    "word": "oscuro",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "start": 26.819,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 3,
+    "rarity": 2
+   },
+   {
+    "word": "encierro",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "start": 79.779,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 9,
+    "rarity": 1
+   }
+  ],
+  "gap_warnings": []
+ },
+ "rejected": []
+}

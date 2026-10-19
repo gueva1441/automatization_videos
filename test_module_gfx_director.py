@@ -232,9 +232,10 @@ def test_basura_no_lanza(monkeypatch, tmp_path):
         assert isinstance(plan, dict)
 
 
-def test_hueco_lo_rellena_el_validador_con_texto_literal():
+def test_hueco_lo_rellena_el_validador_con_texto_literal(monkeypatch):
     """F2 §1: hueco > 35 s → callout con un fragmento LITERAL de un fact que la voz dice en el tramo;
-    lo que no se puede tapar (sin palabras) queda como gap_warning (métrica)."""
+    lo que no se puede tapar (sin palabras) queda como gap_warning (métrica). Sin moods (F2b §2 va primero)."""
+    monkeypatch.setattr(gd, "active_moods", lambda: {})
     long_scenes = [GfxScene(0, 0.0, 90.0, "R3", "")]
     log = []
     res = gd.resolve_plan({"title_card": {"use": True}}, ctx=CTX, words=WORDS, scenes=long_scenes, log=log)

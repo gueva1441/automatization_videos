@@ -53,13 +53,25 @@
     "grain_opacity": 0.0,
     "vignette_opacity": 0.15
   },
+  "moods": {
+    "veneno_enfermedad": {"active": true, "layer": "veneno", "icon": null, "triggers": ["veneno", "venenos", "venenoso", "venenosa", "envenenado", "envenenada", "envenenados", "envenenadas", "envenenamiento", "arsénico", "cianuro", "gas", "gases", "tóxico", "tóxica", "tóxicos", "tóxicas", "toxinas", "putrefacción", "pútrido", "pútrida", "podrido", "podrida", "podridos", "infección", "infecciones", "infectado", "infectada", "infectados", "infectadas", "contaminado", "contaminada", "contaminados", "contaminadas", "contaminación", "enfermo", "enferma", "enfermos", "enfermas", "enfermedad", "enfermedades", "epidemia", "plaga", "peste", "residuales", "cloacas", "excrementos", "heces", "fiebre", "cólera", "tifus", "disentería", "llagas", "pus"]},
+    "agua": {"active": true, "layer": "agua", "icon": null, "triggers": ["agua", "aguas", "inundación", "inundaciones", "inundado", "inundada", "inundados", "inundadas", "inundó", "inundaron", "ahogaban", "ahogaba", "ahogó", "ahogaron", "ahogado", "ahogada", "ahogados", "ahogadas", "ahogarse", "crecida", "sumergido", "sumergida", "sumergidos", "sumergidas", "marea", "mareas", "dique", "diques", "olas", "anegado", "anegada", "anegados", "anegadas", "desbordó", "desbordaron", "empapados", "flotando", "flotaban", "flotaba"]},
+    "muerte": {"active": true, "layer": "muerte", "icon": null, "triggers": ["cadáver", "cadáveres", "muerto", "muerta", "muertos", "muertas", "murió", "murieron", "morían", "morir", "muerte", "muertes", "cuerpos", "fallecido", "fallecida", "fallecidos", "fallecidas", "falleció", "fallecieron", "restos", "tumba", "tumbas", "fosa", "fosas", "sepultados", "ataúd", "ataúdes", "morgue", "autopsia", "mataron", "asesinados", "difuntos", "cementerio"]},
+    "oscuridad_encierro": {"active": true, "layer": "oscuridad", "icon": null, "triggers": ["oscuridad", "oscuro", "oscura", "oscuras", "tinieblas", "penumbra", "apagón", "sin luz", "a oscuras", "atrapado", "atrapada", "atrapados", "atrapadas", "encerrado", "encerrada", "encerrados", "encerradas", "encierro", "celda", "celdas", "calabozo", "calabozos", "barrotes", "rejas", "candado", "candados", "aislados", "incomunicados", "bajo llave"]},
+    "fuego": {"active": false, "layer": null, "icon": null, "triggers": ["fuego", "incendio", "incendios", "llamas", "quemado", "quemados", "ardía", "ardían", "humo", "cenizas"]},
+    "caos_gritos": {"active": false, "layer": null, "icon": null, "triggers": ["gritos", "gritaban", "pánico", "caos", "motín", "disturbios", "alaridos", "desesperación"]},
+    "radiacion_quimico": {"active": false, "layer": null, "icon": null, "triggers": ["radiación", "radiactivo", "químicos", "químico", "nuclear", "ácido", "derrame"]},
+    "frio_abandono": {"active": false, "layer": null, "icon": null, "triggers": ["abandonados", "abandonadas", "abandono", "olvidados", "frío", "helado", "hambre", "sed"]},
+    "silencio": {"active": false, "layer": null, "icon": null, "triggers": ["silencio", "callaron", "nadie", "desaparecidos", "desaparecieron", "nunca"]}
+  },
   "sfx": {
     "title_card":       {"file": "golpe_grave.wav", "gain_db": -18},
     "data_callout":     {"file": "tic.wav", "gain_db": -18},
     "count_up":         {"file": "tipeo.wav", "gain_db": -20},
     "archive_clipping": {"file": "papel.wav", "gain_db": -18},
     "evidence_zoom":    {"file": "whoosh.wav", "gain_db": -20},
-    "chapter_question": {"file": "latido.wav", "gain_db": -18}
+    "chapter_question": {"file": "latido.wav", "gain_db": -18},
+    "keyword_emphasis": {"file": "tic_sordo.wav", "gain_db": -20}
   },
   "blocks": {
     "title_card":       {"enabled": true, "max_per_cap": 1, "where": "todos los caps"},
@@ -69,6 +81,7 @@
     "count_up":         {"enabled": true, "max_per_cap": 1, "where": "cifras literales del fact"},
     "punch_in":         {"enabled": true, "max_per_cap": 2, "where": "todos los caps"},
     "chapter_question": {"enabled": false, "max_per_cap": 1, "where": "OFF (F2b §1.3) hasta que m01b emita cliffhanger por cap"},
+    "keyword_emphasis": {"enabled": true, "max_per_cap": 5, "where": "palabras del léxico de moods dichas por la voz"},
     "source_tag":       {"enabled": true, "max_per_cap": 999, "where": "bajo data_callout y count_up con fuente resoluble"},
     "shot_transition":  {"enabled": true, "max_per_cap": 999, "where": "cada corte intra-cap"},
     "grade":            {"enabled": true, "max_per_cap": 1, "where": "todos los caps"}

@@ -35,7 +35,8 @@ def write_cues(cap: str, events: list[dict[str, Any]], log_lines: list[str], gap
                      f"{('«' + e['text'] + '»') if e['text'] else ''} | {e['dur']:.2f} s |")
     lines += ["", "## Notas del director (omitido / descartado / gap)"]
     lines += [f"- {n}" for n in notes] or ["- (ninguna)"]
-    lines += ["", "## gap_warning (> 35 s sin bloque)"]
+    from gfx_config import gfx_rules
+    lines += ["", f"## gap_warning (> {gfx_rules.interrupt_max_sec:.0f} s sin bloque)"]
     lines += [f"- {fmt_t(a)} → {fmt_t(b)} ({b - a:.1f} s)" for a, b in gaps] or ["- (ninguno)"]
     count = Counter(e["block"].split(":")[0] for e in events)
     lines += ["", "## Bloques por tipo"] + [f"- {k}: {v}" for k, v in sorted(count.items())]
