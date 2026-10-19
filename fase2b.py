@@ -818,6 +818,10 @@ def _build_chapter_segment(
     flow_spec: FlowSpec | None = None,
     reuse_visuals: bool = False,
     per_image_specs: list[FlowSpec] | None = None,
+    gfx_enabled: bool = False,
+    gfx_quality: str = "draft",
+    video_id: str = "",
+    gfx_debug: bool = False,
 ) -> Path:
     """
     Genera UN segmento MP4 completo de un capítulo (visual + audio + subs).
@@ -827,6 +831,9 @@ def _build_chapter_segment(
     reuse_visuals: si True y el clip visual base (flux_visual / hybrid_visual)
     ya existe en work_dir, NO se regenera (se reutiliza el DepthFlow/parallax ya
     horneado). Usado para re-quemar subtítulos sin re-correr DepthFlow.
+
+    gfx_enabled (F1, --gfx): aplica la capa gráfica HyperFrames sobre base_clip ANTES
+    de quemar subs + pegar audio (DOC_MAESTRO D2). Cualquier error → base_clip intacto.
     """
     assert FFMPEG is not None
     is_first = plan.is_first
@@ -928,6 +935,16 @@ def _build_chapter_segment(
             )
     else:
         raise ValueError(f"engine desconocido: {plan.engine}")
+
+    # ─── F1: capa gráfica HyperFrames (--gfx). Fallback interno a base_clip ───
+    if gfx_enabled:
+        from script_engine.gfx_layer import apply_gfx   # lazy: sin --gfx no se importa nada
+        base_clip = apply_gfx(
+            base_clip, plan, video_id, work_dir,
+            width=video_width, height=video_height, fps=fps,
+            quality=gfx_quality, reuse=reuse_visuals, time_offset=pre_pad,
+            debug=gfx_debug,
+        )
 
     clip_duration = _get_duration(base_clip)
     effective_audio = plan.audio_duration + pre_pad
@@ -2075,6 +2092,10 @@ def _assemble_one_video(
     keep_segments: bool,
     dry_run: bool,
     reuse_visuals: bool = False,
+    gfx: bool = False,
+    gfx_quality: str = "draft",
+    gfx_debug: bool = False,
+    only_cap: str | None = None,
 ) -> tuple[int, Path | None]:
     """
     Ensambla un único video. Retorna (returncode, final_path | None).
@@ -2106,6 +2127,8 @@ def _assemble_one_video(
     print(f"{'═' * 60}")
     print(f"  🪝 hook:     {hook or '(ninguno)'}")
     print(f"  📝 subs:     {'OFF' if no_subs else 'ON (karaoke)'}")
+    if gfx:
+        print(f"  🎨 gfx:      ON (HyperFrames, {gfx_quality})")
     print(f"  📊 capítulos: {len(plans)}")
     total_audio = sum(p.audio_duration for p in plans)
     print(f"  ⏱  duración total estimada: {total_audio:.1f}s ({total_audio / 60:.1f} min)")
@@ -2162,7 +2185,7 @@ def _assemble_one_video(
 
     # Persistir flow_plan para inspección post-corrida (se omite en re-burn para
     # no clobberear el flow_plan.json original con flow_specs vacíos).
-    if not reuse_visuals:
+    if not reuse_visuals and not only_cap:   # --only-cap: sin efectos laterales fuera del cap
         flow_plan_path = OUTPUT_DIR / video_id / "flow_plan.json"
         flow_plan_path.parent.mkdir(parents=True, exist_ok=True)
         flow_plan_data = {
@@ -2207,8 +2230,16 @@ def _assemble_one_video(
     final_path = OUTPUT_DIR / video_id / f"{video_id}_final.mp4"
 
     segments: list[Path] = []
+    if gfx:
+        # F1b: director de gráficos de los caps en paralelo antes del loop (cache por cap)
+        from script_engine.gfx_layer import prefetch_plans
+        _pre = prefetch_plans([p for p in plans if not only_cap or p.chapter_id == only_cap], video_id, work_dir)
+        print(f"  🎨 gfx_director prefetch: " + ", ".join(f"{c} {t:.0f}s" for c, t in _pre.items()))
     for i, plan in enumerate(plans, start=1):
-        seg_path = work_dir / f"seg_{i:02d}_{plan.chapter_id}.mp4"
+        if only_cap and plan.chapter_id != only_cap:
+            continue
+        seg_path = (work_dir / f"{plan.chapter_id}_segment_only.mp4" if only_cap
+                    else work_dir / f"seg_{i:02d}_{plan.chapter_id}.mp4")
         # HANDOFF_140b (C2): flow_specs[cap] es una LISTA por-imagen. per_image_by_cap
         # (base + zoom) es lo que MANEJA el render; el `flow_spec` único queda solo
         # como fallback (1ra spec, representativa) + para el label.
@@ -2234,6 +2265,8 @@ def _assemble_one_video(
                 fps=pipeline.fps, flow_spec=spec_repr,
                 reuse_visuals=cap_reuse,
                 per_image_specs=cap_pis,
+                gfx_enabled=gfx, gfx_quality=gfx_quality, video_id=video_id,
+                gfx_debug=gfx_debug,
             )
         except Exception as e:
             print(f"     ❌ {type(e).__name__}: {e}")
@@ -2243,6 +2276,21 @@ def _assemble_one_video(
         seg_dur = _get_duration(seg_path)
         print(f"     ✓ {seg_path.name} — {seg_dur:.1f}s")
         segments.append(seg_path)
+        if gfx:
+            from script_engine.gfx_review import write_review   # F1b: página de revisión del segmento
+            write_review(plan.chapter_id, seg_path, work_dir)
+        if only_cap:
+            # F1b: modo un-cap → sin concat, sin música, sin _final.mp4, sin topics_db
+            if started_tracker:
+                cost_tracker.end_video()
+            print(f"\n  ✅ --only-cap {only_cap}: {seg_path}")
+            return 0, None
+
+    if only_cap:
+        print(f"❌ [{video_id}] --only-cap {only_cap}: cap inexistente en el plan")
+        if started_tracker:
+            cost_tracker.end_video()
+        return 1, None
 
     print(f"\n  🔗 Concatenando {len(segments)} segmentos...")
     art_profiles_list = [p.art_profile for p in plans]
@@ -2375,6 +2423,16 @@ def main() -> int:
                         help="Re-quemar reutilizando los clips visuales ya horneados "
                              "(flux_visual/hybrid_visual en _fase2b_work) sin re-correr "
                              "DepthFlow ni flow_director. Para re-generar solo subs/música.")
+    parser.add_argument("--gfx", action="store_true",
+                        help="F1: capa gráfica HyperFrames por capítulo (grade + bloques del "
+                             "gfx_director) antes de quemar subs. Fallback al clip original ante error.")
+    parser.add_argument("--gfx-quality", choices=["draft", "looks"], default="draft",
+                        help="Calidad del render HyperFrames con --gfx (default draft).")
+    parser.add_argument("--gfx-debug", action="store_true",
+                        help="Con --gfx: quema un overlay de depuración (timecode, bloque activo, escena, rank).")
+    parser.add_argument("--only-cap", type=str, default=None, metavar="chNN",
+                        help="Construye solo ese segmento (_fase2b_work/chNN_segment_only.mp4): sin concat, "
+                             "sin música, sin _final.mp4, sin topics_db. Solo en modo single.")
     parser.add_argument("--limit", type=int, default=None,
                         help="Solo en modo batch: tope de videos a procesar en esta corrida.")
     parser.add_argument("--force", action="store_true",
@@ -2428,6 +2486,10 @@ def main() -> int:
             keep_segments=args.keep_segments,
             dry_run=args.dry_run,
             reuse_visuals=args.reuse_visuals,
+            gfx=args.gfx,
+            gfx_quality=args.gfx_quality,
+            gfx_debug=args.gfx and args.gfx_debug,
+            only_cap=args.only_cap if mode == "single" else None,
         )
 
         if rc == 0 and final_path is not None and not args.dry_run:

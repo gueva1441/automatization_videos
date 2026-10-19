@@ -1,0 +1,8 @@
+{
+  "wheels": {
+    "shadows": {"hue": 195, "amount": 0.16, "level": 0},
+    "highlights": {"hue": 35, "amount": 0.05, "level": 0}
+  },
+  "details": {"vignette": 0.35, "grain": 0.25, "grainSize": 0.3},
+  "effects": {"bloom": 0.3, "bloomRadius": 14}
+}

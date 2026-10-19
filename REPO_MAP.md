@@ -91,6 +91,11 @@ Bus: 4a→4b→4c→4d ; 4e recibe facts+canonical+angle_blocks (incl. `visual`)
 | **anchor_timing** | Matcher compartido anchor→tiempo (byte-idéntico entre m03 y fase2b) | `compute_anchor_starts()` |
 | **transition_applier** `script_engine` | FFmpeg xfade/acrossfade por posición narrativa, fallback hard-cut | `concat_with_transitions()` |
 | **subs_remap** | Remap normalizado→original para subs legibles (difflib, costo 0) | `remap_words_to_original()` |
+| **gfx_layer** `script_engine` | **Capa gráfica HyperFrames** por cap (`fase2b --gfx`): re-encode -g30 → plan → candado → templater → lint → render; cualquier error → `base_clip` | `apply_gfx()` |
+| **gfx_director** `script_engine` | Elige bloques gráficos por cap (1 call Flash + response_schema) + validación determinista; shot_transition/grade NO los elige | `select_gfx_plan()` / `resolve_plan()` |
+| **gfx_literal_lock** `script_engine` | Candado literal D7: todo texto en pantalla ∈ facts/narración/skeleton/canonical (cromo "CAPÍTULO N"/"DETALLE" aparte) | `lock()` |
+| **gfx_project** `script_engine` | Templater determinista: plan resuelto + escenas → proyecto HF (`index.html` + `compositions/scene_NN.html`) | `write_project()` |
+| **gfx_review** `script_engine` | Hoja de cues `gfx_cues_chXX.md/.json` + página local `gfx_review_chXX.html` (video + cues clicables). Flags fase2b F1b: `--only-cap chNN`, `--gfx-debug` | `write_cues()` / `write_review()` |
 
 ## FASE 3 — packaging
 
@@ -118,6 +123,7 @@ Bus: 4a→4b→4c→4d ; 4e recibe facts+canonical+angle_blocks (incl. `visual`)
 | **vision_validator** `script_engine` | Guardrail de visión Flux↔prompt antes de pagar Veo. ⚠ **DESACTIVADO** (flag) | `validate_image()` |
 | **learned_patterns** `script_engine` | Conocimiento aprendido de m05 (heurísticas root-cause, regex). En memoria, no persiste | `get_root_cause()` |
 | **flow_config** | Settings DepthFlow + inventario inmutable de movimientos (guardrail anti-alucinación) | `VALID_MOVEMENTS`, `clamp_*` |
+| **gfx_config** | Settings de render HyperFrames + inventario inmutable de bloques gráficos + reglas (DOC_MAESTRO §3) | `GFX_INVENTORY`, `render_inventory_for_prompt()` |
 | **flow_profiles** | ⚠ DEPRECATED — único export vivo = `FlowSpec` (TypedDict → acceso `["movement"]`) | `FlowSpec` |
 | **audio_config** | Switch maestro de perfil de audio → `AUDIO_STYLE` | `ACTIVE_AUDIO_PROFILE` |
 | **audio_profiles** | Presets de voz ElevenLabs + mixing/duck + music_prompt | `AUDIO_PROFILES` |
@@ -162,6 +168,7 @@ AUDIO        audio_manager ─sync_map.json─► m07, fase2a, asset_manager, fa
 
 VIDEO        asset_manager ─assets_manifest.json─► fase2b
              fase2b ─flow_specs.json / depth_metrics.json / zoom_verdicts.json─► (cache propio)
+             fase2b ─gfx_plan_chXX.json─► (cache propio del gfx_director, --gfx)
              fase2b ─<id>_final.mp4─► fase3 / m09
              fase2b ─topics_db status=video_generated─► fase3 / run_pipeline (gate)
 

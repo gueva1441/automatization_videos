@@ -1,0 +1,9 @@
+{
+  "name": "gfx-runtime",
+  "private": true,
+  "description": "Runtime Node de la capa gráfica HyperFrames (fase2b --gfx). Versiones pineadas a las validadas en lab/hyperframes (F0/LAB v1/LAB v2).",
+  "dependencies": {
+    "gsap": "3.14.2",
+    "hyperframes": "0.8.172"
+  }
+}

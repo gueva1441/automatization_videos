@@ -54,3 +54,7 @@ _lab_kling/
 
 # === Scratch de auditoria de estructura (Claude-chat) ===
 _repo_audit/
+
+# === F1 capa gráfica HyperFrames (fase2b --gfx) ===
+node_modules/
+_fase2b_work/**/gfx_*/renders/

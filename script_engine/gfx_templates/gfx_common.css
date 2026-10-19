@@ -1,0 +1,43 @@
+      @font-face { font-family: "Anton"; src: url("public/fonts/Anton-Regular.ttf") format("truetype"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: ${width}px; height: ${height}px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+      .scene { position: absolute; inset: 0; background-color: #000; }
+      /* title_card */
+      #tc-dim { position: absolute; inset: 0; z-index: 20; background: #000; }
+      #tc { position: absolute; inset: 0; z-index: 21; }
+      #tc-kicker { position: absolute; left: 180px; top: 330px; color: #c8102e; font: 400 64px/1 "Anton", sans-serif; letter-spacing: .12em; }
+      #tc-title { position: absolute; left: 180px; top: 420px; right: 180px; overflow: hidden; }
+      #tc-title span { display: inline-block; color: #f4f1ea; font: 400 190px/1.05 "Anton", sans-serif; text-transform: uppercase; letter-spacing: .01em; }
+      #tc-line { position: absolute; left: 184px; top: 660px; width: 900px; height: 6px; background: #c8102e; transform-origin: left center; }
+      /* data_callout (tercio superior) */
+      .callout { position: absolute; left: 160px; top: 120px; z-index: 22; }
+      .co-mask { overflow: hidden; padding-bottom: 6px; }
+      .co-text { display: inline-block; color: #f4f1ea; font: 400 168px/1.02 "Anton", sans-serif; text-transform: uppercase; text-shadow: 0 8px 40px rgba(0,0,0,.55); }
+      .co-rule { width: 420px; height: 8px; margin-top: 18px; background: #c8102e; transform-origin: left center; }
+      /* count_up */
+      .count { position: absolute; left: 160px; top: 110px; z-index: 22; color: #f4f1ea; font: 400 220px/1 "Anton", sans-serif; font-variant-numeric: tabular-nums; text-shadow: 0 8px 40px rgba(0,0,0,.55); }
+      .count-unit { display: block; margin-top: 10px; font: 400 64px/1 "Anton", sans-serif; text-transform: uppercase; letter-spacing: .04em; color: #f4f1ea; }
+      /* archive_clipping */
+      #ar { position: absolute; inset: 0; z-index: 22; }
+      #ar-paper { position: absolute; right: 160px; top: 120px; width: 1100px; padding: 50px 60px 60px; color: #1b1a17;
+        box-shadow: 0 30px 70px rgba(0,0,0,.55), inset 0 0 80px rgba(120,100,60,.25); }
+      .ar-kicker { font-weight: 700; font-size: 34px; line-height: 1; letter-spacing: .25em; text-transform: uppercase; color: #5b1a14; }
+      .ar-rule { height: 4px; margin: 20px 0 24px; border-top: 1px solid #1b1a17; border-bottom: 1px solid #1b1a17; }
+      .ar-head { font-weight: 700; font-size: 84px; line-height: 1.04; }
+      .ar-body { margin-top: 26px; font-weight: 400; font-size: ${archive_body_px}px; line-height: 1.3; }
+      /* evidence_zoom (etiqueta) */
+      .zlabel { position: absolute; color: #f4f1ea; font: 700 46px/1 "Courier New", monospace; letter-spacing: .35em; text-shadow: 0 2px 10px #000; }
+      .zrect { position: absolute; border: 3px solid #f4f1ea; box-shadow: 0 0 0 1px rgba(0,0,0,.35); }
+      /* shot_transition R1 */
+      .flash { position: absolute; inset: 0; background: #f4f1ea; }
+      /* grade CSS (lab v1, ajuste v2): sobre escenas, bajo los gráficos. Intensidad en gfx_config */
+      #grade { position: absolute; inset: 0; z-index: 10; pointer-events: none; }
+      #grade > div { position: absolute; inset: 0; }
+      #gr-halation { backdrop-filter: brightness(1.05) contrast(2.6) saturate(1.2) blur(34px); mix-blend-mode: screen; }
+      #gr-haze { background: linear-gradient(180deg, rgba(190,210,220,.22) 0%, rgba(190,210,220,.06) 40%, rgba(190,210,220,0) 65%); }
+      #gr-palette { background: linear-gradient(180deg, rgb(92,150,162) 0%, rgb(110,140,150) 60%, rgb(140,128,118) 100%); mix-blend-mode: soft-light; }
+      #gr-shadowteal { background: rgb(0,30,38); mix-blend-mode: screen; }
+      #gr-vignette { background: radial-gradient(ellipse 85% 85% at 50% 42%, rgba(0,0,0,0) 62%, rgba(0,0,0,.6) 100%); }
+      #grade > #gr-grain { inset: -240px; mix-blend-mode: overlay;
+        background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }

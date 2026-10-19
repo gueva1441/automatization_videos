@@ -1,0 +1,23 @@
+<template>
+  <div id="sc${n}" data-composition-id="scene-${n}" data-start="0" data-duration="${duration}" data-width="${width}" data-height="${height}">
+    <style>
+      #sc${n} { position: absolute; inset: 0; background-color: #000; overflow: hidden; }
+      #sc${n} .media { position: absolute; left: 0; top: 0; width: ${width}px; height: ${height}px; object-fit: cover; }
+      #sc${n} .vwrap { position: absolute; inset: 0; transform-origin: 50% 50%; }
+    </style>
+    <div id="vw${n}" class="vwrap">
+      <video id="v${n}" class="media clip" src="public/base.mp4" data-start="0" data-duration="${duration}" data-media-start="${media_start}" muted playsinline></video>
+${inner_html}
+    </div>
+${outer_html}
+    <script>
+      (function () {
+${init_js}
+        var tl = gsap.timeline({ paused: true });
+${timeline_js}
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene-${n}"] = tl;
+      })();
+    </script>
+  </div>
+</template>

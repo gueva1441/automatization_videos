@@ -1,0 +1,317 @@
+"""
+gfx_layer.py — Orquestador de la capa gráfica HyperFrames por capítulo (fase2b --gfx).
+
+DOC_MAESTRO_HyperFrames §2 (D2): se inserta en fase2b._build_chapter_segment DESPUÉS de
+resolver base_clip y ANTES de quemar subs + pegar audio. Pasos:
+  1. re-encode base_clip -g 30 → work_dir/gfx_chXX/public/base.mp4      (D11)
+  2. grade: capas CSS de identidad en la composición (desvío de D4: la pasada media-treatment
+     sobre el footage costó 6.29× tiempo real en F1 paso 1; el preset nativo queda versionado)
+  3. gfx_plan = gfx_director (cache work_dir/gfx_plan_chXX.json)
+  4. gfx_literal_lock(plan) → bloques rechazados se QUITAN, nunca se reescriben (D7)
+  5. templater (gfx_project) → proyecto HyperFrames en work_dir/gfx_chXX/
+  6. hyperframes lint (0 errores) → render draft|looks → work_dir/chXX_gfx.mp4 (sin audio)
+  7. CUALQUIER excepción → return base_clip (+ error_handler.log_warning)
+
+Todo queda en work_dir/gfx_chXX.log (tiempos y resultado por paso).
+"""
+from __future__ import annotations
+
+import json
+import subprocess
+import time
+from pathlib import Path
+from typing import Any
+
+from error_handler import error_handler, PipelineStage
+from gfx_config import (
+    browser_env,
+    clamp_quality,
+    gfx_render,
+    gfx_rules,
+    hyperframes_cli,
+    resolve_node,
+)
+from anchor_timing import compute_anchor_starts
+from subs_remap import remap_words_to_original
+
+from script_engine.gfx_project import GfxScene, write_project
+
+_DOCTOR_DONE: bool = False                      # `hyperframes doctor` 1 vez por corrida
+
+
+class GfxError(RuntimeError):
+    """Falla de la capa gráfica (siempre termina en fallback a base_clip)."""
+
+
+# ═══════════════════════════════════════════════════════════════
+#  Subprocess helpers (shell=False, UTF-8 forzado)
+# ═══════════════════════════════════════════════════════════════
+
+def _run(cmd: list[str], *, timeout: int, cwd: Path | None = None) -> subprocess.CompletedProcess:
+    return subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace",
+                          timeout=timeout, cwd=str(cwd) if cwd else None, env=browser_env(), shell=False)
+
+
+def _hf(args: list[str], *, timeout: int, cwd: Path | None = None) -> subprocess.CompletedProcess:
+    """Invoca el CLI pineado: node <runtime>/hyperframes.mjs <args>."""
+    node = resolve_node()
+    cli = hyperframes_cli()
+    if node is None:
+        raise GfxError("node no encontrado (PATH ni gfx_render.node_dir)")
+    if not cli.exists():
+        raise GfxError(f"CLI hyperframes no instalado en {cli} (npm install en script_engine/gfx_runtime)")
+    return _run([node, str(cli), *args], timeout=timeout, cwd=cwd)
+
+
+def _ffprobe_duration(path: Path) -> float:
+    r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(path)],
+                       capture_output=True, text=True, timeout=60)
+    return float(r.stdout.strip())
+
+
+# ═══════════════════════════════════════════════════════════════
+#  Pasos
+# ═══════════════════════════════════════════════════════════════
+
+def _doctor_once(log: list[str]) -> None:
+    """`hyperframes doctor` una vez por corrida (informativo, no bloquea)."""
+    global _DOCTOR_DONE
+    if _DOCTOR_DONE:
+        return
+    _DOCTOR_DONE = True
+    try:
+        r = _hf(["doctor"], timeout=120)
+        lines = [ln.strip() for ln in r.stdout.splitlines() if "Chrome" in ln or "FFmpeg" in ln or "Version" in ln]
+        log.append("doctor: " + " | ".join(lines[:4]))
+    except Exception as e:  # noqa: BLE001 — doctor es informativo
+        log.append(f"doctor falló: {e}")
+
+
+def _reencode(base_clip: Path, out: Path, fps: int) -> None:
+    """Paso 1 (D11): keyframe cada 30 frames para que el seek del render no congele."""
+    out.parent.mkdir(parents=True, exist_ok=True)
+    cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(base_clip), "-an", "-c:v", "libx264",
+           "-preset", gfx_render.reencode_preset, "-crf", str(gfx_render.reencode_crf),
+           "-r", str(fps), "-g", str(gfx_render.reencode_gop), "-keyint_min", str(gfx_render.reencode_gop),
+           "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(out)]
+    r = subprocess.run(cmd, capture_output=True, text=True, timeout=900)
+    if r.returncode != 0 or not out.exists():
+        raise GfxError(f"re-encode falló: {r.stderr[-300:]}")
+
+
+def _lint(project: Path) -> dict[str, Any]:
+    r = _hf(["lint", str(project), "--json"], timeout=180)
+    data = json.loads(r.stdout)
+    if int(data.get("errorCount", 1)) > 0:
+        codes = sorted({f.get("code", "?") for f in data.get("findings", []) if f.get("severity") == "error"})
+        raise GfxError(f"lint con {data['errorCount']} error(es): {codes}")
+    return data
+
+
+def _render(project: Path, out: Path, quality: str) -> None:
+    timeout = gfx_render.timeout_sec
+    cmd = ["render", str(project), "-o", str(out), "--quality", quality, "--workers", str(gfx_render.workers),
+           "--player-ready-timeout", str(gfx_render.player_ready_timeout_ms),
+           "--protocol-timeout", str(gfx_render.protocol_timeout_ms), "--quiet"]
+    try:
+        r = _hf(cmd, timeout=timeout, cwd=project)
+    except subprocess.TimeoutExpired as e:
+        raise GfxError(f"render excedió timeout {timeout}s") from e
+    if r.returncode != 0 or not out.exists():
+        raise GfxError(f"render rc={r.returncode}: {(r.stderr or r.stdout)[-400:]}")
+
+
+# ═══════════════════════════════════════════════════════════════
+#  Escenas del cap (cortes intra-cap)
+# ═══════════════════════════════════════════════════════════════
+
+def build_scenes(chplan: Any, script_chapter: dict[str, Any], raw_words: list[dict],
+                 clip_duration: float, time_offset: float = 0.0) -> list[GfxScene]:
+    """Cortes intra-cap desde compute_anchor_starts (importado). Un solo plano si algo no cuadra.
+
+    El adelanto de ~45 ms del corte real vs anchor NO se corrige en F1 (anotado en DOC_MAESTRO §6).
+    """
+    single = [GfxScene(0, 0.0, clip_duration, "R3", "")]
+    try:
+        if chplan.engine == "flux":
+            prompts = script_chapter.get("image_prompts") or []
+            anchors = chplan.narration_anchors or [p.get("narration_anchor", "") for p in prompts]
+            starts = compute_anchor_starts(anchors, raw_words)
+            if not starts or len(starts) != len(prompts):
+                return single
+            starts = [0.0] + [s + time_offset for s in starts[1:]]
+            meta = [(p.get("emotional_rank") or "R3", _text_in_image(p)) for p in prompts]
+        elif chplan.engine == "veo" and chplan.supplemental_paths and chplan.supplemental_anchors:
+            veo_dur = _ffprobe_duration(chplan.asset_paths[0])
+            supp = compute_anchor_starts(chplan.supplemental_anchors, raw_words)
+            if not supp:
+                return single
+            supp = [s + time_offset for s in supp]
+            if chplan.veo_position == "start":
+                starts = [0.0, veo_dur] + supp[1:]
+            else:
+                starts = [0.0] + supp[1:] + [clip_duration - veo_dur]
+            # Veo: 1 plano R3 (sin emotional_rank en supplementals); supps R3
+            meta = [("R3", "")] * len(starts)
+        else:
+            return single
+    except Exception:  # noqa: BLE001 — cortes no derivables → plano único
+        return single
+    scenes: list[GfxScene] = []
+    for i, st in enumerate(starts):
+        en = starts[i + 1] if i + 1 < len(starts) else clip_duration
+        if en - st <= 0.3 or st >= clip_duration:
+            return single
+        scenes.append(GfxScene(i, round(st, 3), round(min(en, clip_duration), 3), meta[i][0], meta[i][1]))
+    return scenes
+
+
+def _text_in_image(prompt: dict[str, Any]) -> str:
+    tii = prompt.get("text_in_image")
+    if isinstance(tii, dict):
+        return str(tii.get("text", "")) if tii.get("present") else ""
+    if isinstance(tii, str):
+        return tii
+    return ""
+
+
+def remapped_words(chplan: Any) -> tuple[list[dict], list[dict]]:
+    """(raw normalizados, remapeados a texto original legible) — misma ruta que los subs de fase2b."""
+    raw = json.loads(Path(chplan.timestamps_path).read_text(encoding="utf-8")) if chplan.timestamps_path else []
+    words = remap_words_to_original((chplan.narration or "").strip(), raw) if chplan.narration else []
+    return raw, (words or [w for w in raw if str(w.get("word", "")).strip()])
+
+
+# ═══════════════════════════════════════════════════════════════
+#  Palanca F1b: director de todos los caps en paralelo (antes del loop de render)
+# ═══════════════════════════════════════════════════════════════
+
+def prefetch_plans(plans: list[Any], video_id: str, work_dir: Path, *, max_workers: int = 7) -> dict[str, float]:
+    """Llama al gfx_director de todos los caps en paralelo (threads) y deja el cache
+    work_dir/gfx_plan_chXX.json. apply_gfx después lo encuentra y no espera a Gemini.
+
+    Las escenas se estiman con la duración del audio (el cache guarda la respuesta CRUDA y apply_gfx
+    la re-valida con las escenas reales). Nunca lanza: un cap que falla queda para apply_gfx.
+    Devuelve {cap: segundos} (0.0 si ya estaba en cache).
+    """
+    from concurrent.futures import ThreadPoolExecutor
+    from script_engine.gfx_director import load_chapter_context, select_gfx_plan
+
+    def _one(chplan: Any) -> tuple[str, float]:
+        cap = chplan.chapter_id
+        if (work_dir / f"gfx_plan_{cap}.json").exists():
+            return cap, 0.0
+        t = time.time()
+        try:
+            raw_words, words = remapped_words(chplan)
+            ctx = load_chapter_context(video_id, chplan)
+            scenes = build_scenes(chplan, ctx["script_chapter"], raw_words, float(chplan.audio_duration))
+            select_gfx_plan(chplan, ctx=ctx, words=words, scenes=scenes, work_dir=work_dir)
+        except Exception as e:  # noqa: BLE001
+            error_handler.log_warning(PipelineStage.ASSEMBLY, f"[gfx] prefetch {cap} falló ({e}); lo hará apply_gfx")
+        return cap, time.time() - t
+
+    work_dir.mkdir(parents=True, exist_ok=True)
+    with ThreadPoolExecutor(max_workers=max_workers) as ex:
+        return dict(ex.map(_one, plans))
+
+
+# ═══════════════════════════════════════════════════════════════
+#  Entry point
+# ═══════════════════════════════════════════════════════════════
+
+def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
+              width: int, height: int, fps: int, quality: str | None = None,
+              reuse: bool = False, time_offset: float = 0.0,
+              gfx_plan_override: dict[str, Any] | None = None, debug: bool = False) -> Path:
+    """Aplica la capa gráfica al base_clip de un cap. Devuelve chXX_gfx.mp4 o base_clip (fallback).
+
+    Args:
+        base_clip: flux_visual / hybrid_visual / veo (sin audio).
+        plan: ChapterPlan de fase2b.
+        quality: draft | looks (default gfx_render.quality).
+        reuse: si existe chXX_gfx.mp4 y reuse → no re-renderiza (respeta --reuse-visuals).
+        time_offset: pre-pad del hook (ch01) — las palabras se corren igual que los subs.
+        gfx_plan_override: plan RESUELTO fijo (paso 1 del handoff, sin LLM). None → director + lock.
+        debug: overlay de depuración quemado (timecode, bloque activo, escena, rank). Solo con --gfx-debug.
+    """
+    cap = plan.chapter_id
+    out = work_dir / f"{cap}_gfx.mp4"
+    log_path = work_dir / f"gfx_{cap}.log"
+    log: list[str] = [f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {cap} base={Path(base_clip).name}"]
+    t0 = time.time()
+
+    def _step(name: str, t_start: float) -> None:
+        log.append(f"  {name}: {time.time() - t_start:.1f}s")
+
+    if reuse and out.exists():
+        log.append("  reuse: chXX_gfx.mp4 existente, sin re-render")
+        with log_path.open("a", encoding="utf-8") as fh:   # append: no pisar el log del render original
+            fh.write("\n".join(log) + "\n")
+        return out
+
+    project = work_dir / f"gfx_{cap}"
+    try:
+        q = clamp_quality(quality or gfx_render.quality)
+        _doctor_once(log)
+
+        ts = time.time()
+        project.mkdir(parents=True, exist_ok=True)
+        _reencode(Path(base_clip), project / "public" / "base.mp4", fps)
+        clip_dur = _ffprobe_duration(project / "public" / "base.mp4")
+        _step("1 reencode -g30", ts)
+
+        # paso 2: grade CSS dentro de la composición (desvío D4 medido: pasada media-treatment = 6.29× tiempo real)
+        log.append(f"  2 grade: CSS intensidad {gfx_rules.css_grade_intensity}")
+
+        ts = time.time()
+        raw_words, words = remapped_words(plan)
+        from script_engine.gfx_director import load_chapter_context, resolve_plan, select_gfx_plan
+        ctx = load_chapter_context(video_id, plan)
+        scenes = build_scenes(plan, ctx["script_chapter"], raw_words, clip_dur, time_offset)
+        log.append(f"  escenas: {len(scenes)} ({', '.join(f'{s.start:.2f}{s.rank}' for s in scenes)})")
+        if gfx_plan_override is not None:
+            resolved = gfx_plan_override
+            rejected: list[dict] = []
+            log.append("  plan: override fijo (sin LLM)")
+        else:
+            from script_engine.gfx_literal_lock import lock
+            raw_plan = select_gfx_plan(plan, ctx=ctx, words=words, scenes=scenes, work_dir=work_dir, log=log)
+            resolved = resolve_plan(raw_plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
+            resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"])
+        log.append(f"  plan: {json.dumps(resolved, ensure_ascii=False)}")
+        log.append(f"  lock rechazados: {len(rejected)} {json.dumps(rejected, ensure_ascii=False)}")
+        (work_dir / f"gfx_plan_{cap}.resolved.json").write_text(
+            json.dumps({"plan": resolved, "rejected": rejected}, ensure_ascii=False, indent=1), encoding="utf-8")
+        _step("3-4 plan + lock", ts)
+
+        ts = time.time()
+        write_project(resolved, scenes, project, duration=clip_dur, width=width, height=height, fps=fps,
+                      debug=debug)
+        _step("5 templater", ts)
+
+        ts = time.time()
+        lint = _lint(project)
+        log.append(f"  lint: {lint.get('errorCount')} errores, {lint.get('warningCount')} warnings")
+        tmp = project / "renders" / f"{cap}_gfx.mp4"
+        tmp.parent.mkdir(parents=True, exist_ok=True)
+        _render(project, tmp, q)
+        tmp.replace(out)
+        render_sec = time.time() - ts
+        _step(f"6 lint + render {q}", ts)
+
+        # F1b: hoja de cues (misma fuente de eventos que el overlay --gfx-debug)
+        from script_engine.gfx_project import cue_events
+        from script_engine.gfx_review import write_cues
+        write_cues(cap, cue_events(resolved, scenes, fps), log, resolved.get("gap_warnings", []), render_sec, work_dir)
+
+        log.append(f"  OK total {time.time() - t0:.1f}s → {out.name}")
+        error_handler.log_success(PipelineStage.ASSEMBLY, f"[gfx] {cap} OK en {time.time() - t0:.0f}s")
+        return out
+    except Exception as e:  # noqa: BLE001 — D2: cualquier error → fallback al base_clip
+        log.append(f"  FALLBACK {type(e).__name__}: {e} ({time.time() - t0:.1f}s)")
+        error_handler.log_warning(PipelineStage.ASSEMBLY, f"[gfx] {cap} fallback a base_clip: {type(e).__name__}: {e}")
+        return Path(base_clip)
+    finally:
+        with log_path.open("a", encoding="utf-8") as fh:
+            fh.write("\n".join(log) + "\n")

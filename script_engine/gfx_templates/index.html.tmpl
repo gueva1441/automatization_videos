@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=${width}, height=${height}" />
+    <script src="vendor/gsap.min.js"></script>
+    <style>
+${css}
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="${duration}" data-width="${width}" data-height="${height}">
+${scene_hosts}
+${overlays}
+    </div>
+    <script>
+      // estados iniciales FUERA del timeline (bug detectado en el handoff original de HyperFrames)
+${init_js}
+      var tl = gsap.timeline({ paused: true });
+${timeline_js}
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
