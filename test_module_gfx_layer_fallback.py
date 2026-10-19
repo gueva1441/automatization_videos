@@ -102,11 +102,14 @@ def test_prefetch_paralelo_usa_cache_y_no_lanza(tmp_path, monkeypatch):
         if chplan.chapter_id == "ch03":
             raise RuntimeError("503")
     monkeypatch.setattr(gd, "select_gfx_plan", fake_select)
-    (tmp_path / "gfx_plan_ch01.json").write_text("{}", encoding="utf-8")       # ya en cache
+    import json
+    (tmp_path / "gfx_plan_ch01.json").write_text(json.dumps({"director": gd.DIRECTOR_VERSION, "raw": {}}),
+                                                 encoding="utf-8")         # ya en cache (versión vigente)
+    (tmp_path / "gfx_plan_ch02.json").write_text('{"raw": {}}', encoding="utf-8")   # cache de versión vieja
     caps = [SimpleNamespace(chapter_id=f"ch0{i}", audio_duration=10.0) for i in (1, 2, 3)]
     out = gl.prefetch_plans(caps, "vid", tmp_path)
     assert out["ch01"] == 0.0 and set(out) == {"ch01", "ch02", "ch03"}
-    assert len(seen) == 2                                                  # ch01 no se pidió
+    assert len(seen) == 2                                  # ch01 no se pidió; ch02 (versión vieja) sí
 
 
 def test_excepcion_inesperada_devuelve_base(env, monkeypatch):

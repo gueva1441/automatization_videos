@@ -1061,12 +1061,12 @@ def _build_chapter_segment(
             labels.append(f"[s{k}]")
         graph.append(f"{''.join(labels)}amix=inputs={len(labels)}:duration=first:normalize=0[aout]")
         cmd += ["-filter_complex", ";".join(graph), "-map", "0:v:0", "-map", "[aout]",
-                "-c:v", "libx264", "-c:a", "aac", "-b:a", "192k"]
+                *_venc(), "-c:a", "aac", "-b:a", "192k"]
     else:
         cmd += [
             "-map", "0:v:0",
             "-map", "1:a:0",
-            "-c:v", "libx264",
+            *_venc(),
             "-c:a", "aac",
             "-b:a", "192k",
         ]
@@ -1626,7 +1626,7 @@ def _mix_music_into_video(
             "-filter_complex", filter_complex,
             "-map", "[v_pad]",          # CHAT 32: usar el video padeado, no 0:v directo
             "-map", "[mixed]",
-            "-c:v", "libx264",          # CHAT 32: tpad re-encodea → ya no podemos copy
+            *_venc(),                   # CHAT 32: tpad re-encodea → ya no podemos copy
             "-pix_fmt", "yuv420p",
             "-c:a", "aac",
             "-b:a", "192k",
@@ -1668,7 +1668,7 @@ def _mix_music_into_video(
             "-filter_complex", filter_complex,
             "-map", "[v_pad]",
             "-map", "[mixed]",
-            "-c:v", "libx264",
+            *_venc(),
             "-pix_fmt", "yuv420p",
             "-c:a", "aac",
             "-b:a", "192k",
@@ -2110,6 +2110,16 @@ def _route_safe(plans: list[Any], video_id: str, specs_by_cap: dict[str, list[An
                 from script_engine.parallax_animator_v2 import clamp_for_risk
                 specs_by_cap[p.chapter_id][i] = clamp_for_risk(specs_by_cap[p.chapter_id][i], r)
     return out, counts
+
+
+# F2 §3.3: encoder de video de los pases de fase2b (segmento + mezcla de música). Default libx264 (sin flag el
+# comando queda idéntico); --hw-encode → NVENC (PSNR 48.7 dB vs libx264 crf 18 en ch02, ~8× más rápido).
+_HW_ENCODE: bool = False
+NVENC_ARGS: list[str] = ["-c:v", "h264_nvenc", "-preset", "p5", "-cq", "19"]
+
+
+def _venc() -> list[str]:
+    return list(NVENC_ARGS) if _HW_ENCODE else ["-c:v", "libx264"]
 
 
 def _segment_hash(plan: Any, work_dir: Path, flags: dict[str, Any]) -> str:
@@ -2594,6 +2604,9 @@ def main() -> int:
                         help="F2 §3.4: reusa los seg_NN_chXX.mp4 cuyos insumos no cambiaron (huella en "
                              "_fase2b_work/segments_manifest.json); re-hace solo los caps cambiados + concat + música. "
                              "Implica --keep-segments.")
+    parser.add_argument("--hw-encode", action="store_true",
+                        help="F2 §3.3: NVENC (h264_nvenc p5 cq19) en el pase de segmento y en la mezcla de música. "
+                             "Default off (libx264). El concat con transiciones (transition_applier) no cambia.")
     parser.add_argument("--no-safe-router", action="store_true",
                         help="Con --gfx: NO aplica el router anti-deformación (F2 §4; default: activo con --gfx).")
     parser.add_argument("--gfx-sparse", action="store_true",
@@ -2611,6 +2624,8 @@ def main() -> int:
     parser.add_argument("--force", action="store_true",
                         help="Reprocesa aunque el topic ya esté en 'video_generated'.")
     args = parser.parse_args()
+    global _HW_ENCODE
+    _HW_ENCODE = bool(args.hw_encode)    # F2 §3.3
 
     if FFMPEG is None or FFPROBE is None:
         print(f"❌ No se encontró ffmpeg/ffprobe (winget Gyan.FFmpeg).")

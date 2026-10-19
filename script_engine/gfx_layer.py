@@ -304,11 +304,19 @@ def prefetch_plans(plans: list[Any], video_id: str, work_dir: Path, *, max_worke
     Devuelve {cap: segundos} (0.0 si ya estaba en cache).
     """
     from concurrent.futures import ThreadPoolExecutor
-    from script_engine.gfx_director import load_chapter_context, select_gfx_plan
+    from script_engine.gfx_director import DIRECTOR_VERSION, load_chapter_context, select_gfx_plan
+
+    def _cached(cap: str) -> bool:
+        """Cache vigente = existe Y es de la versión actual del director (si no, se re-llama acá en paralelo)."""
+        f = work_dir / f"gfx_plan_{cap}.json"
+        try:
+            return f.exists() and json.loads(f.read_text(encoding="utf-8")).get("director") == DIRECTOR_VERSION
+        except (OSError, ValueError, AttributeError):
+            return False
 
     def _one(chplan: Any) -> tuple[str, float]:
         cap = chplan.chapter_id
-        if (work_dir / f"gfx_plan_{cap}.json").exists():
+        if _cached(cap):
             return cap, 0.0
         t = time.time()
         try:
