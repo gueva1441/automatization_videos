@@ -482,3 +482,68 @@ Riesgos que el contrato no cubre:
 - Los .md se normalizarán a CRLF al commitear (warning de git); no afecta el contenido.
 - Hay que hacer `git add` por ruta, no `-A`, para no arrastrar diag_234_cap4.py ni los directorios untracked excluidos.
 ```
+
+## Render completo pre-merge (commit `11a9d1f`, looks + disperso)
+
+Log: `full_run_f2b_premerge.log`. Los productos anteriores (final, no_music, AB y capas gfx de la versión 1) quedaron en `_fase2b_work/_bak_f2b_v1_antes_premerge/`.
+
+**Entregables vigentes:**
+- `output/…/…_final_gfx.mp4`: 688.4 s. Video y audio arrancan en 0; el audio dura 688.52 s. Decodifica sin errores.
+- `AB_ba6c3cac…_f2b.mp4`: A | B, 1920×540, 688.5 s, con audio.
+- Cues y revisión de los 7 caps: `lab/hyperframes/f2b/corrida_premerge/`.
+
+| cap | bloques | recortes | énfasis / con ícono | zoom con box / sin | densidad s (máx hueco) | capa gfx s |
+|---|---|---|---|---|---|---|
+| ch01 | 8 | 1 | 1 / 1 | 1 / 1 | 4.8 (máx 7.1) | 106.0 |
+| ch02 | 11 | 2 | 3 / 1 | 0 / 0 | 8.9 (máx 16.9) | 283.9 |
+| ch03 | 16 | 1 | 5 / 1 | 0 / 1 | 9.6 (máx 17.7) | 341.7 |
+| ch04 | 14 | 1 | 4 / 2 | 1 / 0 | 8.7 (máx 17.3) | 306.0 |
+| ch05 | 13 | 2 | 3 / 1 | 0 / 1 | 10.0 (máx 15.7) | 298.9 |
+| ch06 | 14 | 2 | 1 / 1 | 1 / 0 | 7.7 (máx 17.2) | 274.9 |
+| ch07 | 10 | 1 | 3 / 1 | 0 / 1 | 8.1 (máx 16.2) | 205.8 |
+
+- **Recortes: 10, al menos 1 en cada cap** (antes 5, con 3 caps en 0).
+  - ch03 salió por **conversión** del callout «Templeman 1 y 2» → «El agua dentro de algunos edificios».
+  - En **4** recortes se cambió de lado por el contador (ch01, ch05, ch06 y ch07).
+  - Se repite «Los prisioneros quedaron atrapados durante días en celdas» (ch02 y ch06) y «Aproximadamente 6,500 personas» (ch01 y ch07).
+- **Íconos por palabra:** salieron 8. Candado en encerradas, encierro, celdas y atrapados ×3; calavera en «cadáveres» (ch05 y ch07). Otros 12 énfasis van **sin ícono porque la palabra no lo dibuja**: oscuro, oscuridad ×2, sin luz, aislados, sumergidos, inundación, ahogados, ahogaba, anegadas, flotando, marea. Ninguno quedó fuera por tope.
+  - «agua» no salió como énfasis en Orleans, así que la gota con `press_wipe` no aparece en este video (sí en `demo_iconos_premerge.mp4`).
+- **Densidad:** 8.6 s promedio y hueco máximo de 17.7 s (máximo pedido: 18). 0 fallbacks.
+- **Tiempos:** total **38.3 min** (+19.8 sobre A ✔ ≤ 22); concat **69 s** + música **19 s** ✔. Gemini $0 en esta corrida (el plan del director estaba cacheado).
+
+### ⚠ Problema que generó la regla "solape con contador → cambiar de lado"
+
+En **ch01 y ch07** el recorte «Aproximadamente 6,500 personas» comparte pantalla con el contador «6,500» del **mismo fact**. En ch05, «Más de 500 prisioneros no figuraban» se solapa 0.3 s con el contador «500». Es el mismo dato dos veces a la vez (`tira_premerge_full.jpg`, arriba). La regla hace lo que dice, pero no distingue si el recorte y el contador son del mismo fact.
+
+**No lo corregí** porque pediste parar acá. Propuesta mínima: si el recorte es del **mismo fact** que el contador, el recorte se descarta (o se muda a otra escena) y el cambio de lado queda solo para facts distintos. Se arregla en una línea y se re-ensamblan ch01, ch05 y ch07 (~7 min c/u en incremental).
+
+### Veredicto revisor-handoff del render pre-merge (íntegro)
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Mapa muerte: cadáveres/muertos/cuerpos/restos → calavera | OK | `gfx_profiles/misterio.json:60` `icon_words` (cadáver(es), muerto/a(s), cuerpos, restos → calavera). Las calaveras aparecen en la corrida (cues ch05 y ch07). |
+| 2 | tumba/enterrados/fosa/sepultados → cruz | OK | Mismo `icon_words`: tumba(s), enterrado/a(s), fosa(s), sepultados → cruz. |
+| 3 | muerte/morir/murieron → sin ícono | OK | Están en `triggers` pero ausentes de `icon_words`, así que dan mood sin ícono. |
+| 4 | Commitear los fixes pre-merge | OK | HEAD `11a9d1f` (17 archivos, +549/−63: director, icons, config, profile, tests, lab). Sin Co-Authored-By distinto al del reporte; solo lo hecho. |
+| 5 | Re-render completo en looks, disperso | OK | `full_run_f2b_premerge.log`: los 7 caps "(disperso)", mezcla de música, "FASE 2B BATCH TERMINADA 1/1", 38m16s. |
+| 6 | AB nuevo | OK | `AB_…_f2b.mp4` 1920×540, 688.47 s, con audio, fecha 15:10 (el v1 respaldado es de 13:40, distinto tamaño). |
+| 7 | Actualizar F2b_REPORT | OK | Sección "Render completo pre-merge" (+34 líneas). Cotejado con `report_data_f2b_premerge.json` y el log: bloques por cap, 10 recortes, 8 íconos, 12 énfasis sin ícono (la lista coincide ítem por ítem), 4 cambios de lado, densidad 8.6 s, concat 69 s, música 19 s, 38.3 min. Las duraciones por cap están en el JSON. |
+| 8 | Final válido | OK | ffprobe: video 688.43 s y audio 688.52 s, ambos con start 0. Backups v1 presentes en `_bak_f2b_v1_antes_premerge/`. |
+| 9 | "Parás ahí" | OK | No hay commits nuevos; HEAD sigue en `11a9d1f`; no se corrigió el problema del contador. |
+| 10 | Honestidad sobre recorte + contador del mismo fact | OK | El reporte tiene un apartado ⚠ que lo nombra (ch01, ch07 mismo fact 6,500; ch05 solape de 0.3 s con «500»), dice que no se corrigió porque pediste parar, y da una propuesta. |
+| 11 | Candados §6: main intacta, tests, lock | OK | `git log -1 main` = 43f528a. Tests: 151 passed. Sin cambio en archivos de lock/texto del LLM en el diff. |
+
+Observaciones:
+- Los números del reporte coinciden con los datos, salvo 688.4 s (video) frente a 688.5 s (audio y log). Es redondeo, no error.
+- ESTADO_SESION.md dice "(+ commit del reporte pre-merge)" y ese commit aún no existe; está pendiente.
+- La estimación "~7 min c/u en incremental" no se puede verificar con la evidencia dada. Tampoco pude verificar el tamaño de lado ni el solape visual (no se hizo ni se pidió render).
+
+Fuera de alcance: ninguno. Los tracked modificados son F2b_REPORT.md (esperado), `build_report_data.py` (herramienta del reporte, aceptable) y `diag_234_cap4.py` (ajeno, declarado). Los ?? restantes son artefactos de la corrida o preexistentes.
+
+Riesgos que el contrato no cubre: el bug recorte + contador del mismo fact sigue vivo en 3 de 7 caps del video entregable. El reporte, el JSON y ESTADO están sin commitear, así que el commit siguiente debe hacerse por ruta. El reporte se normalizará a CRLF al commitear.
+```
+
+Respuesta de CC: el commit del reporte se hace ahora, por ruta. Los ~7 min por cap salen del incremental medido (ch04: 7.5 min; ch05: 7.2 min); para 3 caps serían unos 3 × 5 min de capa gfx + 1.5 min de concat y música si se re-ensamblan juntos.
