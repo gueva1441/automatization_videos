@@ -1,0 +1,224 @@
+{
+ "caps": {
+  "ch01": {
+   "bloques": {
+    "title_card": 1,
+    "data_callout": 2,
+    "punch_in": 2,
+    "count_up": 1,
+    "icon_callout": 1
+   },
+   "recortes": [],
+   "moods": [
+    "encerradas (oscuridad_encierro, ícono candado)"
+   ],
+   "icon_array": null,
+   "zoom_con_box": [
+    "zoom box por visión escena 3 'nivel del pecho': [0.4, 0.5, 0.2, 0.15] conf 0.90 (nivel del pecho)"
+   ],
+   "zoom_sin_box": [
+    "zoom omitido (el final de su escena choca con otro bloque)"
+   ],
+   "densidad_s": 6.0,
+   "max_hueco_s": 8.8,
+   "gap_warnings": [],
+   "gfx_total_s": 106.6
+  },
+  "ch02": {
+   "bloques": {
+    "title_card": 1,
+    "punch_in": 3,
+    "archive_clipping": 2,
+    "icon_callout": 3,
+    "data_callout": 1,
+    "count_up": 1
+   },
+   "recortes": [
+    "El huracán Katrina tocó tierra",
+    "Los prisioneros quedaron atrapados durante días en celdas"
+   ],
+   "moods": [
+    "oscuro (oscuridad_encierro, ícono candado)",
+    "sumergidos (agua, ícono gota)",
+    "encierro (oscuridad_encierro, ícono candado)"
+   ],
+   "icon_array": null,
+   "zoom_con_box": [],
+   "zoom_sin_box": [],
+   "densidad_s": 8.9,
+   "max_hueco_s": 16.9,
+   "gap_warnings": [],
+   "gfx_total_s": 252.7
+  },
+  "ch03": {
+   "bloques": {
+    "title_card": 1,
+    "punch_in": 7,
+    "data_callout": 3,
+    "icon_callout": 3,
+    "keyword_emphasis": 2
+   },
+   "recortes": [],
+   "moods": [
+    "celdas (oscuridad_encierro, ícono candado)",
+    "inundación (agua, ícono gota)",
+    "sin luz (oscuridad_encierro, ícono candado)",
+    "ahogados (agua)",
+    "ahogaba (agua)"
+   ],
+   "icon_array": null,
+   "zoom_con_box": [],
+   "zoom_sin_box": [
+    "zoom omitido (visión: 'Las condiciones se volvieron inhumanas en' no encontrado en escena 14 — conf 0.00 < 0.7 o sin box; La frase no nombra un detalle específico para localizar.)"
+   ],
+   "densidad_s": 9.6,
+   "max_hueco_s": 17.7,
+   "gap_warnings": [],
+   "gfx_total_s": 344.5
+  },
+  "ch04": {
+   "bloques": {
+    "title_card": 1,
+    "icon_callout": 3,
+    "punch_in": 4,
+    "data_callout": 2,
+    "evidence_zoom": 1,
+    "count_up": 1,
+    "archive_clipping": 1,
+    "keyword_emphasis": 1
+   },
+   "recortes": [
+    "Había niños de hasta 10 años"
+   ],
+   "moods": [
+    "atrapados (oscuridad_encierro, ícono candado)",
+    "anegadas (agua, ícono gota)",
+    "Aislados (oscuridad_encierro, ícono candado)",
+    "atrapados (oscuridad_encierro)"
+   ],
+   "icon_array": null,
+   "zoom_con_box": [
+    "zoom box por visión escena 8 'piel': [0.5, 0.4, 0.2, 0.2] conf 0.95 (piel)"
+   ],
+   "zoom_sin_box": [],
+   "densidad_s": 8.7,
+   "max_hueco_s": 17.3,
+   "gap_warnings": [],
+   "gfx_total_s": 297.0
+  },
+  "ch05": {
+   "bloques": {
+    "title_card": 1,
+    "icon_callout": 3,
+    "data_callout": 3,
+    "source_tag": 1,
+    "count_up": 1,
+    "punch_in": 4,
+    "archive_clipping": 1
+   },
+   "recortes": [
+    "Reclusos de la sección 'Templeman III' informaron"
+   ],
+   "moods": [
+    "oscuridad (oscuridad_encierro, ícono candado)",
+    "cadáveres (muerte, ícono cruz)",
+    "flotando (agua, ícono gota)"
+   ],
+   "icon_array": null,
+   "zoom_con_box": [],
+   "zoom_sin_box": [
+    "zoom descartado (sin frase ancla de la voz dentro de la escena 11): {'use': True, 'scene_idx': 11, 'anchor_word_idx': 149, 'anchor_len': 2}"
+   ],
+   "densidad_s": 10.0,
+   "max_hueco_s": 15.7,
+   "gap_warnings": [],
+   "gfx_total_s": 287.0
+  },
+  "ch06": {
+   "bloques": {
+    "title_card": 1,
+    "data_callout": 3,
+    "punch_in": 4,
+    "icon_callout": 1,
+    "count_up": 1,
+    "archive_clipping": 1,
+    "source_tag": 1,
+    "evidence_zoom": 1
+   },
+   "recortes": [
+    "Los prisioneros quedaron atrapados durante días en celdas"
+   ],
+   "moods": [
+    "atrapados (oscuridad_encierro, ícono candado)"
+   ],
+   "icon_array": null,
+   "zoom_con_box": [
+    "zoom box por visión escena 13 'rastro oficial': [0.4, 0.25, 0.15, 0.14] conf 0.90 (rastro oficial)"
+   ],
+   "zoom_sin_box": [],
+   "densidad_s": 8.4,
+   "max_hueco_s": 17.2,
+   "gap_warnings": [],
+   "gfx_total_s": 260.5
+  },
+  "ch07": {
+   "bloques": {
+    "title_card": 1,
+    "data_callout": 2,
+    "punch_in": 2,
+    "count_up": 1,
+    "icon_callout": 3
+   },
+   "recortes": [],
+   "moods": [
+    "cadáveres (muerte, ícono cruz)",
+    "marea (agua, ícono gota)",
+    "oscuridad (oscuridad_encierro, ícono candado)"
+   ],
+   "icon_array": null,
+   "zoom_con_box": [],
+   "zoom_sin_box": [
+    "zoom omitido (visión: 'cadáveres flotando' no encontrado en escena 6 — conf 0.00 < 0.7 o sin box; cadáveres flotando)"
+   ],
+   "densidad_s": 9.1,
+   "max_hueco_s": 16.2,
+   "gap_warnings": [],
+   "gfx_total_s": 204.3
+  }
+ },
+ "concat_s": [
+  "67"
+ ],
+ "musica": [
+  [
+   "18",
+   "audio solo + remux"
+  ]
+ ],
+ "real": [
+  [
+   "37",
+   "52.356"
+  ]
+ ],
+ "sin_icono": [
+  [
+   "ch03",
+   "ahogados",
+   "agua"
+  ],
+  [
+   "ch03",
+   "ahogaba",
+   "agua"
+  ],
+  [
+   "ch04",
+   "atrapados",
+   "oscuridad_encierro"
+  ]
+ ],
+ "densidad_global_s": 8.9,
+ "fallback_concat": false,
+ "fallback_musica": false
+}

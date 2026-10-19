@@ -166,6 +166,21 @@ def test_build_headline_literal_y_corto(fact, head):
     assert out == head and gd._literal_in(out, fact) and len(out.split()) <= 8
 
 
+def test_titular_sin_auxiliar_suelto_y_kicker_de_fuente(monkeypatch, tmp_path):
+    """Corrida completa F2b (ch05): 'informaron haber' → 'informaron'; el kicker de fuente ('HRW, 2005') no es
+    literal del FACT pero sí de sources[] → el validador no lo descarta (el candado lo vuelve a chequear)."""
+    f8 = "Reclusos de la sección 'Templeman III' informaron haber visto cadáveres flotando en las aguas de la inundación."
+    assert gd.build_headline(f8) == "Reclusos de la sección 'Templeman III' informaron"
+    facts = ["Más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel, según Human Rights Watch."]
+    plan = gd.validate_plan({"archive_clippings": [{"fact_idx": 0, "scene_idx": 0}]}, n_facts=1, n_words=0,
+                            scenes=[gd_scene(0, 0.0, 10.0)], facts=facts, fact_source={0: "Human Rights Watch, 2005"})
+    assert plan["archive_clippings"][0]["kicker"] == "Human Rights Watch, 2005"
+
+
+def gd_scene(i, a, b):
+    return GfxScene(i, a, b, "R3", "")
+
+
 def test_kicker_fuente_o_anio():
     assert gd.build_kicker("x en 2005", "Human Rights Watch, 2005", "x") == "Human Rights Watch, 2005"
     assert gd.build_kicker("pasó en 2005 algo", "", "pasó") == "2005"

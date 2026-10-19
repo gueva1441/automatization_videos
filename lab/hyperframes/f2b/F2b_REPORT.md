@@ -266,3 +266,122 @@ Riesgos que el contrato no cubre:
 Respuesta de CC:
 - Las cifras contra la fuente ahora están en `measure_concat_vs_fuente.py/.json`: viejo Y 47.26 (5–60 s) y 47.39 (20–60 s); nuevo Y 58.64 (5–60 s) e ∞ (20–60 s). La exclusión de ch04 está explicada en el docstring.
 - Los fallbacks se van a verificar en el log del render completo, que tiene que decir «⚡ concat por ventanas» y «audio solo + remux». La sincronía A/V y la unión del padding se miden ahí (duración de audio vs video y un frame de la unión).
+
+## Render completo de Orleans (looks, disperso, sin `--hw-encode`)
+
+Comando: `python fase2b.py ba6c3cac-a091-41c0-8dad-afd2f4364747 --reuse-visuals --keep-segments --gfx --gfx-sparse` (log `full_run_f2b.log`). Los productos de F2 se respaldaron antes en `_fase2b_work/_bak_f2_pre_f2b_full/`, para que `--reuse-visuals` no reusara las capas viejas.
+
+Entregables en `output/ba6c3cac…/`:
+- `…_final_gfx.mp4`: B-F2b, 688.4 s.
+- `AB_ba6c3cac…_f2b.mp4`: A sin gfx | B-F2b, 1920×540, 688.5 s, con audio.
+- Cues y página de revisión de los 7 caps en `lab/hyperframes/f2b/corrida_final/` (los `gfx_review_chNN.html` apuntan a los segmentos en `_fase2b_work/`).
+
+### Bloques por cap
+
+| cap | bloques | recortes | énfasis / con ícono | zoom con box / sin | densidad s (máx hueco) | capa gfx s |
+|---|---|---|---|---|---|---|
+| ch01 | 7 | 0 | 1 / 1 | 1 / 1 | 6.0 (máx 8.8) | 106.6 |
+| ch02 | 11 | 2 | 3 / 3 | 0 / 0 | 8.9 (máx 16.9) | 252.7 |
+| ch03 | 16 | 0 | 5 / 3 | 0 / 1 | 9.6 (máx 17.7) | 344.5 |
+| ch04 | 14 | 1 | 4 / 3 | 1 / 0 | 8.7 (máx 17.3) | 297.0 |
+| ch05 | 14 | 1 | 3 / 3 | 0 / 1 | 10.0 (máx 15.7) | 287.0 |
+| ch06 | 13 | 1 | 1 / 1 | 1 / 0 | 8.4 (máx 17.2) | 260.5 |
+| ch07 | 9 | 0 | 3 / 3 | 0 / 1 | 9.1 (máx 16.2) | 204.3 |
+
+- **Recortes: 5 en el video (antes 0).**
+  - ch02: «El huracán Katrina tocó tierra» (kicker 2005) y «Los prisioneros quedaron atrapados durante días en celdas».
+  - ch04: «Había niños de hasta 10 años».
+  - ch05: «Reclusos de la sección 'Templeman III' informaron».
+  - ch06: el mismo titular del fact 5 que ch02. Un fact puede repetirse entre caps: no hay regla anti-repetición entre caps (deuda).
+  - Sin recorte: ch01, ch03 y ch07. El objetivo de 1–2 por cap se cumple en 4 de 7.
+- **Densidad:** 8.9 s promedio entre bloques; el hueco más largo es de 17.7 s (máximo pedido: 18 s). 0 `gap_warning`.
+- **Zoom guiado por narración:**
+  - 3 zooms con box de visión: ch01, ch04 y ch06.
+  - 4 descartados: sin frase ancla en su escena o visión bajo 0.7. ch02 no propuso zoom.
+  - Ningún zoom fuera del detalle narrado: sin box, no hay zoom.
+- **Moods e íconos usados:**
+  - oscuridad (candado): 8.
+  - agua (gota): 6.
+  - muerte (cruz): 2, «cadáveres» en ch05 y ch07.
+  - veneno: 0; la narración de Orleans no dispara su léxico.
+  - `icon_array`: 0; ningún fact de Orleans tiene la forma «A de los B».
+  - `chapter_question`: apagada.
+- **Palabras de énfasis sin ícono:** «ahogados» y «ahogaba» (ch03) y «atrapados» (ch04). Las tres son por el **tope de 3 `icon_callout` por cap**, no por falta de ícono: las 4 categorías activas tienen ícono. Para el vigilante mensual: 0 palabras sin ícono por categoría.
+- **Router:** la visión de retratos corrió sobre 29 imágenes y ninguna salió `cara_closeup` → high = 0, movimiento seguro en 0 imágenes.
+- Fallbacks de la capa gfx: 0. Lint: 0 errores en los 7 caps.
+- Candado sin `--gfx` re-verificado al cierre: md5 de ch02 `--only-cap` = `38e5ba14e3d24fd20f9297c9e1dfee24`, igual que en §1 (`onlycap_ch02_nogfx_final.log`).
+
+### Tiempos
+
+| medida | F2 (nocturno) | F2b | objetivo |
+|---|---|---|---|
+| corrida completa | 3138 s (52.3 min) | **2272 s (37.9 min)** | — |
+| extra vs A sin gfx (1114 s) | +33.7 min | **+19.3 min** | ≤ 22 min ✔ |
+| concat + música | ~15 min | **85 s** (67 + 18) | ≤ 2.5 min ✔ |
+| incremental (cambiar un callout de ch04) | 22.2 min | **7.5 min** (log `incremental_ch04_f2b.log`) | ≤ 6 min ✘ |
+
+- El incremental no llega a 6 min por la capa gfx de ch04 (297 s: render HF 210 + cosido 56), que se rehace entera. Concat y música ya suman 84 s. Para bajar de 6 min habría que re-renderizar solo las ventanas que cambiaron dentro del cap (deuda, fuera de este handoff).
+- La prueba incremental quitó el callout «nivel del pecho» y se verificó que ya no está en las cues. Después se restauró el final oficial (md5 igual al respaldo); el incremental quedó en `_bak_f2b_incremental/`.
+- Final: video 688.43 s y audio 688.52 s, los dos arrancan en 0. Decodifica sin errores. La unión del padding inicial no se nota (`union_padding.jpg`).
+
+### Corrección después del render (solo ch05)
+
+En la corrida completa ch05 mostró dos defectos:
+1. El recorte del fact 7 se descartaba porque el validador chequeaba el kicker de fuente («Human Rights Watch, 2005») contra el fact y no contra `sources[]`.
+2. El titular del fact 8 terminaba en «…informaron haber».
+
+Ambos están corregidos (B35, test nuevo) y se re-ensambló solo ch05 (`reassemble_ch05_fix.log`, 7.2 min). El fact 7 ahora pasa la validación, pero no entra por solape con el callout «Human Rights Watch» y el contador «500» de esa escena: regla de no solapar, no bug. Después se regeneró el AB.
+
+### PSNR (§4)
+
+- Mismos frames que el concat viejo: 20 583 = 20 583.
+- Nuevo vs viejo, sin ch04: Y 44.8 / promedio 46.2.
+- Contra la fuente: viejo Y 47.3, nuevo Y 58.6 (∞ en cuerpos). Detalle en la sección §4 y en B33.
+- `--hw-encode` no se usó: NVENC midió 48.7 dB (< 50) en F2.
+
+### Gemini
+
+- Llamadas F2b: 41 (director v1.5: 7 + 1 de ch02; visión de retratos: 29; zoom con ancla: ~4). Costo según el cost_tracker: $0.0598 en la corrida completa más las de ch02 → **≈ $0.10, bajo el tope de $2**.
+- Aparte, fal (Flux.2 Pro, íconos): 36 imágenes ≈ $1.08.
+
+### Para Omar
+1. Mirar el **AB** (`AB_…_f2b.mp4`) y el final `…_final_gfx.mp4`.
+2. Decidir si acepta el criterio de PSNR de §4 (luma contra el camino viejo sin pérdida, B33) en lugar de "≥ 50 dB contra el final de hoy".
+3. Deudas que deja F2b:
+   - Incremental de 7.5 min (hace falta re-render por ventana dentro del cap).
+   - Recortes repetidos entre caps.
+   - `chapter_question` espera `cliffhanger` por cap de m01b.
+   - El reloj aprobado (5b) tiene números romanos.
+
+### Veredicto revisor-handoff del cierre (íntegro)
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Commits por sección §1–§4 (§3 tras aprobación de Omar) | OK | `git log`: aec3a4a, 046c4c9, 2879665, f3fd3db, 6819ee5. PARADA 2 documentada en F2b_REPORT.md:172 |
+| 2 | `tira_iconos_12.jpg` | OK | existe, 678 KB (lab/hyperframes/f2b/) |
+| 3 | Render completo looks+disperso, sin `--hw-encode` (PSNR 48.7 < 50) | OK | `_final_gfx.mp4` 688.52 s con audio, 2560x1440. Comando y B32 en el reporte |
+| 3b | `AB_{id}_f2b.mp4` | OK | existe, 77.9 MB, 1920x540, 688.47 s, nombre exacto, generado 13:40 (después del fix ch05) |
+| 3c | Cues de los 7 caps + página de revisión | OK | `corrida_final/` tiene `gfx_cues_ch01..07.md` y `gfx_review_ch01..07.html`, ninguno vacío |
+| 4 | F2b_REPORT: bloques, moods e íconos, recortes, zooms con/sin box, densidad, tiempos, énfasis sin ícono, PSNR, Gemini | PARCIAL | Todas las secciones están (F2b_REPORT.md:270-380). Pero el texto dice "Recortes: 6 en el video" y la suma real es 5: tabla 0+2+0+1+1+1+0, cues `archive_clipping` ch02 2, ch04 1, ch05 1, ch06 1, y `report_data_f2b.json`. Además el texto dice ch02 tiene 2 recortes y el JSON lista solo 1 para ch02 y el de «prisioneros» en ch06. El texto de recortes tiene que corregirse |
+| 4b | Tiempos | OK (objetivo incremental NO cumplido) | Reporte: total 2272 s, concat+música 85 s, incremental 7.5 s min vs objetivo ≤ 6 min. Lo declara como ✘ y deuda, sin ocultarlo |
+| 5 | Prueba incremental ch04 | OK | `incremental_ch04_f2b.log` existe. B36 documenta que se restauró el final oficial con md5 verificado. No re-medí ese md5 |
+| 6 | Veredictos del revisor íntegros | PARCIAL | Íntegros: §1, §2, ajuste PARADA 1, §3, PARADA 2 y §4 (F2b_REPORT.md:17, 58, 104, 146, 186, 233). Falta el veredicto sobre el cierre (fix ch05 + render final), que es este |
+| 7 | Candado: lock literal | PARCIAL | Cambio de cierre en `gfx_director.py` acepta como kicker la fuente de `sources[]`. El texto sale de `sources[]`, no del LLM, y el test nuevo lo cubre. El reporte dice que el candado lo re-chequea. Esa re-verificación no la corrí sobre el video final |
+| 8 | Candado: sin `--gfx` byte-idéntico | PARCIAL | `git diff aec3a4a..HEAD -- fase2b.py`: hunks solo en `_mix_music_into_video`, `_concat_segments`, `_assemble_one_video`, `main`. `_build_chapter_segment` no se toca y el diff sin commitear de `fase2b.py` está vacío. Pero hay cambios en `_segment_hash` y en gfx_config/director posteriores a §1. El md5 `38e5ba14…` no se re-midió desde §1 (lo cubre el reporte). No se ejecutó nada |
+| 9 | Candado: sin shaders, sin rembg, sin texto/ícono inventado por el LLM | NO VERIFICABLE | No audité el código de §2–§3 contra esto. El reporte declara íconos propios (set de 12) y que el director v1.5 es determinista. No hay evidencia independiente de mi parte |
+| 10 | `main` intacta | OK | `git log -1 main` = 43f528a |
+| 11 | Tests verdes | OK | Corrí el comando del contrato: 127 passed en 11.28 s |
+
+Fuera de alcance: `diag_234_cap4.py` (modificado, ajeno según el contexto; el cambio es de 1 línea). El resto de lo sin commitear está dentro de `lab/hyperframes/f2b/` o son los archivos esperados del cierre: `script_engine/gfx_director.py`, `test_module_gfx_director.py`, `F2b_REPORT.md`, `DECISIONES_F2b.md`.
+
+Riesgos que el contrato no cubre: (1) El final de ch05 se re-ensambló después del render completo y no hay chequeo posterior de PSNR/duración del final nuevo; el reporte solo cita 688.43/688.52 s. (2) `gfx_review_chNN.html` apunta a `_fase2b_work/`, así que dependen de que esa carpeta se conserve. (3) Los recortes repetidos entre caps (ch02 y ch06, mismo titular) están declarados como deuda.
+```
+
+Respuesta de CC al veredicto del cierre:
+- **#4:** el conteo está corregido a **5 recortes** (ch02 2, ch04 1, ch05 1, ch06 1). ch02 tiene 2 según sus cues: «El huracán Katrina tocó tierra» y «Los prisioneros… en celdas».
+- **#8:** el md5 sin `--gfx` se re-midió después del veredicto: `38e5ba14e3d24fd20f9297c9e1dfee24` (`onlycap_ch02_nogfx_final.log`). El candado se mantiene.
+- **#7:** el `lock rechazados: 0` de ch05 en el re-ensamble está en `gfx_ch05.log`. El kicker de fuente pasó por el candado literal.
+- **Riesgo (1):** las duraciones 688.43 / 688.52 s y la decodificación sin errores se midieron sobre el final posterior al fix de ch05.

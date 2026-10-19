@@ -1,0 +1,100 @@
+[13:31:57] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-a091-41c0-8dad-afd2f4364747
+[13:36:44] INFO     | viral_pipeline | [video_assembler] ✓ [gfx] ch05 OK en 287s (disperso)
+[13:39:06] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-a091-41c0-8dad-afd2f4364747 — Costo total: $0.0000
+
+  🎬 Modo: SINGLE · 1 video(s) a procesar
+
+════════════════════════════════════════════════════════════
+  🎬 FASE 2B — ba6c3cac-a091-41c0-8dad-afd2f4364747
+════════════════════════════════════════════════════════════
+  🪝 hook:     (ninguno)
+  📝 subs:     ON (karaoke)
+  🎨 gfx:      ON (HyperFrames, looks)
+  📊 capítulos: 7
+  ⏱  duración total estimada: 687.6s (11.5 min)
+
+  Plan por capítulo:
+    [ch01] engine=veo  | audio= 35.8s | 1 clip     | subs+ts
+    [ch02] engine=flux | audio= 97.7s | 15 img(s)  | subs+ts
+    [ch03] engine=flux | audio=152.1s | 18 img(s)  | subs+ts
+    [ch04] engine=flux | audio=116.1s | 17 img(s)  | subs+ts
+    [ch05] engine=flux | audio=111.1s | 16 img(s)  | subs+ts
+    [ch06] engine=flux | audio= 98.3s | 15 img(s)  | subs+ts
+    [ch07] engine=veo  | audio= 76.5s | 1 clip     | subs+ts
+
+  ♻  reuse-visuals: salteando flow_director (clips ya horneados)
+  🛡  safe-router: riesgo low=81 mid=0 high=0 → movimiento seguro en 0 imagen(es)
+  🎨 gfx_director prefetch: ch01 0s, ch02 0s, ch03 0s, ch04 0s, ch05 0s, ch06 0s, ch07 0s
+
+  🔧 [1/7] ch01 (veo)...
+     ♻  segmento sin cambios (4507ddd213134084) → reuso seg_01_ch01.mp4
+
+  🔧 [2/7] ch02 (flux)...
+     ♻  segmento sin cambios (c14886a0309a8794) → reuso seg_02_ch02.mp4
+
+  🔧 [3/7] ch03 (flux)...
+     ♻  segmento sin cambios (73628d2fcb51b9b7) → reuso seg_03_ch03.mp4
+
+  🔧 [4/7] ch04 (flux)...
+     ♻  segmento sin cambios (6991d3a8b504bd19) → reuso seg_04_ch04.mp4
+
+  🔧 [5/7] ch05 (flux)...
+  [fase2b] ch05 reuse-visuals: ch05_flux_visual.mp4 (sin DepthFlow)
+     ✓ seg_05_ch05.mp4 — 111.1s
+
+  🔧 [6/7] ch06 (flux)...
+     ♻  segmento sin cambios (c8dae462576605d1) → reuso seg_06_ch06.mp4
+
+  🔧 [7/7] ch07 (veo)...
+     ♻  segmento sin cambios (a3219bf9d1b0ebd8) → reuso seg_07_ch07.mp4
+
+  ♻  re-ensamble: 6 reusados, 1 re-hechos
+
+  🔗 Concatenando 7 segmentos...
+     ⚡ concat por ventanas: 65s (solo fronteras re-encodeadas)
+
+  🎚️  Mezclando música + ducking (7 tracks)...
+     backup: ba6c3cac-a091-41c0-8dad-afd2f4364747_final_gfx_no_music.mp4
+     volumen por cap (chat 40 por-track):
+       [ch01] track=hook_curated           ducked=0.110 floor=0.070 (json)
+       [ch02] track=setup_curated          ducked=0.210 floor=0.170 (json)
+       [ch03] track=rising_tension_curated ducked=0.140 floor=0.090 (json)
+       [ch04] track=shock_curated          ducked=0.080 floor=0.030 (json)
+       [ch05] track=consequences_curated   ducked=0.200 floor=0.120 (json)
+       [ch06] track=resolution_curated     ducked=0.100 floor=0.020 (json)
+       [ch07] track=outro_curated          ducked=0.040 floor=0.030 (json)
+     paso A: tracks continuos (ducked + floor, vol por-cap)...
+     [ch01] reused → hook_curated.mp3 (loop a 35.8s)
+     [ch02] reused → setup_curated.mp3 (loop a 97.7s)
+     [ch03] reused → rising_tension_curated.mp3 (loop a 152.1s)
+     [ch04] reused → shock_curated.mp3 (loop a 116.1s)
+     [ch05] reused → consequences_curated.mp3 (loop a 111.1s)
+     [ch06] reused → resolution_curated.mp3 (loop a 98.3s)
+     [ch07] reused → outro_curated.mp3 (loop a 76.5s)
+     [ch01] reused → hook_curated.mp3 (loop a 35.8s)
+     [ch02] reused → setup_curated.mp3 (loop a 97.7s)
+     [ch03] reused → rising_tension_curated.mp3 (loop a 152.1s)
+     [ch04] reused → shock_curated.mp3 (loop a 116.1s)
+     [ch05] reused → consequences_curated.mp3 (loop a 111.1s)
+     [ch06] reused → resolution_curated.mp3 (loop a 98.3s)
+     [ch07] reused → outro_curated.mp3 (loop a 76.5s)
+     paso B: sidechain mix (por-cap)...
+     mixing params: vol=0.26, floor=0.16, thr=0.03, ratio=5.0, atk=80.0ms, rel=200.0ms, init_silence=2.5s (F2b: audio solo + remux)
+     ⏱ música: 17s (audio solo + remux)
+     ✅ música mezclada en ba6c3cac-a091-41c0-8dad-afd2f4364747_final_gfx.mp4
+
+  ✅ ba6c3cac-a091-41c0-8dad-afd2f4364747_final_gfx.mp4 — 688.5s · 327.6MB · $0.0000
+     📌 topics_db: ba6c3cac-a091-41c0-8dad-afd2f4364747 → video_generated
+
+════════════════════════════════════════════════════════════
+  ✅ FASE 2B BATCH TERMINADA
+════════════════════════════════════════════════════════════
+  Procesados OK: 1/1
+  ▶ Siguiente paso (empaquetar para publicar):
+       python fase3.py ba6c3cac-a091-41c0-8dad-afd2f4364747
+════════════════════════════════════════════════════════════
+
+
+real	7m10.887s
+user	0m0.000s
+sys	0m0.000s

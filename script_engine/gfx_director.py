@@ -329,7 +329,9 @@ def trim_body(fact: str, max_words: int | None = None) -> str | None:
 # ── F2b §1.1: titular determinista (pasa el candado por construcción) ──
 _MONTHS = r"(?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)"
 _HEAD_EDGE_STOP = {"de", "del", "la", "las", "el", "los", "un", "una", "unos", "unas", "y", "o", "e", "en", "a", "al",
-                   "que", "por", "con", "para", "sin", "se", "su", "sus", "lo", "como", "según", "hasta", "durante"}
+                   "que", "por", "con", "para", "sin", "se", "su", "sus", "lo", "como", "según", "hasta", "durante",
+                   # auxiliares sueltos al final ("informaron haber" → "informaron")
+                   "haber", "había", "habían", "ser", "sido", "estar", "fue", "fueron", "era", "eran"}
 
 
 def _is_figure(tok: str, nxt: str) -> bool:
@@ -496,7 +498,8 @@ def validate_plan(raw: dict[str, Any], *, n_facts: int, n_words: int, scenes: li
             log.append(f"archive descartado (índice): {a}")
         elif scenes[si].duration < gfx_rules.archive_min_scene:
             log.append(f"archive descartado (escena {si} dura {scenes[si].duration:.1f}s)")
-        elif not _literal_in(head, facts[fi]) or (kick and not _literal_in(kick, facts[fi])):
+        elif not _literal_in(head, facts[fi]) or (kick and not _literal_in(kick, facts[fi])
+                                                    and kick != (fact_source or {}).get(fi)):   # F2b: kicker = fuente
             log.append(f"archive descartado (headline/kicker no literal del fact {fi})")
         elif len(head.split()) > gfx_rules.archive_head_max_words:
             log.append(f"archive descartado (titular de {len(head.split())} palabras > {gfx_rules.archive_head_max_words}): {head!r}")
