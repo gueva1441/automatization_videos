@@ -590,3 +590,62 @@ Riesgos que el contrato no cubre:
 ```
 
 Respuesta de CC: de acuerdo, es un desvío de alcance y no lo ejecuto sin el OK de Omar. El código está commiteado; el re-ensamble espera su respuesta (6 caps según la regla o solo los 3 pedidos).
+
+### Re-ensamble con la regla nueva (OK de Omar: los 6 caps)
+
+Re-ensamble incremental de ch01, ch02, ch04, ch05, ch06 y ch07; ch03 se reusó porque no tiene contador (`reassemble_regla_un_fact.log`, **29.2 min**: concat 65 s + música 18 s). El final y el AB anteriores quedaron en `_fase2b_work/_bak_f2b_premerge_v1/`.
+
+**Entregables vigentes, 100 % regla nueva:**
+- `…_final_gfx.mp4` (16:09): video 688.43 s / audio 688.52 s, ambos desde 0, decodifica sin errores.
+- `AB_…_f2b.mp4` (16:11, generado sobre ese final): 1920×540, 688.5 s, con audio.
+- Cues y revisión de los 7 caps en `lab/hyperframes/f2b/corrida_un_fact/`.
+
+**Verificación de la regla** (`check_un_fact_un_bloque.py` → `.json`): **0 violaciones**. Ningún recorte comparte fact ni cifra con el contador de su cap, y cada cifra se anima como contador una sola vez.
+
+- **«6,500» salía 4 veces como contador (ch01, ch02, ch04 y ch07); ahora sale 1 (ch01).**
+  - En ch02 y ch04 el contador se cae. En ch04 el recorte de reemplazo no entró por solape → nada.
+  - En ch07 el contador se cae y la cifra queda solo como recorte («Aproximadamente 6,500 personas»).
+- Contadores del video: «6,500» (ch01), «500» (ch05) y «650,000» (ch06), una vez cada uno.
+- Recortes que cambiaron de fact:
+  - ch01: fact 4 («6,500») → fact 0, «El agua dentro de algunos edificios».
+  - ch05: fact 7 («500») → fact 8, que ya tenía recorte → ch05 queda con 1.
+  - ch06: fact 6 («650,000») → fact 7, que no entró por solape → ch06 queda con su otro recorte.
+- **Recortes: 8, al menos 1 por cap** (ch02 tiene 2). Siguen repitiéndose entre caps «El agua dentro de algunos edificios» (ch01, ch03) y «Los prisioneros quedaron atrapados…» (ch02, ch06): deuda anotada.
+
+| cap | bloques | recortes | énfasis / con ícono | zoom con box / sin | densidad s (máx hueco) | capa gfx s |
+|---|---|---|---|---|---|---|
+| ch01 | 7 | 1 | 1 / 1 | 1 / 1 | 6.0 (máx 8.8) | 102.2 |
+| ch02 | 11 | 2 | 3 / 1 | 0 / 0 | 8.9 (máx 16.9) | 244.1 |
+| ch03 | 16 | 1 | 5 / 1 | 0 / 1 | 9.6 (máx 17.7) | 341.7 (reusado) |
+| ch04 | 13 | 1 | 4 / 2 | 1 / 0 | 9.4 (máx 17.3) | 291.6 |
+| ch05 | 14 | 1 | 3 / 1 | 0 / 1 | 10.0 (máx 15.7) | 283.5 |
+| ch06 | 13 | 1 | 1 / 1 | 1 / 0 | 8.4 (máx 17.2) | 246.2 |
+| ch07 | 9 | 1 | 3 / 1 | 0 / 1 | 9.1 (máx 16.2) | 197.1 |
+
+Densidad: 9.1 s promedio, hueco máximo de 17.7 s (máximo pedido: 18). Lint: 0 errores en los 6 caps re-hechos. 0 fallbacks.
+
+Verificación visual (`tira_un_fact_ch01_ch07.jpg`): en ch01 a los 18 s está solo el contador «6,500», sin recorte; en ch07 a los 22.5 s está solo el recorte «Aproximadamente 6,500 personas», sin contador.
+
+#### Veredicto revisor-handoff del re-ensamble (íntegro)
+
+```
+VEREDICTO: CUMPLE
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Los 6 caps re-hechos (ch01, 02, 04, 05, 06, 07) | OK | Log línea 62: "1 reusados, 6 re-hechos". ch01/02/04/05/06/07_gfx.mp4 con fecha 15:42-16:07; ch03_gfx.mp4 de 14:43 (reusado, no tiene contador). |
+| 2 | Final posterior al re-ensamble | OK | final_gfx.mp4 16:09:31; segments_manifest 16:08; duración 688.515 s. |
+| 3 | AB 100% regla nueva | OK | AB_..._f2b.mp4 16:11:33, posterior al final (16:09:31) y al log (16:09:31.85). El AB viejo (15:40, 77.8 MB) quedó en _bak_f2b_premerge_v1; el vigente es otro archivo (77.68 MB), 688.47 s. |
+| 4 | Regla verificada | OK | check_un_fact_un_bloque.py: rc 0, "VIOLACIONES: ninguna". Contadores por cifra: 6500:1, 500:1, 650000:1. Contador de ch01 en 6,500 y recorte de ch07 con "Aproximadamente 6,500 personas". |
+| 5 | Reporte anota "6,500" 4 veces como contador, ahora 1 | OK | F2b_REPORT.md:594 en adelante, sección "Re-ensamble con la regla nueva": "salía 4 veces como contador (ch01, ch02, ch04 y ch07); ahora sale 1 (ch01)". |
+| 6 | Dato "antes 4" real | OK | Cues de corrida_premerge: count_up «6,500» presente en ch01 (11), ch02 (18), ch04 (22) y ch07 (11). En ch01 y ch02 había además una línea de callout omitido (solape) con la misma cifra, sin impacto. |
+| 7 | Reporte actualizado | OK | F2b_REPORT.md modificado a las 16:12, posterior al AB. +33 líneas. Incluye tabla por cap, lint 0 errores y 0 fallbacks. |
+| 8 | Parar tras el reporte | OK | No hay artefactos posteriores a las 16:12. Sin commit: HEAD = bd59bc7. |
+| 9 | main intacta | OK | `git log -1 --format=%h main` = 43f528a. |
+
+Fuera de alcance: ninguno atribuible a este trabajo. `git diff --stat` muestra solo F2b_REPORT.md (+33) y diag_234_cap4.py (preexistente, ajeno). Los ?? nuevos corresponden a la corrida: check_un_fact_un_bloque.py/.json, reassemble_regla_un_fact.log, report_data_f2b_un_fact.json y corrida_un_fact/.
+
+Riesgos que el contrato no cubre: 1) La regla se verificó sobre planes y cues, no revisando el AB cuadro a cuadro; es consistente por fechas y log, no por inspección visual. 2) Siguen repitiéndose entre caps los recortes «El agua dentro de algunos edificios» (ch01, ch03) y «Los prisioneros…» (ch02, ch06); el reporte lo anota como deuda. 3) El ffprobe del AB combinado falló por mi sintaxis; las duraciones se midieron por archivo y sí coinciden (688.5 s).
+```
+
+Respuesta de CC al riesgo 1: la verificación visual de arriba (frames de ch01 y ch07) se hizo después del veredicto.

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es"><head><meta charset="UTF-8" /><title>gfx review ch04</title>
+<style>
+  body { margin: 0; background: #111; color: #eee; font: 15px/1.4 system-ui, sans-serif; display: flex; height: 100vh; }
+  #left { flex: 1; display: flex; flex-direction: column; padding: 12px; gap: 8px; min-width: 0; }
+  video { width: 100%; max-height: 80vh; background: #000; }
+  #note { display: flex; gap: 8px; } #note input { flex: 1; padding: 6px; background: #222; color: #eee; border: 1px solid #444; }
+  button { padding: 6px 12px; background: #c8102e; color: #fff; border: 0; cursor: pointer; }
+  #cues { width: 420px; overflow-y: auto; border-left: 1px solid #333; }
+  .cue { padding: 6px 10px; border-bottom: 1px solid #222; cursor: pointer; }
+  .cue:hover { background: #222; } .cue.on { background: #3a1016; }
+  .t { font-family: Consolas, monospace; color: #f4c542; } .b { color: #8fd; } .n { color: #f99; font-size: 13px; }
+</style></head><body>
+<div id="left">
+  <video id="v" src="../../../../output/ba6c3cac-a091-41c0-8dad-afd2f4364747/_fase2b_work/seg_04_ch04.mp4" controls preload="auto"></video>
+  <div id="note"><input id="c" placeholder="comentario sobre el instante actual" /><button id="copy">copiar nota</button></div>
+  <div id="msg"></div>
+</div>
+<div id="cues"></div>
+<script>
+var CAP = "ch04", DATA = {"cap": "ch04", "events": [{"t": 0.0, "dur": 3.0, "block": "title_card", "text": "CAPÍTULO 4 · Atrapados en el Horror", "scene": 1, "rank": ""}, {"t": 7.333, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 2, "rank": "R3"}, {"t": 8.72, "dur": 2.5, "block": "icon_callout:oscuridad_encierro", "text": "atrapados [candado · stamp]", "scene": 2, "rank": ""}, {"t": 13.2, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 3, "rank": "R2"}, {"t": 14.82, "dur": 0.8, "block": "punch_in", "text": "", "scene": 3, "rank": ""}, {"t": 22.3, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 4, "rank": "R3"}, {"t": 26.3, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 5, "rank": "R3"}, {"t": 30.633, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 6, "rank": "R3"}, {"t": 32.16, "dur": 2.5, "block": "keyword_emphasis:agua", "text": "anegadas", "scene": 6, "rank": ""}, {"t": 35.38, "dur": 2.5, "block": "data_callout", "text": "aguas residuales", "scene": 6, "rank": ""}, {"t": 37.8, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 7, "rank": "R2"}, {"t": 40.1, "dur": 2.5, "block": "data_callout", "text": "nivel del pecho", "scene": 7, "rank": ""}, {"t": 42.433, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 8, "rank": "R3"}, {"t": 49.267, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 9, "rank": "R3"}, {"t": 49.683, "dur": 2.85, "block": "evidence_zoom", "text": "box [0.5, 0.4, 0.2, 0.2]", "scene": 9, "rank": ""}, {"t": 52.533, "dur": 0.0, "block": "shot_transition:cut", "text": "corte seco (post-zoom)", "scene": 10, "rank": "R3"}, {"t": 56.667, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 11, "rank": "R3"}, {"t": 61.6, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 12, "rank": "R2"}, {"t": 62.1, "dur": 6.0, "block": "archive_clipping", "text": "Había niños de hasta 10 años", "scene": 12, "rank": ""}, {"t": 68.2, "dur": 0.1, "block": "shot_transition:flash", "text": "3 f", "scene": 13, "rank": "R1"}, {"t": 71.48, "dur": 0.8, "block": "punch_in", "text": "", "scene": 13, "rank": ""}, {"t": 73.3, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 14, "rank": "R3"}, {"t": 82.067, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 15, "rank": "R3"}, {"t": 82.26, "dur": 0.8, "block": "punch_in", "text": "", "scene": 15, "rank": ""}, {"t": 84.54, "dur": 2.5, "block": "keyword_emphasis:oscuridad_encierro", "text": "Aislados", "scene": 15, "rank": ""}, {"t": 92.467, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 16, "rank": "R3"}, {"t": 98.46, "dur": 0.8, "block": "punch_in", "text": "", "scene": 16, "rank": ""}, {"t": 102.333, "dur": 0.1, "block": "shot_transition:flash", "text": "3 f", "scene": 17, "rank": "R1"}, {"t": 113.14, "dur": 2.5, "block": "icon_callout:oscuridad_encierro", "text": "atrapados [candado · stamp]", "scene": 17, "rank": ""}], "notes": ["callout descartado (no literal del fact 9): 'diez años'", "callout descartado (no literal del fact 9): 'población juvenil abrumadoramente afroamericana'", "count_up omitido (la cifra 6,500 ya se animó en un cap anterior → recorte o nada)", "archive omitido (solape con otro bloque)", "archive omitido (solape con otro bloque) [cifra ya animada: recorte o nada]", "sfx descartado: archive_clipping @ 62.10s cae sobre 'Pequeños,' sin hueco ≤ 120 ms"], "gaps": [], "render_sec": 204.8812177181244};
+var v = document.getElementById("v"), box = document.getElementById("cues");
+function fmt(t) { var m = Math.floor(t / 60), s = (t % 60).toFixed(1); return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s; }
+DATA.events.forEach(function (e, i) {
+  var d = document.createElement("div"); d.className = "cue"; d.id = "q" + i;
+  d.innerHTML = '<span class="t">' + fmt(e.t) + '</span> <span class="b">' + e.block + (e.rank ? " " + e.rank : "") + '</span> '
+    + (e.text ? "«" + e.text.replace(/</g, "&lt;") + "»" : "") + ' <span class="t">' + e.dur.toFixed(2) + ' s</span>';
+  d.onclick = function () { v.currentTime = e.t; v.play(); };
+  box.appendChild(d);
+});
+DATA.notes.concat(DATA.gaps.map(function (g) { return "gap_warning " + fmt(g[0]) + "–" + fmt(g[1]); })).forEach(function (n) {
+  var d = document.createElement("div"); d.className = "cue n"; d.textContent = n; box.appendChild(d);
+});
+v.ontimeupdate = function () {
+  DATA.events.forEach(function (e, i) {
+    document.getElementById("q" + i).classList.toggle("on", v.currentTime >= e.t && v.currentTime < e.t + Math.max(e.dur, 0.3));
+  });
+};
+document.getElementById("copy").onclick = function () {
+  var txt = CAP + " @ " + fmt(v.currentTime) + " — " + document.getElementById("c").value;
+  (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(
+    function () { document.getElementById("msg").textContent = "copiado: " + txt; },
+    function () { document.getElementById("msg").textContent = txt; });
+};
+</script></body></html>

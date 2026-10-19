@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es"><head><meta charset="UTF-8" /><title>gfx review ch03</title>
+<style>
+  body { margin: 0; background: #111; color: #eee; font: 15px/1.4 system-ui, sans-serif; display: flex; height: 100vh; }
+  #left { flex: 1; display: flex; flex-direction: column; padding: 12px; gap: 8px; min-width: 0; }
+  video { width: 100%; max-height: 80vh; background: #000; }
+  #note { display: flex; gap: 8px; } #note input { flex: 1; padding: 6px; background: #222; color: #eee; border: 1px solid #444; }
+  button { padding: 6px 12px; background: #c8102e; color: #fff; border: 0; cursor: pointer; }
+  #cues { width: 420px; overflow-y: auto; border-left: 1px solid #333; }
+  .cue { padding: 6px 10px; border-bottom: 1px solid #222; cursor: pointer; }
+  .cue:hover { background: #222; } .cue.on { background: #3a1016; }
+  .t { font-family: Consolas, monospace; color: #f4c542; } .b { color: #8fd; } .n { color: #f99; font-size: 13px; }
+</style></head><body>
+<div id="left">
+  <video id="v" src="../../../../output/ba6c3cac-a091-41c0-8dad-afd2f4364747/_fase2b_work/seg_03_ch03.mp4" controls preload="auto"></video>
+  <div id="note"><input id="c" placeholder="comentario sobre el instante actual" /><button id="copy">copiar nota</button></div>
+  <div id="msg"></div>
+</div>
+<div id="cues"></div>
+<script>
+var CAP = "ch03", DATA = {"cap": "ch03", "events": [{"t": 0.0, "dur": 3.0, "block": "title_card", "text": "CAPÍTULO 3 · Inundación y Oscuridad", "scene": 1, "rank": ""}, {"t": 3.18, "dur": 0.8, "block": "punch_in", "text": "", "scene": 1, "rank": ""}, {"t": 4.233, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 2, "rank": "R3"}, {"t": 9.667, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 3, "rank": "R2"}, {"t": 10.23, "dur": 3.0, "block": "data_callout", "text": "29 de agosto de 2005", "scene": 3, "rank": ""}, {"t": 18.82, "dur": 0.8, "block": "punch_in", "text": "", "scene": 3, "rank": ""}, {"t": 22.533, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 4, "rank": "R3"}, {"t": 27.9, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 5, "rank": "R2"}, {"t": 28.52, "dur": 0.8, "block": "punch_in", "text": "", "scene": 5, "rank": ""}, {"t": 36.867, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 6, "rank": "R3"}, {"t": 46.24, "dur": 2.5, "block": "icon_callout:oscuridad_encierro", "text": "celdas [candado · stamp]", "scene": 6, "rank": ""}, {"t": 47.567, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 7, "rank": "R3"}, {"t": 55.133, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 8, "rank": "R3"}, {"t": 56.42, "dur": 2.5, "block": "keyword_emphasis:agua", "text": "inundación", "scene": 8, "rank": ""}, {"t": 61.467, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 9, "rank": "R2"}, {"t": 71.167, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 10, "rank": "R3"}, {"t": 72.56, "dur": 6.0, "block": "archive_clipping", "text": "El agua dentro de algunos edificios", "scene": 10, "rank": ""}, {"t": 78.7, "dur": 0.1, "block": "shot_transition:flash", "text": "3 f", "scene": 11, "rank": "R1"}, {"t": 82.52, "dur": 2.5, "block": "data_callout", "text": "nivel del pecho", "scene": 11, "rank": ""}, {"t": 91.433, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 12, "rank": "R3"}, {"t": 92.28, "dur": 0.8, "block": "punch_in", "text": "", "scene": 12, "rank": ""}, {"t": 96.82, "dur": 2.5, "block": "keyword_emphasis:oscuridad_encierro", "text": "sin luz", "scene": 12, "rank": ""}, {"t": 100.8, "dur": 0.1, "block": "shot_transition:flash", "text": "3 f", "scene": 13, "rank": "R1"}, {"t": 104.38, "dur": 2.5, "block": "keyword_emphasis:agua", "text": "ahogados", "scene": 13, "rank": ""}, {"t": 108.567, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 14, "rank": "R3"}, {"t": 114.4, "dur": 0.8, "block": "punch_in", "text": "", "scene": 14, "rank": ""}, {"t": 117.9, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 15, "rank": "R3"}, {"t": 124.3, "dur": 0.8, "block": "punch_in", "text": "", "scene": 15, "rank": ""}, {"t": 125.7, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 16, "rank": "R3"}, {"t": 133.9, "dur": 0.8, "block": "punch_in", "text": "", "scene": 16, "rank": ""}, {"t": 136.067, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 17, "rank": "R3"}, {"t": 143.26, "dur": 2.5, "block": "keyword_emphasis:agua", "text": "ahogaba", "scene": 17, "rank": ""}, {"t": 146.667, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 18, "rank": "R3"}], "notes": ["zoom omitido (visión: 'Las condiciones se volvieron inhumanas en' no encontrado en escena 14 — conf 0.00 < 0.7 o sin box; La frase no nombra un detalle específico para localizar.)", "archive omitido (solape con otro bloque)", "archive omitido (solape con otro bloque)"], "gaps": [], "render_sec": 230.4537069797516};
+var v = document.getElementById("v"), box = document.getElementById("cues");
+function fmt(t) { var m = Math.floor(t / 60), s = (t % 60).toFixed(1); return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s; }
+DATA.events.forEach(function (e, i) {
+  var d = document.createElement("div"); d.className = "cue"; d.id = "q" + i;
+  d.innerHTML = '<span class="t">' + fmt(e.t) + '</span> <span class="b">' + e.block + (e.rank ? " " + e.rank : "") + '</span> '
+    + (e.text ? "«" + e.text.replace(/</g, "&lt;") + "»" : "") + ' <span class="t">' + e.dur.toFixed(2) + ' s</span>';
+  d.onclick = function () { v.currentTime = e.t; v.play(); };
+  box.appendChild(d);
+});
+DATA.notes.concat(DATA.gaps.map(function (g) { return "gap_warning " + fmt(g[0]) + "–" + fmt(g[1]); })).forEach(function (n) {
+  var d = document.createElement("div"); d.className = "cue n"; d.textContent = n; box.appendChild(d);
+});
+v.ontimeupdate = function () {
+  DATA.events.forEach(function (e, i) {
+    document.getElementById("q" + i).classList.toggle("on", v.currentTime >= e.t && v.currentTime < e.t + Math.max(e.dur, 0.3));
+  });
+};
+document.getElementById("copy").onclick = function () {
+  var txt = CAP + " @ " + fmt(v.currentTime) + " — " + document.getElementById("c").value;
+  (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(
+    function () { document.getElementById("msg").textContent = "copiado: " + txt; },
+    function () { document.getElementById("msg").textContent = txt; });
+};
+</script></body></html>

@@ -1,0 +1,97 @@
+{
+ "caps": {
+  "ch01": {
+   "contador": [
+    "6,500",
+    4,
+    15.5
+   ],
+   "recortes": [
+    [
+     "El agua dentro de algunos edificios",
+     0,
+     24.159
+    ]
+   ]
+  },
+  "ch02": {
+   "contador": null,
+   "recortes": [
+    [
+     "El huracán Katrina tocó tierra",
+     2,
+     9.9
+    ],
+    [
+     "Los prisioneros quedaron atrapados durante días en celdas",
+     5,
+     60.733
+    ]
+   ]
+  },
+  "ch03": {
+   "contador": null,
+   "recortes": [
+    [
+     "El agua dentro de algunos edificios",
+     0,
+     72.56
+    ]
+   ]
+  },
+  "ch04": {
+   "contador": null,
+   "recortes": [
+    [
+     "Había niños de hasta 10 años",
+     9,
+     62.1
+    ]
+   ]
+  },
+  "ch05": {
+   "contador": [
+    "500",
+    7,
+    24.08
+   ],
+   "recortes": [
+    [
+     "Reclusos de la sección 'Templeman III' informaron",
+     8,
+     77.367
+    ]
+   ]
+  },
+  "ch06": {
+   "contador": [
+    "650,000",
+    6,
+    25.279
+   ],
+   "recortes": [
+    [
+     "Los prisioneros quedaron atrapados durante días en celdas",
+     5,
+     72.4
+    ]
+   ]
+  },
+  "ch07": {
+   "contador": null,
+   "recortes": [
+    [
+     "Aproximadamente 6,500 personas",
+     4,
+     20.8
+    ]
+   ]
+  }
+ },
+ "contadores_por_cifra": {
+  "6500": 1,
+  "500": 1,
+  "650000": 1
+ },
+ "violaciones": []
+}

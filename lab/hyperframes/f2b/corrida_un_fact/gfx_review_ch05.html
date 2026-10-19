@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es"><head><meta charset="UTF-8" /><title>gfx review ch05</title>
+<style>
+  body { margin: 0; background: #111; color: #eee; font: 15px/1.4 system-ui, sans-serif; display: flex; height: 100vh; }
+  #left { flex: 1; display: flex; flex-direction: column; padding: 12px; gap: 8px; min-width: 0; }
+  video { width: 100%; max-height: 80vh; background: #000; }
+  #note { display: flex; gap: 8px; } #note input { flex: 1; padding: 6px; background: #222; color: #eee; border: 1px solid #444; }
+  button { padding: 6px 12px; background: #c8102e; color: #fff; border: 0; cursor: pointer; }
+  #cues { width: 420px; overflow-y: auto; border-left: 1px solid #333; }
+  .cue { padding: 6px 10px; border-bottom: 1px solid #222; cursor: pointer; }
+  .cue:hover { background: #222; } .cue.on { background: #3a1016; }
+  .t { font-family: Consolas, monospace; color: #f4c542; } .b { color: #8fd; } .n { color: #f99; font-size: 13px; }
+</style></head><body>
+<div id="left">
+  <video id="v" src="../../../../output/ba6c3cac-a091-41c0-8dad-afd2f4364747/_fase2b_work/seg_05_ch05.mp4" controls preload="auto"></video>
+  <div id="note"><input id="c" placeholder="comentario sobre el instante actual" /><button id="copy">copiar nota</button></div>
+  <div id="msg"></div>
+</div>
+<div id="cues"></div>
+<script>
+var CAP = "ch05", DATA = {"cap": "ch05", "events": [{"t": 0.0, "dur": 3.0, "block": "title_card", "text": "CAPÍTULO 5 · Cuerpos Flotando, Almas Perdidas", "scene": 1, "rank": ""}, {"t": 3.4, "dur": 2.5, "block": "keyword_emphasis:oscuridad_encierro", "text": "oscuridad", "scene": 1, "rank": ""}, {"t": 8.767, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 2, "rank": "R3"}, {"t": 14.433, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 3, "rank": "R3"}, {"t": 17.933, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 4, "rank": "R3"}, {"t": 19.02, "dur": 2.52, "block": "data_callout", "text": "Human Rights Watch", "scene": 4, "rank": ""}, {"t": 19.02, "dur": 2.52, "block": "source_tag", "text": "Human Rights Watch, 2005", "scene": 4, "rank": ""}, {"t": 24.08, "dur": 3.7, "block": "count_up", "text": "500 prisioneros", "scene": 4, "rank": ""}, {"t": 24.08, "dur": 0.8, "block": "punch_in", "text": "", "scene": 4, "rank": ""}, {"t": 30.367, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 5, "rank": "R3"}, {"t": 33.533, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 6, "rank": "R3"}, {"t": 34.74, "dur": 0.8, "block": "punch_in", "text": "", "scene": 6, "rank": ""}, {"t": 37.267, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 7, "rank": "R3"}, {"t": 44.567, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 8, "rank": "R3"}, {"t": 47.34, "dur": 2.5, "block": "data_callout", "text": "1 de septiembre", "scene": 8, "rank": ""}, {"t": 53.7, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 9, "rank": "R2"}, {"t": 55.4, "dur": 3.72, "block": "data_callout", "text": "Templeman III", "scene": 9, "rank": ""}, {"t": 59.9, "dur": 0.1, "block": "shot_transition:flash", "text": "3 f", "scene": 10, "rank": "R1"}, {"t": 68.1, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 11, "rank": "R3"}, {"t": 71.08, "dur": 2.5, "block": "icon_callout:muerte", "text": "cadáveres [calavera · ink_bleed]", "scene": 11, "rank": ""}, {"t": 71.08, "dur": 0.8, "block": "punch_in", "text": "", "scene": 11, "rank": ""}, {"t": 76.867, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 12, "rank": "R3"}, {"t": 77.367, "dur": 6.0, "block": "archive_clipping", "text": "Reclusos de la sección 'Templeman III' informaron", "scene": 12, "rank": ""}, {"t": 84.2, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 13, "rank": "R3"}, {"t": 87.64, "dur": 2.5, "block": "keyword_emphasis:agua", "text": "flotando", "scene": 13, "rank": ""}, {"t": 93.233, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 14, "rank": "R3"}, {"t": 99.567, "dur": 1.0, "block": "shot_transition:dissolve", "text": "30 f", "scene": 15, "rank": "R3"}, {"t": 100.0, "dur": 0.8, "block": "punch_in", "text": "", "scene": 15, "rank": ""}, {"t": 106.2, "dur": 0.1, "block": "shot_transition:flash", "text": "3 f", "scene": 16, "rank": "R1"}], "notes": ["zoom descartado (sin frase ancla de la voz dentro de la escena 11): {'use': True, 'scene_idx': 11, 'anchor_word_idx': 149, 'anchor_len': 2}", "archive omitido (solape con otro bloque) [con fuente]", "callout omitido (solape/fuera de rango @ 24.1s): '500 prisioneros'", "sfx descartado: title_card @ 0.05s cae sobre 'Esos' sin hueco ≤ 120 ms"], "gaps": [], "render_sec": 203.18256163597107};
+var v = document.getElementById("v"), box = document.getElementById("cues");
+function fmt(t) { var m = Math.floor(t / 60), s = (t % 60).toFixed(1); return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s; }
+DATA.events.forEach(function (e, i) {
+  var d = document.createElement("div"); d.className = "cue"; d.id = "q" + i;
+  d.innerHTML = '<span class="t">' + fmt(e.t) + '</span> <span class="b">' + e.block + (e.rank ? " " + e.rank : "") + '</span> '
+    + (e.text ? "«" + e.text.replace(/</g, "&lt;") + "»" : "") + ' <span class="t">' + e.dur.toFixed(2) + ' s</span>';
+  d.onclick = function () { v.currentTime = e.t; v.play(); };
+  box.appendChild(d);
+});
+DATA.notes.concat(DATA.gaps.map(function (g) { return "gap_warning " + fmt(g[0]) + "–" + fmt(g[1]); })).forEach(function (n) {
+  var d = document.createElement("div"); d.className = "cue n"; d.textContent = n; box.appendChild(d);
+});
+v.ontimeupdate = function () {
+  DATA.events.forEach(function (e, i) {
+    document.getElementById("q" + i).classList.toggle("on", v.currentTime >= e.t && v.currentTime < e.t + Math.max(e.dur, 0.3));
+  });
+};
+document.getElementById("copy").onclick = function () {
+  var txt = CAP + " @ " + fmt(v.currentTime) + " — " + document.getElementById("c").value;
+  (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(
+    function () { document.getElementById("msg").textContent = "copiado: " + txt; },
+    function () { document.getElementById("msg").textContent = txt; });
+};
+</script></body></html>
