@@ -222,6 +222,7 @@ class GfxRules:
     zoom_box_min: float = 0.06               # lado mínimo del box normalizado
     zoom_box_max: float = 0.25
     zoom_label_margin_px: int = 40           # "DETALLE" a ≥ 40 px del borde
+    zoom_conf_min: float = 0.7               # F2b §1.2: confianza mínima de visión para el box de la frase ancla
     # archive_clipping (F2 §0b.6: 15 % más chico, 6 s, hasta 2 por cap, lado opuesto al sujeto)
     archive_dur: float = 6.0
     archive_max_per_cap: int = 2

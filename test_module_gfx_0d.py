@@ -49,7 +49,9 @@ def test_chapter_question_candado_por_palabras_de_contenido():
     assert ok["chapter_question"] is None and rej[0]["block"] == "chapter_question"
 
 
-def test_chapter_question_validador_y_cierre():
+def test_chapter_question_validador_y_cierre(monkeypatch):
+    real = gd.max_per_cap                       # F2b §1.3: OFF en el perfil; el código sigue vivo
+    monkeypatch.setattr(gd, "max_per_cap", lambda b: 1 if b == "chapter_question" else real(b))
     raw = {"chapter_question": {"use": True, "text": "Por qué fallan los generadores de respaldo"}}
     plan = gd.validate_plan(raw, n_facts=1, n_words=len(WORDS), scenes=[GfxScene(0, 0, 40)], facts=["x"])
     assert plan["chapter_question"]["text"] == "¿Por qué fallan los generadores de respaldo?"

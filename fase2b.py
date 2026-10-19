@@ -2090,6 +2090,33 @@ def _route_safe(plans: list[Any], video_id: str, specs_by_cap: dict[str, list[An
         except (OSError, ValueError):
             return {}
     metrics, verdicts = _load("depth_metrics.json"), _load("zoom_verdicts.json")
+    # F2b §1.5: visión (zoom_judge, cacheado en zoom_verdicts.json) SOLO sobre imágenes cuyo prompt nombra
+    # persona/rostro/retrato/manos/cuerpo y que el gate no juzgó ya. cara_closeup → high.
+    try:
+        import re
+        from config import DATA_DIR
+        from script_engine.depth_probe import portrait_candidates
+        from script_engine.zoom_judge import judge_candidates
+        script = json.loads((DATA_DIR / "scripts" / f"{video_id}.json").read_text(encoding="utf-8"))
+        prompts_by_cap = {f"ch{int(c.get('chapter_number', 0)):02d}": c.get("image_prompts") or []
+                          for c in script.get("chapters", [])}
+        stems_prompts: dict[str, Any] = {}
+        paths: dict[str, Path] = {}
+        for p in plans:
+            if p.engine != "flux":
+                continue
+            prompts = prompts_by_cap.get(p.chapter_id, [])
+            for a in p.asset_paths:
+                m = re.search(r"_img_(\d+)$", a.stem)
+                k = int(m.group(1)) - 1 if m else -1        # ch02_img_01 → image_prompts[0]
+                if 0 <= k < len(prompts):
+                    stems_prompts[a.stem], paths[a.stem] = prompts[k], Path(a)
+        cands = [s for s in portrait_candidates(stems_prompts) if s not in verdicts]
+        if cands:
+            print(f"  👤 router: visión sobre {len(cands)} imagen(es) con persona en el prompt")
+            verdicts.update(judge_candidates({s: paths[s] for s in cands}, assets_dir / "zoom_verdicts.json"))
+    except Exception as e:  # noqa: BLE001 — sin visión nueva el router sigue con los veredictos que hay
+        print(f"  ⚠  router: visión de retratos falló ({type(e).__name__}: {e}) → solo veredictos cacheados")
     out: dict[str, dict[int, dict[str, Any]]] = {}
     counts = {"low": 0, "mid": 0, "high": 0}
     for p in plans:

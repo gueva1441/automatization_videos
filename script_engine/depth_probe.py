@@ -17,6 +17,7 @@ DEPTHMAP_CACHE_SIZE_MB=500 para que mapas grandes no disparen evictions.
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -176,6 +177,7 @@ def probe_images(image_paths: list[Path], cache_path: Path,
 # Nocturno §3 (default): con las métricas actuales (p10/p50/p90/spread/c-b/std del depth map) el riesgo
 # NO es separable — no medimos gradientes ni bordes finos ni % de sujeto. Regla única implementada:
 # retrato (zoom_judge 'cara_closeup') → high; el resto → low. 'mid' existe en el contrato, sin regla.
+# F2b §1.5: además de los veredictos del gate, fase2b pide visión para las imágenes con persona en el prompt.
 
 DEFORM_RISK_LEVELS: tuple[str, ...] = ("low", "mid", "high")
 DEFORM_HIGH_CATEGORIES: frozenset[str] = frozenset({"cara_closeup"})
@@ -186,6 +188,26 @@ def deform_risk(metrics: dict[str, Any] | None, verdict: dict[str, Any] | None) 
     if verdict and verdict.get("categoria") in DEFORM_HIGH_CATEGORIES:
         return "high"
     return "low"
+
+
+# F2b §1.5: la visión del router solo corre sobre imágenes cuyo prompt nombra una persona o parte del cuerpo
+# (los prompts de imagen están en inglés; se aceptan también los términos en español).
+_PORTRAIT_RE = re.compile(
+    r"\b(person|people|man|men|woman|women|child|children|boy|girl|prisoner|prisoners|inmate|inmates|guard|guards|"
+    r"face|faces|portrait|hand|hands|body|bodies|figure|silhouette|eyes|"
+    r"persona|personas|hombre|mujer|niño|niña|preso|presos|rostro|cara|retrato|mano|manos|cuerpo|cuerpos)\b",
+    re.IGNORECASE)
+_PORTRAIT_FIELDS: tuple[str, ...] = ("subject", "action", "gaze_interaction", "prompt")
+
+
+def portrait_candidates(prompts: dict[str, Any]) -> list[str]:
+    """Stems cuyo image_prompt (subject/action/gaze/prompt) menciona persona/rostro/retrato/manos/cuerpo."""
+    out: list[str] = []
+    for stem, p in prompts.items():
+        text = " ".join(str(p.get(k, "")) for k in _PORTRAIT_FIELDS) if isinstance(p, dict) else str(p)
+        if _PORTRAIT_RE.search(text):
+            out.append(stem)
+    return out
 
 
 def route_images(stems: list[str], metrics: dict[str, Any], verdicts: dict[str, Any]) -> dict[str, str]:

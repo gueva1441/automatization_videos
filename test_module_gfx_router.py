@@ -95,5 +95,15 @@ def test_kenburns_registrado_pasa_a_movimiento_seguro(tmp_path):
     assert fase2b._safe_scenes_for(plan, base, None) is None          # --no-safe-router
 
 
+def test_vision_solo_sobre_prompts_con_persona():
+    """F2b §1.5: el filtro de visión del router mira subject/action/gaze del prompt (EN o ES)."""
+    from script_engine.depth_probe import portrait_candidates
+    prompts = {"img1": {"subject": "A 2005 wall calendar page", "action": "date circled"},
+               "img2": {"subject": "Close-up of a prisoner's face", "action": "staring"},
+               "img3": {"subject": "Flooded corridor", "action": "water rising past a hand on the bars"},
+               "img4": {"prompt": "Retrato de un guardia"}}
+    assert portrait_candidates(prompts) == ["img2", "img3", "img4"]
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))

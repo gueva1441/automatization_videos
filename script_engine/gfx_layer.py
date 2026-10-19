@@ -400,7 +400,8 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             log.append("  plan: override fijo (sin LLM)")
         else:
             from script_engine.gfx_literal_lock import lock
-            raw_plan = select_gfx_plan(plan, ctx=ctx, words=words, scenes=scenes, work_dir=work_dir, log=log)
+            raw_plan = select_gfx_plan(plan, ctx=ctx, words=words, scenes=scenes, work_dir=work_dir, log=log,
+                                       time_offset=time_offset)
             # F2 §1: el box del zoom lo decide visión sobre el frame real (cache por escena)
             from script_engine.gfx_director import apply_zoom_vision
             raw_plan = apply_zoom_vision(raw_plan, frame_for_scene=lambda si: _zoom_frame(

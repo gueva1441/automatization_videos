@@ -33,13 +33,14 @@ def test_plan_valido(monkeypatch, tmp_path):
     raw = {"title_card": {"use": True},
            "callouts": [{"fact_idx": 1, "text": "4.6 metros", "trigger_word_idx": 10, "kind": "figure"}],
            "archive_clipping": {"use": True, "fact_idx": 1, "scene_idx": 2, "headline": "quedaron bajo 15 pies", "kicker": "Nueva Orleans"},
-           "evidence_zoom": {"use": True, "scene_idx": 0, "box": [0.4, 0.6, 0.15, 0.2]},
+           "evidence_zoom": {"use": True, "scene_idx": 0, "anchor_word_idx": 1, "anchor_len": 2},
            "count_up": {"use": True, "fact_idx": 2, "value": "6,500", "unit": "personas", "trigger_word_idx": 13},
            "punch_in_word_idx": [10]}
     plan = _run(monkeypatch, tmp_path, raw)
     assert plan["callouts"][0]["text"] == "4.6 metros"
     assert plan["archive_clippings"][0]["scene_idx"] == 2    # compat: objeto F1 → lista F2
-    assert plan["evidence_zoom"]["box"] == [0.4, 0.6, 0.15, 0.2]
+    assert plan["evidence_zoom"]["anchor"] == "día el" and plan["evidence_zoom"]["box"] is None   # F2b §1.2
+    assert plan["archive_clippings"][0]["headline"] == "partes de Nueva Orleans quedaron bajo 15 pies"  # §1.1
     assert plan["count_up"]["value"] == "6,500"
     assert (tmp_path / "gfx_plan_ch02.json").exists()      # cache
     res = gd.resolve_plan(plan, ctx=CTX, words=WORDS, scenes=SCENES)
@@ -57,7 +58,7 @@ def test_plan_valido(monkeypatch, tmp_path):
 def test_cache_ida_y_vuelta_no_pierde_bloques(monkeypatch, tmp_path):
     raw = {"title_card": {"use": True},
            "archive_clipping": {"use": True, "fact_idx": 1, "scene_idx": 2, "headline": "quedaron bajo 15 pies", "kicker": ""},
-           "evidence_zoom": {"use": True, "scene_idx": 2, "box": [0.4, 0.6, 0.15, 0.2]},
+           "evidence_zoom": {"use": True, "scene_idx": 2, "anchor_word_idx": 20, "anchor_len": 1},
            "count_up": {"use": True, "fact_idx": 2, "value": "6,500", "unit": "personas", "trigger_word_idx": 12}}
     first = _run(monkeypatch, tmp_path, raw)
     def boom(*a, **k):
@@ -139,13 +140,45 @@ def test_plantilla_sin_cuerpo_no_emite_ar_body(tmp_path):
     assert 'id="ar0"' in html and 'class="ar-body"' not in html
 
 
-def test_titular_de_mas_de_8_palabras_se_descarta(monkeypatch, tmp_path):
-    raw = {"archive_clippings": [{"fact_idx": 2, "scene_idx": 2, "kicker": "",
-                                  "headline": "Aproximadamente 6,500 personas estaban encarceladas en la Prisión de Orleans"}]}
+def test_titular_lo_arma_el_validador_no_el_llm(monkeypatch, tmp_path):
+    """F2b §1.1: lo que mande el LLM como headline se ignora; el titular sale del fact (≤ 8 palabras, con la cifra)."""
+    raw = {"archive_clippings": [{"fact_idx": 2, "scene_idx": 2, "kicker": "inventado",
+                                  "headline": "Seis mil almas en el agua"}]}
+    monkeypatch.setattr(gd, "call_flash_json", lambda *a, **k: raw)
+    plan = gd.select_gfx_plan(CHPLAN, ctx=CTX, words=WORDS, scenes=SCENES, work_dir=tmp_path)
+    ar = plan["archive_clippings"][0]
+    assert ar["headline"] == "Aproximadamente 6,500 personas estaban encarceladas en la Prisión"
+    assert ar["kicker"] == ""                                   # sin fuente ni año en el fact
+
+
+@pytest.mark.parametrize("fact,head", [
+    ("Aproximadamente 6,500 personas, incluyendo hombres, mujeres y niños, estaban encarceladas.", "Aproximadamente 6,500 personas"),
+    ("Más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel, según Human Rights Watch.",
+     "Más de 500 prisioneros no figuraban"),
+    ("El huracán Katrina tocó tierra el 29 de agosto de 2005.", "El huracán Katrina tocó tierra"),   # día ≠ cifra
+    ("El agua dentro de algunos edificios de la Prisión Parroquial de Orleans (OPP), como Templeman 1 y 2, alcanzó el nivel del pecho.",
+     "El agua dentro de algunos edificios"),
+    ("Había niños de hasta 10 años en la prisión; la población juvenil era abrumadoramente afroamericana (98.7% en el CYC y 95% en el YSC).",
+     "Había niños de hasta 10 años"),
+])
+def test_build_headline_literal_y_corto(fact, head):
+    out = gd.build_headline(fact)
+    assert out == head and gd._literal_in(out, fact) and len(out.split()) <= 8
+
+
+def test_kicker_fuente_o_anio():
+    assert gd.build_kicker("x en 2005", "Human Rights Watch, 2005", "x") == "Human Rights Watch, 2005"
+    assert gd.build_kicker("pasó en 2005 algo", "", "pasó") == "2005"
+    assert gd.build_kicker("pasó en 2005 algo", "", "pasó en 2005") == ""      # el año ya está en el titular
+
+
+def test_zoom_sin_ancla_en_su_escena_no_va(monkeypatch, tmp_path):
+    """F2b §1.2: la frase ancla tiene que decirse dentro de la escena del zoom (± 1 s)."""
+    raw = {"evidence_zoom": {"use": True, "scene_idx": 0, "anchor_word_idx": 20, "anchor_len": 1}}   # "almas" @ 20 s
     log: list[str] = []
     monkeypatch.setattr(gd, "call_flash_json", lambda *a, **k: raw)
     plan = gd.select_gfx_plan(CHPLAN, ctx=CTX, words=WORDS, scenes=SCENES, work_dir=tmp_path, log=log)
-    assert plan["archive_clippings"] == [] and any("titular de 10 palabras" in m for m in log)
+    assert plan["evidence_zoom"] is None and any("frase ancla" in m for m in log)
 
 
 def test_zoom_en_escena_corta_no_va(monkeypatch, tmp_path):
@@ -273,19 +306,24 @@ def test_titular_nunca_substring_del_cuerpo():
 
 def test_zoom_box_null_sin_zoom(tmp_path):
     import unittest.mock as um
-    plan = {"evidence_zoom": {"scene_idx": 0, "box": [0.4, 0.4, 0.1, 0.1]}}
+    plan = {"evidence_zoom": {"scene_idx": 0, "anchor": "la herida", "box": None}}
     log: list[str] = []
-    with um.patch.object(gd, "judge_zoom_box", return_value={"box": None, "detalle": "solo cielo"}):
+    with um.patch.object(gd, "judge_zoom_box", return_value={"box": None, "confianza": 0.0, "detalle": "solo cielo"}):
         out = gd.apply_zoom_vision(plan, frame_for_scene=lambda si: tmp_path / "f.jpg",
                                    cache=tmp_path / "zb.json", log=log)
     assert out["evidence_zoom"] is None and any("visión" in l for l in log)
     with um.patch.object(gd, "judge_zoom_box", side_effect=AssertionError("no debe re-llamar")):
         again = gd.apply_zoom_vision(plan, frame_for_scene=lambda si: None, cache=tmp_path / "zb.json", log=log)
     assert again["evidence_zoom"] is None                       # cacheado
-    with um.patch.object(gd, "judge_zoom_box", return_value={"box": [0.5, 0.5, 0.1, 0.1], "detalle": "candado"}):
-        ok = gd.apply_zoom_vision({"evidence_zoom": {"scene_idx": 1, "box": [0, 0, .2, .2]}},
+    with um.patch.object(gd, "judge_zoom_box", return_value={"box": [0.5, 0.5, 0.1, 0.1], "confianza": 0.9, "detalle": "candado"}):
+        ok = gd.apply_zoom_vision({"evidence_zoom": {"scene_idx": 1, "anchor": "el candado", "box": None}},
                                   frame_for_scene=lambda si: tmp_path / "f.jpg", cache=tmp_path / "zb.json", log=log)
     assert ok["evidence_zoom"]["box"] == [0.5, 0.5, 0.1, 0.1]
+    # F2b §1.2: confianza bajo el umbral → sin zoom aunque haya box
+    with um.patch.object(gd, "judge_zoom_box", return_value={"box": [0.5, 0.5, 0.1, 0.1], "confianza": 0.4, "detalle": "dudoso"}):
+        low = gd.apply_zoom_vision({"evidence_zoom": {"scene_idx": 2, "anchor": "la mano", "box": None}},
+                                   frame_for_scene=lambda si: tmp_path / "f.jpg", cache=tmp_path / "zb.json", log=log)
+    assert low["evidence_zoom"] is None
 
 
 def test_cache_de_version_anterior_se_re_llama(monkeypatch, tmp_path):

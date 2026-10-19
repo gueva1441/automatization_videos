@@ -21,11 +21,12 @@ def test_carga_ambos_perfiles_sin_tocar_codigo():
 
 
 def test_misterio_reproduce_la_calibracion_0b():
-    """El perfil misterio no cambia nada respecto de los defaults del motor (calibración aprobada)."""
+    """El perfil misterio = defaults del motor salvo lo que F2b §1 cambió por perfil (densidad 18 s, grano 0, viñeta 0.15)."""
     rm = gc.rules_from_profile(gc.load_profile("misterio"))
     engine = gc.GfxRules()
     diffs = {f.name for f in fields(gc.GfxRules) if getattr(rm, f.name) != getattr(engine, f.name)}
-    assert diffs == set(), diffs
+    assert diffs == {"interrupt_min_sec", "interrupt_max_sec", "grain_opacity", "vignette_opacity"}, diffs
+    assert (rm.interrupt_max_sec, rm.grain_opacity, rm.vignette_opacity) == (18.0, 0.0, 0.15)
 
 
 def test_perfil_activo_por_nicho_y_por_env(monkeypatch):

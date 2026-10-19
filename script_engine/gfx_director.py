@@ -196,6 +196,11 @@ def eligible_facts(facts: list[str], chapters: list[dict[str, Any]], n: int, nar
 #  Prompt + schema
 # ═══════════════════════════════════════════════════════════════
 
+# F2b §1.3: chapter_question apagado en el perfil → la regla ni aparece en el prompt (el código queda)
+_QUESTION_RULE = ("- chapter_question: si hay PRÓXIMO CAPÍTULO, elegí UNA de sus bullets y reformulala como pregunta corta\n"
+                  "  (≤ 9 palabras, entre ¿ ?) usando SOLO palabras que ya están en esas bullets. Si no se puede, use=false.\n"
+                  if max_per_cap("chapter_question") > 0 else "- chapter_question: APAGADO para este canal (use=false).\n")
+
 _SYSTEM_PROMPT = f"""Sos director de gráficos de un documental largo de historia oscura (16:9, YouTube).
 Para UN capítulo elegís qué bloques gráficos usar, dónde y con qué dato. Identidad > vistosidad:
 pocos bloques, siempre los mismos, solo donde un dato real lo justifica.
@@ -212,18 +217,16 @@ REGLAS DURAS:
   palabra más cercana). NO pongas un callout si el TEXTO EN IMAGEN de esa escena ya muestra el dato.
 - count_up: máx {max_per_cap("count_up")}, solo si el fact trae una cifra escrita con dígitos (ej. "6,500"). value = esa cifra
   exacta, unit = la palabra que la sigue en el fact (o "").
-- archive_clippings: lista de 0–{max_per_cap("archive_clipping")}, cada uno en una escena distinta de ≥ 4 s y SOLO con facts de texto
-  suficiente (≥ 12 palabras). headline = fragmento literal corto del fact (≤ 8 palabras, NO el fact entero);
-  kicker = fragmento literal de 1–3 palabras del mismo fact (lugar o fecha) o "".
+- archive_clippings: lista de 0–{max_per_cap("archive_clipping")}, cada uno en una escena distinta de ≥ 4 s. Elegís SOLO fact_idx y
+  scene_idx: el titular y el kicker los arma el sistema con palabras del fact (no los escribas).
 - evidence_zoom: máx {max_per_cap("evidence_zoom")}, en una escena de ≥ 3.1 s (el zoom ocupa el FINAL de esa escena), sobre un detalle
-  concreto descrito en el prompt de la imagen. box = [x, y, w, h] normalizado 0–1.
+  concreto QUE LA VOZ NOMBRA en esa escena (ej. "la herida en la mano"). anchor_word_idx = índice de WORDS donde
+  empieza esa frase; anchor_len = cuántas palabras (1–6). Si la voz no nombra ningún detalle visible, use=false.
 - punch_in_word_idx: máx {max_per_cap("punch_in")}, palabras de énfasis (idealmente las de los callouts).
 - Pattern interrupt: intentá que haya un bloque visible cada {gfx_rules.interrupt_min_sec:.0f}–{gfx_rules.interrupt_max_sec:.0f} s, pero SOLO con datos reales.
 - Un bloque con máx 0 está APAGADO para este canal: no lo uses.
 - title_card.use = true siempre.
-- chapter_question: si hay PRÓXIMO CAPÍTULO, elegí UNA de sus bullets y reformulala como pregunta corta
-  (≤ 9 palabras, entre ¿ ?) usando SOLO palabras que ya están en esas bullets. Si no se puede, use=false.
-- Si un bloque no aplica: use=false (o lista vacía).
+{_QUESTION_RULE}- Si un bloque no aplica: use=false (o lista vacía).
 """
 
 _SCHEMA: dict[str, Any] = {
@@ -239,13 +242,12 @@ _SCHEMA: dict[str, Any] = {
             },
             "required": ["fact_idx", "text", "trigger_word_idx", "kind"]}},
         "archive_clippings": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
-            "fact_idx": {"type": "INTEGER"}, "scene_idx": {"type": "INTEGER"},
-            "headline": {"type": "STRING"}, "kicker": {"type": "STRING"}},
-            "required": ["fact_idx", "scene_idx", "headline", "kicker"]}},
+            "fact_idx": {"type": "INTEGER"}, "scene_idx": {"type": "INTEGER"}},
+            "required": ["fact_idx", "scene_idx"]}},
         "evidence_zoom": {"type": "OBJECT", "properties": {
             "use": {"type": "BOOLEAN"}, "scene_idx": {"type": "INTEGER"},
-            "box": {"type": "ARRAY", "items": {"type": "NUMBER"}}},
-            "required": ["use", "scene_idx", "box"]},
+            "anchor_word_idx": {"type": "INTEGER"}, "anchor_len": {"type": "INTEGER"}},
+            "required": ["use", "scene_idx", "anchor_word_idx", "anchor_len"]},
         "count_up": {"type": "OBJECT", "properties": {
             "use": {"type": "BOOLEAN"}, "fact_idx": {"type": "INTEGER"}, "value": {"type": "STRING"},
             "unit": {"type": "STRING"}, "trigger_word_idx": {"type": "INTEGER"}},
@@ -321,6 +323,89 @@ def trim_body(fact: str, max_words: int | None = None) -> str | None:
     return best
 
 
+# ── F2b §1.1: titular determinista (pasa el candado por construcción) ──
+_MONTHS = r"(?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)"
+_HEAD_EDGE_STOP = {"de", "del", "la", "las", "el", "los", "un", "una", "unos", "unas", "y", "o", "e", "en", "a", "al",
+                   "que", "por", "con", "para", "sin", "se", "su", "sus", "lo", "como", "según", "hasta", "durante"}
+
+
+def _is_figure(tok: str, nxt: str) -> bool:
+    """Cifra = número de ≥ 2 dígitos (o con decimales/%) que NO es año ni día de una fecha ('29 de agosto')."""
+    core = tok.strip("()'\".,;:")
+    if not re.fullmatch(r"\d[\d.,]*%?", core) or _YEAR_RE.fullmatch(core):
+        return False
+    if not (len(re.sub(r"\D", "", core)) >= 2 or re.search(r"[.,]\d|%", core)):
+        return False
+    return not (nxt == "de" and len(core) <= 2)               # día de fecha: "29 de agosto"
+
+
+def build_headline(fact: str, max_words: int | None = None) -> str:
+    """Titular del recorte = fragmento LITERAL del fact (≤ max_words palabras).
+
+    Cláusulas = cortes en , . ; : seguidos de espacio. Si alguna cláusula tiene cifra, se usa la primera con
+    cifra y la ventana de palabras incluye la cifra y la palabra que la sigue (unidad); si no, la primera
+    cláusula. Se quitan palabras funcionales y paréntesis desbalanceados de los bordes. "" si no queda nada.
+    """
+    max_words = max_words or gfx_rules.archive_head_max_words
+    text = re.sub(r"\s+", " ", fact).strip()
+    clauses = [c.strip() for c in re.split(r"[,.;:](?=\s|$)", text) if c.strip()]
+    if not clauses:
+        return ""
+    target, fig_i = clauses[0], None
+    for c in clauses:
+        ws = c.split()
+        idx = next((i for i, w in enumerate(ws) if _is_figure(w, ws[i + 1].lower() if i + 1 < len(ws) else "")), None)
+        if idx is not None:
+            target, fig_i = c, idx
+            break
+    ws = target.split()
+    start = 0 if fig_i is None else max(0, min(fig_i + 2 - max_words, len(ws) - max_words))
+    full = ws
+    ws = ws[start:start + max_words]
+    # una fecha ("29 de agosto de 2005") no se parte: si la ventana corta dentro de una, se corta antes
+    end = start + len(ws)
+    for m in re.finditer(rf"\b\d{{1,2}} de {_MONTHS}(?: de \d{{4}})?", target, re.IGNORECASE):
+        d0 = len(target[:m.start()].split())
+        d1 = d0 + len(m.group(0).split())
+        if d0 < end < d1 and d0 > start:
+            ws = full[start:d0]
+
+    def _edge_bad(w: str) -> bool:
+        return w.lower().strip("'\"") in _HEAD_EDGE_STOP or w.count("(") != w.count(")")
+    # paréntesis desbalanceados en la ventana: cortar antes del "(" abierto
+    opened = next((i for i, w in enumerate(ws) if "(" in w and not any(")" in v for v in ws[i:])), None)
+    if opened is not None and opened > 0:
+        ws = ws[:opened]
+    while ws and _edge_bad(ws[-1]):
+        ws.pop()
+    head = " ".join(ws)
+    return head if head and _literal_in(head, fact) else ""
+
+
+def build_kicker(fact: str, source: str, headline: str) -> str:
+    """Kicker = fuente del fact ('Organización, año') o, si no hay, el año del fact (si no está ya en el titular)."""
+    if source:
+        return source                                          # prefijo literal de sources[] (pasa el candado)
+    y = fact_year(fact)
+    return str(y) if y and str(y) not in headline else ""
+
+
+def zoom_anchor(z: dict[str, Any], words: list[dict], scene: Any, time_offset: float = 0.0) -> str:
+    """F2b §1.2: frase ancla del zoom = palabras LITERALES de la voz [anchor_word_idx, +anchor_len), 1–6 palabras,
+    dichas dentro de la escena del zoom (± 1 s). "" si no hay ancla válida."""
+    try:
+        i, n = int(z.get("anchor_word_idx")), int(z.get("anchor_len") or 0)
+    except (TypeError, ValueError):
+        return ""
+    if scene is None or not words or not (0 <= i < len(words)) or not (1 <= n <= 6) or i + n > len(words):
+        return ""
+    t = float(words[i]["start"]) + time_offset
+    if not (scene.start - 1.0 <= t <= scene.end + 0.5):
+        return ""
+    phrase = " ".join(str(w.get("word", "")).strip() for w in words[i:i + n])
+    return re.sub(r"[.,;:!?…]+$", "", phrase).strip()
+
+
 def _literal_in(fragment: str, fact: str) -> bool:
     return bool(normalize(fragment)) and normalize(fragment) in normalize(fact)
 
@@ -337,11 +422,14 @@ def _shown_in_image(text: str, image_text: str) -> bool:
 
 def validate_plan(raw: dict[str, Any], *, n_facts: int, n_words: int, scenes: list[Any],
                   facts: list[str], log: list[str] | None = None,
-                  eligible: dict[int, bool] | None = None) -> dict[str, Any]:
+                  eligible: dict[int, bool] | None = None, words: list[dict] | None = None,
+                  time_offset: float = 0.0, fact_source: dict[int, str] | None = None) -> dict[str, Any]:
     """Valida y repara el plan crudo del LLM. Descarta lo inválido; nunca lanza.
 
     eligible: {fact_idx: foráneo} del cap (F2 §1). None = todos elegibles (compat).
     Un fact no elegible se descarta; uno foráneo solo vale para data_callout.
+    F2b §1.1: el titular/kicker del recorte los arma el validador (lo que mande el LLM se ignora).
+    F2b §1.2: el zoom necesita una frase ancla de la voz (words) dicha dentro de su escena; sin ancla → sin zoom.
     """
     log = log if log is not None else []
     if not isinstance(raw, dict):
@@ -397,8 +485,11 @@ def validate_plan(raw: dict[str, Any], *, n_facts: int, n_words: int, scenes: li
         if not isinstance(a, dict):
             continue
         fi, si = _fact(a.get("fact_idx"), "archive"), _idx(a.get("scene_idx"), n_scenes)
-        head, kick = str(a.get("headline", "")).strip(), str(a.get("kicker", "")).strip()
-        if fi is None or si is None:
+        head = build_headline(facts[fi]) if fi is not None else ""
+        kick = build_kicker(facts[fi], (fact_source or {}).get(fi, ""), head) if fi is not None else ""
+        if fi is not None and not head:
+            log.append(f"archive descartado (fact {fi} sin titular armable)")
+        elif fi is None or si is None:
             log.append(f"archive descartado (índice): {a}")
         elif scenes[si].duration < gfx_rules.archive_min_scene:
             log.append(f"archive descartado (escena {si} dura {scenes[si].duration:.1f}s)")
@@ -417,13 +508,17 @@ def validate_plan(raw: dict[str, Any], *, n_facts: int, n_words: int, scenes: li
 
     z = raw.get("evidence_zoom") or {}
     if isinstance(z, dict) and z.get("use") and max_per_cap("evidence_zoom") > 0:
-        si, box = _idx(z.get("scene_idx"), n_scenes), clamp_box(z.get("box") or [])
-        if si is None or box is None:
-            log.append(f"zoom descartado (índice/box): {z}")
+        si = _idx(z.get("scene_idx"), n_scenes)
+        anchor = zoom_anchor(z, words or [], scenes[si] if si is not None else None, time_offset)
+        if si is None:
+            log.append(f"zoom descartado (índice): {z}")
         elif scenes[si].duration < gfx_rules.zoom_min_scene:
             log.append(f"zoom descartado (escena {si} dura {scenes[si].duration:.1f}s)")
+        elif not anchor:
+            log.append(f"zoom descartado (sin frase ancla de la voz dentro de la escena {si}): {z}")
         else:
-            plan["evidence_zoom"] = {"scene_idx": si, "box": box}
+            # el box lo pone visión (apply_zoom_vision) buscando ESA frase; sin box de visión no hay zoom
+            plan["evidence_zoom"] = {"scene_idx": si, "anchor": anchor, "box": None}
 
     cu = raw.get("count_up") or {}
     if isinstance(cu, dict) and cu.get("use") and max_per_cap("count_up") > 0:
@@ -570,7 +665,8 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
             log.append(f"zoom omitido (escena {ez['scene_idx']} demasiado corta para acercar + sostener)")
         elif _free(a, sc.end):
             busy.append((a, sc.end))
-            out["evidence_zoom"] = {"scene_idx": ez["scene_idx"], "box": ez["box"], "start": round(a, 3)}
+            out["evidence_zoom"] = {"scene_idx": ez["scene_idx"], "box": ez["box"], "start": round(a, 3),
+                                  "anchor": ez.get("anchor", "")}
         else:
             log.append("zoom omitido (el final de su escena choca con otro bloque)")
 
@@ -789,46 +885,53 @@ def fill_gaps(out: dict[str, Any], busy: list[tuple[float, float]], *, ctx: dict
 #  F2 §1: box del zoom por visión (patrón zoom_judge: Flash vision, temp 0, schema, fail-safe)
 # ═══════════════════════════════════════════════════════════════
 
-_ZOOM_SYSTEM = """Mirás UN fotograma de un documental. Elegí el detalle visual más interesante y concreto para
-acercar la cámara (un objeto, una marca, un texto, una textura reveladora), que NO sea un rostro humano.
-Devolvé su caja normalizada [x, y, w, h] (0–1, origen arriba a la izquierda), de lado entre 0.06 y 0.25.
-Si no hay ningún detalle que valga un acercamiento (imagen vacía, solo cielo, solo una cara), present=false."""
+# F2b §1.2: visión busca EL detalle que nombra la voz (no "lo más interesante"). Sin eso → sin zoom.
+_ZOOM_SYSTEM = """Mirás UN fotograma de un documental y una FRASE de la narración que nombra un detalle.
+Buscá en el fotograma ESE detalle exacto (no otro). Si está visible con claridad, devolvé su caja normalizada
+[x, y, w, h] (0–1, origen arriba a la izquierda), de lado entre 0.06 y 0.25, y tu confianza 0–1 de que la caja
+muestra lo que dice la frase. Si el detalle no se ve, es ambiguo o solo hay un rostro entero, present=false."""
 
 _ZOOM_SCHEMA: dict[str, Any] = {
     "type": "OBJECT",
     "properties": {"present": {"type": "BOOLEAN"}, "box": {"type": "ARRAY", "items": {"type": "NUMBER"}},
-                   "detalle": {"type": "STRING"}},
-    "required": ["present", "box", "detalle"],
+                   "confianza": {"type": "NUMBER"}, "detalle": {"type": "STRING"}},
+    "required": ["present", "box", "confianza", "detalle"],
 }
 
 
-def judge_zoom_box(image_path: Path) -> dict[str, Any]:
-    """1 call Flash vision. {box: [x,y,w,h] | None, detalle}. Fail-safe: error → box None (sin zoom)."""
+def judge_zoom_box(image_path: Path, anchor: str) -> dict[str, Any]:
+    """1 call Flash vision. {box | None, confianza, detalle}. Fail-safe: error → box None (sin zoom)."""
     try:
         from google.genai import types as genai_types
         from config import api, gemini_client
         resp = gemini_client.models.generate_content(
             model=api.gemini_model,
             contents=[genai_types.Part.from_bytes(data=image_path.read_bytes(), mime_type="image/jpeg"),
-                      "Elegí el detalle para el acercamiento. Devolvé solo el JSON."],
+                      f'FRASE: "{anchor}". Devolvé solo el JSON.'],
             config=genai_types.GenerateContentConfig(system_instruction=_ZOOM_SYSTEM, temperature=0.0,
                                                      response_mime_type="application/json",
                                                      response_schema=_ZOOM_SCHEMA))
         cost_tracker.track_gemini_vision(description=f"gfx_zoom_box:{image_path.stem}", calls=1)
         data = json.loads(resp.text)
         box = clamp_box(data.get("box") or []) if data.get("present") else None
-        return {"box": box, "detalle": str(data.get("detalle", ""))[:120]}
+        conf = max(0.0, min(1.0, float(data.get("confianza") or 0.0)))
+        return {"box": box, "confianza": round(conf, 2), "detalle": str(data.get("detalle", ""))[:120]}
     except Exception as e:  # noqa: BLE001 — sin visión no hay zoom (conservador)
         error_handler.log_warning(PipelineStage.ASSEMBLY, f"[gfx_director] zoom box falló ({e}) → sin zoom")
-        return {"box": None, "detalle": f"error: {e}"}
+        return {"box": None, "confianza": 0.0, "detalle": f"error: {e}"}
 
 
 def apply_zoom_vision(plan: dict[str, Any], *, frame_for_scene: Any, cache: Path, log: list[str]) -> dict[str, Any]:
-    """Reemplaza el box del LLM por el de visión (cacheado por escena). box None → sin zoom en el cap."""
+    """Box del zoom = visión buscando la frase ancla (cache por escena + ancla). Sin box o confianza
+    < zoom_conf_min → sin zoom en el cap. El umbral se aplica al leer (cambiarlo no re-llama)."""
     ez = plan.get("evidence_zoom")
     if not ez:
         return plan
-    key = str(ez["scene_idx"])
+    anchor = str(ez.get("anchor") or "")
+    if not anchor:
+        log.append("zoom omitido (sin frase ancla)")
+        return {**plan, "evidence_zoom": None}
+    key = f"{ez['scene_idx']}|{anchor}"
     data: dict[str, Any] = {}
     if cache.exists():
         try:
@@ -837,24 +940,27 @@ def apply_zoom_vision(plan: dict[str, Any], *, frame_for_scene: Any, cache: Path
             data = {}
     if key not in data:
         img = frame_for_scene(ez["scene_idx"])
-        data[key] = judge_zoom_box(img) if img else {"box": None, "detalle": "sin frame"}
+        data[key] = judge_zoom_box(img, anchor) if img else {"box": None, "confianza": 0.0, "detalle": "sin frame"}
         cache.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
     v = data[key]
-    if v.get("box") is None:
-        log.append(f"zoom omitido (visión: sin detalle en escena {key} — {v.get('detalle', '')})")
+    conf = float(v.get("confianza") or 0.0)
+    if v.get("box") is None or conf < gfx_rules.zoom_conf_min:
+        log.append(f"zoom omitido (visión: '{anchor}' no encontrado en escena {ez['scene_idx']} — "
+                   f"conf {conf:.2f} < {gfx_rules.zoom_conf_min} o sin box; {v.get('detalle', '')})")
         return {**plan, "evidence_zoom": None}
-    log.append(f"zoom box por visión escena {key}: {v['box']} ({v.get('detalle', '')})")
-    return {**plan, "evidence_zoom": {**ez, "box": v["box"]}}
+    log.append(f"zoom box por visión escena {ez['scene_idx']} '{anchor}': {v['box']} conf {conf:.2f} ({v.get('detalle', '')})")
+    return {**plan, "evidence_zoom": {**ez, "box": v["box"], "confidence": conf}}
 
 
 # ═══════════════════════════════════════════════════════════════
 #  Entry point
 # ═══════════════════════════════════════════════════════════════
 
-DIRECTOR_VERSION = "v1.1"      # v1.1 = + chapter_question (F2 §0d)        # cambia el prompt → el cache crudo de una versión anterior se re-llama
+# cambia el prompt → el cache crudo de una versión anterior se re-llama
+DIRECTOR_VERSION = "v1.5"      # v1.1 = + chapter_question (F2 §0d) · v1.5 = titular determinista + zoom con ancla (F2b §1)
 
 def select_gfx_plan(chplan: Any, *, ctx: dict[str, Any], words: list[dict], scenes: list[Any],
-                    work_dir: Path, log: list[str] | None = None) -> dict[str, Any]:
+                    work_dir: Path, log: list[str] | None = None, time_offset: float = 0.0) -> dict[str, Any]:
     """1 call Flash por cap → plan validado (índices).
 
     Cache en work_dir/gfx_plan_chXX.json = respuesta CRUDA del LLM (se re-valida en cada carga,
@@ -864,7 +970,8 @@ def select_gfx_plan(chplan: Any, *, ctx: dict[str, Any], words: list[dict], scen
     log = log if log is not None else []
     cache = work_dir / f"gfx_plan_{chplan.chapter_id}.json"
     kw = dict(n_facts=len(ctx["facts"]), n_words=len(words), scenes=scenes, facts=ctx["facts"], log=log,
-              eligible=ctx.get("eligible"))
+              eligible=ctx.get("eligible"), words=words, time_offset=time_offset,
+              fact_source=ctx.get("fact_source"))
     raw: Any = None
     if cache.exists():
         try:

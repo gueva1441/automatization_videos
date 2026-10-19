@@ -24,13 +24,13 @@ def test_inventario_cubre_doc_maestro_v1():
     assert gc.VALID_BLOCKS == esperados
     # deterministas: el LLM no los elige
     assert "shot_transition" not in gc.LLM_BLOCKS and "grade" not in gc.LLM_BLOCKS
-    assert "source_tag" not in gc.LLM_BLOCKS and "chapter_question" in gc.LLM_BLOCKS
+    assert "source_tag" not in gc.LLM_BLOCKS and "chapter_question" not in gc.LLM_BLOCKS   # F2b §1.3: OFF en misterio
 
 
 def test_prompt_incluye_todos_los_bloques():
     txt = gc.render_inventory_for_prompt()
     for b in gc.GFX_INVENTORY:
-        assert f"- {b.name} " in txt
+        assert (f"- {b.name} " in txt) == b.enabled          # apagado en el perfil → el LLM ni lo ve
     assert "NO lo elegís" in txt
 
 
@@ -64,7 +64,7 @@ def test_calibracion_f2_0b():
     r = gc.gfx_rules
     assert r.grade_default == "off"                                  # §0b.1
     off = gc.GRADE_VARIANTS["off"]["opacity"]
-    assert off["gr-grain"] == 0.15 and off["gr-vignette"] == 0.20
+    assert off["gr-grain"] == 0.0 and off["gr-vignette"] == 0.15      # F2b §1.6: look aprobado (grano 0, viñeta 0.15)
     assert all(v == 0 for k, v in off.items() if k not in ("gr-grain", "gr-vignette"))
     assert r.title_dur == 3.0 and r.title_scale == 0.7 and r.title_fade_out == 0.4      # §0b.2
     assert r.punch_scale == 1.025 and r.punch_in_sec == 0.4 and r.punch_hold             # §0b.3
