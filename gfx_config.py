@@ -253,6 +253,19 @@ class GfxRules:
     flash_min_gap_sec: float = 20.0
     r1_cut_punch_scale: float = 1.02
     # grade (F2 §0b.1: OFF por default → solo grano 0.15 + viñeta 0.20; recetas A/B/C inactivas)
+    # animaciones firma (F2 §2; portadas de lab/hyperframes/f1/text_sampler)
+    anim_name_place: str = "cascade"         # data_callout kind=name/place
+    anim_year: str = "stamp"                 # data_callout kind=year
+    anim_figure: str = "number_pop"          # data_callout kind=figure + count_up
+    anim_archive_head: str = "cascade"
+    anim_detail_label: str = "stamp"         # etiqueta "DETALLE"
+    cascade_stagger: float = 0.025           # 25 ms por letra
+    cascade_rise_px: int = 60
+    stamp_from_scale: float = 1.4
+    stamp_rotation: float = -3.0
+    stamp_sec: float = 0.18
+    pop_from_scale: float = 1.08
+    pop_sec: float = 0.25
     # chapter_question / source_tag / sfx (F2 §0d)
     question_dur: float = 2.3                # 2.0–2.5 s al cierre del cap
     question_dim: float = 0.5

@@ -18,6 +18,12 @@
       .callout.right { right: 160px; text-align: right; }
       .callout.right .co-rule { margin-left: auto; transform-origin: right center; }
       .co-mask { overflow: hidden; padding-bottom: 6px; }
+      /* animaciones firma (F2 §2): cascade = palabras sin corte + letras inline-block; stamp = sello en el acento */
+      .w { display: inline-block; white-space: nowrap; }
+      .ch { display: inline-block; }
+      .callout .co-text.stamp { border: 8px solid ${accent}; color: ${accent}; padding: 6px 26px; text-shadow: none;
+                       background: rgba(10,10,10,.35); white-space: nowrap; font-size: ${stamp_px}px; }
+      .callout .co-mask.stamped { overflow: visible; padding: 14px 10px 6px; }
       .co-text { display: inline-block; color: #f4f1ea; text-shadow: ${callout_shadow}; }
       .co-text.anton { font: 400 ${callout_anton_px}px/1.02 "${figure_font}", sans-serif; text-transform: uppercase; }
       .co-text.serif { font: ${callout_font_weight} ${callout_font_px}px/1.05 "${callout_font}", serif; }
@@ -46,7 +52,8 @@
       .ar-body { margin-top: 18px; font-weight: 400; font-size: ${archive_body_px}px; line-height: 1.3;
                  max-height: calc(${archive_body_lines} * 1.3em); overflow: hidden; }
       /* evidence_zoom (etiqueta) */
-      .zlabel { position: absolute; color: #f4f1ea; font: 700 46px/1 "Courier New", monospace; letter-spacing: .35em; text-shadow: 0 2px 10px #000; }
+      .zlabel { position: absolute; color: ${accent}; font: 400 46px/1 "${figure_font}", sans-serif; letter-spacing: .35em;
+                border: 5px solid ${accent}; padding: 8px 6px 8px 22px; text-shadow: none; background: rgba(10,10,10,.35); }
       .zrect { position: absolute; border: 3px solid #f4f1ea; box-shadow: 0 0 0 1px rgba(0,0,0,.35); }
       /* shot_transition R1 */
       .flash { position: absolute; inset: 0; background: #f4f1ea; }

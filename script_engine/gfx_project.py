@@ -59,6 +59,40 @@ def _esc(text: str) -> str:
     return html.escape(text, quote=True)
 
 
+def chars_html(text: str) -> str:
+    """Texto → palabras (.w, sin corte interno) de letras (.ch) para la animación cascade."""
+    words = []
+    for w in text.split(" "):
+        words.append('<span class="w">' + "".join(f'<span class="ch">{_esc(c)}</span>' for c in w) + "</span>")
+    return " ".join(words)
+
+
+def callout_anim(kind: str) -> str:
+    """Animación firma por tipo de dato (F2 §2)."""
+    if kind == "year":
+        return gfx_rules.anim_year
+    if kind == "figure":
+        return gfx_rules.anim_figure
+    return gfx_rules.anim_name_place
+
+
+def _anim_in_js(sel: str, anim: str, t: float) -> tuple[list[str], list[str]]:
+    """(init, timeline) de entrada de un texto. Sin letter-spacing animado (lint)."""
+    r = gfx_rules
+    if anim == "cascade":
+        return ([f'      gsap.set("{sel} .ch", {{ opacity: 0, y: {r.cascade_rise_px} }});'],
+                [f'      tl.to("{sel} .ch", {{ opacity: 1, y: 0, duration: .45, ease: "power3.out", stagger: {r.cascade_stagger} }}, {t:.3f});'])
+    if anim == "stamp":
+        return ([f'      gsap.set("{sel}", {{ opacity: 0, scale: {r.stamp_from_scale}, rotation: {r.stamp_rotation}, transformOrigin: "30% 50%" }});'],
+                [f'      tl.to("{sel}", {{ opacity: 1, scale: 1, duration: {r.stamp_sec}, ease: "power4.in" }}, {t:.3f});'])
+    if anim == "number_pop":
+        return ([f'      gsap.set("{sel}", {{ opacity: 0, scale: {r.pop_from_scale}, transformOrigin: "50% 60%" }});'],
+                [f'      tl.to("{sel}", {{ opacity: 1, duration: .12, ease: "none" }}, {t:.3f})'
+                 f'.to("{sel}", {{ scale: 1, duration: {r.pop_sec}, ease: "power2.out" }}, {t:.3f});'])
+    return ([f'      gsap.set("{sel}", {{ yPercent: 105 }});'],                         # slide (F1)
+            [f'      tl.to("{sel}", {{ yPercent: 0, duration: .38, ease: "power3.out" }}, {t:.3f});'])
+
+
 def _source_html(source: str) -> str:
     """source_tag (F2 §0d): 1 línea bajo el callout/contador; vacío si el fact no tiene fuente resoluble."""
     return f'        <div class="co-src">{_esc(source)}</div>\n' if source else ""
@@ -219,11 +253,17 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
         inner.append(_tpl("evidence_zoom.html.tmpl").substitute(n=tag, x=f"{x:.0f}", y=f"{y:.0f}", w=f"{w:.0f}", h=f"{h:.0f}"))
         outer.append(f'    <div id="zl{tag}" class="zlabel clip" data-start="{z0:.3f}" data-duration="{rest:.3f}" '
                      f'style="left:{lx:.0f}px;top:{ly:.0f}px">DETALLE</div>')
-        init.append(f'        gsap.set("#vw{tag}", {{ transformOrigin: "{cx:.1f}px {cy:.1f}px" }}); gsap.set("#zl{tag}", {{ opacity: 0 }});')
+        if gfx_rules.anim_detail_label == "stamp":   # F2 §2: "DETALLE" entra como sello
+            init.append(f'        gsap.set("#vw{tag}", {{ transformOrigin: "{cx:.1f}px {cy:.1f}px" }});'
+                        f' gsap.set("#zl{tag}", {{ opacity: 0, scale: {gfx_rules.stamp_from_scale}, rotation: {gfx_rules.stamp_rotation} }});')
+        else:
+            init.append(f'        gsap.set("#vw{tag}", {{ transformOrigin: "{cx:.1f}px {cy:.1f}px" }}); gsap.set("#zl{tag}", {{ opacity: 0 }});')
         r0, ap = gfx_rules.zoom_rect_sec, gfx_rules.zoom_approach_sec
         js.append(f'        tl.to("#zr{tag}", {{ opacity: 1, duration: .3 }}, {z0 + .25:.3f})'
                   f'.to("#vw{tag}", {{ scale: {S}, x: {tx:.1f}, y: {ty:.1f}, duration: {ap}, ease: "power3.inOut" }}, {z0 + r0:.3f})'
-                  f'.to("#zl{tag}", {{ opacity: 1, duration: .25 }}, {z0 + r0 + ap - .1:.3f});')
+                  + (f'.to("#zl{tag}", {{ opacity: 1, scale: 1, rotation: 0, duration: {gfx_rules.stamp_sec}, ease: "power4.in" }}, {z0 + r0 + ap - .1:.3f});'
+                     if gfx_rules.anim_detail_label == "stamp" else
+                     f'.to("#zl{tag}", {{ opacity: 1, duration: .25 }}, {z0 + r0 + ap - .1:.3f});'))
 
     return _tpl("scene.html.tmpl").substitute(
         n=tag, duration=f"{s.duration:.3f}", width=width, height=height,
@@ -329,6 +369,7 @@ def render_css(width: int, height: int) -> str:
         callout_anton_px=r.callout_anton_px, callout_shadow=r.callout_shadow,
         title_font=r.title_font, figure_font=r.figure_font, clipping_font=r.clipping_font,
         source_px=round(r.callout_anton_px * r.source_tag_scale), question_px=r.question_font_px,
+        stamp_px=round(r.callout_font_px * 0.62),   # el sello va en una sola línea (fechas largas)
         ar_scale=ars, ar_w=min(round(1100 * ars), round(width * r.archive_max_w_frac)), ar_pad_v=round(50 * ars), ar_pad_h=round(60 * ars),
         ar_pad_b=round(60 * ars), ar_kicker_px=round(34 * ars), ar_head_px=round(84 * ars))
 
@@ -395,12 +436,17 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         dur = c.get("duration", gfx_rules.callout_dur)
         st = min(c["start"], max(0.0, duration - dur))
         face = "anton" if c.get("kind") == "figure" else "serif"
+        anim = callout_anim(c.get("kind", ""))
+        text_html = chars_html(c["text"]) if anim == "cascade" else _esc(c["text"])
+        face_cls = f"{face} stamp" if anim == "stamp" else face
         overlays.append(_tpl("data_callout.html.tmpl").substitute(
-            i=i, start=f"{st:.3f}", duration=f"{dur:.3f}", text=_esc(c["text"]),
-            side=c.get("side", "left"), face=face, source_html=_source_html(c.get("source", ""))))
-        init.append(f'      gsap.set("#co{i} .co-text", {{ yPercent: 105 }}); gsap.set("#co{i} .co-rule", {{ scaleX: 0 }});')
-        js.append(f'      tl.to("#co{i} .co-text", {{ yPercent: 0, duration: .38, ease: "power3.out" }}, {st:.3f})'
-                  f'.to("#co{i} .co-rule", {{ scaleX: 1, duration: .5, ease: "power3.inOut" }}, {st + .08:.3f})'
+            i=i, start=f"{st:.3f}", duration=f"{dur:.3f}", text=text_html,
+            side=c.get("side", "left"), face=face_cls, mask_cls="co-mask stamped" if anim == "stamp" else "co-mask",
+            source_html=_source_html(c.get("source", ""))))
+        a_init, a_js = _anim_in_js(f"#co{i} .co-text", anim, st)
+        init += a_init + [f'      gsap.set("#co{i} .co-rule", {{ scaleX: 0 }});']
+        js += a_js
+        js.append(f'      tl.to("#co{i} .co-rule", {{ scaleX: 1, duration: .5, ease: "power3.inOut" }}, {st + .08:.3f})'
                   f'.to("#co{i}", {{ opacity: 0, duration: .35, ease: "power1.in" }}, {st + dur - .35:.3f});')
 
     # ── count_up (cifra literal del fact, Anton)
@@ -419,6 +465,11 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
                       f' tl.to(cuObj, {{ v: cuSpec.value, duration: {gfx_rules.count_dur}, ease: "power2.out",'
                       ' onUpdate: function () { document.getElementById("cu-num").textContent = cuFmt(cuObj.v); } },'
                       f' {st:.3f}); tl.to("#cu", {{ opacity: 0, duration: .3 }}, {st + dur - .3:.3f});')
+            if gfx_rules.anim_figure == "number_pop":            # F2 §2: golpe 1.08 → 1.0 al llegar al valor
+                t_hit = st + gfx_rules.count_dur
+                js.append(f'      tl.fromTo("#cu-num", {{ scale: {gfx_rules.pop_from_scale} }}, {{ scale: 1, duration: {gfx_rules.pop_sec},'
+                          f' ease: "power2.out", immediateRender: false }}, {t_hit:.3f});')
+                init.append('      gsap.set("#cu-num", { display: "inline-block", transformOrigin: "50% 60%" });')
 
     # ── archive_clipping (F2: hasta 2, 6 s, lado opuesto al sujeto, cuerpo ≥ 52 px, tipografía por década)
     for i, ar in enumerate(archive_list(plan)):
@@ -430,9 +481,14 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
                        else ("'Times New Roman', Times, serif", "#ece6d8"))
         overlays.append(_tpl("archive_clipping.html.tmpl").substitute(
             i=i, start=f"{a0:.3f}", duration=f"{a1 - a0:.3f}", paper=paper, font=font, side=ar.get("side", "right"),
-            kicker=_esc(ar.get("kicker", "")), headline=_esc(ar["headline"]),
+            kicker=_esc(ar.get("kicker", "")),
+            headline=chars_html(ar["headline"]) if gfx_rules.anim_archive_head == "cascade" else _esc(ar["headline"]),
             body_block=(f'          <div class="ar-body">{_esc(ar["body"])}</div>\n' if ar.get("body") else "")))
         init.append(f'      gsap.set("#ar{i}-paper", {{ opacity: 0, y: -40, rotation: -6 }});')
+        if gfx_rules.anim_archive_head == "cascade":
+            h_init, h_js = _anim_in_js(f"#ar{i} .ar-head", "cascade", a0 + .35)
+            init += h_init
+            js += h_js
         js.append(f'      tl.to("#ar{i}-paper", {{ opacity: 1, y: 0, rotation: -2.5, duration: .6, ease: "power3.out" }}, {a0:.3f})'
                   f'.to("#ar{i}-paper", {{ opacity: 0, y: 20, duration: .4, ease: "power1.in" }}, {a1 - .4:.3f});')
 
