@@ -1,0 +1,14 @@
+{
+ "concat_windowed_sec": 62.3,
+ "frames_new": 20583,
+ "frames_ref": 20583,
+ "psnr_global_y": "41.158556",
+ "psnr_global_avg": "42.754332",
+ "psnr_sin_ch04_y": 44.78,
+ "psnr_sin_ch04_avg": 46.23,
+ "ch04_excluido_s": [
+  284.87,
+  401.0
+ ],
+ "psnr_calc_sec": 58.0
+}

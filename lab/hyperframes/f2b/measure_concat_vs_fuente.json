@@ -1,0 +1,28 @@
+{
+ "fuente": "seg_02_ch02.mp4",
+ "ch02_inicio_en_final_s": 35.5,
+ "viejo_xfade_encadenado_s5-60": {
+  "y": "47.255676",
+  "u": "52.401787",
+  "v": "54.540794",
+  "avg": "48.512197"
+ },
+ "viejo_xfade_encadenado_s20-60": {
+  "y": "47.391919",
+  "u": "52.480814",
+  "v": "54.756889",
+  "avg": "48.647812"
+ },
+ "nuevo_por_ventanas_s5-60": {
+  "y": "58.636116",
+  "u": "63.690345",
+  "v": "64.742429",
+  "avg": "59.830440"
+ },
+ "nuevo_por_ventanas_s20-60": {
+  "y": "inf",
+  "u": "inf",
+  "v": "inf",
+  "avg": "inf"
+ }
+}

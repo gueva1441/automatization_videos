@@ -264,6 +264,166 @@ def _concat_demuxer_fallback(
 
 
 # ═══════════════════════════════════════════════════════════════
+#  F2b §4: CONCAT POR VENTANAS (re-encode solo alrededor de cada frontera)
+# ═══════════════════════════════════════════════════════════════
+# El xfade encadenado re-encodea el video ENTERO (~15 min a 1440p). Acá el resultado tiene la MISMA
+# línea de tiempo (Σ duraciones − Σ transiciones) pero:
+#   - cada segmento se parte por COPIA en sus keyframes (muxer segment, sin decodificar);
+#   - solo se re-encodea una ventana por frontera: [último keyframe ≤ fin − t − w del saliente,
+#     primer keyframe ≥ t + w del entrante], con el xfade adentro y los MISMOS parámetros de encode
+#     que los segmentos (mismo SPS → el concat por copia es válido);
+#   - las piezas (cuerpos copiados + ventanas) se pegan con el concat demuxer y `-c copy` (MPEG-TS);
+#   - el audio se arma aparte con acrossfade encadenado (audio solo, barato) y se muxea al final.
+# Deja en work_dir `_concat_video.ts` y `_concat_audio.wav` para que la mezcla de música no re-encodee video.
+
+WINDOW_SEC: float = 1.0                      # ± alrededor de cada transición (spec: ±1 s)
+
+
+@dataclass(frozen=True)
+class SegmentInfo:
+    path: Path
+    frames: int
+    fps: float
+    keyframes: tuple[float, ...]             # pts (s) de los keyframes de video
+
+    @property
+    def duration(self) -> float:
+        return self.frames / self.fps
+
+
+def probe_segment(path: Path, ffprobe: str) -> SegmentInfo:
+    """Frames, fps y keyframes del video (por paquetes: sin decodificar)."""
+    r = _run_cmd([ffprobe, "-v", "error", "-select_streams", "v:0", "-count_packets", "-show_entries",
+                  "stream=nb_read_packets,r_frame_rate", "-of", "json", str(path)], timeout=120)
+    if r.returncode != 0:
+        raise RuntimeError(f"ffprobe {path.name}: {r.stderr[-200:]}")
+    st = json.loads(r.stdout)["streams"][0]
+    num, den = (int(x) for x in st["r_frame_rate"].split("/"))
+    k = _run_cmd([ffprobe, "-v", "error", "-select_streams", "v:0", "-show_entries", "packet=pts_time,flags",
+                  "-of", "csv=p=0", str(path)], timeout=300)
+    kfs = sorted(float(a) for a, f in (ln.split(",")[:2] for ln in k.stdout.split() if "," in ln) if "K" in f)
+    return SegmentInfo(path, int(st["nb_read_packets"]), num / den, tuple(kfs))
+
+
+def plan_windows(infos: list[SegmentInfo], trans: list[float], window_sec: float = WINDOW_SEC
+                 ) -> list[tuple[float, float]] | None:
+    """Por segmento i: (inicio, fin) del CUERPO que se copia, alineado a keyframes. None si algún
+    segmento no deja cuerpo (fronteras demasiado cerca) → el caller usa el concat clásico."""
+    bodies = []
+    for i, s in enumerate(infos):
+        a = 0.0
+        if i > 0:                                       # primer keyframe ≥ t + w (lo anterior va a la ventana)
+            a = next((k for k in s.keyframes if k >= trans[i - 1] + window_sec - 1e-6), None)
+        b = s.duration
+        if i < len(infos) - 1:                          # último keyframe ≤ fin − t − w
+            b = next((k for k in reversed(s.keyframes) if k <= s.duration - trans[i] - window_sec + 1e-6), None)
+        if a is None or b is None or b - a < 1.0 / s.fps:
+            return None
+        bodies.append((a, b))
+    return bodies
+
+
+def _split_copy(seg: SegmentInfo, cuts: list[float], out_dir: Path, tag: str, ffmpeg: str) -> list[Path]:
+    """Parte el video del segmento por COPIA en los keyframes `cuts` → piezas .ts en orden."""
+    eps = 0.25 / seg.fps                                # el muxer corta en el 1er keyframe ≥ t
+    pattern = out_dir / f"_cw_{tag}_%02d.ts"
+    cmd = [ffmpeg, "-v", "error", "-y", "-i", str(seg.path), "-map", "0:v:0", "-c", "copy", "-an",
+           "-f", "segment", "-reset_timestamps", "1", "-segment_format", "mpegts"]
+    if cuts:
+        cmd += ["-segment_times", ",".join(f"{max(0.0, c - eps):.6f}" for c in cuts)]
+    r = _run_cmd(cmd + [str(pattern)], timeout=600)
+    if r.returncode != 0:
+        raise RuntimeError(f"split por copia {seg.path.name}: {r.stderr[-300:]}")
+    return sorted(out_dir.glob(f"_cw_{tag}_*.ts"))
+
+
+def concat_windowed(
+    segments: list[Path],
+    final_path: Path,
+    work_dir: Path,
+    art_profiles: list[str | None],
+    ffmpeg: str,
+    ffprobe: str,
+    venc: list[str],
+    window_sec: float = WINDOW_SEC,
+) -> Path:
+    """Mismo resultado temporal que concat_with_transitions, re-encodeando solo ventanas de frontera.
+
+    venc: args del encoder de video de los segmentos (fase2b._venc()): las ventanas DEBEN salir con el
+    mismo encoder para que el concat por copia sea válido. Lanza si algo falla (el caller cae al clásico).
+    """
+    if len(segments) < 2 or not transition_render.enable_transitions:
+        raise ValueError("concat por ventanas: necesita ≥ 2 segmentos y transiciones activas")
+    plans = build_transition_plan(len(segments), art_profiles)
+    infos = [probe_segment(s, ffprobe) for s in segments]
+    fps = infos[0].fps
+    trans = [max(p.duration_seconds, 1.0 / fps) for p in plans]
+    trans = [round(t * fps) / fps for t in trans]       # transición en frames enteros
+    bodies = plan_windows(infos, trans, window_sec)
+    if bodies is None:
+        raise ValueError("concat por ventanas: un segmento no deja cuerpo entre fronteras")
+    tmp = work_dir / "_cw"
+    if tmp.exists():
+        for f in tmp.iterdir():
+            f.unlink()
+    tmp.mkdir(parents=True, exist_ok=True)
+
+    pieces: list[Path] = []
+    for i, (s, (a, b)) in enumerate(zip(infos, bodies)):
+        cuts = [c for c in (a, b) if 0.0 < c < s.duration]
+        parts = _split_copy(s, cuts, tmp, f"s{i:02d}", ffmpeg)
+        # orden de las piezas: [0, a) | [a, b) | [b, fin) → el cuerpo es la del medio (o la primera si a == 0)
+        pieces.append(parts[1] if a > 0 else parts[0])
+        if i < len(infos) - 1:                          # ventana i: cola de s (desde b) + cabeza de s+1 (hasta a')
+            nxt_a = bodies[i + 1][0]
+            tail = s.duration - b
+            win = tmp / f"_cw_w{i:02d}.ts"
+            fc = (f"[0:v]setpts=PTS-STARTPTS[a];[1:v]trim=end={nxt_a:.6f},setpts=PTS-STARTPTS[b];"
+                  f"[a][b]xfade=transition={_xfade_transition_for(plans[i].transition_name)}:"
+                  f"duration={trans[i]:.6f}:offset={tail - trans[i]:.6f},format=yuv420p[v]")
+            r = _run_cmd([ffmpeg, "-v", "error", "-y", "-ss", f"{b:.6f}", "-i", str(s.path), "-i", str(segments[i + 1]),
+                          "-filter_complex", fc, "-map", "[v]", *venc, "-pix_fmt", "yuv420p", "-r", f"{fps:g}",
+                          "-an", "-f", "mpegts", str(win)], timeout=_scaled_timeout(tail + nxt_a, 300))
+            if r.returncode != 0:
+                raise RuntimeError(f"ventana {i}: {r.stderr[-300:]}")
+            pieces.append(win)
+
+    # video: concat por copia de cuerpos + ventanas
+    lst = tmp / "_cw_list.txt"
+    lst.write_text("\n".join(f"file '{p.resolve().as_posix()}'" for p in pieces), encoding="utf-8")
+    video_ts = work_dir / "_concat_video.ts"
+    r = _run_cmd([ffmpeg, "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy",
+                  "-f", "mpegts", str(video_ts)], timeout=900)
+    if r.returncode != 0:
+        raise RuntimeError(f"concat por copia: {r.stderr[-300:]}")
+
+    # audio: acrossfade encadenado (solo audio)
+    parts_a = []
+    for i in range(len(segments) - 1):
+        src = "0:a" if i == 0 else f"a{i}"
+        parts_a.append(f"[{src}][{i + 1}:a]acrossfade=d={trans[i]:.6f}:c1=tri:c2=tri[a{i + 1}]")
+    audio_wav = work_dir / "_concat_audio.wav"
+    cmd = [ffmpeg, "-v", "error", "-y"]
+    for s in segments:
+        cmd += ["-i", str(s)]
+    r = _run_cmd(cmd + ["-filter_complex", ";".join(parts_a), "-map", f"[a{len(segments) - 1}]",
+                        "-c:a", "pcm_s16le", str(audio_wav)], timeout=900)
+    if r.returncode != 0:
+        raise RuntimeError(f"audio acrossfade: {r.stderr[-300:]}")
+
+    # final (sin música): video copiado + audio AAC
+    r = _run_cmd([ffmpeg, "-v", "error", "-y", "-i", str(video_ts), "-i", str(audio_wav), "-map", "0:v:0", "-map", "1:a:0",
+                  "-c:v", "copy", "-c:a", transition_render.audio_codec, "-b:a", "192k", "-movflags", "+faststart",
+                  str(final_path)], timeout=900)
+    if r.returncode != 0:
+        raise RuntimeError(f"mux final: {r.stderr[-300:]}")
+    for f in tmp.iterdir():
+        f.unlink()
+    tmp.rmdir()
+    return final_path
+
+
+# ═══════════════════════════════════════════════════════════════
 #  ENTRY POINT PÚBLICO
 # ═══════════════════════════════════════════════════════════════
 

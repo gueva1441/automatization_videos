@@ -33,6 +33,7 @@ import json
 import shutil
 import subprocess
 import sys
+import time
 from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime
@@ -1686,6 +1687,83 @@ def _mix_music_into_video(
     return output_path
 
 
+def _mix_music_audio_only(
+    work_dir: Path,
+    music_path: Path,
+    sync_map: dict,
+    output_path: Path,
+    music_floor_path: Path | None = None,
+) -> Path:
+    """F2b §4: la misma mezcla que _mix_music_into_video (padding inicial + sidechain + piso), pero SIN
+    re-encodear el video: la música se mezcla como AUDIO solo y el video se remuxea con `-c:v copy`.
+
+    Insumos de concat_windowed en work_dir: `_concat_video.ts` (video) y `_concat_audio.wav` (narración+sfx).
+    El padding inicial (INITIAL_SILENCE_SEC, primer frame clonado = el tpad de antes) es un clip corto
+    codificado con los mismos parámetros que los segmentos y pegado adelante por copia.
+    """
+    assert FFMPEG is not None
+    video_ts, audio_wav = work_dir / "_concat_video.ts", work_dir / "_concat_audio.wav"
+    mixing = sync_map.get("mixing", {})
+    music_volume = float(mixing.get("music_volume", 0.25))
+    music_volume_floor = float(mixing.get("music_volume_floor", 0.0))
+    duck_threshold = float(mixing.get("duck_threshold", 0.03))
+    duck_ratio = float(mixing.get("duck_ratio", 8))
+    duck_attack_ms = float(mixing.get("duck_attack_ms", 80))
+    duck_release_ms = float(mixing.get("duck_release_ms", 200))
+    pad_sec = INITIAL_SILENCE_SEC
+    pad_ms = int(pad_sec * 1000)
+    fps = pipeline.fps
+    print(f"     mixing params: vol={music_volume}, floor={music_volume_floor}, thr={duck_threshold}, "
+          f"ratio={duck_ratio}, atk={duck_attack_ms}ms, rel={duck_release_ms}ms, init_silence={pad_sec}s "
+          f"(F2b: audio solo + remux)")
+
+    # 1. padding inicial: primer frame clonado pad_sec (mismo encoder que los segmentos → concat por copia válido)
+    pad_ts = work_dir / "_pad.ts"
+    n_pad = int(round(pad_sec * fps))
+    r = _run_cmd([FFMPEG, "-v", "error", "-y", "-i", str(video_ts), "-vf",
+                  f"trim=end_frame=1,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop={n_pad - 1}",
+                  "-frames:v", str(n_pad), *_venc(), "-pix_fmt", "yuv420p", "-r", str(fps), "-an",
+                  "-f", "mpegts", str(pad_ts)], timeout=300)
+    if r.returncode != 0:
+        raise RuntimeError(f"padding inicial falló: {r.stderr[-300:]}")
+
+    # 2. audio: el mismo grafo de antes sin la rama de video
+    if music_floor_path is None:
+        graph = (f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
+                 f"[1:a]aresample=44100,asplit=2[music_a][music_b];"
+                 f"[music_a]volume={music_volume}[music_lvl];"
+                 f"[music_lvl][narr_sc]sidechaincompress=threshold={duck_threshold}:ratio={duck_ratio}:"
+                 f"attack={duck_attack_ms}:release={duck_release_ms}[music_ducked];"
+                 f"[music_b]volume={music_volume_floor}[music_floor];"
+                 f"[narr_main][music_ducked][music_floor]amix=inputs=3:duration=longest:dropout_transition=0:normalize=0[mixed]")
+        inputs = ["-i", str(audio_wav), "-i", str(music_path)]
+    else:
+        graph = (f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
+                 f"[1:a]aresample=44100[music_ducked_src];"
+                 f"[music_ducked_src][narr_sc]sidechaincompress=threshold={duck_threshold}:ratio={duck_ratio}:"
+                 f"attack={duck_attack_ms}:release={duck_release_ms}[music_ducked];"
+                 f"[2:a]aresample=44100[music_floor];"
+                 f"[narr_main][music_ducked][music_floor]amix=inputs=3:duration=longest:dropout_transition=0:normalize=0[mixed]")
+        inputs = ["-i", str(audio_wav), "-i", str(music_path), "-i", str(music_floor_path)]
+    mixed = work_dir / "_mixed_audio.m4a"
+    r = _run_cmd([FFMPEG, "-v", "error", "-y", *inputs, "-filter_complex", graph, "-map", "[mixed]",
+                  "-c:a", "aac", "-b:a", "192k", str(mixed)], timeout=900)
+    if r.returncode != 0:
+        raise RuntimeError(f"mezcla de audio falló: {r.stderr[-300:]}")
+
+    # 3. remux: [padding + video] por copia + audio mezclado; -shortest como antes (corta al video)
+    lst = work_dir / "_mux_list.txt"
+    lst.write_text(f"file '{pad_ts.resolve().as_posix()}'\nfile '{video_ts.resolve().as_posix()}'\n", encoding="utf-8")
+    r = _run_cmd([FFMPEG, "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-i", str(mixed),
+                  "-map", "0:v:0", "-map", "1:a:0", "-c", "copy", "-shortest", "-movflags", "+faststart",
+                  str(output_path)], timeout=900)
+    if r.returncode != 0:
+        raise RuntimeError(f"remux final falló: {r.stderr[-300:]}")
+    for f in (pad_ts, mixed, lst):
+        f.unlink(missing_ok=True)
+    return output_path
+
+
 def _load_image_prompts(video_id: str) -> dict[str, str]:
     """{img_stem: prompt} desde assets_manifest.json (images + supplemental_images).
 
@@ -2176,15 +2254,34 @@ def _segment_hash(plan: Any, work_dir: Path, flags: dict[str, Any]) -> str:
     return hashlib.sha256(json.dumps(parts, sort_keys=True, default=str).encode("utf-8")).hexdigest()[:16]
 
 
+# F2b §4: concat por ventanas (re-encode solo ±1 s alrededor de cada frontera) + música como audio solo.
+# --legacy-concat vuelve al xfade encadenado que re-encodea todo (comportamiento previo a F2b).
+_LEGACY_CONCAT: bool = False
+
+
 def _concat_segments(
     segments: list[Path],
     final_path: Path,
     work_dir: Path,
     art_profiles: list[str | None],
 ) -> Path:
-    """Concatena segmentos con transiciones. Fallback a hard cut si falla."""
+    """Concatena segmentos con transiciones. F2b §4: por ventanas (deja _concat_video.ts y _concat_audio.wav
+    para la mezcla de música); si falla o con --legacy-concat → xfade encadenado de siempre."""
     assert FFMPEG is not None
     assert FFPROBE is not None
+    for stale in ("_concat_video.ts", "_concat_audio.wav"):     # insumos de una corrida anterior: nunca se reusan
+        (work_dir / stale).unlink(missing_ok=True)
+    if not _LEGACY_CONCAT and len(segments) >= 2:
+        from script_engine.transition_applier import concat_windowed
+        t0 = time.time()
+        try:
+            out = concat_windowed(segments, final_path, work_dir, art_profiles, FFMPEG, FFPROBE, _venc())
+            print(f"     ⚡ concat por ventanas: {time.time() - t0:.0f}s (solo fronteras re-encodeadas)")
+            return out
+        except Exception as e:  # noqa: BLE001 — el camino clásico sigue disponible
+            print(f"     ⚠ concat por ventanas falló ({type(e).__name__}: {str(e)[:200]}) → xfade encadenado")
+            for stale in ("_concat_video.ts", "_concat_audio.wav"):
+                (work_dir / stale).unlink(missing_ok=True)
     return concat_with_transitions(
         segments=segments,
         final_path=final_path,
@@ -2566,13 +2663,24 @@ def _assemble_one_video(
         # Mezclar con sidechain (paso B). Output: filename canónico final_path.
         # music_floor_path activa la ruta por-cap (volume=1.0, sidechain intacto).
         print(f"     paso B: sidechain mix (por-cap)...")
-        _mix_music_into_video(
-            video_path=no_music_path,
-            music_path=music_ducked_path,
-            sync_map=sync_map,
-            output_path=final_path,
-            music_floor_path=music_floor_path,
-        )
+        t_mix = time.time()
+        windowed = (work_dir / "_concat_video.ts").exists() and (work_dir / "_concat_audio.wav").exists()
+        if windowed:   # F2b §4: audio solo + remux con -c:v copy (el video no se re-encodea)
+            try:
+                _mix_music_audio_only(work_dir=work_dir, music_path=music_ducked_path, sync_map=sync_map,
+                                      output_path=final_path, music_floor_path=music_floor_path)
+            except Exception as e:  # noqa: BLE001 — cae a la mezcla clásica (re-encode)
+                print(f"     ⚠ mezcla audio-solo falló ({type(e).__name__}: {str(e)[:200]}) → mezcla clásica")
+                windowed = False
+        if not windowed:
+            _mix_music_into_video(
+                video_path=no_music_path,
+                music_path=music_ducked_path,
+                sync_map=sync_map,
+                output_path=final_path,
+                music_floor_path=music_floor_path,
+            )
+        print(f"     ⏱ música: {time.time() - t_mix:.0f}s ({'audio solo + remux' if windowed else 're-encode'})")
 
         # Cleanup: WAVs intermedios (no_music.mp4 se preserva como backup auditable)
         music_ducked_path.unlink(missing_ok=True)
@@ -2634,6 +2742,9 @@ def main() -> int:
     parser.add_argument("--hw-encode", action="store_true",
                         help="F2 §3.3: NVENC (h264_nvenc p5 cq19) en el pase de segmento y en la mezcla de música. "
                              "Default off (libx264). El concat con transiciones (transition_applier) no cambia.")
+    parser.add_argument("--legacy-concat", action="store_true",
+                        help="F2b §4: concat con xfade encadenado que re-encodea TODO el video (comportamiento previo). "
+                             "Default: concat por ventanas (solo ±1 s alrededor de cada frontera) y música como audio solo.")
     parser.add_argument("--no-safe-router", action="store_true",
                         help="Con --gfx: NO aplica el router anti-deformación (F2 §4; default: activo con --gfx).")
     parser.add_argument("--gfx-sparse", action="store_true",
@@ -2651,8 +2762,9 @@ def main() -> int:
     parser.add_argument("--force", action="store_true",
                         help="Reprocesa aunque el topic ya esté en 'video_generated'.")
     args = parser.parse_args()
-    global _HW_ENCODE
+    global _HW_ENCODE, _LEGACY_CONCAT
     _HW_ENCODE = bool(args.hw_encode)    # F2 §3.3
+    _LEGACY_CONCAT = bool(args.legacy_concat)   # F2b §4
 
     if FFMPEG is None or FFPROBE is None:
         print(f"❌ No se encontró ffmpeg/ffprobe (winget Gyan.FFmpeg).")
