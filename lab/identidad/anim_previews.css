@@ -1,0 +1,76 @@
+/* anim_previews.css — miniaturas de cada animación del catálogo (F3 §B).
+ * Quietas muestran el estado final; al pasar el mouse (.ap-wrap:hover) la animación corre en loop.
+ * Son ILUSTRACIONES de la animación (no el render): el preview real es el player. */
+.ap-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 3px; }
+.ap { position: relative; width: 64px; height: 36px; background: #2a2622; border-radius: 3px; overflow: hidden;
+      font: 700 11px/1 "Anton", "Arial Narrow", sans-serif; color: #f2efe6; text-transform: uppercase; }
+.ap .t { position: absolute; left: 0; right: 0; top: 12px; text-align: center; letter-spacing: .02em; }
+.ap .red { color: #c2302f; }
+.ap .box { position: absolute; left: 22px; top: 8px; width: 20px; height: 20px; background: #f2efe6; border-radius: 2px; }
+.ap *, .ap::before, .ap::after { animation-duration: 1.6s; animation-iteration-count: infinite; }
+
+/* cascada: letras suben una tras otra */
+.ap-wrap:hover .ap-cascada .t span { display: inline-block; animation-name: ap-rise; }
+.ap-cascada .t span:nth-child(2) { animation-delay: .06s; } .ap-cascada .t span:nth-child(3) { animation-delay: .12s; }
+.ap-cascada .t span:nth-child(4) { animation-delay: .18s; } .ap-cascada .t span:nth-child(5) { animation-delay: .24s; }
+@keyframes ap-rise { 0%, 10% { opacity: 0; transform: translateY(10px); } 35%, 100% { opacity: 1; transform: none; } }
+
+/* persiana: el texto sale de detrás de una línea */
+.ap-wrap:hover .ap-persiana .t { animation-name: ap-blind; clip-path: inset(0 0 0 0); }
+.ap-persiana::after { content: ""; position: absolute; left: 10px; right: 10px; top: 25px; height: 2px; background: #c2302f; }
+@keyframes ap-blind { 0%, 10% { transform: translateY(14px); clip-path: inset(0 0 100% 0); } 40%, 100% { transform: none; clip-path: inset(0 0 0 0); } }
+
+/* sello: entra grande y rotado, golpea */
+.ap-wrap:hover .ap-sello .t { animation-name: ap-stamp; color: #c2302f; }
+.ap-sello .t b { border: 2px solid #c2302f; padding: 1px 4px; }
+@keyframes ap-stamp { 0%, 10% { opacity: 0; transform: scale(1.6) rotate(-6deg); } 22% { opacity: 1; transform: scale(1) rotate(-3deg); } 100% { opacity: 1; transform: scale(1) rotate(-3deg); } }
+
+/* golpe (number pop) */
+.ap-wrap:hover .ap-pop .t { animation-name: ap-pop; }
+@keyframes ap-pop { 0%, 10% { opacity: 0; transform: scale(1.12); } 18% { opacity: 1; } 35%, 100% { opacity: 1; transform: scale(1); } }
+
+/* fade de entrada / salida */
+.ap-wrap:hover .ap-fade .t { animation-name: ap-fadein; }
+@keyframes ap-fadein { 0%, 10% { opacity: 0; } 45%, 100% { opacity: 1; } }
+.ap-wrap:hover .ap-fade_out .t { animation-name: ap-fadeout; }
+@keyframes ap-fadeout { 0%, 40% { opacity: 1; } 80%, 100% { opacity: 0; } }
+
+/* tinta seca: se apaga a gris y se desvanece */
+.ap-wrap:hover .ap-tinta_seca .t { animation-name: ap-dry; }
+@keyframes ap-dry { 0%, 30% { opacity: 1; filter: none; } 70% { opacity: .5; filter: grayscale(1) blur(.6px); } 100% { opacity: 0; filter: grayscale(1) blur(1px); } }
+
+/* quemar: se consume desde abajo */
+.ap-wrap:hover .ap-quemar .t { animation-name: ap-burnout; }
+@keyframes ap-burnout { 0%, 30% { clip-path: inset(0 0 0 0); color: #f2efe6; } 60% { color: #e0782a; } 100% { clip-path: inset(0 0 100% 0); color: #3a1a0a; } }
+
+/* tinta que sangra: el ícono aparece desde un borrón */
+.ap-wrap:hover .ap-ink_bleed .box { animation-name: ap-bleed; }
+@keyframes ap-bleed { 0%, 10% { opacity: 0; filter: blur(6px); transform: scale(.7); } 45%, 100% { opacity: 1; filter: none; transform: none; } }
+
+/* prensa: se revela de izquierda a derecha */
+.ap-wrap:hover .ap-press_wipe .box { animation-name: ap-press; }
+@keyframes ap-press { 0%, 10% { clip-path: inset(0 100% 0 0); } 45%, 100% { clip-path: inset(0 0 0 0); } }
+
+/* máquina de escribir */
+.ap-wrap:hover .ap-maquina .t { animation-name: ap-type; font-family: "Courier New", monospace; white-space: nowrap; overflow: hidden; }
+@keyframes ap-type { 0%, 5% { clip-path: inset(0 100% 0 0); } 60%, 100% { clip-path: inset(0 0 0 0); } }
+
+/* deslizar desde el borde */
+.ap-wrap:hover .ap-deslizar .t { animation-name: ap-slidein; }
+@keyframes ap-slidein { 0%, 10% { transform: translateX(-70px); } 40%, 100% { transform: none; } }
+
+/* caer desde arriba (post-it) */
+.ap-wrap:hover .ap-caer .box { background: #f5d76e; animation-name: ap-drop; }
+@keyframes ap-drop { 0%, 10% { transform: translateY(-40px) rotate(-10deg); } 35% { transform: translateY(2px) rotate(4deg); } 45%, 100% { transform: rotate(3deg); } }
+
+/* desdoblar */
+.ap-wrap:hover .ap-desdoblar .box { animation-name: ap-unfold; transform-origin: 50% 0; }
+@keyframes ap-unfold { 0%, 10% { transform: scaleY(0); } 45%, 100% { transform: scaleY(1); } }
+
+/* holds del ícono: respirar, deriva, pulso rojo */
+.ap-wrap:hover .ap-respirar .box { animation-name: ap-breathe; }
+@keyframes ap-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+.ap-wrap:hover .ap-deriva .box { animation-name: ap-drift; }
+@keyframes ap-drift { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(4px, -2px); } }
+.ap-wrap:hover .ap-pulso .box { animation-name: ap-pulse; }
+@keyframes ap-pulse { 0%, 100% { background: #f2efe6; } 50% { background: #c2302f; } }

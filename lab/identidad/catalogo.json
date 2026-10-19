@@ -1,0 +1,2787 @@
+{
+ "version": 1,
+ "leyenda_aplica": {
+  "token:<campo>": "pisa un token del perfil (gfx_config.GfxRules) → se ve EN VIVO en el preview",
+  "all:<lista>.<campo>": "cambia ese campo en TODAS las piezas de ese tipo del plan del lab → EN VIVO",
+  "elem:<campo>": "cambia la pieza seleccionada (panel 'Aquí') → EN VIVO",
+  "anotado": "se guarda en la identidad; el preview todavía no lo dibuja (llega en §D) o lo decide otra etapa del pipeline"
+ },
+ "estados": {
+  "en_vivo": "Se ve en el preview",
+  "parcial": "Parte se ve en el preview; el resto queda anotado",
+  "pipeline": "Lo hace otra etapa (DepthFlow/Veo/fase2b); el lab anota tu elección",
+  "nuevo_D": "Elemento nuevo: plantilla en §D; hoy se marca y se anota",
+  "futuro": "No se construye ahora; marcá 'quiero' si lo querés"
+ },
+ "tabs": [
+  {
+   "id": "foto",
+   "nombre": "Foto"
+  },
+  {
+   "id": "momento",
+   "nombre": "Momento"
+  },
+  {
+   "id": "entre",
+   "nombre": "Entre fotos"
+  },
+  {
+   "id": "cierre",
+   "nombre": "Cierre"
+  },
+  {
+   "id": "global",
+   "nombre": "Global"
+  }
+ ],
+ "elementos": [
+  {
+   "id": "ken_burns_in",
+   "tab": "foto",
+   "grupo": "Movimiento de la imagen",
+   "nombre": "Acercamiento lento",
+   "que_hace": "La cámara se acerca despacio a la foto durante todo el plano.",
+   "hint": {
+    "cuando": "Retratos y rostros; es la base del 60 % de las fotos.",
+    "donde": "Hacia los ojos o el detalle que importa.",
+    "por_que": "Mete al espectador en la foto sin que se note el movimiento."
+   },
+   "estado": "pipeline",
+   "nota_estado": "El movimiento de cada foto ya viene hecho por DepthFlow; el lab anota tu elección por foto.",
+   "preset_sugerido": {
+    "anotado": {
+     "intensidad": 2,
+     "easing": "suave"
+    }
+   },
+   "atributos": [
+    {
+     "id": "intensidad",
+     "nombre": "Intensidad",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 2,
+     "opciones": [
+      {
+       "v": 1,
+       "label": "1 · 1.03"
+      },
+      {
+       "v": 2,
+       "label": "2 · 1.06"
+      },
+      {
+       "v": 3,
+       "label": "3 · 1.10"
+      }
+     ]
+    },
+    {
+     "id": "easing",
+     "nombre": "Ritmo",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "suave",
+     "opciones": [
+      {
+       "v": "suave",
+       "label": "suave"
+      },
+      {
+       "v": "lineal",
+       "label": "lineal"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ken_burns_out",
+   "tab": "foto",
+   "grupo": "Movimiento de la imagen",
+   "nombre": "Alejamiento",
+   "que_hace": "Empieza en un detalle y se abre hasta mostrar el lugar completo.",
+   "hint": {
+    "cuando": "Para revelar un lugar; 1 por capítulo como máximo.",
+    "donde": "Fotos con un detalle fuerte dentro de un conjunto.",
+    "por_que": "El 'ahora ves dónde estamos' funciona una sola vez."
+   },
+   "estado": "pipeline",
+   "nota_estado": "DepthFlow ya eligió el movimiento; se anota por foto.",
+   "preset_sugerido": {
+    "anotado": {
+     "intensidad": 2
+    }
+   },
+   "atributos": [
+    {
+     "id": "intensidad",
+     "nombre": "Intensidad",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 2,
+     "opciones": [
+      {
+       "v": 1,
+       "label": "1"
+      },
+      {
+       "v": 2,
+       "label": "2"
+      },
+      {
+       "v": 3,
+       "label": "3"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "pan",
+   "tab": "foto",
+   "grupo": "Movimiento de la imagen",
+   "nombre": "Paneo",
+   "que_hace": "La cámara recorre la foto de un lado al otro.",
+   "hint": {
+    "cuando": "Fotos anchas: calles, filas de gente.",
+    "donde": "En el sentido en que se 'lee' la foto.",
+    "por_que": "Muestra extensión; en un retrato marea. Nunca en retratos."
+   },
+   "estado": "pipeline",
+   "nota_estado": "DepthFlow; se anota por foto.",
+   "preset_sugerido": {
+    "anotado": {
+     "direccion": "→",
+     "intensidad": 2
+    }
+   },
+   "atributos": [
+    {
+     "id": "direccion",
+     "nombre": "Dirección",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "→",
+     "opciones": [
+      {
+       "v": "←",
+       "label": "←"
+      },
+      {
+       "v": "→",
+       "label": "→"
+      },
+      {
+       "v": "↑",
+       "label": "↑"
+      },
+      {
+       "v": "↓",
+       "label": "↓"
+      }
+     ]
+    },
+    {
+     "id": "intensidad",
+     "nombre": "Intensidad",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 2,
+     "opciones": [
+      {
+       "v": 1,
+       "label": "1"
+      },
+      {
+       "v": 2,
+       "label": "2"
+      },
+      {
+       "v": 3,
+       "label": "3"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "depthflow",
+   "tab": "foto",
+   "grupo": "Movimiento de la imagen",
+   "nombre": "Profundidad 3D",
+   "que_hace": "La foto gana volumen: el frente y el fondo se mueven distinto.",
+   "hint": {
+    "cuando": "Paisajes y edificios con cielo.",
+    "donde": "Fotos con capas claras (frente, medio, fondo).",
+    "por_que": "Ya existe; el lab solo elige el preset."
+   },
+   "estado": "pipeline",
+   "nota_estado": "Ya existe en el pipeline; se anota el preset por foto.",
+   "preset_sugerido": {
+    "anotado": {
+     "preset": "dolly",
+     "intensidad": 2
+    }
+   },
+   "atributos": [
+    {
+     "id": "preset",
+     "nombre": "Preset",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "dolly",
+     "opciones": [
+      {
+       "v": "orbital",
+       "label": "orbital"
+      },
+      {
+       "v": "dolly",
+       "label": "dolly"
+      },
+      {
+       "v": "zoom",
+       "label": "zoom"
+      }
+     ]
+    },
+    {
+     "id": "intensidad",
+     "nombre": "Intensidad",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 2,
+     "opciones": [
+      {
+       "v": 1,
+       "label": "1"
+      },
+      {
+       "v": 2,
+       "label": "2"
+      },
+      {
+       "v": 3,
+       "label": "3"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "veo",
+   "tab": "foto",
+   "grupo": "Movimiento de la imagen",
+   "nombre": "Video generado",
+   "que_hace": "Un clip de video generado (Veo/Wan) en lugar de la foto.",
+   "hint": {
+    "cuando": "Ya lo decide el pipeline.",
+    "donde": "Donde el capítulo lo tenga.",
+    "por_que": "En el lab solo se marca 'mantener' o 'cambiar a foto fija'."
+   },
+   "estado": "pipeline",
+   "nota_estado": "ch02 no tiene clip de video.",
+   "preset_sugerido": {
+    "anotado": {
+     "decision": "mantener"
+    }
+   },
+   "atributos": [
+    {
+     "id": "decision",
+     "nombre": "Decisión",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "mantener",
+     "opciones": [
+      {
+       "v": "mantener",
+       "label": "mantener"
+      },
+      {
+       "v": "foto_fija",
+       "label": "cambiar a foto fija"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "punch_in",
+   "tab": "foto",
+   "grupo": "Movimiento de la imagen",
+   "nombre": "Golpe de zoom",
+   "que_hace": "Un acercamiento cortito y seco en la palabra que importa.",
+   "hint": {
+    "cuando": "Cuando la voz dice la palabra que importa; máximo 3 por capítulo.",
+    "donde": "Sobre la foto que está en pantalla, en esa palabra.",
+    "por_que": "Subraya sin texto: el ojo siente el golpe."
+   },
+   "estado": "en_vivo",
+   "preset_sugerido": {
+    "tokens": {
+     "punch_scale": 1.025,
+     "punch_in_sec": 0.4
+    }
+   },
+   "ejemplo_en_ch02": {
+    "accion": "add_punch",
+    "word_i": 147
+   },
+   "atributos": [
+    {
+     "id": "fuerza",
+     "nombre": "Fuerza",
+     "tipo": "opciones",
+     "aplica": "token:punch_scale",
+     "default": 1.025,
+     "opciones": [
+      {
+       "v": 1.015,
+       "label": "suave"
+      },
+      {
+       "v": 1.025,
+       "label": "normal"
+      },
+      {
+       "v": 1.04,
+       "label": "fuerte"
+      }
+     ]
+    },
+    {
+     "id": "velocidad",
+     "nombre": "Velocidad",
+     "tipo": "opciones",
+     "aplica": "token:punch_in_sec",
+     "default": 0.4,
+     "opciones": [
+      {
+       "v": 0.25,
+       "label": "250 ms"
+      },
+      {
+       "v": 0.4,
+       "label": "400 ms"
+      },
+      {
+       "v": 0.6,
+       "label": "600 ms"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "hold",
+   "tab": "foto",
+   "grupo": "Movimiento de la imagen",
+   "nombre": "Quieta",
+   "que_hace": "La foto no se mueve.",
+   "hint": {
+    "cuando": "Solo fotos de documentos.",
+    "donde": "Documentos, cartas, recortes reales.",
+    "por_que": "El texto de un documento no debe moverse."
+   },
+   "estado": "pipeline",
+   "nota_estado": "Se anota por foto.",
+   "preset_sugerido": {
+    "anotado": {}
+   },
+   "atributos": []
+  },
+  {
+   "id": "vignette",
+   "tab": "foto",
+   "grupo": "Look",
+   "nombre": "Viñeta",
+   "que_hace": "Oscurece apenas los bordes del cuadro.",
+   "hint": {
+    "cuando": "Siempre, en 0.15 (look aprobado).",
+    "donde": "Todo el capítulo.",
+    "por_que": "Lleva el ojo al centro. Subí a 0.30 solo en moods de encierro."
+   },
+   "estado": "en_vivo",
+   "preset_sugerido": {
+    "tokens": {
+     "vignette_opacity": 0.15
+    }
+   },
+   "atributos": [
+    {
+     "id": "opacidad",
+     "nombre": "Intensidad",
+     "tipo": "opciones",
+     "aplica": "token:vignette_opacity",
+     "default": 0.15,
+     "opciones": [
+      {
+       "v": 0,
+       "label": "0"
+      },
+      {
+       "v": 0.15,
+       "label": "0.15"
+      },
+      {
+       "v": 0.3,
+       "label": "0.30"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "grain",
+   "tab": "foto",
+   "grupo": "Look",
+   "nombre": "Grano",
+   "que_hace": "Textura de película fina sobre la imagen.",
+   "hint": {
+    "cuando": "Aprobado en 0.",
+    "donde": "Si lo probás, en todo el capítulo.",
+    "por_que": "Probá 0.08 solo para unificar fotos de archivo."
+   },
+   "estado": "en_vivo",
+   "preset_sugerido": {
+    "tokens": {
+     "grain_opacity": 0.08
+    }
+   },
+   "atributos": [
+    {
+     "id": "opacidad",
+     "nombre": "Intensidad",
+     "tipo": "opciones",
+     "aplica": "token:grain_opacity",
+     "default": 0,
+     "opciones": [
+      {
+       "v": 0,
+       "label": "0"
+      },
+      {
+       "v": 0.08,
+       "label": "0.08"
+      },
+      {
+       "v": 0.15,
+       "label": "0.15"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "desat",
+   "tab": "foto",
+   "grupo": "Look",
+   "nombre": "Desaturación",
+   "que_hace": "Le quita color a la imagen.",
+   "hint": {
+    "cuando": "Identidad posible: 20 % global da 'documental'.",
+    "donde": "Todo el capítulo.",
+    "por_que": "Probalo en todo el cap y decidí."
+   },
+   "estado": "nuevo_D",
+   "nota_estado": "Capa nueva del look (§D).",
+   "preset_sugerido": {
+    "anotado": {
+     "porcentaje": 20
+    }
+   },
+   "atributos": [
+    {
+     "id": "porcentaje",
+     "nombre": "Cuánto",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 0,
+     "opciones": [
+      {
+       "v": 0,
+       "label": "0 %"
+      },
+      {
+       "v": 20,
+       "label": "20 %"
+      },
+      {
+       "v": 40,
+       "label": "40 %"
+      },
+      {
+       "v": 60,
+       "label": "60 %"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tint",
+   "tab": "foto",
+   "grupo": "Look",
+   "nombre": "Tinte",
+   "que_hace": "Le da un color dominante a la imagen.",
+   "hint": {
+    "cuando": "Sepia solo en fotos antiguas; frío en noche o agua.",
+    "donde": "Por foto o por capítulo.",
+    "por_que": "Nunca mezclar dos tintes en el mismo capítulo."
+   },
+   "estado": "nuevo_D",
+   "nota_estado": "Capa nueva del look (§D).",
+   "preset_sugerido": {
+    "anotado": {
+     "tinte": "ninguno"
+    }
+   },
+   "atributos": [
+    {
+     "id": "tinte",
+     "nombre": "Tinte",
+     "tipo": "paleta",
+     "aplica": "anotado",
+     "default": "ninguno",
+     "opciones": [
+      {
+       "v": "ninguno",
+       "label": "ninguno",
+       "color": "transparent"
+      },
+      {
+       "v": "frio",
+       "label": "frío azul",
+       "color": "#4d6f99"
+      },
+      {
+       "v": "verde",
+       "label": "verde enfermo",
+       "color": "#8a9a3c"
+      },
+      {
+       "v": "sepia",
+       "label": "sepia archivo",
+       "color": "#9c7a4f"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "letterbox",
+   "tab": "foto",
+   "grupo": "Look",
+   "nombre": "Letterbox",
+   "que_hace": "Bandas negras arriba y abajo (formato cine 2.35:1).",
+   "hint": {
+    "cuando": "Solo como entrada del mood muerte o en el cierre del capítulo.",
+    "donde": "Momentos puntuales.",
+    "por_que": "Si está siempre, deja de significar."
+   },
+   "estado": "parcial",
+   "nota_estado": "Hoy aparece 2 s dentro del mood muerte; como pieza suelta llega en §D.",
+   "preset_sugerido": {
+    "anotado": {
+     "modo": "solo_muerte"
+    }
+   },
+   "atributos": [
+    {
+     "id": "modo",
+     "nombre": "Cuándo",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "solo_muerte",
+     "opciones": [
+      {
+       "v": "off",
+       "label": "nunca"
+      },
+      {
+       "v": "solo_muerte",
+       "label": "solo mood muerte"
+      },
+      {
+       "v": "cierre",
+       "label": "muerte + cierre"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "spotlight",
+   "tab": "foto",
+   "grupo": "Look",
+   "nombre": "Luz de linterna",
+   "que_hace": "Un haz de luz que deriva despacio; el resto queda en penumbra.",
+   "hint": {
+    "cuando": "Mood oscuridad.",
+    "donde": "Una vez por capítulo.",
+    "por_que": "Elegante si se usa una sola vez."
+   },
+   "estado": "parcial",
+   "nota_estado": "Hoy viene dentro del mood oscuridad; radio y deriva sueltos en §D.",
+   "preset_sugerido": {
+    "anotado": {
+     "radio": "M",
+     "deriva": 2.5
+    }
+   },
+   "atributos": [
+    {
+     "id": "radio",
+     "nombre": "Radio",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "M",
+     "opciones": [
+      {
+       "v": "S",
+       "label": "S"
+      },
+      {
+       "v": "M",
+       "label": "M"
+      },
+      {
+       "v": "L",
+       "label": "L"
+      }
+     ]
+    },
+    {
+     "id": "deriva",
+     "nombre": "Deriva",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 2.5,
+     "opciones": [
+      {
+       "v": 2,
+       "label": "2°"
+      },
+      {
+       "v": 2.5,
+       "label": "2.5°"
+      },
+      {
+       "v": 3,
+       "label": "3°"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "keyword_emphasis",
+   "tab": "momento",
+   "grupo": "Moods",
+   "nombre": "Mood + sello rojo",
+   "que_hace": "Cuando la voz dice una palabra de carga, la imagen cambia de clima 1–4 s y aparece la palabra en sello rojo.",
+   "hint": {
+    "cuando": "En palabras del léxico (resaltadas en la Historia); máx 1 por frase.",
+    "donde": "Sobre la foto de ese momento; el sello va del lado tranquilo.",
+    "por_que": "El mood es un momento, no un filtro: intensidad baja, 2.5 s."
+   },
+   "estado": "parcial",
+   "nota_estado": "Duración, sello, ícono y tipo de mood en vivo; intensidad y SFX quedan anotados (el SFX lo mezcla fase2b).",
+   "preset_sugerido": {
+    "tokens": {
+     "mood_dur": 2.5
+    },
+    "anotado": {
+     "intensidad": "baja",
+     "sfx": "auto"
+    }
+   },
+   "ejemplo_en_ch02": {
+    "accion": "add_emphasis",
+    "word_i": 122
+   },
+   "atributos": [
+    {
+     "id": "duracion",
+     "nombre": "Duración",
+     "tipo": "opciones",
+     "aplica": "all:emphasis.duration",
+     "default": 2.5,
+     "opciones": [
+      {
+       "v": 1.5,
+       "label": "1.5 s"
+      },
+      {
+       "v": 2.5,
+       "label": "2.5 s"
+      },
+      {
+       "v": 4,
+       "label": "4 s"
+      }
+     ]
+    },
+    {
+     "id": "intensidad",
+     "nombre": "Intensidad",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "baja",
+     "opciones": [
+      {
+       "v": "baja",
+       "label": "baja"
+      },
+      {
+       "v": "media",
+       "label": "media"
+      }
+     ]
+    },
+    {
+     "id": "sello",
+     "nombre": "Con sello rojo",
+     "tipo": "opciones",
+     "aplica": "elem:stamp",
+     "default": true,
+     "opciones": [
+      {
+       "v": true,
+       "label": "sí"
+      },
+      {
+       "v": false,
+       "label": "no"
+      }
+     ]
+    },
+    {
+     "id": "icono",
+     "nombre": "Con ícono",
+     "tipo": "opciones",
+     "aplica": "elem:icon_callout",
+     "default": true,
+     "opciones": [
+      {
+       "v": true,
+       "label": "solo si literal"
+      },
+      {
+       "v": false,
+       "label": "no"
+      }
+     ]
+    },
+    {
+     "id": "sfx",
+     "nombre": "Sonido",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "auto",
+     "opciones": [
+      {
+       "v": "auto",
+       "label": "según mood"
+      },
+      {
+       "v": "tic_sordo",
+       "label": "tic sordo"
+      },
+      {
+       "v": "golpe_grave",
+       "label": "golpe grave"
+      },
+      {
+       "v": "nada",
+       "label": "nada"
+      }
+     ]
+    },
+    {
+     "id": "letterbox_muerte",
+     "nombre": "Letterbox en muerte",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": true,
+     "opciones": [
+      {
+       "v": true,
+       "label": "sí"
+      },
+      {
+       "v": false,
+       "label": "no"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "title_card",
+   "tab": "momento",
+   "grupo": "Texto en pantalla",
+   "nombre": "Título de capítulo",
+   "que_hace": "'CAPÍTULO N' + el título, al empezar el capítulo, sobre la imagen oscurecida.",
+   "hint": {
+    "cuando": "Al inicio de cada capítulo.",
+    "donde": "Centro-izquierda, sobre la primera foto.",
+    "por_que": "Persiana (el texto sale de detrás de una línea) con número: ordena al espectador."
+   },
+   "estado": "parcial",
+   "nota_estado": "Presencia y duración en vivo; la entrada actual ya es 'persiana'; sello/fade llegan en §D.",
+   "preset_sugerido": {
+    "tokens": {
+     "title_dur": 3.0
+    },
+    "anotado": {
+     "entrada": "persiana",
+     "con_numero": true
+    }
+   },
+   "atributos": [
+    {
+     "id": "usar",
+     "nombre": "Mostrar",
+     "tipo": "opciones",
+     "aplica": "elem:use",
+     "default": true,
+     "opciones": [
+      {
+       "v": true,
+       "label": "sí"
+      },
+      {
+       "v": false,
+       "label": "no"
+      }
+     ]
+    },
+    {
+     "id": "duracion",
+     "nombre": "Duración",
+     "tipo": "opciones",
+     "aplica": "token:title_dur",
+     "default": 3.0,
+     "opciones": [
+      {
+       "v": 2.0,
+       "label": "2 s"
+      },
+      {
+       "v": 2.5,
+       "label": "2.5 s"
+      },
+      {
+       "v": 3.0,
+       "label": "3 s"
+      }
+     ]
+    },
+    {
+     "id": "entrada",
+     "nombre": "Entrada",
+     "tipo": "anim",
+     "aplica": "anotado",
+     "default": "persiana",
+     "opciones": [
+      {
+       "v": "persiana",
+       "label": "persiana",
+       "anim": "persiana"
+      },
+      {
+       "v": "sello",
+       "label": "sello",
+       "anim": "sello"
+      },
+      {
+       "v": "fade",
+       "label": "fade",
+       "anim": "fade"
+      }
+     ]
+    },
+    {
+     "id": "con_numero",
+     "nombre": "Con 'CAPÍTULO N'",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": true,
+     "opciones": [
+      {
+       "v": true,
+       "label": "sí"
+      },
+      {
+       "v": false,
+       "label": "no"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "data_callout",
+   "tab": "momento",
+   "grupo": "Texto en pantalla",
+   "nombre": "Dato",
+   "que_hace": "Una cifra o un nombre propio grande en pantalla cuando la voz lo dice.",
+   "hint": {
+    "cuando": "1–2 por capítulo; solo cifras o nombres propios.",
+    "donde": "Tercio superior, del lado tranquilo de la foto.",
+    "por_que": "Fija el dato duro en la memoria; la cascada se lee sin esfuerzo."
+   },
+   "estado": "parcial",
+   "nota_estado": "Lado, tamaño, entrada y duración en vivo; 9 zonas, salida y caja llegan en §D.",
+   "preset_sugerido": {
+    "tokens": {
+     "anim_figure": "cascade",
+     "anim_name_place": "cascade"
+    }
+   },
+   "ejemplo_en_ch02": {
+    "accion": "focus",
+    "word_i": 77
+   },
+   "atributos": [
+    {
+     "id": "lado",
+     "nombre": "Lado",
+     "tipo": "opciones",
+     "aplica": "elem:side",
+     "default": "left",
+     "opciones": [
+      {
+       "v": "left",
+       "label": "izquierda"
+      },
+      {
+       "v": "right",
+       "label": "derecha"
+      }
+     ]
+    },
+    {
+     "id": "tamano",
+     "nombre": "Tamaño",
+     "tipo": "opciones",
+     "aplica": "token:callout_anton_px",
+     "default": 168,
+     "opciones": [
+      {
+       "v": 130,
+       "label": "S"
+      },
+      {
+       "v": 168,
+       "label": "M"
+      }
+     ]
+    },
+    {
+     "id": "entrada_cifra",
+     "nombre": "Entrada (cifras)",
+     "tipo": "anim",
+     "aplica": "token:anim_figure",
+     "default": "number_pop",
+     "opciones": [
+      {
+       "v": "cascade",
+       "label": "cascada",
+       "anim": "cascada"
+      },
+      {
+       "v": "slide",
+       "label": "persiana",
+       "anim": "persiana"
+      },
+      {
+       "v": "stamp",
+       "label": "sello",
+       "anim": "sello"
+      },
+      {
+       "v": "number_pop",
+       "label": "golpe",
+       "anim": "pop"
+      }
+     ]
+    },
+    {
+     "id": "entrada_nombre",
+     "nombre": "Entrada (nombres)",
+     "tipo": "anim",
+     "aplica": "token:anim_name_place",
+     "default": "cascade",
+     "opciones": [
+      {
+       "v": "cascade",
+       "label": "cascada",
+       "anim": "cascada"
+      },
+      {
+       "v": "slide",
+       "label": "persiana",
+       "anim": "persiana"
+      },
+      {
+       "v": "stamp",
+       "label": "sello",
+       "anim": "sello"
+      }
+     ]
+    },
+    {
+     "id": "duracion",
+     "nombre": "Duración",
+     "tipo": "opciones",
+     "aplica": "elem:duration",
+     "default": 2.5,
+     "opciones": [
+      {
+       "v": 2.5,
+       "label": "2.5 s"
+      },
+      {
+       "v": 3.5,
+       "label": "3.5 s"
+      },
+      {
+       "v": 4.5,
+       "label": "4.5 s"
+      }
+     ]
+    },
+    {
+     "id": "salida",
+     "nombre": "Salida",
+     "tipo": "anim",
+     "aplica": "anotado",
+     "default": "fade",
+     "opciones": [
+      {
+       "v": "fade",
+       "label": "fade",
+       "anim": "fade_out"
+      },
+      {
+       "v": "tinta_seca",
+       "label": "tinta seca",
+       "anim": "tinta_seca"
+      }
+     ]
+    },
+    {
+     "id": "caja",
+     "nombre": "Caja detrás",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": false,
+     "opciones": [
+      {
+       "v": true,
+       "label": "sí"
+      },
+      {
+       "v": false,
+       "label": "no"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "count_up",
+   "tab": "momento",
+   "grupo": "Texto en pantalla",
+   "nombre": "Contador",
+   "que_hace": "La cifra sube de 0 al valor mientras la voz la dice.",
+   "hint": {
+    "cuando": "Para la cifra más dura del capítulo; una vez por cifra en todo el video.",
+    "donde": "Arriba a la izquierda, grande.",
+    "por_que": "Rojo solo si son muertos. En ch02 la 6,500 ya se contó en ch01."
+   },
+   "estado": "parcial",
+   "nota_estado": "Rampa y pausa en vivo; color y unidad anotados.",
+   "preset_sugerido": {
+    "tokens": {
+     "count_dur": 1.2,
+     "count_hold_sec": 2.5
+    }
+   },
+   "atributos": [
+    {
+     "id": "rampa",
+     "nombre": "Rampa",
+     "tipo": "opciones",
+     "aplica": "token:count_dur",
+     "default": 1.2,
+     "opciones": [
+      {
+       "v": 0.8,
+       "label": "0.8 s"
+      },
+      {
+       "v": 1.2,
+       "label": "1.2 s"
+      },
+      {
+       "v": 1.6,
+       "label": "1.6 s"
+      }
+     ]
+    },
+    {
+     "id": "hold",
+     "nombre": "Quieto al final",
+     "tipo": "opciones",
+     "aplica": "token:count_hold_sec",
+     "default": 2.5,
+     "opciones": [
+      {
+       "v": 1.5,
+       "label": "1.5 s"
+      },
+      {
+       "v": 2.5,
+       "label": "2.5 s"
+      },
+      {
+       "v": 3.5,
+       "label": "3.5 s"
+      }
+     ]
+    },
+    {
+     "id": "color",
+     "nombre": "Color",
+     "tipo": "paleta",
+     "aplica": "anotado",
+     "default": "hueso",
+     "opciones": [
+      {
+       "v": "hueso",
+       "label": "hueso",
+       "color": "#f2efe6"
+      },
+      {
+       "v": "rojo",
+       "label": "rojo (solo muertos)",
+       "color": "#c2302f"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "keyword_stamp",
+   "tab": "momento",
+   "grupo": "Texto en pantalla",
+   "nombre": "Sello rojo",
+   "que_hace": "La palabra exacta que dice la voz, como un sello de goma rojo.",
+   "hint": {
+    "cuando": "Máx 1 por frase, 5 por capítulo.",
+    "donde": "Del lado tranquilo de la foto.",
+    "por_que": "La palabra exacta de la voz; rotación −2° la hace 'a mano'."
+   },
+   "estado": "parcial",
+   "nota_estado": "Rotación y tamaño en vivo (también los usa el sello de 'DETALLE' y de los años); entrada 'golpe' y borde anotados.",
+   "preset_sugerido": {
+    "tokens": {
+     "stamp_rotation": -2.0
+    }
+   },
+   "atributos": [
+    {
+     "id": "rotacion",
+     "nombre": "Rotación",
+     "tipo": "opciones",
+     "aplica": "token:stamp_rotation",
+     "default": -3.0,
+     "opciones": [
+      {
+       "v": -3.0,
+       "label": "−3°"
+      },
+      {
+       "v": -2.0,
+       "label": "−2°"
+      },
+      {
+       "v": 0.0,
+       "label": "0°"
+      },
+      {
+       "v": 2.0,
+       "label": "2°"
+      },
+      {
+       "v": 3.0,
+       "label": "3°"
+      }
+     ]
+    },
+    {
+     "id": "tamano",
+     "nombre": "Tamaño",
+     "tipo": "opciones",
+     "aplica": "token:emphasis_stamp_px",
+     "default": 112,
+     "opciones": [
+      {
+       "v": 84,
+       "label": "S"
+      },
+      {
+       "v": 112,
+       "label": "M"
+      }
+     ]
+    },
+    {
+     "id": "entrada",
+     "nombre": "Entrada",
+     "tipo": "anim",
+     "aplica": "anotado",
+     "default": "sello",
+     "opciones": [
+      {
+       "v": "sello",
+       "label": "sello",
+       "anim": "sello"
+      },
+      {
+       "v": "golpe",
+       "label": "golpe",
+       "anim": "pop"
+      }
+     ]
+    },
+    {
+     "id": "borde",
+     "nombre": "Con borde",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": true,
+     "opciones": [
+      {
+       "v": true,
+       "label": "sí"
+      },
+      {
+       "v": false,
+       "label": "no"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "source_tag",
+   "tab": "momento",
+   "grupo": "Texto en pantalla",
+   "nombre": "Fuente",
+   "que_hace": "Una línea chica bajo el dato: 'INFORME X, 1987'.",
+   "hint": {
+    "cuando": "Siempre que el dato tenga fuente.",
+    "donde": "Debajo del dato.",
+    "por_que": "Nadie lo lee, todos lo sienten. En ch02 ningún dato tiene fuente."
+   },
+   "estado": "parcial",
+   "nota_estado": "Tamaño en vivo; opacidad anotada.",
+   "preset_sugerido": {
+    "tokens": {
+     "source_tag_scale": 0.4
+    }
+   },
+   "atributos": [
+    {
+     "id": "tamano",
+     "nombre": "Tamaño",
+     "tipo": "opciones",
+     "aplica": "token:source_tag_scale",
+     "default": 0.4,
+     "opciones": [
+      {
+       "v": 0.3,
+       "label": "S"
+      },
+      {
+       "v": 0.4,
+       "label": "M"
+      }
+     ]
+    },
+    {
+     "id": "opacidad",
+     "nombre": "Opacidad",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 0.75,
+     "opciones": [
+      {
+       "v": 0.6,
+       "label": "0.6"
+      },
+      {
+       "v": 0.75,
+       "label": "0.75"
+      },
+      {
+       "v": 0.9,
+       "label": "0.9"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lower_third",
+   "tab": "momento",
+   "grupo": "Texto en pantalla",
+   "nombre": "Tercio inferior",
+   "que_hace": "Nombre y cargo de una persona en dos líneas, abajo.",
+   "hint": {
+    "cuando": "Cuando aparece una persona por primera vez.",
+    "donde": "Abajo a la izquierda, sobre los subtítulos.",
+    "por_que": "1–2 por video: presenta sin interrumpir."
+   },
+   "estado": "nuevo_D",
+   "nota_estado": "Plantilla nueva en §D.",
+   "preset_sugerido": {
+    "anotado": {
+     "entrada": "deslizar",
+     "duracion": 3
+    }
+   },
+   "atributos": [
+    {
+     "id": "entrada",
+     "nombre": "Entrada",
+     "tipo": "anim",
+     "aplica": "anotado",
+     "default": "deslizar",
+     "opciones": [
+      {
+       "v": "deslizar",
+       "label": "deslizar",
+       "anim": "deslizar"
+      }
+     ]
+    },
+    {
+     "id": "duracion",
+     "nombre": "Duración",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 3,
+     "opciones": [
+      {
+       "v": 3,
+       "label": "3 s"
+      },
+      {
+       "v": 4,
+       "label": "4 s"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "quote_card",
+   "tab": "momento",
+   "grupo": "Texto en pantalla",
+   "nombre": "Cita",
+   "que_hace": "Texto entre comillas con el autor, sobre la imagen oscurecida.",
+   "hint": {
+    "cuando": "Cuando la narración cita a alguien literalmente; máx 1 por capítulo.",
+    "donde": "Centro, Playfair.",
+    "por_que": "Solo con la cita en verified_facts (candado literal)."
+   },
+   "estado": "nuevo_D",
+   "nota_estado": "Plantilla nueva en §D. ch02 no tiene citas.",
+   "preset_sugerido": {
+    "anotado": {
+     "entrada": "maquina",
+     "duracion": 4
+    }
+   },
+   "atributos": [
+    {
+     "id": "entrada",
+     "nombre": "Entrada",
+     "tipo": "anim",
+     "aplica": "anotado",
+     "default": "maquina",
+     "opciones": [
+      {
+       "v": "maquina",
+       "label": "máquina de escribir",
+       "anim": "maquina"
+      },
+      {
+       "v": "persiana",
+       "label": "persiana",
+       "anim": "persiana"
+      }
+     ]
+    },
+    {
+     "id": "duracion",
+     "nombre": "Duración",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 4,
+     "opciones": [
+      {
+       "v": 4,
+       "label": "4 s"
+      },
+      {
+       "v": 5,
+       "label": "5 s"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "archive_clipping",
+   "tab": "momento",
+   "grupo": "Recortes de archivo",
+   "nombre": "Recorte de archivo",
+   "que_hace": "Un titular real del caso como recorte de periódico (o post-it, ficha, carpeta).",
+   "hint": {
+    "cuando": "En el primer dato con fuente de cada capítulo.",
+    "donde": "Tercio superior, lado opuesto a la cara.",
+    "por_que": "Da sensación de prueba documental sin que el espectador lea mucho."
+   },
+   "estado": "parcial",
+   "nota_estado": "Lado, ancho, duración y entrada del titular en vivo; estilos post-it/ficha/telegrama/carpeta, rotación, cinta y salida llegan en §D.",
+   "preset_sugerido": {
+    "tokens": {
+     "archive_max_w_frac": 0.28,
+     "anim_archive_head": "cascade"
+    },
+    "all": {
+     "archive_clippings.duration": 4
+    },
+    "anotado": {
+     "estilo": "periodico",
+     "rotacion": -2,
+     "salida": "fade"
+    }
+   },
+   "ejemplo_en_ch02": {
+    "accion": "focus",
+    "word_i": 21
+   },
+   "atributos": [
+    {
+     "id": "estilo",
+     "nombre": "Estilo",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "periodico",
+     "opciones": [
+      {
+       "v": "periodico",
+       "label": "periódico"
+      },
+      {
+       "v": "postit",
+       "label": "post-it"
+      },
+      {
+       "v": "ficha",
+       "label": "ficha forense"
+      },
+      {
+       "v": "telegrama",
+       "label": "telegrama"
+      },
+      {
+       "v": "carpeta",
+       "label": "carpeta CONFIDENCIAL"
+      }
+     ]
+    },
+    {
+     "id": "entrada",
+     "nombre": "Entrada del titular",
+     "tipo": "anim",
+     "aplica": "token:anim_archive_head",
+     "default": "cascade",
+     "opciones": [
+      {
+       "v": "cascade",
+       "label": "cascada",
+       "anim": "cascada"
+      },
+      {
+       "v": "none",
+       "label": "de una",
+       "anim": "fade"
+      }
+     ]
+    },
+    {
+     "id": "entrada_papel",
+     "nombre": "Entrada del papel",
+     "tipo": "anim",
+     "aplica": "anotado",
+     "default": "cascada",
+     "opciones": [
+      {
+       "v": "cascada",
+       "label": "cascada",
+       "anim": "cascada"
+      },
+      {
+       "v": "caer",
+       "label": "caer (post-it)",
+       "anim": "caer"
+      },
+      {
+       "v": "deslizar",
+       "label": "deslizar",
+       "anim": "deslizar"
+      },
+      {
+       "v": "desdoblar",
+       "label": "desdoblar",
+       "anim": "desdoblar"
+      }
+     ]
+    },
+    {
+     "id": "salida",
+     "nombre": "Salida",
+     "tipo": "anim",
+     "aplica": "anotado",
+     "default": "fade",
+     "opciones": [
+      {
+       "v": "fade",
+       "label": "fade",
+       "anim": "fade_out"
+      },
+      {
+       "v": "tinta_seca",
+       "label": "tinta seca",
+       "anim": "tinta_seca"
+      },
+      {
+       "v": "deslizar",
+       "label": "deslizar",
+       "anim": "deslizar"
+      }
+     ]
+    },
+    {
+     "id": "rotacion",
+     "nombre": "Rotación",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": -2,
+     "opciones": [
+      {
+       "v": -4,
+       "label": "−4°"
+      },
+      {
+       "v": -2,
+       "label": "−2°"
+      },
+      {
+       "v": 0,
+       "label": "0°"
+      },
+      {
+       "v": 3,
+       "label": "+3°"
+      }
+     ]
+    },
+    {
+     "id": "ancho",
+     "nombre": "Ancho",
+     "tipo": "opciones",
+     "aplica": "token:archive_max_w_frac",
+     "default": 0.3,
+     "opciones": [
+      {
+       "v": 0.24,
+       "label": "24 %"
+      },
+      {
+       "v": 0.28,
+       "label": "28 %"
+      },
+      {
+       "v": 0.3,
+       "label": "30 %"
+      }
+     ]
+    },
+    {
+     "id": "lado",
+     "nombre": "Lado",
+     "tipo": "opciones",
+     "aplica": "elem:side",
+     "default": "left",
+     "opciones": [
+      {
+       "v": "left",
+       "label": "izquierda"
+      },
+      {
+       "v": "right",
+       "label": "derecha"
+      }
+     ]
+    },
+    {
+     "id": "cinta",
+     "nombre": "Cinta / clip",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "nada",
+     "opciones": [
+      {
+       "v": "cinta",
+       "label": "cinta"
+      },
+      {
+       "v": "clip",
+       "label": "clip"
+      },
+      {
+       "v": "nada",
+       "label": "nada"
+      }
+     ]
+    },
+    {
+     "id": "duracion",
+     "nombre": "Duración",
+     "tipo": "opciones",
+     "aplica": "all:archive_clippings.duration",
+     "default": 6,
+     "opciones": [
+      {
+       "v": 3,
+       "label": "3 s"
+      },
+      {
+       "v": 4,
+       "label": "4 s"
+      },
+      {
+       "v": 5,
+       "label": "5 s"
+      },
+      {
+       "v": 6,
+       "label": "6 s"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "icon_callout",
+   "tab": "momento",
+   "grupo": "Íconos",
+   "nombre": "Ícono",
+   "que_hace": "Un ícono grabado (calavera, gota, candado…) con la palabra debajo.",
+   "hint": {
+    "cuando": "Solo si la palabra es literalmente lo que el ícono dibuja.",
+    "donde": "Lado contrario a la cara.",
+    "por_que": "Tinta para veneno/muerte, prensa para evidencia, sello para encierro."
+   },
+   "estado": "parcial",
+   "nota_estado": "Entrada y tamaño en vivo (hold vivo ya incluido); hold/salida alternativos y respaldo Lucide anotados.",
+   "preset_sugerido": {
+    "anotado": {
+     "hold": "respirar_pulso",
+     "salida": "tinta_seca"
+    }
+   },
+   "ejemplo_en_ch02": {
+    "accion": "add_emphasis",
+    "word_i": 45,
+    "icon": true
+   },
+   "atributos": [
+    {
+     "id": "entrada",
+     "nombre": "Entrada",
+     "tipo": "anim",
+     "aplica": "all:emphasis.icon_anim",
+     "default": "stamp",
+     "opciones": [
+      {
+       "v": "ink_bleed",
+       "label": "tinta que sangra",
+       "anim": "ink_bleed"
+      },
+      {
+       "v": "press_wipe",
+       "label": "prensa",
+       "anim": "press_wipe"
+      },
+      {
+       "v": "stamp",
+       "label": "sello",
+       "anim": "sello"
+      }
+     ]
+    },
+    {
+     "id": "hold",
+     "nombre": "Mientras está",
+     "tipo": "anim",
+     "aplica": "anotado",
+     "default": "respirar_pulso",
+     "opciones": [
+      {
+       "v": "respirar",
+       "label": "respirar",
+       "anim": "respirar"
+      },
+      {
+       "v": "deriva",
+       "label": "deriva",
+       "anim": "deriva"
+      },
+      {
+       "v": "pulso",
+       "label": "pulso rojo",
+       "anim": "pulso"
+      },
+      {
+       "v": "respirar_pulso",
+       "label": "respirar + pulso",
+       "anim": "respirar"
+      }
+     ]
+    },
+    {
+     "id": "salida",
+     "nombre": "Salida",
+     "tipo": "anim",
+     "aplica": "anotado",
+     "default": "tinta_seca",
+     "opciones": [
+      {
+       "v": "tinta_seca",
+       "label": "tinta seca",
+       "anim": "tinta_seca"
+      },
+      {
+       "v": "fade",
+       "label": "fade",
+       "anim": "fade_out"
+      },
+      {
+       "v": "quemar",
+       "label": "quemar",
+       "anim": "quemar"
+      }
+     ]
+    },
+    {
+     "id": "tamano",
+     "nombre": "Tamaño",
+     "tipo": "opciones",
+     "aplica": "token:icon_px",
+     "default": 190,
+     "opciones": [
+      {
+       "v": 130,
+       "label": "S"
+      },
+      {
+       "v": 190,
+       "label": "M"
+      },
+      {
+       "v": 280,
+       "label": "L"
+      }
+     ]
+    },
+    {
+     "id": "lado",
+     "nombre": "Lado",
+     "tipo": "opciones",
+     "aplica": "elem:side",
+     "default": "right",
+     "opciones": [
+      {
+       "v": "left",
+       "label": "izquierda"
+      },
+      {
+       "v": "right",
+       "label": "derecha"
+      }
+     ]
+    },
+    {
+     "id": "con_sello",
+     "nombre": "Con sello de palabra",
+     "tipo": "opciones",
+     "aplica": "elem:stamp",
+     "default": true,
+     "opciones": [
+      {
+       "v": true,
+       "label": "sí"
+      },
+      {
+       "v": false,
+       "label": "no"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "icon_array",
+   "tab": "momento",
+   "grupo": "Íconos",
+   "nombre": "Matriz de figuras",
+   "que_hace": "N figuras humanas en filas de 10; las víctimas en rojo.",
+   "hint": {
+    "cuando": "Solo cifras ≤ 500 con relación total/afectados; 1 por video.",
+    "donde": "Del lado tranquilo.",
+    "por_que": "Hace contable una proporción. ch02 no tiene una cifra así."
+   },
+   "estado": "en_vivo",
+   "nota_estado": "Existe; ch02 no tiene un fact elegible.",
+   "preset_sugerido": {},
+   "atributos": []
+  },
+  {
+   "id": "regen_icon",
+   "tab": "momento",
+   "grupo": "Íconos",
+   "nombre": "Regenerar este ícono",
+   "que_hace": "Si ningún ícono convence, se rehace el dibujo con Flux + potrace y elegís entre 3.",
+   "hint": {
+    "cuando": "Después de probar entradas y tamaños sin que convenza.",
+    "donde": "Sobre el ícono elegido.",
+    "por_que": "Si nada funciona, el problema es el dibujo."
+   },
+   "estado": "nuevo_D",
+   "nota_estado": "Botón en §D.",
+   "preset_sugerido": {},
+   "atributos": []
+  },
+  {
+   "id": "cut",
+   "tab": "entre",
+   "grupo": "Transiciones",
+   "nombre": "Corte",
+   "que_hace": "Cambio seco de una foto a la otra.",
+   "hint": {
+    "cuando": "El 70 % de los cambios.",
+    "donde": "Entre fotos del mismo momento.",
+    "por_que": "El corte es el ritmo del documental."
+   },
+   "estado": "parcial",
+   "nota_estado": "Hoy cada cambio sale del 'rank' emocional de la foto; elegir corte por cambio llega en §D (se anota).",
+   "preset_sugerido": {
+    "anotado": {
+     "proporcion": 70
+    }
+   },
+   "atributos": []
+  },
+  {
+   "id": "dip_to_black",
+   "tab": "entre",
+   "grupo": "Transiciones",
+   "nombre": "Fundido a negro",
+   "que_hace": "La foto baja a negro y la siguiente sube desde negro.",
+   "hint": {
+    "cuando": "Entre capítulos y antes de un dato duro.",
+    "donde": "En el cambio previo al dato.",
+    "por_que": "Una pausa que prepara el golpe."
+   },
+   "estado": "en_vivo",
+   "nota_estado": "En vivo como estilo de los cambios tranquilos (R3); por cambio, en §D.",
+   "preset_sugerido": {
+    "tokens": {
+     "r3_style": "dip",
+     "dip_frames": 20
+    }
+   },
+   "atributos": [
+    {
+     "id": "estilo_r3",
+     "nombre": "Cambios tranquilos",
+     "tipo": "opciones",
+     "aplica": "token:r3_style",
+     "default": "dissolve",
+     "opciones": [
+      {
+       "v": "dissolve",
+       "label": "fundido cruzado"
+      },
+      {
+       "v": "dip",
+       "label": "fundido a negro"
+      }
+     ]
+    },
+    {
+     "id": "frames",
+     "nombre": "Largo",
+     "tipo": "opciones",
+     "aplica": "token:dip_frames",
+     "default": 10,
+     "opciones": [
+      {
+       "v": 10,
+       "label": "10 f"
+      },
+      {
+       "v": 20,
+       "label": "20 f"
+      },
+      {
+       "v": 30,
+       "label": "30 f"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "flash",
+   "tab": "entre",
+   "grupo": "Transiciones",
+   "nombre": "Flash",
+   "que_hace": "Un destello blanco en el cambio de foto.",
+   "hint": {
+    "cuando": "Solo en impacto (muerte, explosión).",
+    "donde": "Máx 2 por capítulo.",
+    "por_que": "Si se repite, pierde el golpe."
+   },
+   "estado": "en_vivo",
+   "preset_sugerido": {
+    "tokens": {
+     "flash_peak": 0.3,
+     "flash_max_per_cap": 2
+    }
+   },
+   "atributos": [
+    {
+     "id": "intensidad",
+     "nombre": "Intensidad",
+     "tipo": "opciones",
+     "aplica": "token:flash_peak",
+     "default": 0.3,
+     "opciones": [
+      {
+       "v": 0.2,
+       "label": "20 %"
+      },
+      {
+       "v": 0.3,
+       "label": "30 %"
+      },
+      {
+       "v": 0.45,
+       "label": "45 %"
+      }
+     ]
+    },
+    {
+     "id": "maximo",
+     "nombre": "Máximo por capítulo",
+     "tipo": "opciones",
+     "aplica": "token:flash_max_per_cap",
+     "default": 2,
+     "opciones": [
+      {
+       "v": 0,
+       "label": "0"
+      },
+      {
+       "v": 1,
+       "label": "1"
+      },
+      {
+       "v": 2,
+       "label": "2"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "crossfade",
+   "tab": "entre",
+   "grupo": "Transiciones",
+   "nombre": "Fundido cruzado",
+   "que_hace": "Una foto se funde en la siguiente.",
+   "hint": {
+    "cuando": "Entre dos fotos del mismo lugar o tiempo.",
+    "donde": "Cambios suaves.",
+    "por_que": "Dice 'seguimos acá'."
+   },
+   "estado": "en_vivo",
+   "preset_sugerido": {
+    "tokens": {
+     "transition_frames": {
+      "R1": 3,
+      "R2": 20,
+      "R3": 30
+     }
+    }
+   },
+   "atributos": [
+    {
+     "id": "frames",
+     "nombre": "Largo",
+     "tipo": "opciones",
+     "aplica": "token:transition_frames",
+     "default": "20/30",
+     "opciones": [
+      {
+       "v": {
+        "R1": 3,
+        "R2": 10,
+        "R3": 20
+       },
+       "label": "corto"
+      },
+      {
+       "v": {
+        "R1": 3,
+        "R2": 20,
+        "R3": 30
+       },
+       "label": "normal"
+      },
+      {
+       "v": {
+        "R1": 3,
+        "R2": 30,
+        "R3": 45
+       },
+       "label": "largo"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "zoom_through",
+   "tab": "entre",
+   "grupo": "Transiciones",
+   "nombre": "Zoom a través",
+   "que_hace": "Empuja dentro de la foto y sale en la siguiente.",
+   "hint": {
+    "cuando": "De un plano general a un detalle.",
+    "donde": "1 por capítulo.",
+    "por_que": "Viaje hacia adentro de la historia."
+   },
+   "estado": "nuevo_D",
+   "preset_sugerido": {},
+   "atributos": []
+  },
+  {
+   "id": "ink_wipe",
+   "tab": "entre",
+   "grupo": "Transiciones",
+   "nombre": "Barrido de tinta",
+   "que_hace": "Tinta negra cubre la foto y revela la siguiente (0.6 s).",
+   "hint": {
+    "cuando": "Entre épocas (antes/después).",
+    "donde": "1–2 por video.",
+    "por_que": "Puede ser la firma del canal si gusta."
+   },
+   "estado": "nuevo_D",
+   "preset_sugerido": {
+    "anotado": {
+     "duracion": 0.6
+    }
+   },
+   "atributos": [
+    {
+     "id": "duracion",
+     "nombre": "Duración",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 0.6,
+     "opciones": [
+      {
+       "v": 0.4,
+       "label": "0.4 s"
+      },
+      {
+       "v": 0.6,
+       "label": "0.6 s"
+      },
+      {
+       "v": 0.9,
+       "label": "0.9 s"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "burn",
+   "tab": "entre",
+   "grupo": "Transiciones",
+   "nombre": "Quemado",
+   "que_hace": "La foto se quema desde un borde.",
+   "hint": {
+    "cuando": "Solo con fuego o destrucción en la narración.",
+    "donde": "En ese cambio.",
+    "por_que": "Literal o nada."
+   },
+   "estado": "nuevo_D",
+   "preset_sugerido": {
+    "anotado": {
+     "borde": "abajo"
+    }
+   },
+   "atributos": [
+    {
+     "id": "borde",
+     "nombre": "Desde el borde",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "abajo",
+     "opciones": [
+      {
+       "v": "abajo",
+       "label": "abajo"
+      },
+      {
+       "v": "izquierda",
+       "label": "izquierda"
+      },
+      {
+       "v": "derecha",
+       "label": "derecha"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "match_cut",
+   "tab": "entre",
+   "grupo": "Transiciones",
+   "nombre": "Match cut",
+   "que_hace": "Una forma se convierte en la siguiente (el contador es el punto del mapa).",
+   "hint": {
+    "cuando": "Máx 1–2 por video.",
+    "donde": "Donde dos formas riman.",
+    "por_que": "Se construye después del lab, solo si lo marcás 'quiero'."
+   },
+   "estado": "futuro",
+   "preset_sugerido": {},
+   "atributos": []
+  },
+  {
+   "id": "sfx",
+   "tab": "momento",
+   "grupo": "Sonido",
+   "nombre": "Sonido (SFX)",
+   "que_hace": "Un sonido corto bajo la voz cuando aparece una pieza.",
+   "hint": {
+    "cuando": "Sello → 'sello'; recorte → 'papel'; contador → 'tic'; cierre → 'drone'; muerte → 'golpe grave'.",
+    "donde": "Nunca más de 1 por segundo.",
+    "por_que": "Se siente más de lo que se oye."
+   },
+   "estado": "pipeline",
+   "nota_estado": "Los SFX los mezcla fase2b en el mp4; el preview no los reproduce. Se anota.",
+   "preset_sugerido": {
+    "anotado": {
+     "volumen": -18
+    }
+   },
+   "atributos": [
+    {
+     "id": "volumen",
+     "nombre": "Volumen",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": -18,
+     "opciones": [
+      {
+       "v": -18,
+       "label": "−18 dB"
+      },
+      {
+       "v": -12,
+       "label": "−12 dB"
+      },
+      {
+       "v": -6,
+       "label": "−6 dB"
+      }
+     ]
+    },
+    {
+     "id": "con",
+     "nombre": "Usar SFX",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": true,
+     "opciones": [
+      {
+       "v": true,
+       "label": "con"
+      },
+      {
+       "v": false,
+       "label": "sin"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chapter_question",
+   "tab": "cierre",
+   "grupo": "Fin de capítulo",
+   "nombre": "Pregunta de cierre",
+   "que_hace": "Una pregunta en pantalla al final del capítulo que se responde en el siguiente.",
+   "hint": {
+    "cuando": "Al cierre de cada capítulo (no en el último).",
+    "donde": "Centro, sobre la imagen oscurecida 70 %.",
+    "por_que": "Es el gancho de retención más barato que existe."
+   },
+   "estado": "parcial",
+   "nota_estado": "Texto (lo escribís vos), fondo y duración en vivo; entrada, pausa de 3 s en la voz y drone llegan en §D.",
+   "preset_sugerido": {
+    "tokens": {
+     "question_dim": 0.7
+    },
+    "anotado": {
+     "entrada": "persiana",
+     "pausa": 3,
+     "sfx": "drone_subida",
+     "salida": "fundido_negro"
+    }
+   },
+   "ejemplo_en_ch02": {
+    "accion": "add_question"
+   },
+   "atributos": [
+    {
+     "id": "texto",
+     "nombre": "Pregunta",
+     "tipo": "texto",
+     "aplica": "elem:text",
+     "default": ""
+    },
+    {
+     "id": "fondo",
+     "nombre": "Fondo oscurecido",
+     "tipo": "opciones",
+     "aplica": "token:question_dim",
+     "default": 0.5,
+     "opciones": [
+      {
+       "v": 0.5,
+       "label": "50 %"
+      },
+      {
+       "v": 0.7,
+       "label": "70 %"
+      }
+     ]
+    },
+    {
+     "id": "duracion",
+     "nombre": "Duración",
+     "tipo": "opciones",
+     "aplica": "elem:duration",
+     "default": 3,
+     "opciones": [
+      {
+       "v": 2.5,
+       "label": "2.5 s"
+      },
+      {
+       "v": 3,
+       "label": "3 s"
+      },
+      {
+       "v": 3.5,
+       "label": "3.5 s"
+      }
+     ]
+    },
+    {
+     "id": "entrada",
+     "nombre": "Entrada",
+     "tipo": "anim",
+     "aplica": "anotado",
+     "default": "persiana",
+     "opciones": [
+      {
+       "v": "maquina",
+       "label": "máquina de escribir",
+       "anim": "maquina"
+      },
+      {
+       "v": "persiana",
+       "label": "persiana",
+       "anim": "persiana"
+      }
+     ]
+    },
+    {
+     "id": "pausa",
+     "nombre": "Pausa con la voz en silencio",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 3,
+     "opciones": [
+      {
+       "v": 2.5,
+       "label": "2.5 s"
+      },
+      {
+       "v": 3,
+       "label": "3 s"
+      },
+      {
+       "v": 3.5,
+       "label": "3.5 s"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "next_chapter_card",
+   "tab": "cierre",
+   "grupo": "Fin de capítulo",
+   "nombre": "Tarjeta 'Capítulo N'",
+   "que_hace": "El título del siguiente capítulo, 1.5 s, después de la pregunta.",
+   "hint": {
+    "cuando": "Después de la pregunta. Opcional.",
+    "donde": "Centro.",
+    "por_que": "Promete lo que viene."
+   },
+   "estado": "nuevo_D",
+   "preset_sugerido": {
+    "anotado": {
+     "duracion": 1.5
+    }
+   },
+   "atributos": [
+    {
+     "id": "duracion",
+     "nombre": "Duración",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 1.5,
+     "opciones": [
+      {
+       "v": 1.0,
+       "label": "1 s"
+      },
+      {
+       "v": 1.5,
+       "label": "1.5 s"
+      },
+      {
+       "v": 2.0,
+       "label": "2 s"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "black_hold",
+   "tab": "cierre",
+   "grupo": "Fin de capítulo",
+   "nombre": "Silencio visual",
+   "que_hace": "0.5–1 s de negro entre la pregunta y el siguiente capítulo.",
+   "hint": {
+    "cuando": "Entre la pregunta y el capítulo siguiente.",
+    "donde": "Al final.",
+    "por_que": "Deja que la pregunta pese."
+   },
+   "estado": "nuevo_D",
+   "preset_sugerido": {
+    "anotado": {
+     "segundos": 0.75
+    }
+   },
+   "atributos": [
+    {
+     "id": "segundos",
+     "nombre": "Largo",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 0.75,
+     "opciones": [
+      {
+       "v": 0.5,
+       "label": "0.5 s"
+      },
+      {
+       "v": 0.75,
+       "label": "0.75 s"
+      },
+      {
+       "v": 1,
+       "label": "1 s"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "subs",
+   "tab": "global",
+   "grupo": "Identidad fija",
+   "nombre": "Subtítulos karaoke",
+   "que_hace": "Anton 150, 3 palabras, amarillo. Solo el tamaño es ajustable.",
+   "hint": {
+    "cuando": "Siempre.",
+    "donde": "Abajo, zona protegida.",
+    "por_que": "Es lo más fijo del canal; no se toca salvo el tamaño."
+   },
+   "estado": "pipeline",
+   "nota_estado": "Los quema fase2b después; no aparecen en el preview.",
+   "preset_sugerido": {
+    "anotado": {
+     "tamano": "M"
+    }
+   },
+   "atributos": [
+    {
+     "id": "tamano",
+     "nombre": "Tamaño",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "M",
+     "opciones": [
+      {
+       "v": "S",
+       "label": "S"
+      },
+      {
+       "v": "M",
+       "label": "M"
+      },
+      {
+       "v": "L",
+       "label": "L"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "paleta",
+   "tab": "global",
+   "grupo": "Identidad fija",
+   "nombre": "Color de acento",
+   "que_hace": "El rojo del canal (sellos, líneas, kicker). Hueso, amarillo y negro quedan fijos.",
+   "hint": {
+    "cuando": "Un solo acento en todo el canal.",
+    "donde": "Sellos, subrayados, kicker del recorte.",
+    "por_que": "Un color que se repite se vuelve marca."
+   },
+   "estado": "en_vivo",
+   "preset_sugerido": {
+    "tokens": {
+     "accent_hex": "#c2302f"
+    }
+   },
+   "atributos": [
+    {
+     "id": "acento",
+     "nombre": "Acento",
+     "tipo": "paleta",
+     "aplica": "token:accent_hex",
+     "default": "#c8102e",
+     "opciones": [
+      {
+       "v": "#c8102e",
+       "label": "rojo actual",
+       "color": "#c8102e"
+      },
+      {
+       "v": "#c2302f",
+       "label": "rojo handoff",
+       "color": "#c2302f"
+      },
+      {
+       "v": "#9e1b1b",
+       "label": "rojo sangre",
+       "color": "#9e1b1b"
+      },
+      {
+       "v": "#d4a017",
+       "label": "ámbar",
+       "color": "#d4a017"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "fuentes",
+   "tab": "global",
+   "grupo": "Identidad fija",
+   "nombre": "Fuentes",
+   "que_hace": "Anton para datos y cifras; Playfair SC para nombres y recortes.",
+   "hint": {
+    "cuando": "En todo el canal.",
+    "donde": "Datos, recortes, título.",
+    "por_que": "Dos fuentes como máximo."
+   },
+   "estado": "en_vivo",
+   "preset_sugerido": {
+    "tokens": {
+     "callout_font": "Playfair Display SC",
+     "clipping_font": "Playfair Display SC"
+    }
+   },
+   "atributos": [
+    {
+     "id": "nombres",
+     "nombre": "Datos con nombres",
+     "tipo": "opciones",
+     "aplica": "token:callout_font",
+     "default": "Playfair Display SC",
+     "opciones": [
+      {
+       "v": "Playfair Display SC",
+       "label": "Playfair SC"
+      },
+      {
+       "v": "Anton",
+       "label": "Anton"
+      }
+     ]
+    },
+    {
+     "id": "recortes",
+     "nombre": "Recortes y pregunta",
+     "tipo": "opciones",
+     "aplica": "token:clipping_font",
+     "default": "Playfair Display SC",
+     "opciones": [
+      {
+       "v": "Playfair Display SC",
+       "label": "Playfair SC"
+      },
+      {
+       "v": "Anton",
+       "label": "Anton"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "ritmo",
+   "tab": "global",
+   "grupo": "Identidad fija",
+   "nombre": "Intervalo máximo sin bloque",
+   "que_hace": "Cuánto puede pasar sin que aparezca nada en pantalla.",
+   "hint": {
+    "cuando": "Lo usa el director al armar el plan.",
+    "donde": "Todo el capítulo.",
+    "por_que": "Muy corto satura; muy largo aburre."
+   },
+   "estado": "pipeline",
+   "nota_estado": "Lo usa el director (§E); en el preview no cambia nada.",
+   "preset_sugerido": {
+    "anotado": {
+     "segundos": 18
+    }
+   },
+   "atributos": [
+    {
+     "id": "segundos",
+     "nombre": "Máximo",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 18,
+     "opciones": [
+      {
+       "v": 12,
+       "label": "12 s"
+      },
+      {
+       "v": 18,
+       "label": "18 s"
+      },
+      {
+       "v": 25,
+       "label": "25 s"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "maximos",
+   "tab": "global",
+   "grupo": "Identidad fija",
+   "nombre": "Máximos por capítulo",
+   "que_hace": "Cuántos sellos, datos, recortes e íconos puede haber como mucho.",
+   "hint": {
+    "cuando": "Lo usa el director al armar el plan.",
+    "donde": "Por capítulo.",
+    "por_que": "Menos es más: cada pieza tiene que ganarse el lugar."
+   },
+   "estado": "pipeline",
+   "nota_estado": "Lo usa el director (§E).",
+   "preset_sugerido": {
+    "anotado": {
+     "sellos": 5,
+     "datos": 2,
+     "recortes": 1,
+     "iconos": 3
+    }
+   },
+   "atributos": [
+    {
+     "id": "sellos",
+     "nombre": "Sellos",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 5,
+     "opciones": [
+      {
+       "v": 3,
+       "label": "3"
+      },
+      {
+       "v": 5,
+       "label": "5"
+      }
+     ]
+    },
+    {
+     "id": "datos",
+     "nombre": "Datos",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 2,
+     "opciones": [
+      {
+       "v": 1,
+       "label": "1"
+      },
+      {
+       "v": 2,
+       "label": "2"
+      },
+      {
+       "v": 3,
+       "label": "3"
+      }
+     ]
+    },
+    {
+     "id": "recortes",
+     "nombre": "Recortes",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 1,
+     "opciones": [
+      {
+       "v": 1,
+       "label": "1"
+      },
+      {
+       "v": 2,
+       "label": "2"
+      }
+     ]
+    },
+    {
+     "id": "iconos",
+     "nombre": "Íconos",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": 3,
+     "opciones": [
+      {
+       "v": 1,
+       "label": "1"
+      },
+      {
+       "v": 2,
+       "label": "2"
+      },
+      {
+       "v": 3,
+       "label": "3"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "zona_subs",
+   "tab": "global",
+   "grupo": "Identidad fija",
+   "nombre": "Zona protegida de subtítulos",
+   "que_hace": "Franja de abajo donde no entra ninguna pieza.",
+   "hint": {
+    "cuando": "Siempre.",
+    "donde": "Tercio inferior.",
+    "por_que": "Que nada tape lo que se lee."
+   },
+   "estado": "pipeline",
+   "nota_estado": "Se anota.",
+   "preset_sugerido": {
+    "anotado": {
+     "alto": "22 %"
+    }
+   },
+   "atributos": [
+    {
+     "id": "alto",
+     "nombre": "Alto",
+     "tipo": "opciones",
+     "aplica": "anotado",
+     "default": "22 %",
+     "opciones": [
+      {
+       "v": "18 %",
+       "label": "18 %"
+      },
+      {
+       "v": "22 %",
+       "label": "22 %"
+      },
+      {
+       "v": "26 %",
+       "label": "26 %"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

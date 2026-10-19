@@ -12,9 +12,12 @@ Mini-servidor local (http.server, sin dependencias nuevas) que sirve el lab en h
     /media/audio              narración del cap (mp3)
     /media/photo/<i>          foto i del cap (PNG Flux); /media/thumb/<i> = miniatura JPG cacheada
     GET  /api/story           palabras (Whisper remapeado = subs), duración, escenas y tira de fotos
-    GET  /api/plan            plan del lab (estado); ?origin=director → plan resuelto del director
-    POST /api/plan            guarda el plan del lab (estado)
-    POST /preview             plan → gfx_project.write_project (plantillas REALES) → src del player
+    GET  /api/plan            estado del lab {plan, tokens, anotado, sugerencias}; ?origin=director → plan del director
+    POST /api/plan            guarda el estado del lab (lab/identidad/plan_<cap>_lab.json)
+    GET  /api/context         léxico de moods dicho en la narración, facts elegibles, moods activos
+    GET  /api/profile         perfil gfx activo (valores actuales de los tokens)
+    POST /preview             {plan, tokens} → candado literal → gfx_project.write_project (plantillas REALES)
+                              con los tokens pisando gfx_rules SOLO durante ese write_project → src del player
 
 El preview NO es un render: el player carga la composición y GSAP la anima; el audio va por `audio-src`.
 
@@ -158,16 +161,67 @@ class LabSession:
         f = self.work_dir / f"gfx_plan_{self.cap}.resolved.json"
         return json.loads(f.read_text(encoding="utf-8"))["plan"]
 
-    def lab_plan(self) -> dict[str, Any]:
+    def lab_state(self) -> dict[str, Any]:
+        """Estado del lab: {plan, tokens, …}. Sin archivo → plan del director y sin tokens cambiados."""
         if self.state_path.exists():
-            return json.loads(self.state_path.read_text(encoding="utf-8"))["plan"]
-        return self.director_plan()
+            st = json.loads(self.state_path.read_text(encoding="utf-8"))
+            st.setdefault("tokens", {})
+            return st
+        return {"plan": self.director_plan(), "tokens": {}}
 
-    def save_lab_plan(self, plan: dict[str, Any]) -> None:
+    def lab_plan(self) -> dict[str, Any]:
+        return self.lab_state()["plan"]
+
+    def save_lab_state(self, state: dict[str, Any]) -> None:
+        """Guarda el estado completo que manda la página (plan, tokens y lo que §C agregue)."""
+        if "plan" not in state:
+            raise ValueError("estado sin plan")
+        bad = sorted(set(state.get("tokens") or {}) - _rule_fields())
+        if bad:
+            raise ValueError(f"tokens desconocidos: {bad}")
+        out = {"video_id": self.video_id, "cap": self.cap, **state, "saved_at": time.strftime("%Y-%m-%d %H:%M:%S")}
         self.state_path.parent.mkdir(parents=True, exist_ok=True)
-        self.state_path.write_text(json.dumps({"video_id": self.video_id, "cap": self.cap, "plan": plan,
-                                               "saved_at": time.strftime("%Y-%m-%d %H:%M:%S")},
-                                              ensure_ascii=False, indent=1), encoding="utf-8")
+        self.state_path.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+
+    # ── contexto del cap: fuentes del candado, facts elegibles, léxico de moods en la narración
+    def context(self) -> dict[str, Any]:
+        if getattr(self, "_ctx_cache", None) is None:
+            from gfx_config import active_moods
+            from script_engine.gfx_director import load_chapter_context
+            ctx = load_chapter_context(self.video_id, self.chplan)
+            moods = active_moods()
+            lex: list[dict[str, Any]] = []
+            for w in self.story()["words"]:
+                key = re.sub(r"[^\wáéíóúüñ]", "", w["word"].lower())
+                for cat, m in moods.items():
+                    if key in (m.get("triggers") or {}):
+                        lex.append({"i": w["i"], "word": w["word"], "start": w["start"], "category": cat,
+                                    "layer": m.get("layer"), "weight": m["triggers"][key],
+                                    "icon": (m.get("icon_words") or {}).get(key), "icon_anim": m.get("icon_anim")})
+            elig: dict[int, bool] = ctx.get("eligible") or {}          # {fact_idx: foráneo}
+            facts = [{"idx": i, "text": f, "eligible": i in elig, "foreign": bool(elig.get(i)),
+                      "source": ctx["fact_source"].get(i, "")} for i, f in enumerate(ctx["facts"])]
+            self._ctx = ctx
+            self._ctx_cache = {"chapter_number": ctx["chapter_number"], "facts": facts, "lexicon_hits": lex,
+                               "moods": {k: {"layer": v.get("layer"), "icon_anim": v.get("icon_anim")}
+                                         for k, v in moods.items()},
+                               "next_chapter": bool(ctx.get("next_sources"))}
+        return self._ctx_cache
+
+    def locked(self, plan: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+        """Candado literal (§6) sobre el plan del lab. La pregunta de cierre escrita por Omar (manual: true)
+        es la ÚNICA excepción: no pasa por question_ok y queda marcada como manual."""
+        from script_engine.gfx_literal_lock import lock
+        self.context()
+        manual_q = plan.get("chapter_question") if (plan.get("chapter_question") or {}).get("manual") else None
+        p = dict(plan)
+        if manual_q:
+            p["chapter_question"] = None
+        ok, rejected = lock(p, self._ctx["sources"], chapter_number=self._ctx["chapter_number"],
+                            question_sources=self._ctx.get("next_sources"))
+        if manual_q:
+            ok["chapter_question"] = manual_q
+        return ok, rejected
 
     # ── historia
     def story(self) -> dict[str, Any]:
@@ -203,15 +257,49 @@ class LabSession:
         return dst
 
     # ── preview: plantillas REALES vía gfx_project.write_project
-    def preview(self, plan: dict[str, Any]) -> dict[str, Any]:
-        from script_engine.gfx_project import cue_events, write_project
+    def preview(self, plan: dict[str, Any], tokens: dict[str, Any] | None = None) -> dict[str, Any]:
+        """plan (+ tokens del perfil que el lab está probando) → candado literal → write_project.
+        Los tokens pisan gfx_rules SOLO durante este write_project (se restauran siempre)."""
+        from script_engine import gfx_project
         with self._lock:
             t = time.time()
-            write_project(plan, self.scenes, self.project, duration=self.duration, width=self.width,
-                          height=self.height, fps=self.fps)
+            ok, rejected = self.locked(plan)
+            with rules_override(tokens or {}):
+                gfx_project.write_project(ok, self.scenes, self.project, duration=self.duration, width=self.width,
+                                          height=self.height, fps=self.fps)
+                cues = gfx_project.cue_events(ok, self.scenes, self.fps)
             self.version += 1
             return {"src": f"/composition/index.html?v={self.version}", "ms": round(1000 * (time.time() - t)),
-                    "cues": cue_events(plan, self.scenes, self.fps)}
+                    "cues": cues, "rejected": rejected}
+
+
+def _rule_fields() -> frozenset[str]:
+    from gfx_config import _RULE_FIELDS
+    return _RULE_FIELDS
+
+
+class rules_override:
+    """Context manager: gfx_project.gfx_rules / GRADE_VARIANTS con los tokens del lab encima del perfil activo."""
+
+    def __init__(self, tokens: dict[str, Any]) -> None:
+        bad = sorted(set(tokens) - _rule_fields())
+        if bad:
+            raise ValueError(f"tokens desconocidos: {bad}")
+        self.tokens = tokens
+
+    def __enter__(self) -> None:
+        from dataclasses import replace
+        import gfx_config
+        from script_engine import gfx_project
+        self._saved = (gfx_project.gfx_rules, gfx_project.GRADE_VARIANTS)
+        if self.tokens:
+            rules = replace(gfx_config.gfx_rules, **self.tokens)
+            gfx_project.gfx_rules = rules
+            gfx_project.GRADE_VARIANTS = gfx_config.grade_variants(rules)
+
+    def __exit__(self, *exc: Any) -> None:
+        from script_engine import gfx_project
+        gfx_project.gfx_rules, gfx_project.GRADE_VARIANTS = self._saved
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -318,8 +406,14 @@ class LabHandler(BaseHTTPRequestHandler):
             if path == "/api/plan":
                 q = parse_qs(u.query)
                 if q.get("origin") == ["director"]:
-                    return self._json({"plan": s.director_plan(), "origin": "director"})
-                return self._json({"plan": s.lab_plan(), "origin": "lab" if s.state_path.exists() else "director"})
+                    return self._json({"plan": s.director_plan(), "tokens": {}, "origin": "director"})
+                return self._json({**s.lab_state(), "origin": "lab" if s.state_path.exists() else "director"})
+            if path == "/api/context":
+                return self._json(s.context())
+            if path == "/api/profile":
+                from dataclasses import asdict
+                import gfx_config
+                return self._json({"name": gfx_config.active_profile_name(), "rules": asdict(gfx_config.gfx_rules)})
             return self._error(404, f"ruta desconocida {path}")
         except Exception as e:  # noqa: BLE001 — el lab nunca se cae por un pedido
             return self._error(500, f"{type(e).__name__}: {e}")
@@ -330,10 +424,12 @@ class LabHandler(BaseHTTPRequestHandler):
         try:
             if path == "/preview":
                 body = self._body()
-                return self._json(s.preview(body.get("plan") or s.lab_plan()))
+                st = s.lab_state()
+                plan = body.get("plan") or st["plan"]
+                tokens = body["tokens"] if "tokens" in body else st["tokens"]
+                return self._json(s.preview(plan, tokens))
             if path == "/api/plan":
-                body = self._body()
-                s.save_lab_plan(body["plan"])
+                s.save_lab_state(self._body())
                 return self._json({"ok": True})
             return self._error(404, f"ruta desconocida {path}")
         except Exception as e:  # noqa: BLE001
@@ -350,7 +446,8 @@ def main() -> int:
         print("⚠  ch01 lleva pre-pad del hook: el lab no lo soporta todavía (usar ch02/ch05)")
     t = time.time()
     session = LabSession(args.video, args.cap)
-    first = session.preview(session.lab_plan())
+    st = session.lab_state()
+    first = session.preview(st["plan"], st["tokens"])
     LabHandler.session = session
     srv = ThreadingHTTPServer(("127.0.0.1", args.port), LabHandler)
     print(f"🧪 lab {args.cap} listo en {time.time() - t:.1f}s (preview inicial {first['ms']} ms, "

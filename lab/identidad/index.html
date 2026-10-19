@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lab de identidad</title>
   <link rel="stylesheet" href="/lab/lab.css" />
+  <link rel="stylesheet" href="/lab/anim_previews.css" />
 </head>
 <body>
   <header class="top">
@@ -16,7 +17,7 @@
     <!-- Izquierda: Historia -->
     <section class="col col-story">
       <h2>Historia</h2>
-      <p class="hint">Clic en una palabra = ir a ese momento. Subrayado = ahí pasa algo.</p>
+      <p class="hint">Clic en una palabra = ir ahí y ver qué hay. <span class="lg cue">subrayado</span> = ahí pasa algo · <span class="lg sug">punteado gris</span> = sugerido · <span class="lg lex">color</span> = palabra del léxico.</p>
       <div id="words" class="words"></div>
       <h3>Fotos del capítulo</h3>
       <div id="strip" class="strip"></div>
@@ -40,10 +41,12 @@
 
     <!-- Derecha: Catálogo -->
     <section class="col col-catalog">
-      <h2>Catálogo</h2>
+      <h2>Aquí</h2>
+      <div id="here" class="here"></div>
+      <h2 class="mt">Catálogo</h2>
       <nav class="tabs" id="tabs"></nav>
       <div id="catalog" class="catalog"></div>
-      <h3>Lo que hay en este capítulo</h3>
+      <h3>Todo lo que hay en este capítulo</h3>
       <ol id="cues" class="cues"></ol>
     </section>
   </main>

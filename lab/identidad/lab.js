@@ -1,31 +1,43 @@
 /* lab.js — Laboratorio de identidad (F3). Vanilla, sin build.
- * §A: historia (palabras Whisper + audio + tira de fotos) + preview real (<hyperframes-player>) del plan. */
+ * §A: historia (palabras Whisper + audio + tira de fotos) + preview real (<hyperframes-player>) del plan.
+ * §B: catálogo (catalogo.json) con hints, "Probar sugerencia" y atributos; sugerencias_ch02.json en gris;
+ *     panel "Aquí" al hacer clic en una palabra o una foto. Todo cambio pasa por mutate(). */
 "use strict";
 
-// Nombres en español de los bloques (el técnico va en gris). §B los pasa a catalogo.json.
-const NOMBRES = {
-  title_card: "Título de capítulo", data_callout: "Dato", source_tag: "Fuente", count_up: "Contador",
-  archive_clipping: "Recorte de archivo", evidence_zoom: "Zoom de evidencia", punch_in: "Golpe de zoom",
-  keyword_emphasis: "Sello rojo + mood", icon_callout: "Ícono", icon_array: "Matriz de figuras",
-  chapter_question: "Pregunta de cierre",
-  "shot_transition:dissolve": "Fundido cruzado", "shot_transition:dip": "Fundido a negro",
-  "shot_transition:flash": "Flash", "shot_transition:cut_punch": "Corte + golpe", "shot_transition:cut": "Corte",
+const $ = (sel, root = document) => root.querySelector(sel);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const clone = (o) => JSON.parse(JSON.stringify(o));
+
+const S = {
+  story: null, plan: null, tokens: {}, anotado: {}, sugState: {}, rules: {}, catalog: null, sugs: [], ctx: null,
+  cues: [], rejected: [], wordEls: [], photoEls: [], tab: "sugerencias", here: null, busy: false, queued: false,
+  history: [], future: [],
 };
-const MOODS = { veneno_enfermedad: "veneno", agua: "agua", muerte: "muerte", oscuridad_encierro: "oscuridad" };
 
-const $ = (sel) => document.querySelector(sel);
-const S = { story: null, plan: null, cues: [], wordEls: [], photoEls: [], playing: false, busy: false };
-
+// ── utilidades
 function fmt(t) {
   t = Math.max(0, t || 0);
   const m = Math.floor(t / 60), s = (t % 60).toFixed(1).padStart(4, "0");
   return `${String(m).padStart(2, "0")}:${s}`;
 }
+const MOODS = { veneno_enfermedad: "veneno", agua: "agua", muerte: "muerte", oscuridad_encierro: "oscuridad" };
+const BLOCK_TO_ELEM = {
+  title_card: "title_card", data_callout: "data_callout", source_tag: "source_tag", count_up: "count_up",
+  archive_clipping: "archive_clipping", evidence_zoom: "punch_in", punch_in: "punch_in", keyword_emphasis: "keyword_emphasis",
+  icon_callout: "icon_callout", icon_array: "icon_array", chapter_question: "chapter_question",
+  "shot_transition:dissolve": "crossfade", "shot_transition:dip": "dip_to_black", "shot_transition:flash": "flash",
+  "shot_transition:cut_punch": "cut", "shot_transition:cut": "cut",
+};
+function elemOf(block) { return BLOCK_TO_ELEM[block] || BLOCK_TO_ELEM[block.split(":")[0]] || block; }
+function catEl(id) { return S.catalog.elementos.find((e) => e.id === id); }
 function nombre(block) {
-  if (NOMBRES[block]) return NOMBRES[block];
+  if (block === "evidence_zoom") return "Zoom de evidencia";
+  if (block === "source_tag") return "Fuente";
+  if (block === "shot_transition:cut_punch") return "Corte + golpe";
+  const el = catEl(elemOf(block));
   const [b, cat] = block.split(":");
-  if (b === "keyword_emphasis" || b === "icon_callout") return `${NOMBRES[b]} (${MOODS[cat] || cat})`;
-  return block;
+  const base = el ? el.nombre : block;
+  return (b === "keyword_emphasis" || b === "icon_callout") && cat ? `${base} (${MOODS[cat] || cat})` : base;
 }
 function kindClass(block) {
   if (block.startsWith("shot_transition")) return "k-trans";
@@ -33,7 +45,6 @@ function kindClass(block) {
   return "k-text";
 }
 function setStatus(msg, cls = "") { const el = $("#status"); el.textContent = msg; el.className = "status " + cls; }
-
 async function api(path, body) {
   const r = await fetch(path, body === undefined ? {} : {
     method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
@@ -41,8 +52,205 @@ async function api(path, body) {
   if (!r.ok) throw new Error(j.error || r.statusText);
   return j;
 }
+const cleanWord = (w) => w.replace(/^[¿¡"«(]+|[.,;:!?"»)]+$/g, "");
+function wordIndexAt(t) {
+  const ws = S.story.words;
+  let lo = 0, hi = ws.length - 1, ans = -1;
+  while (lo <= hi) { const m = (lo + hi) >> 1; if (ws[m].start <= t) { ans = m; lo = m + 1; } else hi = m - 1; }
+  return ans;
+}
+const wordByI = (i) => S.story.words.find((w) => w.i === i);
+const photoAt = (t) => S.story.photos.find((p) => p.start <= t && t < p.end) || S.story.photos[S.story.photos.length - 1];
+const lexAt = (i) => S.ctx.lexicon_hits.find((h) => h.i === i);
+const near = (a, b, tol = 0.15) => Math.abs(a - b) <= tol;
 
-// ── Historia
+// ═══════════════════════════════════════════════════════════════
+//  Estado: mutate() = snapshot (deshacer en §C) + preview + autoguardado
+// ═══════════════════════════════════════════════════════════════
+function snapshot() { return clone({ plan: S.plan, tokens: S.tokens, anotado: S.anotado, sugState: S.sugState }); }
+function restore(s) { Object.assign(S, clone(s)); }
+function mutate(label, fn) {
+  S.history.push(snapshot());
+  if (S.history.length > 200) S.history.shift();
+  S.future = [];
+  fn();
+  setStatus(label, "busy");
+  schedulePreview();
+  renderCatalog();
+  if (S.here) renderHere();
+}
+let saveTimer = null;
+function autosave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => api("/api/plan", { plan: S.plan, tokens: S.tokens, anotado: S.anotado, sugerencias: S.sugState })
+    .catch((e) => setStatus("no se pudo guardar el estado: " + e.message, "err")), 400);
+}
+let pvTimer = null;
+function schedulePreview() { clearTimeout(pvTimer); pvTimer = setTimeout(preview, 250); }
+
+// ── helpers de plan (estructuras iguales a las del resolver del director)
+function planList(key) { if (!Array.isArray(S.plan[key])) S.plan[key] = []; return S.plan[key]; }
+function addPunch(t) {
+  const l = planList("punch_in");
+  if (!l.some((x) => near(x, t))) { l.push(+t.toFixed(3)); l.sort((a, b) => a - b); }
+}
+function emphasisAt(t) { return planList("emphasis").find((e) => near(e.start, t)); }
+function moodDur() { const e = planList("emphasis")[0]; return e ? e.duration : (S.rules.mood_dur || 2.5); }
+function addEmphasis(i, { stamp = true, icon = false } = {}) {
+  const w = wordByI(i), hit = lexAt(i);
+  if (!w || !hit) throw new Error("esa palabra no está en el léxico de moods");
+  if (emphasisAt(w.start)) return;
+  const ph = photoAt(w.start);
+  planList("emphasis").push({
+    word: cleanWord(w.word), category: hit.category, layer: hit.layer, icon: icon && hit.icon ? hit.icon : null,
+    icon_anim: hit.icon_anim || "stamp", start: w.start, duration: moodDur(), side: ph.quiet_side || "right",
+    stamp, sid: ph.idx, rarity: 0, weight: hit.weight, icon_callout: !!(icon && hit.icon), manual: true,
+  });
+  S.plan.emphasis.sort((a, b) => a.start - b.start);
+}
+function archiveDur() { const a = (S.plan.archive_clippings || [])[0]; return a ? a.duration : 4; }
+function headlineOf(text) {
+  const first = text.split(/[,;:(]/)[0].replace(/\.$/, "").trim();
+  return first.split(/\s+/).slice(0, 8).join(" ");
+}
+function addArchive(factIdx, t) {
+  const f = S.ctx.facts.find((x) => x.idx === factIdx);
+  if (!f) return;
+  const ph = photoAt(t), year = (f.text.match(/\b(1[6-9]\d\d|20\d\d)\b/) || [])[1];
+  planList("archive_clippings").push({
+    kicker: year || "", headline: headlineOf(f.text), body: "", scene_idx: ph.idx, fact_idx: factIdx,
+    era_decade: year ? Math.floor(+year / 10) * 10 : 2000, start: +t.toFixed(3), duration: archiveDur(),
+    side: ph.quiet_side === "left" ? "left" : "right", manual: true,
+  });
+  S.plan.archive_clippings.sort((a, b) => a.start - b.start);
+}
+function setQuestion(text) {
+  const d = S.story.duration;
+  const prev = S.plan.chapter_question || {};
+  const dur = prev.duration || 3;
+  S.plan.chapter_question = text.trim()
+    ? { text: text.trim(), start: +(d - dur).toFixed(3), duration: dur, keyword: "", manual: true } : null;
+}
+
+// pieza del plan detrás de un cue (para editarla o quitarla desde "Aquí")
+function pieceOf(c) {
+  const p = S.plan, b = c.block.split(":")[0];
+  if (b === "title_card") return { key: "title_card", obj: p.title_card };
+  if (b === "chapter_question") return { key: "chapter_question", obj: p.chapter_question };
+  if (b === "count_up") return { key: "count_up", obj: p.count_up };
+  if (b === "icon_array") return { key: "icon_array", obj: p.icon_array };
+  if (b === "data_callout") return { key: "callouts", obj: (p.callouts || []).find((x) => near(x.start, c.t, 0.6) && x.text === c.text) };
+  if (b === "archive_clipping") return { key: "archive_clippings", obj: (p.archive_clippings || []).find((x) => near(x.start, c.t, 0.6)) };
+  if (b === "keyword_emphasis" || b === "icon_callout") return { key: "emphasis", obj: (p.emphasis || []).find((x) => near(x.start, c.t, 0.6)) };
+  if (b === "punch_in") return { key: "punch_in", t: (p.punch_in || []).find((x) => near(x, c.t)) };
+  return null;
+}
+function removePiece(c) {
+  const pc = pieceOf(c);
+  if (!pc) return;
+  mutate(`quitado: ${nombre(c.block)}`, () => {
+    if (pc.key === "punch_in") S.plan.punch_in = S.plan.punch_in.filter((x) => x !== pc.t);
+    else if (Array.isArray(S.plan[pc.key])) S.plan[pc.key] = S.plan[pc.key].filter((x) => x !== pc.obj);
+    else S.plan[pc.key] = null;
+  });
+}
+
+// ── atributos: valor actual y aplicar
+function attrValue(el, a, piece) {
+  const [kind, path] = a.aplica.split(":");
+  if (kind === "token") return path in S.tokens ? S.tokens[path] : S.rules[path];
+  if (kind === "all") {
+    const [list, field] = path.split(".");
+    const first = (S.plan[list] || []).find((x) => field !== "icon_anim" || x.icon_callout);
+    return first ? first[field] : a.default;
+  }
+  if (kind === "elem") {
+    if (a.id === "usar") return !!S.plan.title_card;
+    return piece && piece[path] !== undefined ? piece[path] : a.default;
+  }
+  return (S.anotado[el.id] || {})[a.id] ?? a.default;
+}
+function applyAttr(el, a, v, piece) {
+  const [kind, path] = a.aplica.split(":");
+  mutate(`${el.nombre}: ${a.nombre} → ${labelOf(a, v)}`, () => {
+    if (kind === "token") S.tokens[path] = v;
+    else if (kind === "all") {
+      const [list, field] = path.split(".");
+      (S.plan[list] || []).forEach((x) => { if (field !== "icon_anim" || x.icon_callout) x[field] = v; });
+    } else if (kind === "elem") {
+      if (a.id === "usar") S.plan.title_card = v ? (S.plan.title_card || clone(S.directorPlan.title_card)) : null;
+      else if (piece) {
+        piece[path] = v;
+        if (path === "icon_callout") {
+          const hit = S.ctx.lexicon_hits.find((h) => near(h.start, piece.start));
+          piece.icon = v && hit && hit.icon ? hit.icon : null;
+          piece.icon_callout = !!piece.icon;
+        }
+      }
+    } else (S.anotado[el.id] = S.anotado[el.id] || {})[a.id] = v;
+  });
+}
+function labelOf(a, v) {
+  const o = (a.opciones || []).find((x) => JSON.stringify(x.v) === JSON.stringify(v));
+  return o ? o.label : String(v);
+}
+function applyPreset(el, preset) {
+  for (const [k, v] of Object.entries(preset.tokens || {})) S.tokens[k] = v;
+  for (const [path, v] of Object.entries(preset.all || {})) {
+    const [list, field] = path.split(".");
+    (S.plan[list] || []).forEach((x) => { x[field] = v; });
+  }
+  for (const [k, v] of Object.entries(preset.anotado || {})) {
+    if (v && typeof v === "object" && !Array.isArray(v) && catEl(k)) S.anotado[k] = { ...(S.anotado[k] || {}), ...v };
+    else (S.anotado[el.id] = S.anotado[el.id] || {})[k] = v;
+  }
+}
+
+// ── acciones de sugerencia / ejemplo
+function runAction(acc, i, el) {
+  const w = i !== undefined ? wordByI(i) : null;
+  const t = w ? w.start : 0;
+  switch (acc.tipo || acc.accion) {
+    case "add_punch": addPunch(t); break;
+    case "add_emphasis": addEmphasis(i, { stamp: acc.stamp !== false, icon: !!acc.icon }); break;
+    case "set_emphasis": { const e = emphasisAt(t); if (e) Object.assign(e, acc.campos || {}); break; }
+    case "set_archive": {
+      const a = (S.plan.archive_clippings || []).find((x) => x.fact_idx === acc.fact_idx);
+      if (a) Object.assign(a, acc.campos || {});
+      break;
+    }
+    case "add_question": S.tab = "cierre"; break;
+    default: break;                                   // marca / tokens / anotado / focus
+  }
+  return t;
+}
+function trySuggestion(s) {
+  const el = catEl(s.elemento);
+  let t = 0;
+  try {
+    mutate(`probando ${s.id}: ${s.titulo}`, () => {
+      applyPreset(el || { id: s.elemento }, s.preset || {});
+      t = runAction(s.accion, s.word_i, el);
+      S.sugState[s.id] = "probando";
+    });
+  } catch (e) { setStatus(e.message, "err"); return; }
+  seek(t + 0.05);
+  openHere({ kind: "word", i: s.word_i });
+}
+function tryCatalog(el) {
+  let t = null;
+  try {
+    mutate(`probando: ${el.nombre}`, () => {
+      applyPreset(el, el.preset_sugerido || {});
+      if (el.ejemplo_en_ch02) t = runAction(el.ejemplo_en_ch02, el.ejemplo_en_ch02.word_i, el);
+    });
+  } catch (e) { setStatus(e.message, "err"); return; }
+  if (t !== null && el.ejemplo_en_ch02.word_i !== undefined) { seek(t + 0.05); openHere({ kind: "word", i: el.ejemplo_en_ch02.word_i }); }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  Historia
+// ═══════════════════════════════════════════════════════════════
 function renderStory() {
   const box = $("#words");
   box.innerHTML = "";
@@ -50,8 +258,10 @@ function renderStory() {
     const el = document.createElement("span");
     el.className = "w";
     el.textContent = w.word;
-    el.title = fmt(w.start);
-    el.addEventListener("click", () => { seek(w.start); selectWord(el); });
+    el.dataset.i = w.i;
+    const hit = lexAt(w.i);
+    if (hit) { el.classList.add("lex", "lex-w" + hit.weight); el.dataset.lex = `${MOODS[hit.category] || hit.category} · peso ${hit.weight}`; }
+    el.addEventListener("click", () => { seek(w.start); openHere({ kind: "word", i: w.i }); });
     box.appendChild(el);
     box.appendChild(document.createTextNode(" "));
     return el;
@@ -64,47 +274,218 @@ function renderStory() {
     el.title = `Foto ${p.idx + 1} · ${fmt(p.start)}–${fmt(p.end)} · ${p.rank}${p.safe ? " · movimiento seguro" : ""}`;
     el.innerHTML = (p.thumb ? `<img loading="lazy" src="${p.thumb}" alt="">` : `<img alt="">`) +
       `<span class="n">${p.idx + 1}</span><span class="t">${fmt(p.start)}–${fmt(p.end)}</span>`;
-    el.addEventListener("click", () => seek(p.start + 0.05));
+    el.addEventListener("click", () => { seek(p.start + 0.05); openHere({ kind: "photo", idx: p.idx }); });
     strip.appendChild(el);
     return el;
   });
 }
-function selectWord(el) {
-  S.wordEls.forEach((w) => w.classList.remove("sel"));
-  el.classList.add("sel");
-}
-
-// palabra más cercana a t (la que está sonando o la próxima)
-function wordIndexAt(t) {
-  const ws = S.story.words;
-  let lo = 0, hi = ws.length - 1, ans = -1;
-  while (lo <= hi) { const m = (lo + hi) >> 1; if (ws[m].start <= t) { ans = m; lo = m + 1; } else hi = m - 1; }
-  return ans;
-}
-
-function markCues() {
-  S.wordEls.forEach((el) => { el.classList.remove("cue", "k-zoom", "k-trans", "k-text"); el.removeAttribute("data-cue"); });
+function markStory() {
+  S.wordEls.forEach((el) => { el.classList.remove("cue", "k-zoom", "k-trans", "k-text", "sug"); el.title = fmt(+wordByI(+el.dataset.i).start) + (el.dataset.lex ? " · léxico " + el.dataset.lex : ""); });
   for (const c of S.cues) {
     const i = Math.max(0, wordIndexAt(c.t + 0.05));
     const el = S.wordEls[i];
     if (!el) continue;
     el.classList.add("cue", kindClass(c.block));
-    el.title = `${fmt(S.story.words[i].start)} · ${nombre(c.block)}${c.text ? " · " + c.text : ""}`;
+    el.title += ` · ${nombre(c.block)}${c.text ? " · " + c.text : ""}`;
+  }
+  for (const s of S.sugs) {
+    const el = S.wordEls.find((x) => +x.dataset.i === s.word_i);
+    if (el && !S.sugState[s.id]) { el.classList.add("sug"); el.title += ` · sugerido ${s.id}: ${s.titulo}`; }
   }
   const ol = $("#cues");
   ol.innerHTML = "";
   for (const c of S.cues) {
     const li = document.createElement("li");
-    li.innerHTML = `<span class="when">${fmt(c.t)}</span>${nombre(c.block)}` +
-      (c.text ? ` — <em></em>` : "") + `<span class="tech">${c.block}</span>`;
-    if (c.text) li.querySelector("em").textContent = c.text;
-    li.addEventListener("click", () => seek(c.t));
+    li.innerHTML = `<span class="when">${fmt(c.t)}</span>${esc(nombre(c.block))}` +
+      (c.text ? ` — <em>${esc(c.text)}</em>` : "") + `<span class="tech">${esc(c.block)}</span>`;
+    li.addEventListener("click", () => { seek(c.t + 0.05); openHere({ kind: "word", i: S.story.words[Math.max(0, wordIndexAt(c.t + 0.05))].i }); });
     c.el = li;
     ol.appendChild(li);
   }
 }
 
-// ── Escena (player)
+// ═══════════════════════════════════════════════════════════════
+//  Panel "Aquí": qué hay en este momento y qué más podría ir
+// ═══════════════════════════════════════════════════════════════
+function openHere(h) { S.here = h; renderHere(); }
+function hereTime() {
+  if (!S.here) return 0;
+  if (S.here.kind === "photo") return S.story.photos[S.here.idx].start;
+  return wordByI(S.here.i).start;
+}
+function renderHere() {
+  const box = $("#here");
+  if (!S.here) { box.innerHTML = '<p class="hint">Clic en una palabra o una foto para ver qué hay ahí.</p>'; return; }
+  const t = hereTime();
+  const ph = photoAt(t);
+  const w = S.here.kind === "word" ? wordByI(S.here.i) : null;
+  const span = S.here.kind === "photo" ? [ph.start, ph.end] : [t - 0.6, t + 1.2];
+  const active = S.cues.filter((c) => !c.block.startsWith("shot_transition") && c.t < span[1] && c.t + Math.max(c.dur, 0.4) > span[0]);
+  const hit = w ? lexAt(w.i) : null;
+  let html = `<div class="here-head">${w ? `«${esc(w.word)}»` : `Foto ${ph.idx + 1}`} <span class="tc">${fmt(t)}</span>` +
+    ` <span class="tech">foto ${ph.idx + 1} · lado tranquilo: ${ph.quiet_side === "left" ? "izquierda" : "derecha"}</span></div>`;
+  if (hit) html += `<p class="hint">Palabra del léxico: <b>${esc(MOODS[hit.category] || hit.category)}</b>, peso ${hit.weight}${hit.icon ? ` · ícono literal: ${esc(hit.icon)}` : ""}.</p>`;
+  html += '<h4>Lo que hay acá</h4>';
+  html += active.length ? active.map((c, k) => pieceCard(c, k)).join("") : '<p class="hint">Nada.</p>';
+  html += '<h4>Qué más podría ir</h4><div class="opts">';
+  if (w) html += `<button class="btn sm" data-do="punch">Golpe de zoom aquí</button>`;
+  if (hit && !emphasisAt(w.start)) {
+    html += `<button class="btn sm" data-do="mood">Mood ${esc(MOODS[hit.category])} + sello</button>`;
+    if (hit.icon) html += `<button class="btn sm" data-do="icon">Ícono ${esc(hit.icon)}</button>`;
+  }
+  html += `<button class="btn sm ghost" data-do="facts">Poner recorte aquí…</button>`;
+  html += '</div><div id="facts-pick" class="facts-pick" hidden></div>';
+  const sugs = S.sugs.filter((s) => { const sw = wordByI(s.word_i); return sw && Math.abs(sw.start - t) < 3 && s.word_i !== 0; });
+  if (sugs.length) html += '<h4>Sugerido cerca</h4>' + sugs.map(sugRow).join("");
+  box.innerHTML = html;
+  box.querySelectorAll("[data-do]").forEach((b) => b.addEventListener("click", () => hereAction(b.dataset.do, w, t)));
+  bindPieceCards(box, active);
+  bindSugRows(box);
+}
+function pieceCard(c, k) {
+  const el = catEl(elemOf(c.block));
+  const pc = pieceOf(c);
+  const editable = el ? el.atributos.filter((a) => a.aplica.startsWith("elem:") && a.id !== "usar" && a.tipo !== "texto") : [];
+  const attrs = pc && pc.obj ? editable.map((a) => attrControl(el, a, pc.obj, `p${k}`)).join("") : "";
+  return `<div class="piece" data-k="${k}"><div><b>${esc(nombre(c.block))}</b> <span class="tech">${esc(c.block)}</span>` +
+    (c.text ? ` — <em>${esc(c.text)}</em>` : "") + ` <span class="tc">${fmt(c.t)} · ${c.dur.toFixed(1)} s</span>` +
+    (pc ? ` <button class="btn sm ghost" data-rm="${k}">Quitar</button>` : "") + `</div>${attrs}</div>`;
+}
+function bindPieceCards(box, active) {
+  box.querySelectorAll("[data-rm]").forEach((b) => b.addEventListener("click", () => removePiece(active[+b.dataset.rm])));
+  box.querySelectorAll(".piece").forEach((div) => {
+    const c = active[+div.dataset.k], el = catEl(elemOf(c.block)), pc = pieceOf(c);
+    if (el && pc && pc.obj) bindAttrControls(div, el, pc.obj);
+  });
+}
+function hereAction(what, w, t) {
+  try {
+    if (what === "punch") mutate(`golpe de zoom en «${w.word}»`, () => addPunch(w.start));
+    else if (what === "mood") mutate(`mood en «${w.word}»`, () => addEmphasis(w.i, { stamp: true, icon: false }));
+    else if (what === "icon") mutate(`ícono en «${w.word}»`, () => addEmphasis(w.i, { stamp: true, icon: true }));
+    else if (what === "facts") {
+      const box = $("#facts-pick");
+      box.hidden = !box.hidden;
+      box.innerHTML = S.ctx.facts.filter((f) => f.eligible).map((f) =>
+        `<div class="fact"><button class="btn sm" data-f="${f.idx}">Recorte</button> <span class="tech">F${f.idx}</span> ${esc(headlineOf(f.text))}` +
+        `<span class="tech"> · ${esc(f.text.slice(0, 90))}…</span></div>`).join("") || '<p class="hint">Sin facts elegibles.</p>';
+      box.querySelectorAll("[data-f]").forEach((b) => b.addEventListener("click", () =>
+        mutate(`recorte del fact ${b.dataset.f} en ${fmt(t)}`, () => addArchive(+b.dataset.f, t))));
+    }
+  } catch (e) { setStatus(e.message, "err"); }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  Catálogo
+// ═══════════════════════════════════════════════════════════════
+const ESTADO_CLS = { en_vivo: "ok", parcial: "part", pipeline: "pipe", nuevo_D: "new", futuro: "fut" };
+function renderTabs() {
+  const tabs = [{ id: "sugerencias", nombre: "Sugerencias IA" }, ...S.catalog.tabs];
+  $("#tabs").innerHTML = tabs.map((t) => `<button data-tab="${t.id}" class="${S.tab === t.id ? "on" : ""}">${esc(t.nombre)}</button>`).join("");
+  $("#tabs").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { S.tab = b.dataset.tab; renderTabs(); renderCatalog(); }));
+}
+function renderCatalog() {
+  renderTabs();
+  const box = $("#catalog");
+  if (S.tab === "sugerencias") {
+    box.innerHTML = `<p class="hint">${esc(S.sugMeta.estado)}</p>` + S.sugs.map(sugRow).join("");
+    bindSugRows(box);
+    return;
+  }
+  let html = "", group = "";
+  for (const el of S.catalog.elementos.filter((e) => e.tab === S.tab)) {
+    if (el.grupo !== group) { group = el.grupo; html += `<h4 class="grp">${esc(group)}</h4>`; }
+    html += elementCard(el);
+  }
+  if (S.tab === "cierre") html = questionBox() + html;
+  box.innerHTML = html;
+  box.querySelectorAll(".card").forEach((card) => {
+    const el = catEl(card.dataset.id);
+    bindAttrControls(card, el, null);
+    const b = card.querySelector("[data-try]");
+    if (b) b.addEventListener("click", () => tryCatalog(el));
+  });
+  bindQuestionBox(box);
+}
+function elementCard(el) {
+  const st = S.catalog.estados[el.estado] || el.estado;
+  const attrs = el.atributos.filter((a) => !a.aplica.startsWith("elem:") || a.id === "usar")
+    .filter((a) => a.tipo !== "texto").map((a) => attrControl(el, a, null, el.id)).join("");
+  const elemAttrs = el.atributos.filter((a) => a.aplica.startsWith("elem:") && a.id !== "usar" && a.tipo !== "texto");
+  const canTry = el.estado !== "futuro" && (Object.keys(el.preset_sugerido || {}).length || el.ejemplo_en_ch02);
+  return `<div class="card" data-id="${el.id}">
+    <div class="card-head"><b>${esc(el.nombre)}</b> <span class="tech">${esc(el.id)}</span>
+      <span class="badge ${ESTADO_CLS[el.estado] || ""}" title="${esc(el.nota_estado || st)}">${esc(st)}</span></div>
+    <div class="que">${esc(el.que_hace)}</div>
+    <div class="hint3"><div><span>Cuándo</span>${esc(el.hint.cuando)}</div><div><span>Dónde</span>${esc(el.hint.donde)}</div><div><span>Por qué</span>${esc(el.hint.por_que)}</div></div>
+    ${el.nota_estado ? `<div class="nota">${esc(el.nota_estado)}</div>` : ""}
+    ${canTry ? `<button class="btn sm" data-try="1">Probar sugerencia</button>` : ""}
+    ${attrs}
+    ${elemAttrs.length ? `<div class="nota">${esc(elemAttrs.map((a) => a.nombre).join(", "))}: elegí la pieza en la Historia (panel Aquí).</div>` : ""}
+  </div>`;
+}
+function attrControl(el, a, piece, scope) {
+  const cur = attrValue(el, a, piece);
+  const live = !a.aplica.startsWith("anotado");
+  const tag = live ? "" : '<span class="anot" title="Se guarda en la identidad; el preview todavía no lo dibuja">anotado</span>';
+  let opts = "";
+  if (a.tipo === "anim") {
+    opts = a.opciones.map((o) => `<button class="opt anim ${same(o.v, cur) ? "on" : ""}" data-a="${a.id}" data-v='${esc(JSON.stringify(o.v))}' title="${esc(o.label)}">
+      <span class="ap-wrap"><span class="ap ap-${o.anim}">${miniContent(o.anim)}</span><span class="lbl">${esc(o.label)}</span></span></button>`).join("");
+  } else if (a.tipo === "paleta") {
+    opts = a.opciones.map((o) => `<button class="opt sw ${same(o.v, cur) ? "on" : ""}" data-a="${a.id}" data-v='${esc(JSON.stringify(o.v))}' title="${esc(o.label)}">
+      <span class="swatch" style="background:${esc(o.color)}"></span>${esc(o.label)}</button>`).join("");
+  } else {
+    opts = a.opciones.map((o) => `<button class="opt ${same(o.v, cur) ? "on" : ""}" data-a="${a.id}" data-v='${esc(JSON.stringify(o.v))}'>${esc(o.label)}</button>`).join("");
+  }
+  return `<div class="attr" data-scope="${esc(scope)}"><span class="an">${esc(a.nombre)}</span>${tag}<span class="opts">${opts}</span></div>`;
+}
+function miniContent(anim) {
+  if (["ink_bleed", "press_wipe", "caer", "desdoblar", "respirar", "deriva", "pulso"].includes(anim)) return '<span class="box"></span>';
+  if (anim === "cascada") return '<span class="t"><span>D</span><span>A</span><span>T</span><span>O</span><span>S</span></span>';
+  if (anim === "sello") return '<span class="t"><b>SELLO</b></span>';
+  if (anim === "maquina") return '<span class="t">¿POR QUÉ?</span>';
+  return '<span class="t">TEXTO</span>';
+}
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+function bindAttrControls(root, el, piece) {
+  root.querySelectorAll(".opt").forEach((b) => {
+    if (b.closest(".card, .piece") !== root) return;
+    b.addEventListener("click", () => {
+      const a = el.atributos.find((x) => x.id === b.dataset.a);
+      applyAttr(el, a, JSON.parse(b.dataset.v), piece);
+    });
+  });
+}
+function sugRow(s) {
+  const st = S.sugState[s.id];
+  const el = catEl(s.elemento);
+  const w = wordByI(s.word_i);
+  return `<div class="sugrow ${st ? "st-" + st : "st-sug"}" data-s="${s.id}">
+    <div><span class="sid">${s.id}</span> <b>${esc(s.titulo)}</b> <span class="tc">${w && s.word_i ? fmt(w.start) + " «" + esc(w.word) + "»" : "todo el cap"}</span>
+    ${st ? `<span class="badge part">${esc(st)}</span>` : '<span class="badge sugd">sugerido</span>'}</div>
+    <div class="hint">${esc(s.por_que)} <span class="tech">${esc(el ? el.nombre : s.elemento)} · ${esc(s.accion.tipo)}</span></div>
+    <button class="btn sm" data-try-s="${s.id}">Probar sugerencia</button></div>`;
+}
+function bindSugRows(root) {
+  root.querySelectorAll("[data-try-s]").forEach((b) => b.addEventListener("click", () => trySuggestion(S.sugs.find((x) => x.id === b.dataset.tryS))));
+}
+function questionBox() {
+  const q = S.plan.chapter_question;
+  return `<div class="card qbox"><div class="card-head"><b>Tu pregunta de cierre</b> <span class="tech">chapter_question · manual</span></div>
+    <p class="hint">La única pieza con texto libre: la escribís vos y queda marcada como manual (fuera del candado literal).</p>
+    <textarea id="qtext" rows="2" maxlength="140" placeholder="¿…?">${esc(q && q.manual ? q.text : "")}</textarea>
+    <button class="btn sm" id="qapply">Poner al final del capítulo</button> <button class="btn sm ghost" id="qclear">Quitar</button></div>`;
+}
+function bindQuestionBox(root) {
+  const ap = $("#qapply", root), cl = $("#qclear", root);
+  if (ap) ap.addEventListener("click", () => mutate("pregunta de cierre", () => setQuestion($("#qtext").value)));
+  if (cl) cl.addEventListener("click", () => mutate("pregunta quitada", () => { S.plan.chapter_question = null; }));
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  Escena (player + narración)
+// ═══════════════════════════════════════════════════════════════
 const player = () => $("#player");
 const narr = () => $("#narr");
 // La narración es un <audio> del lab que SIGUE al player (fuente de verdad = currentTime del player).
@@ -149,27 +530,35 @@ function tick(force = false) {
   if (pi !== lastPhoto || force) { S.photoEls.forEach((el, i) => el.classList.toggle("now", i === pi)); lastPhoto = pi; }
   const active = S.cues.filter((c) => c.t <= t && t < c.t + Math.max(c.dur, 0.4));
   S.cues.forEach((c) => c.el && c.el.classList.toggle("now", active.includes(c)));
-  $("#now-line").innerHTML = active.map((c) => `<span class="chip">${nombre(c.block)}</span>`).join("") || "&nbsp;";
+  $("#now-line").innerHTML = active.map((c) => `<span class="chip">${esc(nombre(c.block))}</span>`).join("") || "&nbsp;";
 }
 function loop() { tick(); syncAudio(); syncPlayButton(); requestAnimationFrame(loop); }
 
-// ── Preview: plan → plantillas reales → nuevo src (se conserva el instante)
+// ── Preview: plan + tokens → candado → plantillas reales → nuevo src (se conserva el instante)
 async function preview() {
-  if (S.busy) return;
+  if (S.busy) { S.queued = true; return; }
   S.busy = true;
   setStatus("generando preview…", "busy");
   const p = player();
   const t = p.currentTime || 0;
   const wasPlaying = !p.paused;
   try {
-    const r = await api("/preview", { plan: S.plan });
+    const r = await api("/preview", { plan: S.plan, tokens: S.tokens });
     S.cues = r.cues;
-    markCues();
+    S.rejected = r.rejected || [];
+    markStory();
+    if (S.here) renderHere();
     await loadSrc(r.src, t, wasPlaying);
-    setStatus(`preview listo (${r.ms} ms)`);
+    autosave();
+    setStatus(S.rejected.length
+      ? `preview listo · candado quitó ${S.rejected.length}: ${S.rejected.map((x) => `${x.block} «${x.text}»`).join(", ")}`
+      : `preview listo (${r.ms} ms)`, S.rejected.length ? "err" : "");
   } catch (e) {
     setStatus("error: " + e.message, "err");
-  } finally { S.busy = false; }
+  } finally {
+    S.busy = false;
+    if (S.queued) { S.queued = false; preview(); }
+  }
 }
 function loadSrc(src, t, play) {
   return new Promise((resolve) => {
@@ -193,19 +582,26 @@ function loadSrc(src, t, play) {
 }
 
 async function backToDirector() {
-  const r = await api("/api/plan?origin=director");
-  S.plan = r.plan;
-  await api("/api/plan", { plan: S.plan });
-  await preview();
+  mutate("volver al plan del director", () => {
+    S.plan = clone(S.directorPlan);
+    S.tokens = {};
+    S.sugState = {};
+  });
 }
 
 async function init() {
   try {
-    S.story = await api("/api/story");
-    $("#cap-label").textContent = `· ${S.story.cap} · ${S.story.video_id.slice(0, 8)}… · ${fmt(S.story.duration)}`;
-    const pr = await api("/api/plan");
-    S.plan = pr.plan;
+    const [story, st, dir, ctx, prof, cat, sug] = await Promise.all([
+      api("/api/story"), api("/api/plan"), api("/api/plan?origin=director"), api("/api/context"), api("/api/profile"),
+      api("/lab/catalogo.json"), api("/lab/sugerencias_ch02.json")]);
+    S.story = story; S.ctx = ctx; S.rules = prof.rules; S.catalog = cat;
+    S.sugs = sug.sugerencias; S.sugMeta = sug;
+    S.plan = st.plan; S.tokens = st.tokens || {}; S.anotado = st.anotado || {}; S.sugState = st.sugerencias || {};
+    S.directorPlan = dir.plan;
+    $("#cap-label").textContent = `· ${story.cap} · ${story.video_id.slice(0, 8)}… · ${fmt(story.duration)} · perfil ${prof.name}`;
     renderStory();
+    renderCatalog();
+    renderHere();
     const p = player();
     ["play", "pause", "ended"].forEach((ev) => p.addEventListener(ev, syncPlayButton));
     $("#btn-play").addEventListener("click", togglePlay);

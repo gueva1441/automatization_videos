@@ -176,3 +176,133 @@ def test_rutas_fuera_de_raiz_dan_403(server):
     with pytest.raises(urllib.error.HTTPError) as e:
         _get(url + "/composition/..%2F..%2Fgfx_plan_ch02.json")
     assert e.value.code in (403, 404)
+
+
+# ── §B: catálogo, sugerencias, tokens en vivo y candado
+
+CAT = json.loads((lab.LAB_DIR / "catalogo.json").read_text(encoding="utf-8"))
+SUG = json.loads((lab.LAB_DIR / "sugerencias_ch02.json").read_text(encoding="utf-8"))
+_HANDOFF_IDS = {"ken_burns_in", "ken_burns_out", "pan", "depthflow", "veo", "punch_in", "hold", "vignette", "grain",
+                "desat", "tint", "letterbox", "spotlight", "keyword_emphasis", "title_card", "data_callout", "count_up",
+                "keyword_stamp", "source_tag", "lower_third", "quote_card", "archive_clipping", "icon_callout",
+                "icon_array", "cut", "dip_to_black", "flash", "crossfade", "zoom_through", "ink_wipe", "burn",
+                "match_cut", "sfx", "chapter_question", "next_chapter_card", "black_hold"}
+
+
+def test_catalogo_cubre_el_handoff_y_es_consistente():
+    from dataclasses import fields
+    from gfx_config import GfxRules
+    types = {f.name: f.type for f in fields(GfxRules)}
+    ids = [e["id"] for e in CAT["elementos"]]
+    assert len(ids) == len(set(ids))
+    assert _HANDOFF_IDS <= set(ids)
+    tabs = {t["id"] for t in CAT["tabs"]}
+    assert tabs == {"foto", "momento", "entre", "cierre", "global"}
+    for e in CAT["elementos"]:
+        assert e["tab"] in tabs and e["estado"] in CAT["estados"]
+        assert all(e["hint"].get(k) for k in ("cuando", "donde", "por_que")), e["id"]
+        assert e["nombre"] and e["que_hace"]
+        for k in e.get("preset_sugerido", {}).get("tokens", {}):
+            assert k in types, f"{e['id']}: token {k}"
+        for a in e["atributos"]:
+            kind = a["aplica"].split(":")[0]
+            assert kind in ("token", "all", "elem", "anotado"), a
+            if kind == "token":
+                assert a["aplica"].split(":")[1] in types, f"{e['id']}.{a['id']}"
+            if a["tipo"] in ("opciones", "anim", "paleta"):
+                assert a["opciones"], f"{e['id']}.{a['id']}"
+            if a["tipo"] == "anim":
+                assert all(o.get("anim") for o in a["opciones"])
+    # texto libre SOLO en la pregunta de cierre (§1.2)
+    libres = [(e["id"], a["id"]) for e in CAT["elementos"] for a in e["atributos"] if a["tipo"] == "texto"]
+    assert libres == [("chapter_question", "texto")]
+
+
+def test_miniaturas_css_existen_para_cada_animacion():
+    css = (lab.LAB_DIR / "anim_previews.css").read_text(encoding="utf-8")
+    anims = {o["anim"] for e in CAT["elementos"] for a in e["atributos"] if a["tipo"] == "anim" for o in a["opciones"]}
+    missing = [a for a in anims if f".ap-{a}" not in css]
+    assert not missing, missing
+
+
+def test_tokens_en_vivo_aplican_al_templater():
+    """Cada valor de opción con aplica=token es aceptado por GfxRules (mismo tipo que el default)."""
+    from dataclasses import replace
+    from gfx_config import gfx_rules
+    for e in CAT["elementos"]:
+        for a in e["atributos"]:
+            if a["aplica"].startswith("token:"):
+                f = a["aplica"].split(":")[1]
+                for o in a["opciones"]:
+                    r = replace(gfx_rules, **{f: o["v"]})
+                    assert isinstance(getattr(r, f), type(getattr(gfx_rules, f))) or (
+                        isinstance(getattr(gfx_rules, f), float) and isinstance(o["v"], (int, float))), (e["id"], f, o)
+
+
+def test_sugerencias_borrador_valido():
+    ids = {e["id"] for e in CAT["elementos"]}
+    s = SUG["sugerencias"]
+    assert 15 <= len(s) <= 20
+    assert len({x["id"] for x in s}) == len(s)
+    for x in s:
+        assert x["elemento"] in ids, x["id"]
+        assert x["accion"]["tipo"] in SUG["acciones"], x["id"]
+        assert x["titulo"] and x["por_que"]
+
+
+def test_rules_override_se_restaura():
+    from script_engine import gfx_project
+    before = (gfx_project.gfx_rules, gfx_project.GRADE_VARIANTS)
+    with lab.rules_override({"accent_hex": "#123456", "vignette_opacity": 0.3}):
+        assert gfx_project.gfx_rules.accent_hex == "#123456"
+        assert gfx_project.GRADE_VARIANTS["off"]["opacity"]["gr-vignette"] == 0.3
+    assert (gfx_project.gfx_rules, gfx_project.GRADE_VARIANTS) == before
+    with pytest.raises(ValueError):
+        lab.rules_override({"no_existe": 1})
+    with pytest.raises(RuntimeError):
+        with lab.rules_override({"accent_hex": "#000000"}):
+            raise RuntimeError("falla en el medio")
+    assert (gfx_project.gfx_rules, gfx_project.GRADE_VARIANTS) == before
+
+
+@needs_data
+def test_sugerencias_apuntan_a_palabras_de_ch02(server):
+    session, _ = server
+    words = {w["i"]: w["word"] for w in session.story()["words"]}
+    lex = {h["i"] for h in session.context()["lexicon_hits"]}
+    for x in SUG["sugerencias"]:
+        assert x["word_i"] in words, x["id"]
+        if x["accion"]["tipo"] in ("add_emphasis", "set_emphasis"):
+            assert x["word_i"] in lex, f"{x['id']}: «{words[x['word_i']]}» no es del léxico"
+
+
+@needs_data
+def test_candado_en_el_preview(server):
+    session, url = server
+    plan = session.director_plan()
+    plan["callouts"] = plan["callouts"] + [{"text": "TEXTO INVENTADO 999", "start": 20.0, "kind": "figure",
+                                           "duration": 2.5, "side": "left", "source": ""}]
+    plan["chapter_question"] = {"text": "¿Quién apagó la luz?", "start": 94.0, "duration": 3.0, "keyword": "", "manual": True}
+    r = _post(url + "/preview", {"plan": plan, "tokens": {"accent_hex": "#123456"}})
+    assert any(x["text"] == "TEXTO INVENTADO 999" for x in r["rejected"])
+    assert not any(c["text"] == "TEXTO INVENTADO 999" for c in r["cues"])
+    assert any(c["block"] == "chapter_question" for c in r["cues"])        # manual: fuera del candado
+    html = (session.project / "index.html").read_text(encoding="utf-8")
+    assert "#123456" in html and "Quién apagó la luz" in html
+    # sin manual, una pregunta inventada NO pasa
+    plan["chapter_question"]["manual"] = False
+    r = _post(url + "/preview", {"plan": plan, "tokens": {}})
+    assert not any(c["block"] == "chapter_question" for c in r["cues"])
+    _post(url + "/preview", {"plan": session.director_plan(), "tokens": {}})
+
+
+@needs_data
+def test_contexto_lexico_y_facts(server):
+    session, url = server
+    ctx = json.loads(_get(url + "/api/context")[2])
+    words = {h["word"].strip(".,") for h in ctx["lexicon_hits"]}
+    assert {"sumergidos", "encierro", "aguas"} <= words
+    assert any(h["icon"] == "candado" for h in ctx["lexicon_hits"])
+    assert any(f["eligible"] for f in ctx["facts"])
+    prof = json.loads(_get(url + "/api/profile")[2])
+    assert prof["rules"]["accent_hex"].startswith("#")

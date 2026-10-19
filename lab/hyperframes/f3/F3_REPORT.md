@@ -57,3 +57,52 @@ Riesgos que el contrato no cubre:
 - #16: verificado después del veredicto, `grep -niE "shader|webgl|getContext("` sobre el lab no da nada.
 - Riesgo 1 (memo): en una corrida de fase2b cada cap tiene su propio `base.mp4`, así que la clave nunca se repite entre caps, y `write_project` se llama una sola vez por cap. Es el mismo comportamiento que antes. Igual queda como deuda re-medir un render ch02 `--gfx` contra el anterior cuando se haga el Render de §D.
 - Riesgo 3: aceptado y anotado en C8 (los subs los quema fase2b después de HyperFrames).
+
+---
+
+## §B — Catálogo + hints + sugerencias
+
+**Qué hay:**
+- `lab/identidad/catalogo.json` cubre las 36 piezas del §2 A–J más 7 de soporte (43 entradas, 5 pestañas). Cada una trae nombre en español, qué hace, hint de 3 líneas (cuándo · dónde · por qué), estado, preset sugerido y atributos. Cada atributo dice si se ve **en vivo** en el preview (token del perfil o campo de la pieza) o si queda **anotado** (etiqueta violeta) para §D, el director o el pipeline (C12).
+- `lab/identidad/sugerencias_ch02.json`: borrador de CC con 18 colocaciones para que el analista lo corrija (§5.3). Aparecen en gris punteado en la Historia y en la pestaña "Sugerencias IA", cada una con su "Probar sugerencia".
+- `lab/identidad/anim_previews.css`: miniaturas de 17 animaciones que se mueven al pasar el mouse.
+- Panel **Aquí**: clic en una palabra o una foto muestra lo que hay en ese momento (con lado, duración, sello e ícono editables, y Quitar) y lo que más podría ir: golpe de zoom, mood o ícono si la palabra es del léxico, o un recorte con un fact elegible.
+- Servidor: tokens en vivo (override temporal de `gfx_rules`), candado literal en cada preview (salvo la pregunta manual de Omar), `/api/context` y `/api/profile`.
+
+**Medido:** S06, S07, S04, S02 y S16 se aplicaron en el navegador sin rechazos del candado; el ícono gota se ve a 89.6 s; la miniatura "cascada" corre `ap-rise` en hover. Tests: 180 verdes (+8 de §B). En §B no se tocó `fase2b.py` ni `script_engine/` (el md5 de §A sigue valiendo).
+
+**Veredicto revisor-handoff (íntegro):**
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito (§B / §1–§3 / §5.1 / §6) | Estado | Evidencia |
+|---|---|---|---|
+| 1 | catalogo.json con 5 pestañas (Foto, Momento, Entre fotos, Cierre, Global) | OK | lab/identidad/catalogo.json: `tabs` tiene los 5 ids. 43 elementos: foto 13, momento 13, entre 8, global 6, cierre 3. |
+| 2 | Cada elemento lleva nombre, que_hace, hint de 3 partes (cuándo/dónde/por qué), estado y preset_sugerido | OK | Script sobre `elementos`: los 43 tienen nombre, que_hace y hint con las 3 claves llenas. |
+| 3 | Catálogo completo A–J | OK | Aparecen los ids de §2: ken_burns, pan, depthflow, veo, punch_in, hold, look, texto, recorte, íconos, transiciones, sfx, cierre y global. Estilos de recorte (post-it, ficha, telegrama) y entradas de ícono (ink_bleed, press_wipe) presentes. |
+| 4 | Atributos como controles; paleta ≤ 4; texto libre solo en la pregunta de cierre | OK | Paleta: tint, paleta.acento y count_up.color, ninguna pasa de 4 opciones. El único atributo `texto` es `chapter_question` (catalogo.json). lab.js:475-476 y 132 marcan `manual:true`. |
+| 5 | Miniaturas CSS que se mueven en hover | OK | anim_previews.css:2,13,19 (17 `@keyframes`, `.ap-wrap:hover`). El test `test_miniaturas_css_existen_para_cada_animacion` pasa. Que ap-rise corra en hover es una prueba de navegador de CC, no la repetí. |
+| 6 | Botón "Probar sugerencia" aplica el preset en el lugar recomendado | OK | lab.js:244 (`applyPreset`), 415-422, 468. Es un botón por elemento y otro por sugerencia. |
+| 7 | sugerencias_ch02.json con 15–20 colocaciones, en gris "sugerido" | OK | 18 entradas, marcadas BORRADOR de CC (§5.3). Todas apuntan a ids existentes. Insignia "sugerido" en lab.js:466 y clase `.sug` en lab.js:293. |
+| 8 | Español sin jerga, técnico en gris | OK | Hay `<span class="tech">` y hints en español (lab.js:475). No revisé visualmente toda la UI. |
+| 9 | Estados "anotado/nuevo_D/futuro" declarados con honestidad | OK | DECISIONES_F3.md C12-C21. El catálogo tiene un campo `estado` (en_vivo 9, parcial 12, pipeline 11, nuevo_D 10, futuro 1) y 47 atributos con `aplica:"anotado"`. Es honesto. |
+| 10 | Candado literal, sin shaders, preview con plantillas reales | OK | Los tests `test_preview_usa_las_plantillas_reales` y `test_candado_en_el_preview` están en el set que pasa. No hay "shader" en lab.js. |
+| 11 | Tests verdes | OK | Corrí el comando indicado: 180 passed en 14.93 s. |
+| 12 | Sin --gfx intacto (fase2b.py y script_engine/ sin tocar) | OK | `git diff --stat` sobre fase2b.py y script_engine/ no da cambios; su último commit toca esa ruta antes de F3 (0902908). No re-ejecuté el md5 de §A; el log existe (38e5ba14...). |
+| 13 | Entregables existen, no vacíos | OK | catalogo.json 42 KB, sugerencias_ch02.json 5.9 KB, anim_previews.css 5.2 KB. |
+| 14 | `ejemplo_en_ch02` por elemento (§3) | PARCIAL | Solo 6 de 43 elementos lo tienen (punch_in, keyword_emphasis, data_callout, archive_clipping, icon_callout, chapter_question). El resto se cubre con `sugerencias_ch02.json`, pero el campo del esquema §3 casi no se usa. |
+| 15 | Atributos y preset en todos los elementos | PARCIAL | 9 elementos tienen 0 atributos (hold, icon_array, regen_icon, cut, zoom_through, ink_wipe, burn, match_cut, next_chapter_card). 7 de ellos no tienen `preset_sugerido`: icon_array, regen_icon, zoom_through, ink_wipe, burn, match_cut y next_chapter_card. Los nuevos, de §D o futuros, son esperables. El handoff define atributos para zoom_through, ink_wipe, burn, next_chapter_card e icon_array, y no están. `cut` y `hold` sí cubren el "—" del handoff. |
+
+Fuera de alcance: ninguno. Los 6 modificados y los 3 nuevos coinciden con lo declarado. diag_234_cap4.py ya estaba modificado antes. No vi cambios de este paso en fase2b.py ni en script_engine/.
+
+Riesgos que el contrato no cubre:
+- Los hints de las 43 entradas y las 18 sugerencias son un borrador de CC que el analista no ha validado todavía.
+- Los 47 atributos "anotado" no se ven en el mp4. Omar puede creer que un ajuste se aplicó, y la etiqueta violeta es lo único que lo avisa.
+- No pude repetir la prueba de navegador (hover, aplicar S06/S07/S04/S02/S16 sin rechazos del candado, ícono a 89.6 s). Es evidencia de CC y no la verifiqué.
+```
+
+**Respuesta de CC a las observaciones:**
+- #15: después del veredicto se agregaron como atributos "anotado" los que el handoff sí define: barrido de tinta (duración 0.6 s), quemado (borde) y tarjeta "Capítulo N" (1.5 s). zoom_through y la matriz no tienen opciones en el handoff ("—" / "N figuras en filas de 10"). La matriz existe y la arma el director; ch02 no tiene un fact elegible para ella.
+- #14: `ejemplo_en_ch02` está solo donde existe un lugar concreto en ch02 (6 elementos). Las colocaciones van en `sugerencias_ch02.json`, que es lo que §3 pide para ch02. No se inventan ejemplos para piezas que ch02 no tiene (citas, tercio inferior, matriz).
+- Riesgo 2: además de la etiqueta violeta por atributo, cada tarjeta lleva un badge de estado y una nota ("Parte se ve en el preview; el resto queda anotado"). Va como pregunta para la PARADA.
