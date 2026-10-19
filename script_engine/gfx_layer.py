@@ -407,6 +407,11 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             raw_plan = apply_zoom_vision(raw_plan, frame_for_scene=lambda si: _zoom_frame(
                 project / "public" / "base.mp4", scenes[si], work_dir / f"gfx_zoomframe_{cap}_s{si:02d}.jpg"),
                 cache=work_dir / f"gfx_zoom_box_{cap}.json", log=log)
+            # pre-merge: dedupe de cifras a nivel video (contadores ya animados en caps anteriores)
+            from script_engine.gfx_director import counted_figures_before
+            ctx["video_counted"] = counted_figures_before(work_dir, ctx["chapter_number"])
+            if ctx["video_counted"]:
+                log.append(f"  cifras ya animadas en caps anteriores: {sorted(ctx['video_counted'])}")
             resolved = resolve_plan(raw_plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
             resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                       question_sources=ctx.get("next_sources"))

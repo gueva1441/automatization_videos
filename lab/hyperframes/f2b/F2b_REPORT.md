@@ -547,3 +547,46 @@ Riesgos que el contrato no cubre: el bug recorte + contador del mismo fact sigue
 ```
 
 Respuesta de CC: el commit del reporte se hace ahora, por ruta. Los ~7 min por cap salen del incremental medido (ch04: 7.5 min; ch05: 7.2 min); para 3 caps serían unos 3 × 5 min de capa gfx + 1.5 min de concat y música si se re-ensamblan juntos.
+
+## Pre-merge v2 — un fact = un bloque + dedupe de cifras (B42)
+
+- **Un fact = un bloque:** recorte y contador del mismo fact o la misma cifra → gana el contador; el recorte pasa al siguiente fact elegible, y si no hay, el cap queda sin ese recorte.
+- **Dedupe a nivel video:** una cifra se anima como contador una sola vez; la 2.ª vez, recorte de ese fact o nada.
+- **Se quitó "cambiar de lado".**
+- Tests: 155 verdes (+5).
+- **Alcance:** aplicar la regla cambia 6 de 7 caps (ch01, ch02, ch04, ch05, ch06 y ch07), no solo los 3 pedidos. ch02 y ch04 repiten el contador «6,500» de ch01 y ch06 tiene recorte y contador del fact 6 («650,000»). Se consulta a Omar antes de re-ensamblar.
+
+### Veredicto revisor-handoff del fix (íntegro)
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Un fact = un bloque; si recorte y contador comparten fact_idx o cifra, gana el contador y el recorte pasa al siguiente fact elegible | OK | gfx_director.py `_shares_counter`, `_next_fact`, `_place_archive` (comparación por fact_idx y por dígitos del titular) |
+| 2 | Si no hay otro fact elegible, el cap queda sin recorte | OK | `_place_archive`: `if alt is None: return False` + log |
+| 3 | Dedupe de cifras a nivel video: 1.ª vez contador, 2.ª recorte o nada | OK (código) | `counted_figures_before` + `ctx["video_counted"]` en gfx_layer.py; el `count_up` repetido pasa a `second_cifra` y se coloca con `_place_archive` o se descarta. El resultado real depende del render: NO VERIFICABLE |
+| 4 | Quitar la regla "cambiar de lado" | OK | diff: borrado `hits`/`cu_iv`/`side="right"`; solape ⇒ `if not _free(a,b)` descarta |
+| 5 | Tests | OK | los 5 archivos de test indicados: 155 passed en 12 s. Los 5 tests nuevos reemplazan `test_solape_con_contador_cambia_de_lado` |
+| 6 | Re-ensamblar solo ch01/ch05/ch07 (incremental) | NO VERIFICABLE | el re-ensamble va después del commit. Ver el punto de abajo |
+| 7 | AB nuevo + reporte actualizado + parar | NO VERIFICABLE | todavía no existen. DECISIONES_F2b.md tiene B42, pero el reporte no se actualizó |
+| 8 | main intacta | OK | `git log -1 --format=%h main` = 43f528a; HEAD = eb97a86 |
+
+Punto a juzgar (6 de 7 caps contra los 3 nombrados): la CC tiene razón en el hecho, pero ya contradice la letra del pedido. Releí los `gfx_plan_chNN.resolved.json` actuales:
+- ch01: contador «6,500» y recorte del fact 4 «Aproximadamente 6,500 personas». Comparten cifra.
+- ch02 y ch04: repiten el contador «6,500» de ch01. Es la 2.ª vez, así que cae por el dedupe de video.
+- ch05: contador «500» y recorte «Más de 500 prisioneros». Comparten cifra.
+- ch06: contador «650,000» y recorte del fact 6 con «650,000». Comparten fact y cifra.
+- ch07: contador «6,500» y recorte «Aproximadamente 6,500 personas». Comparten cifra, y además es repetición de ch01.
+- ch03: sin contador, no cambia.
+
+Estas condiciones son consecuencia necesaria de las dos reglas que Omar mismo dictó (un fact = un bloque y dedupe a nivel video). Dejar ch02, ch04 y ch06 sin re-ensamblar deja un video final que viola esas reglas. No es un rediseño de la CC. Pero "solo ch01/ch05/ch07" es una restricción literal, y la CC la desbordó por su cuenta: lo anotó en B42, no consultó a Omar. Hay que reportarlo explícitamente a Omar como desvío del alcance, no como cumplimiento. Que re-ensamble ch02, ch04 y ch06 sin su visto bueno sería actuar fuera del pedido.
+
+Fuera de alcance: ninguno nuevo en el fix. Cambios sin commitear: gfx_director.py, gfx_layer.py, test_module_gfx_director.py y DECISIONES_F2b.md (todos del fix) y diag_234_cap4.py (preexistente, ajeno).
+
+Riesgos que el contrato no cubre:
+- `counted_figures_before` lee los planes resueltos en disco. Si ch02 y ch04 no se re-ensamblan, o se re-ensamblan fuera de orden, el dedupe de ch07 depende de planes viejos y puede dar resultados distintos.
+- Con 3 caps nombrados y 6 afectados, el AB de ch02, ch04 y ch06 no estará cubierto si se respeta el alcance literal.
+```
+
+Respuesta de CC: de acuerdo, es un desvío de alcance y no lo ejecuto sin el OK de Omar. El código está commiteado; el re-ensamble espera su respuesta (6 caps según la regla o solo los 3 pedidos).

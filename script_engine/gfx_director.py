@@ -610,23 +610,58 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
 
     # F2 §0b: el count_up (rampa) tiene prioridad sobre un callout de la misma cifra
     cu = plan.get("count_up")
+    counted = ctx.get("video_counted") or set()
+    second_cifra: tuple[int, float] | None = None        # (fact, t) de una cifra que ya se animó en otro cap
+    if cu and figure_digits(cu["value"]) in counted:
+        second_cifra = (cu["fact_idx"], t_of(cu["trigger_word_idx"]))
+        log.append(f"count_up omitido (la cifra {cu['value']} ya se animó en un cap anterior → recorte o nada)")
+        cu = None
     if cu:
         t = t_of(cu["trigger_word_idx"])
         a, b = t, t + gfx_rules.count_dur + gfx_rules.count_hold_sec
         if b <= dur and _free(a, b):
             busy.append((a, b))
             out["count_up"] = {"value_text": cu["value"], "unit": cu["unit"], "start": round(t, 3),
+                               "fact_idx": cu["fact_idx"],
                                "source": (ctx.get("fact_source") or {}).get(cu["fact_idx"], "")}
         else:
             log.append(f"count_up omitido (solape @ {t:.1f}s)")
 
-    # Pre-merge (Omar): (1) recorte de un fact con fuente + año tiene prioridad sobre los callouts; (2) si el
-    # único solape de un recorte es el contador, el recorte cambia de lado (el contador va arriba a la izquierda)
-    # en vez de descartarse; (3) si el cap queda sin recortes con facts elegibles, se convierte el mejor callout.
-    cu_iv = busy[-1] if out.get("count_up") else None
+    # Pre-merge (Omar): (1) recorte de un fact con fuente + año tiene prioridad sobre los callouts; (2) UN FACT =
+    # UN BLOQUE: si el recorte comparte fact o cifra con el contador, gana el contador y el recorte pasa al
+    # siguiente fact elegible (si no hay, sin recorte); (3) si el cap queda sin recortes con facts elegibles, se
+    # convierte el mejor callout. El "cambio de lado por el contador" se QUITÓ: un solape descarta el recorte.
     fsrc = ctx.get("fact_source") or {}
+    cu_out = out.get("count_up")
+    cu_fi = cu_out.get("fact_idx") if cu_out else None
+    cu_digits = figure_digits(cu_out["value_text"]) if cu_out else ""
+    elig = ctx.get("eligible")
+
+    def _shares_counter(fi: int) -> bool:
+        return cu_out is not None and (fi == cu_fi or cu_digits in headline_digits(build_headline(facts[fi])))
+
+    def _next_fact(fi: int) -> int | None:
+        """Siguiente fact elegible (propio del cap, en orden de índice desde fi) con titular, sin compartir
+        fact/cifra con el contador y que no esté ya en otro recorte."""
+        pool = sorted(i for i in (elig if elig is not None else range(len(facts))) if not (elig and elig.get(i)))
+        used = {x["fact_idx"] for x in out["archive_clippings"]}
+        for i in pool[pool.index(fi) + 1:] + pool[:pool.index(fi)] if fi in pool else pool:
+            if i not in used and build_headline(facts[i]) and not _shares_counter(i):
+                return i
+        return None
 
     def _place_archive(fi: int, si: int, kicker: str, a: float | None = None, why: str = "") -> bool:
+        if _shares_counter(fi):
+            alt = _next_fact(fi)
+            log.append(f"archive: fact {fi} comparte fact/cifra con el contador (un fact = un bloque) → "
+                       + (f"siguiente fact elegible {alt}" if alt is not None else "sin recorte (no hay otro fact elegible)"))
+            if alt is None:
+                return False
+            fi = alt
+            kicker = build_kicker(facts[fi], fsrc.get(fi, ""), build_headline(facts[fi]))
+        if any(x["fact_idx"] == fi for x in out["archive_clippings"]):
+            log.append(f"archive omitido (fact {fi} ya tiene recorte en este cap)")
+            return False
         sc = scenes[si]
         a = sc.start + 0.5 if a is None else a
         b = min(a + gfx_rules.archive_dur, dur - 0.3)          # F2 §0b.6: 6 s en pantalla
@@ -635,12 +670,8 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
         if b - a < gfx_rules.archive_min_sec:
             log.append(f"archive omitido (no entran {gfx_rules.archive_min_sec}s antes del fin del cap)")
             return False
-        hits = [iv for iv in busy if not (b <= iv[0] or a >= iv[1])]
         side = getattr(sc, "quiet_side", "right")              # lado opuesto al sujeto
-        if hits and all(iv is cu_iv for iv in hits):
-            side = "right"                                     # el contador está arriba a la izquierda
-            log.append(f"archive: solape con el contador → lado derecho (fact {fi})")
-        elif hits:
+        if not _free(a, b):
             log.append(f"archive omitido (solape con otro bloque){why}")
             return False
         busy.append((a, b))
@@ -683,6 +714,12 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
         if ar["fact_idx"] not in fsrc:
             _place_archive(ar["fact_idx"], ar["scene_idx"], ar["kicker"])
 
+    if second_cifra and len(out["archive_clippings"]) < gfx_rules.archive_max_per_cap:
+        fi, t = second_cifra
+        if _place_archive(fi, scene_at(scenes, t).idx, build_kicker(facts[fi], fsrc.get(fi, ""), build_headline(facts[fi])),
+                          a=t, why=" [cifra ya animada: recorte o nada]"):
+            log.append(f"archive: la cifra ya animada va como recorte (fact {fi})")
+
     ez = plan.get("evidence_zoom")
     if ez:
         sc = scenes[ez["scene_idx"]]
@@ -714,7 +751,7 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
     # tramo; si no hay, punch_in en la palabra de más énfasis). gap_warning queda como MÉTRICA.
     fill_gaps(out, busy, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
     if not out["archive_clippings"] and gfx_rules.archive_max_per_cap > 0:
-        convert_callout_to_archive(out, busy, _place_archive, ctx=ctx, scenes=scenes, log=log)
+        convert_callout_to_archive(out, busy, _place_archive, ctx=ctx, scenes=scenes, log=log, skip=_shares_counter)
     mark_icon_callouts(out, log)                             # F2b §3: hasta 3 énfasis llevan su ícono
     gaps = find_gaps(out, busy, dur)
     for g in gaps:
@@ -957,8 +994,35 @@ def emphasis_without_icon(plan: dict[str, Any]) -> list[str]:
     return [e["word"] for e in plan.get("emphasis", []) or [] if not e.get("icon_callout")]
 
 
+def figure_digits(value: str) -> str:
+    """'6,500' → '6500' (cifra comparable entre contador, titulares y caps)."""
+    return re.sub(r"\D", "", str(value))
+
+
+def headline_digits(text: str) -> set[str]:
+    """Cifras de un texto como dígitos ('Más de 500 prisioneros' → {'500'})."""
+    return {figure_digits(m) for m in re.findall(r"\d[\d.,]*\d|\d", str(text))}
+
+
+def counted_figures_before(work_dir: Path, chapter_number: int) -> set[str]:
+    """Pre-merge (Omar): cifras que ya se animaron como contador en caps ANTERIORES (planes resueltos en disco).
+    Una cifra se anima una sola vez por video; la segunda vez va como recorte o nada."""
+    out: set[str] = set()
+    for f in sorted(Path(work_dir).glob("gfx_plan_ch*.resolved.json")):
+        m = re.search(r"ch(\d+)", f.name)
+        if not m or int(m.group(1)) >= chapter_number:
+            continue
+        try:
+            cu = json.loads(f.read_text(encoding="utf-8"))["plan"].get("count_up")
+        except (OSError, ValueError, KeyError):
+            continue
+        if cu:
+            out.add(figure_digits(cu["value_text"]))
+    return out
+
+
 def convert_callout_to_archive(out: dict[str, Any], busy: list[tuple[float, float]], place: Any, *,
-                               ctx: dict[str, Any], scenes: list[Any], log: list[str]) -> bool:
+                               ctx: dict[str, Any], scenes: list[Any], log: list[str], skip: Any = None) -> bool:
     """Pre-merge (Omar): cap sin recortes con facts elegibles → el MEJOR callout se convierte en recorte en su
     mismo instante. Mejor = fact con fuente, después titular más largo (≤ 8 palabras). Solo facts propios del cap
     (los foráneos valen solo para data_callout). El recorte reemplaza al callout (se libera su intervalo)."""
@@ -967,7 +1031,7 @@ def convert_callout_to_archive(out: dict[str, Any], busy: list[tuple[float, floa
     cands = []
     for c in out["callouts"]:
         fi = c.get("fact_idx")
-        if fi is None or (elig is not None and (fi not in elig or elig[fi])):
+        if fi is None or (elig is not None and (fi not in elig or elig[fi])) or (skip and skip(fi)):
             continue
         head = build_headline(facts[fi])
         if head:

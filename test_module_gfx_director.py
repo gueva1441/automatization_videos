@@ -378,17 +378,55 @@ def test_cap_sin_recortes_convierte_el_mejor_callout(monkeypatch):
     assert all(c["text"] != "4.6 metros" for c in res["callouts"]) and any("convertido en recorte" in m for m in log)
 
 
-def test_solape_con_contador_cambia_de_lado(monkeypatch):
-    """El contador va arriba a la izquierda: el recorte que solo choca con él pasa a la derecha (no se descarta)."""
-    scenes = [GfxScene(0, 0.0, 8.0, "R3", "AGOSTO 2005"), GfxScene(1, 8.0, 20.0, "R2", ""),
-              GfxScene(2, 20.0, 40.0, "R3", "", "left")]
-    plan = {"count_up": {"fact_idx": 2, "value": "6,500", "unit": "personas", "trigger_word_idx": 18},
-            "archive_clippings": [{"fact_idx": 0, "scene_idx": 2, "kicker": "2005"}]}
+def _res2(monkeypatch, plan, *, facts=None, elig=None, counted=None, scenes=None):
     monkeypatch.setattr(gd, "active_moods", lambda: {})
     log: list[str] = []
-    res = gd.resolve_plan(plan, ctx={**CTX, "fact_source": {}, "eligible": None}, words=WORDS, scenes=scenes, log=log)
-    assert res["count_up"] and res["archive_clippings"][0]["side"] == "right"
-    assert any("solape con el contador" in m for m in log)
+    ctx = {**CTX, "facts": facts or FACTS, "fact_source": {}, "eligible": elig, "video_counted": counted or set()}
+    return gd.resolve_plan(plan, ctx=ctx, words=WORDS, scenes=scenes or SCENES, log=log), log
+
+
+def test_sin_cambio_de_lado_el_solape_con_el_contador_descarta(monkeypatch):
+    """Pre-merge v2 (Omar): se quitó "cambiar de lado"; un recorte que choca con el contador no entra."""
+    plan = {"count_up": {"fact_idx": 2, "value": "6,500", "unit": "personas", "trigger_word_idx": 18},
+            "archive_clippings": [{"fact_idx": 0, "scene_idx": 2, "kicker": "2005"}]}
+    res, log = _res2(monkeypatch, plan)
+    assert res["count_up"] and res["archive_clippings"] == [] and any("solape con otro bloque" in m for m in log)
+
+
+def test_un_fact_un_bloque_el_recorte_pasa_al_siguiente_fact(monkeypatch):
+    """Recorte y contador del mismo fact → gana el contador; el recorte toma el siguiente fact elegible."""
+    plan = {"count_up": {"fact_idx": 2, "value": "6,500", "unit": "personas", "trigger_word_idx": 13},
+            "archive_clippings": [{"fact_idx": 2, "scene_idx": 2, "kicker": ""}]}
+    res, log = _res2(monkeypatch, plan)
+    assert res["count_up"]["fact_idx"] == 2 and [a["fact_idx"] for a in res["archive_clippings"]] == [0]
+    assert any("un fact = un bloque" in m for m in log)
+
+
+def test_misma_cifra_en_otro_fact_tambien_cuenta(monkeypatch):
+    facts = FACTS + ["Unas 6,500 personas quedaron dentro de la cárcel sin agua potable."]
+    plan = {"count_up": {"fact_idx": 2, "value": "6,500", "unit": "personas", "trigger_word_idx": 13},
+            "archive_clippings": [{"fact_idx": 3, "scene_idx": 2, "kicker": ""}]}
+    res, _ = _res2(monkeypatch, plan, facts=facts)
+    assert [a["fact_idx"] for a in res["archive_clippings"]] == [0]          # ni el 2 ni el 3 (comparten 6,500)
+
+
+def test_sin_otro_fact_elegible_el_cap_queda_sin_recorte(monkeypatch):
+    plan = {"count_up": {"fact_idx": 2, "value": "6,500", "unit": "personas", "trigger_word_idx": 13},
+            "archive_clippings": [{"fact_idx": 2, "scene_idx": 2, "kicker": ""}]}
+    res, log = _res2(monkeypatch, plan, elig={2: False})
+    assert res["count_up"] and res["archive_clippings"] == [] and any("no hay otro fact elegible" in m for m in log)
+
+
+def test_cifra_ya_animada_en_otro_cap_recorte_o_nada(monkeypatch, tmp_path):
+    """Dedupe a nivel video: una cifra se anima como contador una sola vez; la segunda vez, recorte o nada."""
+    import json
+    (tmp_path / "gfx_plan_ch01.resolved.json").write_text(json.dumps({"plan": {"count_up": {"value_text": "6,500"}}}), encoding="utf-8")
+    (tmp_path / "gfx_plan_ch03.resolved.json").write_text(json.dumps({"plan": {"count_up": {"value_text": "500"}}}), encoding="utf-8")
+    assert gd.counted_figures_before(tmp_path, 2) == {"6500"}                    # solo caps ANTERIORES
+    plan = {"count_up": {"fact_idx": 2, "value": "6,500", "unit": "personas", "trigger_word_idx": 13}}
+    res, log = _res2(monkeypatch, plan, counted={"6500"})
+    assert res["count_up"] is None and any("ya se animó" in m for m in log)
+    assert [a["fact_idx"] for a in res["archive_clippings"]] == [2] and res["archive_clippings"][0]["start"] == 13.0
 
 
 if __name__ == "__main__":
