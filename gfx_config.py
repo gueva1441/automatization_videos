@@ -34,6 +34,7 @@ GFX_RUNTIME_DIR: Path = BASE_DIR / "script_engine" / "gfx_runtime"
 GFX_TEMPLATES_DIR: Path = BASE_DIR / "script_engine" / "gfx_templates"
 GFX_FONTS_DIR: Path = BASE_DIR / "script_engine" / "fonts"
 GFX_PROFILES_DIR: Path = BASE_DIR / "gfx_profiles"
+SFX_DIR: Path = BASE_DIR / "script_engine" / "sfx"
 DEFAULT_PROFILE: str = "misterio"
 
 
@@ -151,6 +152,20 @@ _ENGINE_INVENTORY: tuple[GfxBlock, ...] = (
         max_per_cap=2, llm_decides=True,
     ),
     GfxBlock(
+        name="chapter_question",
+        description="Tarjeta de 2.0–2.5 s al cierre del cap con la pregunta que responde el capítulo SIGUIENTE (fondo oscurecido 50 %).",
+        params="use (bool), text: una de las bullets del PRÓXIMO CAPÍTULO reformulada como pregunta.",
+        rules="máx 9 palabras; toda palabra de contenido tiene que estar en las bullets o la narración del próximo cap; no en el último cap.",
+        max_per_cap=1, llm_decides=True,
+    ),
+    GfxBlock(
+        name="source_tag",
+        description="Etiqueta de 1 línea bajo un data_callout o count_up con la fuente del fact (organización, año).",
+        params="(ninguno: sale de sources[] cuando el fact nombra la organización)",
+        rules="el LLM no lo elige; sin fuente resoluble no hay etiqueta.",
+        max_per_cap=999, llm_decides=False,
+    ),
+    GfxBlock(
         name="shot_transition",
         description="Transición CSS en cada corte intra-cap según emotional_rank: R1 flash 30 % (≤ 2), R2 crossfade 20 f, R3 disolvencia 30 f.",
         params="(ninguno: determinista desde emotional_rank)",
@@ -238,6 +253,14 @@ class GfxRules:
     flash_min_gap_sec: float = 20.0
     r1_cut_punch_scale: float = 1.02
     # grade (F2 §0b.1: OFF por default → solo grano 0.15 + viñeta 0.20; recetas A/B/C inactivas)
+    # chapter_question / source_tag / sfx (F2 §0d)
+    question_dur: float = 2.3                # 2.0–2.5 s al cierre del cap
+    question_dim: float = 0.5
+    question_max_words: int = 9
+    question_font_px: int = 96
+    source_tag_scale: float = 0.4            # 40 % del tamaño del callout
+    sfx_gain_db: float = -18.0               # bajo la voz
+    sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano
     grade_default: str = "off"
     grain_opacity: float = 0.15              # F2 §0c: tokens del perfil (antes constantes de _GRADE_OFF)
     vignette_opacity: float = 0.20
@@ -275,7 +298,7 @@ _GRADE_B = {"gr-halation": 0.35, "gr-haze": 0.0, "gr-palette": 0.0, "gr-shadowte
 # ═══════════════════════════════════════════════════════════════
 
 _RULE_FIELDS: frozenset[str] = frozenset(f.name for f in fields(GfxRules))
-_PROFILE_KEYS: frozenset[str] = frozenset({"name", "description", "nichos", "fonts", "tokens", "blocks"})
+_PROFILE_KEYS: frozenset[str] = frozenset({"name", "description", "nichos", "fonts", "tokens", "blocks", "sfx"})
 _FONT_KEYS: frozenset[str] = frozenset({"subs", "title", "callout", "callout_figure", "clipping"})
 # fuentes que el templater sabe cargar (@font-face en gfx_common.css → script_engine/fonts)
 KNOWN_FONTS: frozenset[str] = frozenset({"Anton", "Playfair Display SC"})
@@ -313,6 +336,8 @@ def load_profile(name: str | None = None) -> dict[str, Any]:
     bad |= {f"fonts.{k}" for k in prof.get("fonts", {}) if k not in _FONT_KEYS}
     bad |= {f"blocks.{k}" for k in prof.get("blocks", {}) if k not in VALID_BLOCKS}
     bad |= {f"fonts.{k}={v!r} (sin @font-face)" for k, v in prof.get("fonts", {}).items() if v not in KNOWN_FONTS}
+    bad |= {f"sfx.{k}" for k, v in prof.get("sfx", {}).items()
+            if k not in VALID_BLOCKS or not (SFX_DIR / str(v.get("file", ""))).exists()}
     if bad:
         raise ValueError(f"perfil gfx '{name}': claves desconocidas {sorted(bad)}")
     return prof
@@ -367,6 +392,14 @@ def max_per_cap(block: str) -> int:
 
 def block_enabled(block: str) -> bool:
     return next(b.enabled for b in GFX_INVENTORY if b.name == block)
+
+
+def sfx_for(block: str) -> tuple[Path, float] | None:
+    """SFX que el perfil declara para un bloque: (wav, ganancia dB) o None."""
+    cfg = ACTIVE_PROFILE.get("sfx", {}).get(block)
+    if not cfg:
+        return None
+    return SFX_DIR / cfg["file"], float(cfg.get("gain_db", gfx_rules.sfx_gain_db))
 
 # D7: cromo fijo declarado (no es contenido; fuera del candado literal)
 CHROME_TEMPLATES: tuple[str, ...] = ("CAPÍTULO {n}", "DETALLE")

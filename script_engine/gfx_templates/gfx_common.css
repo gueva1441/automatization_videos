@@ -22,6 +22,16 @@
       .co-text.anton { font: 400 ${callout_anton_px}px/1.02 "${figure_font}", sans-serif; text-transform: uppercase; }
       .co-text.serif { font: ${callout_font_weight} ${callout_font_px}px/1.05 "${callout_font}", serif; }
       .co-rule { width: 420px; height: 8px; margin-top: 18px; background: ${accent}; transform-origin: left center; }
+      /* source_tag (F2 §0d): 1 línea bajo el callout/contador, 40 % del tamaño */
+      .co-src { margin-top: 14px; color: rgba(244,241,234,.85); font: 400 ${source_px}px/1.1 "${figure_font}", sans-serif;
+                letter-spacing: .06em; text-transform: uppercase; text-shadow: ${callout_shadow}; }
+      .count .co-src { font-size: ${source_px}px; }
+      /* chapter_question (F2 §0d): cierre del cap, fondo oscurecido, Playfair Bold, acento en la palabra clave */
+      #cq-dim { position: absolute; inset: 0; z-index: 30; background: #000; }
+      #cq { position: absolute; inset: 0; z-index: 31; display: flex; align-items: center; justify-content: center; }
+      #cq-text { max-width: 1900px; padding: 0 160px; text-align: center; color: #f4f1ea;
+                 font: 700 ${question_px}px/1.12 "${clipping_font}", serif; text-shadow: ${callout_shadow}; }
+      #cq-text .kw { color: ${accent}; }
       /* count_up (Anton, D13) */
       .count { position: absolute; left: 160px; top: 110px; z-index: 22; color: #f4f1ea; font: 400 220px/1 "${figure_font}", sans-serif; font-variant-numeric: tabular-nums; text-shadow: 0 8px 40px rgba(0,0,0,.55); }
       .count-unit { display: block; margin-top: 10px; font: 400 64px/1 "${figure_font}", sans-serif; text-transform: uppercase; letter-spacing: .04em; color: #f4f1ea; }
@@ -52,4 +62,4 @@
         background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
       /* Playfair SC: sin ligaduras (la "fi" minúscula rompía las versalitas: "fiGURABAN").
          Va AL FINAL: el shorthand `font:` de .ar-head / .co-text resetea font-variant-ligatures. */
-      .ar .ar-head, .ar .ar-kicker, .callout .co-text.serif { font-variant-ligatures: none; font-feature-settings: "liga" 0, "clig" 0, "dlig" 0; }
+      .ar .ar-head, .ar .ar-kicker, .callout .co-text.serif, #cq #cq-text { font-variant-ligatures: none; font-feature-settings: "liga" 0, "clig" 0, "dlig" 0; }

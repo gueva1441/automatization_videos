@@ -41,8 +41,8 @@ def is_literal(text: str, sources: dict[str, str], chapter_number: int) -> bool:
     return find_source(text, sources) is not None
 
 
-def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int
-         ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int,
+         question_sources: dict[str, str] | None = None) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Filtra un plan RESUELTO. Devuelve (plan_ok, rechazados).
 
     Cada rechazo: {"block", "field", "text"}. Un callout rechazado sale solo; title_card,
@@ -80,6 +80,20 @@ def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int
     if cu and not _check("count_up", {"value_text": cu.get("value_text", ""), "unit": cu.get("unit", "")}):
         ok["count_up"] = None
 
+    # F2 §0d: source_tag literal de sources[]; si falla, se quita SOLO la etiqueta
+    for blk in ([c for c in ok.get("callouts", [])] + ([ok["count_up"]] if ok.get("count_up") else [])):
+        if blk.get("source") and not _check("source_tag", {"source": blk["source"]}):
+            blk["source"] = ""
+
+    # F2 §0d: chapter_question es reformulación (no literal): su candado es "toda palabra de contenido
+    # existe en bullets/narración del próximo cap"
+    q = ok.get("chapter_question")
+    if q:
+        from script_engine.gfx_director import question_ok
+        if not question_ok(q.get("text", ""), question_sources or {}):
+            rejected.append({"block": "chapter_question", "field": "text", "text": q.get("text", "")})
+            ok["chapter_question"] = None
+
     return ok, rejected
 
 
@@ -97,4 +111,9 @@ def plan_strings(plan: dict[str, Any]) -> list[str]:
         out += [cu.get("value_text", ""), cu.get("unit", "")]
     if plan.get("evidence_zoom"):
         out.append("DETALLE")
+    out += [c.get("source", "") for c in plan.get("callouts", []) or []]
+    if cu:
+        out.append(cu.get("source", ""))
+    if plan.get("chapter_question"):
+        out.append(plan["chapter_question"].get("text", ""))
     return [s for s in out if s]

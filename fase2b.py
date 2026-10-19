@@ -822,6 +822,7 @@ def _build_chapter_segment(
     gfx_quality: str = "looks",
     video_id: str = "",
     gfx_debug: bool = False,
+    sfx_enabled: bool = False,
 ) -> Path:
     """
     Genera UN segmento MP4 completo de un capítulo (visual + audio + subs).
@@ -1020,20 +1021,46 @@ def _build_chapter_segment(
         silence = clip_duration - effective_audio
         af_parts.append(f"apad=pad_dur={silence:.3f}")
 
+    # F2 §0d: SFX de la capa gráfica (gfx_sfx_chNN.json) mezclados con la voz en ESTE pase (amix).
+    sfx_events: list[dict] = []
+    if gfx_enabled and sfx_enabled:
+        sfx_json = work_dir / f"gfx_sfx_{plan.chapter_id}.json"
+        if sfx_json.exists():
+            try:
+                sfx_events = [e for e in json.loads(sfx_json.read_text(encoding="utf-8")) if Path(e["file"]).exists()]
+            except (OSError, ValueError, KeyError):
+                sfx_events = []
+
     cmd: list[str] = [FFMPEG, "-y"]
     if needs_video_loop:
         cmd += ["-stream_loop", "-1"]
     cmd += [
         "-i", str(base_clip),
         "-i", str(plan.audio_path),
-        "-map", "0:v:0",
-        "-map", "1:a:0",
-        "-c:v", "libx264",
-        "-c:a", "aac",
-        "-b:a", "192k",
     ]
-    if af_parts:
-        cmd += ["-af", ",".join(af_parts)]
+    if sfx_events:
+        for e in sfx_events:
+            cmd += ["-i", str(e["file"])]
+        voice = ",".join(af_parts) if af_parts else "anull"
+        graph = [f"[1:a]{voice}[v0]"]
+        labels = ["[v0]"]
+        for k, e in enumerate(sfx_events):
+            ms = int(round(float(e["t"]) * 1000))
+            graph.append(f"[{k + 2}:a]aformat=channel_layouts=stereo,adelay={ms}|{ms},volume={float(e['gain_db']):.1f}dB[s{k}]")
+            labels.append(f"[s{k}]")
+        graph.append(f"{''.join(labels)}amix=inputs={len(labels)}:duration=first:normalize=0[aout]")
+        cmd += ["-filter_complex", ";".join(graph), "-map", "0:v:0", "-map", "[aout]",
+                "-c:v", "libx264", "-c:a", "aac", "-b:a", "192k"]
+    else:
+        cmd += [
+            "-map", "0:v:0",
+            "-map", "1:a:0",
+            "-c:v", "libx264",
+            "-c:a", "aac",
+            "-b:a", "192k",
+        ]
+        if af_parts:
+            cmd += ["-af", ",".join(af_parts)]
     cmd += [
         "-t", f"{target_dur:.3f}",
         "-vf", vf,
@@ -2104,6 +2131,7 @@ def _assemble_one_video(
     gfx_quality: str = "looks",
     gfx_debug: bool = False,
     only_cap: str | None = None,
+    sfx: bool = True,
 ) -> tuple[int, Path | None]:
     """
     Ensambla un único video. Retorna (returncode, final_path | None).
@@ -2273,7 +2301,7 @@ def _assemble_one_video(
                 fps=pipeline.fps, flow_spec=spec_repr,
                 reuse_visuals=cap_reuse,
                 per_image_specs=cap_pis,
-                gfx_enabled=gfx, gfx_quality=gfx_quality, video_id=video_id,
+                gfx_enabled=gfx, gfx_quality=gfx_quality, video_id=video_id, sfx_enabled=gfx and sfx,
                 gfx_debug=gfx_debug,
             )
         except Exception as e:
@@ -2436,6 +2464,8 @@ def main() -> int:
                              "gfx_director) antes de quemar subs. Fallback al clip original ante error.")
     parser.add_argument("--gfx-quality", choices=["draft", "looks"], default=None,
                         help="Calidad del render HyperFrames con --gfx (default looks; draft si --gfx-debug).")
+    parser.add_argument("--no-sfx", action="store_true",
+                        help="Con --gfx: NO mezcla los SFX de los bloques gráficos (default: se mezclan, F2 §0d).")
     parser.add_argument("--gfx-debug", action="store_true",
                         help="Con --gfx: quema un overlay de depuración (timecode, bloque activo, escena, rank).")
     parser.add_argument("--only-cap", type=str, default=None, metavar="chNN",
@@ -2498,6 +2528,7 @@ def main() -> int:
             gfx_quality=_resolve_gfx_quality(args.gfx_quality, args.gfx_debug),
             gfx_debug=args.gfx and args.gfx_debug,
             only_cap=args.only_cap if mode == "single" else None,
+            sfx=not args.no_sfx,
         )
 
         if rc == 0 and final_path is not None and not args.dry_run:

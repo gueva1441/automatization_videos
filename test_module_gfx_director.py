@@ -294,7 +294,7 @@ def test_cache_de_version_anterior_se_re_llama(monkeypatch, tmp_path):
     calls = []
     monkeypatch.setattr(gd, "call_flash_json", lambda *a, **k: calls.append(1) or {"title_card": {"use": True}})
     gd.select_gfx_plan(CHPLAN, ctx=CTX, words=WORDS, scenes=SCENES, work_dir=tmp_path)
-    assert calls and json.loads((tmp_path / "gfx_plan_ch02.json").read_text(encoding="utf-8"))["director"] == "v1"
+    assert calls and json.loads((tmp_path / "gfx_plan_ch02.json").read_text(encoding="utf-8"))["director"] == gd.DIRECTOR_VERSION
 
 
 if __name__ == "__main__":

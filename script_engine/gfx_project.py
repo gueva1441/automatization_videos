@@ -59,6 +59,11 @@ def _esc(text: str) -> str:
     return html.escape(text, quote=True)
 
 
+def _source_html(source: str) -> str:
+    """source_tag (F2 §0d): 1 línea bajo el callout/contador; vacío si el fact no tiene fuente resoluble."""
+    return f'        <div class="co-src">{_esc(source)}</div>\n' if source else ""
+
+
 def load_grade_preset() -> dict[str, Any]:
     """Preset de grade versionado (D4)."""
     return json.loads((GFX_TEMPLATES_DIR / "gfx_grade.json").read_text(encoding="utf-8"))
@@ -254,6 +259,12 @@ def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[d
 
     if plan.get("title_card"):
         add(0.0, gfx_rules.title_dur, "title_card", f"{plan['title_card']['kicker']} · {plan['title_card']['title']}")
+    if plan.get("chapter_question"):
+        add(plan["chapter_question"]["start"], plan["chapter_question"]["duration"], "chapter_question",
+            plan["chapter_question"]["text"])
+    for c in plan.get("callouts", []):
+        if c.get("source"):
+            add(c["start"], c.get("duration", gfx_rules.callout_dur), "source_tag", c["source"])
     for c in plan.get("callouts", []):
         add(c["start"], c.get("duration", gfx_rules.callout_dur), "data_callout", c["text"])
     cu = plan.get("count_up")
@@ -317,6 +328,7 @@ def render_css(width: int, height: int) -> str:
         callout_font=r.callout_font, callout_font_weight=r.callout_font_weight, callout_font_px=r.callout_font_px,
         callout_anton_px=r.callout_anton_px, callout_shadow=r.callout_shadow,
         title_font=r.title_font, figure_font=r.figure_font, clipping_font=r.clipping_font,
+        source_px=round(r.callout_anton_px * r.source_tag_scale), question_px=r.question_font_px,
         ar_scale=ars, ar_w=min(round(1100 * ars), round(width * r.archive_max_w_frac)), ar_pad_v=round(50 * ars), ar_pad_h=round(60 * ars),
         ar_pad_b=round(60 * ars), ar_kicker_px=round(34 * ars), ar_head_px=round(84 * ars))
 
@@ -385,7 +397,7 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         face = "anton" if c.get("kind") == "figure" else "serif"
         overlays.append(_tpl("data_callout.html.tmpl").substitute(
             i=i, start=f"{st:.3f}", duration=f"{dur:.3f}", text=_esc(c["text"]),
-            side=c.get("side", "left"), face=face))
+            side=c.get("side", "left"), face=face, source_html=_source_html(c.get("source", ""))))
         init.append(f'      gsap.set("#co{i} .co-text", {{ yPercent: 105 }}); gsap.set("#co{i} .co-rule", {{ scaleX: 0 }});')
         js.append(f'      tl.to("#co{i} .co-text", {{ yPercent: 0, duration: .38, ease: "power3.out" }}, {st:.3f})'
                   f'.to("#co{i} .co-rule", {{ scaleX: 1, duration: .5, ease: "power3.inOut" }}, {st + .08:.3f})'
@@ -399,7 +411,8 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
             dur = gfx_rules.count_dur + gfx_rules.count_hold_sec
             st = min(cu["start"], max(0.0, duration - dur))
             overlays.append(_tpl("count_up.html.tmpl").substitute(
-                start=f"{st:.3f}", duration=f"{dur:.3f}", zero_text=_esc(format_count(0, spec)), unit=_esc(cu.get("unit", ""))))
+                start=f"{st:.3f}", duration=f"{dur:.3f}", zero_text=_esc(format_count(0, spec)), unit=_esc(cu.get("unit", "")),
+                source_html=_source_html(cu.get("source", ""))))
             js.append(f'      var cuSpec = {json.dumps(spec)}; var cuObj = {{ v: 0 }};'
                       ' function cuFmt(v) { var s = cuSpec.decimals ? v.toFixed(cuSpec.decimals).replace(".", cuSpec.dec_sep)'
                       ' : String(Math.round(v)).replace(/\\B(?=(\\d{3})+(?!\\d))/g, cuSpec.thousands); return s + cuSpec.suffix; }'
@@ -422,6 +435,20 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         init.append(f'      gsap.set("#ar{i}-paper", {{ opacity: 0, y: -40, rotation: -6 }});')
         js.append(f'      tl.to("#ar{i}-paper", {{ opacity: 1, y: 0, rotation: -2.5, duration: .6, ease: "power3.out" }}, {a0:.3f})'
                   f'.to("#ar{i}-paper", {{ opacity: 0, y: 20, duration: .4, ease: "power1.in" }}, {a1 - .4:.3f});')
+
+    # ── chapter_question (F2 §0d): cierre del cap, fondo 50 %, palabra clave en el acento
+    cq = plan.get("chapter_question")
+    if cq:
+        q0, qd = cq["start"], cq["duration"]
+        kw = cq.get("keyword", "")
+        txt = _esc(cq["text"])
+        if kw:
+            txt = re.sub(rf"\b({re.escape(_esc(kw))})\b", r'<span class="kw">\1</span>', txt, count=1)
+        overlays.append(_tpl("chapter_question.html.tmpl").substitute(start=f"{q0:.3f}", duration=f"{qd:.3f}", text_html=txt))
+        init.append('      gsap.set("#cq-dim", { opacity: 0 }); gsap.set("#cq-text", { opacity: 0, y: 24 });')
+        js.append(f'      tl.to("#cq-dim", {{ opacity: {gfx_rules.question_dim}, duration: .35 }}, {q0:.3f})'
+                  f'.to("#cq-text", {{ opacity: 1, y: 0, duration: .5, ease: "power3.out" }}, {q0 + .15:.3f})'
+                  f'.to(["#cq-text", "#cq-dim"], {{ opacity: 0, duration: .3, ease: "power1.in" }}, {q0 + qd - .3:.3f});')
 
     # ── --gfx-debug: overlay quemado (NUNCA sin el flag)
     if debug:

@@ -52,6 +52,14 @@
     "grain_opacity": 0.15,
     "vignette_opacity": 0.20
   },
+  "sfx": {
+    "title_card":       {"file": "golpe_grave.wav", "gain_db": -18},
+    "data_callout":     {"file": "tic.wav", "gain_db": -18},
+    "count_up":         {"file": "tipeo.wav", "gain_db": -20},
+    "archive_clipping": {"file": "papel.wav", "gain_db": -18},
+    "evidence_zoom":    {"file": "whoosh.wav", "gain_db": -20},
+    "chapter_question": {"file": "latido.wav", "gain_db": -18}
+  },
   "blocks": {
     "title_card":       {"enabled": true, "max_per_cap": 1, "where": "todos los caps"},
     "data_callout":     {"enabled": true, "max_per_cap": 5, "where": "todos los caps; facts del cap (foráneos solo acá)"},
@@ -59,6 +67,8 @@
     "evidence_zoom":    {"enabled": true, "max_per_cap": 1, "where": "escenas de ≥ 3.1 s"},
     "count_up":         {"enabled": true, "max_per_cap": 1, "where": "cifras literales del fact"},
     "punch_in":         {"enabled": true, "max_per_cap": 2, "where": "todos los caps"},
+    "chapter_question": {"enabled": true, "max_per_cap": 1, "where": "cierre de los caps 1–6 (nunca el último)"},
+    "source_tag":       {"enabled": true, "max_per_cap": 999, "where": "bajo data_callout y count_up con fuente resoluble"},
     "shot_transition":  {"enabled": true, "max_per_cap": 999, "where": "cada corte intra-cap"},
     "grade":            {"enabled": true, "max_per_cap": 1, "where": "todos los caps"}
   }

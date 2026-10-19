@@ -64,6 +64,7 @@ def load_chapter_context(video_id: str, chplan: Any) -> dict[str, Any]:
     steps = DATA_DIR / "scripts" / "_steps" / topic_id
     skeleton_ch: dict[str, Any] = {}
     canonical: Any = {}
+    sk: dict[str, Any] = {}
     try:
         sk = json.loads((steps / "01a_skeleton.json").read_text(encoding="utf-8"))
         skeleton_ch = next((c for c in sk.get("chapters", []) if c.get("chapter_number") == n), {})
@@ -85,11 +86,40 @@ def load_chapter_context(video_id: str, chplan: Any) -> dict[str, Any]:
     sources["canonical"] = json.dumps(canonical, ensure_ascii=False)
     narration = sources[f"narration_ch{n:02d}"]
     eligible, era = eligible_facts(facts, script.get("chapters", []), n, narration)
+    # F2 §0d: fuentes del research (para source_tag; entran al candado como texto literal)
+    src_list = [str(x) for x in script.get("sources", []) or []]
+    for j, src in enumerate(src_list):
+        sources[f"sources[{j}]"] = src
+    # F2 §0d: próximo cap (para chapter_question; NO entra al candado literal del cap)
+    next_ch = next((c for c in script.get("chapters", []) if int(c.get("chapter_number", -1)) == n + 1), None)
+    next_sources: dict[str, str] = {}
+    if next_ch is not None:
+        next_sources[f"narration_ch{n + 1:02d}"] = str(next_ch.get("narration", ""))
+        nsk = next((c for c in sk.get("chapters", []) if c.get("chapter_number") == n + 1), {})
+        for j, b in enumerate(nsk.get("bullets", []) or []):
+            next_sources[f"next.bullets[{j}]"] = b
     return {
         "video_id": video_id, "chapter_number": n, "script_chapter": chapter,
         "facts": facts, "skeleton": skeleton_ch, "canonical": canonical, "sources": sources,
         "eligible": eligible, "era_window": era,
+        "fact_source": fact_sources(facts, src_list), "next_sources": next_sources,
     }
+
+
+def fact_sources(facts: list[str], src_list: list[str]) -> dict[int, str]:
+    """{fact_idx: 'Organización, año'} cuando el fact NOMBRA la organización de una fuente.
+    La etiqueta es un prefijo literal de la fuente (pasa el candado). Sin match → sin etiqueta."""
+    out: dict[int, str] = {}
+    for i, f in enumerate(facts):
+        for src in src_list:
+            org = src.split(",")[0].strip()
+            m = _YEAR_RE.search(src)
+            if len(org) >= 4 and normalize(org) in normalize(f) and m:
+                tag = src[: m.end()]
+                if tag.count(",") == 1:                    # "Org, año" exacto (sin autores con comas)
+                    out[i] = tag
+                    break
+    return out
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -191,6 +221,8 @@ REGLAS DURAS:
 - Pattern interrupt: intentá que haya un bloque visible cada {gfx_rules.interrupt_min_sec:.0f}–{gfx_rules.interrupt_max_sec:.0f} s, pero SOLO con datos reales.
 - Un bloque con máx 0 está APAGADO para este canal: no lo uses.
 - title_card.use = true siempre.
+- chapter_question: si hay PRÓXIMO CAPÍTULO, elegí UNA de sus bullets y reformulala como pregunta corta
+  (≤ 9 palabras, entre ¿ ?) usando SOLO palabras que ya están en esas bullets. Si no se puede, use=false.
 - Si un bloque no aplica: use=false (o lista vacía).
 """
 
@@ -219,8 +251,11 @@ _SCHEMA: dict[str, Any] = {
             "unit": {"type": "STRING"}, "trigger_word_idx": {"type": "INTEGER"}},
             "required": ["use", "fact_idx", "value", "unit", "trigger_word_idx"]},
         "punch_in_word_idx": {"type": "ARRAY", "items": {"type": "INTEGER"}},
+        "chapter_question": {"type": "OBJECT", "properties": {"use": {"type": "BOOLEAN"}, "text": {"type": "STRING"}},
+                             "required": ["use", "text"]},
     },
-    "required": ["title_card", "callouts", "archive_clippings", "evidence_zoom", "count_up", "punch_in_word_idx"],
+    "required": ["title_card", "callouts", "archive_clippings", "evidence_zoom", "count_up", "punch_in_word_idx",
+                 "chapter_question"],
 }
 
 
@@ -236,6 +271,8 @@ def _build_user_prompt(ctx: dict[str, Any], words: list[dict], scenes: list[Any]
     for i, f in enumerate(ctx["facts"]):
         if elig is None or i in elig:
             lines.append(f"  {i}: {'[FORÁNEO] ' if elig and elig.get(i) else ''}{f}")
+    nb = [v for k, v in (ctx.get("next_sources") or {}).items() if k.startswith("next.bullets")]
+    lines += ["", f"PRÓXIMO CAPÍTULO — bullets: {' | '.join(nb)}" if nb else "PRÓXIMO CAPÍTULO: no hay (último cap)"]
     lines += ["", "ESCENAS (scene_idx: inicio–fin, rank, texto en imagen, prompt de imagen):"]
     for s in scenes:
         p = prompts[s.idx] if s.idx < len(prompts) else {}
@@ -400,6 +437,18 @@ def validate_plan(raw: dict[str, Any], *, n_facts: int, n_words: int, scenes: li
 
     pw = [i for i in (_idx(v, n_words) for v in (raw.get("punch_in_word_idx") or [])) if i is not None]
     plan["punch_in_word_idx"] = sorted(set(pw))[: max_per_cap("punch_in")]
+
+    q = raw.get("chapter_question") or {}
+    if isinstance(q, dict) and q.get("use") and max_per_cap("chapter_question") > 0:
+        text = re.sub(r"\s+", " ", str(q.get("text", ""))).strip()
+        if not text or len(text.split()) > gfx_rules.question_max_words:
+            log.append(f"chapter_question descartada (vacía o > {gfx_rules.question_max_words} palabras): {text!r}")
+        else:
+            if not text.endswith("?"):
+                text = text.rstrip(".") + "?"
+            if not text.startswith("¿"):
+                text = "¿" + text
+            plan["chapter_question"] = {"text": text}
     return plan
 
 
@@ -445,6 +494,19 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
     def _free(a: float, b: float) -> bool:
         return all(b <= s or a >= e for s, e in busy)
 
+    # F2 §0d: chapter_question ocupa el CIERRE del cap (se reserva antes que el resto)
+    out["chapter_question"] = None
+    cq = plan.get("chapter_question")
+    if cq:
+        qa = dur - gfx_rules.question_dur - 0.15
+        if qa > gfx_rules.title_dur + 1.0 and _free(qa, dur):
+            busy.append((qa, dur))
+            out["chapter_question"] = {"text": cq["text"], "start": round(qa, 3),
+                                       "duration": round(gfx_rules.question_dur, 3),
+                                       "keyword": question_keyword(cq["text"])}
+        else:
+            log.append("chapter_question omitida (cap demasiado corto)")
+
     # F2 §0b: el count_up (rampa) tiene prioridad sobre un callout de la misma cifra
     cu = plan.get("count_up")
     if cu:
@@ -452,7 +514,8 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
         a, b = t, t + gfx_rules.count_dur + gfx_rules.count_hold_sec
         if b <= dur and _free(a, b):
             busy.append((a, b))
-            out["count_up"] = {"value_text": cu["value"], "unit": cu["unit"], "start": round(t, 3)}
+            out["count_up"] = {"value_text": cu["value"], "unit": cu["unit"], "start": round(t, 3),
+                               "source": (ctx.get("fact_source") or {}).get(cu["fact_idx"], "")}
         else:
             log.append(f"count_up omitido (solape @ {t:.1f}s)")
 
@@ -473,7 +536,8 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
         if out["callouts"] and out["callouts"][-1]["side"] == side:
             side = "left" if side == "right" else "right"
         out["callouts"].append({"text": c["text"], "start": round(t, 3), "kind": c["kind"],
-                                "duration": round(cdur, 3), "side": side})
+                                "duration": round(cdur, 3), "side": side,
+                                "source": (ctx.get("fact_source") or {}).get(c["fact_idx"], "")})
 
     arcs = plan.get("archive_clippings")
     if arcs is None:                       # compat plan validado F1
@@ -482,6 +546,8 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
         sc = scenes[ar["scene_idx"]]
         a = sc.start + 0.5
         b = min(a + gfx_rules.archive_dur, dur - 0.3)          # F2 §0b.6: 6 s en pantalla
+        if out.get("chapter_question"):                        # no pisa la pregunta de cierre
+            b = min(b, out["chapter_question"]["start"] - 0.2)
         if b - a < gfx_rules.archive_min_sec:
             log.append(f"archive omitido (no entran {gfx_rules.archive_min_sec}s antes del fin del cap)")
         elif _free(a, b):
@@ -523,6 +589,75 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
 # ═══════════════════════════════════════════════════════════════
 #  F2 §1: titular ≠ cuerpo, huecos (determinista)
 # ═══════════════════════════════════════════════════════════════
+
+_STOP = {"de", "del", "la", "las", "el", "los", "un", "una", "unos", "unas", "y", "o", "en", "a", "al", "que", "qué",
+         "por", "con", "para", "sin", "se", "su", "sus", "lo", "le", "les", "es", "fue", "era", "cómo", "como", "cuál",
+         "cuáles", "cuánto", "cuántos", "cuántas", "quién", "quiénes", "dónde", "cuándo", "por qué", "más", "muy", "no"}
+
+
+def content_words(text: str) -> list[str]:
+    """Palabras de contenido (≥ 4 letras, no funcionales) normalizadas."""
+    return [w for w in re.findall(r"[a-záéíóúñü0-9]+", normalize(text)) if len(w) >= 4 and w not in _STOP]
+
+
+def question_ok(text: str, next_sources: dict[str, str]) -> bool:
+    """Candado de chapter_question: TODA palabra de contenido existe en bullets/narración del próximo cap
+    (acepta singular/plural simple). La pregunta es reformulación, no literal: este es su candado."""
+    pool = set(re.findall(r"[a-záéíóúñü0-9]+", normalize(" ".join(next_sources.values()))))
+    def _in(w: str) -> bool:
+        return any(v in pool for v in (w, w + "s", w + "es", w[:-1] if w.endswith("s") else w,
+                                       w[:-2] if w.endswith("es") else w))
+    words = content_words(text)
+    return bool(words) and all(_in(w) for w in words)
+
+
+def question_keyword(text: str) -> str:
+    """Palabra clave a acentuar: la palabra de contenido más larga."""
+    words = re.findall(r"[\wáéíóúñü]+", text)
+    cands = [w for w in words if len(w) >= 4 and normalize(w) not in _STOP]
+    return max(cands, key=len) if cands else ""
+
+
+def sfx_events(out: dict[str, Any], words: list[dict], time_offset: float, sfx_for: Any,
+               log: list[str] | None = None) -> list[dict[str, Any]]:
+    """SFX del cap: (t, archivo, gain) por bloque visible según el perfil. Nunca sobre el ataque de una palabra:
+    se corre ≤ sfx_shift_max_ms al hueco entre palabras más cercano; si no hay hueco y cae sobre una palabra
+    acentuada (cifra, nombre propio o ≥ 7 letras), el SFX se descarta (menos frecuencia)."""
+    marks: list[tuple[float, str]] = []
+    if out.get("title_card"):
+        marks.append((0.05, "title_card"))
+    marks += [(c["start"], "data_callout") for c in out.get("callouts", [])]
+    if out.get("count_up"):
+        marks.append((out["count_up"]["start"], "count_up"))
+    marks += [(a["start"], "archive_clipping") for a in out.get("archive_clippings", [])]
+    ez = out.get("evidence_zoom")
+    if ez and "start" in ez:
+        marks.append((ez["start"] + gfx_rules.zoom_rect_sec, "evidence_zoom"))
+    if out.get("chapter_question"):
+        marks.append((out["chapter_question"]["start"], "chapter_question"))
+    spans = [(float(w["start"]) + time_offset, float(w["end"]) + time_offset, str(w.get("word", ""))) for w in words]
+    gaps = [(spans[i][1], spans[i + 1][0]) for i in range(len(spans) - 1) if spans[i + 1][0] > spans[i][1]]
+    win = gfx_rules.sfx_shift_max_ms / 1000.0
+    ev: list[dict[str, Any]] = []
+    for t, block in sorted(marks):
+        sf = sfx_for(block)
+        if sf is None:
+            continue
+        on = next((sp for sp in spans if sp[0] - 0.03 <= t < sp[1]), None)
+        tt = t
+        if on is not None:                                   # cae sobre una palabra → buscar hueco cercano
+            # punto del hueco más cercano, sin tocar el ataque de la palabra siguiente (30 ms de margen)
+            near = [x for x in (min(max(t, g0), max(g0, g1 - 0.03)) for g0, g1 in gaps) if abs(x - t) <= win]
+            if near:
+                tt = min(near, key=lambda x: abs(x - t))
+            elif re.search(r"\d", on[2]) or len(on[2].strip(".,;:!?¿¡")) >= 7 or on[2][:1].isupper():
+                if log is not None:                          # palabra acentuada sin hueco: sin SFX
+                    log.append(f"sfx descartado: {block} @ {t:.2f}s cae sobre {on[2]!r} sin hueco ≤ {gfx_rules.sfx_shift_max_ms} ms")
+                continue
+        ev.append({"t": round(max(0.0, tt), 3), "file": str(sf[0]), "gain_db": sf[1], "block": block,
+                   "shift_ms": round((tt - t) * 1000)})
+    return ev
+
 
 def headline_vs_body(head: str, body: str, kicker: str, fact: str, log: list[str]) -> tuple[str, str]:
     """Prohibido que el titular sea substring del cuerpo o viceversa. Si pasa: titular = kicker + año
@@ -623,7 +758,8 @@ def fill_gaps(out: dict[str, Any], busy: list[tuple[float, float]], *, ctx: dict
                 if prev and prev[-1]["side"] == side:
                     side = "left" if side == "right" else "right"
                 out["callouts"].append({"text": text, "start": round(t, 3), "kind": kind, "duration": round(cdur, 3),
-                                        "side": side, "gap_fill": True})
+                                        "side": side, "gap_fill": True,
+                                        "source": (ctx.get("fact_source") or {}).get(fi, "")})
                 out["callouts"].sort(key=lambda c: c["start"])
                 busy.append((t, t + cdur))
                 used.add(normalize(text))
@@ -715,7 +851,7 @@ def apply_zoom_vision(plan: dict[str, Any], *, frame_for_scene: Any, cache: Path
 #  Entry point
 # ═══════════════════════════════════════════════════════════════
 
-DIRECTOR_VERSION = "v1"        # cambia el prompt → el cache crudo de una versión anterior se re-llama
+DIRECTOR_VERSION = "v1.1"      # v1.1 = + chapter_question (F2 §0d)        # cambia el prompt → el cache crudo de una versión anterior se re-llama
 
 def select_gfx_plan(chplan: Any, *, ctx: dict[str, Any], words: list[dict], scenes: list[Any],
                     work_dir: Path, log: list[str] | None = None) -> dict[str, Any]:

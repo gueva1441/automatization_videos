@@ -27,6 +27,8 @@
     "evidence_zoom":    {"enabled": false, "max_per_cap": 0, "where": "—"},
     "count_up":         {"enabled": true, "max_per_cap": 2, "where": "cifras literales del fact"},
     "punch_in":         {"enabled": true, "max_per_cap": 2, "where": "todos los caps"},
+    "chapter_question": {"enabled": false, "max_per_cap": 0, "where": "—"},
+    "source_tag":       {"enabled": true, "max_per_cap": 999, "where": "bajo data_callout y count_up con fuente resoluble"},
     "shot_transition":  {"enabled": true, "max_per_cap": 999, "where": "cada corte intra-cap"},
     "grade":            {"enabled": true, "max_per_cap": 1, "where": "todos los caps"}
   }

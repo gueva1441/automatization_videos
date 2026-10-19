@@ -351,11 +351,18 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 project / "public" / "base.mp4", scenes[si], work_dir / f"gfx_zoomframe_{cap}_s{si:02d}.jpg"),
                 cache=work_dir / f"gfx_zoom_box_{cap}.json", log=log)
             resolved = resolve_plan(raw_plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
-            resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"])
+            resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
+                                      question_sources=ctx.get("next_sources"))
         log.append(f"  plan: {json.dumps(resolved, ensure_ascii=False)}")
         log.append(f"  lock rechazados: {len(rejected)} {json.dumps(rejected, ensure_ascii=False)}")
         (work_dir / f"gfx_plan_{cap}.resolved.json").write_text(
             json.dumps({"plan": resolved, "rejected": rejected}, ensure_ascii=False, indent=1), encoding="utf-8")
+        # F2 §0d: SFX por bloque visible → fase2b los mezcla en el pase de audio (si --sfx)
+        from gfx_config import sfx_for
+        from script_engine.gfx_director import sfx_events
+        sfx = sfx_events(resolved, words, time_offset, sfx_for, log)
+        (work_dir / f"gfx_sfx_{cap}.json").write_text(json.dumps(sfx, ensure_ascii=False, indent=1), encoding="utf-8")
+        log.append(f"  sfx: {len(sfx)} eventos ({', '.join(e['block'] for e in sfx)})")
         _step("3-4 plan + lock", ts)
 
         ts = time.time()

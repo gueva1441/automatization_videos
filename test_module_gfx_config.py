@@ -19,10 +19,12 @@ def test_inventario_es_inmutable():
 
 def test_inventario_cubre_doc_maestro_v1():
     esperados = {"title_card", "data_callout", "archive_clipping", "evidence_zoom",
-                 "count_up", "shot_transition", "punch_in", "grade"}
+                 "count_up", "shot_transition", "punch_in", "grade",
+                 "chapter_question", "source_tag"}                  # F2 §0d
     assert gc.VALID_BLOCKS == esperados
     # deterministas: el LLM no los elige
     assert "shot_transition" not in gc.LLM_BLOCKS and "grade" not in gc.LLM_BLOCKS
+    assert "source_tag" not in gc.LLM_BLOCKS and "chapter_question" in gc.LLM_BLOCKS
 
 
 def test_prompt_incluye_todos_los_bloques():
