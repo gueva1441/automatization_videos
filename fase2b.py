@@ -823,6 +823,7 @@ def _build_chapter_segment(
     video_id: str = "",
     gfx_debug: bool = False,
     sfx_enabled: bool = False,
+    gfx_sparse: bool = False,
 ) -> Path:
     """
     Genera UN segmento MP4 completo de un capítulo (visual + audio + subs).
@@ -944,7 +945,7 @@ def _build_chapter_segment(
             base_clip, plan, video_id, work_dir,
             width=video_width, height=video_height, fps=fps,
             quality=gfx_quality, reuse=reuse_visuals, time_offset=pre_pad,
-            debug=gfx_debug,
+            debug=gfx_debug, sparse=gfx_sparse,
         )
 
     clip_duration = _get_duration(base_clip)
@@ -2132,6 +2133,7 @@ def _assemble_one_video(
     gfx_debug: bool = False,
     only_cap: str | None = None,
     sfx: bool = True,
+    gfx_sparse: bool = False,
 ) -> tuple[int, Path | None]:
     """
     Ensambla un único video. Retorna (returncode, final_path | None).
@@ -2302,6 +2304,7 @@ def _assemble_one_video(
                 reuse_visuals=cap_reuse,
                 per_image_specs=cap_pis,
                 gfx_enabled=gfx, gfx_quality=gfx_quality, video_id=video_id, sfx_enabled=gfx and sfx,
+                gfx_sparse=gfx and gfx_sparse,
                 gfx_debug=gfx_debug,
             )
         except Exception as e:
@@ -2464,6 +2467,9 @@ def main() -> int:
                              "gfx_director) antes de quemar subs. Fallback al clip original ante error.")
     parser.add_argument("--gfx-quality", choices=["draft", "looks"], default=None,
                         help="Calidad del render HyperFrames con --gfx (default looks; draft si --gfx-debug).")
+    parser.add_argument("--gfx-sparse", action="store_true",
+                        help="Con --gfx: render disperso (HyperFrames solo en ventanas con eventos + grade FFmpeg). "
+                             "Se ignora con --gfx-debug (el overlay necesita el timeline completo).")
     parser.add_argument("--no-sfx", action="store_true",
                         help="Con --gfx: NO mezcla los SFX de los bloques gráficos (default: se mezclan, F2 §0d).")
     parser.add_argument("--gfx-debug", action="store_true",
@@ -2529,6 +2535,7 @@ def main() -> int:
             gfx_debug=args.gfx and args.gfx_debug,
             only_cap=args.only_cap if mode == "single" else None,
             sfx=not args.no_sfx,
+            gfx_sparse=args.gfx_sparse,
         )
 
         if rc == 0 and final_path is not None and not args.dry_run:

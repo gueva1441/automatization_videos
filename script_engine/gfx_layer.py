@@ -225,6 +225,48 @@ def assign_quiet_sides(scenes: list[GfxScene], base: Path) -> list[GfxScene]:
     return scenes
 
 
+def _render_sparse(resolved: dict[str, Any], scenes: list[GfxScene], project: Path, out: Path, *, cap: str,
+                   clip_dur: float, width: int, height: int, fps: int, quality: str, log: list[str]) -> float:
+    """F2 §3.1: HyperFrames solo en las ventanas con eventos (un proyecto con las ventanas concatenadas),
+    sin grade CSS; después se cose con el base_g30 y se aplica el grade FFmpeg (viñeta + grano) parejo."""
+    from script_engine import gfx_sparse as sp
+
+    def _step(name: str, t_start: float) -> None:
+        log.append(f"  {name}: {time.time() - t_start:.1f}s")
+
+    ts = time.time()
+    base = project / "public" / "base.mp4"
+    windows = sp.event_windows(resolved, scenes, fps, clip_dur)
+    cov = sum(b - a for a, b in windows)
+    log.append(f"  sparse: {len(windows)} ventanas, {cov:.1f}s de {clip_dur:.1f}s ({100 * cov / clip_dur:.0f} %)")
+    plan_s, scenes_s, tr_s, offsets = sp.compose_sparse(resolved, scenes, windows, fps)
+    sproj = project.parent / f"{project.name}_sparse"
+    (sproj / "public").mkdir(parents=True, exist_ok=True)
+    sp.cut_base(base, windows, sproj / "public" / "base.mp4", fps)
+    sdur = offsets[-1][2] + (offsets[-1][1] - offsets[-1][0])
+    write_project(plan_s, scenes_s, sproj, duration=sdur, width=width, height=height, fps=fps,
+                  transitions=tr_s, grade=False)
+    _step("5 templater (sparse)", ts)
+    ts = time.time()
+    lint = _lint(sproj)
+    log.append(f"  lint: {lint.get('errorCount')} errores, {lint.get('warningCount')} warnings")
+    hf = sproj / "renders" / f"{cap}_sparse.mp4"
+    hf.parent.mkdir(parents=True, exist_ok=True)
+    _render(sproj, hf, quality)
+    render_sec = time.time() - ts
+    _step(f"6 lint + render {quality} (sparse)", ts)
+    ts = time.time()
+    vig = sp.vignette_png(width, height, project / "public" / "vignette.png") if gfx_rules.vignette_opacity > 0 else None
+    gr = sp.grain_png(width, height, project / "public" / "grain.png") if gfx_rules.grain_opacity > 0 else None
+    tmp = project / "renders" / f"{cap}_gfx_stitch.mp4"
+    tmp.parent.mkdir(parents=True, exist_ok=True)
+    sp.stitch(base, hf, windows, offsets, clip_dur, tmp, width=width, height=height, fps=fps,
+              vignette=vig, grain=gr, grain_opacity=gfx_rules.grain_opacity)
+    tmp.replace(out)
+    _step("7 stitch + grade FFmpeg", ts)
+    return render_sec
+
+
 def _zoom_frame(base: Path, scene: GfxScene, out: Path) -> Path | None:
     """Frame donde arrancaría el zoom (final de la escena − zoom_dur) para el juez de visión."""
     t = max(scene.start + 0.1, scene.end - gfx_rules.zoom_dur)
@@ -290,7 +332,8 @@ def prefetch_plans(plans: list[Any], video_id: str, work_dir: Path, *, max_worke
 def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
               width: int, height: int, fps: int, quality: str | None = None,
               reuse: bool = False, time_offset: float = 0.0,
-              gfx_plan_override: dict[str, Any] | None = None, debug: bool = False) -> Path:
+              gfx_plan_override: dict[str, Any] | None = None, debug: bool = False,
+              sparse: bool = False) -> Path:
     """Aplica la capa gráfica al base_clip de un cap. Devuelve chXX_gfx.mp4 o base_clip (fallback).
 
     Args:
@@ -364,6 +407,17 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         (work_dir / f"gfx_sfx_{cap}.json").write_text(json.dumps(sfx, ensure_ascii=False, indent=1), encoding="utf-8")
         log.append(f"  sfx: {len(sfx)} eventos ({', '.join(e['block'] for e in sfx)})")
         _step("3-4 plan + lock", ts)
+
+        if sparse and not debug:
+            # F2 §3.1: render disperso (solo ventanas con eventos) + grade FFmpeg uniforme
+            render_sec = _render_sparse(resolved, scenes, project, out, cap=cap, clip_dur=clip_dur,
+                                        width=width, height=height, fps=fps, quality=q, log=log)
+            from script_engine.gfx_project import cue_events
+            from script_engine.gfx_review import write_cues
+            write_cues(cap, cue_events(resolved, scenes, fps), log, resolved.get("gap_warnings", []), render_sec, work_dir)
+            log.append(f"  OK total {time.time() - t0:.1f}s → {out.name} (disperso)")
+            error_handler.log_success(PipelineStage.ASSEMBLY, f"[gfx] {cap} OK en {time.time() - t0:.0f}s (disperso)")
+            return out
 
         ts = time.time()
         write_project(resolved, scenes, project, duration=clip_dur, width=width, height=height, fps=fps,

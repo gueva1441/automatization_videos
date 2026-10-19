@@ -376,7 +376,8 @@ def render_css(width: int, height: int) -> str:
 
 def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *,
                   duration: float, width: int, height: int, fps: int,
-                  grade_variant: str | None = None, debug: bool = False) -> Path:
+                  grade_variant: str | None = None, debug: bool = False,
+                  transitions: dict[int, dict[str, Any]] | None = None, grade: bool = True) -> Path:
     """Escribe el proyecto HyperFrames del cap. Requiere project/public/base.mp4 ya presente.
 
     Returns: path a index.html.
@@ -392,7 +393,8 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
     shutil.copy2(gsap_js(), project / "vendor" / "gsap.min.js")
 
     # ── escenas
-    transitions = plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx"))
+    if transitions is None:
+        transitions = plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx"))
     hosts: list[str] = []
     for s in scenes:
         n = s.idx + 1
@@ -407,7 +409,7 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
     # ── grade CSS: solo capas con opacidad > 0 (default "off" = grano + viñeta; sin backdrop-filter)
     variant = GRADE_VARIANTS[grade_variant or gfx_rules.grade_default]
     gi = variant["intensity"]
-    layers = {k: v * gi for k, v in variant["opacity"].items() if v * gi > 0}
+    layers = {k: v * gi for k, v in variant["opacity"].items() if v * gi > 0} if grade else {}
     if layers:
         divs = "".join(f'\n        <div id="{k}"></div>' for k in layers)
         overlays.append(f'      <div id="grade" class="clip" data-start="0" data-duration="{duration:.3f}">{divs}\n      </div>')
