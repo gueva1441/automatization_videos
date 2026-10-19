@@ -25,7 +25,8 @@ def test_misterio_reproduce_la_calibracion_0b():
     rm = gc.rules_from_profile(gc.load_profile("misterio"))
     engine = gc.GfxRules()
     diffs = {f.name for f in fields(gc.GfxRules) if getattr(rm, f.name) != getattr(engine, f.name)}
-    assert diffs == {"interrupt_min_sec", "interrupt_max_sec", "grain_opacity", "vignette_opacity"}, diffs
+    assert diffs == {"interrupt_min_sec", "interrupt_max_sec", "grain_opacity", "vignette_opacity",
+                     "mood_dark_flicker"}, diffs                          # PARADA 1: oscuridad sin parpadeos
     assert (rm.interrupt_max_sec, rm.grain_opacity, rm.vignette_opacity) == (18.0, 0.0, 0.15)
 
 

@@ -843,18 +843,18 @@ def word_freq(text: str) -> dict[str, int]:
     return freq
 
 
-def emphasis_candidates(words: list[dict], moods: dict[str, dict[str, Any]]) -> list[tuple[int, int, str]]:
-    """(índice de palabra, cantidad de palabras, categoría) por cada disparador del léxico dicho por la voz.
+def emphasis_candidates(words: list[dict], moods: dict[str, dict[str, Any]]) -> list[tuple[int, int, str, int]]:
+    """(índice de palabra, cantidad de palabras, categoría, peso 1–3) por cada disparador del léxico dicho por la voz.
     Match exacto de tokens (las flexiones están listadas en el léxico); frases ("sin luz") antes que palabras."""
     toks = [_tok(w.get("word", "")) for w in words]
-    trig = sorted(((cat, tuple(_tok(x) for x in t.split())) for cat, m in moods.items() for t in m.get("triggers", [])),
-                  key=lambda ct: -len(ct[1]))
-    out: list[tuple[int, int, str]] = []
+    trig = sorted(((cat, tuple(_tok(x) for x in t.split()), int(wt)) for cat, m in moods.items()
+                   for t, wt in (m.get("triggers") or {}).items()), key=lambda ct: -len(ct[1]))
+    out: list[tuple[int, int, str, int]] = []
     i = 0
     while i < len(toks):
-        hit = next(((cat, tt) for cat, tt in trig if tt and tuple(toks[i:i + len(tt)]) == tt), None)
+        hit = next(((cat, tt, wt) for cat, tt, wt in trig if tt and tuple(toks[i:i + len(tt)]) == tt), None)
         if hit:
-            out.append((i, len(hit[1]), hit[0]))
+            out.append((i, len(hit[1]), hit[0], hit[2]))
             i += len(hit[1])
         else:
             i += 1
@@ -875,20 +875,20 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
                    ctx: dict[str, Any], time_offset: float, limit: int, window: tuple[float, float] | None = None,
                    log: list[str] | None = None) -> int:
     """Agrega hasta `limit` énfasis a out["emphasis"] (y a busy). Reglas: máx 1 por frase, ≥ emphasis_same_cat_gap_sec
-    entre moods de la misma categoría, intervalo del mood libre, tope max_per_cap; prioridad = palabra más rara
-    en la narración completa. El texto del sello es la palabra LITERAL de la voz. Devuelve cuántos agregó."""
+    entre moods de la misma categoría, intervalo del mood libre, tope max_per_cap; prioridad = peso del léxico (3 → 1)
+    y después la palabra más rara en la narración completa. El texto del sello es la palabra LITERAL de la voz. Devuelve cuántos agregó."""
     from script_engine.gfx_project import scene_at
     moods = active_moods()
     dur = scenes[-1].end
     freq = word_freq(ctx.get("narration_all") or " ".join(str(w.get("word", "")) for w in words))
     sids = _sentence_ids(words)
     cands = []
-    for i, n, cat in emphasis_candidates(words, moods):
+    for i, n, cat, wt in emphasis_candidates(words, moods):
         rarity = min(freq.get(_tok(w.get("word", "")), 1) for w in words[i:i + n])
-        cands.append((rarity, float(words[i]["start"]) + time_offset, i, n, cat))
+        cands.append((-wt, rarity, float(words[i]["start"]) + time_offset, i, n, cat))
     used_sids = {e["sid"] for e in out["emphasis"]}
     added = 0
-    for rarity, t, i, n, cat in sorted(cands):
+    for neg_wt, rarity, t, i, n, cat in sorted(cands):
         if added >= limit or len(out["emphasis"]) >= max_per_cap("keyword_emphasis"):
             break
         if window and not (window[0] + 1.0 < t < window[1] - 1.0):
@@ -904,13 +904,14 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
         out["emphasis"].append({"word": word, "category": cat, "layer": moods[cat]["layer"],
                                 "icon": moods[cat].get("icon"), "start": round(t, 3),
                                 "duration": round(gfx_rules.mood_dur, 3), "side": getattr(sc, "quiet_side", "right"),
-                                "stamp": gfx_rules.emphasis_stamp, "sid": sids[i], "rarity": rarity})
+                                "stamp": gfx_rules.emphasis_stamp, "sid": sids[i], "rarity": rarity,
+                                "weight": -neg_wt})
         out["emphasis"].sort(key=lambda e: e["start"])
         busy.append((a, b))
         used_sids.add(sids[i])
         added += 1
         if log is not None:
-            log.append(f"emphasis: {word!r} ({cat}, frec {rarity}) @ {t:.1f}s" + (" [relleno de hueco]" if window else ""))
+            log.append(f"emphasis: {word!r} ({cat}, peso {-neg_wt}, frec {rarity}) @ {t:.1f}s" + (" [relleno de hueco]" if window else ""))
     return added
 
 

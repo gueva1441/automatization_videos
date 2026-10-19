@@ -163,7 +163,7 @@ def mood_layer(i: int, layer: str, t0: float, d: float, width: int, height: int)
                     f'rgba(0,0,0,0) 45%,rgba(0,0,0,.9) 100%)"></div>')
         fade(f"#{rid}-vig", 0.5, t0, 0.8)
     elif layer == "oscuridad":
-        # oscuridad desde los bordes + haz de linterna que deriva ±2.5° + parpadeo de luz 2 veces
+        # oscuridad desde los bordes + haz de linterna que deriva ±2.5° (+ 2 parpadeos si mood_dark_flicker)
         kids.append(f'<div id="{rid}-edge" style="{_ABS}inset:0;background:radial-gradient(ellipse 62% 58% at 50% 45%,'
                     f'rgba(0,0,0,0) 35%,rgba(0,0,0,.92) 100%)"></div>')
         fade(f"#{rid}-edge", 0.85, t0, 0.8)
@@ -172,9 +172,10 @@ def mood_layer(i: int, layer: str, t0: float, d: float, width: int, height: int)
         fade(f"#{rid}-beam", 1.0, t0, 0.6)
         init.append(f'      gsap.set("#{rid}-beam", {{ rotation: -2.5 }});')
         js.append(f'      tl.to("#{rid}-beam", {{ rotation: 2.5, duration: {d:.3f}, ease: "sine.inOut" }}, {t0:.3f});')
-        kids.append(f'<div id="{rid}-fl" style="{_ABS}inset:0;background:#000"></div>')
-        init.append(f'      gsap.set("#{rid}-fl", {{ opacity: 0 }});')
-        for tf, pk in ((t0 + 0.9, 0.5), (t0 + 1.25, 0.45)):
+        if gfx_rules.mood_dark_flicker:                     # parpadeo de luz 2 veces (token del perfil)
+            kids.append(f'<div id="{rid}-fl" style="{_ABS}inset:0;background:#000"></div>')
+            init.append(f'      gsap.set("#{rid}-fl", {{ opacity: 0 }});')
+        for tf, pk in ((t0 + 0.9, 0.5), (t0 + 1.25, 0.45)) if gfx_rules.mood_dark_flicker else ():
             js.append(f'      tl.set("#{rid}-fl", {{ opacity: {pk} }}, {tf:.3f}).set("#{rid}-fl", {{ opacity: 0 }}, {tf + 0.07:.3f});')
     html_ = (f'      <div id="{rid}" class="clip" data-start="{t0:.3f}" data-duration="{d:.3f}" '
              f'style="{_ABS}inset:0;overflow:hidden;z-index:2">' + "".join(kids) + "</div>")

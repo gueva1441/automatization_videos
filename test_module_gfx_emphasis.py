@@ -30,17 +30,30 @@ def test_perfil_rechaza_mood_activo_flaco(tmp_path, monkeypatch):
     import json
     prof = json.loads(gc.profile_path("misterio").read_text(encoding="utf-8"))
     prof["moods"]["fuego"]["active"] = True                  # sin capa y con 10 disparadores
+    prof["moods"]["agua"]["triggers"]["agua"] = 5            # peso fuera de 1–3
     monkeypatch.setattr(gc, "GFX_PROFILES_DIR", tmp_path)
     (tmp_path / "x.json").write_text(json.dumps(prof, ensure_ascii=False), encoding="utf-8")
-    with pytest.raises(ValueError, match="moods.fuego"):
+    with pytest.raises(ValueError, match="moods.fuego") as e:
         gc.load_profile("x")
+    assert "moods.agua.triggers" in str(e.value)
 
 
 def test_candidatos_frases_y_flexiones():
     w = _words("Quedaron atrapados sin luz entre cadáveres y agua contaminada.")
     c = gd.emphasis_candidates(w, gc.active_moods())
-    assert [(i, n, cat) for i, n, cat in c] == [(1, 1, "oscuridad_encierro"), (2, 2, "oscuridad_encierro"),
-                                                (5, 1, "muerte"), (7, 1, "agua"), (8, 1, "veneno_enfermedad")]
+    assert c == [(1, 1, "oscuridad_encierro", 3), (2, 2, "oscuridad_encierro", 3),
+                 (5, 1, "muerte", 3), (7, 1, "agua", 1), (8, 1, "veneno_enfermedad", 2)]
+
+
+def test_peso_gana_a_la_rareza():
+    """PARADA 1: cadáveres (3) va antes que diques (1) aunque diques sea más rara."""
+    text = "Los diques cedieron. Vieron cadáveres. Más cadáveres. Y más cadáveres."
+    out = {"emphasis": [], "callouts": [], "punch_in": []}
+    gd.place_emphasis(out, [], words=_words(text, 3.0), scenes=[GfxScene(0, 0.0, 60.0)],
+                      ctx={**CTX, "narration_all": text}, time_offset=0.0, limit=1)
+    assert [(e["word"], e["weight"]) for e in out["emphasis"]] == [("cadáveres", 3)]
+    moods = gc.active_moods()
+    assert moods["muerte"]["triggers"]["cadáveres"] == 3 and moods["agua"]["triggers"]["diques"] == 1
 
 
 def test_maximo_uno_por_frase_y_las_mas_raras():
@@ -97,6 +110,8 @@ def test_lock_y_cues_y_templater(tmp_path):
         write_project(ok, [GfxScene(0, 0.0, 10.0)], tmp_path, duration=10.0, width=2560, height=1440, fps=30)
         html = (tmp_path / "index.html").read_text(encoding="utf-8")
         assert 'id="md0"' in html and 'id="em0"' in html and "cadáveres" in html
+        if layer == "oscuridad":                                   # PARADA 1: sin parpadeos en misterio
+            assert 'id="md0-beam"' in html and 'id="md0-fl"' not in html
 
 
 def test_sfx_tic_sordo_en_el_enfasis():

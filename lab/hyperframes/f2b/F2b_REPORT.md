@@ -90,3 +90,40 @@ Riesgos que el contrato no cubre: el match exacto por token depende de listar a 
 ```
 
 Respuesta de CC: la nota B9 ya está actualizada. `HANDOFF_F1_gfx_layer.md` es un archivo previo, ajeno a F2b, y no se commitea.
+
+## PARADA 1 — OK de Omar a ch02 con ajustes
+
+- Pedido de Omar: OK a ch02 con el mood oscuridad **sin parpadeos** (token del perfil) y **peso 1–3 por palabra** en el léxico (cadáveres = 3, diques = 1), ordenando por peso y después por rareza.
+- Hecho:
+  - Token `mood_dark_flicker`: queda `false` en misterio y `true` en el motor.
+  - `triggers` del léxico pasa a ser `{palabra: peso}`, y `load_profile` valida que los pesos estén entre 1 y 3.
+  - La selección ordena por peso, después por rareza y después por tiempo.
+  - Pesos por categoría: veneno 25/21/8 (3/2/1), agua 13/21/5, muerte 12/17/4 y oscuridad 14/10/5. El criterio está en B21.
+- Tests: 107 verdes. No se volvió a renderizar ch02 (ya aprobado); el cambio se ve en el render completo.
+
+### Veredicto revisor-handoff del ajuste (íntegro)
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Mood oscuridad sin parpadeos (solo bordes + haz de linterna) | OK | gfx_project.py:163-180 (el div `-fl` y los 2 tl.set solo se emiten si `mood_dark_flicker`); misterio.json:32 `mood_dark_flicker:false`; test_module_gfx_emphasis.py afirma `-beam` presente y `-fl` ausente |
+| 2 | Es token del perfil | OK | gfx_config.py:295 (`GfxRules.mood_dark_flicker`, default True = motor/finanzas intactos); override en misterio.json; test_module_gfx_profiles.py añade el token al set de diffs esperado |
+| 3 | Peso 1–3 por palabra (cadáveres=3, diques=1) | OK | misterio.json: muerte.cadáveres=3, agua.diques=1; test_peso_gana_a_la_rareza verifica ambos valores |
+| 4 | Ordenar por peso y después por rareza | OK | gfx_director.py:~889 tupla `(-wt, rarity, t, ...)` ordenada; test: con "diques" más raro, gana "cadáveres" |
+| 5 | Validación del esquema | OK | gfx_config.py:382 rechaza pesos fuera de 1–3 o triggers que no son dict; test con peso 5 |
+| 6 | Tests verdes | OK | corrí la suite indicada: 107 passed |
+| 7 | Léxico/texto literal, sin texto inventado por el LLM | OK | el sello sigue usando la palabra literal de la voz; solo cambia el orden y el campo `weight` en el JSON de salida |
+| 8 | Documentado en DECISIONES (B20/B21) | OK | DECISIONES_F2b.md +2 filas (B20 flicker, B21 pesos) |
+| 9 | Commit del ajuste | NO VERIFICABLE | el cambio sigue sin commitear (HEAD 046c4c9); el contrato pide commitearlo, queda pendiente o lo hace quien reporta |
+| 10 | Sin --gfx byte-idéntico / ch02 visual | NO VERIFICABLE | no hubo render; falta un render/diff de ch02. Por código, sin --gfx no pasa por este camino |
+
+Fuera de alcance: ninguno. Los 7 archivos modificados son exactamente los declarados; diag_234_cap4.py aparece modificado pero se ignoró según indicaste (1 línea, ajeno).
+
+Observaciones:
+- Los pesos (excepto cadáveres/diques) los asignó CC por criterio propio; está declarado en B21 y Omar puede corregirlos en el JSON. Las categorías inactivas quedan todas en peso 2 (plano).
+- El campo nuevo `weight` en cada entrada de `emphasis` cambia el esquema de salida del director (lo tolera el código actual; ningún consumidor roto en los tests).
+
+Riesgos que el contrato no cubre: (1) el perfil finanzas no define moods, así que nada rompe con el nuevo formato dict; cualquier perfil futuro con triggers en lista fallará en load_profile (a propósito). (2) La ausencia de parpadeo solo se probó con tests de HTML, no visualmente en ch02.
+```

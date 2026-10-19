@@ -292,6 +292,7 @@ class GfxRules:
     emphasis_stamp: bool = True              # sello rojo con la palabra (opcional por perfil)
     emphasis_stamp_sec: float = 1.6          # el sello se ve 1.6 s dentro del mood
     emphasis_stamp_px: int = 112
+    mood_dark_flicker: bool = True           # mood oscuridad: 2 parpadeos de luz (PARADA 1: OFF en misterio)
     grade_default: str = "off"
     grain_opacity: float = 0.15              # F2 §0c: tokens del perfil (antes constantes de _GRADE_OFF)
     vignette_opacity: float = 0.20
@@ -375,8 +376,11 @@ def load_profile(name: str | None = None) -> dict[str, Any]:
     for cat, m in (prof.get("moods") or {}).items():
         if set(m) - {"active", "triggers", "layer", "icon"}:
             bad.add(f"moods.{cat}: claves {sorted(set(m) - {'active', 'triggers', 'layer', 'icon'})}")
-        if m.get("active") and (m.get("layer") not in VALID_MOOD_LAYERS or len(m.get("triggers", [])) < MIN_TRIGGERS_ACTIVE):
+        if m.get("active") and (m.get("layer") not in VALID_MOOD_LAYERS or len(m.get("triggers", {})) < MIN_TRIGGERS_ACTIVE):
             bad.add(f"moods.{cat} (activa: capa válida y ≥ {MIN_TRIGGERS_ACTIVE} disparadores)")
+        # PARADA 1 F2b: triggers = {palabra: peso 1–3}
+        if not isinstance(m.get("triggers"), dict) or any(w not in (1, 2, 3) for w in m["triggers"].values()):
+            bad.add(f"moods.{cat}.triggers (dict palabra → peso 1–3)")
     if bad:
         raise ValueError(f"perfil gfx '{name}': claves desconocidas {sorted(bad)}")
     return prof
