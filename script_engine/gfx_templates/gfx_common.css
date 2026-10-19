@@ -8,9 +8,9 @@
       /* title_card (F2 §0b.2: escala ${tc_scale}) */
       #tc-dim { position: absolute; inset: 0; z-index: 20; background: #000; }
       #tc { position: absolute; inset: 0; z-index: 21; }
-      #tc-kicker { position: absolute; left: 180px; top: ${tc_kicker_top}px; color: ${accent}; font: 400 ${tc_kicker_px}px/1 "Anton", sans-serif; letter-spacing: .12em; }
+      #tc-kicker { position: absolute; left: 180px; top: ${tc_kicker_top}px; color: ${accent}; font: 400 ${tc_kicker_px}px/1 "${title_font}", sans-serif; letter-spacing: .12em; }
       #tc-title { position: absolute; left: 180px; top: ${tc_title_top}px; right: 180px; overflow: hidden; }
-      #tc-title span { display: inline-block; color: #f4f1ea; font: 400 ${tc_title_px}px/1.05 "Anton", sans-serif; text-transform: uppercase; letter-spacing: .01em; }
+      #tc-title span { display: inline-block; color: #f4f1ea; font: 400 ${tc_title_px}px/1.05 "${title_font}", sans-serif; text-transform: uppercase; letter-spacing: .01em; }
       #tc-line { position: absolute; left: 184px; top: ${tc_line_top}px; width: ${tc_line_w}px; height: 6px; background: ${accent}; transform-origin: left center; }
       /* data_callout (tercio superior, lado según el sujeto) */
       .callout { position: absolute; top: 120px; z-index: 22; max-width: 1500px; }
@@ -19,12 +19,12 @@
       .callout.right .co-rule { margin-left: auto; transform-origin: right center; }
       .co-mask { overflow: hidden; padding-bottom: 6px; }
       .co-text { display: inline-block; color: #f4f1ea; text-shadow: ${callout_shadow}; }
-      .co-text.anton { font: 400 ${callout_anton_px}px/1.02 "Anton", sans-serif; text-transform: uppercase; }
+      .co-text.anton { font: 400 ${callout_anton_px}px/1.02 "${figure_font}", sans-serif; text-transform: uppercase; }
       .co-text.serif { font: ${callout_font_weight} ${callout_font_px}px/1.05 "${callout_font}", serif; }
       .co-rule { width: 420px; height: 8px; margin-top: 18px; background: ${accent}; transform-origin: left center; }
       /* count_up (Anton, D13) */
-      .count { position: absolute; left: 160px; top: 110px; z-index: 22; color: #f4f1ea; font: 400 220px/1 "Anton", sans-serif; font-variant-numeric: tabular-nums; text-shadow: 0 8px 40px rgba(0,0,0,.55); }
-      .count-unit { display: block; margin-top: 10px; font: 400 64px/1 "Anton", sans-serif; text-transform: uppercase; letter-spacing: .04em; color: #f4f1ea; }
+      .count { position: absolute; left: 160px; top: 110px; z-index: 22; color: #f4f1ea; font: 400 220px/1 "${figure_font}", sans-serif; font-variant-numeric: tabular-nums; text-shadow: 0 8px 40px rgba(0,0,0,.55); }
+      .count-unit { display: block; margin-top: 10px; font: 400 64px/1 "${figure_font}", sans-serif; text-transform: uppercase; letter-spacing: .04em; color: #f4f1ea; }
       /* archive_clipping (F2 §0b.6: escala ${ar_scale}, lado opuesto al sujeto; cuerpo ≥ 52 px) */
       .ar { position: absolute; inset: 0; z-index: 22; }
       .ar-paper { position: absolute; top: 120px; width: ${ar_w}px; max-width: ${ar_w}px; padding: ${ar_pad_v}px ${ar_pad_h}px ${ar_pad_b}px; color: #1b1a17;
@@ -32,7 +32,7 @@
       .ar-paper.right { right: 160px; } .ar-paper.left { left: 160px; }
       .ar-kicker { font-weight: 700; font-size: ${ar_kicker_px}px; line-height: 1; letter-spacing: .25em; text-transform: uppercase; color: ${accent}; }
       .ar-rule { height: 4px; margin: 18px 0 20px; border-top: 1px solid #1b1a17; border-bottom: 1px solid #1b1a17; }
-      .ar-head { font: 900 ${ar_head_px}px/1.04 "Playfair Display SC", serif; }
+      .ar-head { font: 900 ${ar_head_px}px/1.04 "${clipping_font}", serif; }
       .ar-body { margin-top: 18px; font-weight: 400; font-size: ${archive_body_px}px; line-height: 1.3;
                  max-height: calc(${archive_body_lines} * 1.3em); overflow: hidden; }
       /* evidence_zoom (etiqueta) */

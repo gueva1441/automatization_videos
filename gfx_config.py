@@ -1,21 +1,27 @@
 """
-gfx_config.py — Settings de render de la capa gráfica HyperFrames + inventario inmutable.
+gfx_config.py — MOTOR de la capa gráfica HyperFrames (inmutable) + carga del PERFIL DE CANAL.
 
-DOS responsabilidades separadas (patrón flow_config):
-  1. SETTINGS: render HyperFrames (calidad, workers, timeout, runtime Node, reencode).
-  2. INVENTARIO: bloques gráficos válidos con sus parámetros, rangos y reglas duras
-     (DOC_MAESTRO_HyperFrames §3). Se inyecta TAL CUAL en el system prompt del
-     gfx_director para que el LLM solo elija de esta lista.
+Responsabilidades separadas (patrón flow_config; F2 §0c motor/perfil):
+  1. SETTINGS: render HyperFrames (calidad, workers, timeout, runtime Node, reencode). Motor.
+  2. INVENTARIO: bloques gráficos válidos con sus parámetros y reglas duras (DOC_MAESTRO §3).
+     Motor = qué bloques EXISTEN y qué hacen; el perfil decide cuáles están habilitados,
+     cuántos por cap y dónde. Se inyecta en el system prompt del gfx_director.
+  3. PERFIL DE CANAL: gfx_profiles/<perfil>.json (tokens visuales, fuentes, duraciones,
+     grade/grano/viñeta, inventario habilitado). Se elige por el nicho activo
+     (nicho_config.get_active_nicho()["nombre"] ∈ perfil["nichos"]) o por GFX_PROFILE.
+     Un perfil nuevo NO requiere tocar código.
 
 NO contiene la lógica de selección (eso vive en script_engine/gfx_director.py).
 NO contiene HTML (eso vive en script_engine/gfx_templates/).
 """
 from __future__ import annotations
 
+import json
 import os
 import shutil
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields, replace
 from pathlib import Path
+from typing import Any
 
 from config import BASE_DIR
 
@@ -27,6 +33,8 @@ from config import BASE_DIR
 GFX_RUNTIME_DIR: Path = BASE_DIR / "script_engine" / "gfx_runtime"
 GFX_TEMPLATES_DIR: Path = BASE_DIR / "script_engine" / "gfx_templates"
 GFX_FONTS_DIR: Path = BASE_DIR / "script_engine" / "fonts"
+GFX_PROFILES_DIR: Path = BASE_DIR / "gfx_profiles"
+DEFAULT_PROFILE: str = "misterio"
 
 
 @dataclass(frozen=True)
@@ -93,51 +101,53 @@ class GfxBlock:
     description: str           # qué hace (lo lee el LLM)
     params: str                # qué llena el director (lo lee el LLM)
     rules: str                 # reglas duras (lo lee el LLM; las garantiza el validador)
-    max_per_cap: int
+    max_per_cap: int           # default del motor; el perfil lo pisa
     llm_decides: bool          # False = determinista (shot_transition, grade)
+    enabled: bool = True       # el perfil de canal lo apaga/prende
+    where: str = ""            # regla de dónde se permite (texto del perfil, lo lee el LLM)
 
 
-GFX_INVENTORY: tuple[GfxBlock, ...] = (
+_ENGINE_INVENTORY: tuple[GfxBlock, ...] = (
     GfxBlock(
         name="title_card",
         description="Rótulo de capítulo al inicio: 'CAPÍTULO N' + título del skeleton sobre el video oscurecido 40 %.",
         params="use (bool). El título y el número los pone el sistema desde el skeleton.",
-        rules="1 por cap, 1.9 s, no congela el video.",
+        rules="no congela el video.",
         max_per_cap=1, llm_decides=True,
     ),
     GfxBlock(
         name="data_callout",
         description="Dato grande (año, cifra, nombre, lugar) en el tercio superior cuando la voz lo dice.",
         params="fact_idx (índice de verified_facts), trigger_word_idx (índice en WORDS donde la voz dice el dato), kind year|figure|name|place.",
-        rules="máx 3 por cap; omitir si el texto en imagen de esa escena ya muestra el dato; 1.2–2 s; el texto sale del fact, no lo escribís vos.",
+        rules="omitir si el texto en imagen de esa escena ya muestra el dato; el texto sale del fact, no lo escribís vos.",
         max_per_cap=3, llm_decides=True,
     ),
     GfxBlock(
         name="archive_clipping",
         description="Recorte de periódico de época con texto real del fact, 6 s en pantalla desde el inicio de una escena.",
         params="lista de hasta 2: fact_idx, scene_idx, headline, kicker.",
-        rules="máx 2 por cap, solo con facts de texto suficiente; cuerpo ≥ 52 px; la escena debe durar ≥ 4 s.",
+        rules="solo con facts de texto suficiente; titular ≤ 8 palabras; la escena debe durar ≥ 4 s.",
         max_per_cap=2, llm_decides=True,
     ),
     GfxBlock(
         name="evidence_zoom",
         description="Recuadro fino sobre un detalle del frame de video y zoom 2.2× hacia él con etiqueta 'DETALLE'; termina en el corte, nunca vuelve.",
         params="scene_idx, box [x, y, w, h] normalizado 0–1 sobre el cuadro.",
-        rules="máx 1 por cap; al FINAL de su escena; la escena debe durar ≥ 3.1 s.",
+        rules="al FINAL de su escena; la escena debe durar ≥ 3.1 s.",
         max_per_cap=1, llm_decides=True,
     ),
     GfxBlock(
         name="count_up",
         description="Contador que sube de 0 a una cifra presente en un fact, cuando la voz la dice.",
         params="fact_idx, trigger_word_idx.",
-        rules="máx 1 por cap; solo cifras presentes literalmente en el fact.",
+        rules="solo cifras presentes literalmente en el fact.",
         max_per_cap=1, llm_decides=True,
     ),
     GfxBlock(
         name="punch_in",
         description="Punch-in sutil de cámara (1.00→1.025 en 400 ms, se sostiene hasta el corte) sobre la capa de video en una palabra de énfasis.",
         params="lista de trigger_word_idx.",
-        rules="máx 2 por cap.",
+        rules="palabras de énfasis.",
         max_per_cap=2, llm_decides=True,
     ),
     GfxBlock(
@@ -156,14 +166,8 @@ GFX_INVENTORY: tuple[GfxBlock, ...] = (
     ),
 )
 
-VALID_BLOCKS: frozenset[str] = frozenset(b.name for b in GFX_INVENTORY)
-LLM_BLOCKS: frozenset[str] = frozenset(b.name for b in GFX_INVENTORY if b.llm_decides)
+VALID_BLOCKS: frozenset[str] = frozenset(b.name for b in _ENGINE_INVENTORY)
 VALID_CALLOUT_KINDS: frozenset[str] = frozenset({"year", "figure", "name", "place"})
-
-
-def max_per_cap(block: str) -> int:
-    """Máximo por cap de un bloque del inventario (KeyError si no existe)."""
-    return next(b.max_per_cap for b in GFX_INVENTORY if b.name == block)
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -187,7 +191,10 @@ class GfxRules:
     callout_sec_per_word: float = 0.4        # 0.4 s × palabras + 1.0 s, mín 2.5 s,
     callout_base_sec: float = 1.0            # y nunca antes del fin de la frase hablada
     callout_until_phrase_end: bool = True
-    callout_font: str = "Playfair Display SC"   # name/place/year (D13); figure → Anton
+    callout_font: str = "Playfair Display SC"   # name/place/year (D13); figure → figure_font
+    figure_font: str = "Anton"                 # F2 §0c: fuentes como tokens del perfil (fonts.*)
+    title_font: str = "Anton"
+    clipping_font: str = "Playfair Display SC"
     callout_font_weight: int = 900             # Black (§0b.8: Bold/Black)
     callout_font_px: int = 158                 # +20 % sobre la muestra del sampler (132 px)
     callout_anton_px: int = 168
@@ -232,6 +239,8 @@ class GfxRules:
     r1_cut_punch_scale: float = 1.02
     # grade (F2 §0b.1: OFF por default → solo grano 0.15 + viñeta 0.20; recetas A/B/C inactivas)
     grade_default: str = "off"
+    grain_opacity: float = 0.15              # F2 §0c: tokens del perfil (antes constantes de _GRADE_OFF)
+    vignette_opacity: float = 0.20
     grain_jumps_per_sec: int = 12
 
     @property
@@ -259,16 +268,105 @@ class GfxRules:
 #   A = F1 · B = haze 0 + teal en sombras (F1b) · C = B a 0.3 · off = solo grano 0.15 + viñeta 0.20 (F2)
 _GRADE_A = {"gr-halation": 0.35, "gr-haze": 0.6, "gr-palette": 0.5, "gr-shadowteal": 0.0, "gr-vignette": 0.7, "gr-grain": 0.12}
 _GRADE_B = {"gr-halation": 0.35, "gr-haze": 0.0, "gr-palette": 0.0, "gr-shadowteal": 1.0, "gr-vignette": 0.7, "gr-grain": 0.12}
-_GRADE_OFF = {"gr-halation": 0.0, "gr-haze": 0.0, "gr-palette": 0.0, "gr-shadowteal": 0.0, "gr-vignette": 0.20, "gr-grain": 0.15}
-GRADE_VARIANTS: dict[str, dict] = {
-    "A": {"intensity": 0.5, "opacity": _GRADE_A},
-    "B": {"intensity": 0.5, "opacity": _GRADE_B},
-    "C": {"intensity": 0.3, "opacity": _GRADE_B},
-    "off": {"intensity": 1.0, "opacity": _GRADE_OFF},
-}
 
 
-gfx_rules = GfxRules()
+# ═══════════════════════════════════════════════════════════════
+#  PERFIL DE CANAL (F2 §0c)
+# ═══════════════════════════════════════════════════════════════
+
+_RULE_FIELDS: frozenset[str] = frozenset(f.name for f in fields(GfxRules))
+_PROFILE_KEYS: frozenset[str] = frozenset({"name", "description", "nichos", "fonts", "tokens", "blocks"})
+_FONT_KEYS: frozenset[str] = frozenset({"subs", "title", "callout", "callout_figure", "clipping"})
+# fuentes que el templater sabe cargar (@font-face en gfx_common.css → script_engine/fonts)
+KNOWN_FONTS: frozenset[str] = frozenset({"Anton", "Playfair Display SC"})
+
+
+def profile_path(name: str) -> Path:
+    return GFX_PROFILES_DIR / f"{name}.json"
+
+
+def active_profile_name() -> str:
+    """GFX_PROFILE (env) > perfil cuyo `nichos` contiene el nicho activo > misterio."""
+    env = os.environ.get("GFX_PROFILE", "").strip()
+    if env:
+        return env
+    try:
+        from nicho_config import get_active_nicho
+        nicho = str(get_active_nicho().get("nombre", ""))
+    except Exception:  # noqa: BLE001 — sin nicho → perfil por default
+        nicho = ""
+    for p in sorted(GFX_PROFILES_DIR.glob("*.json")):
+        try:
+            if nicho and nicho in json.loads(p.read_text(encoding="utf-8")).get("nichos", []):
+                return p.stem
+        except (OSError, ValueError):
+            continue
+    return DEFAULT_PROFILE
+
+
+def load_profile(name: str | None = None) -> dict[str, Any]:
+    """Lee y valida un perfil. Claves o tokens desconocidos → ValueError (un typo no pasa en silencio)."""
+    name = name or active_profile_name()
+    prof = json.loads(profile_path(name).read_text(encoding="utf-8"))
+    bad = set(prof) - _PROFILE_KEYS
+    bad |= {f"tokens.{k}" for k in prof.get("tokens", {}) if k not in _RULE_FIELDS}
+    bad |= {f"fonts.{k}" for k in prof.get("fonts", {}) if k not in _FONT_KEYS}
+    bad |= {f"blocks.{k}" for k in prof.get("blocks", {}) if k not in VALID_BLOCKS}
+    bad |= {f"fonts.{k}={v!r} (sin @font-face)" for k, v in prof.get("fonts", {}).items() if v not in KNOWN_FONTS}
+    if bad:
+        raise ValueError(f"perfil gfx '{name}': claves desconocidas {sorted(bad)}")
+    return prof
+
+
+def rules_from_profile(prof: dict[str, Any]) -> GfxRules:
+    """Motor (defaults de GfxRules) pisado por los tokens del perfil."""
+    over: dict[str, Any] = dict(prof.get("tokens", {}))
+    fonts = prof.get("fonts", {})
+    # fonts.subs NO se cablea: los subs ASS de fase2b quedan constantes (sin --gfx byte-idéntico)
+    for key, field_name in (("callout", "callout_font"), ("callout_figure", "figure_font"),
+                            ("title", "title_font"), ("clipping", "clipping_font")):
+        if fonts.get(key):
+            over[field_name] = fonts[key]
+    ar = prof.get("blocks", {}).get("archive_clipping")
+    if ar is not None:
+        over["archive_max_per_cap"] = int(ar.get("max_per_cap", 0)) if ar.get("enabled", True) else 0
+    return replace(GfxRules(), **over)
+
+
+def inventory_from_profile(prof: dict[str, Any]) -> tuple[GfxBlock, ...]:
+    """Inventario del motor con enabled / max_per_cap / where del perfil."""
+    out = []
+    for b in _ENGINE_INVENTORY:
+        cfg = prof.get("blocks", {}).get(b.name, {})
+        enabled = bool(cfg.get("enabled", True))
+        out.append(replace(b, enabled=enabled,
+                           max_per_cap=int(cfg.get("max_per_cap", b.max_per_cap)) if enabled else 0,
+                           where=str(cfg.get("where", ""))))
+    return tuple(out)
+
+
+def grade_variants(rules: GfxRules) -> dict[str, dict]:
+    """Recetas de grade; 'off' toma grano/viñeta del perfil."""
+    off = {"gr-halation": 0.0, "gr-haze": 0.0, "gr-palette": 0.0, "gr-shadowteal": 0.0,
+           "gr-vignette": rules.vignette_opacity, "gr-grain": rules.grain_opacity}
+    return {"A": {"intensity": 0.5, "opacity": _GRADE_A}, "B": {"intensity": 0.5, "opacity": _GRADE_B},
+            "C": {"intensity": 0.3, "opacity": _GRADE_B}, "off": {"intensity": 1.0, "opacity": off}}
+
+
+ACTIVE_PROFILE: dict[str, Any] = load_profile()
+gfx_rules = rules_from_profile(ACTIVE_PROFILE)
+GFX_INVENTORY: tuple[GfxBlock, ...] = inventory_from_profile(ACTIVE_PROFILE)
+GRADE_VARIANTS: dict[str, dict] = grade_variants(gfx_rules)
+LLM_BLOCKS: frozenset[str] = frozenset(b.name for b in GFX_INVENTORY if b.llm_decides and b.enabled)
+
+
+def max_per_cap(block: str) -> int:
+    """Máximo por cap de un bloque según el perfil activo (0 si está apagado; KeyError si no existe)."""
+    return next(b.max_per_cap for b in GFX_INVENTORY if b.name == block)
+
+
+def block_enabled(block: str) -> bool:
+    return next(b.enabled for b in GFX_INVENTORY if b.name == block)
 
 # D7: cromo fijo declarado (no es contenido; fuera del candado literal)
 CHROME_TEMPLATES: tuple[str, ...] = ("CAPÍTULO {n}", "DETALLE")
@@ -287,8 +385,12 @@ def render_inventory_for_prompt() -> str:
     """Serializa el inventario para el system prompt del gfx_director."""
     lines: list[str] = []
     for b in GFX_INVENTORY:
+        if not b.enabled:                    # el perfil lo apaga → el LLM ni lo ve
+            continue
         who = "VOS elegís" if b.llm_decides else "NO lo elegís (determinista)"
-        lines.append(f"- {b.name} [{who}]: {b.description} Parámetros: {b.params} Reglas: {b.rules}")
+        lim = f"máx {b.max_per_cap} por cap; " if b.llm_decides else ""
+        where = f" Dónde: {b.where}." if b.where else ""
+        lines.append(f"- {b.name} [{who}]: {b.description} Parámetros: {b.params} Reglas: {lim}{b.rules}{where}")
     return "\n".join(lines)
 
 

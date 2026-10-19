@@ -316,6 +316,7 @@ def render_css(width: int, height: int) -> str:
         tc_title_top=title_top, tc_line_top=round(title_top + 190 * ts * 1.05 + 20), tc_line_w=round(900 * ts),
         callout_font=r.callout_font, callout_font_weight=r.callout_font_weight, callout_font_px=r.callout_font_px,
         callout_anton_px=r.callout_anton_px, callout_shadow=r.callout_shadow,
+        title_font=r.title_font, figure_font=r.figure_font, clipping_font=r.clipping_font,
         ar_scale=ars, ar_w=min(round(1100 * ars), round(width * r.archive_max_w_frac)), ar_pad_v=round(50 * ars), ar_pad_h=round(60 * ars),
         ar_pad_b=round(60 * ars), ar_kicker_px=round(34 * ars), ar_head_px=round(84 * ars))
 

@@ -1,0 +1,33 @@
+{
+  "name": "finanzas",
+  "description": "Perfil de ejemplo para un canal de finanzas: prueba que un segundo canal existe sin tocar código (F2 §0c). No validado visualmente.",
+  "nichos": ["finanzas"],
+  "fonts": {
+    "subs": "Anton",
+    "title": "Anton",
+    "callout": "Anton",
+    "callout_figure": "Anton",
+    "clipping": "Playfair Display SC"
+  },
+  "tokens": {
+    "accent_hex": "#1f8f4e",
+    "interrupt_max_sec": 30.0,
+    "title_dur": 2.5,
+    "callout_font_weight": 400,
+    "grade_default": "off",
+    "grain_opacity": 0.0,
+    "vignette_opacity": 0.10,
+    "r3_style": "dissolve",
+    "flash_max_per_cap": 0
+  },
+  "blocks": {
+    "title_card":       {"enabled": true, "max_per_cap": 1, "where": "todos los caps"},
+    "data_callout":     {"enabled": true, "max_per_cap": 4, "where": "todos los caps"},
+    "archive_clipping": {"enabled": false, "max_per_cap": 0, "where": "—"},
+    "evidence_zoom":    {"enabled": false, "max_per_cap": 0, "where": "—"},
+    "count_up":         {"enabled": true, "max_per_cap": 2, "where": "cifras literales del fact"},
+    "punch_in":         {"enabled": true, "max_per_cap": 2, "where": "todos los caps"},
+    "shot_transition":  {"enabled": true, "max_per_cap": 999, "where": "cada corte intra-cap"},
+    "grade":            {"enabled": true, "max_per_cap": 1, "where": "todos los caps"}
+  }
+}

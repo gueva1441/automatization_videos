@@ -1,0 +1,73 @@
+"""test_module_gfx_profiles.py — F2 §0c: motor (gfx_config) + perfil de canal (gfx_profiles/*.json).
+Correr: python -m pytest test_module_gfx_profiles.py -q
+"""
+import json
+import sys
+from dataclasses import fields
+
+import pytest
+
+import gfx_config as gc
+
+
+def test_carga_ambos_perfiles_sin_tocar_codigo():
+    mis, fin = gc.load_profile("misterio"), gc.load_profile("finanzas")
+    rm, rf = gc.rules_from_profile(mis), gc.rules_from_profile(fin)
+    assert rm.accent_hex == "#c8102e" and rf.accent_hex != rm.accent_hex
+    inv_f = {b.name: b for b in gc.inventory_from_profile(fin)}
+    assert not inv_f["archive_clipping"].enabled and inv_f["archive_clipping"].max_per_cap == 0
+    assert rf.archive_max_per_cap == 0 and rf.grain_opacity == 0.0
+    assert gc.grade_variants(rf)["off"]["opacity"]["gr-grain"] == 0.0
+
+
+def test_misterio_reproduce_la_calibracion_0b():
+    """El perfil misterio no cambia nada respecto de los defaults del motor (calibración aprobada)."""
+    rm = gc.rules_from_profile(gc.load_profile("misterio"))
+    engine = gc.GfxRules()
+    diffs = {f.name for f in fields(gc.GfxRules) if getattr(rm, f.name) != getattr(engine, f.name)}
+    assert diffs == set(), diffs
+
+
+def test_perfil_activo_por_nicho_y_por_env(monkeypatch):
+    monkeypatch.delenv("GFX_PROFILE", raising=False)
+    assert gc.active_profile_name() == "misterio"          # nicho dark_history → misterio
+    monkeypatch.setenv("GFX_PROFILE", "finanzas")
+    assert gc.active_profile_name() == "finanzas"
+
+
+def test_clave_desconocida_falla(tmp_path, monkeypatch):
+    bad = json.loads(gc.profile_path("misterio").read_text(encoding="utf-8"))
+    bad["tokens"]["acent_hex"] = "#000000"                  # typo
+    (tmp_path / "typo.json").write_text(json.dumps(bad), encoding="utf-8")
+    monkeypatch.setattr(gc, "GFX_PROFILES_DIR", tmp_path)
+    with pytest.raises(ValueError, match="acent_hex"):
+        gc.load_profile("typo")
+
+
+def test_fuente_sin_font_face_falla(tmp_path, monkeypatch):
+    bad = json.loads(gc.profile_path("finanzas").read_text(encoding="utf-8"))
+    bad["fonts"]["callout"] = "Comic Sans MS"
+    (tmp_path / "f.json").write_text(json.dumps(bad), encoding="utf-8")
+    monkeypatch.setattr(gc, "GFX_PROFILES_DIR", tmp_path)
+    with pytest.raises(ValueError, match="Comic Sans"):
+        gc.load_profile("f")
+
+
+def test_bloque_apagado_no_llega_al_prompt(monkeypatch):
+    fin = gc.load_profile("finanzas")
+    monkeypatch.setattr(gc, "GFX_INVENTORY", gc.inventory_from_profile(fin))
+    txt = gc.render_inventory_for_prompt()
+    assert "archive_clipping" not in txt and "evidence_zoom" not in txt and "data_callout" in txt
+    assert "máx 4 por cap" in txt                           # el máximo sale del perfil
+
+
+def test_css_con_perfil_finanzas(monkeypatch):
+    import script_engine.gfx_project as gp
+    rf = gc.rules_from_profile(gc.load_profile("finanzas"))
+    monkeypatch.setattr(gp, "gfx_rules", rf)
+    css = gp.render_css(2560, 1440)
+    assert rf.accent_hex in css and "#c8102e" not in css
+
+
+if __name__ == "__main__":
+    sys.exit(pytest.main([__file__, "-q"]))

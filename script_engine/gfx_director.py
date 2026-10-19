@@ -91,18 +91,19 @@ REGLAS DURAS:
 - NUNCA escribas texto propio. Todo texto que devuelvas (text, headline, kicker, value, unit) tiene que
   ser un FRAGMENTO COPIADO LITERAL (mismas palabras, mismos números, misma ortografía) del fact cuyo
   fact_idx indicás. Si no hay fragmento literal adecuado, no uses el bloque.
-- data_callout: máx 3. text = el dato corto (año, cifra con unidad, nombre o lugar), 1–6 palabras,
+- data_callout: máx {max_per_cap("data_callout")}. text = el dato corto (año, cifra con unidad, nombre o lugar), 1–6 palabras,
   copiado del fact. trigger_word_idx = índice de WORDS donde la voz empieza a decir ese dato (o la
   palabra más cercana). NO pongas un callout si el TEXTO EN IMAGEN de esa escena ya muestra el dato.
-- count_up: máx 1, solo si el fact trae una cifra escrita con dígitos (ej. "6,500"). value = esa cifra
+- count_up: máx {max_per_cap("count_up")}, solo si el fact trae una cifra escrita con dígitos (ej. "6,500"). value = esa cifra
   exacta, unit = la palabra que la sigue en el fact (o "").
-- archive_clippings: lista de 0–2, cada uno en una escena distinta de ≥ 4 s y SOLO con facts de texto
+- archive_clippings: lista de 0–{max_per_cap("archive_clipping")}, cada uno en una escena distinta de ≥ 4 s y SOLO con facts de texto
   suficiente (≥ 12 palabras). headline = fragmento literal corto del fact (≤ 8 palabras, NO el fact entero);
   kicker = fragmento literal de 1–3 palabras del mismo fact (lugar o fecha) o "".
-- evidence_zoom: máx 1, en una escena de ≥ 3.1 s (el zoom ocupa el FINAL de esa escena), sobre un detalle
+- evidence_zoom: máx {max_per_cap("evidence_zoom")}, en una escena de ≥ 3.1 s (el zoom ocupa el FINAL de esa escena), sobre un detalle
   concreto descrito en el prompt de la imagen. box = [x, y, w, h] normalizado 0–1.
-- punch_in_word_idx: máx 2, palabras de énfasis (idealmente las de los callouts).
-- Pattern interrupt: intentá que haya un bloque visible cada 25–35 s, pero SOLO con datos reales.
+- punch_in_word_idx: máx {max_per_cap("punch_in")}, palabras de énfasis (idealmente las de los callouts).
+- Pattern interrupt: intentá que haya un bloque visible cada {gfx_rules.interrupt_min_sec:.0f}–{gfx_rules.interrupt_max_sec:.0f} s, pero SOLO con datos reales.
+- Un bloque con máx 0 está APAGADO para este canal: no lo uses.
 - title_card.use = true siempre.
 - Si un bloque no aplica: use=false (o lista vacía).
 """
@@ -268,7 +269,7 @@ def validate_plan(raw: dict[str, Any], *, n_facts: int, n_words: int, scenes: li
             plan["archive_clippings"].append({"fact_idx": fi, "scene_idx": si, "headline": head, "kicker": kick})
 
     z = raw.get("evidence_zoom") or {}
-    if isinstance(z, dict) and z.get("use"):
+    if isinstance(z, dict) and z.get("use") and max_per_cap("evidence_zoom") > 0:
         si, box = _idx(z.get("scene_idx"), n_scenes), clamp_box(z.get("box") or [])
         if si is None or box is None:
             log.append(f"zoom descartado (índice/box): {z}")
@@ -278,7 +279,7 @@ def validate_plan(raw: dict[str, Any], *, n_facts: int, n_words: int, scenes: li
             plan["evidence_zoom"] = {"scene_idx": si, "box": box}
 
     cu = raw.get("count_up") or {}
-    if isinstance(cu, dict) and cu.get("use"):
+    if isinstance(cu, dict) and cu.get("use") and max_per_cap("count_up") > 0:
         fi, wi = _idx(cu.get("fact_idx"), n_facts), _idx(cu.get("trigger_word_idx"), n_words)
         val, unit = str(cu.get("value", "")).strip(), str(cu.get("unit", "")).strip()
         if fi is None or wi is None or not re.fullmatch(r"[\d.,]+%?", val) or not _literal_in(val, facts[fi]):
@@ -326,7 +327,7 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
     from script_engine.gfx_project import scene_at
     out: dict[str, Any] = {"chapter_number": ctx["chapter_number"], "title_card": None, "callouts": [],
                            "count_up": None, "archive_clippings": [], "evidence_zoom": None, "punch_in": []}
-    if (plan.get("title_card") or {}).get("use") and ctx["skeleton"].get("title"):
+    if (plan.get("title_card") or {}).get("use") and ctx["skeleton"].get("title") and max_per_cap("title_card") > 0:
         out["title_card"] = {"kicker": f"CAPÍTULO {ctx['chapter_number']}", "title": ctx["skeleton"]["title"]}
 
     busy: list[tuple[float, float]] = [(0.0, gfx_rules.title_dur)] if out["title_card"] else []
