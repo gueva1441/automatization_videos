@@ -51,6 +51,12 @@ def test_plan_transiciones_r1_flash_con_tope(monkeypatch):
     assert tr[4]["kind"] == tr[5]["kind"] == "dissolve"
 
 
+def test_corte_seco_despues_del_zoom():
+    scenes = [GfxScene(0, 0, 5, "R3"), GfxScene(1, 5, 10, "R2"), GfxScene(2, 10, 20, "R3")]
+    tr = plan_transitions(scenes, zoom_scene_idx=0)
+    assert tr[1]["kind"] == "cut" and tr[2]["kind"] in ("dissolve", "dip")
+
+
 def test_write_cues_y_review(tmp_path):
     ev = cue_events(PLAN, ONE, 30)
     md = write_cues("ch02", ev, ["callout omitido (x)", "  plan: {...}"], [[0.0, 36.0]], 12.3, tmp_path)
@@ -60,6 +66,23 @@ def test_write_cues_y_review(tmp_path):
     page = write_review("ch02", tmp_path / "ch02_segment_only.mp4", tmp_path)
     html = page.read_text(encoding="utf-8")
     assert 'src="ch02_segment_only.mp4"' in html and "copiar nota" in html and "cdn" not in html.lower()
+
+
+def test_freeze_es_el_plano_saliente(tmp_path):
+    """Regresión F2 §0b.4: rojo 0–1 s, azul 1–2 s @30 fps → el freeze del corte en 1.0 s debe ser ROJO."""
+    import subprocess
+    import numpy as np
+    vid = tmp_path / "rb.mp4"
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "color=c=red:s=64x36:r=30:d=1",
+                    "-f", "lavfi", "-i", "color=c=blue:s=64x36:r=30:d=1", "-filter_complex", "[0:v][1:v]concat=n=2:v=1",
+                    "-c:v", "libx264", "-pix_fmt", "yuv420p", str(vid)], check=True)
+    for cut in (1.0, 1.0 + 1 / 3000):              # incluso con un corte "sucio" de redondeo
+        out = tmp_path / "fz.png"
+        assert gp._extract_freeze(vid, cut - 1.5 / 30, out)
+        raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(out), "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
+                             capture_output=True).stdout
+        r, g, b = np.frombuffer(raw, np.uint8).reshape(-1, 3).mean(axis=0)
+        assert r > 150 and b < 100, (cut, r, g, b)
 
 
 def test_review_sin_cues_no_rompe(tmp_path):

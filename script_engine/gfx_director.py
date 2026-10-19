@@ -96,10 +96,11 @@ REGLAS DURAS:
   palabra más cercana). NO pongas un callout si el TEXTO EN IMAGEN de esa escena ya muestra el dato.
 - count_up: máx 1, solo si el fact trae una cifra escrita con dígitos (ej. "6,500"). value = esa cifra
   exacta, unit = la palabra que la sigue en el fact (o "").
-- archive_clipping: máx 1, en una escena de ≥ 4 s. headline = fragmento literal corto del fact (≤ 10
-  palabras); kicker = fragmento literal de 1–3 palabras del mismo fact (lugar o fecha) o "".
-- evidence_zoom: máx 1, en una escena de ≥ 3.6 s, sobre un detalle concreto descrito en el prompt de la
-  imagen. box = [x, y, w, h] normalizado 0–1.
+- archive_clippings: lista de 0–2, cada uno en una escena distinta de ≥ 4 s y SOLO con facts de texto
+  suficiente (≥ 12 palabras). headline = fragmento literal corto del fact (≤ 8 palabras, NO el fact entero);
+  kicker = fragmento literal de 1–3 palabras del mismo fact (lugar o fecha) o "".
+- evidence_zoom: máx 1, en una escena de ≥ 3.1 s (el zoom ocupa el FINAL de esa escena), sobre un detalle
+  concreto descrito en el prompt de la imagen. box = [x, y, w, h] normalizado 0–1.
 - punch_in_word_idx: máx 2, palabras de énfasis (idealmente las de los callouts).
 - Pattern interrupt: intentá que haya un bloque visible cada 25–35 s, pero SOLO con datos reales.
 - title_card.use = true siempre.
@@ -118,10 +119,10 @@ _SCHEMA: dict[str, Any] = {
                 "kind": {"type": "STRING", "enum": sorted(VALID_CALLOUT_KINDS)},
             },
             "required": ["fact_idx", "text", "trigger_word_idx", "kind"]}},
-        "archive_clipping": {"type": "OBJECT", "properties": {
-            "use": {"type": "BOOLEAN"}, "fact_idx": {"type": "INTEGER"}, "scene_idx": {"type": "INTEGER"},
+        "archive_clippings": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+            "fact_idx": {"type": "INTEGER"}, "scene_idx": {"type": "INTEGER"},
             "headline": {"type": "STRING"}, "kicker": {"type": "STRING"}},
-            "required": ["use", "fact_idx", "scene_idx", "headline", "kicker"]},
+            "required": ["fact_idx", "scene_idx", "headline", "kicker"]}},
         "evidence_zoom": {"type": "OBJECT", "properties": {
             "use": {"type": "BOOLEAN"}, "scene_idx": {"type": "INTEGER"},
             "box": {"type": "ARRAY", "items": {"type": "NUMBER"}}},
@@ -132,7 +133,7 @@ _SCHEMA: dict[str, Any] = {
             "required": ["use", "fact_idx", "value", "unit", "trigger_word_idx"]},
         "punch_in_word_idx": {"type": "ARRAY", "items": {"type": "INTEGER"}},
     },
-    "required": ["title_card", "callouts", "archive_clipping", "evidence_zoom", "count_up", "punch_in_word_idx"],
+    "required": ["title_card", "callouts", "archive_clippings", "evidence_zoom", "count_up", "punch_in_word_idx"],
 }
 
 
@@ -157,6 +158,39 @@ def _build_user_prompt(ctx: dict[str, Any], words: list[dict], scenes: list[Any]
 # ═══════════════════════════════════════════════════════════════
 #  Validación determinista (nunca lanza)
 # ═══════════════════════════════════════════════════════════════
+
+def archive_body(headline: str, fact: str) -> str:
+    """Cuerpo del recorte. Por default NO hay cuerpo (kicker + titular). Solo si el titular tiene
+    ≤ archive_body_head_max_words palabras va un cuerpo literal cortado en frase completa ("" si no hay corte limpio)."""
+    if not gfx_rules.archive_body_default and len(headline.split()) > gfx_rules.archive_body_head_max_words:
+        return ""
+    return trim_body(fact) or ""
+
+
+def trim_body(fact: str, max_words: int | None = None) -> str | None:
+    """Cuerpo del recorte: prefijo LITERAL del fact con ≤ max_words palabras, cortado en frase completa.
+
+    Primero oraciones enteras (. ! ? ;). Si la primera oración ya se pasa, corta en la última pausa
+    (, :) que entre; el signo de la pausa se quita (no se agrega nada: el candado literal sigue pasando).
+    None si no hay ningún corte limpio.
+    """
+    max_words = max_words or gfx_rules.archive_body_max_words
+    text = re.sub(r"\s+", " ", fact).strip()
+    if len(text.split()) <= max_words:
+        return text
+    best = None
+    for m in re.finditer(r"[.!?;](?=\s|$)", text):
+        cand = text[:m.end()]
+        if len(cand.split()) <= max_words:
+            best = cand
+    if best:
+        return best
+    for m in re.finditer(r"[,:](?=\s)", text):
+        cand = text[:m.start()]
+        if len(cand.split()) <= max_words:
+            best = cand
+    return best
+
 
 def _literal_in(fragment: str, fact: str) -> bool:
     return bool(normalize(fragment)) and normalize(fragment) in normalize(fact)
@@ -187,7 +221,7 @@ def validate_plan(raw: dict[str, Any], *, n_facts: int, n_words: int, scenes: li
             return None
         return i if 0 <= i < n else None
 
-    plan: dict[str, Any] = {"title_card": {"use": True}, "callouts": [], "archive_clipping": None,
+    plan: dict[str, Any] = {"title_card": {"use": True}, "callouts": [], "archive_clippings": [],
                             "evidence_zoom": None, "count_up": None, "punch_in_word_idx": []}
 
     for c in (raw.get("callouts") or [])[:20]:
@@ -206,8 +240,14 @@ def validate_plan(raw: dict[str, Any], *, n_facts: int, n_words: int, scenes: li
         log.append(f"callouts recortados {len(plan['callouts'])} → {max_per_cap('data_callout')}")
         plan["callouts"] = plan["callouts"][: max_per_cap("data_callout")]
 
-    a = raw.get("archive_clipping") or {}
-    if isinstance(a, dict) and a.get("use"):
+    arcs = raw.get("archive_clippings")
+    if not isinstance(arcs, list):           # compat cache F1: un solo objeto con "use"
+        one = raw.get("archive_clipping") or {}
+        arcs = [one] if isinstance(one, dict) and one.get("use") else []
+    used_facts, used_scenes = set(), set()
+    for a in arcs[:6]:
+        if not isinstance(a, dict):
+            continue
         fi, si = _idx(a.get("fact_idx"), n_facts), _idx(a.get("scene_idx"), n_scenes)
         head, kick = str(a.get("headline", "")).strip(), str(a.get("kicker", "")).strip()
         if fi is None or si is None:
@@ -216,8 +256,16 @@ def validate_plan(raw: dict[str, Any], *, n_facts: int, n_words: int, scenes: li
             log.append(f"archive descartado (escena {si} dura {scenes[si].duration:.1f}s)")
         elif not _literal_in(head, facts[fi]) or (kick and not _literal_in(kick, facts[fi])):
             log.append(f"archive descartado (headline/kicker no literal del fact {fi})")
+        elif len(head.split()) > gfx_rules.archive_head_max_words:
+            log.append(f"archive descartado (titular de {len(head.split())} palabras > {gfx_rules.archive_head_max_words}): {head!r}")
+        elif fi in used_facts or si in used_scenes:
+            log.append(f"archive descartado (fact {fi} o escena {si} repetidos)")
+        elif len(plan["archive_clippings"]) >= gfx_rules.archive_max_per_cap:
+            log.append(f"archive recortado (máx {gfx_rules.archive_max_per_cap} por cap)")
         else:
-            plan["archive_clipping"] = {"fact_idx": fi, "scene_idx": si, "headline": head, "kicker": kick}
+            used_facts.add(fi)
+            used_scenes.add(si)
+            plan["archive_clippings"].append({"fact_idx": fi, "scene_idx": si, "headline": head, "kicker": kick})
 
     z = raw.get("evidence_zoom") or {}
     if isinstance(z, dict) and z.get("use"):
@@ -277,7 +325,7 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
 
     from script_engine.gfx_project import scene_at
     out: dict[str, Any] = {"chapter_number": ctx["chapter_number"], "title_card": None, "callouts": [],
-                           "count_up": None, "archive_clipping": None, "evidence_zoom": None, "punch_in": []}
+                           "count_up": None, "archive_clippings": [], "evidence_zoom": None, "punch_in": []}
     if (plan.get("title_card") or {}).get("use") and ctx["skeleton"].get("title"):
         out["title_card"] = {"kicker": f"CAPÍTULO {ctx['chapter_number']}", "title": ctx["skeleton"]["title"]}
 
@@ -285,6 +333,17 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
 
     def _free(a: float, b: float) -> bool:
         return all(b <= s or a >= e for s, e in busy)
+
+    # F2 §0b: el count_up (rampa) tiene prioridad sobre un callout de la misma cifra
+    cu = plan.get("count_up")
+    if cu:
+        t = t_of(cu["trigger_word_idx"])
+        a, b = t, t + gfx_rules.count_dur + gfx_rules.count_hold_sec
+        if b <= dur and _free(a, b):
+            busy.append((a, b))
+            out["count_up"] = {"value_text": cu["value"], "unit": cu["unit"], "start": round(t, 3)}
+        else:
+            log.append(f"count_up omitido (solape @ {t:.1f}s)")
 
     for c in sorted(plan.get("callouts", []), key=lambda c: c["trigger_word_idx"]):
         t = t_of(c["trigger_word_idx"])
@@ -298,43 +357,44 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
             log.append(f"callout omitido (solape/fuera de rango @ {t:.1f}s): {c['text']!r}")
             continue
         busy.append((a, b))
-        out["callouts"].append({"text": c["text"], "start": round(t, 3), "kind": c["kind"], "duration": round(cdur, 3)})
+        # F2 §0b.7: lado opuesto al sujeto (quiet_side) y nunca dos seguidos en la misma esquina
+        side = getattr(sc, "quiet_side", "left")
+        if out["callouts"] and out["callouts"][-1]["side"] == side:
+            side = "left" if side == "right" else "right"
+        out["callouts"].append({"text": c["text"], "start": round(t, 3), "kind": c["kind"],
+                                "duration": round(cdur, 3), "side": side})
 
-    cu = plan.get("count_up")
-    if cu:
-        t = t_of(cu["trigger_word_idx"])
-        a, b = t, t + gfx_rules.count_dur + gfx_rules.count_hold_sec
-        if b <= dur and _free(a, b):
-            busy.append((a, b))
-            out["count_up"] = {"value_text": cu["value"], "unit": cu["unit"], "start": round(t, 3)}
-        else:
-            log.append(f"count_up omitido (solape @ {t:.1f}s)")
-
-    ar = plan.get("archive_clipping")
-    if ar:
+    arcs = plan.get("archive_clippings")
+    if arcs is None:                       # compat plan validado F1
+        arcs = [plan["archive_clipping"]] if plan.get("archive_clipping") else []
+    for ar in arcs:
         sc = scenes[ar["scene_idx"]]
-        a, b = sc.start + 0.5, sc.end - 0.5
-        if _free(a, b):
+        a = sc.start + 0.5
+        b = min(a + gfx_rules.archive_dur, dur - 0.3)          # F2 §0b.6: 6 s en pantalla
+        if b - a < gfx_rules.archive_min_sec:
+            log.append(f"archive omitido (no entran {gfx_rules.archive_min_sec}s antes del fin del cap)")
+        elif _free(a, b):
             busy.append((a, b))
             fact = facts[ar["fact_idx"]]
-            out["archive_clipping"] = {"kicker": ar["kicker"], "headline": ar["headline"], "body": fact,
-                                       "scene_idx": ar["scene_idx"], "era_decade": _era_decade(fact)}
+            out["archive_clippings"].append({
+                "kicker": ar["kicker"], "headline": ar["headline"], "body": archive_body(ar["headline"], fact), "scene_idx": ar["scene_idx"],
+                "era_decade": _era_decade(fact), "start": round(a, 3), "duration": round(b - a, 3),
+                "side": getattr(sc, "quiet_side", "right")})       # lado opuesto al sujeto
         else:
             log.append("archive omitido (solape con otro bloque)")
 
     ez = plan.get("evidence_zoom")
     if ez:
         sc = scenes[ez["scene_idx"]]
-        # primer hueco libre dentro de la escena (p.ej. después del title card en la escena 0)
-        a = sc.start + 0.5
-        for s0, e0 in sorted(busy):
-            if a < e0 and a + gfx_rules.zoom_dur > s0:
-                a = e0 + 0.1
-        if a + gfx_rules.zoom_dur <= sc.end and _free(a, a + gfx_rules.zoom_dur):
-            busy.append((a, a + gfx_rules.zoom_dur))
+        # F2 §0b.5: el zoom ocupa el FINAL de su escena (acerca, sostiene ≥ 1 s y corta). Nunca vuelve.
+        a = sc.end - gfx_rules.zoom_dur
+        if a < sc.start + 0.2:
+            log.append(f"zoom omitido (escena {ez['scene_idx']} demasiado corta para acercar + sostener)")
+        elif _free(a, sc.end):
+            busy.append((a, sc.end))
             out["evidence_zoom"] = {"scene_idx": ez["scene_idx"], "box": ez["box"], "start": round(a, 3)}
         else:
-            log.append("zoom omitido (sin hueco libre de 3 s en su escena)")
+            log.append("zoom omitido (el final de su escena choca con otro bloque)")
 
     out["punch_in"] = [round(t_of(wi), 3) for wi in plan.get("punch_in_word_idx", [])]
 

@@ -33,7 +33,8 @@ GFX_FONTS_DIR: Path = BASE_DIR / "script_engine" / "fonts"
 class GfxRenderSettings:
     """Parámetros de render de la capa gráfica (no cambian por nicho)."""
     enable_gfx: bool = False                 # default OFF: solo con fase2b --gfx
-    quality: str = "draft"                   # draft | looks
+    quality: str = "looks"                   # draft | looks. F2 §0b: draft (JPEG q80 + CRF 28) ablanda la imagen
+    debug_quality: str = "draft"             # solo con --gfx-debug (iteración rápida)
     workers: int = 5                         # sin shaders (D5) → 5 workers (lab v1)
     timeout_sec: int = 900                   # por cap; excedido → fallback a base_clip
     player_ready_timeout_ms: int = 240_000   # lab v2: 45 s default no alcanza a 1440p
@@ -113,16 +114,16 @@ GFX_INVENTORY: tuple[GfxBlock, ...] = (
     ),
     GfxBlock(
         name="archive_clipping",
-        description="Recorte de periódico de época con texto real del fact, sobre una escena.",
-        params="fact_idx, scene_idx.",
-        rules="máx 1 por cap; cuerpo ≥ 52 px; tipografía por década; la escena debe durar ≥ 4 s.",
-        max_per_cap=1, llm_decides=True,
+        description="Recorte de periódico de época con texto real del fact, 6 s en pantalla desde el inicio de una escena.",
+        params="lista de hasta 2: fact_idx, scene_idx, headline, kicker.",
+        rules="máx 2 por cap, solo con facts de texto suficiente; cuerpo ≥ 52 px; la escena debe durar ≥ 4 s.",
+        max_per_cap=2, llm_decides=True,
     ),
     GfxBlock(
         name="evidence_zoom",
-        description="Recuadro fino sobre un detalle del frame de video y zoom 2.2× hacia él con etiqueta 'DETALLE'.",
+        description="Recuadro fino sobre un detalle del frame de video y zoom 2.2× hacia él con etiqueta 'DETALLE'; termina en el corte, nunca vuelve.",
         params="scene_idx, box [x, y, w, h] normalizado 0–1 sobre el cuadro.",
-        rules="máx 1 por cap; sobre el frame de video; salida en corte; la escena debe durar ≥ 3.6 s.",
+        rules="máx 1 por cap; al FINAL de su escena; la escena debe durar ≥ 3.1 s.",
         max_per_cap=1, llm_decides=True,
     ),
     GfxBlock(
@@ -134,21 +135,21 @@ GFX_INVENTORY: tuple[GfxBlock, ...] = (
     ),
     GfxBlock(
         name="punch_in",
-        description="Punch-in sutil de cámara (1.00→1.03 en 200 ms) sobre la capa de video en una palabra de énfasis.",
+        description="Punch-in sutil de cámara (1.00→1.025 en 400 ms, se sostiene hasta el corte) sobre la capa de video en una palabra de énfasis.",
         params="lista de trigger_word_idx.",
         rules="máx 2 por cap.",
         max_per_cap=2, llm_decides=True,
     ),
     GfxBlock(
         name="shot_transition",
-        description="Transición CSS en cada corte intra-cap según emotional_rank: R1 flash 40 % 3 f, R2 crossfade 9 f, R3 disolvencia 15 f.",
+        description="Transición CSS en cada corte intra-cap según emotional_rank: R1 flash 30 % (≤ 2), R2 crossfade 20 f, R3 disolvencia 30 f.",
         params="(ninguno: determinista desde emotional_rank)",
         rules="el LLM no lo elige.",
         max_per_cap=999, llm_decides=False,
     ),
     GfxBlock(
         name="grade",
-        description="Grade CSS de identidad (teal frío, halation, viñeta, grano) sobre todo el footage.",
+        description="Grade CSS (default 'off': solo grano + viñeta) sobre todo el footage.",
         params="(ninguno: preset fijo)",
         rules="todos los caps, incluido Veo; el LLM no lo elige.",
         max_per_cap=1, llm_decides=False,
@@ -173,57 +174,97 @@ def max_per_cap(block: str) -> int:
 class GfxRules:
     interrupt_min_sec: float = 25.0          # pattern interrupt: un bloque cada 25–35 s
     interrupt_max_sec: float = 35.0
-    title_dur: float = 1.9
+    accent_hex: str = "#c8102e"              # F2 §0b.9: acento ÚNICO del canal (subrayado, sello, línea, kicker)
+    # title_card (F2 §0b.2: 30 % más chica, 3.0 s, fade de salida 0.4 s)
+    title_dur: float = 3.0
+    title_fade_out: float = 0.4
+    title_scale: float = 0.7
     title_dim: float = 0.4
-    callout_dur_min: float = 2.5             # F1b: texto legible (antes 1.2)
+    # data_callout (D14) + tipografía (D13 / F2 §0b.8)
+    callout_dur_min: float = 2.5
     callout_dur_max: float = 6.0
     callout_dur: float = 2.5                 # default si el plan no trae duración
-    callout_sec_per_word: float = 0.4        # F1b: 0.4 s × palabras + 1.0 s, mín 2.5 s,
-    callout_base_sec: float = 1.0            #      y nunca antes del fin de la frase hablada
+    callout_sec_per_word: float = 0.4        # 0.4 s × palabras + 1.0 s, mín 2.5 s,
+    callout_base_sec: float = 1.0            # y nunca antes del fin de la frase hablada
     callout_until_phrase_end: bool = True
-    zoom_dur: float = 3.0
+    callout_font: str = "Playfair Display SC"   # name/place/year (D13); figure → Anton
+    callout_font_weight: int = 900             # Black (§0b.8: Bold/Black)
+    callout_font_px: int = 158                 # +20 % sobre la muestra del sampler (132 px)
+    callout_anton_px: int = 168
+    callout_shadow: str = "0 2px 8px rgba(0,0,0,.6)"
+    # evidence_zoom (F2 §0b.5: termina en el corte, sostiene ≥ 1 s, nunca vuelve)
+    zoom_rect_sec: float = 0.65
+    zoom_approach_sec: float = 1.2
+    zoom_hold_min_sec: float = 1.0
     zoom_scale: float = 2.2
-    zoom_min_scene: float = 3.6
     zoom_box_min: float = 0.06               # lado mínimo del box normalizado
-    zoom_box_max: float = 0.25               # F1b: ×2.2 entra holgado (F1: 0.35; bug ch06 con 0.6)
+    zoom_box_max: float = 0.25
     zoom_label_margin_px: int = 40           # "DETALLE" a ≥ 40 px del borde
-    archive_min_scene: float = 5.0           # F1b: el recorte dura escena − 1 s ≥ 4.0 s
+    # archive_clipping (F2 §0b.6: 15 % más chico, 6 s, hasta 2 por cap, lado opuesto al sujeto)
+    archive_dur: float = 6.0
+    archive_max_per_cap: int = 2
+    archive_scale: float = 0.68              # F2 §0b: 0.85 × 0.8 (otro 20 % más chico)
+    archive_max_w_frac: float = 0.30         # ancho máximo del recorte = 30 % del cuadro
+    archive_head_max_words: int = 8          # titular ≤ 8 palabras (si no, se descarta: nunca se reescribe)
+    archive_body_default: bool = False       # F2 §0b: recorte = kicker + titular; SIN cuerpo por default
+    archive_body_head_max_words: int = 4     # el cuerpo solo aparece si el titular tiene ≤ 4 palabras
+    archive_body_max_words: int = 12         # ≈ 2 líneas a 40 px en el papel de 748 px (frase completa)
+    archive_body_lines: int = 2              # tope duro de líneas visibles (CSS)
+    archive_min_scene: float = 4.0           # la escena de inicio debe dar aire al recorte
     archive_min_sec: float = 4.0
-    archive_body_px: int = 52
-    count_dur: float = 1.6                   # subida 0 → valor
-    count_hold_sec: float = 2.5              # F1b: ≥ 2.5 s quieto después de llegar al valor
-    punch_scale: float = 1.03
-    punch_in_sec: float = 0.2
-    punch_out_sec: float = 0.4
-    # shot_transition por emotional_rank del plano entrante (F1b: R2 12 f, R3 20 f, flash 30 %)
-    transition_frames: dict = field(default_factory=lambda: {"R1": 3, "R2": 12, "R3": 20})
+    archive_body_px: int = 40                # Omar F2 §0b: 40 px, máx 2 líneas (reemplaza el ≥ 52 de D3 para el recorte)
+    # count_up
+    count_dur: float = 1.2                   # rampa 0 → valor (F2 §0b: restaurada)
+    count_hold_sec: float = 2.5              # quieto en el valor DESPUÉS de la rampa
+    # punch_in (F2 §0b.3: 1.025 en 400 ms ease-out, SIN regreso: se sostiene hasta el corte)
+    punch_scale: float = 1.025
+    punch_in_sec: float = 0.4
+    punch_hold: bool = True
+    punch_out_sec: float = 0.4               # solo si punch_hold=False
+    # shot_transition (F2 §0b.4: R2 20 f, R3 30 f; R3 alternativa dip-to-black 10 f)
+    transition_frames: dict = field(default_factory=lambda: {"R1": 3, "R2": 20, "R3": 30})
+    r3_style: str = "dissolve"               # dissolve | dip
+    dip_frames: int = 10
+    cut_snap_window_sec: float = 0.3         # el corte se ancla al cambio REAL de imagen (±0.3 s del anchor)
     flash_peak: float = 0.3
-    flash_max_per_cap: int = 2               # F1b: flash solo en ≤ 2 R1 por cap...
-    flash_min_gap_sec: float = 20.0          # ...separados ≥ 20 s; el resto → corte duro + punch
-    r1_cut_punch_scale: float = 1.02         # punch del R1 sin flash
-    # grade CSS (lab v1/v2). Desvío de D4: la pasada media-treatment costó 6.29× tiempo real
-    # (F1 paso 1); el preset nativo queda versionado en gfx_templates/gfx_grade.json.
-    css_grade_variant: str = "B"             # A | B | C (GRADE_VARIANTS); Omar eligió B (F1b §2.4)
+    flash_max_per_cap: int = 2
+    flash_min_gap_sec: float = 20.0
+    r1_cut_punch_scale: float = 1.02
+    # grade (F2 §0b.1: OFF por default → solo grano 0.15 + viñeta 0.20; recetas A/B/C inactivas)
+    grade_default: str = "off"
     grain_jumps_per_sec: int = 12
 
     @property
+    def zoom_dur(self) -> float:
+        return self.zoom_rect_sec + self.zoom_approach_sec + self.zoom_hold_min_sec
+
+    @property
+    def zoom_min_scene(self) -> float:
+        return self.zoom_dur + 0.2
+
+    @property
+    def css_grade_variant(self) -> str:      # alias F1b
+        return self.grade_default
+
+    @property
     def css_grade_intensity(self) -> float:
-        return GRADE_VARIANTS[self.css_grade_variant]["intensity"]
+        return GRADE_VARIANTS[self.grade_default]["intensity"]
 
     @property
     def css_grade_opacity(self) -> dict:
-        return GRADE_VARIANTS[self.css_grade_variant]["opacity"]
+        return GRADE_VARIANTS[self.grade_default]["opacity"]
 
 
 # Recetas de grade CSS (opacidad base de cada capa × intensidad)
-#   A = F1 tal cual · B = haze 0 + teal solo en sombras profundas (screen de teal muy oscuro: suma en
-#   negros, ~nada en altas luces; contraste y halation intactos) · C = B a intensidad 0.3
+#   A = F1 · B = haze 0 + teal en sombras (F1b) · C = B a 0.3 · off = solo grano 0.15 + viñeta 0.20 (F2)
 _GRADE_A = {"gr-halation": 0.35, "gr-haze": 0.6, "gr-palette": 0.5, "gr-shadowteal": 0.0, "gr-vignette": 0.7, "gr-grain": 0.12}
 _GRADE_B = {"gr-halation": 0.35, "gr-haze": 0.0, "gr-palette": 0.0, "gr-shadowteal": 1.0, "gr-vignette": 0.7, "gr-grain": 0.12}
+_GRADE_OFF = {"gr-halation": 0.0, "gr-haze": 0.0, "gr-palette": 0.0, "gr-shadowteal": 0.0, "gr-vignette": 0.20, "gr-grain": 0.15}
 GRADE_VARIANTS: dict[str, dict] = {
     "A": {"intensity": 0.5, "opacity": _GRADE_A},
     "B": {"intensity": 0.5, "opacity": _GRADE_B},
     "C": {"intensity": 0.3, "opacity": _GRADE_B},
+    "off": {"intensity": 1.0, "opacity": _GRADE_OFF},
 }
 
 

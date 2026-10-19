@@ -17,6 +17,7 @@ Todo queda en work_dir/gfx_chXX.log (tiempos y resultado por paso).
 from __future__ import annotations
 
 import json
+import math
 import subprocess
 import time
 from pathlib import Path
@@ -166,6 +167,64 @@ def build_scenes(chplan: Any, script_chapter: dict[str, Any], raw_words: list[di
     return scenes
 
 
+def _gray_frames(path: Path, t0: float, dur: float, w: int = 160, h: int = 90, with_times: bool = False):
+    """Frames en gris (numpy uint8 [n, h, w]) del tramo [t0, t0+dur); con with_times, también los
+    tiempos ABSOLUTOS reales de cada frame (pts de showinfo: tras -ss el primer frame no siempre cae
+    donde supone la grilla 1/fps)."""
+    import re
+    import numpy as np
+    vf = ("showinfo," if with_times else "") + f"scale={w}:{h},format=gray"
+    r = subprocess.run(["ffmpeg", "-v", "info" if with_times else "error", "-ss", f"{max(0.0, t0):.3f}", "-i", str(path),
+                        "-t", f"{dur:.3f}", "-vf", vf, "-f", "rawvideo", "-"], capture_output=True, timeout=120)
+    frames = np.frombuffer(r.stdout, np.uint8).reshape(-1, h, w)
+    if not with_times:
+        return frames
+    pts = [max(0.0, t0) + float(x) for x in re.findall(r"pts_time:([\d.]+)", r.stderr.decode(errors="replace"))]
+    return frames, pts
+
+
+def snap_cuts(scenes: list[GfxScene], base: Path, fps: int) -> list[GfxScene]:
+    """F2 §0b.4: ancla cada corte intra-cap al cambio REAL de imagen en el base_clip.
+
+    compute_anchor_starts da el tiempo de la PALABRA; el corte de video cae ~45 ms antes (1–2 frames).
+    Con el anchor, el "freeze" de la disolvencia salía de la imagen ENTRANTE (disolvencia nula = corte
+    duro). Se busca la máxima diferencia entre frames consecutivos en ±cut_snap_window_sec del anchor y
+    se usa el pts REAL del primer frame del plano entrante.
+    """
+    import numpy as np
+    win = gfx_rules.cut_snap_window_sec
+    for i in range(1, len(scenes)):
+        anchor_t = scenes[i].start
+        t0 = max(scenes[i - 1].start, anchor_t - win)
+        fr, pts = _gray_frames(base, t0, 2 * win, 160, 90, with_times=True)
+        n = min(len(fr), len(pts))
+        if n < 3:
+            continue
+        diffs = np.abs(np.diff(fr[:n].astype(np.int16), axis=0)).mean(axis=(1, 2))
+        k = int(diffs.argmax())
+        if diffs[k] < 6.0:                     # sin cambio claro (p.ej. corte entre planos parecidos)
+            continue
+        real = round(round(pts[k + 1] * fps) / fps, 3)   # primer frame del plano entrante, en la grilla
+        if scenes[i - 1].start + 0.3 < real < scenes[i].end - 0.3:
+            scenes[i - 1].end = real
+            scenes[i].start = real
+    return scenes
+
+
+def assign_quiet_sides(scenes: list[GfxScene], base: Path) -> list[GfxScene]:
+    """F2 §0b.6–7: lado con menos detalle (menor varianza de luminancia, tercios izquierdo vs derecho,
+    franja superior 70 %). No hay bbox del sujeto en depth_probe/zoom_judge → fallback del handoff."""
+    for s in scenes:
+        fr = _gray_frames(base, (s.start + s.end) / 2, 0.05)
+        if len(fr) == 0:
+            continue
+        f = fr[0].astype(float)[: int(fr.shape[1] * 0.7)]          # franja superior 70 %
+        w = f.shape[1]
+        left, right = f[:, : int(w * 0.4)].var(), f[:, int(w * 0.6):].var()
+        s.quiet_side = "left" if left < right else "right"
+    return scenes
+
+
 def _text_in_image(prompt: dict[str, Any]) -> str:
     tii = prompt.get("text_in_image")
     if isinstance(tii, dict):
@@ -269,6 +328,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         from script_engine.gfx_director import load_chapter_context, resolve_plan, select_gfx_plan
         ctx = load_chapter_context(video_id, plan)
         scenes = build_scenes(plan, ctx["script_chapter"], raw_words, clip_dur, time_offset)
+        scenes = assign_quiet_sides(snap_cuts(scenes, project / "public" / "base.mp4", fps), project / "public" / "base.mp4")
         log.append(f"  escenas: {len(scenes)} ({', '.join(f'{s.start:.2f}{s.rank}' for s in scenes)})")
         if gfx_plan_override is not None:
             resolved = gfx_plan_override

@@ -44,6 +44,7 @@ class GfxScene:
     end: float
     rank: str = "R3"         # emotional_rank del plano (decide la transición de ENTRADA)
     text_in_image: str = ""  # texto que ya muestra la imagen (regla de omisión de callouts)
+    quiet_side: str = "right"  # lado con menos detalle (gráficos van ahí; el sujeto queda del otro lado)
 
     @property
     def duration(self) -> float:
@@ -110,7 +111,9 @@ def scene_at(scenes: list[GfxScene], t: float) -> GfxScene:
 
 
 def _extract_freeze(base: Path, t: float, out: Path) -> bool:
-    """Último frame del plano saliente (t = corte - 1 frame)."""
+    """Último frame del plano saliente. Llamar con t = corte − 1.5 frames: `-ss` descarta los frames con
+    pts < t, así que pedir "corte − 1 frame" redondeado a 4 decimales caía DESPUÉS del último frame
+    saliente y devolvía el ENTRANTE (bug F2 §0b.4: disolvencias R3 = corte duro)."""
     out.parent.mkdir(parents=True, exist_ok=True)
     r = subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{max(0.0, t):.4f}", "-i", str(base),
                         "-frames:v", "1", "-q:v", "2", str(out)],
@@ -118,7 +121,7 @@ def _extract_freeze(base: Path, t: float, out: Path) -> bool:
     return r.returncode == 0 and out.exists()
 
 
-def plan_transitions(scenes: list[GfxScene]) -> dict[int, dict[str, Any]]:
+def plan_transitions(scenes: list[GfxScene], zoom_scene_idx: int | None = None) -> dict[int, dict[str, Any]]:
     """shot_transition de ENTRADA por escena (determinista desde emotional_rank del plano entrante).
 
     R1 → flash, salvo que ya se hayan usado gfx_rules.flash_max_per_cap flashes o el anterior
@@ -128,13 +131,19 @@ def plan_transitions(scenes: list[GfxScene]) -> dict[int, dict[str, Any]]:
     flashes: list[float] = []
     for s in scenes[1:]:
         frames = gfx_rules.transition_frames.get(s.rank, gfx_rules.transition_frames["R3"])
-        if s.rank == "R1":
+        if zoom_scene_idx is not None and s.idx == zoom_scene_idx + 1:
+            # F2 §0b.5: el zoom termina EN el corte; una disolvencia partiría del freeze sin zoom
+            # (la foto inicial) → corte seco
+            out[s.idx] = {"kind": "cut", "frames": 0, "rank": s.rank}
+        elif s.rank == "R1":
             if len(flashes) < gfx_rules.flash_max_per_cap and all(
                     s.start - f >= gfx_rules.flash_min_gap_sec for f in flashes):
                 flashes.append(s.start)
                 out[s.idx] = {"kind": "flash", "frames": frames, "rank": "R1"}
             else:
                 out[s.idx] = {"kind": "cut_punch", "frames": 0, "rank": "R1"}
+        elif s.rank == "R3" and gfx_rules.r3_style == "dip":
+            out[s.idx] = {"kind": "dip", "frames": gfx_rules.dip_frames, "rank": "R3"}
         else:
             out[s.idx] = {"kind": "dissolve", "frames": frames, "rank": s.rank}
     return out
@@ -159,9 +168,22 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
             init.append(f'        gsap.set("#fl{tag}", {{ opacity: 0 }});')
             js.append(f'        tl.to("#fl{tag}", {{ opacity: {gfx_rules.flash_peak}, duration: {d / 3:.3f}, ease: "none" }}, 0)'
                       f'.to("#fl{tag}", {{ opacity: 0, duration: {2 * d / 3:.3f}, ease: "power1.in" }}, {d / 3:.3f});')
-        else:
+        elif tr["kind"] == "dip":
+            # dip-to-black: el saliente (freeze) baja a negro y el entrante sube desde negro
             freeze = project / "public" / "cuts" / f"freeze_{tag}.jpg"
-            if _extract_freeze(base, s.start - 1 / fps, freeze):
+            if _extract_freeze(base, s.start - 1.5 / fps, freeze):
+                outer.append(f'    <img id="fz{tag}" class="media clip" src="public/cuts/{freeze.name}" data-start="0" '
+                             f'data-duration="{d / 2:.3f}" alt="" />')
+            outer.append(f'    <div id="dp{tag}" class="clip" data-start="0" data-duration="{d:.3f}" '
+                         f'style="position:absolute;inset:0;background:#000"></div>')
+            init.append(f'        gsap.set("#dp{tag}", {{ opacity: 0 }});')
+            js.append(f'        tl.to("#dp{tag}", {{ opacity: 1, duration: {d / 2:.3f}, ease: "none" }}, 0)'
+                      f'.to("#dp{tag}", {{ opacity: 0, duration: {d / 2:.3f}, ease: "none" }}, {d / 2:.3f});')
+        else:
+            # disolvencia: el freeze es el ÚLTIMO frame del plano saliente (corte anclado al cambio real
+            # de imagen en gfx_layer.snap_cuts; F2 §0b.4: antes se tomaba 45 ms tarde = imagen entrante)
+            freeze = project / "public" / "cuts" / f"freeze_{tag}.jpg"
+            if _extract_freeze(base, s.start - 1.5 / fps, freeze):
                 outer.append(f'    <img id="fz{tag}" class="media clip" src="public/cuts/{freeze.name}" data-start="0" '
                              f'data-duration="{d:.3f}" alt="" />')
                 init.append(f'        gsap.set("#fz{tag}", {{ opacity: 1 }});')
@@ -171,8 +193,9 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
     for t in plan.get("punch_in", []):
         if s.start <= t < s.end:
             lt = t - s.start
-            js.append(f'        tl.to("#vw{tag}", {{ scale: {gfx_rules.punch_scale}, duration: {gfx_rules.punch_in_sec}, ease: "power2.out" }}, {lt:.3f})'
-                      f'.to("#vw{tag}", {{ scale: 1, duration: {gfx_rules.punch_out_sec}, ease: "power2.inOut" }}, {lt + gfx_rules.punch_in_sec:.3f});')
+            js.append(f'        tl.to("#vw{tag}", {{ scale: {gfx_rules.punch_scale}, duration: {gfx_rules.punch_in_sec}, ease: "power2.out" }}, {lt:.3f});')
+            if not gfx_rules.punch_hold:   # F2 §0b.3: por default se sostiene hasta el corte
+                js.append(f'        tl.to("#vw{tag}", {{ scale: 1, duration: {gfx_rules.punch_out_sec}, ease: "power2.inOut" }}, {lt + gfx_rules.punch_in_sec:.3f});')
 
     # ── evidence_zoom sobre el FRAME DE VIDEO, salida en corte
     ez = plan.get("evidence_zoom")
@@ -185,17 +208,17 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
         mg = gfx_rules.zoom_label_margin_px                         # "DETALLE" a ≥ mg px de los bordes
         lx = min(max(mg, cx + tx - w * S / 2), width - mg - 380.0)
         ly = min(max(mg, cy + ty - h * S / 2 - 64), height - mg - 50.0)
-        z0 = (ez["start"] - s.start) if "start" in ez else min(0.5, max(0.0, s.duration - gfx_rules.zoom_dur))
+        # F2 §0b.5: el zoom TERMINA en el corte (acerca, sostiene ≥ 1 s y la escena corta). Nunca vuelve.
+        z0 = (ez["start"] - s.start) if "start" in ez else max(0.0, s.duration - gfx_rules.zoom_dur)
+        rest = s.duration - z0
         inner.append(_tpl("evidence_zoom.html.tmpl").substitute(n=tag, x=f"{x:.0f}", y=f"{y:.0f}", w=f"{w:.0f}", h=f"{h:.0f}"))
-        outer.append(f'    <div id="zl{tag}" class="zlabel clip" data-start="{z0:.3f}" data-duration="{gfx_rules.zoom_dur:.3f}" '
+        outer.append(f'    <div id="zl{tag}" class="zlabel clip" data-start="{z0:.3f}" data-duration="{rest:.3f}" '
                      f'style="left:{lx:.0f}px;top:{ly:.0f}px">DETALLE</div>')
         init.append(f'        gsap.set("#vw{tag}", {{ transformOrigin: "{cx:.1f}px {cy:.1f}px" }}); gsap.set("#zl{tag}", {{ opacity: 0 }});')
-        end = z0 + gfx_rules.zoom_dur - 1 / fps
+        r0, ap = gfx_rules.zoom_rect_sec, gfx_rules.zoom_approach_sec
         js.append(f'        tl.to("#zr{tag}", {{ opacity: 1, duration: .3 }}, {z0 + .25:.3f})'
-                  f'.to("#vw{tag}", {{ scale: {S}, x: {tx:.1f}, y: {ty:.1f}, duration: 1.2, ease: "power3.inOut" }}, {z0 + .65:.3f})'
-                  f'.to("#zl{tag}", {{ opacity: 1, duration: .25 }}, {z0 + 1.75:.3f})'
-                  f'.set("#vw{tag}", {{ scale: 1, x: 0, y: 0 }}, {end:.3f})'
-                  f'.set(["#zr{tag}", "#zl{tag}"], {{ opacity: 0 }}, {end:.3f});')
+                  f'.to("#vw{tag}", {{ scale: {S}, x: {tx:.1f}, y: {ty:.1f}, duration: {ap}, ease: "power3.inOut" }}, {z0 + r0:.3f})'
+                  f'.to("#zl{tag}", {{ opacity: 1, duration: .25 }}, {z0 + r0 + ap - .1:.3f});')
 
     return _tpl("scene.html.tmpl").substitute(
         n=tag, duration=f"{s.duration:.3f}", width=width, height=height,
@@ -208,6 +231,14 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
 # ═══════════════════════════════════════════════════════════════
 #  Cues: eventos del cap (hoja de cues, overlay --gfx-debug, página de revisión)
 # ═══════════════════════════════════════════════════════════════
+
+def archive_list(plan: dict[str, Any]) -> list[dict[str, Any]]:
+    """Recortes del plan resuelto (F2: lista `archive_clippings`; compat F1 `archive_clipping`)."""
+    if plan.get("archive_clippings"):
+        return list(plan["archive_clippings"])
+    one = plan.get("archive_clipping")
+    return [one] if one and "start" in one else []
+
 
 def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[dict[str, Any]]:
     """Eventos visibles del cap ordenados por tiempo: {t, dur, block, text, scene, rank}.
@@ -228,19 +259,20 @@ def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[d
     cu = plan.get("count_up")
     if cu:
         add(cu["start"], cu.get("duration", gfx_rules.count_dur + gfx_rules.count_hold_sec), "count_up", f"{cu['value_text']} {cu.get('unit', '')}".strip())
-    ar = plan.get("archive_clipping")
-    if ar and 0 <= ar["scene_idx"] < len(scenes):
-        sc = scenes[ar["scene_idx"]]
-        add(sc.start + 0.5, sc.duration - 1.0, "archive_clipping", ar["headline"])
+    for ar in archive_list(plan):
+        add(ar["start"], ar["duration"], "archive_clipping", ar["headline"])
     ez = plan.get("evidence_zoom")
     if ez and 0 <= ez["scene_idx"] < len(scenes):
         sc = scenes[ez["scene_idx"]]
-        add(ez.get("start", sc.start + 0.5), gfx_rules.zoom_dur, "evidence_zoom", f"box {ez['box']}")
+        z0 = ez.get("start", sc.end - gfx_rules.zoom_dur)
+        add(z0, sc.end - z0, "evidence_zoom", f"box {ez['box']}")
     for t in plan.get("punch_in", []):
         add(t, gfx_rules.punch_in_sec + gfx_rules.punch_out_sec, "punch_in")
-    for idx, tr in plan_transitions(scenes).items():
+    for idx, tr in plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx")).items():
         sc = scenes[idx]
-        add(sc.start, tr["frames"] / fps, f"shot_transition:{tr['kind']}", f"{tr['frames']} f" if tr["frames"] else "corte + punch",
+        label = (f"{tr['frames']} f" if tr["frames"] else
+                 "corte seco (post-zoom)" if tr["kind"] == "cut" else "corte + punch")
+        add(sc.start, tr["frames"] / fps, f"shot_transition:{tr['kind']}", label,
             tr["rank"])
     return sorted(ev, key=lambda e: (e["t"], e["block"]))
 
@@ -272,6 +304,22 @@ def _debug_overlay(events: list[dict[str, Any]], duration: float, fps: int) -> t
 #  Proyecto completo
 # ═══════════════════════════════════════════════════════════════
 
+def render_css(width: int, height: int) -> str:
+    """CSS común con los tokens de gfx_config (acento único, escalas de title y recorte, tipografía)."""
+    r, ts, ars = gfx_rules, gfx_rules.title_scale, gfx_rules.archive_scale
+    kick_top = 380
+    title_top = round(kick_top + 64 * ts + 24)
+    return Template((GFX_TEMPLATES_DIR / "gfx_common.css").read_text(encoding="utf-8")).substitute(
+        width=width, height=height, accent=r.accent_hex, archive_body_px=r.archive_body_px,
+        archive_body_lines=r.archive_body_lines,
+        tc_scale=ts, tc_kicker_px=round(64 * ts), tc_kicker_top=kick_top, tc_title_px=round(190 * ts),
+        tc_title_top=title_top, tc_line_top=round(title_top + 190 * ts * 1.05 + 20), tc_line_w=round(900 * ts),
+        callout_font=r.callout_font, callout_font_weight=r.callout_font_weight, callout_font_px=r.callout_font_px,
+        callout_anton_px=r.callout_anton_px, callout_shadow=r.callout_shadow,
+        ar_scale=ars, ar_w=min(round(1100 * ars), round(width * r.archive_max_w_frac)), ar_pad_v=round(50 * ars), ar_pad_h=round(60 * ars),
+        ar_pad_b=round(60 * ars), ar_kicker_px=round(34 * ars), ar_head_px=round(84 * ars))
+
+
 def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *,
                   duration: float, width: int, height: int, fps: int,
                   grade_variant: str | None = None, debug: bool = False) -> Path:
@@ -285,11 +333,12 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
     (project / "compositions").mkdir(parents=True, exist_ok=True)
     (project / "public" / "fonts").mkdir(parents=True, exist_ok=True)
     (project / "vendor").mkdir(parents=True, exist_ok=True)
-    shutil.copy2(GFX_FONTS_DIR / "Anton-Regular.ttf", project / "public" / "fonts" / "Anton-Regular.ttf")
+    for f in ("Anton-Regular.ttf", "PlayfairDisplaySC-Bold.ttf", "PlayfairDisplaySC-Black.ttf"):
+        shutil.copy2(GFX_FONTS_DIR / f, project / "public" / "fonts" / f)
     shutil.copy2(gsap_js(), project / "vendor" / "gsap.min.js")
 
     # ── escenas
-    transitions = plan_transitions(scenes)
+    transitions = plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx"))
     hosts: list[str] = []
     for s in scenes:
         n = s.idx + 1
@@ -301,22 +350,24 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
 
     overlays, init, js = [], [], []
 
-    # ── grade CSS (todos los caps): capas sobre las escenas, bajo los gráficos
-    variant = GRADE_VARIANTS[grade_variant or gfx_rules.css_grade_variant]
+    # ── grade CSS: solo capas con opacidad > 0 (default "off" = grano + viñeta; sin backdrop-filter)
+    variant = GRADE_VARIANTS[grade_variant or gfx_rules.grade_default]
     gi = variant["intensity"]
-    if gi > 0:
-        overlays.append(_tpl("grade_css.html.tmpl").substitute(duration=f"{duration:.3f}"))
-        init.append("      " + " ".join(f'gsap.set("#{k}", {{ opacity: {v * gi:.3f} }});'
-                                         for k, v in variant["opacity"].items()))
-        rnd = random.Random(1441)   # grano determinista: salta de posición N veces/s
-        pts = ",".join(f"[{rnd.randint(-180, 180)},{rnd.randint(-180, 180)}]"
-                       for _ in range(int(duration * gfx_rules.grain_jumps_per_sec)))
-        js.append(f'      [{pts}].forEach(function (p, k) {{ tl.set("#gr-grain", {{ x: p[0], y: p[1] }}, k / {gfx_rules.grain_jumps_per_sec}); }});')
+    layers = {k: v * gi for k, v in variant["opacity"].items() if v * gi > 0}
+    if layers:
+        divs = "".join(f'\n        <div id="{k}"></div>' for k in layers)
+        overlays.append(f'      <div id="grade" class="clip" data-start="0" data-duration="{duration:.3f}">{divs}\n      </div>')
+        init.append("      " + " ".join(f'gsap.set("#{k}", {{ opacity: {v:.3f} }});' for k, v in layers.items()))
+        if "gr-grain" in layers:
+            rnd = random.Random(1441)   # grano determinista: salta de posición N veces/s
+            pts = ",".join(f"[{rnd.randint(-180, 180)},{rnd.randint(-180, 180)}]"
+                           for _ in range(int(duration * gfx_rules.grain_jumps_per_sec)))
+            js.append(f'      [{pts}].forEach(function (p, k) {{ tl.set("#gr-grain", {{ x: p[0], y: p[1] }}, k / {gfx_rules.grain_jumps_per_sec}); }});')
 
-    # ── title_card (1.9 s, video vivo oscurecido 40 %)
+    # ── title_card (F2: 3.0 s, 30 % más chica, fade de salida 0.4 s, video vivo oscurecido 40 %)
     tc = plan.get("title_card")
     if tc:
-        dur = gfx_rules.title_dur
+        dur, fo = gfx_rules.title_dur, gfx_rules.title_fade_out
         overlays.append(_tpl("title_card.html.tmpl").substitute(
             duration=f"{dur:.3f}", kicker=_esc(tc["kicker"]), title=_esc(tc["title"])))
         init.append(f'      gsap.set("#tc-dim", {{ opacity: {gfx_rules.title_dim} }}); gsap.set("#tc-title span", {{ yPercent: 110 }});'
@@ -324,19 +375,22 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         js.append('      tl.to("#tc-kicker", { opacity: 1, duration: .3 }, .05)'
                   '.to("#tc-title span", { yPercent: 0, duration: .55, ease: "power4.out" }, .1)'
                   '.to("#tc-line", { scaleX: 1, duration: .7, ease: "power3.inOut" }, .25)'
-                  f'.to(["#tc", "#tc-dim"], {{ opacity: 0, duration: .4, ease: "power2.in" }}, {dur - .4:.3f});')
+                  f'.to(["#tc", "#tc-dim"], {{ opacity: 0, duration: {fo}, ease: "power2.in" }}, {dur - fo:.3f});')
 
-    # ── data_callout (tercio superior, máscara de entrada + fade)
+    # ── data_callout (tercio superior, lado según el sujeto; figure → Anton, resto → Playfair SC)
     for i, c in enumerate(plan.get("callouts", [])):
         dur = c.get("duration", gfx_rules.callout_dur)
         st = min(c["start"], max(0.0, duration - dur))
-        overlays.append(_tpl("data_callout.html.tmpl").substitute(i=i, start=f"{st:.3f}", duration=f"{dur:.3f}", text=_esc(c["text"])))
+        face = "anton" if c.get("kind") == "figure" else "serif"
+        overlays.append(_tpl("data_callout.html.tmpl").substitute(
+            i=i, start=f"{st:.3f}", duration=f"{dur:.3f}", text=_esc(c["text"]),
+            side=c.get("side", "left"), face=face))
         init.append(f'      gsap.set("#co{i} .co-text", {{ yPercent: 105 }}); gsap.set("#co{i} .co-rule", {{ scaleX: 0 }});')
         js.append(f'      tl.to("#co{i} .co-text", {{ yPercent: 0, duration: .38, ease: "power3.out" }}, {st:.3f})'
                   f'.to("#co{i} .co-rule", {{ scaleX: 1, duration: .5, ease: "power3.inOut" }}, {st + .08:.3f})'
                   f'.to("#co{i}", {{ opacity: 0, duration: .35, ease: "power1.in" }}, {st + dur - .35:.3f});')
 
-    # ── count_up (cifra literal del fact)
+    # ── count_up (cifra literal del fact, Anton)
     cu = plan.get("count_up")
     if cu:
         spec = parse_count_literal(cu["value_text"])
@@ -352,21 +406,21 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
                       ' onUpdate: function () { document.getElementById("cu-num").textContent = cuFmt(cuObj.v); } },'
                       f' {st:.3f}); tl.to("#cu", {{ opacity: 0, duration: .3 }}, {st + dur - .3:.3f});')
 
-    # ── archive_clipping (sobre su escena, cuerpo ≥ 52 px, tipografía por década)
-    ar = plan.get("archive_clipping")
-    if ar and 0 <= ar["scene_idx"] < len(scenes):
-        s = scenes[ar["scene_idx"]]
-        a0, a1 = s.start + 0.5, s.end - 0.5
+    # ── archive_clipping (F2: hasta 2, 6 s, lado opuesto al sujeto, cuerpo ≥ 52 px, tipografía por década)
+    for i, ar in enumerate(archive_list(plan)):
+        a0 = ar["start"]
+        a1 = min(a0 + ar["duration"], duration)
         decade = int(ar.get("era_decade") or 2000)
         font, paper = (("Georgia, serif", "#e6dcc3") if decade < 1950
                        else ("'Courier New', monospace", "#e9e4d6") if decade < 1990
                        else ("'Times New Roman', Times, serif", "#ece6d8"))
         overlays.append(_tpl("archive_clipping.html.tmpl").substitute(
-            start=f"{a0:.3f}", duration=f"{a1 - a0:.3f}", paper=paper, font=font,
-            kicker=_esc(ar.get("kicker", "")), headline=_esc(ar["headline"]), body=_esc(ar["body"])))
-        init.append('      gsap.set("#ar-paper", { opacity: 0, y: -40, rotation: -6 });')
-        js.append(f'      tl.to("#ar-paper", {{ opacity: 1, y: 0, rotation: -2.5, duration: .6, ease: "power3.out" }}, {a0:.3f})'
-                  f'.to("#ar-paper", {{ opacity: 0, y: 20, duration: .4, ease: "power1.in" }}, {a1 - .4:.3f});')
+            i=i, start=f"{a0:.3f}", duration=f"{a1 - a0:.3f}", paper=paper, font=font, side=ar.get("side", "right"),
+            kicker=_esc(ar.get("kicker", "")), headline=_esc(ar["headline"]),
+            body_block=(f'          <div class="ar-body">{_esc(ar["body"])}</div>\n' if ar.get("body") else "")))
+        init.append(f'      gsap.set("#ar{i}-paper", {{ opacity: 0, y: -40, rotation: -6 }});')
+        js.append(f'      tl.to("#ar{i}-paper", {{ opacity: 1, y: 0, rotation: -2.5, duration: .6, ease: "power3.out" }}, {a0:.3f})'
+                  f'.to("#ar{i}-paper", {{ opacity: 0, y: 20, duration: .4, ease: "power1.in" }}, {a1 - .4:.3f});')
 
     # ── --gfx-debug: overlay quemado (NUNCA sin el flag)
     if debug:
@@ -377,8 +431,7 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         for s in scenes:
             js.append(f'      tl.set("#dbg-sc", {{ textContent: "scene_{s.idx + 1:02d}" }}, {s.start:.3f});')
 
-    css = Template((GFX_TEMPLATES_DIR / "gfx_common.css").read_text(encoding="utf-8")).substitute(
-        width=width, height=height, archive_body_px=gfx_rules.archive_body_px)
+    css = render_css(width, height)
     index = _tpl("index.html.tmpl").substitute(
         width=width, height=height, duration=f"{duration:.3f}", css=css,
         scene_hosts="\n".join(hosts), overlays="\n".join(overlays),

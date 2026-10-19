@@ -72,6 +72,9 @@ def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int
     ar = ok.get("archive_clipping")
     if ar and not _check("archive_clipping", {k: ar.get(k, "") for k in ("kicker", "headline", "body")}):
         ok["archive_clipping"] = None
+    if ok.get("archive_clippings"):          # F2: hasta 2 recortes; cada uno sale entero si falla
+        ok["archive_clippings"] = [r for r in ok["archive_clippings"]
+                                   if _check("archive_clipping", {k: r.get(k, "") for k in ("kicker", "headline", "body")})]
 
     cu = ok.get("count_up")
     if cu and not _check("count_up", {"value_text": cu.get("value_text", ""), "unit": cu.get("unit", "")}):
@@ -87,8 +90,7 @@ def plan_strings(plan: dict[str, Any]) -> list[str]:
     if tc:
         out += [tc.get("kicker", ""), tc.get("title", "")]
     out += [c.get("text", "") for c in plan.get("callouts", []) or []]
-    ar = plan.get("archive_clipping")
-    if ar:
+    for ar in ([plan["archive_clipping"]] if plan.get("archive_clipping") else []) + list(plan.get("archive_clippings") or []):
         out += [ar.get("kicker", ""), ar.get("headline", ""), ar.get("body", "")]
     cu = plan.get("count_up")
     if cu:

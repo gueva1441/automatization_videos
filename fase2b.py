@@ -819,7 +819,7 @@ def _build_chapter_segment(
     reuse_visuals: bool = False,
     per_image_specs: list[FlowSpec] | None = None,
     gfx_enabled: bool = False,
-    gfx_quality: str = "draft",
+    gfx_quality: str = "looks",
     video_id: str = "",
     gfx_debug: bool = False,
 ) -> Path:
@@ -2085,6 +2085,14 @@ def _has_assets_on_disk(video_id: str) -> bool:
 #  Single-video assembly (extraído de main para reuso en batch)
 # ═══════════════════════════════════════════════════════════════
 
+def _resolve_gfx_quality(explicit: str | None, debug: bool) -> str:
+    """Calidad del render gfx: la explícita manda; si no, looks (draft solo con --gfx-debug)."""
+    from gfx_config import gfx_render
+    if explicit:
+        return explicit
+    return gfx_render.debug_quality if debug else gfx_render.quality
+
+
 def _assemble_one_video(
     video_id: str, *,
     hook: str | None,
@@ -2093,7 +2101,7 @@ def _assemble_one_video(
     dry_run: bool,
     reuse_visuals: bool = False,
     gfx: bool = False,
-    gfx_quality: str = "draft",
+    gfx_quality: str = "looks",
     gfx_debug: bool = False,
     only_cap: str | None = None,
 ) -> tuple[int, Path | None]:
@@ -2426,8 +2434,8 @@ def main() -> int:
     parser.add_argument("--gfx", action="store_true",
                         help="F1: capa gráfica HyperFrames por capítulo (grade + bloques del "
                              "gfx_director) antes de quemar subs. Fallback al clip original ante error.")
-    parser.add_argument("--gfx-quality", choices=["draft", "looks"], default="draft",
-                        help="Calidad del render HyperFrames con --gfx (default draft).")
+    parser.add_argument("--gfx-quality", choices=["draft", "looks"], default=None,
+                        help="Calidad del render HyperFrames con --gfx (default looks; draft si --gfx-debug).")
     parser.add_argument("--gfx-debug", action="store_true",
                         help="Con --gfx: quema un overlay de depuración (timecode, bloque activo, escena, rank).")
     parser.add_argument("--only-cap", type=str, default=None, metavar="chNN",
@@ -2487,7 +2495,7 @@ def main() -> int:
             dry_run=args.dry_run,
             reuse_visuals=args.reuse_visuals,
             gfx=args.gfx,
-            gfx_quality=args.gfx_quality,
+            gfx_quality=_resolve_gfx_quality(args.gfx_quality, args.gfx_debug),
             gfx_debug=args.gfx and args.gfx_debug,
             only_cap=args.only_cap if mode == "single" else None,
         )
