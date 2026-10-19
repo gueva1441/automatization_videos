@@ -18,6 +18,9 @@ Mini-servidor local (http.server, sin dependencias nuevas) que sirve el lab en h
     GET  /api/profile         perfil gfx activo (valores actuales de los tokens)
     POST /preview             {plan, tokens} → candado literal → gfx_project.write_project (plantillas REALES)
                               con los tokens pisando gfx_rules SOLO durante ese write_project → src del player
+    GET  /summary             IDENTIDAD_<perfil>.md del estado guardado (text/markdown)
+    POST /summary             estado de la página → IDENTIDAD_<perfil>.md en vivo (§4), sin escribir nada
+    POST /save_identity       estado → perfil validado + plan dorado + IDENTIDAD_<perfil>.md (gfx_identity)
 
 El preview NO es un render: el player carga la composición y GSAP la anima; el audio va por `audio-src`.
 
@@ -256,6 +259,41 @@ class LabSession:
                 im.save(dst, "JPEG", quality=82)
         return dst
 
+    # ── §C: resumen en vivo y Guardar identidad
+    def _catalog(self) -> dict[str, Any]:
+        return json.loads((LAB_DIR / "catalogo.json").read_text(encoding="utf-8"))
+
+    def _sugerencias(self) -> list[dict[str, Any]]:
+        f = LAB_DIR / f"sugerencias_{self.cap}.json"
+        return json.loads(f.read_text(encoding="utf-8"))["sugerencias"] if f.exists() else []
+
+    def cues_for(self, plan: dict[str, Any], tokens: dict[str, Any]) -> tuple[dict[str, Any], list, list]:
+        """(plan con candado, rechazados, cues) sin escribir el proyecto."""
+        from script_engine import gfx_project
+        ok, rejected = self.locked(plan)
+        with rules_override(tokens or {}):
+            cues = gfx_project.cue_events(ok, self.scenes, self.fps)
+        return ok, rejected, cues
+
+    def summary(self, state: dict[str, Any]) -> str:
+        from dataclasses import asdict
+        import gfx_config
+        from script_engine.gfx_identity import summary_md
+        _, _, cues = self.cues_for(state["plan"], state.get("tokens") or {})
+        return summary_md(state, self._catalog(), cues, self.story()["words"], asdict(gfx_config.gfx_rules),
+                          profile=gfx_config.active_profile_name(), cap=self.cap, video_id=self.video_id,
+                          sugerencias=self._sugerencias())
+
+    def save_identity(self, state: dict[str, Any]) -> dict[str, str]:
+        import gfx_config
+        from script_engine.gfx_identity import save_identity
+        with self._lock:
+            self.save_lab_state(state)
+            ok, rejected, _ = self.cues_for(state["plan"], state.get("tokens") or {})
+            return save_identity(state, profile=gfx_config.active_profile_name(), cap=self.cap,
+                                 video_id=self.video_id, locked_plan=ok, rejected=rejected,
+                                 summary=self.summary(state), md_dir=LAB_DIR)
+
     # ── preview: plantillas REALES vía gfx_project.write_project
     def preview(self, plan: dict[str, Any], tokens: dict[str, Any] | None = None) -> dict[str, Any]:
         """plan (+ tokens del perfil que el lab está probando) → candado literal → write_project.
@@ -410,6 +448,8 @@ class LabHandler(BaseHTTPRequestHandler):
                 return self._json({**s.lab_state(), "origin": "lab" if s.state_path.exists() else "director"})
             if path == "/api/context":
                 return self._json(s.context())
+            if path == "/summary":
+                return self._send(s.summary(s.lab_state()).encode("utf-8"), "text/markdown; charset=utf-8")
             if path == "/api/profile":
                 from dataclasses import asdict
                 import gfx_config
@@ -431,6 +471,10 @@ class LabHandler(BaseHTTPRequestHandler):
             if path == "/api/plan":
                 s.save_lab_state(self._body())
                 return self._json({"ok": True})
+            if path == "/summary":
+                return self._json({"md": s.summary(self._body())})
+            if path == "/save_identity":
+                return self._json({"ok": True, "archivos": s.save_identity(self._body())})
             return self._error(404, f"ruta desconocida {path}")
         except Exception as e:  # noqa: BLE001
             return self._error(500, f"{type(e).__name__}: {e}")

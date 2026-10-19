@@ -350,7 +350,8 @@ _GRADE_B = {"gr-halation": 0.35, "gr-haze": 0.0, "gr-palette": 0.0, "gr-shadowte
 # ═══════════════════════════════════════════════════════════════
 
 _RULE_FIELDS: frozenset[str] = frozenset(f.name for f in fields(GfxRules))
-_PROFILE_KEYS: frozenset[str] = frozenset({"name", "description", "nichos", "fonts", "tokens", "blocks", "sfx", "moods"})
+_PROFILE_KEYS: frozenset[str] = frozenset({"name", "description", "nichos", "fonts", "tokens", "blocks", "sfx", "moods",
+                                          "identity"})   # F3: lo escribe el lab; el motor lo ignora
 # F2b §2: capas de mood que el templater sabe dibujar (CSS, nunca toca píxeles)
 VALID_MOOD_LAYERS: frozenset[str] = frozenset({"veneno", "agua", "muerte", "oscuridad"})
 # claves del set de íconos (= gfx_icons.ICON_WHITELIST; acá sin importar gfx_icons para no crear un ciclo)

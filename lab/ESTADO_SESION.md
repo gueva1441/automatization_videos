@@ -11,7 +11,10 @@
 ## Trabajo activo: F3 (lab interactivo en http://localhost:8765)
 - Orden §5.2: A → B → C → **PARADA ÚNICA** (Omar abre el lab, juega 30 min, guarda) → D → E.
 - Arranque 2026-10-19: rama creada, handoff copiado a `lab/hyperframes/f3/`.
-- §A (servidor + historia + preview): `gfx_lab_server.py` + `lab/identidad/{index.html,lab.js,lab.css}`. Preview = `write_project` (plantillas reales) + runtime/player pineados. md5 sin gfx = 38e5ba14 ✔. Decisiones C1–C11 en `lab/hyperframes/f3/DECISIONES_F3.md`.
+- §A commiteado `0902908` (revisor: CUMPLE CON OBSERVACIONES): `gfx_lab_server.py` + `lab/identidad/{index.html,lab.js,lab.css}`. Preview = `write_project` (plantillas reales) + runtime/player pineados. md5 sin gfx = 38e5ba14 ✔. Decisiones C1–C11.
+- §B commiteado `9d65b49` (revisor: CUMPLE CON OBSERVACIONES): `catalogo.json` (43 piezas, en vivo vs anotado), `sugerencias_ch02.json` (BORRADOR de 18, lo corrige el analista), `anim_previews.css`, panel Aquí, tokens en vivo + candado en el preview. Decisiones C12–C21. 180 tests.
+- §C (✔/✖, deshacer, resumen en vivo, Guardar identidad): commit `feat(gfx-f3-lab): §C` (revisor: CUMPLE CON OBSERVACIONES). `script_engine/gfx_identity.py`; `identity` agregado a `_PROFILE_KEYS`. md5 sin gfx re-medido 38e5ba14 ✔. 187 tests. Decisiones C22–C30.
+- **PARADA ÚNICA (esperando a Omar):** abrir http://localhost:8765, jugar ~30 min, 💾 Guardar identidad. CC NO guardó con el perfil real (`gfx_profiles/` intacto). Después: §D (7 plantillas nuevas, pausa de cierre, Render, regenerar ícono) y §E (director con identidad + golden; test ch05).
 - Levantar el lab: `PYTHONIOENCODING=utf-8 python gfx_lab_server.py` (→ http://localhost:8765). Proyecto del preview: `_fase2b_work/gfx_lab_ch02/` (nunca el `gfx_ch02/` del render).
 - Commits F3: `feat(gfx-f3-lab): <sección>`; revisor-handoff antes de cada uno; veredictos íntegros en `lab/hyperframes/f3/F3_REPORT.md`.
 

@@ -106,3 +106,62 @@ Riesgos que el contrato no cubre:
 - #15: después del veredicto se agregaron como atributos "anotado" los que el handoff sí define: barrido de tinta (duración 0.6 s), quemado (borde) y tarjeta "Capítulo N" (1.5 s). zoom_through y la matriz no tienen opciones en el handoff ("—" / "N figuras en filas de 10"). La matriz existe y la arma el director; ch02 no tiene un fact elegible para ella.
 - #14: `ejemplo_en_ch02` está solo donde existe un lugar concreto en ch02 (6 elementos). Las colocaciones van en `sugerencias_ch02.json`, que es lo que §3 pide para ch02. No se inventan ejemplos para piezas que ch02 no tiene (citas, tercio inferior, matriz).
 - Riesgo 2: además de la etiqueta violeta por atributo, cada tarjeta lleva un badge de estado y una nota ("Parte se ve en el preview; el resto queda anotado"). Va como pregunta para la PARADA.
+
+
+---
+
+## §C — Casillas ✔/✖, deshacer, resumen en vivo, Guardar identidad
+
+**Qué hay:**
+- Cada tarjeta del catálogo tiene **✔ Se queda en el canal** (en piezas "futuro": **✔ Lo quiero**) y **✖ No lo quiero nunca**, con una línea opcional ("¿cuándo va?" / "¿por qué?"). Cada sugerencia tiene **✔ Acepto** (la aplica si no estaba probada) y **✖ No** (si se estaba probando, la revierte).
+- Léxico: en el panel Aquí, cada palabra del léxico ofrece "nunca / casi nunca (1) / a veces (2) / siempre (3)". Si la ponés en "nunca", sale el mood de esa palabra del plan.
+- **↶ ↷ / Ctrl+Z, Ctrl+Shift+Z**: deshacer y rehacer todo (200 pasos). "Volver al plan del director" conserva las casillas.
+- **📄 Resumen para el analista**: panel que se actualiza solo con cada cambio. Trae las 5 secciones del §4: lo que se queda, lo que nunca, lo que falta (campo "quisiera que…" en la pestaña Global), plan dorado de ch02 y preguntas abiertas que el lab detecta solo.
+- **💾 Guardar identidad** (pide confirmación) escribe tres cosas. `gfx_profiles/misterio.json` lleva tokens, fuentes, `blocks.*.enabled` por ✔/✖, pesos del léxico y la clave `identity` con marcas, anotados, sugerencias y lo que falta; antes de reemplazarlo se valida con el loader del pipeline y se respalda en `.bak_f3_*`. `gfx_profiles/misterio_golden_ch02.json` es el plan con candado tal como lo dejaste. `lab/identidad/IDENTIDAD_misterio.md` es el resumen.
+
+**Medido:** en el navegador, S06 probar → ✖ revierte el mood de «ahogaba»; S16 ✔ sin probar aplica el acento; las marcas funcionan; «oscuro» en "nunca" saca su mood; deshacer y rehacer andan por botón y con Ctrl+Z real. El resumen en vivo trae las 5 secciones. Guardar se probó punta a punta con tests en directorios temporales: **CC no tocó el perfil real** (`git status gfx_profiles/` vacío). md5 sin `--gfx` re-medido después de tocar `gfx_config.py`: `38e5ba14…` ✔ (`onlycap_ch02_nogfx_C.log`). Tests: 187 verdes.
+
+**Veredicto revisor-handoff (íntegro):**
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Barra con 💾 Guardar identidad y 📄 Resumen para el analista (§1) | OK | lab/identidad/index.html: `#btn-save`, `#btn-summary`, panel `#summary` |
+| 2 | ✔ se queda / ✖ va a rechazados (§1.1 p.4) | OK | lab.js: marcas `S.marks` (segundo clic desmarca), `mutate("… ✔ aceptada / ✖ rechazada")`. Marcas ✔/✖ en navegador: no repetible, quedan por tu palabra. |
+| 3 | Guardar escribe misterio.json (tokens, defaults, `enabled` true/false, variantes aprobadas), golden ch02 e IDENTIDAD_misterio.md (§1.1 p.6) | OK | script_engine/gfx_identity.py:176-250: `apply_identity` + `save_identity`. Valida con `load_profile` antes de reemplazar, hace respaldo `.bak_f3_*`, escribe `misterio_golden_ch02.json` y el md. Test: `test_save_identity_escribe_los_tres_archivos_y_respalda`. |
+| 4 | Ctrl+Z, rehacer y "volver al plan del director" (§1.2) | OK | lab.js: `undo()`/`redo()`, listener `ctrlKey/metaKey+z`, `mutate("volver al plan del director")` (conserva las marcas). Botones `#btn-undo`/`#btn-redo`. |
+| 5 | Léxico: activar/desactivar ajusta peso en el perfil (§2 C) | OK | lab.js `setLexWeight` + `S.lexicon`; gfx_identity.py:`apply_identity` ajusta `triggers[word]`. Peso 0 quita la palabra del léxico, algo más que el rango 1–3 del contrato. Es razonable pero no está en el contrato. |
+| 6 | Resumen en vivo con 5 secciones (§4) | OK | GET/POST `/summary` devuelven las 5. Secciones 1, 4 y 5 probadas en vivo con el estado real. Sección 2 (por qué) y sección 3 (campo "quisiera que…") sin ejercer con datos reales; las cubre `test_summary_tiene_las_cinco_secciones`. |
+| 7 | Candados §6: lock literal, main intacta, sin --gfx byte-idéntico | OK | `cues_for` usa `self.locked(plan)`. El log `onlycap_ch02_nogfx_C.log` termina en `38e5ba14e3d24fd20f9297c9e1dfee24`. El único cambio en gfx_config.py es agregar "identity" a `_PROFILE_KEYS`. No toqué ni verifiqué la rama main; "intacta" solo lo infiero de que el diff queda dentro del alcance. |
+| 8 | Tests verdes | OK | Corrí la suite indicada: 186 passed en 15 s. |
+| 9 | `gfx_profiles/` sin cambios (no se apretó Guardar con el perfil real) | OK | `git status --short gfx_profiles/` vacío. Solo existen finanzas.json, icons/ y misterio.json. |
+| 10 | No hacer plantillas/Render/ícono/pausa (§D) ni director (§E) | OK | El diff no toca nada de eso: solo servidor, lab, config, DECISIONES y ESTADO. |
+| 11 | Pruebas de navegador (S06, S16, léxico 'oscuro', Ctrl+Z por teclado) | NO VERIFICABLE | No repetible. Faltaría una grabación o captura. |
+
+Fuera de alcance: ninguno. `diag_234_cap4.py` ya estaba modificado antes y no es de este paso. `lab/identidad/plan_ch02_lab.json` y `lab/hyperframes/_handoff_adjuntos/HANDOFF_F1_gfx_layer.md` aparecen sin trackear; no los commitees con este paso. `lab/ESTADO_SESION.md` y DECISIONES_F3.md están en el alcance declarado.
+
+Observaciones:
+- El md se escribe en `lab/identidad/IDENTIDAD_misterio.md` (`md_dir=LAB_DIR`). El contrato no fija la ruta.
+- Con tu estado actual, GET /summary muestra "Lo que se queda" y "Lo que nunca" vacíos (todavía no marcaste nada). Eso es esperable, no un fallo.
+- El resumen en vivo marca como pregunta abierta "3 moods y SFX 'sin elegir'". Es la detección automática funcionando.
+
+Riesgos que el contrato no cubre: (1) Guardar es irreversible salvo por el respaldo `.bak_f3_*`; si Omar guarda dos veces en el mismo segundo, el segundo respaldo pisa al primero. (2) Las marcas ✖ solo afectan al motor para los elementos mapeados en `ENGINE_BLOCK`/`NEVER_TOKENS`; el resto queda solo en `identity`, que el motor ignora hasta §E.
+```
+
+**Respuesta de CC a las observaciones:**
+- Riesgo 1: corregido después del veredicto. Si el respaldo del mismo segundo ya existe, se agrega `_1`, `_2`… (test `test_dos_guardados_seguidos_no_pisan_el_respaldo`; ahora son 187 tests).
+- Riesgo 2: es así y está a propósito (C23). El resto de las marcas lo lee el director en §E desde `identity` y el plan dorado.
+- #5 (peso 0): §2 C pide "activar/desactivar"; desactivar = sacar la palabra del léxico. Por eso el 0, anotado en C23.
+- #11: la PARADA es justamente que Omar lo use.
+
+---
+
+## PARADA ÚNICA — turno de Omar
+
+1. El lab está corriendo: **http://localhost:8765**. Si no responde, levantalo con `PYTHONIOENCODING=utf-8 python gfx_lab_server.py` desde la raíz del repo.
+2. Arranca con el plan del director de ch02. Las 18 sugerencias del borrador aparecen en gris punteado en la Historia y en la pestaña "Sugerencias IA". Nada está aprobado todavía.
+3. Jugá unos 30 minutos: ▶ Play, clic en palabras o fotos, "Probar sugerencia", atributos, ✔/✖. Ctrl+Z deshace.
+4. Cuando estés conforme: **💾 Guardar identidad**. Eso escribe el perfil, el plan dorado y `IDENTIDAD_misterio.md`.
+5. Para saber: lo marcado "anotado" (violeta) se guarda en la identidad pero todavía no se ve en el preview ni en el mp4: llega en §D. Los subtítulos y los SFX no están en el preview porque los agrega fase2b después. 🎬 Render llega en §D.

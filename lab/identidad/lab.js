@@ -12,7 +12,15 @@ const S = {
   story: null, plan: null, tokens: {}, anotado: {}, sugState: {}, rules: {}, catalog: null, sugs: [], ctx: null,
   cues: [], rejected: [], wordEls: [], photoEls: [], tab: "sugerencias", here: null, busy: false, queued: false,
   history: [], future: [],
+  // §C: casillas, léxico, lo que falta, piezas tocadas, cómo deshacer cada sugerencia
+  marks: {}, lexicon: {}, faltan: "", touched: [], sugUndo: {},
 };
+const STATE_KEYS = ["plan", "tokens", "anotado", "sugState", "marks", "lexicon", "faltan", "touched", "sugUndo"];
+function labState() {
+  return { plan: S.plan, tokens: S.tokens, anotado: S.anotado, sugerencias: S.sugState, marks: S.marks,
+           lexicon: S.lexicon, faltan: S.faltan, touched: S.touched, sug_undo: S.sugUndo };
+}
+function touch(id) { if (id && !S.touched.includes(id)) S.touched.push(id); }
 
 // ── utilidades
 function fmt(t) {
@@ -67,23 +75,49 @@ const near = (a, b, tol = 0.15) => Math.abs(a - b) <= tol;
 // ═══════════════════════════════════════════════════════════════
 //  Estado: mutate() = snapshot (deshacer en §C) + preview + autoguardado
 // ═══════════════════════════════════════════════════════════════
-function snapshot() { return clone({ plan: S.plan, tokens: S.tokens, anotado: S.anotado, sugState: S.sugState }); }
+function snapshot() { const o = {}; STATE_KEYS.forEach((k) => { o[k] = S[k]; }); return clone(o); }
 function restore(s) { Object.assign(S, clone(s)); }
-function mutate(label, fn) {
-  S.history.push(snapshot());
-  if (S.history.length > 200) S.history.shift();
-  S.future = [];
-  fn();
+function afterChange(label) {
   setStatus(label, "busy");
   schedulePreview();
   renderCatalog();
   if (S.here) renderHere();
+  syncUndoButtons();
+}
+function mutate(label, fn) {
+  const before = snapshot();
+  fn();
+  S.history.push({ state: before, label });
+  if (S.history.length > 200) S.history.shift();
+  S.future = [];
+  afterChange(label);
+}
+// Ctrl+Z / Ctrl+Shift+Z (o Ctrl+Y): deshacer / rehacer cualquier cambio
+function undo() {
+  const h = S.history.pop();
+  if (!h) return setStatus("nada para deshacer");
+  S.future.push({ state: snapshot(), label: h.label });
+  restore(h.state);
+  afterChange(`deshecho: ${h.label}`);
+}
+function redo() {
+  const f = S.future.pop();
+  if (!f) return setStatus("nada para rehacer");
+  S.history.push({ state: snapshot(), label: f.label });
+  restore(f.state);
+  afterChange(`rehecho: ${f.label}`);
+}
+function syncUndoButtons() {
+  $("#btn-undo").disabled = !S.history.length;
+  $("#btn-redo").disabled = !S.future.length;
+  $("#btn-undo").title = S.history.length ? `Deshacer: ${S.history[S.history.length - 1].label} (Ctrl+Z)` : "Nada para deshacer";
 }
 let saveTimer = null;
 function autosave() {
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => api("/api/plan", { plan: S.plan, tokens: S.tokens, anotado: S.anotado, sugerencias: S.sugState })
+  saveTimer = setTimeout(() => api("/api/plan", labState())
     .catch((e) => setStatus("no se pudo guardar el estado: " + e.message, "err")), 400);
+  refreshSummary();
 }
 let pvTimer = null;
 function schedulePreview() { clearTimeout(pvTimer); pvTimer = setTimeout(preview, 250); }
@@ -173,6 +207,7 @@ function attrValue(el, a, piece) {
 function applyAttr(el, a, v, piece) {
   const [kind, path] = a.aplica.split(":");
   mutate(`${el.nombre}: ${a.nombre} → ${labelOf(a, v)}`, () => {
+    touch(el.id);
     if (kind === "token") S.tokens[path] = v;
     else if (kind === "all") {
       const [list, field] = path.split(".");
@@ -224,23 +259,73 @@ function runAction(acc, i, el) {
   }
   return t;
 }
+// cómo deshacer UNA sugerencia aunque después haya otros cambios (✖ sobre algo que se estaba probando)
+function sugUndoInfo(s) {
+  const w = wordByI(s.word_i), t = w ? w.start : 0, acc = s.accion, pre = s.preset || {};
+  const u = { tokens: {}, anotado: [], tipo: acc.tipo, t };
+  for (const [k, v] of Object.entries(pre.anotado || {})) {            // pares [elemento, atributo] con su valor previo
+    if (v && typeof v === "object" && !Array.isArray(v) && catEl(k)) Object.keys(v).forEach((a) => u.anotado.push([k, a, (S.anotado[k] || {})[a] ?? null]));
+    else u.anotado.push([s.elemento, k, (S.anotado[s.elemento] || {})[k] ?? null]);
+  }
+  for (const k of Object.keys(pre.tokens || {})) u.tokens[k] = k in S.tokens ? S.tokens[k] : null;
+  if (acc.tipo === "set_emphasis") { const e = emphasisAt(t); u.old = e ? Object.fromEntries(Object.keys(acc.campos).map((k) => [k, e[k]])) : null; }
+  if (acc.tipo === "set_archive") {
+    const a = (S.plan.archive_clippings || []).find((x) => x.fact_idx === acc.fact_idx);
+    u.old = a ? Object.fromEntries(Object.keys(acc.campos).map((k) => [k, a[k]])) : null;
+  }
+  if (acc.tipo === "add_emphasis") u.added = !emphasisAt(t);
+  if (acc.tipo === "add_punch") u.added = !(S.plan.punch_in || []).some((x) => near(x, t));
+  return u;
+}
+function revertSuggestion(s) {
+  const u = S.sugUndo[s.id];
+  if (!u) return;
+  for (const [k, v] of Object.entries(u.tokens || {})) { if (v === null) delete S.tokens[k]; else S.tokens[k] = v; }
+  for (const [el, a, prev] of u.anotado || []) {
+    if (!S.anotado[el]) continue;
+    if (prev === null) delete S.anotado[el][a]; else S.anotado[el][a] = prev;
+  }
+  if (u.tipo === "add_emphasis" && u.added) S.plan.emphasis = (S.plan.emphasis || []).filter((e) => !near(e.start, u.t));
+  if (u.tipo === "add_punch" && u.added) S.plan.punch_in = (S.plan.punch_in || []).filter((x) => !near(x, u.t));
+  if (u.tipo === "set_emphasis" && u.old) { const e = emphasisAt(u.t); if (e) Object.assign(e, u.old); }
+  if (u.tipo === "set_archive" && u.old) {
+    const a = (S.plan.archive_clippings || []).find((x) => x.fact_idx === s.accion.fact_idx);
+    if (a) Object.assign(a, u.old);
+  }
+  delete S.sugUndo[s.id];
+}
 function trySuggestion(s) {
   const el = catEl(s.elemento);
   let t = 0;
   try {
     mutate(`probando ${s.id}: ${s.titulo}`, () => {
+      if (!S.sugUndo[s.id]) S.sugUndo[s.id] = sugUndoInfo(s);
       applyPreset(el || { id: s.elemento }, s.preset || {});
       t = runAction(s.accion, s.word_i, el);
       S.sugState[s.id] = "probando";
+      touch(s.elemento);
     });
   } catch (e) { setStatus(e.message, "err"); return; }
   seek(t + 0.05);
   openHere({ kind: "word", i: s.word_i });
 }
+function decideSuggestion(s, v) {
+  mutate(`${s.id} ${v === "si" ? "✔ aceptada" : "✖ rechazada"}`, () => {
+    if (v === "si" && S.sugState[s.id] !== "probando") {          // aceptar sin probar = aplicarla
+      if (!S.sugUndo[s.id]) S.sugUndo[s.id] = sugUndoInfo(s);
+      applyPreset(catEl(s.elemento) || { id: s.elemento }, s.preset || {});
+      runAction(s.accion, s.word_i, catEl(s.elemento));
+    }
+    if (v === "no") revertSuggestion(s);
+    S.sugState[s.id] = S.sugState[s.id] === v ? (v === "si" ? "probando" : undefined) : v;
+    if (S.sugState[s.id] === undefined) delete S.sugState[s.id];
+  });
+}
 function tryCatalog(el) {
   let t = null;
   try {
     mutate(`probando: ${el.nombre}`, () => {
+      touch(el.id);
       applyPreset(el, el.preset_sugerido || {});
       if (el.ejemplo_en_ch02) t = runAction(el.ejemplo_en_ch02, el.ejemplo_en_ch02.word_i, el);
     });
@@ -291,6 +376,7 @@ function markStory() {
   for (const s of S.sugs) {
     const el = S.wordEls.find((x) => +x.dataset.i === s.word_i);
     if (el && !S.sugState[s.id]) { el.classList.add("sug"); el.title += ` · sugerido ${s.id}: ${s.titulo}`; }
+    else if (el && S.sugState[s.id] === "no") el.title += ` · ${s.id} rechazada`;
   }
   const ol = $("#cues");
   ol.innerHTML = "";
@@ -324,7 +410,15 @@ function renderHere() {
   const hit = w ? lexAt(w.i) : null;
   let html = `<div class="here-head">${w ? `«${esc(w.word)}»` : `Foto ${ph.idx + 1}`} <span class="tc">${fmt(t)}</span>` +
     ` <span class="tech">foto ${ph.idx + 1} · lado tranquilo: ${ph.quiet_side === "left" ? "izquierda" : "derecha"}</span></div>`;
-  if (hit) html += `<p class="hint">Palabra del léxico: <b>${esc(MOODS[hit.category] || hit.category)}</b>, peso ${hit.weight}${hit.icon ? ` · ícono literal: ${esc(hit.icon)}` : ""}.</p>`;
+  if (hit) {
+    const key = cleanWord(hit.word).toLowerCase();
+    const cur = key in S.lexicon ? S.lexicon[key] : hit.weight;
+    html += `<p class="hint">Palabra del léxico: <b>${esc(MOODS[hit.category] || hit.category)}</b>${hit.icon ? ` · ícono literal: ${esc(hit.icon)}` : ""}.</p>
+      <div class="attr"><span class="an">¿Dispara mood?</span><span class="opts">` +
+      [[0, "nunca"], [1, "casi nunca (1)"], [2, "a veces (2)"], [3, "siempre (3)"]].map(([v, l]) =>
+        `<button class="opt ${cur === v ? "on" : ""}" data-lexw="${v}">${l}</button>`).join("") +
+      `</span></div><p class="nota">Cambia el peso de «${esc(key)}» en el perfil (lo usa el director en los próximos videos)${key in S.lexicon ? ` · antes: ${hit.weight}` : ""}.</p>`;
+  }
   html += '<h4>Lo que hay acá</h4>';
   html += active.length ? active.map((c, k) => pieceCard(c, k)).join("") : '<p class="hint">Nada.</p>';
   html += '<h4>Qué más podría ir</h4><div class="opts">';
@@ -339,8 +433,17 @@ function renderHere() {
   if (sugs.length) html += '<h4>Sugerido cerca</h4>' + sugs.map(sugRow).join("");
   box.innerHTML = html;
   box.querySelectorAll("[data-do]").forEach((b) => b.addEventListener("click", () => hereAction(b.dataset.do, w, t)));
+  box.querySelectorAll("[data-lexw]").forEach((b) => b.addEventListener("click", () => setLexWeight(hit, +b.dataset.lexw)));
   bindPieceCards(box, active);
   bindSugRows(box);
+}
+function setLexWeight(hit, v) {
+  const key = cleanWord(hit.word).toLowerCase();
+  mutate(`léxico «${key}» → ${v === 0 ? "apagada" : "peso " + v}`, () => {
+    if (v === hit.weight) delete S.lexicon[key]; else S.lexicon[key] = v;
+    if (v === 0) S.plan.emphasis = (S.plan.emphasis || []).filter((e) => !near(e.start, hit.start));   // apagar = sale del plan
+    touch("keyword_emphasis");
+  });
 }
 function pieceCard(c, k) {
   const el = catEl(elemOf(c.block));
@@ -398,14 +501,17 @@ function renderCatalog() {
     html += elementCard(el);
   }
   if (S.tab === "cierre") html = questionBox() + html;
+  if (S.tab === "global") html += faltanBox();
   box.innerHTML = html;
   box.querySelectorAll(".card").forEach((card) => {
     const el = catEl(card.dataset.id);
     bindAttrControls(card, el, null);
     const b = card.querySelector("[data-try]");
     if (b) b.addEventListener("click", () => tryCatalog(el));
+    bindMarks(card, el);
   });
   bindQuestionBox(box);
+  bindFaltan(box);
 }
 function elementCard(el) {
   const st = S.catalog.estados[el.estado] || el.estado;
@@ -413,7 +519,8 @@ function elementCard(el) {
     .filter((a) => a.tipo !== "texto").map((a) => attrControl(el, a, null, el.id)).join("");
   const elemAttrs = el.atributos.filter((a) => a.aplica.startsWith("elem:") && a.id !== "usar" && a.tipo !== "texto");
   const canTry = el.estado !== "futuro" && (Object.keys(el.preset_sugerido || {}).length || el.ejemplo_en_ch02);
-  return `<div class="card" data-id="${el.id}">
+  const m = S.marks[el.id] || {};
+  return `<div class="card mark-${m.v || "none"}" data-id="${el.id}">
     <div class="card-head"><b>${esc(el.nombre)}</b> <span class="tech">${esc(el.id)}</span>
       <span class="badge ${ESTADO_CLS[el.estado] || ""}" title="${esc(el.nota_estado || st)}">${esc(st)}</span></div>
     <div class="que">${esc(el.que_hace)}</div>
@@ -422,7 +529,32 @@ function elementCard(el) {
     ${canTry ? `<button class="btn sm" data-try="1">Probar sugerencia</button>` : ""}
     ${attrs}
     ${elemAttrs.length ? `<div class="nota">${esc(elemAttrs.map((a) => a.nombre).join(", "))}: elegí la pieza en la Historia (panel Aquí).</div>` : ""}
+    ${markBox(el, m)}
   </div>`;
+}
+function markBox(el, m) {
+  const yes = el.estado === "futuro" ? "✔ Lo quiero" : "✔ Se queda en el canal";
+  return `<div class="marks">
+    <button class="mk si ${m.v === "si" ? "on" : ""}" data-mark="si">${yes}</button>
+    <button class="mk no ${m.v === "no" ? "on" : ""}" data-mark="no">✖ No lo quiero nunca</button>
+    ${m.v === "si" ? `<input class="mk-txt" data-mtxt="regla" maxlength="140" placeholder="¿Cuándo va? (en tus palabras, opcional)" value="${esc(m.regla || "")}">` : ""}
+    ${m.v === "no" ? `<input class="mk-txt" data-mtxt="por_que" maxlength="140" placeholder="¿Por qué? (opcional)" value="${esc(m.por_que || "")}">` : ""}
+  </div>`;
+}
+function setMark(el, v) {
+  mutate(`${el.nombre}: ${v === "si" ? "✔ se queda" : "✖ nunca"}`, () => {
+    const cur = S.marks[el.id] || {};
+    if (cur.v === v) delete S.marks[el.id];                       // segundo clic = desmarcar
+    else S.marks[el.id] = { ...cur, v };
+  });
+}
+function bindMarks(card, el) {
+  card.querySelectorAll("[data-mark]").forEach((b) => b.addEventListener("click", () => setMark(el, b.dataset.mark)));
+  card.querySelectorAll("[data-mtxt]").forEach((inp) => inp.addEventListener("change", () => {
+    const val = inp.value.trim();
+    if ((S.marks[el.id] || {})[inp.dataset.mtxt] === val) return;
+    mutate(`${el.nombre}: nota`, () => { S.marks[el.id][inp.dataset.mtxt] = val; });
+  }));
 }
 function attrControl(el, a, piece, scope) {
   const cur = attrValue(el, a, piece);
@@ -461,14 +593,27 @@ function sugRow(s) {
   const st = S.sugState[s.id];
   const el = catEl(s.elemento);
   const w = wordByI(s.word_i);
+  const badge = { probando: "probando", si: "✔ aceptada", no: "✖ rechazada" }[st];
   return `<div class="sugrow ${st ? "st-" + st : "st-sug"}" data-s="${s.id}">
     <div><span class="sid">${s.id}</span> <b>${esc(s.titulo)}</b> <span class="tc">${w && s.word_i ? fmt(w.start) + " «" + esc(w.word) + "»" : "todo el cap"}</span>
-    ${st ? `<span class="badge part">${esc(st)}</span>` : '<span class="badge sugd">sugerido</span>'}</div>
+    ${st ? `<span class="badge ${st === "si" ? "ok" : st === "no" ? "fut" : "part"}">${esc(badge)}</span>` : '<span class="badge sugd">sugerido</span>'}</div>
     <div class="hint">${esc(s.por_que)} <span class="tech">${esc(el ? el.nombre : s.elemento)} · ${esc(s.accion.tipo)}</span></div>
-    <button class="btn sm" data-try-s="${s.id}">Probar sugerencia</button></div>`;
+    <button class="btn sm" data-try-s="${s.id}">Probar sugerencia</button>
+    <button class="mk si sm ${st === "si" ? "on" : ""}" data-dec-s="${s.id}" data-v="si">✔ Acepto</button>
+    <button class="mk no sm ${st === "no" ? "on" : ""}" data-dec-s="${s.id}" data-v="no">✖ No</button></div>`;
 }
 function bindSugRows(root) {
   root.querySelectorAll("[data-try-s]").forEach((b) => b.addEventListener("click", () => trySuggestion(S.sugs.find((x) => x.id === b.dataset.tryS))));
+  root.querySelectorAll("[data-dec-s]").forEach((b) => b.addEventListener("click", () => decideSuggestion(S.sugs.find((x) => x.id === b.dataset.decS), b.dataset.v)));
+}
+function faltanBox() {
+  return `<div class="card qbox"><div class="card-head"><b>Lo que falta</b> <span class="tech">para el analista</span></div>
+    <p class="hint">Cosas que quisieras y el catálogo no tiene. Va tal cual al resumen.</p>
+    <textarea id="faltan" rows="3" maxlength="1200" placeholder="Quisiera que…">${esc(S.faltan)}</textarea></div>`;
+}
+function bindFaltan(root) {
+  const ta = $("#faltan", root);
+  if (ta) ta.addEventListener("change", () => { if (ta.value !== S.faltan) mutate("lo que falta", () => { S.faltan = ta.value; }); });
 }
 function questionBox() {
   const q = S.plan.chapter_question;
@@ -581,11 +726,40 @@ function loadSrc(src, t, play) {
   });
 }
 
+// ── §C: resumen en vivo y Guardar identidad
+let sumTimer = null;
+function refreshSummary() {
+  if ($("#summary").hidden) return;
+  clearTimeout(sumTimer);
+  sumTimer = setTimeout(async () => {
+    try { $("#summary-md").textContent = (await api("/summary", labState())).md; }
+    catch (e) { $("#summary-md").textContent = "error: " + e.message; }
+  }, 300);
+}
+function toggleSummary(open) {
+  $("#summary").hidden = open === undefined ? !$("#summary").hidden : !open;
+  refreshSummary();
+}
+async function saveIdentity() {
+  const si = Object.values(S.marks).filter((m) => m.v === "si").length, no = Object.values(S.marks).filter((m) => m.v === "no").length;
+  const ok = confirm(`Guardar identidad:\n\n• perfil del canal (gfx_profiles/misterio.json): ${Object.keys(S.tokens).length} token(s), ` +
+    `${si} ✔ y ${no} ✖, ${Object.keys(S.lexicon).length} palabra(s) del léxico\n• plan dorado de ${S.story.cap}\n• IDENTIDAD_misterio.md\n\n` +
+    `El perfil anterior queda respaldado. ¿Guardar?`);
+  if (!ok) return;
+  setStatus("guardando identidad…", "busy");
+  try {
+    const r = await api("/save_identity", labState());
+    setStatus("identidad guardada ✔ — " + Object.entries(r.archivos).map(([k, v]) => `${k}: ${v.split(/[\\/]/).pop()}`).join(" · "));
+    toggleSummary(true);
+  } catch (e) { setStatus("no se guardó: " + e.message, "err"); }
+}
+
 async function backToDirector() {
-  mutate("volver al plan del director", () => {
+  mutate("volver al plan del director", () => {        // las casillas ✔/✖ y lo anotado se conservan
     S.plan = clone(S.directorPlan);
     S.tokens = {};
     S.sugState = {};
+    S.sugUndo = {};
   });
 }
 
@@ -597,6 +771,8 @@ async function init() {
     S.story = story; S.ctx = ctx; S.rules = prof.rules; S.catalog = cat;
     S.sugs = sug.sugerencias; S.sugMeta = sug;
     S.plan = st.plan; S.tokens = st.tokens || {}; S.anotado = st.anotado || {}; S.sugState = st.sugerencias || {};
+    S.marks = st.marks || {}; S.lexicon = st.lexicon || {}; S.faltan = st.faltan || ""; S.touched = st.touched || [];
+    S.sugUndo = st.sug_undo || {};
     S.directorPlan = dir.plan;
     $("#cap-label").textContent = `· ${story.cap} · ${story.video_id.slice(0, 8)}… · ${fmt(story.duration)} · perfil ${prof.name}`;
     renderStory();
@@ -607,12 +783,22 @@ async function init() {
     $("#btn-play").addEventListener("click", togglePlay);
     $("#btn-preview").addEventListener("click", preview);
     $("#btn-director").addEventListener("click", backToDirector);
+    $("#btn-undo").addEventListener("click", undo);
+    $("#btn-redo").addEventListener("click", redo);
+    $("#btn-save").addEventListener("click", saveIdentity);
+    $("#btn-summary").addEventListener("click", () => toggleSummary());
+    $("#summary-close").addEventListener("click", () => toggleSummary(false));
+    $("#summary-copy").addEventListener("click", () => navigator.clipboard.writeText($("#summary-md").textContent).then(() => setStatus("resumen copiado")));
+    syncUndoButtons();
     const sc = $("#scrub");
     sc.addEventListener("input", () => { S.scrubbing = true; seek((sc.value / 1000) * S.story.duration); });
     sc.addEventListener("change", () => { S.scrubbing = false; });
     document.addEventListener("keydown", (e) => {
       if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
       if (e.code === "Space") { e.preventDefault(); togglePlay(); }
+      const mod = e.ctrlKey || e.metaKey;
+      if (mod && e.key.toLowerCase() === "z" && !e.shiftKey) { e.preventDefault(); undo(); }
+      else if (mod && (e.key.toLowerCase() === "y" || (e.key.toLowerCase() === "z" && e.shiftKey))) { e.preventDefault(); redo(); }
     });
     await preview();
     requestAnimationFrame(loop);
