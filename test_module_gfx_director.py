@@ -351,5 +351,45 @@ def test_cache_de_version_anterior_se_re_llama(monkeypatch, tmp_path):
     assert calls and json.loads((tmp_path / "gfx_plan_ch02.json").read_text(encoding="utf-8"))["director"] == gd.DIRECTOR_VERSION
 
 
+def _res(monkeypatch, plan, fsrc=None):
+    monkeypatch.setattr(gd, "active_moods", lambda: {})
+    log: list[str] = []
+    ctx = {**CTX, "fact_source": fsrc or {}, "eligible": None}
+    return gd.resolve_plan(plan, ctx=ctx, words=WORDS, scenes=SCENES, log=log), log
+
+
+def test_recorte_con_fuente_gana_al_callout(monkeypatch):
+    """Pre-merge: fact con fuente + año → el recorte se ubica antes que los callouts (gana el solape)."""
+    plan = {"callouts": [{"fact_idx": 1, "text": "4.6 metros", "trigger_word_idx": 14, "kind": "figure"}],
+            "archive_clippings": [{"fact_idx": 2, "scene_idx": 1, "kicker": "Human Rights Watch, 2005"}]}
+    res, log = _res(monkeypatch, plan, {2: "Human Rights Watch, 2005"})
+    assert [a["fact_idx"] for a in res["archive_clippings"]] == [2]
+    assert all(c["text"] != "4.6 metros" for c in res["callouts"]) and any("callout omitido" in m for m in log)
+
+
+def test_cap_sin_recortes_convierte_el_mejor_callout(monkeypatch):
+    """Sin fuente, el callout gana el solape y el recorte se cae → el cap queda sin recortes → se convierte el callout."""
+    plan = {"callouts": [{"fact_idx": 1, "text": "4.6 metros", "trigger_word_idx": 14, "kind": "figure"}],
+            "archive_clippings": [{"fact_idx": 2, "scene_idx": 1, "kicker": ""}]}
+    res, log = _res(monkeypatch, plan)
+    ar = res["archive_clippings"]
+    assert len(ar) == 1 and ar[0]["fact_idx"] == 1 and ar[0]["start"] == 14.0
+    assert ar[0]["headline"] == "partes de Nueva Orleans quedaron bajo 15 pies"
+    assert all(c["text"] != "4.6 metros" for c in res["callouts"]) and any("convertido en recorte" in m for m in log)
+
+
+def test_solape_con_contador_cambia_de_lado(monkeypatch):
+    """El contador va arriba a la izquierda: el recorte que solo choca con él pasa a la derecha (no se descarta)."""
+    scenes = [GfxScene(0, 0.0, 8.0, "R3", "AGOSTO 2005"), GfxScene(1, 8.0, 20.0, "R2", ""),
+              GfxScene(2, 20.0, 40.0, "R3", "", "left")]
+    plan = {"count_up": {"fact_idx": 2, "value": "6,500", "unit": "personas", "trigger_word_idx": 18},
+            "archive_clippings": [{"fact_idx": 0, "scene_idx": 2, "kicker": "2005"}]}
+    monkeypatch.setattr(gd, "active_moods", lambda: {})
+    log: list[str] = []
+    res = gd.resolve_plan(plan, ctx={**CTX, "fact_source": {}, "eligible": None}, words=WORDS, scenes=scenes, log=log)
+    assert res["count_up"] and res["archive_clippings"][0]["side"] == "right"
+    assert any("solape con el contador" in m for m in log)
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))

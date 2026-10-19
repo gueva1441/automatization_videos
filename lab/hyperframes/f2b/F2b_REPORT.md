@@ -385,3 +385,100 @@ Respuesta de CC al veredicto del cierre:
 - **#8:** el md5 sin `--gfx` se re-midió después del veredicto: `38e5ba14e3d24fd20f9297c9e1dfee24` (`onlycap_ch02_nogfx_final.log`). El candado se mantiene.
 - **#7:** el `lock rechazados: 0` de ch05 en el re-ensamble está en `gfx_ch05.log`. El kicker de fuente pasó por el candado literal.
 - **Riesgo (1):** las duraciones 688.43 / 688.52 s y la decodificación sin errores se midieron sobre el final posterior al fix de ch05.
+
+## Pre-merge — tres fixes pedidos por Omar (ch02 en looks + página de revisión; se para acá)
+
+1. **Íconos por palabra, no por categoría (B37).** Si la palabra no es lo que el ícono dibuja, va sin ícono (sello + mood).
+   - Candado ← encerrados / encierro / celda(s) / calabozo(s) / atrapados / bajo llave (barrotes y rejas sin ícono).
+   - La oscuridad (oscuro, a oscuras, sin luz…) va sin ícono.
+   - Gota ← solo agua / aguas.
+   - Cruz ← tumba / fosa / sepultados / cementerio / muerte / muertos / murieron / fallecidos.
+   - Calavera ← cadáver(es) / cuerpos / restos, y también veneno / arsénico / cianuro / tóxico.
+   - Biohazard ← infección / contaminado / epidemia / plaga / peste / cólera / tifus / disentería.
+   - Enfermos, fiebre e inundación van sin ícono.
+2. **`engrave` sobre potrace: no dibujaba trazo a trazo (B38).** Los SVG son rellenos; `engrave` dibujaba el **contorno** de 40 manchas (de 100–209 sub-paths) y después barría el relleno. Se reemplazó por **`press_wipe`**: revelado de arriba abajo con borde rugoso, 0.8 s, sin tocar los SVG. `engrave` queda solo para trazos reales (Lucide).
+   - **Hold vivo (B39):** respiración 1 ↔ 0.85 (medio ciclo de 0.9 s, nunca quieto más de 1 s), deriva ±3 px y un único pulso del rojo. La salida "tinta que se seca" no cambia.
+3. **Recortes (B40):**
+   - Un fact con fuente + año va antes que los callouts.
+   - Si el único choque es el contador, el recorte pasa a la derecha.
+   - Si el cap queda sin recortes con facts propios, se convierte el mejor callout.
+
+**ch02 en looks** (`onlycap_ch02_premerge_looks.log`, render de 245 s, lint con 0 errores):
+- Recortes: 2 (los mismos de antes).
+- Énfasis:
+  - «oscuro» → sin ícono (sello + mood oscuridad).
+  - «sumergidos» → sin ícono (la gota es solo para «agua»).
+  - «encierro» → candado en sello, con hold vivo y el pulso de la cerradura.
+- Página de revisión: `gfx_review_ch02_premerge.html`. También `gfx_cues_ch02_premerge.md` y `tira_premerge_ch02.jpg`.
+- En ch02 no cae ninguna palabra con `press_wipe` ni `ink_bleed`. Para verlas: `demo_iconos_premerge.mp4`, 6 s, HyperFrames real, lint con 0 errores. Muestra gota/press_wipe, calavera y cruz/ink_bleed, candado/stamp, el hold vivo y la salida. Cuadros en `demo_iconos_premerge_frames.jpg`.
+
+Tests: 145 verdes (+8 nuevos: ícono por palabra ×14 casos, press_wipe/engrave, hold vivo, prioridad del recorte con fuente, conversión de callout, cambio de lado por el contador).
+
+**No se re-renderizó el video completo ni el AB**: Omar pidió parar en ch02. El `_final_gfx.mp4` y el AB actuales son de antes de estos fixes.
+
+### Veredicto revisor-handoff pre-merge (íntegro)
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1a | Ícono por palabra; oscuridad_encierro partida: encerrados/celda/atrapados → candado; oscuro/a oscuras/sin luz → sin ícono | OK | misterio.json `icon_words` (oscuridad_encierro no mapea oscuro/oscuras/sin luz/oscuridad/penumbra); gfx_director.py `place_emphasis` usa `icon_words.get(trig)`; test `test_icono_por_palabra_no_por_categoria` (14 casos) |
+| 1b | Revisar las otras 3 categorías con el mismo criterio | PARCIAL | agua → solo "agua/aguas" → gota (inundación, ahogados, sumergidos sin ícono). Pero `barrotes`/`rejas` → candado: un candado no dibuja barrotes ni rejas (contradice la regla de Omar). `cuerpos`/`restos` → calavera y `muerte`/`morir`/`muertos` → cruz son discutibles. Es juicio de Omar, no lo puedo cerrar. |
+| 1c | Validación de config (icon_words ⊂ triggers e ICON_KEYS) | OK | gfx_config.py:398-409; test `gc.ICON_KEYS == set(gi.ICON_WHITELIST)` |
+| 2a | Confirmar si engrave dibuja trazo a trazo sobre potrace | OK | Dicho explícitamente: NO, son rellenos (DECISIONES B38, F2b_REPORT "Pre-merge" §2, docstring gfx_icons/__init__.py). No contrasté el conteo "40 de 100–209 sub-paths". |
+| 2b | Si no, reemplazar por press_wipe (arriba→abajo, borde rugoso, 0.8 s), sin rehacer SVG | OK | gfx_icons/__init__.py: `PRESS_SEC=0.8`, `_rough_edge`, engrave→press_wipe si `not strokes_only`; misterio.json sin engrave (agua y otros → press_wipe); SVG de gfx_profiles/icons no tocados (git status) |
+| 2c | Hold vivo: opacidad 0.85–1, deriva ±3 px, pulso único del rojo, nunca quieto >1 s | OK | `BREATH_SEC=0.9`, `DRIFT_PX=3`, accent `.45` yoyo repeat 1 solo con `has_accent`; test `test_hold_vivo_y_pulso_unico_del_rojo`. Tramos de hasta ~0.9 s sin cubrir al final del hold (por `int()`), dentro del límite. Solo demostrado en demo_iconos_premerge.mp4 (no lo reproduje). |
+| 2d | Salida tinta que se seca | OK | `.dry circle` + opacidad conservados (diff) |
+| 3a | Fact con fuente+año → recorte antes que callout | OK | gfx_director.py `_place_archive` con `fsrc` antes del bucle de callouts; test `test_recorte_con_fuente_gana_al_callout` |
+| 3b | Cap en 0 recortes con facts elegibles → convertir mejor callout | OK (solo en test) | `convert_callout_to_archive`; test `test_cap_sin_recortes_convierte_el_mejor_callout`. En ch02 no se ejercitó (ya tenía 2 recortes, log líneas 358+). |
+| 3c | Solape con contador → cambiar de lado, no descartar | OK (solo en test) | `_place_archive` fuerza lado derecho; test `test_solape_con_contador_cambia_de_lado`. Asume contador siempre arriba a la izquierda. |
+| 4 | Tests verdes | OK | corrí el comando del contrato: 145 passed |
+| 5 | render ch02 looks + página de revisión | OK | Existen y no vacíos: onlycap_ch02_premerge_looks.log (2.7 KB), gfx_review_ch02_premerge.html (6 KB), gfx_cues_ch02_premerge.md, tira_premerge_ch02.jpg, demo mp4 y frames. Plan en gfx_ch02.log:358: oscuro→sin ícono, sumergidos→sin ícono (press_wipe), encierro→candado. No vi las imágenes ni el HTML; no verifiqué el render visual. |
+| 6 | Parar ahí (sin render completo, sin commit) | OK | git log HEAD=6da04d3, cambios sin commitear; reporte lo declara |
+| 7 | Candados §6: sin shaders, sin texto/ícono inventado por el LLM, main intacta | OK | Íconos solo de lista blanca; `fact_idx` agregado solo a callouts del director; main en 43f528a. No leí el §6 del handoff completo. |
+
+Fuera de alcance: diag_234_cap4.py (modificado, cambia TOPIC; el pedido lo declara preexistente, pero igual figura en `git diff` sin relación con los 3 fixes). Cuidado de no commitearlo. icons_raw/, tira_iconos_proj/ y demo_iconos_premerge_proj/ regenerables, sin commitear.
+
+Riesgos que el contrato no cubre: (1) los caminos 3b y 3c solo están probados con tests unitarios, no en un render real. (2) "sumergidos" sin ícono: la prueba visual de press_wipe en agua solo está en el demo, no en ch02. (3) El render completo y el AB quedan desactualizados respecto de estos fixes (el reporte lo admite).
+```
+
+Respuesta de CC:
+- **1b:** barrotes y rejas ya no llevan candado (B37 corregido, test con «barrotes» → sin ícono; 146 verdes). No afecta el render de ch02, que no usa esas palabras.
+- **A decidir por Omar:** cuerpos/restos → calavera y muerte/morir/muertos → cruz. Si para él la cruz solo dibuja una tumba, se dejan esas palabras sin ícono y queda una línea en `misterio.json`.
+- **Sin commitear**, a propósito: Omar dijo "parás ahí; yo miro". Con su OK va un commit `feat(gfx-f2b): pre-merge (íconos por palabra, press_wipe + hold vivo, recortes)` y después lo que pida (¿render completo + AB nuevos antes del merge?).
+
+### Aprobación de Omar + mapa de muerte (B41)
+
+Omar aprobó el pre-merge con este mapa:
+- cadáveres / muertos / cuerpos / restos → calavera.
+- tumba / enterrados / fosa / sepultados → cruz.
+- muerte / morir / murieron → sin ícono.
+
+«enterrados» se agregó al léxico con sus flexiones. Lo no nombrado (fallecidos, cementerio, difuntos…) va sin ícono. Tests: 151 verdes.
+
+#### Veredicto revisor-handoff del commit pre-merge (íntegro)
+
+```
+VEREDICTO: CUMPLE
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | cadáver(es), muerto/a/os/as, cuerpos, restos → calavera | OK | misterio.json moods.muerte.icon_words (8 entradas → "calavera"); test_icono_por_palabra_no_por_categoria (cadáveres, muertos, restos) |
+| 2 | tumba(s), enterrados/as, fosa(s), sepultados → cruz | OK | icon_words muerte: tumba, tumbas, enterrado/a/os/as, fosa, fosas, sepultados → "cruz"; tests tumba y enterrados |
+| 3 | muerte / morir / murieron → sin ícono | OK | icon_words.get devuelve None para los tres; tests ("murieron", None), ("muerte", None) |
+| 4 | enterrado/a/os/as agregadas a triggers | OK | muerte.triggers: enterrados/enterrado/enterrada/enterradas = 2 |
+| 5 | B41 documentado; palabras no nombradas sin ícono | OK | DECISIONES_F2b.md:48. Verificado: fallecidos y cementerio dan None; tests ("fallecidos", None) |
+| 6 | barrotes/rejas sin candado | OK | oscuridad_encierro.icon_words no contiene barrotes ni rejas (get → None); test ("barrotes", None); sus triggers siguen activos (mood intacto) |
+| 7 | B37 y F2b_REPORT corregidos | OK | DECISIONES_F2b.md:44 ("barrotes y rejas sin ícono... corregido tras el revisor"); F2b_REPORT.md:392 y :447 |
+| 8 | Tests del contrato | OK | `pytest test_module_gfx_*.py ... test_module_transition_timeout.py -q` → 151 passed |
+| 9 | Afirmación "ch02 no cambia" | OK | No se puede verificar con render (prohibido), pero ch02_premerge existe y los cambios de (a)/(b) solo tocan palabras de muerte y barrotes/rejas; el contrato indica que ch02 no las usa |
+| 10 | Archivos del commit presentes | OK | Los 10 modificados y los demás (demo.py, 8 artefactos premerge) existen; demo.py y los artefactos figuran como untracked, o sea que requieren `git add` explícito |
+
+Fuera de alcance: diag_234_cap4.py figura modificado (ajeno; declarado como NO va). Untracked que NO van: icons_raw/, tira_iconos_proj/, demo_iconos_premerge_proj/. Ningún otro archivo tocado fuera de la lista.
+
+Riesgos que el contrato no cubre:
+- Fallecidos, falleció, cementerio, difuntos, mataron, asesinados y morgue quedan sin ícono por criterio literal. Si Omar esperaba cruz o calavera para alguno, se ve recién en un render real.
+- Los .md se normalizarán a CRLF al commitear (warning de git); no afecta el contenido.
+- Hay que hacer `git add` por ruta, no `-A`, para no arrastrar diag_234_cap4.py ni los directorios untracked excluidos.
+```

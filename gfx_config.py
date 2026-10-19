@@ -353,6 +353,10 @@ _RULE_FIELDS: frozenset[str] = frozenset(f.name for f in fields(GfxRules))
 _PROFILE_KEYS: frozenset[str] = frozenset({"name", "description", "nichos", "fonts", "tokens", "blocks", "sfx", "moods"})
 # F2b §2: capas de mood que el templater sabe dibujar (CSS, nunca toca píxeles)
 VALID_MOOD_LAYERS: frozenset[str] = frozenset({"veneno", "agua", "muerte", "oscuridad"})
+# claves del set de íconos (= gfx_icons.ICON_WHITELIST; acá sin importar gfx_icons para no crear un ciclo)
+ICON_KEYS: frozenset[str] = frozenset({"calavera", "gota", "llama", "biohazard", "reloj", "candado", "ojo_tachado",
+                                       "balanza", "cruz", "persona", "edificio_ruina", "pregunta"})
+VALID_ICON_ANIMS: frozenset[str] = frozenset({"ink_bleed", "press_wipe", "engrave", "stamp"})
 MIN_TRIGGERS_ACTIVE: int = 25
 _FONT_KEYS: frozenset[str] = frozenset({"subs", "title", "callout", "callout_figure", "clipping"})
 # fuentes que el templater sabe cargar (@font-face en gfx_common.css → script_engine/fonts)
@@ -394,11 +398,15 @@ def load_profile(name: str | None = None) -> dict[str, Any]:
     bad |= {f"sfx.{k}" for k, v in prof.get("sfx", {}).items()
             if k not in VALID_BLOCKS or not (SFX_DIR / str(v.get("file", ""))).exists()}
     for cat, m in (prof.get("moods") or {}).items():
-        extra = set(m) - {"active", "triggers", "layer", "icon", "icon_anim"}
+        extra = set(m) - {"active", "triggers", "layer", "icon_words", "icon_anim"}
         if extra:
             bad.add(f"moods.{cat}: claves {sorted(extra)}")
-        if m.get("icon_anim") not in (None, "ink_bleed", "engrave", "stamp"):
+        if m.get("icon_anim") not in (None, *VALID_ICON_ANIMS):
             bad.add(f"moods.{cat}.icon_anim={m.get('icon_anim')!r}")
+        # pre-merge: ícono POR PALABRA (la palabra tiene que ser lo que el ícono dibuja; si no, no está acá)
+        iw = m.get("icon_words") or {}
+        if any(w not in (m.get("triggers") or {}) or k not in ICON_KEYS for w, k in iw.items()):
+            bad.add(f"moods.{cat}.icon_words (palabra del léxico → clave del set)")
         if m.get("active") and (m.get("layer") not in VALID_MOOD_LAYERS or len(m.get("triggers", {})) < MIN_TRIGGERS_ACTIVE):
             bad.add(f"moods.{cat} (activa: capa válida y ≥ {MIN_TRIGGERS_ACTIVE} disparadores)")
         # PARADA 1 F2b: triggers = {palabra: peso 1–3}

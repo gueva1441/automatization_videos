@@ -35,7 +35,10 @@ def test_lista_blanca_12_y_lucide_local():
     for name in gi.ICON_WHITELIST.values():                      # respaldo local, sin red
         assert (gc.GFX_PROFILES_DIR / "icons" / "lucide" / f"{name}.svg").exists()
     moods = gc.active_moods()
-    assert all(m["icon"] in gi.ICON_WHITELIST and m["icon_anim"] in gi.VALID_ICON_ANIMS for m in moods.values())
+    assert gc.ICON_KEYS == set(gi.ICON_WHITELIST)
+    assert all(set(m["icon_words"].values()) <= set(gi.ICON_WHITELIST) and m["icon_anim"] in gi.VALID_ICON_ANIMS
+               for m in moods.values())
+    assert not any(m["icon_anim"] == "engrave" for m in moods.values())          # potrace = rellenos → press_wipe
 
 
 def test_sin_svg_aprobado_no_hay_icono(approved):
@@ -53,8 +56,24 @@ def test_scoped_svg_y_animaciones_deterministas():
     for anim in ("engrave", "ink_bleed", "stamp"):
         init, js = gi.anim_js("ic0", anim, 2.0, 4.5)
         assert any(".dry circle" in j for j in js) and any("opacity: 0" in j for j in js)   # salida única: tinta que se seca
-    _, js = gi.anim_js("ic0", "engrave", 2.0, 4.5)
-    assert "strokeDashoffset: 0" in js[0] and "inset(0% 0% 0% 0%)" in js[0]                # contorno y luego el rayado
+    # engrave sobre un SVG de RELLENOS (potrace) → press_wipe; engrave real solo con trazos (Lucide)
+    init, js = gi.anim_js("ic0", "engrave", 2.0, 4.5)
+    assert '#ic0 .pw", { y: -12.00' in init[0] and '#ic0 .pw", { y: 240.00, duration: 0.8' in js[0]
+    _, js = gi.anim_js("ic0", "engrave", 2.0, 4.5, k=.12, strokes_only=True)
+    assert "strokeDashoffset: 0" in js[0]
+    assert 'id="ic0-pw"' in a and 'class="pw" transform="translate(0 240.00)"' in a       # arranca abierto
+
+
+def test_hold_vivo_y_pulso_unico_del_rojo():
+    """Entre la entrada y la salida: respiración 0.85–1 (medio ciclo < 1 s), deriva ±3 px, un pulso del rojo."""
+    _, js = gi.anim_js("ic0", "ink_bleed", 2.0, 6.0, has_accent=True)
+    hold = " ".join(js)
+    assert 'opacity: .85, duration: 0.9' in hold and gi.BREATH_SEC < 1.0                   # nunca quieto > 1 s
+    assert "x: 3.0" in hold and "x: -3.0" in hold                                          # deriva ±3 px
+    assert hold.count(".ic-accent") == 1 and "repeat: 1 }" in hold                          # un único pulso del rojo
+    assert hold.index("opacity: .85") < hold.index(".dry circle")                          # después, tinta que se seca
+    _, js2 = gi.anim_js("ic0", "ink_bleed", 2.0, 6.0, has_accent=False)
+    assert ".ic-accent" not in " ".join(js2)
 
 
 def test_trace_saca_paths_reales_sin_texto(tmp_path):

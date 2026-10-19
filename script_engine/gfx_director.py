@@ -620,6 +620,45 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
         else:
             log.append(f"count_up omitido (solape @ {t:.1f}s)")
 
+    # Pre-merge (Omar): (1) recorte de un fact con fuente + año tiene prioridad sobre los callouts; (2) si el
+    # único solape de un recorte es el contador, el recorte cambia de lado (el contador va arriba a la izquierda)
+    # en vez de descartarse; (3) si el cap queda sin recortes con facts elegibles, se convierte el mejor callout.
+    cu_iv = busy[-1] if out.get("count_up") else None
+    fsrc = ctx.get("fact_source") or {}
+
+    def _place_archive(fi: int, si: int, kicker: str, a: float | None = None, why: str = "") -> bool:
+        sc = scenes[si]
+        a = sc.start + 0.5 if a is None else a
+        b = min(a + gfx_rules.archive_dur, dur - 0.3)          # F2 §0b.6: 6 s en pantalla
+        if out.get("chapter_question"):                        # no pisa la pregunta de cierre
+            b = min(b, out["chapter_question"]["start"] - 0.2)
+        if b - a < gfx_rules.archive_min_sec:
+            log.append(f"archive omitido (no entran {gfx_rules.archive_min_sec}s antes del fin del cap)")
+            return False
+        hits = [iv for iv in busy if not (b <= iv[0] or a >= iv[1])]
+        side = getattr(sc, "quiet_side", "right")              # lado opuesto al sujeto
+        if hits and all(iv is cu_iv for iv in hits):
+            side = "right"                                     # el contador está arriba a la izquierda
+            log.append(f"archive: solape con el contador → lado derecho (fact {fi})")
+        elif hits:
+            log.append(f"archive omitido (solape con otro bloque){why}")
+            return False
+        busy.append((a, b))
+        fact = facts[fi]
+        head = build_headline(fact)
+        head, body = headline_vs_body(head, archive_body(head, fact), kicker, fact, log)
+        out["archive_clippings"].append({
+            "kicker": kicker, "headline": head, "body": body, "scene_idx": si, "fact_idx": fi,
+            "era_decade": _era_decade(fact), "start": round(a, 3), "duration": round(b - a, 3), "side": side})
+        return True
+
+    arcs = plan.get("archive_clippings")
+    if arcs is None:                       # compat plan validado F1
+        arcs = [plan["archive_clipping"]] if plan.get("archive_clipping") else []
+    for ar in arcs:                        # (1) primero los de fuente + año
+        if ar["fact_idx"] in fsrc:
+            _place_archive(ar["fact_idx"], ar["scene_idx"], ar["kicker"], why=" [con fuente]")
+
     for c in sorted(plan.get("callouts", []), key=lambda c: c["trigger_word_idx"]):
         t = t_of(c["trigger_word_idx"])
         sc = scene_at(scenes, t)
@@ -637,30 +676,12 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
         if out["callouts"] and out["callouts"][-1]["side"] == side:
             side = "left" if side == "right" else "right"
         out["callouts"].append({"text": c["text"], "start": round(t, 3), "kind": c["kind"],
-                                "duration": round(cdur, 3), "side": side,
-                                "source": (ctx.get("fact_source") or {}).get(c["fact_idx"], "")})
+                                "duration": round(cdur, 3), "side": side, "fact_idx": c["fact_idx"],
+                                "source": fsrc.get(c["fact_idx"], "")})
 
-    arcs = plan.get("archive_clippings")
-    if arcs is None:                       # compat plan validado F1
-        arcs = [plan["archive_clipping"]] if plan.get("archive_clipping") else []
-    for ar in arcs:
-        sc = scenes[ar["scene_idx"]]
-        a = sc.start + 0.5
-        b = min(a + gfx_rules.archive_dur, dur - 0.3)          # F2 §0b.6: 6 s en pantalla
-        if out.get("chapter_question"):                        # no pisa la pregunta de cierre
-            b = min(b, out["chapter_question"]["start"] - 0.2)
-        if b - a < gfx_rules.archive_min_sec:
-            log.append(f"archive omitido (no entran {gfx_rules.archive_min_sec}s antes del fin del cap)")
-        elif _free(a, b):
-            busy.append((a, b))
-            fact = facts[ar["fact_idx"]]
-            head, body = headline_vs_body(ar["headline"], archive_body(ar["headline"], fact), ar["kicker"], fact, log)
-            out["archive_clippings"].append({
-                "kicker": ar["kicker"], "headline": head, "body": body, "scene_idx": ar["scene_idx"],
-                "era_decade": _era_decade(fact), "start": round(a, 3), "duration": round(b - a, 3),
-                "side": getattr(sc, "quiet_side", "right")})       # lado opuesto al sujeto
-        else:
-            log.append("archive omitido (solape con otro bloque)")
+    for ar in arcs:                        # después, el resto
+        if ar["fact_idx"] not in fsrc:
+            _place_archive(ar["fact_idx"], ar["scene_idx"], ar["kicker"])
 
     ez = plan.get("evidence_zoom")
     if ez:
@@ -692,6 +713,8 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
     # F2 §1: hueco > interrupt_max_sec → el VALIDADOR rellena (callout con fact elegible dicho en el
     # tramo; si no hay, punch_in en la palabra de más énfasis). gap_warning queda como MÉTRICA.
     fill_gaps(out, busy, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
+    if not out["archive_clippings"] and gfx_rules.archive_max_per_cap > 0:
+        convert_callout_to_archive(out, busy, _place_archive, ctx=ctx, scenes=scenes, log=log)
     mark_icon_callouts(out, log)                             # F2b §3: hasta 3 énfasis llevan su ícono
     gaps = find_gaps(out, busy, dur)
     for g in gaps:
@@ -854,18 +877,18 @@ def word_freq(text: str) -> dict[str, int]:
     return freq
 
 
-def emphasis_candidates(words: list[dict], moods: dict[str, dict[str, Any]]) -> list[tuple[int, int, str, int]]:
-    """(índice de palabra, cantidad de palabras, categoría, peso 1–3) por cada disparador del léxico dicho por la voz.
+def emphasis_candidates(words: list[dict], moods: dict[str, dict[str, Any]]) -> list[tuple[int, int, str, int, str]]:
+    """(índice, cantidad de palabras, categoría, peso 1–3, disparador) por cada palabra del léxico dicha por la voz.
     Match exacto de tokens (las flexiones están listadas en el léxico); frases ("sin luz") antes que palabras."""
     toks = [_tok(w.get("word", "")) for w in words]
-    trig = sorted(((cat, tuple(_tok(x) for x in t.split()), int(wt)) for cat, m in moods.items()
+    trig = sorted(((cat, tuple(_tok(x) for x in t.split()), int(wt), t) for cat, m in moods.items()
                    for t, wt in (m.get("triggers") or {}).items()), key=lambda ct: -len(ct[1]))
-    out: list[tuple[int, int, str, int]] = []
+    out: list[tuple[int, int, str, int, str]] = []
     i = 0
     while i < len(toks):
-        hit = next(((cat, tt, wt) for cat, tt, wt in trig if tt and tuple(toks[i:i + len(tt)]) == tt), None)
+        hit = next(((cat, tt, wt, t) for cat, tt, wt, t in trig if tt and tuple(toks[i:i + len(tt)]) == tt), None)
         if hit:
-            out.append((i, len(hit[1]), hit[0], hit[2]))
+            out.append((i, len(hit[1]), hit[0], hit[2], hit[3]))
             i += len(hit[1])
         else:
             i += 1
@@ -894,12 +917,12 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
     freq = word_freq(ctx.get("narration_all") or " ".join(str(w.get("word", "")) for w in words))
     sids = _sentence_ids(words)
     cands = []
-    for i, n, cat, wt in emphasis_candidates(words, moods):
+    for i, n, cat, wt, trig in emphasis_candidates(words, moods):
         rarity = min(freq.get(_tok(w.get("word", "")), 1) for w in words[i:i + n])
-        cands.append((-wt, rarity, float(words[i]["start"]) + time_offset, i, n, cat))
+        cands.append((-wt, rarity, float(words[i]["start"]) + time_offset, i, n, cat, trig))
     used_sids = {e["sid"] for e in out["emphasis"]}
     added = 0
-    for neg_wt, rarity, t, i, n, cat in sorted(cands):
+    for neg_wt, rarity, t, i, n, cat, trig in sorted(cands):
         if added >= limit or len(out["emphasis"]) >= max_per_cap("keyword_emphasis"):
             break
         if window and not (window[0] + 1.0 < t < window[1] - 1.0):
@@ -913,7 +936,9 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
         word = re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "", word)
         sc = scene_at(scenes, t)
         out["emphasis"].append({"word": word, "category": cat, "layer": moods[cat]["layer"],
-                                "icon": moods[cat].get("icon"), "icon_anim": moods[cat].get("icon_anim") or "stamp",
+                                # pre-merge: ícono POR PALABRA (si la palabra no es lo que el ícono dibuja → None)
+                                "icon": (moods[cat].get("icon_words") or {}).get(trig),
+                                "icon_anim": moods[cat].get("icon_anim") or "stamp",
                                 "start": round(t, 3),
                                 "duration": round(gfx_rules.mood_dur, 3), "side": getattr(sc, "quiet_side", "right"),
                                 "stamp": gfx_rules.emphasis_stamp, "sid": sids[i], "rarity": rarity,
@@ -930,6 +955,37 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
 def emphasis_without_icon(plan: dict[str, Any]) -> list[str]:
     """Palabras de énfasis que salieron sin ícono (entran al vigilante mensual, F2b §3)."""
     return [e["word"] for e in plan.get("emphasis", []) or [] if not e.get("icon_callout")]
+
+
+def convert_callout_to_archive(out: dict[str, Any], busy: list[tuple[float, float]], place: Any, *,
+                               ctx: dict[str, Any], scenes: list[Any], log: list[str]) -> bool:
+    """Pre-merge (Omar): cap sin recortes con facts elegibles → el MEJOR callout se convierte en recorte en su
+    mismo instante. Mejor = fact con fuente, después titular más largo (≤ 8 palabras). Solo facts propios del cap
+    (los foráneos valen solo para data_callout). El recorte reemplaza al callout (se libera su intervalo)."""
+    from script_engine.gfx_project import scene_at
+    facts, elig, fsrc = ctx["facts"], ctx.get("eligible"), ctx.get("fact_source") or {}
+    cands = []
+    for c in out["callouts"]:
+        fi = c.get("fact_idx")
+        if fi is None or (elig is not None and (fi not in elig or elig[fi])):
+            continue
+        head = build_headline(facts[fi])
+        if head:
+            cands.append((fi not in fsrc, -len(head.split()), c["start"], fi, c))
+    for _, _, t, fi, c in sorted(cands, key=lambda x: x[:3]):
+        iv = next((x for x in busy if abs(x[0] - c["start"]) < 1e-3), None)
+        if iv is not None:
+            busy.remove(iv)
+        kicker = build_kicker(facts[fi], fsrc.get(fi, ""), build_headline(facts[fi]))
+        if place(fi, scene_at(scenes, t).idx, kicker, a=t, why=" [conversión de callout]"):
+            out["callouts"].remove(c)
+            log.append(f"archive: callout {c['text']!r} convertido en recorte (fact {fi}, cap sin recortes)")
+            return True
+        if iv is not None:
+            busy.append(iv)
+    if cands:
+        log.append("archive: cap sin recortes y ningún callout convertible entra sin solape")
+    return False
 
 
 def mark_icon_callouts(out: dict[str, Any], log: list[str] | None = None) -> None:
@@ -1030,7 +1086,7 @@ def fill_gaps(out: dict[str, Any], busy: list[tuple[float, float]], *, ctx: dict
                 if prev and prev[-1]["side"] == side:
                     side = "left" if side == "right" else "right"
                 out["callouts"].append({"text": text, "start": round(t, 3), "kind": kind, "duration": round(cdur, 3),
-                                        "side": side, "gap_fill": True,
+                                        "side": side, "gap_fill": True, "fact_idx": fi,
                                         "source": (ctx.get("fact_source") or {}).get(fi, "")})
                 out["callouts"].sort(key=lambda c: c["start"])
                 busy.append((t, t + cdur))

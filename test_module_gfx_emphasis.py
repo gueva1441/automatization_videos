@@ -41,8 +41,22 @@ def test_perfil_rechaza_mood_activo_flaco(tmp_path, monkeypatch):
 def test_candidatos_frases_y_flexiones():
     w = _words("Quedaron atrapados sin luz entre cadáveres y agua contaminada.")
     c = gd.emphasis_candidates(w, gc.active_moods())
-    assert c == [(1, 1, "oscuridad_encierro", 3), (2, 2, "oscuridad_encierro", 3),
-                 (5, 1, "muerte", 3), (7, 1, "agua", 1), (8, 1, "veneno_enfermedad", 2)]
+    assert c == [(1, 1, "oscuridad_encierro", 3, "atrapados"), (2, 2, "oscuridad_encierro", 3, "sin luz"),
+                 (5, 1, "muerte", 3, "cadáveres"), (7, 1, "agua", 1, "agua"),
+                 (8, 1, "veneno_enfermedad", 2, "contaminada")]
+
+
+@pytest.mark.parametrize("word,icon", [
+    ("cadáveres", "calavera"), ("muertos", "calavera"), ("restos", "calavera"), ("tumba", "cruz"),
+    ("enterrados", "cruz"), ("murieron", None), ("muerte", None), ("fallecidos", None), ("celda", "candado"), ("atrapados", "candado"),
+    ("encerrados", "candado"), ("barrotes", None), ("oscuridad", None), ("oscuro", None), ("agua", "gota"), ("inundación", None),
+    ("ahogados", None), ("arsénico", "calavera"), ("infección", "biohazard"), ("enfermos", None)])
+def test_icono_por_palabra_no_por_categoria(word, icon):
+    """Pre-merge (Omar): si la palabra no es lo que el ícono dibuja, sin ícono (solo sello + mood)."""
+    out = {"emphasis": [], "callouts": [], "punch_in": []}
+    gd.place_emphasis(out, [], words=_words(f"Hablaban de {word} ahí."), scenes=[GfxScene(0, 0.0, 30.0)],
+                      ctx={**CTX, "narration_all": word}, time_offset=0.0, limit=1)
+    assert out["emphasis"] and out["emphasis"][0]["icon"] == icon
 
 
 def test_peso_gana_a_la_rareza():

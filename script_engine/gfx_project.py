@@ -204,7 +204,8 @@ def icon_callout_html(i: int, e: dict[str, Any], st: float, duration: float) -> 
     html_ = (f'      <div id="icc{i}" class="clip" data-start="{st:.3f}" data-duration="{d:.3f}" '
              f'style="position:absolute;top:30%;{side};z-index:6;text-align:center">'
              f'{scoped_svg(svg, uid, gfx_rules.icon_px)}<br/>{word}</div>')
-    init, js = anim_js(uid, e.get("icon_anim") or "stamp", st, st + d, k=k, strokes_only="lucide-ink" in svg)
+    init, js = anim_js(uid, e.get("icon_anim") or "stamp", st, st + d, k=k, strokes_only="lucide-ink" in svg,
+                       has_accent='class="ic-accent"' in svg)
     if word:
         a_init, a_js = _anim_in_js(f"#icc{i} .em-text", "stamp", st + .35)
         init += a_init
