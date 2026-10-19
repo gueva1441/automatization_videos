@@ -672,3 +672,22 @@ def build_hook_clip(
         f"→ {output_path.name}",
     )
     return output_path
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F2 §4: router anti-deformación — DepthFlow atenuado para riesgo 'mid'
+# ═══════════════════════════════════════════════════════════════
+
+MID_RISK_MAX_INTENSITY: float = 0.85
+
+
+def clamp_for_risk(spec: FlowSpec | None, risk: str) -> FlowSpec | None:
+    """'mid' → intensidad ≤ 0.85 y sin orbital (pasa a horizontal). 'low'/'high' → sin cambio
+    ('high' no se anima con DepthFlow: lo reemplaza el movimiento seguro de la capa gfx)."""
+    if spec is None or risk != "mid":
+        return spec
+    out = dict(spec)
+    out["intensity"] = min(float(out.get("intensity", MID_RISK_MAX_INTENSITY)), MID_RISK_MAX_INTENSITY)
+    if out.get("movement") == "orbital":
+        out["movement"] = "horizontal"
+    return out  # type: ignore[return-value]

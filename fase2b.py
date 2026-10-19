@@ -674,6 +674,7 @@ def _build_flux_visual(
     )
 
     mini_clips: list[Path] = [None] * n  # type: ignore
+    kb_used: list[int] = []      # F2 §4: imágenes que cayeron a Ken Burns (con --gfx las reemplaza el movimiento seguro)
 
     def _process_one(idx: int, img: Path) -> tuple[int, Path, str]:
         """Procesa 1 imagen → mini clip. Devuelve (idx, path, mode_used).
@@ -710,6 +711,12 @@ def _build_flux_visual(
             mini_clips[idx - 1] = mini  # preserva orden
             if mode == "kenburns" and flow_spec is not None:
                 print(f"     ↩  depthflow→kenburns ({images[idx-1].name})")
+            if mode == "kenburns":
+                kb_used.append(idx - 1)
+
+    # F2 §4: registro de imágenes caídas a Ken Burns (lo lee el router de la capa gfx)
+    if kb_used:     # solo si hubo caídas (sin caídas no se escribe nada nuevo)
+        out_path.with_suffix(".kenburns.json").write_text(json.dumps(sorted(kb_used)), encoding="utf-8")
 
     # Concat demuxer
     concat_file = work_dir / "_kb_concat.txt"
@@ -825,6 +832,7 @@ def _build_chapter_segment(
     gfx_debug: bool = False,
     sfx_enabled: bool = False,
     gfx_sparse: bool = False,
+    safe_scenes: dict[int, dict[str, Any]] | None = None,
 ) -> Path:
     """
     Genera UN segmento MP4 completo de un capítulo (visual + audio + subs).
@@ -947,6 +955,7 @@ def _build_chapter_segment(
             width=video_width, height=video_height, fps=fps,
             quality=gfx_quality, reuse=reuse_visuals, time_offset=pre_pad,
             debug=gfx_debug, sparse=gfx_sparse,
+            safe_scenes=_safe_scenes_for(plan, base_clip, safe_scenes),
         )
 
     clip_duration = _get_duration(base_clip)
@@ -2053,6 +2062,56 @@ def _build_plans(
 #  Concatenación final
 # ═══════════════════════════════════════════════════════════════
 
+def _safe_scenes_for(plan: Any, base_clip: Path, routed: dict[int, dict[str, Any]] | None
+                     ) -> dict[int, dict[str, Any]] | None:
+    """F2 §4: escenas con movimiento seguro = riesgo alto del router + imágenes caídas a Ken Burns."""
+    if routed is None:
+        return None
+    out = dict(routed)
+    kb = Path(base_clip).with_suffix(".kenburns.json")
+    if plan.engine == "flux" and kb.exists():
+        try:
+            for i in json.loads(kb.read_text(encoding="utf-8")):
+                if 0 <= i < len(plan.asset_paths) and i not in out:
+                    out[i] = {"image": str(plan.asset_paths[i]), "movement": "push", "risk": "kenburns"}
+        except (OSError, ValueError):
+            pass
+    return out
+
+
+def _route_safe(plans: list[Any], video_id: str, specs_by_cap: dict[str, list[Any]]) -> tuple[dict[str, dict[int, dict[str, Any]]], dict[str, int]]:
+    """F2 §4: riesgo de deformación por imagen (métricas + veredictos YA cacheados por el gate; sin llamadas
+    nuevas). Devuelve ({cap: {idx: safe}}, conteo por clase)."""
+    from script_engine.depth_probe import route_images
+    assets_dir = OUTPUT_DIR / video_id / "assets"
+    def _load(name: str) -> dict:
+        try:
+            return json.loads((assets_dir / name).read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return {}
+    metrics, verdicts = _load("depth_metrics.json"), _load("zoom_verdicts.json")
+    out: dict[str, dict[int, dict[str, Any]]] = {}
+    counts = {"low": 0, "mid": 0, "high": 0}
+    for p in plans:
+        if p.engine != "flux":
+            continue
+        risks = route_images([a.stem for a in p.asset_paths], metrics, verdicts)
+        for i, a in enumerate(p.asset_paths):
+            r = risks[a.stem]
+            counts[r] += 1
+            if r == "high":
+                specs = specs_by_cap.get(p.chapter_id) or []
+                mv = specs[i]["movement"] if i < len(specs) and specs[i] else "zoom_in"
+                out.setdefault(p.chapter_id, {})[i] = {
+                    "image": str(a), "risk": r,
+                    # flow_director ya eligió el movimiento: los que loopean → paneo; el resto → push-in
+                    "movement": "pan" if mv in ("horizontal", "vertical", "orbital") else "push"}
+            elif r == "mid" and p.chapter_id in specs_by_cap and i < len(specs_by_cap[p.chapter_id]):
+                from script_engine.parallax_animator_v2 import clamp_for_risk
+                specs_by_cap[p.chapter_id][i] = clamp_for_risk(specs_by_cap[p.chapter_id][i], r)
+    return out, counts
+
+
 def _segment_hash(plan: Any, work_dir: Path, flags: dict[str, Any]) -> str:
     """F2 §3.4: huella de los INSUMOS de un segmento (no del código). Si no cambió, el segmento se reusa.
 
@@ -2163,6 +2222,7 @@ def _assemble_one_video(
     sfx: bool = True,
     gfx_sparse: bool = False,
     reassemble: bool = False,
+    safe_router: bool = True,
 ) -> tuple[int, Path | None]:
     """
     Ensambla un único video. Retorna (returncode, final_path | None).
@@ -2306,10 +2366,15 @@ def _assemble_one_video(
         except (OSError, ValueError):
             manifest = {}
     seg_flags = {"gfx": gfx, "quality": gfx_quality, "debug": gfx_debug, "sfx": gfx and sfx,
-                 "sparse": gfx and gfx_sparse, "hook": hook, "no_subs": no_subs}
+                 "sparse": gfx and gfx_sparse, "hook": hook, "no_subs": no_subs, "safe_router": gfx and safe_router}
     reused_caps: list[str] = []
 
     segments: list[Path] = []
+    safe_by_cap: dict[str, dict[int, dict[str, Any]]] = {}
+    if gfx and safe_router:
+        safe_by_cap, risk_counts = _route_safe(plans, video_id, per_image_by_cap)
+        print(f"  🛡  safe-router: riesgo low={risk_counts['low']} mid={risk_counts['mid']} high={risk_counts['high']} "
+              f"→ movimiento seguro en {sum(len(v) for v in safe_by_cap.values())} imagen(es)")
     if gfx:
         # F1b: director de gráficos de los caps en paralelo antes del loop (cache por cap)
         from script_engine.gfx_layer import prefetch_plans
@@ -2356,6 +2421,7 @@ def _assemble_one_video(
                 per_image_specs=cap_pis,
                 gfx_enabled=gfx, gfx_quality=gfx_quality, video_id=video_id, sfx_enabled=gfx and sfx,
                 gfx_sparse=gfx and gfx_sparse,
+                safe_scenes=safe_by_cap.get(plan.chapter_id, {}) if gfx and safe_router else None,
                 gfx_debug=gfx_debug,
             )
         except Exception as e:
@@ -2528,6 +2594,8 @@ def main() -> int:
                         help="F2 §3.4: reusa los seg_NN_chXX.mp4 cuyos insumos no cambiaron (huella en "
                              "_fase2b_work/segments_manifest.json); re-hace solo los caps cambiados + concat + música. "
                              "Implica --keep-segments.")
+    parser.add_argument("--no-safe-router", action="store_true",
+                        help="Con --gfx: NO aplica el router anti-deformación (F2 §4; default: activo con --gfx).")
     parser.add_argument("--gfx-sparse", action="store_true",
                         help="Con --gfx: render disperso (HyperFrames solo en ventanas con eventos + grade FFmpeg). "
                              "Se ignora con --gfx-debug (el overlay necesita el timeline completo).")
@@ -2598,6 +2666,7 @@ def main() -> int:
             sfx=not args.no_sfx,
             gfx_sparse=args.gfx_sparse,
             reassemble=args.reassemble_from_segments,
+            safe_router=not args.no_safe_router,
         )
 
         if rc == 0 and final_path is not None and not args.dry_run:

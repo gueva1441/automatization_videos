@@ -45,6 +45,7 @@ class GfxScene:
     rank: str = "R3"         # emotional_rank del plano (decide la transición de ENTRADA)
     text_in_image: str = ""  # texto que ya muestra la imagen (regla de omisión de callouts)
     quiet_side: str = "right"  # lado con menos detalle (gráficos van ahí; el sujeto queda del otro lado)
+    safe: dict | None = None   # F2 §4: {"image": png, "movement": push|pan, "risk"} → movimiento seguro HF
 
     @property
     def duration(self) -> float:
@@ -188,9 +189,29 @@ def plan_transitions(scenes: list[GfxScene], zoom_scene_idx: int | None = None) 
     return out
 
 
+def _freeze_img(prev: GfxScene | None, s: GfxScene, tag: str, project: Path, base: Path,
+                width: int, fps: int) -> tuple[str, str] | None:
+    """(src, style) del freeze del plano SALIENTE. Si el saliente tuvo movimiento seguro (F2 §4), el freeze
+    es SU imagen fija en el estado final de la animación (no el clip DepthFlow que quedó tapado)."""
+    if prev is not None and prev.safe and Path(prev.safe["image"]).exists():
+        src = Path(prev.safe["image"])
+        dst = project / "public" / "cuts" / f"freeze_{tag}{src.suffix}"
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dst)
+        if prev.safe.get("movement") == "pan":
+            style = f"transform: translateX({gfx_rules.safe_pan_frac * width / 2:.1f}px) scale(1.04)"
+        else:
+            style = f"transform: scale({gfx_rules.safe_push_scale})"
+        return f"public/cuts/{dst.name}", style
+    freeze = project / "public" / "cuts" / f"freeze_{tag}.jpg"
+    if _extract_freeze(base, s.start - 1.5 / fps, freeze):
+        return f"public/cuts/{freeze.name}", ""
+    return None
+
+
 def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
                 base: Path, width: int, height: int, fps: int,
-                transitions: dict[int, dict[str, Any]] | None = None) -> str:
+                transitions: dict[int, dict[str, Any]] | None = None, prev: GfxScene | None = None) -> str:
     """Una sub-composición por imagen."""
     inner, outer, init, js = [], [], [], []
     tag = f"{n:02d}"
@@ -209,10 +230,10 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
                       f'.to("#fl{tag}", {{ opacity: 0, duration: {2 * d / 3:.3f}, ease: "power1.in" }}, {d / 3:.3f});')
         elif tr["kind"] == "dip":
             # dip-to-black: el saliente (freeze) baja a negro y el entrante sube desde negro
-            freeze = project / "public" / "cuts" / f"freeze_{tag}.jpg"
-            if _extract_freeze(base, s.start - 1.5 / fps, freeze):
-                outer.append(f'    <img id="fz{tag}" class="media clip" src="public/cuts/{freeze.name}" data-start="0" '
-                             f'data-duration="{d / 2:.3f}" alt="" />')
+            fz = _freeze_img(prev, s, tag, project, base, width, fps)
+            if fz:
+                outer.append(f'    <img id="fz{tag}" class="media clip" src="{fz[0]}" data-start="0" '
+                             f'data-duration="{d / 2:.3f}" alt="" style="{fz[1]}" />')
             outer.append(f'    <div id="dp{tag}" class="clip" data-start="0" data-duration="{d:.3f}" '
                          f'style="position:absolute;inset:0;background:#000"></div>')
             init.append(f'        gsap.set("#dp{tag}", {{ opacity: 0 }});')
@@ -221,12 +242,28 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
         else:
             # disolvencia: el freeze es el ÚLTIMO frame del plano saliente (corte anclado al cambio real
             # de imagen en gfx_layer.snap_cuts; F2 §0b.4: antes se tomaba 45 ms tarde = imagen entrante)
-            freeze = project / "public" / "cuts" / f"freeze_{tag}.jpg"
-            if _extract_freeze(base, s.start - 1.5 / fps, freeze):
-                outer.append(f'    <img id="fz{tag}" class="media clip" src="public/cuts/{freeze.name}" data-start="0" '
-                             f'data-duration="{d:.3f}" alt="" />')
+            fz = _freeze_img(prev, s, tag, project, base, width, fps)
+            if fz:
+                outer.append(f'    <img id="fz{tag}" class="media clip" src="{fz[0]}" data-start="0" '
+                             f'data-duration="{d:.3f}" alt="" style="{fz[1]}" />')
                 init.append(f'        gsap.set("#fz{tag}", {{ opacity: 1 }});')
                 js.append(f'        tl.to("#fz{tag}", {{ opacity: 0, duration: {d:.3f}, ease: "sine.inOut" }}, 0);')
+
+    # ── F2 §4: movimiento seguro (riesgo de deformación alto): la imagen FIJA tapa el clip DepthFlow
+    # y se anima con un push-in o un paneo leve (nunca se deforma: solo escala/traslada)
+    if s.safe and Path(s.safe["image"]).exists():
+        dst = project / "public" / "safe" / f"safe_{tag}{Path(s.safe['image']).suffix}"
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(s.safe["image"], dst)
+        inner.append(f'      <img id="sf{tag}" class="media clip" src="public/safe/{dst.name}" data-start="0" '
+                     f'data-duration="{s.duration:.3f}" alt="" />')
+        if s.safe.get("movement") == "pan":
+            dx = gfx_rules.safe_pan_frac * width
+            init.append(f'        gsap.set("#sf{tag}", {{ scale: 1.04, x: {-dx / 2:.1f} }});')
+            js.append(f'        tl.to("#sf{tag}", {{ x: {dx / 2:.1f}, duration: {s.duration:.3f}, ease: "none" }}, 0);')
+        else:
+            init.append(f'        gsap.set("#sf{tag}", {{ scale: 1, transformOrigin: "50% 50%" }});')
+            js.append(f'        tl.to("#sf{tag}", {{ scale: {gfx_rules.safe_push_scale}, duration: {s.duration:.3f}, ease: "sine.inOut" }}, 0);')
 
     # ── punch_in en la CAPA DE VIDEO (los subs se queman después, no escalan)
     for t in plan.get("punch_in", []):
@@ -399,7 +436,8 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
     for s in scenes:
         n = s.idx + 1
         (project / "compositions" / f"scene_{n:02d}.html").write_text(
-            _scene_html(s, n, plan, project, base, width, height, fps, transitions), encoding="utf-8")
+            _scene_html(s, n, plan, project, base, width, height, fps, transitions,
+                        prev=next((x for x in scenes if x.idx == s.idx - 1), None)), encoding="utf-8")
         hosts.append(f'      <div id="s{n:02d}" class="scene clip" data-composition-id="scene-{n:02d}" '
                      f'data-composition-src="compositions/scene_{n:02d}.html" data-start="{s.start:.3f}" '
                      f'data-duration="{s.duration:.3f}" data-width="{width}" data-height="{height}"></div>')

@@ -168,3 +168,26 @@ def probe_images(image_paths: list[Path], cache_path: Path,
     cache_path.write_text(json.dumps(merged, indent=2, ensure_ascii=False), encoding="utf-8")
 
     return {n: metrics[n] for n in names if n in metrics}
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F2 §4: riesgo de deformación (router DepthFlow / movimiento seguro HyperFrames)
+# ═══════════════════════════════════════════════════════════════
+# Nocturno §3 (default): con las métricas actuales (p10/p50/p90/spread/c-b/std del depth map) el riesgo
+# NO es separable — no medimos gradientes ni bordes finos ni % de sujeto. Regla única implementada:
+# retrato (zoom_judge 'cara_closeup') → high; el resto → low. 'mid' existe en el contrato, sin regla.
+
+DEFORM_RISK_LEVELS: tuple[str, ...] = ("low", "mid", "high")
+DEFORM_HIGH_CATEGORIES: frozenset[str] = frozenset({"cara_closeup"})
+
+
+def deform_risk(metrics: dict[str, Any] | None, verdict: dict[str, Any] | None) -> str:
+    """'low' | 'mid' | 'high' por imagen. Puro y testeable; solo usa veredictos que el gate YA pidió."""
+    if verdict and verdict.get("categoria") in DEFORM_HIGH_CATEGORIES:
+        return "high"
+    return "low"
+
+
+def route_images(stems: list[str], metrics: dict[str, Any], verdicts: dict[str, Any]) -> dict[str, str]:
+    """{stem: riesgo} para un lote de imágenes (métricas y veredictos cacheados del gate)."""
+    return {st: deform_risk(metrics.get(st), verdicts.get(st)) for st in stems}

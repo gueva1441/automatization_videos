@@ -333,7 +333,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
               width: int, height: int, fps: int, quality: str | None = None,
               reuse: bool = False, time_offset: float = 0.0,
               gfx_plan_override: dict[str, Any] | None = None, debug: bool = False,
-              sparse: bool = False) -> Path:
+              sparse: bool = False, safe_scenes: dict[int, dict[str, Any]] | None = None) -> Path:
     """Aplica la capa gráfica al base_clip de un cap. Devuelve chXX_gfx.mp4 o base_clip (fallback).
 
     Args:
@@ -381,6 +381,11 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         scenes = build_scenes(plan, ctx["script_chapter"], raw_words, clip_dur, time_offset)
         scenes = assign_quiet_sides(snap_cuts(scenes, project / "public" / "base.mp4", fps), project / "public" / "base.mp4")
         log.append(f"  escenas: {len(scenes)} ({', '.join(f'{s.start:.2f}{s.rank}' for s in scenes)})")
+        # F2 §4: router anti-deformación → imágenes de riesgo alto (o caídas a Ken Burns) con movimiento seguro
+        for si, sv in (safe_scenes or {}).items():
+            if 0 <= si < len(scenes) and len(scenes) > 1:
+                scenes[si].safe = sv
+                log.append(f"  safe_router: escena {si} {Path(sv['image']).name} → {sv['movement']} ({sv.get('risk', '?')})")
         if gfx_plan_override is not None:
             resolved = gfx_plan_override
             rejected: list[dict] = []

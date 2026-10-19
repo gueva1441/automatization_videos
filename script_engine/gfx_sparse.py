@@ -59,6 +59,9 @@ def event_windows(plan: dict[str, Any], scenes: list[GfxScene], fps: int, dur: f
     if ez and 0 <= ez["scene_idx"] < len(scenes):
         sc = scenes[ez["scene_idx"]]
         iv.append((ez.get("start", sc.end - gfx_rules.zoom_dur), sc.end))
+    for s in scenes:                                           # F2 §4: movimiento seguro = escena entera en HF
+        if s.safe:
+            iv.append((s.start, s.end))
     for t in plan.get("punch_in", []):                        # el punch se sostiene hasta el corte
         iv.append((t, _scene_end(t)))
     for idx, tr in plan_transitions(scenes, (ez or {}).get("scene_idx")).items():
@@ -104,7 +107,8 @@ def compose_sparse(plan: dict[str, Any], scenes: list[GfxScene], windows: list[t
             if hi - lo < 1 / fps:
                 continue
             k = len(scenes_s)
-            scenes_s.append(GfxScene(k, round(o + lo - a, 4), round(o + hi - a, 4), s.rank, s.text_in_image, s.quiet_side))
+            scenes_s.append(GfxScene(k, round(o + lo - a, 4), round(o + hi - a, 4), s.rank, s.text_in_image, s.quiet_side,
+                                     s.safe if (lo == s.start and hi == s.end) else None))
             idx_map.setdefault(s.idx, k)
             if k == 0:
                 continue
