@@ -304,15 +304,28 @@ def scene_at(scenes: list[GfxScene], t: float) -> GfxScene:
     return scenes[-1]
 
 
+_FREEZE_MEMO: set[tuple[str, int, int, str, str]] = set()   # F3: freezes ya extraídos EN ESTE proceso
+
+
 def _extract_freeze(base: Path, t: float, out: Path) -> bool:
     """Último frame del plano saliente. Llamar con t = corte − 1.5 frames: `-ss` descarta los frames con
     pts < t, así que pedir "corte − 1 frame" redondeado a 4 decimales caía DESPUÉS del último frame
-    saliente y devolvía el ENTRANTE (bug F2 §0b.4: disolvencias R3 = corte duro)."""
+    saliente y devolvía el ENTRANTE (bug F2 §0b.4: disolvencias R3 = corte duro).
+
+    F3 (lab): memo en proceso — si este mismo proceso ya extrajo ese frame (mismo base, mtime, tamaño, t y
+    salida) y el archivo sigue ahí, no se vuelve a llamar a ffmpeg. fase2b llama una vez por cap → sin cambio."""
     out.parent.mkdir(parents=True, exist_ok=True)
+    st = Path(base).stat()
+    key = (str(Path(base).resolve()), st.st_mtime_ns, st.st_size, f"{max(0.0, t):.4f}", str(out.resolve()))
+    if key in _FREEZE_MEMO and out.exists():
+        return True
     r = subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{max(0.0, t):.4f}", "-i", str(base),
                         "-frames:v", "1", "-q:v", "2", str(out)],
                        capture_output=True, timeout=120)
-    return r.returncode == 0 and out.exists()
+    ok = r.returncode == 0 and out.exists()
+    if ok:
+        _FREEZE_MEMO.add(key)
+    return ok
 
 
 def plan_transitions(scenes: list[GfxScene], zoom_scene_idx: int | None = None) -> dict[int, dict[str, Any]]:

@@ -1,0 +1,19 @@
+# DECISIONES F3 — Laboratorio de identidad
+
+Decisiones conservadoras tomadas por CC durante F3 (HANDOFF_F3_laboratorio_identidad.md). Numeradas C1…
+
+## Contexto
+- **C0 (Omar):** F2b NO se mergea a `main` todavía; queda en `f2-gfx-director` @ `31c671c`. `main` intacta en `43f528a`. F3 trabaja en la rama `f3-lab-identidad`, creada desde `31c671c`.
+
+## §A — Servidor + historia + preview
+- **C1. `http.server` en vez de Flask.** Flask no está instalado en el Python del pipeline y el handoff admite las dos opciones ("Flask o `http.server` + endpoints"). `ThreadingHTTPServer` sin dependencias nuevas, solo en `127.0.0.1:8765`.
+- **C2. El preview replica `hyperframes play`, no lo reimplementa.** El servidor sirve el `<hyperframes-player>` (`hyperframes-player.global.js`) y el runtime (`hyperframe-runtime.js`) del paquete PINEADO en `script_engine/gfx_runtime/node_modules/hyperframes/dist/`, y a todo `.html` de la composición le inyecta `<script src="/runtime.js">` al principio del `<head>` (mismo efecto que `injectRuntime` de `play`). El HTML sale de `gfx_project.write_project` (las plantillas reales de `script_engine/gfx_templates/`). Medido: las 15 `compositions/scene_NN.html` del lab son idénticas byte a byte a las del último render de ch02; `index.html` difiere solo por el plan (el render viejo tenía el contador 6,500 que después el dedupe de F2b sacó).
+- **C3. El proyecto del preview vive en `_fase2b_work/gfx_lab_ch02/`, nunca en `gfx_ch02/`.** Así el lab no pisa el proyecto del render. `public/base.mp4` es un hardlink al `base.mp4` (-g 30) del último render (sin copiar 393 MB); si no existe, se re-encodea con `gfx_layer._reencode`.
+- **C4. Escenas como en `apply_gfx`:** `build_scenes` → `snap_cuts` → `assign_quiet_sides` → router seguro (`fase2b._route_safe` + `_safe_scenes_for`, solo veredictos cacheados). Se cachean en `gfx_lab_ch02/lab_scenes.json` (se invalidan si cambia el base). ch02: 15 escenas, mismos cortes que el log del render (0.00, 9.40, 15.73 …); router: 15 low → sin movimiento seguro.
+- **C5. "El plan del director" = `gfx_plan_ch02.resolved.json`** (plan ya resuelto y con candado literal; sin llamar a Gemini). El estado del lab va a `lab/identidad/plan_ch02_lab.json` cuando se guarda; si no existe, el lab arranca del plan del director. "Volver al plan del director" recarga ese archivo.
+- **C6. Narración con un `<audio>` propio del lab, sincronizado al `currentTime` del player** (deriva máxima 80 ms; medido 16 ms a los 6 s). El atributo `audio-src` del player solo suena cuando el player toma el audio en modo "parent", y eso hoy solo se activa por API privada (`_promoteToParentProxy`) o si el navegador bloquea el autoplay del iframe. No usamos APIs privadas del player.
+- **C7. Memo de freezes en `gfx_project._extract_freeze`.** El 99 % del tiempo de `write_project` eran los 12 ffmpeg de los freezes de disolvencia (2.0 s). Memo en proceso con clave (base, mtime, tamaño, t, salida) que solo saltea ffmpeg si el MISMO proceso ya extrajo ese frame y el archivo sigue ahí. fase2b llama una vez por cap → mismo comportamiento. Preview repetido: 2.0 s → 22–25 ms en el servidor, ~1.0 s ida y vuelta con la recarga del player (handoff: "~1 s").
+- **C8. Subtítulos fuera del preview.** El karaoke amarillo lo quema fase2b (ASS) DESPUÉS de HyperFrames; no es parte de la composición. El lab lo avisa debajo del player. La palabra que suena se resalta en la columna Historia.
+- **C9. ch01 no soportado en el lab** (pre-pad del hook = `time_offset`). El lab es para ch02 (y ch05 en §E); con `--cap ch01` avisa.
+- **C10. Miniaturas de la tira de fotos** (JPG 480 px con PIL, cacheadas en `gfx_lab_ch02/lab_thumbs/`): los PNG originales pesan 2.5–4 MB cada uno. Clic en la foto lleva al inicio de su plano.
+- **C11. Nombres en español de los bloques** en `lab.js` para §A (técnico en gris al lado). En §B pasan a `catalogo.json`.

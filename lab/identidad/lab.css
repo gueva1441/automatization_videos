@@ -1,0 +1,70 @@
+:root {
+  --bg: #121212; --panel: #1b1b1b; --line: #2c2c2c; --ink: #eae6dc; --dim: #8d887d;
+  --bone: #f2efe6; --red: #c2302f; --yellow: #f5c400; --sug: #6d6a63;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+       display: flex; flex-direction: column; }
+h1 { font-size: 17px; margin: 0; font-weight: 600; }
+h1 .sub { color: var(--dim); font-weight: 400; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); margin: 0 0 8px; }
+h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--dim); margin: 16px 0 6px; }
+.hint { color: var(--dim); font-size: 12px; margin: 0 0 8px; }
+
+.top { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px;
+       border-bottom: 1px solid var(--line); }
+.status { color: var(--dim); font-size: 12px; }
+.status.busy { color: var(--yellow); }
+.status.err { color: #ff7a6b; }
+
+.cols { flex: 1; display: grid; grid-template-columns: minmax(280px, 360px) minmax(560px, 1fr) minmax(300px, 400px);
+        gap: 0; min-height: 0; }
+.col { padding: 12px 14px; overflow: auto; min-height: 0; border-right: 1px solid var(--line); }
+.col:last-child { border-right: 0; }
+
+/* Historia */
+.words { line-height: 1.9; font-size: 15px; }
+.words .w { cursor: pointer; padding: 1px 2px; border-radius: 3px; }
+.words .w:hover { background: #2a2a2a; }
+.words .w.cue { border-bottom: 2px solid var(--red); }
+.words .w.cue.k-zoom { border-bottom-color: var(--yellow); }
+.words .w.cue.k-trans { border-bottom-color: #5b8bd6; }
+.words .w.now { background: var(--yellow); color: #111; }
+.words .w.past { color: #b9b4a8; }
+.words .w.sel { outline: 1px solid var(--bone); }
+
+.strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
+.ph { position: relative; cursor: pointer; border: 2px solid transparent; border-radius: 4px; overflow: hidden; background: #000; }
+.ph img { display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+.ph .t { position: absolute; left: 0; right: 0; bottom: 0; font-size: 10px; padding: 1px 4px;
+         background: rgba(0,0,0,.65); color: var(--bone); }
+.ph .n { position: absolute; left: 3px; top: 2px; font-size: 10px; color: var(--bone); text-shadow: 0 0 3px #000; }
+.ph.now { border-color: var(--yellow); }
+
+/* Escena */
+.player-wrap { width: 100%; max-width: 1280px; aspect-ratio: 16/9; background: #000; border-radius: 6px; overflow: hidden; }
+hyperframes-player { display: block; width: 100%; height: 100%; }
+.transport { display: flex; align-items: center; gap: 10px; margin-top: 8px; max-width: 1280px; }
+.transport input[type=range] { flex: 1; accent-color: var(--yellow); }
+.tc { font: 13px/1 ui-monospace, Consolas, monospace; color: var(--dim); min-width: 140px; }
+.now-line { min-height: 22px; margin-top: 6px; font-size: 13px; color: var(--bone); }
+.now-line .chip { display: inline-block; margin-right: 6px; padding: 2px 8px; border-radius: 10px; background: #2b2b2b; }
+
+/* Catálogo */
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+.tabs button { background: #222; color: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 4px 9px; cursor: pointer; }
+.tabs button.on { background: var(--bone); color: #111; }
+.catalog { color: var(--dim); font-size: 13px; }
+.cues { padding-left: 18px; margin: 0; }
+.cues li { padding: 3px 0; cursor: pointer; }
+.cues li:hover { color: var(--bone); }
+.cues li.now { color: var(--yellow); }
+.cues .tech { color: var(--dim); font-size: 11px; margin-left: 4px; }
+.cues .when { font: 12px ui-monospace, Consolas, monospace; color: var(--dim); margin-right: 6px; }
+
+/* Barra */
+.bar { display: flex; gap: 8px; padding: 10px 16px; border-top: 1px solid var(--line); background: var(--panel); }
+.btn { background: var(--bone); color: #111; border: 0; border-radius: 5px; padding: 7px 14px; font-weight: 600; cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.btn:disabled { opacity: .4; cursor: default; }
