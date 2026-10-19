@@ -28,6 +28,7 @@ Costo API: solo Gemini Flash batch del flow_director (~$0.0001 por art_profile).
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import shutil
 import subprocess
@@ -2052,6 +2053,33 @@ def _build_plans(
 #  Concatenación final
 # ═══════════════════════════════════════════════════════════════
 
+def _segment_hash(plan: Any, work_dir: Path, flags: dict[str, Any]) -> str:
+    """F2 §3.4: huella de los INSUMOS de un segmento (no del código). Si no cambió, el segmento se reusa.
+
+    Entran: audio + timestamps (tamaño, mtime), clips visuales del cap en work_dir, y con --gfx el plan
+    crudo del director, el box del zoom por visión y el perfil gfx activo, más los flags del pase.
+    """
+    def _stat(path: Path | None) -> list[Any]:
+        if not path or not Path(path).exists():
+            return [str(path), None]
+        st = Path(path).stat()
+        return [Path(path).name, st.st_size, int(st.st_mtime)]
+
+    cap = plan.chapter_id
+    parts: dict[str, Any] = {
+        "audio": _stat(plan.audio_path), "ts": _stat(plan.timestamps_path),
+        "visual": [_stat(v) for v in sorted(work_dir.glob(f"{cap}_*visual*.mp4"))],
+        "flags": flags,
+    }
+    if flags.get("gfx"):
+        from gfx_config import ACTIVE_PROFILE
+        for name in (f"gfx_plan_{cap}.json", f"gfx_zoom_box_{cap}.json"):
+            f = work_dir / name
+            parts[name] = hashlib.sha256(f.read_bytes()).hexdigest() if f.exists() else None
+        parts["profile"] = ACTIVE_PROFILE
+    return hashlib.sha256(json.dumps(parts, sort_keys=True, default=str).encode("utf-8")).hexdigest()[:16]
+
+
 def _concat_segments(
     segments: list[Path],
     final_path: Path,
@@ -2134,6 +2162,7 @@ def _assemble_one_video(
     only_cap: str | None = None,
     sfx: bool = True,
     gfx_sparse: bool = False,
+    reassemble: bool = False,
 ) -> tuple[int, Path | None]:
     """
     Ensambla un único video. Retorna (returncode, final_path | None).
@@ -2265,7 +2294,20 @@ def _assemble_one_video(
 
     work_dir = OUTPUT_DIR / video_id / "_fase2b_work"
     work_dir.mkdir(parents=True, exist_ok=True)
-    final_path = OUTPUT_DIR / video_id / f"{video_id}_final.mp4"
+    # F2: con --gfx el final va a _final_gfx.mp4 (no pisa el _final.mp4 sin gfx = corrida A)
+    final_path = OUTPUT_DIR / video_id / (f"{video_id}_final_gfx.mp4" if gfx else f"{video_id}_final.mp4")
+
+    # F2 §3.4: manifiesto de huellas por segmento (re-ensamble incremental)
+    manifest_path = work_dir / "segments_manifest.json"
+    manifest: dict[str, str] = {}
+    if reassemble and manifest_path.exists():
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            manifest = {}
+    seg_flags = {"gfx": gfx, "quality": gfx_quality, "debug": gfx_debug, "sfx": gfx and sfx,
+                 "sparse": gfx and gfx_sparse, "hook": hook, "no_subs": no_subs}
+    reused_caps: list[str] = []
 
     segments: list[Path] = []
     if gfx:
@@ -2294,6 +2336,15 @@ def _assemble_one_video(
             if nz:
                 spec_label += f" +{nz}zoom"
         print(f"\n  🔧 [{i}/{len(plans)}] {plan.chapter_id} ({plan.engine}{spec_label})...")
+        seg_hash = _segment_hash(plan, work_dir, seg_flags) if (reassemble or gfx) and not only_cap else ""
+        if reassemble and not only_cap:
+            if seg_path.exists() and manifest.get(plan.chapter_id) == seg_hash:
+                print(f"     ♻  segmento sin cambios ({seg_hash}) → reuso {seg_path.name}")
+                segments.append(seg_path)
+                reused_caps.append(plan.chapter_id)
+                continue
+            if gfx:   # el cap cambió: su capa gfx se re-renderiza aunque haya --reuse-visuals
+                (work_dir / f"{plan.chapter_id}_gfx.mp4").unlink(missing_ok=True)
         try:
             _build_chapter_segment(
                 plan=plan, segment_path=seg_path, work_dir=work_dir,
@@ -2315,6 +2366,10 @@ def _assemble_one_video(
         seg_dur = _get_duration(seg_path)
         print(f"     ✓ {seg_path.name} — {seg_dur:.1f}s")
         segments.append(seg_path)
+        if seg_hash:
+            # la huella se guarda DESPUÉS del build: recién ahí existen el visual y el box del zoom
+            manifest[plan.chapter_id] = _segment_hash(plan, work_dir, seg_flags)
+            manifest_path.write_text(json.dumps(manifest, indent=1), encoding="utf-8")
         if gfx:
             from script_engine.gfx_review import write_review   # F1b: página de revisión del segmento
             write_review(plan.chapter_id, seg_path, work_dir)
@@ -2331,6 +2386,8 @@ def _assemble_one_video(
             cost_tracker.end_video()
         return 1, None
 
+    if reassemble:
+        print(f"\n  ♻  re-ensamble: {len(reused_caps)} reusados, {len(segments) - len(reused_caps)} re-hechos")
     print(f"\n  🔗 Concatenando {len(segments)} segmentos...")
     art_profiles_list = [p.art_profile for p in plans]
     _concat_segments(segments, final_path, work_dir, art_profiles_list)
@@ -2467,6 +2524,10 @@ def main() -> int:
                              "gfx_director) antes de quemar subs. Fallback al clip original ante error.")
     parser.add_argument("--gfx-quality", choices=["draft", "looks"], default=None,
                         help="Calidad del render HyperFrames con --gfx (default looks; draft si --gfx-debug).")
+    parser.add_argument("--reassemble-from-segments", action="store_true",
+                        help="F2 §3.4: reusa los seg_NN_chXX.mp4 cuyos insumos no cambiaron (huella en "
+                             "_fase2b_work/segments_manifest.json); re-hace solo los caps cambiados + concat + música. "
+                             "Implica --keep-segments.")
     parser.add_argument("--gfx-sparse", action="store_true",
                         help="Con --gfx: render disperso (HyperFrames solo en ventanas con eventos + grade FFmpeg). "
                              "Se ignora con --gfx-debug (el overlay necesita el timeline completo).")
@@ -2527,7 +2588,7 @@ def main() -> int:
             vid,
             hook=args.hook if mode == "single" else None,  # hook solo manual
             no_subs=args.no_subs,
-            keep_segments=args.keep_segments,
+            keep_segments=args.keep_segments or args.reassemble_from_segments,
             dry_run=args.dry_run,
             reuse_visuals=args.reuse_visuals,
             gfx=args.gfx,
@@ -2536,6 +2597,7 @@ def main() -> int:
             only_cap=args.only_cap if mode == "single" else None,
             sfx=not args.no_sfx,
             gfx_sparse=args.gfx_sparse,
+            reassemble=args.reassemble_from_segments,
         )
 
         if rc == 0 and final_path is not None and not args.dry_run:
