@@ -315,6 +315,11 @@ class GfxRules:
     fragment_director: bool = False          # F4b §2: Flash elige el fragmento literal más impactante (gfx_fragments)
     photo_first_zoom: bool = False           # F4b §3: visión mira cada foto antes del zoom (gfx_vision)
     auto_icons: bool = False                 # F4b §4: palabra de carga concreta sin ícono propio → game-icons
+    # F4c: doctrina del director (ANALISIS_director_trace_2026-10-20 §3). OFF en el motor; misterio las prende
+    peak_word: bool = False                  # R3: el pico lleva su palabra de mayor peso (sello + mood + ícono)
+    doc_clippings: bool = False              # R6: recorte = documento (solo del fact, suma algo, kicker obligatorio)
+    callout_no_repeat: bool = False          # R7: el dato no repite lo que la voz dice en ese tramo
+    question_rubric: bool = False            # R8: 3 preguntas + elección por rúbrica (gancho, no trivia)
     source_tag_scale: float = 0.4            # 40 % del tamaño del callout
     sfx_gain_db: float = -18.0               # bajo la voz
     sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano
@@ -373,7 +378,10 @@ _PROFILE_KEYS: frozenset[str] = frozenset({"name", "description", "nichos", "fon
                                           "identity",    # F3: lo escribe el lab; el motor lo ignora
                                           "channel_bug"})   # F4b §0.3: marca del canal (gfx_bug)
 # F2b §2: capas de mood que el templater sabe dibujar (CSS, nunca toca píxeles)
-VALID_MOOD_LAYERS: frozenset[str] = frozenset({"veneno", "agua", "muerte", "oscuridad"})
+VALID_MOOD_LAYERS: frozenset[str] = frozenset({"veneno", "agua", "muerte", "oscuridad", "minima"})
+# F4c R5: capa mínima (viñeta + desaturación leve) para las categorías de reserva hasta que el lab les dé forma; no
+# exige los MIN_TRIGGERS_ACTIVE disparadores de una capa propia
+MINIMAL_MOOD_LAYER = "minima"
 # claves del set de íconos (= gfx_icons.ICON_WHITELIST; acá sin importar gfx_icons para no crear un ciclo)
 ICON_KEYS: frozenset[str] = frozenset({"calavera", "gota", "llama", "biohazard", "reloj", "candado", "ojo_tachado",
                                        "balanza", "cruz", "persona", "edificio_ruina", "pregunta"})
@@ -419,7 +427,7 @@ def load_profile(name: str | None = None) -> dict[str, Any]:
     bad |= {f"sfx.{k}" for k, v in prof.get("sfx", {}).items()
             if k not in VALID_BLOCKS or not (SFX_DIR / str(v.get("file", ""))).exists()}
     for cat, m in (prof.get("moods") or {}).items():
-        extra = set(m) - {"active", "triggers", "layer", "icon_words", "icon_anim"}
+        extra = set(m) - {"active", "triggers", "layer", "icon_words", "icon_anim", "sfx"}
         if extra:
             bad.add(f"moods.{cat}: claves {sorted(extra)}")
         if m.get("icon_anim") not in (None, *VALID_ICON_ANIMS):
@@ -428,7 +436,10 @@ def load_profile(name: str | None = None) -> dict[str, Any]:
         iw = m.get("icon_words") or {}
         if any(w not in (m.get("triggers") or {}) or k not in ICON_KEYS for w, k in iw.items()):
             bad.add(f"moods.{cat}.icon_words (palabra del léxico → clave del set)")
-        if m.get("active") and (m.get("layer") not in VALID_MOOD_LAYERS or len(m.get("triggers", {})) < MIN_TRIGGERS_ACTIVE):
+        if m.get("sfx") and not (SFX_DIR / str(m["sfx"].get("file", ""))).exists():
+            bad.add(f"moods.{cat}.sfx (wav inexistente)")
+        if m.get("active") and (m.get("layer") not in VALID_MOOD_LAYERS or (
+                m.get("layer") != MINIMAL_MOOD_LAYER and len(m.get("triggers", {})) < MIN_TRIGGERS_ACTIVE)):
             bad.add(f"moods.{cat} (activa: capa válida y ≥ {MIN_TRIGGERS_ACTIVE} disparadores)")
         # PARADA 1 F2b: triggers = {palabra: peso 1–3}
         if not isinstance(m.get("triggers"), dict) or any(w not in (1, 2, 3) for w in m["triggers"].values()):

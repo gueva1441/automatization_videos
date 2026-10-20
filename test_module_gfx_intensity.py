@@ -33,8 +33,29 @@ def test_validador_literal_categoria_peso():
                       {"word": "celdas", "sentence_idx": 1, "categoria": "oscuridad_encierro", "peso": 4, "concreta": True},  # peso
                       {"word": "agua", "sentence_idx": 0, "categoria": "agua", "peso": 1, "concreta": True}])
     res, why = gi.validate(bad, SENTS, MOODS)
-    assert [c["word"] for c in res["cargas"]] == ["agua"] and len(why) == 3
+    assert res is None and len(why) == 5                                     # F4c R1: peso 1 tampoco es carga
     assert gi.validate(raw(intensidad=[0.5, 0.9]), SENTS, MOODS)[0] is None             # una cifra por frase
+
+
+def test_top5_por_peso_no_por_orden():
+    """F4c R1 (bug): ch02 perdía encierro/oscuridad/silencio (peso 3) porque se cortaba a las 5 primeras."""
+    sents = ["La catástrofe y la furia del agua.", "El caos y la tragedia.", "Encierro, oscuridad y silencio total."]
+    first = [("catástrofe", 0, 2), ("furia", 0, 2), ("agua", 0, 2), ("caos", 1, 2), ("tragedia", 1, 2)]
+    last = [("encierro", 2, 3), ("oscuridad", 2, 3), ("silencio", 2, 3)]
+    moods = {"m": {"triggers": {}}}
+    r = {"pico_sentence_idx": 2, "intensidad": [0.5, 0.5, 0.9],
+         "cargas": [{"word": w, "sentence_idx": i, "categoria": "m", "peso": p, "concreta": False} for w, i, p in first + last]}
+    res, why = gi.validate(r, sents, moods, freq={"agua": 14, "caos": 1, "tragedia": 3, "furia": 2, "catástrofe": 1})
+    assert [c["word"] for c in res["cargas"]] == ["encierro", "oscuridad", "silencio", "catástrofe", "caos"]
+    assert any("tope" in w for w in why)
+
+
+def test_prompt_sensorial_y_lexico_manda():
+    p = gi.build_prompt(["Agua putrefacta."], [], [], {"m": {"triggers": {"x": 2}}}, [])
+    assert "OLER" in p and "putrefacta" in p and "hasta 10" in p and "peso 1 NO es carga" in p
+    aug = gi.augmented_moods({"agua": {"triggers": {"agua": 1}}}, {"cargas": [
+        {"word": "agua", "categoria": "agua", "peso": 2}, {"word": "pútrida", "categoria": "agua", "peso": 3}]})
+    assert aug["agua"]["triggers"] == {"agua": 1, "pútrida": 3}               # Flash no infla una palabra del léxico
 
 
 def test_fallback_tras_dos_fallos_y_cache(tmp_path):
@@ -83,7 +104,9 @@ def test_pico_garantizado_prefiere_la_cifra_de_agua_cercana(tmp_path):
     res2 = dict(res, intensidad=[0.7, 0.95, 0.2])                                     # a más de 0.1 → gana la intensidad
     plan2 = {"callouts": [], "emphasis": [], "punch_in": [], "archive_clippings": []}
     gp.plan_peak(plan2, ctx=ctx, words=words, scenes=[], moods=aug, clip_dur=30.0, box_for=lambda si, w: None, intensity=res2)
-    assert plan2["pico"]["word"] == "celdas" and plan2["pico"]["block"] is None
+    # F4c R3: sin bloque grande el pico igual lleva su palabra (sello + mood)
+    assert plan2["pico"]["word"] == "celdas" and plan2["pico"]["block"] == "emphasis"
+    assert [(e["word"], e.get("peak_word")) for e in plan2["emphasis"]] == [("celdas", True)]
 
 
 def test_propuestas_y_promocion_a_los_2_videos(tmp_path):

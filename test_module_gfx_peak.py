@@ -74,7 +74,8 @@ def test_plan_peak_ch02_tipo_y_un_agua_por_video(tmp_path, monkeypatch):
     log: list[str] = []
     gp.plan_peak(plan, ctx=CTX, words=words, scenes=scenes, moods=MOODS, clip_dur=end, box_for=lambda si, w: boxes.get(si), log=log)
     assert plan["pico"]["block"] == "water_level" and plan["water_level"]["value_text"] == "4.6"
-    assert plan["callouts"] == [] and plan["emphasis"] == []                     # ±5 s libres
+    assert plan["callouts"] == []                                                # ±5 s libres…
+    assert [(e["word"], e["peak_word"]) for e in plan["emphasis"]] == [("sumergidos", True)]   # …menos la palabra (F4c R3)
     ez = plan["evidence_zoom"]
     assert ez["word"] == "ahogaba" and ez["latido"] and ez["scene_idx"] == 2 and ez["start"] == round(end - 2.85, 3)
     assert plan["time_ticker"]["tail"] == "2005"

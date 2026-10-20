@@ -4,7 +4,7 @@ gfx_intensity.py — Director de intensidad (F4b §1): un LLM LEE el cap y marca
 Contrato
     entrada  narración del cap en frases numeradas (+ últimas 2 del cap anterior y primeras 2 del siguiente, contexto)
     salida   {"pico_sentence_idx", "intensidad": [0–1 por frase], "cargas": [{word, sentence_idx, categoria, peso 1–3,
-             concreta}] (3–5)}
+             concreta}] (hasta 10; F4c R1: se quedan las 5 de MAYOR PESO, empate → la más rara del video; peso 1 nunca)}
     valida   word LITERAL en esa frase (misma flexión, sin tildes de diferencia); categoria ∈ moods del perfil (activas o
              reserva); peso 1–3; intensidad con una cifra por frase (0–1). Lo inválido se descarta (no el resto).
              2 intentos; si los 2 fallan → None (el pipeline usa el léxico fijo, como en F4).
@@ -28,6 +28,11 @@ from typing import Any, Callable
 
 ATTEMPTS = 2
 MIN_CARGAS, MAX_CARGAS = 3, 5
+ASK_CARGAS = 10                     # F4c R1: Flash propone hasta 10; el validador se queda con las MAX_CARGAS de más peso
+PROMPT_VERSION = "f4c-r2"           # entra al hash del cache: cambiar el prompt re-llama
+# F4c R2: sensorial sobre abstracto (pares mejor/peor, del análisis del 2026-10-20)
+SENSORY_PAIRS = (("putrefacta", "catástrofe"), ("cadáveres", "tragedia"), ("sumergidos", "desastre"),
+                 ("celdas", "caos"), ("pútrida", "horror"))
 SYSTEM = ("Sos editor de un documental de misterio. Leés la narración de UN capítulo y marcás dónde pega más fuerte: "
           "la frase pico, la intensidad de cada frase y las palabras de carga. NUNCA escribís texto nuevo: solo copiás "
           "palabras que ya están en la narración. Respondés SOLO JSON.")
@@ -67,9 +72,14 @@ def build_prompt(sents: list[str], prev2: list[str], next2: list[str], moods: di
         f"Devolvé:",
         f"- intensidad: una cifra 0–1 por cada frase del capítulo ({len(sents)} cifras, en orden);",
         "- pico_sentence_idx: la frase de más impacto emocional (la que el espectador recuerda);",
-        f"- cargas: {MIN_CARGAS}–{MAX_CARGAS} palabras de carga COPIADAS EXACTAS de la frase indicada (misma flexión), con "
-        "su categoría, peso 1–3 (3 = golpe fuerte) y concreta=true si es un sustantivo que se puede dibujar "
-        "(celda, cadáver, agua) o false si es abstracta (miedo, tragedia).",
+        f"- cargas: hasta {ASK_CARGAS} palabras de carga COPIADAS EXACTAS de la frase indicada (misma flexión), con "
+        "su categoría, peso 2–3 (3 = golpe fuerte; una palabra de peso 1 NO es carga: no la listes) y concreta=true si "
+        "es un sustantivo que se puede dibujar (celda, cadáver) o false si es abstracta (miedo, tragedia).",
+        "- Preferí palabras que se puedan OLER, TOCAR o VER (putrefacta, cadáveres, sumergidos, celdas) sobre "
+        "palabras-resumen (catástrofe, tragedia, caos, desastre, horror); las palabras-resumen solo si no hay "
+        "sensoriales en esa frase. Revisá SIEMPRE la frase pico: su palabra más sensorial tiene que estar.",
+        "- Ejemplos (mejor > peor): " + " · ".join(f"«{a}» > «{b}»" for a, b in SENSORY_PAIRS) + ".",
+        "- Palabras comunes que se repiten en todo el relato (agua, oscuro) no son carga salvo que la frase las vuelva golpe.",
         "No inventes palabras ni categorías.",
     ]
     if rejected:
@@ -77,8 +87,11 @@ def build_prompt(sents: list[str], prev2: list[str], next2: list[str], moods: di
     return "\n".join(lines)
 
 
-def validate(raw: dict[str, Any], sents: list[str], moods: dict[str, dict[str, Any]]) -> tuple[dict[str, Any] | None, list[str]]:
-    """(resultado válido | None, motivos). Las cargas inválidas se descartan una por una."""
+def validate(raw: dict[str, Any], sents: list[str], moods: dict[str, dict[str, Any]],
+             freq: dict[str, int] | None = None) -> tuple[dict[str, Any] | None, list[str]]:
+    """(resultado válido | None, motivos). Las cargas inválidas se descartan una por una. F4c R1: peso 1 no es carga;
+    de las válidas quedan las MAX_CARGAS de mayor peso (empate: la más rara en `freq`, la narración del video entero;
+    después el orden del LLM)."""
     why: list[str] = []
     n = len(sents)
     inten = raw.get("intensidad") if isinstance(raw, dict) else None
@@ -108,6 +121,9 @@ def validate(raw: dict[str, Any], sents: list[str], moods: dict[str, dict[str, A
         if not 1 <= peso <= 3:
             why.append(f"«{w}»: peso {peso}")
             continue
+        if peso == 1:
+            why.append(f"«{w}»: peso 1 (no es carga)")
+            continue
         if (w, si) in seen:
             continue
         seen.add((w, si))
@@ -115,19 +131,36 @@ def validate(raw: dict[str, Any], sents: list[str], moods: dict[str, dict[str, A
     if not cargas:
         return None, why + ["ninguna carga válida"]
     pk = raw.get("pico_sentence_idx")
-    return {"intensidad": inten, "cargas": cargas[:MAX_CARGAS],
+    f = freq or {}
+    order = sorted(range(len(cargas)), key=lambda k: (-cargas[k]["peso"], f.get(cargas[k]["word"], 0), k))
+    if len(cargas) > MAX_CARGAS:
+        why.append(f"fuera por tope de {MAX_CARGAS} (menos peso): {[cargas[k]['word'] for k in order[MAX_CARGAS:]]}")
+    cargas = [cargas[k] for k in order[:MAX_CARGAS]]
+    return {"intensidad": inten, "cargas": cargas,
             "pico_llm": int(pk) if isinstance(pk, int) and 0 <= pk < n else None}, why
 
 
 def narration_hash(text: str) -> str:
-    return hashlib.sha1(text.encode("utf-8")).hexdigest()[:12]
+    return hashlib.sha1(f"{PROMPT_VERSION}|{text}".encode("utf-8")).hexdigest()[:12]
+
+
+def word_freq(text: str) -> dict[str, int]:
+    out: dict[str, int] = {}
+    for w in str(text).split():
+        t = tok(w)
+        if t:
+            out[t] = out.get(t, 0) + 1
+    return out
 
 
 def intensity_for(sents: list[str], *, cap: str, work_dir: Path, moods_all: dict[str, dict[str, Any]],
                   prev2: list[str] | None = None, next2: list[str] | None = None,
-                  call: Callable[..., dict] | None = None, log: list[str] | None = None) -> dict[str, Any] | None:
-    """Resultado validado del cap (cacheado por hash de la narración). None → fallback al léxico fijo."""
+                  call: Callable[..., dict] | None = None, log: list[str] | None = None,
+                  video_text: str | None = None) -> dict[str, Any] | None:
+    """Resultado validado del cap (cacheado por hash de la narración + versión del prompt). None → fallback al léxico
+    fijo. `video_text` = narración del video entero (rareza para el desempate de R1)."""
     log = log if log is not None else []
+    freq = word_freq(video_text if video_text is not None else " ".join(sents))
     h = narration_hash(" ".join(sents))
     cache = Path(work_dir) / f"gfx_intensity_{cap}.json"
     raw = None
@@ -138,7 +171,7 @@ def intensity_for(sents: list[str], *, cap: str, work_dir: Path, moods_all: dict
         except (OSError, ValueError):
             raw = None
     if raw is not None:
-        res, why = validate(raw, sents, moods_all)
+        res, why = validate(raw, sents, moods_all, freq)
         if res:
             return res
     if call is None:
@@ -151,7 +184,7 @@ def intensity_for(sents: list[str], *, cap: str, work_dir: Path, moods_all: dict
         except Exception as e:  # noqa: BLE001
             rejected.append(f"error {type(e).__name__}")
             continue
-        res, why = validate(raw, sents, moods_all)
+        res, why = validate(raw, sents, moods_all, freq)
         if why:
             log.append(f"  intensidad: descartado {why}")
         if res:
@@ -165,14 +198,16 @@ def intensity_for(sents: list[str], *, cap: str, work_dir: Path, moods_all: dict
 
 def augmented_moods(active: dict[str, dict[str, Any]], res: dict[str, Any] | None) -> dict[str, dict[str, Any]]:
     """Léxico del cap = léxico fijo (piso) + cargas válidas de categorías ACTIVAS (las de reserva no tienen capa).
-    Una palabra que ya está en el léxico conserva el peso mayor."""
+    F4c: una palabra que ya está en el léxico conserva el peso DEL LÉXICO (Flash inflaba «agua» de 1 a 2); las
+    cargas solo suman palabras nuevas."""
     out = copy.deepcopy(active)
     for c in (res or {}).get("cargas") or []:
         m = out.get(c["categoria"])
         if not m:
             continue
         trig = m.setdefault("triggers", {})
-        trig[c["word"]] = max(int(trig.get(c["word"], 0)), int(c["peso"]))
+        if c["word"] not in trig:
+            trig[c["word"]] = int(c["peso"])
     return out
 
 

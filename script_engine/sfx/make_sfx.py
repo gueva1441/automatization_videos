@@ -44,6 +44,21 @@ _SOUNDS: dict[str, tuple[float, str]] = {
                           "lowpass=f=700,volume='0.15+0.85*pow(t/3,1.6)':eval=frame,afade=t=out:st=2.6:d=0.4"),
     # latido: dos golpes graves (lub-dub)
     "latido": (0.9, "sine=f=55:d=0.9,volume='1.3*(exp(-25*t)+0.8*exp(-25*abs(t-0.28))*gte(t,0.28))':eval=frame"),
+    # F4c R5: un SFX propio por categoría de reserva (capa mínima), todos cortos y bajo la voz
+    # brasa (fuego): chisporroteo — chasquidos de ruido blanco irregulares sobre un soplo grave
+    "brasa": (0.9, "anoisesrc=d=0.9:c=white:seed=21:a=0.8,highpass=f=1800,"
+                   "volume='if(lt(mod(t*37+sin(t*91),1),0.07),1,0.04)*exp(-1.5*t)':eval=frame"),
+    # rumor (caos_gritos): murmullo de multitud lejano — ruido rosa en banda de voz que crece y se va
+    "rumor": (1.2, "anoisesrc=d=1.2:c=pink:seed=9:a=0.7,bandpass=f=700:w=900,"
+                   "volume='pow(sin(PI*t/1.2),1.5)*(0.75+0.25*sin(2*PI*6*t))':eval=frame"),
+    # zumbido (radiacion_quimico): zumbido eléctrico de 120 Hz con 3 clics de contador
+    "zumbido": (0.9, "aevalsrc='0.35*sin(2*PI*120*t)+0.15*sin(2*PI*240*t)+0.9*lt(mod(t,0.29),0.004)':d=0.9:s=48000,"
+                     "volume='sin(PI*t/0.9)':eval=frame"),
+    # viento (frio_abandono): ráfaga de viento — ruido marrón con filtro que respira
+    "viento": (1.4, "anoisesrc=d=1.4:c=brown:seed=13:a=0.9,lowpass=f=600,"
+                    "volume='pow(sin(PI*t/1.4),2)':eval=frame"),
+    # vacio (silencio): un tono sub que se apaga — el golpe de la ausencia, sin ataque
+    "vacio": (1.2, "sine=f=41:d=1.2,volume='0.9*sin(PI*min(t/0.25,1)/2)*exp(-2.2*t)':eval=frame"),
 }
 
 

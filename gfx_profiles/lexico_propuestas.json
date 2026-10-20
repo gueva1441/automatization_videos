@@ -110,5 +110,37 @@
    "ba6c3cac-a091-41c0-8dad-afd2f4364747"
   ],
   "concreta": false
+ },
+ "engullida": {
+  "categoria": "agua",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-a091-41c0-8dad-afd2f4364747"
+  ],
+  "concreta": false
+ },
+ "putrefacta": {
+  "categoria": "veneno_enfermedad",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-a091-41c0-8dad-afd2f4364747"
+  ],
+  "concreta": true
+ },
+ "disolvió": {
+  "categoria": "agua",
+  "peso": 2,
+  "videos": [
+   "ba6c3cac-a091-41c0-8dad-afd2f4364747"
+  ],
+  "concreta": false
+ },
+ "macabras": {
+  "categoria": "muerte",
+  "peso": 2,
+  "videos": [
+   "ba6c3cac-a091-41c0-8dad-afd2f4364747"
+  ],
+  "concreta": false
  }
 }

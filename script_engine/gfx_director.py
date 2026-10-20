@@ -832,8 +832,12 @@ def sfx_events(out: dict[str, Any], words: list[dict], time_offset: float, sfx_f
     win = gfx_rules.sfx_shift_max_ms / 1000.0
     ev: list[dict[str, Any]] = []
     from gfx_config import SFX_DIR
+    own = {round(float(e["start"]), 3): e["sfx"] for e in out.get("emphasis", []) or [] if e.get("sfx")}
     for t, block in sorted(marks):
         sf = (SFX_DIR / "latido.wav", -16.0) if block == "latido" else sfx_for(block)
+        if block == "keyword_emphasis" and round(float(t), 3) in own:      # F4c R5: SFX propio de la categoría
+            o = own[round(float(t), 3)]
+            sf = (SFX_DIR / o["file"], float(o.get("gain_db", -20)))
         if sf is None:
             continue
         on = next((sp for sp in spans if sp[0] - 0.03 <= t < sp[1]), None)
@@ -971,6 +975,8 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
     sids = _sentence_ids(words)
     cands = []
     for i, n, cat, wt, trig in emphasis_candidates(words, moods):
+        if wt < 2:                                       # F4c R1/R4: peso 1 nunca dispara sello ni mood
+            continue
         rarity = min(freq.get(_tok(w.get("word", "")), 1) for w in words[i:i + n])
         cands.append((-wt, rarity, float(words[i]["start"]) + time_offset, i, n, cat, trig))
     used_sids = {e["sid"] for e in out["emphasis"]}
@@ -989,13 +995,14 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
         word = re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "", word)
         sc = scene_at(scenes, t)
         out["emphasis"].append({"word": word, "category": cat, "layer": moods[cat]["layer"],
-                                # pre-merge: ícono POR PALABRA (si la palabra no es lo que el ícono dibuja → None)
-                                "icon": (moods[cat].get("icon_words") or {}).get(trig),
+                                # F4c R4: ícono por categoría + peso ≥ 2 (el de la palabra si lo hay; si no, el de la
+                                # categoría). Antes: solo si la palabra era lo que el ícono dibuja
+                                "icon": emphasis_icon(cat, trig, -neg_wt, moods),
                                 "icon_anim": moods[cat].get("icon_anim") or "stamp",
                                 "start": round(t, 3),
                                 "duration": round(gfx_rules.mood_dur, 3), "side": getattr(sc, "quiet_side", "right"),
                                 "stamp": gfx_rules.emphasis_stamp, "sid": sids[i], "rarity": rarity,
-                                "weight": -neg_wt})
+                                "weight": -neg_wt, **({"sfx": moods[cat]["sfx"]} if moods[cat].get("sfx") else {})})
         out["emphasis"].sort(key=lambda e: e["start"])
         busy.append((a, b))
         used_sids.add(sids[i])
@@ -1003,6 +1010,17 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
         if log is not None:
             log.append(f"emphasis: {word!r} ({cat}, peso {-neg_wt}, frec {rarity}) @ {t:.1f}s" + (" [relleno de hueco]" if window else ""))
     return added
+
+
+NEVER_ICON_ALONE = {"agua", "aguas"}             # F4c R4: «agua» sola nunca lleva gota (es la palabra de todo el relato)
+
+
+def emphasis_icon(cat: str, trig: str, weight: int, moods: dict[str, dict[str, Any]]) -> str | None:
+    """F4c R4: ícono solo con peso ≥ 2 y si la categoría tiene ícono; el de la palabra es preferencia, no condición."""
+    if weight < 2 or _tok(trig) in NEVER_ICON_ALONE:
+        return None
+    from script_engine.gfx_fragments import category_icon
+    return category_icon(cat, _tok(trig), moods)
 
 
 def emphasis_without_icon(plan: dict[str, Any]) -> list[str]:
@@ -1074,7 +1092,8 @@ def mark_icon_callouts(out: dict[str, Any], log: list[str] | None = None) -> Non
     Nunca un ícono equivocado: sin SVG aprobado (o respaldo habilitado) → sin ícono."""
     from script_engine.gfx_icons import icon_svg
     n = 0
-    for e in sorted(out.get("emphasis", []) or [], key=lambda e: e["start"]):
+    # F4c R3: la palabra del pico lleva su ícono primero (el tope por cap no se la come)
+    for e in sorted(out.get("emphasis", []) or [], key=lambda e: (not e.get("peak_word"), e["start"])):
         has = bool(e.get("icon")) and icon_svg(e["icon"], fallback=gfx_rules.icon_fallback_lucide) is not None
         e["icon_callout"] = bool(has and n < max_per_cap("icon_callout"))
         n += e["icon_callout"]

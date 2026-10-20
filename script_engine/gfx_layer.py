@@ -508,7 +508,8 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             moods_all = ACTIVE_PROFILE.get("moods") or {}
             intensity = gi.intensity_for([s["text"] for s in _sents(words, time_offset)], cap=cap, work_dir=work_dir,
                                          moods_all=moods_all, prev2=_q_sents(chs.get(n - 1, ""))[-2:],
-                                         next2=_q_sents(chs.get(n + 1, ""))[:2], log=log)
+                                         next2=_q_sents(chs.get(n + 1, ""))[:2], log=log,
+                                         video_text=ctx.get("narration_all"))
             ctx["moods"] = gi.augmented_moods(active_moods(), intensity)
             ctx["intensity"] = intensity
             if intensity:
@@ -546,6 +547,10 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 resolved, rej_f = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                        question_sources=ctx.get("next_sources"))
                 rejected += rej_f
+            if gfx_rules.callout_no_repeat:                          # F4c R7: el dato no repite la voz
+                from script_engine.gfx_fragments import drop_repeated_callouts
+                resolved["fragmentos"] = (resolved.get("fragmentos") or []) + drop_repeated_callouts(
+                    resolved, words=words, time_offset=time_offset, log=log)
         if details:                                  # F4b §3: el zoom lo decide la foto (el del LLM/zoom_judge se descarta)
             if resolved.get("evidence_zoom"):
                 log.append(f"  zoom del director descartado (foto-primero): {resolved['evidence_zoom'].get('anchor')}")

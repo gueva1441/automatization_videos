@@ -60,7 +60,42 @@ def test_segundo_intento_valido():
     assert r["text"] == "¿Qué hizo ceder a la fortaleza de concreto?" and len(r["intentos"]) == 2
 
 
-def test_cache_regenerar_editar_y_ultimo_cap(tmp_path):
+@pytest.fixture
+def sin_rubrica(monkeypatch):
+    import gfx_config
+    from dataclasses import replace
+    monkeypatch.setattr(gfx_config, "gfx_rules", replace(gfx_config.gfx_rules, question_rubric=False))
+
+
+@pytest.mark.parametrize("q,ok", [
+    ("¿Quién fue el culpable?", True), ("¿Qué pasó con los presos?", True), ("¿Por qué nadie abrió las celdas?", True),
+    ("¿Cómo obtuvieron Waganfeald y Kunkel su indemnización?", False),         # nombres nuevos + administrativo
+    ("¿Cómo sucumbieron los generadores de respaldo?", False),                  # administrativo
+    ("¿Qué pasó con los guardias?", False),                                     # nada que el espectador conozca
+    ("¿Qué destino moral aguardaba a todos los presos de aquella prisión?", False)])
+def test_rubrica_filtro_duro(q, ok):
+    said = "Los presos de la prisión quedaron atrapados. Nadie abrió las celdas. Waganfeald contó su historia."
+    assert (gq.validate_rubric(q, said.replace("Waganfeald contó su historia.", "")) is None) is ok
+
+
+def test_rubrica_3_candidatas_y_eleccion(tmp_path):
+    chapters = [{"chapter_number": 2, "narration": "Los presos quedaron en las celdas. Nadie vino. Fin."},
+                {"chapter_number": 3, "narration": " ".join(NEXT3)}]
+    calls = []
+
+    def fake(p, **k):
+        calls.append(p)
+        if "TRES preguntas" in p:
+            return {"preguntas": ["¿Cómo sucumbieron los generadores?", "¿Qué pasó con los presos?", "¿Quién fue el culpable?"]}
+        return {"n": 2}
+    r = gq.question_for(tmp_path, "ch02", 2, chapters, call=fake)
+    assert r["text"] == "¿Quién fue el culpable?" and r["v"] == gq.RUBRIC_VERSION and len(calls) == 2
+    assert r["eleccion"]["opciones"] == ["¿Qué pasó con los presos?", "¿Quién fue el culpable?"]
+    gq.save_edited(tmp_path, "ch02", "¿Qué pasó con los 500 presos?")
+    assert gq.question_for(tmp_path, "ch02", 2, chapters, call=fake)["text"] == "¿Qué pasó con los 500 presos?"   # la manual queda
+
+
+def test_cache_regenerar_editar_y_ultimo_cap(tmp_path, sin_rubrica):
     chapters = [{"chapter_number": 2, "narration": "Una. Dos. Tres."}, {"chapter_number": 3, "narration": " ".join(NEXT3)}]
     n = {"c": 0}
 

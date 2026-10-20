@@ -108,7 +108,7 @@ _ABS = "position:absolute;pointer-events:none;"
 
 
 def mood_layer(i: int, layer: str, t0: float, d: float, width: int, height: int) -> tuple[str, list[str], list[str]]:
-    """(html, init, timeline) de la capa de mood `layer` (veneno | agua | muerte | oscuridad) en [t0, t0 + d)."""
+    """(html, init, timeline) de la capa de mood `layer` (veneno | agua | muerte | oscuridad | minima) en [t0, t0 + d)."""
     rid = f"md{i}"
     kids: list[str] = []
     init: list[str] = []
@@ -161,6 +161,13 @@ def mood_layer(i: int, layer: str, t0: float, d: float, width: int, height: int)
         kids.append(f'<div id="{rid}-vig" style="{_ABS}inset:0;background:radial-gradient(ellipse 75% 75% at 50% 45%,'
                     f'rgba(0,0,0,0) 45%,rgba(0,0,0,.9) 100%)"></div>')
         fade(f"#{rid}-vig", 0.5, t0, 0.8)
+    elif layer == "minima":
+        # F4c R5: capa mínima de las categorías de reserva hasta que el lab les dé forma: desaturación leve + viñeta
+        kids.append(f'<div id="{rid}-ds" style="{_ABS}inset:0;background:#808080;mix-blend-mode:saturation"></div>')
+        fade(f"#{rid}-ds", 0.3, t0, 0.8)
+        kids.append(f'<div id="{rid}-vig" style="{_ABS}inset:0;background:radial-gradient(ellipse 80% 80% at 50% 45%,'
+                    f'rgba(0,0,0,0) 50%,rgba(0,0,0,.9) 100%)"></div>')
+        fade(f"#{rid}-vig", 0.45, t0, 0.6)
     elif layer == "oscuridad":
         # oscuridad desde los bordes + haz de linterna que deriva ±2.5° (+ 2 parpadeos si mood_dark_flicker)
         kids.append(f'<div id="{rid}-edge" style="{_ABS}inset:0;background:radial-gradient(ellipse 62% 58% at 50% 45%,'

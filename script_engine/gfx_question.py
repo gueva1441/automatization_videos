@@ -11,7 +11,14 @@ Contrato:
              ningún sustantivo con las 3 primeras frases del cap siguiente. 2 reintentos; si fallan → sin pregunta.
     candado  NO es texto del guion: se guarda con generated: true (excepción explícita en gfx_literal_lock).
 
-La respuesta se cachea en work_dir/gfx_question_chNN.json (el lab la puede regenerar o editar ahí mismo).
+F4c R8 (token question_rubric): la pregunta es un GANCHO, no trivia. Flash propone 3; un filtro duro descarta las que
+no cumplen (a) nombra algo que el espectador YA conoce (sustantivo de este cap o de los anteriores), (c) ≤ 8 palabras,
+(d) sin nombres propios nuevos ni términos administrativos (indemnización, generadores, registros…); y un segundo paso
+elige entre las que quedan por (b) consecuencia o culpa no resuelta. Modelo: «¿Quién fue el culpable?». El requisito
+viejo «comparte sustantivo con el cap siguiente» (empujaba a la trivia procesal) no aplica en este modo.
+
+La respuesta se cachea en work_dir/gfx_question_chNN.json (el lab la puede regenerar o editar ahí mismo). Una pregunta
+manual de Omar nunca se pisa.
 """
 from __future__ import annotations
 
@@ -45,6 +52,13 @@ _NOT_NOUN = {
 _FUNC = {"de", "del", "la", "las", "el", "los", "un", "una", "unos", "unas", "y", "o", "en", "a", "al", "que", "qué",
          "por", "con", "para", "sin", "se", "su", "sus", "lo", "le", "les", "es", "fue", "era", "cómo", "como", "cuál",
          "cuáles", "cuánto", "cuántos", "cuántas", "quién", "quiénes", "dónde", "cuándo", "más", "muy", "no"}
+
+RUBRIC_VERSION = "f4c-r8"
+RUBRIC_MODELS = ("¿Quién fue el culpable?", "¿Qué pasó con los 500 presos?", "¿Por qué nadie abrió las celdas?")
+# términos administrativos / procesales: trivia que el espectador no se lleva (raíces sin tildes, 5 letras)
+_ADMIN = {"indem", "gener", "regis", "deman", "exped", "trami", "compe", "proce", "respa", "abogad", "juici", "senten",
+          "litig", "acuer", "audie", "infor", "estad", "admin", "buroc", "contr", "fallo"}
+_HOOK_ROOTS = {"culpa", "respo", "verda", "secre"}     # palabras del gancho mismo (culpa/responsable/verdad/secreto)
 
 SYSTEM = ("Sos guionista de un canal documental de misterios. Escribís la PREGUNTA DE CIERRE de un capítulo: la que el "
           "espectador se lleva y que se responde en el capítulo siguiente. Respondés SOLO JSON.")
@@ -168,13 +182,118 @@ def generate(narr_cap: str, narr_next: str, said_before: str, *,
     return {"text": None, "intentos": tried, "motivo": "los 3 intentos fallaron el validador"}
 
 
+def proper_names(text: str) -> set[str]:
+    """Palabras con mayúscula que no abren la oración (sin el ¿ inicial), en minúscula."""
+    ws = re.findall(r"[A-Za-zÁÉÍÓÚÑáéíóúñü]+", str(text))
+    return {w.lower() for k, w in enumerate(ws) if k > 0 and w[:1].isupper()}
+
+
+def validate_rubric(q: str, said_before: str) -> str | None:
+    """F4c R8 filtro duro: None si la pregunta puede ser gancho; si no, el motivo."""
+    body = clean(q)[1:-1].strip()
+    low = body.lower()
+    first = re.findall(r"[a-záéíóúñü]+", low)[:1]
+    if not first:
+        return "vacía"
+    if first[0] in YESNO_STARTS or not any(low.startswith(s) for s in OPEN_STARTS):
+        return f"no es abierta («{first[0]}»)"
+    n = len(body.split())
+    if n > MAX_WORDS:
+        return f"{n} palabras (máx {MAX_WORDS})"
+    abst = abstract_words(body)
+    if abst:
+        return f"abstracta ({', '.join(abst)})"
+    adm = [w for w in re.findall(r"[a-záéíóúñü]+", low) if _strip_accents(w)[:5] in _ADMIN]
+    if adm:
+        return f"término administrativo ({', '.join(adm)})"
+    new = proper_names(body) - {w.lower() for w in re.findall(r"[A-Za-zÁÉÍÓÚÑáéíóúñü]+", said_before)}
+    if new:
+        return f"nombre propio nuevo ({', '.join(sorted(new))})"
+    own = nouns(body) - _HOOK_ROOTS                       # «culpable», «responsable»: el gancho, no un tema nuevo
+    if own and not own & nouns(said_before):
+        return "no nombra nada que el espectador ya conozca"
+    return None
+
+
+def build_rubric_prompt(last3: list[str], next_first3: list[str], rejected: list[tuple[str, str]]) -> str:
+    rej = "".join(f"\n- «{q}» → rechazada: {why}" for q, why in rejected)
+    return (
+        "FINAL DEL CAPÍTULO ACTUAL (últimas 3 frases):\n" + "\n".join(f"- {s}" for s in last3) +
+        "\n\nLO QUE VIENE (primeras 3 frases del capítulo siguiente; el espectador todavía NO las escuchó):\n" +
+        "\n".join(f"- {s}" for s in next_first3) +
+        "\n\nEscribí TRES preguntas de cierre distintas, en español rioplatense neutro. Cada una es un GANCHO, no trivia:\n"
+        "(a) nombra algo que el espectador YA conoce (una persona, grupo o lugar de lo que ya escuchó);\n"
+        "(b) implica una consecuencia o una culpa sin resolver;\n"
+        f"(c) máximo {MAX_WORDS} palabras, abierta (¿Qué / ¿Cómo / ¿Por qué / ¿Quién / ¿Cuánto / ¿Dónde);\n"
+        "(d) sin nombres propios nuevos ni términos administrativos (indemnización, generadores, registros, demanda).\n"
+        "ASÍ SON (el tono, no el contenido): " + " · ".join(RUBRIC_MODELS) + "\n"
+        + (f"\nIntentos anteriores que NO sirvieron:{rej}\n" if rej else "") +
+        '\nDevolvé {"preguntas": ["¿…?", "¿…?", "¿…?"]}'
+    )
+
+
+def generate_rubric(narr_cap: str, narr_next: str, said_before: str, *,
+                    call: Callable[..., dict] | None = None, attempts: int = ATTEMPTS) -> dict[str, Any]:
+    """F4c R8: {"text", "intentos": [{"pregunta", "rechazo"}…], "eleccion"}. `call` = call_flash_json (inyectable)."""
+    if call is None:
+        from gemini_helpers import call_flash_json as call
+    last3, next3 = sentences(narr_cap)[-3:], sentences(narr_next)[:3]
+    if not last3 or not next3:
+        return {"text": None, "intentos": [], "motivo": "sin capítulo siguiente", "v": RUBRIC_VERSION}
+    tried: list[dict[str, Any]] = []
+    rejected: list[tuple[str, str]] = []
+    for _ in range(attempts):
+        try:
+            raw = call(build_rubric_prompt(last3, next3, rejected), system_instruction=SYSTEM,
+                       response_schema={"type": "OBJECT", "properties": {"preguntas": {"type": "ARRAY", "items": {"type": "STRING"}}},
+                                        "required": ["preguntas"]}, thinking_budget=0, description="gfx_question rubrica")
+            qs = [clean(x) for x in (raw or {}).get("preguntas") or [] if str(x).strip()][:3]
+        except Exception as e:  # noqa: BLE001
+            tried.append({"pregunta": "", "rechazo": f"error: {type(e).__name__}"})
+            continue
+        ok = []
+        for q in qs:
+            why = validate_rubric(q, said_before)
+            tried.append({"pregunta": q, "rechazo": why})
+            (ok.append(q) if why is None else rejected.append((q, why)))
+        if not ok:
+            continue
+        pick = 1
+        if len(ok) > 1:                                   # segundo paso: la que más engancha por (b)
+            try:
+                r2 = call("Elegí la pregunta de cierre que más engancha: la que implica una consecuencia o una culpa sin "
+                          "resolver sobre algo que el espectador ya conoce. Respondé solo el número.\n"
+                          + "\n".join(f"{k}. {q}" for k, q in enumerate(ok, start=1)) + '\nDevolvé {"n": número}',
+                          system_instruction=SYSTEM, response_schema={"type": "OBJECT", "properties": {"n": {"type": "INTEGER"}},
+                                                                      "required": ["n"]},
+                          thinking_budget=0, description="gfx_question eleccion")
+                n = (r2 or {}).get("n")
+                pick = n if isinstance(n, int) and 1 <= n <= len(ok) else 1
+            except Exception:  # noqa: BLE001 — sin juez → la primera que pasó el filtro
+                pick = 1
+        return {"text": ok[pick - 1], "intentos": tried, "eleccion": {"opciones": ok, "n": pick}, "v": RUBRIC_VERSION}
+    return {"text": None, "intentos": tried, "motivo": "ninguna pasó la rúbrica", "v": RUBRIC_VERSION}
+
+
+def _rubric_on() -> bool:
+    try:
+        from gfx_config import gfx_rules
+        return bool(gfx_rules.question_rubric)
+    except Exception:  # noqa: BLE001
+        return False
+
+
 def question_for(work_dir: Path, cap: str, chapter_number: int, chapters: list[dict[str, Any]], *,
                  regenerate: bool = False, call: Callable[..., dict] | None = None) -> dict[str, Any]:
     """Pregunta del cap (cache work_dir/gfx_question_<cap>.json). Sin cap siguiente → text None."""
     cache = Path(work_dir) / f"gfx_question_{cap}.json"
+    rubric = _rubric_on()
     if cache.exists() and not regenerate:
         try:
-            return json.loads(cache.read_text(encoding="utf-8"))
+            old = json.loads(cache.read_text(encoding="utf-8"))
+            # F4c R8: con rúbrica, una pregunta automática vieja se regenera; la manual de Omar nunca
+            if not rubric or old.get("manual") or old.get("v") == RUBRIC_VERSION:
+                return old
         except (OSError, ValueError):
             pass
     by_n = {int(c.get("chapter_number", i + 1)): c for i, c in enumerate(chapters)}
@@ -183,7 +302,8 @@ def question_for(work_dir: Path, cap: str, chapter_number: int, chapters: list[d
         res: dict[str, Any] = {"text": None, "intentos": [], "motivo": "último capítulo: sin pregunta"}
     else:
         said = " ".join(str(by_n[k].get("narration", "")) for k in sorted(by_n) if k <= chapter_number)
-        res = generate(str(cur.get("narration", "")), str(nxt.get("narration", "")), said, call=call)
+        gen = generate_rubric if rubric else generate
+        res = gen(str(cur.get("narration", "")), str(nxt.get("narration", "")), said, call=call)
     res.update({"cap": cap, "generated": True, "generado_en": time.strftime("%Y-%m-%d %H:%M:%S")})
     cache.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     return res

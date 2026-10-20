@@ -20,16 +20,21 @@ CTX = {"chapter_number": 2, "facts": [], "skeleton": {}, "eligible": {}, "source
 
 def test_lexico_activo_tiene_4_categorias_con_25_disparadores():
     moods = gc.active_moods()
-    assert set(moods) == {"veneno_enfermedad", "agua", "muerte", "oscuridad_encierro"}
-    assert all(len(m["triggers"]) >= 25 and m["layer"] in gc.VALID_MOOD_LAYERS for m in moods.values())
-    reserva = {k for k, v in gc.ACTIVE_PROFILE["moods"].items() if not v["active"]}
-    assert reserva == {"fuego", "caos_gritos", "radiacion_quimico", "frio_abandono", "silencio"}
+    propias = {k for k, m in moods.items() if m["layer"] != gc.MINIMAL_MOOD_LAYER}
+    assert propias == {"veneno_enfermedad", "agua", "muerte", "oscuridad_encierro"}
+    assert all(len(moods[k]["triggers"]) >= 25 and moods[k]["layer"] in gc.VALID_MOOD_LAYERS for k in propias)
+    # F4c R5: las 5 de reserva pasan a activas con capa mínima y SFX propio (ya no hay reserva inactiva)
+    minimas = set(moods) - propias
+    assert minimas == {"fuego", "caos_gritos", "radiacion_quimico", "frio_abandono", "silencio"}
+    assert all((gc.SFX_DIR / moods[k]["sfx"]["file"]).exists() for k in minimas)
+    assert len({moods[k]["sfx"]["file"] for k in minimas}) == 5                 # uno propio por categoría
+    assert not {k for k, v in gc.ACTIVE_PROFILE["moods"].items() if not v["active"]}
 
 
 def test_perfil_rechaza_mood_activo_flaco(tmp_path, monkeypatch):
     import json
     prof = json.loads(gc.profile_path("misterio").read_text(encoding="utf-8"))
-    prof["moods"]["fuego"]["active"] = True                  # sin capa y con 10 disparadores
+    prof["moods"]["fuego"].update(active=True, layer=None)  # sin capa (la mínima no exige 25 disparadores)
     prof["moods"]["agua"]["triggers"]["agua"] = 5            # peso fuera de 1–3
     monkeypatch.setattr(gc, "GFX_PROFILES_DIR", tmp_path)
     (tmp_path / "x.json").write_text(json.dumps(prof, ensure_ascii=False), encoding="utf-8")
@@ -48,15 +53,41 @@ def test_candidatos_frases_y_flexiones():
 
 @pytest.mark.parametrize("word,icon", [
     ("cadáveres", "calavera"), ("muertos", "calavera"), ("restos", "calavera"), ("tumba", "cruz"),
-    ("enterrados", "cruz"), ("murieron", None), ("muerte", None), ("fallecidos", None), ("celda", "candado"), ("atrapados", "candado"),
-    ("encerrados", "candado"), ("barrotes", None), ("oscuridad", None), ("oscuro", None), ("agua", "gota"), ("inundación", None),
-    ("ahogados", None), ("arsénico", "calavera"), ("infección", "biohazard"), ("enfermos", None)])
-def test_icono_por_palabra_no_por_categoria(word, icon):
-    """Pre-merge (Omar): si la palabra no es lo que el ícono dibuja, sin ícono (solo sello + mood)."""
+    ("enterrados", "cruz"), ("murieron", "cruz"), ("fallecidos", "cruz"), ("celda", "candado"), ("atrapados", "candado"),
+    ("encerrados", "candado"), ("barrotes", "candado"), ("oscuridad", "candado"), ("inundación", "gota"),
+    ("ahogados", "gota"), ("arsénico", "calavera"), ("infección", "biohazard"), ("incendio", "llama"), ("gritos", None)])
+def test_icono_por_categoria_y_peso(word, icon):
+    """F4c R4: ícono por categoría + peso ≥ 2 (el de la palabra es preferencia: tumba → cruz, cadáveres → calavera;
+    si la palabra no lo tiene, el más común de su categoría). Categoría sin ícono → solo sello + mood."""
     out = {"emphasis": [], "callouts": [], "punch_in": []}
     gd.place_emphasis(out, [], words=_words(f"Hablaban de {word} ahí."), scenes=[GfxScene(0, 0.0, 30.0)],
                       ctx={**CTX, "narration_all": word}, time_offset=0.0, limit=1)
     assert out["emphasis"] and out["emphasis"][0]["icon"] == icon
+
+
+@pytest.mark.parametrize("word", ["agua", "muerte", "oscuro", "enfermos", "nunca", "caos"])
+def test_peso_1_nunca_sello_ni_icono(word):
+    """F4c R1/R4: peso 1 del léxico (agua, oscuro, muletillas) no dispara sello, mood ni ícono."""
+    out = {"emphasis": [], "callouts": [], "punch_in": []}
+    gd.place_emphasis(out, [], words=_words(f"Hablaban de {word} ahí."), scenes=[GfxScene(0, 0.0, 30.0)],
+                      ctx={**CTX, "narration_all": word}, time_offset=0.0, limit=1)
+    assert out["emphasis"] == []
+    assert gd.emphasis_icon("agua", "aguas", 3, gc.active_moods()) is None       # «agua» sola nunca lleva gota
+
+
+def test_reserva_con_capa_minima_y_sfx_propio():
+    """F4c R5: una palabra de una categoría de reserva sale con capa mínima y su SFX (nunca «nada»)."""
+    out = {"emphasis": [], "callouts": [], "punch_in": [], "title_card": None}
+    w = _words("Hubo gritos en el pabellón.")
+    gd.place_emphasis(out, [], words=w, scenes=[GfxScene(0, 0.0, 30.0)], ctx={**CTX, "narration_all": "gritos"},
+                      time_offset=0.0, limit=1)
+    e = out["emphasis"][0]
+    assert e["layer"] == "minima" and e["sfx"]["file"] == "rumor.wav"
+    ev = gd.sfx_events(out, w, 0.0, gc.sfx_for)
+    assert [x["file"].endswith("rumor.wav") for x in ev if x["block"] == "keyword_emphasis"] == [True]
+    from script_engine.gfx_project import mood_layer
+    h, init, js = mood_layer(0, "minima", 1.0, 2.5, 1920, 1080)
+    assert "saturation" in h and "radial-gradient" in h and len(js) == 2
 
 
 def test_peso_gana_a_la_rareza():

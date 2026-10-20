@@ -3,6 +3,8 @@ gfx_peak.py — El pico del capítulo y sus bloques grandes (F3, pedido de Omar 
 
     pico          la frase con más palabras de peso 3 del léxico (desempate: peso total, después la primera). Ahí va
                   UN solo bloque grande y se saca todo lo que ARRANCA a ±PEAK_CLEAR_SEC del pico.
+    palabra       F4c R3: el pico INCLUYE la palabra de mayor peso de su frase (sello + mood + ícono de categoría),
+                  encima del bloque grande. La limpieza de ±5 s es para los OTROS bloques, nunca para ella.
     water_level   nivel de agua: palabra del mood agua en la frase + cifra en metros/pies que la voz dice en esa
                   frase y que está LITERAL en un dato. Línea que sube hasta la altura de la cifra. Máx 1 por VIDEO.
     zoom latido   zoom de evidencia (caja por visión, cacheada) + latido en la 2.ª palabra de peso 3 fuera del pico.
@@ -216,7 +218,7 @@ def clear_around(plan: dict[str, Any], t: float, keep: str) -> list[str]:
     for key in ("callouts", "archive_clippings", "emphasis"):
         kept = []
         for x in plan.get(key) or []:
-            if keep == key and x.get("peak"):
+            if (keep == key and x.get("peak")) or x.get("peak_word"):
                 kept.append(x)
             elif _starts_near(t, x):
                 gone.append(f"{key}:{x.get('text') or x.get('headline') or x.get('word')}")
@@ -236,6 +238,54 @@ def clear_around(plan: dict[str, Any], t: float, keep: str) -> list[str]:
             gone.append(key)
             plan[key] = None
     return gone
+
+
+BLOCK_CATEGORY = {"water_level": "agua"}            # categoría que el bloque grande ya muestra
+
+
+def peak_word(peak: dict[str, Any], words: list[dict], moods: dict[str, dict], *, block_category: str | None = None,
+              freq: dict[str, int] | None = None) -> dict[str, Any] | None:
+    """F4c R3: la palabra de mayor peso (≥ 2) de la frase pico. Empate: la de una categoría que el bloque grande no
+    muestra ya (nivel de agua → no otra de agua), después la más rara del video, después la primera."""
+    f = freq or {}
+    hits = [h for h in lexicon_hits(words, moods, peak["idx"]) if h["weight"] >= 2]
+    if not hits:
+        return None
+    return max(hits, key=lambda h: (h["weight"], h["category"] != block_category, -f.get(h["word"], 0), -h["i"]))
+
+
+def add_peak_word(plan: dict[str, Any], peak: dict[str, Any], *, words: list[dict], scenes: list[Any],
+                  moods: dict[str, dict], block: str | None, time_offset: float = 0.0,
+                  freq: dict[str, int] | None = None, log: list[str] | None = None) -> dict[str, Any] | None:
+    """Sello + mood + ícono de categoría de la palabra del pico (reemplaza el énfasis que hubiera en esa frase)."""
+    from script_engine.gfx_director import emphasis_icon
+    big = None
+    if block == "archive_clippings":
+        big = next((a for a in plan.get("archive_clippings") or [] if a.get("peak")), None)
+    bcat = BLOCK_CATEGORY.get(block or "") or (big or {}).get("category")
+    h = peak_word(peak, words, moods, block_category=bcat, freq=freq)
+    if h is None:
+        return None
+    m = moods[h["category"]]
+    t = round(float(words[h["i"]]["start"]) + time_offset, 3)
+    lit = re.sub(r"^[¿¡\"'«“(]+|[.,;:!?…\"'»”)]+$", "", str(words[h["i"]]["word"]).strip())
+    sc = next((s for s in scenes if s.start <= t < s.end), None)
+    side = getattr(sc, "quiet_side", "right") if sc is not None else "right"
+    if big is not None and big.get("side") == side:              # nunca encima del recorte del pico
+        side = "left" if side == "right" else "right"
+    plan["emphasis"] = [e for e in plan.get("emphasis") or [] if not (peak["t0"] - 0.05 <= e["start"] <= peak["t1"])]
+    em = {"word": lit, "category": h["category"], "layer": m.get("layer"), "icon": emphasis_icon(h["category"], h["word"],
+          h["weight"], moods), "icon_anim": m.get("icon_anim") or "stamp", "start": t,
+          "duration": round(gfx_rules.mood_dur, 3), "side": side, "stamp": gfx_rules.emphasis_stamp,
+          "weight": h["weight"], "peak_word": True, **({"sfx": m["sfx"]} if m.get("sfx") else {})}
+    if block == "emphasis":
+        em["peak"] = True
+    plan["emphasis"].append(em)
+    plan["emphasis"].sort(key=lambda e: e["start"])
+    if log is not None:
+        log.append(f"pico: palabra «{lit}» ({h['category']}, peso {h['weight']}) @ {t:.1f}s → sello + mood"
+                   + (f" + ícono {em['icon']}" if em["icon"] else ""))
+    return em
 
 
 def water_used_before(work_dir: Any, chapter_number: int) -> bool:
@@ -322,6 +372,15 @@ def plan_peak(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], s
         else:
             plan["pico"] = {"t": peak["t"], "block": None, "word": peak["word"], "sentence": peak["text"]}
             log.append(f"pico: «{peak['word']}» @ {peak['t']:.1f}s sin bloque grande posible (sin cifra de agua, zoom ni recorte)")
+        if gfx_rules.peak_word:                                    # F4c R3: el pico lleva su palabra adentro
+            from script_engine.gfx_intensity import word_freq
+            em = add_peak_word(plan, peak, words=words, scenes=scenes, moods=moods, block=block, time_offset=time_offset,
+                               freq=word_freq(ctx.get("narration_all") or ""), log=log)
+            if em is not None:
+                plan["pico"]["palabra"] = em["word"]
+                if not block:
+                    em["peak"] = True
+                    plan["pico"]["block"] = "emphasis"
     # zoom de evidencia con latido fuera del pico (si el plan no tiene ya un zoom)
     if not plan.get("evidence_zoom") and off_peak_zoom:      # F4b §3: con foto-primero lo decide gfx_vision.pick_zoom
         zl = zoom_latido(peak, words, moods, scenes, box_for, time_offset)

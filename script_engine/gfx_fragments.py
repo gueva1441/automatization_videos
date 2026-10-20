@@ -12,6 +12,14 @@ Para cada recorte y dato ya ubicados en el cap:
     después  el fragmento elegido fija la categoría del bloque (léxico del cap): si tiene ícono aprobado, el recorte /
              dato sale "con ícono". Dedupe: un titular ya usado en un cap anterior no se repite (vuelve al de hoy).
 El candado literal se vuelve a pasar después (gfx_layer).
+
+F4c (doctrina del director, tokens doc_clippings / callout_no_repeat):
+    R6 recorte  es un DOCUMENTO: opciones solo del fact (nunca de la narración), y cada una suma algo que la voz del
+                tramo no dice (cifra, fecha, nombre, «informaron/según…» o una palabra de contenido que no suena).
+                Kicker obligatorio: fuente del fact → año del fact → fecha del fact → el único año que dice la voz del
+                cap. Sin opción que sume o sin kicker → el recorte se quita (nunca un pie de foto).
+    R7 dato     no repite: si el texto del dato suena LITERAL en la voz (±4 s) se quita; una cifra en dígitos que la
+                voz dice en letras (precisión extra) se queda.
 """
 from __future__ import annotations
 
@@ -44,7 +52,7 @@ _VERB_EDGE = re.compile(r"(ó|aron|ieron|eron|ando|endo|iendo|aba|aban|ía|ían|
 _KEEP_EDGE = {"orleans", "katrina", "pies", "metros", "personas", "almas", "presos", "prisioneros", "agua", "aguas",
               "tren", "orden", "joven", "volumen", "crimen", "origen", "imagen", "examen", "hombre", "mujeres"}
 _MONTHS = r"(?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)"
-_DATE_RE = re.compile(rf"\d{{1,2}} de {_MONTHS}(?: de \d{{4}})?", re.IGNORECASE)
+_DATE_RE = re.compile(rf"\b\d{{1,2}} de {_MONTHS}(?: de \d{{4}})?", re.IGNORECASE)
 
 
 def _verb_edge(w: str) -> bool:
@@ -59,7 +67,8 @@ def _splits_date(clause: list[str], s: int, e: int) -> bool:
         d0 = len(text[:m.start()].split())
         d1 = d0 + len(m.group(0).split())
         inside = max(0, min(e, d1) - max(s, d0))
-        if 0 < inside < d1 - d0:
+        # F4c R6: «el 29 de agosto» sin «de 2005» vale (el año va al kicker); partir el día del mes, no
+        if 0 < inside < d1 - d0 and not (d1 - d0 == 5 and s <= d0 and e == d0 + 3):
             return True
     return False
 
@@ -131,10 +140,140 @@ def narration_span(words: list[dict], t0: float, t1: float, time_offset: float =
     return " ".join(str(w["word"]) for w in words if t0 - 0.05 <= float(w["start"]) + time_offset < t1)
 
 
+REPORT_WORDS = {"informaron", "informó", "informe", "según", "reportaron", "denunciaron", "declararon", "testigos",
+                "testimonio", "relataron", "afirmaron", "documentó", "registraron"}
+
+
+def _root(w: str) -> str:
+    import unicodedata
+    t = "".join(c for c in unicodedata.normalize("NFD", _tok(w)) if unicodedata.category(c) != "Mn")
+    return t[:5]
+
+
+_VAGUE = {"algunos", "algunas", "casos", "otros", "otras", "todos", "todas", "mismo", "misma", "cosas", "parte", "partes",
+          "veces", "manera", "forma"}
+
+
+def novelty(frag: str, span: str) -> tuple[list[str], list[str]]:
+    """F4c R6: (elementos duros, palabras nuevas) que el fragmento suma a la voz del tramo. Duros = fecha, cifra,
+    nombre propio o «informaron/según…»; palabras nuevas = contenido ≥ 5 letras cuya raíz no suena en el tramo."""
+    said = {_tok(w) for w in span.split()}
+    said_roots = {_root(w) for w in span.split() if len(_tok(w)) >= 4}
+    hard: list[str] = []
+    dates = [m.group(0) for m in _DATE_RE.finditer(frag) if not literal_in(m.group(0), span)]
+    hard += [f"fecha «{d}»" for d in dates]
+    in_date = {t for d in dates for t in d.split()}
+    for d in re.findall(r"\d[\d.,]*\d|\d", frag):
+        if d not in said and d.rstrip(".,") not in said and d not in in_date:
+            hard.append(f"cifra «{d}»")
+    ws = frag.split()
+    soft: list[str] = []
+    for k, w in enumerate(ws):
+        t = _tok(w)
+        if t in REPORT_WORDS and t not in said:
+            hard.append(f"fuente «{t}»")
+        elif k > 0 and w[:1].isupper() and len(t) >= 3 and t not in said:
+            hard.append(f"nombre «{w.strip('.,;:')}»")
+        elif (len(t) >= 5 and t not in EDGE_STOP and t not in _VAGUE and t not in in_date and not t[:1].isdigit()
+              and not _VERB_EDGE.search(t) and _root(w) not in said_roots):
+            soft.append(f"«{t}»")
+    return hard, soft
+
+
+def adds_something(frag: str, span: str) -> str | None:
+    """F4c R6: lo que el fragmento suma a la voz del tramo (para el log), o None si solo repite."""
+    hard, soft = novelty(frag, span)
+    return (hard or [f"palabra {x}" for x in soft] or [None])[0]
+
+
+def _doc_rank(frag: str, span: str, cap_narr: str = "") -> tuple[int, int, int, int]:
+    """Orden de los recortes: más elementos duros, después más palabras que no suenan en TODO el cap (lo que de verdad
+    suma: «aguas residuales»), después más palabras nuevas para el tramo, después el más corto."""
+    hard, soft = novelty(frag, span)
+    roots = {_root(w) for w in cap_narr.split() if len(_tok(w)) >= 4}
+    cap_new = [x for x in soft if _root(x.strip("«»")) not in roots]
+    return (-len(hard), -len(cap_new), -len(soft), len(frag.split()))
+
+
+def lock_ok(frag: str, fact: str) -> bool:
+    """El fragmento pasa el candado literal (misma normalización que gfx_literal_lock: sin sacar comillas)."""
+    from script_engine.gfx_literal_lock import normalize
+    return bool(frag.strip()) and normalize(frag) in normalize(fact)
+
+
+def doc_kicker(fact: str, source: str, headline: str, narration: str) -> str:
+    """F4c R6: kicker obligatorio del recorte. Fuente del fact → año del fact → fecha del fact → el único año que dice
+    la voz del cap (el del hecho). Nunca lo que ya dice el titular. "" = sin kicker posible."""
+    from script_engine.gfx_director import _YEAR_RE
+    low = headline.lower()
+    cands = [source]
+    y = _YEAR_RE.search(fact)
+    cands.append(y.group(1) if y else "")
+    d = _DATE_RE.search(fact)
+    cands.append(d.group(0) if d else "")
+    ys = set(_YEAR_RE.findall(narration))
+    cands.append(next(iter(ys)) if len(ys) == 1 else "")
+    return next((c for c in cands if c and c.lower() not in low), "")
+
+
+def enforce_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], scenes: list[Any],
+                      time_offset: float, log: list[str]) -> list[dict[str, Any]]:
+    """F4c R6 antes de que Flash elija: cada recorte queda con kicker obligatorio y titular que sume; si no se puede,
+    se quita. Devuelve las filas para la tabla (las quitadas con ahora=None)."""
+    facts, fsrc = ctx["facts"], ctx.get("fact_source") or {}
+    narr = " ".join(str(w.get("word", "")) for w in words)
+    kept, rows = [], []
+    for a in plan.get("archive_clippings") or []:
+        fi, cur = a.get("fact_idx"), a.get("headline", "")
+        if fi is None:
+            kept.append(a)
+            continue
+        sc = next((s for s in scenes if s.idx == a.get("scene_idx")), None)
+        span = narration_span(words, sc.start, sc.end, time_offset) if sc else ""
+        opts = [f for f in ([cur] if literal_in(cur, facts[fi]) else []) + fragments(facts[fi], 8)
+                if adds_something(f, span) and lock_ok(f, facts[fi]) and doc_kicker(facts[fi], fsrc.get(fi, ""), f, narr)]
+        head = min(opts, key=lambda f: _doc_rank(f, span, narr)) if opts else ""
+        kick = doc_kicker(facts[fi], fsrc.get(fi, ""), head, narr) if head else ""
+        if not head or not kick:
+            why = ("ningún fragmento del fact suma a la voz (con kicker posible y literal)" if not head
+                   else "sin fuente, año ni fecha para el kicker")
+            log.append(f"  recorte quitado (R6, {why}): «{cur}»")
+            rows.append({"bloque": f"recorte@{a.get('start')}", "antes": cur, "ahora": None, "motivo": why})
+            continue
+        if head != cur:
+            log.append(f"  recorte (R6): «{cur}» → «{head}» (suma {adds_something(head, span)})")
+        a["headline"], a["kicker"] = head, kick
+        if a.get("body") and (literal_in(head, a["body"]) or literal_in(a["body"], head)):
+            a["body"] = ""
+        kept.append(a)
+    plan["archive_clippings"] = kept
+    return rows
+
+
+def drop_repeated_callouts(plan: dict[str, Any], *, words: list[dict], time_offset: float,
+                           log: list[str]) -> list[dict[str, Any]]:
+    """F4c R7: el dato que la voz dice LITERAL en su tramo (±4 s) se quita (tercer texto igual en pantalla)."""
+    kept, rows = [], []
+    for c in plan.get("callouts") or []:
+        t = float(c.get("start", 0.0))
+        span = narration_span(words, t - 4.0, t + 4.0, time_offset)
+        if c.get("text") and literal_in(c["text"], span):
+            log.append(f"  dato quitado (R7, la voz lo dice en ese tramo): «{c['text']}»")
+            rows.append({"bloque": f"dato@{t:.1f}", "antes": c["text"], "ahora": None, "motivo": "la voz lo dice"})
+            continue
+        kept.append(c)
+    plan["callouts"] = kept
+    return rows
+
+
 def build_items(plan: dict[str, Any], *, facts: list[str], words: list[dict], scenes: list[Any], time_offset: float,
-                key_words: set[str]) -> list[dict[str, Any]]:
-    """Bloques del plan con sus opciones (la 1 = la de hoy)."""
+                key_words: set[str], documents: bool = False,
+                fact_source: dict[int, str] | None = None) -> list[dict[str, Any]]:
+    """Bloques del plan con sus opciones (la 1 = la de hoy). documents=True (F4c R6): las del recorte solo del fact y
+    sumando algo a la voz del tramo."""
     items = []
+    narr = " ".join(str(w.get("word", "")) for w in words)
+    fsrc = fact_source or {}
     for i, a in enumerate(plan.get("archive_clippings") or []):
         fi, cur = a.get("fact_idx"), a.get("headline", "")
         if fi is None or not cur:
@@ -144,12 +283,16 @@ def build_items(plan: dict[str, Any], *, facts: list[str], words: list[dict], sc
         # F4b E15: el recorte es un documento con fuente → de la narración del tramo solo entran fragmentos que
         # comparten una palabra de contenido con el fact («agua putrefacta» ↔ «El agua dentro…»; no «quinientas vidas»)
         fw = _content(facts[fi])
-        nar = [f for f in fragments(span, 8, key_words=key_words) if _content(f) & fw]
+        nar = [] if documents else [f for f in fragments(span, 8, key_words=key_words) if _content(f) & fw]
         opts = [cur] + [f for f in sorted(fragments(facts[fi], 8, key_words=key_words) + nar,
                                           key=lambda f: (-sum(_tok(w) in key_words for w in f.split()), len(f.split()), f))
-                        if f.lower() != cur.lower()]
+                        if f.lower() != cur.lower() and (not documents or (
+                            adds_something(f, span) and lock_ok(f, facts[fi])
+                            and doc_kicker(facts[fi], fsrc.get(fi, ""), f, narr)))]
+        if documents:                # F4c R6: primero lo que más suma a la voz (la de hoy ya pasó enforce_documents)
+            opts = [cur] + sorted((o for o in opts[1:]), key=lambda f: (_doc_rank(f, span, narr), f))
         items.append({"id": f"recorte{i}", "kind": "archive", "idx": i, "options": _dedupe(opts)[:MAX_OPTIONS],
-                      "fact": facts[fi], "span": span})
+                      "fact": facts[fi], "span": span, "documents": documents})
     for i, c in enumerate(plan.get("callouts") or []):
         cur, fi = c.get("text", ""), c.get("fact_idx")
         core = core_token(cur)
@@ -181,15 +324,23 @@ def build_prompt(items: list[dict[str, Any]]) -> str:
              "Para cada bloque, elegí UN número de su lista (el texto que se verá en pantalla):", ""]
     for it in items:
         lines.append(f"[{it['id']}] {'titular de recorte de diario' if it['kind'] == 'archive' else 'dato en pantalla'}")
-        lines += [f"  {n}. {o}" for n, o in enumerate(it["options"], start=1)]
+        if it.get("documents"):      # F4c R6: el recorte es un documento → que sume lo que la voz no dice
+            lines.append(f"  La voz en ese tramo ya dice: «{it['span']}». El recorte es un DOCUMENTO: elegí el que más "
+                         "suma lo que la voz NO dice (fecha, cifra, nombre, fuente, detalle concreto); nunca uno que solo repite.")
+            for n, o in enumerate(it["options"], start=1):
+                hard, soft = novelty(o, it["span"])
+                tag = ", ".join(hard + soft[:3])
+                lines.append(f"  {n}. {o}" + (f"   (suma: {tag})" if tag else ""))
+        else:
+            lines += [f"  {n}. {o}" for n, o in enumerate(it["options"], start=1)]
         lines.append("")
     lines.append('Devolvé {"elecciones": [{"id": "...", "n": número}, ...]} con un elemento por bloque.')
     return "\n".join(lines)
 
 
 def category_of(text: str, moods: dict[str, dict[str, Any]]) -> tuple[str | None, str | None]:
-    """(categoría, palabra) del léxico del cap presente en el fragmento (la de más peso)."""
-    best = (0, None, None)
+    """(categoría, palabra) del léxico del cap presente en el fragmento (la de más peso). F4c R4: peso ≥ 2."""
+    best = (1, None, None)
     for w in text.split():
         t = _tok(w)
         for cat, m in moods.items():
@@ -227,10 +378,14 @@ def choose_fragments(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[d
                      call: Callable[..., dict] | None = None, log: list[str] | None = None) -> list[dict[str, Any]]:
     """Aplica las elecciones al plan (in place). Devuelve la tabla antes/después para el reporte."""
     log = log if log is not None else []
+    from gfx_config import gfx_rules
+    docs = bool(gfx_rules.doc_clippings)
+    pre = enforce_documents(plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log) if docs else []
     key_words = {w for m in moods.values() for w in (m.get("triggers") or {})}
-    items = build_items(plan, facts=ctx["facts"], words=words, scenes=scenes, time_offset=time_offset, key_words=key_words)
+    items = build_items(plan, facts=ctx["facts"], words=words, scenes=scenes, time_offset=time_offset, key_words=key_words,
+                        documents=docs, fact_source=ctx.get("fact_source"))
     if not items:
-        return []
+        return pre
     cache = Path(work_dir) / f"gfx_fragments_{cap}.json"
     prompt = build_prompt(items)
     raw = None
@@ -249,7 +404,7 @@ def choose_fragments(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[d
             cache.write_text(json.dumps({"prompt": prompt, "raw": raw}, ensure_ascii=False, indent=1), encoding="utf-8")
         except Exception as e:  # noqa: BLE001 — sin LLM → los textos de hoy
             log.append(f"  fragmentos: Flash falló ({type(e).__name__}) → textos de hoy")
-            return []
+            return pre
     picks = {str(x.get("id")): x.get("n") for x in (raw or {}).get("elecciones") or [] if isinstance(x, dict)}
     used = used_headlines_before(work_dir, ctx["chapter_number"])
     table = []
@@ -263,6 +418,9 @@ def choose_fragments(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[d
         blk = (plan["archive_clippings"] if it["kind"] == "archive" else plan["callouts"])[it["idx"]]
         if it["kind"] == "archive":
             blk["headline"] = new
+            if it.get("documents"):          # F4c R6: el kicker se recalcula con el titular elegido (nunca repetido)
+                blk["kicker"] = doc_kicker(it["fact"], (ctx.get("fact_source") or {}).get(blk.get("fact_idx"), ""), new,
+                                           " ".join(str(w.get("word", "")) for w in words))
         else:
             blk["text"] = new
         cat, word = category_of(new, moods)
@@ -276,4 +434,4 @@ def choose_fragments(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[d
         table.append({"bloque": it["id"], "antes": old, "ahora": new, "categoria": cat, "icono": blk.get("icon"),
                       "opciones": len(it["options"])})
     log.append("  fragmentos: " + "; ".join(f"{r['bloque']} «{r['antes']}» → «{r['ahora']}»" for r in table))
-    return table
+    return pre + table
