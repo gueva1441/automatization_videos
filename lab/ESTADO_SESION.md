@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-20 15:00 (F4b §5 cerrado; espera marca + merge) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-20 16:10 (marca 3 cosida; espera merge) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama **`f3-lab-identidad`** (desde `31c671c`, tip de `f2-gfx-director`). Último commit: F4b §5 (ver `git log`); F4 cerró en `56085d1`.
@@ -8,10 +8,12 @@
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 = cap de calibración, ch05 el segundo).
 - Candados vigentes: md5 sin `--gfx` de ch02 `--only-cap` = `38e5ba14…` (último en `lab/hyperframes/f4b/onlycap_ch02_nogfx_f4b.log`); 283 tests verdes (F4b suma intensity, fragments, vision, auto_icons, bug).
 
-## F4b — Marca + director inteligente (HANDOFF_F4b) — ESPERANDO A OMAR (elegir marca + merge)
+## F4b — Marca + director inteligente (HANDOFF_F4b) — ESPERANDO A OMAR (merge)
 - Commits: `1762916` §1 intensidad · `f1af5de` §2 fragmentos · `93064c8` §3 zoom foto-primero + §4 íconos gratis + código de la marca (apagada) · §5 render completo (último commit).
 - Leer `lab/hyperframes/f4b/RESUMEN_F4b.md`, `F4b_REPORT.md`, `DECISIONES_F4b.md` (E1–E42).
-- Falta: Omar elige marca (`tira_marca_canal.jpg`) → `channel_bug` en misterio.json + re-cosido (sin HyperFrames) + re-ensamble; merge F4+F4b a `main` con su OK.
+- Marca: candidata 3 elegida por Omar, cosida en `d8d87c6` (llama en el farol, esquina 6 % / 0.7 / +2 px / halo; cierre 2.5 s + negro). Final 715.6 s. Posible ajuste: `corner_dilate_px` 1 si la esquina se ve maciza (re-cosido + re-ensamble ~13 min, sin HyperFrames).
+- Falta: merge F4+F4b a `main` con el OK de Omar.
+- Regla de Omar: Firefox cerrado en TODO render, siempre (memoria `firefox-cerrado-en-todo-render`).
 - game-icons se baja con `script_engine/gfx_icons/fetch_game_icons.sh` (fuera de git).
 
 ## F4 — Identidad en producción (HANDOFF_F4, modo nocturno) — ESPERANDO A OMAR (PARADA 2)
