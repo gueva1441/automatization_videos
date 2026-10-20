@@ -141,7 +141,7 @@ def test_http_save_identity_en_directorios_temporales(profiles, tmp_path, monkey
                                      headers={"Content-Type": "application/json"})
         with urllib.request.urlopen(req, timeout=60) as r:
             out = json.loads(r.read())["archivos"]
-        assert Path(out["perfil"]).parent == profiles and Path(out["resumen"]).parent == lab_dir
+        assert Path(out["perfil"]).parent == profiles and Path(out["resumen"]).parent == profiles   # F4: IDENTIDAD va con el perfil
         gold = json.loads(Path(out["golden"]).read_text(encoding="utf-8"))
         assert gold["plan"]["title_card"] and gold["tokens"] == {"accent_hex": "#c2302f"}
         assert "## 4. Plan dorado de ch02" in Path(out["resumen"]).read_text(encoding="utf-8")

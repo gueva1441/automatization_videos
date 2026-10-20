@@ -412,7 +412,7 @@ class LabSession:
             ok, rejected, _ = self.cues_for(state["plan"], state.get("tokens") or {})
             return save_identity(state, profile=gfx_config.active_profile_name(), cap=self.cap,
                                  video_id=self.video_id, locked_plan=ok, rejected=rejected,
-                                 summary=self.summary(state), md_dir=LAB_DIR)
+                                 summary=self.summary(state), md_dir=gfx_config.GFX_PROFILES_DIR)
 
     # ── preview: plantillas REALES vía gfx_project.write_project
     # forma de movimiento del lab → movimiento seguro del templater sobre el PNG fijo (None = clip DepthFlow)
@@ -496,28 +496,7 @@ class LabSession:
                 shutil.copy2(self.project / "public" / "base.mp4", dst)
 
 
-_PERSON = re.compile(r"\b(man|woman|boy|girl|child|person|face|hands?|individuals?|people|prisoners?|inmates?)\b", re.I)
-_CROWD = re.compile(r"\b(crowd|crowded|mass of|street|row|line of)\b", re.I)
-_PLACE = re.compile(r"\b(complex|tower|building|prison|cityscape|city|coast|landscape|sky|hurricane|cloud)\b", re.I)
-
-
-def suggest_movement(prompt: dict[str, Any], *, already_out: bool) -> tuple[str, str]:
-    """Hint del catálogo (§2 A) aplicado al prompt de la foto → (forma, motivo en ≤ 5 palabras)."""
-    tii = prompt.get("text_in_image")
-    if isinstance(tii, dict) and tii.get("present"):
-        return "quieta", "tiene texto: no moverlo"
-    shot = str(prompt.get("shot_scale", "")).lower()
-    subj = " ".join(str(prompt.get(k, "")) for k in ("subject", "setting", "prompt"))[:600]
-    wide = "wide" in shot
-    if _CROWD.search(subj) and wide:
-        return "paneo", "foto ancha con gente"
-    if _PERSON.search(str(prompt.get("subject", ""))) and not wide:
-        return "acercar", "hay una persona"
-    if "detail" in shot or "close" in shot:
-        return "acercar", "es un detalle"
-    if wide and _PLACE.search(subj):
-        return ("3D", "paisaje con profundidad") if already_out else ("alejar", "revela el lugar")
-    return "acercar", "base del documental"
+from script_engine.gfx_style import _CROWD, _PERSON, _PLACE, suggest_movement  # noqa: E402,F401 — F4: una sola fuente con producción
 
 
 class StateConflict(RuntimeError):

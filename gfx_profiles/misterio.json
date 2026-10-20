@@ -62,7 +62,9 @@
     "anim_figure": "stamp",
     "emphasis_stamp_px": 84,
     "mood_dur": 2.5,
-    "question_max_words_auto": 8
+    "question_max_words_auto": 8,
+    "identity_rules": true,
+    "ticker_min_times": 2
   },
   "moods": {
     "veneno_enfermedad": {"active": true, "layer": "veneno", "triggers": {"veneno": 3, "venenos": 3, "venenoso": 3, "venenosa": 3, "envenenado": 3, "envenenada": 3, "envenenados": 3, "envenenadas": 3, "envenenamiento": 3, "arsénico": 3, "cianuro": 3, "gas": 1, "gases": 1, "tóxico": 2, "tóxica": 2, "tóxicos": 2, "tóxicas": 2, "toxinas": 2, "putrefacción": 3, "pútrido": 3, "pútrida": 3, "podrido": 3, "podrida": 3, "podridos": 3, "infección": 2, "infecciones": 2, "infectado": 2, "infectada": 2, "infectados": 2, "infectadas": 2, "contaminado": 2, "contaminada": 2, "contaminados": 2, "contaminadas": 2, "contaminación": 2, "enfermo": 1, "enferma": 1, "enfermos": 1, "enfermas": 1, "enfermedad": 1, "enfermedades": 1, "epidemia": 2, "plaga": 2, "peste": 3, "residuales": 2, "cloacas": 2, "excrementos": 3, "heces": 3, "fiebre": 2, "cólera": 3, "tifus": 3, "disentería": 3, "llagas": 3, "pus": 3}, "icon_anim": "ink_bleed", "icon_words": {"veneno": "calavera", "venenos": "calavera", "venenoso": "calavera", "venenosa": "calavera", "envenenado": "calavera", "envenenada": "calavera", "envenenados": "calavera", "envenenadas": "calavera", "envenenamiento": "calavera", "arsénico": "calavera", "cianuro": "calavera", "tóxico": "calavera", "tóxica": "calavera", "tóxicos": "calavera", "tóxicas": "calavera", "toxinas": "calavera", "infección": "biohazard", "infecciones": "biohazard", "infectado": "biohazard", "infectada": "biohazard", "infectados": "biohazard", "infectadas": "biohazard", "contaminado": "biohazard", "contaminada": "biohazard", "contaminados": "biohazard", "contaminadas": "biohazard", "contaminación": "biohazard", "epidemia": "biohazard", "plaga": "biohazard", "peste": "biohazard", "cólera": "biohazard", "tifus": "biohazard", "disentería": "biohazard"}},
@@ -90,7 +92,7 @@
     "archive_clipping": {"enabled": true, "max_per_cap": 2, "where": "escenas de ≥ 4 s con facts de texto suficiente"},
     "evidence_zoom":    {"enabled": true, "max_per_cap": 1, "where": "escenas de ≥ 3.1 s"},
     "count_up":         {"enabled": true, "max_per_cap": 1, "where": "cifras literales del fact"},
-    "punch_in":         {"enabled": true, "max_per_cap": 2, "where": "todos los caps"},
+    "punch_in":         {"enabled": true, "max_per_cap": 4, "where": "palabras de más peso; 1 por frase, nunca a ±5 s del pico (F4)"},
     "chapter_question": {"enabled": false, "max_per_cap": 1, "where": "El director NO la elige: la genera gfx_question (Flash) por cap si question_auto (F3)"},
     "keyword_emphasis": {"enabled": true, "max_per_cap": 5, "where": "palabras del léxico de moods dichas por la voz"},
     "icon_callout":     {"enabled": true, "max_per_cap": 3, "where": "énfasis cuya categoría tiene ícono aprobado"},

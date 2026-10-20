@@ -5,7 +5,7 @@ gfx_identity.py — Identidad del canal que sale del laboratorio (F3 §C; HANDOF
     gfx_profiles/<perfil>.json             tokens + fuentes + inventario (enabled) + pesos del léxico + `identity`
                                            (marcas ✔/✖, variantes anotadas, sugerencias, lo que falta)
     gfx_profiles/<perfil>_golden_<cap>.json  el plan del cap tal como lo dejó Omar (ya con candado) = ejemplo dorado
-    lab/identidad/IDENTIDAD_<perfil>.md    resumen humano para el analista (§4)
+    gfx_profiles/IDENTIDAD_<perfil>.md     resumen humano para el analista (§4; F4: versionado junto al perfil)
 
 El perfil NUEVO se valida con gfx_config.load_profile ANTES de reemplazar el actual (un perfil inválido nunca
 llega a disco con su nombre real) y el anterior queda en <perfil>.json.bak_f3_<fecha> (ignorado por git).

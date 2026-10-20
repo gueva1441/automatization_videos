@@ -301,6 +301,15 @@ class GfxRules:
     question_max_words_auto: int = 12        # F3: tope de la pregunta generada
     black_hold_sec: float = 0.0              # F3: corte a negro después de la pregunta de cierre (se suma a la pausa)
     peak_blocks: bool = False                # F3: pico del cap (gfx_peak): bloque grande + ±5 s libres, zoom con latido, reloj
+    # F4 §2: el director aplica la identidad del lab (gfx_style). OFF en el motor = F3 tal cual; misterio lo prende
+    identity_rules: bool = False
+    crossfade_frames: int = 20               # fundido cruzado default de la identidad (20 f)
+    fast_cut_sec: float = 3.5                # plano de < 3.5 s (entrante o saliente) → corte (ritmo rápido)
+    dip_max_per_cap: int = 1                 # fundido a negro: 1 por cap
+    dip_min_t: float = 10.0                  # …no antes de los 10 s (el título abre el cap)
+    punch_max_identity: int = 4              # golpes de zoom por cap (F4 §1.2.1: Omar aprobó la forma, no 8)
+    icon_stamp_px: int = 112                 # sello dentro del bloque de ícono: M (F4 §1.2.3), aunque el suelto sea S
+    ticker_min_times: int = 0                # F4: el reloj solo sale con ≥ N horas verificadas (misterio: 2)
     source_tag_scale: float = 0.4            # 40 % del tamaño del callout
     sfx_gain_db: float = -18.0               # bajo la voz
     sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano

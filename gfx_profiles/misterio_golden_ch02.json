@@ -1,0 +1,328 @@
+{
+ "profile": "misterio",
+ "video_id": "ba6c3cac-a091-41c0-8dad-afd2f4364747",
+ "cap": "ch02",
+ "saved_at": "2026-10-20 01:20:38",
+ "plan": {
+  "chapter_number": 2,
+  "title_card": {
+   "kicker": "CAPÍTULO 2",
+   "title": "La Tormenta Perfecta"
+  },
+  "callouts": [
+   {
+    "text": "6,500 personas",
+    "start": 49.979,
+    "kind": "figure",
+    "duration": 2.5,
+    "side": "left",
+    "fact_idx": 4,
+    "source": ""
+   }
+  ],
+  "count_up": null,
+  "archive_clippings": [
+   {
+    "kicker": "2005",
+    "headline": "El huracán Katrina tocó tierra",
+    "body": "",
+    "scene_idx": 1,
+    "fact_idx": 2,
+    "era_decade": 2000,
+    "start": 9.9,
+    "duration": 4,
+    "side": "left"
+   },
+   {
+    "kicker": "",
+    "headline": "Los prisioneros quedaron atrapados durante días en celdas",
+    "body": "",
+    "scene_idx": 9,
+    "fact_idx": 5,
+    "era_decade": 2000,
+    "start": 60.733,
+    "duration": 6,
+    "side": "left",
+    "icon": "candado"
+   }
+  ],
+  "evidence_zoom": {
+   "scene_idx": 8,
+   "box": [
+    0.4,
+    0.45,
+    0.2,
+    0.2
+   ],
+   "start": 57.383,
+   "anchor": "ahogaba",
+   "latido": true,
+   "latido_t": 58.939,
+   "word": "ahogaba"
+  },
+  "punch_in": [
+   0.079,
+   6.579,
+   42.04,
+   43.919,
+   49.979,
+   70.659,
+   93
+  ],
+  "chapter_question": {
+   "text": "Quien fue el culpable?",
+   "start": 97.633,
+   "duration": 3,
+   "keyword": "",
+   "generated": true,
+   "pause": 3,
+   "manual": true
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "diques",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 17.719,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 2,
+    "rarity": 0,
+    "weight": 1,
+    "icon_callout": false,
+    "manual": true
+   },
+   {
+    "word": "agua",
+    "category": "",
+    "layer": "",
+    "icon": "gota",
+    "icon_anim": "ink_bleed",
+    "start": 20.699,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 2,
+    "rarity": 0,
+    "weight": 0,
+    "icon_callout": true,
+    "manual": true,
+    "free_icon": true
+   },
+   {
+    "word": "oscuro",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 26.819,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 3,
+    "rarity": 2,
+    "weight": 1,
+    "icon_callout": false
+   },
+   {
+    "word": "ahogaba",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 58.939,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": false,
+    "sid": 8,
+    "rarity": 0,
+    "weight": 3,
+    "icon_callout": false,
+    "manual": true
+   },
+   {
+    "word": "celdas",
+    "category": "",
+    "layer": "",
+    "icon": "candado",
+    "icon_anim": "stamp",
+    "start": 60.859,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 9,
+    "rarity": 0,
+    "weight": 0,
+    "icon_callout": true,
+    "manual": true,
+    "free_icon": true
+   },
+   {
+    "word": "encierro",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": "candado",
+    "icon_anim": "stamp",
+    "start": 79.779,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 9,
+    "rarity": 1,
+    "weight": 2,
+    "icon_callout": true
+   },
+   {
+    "word": "oscuridad",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 81.319,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 12,
+    "rarity": 0,
+    "weight": 2,
+    "icon_callout": false,
+    "manual": true
+   },
+   {
+    "word": "aguas",
+    "category": "agua",
+    "layer": "agua",
+    "icon": "gota",
+    "icon_anim": "press_wipe",
+    "start": 88.619,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 13,
+    "rarity": 0,
+    "weight": 1,
+    "icon_callout": true,
+    "manual": true
+   }
+  ],
+  "gap_warnings": [],
+  "pico": {
+   "t": 33.7,
+   "block": "water_level",
+   "word": "sumergidos",
+   "sentence": "Calles y hogares enteros desaparecieron, sumergidos bajo hasta 4.6 metros, o quince pies, de agua putrefacta."
+  },
+  "water_level": {
+   "value_text": "4.6",
+   "unit": "metros",
+   "meters": 4.6,
+   "height": 0.605,
+   "start": 33.7,
+   "duration": 4.5,
+   "rise": 2.5,
+   "fact_idx": 1,
+   "word": "sumergidos"
+  },
+  "time_ticker": {
+   "day": "29",
+   "month": "AGO",
+   "tail": "2005",
+   "times": [],
+   "advance": false,
+   "source_text": "29 de agosto de 2005",
+   "fact_idx": 2,
+   "start": 6.579,
+   "duration": 22.121,
+   "side": "right"
+  },
+  "black_hold": {
+   "start": 100.633,
+   "duration": 1
+  }
+ },
+ "rejected_by_lock": [],
+ "tokens": {
+  "title_dur": 3,
+  "accent_hex": "#c2302f",
+  "archive_max_w_frac": 0.3,
+  "mood_dur": 2.5,
+  "vignette_opacity": 0.15,
+  "punch_scale": 1.015,
+  "anim_figure": "stamp",
+  "emphasis_stamp_px": 84
+ },
+ "anotado": {
+  "ken_burns_in": {
+   "intensidad": 2,
+   "easing": "suave"
+  },
+  "subs": {
+   "tamano": "M"
+  },
+  "archive_clipping": {
+   "estilo": "periodico",
+   "rotacion": -2
+  },
+  "ken_burns_out": {
+   "intensidad": 2
+  },
+  "pan": {
+   "direccion": "→",
+   "intensidad": 2
+  },
+  "depthflow": {
+   "preset": "dolly",
+   "intensidad": 2
+  },
+  "keyword_emphasis": {
+   "intensidad": "baja",
+   "sfx": "auto"
+  }
+ },
+ "marks": {
+  "icon_callout": {
+   "v": "si",
+   "auto": true
+  },
+  "vignette": {
+   "v": "si",
+   "auto": true
+  },
+  "title_card": {
+   "v": "si",
+   "auto": true
+  },
+  "punch_in": {
+   "v": "si",
+   "auto": true
+  },
+  "archive_clipping": {
+   "v": "si",
+   "auto": true
+  },
+  "keyword_stamp": {
+   "v": "si",
+   "auto": true
+  },
+  "keyword_emphasis": {
+   "v": "si",
+   "auto": true
+  },
+  "data_callout": {
+   "v": "si",
+   "auto": true
+  },
+  "chapter_question": {
+   "v": "si",
+   "auto": true
+  },
+  "black_hold": {
+   "v": "si",
+   "auto": true
+  }
+ }
+}

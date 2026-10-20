@@ -233,6 +233,18 @@ REGLAS DURAS:
 {_QUESTION_RULE}- Si un bloque no aplica: use=false (o lista vacía).
 """
 
+
+def system_prompt() -> str:
+    """Prompt del director + (F4 §2.1) el plan dorado de la identidad como ejemplo de ritmo y densidad."""
+    if not gfx_rules.identity_rules:
+        return _SYSTEM_PROMPT
+    from script_engine.gfx_style import golden_fewshot
+    shot = golden_fewshot()
+    return _SYSTEM_PROMPT + ("\n" + shot + "\nLas FORMAS (animaciones, tamaños, transiciones, movimiento de foto) las pone el "
+                             "sistema: vos elegís solo DÓNDE y QUÉ dato.\n" if shot else "")
+
+
+
 _SCHEMA: dict[str, Any] = {
     "type": "OBJECT",
     "properties": {
@@ -1257,7 +1269,8 @@ def apply_zoom_vision(plan: dict[str, Any], *, frame_for_scene: Any, cache: Path
 # ═══════════════════════════════════════════════════════════════
 
 # cambia el prompt → el cache crudo de una versión anterior se re-llama
-DIRECTOR_VERSION = "v1.5"      # v1.1 = + chapter_question (F2 §0d) · v1.5 = titular determinista + zoom con ancla (F2b §1)
+DIRECTOR_VERSION = "v1.6"      # v1.1 = + chapter_question (F2 §0d) · v1.5 = titular determinista + zoom con ancla (F2b §1)
+#                               v1.6 = plan dorado de la identidad como few-shot (F4 §2.1)
 
 def select_gfx_plan(chplan: Any, *, ctx: dict[str, Any], words: list[dict], scenes: list[Any],
                     work_dir: Path, log: list[str] | None = None, time_offset: float = 0.0) -> dict[str, Any]:
@@ -1281,7 +1294,7 @@ def select_gfx_plan(chplan: Any, *, ctx: dict[str, Any], words: list[dict], scen
             raw = None
     if raw is None:
         try:
-            raw = call_flash_json(_build_user_prompt(ctx, words, scenes), system_instruction=_SYSTEM_PROMPT,
+            raw = call_flash_json(_build_user_prompt(ctx, words, scenes), system_instruction=system_prompt(),
                                   response_schema=_SCHEMA, description=f"gfx_director {chplan.chapter_id}")
         except Exception as e:  # noqa: BLE001 — Gemini caído → fallback estático (solo title_card)
             error_handler.log_warning(PipelineStage.ASSEMBLY, f"[gfx_director] {chplan.chapter_id} Gemini falló ({e}) → solo title_card")

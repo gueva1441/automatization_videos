@@ -502,6 +502,19 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             resolved, rej2 = _lock2(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                     question_sources=ctx.get("next_sources"))
             rejected += rej2
+        if gfx_plan_override is None and gfx_rules.identity_rules:   # F4 §2: formas de la identidad del canal
+            from script_engine.gfx_style import (identity_transitions, identity_violations, plan_movements,
+                                                 prompt_for_asset, select_punches)
+            prompts = ctx["script_chapter"].get("image_prompts") or []
+            movs = plan_movements(scenes, plan, prompts, log)
+            resolved["punch_in"] = select_punches(resolved, words, time_offset=time_offset, log=log)
+            pbs = ([prompt_for_asset(a, prompts, i) for i, a in enumerate(plan.asset_paths)]
+                   if getattr(plan, "engine", "") == "flux" else [])
+            tr = identity_transitions(scenes, pbs, (resolved.get("evidence_zoom") or {}).get("scene_idx"))
+            resolved["transitions"] = {str(k): v for k, v in tr.items()}
+            viol = identity_violations(resolved, tr)
+            resolved["identity"] = {"movimientos": movs, "violaciones": viol}
+            log.append(f"  identidad: transiciones {[tr[k]['kind'] for k in sorted(tr)]} · violaciones {viol}")
         n_src = icon_sources(resolved, ctx)                  # F3: fuente debajo del bloque de ícono (si hay)
         if n_src:
             log.append(f"  íconos con fuente: {n_src}")

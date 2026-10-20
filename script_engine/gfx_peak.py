@@ -18,6 +18,8 @@ import re
 import unicodedata
 from typing import Any, Callable
 
+from gfx_config import gfx_rules
+
 PEAK_CLEAR_SEC = 5.0
 WATER_DUR = (2.5, 2.0)              # subida, hold
 WATER_FULL_M = 7.6                  # 4.6 m ≈ 60 % de la pantalla
@@ -146,6 +148,8 @@ def time_ticker(ctx: dict[str, Any], words: list[dict], clip_dur: float, peak: d
         if wi is None:
             continue
         times = [(int(h), int(mi)) for h, mi in _TIME_RE.findall(" ".join(ctx.get("facts") or []))]
+        if len(times) < gfx_rules.ticker_min_times:           # F4: sin horas verificadas el reloj no sale
+            return None
         start = float(words[wi]["start"]) + time_offset
         end = clip_dur if not peak or peak["t"] < start else max(start + 2.0, peak["t"] - PEAK_CLEAR_SEC)
         tail = f"{times[0][0]:02d}:{times[0][1]:02d}" if times else (year or "")

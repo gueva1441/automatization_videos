@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+from dataclasses import replace
 
 from script_engine import gfx_peak as gp
 from script_engine.gfx_project import GfxScene
@@ -38,7 +39,8 @@ def test_nivel_de_agua_con_cifra_literal_y_dicha():
     assert gp.water_level(gp.find_peak(sin_cifra, MOODS), CTX, sin_cifra) is None     # la voz no dice la cifra
 
 
-def test_reloj_con_la_fecha_literal_y_antes_del_pico():
+def test_reloj_con_la_fecha_literal_y_antes_del_pico(monkeypatch):
+    monkeypatch.setattr(gp, "gfx_rules", replace(gp.gfx_rules, ticker_min_times=0))   # motor F3: con la fecha alcanza
     pk = gp.find_peak(WORDS, MOODS)
     tk = gp.time_ticker(CTX, WORDS, 30.0, pk)
     assert (tk["day"], tk["month"], tk["tail"], tk["advance"]) == ("29", "AGO", "2005", False)
@@ -58,7 +60,8 @@ def test_clear_around_deja_solo_el_bloque_del_pico():
     assert "callouts:15 pies" in gone and "count_up" in gone
 
 
-def test_plan_peak_ch02_tipo_y_un_agua_por_video(tmp_path):
+def test_plan_peak_ch02_tipo_y_un_agua_por_video(tmp_path, monkeypatch):
+    monkeypatch.setattr(gp, "gfx_rules", replace(gp.gfx_rules, ticker_min_times=0))
     words = W(" ".join(w["word"] for w in WORDS), step=0.6)
     ts = next(w["start"] for w in words if w["word"] == "sumergidos")
     ta = next(w["start"] for w in words if w["word"] == "ahogaba.")
@@ -158,3 +161,11 @@ def test_zoom_tapa_el_video_con_un_cuadro_congelado(tmp_path, monkeypatch):
     sc = (tmp_path / "compositions" / "scene_01.html").read_text(encoding="utf-8")
     assert 'id="zf01" class="media clip" src="public/cuts/zoomfz_01.jpg" data-start="5.000" data-duration="3.000"' in sc
     assert sc.index('id="zf01"') < sc.index('id="zr01"')                       # dentro del contenedor que escala
+
+
+def test_f4_reloj_solo_con_dos_horas_verificadas():
+    pk = gp.find_peak(WORDS, MOODS)
+    assert gp.gfx_rules.ticker_min_times == 2                                # perfil misterio (identidad F4)
+    assert gp.time_ticker(CTX, WORDS, 30.0, pk) is None                      # solo fecha → no sale
+    ctx2 = dict(CTX, facts=CTX["facts"] + ["A las 23:40 se cortó la luz y a las 01:15 volvió."])
+    assert gp.time_ticker(ctx2, WORDS, 30.0, None)["advance"] is True

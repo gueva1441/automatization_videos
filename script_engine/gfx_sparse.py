@@ -28,7 +28,7 @@ from typing import Any
 import numpy as np
 
 from gfx_config import gfx_rules
-from script_engine.gfx_project import GfxScene, archive_list, plan_transitions
+from script_engine.gfx_project import GfxScene, archive_list, transitions_of
 
 
 def _frame(t: float, fps: int) -> float:
@@ -55,6 +55,10 @@ def event_windows(plan: dict[str, Any], scenes: list[GfxScene], fps: int, dur: f
         iv.append((e["start"], e["start"] + e["duration"]))
     if plan.get("icon_array"):                                # F2b §3
         iv.append((plan["icon_array"]["start"], plan["icon_array"]["start"] + plan["icon_array"]["duration"]))
+    for k in ("water_level", "time_ticker", "black_hold"):    # F4: bloques del pico (F3) también en disperso
+        b = plan.get(k)
+        if b:
+            iv.append((b["start"], b["start"] + b["duration"]))
 
     def _scene_end(t: float) -> float:
         return next((s.end for s in scenes if s.start <= t < s.end), dur)
@@ -68,7 +72,7 @@ def event_windows(plan: dict[str, Any], scenes: list[GfxScene], fps: int, dur: f
             iv.append((s.start, s.end))
     for t in plan.get("punch_in", []):                        # el punch se sostiene hasta el corte
         iv.append((t, _scene_end(t)))
-    for idx, tr in plan_transitions(scenes, (ez or {}).get("scene_idx")).items():
+    for idx, tr in transitions_of(plan, scenes).items():
         st = scenes[idx].start
         d = max(tr["frames"] / fps, 0.35)                       # cut_punch dura .35 s
         iv.append((st - 1.5 / fps, st + d))                     # incluye el freeze del saliente
@@ -101,7 +105,7 @@ def compose_sparse(plan: dict[str, Any], scenes: list[GfxScene], windows: list[t
                 return round(o + (t - a), 4)
         return None
 
-    full_tr = plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx"))
+    full_tr = transitions_of(plan, scenes)
     scenes_s: list[GfxScene] = []
     tr_s: dict[int, dict[str, Any]] = {}
     idx_map: dict[int, int] = {}
@@ -122,6 +126,12 @@ def compose_sparse(plan: dict[str, Any], scenes: list[GfxScene], windows: list[t
                 tr_s[k] = {"kind": "cut", "frames": 0, "rank": s.rank, "window_join": lo != s.start}
 
     p = copy.deepcopy(plan)
+    p.pop("transitions", None)                                  # en disperso las manda tr_s (timeline concatenado)
+    for k in ("water_level", "time_ticker", "black_hold"):     # F4: bloques del pico corridos al timeline disperso
+        if p.get(k):
+            p[k]["start"] = m(p[k]["start"])
+            if p[k]["start"] is None:
+                p[k] = None
     for c in p.get("callouts", []):
         c["start"] = m(c["start"])
     p["callouts"] = [c for c in p.get("callouts", []) if c["start"] is not None]
@@ -145,6 +155,8 @@ def compose_sparse(plan: dict[str, Any], scenes: list[GfxScene], windows: list[t
         # la escena del zoom en el timeline disperso = la última porción de esa escena (la que contiene z0)
         k = next((s.idx for s in scenes_s if z0 is not None and s.start <= z0 < s.end), None)
         p["evidence_zoom"] = {**ez, "scene_idx": k, "start": z0} if k is not None else None
+        if p["evidence_zoom"] and ez.get("latido_t") is not None:   # F4: el latido también se corre
+            p["evidence_zoom"]["latido_t"] = m(ez["latido_t"])
     p["punch_in"] = [x for x in (m(t) for t in p.get("punch_in", [])) if x is not None]
     return p, scenes_s, tr_s, offsets
 

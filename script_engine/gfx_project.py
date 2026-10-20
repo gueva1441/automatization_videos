@@ -213,7 +213,7 @@ def icon_callout_html(i: int, e: dict[str, Any], st: float, duration: float,
     right = e.get("side", "right") == "right"
     top = "38%" if (zone or e.get("zone_v")) == "mid" else "14%"
     pos = f"top:{top};" + ("right:6%" if right else "left:6%")
-    word = (f'<div class="em-text" style="display:inline-block;font:400 {round(gfx_rules.emphasis_stamp_px * .9)}px/1 '
+    word = (f'<div class="em-text" style="display:inline-block;font:400 {round(gfx_rules.icon_stamp_px * .9)}px/1 '
             f'&quot;{gfx_rules.figure_font}&quot;,sans-serif;text-transform:uppercase;color:{gfx_rules.accent_hex};'
             f'border:7px solid {gfx_rules.accent_hex};padding:8px 24px 4px;background:rgba(10,10,10,.35);white-space:nowrap">'
             f'{_esc(e["word"])}</div>') if e.get("word") else ""
@@ -417,6 +417,14 @@ def _extract_freeze(base: Path, t: float, out: Path) -> bool:
     if ok:
         _FREEZE_MEMO.add(key)
     return ok
+
+
+def transitions_of(plan: dict[str, Any], scenes: list[GfxScene]) -> dict[int, dict[str, Any]]:
+    """Transiciones del cap: las que fijó la identidad (F4 §2.3, plan["transitions"]) o las de plan_transitions."""
+    tr = plan.get("transitions")
+    if tr:
+        return {int(k): v for k, v in tr.items() if 0 < int(k) < len(scenes)}
+    return plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx"))
 
 
 def plan_transitions(scenes: list[GfxScene], zoom_scene_idx: int | None = None) -> dict[int, dict[str, Any]]:
@@ -657,9 +665,10 @@ def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[d
     if plan.get("icon_array"):                                  # F2b §3
         ia = plan["icon_array"]
         add(ia["start"], ia["duration"], "icon_array", f"{ia['label']} ({ia['affected']}/{ia['total']})")
-    for idx, tr in plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx")).items():
+    for idx, tr in transitions_of(plan, scenes).items():
         sc = scenes[idx]
         label = (f"{tr['frames']} f" if tr["frames"] else
+                 f"corte ({tr['why']})" if tr.get("why") and tr["kind"] == "cut" else    # F4: motivo de la identidad
                  "corte seco (post-zoom)" if tr["kind"] == "cut" else "corte + punch")
         add(sc.start, tr["frames"] / fps, f"shot_transition:{tr['kind']}", label,
             tr["rank"])
@@ -733,7 +742,7 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
 
     # ── escenas
     if transitions is None:
-        transitions = plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx"))
+        transitions = transitions_of(plan, scenes)
     hosts: list[str] = []
     for s in scenes:
         n = s.idx + 1
