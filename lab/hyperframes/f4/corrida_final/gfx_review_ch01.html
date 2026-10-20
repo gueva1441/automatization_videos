@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es"><head><meta charset="UTF-8" /><title>gfx review ch01</title>
+<style>
+  body { margin: 0; background: #111; color: #eee; font: 15px/1.4 system-ui, sans-serif; display: flex; height: 100vh; }
+  #left { flex: 1; display: flex; flex-direction: column; padding: 12px; gap: 8px; min-width: 0; }
+  video { width: 100%; max-height: 80vh; background: #000; }
+  #note { display: flex; gap: 8px; } #note input { flex: 1; padding: 6px; background: #222; color: #eee; border: 1px solid #444; }
+  button { padding: 6px 12px; background: #c8102e; color: #fff; border: 0; cursor: pointer; }
+  #cues { width: 420px; overflow-y: auto; border-left: 1px solid #333; }
+  .cue { padding: 6px 10px; border-bottom: 1px solid #222; cursor: pointer; }
+  .cue:hover { background: #222; } .cue.on { background: #3a1016; }
+  .t { font-family: Consolas, monospace; color: #f4c542; } .b { color: #8fd; } .n { color: #f99; font-size: 13px; }
+</style></head><body>
+<div id="left">
+  <video id="v" src="seg_01_ch01.mp4" controls preload="auto"></video>
+  <div id="note"><input id="c" placeholder="comentario sobre el instante actual" /><button id="copy">copiar nota</button></div>
+  <div id="msg"></div>
+</div>
+<div id="cues"></div>
+<script>
+var CAP = "ch01", DATA = {"cap": "ch01", "events": [{"t": 0.0, "dur": 3.0, "block": "title_card", "text": "CAPÍTULO 1 · 6,500 Almas Atrapadas", "scene": 1, "rank": ""}, {"t": 4.279, "dur": 0.8, "block": "punch_in", "text": "", "scene": 1, "rank": ""}, {"t": 6.699, "dur": 3.0, "block": "data_callout", "text": "29 de agosto de 2005", "scene": 1, "rank": ""}, {"t": 6.699, "dur": 0.8, "block": "punch_in", "text": "", "scene": 1, "rank": ""}, {"t": 8.0, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 2, "rank": "R3"}, {"t": 10.5, "dur": 2.5, "block": "data_callout", "text": "Katrina", "scene": 2, "rank": ""}, {"t": 13.3, "dur": 0.333, "block": "shot_transition:dip", "text": "10 f", "scene": 3, "rank": "R3"}, {"t": 15.5, "dur": 3.7, "block": "count_up", "text": "6,500 personas", "scene": 3, "rank": ""}, {"t": 20.18, "dur": 2.5, "block": "icon_callout:oscuridad_encierro", "text": "encerradas [candado · stamp]", "scene": 3, "rank": ""}, {"t": 20.18, "dur": 0.8, "block": "punch_in", "text": "", "scene": 3, "rank": ""}, {"t": 21.533, "dur": 0.0, "block": "shot_transition:cut", "text": "corte (≥ 1 corte cada 3)", "scene": 4, "rank": "R3"}, {"t": 21.92, "dur": 0.8, "block": "punch_in", "text": "", "scene": 4, "rank": ""}, {"t": 24.159, "dur": 6.0, "block": "archive_clipping", "text": "El agua dentro de algunos edificios", "scene": 4, "rank": ""}, {"t": 27.2, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 5, "rank": "R3"}, {"t": 35.8, "dur": 3.0, "block": "chapter_question", "text": "¿Qué ocultó el huracán Katrina?", "scene": 5, "rank": ""}, {"t": 38.8, "dur": 1.0, "block": "black_hold", "text": "corte a negro", "scene": 5, "rank": ""}], "notes": ["callout omitido (solape/fuera de rango @ 13.5s): 'Prisión Parroquial de Orleans'", "callout omitido (solape/fuera de rango @ 15.5s): '6,500 personas'", "archive omitido (solape con otro bloque)", "archive omitido (solape con otro bloque)", "zoom omitido (el final de su escena choca con otro bloque)", "zoom omitido (visión: 'atrapados' no encontrado en escena 0 — conf 0.00 < 0.7 o sin box; atrapados)", "zoom omitido (visión: 'encerradas' no encontrado en escena 2 — conf 0.00 < 0.7 o sin box; encerradas)"], "gaps": [], "render_sec": 94.20819234848022};
+var v = document.getElementById("v"), box = document.getElementById("cues");
+function fmt(t) { var m = Math.floor(t / 60), s = (t % 60).toFixed(1); return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s; }
+DATA.events.forEach(function (e, i) {
+  var d = document.createElement("div"); d.className = "cue"; d.id = "q" + i;
+  d.innerHTML = '<span class="t">' + fmt(e.t) + '</span> <span class="b">' + e.block + (e.rank ? " " + e.rank : "") + '</span> '
+    + (e.text ? "«" + e.text.replace(/</g, "&lt;") + "»" : "") + ' <span class="t">' + e.dur.toFixed(2) + ' s</span>';
+  d.onclick = function () { v.currentTime = e.t; v.play(); };
+  box.appendChild(d);
+});
+DATA.notes.concat(DATA.gaps.map(function (g) { return "gap_warning " + fmt(g[0]) + "–" + fmt(g[1]); })).forEach(function (n) {
+  var d = document.createElement("div"); d.className = "cue n"; d.textContent = n; box.appendChild(d);
+});
+v.ontimeupdate = function () {
+  DATA.events.forEach(function (e, i) {
+    document.getElementById("q" + i).classList.toggle("on", v.currentTime >= e.t && v.currentTime < e.t + Math.max(e.dur, 0.3));
+  });
+};
+document.getElementById("copy").onclick = function () {
+  var txt = CAP + " @ " + fmt(v.currentTime) + " — " + document.getElementById("c").value;
+  (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(
+    function () { document.getElementById("msg").textContent = "copiado: " + txt; },
+    function () { document.getElementById("msg").textContent = txt; });
+};
+</script></body></html>

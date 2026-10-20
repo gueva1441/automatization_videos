@@ -1,0 +1,183 @@
+{
+ "cap": "ch07",
+ "events": [
+  {
+   "t": 0.0,
+   "dur": 3.0,
+   "block": "title_card",
+   "text": "CAPÍTULO 7 · El Legado de la Indiferencia",
+   "scene": 1,
+   "rank": ""
+  },
+  {
+   "t": 7.367,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 2,
+   "rank": "R3"
+  },
+  {
+   "t": 8.119,
+   "dur": 3.4,
+   "block": "data_callout",
+   "text": "Robie Waganfeald y Paul Kunkel Jr.",
+   "scene": 2,
+   "rank": ""
+  },
+  {
+   "t": 8.119,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 2,
+   "rank": ""
+  },
+  {
+   "t": 16.8,
+   "dur": 0.333,
+   "block": "shot_transition:dip",
+   "text": "10 f",
+   "scene": 3,
+   "rank": "R3"
+  },
+  {
+   "t": 20.3,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (≥ 1 corte cada 3)",
+   "scene": 4,
+   "rank": "R3"
+  },
+  {
+   "t": 20.379,
+   "dur": 6.0,
+   "block": "archive_clipping",
+   "text": "Aproximadamente 6,500 personas",
+   "scene": 4,
+   "rank": ""
+  },
+  {
+   "t": 20.379,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 4,
+   "rank": ""
+  },
+  {
+   "t": 25.767,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 5,
+   "rank": "R3"
+  },
+  {
+   "t": 29.599,
+   "dur": 3.44,
+   "block": "data_callout",
+   "text": "el nivel del pecho",
+   "scene": 5,
+   "rank": ""
+  },
+  {
+   "t": 29.599,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 5,
+   "rank": ""
+  },
+  {
+   "t": 33.833,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 6,
+   "rank": "R3"
+  },
+  {
+   "t": 42.233,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (≥ 1 corte cada 3)",
+   "scene": 7,
+   "rank": "R3"
+  },
+  {
+   "t": 45.759,
+   "dur": 2.5,
+   "block": "icon_callout:muerte",
+   "text": "cadáveres [calavera · ink_bleed]",
+   "scene": 7,
+   "rank": ""
+  },
+  {
+   "t": 45.759,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 7,
+   "rank": ""
+  },
+  {
+   "t": 48.633,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (ritmo rápido)",
+   "scene": 8,
+   "rank": "R3"
+  },
+  {
+   "t": 51.7,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (ritmo rápido)",
+   "scene": 9,
+   "rank": "R3"
+  },
+  {
+   "t": 56.759,
+   "dur": 2.5,
+   "block": "keyword_emphasis:agua",
+   "text": "marea",
+   "scene": 9,
+   "rank": ""
+  },
+  {
+   "t": 58.867,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 10,
+   "rank": "R3"
+  },
+  {
+   "t": 68.4,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 11,
+   "rank": "R3"
+  },
+  {
+   "t": 73.0,
+   "dur": 2.5,
+   "block": "keyword_emphasis:oscuridad_encierro",
+   "text": "oscuridad",
+   "scene": 11,
+   "rank": ""
+  }
+ ],
+ "notes": [
+  "callout descartado (no literal del fact 4): 'Prisión Parroquial de Orleans'",
+  "zoom omitido (visión: 'cadáveres flotando' no encontrado en escena 6 — conf 0.00 < 0.7 o sin box; cadáveres flotando)",
+  "count_up omitido (la cifra 6,500 ya se animó en un cap anterior → recorte o nada)",
+  "archive omitido (solape con otro bloque)",
+  "archive omitido (solape con otro bloque)",
+  "zoom omitido (visión: 'cadáveres' no encontrado en escena 6 — conf 0.00 < 0.7 o sin box; cadáveres)"
+ ],
+ "gaps": [],
+ "render_sec": 129.26053047180176
+}

@@ -1,0 +1,245 @@
+{
+ "cap": "ch02",
+ "events": [
+  {
+   "t": 0.0,
+   "dur": 3.0,
+   "block": "title_card",
+   "text": "CAPÍTULO 2 · La Tormenta Perfecta",
+   "scene": 1,
+   "rank": ""
+  },
+  {
+   "t": 9.4,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 2,
+   "rank": "R2"
+  },
+  {
+   "t": 9.9,
+   "dur": 6.0,
+   "block": "archive_clipping",
+   "text": "El huracán Katrina tocó tierra",
+   "scene": 2,
+   "rank": ""
+  },
+  {
+   "t": 15.733,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 3,
+   "rank": "R2"
+  },
+  {
+   "t": 17.719,
+   "dur": 2.5,
+   "block": "keyword_emphasis:agua",
+   "text": "diques",
+   "scene": 3,
+   "rank": ""
+  },
+  {
+   "t": 21.7,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (≥ 1 corte cada 3)",
+   "scene": 4,
+   "rank": "R3"
+  },
+  {
+   "t": 26.819,
+   "dur": 2.5,
+   "block": "keyword_emphasis:oscuridad_encierro",
+   "text": "oscuro",
+   "scene": 4,
+   "rank": ""
+  },
+  {
+   "t": 30.467,
+   "dur": 0.333,
+   "block": "shot_transition:dip",
+   "text": "10 f",
+   "scene": 5,
+   "rank": "R3"
+  },
+  {
+   "t": 33.7,
+   "dur": 4.5,
+   "block": "water_level",
+   "text": "4.6 metros",
+   "scene": 5,
+   "rank": ""
+  },
+  {
+   "t": 40.167,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (ritmo rápido)",
+   "scene": 6,
+   "rank": "R3"
+  },
+  {
+   "t": 43.2,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (ritmo rápido)",
+   "scene": 7,
+   "rank": "R3"
+  },
+  {
+   "t": 43.419,
+   "dur": 2.6,
+   "block": "data_callout",
+   "text": "Prisión Parroquial de Orleans",
+   "scene": 7,
+   "rank": ""
+  },
+  {
+   "t": 43.419,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 7,
+   "rank": ""
+  },
+  {
+   "t": 48.0,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 8,
+   "rank": "R3"
+  },
+  {
+   "t": 52.167,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 9,
+   "rank": "R3"
+  },
+  {
+   "t": 57.383,
+   "dur": 2.85,
+   "block": "evidence_zoom",
+   "text": "box [0.4, 0.45, 0.2, 0.2]",
+   "scene": 9,
+   "rank": ""
+  },
+  {
+   "t": 58.939,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 9,
+   "rank": ""
+  },
+  {
+   "t": 60.233,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (después del zoom)",
+   "scene": 10,
+   "rank": "R1"
+  },
+  {
+   "t": 60.733,
+   "dur": 6.0,
+   "block": "archive_clipping",
+   "text": "Los prisioneros quedaron atrapados durante días en celdas",
+   "scene": 10,
+   "rank": ""
+  },
+  {
+   "t": 60.859,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 10,
+   "rank": ""
+  },
+  {
+   "t": 66.7,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 11,
+   "rank": "R3"
+  },
+  {
+   "t": 74.1,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 12,
+   "rank": "R2"
+  },
+  {
+   "t": 79.779,
+   "dur": 2.5,
+   "block": "icon_callout:oscuridad_encierro",
+   "text": "encierro [candado · stamp]",
+   "scene": 12,
+   "rank": ""
+  },
+  {
+   "t": 80.767,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (≥ 1 corte cada 3)",
+   "scene": 13,
+   "rank": "R3"
+  },
+  {
+   "t": 81.319,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 13,
+   "rank": ""
+  },
+  {
+   "t": 85.5,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 14,
+   "rank": "R3"
+  },
+  {
+   "t": 91.4,
+   "dur": 0.1,
+   "block": "shot_transition:flash",
+   "text": "3 f",
+   "scene": 15,
+   "rank": "R1"
+  },
+  {
+   "t": 97.633,
+   "dur": 3.0,
+   "block": "chapter_question",
+   "text": "¿Quién fue el culpable?",
+   "scene": 15,
+   "rank": ""
+  },
+  {
+   "t": 100.633,
+   "dur": 1.0,
+   "block": "black_hold",
+   "text": "corte a negro",
+   "scene": 15,
+   "rank": ""
+  }
+ ],
+ "notes": [
+  "zoom descartado (sin frase ancla de la voz dentro de la escena 11): {'use': True, 'scene_idx': 11, 'anchor_word_idx': 76, 'anchor_len': 1}",
+  "count_up omitido (la cifra 6,500 ya se animó en un cap anterior → recorte o nada)",
+  "callout omitido (ya en text_in_image escena 0): '29 de agosto de 2005'",
+  "sfx descartado: title_card @ 0.05s cae sobre 'Aquel' sin hueco ≤ 120 ms"
+ ],
+ "gaps": [],
+ "render_sec": 254.83146572113037
+}

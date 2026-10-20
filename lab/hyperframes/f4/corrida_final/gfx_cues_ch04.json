@@ -1,0 +1,282 @@
+{
+ "cap": "ch04",
+ "events": [
+  {
+   "t": 0.0,
+   "dur": 3.0,
+   "block": "title_card",
+   "text": "CAPÍTULO 4 · Atrapados en el Horror",
+   "scene": 1,
+   "rank": ""
+  },
+  {
+   "t": 7.333,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 2,
+   "rank": "R3"
+  },
+  {
+   "t": 8.72,
+   "dur": 2.5,
+   "block": "icon_callout:oscuridad_encierro",
+   "text": "atrapados [candado · stamp]",
+   "scene": 2,
+   "rank": ""
+  },
+  {
+   "t": 8.72,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 2,
+   "rank": ""
+  },
+  {
+   "t": 13.2,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 3,
+   "rank": "R2"
+  },
+  {
+   "t": 22.3,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (≥ 1 corte cada 3)",
+   "scene": 4,
+   "rank": "R3"
+  },
+  {
+   "t": 22.48,
+   "dur": 2.5,
+   "block": "icon_callout:agua",
+   "text": "agua [gota · press_wipe]",
+   "scene": 4,
+   "rank": ""
+  },
+  {
+   "t": 26.3,
+   "dur": 0.333,
+   "block": "shot_transition:dip",
+   "text": "10 f",
+   "scene": 5,
+   "rank": "R3"
+  },
+  {
+   "t": 30.633,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 6,
+   "rank": "R3"
+  },
+  {
+   "t": 30.68,
+   "dur": 2.5,
+   "block": "icon_callout:oscuridad_encierro",
+   "text": "Celdas [candado · stamp]",
+   "scene": 6,
+   "rank": ""
+  },
+  {
+   "t": 32.16,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 6,
+   "rank": ""
+  },
+  {
+   "t": 34.96,
+   "dur": 2.5,
+   "block": "data_callout",
+   "text": "aguas residuales",
+   "scene": 6,
+   "rank": ""
+  },
+  {
+   "t": 37.8,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (≥ 1 corte cada 3)",
+   "scene": 7,
+   "rank": "R2"
+  },
+  {
+   "t": 40.1,
+   "dur": 6.0,
+   "block": "archive_clipping",
+   "text": "El agua dentro de algunos edificios",
+   "scene": 7,
+   "rank": ""
+  },
+  {
+   "t": 42.433,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 8,
+   "rank": "R3"
+  },
+  {
+   "t": 49.267,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (ritmo rápido)",
+   "scene": 9,
+   "rank": "R3"
+  },
+  {
+   "t": 49.683,
+   "dur": 2.85,
+   "block": "evidence_zoom",
+   "text": "box [0.5, 0.4, 0.2, 0.2]",
+   "scene": 9,
+   "rank": ""
+  },
+  {
+   "t": 52.533,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (después del zoom)",
+   "scene": 10,
+   "rank": "R3"
+  },
+  {
+   "t": 56.667,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 11,
+   "rank": "R3"
+  },
+  {
+   "t": 57.68,
+   "dur": 2.5,
+   "block": "data_callout",
+   "text": "6,500 personas",
+   "scene": 11,
+   "rank": ""
+  },
+  {
+   "t": 61.6,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 12,
+   "rank": "R2"
+  },
+  {
+   "t": 65.36,
+   "dur": 2.5,
+   "block": "keyword_emphasis:oscuridad_encierro",
+   "text": "encerrados",
+   "scene": 12,
+   "rank": ""
+  },
+  {
+   "t": 65.36,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 12,
+   "rank": ""
+  },
+  {
+   "t": 68.2,
+   "dur": 0.1,
+   "block": "shot_transition:flash",
+   "text": "3 f",
+   "scene": 13,
+   "rank": "R1"
+  },
+  {
+   "t": 73.3,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 14,
+   "rank": "R3"
+  },
+  {
+   "t": 75.0,
+   "dur": 2.5,
+   "block": "data_callout",
+   "text": "afroamericana",
+   "scene": 14,
+   "rank": ""
+  },
+  {
+   "t": 82.067,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 15,
+   "rank": "R3"
+  },
+  {
+   "t": 84.54,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 15,
+   "rank": ""
+  },
+  {
+   "t": 92.467,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (≥ 1 corte cada 3)",
+   "scene": 16,
+   "rank": "R3"
+  },
+  {
+   "t": 102.333,
+   "dur": 0.1,
+   "block": "shot_transition:flash",
+   "text": "3 f",
+   "scene": 17,
+   "rank": "R1"
+  },
+  {
+   "t": 113.14,
+   "dur": 2.5,
+   "block": "keyword_emphasis:oscuridad_encierro",
+   "text": "atrapados",
+   "scene": 17,
+   "rank": ""
+  },
+  {
+   "t": 116.133,
+   "dur": 3.0,
+   "block": "chapter_question",
+   "text": "¿Qué vieron esos ojos en la oscuridad?",
+   "scene": 17,
+   "rank": ""
+  },
+  {
+   "t": 119.133,
+   "dur": 1.0,
+   "block": "black_hold",
+   "text": "corte a negro",
+   "scene": 17,
+   "rank": ""
+  }
+ ],
+ "notes": [
+  "callout descartado (no literal del fact 9): 'diez años'",
+  "count_up omitido (la cifra 6,500 ya se animó en un cap anterior → recorte o nada)",
+  "archive omitido (solape con otro bloque)",
+  "archive omitido (solape con otro bloque)",
+  "archive omitido (solape con otro bloque) [cifra ya animada: recorte o nada]",
+  "archive omitido (solape con otro bloque) [conversión de callout]",
+  "icon_callout omitido: 'encerrados' (candado: tope por cap)",
+  "icon_callout omitido: 'atrapados' (candado: tope por cap)",
+  "zoom omitido (visión: 'atrapados' no encontrado en escena 1 — conf 0.00 < 0.7 o sin box; atrapados)"
+ ],
+ "gaps": [],
+ "render_sec": 314.22318601608276
+}
