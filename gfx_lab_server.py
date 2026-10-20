@@ -18,6 +18,7 @@ Mini-servidor local (http.server, sin dependencias nuevas) que sirve el lab en h
     GET  /api/profile         perfil gfx activo (valores actuales de los tokens)
     POST /preview             {plan, tokens} → candado literal → gfx_project.write_project (plantillas REALES)
                               con los tokens pisando gfx_rules SOLO durante ese write_project → src del player
+    GET  /objetos?foto=N      §F: movimiento del pipeline + movimiento sugerido + datos del prompt de la foto N
     GET  /summary             IDENTIDAD_<perfil>.md del estado guardado (text/markdown)
     POST /summary             estado de la página → IDENTIDAD_<perfil>.md en vivo (§4), sin escribir nada
     POST /save_identity       estado → perfil validado + plan dorado + IDENTIDAD_<perfil>.md (gfx_identity)
@@ -259,6 +260,45 @@ class LabSession:
                 im.save(dst, "JPEG", quality=82)
         return dst
 
+    # ── §F: datos de una foto que el cliente no tiene (movimiento del pipeline + sugerencia de la IA)
+    _MOV_PIPE = {"zoom_in": "acercar", "zoom_out": "alejar", "horizontal": "paneo", "vertical": "3D",
+                 "orbital": "3D", "dolly": "3D", "circle": "3D", "static": "quieta"}
+
+    def _pipeline_movements(self) -> list[str]:
+        """Movimiento que el pipeline le dio a cada foto (assets/flow_specs.json: lista por imagen o uno por cap)."""
+        f = self.out_dir / "assets" / "flow_specs.json"
+        n = len(self.scenes)
+        try:
+            ch = json.loads(f.read_text(encoding="utf-8"))["chapters"].get(self.cap) or {}
+        except (OSError, ValueError, KeyError):
+            return ["?"] * n
+        specs = ch.get("specs") or [ch] * n
+        kb = set()
+        kbf = self.work_dir / f"{self.cap}_{self.chplan.engine}_visual.kenburns.json"
+        if kbf.exists():
+            kb = set(json.loads(kbf.read_text(encoding="utf-8")))
+        return ["kenburns" if i in kb else str((specs[i] if i < len(specs) else specs[-1]).get("movement", "?"))
+                for i in range(n)]
+
+    def photo_info(self, idx: int) -> dict[str, Any]:
+        """GET /objetos?foto=N: lo que la pantalla foto-por-foto no puede calcular sola."""
+        self.context()
+        prompts = (self._ctx["script_chapter"].get("image_prompts") or []) if self.chplan.engine == "flux" else []
+        p = prompts[idx] if idx < len(prompts) else {}
+        movs = self._pipeline_movements()
+        mv = movs[idx] if idx < len(movs) else "?"
+        sug = []
+        for j in range(len(self.scenes)):                       # la sugerencia mira todo el cap (1 alejar por cap)
+            q = prompts[j] if j < len(prompts) else {}
+            sug.append(suggest_movement(q, already_out=any(s[0] == "alejar" for s in sug)))
+        s = self.scenes[idx]
+        tii = p.get("text_in_image")
+        return {"foto": idx, "start": s.start, "end": s.end, "rank": s.rank, "quiet_side": s.quiet_side,
+                "shot": p.get("shot_scale", ""), "subject": str(p.get("subject", ""))[:160],
+                "texto_en_imagen": (tii.get("text") if isinstance(tii, dict) and tii.get("present") else "") or "",
+                "movimiento_pipeline": {"crudo": mv, "forma": self._MOV_PIPE.get(mv, "acercar" if mv == "kenburns" else "3D")},
+                "movimiento_ia": {"forma": sug[idx][0], "motivo": sug[idx][1]}}
+
     # ── §C: resumen en vivo y Guardar identidad
     def _catalog(self) -> dict[str, Any]:
         return json.loads((LAB_DIR / "catalogo.json").read_text(encoding="utf-8"))
@@ -309,6 +349,30 @@ class LabSession:
             self.version += 1
             return {"src": f"/composition/index.html?v={self.version}", "ms": round(1000 * (time.time() - t)),
                     "cues": cues, "rejected": rejected}
+
+
+_PERSON = re.compile(r"\b(man|woman|boy|girl|child|person|face|hands?|individuals?|people|prisoners?|inmates?)\b", re.I)
+_CROWD = re.compile(r"\b(crowd|crowded|mass of|street|row|line of)\b", re.I)
+_PLACE = re.compile(r"\b(complex|tower|building|prison|cityscape|city|coast|landscape|sky|hurricane|cloud)\b", re.I)
+
+
+def suggest_movement(prompt: dict[str, Any], *, already_out: bool) -> tuple[str, str]:
+    """Hint del catálogo (§2 A) aplicado al prompt de la foto → (forma, motivo en ≤ 5 palabras)."""
+    tii = prompt.get("text_in_image")
+    if isinstance(tii, dict) and tii.get("present"):
+        return "quieta", "tiene texto: no moverlo"
+    shot = str(prompt.get("shot_scale", "")).lower()
+    subj = " ".join(str(prompt.get(k, "")) for k in ("subject", "setting", "prompt"))[:600]
+    wide = "wide" in shot
+    if _CROWD.search(subj) and wide:
+        return "paneo", "foto ancha con gente"
+    if _PERSON.search(str(prompt.get("subject", ""))) and not wide:
+        return "acercar", "hay una persona"
+    if "detail" in shot or "close" in shot:
+        return "acercar", "es un detalle"
+    if wide and _PLACE.search(subj):
+        return ("3D", "paisaje con profundidad") if already_out else ("alejar", "revela el lugar")
+    return "acercar", "base del documental"
 
 
 def _rule_fields() -> frozenset[str]:
@@ -448,6 +512,12 @@ class LabHandler(BaseHTTPRequestHandler):
                 return self._json({**s.lab_state(), "origin": "lab" if s.state_path.exists() else "director"})
             if path == "/api/context":
                 return self._json(s.context())
+            if path == "/objetos":
+                q = parse_qs(u.query)
+                idx = int((q.get("foto") or ["-1"])[0])
+                if not 0 <= idx < len(s.scenes):
+                    return self._error(400, f"foto fuera de rango (0–{len(s.scenes) - 1})")
+                return self._json(s.photo_info(idx))
             if path == "/summary":
                 return self._send(s.summary(s.lab_state()).encode("utf-8"), "text/markdown; charset=utf-8")
             if path == "/api/profile":

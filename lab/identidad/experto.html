@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lab de identidad · experto</title>
+  <link rel="stylesheet" href="/lab/lab.css" />
+  <link rel="stylesheet" href="/lab/anim_previews.css" />
+</head>
+<body>
+  <header class="top">
+    <h1>Laboratorio de identidad <span class="sub" id="cap-label"></span></h1>
+    <span class="status" id="status">cargando…</span>
+  </header>
+
+  <main class="cols">
+    <!-- Izquierda: Historia -->
+    <section class="col col-story">
+      <h2>Historia</h2>
+      <p class="hint">Clic en una palabra = ir ahí y ver qué hay. <span class="lg cue">subrayado</span> = ahí pasa algo · <span class="lg sug">punteado gris</span> = sugerido · <span class="lg lex">color</span> = palabra del léxico.</p>
+      <div id="words" class="words"></div>
+      <h3>Fotos del capítulo</h3>
+      <div id="strip" class="strip"></div>
+    </section>
+
+    <!-- Centro: Escena -->
+    <section class="col col-scene">
+      <h2>Escena</h2>
+      <div class="player-wrap">
+        <hyperframes-player id="player"></hyperframes-player>
+        <audio id="narr" src="/media/audio" preload="auto"></audio>
+      </div>
+      <div class="transport">
+        <button id="btn-play" class="btn">▶ Play</button>
+        <span id="tc" class="tc">00:00.0 / 00:00.0</span>
+        <input id="scrub" type="range" min="0" max="1000" value="0" />
+      </div>
+      <div id="now-line" class="now-line"></div>
+      <p class="hint">Los subtítulos amarillos se queman después en el mp4: acá no aparecen.</p>
+    </section>
+
+    <!-- Derecha: Catálogo -->
+    <section class="col col-catalog">
+      <h2>Aquí</h2>
+      <div id="here" class="here"></div>
+      <h2 class="mt">Catálogo</h2>
+      <nav class="tabs" id="tabs"></nav>
+      <div id="catalog" class="catalog"></div>
+      <h3>Todo lo que hay en este capítulo</h3>
+      <ol id="cues" class="cues"></ol>
+    </section>
+  </main>
+
+  <footer class="bar">
+    <button id="btn-preview" class="btn">▶ Preview</button>
+    <button id="btn-undo" class="btn ghost" title="Deshacer (Ctrl+Z)">↶</button>
+    <button id="btn-redo" class="btn ghost" title="Rehacer (Ctrl+Shift+Z)">↷</button>
+    <button id="btn-director" class="btn ghost">↺ Volver al plan del director</button>
+    <span class="spacer"></span>
+    <button id="btn-render" class="btn ghost" disabled title="Llega en §D">🎬 Render ch02 (mp4)</button>
+    <button id="btn-save" class="btn">💾 Guardar identidad</button>
+    <button id="btn-summary" class="btn ghost">📄 Resumen para el analista</button>
+  </footer>
+
+  <aside id="summary" class="summary" hidden>
+    <div class="summary-head"><b>Resumen para el analista</b> <span class="tech">IDENTIDAD_misterio.md · se actualiza solo</span>
+      <span class="spacer"></span><button id="summary-copy" class="btn sm ghost">Copiar</button>
+      <button id="summary-close" class="btn sm ghost">Cerrar</button></div>
+    <pre id="summary-md"></pre>
+  </aside>
+
+  <script src="/player.js"></script>
+  <script src="/lab/lab.js"></script>
+</body>
+</html>

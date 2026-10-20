@@ -104,6 +104,14 @@ def open_questions(state: dict[str, Any], catalog: dict[str, Any], cues: list[di
             qs.append(f"**{el['nombre']}** está ✔ pero todavía no se dibuja: es pieza nueva, se ve en el mp4 recién en §D.")
         elif m.get("v") == "si" and el and el.get("estado") == "futuro":
             qs.append(f"**{el['nombre']}** marcado 'lo quiero': no se construye en F3; queda para después del lab.")
+    rec = state.get("recorrido") or []
+    pend = [(f["foto"], o["nombre"]) for f in rec for o in f.get("objetos") or [] if o.get("estado") == "pendiente"]
+    if pend:
+        fotos = sorted({n for n, _ in pend})
+        qs.append(f"Quedan {len(pend)} objeto(s) pendientes (sin ☑ ni ✖) en las fotos {', '.join(map(str, fotos))}.")
+    sin_ver = [f["foto"] for f in rec if not f.get("vista")]
+    if rec and sin_ver:
+        qs.append(f"Fotos que no abriste: {', '.join(map(str, sin_ver))}.")
     for eid, m in marks.items():
         if m.get("v") == "no" and count_in_plan(eid, cues):
             el = by_id.get(eid, {"nombre": eid})
@@ -170,7 +178,20 @@ def summary_md(state: dict[str, Any], catalog: dict[str, Any], cues: list[dict[s
 
     lines += ["", "## 5. Preguntas abiertas", ""]
     lines += [f"- {q}" for q in open_questions(state, catalog, cues)] or ["- Ninguna."]
-    return "\n".join(lines) + "\n"
+
+    rec = state.get("recorrido") or []                 # §F: lo arma la pantalla foto por foto
+    if rec:
+        icon = {"si": "✔", "no": "✖", "pendiente": "…"}
+        lines += ["", "## 6. Recorrido foto por foto", "",
+                  "✔ se queda · … pendiente (sin marcar) · ✖ nunca", ""]
+        for f in rec:
+            vista = "" if f.get("vista") else " · (no la abriste)"
+            lines.append(f"**Foto {f['foto']}** ({f['desde']}–{f['hasta']}){vista}")
+            for o in f.get("objetos") or []:
+                forma = f" — {o['forma']}" if o.get("forma") else ""
+                lines.append(f"- {icon.get(o['estado'], '…')} {o['nombre']} ({o['t']}){forma}")
+            lines.append("")
+    return "\n".join(lines).rstrip("\n") + "\n"
 
 
 def apply_identity(prof: dict[str, Any], state: dict[str, Any], *, golden_name: str) -> dict[str, Any]:

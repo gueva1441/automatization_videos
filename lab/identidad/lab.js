@@ -1,4 +1,6 @@
 /* lab.js — Laboratorio de identidad (F3). Vanilla, sin build.
+ * NÚCLEO (estado, mutate/deshacer, preview, player + narración, guardado, resumen) + la vista "experto" (§A–§C).
+ * §F: la vista por defecto es foto por foto (lab_foto.js define window.LAB_UI); la experta queda en experto.html.
  * §A: historia (palabras Whisper + audio + tira de fotos) + preview real (<hyperframes-player>) del plan.
  * §B: catálogo (catalogo.json) con hints, "Probar sugerencia" y atributos; sugerencias_ch02.json en gris;
  *     panel "Aquí" al hacer clic en una palabra o una foto. Todo cambio pasa por mutate(). */
@@ -14,11 +16,17 @@ const S = {
   history: [], future: [],
   // §C: casillas, léxico, lo que falta, piezas tocadas, cómo deshacer cada sugerencia
   marks: {}, lexicon: {}, faltan: "", touched: [], sugUndo: {},
+  // §F: objetos de cada foto (aprobado / rechazado / forma elegida), foto actual, fotos vistas
+  obj: {}, fotoActual: 0, visitadas: [],
 };
-const STATE_KEYS = ["plan", "tokens", "anotado", "sugState", "marks", "lexicon", "faltan", "touched", "sugUndo"];
+const STATE_KEYS = ["plan", "tokens", "anotado", "sugState", "marks", "lexicon", "faltan", "touched", "sugUndo",
+                    "obj", "visitadas"];
 function labState() {
-  return { plan: S.plan, tokens: S.tokens, anotado: S.anotado, sugerencias: S.sugState, marks: S.marks,
-           lexicon: S.lexicon, faltan: S.faltan, touched: S.touched, sug_undo: S.sugUndo };
+  const st = { plan: S.plan, tokens: S.tokens, anotado: S.anotado, sugerencias: S.sugState, marks: S.marks,
+               lexicon: S.lexicon, faltan: S.faltan, touched: S.touched, sug_undo: S.sugUndo,
+               objetos: S.obj, foto_actual: S.fotoActual, visitadas: S.visitadas };
+  if (UI.recorrido) st.recorrido = UI.recorrido();          // §F: resumen foto por foto (lo arma la vista)
+  return st;
 }
 function touch(id) { if (id && !S.touched.includes(id)) S.touched.push(id); }
 
@@ -77,20 +85,20 @@ const near = (a, b, tol = 0.15) => Math.abs(a - b) <= tol;
 // ═══════════════════════════════════════════════════════════════
 function snapshot() { const o = {}; STATE_KEYS.forEach((k) => { o[k] = S[k]; }); return clone(o); }
 function restore(s) { Object.assign(S, clone(s)); }
-function afterChange(label) {
-  setStatus(label, "busy");
-  schedulePreview();
-  renderCatalog();
-  if (S.here) renderHere();
+function afterChange(label, opts = {}) {
+  setStatus(label, opts.preview === false ? "" : "busy");
+  if (opts.preview === false) autosave();           // cambio que no toca lo que se dibuja: sin recargar el player
+  else schedulePreview();
+  UI.afterChange();
   syncUndoButtons();
 }
-function mutate(label, fn) {
+function mutate(label, fn, opts = {}) {
   const before = snapshot();
   fn();
   S.history.push({ state: before, label });
   if (S.history.length > 200) S.history.shift();
   S.future = [];
-  afterChange(label);
+  afterChange(label, opts);
 }
 // Ctrl+Z / Ctrl+Shift+Z (o Ctrl+Y): deshacer / rehacer cualquier cambio
 function undo() {
@@ -306,6 +314,7 @@ function trySuggestion(s) {
       touch(s.elemento);
     });
   } catch (e) { setStatus(e.message, "err"); return; }
+  if (UI.onTried) return UI.onTried(s, t);
   seek(t + 0.05);
   openHere({ kind: "word", i: s.word_i });
 }
@@ -655,12 +664,12 @@ function togglePlay() {
   syncAudio(true);
   syncPlayButton();
 }
-function syncPlayButton() { $("#btn-play").textContent = player().paused ? "▶ Play" : "❚❚ Pausa"; }
+function syncPlayButton() { if (UI.ownsPlayButton) return; const b = $("#btn-play"); if (b) b.textContent = player().paused ? "▶ Play" : "❚❚ Pausa"; }
 
+function tick(force = false) { UI.tick(player().currentTime || 0, force); }
 let lastWord = -2, lastPhoto = -2;
-function tick(force = false) {
+function expertTick(t, force = false) {
   const p = player();
-  const t = p.currentTime || 0;
   const d = S.story.duration;
   $("#tc").textContent = `${fmt(t)} / ${fmt(d)}`;
   if (!S.scrubbing) $("#scrub").value = String(Math.round((t / d) * 1000));
@@ -691,10 +700,10 @@ async function preview() {
     const r = await api("/preview", { plan: S.plan, tokens: S.tokens });
     S.cues = r.cues;
     S.rejected = r.rejected || [];
-    markStory();
-    if (S.here) renderHere();
+    UI.afterCues();
     await loadSrc(r.src, t, wasPlaying);
     autosave();
+    if (UI.afterPreview) UI.afterPreview();
     setStatus(S.rejected.length
       ? `preview listo · candado quitó ${S.rejected.length}: ${S.rejected.map((x) => `${x.block} «${x.text}»`).join(", ")}`
       : `preview listo (${r.ms} ms)`, S.rejected.length ? "err" : "");
@@ -729,7 +738,7 @@ function loadSrc(src, t, play) {
 // ── §C: resumen en vivo y Guardar identidad
 let sumTimer = null;
 function refreshSummary() {
-  if ($("#summary").hidden) return;
+  if (!$("#summary") || $("#summary").hidden) return;
   clearTimeout(sumTimer);
   sumTimer = setTimeout(async () => {
     try { $("#summary-md").textContent = (await api("/summary", labState())).md; }
@@ -773,16 +782,14 @@ async function init() {
     S.plan = st.plan; S.tokens = st.tokens || {}; S.anotado = st.anotado || {}; S.sugState = st.sugerencias || {};
     S.marks = st.marks || {}; S.lexicon = st.lexicon || {}; S.faltan = st.faltan || ""; S.touched = st.touched || [];
     S.sugUndo = st.sug_undo || {};
+    S.obj = st.objetos || {}; S.fotoActual = st.foto_actual || 0; S.visitadas = st.visitadas || [];
     S.directorPlan = dir.plan;
+    S.profileName = prof.name;
     $("#cap-label").textContent = `· ${story.cap} · ${story.video_id.slice(0, 8)}… · ${fmt(story.duration)} · perfil ${prof.name}`;
-    renderStory();
-    renderCatalog();
-    renderHere();
+    await UI.init();
     const p = player();
     ["play", "pause", "ended"].forEach((ev) => p.addEventListener(ev, syncPlayButton));
-    $("#btn-play").addEventListener("click", togglePlay);
-    $("#btn-preview").addEventListener("click", preview);
-    $("#btn-director").addEventListener("click", backToDirector);
+    if ($("#btn-play")) $("#btn-play").addEventListener("click", UI.onPlayButton || togglePlay);
     $("#btn-undo").addEventListener("click", undo);
     $("#btn-redo").addEventListener("click", redo);
     $("#btn-save").addEventListener("click", saveIdentity);
@@ -790,12 +797,10 @@ async function init() {
     $("#summary-close").addEventListener("click", () => toggleSummary(false));
     $("#summary-copy").addEventListener("click", () => navigator.clipboard.writeText($("#summary-md").textContent).then(() => setStatus("resumen copiado")));
     syncUndoButtons();
-    const sc = $("#scrub");
-    sc.addEventListener("input", () => { S.scrubbing = true; seek((sc.value / 1000) * S.story.duration); });
-    sc.addEventListener("change", () => { S.scrubbing = false; });
     document.addEventListener("keydown", (e) => {
       if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
-      if (e.code === "Space") { e.preventDefault(); togglePlay(); }
+      if (e.code === "Space") { e.preventDefault(); (UI.onPlayButton || togglePlay)(); }
+      if (UI.onKey && UI.onKey(e)) return;
       const mod = e.ctrlKey || e.metaKey;
       if (mod && e.key.toLowerCase() === "z" && !e.shiftKey) { e.preventDefault(); undo(); }
       else if (mod && (e.key.toLowerCase() === "y" || (e.key.toLowerCase() === "z" && e.shiftKey))) { e.preventDefault(); redo(); }
@@ -806,4 +811,22 @@ async function init() {
     setStatus("error al cargar: " + e.message, "err");
   }
 }
-init();
+
+// ── vista experta (§A–§C): tres columnas, catálogo en pestañas, panel Aquí
+const EXPERT_UI = {
+  async init() {
+    renderStory();
+    renderCatalog();
+    renderHere();
+    $("#btn-preview").addEventListener("click", preview);
+    $("#btn-director").addEventListener("click", backToDirector);
+    const sc = $("#scrub");
+    sc.addEventListener("input", () => { S.scrubbing = true; seek((sc.value / 1000) * S.story.duration); });
+    sc.addEventListener("change", () => { S.scrubbing = false; });
+  },
+  afterChange() { renderCatalog(); if (S.here) renderHere(); },
+  afterCues() { markStory(); if (S.here) renderHere(); },
+  tick: expertTick,
+};
+let UI = EXPERT_UI;
+window.addEventListener("DOMContentLoaded", () => { if (window.LAB_UI) UI = window.LAB_UI; init(); });

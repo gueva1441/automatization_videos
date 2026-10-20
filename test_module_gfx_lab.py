@@ -306,3 +306,52 @@ def test_contexto_lexico_y_facts(server):
     assert any(f["eligible"] for f in ctx["facts"])
     prof = json.loads(_get(url + "/api/profile")[2])
     assert prof["rules"]["accent_hex"].startswith("#")
+
+
+# ── §F: foto por foto (GET /objetos + sugerencia de movimiento)
+
+@pytest.mark.parametrize("prompt,expected", [
+    ({"text_in_image": {"present": True, "text": "AGOSTO 2005"}, "shot_scale": "close"}, "quieta"),
+    ({"shot_scale": "medium", "subject": "An African American woman and a young boy"}, "acercar"),
+    ({"shot_scale": "wide", "subject": "a dense, crowded mass of incarcerated individuals"}, "paneo"),
+    ({"shot_scale": "detail", "subject": "the base of a steel door"}, "acercar"),
+    ({"shot_scale": "extreme_wide", "subject": "the cityscape of New Orleans"}, "alejar"),
+])
+def test_suggest_movement(prompt, expected):
+    assert lab.suggest_movement(prompt, already_out=False)[0] == expected
+
+
+def test_suggest_movement_un_solo_alejar():
+    p = {"shot_scale": "wide", "subject": "The Orleans Parish Prison complex"}
+    assert lab.suggest_movement(p, already_out=False)[0] == "alejar"
+    assert lab.suggest_movement(p, already_out=True)[0] == "3D"
+
+
+@needs_data
+def test_objetos_por_foto(server):
+    _, url = server
+    seen = []
+    for i in range(15):
+        o = json.loads(_get(url + f"/objetos?foto={i}")[2])
+        assert o["foto"] == i and o["end"] > o["start"]
+        assert o["movimiento_ia"]["forma"] in ("acercar", "alejar", "paneo", "3D", "quieta")
+        assert o["movimiento_pipeline"]["forma"]
+        seen.append(o["movimiento_ia"]["forma"])
+    assert seen[0] == "quieta"                       # el calendario tiene texto: no se mueve
+    assert seen.count("alejar") <= 1                 # "1 por capítulo como máximo" (§2 A)
+    with pytest.raises(urllib.error.HTTPError) as e:
+        _get(url + "/objetos?foto=99")
+    assert e.value.code == 400
+
+
+def test_pantalla_foto_por_foto_y_modo_experto():
+    """§F: la vista por defecto es foto por foto; la experta sigue en ?modo=experto (sin link en la UI)."""
+    idx = (lab.LAB_DIR / "index.html").read_text(encoding="utf-8")
+    exp = (lab.LAB_DIR / "experto.html").read_text(encoding="utf-8")
+    assert "lab_foto.js" in idx and 'modo") === "experto"' in idx and "experto.html" in idx
+    assert "lab_foto.js" not in exp and 'id="catalog"' in exp
+    assert 'id="catalog"' not in idx and 'id="strip"' not in idx      # sin pestañas ni tira permanente
+    js = (lab.LAB_DIR / "lab_foto.js").read_text(encoding="utf-8")
+    for txt in ("▶ Probar", "Se queda", "Otras formas", "más opciones", "✖ Nunca", "Ver capítulo completo",
+                "Agregar"):
+        assert txt in js or txt in idx, txt

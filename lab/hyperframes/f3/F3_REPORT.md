@@ -165,3 +165,69 @@ Riesgos que el contrato no cubre: (1) Guardar es irreversible salvo por el respa
 3. Jugá unos 30 minutos: ▶ Play, clic en palabras o fotos, "Probar sugerencia", atributos, ✔/✖. Ctrl+Z deshace.
 4. Cuando estés conforme: **💾 Guardar identidad**. Eso escribe el perfil, el plan dorado y `IDENTIDAD_misterio.md`.
 5. Para saber: lo marcado "anotado" (violeta) se guarda en la identidad pero todavía no se ve en el preview ni en el mp4: llega en §D. Los subtítulos y los SFX no están en el preview porque los agrega fase2b después. 🎬 Render llega en §D.
+
+
+---
+
+## §F — UI v2: foto por foto (HANDOFF_F3b)
+
+**Qué cambió (solo la pantalla):**
+- La vista por defecto en http://localhost:8765 tiene dos columnas. A la izquierda va la foto: escena grande, ◀ Anterior / Siguiente ▶, "La voz dice aquí" con las palabras del léxico en color y clic para escuchar desde ahí, y 15 círculos de progreso (amarillo = vista, verde = todo decidido). A la derecha, las tarjetas de los objetos de esa foto. Abajo: ▶ Ver capítulo completo, 🎬 Render (llega en §D), 💾 Guardar, 📄 Resumen, ↶ ↷.
+- Todas las tarjetas son iguales: nombre + momento, una línea "IA: qué — por qué", ▶ Probar, ☐ Se queda, "Otras formas" (◉ = lo que hay hoy, etiqueta violeta "IA" = la forma sugerida, borde punteado = todavía no se dibuja, llega en §D) y "más opciones" (tamaño, posición en 9 zonas, duración, ✖ Nunca).
+- ① siempre es el movimiento de la foto y la última tarjeta es la salida hacia la foto siguiente (en la 15, el final del capítulo, con la pregunta de cierre antes). En el medio: título, datos, recortes, mood y sello (dos tarjetas), íconos, golpes, sugerencias pendientes y propuestas de la IA.
+- "+ Agregar algo a esta foto" (Dato · Sello · Ícono · Recorte · Contador · Mood · Cita · Tercio inferior · Pregunta de cierre) propone el lugar solo: la palabra del léxico, la cifra que está literal en un dato o el dato que más se parece a lo que dice la voz.
+- La vista anterior sigue entera en `?modo=experto`, sin link en la pantalla. El servidor solo suma `GET /objetos?foto=N` (movimiento real + movimiento sugerido). `gfx_project.py`, `fase2b.py` y `gfx_config.py` no se tocaron.
+
+**Prueba de CC (§3):**
+- Las 15 fotos tienen entre 3 y 6 tarjetas: 6·3·3·5·6·3·3·4·4·4·3·4·3·3·4.
+- ▶ Probar con la ventana visible, fotos 1–12: cada una reprodujo exactamente su ventana con el audio siguiendo (p. ej. foto 2: 8.98 → 14.93 para la ventana 8.9–14.9; foto 8: 49.02 → 53.42 para 49.0–53.5).
+- Cambiar una forma ("sello → sin sello" en la foto 4) regeneró, volvió a reproducir 25.82–30.32 solo y el sello desapareció de la composición.
+- ☑ en «Mood agua sumergidos» aparece en el resumen, en "Lo que se queda" y en la sección 6 "Recorrido foto por foto".
+- **No verificado en tiempo real:** ▶ Probar de las fotos 13–15 y ▶ Ver capítulo completo de 0:00 a 1:37. El panel del navegador quedó oculto (la página dibujaba a 3.5 cuadros/s y después a 0) y el player no avanzaba. La lógica sí se probó: arranca en 0.13 s con el audio y, al pausar, salta a la tarjeta de esa foto. La corrida entera queda para cuando la ventana esté a la vista, o la hace Omar en la parada.
+- Capturas: `capturas/F3b_foto01.png` (foto 1: movimiento, título apagado, look, golpes, salida) y `capturas/F3b_foto15.png` (foto 15: movimiento, golpe propuesto, **pregunta de cierre**, final).
+- Tests: 195 verdes (+8 de §F).
+
+**Ojo con la sesión de Omar (22:31):** el título del capítulo está apagado y hay un golpe de zoom en «Aquel» (0.08 s). Se respetó tal cual; la foto 1 muestra "Título del capítulo (apagado)" para volver a prenderlo. Las pruebas de CC se hicieron sobre una copia: su estado se restauró desde `plan_ch02_lab.omar_2231.json`.
+
+**Veredicto revisor-handoff (íntegro):**
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Una foto a la vez, Anterior/Siguiente, puntos, 2 columnas + barra inferior | OK | index.html:26-59; lab_foto.css:3,30; captura F3b_foto15.png |
+| 2 | Tarjetas por foto (3-6), última con pregunta de cierre, 1.ª con movimiento y última con salida | PARCIAL | Código lo arma (lab_foto.js:43-162, 312). La captura de la foto 15 muestra 4 tarjetas con pregunta. Las 3-6 en las 15 fotos las afirma CC; yo no pude contarlas: /objetos devuelve datos crudos y las tarjetas se derivan en el cliente |
+| 3 | Tarjeta uniforme: "IA: qué — por qué", ▶ Probar, ☐ Se queda, Otras formas, "más opciones" (tamaño/posición/duración, ✖ Nunca) | OK | lab_foto.js:557-581; captura (formato IA correcto) |
+| 4 | Botones ○/◉ de mínimo 36 px, fuente 15 px | OK | lab_foto.css:2,55 |
+| 5 | "Otras formas" máx 6 | NO VERIFICABLE | No encontré un tope explícito de 6 en el código; faltaría correr la UI en cada tipo de objeto |
+| 6 | ▶ Probar reproduce [t−1, fin+1] con audio; cambiar ○ regenera y reproduce solo | PARCIAL | Código: lab_foto.js:105,200,330,684 (algunas ventanas son [t−1, t+3.5] y no fin+1). La prueba en tiempo real de CC cubre fotos 1-12; yo no pude repetirla. Fotos 13-15 sin probar |
+| 7 | + Agregar con la lista pedida (Dato, Sello, Ícono, Recorte, Contador, Mood, Cita, Tercio inferior, Pregunta de cierre) | OK | lab_foto.js:421-422 |
+| 8 | ▶ Ver capítulo completo de 0 a 1:37 sin cortes, pausa salta a la tarjeta | NO VERIFICABLE | Botón existe (index.html:58, lab_foto.js:624-707). CC no pudo correrlo de punta a punta (panel oculto, player sin avanzar). Falta una corrida real con el navegador visible |
+| 9 | ☑ aparece en el resumen; pendientes listados | PARCIAL | Cambio en gfx_identity.py y 195 tests verdes. La prueba de "Mood agua" en el resumen es de CC, no repetible por mí (no hice POST) |
+| 10 | Servidor sin cambios salvo GET /objetos | PARCIAL | gfx_lab_server.py +70 líneas. Incluye /objetos (responde 200 en las 15 fotos) y suggest_movement, que el contrato no menciona explícitamente |
+| 11 | Modo viejo en ?modo=experto, sin link desde la UI | OK | index.html:9 redirige a /lab/experto.html (200); no hay link visible |
+| 12 | Candados: sin cambios en gfx_project.py, fase2b.py, gfx_config.py | OK | `git diff --stat 04a6025 -- <los 3>` vacío |
+| 13 | Tests | OK | Los corrí: 195 passed |
+| 14 | Capturas foto 1 y última en el reporte | OK | capturas/F3b_foto01.png (658 KB) y F3b_foto15.png (571 KB) existen; vi la 15, con pregunta de cierre |
+| 15 | Render mp4 deshabilitado (llega en §D) | OK | index.html:59 |
+
+Fuera de alcance:
+- script_engine/gfx_identity.py: la sección 6 y las preguntas pendientes en el resumen. El contrato dice "el resumen se queda como está", pero la regla 5 exige que el resumen liste pendientes. Lo trato como tolerable y justificado, pero es una decisión que debe ver Omar.
+- gfx_lab_server.py: suggest_movement va más allá de "solo GET /objetos".
+- Sin commitear y no son de §F, no deben entrar: diag_234_cap4.py, lab/identidad/plan_ch02_lab.json, lab/identidad/plan_ch02_lab.omar_2231.json, lab/hyperframes/f3/_lab_server.log.
+- Ninguno de los tres archivos de candado fue tocado.
+
+Riesgos que el contrato no cubre:
+- Sin prueba humana en tiempo real de ▶ Probar en las fotos 13-15 ni del capítulo completo de 0 a 1:37. Es justo lo que Omar va a hacer en la PARADA, así que ahí puede fallar.
+- Las ventanas de Probar no son uniformemente [t−1, fin+1]: varias usan t+3.5.
+- Los archivos de sesión de Omar (plan_ch02_lab*.json) están sin trackear y pueden colarse en el commit.
+```
+
+**Respuesta de CC a las observaciones:**
+- #5: ninguna lista de formas pasa de 6 (`FORMAS` en lab_foto.js: movimiento 6, salida 6, texto 6, recorte 4, sello 3, ícono 3 + 4).
+- #6 / riesgo 2: las ventanas `t+3.5` son las de moods, sellos y sugerencias, cuyo fin es t+2.5. O sea que son [t−1, fin+1], igual que las demás.
+- #8 / riesgo 1: confirmado, no se pudo correr. Se declara arriba.
+- #10 (`suggest_movement`): es la "IA:" de la tarjeta ① (hint del catálogo aplicado al prompt de la foto) y vive dentro de `GET /objetos`, el endpoint que permite el handoff. Anotado en C36.
+- Fuera de alcance (`gfx_identity.py`): la regla 5 pide que el resumen liste los pendientes. Se agregó como sección 6 sin cambiar el resto (C38). Queda para que Omar lo vea.
+- Riesgo 3: el commit se arma con `git add` por ruta; los `plan_ch02_lab*.json` y el log no entran.
