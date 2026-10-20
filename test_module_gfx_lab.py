@@ -388,7 +388,7 @@ def test_preview_solo_un_objeto_sobre_la_foto_quieta(server):
     assert r["src"].startswith("/solo/index.html")
     idx = _get(url + "/solo/index.html")[2].decode("utf-8")
     assert idx.count("data-composition-src") == 1 and ">sumergidos<" in idx
-    assert "md0-cau" not in idx                                  # sin la capa de mood agua
+    assert "md0-rise" not in idx and "md0-vig" not in idx       # sin la capa de mood agua
     sc = _get(url + "/solo/compositions/scene_05.html")[2].decode("utf-8")
     assert "sf05" in sc and 'tl.to("#sf05"' not in sc            # foto fija, quieta
     assert session.solo_project.name == "gfx_lab_ch02_solo"
@@ -423,3 +423,23 @@ def test_objetos_trae_imagen_y_3d(server):
     _, url = server
     o = json.loads(_get(url + "/objetos?foto=3")[2])
     assert o["imagen"].endswith(".png") and o["hay_3d"] is True
+
+
+# ── moods sin patrones repetidos (Omar: las cáusticas del agua se veían como un mosquitero)
+
+@pytest.mark.parametrize("layer", ["agua", "veneno", "muerte", "oscuridad"])
+def test_moods_sin_patrones_repetidos(layer):
+    from script_engine.gfx_project import mood_layer
+    html, init, js = mood_layer(0, layer, 33.7, 2.5, 2560, 1440)
+    assert "repeating-" not in html, f"{layer}: patrón repetido"
+    assert "cau" not in html
+
+
+def test_mood_agua_sube_en_1s_y_baja_al_salir():
+    from script_engine.gfx_project import mood_layer
+    html, init, js = mood_layer(0, "agua", 33.7, 2.5, 2560, 1440)
+    tl = " ".join(js)
+    assert "height:34%" in html                                          # hasta 1/3
+    assert 'tl.to("#md0-rise", { yPercent: 0, duration: 1.0' in tl          # sube en 1 s
+    assert '.to("#md0-rise", { yPercent: 100, duration: .5' in tl           # baja al salir (no se desvanece)
+    assert "md0-vig" in html                                              # bordes un poco más oscuros

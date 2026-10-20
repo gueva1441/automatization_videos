@@ -274,3 +274,52 @@ Riesgos que el contrato no cubre: (1) lo que Omar realmente verá y oirá (tiemp
 ```
 
 **Respuesta de CC:** el riesgo 1 es justo lo que vas a ver vos al recorrer; si algo salta o no suena, avisame. Riesgo 2 / #1b: queda declarado; aparece recién con un capítulo que repita foto. #5 "golpe": es "foto quieta + golpe de zoom" porque el golpe es un acento sobre una palabra, no un movimiento continuo. Riesgo 3: fundido cruzado usa 20 f (tramo R2) o 30 f (R3), los mismos valores que ya usaba el pipeline.
+
+
+---
+
+## Mood agua sin cáusticas (pedido de Omar)
+
+**Qué cambió:** se fueron las cáusticas, la malla de líneas que se veía como mosquitero. El mood agua ahora es la sombra oscura que sube desde abajo hasta 1/3 en 1 s, se mantiene y baja al salir, más un oscurecimiento leve de bordes. No agregué el resplandor opcional. Revisé los otros tres moods (veneno, muerte, oscuridad), por código y en capturas 1:1: ninguno tiene patrones repetidos. Un test impide que vuelva un `repeating-*gradient` en cualquier mood.
+
+**Probado en el tramo 5 «sumergidos»** (foto quieta, solo el mood, capturas de HyperFrames):
+- `capturas/moods/hoja_moods_tramo5.png`: agua a 33.5 / 34.2 / 34.8 / 35.6 / 36.05 s (antes, sube, sostenida, sostenida, bajando) y los otros tres moods a 34.9 s.
+- `capturas/moods/recortes_1a1_agua_veneno_muerte.png`: recortes a resolución completa, sin malla.
+- md5 sin `--gfx` = `38e5ba14…` ✔ (`onlycap_ch02_nogfx_agua.log`). Tests: 205 verdes.
+
+**Para que decidas vos (no lo toqué):** muerte se ve gris y "lavado", con los negros levantados. Es la capa de desaturación, no un patrón.
+
+**Veredicto revisor-handoff (íntegro):**
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Quitar las cáusticas (malla diagonal) | OK | gfx_project.py rama "agua": ya no hay repeating-radial-gradient ni capa "-cau"; grep "repeating" solo encuentra el comentario (l.140). Capturas del agua sin malla visible. |
+| 2 | Sombra oscura sube desde abajo hasta 1/3 en 1 s | OK | l.145-150: height:34%, yPercent 100→0, duration 1.0. Test test_mood_agua_sube_en_1s_y_baja_al_salir. |
+| 3 | Se mantiene y baja al salir | OK | yPercent 0→100 en 0.5 s en out_at. Antes se desvanecía; ahora baja. |
+| 4 | Oscurecimiento leve de bordes | OK | capa "-vig" radial, opacidad pico 0.35 (l.141-143). Visible en hoja_moods_tramo5.png. |
+| 5 | Resplandor opcional (blur alto, opacidad ≤ 0.15) | OK (no aplica) | No se agregó; el pedido lo dejaba opcional. Queda anotado en C49. |
+| 6 | Revisar los otros 3 moods por patrones repetidos | OK | veneno/muerte/oscuridad sin repeating-*. Test parametrizado test_moods_sin_patrones_repetidos (4 moods). Capturas sin patrón. |
+| 7 | Probado en el tramo 5 "sumergidos" | OK | hoja_moods_tramo5.png (agua en 5 instantes + 3 moods a 34.9 s), oscuridad2/hoja.png, recortes_1a1_agua_veneno_muerte.png; existen y no están vacíos. |
+| 8 | Candado: sin shaders | OK | El diff solo usa CSS/GSAP; no hay shaders. |
+| 9 | Candado: main intacta (43f528a) | OK | git rev-parse main = 43f528a77a2e7e71009bf70b55d58d93edd57db2. |
+| 10 | Candado: sin --gfx byte-idéntico | OK | Cola de onlycap_ch02_nogfx_agua.log: 38e5ba14e3d24fd20f9297c9e1dfee24 (coincide con el esperado). Solo lo leí del log; no regeneré el MP4. |
+| 11 | Candado: tests verdes | OK | Corrí el comando: 205 passed. |
+| 12 | Candado: preview con plantillas reales | PARCIAL | Las capturas son de un render real de ch02, pero la celda de oscuridad en hoja_moods_tramo5.png sigue negra. La recaptura en oscuridad2/hoja.png sí se ve bien: los bordes oscurecen y el haz es único. |
+
+Observaciones:
+- C49 documenta la decisión. Los cambios son los 4 archivos tracked modificados más archivos sin trackear (log, capturas).
+- Muerte se ve gris "lavado". CC lo anotó en C49 y no lo tocó; no es un patrón.
+- El assert ajustado en el test (md0-cau → md0-rise/md0-vig) es coherente con el cambio.
+
+Fuera de alcance: diag_234_cap4.py (modificado, tracked, no relacionado con el pedido). Esto confirma que NO debe entrar al commit. lab/hyperframes/f3/_lab_server.log también está sin trackear y no debe entrar. No pude ver el estado de lab/identidad/plan_ch02_lab*.json porque git status mostró la lista truncada. Dentro del alcance: gfx_project.py, test_module_gfx_lab.py, DECISIONES_F3.md, onlycap_ch02_nogfx_agua.log, capturas/moods/.
+
+Riesgos que el contrato no cubre: (1) La hoja principal conserva la celda de oscuridad negra; si Omar la abre sola puede asustarse. (2) El oscurecimiento por bordes y por sombra suma en las esquinas inferiores (ver 34.8 s). No hay umbral definido en el contrato. (3) Las capturas son estáticas; no se verificó el movimiento real de la subida/bajada en el MP4.
+```
+
+**Respuesta de CC:**
+- #12 / riesgo 1: después del veredicto se rehízo `hoja_moods_tramo5.png` con la oscuridad recapturada (luminancia media 42, ya no negra). La celda negra era un problema de la captura (archivos viejos en la carpeta del proyecto de prueba), no del mood.
+- Riesgo 2: en las esquinas de abajo se suman la sombra y los bordes. Es el "agua que sube"; si queda pesado, se baja la viñeta de 0.35.
+- Riesgo 3: el movimiento real se ve al dar ▶ Probar en la tarjeta del mood.

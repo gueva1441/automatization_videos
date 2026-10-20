@@ -68,3 +68,7 @@ Decisiones conservadoras tomadas por CC durante F3 (HANDOFF_F3_laboratorio_ident
   
   Todo eso vuelve en §D cuando se dibuje. El catálogo no se borró; la vista experta lo sigue mostrando.
 - **C48. Las tarjetas salen de las cues del plan COMPLETO** (`POST /cues`, sin escribir el proyecto). Los dos previews (solo y con todo) se arman a pedido, así que un cambio en una tarjeta ya no regenera el capítulo entero: regenera solo el Probar de esa tarjeta.
+
+## Mood agua sin cáusticas (pedido de Omar)
+- **C49. Mood agua = sombra que sube + bordes, nada más.** Se quitó la capa de "cáusticas" (dos `repeating-radial-gradient` en modo screen), que en pantalla era una malla de líneas sobre toda la foto, como un mosquitero. Quedó así: la sombra oscura sube desde abajo hasta 1/3 en 1.0 s (antes 1.2 s), se mantiene y **baja** al salir en 0.5 s (antes se desvanecía), más un oscurecimiento leve de bordes (radial, opacidad 0.35). No se agregó el resplandor opcional: lo pedido ya da el clima y así no hay ninguna textura nueva que revisar. Los otros tres moods se revisaron, por código y en capturas 1:1 del tramo 5: veneno (tinte + 14 partículas al azar + viñeta), muerte (desaturación + barras + viñeta) y oscuridad (bordes + un único haz). Ninguno tiene patrones repetidos. Un test impide que vuelva un `repeating-*gradient` en cualquier mood.
+- **Observación aparte (sin cambio):** en las capturas, el mood muerte se ve gris "lavado" (sube los negros). Es la capa de desaturación (#808080 al 80 % en modo saturation), no un patrón. Queda para que Omar decida si se ajusta.

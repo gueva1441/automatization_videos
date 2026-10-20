@@ -136,18 +136,16 @@ def mood_layer(i: int, layer: str, t0: float, d: float, width: int, height: int)
                     f'rgba(0,0,0,0) 55%,rgba(0,0,0,.9) 100%)"></div>')
         fade(f"#{rid}-vig", 0.35, t0, 0.6)
     elif layer == "agua":
-        # cáusticas de luz sutiles (screen) + sombra oscura que sube desde abajo hasta 1/3
-        kids.append(f'<div id="{rid}-cau" style="{_ABS}left:-10%;top:-10%;width:120%;height:120%;mix-blend-mode:screen;'
-                    'background:repeating-radial-gradient(circle at 30% 40%,rgba(170,215,255,0) 0 18px,'
-                    'rgba(170,215,255,.10) 22px,rgba(170,215,255,0) 30px),repeating-radial-gradient(circle at 70% 65%,'
-                    'rgba(170,215,255,0) 0 26px,rgba(170,215,255,.08) 30px,rgba(170,215,255,0) 38px)"></div>')
-        fade(f"#{rid}-cau", 0.6, t0, 0.5)
-        js.append(f'      tl.to("#{rid}-cau", {{ x: 40, y: 20, rotation: 3, duration: {d:.3f}, ease: "none" }}, {t0:.3f});')
+        # sombra oscura que sube desde abajo hasta 1/3 en 1 s, se mantiene y baja al salir + bordes un poco más
+        # oscuros. Sin cáusticas: el repeating-radial-gradient se veía como un mosquitero sobre la foto (Omar, F3).
+        kids.append(f'<div id="{rid}-vig" style="{_ABS}inset:0;background:radial-gradient(ellipse 85% 85% at 50% 45%,'
+                    f'rgba(0,0,0,0) 60%,rgba(2,8,16,.85) 100%)"></div>')
+        fade(f"#{rid}-vig", 0.35, t0, 0.8)
         kids.append(f'<div id="{rid}-rise" style="{_ABS}left:0;right:0;bottom:0;height:34%;'
                     'background:linear-gradient(to top,rgba(2,10,20,.78),rgba(2,10,20,0))"></div>')
         init.append(f'      gsap.set("#{rid}-rise", {{ yPercent: 100 }});')
-        js.append(f'      tl.to("#{rid}-rise", {{ yPercent: 0, duration: 1.2, ease: "power2.out" }}, {t0:.3f})'
-                  f'.to("#{rid}-rise", {{ opacity: 0, duration: .5, ease: "sine.in" }}, {out_at:.3f});')
+        js.append(f'      tl.to("#{rid}-rise", {{ yPercent: 0, duration: 1.0, ease: "power2.out" }}, {t0:.3f})'
+                  f'.to("#{rid}-rise", {{ yPercent: 100, duration: .5, ease: "power2.in" }}, {out_at:.3f});')
     elif layer == "muerte":
         # desaturación 80 % en 1.5 s (gris en blend saturation) + letterbox 2 s + viñeta cerrada (push-in: en la escena)
         kids.append(f'<div id="{rid}-ds" style="{_ABS}inset:0;background:#808080;mix-blend-mode:saturation"></div>')
