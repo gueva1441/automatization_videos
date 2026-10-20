@@ -231,3 +231,46 @@ Riesgos que el contrato no cubre:
 - #10 (`suggest_movement`): es la "IA:" de la tarjeta ① (hint del catálogo aplicado al prompt de la foto) y vive dentro de `GET /objetos`, el endpoint que permite el handoff. Anotado en C36.
 - Fuera de alcance (`gfx_identity.py`): la regla 5 pide que el resumen liste los pendientes. Se agregó como sección 6 sin cambiar el resto (C38). Queda para que Omar lo vea.
 - Riesgo 3: el commit se arma con `git add` por ruta; los `plan_ch02_lab*.json` y el log no entran.
+
+
+---
+
+## §F2 — Correcciones de Omar: tramo por tramo, Probar aislado, ver con todo
+
+**Qué cambió:**
+1. **Tramo, no foto.** "TRAMO N de 15" arriba y "Tramo N de 15" abajo. Si dos tramos comparten imagen, el movimiento del segundo ofrece ◉ continuar / ○ nuevo. ch02 no tiene ningún caso así.
+2. **▶ Probar = ese objeto solo, sobre la foto fija** (PNG de fase1_5, quieta), en un proyecto aparte armado con las mismas plantillas. Marcás el sello → se ve solo el sello. Marcás 3D → se ve solo el clip 3D.
+3. **"▶ Ver este tramo con todo"** (bajo la escena): el tramo con lo marcado "Se queda", con voz. Lo no marcado no aparece: sin ☑ en el movimiento, la foto queda quieta; sin ☑ en la salida, el cambio es corte seco.
+4. **"▶ Ver capítulo completo"**: los 15 tramos con lo aprobado, seguidos.
+5. **Movimiento sobre el PNG:** acercar, alejar, paneo y golpe se animan en vivo con GSAP; 3D usa el clip DepthFlow; quieta no se mueve (arreglado el bug). El templater suma `alejar` y `quieta` sin cambiar lo existente: md5 sin `--gfx` = `38e5ba14…` ✔ (`onlycap_ch02_nogfx_F2.log`).
+6. **Solo formas que se ven al Probar** (lista en C47). Las salidas por tramo (corte, fundido negro, flash, fundido cruzado) ahora se ven de verdad.
+
+**Prueba de CC:** revisé las composiciones generadas. Probar del sello: 1 tramo, foto quieta, sello, sin mood. Quieta: sin tween. Alejar: 1.08 → 1. 3D: el clip. Paneo: en x. Fundido negro entre los tramos 4 y 5. "Con todo" con sello y alejar aprobados: el mood no aprobado no aparece y el tramo 5 queda quieto con corte. El resumen lo lista. Los 15 tramos tienen entre 3 y 6 tarjetas. Tests: 200 verdes. **No vista en tiempo real** (reproducción con audio): la ventana de la app no estaba a la vista (0 cuadros/s).
+
+**Veredicto revisor-handoff (íntegro):**
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1a | Unidad = tramo, "Tramo N de 15" arriba y abajo | OK | lab_foto.js:544 ("TRAMO i de N"), :568 (puntos de abajo "Tramo N de N"); index.html:24 |
+| 1b | Misma foto: "misma foto que el tramo anterior" + ◉ continuar / ○ nuevo | PARCIAL | Código en lab_foto.js:89-93 y :545; /objetos devuelve `imagen` (gfx_lab_server.py:~301). ch02 no tiene ningún tramo con foto repetida, así que nunca se ejecutó con datos reales. DECISIONES C42 lo admite. Además "continuar" reinicia el movimiento en el corte, no lo encadena. |
+| 2 | Probar = solo ese objeto sobre la foto fija | OK por código; NO VERIFICABLE a ojo | probar() manda `solo` a /preview (lab_foto.js:~385), el servidor arma un proyecto aparte con un solo tramo (server `preview`/`solo_project`). /solo/index.html responde 200 y el proyecto solo existe en disco. No vi el render en pantalla. |
+| 3 | Botón "▶ Ver este tramo con todo", solo lo marcado "Se queda", con voz | OK por código; voz NO VERIFICABLE | index.html:35, approvedSpec() (lab_foto.js:~376) filtra con keep(). Reproducción con audio no probada (ventana sin foco, 0 cuadros/s). |
+| 4 | "▶ Ver capítulo completo" = 15 tramos con lo aprobado | OK por código; reproducción NO VERIFICABLE | index.html:58, lab_foto.js:657 |
+| 5 | Movimiento parte del PNG fijo: acercar/alejar/paneo en vivo, 3D usa el clip, quieta sin movimiento | OK | gfx_lab_server.py:344 (MOV_SAFE: acercar=push, alejar=pull, paneo=pan, quieta=static, 3D=None, o sea el clip). gfx_project.py: pull anima escala 1.08→1; static sin tween. Es el arreglo del bug de "quieta". Observación: "golpe" como movimiento = foto quieta + golpe de zoom en la palabra más fuerte (lab_foto.js:403), no un movimiento propio. |
+| 6 | Ningún botón que no se vea al Probar | PARCIAL | C47 (DECISIONES) lista lo quitado, y el botón Render salió de index.html. No auditado exhaustivamente que cada opción restante sea visible en el Probar de su tarjeta. |
+| 7 | Tests verdes | OK | Corrí el comando indicado: 200 passed en 15.83 s. |
+| 8 | md5 sin --gfx = 38e5ba14e3d24fd20f9297c9e1dfee24 | OK | El log onlycap_ch02_nogfx_F2.log (23:39) es posterior al último cambio de gfx_project.py (23:29). El md5sum del mp4 actual da 38e5ba14e3d24fd20f9297c9e1dfee24. No volví a correr el pipeline. |
+| 9 | main intacta 43f528a | OK | `git rev-parse main` = 43f528a77a2e7e71009bf70b55d58d93edd57db2 |
+| 10 | Lock literal / sin shaders / plantillas reales | OK | preview() sigue pasando por self.locked(plan) y gfx_project.write_project. No hay copia de plantillas. No vi shaders en el diff. |
+
+Sobre gfx_project.py (lo que pediste evaluar): ACEPTABLE. El diff son 9 líneas. Agrega las ramas "pull" y "static" solo para esos valores nuevos. Las ramas push y pan quedan idénticas, y el pipeline normal nunca produce pull/static. El md5 coincide, y el cambio es aditivo sobre las plantillas reales. Es un cambio al templater que C44 declara.
+
+Fuera de alcance: diag_234_cap4.py aparece modificado (cambia el TOPIC a 933c76c7…). Hay que excluirlo del commit. También hay que excluir lab/identidad/plan_ch02_lab.json, plan_ch02_lab.omar_2231.json y lab/hyperframes/f3/_lab_server.log. Los demás archivos modificados están dentro del alcance. El onlycap_ch02_nogfx_F2.log es untracked y debe agregarse al commit explícitamente.
+
+Riesgos que el contrato no cubre: (1) lo que Omar realmente verá y oirá (tiempo real, audio, ausencia de saltos al cambiar de preview) nunca se vio en pantalla. (2) El caso de foto compartida no se probó con datos reales. (3) La tarjeta "salida" ofrece "fundido cruzado", pero ese cálculo usa frames del rank entrante, que solo se vio en el reporte de CC.
+```
+
+**Respuesta de CC:** el riesgo 1 es justo lo que vas a ver vos al recorrer; si algo salta o no suena, avisame. Riesgo 2 / #1b: queda declarado; aparece recién con un capítulo que repita foto. #5 "golpe": es "foto quieta + golpe de zoom" porque el golpe es un acento sobre una palabra, no un movimiento continuo. Riesgo 3: fundido cruzado usa 20 f (tramo R2) o 30 f (R3), los mismos valores que ya usaba el pipeline.

@@ -16,7 +16,9 @@ Mini-servidor local (http.server, sin dependencias nuevas) que sirve el lab en h
     POST /api/plan            guarda el estado del lab (lab/identidad/plan_<cap>_lab.json)
     GET  /api/context         léxico de moods dicho en la narración, facts elegibles, moods activos
     GET  /api/profile         perfil gfx activo (valores actuales de los tokens)
-    POST /preview             {plan, tokens} → candado literal → gfx_project.write_project (plantillas REALES)
+    POST /cues                {plan, tokens} → cues + rechazados del candado, sin escribir el proyecto
+    /solo/<ruta>              proyecto del Probar aislado (un objeto, tramo con la foto fija), igual que /composition/
+    POST /preview             {plan, tokens, movimientos?, salidas?, solo?} → candado literal → gfx_project.write_project (plantillas REALES)
                               con los tokens pisando gfx_rules SOLO durante ese write_project → src del player
     GET  /objetos?foto=N      §F: movimiento del pipeline + movimiento sugerido + datos del prompt de la foto N
     GET  /summary             IDENTIDAD_<perfil>.md del estado guardado (text/markdown)
@@ -112,6 +114,7 @@ class LabSession:
         self.width, self.height, self.fps = fase2b.pipeline.video_width, fase2b.pipeline.video_height, fase2b.pipeline.fps
         # proyecto del preview: carpeta propia (NUNCA el gfx_chXX del render)
         self.project = self.work_dir / f"gfx_lab_{cap}"
+        self.solo_project = self.work_dir / f"gfx_lab_{cap}_solo"      # §F2: Probar = un objeto solo
         self.state_path = LAB_DIR / f"plan_{cap}_lab.json"
         self._lock = threading.Lock()
         self.version = 0
@@ -293,7 +296,9 @@ class LabSession:
             sug.append(suggest_movement(q, already_out=any(s[0] == "alejar" for s in sug)))
         s = self.scenes[idx]
         tii = p.get("text_in_image")
+        img = self.photo_path(idx)
         return {"foto": idx, "start": s.start, "end": s.end, "rank": s.rank, "quiet_side": s.quiet_side,
+                "imagen": img.name if img else "", "hay_3d": not bool(s.safe),   # router seguro = el clip 3D está tapado
                 "shot": p.get("shot_scale", ""), "subject": str(p.get("subject", ""))[:160],
                 "texto_en_imagen": (tii.get("text") if isinstance(tii, dict) and tii.get("present") else "") or "",
                 "movimiento_pipeline": {"crudo": mv, "forma": self._MOV_PIPE.get(mv, "acercar" if mv == "kenburns" else "3D")},
@@ -335,20 +340,80 @@ class LabSession:
                                  summary=self.summary(state), md_dir=LAB_DIR)
 
     # ── preview: plantillas REALES vía gfx_project.write_project
-    def preview(self, plan: dict[str, Any], tokens: dict[str, Any] | None = None) -> dict[str, Any]:
+    # forma de movimiento del lab → movimiento seguro del templater sobre el PNG fijo (None = clip DepthFlow)
+    MOV_SAFE = {"acercar": "push", "alejar": "pull", "paneo": "pan", "quieta": "static", "golpe": "static", "3D": None}
+    # forma de salida del lab → transición del templater
+    SALIDA_KIND = {"corte": "cut", "fundido negro": "dip", "flash": "flash", "fundido cruzado": "dissolve"}
+
+    def _scenes_for(self, idxs: list[int] | None, movimientos: dict[str, str] | None) -> list[Any]:
+        """Copias de las escenas (todas o las pedidas) con el movimiento elegido por tramo."""
+        import copy
+        scenes = [copy.copy(self.scenes[i]) for i in (idxs if idxs is not None else range(len(self.scenes)))]
+        for sc in scenes:
+            forma = (movimientos or {}).get(str(sc.idx))
+            if forma is None:
+                continue
+            if forma not in self.MOV_SAFE:
+                raise ValueError(f"movimiento desconocido: {forma}")
+            img = self.photo_path(sc.idx)
+            mv = self.MOV_SAFE[forma]
+            sc.safe = {"image": str(img), "movement": mv, "risk": "lab"} if (mv and img) else sc.safe
+        return scenes
+
+    def _transitions_for(self, scenes: list[Any], plan: dict[str, Any], salidas: dict[str, str] | None):
+        """plan_transitions del templater con la salida elegida por tramo encima (clave = idx del tramo SALIENTE)."""
+        from script_engine import gfx_project
+        tr = gfx_project.plan_transitions(scenes, (plan.get("evidence_zoom") or {}).get("scene_idx"))
+        if salidas is None:
+            return tr
+        r = gfx_project.gfx_rules
+        by_idx = {sc.idx: sc for sc in scenes}
+        for sc in scenes:
+            prev = by_idx.get(sc.idx - 1)
+            if prev is None:
+                continue
+            forma = salidas.get(str(prev.idx), "corte")
+            kind = self.SALIDA_KIND.get(forma)
+            if kind is None:
+                raise ValueError(f"salida desconocida: {forma}")
+            frames = {"cut": 0, "dip": r.dip_frames, "flash": r.transition_frames.get("R1", 3),
+                      "dissolve": r.transition_frames.get(sc.rank, r.transition_frames["R3"])}[kind]
+            tr[sc.idx] = {"kind": kind, "frames": frames, "rank": sc.rank}
+        return tr
+
+    def preview(self, plan: dict[str, Any], tokens: dict[str, Any] | None = None, *,
+                movimientos: dict[str, str] | None = None, salidas: dict[str, str] | None = None,
+                solo: list[int] | None = None) -> dict[str, Any]:
         """plan (+ tokens del perfil que el lab está probando) → candado literal → write_project.
-        Los tokens pisan gfx_rules SOLO durante este write_project (se restauran siempre)."""
+        Los tokens pisan gfx_rules SOLO durante este write_project (se restauran siempre).
+        movimientos {idx: forma} y salidas {idx: forma} = elección por tramo (§F2). solo = [idx, …] → proyecto
+        aparte con SOLO esos tramos (Probar de una tarjeta: un objeto sobre la foto fija)."""
         from script_engine import gfx_project
         with self._lock:
             t = time.time()
             ok, rejected = self.locked(plan)
+            project = self.solo_project if solo else self.project
+            if solo:
+                self._link_base(project)
             with rules_override(tokens or {}):
-                gfx_project.write_project(ok, self.scenes, self.project, duration=self.duration, width=self.width,
-                                          height=self.height, fps=self.fps)
+                scenes = self._scenes_for(solo, movimientos)
+                tr = self._transitions_for(scenes, ok, salidas)
+                gfx_project.write_project(ok, scenes, project, duration=self.duration, width=self.width,
+                                          height=self.height, fps=self.fps, transitions=tr)
                 cues = gfx_project.cue_events(ok, self.scenes, self.fps)
             self.version += 1
-            return {"src": f"/composition/index.html?v={self.version}", "ms": round(1000 * (time.time() - t)),
+            route = "solo" if solo else "composition"
+            return {"src": f"/{route}/index.html?v={self.version}", "ms": round(1000 * (time.time() - t)),
                     "cues": cues, "rejected": rejected}
+
+    def _link_base(self, project: Path) -> None:
+        dst = project / "public" / "base.mp4"
+        if not dst.exists():
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            try:
+                os.link(self.project / "public" / "base.mp4", dst)
+            except OSError:
+                shutil.copy2(self.project / "public" / "base.mp4", dst)
 
 
 _PERSON = re.compile(r"\b(man|woman|boy|girl|child|person|face|hands?|individuals?|people|prisoners?|inmates?)\b", re.I)
@@ -489,8 +554,10 @@ class LabHandler(BaseHTTPRequestHandler):
                 return self._file(PLAYER_JS, "application/javascript")
             if path == "/runtime.js":
                 return self._file(RUNTIME_JS, "application/javascript")
-            if path.startswith("/composition/"):
-                p = safe_join(s.project, path[len("/composition/"):])
+            if path.startswith(("/composition/", "/solo/")):
+                root, rest = (s.solo_project, path[len("/solo/"):]) if path.startswith("/solo/") else \
+                    (s.project, path[len("/composition/"):])
+                p = safe_join(root, rest)
                 if p is None:
                     return self._error(403, "fuera del proyecto")
                 if p.suffix == ".html" and p.exists():
@@ -537,7 +604,12 @@ class LabHandler(BaseHTTPRequestHandler):
                 st = s.lab_state()
                 plan = body.get("plan") or st["plan"]
                 tokens = body["tokens"] if "tokens" in body else st["tokens"]
-                return self._json(s.preview(plan, tokens))
+                return self._json(s.preview(plan, tokens, movimientos=body.get("movimientos"),
+                                            salidas=body.get("salidas"), solo=body.get("solo")))
+            if path == "/cues":
+                body = self._body()
+                _, rejected, cues = s.cues_for(body["plan"], body.get("tokens") or {})
+                return self._json({"cues": cues, "rejected": rejected})
             if path == "/api/plan":
                 s.save_lab_state(self._body())
                 return self._json({"ok": True})

@@ -353,5 +353,73 @@ def test_pantalla_foto_por_foto_y_modo_experto():
     assert 'id="catalog"' not in idx and 'id="strip"' not in idx      # sin pestañas ni tira permanente
     js = (lab.LAB_DIR / "lab_foto.js").read_text(encoding="utf-8")
     for txt in ("▶ Probar", "Se queda", "Otras formas", "más opciones", "✖ Nunca", "Ver capítulo completo",
-                "Agregar"):
+                "Agregar", "Ver este tramo con todo", "TRAMO", "misma foto que el tramo anterior"):
         assert txt in js or txt in idx, txt
+    # regla 6: ninguna forma que el preview no dibuje (las de §D ya no aparecen)
+    for gone in ('"fundido cruzado", "tinta"', 'opt("zoom")', '"post-it"', '"máquina"', '"respira"', 'Tercio inferior', '"Cita"', 'btn-render" class'):
+        assert gone not in js and gone not in idx, gone
+
+
+# ── §F2: tramo por tramo — Probar aislado, movimientos y salidas por tramo
+
+def test_safe_static_y_pull_en_el_templater(tmp_path):
+    """quieta = sin tween; alejar = de safe_push_scale a 1 (los valores viejos push/pan no cambian)."""
+    from script_engine.gfx_project import GfxScene, _scene_html
+    img = tmp_path / "f.png"
+    img.write_bytes(b"png")
+    (tmp_path / "public").mkdir()
+    out = {}
+    for mv in ("push", "pan", "pull", "static"):
+        sc = GfxScene(3, 10.0, 15.0, "R3", safe={"image": str(img), "movement": mv})
+        out[mv] = _scene_html(sc, 4, {}, tmp_path, tmp_path / "public" / "base.mp4", 2560, 1440, 30)
+    assert 'tl.to("#sf04"' not in out["static"] and 'gsap.set("#sf04", { scale: 1,' in out["static"]
+    assert 'tl.to("#sf04", { scale: 1, duration' in out["pull"]
+    assert 'tl.to("#sf04", { x:' in out["pan"]
+    assert 'tl.to("#sf04", { scale: 1.08' in out["push"] or "tl.to(\"#sf04\", { scale:" in out["push"]
+
+
+@needs_data
+def test_preview_solo_un_objeto_sobre_la_foto_quieta(server):
+    session, url = server
+    plan = session.director_plan()
+    e = next(x for x in plan["emphasis"] if x["word"] == "sumergidos")
+    solo = {"chapter_number": 2, "emphasis": [dict(e, layer="", icon_callout=False)]}
+    r = _post(url + "/preview", {"plan": solo, "tokens": {}, "movimientos": {"4": "quieta"}, "solo": [4]})
+    assert r["src"].startswith("/solo/index.html")
+    idx = _get(url + "/solo/index.html")[2].decode("utf-8")
+    assert idx.count("data-composition-src") == 1 and ">sumergidos<" in idx
+    assert "md0-cau" not in idx                                  # sin la capa de mood agua
+    sc = _get(url + "/solo/compositions/scene_05.html")[2].decode("utf-8")
+    assert "sf05" in sc and 'tl.to("#sf05"' not in sc            # foto fija, quieta
+    assert session.solo_project.name == "gfx_lab_ch02_solo"
+
+
+@needs_data
+def test_preview_movimientos_y_salidas_por_tramo(server):
+    session, url = server
+    r = _post(url + "/preview", {"plan": {"chapter_number": 2}, "tokens": {},
+                                 "movimientos": {"3": "alejar", "4": "3D"}, "salidas": {"3": "fundido negro"}, "solo": [3, 4]})
+    assert "/solo/" in r["src"]
+    s4 = _get(url + "/solo/compositions/scene_04.html")[2].decode("utf-8")
+    s5 = _get(url + "/solo/compositions/scene_05.html")[2].decode("utf-8")
+    assert 'tl.to("#sf04", { scale: 1, duration' in s4         # alejar sobre el PNG
+    assert "sf05" not in s5 and "public/base.mp4" in s5         # 3D = clip DepthFlow
+    assert "dp05" in s5                                          # fundido negro elegido para esa salida
+    with pytest.raises(urllib.error.HTTPError):
+        _post(url + "/preview", {"plan": {"chapter_number": 2}, "movimientos": {"3": "volar"}, "solo": [3]})
+
+
+@needs_data
+def test_cues_sin_escribir_el_proyecto(server):
+    session, url = server
+    before = (session.project / "index.html").stat().st_mtime_ns
+    r = _post(url + "/cues", {"plan": session.director_plan(), "tokens": {}})
+    assert any(c["block"] == "archive_clipping" for c in r["cues"]) and r["rejected"] == []
+    assert (session.project / "index.html").stat().st_mtime_ns == before
+
+
+@needs_data
+def test_objetos_trae_imagen_y_3d(server):
+    _, url = server
+    o = json.loads(_get(url + "/objetos?foto=3")[2])
+    assert o["imagen"].endswith(".png") and o["hay_3d"] is True

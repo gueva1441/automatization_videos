@@ -18,10 +18,10 @@
   </header>
 
   <main class="fcols">
-    <!-- Izquierda: la foto -->
+    <!-- Izquierda: el tramo -->
     <section class="fleft">
       <div class="fhead">
-        <div class="ftitle"><b id="f-num">FOTO –</b> <span id="f-range" class="tc"></span></div>
+        <div class="ftitle"><b id="f-num">TRAMO –</b> <span id="f-range" class="tc"></span></div>
         <div class="fnav">
           <button id="f-prev" class="btn ghost big">◀ Anterior</button>
           <button id="f-next" class="btn ghost big">Siguiente ▶</button>
@@ -32,7 +32,7 @@
         <audio id="narr" src="/media/audio" preload="auto"></audio>
       </div>
       <div class="ftransport">
-        <button id="btn-play" class="btn big">▶ Play esta foto</button>
+        <button id="btn-play" class="btn big">▶ Ver este tramo con todo</button>
         <span id="tc" class="tc"></span>
         <span id="now-line" class="now-line"></span>
       </div>
@@ -43,12 +43,12 @@
       <div id="f-dots" class="fdots" aria-label="Progreso"></div>
     </section>
 
-    <!-- Derecha: objetos de esta foto -->
+    <!-- Derecha: objetos de este tramo -->
     <section class="fright">
-      <h2>Objetos de esta foto</h2>
+      <h2>Objetos de este tramo</h2>
       <div id="f-objs" class="fobjs"></div>
       <div class="fadd">
-        <button id="f-add" class="btn ghost big">+ Agregar algo a esta foto ▾</button>
+        <button id="f-add" class="btn ghost big">+ Agregar algo a este tramo ▾</button>
         <div id="f-add-list" class="fadd-list" hidden></div>
       </div>
     </section>
@@ -56,7 +56,7 @@
 
   <footer class="bar">
     <button id="btn-full" class="btn big">▶ Ver capítulo completo</button>
-    <button id="btn-render" class="btn ghost" disabled title="Llega en §D">🎬 Render mp4</button>
+    <!-- 🎬 Render mp4: vuelve en §D (regla: ningún botón que todavía no haga algo visible) -->
     <span class="spacer"></span>
     <button id="btn-save" class="btn">💾 Guardar identidad</button>
     <button id="btn-summary" class="btn ghost">📄 Resumen</button>

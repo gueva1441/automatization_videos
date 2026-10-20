@@ -108,10 +108,10 @@ def open_questions(state: dict[str, Any], catalog: dict[str, Any], cues: list[di
     pend = [(f["foto"], o["nombre"]) for f in rec for o in f.get("objetos") or [] if o.get("estado") == "pendiente"]
     if pend:
         fotos = sorted({n for n, _ in pend})
-        qs.append(f"Quedan {len(pend)} objeto(s) pendientes (sin ☑ ni ✖) en las fotos {', '.join(map(str, fotos))}.")
+        qs.append(f"Quedan {len(pend)} objeto(s) pendientes (sin ☑ ni ✖) en los tramos {', '.join(map(str, fotos))}.")
     sin_ver = [f["foto"] for f in rec if not f.get("vista")]
     if rec and sin_ver:
-        qs.append(f"Fotos que no abriste: {', '.join(map(str, sin_ver))}.")
+        qs.append(f"Tramos que no abriste: {', '.join(map(str, sin_ver))}.")
     for eid, m in marks.items():
         if m.get("v") == "no" and count_in_plan(eid, cues):
             el = by_id.get(eid, {"nombre": eid})
@@ -179,14 +179,14 @@ def summary_md(state: dict[str, Any], catalog: dict[str, Any], cues: list[dict[s
     lines += ["", "## 5. Preguntas abiertas", ""]
     lines += [f"- {q}" for q in open_questions(state, catalog, cues)] or ["- Ninguna."]
 
-    rec = state.get("recorrido") or []                 # §F: lo arma la pantalla foto por foto
+    rec = state.get("recorrido") or []                 # §F: lo arma la pantalla tramo por tramo
     if rec:
         icon = {"si": "✔", "no": "✖", "pendiente": "…"}
-        lines += ["", "## 6. Recorrido foto por foto", "",
+        lines += ["", "## 6. Recorrido tramo por tramo", "",
                   "✔ se queda · … pendiente (sin marcar) · ✖ nunca", ""]
         for f in rec:
             vista = "" if f.get("vista") else " · (no la abriste)"
-            lines.append(f"**Foto {f['foto']}** ({f['desde']}–{f['hasta']}){vista}")
+            lines.append(f"**Tramo {f['foto']}** ({f['desde']}–{f['hasta']}){vista}")
             for o in f.get("objetos") or []:
                 forma = f" — {o['forma']}" if o.get("forma") else ""
                 lines.append(f"- {icon.get(o['estado'], '…')} {o['nombre']} ({o['t']}){forma}")

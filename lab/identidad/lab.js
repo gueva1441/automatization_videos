@@ -88,6 +88,7 @@ function restore(s) { Object.assign(S, clone(s)); }
 function afterChange(label, opts = {}) {
   setStatus(label, opts.preview === false ? "" : "busy");
   if (opts.preview === false) autosave();           // cambio que no toca lo que se dibuja: sin recargar el player
+  else if (UI.onPlanChanged) UI.onPlanChanged();    // §F2: la vista decide qué preview regenerar
   else schedulePreview();
   UI.afterChange();
   syncUndoButtons();
@@ -805,7 +806,7 @@ async function init() {
       if (mod && e.key.toLowerCase() === "z" && !e.shiftKey) { e.preventDefault(); undo(); }
       else if (mod && (e.key.toLowerCase() === "y" || (e.key.toLowerCase() === "z" && e.shiftKey))) { e.preventDefault(); redo(); }
     });
-    await preview();
+    await (UI.firstPreview ? UI.firstPreview() : preview());
     requestAnimationFrame(loop);
   } catch (e) {
     setStatus("error al cargar: " + e.message, "err");

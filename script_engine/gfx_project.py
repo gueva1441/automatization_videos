@@ -45,7 +45,7 @@ class GfxScene:
     rank: str = "R3"         # emotional_rank del plano (decide la transición de ENTRADA)
     text_in_image: str = ""  # texto que ya muestra la imagen (regla de omisión de callouts)
     quiet_side: str = "right"  # lado con menos detalle (gráficos van ahí; el sujeto queda del otro lado)
-    safe: dict | None = None   # F2 §4: {"image": png, "movement": push|pan, "risk"} → movimiento seguro HF
+    safe: dict | None = None   # F2 §4: {"image": png, "movement": push|pan|pull|static, "risk"} → movimiento seguro HF
 
     @property
     def duration(self) -> float:
@@ -367,6 +367,8 @@ def _freeze_img(prev: GfxScene | None, s: GfxScene, tag: str, project: Path, bas
         shutil.copy2(src, dst)
         if prev.safe.get("movement") == "pan":
             style = f"transform: translateX({gfx_rules.safe_pan_frac * width / 2:.1f}px) scale(1.04)"
+        elif prev.safe.get("movement") in ("pull", "static"):     # F3: terminan en escala 1
+            style = ""
         else:
             style = f"transform: scale({gfx_rules.safe_push_scale})"
         return f"public/cuts/{dst.name}", style
@@ -428,6 +430,11 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
             dx = gfx_rules.safe_pan_frac * width
             init.append(f'        gsap.set("#sf{tag}", {{ scale: 1.04, x: {-dx / 2:.1f} }});')
             js.append(f'        tl.to("#sf{tag}", {{ x: {dx / 2:.1f}, duration: {s.duration:.3f}, ease: "none" }}, 0);')
+        elif s.safe.get("movement") == "pull":     # F3 lab: alejamiento (inverso del push-in)
+            init.append(f'        gsap.set("#sf{tag}", {{ scale: {gfx_rules.safe_push_scale}, transformOrigin: "50% 50%" }});')
+            js.append(f'        tl.to("#sf{tag}", {{ scale: 1, duration: {s.duration:.3f}, ease: "sine.inOut" }}, 0);')
+        elif s.safe.get("movement") == "static":   # F3 lab: foto quieta (sin tween)
+            init.append(f'        gsap.set("#sf{tag}", {{ scale: 1, transformOrigin: "50% 50%" }});')
         else:
             init.append(f'        gsap.set("#sf{tag}", {{ scale: 1, transformOrigin: "50% 50%" }});')
             js.append(f'        tl.to("#sf{tag}", {{ scale: {gfx_rules.safe_push_scale}, duration: {s.duration:.3f}, ease: "sine.inOut" }}, 0);')
