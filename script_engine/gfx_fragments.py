@@ -70,7 +70,8 @@ def _tok(w: str) -> str:
 
 def _clauses(text: str) -> list[list[str]]:
     text = re.sub(r"\s+", " ", str(text)).strip()
-    return [c.split() for c in re.split(r"[,.;:!?…](?=\s|$)|\s[—–-]\s", text) if c.strip()]
+    # los paréntesis también cortan: «15 pies (4.6 metros)» no puede dar «15 pies 4.6»
+    return [c.split() for c in re.split(r"[,.;:!?…](?=\s|$)|\s[—–-]\s|[()]", text) if c.strip()]
 
 
 def _trim(ws: list[str]) -> list[str]:

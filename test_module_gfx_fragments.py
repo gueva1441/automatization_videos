@@ -80,3 +80,9 @@ def test_sin_llm_quedan_los_textos_de_hoy(tmp_path):
                                scenes=[GfxScene(0, 0.0, 9.0)], time_offset=0.0, moods=MOODS, work_dir=tmp_path,
                                cap="ch02", call=boom, log=log) == []
     assert plan == _plan() and "Flash falló" in log[0]
+
+
+def test_parentesis_cortan_clausula():
+    fr = gf.fragments("Algunas partes quedaron bajo 15 pies (4.6 metros) de agua.", 6, must="4.6")
+    assert "4.6 metros" in fr and not any("pies" in f for f in fr)
+

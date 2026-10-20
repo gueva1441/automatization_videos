@@ -200,3 +200,88 @@ Riesgos que el contrato no cubre:
 - Crédito en todos los canales: se deja (atribución de más no viola la licencia; de menos sí).
 - Byte-idéntico sin `--gfx`: se mide en §5 (md5 de ch02 `--only-cap`).
 - La marca encendida y el cierre se prueban en §5 si Omar eligió candidata; si no, quedan apagados (no se elige por él).
+
+---
+
+## §5 Prueba completa de Orleans
+
+Comando: `python fase2b.py ba6c3cac-a091-41c0-8dad-afd2f4364747 --reuse-visuals --keep-segments --gfx --gfx-sparse` (looks, disperso). Un render completo (cambian los 7 caps, E38). Log `full_run_f4b.log`. Respaldo de F4 en `_fase2b_work/_bak_f4b_pre_full/`. **Sin la marca del canal** (E39: Omar todavía no eligió).
+
+**Entregables:**
+- `output/ba6c3cac…/…_final_gfx.mp4`: B-F4b, 712.2 s.
+- `AB_ba6c3cac…_f4b.mp4`: sin gfx | F4b, 1920×540.
+- Cues y páginas de revisión de los 7 caps en `lab/hyperframes/f4b/corrida_final/`.
+- Fallbacks: 0. Violaciones de la identidad: 0. Candado literal: 1 rechazo en ch02 (el dato «15 pies 4.6», fragmento roto que cruzaba un paréntesis: el candado lo frenó; arreglado en E42). Candado sin `--gfx`: md5 de ch02 `--only-cap` = `38e5ba14…` ✔ (`onlycap_ch02_nogfx_f4b.log`).
+
+### Por cap
+
+| cap | pico (frase) → bloque | cargas nuevas vs léxico | recorte: antes → ahora | zoom (detalle · tipo · cómo) | íconos |
+|---|---|---|---|---|---|
+| ch01 | «Pero lo que sucedió después, es un misterio que nadie quiso ver.» → sin bloque grande | — (las 5 ya estaban) | El agua dentro de algunos edificios → **agua contaminada subió implacable** | rostro del hombre · rostro · de editor | candado (propio), recorte con biohazard |
+| ch02 | «…sumergidos bajo 4.6 metros de agua putrefacta.» → nivel de agua | catástrofe, furia | El huracán Katrina tocó tierra → **Katrina desató su furia implacable**; Los prisioneros… → **celdas inundadas con agua contaminada con aguas residuales** | pies del hombre · persona · nombrado («prisioneros») | gota, candado (propios); recorte con candado |
+| ch03 | «En celdas herméticamente cerradas, sin salida, sin luz…» → zoom (candado de la celda) | brutal, negrura, sofocante, filtrarse | El agua dentro de algunos edificios → nivel del pecho | candado de la celda · pico (caja de visión verificada; detalle visto en `zooms_render_f4b.png`) | — |
+| ch04 | «…en el caos, en la oscuridad y en el abandono más absoluto.» → zoom (zapatilla abandonada) | sufrimiento, calvario | (igual) | zapatilla · pico (caja de visión verificada; detalle visto en `zooms_render_f4b.png`) | candado ×2, gota (propios); recorte con gota |
+| ch05 | «Cuerpos sin vida a la deriva…» → recorte | líquida, borradas, desvanecidas | Reclusos de la sección 'Templeman III' informaron → **cadáveres flotando en las aguas de la inundación** | rostro del niño · rostro · nombrado («ojos») | calavera (propio); recorte con calavera |
+| ch06 | «¿Y para aquellos quinientos prisioneros, cuyas vidas se desvanecieron…» → sin bloque grande | infierno, encarcelamiento | (igual: el nuevo de ch02 ya estaba usado → dedupe) | cicatriz · manos · de editor | candado (propio); recorte con candado |
+| ch07 | «…borrados por…» → sin bloque grande | borrados | Aproximadamente 6,500 personas → Prisión de Orleans | rostro del hombre · rostro · de editor | calavera (propio) |
+
+- **Picos:** 7 de 7 marcados (F4: 2). Con bloque grande: 4 (ch02 nivel de agua; ch03 y ch04 zoom; ch05 recorte). ch01, ch06 y ch07 quedan sin bloque: el pico cae en la última frase, donde no hay foto larga para zoom ni recorte cerca (E13).
+- **Datos:** todos quedaron con el texto de hoy (con las reglas de E16 el LLM no encontró una opción mejor que mantuviera cifras y nombres).
+- **Íconos:** todos del set propio. Ningún game-icons en el video: las únicas cargas concretas sin ícono propio fueron «penumbra» y «líquida», y Flash eligió «ninguno» (E35).
+- **Zooms:** 7 de 7 sobre un detalle real (`capturas/zooms_render_f4b.png`), ninguno a textura.
+- **Léxico:** 14 propuestas en `gfx_profiles/lexico_propuestas.json`, 0 promovidas (falta un segundo video).
+- **Marca:** no entra en este render (E39).
+
+### Tiempos
+| medida | F4 | F4b |
+|---|---|---|
+| corrida completa | 2299 s (38.3 min) | **4169 s (69.5 min)** |
+| capas gfx (suma) | 1778 s (5 caps) | 3337 s (7 caps) |
+| concat + música | 84 s | 187 s (130 + 57) |
+
+F4b rehízo los 7 caps (F4 reusó 2). Además corrió con Firefox abierto (E40), y las capas tardan más porque cada cap renderiza más escenas enteras en HyperFrames (fotos con rostro/manos pasan a PNG con acercar). Incremental: no medido (un solo render completo).
+
+### Gemini F4b
+- Corrida completa: $0.0018 en el cost_tracker (casi todo ya estaba en caché por las pruebas).
+- Pruebas fuera del tracker, estimadas por llamadas:
+  - intensidad: 7 llamadas Flash;
+  - fragmentos: 3 pasadas × 7;
+  - índice de íconos: 17 tandas;
+  - elección de íconos: 3;
+  - visión: ~110 fotos + ~30 verificaciones + 4 de la llama de la marca.
+- Total estimado **≈ US$ 0.2** (tope $3).
+- Aparte, fal (marca): 3 imágenes Flux.2 Pro ≈ US$ 0.09.
+
+**Veredicto revisor-handoff §5 (íntegro):**
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | §5.1 Re-correr los 7 caps con un único render completo (permitido si cambian más de 4 caps) | OK | `full_run_f4b.time` va de 13:25:35 a 14:35:04, o sea 4169 s, y coincide con el reporte. El log muestra una sola corrida y sus 7 `[gfx] chNN OK` (210, 541, 523, 639, 606, 536 y 282 s). Esas capas suman 3337 s y concat 130 s más música 57 s suman 187 s, como dice el reporte. |
+| 2 | §5.2 `AB_…_f4b.mp4`, cues y páginas de revisión | OK | El AB existe (75 MB); ffprobe da 1920x540 y 712.23 s. El final_gfx también dura 712.23 s. Hay 7 `.json`, 7 `.md` y 7 `.html` en `corrida_final/`. |
+| 3 | §5.3 Tabla por cap vs `gfx_plan_chNN.resolved.json` | OK con 2 observaciones | Los 7 caps coinciden en bloque del pico, recortes antes/después, zoom (ancla, tipo, cómo) e íconos. Observaciones abajo (1 y 2). |
+| 4 | §5.3 Zooms «7 de 7 sobre detalle real» | OK | Miré `zooms_render_f4b.png`: rostro, pies, candado, zapatilla, niño, cicatriz y rostro. Ninguna caja cae en textura. |
+| 5 | §5.4 `lexico_propuestas.json` | OK | Tiene 14 entradas, todas con video Orleans. Está commiteado desde `1762916` y no está en este diff. |
+| 6 | §6 Sin `--gfx` byte-idéntico | OK | `onlycap_ch02_nogfx_f4b.log` termina en `38e5ba14e3d24fd20f9297c9e1dfee24 *…ch02_segment_only.mp4`. |
+| 7 | §7 RESUMEN ≤ 40 líneas y ≤ 3 preguntas con la opción ya aplicada | OK | `RESUMEN_F4b.md` tiene 28 líneas. Las 3 preguntas traen «Apliqué:». |
+| 8 | Fix E42 (paréntesis cortan cláusula) con test | OK | `script_engine/gfx_fragments.py:73` y `test_parentesis_cortan_clausula`. Los tests que me pasaste dieron 283 passed en 24.7 s. |
+| 9 | Alcance | OK | Los staged son solo `lab/hyperframes/f4b`, `ESTADO_SESION`, `gfx_fragments.py` y su test. `diag_234_cap4.py` sigue sin stagear. No corrí fase2b. |
+| 10 | Gemini ≤ $3 | NO VERIFICABLE | La cifra de ≈ US$ 0.2 es estimación del propio reporte. Solo los $0.0018 del tracker son verificables, y no cotejé el cost_tracker. |
+
+Observaciones:
+1. `gfx_plan_ch02.resolved.json` y `gfx_ch02.log` muestran `lock rechazados: 1` («15 pies 4.6», bloque dato0). El reporte afirma «Fallbacks: 0. Violaciones: 0» sin mencionarlo. Tampoco dice que `fragmentos.dato0.ahora` quedó en «15 pies 4.6» en el plan resuelto, aunque el lock lo rechazó.
+2. E42 dice que el dato no llegó a pantalla porque «la regla del pico lo sacó». El log dice que lo rechazó el lock literal, así que las dos explicaciones no coinciden. El resultado es el mismo, pero la causa documentada es dudosa.
+3. En ch03 y ch04 el plan resuelto trae `tipo` y `como` en None. La tabla del reporte dice «objeto · pico», y esos datos no salen del resolved.json. Tampoco pude verificar «cargas nuevas vs léxico» de cada cap.
+4. `ESTADO_SESION.md` conserva en «Proyecto activo» la línea vieja «Último commit 321c489» y los «259 tests», ya desactualizados (ahora 283).
+
+Fuera de alcance: ninguno.
+
+Riesgos que el contrato no cubre:
+- El pico de ch01, ch06 y ch07 cae en la última frase del cap y queda sin bloque grande. Ya figura como pregunta 2 del RESUMEN.
+- El incremental quedó sin medir.
+- El tiempo de render subió casi al doble (69.5 min contra 38.3 de F4); el reporte lo atribuye a Firefox abierto y más escenas enteras, pero no lo aisló.
+```
+
+**Respuesta de CC:** 1–2 corregidos: el rechazo del candado figura en el reporte, y E42 da la causa real (lo frenó el candado literal). 3: en ch03 y ch04 la tabla ya no dice «objeto»; dice el detalle que se ve en la captura (el zoom del pico usa la caja verificada y no guarda tipo). Las «cargas nuevas» salen del log de cada cap (`léxico: … propuesta(s) nueva(s)`). 4: ESTADO_SESION actualizado.

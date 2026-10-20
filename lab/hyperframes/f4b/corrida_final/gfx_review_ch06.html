@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es"><head><meta charset="UTF-8" /><title>gfx review ch06</title>
+<style>
+  body { margin: 0; background: #111; color: #eee; font: 15px/1.4 system-ui, sans-serif; display: flex; height: 100vh; }
+  #left { flex: 1; display: flex; flex-direction: column; padding: 12px; gap: 8px; min-width: 0; }
+  video { width: 100%; max-height: 80vh; background: #000; }
+  #note { display: flex; gap: 8px; } #note input { flex: 1; padding: 6px; background: #222; color: #eee; border: 1px solid #444; }
+  button { padding: 6px 12px; background: #c8102e; color: #fff; border: 0; cursor: pointer; }
+  #cues { width: 420px; overflow-y: auto; border-left: 1px solid #333; }
+  .cue { padding: 6px 10px; border-bottom: 1px solid #222; cursor: pointer; }
+  .cue:hover { background: #222; } .cue.on { background: #3a1016; }
+  .t { font-family: Consolas, monospace; color: #f4c542; } .b { color: #8fd; } .n { color: #f99; font-size: 13px; }
+</style></head><body>
+<div id="left">
+  <video id="v" src="seg_06_ch06.mp4" controls preload="auto"></video>
+  <div id="note"><input id="c" placeholder="comentario sobre el instante actual" /><button id="copy">copiar nota</button></div>
+  <div id="msg"></div>
+</div>
+<div id="cues"></div>
+<script>
+var CAP = "ch06", DATA = {"cap": "ch06", "events": [{"t": 0.0, "dur": 3.0, "block": "title_card", "text": "CAPÍTULO 6 · Justicia Tardia y Parcial", "scene": 1, "rank": ""}, {"t": 8.667, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 2, "rank": "R2"}, {"t": 8.76, "dur": 3.4, "block": "data_callout", "text": "Robie Waganfeald y Paul Kunkel Jr.", "scene": 2, "rank": ""}, {"t": 12.799, "dur": 2.5, "block": "icon_callout:oscuridad_encierro", "text": "atrapados [candado · stamp]", "scene": 2, "rank": ""}, {"t": 12.799, "dur": 0.8, "block": "punch_in", "text": "", "scene": 2, "rank": ""}, {"t": 15.4, "dur": 0.333, "block": "shot_transition:dip", "text": "10 f", "scene": 3, "rank": "R3"}, {"t": 20.733, "dur": 0.0, "block": "shot_transition:cut", "text": "corte (≥ 1 corte cada 3)", "scene": 4, "rank": "R2"}, {"t": 21.359, "dur": 2.5, "block": "data_callout", "text": "2010", "scene": 4, "rank": ""}, {"t": 21.359, "dur": 0.8, "block": "punch_in", "text": "", "scene": 4, "rank": ""}, {"t": 25.279, "dur": 3.7, "block": "count_up", "text": "650,000 dólares", "scene": 4, "rank": ""}, {"t": 27.9, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 5, "rank": "R3"}, {"t": 34.733, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 6, "rank": "R3"}, {"t": 37.079, "dur": 2.5, "block": "keyword_emphasis:oscuridad_encierro", "text": "encarcelamiento", "scene": 6, "rank": ""}, {"t": 43.733, "dur": 0.0, "block": "shot_transition:cut", "text": "corte (≥ 1 corte cada 3)", "scene": 7, "rank": "R2"}, {"t": 48.739, "dur": 0.8, "block": "punch_in", "text": "", "scene": 7, "rank": ""}, {"t": 50.6, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 8, "rank": "R3"}, {"t": 59.367, "dur": 0.1, "block": "shot_transition:flash", "text": "3 f", "scene": 9, "rank": "R1"}, {"t": 65.133, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 10, "rank": "R3"}, {"t": 66.419, "dur": 0.8, "block": "punch_in", "text": "", "scene": 10, "rank": ""}, {"t": 71.9, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 11, "rank": "R3"}, {"t": 72.4, "dur": 6.0, "block": "archive_clipping", "text": "Los prisioneros quedaron atrapados durante días en celdas", "scene": 11, "rank": ""}, {"t": 78.7, "dur": 0.0, "block": "shot_transition:cut", "text": "corte (≥ 1 corte cada 3)", "scene": 12, "rank": "R3"}, {"t": 81.85, "dur": 2.85, "block": "evidence_zoom", "text": "box [0.338, 0.416, 0.104, 0.092]", "scene": 12, "rank": ""}, {"t": 84.7, "dur": 0.0, "block": "shot_transition:cut", "text": "corte (después del zoom)", "scene": 13, "rank": "R3"}, {"t": 88.633, "dur": 0.667, "block": "shot_transition:dissolve", "text": "20 f", "scene": 14, "rank": "R2"}, {"t": 89.599, "dur": 2.5, "block": "data_callout", "text": "500 prisioneros", "scene": 14, "rank": ""}, {"t": 89.599, "dur": 2.5, "block": "source_tag", "text": "Human Rights Watch, 2005", "scene": 14, "rank": ""}, {"t": 95.167, "dur": 0.1, "block": "shot_transition:flash", "text": "3 f", "scene": 15, "rank": "R1"}, {"t": 98.133, "dur": 3.0, "block": "chapter_question", "text": "¿Cómo la indiferencia sepultó a esos prisioneros?", "scene": 15, "rank": ""}, {"t": 101.133, "dur": 1.0, "block": "black_hold", "text": "corte a negro", "scene": 15, "rank": ""}], "notes": ["archive omitido (solape con otro bloque)", "zoom del director descartado (foto-primero): rastro oficial", "sfx descartado: title_card @ 0.05s cae sobre 'Aunque' sin hueco ≤ 120 ms", "sfx descartado: archive_clipping @ 72.40s cae sobre 'marcadas' sin hueco ≤ 120 ms"], "gaps": [], "render_sec": 411.1315550804138};
+var v = document.getElementById("v"), box = document.getElementById("cues");
+function fmt(t) { var m = Math.floor(t / 60), s = (t % 60).toFixed(1); return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s; }
+DATA.events.forEach(function (e, i) {
+  var d = document.createElement("div"); d.className = "cue"; d.id = "q" + i;
+  d.innerHTML = '<span class="t">' + fmt(e.t) + '</span> <span class="b">' + e.block + (e.rank ? " " + e.rank : "") + '</span> '
+    + (e.text ? "«" + e.text.replace(/</g, "&lt;") + "»" : "") + ' <span class="t">' + e.dur.toFixed(2) + ' s</span>';
+  d.onclick = function () { v.currentTime = e.t; v.play(); };
+  box.appendChild(d);
+});
+DATA.notes.concat(DATA.gaps.map(function (g) { return "gap_warning " + fmt(g[0]) + "–" + fmt(g[1]); })).forEach(function (n) {
+  var d = document.createElement("div"); d.className = "cue n"; d.textContent = n; box.appendChild(d);
+});
+v.ontimeupdate = function () {
+  DATA.events.forEach(function (e, i) {
+    document.getElementById("q" + i).classList.toggle("on", v.currentTime >= e.t && v.currentTime < e.t + Math.max(e.dur, 0.3));
+  });
+};
+document.getElementById("copy").onclick = function () {
+  var txt = CAP + " @ " + fmt(v.currentTime) + " — " + document.getElementById("c").value;
+  (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(
+    function () { document.getElementById("msg").textContent = "copiado: " + txt; },
+    function () { document.getElementById("msg").textContent = txt; });
+};
+</script></body></html>

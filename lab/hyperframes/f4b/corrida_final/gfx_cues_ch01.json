@@ -1,0 +1,150 @@
+{
+ "cap": "ch01",
+ "events": [
+  {
+   "t": 0.0,
+   "dur": 3.0,
+   "block": "title_card",
+   "text": "CAPÍTULO 1 · 6,500 Almas Atrapadas",
+   "scene": 1,
+   "rank": ""
+  },
+  {
+   "t": 4.779,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 1,
+   "rank": ""
+  },
+  {
+   "t": 6.699,
+   "dur": 3.0,
+   "block": "data_callout",
+   "text": "29 de agosto de 2005",
+   "scene": 1,
+   "rank": ""
+  },
+  {
+   "t": 6.699,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 1,
+   "rank": ""
+  },
+  {
+   "t": 8.0,
+   "dur": 0.667,
+   "block": "shot_transition:dissolve",
+   "text": "20 f",
+   "scene": 2,
+   "rank": "R3"
+  },
+  {
+   "t": 10.5,
+   "dur": 2.5,
+   "block": "data_callout",
+   "text": "Katrina",
+   "scene": 2,
+   "rank": ""
+  },
+  {
+   "t": 13.3,
+   "dur": 0.333,
+   "block": "shot_transition:dip",
+   "text": "10 f",
+   "scene": 3,
+   "rank": "R3"
+  },
+  {
+   "t": 15.5,
+   "dur": 3.7,
+   "block": "count_up",
+   "text": "6,500 personas",
+   "scene": 3,
+   "rank": ""
+  },
+  {
+   "t": 20.18,
+   "dur": 2.5,
+   "block": "icon_callout:oscuridad_encierro",
+   "text": "encerradas [candado · stamp]",
+   "scene": 3,
+   "rank": ""
+  },
+  {
+   "t": 20.18,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 3,
+   "rank": ""
+  },
+  {
+   "t": 21.533,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (≥ 1 corte cada 3)",
+   "scene": 4,
+   "rank": "R3"
+  },
+  {
+   "t": 21.92,
+   "dur": 0.8,
+   "block": "punch_in",
+   "text": "",
+   "scene": 4,
+   "rank": ""
+  },
+  {
+   "t": 24.159,
+   "dur": 6.0,
+   "block": "archive_clipping",
+   "text": "agua contaminada subió implacable",
+   "scene": 4,
+   "rank": ""
+  },
+  {
+   "t": 24.35,
+   "dur": 2.85,
+   "block": "evidence_zoom",
+   "text": "box [0.35, 0.25, 0.25, 0.3]",
+   "scene": 4,
+   "rank": ""
+  },
+  {
+   "t": 27.2,
+   "dur": 0.0,
+   "block": "shot_transition:cut",
+   "text": "corte (después del zoom)",
+   "scene": 5,
+   "rank": "R3"
+  },
+  {
+   "t": 35.8,
+   "dur": 3.0,
+   "block": "chapter_question",
+   "text": "¿Qué ocultó el huracán Katrina?",
+   "scene": 5,
+   "rank": ""
+  },
+  {
+   "t": 38.8,
+   "dur": 1.0,
+   "block": "black_hold",
+   "text": "corte a negro",
+   "scene": 5,
+   "rank": ""
+  }
+ ],
+ "notes": [
+  "callout omitido (solape/fuera de rango @ 13.5s): 'Prisión Parroquial de Orleans'",
+  "callout omitido (solape/fuera de rango @ 15.5s): '6,500 personas'",
+  "archive omitido (solape con otro bloque)",
+  "archive omitido (solape con otro bloque)",
+  "zoom omitido (el final de su escena choca con otro bloque)"
+ ],
+ "gaps": [],
+ "render_sec": 122.68426036834717
+}
