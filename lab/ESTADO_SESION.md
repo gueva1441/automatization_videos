@@ -1,67 +1,72 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-19 · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-20 (cierre de la sesión F3) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
-- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama **`f3-lab-identidad`** (desde `31c671c`, tip de `f2-gfx-director`) · `main` = `43f528a` (NO tocar sin OK explícito de Omar).
-- **Decisión de Omar (2026-10-19): F2b NO se mergea a `main` todavía**; queda en `f2-gfx-director` @ `31c671c`.
-- Fase: **F3 Laboratorio de identidad** (`lab/hyperframes/f3/HANDOFF_F3_laboratorio_identidad.md`). F0–F2b cerrados.
-- Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo).
+- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama **`f3-lab-identidad`** (desde `31c671c`, tip de `f2-gfx-director`). Último commit de código: **`9d36be7`** (pico del cap); este cierre agrega solo este archivo.
+- `main` = `43f528a` (NO tocar sin OK explícito de Omar). **F2b NO se mergeó** (decisión de Omar 2026-10-19): sigue en `f2-gfx-director` @ `31c671c`; F3 se apoya encima.
+- Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 = cap de calibración, ch05 el segundo).
+- Candados vigentes: md5 sin `--gfx` de ch02 `--only-cap` = `38e5ba14…` (re-medido tras cada cambio de pipeline, último en `onlycap_ch02_nogfx_pico.log`); 243 tests verdes **con el perfil del commit** (ver "Pendiente" sobre el perfil guardado por Omar).
 
-## Trabajo activo: F3 (lab interactivo en http://localhost:8765)
-- Orden §5.2: A → B → C → **PARADA ÚNICA** (Omar abre el lab, juega 30 min, guarda) → D → E.
-- Arranque 2026-10-19: rama creada, handoff copiado a `lab/hyperframes/f3/`.
-- §A commiteado `0902908` (revisor: CUMPLE CON OBSERVACIONES): `gfx_lab_server.py` + `lab/identidad/{index.html,lab.js,lab.css}`. Preview = `write_project` (plantillas reales) + runtime/player pineados. md5 sin gfx = 38e5ba14 ✔. Decisiones C1–C11.
-- §B commiteado `9d65b49` (revisor: CUMPLE CON OBSERVACIONES): `catalogo.json` (43 piezas, en vivo vs anotado), `sugerencias_ch02.json` (BORRADOR de 18, lo corrige el analista), `anim_previews.css`, panel Aquí, tokens en vivo + candado en el preview. Decisiones C12–C21. 180 tests.
-- §C (✔/✖, deshacer, resumen en vivo, Guardar identidad): commit `feat(gfx-f3-lab): §C` (revisor: CUMPLE CON OBSERVACIONES). `script_engine/gfx_identity.py`; `identity` agregado a `_PROFILE_KEYS`. md5 sin gfx re-medido 38e5ba14 ✔. 187 tests. Decisiones C22–C30.
-- Omar abrió el lab (sesión 22:31) y lo encontró confuso → **HANDOFF_F3b** (§F, UI foto por foto, solo pantalla). §F commiteado: ver `feat(gfx-f3-lab): §F` (revisor: CUMPLE CON OBSERVACIONES). Vista vieja en `?modo=experto`. Pendiente verificar en tiempo real ▶ Probar fotos 13–15 y "Ver capítulo completo" (panel oculto durante la prueba). Sesión de Omar respaldada en `lab/identidad/plan_ch02_lab.omar_2231.json`.
-- Omar corrigió la UI v2 (§F2): tramo por tramo, Probar = un objeto solo sobre la foto fija, "Ver este tramo con todo" y capítulo completo SOLO con lo aprobado, movimiento sobre el PNG (quieta/alejar nuevos en el templater, md5 sin gfx 38e5ba14 ✔), regla "ninguna forma que no se vea". Commit `feat(gfx-f3-lab): §F2` (revisor: CUMPLE CON OBSERVACIONES; sin verificación en tiempo real).
-- Mood agua sin cáusticas (malla tipo mosquitero): sombra que sube 1 s / se mantiene / baja + bordes. Otros 3 moods revisados, sin patrones. md5 sin gfx 38e5ba14 ✔. Commit `fix(gfx-f3-lab): mood agua`. Pendiente que decida Omar: muerte se ve "lavado".
-- Íconos en bloque (L + palabra al lado + fuente, zona oscura), "con ícono" en dato/recorte, íconos propuestos + selector de los 12, pregunta de cierre automática (gfx_question, Flash) con pausa real de 3 s (+drone) en fase2b y en el lab. Render ch02 --gfx: 100.6 s ✔. md5 sin gfx 38e5ba14 ✔. Commit `feat(gfx-f3-lab): íconos en bloque + pregunta`. Falta: render completo del video para ver música/concat con pausas.
-- Pico del cap (gfx_peak): nivel de agua, reloj, zoom + latido, corte a negro 1 s; ch02 por default; fix del zoom (HF no escala el <video>: cuadro congelado). Render ch02 --gfx 101.6 s ✔, md5 sin gfx 38e5ba14 ✔. Commit `feat(gfx-f3-lab): pico del cap`. Pendiente: golpe de zoom/empuje sobre video tampoco escala el video (tarea aparte).
-- **PARADA §F2 (esperando a Omar):** recorrer desde el tramo 1 en http://localhost:8765. Luego §D y §E.
-- Parada anterior (§C, superada por F3b): abrir http://localhost:8765, jugar ~30 min, 💾 Guardar identidad. CC NO guardó con el perfil real (`gfx_profiles/` intacto). Después: §D (7 plantillas nuevas, pausa de cierre, Render, regenerar ícono) y §E (director con identidad + golden; test ch05).
-- Levantar el lab: `PYTHONIOENCODING=utf-8 python gfx_lab_server.py` (→ http://localhost:8765). Proyecto del preview: `_fase2b_work/gfx_lab_ch02/` (nunca el `gfx_ch02/` del render).
-- Commits F3: `feat(gfx-f3-lab): <sección>`; revisor-handoff antes de cada uno; veredictos íntegros en `lab/hyperframes/f3/F3_REPORT.md`.
+## F3 — Laboratorio de identidad: qué quedó hecho (commits en orden)
+- **§A `0902908`** servidor `gfx_lab_server.py` (:8765) + historia (Whisper + audio + fotos) + preview real (`write_project` + player/runtime pineados).
+- **§B `9d65b49`** `catalogo.json` (43 piezas), `sugerencias_ch02.json` (borrador de 18), miniaturas CSS, tokens en vivo + candado literal en el preview.
+- **§C `04a6025`** ✔/✖, deshacer, resumen en vivo, **Guardar identidad** (`script_engine/gfx_identity.py`).
+- **§F `edf5221` / §F2 `2bdfd44`** pantalla tramo por tramo: Probar = un objeto solo sobre la foto fija; "Ver este tramo con todo" y "Ver capítulo completo" solo con lo aprobado; movimiento sobre el PNG (alejar/quieta nuevos en el templater); solo formas que se ven. Vista vieja en `?modo=experto`.
+- **Mood agua `d4ed4e5`** sin cáusticas: sombra que sube 1 s / se mantiene / baja + bordes; los otros 3 moods revisados.
+- **Íconos + pregunta `beb2b8f`** ícono siempre en bloque (L 360 px + palabra al lado + fuente, zona oscura, sombra + grano), "con ícono" en dato/recorte, ícono propuesto por palabra literal + selector de los 12; **pregunta de cierre automática** (`script_engine/gfx_question.py`, Flash + validador, 2 reintentos, `generated: true`) con **pausa real de 3 s** + drone en fase2b y en el lab.
+- **Pico `9d36be7`** (`script_engine/gfx_peak.py`): pico = frase con más palabras de peso 3, UN bloque grande y ±5 s libres; **nivel de agua** (4.6 m → 60 %, cifra literal, 1 por video); **reloj** «29 AGO · 2005» en la esquina libre; zoom de evidencia **+ latido**; **corte a negro 1 s**; ch02 cargado por default; fix del zoom (HyperFrames no escala `<video>` → cuadro congelado); candado 409 entre pestañas del lab.
+- Render ch02 `--gfx` actual: **101.6 s** (97.6 voz + 3 pregunta + 1 negro), respaldado en `_fase2b_work/_bak_f3_pregunta/ch02_segment_only.gfx_pico.mp4`.
 
-## Historia: F2b (HANDOFF_F2b_director_v2.md, modo autónomo) — cerrado, en rama f2-gfx-director
-- Omar respondió las 3 preguntas del nocturno con el handoff F2b: titular determinista (sí), tocar el concat (sí, §4), visión de retratos filtrada (sí).
-- Orden: §1 → §2 → render ch02 looks → **PARADA 1** (página de revisión ch02) → §3 → **PARADA 2** (tira_iconos_12.jpg) → §4 → render completo → AB → F2b_REPORT.md.
-- Hecho: §1 `aec3a4a` (revisor: CUMPLE CON OBSERVACIONES). md5 sin gfx ch02 = 38e5ba14 ✔.
-- Hecho: §2 `046c4c9` (revisor: CUMPLE CON OBSERVACIONES). ch02 looks: 2 recortes, 3 énfasis, 0 huecos > 18 s.
-- PARADA 1 cerrada: Omar dio OK a ch02 con dos cambios → commit `2879665` (oscuridad sin parpadeos = token `mood_dark_flicker`; léxico con peso 1–3, orden peso → rareza).
-- PARADA 2 cerrada: Omar eligió 1b 2a 3a 4a 5b 6a 7a 8b 9b 10b 11b 12a; rojo solo en ojos de calavera, cerradura y clavo de la cruz → commit §3 `f3fd3db`.
-- §4 commiteado `6819ee5` (revisor: CUMPLE CON OBSERVACIONES; el PSNR ≥ 50 dB contra el final viejo NO se cumple a la letra: 44.8 Y, porque el viejo pierde contra la fuente → criterio luma, Omar decide).
-- Render completo HECHO: 37.9 min (+19.3 vs A ✔), concat+música 85 s ✔, incremental 7.5 min (✘ ≤ 6), 5 recortes, densidad 8.9 s. Entregables: `output/…/…_final_gfx.mp4`, `AB_…_f2b.mp4`, `lab/hyperframes/f2b/F2b_REPORT.md` (+ corrida_final/). Fix ch05 (B35) re-ensamblado.
-- Revisor final: CUMPLE CON OBSERVACIONES (corregido el conteo de recortes; md5 sin gfx re-verificado 38e5ba14). Commit de cierre hecho.
+## Pendiente
+- **Malla del mood agua:** corregida en `d4ed4e5` (sin `repeating-*gradient`, test que lo impide), **falta que Omar la confirme a ojo** en el tramo 5. Aparte, muerte se ve "lavado" (desaturación, no patrón): decide Omar.
+- **Pregunta más concreta:** la generada para ch02 («¿Cómo el encierro transformó la oscuridad moral de los prisioneros?») cumple el contrato pero es abstracta; ajustar el prompt de `gfx_question` para que apunte a un hecho concreto del cap siguiente. La pregunta escrita a mano por Omar («Quien fue el culpable?») no pasa por el validador.
+- **Video completo con pausas:** no se renderizó el video entero con las pausas de cierre (concat + música por cap con `extra_sec`); solo ch02 y tests.
+- **Golpe de zoom sobre video:** punch-in, empuje del mood muerte y "corte + golpe" no escalan el clip de video en el render (mismo límite de HyperFrames que el zoom). Se propuso como sesión aparte, pero **no arrancó**: Omar tiene que confiar el repositorio en Claude Desktop (botón "Trust repository" en esa sesión).
+- **Perfil guardado por Omar (01:20) SIN commitear:** `gfx_profiles/misterio.json` modificado (acento `#c2302f`, golpe 1.015, `anim_figure` stamp, sello 84 px, `blocks.chapter_question.enabled = true`, clave `identity` con 10 marcas). Con ese perfil fallan 8 tests que fijan la calibración vieja, y `chapter_question.enabled` vuelve a prender la regla de pregunta del director (choca con C56: la pregunta la genera `gfx_question`). Decidir: aceptar los valores y actualizar los tests, y apagar ese bloque.
+- §D (plantillas nuevas, Render desde el lab, regenerar ícono) y §E (director que consume identidad + golden; probar en ch05) del HANDOFF_F3 siguen sin hacer.
 
-## Esperando a Omar
-- Pre-merge commiteado `11a9d1f` (íconos por palabra + mapa de muerte de Omar, press_wipe + hold vivo, recortes). Render completo nuevo (38.3 min, 10 recortes en 7 caps) + AB nuevo. Productos v1 en `_fase2b_work/_bak_f2b_v1_antes_premerge/`.
-- Pre-merge v2 + re-ensamble de 6 caps con "un fact = un bloque" HECHO (`31c671c`): «6,500» como contador 4 → 1, 0 violaciones, AB nuevo 100 % regla nueva. **Esperando a Omar** (mirar AB; merge a main solo con su OK). Deuda: recortes repetidos entre caps.
-- Ver AB_…_f2b.mp4 y el final; decidir el criterio de PSNR de §4 (B33). Merge F1+F2+F2b a `main` solo con OK explícito.
-- Medición §4 en segmentos F2: concat 62 s (antes ~15 min), mismos frames; nuevo más fiel a la fuente que el viejo (Y 58.6 vs 47.3).
-- Gemini F2b: 30 llamadas (< $0.05). fal (íconos): 36 × Flux.2 Pro ≈ $1.08.
-- OJO render completo (§4): `--reuse-visuals` reusa los `chXX_gfx.mp4` viejos → moverlos a `_fase2b_work/_bak_*` antes (ch02 ya en `_bak_f2_pre_f2b/`).
-- Gemini F2b hasta ahora: 30 llamadas (< $0.05).
-- Docs: `lab/hyperframes/f2b/` → `F2b_REPORT.md` (veredictos íntegros), `DECISIONES_F2b.md`.
-- Tope Gemini F2b: $2. Merge a `main`: solo con OK explícito.
+## Dónde está todo (F3)
+- **Identidad guardada por Omar (2026-10-20 01:20):** perfil `gfx_profiles/misterio.json` (sin commitear; respaldo del anterior en `gfx_profiles/misterio.json.bak_f3_20261020_012038`), plan dorado `gfx_profiles/misterio_golden_ch02.json`, resumen `lab/identidad/IDENTIDAD_misterio.md` (ambos sin trackear).
+- Sesión de Omar en el lab: `lab/identidad/plan_ch02_lab.json` (+ respaldos `.omar_2231`, `.omar_0004`, `.omar_antes_pico`); no se commitean.
+- Pregunta de cierre en caché: `output/…/_fase2b_work/gfx_question_ch02.json`; pausa por cap: `gfx_pause_<cap>.json`.
+- Docs: `lab/hyperframes/f3/` → `HANDOFF_F3_laboratorio_identidad.md`, `HANDOFF_F3b_lab_foto_por_foto.md`, `F3_REPORT.md` (veredictos íntegros del revisor por sección), `DECISIONES_F3.md` (C0–C67), `capturas/` (iconos, moods, pico), logs de render y md5.
+- Código F3: `gfx_lab_server.py`, `lab/identidad/` (index/lab_foto = tramo por tramo, experto.html = vista vieja, lab.js = núcleo), `script_engine/gfx_identity.py`, `gfx_question.py`, `gfx_peak.py`.
+
+## Decisiones F3 (C1–C67) en 10 líneas
+1. El lab usa `http.server`, el player/runtime pineados y `write_project`: el preview es el templater real, nunca una copia; proyectos propios (`gfx_lab_ch02`, `gfx_lab_ch02_solo`) y base con cola congelada de 4.5 s (C1–C11, C43, C58).
+2. Todo cambio del lab pasa por `mutate()` (deshacer, autoguardado) y por el candado literal; la única excepción es la pregunta (manual o `generated`) (C14, C19, C55).
+3. Ninguna forma que no se vea: lo que el templater no dibuja no aparece en la pantalla tramo por tramo (C12, C47).
+4. Guardar identidad valida el perfil con `load_profile` antes de reemplazarlo y deja respaldo; la identidad vive en la clave `identity` del perfil (C22–C30).
+5. Unidad = tramo; Probar = un objeto solo sobre la foto fija; "con todo" = solo lo aprobado (no marcado no aparece) (C42–C48).
+6. Movimiento sobre el PNG con "movimiento seguro" (`push/pan/pull/static`); 3D = clip DepthFlow; salida por tramo vía `transitions` (C44–C45).
+7. Ícono siempre en bloque L + palabra + fuente en la banda oscura del lado tranquilo; 12 íconos probables en cualquier palabra en el lab (C50–C53).
+8. Pregunta generada por Flash con validador del contrato; pausa real (base congelado + `apad` de fase2b + música por cap) solo con `--gfx`; md5 sin gfx intacto (C54–C57).
+9. Pico determinista (`gfx_peak`): un bloque grande y ±5 s libres; nivel de agua, reloj, zoom con latido y corte a negro por tokens del perfil (`peak_blocks`, `black_hold_sec`) (C60–C66).
+10. Riesgos conocidos: HyperFrames no escala `<video>` (zoom arreglado con cuadro congelado, golpe pendiente), dos pestañas del lab se pisaban (candado 409), heurísticas sin etiquetador (sustantivos, movimiento por prompt) (C36, C54, C64, C67).
+
+## Historia: F2b (HANDOFF_F2b_director_v2.md) — cerrado, en rama f2-gfx-director
+- §1 `aec3a4a`, §2 `046c4c9`, PARADA 1 `2879665`, §3 `f3fd3db`, §4 `6819ee5`, pre-merge `11a9d1f`, v2 + re-ensamble `31c671c`. Revisores: CUMPLE CON OBSERVACIONES. Docs en `lab/hyperframes/f2b/` (`F2b_REPORT.md`, `DECISIONES_F2b.md`).
+- Esperando a Omar desde F2b: mirar `AB_…_f2b.mp4`, decidir el criterio de PSNR de §4 (B33), merge F1+F2+F2b a `main` solo con OK explícito. Deuda: recortes repetidos entre caps.
 
 ## Reglas que no se negocian
 - Responder en español (rioplatense). Comentarios en español, identificadores en inglés.
 - Todo reporte a Omar pasa antes por `revisor-handoff` (subagente, sonnet) y su veredicto va **íntegro**.
 - Candado literal en todo texto en pantalla. Sin `--gfx`, fase2b byte-idéntico (chequeo: md5 de ch02 `--only-cap` = `38e5ba14…`).
 - Sin shaders, sin rembg/inpaint. Validar con `--only-cap ch02` + snapshots; renders completos solo cuando se piden.
-- Commits: `feat(gfx-f2): <sección>`, trailer `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`, `git add` selectivo (`diag_234_cap4.py` NO es nuestro).
-- Python con `PYTHONIOENCODING=utf-8`. Los heredocs largos de bash fallan: escribir los scripts con Write en el scratchpad.
+- Commits F3: `feat(gfx-f3-lab): <sección>` / `fix(gfx-f3-lab): …`, trailer `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`, `git add` por ruta (`diag_234_cap4.py` NO es nuestro; los `plan_ch02_lab*.json` tampoco se commitean).
+- Python con `PYTHONIOENCODING=utf-8`. Los heredocs largos de bash fallan (y rompen con acentos): escribir los scripts con Write en el scratchpad.
+- `--reuse-visuals` reusa `chXX_gfx.mp4`: moverlo a `_fase2b_work/_bak_*` antes de re-renderizar un cap.
+- El lab y otra pestaña pueden pisarse: recargar la página después de cambiar el estado por fuera (el servidor responde 409 a guardados viejos).
 
-## Dónde está todo
-- Handoffs: `lab/hyperframes/_handoff_adjuntos/` (F2 director/boosters, nocturno, DOC_MAESTRO).
-- Reportes F2: `lab/hyperframes/f2/` → `F2_REPORT.md` (veredictos), `DECISIONES_F2_nocturno.md` (34 decisiones), `RESUMEN_NOCHE.md`, tiras `.jpg`, `corrida_final/`.
-- Código gfx: `gfx_config.py` (motor), `gfx_profiles/*.json` (perfil), `script_engine/gfx_*.py`, `script_engine/gfx_templates/`, `script_engine/sfx/`.
-- Salidas: `output/ba6c3cac…/` → `_final.mp4` (A, sin gfx), `_final_gfx.mp4` (B-F2 oficial), `AB_…_f2.mp4`; respaldos en `_fase2b_work/_bak_*`.
+## Dónde está todo (general)
+- Handoffs: `lab/hyperframes/_handoff_adjuntos/` (F2, nocturno, DOC_MAESTRO) y `lab/hyperframes/f3/` (F3, F3b).
+- Código gfx: `gfx_config.py` (motor), `gfx_profiles/*.json` (perfil), `script_engine/gfx_*.py`, `script_engine/gfx_templates/`, `script_engine/sfx/` (`make_sfx.py`, incluye `drone_subida.wav`).
+- Salidas: `output/ba6c3cac…/` → `_final.mp4` (A, sin gfx), `_final_gfx.mp4` (B-F2), AB; respaldos en `_fase2b_work/_bak_*`.
 - Transcripciones respaldadas antes de cada compactación: `lab/_transcripts/` (hook PreCompact).
 
 ## Comandos de uso diario
-- Tests gfx: `PYTHONIOENCODING=utf-8 python -m pytest test_module_gfx_*.py test_module_fase2b_reassemble.py test_module_fase2b_hwencode.py -q`
+- Tests: `PYTHONIOENCODING=utf-8 python -m pytest test_module_gfx_*.py test_module_fase2b_reassemble.py test_module_fase2b_hwencode.py test_module_concat_windowed.py test_module_transition_timeout.py -q` (243 verdes con el perfil del commit).
+- Lab: `PYTHONIOENCODING=utf-8 python gfx_lab_server.py` → http://localhost:8765 (`?tramo=N` abre en un tramo; `?modo=experto` = vista vieja).
 - Un cap: `python fase2b.py <id> --reuse-visuals --gfx --gfx-quality looks --only-cap ch02` (+ `--gfx-debug` para el overlay).
 - Video completo: `python fase2b.py <id> --reuse-visuals --keep-segments --gfx --gfx-sparse`.
