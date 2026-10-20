@@ -39,21 +39,39 @@ def config(profile: dict[str, Any] | None = None) -> dict[str, Any] | None:
             "outro_height_frac": float(cb.get("outro_height_frac", 0.25))}
 
 
-def pngs(cfg: dict[str, Any], px: int, out_dir: Path) -> tuple[Path, Path | None]:
-    """(silueta.png, llama.png | None) RGBA de px×px. Cacheados por SVG + tamaño."""
+def pngs(cfg: dict[str, Any], px: int, out_dir: Path, *, corner: bool = False) -> tuple[Path, Path | None]:
+    """(silueta.png, llama.png | None) RGBA de px×px. Cacheados por SVG + tamaño + versión.
+    corner=True (pedido de Omar 2026-10-20): trazos de la silueta engrosados `corner_dilate_px` (a 6 % de alto el
+    grabado fino se perdía) y halo suave alrededor de la llama. El cierre va tal cual (corner=False)."""
+    import hashlib
+    from PIL import Image, ImageFilter
     from script_engine.gfx_icons.make_bug import render_svg
     svg = cfg["svg"].read_text(encoding="utf-8")
     out_dir.mkdir(parents=True, exist_ok=True)
-    stem = f"{cfg['svg'].stem}_{px}"
+    dil = int(cfg.get("corner_dilate_px", 2)) if corner else 0
+    halo = bool(cfg.get("flame_halo", True)) and corner
+    stem = f"{cfg['svg'].stem}_{hashlib.sha1(svg.encode()).hexdigest()[:8]}_{px}_{'esq' if corner else 'cie'}"
     body_p, flame_p = out_dir / f"{stem}_body.png", out_dir / f"{stem}_flame.png"
     has_flame = '<g id="flame"' in svg
     if not body_p.exists():
         body_svg = re.sub(r'<g id="flame".*?</g>', "", svg, flags=re.S)
-        render_svg(body_svg, px, out_dir / f"{stem}_body_raw.png").save(body_p)
+        im = render_svg(body_svg, px, out_dir / f"{stem}_body_raw.png")
+        if dil:
+            a = im.getchannel("A").filter(ImageFilter.MaxFilter(2 * dil + 1))
+            im = Image.new("RGBA", im.size, (232, 224, 204, 0))
+            im.putalpha(a)
+        im.save(body_p)
     if has_flame and not flame_p.exists():
         flame_only = re.sub(r'<path class="ic-fill"[^>]*/>', "", svg)
         flame_only = re.sub(r'<g class="ic-strokes".*?</g>', "", flame_only, flags=re.S)
-        render_svg(flame_only, px, out_dir / f"{stem}_flame_raw.png").save(flame_p)
+        fl = render_svg(flame_only, px, out_dir / f"{stem}_flame_raw.png")
+        if halo:
+            r = max(2.0, px * float(cfg.get("flame_halo_frac", 0.07)))
+            glow_a = fl.getchannel("A").filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.GaussianBlur(r))
+            glow = Image.new("RGBA", fl.size, (232, 168, 74, 0))
+            glow.putalpha(glow_a.point(lambda v: int(min(255, v * 1.6 * 0.55))))
+            fl = Image.alpha_composite(glow, fl)
+        fl.save(flame_p)
     return body_p, (flame_p if has_flame else None)
 
 
@@ -139,3 +157,46 @@ def outro_graph(cfg: dict[str, Any], t0: float, *, width: int, height: int, in_b
               f"[{out}][obf]overlay={x}:{y}:format=auto[ob2]"]
         out = "ob2"
     return g, out
+
+
+def burn_on_clip(clip: Path, plan: dict[str, Any], out: Path, *, cap: str, last_cap: bool, width: int, height: int,
+                 fps: int, png_dir: Path, cfg: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Cose la marca sobre una capa gfx YA renderizada (chNN_gfx.mp4), sin HyperFrames (pedido de Omar 2026-10-20:
+    «cosé la marca en el final sin re-render»). En el último cap agrega el cierre (alarga el clip outro + negro).
+    Devuelve {"pause": s agregados, "hide": ventanas}. Mismos filtros que el cosido del render disperso."""
+    import subprocess
+    cfg = cfg or config()
+    if cfg is None:
+        raise ValueError("channel_bug apagado en el perfil")
+    dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(clip)],
+                               capture_output=True, text=True).stdout)
+    pause = cfg["outro_sec"] + cfg["outro_black_sec"] if last_cap else 0.0
+    plan = dict(plan)
+    if last_cap:
+        plan["outro_bug"] = {"start": round(dur, 3), "duration": round(pause, 3)}
+    cb, cf = pngs(cfg, int(height * cfg["height_frac"]), png_dir, corner=True)
+    cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(clip)]
+    inputs = [cb, cf]
+    if last_cap:
+        inputs += list(pngs(cfg, int(height * cfg["outro_height_frac"]), png_dir))
+    for p in inputs:
+        if p is not None:
+            cmd += ["-loop", "1", "-framerate", str(fps), "-i", str(p)]
+    idx, n = [], 1
+    for p in inputs:
+        idx.append(n if p is not None else None)
+        n += p is not None
+    graph = [f"[0:v]tpad=stop_mode=clone:stop_duration={pause:.3f},format=yuv420p[v0]" if pause else "[0:v]format=yuv420p[v0]"]
+    g, last = overlay_graph(cfg, plan, dur + pause, width=width, height=height, in_body=idx[0], in_flame=idx[1],
+                            last="v0", intro=cap == "ch01")
+    graph += g
+    if last_cap:
+        g, last = outro_graph(cfg, dur, width=width, height=height, in_body=idx[2], in_flame=idx[3], last=last)
+        graph += g
+    graph.append(f"[{last}]format=yuv420p[o]")
+    cmd += ["-filter_complex", ";".join(graph), "-map", "[o]", "-t", f"{dur + pause:.6f}", "-c:v", "libx264",
+            "-preset", "ultrafast", "-crf", "16", "-r", str(fps), "-pix_fmt", "yuv420p", "-an", str(out)]
+    r = subprocess.run(cmd, capture_output=True, text=True, timeout=3600)
+    if r.returncode != 0:
+        raise RuntimeError(f"burn_on_clip {cap}: {r.stderr[-400:]}")
+    return {"pause": pause, "hide": hide_windows(plan, dur + pause), "dur": dur}

@@ -144,13 +144,29 @@ def flame_mask(png: Path) -> tuple[np.ndarray, str]:
     return _dilate(m, 1), "visión"
 
 
-def trace_bug(png: Path) -> dict:
-    """Silueta (trace_png sobre la imagen SIN llama) + llama trazada aparte en <g id="flame">."""
+def _box_mask(box: list[float], thr: int, a: np.ndarray, pad: float = 0.0) -> np.ndarray:
+    x, y, w, h = box
+    x0, y0 = int(max(0, x - w * pad) * 768), int(max(0, y - h * pad) * 768)
+    x1, y1 = int(min(1, x + w * (1 + pad)) * 768), int(min(1, y + h * (1 + pad)) * 768)
+    m = np.zeros((768, 768), bool)
+    m[y0:y1, x0:x1] = a[y0:y1, x0:x1] > thr
+    return m
+
+
+def trace_bug(png: Path, flame_box: list[float] | None = None, erase_box: list | None = None) -> dict:
+    """Silueta (trace_png sobre la imagen SIN llama) + llama trazada aparte en <g id="flame">.
+    flame_box: la llama son los píxeles claros de ESA caja (F4b, Omar: «la llama adentro de la linterna»);
+    erase_box: zona que se borra de la silueta (la vela con rayos que el t2i dibujó en la mano)."""
     from script_engine.gfx_icons import trace as tr
     import tempfile
-    fm, how = flame_mask(png)
     im = Image.open(png).convert("L").resize((768, 768), Image.LANCZOS)
     a = np.asarray(im).copy()
+    if flame_box:
+        fm, how = _dilate(_box_mask(flame_box, 170, a), 1), "caja del farol"
+    else:
+        fm, how = flame_mask(png)
+    for eb in ([erase_box] if erase_box and isinstance(erase_box[0], (int, float)) else (erase_box or [])):
+        a[_dilate(_box_mask(eb, 60, a), 2)] = 0
     a[fm] = 0                                                   # la silueta no lleva la llama
     with tempfile.TemporaryDirectory() as td:
         body_png = Path(td) / "body.png"

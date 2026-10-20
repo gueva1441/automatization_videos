@@ -65,3 +65,37 @@ def test_cosido_con_marca_y_cierre(tmp_path, monkeypatch):
     f2 = fr(2.6)
     assert f2[:40, :].mean() < 5 and f2[H // 2 - 20:H // 2 + 20, W // 2 - 20:W // 2 + 20].mean() > 20   # cierre: negro + figura al centro
     assert fr(3.8).mean() < 3                                                     # negro final
+
+
+def test_esquina_engrosada_con_halo_y_cierre_tal_cual(tmp_path, monkeypatch):
+    from PIL import Image
+    (tmp_path / "bug").mkdir()
+    thin = SVG.replace('d="M40 20h120v170H40z"', 'd="M98 20h4v170h-4z"')            # un trazo de 4/200 de ancho
+    (tmp_path / "bug" / "b.svg").write_text(thin, encoding="utf-8")
+    monkeypatch.setattr(gb, "GFX_PROFILES_DIR", tmp_path)
+    cfg = gb.config({"channel_bug": {"enabled": True, "svg": "bug/b.svg", "corner_dilate_px": 2}})
+    cb, cf = gb.pngs(cfg, 86, tmp_path / "p", corner=True)
+    ob, of = gb.pngs(cfg, 86, tmp_path / "p")
+    area = lambda p: int((np.asarray(Image.open(p).getchannel("A")) > 128).sum())  # noqa: E731
+    assert area(cb) > area(ob) + 40                                                      # trazo engrosado en la esquina
+    assert area(cf) > area(of)                                                           # halo alrededor de la llama
+    assert cb != ob
+
+
+def test_coser_la_marca_sobre_una_capa_ya_renderizada(tmp_path, monkeypatch):
+    W, H, FPS = 640, 360, 30
+    clip = tmp_path / "ch07_gfx.mp4"
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", f"color=c=0x303030:s={W}x{H}:r={FPS}:d=2",
+                    "-c:v", "libx264", "-pix_fmt", "yuv420p", str(clip)], check=True)
+    (tmp_path / "bug").mkdir()
+    (tmp_path / "bug" / "b.svg").write_text(SVG, encoding="utf-8")
+    monkeypatch.setattr(gb, "GFX_PROFILES_DIR", tmp_path)
+    cfg = gb.config({"channel_bug": {"enabled": True, "svg": "bug/b.svg", "height_frac": 0.2, "outro_sec": 1.0,
+                                     "outro_black_sec": 0.5}})
+    out = tmp_path / "out.mp4"
+    info = gb.burn_on_clip(clip, {"callouts": [], "emphasis": []}, out, cap="ch07", last_cap=True, width=W, height=H,
+                           fps=FPS, png_dir=tmp_path / "p", cfg=cfg)
+    assert info["pause"] == 1.5
+    d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(out)],
+                             capture_output=True, text=True).stdout)
+    assert abs(d - 3.5) < 0.1                                                            # capa + cierre

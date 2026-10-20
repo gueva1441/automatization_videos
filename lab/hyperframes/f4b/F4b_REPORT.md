@@ -285,3 +285,63 @@ Riesgos que el contrato no cubre:
 ```
 
 **Respuesta de CC:** 1–2 corregidos: el rechazo del candado figura en el reporte, y E42 da la causa real (lo frenó el candado literal). 3: en ch03 y ch04 la tabla ya no dice «objeto»; dice el detalle que se ve en la captura (el zoom del pico usa la caja verificada y no guarda tipo). Las «cargas nuevas» salen del log de cada cap (`léxico: … propuesta(s) nueva(s)`). 4: ESTADO_SESION actualizado.
+
+---
+
+## §0.3 Marca del canal — candidata 3 (elección de Omar, 2026-10-20)
+
+**Qué se hizo** (decisiones E43–E46):
+- Llama movida ADENTRO del farol: es la llamita que el grabado ya tenía al pie del vidrio; se borró la vela con rayos de la mano. SVG final: `gfx_profiles/bug/channel_bug.svg`.
+- Esquina: 6 % de alto (86 px en 1440), opacidad 0.7, trazos dilatados 2 px, halo suave en la llama. Cierre: tal cual, al centro, a 25 % de alto.
+- Perfil: `channel_bug` en `misterio.json`; `finanzas` sin marca.
+- Cosido SIN re-render:
+  - la marca se cosió sobre las 7 capas ya renderizadas (`gfx_bug.burn_on_clip`, 307 s; capas sin marca en `_fase2b_work/_bak_f4b_sin_marca/`);
+  - re-ensamble con `--reuse-visuals` en 8.1 min: HyperFrames no corrió (concat 65 s + música 18 s);
+  - Firefox cerrado (17 → 0 procesos), RAM libre 18.2 GB.
+- Final: **715.6 s** (+3.4 s del cierre en ch07; el último cuadro es negro). AB regenerado (1920×540, 715.6 s).
+- Se esconde con fade 0.3 s durante: título, pregunta + negro, nivel de agua y los bloques del lado izquierdo de arriba (ventanas por cap en `marca_cosido.json`).
+
+**Cuadros:** `capturas/marca_esquina.jpg`, `capturas/marca_esquina_zoom.jpg` (ampliación ×2) y `capturas/marca_cierre.jpg`.
+
+**Observación para Omar:** al tamaño real de esquina, el +2 px une los trazos finos del grabado y la silueta queda maciza: se lee como una figura con capucha y farol, sin el detalle del grabado. Si la querés más fina, `corner_dilate_px: 1` (o 0) en el perfil, re-cosido + re-ensamble (~13 min, sin HyperFrames).
+
+**Veredicto revisor-handoff §0.3 (íntegro):**
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Marca candidata 3, llama dentro del farol | OK | `gfx_profiles/bug/channel_bug.json` (flame_box del farol, borra la vela de la mano). La llama se ve en el farol en `marca_esquina_zoom.jpg` y `marca_cierre.jpg`. |
+| 2 | Esquina: 6 % de alto, opacidad 0.7, trazos +2 px, halo en la llama | OK | `gfx_profiles/misterio.json` (height_frac 0.06, opacity 0.7, corner_dilate_px 2, flame_halo). `script_engine/gfx_bug.py` `pngs(corner=True)` aplica MaxFilter y halo. |
+| 3 | Cierre "tal cual" (sin dilatar ni halo) | OK | `pngs(corner=False)` para el cierre; `burn_on_clip` usa `corner=True` solo para la esquina. |
+| 4 | §0.3 desde el perfil, finanzas sin marca | OK | `channel_bug` en `_PROFILE_KEYS` de `gfx_config.py`. Solo `misterio.json` lo contiene (grep sobre los perfiles). |
+| 5 | Ocultar con fade 0.3 s, cierre 2.5 s + negro 1 s, entrada y parpadeo | PARCIAL | Constantes FADE=0.3, outro 2.5/1.0, flicker 90 s y flame_delay 0.5 en perfil y código. Las ventanas de ocultado están en `lab/hyperframes/f4b/marca_cosido.json`. No vi el video reproducido; revisé solo los cuadros y el código. |
+| 6 | Coser sin re-render | OK | `burn_on_clip` (ffmpeg). `reensamble_marca.log` y `.time` muestran re-ensamble con `--reuse-visuals`, sin HyperFrames. Las capas originales están respaldadas en `_fase2b_work/_bak_f4b_sin_marca`. |
+| 7 | AB regenerado | OK | `output/ba6c3cac-.../AB_..._f4b.mp4`, 1920×540, 715.63 s, de las 15:56, posterior al final (15:54). |
+| 8 | Cuadros de esquina y cierre | OK | `marca_esquina.jpg`, `marca_esquina_zoom.jpg` y `marca_cierre.jpg` existen y las abrí. La marca se ve arriba a la izquierda, y en el cierre al centro sobre negro. |
+| 9 | Tests | OK | Los corrí: 285 passed en 21 s. |
+| 10 | Firefox cerrado | PARCIAL | Ahora no hay procesos de Firefox. El 17→0 durante el render lo afirma `F4b_REPORT.md`; no lo pude verificar. |
+| 11 | No tocar fase2b ni `diag_234_cap4.py` | OK | `diag_234_cap4.py` figura sin stage (` M`) y no está en `git diff --cached`. No hay cambios en fase2b. |
+
+Observaciones:
+- En el cuadro de esquina la figura sale como mancha maciza, de ~30 px (la ampliación ×2 muestra bloques). El reporte lo admite y ofrece `corner_dilate_px: 1`.
+- La captura `marca_esquina.jpg` tiene el logo al lado de un candado y el sello ENCERRADAS, así que Omar debe revisar que no choque con los bloques.
+- El `.mp4` final mide 715.63 s. Los +3.4 s del cierre no los verifiqué contra la duración previa.
+
+Fuera de alcance: ninguno. Los 16 archivos staged están dentro de §0.3 o de su evidencia.
+
+Riesgos que el contrato no cubre:
+- Las ventanas de ocultado (título, pregunta, nivel de agua, bloques en la esquina) no están verificadas cuadro a cuadro en el video final.
+- Los .mp4 de output/ no están en git, así que la evidencia depende del disco local.
+```
+
+**Respuesta de CC:**
+- Ocultado medido en el video final: diferencia media de la esquina entre el final con marca y el respaldo sin marca:
+  - durante el título de ch01 (1.5 s): 0.56;
+  - durante la pregunta de ch01 (56.5 s): 1.47;
+  - durante el nivel de agua de ch02 (78 s): 1.0;
+  - con la marca visible (25 s): 10.87.
+  Se esconde donde debe.
+- +3.4 s: el final sin marca (respaldo) dura 712.23 s; con marca, 715.63 s.
+- El candado y el sello del cuadro de esquina están a la derecha, lejos de la marca. El cuadro sirve justamente para que Omar lo vea.

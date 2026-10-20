@@ -334,7 +334,7 @@ def _render_sparse(resolved: dict[str, Any], scenes: list[GfxScene], project: Pa
     if cfg:                                                     # F4b §0.3: marca del canal en el cosido FFmpeg
         pdir = project / "public" / "bug"
         bug = {"cfg": cfg, "plan": resolved, "intro": cap == "ch01",
-               "corner_pngs": gfx_bug.pngs(cfg, int(height * cfg["height_frac"]), pdir)}
+               "corner_pngs": gfx_bug.pngs(cfg, int(height * cfg["height_frac"]), pdir, corner=True)}
         outro = resolved.get("outro_bug")
         if outro:
             bug["outro_t0"] = outro["start"]
