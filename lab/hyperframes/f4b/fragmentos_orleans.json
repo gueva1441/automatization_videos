@@ -1,0 +1,120 @@
+{
+ "ch01": [
+  {
+   "bloque": "recorte0",
+   "antes": "El agua dentro de algunos edificios",
+   "ahora": "agua contaminada subió implacable",
+   "categoria": "veneno_enfermedad",
+   "icono": "biohazard",
+   "opciones": 12
+  },
+  {
+   "bloque": "dato1",
+   "antes": "Katrina",
+   "ahora": "Katrina",
+   "categoria": null,
+   "icono": null,
+   "opciones": 2
+  }
+ ],
+ "ch02": [
+  {
+   "bloque": "recorte0",
+   "antes": "El huracán Katrina tocó tierra",
+   "ahora": "Katrina desató su furia implacable",
+   "categoria": null,
+   "icono": null,
+   "opciones": 12
+  },
+  {
+   "bloque": "recorte1",
+   "antes": "Los prisioneros quedaron atrapados durante días en celdas",
+   "ahora": "Los prisioneros quedaron atrapados durante días en celdas",
+   "categoria": "oscuridad_encierro",
+   "icono": "candado",
+   "opciones": 12
+  },
+  {
+   "bloque": "dato0",
+   "antes": "Prisión Parroquial de Orleans",
+   "ahora": "Prisión Parroquial de Orleans",
+   "categoria": null,
+   "icono": null,
+   "opciones": 2
+  }
+ ],
+ "ch03": [
+  {
+   "bloque": "recorte0",
+   "antes": "El agua dentro de algunos edificios",
+   "ahora": "nivel del pecho",
+   "categoria": null,
+   "icono": null,
+   "opciones": 12
+  }
+ ],
+ "ch04": [
+  {
+   "bloque": "recorte0",
+   "antes": "El agua dentro de algunos edificios",
+   "ahora": "nivel del pecho",
+   "categoria": null,
+   "icono": null,
+   "opciones": 12
+  },
+  {
+   "bloque": "dato1",
+   "antes": "6,500 personas",
+   "ahora": "6,500 personas",
+   "categoria": null,
+   "icono": null,
+   "opciones": 3
+  }
+ ],
+ "ch05": [
+  {
+   "bloque": "dato0",
+   "antes": "Human Rights Watch",
+   "ahora": "Human Rights Watch",
+   "categoria": null,
+   "icono": null,
+   "opciones": 3
+  },
+  {
+   "bloque": "dato2",
+   "antes": "Templeman III",
+   "ahora": "Templeman III",
+   "categoria": null,
+   "icono": null,
+   "opciones": 2
+  }
+ ],
+ "ch06": [
+  {
+   "bloque": "recorte0",
+   "antes": "Los prisioneros quedaron atrapados durante días en celdas",
+   "ahora": "celdas inundadas con agua contaminada con aguas residuales",
+   "categoria": "oscuridad_encierro",
+   "icono": "candado",
+   "opciones": 12
+  },
+  {
+   "bloque": "dato2",
+   "antes": "500 prisioneros",
+   "ahora": "500 prisioneros",
+   "categoria": null,
+   "icono": null,
+   "opciones": 2
+  }
+ ],
+ "ch07": [
+  {
+   "bloque": "recorte0",
+   "antes": "Aproximadamente 6,500 personas",
+   "ahora": "Prisión de Orleans",
+   "categoria": null,
+   "icono": null,
+   "opciones": 12
+  }
+ ]
+}

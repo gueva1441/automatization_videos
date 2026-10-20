@@ -312,6 +312,7 @@ class GfxRules:
     icon_stamp_px: int = 112                 # sello dentro del bloque de ícono: M (F4 §1.2.3), aunque el suelto sea S
     ticker_min_times: int = 0                # F4: el reloj solo sale con ≥ N horas verificadas (misterio: 2)
     intensity_director: bool = False         # F4b §1: Flash marca pico, intensidad por frase y cargas (gfx_intensity)
+    fragment_director: bool = False          # F4b §2: Flash elige el fragmento literal más impactante (gfx_fragments)
     source_tag_scale: float = 0.4            # 40 % del tamaño del callout
     sfx_gain_db: float = -18.0               # bajo la voz
     sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano

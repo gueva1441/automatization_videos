@@ -16,3 +16,10 @@
 - **E11** Prueba sobre Orleans (`intensidad_orleans.json`): 7 llamadas Flash; en ch04 el validador descartó «sin voz» (no es una palabra, son dos).
 - **E12** «3–5 cargas»: el tope 5 se aplica; si solo 1–2 cargas son literales, se aceptan esas (descartar las válidas para forzar 3 sería peor).
 - **E13** 5 de 7 picos caen en la última frase (el LLM sube la intensidad hacia el cierre). No se corrige con una regla nueva de noche: se ve en el render de §5.
+
+## §2 Fragmento literal más impactante
+- **E14** `script_engine/gfx_fragments.py`, token `fragment_director`. Corre después del plan (cuando ya se sabe en qué tramo cae cada recorte/dato) y antes del pico; después se vuelve a pasar el candado literal. Una llamada Flash por cap, cacheada por prompt.
+- **E15** Recorte: opciones del fact + de la narración del tramo SOLO si comparten una palabra de contenido con el fact. Sin ese filtro, la narración cambiaba el sentido del documento («quinientas vidas» sobre un fact de 6,500 personas). Con el filtro entra «agua contaminada subió implacable».
+- **E16** Dato: opciones del fact y de la narración ±4 s, como mucho 1 palabra más que hoy, con TODAS sus cifras y nombres propios (si no, «Templeman 1 y 2» quedaba «Templeman 1»). Años y fechas no se tocan (el sello ya es el dato justo).
+- **E17** Bordes: sin palabras funcionales ni verbos conjugados/gerundios/infinitivos en los extremos (salían «inmundo alcanzando», «Human Rights Watch denunció»), y una fecha nunca se parte («tocó tierra el 29»).
+- **E18** El sello rojo no pasa por §2: es una sola palabra y ya la eligen el léxico + §1. El mood de la categoría del fragmento no se agrega aparte (lo pone el énfasis si la palabra se dice): solo el ícono del recorte/dato.

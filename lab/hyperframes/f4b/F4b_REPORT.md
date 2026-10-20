@@ -62,3 +62,61 @@ Riesgos que el contrato no cubre:
 - Mínimo de 3 cargas: se aceptan menos si solo esas son literales (descartar las válidas sería peor); queda anotado (E12).
 - `pico` sin bloque: solo existe con `--gfx` (la capa gfx); sin `--gfx` la capa no corre. El md5 sin `--gfx` se re-mide en §5.
 - Pico al final del cap: es lo que el LLM marca como más intenso (cierre de suspenso). Se deja así y se mira en el render de §5 (E13).
+
+---
+
+## §2 Fragmento literal más impactante
+
+**Qué hay:** `script_engine/gfx_fragments.py` (token `fragment_director`). Para cada recorte y dato del cap se arman las opciones literales; la 1 es la de hoy. Flash elige números en una sola llamada por cap y el fragmento elegido pone el ícono de su categoría. Decisiones E14–E18.
+
+**Orleans, antes → ahora** (prueba sobre los planes del render F4; `fragmentos_orleans.json`):
+
+| cap | bloque | antes (F4) | ahora (F4b) | ícono |
+|---|---|---|---|---|
+| ch01 | recorte | El agua dentro de algunos edificios | **agua contaminada subió implacable** | biohazard |
+| ch02 | recorte | El huracán Katrina tocó tierra | **Katrina desató su furia implacable** | — |
+| ch02 | recorte | Los prisioneros quedaron atrapados durante días en celdas | (igual) | candado |
+| ch03 | recorte | El agua dentro de algunos edificios | nivel del pecho | — |
+| ch04 | recorte | El agua dentro de algunos edificios | nivel del pecho | — |
+| ch06 | recorte | Los prisioneros quedaron atrapados durante días en celdas | **celdas inundadas con agua contaminada con aguas residuales** | candado |
+| ch07 | recorte | Aproximadamente 6,500 personas | Prisión de Orleans | — |
+| datos | 7 | Katrina, Prisión Parroquial de Orleans, 6,500 personas, Human Rights Watch, Templeman III, 500 prisioneros… | (iguales: con las reglas de E16 el LLM se quedó con el de hoy) | — |
+
+- ch03/ch04 eligen «nivel del pecho»: en esos tramos la narración no dice nada más fuerte sobre ese fact. En el render real se re-arman los planes y el dedupe entre caps evita repetir titulares (acá ch06 repite el de ch02 porque la prueba lee los planes viejos).
+
+**Veredicto revisor-handoff (íntegro):**
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+Los tests que pediste dan 268 passed (los corrí yo). No corrí fase2b.
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Fragmentos literales ≤ 8 palabras por cláusula, del fact y de la narración del tramo | OK, con matiz | script_engine/gfx_fragments.py `_clauses` y `fragments(max_words=8)`. Los datos topean en 5 palabras. En el recorte, la narración solo entra si comparte una palabra de contenido con el fact (E15, desviación declarada). |
+| 2 | Lista numerada | OK | `build_prompt` genera "1. …"; el test lo verifica (test_module_gfx_fragments.py:49). |
+| 3 | Flash elige un número y nada más | OK | SCHEMA `{id, n}` con `thinking_budget=0`. |
+| 4 | Fuera de lista → el primero (el de hoy) | OK | `n` inválido pasa a 1, y la opción 1 es el texto de hoy. Hay test con n=999 (:53-55). Si Flash falla, quedan los textos de hoy (test :75). |
+| 5 | Prompt con los 5 ejemplos | OK | Constante `EXAMPLES` (5 ítems) incluida en `build_prompt`. El test solo comprueba los 2 primeros en el prompt. |
+| 6 | Categoría del fragmento → ícono | OK | `category_of` y `category_icon`, con ícono solo si `icon_svg` existe. El test da `calavera` para «agua putrefacta». En Orleans: ch01 biohazard, ch02 y ch06 candado. |
+| 7 | Mood de la categoría acompaña | PARCIAL (declarado) | E18: el mood no se agrega aparte, solo el ícono. El sello rojo tampoco pasa por §2, porque es una sola palabra. El handoff pedía «sello»; es desviación documentada, no silenciosa. |
+| 8 | Candado literal intacto | OK | gfx_layer.py: `lock()` se vuelve a pasar tras `choose_fragments`, y `literal_in` filtra antes. |
+| 9 | Dedupe de titulares entre caps | OK, con matiz | `used_headlines_before` lee los gfx_plan_ch*.resolved.json de caps anteriores, con test. Solo aplica a recorte, no a datos. Si el titular "de hoy" también está repetido, no hay segundo filtro. |
+| 10 | 1 llamada por cap | OK | Un solo `call` con todos los bloques, cacheado por prompt en gfx_fragments_{cap}.json. |
+| 11 | Candados §6: sin `--gfx` no cambia nada | OK por lectura | El bloque está tras `gfx_rules.fragment_director` dentro de la capa gfx. Sin `--gfx` no corre; el md5 byte-idéntico no lo medí. |
+| 12 | Entregables y documentación | OK | DECISIONES E14–E18, sección §2 en F4b_REPORT.md y fragmentos_orleans.json (UTF-8 válido, 120 líneas). |
+
+Observaciones sobre la evidencia en Orleans:
+- La tabla de F4b_REPORT.md (sección §2) muestra ch03 y ch04 con el mismo titular «nivel del pecho», y ch06 repite el de ch02. El reporte lo explica porque la prueba lee los planes viejos. Con esa prueba el dedupe no queda demostrado en datos reales; solo lo demuestra el test unitario.
+- ch07 pasa de «Aproximadamente 6,500 personas» a «Prisión de Orleans». Es una elección discutible de Flash, no una falla de contrato.
+- Los 7 datos reales quedaron iguales, así que esa rama casi no tiene evidencia real.
+
+Fuera de alcance: ninguno en lo staged (9 archivos, todos de F4b §2 o su registro). diag_234_cap4.py figura modificado sin stage y no es nuestro. No lo toqué.
+
+Riesgos que el contrato no cubre:
+- El dedupe depende de que los resolved.json de caps previos existan en work_dir. Si se re-corre un solo cap o el orden cambia, el dedupe puede fallar sin aviso.
+- La heurística de bordes por regex (`_VERB_EDGE`, `_KEEP_EDGE`) es frágil con palabras en español no previstas. Puede dejar fragmentos colgados o recortar sustantivos terminados en -an/-en.
+- Gasto Gemini de §2 sin medir: el tope de $3 es para toda F4b y este reporte no lo contabiliza.
+```
+
+**Respuesta de CC:** el dedupe con datos reales se ve en el render de §5 (planes rehechos en orden). Gasto §2: 3 pasadas de prueba × 7 llamadas Flash sin thinking ≈ US$ 0.01; el total de F4b se mide con el cost_tracker en §5.

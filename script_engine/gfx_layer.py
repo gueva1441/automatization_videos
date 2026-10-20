@@ -501,6 +501,15 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             resolved = resolve_plan(raw_plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
             resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                       question_sources=ctx.get("next_sources"))
+            if gfx_rules.fragment_director:                          # F4b §2: el fragmento literal más impactante
+                from gfx_config import active_moods as _am
+                from script_engine.gfx_fragments import choose_fragments
+                resolved["fragmentos"] = choose_fragments(resolved, ctx=ctx, words=words, scenes=scenes,
+                                                          time_offset=time_offset, moods=ctx.get("moods") or _am(),
+                                                          work_dir=work_dir, cap=cap, log=log)
+                resolved, rej_f = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
+                                       question_sources=ctx.get("next_sources"))
+                rejected += rej_f
         if gfx_plan_override is None and gfx_rules.peak_blocks:      # F3: pico del cap + zoom con latido + reloj
             from gfx_config import active_moods
             from script_engine.gfx_peak import box_from_cache, plan_peak, water_used_before
