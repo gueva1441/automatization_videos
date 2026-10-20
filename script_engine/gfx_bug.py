@@ -9,7 +9,9 @@ Se compone en el COSIDO FFmpeg del render disperso (gfx_sparse.stitch), no en Hy
     hide_windows()  intervalos del cap donde la marca NO se ve: título, pregunta + negro, nivel de agua y todo bloque
                     que cae en el lado izquierdo de arriba (la esquina de la marca); entra/sale con fade de 0.3 s
     overlay_graph() filtros FFmpeg: opacidad 0.55 × visibilidad(t); entrada del video (solo ch01): la silueta aparece
-                    en 0.8 s y la llama se enciende 0.5 s después; parpadeo leve de la llama (0.4 s) cada 90 s del cap
+                    en 0.8 s y la llama se enciende 0.5 s después; parpadeo leve de la llama (0.4 s) cada 90 s del cap.
+                    F4c: la esquina llega rasterizada a corner_supersample (4×) y FFmpeg la baja con lanczos al alto
+                    final (a 6 % de alto el raster directo se veía pixelado en los bordes)
     outro_graph()   cierre del video (último cap): 2.5 s el encapuchado al centro (25 % de alto), la llama parpadea y
                     se apaga → negro 1 s. Sin texto.
 """
@@ -36,19 +38,26 @@ def config(profile: dict[str, Any] | None = None) -> dict[str, Any] | None:
             "flicker_every_sec": float(cb.get("flicker_every_sec", 90.0)), "intro_sec": float(cb.get("intro_sec", 0.8)),
             "flame_delay_sec": float(cb.get("flame_delay_sec", 0.5)), "outro_sec": float(cb.get("outro_sec", 2.5)),
             "outro_black_sec": float(cb.get("outro_black_sec", 1.0)),
-            "outro_height_frac": float(cb.get("outro_height_frac", 0.25))}
+            "outro_height_frac": float(cb.get("outro_height_frac", 0.25)),
+            "corner_dilate_px": int(cb.get("corner_dilate_px", 2)), "corner_supersample": int(cb.get("corner_supersample", 4)),
+            "flame_halo": bool(cb.get("flame_halo", True)), "flame_halo_frac": float(cb.get("flame_halo_frac", 0.07))}
 
 
 def pngs(cfg: dict[str, Any], px: int, out_dir: Path, *, corner: bool = False) -> tuple[Path, Path | None]:
     """(silueta.png, llama.png | None) RGBA de px×px. Cacheados por SVG + tamaño + versión.
     corner=True (pedido de Omar 2026-10-20): trazos de la silueta engrosados `corner_dilate_px` (a 6 % de alto el
-    grabado fino se perdía) y halo suave alrededor de la llama. El cierre va tal cual (corner=False)."""
+    grabado fino se perdía) y halo suave alrededor de la llama. El cierre va tal cual (corner=False).
+    F4c: con corner=True el PNG sale de (px × corner_supersample)² y el engrosado escala igual (+2 px finales = +8 px
+    a 4×); overlay_graph lo baja a px con lanczos."""
     import hashlib
     from PIL import Image, ImageFilter
     from script_engine.gfx_icons.make_bug import render_svg
     svg = cfg["svg"].read_text(encoding="utf-8")
     out_dir.mkdir(parents=True, exist_ok=True)
-    dil = int(cfg.get("corner_dilate_px", 2)) if corner else 0
+    # F4c: la esquina se rasteriza a corner_supersample (4) veces el tamaño final y FFmpeg la baja con lanczos
+    ss = int(cfg.get("corner_supersample", 4)) if corner else 1
+    px = px * ss
+    dil = int(cfg.get("corner_dilate_px", 2)) * ss if corner else 0
     halo = bool(cfg.get("flame_halo", True)) and corner
     stem = f"{cfg['svg'].stem}_{hashlib.sha1(svg.encode()).hexdigest()[:8]}_{px}_{'esq' if corner else 'cie'}"
     body_p, flame_p = out_dir / f"{stem}_body.png", out_dir / f"{stem}_flame.png"
@@ -127,11 +136,14 @@ def overlay_graph(cfg: dict[str, Any], plan: dict[str, Any], clip_dur: float, *,
     flick = f"(1-0.65*between(mod(T+{every / 2:.1f},{every:.1f}),0,0.4)*sin(PI*mod(T+{every / 2:.1f},{every:.1f})/0.4))"
     flame_a = f"{op}*({vis})*{flick}" + (f"*clip((T-{i0 + fd})/0.25,0,1)" if intro else "")
     x, y = int(width * cfg["margin_x_frac"]), int(height * cfg["margin_y_frac"])
-    g = [f"[{in_body}:v]format=rgba,geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='alpha(X,Y)*{body_a}'[bgb]",
+    px = int(height * cfg["height_frac"])
+    # F4c: el PNG de la esquina viene a corner_supersample× → baja a px con lanczos antes de la opacidad
+    ds = f"scale={px}:{px}:flags=lanczos," if int(cfg.get("corner_supersample", 1)) > 1 else ""
+    g = [f"[{in_body}:v]{ds}format=rgba,geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='alpha(X,Y)*{body_a}'[bgb]",
          f"[{last}][bgb]overlay={x}:{y}:format=auto[bg1]"]
     out = "bg1"
     if in_flame is not None:
-        g += [f"[{in_flame}:v]format=rgba,geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='alpha(X,Y)*{flame_a}'[bgf]",
+        g += [f"[{in_flame}:v]{ds}format=rgba,geq=r='r(X,Y)':g='g(X,Y)':b='b(X,Y)':a='alpha(X,Y)*{flame_a}'[bgf]",
               f"[{out}][bgf]overlay={x}:{y}:format=auto[bg2]"]
         out = "bg2"
     return g, out

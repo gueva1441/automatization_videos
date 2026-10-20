@@ -99,3 +99,18 @@ def test_coser_la_marca_sobre_una_capa_ya_renderizada(tmp_path, monkeypatch):
     d = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(out)],
                              capture_output=True, text=True).stdout)
     assert abs(d - 3.5) < 0.1                                                            # capa + cierre
+
+
+def test_esquina_a_4x_y_lanczos_en_el_overlay(tmp_path, monkeypatch):
+    """F4c: la esquina se rasteriza a 4× (con el +2 px escalado a +8) y FFmpeg la baja con lanczos al alto final."""
+    from PIL import Image
+    (tmp_path / "bug").mkdir()
+    (tmp_path / "bug" / "b.svg").write_text(SVG, encoding="utf-8")
+    monkeypatch.setattr(gb, "GFX_PROFILES_DIR", tmp_path)
+    cfg = gb.config({"channel_bug": {"enabled": True, "svg": "bug/b.svg", "height_frac": 0.06}})
+    assert cfg["corner_supersample"] == 4 and cfg["corner_dilate_px"] == 2
+    cb, cf = gb.pngs(cfg, 86, tmp_path / "p", corner=True)
+    ob, _ = gb.pngs(cfg, 86, tmp_path / "p")
+    assert Image.open(cb).size == (344, 344) and Image.open(ob).size == (86, 86)          # el cierre, tal cual
+    g, _ = gb.overlay_graph(cfg, {}, 10.0, width=2560, height=1440, in_body=1, in_flame=2, last="v0", intro=False)
+    assert sum("scale=86:86:flags=lanczos" in x for x in g) == 2                          # silueta y llama
