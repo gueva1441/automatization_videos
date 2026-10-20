@@ -965,7 +965,7 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
     entre moods de la misma categoría, intervalo del mood libre, tope max_per_cap; prioridad = peso del léxico (3 → 1)
     y después la palabra más rara en la narración completa. El texto del sello es la palabra LITERAL de la voz. Devuelve cuántos agregó."""
     from script_engine.gfx_project import scene_at
-    moods = active_moods()
+    moods = ctx.get("moods") or active_moods()          # F4b §1: léxico del cap (fijo + cargas del director de intensidad)
     dur = scenes[-1].end
     freq = word_freq(ctx.get("narration_all") or " ".join(str(w.get("word", "")) for w in words))
     sids = _sentence_ids(words)

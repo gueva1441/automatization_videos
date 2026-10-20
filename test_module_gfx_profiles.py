@@ -30,7 +30,8 @@ def test_misterio_reproduce_la_calibracion_0b():
                      "question_auto", "question_dim", "icon_px",           # F3: pregunta generada (70 %) + ícono L
                      "black_hold_sec", "peak_blocks",                      # F3: corte a negro 1 s + pico del cap
                      "accent_hex", "punch_scale", "anim_figure", "emphasis_stamp_px",
-                     "question_max_words_auto", "identity_rules", "ticker_min_times"}, diffs   # F4: identidad del lab
+                     "question_max_words_auto", "identity_rules", "ticker_min_times",
+                     "intensity_director"}, diffs   # F4: identidad del lab
     assert (rm.interrupt_max_sec, rm.grain_opacity, rm.vignette_opacity) == (18.0, 0.0, 0.15)
     assert (rm.question_auto, rm.question_dim, rm.icon_px, rm.question_pause_sec) == (True, 0.7, 360, 3.0)
 

@@ -81,6 +81,33 @@ def find_peak(words: list[dict], moods: dict[str, dict], time_offset: float = 0.
     return best
 
 
+WATER_PEAK_TOL = 0.1                 # F4b: una frase con cifra de agua a ≤ 0.1 de la máxima intensidad gana el pico
+
+
+def peak_from_intensity(words: list[dict], moods: dict[str, dict], res: dict[str, Any],
+                        time_offset: float = 0.0, si: int | None = None) -> dict[str, Any] | None:
+    """F4b §1: pico GARANTIZADO = frase de mayor intensidad (empate: más cargas de peso 3). La palabra del pico es la
+    de más peso del léxico del cap en esa frase; si no hay, la carga de esa frase; si tampoco, la palabra más larga."""
+    from script_engine.gfx_intensity import peak_sentence
+    sents = sentences(words, time_offset)
+    if not sents or not res or len(res.get("intensidad") or []) != len(sents):
+        return None
+    si = peak_sentence(res) if si is None else si
+    s = sents[si]
+    hits = lexicon_hits(words, moods, s["idx"])
+    if hits:
+        h = max(hits, key=lambda x: (x["weight"], -x["i"]))
+        i, word, cat = h["i"], h["word"], h["category"]
+    else:
+        cg = sorted((c for c in res["cargas"] if c["sentence_idx"] == si), key=lambda c: -c["peso"])
+        i = next((j for c in cg for j in s["idx"] if _clean(words[j]["word"]) == c["word"]), None)
+        if i is None:
+            i = max(s["idx"], key=lambda j: len(_clean(words[j]["word"])))
+        word, cat = _clean(words[i]["word"]), (cg[0]["categoria"] if cg else None)
+    return {**s, "hits": hits, "i": i, "word": word, "category": cat, "sentence_idx": si,
+            "intensity": res["intensidad"][si], "t": round(float(words[i]["start"]) + time_offset, 3)}
+
+
 def _to_m(value: float, unit: str) -> float:
     return value * 0.3048 if unit.startswith("pie") else value
 
@@ -246,12 +273,24 @@ def box_from_cache(cache: Any) -> Callable[[int, str], list[float] | None]:
 
 def plan_peak(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], scenes: list[Any], moods: dict[str, dict],
               clip_dur: float, box_for: Callable[[int, str], list[float] | None], water_used: bool = False,
-              time_offset: float = 0.0, log: list[str] | None = None) -> dict[str, Any]:
+              time_offset: float = 0.0, log: list[str] | None = None,
+              intensity: dict[str, Any] | None = None) -> dict[str, Any]:
     """Plan resuelto → + pico (con UN bloque grande y ±5 s libres) + zoom con latido + reloj. Idempotente."""
     log = log if log is not None else []
     if plan.get("pico") is not None:
         return plan
-    peak = find_peak(words, moods, time_offset)
+    peak = (peak_from_intensity(words, moods, intensity, time_offset) if intensity else None) \
+        or find_peak(words, moods, time_offset)
+    if intensity and peak and not water_used and not water_level(peak, ctx, words):
+        top = max(intensity["intensidad"])
+        for si in sorted(range(len(intensity["intensidad"])), key=lambda i: -intensity["intensidad"][i]):
+            if intensity["intensidad"][si] < top - WATER_PEAK_TOL:
+                break
+            alt = peak_from_intensity(words, moods, intensity, time_offset, si=si)
+            if alt and water_level(alt, ctx, words):
+                log.append(f"pico: frase {si} (intensidad {intensity['intensidad'][si]:.2f}, máx {top:.2f}) por la cifra de agua")
+                peak = alt
+                break
     plan["pico"] = None
     if peak:
         wl = None if water_used else water_level(peak, ctx, words)
@@ -270,11 +309,18 @@ def plan_peak(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], s
                     if _starts_near(peak["t"], a):
                         a["peak"] = True
                         break
+            elif intensity:                           # F4b: pico garantizado → el mood + sello de la frase pico
+                em = next((e for e in plan.get("emphasis") or [] if _starts_near(peak["t"], e)), None)
+                if em:
+                    em["peak"] = True
+                    block = "emphasis"
         if block:
             gone = clear_around(plan, peak["t"], block)
-            plan["pico"] = {"t": peak["t"], "block": block, "word": peak["word"], "sentence": peak["text"]}
+            plan["pico"] = {"t": peak["t"], "block": block, "word": peak["word"], "sentence": peak["text"],
+                            **({"intensity": peak["intensity"], "sentence_idx": peak["sentence_idx"]} if "intensity" in peak else {})}
             log.append(f"pico: «{peak['word']}» @ {peak['t']:.1f}s → {block}; fuera (±{PEAK_CLEAR_SEC:.0f} s): {gone or 'nada'}")
         else:
+            plan["pico"] = {"t": peak["t"], "block": None, "word": peak["word"], "sentence": peak["text"]}
             log.append(f"pico: «{peak['word']}» @ {peak['t']:.1f}s sin bloque grande posible (sin cifra de agua, zoom ni recorte)")
     # zoom de evidencia con latido fuera del pico (si el plan no tiene ya un zoom)
     if not plan.get("evidence_zoom"):

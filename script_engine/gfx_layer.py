@@ -461,6 +461,25 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             if 0 <= si < len(scenes) and len(scenes) > 1:
                 scenes[si].safe = sv
                 log.append(f"  safe_router: escena {si} {Path(sv['image']).name} → {sv['movement']} ({sv.get('risk', '?')})")
+        intensity = None
+        if gfx_plan_override is None and gfx_rules.intensity_director:   # F4b §1: director de intensidad (Flash)
+            from gfx_config import ACTIVE_PROFILE, active_moods, active_profile_name, profile_path
+            from script_engine import gfx_intensity as gi
+            from script_engine.gfx_peak import sentences as _sents
+            from script_engine.gfx_question import sentences as _q_sents
+            chs = {int(c.get("chapter_number", 0)): str(c.get("narration", "")) for c in ctx.get("chapters") or []}
+            n = ctx["chapter_number"]
+            moods_all = ACTIVE_PROFILE.get("moods") or {}
+            intensity = gi.intensity_for([s["text"] for s in _sents(words, time_offset)], cap=cap, work_dir=work_dir,
+                                         moods_all=moods_all, prev2=_q_sents(chs.get(n - 1, ""))[-2:],
+                                         next2=_q_sents(chs.get(n + 1, ""))[:2], log=log)
+            ctx["moods"] = gi.augmented_moods(active_moods(), intensity)
+            ctx["intensity"] = intensity
+            if intensity:
+                log.append(f"  intensidad: pico frase {gi.peak_sentence(intensity)} · cargas "
+                           f"{[(c['word'], c['categoria'], c['peso']) for c in intensity['cargas']]}")
+                gi.record_proposals(intensity, moods_all, video_id=video_id, profile_path=profile_path(active_profile_name()),
+                                    log=log)
         if gfx_plan_override is not None:
             resolved = gfx_plan_override
             rejected: list[dict] = []
@@ -496,8 +515,9 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                         cache=work_dir / f"gfx_zoom_box_{cap}.json", log=log)
                     b = (tmp.get("evidence_zoom") or {}).get("box")
                 return b
-            plan_peak(resolved, ctx=ctx, words=words, scenes=scenes, moods=active_moods(), clip_dur=clip_dur, box_for=_box,
-                      water_used=water_used_before(work_dir, ctx["chapter_number"]), time_offset=time_offset, log=log)
+            plan_peak(resolved, ctx=ctx, words=words, scenes=scenes, moods=ctx.get("moods") or active_moods(), clip_dur=clip_dur,
+                      box_for=_box, water_used=water_used_before(work_dir, ctx["chapter_number"]), time_offset=time_offset,
+                      log=log, intensity=intensity)
             from script_engine.gfx_literal_lock import lock as _lock2                 # lo nuevo también pasa el candado
             resolved, rej2 = _lock2(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                     question_sources=ctx.get("next_sources"))
@@ -507,7 +527,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                                                  prompt_for_asset, select_punches)
             prompts = ctx["script_chapter"].get("image_prompts") or []
             movs = plan_movements(scenes, plan, prompts, log)
-            resolved["punch_in"] = select_punches(resolved, words, time_offset=time_offset, log=log)
+            resolved["punch_in"] = select_punches(resolved, words, time_offset=time_offset, moods=ctx.get("moods"), log=log)
             pbs = ([prompt_for_asset(a, prompts, i) for i, a in enumerate(plan.asset_paths)]
                    if getattr(plan, "engine", "") == "flux" else [])
             tr = identity_transitions(scenes, pbs, (resolved.get("evidence_zoom") or {}).get("scene_idx"))

@@ -1,0 +1,460 @@
+{
+ "ch01": {
+  "res": {
+   "intensidad": [
+    0.4,
+    0.7,
+    0.5,
+    0.7,
+    0.8,
+    0.9,
+    1.0
+   ],
+   "cargas": [
+    {
+     "word": "atrapados",
+     "sentence_idx": 1,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "inundadas",
+     "sentence_idx": 1,
+     "categoria": "agua",
+     "peso": 3,
+     "concreta": false
+    },
+    {
+     "word": "encerradas",
+     "sentence_idx": 3,
+     "categoria": "oscuridad_encierro",
+     "peso": 3,
+     "concreta": false
+    },
+    {
+     "word": "contaminada",
+     "sentence_idx": 4,
+     "categoria": "veneno_enfermedad",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "oscuras",
+     "sentence_idx": 4,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    }
+   ],
+   "pico_llm": 6
+  },
+  "log": [],
+  "old_peak": "Atrapados días en celdas inundadas.",
+  "new_peak": "Pero lo que sucedió después, es un misterio que nadie quiso ver.",
+  "new_word": "misterio",
+  "nuevas": []
+ },
+ "ch02": {
+  "res": {
+   "intensidad": [
+    0.6,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.7,
+    0.75,
+    0.85,
+    0.9,
+    0.95,
+    0.8
+   ],
+   "cargas": [
+    {
+     "word": "catástrofe",
+     "sentence_idx": 0,
+     "categoria": "caos_gritos",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "furia",
+     "sentence_idx": 1,
+     "categoria": "caos_gritos",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "agua",
+     "sentence_idx": 2,
+     "categoria": "agua",
+     "peso": 2,
+     "concreta": true
+    },
+    {
+     "word": "agua",
+     "sentence_idx": 4,
+     "categoria": "agua",
+     "peso": 2,
+     "concreta": true
+    },
+    {
+     "word": "caos",
+     "sentence_idx": 5,
+     "categoria": "caos_gritos",
+     "peso": 2,
+     "concreta": false
+    }
+   ],
+   "pico_llm": 9
+  },
+  "log": [],
+  "old_peak": "Calles y hogares enteros desaparecieron, sumergidos bajo hasta 4.6 metros, o quince pies, de agua putrefacta.",
+  "new_peak": "Los prisioneros, ya de por sí vulnerables, estaban a punto de enfrentar un nuevo tipo de encierro, donde la oscuridad no solo sería física, sino también moral, envolviéndolos en un silencio tan espeso como las aguas que rodeaban el edificio.",
+  "new_word": "encierro",
+  "nuevas": [
+   "catástrofe",
+   "furia"
+  ]
+ },
+ "ch03": {
+  "res": {
+   "intensidad": [
+    0.7,
+    0.6,
+    0.5,
+    0.8,
+    0.7,
+    0.8,
+    0.9,
+    0.7,
+    0.7,
+    0.8,
+    0.8,
+    0.9,
+    0.9,
+    0.9,
+    1.0,
+    0.9,
+    0.8,
+    0.9,
+    0.9,
+    1.0,
+    1.0,
+    0.9,
+    0.9
+   ],
+   "cargas": [
+    {
+     "word": "brutal",
+     "sentence_idx": 0,
+     "categoria": "caos_gritos",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "oscuridad",
+     "sentence_idx": 3,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "negrura",
+     "sentence_idx": 4,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "sofocante",
+     "sentence_idx": 5,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "filtrarse",
+     "sentence_idx": 8,
+     "categoria": "agua",
+     "peso": 2,
+     "concreta": false
+    }
+   ],
+   "pico_llm": 20
+  },
+  "log": [],
+  "old_peak": "Subió centímetro a centímetro, hasta alcanzar el nivel del pecho de los prisioneros atrapados, que ahora estaban sumergidos en una mezcla repugnante de aguas residuales y escombros.",
+  "new_peak": "En celdas herméticamente cerradas, sin salida, sin luz, el agua oscura subiendo sin cesar.",
+  "new_word": "celdas",
+  "nuevas": [
+   "brutal",
+   "negrura",
+   "sofocante",
+   "filtrarse"
+  ]
+ },
+ "ch04": {
+  "res": {
+   "intensidad": [
+    0.3,
+    0.6,
+    0.7,
+    0.8,
+    0.8,
+    0.9,
+    0.7,
+    0.5,
+    0.5,
+    0.7,
+    0.8,
+    0.7,
+    0.6,
+    0.9,
+    0.8,
+    0.9,
+    1.0,
+    0.9,
+    0.8
+   ],
+   "cargas": [
+    {
+     "word": "sufrimiento",
+     "sentence_idx": 1,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "penumbra",
+     "sentence_idx": 1,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": true
+    },
+    {
+     "word": "calvario",
+     "sentence_idx": 2,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "desesperación",
+     "sentence_idx": 3,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "agua",
+     "sentence_idx": 4,
+     "categoria": "agua",
+     "peso": 3,
+     "concreta": true
+    }
+   ],
+   "pico_llm": 16
+  },
+  "log": [
+   "  intensidad: descartado ['«sin voz» no está literal en la frase 14']"
+  ],
+  "old_peak": "Los prisioneros, atrapados, vivieron un calvario ininterrumpido.",
+  "new_peak": "Sus pequeñas vidas se desdibujaron en el caos, en la oscuridad y en el abandono más absoluto.",
+  "new_word": "oscuridad",
+  "nuevas": [
+   "sufrimiento",
+   "calvario"
+  ]
+ },
+ "ch05": {
+  "res": {
+   "intensidad": [
+    0.7,
+    0.2,
+    0.6,
+    0.7,
+    0.8,
+    0.8,
+    0.7,
+    0.7,
+    0.8,
+    0.9,
+    1.0,
+    0.8,
+    0.9,
+    0.9
+   ],
+   "cargas": [
+    {
+     "word": "oscuridad",
+     "sentence_idx": 0,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "líquida",
+     "sentence_idx": 0,
+     "categoria": "agua",
+     "peso": 2,
+     "concreta": true
+    },
+    {
+     "word": "agua",
+     "sentence_idx": 2,
+     "categoria": "agua",
+     "peso": 1,
+     "concreta": true
+    },
+    {
+     "word": "borradas",
+     "sentence_idx": 4,
+     "categoria": "silencio",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "desvanecidas",
+     "sentence_idx": 5,
+     "categoria": "silencio",
+     "peso": 2,
+     "concreta": false
+    }
+   ],
+   "pico_llm": 10
+  },
+  "log": [],
+  "old_peak": "Cuerpos sin vida a la deriva en la misma agua pútrida que los había mantenido cautivos.",
+  "new_peak": "Cuerpos sin vida a la deriva en la misma agua pútrida que los había mantenido cautivos.",
+  "new_word": "cuerpos",
+  "nuevas": [
+   "líquida",
+   "borradas",
+   "desvanecidas"
+  ]
+ },
+ "ch06": {
+  "res": {
+   "intensidad": [
+    0.3,
+    0.6,
+    0.4,
+    0.5,
+    0.8,
+    0.7,
+    0.8,
+    0.9,
+    0.95,
+    1.0
+   ],
+   "cargas": [
+    {
+     "word": "infierno",
+     "sentence_idx": 1,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "oscuridad",
+     "sentence_idx": 1,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "encarcelamiento",
+     "sentence_idx": 4,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "abandono",
+     "sentence_idx": 4,
+     "categoria": "frio_abandono",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "silencio",
+     "sentence_idx": 5,
+     "categoria": "silencio",
+     "peso": 2,
+     "concreta": false
+    }
+   ],
+   "pico_llm": 9
+  },
+  "log": [],
+  "old_peak": "Robie Waganfeald y Paul Kunkel Jr., turistas atrapados en el infierno carcelario, lograron una victoria legal que arrojó luz sobre la oscuridad institucional.",
+  "new_peak": "¿Y para aquellos quinientos prisioneros, cuyas vidas se desvanecieron sin rastro oficial, qué forma de justicia podría existir?",
+  "new_word": "desvanecieron",
+  "nuevas": [
+   "infierno",
+   "encarcelamiento"
+  ]
+ },
+ "ch07": {
+  "res": {
+   "intensidad": [
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    1.0,
+    0.9,
+    0.8,
+    0.7,
+    0.7
+   ],
+   "cargas": [
+    {
+     "word": "abandonadas",
+     "sentence_idx": 2,
+     "categoria": "frio_abandono",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "agua",
+     "sentence_idx": 3,
+     "categoria": "agua",
+     "peso": 3,
+     "concreta": true
+    },
+    {
+     "word": "oscuridad",
+     "sentence_idx": 3,
+     "categoria": "oscuridad_encierro",
+     "peso": 2,
+     "concreta": false
+    },
+    {
+     "word": "borrados",
+     "sentence_idx": 4,
+     "categoria": "silencio",
+     "peso": 3,
+     "concreta": false
+    },
+    {
+     "word": "caos",
+     "sentence_idx": 4,
+     "categoria": "caos_gritos",
+     "peso": 2,
+     "concreta": false
+    }
+   ],
+   "pico_llm": 4
+  },
+  "log": [],
+  "old_peak": "Los escalofriantes relatos de reclusos, que vieron cadáveres flotando mientras eran evacuados, resuenan como un eco fantasmal.",
+  "new_peak": "Más de quinientos prisioneros jamás figuraron en los registros de evacuación, borrados por el caos y el olvido.",
+  "new_word": "borrados",
+  "nuevas": [
+   "borrados"
+  ]
+ }
+}
