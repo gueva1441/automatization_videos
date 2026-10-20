@@ -106,6 +106,7 @@ def load_chapter_context(video_id: str, chplan: Any) -> dict[str, Any]:
         "facts": facts, "skeleton": skeleton_ch, "canonical": canonical, "sources": sources,
         "eligible": eligible, "era_window": era,
         "fact_source": fact_sources(facts, src_list), "next_sources": next_sources,
+        "chapters": script.get("chapters", []),           # F3: pregunta de cierre (cap actual + siguiente)
     }
 
 

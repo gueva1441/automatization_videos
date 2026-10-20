@@ -443,3 +443,45 @@ def test_mood_agua_sube_en_1s_y_baja_al_salir():
     assert 'tl.to("#md0-rise", { yPercent: 0, duration: 1.0' in tl          # sube en 1 s
     assert '.to("#md0-rise", { yPercent: 100, duration: .5' in tl           # baja al salir (no se desvanece)
     assert "md0-vig" in html                                              # bordes un poco más oscuros
+
+
+# ── F3: íconos y pregunta de cierre en el lab
+
+@needs_data
+def test_lab_iconos_y_contexto(server):
+    _, url = server
+    ctx = json.loads(_get(url + "/api/context")[2])
+    assert len(ctx["icon_keys"]) == 12 and ctx["category_icon"]["agua"] == "gota"
+    assert ctx["fact_icon"]                                            # datos con ícono de su categoría
+    code, h, body = _get(url + "/media/icon/gota.svg")
+    assert code == 200 and h["Content-Type"] == "image/svg+xml" and b"<svg" in body
+    code, h, _ = _get(url + "/media/sfx/drone_subida.wav")
+    assert code == 200 and h["Content-Type"] == "audio/wav"
+    with pytest.raises(urllib.error.HTTPError):
+        _get(url + "/media/icon/no_existe.svg")
+    st = json.loads(_get(url + "/api/story")[2])
+    assert all(p["dark_v"] in ("top", "mid") for p in st["photos"])
+
+
+@needs_data
+def test_lab_pregunta_con_pausa(server, monkeypatch):
+    from script_engine import gfx_question
+    monkeypatch.setattr(gfx_question, "question_for", lambda *a, **k: {"text": "¿Qué hizo ceder a la prisión?", "generated": True})
+    session, url = server
+    assert json.loads(_get(url + "/question")[2])["text"] == "¿Qué hizo ceder a la prisión?"
+    d = session.duration
+    q = {"text": "¿Qué hizo ceder a la prisión?", "start": round(d, 3), "duration": 3.0, "keyword": "", "generated": True, "pause": 3.0}
+    r = _post(url + "/preview", {"plan": {"chapter_number": 2, "chapter_question": q}, "tokens": {},
+                                 "movimientos": {"14": "quieta"}, "solo": [14], "pausa": 3.0})
+    assert not r["rejected"]                                            # generated: fuera del candado literal
+    idx = _get(url + "/solo/index.html")[2].decode("utf-8")
+    assert f'data-duration="{d + 3:.3f}"' in idx and "cq-line" in idx
+    assert f'id="cq" class="clip" data-start="{d:.3f}" data-duration="3.000"' in idx
+
+
+def test_pantalla_iconos_y_pregunta():
+    js = (lab.LAB_DIR / "lab_foto.js").read_text(encoding="utf-8")
+    idx = (lab.LAB_DIR / "index.html").read_text(encoding="utf-8")
+    for txt in ("openIconPicker", "prop:icono:", "con ícono", "otra pregunta", "/question", "sfx-drone", "free_icon"):
+        assert txt in js or txt in idx, txt
+    assert "Con la palabra en sello" not in js                         # el ícono nunca va suelto

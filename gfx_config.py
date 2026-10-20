@@ -296,6 +296,9 @@ class GfxRules:
     question_dim: float = 0.5
     question_max_words: int = 9
     question_font_px: int = 96
+    question_auto: bool = False              # F3: pregunta de cierre generada por Flash (gfx_question) — el perfil la prende
+    question_pause_sec: float = 3.0          # F3: silencio real al final del cap mientras se ve la pregunta (alarga el cap)
+    question_max_words_auto: int = 12        # F3: tope de la pregunta generada
     source_tag_scale: float = 0.4            # 40 % del tamaño del callout
     sfx_gain_db: float = -18.0               # bajo la voz
     sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano

@@ -213,7 +213,9 @@ def snap_cuts(scenes: list[GfxScene], base: Path, fps: int) -> list[GfxScene]:
 
 def assign_quiet_sides(scenes: list[GfxScene], base: Path) -> list[GfxScene]:
     """F2 §0b.6–7: lado con menos detalle (menor varianza de luminancia, tercios izquierdo vs derecho,
-    franja superior 70 %). No hay bbox del sujeto en depth_probe/zoom_judge → fallback del handoff."""
+    franja superior 70 %). No hay bbox del sujeto en depth_probe/zoom_judge → fallback del handoff.
+    F3: además, en ese lado, la banda más OSCURA entre arriba (0–33 %) y medio (33–66 %) = dark_v (ahí va el
+    bloque de ícono: lejos del sujeto y sobre fondo oscuro; la franja de abajo es de los subtítulos)."""
     for s in scenes:
         fr = _gray_frames(base, (s.start + s.end) / 2, 0.05)
         if len(fr) == 0:
@@ -222,7 +224,69 @@ def assign_quiet_sides(scenes: list[GfxScene], base: Path) -> list[GfxScene]:
         w = f.shape[1]
         left, right = f[:, : int(w * 0.4)].var(), f[:, int(w * 0.6):].var()
         s.quiet_side = "left" if left < right else "right"
+        g = fr[0].astype(float)
+        h3 = g.shape[0] // 3
+        cols = slice(0, int(w * 0.4)) if s.quiet_side == "left" else slice(int(w * 0.6), w)
+        s.dark_v = "top" if g[:h3, cols].mean() <= g[h3: 2 * h3, cols].mean() else "mid"
     return scenes
+
+
+def icon_sources(resolved: dict[str, Any], ctx: dict[str, Any]) -> int:
+    """F3: el bloque de ícono lleva la fuente debajo si la palabra está en un dato con fuente resoluble
+    (ctx["fact_source"]: prefijo literal de sources[], el mismo que usa source_tag). Devuelve cuántos tomaron fuente."""
+    import re as _re
+    n = 0
+    for e in resolved.get("emphasis") or []:
+        if not e.get("icon_callout") or e.get("source"):
+            continue
+        w = str(e.get("word", "")).lower()
+        for i, f in enumerate(ctx.get("facts") or []):
+            src = (ctx.get("fact_source") or {}).get(i)
+            if src and w and _re.search(rf"\b{_re.escape(w)}\b", f.lower()):
+                e["source"] = src
+                n += 1
+                break
+    return n
+
+
+def extend_base(base: Path, pause: float, fps: int) -> None:
+    """F3: alarga el base_clip (-g 30) `pause` segundos congelando el último cuadro (pausa de la pregunta de cierre).
+    Escribe a un archivo nuevo y reemplaza (nunca trunca el original: el lab lo usa por hardlink)."""
+    tmp = base.with_name(base.stem + ".pausa.mp4")
+    cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(base), "-an", "-vf", f"tpad=stop_mode=clone:stop_duration={pause:.3f}",
+           "-c:v", "libx264", "-preset", gfx_render.reencode_preset, "-crf", str(gfx_render.reencode_crf),
+           "-r", str(fps), "-g", str(gfx_render.reencode_gop), "-keyint_min", str(gfx_render.reencode_gop),
+           "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(tmp)]
+    r = subprocess.run(cmd, capture_output=True, text=True, timeout=900)
+    if r.returncode != 0 or not tmp.exists():
+        raise GfxError(f"no se pudo alargar el base para la pausa: {r.stderr[-300:]}")
+    import os
+    os.replace(tmp, base)
+
+
+def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Path, cap: str, clip_dur: float,
+                     log: list[str]) -> float:
+    """F3: pregunta de cierre generada (gfx_question, Flash + validador) al FINAL del cap, durante una pausa de
+    question_pause_sec con la voz en silencio. Devuelve la pausa a agregar al base (0 si no hay pregunta)."""
+    if not gfx_rules.question_auto or gfx_rules.question_pause_sec <= 0:
+        return 0.0
+    from script_engine.gfx_director import question_keyword
+    from script_engine.gfx_question import question_for
+    q = question_for(work_dir, cap, ctx["chapter_number"], ctx.get("chapters") or [])
+    pause_file = work_dir / f"gfx_pause_{cap}.json"
+    if not q.get("text"):
+        log.append(f"  pregunta de cierre: no ({q.get('motivo', 'sin texto')}; intentos: "
+                   f"{[(x.get('pregunta'), x.get('rechazo')) for x in q.get('intentos', [])]})")
+        resolved["chapter_question"] = None
+        pause_file.unlink(missing_ok=True)
+        return 0.0
+    pause = float(gfx_rules.question_pause_sec)
+    resolved["chapter_question"] = {"text": q["text"], "start": round(clip_dur, 3), "duration": round(pause, 3),
+                                    "keyword": question_keyword(q["text"]), "generated": True, "pause": pause,
+                                    **({"manual": True} if q.get("manual") else {})}
+    pause_file.write_text(json.dumps({"pause": pause, "text": q["text"]}, ensure_ascii=False), encoding="utf-8")
+    log.append(f"  pregunta de cierre: {q['text']!r} (+{pause:.1f} s de pausa, {len(q.get('intentos', []))} intento(s))")
+    return pause
 
 
 def _render_sparse(resolved: dict[str, Any], scenes: list[GfxScene], project: Path, out: Path, *, cap: str,
@@ -415,6 +479,18 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             resolved = resolve_plan(raw_plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
             resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                       question_sources=ctx.get("next_sources"))
+        n_src = icon_sources(resolved, ctx)                  # F3: fuente debajo del bloque de ícono (si hay)
+        if n_src:
+            log.append(f"  íconos con fuente: {n_src}")
+        # F3: pregunta de cierre generada + pausa real (alarga el base; fase2b rellena el audio con silencio)
+        if gfx_plan_override is None:
+            pause = closing_question(resolved, ctx, work_dir, cap, clip_dur, log)
+        else:
+            pause = float((resolved.get("chapter_question") or {}).get("pause") or 0.0)
+        if pause > 0:
+            extend_base(project / "public" / "base.mp4", pause, fps)
+            clip_dur = _ffprobe_duration(project / "public" / "base.mp4")
+            scenes[-1].end = round(clip_dur, 3)
         log.append(f"  plan: {json.dumps(resolved, ensure_ascii=False)}")
         log.append(f"  lock rechazados: {len(rejected)} {json.dumps(rejected, ensure_ascii=False)}")
         (work_dir / f"gfx_plan_{cap}.resolved.json").write_text(

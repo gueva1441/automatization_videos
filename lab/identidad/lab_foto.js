@@ -7,7 +7,8 @@
 "use strict";
 (function () {
   const F = { infos: [], probar: null, full: false, more: {}, addOpen: false, autoKey: null, cueTimer: null,
-              loaded: null, ready: false };
+              loaded: null, ready: false, q: null, extra: 0, qStart: null, lastT: 0, pick: null };
+  const PAUSA = () => +S.rules.question_pause_sec || 3;
   const CIRC = "①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳";
 
   // ── formas que el preview SÍ dibuja (regla 6)
@@ -131,8 +132,19 @@
       });
     }
 
+    // íconos propuestos: cada palabra del léxico que un ícono dibuja literal y todavía no lo tiene (F3: ver los 12)
+    for (const h of S.ctx.lexicon_hits.filter((x) => x.icon && inTramo(x.start))) {
+      const e = emphasisAt(h.start);
+      if ((e && e.icon_callout) || out.some((o) => o.sug && o.sug.word_i === h.i)) continue;
+      const pr = { tipo: "emph", i: h.i, stamp: true, icon: true };
+      out.push({ key: `prop:icono:${tkey(h.start)}`, elem: "icon_callout", nombre: `Ícono ${h.icon} «${cleanWord(h.word)}»`,
+        t: h.start, tEnd: h.start + 2.5, ia: iaLine(`bloque ${h.icon} + la palabra`, "dibuja lo que dice la voz"), prop: pr, grupos: [],
+        nota: "Propuesta de la IA: no está en el plan. ☐ Se queda lo agrega.",
+        solo: () => soloHipotetico(i, pr), win: [h.start - 1, h.start + 3.5] });
+    }
+
     // propuestas de la IA (también cuando lo recomendado es NO ponerlo)
-    const lexFree = S.ctx.lexicon_hits.filter((h) => inTramo(h.start) && !emphasisAt(h.start) &&
+    const lexFree = S.ctx.lexicon_hits.filter((h) => inTramo(h.start) && !emphasisAt(h.start) && !h.icon &&
       !out.some((o) => o.sug && o.sug.word_i === h.i)).sort((a, b) => b.weight - a.weight);
     if (lexFree.length) {
       const h = lexFree[0], mood = MOODS[h.category] || h.category;
@@ -191,6 +203,7 @@
   function piezaHipotetica(pr) {
     const w = wordByI(pr.i), hit = lexAt(pr.i), ph = photoAt(w.start);
     if (pr.tipo === "punch") return { punch_in: [w.start] };
+    if (pr.icon) return { emphasis: [{ ...iconPiece(w, hit.icon), category: hit.category }] };
     return { emphasis: [{ word: cleanWord(w.word), category: hit.category, layer: hit.layer, icon: pr.icon && hit.icon ? hit.icon : null,
       icon_anim: hit.icon_anim || "stamp", start: w.start, duration: moodDur(), side: ph.quiet_side || "right",
       stamp: pr.stamp !== false, sid: ph.idx, rarity: 0, weight: hit.weight, icon_callout: !!(pr.icon && hit.icon) }] };
@@ -198,9 +211,23 @@
   function soloHipotetico(i, pr) { return { plan: { ...basePlan(), ...piezaHipotetica(pr) }, movimientos: { [i]: "quieta" }, tramos: [i] }; }
   function applyProp(pr) {
     const w = wordByI(pr.i);
-    if (pr.tipo === "emph") addEmphasis(pr.i, { stamp: pr.stamp !== false, icon: !!pr.icon });
+    if (pr.tipo === "emph" && pr.icon) addIcon(w, lexAt(pr.i).icon);
+    else if (pr.tipo === "emph") addEmphasis(pr.i, { stamp: pr.stamp !== false, icon: false });
     else addPunch(w.start);
     return tkey(w.start);
+  }
+  // F3: el ícono va SIEMPRE como bloque (ícono L + sello con la palabra). Sin mood propio (layer "").
+  function iconPiece(w, key) {
+    const ph = photoAt(w.start);
+    return { word: cleanWord(w.word), category: "", layer: "", icon: key, icon_anim: "stamp", start: w.start,
+             duration: moodDur(), side: ph.quiet_side || "right", stamp: true, sid: ph.idx, rarity: 0, weight: 0,
+             icon_callout: true, manual: true, free_icon: true };
+  }
+  function addIcon(w, key) {
+    const e = emphasisAt(w.start);
+    if (e) { e.icon = key; e.icon_callout = true; e.stamp = true; return; }
+    planList("emphasis").push(iconPiece(w, key));
+    S.plan.emphasis.sort((a, b) => a.start - b.start);
   }
   function masToken(label, token, opts) {
     return { label, opciones: opts.map(([v, l]) => ({ v, label: l })), get: () => tok(token), set: (v) => { S.tokens[token] = v; } };
@@ -235,9 +262,10 @@
       const s = sugFor(["data_callout"], t);
       out.push({ ...base, key: `dato:${tkey(t)}`, elem: "data_callout", nombre: `Dato «${piece.text}»`, sug: s,
         ia: s && s.id === "S10" ? iaLine("dato, no contador", "6,500 ya se contó") : iaLine("cascada, del lado tranquilo", "fija el dato duro"),
-        grupos: [{ id: "entrada", opciones: FORMAS.texto, actual: TEXTO[tok(tokName)] || "golpe", ia: "cascada" }],
+        grupos: [{ id: "entrada", opciones: FORMAS.texto, actual: TEXTO[tok(tokName)] || "golpe", ia: "cascada" },
+                 ...grupoIcono(piece)],
         nota: "La entrada es una sola para todos los datos del canal.",
-        onForm(g, v) { S.tokens[tokName] = TEXTO_INV[v]; },
+        onForm(g, v) { if (g === "icono") setCardIcon(piece, v); else S.tokens[tokName] = TEXTO_INV[v]; },
         mas: [masToken("Tamaño", "callout_anton_px", [[130, "S"], [168, "M"], [200, "L"]]),
               masPiece("Duración", piece, "duration", [[2.5, "2.5 s"], [3.5, "3.5 s"], [4.5, "4.5 s"]])],
         posicion: piece, solo: soloDe(i, () => ({ callouts: [{ ...piece, source: "" }] })),
@@ -257,15 +285,16 @@
     } else if (b === "archive_clipping" && piece) {
       out.push({ ...base, key: `recorte:${tkey(t)}`, elem: "archive_clipping", nombre: `Recorte «${piece.headline}»`,
         sug: S.sugs.find((x) => x.elemento === "archive_clipping" && x.accion.fact_idx === piece.fact_idx),
-        ia: iaLine("recorte de periódico, 4 s", "hecho público, se lee rápido"), grupos: [],
+        ia: iaLine("recorte de periódico, 4 s", "hecho público, se lee rápido"), grupos: grupoIcono(piece),
+        onForm(g, v) { setCardIcon(piece, v); },
         mas: [masPiece("Duración", piece, "duration", [[3, "3 s"], [4, "4 s"], [5, "5 s"], [6, "6 s"]]),
               masToken("Ancho", "archive_max_w_frac", [[0.24, "24 %"], [0.28, "28 %"], [0.3, "30 %"]])],
         posicion: piece, solo: soloDe(i, () => ({ archive_clippings: [piece] })),
         quitar: () => { S.plan.archive_clippings = S.plan.archive_clippings.filter((x) => x !== piece); } });
     } else if ((b === "keyword_emphasis" || b === "icon_callout") && piece) {
       const hit = S.ctx.lexicon_hits.find((h) => near(h.start, piece.start)) || { weight: piece.weight || 1 };
-      const mood = MOODS[piece.category] || piece.category;
-      out.push({ ...base, key: `mood:${tkey(t)}`, elem: "keyword_emphasis", nombre: `Mood ${mood} «${piece.word}»`,
+      const mood = MOODS[piece.category] || piece.category || "";
+      if (piece.layer) out.push({ ...base, key: `mood:${tkey(t)}`, elem: "keyword_emphasis", nombre: `Mood ${mood} «${piece.word}»`,
         sug: sugFor(["keyword_emphasis", "icon_callout"], t),
         ia: iaLine(`sí, ${piece.duration} s, suave`, "un momento, no un filtro"), grupos: [],
         mas: [masPiece("Duración", piece, "duration", [[1.5, "1.5 s"], [2.5, "2.5 s"], [4, "4 s"]])],
@@ -273,14 +302,14 @@
         quitar: () => { S.plan.emphasis = S.plan.emphasis.filter((e) => e !== piece); } });
       if (piece.icon_callout) {
         out.push({ ...base, key: `icono:${tkey(t)}`, elem: "icon_callout", nombre: `Ícono ${piece.icon} «${piece.word}»`,
-          ia: iaLine(`${ICON_ANIM_INV[piece.icon_anim] || "sello"}, con la palabra`, "dibuja lo que dice la voz"),
+          ia: iaLine(`bloque ${piece.icon} + «${piece.word}», ${ICON_ANIM_INV[piece.icon_anim] || "sello"}`, "dibuja lo que dice la voz"),
           grupos: [{ id: "entrada", opciones: FORMAS.icono, actual: ICON_ANIM_INV[piece.icon_anim] || "sello",
                      ia: mood === "oscuridad" ? "sello" : mood === "agua" ? "prensa" : "tinta" }],
+          nota: "Bloque fijo: ícono L + la palabra en sello al lado, en la zona oscura del lado tranquilo.",
           onForm(g, v) { piece.icon_anim = ICON_ANIM[v]; },
-          mas: [masToken("Tamaño", "icon_px", [[130, "S"], [190, "M"], [280, "L"]]),
-                masPiece("Con la palabra en sello", piece, "stamp", [[true, "sí"], [false, "no"]])],
-          posicion: piece, solo: soloDe(i, () => ({ emphasis: [{ ...piece, layer: "" }] })),
-          quitar: () => { piece.icon_callout = false; piece.icon = null; } });
+          posicion: piece, solo: soloDe(i, () => ({ emphasis: [{ ...piece, layer: "", stamp: true }] })),
+          quitar: () => { if (piece.free_icon) S.plan.emphasis = S.plan.emphasis.filter((e) => e !== piece);
+                          else { piece.icon_callout = false; piece.icon = null; } } });
       } else {
         const iaF = hit.weight <= 1 ? "sin sello" : "sello";
         const why = hit.weight >= 3 ? "palabra rara" : hit.weight <= 1 ? "palabra común" : "palabra con carga";
@@ -314,17 +343,43 @@
   }
 
   function preguntaObj() {
-    const q = S.plan.chapter_question, k = "pregunta", d = S.story.duration;
+    const q = S.plan.chapter_question, k = "pregunta", d = S.story.duration, P = PAUSA();
+    const gen = F.q || {};
+    const motivo = gen.text ? (gen.manual ? "la editaste vos" : "gancho para el capítulo siguiente") : (gen.motivo || "sin pregunta");
     return {
-      key: k, elem: "chapter_question", nombre: "Pregunta de cierre", t: Math.max(0, d - 3.5), tEnd: d,
-      ia: iaLine("escribí una pregunta", "gancho para el capítulo 3"), pregunta: true, texto: q && q.manual ? q.text : "",
-      grupos: [],
-      mas: [masToken("Fondo oscurecido", "question_dim", [[0.5, "50 %"], [0.7, "70 %"]]),
-            ...(q ? [masPiece("Duración", q, "duration", [[2.5, "2.5 s"], [3, "3 s"], [3.5, "3.5 s"]])] : [])],
-      solo: soloDe(last(), () => ({ chapter_question: S.plan.chapter_question })),
+      key: k, elem: "chapter_question", nombre: "Pregunta de cierre", t: d, tEnd: d + P,
+      ia: gen.text ? iaLine(gen.manual ? "tu pregunta" : "pregunta generada por Flash", motivo) : iaLine("sin pregunta", motivo),
+      pregunta: true, texto: (q && q.text) || gen.text || "", grupos: [],
+      nota: `Se ve al final, con la voz en silencio ${P} s: fondo oscurecido, persiana y drone. Alarga el capítulo ${P} s.`,
+      mas: [masToken("Fondo oscurecido", "question_dim", [[0.5, "50 %"], [0.7, "70 %"]])],
+      solo: () => ({ plan: { ...basePlan(), chapter_question: S.plan.chapter_question }, movimientos: { [last()]: "quieta" },
+                     tramos: [last()], pausa: P }),
       quitar: () => { S.plan.chapter_question = null; },
-      win: [Math.max(0, d - 4.5), d],
+      win: [Math.max(0, d - 2), d + P],
     };
+  }
+  function questionPiece(text, manual) {
+    const d = S.story.duration, P = PAUSA();
+    return { text: text.trim(), start: +d.toFixed(3), duration: P, keyword: "", generated: true, pause: P, ...(manual ? { manual: true } : {}) };
+  }
+  async function otraPregunta() {
+    setStatus("pidiendo otra pregunta a Flash…", "busy");
+    try {
+      F.q = await api("/question", { regenerate: true });
+      if (!F.q.text) { setStatus(`Flash no dio una pregunta válida: ${F.q.motivo || ""}`, "err"); renderObjs(); return; }
+      F.autoKey = "pregunta";
+      mutate("otra pregunta", () => { S.plan.chapter_question = questionPiece(F.q.text, false); });
+    } catch (e) { setStatus("error: " + e.message, "err"); }
+  }
+  // ícono como viñeta dentro del dato / recorte (solo si el dato tiene un ícono de su categoría)
+  function grupoIcono(piece) {
+    const key = (S.ctx.fact_icon || {})[String(piece.fact_idx)];
+    if (!key) return [];
+    return [{ id: "icono", label: "Ícono", opciones: [opt("sin ícono"), opt("con ícono", `con ícono ${key}`)],
+              actual: piece.icon ? "con ícono" : "sin ícono" }];
+  }
+  function setCardIcon(piece, v) {
+    if (v === "con ícono") piece.icon = (S.ctx.fact_icon || {})[String(piece.fact_idx)]; else delete piece.icon;
   }
 
   // ═══════════════════════════════════════════════════════════════
@@ -333,6 +388,8 @@
   async function loadComposition(body, label) {
     setStatus(`${label}…`, "busy");
     const r = await api("/preview", { tokens: S.tokens, ...body });
+    F.extra = +body.pausa || 0;
+    F.qStart = body.plan && body.plan.chapter_question ? body.plan.chapter_question.start : null;
     if (r.rejected && r.rejected.length) setStatus(`candado quitó ${r.rejected.map((x) => `«${x.text}»`).join(", ")}`, "err");
     await loadSrc(r.src, 0, false);
     F.loaded = body.solo ? "solo" : "todo";
@@ -341,7 +398,7 @@
   function playWindow(from, to, full = false) {
     const d = S.story.duration;
     F.full = full;
-    F.probar = full ? null : { from: Math.max(0, from), to: Math.min(d - 0.05, to) };
+    F.probar = full ? null : { from: Math.max(0, from), to: Math.min(d + F.extra - 0.05, to) };
     seek(Math.max(0, from));
     player().play();
     syncAudio(true);
@@ -351,10 +408,12 @@
     try {
       if (o.pregunta) {
         const txt = ($(`[data-q="${o.key}"]`) || {}).value || o.texto;
-        if (!txt || !txt.trim()) { setStatus("escribí la pregunta en la tarjeta y tocá ▶ Probar", "err"); $(`[data-q="${o.key}"]`)?.focus(); return; }
-        if (!S.plan.chapter_question || S.plan.chapter_question.text !== txt.trim()) {
+        if (!txt || !txt.trim()) { setStatus("no hay pregunta: tocá «otra pregunta» o escribila", "err"); $(`[data-q="${o.key}"]`)?.focus(); return; }
+        const cur = S.plan.chapter_question;
+        if (!cur || cur.text !== txt.trim() || !cur.pause) {
+          const manual = !(F.q && F.q.text === txt.trim()) || !!(F.q && F.q.manual);
           F.autoKey = o.key;
-          mutate("pregunta de cierre", () => { setQuestion(txt); setObj(o.key, { probado: true }); });
+          mutate("pregunta de cierre", () => { S.plan.chapter_question = questionPiece(txt, manual); setObj(o.key, { probado: true }); });
           return;
         }
       }
@@ -366,7 +425,8 @@
       }
       if (!ob(o.key).probado) mutate(`probando ${o.nombre}`, () => { setObj(o.key, { probado: true }); touch(o.elem); }, { preview: false });
       const sp = o.solo();
-      await loadComposition({ plan: sp.plan, movimientos: sp.movimientos, salidas: sp.salidas || {}, solo: sp.tramos }, `probando ${o.nombre} (solo)`);
+      await loadComposition({ plan: sp.plan, movimientos: sp.movimientos, salidas: sp.salidas || {}, solo: sp.tramos, pausa: sp.pausa || 0 },
+                            `probando ${o.nombre} (solo)`);
       setStatus(`▶ ${o.nombre} — solo, sobre la foto${movFijo(sp) ? " quieta" : ""}`);
       playWindow(...o.win);
     } catch (e) { setStatus("error: " + e.message, "err"); }
@@ -404,7 +464,7 @@
       if (i < last()) salidas[i] = keep(`salida:${i}`) ? salidaDe(i) : "corte";
     });
     pl.punch_in.sort((a, b) => a - b);
-    return { plan: pl, movimientos, salidas };
+    return { plan: pl, movimientos, salidas, pausa: pl.chapter_question && pl.chapter_question.pause ? pl.chapter_question.pause : 0 };
   }
   async function verTramo(fromT) {
     const p = tramo(S.fotoActual);
@@ -419,7 +479,7 @@
     try {
       await loadComposition(approvedSpec(), "armando el capítulo con lo que se queda");
       setStatus("▶ capítulo completo con todo lo que se queda");
-      playWindow(0, S.story.duration, true);
+      playWindow(0, S.story.duration + F.extra, true);
     } catch (e) { setStatus("error: " + e.message, "err"); }
   }
 
@@ -436,7 +496,7 @@
         S.sugState[o.sug.id] = "si";
         approveNew(tkey(wordByI(o.sug.word_i).start), o.sug.accion.tipo === "add_punch" ? ["golpe"] : ["mood", "sello", "icono"]);
       } else if (on && o.prop) {                                      // aprobar una propuesta = agregarla
-        approveNew(applyProp(o.prop), o.prop.tipo === "emph" ? ["mood", "sello"] : ["golpe"]);
+        approveNew(applyProp(o.prop), o.prop.icon ? ["icono"] : o.prop.tipo === "emph" ? ["mood", "sello"] : ["golpe"]);
       }
       if (o.sug && !o.key.startsWith("sug:")) S.sugState[o.sug.id] = on ? "si" : "probando";
       setObj(o.key, { nombre: o.nombre });
@@ -474,8 +534,9 @@
     const hits = S.ctx.lexicon_hits.filter((h) => h.start >= p.start && h.start < p.end && !emphasisAt(h.start)).sort((a, b) => b.weight - a.weight);
     F.addOpen = false;
     try {
-      if (tipo === "sello" || tipo === "mood" || tipo === "icono") {
-        const h = tipo === "icono" ? hits.find((x) => x.icon) : hits[0];
+      if (tipo === "icono") { openIconPicker(); return; }
+      if (tipo === "sello" || tipo === "mood") {
+        const h = hits[0];
         if (!h) throw new Error(tipo === "icono" ? "en este tramo no hay una palabra que un ícono dibuje literalmente" : "en este tramo no hay palabras del léxico libres");
         F.autoKey = `${tipo === "icono" ? "icono" : tipo === "mood" ? "mood" : "sello"}:${tkey(h.start)}`;
         mutate(`agregado ${tipo} en «${h.word}»`, () => addEmphasis(h.i, { stamp: tipo !== "mood", icon: tipo === "icono" }));
@@ -505,6 +566,31 @@
         else $('[data-q="pregunta"]')?.focus();
       }
     } catch (e) { setStatus(e.message, "err"); renderObjs(); }
+  }
+  // F3: elegir CUALQUIERA de los 12 íconos y la palabra del tramo donde va (para verlos en fotos reales)
+  function openIconPicker() {
+    const p = tramo(S.fotoActual);
+    const ws = S.story.words.filter((w) => w.start >= p.start && w.start < p.end && cleanWord(w.word).length >= 3);
+    const lit = Object.fromEntries(S.ctx.lexicon_hits.filter((h) => h.icon).map((h) => [h.i, h.icon]));
+    F.pick = F.pick || { key: null, i: null };
+    F.addOpen = true;
+    const box = $("#f-add-list");
+    box.innerHTML = `<div class="ipick"><div class="ipick-h">1 · Elegí el ícono</div><div class="ipick-icons">` +
+      S.ctx.icon_keys.map((k) => `<button class="ipick-ic ${F.pick.key === k ? "on" : ""}" data-ik="${k}" title="${k}">
+        <img src="/media/icon/${k}.svg" alt="${k}"><span>${k}</span></button>`).join("") +
+      `</div><div class="ipick-h">2 · Elegí la palabra (en <b>rojo</b> las que el ícono dibuja literal)</div><div class="ipick-words">` +
+      ws.map((w) => `<button class="mini ${F.pick.i === w.i ? "on" : ""} ${lit[w.i] ? "lit" : ""}" data-iw="${w.i}">${esc(cleanWord(w.word))}${lit[w.i] ? " · " + lit[w.i] : ""}</button>`).join("") +
+      `</div><button class="btn" data-ipok="1" ${F.pick.key && F.pick.i !== null ? "" : "disabled"}>Poner el ícono</button></div>`;
+    box.hidden = false;
+    box.querySelectorAll("[data-ik]").forEach((b) => b.addEventListener("click", () => { F.pick.key = b.dataset.ik; openIconPicker(); }));
+    box.querySelectorAll("[data-iw]").forEach((b) => b.addEventListener("click", () => {
+      F.pick.i = +b.dataset.iw; if (!F.pick.key && lit[F.pick.i]) F.pick.key = lit[F.pick.i]; openIconPicker(); }));
+    box.querySelector("[data-ipok]")?.addEventListener("click", () => {
+      const w = wordByI(F.pick.i), key = F.pick.key;
+      F.pick = null; F.addOpen = false;
+      F.autoKey = `icono:${tkey(w.start)}`;
+      mutate(`ícono ${key} en «${cleanWord(w.word)}»`, () => addIcon(w, key));
+    });
   }
   function cifraEnTramo(ws) {
     for (const w of ws) {
@@ -601,7 +687,8 @@
     }
     const cls = st === "si" ? "st-si" : o.key.startsWith("sug:") || o.key.startsWith("prop:") ? "st-sug" : "";
     const groups = (o.grupos || []).map((g) => `<div class="formas"><span class="fl">${esc(g.label || "Otras formas")}:</span>${formaButtons(g)}</div>`).join("");
-    const q = o.pregunta ? `<textarea class="qtxt" data-q="${esc(o.key)}" rows="2" maxlength="140" placeholder="¿…? (la escribís vos)">${esc(o.texto || "")}</textarea>` : "";
+    const q = o.pregunta ? `<textarea class="qtxt" data-q="${esc(o.key)}" rows="2" maxlength="140" placeholder="¿…?">${esc(o.texto || "")}</textarea>
+      <button class="mini" data-otra="1">↻ otra pregunta</button>` : "";
     const hasMore = (o.mas && o.mas.length) || o.posicion || !(o.key.startsWith("sug:") || o.key.startsWith("prop:"));
     return `<div class="ocard ${cls}" data-k="${esc(o.key)}">
       <div class="oc-head"><span class="num">${CIRC[n] || n + 1}</span> <b>${esc(o.nombre)}</b> <span class="when">${fmt(o.t)}</span>
@@ -639,10 +726,13 @@
       el.querySelector("[data-nunca]")?.addEventListener("click", () => nunca(o, false));
       el.querySelector("[data-nunca-tipo]")?.addEventListener("click", () => nunca(o, true));
       el.querySelector("[data-undo-no]")?.addEventListener("click", () => mutate(`${o.nombre}: vuelve`, () => { delete S.obj[o.key].v; }, { preview: false }));
-      el.querySelector("[data-q]")?.addEventListener("change", (e) => {
-        if ((S.plan.chapter_question || {}).text === e.target.value.trim()) return;
+      el.querySelector("[data-otra]")?.addEventListener("click", otraPregunta);
+      el.querySelector("[data-q]")?.addEventListener("change", async (e) => {
+        const txt = e.target.value.trim();
+        if ((S.plan.chapter_question || {}).text === txt) return;
+        try { F.q = await api("/question", { text: txt }); } catch (err) { setStatus("error: " + err.message, "err"); }
         F.autoKey = o.key;
-        mutate("pregunta de cierre", () => setQuestion(e.target.value));
+        mutate("pregunta editada", () => { S.plan.chapter_question = txt ? questionPiece(txt, true) : null; });
       });
     });
     const gone = Object.entries(S.obj).filter(([k, x]) => x.v === "no" && x.foto === S.fotoActual && !objs.some((o) => o.key === k));
@@ -684,6 +774,8 @@
   window.LAB_UI = {
     async init() {
       F.infos = await Promise.all(tramos().map((_, i) => api(`/objetos?foto=${i}`)));
+      try { F.q = await api("/question"); } catch (e) { F.q = { text: null, motivo: "error: " + e.message }; }
+      if ("icon_px" in S.tokens) delete S.tokens.icon_px;      // F3: el ícono es fijo L (bloque); el tamaño ya no se elige
       $("#f-prev").addEventListener("click", () => goTramo(S.fotoActual - 1));
       $("#f-next").addEventListener("click", () => goTramo(S.fotoActual + 1));
       $("#f-add").addEventListener("click", () => {
@@ -742,6 +834,11 @@
     },
     tick(t) {
       $("#tc").textContent = `${fmt(t)}`;
+      if (F.qStart !== null && !player().paused && F.lastT < F.qStart && t >= F.qStart) {     // drone de la pregunta
+        const dr = $("#sfx-drone"); if (dr) { dr.currentTime = 0; dr.volume = 0.6; dr.play().catch(() => {}); }
+      }
+      if (player().paused) { const dr = $("#sfx-drone"); if (dr && !dr.paused && t < (F.qStart ?? 0)) dr.pause(); }
+      F.lastT = t;
       if (F.probar && t >= F.probar.to) { player().pause(); F.probar = null; syncAudio(true); }
       const objs = F.current || [];
       document.querySelectorAll("#f-words .w").forEach((el) => {

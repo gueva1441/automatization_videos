@@ -39,6 +39,9 @@ _SOUNDS: dict[str, tuple[float, str]] = {
     "tic": (0.18, "sine=f=1320:d=0.18,volume='0.7*exp(-28*t)':eval=frame"),
     # tic sordo (F2b §2, énfasis de palabra): tono grave con el agudo filtrado, apagado
     "tic_sordo": (0.22, "sine=f=520:d=0.22,lowpass=f=900,volume='0.9*exp(-24*t)':eval=frame"),
+    # drone subida (F3, pregunta de cierre): zumbido grave que sube de 55 a 110 Hz en 3 s y crece; sin golpe
+    "drone_subida": (3.0, "aevalsrc='0.5*sin(2*PI*(55*t+9.1667*t*t))+0.25*sin(2*PI*(110*t+18.333*t*t))':d=3:s=48000,"
+                          "lowpass=f=700,volume='0.15+0.85*pow(t/3,1.6)':eval=frame,afade=t=out:st=2.6:d=0.4"),
     # latido: dos golpes graves (lub-dub)
     "latido": (0.9, "sine=f=55:d=0.9,volume='1.3*(exp(-25*t)+0.8*exp(-25*abs(t-0.28))*gte(t,0.28))':eval=frame"),
 }

@@ -46,6 +46,7 @@ class GfxScene:
     text_in_image: str = ""  # texto que ya muestra la imagen (regla de omisión de callouts)
     quiet_side: str = "right"  # lado con menos detalle (gráficos van ahí; el sujeto queda del otro lado)
     safe: dict | None = None   # F2 §4: {"image": png, "movement": push|pan|pull|static, "risk"} → movimiento seguro HF
+    dark_v: str = "top"        # F3: banda más oscura del lado tranquilo (top | mid): ahí va el bloque de ícono
 
     @property
     def duration(self) -> float:
@@ -184,8 +185,23 @@ def mood_layer(i: int, layer: str, t0: float, d: float, width: int, height: int)
 #  F2b §3: icon_callout + icon_array
 # ═══════════════════════════════════════════════════════════════
 
-def icon_callout_html(i: int, e: dict[str, Any], st: float, duration: float) -> tuple[str, list[str], list[str]]:
-    """Ícono aprobado (animación de su categoría) + la palabra en sello debajo. ("", [], []) si no hay SVG."""
+def _grain_filter(uid: str) -> str:
+    """Filtro SVG de grano leve SOLO dentro de la forma (feComposite con SourceAlpha): funde el bloque con la foto
+    sin dibujar un rectángulo de ruido alrededor. Ruido fractal, sin patrón repetido."""
+    return (f'<svg width="0" height="0" style="position:absolute"><filter id="{uid}-grain" x="0" y="0" width="100%" height="100%">'
+            f'<feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="11" result="n"/>'
+            f'<feColorMatrix in="n" type="saturate" values="0" result="g"/>'
+            f'<feComponentTransfer in="g" result="gl"><feFuncR type="linear" slope=".2" intercept=".8"/>'
+            f'<feFuncG type="linear" slope=".2" intercept=".8"/><feFuncB type="linear" slope=".2" intercept=".8"/></feComponentTransfer>'
+            f'<feComposite in="gl" in2="SourceAlpha" operator="in" result="gm"/>'
+            f'<feBlend in="SourceGraphic" in2="gm" mode="multiply"/></filter></svg>')
+
+
+def icon_callout_html(i: int, e: dict[str, Any], st: float, duration: float,
+                      zone: str | None = None) -> tuple[str, list[str], list[str]]:
+    """F3 (Omar): el ícono NUNCA va suelto. Bloque compuesto = ícono L + sello con la palabra AL LADO + fuente debajo
+    (si hay), en la banda oscura del lado tranquilo (zona = GfxScene.dark_v), con sombra suave y grano leve.
+    ("", [], []) si no hay SVG."""
     from script_engine.gfx_icons import anim_js, icon_svg, scoped_svg
     svg = icon_svg(e.get("icon"), fallback=gfx_rules.icon_fallback_lucide)
     if not svg:
@@ -194,14 +210,23 @@ def icon_callout_html(i: int, e: dict[str, Any], st: float, duration: float) -> 
     view = re.search(r'viewBox="([^"]+)"', svg)
     k = float(view.group(1).split()[2]) / 200.0 if view else 1.0
     d = e["duration"]
-    side = "right:7%" if e.get("side", "right") == "right" else "left:7%"
-    word = (f'<div class="em-text" style="display:inline-block;margin-top:10px;font:400 {round(gfx_rules.emphasis_stamp_px * .72)}px/1 '
+    right = e.get("side", "right") == "right"
+    top = "38%" if (zone or e.get("zone_v")) == "mid" else "14%"
+    pos = f"top:{top};" + ("right:6%" if right else "left:6%")
+    word = (f'<div class="em-text" style="display:inline-block;font:400 {round(gfx_rules.emphasis_stamp_px * .9)}px/1 '
             f'&quot;{gfx_rules.figure_font}&quot;,sans-serif;text-transform:uppercase;color:{gfx_rules.accent_hex};'
-            f'border:6px solid {gfx_rules.accent_hex};padding:6px 20px 3px;background:rgba(10,10,10,.35);white-space:nowrap">'
-            f'{_esc(e["word"])}</div>') if e.get("stamp") and e.get("word") else ""
+            f'border:7px solid {gfx_rules.accent_hex};padding:8px 24px 4px;background:rgba(10,10,10,.35);white-space:nowrap">'
+            f'{_esc(e["word"])}</div>') if e.get("word") else ""
+    src = (f'<div class="ib-src" style="margin-top:14px;color:rgba(244,241,234,.85);font:400 '
+           f'{round(gfx_rules.callout_anton_px * gfx_rules.source_tag_scale)}px/1.1 &quot;{gfx_rules.figure_font}&quot;,sans-serif;'
+           f'letter-spacing:.06em;text-transform:uppercase;text-shadow:{gfx_rules.callout_shadow};'
+           f'text-align:{"right" if right else "left"}">{_esc(e["source"])}</div>') if e.get("source") else ""
+    # la palabra va del lado de adentro (hacia el centro del cuadro); el ícono queda hacia el borde
+    row = (f'<div style="display:flex;align-items:center;gap:30px;flex-direction:{"row-reverse" if right else "row"}">'
+           f'{scoped_svg(svg, uid, gfx_rules.icon_px)}{word}</div>')
     html_ = (f'      <div id="icc{i}" class="clip" data-start="{st:.3f}" data-duration="{d:.3f}" '
-             f'style="position:absolute;top:30%;{side};z-index:6;text-align:center">'
-             f'{scoped_svg(svg, uid, gfx_rules.icon_px)}<br/>{word}</div>')
+             f'style="position:absolute;{pos};z-index:6;filter:url(#{uid}-grain) drop-shadow(0 10px 26px rgba(0,0,0,.6))">'
+             f'{_grain_filter(uid)}{row}{src}</div>')
     init, js = anim_js(uid, e.get("icon_anim") or "stamp", st, st + d, k=k, strokes_only="lucide-ink" in svg,
                        has_accent='class="ic-accent"' in svg)
     if word:
@@ -209,7 +234,25 @@ def icon_callout_html(i: int, e: dict[str, Any], st: float, duration: float) -> 
         init += a_init
         js += a_js
         js.append(f'      tl.to("#icc{i} .em-text", {{ opacity: 0, duration: .3, ease: "power1.in" }}, {st + d - .45:.3f});')
+    if src:
+        init.append(f'      gsap.set("#icc{i} .ib-src", {{ opacity: 0 }});')
+        js.append(f'      tl.to("#icc{i} .ib-src", {{ opacity: 1, duration: .3 }}, {st + .5:.3f})'
+                  f'.to("#icc{i} .ib-src", {{ opacity: 0, duration: .3, ease: "power1.in" }}, {st + d - .45:.3f});')
     return html_, init, js
+
+
+def card_icon_html(uid: str, key: str | None, size: int, *, dark: bool = False) -> str:
+    """F3: ícono de la categoría como viñeta DENTRO de una tarjeta (dato o recorte). Estático (entra con la tarjeta).
+    dark=True → tinta oscura (para el papel claro del recorte)."""
+    if not key:
+        return ""
+    from script_engine.gfx_icons import icon_svg, scoped_svg
+    svg = icon_svg(key, fallback=gfx_rules.icon_fallback_lucide)
+    if not svg:
+        return ""
+    if dark:
+        svg = re.sub(r'(fill|stroke)="#e8e0cc"', r'\1="#1b1a17"', svg)
+    return scoped_svg(svg, uid, size)
 
 
 def icon_array_html(ia: dict[str, Any], duration: float) -> tuple[str, list[str], list[str]]:
@@ -594,7 +637,8 @@ def render_css(width: int, height: int) -> str:
         source_px=round(r.callout_anton_px * r.source_tag_scale), question_px=r.question_font_px,
         stamp_px=round(r.callout_font_px * 0.62),   # el sello va en una sola línea (fechas largas)
         ar_scale=ars, ar_w=min(round(1100 * ars), round(width * r.archive_max_w_frac)), ar_pad_v=round(50 * ars), ar_pad_h=round(60 * ars),
-        ar_pad_b=round(60 * ars), ar_kicker_px=round(34 * ars), ar_head_px=round(84 * ars))
+        ar_pad_b=round(60 * ars), ar_kicker_px=round(34 * ars), ar_head_px=round(84 * ars),
+        ar_ico_pad=round(ars * 150) + 16)                          # F3: aire para el ícono del recorte
 
 
 def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *,
@@ -652,7 +696,7 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         init += m_init
         js += m_js
         if e.get("icon_callout"):
-            ic_html, ic_init, ic_js = icon_callout_html(i, e, st, duration)
+            ic_html, ic_init, ic_js = icon_callout_html(i, e, st, duration, zone=scene_at(scenes, st).dark_v)
             if ic_html:
                 overlays.append(ic_html)
                 init += ic_init
@@ -701,8 +745,10 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         anim = callout_anim(c.get("kind", ""))
         text_html = chars_html(c["text"]) if anim == "cascade" else _esc(c["text"])
         face_cls = f"{face} stamp" if anim == "stamp" else face
+        ico = card_icon_html(f"coi{i}", c.get("icon"), round(gfx_rules.callout_anton_px * .95))
         overlays.append(_tpl("data_callout.html.tmpl").substitute(
             i=i, start=f"{st:.3f}", duration=f"{dur:.3f}", text=text_html,
+            icon_html=f'<span class="co-ico">{ico}</span>' if ico else "",
             side=c.get("side", "left"), face=face_cls, mask_cls="co-mask stamped" if anim == "stamp" else "co-mask",
             source_html=_source_html(c.get("source", ""))))
         a_init, a_js = _anim_in_js(f"#co{i} .co-text", anim, st)
@@ -744,6 +790,8 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         overlays.append(_tpl("archive_clipping.html.tmpl").substitute(
             i=i, start=f"{a0:.3f}", duration=f"{a1 - a0:.3f}", paper=paper, font=font, side=ar.get("side", "right"),
             kicker=_esc(ar.get("kicker", "")),
+            icon_html=(f'          <div class="ar-ico">{card_icon_html(f"ari{i}", ar.get("icon"), round(gfx_rules.archive_scale * 150), dark=True)}</div>\n'
+                       if ar.get("icon") and card_icon_html(f"ari{i}", ar.get("icon"), 10) else ""),
             headline=chars_html(ar["headline"]) if gfx_rules.anim_archive_head == "cascade" else _esc(ar["headline"]),
             body_block=(f'          <div class="ar-body">{_esc(ar["body"])}</div>\n' if ar.get("body") else "")))
         init.append(f'      gsap.set("#ar{i}-paper", {{ opacity: 0, y: -40, rotation: -6 }});')
@@ -763,9 +811,10 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         if kw:
             txt = re.sub(rf"\b({re.escape(_esc(kw))})\b", r'<span class="kw">\1</span>', txt, count=1)
         overlays.append(_tpl("chapter_question.html.tmpl").substitute(start=f"{q0:.3f}", duration=f"{qd:.3f}", text_html=txt))
-        init.append('      gsap.set("#cq-dim", { opacity: 0 }); gsap.set("#cq-text", { opacity: 0, y: 24 });')
+        # F3: entrada en persiana (el texto sale de detrás del borde de su máscara) sobre el fondo oscurecido
+        init.append('      gsap.set("#cq-dim", { opacity: 0 }); gsap.set("#cq-text .cq-line", { yPercent: 110 });')
         js.append(f'      tl.to("#cq-dim", {{ opacity: {gfx_rules.question_dim}, duration: .35 }}, {q0:.3f})'
-                  f'.to("#cq-text", {{ opacity: 1, y: 0, duration: .5, ease: "power3.out" }}, {q0 + .15:.3f})'
+                  f'.to("#cq-text .cq-line", {{ yPercent: 0, duration: .6, ease: "power4.out" }}, {q0 + .2:.3f})'
                   f'.to(["#cq-text", "#cq-dim"], {{ opacity: 0, duration: .3, ease: "power1.in" }}, {q0 + qd - .3:.3f});')
 
     # ── --gfx-debug: overlay quemado (NUNCA sin el flag)

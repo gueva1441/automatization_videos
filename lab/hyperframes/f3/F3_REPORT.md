@@ -323,3 +323,55 @@ Riesgos que el contrato no cubre: (1) La hoja principal conserva la celda de osc
 - #12 / riesgo 1: después del veredicto se rehízo `hoja_moods_tramo5.png` con la oscuridad recapturada (luminancia media 42, ya no negra). La celda negra era un problema de la captura (archivos viejos en la carpeta del proyecto de prueba), no del mood.
 - Riesgo 2: en las esquinas de abajo se suman la sombra y los bordes. Es el "agua que sube"; si queda pesado, se baja la viñeta de 0.35.
 - Riesgo 3: el movimiento real se ve al dar ▶ Probar en la tarjeta del mood.
+
+
+---
+
+## Íconos en bloque, más íconos y pregunta de cierre automática (pedido de Omar 2026-10-20)
+
+**1. Ícono = bloque, nunca suelto.** Ícono L (360 px en la composición de 2560 = 180 a escala 1280) + la palabra en sello al lado + la fuente debajo, si el dato de esa palabra tiene fuente. Va en la banda oscura del lado tranquilo del tramo, lejos del sujeto, con sombra suave y grano leve solo dentro de la forma. En el dato y en el recorte hay una forma nueva, "con ícono": el ícono de la categoría como viñeta.
+**2. Más íconos para probar.** Cada palabra del léxico que un ícono dibuja literal trae su tarjeta "Ícono «palabra»" propuesta: en ch02, agua (tramos 3, 4, 5), celdas, encierro y aguas. "+ Agregar → Ícono" abre un selector con los 12 y las palabras del tramo; cualquier ícono va en cualquier palabra.
+**3. Pregunta de cierre automática** (`script_engine/gfx_question.py`, Flash, con el validador del contrato, 2 reintentos y `generated: true` fuera del candado). En el lab: tarjeta en el último tramo con la pregunta generada, "↻ otra pregunta", campo editable y Probar con fondo 70 %, persiana, pausa de 3 s y drone. En `fase2b` la pausa alarga el cap 3 s con silencio real, y la música de ese cap también se alarga (solo con `--gfx`).
+
+**Probado:**
+- Flash generó, sin rechazos, para ch02 «¿Cómo el encierro transformó la oscuridad moral de los prisioneros?» y para ch05 «¿Cómo la victoria legal de unos pocos reveló la oscuridad institucional?». ch07 (último cap) queda sin pregunta. El validador se probó con 11 casos y los reintentos con un Flash simulado.
+- **Render real de ch02 con `--gfx`:** el segmento pasó de 97.7 a **100.6 s**. En la pausa solo suena el drone (la voz termina en 97.7 s). La pregunta aparece con «PRISIONEROS» en el rojo de acento; el bloque del candado con «ENCIERRO» queda en la zona oscura, lejos del preso y sin tapar los subtítulos. Capturas: `capturas/iconos/render_ch02_pregunta_99s.jpg`, `render_ch02_icono_encierro_80s.jpg` y `hoja_iconos_pregunta.png` (bloque, dato y recorte con ícono, pregunta en 3 instantes).
+- md5 sin `--gfx` = `38e5ba14…` ✔ (`onlycap_ch02_nogfx_pregunta.log`). Tests: 231 verdes.
+- **No probado:** el video completo (concat + música) con la pausa; la mezcla de música con `extra_sec` está cubierta por test, no por un render.
+
+**De tu sesión (00:04):** la respaldé y la restauré. Habías elegido el ícono en tamaño S con la UI anterior; como ahora el ícono es fijo L, el lab ignora ese ajuste. Tu pregunta escrita «Quien fue el culpable?» sigue en la tarjeta: "↻ otra pregunta" la cambia por una de Flash. Ojo: una pregunta editada a mano no pasa por el validador.
+
+**Veredicto revisor-handoff (íntegro):**
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Ícono = bloque (ícono + sello al lado + fuente debajo si hay), zona oscura lejos del sujeto, sombra y grano | OK en código y render; fuente solo parcial | gfx_project.py icon_callout_html (row flex ícono+sello, `ib-src`, drop-shadow, `_grain_filter`); gfx_layer.py assign_quiet_sides elige `dark_v` (top/mid). Captura render_ch02_icono_encierro_80s.jpg: candado + sello ENCIERRO, lado izq., sujeto a la derecha, sombra visible |
+| 1b | Ícono L = 180 px | PARCIAL | gfx_config icon_px=190 por defecto; misterio.json pone 360 (composición 2560x1440, C21 en DECISIONES). Es 180 a escala 1280, no 180 literal. La captura se ve proporcionada |
+| 1c | Fuente debajo | PARCIAL | El bloque la dibuja si `e["source"]` existe, pero nada en gfx_director/gfx_layer asigna `source` a los énfasis con ícono. Hoy el ícono nunca lleva fuente |
+| 1d | «Con ícono» en recorte y dato | OK | card_icon_html + data_callout/archive_clipping.tmpl (`icon_html`); lab_foto.js grupoIcono/setCardIcon; test_module_gfx_question.py::test_icono_dentro_del_dato_y_del_recorte |
+| 2 | Tarjeta «Ícono palabra» propuesta en cada tramo con léxico | OK | lab_foto.js: bucle `prop:icono:` sobre lexicon_hits; C53 |
+| 2b | «+ Agregar» → Ícono: elegir 1 de los 12 y la palabra | OK | lab_foto.js openIconPicker (S.ctx.icon_keys, palabras del tramo); GET /media/icon/gota.svg = 200, 100871 bytes |
+| 3 | Flash por cap; entrada 3+3 frases; validador (¿El/La/Los/Las, >12 palabras, sustantivo compartido, abierta, sin cifra repetida); 2 reintentos; si falla, sin pregunta | OK | gfx_question.py validate/generate (ATTEMPTS=3 = 1+2); tests test_validate, test_dos_reintentos_y_despues_sin_pregunta |
+| 3b | generated:true y excepción al candado literal | OK | gfx_literal_lock.py (`not q.get("generated")`); gfx_layer.closing_question marca generated |
+| 3c | Lab: tarjeta en último tramo, «otra pregunta», campo editable, Probar con 70 % + persiana + 3 s + drone | OK | lab_foto.js (otraPregunta, textarea, pausa, drone); misterio.json question_dim 0.7, drone_subida.wav (288078 B); GET /question responde la pregunta. Persiana: test_pregunta_entra_en_persiana |
+| 3d | fase2b: 3 s de silencio real que alarguen el cap | OK | fase2b.py _gfx_pauses + extra_sec en música; log gfx_ch02.log:428 «+3.0 s de pausa»; ffprobe respaldo gfx = 100.633 s (antes 97.7); captura render_ch02_pregunta_99s.jpg: fondo oscuro, pregunta con persiana y «PRISIONEROS» resaltado |
+| 4 | Tests verdes | OK | corrí el comando: 230 passed |
+| 5 | md5 sin --gfx = 38e5ba14e3d24fd20f9297c9e1dfee24 | OK | tail de onlycap_ch02_nogfx_pregunta.log, coincide |
+| 6 | main intacta (43f528a) | OK | `git rev-parse --short main` = 43f528a |
+| 7 | Sin shaders; preview con plantillas reales | NO VERIFICABLE a fondo | DECISIONES_F3 C58 dice que el preview usa write_project; no corrí POST /preview |
+| 8 | Revisor y commit | NO VERIFICABLE | sigue sin commit; este veredicto es la revisión |
+
+Fuera de alcance: diag_234_cap4.py (modificado, cambia TOPIC) y los untracked lab/identidad/plan_ch02_lab*.json (3 archivos) y lab/hyperframes/f3/_lab_server.log; ninguno debe entrar al commit. Además hay untracked sin mencionar en el pedido: lab/hyperframes/f2b/{demo_iconos_premerge_proj, tira_iconos_proj, icons_raw}/. Los demás modificados corresponden al pedido.
+
+Riesgos que el contrato no cubre: (a) el cap con pregunta dura +3 s: concat, subtítulos y música posteriores dependen de que ese cambio se propague, y solo se verificó el segmento ch02 y su log, no un video completo; (b) la validación de «sustantivo compartido» es una heurística por raíz de 5 letras, sin etiquetador, y puede dejar pasar o rechazar mal; (c) la pregunta guardada de Omar (editada) no pasa por el validador.
+```
+
+**Respuesta de CC:**
+- 1c: corregido después del veredicto. `icon_source` le da al bloque la fuente del dato que menciona la palabra, si ese dato tiene fuente resoluble (el mismo prefijo literal de `sources[]` que usa la fuente del dato). Corre en el render y en el lab. En ch02 solo un dato tiene fuente (HRW), así que hoy ningún ícono de ch02 la muestra. Test `test_icon_sources_toma_la_fuente_del_dato` (231 tests).
+- 1b: es la escala, no un error. La composición es de 2560 px, así que 180 px a 1280 son 360.
+- Riesgo (a): confirmado, falta un render completo del video para ver concat y música con las pausas. Queda para cuando pidas el render.
+- Riesgo (b): la raíz de 5 letras es una aproximación. En ch02 el sustantivo compartido fue «prisioneros» ~ «prisión».
+- Riesgo (c): la pregunta editada a mano es tuya y queda fuera del validador a propósito, igual que en el contrato del lab (`manual`).

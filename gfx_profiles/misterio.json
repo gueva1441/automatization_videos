@@ -52,7 +52,11 @@
     "flash_min_gap_sec": 20.0,
     "grade_default": "off",
     "grain_opacity": 0.0,
-    "vignette_opacity": 0.15
+    "vignette_opacity": 0.15,
+    "question_auto": true,
+    "question_pause_sec": 3.0,
+    "question_dim": 0.7,
+    "icon_px": 360
   },
   "moods": {
     "veneno_enfermedad": {"active": true, "layer": "veneno", "triggers": {"veneno": 3, "venenos": 3, "venenoso": 3, "venenosa": 3, "envenenado": 3, "envenenada": 3, "envenenados": 3, "envenenadas": 3, "envenenamiento": 3, "arsénico": 3, "cianuro": 3, "gas": 1, "gases": 1, "tóxico": 2, "tóxica": 2, "tóxicos": 2, "tóxicas": 2, "toxinas": 2, "putrefacción": 3, "pútrido": 3, "pútrida": 3, "podrido": 3, "podrida": 3, "podridos": 3, "infección": 2, "infecciones": 2, "infectado": 2, "infectada": 2, "infectados": 2, "infectadas": 2, "contaminado": 2, "contaminada": 2, "contaminados": 2, "contaminadas": 2, "contaminación": 2, "enfermo": 1, "enferma": 1, "enfermos": 1, "enfermas": 1, "enfermedad": 1, "enfermedades": 1, "epidemia": 2, "plaga": 2, "peste": 3, "residuales": 2, "cloacas": 2, "excrementos": 3, "heces": 3, "fiebre": 2, "cólera": 3, "tifus": 3, "disentería": 3, "llagas": 3, "pus": 3}, "icon_anim": "ink_bleed", "icon_words": {"veneno": "calavera", "venenos": "calavera", "venenoso": "calavera", "venenosa": "calavera", "envenenado": "calavera", "envenenada": "calavera", "envenenados": "calavera", "envenenadas": "calavera", "envenenamiento": "calavera", "arsénico": "calavera", "cianuro": "calavera", "tóxico": "calavera", "tóxica": "calavera", "tóxicos": "calavera", "tóxicas": "calavera", "toxinas": "calavera", "infección": "biohazard", "infecciones": "biohazard", "infectado": "biohazard", "infectada": "biohazard", "infectados": "biohazard", "infectadas": "biohazard", "contaminado": "biohazard", "contaminada": "biohazard", "contaminados": "biohazard", "contaminadas": "biohazard", "contaminación": "biohazard", "epidemia": "biohazard", "plaga": "biohazard", "peste": "biohazard", "cólera": "biohazard", "tifus": "biohazard", "disentería": "biohazard"}},
@@ -71,7 +75,7 @@
     "count_up":         {"file": "tipeo.wav", "gain_db": -20},
     "archive_clipping": {"file": "papel.wav", "gain_db": -18},
     "evidence_zoom":    {"file": "whoosh.wav", "gain_db": -20},
-    "chapter_question": {"file": "latido.wav", "gain_db": -18},
+    "chapter_question": {"file": "drone_subida.wav", "gain_db": -18},
     "keyword_emphasis": {"file": "tic_sordo.wav", "gain_db": -20}
   },
   "blocks": {
@@ -81,7 +85,7 @@
     "evidence_zoom":    {"enabled": true, "max_per_cap": 1, "where": "escenas de ≥ 3.1 s"},
     "count_up":         {"enabled": true, "max_per_cap": 1, "where": "cifras literales del fact"},
     "punch_in":         {"enabled": true, "max_per_cap": 2, "where": "todos los caps"},
-    "chapter_question": {"enabled": false, "max_per_cap": 1, "where": "OFF (F2b §1.3) hasta que m01b emita cliffhanger por cap"},
+    "chapter_question": {"enabled": false, "max_per_cap": 1, "where": "El director NO la elige: la genera gfx_question (Flash) por cap si question_auto (F3)"},
     "keyword_emphasis": {"enabled": true, "max_per_cap": 5, "where": "palabras del léxico de moods dichas por la voz"},
     "icon_callout":     {"enabled": true, "max_per_cap": 3, "where": "énfasis cuya categoría tiene ícono aprobado"},
     "icon_array":       {"enabled": true, "max_per_cap": 1, "where": "facts con afectados/total ≤ 500 que la voz dice"},

@@ -97,7 +97,9 @@ def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int,
     # F2 §0d: chapter_question es reformulación (no literal): su candado es "toda palabra de contenido
     # existe en bullets/narración del próximo cap"
     q = ok.get("chapter_question")
-    if q:
+    # F3: la pregunta generada por gfx_question (Flash, con su propio validador) NO es texto del guion → excepción
+    # explícita al candado, marcada generated: true (igual que la manual que escribe Omar en el lab)
+    if q and not q.get("generated"):
         from script_engine.gfx_director import question_ok
         if not question_ok(q.get("text", ""), question_sources or {}):
             rejected.append({"block": "chapter_question", "field": "text", "text": q.get("text", "")})

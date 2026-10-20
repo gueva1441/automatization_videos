@@ -21,6 +21,9 @@ Mini-servidor local (http.server, sin dependencias nuevas) que sirve el lab en h
     POST /preview             {plan, tokens, movimientos?, salidas?, solo?} → candado literal → gfx_project.write_project (plantillas REALES)
                               con los tokens pisando gfx_rules SOLO durante ese write_project → src del player
     GET  /objetos?foto=N      §F: movimiento del pipeline + movimiento sugerido + datos del prompt de la foto N
+    GET  /question            pregunta de cierre del cap (gfx_question; cache compartido con el render)
+    POST /question            {regenerate: true} → otra pregunta (Flash) · {text} → edición de Omar
+    /media/icon/<k>.svg       uno de los 12 íconos del set · /media/sfx/<nombre>.wav = SFX del perfil (drone)
     GET  /summary             IDENTIDAD_<perfil>.md del estado guardado (text/markdown)
     POST /summary             estado de la página → IDENTIDAD_<perfil>.md en vivo (§4), sin escribir nada
     POST /save_identity       estado → perfil validado + plan dorado + IDENTIDAD_<perfil>.md (gfx_identity)
@@ -123,24 +126,34 @@ class LabSession:
         self._prepare_base()
         self.scenes = self._scenes(fase2b)
 
-    # ── base.mp4 (-g 30) del preview: hardlink al del último render si existe; si no, re-encode
+    # ── base.mp4 (-g 30) del preview = clip visual del cap + COLA de último cuadro congelado (TAIL_SEC) para la pausa
+    # de la pregunta de cierre. Archivo propio (nunca hardlink: el render lo re-escribe). duration = fin de la voz.
+    TAIL_SEC = 3.5
+
     def _prepare_base(self) -> None:
-        from script_engine.gfx_layer import _ffprobe_duration, _reencode
+        from script_engine.gfx_layer import _ffprobe_duration
+        from gfx_config import gfx_render
         dst = self.project / "public" / "base.mp4"
         dst.parent.mkdir(parents=True, exist_ok=True)
-        if not dst.exists():
-            src = self.work_dir / f"gfx_{self.cap}" / "public" / "base.mp4"
-            visual = self.work_dir / f"{self.cap}_{self.chplan.engine}_visual.mp4"
-            if src.exists():
-                try:
-                    os.link(src, dst)
-                except OSError:
-                    shutil.copy2(src, dst)
-            elif visual.exists():
-                _reencode(visual, dst, self.fps)
-            else:
-                raise FileNotFoundError(f"sin base del cap: ni {src} ni {visual}")
-        self.duration = _ffprobe_duration(dst)
+        src = self.work_dir / f"gfx_{self.cap}" / "public" / "base.mp4"
+        visual = self.work_dir / f"{self.cap}_{self.chplan.engine}_visual.mp4"
+        source = visual if visual.exists() else src
+        if not source.exists():
+            raise FileNotFoundError(f"sin base del cap: ni {src} ni {visual}")
+        self.duration = _ffprobe_duration(source)
+        if dst.exists() and _ffprobe_duration(dst) >= self.duration + self.TAIL_SEC - 0.1:
+            return
+        tmp = dst.with_name("base.cola.mp4")
+        cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(source), "-an",
+               "-vf", f"tpad=stop_mode=clone:stop_duration={self.TAIL_SEC}", "-c:v", "libx264",
+               "-preset", gfx_render.reencode_preset, "-crf", str(gfx_render.reencode_crf), "-r", str(self.fps),
+               "-g", str(gfx_render.reencode_gop), "-keyint_min", str(gfx_render.reencode_gop),
+               "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(tmp)]
+        import subprocess
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=900)
+        if r.returncode != 0:
+            raise RuntimeError(f"no se pudo armar el base del lab: {r.stderr[-300:]}")
+        os.replace(tmp, dst)
 
     # ── escenas como en apply_gfx: anchors → cortes reales → lado tranquilo → router seguro (cache)
     def _scenes(self, fase2b: Any) -> list[Any]:
@@ -212,8 +225,36 @@ class LabSession:
             self._ctx_cache = {"chapter_number": ctx["chapter_number"], "facts": facts, "lexicon_hits": lex,
                                "moods": {k: {"layer": v.get("layer"), "icon_anim": v.get("icon_anim")}
                                          for k, v in moods.items()},
-                               "next_chapter": bool(ctx.get("next_sources"))}
+                               "next_chapter": bool(ctx.get("next_sources")),
+                               **self._icon_context(ctx, moods)}
         return self._ctx_cache
+
+    def _icon_context(self, ctx: dict[str, Any], moods: dict[str, Any]) -> dict[str, Any]:
+        """F3: el set de 12 íconos, el ícono de cada categoría de mood (el más usado en sus icon_words) y el ícono que
+        corresponde a cada dato (palabra del dato que el ícono dibuja literal; si no, la categoría de sus palabras)."""
+        from collections import Counter
+        from gfx_config import ICON_KEYS
+        cat_icon = {c: Counter((m.get("icon_words") or {}).values()).most_common(1)[0][0]
+                    for c, m in moods.items() if m.get("icon_words")}
+        fact_icon: dict[int, str] = {}
+        for i, f in enumerate(ctx["facts"]):
+            words = re.findall(r"[a-záéíóúñü]+", f.lower())
+            lit = next(((m.get("icon_words") or {}).get(w) for w in words for m in moods.values()
+                        if (m.get("icon_words") or {}).get(w)), None)
+            cat = next((c for w in words for c, m in moods.items() if w in (m.get("triggers") or {})), None)
+            if lit or (cat and cat in cat_icon):
+                fact_icon[i] = lit or cat_icon[cat]
+        return {"icon_keys": sorted(ICON_KEYS), "category_icon": cat_icon, "fact_icon": fact_icon}
+
+    def question(self, body: dict[str, Any]) -> dict[str, Any]:
+        """F3: pregunta de cierre del cap (gfx_question, cache compartido con el render).
+        body {regenerate: true} → otra pregunta (Flash); {text: "…"} → la edición de Omar (manual)."""
+        from script_engine.gfx_question import question_for, save_edited
+        self.context()
+        if "text" in body:
+            return save_edited(self.work_dir, self.cap, str(body.get("text") or ""))
+        return question_for(self.work_dir, self.cap, self._ctx["chapter_number"], self._ctx.get("chapters") or [],
+                            regenerate=bool(body.get("regenerate")))
 
     def locked(self, plan: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
         """Candado literal (§6) sobre el plan del lab. La pregunta de cierre escrita por Omar (manual: true)
@@ -228,6 +269,8 @@ class LabSession:
                             question_sources=self._ctx.get("next_sources"))
         if manual_q:
             ok["chapter_question"] = manual_q
+        from script_engine.gfx_layer import icon_sources
+        icon_sources(ok, self._ctx)                                    # F3: fuente debajo del bloque de ícono
         return ok, rejected
 
     # ── historia
@@ -236,7 +279,7 @@ class LabSession:
         scene_img = self.chplan.asset_paths if self.chplan.engine == "flux" else []
         for s in self.scenes:
             photos.append({"idx": s.idx, "start": s.start, "end": s.end, "rank": s.rank,
-                           "quiet_side": s.quiet_side, "safe": bool(s.safe),
+                           "quiet_side": s.quiet_side, "dark_v": getattr(s, "dark_v", "top"), "safe": bool(s.safe),
                            "url": f"/media/photo/{s.idx}" if s.idx < len(scene_img) else None,
                            "thumb": f"/media/thumb/{s.idx}" if s.idx < len(scene_img) else None})
         words = [{"i": i, "word": str(w.get("word", "")).strip(), "start": round(float(w["start"]), 3),
@@ -383,7 +426,7 @@ class LabSession:
 
     def preview(self, plan: dict[str, Any], tokens: dict[str, Any] | None = None, *,
                 movimientos: dict[str, str] | None = None, salidas: dict[str, str] | None = None,
-                solo: list[int] | None = None) -> dict[str, Any]:
+                solo: list[int] | None = None, pausa: float = 0.0) -> dict[str, Any]:
         """plan (+ tokens del perfil que el lab está probando) → candado literal → write_project.
         Los tokens pisan gfx_rules SOLO durante este write_project (se restauran siempre).
         movimientos {idx: forma} y salidas {idx: forma} = elección por tramo (§F2). solo = [idx, …] → proyecto
@@ -397,8 +440,11 @@ class LabSession:
                 self._link_base(project)
             with rules_override(tokens or {}):
                 scenes = self._scenes_for(solo, movimientos)
+                pausa = max(0.0, min(float(pausa or 0.0), self.TAIL_SEC))     # pausa de cierre: alarga el último tramo
+                if pausa and scenes and scenes[-1].idx == len(self.scenes) - 1:
+                    scenes[-1].end = round(self.scenes[-1].end + pausa, 3)
                 tr = self._transitions_for(scenes, ok, salidas)
-                gfx_project.write_project(ok, scenes, project, duration=self.duration, width=self.width,
+                gfx_project.write_project(ok, scenes, project, duration=self.duration + pausa, width=self.width,
                                           height=self.height, fps=self.fps, transitions=tr)
                 cues = gfx_project.cue_events(ok, self.scenes, self.fps)
             self.version += 1
@@ -564,6 +610,17 @@ class LabHandler(BaseHTTPRequestHandler):
                     return self._send(inject_runtime(p.read_text(encoding="utf-8")).encode("utf-8"),
                                       "text/html; charset=utf-8")
                 return self._file(p)
+            m = re.fullmatch(r"/media/icon/([a-z_]+)\.svg", path)
+            if m:
+                from gfx_config import ICON_KEYS, GFX_PROFILES_DIR
+                f = GFX_PROFILES_DIR / "icons" / f"{m.group(1)}.svg"
+                return self._file(f, "image/svg+xml") if m.group(1) in ICON_KEYS else self._error(404, "ícono fuera del set")
+            m = re.fullmatch(r"/media/sfx/([a-z_]+)\.wav", path)
+            if m:
+                from gfx_config import SFX_DIR
+                return self._file(SFX_DIR / f"{m.group(1)}.wav", "audio/wav")
+            if path == "/question":
+                return self._json(s.question({}))
             if path == "/media/audio":
                 return self._file(Path(s.chplan.audio_path), "audio/mpeg")
             m = re.fullmatch(r"/media/(photo|thumb)/(\d+)", path)
@@ -605,7 +662,10 @@ class LabHandler(BaseHTTPRequestHandler):
                 plan = body.get("plan") or st["plan"]
                 tokens = body["tokens"] if "tokens" in body else st["tokens"]
                 return self._json(s.preview(plan, tokens, movimientos=body.get("movimientos"),
-                                            salidas=body.get("salidas"), solo=body.get("solo")))
+                                            salidas=body.get("salidas"), solo=body.get("solo"),
+                                            pausa=body.get("pausa") or 0.0))
+            if path == "/question":
+                return self._json(s.question(self._body()))
             if path == "/cues":
                 body = self._body()
                 _, rejected, cues = s.cues_for(body["plan"], body.get("tokens") or {})

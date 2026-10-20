@@ -1259,6 +1259,20 @@ def _resolve_music_track_path(track_info: dict[str, Any]) -> Path | None:
     return mp3_abs
 
 
+def _gfx_pauses(plans: list[Any], work_dir: Path) -> dict[str, float]:
+    """F3: {cap: segundos de pausa de cierre} que apply_gfx dejó en work_dir/gfx_pause_<cap>.json (solo --gfx)."""
+    out: dict[str, float] = {}
+    for p in plans:
+        f = work_dir / f"gfx_pause_{p.chapter_id}.json"
+        try:
+            sec = float(json.loads(f.read_text(encoding="utf-8")).get("pause", 0.0)) if f.exists() else 0.0
+        except (OSError, ValueError):
+            sec = 0.0
+        if sec > 0:
+            out[p.chapter_id] = sec
+    return out
+
+
 def _build_music_piece_for_chapter(
     track_path: Path | None,
     cap_duration_sec: float,
@@ -1328,6 +1342,7 @@ def _build_continuous_music_track(
     crossfade_sec: float = MUSIC_CROSSFADE_SEC,
     piece_volumes: dict[str, float] | None = None,
     output_filename: str | None = None,
+    extra_sec: dict[str, float] | None = None,
 ) -> Path:
     """
     Construye un único WAV continuo del largo total del video, con
@@ -1351,6 +1366,8 @@ def _build_continuous_music_track(
         output_filename: chat 39 — nombre del WAV de salida en work_dir. Default
             None → CONTINUOUS_MUSIC_FILENAME. Se pasa distinto en cada llamada
             (ducked vs floor) para que las dos pistas no se pisen.
+        extra_sec: F3 — {chapter_id: segundos} que el segmento dura de más que el audio (pausa de la
+            pregunta de cierre, solo con --gfx). None → largo = audio del cap (comportamiento previo).
 
     Returns:
         Path al WAV continuo en work_dir.
@@ -1382,7 +1399,7 @@ def _build_continuous_music_track(
         piece_path = work_dir / f"_music_piece_{ch_id}.wav"
         _build_music_piece_for_chapter(
             track_path=track_path,
-            cap_duration_sec=plan.audio_duration,
+            cap_duration_sec=plan.audio_duration + (extra_sec or {}).get(ch_id, 0.0),
             output_path=piece_path,
             piece_volume=piece_volumes.get(ch_id, 1.0),  # chat 39: volumen por-cap
         )
@@ -2247,7 +2264,7 @@ def _segment_hash(plan: Any, work_dir: Path, flags: dict[str, Any]) -> str:
     }
     if flags.get("gfx"):
         from gfx_config import ACTIVE_PROFILE
-        for name in (f"gfx_plan_{cap}.json", f"gfx_zoom_box_{cap}.json"):
+        for name in (f"gfx_plan_{cap}.json", f"gfx_zoom_box_{cap}.json", f"gfx_question_{cap}.json"):
             f = work_dir / name
             parts[name] = hashlib.sha256(f.read_bytes()).hexdigest() if f.exists() else None
         parts["profile"] = ACTIVE_PROFILE
@@ -2643,6 +2660,9 @@ def _assemble_one_video(
         # Construir track continuo de música (paso A) — DOS pistas pre-atenuadas por
         # cap: ducked-source y floor-source. Cada cap entra con su volumen horneado.
         print(f"     paso A: tracks continuos (ducked + floor, vol por-cap)...")
+        pauses = _gfx_pauses(plans, work_dir) if gfx else None    # F3: la pausa de la pregunta alarga el cap
+        if pauses:
+            print(f"     pausas de cierre (gfx): {pauses}")
         music_ducked_path = _build_continuous_music_track(
             plans=plans,
             music_map=music_map,
@@ -2650,6 +2670,7 @@ def _assemble_one_video(
             crossfade_sec=MUSIC_CROSSFADE_SEC,
             piece_volumes=ducked_by_cap,
             output_filename="_music_continuous_ducked.wav",
+            extra_sec=pauses,
         )
         music_floor_path = _build_continuous_music_track(
             plans=plans,
@@ -2658,6 +2679,7 @@ def _assemble_one_video(
             crossfade_sec=MUSIC_CROSSFADE_SEC,
             piece_volumes=floor_by_cap,
             output_filename="_music_continuous_floor.wav",
+            extra_sec=pauses,
         )
 
         # Mezclar con sidechain (paso B). Output: filename canónico final_path.

@@ -38,6 +38,12 @@
       #cq-text { max-width: 1900px; padding: 0 160px; text-align: center; color: #f4f1ea;
                  font: 700 ${question_px}px/1.12 "${clipping_font}", serif; text-shadow: ${callout_shadow}; }
       #cq-text .kw { color: ${accent}; }
+      #cq-text { overflow: hidden; } #cq-text .cq-line { display: inline-block; }   /* F3: persiana */
+      /* F3: ícono de la categoría como viñeta dentro del dato y del recorte */
+      .co-ico { display: inline-block; vertical-align: middle; margin-right: 26px; }
+      .callout.right .co-ico { margin-right: 26px; }
+      .ar-ico { position: absolute; top: 22px; right: 22px; opacity: .9; }
+      .ar-ico ~ .ar-kicker, .ar-ico ~ .ar-head { padding-right: ${ar_ico_pad}px; }
       /* count_up (Anton, D13) */
       .count { position: absolute; left: 160px; top: 110px; z-index: 22; color: #f4f1ea; font: 400 220px/1 "${figure_font}", sans-serif; font-variant-numeric: tabular-nums; text-shadow: 0 8px 40px rgba(0,0,0,.55); }
       .count-unit { display: block; margin-top: 10px; font: 400 64px/1 "${figure_font}", sans-serif; text-transform: uppercase; letter-spacing: .04em; color: #f4f1ea; }
