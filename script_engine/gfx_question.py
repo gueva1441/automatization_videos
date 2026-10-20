@@ -3,11 +3,12 @@ gfx_question.py — Pregunta de cierre automática por capítulo (F3, pedido de 
 
 Contrato:
     entrada  últimas 3 frases del cap + primeras 3 del cap siguiente
-    salida   UNA pregunta ≤ 12 palabras, abierta (Qué / Cómo / Por qué / Quién / Cuánto / Dónde), que apunte a lo que
-             viene en el cap siguiente, sin responderse con sí/no y sin repetir una cifra ya dicha
+    salida   UNA pregunta ≤ 8 palabras (token question_max_words_auto), abierta (Qué / Cómo / Por qué / Quién /
+             Cuánto / Dónde), CONCRETA (sujeto reconocible: personas, lugar u objeto del cap siguiente; F4 §1.2, few-shot
+             con las de Omar), que apunte a lo que viene en el cap siguiente, sin sí/no y sin repetir una cifra ya dicha
     valida   rechaza si empieza con "¿El/La/Los/Las…" (sí/no), si no empieza con un interrogativo abierto, si pasa de
-             12 palabras, si repite una cifra ya dicha o si no comparte ningún sustantivo con las 3 primeras frases
-             del cap siguiente. 2 reintentos; si los 3 intentos fallan → sin pregunta.
+             8 palabras, si es abstracta (moral, destino, transformó…), si repite una cifra ya dicha o si no comparte
+             ningún sustantivo con las 3 primeras frases del cap siguiente. 2 reintentos; si fallan → sin pregunta.
     candado  NO es texto del guion: se guarda con generated: true (excepción explícita en gfx_literal_lock).
 
 La respuesta se cachea en work_dir/gfx_question_chNN.json (el lab la puede regenerar o editar ahí mismo).
@@ -23,8 +24,13 @@ from typing import Any, Callable
 
 OPEN_STARTS = ("qué", "cómo", "por qué", "quién", "quiénes", "cuánto", "cuánta", "cuántos", "cuántas", "dónde")
 YESNO_STARTS = ("el", "la", "los", "las")
-MAX_WORDS = 12
+MAX_WORDS = 8                      # F4 §1.2 (antes 12); el perfil lo pisa con question_max_words_auto
 ATTEMPTS = 3                       # 1 + 2 reintentos
+# F4 §1.2: preguntas del tipo que escribió Omar (concretas, cortas, sujeto reconocible)
+FEW_SHOT = ("¿Quién fue el culpable?", "¿Qué pasó con los presos del tercer piso?", "¿Por qué nadie abrió las celdas?")
+# raíces (sin tildes, 5 letras) de palabras abstractas: la pregunta tiene que apuntar a un hecho, no a una reflexión
+_ABSTRACT = {"moral", "desti", "alma", "almas", "signi", "senti", "esper", "human", "trans", "verda", "conci", "espir",
+             "simbo", "esenc", "ident", "natur", "legad", "lecci", "justi", "liber"}
 
 # palabras que NO cuentan como "sustantivo compartido" (funcionales y verbos/adverbios muy comunes)
 _NOT_NOUN = {
@@ -79,6 +85,18 @@ def clean(q: str) -> str:
     return q
 
 
+def max_words() -> int:
+    try:
+        from gfx_config import gfx_rules
+        return int(gfx_rules.question_max_words_auto)
+    except Exception:  # noqa: BLE001 — sin motor (tests aislados) → constante del contrato
+        return MAX_WORDS
+
+
+def abstract_words(body: str) -> list[str]:
+    return [w for w in re.findall(r"[a-záéíóúñü]+", body.lower()) if _strip_accents(w)[:5] in _ABSTRACT]
+
+
 def validate(q: str, next_first3: list[str], said_before: str) -> str | None:
     """None si la pregunta cumple el contrato; si no, el motivo del rechazo (corto, para el log y el lab)."""
     body = clean(q)[1:-1].strip()
@@ -90,9 +108,12 @@ def validate(q: str, next_first3: list[str], said_before: str) -> str | None:
         return f"se responde con sí/no (empieza con «{first[0]}»)"
     if not any(low.startswith(s) for s in OPEN_STARTS):
         return f"no empieza con Qué/Cómo/Por qué/Quién/Cuánto/Dónde («{first[0]}»)"
-    n = len(body.split())
-    if n > MAX_WORDS:
-        return f"{n} palabras (máx {MAX_WORDS})"
+    n, top = len(body.split()), max_words()
+    if n > top:
+        return f"{n} palabras (máx {top})"
+    abst = abstract_words(body)
+    if abst:
+        return f"abstracta ({', '.join(abst)}): tiene que apuntar a un hecho concreto"
     rep = figures(body) & figures(said_before)
     if rep:
         return f"repite una cifra ya dicha ({', '.join(sorted(rep))})"
@@ -108,10 +129,13 @@ def build_prompt(last3: list[str], next_first3: list[str], rejected: list[tuple[
         "\n\nCOMIENZO DEL CAPÍTULO SIGUIENTE (primeras 3 frases, el espectador todavía NO las escuchó):\n" +
         "\n".join(f"- {s}" for s in next_first3) +
         "\n\nEscribí UNA pregunta de cierre en español rioplatense neutro:\n"
-        f"- máximo {MAX_WORDS} palabras;\n"
+        f"- máximo {max_words()} palabras;\n"
+        "- CONCRETA: un sujeto que el espectador reconoce (personas, un lugar, un objeto) y un hecho; nada abstracto "
+        "(moral, destino, transformación, significado);\n"
         "- abierta: empieza con ¿Qué, ¿Cómo, ¿Por qué, ¿Quién, ¿Cuánto o ¿Dónde (nunca algo que se conteste sí/no);\n"
         "- apunta a lo que viene en el capítulo siguiente, usando al menos un sustantivo de esas 3 frases, sin responderlo;\n"
         "- sin cifras que ya se dijeron.\n"
+        "\nASÍ SON las preguntas de este canal (el tono, no el contenido): " + " · ".join(FEW_SHOT) + "\n"
         + (f"\nIntentos anteriores que NO sirvieron:{rej}\n" if rej else "") +
         '\nDevolvé {"pregunta": "¿…?"}'
     )

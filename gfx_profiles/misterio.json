@@ -1,6 +1,6 @@
 {
   "name": "misterio",
-  "description": "Perfil del canal de historia oscura / misterio (Ruta de Valor). Valores = calibración F2 §0b aprobada por Omar.",
+  "description": "Perfil del canal de historia oscura / misterio (Ruta de Valor). Calibración F2 §0b + identidad del lab F3 (Omar, 2026-10-20 01:20).",
   "nichos": ["dark_history"],
   "fonts": {
     "subs": "Anton",
@@ -10,7 +10,7 @@
     "clipping": "Playfair Display SC"
   },
   "tokens": {
-    "accent_hex": "#c8102e",
+    "accent_hex": "#c2302f",
     "interrupt_min_sec": 12.0,
     "interrupt_max_sec": 18.0,
     "title_dur": 3.0,
@@ -41,7 +41,7 @@
     "archive_body_px": 40,
     "count_dur": 1.2,
     "count_hold_sec": 2.5,
-    "punch_scale": 1.025,
+    "punch_scale": 1.015,
     "punch_in_sec": 0.4,
     "punch_hold": true,
     "transition_frames": {"R1": 3, "R2": 20, "R3": 30},
@@ -58,7 +58,11 @@
     "question_dim": 0.7,
     "icon_px": 360,
     "black_hold_sec": 1.0,
-    "peak_blocks": true
+    "peak_blocks": true,
+    "anim_figure": "stamp",
+    "emphasis_stamp_px": 84,
+    "mood_dur": 2.5,
+    "question_max_words_auto": 8
   },
   "moods": {
     "veneno_enfermedad": {"active": true, "layer": "veneno", "triggers": {"veneno": 3, "venenos": 3, "venenoso": 3, "venenosa": 3, "envenenado": 3, "envenenada": 3, "envenenados": 3, "envenenadas": 3, "envenenamiento": 3, "arsénico": 3, "cianuro": 3, "gas": 1, "gases": 1, "tóxico": 2, "tóxica": 2, "tóxicos": 2, "tóxicas": 2, "toxinas": 2, "putrefacción": 3, "pútrido": 3, "pútrida": 3, "podrido": 3, "podrida": 3, "podridos": 3, "infección": 2, "infecciones": 2, "infectado": 2, "infectada": 2, "infectados": 2, "infectadas": 2, "contaminado": 2, "contaminada": 2, "contaminados": 2, "contaminadas": 2, "contaminación": 2, "enfermo": 1, "enferma": 1, "enfermos": 1, "enfermas": 1, "enfermedad": 1, "enfermedades": 1, "epidemia": 2, "plaga": 2, "peste": 3, "residuales": 2, "cloacas": 2, "excrementos": 3, "heces": 3, "fiebre": 2, "cólera": 3, "tifus": 3, "disentería": 3, "llagas": 3, "pus": 3}, "icon_anim": "ink_bleed", "icon_words": {"veneno": "calavera", "venenos": "calavera", "venenoso": "calavera", "venenosa": "calavera", "envenenado": "calavera", "envenenada": "calavera", "envenenados": "calavera", "envenenadas": "calavera", "envenenamiento": "calavera", "arsénico": "calavera", "cianuro": "calavera", "tóxico": "calavera", "tóxica": "calavera", "tóxicos": "calavera", "tóxicas": "calavera", "toxinas": "calavera", "infección": "biohazard", "infecciones": "biohazard", "infectado": "biohazard", "infectada": "biohazard", "infectados": "biohazard", "infectadas": "biohazard", "contaminado": "biohazard", "contaminada": "biohazard", "contaminados": "biohazard", "contaminadas": "biohazard", "contaminación": "biohazard", "epidemia": "biohazard", "plaga": "biohazard", "peste": "biohazard", "cólera": "biohazard", "tifus": "biohazard", "disentería": "biohazard"}},
@@ -94,5 +98,6 @@
     "source_tag":       {"enabled": true, "max_per_cap": 999, "where": "bajo data_callout y count_up con fuente resoluble"},
     "shot_transition":  {"enabled": true, "max_per_cap": 999, "where": "cada corte intra-cap"},
     "grade":            {"enabled": true, "max_per_cap": 1, "where": "todos los caps"}
-  }
+  },
+  "identity": {"version": 1, "saved_at": "2026-10-20 01:20:38", "golden_plan": "misterio_golden_ch02.json", "marks": {"icon_callout": {"v": "si", "auto": true}, "vignette": {"v": "si", "auto": true}, "title_card": {"v": "si", "auto": true}, "punch_in": {"v": "si", "auto": true}, "archive_clipping": {"v": "si", "auto": true}, "keyword_stamp": {"v": "si", "auto": true}, "keyword_emphasis": {"v": "si", "auto": true}, "data_callout": {"v": "si", "auto": true}, "chapter_question": {"v": "si", "auto": true}, "black_hold": {"v": "si", "auto": true}}, "anotado": {"ken_burns_in": {"intensidad": 2, "easing": "suave"}, "subs": {"tamano": "M"}, "archive_clipping": {"estilo": "periodico", "rotacion": -2}, "ken_burns_out": {"intensidad": 2}, "pan": {"direccion": "→", "intensidad": 2}, "depthflow": {"preset": "dolly", "intensidad": 2}, "keyword_emphasis": {"intensidad": "baja", "sfx": "auto"}}, "sugerencias": {"S01": "si", "S02": "si", "S04": "si", "S10": "si", "S06": "si", "S11": "si", "S08": "si", "S07": "si"}, "faltan": "", "lab_tokens": {"title_dur": 3, "accent_hex": "#c2302f", "archive_max_w_frac": 0.3, "mood_dur": 2.5, "vignette_opacity": 0.15, "punch_scale": 1.015, "anim_figure": "stamp", "emphasis_stamp_px": 84}}
 }

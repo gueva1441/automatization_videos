@@ -26,7 +26,11 @@ SAID = "Algunas partes quedaron bajo 15 pies de agua. Aproximadamente 6,500 pers
     ("¿Las celdas aguantaron?", False),
     ("¿Resistió la prisión al huracán?", False),                         # no empieza con interrogativo abierto
     ("¿Qué pasó con las 6,500 personas dentro de la prisión?", False),   # repite cifra ya dicha
-    ("¿Qué sintieron todos ellos mientras miraban afuera sin poder hacer nada en absoluto?", False),   # > 12 palabras
+    ("¿Qué sintieron todos ellos mientras miraban afuera sin poder hacer nada en absoluto?", False),   # > 8 palabras
+    ("¿Qué pasó con los generadores de respaldo de la prisión?", False),   # 9 palabras (F4: máx 8)
+    ("¿Cómo transformó la prisión la moral de los presos?", False),        # F4: abstracta
+    ("¿Quién apagó los generadores?", True),                               # F4: concreta, tipo Omar
+    ("¿Qué justicia lograron los presos?", False),                          # F4: abstracta (revisor §1)
     ("¿Quién tuvo la culpa de todo esto?", False),                       # ningún sustantivo del cap siguiente
 ])
 def test_validate(q, ok):
@@ -178,3 +182,9 @@ def test_icon_sources_toma_la_fuente_del_dato():
     assert icon_sources(res, ctx) == 1
     assert res["emphasis"][0]["source"] == "Human Rights Watch, 2005"
     assert "source" not in res["emphasis"][1] and "source" not in res["emphasis"][2]
+
+
+def test_f4_prompt_lleva_few_shot_y_tope_8():
+    p = gq.build_prompt(["A."], NEXT3, [])
+    assert all(q in p for q in gq.FEW_SHOT) and "máximo 8 palabras" in p and "CONCRETA" in p
+    assert gq.abstract_words("¿Cómo el encierro transformó la oscuridad moral de los prisioneros?") == ["transformó", "moral"]

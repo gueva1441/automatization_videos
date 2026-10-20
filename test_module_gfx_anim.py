@@ -12,7 +12,7 @@ from script_engine.gfx_project import GfxScene, callout_anim, chars_html, write_
 def test_mapa_bloque_animacion():
     assert callout_anim("name") == callout_anim("place") == "cascade"
     assert callout_anim("year") == "stamp"
-    assert callout_anim("figure") == "number_pop"
+    assert callout_anim("figure") == gp.gfx_rules.anim_figure == "stamp"            # F4: cifras con sello (lab)
 
 
 def test_cascade_parte_en_palabras_y_letras():
@@ -40,7 +40,8 @@ def test_index_usa_las_tres_animaciones(project):
     assert f"stagger: {gp.gfx_rules.cascade_stagger}" in html                       # cascade (callout + recorte)
     assert '"#ar0 .ar-head .ch"' in html
     assert 'class="co-text serif stamp"' in html and "rotation: -3.0" in html      # stamp
-    assert f"scale: {gp.gfx_rules.pop_from_scale}" in html and '"#cu-num"' in html  # number_pop + golpe del contador
+    if gp.gfx_rules.anim_figure == "number_pop":                                       # golpe del contador solo con number_pop
+        assert f"scale: {gp.gfx_rules.pop_from_scale}" in html and '"#cu-num"' in html
     assert "letterSpacing" not in html and "letter-spacing:" not in html.split("<style>")[1].split("</style>")[1]
 
 

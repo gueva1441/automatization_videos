@@ -69,7 +69,7 @@ def test_calibracion_f2_0b():
     assert off["gr-grain"] == 0.0 and off["gr-vignette"] == 0.15      # F2b §1.6: look aprobado (grano 0, viñeta 0.15)
     assert all(v == 0 for k, v in off.items() if k not in ("gr-grain", "gr-vignette"))
     assert r.title_dur == 3.0 and r.title_scale == 0.7 and r.title_fade_out == 0.4      # §0b.2
-    assert r.punch_scale == 1.025 and r.punch_in_sec == 0.4 and r.punch_hold             # §0b.3
+    assert r.punch_scale == 1.015 and r.punch_in_sec == 0.4 and r.punch_hold             # §0b.3 → F4: suave (lab)
     assert r.transition_frames == {"R1": 3, "R2": 20, "R3": 30} and r.dip_frames == 10  # §0b.4
     assert r.zoom_hold_min_sec >= 1.0                                                   # §0b.5
     assert r.archive_dur == 6.0 and r.archive_max_per_cap == 2 and r.archive_scale == 0.68  # §0b.6 + ajuste

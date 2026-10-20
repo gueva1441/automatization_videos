@@ -29,7 +29,7 @@ FONT_TOKENS: dict[str, str] = {"callout_font": "callout", "figure_font": "callou
 # pieza del catálogo → bloque del motor (inventario `blocks` del perfil)
 ENGINE_BLOCK: dict[str, str] = {
     "title_card": "title_card", "data_callout": "data_callout", "archive_clipping": "archive_clipping",
-    "count_up": "count_up", "punch_in": "punch_in", "chapter_question": "chapter_question",
+    "count_up": "count_up", "punch_in": "punch_in",
     "keyword_emphasis": "keyword_emphasis", "icon_callout": "icon_callout", "icon_array": "icon_array",
     "source_tag": "source_tag",
 }
@@ -198,7 +198,11 @@ def apply_identity(prof: dict[str, Any], state: dict[str, Any], *, golden_name: 
     """Perfil nuevo = perfil actual + tokens/fuentes del lab + enabled por ✔/✖ + léxico + `identity`."""
     new = copy.deepcopy(prof)
     tokens = dict(state.get("tokens") or {})
+    import gfx_config
     for k, v in tokens.items():
+        ref = getattr(gfx_config.GfxRules(), k, None)
+        if isinstance(ref, float) and isinstance(v, int) and not isinstance(v, bool):
+            v = float(v)                                         # F4: 3 → 3.0 (el lab manda enteros)
         if k in FONT_TOKENS:
             new.setdefault("fonts", {})[FONT_TOKENS[k]] = v
         else:
@@ -208,6 +212,8 @@ def apply_identity(prof: dict[str, Any], state: dict[str, Any], *, golden_name: 
         blk = ENGINE_BLOCK.get(eid)
         if blk and m.get("v") in ("si", "no"):
             new.setdefault("blocks", {}).setdefault(blk, {})["enabled"] = m["v"] == "si"
+        if eid == "chapter_question" and m.get("v") in ("si", "no"):   # F4: la genera gfx_question, no el director (C56)
+            new.setdefault("tokens", {})["question_auto"] = m["v"] == "si"
         if m.get("v") == "no":
             for k, v in NEVER_TOKENS.get(eid, {}).items():
                 new.setdefault("tokens", {})[k] = v

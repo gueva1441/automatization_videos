@@ -13,7 +13,7 @@ import gfx_config as gc
 def test_carga_ambos_perfiles_sin_tocar_codigo():
     mis, fin = gc.load_profile("misterio"), gc.load_profile("finanzas")
     rm, rf = gc.rules_from_profile(mis), gc.rules_from_profile(fin)
-    assert rm.accent_hex == "#c8102e" and rf.accent_hex != rm.accent_hex
+    assert rm.accent_hex == "#c2302f" and rf.accent_hex != rm.accent_hex          # F4: acento de la identidad del lab
     inv_f = {b.name: b for b in gc.inventory_from_profile(fin)}
     assert not inv_f["archive_clipping"].enabled and inv_f["archive_clipping"].max_per_cap == 0
     assert rf.archive_max_per_cap == 0 and rf.grain_opacity == 0.0
@@ -28,7 +28,9 @@ def test_misterio_reproduce_la_calibracion_0b():
     assert diffs == {"interrupt_min_sec", "interrupt_max_sec", "grain_opacity", "vignette_opacity",
                      "mood_dark_flicker",                                  # PARADA 1: oscuridad sin parpadeos
                      "question_auto", "question_dim", "icon_px",           # F3: pregunta generada (70 %) + ícono L
-                     "black_hold_sec", "peak_blocks"}, diffs               # F3: corte a negro 1 s + pico del cap
+                     "black_hold_sec", "peak_blocks",                      # F3: corte a negro 1 s + pico del cap
+                     "accent_hex", "punch_scale", "anim_figure", "emphasis_stamp_px",
+                     "question_max_words_auto"}, diffs   # F4: identidad del lab
     assert (rm.interrupt_max_sec, rm.grain_opacity, rm.vignette_opacity) == (18.0, 0.0, 0.15)
     assert (rm.question_auto, rm.question_dim, rm.icon_px, rm.question_pause_sec) == (True, 0.7, 360, 3.0)
 

@@ -54,7 +54,7 @@ def test_apply_identity_tokens_fuentes_bloques_y_lexico():
     assert new["moods"]["agua"]["triggers"]["sumergidos"] == 2
     assert new["identity"]["marks"]["count_up"]["por_que"] == "no me gusta"
     assert PROFILE["tokens"]["accent_hex"] != "#c2302f" or True        # el original no se muta
-    assert "identity" not in PROFILE
+    assert PROFILE.get("identity", {}).get("marks", {}).get("count_up", {}).get("por_que") != "no me gusta"
 
 
 def _save(st, profiles, tmp_path):
