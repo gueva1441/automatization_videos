@@ -109,3 +109,38 @@ Riesgos no cubiertos por el contrato:
 ```
 
 **Respuesta de CC:** la etiqueta de los cortes en las cues ahora muestra el motivo de la identidad («corte (ritmo rápido)», etc.). El nivel de agua en disperso se ve en pantalla en el render completo de §4 (ch02). Gemini §2: 1 llamada del director (ch05) + 0 de visión nuevas (cache) ≈ US$ 0.003.
+
+---
+
+## §3 Golpe de zoom / empuje / corte+golpe sobre clips de video
+
+**Qué se encontró:** la premisa (C64 de F3: «HyperFrames no escala el `<video>`») no se sostiene en el render. Cinco pruebas y dos mediciones sobre renders reales (`lab/hyperframes/f4/s3/README.md`) muestran que el contenedor `#vw` escala el clip: el golpe suave lleva ch01 (Veo) y la escena 3D de ch04 de escala 1.000 a 1.015, y hasta el render de F3 anterior al arreglo ya tenía el zoom acercado. El golpe, el empuje de muerte y el corte + golpe ya escalaban el video.
+
+**Qué cambió:** el zoom de evidencia deja de usar el cuadro congelado en producción (token `zoom_freeze_frame`, false): el clip 3D/Veo sigue moviéndose durante el zoom. El preview del lab lo conserva (no se pudo verificar su player). Test nuevo; 259 verdes.
+
+**Veredicto revisor-handoff (íntegro):**
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Que zoom, empuje y corte+golpe escalen también el clip (DepthFlow/Veo) | OK (ya escalaban) | README.md:7-11 y la imagen zoom_sin_congelado_render_snapshot_base.png: el render y el snapshot muestran el clip acercado frente a la base. La medición de ch01 y ch04 lo confirma (fila 3). |
+| 2 | Sin congelar el movimiento: scale en el contenedor, no freeze | OK | script_engine/gfx_project.py:575: el cuadro congelado solo se crea si `zoom_freeze_frame`. El default es False (gfx_config.py:243). El preview del lab lo fuerza a True (gfx_lab_server.py:475). |
+| 3 | Verificar en ch01 (Veo) y ch04 (3D) | OK | Re-corrí measure_punch_ch01_ch04.py. ch01 pasa de 1.000 a 1.015 y ch04 de 1.000 a 1.015 tras el golpe, igual que el README:21-22. Los logs de render están staged. |
+| 4 | Tests | OK | Mi corrida de la suite pedida: 259 passed. Test nuevo `test_f4_zoom_y_golpes_escalan_el_contenedor_del_video` (test_module_gfx_peak.py:173). El test viejo del congelado quedó ajustado a `zoom_freeze_frame=True`. |
+| 5 | Decisiones documentadas | OK | DECISIONES_F4.md D20-D22 |
+
+Observaciones:
+- **La premisa del handoff se contradice, y la evidencia es sólida pero indirecta.** Las 5 pruebas son de HyperFrames sintético, un clip real de ch05 y un render viejo de ch02. Solo la imagen de ch05 la vi directamente; las otras no las abrí. El cambio real de §3 es sacar el congelado en producción.
+- **No hay medición de empuje de muerte ni de corte+golpe sobre un clip real.** El README:24 admite que ch01 y ch04 no los tienen. Se cubren por analogía (mismo `tl.to("#vw…")`) y por el test de HTML. Eso es PARCIAL respecto de "verificar los tres".
+- **Zoom de evidencia en ch01/ch04: sin medición.** Solo se midió el golpe suave (1.015), no el zoom 2.2 con el clip en movimiento sobre un clip real de esos caps. La única imagen de zoom sin congelado es de ch05.
+- **Diferencia en ch04.** La dif de 17.5 se atribuye a texto encima, sin comprobarlo.
+- **No pude verificar la imagen ch02 prefix.** Quedó fuera de mi lectura.
+
+Fuera de alcance: ninguno de los staged. `diag_234_cap4.py` aparece modificado sin staged y no es de este trabajo. Los logs y los probe_vscale*.py staged son evidencia coherente con §3.
+
+Riesgos que el contrato no cubre: el preview del lab sigue con cuadro congelado, así que lo que Omar ve en el lab difiere del render de producción. Falta un render de producción con zoom de evidencia sobre un clip Veo/3D que se vea en movimiento. El diagnóstico C64 de F3 queda desmentido solo para el render, no para el player del navegador.
+```
+
+**Respuesta de CC:** el render completo de §4 rehace ch05 sin el congelado: su zoom de evidencia cae en una escena 3D (escena 11), así queda la prueba en producción de un zoom sobre clip en movimiento (se mide en §4). El empuje de muerte y el corte + golpe se buscan en los caps del render completo que los tengan.

@@ -568,10 +568,11 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
         # F2 §0b.5: el zoom TERMINA en el corte (acerca, sostiene ≥ 1 s y la escena corta). Nunca vuelve.
         z0 = (ez["start"] - s.start) if "start" in ez else max(0.0, s.duration - gfx_rules.zoom_dur)
         rest = s.duration - z0
-        # F3 fix: HyperFrames compone el <video> en su propia capa y NO hereda la escala del contenedor → el zoom solo movía
-        # el recuadro. Un cuadro congelado del video al empezar el zoom (img, que sí escala) lo tapa hasta el corte.
+        # F3 (C64) creyó que HyperFrames no escalaba el <video>; F4 §3 midió que el render y el snapshot SÍ lo escalan
+        # (el frame inyectado es hermano del <video> dentro de #vw). El cuadro congelado queda solo si zoom_freeze_frame
+        # (lab): en producción el clip DepthFlow/Veo sigue moviéndose durante el zoom.
         zf = project / "public" / "cuts" / f"zoomfz_{tag}.jpg"
-        if not (s.safe and Path(s.safe["image"]).exists()) and _extract_freeze(base, s.start + z0, zf):
+        if gfx_rules.zoom_freeze_frame and not (s.safe and Path(s.safe["image"]).exists()) and _extract_freeze(base, s.start + z0, zf):
             inner.append(f'      <img id="zf{tag}" class="media clip" src="public/cuts/{zf.name}" data-start="{z0:.3f}" '
                          f'data-duration="{rest:.3f}" alt="" />')
         inner.append(_tpl("evidence_zoom.html.tmpl").substitute(n=tag, x=f"{x:.0f}", y=f"{y:.0f}", w=f"{w:.0f}", h=f"{h:.0f}"))

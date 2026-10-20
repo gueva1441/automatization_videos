@@ -149,8 +149,9 @@ def test_reloj_elige_la_esquina_libre():
 
 
 def test_zoom_tapa_el_video_con_un_cuadro_congelado(tmp_path, monkeypatch):
-    """HyperFrames compone el <video> en su capa y no hereda la escala: el zoom va sobre un cuadro congelado (img)."""
+    """Lab (zoom_freeze_frame): el zoom va sobre un cuadro congelado (img). En producción F4 §3 lo apaga."""
     from script_engine import gfx_project
+    monkeypatch.setattr(gfx_project, "gfx_rules", replace(gfx_project.gfx_rules, zoom_freeze_frame=True))
     from script_engine.gfx_project import write_project
     monkeypatch.setattr(gfx_project, "_extract_freeze", lambda base, t, out: (out.parent.mkdir(parents=True, exist_ok=True),
                                                                               out.write_bytes(b"jpg"), True)[-1])
@@ -169,3 +170,20 @@ def test_f4_reloj_solo_con_dos_horas_verificadas():
     assert gp.time_ticker(CTX, WORDS, 30.0, pk) is None                      # solo fecha → no sale
     ctx2 = dict(CTX, facts=CTX["facts"] + ["A las 23:40 se cortó la luz y a las 01:15 volvió."])
     assert gp.time_ticker(ctx2, WORDS, 30.0, None)["advance"] is True
+
+
+def test_f4_zoom_y_golpes_escalan_el_contenedor_del_video(tmp_path, monkeypatch):
+    """F4 §3: sin cuadro congelado; zoom, golpe de zoom y corte+golpe animan #vw (el frame del <video> va adentro)."""
+    from script_engine import gfx_project
+    from script_engine.gfx_project import write_project
+    assert gfx_project.gfx_rules.zoom_freeze_frame is False
+    monkeypatch.setattr(gfx_project, "_extract_freeze", lambda base, t, out: True)
+    (tmp_path / "public").mkdir()
+    (tmp_path / "public" / "base.mp4").write_bytes(b"x")
+    plan = {"chapter_number": 2, "evidence_zoom": {"scene_idx": 1, "box": [0.4, 0.45, 0.2, 0.2], "start": 13.0},
+            "punch_in": [3.0], "transitions": {"1": {"kind": "cut_punch", "frames": 0, "rank": "R1"}}}
+    write_project(plan, [GfxScene(0, 0.0, 8.0), GfxScene(1, 8.0, 16.0)], tmp_path, duration=16.0, width=2560, height=1440, fps=30)
+    s1 = (tmp_path / "compositions" / "scene_01.html").read_text(encoding="utf-8")
+    s2 = (tmp_path / "compositions" / "scene_02.html").read_text(encoding="utf-8")
+    assert "zoomfz" not in s2 and '.to("#vw02", { scale: 2.2' in s2
+    assert 'tl.to("#vw01", { scale: 1.015' in s1 and 'tl.fromTo("#vw02", { scale:' in s2

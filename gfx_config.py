@@ -240,6 +240,7 @@ class GfxRules:
     zoom_approach_sec: float = 1.2
     zoom_hold_min_sec: float = 1.0
     zoom_scale: float = 2.2
+    zoom_freeze_frame: bool = False          # F4 §3: el render SÍ escala el <video> (C64 era del preview); True = cuadro congelado (lab)
     zoom_box_min: float = 0.06               # lado mínimo del box normalizado
     zoom_box_max: float = 0.25
     zoom_label_margin_px: int = 40           # "DETALLE" a ≥ 40 px del borde

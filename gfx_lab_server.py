@@ -472,7 +472,7 @@ class LabSession:
                 self._link_base(project)
                 for old in (project / "compositions").glob("scene_*.html"):   # sin restos de Probar anteriores
                     old.unlink()
-            with rules_override(tokens or {}):
+            with rules_override({"zoom_freeze_frame": True, **(tokens or {})}):   # F4 §3: el preview conserva el congelado de F3
                 scenes = self._scenes_for(solo, movimientos)
                 pausa = max(0.0, min(float(pausa or 0.0), self.TAIL_SEC))     # pausa de cierre: alarga el último tramo
                 if pausa and scenes and scenes[-1].idx == len(self.scenes) - 1:

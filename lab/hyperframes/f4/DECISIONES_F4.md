@@ -26,3 +26,8 @@ Regla del modo nocturno: ante una decisión sin regla escrita, lo más conservad
 - **D17** Bug encontrado: el render disperso no corría al timeline de ventanas el nivel de agua, el reloj, el corte a negro ni el latido (F3 solo se había probado sin disperso). Arreglado en `gfx_sparse` con test.
 - **D18** `IDENTIDAD_misterio.md` pasa a `gfx_profiles/` (versionado, §4 del handoff, adelantado porque el pedido de Omar lo nombra ahí); el lab ahora lo escribe ahí. Se commitea también `misterio_golden_ch02.json` (lo lee el few-shot).
 - **D19** `--hw-encode` no se usa en §4: NVENC midió 48.7 dB (< 50) en F2 y no hay medición nueva.
+
+## §3 — Golpe de zoom / empuje / corte+golpe sobre clips de video
+- **D20** Antes de cambiar código se midió (5 pruebas, `lab/hyperframes/f4/s3/README.md`): en el render y en el snapshot de HyperFrames 0.8.172 el contenedor `#vw` SÍ escala el clip de video (el frame inyectado es hermano del `<video>` dentro de `#vw`). Hasta el render de F3 anterior al arreglo C64 estaba acercado. Por eso el golpe de zoom, el empuje de muerte y el corte + golpe ya escalaban el video; no hacía falta tocarlos.
+- **D21** Lo que sí se cambió: el zoom de evidencia deja de tapar el clip con un cuadro congelado en producción (token `zoom_freeze_frame`, motor false), así DepthFlow/Veo siguen moviéndose durante el zoom, como pide el handoff. El preview del lab lo conserva (true): ahí no se pudo verificar el player del navegador y es donde se vio el problema en F3.
+- **D22** Verificación en ch01 (Veo) y ch04 (3D) con `--only-cap` (renders parciales permitidos); el render completo de §4 reusa esas capas.
