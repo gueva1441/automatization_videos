@@ -120,3 +120,83 @@ Riesgos que el contrato no cubre:
 ```
 
 **Respuesta de CC:** el dedupe con datos reales se ve en el render de §5 (planes rehechos en orden). Gasto §2: 3 pasadas de prueba × 7 llamadas Flash sin thinking ≈ US$ 0.01; el total de F4b se mide con el cost_tracker en §5.
+
+---
+
+## §4 Íconos gratis automáticos
+
+**Qué hay:**
+- `script_engine/gfx_icons/fetch_game_icons.sh` baja game-icons.net (CC BY 3.0), 4.239 SVG, fuera de git.
+- `script_engine/gfx_icons/auto_icons.py`:
+  - índice inglés → español (`gfx_profiles/icons/icons_index.json`): 4.176 nombres, 3.729 con traducción, 17 llamadas Flash;
+  - Flash elige entre los candidatos según la frase;
+  - el SVG se restiliza al hueso del canal, con la tinta y el secado del set propio.
+- Claves `gi:` en `icon_svg`. Token `auto_icons`.
+- Prioridad: los 12 propios → game-icons → sin ícono.
+- Crédito fijo en la descripción de m09: «Íconos: game-icons.net (CC BY 3.0) · Lucide (MIT)».
+
+**Orleans:** cargas concretas de §1 = «agua» (propio: gota) · «penumbra» (ninguno) · «líquida» (ninguno). La tira `tira_iconos_auto_orleans.jpg` suma 22 sustantivos de la narración como demo del estilo: 12 con game-icons. Hay aciertos (prisioneros = preso tras barrotes, ojos, personas, ciudad, almas) y elecciones flojas («pecho» → baúl, «seis» → número 6, «justicia» → carta de tarot). Por eso en el pipeline solo entran palabras de carga marcadas concretas.
+
+---
+
+## §3 Zoom foto-primero
+
+**Qué hay:** `script_engine/gfx_vision.py` (token `photo_first_zoom`), decisiones E19–E22 y E36–E37.
+- Antes del director, visión mira cada foto: hasta 3 detalles con caja, confianza y tipo, en caché por hash de la imagen.
+- El zoom sale de la foto, en este orden: pico → nombrado por la voz → «de editor» (rostro o manos, en la foto de la frase más intensa) → textura nombrada.
+- Cada zoom se confirma recortando la caja.
+- Las fotos con rostro o manos quedan de riesgo alto y el acercar apunta al detalle.
+
+**Orleans:** detalles en 96 de 97 escenas (1 falló el JSON de visión y quedó anotada). Rostro o manos en 32 escenas. Zoom por cap (`zooms_orleans.jpg`):
+
+| cap | zoom | cómo | antes (F4) |
+|---|---|---|---|
+| ch01 | rostro del hombre | de editor | sin zoom |
+| ch02 | dedos mojados | de editor | caja «ahogaba» (nivel de agua en el pico) |
+| ch03 | ojos asustados | de editor | caja sin detalle nombrado |
+| ch04 | lágrima | nombrado («ojos») | «piel» |
+| ch05 | rostro del niño | nombrado («ojos») | «cuerpos» (pico) |
+| ch06 | cicatriz | de editor | (zoom con caja) |
+| ch07 | rostro del hombre | de editor | sin zoom |
+
+Ningún zoom a textura (agua, aceite): las dos texturas nombradas que aparecieron («ojo del huracán», «agua estancada») quedaron detrás de un detalle humano. La primera regla de «nombrado» daba «insecto en agua»; después de E36–E37 los 7 recortes muestran el detalle real.
+
+**Veredicto revisor-handoff §3 + §4 + código de la marca (íntegro):**
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+Los 282 tests pasan (los que pediste, los corrí yo). No corrí fase2b.
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | §3 prioridad rostro/manos > persona > objeto > texto > textura | OK | `script_engine/gfx_vision.py` PRIORITY; `validate` ordena por prioridad y confianza; test `test_validacion_y_prioridad` |
+| 2 | §3 textura solo si se nombra literal y la foto no tiene humano | OK | `pick_zoom`: la textura se salta si hay humano en la foto y va última en `order`; test `test_nombrado_gana_y_textura_nunca_con_humano`. Orleans: ningún zoom a textura (F4b_REPORT §3) |
+| 3 | §3 1 zoom por cap | OK | `pick_zoom` devuelve uno solo. `gfx_layer.py` pone `evidence_zoom=None` antes de decidir y desactiva el zoom fuera del pico con `off_peak_zoom=not details`. La tabla de Orleans tiene 7 zooms, uno por cap |
+| 4 | §3 zoom de editor con conf ≥ 0.8 en la frase más intensa | OK | `EDITOR_CONF=0.8`; se ordena por `scene_intensity`; test `test_zoom_de_editor_en_la_foto_mas_intensa_y_lejos_del_pico` |
+| 5 | §3 rostro/manos → riesgo alto y el acercar apunta al box | PARCIAL | `gfx_layer.py:~495` fija `risk:"rostro"` (no `deform_risk=high` literal) con `origin` en el centro de la caja; `gfx_project.py` usa ese origen como `transformOrigin`. Solo se aplica con `is_flux and not s.safe`. En caps Veo/híbridos no se marca riesgo, y una escena que ya tenía `safe` no se toca |
+| 6 | §3 zoom_judge viejo como respaldo | OK | Si visión falla (`details` vacío), no se descarta nada y corre el camino de F4 (`apply_zoom_vision` en `_box`, `plan_peak` con zoom fuera del pico) |
+| 7 | §3 evidencia Orleans (caché de visión, zooms, tira) | OK | `lab/hyperframes/f4b/vision_orleans.json` cubre ch01–ch07; `zooms_orleans.jpg` de 57 KB; tabla en el reporte. No abrí las imágenes |
+| 8 | §4 game-icons fuera de git, con script de descarga | OK | `.gitignore` línea 63; `git check-ignore` confirma la ruta; `script_engine/gfx_icons/fetch_game_icons.sh`. La ruta es `script_engine/gfx_runtime/icons/`, no `gfx_runtime/icons/` como decía el handoff (decisión E23) |
+| 9 | §4 índice | OK | `gfx_profiles/icons/icons_index.json` (26k líneas, versionado). La validación a mano de 50 entradas está en E34 |
+| 10 | §4 restilizado al look del canal | PARCIAL | `game_icon_svg` en `auto_icons.py`: fondo quitado, relleno hueso `#e8e0cc` y filtro de tinta de `scoped_svg`. Sin rojo semántico (E24). No es el mismo pipeline que Lucide, y el handoff no pedía rojo si no hay detalle |
+| 11 | §4 prioridad propios > game-icons, y solo cargas concretas | OK | `gfx_layer.py` solo busca ícono si `not e.get("icon")` y la palabra es `concreta`. El paso a Lucide casi no existe porque solo hay 12 SVG en el repo (E25, admitido) |
+| 12 | §4 crédito en la descripción (m09) | OK | `script_engine/m09_packaging.py` `ICON_CREDIT` y `with_icon_credit`, llamado desde `_normalize_metadata`. El texto coincide con el handoff |
+| 13 | §4 tira de Orleans | OK | `tira_iconos_auto_orleans.jpg` (189 KB) más `iconos_auto_orleans.json` |
+| 14 | §0.3 la marca sale solo del perfil; finanzas sin marca | OK | `gfx_bug.config()` lee `ACTIVE_PROFILE["channel_bug"]` y exige `enabled` y `svg`. Ni `misterio.json` ni `finanzas.json` tienen la clave, así que queda apagada |
+| 15 | §0.3 implementación (esquina, opacidad, fades, cierre) | NO VERIFICABLE | `test_module_gfx_bug.py` pasa, pero no hay render con la marca encendida. Falta correr un cap con `channel_bug.enabled` |
+| 16 | §6 candados (literal, `main` intacta, sin `--gfx` byte-idéntico) | PARCIAL | `choose_icons` y `pick_zoom` eligen entre opciones, nunca escriben. No hay prueba de que sin `--gfx` el segmento sea byte-idéntico: el cambio en `stitch` solo actúa con `bug`, pero nadie lo comparó |
+
+Fuera de alcance: ninguno. `diag_234_cap4.py` figura como modificado sin stagear (` M`), así que no está en el diff staged. Los archivos staged son los esperados de §0.3, §3 y §4 más sus pruebas y reportes. No toqué `main`.
+
+Riesgos que el contrato no cubre:
+- El crédito de game-icons y Lucide se agrega a la descripción de todos los canales, incluido finanzas, aunque ahí no se usen esos íconos.
+- El cierre de video agrega 3,5 s al último cap con la pausa de F3, pero solo se activa con la marca encendida y no está probado en un render real. Hay que verificarlo cuando Omar elija candidato.
+- Si falla la visión en una escena, esa escena queda sin detalles y la falla queda cacheada (el JSON de Orleans tiene una escena así). El respaldo con zoom_judge solo funciona si falla el cap entero, no escena por escena.
+```
+
+**Respuesta de CC:**
+- Respaldo por escena: una escena con visión fallida no entra en `details`, así que para esa escena el pico usa el camino viejo (caché de caja + zoom_judge en `_box`). Lo que no hace es el zoom «de editor» en esa escena.
+- Crédito en todos los canales: se deja (atribución de más no viola la licencia; de menos sí).
+- Byte-idéntico sin `--gfx`: se mide en §5 (md5 de ch02 `--only-cap`).
+- La marca encendida y el cierre se prueban en §5 si Omar eligió candidata; si no, quedan apagados (no se elige por él).

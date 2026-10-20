@@ -274,7 +274,7 @@ def box_from_cache(cache: Any) -> Callable[[int, str], list[float] | None]:
 def plan_peak(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], scenes: list[Any], moods: dict[str, dict],
               clip_dur: float, box_for: Callable[[int, str], list[float] | None], water_used: bool = False,
               time_offset: float = 0.0, log: list[str] | None = None,
-              intensity: dict[str, Any] | None = None) -> dict[str, Any]:
+              intensity: dict[str, Any] | None = None, off_peak_zoom: bool = True) -> dict[str, Any]:
     """Plan resuelto → + pico (con UN bloque grande y ±5 s libres) + zoom con latido + reloj. Idempotente."""
     log = log if log is not None else []
     if plan.get("pico") is not None:
@@ -323,7 +323,7 @@ def plan_peak(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], s
             plan["pico"] = {"t": peak["t"], "block": None, "word": peak["word"], "sentence": peak["text"]}
             log.append(f"pico: «{peak['word']}» @ {peak['t']:.1f}s sin bloque grande posible (sin cifra de agua, zoom ni recorte)")
     # zoom de evidencia con latido fuera del pico (si el plan no tiene ya un zoom)
-    if not plan.get("evidence_zoom"):
+    if not plan.get("evidence_zoom") and off_peak_zoom:      # F4b §3: con foto-primero lo decide gfx_vision.pick_zoom
         zl = zoom_latido(peak, words, moods, scenes, box_for, time_offset)
         if zl:
             plan["evidence_zoom"] = zl

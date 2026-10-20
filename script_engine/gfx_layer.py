@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import math
+import re
 import subprocess
 import time
 from pathlib import Path
@@ -327,8 +328,22 @@ def _render_sparse(resolved: dict[str, Any], scenes: list[GfxScene], project: Pa
     gr = sp.grain_png(width, height, project / "public" / "grain.png") if gfx_rules.grain_opacity > 0 else None
     tmp = project / "renders" / f"{cap}_gfx_stitch.mp4"
     tmp.parent.mkdir(parents=True, exist_ok=True)
+    bug = None
+    from script_engine import gfx_bug
+    cfg = gfx_bug.config()
+    if cfg:                                                     # F4b §0.3: marca del canal en el cosido FFmpeg
+        pdir = project / "public" / "bug"
+        bug = {"cfg": cfg, "plan": resolved, "intro": cap == "ch01",
+               "corner_pngs": gfx_bug.pngs(cfg, int(height * cfg["height_frac"]), pdir)}
+        outro = resolved.get("outro_bug")
+        if outro:
+            bug["outro_t0"] = outro["start"]
+            bug["visible_until"] = outro["start"]
+            bug["outro_pngs"] = gfx_bug.pngs(cfg, int(height * cfg["outro_height_frac"]), pdir)
+        log.append(f"  marca: {cfg['svg'].name} · oculta en {gfx_bug.hide_windows(resolved, clip_dur)}"
+                   + (f" · cierre @ {outro['start']:.1f}s" if outro else ""))
     sp.stitch(base, hf, windows, offsets, clip_dur, tmp, width=width, height=height, fps=fps,
-              vignette=vig, grain=gr, grain_opacity=gfx_rules.grain_opacity)
+              vignette=vig, grain=gr, grain_opacity=gfx_rules.grain_opacity, bug=bug)
     tmp.replace(out)
     _step("7 stitch + grade FFmpeg", ts)
     return render_sec
@@ -461,6 +476,27 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             if 0 <= si < len(scenes) and len(scenes) > 1:
                 scenes[si].safe = sv
                 log.append(f"  safe_router: escena {si} {Path(sv['image']).name} → {sv['movement']} ({sv.get('risk', '?')})")
+        details: dict[int, list[dict]] = {}
+        scene_img: dict[int, Path] = {}
+        if gfx_plan_override is None and gfx_rules.photo_first_zoom:     # F4b §3: visión mira cada foto antes del director
+            from script_engine import gfx_vision as gv
+            dcache = Path(work_dir).parent / "assets" / "photo_details.json"
+            is_flux = getattr(plan, "engine", "") == "flux"
+            for s in scenes:
+                img = (Path(plan.asset_paths[s.idx]) if is_flux and s.idx < len(plan.asset_paths) else
+                       _zoom_frame(project / "public" / "base.mp4", s, work_dir / f"gfx_zoomframe_{cap}_s{s.idx:02d}.jpg"))
+                d = gv.photo_details(img, dcache) if img and Path(img).exists() else None
+                if d is None:
+                    continue
+                details[s.idx] = d
+                scene_img[s.idx] = Path(img)
+                hb = gv.human_box(d)
+                if hb and is_flux and not s.safe:            # rostro/manos → riesgo alto: PNG con acercar al detalle
+                    s.safe = {"image": str(img), "movement": "push", "risk": "rostro",
+                              "origin": [round(hb[0] + hb[2] / 2, 3), round(hb[1] + hb[3] / 2, 3)]}
+            ctx["photo_details"] = details
+            log.append(f"  visión: {sum(len(v) for v in details.values())} detalles en {len(details)}/{len(scenes)} escenas · "
+                       f"rostro/manos en {[s.idx for s in scenes if s.safe and s.safe.get('risk') == 'rostro']}")
         intensity = None
         if gfx_plan_override is None and gfx_rules.intensity_director:   # F4b §1: director de intensidad (Flash)
             from gfx_config import ACTIVE_PROFILE, active_moods, active_profile_name, profile_path
@@ -510,12 +546,21 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 resolved, rej_f = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                        question_sources=ctx.get("next_sources"))
                 rejected += rej_f
+        if details:                                  # F4b §3: el zoom lo decide la foto (el del LLM/zoom_judge se descarta)
+            if resolved.get("evidence_zoom"):
+                log.append(f"  zoom del director descartado (foto-primero): {resolved['evidence_zoom'].get('anchor')}")
+            resolved["evidence_zoom"] = None
         if gfx_plan_override is None and gfx_rules.peak_blocks:      # F3: pico del cap + zoom con latido + reloj
             from gfx_config import active_moods
             from script_engine.gfx_peak import box_from_cache, plan_peak, water_used_before
             cache_box = box_from_cache(work_dir / f"gfx_zoom_box_{cap}.json")
 
             def _box(si: int, word: str) -> list[float] | None:
+                if si in details:                      # F4b §3: caja de visión confirmada (nunca textura: esa solo si se nombra)
+                    from script_engine import gfx_vision as _gv
+                    vc = Path(work_dir).parent / "assets" / "zoom_verify.json"
+                    return next((d["box"] for d in details[si] if d["tipo"] != "textura"
+                                 and _gv.verify_crop(scene_img[si], d, vc)), None)
                 b = cache_box(si, word)
                 if b is None:                                 # sin caja → visión sobre el frame del final de la escena
                     from script_engine.gfx_director import apply_zoom_vision
@@ -526,11 +571,23 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 return b
             plan_peak(resolved, ctx=ctx, words=words, scenes=scenes, moods=ctx.get("moods") or active_moods(), clip_dur=clip_dur,
                       box_for=_box, water_used=water_used_before(work_dir, ctx["chapter_number"]), time_offset=time_offset,
-                      log=log, intensity=intensity)
+                      log=log, intensity=intensity, off_peak_zoom=not details)
             from script_engine.gfx_literal_lock import lock as _lock2                 # lo nuevo también pasa el candado
             resolved, rej2 = _lock2(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                     question_sources=ctx.get("next_sources"))
             rejected += rej2
+        if details and not resolved.get("evidence_zoom"):            # F4b §3: zoom nombrado o «de editor»
+            from script_engine import gfx_vision as gv
+            from script_engine.gfx_peak import sentences as _sents2
+            z = gv.pick_zoom(details, scenes, words, intensity=intensity, sentences=_sents2(words, time_offset),
+                             peak_t=(resolved.get("pico") or {}).get("t"), time_offset=time_offset,
+                             zoom_dur=gfx_rules.zoom_dur,
+                             verify=lambda sc, d: gv.verify_crop(scene_img[sc.idx], d,
+                                                                 Path(work_dir).parent / "assets" / "zoom_verify.json"))
+            if z:
+                resolved["evidence_zoom"] = z
+                log.append(f"  zoom {z['como']}: «{z['detail']}» ({z['tipo']}, conf {z['conf']}) escena {z['scene_idx']}"
+                           + (f" · latido en «{z['word']}»" if z.get("latido") else ""))
         if gfx_plan_override is None and gfx_rules.identity_rules:   # F4 §2: formas de la identidad del canal
             from script_engine.gfx_style import (identity_transitions, identity_violations, plan_movements,
                                                  prompt_for_asset, select_punches)
@@ -544,12 +601,51 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             viol = identity_violations(resolved, tr)
             resolved["identity"] = {"movimientos": movs, "violaciones": viol}
             log.append(f"  identidad: transiciones {[tr[k]['kind'] for k in sorted(tr)]} · violaciones {viol}")
+        if gfx_plan_override is None and gfx_rules.auto_icons and intensity:   # F4b §4: íconos gratis automáticos
+            from script_engine.gfx_director import mark_icon_callouts
+            from script_engine.gfx_icons.auto_icons import choose_icons
+            from script_engine.gfx_peak import sentences as _s3
+            concretas = {c["word"] for c in intensity["cargas"] if c.get("concreta")}
+            sent_txt = [s["text"] for s in _s3(words, time_offset)]
+
+            def _clean_w(x: str) -> str:
+                return re.sub(r"[^\wáéíóúñü]", "", str(x).lower())
+            need: list[tuple[Any, str]] = []
+            for e in resolved.get("emphasis") or []:
+                if not e.get("icon") and _clean_w(e.get("word", "")) in concretas:
+                    need.append((e, _clean_w(e["word"])))
+            for blk in (resolved.get("archive_clippings") or []) + (resolved.get("callouts") or []):
+                if not blk.get("icon"):
+                    w = next((t for t in (_clean_w(x) for x in str(blk.get("headline") or blk.get("text") or "").split())
+                              if t in concretas), None)
+                    if w:
+                        need.append((blk, w))
+            ctx_of = {w: next((s for s in sent_txt if w in s.lower()), "") for _, w in need}
+            keys = choose_icons(sorted(ctx_of.items())) if need else {}
+            got = []
+            for blk, w in need:
+                if keys.get(w):
+                    blk["icon"] = keys[w]
+                    got.append((w, keys[w]))
+            mark_icon_callouts(resolved, log)
+            resolved["iconos_auto"] = [{"palabra": w, "icono": k} for w, k in got]
+            if got:
+                log.append(f"  íconos automáticos (game-icons): {got}")
         n_src = icon_sources(resolved, ctx)                  # F3: fuente debajo del bloque de ícono (si hay)
         if n_src:
             log.append(f"  íconos con fuente: {n_src}")
         # F3: pregunta de cierre generada + pausa real (alarga el base; fase2b rellena el audio con silencio)
         if gfx_plan_override is None:
             pause = closing_question(resolved, ctx, work_dir, cap, clip_dur, log)
+            from script_engine import gfx_bug as _gb
+            _cfg = _gb.config()
+            nxt = any(int(c.get("chapter_number", 0)) == ctx["chapter_number"] + 1 for c in ctx.get("chapters") or [])
+            if _cfg and not nxt and pause == 0:              # F4b §0.3: cierre del video con la marca
+                pause = _cfg["outro_sec"] + _cfg["outro_black_sec"]
+                resolved["outro_bug"] = {"start": round(clip_dur, 3), "duration": round(pause, 3)}
+                (work_dir / f"gfx_pause_{cap}.json").write_text(json.dumps({"pause": pause, "text": "outro_bug"}),
+                                                                encoding="utf-8")
+                log.append(f"  cierre del video: marca {pause:.1f} s")
         else:
             pause = float((resolved.get("chapter_question") or {}).get("pause") or 0.0)
         if pause > 0:

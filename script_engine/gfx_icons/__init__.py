@@ -48,6 +48,9 @@ BONE: str = "#e8e0cc"
 def icon_svg(key: str | None, *, fallback: bool = False) -> str | None:
     """SVG aprobado de la clave (gfx_profiles/icons/<clave>.svg). Con fallback=True y sin SVG propio → Lucide
     restilizado. Clave fuera de la lista blanca o sin archivo → None (sin ícono; nunca uno equivocado)."""
+    if key and key.startswith("gi:"):                 # F4b §4: game-icons.net (CC BY 3.0) restilizado
+        from script_engine.gfx_icons.auto_icons import game_icon_svg
+        return game_icon_svg(key)
     if not key or key not in ICON_WHITELIST:
         return None
     own = ICONS_DIR / f"{key}.svg"

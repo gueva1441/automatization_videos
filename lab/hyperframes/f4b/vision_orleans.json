@@ -1,0 +1,3629 @@
+{
+ "ch01": {
+  "engine": "veo",
+  "escenas": 5,
+  "con_detalles": 5,
+  "tipos": {
+   "rostro": 2,
+   "manos": 2,
+   "textura": 5,
+   "objeto": 6
+  },
+  "rostro_manos": [
+   0,
+   3
+  ],
+  "zoom": {
+   "scene_idx": 3,
+   "box": [
+    0.25,
+    0.15,
+    0.25,
+    0.3
+   ],
+   "start": 24.35,
+   "anchor": "rostro del hombre",
+   "detail": "rostro del hombre",
+   "tipo": "rostro",
+   "conf": 0.95,
+   "como": "de editor",
+   "word": "rostro del hombre"
+  },
+  "detalles": {
+   "0": [
+    {
+     "label": "Rostro asustado",
+     "box": [
+      0.391,
+      0.278,
+      0.208,
+      0.208
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Manos en rejas",
+     "box": [
+      0.339,
+      0.648,
+      0.13,
+      0.13
+     ],
+     "conf": 0.9,
+     "tipo": "manos"
+    },
+    {
+     "label": "Agua sucia",
+     "box": [
+      0.0,
+      0.74,
+      0.26,
+      0.26
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "1": [
+    {
+     "label": "edificios ciudad",
+     "box": [
+      0.45,
+      0.35,
+      0.2,
+      0.25
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    },
+    {
+     "label": "nube de tormenta",
+     "box": [
+      0.4,
+      0.05,
+      0.3,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    },
+    {
+     "label": "olas en calle",
+     "box": [
+      0.2,
+      0.6,
+      0.3,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "2": [
+    {
+     "label": "coche policía",
+     "box": [
+      0.4,
+      0.65,
+      0.2,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "portón prisión",
+     "box": [
+      0.3,
+      0.5,
+      0.15,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "torre vigilancia",
+     "box": [
+      0.5,
+      0.2,
+      0.15,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    }
+   ],
+   "3": [
+    {
+     "label": "rostro del hombre",
+     "box": [
+      0.25,
+      0.15,
+      0.25,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "manos en rejas",
+     "box": [
+      0.05,
+      0.0,
+      0.25,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "manos"
+    },
+    {
+     "label": "agua subiendo",
+     "box": [
+      0.1,
+      0.6,
+      0.25,
+      0.25
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "4": [
+    {
+     "label": "manija puerta",
+     "box": [
+      0.48,
+      0.41,
+      0.08,
+      0.08
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "ventana rota",
+     "box": [
+      0.705,
+      0.325,
+      0.15,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "musgo puerta",
+     "box": [
+      0.35,
+      0.65,
+      0.1,
+      0.1
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ]
+  }
+ },
+ "ch02": {
+  "engine": "flux",
+  "escenas": 15,
+  "con_detalles": 15,
+  "tipos": {
+   "objeto": 20,
+   "texto": 4,
+   "textura": 14,
+   "rostro": 2,
+   "manos": 3,
+   "persona": 2
+  },
+  "rostro_manos": [
+   5,
+   8,
+   11,
+   13
+  ],
+  "zoom": {
+   "scene_idx": 13,
+   "box": [
+    0.08,
+    0.25,
+    0.2,
+    0.25
+   ],
+   "start": 88.55,
+   "anchor": "dedos mojados",
+   "detail": "dedos mojados",
+   "tipo": "manos",
+   "conf": 0.97,
+   "como": "de editor",
+   "word": "dedos mojados"
+  },
+  "detalles": {
+   "0": [
+    {
+     "label": "gota de líquido",
+     "box": [
+      0.5,
+      0.7,
+      0.08,
+      0.12
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "fecha 29",
+     "box": [
+      0.35,
+      0.35,
+      0.3,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "texto"
+    },
+    {
+     "label": "mes y año",
+     "box": [
+      0.25,
+      0.08,
+      0.3,
+      0.1
+     ],
+     "conf": 0.9,
+     "tipo": "texto"
+    }
+   ],
+   "1": [
+    {
+     "label": "costa de Florida",
+     "box": [
+      0.75,
+      0.6,
+      0.15,
+      0.15
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    },
+    {
+     "label": "ojo del huracán",
+     "box": [
+      0.47,
+      0.47,
+      0.08,
+      0.08
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    },
+    {
+     "label": "nubes en espiral",
+     "box": [
+      0.55,
+      0.3,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "2": [
+    {
+     "label": "estructura colapsando",
+     "box": [
+      0.375,
+      0.275,
+      0.25,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "escombros volando",
+     "box": [
+      0.6,
+      0.2,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "agua turbulenta",
+     "box": [
+      0.375,
+      0.625,
+      0.25,
+      0.25
+     ],
+     "conf": 0.92,
+     "tipo": "textura"
+    }
+   ],
+   "3": [
+    {
+     "label": "autobús escolar",
+     "box": [
+      0.4,
+      0.6,
+      0.25,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "techo de casa",
+     "box": [
+      0.0,
+      0.55,
+      0.3,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "agua inundación",
+     "box": [
+      0.4,
+      0.4,
+      0.25,
+      0.25
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "4": [
+    {
+     "label": "casa dañada",
+     "box": [
+      0.05,
+      0.3,
+      0.3,
+      0.3
+     ],
+     "conf": 0.8,
+     "tipo": "objeto"
+    },
+    {
+     "label": "texto STOP",
+     "box": [
+      0.4,
+      0.4,
+      0.2,
+      0.1
+     ],
+     "conf": 0.95,
+     "tipo": "texto"
+    },
+    {
+     "label": "mancha aceite",
+     "box": [
+      0.6,
+      0.6,
+      0.3,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "5": [
+    {
+     "label": "Rostros familia",
+     "box": [
+      0.2,
+      0.4,
+      0.3,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Zapato sucio",
+     "box": [
+      0.35,
+      0.05,
+      0.25,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Marco dañado",
+     "box": [
+      0.45,
+      0.65,
+      0.15,
+      0.15
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    }
+   ],
+   "6": [
+    {
+     "label": "torre vigilancia",
+     "box": [
+      0.08,
+      0.05,
+      0.15,
+      0.15
+     ],
+     "conf": 0.98,
+     "tipo": "objeto"
+    },
+    {
+     "label": "alambre de púas",
+     "box": [
+      0.1,
+      0.15,
+      0.2,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "fachada central",
+     "box": [
+      0.38,
+      0.05,
+      0.15,
+      0.2
+     ],
+     "conf": 0.92,
+     "tipo": "objeto"
+    }
+   ],
+   "7": [
+    {
+     "label": "ventana enrejada",
+     "box": [
+      0.04,
+      0.28,
+      0.18,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "número de preso",
+     "box": [
+      0.47,
+      0.78,
+      0.1,
+      0.07
+     ],
+     "conf": 0.95,
+     "tipo": "texto"
+    },
+    {
+     "label": "pared deteriorada",
+     "box": [
+      0.65,
+      0.25,
+      0.25,
+      0.2
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "8": [
+    {
+     "label": "manos del niño",
+     "box": [
+      0.54,
+      0.44,
+      0.08,
+      0.08
+     ],
+     "conf": 0.95,
+     "tipo": "manos"
+    },
+    {
+     "label": "rejas celda",
+     "box": [
+      0.05,
+      0.3,
+      0.15,
+      0.25
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    },
+    {
+     "label": "agua en ventana",
+     "box": [
+      0.5,
+      0.55,
+      0.2,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "9": [
+    {
+     "label": "cabeza persona",
+     "box": [
+      0.4,
+      0.65,
+      0.15,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "persona"
+    },
+    {
+     "label": "candado celda",
+     "box": [
+      0.08,
+      0.7,
+      0.08,
+      0.1
+     ],
+     "conf": 0.98,
+     "tipo": "objeto"
+    },
+    {
+     "label": "agua inundación",
+     "box": [
+      0.35,
+      0.4,
+      0.25,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "10": [
+    {
+     "label": "charco oscuro",
+     "box": [
+      0.4,
+      0.65,
+      0.25,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    },
+    {
+     "label": "óxido en reja",
+     "box": [
+      0.45,
+      0.25,
+      0.15,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    },
+    {
+     "label": "luz bajo puerta",
+     "box": [
+      0.3,
+      0.48,
+      0.3,
+      0.08
+     ],
+     "conf": 0.88,
+     "tipo": "textura"
+    }
+   ],
+   "11": [
+    {
+     "label": "Rostro del hombre",
+     "box": [
+      0.45,
+      0.08,
+      0.1,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Pies del hombre",
+     "box": [
+      0.53,
+      0.55,
+      0.15,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "persona"
+    },
+    {
+     "label": "Reflejo en agua",
+     "box": [
+      0.3,
+      0.7,
+      0.25,
+      0.25
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "12": [
+    {
+     "label": "Motor oxidado",
+     "box": [
+      0.6,
+      0.4,
+      0.25,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Rejas ventana",
+     "box": [
+      0.75,
+      0.1,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Agua estancada",
+     "box": [
+      0.4,
+      0.6,
+      0.2,
+      0.2
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "13": [
+    {
+     "label": "dedos mojados",
+     "box": [
+      0.08,
+      0.25,
+      0.2,
+      0.25
+     ],
+     "conf": 0.97,
+     "tipo": "manos"
+    },
+    {
+     "label": "dedos mojados",
+     "box": [
+      0.72,
+      0.25,
+      0.2,
+      0.25
+     ],
+     "conf": 0.97,
+     "tipo": "manos"
+    },
+    {
+     "label": "rendija puerta",
+     "box": [
+      0.48,
+      0.4,
+      0.06,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    }
+   ],
+   "14": [
+    {
+     "label": "cruz torre",
+     "box": [
+      0.48,
+      0.03,
+      0.08,
+      0.08
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "alambre púas",
+     "box": [
+      0.15,
+      0.35,
+      0.25,
+      0.08
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "ventanas edificio",
+     "box": [
+      0.6,
+      0.4,
+      0.2,
+      0.15
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ]
+  }
+ },
+ "ch03": {
+  "engine": "flux",
+  "escenas": 18,
+  "con_detalles": 18,
+  "tipos": {
+   "objeto": 21,
+   "textura": 22,
+   "rostro": 5,
+   "manos": 5,
+   "persona": 1
+  },
+  "rostro_manos": [
+   5,
+   10,
+   12,
+   14,
+   16,
+   17
+  ],
+  "zoom": {
+   "scene_idx": 12,
+   "box": [
+    0.35,
+    0.25,
+    0.3,
+    0.2
+   ],
+   "start": 105.72,
+   "anchor": "Ojos asustados",
+   "detail": "Ojos asustados",
+   "tipo": "rostro",
+   "conf": 0.95,
+   "como": "de editor",
+   "word": "Ojos asustados"
+  },
+  "detalles": {
+   "0": [
+    {
+     "label": "Ventana iluminada",
+     "box": [
+      0.65,
+      0.35,
+      0.08,
+      0.08
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Rayo",
+     "box": [
+      0.05,
+      0.2,
+      0.2,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    },
+    {
+     "label": "Pared desgastada",
+     "box": [
+      0.5,
+      0.6,
+      0.2,
+      0.2
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "1": [
+    {
+     "label": "luz fluorescente",
+     "box": [
+      0.7,
+      0.05,
+      0.25,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "rejas celda",
+     "box": [
+      0.7,
+      0.4,
+      0.2,
+      0.3
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    },
+    {
+     "label": "grieta goteo",
+     "box": [
+      0.25,
+      0.2,
+      0.2,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    }
+   ],
+   "2": [
+    {
+     "label": "cable sumergido",
+     "box": [
+      0.3,
+      0.7,
+      0.3,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "chispas y humo",
+     "box": [
+      0.38,
+      0.25,
+      0.25,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    },
+    {
+     "label": "agua inundando",
+     "box": [
+      0.2,
+      0.6,
+      0.3,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "3": [
+    {
+     "label": "objeto metálico",
+     "box": [
+      0.47,
+      0.67,
+      0.08,
+      0.08
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "rejas de celda",
+     "box": [
+      0.05,
+      0.45,
+      0.25,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    },
+    {
+     "label": "suelo de hormigón",
+     "box": [
+      0.3,
+      0.6,
+      0.2,
+      0.3
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "4": [
+    {
+     "label": "rejas celda",
+     "box": [
+      0.7,
+      0.4,
+      0.2,
+      0.3
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    },
+    {
+     "label": "chispas luz",
+     "box": [
+      0.45,
+      0.35,
+      0.15,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    },
+    {
+     "label": "reflejo charco",
+     "box": [
+      0.4,
+      0.65,
+      0.2,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "5": [
+    {
+     "label": "rostro prisionero",
+     "box": [
+      0.5,
+      0.3,
+      0.15,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "rostro"
+    },
+    {
+     "label": "gotas de agua",
+     "box": [
+      0.4,
+      0.4,
+      0.15,
+      0.15
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    },
+    {
+     "label": "manchas pared",
+     "box": [
+      0.75,
+      0.2,
+      0.15,
+      0.25
+     ],
+     "conf": 0.8,
+     "tipo": "textura"
+    }
+   ],
+   "6": [
+    {
+     "label": "objeto brillante",
+     "box": [
+      0.48,
+      0.85,
+      0.08,
+      0.1
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "barrotes metálicos",
+     "box": [
+      0.1,
+      0.3,
+      0.2,
+      0.1
+     ],
+     "conf": 0.8,
+     "tipo": "objeto"
+    },
+    {
+     "label": "puerta de celda",
+     "box": [
+      0.7,
+      0.4,
+      0.15,
+      0.15
+     ],
+     "conf": 0.7,
+     "tipo": "objeto"
+    }
+   ],
+   "7": [
+    {
+     "label": "insecto en agua",
+     "box": [
+      0.45,
+      0.55,
+      0.1,
+      0.1
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "óxido en reja",
+     "box": [
+      0.15,
+      0.2,
+      0.1,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    },
+    {
+     "label": "agua estancada",
+     "box": [
+      0.4,
+      0.6,
+      0.25,
+      0.25
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "8": [
+    {
+     "label": "botella plástica",
+     "box": [
+      0.65,
+      0.6,
+      0.25,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "rejas celda",
+     "box": [
+      0.75,
+      0.1,
+      0.2,
+      0.3
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    },
+    {
+     "label": "agua sucia",
+     "box": [
+      0.0,
+      0.25,
+      0.3,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    }
+   ],
+   "9": [
+    {
+     "label": "colchón flotando",
+     "box": [
+      0.35,
+      0.4,
+      0.3,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "óxido en reja",
+     "box": [
+      0.7,
+      0.5,
+      0.3,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    },
+    {
+     "label": "reflejo agua",
+     "box": [
+      0.4,
+      0.7,
+      0.3,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "10": [
+    {
+     "label": "Rostro hombre",
+     "box": [
+      0.07,
+      0.18,
+      0.22,
+      0.22
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Rostro hombre",
+     "box": [
+      0.63,
+      0.13,
+      0.23,
+      0.23
+     ],
+     "conf": 0.92,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Manos rejas",
+     "box": [
+      0.07,
+      0.48,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "manos"
+    }
+   ],
+   "11": [
+    {
+     "label": "candado",
+     "box": [
+      0.4,
+      0.55,
+      0.15,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "burbuja",
+     "box": [
+      0.48,
+      0.3,
+      0.06,
+      0.08
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "óxido metal",
+     "box": [
+      0.35,
+      0.65,
+      0.1,
+      0.15
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "12": [
+    {
+     "label": "Ojos asustados",
+     "box": [
+      0.35,
+      0.25,
+      0.3,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Lágrima en mejilla",
+     "box": [
+      0.55,
+      0.45,
+      0.1,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Agua sucia",
+     "box": [
+      0.1,
+      0.75,
+      0.25,
+      0.2
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "13": [
+    {
+     "label": "camisa naranja",
+     "box": [
+      0.35,
+      0.4,
+      0.3,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "papel mojado",
+     "box": [
+      0.1,
+      0.7,
+      0.2,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "rejas de celda",
+     "box": [
+      0.05,
+      0.3,
+      0.15,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    }
+   ],
+   "14": [
+    {
+     "label": "Manos aferradas",
+     "box": [
+      0.5,
+      0.15,
+      0.15,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "manos"
+    },
+    {
+     "label": "Cabeza sumergida",
+     "box": [
+      0.35,
+      0.75,
+      0.15,
+      0.15
+     ],
+     "conf": 0.8,
+     "tipo": "persona"
+    },
+    {
+     "label": "Agua salpicando",
+     "box": [
+      0.4,
+      0.82,
+      0.2,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "15": [
+    {
+     "label": "reflejo cúpula",
+     "box": [
+      0.4,
+      0.7,
+      0.2,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "rejas celda",
+     "box": [
+      0.18,
+      0.4,
+      0.1,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "concreto gastado",
+     "box": [
+      0.7,
+      0.2,
+      0.25,
+      0.15
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "16": [
+    {
+     "label": "mano",
+     "box": [
+      0.45,
+      0.35,
+      0.25,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "manos"
+    },
+    {
+     "label": "trozo de madera",
+     "box": [
+      0.55,
+      0.5,
+      0.2,
+      0.1
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "burbujas",
+     "box": [
+      0.6,
+      0.15,
+      0.1,
+      0.1
+     ],
+     "conf": 0.8,
+     "tipo": "textura"
+    }
+   ],
+   "17": [
+    {
+     "label": "mano izquierda",
+     "box": [
+      0.28,
+      0.43,
+      0.1,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "manos"
+    },
+    {
+     "label": "mano derecha",
+     "box": [
+      0.62,
+      0.43,
+      0.1,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "manos"
+    },
+    {
+     "label": "agua estancada",
+     "box": [
+      0.3,
+      0.6,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ]
+  }
+ },
+ "ch04": {
+  "engine": "flux",
+  "escenas": 17,
+  "con_detalles": 17,
+  "tipos": {
+   "objeto": 15,
+   "textura": 16,
+   "manos": 7,
+   "persona": 3,
+   "rostro": 8,
+   "texto": 2
+  },
+  "rostro_manos": [
+   1,
+   2,
+   6,
+   7,
+   9,
+   11,
+   12,
+   13,
+   14
+  ],
+  "zoom": {
+   "scene_idx": 12,
+   "box": [
+    0.567,
+    0.375,
+    0.083,
+    0.2
+   ],
+   "start": 70.45,
+   "anchor": "Lágrima",
+   "detail": "Lágrima",
+   "tipo": "rostro",
+   "conf": 0.98,
+   "como": "nombrado",
+   "word": "ojos",
+   "latido": true,
+   "latido_t": 71.15
+  },
+  "detalles": {
+   "0": [
+    {
+     "label": "Lámpara techo",
+     "box": [
+      0.4,
+      0.08,
+      0.2,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Luz al fondo",
+     "box": [
+      0.48,
+      0.32,
+      0.08,
+      0.08
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Agua y escombros",
+     "box": [
+      0.3,
+      0.6,
+      0.3,
+      0.25
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "1": [
+    {
+     "label": "Manos barandilla",
+     "box": [
+      0.807,
+      0.453,
+      0.078,
+      0.078
+     ],
+     "conf": 0.95,
+     "tipo": "manos"
+    },
+    {
+     "label": "Prisionero agua",
+     "box": [
+      0.234,
+      0.703,
+      0.13,
+      0.195
+     ],
+     "conf": 0.92,
+     "tipo": "persona"
+    },
+    {
+     "label": "Cabeza inclinada",
+     "box": [
+      0.156,
+      0.273,
+      0.104,
+      0.195
+     ],
+     "conf": 0.9,
+     "tipo": "persona"
+    }
+   ],
+   "2": [
+    {
+     "label": "Manos sucias",
+     "box": [
+      0.25,
+      0.35,
+      0.2,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "manos"
+    },
+    {
+     "label": "Uñas rotas",
+     "box": [
+      0.55,
+      0.4,
+      0.1,
+      0.1
+     ],
+     "conf": 0.9,
+     "tipo": "manos"
+    },
+    {
+     "label": "Gotas agua",
+     "box": [
+      0.3,
+      0.05,
+      0.1,
+      0.2
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "3": [
+    {
+     "label": "rejas oxidadas",
+     "box": [
+      0.7,
+      0.3,
+      0.2,
+      0.3
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "basura flotante",
+     "box": [
+      0.4,
+      0.45,
+      0.2,
+      0.2
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    },
+    {
+     "label": "mancha de aceite",
+     "box": [
+      0.25,
+      0.4,
+      0.25,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "4": [
+    {
+     "label": "traje mojado",
+     "box": [
+      0.42,
+      0.35,
+      0.15,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "persona"
+    },
+    {
+     "label": "rejas ventana",
+     "box": [
+      0.4,
+      0.1,
+      0.2,
+      0.3
+     ],
+     "conf": 0.98,
+     "tipo": "objeto"
+    },
+    {
+     "label": "agua sucia",
+     "box": [
+      0.4,
+      0.7,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "5": [
+    {
+     "label": "papeles flotando",
+     "box": [
+      0.35,
+      0.7,
+      0.2,
+      0.2
+     ],
+     "conf": 0.98,
+     "tipo": "objeto"
+    },
+    {
+     "label": "inodoro sucio",
+     "box": [
+      0.6,
+      0.5,
+      0.25,
+      0.3
+     ],
+     "conf": 0.97,
+     "tipo": "objeto"
+    },
+    {
+     "label": "inundación celda",
+     "box": [
+      0.05,
+      0.6,
+      0.25,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    }
+   ],
+   "6": [
+    {
+     "label": "rostro hombre",
+     "box": [
+      0.25,
+      0.15,
+      0.15,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "manos cruzadas",
+     "box": [
+      0.35,
+      0.45,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "manos"
+    },
+    {
+     "label": "líquido negro",
+     "box": [
+      0.45,
+      0.3,
+      0.25,
+      0.15
+     ],
+     "conf": 0.88,
+     "tipo": "textura"
+    }
+   ],
+   "7": [
+    {
+     "label": "Frente arrugada",
+     "box": [
+      0.3,
+      0.1,
+      0.2,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Boca abierta",
+     "box": [
+      0.25,
+      0.55,
+      0.15,
+      0.1
+     ],
+     "conf": 0.9,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Gotas en cara",
+     "box": [
+      0.4,
+      0.2,
+      0.2,
+      0.2
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "8": [
+    {
+     "label": "Barras celda",
+     "box": [
+      0.65,
+      0.35,
+      0.25,
+      0.25
+     ],
+     "conf": 0.98,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Piel sucia",
+     "box": [
+      0.2,
+      0.15,
+      0.25,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    },
+    {
+     "label": "Marcas piel",
+     "box": [
+      0.5,
+      0.5,
+      0.1,
+      0.1
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "9": [
+    {
+     "label": "mano del niño",
+     "box": [
+      0.45,
+      0.45,
+      0.25,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "manos"
+    },
+    {
+     "label": "charco iridiscente",
+     "box": [
+      0.23,
+      0.55,
+      0.23,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "suciedad en mano",
+     "box": [
+      0.55,
+      0.6,
+      0.1,
+      0.1
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "10": [
+    {
+     "label": "escombro flotando",
+     "box": [
+      0.38,
+      0.68,
+      0.15,
+      0.12
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    },
+    {
+     "label": "texto en mono",
+     "box": [
+      0.67,
+      0.47,
+      0.18,
+      0.12
+     ],
+     "conf": 0.95,
+     "tipo": "texto"
+    },
+    {
+     "label": "sustancia oscura",
+     "box": [
+      0.45,
+      0.55,
+      0.2,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "11": [
+    {
+     "label": "manos del niño",
+     "box": [
+      0.406,
+      0.328,
+      0.075,
+      0.112
+     ],
+     "conf": 0.95,
+     "tipo": "manos"
+    },
+    {
+     "label": "cerradura puerta",
+     "box": [
+      0.337,
+      0.459,
+      0.075,
+      0.112
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "manchas pared",
+     "box": [
+      0.125,
+      0.421,
+      0.125,
+      0.187
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "12": [
+    {
+     "label": "Lágrima",
+     "box": [
+      0.567,
+      0.375,
+      0.083,
+      0.2
+     ],
+     "conf": 0.98,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Ojo derecho",
+     "box": [
+      0.25,
+      0.225,
+      0.167,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Heridas mejilla",
+     "box": [
+      0.633,
+      0.35,
+      0.067,
+      0.1
+     ],
+     "conf": 0.9,
+     "tipo": "rostro"
+    }
+   ],
+   "13": [
+    {
+     "label": "rostro hombre",
+     "box": [
+      0.25,
+      0.25,
+      0.15,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "rostro"
+    },
+    {
+     "label": "graffiti KK",
+     "box": [
+      0.05,
+      0.35,
+      0.15,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "texto"
+    },
+    {
+     "label": "manchas uniforme",
+     "box": [
+      0.25,
+      0.55,
+      0.2,
+      0.2
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "14": [
+    {
+     "label": "Rostro niño",
+     "box": [
+      0.82,
+      0.35,
+      0.1,
+      0.1
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Manos niño",
+     "box": [
+      0.78,
+      0.45,
+      0.1,
+      0.1
+     ],
+     "conf": 0.9,
+     "tipo": "manos"
+    },
+    {
+     "label": "Ondas agua",
+     "box": [
+      0.35,
+      0.55,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "15": [
+    {
+     "label": "zapatilla vieja",
+     "box": [
+      0.38,
+      0.28,
+      0.2,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "cordones con algas",
+     "box": [
+      0.35,
+      0.6,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "ondas en agua",
+     "box": [
+      0.4,
+      0.65,
+      0.2,
+      0.2
+     ],
+     "conf": 0.88,
+     "tipo": "textura"
+    }
+   ],
+   "16": [
+    {
+     "label": "Barandilla oxidada",
+     "box": [
+      0.6,
+      0.6,
+      0.25,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Reja celda",
+     "box": [
+      0.1,
+      0.4,
+      0.15,
+      0.2
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Reflejos agua",
+     "box": [
+      0.4,
+      0.6,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ]
+  }
+ },
+ "ch05": {
+  "engine": "flux",
+  "escenas": 16,
+  "con_detalles": 16,
+  "tipos": {
+   "rostro": 5,
+   "textura": 18,
+   "objeto": 16,
+   "texto": 5,
+   "manos": 2,
+   "persona": 2
+  },
+  "rostro_manos": [
+   0,
+   3,
+   8,
+   9,
+   10
+  ],
+  "zoom": {
+   "scene_idx": 0,
+   "box": [
+    0.2,
+    0.25,
+    0.25,
+    0.3
+   ],
+   "start": 5.92,
+   "anchor": "rostro del niño",
+   "detail": "rostro del niño",
+   "tipo": "rostro",
+   "conf": 0.95,
+   "como": "nombrado",
+   "word": "ojos",
+   "latido": true,
+   "latido_t": 6.62
+  },
+  "detalles": {
+   "0": [
+    {
+     "label": "rostro del niño",
+     "box": [
+      0.2,
+      0.25,
+      0.25,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "rostro del hombre",
+     "box": [
+      0.48,
+      0.25,
+      0.25,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "agua turbia",
+     "box": [
+      0.4,
+      0.6,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "1": [
+    {
+     "label": "tela en agua",
+     "box": [
+      0.38,
+      0.42,
+      0.22,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "óxido en reja",
+     "box": [
+      0.05,
+      0.1,
+      0.25,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    },
+    {
+     "label": "reflejo en agua",
+     "box": [
+      0.65,
+      0.68,
+      0.15,
+      0.15
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "2": [
+    {
+     "label": "papeles mojados",
+     "box": [
+      0.25,
+      0.6,
+      0.25,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "manija oxidada",
+     "box": [
+      0.65,
+      0.3,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "tinta desparramada",
+     "box": [
+      0.35,
+      0.45,
+      0.2,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "texto"
+    }
+   ],
+   "3": [
+    {
+     "label": "mano señalando",
+     "box": [
+      0.575,
+      0.475,
+      0.15,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "manos"
+    },
+    {
+     "label": "taza de café",
+     "box": [
+      0.75,
+      0.5,
+      0.2,
+      0.25
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    },
+    {
+     "label": "lista de nombres",
+     "box": [
+      0.25,
+      0.45,
+      0.28,
+      0.08
+     ],
+     "conf": 0.9,
+     "tipo": "texto"
+    }
+   ],
+   "4": [
+    {
+     "label": "Ventana enrejada",
+     "box": [
+      0.4,
+      0.2,
+      0.2,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Colchón goteando",
+     "box": [
+      0.25,
+      0.4,
+      0.2,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Óxido en cama",
+     "box": [
+      0.05,
+      0.6,
+      0.25,
+      0.15
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "5": [
+    {
+     "label": "texto de carta",
+     "box": [
+      0.28,
+      0.48,
+      0.25,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "texto"
+    },
+    {
+     "label": "firma en carta",
+     "box": [
+      0.65,
+      0.68,
+      0.15,
+      0.08
+     ],
+     "conf": 0.9,
+     "tipo": "texto"
+    },
+    {
+     "label": "agua turbia",
+     "box": [
+      0.4,
+      0.7,
+      0.25,
+      0.2
+     ],
+     "conf": 0.8,
+     "tipo": "textura"
+    }
+   ],
+   "6": [
+    {
+     "label": "Superficie agua",
+     "box": [
+      0.31,
+      0.51,
+      0.26,
+      0.28
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    },
+    {
+     "label": "Óxido barandilla",
+     "box": [
+      0.18,
+      0.32,
+      0.08,
+      0.14
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    },
+    {
+     "label": "Reflejo luz",
+     "box": [
+      0.44,
+      0.74,
+      0.1,
+      0.19
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "7": [
+    {
+     "label": "Figura central",
+     "box": [
+      0.45,
+      0.45,
+      0.15,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "persona"
+    },
+    {
+     "label": "Foco de luz",
+     "box": [
+      0.47,
+      0.29,
+      0.08,
+      0.08
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Agua en celdas",
+     "box": [
+      0.1,
+      0.6,
+      0.25,
+      0.2
+     ],
+     "conf": 0.88,
+     "tipo": "textura"
+    }
+   ],
+   "8": [
+    {
+     "label": "rostro prisionero",
+     "box": [
+      0.45,
+      0.15,
+      0.2,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "guante blanco",
+     "box": [
+      0.7,
+      0.7,
+      0.3,
+      0.15
+     ],
+     "conf": 0.92,
+     "tipo": "manos"
+    },
+    {
+     "label": "herida rostro",
+     "box": [
+      0.53,
+      0.23,
+      0.23,
+      0.1
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    }
+   ],
+   "9": [
+    {
+     "label": "Rostro del hombre",
+     "box": [
+      0.38,
+      0.2,
+      0.3,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Gota en frente",
+     "box": [
+      0.58,
+      0.02,
+      0.1,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    },
+    {
+     "label": "Agua lodosa",
+     "box": [
+      0.05,
+      0.7,
+      0.25,
+      0.25
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "10": [
+    {
+     "label": "rostro prisionero",
+     "box": [
+      0.08,
+      0.28,
+      0.07,
+      0.1
+     ],
+     "conf": 0.75,
+     "tipo": "rostro"
+    },
+    {
+     "label": "vaso flotando",
+     "box": [
+      0.45,
+      0.55,
+      0.1,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "agua sucia",
+     "box": [
+      0.1,
+      0.6,
+      0.25,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "11": [
+    {
+     "label": "manga rota",
+     "box": [
+      0.2,
+      0.75,
+      0.1,
+      0.12
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "escombros agua",
+     "box": [
+      0.7,
+      0.82,
+      0.15,
+      0.18
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    },
+    {
+     "label": "número chaqueta",
+     "box": [
+      0.45,
+      0.569,
+      0.1,
+      0.065
+     ],
+     "conf": 0.95,
+     "tipo": "texto"
+    }
+   ],
+   "12": [
+    {
+     "label": "Rejas de celda",
+     "box": [
+      0.08,
+      0.7,
+      0.15,
+      0.15
+     ],
+     "conf": 0.98,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Ventana sucia",
+     "box": [
+      0.1,
+      0.1,
+      0.1,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Rayos de luz",
+     "box": [
+      0.55,
+      0.2,
+      0.25,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    }
+   ],
+   "13": [
+    {
+     "label": "gota de agua",
+     "box": [
+      0.44,
+      0.33,
+      0.1,
+      0.1
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "ondas en agua",
+     "box": [
+      0.39,
+      0.45,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    },
+    {
+     "label": "reflejo rejas",
+     "box": [
+      0.475,
+      0.175,
+      0.25,
+      0.15
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "14": [
+    {
+     "label": "silla",
+     "box": [
+      0.7,
+      0.45,
+      0.25,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "telaraña",
+     "box": [
+      0.05,
+      0.25,
+      0.2,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    },
+    {
+     "label": "polvo",
+     "box": [
+      0.3,
+      0.5,
+      0.25,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "15": [
+    {
+     "label": "cabeza persona",
+     "box": [
+      0.25,
+      0.1,
+      0.15,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "persona"
+    },
+    {
+     "label": "edificios exteriores",
+     "box": [
+      0.55,
+      0.4,
+      0.3,
+      0.2
+     ],
+     "conf": 0.8,
+     "tipo": "objeto"
+    },
+    {
+     "label": "gotas de lluvia",
+     "box": [
+      0.6,
+      0.2,
+      0.2,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ]
+  }
+ },
+ "ch06": {
+  "engine": "flux",
+  "escenas": 15,
+  "con_detalles": 15,
+  "tipos": {
+   "rostro": 3,
+   "manos": 5,
+   "objeto": 18,
+   "texto": 6,
+   "textura": 9,
+   "persona": 1
+  },
+  "rostro_manos": [
+   0,
+   1,
+   9,
+   11
+  ],
+  "zoom": {
+   "scene_idx": 11,
+   "box": [
+    0.338,
+    0.416,
+    0.104,
+    0.092
+   ],
+   "start": 81.85,
+   "anchor": "Cicatriz",
+   "detail": "Cicatriz",
+   "tipo": "manos",
+   "conf": 0.95,
+   "como": "de editor",
+   "word": "Cicatriz"
+  },
+  "detalles": {
+   "0": [
+    {
+     "label": "Rostro hombre",
+     "box": [
+      0.23,
+      0.15,
+      0.15,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Manos hombre",
+     "box": [
+      0.35,
+      0.55,
+      0.3,
+      0.1
+     ],
+     "conf": 0.85,
+     "tipo": "manos"
+    },
+    {
+     "label": "Maletín cuero",
+     "box": [
+      0.25,
+      0.65,
+      0.3,
+      0.25
+     ],
+     "conf": 0.98,
+     "tipo": "objeto"
+    }
+   ],
+   "1": [
+    {
+     "label": "Rostro hombre",
+     "box": [
+      0.33,
+      0.12,
+      0.1,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Manos cubriendo",
+     "box": [
+      0.5,
+      0.23,
+      0.12,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "manos"
+    },
+    {
+     "label": "Mochila embarrada",
+     "box": [
+      0.4,
+      0.68,
+      0.2,
+      0.25
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    }
+   ],
+   "2": [
+    {
+     "label": "puerta principal",
+     "box": [
+      0.46,
+      0.65,
+      0.08,
+      0.27
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "texto COURT",
+     "box": [
+      0.3,
+      0.27,
+      0.16,
+      0.06
+     ],
+     "conf": 0.95,
+     "tipo": "texto"
+    },
+    {
+     "label": "textura columna",
+     "box": [
+      0.56,
+      0.5,
+      0.1,
+      0.25
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "3": [
+    {
+     "label": "monto de dinero",
+     "box": [
+      0.25,
+      0.55,
+      0.19,
+      0.08
+     ],
+     "conf": 0.95,
+     "tipo": "texto"
+    },
+    {
+     "label": "título documento",
+     "box": [
+      0.25,
+      0.31,
+      0.22,
+      0.06
+     ],
+     "conf": 0.9,
+     "tipo": "texto"
+    },
+    {
+     "label": "año",
+     "box": [
+      0.52,
+      0.31,
+      0.08,
+      0.06
+     ],
+     "conf": 0.85,
+     "tipo": "texto"
+    }
+   ],
+   "4": [
+    {
+     "label": "cabeza mazo",
+     "box": [
+      0.25,
+      0.2,
+      0.2,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "bloque impacto",
+     "box": [
+      0.35,
+      0.55,
+      0.15,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "desgaste mazo",
+     "box": [
+      0.45,
+      0.45,
+      0.25,
+      0.15
+     ],
+     "conf": 0.88,
+     "tipo": "objeto"
+    }
+   ],
+   "5": [
+    {
+     "label": "sello rojo",
+     "box": [
+      0.58,
+      0.48,
+      0.12,
+      0.12
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "nudo cuerda",
+     "box": [
+      0.42,
+      0.33,
+      0.1,
+      0.1
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    },
+    {
+     "label": "texto documento",
+     "box": [
+      0.15,
+      0.15,
+      0.25,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "texto"
+    }
+   ],
+   "6": [
+    {
+     "label": "salpicadura agua",
+     "box": [
+      0.55,
+      0.68,
+      0.12,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    },
+    {
+     "label": "óxido rejas",
+     "box": [
+      0.7,
+      0.35,
+      0.15,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    },
+    {
+     "label": "moho pared",
+     "box": [
+      0.12,
+      0.58,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "7": [
+    {
+     "label": "planta verde",
+     "box": [
+      0.4,
+      0.25,
+      0.2,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "grieta concreto",
+     "box": [
+      0.45,
+      0.5,
+      0.15,
+      0.3
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    },
+    {
+     "label": "edificio abandonado",
+     "box": [
+      0.05,
+      0.1,
+      0.25,
+      0.3
+     ],
+     "conf": 0.75,
+     "tipo": "textura"
+    }
+   ],
+   "8": [
+    {
+     "label": "cuello del hombre",
+     "box": [
+      0.45,
+      0.4,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "persona"
+    },
+    {
+     "label": "persiana de ventana",
+     "box": [
+      0.7,
+      0.25,
+      0.2,
+      0.3
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "pintura descascarada",
+     "box": [
+      0.175,
+      0.125,
+      0.15,
+      0.15
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "9": [
+    {
+     "label": "Rostro joven",
+     "box": [
+      0.84,
+      0.35,
+      0.12,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Manos barandilla",
+     "box": [
+      0.78,
+      0.63,
+      0.18,
+      0.15
+     ],
+     "conf": 0.9,
+     "tipo": "manos"
+    },
+    {
+     "label": "Trapo atado",
+     "box": [
+      0.29,
+      0.54,
+      0.25,
+      0.15
+     ],
+     "conf": 0.88,
+     "tipo": "objeto"
+    }
+   ],
+   "10": [
+    {
+     "label": "colchón flotando",
+     "box": [
+      0.375,
+      0.656,
+      0.25,
+      0.187
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "ventana rota",
+     "box": [
+      0.312,
+      0.262,
+      0.156,
+      0.187
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "barandilla oxidada",
+     "box": [
+      0.0,
+      0.562,
+      0.25,
+      0.187
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    }
+   ],
+   "11": [
+    {
+     "label": "Cicatriz",
+     "box": [
+      0.338,
+      0.416,
+      0.104,
+      0.092
+     ],
+     "conf": 0.95,
+     "tipo": "manos"
+    },
+    {
+     "label": "Nudillos",
+     "box": [
+      0.442,
+      0.37,
+      0.156,
+      0.231
+     ],
+     "conf": 0.9,
+     "tipo": "manos"
+    },
+    {
+     "label": "Venas",
+     "box": [
+      0.156,
+      0.463,
+      0.13,
+      0.138
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "12": [],
+   "13": [
+    {
+     "label": "quemadura libro",
+     "box": [
+      0.45,
+      0.1,
+      0.15,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "nombres legibles",
+     "box": [
+      0.55,
+      0.2,
+      0.2,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "texto"
+    },
+    {
+     "label": "telaraña",
+     "box": [
+      0.7,
+      0.1,
+      0.25,
+      0.25
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "14": [
+    {
+     "label": "alambre de púas",
+     "box": [
+      0.15,
+      0.65,
+      0.25,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "ventanas iluminadas",
+     "box": [
+      0.4,
+      0.45,
+      0.2,
+      0.1
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "luna creciente",
+     "box": [
+      0.42,
+      0.02,
+      0.08,
+      0.08
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    }
+   ]
+  }
+ },
+ "ch07": {
+  "engine": "veo",
+  "escenas": 11,
+  "con_detalles": 11,
+  "tipos": {
+   "manos": 5,
+   "rostro": 3,
+   "objeto": 15,
+   "textura": 7,
+   "texto": 2,
+   "persona": 1
+  },
+  "rostro_manos": [
+   0,
+   3,
+   4,
+   6
+  ],
+  "zoom": {
+   "scene_idx": 6,
+   "box": [
+    0.45,
+    0.2,
+    0.25,
+    0.3
+   ],
+   "start": 45.78,
+   "anchor": "rostro del hombre",
+   "detail": "rostro del hombre",
+   "tipo": "rostro",
+   "conf": 0.95,
+   "como": "de editor",
+   "word": "rostro del hombre"
+  },
+  "detalles": {
+   "0": [
+    {
+     "label": "Mano extendida",
+     "box": [
+      0.4,
+      0.15,
+      0.22,
+      0.22
+     ],
+     "conf": 0.96,
+     "tipo": "manos"
+    },
+    {
+     "label": "Rostro del hombre",
+     "box": [
+      0.07,
+      0.38,
+      0.18,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Anillo rojo",
+     "box": [
+      0.5,
+      0.25,
+      0.08,
+      0.08
+     ],
+     "conf": 0.98,
+     "tipo": "objeto"
+    }
+   ],
+   "1": [
+    {
+     "label": "documento legal",
+     "box": [
+      0.648,
+      0.597,
+      0.094,
+      0.153
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "entrada edificio",
+     "box": [
+      0.43,
+      0.417,
+      0.117,
+      0.139
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "textura columna",
+     "box": [
+      0.781,
+      0.278,
+      0.117,
+      0.208
+     ],
+     "conf": 0.8,
+     "tipo": "textura"
+    }
+   ],
+   "2": [
+    {
+     "label": "escombros flotantes",
+     "box": [
+      0.7,
+      0.75,
+      0.2,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "torre de vigilancia",
+     "box": [
+      0.6,
+      0.25,
+      0.12,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "ventanas inundadas",
+     "box": [
+      0.05,
+      0.4,
+      0.25,
+      0.2
+     ],
+     "conf": 0.88,
+     "tipo": "objeto"
+    }
+   ],
+   "3": [
+    {
+     "label": "Rostro del niño",
+     "box": [
+      0.42,
+      0.15,
+      0.16,
+      0.16
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "Manos del niño",
+     "box": [
+      0.38,
+      0.45,
+      0.2,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "manos"
+    },
+    {
+     "label": "Agua sucia",
+     "box": [
+      0.3,
+      0.7,
+      0.2,
+      0.3
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "4": [
+    {
+     "label": "Mano izquierda",
+     "box": [
+      0.12,
+      0.15,
+      0.18,
+      0.18
+     ],
+     "conf": 0.95,
+     "tipo": "manos"
+    },
+    {
+     "label": "Manos centrales",
+     "box": [
+      0.35,
+      0.3,
+      0.3,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "manos"
+    },
+    {
+     "label": "Agua sucia",
+     "box": [
+      0.35,
+      0.65,
+      0.3,
+      0.3
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ],
+   "5": [
+    {
+     "label": "año 2005",
+     "box": [
+      0.48,
+      0.05,
+      0.1,
+      0.06
+     ],
+     "conf": 0.95,
+     "tipo": "texto"
+    },
+    {
+     "label": "palabra PRISN",
+     "box": [
+      0.38,
+      0.45,
+      0.15,
+      0.08
+     ],
+     "conf": 0.95,
+     "tipo": "texto"
+    },
+    {
+     "label": "mancha de barro",
+     "box": [
+      0.3,
+      0.55,
+      0.25,
+      0.2
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "6": [
+    {
+     "label": "rostro del hombre",
+     "box": [
+      0.45,
+      0.2,
+      0.25,
+      0.3
+     ],
+     "conf": 0.95,
+     "tipo": "rostro"
+    },
+    {
+     "label": "manos agarradas",
+     "box": [
+      0.2,
+      0.05,
+      0.2,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "manos"
+    },
+    {
+     "label": "alambre de púas",
+     "box": [
+      0.7,
+      0.08,
+      0.2,
+      0.08
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    }
+   ],
+   "7": [
+    {
+     "label": "Sombra persona",
+     "box": [
+      0.45,
+      0.55,
+      0.1,
+      0.2
+     ],
+     "conf": 0.85,
+     "tipo": "persona"
+    },
+    {
+     "label": "Manija oxidada",
+     "box": [
+      0.18,
+      0.48,
+      0.1,
+      0.1
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "Charcos barro",
+     "box": [
+      0.35,
+      0.65,
+      0.2,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "textura"
+    }
+   ],
+   "8": [
+    {
+     "label": "oso de peluche",
+     "box": [
+      0.35,
+      0.55,
+      0.25,
+      0.25
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "casa sumergida",
+     "box": [
+      0.05,
+      0.2,
+      0.25,
+      0.25
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "escombros flotando",
+     "box": [
+      0.38,
+      0.28,
+      0.2,
+      0.15
+     ],
+     "conf": 0.88,
+     "tipo": "objeto"
+    }
+   ],
+   "9": [
+    {
+     "label": "torre vigilancia",
+     "box": [
+      0.4,
+      0.525,
+      0.1,
+      0.15
+     ],
+     "conf": 0.95,
+     "tipo": "objeto"
+    },
+    {
+     "label": "ventanas celdas",
+     "box": [
+      0.525,
+      0.35,
+      0.15,
+      0.1
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "escombros flotantes",
+     "box": [
+      0.1,
+      0.75,
+      0.2,
+      0.1
+     ],
+     "conf": 0.85,
+     "tipo": "objeto"
+    }
+   ],
+   "10": [
+    {
+     "label": "alambre púas",
+     "box": [
+      0.05,
+      0.45,
+      0.25,
+      0.1
+     ],
+     "conf": 0.9,
+     "tipo": "objeto"
+    },
+    {
+     "label": "agujero edificio",
+     "box": [
+      0.6,
+      0.05,
+      0.2,
+      0.2
+     ],
+     "conf": 0.95,
+     "tipo": "textura"
+    },
+    {
+     "label": "vegetación muros",
+     "box": [
+      0.3,
+      0.6,
+      0.2,
+      0.2
+     ],
+     "conf": 0.85,
+     "tipo": "textura"
+    }
+   ]
+  }
+ }
+}

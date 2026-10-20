@@ -535,7 +535,10 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
         elif s.safe.get("movement") == "static":   # F3 lab: foto quieta (sin tween)
             init.append(f'        gsap.set("#sf{tag}", {{ scale: 1, transformOrigin: "50% 50%" }});')
         else:
-            init.append(f'        gsap.set("#sf{tag}", {{ scale: 1, transformOrigin: "50% 50%" }});')
+            # F4b §3: foto con rostro/manos → el acercar apunta al detalle (origen = centro de la caja de visión)
+            org = s.safe.get("origin")
+            origin = f"{org[0] * 100:.1f}% {org[1] * 100:.1f}%" if org else "50% 50%"
+            init.append(f'        gsap.set("#sf{tag}", {{ scale: 1, transformOrigin: "{origin}" }});')
             js.append(f'        tl.to("#sf{tag}", {{ scale: {gfx_rules.safe_push_scale}, duration: {s.duration:.3f}, ease: "sine.inOut" }}, 0);')
 
     # ── punch_in en la CAPA DE VIDEO (los subs se queman después, no escalan)

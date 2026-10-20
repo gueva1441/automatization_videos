@@ -23,3 +23,28 @@
 - **E16** Dato: opciones del fact y de la narración ±4 s, como mucho 1 palabra más que hoy, con TODAS sus cifras y nombres propios (si no, «Templeman 1 y 2» quedaba «Templeman 1»). Años y fechas no se tocan (el sello ya es el dato justo).
 - **E17** Bordes: sin palabras funcionales ni verbos conjugados/gerundios/infinitivos en los extremos (salían «inmundo alcanzando», «Human Rights Watch denunció»), y una fecha nunca se parte («tocó tierra el 29»).
 - **E18** El sello rojo no pasa por §2: es una sola palabra y ya la eligen el léxico + §1. El mood de la categoría del fragmento no se agrega aparte (lo pone el énfasis si la palabra se dice): solo el ícono del recorte/dato.
+
+## §3 Zoom foto-primero
+- **E19** `script_engine/gfx_vision.py`, token `photo_first_zoom`. Imagen que mira visión: la foto original (PNG) en caps de fotos; el cuadro del base al empezar el zoom en caps Veo/híbridos. Cache por hash de la imagen en `output/<video>/assets/photo_details.json`.
+- **E20** Con el pase de visión disponible, el zoom que propuso el director (o el zoom_judge) se descarta y decide la foto: pico (si visión da caja en esa escena: nunca textura) → nombrado → de editor. El zoom «fuera del pico» por palabra de peso 3 de F3 se apaga en este modo (elegía cualquier detalle aunque la voz no lo nombrara). Sin visión → todo como en F4.
+- **E21** «Nombrado» = una palabra de la voz dentro del tramo comparte raíz con el label del detalle o es sinónimo de su tipo (mano/manos/dedos; rostro/cara/ojos; niño/preso/cuerpo…).
+- **E22** Router: foto con rostro o manos → movimiento seguro sobre el PNG (riesgo alto) con el acercar centrado en la caja (`transformOrigin` = centro del detalle). El centro de la caja no se mueve al acercar, así el zoom de evidencia cae en el mismo lugar.
+
+## §4 Íconos gratis
+- **E23** game-icons se baja del repo oficial (`github.com/game-icons/icons`, 4.239 SVG, 22 MB) con `script_engine/gfx_icons/fetch_game_icons.sh` a `script_engine/gfx_runtime/icons/` (en `.gitignore`). El índice `gfx_profiles/icons/icons_index.json` sí se versiona.
+- **E24** Restilizado: se saca el cuadrado negro de fondo, relleno hueso `#e8e0cc`, y el filtro de tinta + secado del set propio (`scoped_svg`). Sin rojo: game-icons no marca un «detalle semántico» y pintarlo a ojo sería inventar.
+- **E25** Lucide: en el repo solo están los 12 SVG de respaldo del set (no el paquete entero), así que el paso «si no hay match → Lucide» casi nunca encuentra algo. No se bajó Lucide completo (no lo pide el handoff); queda anotado.
+- **E26** Solo palabras de carga marcadas `concreta: true` por §1 buscan ícono automático (moods sin ícono propio y recortes/datos sin ícono). El tope de 3 bloques de ícono por cap sigue.
+- **E27** Crédito «Íconos: game-icons.net (CC BY 3.0) · Lucide (MIT)» al final de la descripción que genera m09 (`_normalize_metadata`), una sola vez.
+
+## §0.3 Marca (implementación, antes de la elección)
+- **E28** La marca se compone en el COSIDO FFmpeg del render disperso (`gfx_sparse.stitch` + `gfx_bug.py`), no en HyperFrames: así está en todo el cap (también fuera de las ventanas) y se puede cambiar sin volver a renderizar HyperFrames. Sin `channel_bug.enabled` en el perfil no hay marca (finanzas no la tiene).
+- **E29** Entrada «ink_bleed» de 0.8 s aproximada con aparición de opacidad (en FFmpeg no hay tinta); la llama se enciende 0.5 s después. Solo en ch01.
+- **E30** Parpadeo «cada 90 s» medido por cap (el cosido no conoce el tiempo absoluto del video): a los 45 s de cada cap y cada 90 s desde ahí.
+- **E31** Se esconde con fade de 0.3 s en: título, pregunta + negro, nivel de agua, cierre, y bloques del lado izquierdo de arriba (datos, recortes, contador, reloj, bloque de ícono).
+- **E32** Cierre del video: el último cap (sin pregunta) se alarga 2.5 + 1 s con la misma pausa de F3 (fase2b rellena audio y música).
+- **E33** Elegir el ícono con una regla mecánica sobre el índice salía mal: «agua» daba la molécula H2O y «cadáver» un pez muerto. Ahora Flash elige un número entre los candidatos del índice, mirando la frase, o 0 si ninguno dibuja la palabra (`choose_icons`, caché por palabra en `gfx_profiles/icons/auto_choice.json`). El «buscar en inglés» solo acepta un archivo con ese nombre EXACTO: las coincidencias parciales traían «shadow-grasp» para penumbra y un jabón líquido para «líquida».
+- **E34** Validación a mano de 50 entradas del índice (semilla 50): ~45 bien traducidas; fallan los nombres compuestos que se parten en dos palabras («lightning-spanner» → «llave», «inglesa»; «card-5-diamonds» → «cinco», «diamantes»). Lo compensa la elección por Flash con la frase.
+- **E35** La tira de Orleans suma los sustantivos dibujables más frecuentes de la narración (demo, con caché aparte `lab/hyperframes/f4b/auto_choice_demo.json`). En el pipeline solo entran las cargas `concreta: true` de §1: en Orleans fueron 3 («agua» ya tiene ícono propio; «penumbra» y «líquida» quedan sin ícono).
+- **E36** (§3) «Nombrado» = la voz dice el sustantivo PRINCIPAL del detalle (1ra palabra del label) o un sinónimo de su tipo; para texturas vale cualquier palabra del label (el material). Con cualquier palabra, «insecto en agua» se elegía porque la voz decía «agua». Orden final: nombrado (no textura) → de editor (humano, frase más intensa) → textura nombrada.
+- **E37** (§3) Verificación del recorte: antes de usar un zoom, visión mira la caja recortada (margen 5 %) y confirma que el detalle está en el centro y ocupa la mayor parte; si no, pasa al siguiente candidato (máx 3). Sin esto, 2 de 7 zooms de Orleans caían en barrotes al lado de las manos. Cache en `assets/zoom_verify.json`. Un fallo de visión queda anotado en la cache (esa escena sin detalles) para no reintentarlo en cada render.

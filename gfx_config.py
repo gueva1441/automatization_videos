@@ -313,6 +313,8 @@ class GfxRules:
     ticker_min_times: int = 0                # F4: el reloj solo sale con ≥ N horas verificadas (misterio: 2)
     intensity_director: bool = False         # F4b §1: Flash marca pico, intensidad por frase y cargas (gfx_intensity)
     fragment_director: bool = False          # F4b §2: Flash elige el fragmento literal más impactante (gfx_fragments)
+    photo_first_zoom: bool = False           # F4b §3: visión mira cada foto antes del zoom (gfx_vision)
+    auto_icons: bool = False                 # F4b §4: palabra de carga concreta sin ícono propio → game-icons
     source_tag_scale: float = 0.4            # 40 % del tamaño del callout
     sfx_gain_db: float = -18.0               # bajo la voz
     sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano

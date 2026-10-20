@@ -194,10 +194,19 @@ def generate_metadata(canonical: dict) -> dict:
     return _normalize_metadata(data)
 
 
+# F4b §4: crédito fijo de los íconos de la capa gráfica (game-icons.net CC BY 3.0 exige atribución)
+ICON_CREDIT = "Íconos: game-icons.net (CC BY 3.0) · Lucide (MIT)"
+
+
+def with_icon_credit(desc: str) -> str:
+    desc = str(desc).rstrip()
+    return desc if ICON_CREDIT in desc else (f"{desc}\n\n{ICON_CREDIT}" if desc else ICON_CREDIT)
+
+
 def _normalize_metadata(data: dict) -> dict:
     titulos = [str(t).strip()[:MAX_TITLE_CHARS] for t in (data.get("titulos") or [])][:6]
     overlays = [str(o).strip().upper() for o in (data.get("overlays") or [])][:6]
-    desc = str(data.get("descripcion", "")).strip()
+    desc = with_icon_credit(str(data.get("descripcion", "")).strip())
     tags = _truncate_tags([str(t).strip() for t in (data.get("tags") or []) if str(t).strip()],
                           MAX_TAGS_CHARS)
     return {"titulos": titulos, "overlays": overlays, "descripcion": desc, "tags": tags}

@@ -205,7 +205,7 @@ def grain_png(width: int, height: int, out: Path, seed: int = 1441) -> Path:
 
 def stitch(base: Path, hf: Path, windows: list[tuple[float, float]], offsets: list[tuple[float, float, float]],
            dur: float, out: Path, *, width: int, height: int, fps: int, vignette: Path | None,
-           grain: Path | None, grain_opacity: float, crf: int = 16) -> None:
+           grain: Path | None, grain_opacity: float, crf: int = 16, bug: dict[str, Any] | None = None) -> None:
     """Cap final = tramos del base fuera de ventanas + tramos del render HF, y grade FFmpeg uniforme encima."""
     # Tramos en orden del cap. Nocturno §3: en cada unión base↔HF, fundido de XF cuadros; para eso los
     # tramos de BASE se extienden XF cuadros dentro de la ventana vecina (el HF queda exacto).
@@ -244,12 +244,34 @@ def stitch(base: Path, hf: Path, windows: list[tuple[float, float]], offsets: li
                      f"[{last}]format=yuv420p[gb];[gb][gt]blend=c0_mode=overlay:c0_opacity={grain_opacity:.3f}:"
                      f"shortest=1[g2]")   # c1/c2 por default (normal, 1) = croma intacto
         last = "g2"
-    graph.append(f"[{last}]format=yuv420p[o]")
     cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(base), "-i", str(hf)]
     if vignette is not None:
         cmd += ["-loop", "1", "-framerate", str(fps), "-i", str(vignette)]
     if grain is not None and grain_opacity > 0:
         cmd += ["-loop", "1", "-framerate", str(fps), "-i", str(grain)]
+    if bug:                                                     # F4b §0.3: marca del canal (+ cierre en el último cap)
+        from script_engine import gfx_bug
+        n_in = 2 + (vignette is not None) + (grain is not None and grain_opacity > 0)
+
+        def _inp(p: Path | None) -> int | None:
+            nonlocal n_in
+            if p is None:
+                return None
+            cmd.extend(["-loop", "1", "-framerate", str(fps), "-i", str(p)])
+            n_in += 1
+            return n_in - 1
+        cfg = bug["cfg"]
+        if bug.get("corner", True):
+            ib, ifl = _inp(bug["corner_pngs"][0]), _inp(bug["corner_pngs"][1])
+            g, last = gfx_bug.overlay_graph(cfg, bug["plan"], bug.get("visible_until", dur), width=width, height=height,
+                                            in_body=ib, in_flame=ifl, last=last, intro=bug.get("intro", False))
+            graph.extend(g)
+        if bug.get("outro_t0") is not None:
+            ob, ofl = _inp(bug["outro_pngs"][0]), _inp(bug["outro_pngs"][1])
+            g, last = gfx_bug.outro_graph(cfg, bug["outro_t0"], width=width, height=height, in_body=ob, in_flame=ofl,
+                                          last=last)
+            graph.extend(g)
+    graph.append(f"[{last}]format=yuv420p[o]")
     cmd += ["-filter_complex", ";".join(graph), "-map", "[o]", "-t", f"{dur:.6f}", "-c:v", "libx264",
             "-preset", "ultrafast", "-crf", str(crf), "-r", str(fps), "-pix_fmt", "yuv420p", "-an", str(out)]   # intermedio: fase2b re-encodea
     r = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)

@@ -1,0 +1,171 @@
+[
+ {
+  "palabra": "agua",
+  "cap": "ch02",
+  "frase": "Las defensas de la ciudad, sus diques, cedieron ante la embestida colosal del agua.",
+  "candidatos": [
+   "h2o",
+   "water",
+   "holy-water",
+   "water-bolt",
+   "water-drop",
+   "water-gallon",
+   "water-splash",
+   "splashy-stream",
+   "water-recycling"
+  ],
+  "fuente": "propio",
+  "icono": "gota"
+ },
+ {
+  "palabra": "penumbra",
+  "cap": "ch04",
+  "frase": "Una eternidad de sufrimiento en la penumbra asfixiante.",
+  "candidatos": [],
+  "fuente": "ninguno",
+  "icono": null
+ },
+ {
+  "palabra": "líquida",
+  "cap": "ch05",
+  "frase": "Esos ojos infantiles y adultos, atrapados en la oscuridad líquida, presenciaron escenas que la memoria se esfuerza por borrar.",
+  "candidatos": [
+   "vile-fluid",
+   "spill"
+  ],
+  "fuente": "ninguno",
+  "icono": null
+ },
+ {
+  "palabra": "prisioneros",
+  "fuente": "game-icons",
+  "icono": "gi:delapouite/prisoner",
+  "demo": true
+ },
+ {
+  "palabra": "seis",
+  "fuente": "game-icons",
+  "icono": "gi:badges/number-6",
+  "demo": true
+ },
+ {
+  "palabra": "nivel",
+  "fuente": "ninguno",
+  "icono": null,
+  "demo": true
+ },
+ {
+  "palabra": "pecho",
+  "fuente": "game-icons",
+  "icono": "gi:delapouite/chest",
+  "demo": true
+ },
+ {
+  "palabra": "almas",
+  "fuente": "game-icons",
+  "icono": "gi:delapouite/soul",
+  "demo": true
+ },
+ {
+  "palabra": "aguas",
+  "fuente": "game-icons",
+  "icono": "gi:badges/water",
+  "demo": true
+ },
+ {
+  "palabra": "justicia",
+  "fuente": "game-icons",
+  "icono": "gi:caro-asercion/tarot-11-justice",
+  "demo": true
+ },
+ {
+  "palabra": "infierno",
+  "fuente": "ninguno",
+  "icono": null,
+  "demo": true
+ },
+ {
+  "palabra": "líquido",
+  "fuente": "ninguno",
+  "icono": null,
+  "demo": true
+ },
+ {
+  "palabra": "ojos",
+  "fuente": "game-icons",
+  "icono": "gi:badges/eye",
+  "demo": true
+ },
+ {
+  "palabra": "salida",
+  "fuente": "ninguno",
+  "icono": null,
+  "demo": true
+ },
+ {
+  "palabra": "sobre",
+  "fuente": "ninguno",
+  "icono": null,
+  "demo": true
+ },
+ {
+  "palabra": "mundo",
+  "fuente": "game-icons",
+  "icono": "gi:lorc/world",
+  "demo": true
+ },
+ {
+  "palabra": "silencio",
+  "fuente": "game-icons",
+  "icono": "gi:lorc/silence",
+  "demo": true
+ },
+ {
+  "palabra": "aire",
+  "fuente": "ninguno",
+  "icono": null,
+  "demo": true
+ },
+ {
+  "palabra": "cadáveres",
+  "fuente": "ninguno",
+  "icono": null,
+  "demo": true
+ },
+ {
+  "palabra": "personas",
+  "fuente": "game-icons",
+  "icono": "gi:delapouite/person",
+  "demo": true
+ },
+ {
+  "palabra": "corazón",
+  "fuente": "game-icons",
+  "icono": "gi:badges/heart",
+  "demo": true
+ },
+ {
+  "palabra": "defensas",
+  "fuente": "ninguno",
+  "icono": null,
+  "demo": true
+ },
+ {
+  "palabra": "ciudad",
+  "fuente": "game-icons",
+  "icono": "gi:delapouite/modern-city",
+  "demo": true
+ },
+ {
+  "palabra": "calles",
+  "fuente": "ninguno",
+  "icono": null,
+  "demo": true
+ },
+ {
+  "palabra": "hogares",
+  "fuente": "ninguno",
+  "icono": null,
+  "demo": true
+ }
+]
