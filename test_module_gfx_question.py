@@ -136,8 +136,9 @@ def test_closing_question_alarga_y_deja_la_pausa(tmp_path, monkeypatch):
     log: list[str] = []
     pause = gfx_layer.closing_question(resolved, {"chapter_number": 2, "chapters": []}, tmp_path, "ch02", 97.633, log)
     q = resolved["chapter_question"]
-    assert pause == 3.0 and q["start"] == 97.633 and q["duration"] == 3.0 and q["generated"] and q["pause"] == 3.0
-    assert json.loads((tmp_path / "gfx_pause_ch02.json").read_text(encoding="utf-8"))["pause"] == 3.0
+    assert pause == 4.0 and q["start"] == 97.633 and q["duration"] == 3.0 and q["generated"] and q["pause"] == 3.0
+    assert resolved["black_hold"] == {"start": 100.633, "duration": 1.0}          # corte a negro 1 s después de la pregunta
+    assert json.loads((tmp_path / "gfx_pause_ch02.json").read_text(encoding="utf-8"))["pause"] == 4.0
     monkeypatch.setattr(gq, "question_for", lambda *a, **k: {"text": None, "motivo": "último capítulo", "intentos": []})
     assert gfx_layer.closing_question(resolved, {"chapter_number": 7, "chapters": []}, tmp_path, "ch02", 97.6, log) == 0.0
     assert resolved["chapter_question"] is None and not (tmp_path / "gfx_pause_ch02.json").exists()

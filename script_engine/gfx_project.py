@@ -294,6 +294,56 @@ def icon_array_html(ia: dict[str, Any], duration: float) -> tuple[str, list[str]
     return html_, init, js
 
 
+# ═══════════════════════════════════════════════════════════════
+#  F3: bloques del pico (nivel de agua), reloj de esquina y corte a negro
+# ═══════════════════════════════════════════════════════════════
+
+def water_level_html(wl: dict[str, Any], width: int, height: int, duration: float) -> tuple[str, list[str], list[str]]:
+    """Línea fina color hueso que sube desde abajo hasta `height` (fracción de pantalla) con la cifra pegada contando
+    ("1 m… 2 m… 4.6 m") + oscurecimiento leve debajo de la línea. Subida `rise` s + hold; sale con fade."""
+    st = min(wl["start"], max(0.0, duration - wl["duration"]))
+    d, rise = wl["duration"], wl.get("rise", 2.5)
+    unit = "m" if str(wl.get("unit", "")).lower().startswith("m") else str(wl.get("unit", ""))
+    final = float(str(wl["value_text"]).replace(",", "."))
+    y = round(height * float(wl["height"]))
+    html_ = (f'      <div id="wl" class="clip" data-start="{st:.3f}" data-duration="{d:.3f}" '
+             f'style="position:absolute;inset:0;z-index:20;pointer-events:none;overflow:hidden">'
+             f'<div id="wl-box" style="position:absolute;left:0;right:0;bottom:0;height:{y}px">'
+             f'<div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.5),rgba(0,0,0,.38))"></div>'
+             f'<div style="position:absolute;left:0;right:0;top:0;height:4px;background:#f2efe6;box-shadow:0 0 14px rgba(242,239,230,.45)"></div>'
+             f'<div id="wl-num" style="position:absolute;right:7%;top:-118px;color:#f2efe6;font:400 104px/1 &quot;{gfx_rules.figure_font}&quot;,'
+             f'sans-serif;text-transform:none;letter-spacing:.02em;text-shadow:{gfx_rules.callout_shadow};font-variant-numeric:tabular-nums">'
+             f'1 {_esc(unit)}</div></div></div>')
+    init = ['      gsap.set("#wl-box", { height: 0 });']
+    js = [f'      var wlObj = {{ v: 0 }}; tl.to("#wl-box", {{ height: {y}, duration: {rise:.3f}, ease: "power1.inOut" }}, {st:.3f})'
+          f'.to(wlObj, {{ v: {final}, duration: {rise:.3f}, ease: "power1.inOut", onUpdate: function () {{'
+          f' var v = wlObj.v >= {final} - 1e-6 ? {json.dumps(str(wl["value_text"]))} : String(Math.max(1, Math.floor(wlObj.v)));'
+          f' document.getElementById("wl-num").textContent = v + " {_esc(unit)}"; }} }}, {st:.3f})'
+          f'.to("#wl", {{ opacity: 0, duration: .4, ease: "power1.in" }}, {st + d - .4:.3f});']
+    return html_, init, js
+
+
+def time_ticker_html(tk: dict[str, Any], duration: float) -> tuple[str, list[str], list[str]]:
+    """Reloj de esquina (arriba a la izquierda, Anton S): "29 AGO · 23:40". Avanza entre las dos horas de los datos
+    si las hay; si no, la fecha quieta."""
+    st, d = tk["start"], min(tk["duration"], max(0.5, duration - tk["start"]))
+    head = f'{tk["day"]} {tk["month"]}'
+    html_ = (f'      <div id="tk" class="clip" data-start="{st:.3f}" data-duration="{d:.3f}" '
+             f'style="position:absolute;{"right" if tk.get("side") == "right" else "left"}:150px;top:64px;z-index:23;color:#f2efe6;font:400 64px/1 &quot;{gfx_rules.figure_font}&quot;,'
+             f'sans-serif;letter-spacing:.08em;text-shadow:{gfx_rules.callout_shadow};font-variant-numeric:tabular-nums">'
+             f'{_esc(head)} <span style="color:{gfx_rules.accent_hex}">·</span> <span id="tk-t">{_esc(tk.get("tail", ""))}</span></div>')
+    init = ['      gsap.set("#tk", { opacity: 0 });']
+    js = [f'      tl.to("#tk", {{ opacity: 1, duration: .4 }}, {st:.3f}).to("#tk", {{ opacity: 0, duration: .4 }}, {st + d - .4:.3f});']
+    if tk.get("advance") and len(tk.get("times") or []) >= 2:
+        (h0, m0), (h1, m1) = [map(int, x.split(":")) for x in tk["times"][:2]]
+        a, b = h0 * 60 + m0, h1 * 60 + m1
+        js.append(f'      var tkObj = {{ m: {a} }}; tl.to(tkObj, {{ m: {b}, duration: {d - .8:.3f}, ease: "none", onUpdate: function () {{'
+                  ' var m = Math.round(tkObj.m) % 1440, h = Math.floor(m / 60), mm = m % 60;'
+                  ' document.getElementById("tk-t").textContent = (h < 10 ? "0" : "") + h + ":" + (mm < 10 ? "0" : "") + mm; } },'
+                  f' {st + .4:.3f});')
+    return html_, init, js
+
+
 def load_grade_preset() -> dict[str, Any]:
     """Preset de grade versionado (D4)."""
     return json.loads((GFX_TEMPLATES_DIR / "gfx_grade.json").read_text(encoding="utf-8"))
@@ -510,6 +560,12 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
         # F2 §0b.5: el zoom TERMINA en el corte (acerca, sostiene ≥ 1 s y la escena corta). Nunca vuelve.
         z0 = (ez["start"] - s.start) if "start" in ez else max(0.0, s.duration - gfx_rules.zoom_dur)
         rest = s.duration - z0
+        # F3 fix: HyperFrames compone el <video> en su propia capa y NO hereda la escala del contenedor → el zoom solo movía
+        # el recuadro. Un cuadro congelado del video al empezar el zoom (img, que sí escala) lo tapa hasta el corte.
+        zf = project / "public" / "cuts" / f"zoomfz_{tag}.jpg"
+        if not (s.safe and Path(s.safe["image"]).exists()) and _extract_freeze(base, s.start + z0, zf):
+            inner.append(f'      <img id="zf{tag}" class="media clip" src="public/cuts/{zf.name}" data-start="{z0:.3f}" '
+                         f'data-duration="{rest:.3f}" alt="" />')
         inner.append(_tpl("evidence_zoom.html.tmpl").substitute(n=tag, x=f"{x:.0f}", y=f"{y:.0f}", w=f"{w:.0f}", h=f"{h:.0f}"))
         outer.append(f'    <div id="zl{tag}" class="zlabel clip" data-start="{z0:.3f}" data-duration="{rest:.3f}" '
                      f'style="left:{lx:.0f}px;top:{ly:.0f}px">DETALLE</div>')
@@ -518,6 +574,14 @@ def _scene_html(s: GfxScene, n: int, plan: dict[str, Any], project: Path,
                         f' gsap.set("#zl{tag}", {{ opacity: 0, scale: {gfx_rules.stamp_from_scale}, rotation: {gfx_rules.stamp_rotation} }});')
         else:
             init.append(f'        gsap.set("#vw{tag}", {{ transformOrigin: "{cx:.1f}px {cy:.1f}px" }}); gsap.set("#zl{tag}", {{ opacity: 0 }});')
+        if ez.get("latido_t") is not None:                     # F3: latido (lub-dub) en la palabra
+            lt = float(ez["latido_t"]) - s.start
+            outer.append(f'    <div id="lt{tag}" class="clip" data-start="0" data-duration="{s.duration:.3f}" '
+                         f'style="position:absolute;inset:0;background:#000;pointer-events:none"></div>')
+            init.append(f'        gsap.set("#lt{tag}", {{ opacity: 0 }});')
+            for k, beat in enumerate((0.0, 0.28)):
+                js.append(f'        tl.to("#lt{tag}", {{ opacity: {.32 if k == 0 else .22}, duration: .06, ease: "none" }}, {lt + beat:.3f})'
+                          f'.to("#lt{tag}", {{ opacity: 0, duration: .18, ease: "power1.out" }}, {lt + beat + .06:.3f});')
         r0, ap = gfx_rules.zoom_rect_sec, gfx_rules.zoom_approach_sec
         js.append(f'        tl.to("#zr{tag}", {{ opacity: 1, duration: .3 }}, {z0 + .25:.3f})'
                   f'.to("#vw{tag}", {{ scale: {S}, x: {tx:.1f}, y: {ty:.1f}, duration: {ap}, ease: "power3.inOut" }}, {z0 + r0:.3f})'
@@ -582,6 +646,14 @@ def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[d
     for e in plan.get("emphasis", []) or []:                    # F2b §2 (+ §3: ícono)
         add(e["start"], e["duration"], f"{'icon_callout' if e.get('icon_callout') else 'keyword_emphasis'}:{e['category']}",
             e["word"] + (f" [{e['icon']} · {e.get('icon_anim', 'stamp')}]" if e.get("icon_callout") else ""))
+    if plan.get("water_level"):                                 # F3
+        wl = plan["water_level"]
+        add(wl["start"], wl["duration"], "water_level", f"{wl['value_text']} {wl.get('unit', '')}".strip())
+    if plan.get("time_ticker"):
+        tk = plan["time_ticker"]
+        add(tk["start"], tk["duration"], "time_ticker", f"{tk['day']} {tk['month']} · {tk.get('tail', '')}".strip())
+    if plan.get("black_hold"):
+        add(plan["black_hold"]["start"], plan["black_hold"]["duration"], "black_hold", "corte a negro")
     if plan.get("icon_array"):                                  # F2b §3
         ia = plan["icon_array"]
         add(ia["start"], ia["duration"], "icon_array", f"{ia['label']} ({ia['affected']}/{ia['total']})")
@@ -802,6 +874,22 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         js.append(f'      tl.to("#ar{i}-paper", {{ opacity: 1, y: 0, rotation: -2.5, duration: .6, ease: "power3.out" }}, {a0:.3f})'
                   f'.to("#ar{i}-paper", {{ opacity: 0, y: 20, duration: .4, ease: "power1.in" }}, {a1 - .4:.3f});')
 
+    # ── F3: nivel de agua (bloque del pico) y reloj de esquina
+    if plan.get("water_level"):
+        w_html, w_init, w_js = water_level_html(plan["water_level"], width, height, duration)
+        overlays.append(w_html)
+        init += w_init
+        js += w_js
+    if plan.get("time_ticker"):
+        t_html, t_init, t_js = time_ticker_html(plan["time_ticker"], duration)
+        overlays.append(t_html)
+        init += t_init
+        js += t_js
+    bh = plan.get("black_hold")
+    if bh:                                                     # F3: corte a negro (sin fundido) al final
+        overlays.append(f'      <div id="bh" class="clip" data-start="{bh["start"]:.3f}" data-duration="{bh["duration"]:.3f}" '
+                        f'style="position:absolute;inset:0;z-index:60;background:#000"></div>')
+
     # ── chapter_question (F2 §0d): cierre del cap, fondo 50 %, palabra clave en el acento
     cq = plan.get("chapter_question")
     if cq:
@@ -815,7 +903,8 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         init.append('      gsap.set("#cq-dim", { opacity: 0 }); gsap.set("#cq-text .cq-line", { yPercent: 110 });')
         js.append(f'      tl.to("#cq-dim", {{ opacity: {gfx_rules.question_dim}, duration: .35 }}, {q0:.3f})'
                   f'.to("#cq-text .cq-line", {{ yPercent: 0, duration: .6, ease: "power4.out" }}, {q0 + .2:.3f})'
-                  f'.to(["#cq-text", "#cq-dim"], {{ opacity: 0, duration: .3, ease: "power1.in" }}, {q0 + qd - .3:.3f});')
+                  + ("" if bh and abs(bh["start"] - (q0 + qd)) < .05 else          # con corte a negro: corte seco, sin fundido
+                     f'.to(["#cq-text", "#cq-dim"], {{ opacity: 0, duration: .3, ease: "power1.in" }}, {q0 + qd - .3:.3f})') + ";")
 
     # ── --gfx-debug: overlay quemado (NUNCA sin el flag)
     if debug:

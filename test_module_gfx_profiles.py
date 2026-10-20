@@ -27,7 +27,8 @@ def test_misterio_reproduce_la_calibracion_0b():
     diffs = {f.name for f in fields(gc.GfxRules) if getattr(rm, f.name) != getattr(engine, f.name)}
     assert diffs == {"interrupt_min_sec", "interrupt_max_sec", "grain_opacity", "vignette_opacity",
                      "mood_dark_flicker",                                  # PARADA 1: oscuridad sin parpadeos
-                     "question_auto", "question_dim", "icon_px"}, diffs     # F3: pregunta generada (70 %) + ícono L
+                     "question_auto", "question_dim", "icon_px",           # F3: pregunta generada (70 %) + ícono L
+                     "black_hold_sec", "peak_blocks"}, diffs               # F3: corte a negro 1 s + pico del cap
     assert (rm.interrupt_max_sec, rm.grain_opacity, rm.vignette_opacity) == (18.0, 0.0, 0.15)
     assert (rm.question_auto, rm.question_dim, rm.icon_px, rm.question_pause_sec) == (True, 0.7, 360, 3.0)
 

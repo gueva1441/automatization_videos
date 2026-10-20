@@ -93,3 +93,7 @@ a.more { display: inline-block; margin-top: 8px; font-size: 12px; color: #9fb6e8
 .mini.lit { border-color: var(--red); color: #ffb0a6; }
 .qtxt { width: 100%; background: #111; color: var(--bone); border: 1px solid var(--line); border-radius: 4px; padding: 6px;
         font: 15px/1.3 system-ui, sans-serif; margin: 4px 0; }
+
+/* F3: pico del capítulo */
+.badge.pico { background: var(--red); color: #fff; font-weight: 700; letter-spacing: .06em; }
+.ocard:has(.badge.pico) { border-color: var(--red); }

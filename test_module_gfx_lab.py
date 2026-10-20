@@ -381,8 +381,8 @@ def test_safe_static_y_pull_en_el_templater(tmp_path):
 @needs_data
 def test_preview_solo_un_objeto_sobre_la_foto_quieta(server):
     session, url = server
-    plan = session.director_plan()
-    e = next(x for x in plan["emphasis"] if x["word"] == "sumergidos")
+    e = {"word": "sumergidos", "category": "agua", "layer": "agua", "start": 33.7, "duration": 2.5, "side": "right",
+         "stamp": True, "icon_callout": False, "icon": None}
     solo = {"chapter_number": 2, "emphasis": [dict(e, layer="", icon_callout=False)]}
     r = _post(url + "/preview", {"plan": solo, "tokens": {}, "movimientos": {"4": "quieta"}, "solo": [4]})
     assert r["src"].startswith("/solo/index.html")
@@ -485,3 +485,21 @@ def test_pantalla_iconos_y_pregunta():
     for txt in ("openIconPicker", "prop:icono:", "con ícono", "otra pregunta", "/question", "sfx-drone", "free_icon"):
         assert txt in js or txt in idx, txt
     assert "Con la palabra en sello" not in js                         # el ícono nunca va suelto
+
+
+@needs_data
+def test_dos_pestanas_no_se_pisan(server, monkeypatch, tmp_path):
+    session, url = server
+    monkeypatch.setattr(session, "state_path", tmp_path / "estado.json")
+    st = {"plan": {"chapter_number": 2}, "tokens": {}}
+    v1 = _post(url + "/api/plan", st)["version"]
+    v2 = _post(url + "/api/plan", {**st, "base_version": v1})["version"]       # misma pestaña: ok
+    with pytest.raises(urllib.error.HTTPError) as e:
+        _post(url + "/api/plan", {**st, "base_version": v1})                   # pestaña vieja: 409, no pisa
+    assert e.value.code == 409 and json.loads(session.state_path.read_text(encoding="utf-8"))["version"] == v2
+
+
+def test_pantalla_pico_y_bloques_nuevos():
+    js = (lab.LAB_DIR / "lab_foto.js").read_text(encoding="utf-8")
+    for txt in ("Nivel de agua", "Reloj «", "latido", "Corte a negro", "badge pico", "PICO", "sfx-latido", "regla de pico"):
+        assert txt in js or txt in (lab.LAB_DIR / "index.html").read_text(encoding="utf-8"), txt

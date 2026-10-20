@@ -109,7 +109,8 @@
     }
 
     // objetos del plan que caen en el tramo
-    const cues = S.cues.filter((c) => !c.block.startsWith("shot_transition") && c.block !== "chapter_question" && inTramo(c.t))
+    const cues = S.cues.filter((c) => !c.block.startsWith("shot_transition") && c.block !== "chapter_question" &&
+      c.block !== "black_hold" && inTramo(c.t))
       .sort((a, b) => a.t - b.t);
     for (const c of cues) out.push(...objetosDeCue(c, i));
     if (i === 0 && !S.plan.title_card) out.splice(1, 0, tituloApagado());
@@ -171,6 +172,7 @@
 
     // pregunta de cierre (último tramo) y salida hacia el tramo siguiente
     if (i === last()) out.push(preguntaObj());
+    if (i === last() && S.plan.black_hold) out.push(negroObj());
     if (i < last()) {
       const nx = tramo(i + 1);
       const s12 = sugFor(["dip_to_black"], nx.start, 2.5);
@@ -183,6 +185,17 @@
         solo: () => ({ plan: basePlan(), movimientos: { [i]: "quieta", [i + 1]: "quieta" }, salidas: { [i]: salidaDe(i) }, tramos: [i, i + 1] }),
         win: [nx.start - 1.5, nx.start + 1.5],
       });
+    }
+    const pk = S.plan.pico;
+    if (pk) {                                      // regla de pico: nada propuesto a ±5 s del pico (solo su bloque)
+      for (let k = out.length - 1; k >= 0; k--) {
+        const o = out[k];
+        if ((o.key.startsWith("prop:") || o.key.startsWith("sug:")) && Math.abs(o.t - pk.t) <= 5) out.splice(k, 1);
+      }
+      const keyPico = pk.block === "water_level" && S.plan.water_level ? `agua:${tkey(S.plan.water_level.start)}`
+        : pk.block === "evidence_zoom" && S.plan.evidence_zoom ? `zoom:${tkey(S.plan.evidence_zoom.start)}`
+        : pk.block === "archive_clippings" ? `recorte:${tkey(((S.plan.archive_clippings || []).find((a) => a.peak) || {}).start ?? -1)}` : null;
+      out.forEach((o) => { if (o.key === keyPico) { o.pico = true; o.nota = `PICO del capítulo («${pk.word}»): nada más ±5 s.` + (o.nota ? " " + o.nota : ""); } });
     }
     return out;
   }
@@ -331,8 +344,24 @@
         onForm(g, v) { S.tokens.punch_scale = PUNCH[v]; },
         solo: soloDe(i, () => ({ punch_in: [pc.t] })),
         quitar: () => { S.plan.punch_in = S.plan.punch_in.filter((x) => x !== pc.t); } });
+    } else if (b === "water_level" && S.plan.water_level) {
+      const wl = S.plan.water_level;
+      out.push({ ...base, key: `agua:${tkey(t)}`, elem: "water_level", nombre: `Nivel de agua «${wl.value_text} ${wl.unit}»`,
+        ia: iaLine(`el agua sube hasta ${wl.value_text} ${wl.unit === "metros" ? "m" : wl.unit}`, "la cifra se ve en la foto"), grupos: [],
+        nota: "Línea hueso que sube 2.5 s con la cifra contando, 2 s quieta y oscurece abajo. Máx 1 por video.",
+        solo: soloDe(i, () => ({ water_level: wl })), quitar: () => { S.plan.water_level = null; } });
+    } else if (b === "time_ticker" && S.plan.time_ticker) {
+      const tk = S.plan.time_ticker;
+      out.push({ ...base, win: [t - 0.5, t + Math.min(tk.duration, 5)], key: `reloj:${tkey(t)}`, elem: "time_ticker",
+        nombre: `Reloj «${tk.day} ${tk.month} · ${tk.tail}»`,
+        ia: iaLine(tk.advance ? "reloj que avanza con la narración" : "la fecha quieta en la esquina", "ubica el momento"), grupos: [],
+        nota: tk.advance ? "" : "Los datos no traen horas: solo la fecha, sin avanzar.",
+        solo: soloDe(i, () => ({ time_ticker: tk })), quitar: () => { S.plan.time_ticker = null; } });
     } else if (b === "evidence_zoom" && S.plan.evidence_zoom) {
-      out.push({ ...base, key: `zoom:${tkey(t)}`, elem: "punch_in", nombre: "Zoom de detalle", ia: iaLine("acercar al detalle", "muestra la prueba"), grupos: [],
+      const lat = S.plan.evidence_zoom.latido_t != null;
+      out.push({ ...base, key: `zoom:${tkey(t)}`, elem: "punch_in",
+        nombre: lat ? `Zoom de detalle + latido «${S.plan.evidence_zoom.word || ""}»` : "Zoom de detalle",
+        ia: lat ? iaLine("acercar al detalle con un latido", "el corazón de la escena") : iaLine("acercar al detalle", "muestra la prueba"), grupos: [],
         solo: () => ({ plan: { ...basePlan(), evidence_zoom: S.plan.evidence_zoom }, movimientos: {}, tramos: [i] }),
         quitar: () => { S.plan.evidence_zoom = null; } });
     } else if (b === "icon_array" && S.plan.icon_array) {
@@ -356,6 +385,18 @@
                      tramos: [last()], pausa: P }),
       quitar: () => { S.plan.chapter_question = null; },
       win: [Math.max(0, d - 2), d + P],
+    };
+  }
+  function negroObj() {
+    const bh = S.plan.black_hold, d = S.story.duration, P = PAUSA();
+    return {
+      key: "negro", elem: "black_hold", nombre: `Corte a negro ${bh.duration} s`, t: bh.start, tEnd: bh.start + bh.duration,
+      ia: iaLine("corte seco a negro después de la pregunta", "termina el capítulo"), grupos: [],
+      nota: "Sin fundido: la pregunta corta directo a negro. Alarga el capítulo lo mismo.",
+      solo: () => ({ plan: { ...basePlan(), chapter_question: S.plan.chapter_question, black_hold: bh },
+                     movimientos: { [last()]: "quieta" }, tramos: [last()], pausa: P + bh.duration }),
+      quitar: () => { S.plan.black_hold = null; },
+      win: [d + P - 1.5, d + P + bh.duration],
     };
   }
   function questionPiece(text, manual) {
@@ -390,6 +431,7 @@
     const r = await api("/preview", { tokens: S.tokens, ...body });
     F.extra = +body.pausa || 0;
     F.qStart = body.plan && body.plan.chapter_question ? body.plan.chapter_question.start : null;
+    F.latT = body.plan && body.plan.evidence_zoom && body.plan.evidence_zoom.latido_t != null ? body.plan.evidence_zoom.latido_t : null;
     if (r.rejected && r.rejected.length) setStatus(`candado quitó ${r.rejected.map((x) => `«${x.text}»`).join(", ")}`, "err");
     await loadSrc(r.src, 0, false);
     F.loaded = body.solo ? "solo" : "todo";
@@ -456,6 +498,9 @@
     if (p.evidence_zoom && keep(`zoom:${tkey(p.evidence_zoom.start ?? 0)}`)) pl.evidence_zoom = p.evidence_zoom;
     if (p.icon_array && keep(`matriz:${tkey(p.icon_array.start)}`)) pl.icon_array = p.icon_array;
     if (p.chapter_question && keep("pregunta")) pl.chapter_question = p.chapter_question;
+    if (p.water_level && keep(`agua:${tkey(p.water_level.start)}`)) pl.water_level = p.water_level;
+    if (p.time_ticker && keep(`reloj:${tkey(p.time_ticker.start)}`)) pl.time_ticker = p.time_ticker;
+    if (pl.chapter_question && p.black_hold && keep("negro")) pl.black_hold = p.black_hold;
     const movimientos = {}, salidas = {};
     tramos().forEach((_, i) => {
       const mv = keep(`mov:${i}`) ? movDe(i) : "quieta";
@@ -464,7 +509,8 @@
       if (i < last()) salidas[i] = keep(`salida:${i}`) ? salidaDe(i) : "corte";
     });
     pl.punch_in.sort((a, b) => a - b);
-    return { plan: pl, movimientos, salidas, pausa: pl.chapter_question && pl.chapter_question.pause ? pl.chapter_question.pause : 0 };
+    const pq = pl.chapter_question && pl.chapter_question.pause ? pl.chapter_question.pause : 0;
+    return { plan: pl, movimientos, salidas, pausa: pq + (pl.black_hold ? pl.black_hold.duration : 0) };
   }
   async function verTramo(fromT) {
     const p = tramo(S.fotoActual);
@@ -514,7 +560,7 @@
     const t = key.split(":")[0];
     return { mov: "movimiento", look: "vignette", title: "title_card", dato: "data_callout", contador: "count_up", fuente: "source_tag",
              recorte: "archive_clipping", mood: "keyword_emphasis", icono: "icon_callout", sello: "keyword_stamp", golpe: "punch_in",
-             salida: "salida", pregunta: "chapter_question" }[t] || t;
+             salida: "salida", pregunta: "chapter_question", agua: "water_level", reloj: "time_ticker", negro: "black_hold" }[t] || t;
   }
   function nunca(o, tipo) {
     mutate(tipo ? `${o.nombre}: ✖ nunca este tipo` : `${o.nombre}: ✖ nunca`, () => {
@@ -692,7 +738,8 @@
     const hasMore = (o.mas && o.mas.length) || o.posicion || !(o.key.startsWith("sug:") || o.key.startsWith("prop:"));
     return `<div class="ocard ${cls}" data-k="${esc(o.key)}">
       <div class="oc-head"><span class="num">${CIRC[n] || n + 1}</span> <b>${esc(o.nombre)}</b> <span class="when">${fmt(o.t)}</span>
-        ${o.key.startsWith("sug:") || o.key.startsWith("prop:") ? '<span class="badge sugd">propuesto</span>' : ""}</div>
+        ${o.key.startsWith("sug:") || o.key.startsWith("prop:") ? '<span class="badge sugd">propuesto</span>' : ""}
+        ${o.pico ? '<span class="badge pico">PICO</span>' : ""}</div>
       <div class="ia">${esc(o.ia)}</div>
       ${q}
       <div class="oc-actions"><button class="btn probar" data-probar="1">▶ Probar</button>
@@ -836,6 +883,9 @@
       $("#tc").textContent = `${fmt(t)}`;
       if (F.qStart !== null && !player().paused && F.lastT < F.qStart && t >= F.qStart) {     // drone de la pregunta
         const dr = $("#sfx-drone"); if (dr) { dr.currentTime = 0; dr.volume = 0.6; dr.play().catch(() => {}); }
+      }
+      if (F.latT !== null && F.latT !== undefined && !player().paused && F.lastT < F.latT && t >= F.latT) {   // latido del zoom
+        const lt = $("#sfx-latido"); if (lt) { lt.currentTime = 0; lt.volume = 0.8; lt.play().catch(() => {}); }
       }
       if (player().paused) { const dr = $("#sfx-drone"); if (dr && !dr.paused && t < (F.qStart ?? 0)) dr.pause(); }
       F.lastT = t;

@@ -128,7 +128,7 @@ class LabSession:
 
     # ── base.mp4 (-g 30) del preview = clip visual del cap + COLA de último cuadro congelado (TAIL_SEC) para la pausa
     # de la pregunta de cierre. Archivo propio (nunca hardlink: el render lo re-escribe). duration = fin de la voz.
-    TAIL_SEC = 3.5
+    TAIL_SEC = 4.5                                                    # pregunta 3 s + corte a negro 1 s + margen
 
     def _prepare_base(self) -> None:
         from script_engine.gfx_layer import _ffprobe_duration
@@ -179,7 +179,32 @@ class LabSession:
     # ── planes
     def director_plan(self) -> dict[str, Any]:
         f = self.work_dir / f"gfx_plan_{self.cap}.resolved.json"
-        return json.loads(f.read_text(encoding="utf-8"))["plan"]
+        return self.with_defaults(json.loads(f.read_text(encoding="utf-8"))["plan"])
+
+    def with_defaults(self, plan: dict[str, Any]) -> dict[str, Any]:
+        """F3: lo que el pipeline nuevo agrega por default (si el plan viene de un render anterior): pico con su bloque
+        grande + zoom con latido + reloj (gfx_peak, cajas de visión SOLO desde la cache: el lab no llama a visión),
+        pregunta de cierre generada (cache gfx_question) con su pausa y el corte a negro."""
+        import gfx_config
+        from script_engine.gfx_peak import box_from_cache, plan_peak, water_used_before
+        rules = gfx_config.gfx_rules
+        self.context()
+        if rules.peak_blocks and "pico" not in plan:
+            plan_peak(plan, ctx=self._ctx, words=self.words, scenes=self.scenes, moods=gfx_config.active_moods(),
+                      clip_dur=self.duration, box_for=box_from_cache(self.work_dir / f"gfx_zoom_box_{self.cap}.json"),
+                      water_used=water_used_before(self.work_dir, self._ctx["chapter_number"]), time_offset=self.time_offset)
+        q = plan.get("chapter_question")
+        if rules.question_auto and not q:
+            cache = self.work_dir / f"gfx_question_{self.cap}.json"
+            gen = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
+            if gen.get("text"):
+                from script_engine.gfx_director import question_keyword
+                q = plan["chapter_question"] = {"text": gen["text"], "start": round(self.duration, 3),
+                                                "duration": rules.question_pause_sec, "keyword": question_keyword(gen["text"]),
+                                                "generated": True, "pause": rules.question_pause_sec}
+        if q and q.get("pause") and rules.black_hold_sec > 0 and not plan.get("black_hold"):
+            plan["black_hold"] = {"start": round(q["start"] + q["pause"], 3), "duration": rules.black_hold_sec}
+        return plan
 
     def lab_state(self) -> dict[str, Any]:
         """Estado del lab: {plan, tokens, …}. Sin archivo → plan del director y sin tokens cambiados."""
@@ -192,16 +217,23 @@ class LabSession:
     def lab_plan(self) -> dict[str, Any]:
         return self.lab_state()["plan"]
 
-    def save_lab_state(self, state: dict[str, Any]) -> None:
+    def save_lab_state(self, state: dict[str, Any]) -> str:
         """Guarda el estado completo que manda la página (plan, tokens y lo que §C agregue)."""
         if "plan" not in state:
             raise ValueError("estado sin plan")
         bad = sorted(set(state.get("tokens") or {}) - _rule_fields())
         if bad:
             raise ValueError(f"tokens desconocidos: {bad}")
-        out = {"video_id": self.video_id, "cap": self.cap, **state, "saved_at": time.strftime("%Y-%m-%d %H:%M:%S")}
+        base = state.pop("base_version", None)
+        cur = self.lab_state().get("version") if self.state_path.exists() else None
+        if base is not None and cur is not None and base != cur:
+            raise StateConflict(f"el estado cambió desde otra pestaña ({cur} ≠ {base}): recargá la página")
+        state.pop("version", None)
+        out = {"video_id": self.video_id, "cap": self.cap, **state, "saved_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+               "version": f"{time.time():.6f}"}
         self.state_path.parent.mkdir(parents=True, exist_ok=True)
         self.state_path.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+        return out["version"]
 
     # ── contexto del cap: fuentes del candado, facts elegibles, léxico de moods en la narración
     def context(self) -> dict[str, Any]:
@@ -438,6 +470,8 @@ class LabSession:
             project = self.solo_project if solo else self.project
             if solo:
                 self._link_base(project)
+                for old in (project / "compositions").glob("scene_*.html"):   # sin restos de Probar anteriores
+                    old.unlink()
             with rules_override(tokens or {}):
                 scenes = self._scenes_for(solo, movimientos)
                 pausa = max(0.0, min(float(pausa or 0.0), self.TAIL_SEC))     # pausa de cierre: alarga el último tramo
@@ -484,6 +518,10 @@ def suggest_movement(prompt: dict[str, Any], *, already_out: bool) -> tuple[str,
     if wide and _PLACE.search(subj):
         return ("3D", "paisaje con profundidad") if already_out else ("alejar", "revela el lugar")
     return "acercar", "base del documental"
+
+
+class StateConflict(RuntimeError):
+    """Otra pestaña guardó el estado del lab después de que esta lo leyó (409: recargar, no pisar)."""
 
 
 def _rule_fields() -> frozenset[str]:
@@ -671,8 +709,10 @@ class LabHandler(BaseHTTPRequestHandler):
                 _, rejected, cues = s.cues_for(body["plan"], body.get("tokens") or {})
                 return self._json({"cues": cues, "rejected": rejected})
             if path == "/api/plan":
-                s.save_lab_state(self._body())
-                return self._json({"ok": True})
+                try:
+                    return self._json({"ok": True, "version": s.save_lab_state(self._body())})
+                except StateConflict as e:
+                    return self._error(409, str(e))
             if path == "/summary":
                 return self._json({"md": s.summary(self._body())})
             if path == "/save_identity":

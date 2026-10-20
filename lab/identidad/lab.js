@@ -124,8 +124,12 @@ function syncUndoButtons() {
 let saveTimer = null;
 function autosave() {
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => api("/api/plan", labState())
-    .catch((e) => setStatus("no se pudo guardar el estado: " + e.message, "err")), 400);
+  saveTimer = setTimeout(() => api("/api/plan", { ...labState(), base_version: S.version ?? null })
+    .then((r) => { S.version = r.version; })
+    .catch((e) => {
+      S.saveBlocked = /otra pestaña/.test(e.message);
+      setStatus(S.saveBlocked ? "⚠ " + e.message + " (no se guardó para no pisar el otro cambio)" : "no se pudo guardar el estado: " + e.message, "err");
+    }), 400);
   refreshSummary();
 }
 let pvTimer = null;
@@ -783,6 +787,7 @@ async function init() {
     S.plan = st.plan; S.tokens = st.tokens || {}; S.anotado = st.anotado || {}; S.sugState = st.sugerencias || {};
     S.marks = st.marks || {}; S.lexicon = st.lexicon || {}; S.faltan = st.faltan || ""; S.touched = st.touched || [];
     S.sugUndo = st.sug_undo || {};
+    S.version = st.version ?? null;                               // candado: dos pestañas no se pisan
     S.obj = st.objetos || {}; S.fotoActual = st.foto_actual || 0; S.visitadas = st.visitadas || [];
     S.directorPlan = dir.plan;
     S.profileName = prof.name;

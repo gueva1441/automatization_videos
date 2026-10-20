@@ -813,12 +813,15 @@ def sfx_events(out: dict[str, Any], words: list[dict], time_offset: float, sfx_f
     marks += [(e["start"], "keyword_emphasis") for e in out.get("emphasis", []) or []]     # F2b §2: tic sordo
     if out.get("icon_array"):
         marks.append((out["icon_array"]["start"], "icon_array"))
+    if ez and ez.get("latido_t") is not None:                  # F3: latido del zoom de evidencia (lub-dub)
+        marks.append((float(ez["latido_t"]), "latido"))
     spans = [(float(w["start"]) + time_offset, float(w["end"]) + time_offset, str(w.get("word", ""))) for w in words]
     gaps = [(spans[i][1], spans[i + 1][0]) for i in range(len(spans) - 1) if spans[i + 1][0] > spans[i][1]]
     win = gfx_rules.sfx_shift_max_ms / 1000.0
     ev: list[dict[str, Any]] = []
+    from gfx_config import SFX_DIR
     for t, block in sorted(marks):
-        sf = sfx_for(block)
+        sf = (SFX_DIR / "latido.wav", -16.0) if block == "latido" else sfx_for(block)
         if sf is None:
             continue
         on = next((sp for sp in spans if sp[0] - 0.03 <= t < sp[1]), None)

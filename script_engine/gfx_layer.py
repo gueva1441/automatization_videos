@@ -284,9 +284,12 @@ def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Pa
     resolved["chapter_question"] = {"text": q["text"], "start": round(clip_dur, 3), "duration": round(pause, 3),
                                     "keyword": question_keyword(q["text"]), "generated": True, "pause": pause,
                                     **({"manual": True} if q.get("manual") else {})}
-    pause_file.write_text(json.dumps({"pause": pause, "text": q["text"]}, ensure_ascii=False), encoding="utf-8")
-    log.append(f"  pregunta de cierre: {q['text']!r} (+{pause:.1f} s de pausa, {len(q.get('intentos', []))} intento(s))")
-    return pause
+    bh = float(gfx_rules.black_hold_sec)
+    resolved["black_hold"] = {"start": round(clip_dur + pause, 3), "duration": round(bh, 3)} if bh > 0 else None
+    pause_file.write_text(json.dumps({"pause": pause + bh, "text": q["text"]}, ensure_ascii=False), encoding="utf-8")
+    log.append(f"  pregunta de cierre: {q['text']!r} (+{pause:.1f} s de pausa{f' + {bh:.1f} s de negro' if bh else ''}, "
+               f"{len(q.get('intentos', []))} intento(s))")
+    return pause + bh
 
 
 def _render_sparse(resolved: dict[str, Any], scenes: list[GfxScene], project: Path, out: Path, *, cap: str,
@@ -479,6 +482,26 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             resolved = resolve_plan(raw_plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
             resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                       question_sources=ctx.get("next_sources"))
+        if gfx_plan_override is None and gfx_rules.peak_blocks:      # F3: pico del cap + zoom con latido + reloj
+            from gfx_config import active_moods
+            from script_engine.gfx_peak import box_from_cache, plan_peak, water_used_before
+            cache_box = box_from_cache(work_dir / f"gfx_zoom_box_{cap}.json")
+
+            def _box(si: int, word: str) -> list[float] | None:
+                b = cache_box(si, word)
+                if b is None:                                 # sin caja → visión sobre el frame del final de la escena
+                    from script_engine.gfx_director import apply_zoom_vision
+                    tmp = apply_zoom_vision({"evidence_zoom": {"scene_idx": si, "anchor": word}}, frame_for_scene=lambda i: _zoom_frame(
+                        project / "public" / "base.mp4", scenes[i], work_dir / f"gfx_zoomframe_{cap}_s{i:02d}.jpg"),
+                        cache=work_dir / f"gfx_zoom_box_{cap}.json", log=log)
+                    b = (tmp.get("evidence_zoom") or {}).get("box")
+                return b
+            plan_peak(resolved, ctx=ctx, words=words, scenes=scenes, moods=active_moods(), clip_dur=clip_dur, box_for=_box,
+                      water_used=water_used_before(work_dir, ctx["chapter_number"]), time_offset=time_offset, log=log)
+            from script_engine.gfx_literal_lock import lock as _lock2                 # lo nuevo también pasa el candado
+            resolved, rej2 = _lock2(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
+                                    question_sources=ctx.get("next_sources"))
+            rejected += rej2
         n_src = icon_sources(resolved, ctx)                  # F3: fuente debajo del bloque de ícono (si hay)
         if n_src:
             log.append(f"  íconos con fuente: {n_src}")

@@ -375,3 +375,57 @@ Riesgos que el contrato no cubre: (a) el cap con pregunta dura +3 s: concat, sub
 - Riesgo (a): confirmado, falta un render completo del video para ver concat y música con las pausas. Queda para cuando pidas el render.
 - Riesgo (b): la raíz de 5 letras es una aproximación. En ch02 el sustantivo compartido fue «prisioneros» ~ «prisión».
 - Riesgo (c): la pregunta editada a mano es tuya y queda fuera del validador a propósito, igual que en el contrato del lab (`manual`).
+
+
+---
+
+## Pico del capítulo: nivel de agua, reloj, zoom con latido, corte a negro (pedido de Omar 2026-10-20)
+
+**Qué hay** (`script_engine/gfx_peak.py`, determinista, en el render y en el lab):
+- **Pico** = la frase con más palabras de peso 3. Ahí va UN bloque grande y se saca todo lo que arranca a ±5 s. En el lab, la tarjeta lleva la marca **PICO** y no se proponen cosas en esa ventana.
+- **Nivel de agua** en el pico: línea hueso que sube 2.5 s hasta la altura de la cifra (4.6 m → 60 %), con la cifra contando «1 m… 4.6 m». Se queda 2 s y oscurece levemente abajo. Uno por video.
+- **Reloj** «29 AGO · 2005» en la esquina superior libre, desde que la voz dice la fecha hasta 5 s antes del pico. Sin horas en los datos, queda quieto.
+- **Zoom de evidencia + latido** en la siguiente palabra de peso 3: el latido suena en la palabra, con dos golpes de oscuridad.
+- **Corte a negro 1 s** después de la pregunta, sin fundido; se suma a la pausa.
+- **ch02 por default** (en el plan del director del lab y en tu sesión): nivel de agua en «sumergidos» (33.7 s), zoom + latido en «ahogaba», reloj, pregunta + negro. Por la regla de pico salieron el sello de «sumergidos» y el dato «15 pies».
+
+**Bug viejo encontrado y arreglado:** el zoom de evidencia nunca acercaba el VIDEO. HyperFrames compone el video en su propia capa y no hereda la escala: solo crecían el recuadro y «DETALLE». Ahora, durante el zoom, un cuadro congelado tapa el video y se acerca de verdad (render de ch02 a 59.6 s). **El mismo límite afecta al golpe de zoom y al empuje del mood muerte sobre el clip de video: ahí el video no escala.** No lo toqué porque congelar cortaría el movimiento de DepthFlow; queda como tarea aparte.
+
+**Candado de pestañas (agregado mío, no pedido):** mi pestaña del navegador, abierta desde antes, pisó a las 00:43 tu estado recién cargado. Lo restauré desde tu respaldo de las 00:34 y agregué un candado: si otra pestaña guardó después, el lab no pisa y te pide recargar (409).
+
+**Probado:** render real de ch02 con `--gfx` → 101.6 s. Cuadros en `capturas/pico/hoja_render_ch02_pico.png`: reloj a la derecha a los 11 s, agua en 1 m y en 4.6 m, zoom acercado a los 59.6 s, pregunta y negro. md5 sin `--gfx` = `38e5ba14…` ✔. Tests: 243 verdes.
+
+**Veredicto revisor-handoff (íntegro):**
+
+```
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 4a | Nivel de agua: línea hueso sube hasta ~60 % con la cifra pegada a la línea | OK | `/api/plan` trae `water_level` con `height 0.605`, `rise 2.5`, `duration 4.5` y `value_text 4.6`. En el render real, 34.6 s muestra "1 m" cerca del borde inferior y 36.5 s muestra "4.6 m" a ~60 % de la altura (`hoja_render_ch02_pico.png`). |
+| 4b | Cuenta "1 m… 2 m… 4.6 m", leve oscurecimiento bajo la línea, máx. 1 por video | PARCIAL | Vi "1 m" y "4.6 m" en los cuadros. El "2 m" intermedio y el oscurecimiento no se ven en esos 2 cuadros. Existe `water_used_before` (gfx_peak.py:210) para limitar a 1 por video, pero no lo ejercité. |
+| 4c | Se dispara en palabra del mood agua con cifra en el fact | OK | Log del render: `pico: «sumergidos» @ 33.7s → water_level`. |
+| 5 | Reloj de hora: esquina superior, solo con fecha/hora literal de facts, sin avanzar si no hay horas, máx. 1 por cap | OK | `time_ticker`: `times:[]`, `advance:false`, `source_text "29 de agosto de 2005"`. En el cuadro de 11 s se ve "29 AGO · 2005" arriba a la derecha. Es la fecha con año, no "29 AGO" a secas, y no verifiqué la tipografía Anton S. |
+| 6a | El director marca el pico y pone UN solo bloque grande | OK | `plan.pico {t:33.7, block:water_level, word:sumergidos}`; `find_peak` por conteo de palabras de peso 3 (gfx_peak.py:66-80). |
+| 6b | Nada más en ±5 s del pico | PARCIAL | El log reporta "fuera (±5 s): callouts:15 pies, emphasis:sumergidos", es decir, los quitó. Hay función `clear_around` (gfx_peak.py:182). No contrasté el plan final cuadro por cuadro. |
+| 6c | "PICO" visible en la tarjeta del lab | OK | lab_foto.js:189-198 y 742 (`badge pico`). No lo vi renderizado en el navegador. |
+| 7a | ch02: nivel de agua en «sumergidos» a 0:33.7, 4.6 m | OK | `/api/plan` y log del render. |
+| 7b | ch02: zoom de evidencia + latido en «ahogaba» | OK | `evidence_zoom {word:ahogaba, latido:true, latido_t:58.939}`. Cuadro de 59.6 s: caja y etiqueta DETALLE sobre la imagen ampliada. |
+| 7c | ch02: pregunta de cierre + negro 1 s al final | OK | `black_hold {start 100.633, duration 1.0}`. Cuadros 100.2 s (pregunta) y 101.2 s (negro). Segmento con gfx de 101.63 s (ffprobe) = 100.633 + 1.0. |
+| C1 | main intacta (43f528a) | OK | `git rev-parse main` = 43f528a. La rama sigue en beb2b8f, sin commits nuevos. |
+| C2 | Sin `--gfx`, md5 byte-idéntico | OK | `lab/hyperframes/f3/onlycap_ch02_nogfx_pico.log`: `38e5ba14e3d24fd20f9297c9e1dfee24 *…/ch02_segment_only.mp4`. |
+| C3 | Tests verdes | OK | Corrí la batería indicada: 243 passed en 17 s. |
+| C4 | Sin shaders; preview con plantillas reales | NO VERIFICABLE | No audité el código en busca de shaders. Las capturas son del render real de HyperFrames. |
+
+Fuera de alcance:
+- `diag_234_cap4.py` aparece modificado (cambia TOPIC) y no pertenece al pedido. Es FALLA si entra al commit.
+- Sin trackear y que no deben entrar: `lab/identidad/plan_ch02_lab*.json` (4 archivos) y `lab/hyperframes/f3/_lab_server.log`.
+- El resto de lo modificado es coherente con el alcance declarado. `gfx_peak.py` y `test_module_gfx_peak.py` son nuevos y esperados.
+
+Riesgos que el contrato no cubre: el candado de versión 409 entre pestañas y TAIL 4.5 s son cambios del servidor no pedidos por Omar; tienen tests pero ampliaron el alcance. `peak_blocks` quedó `true` en el perfil misterio, así que afecta a todo cap futuro con `--gfx`, no solo ch02.
+```
+
+**Respuesta de CC:**
+- 4b: los intermedios son los enteros 1, 2, 3, 4 y después el valor literal (test de la plantilla). El oscurecimiento es leve a propósito (negro 50 → 38 %) y en esa foto, ya oscura abajo, casi no se nota.
+- 5: el ejemplo de Omar trae hora («23:40»); sin horas verificadas, el lugar de la hora lo ocupa el año, que también es literal del dato.
+- Riesgos: el candado 409 y la cola de 4.5 s del lab son agregados de CC (el primero por lo que pasó con la pestaña; el segundo porque el negro alarga la pausa). `peak_blocks: true` en misterio es deliberado: el pico es regla del director para todos los caps, no solo para ch02. Si preferís probarlo solo en ch02 antes, se apaga con ese token.

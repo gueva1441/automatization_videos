@@ -91,3 +91,29 @@ Decisiones conservadoras tomadas por CC durante F3 (HANDOFF_F3_laboratorio_ident
 - **C57. La pausa alarga el cap de verdad (solo con `--gfx`).** `apply_gfx` alarga el base 3 s congelando el último cuadro (`extend_base`, escribe un archivo nuevo y reemplaza). La pregunta empieza donde termina la voz y dura la pausa (fondo 70 %, persiana y drone en el SFX del pase de audio). `fase2b` ya rellenaba el audio con silencio cuando el clip es más largo que la voz (`apad`), así que el silencio sale solo. La música por cap suma la pausa (`_gfx_pauses` → `extra_sec`, solo si `gfx`). Medido en ch02: segmento 97.7 → 100.6 s; en la pausa solo suena el drone; md5 sin `--gfx` = 38e5ba14. **La mezcla de música con pausas solo se probó por test, no en un render completo del video.**
 - **C58. En el lab, la pregunta se prueba igual que en el render.** El base del lab es ahora un archivo propio con una cola de 3.5 s de último cuadro congelado (no hardlink). El preview acepta `pausa` (alarga el último tramo y la composición). El drone lo toca la página (`/media/sfx/drone_subida.wav`) al cruzar el inicio de la pregunta.
 - **C59. Sesión de Omar de las 00:04 respaldada** (`plan_ch02_lab.omar_0004.json`) y restaurada después de las pruebas. Ahí estaba `icon_px` 130 (elegido con el tamaño S de la UI anterior): como el ícono ahora es fijo L, el lab ignora ese token al cargar. También estaba su pregunta escrita «Quien fue el culpable?»: queda, y "otra pregunta" la reemplaza por una de Flash.
+
+## Pico del capítulo: nivel de agua, reloj, zoom con latido, corte a negro (pedido de Omar 2026-10-20)
+- **C60. `script_engine/gfx_peak.py`, determinista, después del candado y en el render y el lab (token `peak_blocks`).**
+  - El pico es la frase con más palabras de peso 3 (desempate: peso total, después la primera).
+  - En el pico va UN bloque grande: nivel de agua → zoom con latido → recorte (la cita queda para §D).
+  - Se saca todo lo que ARRANCA a ±5 s: datos, recortes, sellos/moods, golpes, contador, matriz y otro zoom. Quedan el título y la pregunta.
+  - En el lab, la tarjeta lleva la marca **PICO** y no se proponen sugerencias ni propuestas en esa ventana.
+  - En ch02, el pico es «sumergidos» (pesa 4: sumergidos 3 + agua 1, frente a 3 de «ahogaba»). Salen el sello de «sumergidos» y el dato «15 pies».
+- **C61. Nivel de agua (`water_level`).**
+  - Se dispara con una palabra del mood agua en la frase del pico + una cifra en metros o pies que la voz dice en esa frase y que está LITERAL en un dato.
+  - Altura = metros / 7.6 (4.6 m → 60.5 %), entre 15 y 85 %.
+  - Línea hueso de 4 px con un brillo suave; sube 2.5 s animando la altura de la caja (el número sube pegado) y queda 2 s. Debajo, oscurecimiento leve (negro 50 → 38 %).
+  - La cifra cuenta «1 m, 2 m… 4.6 m»: los intermedios son enteros y el final es el valor literal. Abrevia «metros» a «m» como pidió Omar; el candado verifica «4.6 metros» contra el dato.
+  - Máx 1 por VIDEO: `water_used_before` lee los planes resueltos de los caps anteriores.
+- **C62. Reloj (`time_ticker`).**
+  - Fecha del dato («29 de agosto de 2005» → «29 AGO · 2005») desde que la voz la dice hasta 5 s antes del pico.
+  - Si los datos traen dos horas HH:MM avanza entre ellas; si no, la fecha queda quieta (ch02 no tiene horas). El candado verifica la fecha (y cada hora) literal contra el dato.
+  - Va en la esquina superior LIBRE (`ticker_corner`): en ch02, a la derecha, porque el recorte ocupa la izquierda. Si las dos esquinas están ocupadas, arranca cuando se libera una.
+- **C63. Zoom de evidencia con latido.**
+  - En la palabra de peso 3 siguiente fuera del pico, si visión ya dio una caja para esa escena (cache; en el render, si no hay caja se llama a visión como antes).
+  - El zoom va al final de la escena, como siempre, y el latido (`latido.wav`, lub-dub) suena en la palabra, con dos golpes de oscuridad sincronizados.
+  - ch02: «ahogaba» (escena 8, caja «agua turbia en la ventana enrejada»).
+- **C64. Bug de fondo encontrado y arreglado: el zoom de evidencia no acercaba el VIDEO.** HyperFrames compone el `<video>` en su propia capa y no hereda la escala del contenedor: solo crecían el recuadro y «DETALLE». Ahora, al empezar el zoom, un cuadro congelado del video (img) tapa el clip dentro del contenedor y el zoom se ve. **El mismo límite afecta al golpe de zoom (punch-in), al empuje del mood muerte y al "corte + golpe" sobre el clip de video: en esos casos el video no escala.** No se tocó (congelar cortaría el movimiento de DepthFlow); queda como pendiente aparte.
+- **C65. Corte a negro.** Token `black_hold_sec` (perfil misterio = 1.0). Va pegado al final de la pregunta, sin fundido (la pregunta corta seco a negro), y se suma a la pausa: ch02 = 3 s de pregunta + 1 s de negro → segmento 101.6 s. El lab tiene su tarjeta "Corte a negro 1 s"; el base del lab ahora tiene 4.5 s de cola.
+- **C66. ch02 por default.** El "plan del director" del lab (`with_defaults`) agrega pico, nivel de agua, zoom con latido, reloj, pregunta (cache) y corte a negro. A la sesión de Omar se le agregaron igual (respaldo: `plan_ch02_lab.omar_antes_pico.json`), conservando su pregunta escrita con la pausa.
+- **C67. Candado de pestañas.** Cada guardado lleva la versión que leyó la página. Si el archivo cambió desde otra pestaña, el servidor responde 409 y la página avisa en vez de pisar. Motivo: la pestaña del navegador de CC, abierta desde antes, pisó a las 00:43 los defaults recién cargados (y podía haber pisado cambios de Omar). Se restauró desde el respaldo de sus 00:34 y se volvieron a cargar los defaults.

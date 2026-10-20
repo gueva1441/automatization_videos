@@ -89,6 +89,17 @@ def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int,
     if ok.get("emphasis"):
         ok["emphasis"] = [e for e in ok["emphasis"] if not e.get("stamp") or _check("keyword_emphasis", {"word": e.get("word", "")})]
 
+    # F3: nivel de agua = cifra + unidad LITERALES del dato; reloj = fecha/hora LITERAL del dato (lo que se muestra
+    # se deriva de ese texto: "29 de agosto de 2005" → "29 AGO · 2005")
+    wl = ok.get("water_level")
+    if wl and not _check("water_level", {"value": f"{wl.get('value_text', '')} {wl.get('unit', '')}".strip()}):
+        ok["water_level"] = None
+    tk = ok.get("time_ticker")
+    if tk and not _check("time_ticker", {"source_text": tk.get("source_text", "")}):
+        ok["time_ticker"] = None
+    if tk and ok.get("time_ticker") and any(not _check("time_ticker", {"hora": h}) for h in tk.get("times") or []):
+        ok["time_ticker"] = None
+
     # F2b §3: la etiqueta del icon_array ('12 de los 300') es fragmento literal del fact
     ia = ok.get("icon_array")
     if ia and not _check("icon_array", {"label": ia.get("label", "")}):
