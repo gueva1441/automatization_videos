@@ -8,3 +8,7 @@ fase2a: rc=0 en 10.2 min (fase2a.py --topic ba6c3cac-f5v2)
 [2026-10-21 06:25:33] producción Orleans v2 · etapa render
 render: RAM libre 19.5 GB · Firefox cerrado
 fase2b: rc=0 en 77.8 min (fase2b.py ba6c3cac-f5v2 --keep-segments --gfx --gfx-sparse --gfx-quality looks)
+[2026-10-21 10:24:25] producción Orleans v2 · etapa render_gfx
+render_gfx: capas y planes a C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-f5v2\_fase2b_work\_bak_f5e_pre; final anterior → *_final_gfx_f5d.mp4
+render: RAM libre 18.7 GB · Firefox cerrado
+fase2b_gfx: rc=0 en 41.0 min (fase2b.py ba6c3cac-f5v2 --reuse-visuals --keep-segments --gfx --gfx-sparse --gfx-quality looks)
