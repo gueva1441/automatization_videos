@@ -1,20 +1,52 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 00:10 (F5 hasta §3 commiteado en f5-guion-v2; PARADA: valida el analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (cierre de sesión: F5 hasta §3, PARADA para el analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
-- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama **`f3-lab-identidad`** (desde `31c671c`, tip de `f2-gfx-director`). Último commit: F4b §5 (ver `git log`); F4 cerró en `56085d1`.
-- `main` = `43f528a` (NO tocar sin OK explícito de Omar). **F2b NO se mergeó** (decisión de Omar 2026-10-19): sigue en `f2-gfx-director` @ `31c671c`; F3 se apoya encima.
-- Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 = cap de calibración, ch05 el segundo).
-- Candados vigentes: md5 sin `--gfx` de ch02 `--only-cap` = `38e5ba14…` (último en `lab/hyperframes/f4b/onlycap_ch02_nogfx_f4b.log`); 316 tests verdes (F4e).
+- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit de código: `e7b661c` (F5 §3); el cierre de sesión es el commit siguiente (`git log -1`).
+- Cadena de ramas sin mergear: `f2-gfx-director` (F2b @ `31c671c`) → `f3-lab-identidad` (F3–F4e @ `39e37ac`) → `f5-guion-v2` (F5).
+- `main` = `43f528a`. NO se toca sin OK explícito de Omar.
+- Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
+- Candados vigentes:
+  - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
+  - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F5 — Guion v2 (HANDOFF_F5_guion_v2) — PARADA: valida el analista (VALIDACION_F5.md), después Omar
-- Rama **`f5-guion-v2`** desde `39e37ac` (F4e; F4f no existe). Commits: `66ee44b` §1.1 · `2be6c11` §1.2 · `fc955ef` §1.3–§1.5 · `e18e656` §2 · §3 (último).
-- Leer `lab/hyperframes/f5/F5_REPORT.md` (revisor íntegro por sección: CUMPLE CON OBSERVACIONES), `DECISIONES_F5.md` (J0–J44), `GUION_v1_v2.md`, `SIM_v1_v2.md`, `lab/guion/compara_orleans.html`.
-- Orleans v2 (topic de prueba `ba6c3cac-f5v2`, sin imágenes ni render): densidad 1.36→3.29, adjetivos 6.2→2.9, datos en más de 2 caps 2→0, Gusman en 6 caps, 41 datos del pool (v1: 12). Sim del director: recortes del pool 0→7 (**0 con fuente**: el research no ata fuente a la cronología), crítico «repite» 12→4, reloj en 3 caps.
-- Abierto: cliffhanger estricto 4/6; contradicción 6,375/6,500 sin contar; íconos espiral/rayo sin generar; año del kicker desde `fecha` no literal en datos; umbral de adjetivos recalibrado (3.6) a validar.
-- Nuevo: `evidence_pool` en el research (`researcher_steps/evidence_pool.py`), juez narrativo `script_engine/m05_narrative.py`, `script_engine/gfx_pool.py`, `apply_gfx(plan_only=True)`. Todo detrás de `if pool`.
-- Lección: los heredocs de Git Bash convierten `\b` en 0x08 (J27). Los parches con barras van por Write.
+## F5 — Guion v2 (`lab/hyperframes/f5/HANDOFF_F5_guion_v2.md`) — PARADA: falta `VALIDACION_F5.md` del analista; después decide Omar
+- Commits en `f5-guion-v2`: `66ee44b` §1.1 · `2be6c11` §1.2 · `fc955ef` §1.3–§1.5 · `e18e656` §2 · `e7b661c` §3.
+- **Hecho:**
+  - §1.1 `evidence_pool` en el research (`researcher_steps/evidence_pool.py`, lo llama `step_4a_facts`);
+  - §1.2 skeleton con datos por cap, personajes y cliffhanger (`m01a`);
+  - §1.3 narrador con los datos del pool y reglas A–G (`m01b`);
+  - §1.4 normalizer: horas AM/PM, dólares, %, comillas y siglas (`tts_normalizer`, `m02_5`);
+  - §1.5 juez narrativo determinista (`script_engine/m05_narrative.py`);
+  - §2 pantalla desde el pool (`script_engine/gfx_pool.py`: candado, recortes y datos, ícono por contenido, reloj, pregunta del cliffhanger) + `apply_gfx(plan_only=True)`;
+  - §3 guion v2 de Orleans, comparación y simulación del director sin render.
+- **No hecho:** §1.6 (`m03_visual` con lugares y objetos del pool; era opcional). Tampoco los íconos espiral y rayo tachado (F5 es sin imágenes).
+- **Dónde está:**
+  - comparación v1/v2: `lab/guion/compara_orleans.html` (generador: `lab/guion/build_compara_orleans.py`);
+  - cues de la simulación: `lab/hyperframes/f5/cues/gfx_cues_v1_chNN.md` y `gfx_cues_v2_chNN.md`;
+  - tablas: `GUION_v1_v2.md` (guion) y `SIM_v1_v2.md` (director);
+  - reporte: `lab/hyperframes/f5/F5_REPORT.md` (revisor íntegro por sección: CUMPLE CON OBSERVACIONES);
+  - decisiones: `lab/hyperframes/f5/DECISIONES_F5.md` (J0–J44);
+  - copia v2 del research: `data/scripts/_steps/ba6c3cac-f5v2/` y `data/scripts/ba6c3cac-f5v2.json` (fuera de git; copia versionada en `lab/hyperframes/f5/v2/`);
+  - simulaciones: `output/ba6c3cac-f5v2/_fase2b_work/` (v2) y `output/ba6c3cac-a091-41c0-8dad-afd2f4364747/_fase2b_work_f5sim_v1/` (v1).
+  - Se reproduce todo con `lab/hyperframes/f5/correr_f5_orleans.py --etapa todo`.
+- **Resultado:**
+  - guion: densidad 1.36→3.29, adjetivos 6.2→2.9, datos en más de 2 caps 2→0, Gusman en 6 caps, 41 datos del pool (v1: 12);
+  - simulación: recortes del pool 0→7 (**0 con fuente**), «repite» del crítico 12→4, reloj en 3 caps.
+- **Abierto:** cliffhanger estricto 4 de 6; contradicción 6,375/6,500 sin contar; año del kicker desde `fecha` no literal en los datos (D72); umbral de adjetivos 3.6 a validar; nombres nuevos sin revisión fonética para TTS.
+
+### Decisiones F5 (J1–J44) en 10 líneas
+1. **Pool (J1–J7).** Una llamada Flash por bloque, sin tope. Todo literal del bloque (lo que no, se descarta). La fuente sale solo de las [FUENTES CONSULTADAS] del bloque y si el ítem la nombra; si no, null. Limpieza y merge entre bloques con IDs del código. Geocodificación anclada a la ciudad principal (≤ 400 km; siglas no). Caché de la respuesta cruda.
+2. **Skeleton (J8–J13).** `_evidence_plan` con ≥ 3 datos nuevos y ≤ 1 puente por cap, cronología en orden en los caps 2–6, antagonista obligatorio y cliffhanger = ID del dato del cap siguiente. Lo que Flash erra se repara en código y queda en `_evidence_repairs`. Sin pool, el prompt es idéntico al de antes.
+3. **Juez (J14–J19).** «Dato usado» = anchor literal. Las cifras valen en dígitos o en palabras (`num_es.py`). Un evento cuenta con su fecha más una palabra de contenido en la misma oración. Densidad y repetición cuentan solo datos duros. El antagonista exigido es el principal.
+4. **Adjetivos (J17–J18).** Heurística sin etiquetador. El umbral se recalibró de 8 a 3.6: la heurística mide v1 en 6.2 contra el 14 del analista.
+5. **Narrador (J20–J23, J43).** Datos asignados en el prompt (usa 3–6) y reglas A–G validadas por `cap_problems`. Si falla, reintenta (3 intentos). Si sigue fallando solo por reglas del pool, se acepta y queda en `_f5_violations`. Un último intento que rompe el largo cede ante uno anterior que solo fallaba el pool. Citas con el autor dentro de la oración.
+6. **Normalizer (J24–J26).** `normalize_pool_forms` determinista, después de los spans del auditor. Siglas ACLU, HRW, DOJ y FEMA. `persist_dict=False` para no tocar el diccionario global en las pruebas.
+7. **Pantalla (J28–J31).** Todo detrás de `if pool` (los guiones viejos salen igual). El candado acepta el pool. Recortes y datos desde el pool del cap ±1, nunca desde la narración. Kicker = fuente → fecha → sin recorte (sin el año de la voz). Dedupe por `pool_id` entre caps.
+8. **Ícono, pregunta y reloj (J32–J36).** El ícono sale del tema del dato, nunca de la voz (cifras de personas sin ícono; espiral y rayo pendientes). La pregunta sale del cliffhanger (respaldo: F4c). El reloj sale de la cronología solo si el cap avanza de fecha. Los lugares con lat/lon quedan para el mapa de F6.
+9. **Prueba (J37–J42).** `plan_only` sin render. Topic de copia `ba6c3cac-f5v2` con los `verified_facts` de v1 idénticos. Fotos de v1 como proxy: palabras de v2 en la duración de v1 y escenas en los mismos cortes, con anchors sintéticos. `record_proposals` apagado en las simulaciones. md5 de los archivos globales iguales antes y después.
+10. **Proceso (J0, J27, J44).** Rama desde F4e porque F4f no existe. Los heredocs de Git Bash convierten `\b` en 0x08 (origen de los bugs de F4c y F4d): los parches con barras van por Write y se chequean bytes de control. §1.6 no se hizo.
 
 ## F4e — Marca de esquina apagada, crítico visual (6b), hoja de contactos — ESPERANDO A OMAR
 - Commit F4e (último). Leer `lab/hyperframes/f4e/RESUMEN_F4e.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), `DECISIONES_F4e.md` (I1–I14), `TABLA_critico.md`, `hoja_contactos_ch02/ch05.jpg`.
