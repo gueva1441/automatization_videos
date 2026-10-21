@@ -235,3 +235,52 @@ Pedido del analista: el guion de F5b adelgazó (18 datos contra 41, adjetivos 4.
   - Un ícono de énfasis sale en «tóxica» (calavera). Está en el mapa literal del perfil (`veneno_enfermedad.icon_words`), así que cumple S4, aunque es un adjetivo que la heurística no reconoce.
   - En la re-simulación, v1 dio 6 recortes (en F5b, 5): es variación de Flash en los cachés que no se copian de v1.
   - 97 prompts de imagen nuevos, 42 con personas. El que reemplaza al del niño en la celda es ch05 imagen 6 («Entre los rostros anónimos de esa tragedia había niños de hasta 10 años»): un chico en el agua dentro de un centro juvenil. El otro prompt cuya ancla nombra a los niños (ch05 imagen 7) también va al centro juvenil. Queda uno: ch04 imagen 13 pinta a un recluso adolescente solo en una celda de la prisión, con un ancla que no nombra niños («Cuatro días en la oscuridad, en el agua sucia»). El canon no lo frena porque el grupo no aparece en el ancla (K20 sigue abierto).
+
+
+---
+
+# F5d — último ajuste antes de producción
+
+Pedido del analista: cifras canónicas, fechas, largo +15 % para Pro, paráfrasis, datos reservados para pantalla, count_up solo con cantidades y una línea más al canon de m03. Rama `f5-guion-v2`, desde `c55ca56` (F5c).
+
+- **M1 (cifras canónicas en el pool)** `evidence_pool.canonical_figures`. Agrupa las cifras que cuentan lo mismo: ≥ 1000, mismo sustantivo de conteo (reclusos, personas, evacuados…) y la mayor ≤ 1.5 × la menor. El estatus de cada una sale del propio research, por la oración de donde viene:
+  - «oficial»: «Según las estadísticas del Sheriff…»;
+  - «medios»: «informes de los medios… estimando»;
+  - «aproximada»: «Aproximadamente…»;
+  - «rango»: dos cifras en el mismo texto.
+
+  Si hay una oficial, el grupo queda en `pool["cifras_canonicas"]`. En Orleans: 6,375 oficial (D57); 6,500 aproximada (D33); 8,000 de medios (D58); el rango «6,375 a más de 6,500» (D05). Para las cifras de conteo no cuentan los años ni el día de una fecha («el 29 de agosto»).
+- **M2 (cifras canónicas en el skeleton y en el validador)** `m01a.canonize_figures` corre sobre el skeleton, también el congelado.
+  - El cap de la contradicción es el que trae la variante de medios (cap 7): la conserva, suma la oficial y queda marcado `contradiccion_cifras`.
+  - En los demás caps, las variantes salen y la oficial entra una vez, en el primero que tenía una variante (cap 1: D05 → D57). En el cap 3, D33 sale sin reemplazo para no pasar los 2 caps por dato.
+  - El prompt dice la cifra canónica por cap. `cap_review` rechaza (dura) una variante dicha fuera del cap de la contradicción.
+  - Sobre las v2 anteriores: la de F5 tenía 6,500 en los caps 1 y 3 y 8,000 en el 7 (en el 7, permitido); la de F5c, 6,500 en el cap 3.
+- **M3 (fechas, dura)** `date_problems`:
+  1. una oración con dos fechas distintas;
+  2. una oración que cuenta un evento fechado del cap (≥ 50 % de sus palabras, sin contar nombres propios) bajo OTRA fecha: la que dice, o la que la voz venía narrando;
+  3. un evento del cap contado antes de que suene cualquier fecha.
+
+  El prompt suma la regla L con el ejemplo del analista (la decisión es del 28; el impacto, del 29). **Límite:** la cita «donde pertenecen» no tiene fecha en el pool, así que el cap 1 puede seguir pegándola al 29 sin que el chequeo lo vea. Pasó en la v2 de F5d («29 de agosto de 2005… El sheriff Marlin N. Gusman fue claro: se quedarían "donde pertenecen"»).
+- **M4 (largo)** Con el narrador Pro, el mínimo de caracteres sube 15 % (`POOL_MIN_LEN_FACTOR`): hook 345, desarrollo 920, outro 460. El máximo no cambia. El prompt lo repite al final («LARGO MÍNIMO REAL»).
+- **M5 (paráfrasis)** Regla M del prompt: literal es solo cifra, nombre, fecha y cita; el resto, con palabras propias. Para que la paráfrasis no deje de contar como dato usado, con ids declarados un evento o dato de fecha cuenta si su fecha suena: la identidad la da el id declarado. Antes exigía también una palabra del texto del pool en la MISMA oración. En el 1.er intento de F5d el narrador separó fecha y evento en dos oraciones («…el 28 de agosto de 2005. En una conferencia de prensa, el sheriff…») y 4 caps quedaron con duras falsas. El cambio vale para todas las mediciones por id: la v2 de F5c remedida da 2.36 por id (antes 2.16).
+- **M6 (no inventar)** «6.375» y «6,375» son la misma cifra: miles con punto o con coma. «4.6» sigue siendo decimal. En el 1.er intento, el cap 1 marcó «6.375» como inventado.
+- **M7 (datos reservados para pantalla)** `m01a.assign_screen_ids` deja por cap 1–2 `pantalla_ids`. Son datos duros que nadie narra, con fuente, cifra precisa, fecha completa o una cita de ≤ 12 palabras, que tienen un recorte posible (cláusula completa + kicker). Quedan fuera los que cuentan el mismo hecho que algo narrado, o el mismo día y asunto (≥ 2 palabras en común).
+  - Cada uno va al cap con el que más se relaciona: palabras en común, +2 si su fecha cae en el rango del cap. No puede ir a un cap cuyos eventos son todos anteriores (S2 lo bloquearía en pantalla). En empate, al cap más temprano.
+  - Los caps 6 y 7 reciben al menos uno: el más reciente que quede libre o, si no hay, uno pasado de un cap que tenga 2.
+  - El prompt los lista como «NO los digas». `cap_review` rechaza (dura) un anchor propio de un reservado dicho por la voz. El director (`gfx_pool.cap_candidates`) los pone primeros y los trata como datos del cap.
+  - Orleans: cap 1 T04 (la última comida, 27 de agosto), cap 4 T16 (prisioneras llegan a Angola), cap 6 T19 (reabren la HOD) y T23 (demanda de Morgan), cap 7 T22 (informe de la ACLU, con fuente). **Los caps 2, 3 y 5 no tienen:** el pool no tiene otro dato que cumpla todo.
+- **M8 (count_up)** `gfx_director.is_count_quantity`: el contador sube solo con personas, dinero o metros, según la unidad que elige el director o lo que sigue a la cifra en el fact. Nunca con «años», un lapso, una fecha o un año. En la v2 de F5c, el cap 5 tenía un contador «10 años».
+- **M9 (m03)** El bloque UBICACIONES suma, como última línea fija, «- Ningún menor en celdas de adultos en ninguna escena.». Es contexto pasivo y los frenos no cambian. Sin pool, el canon sigue byte-idéntico (test).
+- **M10 (corrida)** Hubo dos corridas del guion. La 1.ª (`pruebas/01b_narration_f5d_intento1.json`, US$ 0.72 de Pro) eligió candidatos con el validador que tenía los dos errores de M5 y M6. La 2.ª, la que queda, costó US$ 0.74 de Pro y US$ 0.003 de Flash: **US$ 1.46 de Pro en total en F5d**.
+  - Guion: ningún cap acepta una regla dura; 0 cifras no canónicas; 0 problemas de fechas detectados; 0 datos de pantalla dichos; cliffhangers 6/6.
+  - Densidad: 1.97 por id y 1.72 por hecho.
+  - Adjetivos: 2.58 por 100 palabras, fuera de rango solo en el cap 7.
+  - 1165 palabras (F5c: 1017).
+  - **Sigue alto:** los 3-gramas ya dichos (8.7 %), por el cap 7 (27 %) y el 5 (12 %).
+- **M11 (pantalla y prompts)**
+  - 6 recortes, todos del pool (F5c: 3). Chequeo S1–S5: 0 fallas.
+  - Los caps 6 y 7 ya tienen recorte: el 6, con el reservado T19 (reabren la HOD); el 7, con la oficial 6,375.
+  - Los reservados T04 (cap 1) y T16 (cap 4) salieron en pantalla. T23 (cap 6) y T22 (cap 7) no entraron sin pisar otro bloque.
+  - El único contador es «500 prisioneros».
+  - Crítico: suma 27, repite 8, estorba 1.
+  - Prompts de imagen: 97, 44 con personas. El reemplazo del niño es ch05 imagen 6 (ancla «había niños de hasta 10 años»), en el centro juvenil. No queda ningún prompt de v2 con niños en una celda de adultos.

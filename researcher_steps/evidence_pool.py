@@ -547,6 +547,87 @@ def geocode(lugares: list[dict], cache_path: Path, *, fetch: Callable[[str], lis
         cache_path.write_text(json.dumps(cache, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+# ═══════════════════════════════════════════════════════════════
+#  F5d — cifras canónicas (oficial vs estimación)
+# ═══════════════════════════════════════════════════════════════
+
+_OFICIAL = re.compile(r"\b(oficial(?:es)?|estadisticas del|segun (?:el|la|los) (?:sheriff|departamento|oficina|gobierno)|"
+                      r"registros oficiales|cifra oficial)\b")
+_MEDIOS = re.compile(r"\b(medios de comunicacion|informes de los medios|prensa|estimando|estiman|estimaciones?|"
+                     r"extraoficial(?:es)?)\b")
+_APROX = re.compile(r"\b(aproximadamente|alrededor de|cerca de|unos|unas|mas de|hasta)\b")
+_COUNT_NOUN = re.compile(r"\b(reclusos|personas|presos|prisioneros|evacuados|internos|encarcelad[oa]s)\b")
+CANON_RATIO = 1.5                       # cifras del mismo conteo: la mayor ≤ 1.5 × la menor
+
+
+def _sentence_of(fragment: str, blocks: list[str]) -> str:
+    f = norm(fragment)
+    for b in blocks:
+        for s in _sents(b):
+            if f and f in norm(s):
+                return s
+    return ""
+
+
+_MESES_RE = r"(?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre)"
+
+
+def _count_nums(t: str) -> list[str]:
+    """Cifras de conteo del texto: sin años ni el día de una fecha («el 29 de agosto»)."""
+    t = re.sub(rf"\b\d{{1,2}} de {_MESES_RE}\b", " ", t, flags=re.I)
+    return [x for x in re.findall(r"\d[\d,]*\d", t) if not re.fullmatch(r"(19|20)\d\d", x)]
+
+
+def figure_status(texto: str, blocks: list[str]) -> str:
+    """Estatus de una cifra según el propio research: «oficial» (la oración la atribuye a estadísticas o registros
+    oficiales), «medios» (estimación de la prensa), «rango» (dos cifras en el mismo texto), «aproximada» o «dato»."""
+    t, s = norm(texto), norm(_sentence_of(texto, blocks))
+    nums = _count_nums(texto)
+    if len(nums) >= 2:
+        return "rango"
+    if _MEDIOS.search(t):
+        return "medios"
+    if _APROX.search(t):
+        return "aproximada"
+    if _OFICIAL.search(s):
+        return "oficial"
+    return "medios" if _MEDIOS.search(s) else "dato"
+
+
+def canonical_figures(pool: dict[str, Any], blocks: list[str], log: list[str]) -> None:
+    """F5d (in place): agrupa las cifras que cuentan lo MISMO (≥ 1000, mismo sustantivo de conteo, la mayor ≤
+    CANON_RATIO × la menor) y, si el research marca una como oficial, la deja como canónica:
+    pool["cifras_canonicas"] = [{"oficial": id, "valor": «6,375», "variantes": [{"id", "valor", "estatus"}]}].
+    Cada dato del grupo lleva su `estatus`. El narrador usa la oficial; las otras, solo donde cuenta la contradicción."""
+    _nums = _count_nums
+
+    def _val(d: dict) -> int | None:
+        m = _nums(d["texto"])
+        return int(m[-1].replace(",", "")) if m else None
+    cands = [d for d in pool.get("datos") or [] if d.get("tipo") in ("cifra", "contradiccion")
+             and _val(d) and _val(d) >= 1000 and _COUNT_NOUN.search(norm(d["texto"]))]
+    groups: list[list[dict]] = []
+    for d in sorted(cands, key=_val):
+        g = next((g for g in groups if _val(d) <= CANON_RATIO * min(_val(x) for x in g)), None)
+        (g.append(d) if g is not None else groups.append([d]))
+    out = []
+    for g in groups:
+        if len(g) < 2:
+            continue
+        for d in g:
+            d["estatus"] = figure_status(d["texto"], blocks)
+        of = [d for d in g if d["estatus"] == "oficial"]
+        if not of:
+            continue
+        o = of[0]
+        out.append({"oficial": o["id"], "valor": _nums(o["texto"])[-1],
+                    "variantes": [{"id": d["id"], "valor": ", ".join(_nums(d["texto"])),
+                                   "estatus": d["estatus"]} for d in g if d is not o]})
+    pool["cifras_canonicas"] = out
+    if out:
+        log.append(f"  [4a·pool] cifras canónicas: {[(c['valor'], [v['valor'] for v in c['variantes']]) for c in out]}")
+
+
 def acting_filter(pool: dict[str, Any], blocks: list[str], log: list[str]) -> None:
     """F5b N5 (in place): fuera los personajes que no HACEN nada en el research (salvo el antagonista, al que el
     research le atribuye la decisión) y los datos que son solo su nombre. Los ids de lo que queda no cambian."""
@@ -614,6 +695,7 @@ def extract_evidence_pool(angle_blocks: dict[str, str], *, call: Callable[..., d
     pool = merge(parts)
     pool["_descartados"] = [d for p in parts for d in p.get("_descartados") or []]
     acting_filter(pool, [b for b in angle_blocks.values() if b], log)
+    canonical_figures(pool, [b for b in angle_blocks.values() if b], log)
     if geocode_cache is None:
         from config import DATA_DIR
         geocode_cache = DATA_DIR / GEOCODE_CACHE_NAME

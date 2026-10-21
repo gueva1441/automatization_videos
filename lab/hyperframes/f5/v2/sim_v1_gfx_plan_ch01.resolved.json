@@ -6,7 +6,13 @@
    "title": "6,500 Almas Atrapadas"
   },
   "callouts": [],
-  "count_up": null,
+  "count_up": {
+   "value_text": "6,500",
+   "unit": "personas",
+   "start": 17.3,
+   "fact_idx": 4,
+   "source": ""
+  },
   "archive_clippings": [
    {
     "kicker": "2005",
@@ -21,22 +27,7 @@
     "peak": true
    }
   ],
-  "evidence_zoom": {
-   "scene_idx": 0,
-   "box": [
-    0.39,
-    0.18,
-    0.22,
-    0.28
-   ],
-   "start": 5.15,
-   "anchor": "rostro asustado",
-   "detail": "rostro asustado",
-   "tipo": "rostro",
-   "conf": 0.98,
-   "como": "de editor",
-   "word": "rostro asustado"
-  },
+  "evidence_zoom": null,
   "punch_in": [
    3.16,
    4.579,
@@ -44,10 +35,10 @@
    29.399
   ],
   "chapter_question": {
-   "text": "¿Cómo escaparon los que quedaron?",
+   "text": "¿Qué ocultó la inundación?",
    "start": 35.8,
    "duration": 3.0,
-   "keyword": "escaparon",
+   "keyword": "inundación",
    "generated": true,
    "pause": 3.0
   },
@@ -103,7 +94,7 @@
    "block": "archive_clippings",
    "word": "contaminada",
    "sentence": "El agua contaminada subió implacable hasta el nivel del pecho en sus celdas oscuras.",
-   "intensity": 1.0,
+   "intensity": 0.9,
    "sentence_idx": 4,
    "palabra": "contaminada"
   },
@@ -148,9 +139,9 @@
     "dur": 2.85,
     "bloque": "zoom",
     "texto": "rostro asustado",
-    "veredicto": "suma",
-    "motivo": "La voz describe la situación, mientras que el bloque resalta y nombra la emoción específica del sujeto principal, añadiendo una capa de énfasis y detalle que la",
-    "pasa": true,
+    "veredicto": "estorba",
+    "motivo": "El zoom en el rostro, que ya es el foco principal y expresa claramente la emoción, elimina el contexto visual de las 'celdas inundadas' que la voz describe, o i",
+    "pasa": false,
     "voz": "Atrapados días en celdas inundadas."
    },
    {
@@ -159,9 +150,9 @@
     "dur": 3.7,
     "bloque": "contador",
     "texto": "6,500",
-    "veredicto": "repite",
-    "motivo": "El bloque numérico repite la cifra exacta de personas que la voz ya menciona de forma clara y precisa.",
-    "pasa": false,
+    "veredicto": "suma",
+    "motivo": "El contador visualmente enfatiza la magnitud de la cifra mencionada por la voz, aportando un refuerzo dinámico al dato sin tapar elementos clave.",
+    "pasa": true,
     "voz": "En la Prisión Parroquial de Orleans, seis mil quinientas personas, incluidos niños pequeños, quedaron encerradas."
    },
    {

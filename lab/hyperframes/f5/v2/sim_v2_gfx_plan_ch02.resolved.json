@@ -10,106 +10,105 @@
   "archive_clippings": [
    {
     "kicker": "2005",
-    "headline": "Robie Waganfeald y Paul Kunkel Jr. son arrestados",
+    "headline": "los prisioneros no serán evacuados",
     "body": "",
-    "scene_idx": 9,
+    "scene_idx": 1,
     "fact_idx": null,
-    "pool_id": "T03",
+    "pool_id": "T05",
     "fuente": null,
     "era_decade": 2000,
-    "start": 64.84,
+    "start": 12.227,
     "duration": 6.0,
     "side": "left"
    }
   ],
-  "evidence_zoom": null,
+  "evidence_zoom": {
+   "scene_idx": 11,
+   "box": [
+    0.53,
+    0.55,
+    0.15,
+    0.15
+   ],
+   "start": 77.917,
+   "anchor": "Pies del hombre",
+   "detail": "Pies del hombre",
+   "tipo": "persona",
+   "conf": 0.9,
+   "como": "de editor",
+   "word": "Pies del hombre"
+  },
   "punch_in": [
-   8.142,
-   27.142,
-   54.962,
-   97.031
+   12.527,
+   34.449,
+   36.954,
+   82.051
   ],
   "chapter_question": {
-   "text": "¿Quiénes quedaron a la deriva?",
+   "text": "¿Qué provocó la falla total?",
    "start": 97.633,
    "duration": 3.0,
-   "keyword": "quedaron",
+   "keyword": "provocó",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "oscuridad",
-    "category": "oscuridad_encierro",
-    "layer": "oscuridad",
-    "icon": null,
-    "icon_anim": "stamp",
-    "start": 31.213,
-    "duration": 2.5,
-    "side": "left",
-    "stamp": true,
-    "sid": 1,
-    "rarity": 4,
-    "weight": 2,
-    "icon_callout": false
-   },
-   {
-    "word": "catastrófico",
-    "category": "caos_gritos",
+    "word": "abandono",
+    "category": "frio_abandono",
     "layer": "minima",
     "icon": null,
-    "icon_anim": "stamp",
-    "start": 54.962,
+    "icon_anim": "press_wipe",
+    "start": 21.922,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
     "sid": 3,
-    "rarity": 1,
-    "weight": 3,
+    "rarity": 3,
+    "weight": 2,
     "sfx": {
-     "file": "rumor.wav",
+     "file": "viento.wav",
      "gain_db": -20
     },
     "icon_callout": false
    },
    {
-    "word": "inundación",
-    "category": "agua",
-    "layer": "agua",
-    "icon": "gota",
-    "icon_anim": "press_wipe",
-    "start": 71.247,
+    "word": "rupturas",
+    "category": "caos_gritos",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 72.656,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
-    "weight": 2,
-    "peak_word": true
+    "weight": 3,
+    "peak_word": true,
+    "sfx": {
+     "file": "rumor.wav",
+     "gain_db": -20
+    },
+    "peak": true
    },
    {
-    "word": "oscuridad",
+    "word": "negrura",
     "category": "oscuridad_encierro",
     "layer": "oscuridad",
     "icon": null,
     "icon_anim": "stamp",
-    "start": 86.853,
+    "start": 83.93,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
-    "sid": 6,
-    "rarity": 4,
-    "weight": 2,
+    "sid": 8,
+    "rarity": 1,
+    "weight": 3,
     "icon_callout": false
    }
   ],
   "gap_warnings": [],
   "fragmentos": [
-   {
-    "id": "T05",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 0.5s"
-   },
    {
     "id": "T06",
     "bloque": "recorte",
@@ -129,22 +128,28 @@
     "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
+    "id": "T03",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
     "id": "D04",
     "bloque": "recorte",
     "ahora": null,
     "motivo": "la voz no habla de esto en el cap"
    },
    {
-    "id": "D05",
+    "id": "D57",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
+    "motivo": "hecho del 2005-08-29, posterior a lo que narra la voz"
    },
    {
     "id": "T07",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 33.1s"
+    "motivo": "hecho del 2005-08-29, posterior a lo que narra la voz"
    },
    {
     "id": "Q01",
@@ -153,37 +158,38 @@
     "motivo": "la voz no habla de esto en el cap"
    },
    {
-    "id": "T03",
+    "id": "T05",
     "bloque": "recorte",
-    "ahora": "Robie Waganfeald y Paul Kunkel Jr. son arrestados",
+    "ahora": "los prisioneros no serán evacuados",
     "kicker": "2005",
     "fuente": null,
     "icono": null,
     "icono_faltante": null,
     "opciones": [
-     "Robie Waganfeald y Paul Kunkel Jr. son arrestados"
+     "los prisioneros no serán evacuados"
     ]
+   },
+   {
+    "id": "D10",
+    "bloque": "dato",
+    "ahora": "80% de Nueva Orleans",
+    "fuente": null
+   },
+   {
+    "bloque": "dato@76.4",
+    "antes": "80% de Nueva Orleans",
+    "ahora": null,
+    "motivo": "la voz lo dice"
    }
   ],
   "pico": {
-   "t": 71.247,
-   "block": "water_level",
-   "word": "inundación",
-   "sentence": "Este colapso provocó la inundación del 80% de Nueva Orleans, dejando algunas zonas bajo 15 pies de agua.",
+   "t": 72.656,
+   "block": "emphasis",
+   "word": "rupturas",
+   "sentence": "Se produjeron más de 50 fallas en el sistema de diques, una cascada de rupturas que provocó la inundación del 80% de Nueva Orleans.",
    "intensity": 0.9,
-   "sentence_idx": 5,
-   "palabra": "inundación"
-  },
-  "water_level": {
-   "value_text": "4.6",
-   "unit": "metros",
-   "meters": 4.6,
-   "height": 0.605,
-   "start": 71.247,
-   "duration": 4.5,
-   "rise": 2.5,
-   "fact_idx": 1,
-   "word": "inundación"
+   "sentence_idx": 7,
+   "palabra": "rupturas"
   },
   "time_ticker": {
    "day": "28",
@@ -235,15 +241,15 @@
     "rank": "R3"
    },
    "7": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
     "rank": "R3"
    },
    "8": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
     "rank": "R3"
    },
    "9": {
@@ -369,59 +375,37 @@
   },
   "critico": [
    {
-    "t": 31.213,
-    "t_frame": 32.213,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "oscuridad",
-    "veredicto": "suma",
-    "motivo": "El tinte de 'oscuridad_encierro' y la palabra enfatizan la oscuridad específica de un corte de energía en una prisión, que la imagen de la calle inundada no tra",
-    "pasa": true,
-    "voz": "Esa misma noche, la electricidad en la prisión se cortó, sumiendo los pabellones en una oscuridad premonitoria."
-   },
-   {
-    "t": 54.962,
-    "t_frame": 55.962,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "catastrófico",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz sin repetir una frase completa, y el tinte de mood refuerza la atmósfera de la catástrofe descrita sin estorbar la",
-    "pasa": true,
-    "voz": "Las defensas de la ciudad no resistieron: se produjeron más de 50 fallas en el sistema de diques, un error de diseño catastrófico que el teniente General Carl Strock, del Cuerpo de Ingenieros del Ejército de EE."
-   },
-   {
-    "t": 64.84,
-    "t_frame": 65.84,
+    "t": 12.227,
+    "t_frame": 13.227,
     "dur": 6.0,
     "bloque": "recorte",
-    "texto": "Robie Waganfeald y Paul Kunkel Jr. son arrestados",
+    "texto": "los prisioneros no serán evacuados",
     "veredicto": "suma",
-    "motivo": "El bloque introduce información nueva sobre arrestos y nombres específicos que no se mencionan en la voz en off ni se muestran en la imagen, aportando un nuevo ",
+    "motivo": "El bloque aporta un dato crucial y específico (la no evacuación de prisioneros y el año) que complementa la mención del sheriff y la conferencia de prensa, sin ",
     "pasa": true,
-    "voz": "Las defensas de la ciudad no resistieron: se produjeron más de 50 fallas en el sistema de diques, un error de diseño catastrófico que el teniente General Carl Strock, del Cuerpo de Ingenieros del Ejército de EE."
+    "voz": "En una conferencia de prensa, el sheriff Marlin N."
    },
    {
-    "t": 71.247,
-    "t_frame": 72.247,
+    "t": 21.922,
+    "t_frame": 22.922,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "inundación",
+    "texto": "abandono",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de 'agua' ayuda a conectar la imagen de la celda húmeda con la narrativa de la inundación a gran escal",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el tono sombrío de la imagen sin obstruir elementos importantes.",
     "pasa": true,
-    "voz": "Este colapso provocó la inundación del 80% de Nueva Orleans, dejando algunas zonas bajo 15 pies de agua."
+    "voz": "El abandono se hizo palpable esa misma noche, cuando se cortó la electricidad en la prisión, sumiendo los pabellones en una oscuridad densa."
    },
    {
-    "t": 71.247,
-    "t_frame": 72.247,
-    "dur": 4.5,
-    "bloque": "nivel_agua",
-    "texto": "4.6",
+    "t": 72.656,
+    "t_frame": 73.656,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "rupturas",
     "veredicto": "suma",
-    "motivo": "El bloque visualiza el nivel de agua mencionado por la voz, aportando la conversión a metros y reforzando el impacto de la inundación sin repetir la frase exact",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte de mood refuerza la atmósfera de desastre sin repetir información visual o auditiva.",
     "pasa": true,
-    "voz": "Este colapso provocó la inundación del 80% de Nueva Orleans, dejando algunas zonas bajo 15 pies de agua."
+    "voz": "Se produjeron más de 50 fallas en el sistema de diques, una cascada de rupturas que provocó la inundación del 80% de Nueva Orleans."
    },
    {
     "t": 77.917,
@@ -429,21 +413,21 @@
     "dur": 2.85,
     "bloque": "zoom",
     "texto": "Pies del hombre",
-    "veredicto": "estorba",
-    "motivo": "El zoom en los pies del hombre no aporta información relevante sobre los '15 pies de agua' mencionados en la voz, y puede confundir al no estar directamente rel",
-    "pasa": false,
-    "voz": "Este colapso provocó la inundación del 80% de Nueva Orleans, dejando algunas zonas bajo 15 pies de agua."
+    "veredicto": "suma",
+    "motivo": "La voz describe la causa y escala de la inundación, mientras que el zoom en los pies del hombre enfatiza el impacto personal y directo de la catástrofe en el in",
+    "pasa": true,
+    "voz": "Se produjeron más de 50 fallas en el sistema de diques, una cascada de rupturas que provocó la inundación del 80% de Nueva Orleans."
    },
    {
-    "t": 86.853,
-    "t_frame": 87.853,
+    "t": 83.93,
+    "t_frame": 84.93,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "oscuridad",
+    "texto": "negrura",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz sin repetir una frase, y el tinte refuerza la atmósfera de oscuridad y encierro que la voz describe como dominante",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera de oscuridad y encierro que la imagen y el relato ya sugieren, sin tapar",
     "pasa": true,
-    "voz": "Dentro de la prisión, la única barrera contra la oscuridad total eran los generadores de respaldo."
+    "voz": "Para los miles de prisioneros atrapados en la negrura, la única esperanza de luz y seguridad recaía en los generadores de respaldo."
    }
   ]
  },

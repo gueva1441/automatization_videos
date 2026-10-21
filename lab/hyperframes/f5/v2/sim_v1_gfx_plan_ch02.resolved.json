@@ -6,13 +6,7 @@
    "title": "La Tormenta Perfecta"
   },
   "callouts": [],
-  "count_up": {
-   "value_text": "6,500",
-   "unit": "personas",
-   "start": 49.979,
-   "fact_idx": 4,
-   "source": ""
-  },
+  "count_up": null,
   "archive_clippings": [
    {
     "kicker": "2005",
@@ -355,7 +349,7 @@
     "bloque": "recorte",
     "texto": "El huracán Katrina tocó tierra el 29 de agosto",
     "veredicto": "suma",
-    "motivo": "Aporta la fecha exacta (29 de agosto de 2005) y el contexto de 'tocó tierra', que la voz y la imagen no especifican, sin tapar información crucial.",
+    "motivo": "El bloque añade la fecha exacta (29 de agosto) y el año (2005) del evento, información que la voz solo menciona vagamente como 'Ese día', y que la imagen no pro",
     "pasa": true,
     "voz": "Ese día, el huracán Katrina desató su furia implacable sobre Nueva Orleans."
    },
@@ -391,17 +385,6 @@
     "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza visualmente la idea de contaminación y peligro del agua, que la imagen por sí sola no comunica",
     "pasa": true,
     "voz": "Calles y hogares enteros desaparecieron, sumergidos bajo hasta 4.6 metros, o quince pies, de agua putrefacta."
-   },
-   {
-    "t": 49.979,
-    "t_frame": 50.979,
-    "dur": 3.7,
-    "bloque": "contador",
-    "texto": "6,500",
-    "veredicto": "suma",
-    "motivo": "El bloque enfatiza visualmente un dato numérico clave mencionado por la voz, sin repetir una frase completa ni estorbar la imagen.",
-    "pasa": true,
-    "voz": "En medio de este caos líquido y generalizado, la Prisión Parroquial de Orleans, un coloso de hormigón y hierro, albergaba a aproximadamente seis mil quinientas almas."
    },
    {
     "t": 60.733,

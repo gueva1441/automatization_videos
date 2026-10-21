@@ -7,65 +7,99 @@
   },
   "callouts": [],
   "count_up": null,
-  "archive_clippings": [],
+  "archive_clippings": [
+   {
+    "kicker": "2005",
+    "headline": "El sheriff Gusman reabre el edificio House of Detention (HOD)",
+    "body": "",
+    "scene_idx": 9,
+    "fact_idx": null,
+    "pool_id": "T19",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 68.31,
+    "duration": 6.0,
+    "side": "left"
+   }
+  ],
   "evidence_zoom": null,
   "punch_in": [
-   6.759,
-   30.676,
-   59.792,
-   66.551
+   16.378,
+   50.019,
+   63.741,
+   84.545
   ],
   "chapter_question": {
-   "text": "¿Por qué reabrió la prisión?",
+   "text": "¿Quién encubrió a la Prisión?",
    "start": 98.133,
    "duration": 3.0,
-   "keyword": "reabrió",
+   "keyword": "encubrió",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "encarcelamiento",
-    "category": "oscuridad_encierro",
-    "layer": "oscuridad",
+    "word": "infierno",
+    "category": "fuego",
+    "layer": "minima",
     "icon": null,
-    "icon_anim": "stamp",
-    "start": 30.676,
+    "icon_anim": "ink_bleed",
+    "start": 18.148,
     "duration": 2.5,
     "side": "right",
     "stamp": true,
     "sid": 2,
     "rarity": 1,
     "weight": 3,
-    "icon_callout": false
-   },
-   {
-    "word": "inhumanas",
-    "category": "frio_abandono",
-    "layer": "minima",
-    "icon": null,
-    "icon_anim": "press_wipe",
-    "start": 59.792,
-    "duration": 2.5,
-    "side": "right",
-    "stamp": true,
-    "sid": 7,
-    "rarity": 1,
-    "weight": 3,
     "sfx": {
-     "file": "viento.wav",
+     "file": "brasa.wav",
      "gain_db": -20
     },
     "icon_callout": false
    },
    {
-    "word": "absoluto",
+    "word": "inhumanas",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 63.741,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 8,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "nada",
     "category": "silencio",
     "layer": "minima",
     "icon": null,
     "icon_anim": "press_wipe",
-    "start": 89.428,
+    "start": 88.529,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 13,
+    "rarity": 1,
+    "weight": 3,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false,
+    "peak": true
+   },
+   {
+    "word": "existen",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 90.299,
     "duration": 2.5,
     "side": "right",
     "stamp": true,
@@ -81,22 +115,28 @@
   "gap_warnings": [],
   "fragmentos": [
    {
+    "id": "T23",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 60.3s"
+   },
+   {
     "id": "D69",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 0.5s"
+    "motivo": "no entra sin pisar otro bloque @ 32.0s"
    },
    {
     "id": "T26",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 0.5s"
+    "motivo": "no entra sin pisar otro bloque @ 32.0s"
    },
    {
     "id": "D19",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
     "id": "D60",
@@ -115,23 +155,35 @@
     "bloque": "recorte",
     "ahora": null,
     "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T19",
+    "bloque": "recorte",
+    "ahora": "El sheriff Gusman reabre el edificio House of Detention (HOD)",
+    "kicker": "2005",
+    "fuente": null,
+    "icono": null,
+    "icono_faltante": null,
+    "opciones": [
+     "El sheriff Gusman reabre el edificio House of Detention (HOD)"
+    ]
    }
   ],
   "pico": {
-   "t": 88.388,
+   "t": 90.299,
    "block": "emphasis",
-   "word": "vacío",
-   "sentence": "Estas investigaciones y demandas se basaron en testimonios, porque al buscar la versión oficial de los hechos, se toparon con un vacío documental absoluto: simplemente no existen registros oficiales de lo que ocurrió en la prisión durante esos días críticos.",
-   "intensity": 1.0,
-   "sentence_idx": 10,
-   "palabra": "absoluto"
+   "word": "existen",
+   "sentence": "Porque, increíblemente, no existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina.",
+   "intensity": 0.9,
+   "sentence_idx": 14,
+   "palabra": "existen"
   },
   "time_ticker": null,
   "transitions": {
    "1": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "después del zoom",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R2"
    },
    "2": {
@@ -141,15 +193,15 @@
     "rank": "R3"
    },
    "3": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
-    "rank": "R2"
-   },
-   "4": {
     "kind": "cut",
     "frames": 0,
     "why": "≥ 1 corte cada 3",
+    "rank": "R2"
+   },
+   "4": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "5": {
@@ -159,15 +211,15 @@
     "rank": "R3"
    },
    "6": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
-    "rank": "R2"
-   },
-   "7": {
     "kind": "cut",
     "frames": 0,
     "why": "≥ 1 corte cada 3",
+    "rank": "R2"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "8": {
@@ -195,9 +247,9 @@
     "rank": "R3"
    },
    "12": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
     "rank": "R3"
    },
    "13": {
@@ -299,48 +351,70 @@
   },
   "critico": [
    {
-    "t": 7.029,
-    "t_frame": 8.029,
-    "dur": 2.85,
-    "bloque": "zoom",
-    "texto": "Rostro hombre",
-    "veredicto": "repite",
-    "motivo": "La foto ya muestra el rostro de un hombre, y el bloque solo lo resalta sin añadir información nueva o relevante a los nombres mencionados en la voz.",
-    "pasa": false,
-    "voz": "Ese costo de más de 650,000 dólares tuvo nombres y rostros: los de Robie Waganfeald y Paul Kunkel Jr., dos turistas de Ohio arrestados en Bourbon Street justo antes de la tormenta."
-   },
-   {
-    "t": 30.676,
-    "t_frame": 31.676,
+    "t": 18.148,
+    "t_frame": 19.148,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "encarcelamiento",
+    "texto": "infierno",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el mood de encierro y la gravedad del tema, que la imagen de la corte por sí sola no transmite",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte de fuego añade una capa emocional y conceptual que la imagen del juzgado no transmite por sí misma.",
     "pasa": true,
-    "voz": "El 14 de octubre de 2010, un jurado federal les otorgó la indemnización, validando su historia de encarcelamiento falso e indiferencia deliberada."
+    "voz": "Quedaron atrapados en el mismo infierno que los demás prisioneros, pero a diferencia de ellos, su condición de ciudadanos comunes de Ohio con familias que los buscaban les dio una voz que el sistema no pudo ignorar."
    },
    {
-    "t": 59.792,
-    "t_frame": 60.792,
+    "t": 63.741,
+    "t_frame": 64.741,
     "dur": 2.5,
     "bloque": "sello",
     "texto": "inhumanas",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el ambiente sombrío, aumentando el impacto emocional sin tapar elementos cruciales.",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetirla completamente, y el tinte refuerza el ambiente de encierro y las condiciones descritas.",
     "pasa": true,
-    "voz": "emitió una carta de hallazgos que condenaba formalmente las condiciones inhumanas."
+    "voz": "intervino, y su carta de hallazgos detalló las condiciones inhumanas y la violación sistemática de derechos dentro de la prisión."
    },
    {
-    "t": 89.428,
-    "t_frame": 90.428,
+    "t": 68.31,
+    "t_frame": 69.31,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "El sheriff Gusman reabre el edificio House of Detention (HOD)",
+    "veredicto": "suma",
+    "motivo": "El bloque aporta un dato específico (nombre de la prisión, acción de reapertura y año) que complementa la información general de la voz sobre las condiciones in",
+    "pasa": true,
+    "voz": "intervino, y su carta de hallazgos detalló las condiciones inhumanas y la violación sistemática de derechos dentro de la prisión."
+   },
+   {
+    "t": 82.58,
+    "t_frame": 83.58,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "Cicatriz",
+    "veredicto": "repite",
+    "motivo": "La cicatriz ya es claramente visible en la imagen y el bloque no aporta un nuevo dato o conexión temática con el audio.",
+    "pasa": false,
+    "voz": "Sin embargo, todas las investigaciones chocaban contra un muro de silencio administrativo."
+   },
+   {
+    "t": 88.529,
+    "t_frame": 89.529,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "absoluto",
+    "texto": "nada",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de 'silencio' refuerza el vacío documental y el estado de abandono que la imagen ya sugiere.",
+    "motivo": "El sello enfatiza la palabra clave 'NADA' de la voz en off, reforzando el resultado de la búsqueda sugerido por el libro quemado.",
     "pasa": true,
-    "voz": "Estas investigaciones y demandas se basaron en testimonios, porque al buscar la versión oficial de los hechos, se toparon con un vacío documental absoluto: simplemente no existen registros oficiales de lo que ocurrió en la prisión durante esos días críticos."
+    "voz": "y no encontraron nada."
+   },
+   {
+    "t": 90.299,
+    "t_frame": 91.299,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "existen",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza irónicamente la ausencia de registros, y el tinte de mood refuerza la atmósfera de misterio y abandono sin tapar información crucial.",
+    "pasa": true,
+    "voz": "Porque, increíblemente, no existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina."
    }
   ]
  },

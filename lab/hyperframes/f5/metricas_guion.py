@@ -27,7 +27,7 @@ def main() -> None:
     nar = {"v1": [c["narration"] for c in _load(STEPS / V1 / "01b_narration.json")["chapters"]],
            "v2": [c["narration"] for c in _load(STEPS / V2 / "01b_narration.json")["chapters"]]}
     sk2 = _load(STEPS / V2 / "01a_skeleton.json")
-    L = ["# F5c — Guion v1 vs v2 (evidencia para la validación del analista)", "",
+    L = ["# F5d — Guion v1 vs v2 (evidencia para la validación del analista)", "",
          "Medido con `script_engine/m05_narrative.py` contra el MISMO evidence_pool (el de F5b, ya filtrado) para las "
          "dos versiones. v2 se cuenta por los ids que declaró el narrador (N2); v1 no declara, se cuenta por regex.", ""]
     L += ["## 1. Datos nuevos por cap y Gusman", "", "| cap | v1 datos nuevos | v2 datos nuevos | v2 asignados (skeleton) |",

@@ -1,9 +1,9 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (F5c terminado, PARADA para el analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (F5d terminado, PARADA para el analista; después: producción de Orleans v2) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
-- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit: F5c (`git log -1`), sobre `2fbac37` (F5b).
+- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit: F5d (`git log -1`), sobre `c55ca56` (F5c).
 - Cadena de ramas sin mergear: `f2-gfx-director` (F2b @ `31c671c`) → `f3-lab-identidad` (F3–F4e @ `39e37ac`) → `f5-guion-v2` (F5).
 - `main` = `43f528a`. NO se toca sin OK explícito de Omar.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
@@ -11,7 +11,23 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F5c — Solo narración: skeleton congelado, narrador Pro, mejor de 3 — PARADA: valida el analista, después decide Omar
+## F5d — Último ajuste antes de producción — PARADA: valida el analista; con su OK, producción completa de Orleans v2
+- Leer `lab/hyperframes/f5/RESUMEN_F5d.md` (revisor íntegro) y `DECISIONES_F5.md` M1–M11.
+- **Hecho:**
+  - cifras canónicas (6,375 oficial; la contradicción solo en el cap 7);
+  - fechas como regla dura;
+  - largo +15 % con Pro y paráfrasis permitida;
+  - datos reservados para pantalla (`pantalla_ids` en el skeleton);
+  - count_up solo con cantidades;
+  - línea «ningún menor en celdas de adultos» en el canon de m03.
+- **Resultado:**
+  - ningún cap con reglas duras; densidad por id 1.97; adjetivos 2.58; 1165 palabras; cliffhangers 6/6;
+  - pantalla: 6 recortes, los caps 6 y 7 ya tienen;
+  - 3-gramas 8.7 % (cap 7).
+- **Costo:** Pro US$ 1.46 (2 corridas). Tests: 393 verdes + 3 viejas.
+- **Siguiente, solo con el OK del analista:** producción completa de Orleans v2 (imágenes + render con gfx). Antes de renderizar, Firefox cerrado y RAM > 14 GB (memoria).
+
+## F5c — Solo narración: skeleton congelado, narrador Pro, mejor de 3 — superado por F5d
 - Leer `lab/hyperframes/f5/RESUMEN_F5c.md` (revisor íntegro) y `DECISIONES_F5.md` L1–L8. La pantalla y §1.6 de F5b no cambian.
 - **Hecho:**
   - skeleton de F5 congelado (token `skeleton_frozen`, ids traducidos al pool de F5b; Hubert y Schwarz fuera);

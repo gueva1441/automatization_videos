@@ -1,160 +1,152 @@
 {
  "caps": [
   {
-   "palabras": 63,
+   "palabras": 61,
    "datos_usados": [
-    "D05",
+    "D04",
+    "D57",
     "Q01"
    ],
-   "densidad": 3.17,
-   "adjetivos": 1,
-   "adj_100": 1.59,
+   "densidad": 4.92,
+   "adjetivos": 2,
+   "adj_100": 3.28,
    "relleno_seguido": 0,
    "relleno_prohibido": [],
    "conteo": "por_id",
    "repetidos_en_cap": [],
    "nombres_sin_accion": [],
-   "densidad_hechos": 3.17,
-   "densidad_regex": 6.35,
-   "declarados_no_literales": [
-    "D04"
-   ],
-   "trigramas_repetidos": 0.0857
+   "densidad_hechos": 4.92,
+   "densidad_regex": 4.92,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0882
   },
   {
-   "palabras": 144,
+   "palabras": 156,
    "datos_usados": [
+    "T05",
     "T06",
     "D09",
     "D10"
    ],
+   "densidad": 2.56,
+   "adjetivos": 6,
+   "adj_100": 3.85,
+   "relleno_seguido": 1,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.92,
+   "densidad_regex": 1.92,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0366
+  },
+  {
+   "palabras": 179,
+   "datos_usados": [
+    "T08",
+    "T09",
+    "T12"
+   ],
+   "densidad": 1.68,
+   "adjetivos": 4,
+   "adj_100": 2.23,
+   "relleno_seguido": 1,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.56,
+   "densidad_regex": 1.68,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0309
+  },
+  {
+   "palabras": 197,
+   "datos_usados": [
+    "T13",
+    "D08",
+    "D17"
+   ],
+   "densidad": 1.52,
+   "adjetivos": 5,
+   "adj_100": 2.54,
+   "relleno_seguido": 1,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.52,
+   "densidad_regex": 4.57,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 192,
+   "datos_usados": [
+    "D19",
+    "D60",
+    "D61",
+    "Q02"
+   ],
    "densidad": 2.08,
-   "adjetivos": 1,
-   "adj_100": 0.69,
-   "relleno_seguido": 0,
+   "adjetivos": 5,
+   "adj_100": 2.6,
+   "relleno_seguido": 1,
    "relleno_prohibido": [],
    "conteo": "por_id",
    "repetidos_en_cap": [],
    "nombres_sin_accion": [],
    "densidad_hechos": 2.08,
-   "densidad_regex": 3.47,
+   "densidad_regex": 5.73,
    "declarados_no_literales": [],
-   "trigramas_repetidos": 0.0122
+   "trigramas_repetidos": 0.1226
   },
   {
-   "palabras": 140,
-   "datos_usados": [
-    "T08",
-    "D33",
-    "T09"
-   ],
-   "densidad": 2.14,
-   "adjetivos": 3,
-   "adj_100": 2.14,
-   "relleno_seguido": 0,
-   "relleno_prohibido": [],
-   "conteo": "por_id",
-   "repetidos_en_cap": [
-    [
-     "29 de agosto",
-     2
-    ]
-   ],
-   "nombres_sin_accion": [],
-   "densidad_hechos": 1.43,
-   "densidad_regex": 5.71,
-   "declarados_no_literales": [
-    "T12"
-   ],
-   "trigramas_repetidos": 0.0676
-  },
-  {
-   "palabras": 149,
-   "datos_usados": [
-    "D08",
-    "D17"
-   ],
-   "densidad": 1.34,
-   "adjetivos": 4,
-   "adj_100": 2.68,
-   "relleno_seguido": 0,
-   "relleno_prohibido": [],
-   "conteo": "por_id",
-   "repetidos_en_cap": [],
-   "nombres_sin_accion": [],
-   "densidad_hechos": 1.34,
-   "densidad_regex": 4.03,
-   "declarados_no_literales": [],
-   "trigramas_repetidos": 0.037
-  },
-  {
-   "palabras": 177,
-   "datos_usados": [
-    "D19",
-    "D60",
-    "T15",
-    "D67",
-    "Q02",
-    "D61",
-    "D50"
-   ],
-   "densidad": 3.95,
-   "adjetivos": 4,
-   "adj_100": 2.26,
-   "relleno_seguido": 0,
-   "relleno_prohibido": [],
-   "conteo": "por_id",
-   "repetidos_en_cap": [],
-   "nombres_sin_accion": [],
-   "densidad_hechos": 3.39,
-   "densidad_regex": 5.65,
-   "declarados_no_literales": [],
-   "trigramas_repetidos": 0.1373
-  },
-  {
-   "palabras": 189,
+   "palabras": 222,
    "datos_usados": [
     "T26",
     "D69"
    ],
-   "densidad": 1.06,
-   "adjetivos": 2,
-   "adj_100": 1.06,
+   "densidad": 0.9,
+   "adjetivos": 5,
+   "adj_100": 2.25,
    "relleno_seguido": 0,
    "relleno_prohibido": [],
    "conteo": "por_id",
    "repetidos_en_cap": [],
    "nombres_sin_accion": [],
-   "densidad_hechos": 1.06,
-   "densidad_regex": 3.7,
+   "densidad_hechos": 0.9,
+   "densidad_regex": 2.25,
    "declarados_no_literales": [],
-   "trigramas_repetidos": 0.0459
+   "trigramas_repetidos": 0.0827
   },
   {
-   "palabras": 155,
+   "palabras": 158,
    "datos_usados": [
-    "D59",
+    "D57",
     "D58",
+    "D59",
     "D61"
    ],
-   "densidad": 1.94,
-   "adjetivos": 4,
-   "adj_100": 2.58,
+   "densidad": 2.53,
+   "adjetivos": 3,
+   "adj_100": 1.9,
    "relleno_seguido": 0,
    "relleno_prohibido": [],
    "conteo": "por_id",
    "repetidos_en_cap": [],
    "nombres_sin_accion": [],
-   "densidad_hechos": 1.94,
-   "densidad_regex": 1.94,
+   "densidad_hechos": 2.53,
+   "densidad_regex": 3.16,
    "declarados_no_literales": [],
-   "trigramas_repetidos": 0.2093
+   "trigramas_repetidos": 0.2697
   }
  ],
  "video": {
-  "densidad": 2.16,
-  "adj_100": 1.87,
-  "trigramas_repetidos": 0.0861,
+  "densidad": 1.97,
+  "adj_100": 2.58,
+  "trigramas_repetidos": 0.0868,
   "datos_en_mas_de_2_caps": {},
   "antagonista_nombrado": true,
   "antagonista": "Marlin N. Gusman",
@@ -166,8 +158,7 @@
     "ok": true,
     "en_cierre": [
      "Gusman",
-     "conferencia",
-     "prisioneros"
+     "sheriff"
     ]
    },
    {
@@ -176,7 +167,6 @@
     "texto": "La energía eléctrica se pierde y los generadores de respaldo fallan en la OPP.",
     "ok": true,
     "en_cierre": [
-     "energía",
      "generadores",
      "respaldo"
     ]
@@ -187,8 +177,9 @@
     "texto": "Comienza la evacuación de algunos edificios de la prisión (Templeman 1 y 2) cuando el agua alcanza el nivel del pecho en el interior.",
     "ok": true,
     "en_cierre": [
-     "Templeman",
-     "edificios"
+     "algunos",
+     "edificios",
+     "interior"
     ]
    },
    {
@@ -207,7 +198,6 @@
     "ok": true,
     "en_cierre": [
      "650,000",
-     "federal",
      "turistas"
     ]
    },
@@ -217,34 +207,39 @@
     "texto": "No existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina",
     "ok": true,
     "en_cierre": [
+     "Prisión de Orleans Parish",
+     "Orleans",
+     "Parish",
+     "Katrina",
      "existen",
      "registros",
      "oficiales",
      "ocurrió",
      "Prisión",
-     "después"
+     "inmediatamente",
+     "después",
+     "huracán"
     ]
    }
   ],
   "datos_distintos": 21,
-  "palabras": 1017,
+  "palabras": 1165,
   "conteo": "por_id",
-  "caps_con_repetidos_en_cap": [
-   3
-  ],
+  "caps_con_repetidos_en_cap": [],
   "caps_fuera_de_adjetivos": [
-   1,
-   2,
-   6
+   7
   ],
   "nombres_sin_accion": [],
-  "densidad_hechos": 1.97,
-  "densidad_regex": 4.23,
+  "cifras_no_canonicas": [],
+  "problemas_de_fechas": 0,
+  "pantalla_dichos": [],
+  "densidad_hechos": 1.72,
+  "densidad_regex": 3.35,
   "umbral": {
-   "densidad": true,
+   "densidad": false,
    "repeticion": false,
-   "adjetivacion": false,
-   "repeticion_en_cap": false,
+   "adjetivacion": true,
+   "repeticion_en_cap": true,
    "nombres": true,
    "antagonista": true,
    "cliffhanger": true
@@ -259,37 +254,29 @@
  },
  "violaciones_narrador": {
   "1": [
-   "- [dura] declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): D04",
-   "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D57] «6,375»; [T07] «29 de agosto»",
-   "- [blanda] la cita «donde pertenecen…» va entre comillas y con su autor (Sheriff Marlin N. Gusman) al lado",
-   "- [blanda] 1.59 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
-  ],
-  "2": [
-   "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [T05] «28 de agosto»; [T07] «29 de agosto»",
-   "- [blanda] 0.69 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+   "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D05] «6,375»",
+   "- [blanda] nombrá a William Hunter por nombre y apellido y con su cargo (Adjunto del Sheriff Gusman) la primera vez"
   ],
   "3": [
-   "- [dura] declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): T12",
-   "- [dura] cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «29 de agosto» ×2",
-   "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D06] «29 de agosto»; [D59] «500»; [D65] «29 de agosto»; [T10] «29 de agosto»; [T11] «29 de agosto»"
+   "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D06] «29 de agosto»; [T11] «29 de agosto»",
+   "- [blanda] densidad 1.68 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
   ],
   "4": [
-   "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D32] «hasta el pecho»; [D38] «2 de septiembre»; [D66] «2 de septiembre»; [T17] «2 de septiembre»",
-   "- [blanda] densidad 1.34 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
+   "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D32] «hasta el pecho»; [D38] «2 de septiembre»; [D59] «500»; [D66] «2 de septiembre»; [D67] «10»; [T17] «2 de septiembre»",
+   "- [blanda] densidad 1.52 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
   ],
   "5": [
-   "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D43] «517»; [D69] «650,000»; [T23] «1 de septiembre»",
-   "- [blanda] nombrá a Ronnie L. Morgan, Jr. por nombre y apellido y con su cargo (Recluso, demandante) la primera vez",
-   "- [blanda] la cita «Están en la cárcel, hombre. Mienten... N…» va entre comillas y con su autor (Sheriff Gusman) al lado"
+   "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D43] «517»; [D50] «650,000»; [D67] «10»; [D68] «98.7%»; [D69] «650,000»; [T15] «1 de septiembre»; [T23] «1 de septiembre»",
+   "- [blanda] nombrá a Ronnie L. Morgan, Jr. por nombre y apellido y con su cargo (Recluso, demandante) la primera vez"
   ],
   "6": [
-   "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D21] «17 de octubre»; [D50] «650,000»; [D61] «14»; [T19] «17 de octubre»; [T27] «14 de octubre»",
-   "- [blanda] densidad 1.06 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
-   "- [blanda] 1.06 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+   "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D50] «650,000»; [D61] «14»; [T27] «14 de octubre»",
+   "- [blanda] densidad 0.9 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
   ],
   "7": [
-   "- [blanda] densidad 1.94 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
-   "- [blanda] 21% de tus frases de 3 palabras ya se dijeron en caps anteriores (máximo 5%): no repitas fórmulas («sheriff Marlin N. Gusman» basta una vez; después «el sheriff», «Gusman»)"
+   "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D05] «6,375»",
+   "- [blanda] 1.9 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "- [blanda] 27% de tus frases de 3 palabras ya se dijeron en caps anteriores (máximo 5%): no repitas fórmulas («sheriff Marlin N. Gusman» basta una vez; después «el sheriff», «Gusman»)"
   ]
  }
 }

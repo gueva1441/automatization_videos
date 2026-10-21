@@ -1,0 +1,45 @@
+[04:34:26] WARNING  | viral_pipeline | [audio_generator] ⚠ [normalizer_gate] 21 span(s) detectado(s) — modo batch, se aplican TODOS sin revisión humana
+[04:34:26] WARNING  | viral_pipeline | [audio_generator] ⚠ [normalizer_gate] cap 5: span original 'N.' no encontrado en texto, skipeado
+[04:34:26] WARNING  | viral_pipeline | [audio_generator] ⚠ [normalizer_gate] cap 6: span original 'N.' no encontrado en texto, skipeado
+  [01b] generando cap 1 (hook)...
+  [01b] cap 1: candidato 1/3 puntaje 19 · 1 duras · 3 blandas
+  [01b] cap 1: candidato 2/3 puntaje 11 · 3 duras · 1 blandas
+  [01b] cap 1: elegido el candidato 1/3 (puntaje 19, 1 duras, 3 blandas)
+  [01b] generando cap 2 (development)...
+  [01b] cap 2: candidato 1/3 puntaje 8 · 2 duras · 1 blandas
+  [01b] cap 2: candidato 2/3 inválido (largo/frases)
+  [01b] cap 2: elegido el candidato 1/3 (puntaje 8, 2 duras, 1 blandas)
+  [01b] generando cap 3 (development)...
+  [01b] cap 3: candidato 1/3 puntaje 2 · 2 duras · 2 blandas
+  [01b] cap 3: candidato 2/3 puntaje 8 · 2 duras · 2 blandas
+  [01b] cap 3: elegido el candidato 2/3 (puntaje 8, 2 duras, 2 blandas)
+  [01b] generando cap 4 (development)...
+  [01b] cap 4: candidato 1/3 puntaje 6 · 4 duras · 2 blandas
+  [01b] cap 4: candidato 2/3 inválido (largo/frases)
+  [01b] cap 4: elegido el candidato 1/3 (puntaje 6, 4 duras, 2 blandas)
+  [01b] generando cap 5 (development)...
+  [01b] cap 5: candidato 1/3 puntaje 13 · 1 duras · 3 blandas
+  [01b] cap 5: candidato 2/3 puntaje 13 · 0 duras · 4 blandas
+  [01b] cap 5: elegido el candidato 3/3 (puntaje 14, 0 duras, 4 blandas)
+  [01b] generando cap 6 (development)...
+  [01b] cap 6: candidato 1/3 puntaje 10 · 0 duras · 3 blandas
+  [01b] cap 6: elegido el candidato 2/2 (puntaje 11, 0 duras, 2 blandas)
+  [01b] generando cap 7 (reveal+outro)...
+  [01b] cap 7: candidato 1/3 puntaje 17 · 0 duras · 3 blandas
+  [01b] cap 7: elegido el candidato 1/2 (puntaje 17, 0 duras, 3 blandas)
+  [01b] generando humanizer phrases...
+  [normalizer_gate] LLM auditor analizando narración...
+[2026-10-21 04:25:37] F5b etapa guion
+respaldo: C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f5\v2 → C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f5\v2_f5c
+respaldo: C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-f5v2\_fase2b_work → C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-f5v2\_bak_f5d_pre\_fase2b_work
+respaldo: C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-a091-41c0-8dad-afd2f4364747\_fase2b_work_f5sim_v1 → C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-a091-41c0-8dad-afd2f4364747\_fase2b_work_f5sim_v1_bak_f5d
+  [4a·pool] tecnico: 1 ítem(s) descartado(s) por no estar literales en el bloque
+  [4a·pool] misterio: 4 ítem(s) fuera por no relacionados (['antigua cárcel de Nueva Orleans construi', 'incluyendo el de un posible capitán de l', 'Un médium psíquico ha detectado la energ', 'Inn at the Old Jail'])
+  [4a·pool] personajes sin acción, fuera: ['Cornel Hubert', 'Raphael Schwarz']
+  [4a·pool] cifras canónicas: [('6,375', ['6,375, 6,500', '6,500', '8,000'])]
+  [4a·pool] datos 67 · cronologia 27 · lugares 25 · citas 2 · personajes 6 · _descartados 8 · cifras_canonicas 1
+guion: pool 0s
+guion: skeleton 0s · reparaciones ["cronología: ['T03'] de cap_6 → cap_4 (anteriores a 2005-08-30)", "cronología: ['T03'] de cap_4 → cap_3 (anteriores a 2005-08-29)", "cronología: ['T03'] de cap_3 → cap_2 (anteriores a 2005-08-28)", 'cap 1: cliffhanger F02 inválido → T05 (primer id nuevo del cap 2)', 'cap 2: cliffhanger F04 inválido → T08 (primer id nuevo del cap 3)', 'cap 3: cliffhanger F01 inválido → T13 (primer id nuevo del cap 4)', 'cap 4: cliffhanger F08 inválido → D19 (primer id nuevo del cap 5)', 'cap 5: cliffhanger F07 inválido → D72 (primer id nuevo del cap 6)', 'cap 6: cliffhanger (vacío) inválido → D62 (primer id nuevo del cap 7)']
+guion: narración 510s · costo {'Gemini 2.5 Pro': 0.7152980000000001, 'Gemini 2.5 Flash': 0.003017} · violaciones {'1': ['- [dura] cifras que no están en el research (no inventes): 6.375', '- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D05] «6,375»', '- [blanda] nombrá a William Hunter por nombre y apellido y con su cargo (Adjunto del Sheriff Gusman) la primera vez', '- [blanda] 1.47 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno'], '2': ['- [dura] usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T05] «28 de agosto»; [T06] «28 de agosto»; [T03] «27 de agosto»', '- [dura] declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): T05, T06', '- [blanda] densidad 1.23 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción'], '3': ['- [dura] usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T09] «29 de agosto»; [T12] «29 de agosto»', '- [dura] declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): T09, T12', '- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D06] «29 de agosto»; [D65] «29 de agosto»; [T10] «29 de agosto»; [T11] «29 de agosto»', '- [blanda] densidad 0.55 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción'], '4': ['- [dura] usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T13] «30 de agosto»; [D08] «hasta el pecho»; [T17] «2 de septiembre»', '- [dura] declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): D08', '- [dura] fechas: contaste [T13] sin su fecha (30 de agosto): «En los edificios Templeman 1 y 2, el agua ya no era una advertencia, e…»', '- [dura] el cierre tiene que anticipar el dato concreto del cap 5: «Inmediatamente después de la evacuación, 517 reclusos no estaban contabilizados» (nombralo o dejalo incompleto; nada de retórica genérica)', '- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D38] «2 de septiembre»; [D54] «3»; [D59] «500»; [D66] «2 de septiembre»; [D67] «10»; [T17] «2 de septiembre»', '- [blanda] densidad 0.61 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción'], '5': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D43] «517»; [D50] «650,000»; [D67] «10»; [D68] «98.7%»; [D69] «650,000»; [T15] «1 de septiembre»; [T23] «1 de septiembre»', '- [blanda] nombrá a Ronnie L. Morgan, Jr. por nombre y apellido y con su cargo (Recluso, demandante) la primera vez', '- [blanda] la cita «Están en la cárcel, hombre. Mienten... N…» va entre comillas y con su autor (Sheriff Gusman) al lado', '- [blanda] densidad 1.89 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción'], '6': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D50] «650,000»; [D61] «14»; [T27] «14 de octubre»', '- [blanda] densidad 1.19 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción'], '7': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D05] «6,375»', '- [blanda] 1.31 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno', '- [blanda] 22% de tus frases de 3 palabras ya se dijeron en caps anteriores (máximo 5%): no repitas fórmulas («sheriff Marlin N. Gusman» basta una vez; después «el sheriff», «Gusman»)']}
+guion: normalizer 21 spans (aplicados en 01b_narration_normalized.json)
+guion: juez v1 {'densidad': False, 'repeticion': False, 'adjetivacion': False, 'repeticion_en_cap': False, 'nombres': True, 'antagonista': False, 'cliffhanger': None} · v2 {'densidad': False, 'repeticion': False, 'adjetivacion': True, 'repeticion_en_cap': True, 'nombres': True, 'antagonista': True, 'cliffhanger': False}

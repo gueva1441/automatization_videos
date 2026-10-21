@@ -96,7 +96,8 @@
         "valor": "6,375",
         "fecha": null,
         "bloque": "tecnico",
-        "fuente": null
+        "fuente": null,
+        "estatus": "rango"
       },
       {
         "id": "D06",
@@ -348,7 +349,8 @@
         "valor": "6,500",
         "fecha": null,
         "bloque": "humano",
-        "fuente": null
+        "fuente": null,
+        "estatus": "aproximada"
       },
       {
         "id": "D34",
@@ -546,7 +548,8 @@
         "valor": "6,375",
         "fecha": "2005-08-29",
         "bloque": "misterio",
-        "fuente": null
+        "fuente": null,
+        "estatus": "oficial"
       },
       {
         "id": "D58",
@@ -555,7 +558,8 @@
         "valor": "8,000",
         "fecha": null,
         "bloque": "misterio",
-        "fuente": null
+        "fuente": null,
+        "estatus": "medios"
       },
       {
         "id": "D59",
@@ -1187,6 +1191,29 @@
         "texto": "Raphael Schwarz",
         "bloque": "humano",
         "motivo": "solo el nombre de un personaje que no hace nada"
+      }
+    ],
+    "cifras_canonicas": [
+      {
+        "oficial": "D57",
+        "valor": "6,375",
+        "variantes": [
+          {
+            "id": "D05",
+            "valor": "6,375, 6,500",
+            "estatus": "rango"
+          },
+          {
+            "id": "D33",
+            "valor": "6,500",
+            "estatus": "aproximada"
+          },
+          {
+            "id": "D58",
+            "valor": "8,000",
+            "estatus": "medios"
+          }
+        ]
       }
     ]
   }

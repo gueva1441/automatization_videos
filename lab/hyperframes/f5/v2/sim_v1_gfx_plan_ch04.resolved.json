@@ -5,48 +5,51 @@
    "kicker": "CAPÍTULO 4",
    "title": "Atrapados en el Horror"
   },
-  "callouts": [
-   {
-    "text": "6,500 personas",
-    "start": 57.68,
-    "kind": "figure",
-    "duration": 2.5,
-    "side": "left",
-    "fact_idx": 4,
-    "source": ""
-   }
-  ],
+  "callouts": [],
   "count_up": null,
   "archive_clippings": [],
-  "evidence_zoom": null,
+  "evidence_zoom": {
+   "scene_idx": 7,
+   "box": [
+    0.3,
+    0.1,
+    0.2,
+    0.15
+   ],
+   "start": 46.417,
+   "anchor": "hedor",
+   "latido": true,
+   "latido_t": 47.117,
+   "word": "hedor"
+  },
   "punch_in": [
+   4.18,
    8.72,
    23.76,
-   32.16,
-   65.36
+   32.16
   ],
   "chapter_question": {
-   "text": "¿Cómo escaparon de tal infierno?",
+   "text": "¿Cuánto costó tanto tormento?",
    "start": 116.133,
    "duration": 3.0,
-   "keyword": "escaparon",
+   "keyword": "tormento",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "atrapados",
+    "word": "sufrimiento",
     "category": "oscuridad_encierro",
     "layer": "oscuridad",
     "icon": null,
     "icon_anim": "stamp",
-    "start": 8.72,
+    "start": 4.18,
     "duration": 2.5,
     "side": "right",
     "stamp": true,
-    "sid": 2,
-    "rarity": 6,
+    "sid": 1,
+    "rarity": 1,
     "weight": 3,
     "icon_callout": false
    },
@@ -70,18 +73,19 @@
     "icon_callout": false
    },
    {
-    "word": "inmundo",
-    "category": "agua",
-    "layer": "agua",
+    "word": "prisión",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
     "icon": null,
-    "icon_anim": "press_wipe",
-    "start": 38.5,
+    "icon_anim": "stamp",
+    "start": 28.94,
     "duration": 2.5,
-    "side": "left",
+    "side": "right",
     "stamp": true,
+    "sid": 4,
+    "rarity": 11,
     "weight": 3,
-    "peak_word": true,
-    "peak": true
+    "icon_callout": false
    },
    {
     "word": "hedor",
@@ -93,11 +97,8 @@
     "duration": 2.5,
     "side": "left",
     "stamp": true,
-    "sid": 6,
-    "rarity": 2,
     "weight": 3,
-    "icon_callout": false,
-    "peak": true
+    "peak_word": true
    },
    {
     "word": "encerrados",
@@ -113,25 +114,6 @@
     "rarity": 1,
     "weight": 3,
     "icon_callout": true
-   },
-   {
-    "word": "olvidadas",
-    "category": "frio_abandono",
-    "layer": "minima",
-    "icon": null,
-    "icon_anim": "press_wipe",
-    "start": 89.52,
-    "duration": 2.5,
-    "side": "left",
-    "stamp": true,
-    "sid": 14,
-    "rarity": 1,
-    "weight": 3,
-    "sfx": {
-     "file": "viento.wav",
-     "gain_db": -20
-    },
-    "icon_callout": false
    }
   ],
   "gap_warnings": [],
@@ -164,13 +146,13 @@
    }
   ],
   "pico": {
-   "t": 38.5,
-   "block": "emphasis",
-   "word": "inmundo",
-   "sentence": "Celdas enteras quedaron anegadas con una mezcla nauseabunda de aguas residuales y deshechos, el líquido inmundo alcanzando el nivel del pecho en algunos.",
+   "t": 42.64,
+   "block": "evidence_zoom",
+   "word": "hedor",
+   "sentence": "¡El hedor era insoportable!",
    "intensity": 0.9,
-   "sentence_idx": 5,
-   "palabra": "inmundo"
+   "sentence_idx": 6,
+   "palabra": "hedor"
   },
   "transitions": {
    "1": {
@@ -218,7 +200,7 @@
    "8": {
     "kind": "cut",
     "frames": 0,
-    "why": "ritmo rápido",
+    "why": "después del zoom",
     "rank": "R3"
    },
    "9": {
@@ -246,9 +228,9 @@
     "rank": "R1"
    },
    "13": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "después del zoom",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "14": {
@@ -258,9 +240,9 @@
     "rank": "R3"
    },
    "15": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
     "rank": "R3"
    },
    "16": {
@@ -366,15 +348,15 @@
   },
   "critico": [
    {
-    "t": 8.72,
-    "t_frame": 9.72,
+    "t": 4.18,
+    "t_frame": 5.18,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "atrapados",
+    "texto": "sufrimiento",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte intensifica la atmósfera opresiva de la imagen, sin tapar elementos cruciales.",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera opresiva de la imagen y la narración, sin repetir información visual o t",
     "pasa": true,
-    "voz": "Los prisioneros, atrapados, vivieron un calvario ininterrumpido."
+    "voz": "Una eternidad de sufrimiento en la penumbra asfixiante."
    },
    {
     "t": 15.44,
@@ -388,15 +370,15 @@
     "voz": "Días interminables de terror y desesperación, en los que cada segundo se estiraba hasta el límite de lo soportable."
    },
    {
-    "t": 38.5,
-    "t_frame": 39.5,
+    "t": 28.94,
+    "t_frame": 29.94,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "inmundo",
+    "texto": "prisión",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la narración, y el tinte de mood refuerza la sensación de anegamiento y suciedad descrita por la voz.",
+    "motivo": "El sello enfatiza visualmente la palabra clave 'prisión' mencionada por la voz y el contexto de la imagen, y el tinte refuerza el ambiente de encierro.",
     "pasa": true,
-    "voz": "Celdas enteras quedaron anegadas con una mezcla nauseabunda de aguas residuales y deshechos, el líquido inmundo alcanzando el nivel del pecho en algunos."
+    "voz": "El agua sucia, putrefacta, no retrocedía; por el contrario, se convertía en su nueva prisión líquida."
    },
    {
     "t": 42.64,
@@ -410,14 +392,25 @@
     "voz": "¡El hedor era insoportable!"
    },
    {
+    "t": 46.417,
+    "t_frame": 47.417,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "hedor",
+    "veredicto": "suma",
+    "motivo": "La voz describe la sensación del aire, pero el bloque añade un nuevo sentido (el olfato) que intensifica la atmósfera opresiva sin repetir información.",
+    "pasa": true,
+    "voz": "No había un solo respiro del aire cargado, pesado, que se pegaba a la piel y los pulmones."
+   },
+   {
     "t": 57.68,
     "t_frame": 58.68,
     "dur": 2.5,
     "bloque": "dato",
     "texto": "6,500 personas",
-    "veredicto": "suma",
-    "motivo": "El bloque refuerza visualmente el dato numérico que la voz menciona, aportando claridad y énfasis sin repetir una frase completa.",
-    "pasa": true,
+    "veredicto": "repite",
+    "motivo": "La voz ya menciona la cifra exacta de \"seis mil quinientas almas\", por lo que el bloque de texto repite la misma información numérica.",
+    "pasa": false,
     "voz": "Entre la masa de seis mil quinientas almas, se encontraban niños."
    },
    {
@@ -430,28 +423,6 @@
     "motivo": "El bloque enfatiza la palabra clave 'ENCERRADOS' de la voz en off, lo cual, según las reglas, es un énfasis que suma. El ícono de candado y el tinte refuerzan e",
     "pasa": true,
     "voz": "Pequeños, algunos de apenas diez años, también estaban encerrados en esas jaulas de hormigón."
-   },
-   {
-    "t": 70.45,
-    "t_frame": 71.45,
-    "dur": 2.85,
-    "bloque": "zoom",
-    "texto": "Lágrima",
-    "veredicto": "repite",
-    "motivo": "La imagen ya muestra claramente la lágrima; el bloque solo la resalta y la nombra sin añadir información nueva.",
-    "pasa": false,
-    "voz": "Sus ojos infantiles presenciaron horrores impensables."
-   },
-   {
-    "t": 89.52,
-    "t_frame": 90.52,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "olvidadas",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood intensifica la sensación de abandono y frialdad, reforzando el mensaje de víctimas olvidadas.",
-    "pasa": true,
-    "voz": "Aislados, sin voz, sin escapatoria, se convirtieron en víctimas olvidadas de una indiferencia criminal."
    }
   ]
  },

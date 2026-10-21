@@ -108,7 +108,16 @@ def used_items(text: str, pool: dict[str, Any] | None, kinds: tuple[str, ...] = 
     its = ev.items(pool)
     cand = [i for i in dict.fromkeys(declared) if i in its] if declared is not None else list(its)
     return [i for i in cand if its[i]["_kind"] in kinds and (not hard or ev.is_hard(its[i]))
-            and ev.used_in(text, its[i])]
+            and (_dated_said(text, its[i]) if declared is not None else ev.used_in(text, its[i]))]
+
+
+def _dated_said(text: str, it: dict[str, Any]) -> bool:
+    """Con declaración (N2), un evento o dato de fecha cuenta si su fecha suena: la identidad la da el id declarado,
+    y el evento se puede contar con otras palabras en la oración siguiente (F5d: paráfrasis permitida en lo que no es
+    cifra, nombre, fecha o cita). Sin fecha, como siempre (used_in)."""
+    if it["_kind"] == "cronologia" or (it["_kind"] == "datos" and it.get("tipo") == "fecha"):
+        return any(ev.literal_in(a, text) for a in ev.anchors(it))
+    return ev.used_in(text, it)
 
 
 def repeat_items(text: str, pool: dict[str, Any] | None, declared: list[str] | None = None) -> list[str]:
@@ -267,6 +276,14 @@ def video_metrics(narrations: list[Any], pool: dict[str, Any] | None, skeleton: 
          "caps_fuera_de_adjetivos": [k for k, c in enumerate(caps, start=1)
                                      if not ADJ_MIN <= c["adj_100"] <= ADJ_MAX],
          "nombres_sin_accion": sorted({n for c in caps for n in c["nombres_sin_accion"]})}
+    # F5d: cifras canónicas, fechas y datos reservados para pantalla, por cap del skeleton
+    nc, dp, lk = [], 0, []
+    for k, (t, d) in enumerate(pairs, start=1):
+        ch = next((c for c in chs if c.get("chapter_number") == k), {})
+        nc += [f"cap {k}: {x}" for x in non_canonical(t, pool, ch)]
+        dp += len(date_problems(t, pool, list(ch.get("evidence_ids") or []) + list(d or [])))
+        lk += [f"cap {k}: {x}" for x in screen_leaks(t, pool, ch)]
+    v.update({"cifras_no_canonicas": nc, "problemas_de_fechas": dp, "pantalla_dichos": lk})
     v["densidad_hechos"] = round(sum(c["densidad_hechos"] * c["palabras"] / 100 for c in caps) * 100 / max(1, words), 2)
     if all("densidad_regex" in c for c in caps):
         v["densidad_regex"] = round(100 * sum(c["densidad_regex"] * c["palabras"] / 100 for c in caps)
@@ -333,7 +350,11 @@ _NUM_TOK = re.compile(r"\d[\d.,]*\d|\d")
 
 
 def _num_key(tok: str) -> str:
-    return tok.rstrip(".,").replace(",", "")
+    """«6,375» y «6.375» (miles con coma o con punto) → «6375»; «4.6» queda decimal."""
+    t = tok.rstrip(".,")
+    if re.fullmatch(r"\d{1,3}(?:[.,]\d{3})+", t):
+        return re.sub(r"[.,]", "", t)
+    return t.replace(",", "")
 
 
 def _sources_text(pool: dict[str, Any] | None, facts: list[Any] | None) -> str:
@@ -382,6 +403,78 @@ def contamination(text: str, pool: dict[str, Any] | None, facts: list[Any] | Non
         own = {w for w in re.findall(r"[a-zñ]{6,}", ev.norm(dt)) if w not in kept}
         if len({w for w in own if re.search(rf"\b{w}", t)}) >= 2:
             out.append(dt)
+    return list(dict.fromkeys(out))
+
+
+def non_canonical(text: str, pool: dict[str, Any] | None, ch: dict[str, Any]) -> list[str]:
+    """F5d (dura): cifras de un conteo que no son la oficial (pool `cifras_canonicas`), fuera del cap que cuenta la
+    contradicción (`contradiccion_cifras` del skeleton)."""
+    out = []
+    for g in (pool or {}).get("cifras_canonicas") or []:
+        if g["oficial"] in (ch.get("contradiccion_cifras") or []):
+            continue
+        for v in g["variantes"]:
+            for val in re.findall(r"\d[\d,]*\d", v["valor"]):
+                if val != g["valor"] and ev.literal_in(val, text):
+                    out.append(f"{val} ({v['estatus']}; la oficial es {g['valor']})")
+    return list(dict.fromkeys(out))
+
+
+def screen_leaks(text: str, pool: dict[str, Any] | None, ch: dict[str, Any]) -> list[str]:
+    """F5d (dura): la voz dice un dato RESERVADO PARA PANTALLA del cap (`pantalla_ids`): alguno de sus anchors que no
+    comparte con los datos que el cap sí narra suena literal."""
+    its = ev.items(pool)
+    said = {ev.norm(a) for i in ch.get("evidence_ids") or [] if i in its for a in ev.anchors(its[i])}
+    out = []
+    for i in ch.get("pantalla_ids") or []:
+        if i not in its:
+            continue
+        own = [a for a in ev.anchors(its[i]) if ev.norm(a) not in said]
+        if any(ev.literal_in(a, text) for a in own) and (its[i]["_kind"] != "cronologia" or ev.used_in(text, its[i])):
+            out.append(f"[{i}] «{ev.text_of(its[i])[:60]}»")
+    return out
+
+
+def _plain_content(s: str) -> set[str]:
+    """Palabras de contenido sin los nombres propios (los nombres se comparten entre eventos del mismo personaje)."""
+    names = {w.lower()[:6] for w in re.findall(r"\b[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+", s)}
+    return ev._content(s) - {ev.norm(n)[:6] for n in names}
+
+
+DATE_MATCH_MIN = 0.5                    # fracción de las palabras del evento (sin nombres) en la oración
+DATE_MATCH_WORDS = 2
+
+
+def date_problems(text: str, pool: dict[str, Any] | None, ids: list[str], year: str | None = None) -> list[str]:
+    """F5d (dura): (1) una oración que dice dos fechas distintas (fundidas); (2) una oración que cuenta un evento
+    fechado del cap (≥ 50 % de sus palabras, sin nombres) sin su fecha y bajo OTRA fecha — la que dice o la que la
+    voz venía narrando —; (3) un evento del cap contado sin que ninguna fecha suene antes."""
+    its = ev.items(pool)
+    evs = [its[i] for i in dict.fromkeys(ids) if i in its and (its[i]["_kind"] == "cronologia"
+                                                              or its[i].get("tipo") == "fecha") and ev.item_date(its[i])]
+    year = year or next((ev.item_date(e)[:4] for e in evs), None) or next(
+        (str(c.get("fecha"))[:4] for c in (pool or {}).get("cronologia") or [] if c.get("fecha")), "2000")
+    out, cur = [], None
+    for s in sentences(text):
+        ds = list(dict.fromkeys(ev.spoken_dates(s, year)))
+        if len(ds) >= 2:
+            out.append(f"dos fechas en una oración ({', '.join(ev.spoken_date(d) or d for d in ds)}): «{s[:70]}…»")
+        eff = ds[-1] if ds else cur
+        cs = _plain_content(s)
+        for e in evs:
+            w = _plain_content(ev.text_of(e))
+            hit = len(w & cs)
+            if not w or hit < DATE_MATCH_WORDS or hit / len(w) < DATE_MATCH_MIN:
+                continue
+            d = ev.item_date(e)
+            if d in ds or d == eff:
+                continue
+            if eff is None:
+                out.append(f"contaste [{e['id']}] sin su fecha ({ev.spoken_date(d)}): «{s[:70]}…»")
+            else:
+                out.append(f"fundiste fechas: [{e['id']}] es del {ev.spoken_date(d)}, pero la oración queda en el "
+                           f"{ev.spoken_date(eff)}: «{s[:70]}…»")
+        cur = eff
     return list(dict.fromkeys(out))
 
 
@@ -448,6 +541,15 @@ def cap_review(text: str, *, cap: int, pool: dict[str, Any], skeleton: dict[str,
     bad = forbidden_filler(text)
     if bad:
         hard.append(f"relleno prohibido: {', '.join(bad)}")
+    nc = non_canonical(text, pool, ch)
+    if nc:
+        hard.append("cifra canónica: este conteo se dice con la oficial en todo el video; sacá " + "; ".join(nc))
+    lk = screen_leaks(text, pool, ch)
+    if lk:
+        hard.append("esto está reservado para la pantalla de este cap, no lo digas: " + "; ".join(lk))
+    dp = date_problems(text, pool, list(ch.get("evidence_ids") or []) + list(declared or []))
+    if dp:
+        hard.append("fechas: " + " | ".join(dp[:4]))
     cid = ch.get("cliffhanger")
     cliff_ok = None
     if cap <= 6 and cid and cid in its:

@@ -1,0 +1,163 @@
+{
+ "plan": {
+  "chapter_number": 1,
+  "title_card": {
+   "kicker": "CAPÍTULO 1",
+   "title": "El Inicio del Olvido"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [],
+  "evidence_zoom": null,
+  "punch_in": [
+   4.642,
+   17.145,
+   25.102
+  ],
+  "chapter_question": {
+   "text": "¿Qué pasó con los prisioneros?",
+   "start": 35.8,
+   "duration": 3.0,
+   "keyword": "prisioneros",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "prisioneros",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 22.828,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 5,
+    "rarity": 6,
+    "weight": 2,
+    "icon_callout": false
+   },
+   {
+    "word": "destino",
+    "category": "muerte",
+    "layer": "muerte",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 35.9,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "peak": true
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "id": "D04",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D05",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T07",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 4.9s"
+   },
+   {
+    "id": "Q01",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   }
+  ],
+  "pico": {
+   "t": 35.9,
+   "block": "emphasis",
+   "word": "destino",
+   "sentence": "Pero la orden que estaba a punto de dar en una conferencia de prensa sellaría el destino de todos.",
+   "palabra": "destino"
+  },
+  "time_ticker": null,
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   }
+  },
+  "identity": {
+   "movimientos": [],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 38.8,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 22.828,
+    "t_frame": 23.828,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "prisioneros",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz en off, lo cual está permitido como énfasis, y el tinte refuerza la atmósfera de encierro sin estorbar la imagen.",
+    "pasa": true,
+    "voz": "Los prisioneros, sentenció Gusman, se quedarían 'donde pertenecen'."
+   },
+   {
+    "t": 26.23,
+    "t_frame": 27.23,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "Rostro del joven",
+    "veredicto": "estorba",
+    "motivo": "El bloque propone un zoom sobre un 'Rostro del joven' que no es visible en la imagen actual, creando una inconsistencia.",
+    "pasa": false,
+    "voz": "Los prisioneros, sentenció Gusman, se quedarían 'donde pertenecen'."
+   },
+   {
+    "t": 35.9,
+    "t_frame": 36.9,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "destino",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza el tono sombrío de la imagen y la gravedad de la frase sin tapar elementos importantes.",
+    "pasa": true,
+    "voz": "Pero la orden que estaba a punto de dar en una conferencia de prensa sellaría el destino de todos."
+   }
+  ]
+ },
+ "rejected": []
+}

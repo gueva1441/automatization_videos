@@ -7,50 +7,52 @@
   },
   "callouts": [],
   "count_up": null,
-  "archive_clippings": [],
+  "archive_clippings": [
+   {
+    "kicker": "2005",
+    "headline": "Los reclusos reciben su última comida",
+    "body": "",
+    "scene_idx": 0,
+    "fact_idx": null,
+    "pool_id": "T04",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 4.435,
+    "duration": 6.0,
+    "side": "left"
+   }
+  ],
   "evidence_zoom": null,
   "punch_in": [
-   4.642,
-   17.145,
-   25.102
+   5.909,
+   31.735
   ],
   "chapter_question": {
-   "text": "¿Qué pasó con los prisioneros?",
+   "text": "¿Qué terrible decisión tomaría el sheriff?",
    "start": 35.8,
    "duration": 3.0,
-   "keyword": "prisioneros",
+   "keyword": "terrible",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "prisioneros",
-    "category": "oscuridad_encierro",
-    "layer": "oscuridad",
+    "word": "abandonados",
+    "category": "frio_abandono",
+    "layer": "minima",
     "icon": null,
-    "icon_anim": "stamp",
-    "start": 22.828,
+    "icon_anim": "press_wipe",
+    "start": 14.713,
     "duration": 2.5,
     "side": "right",
     "stamp": true,
-    "sid": 5,
-    "rarity": 6,
     "weight": 2,
-    "icon_callout": false
-   },
-   {
-    "word": "destino",
-    "category": "muerte",
-    "layer": "muerte",
-    "icon": null,
-    "icon_anim": "ink_bleed",
-    "start": 35.9,
-    "duration": 2.5,
-    "side": "right",
-    "stamp": true,
-    "weight": 3,
     "peak_word": true,
+    "sfx": {
+     "file": "viento.wav",
+     "gain_db": -20
+    },
     "peak": true
    }
   ],
@@ -63,30 +65,45 @@
     "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
-    "id": "D05",
+    "id": "D57",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+    "motivo": "no entra sin pisar otro bloque @ 9.1s"
    },
    {
     "id": "T07",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 4.9s"
+    "motivo": "no entra sin pisar otro bloque @ 4.4s"
    },
    {
     "id": "Q01",
     "bloque": "recorte",
     "ahora": null,
     "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T04",
+    "bloque": "recorte",
+    "ahora": "Los reclusos reciben su última comida",
+    "kicker": "2005",
+    "fuente": null,
+    "icono": null,
+    "icono_faltante": null,
+    "opciones": [
+     "Los reclusos reciben su última comida",
+     "el huracán azote"
+    ]
    }
   ],
   "pico": {
-   "t": 35.9,
+   "t": 14.713,
    "block": "emphasis",
-   "word": "destino",
-   "sentence": "Pero la orden que estaba a punto de dar en una conferencia de prensa sellaría el destino de todos.",
-   "palabra": "destino"
+   "word": "abandonados",
+   "sentence": "Dentro de la Orleans Parish Prison, 6,375 reclusos son abandonados a su suerte.",
+   "intensity": 0.9,
+   "sentence_idx": 2,
+   "palabra": "abandonados"
   },
   "time_ticker": null,
   "transitions": {
@@ -125,37 +142,48 @@
   },
   "critico": [
    {
-    "t": 22.828,
-    "t_frame": 23.828,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "prisioneros",
+    "t": 4.435,
+    "t_frame": 5.435,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "Los reclusos reciben su última comida",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz en off, lo cual está permitido como énfasis, y el tinte refuerza la atmósfera de encierro sin estorbar la imagen.",
+    "motivo": "El titular del recorte de diario añade un detalle dramático y específico sobre la situación de los prisioneros que la voz y la imagen no explicitan, reforzando ",
     "pasa": true,
-    "voz": "Los prisioneros, sentenció Gusman, se quedarían 'donde pertenecen'."
+    "voz": "29 de agosto de 2005."
    },
    {
-    "t": 26.23,
-    "t_frame": 27.23,
+    "t": 14.713,
+    "t_frame": 15.713,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "abandonados",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza la atmósfera desoladora de la imagen, profundizando el impacto emocional sin repetir informac",
+    "pasa": true,
+    "voz": "Dentro de la Orleans Parish Prison, 6,375 reclusos son abandonados a su suerte."
+   },
+   {
+    "t": 25.95,
+    "t_frame": 26.95,
     "dur": 2.85,
     "bloque": "zoom",
-    "texto": "Rostro del joven",
-    "veredicto": "estorba",
-    "motivo": "El bloque propone un zoom sobre un 'Rostro del joven' que no es visible en la imagen actual, creando una inconsistencia.",
+    "texto": "Rostro joven",
+    "veredicto": "repite",
+    "motivo": "El bloque 'Rostro joven' simplemente describe lo que ya es evidente en la imagen, sin añadir información nueva o relevante al contexto de la voz que habla de un",
     "pasa": false,
-    "voz": "Los prisioneros, sentenció Gusman, se quedarían 'donde pertenecen'."
+    "voz": "Una sentencia dictada antes de que subiera el agua, que sería confirmada por la terrible decisión que el sheriff estaba a punto de anunciar."
    },
    {
-    "t": 35.9,
-    "t_frame": 36.9,
+    "t": 27.04,
+    "t_frame": 28.04,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "destino",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza el tono sombrío de la imagen y la gravedad de la frase sin tapar elementos importantes.",
-    "pasa": true,
-    "voz": "Pero la orden que estaba a punto de dar en una conferencia de prensa sellaría el destino de todos."
+    "texto": "subiera",
+    "veredicto": "repite",
+    "motivo": "El tinte de 'agua' repite visualmente lo que la imagen ya muestra de forma contundente, aunque el sello de la palabra 'SUBIERA' sea un énfasis válido.",
+    "pasa": false,
+    "voz": "Una sentencia dictada antes de que subiera el agua, que sería confirmada por la terrible decisión que el sheriff estaba a punto de anunciar."
    }
   ]
  },

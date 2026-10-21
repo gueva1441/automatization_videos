@@ -146,12 +146,15 @@
       "evidence_ids": [
         "D01",
         "D04",
-        "D05",
+        "D57",
         "D35",
         "T07",
         "Q01"
       ],
-      "cliffhanger": "T05"
+      "cliffhanger": "T05",
+      "pantalla_ids": [
+        "T04"
+      ]
     },
     {
       "chapter_number": 2,
@@ -176,7 +179,8 @@
         "D10",
         "T03"
       ],
-      "cliffhanger": "T08"
+      "cliffhanger": "T08",
+      "pantalla_ids": []
     },
     {
       "chapter_number": 3,
@@ -198,10 +202,10 @@
         "T08",
         "T09",
         "T12",
-        "D16",
-        "D33"
+        "D16"
       ],
-      "cliffhanger": "T13"
+      "cliffhanger": "T13",
+      "pantalla_ids": []
     },
     {
       "chapter_number": 4,
@@ -226,7 +230,10 @@
         "D17",
         "T17"
       ],
-      "cliffhanger": "D19"
+      "cliffhanger": "D19",
+      "pantalla_ids": [
+        "T16"
+      ]
     },
     {
       "chapter_number": 5,
@@ -250,7 +257,8 @@
         "D61",
         "Q02"
       ],
-      "cliffhanger": "D69"
+      "cliffhanger": "D69",
+      "pantalla_ids": []
     },
     {
       "chapter_number": 6,
@@ -273,7 +281,11 @@
         "T26",
         "D29"
       ],
-      "cliffhanger": "D62"
+      "cliffhanger": "D62",
+      "pantalla_ids": [
+        "T19",
+        "T23"
+      ]
     },
     {
       "chapter_number": 7,
@@ -296,9 +308,16 @@
         "D59",
         "D58",
         "D61",
-        "D63"
+        "D63",
+        "D57"
       ],
-      "cliffhanger": null
+      "cliffhanger": null,
+      "contradiccion_cifras": [
+        "D57"
+      ],
+      "pantalla_ids": [
+        "T22"
+      ]
     }
   ],
   "_frozen": {
@@ -311,6 +330,19 @@
       "cap 7: fuera del pool actual ['D71']",
       "personaje fuera (el pool actual no lo tiene: no hace nada en la historia): Cornel Hubert",
       "personaje fuera (el pool actual no lo tiene: no hace nada en la historia): Raphael Schwarz"
+    ]
+  },
+  "_pool_plan": {
+    "cifras_canonicas": [
+      "cap 1: cifra canónica 6,375 en vez de ['6,375, 6,500']",
+      "cap 3: cifra canónica 6,375 en vez de ['6,500']",
+      "cap 7: contradicción 6,375 (oficial) vs ['8,000']"
+    ],
+    "pantalla": [
+      "cap 1: pantalla ['T04']",
+      "cap 4: pantalla ['T16']",
+      "cap 6: pantalla ['T19', 'T23']",
+      "cap 7: pantalla ['T22']"
     ]
   }
 }

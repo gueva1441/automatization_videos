@@ -242,10 +242,19 @@ K. En "datos_usados" del JSON listá los ids ([D..], [T..], [Q..]) del EVIDENCE 
    LITERALES (también los de caps anteriores que repitas). Nunca F## (los verified_facts no van ahí). Un id
    declarado que no suena literal es un error; un dato que usaste y no declaraste NO cuenta para el cap.
 
+L. Fechas: todo evento que cuentes va con SU fecha. Nunca fundas dos fechas en una oración ni pegues un evento de
+   otro día a la fecha que venías diciendo (la decisión de Gusman es del 28 de agosto; el impacto, del 29).
+M. Literal es solo lo que se verifica: cifras, nombres, fechas y citas. Todo lo demás, contalo con tus palabras: no
+   copies frases del pool ni repitas fórmulas de caps anteriores.
+N. Cifra canónica: un mismo conteo se dice con UNA cifra en todo el video (la oficial). La otra solo en el cap que
+   cuenta la contradicción.
+O. Los DATOS RESERVADOS PARA PANTALLA no se dicen: la pantalla los muestra mientras la voz cuenta otra cosa.
+
 PRIORIDAD DE LAS REGLAS (F5c):
 - DURAS (si fallan, el texto se rechaza): no inventar (toda cifra está en el research), cada dato asignado una
   vez y literal (A, B, H, K), nada fuera del caso ni personas que no hacen nada (J), sin relleno prohibido (F),
-  cierre con el dato del cliffhanger (G).
+  cierre con el dato del cliffhanger (G), cada evento con su fecha y sin fundir fechas (L), la cifra canónica (N)
+  y no decir lo reservado para pantalla (O).
 - BLANDAS (se avisan, nunca rechazan): la ventana de 2 a 4 adjetivos cada 100 palabras (I) y no repetir
   fórmulas de caps anteriores (frases de 3 palabras ya dichas: menos del 5 %).
 Si no podés cumplir todo, sacrificá la ventana de adjetivos, nunca los datos ni los nombres."""
@@ -288,6 +297,20 @@ def _evidence_block(topic: dict, skeleton: dict, cap: int, previous: list[dict])
     if gone:
         lines += ["", "DATOS YA GASTADOS EN 2 CAPS (NO los repitas):",
                   *[f"  • {' / '.join(ev.anchors(its[i]))}" for i in gone if i in its]]
+    for g in pool.get("cifras_canonicas") or []:      # F5d: una sola cifra por conteo en todo el video
+        o = its.get(g["oficial"])
+        var = ", ".join(f"{v['valor']} ({v['estatus']})" for v in g["variantes"])
+        if g["oficial"] in (ch.get("contradiccion_cifras") or []):
+            lines += ["", f"CIFRA CANÓNICA EN CONTRADICCIÓN (este es el cap que la cuenta): la oficial es {g['valor']} "
+                          f"(«{ev.text_of(o)[:80]}»); las otras cifras del research son {var}. Contá la diferencia: "
+                          "la oficial primero, la otra como lo que es (estimación, cifra de los medios)."]
+        else:
+            lines += ["", f"CIFRA CANÓNICA: si hablás de este conteo, usá SOLO {g['valor']} (la oficial). "
+                          f"Prohibido decir {var}: se cuenta en otro cap."]
+    scr = [i for i in ch.get("pantalla_ids") or [] if i in its]
+    if scr:
+        lines += ["", "DATOS RESERVADOS PARA PANTALLA (NO los digas: salen escritos en pantalla en este cap):",
+                  ev.format_pool(pool, scr)]
     lines += ["", F5_RULES]
     return "\n".join(lines)
 
@@ -684,7 +707,16 @@ def _contains_any(text: str, needles: tuple[str, ...]) -> str | None:
     return None
 
 
-def _validate_narration(text: str, role: str, cap_number: int, f5: dict | None = None) -> None:
+POOL_MIN_LEN_FACTOR = 1.15             # F5d: el narrador Pro escribe cerca del piso → mínimo de caracteres +15 %
+
+
+def _len_range(role: str, min_factor: float = 1.0) -> tuple[int, int]:
+    lo, hi = LEN_HOOK if role == "hook" else (LEN_OUTRO if role == "reveal_outro" else LEN_DEVELOPMENT)
+    return min(int(round(lo * min_factor)), hi), hi
+
+
+def _validate_narration(text: str, role: str, cap_number: int, f5: dict | None = None,
+                        min_factor: float = 1.0) -> None:
     """Valida largo, primera oración (si hook), y frases prohibidas. Con `f5` ({pool, skeleton, previous}), además
     las reglas del evidence_pool (F5 §1.3) → kind="evidence" con la lista de problemas en `detail`."""
     if not isinstance(text, str) or not text.strip():
@@ -692,13 +724,8 @@ def _validate_narration(text: str, role: str, cap_number: int, f5: dict | None =
 
     n = len(text)
 
-    # Largo según rol
-    if role == "hook":
-        lo, hi = LEN_HOOK
-    elif role == "reveal_outro":
-        lo, hi = LEN_OUTRO
-    else:
-        lo, hi = LEN_DEVELOPMENT
+    # Largo según rol (F5d: con el narrador Pro, el mínimo sube POOL_MIN_LEN_FACTOR)
+    lo, hi = _len_range(role, min_factor)
 
     if n < lo or n > hi:
         raise NarrationValidationError(
@@ -829,9 +856,9 @@ def _call_narrator(prompt: str, model: str, cap_number: int) -> dict:
     return call_flash_json(prompt, response_schema=schema)
 
 
-def _base_direction(e: "NarrationValidationError", narr: str, role: str) -> str:
+def _base_direction(e: "NarrationValidationError", narr: str, role: str, min_factor: float = 1.0) -> str:
     """Feedback de las reglas de siempre (largo, primera oración, frases prohibidas)."""
-    lo, hi = LEN_HOOK if role == "hook" else (LEN_OUTRO if role == "reveal_outro" else LEN_DEVELOPMENT)
+    lo, hi = _len_range(role, min_factor)
     if e.kind == "length":
         return (f"Tu intento tuvo {len(narr)} caracteres; el LARGO OBLIGATORIO es entre {lo} y {hi}. "
                 f"{'Acortá' if len(narr) > hi else 'Alargá con datos del pool'} sin perder los datos.")
@@ -850,6 +877,10 @@ def _best_of_n(prompt: str, role: str, cap_number: int, f5: dict, *, n: int = PO
     Orden: pasa largo/frases y no tiene problemas duros → mayor puntaje → menos avisos blandos. Si ningún candidato
     pasa largo/frases, se comporta como antes (recorte del outro o error)."""
     from script_engine.m05_narrative import cap_review
+    min_factor = POOL_MIN_LEN_FACTOR if model == "pro" else 1.0
+    lo_, hi_ = _len_range(role, min_factor)
+    prompt = (prompt + f"\n\nLARGO MÍNIMO REAL PARA ESTE NARRADOR: {lo_} caracteres (máximo {hi_}). El largo se llena "
+              "con hechos y escenas del pool contadas con tus palabras, no con adjetivos.")
     cands: list[dict] = []
     attempt_prompt, soft_retry = prompt, False
     last_err: NarrationValidationError | None = None
@@ -860,7 +891,7 @@ def _best_of_n(prompt: str, role: str, cap_number: int, f5: dict, *, n: int = PO
         ids = ev.resolve_declared(ids_raw, f5["pool"], f5.get("facts"), narr)
         c = {"k": k, "narration": narr, "ids": ids, "base_ok": True, "review": None}
         try:
-            _validate_narration(narr, role=role, cap_number=cap_number)
+            _validate_narration(narr, role=role, cap_number=cap_number, min_factor=min_factor)
         except NarrationValidationError as e:
             c["base_ok"], c["base_error"], last_err = False, str(e), e
         if c["base_ok"]:
@@ -873,7 +904,7 @@ def _best_of_n(prompt: str, role: str, cap_number: int, f5: dict, *, n: int = PO
         if k == n:
             break
         if not c["base_ok"]:
-            direction = _base_direction(last_err, narr, role)
+            direction = _base_direction(last_err, narr, role, min_factor)
         elif rv["hard"]:
             direction = ("REGLAS DURAS que tu intento no cumple (corregilas sin perder datos ni nombres):\n"
                          + "\n".join(f"- {x}" for x in rv["hard"]))

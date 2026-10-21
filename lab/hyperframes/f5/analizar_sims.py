@@ -19,6 +19,7 @@ sys.path.insert(0, str(ROOT))
 SIMS = {"v1": ROOT / "output" / "ba6c3cac-a091-41c0-8dad-afd2f4364747" / "_fase2b_work_f5sim_v1",
         "v2 F5": ROOT / "output" / "ba6c3cac-f5v2" / "_bak_f5b_pre" / "_fase2b_work",
         "v2 F5b": ROOT / "output" / "ba6c3cac-f5v2" / "_bak_f5c_pre" / "_fase2b_work",
+        "v2 F5c": ROOT / "output" / "ba6c3cac-f5v2" / "_bak_f5d_pre" / "_fase2b_work",
         "v2": ROOT / "output" / "ba6c3cac-f5v2" / "_fase2b_work"}
 SIMS = {k: v for k, v in SIMS.items() if (v / "gfx_plan_ch01.resolved.json").exists()}
 STEPS = ROOT / "data" / "scripts" / "_steps" / "ba6c3cac-f5v2"
@@ -121,7 +122,7 @@ def audit_f5b() -> list[str]:
     names = {"S1": "recorte = cláusula completa", "S2": "nunca un hecho posterior a la voz",
              "S3": "un hecho, un bloque; nada del cap siguiente", "S4": "ícono solo por el mapa literal",
              "S5": "en pantalla, unidades métricas"}
-    L = ["", "## Chequeo de las reglas de pantalla F5b sobre v2 F5c (S1–S5)", "",
+    L = ["", "## Chequeo de las reglas de pantalla F5b sobre v2 F5d (S1–S5)", "",
          f"{n_arcs} recortes del pool y {n_icons} íconos en pantalla en los 7 caps.", "", "| regla | fallas | detalle |",
          "|---|---|---|"]
     for k_, v_ in out.items():
@@ -131,9 +132,10 @@ def audit_f5b() -> list[str]:
 
 def main() -> None:
     caps = [f"ch{n:02d}" for n in range(1, 8)]
-    lines = ["# F5c — Simulación del director (sin render): v1 vs v2", "",
+    lines = ["# F5d — Simulación del director (sin render): v1 vs v2", "",
              "Mismas fotos (v1 como proxy). v1 = guion producido con sus 10 verified_facts, simulado con el código de "
-             "F5c; «v2 F5» y «v2 F5b» = las simulaciones de F5 y F5b (respaldadas); v2 = guion F5c (pantalla de F5b). "
+             "F5d; «v2 F5», «v2 F5b» y «v2 F5c» = las simulaciones anteriores (respaldadas); v2 = guion F5d con los datos "
+             "reservados para pantalla. "
              "Fuente: `gfx_plan_chNN.resolved.json` de cada simulación.", ""]
     tot = {v: Counter() for v in SIMS}
     rows = []

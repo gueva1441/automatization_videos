@@ -556,6 +556,9 @@ def validate_plan(raw: dict[str, Any], *, n_facts: int, n_words: int, scenes: li
             log.append(f"count_up descartado: {cu}")
         elif re.fullmatch(r"(?i)pies?|millas?|yardas?|pulgadas?|libras?|galones?|°?f", unit):
             log.append(f"count_up descartado (en pantalla, unidades métricas — F5b S5): {cu}")
+        elif not is_count_quantity(val, unit, facts[fi]):
+            log.append(f"count_up descartado (solo cantidades: personas, dinero, metros; nunca edades ni fechas — "
+                       f"F5d): {cu}")
         else:
             plan["count_up"] = {"fact_idx": fi, "value": val, "unit": unit if _literal_in(unit, facts[fi]) else "",
                                 "trigger_word_idx": wi}
@@ -1024,6 +1027,33 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
 
 
 NEVER_ICON_ALONE = {"agua", "aguas"}             # F4c R4: «agua» sola nunca lleva gota (es la palabra de todo el relato)
+
+
+_QTY_PEOPLE = r"(?:personas|reclusos|reclusas|presos|presas|prisioneros|prisioneras|internos|evacuados|muertos|" \
+              r"víctimas|victimas|niños|ninos|hombres|mujeres|almas|turistas|testimonios|desaparecidos|fugitivos)"
+_QTY_MONEY = r"(?:dólares|dolares|millones|mil millones|USD)"
+_QTY_METRIC = r"(?:metros|metro|m|kilómetros|kilometros|km|centímetros|cm)"
+_QTY_NOT = r"(?:años|año|de edad|meses|días|dias|horas|de (?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|" \
+           r"septiembre|octubre|noviembre|diciembre))"
+
+
+def is_count_quantity(val: str, unit: str, fact: str) -> bool:
+    """F5d: el contador sube solo con CANTIDADES (personas, dinero, metros). Nunca una edad («10 años»), un lapso ni
+    una fecha («29 de agosto», un año). Mira la unidad que eligió el director y, en el fact, lo que sigue a la cifra."""
+    if re.fullmatch(r"(19|20)\d\d", val.replace(",", "").replace(".", "")):
+        return False
+    u = (unit or "").lower().strip()
+    if re.fullmatch(_QTY_NOT, u):
+        return False
+    if re.fullmatch(rf"{_QTY_PEOPLE}|{_QTY_MONEY}|{_QTY_METRIC}", u):
+        return True
+    for m in re.finditer(re.escape(val), fact):
+        before, after = fact[max(0, m.start() - 2):m.start()], fact[m.end():m.end() + 40].lower()
+        if re.match(rf"\s*(?:\w+\s+)?{_QTY_NOT}\b", after):
+            return False
+        if "$" in before or re.match(rf"\s*(?:\w+\s+)?(?:{_QTY_PEOPLE}|{_QTY_MONEY}|{_QTY_METRIC})\b", after):
+            return True
+    return False
 
 
 def emphasis_icon(cat: str, trig: str, weight: int, moods: dict[str, dict[str, Any]]) -> str | None:

@@ -11,8 +11,8 @@
 | 00:27.9 | shot_transition:dissolve R3 | «20 f» | 0.67 s |
 | 00:34.7 | shot_transition:dissolve R3 | «20 f» | 0.67 s |
 | 00:37.1 | keyword_emphasis:oscuridad_encierro | «encarcelamiento» | 2.50 s |
-| 00:37.1 | punch_in |  | 0.80 s |
 | 00:43.7 | shot_transition:cut R2 | «corte (≥ 1 corte cada 3)» | 0.00 s |
+| 00:48.7 | punch_in |  | 0.80 s |
 | 00:50.6 | shot_transition:dissolve R3 | «20 f» | 0.67 s |
 | 00:59.4 | shot_transition:flash R1 | «3 f» | 0.10 s |
 | 01:03.0 | keyword_emphasis:veneno_enfermedad | «cicatrices» | 2.50 s |
@@ -27,9 +27,8 @@
 | 01:28.6 | shot_transition:dissolve R2 | «20 f» | 0.67 s |
 | 01:29.6 | data_callout | «500 prisioneros» | 2.50 s |
 | 01:29.6 | source_tag | «Human Rights Watch, 2005» | 2.50 s |
-| 01:32.6 | keyword_emphasis:silencio | «desvanecieron» | 2.50 s |
 | 01:35.2 | shot_transition:flash R1 | «3 f» | 0.10 s |
-| 01:38.1 | chapter_question | «¿Quiénes abandonaron a los prisioneros?» | 3.00 s |
+| 01:38.1 | chapter_question | «¿Quién abandonó a tantos presos?» | 3.00 s |
 | 01:41.1 | black_hold | «corte a negro» | 1.00 s |
 
 ## Notas del director (omitido / descartado / gap)
@@ -48,7 +47,7 @@
 - chapter_question: 1
 - data_callout: 1
 - evidence_zoom: 1
-- keyword_emphasis: 4
+- keyword_emphasis: 3
 - punch_in: 4
 - shot_transition: 14
 - source_tag: 1

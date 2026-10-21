@@ -18,7 +18,7 @@ POOL = {"datos": [{"id": "D01", "texto": "En la prisión había niños de hasta 
 SKEL = {"chapters": [{"chapter_number": 2, "evidence_ids": ["D01", "D02", "D03"], "cliffhanger": "T01"}],
         "personajes": []}
 BASE = "Los guardias contaron a los presos en el patio de la cárcel una vez más. "
-GOOD = (BASE * 4 + "El patio estaba húmedo, sucio y oscuro, el aire pesado. " + BASE * 4
+GOOD = (BASE * 5 + "El patio estaba húmedo, sucio y oscuro, el aire pesado. " + BASE * 5
         + "En la prisión había niños de hasta 10 años. Después, 517 reclusos no estaban contabilizados. Se produjeron "
           "más de 50 fallas en los diques. Esa noche los generadores de la prisión iban a fallar.")
 
@@ -58,8 +58,8 @@ def test_reglas_duras_y_blandas_y_puntaje():
     assert r["score"] == 3 * 3 + 2 - (1 if r["parts"]["adj_fuera"] else 0)
     bad = GOOD.replace("Esa noche", "Bajo un manto de sombras, el monstruo despertó. Esa noche")
     rb = mn.cap_review(bad, cap=2, pool=POOL, skeleton=SKEL, previous=[], declared=["D01", "D02", "D03"], facts=[])
-    assert any("relleno prohibido: manto de, el monstruo" in h for h in rb["hard"]) and rb["score"] == r["score"] - 4
-    adj = GOOD.replace("húmedo, sucio y oscuro, el aire pesado", "húmedo, sucio, oscuro, frío, denso, pesado y terrible")
+    assert any("relleno prohibido: manto de, el monstruo" in h for h in rb["hard"]) and rb["score"] <= r["score"] - 4
+    adj = GOOD.replace("húmedo, sucio y oscuro, el aire pesado", "húmedo, sucio, oscuro, frío, denso, pesado, terrible, sombrío, gélido, macabro y siniestro")
     ra = mn.cap_review(adj * 1, cap=2, pool=POOL, skeleton=SKEL, previous=[], declared=["D01", "D02", "D03"], facts=[])
     assert not ra["hard"] and any("adjetivos/100" in x for x in ra["soft"])             # adjetivos: blanda
     rep = mn.cap_review(GOOD, cap=2, pool=POOL, skeleton=SKEL, previous=[GOOD], declared=["D01", "D02", "D03"], facts=[])

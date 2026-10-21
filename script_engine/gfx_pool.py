@@ -297,10 +297,12 @@ def used_ids_before(work_dir: Path, chapter_number: int) -> set[str]:
 
 def cap_candidates(pool: dict[str, Any], skeleton: dict[str, Any], cap: int, used: set[str]) -> list[str]:
     """F5b S3: los ids del cap y después los del cap ANTERIOR (nunca del siguiente: el cliffhanger no se destripa),
-    datos duros y citas, sin los que cuentan un hecho ya mostrado en un cap anterior (mismo id o mismo hecho)."""
+    datos duros y citas, sin los que cuentan un hecho ya mostrado en un cap anterior (mismo id o mismo hecho).
+    F5d: primero los RESERVADOS PARA PANTALLA del cap (`pantalla_ids`: el narrador no los dice)."""
     its = ev.items(pool)
     by_cap = {c.get("chapter_number"): c.get("evidence_ids") or [] for c in skeleton.get("chapters") or []}
-    ids = list(by_cap.get(cap, [])) + list(by_cap.get(cap - 1, []))
+    scr = {c.get("chapter_number"): c.get("pantalla_ids") or [] for c in skeleton.get("chapters") or []}
+    ids = list(scr.get(cap, [])) + list(by_cap.get(cap, [])) + list(by_cap.get(cap - 1, []))
     shown = [its[i] for i in used if i in its]
     out = []
     for i in dict.fromkeys(ids):
@@ -352,8 +354,9 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
     pool, skel = ctx["pool"], ctx.get("skeleton_all") or {}
     its = ev.items(pool)
     n = ctx["chapter_number"]
-    own_ids = next((c.get("evidence_ids") or [] for c in skel.get("chapters") or [] if c.get("chapter_number") == n), [])
-    own = set(own_ids)
+    ch_n = next((c for c in skel.get("chapters") or [] if c.get("chapter_number") == n), {})
+    own_ids = list(ch_n.get("evidence_ids") or [])
+    own = set(own_ids) | set(ch_n.get("pantalla_ids") or [])         # F5d: los de pantalla son del cap
     used = used_ids_before(work_dir, n)
     cands = cap_candidates(pool, skel, n, used)
     sents = sentences(words, time_offset)

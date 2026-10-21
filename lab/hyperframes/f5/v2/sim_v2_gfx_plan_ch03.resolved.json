@@ -10,92 +10,52 @@
   "archive_clippings": [
    {
     "kicker": "2005",
-    "headline": "las aguas residuales refluyen",
-    "body": "",
-    "scene_idx": 4,
-    "fact_idx": null,
-    "pool_id": "T09",
-    "fuente": null,
-    "era_decade": 2000,
-    "start": 39.908,
-    "duration": 6.0,
-    "side": "left",
-    "icon": "biohazard"
-   },
-   {
-    "kicker": "2005",
     "headline": "el sheriff Marlin Gusman solicita ayuda para la evacuación",
     "body": "",
-    "scene_idx": 12,
+    "scene_idx": 11,
     "fact_idx": null,
     "pool_id": "T12",
     "fuente": null,
     "era_decade": 2000,
-    "start": 103.736,
+    "start": 93.142,
     "duration": 6.0,
-    "side": "left"
+    "side": "right"
    }
   ],
   "evidence_zoom": null,
   "punch_in": [
-   26.081,
-   59.768,
-   76.069,
-   97.802
+   7.649,
+   26.348,
+   40.797,
+   67.994
   ],
   "chapter_question": {
-   "text": "¿Qué consecuencias trajo el agua?",
+   "text": "¿Qué decisión demoró la evacuación en la prisión?",
    "start": 152.167,
    "duration": 3.0,
-   "keyword": "consecuencias",
+   "keyword": "evacuación",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "atrapadas",
-    "category": "oscuridad_encierro",
-    "layer": "oscuridad",
+    "word": "estruendo",
+    "category": "caos_gritos",
+    "layer": "minima",
     "icon": null,
     "icon_anim": "stamp",
-    "start": 26.081,
+    "start": 13.599,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
-    "sid": 1,
-    "rarity": 1,
-    "weight": 3,
-    "icon_callout": false
-   },
-   {
-    "word": "inundarse",
-    "category": "agua",
-    "layer": "agua",
-    "icon": null,
-    "icon_anim": "press_wipe",
-    "start": 59.768,
-    "duration": 2.5,
-    "side": "right",
-    "stamp": true,
     "weight": 3,
     "peak_word": true,
+    "sfx": {
+     "file": "rumor.wav",
+     "gain_db": -20
+    },
     "peak": true
-   },
-   {
-    "word": "trampa",
-    "category": "oscuridad_encierro",
-    "layer": "oscuridad",
-    "icon": null,
-    "icon_anim": "stamp",
-    "start": 76.069,
-    "duration": 2.5,
-    "side": "right",
-    "stamp": true,
-    "sid": 4,
-    "rarity": 1,
-    "weight": 3,
-    "icon_callout": false
    }
   ],
   "gap_warnings": [],
@@ -104,20 +64,37 @@
     "id": "T08",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 4.0s"
+    "motivo": "no entra sin pisar otro bloque @ 0.5s"
    },
    {
     "id": "T09",
     "bloque": "recorte",
-    "ahora": "las aguas residuales refluyen",
-    "kicker": "2005",
-    "fuente": null,
-    "icono": "biohazard",
-    "icono_faltante": null,
-    "opciones": [
-     "Las celdas del primer piso comienzan a inundarse",
-     "las aguas residuales refluyen"
-    ]
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 50.6s"
+   },
+   {
+    "id": "T06",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D09",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D10",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T03",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
    },
    {
     "id": "T12",
@@ -134,13 +111,11 @@
    }
   ],
   "pico": {
-   "t": 46.728,
+   "t": 13.599,
    "block": "emphasis",
-   "word": "horror",
-   "sentence": "Ese mismo 29 de agosto, el horror líquido comenzó a filtrarse: las celdas del primer piso empezaron a inundarse con aguas residuales que refluían de las tuberías.",
-   "intensity": 0.9,
-   "sentence_idx": 3,
-   "palabra": "inundarse"
+   "word": "estruendo",
+   "sentence": "Con un estruendo final, los generadores de respaldo fallaron, sumiendo a los miles de prisioneros en una oscuridad absoluta y un silencio metálico, roto solo por el sonido del agua.",
+   "palabra": "estruendo"
   },
   "time_ticker": {
    "day": "29",
@@ -150,7 +125,7 @@
    "advance": false,
    "source_text": "La energía eléctrica se pierde y los generadores de respaldo fallan en la OPP.",
    "pool_id": "T08",
-   "start": 4.347,
+   "start": 0.0,
    "duration": 12.0,
    "side": "left"
   },
@@ -170,13 +145,13 @@
    "3": {
     "kind": "cut",
     "frames": 0,
-    "why": "ritmo rápido",
+    "why": "≥ 1 corte cada 3",
     "rank": "R3"
    },
    "4": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "ritmo rápido",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R2"
    },
    "5": {
@@ -186,15 +161,15 @@
     "rank": "R3"
    },
    "6": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
-    "rank": "R3"
-   },
-   "7": {
     "kind": "cut",
     "frames": 0,
     "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "8": {
@@ -204,9 +179,9 @@
     "rank": "R2"
    },
    "9": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
     "rank": "R3"
    },
    "10": {
@@ -359,70 +334,59 @@
   },
   "critico": [
    {
-    "t": 26.081,
-    "t_frame": 27.081,
+    "t": 13.599,
+    "t_frame": 14.599,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "atrapadas",
+    "texto": "estruendo",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz sin repetir una frase, y el tinte refuerza la atmósfera de oscuridad y encierro ya presente en la imagen y mencion",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood 'caos_gritos' refuerza la atmósfera de desesperación de los prisioneros, que la imagen del gen",
     "pasa": true,
-    "voz": "El 29 de agosto de 2005, los generadores de respaldo de la prisión fallaron, sumiendo a las aproximadamente 6,500 personas atrapadas dentro en una oscuridad absoluta."
+    "voz": "Con un estruendo final, los generadores de respaldo fallaron, sumiendo a los miles de prisioneros en una oscuridad absoluta y un silencio metálico, roto solo por el sonido del agua."
    },
    {
-    "t": 39.908,
-    "t_frame": 40.908,
-    "dur": 6.0,
-    "bloque": "recorte",
-    "texto": "las aguas residuales refluyen",
-    "veredicto": "suma",
-    "motivo": "El bloque especifica una consecuencia grave y no explícita de la falla de las bombas (aguas residuales) y añade un contexto temporal (2005) y de riesgo (biohaza",
-    "pasa": true,
-    "voz": "Sin energía, las bombas dejaron de funcionar."
-   },
-   {
-    "t": 59.768,
-    "t_frame": 60.768,
+    "t": 48.446,
+    "t_frame": 49.446,
     "dur": 2.5,
-    "bloque": "sello",
-    "texto": "inundarse",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz sin repetir una frase completa, y el tinte de mood refuerza la atmósfera de 'horror líquido' y 'aguas residuales' ",
-    "pasa": true,
-    "voz": "Ese mismo 29 de agosto, el horror líquido comenzó a filtrarse: las celdas del primer piso empezaron a inundarse con aguas residuales que refluían de las tuberías."
+    "bloque": "icono",
+    "texto": "tumba",
+    "veredicto": "repite",
+    "motivo": "El bloque gráfico con el ícono de cruz y la palabra 'TUMBA' reitera la metáfora central que la voz ya expresa explícitamente ('tumba sellada') y que la imagen d",
+    "pasa": false,
+    "voz": "Sin energía, las cerraduras electrónicas quedaron inoperativas; la prisión se convirtió en una tumba sellada."
    },
    {
-    "t": 76.069,
-    "t_frame": 77.069,
+    "t": 53.545,
+    "t_frame": 54.545,
     "dur": 2.5,
-    "bloque": "sello",
-    "texto": "trampa",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza la atmósfera opresiva de la prisión como trampa sin tapar elementos importantes.",
-    "pasa": true,
-    "voz": "La prisión se convirtió en una trampa de hedor y penumbra."
+    "bloque": "icono",
+    "texto": "celdas",
+    "veredicto": "repite",
+    "motivo": "El texto 'CELDAS' y el ícono 'candado' repiten la información visual de la imagen (una prisión con celdas) y la palabra clave de la voz en off.",
+    "pasa": false,
+    "voz": "Casi de inmediato, las celdas del primer piso comenzaron a inundarse."
    },
    {
-    "t": 103.736,
-    "t_frame": 104.736,
+    "t": 93.142,
+    "t_frame": 94.142,
     "dur": 6.0,
     "bloque": "recorte",
     "texto": "el sheriff Marlin Gusman solicita ayuda para la evacuación",
     "veredicto": "suma",
-    "motivo": "Aporta el nombre completo del sheriff, su cargo y el año del evento, contextualizando la información de la voz con un formato de noticia.",
+    "motivo": "El bloque aporta el nombre completo del sheriff, su acción específica y la fecha, información que la voz solo empieza a introducir y que la imagen no detalla, c",
     "pasa": true,
-    "voz": "Gusman finalmente hizo la solicitud formal de ayuda para una evacuación."
+    "voz": "Finalmente, a la medianoche, el sheriff Marlin N."
    },
    {
-    "t": 141.27,
-    "t_frame": 142.27,
+    "t": 135.138,
+    "t_frame": 136.138,
     "dur": 2.5,
     "bloque": "icono",
     "texto": "inundación",
     "veredicto": "repite",
-    "motivo": "El ícono de gota y la palabra 'INUNDACIÓN' repiten lo que ya se ve en la imagen y se dice explícitamente en la voz.",
+    "motivo": "El ícono de gota repite lo que la imagen ya muestra (agua), y la palabra 'INUNDACIÓN' repite lo que la voz ya dice explícitamente.",
     "pasa": false,
-    "voz": "Para muchos, el agua ya no estaba en los tobillos; en los edificios Templeman 1 y 2, la inundación estaba a punto de alcanzar el nivel del pecho."
+    "voz": "Pero mientras los papeles se movían lentamente en el exterior, en el interior, la inundación avanzaba implacable."
    }
   ]
  },

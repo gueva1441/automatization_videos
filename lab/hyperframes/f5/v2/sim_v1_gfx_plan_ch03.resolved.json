@@ -24,14 +24,14 @@
   "punch_in": [
    22.78,
    34.84,
-   83.78,
-   104.38
+   64.06,
+   83.78
   ],
   "chapter_question": {
-   "text": "¿Por qué se inundó así?",
+   "text": "¿Quién abandonó a los prisioneros?",
    "start": 152.167,
    "duration": 3.0,
-   "keyword": "inundó",
+   "keyword": "prisioneros",
    "generated": true,
    "pause": 3.0
   },
@@ -53,19 +53,67 @@
     "icon_callout": false
    },
    {
-    "word": "putrefacto",
-    "category": "veneno_enfermedad",
-    "layer": "veneno",
+    "word": "torrente",
+    "category": "agua",
+    "layer": "agua",
     "icon": null,
-    "icon_anim": "ink_bleed",
-    "start": 112.0,
+    "icon_anim": "press_wipe",
+    "start": 64.06,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
-    "sid": 16,
+    "sid": 9,
     "rarity": 1,
     "weight": 3,
     "icon_callout": false
+   },
+   {
+    "word": "terror",
+    "category": "caos_gritos",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 92.28,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 13,
+    "rarity": 2,
+    "weight": 3,
+    "sfx": {
+     "file": "rumor.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "ahogados",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 104.38,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 15,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "ahogaba",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 143.26,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "peak": true
    }
   ],
   "gap_warnings": [],
@@ -98,10 +146,13 @@
    }
   ],
   "pico": {
-   "t": 129.06,
-   "block": null,
-   "word": "transformado",
-   "sentence": "La prisión, diseñada para contener, se había transformado en una cámara de tortura líquida y asfixiante."
+   "t": 143.26,
+   "block": "emphasis",
+   "word": "ahogaba",
+   "sentence": "El mundo exterior había colapsado, pero la tragedia más íntima y prolongada apenas comenzaba dentro de esos muros, donde la esperanza se ahogaba más rápido que las celdas.",
+   "intensity": 0.99,
+   "sentence_idx": 21,
+   "palabra": "ahogaba"
   },
   "transitions": {
    "1": {
@@ -177,9 +228,9 @@
     "rank": "R1"
    },
    "13": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "después del zoom",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "14": {
@@ -189,15 +240,15 @@
     "rank": "R3"
    },
    "15": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
-    "rank": "R3"
-   },
-   "16": {
     "kind": "cut",
     "frames": 0,
     "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "16": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "17": {
@@ -325,20 +376,31 @@
     "bloque": "recorte",
     "texto": "dentro de algunos edificios de la Prisión Parroquial de Orleans",
     "veredicto": "suma",
-    "motivo": "El bloque aporta el nombre específico de la prisión y el año, información que ni la imagen ni la voz dan en este instante, contextualizando el relato.",
+    "motivo": "El bloque aporta el nombre específico de la prisión y la fecha, información que ni la imagen ni la voz dan en este instante, contextualizando el misterio.",
     "pasa": true,
     "voz": "La prisión dejó de respirar."
    },
    {
-    "t": 96.82,
-    "t_frame": 97.82,
+    "t": 64.06,
+    "t_frame": 65.06,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "sin luz",
-    "veredicto": "repite",
-    "motivo": "El bloque de texto 'SIN LUZ' repite directamente una frase que la voz acaba de decir, y el tinte de oscuridad refuerza un mood ya evidente en la imagen y la nar",
-    "pasa": false,
-    "voz": "En celdas herméticamente cerradas, sin salida, sin luz, el agua oscura subiendo sin cesar."
+    "texto": "torrente",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, lo cual es permitido como énfasis, y el tinte de mood refuerza la atmósfera de la escena sin repetir información ",
+    "pasa": true,
+    "voz": "Un goteo constante se convirtió en un torrente imparable."
+   },
+   {
+    "t": 92.28,
+    "t_frame": 93.28,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "terror",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza la palabra clave de la voz, y el tinte de mood amplifica la sensación de terror y caos, sumando una capa emocional que la imagen estática no t",
+    "pasa": true,
+    "voz": "Imaginen el terror."
    },
    {
     "t": 104.38,
@@ -346,32 +408,10 @@
     "dur": 2.5,
     "bloque": "sello",
     "texto": "ahogados",
-    "veredicto": "repite",
-    "motivo": "El tinte de 'mood agua' es redundante, ya que la imagen ya muestra claramente a la persona sumergida en agua, y la palabra 'AHOGADOS' repite un término clave de",
-    "pasa": false,
-    "voz": "El pánico se apoderó de las mentes, desatando gritos ahogados y una desesperación palpable en la penumbra."
-   },
-   {
-    "t": 105.717,
-    "t_frame": 106.717,
-    "dur": 2.85,
-    "bloque": "zoom",
-    "texto": "Ojos asustados",
-    "veredicto": "repite",
-    "motivo": "La imagen ya muestra claramente unos ojos asustados, el bloque solo reitera lo que es evidente visualmente.",
-    "pasa": false,
-    "voz": "El pánico se apoderó de las mentes, desatando gritos ahogados y una desesperación palpable en la penumbra."
-   },
-   {
-    "t": 112.0,
-    "t_frame": 113.0,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "putrefacto",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el ambiente de contaminación y enfermedad descrito, sin tapar elementos cruciales.",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood intensifica la atmósfera opresiva del agua sin tapar al sujeto.",
     "pasa": true,
-    "voz": "El frío cortante del agua contaminada se mezclaba con el hedor putrefacto que llenaba el ambiente, volviendo cada respiración una tortura."
+    "voz": "El pánico se apoderó de las mentes, desatando gritos ahogados y una desesperación palpable en la penumbra."
    },
    {
     "t": 143.26,
@@ -379,9 +419,9 @@
     "dur": 2.5,
     "bloque": "sello",
     "texto": "ahogaba",
-    "veredicto": "repite",
-    "motivo": "El tinte de mood 'agua' repite visualmente lo que la imagen ya muestra de forma explícita, sin añadir información nueva.",
-    "pasa": false,
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, reforzando el impacto emocional y el tinte de mood complementa la imagen sin estorbar.",
+    "pasa": true,
     "voz": "El mundo exterior había colapsado, pero la tragedia más íntima y prolongada apenas comenzaba dentro de esos muros, donde la esperanza se ahogaba más rápido que las celdas."
    }
   ]

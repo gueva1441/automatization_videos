@@ -1,0 +1,454 @@
+{
+ "plan": {
+  "chapter_number": 5,
+  "title_card": {
+   "kicker": "CAPÍTULO 5",
+   "title": "Cuerpos Flotando, Almas Perdidas"
+  },
+  "callouts": [],
+  "count_up": {
+   "value_text": "500",
+   "unit": "prisioneros",
+   "start": 24.08,
+   "fact_idx": 7,
+   "source": "Human Rights Watch, 2005"
+  },
+  "archive_clippings": [
+   {
+    "kicker": "1 de septiembre",
+    "headline": "cadáveres flotando en las aguas de la inundación",
+    "body": "",
+    "scene_idx": 11,
+    "fact_idx": 8,
+    "era_decade": 2000,
+    "start": 77.367,
+    "duration": 6.0,
+    "side": "left",
+    "icon": "calavera",
+    "category": "muerte"
+   }
+  ],
+  "evidence_zoom": {
+   "scene_idx": 0,
+   "box": [
+    0.2,
+    0.25,
+    0.25,
+    0.3
+   ],
+   "start": 5.917,
+   "anchor": "rostro del niño",
+   "detail": "rostro del niño",
+   "tipo": "rostro",
+   "conf": 0.95,
+   "como": "nombrado",
+   "word": "ojos",
+   "latido": true,
+   "latido_t": 6.617
+  },
+  "punch_in": [
+   3.4,
+   34.74,
+   57.96,
+   76.94
+  ],
+  "chapter_question": {
+   "text": "¿Quién abandonó a los desaparecidos?",
+   "start": 111.033,
+   "duration": 3.0,
+   "keyword": "desaparecidos",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "disolvió",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 12.34,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 2,
+    "rarity": 1,
+    "weight": 2,
+    "icon_callout": false
+   },
+   {
+    "word": "desvanecidas",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 34.74,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 5,
+    "rarity": 1,
+    "weight": 3,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "cadáveres",
+    "category": "muerte",
+    "layer": "muerte",
+    "icon": "calavera",
+    "icon_anim": "ink_bleed",
+    "start": 71.08,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "peak": true
+   },
+   {
+    "word": "desaparecidos",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 94.82,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 12,
+    "rarity": 1,
+    "weight": 2,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "bloque": "recorte0",
+    "antes": "cadáveres flotando en las aguas de la inundación",
+    "ahora": "cadáveres flotando en las aguas de la inundación",
+    "categoria": "muerte",
+    "icono": "calavera",
+    "opciones": 3
+   },
+   {
+    "bloque": "dato0",
+    "antes": "Human Rights Watch",
+    "ahora": "Human Rights Watch",
+    "categoria": null,
+    "icono": null,
+    "opciones": 3
+   },
+   {
+    "bloque": "dato2",
+    "antes": "Templeman III",
+    "ahora": "Templeman III",
+    "categoria": null,
+    "icono": null,
+    "opciones": 2
+   },
+   {
+    "bloque": "dato@19.0",
+    "antes": "Human Rights Watch",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   },
+   {
+    "bloque": "dato@55.4",
+    "antes": "Templeman III",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   }
+  ],
+  "pico": {
+   "t": 71.08,
+   "block": "emphasis",
+   "word": "cadáveres",
+   "sentence": "Testimonios desgarradores confirmaron la visión de cadáveres flotando, arrastrados por la corriente interna de la prisión inundada.",
+   "intensity": 1.0,
+   "sentence_idx": 9,
+   "palabra": "cadáveres"
+  },
+  "transitions": {
+   "1": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R2"
+   },
+   "9": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "10": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "12": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "13": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "15": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 1,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 2,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 3,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 4,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 5,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 6,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 7,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 8,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 9,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 10,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 11,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 12,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 13,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 14,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 15,
+     "forma": "alejar",
+     "motivo": "cierre del cap"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 114.033,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 5.917,
+    "t_frame": 6.917,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "rostro del niño",
+    "veredicto": "suma",
+    "motivo": "El zoom enfatiza visualmente la expresión del niño, conectando directamente con la mención de 'ojos infantiles' en la voz, sin repetir la frase completa.",
+    "pasa": true,
+    "voz": "Esos ojos infantiles y adultos, atrapados en la oscuridad líquida, presenciaron escenas que la memoria se esfuerza por borrar."
+   },
+   {
+    "t": 12.34,
+    "t_frame": 13.34,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "disolvió",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la sensación de disolución y opresión del agua, complementando el mensaje.",
+    "pasa": true,
+    "voz": "Porque no solo la integridad humana se disolvió en el agua estancada, sino también la contabilidad de vidas."
+   },
+   {
+    "t": 24.08,
+    "t_frame": 25.08,
+    "dur": 3.7,
+    "bloque": "contador",
+    "texto": "500",
+    "veredicto": "suma",
+    "motivo": "El contador visualiza y enfatiza un dato numérico clave mencionado por la voz, sin repetir una frase completa y sin estorbar la imagen principal.",
+    "pasa": true,
+    "voz": "La organización Human Rights Watch denunció, con alarmante claridad, que más de quinientos prisioneros simplemente no figuraban en las listas oficiales de evacuados."
+   },
+   {
+    "t": 34.74,
+    "t_frame": 35.74,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "desvanecidas",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, lo cual está permitido, y el tinte de mood refuerza la atmósfera de misterio y pérdida sin obstruir la imagen pri",
+    "pasa": true,
+    "voz": "¿Quinientas historias desvanecidas en el caos?"
+   },
+   {
+    "t": 47.34,
+    "t_frame": 48.34,
+    "dur": 2.5,
+    "bloque": "dato",
+    "texto": "1 de septiembre",
+    "veredicto": "repite",
+    "motivo": "El bloque de texto \"1 de septiembre\" repite la fecha que la voz ya menciona explícitamente en ese instante.",
+    "pasa": false,
+    "voz": "Las escenas más macabras se revelaron el primero de septiembre, cuando por fin, en medio de un rescate tardío y desorganizado, los reclusos de la sección Templeman III fueron sacados de su infierno personal."
+   },
+   {
+    "t": 71.08,
+    "t_frame": 72.08,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "cadáveres",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetirla, y el tinte de mood refuerza la atmósfera sombría que la voz describe y la imagen sugiere, sin tapar",
+    "pasa": true,
+    "voz": "Testimonios desgarradores confirmaron la visión de cadáveres flotando, arrastrados por la corriente interna de la prisión inundada."
+   },
+   {
+    "t": 77.367,
+    "t_frame": 78.367,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "cadáveres flotando en las aguas de la inundación",
+    "veredicto": "suma",
+    "motivo": "El formato de recorte de diario y la fecha específica '1 de septiembre' aportan contexto de fuente y un dato temporal que la voz no da, a pesar de que el titula",
+    "pasa": true,
+    "voz": "Cuerpos sin vida a la deriva en la misma agua pútrida que los había mantenido cautivos."
+   },
+   {
+    "t": 94.82,
+    "t_frame": 95.82,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "desaparecidos",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, añadiendo impacto sin repetir una frase completa, y el tinte refuerza el mood sombrío de la imagen.",
+    "pasa": true,
+    "voz": "¿Cuántos de esos quinientos desaparecidos terminaron como espectros anónimos en el agua?"
+   }
+  ]
+ },
+ "rejected": []
+}

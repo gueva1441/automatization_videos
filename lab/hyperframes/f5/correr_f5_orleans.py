@@ -15,6 +15,8 @@ depende de la narración, así que la simulación de v2 arranca en un work dir l
 F5c: el skeleton queda CONGELADO en el de F5 (`f5c/01a_skeleton_F5_e7b661c.json`, token skeleton_frozen; los ids se
 traducen al pool de F5b) y el narrador es Gemini Pro con el mejor de 3 por cap. La corrida F5b se respalda en
 lab/…/v2_f5b y output/<V2>/_bak_f5c_pre. El costo del guion (Flash y Pro) sale del cost_tracker y va al log.
+F5d: el skeleton congelado pasa además por `finalize_pool_plan` (cifras canónicas + datos reservados para
+pantalla); la corrida F5c se respalda en lab/…/v2_f5c y output/<V2>/_bak_f5d_pre.
 Uso: PYTHONIOENCODING=utf-8 python lab/hyperframes/f5/correr_f5_orleans.py --etapa todo
 """
 from __future__ import annotations
@@ -66,6 +68,20 @@ def topic_v2() -> dict:
 
 
 # ═══════════════════════════════════════════════════════════════
+def respaldo_f5c(log: list[str]) -> None:
+    """F5d: una sola vez, la corrida F5c a un costado (lab/…/v2_f5c, output/<V2>/_bak_f5d_pre, …_bak_f5d de v1)."""
+    dst = LAB / "v2_f5c"
+    if not dst.exists() and (LAB / "v2").exists():
+        shutil.copytree(LAB / "v2", dst)
+        log.append(f"respaldo: {LAB / 'v2'} → {dst}")
+    for work, bak in ((SIM_V2, OUT / V2 / "_bak_f5d_pre" / "_fase2b_work"),
+                      (SIM_V1, OUT / V1 / "_fase2b_work_f5sim_v1_bak_f5d")):
+        if work.exists() and not bak.exists():
+            bak.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(work), str(bak))
+            log.append(f"respaldo: {work} → {bak}")
+
+
 def respaldo_f5b(log: list[str]) -> None:
     """F5c: una sola vez, la corrida F5b a un costado (lab/…/v2_f5b, output/<V2>/_bak_f5c_pre, …_bak_f5c de v1)."""
     dst = LAB / "v2_f5b"
@@ -141,6 +157,11 @@ def etapa_guion(log: list[str]) -> None:
     fbn, fbs = LAB / "v2_f5b" / "01b_narration.json", LAB / "v2_f5b" / "01a_skeleton.json"
     if fbn.exists():
         judge_narration(V2, pool=pool, narration=_load(fbn), skeleton=_load(fbs), out_name="06_judge_narrative_v2f5b.json")
+    # F5d: la v2 de F5c medida contra el skeleton de F5d (mismas cifras canónicas y reservados)
+    fcn = LAB / "v2_f5c" / "01b_narration.json"
+    if fcn.exists():
+        judge_narration(V2, pool=pool, narration=_load(fcn), skeleton=_load(d2 / "01a_skeleton.json"),
+                        out_name="06_judge_narrative_v2f5c.json")
     log.append(f"guion: juez v1 {rep1['video']['umbral']} · v2 {rep2['video']['umbral']}")
 
 
@@ -287,7 +308,7 @@ def etapa_versionar(log: list[str]) -> None:
     dst.mkdir(exist_ok=True)
     for f in ("01_facts_sources.json", "01a_skeleton.json", "01b_narration.json", "01b_narration_normalized.json",
               "06_judge_narrative.json", "06_judge_narrative_v1.json", "06_judge_narrative_v2f5.json",
-              "06_judge_narrative_v2f5b.json", "01b_costo.json", "03_visual.json"):
+              "06_judge_narrative_v2f5b.json", "06_judge_narrative_v2f5c.json", "01b_costo.json", "03_visual.json"):
         if (STEPS / V2 / f).exists():
             shutil.copy2(STEPS / V2 / f, dst / f)
     for which, work in (("v1", SIM_V1), ("v2", SIM_V2)):
@@ -306,6 +327,7 @@ def main() -> None:
         if a.etapa in ("todo", "guion"):
             respaldo_f5(log)
             respaldo_f5b(log)
+            respaldo_f5c(log)
         for et in (["guion", "script", "visual", "sim_v1", "sim_v2", "versionar"] if a.etapa == "todo" else [a.etapa]):
             if et == "guion":
                 etapa_guion(log)

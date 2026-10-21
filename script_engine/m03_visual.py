@@ -342,6 +342,7 @@ def _format_documented_locations(topic: dict) -> str:
             lines.append(f"- {p['rol']} → {', '.join(list(dict.fromkeys(where))[:2])}.")
     if not lines:
         return ""
+    lines.append("- Ningún menor en celdas de adultos en ninguna escena.")    # F5d: regla fija del bloque
     return "UBICACIONES DOCUMENTADAS (no mezclar en una misma escena):\n" + "\n".join(dict.fromkeys(lines))
 
 

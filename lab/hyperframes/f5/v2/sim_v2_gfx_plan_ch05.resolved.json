@@ -6,59 +6,82 @@
    "title": "Los Desaparecidos y los Cuerpos"
   },
   "callouts": [],
-  "count_up": {
-   "value_text": "10",
-   "unit": "años",
-   "start": 44.559,
-   "fact_idx": 9,
-   "source": ""
-  },
+  "count_up": null,
   "archive_clippings": [],
-  "evidence_zoom": {
-   "scene_idx": 0,
-   "box": [
-    0.2,
-    0.25,
-    0.25,
-    0.3
-   ],
-   "start": 5.917,
-   "anchor": "rostro del niño",
-   "detail": "rostro del niño",
-   "tipo": "rostro",
-   "conf": 0.95,
-   "como": "de editor",
-   "word": "rostro del niño"
-  },
+  "evidence_zoom": null,
   "punch_in": [
-   14.435,
-   21.966,
-   80.332,
-   94.139
+   4.05,
+   10.414,
+   23.142,
+   38.764
   ],
   "chapter_question": {
-   "text": "¿Cuánto valió la palabra de los turistas?",
+   "text": "¿Quién pagó el infierno de los turistas?",
    "start": 111.033,
    "duration": 3.0,
-   "keyword": "turistas",
+   "keyword": "infierno",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
+    "word": "abismo",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 4.05,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 0,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "cadáveres",
+    "category": "muerte",
+    "layer": "muerte",
+    "icon": "calavera",
+    "icon_anim": "ink_bleed",
+    "start": 31.242,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "peak": true
+   },
+   {
     "word": "atrapados",
     "category": "oscuridad_encierro",
     "layer": "oscuridad",
     "icon": null,
     "icon_anim": "stamp",
-    "start": 98.532,
+    "start": 38.764,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
-    "sid": 11,
-    "rarity": 2,
+    "sid": 4,
+    "rarity": 4,
     "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "murió",
+    "category": "muerte",
+    "layer": "muerte",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 61.906,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 6,
+    "rarity": 2,
+    "weight": 2,
     "icon_callout": false
    }
   ],
@@ -92,7 +115,7 @@
     "id": "T13",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
+    "motivo": "no entra sin pisar otro bloque @ 23.4s"
    },
    {
     "id": "D08",
@@ -111,35 +134,45 @@
     "bloque": "recorte",
     "ahora": null,
     "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D19",
+    "bloque": "dato",
+    "ahora": "517 reclusos no estaban contabilizados",
+    "fuente": null
+   },
+   {
+    "bloque": "dato@10.4",
+    "antes": "517 reclusos no estaban contabilizados",
+    "ahora": null,
+    "motivo": "la voz lo dice"
    }
   ],
   "pico": {
-   "t": 32.635,
+   "t": 31.242,
    "block": "emphasis",
    "word": "cadáveres",
-   "sentence": "El 1 de septiembre, mientras eran trasladados, reclusos de la sección 'Templeman III' informaron haber visto cadáveres flotando en las aguas de la inundación.",
-   "intensity": 0.9,
-   "sentence_idx": 3,
+   "sentence": "El 1 de septiembre, reclusos de la sección \"Templeman III\" informaron haber visto cadáveres flotando en las aguas de la inundación mientras eran evacuados.",
    "palabra": "cadáveres"
   },
   "time_ticker": null,
   "transitions": {
    "1": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "después del zoom",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "2": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "ritmo rápido",
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
     "rank": "R3"
    },
    "3": {
     "kind": "cut",
     "frames": 0,
-    "why": "ritmo rápido",
+    "why": "≥ 1 corte cada 3",
     "rank": "R3"
    },
    "4": {
@@ -155,9 +188,9 @@
     "rank": "R3"
    },
    "6": {
-    "kind": "dip",
-    "frames": 10,
-    "why": "fundido a negro (1 por cap)",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "7": {
@@ -169,7 +202,7 @@
    "8": {
     "kind": "cut",
     "frames": 0,
-    "why": "≥ 1 corte cada 3",
+    "why": "después del zoom",
     "rank": "R2"
    },
    "9": {
@@ -306,48 +339,59 @@
   },
   "critico": [
    {
-    "t": 5.917,
-    "t_frame": 6.917,
-    "dur": 2.85,
-    "bloque": "zoom",
-    "texto": "rostro del niño",
+    "t": 4.05,
+    "t_frame": 5.05,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "abismo",
     "veredicto": "suma",
-    "motivo": "El zoom en el rostro del niño enfatiza la emoción y el impacto humano del 'vacío' antes de que la voz introduzca la 'cifra oficial', añadiendo una capa emociona",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la sensación de encierro y oscuridad que la imagen ya transmite, sin tapar elementos ",
     "pasa": true,
-    "voz": "Ese vacío imposible de explicar pronto tuvo una cifra oficial."
+    "voz": "El vacío en los registros era un abismo."
    },
    {
-    "t": 32.635,
-    "t_frame": 33.635,
+    "t": 31.242,
+    "t_frame": 32.242,
     "dur": 2.5,
     "bloque": "sello",
     "texto": "cadáveres",
-    "veredicto": "estorba",
-    "motivo": "El sello con la palabra 'CADÁVERES' a media altura y a la derecha probablemente tapa la carta, que es el único elemento claro e importante de la imagen.",
-    "pasa": false,
-    "voz": "El 1 de septiembre, mientras eran trasladados, reclusos de la sección 'Templeman III' informaron haber visto cadáveres flotando en las aguas de la inundación."
-   },
-   {
-    "t": 44.559,
-    "t_frame": 45.559,
-    "dur": 3.7,
-    "bloque": "contador",
-    "texto": "10",
     "veredicto": "suma",
-    "motivo": "El contador visual enfatiza el dato numérico de la edad, añadiendo un elemento dinámico que refuerza la información de la voz sin repetirla textualmente como un",
+    "motivo": "El sello enfatiza una palabra clave de la voz que no se ve en la imagen, y el tinte refuerza el ambiente sombrío sin estorbar.",
     "pasa": true,
-    "voz": "Entre los rostros anónimos de esa tragedia había niños de hasta 10 años, parte de una población juvenil abrumadoramente afroamericana."
+    "voz": "El 1 de septiembre, reclusos de la sección \"Templeman III\" informaron haber visto cadáveres flotando en las aguas de la inundación mientras eran evacuados."
    },
    {
-    "t": 98.532,
-    "t_frame": 99.532,
+    "t": 38.764,
+    "t_frame": 39.764,
     "dur": 2.5,
     "bloque": "sello",
     "texto": "atrapados",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz en off, y el tinte refuerza la atmósfera de encierro y oscuridad ya presente en la imagen sin tapar elementos impo",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el ambiente de encierro que la imagen ya sugiere, sin obstruir elementos importantes.",
     "pasa": true,
-    "voz": "Mientras la palabra de los prisioneros era enterrada, la pesadilla vivida por dos turistas atrapados en el caos estaba a punto de costarle a la ciudad más de 650,000 dólares en un tribunal federal."
+    "voz": "Entre los atrapados por esta catástrofe había niños de hasta 10 años, en una prisión cuya población juvenil era un abrumador 98.7% afroamericana."
+   },
+   {
+    "t": 50.85,
+    "t_frame": 51.85,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "Figura central",
+    "veredicto": "estorba",
+    "motivo": "El zoom en la 'Figura central' no aporta información relevante ni enfatiza el dato de los niños o la demografía que menciona la voz en este instante.",
+    "pasa": false,
+    "voz": "Entre los atrapados por esta catástrofe había niños de hasta 10 años, en una prisión cuya población juvenil era un abrumador 98.7% afroamericana."
+   },
+   {
+    "t": 61.906,
+    "t_frame": 62.906,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "murió",
+    "veredicto": "suma",
+    "motivo": "El bloque crea una contradicción irónica con la voz, cuestionando la declaración del sheriff y añadiendo tensión dramática al implicar que sí hubo muertes, lo c",
+    "pasa": true,
+    "voz": "\"El sheriff de la cárcel declaró que ningún preso murió o escapó."
    }
   ]
  },

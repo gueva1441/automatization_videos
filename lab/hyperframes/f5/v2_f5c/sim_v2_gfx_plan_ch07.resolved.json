@@ -1,0 +1,253 @@
+{
+ "plan": {
+  "chapter_number": 7,
+  "title_card": {
+   "kicker": "CAPÍTULO 7",
+   "title": "Un Horror Sin Registros"
+  },
+  "callouts": [],
+  "count_up": {
+   "value_text": "500",
+   "unit": "prisioneros",
+   "start": 20.232,
+   "fact_idx": 7,
+   "source": "Human Rights Watch, 2005"
+  },
+  "archive_clippings": [],
+  "evidence_zoom": {
+   "scene_idx": 3,
+   "box": [
+    0.42,
+    0.15,
+    0.16,
+    0.16
+   ],
+   "start": 22.917,
+   "anchor": "Rostro del niño",
+   "detail": "Rostro del niño",
+   "tipo": "rostro",
+   "conf": 0.95,
+   "como": "de editor",
+   "word": "Rostro del niño"
+  },
+  "punch_in": [
+   17.765,
+   39.971,
+   44.412,
+   74.02
+  ],
+  "chapter_question": null,
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "fantasmales",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 15.297,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 1,
+    "rarity": 1,
+    "weight": 2,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "demolido",
+    "category": "frio_abandono",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 63.657,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "sfx": {
+     "file": "viento.wav",
+     "gain_db": -20
+    },
+    "peak": true
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "id": "D59",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D58",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D61",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D69",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T26",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D58",
+    "bloque": "dato",
+    "ahora": "8,000 evacuados de la prisión",
+    "fuente": null
+   },
+   {
+    "bloque": "dato@30.6",
+    "antes": "8,000 evacuados de la prisión",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   }
+  ],
+  "pico": {
+   "t": 63.657,
+   "block": "emphasis",
+   "word": "demolido",
+   "sentence": "El edificio fue demolido, la evidencia borrada.",
+   "intensity": 0.9,
+   "sentence_idx": 9,
+   "palabra": "demolido"
+  },
+  "time_ticker": null,
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   }
+  },
+  "identity": {
+   "movimientos": [],
+   "violaciones": []
+  },
+  "outro_bug": {
+   "start": 76.4,
+   "duration": 3.5
+  },
+  "critico": [
+   {
+    "t": 15.297,
+    "t_frame": 16.297,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "fantasmales",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetir una frase completa, y el tinte de mood 'silencio' añade una capa emocional que complementa la imagen y",
+    "pasa": true,
+    "voz": "En su lugar, solo hay cifras fantasmales."
+   },
+   {
+    "t": 20.232,
+    "t_frame": 21.232,
+    "dur": 3.7,
+    "bloque": "contador",
+    "texto": "500",
+    "veredicto": "suma",
+    "motivo": "El contador visualiza y enfatiza un dato numérico crucial mencionado en la voz, haciéndolo más impactante para el espectador.",
+    "pasa": true,
+    "voz": "Según un informe de Human Rights Watch, más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel, mientras otras fuentes terminaron estimando que había hasta 8,000 evacuados de la prisión."
+   },
+   {
+    "t": 22.917,
+    "t_frame": 23.917,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "Rostro del niño",
+    "veredicto": "suma",
+    "motivo": "El zoom en el rostro del niño humaniza las frías estadísticas de la voz, conectando los números con el impacto emocional y personal de la situación.",
+    "pasa": true,
+    "voz": "Según un informe de Human Rights Watch, más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel, mientras otras fuentes terminaron estimando que había hasta 8,000 evacuados de la prisión."
+   },
+   {
+    "t": 63.657,
+    "t_frame": 64.657,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "demolido",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz y aporta información sobre el destino del edificio que no se ve en la imagen actual, mientras el tinte refuerza el",
+    "pasa": true,
+    "voz": "El edificio fue demolido, la evidencia borrada."
+   }
+  ]
+ },
+ "rejected": []
+}

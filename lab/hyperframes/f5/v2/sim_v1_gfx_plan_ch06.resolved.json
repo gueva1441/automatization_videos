@@ -50,15 +50,15 @@
   },
   "punch_in": [
    12.799,
-   37.079,
+   48.739,
    62.959,
    80.08
   ],
   "chapter_question": {
-   "text": "¿Quiénes abandonaron a los prisioneros?",
+   "text": "¿Quién abandonó a tantos presos?",
    "start": 98.133,
    "duration": 3.0,
-   "keyword": "abandonaron",
+   "keyword": "abandonó",
    "generated": true,
    "pause": 3.0
   },
@@ -108,24 +108,6 @@
     "rarity": 1,
     "weight": 3,
     "icon_callout": false
-   },
-   {
-    "word": "desvanecieron",
-    "category": "silencio",
-    "layer": "minima",
-    "icon": null,
-    "icon_anim": "press_wipe",
-    "start": 92.619,
-    "duration": 2.5,
-    "side": "right",
-    "stamp": true,
-    "weight": 3,
-    "peak_word": true,
-    "sfx": {
-     "file": "vacio.wav",
-     "gain_db": -20
-    },
-    "peak": true
    }
   ],
   "gap_warnings": [],
@@ -161,10 +143,9 @@
   ],
   "pico": {
    "t": 92.619,
-   "block": "emphasis",
+   "block": null,
    "word": "desvanecieron",
-   "sentence": "¿Y para aquellos quinientos prisioneros, cuyas vidas se desvanecieron sin rastro oficial, qué forma de justicia podría existir?",
-   "palabra": "desvanecieron"
+   "sentence": "¿Y para aquellos quinientos prisioneros, cuyas vidas se desvanecieron sin rastro oficial, qué forma de justicia podría existir?"
   },
   "transitions": {
    "1": {
@@ -344,7 +325,7 @@
     "bloque": "sello",
     "texto": "atrapados",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el ambiente de 'infierno carcelario' que la imagen por sí sola no comunica explícitamente.",
+    "motivo": "El sello enfatiza una palabra clave de la voz y la imagen, y el tinte refuerza el tono narrativo de 'infierno carcelario' sin tapar elementos importantes.",
     "pasa": true,
     "voz": "Robie Waganfeald y Paul Kunkel Jr., turistas atrapados en el infierno carcelario, lograron una victoria legal que arrojó luz sobre la oscuridad institucional."
    },
@@ -355,7 +336,7 @@
     "bloque": "contador",
     "texto": "650,000",
     "veredicto": "repite",
-    "motivo": "La cifra de 650,000 dólares ya es claramente visible en el documento de la foto y es mencionada explícitamente por la voz en off.",
+    "motivo": "La cifra de 650,000 dólares ya es claramente visible en el documento de la imagen y es mencionada por la voz.",
     "pasa": false,
     "voz": "En el año 2010, les fue concedida una indemnización de más de seiscientos cincuenta mil dólares."
    },
@@ -388,7 +369,7 @@
     "bloque": "recorte",
     "texto": "días en celdas inundadas con agua contaminada con aguas residuales",
     "veredicto": "suma",
-    "motivo": "El bloque añade detalles cruciales sobre la contaminación del agua y la duración del abandono, además de una fecha específica, que la imagen y la voz no mencion",
+    "motivo": "El bloque aporta detalles específicos sobre la contaminación del agua y una fecha concreta (2010) para el reporte, que la voz y la imagen no ofrecen, enriquecie",
     "pasa": true,
     "voz": "Las experiencias de Robie y Paul son solo un eco, una pequeña porción de las innumerables vidas marcadas por el devastador 'tiempo Katrina', un período de abandono extremo."
    },
@@ -411,17 +392,6 @@
     "texto": "500 prisioneros",
     "veredicto": "suma",
     "motivo": "Refuerza visualmente un dato numérico clave mencionado por la voz, sin que la imagen lo muestre directamente, y no tapa elementos importantes.",
-    "pasa": true,
-    "voz": "¿Y para aquellos quinientos prisioneros, cuyas vidas se desvanecieron sin rastro oficial, qué forma de justicia podría existir?"
-   },
-   {
-    "t": 92.619,
-    "t_frame": 93.619,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "desvanecieron",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, visualmente apoyada por el libro quemado, y el tinte de mood refuerza la atmósfera sombría sin tapar información ",
     "pasa": true,
     "voz": "¿Y para aquellos quinientos prisioneros, cuyas vidas se desvanecieron sin rastro oficial, qué forma de justicia podría existir?"
    }

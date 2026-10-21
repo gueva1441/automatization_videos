@@ -1,0 +1,390 @@
+{
+ "plan": {
+  "chapter_number": 3,
+  "title_card": {
+   "kicker": "CAPÍTULO 3",
+   "title": "Inundación y Oscuridad"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [
+   {
+    "kicker": "2005",
+    "headline": "dentro de algunos edificios de la Prisión Parroquial de Orleans",
+    "body": "",
+    "scene_idx": 6,
+    "fact_idx": 0,
+    "era_decade": 2000,
+    "start": 47.74,
+    "duration": 6.0,
+    "side": "right"
+   }
+  ],
+  "evidence_zoom": null,
+  "punch_in": [
+   22.78,
+   34.84,
+   83.78,
+   104.38
+  ],
+  "chapter_question": {
+   "text": "¿Por qué se inundó así?",
+   "start": 152.167,
+   "duration": 3.0,
+   "keyword": "inundó",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "negrura",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 34.84,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 4,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "putrefacto",
+    "category": "veneno_enfermedad",
+    "layer": "veneno",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 112.0,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 16,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "bloque": "recorte0",
+    "antes": "dentro de algunos edificios de la Prisión Parroquial de Orleans",
+    "ahora": "dentro de algunos edificios de la Prisión Parroquial de Orleans",
+    "categoria": null,
+    "icono": null,
+    "opciones": 3
+   },
+   {
+    "bloque": "dato@10.2",
+    "antes": "29 de agosto de 2005",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   },
+   {
+    "bloque": "dato@72.6",
+    "antes": "Templeman 1 y 2",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   },
+   {
+    "bloque": "dato@82.5",
+    "antes": "nivel del pecho",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   }
+  ],
+  "pico": {
+   "t": 129.06,
+   "block": null,
+   "word": "transformado",
+   "sentence": "La prisión, diseñada para contener, se había transformado en una cámara de tortura líquida y asfixiante."
+  },
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "5": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "9": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "12": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "13": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "15": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "16": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "17": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 1,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 2,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 3,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 4,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 5,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 6,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 7,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 8,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 9,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 10,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 11,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 12,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 13,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 14,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 15,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 16,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 17,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 155.167,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 34.84,
+    "t_frame": 35.84,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "negrura",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte intensifica la sensación de oscuridad y encierro que la voz describe y la imagen sugiere, sin repetir v",
+    "pasa": true,
+    "voz": "Las luces parpadearon una última vez antes de extinguirse por completo, dejando a miles en una negrura absoluta."
+   },
+   {
+    "t": 47.74,
+    "t_frame": 48.74,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "dentro de algunos edificios de la Prisión Parroquial de Orleans",
+    "veredicto": "suma",
+    "motivo": "El bloque aporta el nombre específico de la prisión y el año, información que ni la imagen ni la voz dan en este instante, contextualizando el relato.",
+    "pasa": true,
+    "voz": "La prisión dejó de respirar."
+   },
+   {
+    "t": 96.82,
+    "t_frame": 97.82,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "sin luz",
+    "veredicto": "repite",
+    "motivo": "El bloque de texto 'SIN LUZ' repite directamente una frase que la voz acaba de decir, y el tinte de oscuridad refuerza un mood ya evidente en la imagen y la nar",
+    "pasa": false,
+    "voz": "En celdas herméticamente cerradas, sin salida, sin luz, el agua oscura subiendo sin cesar."
+   },
+   {
+    "t": 104.38,
+    "t_frame": 105.38,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "ahogados",
+    "veredicto": "repite",
+    "motivo": "El tinte de 'mood agua' es redundante, ya que la imagen ya muestra claramente a la persona sumergida en agua, y la palabra 'AHOGADOS' repite un término clave de",
+    "pasa": false,
+    "voz": "El pánico se apoderó de las mentes, desatando gritos ahogados y una desesperación palpable en la penumbra."
+   },
+   {
+    "t": 105.717,
+    "t_frame": 106.717,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "Ojos asustados",
+    "veredicto": "repite",
+    "motivo": "La imagen ya muestra claramente unos ojos asustados, el bloque solo reitera lo que es evidente visualmente.",
+    "pasa": false,
+    "voz": "El pánico se apoderó de las mentes, desatando gritos ahogados y una desesperación palpable en la penumbra."
+   },
+   {
+    "t": 112.0,
+    "t_frame": 113.0,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "putrefacto",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el ambiente de contaminación y enfermedad descrito, sin tapar elementos cruciales.",
+    "pasa": true,
+    "voz": "El frío cortante del agua contaminada se mezclaba con el hedor putrefacto que llenaba el ambiente, volviendo cada respiración una tortura."
+   },
+   {
+    "t": 143.26,
+    "t_frame": 144.26,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "ahogaba",
+    "veredicto": "repite",
+    "motivo": "El tinte de mood 'agua' repite visualmente lo que la imagen ya muestra de forma explícita, sin añadir información nueva.",
+    "pasa": false,
+    "voz": "El mundo exterior había colapsado, pero la tragedia más íntima y prolongada apenas comenzaba dentro de esos muros, donde la esperanza se ahogaba más rápido que las celdas."
+   }
+  ]
+ },
+ "rejected": []
+}

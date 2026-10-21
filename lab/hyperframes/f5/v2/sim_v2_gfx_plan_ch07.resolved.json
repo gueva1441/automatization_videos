@@ -9,48 +9,62 @@
   "count_up": {
    "value_text": "500",
    "unit": "prisioneros",
-   "start": 20.232,
+   "start": 33.403,
    "fact_idx": 7,
    "source": "Human Rights Watch, 2005"
   },
-  "archive_clippings": [],
-  "evidence_zoom": {
-   "scene_idx": 3,
-   "box": [
-    0.42,
-    0.15,
-    0.16,
-    0.16
-   ],
-   "start": 22.917,
-   "anchor": "Rostro del niño",
-   "detail": "Rostro del niño",
-   "tipo": "rostro",
-   "conf": 0.95,
-   "como": "de editor",
-   "word": "Rostro del niño"
-  },
+  "archive_clippings": [
+   {
+    "kicker": "29 de agosto de 2005",
+    "headline": "la Prisión de Orleans Parish (OPP) albergaba a 6,375 reclusos",
+    "body": "",
+    "scene_idx": 1,
+    "fact_idx": null,
+    "pool_id": "D57",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 16.159,
+    "duration": 6.0,
+    "side": "left"
+   }
+  ],
+  "evidence_zoom": null,
   "punch_in": [
-   17.765,
-   39.971,
-   44.412,
-   74.02
+   3.389,
+   18.88,
+   26.625,
+   46.957
   ],
   "chapter_question": null,
   "icon_array": null,
   "emphasis": [
    {
-    "word": "fantasmales",
+    "word": "vidas",
+    "category": "muerte",
+    "layer": "muerte",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 28.562,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 3,
+    "rarity": 2,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "escapó",
     "category": "silencio",
     "layer": "minima",
     "icon": null,
     "icon_anim": "press_wipe",
-    "start": 15.297,
+    "start": 47.925,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
-    "sid": 1,
-    "rarity": 1,
+    "sid": 5,
+    "rarity": 2,
     "weight": 2,
     "sfx": {
      "file": "vacio.wav",
@@ -59,26 +73,28 @@
     "icon_callout": false
    },
    {
-    "word": "demolido",
-    "category": "frio_abandono",
-    "layer": "minima",
-    "icon": null,
-    "icon_anim": "press_wipe",
-    "start": 63.657,
+    "word": "cuerpos",
+    "category": "muerte",
+    "layer": "muerte",
+    "icon": "calavera",
+    "icon_anim": "ink_bleed",
+    "start": 68.257,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
     "weight": 3,
     "peak_word": true,
-    "sfx": {
-     "file": "viento.wav",
-     "gain_db": -20
-    },
     "peak": true
    }
   ],
   "gap_warnings": [],
   "fragmentos": [
+   {
+    "id": "T22",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 0.5s"
+   },
    {
     "id": "D59",
     "bloque": "recorte",
@@ -110,26 +126,38 @@
     "motivo": "la voz no habla de esto en el cap"
    },
    {
+    "id": "D57",
+    "bloque": "recorte",
+    "ahora": "la Prisión de Orleans Parish (OPP) albergaba a 6,375 reclusos",
+    "kicker": "29 de agosto de 2005",
+    "fuente": null,
+    "icono": null,
+    "icono_faltante": null,
+    "opciones": [
+     "la Prisión de Orleans Parish (OPP) albergaba a 6,375 reclusos"
+    ]
+   },
+   {
     "id": "D58",
     "bloque": "dato",
     "ahora": "8,000 evacuados de la prisión",
     "fuente": null
    },
    {
-    "bloque": "dato@30.6",
+    "bloque": "dato@23.2",
     "antes": "8,000 evacuados de la prisión",
     "ahora": null,
     "motivo": "la voz lo dice"
    }
   ],
   "pico": {
-   "t": 63.657,
+   "t": 68.257,
    "block": "emphasis",
-   "word": "demolido",
-   "sentence": "El edificio fue demolido, la evidencia borrada.",
-   "intensity": 0.9,
-   "sentence_idx": 9,
-   "palabra": "demolido"
+   "word": "cuerpos",
+   "sentence": "El agua retrocedió, pero la verdad sobre los cuerpos vistos flotando y las vidas borradas del sistema nunca salió a la superficie.",
+   "intensity": 1.0,
+   "sentence_idx": 11,
+   "palabra": "cuerpos"
   },
   "time_ticker": null,
   "transitions": {
@@ -172,13 +200,13 @@
    "7": {
     "kind": "cut",
     "frames": 0,
-    "why": "≥ 1 corte cada 3",
+    "why": "ritmo rápido",
     "rank": "R3"
    },
    "8": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
     "rank": "R3"
    },
    "9": {
@@ -188,9 +216,9 @@
     "rank": "R3"
    },
    "10": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "≥ 1 corte cada 3",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    }
   },
@@ -204,26 +232,15 @@
   },
   "critico": [
    {
-    "t": 15.297,
-    "t_frame": 16.297,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "fantasmales",
+    "t": 16.159,
+    "t_frame": 17.159,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "la Prisión de Orleans Parish (OPP) albergaba a 6,375 reclusos",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz sin repetir una frase completa, y el tinte de mood 'silencio' añade una capa emocional que complementa la imagen y",
+    "motivo": "El bloque aporta datos específicos (nombre de la prisión, número de reclusos y fecha) que contextualizan el 'olvido administrativo' mencionado por la voz, sin r",
     "pasa": true,
-    "voz": "En su lugar, solo hay cifras fantasmales."
-   },
-   {
-    "t": 20.232,
-    "t_frame": 21.232,
-    "dur": 3.7,
-    "bloque": "contador",
-    "texto": "500",
-    "veredicto": "suma",
-    "motivo": "El contador visualiza y enfatiza un dato numérico crucial mencionado en la voz, haciéndolo más impactante para el espectador.",
-    "pasa": true,
-    "voz": "Según un informe de Human Rights Watch, más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel, mientras otras fuentes terminaron estimando que había hasta 8,000 evacuados de la prisión."
+    "voz": "El caos fue la coartada perfecta para el olvido administrativo."
    },
    {
     "t": 22.917,
@@ -231,21 +248,54 @@
     "dur": 2.85,
     "bloque": "zoom",
     "texto": "Rostro del niño",
-    "veredicto": "suma",
-    "motivo": "El zoom en el rostro del niño humaniza las frías estadísticas de la voz, conectando los números con el impacto emocional y personal de la situación.",
-    "pasa": true,
-    "voz": "Según un informe de Human Rights Watch, más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel, mientras otras fuentes terminaron estimando que había hasta 8,000 evacuados de la prisión."
+    "veredicto": "repite",
+    "motivo": "La imagen ya muestra el rostro del niño de forma prominente, y el zoom no aporta información nueva ni complementa el dato numérico de la voz en off.",
+    "pasa": false,
+    "voz": "Oficialmente, la prisión albergaba a 6,375 reclusos, pero otras fuentes estiman que hubo hasta 8,000 evacuados de la prisión."
    },
    {
-    "t": 63.657,
-    "t_frame": 64.657,
+    "t": 28.562,
+    "t_frame": 29.562,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "demolido",
+    "texto": "vidas",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz y aporta información sobre el destino del edificio que no se ve en la imagen actual, mientras el tinte refuerza el",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el mood sombrío de la imagen, sin tapar elementos cruciales.",
     "pasa": true,
-    "voz": "El edificio fue demolido, la evidencia borrada."
+    "voz": "En esa discrepancia numérica se perdieron vidas."
+   },
+   {
+    "t": 33.403,
+    "t_frame": 34.403,
+    "dur": 3.7,
+    "bloque": "contador",
+    "texto": "500",
+    "veredicto": "suma",
+    "motivo": "El contador enfatiza visualmente un dato numérico clave de la voz, sin repetir una frase completa ni tapar información importante de la imagen.",
+    "pasa": true,
+    "voz": "Según un informe de Human Rights Watch, más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel."
+   },
+   {
+    "t": 47.925,
+    "t_frame": 48.925,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "escapó",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, añadiendo impacto a la contradicción oficial, y el tinte de mood refuerza la atmósfera de misterio y gravedad.",
+    "pasa": true,
+    "voz": "La versión oficial se volvió insostenible: el sheriff de la cárcel declaró que ningún preso murió o escapó."
+   },
+   {
+    "t": 68.257,
+    "t_frame": 69.257,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "cuerpos",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetir una frase completa, y el tinte refuerza el ambiente sombrío de la imagen y el misterio.",
+    "pasa": true,
+    "voz": "El agua retrocedió, pero la verdad sobre los cuerpos vistos flotando y las vidas borradas del sistema nunca salió a la superficie."
    }
   ]
  },

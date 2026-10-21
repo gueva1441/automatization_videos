@@ -1,0 +1,40 @@
+[04:46:10] WARNING  | viral_pipeline | [audio_generator] ⚠ [normalizer_gate] 14 span(s) detectado(s) — modo batch, se aplican TODOS sin revisión humana
+  [01b] generando cap 1 (hook)...
+  [01b] cap 1: candidato 1/3 puntaje 14 · 2 duras · 3 blandas
+  [01b] cap 1: candidato 2/3 puntaje 17 · 0 duras · 2 blandas
+  [01b] cap 1: elegido el candidato 2/3 (puntaje 17, 0 duras, 2 blandas)
+  [01b] generando cap 2 (development)...
+  [01b] cap 2: candidato 1/3 puntaje 13 · 0 duras · 1 blandas
+  [01b] cap 2: elegido el candidato 2/2 (puntaje 14, 0 duras, 0 blandas)
+  [01b] generando cap 3 (development)...
+  [01b] cap 3: candidato 1/3 puntaje 11 · 1 duras · 2 blandas
+  [01b] cap 3: candidato 2/3 puntaje 14 · 0 duras · 2 blandas
+  [01b] cap 3: elegido el candidato 2/3 (puntaje 14, 0 duras, 2 blandas)
+  [01b] generando cap 4 (development)...
+  [01b] cap 4: candidato 1/3 inválido (largo/frases)
+  [01b] cap 4: candidato 2/3 puntaje 14 · 0 duras · 2 blandas
+  [01b] cap 4: elegido el candidato 2/3 (puntaje 14, 0 duras, 2 blandas)
+  [01b] generando cap 5 (development)...
+  [01b] cap 5: candidato 1/3 puntaje 13 · 0 duras · 4 blandas
+  [01b] cap 5: elegido el candidato 2/2 (puntaje 14, 0 duras, 2 blandas)
+  [01b] generando cap 6 (development)...
+  [01b] cap 6: candidato 1/3 puntaje 8 · 1 duras · 2 blandas
+  [01b] cap 6: candidato 2/3 puntaje 11 · 0 duras · 2 blandas
+  [01b] cap 6: elegido el candidato 2/3 (puntaje 11, 0 duras, 2 blandas)
+  [01b] generando cap 7 (reveal+outro)...
+  [01b] cap 7: candidato 1/3 puntaje 17 · 0 duras · 3 blandas
+  [01b] cap 7: candidato 2/3 inválido (largo/frases)
+  [01b] cap 7: elegido el candidato 1/3 (puntaje 17, 0 duras, 3 blandas)
+  [01b] generando humanizer phrases...
+  [normalizer_gate] LLM auditor analizando narración...
+[2026-10-21 04:36:36] F5b etapa guion
+  [4a·pool] tecnico: 1 ítem(s) descartado(s) por no estar literales en el bloque
+  [4a·pool] misterio: 4 ítem(s) fuera por no relacionados (['antigua cárcel de Nueva Orleans construi', 'incluyendo el de un posible capitán de l', 'Un médium psíquico ha detectado la energ', 'Inn at the Old Jail'])
+  [4a·pool] personajes sin acción, fuera: ['Cornel Hubert', 'Raphael Schwarz']
+  [4a·pool] cifras canónicas: [('6,375', ['6,375, 6,500', '6,500', '8,000'])]
+  [4a·pool] datos 67 · cronologia 27 · lugares 25 · citas 2 · personajes 6 · _descartados 8 · cifras_canonicas 1
+guion: pool 0s
+guion: skeleton 0s · reparaciones ["cronología: ['T03'] de cap_6 → cap_4 (anteriores a 2005-08-30)", "cronología: ['T03'] de cap_4 → cap_3 (anteriores a 2005-08-29)", "cronología: ['T03'] de cap_3 → cap_2 (anteriores a 2005-08-28)", 'cap 1: cliffhanger F02 inválido → T05 (primer id nuevo del cap 2)', 'cap 2: cliffhanger F04 inválido → T08 (primer id nuevo del cap 3)', 'cap 3: cliffhanger F01 inválido → T13 (primer id nuevo del cap 4)', 'cap 4: cliffhanger F08 inválido → D19 (primer id nuevo del cap 5)', 'cap 5: cliffhanger F07 inválido → D72 (primer id nuevo del cap 6)', 'cap 6: cliffhanger (vacío) inválido → D62 (primer id nuevo del cap 7)']
+guion: narración 547s · costo {'Gemini 2.5 Pro': 0.7380399999999999, 'Gemini 2.5 Flash': 0.003026} · violaciones {'1': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D05] «6,375»', '- [blanda] nombrá a William Hunter por nombre y apellido y con su cargo (Adjunto del Sheriff Gusman) la primera vez'], '3': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D06] «29 de agosto»; [T11] «29 de agosto»', '- [blanda] densidad 1.68 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción'], '4': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D32] «hasta el pecho»; [D38] «2 de septiembre»; [D59] «500»; [D66] «2 de septiembre»; [D67] «10»; [T17] «2 de septiembre»', '- [blanda] densidad 1.52 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción'], '5': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D43] «517»; [D50] «650,000»; [D67] «10»; [D68] «98.7%»; [D69] «650,000»; [T15] «1 de septiembre»; [T23] «1 de septiembre»', '- [blanda] nombrá a Ronnie L. Morgan, Jr. por nombre y apellido y con su cargo (Recluso, demandante) la primera vez'], '6': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D50] «650,000»; [D61] «14»; [T27] «14 de octubre»', '- [blanda] densidad 0.9 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción'], '7': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D05] «6,375»', '- [blanda] 1.9 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno', '- [blanda] 27% de tus frases de 3 palabras ya se dijeron en caps anteriores (máximo 5%): no repitas fórmulas («sheriff Marlin N. Gusman» basta una vez; después «el sheriff», «Gusman»)']}
+guion: normalizer 14 spans (aplicados en 01b_narration_normalized.json)
+guion: juez v1 {'densidad': False, 'repeticion': False, 'adjetivacion': False, 'repeticion_en_cap': False, 'nombres': True, 'antagonista': False, 'cliffhanger': None} · v2 {'densidad': False, 'repeticion': False, 'adjetivacion': True, 'repeticion_en_cap': True, 'nombres': True, 'antagonista': True, 'cliffhanger': True}

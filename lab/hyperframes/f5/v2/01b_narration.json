@@ -3,19 +3,20 @@
   "chapters": [
     {
       "chapter_number": 1,
-      "narration": "6,375 personas. Abandonadas a un huracán. El 29 de agosto de 2005, el agua ya subía alrededor de la Orleans Parish Prison. Adentro, el sheriff Marlin N. Gusman y su adjunto William Hunter tomaron una decisión. Los prisioneros, sentenció Gusman, se quedarían 'donde pertenecen'. Pero la orden que estaba a punto de dar en una conferencia de prensa sellaría el destino de todos.",
+      "narration": "29 de agosto de 2005. El huracán Katrina se estrella contra la ciudad. Dentro de la Orleans Parish Prison, 6,375 reclusos son abandonados a su suerte. El sheriff Marlin N. Gusman fue claro: se quedarían \"donde pertenecen\". Una sentencia dictada antes de que subiera el agua, que sería confirmada por la terrible decisión que el sheriff estaba a punto de anunciar.",
       "datos_usados": [
-        "D05",
         "D04",
         "D01",
+        "D57",
         "D35",
         "Q01"
       ]
     },
     {
       "chapter_number": 2,
-      "narration": "La orden que sellaría su destino se hizo oficial la noche del 28 de agosto, un día antes del impacto, cuando el sheriff Gusman anunció que los prisioneros no serían evacuados. Esa misma noche, la electricidad en la prisión se cortó, sumiendo los pabellones en una oscuridad premonitoria. Al amanecer del 29 de agosto de 2005, Katrina tocó tierra. Las defensas de la ciudad no resistieron: se produjeron más de 50 fallas en el sistema de diques, un error de diseño catastrófico que el teniente General Carl Strock, del Cuerpo de Ingenieros del Ejército de EE. UU., admitiría públicamente años después. Este colapso provocó la inundación del 80% de Nueva Orleans, dejando algunas zonas bajo 15 pies de agua. Dentro de la prisión, la única barrera contra la oscuridad total eran los generadores de respaldo. Pero su energía también estaba a punto de extinguirse.",
+      "narration": "La terrible decisión fue anunciada el 28 de agosto de 2005. En una conferencia de prensa, el sheriff Marlin N. Gusman confirmó que los prisioneros no serían evacuados de la Prisión de Orleans Parish. El abandono se hizo palpable esa misma noche, cuando se cortó la electricidad en la prisión, sumiendo los pabellones en una oscuridad densa. Al día siguiente, el huracán desató su fuerza. La ciudad no solo fue golpeada por la naturaleza; fue traicionada por su propia infraestructura. El teniente General del Cuerpo de Ingenieros del Ejército, Carl Strock, más tarde señalaría los fallos de diseño como la causa principal. Se produjeron más de 50 fallas en el sistema de diques, una cascada de rupturas que provocó la inundación del 80% de Nueva Orleans. Para los miles de prisioneros atrapados en la negrura, la única esperanza de luz y seguridad recaía en los generadores de respaldo. Pero estos también estaban a punto de fallar.",
       "datos_usados": [
+        "T05",
         "T06",
         "D09",
         "D10"
@@ -23,10 +24,9 @@
     },
     {
       "chapter_number": 3,
-      "narration": "La extinción fue súbita. El 29 de agosto de 2005, los generadores de respaldo de la prisión fallaron, sumiendo a las aproximadamente 6,500 personas atrapadas dentro en una oscuridad absoluta. Sin energía, las bombas dejaron de funcionar. Ese mismo 29 de agosto, el horror líquido comenzó a filtrarse: las celdas del primer piso empezaron a inundarse con aguas residuales que refluían de las tuberías. La prisión se convirtió en una trampa de hedor y penumbra. No fue hasta la medianoche de ese caótico día que llegó una señal de la autoridad: el sheriff Marlin N. Gusman finalmente hizo la solicitud formal de ayuda para una evacuación. Pero la petición llegó demasiado tarde. Para muchos, el agua ya no estaba en los tobillos; en los edificios Templeman 1 y 2, la inundación estaba a punto de alcanzar el nivel del pecho.",
+      "narration": "La frágil esperanza de los generadores se extinguió el 29 de agosto de 2005. Con un estruendo final, los generadores de respaldo fallaron, sumiendo a los miles de prisioneros en una oscuridad absoluta y un silencio metálico, roto solo por el sonido del agua. Sin energía, las cerraduras electrónicas quedaron inoperativas; la prisión se convirtió en una tumba sellada. Casi de inmediato, las celdas del primer piso comenzaron a inundarse. No era solo agua de la tormenta; era un reflujo nauseabundo de aguas residuales que subía por los desagües, llenando los espacios confinados con un líquido denso y fétido. Durante horas, en medio del caos, no hubo ninguna orden. Finalmente, a la medianoche, el sheriff Marlin N. Gusman cambió de parecer. Su solicitud formal de ayuda para la evacuación llegó cuando el día ya había terminado, una decisión tardía que selló el destino de muchos. Pero mientras los papeles se movían lentamente en el exterior, en el interior, la inundación avanzaba implacable. Y en algunos edificios, el nivel del agua ya estaba subiendo mucho más allá de los tobillos.",
       "datos_usados": [
         "T08",
-        "D33",
         "T09",
         "T12",
         "D16"
@@ -34,8 +34,9 @@
     },
     {
       "chapter_number": 4,
-      "narration": "Y el agua subió. Superó esa marca. En los edificios Templeman 1 y 2, el agua alcanzó el nivel del pecho. Los prisioneros estuvieron atrapados por días, sumergidos en un líquido fétido. En otras áreas, el agua contaminada con aguas residuales llegó hasta el pecho de los reclusos, una sopa tóxica sin escapatoria. La evacuación de esos pabellones comenzó, pero el rescate era un caos. Los prisioneros eran llevados en botes hasta el paso elevado de Broad Street, donde quedaban expuestos. El calvario se extendió por días. La evacuación completa de la prisión no finalizó hasta el viernes 2 de septiembre de 2005, cuatro días después de la falla de los generadores. Cuatro días en la oscuridad, en el agua sucia. Pero cuando el último prisionero fue trasladado, el horror dio paso a una pregunta aún más inquietante: ¿estaban todos? El conteo oficial revelaría un vacío imposible de explicar.",
+      "narration": "El agua no se detuvo en los tobillos. Subió sin piedad, metro a metro, en la oscuridad total. Para el 30 de agosto, el escenario dentro de la prisión era apocalíptico. En los edificios Templeman 1 y 2, el agua pestilente, cargada de aguas residuales, ya había llegado hasta el pecho. Los gritos de los hombres atrapados rebotaban en las paredes, perdidos en el hedor y el silencio de los guardias ausentes. Durante días, miles de personas sobrevivieron de pie, con el cuerpo sumergido en un caldo tóxico, sin agua potable ni comida. La evacuación, cuando finalmente comenzó, fue un caos. Los prisioneros eran llevados en botes hacia el paso elevado de la Interestatal 10, expuestos bajo el sol abrasador. Pero esta operación fue desesperadamente lenta. La evacuación completa de la prisión no finalizó hasta el viernes 2 de septiembre de 2005. Cuatro días completos después del colapso total. Cuatro días de abandono absoluto. Cuando las autoridades finalmente declararon el complejo vacío, creyeron que lo peor había pasado. Pero un nuevo horror estaba a punto de emerger del caos. Al comparar las listas, un agujero negro apareció en los registros: faltaban más de 500 personas. ¿Dónde estaban?",
       "datos_usados": [
+        "T13",
         "D07",
         "D08",
         "D17"
@@ -43,20 +44,17 @@
     },
     {
       "chapter_number": 5,
-      "narration": "Ese vacío imposible de explicar pronto tuvo una cifra oficial. Human Rights Watch confirmó la escala del desastre: inmediatamente después de la evacuación, 517 reclusos no estaban contabilizados. Pero a la ausencia se sumó el terror. El 1 de septiembre, mientras eran trasladados, reclusos de la sección 'Templeman III' informaron haber visto cadáveres flotando en las aguas de la inundación. Entre los rostros anónimos de esa tragedia había niños de hasta 10 años, parte de una población juvenil abrumadoramente afroamericana. Cuando la prensa confrontó al sheriff Gusman con estos testimonios, su desprecio fue absoluto. 'Están en la cárcel, hombre. Mienten... No confíen en drogadictos, cobardes y criminales para saber cuál es la historia', declaró. Oficialmente, su postura era inflexible: el sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos. Mientras la palabra de los prisioneros era enterrada, la pesadilla vivida por dos turistas atrapados en el caos estaba a punto de costarle a la ciudad más de 650,000 dólares en un tribunal federal.",
+      "narration": "El vacío en los registros era un abismo. Human Rights Watch lo confirmó: inmediatamente después de la evacuación, 517 reclusos no estaban contabilizados. Su paradero se convirtió en la pregunta más sombría del desastre, y algunos testimonios ofrecían una respuesta aterradora. El 1 de septiembre, reclusos de la sección \"Templeman III\" informaron haber visto cadáveres flotando en las aguas de la inundación mientras eran evacuados. Entre los atrapados por esta catástrofe había niños de hasta 10 años, en una prisión cuya población juvenil era un abrumador 98.7% afroamericana. Ante estas acusaciones, la versión oficial fue una negación rotunda. \"El sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos\". La contradicción era flagrante, pero el sheriff Gusman la desestimó con desprecio, declarando sobre los testigos: \"Están en la cárcel, hombre. Mienten... No confíen en drogadictos, cobardes y criminales para saber cuál es la historia\". Pero mientras las voces de los reclusos eran silenciadas por el sistema, las de dos inesperados turistas estaban a punto de abrir una grieta legal que le costaría a la ciudad más de 650,000 dólares.",
       "datos_usados": [
         "D19",
         "D60",
-        "T15",
-        "D67",
-        "Q02",
         "D61",
-        "D50"
+        "Q02"
       ]
     },
     {
       "chapter_number": 6,
-      "narration": "Ese costo de más de 650,000 dólares tuvo nombres y rostros: los de Robie Waganfeald y Paul Kunkel Jr., dos turistas de Ohio arrestados en Bourbon Street justo antes de la tormenta. Su caso, como el de miles, finalmente encontró una reparación. El 14 de octubre de 2010, un jurado federal les otorgó la indemnización, validando su historia de encarcelamiento falso e indiferencia deliberada. Este veredicto no fue un hecho aislado; fue una grieta en un muro de negación que se ampliaba con otras demandas, como la de Ronnie L. Morgan, Jr. La presión federal se materializó cuando el Departamento de Justicia de EE. UU. emitió una carta de hallazgos que condenaba formalmente las condiciones inhumanas. Pero mientras la justicia avanzaba lentamente, las autoridades carcelarias mostraron una prisa inquietante por reanudar operaciones. Apenas semanas después del desastre, el 17 de octubre de 2005, reabrieron el edificio 'House of Detention'. Estas investigaciones y demandas se basaron en testimonios, porque al buscar la versión oficial de los hechos, se toparon con un vacío documental absoluto: simplemente no existen registros oficiales de lo que ocurrió en la prisión durante esos días críticos.",
+      "narration": "La grieta en la narrativa oficial no la abrieron los reclusos, sino dos forasteros. Robie Waganfeald, turista, y Paul Kunkel Jr., turista, habían sido arrestados en Bourbon Street por intoxicación pública justo antes de la tormenta. Quedaron atrapados en el mismo infierno que los demás prisioneros, pero a diferencia de ellos, su condición de ciudadanos comunes de Ohio con familias que los buscaban les dio una voz que el sistema no pudo ignorar. La lucha legal fue larga, pero el 14 de octubre de 2010, un jurado federal les otorgó más de 650,000 dólares por encarcelamiento falso e indiferencia deliberada. El veredicto no solo fue una compensación; fue la primera admisión judicial del abandono. Este caso destapó una negligencia tan profunda que provocó una investigación a nivel nacional. El Departamento de Justicia de EE. UU. intervino, y su carta de hallazgos detalló las condiciones inhumanas y la violación sistemática de derechos dentro de la prisión. Mientras tanto, el sistema carcelario se apresuraba a aparentar normalidad, reabriendo edificios apenas semanas después del desastre. Pero las demandas seguían acumulándose, intentando reconstruir lo sucedido. Sin embargo, todas las investigaciones chocaban contra un muro de silencio administrativo. Buscaban pruebas, documentos, listas… y no encontraron nada. Porque, increíblemente, no existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina.",
       "datos_usados": [
         "T26",
         "D69",
@@ -65,54 +63,47 @@
     },
     {
       "chapter_number": 7,
-      "narration": "La revelación es un vacío documental: no existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina. En su lugar, solo hay cifras fantasmales. Según un informe de Human Rights Watch, más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel, mientras otras fuentes terminaron estimando que había hasta 8,000 evacuados de la prisión. La negación oficial fue tajante: el sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos. Esta contradicción provocó que el Departamento de Justicia de EE. UU. fue llamado a investigar la conducta del Departamento del sheriff de Orleans. Pero ninguna investigación pudo llenar los vacíos. El edificio fue demolido, la evidencia borrada. Y en una ciudad de memorias pesadas, la pregunta final no es qué les pasó a los desaparecidos, sino cuántos fueron realmente.",
+      "narration": "Ese es el muro final: no existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina. El caos fue la coartada perfecta para el olvido administrativo. Oficialmente, la prisión albergaba a 6,375 reclusos, pero otras fuentes estiman que hubo hasta 8,000 evacuados de la prisión. En esa discrepancia numérica se perdieron vidas. Según un informe de Human Rights Watch, más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel. La versión oficial se volvió insostenible: el sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos. Ante la evidencia, el Departamento de Justicia de EE. UU. fue llamado a investigar. Pero sin registros, ¿qué se puede probar? El agua retrocedió, pero la verdad sobre los cuerpos vistos flotando y las vidas borradas del sistema nunca salió a la superficie. ¿Saldrá algún día?",
       "datos_usados": [
         "D62",
-        "D59",
+        "D57",
         "D58",
+        "D59",
         "D61",
         "D63"
       ]
     }
   ],
   "humanizer_phrases": [
-    "Lo inimaginable se hizo real.",
-    "Imaginá esa oscuridad.",
-    "Que su silencio no sea olvido."
+    "El horror apenas comenzaba.",
+    "Imaginá ese miedo, esa espera.",
+    "Que esta historia no se olvide."
   ],
   "_f5_violations": {
     "1": [
-      "- [dura] declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): D04",
-      "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D57] «6,375»; [T07] «29 de agosto»",
-      "- [blanda] la cita «donde pertenecen…» va entre comillas y con su autor (Sheriff Marlin N. Gusman) al lado",
-      "- [blanda] 1.59 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
-    ],
-    "2": [
-      "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [T05] «28 de agosto»; [T07] «29 de agosto»",
-      "- [blanda] 0.69 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+      "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D05] «6,375»",
+      "- [blanda] nombrá a William Hunter por nombre y apellido y con su cargo (Adjunto del Sheriff Gusman) la primera vez"
     ],
     "3": [
-      "- [dura] declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): T12",
-      "- [dura] cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «29 de agosto» ×2",
-      "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D06] «29 de agosto»; [D59] «500»; [D65] «29 de agosto»; [T10] «29 de agosto»; [T11] «29 de agosto»"
+      "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D06] «29 de agosto»; [T11] «29 de agosto»",
+      "- [blanda] densidad 1.68 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
     ],
     "4": [
-      "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D32] «hasta el pecho»; [D38] «2 de septiembre»; [D66] «2 de septiembre»; [T17] «2 de septiembre»",
-      "- [blanda] densidad 1.34 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
+      "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D32] «hasta el pecho»; [D38] «2 de septiembre»; [D59] «500»; [D66] «2 de septiembre»; [D67] «10»; [T17] «2 de septiembre»",
+      "- [blanda] densidad 1.52 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
     ],
     "5": [
-      "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D43] «517»; [D69] «650,000»; [T23] «1 de septiembre»",
-      "- [blanda] nombrá a Ronnie L. Morgan, Jr. por nombre y apellido y con su cargo (Recluso, demandante) la primera vez",
-      "- [blanda] la cita «Están en la cárcel, hombre. Mienten... N…» va entre comillas y con su autor (Sheriff Gusman) al lado"
+      "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D43] «517»; [D50] «650,000»; [D67] «10»; [D68] «98.7%»; [D69] «650,000»; [T15] «1 de septiembre»; [T23] «1 de septiembre»",
+      "- [blanda] nombrá a Ronnie L. Morgan, Jr. por nombre y apellido y con su cargo (Recluso, demandante) la primera vez"
     ],
     "6": [
-      "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D21] «17 de octubre»; [D50] «650,000»; [D61] «14»; [T19] «17 de octubre»; [T27] «14 de octubre»",
-      "- [blanda] densidad 1.06 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
-      "- [blanda] 1.06 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+      "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D50] «650,000»; [D61] «14»; [T27] «14 de octubre»",
+      "- [blanda] densidad 0.9 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
     ],
     "7": [
-      "- [blanda] densidad 1.94 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
-      "- [blanda] 21% de tus frases de 3 palabras ya se dijeron en caps anteriores (máximo 5%): no repitas fórmulas («sheriff Marlin N. Gusman» basta una vez; después «el sheriff», «Gusman»)"
+      "- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D05] «6,375»",
+      "- [blanda] 1.9 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+      "- [blanda] 27% de tus frases de 3 palabras ya se dijeron en caps anteriores (máximo 5%): no repitas fórmulas («sheriff Marlin N. Gusman» basta una vez; después «el sheriff», «Gusman»)"
     ]
   },
   "_f5c_candidatos": {
@@ -122,218 +113,17 @@
         {
           "candidato": 1,
           "valido": true,
-          "puntaje": 10,
+          "puntaje": 14,
           "partes": {
-            "datos": 3,
-            "cliffhanger": true,
-            "repetidos": 0,
-            "relleno": 0,
-            "adj_100": 1.85,
-            "adj_fuera": true,
-            "trigramas_previos": 0.0
-          },
-          "duras": 1,
-          "blandas": 3
-        },
-        {
-          "candidato": 2,
-          "valido": true,
-          "puntaje": 13,
-          "partes": {
-            "datos": 4,
-            "cliffhanger": true,
-            "repetidos": 0,
-            "relleno": 0,
-            "adj_100": 1.59,
-            "adj_fuera": true,
-            "trigramas_previos": 0.0
-          },
-          "duras": 1,
-          "blandas": 3
-        },
-        {
-          "candidato": 3,
-          "valido": true,
-          "puntaje": 11,
-          "partes": {
-            "datos": 4,
+            "datos": 5,
             "cliffhanger": false,
             "repetidos": 0,
             "relleno": 0,
-            "adj_100": 1.27,
+            "adj_100": 1.1,
             "adj_fuera": true,
             "trigramas_previos": 0.0
           },
           "duras": 2,
-          "blandas": 2
-        }
-      ]
-    },
-    "2": {
-      "elegido": 1,
-      "candidatos": [
-        {
-          "candidato": 1,
-          "valido": true,
-          "puntaje": 10,
-          "partes": {
-            "datos": 3,
-            "cliffhanger": true,
-            "repetidos": 0,
-            "relleno": 0,
-            "adj_100": 0.69,
-            "adj_fuera": true,
-            "trigramas_previos": 0.0122
-          },
-          "duras": 0,
-          "blandas": 2
-        },
-        {
-          "candidato": 2,
-          "valido": false,
-          "error": "cap 2 (development): largo 786 fuera de rango [800, 2000]"
-        },
-        {
-          "candidato": 3,
-          "valido": true,
-          "puntaje": 11,
-          "partes": {
-            "datos": 3,
-            "cliffhanger": true,
-            "repetidos": 0,
-            "relleno": 0,
-            "adj_100": 2.87,
-            "adj_fuera": false,
-            "trigramas_previos": 0.0109
-          },
-          "duras": 1,
-          "blandas": 2
-        }
-      ]
-    },
-    "3": {
-      "elegido": 2,
-      "candidatos": [
-        {
-          "candidato": 1,
-          "valido": true,
-          "puntaje": 7,
-          "partes": {
-            "datos": 2,
-            "cliffhanger": true,
-            "repetidos": 0,
-            "relleno": 0,
-            "adj_100": 1.2,
-            "adj_fuera": true,
-            "trigramas_previos": 0.022
-          },
-          "duras": 2,
-          "blandas": 3
-        },
-        {
-          "candidato": 2,
-          "valido": true,
-          "puntaje": 11,
-          "partes": {
-            "datos": 4,
-            "cliffhanger": true,
-            "repetidos": 1,
-            "relleno": 0,
-            "adj_100": 2.14,
-            "adj_fuera": false,
-            "trigramas_previos": 0.0405
-          },
-          "duras": 2,
-          "blandas": 1
-        },
-        {
-          "candidato": 3,
-          "valido": true,
-          "puntaje": 11,
-          "partes": {
-            "datos": 3,
-            "cliffhanger": true,
-            "repetidos": 0,
-            "relleno": 0,
-            "adj_100": 2.13,
-            "adj_fuera": false,
-            "trigramas_previos": 0.039
-          },
-          "duras": 1,
-          "blandas": 2
-        }
-      ]
-    },
-    "4": {
-      "elegido": 3,
-      "candidatos": [
-        {
-          "candidato": 1,
-          "valido": true,
-          "puntaje": 8,
-          "partes": {
-            "datos": 2,
-            "cliffhanger": true,
-            "repetidos": 0,
-            "relleno": 0,
-            "adj_100": 2.17,
-            "adj_fuera": false,
-            "trigramas_previos": 0.0263
-          },
-          "duras": 2,
-          "blandas": 2
-        },
-        {
-          "candidato": 2,
-          "valido": true,
-          "puntaje": 10,
-          "partes": {
-            "datos": 3,
-            "cliffhanger": true,
-            "repetidos": 0,
-            "relleno": 0,
-            "adj_100": 4.11,
-            "adj_fuera": true,
-            "trigramas_previos": 0.013
-          },
-          "duras": 1,
-          "blandas": 3
-        },
-        {
-          "candidato": 3,
-          "valido": true,
-          "puntaje": 11,
-          "partes": {
-            "datos": 3,
-            "cliffhanger": true,
-            "repetidos": 0,
-            "relleno": 0,
-            "adj_100": 2.68,
-            "adj_fuera": false,
-            "trigramas_previos": 0.0247
-          },
-          "duras": 0,
-          "blandas": 2
-        }
-      ]
-    },
-    "5": {
-      "elegido": 3,
-      "candidatos": [
-        {
-          "candidato": 1,
-          "valido": true,
-          "puntaje": 10,
-          "partes": {
-            "datos": 4,
-            "cliffhanger": true,
-            "repetidos": 1,
-            "relleno": 0,
-            "adj_100": 1.55,
-            "adj_fuera": true,
-            "trigramas_previos": 0.0
-          },
-          "duras": 1,
           "blandas": 3
         },
         {
@@ -345,99 +135,178 @@
             "cliffhanger": true,
             "repetidos": 0,
             "relleno": 0,
-            "adj_100": 3.31,
+            "adj_100": 3.28,
             "adj_fuera": false,
-            "trigramas_previos": 0.0098
+            "trigramas_previos": 0.0
           },
           "duras": 0,
-          "blandas": 3
+          "blandas": 2
         },
         {
           "candidato": 3,
           "valido": true,
-          "puntaje": 23,
+          "puntaje": 17,
           "partes": {
-            "datos": 7,
+            "datos": 5,
             "cliffhanger": true,
             "repetidos": 0,
             "relleno": 0,
-            "adj_100": 2.26,
+            "adj_100": 3.9,
             "adj_fuera": false,
-            "trigramas_previos": 0.0098
-          },
-          "duras": 0,
-          "blandas": 3
-        }
-      ]
-    },
-    "6": {
-      "elegido": 1,
-      "candidatos": [
-        {
-          "candidato": 1,
-          "valido": true,
-          "puntaje": 10,
-          "partes": {
-            "datos": 3,
-            "cliffhanger": true,
-            "repetidos": 0,
-            "relleno": 0,
-            "adj_100": 1.06,
-            "adj_fuera": true,
-            "trigramas_previos": 0.0
-          },
-          "duras": 0,
-          "blandas": 3
-        },
-        {
-          "candidato": 2,
-          "valido": true,
-          "puntaje": 10,
-          "partes": {
-            "datos": 3,
-            "cliffhanger": true,
-            "repetidos": 0,
-            "relleno": 0,
-            "adj_100": 1.82,
-            "adj_fuera": true,
-            "trigramas_previos": 0.0
-          },
-          "duras": 2,
-          "blandas": 3
-        },
-        {
-          "candidato": 3,
-          "valido": true,
-          "puntaje": 10,
-          "partes": {
-            "datos": 3,
-            "cliffhanger": true,
-            "repetidos": 0,
-            "relleno": 0,
-            "adj_100": 1.55,
-            "adj_fuera": true,
             "trigramas_previos": 0.0
           },
           "duras": 1,
-          "blandas": 3
+          "blandas": 1
         }
       ]
     },
-    "7": {
+    "2": {
       "elegido": 2,
       "candidatos": [
         {
           "candidato": 1,
           "valido": true,
-          "puntaje": 14,
+          "puntaje": 13,
           "partes": {
-            "datos": 5,
-            "cliffhanger": null,
+            "datos": 4,
+            "cliffhanger": true,
             "repetidos": 0,
             "relleno": 0,
-            "adj_100": 0.61,
+            "adj_100": 1.14,
             "adj_fuera": true,
-            "trigramas_previos": 0.1648
+            "trigramas_previos": 0.0204
+          },
+          "duras": 0,
+          "blandas": 1
+        },
+        {
+          "candidato": 2,
+          "valido": true,
+          "puntaje": 14,
+          "partes": {
+            "datos": 4,
+            "cliffhanger": true,
+            "repetidos": 0,
+            "relleno": 0,
+            "adj_100": 3.85,
+            "adj_fuera": false,
+            "trigramas_previos": 0.0244
+          },
+          "duras": 0,
+          "blandas": 0
+        }
+      ]
+    },
+    "3": {
+      "elegido": 2,
+      "candidatos": [
+        {
+          "candidato": 1,
+          "valido": true,
+          "puntaje": 11,
+          "partes": {
+            "datos": 4,
+            "cliffhanger": true,
+            "repetidos": 1,
+            "relleno": 0,
+            "adj_100": 2.35,
+            "adj_fuera": false,
+            "trigramas_previos": 0.0341
+          },
+          "duras": 1,
+          "blandas": 2
+        },
+        {
+          "candidato": 2,
+          "valido": true,
+          "puntaje": 14,
+          "partes": {
+            "datos": 4,
+            "cliffhanger": true,
+            "repetidos": 0,
+            "relleno": 0,
+            "adj_100": 2.23,
+            "adj_fuera": false,
+            "trigramas_previos": 0.0309
+          },
+          "duras": 0,
+          "blandas": 2
+        },
+        {
+          "candidato": 3,
+          "valido": true,
+          "puntaje": 13,
+          "partes": {
+            "datos": 4,
+            "cliffhanger": true,
+            "repetidos": 0,
+            "relleno": 0,
+            "adj_100": 4.17,
+            "adj_fuera": true,
+            "trigramas_previos": 0.0291
+          },
+          "duras": 0,
+          "blandas": 2
+        }
+      ]
+    },
+    "4": {
+      "elegido": 2,
+      "candidatos": [
+        {
+          "candidato": 1,
+          "valido": false,
+          "error": "cap 4 (development): largo 910 fuera de rango [920, 2000]"
+        },
+        {
+          "candidato": 2,
+          "valido": true,
+          "puntaje": 14,
+          "partes": {
+            "datos": 4,
+            "cliffhanger": true,
+            "repetidos": 0,
+            "relleno": 0,
+            "adj_100": 2.54,
+            "adj_fuera": false,
+            "trigramas_previos": 0.0
+          },
+          "duras": 0,
+          "blandas": 2
+        },
+        {
+          "candidato": 3,
+          "valido": true,
+          "puntaje": 17,
+          "partes": {
+            "datos": 5,
+            "cliffhanger": true,
+            "repetidos": 0,
+            "relleno": 0,
+            "adj_100": 3.61,
+            "adj_fuera": false,
+            "trigramas_previos": 0.0
+          },
+          "duras": 1,
+          "blandas": 1
+        }
+      ]
+    },
+    "5": {
+      "elegido": 2,
+      "candidatos": [
+        {
+          "candidato": 1,
+          "valido": true,
+          "puntaje": 13,
+          "partes": {
+            "datos": 4,
+            "cliffhanger": true,
+            "repetidos": 0,
+            "relleno": 0,
+            "adj_100": 1.85,
+            "adj_fuera": true,
+            "trigramas_previos": 0.0
           },
           "duras": 0,
           "blandas": 4
@@ -445,18 +314,102 @@
         {
           "candidato": 2,
           "valido": true,
-          "puntaje": 15,
+          "puntaje": 14,
           "partes": {
-            "datos": 5,
-            "cliffhanger": null,
+            "datos": 4,
+            "cliffhanger": true,
             "repetidos": 0,
             "relleno": 0,
-            "adj_100": 2.58,
+            "adj_100": 2.6,
             "adj_fuera": false,
-            "trigramas_previos": 0.2093
+            "trigramas_previos": 0.0
           },
           "duras": 0,
           "blandas": 2
+        }
+      ]
+    },
+    "6": {
+      "elegido": 2,
+      "candidatos": [
+        {
+          "candidato": 1,
+          "valido": true,
+          "puntaje": 8,
+          "partes": {
+            "datos": 2,
+            "cliffhanger": true,
+            "repetidos": 0,
+            "relleno": 0,
+            "adj_100": 3.0,
+            "adj_fuera": false,
+            "trigramas_previos": 0.0086
+          },
+          "duras": 1,
+          "blandas": 2
+        },
+        {
+          "candidato": 2,
+          "valido": true,
+          "puntaje": 11,
+          "partes": {
+            "datos": 3,
+            "cliffhanger": true,
+            "repetidos": 0,
+            "relleno": 0,
+            "adj_100": 2.25,
+            "adj_fuera": false,
+            "trigramas_previos": 0.0075
+          },
+          "duras": 0,
+          "blandas": 2
+        },
+        {
+          "candidato": 3,
+          "valido": true,
+          "puntaje": 11,
+          "partes": {
+            "datos": 3,
+            "cliffhanger": true,
+            "repetidos": 0,
+            "relleno": 0,
+            "adj_100": 3.59,
+            "adj_fuera": false,
+            "trigramas_previos": 0.0
+          },
+          "duras": 0,
+          "blandas": 2
+        }
+      ]
+    },
+    "7": {
+      "elegido": 1,
+      "candidatos": [
+        {
+          "candidato": 1,
+          "valido": true,
+          "puntaje": 17,
+          "partes": {
+            "datos": 6,
+            "cliffhanger": null,
+            "repetidos": 0,
+            "relleno": 0,
+            "adj_100": 1.9,
+            "adj_fuera": true,
+            "trigramas_previos": 0.2697
+          },
+          "duras": 0,
+          "blandas": 3
+        },
+        {
+          "candidato": 2,
+          "valido": false,
+          "error": "cap 7 (reveal_outro): largo 1129 fuera de rango [460, 1100]"
+        },
+        {
+          "candidato": 3,
+          "valido": false,
+          "error": "cap 7 (reveal_outro): largo 1127 fuera de rango [460, 1100]"
         }
       ]
     }

@@ -292,6 +292,15 @@
    "Cornel Hubert",
    "Raphael Schwarz"
   ],
+  "cifras_no_canonicas": [
+   "cap 1: 6,500 (rango; la oficial es 6,375)",
+   "cap 1: 6,500 (aproximada; la oficial es 6,375)",
+   "cap 3: 6,500 (rango; la oficial es 6,375)",
+   "cap 3: 6,500 (aproximada; la oficial es 6,375)",
+   "cap 7: 8,000 (medios; la oficial es 6,375)"
+  ],
+  "problemas_de_fechas": 3,
+  "pantalla_dichos": [],
   "densidad_hechos": 2.01,
   "umbral": {
    "densidad": true,
