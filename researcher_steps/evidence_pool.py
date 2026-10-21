@@ -8,8 +8,8 @@ bloques angulares, SIN tope, para que el guion y la pantalla tengan todos los da
       "datos":      [{"id": "D01", "texto", "tipo", "valor", "fecha", "bloque", "fuente"}],
       "cronologia": [{"id": "T01", "fecha", "hora", "evento", "bloque", "fuente"}],
       "lugares":    [{"id": "L01", "nombre", "rol", "bloque", "lat", "lon"}],
-      "citas":      [{"id": "Q01", "texto", "autor", "fecha", "bloque", "fuente"}],
-      "personajes": [{"id": "P01", "nombre", "rol", "antagonista", "bloque"}]
+      "citas":      [{"id": "Q01", "texto", "autor", "fecha", "bloque", "fuente", "rol", "testimonio"}],
+      "personajes": [{"id": "P01", "nombre", "rol", "antagonista", "bloque", "testigo", "presente_en"}]
     }
 
 Reglas (deterministas, después del LLM):
@@ -33,6 +33,14 @@ F5b:
                una cita o antagonista); «Raphael Schwarz es arrestado» no alcanza. Sus datos de puro nombre, fuera.
     mayúsculas (N5) «Institución: Prisión…» pierde el rótulo; el rol va en minúscula («arrestado por…»).
     Lo descartado queda en pool["_descartados"] (auditable; evidence.items no lo lee).
+F6a (guion v3: un humano con nombre que seguimos todo el video):
+    testimonios  una cita de alguien que ESTUVO AHÍ (preso, guardia, familiar, rescatista) va con `testimonio: true`
+                 y el `rol` de quien la dice; las de funcionarios hablando desde afuera, `testimonio: false`.
+    testigo      `personajes[].testigo` = el research lo pone en el lugar de los hechos (o dice un testimonio);
+                 `presente_en` = ids de la cronología donde estuvo: los eventos que lo nombran y los de las fechas
+                 en que el research lo ubica ahí (`fechas_presente` del LLM, AAAA-MM-DD).
+    add_block    un bloque nuevo (re-research de una sección, p. ej. [TESTIMONIOS]) entra a un pool existente sin
+                 cambiar los ids viejos: lo nuevo sigue la numeración; lo repetido se fusiona.
 LLAMADAS: 1 Flash por bloque (tecnico, humano, misterio).
 """
 from __future__ import annotations
@@ -67,9 +75,11 @@ SCHEMA: dict[str, Any] = {
             "nombre": {"type": "STRING"}, "rol": {"type": "STRING"}}, "required": ["nombre"]}},
         "citas": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
             "texto": {"type": "STRING"}, "autor": {"type": "STRING"}, "fecha": {"type": "STRING"},
-            "fuente": {"type": "STRING"}}, "required": ["texto", "autor"]}},
+            "fuente": {"type": "STRING"}, "rol": {"type": "STRING"}, "testimonio": {"type": "BOOLEAN"}},
+            "required": ["texto", "autor"]}},
         "personajes": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
-            "nombre": {"type": "STRING"}, "rol": {"type": "STRING"}, "antagonista": {"type": "BOOLEAN"}},
+            "nombre": {"type": "STRING"}, "rol": {"type": "STRING"}, "antagonista": {"type": "BOOLEAN"},
+            "testigo": {"type": "BOOLEAN"}, "fechas_presente": {"type": "ARRAY", "items": {"type": "STRING"}}},
             "required": ["nombre", "rol"]}},
     },
     "required": ["datos", "cronologia", "lugares", "citas", "personajes"],
@@ -327,9 +337,14 @@ Extraé TODO lo verificable del bloque, sin tope y sin resumir:
 - cronologia: cada evento fechado de la sección [CRONOLOGÍA] (y fechas del resto). "evento" LITERAL del bloque;
   "fecha" AAAA-MM-DD (o AAAA-MM / AAAA si el bloque no da más); "hora" HH:MM solo si el bloque la da.
 - lugares: cada lugar con nombre propio (edificio, calle, barrio, ciudad), "nombre" literal; "rol" en ≤ 6 palabras.
-- citas: frases entre comillas atribuidas a una persona, "texto" literal SIN las comillas, "autor" literal.
+- citas: frases entre comillas atribuidas a una persona, "texto" literal SIN las comillas, "autor" literal (un
+  testigo anónimo también: "un preso de Templeman III"); "rol" de quien la dice en ≤ 8 palabras; testimonio=true
+  solo si quien habla ESTUVO AHÍ (preso, guardia, familiar, rescatista, vecino), false si habla desde afuera
+  (funcionario, abogado, vocero).
 - personajes: personas con nombre propio, "nombre" literal; "rol" en ≤ 10 palabras; antagonista=true solo si el
-  bloque le atribuye una decisión que causó el daño.
+  bloque le atribuye una decisión que causó el daño; testigo=true solo si el bloque lo ubica EN el lugar de los
+  hechos o cita su testimonio; "fechas_presente" = las fechas AAAA-MM-DD en que el bloque lo pone ahí (vacío si no
+  da fechas).
 - "fuente": SOLO si el bloque atribuye ese ítem a una de sus [FUENTES CONSULTADAS] (copiá la fuente tal cual
   figura en la lista). Si no la atribuye, dejalo vacío. NUNCA adivines la fuente.
 No inventes nada que no esté escrito en el bloque."""
@@ -375,7 +390,10 @@ def validate_block(raw: dict[str, Any], block_name: str, block: str, log: list[s
         if literal_in(t, fuentes_txt):                  # el título de un informe no es una cita
             continue
         out["citas"].append({"texto": t, "autor": a, "fecha": _str(q.get("fecha")) or None, "bloque": block_name,
-                             "fuente": resolve_source(t + " " + a, _str(q.get("fuente")) or None, block)})
+                             # F6a: la línea del testimonio («"…" — Nombre, rol — Fuente, año») nombra la fuente
+                             "fuente": resolve_source(t + " " + a, _str(q.get("fuente")) or None, block)
+                             or resolve_source(t, _str(q.get("fuente")) or None, block),
+                             "rol": _str(q.get("rol")) or None, "testimonio": bool(q.get("testimonio"))})
     for p in raw.get("personajes") or []:
         n = _str(p.get("nombre"))
         if not literal_in(n, block):
@@ -383,8 +401,10 @@ def validate_block(raw: dict[str, Any], block_name: str, block: str, log: list[s
             continue
         if not is_person(n):                            # ACLU, «médium psíquico»: no son personajes
             continue
+        fechas = [f for f in (_str(x) for x in p.get("fechas_presente") or []) if re.fullmatch(r"\d{4}(-\d{2}){0,2}", f)]
         out["personajes"].append({"nombre": n, "rol": _str(p.get("rol")) or None,
-                                  "antagonista": bool(p.get("antagonista")), "bloque": block_name})
+                                  "antagonista": bool(p.get("antagonista")), "bloque": block_name,
+                                  "testigo": bool(p.get("testigo")), "fechas_presente": fechas})
     # datos: un texto contenido en otro dato del mismo bloque es un fragmento repetido
     keep = []
     for d in out["datos"]:
@@ -454,6 +474,11 @@ def merge(per_block: list[dict[str, list[dict]]]) -> dict[str, list[dict]]:
                     if len(it["nombre"]) > len(prev["nombre"]):
                         prev["nombre"] = it["nombre"]
                     prev["antagonista"] = prev.get("antagonista") or it.get("antagonista")
+                    prev["testigo"] = bool(prev.get("testigo") or it.get("testigo"))           # F6a
+                    prev["fechas_presente"] = sorted(set(prev.get("fechas_presente") or [])
+                                                     | set(it.get("fechas_presente") or []))
+                elif k == "citas" and it.get("testimonio") and not prev.get("testimonio"):
+                    prev.update({kk: it[kk] for kk in ("rol", "testimonio") if it.get(kk)})
                 elif k == "cronologia" and (it.get("fuente") and not prev.get("fuente")
                                             or len(it["evento"]) > len(prev["evento"]) and not prev.get("fuente")):
                     prev.update({kk: it[kk] for kk in ("evento", "bloque", "fuente", "hora") if it.get(kk)})
@@ -658,6 +683,86 @@ def acting_filter(pool: dict[str, Any], blocks: list[str], log: list[str]) -> No
 #  Pública
 # ═══════════════════════════════════════════════════════════════
 
+def presence(pool: dict[str, Any], log: list[str] | None = None) -> None:
+    """F6a (in place): `testigo` y `presente_en` de cada personaje. Testigo si el LLM lo ubicó ahí o si dice una cita
+    marcada testimonio. presente_en = ids de la cronología que lo nombran (apellido) + los de las fechas en que el
+    research lo pone ahí. `fechas_presente` queda como evidencia."""
+    crono = pool.get("cronologia") or []
+    for p in pool.get("personajes") or []:
+        sur = _person_key(p["nombre"])[1]
+        said = [q for q in pool.get("citas") or [] if q.get("testimonio") and _person_key(q.get("autor") or "")[1] == sur]
+        p["testigo"] = bool(p.get("testigo") or said)
+        days = set(p.get("fechas_presente") or [])
+        ids = [c["id"] for c in crono if (sur and sur in re.findall(r"[a-zñ]+", norm(c["evento"])))
+               or any(str(c["fecha"]).startswith(d) for d in days if len(d) == 10)]
+        p["presente_en"] = list(dict.fromkeys(ids))
+        p.setdefault("fechas_presente", [])
+    if log is not None:
+        log.append(f"  [4a·pool] testigos: {[(p['nombre'], p['presente_en']) for p in pool.get('personajes') or [] if p['testigo']]}"
+                   f" · citas testimonio: {sum(1 for q in pool.get('citas') or [] if q.get('testimonio'))}")
+
+
+def add_block(pool: dict[str, Any], block_name: str, block: str, *, call: Callable[..., dict] | None = None,
+              log: list[str] | None = None, raw_cache: Path | None = None,
+              other_blocks: list[str] | None = None) -> dict[str, Any]:
+    """F6a: suma un bloque NUEVO a un pool existente (re-research de una sección) sin tocar los ids viejos: los ítems
+    que el pool ya tiene se fusionan con el suyo (mismas reglas que `merge`), los nuevos siguen la numeración de su
+    tipo. Después corren el filtro de acción (sobre `other_blocks` + el nuevo: los bloques del research original;
+    un personaje viejo no sale por no actuar en la sección nueva) y la presencia. Devuelve el pool (el mismo objeto)."""
+    log = log if log is not None else []
+    if call is None:
+        from gemini_helpers import call_flash_json as call
+    import hashlib
+    h = hashlib.sha1(build_prompt(block_name, block).encode("utf-8")).hexdigest()[:12]
+    cached = {}
+    if raw_cache is not None and raw_cache.exists():
+        try:
+            cached = json.loads(raw_cache.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            cached = {}
+    raw = (cached.get(block_name) or {}).get("raw") if (cached.get(block_name) or {}).get("hash") == h else None
+    if raw is None:
+        raw = call(build_prompt(block_name, block), system_instruction=SYSTEM, response_schema=SCHEMA,
+                   description=f"4a evidence_pool {block_name}")
+        if raw_cache is not None:
+            cached[block_name] = {"hash": h, "raw": raw}
+            raw_cache.parent.mkdir(parents=True, exist_ok=True)
+            raw_cache.write_text(json.dumps(cached, ensure_ascii=False, indent=1), encoding="utf-8")
+    part = validate_block(raw or {}, block_name, block, log)
+    old_ids = {k: {it["id"] for it in pool.get(k) or []} for k in _PREFIX}
+    merged = merge([{k: [dict(x) for x in pool.get(k) or []] for k in _PREFIX}, part])
+    # merge renumera: los viejos recuperan su id (por posición: merge conserva el orden de lo que ya estaba,
+    # salvo la cronología, que ordena por fecha) y los nuevos siguen la numeración
+    for k, pre in _PREFIX.items():
+        prev = pool.get(k) or []
+        keyf = (lambda x: norm(x[_KEY[k]]))
+        by_key = {keyf(x): x["id"] for x in prev}
+        nxt = max([int(i[1:]) for i in old_ids[k]] or [0])
+        out = []
+        for it in merged[k]:
+            oid = by_key.get(keyf(it))
+            if oid is None and k == "personajes":
+                oid = next((x["id"] for x in prev if _person_key(x["nombre"]) == _person_key(it["nombre"])), None)
+            if oid is None:
+                oid = next((x["id"] for x in prev if x.get("fecha") == it.get("fecha") and k == "cronologia"
+                            and _content_set(x["evento"]) and _content_set(it["evento"])
+                            and len(_content_set(x["evento"]) & _content_set(it["evento"]))
+                            / min(len(_content_set(x["evento"])), len(_content_set(it["evento"]))) >= 0.5), None)
+            if oid is None:
+                nxt += 1
+                oid = f"{pre}{nxt:02d}"
+            it["id"] = oid
+            out.append({"id": it.pop("id"), **it})
+        new = [x for x in out if x["id"] not in old_ids[k]]
+        if new:
+            log.append(f"  [4a·pool] {block_name}: {k} nuevos {[x['id'] for x in new]}")
+        pool[k] = out
+    pool.setdefault("_descartados", []).extend(part.get("_descartados") or [])
+    acting_filter(pool, [b for b in (other_blocks or []) if b] + [block], log)
+    presence(pool, log)
+    return pool
+
+
 def extract_evidence_pool(angle_blocks: dict[str, str], *, call: Callable[..., dict] | None = None,
                           geocode_cache: Path | None = None, fetch: Callable[[str], list] | None = None,
                           log: list[str] | None = None, raw_cache: Path | None = None) -> dict[str, list[dict]]:
@@ -695,6 +800,7 @@ def extract_evidence_pool(angle_blocks: dict[str, str], *, call: Callable[..., d
     pool = merge(parts)
     pool["_descartados"] = [d for p in parts for d in p.get("_descartados") or []]
     acting_filter(pool, [b for b in angle_blocks.values() if b], log)
+    presence(pool, log)                                                       # F6a
     canonical_figures(pool, [b for b in angle_blocks.values() if b], log)
     if geocode_cache is None:
         from config import DATA_DIR

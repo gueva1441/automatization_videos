@@ -164,10 +164,24 @@ MAGNITUDE_SECTION = """
 - ..."""
 
 
+# F6a: testimonios de personas que ESTUVIERON AHÍ (el guion v3 sigue a un humano con nombre). Ángulos humano y misterio.
+TESTIMONIOS_SECTION = """
+[TESTIMONIOS]
+(citas TEXTUALES, entre comillas, de personas que ESTUVIERON AHÍ: presos, guardias, familiares, rescatistas, vecinos,
+médicos; sin tope. NO funcionarios hablando desde afuera)
+- "cita textual" — Nombre Apellido, rol (preso de…, guardia de…, madre de…), fecha AAAA-MM-DD si se sabe — Fuente (autor/publicación, año)
+- ...
+(Para cada testigo con nombre, en qué momentos estuvo: «Nombre Apellido estuvo en <lugar> el AAAA-MM-DD …».
+Si no hay testimonios con nombre, escribí «SIN TESTIMONIOS CON NOMBRE» y listá los anónimos con rol y fuente:
+- "cita textual" — un preso de <lugar>, <edad si se sabe> — Fuente)"""
+TESTIMONIO_ANGLES = ("humano", "misterio")
+
+
 def _build_angle_query_prompt(seed: dict, angle: dict) -> str:
     """Prompt para UNA query angular (3 llamadas × seed en LONG). F5e: el ángulo técnico pide además
-    [DATOS DE MAGNITUD] (los otros ángulos, igual que antes)."""
+    [DATOS DE MAGNITUD]. F6a: humano y misterio piden además [TESTIMONIOS]."""
     magnitude = MAGNITUDE_SECTION if angle.get("key") == "tecnico" else ""
+    magnitude += TESTIMONIOS_SECTION if angle.get("key") in TESTIMONIO_ANGLES else ""
     return f"""Eres un investigador de documentales para History Channel / Netflix.
 
 TEMA: "{seed['seed_title']}"
@@ -330,6 +344,53 @@ def _research_angle(seed: dict, angle: dict) -> str:
 @error_handler.retry(PipelineStage.TOPIC_RESEARCHER, max_server_retries=3)
 def _research_angle_with_backoff(seed: dict, angle: dict) -> str:
     return _research_angle(seed, angle)
+
+
+TESTIMONIOS_ANGLE = {
+    "key": "testimonios",
+    "label": "TESTIMONIOS",
+    "focus": ("Las PERSONAS que estuvieron ahí y lo contaron: presos, guardias, familiares, rescatistas, vecinos, "
+              "médicos. Sus palabras textuales, con nombre, rol y fuente; en qué momento y lugar estaba cada una. "
+              "Informes de organizaciones (HRW, ACLU, tribunales, prensa) que recogieron declaraciones con nombre."),
+}
+
+
+def _build_testimonios_prompt(seed: dict, angle: dict) -> str:
+    """F6a: query de UN solo tema (re-research de la sección [TESTIMONIOS] de un topic ya investigado)."""
+    return f"""Eres un investigador de documentales para History Channel / Netflix.
+
+TEMA: "{seed['seed_title']}"
+ÁNGULO DE ESTA QUERY: {angle['label']}
+
+FOCO DE ESTA INVESTIGACIÓN:
+{angle['focus']}
+
+INSTRUCCIONES:
+1. Investigá con Google Search grounding: informes con declaraciones, prensa, expedientes judiciales, entrevistas.
+2. Copiá las citas TEXTUALES (no las parafrasees) con quién las dijo y dónde se publicaron.
+3. Nunca inventes un nombre, una cita ni una fuente. Si no hay, decilo.
+
+FORMATO DE SALIDA — texto plano estructurado:
+
+=== HALLAZGOS DEL ÁNGULO {angle['label']} ===
+{TESTIMONIOS_SECTION}
+
+[CRONOLOGÍA]
+- YYYY-MM-DD: evento que vivió un testigo (con su nombre)
+- ...
+
+[FUENTES CONSULTADAS]
+- Nombre autor/publicación, año, título del trabajo
+- ...
+
+RESPONDE SOLO CON EL BLOQUE DE TEXTO ESTRUCTURADO ARRIBA.
+Sin preámbulos. Sin cierres. Sin markdown."""
+
+
+def research_testimonios(seed: dict) -> str:
+    """F6a: una query Pro + Google Search solo de testimonios (≈ US$ 0.50). Devuelve el bloque o ""."""
+    _ANGLE_PROMPT_BUILDERS.setdefault("testimonios", _build_testimonios_prompt)
+    return _research_angle_with_backoff(seed, TESTIMONIOS_ANGLE)
 
 
 def _gather_angle_blocks(seed: dict) -> dict[str, str]:

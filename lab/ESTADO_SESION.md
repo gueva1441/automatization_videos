@@ -1,15 +1,31 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (F5f cerrado como laboratorio; ver sección F5f) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (F6 en curso en f6-guion-v3; ver sección F6) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
-- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit: «F5f: cierre Orleans (lab)» (`git log -1`), sobre `cc625e2` wip F5f.
+- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «F5f: cierre Orleans (lab)» (`git log -1`), sobre `cc625e2` wip F5f.
 - Cadena de ramas sin mergear: `f2-gfx-director` (F2b @ `31c671c`) → `f3-lab-identidad` (F3–F4e @ `39e37ac`) → `f5-guion-v2` (F5).
 - `main` = `43f528a`. NO se toca sin OK explícito de Omar.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
+
+## F6 — Guion v3 (escaleta → guionista → editor → partición) — F6a hecho, F6b en curso
+- Handoff: `lab/hyperframes/f6/HANDOFF_F6_guion_v3.md`. Rama **`f6-guion-v3`**, desde `45c052c` (f5-guion-v2). Sin merge a main.
+- Esta sesión: F6a y F6b, después PARADA (el analista valida la escaleta desde disco antes de F6c).
+- **Frenos (§5):** no se tocan normalizer, TTS, m07, m03, fase2a/2b, `gfx_*` ni `evidence.py`. Se mantienen el contrato de 7 caps y el camino v2 byte-idéntico sin pool.
+- **F6a hecho:**
+  - `topic_researcher.TESTIMONIOS_SECTION` en los ángulos humano y misterio; `research_testimonios` (query solo de testimonios).
+  - `evidence_pool`:
+    - citas con `rol` y `testimonio`, y personajes con `testigo`, `fechas_presente` y `presente_en` (`presence`);
+    - `add_block` suma un bloque sin tocar los ids viejos;
+    - la fuente de una cita se resuelve por su línea.
+  - Tests: `test_module_f6a.py` (3).
+- **Orleans v3:** topic `ba6c3cac-f6v3` en `data/scripts/_steps/ba6c3cac-f6v3/` (pasos de investigación copiados de f5v2, que no se toca). Lo arma `lab/hyperframes/f6/f6a_testimonios_orleans.py`; resumen en `lab/hyperframes/f6/F6a_testimonios.md`.
+  - 9 citas testimonio, 7 con fuente. Testigos: P08 Burton (preso), P09 Norman (preso), P10 Ducre (guardia) y P12 Burnley (madre de Chad Joseph).
+  - Costo: US$ 0.03.
+- **Falta:** F6b (`m01a_escaleta`), la escaleta de Orleans, `F6ab_REPORT.md`, revisor, commit y PARADA.
 
 ## F5f — Cierre de Orleans (laboratorio) — CERRADO, PARADA (el analista valida desde disco)
 - **Rama:** `f5-guion-v2`. **Último commit:** «F5f: cierre Orleans (lab)» (`git log -1`), sobre `cc625e2` («wip: F5f pre-cierre»). Omar no publica este video.
