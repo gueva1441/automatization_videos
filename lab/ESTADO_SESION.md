@@ -1,9 +1,9 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (F6b-3 hecho; PARADA para el analista; ver sección F6) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (F6c hecho; PARADA: el analista lee la narración; ver sección F6) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
-- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «feat(f6b3): …» (`git log -1`) en f6-guion-v3; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
+- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «feat(f6c): …» (`git log -1`) en f6-guion-v3; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
 - Cadena de ramas sin mergear: `f2-gfx-director` (F2b @ `31c671c`) → `f3-lab-identidad` (F3–F4e @ `39e37ac`) → `f5-guion-v2` (F5).
 - `main` = `43f528a`. NO se toca sin OK explícito de Omar.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
@@ -11,21 +11,26 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F6 — Guion v3 (escaleta → guionista → editor → partición) — F6a, F6b y F6b-3 HECHOS · PARADA (el analista valida f6b-3 antes de F6c)
-- Handoff: `lab/hyperframes/f6/HANDOFF_F6_guion_v3.md`. Rama **`f6-guion-v3`**, desde `45c052c` (f5-guion-v2). Sin merge a main.
-- **Leer:** `lab/hyperframes/f6/F6b3_REPORT.md` (lo último: 6 puntos del analista, desvíos por la verificación, dudas 1–8, veredicto íntegro del revisor: CUMPLE CON OBSERVACIONES), `ESCALETA_orleans.md` (f6b-3) y `F6b3_verificacion.md`. Antes: `F6ab_REPORT.md` y `ESCALETA_orleans_f6b2.md` / `_f6b1.md`.
-- **Frenos (§5):** no se tocan normalizer, TTS, m07, m03, fase2a/2b, `gfx_*`, `evidence.py`, `m01a_skeleton` ni `m01b_narrator`. El camino v2 sin pool queda byte-idéntico.
-- **F6a:** `[TESTIMONIOS]` en el research, testigo/presente_en, `add_block`. Orleans v3 = topic `ba6c3cac-f6v3`, solo en `data/scripts/_steps/` (`topics_db` no se tocó).
-- **F6b:** `script_engine/m01a_escaleta.py`.
-- **F6b-3:**
-  - `flash_forward`, `a_pantalla`, cierre con testigo verificado, reservados por fecha del beat;
-  - un conteo con una cifra (`count_variants`) e `instrucciones_guionista`;
-  - `escaleta_notas` por tema y cifras en letras en el gancho;
-  - `researcher_steps/verify_quotes.py`: 2 de 9 testimonios verificados (Q03 Burton, Q04 Norman); las sin verificar se usan sin nombre.
-  - Escaleta f6b-3: 11 beats; flash-forward en el beat 1; pico en el beat 7 (517); respiro con Burton; cierre con D61 + Q04 de Norman.
-  - Costo ≈ US$ 0.42.
-- **Tests:** `test_module_f6a.py` (3) y `test_module_f6b.py` (28). Suites: 441 verdes + 3 viejas.
-- **Siguiente (F6c, con el OK del analista):** `m01b_guionista` + `m01c_editor`. Pendientes del reporte: el pico (517 o cadáveres), la pregunta del cap 7, los turistas en pantalla, «los 517» en pantalla, `topics_db` del f6v3 y el validador del gancho sobre la prosa.
+## F6 — Guion v3 — F6a, F6b, F6b-3, F6c (A verificación literal + B escaleta f6b-4 + C guionista/editor) HECHOS · PARADA: el analista lee la narración
+- Handoff: `lab/hyperframes/f6/HANDOFF_F6_guion_v3.md`. Rama **`f6-guion-v3`**, desde `45c052c`. Sin merge a main.
+- **Leer:** `lab/hyperframes/f6/F6c_REPORT.md` (A/B/C, lo que queda, veredicto íntegro del revisor: CUMPLE CON OBSERVACIONES), `NARRACION_orleans_v3.md`, `ESCALETA_orleans.md` (f6b-4) y `F6c_verificacion.md`. Antes: `F6b3_REPORT.md` y `F6ab_REPORT.md`.
+- **Frenos (§5) intactos** (+ `m05_narrative` y `m01b_narrator` sin tocar: se usan).
+- **A — verificación literal:** `researcher_steps/verify_quotes.verify_literal`. Fuentes bajadas en `data/scripts/_steps/ba6c3cac-f6v3/fuentes/` (BBC/rebelion 2006, PDF de la ACLU 2006, The Lens 2025).
+  - Verificadas: Q03 (Burton) y Q04 (Norman, literal BBC «Simplemente abandonaron la cárcel»); D95 nuevo (103 días).
+  - Fuera del pool: Q05 (atribución errónea) y Burnley / Chad Joseph (contaminación).
+  - Sin verificar: Q06, Q07, Q11–Q13.
+- **B — escaleta f6b-4:** reglas `contador`, una cifra en pantalla una vez, pregunta del cap 7 obligatoria, cierre sin eco, `escaleta_solo_apoyo`, citas sin verificar fuera de pantalla.
+  - Pico: los cadáveres en el cap 4. 517 en el cap 5 con contador. Norman en los caps 2, 3 y 7.
+- **C — guionista y editor:**
+  - `script_engine/m01b_guionista.py`: Pro, texto completo, best_of_2, `review` con m05 por cap + reglas v3.
+  - `script_engine/m01c_editor.py`: guardia léxica + validadores; un párrafo rechazado vuelve al original.
+  - Narración de Orleans (f6c-3): 1,072 palabras, 4 duras; el editor aceptó 10 de 19 cambios.
+- **Pendiente para el analista (antes de F6d):**
+  - citas en fragmento contra `cap_review`;
+  - invenciones semánticas que ningún validador ve (propuesta: validador semántico + regla «nada de pensamientos de personas reales»);
+  - el cap 6 en los diques;
+  - el costo (≈ US$ 1.9 en esta tanda).
+- **Tests:** `test_module_f6a` (3), `f6b` (31) y `f6c` (4). Suites: 448 verdes + 3 viejas.
 
 ## F5f — Cierre de Orleans (laboratorio) — CERRADO, PARADA (el analista valida desde disco)
 - **Rama:** `f5-guion-v2`. **Último commit:** «F5f: cierre Orleans (lab)» (`git log -1`), sobre `cc625e2` («wip: F5f pre-cierre»). Omar no publica este video.

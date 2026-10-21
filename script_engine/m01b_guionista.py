@@ -28,7 +28,10 @@ from typing import Any, Callable
 
 from script_engine import evidence as ev
 
-PROMPT_VERSION = "f6c-1"
+PROMPT_VERSION = "f6c-3"             # f6c-3: párrafos de 55–80 palabras por beat y material extra por cap
+PARA_WORDS = (55, 80)
+EXTRA_PER_CAP = 3
+MIN_WORDS_FACTOR = 0.85
 BEST_OF = 2
 SHORT_WORDS = 6
 LONG_WORDS = 30
@@ -65,25 +68,66 @@ def _item_line(i: str, its: dict) -> str:
         v = it.get("verificacion") or {}
         mark = "" if not v else (" · VERIFICADA: con nombre" if v.get("estado") == "verificada"
                                  else " · SIN VERIFICAR: sin el nombre de quien la dijo")
-        return f'[{i}] CITA «{txt}» — {it.get("autor")}{mark}'
+        return f'[{i}] CITA «{txt}» — {it.get("autor")}{mark} · se copia ENTERA, palabra por palabra, o no se usa'
     extra = f" ({it['fecha']})" if it.get("fecha") else ""
-    return f"[{i}] {txt}{extra}"
+    lit = " / ".join(f"«{a}»" for a in ev.anchors(it))
+    return f"[{i}] {txt}{extra}" + (f" · tiene que sonar literal: {lit}" if lit else "")
+
+
+def extra_material(esc: dict, pool: dict) -> dict[int, list[str]]:
+    """Por cap, hasta EXTRA_PER_CAP datos del pool que la escaleta no usa y que se relacionan con sus beats (≥ 2
+    palabras de contenido en común con sus datos o su imagen): material opcional para llenar el largo con hechos. Nunca
+    lo reservado para pantalla, lo de `a_pantalla`, otras cifras de un conteo ni citas sin verificar."""
+    from script_engine.m01a_escaleta import count_variants
+    its = ev.items(pool)
+    used = {i for b in esc["beats"] for i in [b["dato_central"]] + b["datos_apoyo"]}
+    banned = used | {i for c in esc.get("caps") or [] for i in c.get("pantalla_ids") or []}
+    banned |= {x["id"] for x in esc.get("a_pantalla") or []}
+    banned |= {v for g in count_variants(pool) for v in g["variantes"]}
+    out: dict[int, list[str]] = {}
+    taken: set[str] = set()
+    for n in range(1, 8):
+        bs = [b for b in esc["beats"] if b["cap"] == n]
+        ctx = set().union(*[ev._content(" ".join([b["imagen_sensorial"]] + [ev.text_of(its[i]) for i in
+                                                   [b["dato_central"]] + b["datos_apoyo"] if i in its])) for b in bs]) \
+            if bs else set()
+        cands = []
+        for i, it in its.items():
+            if i in banned or i in taken or it["_kind"] not in ("datos", "cronologia", "citas"):
+                continue
+            v = it.get("verificacion") or {}
+            if it["_kind"] == "citas" and v and v.get("estado") != "verificada":
+                continue
+            sc = len(ev._content(ev.text_of(it)) & ctx)
+            if sc >= 2:
+                cands.append((sc, i))
+        out[n] = [i for _, i in sorted(cands, key=lambda x: (-x[0], x[1]))[:EXTRA_PER_CAP]]
+        taken |= set(out[n])
+    return out
 
 
 def beats_section(esc: dict, pool: dict) -> str:
     its = ev.items(pool)
     caps = {c["chapter_number"]: c for c in esc.get("caps") or []}
+    from script_engine.m05_narrative import entity_terms
+    extra = extra_material(esc, pool)
     out = []
     for n in range(1, 8):
         c = caps.get(n, {})
         scr = c.get("pantalla_ids") or []
-        out.append(f"── CAP {n} ({c.get('role')}, ≈ {c.get('palabras_objetivo')} palabras)"
+        tgt = c.get("palabras_objetivo") or 0
+        out.append(f"── CAP {n} ({c.get('role')}, {tgt} palabras: MÍNIMO {round(MIN_WORDS_FACTOR * tgt)})"
                    + (f" · NO DECIR (va en pantalla): {', '.join(scr)}" if scr else ""))
-        for b in [b for b in esc["beats"] if b["cap"] == n]:
+        bs = [b for b in esc["beats"] if b["cap"] == n]
+        for i in extra.get(n) or []:
+            out.append(f"  material extra (opcional; si lo usás, literal y en ids_usados): {_item_line(i, its)}")
+        for b in bs:
             flags = [x for x, on in (("FLASH-FORWARD", b.get("flash_forward")), ("contador en pantalla", b.get("contador")),
                                      ("humano en escena", b.get("humano_en_escena"))) if on]
+            k = max(1, round((b["palabras_objetivo"] or 0) / 65))
             out.append(f"  BEAT {b['n']} · {b['funcion']} · {b['emocion']} · intensidad {b['intensidad']} · "
-                       f"≈ {b['palabras_objetivo']} palabras" + (f" · {', '.join(flags)}" if flags else ""))
+                       f"≈ {b['palabras_objetivo']} palabras = {k} párrafo(s) de {PARA_WORDS[0]}–{PARA_WORDS[1]} palabras"
+                       + (f" · {', '.join(flags)}" if flags else ""))
             out.append(f"    imagen: {b['imagen_sensorial']}")
             out.append(f"    dato central: {_item_line(b['dato_central'], its)}")
             for i in b.get("datos_apoyo") or []:
@@ -91,6 +135,11 @@ def beats_section(esc: dict, pool: dict) -> str:
             out.append(f"    queda abierta: {b['pregunta_abierta']}")
             if b.get("cierre"):
                 out.append(f"    cierre: {b['cierre']}")
+            cl = c.get("cliffhanger")
+            if b is bs[-1] and n <= 6 and cl in its:
+                terms = entity_terms(its[cl])[:5]
+                out.append(f"    CIERRE DEL CAP (obligatorio): la última frase del cap nombra el dato del cap {n + 1} "
+                           f"— al menos uno de: {', '.join('«' + t + '»' for t in terms)}")
     return "\n".join(out)
 
 
@@ -117,8 +166,11 @@ PICO: beat {pico} · CIERRE HUMANO: {esc.get("cierre_humano")}
 {ins}
 
 ═══ CÓMO ESCRIBIR ═══
-1. La narración COMPLETA, de corrido, en párrafos. Cada párrafo lleva su `beat` (1–3 párrafos por beat, en orden).
-   Cada beat suma ≈ sus palabras objetivo (±15 %).
+1. La narración COMPLETA, de corrido, en párrafos. Cada párrafo lleva su `beat`; cada beat, EXACTAMENTE los párrafos
+   que dice la escaleta, cada uno de {PARA_WORDS[0]}–{PARA_WORDS[1]} palabras (contalas).
+   LARGO: cada beat suma sus palabras objetivo (±15 %); cada cap, al menos su MÍNIMO. El video entero son ≈
+   {sum(b["palabras_objetivo"] for b in esc["beats"])} palabras: un texto corto se rechaza. El largo se llena con
+   hechos del beat contados con escenas y tus palabras, no con adjetivos.
 2. GANCHO: la frase 1 es la imagen del beat 1 (sin año, sin cifra, sin nombre de institución, ≤ 12 palabras); la
    frase 2 es la promesa. Nada de contexto («En 2005, el huracán Katrina…») hasta la frase 3. Sin cifras en las dos
    primeras frases.
@@ -126,8 +178,9 @@ PICO: beat {pico} · CIERRE HUMANO: {esc.get("cierre_humano")}
    palabras. Justo antes del pico (beat {pico}), dos frases cortas seguidas.
 4. HUMANO: {hum.get("nombre")} con nombre y apellido y su rol la primera vez; después, por su nombre, en al menos
    {MIN_HUMAN_CAPS} caps (los beats «humano en escena»).
-5. DATOS: toda cifra, fecha, nombre y cita sale LITERAL de los datos del beat. Cada dato se dice UNA vez; después se
-   parafrasea sin la cifra. Cada evento con su fecha; nunca fundas dos fechas. No inventes NADA.
+5. DATOS: toda cifra, fecha, nombre y cita sale LITERAL de los datos del beat («tiene que sonar literal»: eso, tal
+   cual, o el dato no cuenta). Cada dato se dice UNA vez; después se parafrasea sin la cifra. Cada evento con su fecha;
+   nunca fundas dos fechas. No inventes NADA. Un dato que no podés decir literal, no lo pongas en ids_usados.
 6. CITAS: entre comillas, copiadas literal, con el autor DENTRO de la oración («dijo Vincent Norman»), nunca como
    firma. Una cita SIN VERIFICAR va sin el nombre de quien la dijo («un preso de diecinueve años contó: «…»»).
 7. Lo que dice «NO DECIR (va en pantalla)» no lo dice la voz.
@@ -220,7 +273,15 @@ def review(topic: dict, esc: dict, parrafos: list[dict]) -> dict[str, Any]:
         try:
             _validate_narration(c["narration"], role=role, cap_number=n)
         except NarrationValidationError as e:
-            ch_hard.append(str(e))
+            if e.kind != "length":                   # el largo se mide en palabras (abajo): el mensaje lo entiende
+                ch_hard.append(str(e))
+        tgt = next((x.get("palabras_objetivo") for x in esc.get("caps") or [] if x["chapter_number"] == n), 0) or 0
+        w = wc(c["narration"])
+        if tgt and w < MIN_WORDS_FACTOR * tgt:
+            ch_hard.append(f"{w} palabras: el mínimo del cap es {round(MIN_WORDS_FACTOR * tgt)} (objetivo {tgt}); "
+                           "contá más hechos del beat con escenas, no adjetivos")
+        elif tgt and w > (2 - MIN_WORDS_FACTOR) * tgt:
+            ch_hard.append(f"{w} palabras: el máximo del cap es {round((2 - MIN_WORDS_FACTOR) * tgt)} (objetivo {tgt})")
         decl = ev.resolve_declared(c["datos_usados"], pool, facts, c["narration"])
         rv = cap_review(c["narration"], cap=n, pool=pool, skeleton=sk, previous=caps[:k], declared=decl, facts=facts)
         ch_hard += rv["hard"]
@@ -276,6 +337,9 @@ def review(topic: dict, esc: dict, parrafos: list[dict]) -> dict[str, Any]:
             continue
         k = nf.find(ev.norm(q["texto"])[:40])
         if k < 0:
+            continue
+        from researcher_steps.verify_quotes import _named
+        if not _named(q.get("autor") or ""):            # un anónimo («una presa de Conchetta») no tiene nombre que ocultar
             continue
         sur = _surname(q.get("autor") or "")
         if sur and len(sur) > 3 and re.search(rf"\b{re.escape(sur)}\b", nf[max(0, k - 200):k + len(q["texto"]) + 200]):

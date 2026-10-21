@@ -1,0 +1,16 @@
+[16:54:35] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f6v3
+[16:56:24] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f6v3 — Costo total: $0.1601
+[16:56:24] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f6v3
+[16:58:50] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f6v3 — Costo total: $0.1959
+# Narración v3 — Orleans (F6c: guionista + editor)
+
+- Escaleta: f6b-4 (`escaleta_orleans.json`). Guionista: Pro, texto completo, best_of_2 → elegido el intento 1 (intento 1: 5 duras, 14 blandas; intento 2: 13 duras, 21 blandas).
+- Editor: 19 párrafo(s) editado(s), 10 aceptado(s). Duras: guionista 5 → final 4 · blandas 14 → 14.
+- 1072 palabras · 2.43 adjetivos/100 · costo guionista US$ 0.1601 + editor US$ 0.1959.
+
+## Problemas duros que quedan
+
+- cap 1: usaste 0 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [Q13] «Los guardias nos dejaron allí para que muriéramos encerrados en la celda... El agua estaba tan alta que tuvimos que nadar para salir de la celda. No tuvimos comida ni agua durante 3 o 4 días»; [Q11] «Las mujeres reclusas también fuimos dejadas para morir, sin atención médica, sin comida, sin agua. Vivimos en aguas altas, el edificio tiene 3 pisos, 'el primer piso se inundó hasta arriba, eso nos obligó a mudarnos al segundo piso'. Las reclusas fueron golpeadas por los guardias, fue una situación de pánico. Las tuberías de gas se rompieron. Viviendo en aguas contaminadas durante 3 largos y miserables días»
+- cap 1: declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): Q13, Q11
+- cap 4: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «templeman iii» ×2
+- beat 8: ninguna frase de 6 palabras o menos
