@@ -59,7 +59,9 @@ def pngs(cfg: dict[str, Any], px: int, out_dir: Path, *, corner: bool = False) -
     px = px * ss
     dil = int(cfg.get("corner_dilate_px", 2)) * ss if corner else 0
     halo = bool(cfg.get("flame_halo", True)) and corner
-    stem = f"{cfg['svg'].stem}_{hashlib.sha1(svg.encode()).hexdigest()[:8]}_{px}_{'esq' if corner else 'cie'}"
+    # F4d: el engrosado y el halo entran al nombre (antes, cambiar corner_dilate_px reusaba el PNG viejo de la caché)
+    tag = f"esq_d{dil}_h{int(halo)}" if corner else "cie"
+    stem = f"{cfg['svg'].stem}_{hashlib.sha1(svg.encode()).hexdigest()[:8]}_{px}_{tag}"
     body_p, flame_p = out_dir / f"{stem}_body.png", out_dir / f"{stem}_flame.png"
     has_flame = '<g id="flame"' in svg
     if not body_p.exists():

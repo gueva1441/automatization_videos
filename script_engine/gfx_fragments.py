@@ -18,6 +18,9 @@ F4c (doctrina del director, tokens doc_clippings / callout_no_repeat):
                 tramo no dice (cifra, fecha, nombre, «informaron/según…» o una palabra de contenido que no suena).
                 Kicker obligatorio: fuente del fact → año del fact → fecha del fact → el único año que dice la voz del
                 cap. Sin opción que sume o sin kicker → el recorte se quita (nunca un pie de foto).
+    F4d        las opciones del recorte son CLÁUSULAS COMPLETAS del fact (clause_options: ≤ 10 palabras, terminan
+                donde termina la cláusula —coma, punto o «mientras/cuando/…»—, empiezan en sustantivo, nombre o
+                artículo y tienen sujeto), ordenadas por aporte (_doc_rank); Flash elige entre las DOC_TOP mejores.
     R7 dato     no repite: si el texto del dato suena LITERAL en la voz (±4 s) se quita; una cifra en dígitos que la
                 voz dice en letras (precisión extra) se queda.
 """
@@ -186,13 +189,65 @@ def adds_something(frag: str, span: str) -> str | None:
     return (hard or [f"palabra {x}" for x in soft] or [None])[0]
 
 
-def _doc_rank(frag: str, span: str, cap_narr: str = "") -> tuple[int, int, int, int]:
-    """Orden de los recortes: más elementos duros, después más palabras que no suenan en TODO el cap (lo que de verdad
-    suma: «aguas residuales»), después más palabras nuevas para el tramo, después el más corto."""
+def _doc_rank(frag: str, span: str, cap_narr: str = "") -> tuple[int, int, int]:
+    """Orden de los recortes por aporte: más elementos duros (fecha, cifra, nombre, fuente), después más palabras que
+    no suenan en TODO el cap (lo que de verdad suma: «aguas residuales»), después la cláusula más completa (≤ 10)."""
     hard, soft = novelty(frag, span)
     roots = {_root(w) for w in cap_narr.split() if len(_tok(w)) >= 4}
     cap_new = [x for x in soft if _root(x.strip("«»")) not in roots]
-    return (-len(hard), -len(cap_new), -len(soft), len(frag.split()))
+    return (-len(hard), -len(cap_new), -len(frag.split()))
+
+
+DOC_TOP = 3                          # F4d: Flash elige entre las 3 opciones que más aportan
+DOC_MAX_WORDS = 10
+_SUBORD = {"mientras", "cuando", "aunque", "porque", "donde"}
+_ARTICLES = {"el", "la", "los", "las", "un", "una", "unos", "unas"}
+_PARTICIPLE = re.compile(r"(ado|ada|ados|adas|ido|ida|idos|idas)$")
+_IRREG_PART = {"visto", "vista", "hecho", "hecha", "dicho", "dicha", "puesto", "puesta", "escrito", "abierto",
+               "abierta", "cubierto", "cubierta", "vuelto"}
+_MONTH_SET = set(_MONTHS.strip("(?:)").split("|"))
+
+
+def _start_ok(w: str) -> bool:
+    """La opción arranca en artículo, nombre o sustantivo (no en verbo, participio, adverbio ni palabra funcional)."""
+    t = _tok(w)
+    if not re.match(r"[A-Za-zÁÉÍÓÚÑáéíóúñ]", w) or re.search(r"[\"'«»“”]$", w):
+        return False
+    if t in _ARTICLES or w[:1].isupper():
+        return True
+    if t in EDGE_STOP or t in _VAGUE or t in _IRREG_PART or t.endswith("mente"):
+        return False
+    return len(t) >= 4 and not _verb_edge(w) and not _PARTICIPLE.search(t)
+
+
+def _has_subject(ws: list[str]) -> bool:
+    return any(len(_tok(w)) >= 4 and not _tok(w)[:1].isdigit() and _tok(w) not in _MONTH_SET and _tok(w) not in EDGE_STOP
+               for w in ws)
+
+
+def clause_options(fact: str, max_words: int = DOC_MAX_WORDS) -> list[str]:
+    """F4d: cláusulas completas del fact (y sus colas que arrancan en sustantivo/nombre/artículo), ≤ max_words.
+    Una fecha al final puede perder «de AAAA» (el año va al kicker). Literales: conservan las comillas del fact."""
+    text = re.sub(r"\s+", " ", str(fact)).strip()
+    out: list[str] = []
+    for part in re.split(r"[,.;:!?…()](?=\s|$)|\s[—–-]\s", text):
+        ws = part.split()
+        cl: list[list[str]] = [[]]
+        for w in ws:                                   # «mientras/cuando/…» abren otra cláusula
+            if _tok(w) in _SUBORD and cl[-1]:
+                cl.append([])
+            cl[-1].append(w)
+        for c in cl:
+            for st in range(len(c)):
+                frag = c[st:]
+                vs = [frag]
+                if (len(frag) >= 5 and re.fullmatch(r"\d{4}", _tok(frag[-1])) and _tok(frag[-2]) == "de"
+                        and _tok(frag[-3]) in _MONTH_SET):
+                    vs.append(frag[:-2])
+                for v in vs:
+                    if 2 <= len(v) <= max_words and _start_ok(v[0]) and _has_subject(v):
+                        out.append(" ".join(v))
+    return _dedupe(out)
 
 
 def lock_ok(frag: str, fact: str) -> bool:
@@ -230,7 +285,7 @@ def enforce_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[
             continue
         sc = next((s for s in scenes if s.idx == a.get("scene_idx")), None)
         span = narration_span(words, sc.start, sc.end, time_offset) if sc else ""
-        opts = [f for f in ([cur] if literal_in(cur, facts[fi]) else []) + fragments(facts[fi], 8)
+        opts = [f for f in clause_options(facts[fi])
                 if adds_something(f, span) and lock_ok(f, facts[fi]) and doc_kicker(facts[fi], fsrc.get(fi, ""), f, narr)]
         head = min(opts, key=lambda f: _doc_rank(f, span, narr)) if opts else ""
         kick = doc_kicker(facts[fi], fsrc.get(fi, ""), head, narr) if head else ""
@@ -289,8 +344,10 @@ def build_items(plan: dict[str, Any], *, facts: list[str], words: list[dict], sc
                         if f.lower() != cur.lower() and (not documents or (
                             adds_something(f, span) and lock_ok(f, facts[fi])
                             and doc_kicker(facts[fi], fsrc.get(fi, ""), f, narr)))]
-        if documents:                # F4c R6: primero lo que más suma a la voz (la de hoy ya pasó enforce_documents)
-            opts = [cur] + sorted((o for o in opts[1:]), key=lambda f: (_doc_rank(f, span, narr), f))
+        if documents:                # F4d: cláusulas completas del fact, las DOC_TOP que más aportan
+            opts = sorted((f for f in clause_options(facts[fi]) if adds_something(f, span) and lock_ok(f, facts[fi])
+                           and doc_kicker(facts[fi], fsrc.get(fi, ""), f, narr)),
+                          key=lambda f: (_doc_rank(f, span, narr), f))[:DOC_TOP] or [cur]
         items.append({"id": f"recorte{i}", "kind": "archive", "idx": i, "options": _dedupe(opts)[:MAX_OPTIONS],
                       "fact": facts[fi], "span": span, "documents": documents})
     for i, c in enumerate(plan.get("callouts") or []):

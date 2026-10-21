@@ -574,9 +574,16 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                         cache=work_dir / f"gfx_zoom_box_{cap}.json", log=log)
                     b = (tmp.get("evidence_zoom") or {}).get("box")
                 return b
+            def _human_box(si: int, word: str) -> list[float] | None:
+                """F4d: el zoom del pico solo sobre un detalle humano (rostro/manos/persona) confirmado por visión."""
+                from script_engine import gfx_vision as _gv
+                vc = Path(work_dir).parent / "assets" / "zoom_verify.json"
+                return next((d["box"] for d in sorted(details.get(si) or [], key=lambda d: _gv.PRIORITY[d["tipo"]])
+                             if d["tipo"] in _gv.HUMAN and _gv.verify_crop(scene_img[si], d, vc)), None)
             plan_peak(resolved, ctx=ctx, words=words, scenes=scenes, moods=ctx.get("moods") or active_moods(), clip_dur=clip_dur,
                       box_for=_box, water_used=water_used_before(work_dir, ctx["chapter_number"]), time_offset=time_offset,
-                      log=log, intensity=intensity, off_peak_zoom=not details)
+                      log=log, intensity=intensity, off_peak_zoom=not details,
+                      human_box_for=_human_box if details else None)
             from script_engine.gfx_literal_lock import lock as _lock2                 # lo nuevo también pasa el candado
             resolved, rej2 = _lock2(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                     question_sources=ctx.get("next_sources"))

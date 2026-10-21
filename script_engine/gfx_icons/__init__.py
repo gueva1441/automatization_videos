@@ -67,7 +67,7 @@ def lucide_restyled(svg: str) -> str:
     grueso; el filtro de tinta de scoped_svg le rompe el borde. Sin texto (Lucide no trae)."""
     view = re.search(r'viewBox="([^"]+)"', svg)
     inner = re.sub(r"(?s)^.*?<svg[^>]*>|</svg>\s*$", "", re.sub(r"(?s)<!--.*?-->", "", svg)).strip()
-    inner = re.sub(r"<(path|circle|line|polyline|polygon|rect|ellipse)", r'< pathLength="1"', inner)
+    inner = re.sub(r"<(path|circle|line|polyline|polygon|rect|ellipse)\b", r'<\1 pathLength="1"', inner)
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{view.group(1) if view else "0 0 24 24"}" class="lucide-ink">'
             f'<g class="ic-strokes" fill="none" stroke="{BONE}" stroke-width="2.4" stroke-linecap="round" '
             f'stroke-linejoin="round">{inner}</g></svg>')

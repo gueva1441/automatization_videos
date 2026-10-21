@@ -81,7 +81,7 @@
  },
  "desvanecidas": {
   "categoria": "silencio",
-  "peso": 2,
+  "peso": 3,
   "videos": [
    "ba6c3cac-a091-41c0-8dad-afd2f4364747"
   ],
@@ -89,7 +89,7 @@
  },
  "infierno": {
   "categoria": "oscuridad_encierro",
-  "peso": 2,
+  "peso": 3,
   "videos": [
    "ba6c3cac-a091-41c0-8dad-afd2f4364747"
   ],
@@ -142,5 +142,13 @@
    "ba6c3cac-a091-41c0-8dad-afd2f4364747"
   ],
   "concreta": false
+ },
+ "katrina": {
+  "categoria": "agua",
+  "peso": 3,
+  "videos": [
+   "ba6c3cac-a091-41c0-8dad-afd2f4364747"
+  ],
+  "concreta": true
  }
 }

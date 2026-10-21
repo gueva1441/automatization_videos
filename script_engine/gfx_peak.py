@@ -12,7 +12,9 @@ gfx_peak.py — El pico del capítulo y sus bloques grandes (F3, pedido de Omar 
                   los datos traen dos horas; si no, la fecha quieta. Máx 1 por cap. Termina antes del pico.
     black_hold    corte a negro al final, después de la pregunta de cierre (lo arma gfx_layer.closing_question).
 
-Bloques grandes posibles para el pico, en orden: nivel de agua → zoom de evidencia con latido → recorte → (cita: §D).
+Bloques grandes posibles para el pico, en orden (F4d, Omar): nivel de agua → recorte con fuente (kicker) → zoom
+de evidencia sobre un detalle HUMANO (rostro/manos/persona) → recorte sin kicker → sello + mood de la frase.
+F4d: la frase con cifra de altura + palabra de agua es el pico salvo que otra la supere por más de WATER_PEAK_TOL.
 """
 from __future__ import annotations
 
@@ -83,7 +85,7 @@ def find_peak(words: list[dict], moods: dict[str, dict], time_offset: float = 0.
     return best
 
 
-WATER_PEAK_TOL = 0.1                 # F4b: una frase con cifra de agua a ≤ 0.1 de la máxima intensidad gana el pico
+WATER_PEAK_TOL = 0.2                 # F4d (Omar): la frase con cifra de agua gana el pico salvo que otra la supere por > 0.2
 
 
 def peak_from_intensity(words: list[dict], moods: dict[str, dict], res: dict[str, Any],
@@ -324,7 +326,8 @@ def box_from_cache(cache: Any) -> Callable[[int, str], list[float] | None]:
 def plan_peak(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], scenes: list[Any], moods: dict[str, dict],
               clip_dur: float, box_for: Callable[[int, str], list[float] | None], water_used: bool = False,
               time_offset: float = 0.0, log: list[str] | None = None,
-              intensity: dict[str, Any] | None = None, off_peak_zoom: bool = True) -> dict[str, Any]:
+              intensity: dict[str, Any] | None = None, off_peak_zoom: bool = True,
+              human_box_for: Callable[[int, str], list[float] | None] | None = None) -> dict[str, Any]:
     """Plan resuelto → + pico (con UN bloque grande y ±5 s libres) + zoom con latido + reloj. Idempotente."""
     log = log if log is not None else []
     if plan.get("pico") is not None:
@@ -334,7 +337,7 @@ def plan_peak(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], s
     if intensity and peak and not water_used and not water_level(peak, ctx, words):
         top = max(intensity["intensidad"])
         for si in sorted(range(len(intensity["intensidad"])), key=lambda i: -intensity["intensidad"][i]):
-            if intensity["intensidad"][si] < top - WATER_PEAK_TOL:
+            if intensity["intensidad"][si] < top - WATER_PEAK_TOL - 1e-9:
                 break
             alt = peak_from_intensity(words, moods, intensity, time_offset, si=si)
             if alt and water_level(alt, ctx, words):
@@ -348,17 +351,16 @@ def plan_peak(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], s
             plan["water_level"] = wl
             block = "water_level"
         else:
-            zl = zoom_latido(None, words, moods, scenes, box_for, time_offset, only_i=peak["i"])
-            ok_zoom = bool(zl)
-            block = "evidence_zoom" if ok_zoom else ("archive_clippings" if any(
-                _starts_near(peak["t"], a) for a in plan.get("archive_clippings") or []) else None)
-            if ok_zoom:
+            near = [a for a in plan.get("archive_clippings") or [] if _starts_near(peak["t"], a)]
+            sourced = next((a for a in near if a.get("kicker")), None)
+            zl = None if sourced else zoom_latido(None, words, moods, scenes, human_box_for or box_for, time_offset,
+                                                  only_i=peak["i"])
+            arc = sourced or (None if zl else (near[0] if near else None))
+            block = "archive_clippings" if arc else ("evidence_zoom" if zl else None)
+            if arc is not None:
+                arc["peak"] = True
+            elif zl:
                 plan["evidence_zoom"] = zl
-            elif block == "archive_clippings":
-                for a in plan["archive_clippings"]:
-                    if _starts_near(peak["t"], a):
-                        a["peak"] = True
-                        break
             elif intensity:                           # F4b: pico garantizado → el mood + sello de la frase pico
                 em = next((e for e in plan.get("emphasis") or [] if _starts_near(peak["t"], e)), None)
                 if em:
