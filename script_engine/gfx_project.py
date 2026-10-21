@@ -365,9 +365,23 @@ def time_ticker_html(tk: dict[str, Any], duration: float) -> tuple[str, list[str
     html_ = (f'      <div id="tk" class="clip" data-start="{st:.3f}" data-duration="{d:.3f}" '
              f'style="position:absolute;{"right" if tk.get("side") == "right" else "left"}:150px;top:64px;z-index:23;color:#f2efe6;font:400 64px/1 &quot;{gfx_rules.figure_font}&quot;,'
              f'sans-serif;letter-spacing:.08em;text-shadow:{gfx_rules.callout_shadow};font-variant-numeric:tabular-nums">'
-             f'{_esc(head)} <span style="color:{gfx_rules.accent_hex}">·</span> <span id="tk-t">{_esc(tk.get("tail", ""))}</span></div>')
+             f'<span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span id="tk-d" style="display:inline-block">'
+             f'{_esc(head)}</span></span> <span style="color:{gfx_rules.accent_hex}">·</span> <span id="tk-t">{_esc(tk.get("tail", ""))}</span></div>')
     init = ['      gsap.set("#tk", { opacity: 0 });']
     js = [f'      tl.to("#tk", {{ opacity: 1, duration: .4 }}, {st:.3f}).to("#tk", {{ opacity: 0, duration: .4 }}, {st + d - .4:.3f});']
+    # F5f: cambio de fecha = la fecha vieja sube y sale, la nueva entra desde abajo con un destello en el acento
+    for ch in tk.get("changes") or []:
+        t = float(ch["t"])
+        if not st + .4 < t < st + d - .6:
+            continue
+        lab = json.dumps(str(ch["day"]) + " " + str(ch["month"]), ensure_ascii=False)
+        tail = json.dumps(str(ch.get("tail", "")), ensure_ascii=False)
+        js.append(f'      tl.to("#tk-d", {{ yPercent: -110, duration: .22, ease: "power2.in" }}, {t:.3f})'
+                  f'.set("#tk-d", {{ textContent: {lab}, '
+                  f'yPercent: 110, color: "{gfx_rules.accent_hex}" }}, {t + .22:.3f})'
+                  f'.set("#tk-t", {{ textContent: {tail} }}, {t + .22:.3f})'
+                  f'.to("#tk-d", {{ yPercent: 0, duration: .32, ease: "power3.out" }}, {t + .22:.3f})'
+                  f'.to("#tk-d", {{ color: "#f2efe6", duration: .6 }}, {t + .9:.3f});')
     if tk.get("advance") and len(tk.get("times") or []) >= 2:
         (h0, m0), (h1, m1) = [map(int, x.split(":")) for x in tk["times"][:2]]
         a, b = h0 * 60 + m0, h1 * 60 + m1
@@ -701,6 +715,8 @@ def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[d
     if plan.get("time_ticker"):
         tk = plan["time_ticker"]
         add(tk["start"], tk["duration"], "time_ticker", f"{tk['day']} {tk['month']} · {tk.get('tail', '')}".strip())
+        for ch in tk.get("changes") or []:                      # F5f: el reloj cambia de fecha
+            add(ch["t"], 0.54, "time_ticker_change", f"→ {ch['day']} {ch['month']} · {ch.get('tail', '')}".strip())
     if plan.get("black_hold"):
         add(plan["black_hold"]["start"], plan["black_hold"]["duration"], "black_hold", "corte a negro")
     if plan.get("icon_array"):                                  # F2b §3

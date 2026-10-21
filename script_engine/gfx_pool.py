@@ -818,7 +818,8 @@ def enforce_reserved(plan: dict[str, Any], log: list[str]) -> list[str]:
 def pool_ticker(ctx: dict[str, Any], words: list[dict], clip_dur: float, time_offset: float = 0.0
                 ) -> dict[str, Any] | None:
     """Reloj desde la cronología del cap. Sale solo si el cap avanza de fecha (≥ 2 fechas distintas) o trae hora.
-    Muestra la primera fecha (o hora) desde que la voz la nombra hasta que nombra la siguiente."""
+    Muestra la primera fecha (o hora) desde que la voz la nombra. F5f: cuando la voz nombra la fecha siguiente, el
+    reloj CAMBIA de fecha con animación (`changes`, hasta 2) y la sostiene TICKER_HOLD s; antes terminaba ahí."""
     from script_engine.gfx_peak import MESES, sentences
     pool, skel = ctx.get("pool"), ctx.get("skeleton_all") or {}
     its = ev.items(pool)
@@ -839,16 +840,27 @@ def pool_ticker(ctx: dict[str, Any], words: list[dict], clip_dur: float, time_of
     if first is None:
         return None
     y, m, d = first["fecha"].split("-")
-    nxt = next((c for c in crono if c["fecha"] > first["fecha"] and _when(c) is not None), None)
     start = _when(first)
-    end = _when(nxt) if nxt else min(clip_dur, start + 12.0)
+    changes, last, cur = [], start, first
+    for c in crono:                                  # fechas siguientes, en orden de fecha y de voz
+        t = _when(c)
+        if len(changes) >= 2 or t is None or c["fecha"] <= cur["fecha"] or t < last + 2.0:
+            continue
+        cy, cm, cd = c["fecha"].split("-")
+        changes.append({"t": round(t, 3), "day": str(int(cd)), "month": MESES[ev.MESES[int(cm) - 1]],
+                        "tail": c.get("hora") or cy, "source_text": ev.text_of(c), "pool_id": c["id"]})
+        last, cur = t, c
+    end = min(clip_dur, (changes[-1]["t"] + TICKER_HOLD) if changes else start + 12.0)
     month = MESES[ev.MESES[int(m) - 1]]
     tail = first.get("hora") or y
     if end - start < 2.0:
         return None
     return {"day": str(int(d)), "month": month, "tail": tail, "times": [first["hora"]] if first.get("hora") else [],
             "advance": False, "source_text": ev.text_of(first), "pool_id": first["id"],
-            "start": round(start, 3), "duration": round(end - start, 3)}
+            "start": round(start, 3), "duration": round(end - start, 3), "changes": changes}
+
+
+TICKER_HOLD = 4.0                    # F5f: la fecha nueva queda en pantalla 4 s después del cambio
 
 
 # ═══════════════════════════════════════════════════════════════

@@ -1,0 +1,348 @@
+{
+  "topic_id": "ba6c3cac-f5v2",
+  "_distribution_plan": {
+    "cap_2": [
+      "F03",
+      "F02"
+    ],
+    "cap_3": [
+      "F05",
+      "F04"
+    ],
+    "cap_4": [
+      "F01",
+      "F06"
+    ],
+    "cap_5": [
+      "F08",
+      "F09",
+      "F10"
+    ],
+    "cap_6": [
+      "F07"
+    ]
+  },
+  "_evidence_plan": {
+    "cap_1": [
+      "D01",
+      "D04",
+      "D05",
+      "D35",
+      "T07",
+      "Q01"
+    ],
+    "cap_2": [
+      "T05",
+      "T06",
+      "D09",
+      "D10",
+      "T03"
+    ],
+    "cap_3": [
+      "T08",
+      "T09",
+      "T12",
+      "D16",
+      "D33"
+    ],
+    "cap_4": [
+      "T13",
+      "D07",
+      "D08",
+      "D17",
+      "T17"
+    ],
+    "cap_5": [
+      "D19",
+      "D60",
+      "D61",
+      "Q02"
+    ],
+    "cap_6": [
+      "D72",
+      "T26",
+      "D29"
+    ],
+    "cap_7": [
+      "D62",
+      "D59",
+      "D58",
+      "D61",
+      "D63",
+      "D71"
+    ]
+  },
+  "personajes": [
+    {
+      "id": "P01",
+      "nombre": "Marlin N. Gusman",
+      "rol": "Sheriff",
+      "antagonista": true,
+      "entra_en_cap": 1
+    },
+    {
+      "id": "P04",
+      "nombre": "William Hunter",
+      "rol": "Adjunto del Sheriff Gusman",
+      "antagonista": true,
+      "entra_en_cap": 1
+    },
+    {
+      "id": "P02",
+      "nombre": "Carl Strock",
+      "rol": "Teniente General Cuerpo de Ingenieros del Ejército EE. UU.",
+      "antagonista": false,
+      "entra_en_cap": 2
+    },
+    {
+      "id": "P07",
+      "nombre": "Ronnie L. Morgan, Jr.",
+      "rol": "Recluso, demandante",
+      "antagonista": false,
+      "entra_en_cap": 5
+    },
+    {
+      "id": "P05",
+      "nombre": "Robie Waganfeald",
+      "rol": "Turista, demandante",
+      "antagonista": false,
+      "entra_en_cap": 6
+    },
+    {
+      "id": "P06",
+      "nombre": "Paul Kunkel Jr.",
+      "rol": "Turista, demandante",
+      "antagonista": false,
+      "entra_en_cap": 6
+    }
+  ],
+  "_evidence_repairs": [
+    "cronología: ['T03'] de cap_6 → cap_4 (anteriores a 2005-08-30)",
+    "cronología: ['T03'] de cap_4 → cap_3 (anteriores a 2005-08-29)",
+    "cronología: ['T03'] de cap_3 → cap_2 (anteriores a 2005-08-28)",
+    "cap 1: cliffhanger F02 inválido → T05 (primer id nuevo del cap 2)",
+    "cap 2: cliffhanger F04 inválido → T08 (primer id nuevo del cap 3)",
+    "cap 3: cliffhanger F01 inválido → T13 (primer id nuevo del cap 4)",
+    "cap 4: cliffhanger F08 inválido → D19 (primer id nuevo del cap 5)",
+    "cap 5: cliffhanger F07 inválido → D72 (primer id nuevo del cap 6)",
+    "cap 6: cliffhanger (vacío) inválido → D62 (primer id nuevo del cap 7)"
+  ],
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "title": "El Inicio del Olvido",
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "bullets": [
+        "Prisión Parroquial de Orleans, 29 de agosto de 2005",
+        "Aproximadamente 6,500 personas encarceladas al tocar tierra el huracán Katrina",
+        "Sheriff Marlin N. Gusman: prisioneros",
+        "donde pertenecen",
+        "Antagonista Sheriff Marlin N. Gusman y adjunto William Hunter",
+        "Un horror olvidado por la furia del huracán"
+      ],
+      "evidence_ids": [
+        "D01",
+        "D04",
+        "D57",
+        "D35",
+        "T07",
+        "Q01"
+      ],
+      "cliffhanger": "T05",
+      "pantalla_ids": [
+        "T04"
+      ]
+    },
+    {
+      "chapter_number": 2,
+      "title": "El Diluvio y la Traición",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "setup",
+      "bullets": [
+        "Huracán Katrina, categoría 3, toca tierra 29 de agosto de 2005",
+        "Partes de Nueva Orleans bajo 15 pies de agua",
+        "Más de 50 fallas en el sistema de diques",
+        "80% de Nueva Orleans bajo el agua",
+        "Corte de electricidad en la prisión la noche antes",
+        "Sheriff Gusman anuncia no evacuación de prisioneros",
+        "Teniente General Carl Strock y los fallos de diseño"
+      ],
+      "evidence_ids": [
+        "T05",
+        "T06",
+        "D09",
+        "D10",
+        "T03"
+      ],
+      "cliffhanger": "T08",
+      "pantalla_ids": []
+    },
+    {
+      "chapter_number": 3,
+      "title": "Generadores Caídos, Celdas Inundadas",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Aproximadamente 6,500 personas encarceladas en la OPP",
+        "Generadores de respaldo fallan el 29 de agosto de 2005",
+        "Pérdida total de energía en la prisión",
+        "Celdas del primer piso inundadas con aguas residuales",
+        "Agua de la inundación entrando en los niveles inferiores de los edificios",
+        "Medianoche del 29 de agosto: Sheriff Gusman solicita ayuda para evacuación",
+        "Solicitud formal tardía del Sheriff Marlin N. Gusman"
+      ],
+      "evidence_ids": [
+        "T08",
+        "T09",
+        "T12",
+        "D16"
+      ],
+      "cliffhanger": "T13",
+      "pantalla_ids": []
+    },
+    {
+      "chapter_number": 4,
+      "title": "Días Atrapados en la Marea",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "shock",
+      "bullets": [
+        "Agua dentro de Templeman 1 y 2 alcanza nivel del pecho",
+        "Prisioneros atrapados por días en celdas inundadas hasta el pecho",
+        "Agua contaminada con aguas residuales",
+        "Inundación interna a niveles de hasta el pecho",
+        "Evacuación de Templeman 1 y 2 al subir el agua",
+        "Evacuación completa de la prisión no finaliza hasta el 2 de septiembre de 2005",
+        "Prisioneros llevados en bote al paso elevado de Broad Street sobre la Interestatal 10"
+      ],
+      "evidence_ids": [
+        "T13",
+        "D07",
+        "D08",
+        "D17",
+        "T17"
+      ],
+      "cliffhanger": "D19",
+      "pantalla_ids": [
+        "T16"
+      ]
+    },
+    {
+      "chapter_number": 5,
+      "title": "Los Desaparecidos y los Cuerpos",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "consequences",
+      "bullets": [
+        "Más de 500 prisioneros no figuraban en la lista de evacuados",
+        "Human Rights Watch registra 517 prisioneros",
+        "desaparecidos",
+        "Reclusos de Templeman III reportan cadáveres flotando el 1 de septiembre",
+        "Niños de hasta 10 años en la prisión",
+        "Población juvenil abrumadoramente afroamericana (98.7%)",
+        "Sheriff niega muertes, pero emite 14 órdenes de arresto para fugitivos"
+      ],
+      "evidence_ids": [
+        "D19",
+        "D60",
+        "D61",
+        "Q02"
+      ],
+      "cliffhanger": "D69",
+      "pantalla_ids": []
+    },
+    {
+      "chapter_number": 6,
+      "title": "Demandas y Reparaciones Tardías",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "resolution",
+      "bullets": [
+        "Robie Waganfeald y Paul Kunkel Jr. reciben $650,000 en 2010",
+        "Jurado federal otorga más de $650,000 a los turistas de Ohio",
+        "Robie Waganfeald y Paul Kunkel Jr. arrestados en Bourbon Street",
+        "Investigación del Departamento de Justicia de EE. UU.",
+        "Carta de hallazgos sobre las condiciones en la OPP",
+        "Demanda federal de Ronnie L. Morgan, Jr. contra Sheriff Gusman y alcaide Cornel Hubert",
+        "Reapertura del edificio House of Detention (HOD) el 17 de octubre de 2005"
+      ],
+      "evidence_ids": [
+        "D69",
+        "T26",
+        "D29"
+      ],
+      "cliffhanger": "D62",
+      "pantalla_ids": [
+        "T19",
+        "T23"
+      ]
+    },
+    {
+      "chapter_number": 7,
+      "title": "Un Horror Sin Registros",
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "bullets": [
+        "No existen registros oficiales de lo ocurrido en la Prisión de Orleans Parish",
+        "Human Rights Watch: más de 500 prisioneros no contabilizados",
+        "Discrepancia entre 6,375 reclusos oficiales y estimaciones de hasta 8,000 evacuados",
+        "Negación del Sheriff Gusman de muertes o escapes, contradicha por 14 órdenes de arresto",
+        "Departamento de Justicia de EE. UU. llamado a investigar la conducta del Sheriff",
+        "La antigua cárcel de Nueva Orleans, construida en 1902",
+        "Médium psíquico detecta energía residual en la Prisión Parroquial de Orleans"
+      ],
+      "evidence_ids": [
+        "D62",
+        "D59",
+        "D58",
+        "D61",
+        "D63",
+        "D57"
+      ],
+      "cliffhanger": null,
+      "contradiccion_cifras": [
+        "D57"
+      ],
+      "pantalla_ids": [
+        "T22"
+      ]
+    }
+  ],
+  "_frozen": {
+    "skeleton": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f5\\f5c\\01a_skeleton_F5_e7b661c.json",
+    "pool": "C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f5\\f5c\\01_facts_sources_F5_e7b661c.json",
+    "ids_traducidos": {
+      "D72": "D69"
+    },
+    "notas": [
+      "cap 7: fuera del pool actual ['D71']",
+      "personaje fuera (el pool actual no lo tiene: no hace nada en la historia): Cornel Hubert",
+      "personaje fuera (el pool actual no lo tiene: no hace nada en la historia): Raphael Schwarz"
+    ]
+  },
+  "_pool_plan": {
+    "cifras_canonicas": [
+      "cap 1: cifra canónica 6,375 en vez de ['6,375, 6,500']",
+      "cap 3: cifra canónica 6,375 en vez de ['6,500']",
+      "cap 7: contradicción 6,375 (oficial) vs ['8,000']"
+    ],
+    "pantalla": [
+      "cap 1: pantalla ['T04']",
+      "cap 4: pantalla ['T16']",
+      "cap 6: pantalla ['T19', 'T23']",
+      "cap 7: pantalla ['T22']"
+    ]
+  }
+}

@@ -1,0 +1,176 @@
+[14:34:10] ch02: RAM libre 19.0 GB · Firefox cerrado
+[14:34:12] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f5v2
+[14:38:52] INFO     | viral_pipeline | [video_assembler] ✓ [gfx] ch02 OK en 280s (disperso)
+[14:39:34] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f5v2 — Costo total: $0.0002
+
+  🎬 Modo: SINGLE · 1 video(s) a procesar
+
+════════════════════════════════════════════════════════════
+  🎬 FASE 2B — ba6c3cac-f5v2
+════════════════════════════════════════════════════════════
+  🪝 hook:     (ninguno)
+  📝 subs:     ON (karaoke)
+  🎨 gfx:      ON (HyperFrames, looks)
+  📊 capítulos: 7
+  ⏱  duración total estimada: 542.6s (9.0 min)
+
+  Plan por capítulo:
+    [ch01] engine=veo  | audio= 31.0s | 1 clip     | subs+ts
+    [ch02] engine=flux | audio= 69.1s | 11 img(s)  | subs+ts
+    [ch03] engine=flux | audio= 83.7s | 13 img(s)  | subs+ts
+    [ch04] engine=flux | audio= 91.2s | 13 img(s)  | subs+ts
+    [ch05] engine=flux | audio=100.3s | 14 img(s)  | subs+ts
+    [ch06] engine=flux | audio= 91.6s | 14 img(s)  | subs+ts
+    [ch07] engine=veo  | audio= 75.7s | 1 clip     | subs+ts
+
+  ♻  reuse-visuals: salteando flow_director (clips ya horneados)
+  🛡  safe-router: riesgo low=65 mid=0 high=0 → movimiento seguro en 0 imagen(es)
+  🎨 gfx_director prefetch: ch02 0s
+
+  🔧 [2/7] ch02 (flux)...
+  [fase2b] ch02 reuse-visuals: ch02_flux_visual.mp4 (sin DepthFlow)
+     ✓ ch02_segment_only.mp4 — 73.1s
+
+  ✅ --only-cap ch02: C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-f5v2\_fase2b_work\ch02_segment_only.mp4
+
+════════════════════════════════════════════════════════════
+  ✅ FASE 2B BATCH TERMINADA
+════════════════════════════════════════════════════════════
+  Procesados OK: 1/1
+  ▶ Siguiente paso (empaquetar para publicar):
+       python fase3.py ba6c3cac-f5v2
+════════════════════════════════════════════════════════════
+
+[14:39:35] ch02: rc=0 en 5.4 min
+[14:39:35] ch05: RAM libre 18.9 GB · Firefox cerrado
+[14:39:37] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f5v2
+[14:45:41] INFO     | viral_pipeline | [video_assembler] ✓ [gfx] ch05 OK en 364s (disperso)
+[14:46:18] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f5v2 — Costo total: $0.0002
+
+  🎬 Modo: SINGLE · 1 video(s) a procesar
+
+════════════════════════════════════════════════════════════
+  🎬 FASE 2B — ba6c3cac-f5v2
+════════════════════════════════════════════════════════════
+  🪝 hook:     (ninguno)
+  📝 subs:     ON (karaoke)
+  🎨 gfx:      ON (HyperFrames, looks)
+  📊 capítulos: 7
+  ⏱  duración total estimada: 542.6s (9.0 min)
+
+  Plan por capítulo:
+    [ch01] engine=veo  | audio= 31.0s | 1 clip     | subs+ts
+    [ch02] engine=flux | audio= 69.1s | 11 img(s)  | subs+ts
+    [ch03] engine=flux | audio= 83.7s | 13 img(s)  | subs+ts
+    [ch04] engine=flux | audio= 91.2s | 13 img(s)  | subs+ts
+    [ch05] engine=flux | audio=100.3s | 14 img(s)  | subs+ts
+    [ch06] engine=flux | audio= 91.6s | 14 img(s)  | subs+ts
+    [ch07] engine=veo  | audio= 75.7s | 1 clip     | subs+ts
+
+  ♻  reuse-visuals: salteando flow_director (clips ya horneados)
+  🛡  safe-router: riesgo low=65 mid=0 high=0 → movimiento seguro en 0 imagen(es)
+  🎨 gfx_director prefetch: ch05 0s
+
+  🔧 [5/7] ch05 (flux)...
+  [fase2b] ch05 reuse-visuals: ch05_flux_visual.mp4 (sin DepthFlow)
+     ✓ ch05_segment_only.mp4 — 104.3s
+
+  ✅ --only-cap ch05: C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-f5v2\_fase2b_work\ch05_segment_only.mp4
+
+════════════════════════════════════════════════════════════
+  ✅ FASE 2B BATCH TERMINADA
+════════════════════════════════════════════════════════════
+  Procesados OK: 1/1
+  ▶ Siguiente paso (empaquetar para publicar):
+       python fase3.py ba6c3cac-f5v2
+════════════════════════════════════════════════════════════
+
+[14:46:18] ch05: rc=0 en 6.7 min
+[14:46:18] ch06: RAM libre 18.6 GB · Firefox cerrado
+[14:46:20] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f5v2
+[14:52:10] INFO     | viral_pipeline | [video_assembler] ✓ [gfx] ch06 OK en 350s (disperso)
+[14:53:04] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f5v2 — Costo total: $0.0004
+
+  🎬 Modo: SINGLE · 1 video(s) a procesar
+
+════════════════════════════════════════════════════════════
+  🎬 FASE 2B — ba6c3cac-f5v2
+════════════════════════════════════════════════════════════
+  🪝 hook:     (ninguno)
+  📝 subs:     ON (karaoke)
+  🎨 gfx:      ON (HyperFrames, looks)
+  📊 capítulos: 7
+  ⏱  duración total estimada: 542.6s (9.0 min)
+
+  Plan por capítulo:
+    [ch01] engine=veo  | audio= 31.0s | 1 clip     | subs+ts
+    [ch02] engine=flux | audio= 69.1s | 11 img(s)  | subs+ts
+    [ch03] engine=flux | audio= 83.7s | 13 img(s)  | subs+ts
+    [ch04] engine=flux | audio= 91.2s | 13 img(s)  | subs+ts
+    [ch05] engine=flux | audio=100.3s | 14 img(s)  | subs+ts
+    [ch06] engine=flux | audio= 91.6s | 14 img(s)  | subs+ts
+    [ch07] engine=veo  | audio= 75.7s | 1 clip     | subs+ts
+
+  ♻  reuse-visuals: salteando flow_director (clips ya horneados)
+  🛡  safe-router: riesgo low=65 mid=0 high=0 → movimiento seguro en 0 imagen(es)
+  🎨 gfx_director prefetch: ch06 0s
+
+  🔧 [6/7] ch06 (flux)...
+  [fase2b] ch06 reuse-visuals: ch06_flux_visual.mp4 (sin DepthFlow)
+     ✓ ch06_segment_only.mp4 — 95.7s
+
+  ✅ --only-cap ch06: C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-f5v2\_fase2b_work\ch06_segment_only.mp4
+
+════════════════════════════════════════════════════════════
+  ✅ FASE 2B BATCH TERMINADA
+════════════════════════════════════════════════════════════
+  Procesados OK: 1/1
+  ▶ Siguiente paso (empaquetar para publicar):
+       python fase3.py ba6c3cac-f5v2
+════════════════════════════════════════════════════════════
+
+[14:53:05] ch06: rc=0 en 6.8 min
+[14:53:05] ch07: RAM libre 18.1 GB · Firefox cerrado
+[14:53:06] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f5v2
+[14:57:26] INFO     | viral_pipeline | [video_assembler] ✓ [gfx] ch07 OK en 259s (disperso)
+[14:58:10] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f5v2 — Costo total: $0.0002
+
+  🎬 Modo: SINGLE · 1 video(s) a procesar
+
+════════════════════════════════════════════════════════════
+  🎬 FASE 2B — ba6c3cac-f5v2
+════════════════════════════════════════════════════════════
+  🪝 hook:     (ninguno)
+  📝 subs:     ON (karaoke)
+  🎨 gfx:      ON (HyperFrames, looks)
+  📊 capítulos: 7
+  ⏱  duración total estimada: 542.6s (9.0 min)
+
+  Plan por capítulo:
+    [ch01] engine=veo  | audio= 31.0s | 1 clip     | subs+ts
+    [ch02] engine=flux | audio= 69.1s | 11 img(s)  | subs+ts
+    [ch03] engine=flux | audio= 83.7s | 13 img(s)  | subs+ts
+    [ch04] engine=flux | audio= 91.2s | 13 img(s)  | subs+ts
+    [ch05] engine=flux | audio=100.3s | 14 img(s)  | subs+ts
+    [ch06] engine=flux | audio= 91.6s | 14 img(s)  | subs+ts
+    [ch07] engine=veo  | audio= 75.7s | 1 clip     | subs+ts
+
+  ♻  reuse-visuals: salteando flow_director (clips ya horneados)
+  🛡  safe-router: riesgo low=65 mid=0 high=0 → movimiento seguro en 0 imagen(es)
+  🎨 gfx_director prefetch: ch07 0s
+
+  🔧 [7/7] ch07 (veo)...
+  [fase2b] ch07 reuse-visuals: ch07_hybrid_visual.mp4 (sin DepthFlow)
+     ✓ ch07_segment_only.mp4 — 79.2s
+
+  ✅ --only-cap ch07: C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-f5v2\_fase2b_work\ch07_segment_only.mp4
+
+════════════════════════════════════════════════════════════
+  ✅ FASE 2B BATCH TERMINADA
+════════════════════════════════════════════════════════════
+  Procesados OK: 1/1
+  ▶ Siguiente paso (empaquetar para publicar):
+       python fase3.py ba6c3cac-f5v2
+════════════════════════════════════════════════════════════
+
+[14:58:10] ch07: rc=0 en 5.1 min

@@ -132,6 +132,9 @@ def compose_sparse(plan: dict[str, Any], scenes: list[GfxScene], windows: list[t
             p[k]["start"] = m(p[k]["start"])
             if p[k]["start"] is None:
                 p[k] = None
+    if p.get("time_ticker"):                                   # F5f: los cambios de fecha también se corren
+        p["time_ticker"]["changes"] = [{**c, "t": m(c["t"])} for c in p["time_ticker"].get("changes") or []
+                                       if m(c["t"]) is not None]
     for c in p.get("callouts", []):
         c["start"] = m(c["start"])
     p["callouts"] = [c for c in p.get("callouts", []) if c["start"] is not None]

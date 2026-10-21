@@ -1,9 +1,9 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (F5f en curso: código + simulación; espera marcas de Omar; ver sección F5f) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (F5f cerrado como laboratorio; ver sección F5f) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
-- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit: `b5d59e6` feat(f5e) (`git log -1`), sobre `7c0b2e5` wip(f5e).
+- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit: «F5f: cierre Orleans (lab)» (`git log -1`), sobre `cc625e2` wip F5f.
 - Cadena de ramas sin mergear: `f2-gfx-director` (F2b @ `31c671c`) → `f3-lab-identidad` (F3–F4e @ `39e37ac`) → `f5-guion-v2` (F5).
 - `main` = `43f528a`. NO se toca sin OK explícito de Omar.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
@@ -11,35 +11,36 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F5f — Capa gfx, segunda vuelta (pedido de Omar tras F5e) — EN CURSO
-- Pedido: solo capa gfx, sin tocar guion ni imágenes.
-  1. Sustantivo con ícono literal sobre adjetivo de su categoría en la misma frase.
-  2. reclusos, prisioneros, presos, cárcel y prisión a peso 1.
-  3. Reservados: motivo del choque; desplazan sellos y moods y solo ceden ante título, pregunta y nivel de agua. Bloque «cita» para Q02 en ch05.
-  4. Recorte con una cifra que la voz dice a ±10 s, fuera; 15 s entre recortes.
-  5. Nivel de agua desde un reservado de altura.
-  6. Ningún titular con comilla abierta.
-  7. Después de regenerar las fotos que marque Omar: re-render gfx, hojas, reporte, revisor, commit y PARADA.
-- **Programado, sin commitear:**
-  - `gfx_peak.prefer_icon_nouns`, aplicado al pico, a su palabra y a `place_emphasis`.
-  - `gfx_rules.theme_words`, con `gfx_intensity.is_theme_word` en validate y `stamp_lexicon`.
-  - `gfx_pool`: `_busy_blocks` (bloques con nombre), `reserved_slot`, `displace`, `enforce_reserved` (en `gfx_layer`, antes del crítico), `figure_echo`, `close_quotes`, `plan_pool_quote`, que arma el bloque `quote_card`.
-  - `quote_card` en `gfx_project`, `gfx_sparse`, `gfx_literal_lock`, `gfx_critic` y `gfx_bug`. El crítico nunca saca un reservado ni la cita.
-  - `gfx_peak.reserved_water_level`.
-  - Tokens nuevos de motor (sin cambio de perfil): `archive_min_gap_sec`, `archive_figure_echo_sec`, `quote_*` y `theme_words`.
-  - Tests: `test_module_f5f.py` (6).
-- **Simulador:** `lab/hyperframes/f5/simular_gfx_v2.py` corre `plan_only` sobre los clips reales en `output/ba6c3cac-f5v2/_sim_gfx/` y deja el resumen en `produccion/SIM_F5f.md`.
-- **Hallazgos:**
-  - D15 («15 pies (4.6 metros) de agua») no está en los `pantalla_ids` ni en los `evidence_ids` de ningún cap del skeleton, así que el nivel de agua desde un reservado no dispara en Orleans sin tocar el skeleton.
-  - `ch01_hybrid_visual.mp4` no está en `_fase2b_work`. El re-render lo rehace con DepthFlow (sin costo de API).
-- **Simulación (plan_only) hecha:**
-  - Reservados en pantalla 5 de 5 (antes 2): T04 en ch01, T16 en ch04, T19 y T23 en ch06, T22 en ch07. T22 sale cortado antes de la comilla.
-  - Cita Q02 en ch05 a los 42.1 s.
-  - Pico de ch05: «cadáveres» + calavera.
-  - D57 fuera de ch01 (eco 6,375 y menos de 15 s del recorte anterior).
-  - T19 desplaza solo un dato: el contador 650,000 queda.
-  - Tests: 409 verdes + 3 viejas. Decisiones U1–U8 en `DECISIONES_F5.md`.
-- **Falta:** las marcas de Omar en QA Studio (todavía ninguna); después `regen_marcadas.py`, `produccion_orleans_v2.py --etapa render_gfx` (antes renombrar `_bak_f5e_pre`, o usar otro tag), hojas, reporte, revisor, commit y PARADA.
+## F5f — Cierre de Orleans (laboratorio) — CERRADO, PARADA (el analista valida desde disco)
+- **Rama:** `f5-guion-v2`. **Último commit:** «F5f: cierre Orleans (lab)» (`git log -1`), sobre `cc625e2` («wip: F5f pre-cierre»). Omar no publica este video.
+- **Sin mergear a main** (`main` = `43f528a`, intacta; no se hace merge sin OK de Omar): la cadena `f2-gfx-director` → `f3-lab-identidad` → `f5-guion-v2` (61 commits por delante de main). Quedan aparte `f1-gfx-layer` y `lab/kling-transform-probe`.
+- **Leer:** `lab/hyperframes/f5/F5f_REPORT.md` (tabla por cap, lo que no salió y el veredicto íntegro del revisor: CUMPLE CON OBSERVACIONES) y `DECISIONES_F5.md` U1–U11.
+- **Hecho:**
+  - Arreglos 1–6:
+    - sustantivo con ícono sobre adjetivo;
+    - palabras del tema a peso 1;
+    - reservados con prioridad y motivo de choque;
+    - bloque `quote_card`;
+    - eco de cifra y 15 s entre recortes;
+    - nivel de agua desde un reservado;
+    - titulares sin comilla abierta.
+  - D15 como reservado del ch02, en el skeleton (respaldo en `produccion/01a_skeleton_pre_f5f.json`).
+  - Reloj que cambia de fecha.
+  - Render de la capa gfx solo de ch02, ch05, ch06 y ch07 (`render_f5f_caps.py`, `--only-cap --reuse-visuals`). Capas en `_fase2b_work/chNN_gfx.mp4`; las anteriores, en `_bak_f5f_pre/`; hojas en `lab/hyperframes/f5/produccion/hojas_f5f/`.
+  - Sin render completo: el `_final_gfx.mp4` sigue siendo el de F5e.
+- **Quedó solo en simulación** (`produccion/SIM_F5f.md`, `_sim_gfx/`):
+  - ch01: fuera el 6,375 y T04 a los 14.7 s;
+  - ch04: T16 y el reloj 30 AGO → 2 SEP.
+- **Ojo:** durante la sesión se regeneraron fotos desde el botón «arreglar» de QA Studio: ch01_supp_04, ch03_img_02 y ch03_img_10 (backups en `assets/_qa_backups/`). Eso borró `ch01_hybrid_visual.mp4` y `ch03_flux_visual.mp4`; un render futuro los rehace con DepthFlow. QA Studio sigue abierto en :8000 desde F5e.
+- **Tests:** 410 verdes + 3 fallas viejas de `01b_pauses`.
+- **Archivos sueltos sin commitear (a propósito):**
+  - `gfx_profiles/misterio.json`: el render promueve solo palabras al léxico (por ejemplo «negrura»: 3);
+  - `gfx_profiles/lexico_propuestas.json`;
+  - `lab/hyperframes/f5/produccion/topics_db_pre.json`;
+  - `diag_234_cap4.py`: no es nuestro y nunca se commitea;
+  - `lab/hyperframes/f5/produccion/qa_studio.out`;
+  - `data/scripts/_steps/ba6c3cac-f5v2/01a_skeleton.json` (fuera de git; D15 aplicado).
+  - Además, unos 135 sueltos de laboratorio ajenos a F5 (`_compare_*`, `_lab_*`, `_probe_*`, mp4).
 
 ## F5e — Arreglos de capa gfx tras ver el video — render hecho, PARADA tras el commit final
 - Pedido (Omar/analista, después de ver Orleans v2): solo capa gfx, sin tocar guion ni imágenes.

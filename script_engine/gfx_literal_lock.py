@@ -102,6 +102,9 @@ def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int,
         ok["time_ticker"] = None
     if tk and ok.get("time_ticker") and any(not _check("time_ticker", {"hora": h}) for h in tk.get("times") or []):
         ok["time_ticker"] = None
+    if tk and ok.get("time_ticker"):            # F5f: cada fecha nueva del reloj sale de un dato literal; si no, no cambia
+        ok["time_ticker"]["changes"] = [c for c in tk.get("changes") or []
+                                        if _check("time_ticker", {"source_text": c.get("source_text", "")})]
 
     # F2b §3: la etiqueta del icon_array ('12 de los 300') es fragmento literal del fact
     ia = ok.get("icon_array")

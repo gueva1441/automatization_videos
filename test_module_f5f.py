@@ -99,3 +99,21 @@ def test_nivel_de_agua_desde_un_reservado_de_altura():
     wl = gk.reserved_water_level({"pool": pool, "skeleton_all": skel, "chapter_number": 3}, w)
     assert wl["value_text"] == "4.6" and wl["unit"] == "metros" and wl["pool_id"] == "D15"
     assert gk.reserved_water_level({"pool": pool, "skeleton_all": {"chapters": []}, "chapter_number": 3}, w) is None
+
+
+def test_reloj_cambia_de_fecha_con_animacion():
+    from script_engine.gfx_project import time_ticker_html
+    from script_engine.gfx_literal_lock import lock
+    crono = [{"id": "T05", "fecha": "2005-08-28", "hora": None, "evento": "El sheriff anuncia que no evacuará la prisión."},
+             {"id": "T08", "fecha": "2005-08-29", "hora": None, "evento": "La energía eléctrica se pierde en la prisión."}]
+    pool = {"cronologia": crono, "datos": [], "citas": [], "lugares": [], "personajes": []}
+    skel = {"chapters": [{"chapter_number": 2, "evidence_ids": ["T05", "T08"]}]}
+    w = _words("El 28 de agosto el sheriff anuncia que no evacuará la prisión. Pasan horas y horas sin noticias. "
+               "El 29 de agosto la energía eléctrica se pierde en la prisión.")
+    tk = gp.pool_ticker({"pool": pool, "skeleton_all": skel, "chapter_number": 2}, w, 60.0)
+    assert (tk["day"], tk["month"]) == ("28", "AGO") and [(c["day"], c["pool_id"]) for c in tk["changes"]] == [("29", "T08")]
+    assert tk["duration"] == round(tk["changes"][0]["t"] + gp.TICKER_HOLD - tk["start"], 3)
+    html_, _, js = time_ticker_html(tk, 60.0)
+    assert 'id="tk-d"' in html_ and any('"29 AGO"' in x for x in js)
+    ok, _ = lock({"time_ticker": tk}, {"pool.T05": crono[0]["evento"]}, chapter_number=2)   # sin la fuente de T08
+    assert ok["time_ticker"]["changes"] == []
