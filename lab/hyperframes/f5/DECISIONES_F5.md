@@ -71,3 +71,28 @@ Handoff: `lab/hyperframes/f5/HANDOFF_F5_guion_v2.md`. Rama `f5-guion-v2`.
 
 ## Herramientas
 - **J27 (bug de proceso)** Los heredocs de Git Bash convierten `\\b` en el byte 0x08 dentro de strings de Python. Es el mismo daño que tenían `gfx_fragments._DATE_RE` (F4c G16) y `gfx_icons` (F4d H11). Pasó otra vez en `evidence.py` y lo corregí. Desde acá, todo parche con barras invertidas va por un script escrito con Write, y cada parche chequea que no queden bytes de control.
+
+## §2 producción (`script_engine/gfx_pool.py` + cableado en gfx_director, gfx_layer, gfx_question)
+- **J28 (compatibilidad)** Todo va detrás de `ctx["pool"]`, que solo existe si el guion (`data/scripts/<id>.json`) trae `evidence_pool`. Los guiones viejos no lo traen y salen igual que antes: suite gfx en 301 verdes, sin cambios. Sin `--gfx` no corre nada de esto.
+- **J29 (candado)** `load_chapter_context` suma a las fuentes del candado los textos del pool: datos, eventos, citas con su autor, lugares, personajes y sus fuentes completas y cortas («Organización, año»).
+- **J30 (recortes)** Con pool, los recortes de `verified_facts` se reemplazan por recortes del pool (`plan_pool_documents`). Proceso:
+  1. Candidatos: los IDs del cap en el skeleton y después los de los caps ±1; datos duros y citas; sin los que ya salieron en pantalla en caps anteriores (dedupe por `pool_id`).
+  2. Cada candidato se ubica en la oración de la voz que habla de lo mismo (≥ 2 palabras de contenido en común, o 1 si el dato es del propio cap).
+  3. Opciones: cláusulas completas del dato que suman a la voz del tramo y pasan el candado. Flash elige entre las 3 mejores.
+  4. Kicker = fuente corta del dato → fecha literal del dato → año del dato. Sin ninguno → sin recorte. Ya no se usa el año que dice la voz del cap (F4c G11), como pide el handoff.
+  5. Se respeta el tope de recortes por cap y no se pisan otros bloques.
+- **J31 (datos)** También salen del pool: la cifra del dato, en el instante en que la voz la nombra, con una cláusula de ≤ 5 palabras del pool. Máximo 2 por cap. R7 (F4c) los saca si la voz los dice literal en ese tramo. Los datos de `verified_facts` que había puesto el director se reemplazan.
+- **J32 (ícono por contenido)** Decisión de Omar, escena 1: el ícono lo decide el tema del dato, nunca la palabra de la voz. Mapa:
+  - demanda / jurado / indemnización / carta de hallazgos → balanza;
+  - cadáveres / cuerpos / muertos → calavera;
+  - aguas residuales / contaminación → biohazard;
+  - registros / listas / desaparecidos → ojo tachado;
+  - celdas / encerrados → candado;
+  - agua / inundación / pies / metros → gota;
+  - cifras de personas → sin ícono.
+- **J33 (íconos que faltan)** Huracán → espiral y generadores → rayo tachado: esos íconos no existen todavía. El handoff pide generarlos «con el pipeline de los 12», pero F5 es sin imágenes (Omar). Quedan anotados en el bloque (`icon_missing`) y salen sin ícono. Son el primer pendiente de F6.
+- **J34 (pregunta)** Sale del cliffhanger del skeleton: `gfx_question` recibe el texto del dato que revela el cap siguiente. Las 3 candidatas tienen que pasar la rúbrica de F4c y compartir un sustantivo con ese dato. Si ninguna pasa, se usa el generador de F4c. La pregunta manual de Omar nunca se pisa. El caché usa la versión `f5-cliff`.
+- **J35 (reloj)** Sale de la cronología del cap, y solo si el cap avanza de fecha (≥ 2 fechas distintas) o trae hora. Muestra la primera fecha (o la hora) desde que la voz la nombra hasta que nombra la siguiente. La plantilla no cambia (no anima un cambio de fecha); el candado sigue validando el texto del evento y la hora.
+- **J36 (mapa)** Los lugares con lat/lon quedan en el `evidence_pool` del guion para F6. No se renderiza nada.
+- **J37 (`plan_only`)** `apply_gfx(plan_only=True)` hace director, candado, pico, identidad, pregunta, crítico, SFX y cues, y devuelve el clip base sin HyperFrames ni render. Es para la simulación de §3.
+- **J38** Una cláusula de recorte puede arrancar con una cifra («517 prisioneros…»). Antes solo podía arrancar con letra.

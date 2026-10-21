@@ -101,12 +101,21 @@ def load_chapter_context(video_id: str, chplan: Any) -> dict[str, Any]:
             next_sources[f"next.bullets[{j}]"] = b
     # F2b §2: narración completa del video (rareza de las palabras de énfasis)
     narration_all = " ".join(str(c.get("narration", "")) for c in script.get("chapters", []))
+    # F5 §2: el evidence_pool entra al candado (un recorte que dice lo que la voz NO dice es el caso deseado)
+    pool = script.get("evidence_pool") or None
+    if pool:
+        from script_engine.gfx_pool import pool_sources, short_source
+        sources.update(pool_sources(pool))
+        for k, it in enumerate(pool.get("datos") or []):
+            if it.get("fuente"):
+                sources[f"pool.fuente_corta.{k}"] = short_source(it["fuente"])
     return {
         "video_id": video_id, "chapter_number": n, "script_chapter": chapter, "narration_all": narration_all,
         "facts": facts, "skeleton": skeleton_ch, "canonical": canonical, "sources": sources,
         "eligible": eligible, "era_window": era,
         "fact_source": fact_sources(facts, src_list), "next_sources": next_sources,
         "chapters": script.get("chapters", []),           # F3: pregunta de cierre (cap actual + siguiente)
+        "pool": pool, "skeleton_all": sk if pool else {},   # F5 §2 (None/{} sin pool: todo igual que antes)
     }
 
 

@@ -211,6 +211,8 @@ _MONTH_SET = set(_MONTHS.strip("(?:)").split("|"))
 def _start_ok(w: str) -> bool:
     """La opción arranca en artículo, nombre o sustantivo (no en verbo, participio, adverbio ni palabra funcional)."""
     t = _tok(w)
+    if re.fullmatch(r"\$?\d[\d.,]*%?", w):            # F5: una cifra arranca bien («517 prisioneros…»)
+        return True
     if not re.match(r"[A-Za-zÁÉÍÓÚÑáéíóúñ]", w) or re.search(r"[\"'«»“”]$", w):
         return False
     if t in _ARTICLES or w[:1].isupper():

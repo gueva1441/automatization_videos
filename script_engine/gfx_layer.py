@@ -275,7 +275,14 @@ def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Pa
         return 0.0
     from script_engine.gfx_director import question_keyword
     from script_engine.gfx_question import question_for
-    q = question_for(work_dir, cap, ctx["chapter_number"], ctx.get("chapters") or [])
+    cliff = None
+    if ctx.get("pool"):                         # F5 §2: la pregunta anticipa el cliffhanger del skeleton
+        from script_engine import evidence as _ev
+        ch = next((c for c in (ctx.get("skeleton_all") or {}).get("chapters") or []
+                   if c.get("chapter_number") == ctx["chapter_number"]), {})
+        it = _ev.items(ctx["pool"]).get(ch.get("cliffhanger") or "")
+        cliff = _ev.text_of(it) if it else None
+    q = question_for(work_dir, cap, ctx["chapter_number"], ctx.get("chapters") or [], cliff=cliff)
     pause_file = work_dir / f"gfx_pause_{cap}.json"
     if not q.get("text"):
         log.append(f"  pregunta de cierre: no ({q.get('motivo', 'sin texto')}; intentos: "
@@ -438,7 +445,8 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
               width: int, height: int, fps: int, quality: str | None = None,
               reuse: bool = False, time_offset: float = 0.0,
               gfx_plan_override: dict[str, Any] | None = None, debug: bool = False,
-              sparse: bool = False, safe_scenes: dict[int, dict[str, Any]] | None = None) -> Path:
+              sparse: bool = False, safe_scenes: dict[int, dict[str, Any]] | None = None,
+              plan_only: bool = False) -> Path:
     """Aplica la capa gráfica al base_clip de un cap. Devuelve chXX_gfx.mp4 o base_clip (fallback).
 
     Args:
@@ -449,6 +457,8 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         time_offset: pre-pad del hook (ch01) — las palabras se corren igual que los subs.
         gfx_plan_override: plan RESUELTO fijo (paso 1 del handoff, sin LLM). None → director + lock.
         debug: overlay de depuración quemado (timecode, bloque activo, escena, rank). Solo con --gfx-debug.
+        plan_only: F5 §3 — director + candado + crítico + cues, SIN HyperFrames ni render (simulación). Devuelve
+            base_clip; deja gfx_plan_<cap>.resolved.json, gfx_sfx y gfx_cues en work_dir.
     """
     cap = plan.chapter_id
     out = work_dir / f"{cap}_gfx.mp4"
@@ -553,7 +563,15 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             resolved = resolve_plan(raw_plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
             resolved, rejected = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                       question_sources=ctx.get("next_sources"))
-            if gfx_rules.fragment_director:                          # F4b §2: el fragmento literal más impactante
+            if ctx.get("pool"):                                      # F5 §2: recortes y datos salen del pool
+                from script_engine.gfx_pool import plan_pool_documents
+                resolved["fragmentos"] = plan_pool_documents(resolved, ctx=ctx, words=words, scenes=scenes,
+                                                             time_offset=time_offset, work_dir=work_dir, cap=cap,
+                                                             log=log)
+                resolved, rej_p = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
+                                       question_sources=ctx.get("next_sources"))
+                rejected += rej_p
+            elif gfx_rules.fragment_director:                        # F4b §2: el fragmento literal más impactante
                 from gfx_config import active_moods as _am
                 from script_engine.gfx_fragments import choose_fragments
                 resolved["fragmentos"] = choose_fragments(resolved, ctx=ctx, words=words, scenes=scenes,
@@ -599,6 +617,13 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                       box_for=_box, water_used=water_used_before(work_dir, ctx["chapter_number"]), time_offset=time_offset,
                       log=log, intensity=intensity, off_peak_zoom=not details,
                       human_box_for=_human_box if details else None)
+            if ctx.get("pool"):                                      # F5 §2: el reloj sale de la cronología
+                from script_engine.gfx_peak import ticker_corner
+                from script_engine.gfx_pool import pool_ticker
+                ptk = pool_ticker(ctx, words, clip_dur, time_offset)
+                resolved["time_ticker"] = ticker_corner(ptk, resolved) if ptk else None
+                log.append(f"  reloj (cronología): {ptk['day']} {ptk['month']} · {ptk['tail']} "
+                           f"@ {ptk['start']:.1f}s ({ptk['pool_id']})" if ptk else "  reloj (cronología): no (el cap no avanza de fecha)")
             from script_engine.gfx_literal_lock import lock as _lock2                 # lo nuevo también pasa el candado
             resolved, rej2 = _lock2(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                     question_sources=ctx.get("next_sources"))
@@ -694,6 +719,13 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         (work_dir / f"gfx_sfx_{cap}.json").write_text(json.dumps(sfx, ensure_ascii=False, indent=1), encoding="utf-8")
         log.append(f"  sfx: {len(sfx)} eventos ({', '.join(e['block'] for e in sfx)})")
         _step("3-4 plan + lock", ts)
+
+        if plan_only:                                          # F5 §3: simulación sin render
+            from script_engine.gfx_project import cue_events
+            from script_engine.gfx_review import write_cues
+            write_cues(cap, cue_events(resolved, scenes, fps), log, resolved.get("gap_warnings", []), None, work_dir)
+            log.append(f"  OK plan_only {time.time() - t0:.1f}s (sin render)")
+            return base_clip
 
         if sparse and not debug:
             # F2 §3.1: render disperso (solo ventanas con eventos) + grade FFmpeg uniforme

@@ -17,6 +17,10 @@ no cumplen (a) nombra algo que el espectador YA conoce (sustantivo de este cap o
 elige entre las que quedan por (b) consecuencia o culpa no resuelta. Modelo: «¿Quién fue el culpable?». El requisito
 viejo «comparte sustantivo con el cap siguiente» (empujaba a la trivia procesal) no aplica en este modo.
 
+F5 §2: con evidence_pool, la pregunta sale del CLIFFHANGER del skeleton (el dato concreto que revela el cap
+siguiente): la rúbrica de arriba + apuntar a ESE dato sin revelarlo (comparte un sustantivo con él). Si no sale →
+el generador de F3/F4c como respaldo.
+
 La respuesta se cachea en work_dir/gfx_question_chNN.json (el lab la puede regenerar o editar ahí mismo). Una pregunta
 manual de Omar nunca se pisa.
 """
@@ -215,12 +219,18 @@ def validate_rubric(q: str, said_before: str) -> str | None:
     return None
 
 
-def build_rubric_prompt(last3: list[str], next_first3: list[str], rejected: list[tuple[str, str]]) -> str:
+CLIFF_VERSION = "f5-cliff"
+
+
+def build_rubric_prompt(last3: list[str], next_first3: list[str], rejected: list[tuple[str, str]],
+                        cliff: str | None = None) -> str:
     rej = "".join(f"\n- «{q}» → rechazada: {why}" for q, why in rejected)
+    cliff_txt = (f"\n\nEL CAPÍTULO SIGUIENTE REVELA ESTE DATO (la pregunta apunta a ESO sin revelarlo; usá un "
+                 f"sustantivo del dato):\n- {cliff}" if cliff else "")
     return (
         "FINAL DEL CAPÍTULO ACTUAL (últimas 3 frases):\n" + "\n".join(f"- {s}" for s in last3) +
         "\n\nLO QUE VIENE (primeras 3 frases del capítulo siguiente; el espectador todavía NO las escuchó):\n" +
-        "\n".join(f"- {s}" for s in next_first3) +
+        "\n".join(f"- {s}" for s in next_first3) + cliff_txt +
         "\n\nEscribí TRES preguntas de cierre distintas, en español rioplatense neutro. Cada una es un GANCHO, no trivia:\n"
         "(a) nombra algo que el espectador YA conoce (una persona, grupo o lugar de lo que ya escuchó);\n"
         "(b) implica una consecuencia o una culpa sin resolver;\n"
@@ -233,7 +243,8 @@ def build_rubric_prompt(last3: list[str], next_first3: list[str], rejected: list
 
 
 def generate_rubric(narr_cap: str, narr_next: str, said_before: str, *,
-                    call: Callable[..., dict] | None = None, attempts: int = ATTEMPTS) -> dict[str, Any]:
+                    call: Callable[..., dict] | None = None, attempts: int = ATTEMPTS,
+                    cliff: str | None = None) -> dict[str, Any]:
     """F4c R8: {"text", "intentos": [{"pregunta", "rechazo"}…], "eleccion"}. `call` = call_flash_json (inyectable)."""
     if call is None:
         from gemini_helpers import call_flash_json as call
@@ -244,7 +255,7 @@ def generate_rubric(narr_cap: str, narr_next: str, said_before: str, *,
     rejected: list[tuple[str, str]] = []
     for _ in range(attempts):
         try:
-            raw = call(build_rubric_prompt(last3, next3, rejected), system_instruction=SYSTEM,
+            raw = call(build_rubric_prompt(last3, next3, rejected, cliff), system_instruction=SYSTEM,
                        response_schema={"type": "OBJECT", "properties": {"preguntas": {"type": "ARRAY", "items": {"type": "STRING"}}},
                                         "required": ["preguntas"]}, thinking_budget=0, description="gfx_question rubrica")
             qs = [clean(x) for x in (raw or {}).get("preguntas") or [] if str(x).strip()][:3]
@@ -254,6 +265,9 @@ def generate_rubric(narr_cap: str, narr_next: str, said_before: str, *,
         ok = []
         for q in qs:
             why = validate_rubric(q, said_before)
+            if why is None and cliff and not (nouns(clean(q)) - _HOOK_ROOTS) & nouns(cliff) and not (
+                    nouns(clean(q)) & nouns(cliff)):
+                why = "no apunta al dato del cliffhanger"
             tried.append({"pregunta": q, "rechazo": why})
             (ok.append(q) if why is None else rejected.append((q, why)))
         if not ok:
@@ -284,7 +298,8 @@ def _rubric_on() -> bool:
 
 
 def question_for(work_dir: Path, cap: str, chapter_number: int, chapters: list[dict[str, Any]], *,
-                 regenerate: bool = False, call: Callable[..., dict] | None = None) -> dict[str, Any]:
+                 regenerate: bool = False, call: Callable[..., dict] | None = None,
+                 cliff: str | None = None) -> dict[str, Any]:
     """Pregunta del cap (cache work_dir/gfx_question_<cap>.json). Sin cap siguiente → text None."""
     cache = Path(work_dir) / f"gfx_question_{cap}.json"
     rubric = _rubric_on()
@@ -292,7 +307,8 @@ def question_for(work_dir: Path, cap: str, chapter_number: int, chapters: list[d
         try:
             old = json.loads(cache.read_text(encoding="utf-8"))
             # F4c R8: con rúbrica, una pregunta automática vieja se regenera; la manual de Omar nunca
-            if not rubric or old.get("manual") or old.get("v") == RUBRIC_VERSION:
+            want = CLIFF_VERSION if cliff else RUBRIC_VERSION
+            if not rubric or old.get("manual") or old.get("v") == want:
                 return old
         except (OSError, ValueError):
             pass
@@ -302,8 +318,17 @@ def question_for(work_dir: Path, cap: str, chapter_number: int, chapters: list[d
         res: dict[str, Any] = {"text": None, "intentos": [], "motivo": "último capítulo: sin pregunta"}
     else:
         said = " ".join(str(by_n[k].get("narration", "")) for k in sorted(by_n) if k <= chapter_number)
-        gen = generate_rubric if rubric else generate
-        res = gen(str(cur.get("narration", "")), str(nxt.get("narration", "")), said, call=call)
+        if rubric and cliff:                    # F5 §2: la pregunta anticipa el cliffhanger del skeleton
+            res = generate_rubric(str(cur.get("narration", "")), str(nxt.get("narration", "")), said, call=call,
+                                  cliff=cliff)
+            if res.get("text"):
+                res["v"], res["cliffhanger"] = CLIFF_VERSION, cliff
+            else:                               # respaldo: el generador de F4c
+                res = {**generate_rubric(str(cur.get("narration", "")), str(nxt.get("narration", "")), said,
+                                         call=call), "cliffhanger_fallo": res.get("intentos")}
+        else:
+            gen = generate_rubric if rubric else generate
+            res = gen(str(cur.get("narration", "")), str(nxt.get("narration", "")), said, call=call)
     res.update({"cap": cap, "generated": True, "generado_en": time.strftime("%Y-%m-%d %H:%M:%S")})
     cache.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     return res
