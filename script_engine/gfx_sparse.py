@@ -55,7 +55,7 @@ def event_windows(plan: dict[str, Any], scenes: list[GfxScene], fps: int, dur: f
         iv.append((e["start"], e["start"] + e["duration"]))
     if plan.get("icon_array"):                                # F2b §3
         iv.append((plan["icon_array"]["start"], plan["icon_array"]["start"] + plan["icon_array"]["duration"]))
-    for k in ("water_level", "time_ticker", "black_hold"):    # F4: bloques del pico (F3) también en disperso
+    for k in ("water_level", "time_ticker", "black_hold", "quote_card"):   # F4: bloques del pico; F5f: cita
         b = plan.get(k)
         if b:
             iv.append((b["start"], b["start"] + b["duration"]))
@@ -127,7 +127,7 @@ def compose_sparse(plan: dict[str, Any], scenes: list[GfxScene], windows: list[t
 
     p = copy.deepcopy(plan)
     p.pop("transitions", None)                                  # en disperso las manda tr_s (timeline concatenado)
-    for k in ("water_level", "time_ticker", "black_hold"):     # F4: bloques del pico corridos al timeline disperso
+    for k in ("water_level", "time_ticker", "black_hold", "quote_card"):   # F4 / F5f: corridos al timeline disperso
         if p.get(k):
             p[k]["start"] = m(p[k]["start"])
             if p[k]["start"] is None:

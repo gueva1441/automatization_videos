@@ -93,7 +93,7 @@ def hide_windows(plan: dict[str, Any], clip_dur: float) -> list[tuple[float, flo
     iv: list[tuple[float, float]] = []
     if plan.get("title_card"):
         iv.append((0.0, gfx_rules.title_dur + 0.2))
-    for k in ("chapter_question", "black_hold", "water_level", "outro_bug"):
+    for k in ("chapter_question", "black_hold", "water_level", "outro_bug", "quote_card"):
         b = plan.get(k)
         if b:
             iv.append((b["start"], b["start"] + b["duration"]))

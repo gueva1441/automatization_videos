@@ -49,7 +49,7 @@ SCHEMA: dict[str, Any] = {"type": "OBJECT", "properties": {
     "veredicto": {"type": "STRING", "enum": list(VERDICTS)}, "motivo": {"type": "STRING"}},
     "required": ["veredicto", "motivo"]}
 KIND_LABEL = {"sello": "sello", "icono": "ícono", "recorte": "recorte", "dato": "dato", "contador": "contador",
-              "nivel_agua": "nivel de agua", "zoom": "zoom"}
+              "nivel_agua": "nivel de agua", "zoom": "zoom", "cita": "cita"}
 
 
 def _side(b: dict[str, Any], default: str = "right") -> str:
@@ -75,6 +75,9 @@ def describe(kind: str, b: dict[str, Any]) -> str:
     if kind == "nivel_agua":
         return (f"NIVEL DE AGUA: línea que sube desde abajo hasta el {round(float(b.get('height', 0.5)) * 100)} % de la "
                 f"altura con la cifra «{b.get('value_text')} {b.get('unit', '')}», tiñe de oscuro la parte de abajo")
+    if kind == "cita":
+        return (f"CITA entre comillas «{b.get('text')}» firmada «— {b.get('author')}», centrada sobre la foto oscurecida "
+                f"al {round(float(b.get('dim', 0.6)) * 100)} %")
     if kind == "zoom":
         return (f"ZOOM de evidencia: la cámara acerca hasta la zona {b.get('box')} (x, y, ancho, alto en 0–1) "
                 f"«{b.get('detail') or b.get('anchor')}»")
@@ -90,7 +93,12 @@ def blocks(plan: dict[str, Any]) -> list[dict[str, Any]]:
                     "desc": describe(kind, e), "text": e.get("word", "")})
     for i, a in enumerate(plan.get("archive_clippings") or []):
         out.append({"key": ("archive_clippings", i), "kind": "recorte", "t": float(a["start"]),
-                    "dur": float(a.get("duration", 6.0)), "desc": describe("recorte", a), "text": a.get("headline", "")})
+                    "dur": float(a.get("duration", 6.0)), "desc": describe("recorte", a), "text": a.get("headline", ""),
+                    "reserved": bool(a.get("reserved"))})
+    qc = plan.get("quote_card")
+    if qc:
+        out.append({"key": ("quote_card", None), "kind": "cita", "t": float(qc["start"]), "dur": float(qc["duration"]),
+                    "desc": describe("cita", qc), "text": qc.get("text", ""), "reserved": True})
     for i, c in enumerate(plan.get("callouts") or []):
         out.append({"key": ("callouts", i), "kind": "dato", "t": float(c["start"]), "dur": float(c.get("duration", 2.5)),
                     "desc": describe("dato", c), "text": c.get("text", "")})
@@ -246,9 +254,10 @@ def criticize(plan: dict[str, Any], *, base: Path, words: list[dict], time_offse
         n_drawn += drawn
         voz = voice_at(words, b["t"], time_offset)
         v = judge(img, b["desc"], voz, cache=cache, fewshot=fs, call=call, drawn=snaps[tf] if drawn else None)
-        keep = v["veredicto"] in ("suma", "error")
+        keep = v["veredicto"] in ("suma", "error") or bool(b.get("reserved"))   # F5f: un reservado no cede ante el crítico
         rows.append({"t": round(b["t"], 3), "t_frame": tf, "dur": b["dur"], "bloque": b["kind"], "texto": b["text"],
                      "veredicto": v["veredicto"], "motivo": v["motivo"], "pasa": keep, "voz": voz,
+                     **({"reservado": True} if b.get("reserved") else {}),
                      "mira": "bloque dibujado" if drawn else "foto sola"})
         log.append(f"  crítico: {b['t']:6.1f}s {KIND_LABEL[b['kind']]:<13} «{b['text']}» → {v['veredicto'].upper()}"
                    f" — {v['motivo']}" + (" (caché)" if v.get("cache") else ""))

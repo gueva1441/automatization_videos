@@ -326,6 +326,18 @@ class GfxRules:
     critic_snapshot: bool = False            # G1: el crítico mira el bloque DIBUJADO (snapshot de HyperFrames en t+1 s)
     stamp_nouns_only: bool = False           # F5e: sellos solo en sustantivos/adjetivos de carga (nunca verbos ni neutras)
     archive_head_max_words_pool: int = 12    # F5e G2: titular del recorte del pool hasta 12 palabras (> 8 → cuerpo menor)
+    # F5f (pool): entre recortes y contra la voz
+    archive_min_gap_sec: float = 15.0        # mínimo entre el fin de un recorte y el arranque del siguiente
+    archive_figure_echo_sec: float = 10.0    # un recorte con una cifra que la voz dice a ± esto queda fuera
+    quote_dur: float = 5.0                   # bloque cita: texto literal + autor, 4–5 s, fondo oscurecido
+    quote_min_sec: float = 4.0
+    quote_dim: float = 0.6
+    quote_max_words: int = 30
+    quote_min_words: int = 6                 # «donde pertenecen» (2) no es un bloque de cita
+    # con stamp_nouns_only: palabras del tema (no cargas) → peso 1, nunca sello ni mood
+    theme_words: tuple = ("recluso", "reclusos", "reclusa", "reclusas", "prisionero", "prisioneros", "prisionera",
+                          "prisioneras", "preso", "presos", "presa", "presas", "cárcel", "cárceles", "prisión",
+                          "prisiones")
     source_tag_scale: float = 0.4            # 40 % del tamaño del callout
     sfx_gain_db: float = -18.0               # bajo la voz
     sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano

@@ -94,6 +94,9 @@ def lock(plan: dict[str, Any], sources: dict[str, str], *, chapter_number: int,
     wl = ok.get("water_level")
     if wl and not _check("water_level", {"value": f"{wl.get('value_text', '')} {wl.get('unit', '')}".strip()}):
         ok["water_level"] = None
+    qc = ok.get("quote_card")                # F5f: la cita entera y su autor, literales del pool
+    if qc and not _check("quote_card", {"text": qc.get("text", ""), "author": qc.get("author", "")}):
+        ok["quote_card"] = None
     tk = ok.get("time_ticker")
     if tk and not _check("time_ticker", {"source_text": tk.get("source_text", "")}):
         ok["time_ticker"] = None
@@ -141,4 +144,6 @@ def plan_strings(plan: dict[str, Any]) -> list[str]:
     out += [e.get("word", "") for e in plan.get("emphasis", []) or [] if e.get("stamp")]
     if plan.get("icon_array"):
         out.append(plan["icon_array"].get("label", ""))
+    if plan.get("quote_card"):
+        out += [plan["quote_card"].get("text", ""), plan["quote_card"].get("author", "")]
     return [s for s in out if s]

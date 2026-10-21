@@ -24,6 +24,16 @@ F5b (VALIDACION_F5 §5, P1–P6):
     S4 ícono      solo por el mapa literal del perfil; un adjetivo nunca; la categoría solo decide el mood.
     S5 unidades   en pantalla, unidades métricas: una opción con pies/millas/libras/°F queda fuera (el pool guarda
                   «15 pies (4.6 metros)»: sale la cláusula métrica o nada).
+
+F5f (después de ver Orleans v2 F5e):
+    reservado     un dato reservado para pantalla desplaza sellos, moods, datos, contador y zoom (nunca al revés); solo
+                  cede ante título, pregunta y nivel de agua. Cada uno que no entra queda con el bloque que choca.
+    eco           un recorte con una cifra que la voz dice a ± archive_figure_echo_sec queda fuera; entre recortes,
+                  archive_min_gap_sec libres.
+    comillas      un titular nunca termina con una comilla abierta: se cierra si la cita entera entra, si no se corta
+                  antes de la comilla (si queda una cláusula) o la opción se descarta.
+    cita          bloque nuevo `quote_card`: una cita del cap, texto LITERAL + autor, 4–5 s sobre la foto oscurecida,
+                  cuando la voz la dice (o en su oración). Prioridad de reservado.
 """
 from __future__ import annotations
 
@@ -247,8 +257,47 @@ def pool_clause_options(text: str, max_words: int | None = None) -> list[str]:
                         sx = _unprotect(" ".join(x))
                         if (2 <= len(x) <= max_words and _has_subject(x) and _tok(x[-1]) not in EDGE_STOP
                                 and not IMPERIAL.search(sx)):
-                            out.append(sx)
+                            sx = close_quotes(sx, str(text), max_words)
+                            if sx:
+                                out.append(sx)
     return _dedupe(out)
+
+
+_QUOTE_PAIRS = (('"', '"'), ("«", "»"), ("“", "”"))
+
+
+def _open_quote(t: str) -> int | None:
+    """Posición de la comilla que queda ABIERTA en `t` (None si todas cierran)."""
+    for o, c in _QUOTE_PAIRS:
+        if o == c:
+            k = [m.start() for m in re.finditer(re.escape(o), t)]
+            if len(k) % 2:
+                return k[-1]
+        elif t.count(o) > t.count(c):
+            return t.rfind(o)
+    return None
+
+
+def close_quotes(head: str, text: str, max_words: int) -> str | None:
+    """F5f: un titular nunca termina con una comilla abierta. Se cierra con el texto LITERAL hasta la comilla de cierre
+    si la cita entera entra en max_words; si no, se corta antes de la comilla (si queda una cláusula de ≥ 3 palabras);
+    si tampoco, None (la opción se descarta)."""
+    k = _open_quote(head)
+    if k is None:
+        return head
+    flat = re.sub(r"\s+", " ", text)
+    j = flat.find(head)
+    if j >= 0:
+        o = head[k]
+        c = dict(_QUOTE_PAIRS)[o]
+        e = flat.find(c, j + k + 1)
+        full = flat[j:e + 1] if e > 0 else ""
+        if full and len(full.split()) <= max_words:
+            return full
+    cut = head[:k].rstrip(" ,:;—–-")
+    from script_engine.gfx_fragments import EDGE_STOP, _tok
+    ws = cut.split()
+    return cut if len(ws) >= 3 and _tok(ws[-1]) not in EDGE_STOP and _has_verb(ws) is not None else None
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -289,7 +338,8 @@ def used_ids_before(work_dir: Path, chapter_number: int) -> set[str]:
             plan = json.loads(f.read_text(encoding="utf-8")).get("plan") or {}
         except (OSError, ValueError):
             continue
-        for b in (plan.get("archive_clippings") or []) + (plan.get("callouts") or []):
+        for b in (plan.get("archive_clippings") or []) + (plan.get("callouts") or []) + \
+                ([plan["quote_card"]] if plan.get("quote_card") else []):
             if b.get("pool_id"):
                 out.add(b["pool_id"])
     return out
@@ -348,6 +398,101 @@ def _free_slot(a: float, sc: Any, dur: float, busy: list[tuple[float, float]], l
     return None
 
 
+HARD_KINDS = ("title_card", "chapter_question", "water_level")   # F5f: lo único ante lo que cede un reservado
+
+
+def _busy_blocks(plan: dict[str, Any]) -> list[dict[str, Any]]:
+    """F5f: bloques ya puestos en el plan, con nombre: {a, b, kind, label, obj}."""
+    from gfx_config import gfx_rules
+    out = []
+    for k in ("callouts", "emphasis"):
+        for x in plan.get(k) or []:
+            a = float(x["start"])
+            out.append({"a": a, "b": a + float(x.get("duration", 2.5)), "kind": k,
+                        "label": f"{'dato' if k == 'callouts' else 'sello'} «{x.get('text') or x.get('word')}»", "obj": x})
+    for k, d, name in (("count_up", 3.7, "contador"), ("water_level", 4.5, "nivel de agua"),
+                       ("evidence_zoom", 2.85, "zoom"), ("chapter_question", 3.0, "pregunta"),
+                       ("icon_array", 3.0, "íconos")):
+        x = plan.get(k)
+        if x and "start" in x:
+            a = float(x["start"])
+            out.append({"a": a, "b": a + float(x.get("duration", d)), "kind": k,
+                        "label": f"{name} «{x.get('value_text') or x.get('text') or x.get('anchor') or ''}»".replace(" «»", ""),
+                        "obj": x})
+    if plan.get("title_card"):
+        out.append({"a": 0.0, "b": gfx_rules.title_dur, "kind": "title_card", "label": "título", "obj": plan["title_card"]})
+    return out
+
+
+def _hits(a: float, b: float, busy: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [x for x in busy if x["a"] < b and x["b"] > a]
+
+
+def displace(plan: dict[str, Any], victims: list[dict[str, Any]], busy: list[dict[str, Any]]) -> list[str]:
+    """F5f: saca del plan (y de busy) los bloques blandos que pisa un reservado. Devuelve sus nombres."""
+    gone = []
+    for v in victims:
+        if v["kind"] in ("callouts", "emphasis"):
+            plan[v["kind"]] = [x for x in plan.get(v["kind"]) or [] if x is not v["obj"]]
+        elif v["kind"] in ("count_up", "evidence_zoom", "icon_array"):
+            plan[v["kind"]] = None
+        else:
+            continue
+        if v in busy:
+            busy.remove(v)
+        gone.append(v["label"])
+    return gone
+
+
+DISPLACE_COST = {"emphasis": 1, "callouts": 2, "icon_array": 2, "evidence_zoom": 3, "count_up": 5}
+
+
+def reserved_slot(a: float, sc: Any, dur: float, busy: list[dict[str, Any]], gap_busy: list[tuple[float, float]],
+                  length: float, min_len: float, step: float = 0.5) -> tuple[tuple[float, float] | None, list[dict[str, Any]]]:
+    """F5f: ventana del reservado. Primero sin pisar nada (corriéndose dentro de la escena); si no hay, la que no pisa
+    título, pregunta, nivel de agua, la cita ni otro recorte (± el aire entre recortes) y desplaza lo MENOS valioso
+    (sello < dato < zoom < contador; empate: la más cercana a su oración), en la escena hacia adelante y hacia atrás; si
+    en la escena no entra, cruzando el corte (± un recorte: el reservado no cede ante un corte de escena)."""
+    all_iv = [(x["a"], x["b"]) for x in busy] + gap_busy
+    slot = _free_slot(a, sc, dur, all_iv, length, min_len)
+    if slot is not None:
+        return slot, []
+    hard_k = HARD_KINDS + ("quote_card", "recorte")
+    hard = [(x["a"], x["b"]) for x in busy if x["kind"] in hard_k] + gap_busy
+    lo, hi = max(0.0, min(a, sc.start + 0.5) - length), min(dur - 0.3, max(a, sc.end) + length)   # ± un recorte
+    best = None
+    t = lo
+    while t + min_len <= hi + 1e-6:
+        for ln in (length, min_len):                     # de 6 s o, si así desplaza menos, del mínimo (4 s)
+            b = min(t + ln, hi)
+            if b - t >= min_len and all(b <= x or t >= y for x, y in hard):
+                soft = [x for x in _hits(t, b, busy) if x["kind"] not in hard_k]
+                out_scene = max(0.0, b - sc.end) + max(0.0, sc.start - t)
+                key = (out_scene > 0, sum(DISPLACE_COST.get(x["kind"], 1) for x in soft), -(b - t), abs(t - a))
+                if best is None or key < best[0]:
+                    best = (key, (round(t, 3), round(b, 3)), soft)
+        t += step
+    if best is None:
+        return None, []
+    return best[1], best[2]
+
+
+_NUM = re.compile(r"\d[\d.,]*\d|\d")
+
+
+def figure_echo(headline: str, words: list[dict], t: float, time_offset: float, sec: float) -> str | None:
+    """F5f: la cifra del titular que la voz dice a ±sec del recorte (un año no cuenta). None si ninguna."""
+    near = " ".join(str(w.get("word", "")) for w in words
+                    if abs(float(w.get("start", 0.0)) + time_offset - t) <= sec)
+    for m in _NUM.finditer(headline):
+        num = m.group(0)
+        if re.fullmatch(r"(1[5-9]|20)\d\d", num):
+            continue
+        if ev.literal_in(num, near):
+            return num
+    return None
+
+
 def _kicker(it: dict[str, Any], headline: str) -> str:
     """F5: fuente del dato → su fecha (literal en el texto, o el año) → "" (sin recorte)."""
     from script_engine.gfx_fragments import _DATE_RE
@@ -385,18 +530,25 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
     dur = scenes[-1].end
     old = [a.get("headline") for a in plan.get("archive_clippings") or []]
     plan["archive_clippings"] = []
-    busy = [(float(b["start"]), float(b["start"]) + float(b.get("duration", 2.5)))
-            for k in ("callouts", "emphasis") for b in plan.get(k) or []]
-    for k, d in (("count_up", 3.7), ("water_level", 4.5), ("evidence_zoom", 2.85), ("chapter_question", 3.0)):
-        if plan.get(k) and "start" in plan[k]:
-            busy.append((float(plan[k]["start"]), float(plan[k]["start"]) + float(plan[k].get("duration", d))))
-    if plan.get("title_card"):
-        busy.append((0.0, gfx_rules.title_dur))
+    blocks = _busy_blocks(plan)
     rows, items, placed = [], [], []
+    q = plan_pool_quote(plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, busy=blocks,
+                        cands=list(dict.fromkeys(list(reserved) + own_ids)), used=used, log=log)
+    if q:
+        rows.append(q)
+        if plan.get("quote_card"):
+            placed.append(its[plan["quote_card"]["pool_id"]])
+    water_used = _water_used(work_dir, n)
+    gap = gfx_rules.archive_min_gap_sec
     for i in cands:
         if len(plan["archive_clippings"]) >= gfx_rules.archive_max_per_cap:
             break
         it = its[i]
+        if plan.get("quote_card") and plan["quote_card"].get("pool_id") == i:
+            continue
+        if i in reserved and not water_used and _is_water_height(it):
+            rows.append({"id": i, "bloque": "recorte", "ahora": None, "motivo": "va como nivel de agua (dato reservado de altura)"})
+            continue
         if any(ev.same_fact(it, p) for p in placed):                       # S3: mismo hecho, un solo bloque
             rows.append({"id": i, "bloque": "recorte", "ahora": None, "motivo": "mismo hecho que otro bloque del cap"})
             continue
@@ -422,19 +574,48 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
                          "motivo": "ninguna cláusula completa (≤ 12 palabras, métrica) suma a la voz con fuente o fecha"})
             continue
         a = max(sc.start + 0.5, s["t0"] - 0.3)
-        # F5e: si choca, se corre dentro de la escena (de a 0.5 s) antes de rendirse
-        slot = _free_slot(a, sc, dur, busy, gfx_rules.archive_dur, gfx_rules.archive_min_sec)
+        # F5e: si choca, se corre dentro de la escena (de a 0.5 s) antes de rendirse. F5f: con aire entre recortes; un
+        # reservado desplaza lo blando y solo cede ante título, pregunta y nivel de agua
+        gap_busy = [(x["a"] - gap, x["b"] + gap) for x in blocks if x["kind"] == "recorte"]
+        if i in reserved:
+            slot, victims = reserved_slot(a, sc, dur, blocks, gap_busy, gfx_rules.archive_dur, gfx_rules.archive_min_sec)
+        else:
+            slot, victims = _free_slot(a, sc, dur, [(x["a"], x["b"]) for x in blocks] + gap_busy, gfx_rules.archive_dur,
+                                       gfx_rules.archive_min_sec), []
         if slot is None:
-            rows.append({"id": i, "bloque": "recorte", "ahora": None, "motivo": f"no entra sin pisar otro bloque @ {a:.1f}s"})
+            hit = _hits(a, a + gfx_rules.archive_dur, blocks)
+            near = [x for x in blocks if x["kind"] == "recorte" and x["a"] - gap < a + gfx_rules.archive_dur and x["b"] + gap > a]
+            why = [x["label"] for x in (hit if i not in reserved else [h for h in hit if h["kind"] in HARD_KINDS + ("quote_card", "recorte")])]
+            why += [f"{x['label']} (menos de {gap:.0f} s)" for x in near if x["label"] not in why]
+            rows.append({"id": i, "bloque": "recorte", "ahora": None,
+                         "motivo": f"no entra sin pisar otro bloque @ {a:.1f}s (escena {sc.start:.1f}–{sc.end:.1f}s): "
+                                   + (", ".join(dict.fromkeys(why)) or "la escena se termina antes")})
             continue
         a, b = slot
+        echo = None
+        keep_opts = []
+        for f in opts:
+            e = figure_echo(f, words, a, time_offset, gfx_rules.archive_figure_echo_sec)
+            if e:
+                echo = echo or e
+            else:
+                keep_opts.append(f)
+        if not keep_opts:
+            rows.append({"id": i, "bloque": "recorte", "ahora": None,
+                         "motivo": f"repite la cifra {echo} que la voz dice a ±{gfx_rules.archive_figure_echo_sec:.0f} s"})
+            continue
+        opts = keep_opts
+        gone = displace(plan, victims, blocks) if victims else []
+        if gone:
+            log.append(f"  pool: reservado {i} @ {a:.1f}s desplaza {gone}")
         blk = {"kicker": _kicker(it, opts[0]), "headline": opts[0], "body": "", "scene_idx": sc.idx, "fact_idx": None,
                "pool_id": i, "fuente": it.get("fuente"), "era_decade": 2000, "start": round(a, 3),
-               "duration": round(b - a, 3), "side": getattr(sc, "quiet_side", "right")}
+               "duration": round(b - a, 3), "side": getattr(sc, "quiet_side", "right"),
+               **({"reserved": True} if i in reserved else {})}
         plan["archive_clippings"].append(blk)
-        busy.append((a, b))
+        blocks.append({"a": a, "b": b, "kind": "recorte", "label": f"recorte {i} «{opts[0]}»", "obj": blk})
         placed.append(it)
-        items.append({"blk": blk, "it": it, "options": opts, "span": span})
+        items.append({"blk": blk, "it": it, "options": opts, "span": span, "desplaza": gone})
     # Flash elige entre las 3 mejores (misma mecánica que gfx_fragments en modo documento)
     moods = ctx.get("moods")
     if items:
@@ -476,7 +657,8 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
                 x["blk"]["icon_missing"] = missing
             rows.append({"id": x["it"]["id"], "bloque": "recorte", "ahora": x["blk"]["headline"],
                          "kicker": x["blk"]["kicker"], "fuente": x["it"].get("fuente"), "icono": x["blk"].get("icon"),
-                         "icono_faltante": x["blk"].get("icon_missing"), "opciones": x["options"]})
+                         "icono_faltante": x["blk"].get("icon_missing"), "opciones": x["options"],
+                         **({"reservado": True, "desplaza": x["desplaza"]} if x["blk"].get("reserved") else {})})
     # datos: la cifra del pool donde la voz la nombra (nunca la narración); R7 saca los que la voz dice literal
     calls_out = []
     for c in plan.get("callouts") or []:
@@ -500,21 +682,137 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
         if k is None or not frag:
             continue
         t = float(words[k]["start"]) + time_offset
-        if not all(t + 2.5 <= x or t >= y for x, y in busy) or len(calls_out) >= 2:
+        if _hits(t, t + 2.5, [x for x in blocks if x["kind"] != "callouts" or x["obj"] in calls_out]) \
+                or len(calls_out) >= 2:
             continue
         sc = scene_at(scenes, t)
         calls_out.append({"text": frag, "start": round(t, 3), "kind": "figure", "duration": 2.5,
                           "side": getattr(sc, "quiet_side", "left"), "fact_idx": None, "pool_id": i,
                           "source": short_source(it.get("fuente"))})
-        busy.append((t, t + 2.5))
+        blocks.append({"a": t, "b": t + 2.5, "kind": "callouts", "label": f"dato «{frag}»", "obj": calls_out[-1]})
         placed.append(it)
         rows.append({"id": i, "bloque": "dato", "ahora": frag, "fuente": it.get("fuente")})
     n_old_calls = len(plan.get("callouts") or [])
     plan["callouts"] = sorted(calls_out, key=lambda c: c["start"])
+    for r in rows:                                   # F5f: por qué no entra cada uno, con el bloque que choca
+        if r.get("ahora") is None and r.get("motivo") and r["id"] in reserved | {(plan.get("quote_card") or {}).get("pool_id")}:
+            log.append(f"  pool: reservado {r['id']} fuera — {r['motivo']}")
     log.append(f"  pool: recortes {[(x['pool_id'], x['headline'], x['kicker']) for x in plan['archive_clippings']]} "
                f"(antes, de verified_facts: {old}) · datos {[(c['pool_id'], c['text']) for c in plan['callouts']]} "
                f"(antes {n_old_calls}) · candidatos {len(cands)} · ya mostrados en caps anteriores {sorted(used)}")
     return rows
+
+
+def _water_used(work_dir: Path, n: int) -> bool:
+    from script_engine.gfx_peak import water_used_before
+    return water_used_before(work_dir, n)
+
+
+def _is_water_height(it: dict[str, Any]) -> bool:
+    from script_engine.gfx_peak import _METRIC_H, _WATER_CTX
+    t = ev.text_of(it)
+    return bool(_METRIC_H.search(t) and _WATER_CTX.search(t))
+
+
+def _spoken_at(text: str, words: list[dict], time_offset: float) -> tuple[float, float] | None:
+    """(inicio, fin) de la voz diciendo `text` literal (las 3 primeras y las 2 últimas palabras en orden)."""
+    from script_engine.gfx_fragments import _tok
+    want = [_tok(w) for w in text.split() if _tok(w)]
+    toks = [_tok(str(w.get("word", ""))) for w in words]
+    if len(want) < 3:
+        return None
+    for j in range(len(toks) - 2):
+        if toks[j:j + 3] == want[:3]:
+            for k in range(j + 2, min(len(toks) - 1, j + len(want) + 6)):
+                if toks[k - 1:k + 1] == want[-2:]:
+                    return float(words[j]["start"]) + time_offset, float(words[k].get("end", words[k]["start"])) + time_offset
+            return float(words[j]["start"]) + time_offset, float(words[j]["start"]) + time_offset + 5.0
+    return None
+
+
+def plan_pool_quote(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], scenes: list[Any],
+                    time_offset: float, busy: list[dict[str, Any]], cands: list[str], used: set[str],
+                    log: list[str]) -> dict[str, Any] | None:
+    """F5f: bloque `quote_card` (in place): la primera cita del cap (reservados y propios) que no salió antes, entera y
+    LITERAL (≤ quote_max_words) con su autor; 4–5 s desde que la voz la dice (si no la dice, desde su oración), sobre
+    la foto oscurecida. Prioridad de reservado: desplaza sellos, datos, contador y zoom; cede ante título, pregunta y
+    nivel de agua. Devuelve la fila del reporte (o None si el cap no tiene citas)."""
+    from gfx_config import gfx_rules
+    from script_engine.gfx_peak import sentences
+    plan["quote_card"] = None
+    its = ev.items(ctx.get("pool"))
+    qs = [i for i in cands if i in its and its[i]["_kind"] == "citas" and i not in used]
+    if not qs:
+        return None
+    dur = scenes[-1].end
+    fail = None
+    for i in qs:
+        it = its[i]
+        text = re.sub(r"\s+", " ", ev.text_of(it)).strip()
+        if not it.get("autor"):
+            fail = {"id": i, "bloque": "cita", "ahora": None, "motivo": "la cita no tiene autor"}
+            continue
+        if len(text.split()) < gfx_rules.quote_min_words:
+            fail = {"id": i, "bloque": "cita", "ahora": None,
+                    "motivo": f"{len(text.split())} palabras (mínimo {gfx_rules.quote_min_words}): no es un bloque de cita"}
+            continue
+        if len(text.split()) > gfx_rules.quote_max_words:
+            fail = {"id": i, "bloque": "cita", "ahora": None,
+                    "motivo": f"{len(text.split())} palabras (tope {gfx_rules.quote_max_words}); no se corta una cita"}
+            continue
+        said = _spoken_at(text, words, time_offset)
+        if said is None:
+            s = _sentence_for(it, sentences(words, time_offset), True, reserved=True)
+            if s is None:
+                fail = {"id": i, "bloque": "cita", "ahora": None, "motivo": "la voz no habla de esto en el cap"}
+                continue
+            said = (float(s["t0"]), float(s["t1"]))
+        length = max(gfx_rules.quote_min_sec, min(gfx_rules.quote_dur, said[1] - said[0]))
+        hard = [(x["a"], x["b"]) for x in busy if x["kind"] in HARD_KINDS + ("recorte",)]
+        win = type("W", (), {"start": said[0], "end": said[0] + 3.0 + length})()  # se corre hasta 3 s, no más
+        slot = _free_slot(said[0], win, dur, hard, length, gfx_rules.quote_min_sec, step=0.25)
+        if slot is None:
+            why = [x["label"] for x in _hits(said[0], said[0] + length, busy) if x["kind"] in HARD_KINDS + ("recorte",)]
+            fail = {"id": i, "bloque": "cita", "ahora": None,
+                    "motivo": f"no entra @ {said[0]:.1f}s: choca con {', '.join(why) or 'el final del cap'}"}
+            continue
+        a, b = slot
+        gone = displace(plan, [x for x in _hits(a, b, busy) if x["kind"] not in HARD_KINDS + ("recorte",)], busy)
+        plan["quote_card"] = {"text": text, "author": it["autor"], "start": round(a, 3), "duration": round(b - a, 3),
+                              "pool_id": i, "reserved": True}
+        busy.append({"a": a, "b": b, "kind": "quote_card", "label": f"cita {i}", "obj": plan["quote_card"]})
+        log.append(f"  pool: cita {i} «{text[:60]}…» — {it['autor']} @ {a:.1f}s ({b - a:.1f} s) · desplaza {gone or 'nada'}")
+        return {"id": i, "bloque": "cita", "ahora": text, "autor": it["autor"], "desplaza": gone}
+    return fail
+
+
+def enforce_reserved(plan: dict[str, Any], log: list[str]) -> list[str]:
+    """F5f (al final del plan, después del pico, el zoom y la pregunta): un reservado (recorte reservado o cita) desplaza
+    lo blando que se le haya puesto encima después; si lo pisa título, pregunta o nivel de agua, el reservado cede."""
+    busy = _busy_blocks(plan)
+    out: list[str] = []
+    res = [("archive_clippings", x) for x in plan.get("archive_clippings") or [] if x.get("reserved")]
+    if plan.get("quote_card"):
+        res.append(("quote_card", plan["quote_card"]))
+    for key, r in res:
+        a, b = float(r["start"]), float(r["start"]) + float(r.get("duration", 5.0))
+        hits = _hits(a, b, busy)
+        hard = [h for h in hits if h["kind"] in HARD_KINDS]
+        if hard:
+            if key == "quote_card":
+                plan["quote_card"] = None
+            else:
+                plan["archive_clippings"] = [x for x in plan["archive_clippings"] if x is not r]
+            out.append(f"{r.get('pool_id')} cede ante {[h['label'] for h in hard]}")
+            continue
+        # la palabra del pico se queda si el reservado ES el bloque del pico (va del otro lado, como siempre)
+        soft = [h for h in hits if not (h["kind"] == "emphasis" and h["obj"].get("peak_word") and r.get("peak"))]
+        gone = displace(plan, soft, busy)
+        if gone:
+            out.append(f"{r.get('pool_id')} desplaza {gone}")
+    if out:
+        log.append(f"  reservados: {out}")
+    return out
 
 
 def pool_ticker(ctx: dict[str, Any], words: list[dict], clip_dur: float, time_offset: float = 0.0

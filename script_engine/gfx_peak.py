@@ -69,6 +69,21 @@ def lexicon_hits(words: list[dict], moods: dict[str, dict], idxs: list[int] | No
     return hits
 
 
+def prefer_icon_nouns(hits: list[dict[str, Any]], moods: dict[str, dict]) -> list[dict[str, Any]]:
+    """F5f (con stamp_nouns_only): en UNA frase, un sustantivo del mapa de íconos de su categoría (icon_words, peso ≥ 2)
+    gana siempre sobre un adjetivo de la MISMA categoría: «cadáveres» (calavera) sobre «escalofriantes». El adjetivo
+    sale de los candidatos de esa frase; los de otras categorías quedan."""
+    if not gfx_rules.stamp_nouns_only or len(hits) < 2:
+        return hits
+    from script_engine.m05_narrative import adjectives
+
+    def _adj(w: str) -> bool:
+        return bool(adjectives(w))
+    noun_cats = {h["category"] for h in hits if h["weight"] >= 2 and not _adj(h["word"])
+                 and h["word"] in ((moods.get(h["category"]) or {}).get("icon_words") or {})}
+    return [h for h in hits if not (h["category"] in noun_cats and _adj(h["word"]))]
+
+
 def find_peak(words: list[dict], moods: dict[str, dict], time_offset: float = 0.0) -> dict[str, Any] | None:
     """La frase con más palabras de peso 3 (desempate: peso total, después la primera). None si no hay peso 3."""
     best, key = None, None
@@ -98,7 +113,7 @@ def peak_from_intensity(words: list[dict], moods: dict[str, dict], res: dict[str
         return None
     si = peak_sentence(res) if si is None else si
     s = sents[si]
-    hits = lexicon_hits(words, moods, s["idx"])
+    hits = prefer_icon_nouns(lexicon_hits(words, moods, s["idx"]), moods)
     if hits:
         h = max(hits, key=lambda x: (x["weight"], -x["i"]))
         i, word, cat = h["i"], h["word"], h["category"]
@@ -224,12 +239,13 @@ def _starts_near(t: float, x: dict | float | None) -> bool:
 
 
 def clear_around(plan: dict[str, Any], t: float, keep: str) -> list[str]:
-    """Saca todo lo que arranca a ±PEAK_CLEAR_SEC del pico (menos el bloque del pico, el título y la pregunta)."""
+    """Saca todo lo que arranca a ±PEAK_CLEAR_SEC del pico (menos el bloque del pico, el título y la pregunta). F5f:
+    un recorte RESERVADO PARA PANTALLA nunca sale por el pico (solo cede ante título, pregunta y nivel de agua)."""
     gone: list[str] = []
     for key in ("callouts", "archive_clippings", "emphasis"):
         kept = []
         for x in plan.get(key) or []:
-            if (keep == key and x.get("peak")) or x.get("peak_word"):
+            if (keep == key and x.get("peak")) or x.get("peak_word") or x.get("reserved"):
                 kept.append(x)
             elif _starts_near(t, x):
                 gone.append(f"{key}:{x.get('text') or x.get('headline') or x.get('word')}")
@@ -259,7 +275,7 @@ def peak_word(peak: dict[str, Any], words: list[dict], moods: dict[str, dict], *
     """F4c R3: la palabra de mayor peso (≥ 2) de la frase pico. Empate: la de una categoría que el bloque grande no
     muestra ya (nivel de agua → no otra de agua), después la más rara del video, después la primera."""
     f = freq or {}
-    hits = [h for h in lexicon_hits(words, moods, peak["idx"]) if h["weight"] >= 2]
+    hits = [h for h in prefer_icon_nouns(lexicon_hits(words, moods, peak["idx"]), moods) if h["weight"] >= 2]
     if not hits:
         return None
     return max(hits, key=lambda h: (h["weight"], h["category"] != block_category, -f.get(h["word"], 0), -h["i"]))
@@ -297,6 +313,38 @@ def add_peak_word(plan: dict[str, Any], peak: dict[str, Any], *, words: list[dic
         log.append(f"pico: palabra «{lit}» ({h['category']}, peso {h['weight']}) @ {t:.1f}s → sello + mood"
                    + (f" + ícono {em['icon']}" if em["icon"] else ""))
     return em
+
+
+_METRIC_H = re.compile(r"(\d+(?:[.,]\d+)?)\s*(metros|metro)\b")
+_WATER_CTX = re.compile(r"\b(agua|aguas|inund\w*|nivel|marea|sumerg\w*|anegad\w*)\b", re.I)
+
+
+def reserved_water_level(ctx: dict[str, Any], words: list[dict], time_offset: float = 0.0) -> dict[str, Any] | None:
+    """F5f: nivel de agua desde un dato RESERVADO PARA PANTALLA del cap con una altura de agua en metros («15 pies
+    (4.6 metros) de agua»), aunque la voz no la diga: sube en la oración que más se parece al dato (o la 2.ª del cap)."""
+    from script_engine import evidence as ev
+    from script_engine.gfx_pool import _sentence_for
+    pool, skel = ctx.get("pool"), ctx.get("skeleton_all") or {}
+    if not pool:
+        return None
+    its = ev.items(pool)
+    ch = next((c for c in skel.get("chapters") or [] if c.get("chapter_number") == ctx.get("chapter_number")), {})
+    sents = sentences(words, time_offset)
+    for i in ch.get("pantalla_ids") or []:
+        it = its.get(i)
+        txt = ev.text_of(it) if it else ""
+        m = _METRIC_H.search(txt)
+        if not m or not _WATER_CTX.search(txt):
+            continue
+        s = _sentence_for(it, sents, True, reserved=True)
+        if s is None:
+            continue
+        meters = float(m.group(1).replace(",", "."))
+        return {"value_text": m.group(1), "unit": m.group(2), "meters": round(meters, 2),
+                "height": round(min(0.85, max(0.15, meters / WATER_FULL_M)), 3),
+                "start": round(float(s["t0"]) + 0.3, 3), "duration": sum(WATER_DUR), "rise": WATER_DUR[0],
+                "fact_idx": None, "word": None, "pool_id": i, "reserved": True}
+    return None
 
 
 def water_used_before(work_dir: Any, chapter_number: int) -> bool:
@@ -392,6 +440,24 @@ def plan_peak(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], s
                 if not block:
                     em["peak"] = True
                     plan["pico"]["block"] = "emphasis"
+    if not water_used and not plan.get("water_level"):          # F5f: desde un dato reservado de altura
+        rw = reserved_water_level(ctx, words, time_offset)
+        if rw:
+            a, b = rw["start"], rw["start"] + rw["duration"]
+            gone = []
+            for key in ("callouts", "archive_clippings", "emphasis"):
+                keep_l = []
+                for x in plan.get(key) or []:
+                    x0 = float(x["start"])
+                    x1 = x0 + float(x.get("duration", 2.5))
+                    if x0 < b and x1 > a and not x.get("reserved"):
+                        gone.append(f"{key}:{x.get('text') or x.get('headline') or x.get('word')}")
+                    else:
+                        keep_l.append(x)
+                plan[key] = keep_l
+            plan["water_level"] = rw
+            log.append(f"nivel de agua (reservado {rw['pool_id']}): {rw['value_text']} {rw['unit']} @ {a:.1f}s · "
+                       f"fuera por el nivel: {gone or 'nada'}")
     # zoom de evidencia con latido fuera del pico (si el plan no tiene ya un zoom)
     if not plan.get("evidence_zoom") and off_peak_zoom:      # F4b §3: con foto-primero lo decide gfx_vision.pick_zoom
         zl = zoom_latido(peak, words, moods, scenes, box_for, time_offset)

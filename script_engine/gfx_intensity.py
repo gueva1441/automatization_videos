@@ -126,6 +126,9 @@ def validate(raw: dict[str, Any], sents: list[str], moods: dict[str, dict[str, A
         if not 1 <= peso <= 3:
             why.append(f"«{w}»: peso {peso}")
             continue
+        if peso >= 2 and _stamp_rule() and is_theme_word(w):
+            why.append(f"«{w}»: palabra del tema → peso 1")         # F5f: «reclusos», «cárcel»… no son cargas
+            peso = 1
         if peso == 1:
             why.append(f"«{w}»: peso 1 (no es carga)")
             continue
@@ -227,9 +230,17 @@ def _stamp_rule() -> bool:
     return bool(gfx_rules.stamp_nouns_only)
 
 
+def is_theme_word(word: str) -> bool:
+    """F5f: palabra del TEMA del video (gfx_rules.theme_words: reclusos, prisioneros, presos, cárcel, prisión…): se
+    repite en todo el relato, no es una carga."""
+    from gfx_config import gfx_rules
+    return tok(word) in {tok(w) for w in gfx_rules.theme_words}
+
+
 def stamp_lexicon(moods: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
     """F5e (token stamp_nouns_only): el léxico del cap sin formas verbales; los sellos y moods solo disparan con
-    sustantivos y adjetivos (las cargas del director ya vienen filtradas por clase y neutra)."""
+    sustantivos y adjetivos (las cargas del director ya vienen filtradas por clase y neutra). F5f: las palabras del
+    tema quedan con peso 1 (nunca sello ni mood)."""
     if not _stamp_rule():
         return moods
     out = copy.deepcopy(moods)
@@ -237,6 +248,8 @@ def stamp_lexicon(moods: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]
         trig = m.get("triggers") or {}
         for w in [w for w in trig if is_verb_form(w)]:
             del trig[w]
+        for w in [w for w in trig if is_theme_word(w)]:
+            trig[w] = 1
         iw = m.get("icon_words") or {}
         for w in [w for w in iw if is_verb_form(w)]:
             del iw[w]

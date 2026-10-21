@@ -993,6 +993,12 @@ def place_emphasis(out: dict[str, Any], busy: list[tuple[float, float]], *, word
             continue
         rarity = min(freq.get(_tok(w.get("word", "")), 1) for w in words[i:i + n])
         cands.append((-wt, rarity, float(words[i]["start"]) + time_offset, i, n, cat, trig))
+    # F5f: en una frase, el sustantivo con ícono literal gana sobre el adjetivo de su misma categoría
+    from script_engine.gfx_peak import prefer_icon_nouns
+    by_sid: dict[int, list[dict[str, Any]]] = {}
+    for c in cands:
+        by_sid.setdefault(sids[c[3]], []).append({"word": c[6], "category": c[5], "weight": -c[0], "c": c})
+    cands = [h["c"] for hs in by_sid.values() for h in prefer_icon_nouns(hs, moods)]
     used_sids = {e["sid"] for e in out["emphasis"]}
     added = 0
     for neg_wt, rarity, t, i, n, cat, trig in sorted(cands):

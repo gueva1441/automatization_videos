@@ -724,6 +724,9 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 if pk.get("block") == "evidence_zoom":
                     pk["block_quitado_por_verify"] = True
             log.append(f"  zoom final: verify_crop «{label}» caja {z['box']} → {'se ve' if ok else 'NO se ve: zoom fuera'}")
+        if gfx_plan_override is None and ctx.get("pool"):           # F5f: el reservado desplaza; cede ante pocos
+            from script_engine.gfx_pool import enforce_reserved
+            enforce_reserved(resolved, log)
         if gfx_plan_override is None and gfx_rules.visual_critic:     # F4e 6b: crítico visual antes del render
             from script_engine.gfx_critic import criticize
             snap_proj = None

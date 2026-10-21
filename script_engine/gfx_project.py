@@ -330,6 +330,33 @@ def water_level_html(wl: dict[str, Any], width: int, height: int, duration: floa
     return html_, init, js
 
 
+def quote_card_html(qc: dict[str, Any], width: int, height: int, duration: float) -> tuple[str, list[str], list[str]]:
+    """F5f: cita LITERAL entre comillas tipográficas + «— autor» en el acento, centrada sobre la foto oscurecida
+    (gfx_rules.quote_dim). Entra con fundido y sube 30 px; sale con fundido."""
+    q0 = min(float(qc["start"]), max(0.0, duration - float(qc["duration"])))
+    qd = float(qc["duration"])
+    px = round(height * 0.05)
+    html_ = (f'      <div id="qc-dim" class="clip" data-start="{q0:.3f}" data-duration="{qd:.3f}" '
+             f'style="position:absolute;inset:0;z-index:28;background:#000"></div>\n'
+             f'      <div id="qc" class="clip" data-start="{q0:.3f}" data-duration="{qd:.3f}" '
+             f'style="position:absolute;inset:0;z-index:29;display:flex;align-items:center;justify-content:center">'
+             f'<div id="qc-box" style="max-width:{round(width * 0.66)}px;text-align:center">'
+             f'<div id="qc-text" style="font:700 {px}px/1.28 &quot;{gfx_rules.clipping_font}&quot;,serif;color:#f4f1ea;'
+             f'font-variant-ligatures:none;font-feature-settings:&quot;liga&quot; 0">&ldquo;{_esc(qc["text"])}&rdquo;</div>'
+             f'<div id="qc-rule" style="width:{round(px * 2.4)}px;height:5px;margin:{round(px * .55)}px auto '
+             f'{round(px * .4)}px;background:{gfx_rules.accent_hex}"></div>'
+             f'<div id="qc-author" style="font:400 {round(px * .62)}px/1 &quot;{gfx_rules.figure_font}&quot;,sans-serif;'
+             f'letter-spacing:.06em;text-transform:uppercase;color:{gfx_rules.accent_hex}">&mdash; {_esc(qc["author"])}</div>'
+             f'</div></div>')
+    init = ['      gsap.set("#qc-dim", { opacity: 0 }); gsap.set("#qc-box", { opacity: 0, y: 30 }); '
+            'gsap.set("#qc-rule", { scaleX: 0 });']
+    js = [f'      tl.to("#qc-dim", {{ opacity: {gfx_rules.quote_dim}, duration: .35 }}, {q0:.3f})'
+          f'.to("#qc-box", {{ opacity: 1, y: 0, duration: .5, ease: "power3.out" }}, {q0 + .15:.3f})'
+          f'.to("#qc-rule", {{ scaleX: 1, duration: .5, ease: "power3.inOut" }}, {q0 + .35:.3f})'
+          f'.to(["#qc-box", "#qc-dim"], {{ opacity: 0, duration: .35, ease: "power1.in" }}, {q0 + qd - .35:.3f});']
+    return html_, init, js
+
+
 def time_ticker_html(tk: dict[str, Any], duration: float) -> tuple[str, list[str], list[str]]:
     """Reloj de esquina (arriba a la izquierda, Anton S): "29 AGO · 23:40". Avanza entre las dos horas de los datos
     si las hay; si no, la fecha quieta."""
@@ -668,6 +695,9 @@ def cue_events(plan: dict[str, Any], scenes: list[GfxScene], fps: int) -> list[d
     if plan.get("water_level"):                                 # F3
         wl = plan["water_level"]
         add(wl["start"], wl["duration"], "water_level", f"{wl['value_text']} {wl.get('unit', '')}".strip())
+    if plan.get("quote_card"):                                  # F5f: cita literal + autor
+        qc = plan["quote_card"]
+        add(qc["start"], qc["duration"], "quote_card", f"«{qc['text']}» — {qc['author']}")
     if plan.get("time_ticker"):
         tk = plan["time_ticker"]
         add(tk["start"], tk["duration"], "time_ticker", f"{tk['day']} {tk['month']} · {tk.get('tail', '')}".strip())
@@ -930,6 +960,14 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
             js += h_js
         js.append(f'      tl.to("#ar{i}-paper", {{ opacity: 1, y: 0, rotation: -2.5, duration: .6, ease: "power3.out" }}, {a0:.3f})'
                   f'.to("#ar{i}-paper", {{ opacity: 0, y: 20, duration: .4, ease: "power1.in" }}, {a1 - .4:.3f});')
+
+    # ── F5f: cita (texto literal + autor) sobre la foto oscurecida
+    qc = plan.get("quote_card")
+    if qc:
+        q_html, q_init, q_js = quote_card_html(qc, width, height, duration)
+        overlays.append(q_html)
+        init += q_init
+        js += q_js
 
     # ── F3: nivel de agua (bloque del pico) y reloj de esquina
     if plan.get("water_level"):
