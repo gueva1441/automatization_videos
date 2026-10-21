@@ -28,6 +28,15 @@ repetir frases. Cada cap arranca con cliffhanger del anterior y cierra
 con cliffhanger hacia el siguiente (excepto cap 7, que cierra el arco).
 
 PERSISTENCIA: data/scripts/_steps/{topic_id}/01b_narration.json
+
+F5 §1.3 (si el topic trae evidence_pool y el skeleton su _evidence_plan; si no, todo igual):
+  - lista blanca numérica = verified_facts ∪ evidence_pool (regla 6);
+  - cada cap recibe SUS datos asignados (ids del skeleton), las personas que entran, el cliffhanger y los datos
+    ya gastados en 2 caps; reglas nuevas en el prompt y en la validación (script_engine.m05_narrative.cap_problems):
+    ≥ 3 datos asignados literales, ningún dato en > 2 caps, personas por nombre y cargo, cronología en orden con
+    fechas, citas entre comillas con autor, relleno prohibido, cierre que anticipa el cliffhanger;
+  - falla de esas reglas → reintento con feedback dirigido (kind="evidence"); si tras los intentos sigue, la
+    narración se ACEPTA y las violaciones quedan en `_f5_violations` (no se mata un topic ya investigado).
 """
 
 import json
@@ -36,6 +45,7 @@ from pathlib import Path
 
 from config import DATA_DIR
 from gemini_helpers import call_flash_json
+from script_engine import evidence as ev
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -204,6 +214,64 @@ PROSE_RULES = """REGLAS DE PROSA (todas inviolables):
    leen literal como "F cero ocho" — destruyendo el audio."""
 
 
+PROSE_RULE_6_POOL = """6. REGLA NUMÉRICA INVIOLABLE: cualquier cifra, fecha, nombre propio o
+   cantidad debe estar literal en los verified_facts o en el EVIDENCE POOL de arriba. NO inventes."""
+
+F5_RULES = """REGLAS DEL EVIDENCE POOL (inviolables, se validan):
+A. Usá los datos asignados a este cap: cada uno aparece LITERAL (la cifra, la fecha o el nombre tal cual).
+B. No repitas datos que ya salieron en 2 caps (lista de abajo). Un dato del video vive en 2 caps como máximo.
+C. Nombrá a cada persona por nombre y apellido y con su cargo la primera vez (p. ej. "el sheriff Marlin Gusman").
+D. Si el cap cuenta 2 o más eventos fechados, narralos EN ORDEN y decí las fechas.
+E. Citas: entre comillas, copiadas literal, con el autor DENTRO de la oración ("dijo el sheriff Gusman").
+   Nunca como firma con guion al final ("— Sheriff Gusman"): la narración va a TTS.
+F. Prohibido el relleno: "imaginen", "una eternidad de", "cámara de tortura", "coloso de", "manto oscuro",
+   "infierno personal", "eco fantasmal", "sombra inalcanzable", "tragedia íntima", y más de 2 oraciones seguidas
+   que califican sin un dato. Cambiá adjetivos por hechos.
+G. El cierre anticipa el dato CONCRETO del próximo cap (lo nombra o lo deja incompleto). Nada de retórica
+   genérica como "¿cuánto podrían resistir?"."""
+
+
+def _prose_rules(topic: dict) -> str:
+    """PROSE_RULES; con evidence_pool, la regla 6 admite el pool (F5 §1.3)."""
+    if not topic.get("evidence_pool"):
+        return PROSE_RULES
+    i = PROSE_RULES.index("6. REGLA NUMÉRICA")
+    j = PROSE_RULES.index("7. PROHIBIDO")
+    return PROSE_RULES[:i] + PROSE_RULE_6_POOL + "\n" + PROSE_RULES[j:]
+
+
+def _evidence_block(topic: dict, skeleton: dict, cap: int, previous: list[dict]) -> str:
+    """F5 §1.3: lo que este cap tiene que contar del pool. "" si no hay pool (prompt idéntico al de antes)."""
+    pool = topic.get("evidence_pool")
+    ch = next((c for c in skeleton.get("chapters") or [] if c.get("chapter_number") == cap), {})
+    if not pool or "evidence_ids" not in ch:
+        return ""
+    from script_engine import m05_narrative as mn
+    its = ev.items(pool)
+    prev_txt = [n.get("narration", "") for n in previous]
+    from collections import Counter
+    spent = Counter(i for t in prev_txt for i in set(mn.repeat_items(t, pool)))
+    gone = [i for i, n in spent.items() if n >= mn.MAX_DATO_CAPS]
+    people = [p for p in skeleton.get("personajes") or [] if p.get("entra_en_cap") == cap]
+    cid = ch.get("cliffhanger")
+    lines = ["", "═══════════════════════════════════════════════════",
+             f"DATOS DEL EVIDENCE POOL ASIGNADOS A ESTE CAP (usalos literales)",
+             "═══════════════════════════════════════════════════",
+             ev.format_pool(pool, ch["evidence_ids"])]
+    if people:
+        lines += ["", "PERSONAS QUE ENTRAN EN ESTE CAP (nombre + cargo la primera vez):",
+                  *[f"  • {p['nombre']} — {p.get('rol') or ''}{' (antagonista)' if p.get('antagonista') else ''}"
+                    for p in people]]
+    if cid and cid in its:
+        lines += ["", f"CLIFFHANGER (el cierre anticipa ESTE dato, que se revela en el cap {cap + 1}):",
+                  f"  [{cid}] {ev.text_of(its[cid])}"]
+    if gone:
+        lines += ["", "DATOS YA GASTADOS EN 2 CAPS (NO los repitas):",
+                  *[f"  • {' / '.join(ev.anchors(its[i]))}" for i in gone if i in its]]
+    lines += ["", F5_RULES]
+    return "\n".join(lines)
+
+
 # ═══════════════════════════════════════════════════════════════
 #  PROMPT — CAP 1 (HOOK)
 # ═══════════════════════════════════════════════════════════════
@@ -247,6 +315,7 @@ LARGO OBLIGATORIO: entre {lo} y {hi} caracteres.
 
 BULLETS DEL CAP 1 (qué cubrir):
 {cap1_bullets}
+{_evidence_block(topic, skeleton, 1, [])}
 
 REGLA DE APERTURA (CRÍTICA):
 - Primera oración: MÁXIMO {HOOK_FIRST_SENTENCE_MAX_WORDS} palabras.
@@ -264,7 +333,7 @@ REGLA DE CIERRE (CRÍTICA):
 - ✗ MAL : "Y así comenzó esta tragedia." (cierre conformista)
 
 {tone_block}
-{PROSE_RULES}
+{_prose_rules(topic)}
 
 FORMATO DE SALIDA — JSON puro, sin markdown:
 {{
@@ -322,6 +391,7 @@ LARGO OBLIGATORIO: entre {lo} y {hi} caracteres.
 
 BULLETS DE ESTE CAP (qué facts cubrir EXCLUSIVAMENTE en este cap):
 {cap_bullets}
+{_evidence_block(topic, skeleton, current_cap, previous)}
 
 REGLA DE APERTURA (CRÍTICA):
 - Primera oración CONECTA con el cliffhanger del cap anterior.
@@ -344,7 +414,7 @@ REGLA DE CIERRE (CRÍTICA):
 - ✗ MAL: "Esto continuó", "Y todo siguió igual", "El tiempo pasaba".
 
 {tone_block}
-{PROSE_RULES}
+{_prose_rules(topic)}
 
 FORMATO DE SALIDA — JSON puro, sin markdown:
 {{
@@ -400,6 +470,7 @@ LARGO OBLIGATORIO: entre {lo} y {hi} caracteres.
 
 BULLETS DEL CAP 7:
 {cap7_bullets}
+{_evidence_block(topic, skeleton, 7, previous)}
 
 Función del OUTRO: cerrar el arco emocional. NO cliffhanger — el video
 termina acá.
@@ -423,7 +494,7 @@ REGLA DE CIERRE (CRÍTICA):
 - El video debe terminar con tono dramático/reflexivo, no con CTA.
 
 {tone_block}
-{PROSE_RULES}
+{_prose_rules(topic)}
 
 FORMATO DE SALIDA — JSON puro, sin markdown:
 {{
@@ -583,8 +654,9 @@ def _contains_any(text: str, needles: tuple[str, ...]) -> str | None:
     return None
 
 
-def _validate_narration(text: str, role: str, cap_number: int) -> None:
-    """Valida largo, primera oración (si hook), y frases prohibidas."""
+def _validate_narration(text: str, role: str, cap_number: int, f5: dict | None = None) -> None:
+    """Valida largo, primera oración (si hook), y frases prohibidas. Con `f5` ({pool, skeleton, previous}), además
+    las reglas del evidence_pool (F5 §1.3) → kind="evidence" con la lista de problemas en `detail`."""
     if not isinstance(text, str) or not text.strip():
         raise NarrationValidationError(f"cap {cap_number}: narration vacía", kind="empty")
 
@@ -641,6 +713,16 @@ def _validate_narration(text: str, role: str, cap_number: int) -> None:
             f"cap {cap_number}: conector genérico prohibido — contiene \"{bad}\"",
             kind="phrase", detail=bad,
         )
+
+    if f5 and f5.get("pool"):                         # F5 §1.3: reglas del evidence_pool
+        from script_engine.m05_narrative import cap_problems
+        probs = cap_problems(text, cap=cap_number, pool=f5["pool"], skeleton=f5["skeleton"],
+                             previous=f5.get("previous") or [])
+        if probs:
+            raise NarrationValidationError(
+                f"cap {cap_number}: reglas del evidence_pool — " + " | ".join(probs),
+                kind="evidence", detail="\n".join(f"- {x}" for x in probs),
+            )
 
 
 def _validate_humanizer(phrases: list) -> list[str]:
@@ -705,7 +787,8 @@ def _trim_to_sentence_boundary(text: str, max_chars: int) -> str:
 
 
 def _call_with_length_retry(prompt: str, role: str, cap_number: int,
-                             max_attempts: int = 2) -> str:
+                             max_attempts: int = 2, f5: dict | None = None,
+                             violations: dict | None = None) -> str:
     """
     Llama Flash, valida largo y reglas, reintenta con feedback targeteado si la
     falla es reintentar-able (largo, primera-oración del hook, o FRASE prohibida
@@ -734,12 +817,18 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
         raw = call_flash_json(attempt_prompt, response_schema=_narration_schema())
         narr = (raw.get("narration") or "").strip()
         try:
-            _validate_narration(narr, role=role, cap_number=cap_number)
+            _validate_narration(narr, role=role, cap_number=cap_number, f5=f5)
             return narr
         except NarrationValidationError as e:
             # Retry si la falla es largo, primera-oración del hook, o frase prohibida.
             # (gate tipado: ya no se string-matchea el mensaje). "empty"/"other" → no retry.
-            retryable = e.kind in ("length", "first_sentence", "phrase")
+            retryable = e.kind in ("length", "first_sentence", "phrase", "evidence")
+            if e.kind == "evidence" and attempt == max_attempts:
+                # F5: las reglas del pool no matan el topic — se acepta y se anota (el juez lo reporta)
+                if violations is not None:
+                    violations[cap_number] = (e.detail or "").splitlines()
+                print(f"  [01b] cap {cap_number}: acepta con {len((e.detail or '').splitlines())} problema(s) del pool")
+                return narr
             if not retryable or attempt == max_attempts:
                 # FIX DE RAÍZ (chat 51) — ÚLTIMO RECURSO, SOLO outro + SOLO lado largo:
                 # un outro un toque sobre el techo NO debe matar un topic ya investigado
@@ -757,7 +846,14 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
             last_error = e
 
             actual_len = len(narr)
-            if e.kind == "phrase":
+            if e.kind == "evidence":
+                direction = (
+                    "REGLAS DEL EVIDENCE POOL: tu intento previo tiene estos problemas:\n"
+                    f"{e.detail}\nCorregilos manteniendo el largo dentro de rango. Usá los datos LITERALES "
+                    "(cifra, fecha, nombre tal cual) y cambiá adjetivos por hechos."
+                )
+                reason = "reglas del evidence_pool"
+            elif e.kind == "phrase":
                 # Frase prohibida (apertura/cierre/conector): pedir que saque ESA frase y
                 # reescriba el pasaje encadenando por contenido. El largo ya está en rango.
                 direction = (
@@ -847,18 +943,26 @@ def generate_narration(topic: dict, skeleton: dict) -> dict:
         raise ValueError(f"skeleton debe tener 7 caps, tiene {len(chapters_skel)}")
 
     narrations: list[dict] = []
+    pool = topic.get("evidence_pool") if any("evidence_ids" in c for c in chapters_skel) else None
+    violations: dict[int, list[str]] = {}
+    tries = 3 if pool else 2
+
+    def _f5() -> dict | None:
+        return {"pool": pool, "skeleton": skeleton, "previous": [n["narration"] for n in narrations]} if pool else None
 
     # ─── CAP 1: HOOK ───
     print(f"  [01b] generando cap 1 (hook)...")
     prompt1 = _prompt_hook(topic, skeleton)
-    narr1 = _call_with_length_retry(prompt1, role="hook", cap_number=1)
+    narr1 = _call_with_length_retry(prompt1, role="hook", cap_number=1, max_attempts=tries, f5=_f5(),
+                                    violations=violations)
     narrations.append({"chapter_number": 1, "narration": narr1})
 
     # ─── CAPS 2-6: DEVELOPMENT ───
     for cap_n in (2, 3, 4, 5, 6):
         print(f"  [01b] generando cap {cap_n} (development)...")
         prompt = _prompt_development(topic, skeleton, narrations, cap_n)
-        narr = _call_with_length_retry(prompt, role="development", cap_number=cap_n)
+        narr = _call_with_length_retry(prompt, role="development", cap_number=cap_n, max_attempts=tries, f5=_f5(),
+                                       violations=violations)
         narrations.append({"chapter_number": cap_n, "narration": narr})
 
     # ─── CAP 7: OUTRO ───
@@ -866,7 +970,8 @@ def generate_narration(topic: dict, skeleton: dict) -> dict:
     prompt7 = _prompt_outro(topic, skeleton, narrations)
     # 1.3 (chat 51): un intento más SOLO para el outro (que converja antes de tocar el
     # recorte). hook/development quedan en max_attempts=2 (default).
-    narr7 = _call_with_length_retry(prompt7, role="reveal_outro", cap_number=7, max_attempts=3)
+    narr7 = _call_with_length_retry(prompt7, role="reveal_outro", cap_number=7, max_attempts=3, f5=_f5(),
+                                    violations=violations)
     narrations.append({"chapter_number": 7, "narration": narr7})
 
     # ─── HUMANIZER PHRASES ───
@@ -879,6 +984,7 @@ def generate_narration(topic: dict, skeleton: dict) -> dict:
         "topic_id": topic_id,
         "chapters": narrations,
         "humanizer_phrases": humanizer,
+        **({"_f5_violations": {str(k): v for k, v in violations.items()}} if pool else {}),
     }
     _persist(topic_id, out)
     return out

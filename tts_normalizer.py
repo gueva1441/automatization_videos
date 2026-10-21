@@ -30,7 +30,7 @@ from error_handler import error_handler, PipelineStage
 
 # Siglas que SE PRONUNCIAN como palabra (ElevenLabs las lee bien tal cual).
 ACRONYMS_PRONOUNCEABLE: set[str] = {
-    "NASA", "OVNI", "ONU", "OEA", "OTAN", "FIFA", "ONG", "OPEP",
+    "NASA", "OVNI", "ONU", "OEA", "OTAN", "FIFA", "ONG", "OPEP", "FEMA",   # F5 §1.4: FEMA se dice «fema»
     "UE", "PIB", "ADN", "ARN", "PYME", "SIDA", "RADAR", "LASER",
     "SONAR", "MODEM", "WIFI", "ASCII", "JPEG", "PDF", "GIF", "MAYDAY",
 }
@@ -44,6 +44,10 @@ ACRONYMS_SPELLED: dict[str, str] = {
     "USB": "u ese be",
     "URSS": "u erre ese ese",
     "SOS": "ese o ese",
+    # F5 §1.4: siglas del research de documentales judiciales (deletreo o nombre)
+    "ACLU": "a ce ele u",
+    "HRW": "Human Rights Watch",
+    "DOJ": "Departamento de Justicia",
     "EE.UU.": "Estados Unidos",
     "EE. UU.": "Estados Unidos",
     "EEUU": "Estados Unidos",
@@ -100,6 +104,45 @@ def _collapse_spaces(text: str) -> str:
     text = _RE_MULTIPLE_SPACES.sub(" ", text)
     text = _RE_SPACE_BEFORE_PUNCT.sub(r"\1", text)
     return text.strip()
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F5 §1.4: formas del evidence_pool que ElevenLabs-ES lee mal (deterministas)
+# ═══════════════════════════════════════════════════════════════
+
+_RE_HOUR_AMPM = re.compile(r"\b(\d{1,2}):(\d{2})\s*([AaPp]\.?\s?[Mm]\.?)(?![A-Za-z])")
+_RE_MONEY_MILL = re.compile(r"(?:US)?\$\s?(\d[\d.,]*)\s+(millones|mil millones|millón)\b")
+_RE_MONEY = re.compile(r"(?:US)?\$\s?(\d{1,3}(?:[.,]\d{3})+|\d+)(?![\d.,]*\s+(?:millones|millón|mil millones))")
+_RE_PCT = re.compile(r"\b(\d{1,3}(?:[.,]\d+)?)\s?%")
+_RE_QUOTES = re.compile(r"[\"“”«»]")
+
+
+def _num_text(tok: str, fem: bool = False) -> str:
+    from script_engine.num_es import parse_int, words
+    n = parse_int(tok)
+    if n is not None:
+        return words(n, fem=fem)
+    m = re.fullmatch(r"(\d+)[.,](\d+)", tok)                       # 98.7 → «noventa y ocho coma siete»
+    if m:
+        return f"{words(int(m.group(1)))} coma {' '.join(words(int(d)) for d in m.group(2))}"
+    return tok
+
+
+def normalize_pool_forms(text: str) -> str:
+    """Horas con AM/PM, dólares, porcentajes y comillas de citas → forma hablada (F5 §1.4).
+    «6:10 AM» → «seis y diez de la mañana»; «$223 millones» → «doscientos veintitrés millones de dólares»;
+    «$650,000» → «seiscientos cincuenta mil dólares»; «98.7%» → «noventa y ocho coma siete por ciento»;
+    las comillas de una cita se sacan (el TTS no las lee y la cita queda dicha)."""
+    from script_engine.num_es import hour_words
+    if not text:
+        return text
+    out = _RE_HOUR_AMPM.sub(lambda m: hour_words(int(m.group(1)), int(m.group(2)),
+                                                 re.sub(r"[^AaPpMm]", "", m.group(3))), text)
+    out = _RE_MONEY_MILL.sub(lambda m: f"{_num_text(m.group(1))} {m.group(2)} de dólares", out)
+    out = _RE_MONEY.sub(lambda m: f"{_num_text(m.group(1))} dólares", out)
+    out = _RE_PCT.sub(lambda m: f"{_num_text(m.group(1))} por ciento", out)
+    out = _RE_QUOTES.sub("", out)
+    return _collapse_spaces(out)
 
 
 # ═══════════════════════════════════════════════════════════════

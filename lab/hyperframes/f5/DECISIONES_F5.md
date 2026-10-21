@@ -29,3 +29,45 @@ Handoff: `lab/hyperframes/f5/HANDOFF_F5_guion_v2.md`. Rama `f5-guion-v2`.
 - **J11** «Seguir la cronología» se valida en los caps 2–6, por la primera fecha de cada cap. El hook puede abrir con el momento más fuerte y el cap 7 con lo último que se supo.
 - **J12** Si el pool tiene menos de 21 datos, eventos y citas, el mínimo por cap baja a ⌊n/7⌋ (al menos 1).
 - **J13** Instrucción agregada al prompt: «si dos datos se contradicen, van al mismo cap y la narración cuenta la contradicción». Responde al riesgo 6 del handoff (6,375 vs 6,500 elegidos sin criterio).
+
+## §1.3 narrador (`m01b_narrator.py`) + §1.5 juez narrativo (`script_engine/m05_narrative.py`)
+- **J14** El juez de §1.5 es un módulo nuevo y determinista, `m05_narrative.py`. `m05_judge` es el juez VISUAL (prompts de imagen contra narración) y sigue desconectado de la cadena desde Chat 119. El narrador lo usa para validar cada cap (`cap_problems`) y reintentar con feedback dirigido; `judge_narration()` escribe el reporte del video en `_steps/<id>/06_judge_narrative.json`.
+- **J15 (qué cuenta como «dato usado»)** Un ítem cuenta si alguno de sus anchors suena literal (`evidence.anchors`):
+  - fecha → «día de mes»;
+  - cifra o magnitud → sus cifras, en dígitos o en palabras (`script_engine/num_es.py`), y «50» dentro de «seiscientos cincuenta mil» no vale;
+  - evento o dato de fecha → la fecha más una palabra de su contenido en la MISMA oración. Sin esto, «29 de agosto» marcaba seis eventos.
+  Densidad y repetición cuentan solo datos duros (`is_hard`: cifras, magnitudes, fechas con día, contradicciones, eventos con día, citas). Un nombre, un lugar o un año suelto no son «el dato».
+- **J16 (calibración en v1)** Orleans v1 con este medidor da:
+  - densidad 1.65 (el analista estimaba ≈ 0.7: mi conteo es un poco más generoso; v1 igual falla el umbral de 2.0);
+  - «6,500» en 4 caps y «500» en 6 caps (falla repetición);
+  - Gusman 0 veces (falla antagonista).
+  El diagnóstico se reproduce.
+- **J17 (adjetivos)** No hay etiquetador gramatical (spaCy, stanza y nltk no están instalados). La heurística es una lista del género más sufijos -oso/-ble/-ivo/-ante/-ente…, excluyendo adverbios en -mente y sustantivos conocidos. Mide la tendencia, no la gramática exacta.
+- **J18 (umbral de adjetivos recalibrado)** El handoff pide ≤ 8 por 100 palabras con v1 ≈ 14 (medición del analista). Esta heurística mide v1 en 6.2, así que con 8 literal v1 ya «aprobaría». Se aplica el mismo recorte relativo, 8/14: `ADJ_MAX = 3.6`. Lo marco para que el analista valide la escala.
+- **J19 (antagonista)** Se exige el principal: el más nombrado en el pool (Orleans: Marlin N. Gusman). El pool marca también a su adjunto William Hunter como antagonista; exigir a los dos daba un falso negativo.
+- **J20 (reglas en el narrador)** Con pool, el prompt de cada cap suma:
+  - sus datos asignados;
+  - las personas que entran (nombre y cargo);
+  - el cliffhanger;
+  - los datos ya gastados en 2 caps;
+  - las reglas A–G.
+  Sin pool, el prompt es idéntico al de antes (test). La regla 6 (lista blanca numérica) pasa a ser «verified_facts o el EVIDENCE POOL».
+- **J21 (validación)** `cap_problems` chequea:
+  - ≥ 3 de los datos nuevos asignados, literales;
+  - ningún dato que ya esté en 2 caps;
+  - personas del cap por nombre, apellido y cargo;
+  - eventos en orden de fecha;
+  - citas entre comillas con su autor cerca;
+  - relleno prohibido y más de 2 oraciones seguidas que califican sin dato;
+  - densidad ≥ 2.0 y adjetivos ≤ 3.6;
+  - cierre que contiene un término del cliffhanger.
+- **J22 (reintento y aceptación)** Si falla, `kind="evidence"`: reintenta con la lista de problemas (3 intentos con pool; antes eran 2). Si el último intento todavía falla SOLO por reglas del pool, la narración se acepta y los problemas quedan en `_f5_violations` del 01b y en el reporte del juez. Largo, frases prohibidas y primera oración siguen como antes. Motivo: el handoff dice «falla → reintento», no «falla → matar el topic».
+- **J23** Citas: en la prueba el narrador puso el autor como firma («— Sheriff Marlin N. Gusman»), que el TTS leería. La regla E ahora pide el autor DENTRO de la oración («dijo el sheriff Gusman»).
+
+## §1.4 normalizer (`tts_normalizer.py`, `m02_5_normalizer_gate.py`)
+- **J24** `normalize_pool_forms()` es determinista. Pasa a forma hablada las horas con AM/PM, los dólares («$223 millones» → «doscientos veintitrés millones de dólares»), los porcentajes con decimal y las comillas de citas (se sacan; la cita queda dicha). El gate la aplica a cada cap después de los spans del auditor LLM, en modo interactivo y en batch, y la deja anotada como span `f5_pool_forms`. `normalize_for_tts` (SHORT y respaldo) no la llama: el camino SHORT no cambia, salvo las siglas.
+- **J25** Siglas: ACLU → «a ce ele u», HRW → «Human Rights Watch», DOJ → «Departamento de Justicia», FEMA se pronuncia como palabra.
+- **J26** El gate acepta `persist_dict=False`, para correr sobre un topic de prueba sin escribir en el `normalizer_custom_dict.json` global.
+
+## Herramientas
+- **J27 (bug de proceso)** Los heredocs de Git Bash convierten `\\b` en el byte 0x08 dentro de strings de Python. Es el mismo daño que tenían `gfx_fragments._DATE_RE` (F4c G16) y `gfx_icons` (F4d H11). Pasó otra vez en `evidence.py` y lo corregí. Desde acá, todo parche con barras invertidas va por un script escrito con Write, y cada parche chequea que no queden bytes de control.

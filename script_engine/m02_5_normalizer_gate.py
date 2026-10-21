@@ -33,6 +33,7 @@ from error_handler import error_handler, PipelineStage
 
 from tts_normalizer import (
     normalize_for_tts,
+    normalize_pool_forms,
     _load_custom_dict as _reload_custom_dict_runtime,
     ACRONYMS_SPELLED,
     ACRONYMS_PRONOUNCEABLE,
@@ -611,6 +612,13 @@ def _apply_spans_to_narration(
                     f"{orig_frag!r} no encontrado en texto, skipeado",
                 )
                 applied_spans.append({**sp, "decision": "skipped_not_found"})
+        # F5 §1.4: horas AM/PM, dólares, porcentajes y comillas de citas, deterministas (después de los spans:
+        # lo que el auditor ya resolvió no vuelve a matchear)
+        pool_forms = normalize_pool_forms(normalized_text)
+        if pool_forms != normalized_text:
+            applied_spans.append({"chapter_number": cap_n, "category": "f5_pool_forms", "decision": "applied",
+                                  "original": "(horas/dólares/porcentajes/comillas)", "suggested": "(forma hablada)"})
+            normalized_text = pool_forms
 
         out_chapters.append({
             "chapter_number": cap_n,
@@ -646,6 +654,7 @@ def gate_normalizer_for_topic(
     topic_id: str,
     narration: dict,
     interactive: bool = True,
+    persist_dict: bool = True,
 ) -> dict:
     """Corre el gate LLM auditor sobre la narración de m01b.
 
@@ -659,6 +668,7 @@ def gate_normalizer_for_topic(
         topic_id: para trazabilidad y path del normalized.
         narration: output de m01b (con narration_original sin tocar).
         interactive: si False, salta CLI y solo loguea (modo batch).
+        persist_dict: F5 — si False, NO escribe en el custom_dict.json global (pruebas sobre un topic de copia).
 
     Returns:
         dict con spans_detected, approved/rejected/edited, added_to_dict,
@@ -695,7 +705,7 @@ def gate_normalizer_for_topic(
         normalized_data = _apply_spans_to_narration(narration, spans, [])
         out["approved"] = spans
         out["normalized_path"] = _persist_normalized_narration(topic_id, normalized_data)
-        out["added_to_dict"] = _persist_to_custom_dict(spans, topic_id)
+        out["added_to_dict"] = _persist_to_custom_dict(spans, topic_id) if persist_dict else 0
         return out
 
     # 2. CLI interactivo
@@ -716,6 +726,6 @@ def gate_normalizer_for_topic(
     out["added_to_dict"] = _persist_to_custom_dict(
         spans_to_persist=[*review["approved"], *review["edited"]],
         topic_id=topic_id,
-    )
+    ) if persist_dict else 0
 
     return out
