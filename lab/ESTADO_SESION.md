@@ -1,14 +1,20 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-20 20:50 (F4d commiteado; espera a Omar) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-20 21:40 (F4e commiteado; espera a Omar) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama **`f3-lab-identidad`** (desde `31c671c`, tip de `f2-gfx-director`). Último commit: F4b §5 (ver `git log`); F4 cerró en `56085d1`.
 - `main` = `43f528a` (NO tocar sin OK explícito de Omar). **F2b NO se mergeó** (decisión de Omar 2026-10-19): sigue en `f2-gfx-director` @ `31c671c`; F3 se apoya encima.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 = cap de calibración, ch05 el segundo).
-- Candados vigentes: md5 sin `--gfx` de ch02 `--only-cap` = `38e5ba14…` (último en `lab/hyperframes/f4b/onlycap_ch02_nogfx_f4b.log`); 311 tests verdes (F4d).
+- Candados vigentes: md5 sin `--gfx` de ch02 `--only-cap` = `38e5ba14…` (último en `lab/hyperframes/f4b/onlycap_ch02_nogfx_f4b.log`); 316 tests verdes (F4e).
 
-## F4d — Pico con preferencia, recortes por cláusula, marca +1 px — ESPERANDO A OMAR
+## F4e — Marca de esquina apagada, crítico visual (6b), hoja de contactos — ESPERANDO A OMAR
+- Commit F4e (último). Leer `lab/hyperframes/f4e/RESUMEN_F4e.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), `DECISIONES_F4e.md` (I1–I14), `TABLA_critico.md`, `hoja_contactos_ch02/ch05.jpg`.
+- `script_engine/gfx_critic.py`: Gemini juzga cada bloque (cuadro real + voz + bloque en texto) → suma/repite/estorba; solo pasan los «suma». Token `visual_critic`. Few-shot `gfx_profiles/misterio_critico_fewshot.json`. ch02 6/7, ch05 6/8.
+- Abierto: el crítico no ve el bloque dibujado → pasaron el recorte truncado en la tarjeta (ch02 1:00.7, I12) y la caja del zoom fuera de los pies (ch02 1:17.9, I13).
+- Marca: `channel_bug.corner.enabled=false` (queda el cierre). md5 sin `--gfx` = `38e5ba14…` ✔. Tests: 316 verdes. Respaldo F4d: `_fase2b_work/_bak_f4e_pre`.
+
+## F4d — Pico con preferencia, recortes por cláusula, marca +1 px — superado por F4e
 - Commit F4d (último). Leer `lab/hyperframes/f4d/RESUMEN_F4d.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), `DECISIONES_F4d.md` (H1–H11), `TABLA_antes_despues.md`.
 - ch02 vuelve al nivel de agua 4.6 m con PUTREFACTA de palabra del pico; los recortes recuperan la fecha y «aguas residuales». ch05: «cadáveres flotando…» con kicker «1 de septiembre» (HRW NO: el research no le atribuye ese fact, H8).
 - Marca `corner_dilate_px: 1`; caché del PNG ahora distingue el engrosado (H10). `` de `gfx_icons/__init__.py:70` arreglado.

@@ -12,6 +12,7 @@ Se compone en el COSIDO FFmpeg del render disperso (gfx_sparse.stitch), no en Hy
                     en 0.8 s y la llama se enciende 0.5 s después; parpadeo leve de la llama (0.4 s) cada 90 s del cap.
                     F4c: la esquina llega rasterizada a corner_supersample (4×) y FFmpeg la baja con lanczos al alto
                     final (a 6 % de alto el raster directo se veía pixelado en los bordes)
+    corner          F4e (Omar): `channel_bug.corner.enabled=false` apaga la marca de la esquina; el cierre queda.
     outro_graph()   cierre del video (último cap): 2.5 s el encapuchado al centro (25 % de alto), la llama parpadea y
                     se apaga → negro 1 s. Sin texto.
 """
@@ -39,6 +40,7 @@ def config(profile: dict[str, Any] | None = None) -> dict[str, Any] | None:
             "flame_delay_sec": float(cb.get("flame_delay_sec", 0.5)), "outro_sec": float(cb.get("outro_sec", 2.5)),
             "outro_black_sec": float(cb.get("outro_black_sec", 1.0)),
             "outro_height_frac": float(cb.get("outro_height_frac", 0.25)),
+            "corner_enabled": bool((cb.get("corner") or {}).get("enabled", True)),
             "corner_dilate_px": int(cb.get("corner_dilate_px", 2)), "corner_supersample": int(cb.get("corner_supersample", 4)),
             "flame_halo": bool(cb.get("flame_halo", True)), "flame_halo_frac": float(cb.get("flame_halo_frac", 0.07))}
 
@@ -188,7 +190,8 @@ def burn_on_clip(clip: Path, plan: dict[str, Any], out: Path, *, cap: str, last_
     plan = dict(plan)
     if last_cap:
         plan["outro_bug"] = {"start": round(dur, 3), "duration": round(pause, 3)}
-    cb, cf = pngs(cfg, int(height * cfg["height_frac"]), png_dir, corner=True)
+    corner = cfg.get("corner_enabled", True)
+    cb, cf = pngs(cfg, int(height * cfg["height_frac"]), png_dir, corner=True) if corner else (None, None)
     cmd = ["ffmpeg", "-v", "error", "-y", "-i", str(clip)]
     inputs = [cb, cf]
     if last_cap:
@@ -201,9 +204,11 @@ def burn_on_clip(clip: Path, plan: dict[str, Any], out: Path, *, cap: str, last_
         idx.append(n if p is not None else None)
         n += p is not None
     graph = [f"[0:v]tpad=stop_mode=clone:stop_duration={pause:.3f},format=yuv420p[v0]" if pause else "[0:v]format=yuv420p[v0]"]
-    g, last = overlay_graph(cfg, plan, dur + pause, width=width, height=height, in_body=idx[0], in_flame=idx[1],
-                            last="v0", intro=cap == "ch01")
-    graph += g
+    last = "v0"
+    if corner:
+        g, last = overlay_graph(cfg, plan, dur + pause, width=width, height=height, in_body=idx[0], in_flame=idx[1],
+                                last="v0", intro=cap == "ch01")
+        graph += g
     if last_cap:
         g, last = outro_graph(cfg, dur, width=width, height=height, in_body=idx[2], in_flame=idx[3], last=last)
         graph += g

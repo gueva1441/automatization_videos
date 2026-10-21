@@ -1,0 +1,35 @@
+{
+ "fuente": "misterio_golden_ch02.json (Omar, 2026-10-20 01:20)",
+ "ejemplos": [
+  {
+   "bloque": "RECORTE de diario (papel, ~30 % del ancho) con el titular «El huracán Katrina tocó tierra» · kicker «2005», a la izquierda",
+   "voz": "De 2005. ese día, el huracán katrina desató su furia implacable sobre",
+   "veredicto": "suma",
+   "motivo": "aprobado por Omar en el plan dorado de ch02"
+  },
+  {
+   "bloque": "NIVEL DE AGUA: línea que sube desde abajo hasta el 60 % de la altura con la cifra «4.6 metros», tiñe de oscuro la parte de abajo",
+   "voz": "Enteros desaparecieron, sumergidos bajo hasta 4.6 metros, o",
+   "veredicto": "suma",
+   "motivo": "aprobado por Omar en el plan dorado de ch02"
+  },
+  {
+   "bloque": "DATO en texto «6,500 personas» en la esquina superior izquierda",
+   "voz": "Aproximadamente seis mil quinientas almas. hombres,",
+   "veredicto": "suma",
+   "motivo": "aprobado por Omar en el plan dorado de ch02"
+  },
+  {
+   "bloque": "ZOOM de evidencia: la cámara acerca hasta la zona [0.4, 0.45, 0.2, 0.2] (x, y, ancho, alto en 0–1) «ahogaba»",
+   "voz": "Con impotencia cómo el mundo exterior se ahogaba. desde",
+   "veredicto": "suma",
+   "motivo": "aprobado por Omar en el plan dorado de ch02"
+  },
+  {
+   "bloque": "RECORTE de diario (papel, ~30 % del ancho) con el titular «Los prisioneros quedaron atrapados durante días en celdas», a la izquierda con ícono «candado»",
+   "voz": "Se ahogaba. desde sus celdas, la catástrofe parecía una fuerza incontenible que",
+   "veredicto": "suma",
+   "motivo": "aprobado por Omar en el plan dorado de ch02"
+  }
+ ]
+}

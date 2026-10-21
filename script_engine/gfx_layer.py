@@ -9,7 +9,9 @@ resolver base_clip y ANTES de quemar subs + pegar audio. Pasos:
   3. gfx_plan = gfx_director (cache work_dir/gfx_plan_chXX.json)
   4. gfx_literal_lock(plan) → bloques rechazados se QUITAN, nunca se reescriben (D7)
   5. templater (gfx_project) → proyecto HyperFrames en work_dir/gfx_chXX/
+  6b. F4e: crítico visual (gfx_critic) — cada bloque contra el cuadro real + la voz: solo pasan los «suma»
   6. hyperframes lint (0 errores) → render draft|looks → work_dir/chXX_gfx.mp4 (sin audio)
+     (+ F4e: hoja_contactos_chXX.jpg con un cuadro por bloque que pasó)
   7. CUALQUIER excepción → return base_clip (+ error_handler.log_warning)
 
 Todo queda en work_dir/gfx_chXX.log (tiempos y resultado por paso).
@@ -333,14 +335,16 @@ def _render_sparse(resolved: dict[str, Any], scenes: list[GfxScene], project: Pa
     cfg = gfx_bug.config()
     if cfg:                                                     # F4b §0.3: marca del canal en el cosido FFmpeg
         pdir = project / "public" / "bug"
-        bug = {"cfg": cfg, "plan": resolved, "intro": cap == "ch01",
-               "corner_pngs": gfx_bug.pngs(cfg, int(height * cfg["height_frac"]), pdir, corner=True)}
+        corner = cfg["corner_enabled"]                         # F4e: la esquina se puede apagar (queda el cierre)
+        bug = {"cfg": cfg, "plan": resolved, "intro": cap == "ch01", "corner": corner,
+               "corner_pngs": gfx_bug.pngs(cfg, int(height * cfg["height_frac"]), pdir, corner=True) if corner else None}
         outro = resolved.get("outro_bug")
         if outro:
             bug["outro_t0"] = outro["start"]
             bug["visible_until"] = outro["start"]
             bug["outro_pngs"] = gfx_bug.pngs(cfg, int(height * cfg["outro_height_frac"]), pdir)
-        log.append(f"  marca: {cfg['svg'].name} · oculta en {gfx_bug.hide_windows(resolved, clip_dur)}"
+        log.append(f"  marca: {cfg['svg'].name} · " + (f"oculta en {gfx_bug.hide_windows(resolved, clip_dur)}" if corner
+                                                         else "esquina apagada")
                    + (f" · cierre @ {outro['start']:.1f}s" if outro else ""))
     sp.stitch(base, hf, windows, offsets, clip_dur, tmp, width=width, height=height, fps=fps,
               vignette=vig, grain=gr, grain_opacity=gfx_rules.grain_opacity, bug=bug)
@@ -364,6 +368,17 @@ def _text_in_image(prompt: dict[str, Any]) -> str:
     if isinstance(tii, str):
         return tii
     return ""
+
+
+def _contact_sheet(resolved: dict[str, Any], out: Path, work_dir: Path, cap: str, log: list[str]) -> None:
+    """F4e: hoja de contactos del cap (un cuadro del render por bloque que pasó el crítico). Nunca rompe el cap."""
+    if not resolved.get("critico"):
+        return
+    try:
+        from script_engine.gfx_critic import contact_sheet
+        contact_sheet(out, resolved["critico"], Path(work_dir) / f"hoja_contactos_{cap}.jpg", log=log)
+    except Exception as e:  # noqa: BLE001
+        log.append(f"  hoja de contactos: falló ({type(e).__name__}: {str(e)[:100]})")
 
 
 def remapped_words(chplan: Any) -> tuple[list[dict], list[dict]]:
@@ -664,6 +679,10 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             extend_base(project / "public" / "base.mp4", pause, fps)
             clip_dur = _ffprobe_duration(project / "public" / "base.mp4")
             scenes[-1].end = round(clip_dur, 3)
+        if gfx_plan_override is None and gfx_rules.visual_critic:     # F4e 6b: crítico visual antes del render
+            from script_engine.gfx_critic import criticize
+            resolved["critico"] = criticize(resolved, base=project / "public" / "base.mp4", words=words,
+                                            time_offset=time_offset, work_dir=work_dir, cap=cap, log=log)
         log.append(f"  plan: {json.dumps(resolved, ensure_ascii=False)}")
         log.append(f"  lock rechazados: {len(rejected)} {json.dumps(rejected, ensure_ascii=False)}")
         (work_dir / f"gfx_plan_{cap}.resolved.json").write_text(
@@ -683,6 +702,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             from script_engine.gfx_project import cue_events
             from script_engine.gfx_review import write_cues
             write_cues(cap, cue_events(resolved, scenes, fps), log, resolved.get("gap_warnings", []), render_sec, work_dir)
+            _contact_sheet(resolved, out, work_dir, cap, log)
             log.append(f"  OK total {time.time() - t0:.1f}s → {out.name} (disperso)")
             error_handler.log_success(PipelineStage.ASSEMBLY, f"[gfx] {cap} OK en {time.time() - t0:.0f}s (disperso)")
             return out
@@ -706,6 +726,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         from script_engine.gfx_project import cue_events
         from script_engine.gfx_review import write_cues
         write_cues(cap, cue_events(resolved, scenes, fps), log, resolved.get("gap_warnings", []), render_sec, work_dir)
+        _contact_sheet(resolved, out, work_dir, cap, log)
 
         log.append(f"  OK total {time.time() - t0:.1f}s → {out.name}")
         error_handler.log_success(PipelineStage.ASSEMBLY, f"[gfx] {cap} OK en {time.time() - t0:.0f}s")

@@ -320,6 +320,7 @@ class GfxRules:
     doc_clippings: bool = False              # R6: recorte = documento (solo del fact, suma algo, kicker obligatorio)
     callout_no_repeat: bool = False          # R7: el dato no repite lo que la voz dice en ese tramo
     question_rubric: bool = False            # R8: 3 preguntas + elección por rúbrica (gancho, no trivia)
+    visual_critic: bool = False              # F4e 6b: Gemini juzga cada bloque contra el cuadro real (suma/repite/estorba)
     source_tag_scale: float = 0.4            # 40 % del tamaño del callout
     sfx_gain_db: float = -18.0               # bajo la voz
     sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano
