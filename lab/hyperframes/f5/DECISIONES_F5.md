@@ -96,3 +96,14 @@ Handoff: `lab/hyperframes/f5/HANDOFF_F5_guion_v2.md`. Rama `f5-guion-v2`.
 - **J36 (mapa)** Los lugares con lat/lon quedan en el `evidence_pool` del guion para F6. No se renderiza nada.
 - **J37 (`plan_only`)** `apply_gfx(plan_only=True)` hace director, candado, pico, identidad, pregunta, crítico, SFX y cues, y devuelve el clip base sin HyperFrames ni render. Es para la simulación de §3.
 - **J38** Una cláusula de recorte puede arrancar con una cifra («517 prisioneros…»). Antes solo podía arrancar con letra.
+
+## §3 prueba sobre Orleans
+- **J39** Topic de prueba `ba6c3cac-f5v2`. Usa el research de v1 (`00_pool_etiquetado.json`, sin volver a investigar) y la misma respuesta cruda de Flash para el pool (mismo prompt, `00b_pool_raw.json`). Los `verified_facts` son los de v1, idénticos (diff vacío). No se escribe nada en `topics_db.json`: el runner le pasa el topic directo a skeleton y narrador.
+- **J40** El normalizer corre en batch con `persist_dict=False`. El juez escribe `06_judge_narrative.json` (v2) y `06_judge_narrative_v1.json` (v1 medido con el mismo pool), los dos en el dir de v2. El dir de v1 no se toca.
+- **J41 (proxy de fotos)** Las palabras de v2 se reparten uniformes en la duración del audio de v1, y las escenas se fijan en los tiempos de corte de v1 con anchors sintéticos de 4 palabras de v2. Los índices son crecientes, el trigrama es único desde el anchor anterior y no arrancan en cifras ni siglas con puntos, porque el needle se normaliza como el TTS. En los caps Veo, el primer suplementario va con un anchor real. Las 7 escenas proxy resuelven.
+- **J42** La simulación de v1 corre con el MISMO código de F5 (sin pool, así que el camino de verified_facts de F4e) y con los cachés del director de v1. La de v2 corre en `output/ba6c3cac-f5v2/_fase2b_work`, con los cachés de visión de las mismas fotos copiados. `record_proposals` se desactiva en las simulaciones: la copia v2 no es un segundo video, y si no, promovería palabras al perfil.
+- **J43 (arreglos en la prueba)** Tres arreglos que salieron de la prueba:
+  - cap con muchos datos → narración de 2495 caracteres → el último intento caía por largo. El prompt ahora pide 3–6 datos y el skeleton ≤ 7 por cap, y un último intento que rompe largo o frases cede ante uno anterior que solo fallaba reglas del pool;
+  - los paréntesis cortan siempre la cláusula;
+  - una cláusula no arranca en infinitivo reflexivo («inundarse…»).
+- **J44** §1.6 (`m03_visual`, opcional) no se hizo.

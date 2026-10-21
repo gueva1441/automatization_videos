@@ -389,7 +389,7 @@ PASO 1b OBLIGATORIO — `_evidence_plan`, `personajes` y `cliffhanger`
 `_evidence_plan`: para CADA cap (cap_1..cap_7) la lista de ids del pool (D##, T##, Q##) que ese cap cuenta.
 REGLAS:
 1. Cada cap recibe AL MENOS {min_new} ids NUEVOS (no usados en caps anteriores) + a lo sumo {MAX_BRIDGE_EVIDENCE}
-   repetido como puente.
+   repetido como puente. No más de 7 por cap: la narración tiene largo fijo y usa 3–6.
 2. Seguí la CRONOLOGÍA (ids T##) en los caps 2–6: un cap no cuenta un evento anterior al del cap previo.
    El cap 1 (hook) puede abrir con el momento más fuerte; el cap 7 cierra con lo último que se supo.
 3. Las CONTRADICCIONES oficiales y las CITAS van al cap donde más golpean.

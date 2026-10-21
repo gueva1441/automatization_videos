@@ -218,7 +218,8 @@ PROSE_RULE_6_POOL = """6. REGLA NUMÉRICA INVIOLABLE: cualquier cifra, fecha, no
    cantidad debe estar literal en los verified_facts o en el EVIDENCE POOL de arriba. NO inventes."""
 
 F5_RULES = """REGLAS DEL EVIDENCE POOL (inviolables, se validan):
-A. Usá los datos asignados a este cap: cada uno aparece LITERAL (la cifra, la fecha o el nombre tal cual).
+A. Usá entre 3 y 6 de los datos asignados a este cap (los que más golpean): cada uno aparece LITERAL (la cifra,
+   la fecha o el nombre tal cual). No hace falta usarlos todos: el LARGO OBLIGATORIO manda.
 B. No repitas datos que ya salieron en 2 caps (lista de abajo). Un dato del video vive en 2 caps como máximo.
 C. Nombrá a cada persona por nombre y apellido y con su cargo la primera vez (p. ej. "el sheriff Marlin Gusman").
 D. Si el cap cuenta 2 o más eventos fechados, narralos EN ORDEN y decí las fechas.
@@ -811,6 +812,7 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
 
     attempt_prompt = prompt
     last_error: NarrationValidationError | None = None
+    best_pool_only: tuple[str, str] | None = None    # F5: intento que solo fallaba reglas del pool (largo y frases OK)
 
     for attempt in range(1, max_attempts + 1):
         # HANDOFF 66b (R4): response_schema fuerza el shape {"narration": str}
@@ -823,6 +825,16 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
             # Retry si la falla es largo, primera-oración del hook, o frase prohibida.
             # (gate tipado: ya no se string-matchea el mensaje). "empty"/"other" → no retry.
             retryable = e.kind in ("length", "first_sentence", "phrase", "evidence")
+            if e.kind == "evidence":
+                best_pool_only = (narr, e.detail or "")
+            if e.kind != "evidence" and attempt == max_attempts and best_pool_only is not None:
+                # F5: el último intento rompió el largo/frases, pero uno anterior solo fallaba reglas del pool → ese
+                narr, det = best_pool_only
+                if violations is not None:
+                    violations[cap_number] = det.splitlines()
+                print(f"  [01b] cap {cap_number}: último intento inválido ({e.kind}); acepta el anterior con "
+                      f"{len(det.splitlines())} problema(s) del pool")
+                return narr
             if e.kind == "evidence" and attempt == max_attempts:
                 # F5: las reglas del pool no matan el topic — se acepta y se anota (el juez lo reporta)
                 if violations is not None:

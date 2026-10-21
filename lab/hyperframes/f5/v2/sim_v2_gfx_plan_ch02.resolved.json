@@ -1,0 +1,530 @@
+{
+ "plan": {
+  "chapter_number": 2,
+  "title_card": {
+   "kicker": "CAPÍTULO 2",
+   "title": "El Diluvio y la Traición"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [
+   {
+    "kicker": "2005",
+    "headline": "prisioneros no serán evacuados de la Prisión de Orleans Parish",
+    "body": "",
+    "scene_idx": 1,
+    "fact_idx": null,
+    "pool_id": "T05",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 14.862,
+    "duration": 6.0,
+    "side": "left"
+   },
+   {
+    "kicker": "2005",
+    "headline": "el Sheriff Marlin Gusman solicita ayuda para la evacuación",
+    "body": "",
+    "scene_idx": 0,
+    "fact_idx": null,
+    "pool_id": "T12",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 7.281,
+    "duration": 6.0,
+    "side": "left"
+   }
+  ],
+  "evidence_zoom": {
+   "scene_idx": 11,
+   "box": [
+    0.53,
+    0.55,
+    0.15,
+    0.15
+   ],
+   "start": 77.917,
+   "anchor": "Pies del hombre",
+   "detail": "Pies del hombre",
+   "tipo": "persona",
+   "conf": 0.9,
+   "como": "nombrado",
+   "word": "prisión",
+   "latido": true,
+   "latido_t": 78.617
+  },
+  "punch_in": [
+   5.896,
+   13.898,
+   24.849,
+   81.285
+  ],
+  "chapter_question": {
+   "text": "¿Quién cortó la energía?",
+   "start": 97.633,
+   "duration": 3.0,
+   "keyword": "energía",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "penumbra",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": "candado",
+    "icon_anim": "stamp",
+    "start": 32.43,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 3,
+    "rarity": 1,
+    "weight": 2,
+    "icon_callout": true
+   },
+   {
+    "word": "marea",
+    "category": "agua",
+    "layer": "agua",
+    "icon": "gota",
+    "icon_anim": "press_wipe",
+    "start": 45.065,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 5,
+    "rarity": 4,
+    "weight": 2,
+    "icon_callout": true
+   },
+   {
+    "word": "inundación",
+    "category": "agua",
+    "layer": "agua",
+    "icon": "gota",
+    "icon_anim": "press_wipe",
+    "start": 69.492,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "weight": 2,
+    "peak_word": true,
+    "icon_callout": true
+   },
+   {
+    "word": "diluvio",
+    "category": "agua",
+    "layer": "agua",
+    "icon": "gota",
+    "icon_anim": "press_wipe",
+    "start": 81.285,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 9,
+    "rarity": 2,
+    "weight": 3,
+    "icon_callout": false
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "id": "T06",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 23.7s"
+   },
+   {
+    "id": "D09",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D10",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T03",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D04",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 33.0s"
+   },
+   {
+    "id": "D05",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T07",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 33.0s"
+   },
+   {
+    "id": "Q01",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T08",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 83.1s"
+   },
+   {
+    "id": "T09",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T05",
+    "bloque": "recorte",
+    "ahora": "prisioneros no serán evacuados de la Prisión de Orleans Parish",
+    "kicker": "2005",
+    "fuente": null,
+    "icono": null,
+    "icono_faltante": null,
+    "opciones": [
+     "prisioneros no serán evacuados de la Prisión de Orleans Parish",
+     "serán evacuados de la Prisión de Orleans Parish",
+     "la Prisión de Orleans Parish"
+    ]
+   },
+   {
+    "id": "T12",
+    "bloque": "recorte",
+    "ahora": "el Sheriff Marlin Gusman solicita ayuda para la evacuación",
+    "kicker": "2005",
+    "fuente": null,
+    "icono": null,
+    "icono_faltante": null,
+    "opciones": [
+     "el Sheriff Marlin Gusman solicita ayuda para la evacuación",
+     "Sheriff Marlin Gusman solicita ayuda para la evacuación",
+     "Marlin Gusman solicita ayuda para la evacuación"
+    ]
+   },
+   {
+    "id": "D10",
+    "bloque": "dato",
+    "ahora": "80% de Nueva Orleans",
+    "fuente": null
+   },
+   {
+    "bloque": "dato@70.3",
+    "antes": "80% de Nueva Orleans",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   }
+  ],
+  "pico": {
+   "t": 69.492,
+   "block": "water_level",
+   "word": "inundación",
+   "sentence": "Estas brechas causaron la inundación del 80% de Nueva Orleans, dejando partes de la ciudad bajo hasta 15 pies de agua.",
+   "intensity": 0.8,
+   "sentence_idx": 8,
+   "palabra": "inundación"
+  },
+  "water_level": {
+   "value_text": "15",
+   "unit": "pies",
+   "meters": 4.57,
+   "height": 0.602,
+   "start": 69.492,
+   "duration": 4.5,
+   "rise": 2.5,
+   "fact_idx": 1,
+   "word": "inundación"
+  },
+  "time_ticker": {
+   "day": "28",
+   "month": "AGO",
+   "tail": "2005",
+   "times": [],
+   "advance": false,
+   "source_text": "El Sheriff Marlin N. Gusman anuncia en una conferencia de prensa que los prisioneros no serán evacuados de la Prisión de Orleans Parish.",
+   "pool_id": "T05",
+   "start": 7.581,
+   "duration": 12.0,
+   "side": "right"
+  },
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "2": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "10": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "12": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
+   "13": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "quieta",
+     "motivo": "documento: tiene texto"
+    },
+    {
+     "scene": 1,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 2,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 3,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 4,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 5,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 6,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 7,
+     "forma": "paneo",
+     "motivo": "foto ancha con gente"
+    },
+    {
+     "scene": 8,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 9,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 10,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 11,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 12,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 13,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 14,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    }
+   ],
+   "violaciones": []
+  },
+  "iconos_auto": [],
+  "black_hold": {
+   "start": 100.633,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 7.281,
+    "t_frame": 8.281,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "el Sheriff Marlin Gusman solicita ayuda para la evacuación",
+    "veredicto": "suma",
+    "motivo": "El bloque aporta un detalle específico (solicitud de evacuación del Sheriff Gusman) que contextualiza la 'decisión' y el 'caos inminente' mencionados por la voz",
+    "pasa": true,
+    "voz": "Esta decisión, velada por el caos inminente, se gestó incluso antes de que la tormenta perfecta tocara tierra."
+   },
+   {
+    "t": 14.862,
+    "t_frame": 15.862,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "prisioneros no serán evacuados de la Prisión de Orleans Parish",
+    "veredicto": "suma",
+    "motivo": "El bloque añade un dato específico sobre las decisiones tomadas durante el desastre, complementando la imagen de destrucción y la introducción de la voz.",
+    "pasa": true,
+    "voz": "El 28 de agosto de 2005, mientras la ciudad se preparaba para el embate, el sheriff Marlin N."
+   },
+   {
+    "t": 32.43,
+    "t_frame": 33.43,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "penumbra",
+    "veredicto": "suma",
+    "motivo": "El ícono de candado aporta el contexto de 'prisión' que la voz menciona y la imagen no muestra, y la palabra 'PENUMBRA' enfatiza un término clave de la narració",
+    "pasa": true,
+    "voz": "Esa misma noche, la oscuridad comenzó a engullir sus muros: se cortó la electricidad en la prisión, sumiendo los corredores en una penumbra inquietante."
+   },
+   {
+    "t": 45.065,
+    "t_frame": 46.065,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "marea",
+    "veredicto": "suma",
+    "motivo": "El bloque enfatiza la palabra clave 'MAREA' de la voz y el ícono 'gota' refuerza el tema del agua y la catástrofe sin repetir visualmente lo que la foto ya mues",
+    "pasa": true,
+    "voz": "Sus vientos y la marea de tormenta provocaron una catástrofe que trascendería lo natural."
+   },
+   {
+    "t": 69.492,
+    "t_frame": 70.492,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "inundación",
+    "veredicto": "suma",
+    "motivo": "El bloque enfatiza y etiqueta el concepto clave de 'inundación' que la voz describe, conectando la imagen de un lugar húmedo y sombrío con el evento específico ",
+    "pasa": true,
+    "voz": "Estas brechas causaron la inundación del 80% de Nueva Orleans, dejando partes de la ciudad bajo hasta 15 pies de agua."
+   },
+   {
+    "t": 69.492,
+    "t_frame": 70.492,
+    "dur": 4.5,
+    "bloque": "nivel_agua",
+    "texto": "15",
+    "veredicto": "suma",
+    "motivo": "El gráfico visualiza la magnitud de la inundación (15 pies) que la voz menciona, complementando la imagen de la celda con agua en el suelo sin repetirla visualm",
+    "pasa": true,
+    "voz": "Estas brechas causaron la inundación del 80% de Nueva Orleans, dejando partes de la ciudad bajo hasta 15 pies de agua."
+   },
+   {
+    "t": 77.917,
+    "t_frame": 78.917,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "Pies del hombre",
+    "veredicto": "suma",
+    "motivo": "El zoom en los pies del hombre sobre la cama enfatiza la inmediatez y el impacto personal del diluvio, mostrando la precariedad de su situación frente al agua.",
+    "pasa": true,
+    "voz": "La prisión, ya en tinieblas, quedaba completamente aislada, rodeada por un diluvio que lo cambiaría todo."
+   },
+   {
+    "t": 81.285,
+    "t_frame": 82.285,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "diluvio",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera opresiva del diluvio en toda la escena, no solo en el agua visible.",
+    "pasa": true,
+    "voz": "La prisión, ya en tinieblas, quedaba completamente aislada, rodeada por un diluvio que lo cambiaría todo."
+   }
+  ]
+ },
+ "rejected": []
+}

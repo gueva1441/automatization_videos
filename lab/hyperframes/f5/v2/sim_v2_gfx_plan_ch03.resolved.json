@@ -1,0 +1,491 @@
+{
+ "plan": {
+  "chapter_number": 3,
+  "title_card": {
+   "kicker": "CAPÍTULO 3",
+   "title": "Generadores Caídos, Celdas Inundadas"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [
+   {
+    "kicker": "2005",
+    "headline": "piso comienzan a inundarse y las aguas residuales refluyen",
+    "body": "",
+    "scene_idx": 8,
+    "fact_idx": null,
+    "pool_id": "T09",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 67.257,
+    "duration": 6.0,
+    "side": "left",
+    "icon": "biohazard"
+   },
+   {
+    "kicker": "2005",
+    "headline": "el agua alcanza el nivel del pecho en el interior",
+    "body": "",
+    "scene_idx": 16,
+    "fact_idx": null,
+    "pool_id": "T13",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 140.666,
+    "duration": 6.0,
+    "side": "right",
+    "icon": "gota"
+   }
+  ],
+  "evidence_zoom": null,
+  "punch_in": [
+   25.002,
+   56.918,
+   85.112,
+   115.965
+  ],
+  "chapter_question": {
+   "text": "¿Cómo escaparon los prisioneros?",
+   "start": 152.167,
+   "duration": 3.0,
+   "keyword": "prisioneros",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "sofocante",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": "candado",
+    "icon_anim": "stamp",
+    "start": 48.407,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "peak": true,
+    "icon_callout": true
+   },
+   {
+    "word": "residuales",
+    "category": "veneno_enfermedad",
+    "layer": "veneno",
+    "icon": "biohazard",
+    "icon_anim": "ink_bleed",
+    "start": 79.26,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 5,
+    "rarity": 2,
+    "weight": 2,
+    "icon_callout": true
+   },
+   {
+    "word": "fétido",
+    "category": "agua",
+    "layer": "agua",
+    "icon": "gota",
+    "icon_anim": "press_wipe",
+    "start": 92.027,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 6,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "contaminado",
+    "category": "veneno_enfermedad",
+    "layer": "veneno",
+    "icon": "biohazard",
+    "icon_anim": "ink_bleed",
+    "start": 132.455,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 11,
+    "rarity": 1,
+    "weight": 2,
+    "icon_callout": false
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "id": "T08",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 27.9s"
+   },
+   {
+    "id": "D33",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T06",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 0.5s"
+   },
+   {
+    "id": "D09",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D10",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T03",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T09",
+    "bloque": "recorte",
+    "ahora": "piso comienzan a inundarse y las aguas residuales refluyen",
+    "kicker": "2005",
+    "fuente": null,
+    "icono": "biohazard",
+    "icono_faltante": null,
+    "opciones": [
+     "piso comienzan a inundarse y las aguas residuales refluyen",
+     "las aguas residuales refluyen",
+     "aguas residuales refluyen"
+    ]
+   },
+   {
+    "id": "T13",
+    "bloque": "recorte",
+    "ahora": "el agua alcanza el nivel del pecho en el interior",
+    "kicker": "2005",
+    "fuente": null,
+    "icono": "gota",
+    "icono_faltante": null,
+    "opciones": [
+     "Templeman 1 y 2",
+     "el agua alcanza el nivel del pecho en el interior",
+     "Comienza la evacuación de algunos edificios de la prisión"
+    ]
+   }
+  ],
+  "pico": {
+   "t": 48.407,
+   "block": "emphasis",
+   "word": "sofocante",
+   "sentence": "Esta pérdida total de energía no solo sumió las entrañas de la prisión en una oscuridad impenetrable y sofocante, sino que también inhabilitó los sistemas de ventilación y los mecanismos vitales para abrir las celdas.",
+   "intensity": 0.9,
+   "sentence_idx": 3,
+   "palabra": "sofocante"
+  },
+  "time_ticker": {
+   "day": "29",
+   "month": "AGO",
+   "tail": "2005",
+   "times": [],
+   "advance": false,
+   "source_text": "La energía eléctrica se pierde y los generadores de respaldo fallan en la OPP.",
+   "pool_id": "T08",
+   "start": 28.193,
+   "duration": 12.0,
+   "side": "left"
+  },
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "5": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "9": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "12": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "13": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "15": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "16": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "17": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 1,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 2,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 3,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 4,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 5,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 6,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 7,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 8,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 9,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 10,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 11,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 12,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 13,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 14,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 15,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 16,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 17,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    }
+   ],
+   "violaciones": []
+  },
+  "iconos_auto": [],
+  "black_hold": {
+   "start": 155.167,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 25.002,
+    "t_frame": 26.002,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "encarceladas",
+    "veredicto": "repite",
+    "motivo": "El ícono de candado y la palabra \"ENCARCELADAS\" repiten visual y textualmente lo que ya se ve en la imagen (una prisión) y se escucha en la voz (la palabra \"enc",
+    "pasa": false,
+    "voz": "Con el huracán Katrina desatado, la ya precaria situación en la Prisión de Orleans Parish, donde aproximadamente 6,500 personas, incluyendo hombres, mujeres y niños, estaban encarceladas, se precipitó hacia el abismo."
+   },
+   {
+    "t": 48.407,
+    "t_frame": 49.407,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "sofocante",
+    "veredicto": "suma",
+    "motivo": "El ícono de candado refuerza la idea de celdas inhabilitadas que menciona la voz, y la palabra 'SOFOCANTE' enfatiza un término clave de la narración sin repetir",
+    "pasa": true,
+    "voz": "Esta pérdida total de energía no solo sumió las entrañas de la prisión en una oscuridad impenetrable y sofocante, sino que también inhabilitó los sistemas de ventilación y los mecanismos vitales para abrir las celdas."
+   },
+   {
+    "t": 67.257,
+    "t_frame": 68.257,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "piso comienzan a inundarse y las aguas residuales refluyen",
+    "veredicto": "suma",
+    "motivo": "Aporta el detalle específico de las aguas residuales y la fecha, que la voz y la imagen no explicitan, y el ícono refuerza el peligro.",
+    "pasa": true,
+    "voz": "Con la ciudad ahogándose, el agua de la inundación no tardó en penetrar los niveles inferiores de los edificios."
+   },
+   {
+    "t": 79.26,
+    "t_frame": 80.26,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "residuales",
+    "veredicto": "suma",
+    "motivo": "El bloque enfatiza visualmente la naturaleza peligrosa de las 'aguas residuales' mencionadas por la voz, añadiendo un detalle específico (biohazard) que la imag",
+    "pasa": true,
+    "voz": "Las celdas del primer piso comenzaron a inundarse ese mismo 29 de agosto de 2005, y lo que era peor, las aguas residuales refluyeron, mezclándose con la marea de la tormenta."
+   },
+   {
+    "t": 92.027,
+    "t_frame": 93.027,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "fétido",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una cualidad sensorial clave ('fétido') que la imagen por sí sola no puede transmitir, y el tinte de mood refuerza la atmósfera opresiva del l",
+    "pasa": true,
+    "voz": "Los reclusos, atrapados en sus celdas metálicas y estrechas, observaban con horror cómo un líquido fétido y oscuro ascendía implacablemente."
+   },
+   {
+    "t": 132.455,
+    "t_frame": 133.455,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "contaminado",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza visualmente la idea de contaminación y horror que la imagen sugiere pero no muestra e",
+    "pasa": true,
+    "voz": "El diluvio contaminado seguía su ascenso imparable, prometiendo un horror aún mayor para los miles de prisioneros abandonados."
+   },
+   {
+    "t": 140.666,
+    "t_frame": 141.666,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "el agua alcanza el nivel del pecho en el interior",
+    "veredicto": "suma",
+    "motivo": "Aporta un nivel de agua específico ('nivel del pecho') y una fecha ('2005') que no se mencionan en la voz ni se muestran con exactitud en la imagen.",
+    "pasa": true,
+    "voz": "El diluvio contaminado seguía su ascenso imparable, prometiendo un horror aún mayor para los miles de prisioneros abandonados."
+   }
+  ]
+ },
+ "rejected": []
+}

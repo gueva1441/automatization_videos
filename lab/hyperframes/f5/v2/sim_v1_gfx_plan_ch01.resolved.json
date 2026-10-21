@@ -1,0 +1,165 @@
+{
+ "plan": {
+  "chapter_number": 1,
+  "title_card": {
+   "kicker": "CAPÍTULO 1",
+   "title": "6,500 Almas Atrapadas"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [],
+  "evidence_zoom": null,
+  "punch_in": [
+   3.16,
+   4.579,
+   12.819,
+   29.399
+  ],
+  "chapter_question": {
+   "text": "¿Qué ocultaron las celdas?",
+   "start": 35.8,
+   "duration": 3.0,
+   "keyword": "ocultaron",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "contaminada",
+    "category": "veneno_enfermedad",
+    "layer": "veneno",
+    "icon": "biohazard",
+    "icon_anim": "ink_bleed",
+    "start": 23.72,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 2,
+    "peak_word": true,
+    "icon_callout": true
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "bloque": "dato1",
+    "antes": "Katrina",
+    "ahora": "Katrina",
+    "categoria": null,
+    "icono": null,
+    "opciones": 2
+   },
+   {
+    "bloque": "dato@8.5",
+    "antes": "29 de agosto de 2005",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   },
+   {
+    "bloque": "dato@12.3",
+    "antes": "Katrina",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   },
+   {
+    "bloque": "dato@26.0",
+    "antes": "nivel del pecho",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   }
+  ],
+  "pico": {
+   "t": 23.72,
+   "block": "evidence_zoom",
+   "word": "contaminada",
+   "sentence": "El agua contaminada subió implacable hasta el nivel del pecho en sus celdas oscuras.",
+   "intensity": 0.9,
+   "sentence_idx": 4,
+   "palabra": "contaminada",
+   "block_quitado_por_critico": true
+  },
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   }
+  },
+  "identity": {
+   "movimientos": [],
+   "violaciones": []
+  },
+  "iconos_auto": [],
+  "black_hold": {
+   "start": 38.8,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 17.3,
+    "t_frame": 18.3,
+    "dur": 3.7,
+    "bloque": "contador",
+    "texto": "6,500",
+    "veredicto": "repite",
+    "motivo": "El bloque numérico repite la cifra exacta de personas que la voz ya menciona de forma clara y precisa.",
+    "pasa": false,
+    "voz": "En la Prisión Parroquial de Orleans, seis mil quinientas personas, incluidos niños pequeños, quedaron encerradas."
+   },
+   {
+    "t": 23.72,
+    "t_frame": 24.72,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "contaminada",
+    "veredicto": "suma",
+    "motivo": "El bloque enfatiza la palabra clave 'CONTAMINADA' y el ícono biohazard refuerza visualmente el peligro de la situación, añadiendo una capa de significado que la",
+    "pasa": true,
+    "voz": "El agua contaminada subió implacable hasta el nivel del pecho en sus celdas oscuras."
+   },
+   {
+    "t": 26.149,
+    "t_frame": 27.149,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "contaminada",
+    "veredicto": "estorba",
+    "motivo": "El zoom de evidencia se enfoca en el rostro, que expresa angustia, pero no es evidencia visual directa de que el agua esté \"contaminada\", lo cual ya menciona la",
+    "pasa": false,
+    "voz": "El agua contaminada subió implacable hasta el nivel del pecho en sus celdas oscuras."
+   },
+   {
+    "t": 29.399,
+    "t_frame": 30.399,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "infierno",
+    "veredicto": "estorba",
+    "motivo": "El tinte de 'fuego' y el ícono de 'llama' se pelean con la atmósfera fría, húmeda y de decadencia de la imagen, que no muestra elementos de fuego.",
+    "pasa": false,
+    "voz": "Días de infierno, sin luz, sin salida."
+   }
+  ]
+ },
+ "rejected": []
+}

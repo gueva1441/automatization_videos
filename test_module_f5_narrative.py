@@ -140,3 +140,16 @@ def test_juez_persiste_reporte(tmp_path):
     saved = json.loads((tmp_path / "t" / "06_judge_narrative.json").read_text(encoding="utf-8"))
     assert saved["video"]["densidad"] == rep["video"]["densidad"] and saved["violaciones_narrador"] == {"1": ["x"]}
     assert saved["umbrales"]["adj_100_max"] == mn.ADJ_MAX
+
+
+def test_ultimo_intento_largo_acepta_el_anterior(monkeypatch):
+    """F5: si el último intento rompe el largo pero uno anterior solo fallaba reglas del pool, se acepta el anterior."""
+    base = "Los guardias contaron a los presos en el patio de la cárcel una vez más. "
+    pool_only = (base * 14).strip()
+    too_long = (base * 40).strip()
+    q = [pool_only, too_long, too_long]
+    monkeypatch.setattr(nb, "call_flash_json", lambda p, response_schema=None: {"narration": q.pop(0)})
+    viol: dict = {}
+    out = nb._call_with_length_retry("P", role="development", cap_number=2, max_attempts=3,
+                                     f5={"pool": POOL, "skeleton": SKEL, "previous": []}, violations=viol)
+    assert out == pool_only and viol[2]

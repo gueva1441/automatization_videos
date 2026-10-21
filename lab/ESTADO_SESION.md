@@ -1,12 +1,20 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-20 21:40 (F4e commiteado; espera a Omar) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 00:10 (F5 hasta §3 commiteado en f5-guion-v2; PARADA: valida el analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama **`f3-lab-identidad`** (desde `31c671c`, tip de `f2-gfx-director`). Último commit: F4b §5 (ver `git log`); F4 cerró en `56085d1`.
 - `main` = `43f528a` (NO tocar sin OK explícito de Omar). **F2b NO se mergeó** (decisión de Omar 2026-10-19): sigue en `f2-gfx-director` @ `31c671c`; F3 se apoya encima.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 = cap de calibración, ch05 el segundo).
 - Candados vigentes: md5 sin `--gfx` de ch02 `--only-cap` = `38e5ba14…` (último en `lab/hyperframes/f4b/onlycap_ch02_nogfx_f4b.log`); 316 tests verdes (F4e).
+
+## F5 — Guion v2 (HANDOFF_F5_guion_v2) — PARADA: valida el analista (VALIDACION_F5.md), después Omar
+- Rama **`f5-guion-v2`** desde `39e37ac` (F4e; F4f no existe). Commits: `66ee44b` §1.1 · `2be6c11` §1.2 · `fc955ef` §1.3–§1.5 · `e18e656` §2 · §3 (último).
+- Leer `lab/hyperframes/f5/F5_REPORT.md` (revisor íntegro por sección: CUMPLE CON OBSERVACIONES), `DECISIONES_F5.md` (J0–J44), `GUION_v1_v2.md`, `SIM_v1_v2.md`, `lab/guion/compara_orleans.html`.
+- Orleans v2 (topic de prueba `ba6c3cac-f5v2`, sin imágenes ni render): densidad 1.36→3.29, adjetivos 6.2→2.9, datos en más de 2 caps 2→0, Gusman en 6 caps, 41 datos del pool (v1: 12). Sim del director: recortes del pool 0→7 (**0 con fuente**: el research no ata fuente a la cronología), crítico «repite» 12→4, reloj en 3 caps.
+- Abierto: cliffhanger estricto 4/6; contradicción 6,375/6,500 sin contar; íconos espiral/rayo sin generar; año del kicker desde `fecha` no literal en datos; umbral de adjetivos recalibrado (3.6) a validar.
+- Nuevo: `evidence_pool` en el research (`researcher_steps/evidence_pool.py`), juez narrativo `script_engine/m05_narrative.py`, `script_engine/gfx_pool.py`, `apply_gfx(plan_only=True)`. Todo detrás de `if pool`.
+- Lección: los heredocs de Git Bash convierten `\b` en 0x08 (J27). Los parches con barras van por Write.
 
 ## F4e — Marca de esquina apagada, crítico visual (6b), hoja de contactos — ESPERANDO A OMAR
 - Commit F4e (último). Leer `lab/hyperframes/f4e/RESUMEN_F4e.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), `DECISIONES_F4e.md` (I1–I14), `TABLA_critico.md`, `hoja_contactos_ch02/ch05.jpg`.
@@ -17,7 +25,7 @@
 ## F4d — Pico con preferencia, recortes por cláusula, marca +1 px — superado por F4e
 - Commit F4d (último). Leer `lab/hyperframes/f4d/RESUMEN_F4d.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), `DECISIONES_F4d.md` (H1–H11), `TABLA_antes_despues.md`.
 - ch02 vuelve al nivel de agua 4.6 m con PUTREFACTA de palabra del pico; los recortes recuperan la fecha y «aguas residuales». ch05: «cadáveres flotando…» con kicker «1 de septiembre» (HRW NO: el research no le atribuye ese fact, H8).
-- Marca `corner_dilate_px: 1`; caché del PNG ahora distingue el engrosado (H10). `` de `gfx_icons/__init__.py:70` arreglado.
+- Marca `corner_dilate_px: 1`; caché del PNG ahora distingue el engrosado (H10). `\b` de `gfx_icons/__init__.py:70` arreglado.
 - md5 sin `--gfx` = `38e5ba14…` ✔. Tests: 311 verdes. Respaldo del estado F4c: `_fase2b_work/_bak_f4d_pre`.
 
 ## F4c — Doctrina del director + marca sin pixelado — superado por F4d

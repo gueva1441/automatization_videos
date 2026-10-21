@@ -217,8 +217,8 @@ def _start_ok(w: str) -> bool:
         return False
     if t in _ARTICLES or w[:1].isupper():
         return True
-    if t in EDGE_STOP or t in _VAGUE or t in _IRREG_PART or t.endswith("mente"):
-        return False
+    if t in EDGE_STOP or t in _VAGUE or t in _IRREG_PART or t.endswith("mente") or re.search(r"(ar|er|ir)se$", t):
+        return False                                    # «inundarse y…» arranca en verbo
     return len(t) >= 4 and not _verb_edge(w) and not _PARTICIPLE.search(t)
 
 
@@ -232,7 +232,8 @@ def clause_options(fact: str, max_words: int = DOC_MAX_WORDS) -> list[str]:
     Una fecha al final puede perder «de AAAA» (el año va al kicker). Literales: conservan las comillas del fact."""
     text = re.sub(r"\s+", " ", str(fact)).strip()
     out: list[str] = []
-    for part in re.split(r"[,.;:!?…()](?=\s|$)|\s[—–-]\s", text):
+    # los paréntesis cortan siempre («(Templeman 1 y 2)» no deja un «(» sin cerrar en el titular)
+    for part in re.split(r"[,.;:!?…](?=\s|$)|[()]|\s[—–-]\s", text):
         ws = part.split()
         cl: list[list[str]] = [[]]
         for w in ws:                                   # «mientras/cuando/…» abren otra cláusula

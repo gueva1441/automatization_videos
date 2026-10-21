@@ -1,0 +1,47 @@
+[2026-10-20 23:07:27] F5 §3 etapa guion
+  [4a·pool] tecnico: 1 ítem(s) descartado(s) por no estar literales en el bloque
+  [4a·pool] datos 72 · cronologia 27 · lugares 26 · citas 2 · personajes 8
+guion: pool 0s
+guion: skeleton 40s · reparaciones ["cronología: ['T15', 'T16'] de cap_5 → cap_4 (anteriores a 2005-09-02)", 'cap 1: cliffhanger T12 inválido → D05 (primer id nuevo del cap 2)', 'cap 2: cliffhanger D16 inválido → D33 (primer id nuevo del cap 3)', 'cap 4: cliffhanger F09 inválido → D60 (primer id nuevo del cap 5)', 'cap 5: cliffhanger F07 inválido → D47 (primer id nuevo del cap 6)']
+[2026-10-20 23:12:43] F5 §3 etapa guion
+  [4a·pool] tecnico: 1 ítem(s) descartado(s) por no estar literales en el bloque
+  [4a·pool] datos 72 · cronologia 27 · lugares 26 · citas 2 · personajes 8
+guion: pool 0s
+guion: skeleton 42s · reparaciones ["cronología: ['T03'] de cap_6 → cap_4 (anteriores a 2005-08-30)", "cronología: ['T03'] de cap_4 → cap_3 (anteriores a 2005-08-29)", "cronología: ['T03'] de cap_3 → cap_2 (anteriores a 2005-08-28)", 'cap 1: cliffhanger F02 inválido → T05 (primer id nuevo del cap 2)', 'cap 2: cliffhanger F04 inválido → T08 (primer id nuevo del cap 3)', 'cap 3: cliffhanger F01 inválido → T13 (primer id nuevo del cap 4)', 'cap 4: cliffhanger F08 inválido → D19 (primer id nuevo del cap 5)', 'cap 5: cliffhanger F07 inválido → D72 (primer id nuevo del cap 6)', 'cap 6: cliffhanger (vacío) inválido → D62 (primer id nuevo del cap 7)']
+guion: narración 321s · violaciones {'3': ['- 4.55 adjetivos/100 palabras (máximo 3.6): sacá adjetivos — impenetrable, sofocante, atrapados, oscuro, insostenibles, ineludible, evidente, desesperada, imparable, abandonados, implacable, inimaginables, mortales', '- más de 2 oraciones seguidas que califican sin dato: cambiá adjetivos por hechos', '- el cierre tiene que anticipar el dato concreto del cap 4: «Comienza la evacuación de algunos edificios de la prisión (Templeman 1 y 2) cuando el agua» (nombralo o dejalo incompleto; nada de retórica genérica)'], '5': ['- nombrá a Ronnie L. Morgan, Jr. por nombre y apellido y con su cargo (Recluso, demandante) la primera vez', '- nombrá a Cornel Hubert por nombre y apellido y con su cargo (Alcaide del Elayn Hunt Correctional Center) la primera vez', '- 5.24 adjetivos/100 palabras (máximo 3.6): sacá adjetivos — escalofriante, minucioso, profunda, macabra, narrativa, atrapadas, vulnerable, motivos, hizo, cruda, tajante, fugitivos, flagrante, inhumano'], '7': ['- densidad 1.88 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción']}
+guion: normalizer 10 spans (aplicados en 01b_narration_normalized.json)
+guion: juez v1 {'densidad': False, 'repeticion': False, 'adjetivacion': False, 'antagonista': False, 'cliffhanger': None} · v2 {'densidad': True, 'repeticion': True, 'adjetivacion': True, 'antagonista': True, 'cliffhanger': False}
+[2026-10-20 23:19:34] F5 §3 etapa script
+script: data/scripts/ba6c3cac-f5v2.json (7 caps)
+[2026-10-20 23:19:34] F5 §3 etapa sim_v1
+sim_v1 ch01: 96s · resolved OK
+sim_v1 ch02: 24s · resolved OK
+sim_v1 ch03: 82s · resolved OK
+sim_v1 ch04: 84s · resolved OK
+sim_v1 ch05: 25s · resolved OK
+sim_v1 ch06: 80s · resolved OK
+sim_v1 ch07: 61s · resolved OK
+[2026-10-20 23:27:07] F5 §3 etapa sim_v2
+sim_v2 ch01: 60s · resolved OK
+sim_v2 ch02: 87s · resolved OK
+sim_v2 ch03: 121s · resolved OK
+sim_v2 ch04: 97s · resolved OK
+sim_v2 ch05: 126s · resolved OK
+sim_v2 ch06: 88s · resolved OK
+sim_v2 ch07: 52s · resolved OK
+[2026-10-20 23:40:19] F5 §3 etapa sim_v1
+sim_v1 ch01: 12s · resolved OK
+sim_v1 ch02: 29s · resolved OK
+sim_v1 ch03: 40s · resolved OK
+sim_v1 ch04: 29s · resolved OK
+sim_v1 ch05: 28s · resolved OK
+sim_v1 ch06: 27s · resolved OK
+sim_v1 ch07: 24s · resolved OK
+[2026-10-20 23:43:30] F5 §3 etapa sim_v2
+sim_v2 ch01: 45s · resolved OK
+sim_v2 ch02: 71s · resolved OK
+sim_v2 ch03: 46s · resolved OK
+sim_v2 ch04: 30s · resolved OK
+sim_v2 ch05: 37s · resolved OK
+sim_v2 ch06: 23s · resolved OK
+sim_v2 ch07: 76s · resolved OK

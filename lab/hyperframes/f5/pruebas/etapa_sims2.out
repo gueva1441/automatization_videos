@@ -1,0 +1,18 @@
+[anchor_timing] anchor #1 por FALLBACK-1-token: 'Robie' @ 8.76s
+[2026-10-20 23:40:19] F5 §3 etapa sim_v1
+sim_v1 ch01: 12s · resolved OK
+sim_v1 ch02: 29s · resolved OK
+sim_v1 ch03: 40s · resolved OK
+sim_v1 ch04: 29s · resolved OK
+sim_v1 ch05: 28s · resolved OK
+sim_v1 ch06: 27s · resolved OK
+sim_v1 ch07: 24s · resolved OK
+[2026-10-20 23:43:30] F5 §3 etapa sim_v2
+sim_v2 ch01: 45s · resolved OK
+sim_v2 ch02: 71s · resolved OK
+sim_v2 ch03: 46s · resolved OK
+sim_v2 ch04: 30s · resolved OK
+sim_v2 ch05: 37s · resolved OK
+sim_v2 ch06: 23s · resolved OK
+sim_v2 ch07: 76s · resolved OK
+rc=0
