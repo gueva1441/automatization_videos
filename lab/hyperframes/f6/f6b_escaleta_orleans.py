@@ -22,10 +22,26 @@ STEPS = ROOT / "data" / "scripts" / "_steps" / V3
 LAB = Path(__file__).resolve().parent
 
 
+# F6b-3: validación del analista sobre f6b-2 (2026-10-21), ajustada a la verificación de testimonios
+# (F6b3_verificacion.md: solo Q03 de Burton y Q04 de Norman están verificadas)
+NOTAS_F6B3 = """1. GANCHO = FLASH-FORWARD (beat 1 con flash_forward: true, intensidad 4): el peor momento adentro — el agua al
+   pecho, la oscuridad, días sin que nadie venga. Q05, Q06 y Q13 están SIN VERIFICAR: se usan sin el nombre de quien
+   lo dijo («un preso»). Q03 (Edward Burton) está verificada: puede ir con nombre. Sin cifras, con la promesa.
+   El cap 2 baja a intensidad 2: cómo se llegó ahí (la decisión del sheriff). Curva objetivo ≈ 4-2-3-4-5-1-3-3.
+2. CIERRE: el cap 7 tiene como dato central D61 (el sheriff dice que ningún preso murió ni escapó; después su oficina
+   emite 14 órdenes de arresto para fugitivos) y la ausencia de registros. Los dos turistas (T26) a lo sumo como ironía
+   en una frase (dato de apoyo), nunca como dato central ni presentados de nuevo. La ÚLTIMA FRASE del video con Vincent
+   Norman: su cita Q04 (verificada) puede ir como juicio retrospectivo en el cap 6 o 7. Lenore Burnley (Q08) está sin
+   verificar: no se la nombra. Q10 (Eric Balaban, abogado) va a PANTALLA (a_pantalla), no a la voz.
+3. La pregunta de pantalla del cap 1 va con el cold open: «¿Por qué nadie vino por ellos?» o una similar que pase la
+   rúbrica.
+4. 517 una sola vez; nunca «más de 500»."""
+
+
 def topic_v3() -> dict:
     db = json.loads((ROOT / "data" / "topics_db.json").read_text(encoding="utf-8"))
     t = json.loads(json.dumps(next(t for t in db["topics"] if t["id"] == V2)))
-    t.update({"id": V3, "video_id": V3, "guion_version": 3,
+    t.update({"id": V3, "video_id": V3, "guion_version": 3, "escaleta_notas": NOTAS_F6B3,
               "evidence_pool": json.loads((STEPS / "01_facts_sources.json").read_text(encoding="utf-8"))["evidence_pool"]})
     return t
 

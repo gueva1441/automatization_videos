@@ -25,6 +25,19 @@ escena en menos de 3 caps; cifras en la promesa o en la imagen del gancho; image
 oír, oler o tocar. La pregunta de pantalla (última de cada cap) pasa la rúbrica §4; si en el último intento no pasa,
 queda marcada `pregunta_valida: false` (gfx_question es el respaldo) y no rechaza la escaleta.
 Después: `finalize_pool_plan` de m01a_skeleton (cifras canónicas + reservados para pantalla) sobre los caps.
+
+F6b-3 (validación del analista sobre f6b-2):
+    flash-forward  el beat 1 puede ser un flash-forward (`flash_forward: true`): un momento posterior y más intenso
+                   contado primero. La curva «no baja hasta el pico» se mide desde el beat 2 y no es regresión temporal.
+    cierre         la última frase del video (`cierre` del último beat) nombra al humano o a otro testigo verificado.
+    a_pantalla     ids que la escaleta manda a PANTALLA y no a la voz (la cita de alguien que no estuvo ahí): no
+                   están en ningún beat; entran primero en los `pantalla_ids` de su cap.
+    reservados     los reservados automáticos van al cap cuyos beats cubren su FECHA (no por palabras en común).
+    verificación   si el pool trae `verificacion` (researcher_steps/verify_quotes): una cita sin verificar se usa SIN
+                   el nombre de quien la dijo; `humano_en_escena` solo con un dato VERIFICADO suyo.
+    un conteo      517 y «más de 500» son un hecho (gfx_pool.count_groups): la aproximada no va en ningún beat.
+    guionista      `instrucciones_guionista`: reglas deterministas para m01b (cifra única, quién no se nombra).
+    notas          topic["escaleta_notas"]: indicaciones del editor para ESE tema (van al prompt tal cual).
 """
 from __future__ import annotations
 
@@ -38,7 +51,8 @@ from typing import Any, Callable
 from script_engine import evidence as ev
 from script_engine.m01a_skeleton import CHAPTER_SCHEMA, DEFAULT_INTENT_BY_CAP, STEPS_DIR, finalize_pool_plan
 
-PROMPT_VERSION = "f6b-2"            # f6b-2: el humano en escena con un dato SUYO (su cita o una mención) en ≥ 3 caps
+PROMPT_VERSION = "f6b-3"            # f6b-3: flash-forward, cierre con testigo, a_pantalla, verificación, un conteo,
+#                                     cifras en letras en el gancho
 MAX_ATTEMPTS = 3
 MIN_BEATS, MAX_BEATS = 7, 12
 CAP_WORDS = {1: 110, 2: 190, 3: 190, 4: 190, 5: 190, 6: 190, 7: 110}   # hook/outro 45 s, desarrollo 75 s
@@ -59,6 +73,17 @@ ABSTRACT = {"desesperacion", "injusticia", "sistema", "horror", "miedo", "dolor"
             "vida", "destino", "historia", "memoria", "sociedad", "humanidad", "realidad", "situacion", "momento",
             "decision", "responsabilidad", "sufrimiento", "violencia", "soledad", "rabia", "tristeza", "total",
             "absoluta", "absoluto", "profunda", "profundo", "enorme", "terrible", "cruda", "crudo", "pura", "puro"}
+
+
+# una cifra escrita en letras («seis mil», «quinientos») también es una cifra; «miles», «cientos», «docenas» no
+NUM_WORDS = re.compile(r"\b(dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|veinte|"
+                       r"treinta|cuarenta|cincuenta|sesenta|setenta|ochenta|noventa|cien|ciento|doscient\w*|"
+                       r"trescient\w*|cuatrocient\w*|quinient\w*|seiscient\w*|setecient\w*|ochocient\w*|"
+                       r"novecient\w*|mil|millon|millones)\b")
+
+
+def has_figure(text: str) -> bool:
+    return bool(re.search(r"\d", text or "") or NUM_WORDS.search(ev.norm(text or "")))
 
 
 class EscaletaValidationError(ValueError):
@@ -84,12 +109,14 @@ SCHEMA: dict[str, Any] = {
             "n": _I, "cap": _I, "funcion": {"type": "STRING", "enum": list(FUNCIONES)}, "emocion": _S,
             "intensidad": _I, "dato_central": _S, "datos_apoyo": {"type": "ARRAY", "items": _S},
             "humano_en_escena": _B, "imagen_sensorial": _S, "pregunta_abierta": _S, "pregunta_pantalla": _S,
-            "cierre": _S, "palabras_objetivo": _I},
+            "cierre": _S, "palabras_objetivo": _I, "flash_forward": _B},
             "required": ["n", "cap", "funcion", "emocion", "intensidad", "dato_central", "datos_apoyo",
                          "humano_en_escena", "imagen_sensorial", "pregunta_abierta", "pregunta_pantalla", "cierre",
                          "palabras_objetivo"]}},
+        "a_pantalla": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {"id": _S, "cap": _I, "por_que": _S},
+                                                  "required": ["id", "cap"]}},
     },
-    "required": ["humano", "antagonista", "promesa_gancho", "pico", "cierre_humano", "beats"],
+    "required": ["humano", "antagonista", "promesa_gancho", "pico", "cierre_humano", "beats", "a_pantalla"],
 }
 
 
@@ -135,14 +162,15 @@ RULES = f"""REGLAS DE LA ESCALETA (duras: si no se cumplen, se rechaza):
    cap 7 ≈ {CAP_WORDS[7]}.
 3. `intensidad` de {INTENSITY[0]} a {INTENSITY[1]}: NO BAJA hasta el pico (cada cap peor que el anterior). El pico no es
    el último beat, y después del pico hay al menos un beat de intensidad 1 (respiro: el espectador respira antes del
-   cierre).
+   cierre). FLASH-FORWARD: el beat 1 puede contar primero un momento POSTERIOR y más intenso (`flash_forward: true`);
+   el cap 2 vuelve atrás («cómo se llegó ahí») y la curva se mide desde el beat 2. Solo el beat 1 puede serlo.
 4. Cada beat tiene UN `dato_central` (un id D##, T## o Q## del pool) y 0–3 `datos_apoyo`. Un id aparece en UN solo beat
    en todo el video (después se puede parafrasear sin la cifra). `pico.id` = el dato central del beat del pico.
 5. `humano`: UNA persona del pool que estuvo ahí (preferí un TESTIGO, con testimonio: es a quien seguimos). Va con su
    `id` P## y su `nombre` EXACTO del pool. Si el pool no tiene testigos con nombre: un personaje colectivo con rostro
    («un preso de Templeman III, 19 años, según la ACLU») con `colectivo: true`, `nombre` = esa descripción, `id` = el
    Q## o D## que lo documenta y `fuente` = el mismo id. NUNCA un nombre inventado.
-   `humano_en_escena: true` SOLO en los beats que tienen un dato SUYO (su cita, o un dato que lo nombra) como
+   `humano_en_escena: true` SOLO en los beats que tienen un dato SUYO VERIFICADO (su cita, o un dato que lo nombra) como
    dato central o de apoyo: el guionista no puede ponerlo en una escena que el research no documenta. Tiene que
    estar así en al menos {MIN_HUMAN_CAPS} caps distintos (el primero, antes del cap 3); si el pool tiene menos datos
    suyos, en tantos caps como datos tenga. En los demás beats se lo puede nombrar, no poner en escena.
@@ -150,7 +178,8 @@ RULES = f"""REGLAS DE LA ESCALETA (duras: si no se cumplen, se rechaza):
 7. `imagen_sensorial`: algo que se VE, se OYE, se HUELE o se TOCA en ese momento («agua negra subiendo por la escalera
    de la celda»); nunca una idea abstracta («la desesperación»). Sale del pool: no inventes objetos que contradigan el
    research. Es el ancla de la imagen del cap.
-8. Gancho: `promesa_gancho` = UNA frase con lo que el espectador va a descubrir; sin cifras ni años. La
+8. Gancho: `promesa_gancho` = UNA frase con lo que el espectador va a descubrir; sin cifras ni años (tampoco en
+   letras: «seis mil» es una cifra; «miles» no). La
    `imagen_sensorial` del beat 1 tampoco lleva cifras. La narración va a abrir con esa imagen y esa promesa.
 9. `pregunta_pantalla` en el ÚLTIMO beat de cada cap (en los otros, ""): ≤ {Q_MAX_WORDS} palabras, empieza con «¿» y
    termina con «?»; nombra algo que el espectador YA conoce (persona, grupo, lugar u objeto de este cap o de antes);
@@ -160,8 +189,16 @@ RULES = f"""REGLAS DE LA ESCALETA (duras: si no se cumplen, se rechaza):
    que se queda («¿Cuántos siguen sin nombre?»).
 10. `cierre` de cada beat que termina un cap 1–6: anticipa algo CONCRETO del cap siguiente (su dato central o su
     imagen). `pregunta_abierta`: lo que el espectador se pregunta al terminar el beat.
-11. NO uses en ningún beat los datos que pongas como reservados: la pantalla decide aparte. Las cifras de conteo van
-    con su id OFICIAL (ver CIFRAS CANÓNICAS); la variante de medios solo en el beat que cuenta la contradicción.
+11. Las cifras de conteo van con su id OFICIAL (ver CIFRAS CANÓNICAS); la variante de medios solo en el beat que cuenta
+    la contradicción. Un conteo con dos cifras (ver UN HECHO, UNA CIFRA) se cuenta UNA vez, con la precisa: los ids de la
+    aproximada no van en ningún beat.
+12. CIERRE: el último beat (cap 7) tiene como dato central una CONSECUENCIA (lo que falta, lo que se negó, lo que nunca
+    se contó), no una victoria ajena. Su `cierre` es la última frase del video y nombra al humano o a otro testigo
+    VERIFICADO. Nunca termina en la cita de alguien que no estuvo ahí: esa va a `a_pantalla`.
+13. `a_pantalla`: [{{"id", "cap", "por_que"}}] — ids que preferís que se VEAN y no se digan (la cita de un abogado, una
+    fuente, un dato que la imagen cuenta mejor). Un id de `a_pantalla` no está en ningún beat. Máximo 2 por cap.
+14. CITAS SIN VERIFICAR (marcadas en el pool): se pueden usar, pero la narración no dice el nombre de quien la dijo
+    («un preso», «una guardia»). Solo las VERIFICADAS se dicen con nombre.
 
 LO QUE RETIENE (cada decisión responde a por qué alguien se iría):
 - Los primeros 30 s: una imagen concreta y una promesa, no contexto.
@@ -174,17 +211,25 @@ LO QUE RETIENE (cada decisión responde a por qué alguien se iría):
 def _fmt_people(pool: dict) -> str:
     out = []
     for p in pool.get("personajes") or []:
-        tags = [t for t, on in (("TESTIGO", p.get("testigo")), ("ANTAGONISTA", p.get("antagonista"))) if on]
+        tags = [t for t, on in (("TESTIGO", p.get("testigo")), ("VERIFICADO", p.get("testigo_verificado")),
+                                ("ANTAGONISTA", p.get("antagonista"))) if on]
         pres = f" · estuvo en {', '.join(p['presente_en'])}" if p.get("presente_en") else ""
         out.append(f"  [{p['id']}] PERSONA: {p['nombre']} — {p.get('rol') or ''}"
                    + (f" · {' · '.join(tags)}" if tags else "") + pres)
     return "\n".join(out) or "  (ninguna)"
 
 
+def _verif(q: dict) -> str:
+    v = q.get("verificacion")
+    if not v:
+        return ""
+    return " · VERIFICADA" if v.get("estado") == "verificada" else " · SIN VERIFICAR (se usa sin el nombre)"
+
+
 def _fmt_quotes(pool: dict) -> str:
     out = []
     for q in pool.get("citas") or []:
-        tag = " · TESTIMONIO (estuvo ahí)" if q.get("testimonio") else ""
+        tag = (" · TESTIMONIO (estuvo ahí)" if q.get("testimonio") else "") + _verif(q)
         rol = f" ({q['rol']})" if q.get("rol") else ""
         src = f" · fuente: {q['fuente']}" if q.get("fuente") else ""
         out.append(f'  [{q["id"]}] CITA: "{q["texto"]}" — {q.get("autor")}{rol}{tag}{src}')
@@ -200,10 +245,32 @@ def _fmt_canonical(pool: dict) -> str:
     return "\n".join(out) or "  (ninguna)"
 
 
+def count_variants(pool: dict) -> list[dict]:
+    """Un conteo con varias cifras (gfx_pool.count_groups: 517 y «más de 500»): {"canon": id, "num", "variantes": [ids
+    cuyo texto trae otra cifra del mismo conteo]}."""
+    from script_engine.gfx_pool import count_groups
+    out = []
+    for g in count_groups(pool):
+        c = g["canon"]
+        others = {x for x in g["nums"] if re.sub(r"[,.]", "", x) != re.sub(r"[,.]", "", c["num"])}
+        var = [d["id"] for d in pool.get("datos") or [] if d["id"] != c["id"]
+               and any(re.search(rf"(?<![\d,.]){re.escape(x)}(?![\d,.])", d["texto"]) for x in others)]
+        out.append({"canon": c["id"], "num": c["num"], "unit": c["unit"], "variantes": var,
+                    "otras": sorted(others, key=lambda x: -len(x))})
+    return out
+
+
+def _fmt_counts(pool: dict) -> str:
+    return "\n".join(f"  {g['num']} {g['unit']} = [{g['canon']}]. Las otras cifras del MISMO conteo "
+                     f"({', '.join(g['otras'])}: ids {', '.join(g['variantes']) or '—'}) no van en ningún beat."
+                     for g in count_variants(pool)) or "  (ninguno)"
+
+
 def pool_section(pool: dict) -> str:
     ids = [i for i, it in ev.items(pool).items() if it["_kind"] in ("datos", "cronologia", "lugares")]
     return (f"DATOS, CRONOLOGÍA Y LUGARES:\n{ev.format_pool(pool, ids)}\n\nCITAS:\n{_fmt_quotes(pool)}\n\n"
-            f"PERSONAS:\n{_fmt_people(pool)}\n\nCIFRAS CANÓNICAS:\n{_fmt_canonical(pool)}")
+            f"PERSONAS:\n{_fmt_people(pool)}\n\nCIFRAS CANÓNICAS:\n{_fmt_canonical(pool)}\n\n"
+            f"UN HECHO, UNA CIFRA:\n{_fmt_counts(pool)}")
 
 
 def build_prompt(topic: dict, pool: dict, feedback: list[str] | None = None) -> str:
@@ -211,6 +278,10 @@ def build_prompt(topic: dict, pool: dict, feedback: list[str] | None = None) -> 
     if feedback:
         fb = ("\n═══ TU ESCALETA ANTERIOR SE RECHAZÓ. CORREGÍ ESTO (sin romper lo demás) ═══\n"
               + "\n".join(f"- {x}" for x in feedback) + "\n")
+    notes = str(topic.get("escaleta_notas") or "").strip()
+    if notes:
+        fb = ("\n═══ INDICACIONES DEL EDITOR PARA ESTE TEMA (mandan sobre tu criterio, nunca sobre las reglas) ═══\n"
+              + notes + "\n") + fb
     return f"""TEMA DEL VIDEO: {topic.get("video_title") or "(sin título)"}
 Ángulo: {topic.get("angle") or "-"}
 Hook del research: {topic.get("hook") or "-"}
@@ -345,11 +416,17 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "") -
         inten = [b["intensidad"] for b in beats]
         if any(not INTENSITY[0] <= x <= INTENSITY[1] for x in inten):
             hard.append(f"intensidades fuera de {INTENSITY}: {inten}")
-        drop = [beats[k]["n"] for k in range(1, pb) if inten[k] < inten[k - 1]]
+        ffs = [b["n"] for b in beats if b.get("flash_forward")]
+        if any(n != 1 for n in ffs):
+            hard.append(f"solo el beat 1 puede ser flash-forward (marcados: {ffs})")
+        k0 = 1 if beats[0].get("flash_forward") else 0     # la curva se mide desde el beat 2 si el 1 es flash-forward
+        drop = [beats[k]["n"] for k in range(k0 + 1, pb) if inten[k] < inten[k - 1]]
         if drop:
             hard.append(f"la intensidad baja antes del pico en los beats {drop} ({inten}): cada cap peor que el anterior")
-        if max(inten[:pb]) != inten[pb - 1]:
+        if pb - 1 >= k0 and max(inten[k0:pb]) != inten[pb - 1]:
             hard.append(f"el beat del pico ({pb}) no es el de mayor intensidad hasta ahí ({inten})")
+        if k0 and inten[0] > inten[pb - 1]:
+            hard.append(f"el flash-forward ({inten[0]}) no puede ser más intenso que el pico ({inten[pb - 1]})")
         if not any(x == INTENSITY[0] for x in inten[pb:]):
             hard.append("falta un beat de intensidad 1 (respiro) después del pico")
         if pk.get("id") != beats[pb - 1]["dato_central"]:
@@ -380,16 +457,24 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "") -
         hp = pers[str(hum["id"]).upper()]
         sur = ev.norm(hp["nombre"]).split()[-1]
 
+        verified_pool = any(q.get("verificacion") for q in pool.get("citas") or [])
+
         def _his(i: str) -> bool:
-            return i in its and its[i]["_kind"] in ("datos", "cronologia", "citas") and \
-                sur in ev.norm(ev.text_of(its[i]) + " " + str(its[i].get("autor") or ""))
+            it = its.get(i)
+            if not it or it["_kind"] not in ("datos", "cronologia", "citas"):
+                return False
+            if not sur in ev.norm(ev.text_of(it) + " " + str(it.get("autor") or "")):
+                return False
+            # con verificación en el pool, una cita suya cuenta solo si está verificada
+            return not (verified_pool and it["_kind"] == "citas" and
+                        (it.get("verificacion") or {}).get("estado") != "verificada")
         own = [i for i in its if _his(i)]
         need = min(MIN_HUMAN_CAPS, len(own)) or 1
         for b in beats:                              # en escena = con un dato suyo en el beat (cita o mención)
             ids = [b["dato_central"]] + b["datos_apoyo"]
             if b.get("humano_en_escena") and not any(_his(i) for i in ids):
-                hard.append(f"beat {b['n']}: {hp['nombre']} en escena sin un dato suyo (ninguna cita ni mención en "
-                            f"{ids}); datos suyos en el pool: {own}")
+                hard.append(f"beat {b['n']}: {hp['nombre']} en escena sin un dato suyo verificado (ninguna cita ni "
+                            f"mención en {ids}); datos suyos que valen: {own}")
         if len(own) < MIN_HUMAN_CAPS:
             warn.append(f"el pool tiene {len(own)} dato(s) de {hp['nombre']} ({own}): en escena en {need} cap(s)")
     if len(hcaps) < need:
@@ -400,11 +485,11 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "") -
     if not ant:
         hard.append(f"antagonista {(esc.get('antagonista') or {}).get('id')} no es una persona del pool")
     # gancho
-    if re.search(r"\d", str(esc.get("promesa_gancho") or "")):
-        hard.append("la promesa del gancho no lleva cifras ni años")
+    if has_figure(str(esc.get("promesa_gancho") or "")):
+        hard.append("la promesa del gancho no lleva cifras ni años (tampoco en letras: «seis mil»; «miles» sí)")
     if not str(esc.get("promesa_gancho") or "").strip():
         hard.append("falta la promesa del gancho")
-    if beats and re.search(r"\d", beats[0].get("imagen_sensorial") or ""):
+    if beats and has_figure(beats[0].get("imagen_sensorial") or ""):
         hard.append("la imagen sensorial del gancho no lleva cifras")
     for b in beats:
         im = str(b.get("imagen_sensorial") or "")
@@ -416,6 +501,49 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "") -
             hard.append(f"beat {b['n']}: la imagen «{im}» es una idea, no algo para ver, oír, oler o tocar")
         if b.get("funcion") not in FUNCIONES:
             warn.append(f"beat {b['n']}: función «{b.get('funcion')}» fuera del catálogo")
+    # a_pantalla: existen, no están en ningún beat, ≤ 2 por cap
+    used = {i for b in beats for i in [b["dato_central"]] + b["datos_apoyo"]}
+    ap, per = [], {}
+    for x in esc.get("a_pantalla") or []:
+        i, c = str((x or {}).get("id") or "").strip().upper(), (x or {}).get("cap")
+        if i not in its or its[i]["_kind"] not in ("datos", "cronologia", "citas"):
+            rep.append(f"a_pantalla {i}: no existe en el pool → fuera")
+            continue
+        if i in used:
+            hard.append(f"a_pantalla {i} también está en un beat: lo que va a pantalla no lo dice la voz")
+            continue
+        try:
+            c = int(c)
+        except (TypeError, ValueError):
+            c = 0
+        if not 1 <= c <= 7 or per.get(c, 0) >= 2:
+            rep.append(f"a_pantalla {i}: cap {c} inválido o lleno → fuera")
+            continue
+        per[c] = per.get(c, 0) + 1
+        ap.append({**x, "id": i, "cap": c})
+    esc["a_pantalla"] = ap
+    # un hecho, una cifra: la aproximada de un conteo no va en ningún beat
+    for g in count_variants(pool):
+        for b in beats:
+            if b["dato_central"] in g["variantes"]:
+                hard.append(f"beat {b['n']}: {b['dato_central']} es otra cifra del conteo {g['num']} [{g['canon']}]: "
+                            "un hecho, una cifra (la precisa)")
+            gone = [i for i in b["datos_apoyo"] if i in g["variantes"]]
+            if gone:
+                b["datos_apoyo"] = [i for i in b["datos_apoyo"] if i not in gone]
+                rep.append(f"beat {b['n']}: apoyo {gone} es otra cifra del conteo {g['num']} → fuera")
+    # cierre: la última frase nombra al humano o a un testigo (verificado, si el pool trae verificación)
+    if beats:
+        vp = any(q.get("verificacion") for q in pool.get("citas") or [])
+        names = [p["nombre"] for p in pers.values() if (p.get("testigo_verificado") if vp else p.get("testigo"))]
+        if not hum.get("colectivo") and hum.get("nombre") and (not vp or (pers.get(str(hum.get("id") or "").upper())
+                                                                        or {}).get("testigo_verificado")):
+            names.append(str(hum["nombre"]))
+        names = list(dict.fromkeys(names))
+        last = beats[-1].get("cierre") or ""
+        if names and not any(ev.norm(n).split()[-1] in ev.norm(last) for n in names):
+            hard.append(f"la última frase del video (cierre del beat {beats[-1]['n']}) no nombra al humano ni a un testigo "
+                        f"{'verificado ' if vp else ''}({', '.join(names)}): «{last}»")
     # palabras por cap (reparación)
     for n, target in CAP_WORDS.items():
         bs = [b for b in beats if b["cap"] == n]
@@ -435,7 +563,9 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "") -
         for b in bs[:-1]:
             if str(b.get("pregunta_pantalla") or "").strip():
                 b["pregunta_pantalla"] = ""
-        probs = question_problems(last.get("pregunta_pantalla"), _beat_known(beats, n, pool, esc, context), n == 7,
+        # cap 1 (cold open: lo conocido es la escena que acaba de ver) y cap 7 (la pregunta que se queda): sin el
+        # chequeo de «nombra algo ya visto»; el resto de la rúbrica, igual
+        probs = question_problems(last.get("pregunta_pantalla"), _beat_known(beats, n, pool, esc, context), n in (1, 7),
                                   people)
         last["pregunta_valida"] = not probs
         if probs:
@@ -445,6 +575,8 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "") -
     # cronología (aviso: la dramaturgia puede volver atrás)
     prev = None
     for b in beats:
+        if b.get("flash_forward"):
+            continue
         d = ev.item_date(its[b["dato_central"]]) if b["dato_central"] in its else None
         if d and prev and d < prev and 2 <= b["cap"] <= 6:
             warn.append(f"beat {b['n']}: vuelve atrás en el tiempo ({d} < {prev})")
@@ -490,6 +622,8 @@ def apply_pool_plan(esc: dict, pool: dict) -> None:
         extra = [i for i in ch["evidence_ids"] if i not in used]
         if extra and bs:
             bs[0]["datos_apoyo"] = bs[0]["datos_apoyo"] + extra
+    _screen_by_date(esc, sk, pool)
+    esc["instrucciones_guionista"] = writer_instructions(esc, pool)
     esc["caps"] = [{k: ch[k] for k in ("chapter_number", "role", "render_engine", "duration_seconds",
                                       "narrative_intent", "evidence_ids", "cliffhanger")}
                    | {"pantalla_ids": ch.get("pantalla_ids") or [],
@@ -497,6 +631,99 @@ def apply_pool_plan(esc: dict, pool: dict) -> None:
                       **({"contradiccion_cifras": ch["contradiccion_cifras"]} if ch.get("contradiccion_cifras") else {})}
                    for ch in sk["chapters"]]
     esc["_pool_plan"] = sk.get("_pool_plan")
+
+
+def _cap_spans(esc: dict, pool: dict) -> dict[int, tuple[str, str]]:
+    """Rango de fechas que narra cada cap (datos de sus beats; el flash-forward no cuenta)."""
+    its = ev.items(pool)
+    out = {}
+    for n in range(1, 8):
+        ds = sorted(d for b in esc["beats"] if b["cap"] == n and not b.get("flash_forward")
+                    for d in (ev.item_date(its[i]) for i in [b["dato_central"]] + b["datos_apoyo"] if i in its) if d)
+        if ds:
+            out[n] = (ds[0], ds[-1])
+    return out
+
+
+def _screen_by_date(esc: dict, sk: dict, pool: dict) -> None:
+    """F6b-3 (in place sobre sk["chapters"][*]["pantalla_ids"]): primero los `a_pantalla` de la escaleta; después los
+    reservados automáticos CON FECHA, por la fecha de los beats: al cap que la contiene (si hay varios, el que empieza
+    más cerca de ella); si cae entre caps, al primero que empieza después (mostrar algo anterior a lo narrado vale; algo
+    posterior, no); si es posterior a todo lo narrado, al cap siguiente al último con fecha (o más adelante, si el
+    reparto por palabras ya lo había puesto ahí). ≤ 2 por cap; un
+    reservado que cuenta lo mismo que otro ya en pantalla (≥ 60 % de palabras en común) sale."""
+    from script_engine.m01a_skeleton import SCREEN_PER_CAP
+    its = ev.items(pool)
+    spans = _cap_spans(esc, pool)
+    chs = {c["chapter_number"]: c for c in sk["chapters"]}
+    auto = [(c["chapter_number"], i) for c in sk["chapters"] for i in c.get("pantalla_ids") or []]
+    for c in chs.values():
+        c["pantalla_ids"] = []
+    notes = []
+    for x in esc.get("a_pantalla") or []:
+        chs[x["cap"]]["pantalla_ids"].append(x["id"])
+    forced = {x["id"] for x in esc.get("a_pantalla") or []}
+
+    def _target(d: str, n0: int) -> int:
+        inside = [k for k, (a, b) in spans.items() if a[:10] <= d <= b[:10]]
+        if inside:
+            return max(inside, key=lambda k: (spans[k][0], -k))
+        after = [k for k, (a, _) in spans.items() if a[:10] > d]
+        if after:
+            return min(after)
+        return max(n0, min(7, max(spans) + 1))    # posterior a todo: después del último cap con fecha
+
+    def _dup(i: str) -> str | None:
+        w = ev._content(ev.text_of(its[i]))
+        for c in chs.values():
+            for j in c["pantalla_ids"]:
+                o = ev._content(ev.text_of(its[j])) if j in its else set()
+                if w and o and len(w & o) / min(len(w), len(o)) >= 0.6:
+                    return j
+        return None
+    for n0, i in auto:
+        if i in forced:
+            continue
+        d = ev.item_date(its[i]) if i in its else None
+        n = n0
+        if d and len(d) >= 10 and spans:
+            n = _target(d[:10], n0)
+        j = _dup(i) if i in its else None
+        if j:
+            notes.append(f"{i} cuenta lo mismo que {j}, ya en pantalla: fuera")
+            continue
+        if len(chs[n]["pantalla_ids"]) >= SCREEN_PER_CAP:
+            notes.append(f"{i} ({d}) → cap {n} lleno: fuera")
+            continue
+        chs[n]["pantalla_ids"].append(i)
+        if n != n0:
+            notes.append(f"{i} ({d}) del cap {n0} al cap {n} (por fecha)")
+    esc["_pantalla_por_fecha"] = notes
+
+
+def writer_instructions(esc: dict, pool: dict) -> list[str]:
+    """Reglas deterministas para el guionista (m01b v3)."""
+    out = []
+    for g in count_variants(pool):
+        out.append(f"La cifra {g['num']} {g['unit']} se dice UNA sola vez; nunca «{'», «'.join(g['otras'])}» ni «más de "
+                   f"{min(g['otras'], key=len)}».")
+    its = ev.items(pool)
+    used = {i for b in esc["beats"] for i in [b["dato_central"]] + b["datos_apoyo"]}
+    for g in count_variants(pool):                 # una cita que trae otra cifra del mismo conteo: sin esa cifra
+        for i in sorted(used):
+            it = its.get(i)
+            if it and it["_kind"] == "citas" and any(
+                    re.search(rf"(?<![\d,.]){re.escape(x)}(?![\d,.])", it["texto"]) for x in g["otras"]):
+                out.append(f"{i} trae otra cifra del conteo {g['num']}: se parafrasea SIN esa cifra (no se cita textual).")
+    for q in pool.get("citas") or []:
+        v = q.get("verificacion") or {}
+        if q["id"] in used and v and v.get("estado") != "verificada":
+            out.append(f"{q['id']} (de {q.get('autor')}) está SIN VERIFICAR: se usa sin su nombre («un preso», "
+                       f"«una guardia»…).")
+    for x in esc.get("a_pantalla") or []:
+        if x["id"] in its:
+            out.append(f"{x['id']} va a pantalla (cap {x['cap']}): la voz no lo dice.")
+    return out
 
 
 def _persist(topic_id: str, esc: dict) -> Path:
@@ -622,7 +849,8 @@ def to_markdown(esc: dict, pool: dict) -> str:
         lines += [f"## Cap {n} · {c['role']} · {c['palabras_objetivo']} palabras"
                   + (f" · pantalla (no se narra): {', '.join(c['pantalla_ids'])}" if c.get("pantalla_ids") else ""), ""]
         for b in [b for b in esc["beats"] if b["cap"] == n]:
-            lines += [f"**Beat {b['n']} — {b['funcion']} · {b['emocion']} · intensidad {b['intensidad']}"
+            lines += [f"**Beat {b['n']} — {b['funcion']}{' (flash-forward)' if b.get('flash_forward') else ''} · "
+                      f"{b['emocion']} · intensidad {b['intensidad']}"
                       + (" · humano en escena" if b.get("humano_en_escena") else "") + f" · {b['palabras_objetivo']} pal.**",
                       f"- Imagen: {b['imagen_sensorial']}",
                       f"- Dato central: {_t(b['dato_central'])}"]
@@ -633,6 +861,14 @@ def to_markdown(esc: dict, pool: dict) -> str:
                 lines.append(f"- Pregunta en pantalla: **{b['pregunta_pantalla']}**"
                              + ("" if b.get("pregunta_valida", True) else " ⚠ no pasa la rúbrica (respaldo: gfx_question)"))
             lines += [f"- Cierre: {b['cierre']}", ""]
+    if esc.get("a_pantalla"):
+        lines += ["## A pantalla (la escaleta lo manda a pantalla; la voz no lo dice)", ""] + \
+                 [f"- cap {x['cap']}: {_t(x['id'])} — {x.get('por_que') or ''}" for x in esc["a_pantalla"]] + [""]
+    if esc.get("instrucciones_guionista"):
+        lines += ["## Instrucciones al guionista (deterministas)", ""] + \
+                 [f"- {x}" for x in esc["instrucciones_guionista"]] + [""]
+    if esc.get("_pantalla_por_fecha"):
+        lines += ["## Reservados movidos por fecha", ""] + [f"- {x}" for x in esc["_pantalla_por_fecha"]] + [""]
     if esc.get("_reparaciones"):
         lines += ["## Reparaciones del validador", ""] + [f"- {x}" for x in esc["_reparaciones"]] + [""]
     if esc.get("_avisos"):

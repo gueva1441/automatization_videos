@@ -1,0 +1,355 @@
+{
+  "humano": {
+    "id": "P09",
+    "nombre": "Vincent Norman",
+    "rol": "Preso (chef arrestado por una multa impaga)",
+    "por_que": "Es un civil atrapado en el sistema, una víctima inocente cuya experiencia personal (el agua al pecho, el abandono) nos ancla en el horror. Su testimonio es directo y poderoso.",
+    "colectivo": false,
+    "fuente": "Q04"
+  },
+  "antagonista": {
+    "id": "P01",
+    "por_que": "Como Sheriff, Marlin N. Gusman tenía la responsabilidad de evacuar a los prisioneros. Su decisión de no hacerlo [T05] y su posterior negación de los hechos [D37] lo convierten en la fuerza que se opone a la supervivencia y la verdad."
+  },
+  "promesa_gancho": "Abandonaron a miles de personas en celdas inundadas. Esta es la historia de los cuerpos que vieron y los cientos que nunca aparecieron.",
+  "pico": {
+    "beat": 5,
+    "id": "D60",
+    "por_que": "Es el punto de máximo horror. No es la inundación en sí, sino la confirmación visual de la muerte a través de los ojos de los supervivientes, un tabú que las autoridades negaron."
+  },
+  "cierre_humano": "Las historias de los abandonados en la Prisión Parroquial de Orleans, como la de Vincent Norman, son un recordatorio de que, como dijo el abogado Eric Balaban, 'Como sociedad vemos a los presos como ciudadanos de segunda clase, sus historias han pasado en gran medida desapercibidas y, por lo tanto, no contadas' [Q10].",
+  "beats": [
+    {
+      "n": 1,
+      "cap": 1,
+      "funcion": "gancho",
+      "emocion": "Inquietud",
+      "intensidad": 2,
+      "dato_central": "T08",
+      "datos_apoyo": [
+        "D03",
+        "T07"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Oscuridad total, el sonido del agua de la tormenta golpeando las paredes de la prisión.",
+      "pregunta_abierta": "¿Hay un plan para sacar a la gente de ahí?",
+      "pregunta_pantalla": "¿Por qué se apagaron las luces?",
+      "cierre": "Mientras la ciudad se prepara para el impacto, el hombre a cargo toma una decisión que sellará el destino de miles.",
+      "palabras_objetivo": 110,
+      "pregunta_valida": false
+    },
+    {
+      "n": 2,
+      "cap": 2,
+      "funcion": "planteo",
+      "emocion": "Tensión",
+      "intensidad": 2,
+      "dato_central": "T05",
+      "datos_apoyo": [
+        "D57",
+        "Q04"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "La cara del Sheriff Gusman en un televisor, anunciando que los presos se quedan 'donde pertenecen'.",
+      "pregunta_abierta": "¿Realmente los van a dejar encerrados con un huracán encima?",
+      "pregunta_pantalla": "¿Quién decidió dejarlos allí dentro?",
+      "cierre": "La decisión está tomada. Ahora, solo queda esperar que los muros aguanten. No lo harán.",
+      "palabras_objetivo": 190,
+      "pregunta_valida": true
+    },
+    {
+      "n": 3,
+      "cap": 3,
+      "funcion": "escalada",
+      "emocion": "Angustia",
+      "intensidad": 3,
+      "dato_central": "D08",
+      "datos_apoyo": [
+        "D07",
+        "Q05"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Agua negra y contaminada con aguas residuales subiendo por los barrotes de una celda del primer piso.",
+      "pregunta_abierta": "¿Van a ahogarse en sus propias celdas?",
+      "pregunta_pantalla": "¿Cuánto tiempo los dejarían en el agua?",
+      "cierre": "Atrapados en la oscuridad y en el agua, sin guardias a la vista, la supervivencia se convierte en una pesadilla de varios días.",
+      "palabras_objetivo": 190,
+      "pregunta_valida": true
+    },
+    {
+      "n": 4,
+      "cap": 4,
+      "funcion": "escalada",
+      "emocion": "Desesperación",
+      "intensidad": 4,
+      "dato_central": "Q13",
+      "datos_apoyo": [
+        "Q06",
+        "D92"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Manos agarrando los barrotes superiores de una celda para mantenerse fuera del agua fétida.",
+      "pregunta_abierta": "¿Nadie va a venir a rescatarlos?",
+      "pregunta_pantalla": "¿Por qué los guardias abandonaron sus puestos?",
+      "cierre": "Después de días de abandono, finalmente comienza una evacuación caótica. Pero lo que ven al salir es peor que lo que imaginaban.",
+      "palabras_objetivo": 190,
+      "pregunta_valida": true
+    },
+    {
+      "n": 5,
+      "cap": 5,
+      "funcion": "pico",
+      "emocion": "Horror",
+      "intensidad": 5,
+      "dato_central": "D60",
+      "datos_apoyo": [
+        "T15"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Un cuerpo flotando boca abajo en el agua oscura del pasillo, visto desde un bote de rescate.",
+      "pregunta_abierta": "¿Cuánta gente murió ahí dentro?",
+      "pregunta_pantalla": "",
+      "cierre": "El horror tiene un rostro, pero el sistema tiene una voz que lo niega todo.",
+      "palabras_objetivo": 95
+    },
+    {
+      "n": 6,
+      "cap": 5,
+      "funcion": "respiro",
+      "emocion": "Tristeza",
+      "intensidad": 1,
+      "dato_central": "Q08",
+      "datos_apoyo": [
+        "D79"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Una fotografía familiar gastada de un joven sonriendo, sostenida por la mano de su madre.",
+      "pregunta_abierta": "¿Se hará justicia por estas muertes?",
+      "pregunta_pantalla": "¿Cuántos cuerpos más había en el agua?",
+      "cierre": "Mientras las familias lloran, las autoridades construyen su versión de la historia, una donde no falta nadie.",
+      "palabras_objetivo": 95,
+      "pregunta_valida": true
+    },
+    {
+      "n": 7,
+      "cap": 6,
+      "funcion": "revelacion",
+      "emocion": "Indignación",
+      "intensidad": 3,
+      "dato_central": "D19",
+      "datos_apoyo": [
+        "D59",
+        "D61",
+        "Q02"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Una lista de nombres en papel, manchada de agua, con cientos de espacios vacíos.",
+      "pregunta_abierta": "¿Cómo es posible que más de 500 personas simplemente desaparezcan?",
+      "pregunta_pantalla": "¿Dónde están los 517 desaparecidos?",
+      "cierre": "Con cientos de personas perdidas en el sistema, la lucha por la verdad se traslada de las celdas inundadas a los tribunales.",
+      "palabras_objetivo": 190,
+      "pregunta_valida": true
+    },
+    {
+      "n": 8,
+      "cap": 7,
+      "funcion": "cierre",
+      "emocion": "Reflexión",
+      "intensidad": 2,
+      "dato_central": "T26",
+      "datos_apoyo": [
+        "D50",
+        "T03"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "El mazo de un juez golpeando sobre madera pulida en una sala de tribunal casi vacía.",
+      "pregunta_abierta": "Si dos turistas pudieron ganar, ¿qué pasó con los miles de reclusos que sufrieron lo mismo o peor?",
+      "pregunta_pantalla": "¿Cuántas historias siguen sin contarse?",
+      "cierre": "Una pequeña victoria legal demostró que era posible encontrar culpables, pero para la mayoría, la justicia nunca llegó.",
+      "palabras_objetivo": 110,
+      "pregunta_valida": true
+    }
+  ],
+  "topic_id": "ba6c3cac-f6v3",
+  "prompt_version": "f6b-2",
+  "_reparaciones": [
+    "beat 5: apoyo L16 no existe en el pool → fuera"
+  ],
+  "_avisos": [
+    "pregunta de pantalla del cap 1 «¿Por qué se apagaron las luces?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+    "beat 2: vuelve atrás en el tiempo (2005-08-28 < 2005-08-29)"
+  ],
+  "_intentos": [
+    {
+      "intento": 1,
+      "problemas": [
+        "pregunta de pantalla del cap 2 «¿Quién los dejó encerrados?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "pregunta de pantalla del cap 4 «¿A quién le creerían?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "pregunta de pantalla del cap 5 «¿Los habían salvado o abandonado otra vez?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)"
+      ],
+      "reparaciones": [],
+      "avisos": [
+        "beat 2: vuelve atrás en el tiempo (2005-08-28 < 2005-08-29)"
+      ]
+    },
+    {
+      "intento": 2,
+      "problemas": [
+        "el humano está en escena en los caps [2, 6]: tienen que ser ≥ 3",
+        "pregunta de pantalla del cap 4 «¿Creerían al Sheriff Gusman o a los presos?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)"
+      ],
+      "reparaciones": [],
+      "avisos": [
+        "beat 2: vuelve atrás en el tiempo (2005-08-28 < 2005-08-29)"
+      ]
+    },
+    {
+      "intento": 3,
+      "problemas": [],
+      "reparaciones": [
+        "beat 5: apoyo L16 no existe en el pool → fuera"
+      ],
+      "avisos": [
+        "pregunta de pantalla del cap 1 «¿Por qué se apagaron las luces?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "beat 2: vuelve atrás en el tiempo (2005-08-28 < 2005-08-29)"
+      ]
+    }
+  ],
+  "caps": [
+    {
+      "chapter_number": 1,
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "evidence_ids": [
+        "T08",
+        "D03",
+        "T07"
+      ],
+      "cliffhanger": "T05",
+      "pantalla_ids": [
+        "T09",
+        "T10"
+      ],
+      "palabras_objetivo": 110
+    },
+    {
+      "chapter_number": 2,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "setup",
+      "evidence_ids": [
+        "T05",
+        "D57",
+        "Q04"
+      ],
+      "cliffhanger": "D08",
+      "pantalla_ids": [],
+      "palabras_objetivo": 190
+    },
+    {
+      "chapter_number": 3,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "rising_tension",
+      "evidence_ids": [
+        "D08",
+        "D07",
+        "Q05"
+      ],
+      "cliffhanger": "Q13",
+      "pantalla_ids": [],
+      "palabras_objetivo": 190
+    },
+    {
+      "chapter_number": 4,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "shock",
+      "evidence_ids": [
+        "Q13",
+        "Q06",
+        "D92"
+      ],
+      "cliffhanger": "D60",
+      "pantalla_ids": [],
+      "palabras_objetivo": 190
+    },
+    {
+      "chapter_number": 5,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "consequences",
+      "evidence_ids": [
+        "D60",
+        "T15",
+        "Q08",
+        "D79"
+      ],
+      "cliffhanger": "D19",
+      "pantalla_ids": [
+        "T04",
+        "T16"
+      ],
+      "palabras_objetivo": 190
+    },
+    {
+      "chapter_number": 6,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "resolution",
+      "evidence_ids": [
+        "D19",
+        "D59",
+        "D61",
+        "Q02"
+      ],
+      "cliffhanger": "T26",
+      "pantalla_ids": [
+        "T23"
+      ],
+      "palabras_objetivo": 190
+    },
+    {
+      "chapter_number": 7,
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "evidence_ids": [
+        "T26",
+        "D50",
+        "T03"
+      ],
+      "cliffhanger": "",
+      "pantalla_ids": [
+        "D65",
+        "T12"
+      ],
+      "palabras_objetivo": 110
+    }
+  ],
+  "_pool_plan": {
+    "cifras_canonicas": [],
+    "pantalla": [
+      "cap 1: pantalla ['T09', 'T10']",
+      "cap 5: pantalla ['T04', 'T16']",
+      "cap 6: pantalla ['T23']",
+      "cap 7: pantalla ['D65', 'T12']"
+    ]
+  },
+  "_costo": {
+    "usd": 0.2416,
+    "segundos": 169.5
+  },
+  "_costo_pro": {
+    "usd": 0.2416,
+    "segundos": 169.5
+  }
+}

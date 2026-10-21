@@ -51,7 +51,8 @@ def good() -> dict:
                 _beat(5, 5, "D02", 4, words=100),
                 _beat(6, 5, "D08", 5, "¿Dónde están los 517 reclusos?", fn="pico", words=90),
                 _beat(7, 6, "D09", 1, "¿Por qué mintió el sheriff?", fn="respiro", words=190),
-                _beat(8, 7, "D05", 2, "¿Cuántos siguen sin nombre en la prisión?", fn="cierre", words=110)]}
+                {**_beat(8, 7, "D05", 2, "¿Cuántos siguen sin nombre en la prisión?", fn="cierre", words=110),
+                 "cierre": "Edward Burton todavía espera que alguien diga cuántos eran."}]}
 
 
 def test_escaleta_buena_pasa():
@@ -65,6 +66,7 @@ def test_escaleta_buena_pasa():
     (lambda e: e["beats"][4].update(dato_central="Q01"), "un id, un solo beat"),
     (lambda e: e["beats"][4].update(dato_central="D99"), "no existe"),
     (lambda e: e.update(promesa_gancho="En 2005 todo se inundó."), "promesa del gancho"),
+    (lambda e: e.update(promesa_gancho="Dejaron a más de seis mil personas encerradas."), "promesa del gancho"),
     (lambda e: e["beats"][0].update(imagen_sensorial="la desesperación y la injusticia del sistema"), "ver, oír"),
     (lambda e: [b.update(humano_en_escena=False) for b in e["beats"][1:]], "en escena"),
     (lambda e: e["beats"][6].update(humano_en_escena=True), "sin un dato suyo"),
@@ -151,3 +153,124 @@ def test_flag_v3_y_camino_v2(monkeypatch):
     assert me.is_v3({"evidence_pool": POOL})
     with pytest.raises(ValueError):
         me.generate_escaleta({"id": "x"}, call=lambda *a, **k: {})
+
+
+# ═══ F6b-3 ═══
+
+def _pool3():
+    pool = copy.deepcopy(POOL)
+    pool["datos"].append({"id": "D11", "texto": "Más de 500 prisioneros no figuraban en la lista", "tipo": "cifra",
+                          "valor": "500", "bloque": "humano"})
+    pool["datos"].append({"id": "D12", "texto": "Edward Burton nadó hasta el segundo piso", "tipo": "cifra", "bloque": "x"})
+    pool["citas"].append({"id": "Q03", "texto": "Todavía lo sueño", "autor": "Edward Burton", "testimonio": True,
+                          "verificacion": {"estado": "sin_verificar"}})
+    pool["citas"].append({"id": "Q04", "texto": "Somos ciudadanos de segunda", "autor": "Eric Balaban", "testimonio": False})
+    pool["citas"][0]["verificacion"] = {"estado": "verificada", "url_fuente": "https://x.org/a"}
+    pool["personajes"][1]["testigo_verificado"] = True
+    return pool
+
+
+def test_flash_forward_cuenta_la_curva_desde_el_beat_2():
+    e = good()
+    e["beats"][0].update(intensidad=4, flash_forward=True)
+    e["beats"][1]["intensidad"] = 2
+    assert me.validate(e, POOL)[1] == []
+    e["beats"][2]["flash_forward"] = True
+    assert any("solo el beat 1" in h for h in me.validate(e, POOL)[1])
+    e = good()
+    e["beats"][0].update(intensidad=4)                         # sin la marca, baja al beat 2: rechazo
+    assert any("baja antes del pico" in h for h in me.validate(e, POOL)[1])
+
+
+def test_a_pantalla_conteo_unico_y_cierre_con_testigo():
+    pool = _pool3()
+    e = good()
+    e["a_pantalla"] = [{"id": "Q04", "cap": 7, "por_que": "abogado"}, {"id": "D99", "cap": 2}]
+    esc, hard, rep, _ = me.validate(e, pool)
+    assert hard == [] and [x["id"] for x in esc["a_pantalla"]] == ["Q04"] and any("D99" in r for r in rep)
+    e["a_pantalla"] = [{"id": "Q01", "cap": 1}]                 # está en un beat
+    assert any("también está en un beat" in h for h in me.validate(e, pool)[1])
+    e = good()
+    e["beats"][4]["datos_apoyo"] = ["D11"]                      # la aproximada del conteo 517
+    esc, hard, rep, _ = me.validate(e, pool)
+    assert esc["beats"][4]["datos_apoyo"] == [] and any("otra cifra del conteo 517" in r for r in rep)
+    e["beats"][4]["dato_central"] = "D11"
+    assert any("un hecho, una cifra" in h for h in me.validate(e, pool)[1])
+    e = good()
+    e["beats"][-1]["cierre"] = "Como dijo el abogado, somos ciudadanos de segunda."
+    assert any("última frase" in h for h in me.validate(e, pool)[1])
+
+
+def test_humano_solo_con_datos_verificados():
+    pool = _pool3()
+    e = good()
+    e["beats"][2]["datos_apoyo"] = ["Q03"]                      # cita suya SIN verificar: no lo pone en escena
+    e["beats"][2]["humano_en_escena"] = True
+    assert any("sin un dato suyo verificado" in h for h in me.validate(e, pool)[1])
+    e["beats"][2]["datos_apoyo"] = ["D12"]                      # un dato que lo nombra: vale
+    assert me.validate(e, pool)[1] == []
+
+
+def test_reservados_por_fecha_e_instrucciones(tmp_path, monkeypatch):
+    pool = _pool3()
+    pool["cronologia"].append({"id": "T04", "fecha": "2005-08-28", "evento": "Los reclusos reciben su última comida."})
+    e, _, _, _ = me.validate(good(), pool)
+    sk = me.caps_view(e)
+    sk["chapters"][4]["pantalla_ids"] = ["T04"]                 # el reparto por palabras lo mandó al cap 5
+    e["a_pantalla"] = [{"id": "Q04", "cap": 7}]
+    me._screen_by_date(e, sk, pool)
+    by = {c["chapter_number"]: c["pantalla_ids"] for c in sk["chapters"]}
+    assert by[2] == ["T04"] and by[5] == [] and by[7] == ["Q04"] and "por fecha" in e["_pantalla_por_fecha"][0]
+    e["beats"][3]["datos_apoyo"] = ["Q03"]
+    ins = me.writer_instructions(e, pool)
+    assert any("517" in x and "UNA sola vez" in x and "más de 500" in x for x in ins)
+    assert any("Q03" in x and "SIN VERIFICAR" in x for x in ins) and any("Q04 va a pantalla" in x for x in ins)
+
+
+def test_juez_de_verificacion():
+    from researcher_steps import verify_quotes as vq
+    chunks = [{"title": "thelensnola.org", "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/abc"}]
+    ok = vq.judge({"encontrada": True, "url": chunks[0]["uri"], "cita_original": "left for dead"}, chunks)
+    assert ok["estado"] == "verificada"
+    assert vq.judge({"encontrada": True, "url": "https://www.thelensnola.org/x"}, chunks)["estado"] == "verificada"
+    assert vq.judge({"encontrada": True, "url": "https://aclu.org/x"}, [])["estado"] == "sin_verificar"
+    assert vq.judge({"encontrada": False}, chunks)["estado"] == "sin_verificar"
+    pool = {"citas": [{"id": "Q01", "texto": "x", "autor": "Edward Burton", "testimonio": True},
+                      {"id": "Q02", "texto": "y", "autor": "un preso anónimo", "testimonio": True}],
+            "personajes": [{"id": "P01", "nombre": "Edward Burton"}]}
+    calls = []
+
+    def fake(prompt, model=None):
+        calls.append(model)
+        return ('{"encontrada": true, "url": "https://thelensnola.org/a"}' if model else '{"encontrada": false}', chunks)
+    n = vq.verify_testimonios(pool, search=fake, resolve=None, retry_model="pro")
+    assert n == {"verificada": 1, "sin_verificar": 1} and calls == [None, "pro", None]   # el anónimo no se reintenta
+    assert pool["personajes"][0]["testigo_verificado"] and pool["citas"][0]["verificacion"]["modelo"] == "pro"
+
+
+def test_miles_no_es_cifra():
+    assert not me.has_figure("Abandonaron a miles de personas en celdas inundadas.")
+    assert me.has_figure("Quinientos presos desaparecieron") and me.has_figure("más de seis mil")
+
+
+def test_reservados_por_fecha_no_van_a_un_cap_anterior():
+    pool = _pool3()
+    pool["cronologia"] += [{"id": "T08", "fecha": "2006-08-10", "evento": "La ACLU publica el informe sobre la prisión."},
+                           {"id": "T09", "fecha": "2006-08-10", "evento": "La ACLU publica su informe sobre la prisión."},
+                           {"id": "T10", "fecha": "2005-08-30", "evento": "Rescatan presos en botes."}]
+    e, _, _, _ = me.validate(good(), pool)
+    sk = me.caps_view(e)
+    sk["chapters"][6]["pantalla_ids"] = ["T08", "T09"]           # posteriores a todo lo narrado: quedan; T09 = T08
+    sk["chapters"][0]["pantalla_ids"] = ["T10"]                  # entre el cap 3 (29/8) y nada más: va al siguiente
+    me._screen_by_date(e, sk, pool)
+    by = {c["chapter_number"]: c["pantalla_ids"] for c in sk["chapters"]}
+    assert by[7] == ["T08"] and any("T09 cuenta lo mismo que T08" in x for x in e["_pantalla_por_fecha"])
+    assert "T10" not in by[1] and "T10" not in by[2]
+
+
+def test_cita_con_otra_cifra_del_conteo_se_parafrasea():
+    pool = _pool3()
+    pool["citas"].append({"id": "Q05", "texto": "Éramos más de 500 mujeres en el puente", "autor": "una presa"})
+    e, _, _, _ = me.validate(good(), pool)
+    e["beats"][5]["datos_apoyo"] = ["Q05"]
+    assert any("Q05 trae otra cifra del conteo 517" in x for x in me.writer_instructions(e, pool))
