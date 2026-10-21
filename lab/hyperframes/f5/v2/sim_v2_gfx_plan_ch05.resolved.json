@@ -3,142 +3,87 @@
   "chapter_number": 5,
   "title_card": {
    "kicker": "CAPÍTULO 5",
-   "title": "El Misterio de los Desaparecidos"
+   "title": "Los Desaparecidos y los Cuerpos"
   },
   "callouts": [],
   "count_up": {
-   "value_text": "500",
-   "unit": "prisioneros",
-   "start": 80.655,
-   "fact_idx": 7,
-   "source": "Human Rights Watch, 2005"
+   "value_text": "10",
+   "unit": "años",
+   "start": 44.559,
+   "fact_idx": 9,
+   "source": ""
   },
-  "archive_clippings": [
-   {
-    "kicker": "2005",
-    "headline": "el agua alcanza el nivel del pecho en el interior",
-    "body": "",
-    "scene_idx": 3,
-    "fact_idx": null,
-    "pool_id": "T13",
-    "fuente": null,
-    "era_decade": 2000,
-    "start": 23.53,
-    "duration": 6.0,
-    "side": "left"
-   },
-   {
-    "kicker": "2005",
-    "headline": "el sheriff Marlin Gusman solicita ayuda para la evacuación",
-    "body": "",
-    "scene_idx": 1,
-    "fact_idx": null,
-    "pool_id": "T12",
-    "fuente": null,
-    "era_decade": 2000,
-    "start": 10.332,
-    "duration": 6.0,
-    "side": "right"
-   }
-  ],
-  "evidence_zoom": null,
+  "archive_clippings": [],
+  "evidence_zoom": {
+   "scene_idx": 0,
+   "box": [
+    0.2,
+    0.25,
+    0.25,
+    0.3
+   ],
+   "start": 5.917,
+   "anchor": "rostro del niño",
+   "detail": "rostro del niño",
+   "tipo": "rostro",
+   "conf": 0.95,
+   "como": "de editor",
+   "word": "rostro del niño"
+  },
   "punch_in": [
-   34.095,
-   41.794,
-   63.424,
-   108.884
+   14.435,
+   21.966,
+   80.332,
+   94.139
   ],
   "chapter_question": {
-   "text": "¿Quién abandonó a los de Orleans?",
+   "text": "¿Cuánto valió la palabra de los turistas?",
    "start": 111.033,
    "duration": 3.0,
-   "keyword": "abandonó",
+   "keyword": "turistas",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "horror",
-    "category": "caos_gritos",
-    "layer": "minima",
+    "word": "atrapados",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
     "icon": null,
     "icon_anim": "stamp",
-    "start": 41.794,
+    "start": 98.532,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
-    "sid": 5,
+    "sid": 11,
     "rarity": 2,
     "weight": 3,
-    "sfx": {
-     "file": "rumor.wav",
-     "gain_db": -20
-    },
-    "icon_callout": false
-   },
-   {
-    "word": "cuerpos",
-    "category": "muerte",
-    "layer": "muerte",
-    "icon": "calavera",
-    "icon_anim": "ink_bleed",
-    "start": 63.424,
-    "duration": 2.5,
-    "side": "left",
-    "stamp": true,
-    "weight": 3,
-    "peak_word": true
-   },
-   {
-    "word": "desaparecidos",
-    "category": "silencio",
-    "layer": "minima",
-    "icon": null,
-    "icon_anim": "press_wipe",
-    "start": 77.356,
-    "duration": 2.5,
-    "side": "left",
-    "stamp": true,
-    "sid": 10,
-    "rarity": 2,
-    "weight": 2,
-    "sfx": {
-     "file": "vacio.wav",
-     "gain_db": -20
-    },
-    "icon_callout": false
-   },
-   {
-    "word": "abandono",
-    "category": "frio_abandono",
-    "layer": "minima",
-    "icon": null,
-    "icon_anim": "press_wipe",
-    "start": 93.487,
-    "duration": 2.5,
-    "side": "left",
-    "stamp": true,
-    "sid": 13,
-    "rarity": 3,
-    "weight": 2,
-    "sfx": {
-     "file": "viento.wav",
-     "gain_db": -20
-    },
     "icon_callout": false
    }
   ],
   "gap_warnings": [],
   "fragmentos": [
    {
-    "id": "T15",
+    "id": "D19",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 44.1s"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
-    "id": "D43",
+    "id": "D60",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D61",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "Q02",
     "bloque": "recorte",
     "ahora": null,
     "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
@@ -146,60 +91,43 @@
    {
     "id": "T13",
     "bloque": "recorte",
-    "ahora": "el agua alcanza el nivel del pecho en el interior",
-    "kicker": "2005",
-    "fuente": null,
-    "icono": null,
-    "icono_faltante": null,
-    "opciones": [
-     "Comienza la evacuación de algunos edificios de la prisión",
-     "Comienza la evacuación de algunos edificios",
-     "el agua alcanza el nivel del pecho en el interior"
-    ]
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
    },
    {
-    "id": "T12",
+    "id": "D08",
     "bloque": "recorte",
-    "ahora": "el sheriff Marlin Gusman solicita ayuda para la evacuación",
-    "kicker": "2005",
-    "fuente": null,
-    "icono": null,
-    "icono_faltante": null,
-    "opciones": [
-     "el sheriff Marlin Gusman solicita ayuda para la evacuación",
-     "el sheriff Marlin Gusman solicita ayuda"
-    ]
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D17",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T17",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
    }
   ],
   "pico": {
-   "t": 55.359,
-   "block": "evidence_zoom",
-   "word": "desgarradora",
-   "sentence": "Al salir de sus celdas anegadas, se toparon con una visión desgarradora que quedaría grabada para siempre en su memoria: algunos reportaron haber visto cadáveres flotando en las aguas turbias de la prisión, cuerpos inertes arrastrados por la inundación.",
+   "t": 32.635,
+   "block": "emphasis",
+   "word": "cadáveres",
+   "sentence": "El 1 de septiembre, mientras eran trasladados, reclusos de la sección 'Templeman III' informaron haber visto cadáveres flotando en las aguas de la inundación.",
    "intensity": 0.9,
-   "sentence_idx": 7,
-   "palabra": "cuerpos",
-   "block_quitado_por_critico": true
+   "sentence_idx": 3,
+   "palabra": "cadáveres"
   },
-  "time_ticker": {
-   "day": "29",
-   "month": "AGO",
-   "tail": "medianoche",
-   "times": [
-    "medianoche"
-   ],
-   "advance": false,
-   "source_text": "A la medianoche, el sheriff Marlin Gusman solicita ayuda para la evacuación.",
-   "pool_id": "T12",
-   "start": 29.83,
-   "duration": -6.0,
-   "side": "left"
-  },
+  "time_ticker": null,
   "transitions": {
    "1": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
     "rank": "R3"
    },
    "2": {
@@ -245,9 +173,9 @@
     "rank": "R2"
    },
    "9": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "después del zoom",
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
     "rank": "R1"
    },
    "10": {
@@ -378,92 +306,48 @@
   },
   "critico": [
    {
-    "t": 10.332,
-    "t_frame": 11.332,
-    "dur": 6.0,
-    "bloque": "recorte",
-    "texto": "el sheriff Marlin Gusman solicita ayuda para la evacuación",
-    "veredicto": "suma",
-    "motivo": "El bloque aporta un dato específico (nombre del sheriff, año) y la acción de solicitar ayuda para la evacuación, que contextualiza y enriquece la mención de 're",
-    "pasa": true,
-    "voz": "La agonía en las profundidades de la prisión parecía eterna, pero un atisbo de movimiento se aproximaba, aunque el rescate llegó tarde y manchado por un velo de misterio."
-   },
-   {
-    "t": 23.53,
-    "t_frame": 24.53,
-    "dur": 6.0,
-    "bloque": "recorte",
-    "texto": "el agua alcanza el nivel del pecho en el interior",
-    "veredicto": "suma",
-    "motivo": "Aporta un detalle visual y concreto sobre la magnitud del desastre (el nivel del agua) que la voz solo insinúa con 'selló el destino de muchos', sin tapar eleme",
-    "pasa": true,
-    "voz": "Gusman no se realizó hasta la medianoche del 29 de agosto de 2005, una demora cruel que selló el destino de muchos."
-   },
-   {
-    "t": 41.794,
-    "t_frame": 42.794,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "horror",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera ominosa de la imagen, añadiendo una capa emocional que complementa el au",
-    "pasa": true,
-    "voz": "Pero el horror no se detuvo con el escape."
-   },
-   {
-    "t": 57.05,
-    "t_frame": 58.05,
+    "t": 5.917,
+    "t_frame": 6.917,
     "dur": 2.85,
     "bloque": "zoom",
-    "texto": "desgarradora",
+    "texto": "rostro del niño",
+    "veredicto": "suma",
+    "motivo": "El zoom en el rostro del niño enfatiza la emoción y el impacto humano del 'vacío' antes de que la voz introduzca la 'cifra oficial', añadiendo una capa emociona",
+    "pasa": true,
+    "voz": "Ese vacío imposible de explicar pronto tuvo una cifra oficial."
+   },
+   {
+    "t": 32.635,
+    "t_frame": 33.635,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "cadáveres",
     "veredicto": "estorba",
-    "motivo": "El zoom no muestra la evidencia específica (cadáveres flotando) que la voz describe como 'desgarradora', creando una disonancia entre audio y visual.",
+    "motivo": "El sello con la palabra 'CADÁVERES' a media altura y a la derecha probablemente tapa la carta, que es el único elemento claro e importante de la imagen.",
     "pasa": false,
-    "voz": "Al salir de sus celdas anegadas, se toparon con una visión desgarradora que quedaría grabada para siempre en su memoria: algunos reportaron haber visto cadáveres flotando en las aguas turbias de la prisión, cuerpos inertes arrastrados por la inundación."
+    "voz": "El 1 de septiembre, mientras eran trasladados, reclusos de la sección 'Templeman III' informaron haber visto cadáveres flotando en las aguas de la inundación."
    },
    {
-    "t": 63.424,
-    "t_frame": 64.424,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "cuerpos",
-    "veredicto": "suma",
-    "motivo": "El bloque enfatiza la palabra clave 'CUERPOS' que la voz menciona, y el tinte de 'muerte' refuerza la visión desgarradora descrita, sin que la imagen muestre ex",
-    "pasa": true,
-    "voz": "Al salir de sus celdas anegadas, se toparon con una visión desgarradora que quedaría grabada para siempre en su memoria: algunos reportaron haber visto cadáveres flotando en las aguas turbias de la prisión, cuerpos inertes arrastrados por la inundación."
-   },
-   {
-    "t": 77.356,
-    "t_frame": 78.356,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "desaparecidos",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz sin repetirla textualmente, y el tinte refuerza el mood desolador de la imagen.",
-    "pasa": true,
-    "voz": "Human Rights Watch, una organización vigilante, registró a 517 prisioneros como \"desaparecidos\", almas borradas de los registros oficiales."
-   },
-   {
-    "t": 80.655,
-    "t_frame": 81.655,
+    "t": 44.559,
+    "t_frame": 45.559,
     "dur": 3.7,
     "bloque": "contador",
-    "texto": "500",
+    "texto": "10",
     "veredicto": "suma",
-    "motivo": "El contador visualiza y enfatiza el número de víctimas mencionado por la voz, añadiendo impacto y especificando 'prisioneros' de forma explícita.",
+    "motivo": "El contador visual enfatiza el dato numérico de la edad, añadiendo un elemento dinámico que refuerza la información de la voz sin repetirla textualmente como un",
     "pasa": true,
-    "voz": "Más de 500 individuos que simplemente no figuraban en las listas de evacuados de la cárcel, un número aterrador que nunca tuvo una explicación."
+    "voz": "Entre los rostros anónimos de esa tragedia había niños de hasta 10 años, parte de una población juvenil abrumadoramente afroamericana."
    },
    {
-    "t": 93.487,
-    "t_frame": 94.487,
+    "t": 98.532,
+    "t_frame": 99.532,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "abandono",
+    "texto": "atrapados",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz en off, y el tinte refuerza el ambiente sombrío y de abandono que ya transmite la imagen.",
+    "motivo": "El sello enfatiza una palabra clave de la voz en off, y el tinte refuerza la atmósfera de encierro y oscuridad ya presente en la imagen sin tapar elementos impo",
     "pasa": true,
-    "voz": "¿Se los había tragado el diluvio, o fueron víctimas de un abandono aún más profundo?"
+    "voz": "Mientras la palabra de los prisioneros era enterrada, la pesadilla vivida por dos turistas atrapados en el caos estaba a punto de costarle a la ciudad más de 650,000 dólares en un tribunal federal."
    }
   ]
  },

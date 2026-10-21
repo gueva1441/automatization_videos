@@ -3,72 +3,109 @@
   "chapter_number": 6,
   "title_card": {
    "kicker": "CAPÍTULO 6",
-   "title": "Negación Oficial y Primeras Demandas"
+   "title": "Demandas y Reparaciones Tardías"
   },
   "callouts": [],
-  "count_up": {
-   "value_text": "650,000",
-   "unit": "dólares",
-   "start": 66.822,
-   "fact_idx": 6,
-   "source": ""
-  },
+  "count_up": null,
   "archive_clippings": [],
   "evidence_zoom": null,
   "punch_in": [
-   5.11,
-   14.937,
-   26.729,
-   38.128
+   6.759,
+   30.676,
+   59.792,
+   66.551
   ],
   "chapter_question": {
-   "text": "¿Quién encubrió las condiciones de Orleans?",
+   "text": "¿Por qué reabrió la prisión?",
    "start": 98.133,
    "duration": 3.0,
-   "keyword": "condiciones",
+   "keyword": "reabrió",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "silenciada",
-    "category": "silencio",
+    "word": "encarcelamiento",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 30.676,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 2,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "inhumanas",
+    "category": "frio_abandono",
     "layer": "minima",
     "icon": null,
     "icon_anim": "press_wipe",
-    "start": 5.11,
+    "start": 59.792,
     "duration": 2.5,
-    "side": "left",
+    "side": "right",
     "stamp": true,
-    "sid": 0,
+    "sid": 7,
     "rarity": 1,
-    "weight": 2,
+    "weight": 3,
     "sfx": {
-     "file": "vacio.wav",
+     "file": "viento.wav",
      "gain_db": -20
     },
     "icon_callout": false
    },
    {
-    "word": "heridas",
-    "category": "veneno_enfermedad",
-    "layer": "veneno",
+    "word": "absoluto",
+    "category": "silencio",
+    "layer": "minima",
     "icon": null,
-    "icon_anim": "ink_bleed",
-    "start": 20.046,
+    "icon_anim": "press_wipe",
+    "start": 89.428,
     "duration": 2.5,
     "side": "right",
     "stamp": true,
     "weight": 3,
     "peak_word": true,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
     "peak": true
    }
   ],
   "gap_warnings": [],
   "fragmentos": [
    {
-    "id": "D17",
+    "id": "D69",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 0.5s"
+   },
+   {
+    "id": "T26",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 0.5s"
+   },
+   {
+    "id": "D19",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D60",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D61",
     "bloque": "recorte",
     "ahora": null,
     "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
@@ -77,54 +114,24 @@
     "id": "Q02",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
-   },
-   {
-    "id": "D37",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
-   },
-   {
-    "id": "D50",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
-   },
-   {
-    "id": "T17",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
-   },
-   {
-    "id": "T15",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
-   },
-   {
-    "id": "D43",
-    "bloque": "recorte",
-    "ahora": null,
     "motivo": "la voz no habla de esto en el cap"
    }
   ],
   "pico": {
-   "t": 20.046,
+   "t": 88.388,
    "block": "emphasis",
-   "word": "heridas",
-   "sentence": "Pero las heridas invisibles, los relatos de horror y el abandono, fueron inmediatamente descartados por el sheriff Marlin N.",
-   "intensity": 0.9,
-   "sentence_idx": 2,
-   "palabra": "heridas"
+   "word": "vacío",
+   "sentence": "Estas investigaciones y demandas se basaron en testimonios, porque al buscar la versión oficial de los hechos, se toparon con un vacío documental absoluto: simplemente no existen registros oficiales de lo que ocurrió en la prisión durante esos días críticos.",
+   "intensity": 1.0,
+   "sentence_idx": 10,
+   "palabra": "absoluto"
   },
   "time_ticker": null,
   "transitions": {
    "1": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
     "rank": "R2"
    },
    "2": {
@@ -134,15 +141,15 @@
     "rank": "R3"
    },
    "3": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "≥ 1 corte cada 3",
-    "rank": "R2"
-   },
-   "4": {
     "kind": "dissolve",
     "frames": 20,
     "why": "default",
+    "rank": "R2"
+   },
+   "4": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
     "rank": "R3"
    },
    "5": {
@@ -152,15 +159,15 @@
     "rank": "R3"
    },
    "6": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "≥ 1 corte cada 3",
-    "rank": "R2"
-   },
-   "7": {
     "kind": "dissolve",
     "frames": 20,
     "why": "default",
+    "rank": "R2"
+   },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
     "rank": "R3"
    },
    "8": {
@@ -176,15 +183,15 @@
     "rank": "R3"
    },
    "10": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "después del zoom",
-    "rank": "R3"
-   },
-   "11": {
     "kind": "dissolve",
     "frames": 20,
     "why": "default",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
     "rank": "R3"
    },
    "12": {
@@ -194,9 +201,9 @@
     "rank": "R3"
    },
    "13": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "≥ 1 corte cada 3",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R2"
    },
    "14": {
@@ -292,48 +299,48 @@
   },
   "critico": [
    {
-    "t": 5.11,
-    "t_frame": 6.11,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "silenciada",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera de supresión que la verdad tuvo que superar, añadiendo impacto visual al",
-    "pasa": true,
-    "voz": "Finalmente, la verdad sobre lo ocurrido en sus muros inundados no podía ser silenciada por completo."
-   },
-   {
-    "t": 20.046,
-    "t_frame": 21.046,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "heridas",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte añade una capa emocional que la imagen no transmite, reforzando el contraste entre el acuerdo monetari",
-    "pasa": true,
-    "voz": "Pero las heridas invisibles, los relatos de horror y el abandono, fueron inmediatamente descartados por el sheriff Marlin N."
-   },
-   {
-    "t": 66.822,
-    "t_frame": 67.822,
-    "dur": 3.7,
-    "bloque": "contador",
-    "texto": "650,000",
-    "veredicto": "suma",
-    "motivo": "El contador visualiza y enfatiza el monto exacto de la indemnización mencionada en la voz, aportando un dato clave sin obstruir la imagen.",
-    "pasa": true,
-    "voz": "Un jurado federal les otorgó una indemnización de más de 650,000 dólares por encarcelamiento falso e indiferencia deliberada a sus derechos constitucionales."
-   },
-   {
-    "t": 69.05,
-    "t_frame": 70.05,
+    "t": 7.029,
+    "t_frame": 8.029,
     "dur": 2.85,
     "bloque": "zoom",
-    "texto": "Manos barandilla",
+    "texto": "Rostro hombre",
     "veredicto": "repite",
-    "motivo": "El zoom destaca un detalle visual (manos en la barandilla) que ya es evidente en la imagen, sin aportar información nueva o un énfasis directo al contenido lega",
+    "motivo": "La foto ya muestra el rostro de un hombre, y el bloque solo lo resalta sin añadir información nueva o relevante a los nombres mencionados en la voz.",
     "pasa": false,
-    "voz": "Un jurado federal les otorgó una indemnización de más de 650,000 dólares por encarcelamiento falso e indiferencia deliberada a sus derechos constitucionales."
+    "voz": "Ese costo de más de 650,000 dólares tuvo nombres y rostros: los de Robie Waganfeald y Paul Kunkel Jr., dos turistas de Ohio arrestados en Bourbon Street justo antes de la tormenta."
+   },
+   {
+    "t": 30.676,
+    "t_frame": 31.676,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "encarcelamiento",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el mood de encierro y la gravedad del tema, que la imagen de la corte por sí sola no transmite",
+    "pasa": true,
+    "voz": "El 14 de octubre de 2010, un jurado federal les otorgó la indemnización, validando su historia de encarcelamiento falso e indiferencia deliberada."
+   },
+   {
+    "t": 59.792,
+    "t_frame": 60.792,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "inhumanas",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el ambiente sombrío, aumentando el impacto emocional sin tapar elementos cruciales.",
+    "pasa": true,
+    "voz": "emitió una carta de hallazgos que condenaba formalmente las condiciones inhumanas."
+   },
+   {
+    "t": 89.428,
+    "t_frame": 90.428,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "absoluto",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de 'silencio' refuerza el vacío documental y el estado de abandono que la imagen ya sugiere.",
+    "pasa": true,
+    "voz": "Estas investigaciones y demandas se basaron en testimonios, porque al buscar la versión oficial de los hechos, se toparon con un vacío documental absoluto: simplemente no existen registros oficiales de lo que ocurrió en la prisión durante esos días críticos."
    }
   ]
  },

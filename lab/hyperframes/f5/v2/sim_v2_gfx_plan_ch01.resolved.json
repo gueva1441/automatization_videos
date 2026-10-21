@@ -3,72 +3,55 @@
   "chapter_number": 1,
   "title_card": {
    "kicker": "CAPÍTULO 1",
-   "title": "La Trampa de Katrina"
+   "title": "El Inicio del Olvido"
   },
   "callouts": [],
   "count_up": null,
   "archive_clippings": [],
   "evidence_zoom": null,
   "punch_in": [
-   25.389
+   4.642,
+   17.145,
+   25.102
   ],
   "chapter_question": {
-   "text": "¿Qué decisión tomaría el sheriff?",
+   "text": "¿Qué pasó con los prisioneros?",
    "start": 35.8,
    "duration": 3.0,
-   "keyword": "decisión",
+   "keyword": "prisioneros",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "contaminada",
-    "category": "veneno_enfermedad",
-    "layer": "veneno",
-    "icon": "biohazard",
-    "icon_anim": "ink_bleed",
-    "start": 14.437,
-    "duration": 2.5,
-    "side": "right",
-    "stamp": true,
-    "weight": 2,
-    "peak_word": true,
-    "peak": true
-   },
-   {
-    "word": "atrapados",
+    "word": "prisioneros",
     "category": "oscuridad_encierro",
     "layer": "oscuridad",
     "icon": null,
     "icon_anim": "stamp",
-    "start": 25.389,
+    "start": 22.828,
     "duration": 2.5,
     "side": "right",
     "stamp": true,
-    "sid": 3,
-    "rarity": 4,
-    "weight": 3,
+    "sid": 5,
+    "rarity": 6,
+    "weight": 2,
     "icon_callout": false
    },
    {
-    "word": "desesperación",
-    "category": "caos_gritos",
-    "layer": "minima",
+    "word": "destino",
+    "category": "muerte",
+    "layer": "muerte",
     "icon": null,
-    "icon_anim": "stamp",
-    "start": 27.917,
+    "icon_anim": "ink_bleed",
+    "start": 35.9,
     "duration": 2.5,
     "side": "right",
     "stamp": true,
-    "sid": 4,
-    "rarity": 1,
-    "weight": 2,
-    "sfx": {
-     "file": "rumor.wav",
-     "gain_db": -20
-    },
-    "icon_callout": false
+    "weight": 3,
+    "peak_word": true,
+    "peak": true
    }
   ],
   "gap_warnings": [],
@@ -80,27 +63,37 @@
     "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
-    "id": "D08",
+    "id": "D05",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T07",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 4.9s"
+   },
+   {
+    "id": "Q01",
     "bloque": "recorte",
     "ahora": null,
     "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    }
   ],
   "pico": {
-   "t": 14.437,
+   "t": 35.9,
    "block": "emphasis",
-   "word": "contaminada",
-   "sentence": "El agua, densa y contaminada por aguas residuales, subió imparable hasta el pecho en celdas como Templeman 1 y 2.",
-   "intensity": 0.9,
-   "sentence_idx": 2,
-   "palabra": "contaminada"
+   "word": "destino",
+   "sentence": "Pero la orden que estaba a punto de dar en una conferencia de prensa sellaría el destino de todos.",
+   "palabra": "destino"
   },
   "time_ticker": null,
   "transitions": {
    "1": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "después del zoom",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "2": {
@@ -110,15 +103,15 @@
     "rank": "R3"
    },
    "3": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
     "rank": "R3"
    },
    "4": {
     "kind": "cut",
     "frames": 0,
-    "why": "≥ 1 corte cada 3",
+    "why": "después del zoom",
     "rank": "R3"
    }
   },
@@ -132,48 +125,37 @@
   },
   "critico": [
    {
-    "t": 5.15,
-    "t_frame": 6.15,
+    "t": 22.828,
+    "t_frame": 23.828,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "prisioneros",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz en off, lo cual está permitido como énfasis, y el tinte refuerza la atmósfera de encierro sin estorbar la imagen.",
+    "pasa": true,
+    "voz": "Los prisioneros, sentenció Gusman, se quedarían 'donde pertenecen'."
+   },
+   {
+    "t": 26.23,
+    "t_frame": 27.23,
     "dur": 2.85,
     "bloque": "zoom",
-    "texto": "rostro asustado",
-    "veredicto": "repite",
-    "motivo": "El bloque de texto 'rostro asustado' describe explícitamente lo que la imagen ya muestra de forma clara y potente, sin añadir información nueva o contextual.",
+    "texto": "Rostro del joven",
+    "veredicto": "estorba",
+    "motivo": "El bloque propone un zoom sobre un 'Rostro del joven' que no es visible en la imagen actual, creando una inconsistencia.",
     "pasa": false,
-    "voz": "El 29 de agosto de 2005, un huracán devastador golpeó Nueva Orleans."
+    "voz": "Los prisioneros, sentenció Gusman, se quedarían 'donde pertenecen'."
    },
    {
-    "t": 14.437,
-    "t_frame": 15.437,
+    "t": 35.9,
+    "t_frame": 36.9,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "contaminada",
+    "texto": "destino",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza visualmente el peligro de la contaminación que la imagen por sí sola no muestra explícitament",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza el tono sombrío de la imagen y la gravedad de la frase sin tapar elementos importantes.",
     "pasa": true,
-    "voz": "El agua, densa y contaminada por aguas residuales, subió imparable hasta el pecho en celdas como Templeman 1 y 2."
-   },
-   {
-    "t": 25.389,
-    "t_frame": 26.389,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "atrapados",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood intensifica la sensación de encierro y oscuridad ya presentes en la imagen y el audio.",
-    "pasa": true,
-    "voz": "Días enteros, prisioneros de todas las edades, algunos niños, quedaron atrapados en la oscuridad sofocante."
-   },
-   {
-    "t": 27.917,
-    "t_frame": 28.917,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "desesperación",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza la palabra clave de la voz, y el tinte de mood refuerza la atmósfera de la imagen sin tapar elementos cruciales.",
-    "pasa": true,
-    "voz": "La desesperación flotaba en el aire estancado."
+    "voz": "Pero la orden que estaba a punto de dar en una conferencia de prensa sellaría el destino de todos."
    }
   ]
  },

@@ -21,6 +21,7 @@ PEOPLE = re.compile(r"\b(man|men|woman|women|boy|boys|girl|girls|child|children|
                     r"sheriff|deput(?:y|ies)|officers?|people|person|persons|figures?|crowd|detainees?|teen(?:ager)?s?|"
                     r"juveniles?|youths?|hands?|faces?|silhouettes?|tourists?|jurors?|lawyers?|survivors?)\b", re.I)
 KIDS = re.compile(r"\b(niñ[oa]s?|menores|juvenil(?:es)?|diez años|10 años|pequeñ[oa]s)\b", re.I)
+KIDS_EN = re.compile(r"(?<![A-Za-z])(boys?|girls?|child|children|kids?|teen(?:age|ager)?s?|juveniles?)(?![A-Za-z])", re.I)
 V1_BOY = ("ch02", 8)
 
 
@@ -75,7 +76,8 @@ def main() -> None:
     if boy:
         L += [f"**v1 · {V1_BOY[0]} imagen {V1_BOY[1]}** — ancla «{boy['anchor']}»", "", f"> {boy['prompt']}", ""]
     same = next((p for p in v2 if (p["cap"], p["idx"]) == V1_BOY and p["kind"] == "flux"), None)
-    kids = [p for p in v2 if KIDS.search(p["anchor"])]
+    # niños: por el ancla («niños de hasta 10 años») o porque el prompt pinta uno aunque el ancla no lo diga
+    kids = [p for p in v2 if KIDS.search(p["anchor"]) or KIDS_EN.search(p["prompt"])]
     # EL reemplazo: el ancla que dice el dato («niños de hasta 10 años», D67); el resto son otros prompts con niños
     main_ = next((p for p in kids if re.search(r"10 años|diez años", p["anchor"], re.I)), kids[0] if kids else None)
     marked = {(main_["cap"], main_["kind"], main_["idx"])} if main_ else set()

@@ -1,0 +1,279 @@
+{
+ "plan": {
+  "chapter_number": 7,
+  "title_card": {
+   "kicker": "CAPÍTULO 7",
+   "title": "Las Cuentas Pendientes"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [],
+  "evidence_zoom": null,
+  "punch_in": [
+   25.792,
+   39.578,
+   43.58
+  ],
+  "chapter_question": null,
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "murió",
+    "category": "muerte",
+    "layer": "muerte",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 50.25,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 6,
+    "rarity": 1,
+    "weight": 2,
+    "icon_callout": false
+   },
+   {
+    "word": "fugitivos",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 57.365,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 7,
+    "rarity": 1,
+    "weight": 2,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "penumbra",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 72.485,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 9,
+    "rarity": 2,
+    "weight": 2,
+    "icon_callout": false,
+    "peak": true
+   },
+   {
+    "word": "borradas",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 74.708,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "peak": true
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "id": "T25",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D59",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D61",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D17",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "Q02",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D37",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D50",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T17",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   }
+  ],
+  "pico": {
+   "t": 74.708,
+   "block": "emphasis",
+   "word": "borradas",
+   "sentence": "¿Cuántas vidas fueron realmente borradas en ese caos?",
+   "intensity": 1.0,
+   "sentence_idx": 10,
+   "palabra": "borradas"
+  },
+  "time_ticker": null,
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   }
+  },
+  "identity": {
+   "movimientos": [],
+   "violaciones": []
+  },
+  "outro_bug": {
+   "start": 76.4,
+   "duration": 3.5
+  },
+  "critico": [
+   {
+    "t": 46.066,
+    "t_frame": 47.066,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "rostro del hombre",
+    "veredicto": "repite",
+    "motivo": "La imagen ya muestra claramente el rostro aterrorizado del hombre, que encarna la 'visión desgarradora' mencionada por la voz. Un zoom solo re-enfatiza lo que y",
+    "pasa": false,
+    "voz": "Los reclusos de Templeman III reportaron haber visto cadáveres flotando; una visión desgarradora que el sheriff de la cárcel declaró que ningún preso murió o escapó."
+   },
+   {
+    "t": 50.25,
+    "t_frame": 51.25,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "murió",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la negación del sheriff, y el tinte de mood refuerza la atmósfera lúgubre de la escena y el tema de la muerte.",
+    "pasa": true,
+    "voz": "Los reclusos de Templeman III reportaron haber visto cadáveres flotando; una visión desgarradora que el sheriff de la cárcel declaró que ningún preso murió o escapó."
+   },
+   {
+    "t": 57.365,
+    "t_frame": 58.365,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "fugitivos",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz que no está visualmente presente en la imagen, añadiendo un dato impactante sin estorbar.",
+    "pasa": true,
+    "voz": "Sin embargo, la contradicción llegó pronto: se emitieron 14 órdenes de arresto para fugitivos."
+   },
+   {
+    "t": 72.485,
+    "t_frame": 73.485,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "penumbra",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetir una frase completa, y el tinte refuerza el ambiente oscuro y misterioso de la imagen y el relato.",
+    "pasa": true,
+    "voz": "El destino de miles, incluidos niños de hasta 10 años, permanece en la penumbra."
+   },
+   {
+    "t": 74.708,
+    "t_frame": 75.708,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "borradas",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetirla, y el tinte de mood refuerza la atmósfera de misterio y desolación de la imagen.",
+    "pasa": true,
+    "voz": "¿Cuántas vidas fueron realmente borradas en ese caos?"
+   }
+  ]
+ },
+ "rejected": []
+}

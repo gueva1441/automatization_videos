@@ -1,0 +1,392 @@
+{
+ "plan": {
+  "chapter_number": 4,
+  "title_card": {
+   "kicker": "CAPÍTULO 4",
+   "title": "Días de Horror en Celdas Annegadas"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [
+   {
+    "kicker": "29 de agosto de 2005",
+    "headline": "Los generadores de respaldo de la prisión fallaron",
+    "body": "",
+    "scene_idx": 2,
+    "fact_idx": null,
+    "pool_id": "D06",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 18.157,
+    "duration": 6.0,
+    "side": "right",
+    "icon_missing": "rayo_tachado"
+   }
+  ],
+  "evidence_zoom": null,
+  "punch_in": [
+   7.145,
+   14.885,
+   34.532,
+   67.278
+  ],
+  "chapter_question": {
+   "text": "¿Qué decisión demoró la evacuación final?",
+   "start": 116.133,
+   "duration": 3.0,
+   "keyword": "evacuación",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "atrapados",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 14.885,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 2,
+    "rarity": 4,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "sumergidos",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 89.308,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 10,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false,
+    "peak": true
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "id": "T10",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 39.2s"
+   },
+   {
+    "id": "D32",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D67",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T11",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "mismo hecho que otro bloque del cap"
+   },
+   {
+    "id": "T08",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "mismo hecho que otro bloque del cap"
+   },
+   {
+    "id": "D06",
+    "bloque": "recorte",
+    "ahora": "Los generadores de respaldo de la prisión fallaron",
+    "kicker": "29 de agosto de 2005",
+    "fuente": null,
+    "icono": null,
+    "icono_faltante": "rayo_tachado",
+    "opciones": [
+     "Los generadores de respaldo de la prisión fallaron"
+    ]
+   }
+  ],
+  "pico": {
+   "t": 84.545,
+   "block": "emphasis",
+   "word": "terror",
+   "sentence": "La población juvenil, abrumadoramente afroamericana (un 98.7% en el CYC), enfrentaba un terror que ningún niño debería conocer.",
+   "intensity": 1.0,
+   "sentence_idx": 9,
+   "palabra": "terror"
+  },
+  "time_ticker": null,
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R2"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "12": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "13": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "15": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "16": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 1,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 2,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 3,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 4,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 5,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 6,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 7,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 8,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 9,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 10,
+     "forma": "paneo",
+     "motivo": "foto ancha con gente"
+    },
+    {
+     "scene": 11,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 12,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 13,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 14,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 15,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 16,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 119.133,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 14.885,
+    "t_frame": 15.885,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "atrapados",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza la atmósfera de encierro y desesperación sin tapar elementos cruciales.",
+    "pasa": true,
+    "voz": "Los prisioneros quedaron atrapados durante días en celdas anegadas."
+   },
+   {
+    "t": 18.157,
+    "t_frame": 19.157,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "Los generadores de respaldo de la prisión fallaron",
+    "veredicto": "suma",
+    "motivo": "El bloque aporta la causa del problema (falla de generadores) y una fecha específica, información que no está en la voz ni en la imagen, complementando el relat",
+    "pasa": true,
+    "voz": "Los prisioneros quedaron atrapados durante días en celdas anegadas."
+   },
+   {
+    "t": 42.868,
+    "t_frame": 43.868,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "inundación",
+    "veredicto": "repite",
+    "motivo": "La imagen ya muestra claramente a un hombre en el agua, y la voz menciona explícitamente 'agua de la inundación', haciendo que el ícono de gota y la palabra 'IN",
+    "pasa": false,
+    "voz": "Aquel día fatídico, el agua de la inundación comenzó a entrar en los niveles inferiores de los edificios de la prisión, convirtiendo el suelo en una ciénaga contaminada."
+   },
+   {
+    "t": 72.168,
+    "t_frame": 73.168,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "Lágrima",
+    "veredicto": "repite",
+    "motivo": "El bloque hace zoom y etiqueta una lágrima que ya es claramente visible en el rostro del niño en la imagen.",
+    "pasa": false,
+    "voz": "En la prisión había niños de hasta 10 años, una verdad escalofriante."
+   },
+   {
+    "t": 84.545,
+    "t_frame": 85.545,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "terror",
+    "veredicto": "estorba",
+    "motivo": "El tinte de mood 'caos_gritos' se pelea con la quietud y el desamparo de la imagen, que muestra un terror silencioso y no un caos activo.",
+    "pasa": false,
+    "voz": "La población juvenil, abrumadoramente afroamericana (un 98.7% en el CYC), enfrentaba un terror que ningún niño debería conocer."
+   },
+   {
+    "t": 89.308,
+    "t_frame": 90.308,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "sumergidos",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte intensifica la sensación de inmersión y desesperación de la escena, sin tapar elementos importantes.",
+    "pasa": true,
+    "voz": "Estaban olvidados, sumergidos en el caos, sin esperanza de escape."
+   }
+  ]
+ },
+ "rejected": []
+}

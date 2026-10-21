@@ -63,6 +63,8 @@ def main() -> None:
     j1, j2 = _load(STEPS / V2 / "06_judge_narrative_v1.json"), _load(STEPS / V2 / "06_judge_narrative.json")
     f5 = STEPS / V2 / "06_judge_narrative_v2f5.json"
     j5 = _load(f5) if f5.exists() else None
+    f5b = STEPS / V2 / "06_judge_narrative_v2f5b.json"
+    jb = _load(f5b) if f5b.exists() else None
     dec2 = {c["chapter_number"]: c.get("datos_usados") for c in _load(STEPS / V2 / "01b_narration.json")["chapters"]}
     n1 = {c["chapter_number"]: c["narration"] for c in _load(STEPS / V1 / "01b_narration.json")["chapters"]}
     n2 = {c["chapter_number"]: c["narration"] for c in _load(STEPS / V2 / "01b_narration.json")["chapters"]}
@@ -73,7 +75,8 @@ def main() -> None:
 
     v1, v2 = j1["video"], j2["video"]
     v5 = j5["video"] if j5 else None
-    cols = [v1] + ([v5] if v5 else []) + [v2]
+    vb = jb["video"] if jb else None
+    cols = [v1] + ([v5] if v5 else []) + ([vb] if vb else []) + [v2]
 
     def vrow(name, f):
         return f"<tr><th>{name}</th>" + "".join(f"<td>{f(v)}</td>" for v in cols) + "</tr>"
@@ -98,7 +101,8 @@ def main() -> None:
         vrow("Palabras", lambda v: v["palabras"]),
         vrow("Umbrales que pasa", lambda v: f"{sum(1 for x in v['umbral'].values() if x)} de {len(v['umbral'])}"),
     ])
-    video_head = "<tr><th></th><th>v1</th>" + ("<th>v2 F5</th>" if v5 else "") + "<th>v2 F5b</th></tr>"
+    video_head = ("<tr><th></th><th>v1</th>" + ("<th>v2 F5</th>" if v5 else "") + ("<th>v2 F5b</th>" if vb else "")
+                  + "<th>v2 F5c</th></tr>")
     caps_html = []
     for k in range(1, 8):
         c1, c2 = j1["caps"][k - 1], j2["caps"][k - 1]
@@ -120,7 +124,7 @@ def main() -> None:
 <section class="cap"><h2>Cap {k}</h2>
 <div class="pair">
  <div><h3>v1 · {html.escape(t1)}</h3>{metr(c1)}<p class="txt">{highlight(n1[k], c1['datos_usados'], its)}</p></div>
- <div><h3>v2 F5b · {html.escape(t2)}</h3>{metr(c2)}{decl}<p class="txt">{highlight(n2[k], c2['datos_usados'], its)}</p>{cliff}</div>
+ <div><h3>v2 F5c · {html.escape(t2)}</h3>{metr(c2)}{decl}<p class="txt">{highlight(n2[k], c2['datos_usados'], its)}</p>{cliff}</div>
 </div></section>""")
     rows = []
     lab = {"datos": "dato", "cronologia": "evento", "citas": "cita", "lugares": "lugar", "personajes": "persona"}
@@ -156,9 +160,10 @@ mark sup{{font-size:9px;color:var(--mut);margin-left:1px}} .cliff{{font-size:13p
 .scroll{{overflow-x:auto}} @media (max-width:760px){{.pair{{grid-template-columns:1fr}}}}
 </style></head><body><main>
 <h1>Orleans — guion v1 vs v2</h1>
-<p class="sub">F5b. v1 = el guion producido (10 verified_facts). v2 F5b = mismo research, con todo el evidence_pool
+<p class="sub">F5c. v1 = el guion producido (10 verified_facts). v2 F5c = mismo research y evidence_pool, skeleton
+congelado de F5, narrador Gemini Pro con el mejor de 3 por cap. «v2 F5» y «v2 F5b» son las versiones anteriores
 ({sum(1 for x in its.values() if x['_kind'] in ('datos','cronologia','citas'))} datos, eventos y citas). Las métricas usan el mismo pool para
-las versiones (la columna «v2 F5» es la v2 de F5, medida por regex con el pool nuevo: no declaraba ids). Datos
+las versiones (la columna «v2 F5» se mide por regex con el pool nuevo: no declaraba ids). Datos
 resaltados en el texto: <mark>así</mark> (el número chico es el id del pool).</p>
 <h2>Por video</h2><div class="scroll"><table><thead>{video_head}</thead><tbody>{video_tbl}</tbody></table></div>
 <h2>Personajes de v2</h2><ul>{pers}</ul>

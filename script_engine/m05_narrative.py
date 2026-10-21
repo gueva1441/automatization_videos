@@ -38,7 +38,10 @@ ADJ_MAX = 4.0
 FILLER_RUN_MAX = 2                     # oraciones seguidas que califican sin dato
 
 FORBIDDEN_FILLER = ("imaginen", "una eternidad de", "cámara de tortura", "coloso de", "manto oscuro",
-                    "infierno personal", "eco fantasmal", "sombra inalcanzable", "tragedia íntima")
+                    "infierno personal", "eco fantasmal", "sombra inalcanzable", "tragedia íntima",
+                    # F5c (analista): el relleno que apareció en las v2 de F5b
+                    "manto de", "el monstruo", "infierno flotante", "velo de misterio", "ecos de",
+                    "alfombra de la negación", "sentencia de abandono", "trampa brutal")
 _REPEAT_TIPOS = {"cifra", "magnitud", "fecha", "contradiccion"}
 _STOP = {"de", "del", "la", "las", "el", "los", "un", "una", "unos", "unas", "y", "o", "e", "en", "a", "al", "que",
          "por", "con", "para", "sin", "se", "su", "sus", "lo", "le", "les", "es", "fue", "era", "como", "más", "muy",
@@ -310,13 +313,98 @@ def judge_narration(topic_id: str, *, steps_dir: Any = None, pool: dict[str, Any
 # ═══════════════════════════════════════════════════════════════
 
 def cap_problems(text: str, *, cap: int, pool: dict[str, Any], skeleton: dict[str, Any],
-                 previous: list[Any], declared: list[str] | None = None) -> list[str]:
+                 previous: list[Any], declared: list[str] | None = None,
+                 facts: list[Any] | None = None) -> list[str]:
     """Problemas F5 de una narración contra su skeleton (lista vacía = cumple). Mensajes cortos para el feedback.
     `previous`: narraciones anteriores (str o caps de 01b con datos_usados). `declared`: ids que declara este cap
-    (F5b N2: se cuenta lo declarado que suena literal; None = regex sobre todo el pool, como F5)."""
+    (F5b N2: se cuenta lo declarado que suena literal; None = regex sobre todo el pool, como F5).
+    Es la lista plana de cap_review (duras + blandas)."""
+    r = cap_review(text, cap=cap, pool=pool, skeleton=skeleton, previous=previous, declared=declared, facts=facts)
+    return r["hard"] + r["soft"]
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F5c — reglas duras y blandas, «no inventar», «no contaminar», puntaje del mejor de 3
+# ═══════════════════════════════════════════════════════════════
+
+TRIGRAM_CAP_MAX = TRIGRAM_MAX           # 3-gramas del cap que ya sonaron en caps anteriores (regla blanda)
+SCORE = {"dato": 3, "cliffhanger": 2, "repetido": -3, "relleno": -2, "adjetivos": -1}
+_NUM_TOK = re.compile(r"\d[\d.,]*\d|\d")
+
+
+def _num_key(tok: str) -> str:
+    return tok.rstrip(".,").replace(",", "")
+
+
+def _sources_text(pool: dict[str, Any] | None, facts: list[Any] | None) -> str:
+    parts = [ev.text_of(it) + " " + str(it.get("valor") or "") + " " + str(it.get("fecha") or "")
+             for it in ev.items(pool).values()]
+    parts += [str(f.get("fact") if isinstance(f, dict) else f) for f in facts or []]
+    return " ".join(parts)
+
+
+def invented_numbers(text: str, pool: dict[str, Any] | None, facts: list[Any] | None = None) -> list[str]:
+    """F5c (dura): cifras en dígitos de la narración que no están en ninguna fuente (pool o verified_facts). Las
+    fechas ISO del pool aportan su año y su día («2005-08-29» → 2005, 29). Las cifras dichas en palabras no se
+    controlan acá (las cuenta el juez cuando son de un dato)."""
+    src = _sources_text(pool, facts)
+    ok = {_num_key(t) for t in _NUM_TOK.findall(src)}
+    ok |= {str(int(x)) for d in re.findall(r"\d{4}-(\d{2})-(\d{2})", src) for x in d}
+    out = []
+    for m in _NUM_TOK.finditer(text):
+        k = _num_key(m.group(0))
+        if k in ok or (re.fullmatch(r"\d+", k) and str(int(k)) in ok):
+            continue
+        out.append(m.group(0))
+    return list(dict.fromkeys(out))
+
+
+def contamination(text: str, pool: dict[str, Any] | None, facts: list[Any] | None = None) -> list[str]:
+    """F5c (dura): la narración trae algo que el pool DESCARTÓ (F5b N1/N5): una cifra o un nombre de lugar que solo
+    estaba en lo descartado, ≥ 2 palabras propias de un dato descartado («médium», «psíquico»), o un personaje sin
+    acción. Lo que también está en el pool que queda o en los verified_facts no cuenta."""
+    kept = ev.norm(_sources_text(pool, facts))
+    kept_nums = {_num_key(t) for t in _NUM_TOK.findall(kept)}
+    t = ev.norm(text)
+    out = list(silent_names(text, pool))
+    for d in (pool or {}).get("_descartados") or []:
+        if d.get("kind") == "personajes":
+            continue
+        dt = str(d.get("texto") or "")
+        if d.get("kind") == "lugares":
+            if ev.norm(dt) not in kept and re.search(rf"(?<!\w){re.escape(ev.norm(dt))}(?!\w)", t):
+                out.append(dt)
+            continue
+        nums = [x for x in _NUM_TOK.findall(dt) if _num_key(x) not in kept_nums]
+        if any(re.search(rf"(?<![\d.,]){re.escape(x)}(?![\d])", text) for x in nums):
+            out.append(dt)
+            continue
+        own = {w for w in re.findall(r"[a-zñ]{6,}", ev.norm(dt)) if w not in kept}
+        if len({w for w in own if re.search(rf"\b{w}", t)}) >= 2:
+            out.append(dt)
+    return list(dict.fromkeys(out))
+
+
+def trigram_vs_previous(text: str, previous: list[str]) -> float:
+    """Fracción de los 3-gramas del cap (sin palabras funcionales) que ya sonaron en caps anteriores."""
+    tg = _trigrams(text)
+    prev = set().union(*(_trigrams(p) for p in previous)) if previous else set()
+    return round(len(tg & prev) / len(tg), 4) if tg else 0.0
+
+
+def cap_review(text: str, *, cap: int, pool: dict[str, Any], skeleton: dict[str, Any], previous: list[Any],
+               declared: list[str] | None = None, facts: list[Any] | None = None) -> dict[str, Any]:
+    """F5c: problemas de un cap separados por PRIORIDAD y el puntaje para elegir el mejor de 3.
+    hard (rechazan): no inventar, datos asignados (una vez, literales, declarados), no repetir datos de 2 caps, no
+          contaminar (lo descartado, nombres sin acción), relleno prohibido, cierre con el dato del cliffhanger.
+    soft (aviso + un reintento, nunca rechazo): adjetivos 2–4/100, 3-gramas ya dichos < 5 %, densidad, cargo de las
+          personas, orden de fechas, comillas de las citas, oraciones seguidas sin dato, datos sin declarar.
+    score = datos declarados y literales ×3 + cliffhanger ×2 − 3 por repetido − 2 por relleno − 1 si los adjetivos
+          salen del rango."""
     its = ev.items(pool)
     ch = next((c for c in skeleton.get("chapters") or [] if c.get("chapter_number") == cap), {})
-    out: list[str] = []
+    hard: list[str] = []
+    soft: list[str] = []
     prev = [text_and_ids(n) for n in previous]
     seen_before = {i for t, d in prev for i in used_items(t, pool, declared=d)}
     assigned = [i for i in ch.get("evidence_ids") or [] if i in its]
@@ -327,41 +415,59 @@ def cap_problems(text: str, *, cap: int, pool: dict[str, Any], skeleton: dict[st
     need = min(3, len(new_assigned))
     if len(used) < need:
         miss = [i for i in new_assigned if i not in used][:6]
-        out.append(f"usaste {len(used)} de los datos asignados (mínimo {need}); faltan literales"
-                   + (" o sin declarar en datos_usados" if declared is not None else "") + ": "
-                   + "; ".join(f"[{i}] «{' / '.join(ev.anchors(its[i])) or ev.text_of(its[i])[:50]}»" for i in miss))
+        hard.append(f"usaste {len(used)} de los datos asignados (mínimo {need}); faltan literales"
+                    + (" o sin declarar en datos_usados" if declared is not None else "") + ": "
+                    + "; ".join(f"[{i}] «{' / '.join(ev.anchors(its[i])) or ev.text_of(its[i])[:50]}»" for i in miss))
     if declared is not None:
         bad = [i for i in dict.fromkeys(declared) if i in its and i not in lit
                and its[i]["_kind"] in ("datos", "cronologia", "citas")]
         if bad:
-            out.append("declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha "
-                       "tal cual o sacalos de la lista): " + ", ".join(bad))
+            hard.append("declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha "
+                        "tal cual o sacalos de la lista): " + ", ".join(bad))
         undecl = [i for i in used_items(text, pool) if i not in set(declared)]
         if undecl:
-            out.append("estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, "
-                       "declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): "
-                       + "; ".join(f"[{i}] «{' / '.join(ev.anchors(its[i]))}»" for i in undecl[:8]))
+            soft.append("estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, "
+                        "declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): "
+                        + "; ".join(f"[{i}] «{' / '.join(ev.anchors(its[i]))}»" for i in undecl[:8]))
     reps = ev.repeats_in_cap(text, sorted(lit) if declared is not None else used_items(text, pool, hard=False), pool)
     if reps:
-        out.append("cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», "
-                   "«el agua»): " + "; ".join(f"«{f}» ×{n}" for f, n in reps))
+        hard.append("cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», "
+                    "«el agua»): " + "; ".join(f"«{f}» ×{n}" for f, n in reps))
     prev_caps = Counter(i for t, d in prev for i in set(repeat_items(t, pool, declared=d)))
     rep = [i for i in repeat_items(text, pool, declared=declared) if prev_caps[i] >= MAX_DATO_CAPS]
     if rep:
-        out.append("estos datos ya salieron en 2 caps, no los repitas: "
-                   + "; ".join(f"«{' / '.join(ev.anchors(its[i]))}»" for i in rep))
+        hard.append("estos datos ya salieron en 2 caps, no los repitas: "
+                    + "; ".join(f"«{' / '.join(ev.anchors(its[i]))}»" for i in rep))
+    inv = invented_numbers(text, pool, facts) if facts is not None else []
+    if inv:
+        hard.append("cifras que no están en el research (no inventes): " + ", ".join(inv))
+    cont = contamination(text, pool, facts)
+    if cont:
+        hard.append("esto está fuera del caso o no hace nada en la historia; no lo nombres: "
+                    + "; ".join(c[:60] for c in cont))
+    bad = forbidden_filler(text)
+    if bad:
+        hard.append(f"relleno prohibido: {', '.join(bad)}")
+    cid = ch.get("cliffhanger")
+    cliff_ok = None
+    if cap <= 6 and cid and cid in its:
+        cliff_ok = bool(closing_hits_cliffhanger(text, its[cid]))
+        if not cliff_ok:
+            hard.append(f"el cierre tiene que anticipar el dato concreto del cap {cap + 1}: «{ev.text_of(its[cid])[:90]}» "
+                        f"(nombralo o dejalo incompleto; nada de retórica genérica)")
+    # ── blandas
     for p in skeleton.get("personajes") or []:
         if p.get("entra_en_cap") == cap:
             named, role = names_with_role(text, p)
             if not named or not role:
-                out.append(f"nombrá a {p['nombre']} por nombre y apellido y con su cargo ({p.get('rol')}) la primera vez")
+                soft.append(f"nombrá a {p['nombre']} por nombre y apellido y con su cargo ({p.get('rol')}) la primera vez")
     crono = sorted((i for i in used if its[i]["_kind"] == "cronologia"), key=lambda i: its[i]["fecha"])
     if len(crono) >= 2:
         pos = [min(m.start() for a in ev.anchors(its[i]) for m in re.finditer(re.escape(ev.norm(a)), ev.norm(text)))
                for i in crono]
         if pos != sorted(pos):
-            out.append("narrá los eventos en orden de fecha y decí las fechas: "
-                       + " → ".join(f"{ev.spoken_date(its[i]['fecha'])}" for i in crono))
+            soft.append("narrá los eventos en orden de fecha y decí las fechas: "
+                        + " → ".join(f"{ev.spoken_date(its[i]['fecha'])}" for i in crono))
     for i in used_items(text, pool, kinds=("citas",)):
         q = its[i]
         m = re.search(re.escape(ev.norm(q["texto"])), ev.norm(text))
@@ -369,28 +475,29 @@ def cap_problems(text: str, *, cap: int, pool: dict[str, Any], skeleton: dict[st
         quoted = k >= 0 and bool(re.search(r"[\"“«]", text[max(0, k - 40):k + 1]))     # la comilla abre antes
         near = m and ev.literal_in(ev._surname(q["autor"]), ev.norm(text)[max(0, m.start() - 150):m.end() + 150])
         if not quoted or not near:
-            out.append(f"la cita «{q['texto'][:40]}…» va entre comillas y con su autor ({q['autor']}) al lado")
+            soft.append(f"la cita «{q['texto'][:40]}…» va entre comillas y con su autor ({q['autor']}) al lado")
     cm = cap_metrics(text, pool, declared)
     if new_assigned and cm["densidad"] < DENSITY_MIN:
-        out.append(f"densidad {cm['densidad']} datos/100 palabras (mínimo {DENSITY_MIN}): más datos literales del pool, "
-                   "menos descripción")
+        soft.append(f"densidad {cm['densidad']} datos/100 palabras (mínimo {DENSITY_MIN}): más datos literales del pool, "
+                    "menos descripción")
+    adj_out = not ADJ_MIN <= cm["adj_100"] <= ADJ_MAX
     if cm["adj_100"] > ADJ_MAX:
-        out.append(f"{cm['adj_100']} adjetivos/100 palabras (máximo {ADJ_MAX}): sacá adjetivos — "
-                   + ", ".join(dict.fromkeys(adjectives(text)))[:160])
+        soft.append(f"{cm['adj_100']} adjetivos/100 palabras (máximo {ADJ_MAX}): sacá adjetivos — "
+                    + ", ".join(dict.fromkeys(adjectives(text)))[:160])
     elif cm["adj_100"] < ADJ_MIN:
-        out.append(f"{cm['adj_100']} adjetivos/100 palabras (mínimo {ADJ_MIN}): se lee como un acta; sumá 2 o 3 "
-                   "calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno")
-    quiet = silent_names(text, pool)
-    if quiet:
-        out.append("no nombres a quien no hace nada en la historia (el research no le atribuye ninguna acción): "
-                   + ", ".join(quiet))
-    bad = forbidden_filler(text)
-    if bad:
-        out.append(f"relleno prohibido: {', '.join(bad)}")
+        soft.append(f"{cm['adj_100']} adjetivos/100 palabras (mínimo {ADJ_MIN}): se lee como un acta; sumá 2 o 3 "
+                    "calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno")
     if filler_run(text, pool) > FILLER_RUN_MAX:
-        out.append(f"más de {FILLER_RUN_MAX} oraciones seguidas que califican sin dato: cambiá adjetivos por hechos")
-    cid = ch.get("cliffhanger")
-    if cap <= 6 and cid and cid in its and not closing_hits_cliffhanger(text, its[cid]):
-        out.append(f"el cierre tiene que anticipar el dato concreto del cap {cap + 1}: «{ev.text_of(its[cid])[:90]}» "
-                   f"(nombralo o dejalo incompleto; nada de retórica genérica)")
-    return out
+        soft.append(f"más de {FILLER_RUN_MAX} oraciones seguidas que califican sin dato: cambiá adjetivos por hechos")
+    tri = trigram_vs_previous(text, [t for t, _ in prev])
+    if tri >= TRIGRAM_CAP_MAX:
+        soft.append(f"{tri:.0%} de tus frases de 3 palabras ya se dijeron en caps anteriores (máximo "
+                    f"{TRIGRAM_CAP_MAX:.0%}): no repitas fórmulas («sheriff Marlin N. Gusman» basta una vez; después "
+                    "«el sheriff», «Gusman»)")
+    n_dat = len([i for i in lit if its[i]["_kind"] in ("datos", "cronologia", "citas")]) if declared is not None \
+        else len(used_items(text, pool, hard=False))
+    score = (SCORE["dato"] * n_dat + SCORE["cliffhanger"] * bool(cliff_ok) + SCORE["repetido"] * len(reps)
+             + SCORE["relleno"] * len(bad) + SCORE["adjetivos"] * adj_out)
+    return {"hard": hard, "soft": soft, "score": score,
+            "parts": {"datos": n_dat, "cliffhanger": cliff_ok, "repetidos": len(reps), "relleno": len(bad),
+                      "adj_100": cm["adj_100"], "adj_fuera": adj_out, "trigramas_previos": tri}}

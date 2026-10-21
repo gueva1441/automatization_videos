@@ -1,0 +1,341 @@
+{
+ "plan": {
+  "chapter_number": 6,
+  "title_card": {
+   "kicker": "CAPÍTULO 6",
+   "title": "Negación Oficial y Primeras Demandas"
+  },
+  "callouts": [],
+  "count_up": {
+   "value_text": "650,000",
+   "unit": "dólares",
+   "start": 66.822,
+   "fact_idx": 6,
+   "source": ""
+  },
+  "archive_clippings": [],
+  "evidence_zoom": null,
+  "punch_in": [
+   5.11,
+   14.937,
+   26.729,
+   38.128
+  ],
+  "chapter_question": {
+   "text": "¿Quién encubrió las condiciones de Orleans?",
+   "start": 98.133,
+   "duration": 3.0,
+   "keyword": "condiciones",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "silenciada",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 5.11,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 0,
+    "rarity": 1,
+    "weight": 2,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "heridas",
+    "category": "veneno_enfermedad",
+    "layer": "veneno",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 20.046,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "peak": true
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "id": "D17",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "Q02",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D37",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D50",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T17",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T15",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D43",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   }
+  ],
+  "pico": {
+   "t": 20.046,
+   "block": "emphasis",
+   "word": "heridas",
+   "sentence": "Pero las heridas invisibles, los relatos de horror y el abandono, fueron inmediatamente descartados por el sheriff Marlin N.",
+   "intensity": 0.9,
+   "sentence_idx": 2,
+   "palabra": "heridas"
+  },
+  "time_ticker": null,
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "2": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R2"
+   },
+   "4": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R2"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "9": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "12": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "13": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R2"
+   },
+   "14": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 1,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 2,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 3,
+     "forma": "quieta",
+     "motivo": "documento: tiene texto"
+    },
+    {
+     "scene": 4,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 5,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 6,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 7,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 8,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 9,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 10,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 11,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 12,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 13,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 14,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 101.133,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 5.11,
+    "t_frame": 6.11,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "silenciada",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera de supresión que la verdad tuvo que superar, añadiendo impacto visual al",
+    "pasa": true,
+    "voz": "Finalmente, la verdad sobre lo ocurrido en sus muros inundados no podía ser silenciada por completo."
+   },
+   {
+    "t": 20.046,
+    "t_frame": 21.046,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "heridas",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte añade una capa emocional que la imagen no transmite, reforzando el contraste entre el acuerdo monetari",
+    "pasa": true,
+    "voz": "Pero las heridas invisibles, los relatos de horror y el abandono, fueron inmediatamente descartados por el sheriff Marlin N."
+   },
+   {
+    "t": 66.822,
+    "t_frame": 67.822,
+    "dur": 3.7,
+    "bloque": "contador",
+    "texto": "650,000",
+    "veredicto": "suma",
+    "motivo": "El contador visualiza y enfatiza el monto exacto de la indemnización mencionada en la voz, aportando un dato clave sin obstruir la imagen.",
+    "pasa": true,
+    "voz": "Un jurado federal les otorgó una indemnización de más de 650,000 dólares por encarcelamiento falso e indiferencia deliberada a sus derechos constitucionales."
+   },
+   {
+    "t": 69.05,
+    "t_frame": 70.05,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "Manos barandilla",
+    "veredicto": "repite",
+    "motivo": "El zoom destaca un detalle visual (manos en la barandilla) que ya es evidente en la imagen, sin aportar información nueva o un énfasis directo al contenido lega",
+    "pasa": false,
+    "voz": "Un jurado federal les otorgó una indemnización de más de 650,000 dólares por encarcelamiento falso e indiferencia deliberada a sus derechos constitucionales."
+   }
+  ]
+ },
+ "rejected": []
+}

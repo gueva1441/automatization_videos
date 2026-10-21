@@ -1,0 +1,459 @@
+{
+ "plan": {
+  "chapter_number": 4,
+  "title_card": {
+   "kicker": "CAPÍTULO 4",
+   "title": "Atrapados en el Horror"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [],
+  "evidence_zoom": {
+   "scene_idx": 12,
+   "box": [
+    0.567,
+    0.375,
+    0.083,
+    0.2
+   ],
+   "start": 70.45,
+   "anchor": "Lágrima",
+   "detail": "Lágrima",
+   "tipo": "rostro",
+   "conf": 0.98,
+   "como": "nombrado",
+   "word": "ojos",
+   "latido": true,
+   "latido_t": 71.15
+  },
+  "punch_in": [
+   8.72,
+   23.76,
+   65.36,
+   113.14
+  ],
+  "chapter_question": {
+   "text": "¿Qué ocurrió con esos niños atrapados?",
+   "start": 116.133,
+   "duration": 3.0,
+   "keyword": "atrapados",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "atrapados",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 8.72,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 2,
+    "rarity": 6,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "putrefacta",
+    "category": "veneno_enfermedad",
+    "layer": "veneno",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 23.76,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 4,
+    "rarity": 3,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "nauseabunda",
+    "category": "veneno_enfermedad",
+    "layer": "veneno",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 33.94,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "peak": true
+   },
+   {
+    "word": "encerrados",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": "candado",
+    "icon_anim": "stamp",
+    "start": 65.36,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 10,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": true
+   },
+   {
+    "word": "abandono",
+    "category": "frio_abandono",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 99.8,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 16,
+    "rarity": 4,
+    "weight": 2,
+    "sfx": {
+     "file": "viento.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "atrapados",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 113.14,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 18,
+    "rarity": 6,
+    "weight": 3,
+    "icon_callout": false
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "bloque": "recorte@40.1",
+    "antes": "El agua dentro de algunos edificios",
+    "ahora": null,
+    "motivo": "ningún fragmento del fact suma a la voz (con kicker posible y literal)"
+   },
+   {
+    "bloque": "dato1",
+    "antes": "6,500 personas",
+    "ahora": "6,500 personas",
+    "categoria": null,
+    "icono": null,
+    "opciones": 3
+   },
+   {
+    "bloque": "dato@35.0",
+    "antes": "aguas residuales",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   },
+   {
+    "bloque": "dato@75.0",
+    "antes": "afroamericana",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   }
+  ],
+  "pico": {
+   "t": 33.94,
+   "block": "emphasis",
+   "word": "nauseabunda",
+   "sentence": "Celdas enteras quedaron anegadas con una mezcla nauseabunda de aguas residuales y deshechos, el líquido inmundo alcanzando el nivel del pecho en algunos.",
+   "palabra": "nauseabunda"
+  },
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R2"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "12": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "13": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "15": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "16": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 1,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 2,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 3,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 4,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 5,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 6,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 7,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 8,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 9,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 10,
+     "forma": "paneo",
+     "motivo": "foto ancha con gente"
+    },
+    {
+     "scene": 11,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 12,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 13,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 14,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 15,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 16,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 119.133,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 8.72,
+    "t_frame": 9.72,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "atrapados",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, según las reglas de énfasis, y el tinte refuerza la atmósfera opresiva de la imagen, aportando un impacto emocion",
+    "pasa": true,
+    "voz": "Los prisioneros, atrapados, vivieron un calvario ininterrumpido."
+   },
+   {
+    "t": 23.76,
+    "t_frame": 24.76,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "putrefacta",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza la atmósfera de peligro y descomposición sin tapar elementos cruciales.",
+    "pasa": true,
+    "voz": "El agua sucia, putrefacta, no retrocedía; por el contrario, se convertía en su nueva prisión líquida."
+   },
+   {
+    "t": 33.94,
+    "t_frame": 34.94,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "nauseabunda",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetir una frase, y el tinte de mood refuerza la sensación de peligro y enfermedad que la imagen y el audio s",
+    "pasa": true,
+    "voz": "Celdas enteras quedaron anegadas con una mezcla nauseabunda de aguas residuales y deshechos, el líquido inmundo alcanzando el nivel del pecho en algunos."
+   },
+   {
+    "t": 57.68,
+    "t_frame": 58.68,
+    "dur": 2.5,
+    "bloque": "dato",
+    "texto": "6,500 personas",
+    "veredicto": "repite",
+    "motivo": "La voz ya menciona la cifra exacta de \"seis mil quinientas almas\", por lo que el bloque de texto repite la misma información numérica.",
+    "pasa": false,
+    "voz": "Entre la masa de seis mil quinientas almas, se encontraban niños."
+   },
+   {
+    "t": 65.36,
+    "t_frame": 66.36,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "encerrados",
+    "veredicto": "suma",
+    "motivo": "El bloque enfatiza la palabra clave 'ENCERRADOS' de la voz y añade un ícono simbólico de 'candado' que refuerza el concepto de confinamiento sin repetir visualm",
+    "pasa": true,
+    "voz": "Pequeños, algunos de apenas diez años, también estaban encerrados en esas jaulas de hormigón."
+   },
+   {
+    "t": 70.45,
+    "t_frame": 71.45,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "Lágrima",
+    "veredicto": "suma",
+    "motivo": "El zoom y la palabra 'Lágrima' enfatizan la emoción y el impacto visual de los 'horrores impensables' que menciona la voz, sin repetir la frase.",
+    "pasa": true,
+    "voz": "Sus ojos infantiles presenciaron horrores impensables."
+   },
+   {
+    "t": 99.8,
+    "t_frame": 100.8,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "abandono",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood potencia la atmósfera desoladora de la imagen sin tapar elementos importantes.",
+    "pasa": true,
+    "voz": "Sus pequeñas vidas se desdibujaron en el caos, en la oscuridad y en el abandono más absoluto."
+   },
+   {
+    "t": 113.14,
+    "t_frame": 114.14,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "atrapados",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte intensifica la atmósfera visual de encierro y desesperación ya presente en la imagen.",
+    "pasa": true,
+    "voz": "¿Y qué vieron sus ojos en esos días interminables, atrapados en la Prisión Parroquial de Orleans?"
+   }
+  ]
+ },
+ "rejected": []
+}

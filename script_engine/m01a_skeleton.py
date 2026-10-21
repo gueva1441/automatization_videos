@@ -835,6 +835,58 @@ Generá la respuesta nueva desde cero, no parches sobre la anterior.
 #  FUNCIÓN PÚBLICA
 # ═══════════════════════════════════════════════════════════════
 
+def frozen_skeleton(topic: dict) -> dict:
+    """F5c (token `skeleton_frozen`): usa un skeleton ya generado en vez de llamar a Flash.
+
+    topic["skeleton_frozen"] = {"skeleton": <01a_skeleton.json>, "pool": <01_facts_sources.json del pool al que se
+    refieren sus ids>}. Los ids del pool viejo se traducen al pool ACTUAL por texto (sin mayúsculas ni tildes); lo
+    que ya no está (filtro de relevancia, F5b N1) se quita, igual que los personajes que el pool actual no tiene
+    (F5b N5: un nombre entra solo si hace algo). Todo queda anotado en `_frozen`. Sin `pool` viejo, los ids se usan
+    como están. Se persiste como 01a_skeleton.json del topic.
+    """
+    from script_engine import evidence as ev
+    cfg = topic["skeleton_frozen"]
+    sk = json.loads(Path(cfg["skeleton"]).read_text(encoding="utf-8"))
+    cur = topic.get("evidence_pool") or {}
+    cur_its = ev.items(cur)
+    remap: dict[str, str | None] = {}
+    if cfg.get("pool"):
+        old = json.loads(Path(cfg["pool"]).read_text(encoding="utf-8"))
+        old = old.get("evidence_pool", old)
+        by_text = {(it["_kind"], ev.norm(ev.text_of(it))): i for i, it in cur_its.items()}
+        for i, it in ev.items(old).items():
+            remap[i] = by_text.get((it["_kind"], ev.norm(ev.text_of(it))))
+    def _m(i: str | None) -> str | None:
+        return (remap.get(i) if remap else i) if i else None
+    notes: list[str] = []
+    for ch in sk.get("chapters") or []:
+        if "evidence_ids" in ch:
+            new = [_m(i) for i in ch["evidence_ids"]]
+            gone = [i for i, n in zip(ch["evidence_ids"], new) if n is None or n not in cur_its]
+            if gone:
+                notes.append(f"cap {ch['chapter_number']}: fuera del pool actual {gone}")
+            ch["evidence_ids"] = [n for n in new if n and n in cur_its]
+        if ch.get("cliffhanger"):
+            c = _m(ch["cliffhanger"])
+            if c is None or c not in cur_its:
+                notes.append(f"cap {ch['chapter_number']}: cliffhanger {ch['cliffhanger']} fuera del pool actual")
+                c = None
+            ch["cliffhanger"] = c
+    names = {ev.norm(p["nombre"]) for p in cur.get("personajes") or []}
+    pers = []
+    for p in sk.get("personajes") or []:
+        if ev.norm(p["nombre"]) in names:
+            pers.append(p)
+        else:
+            notes.append(f"personaje fuera (el pool actual no lo tiene: no hace nada en la historia): {p['nombre']}")
+    sk["personajes"] = pers
+    sk["topic_id"] = topic.get("id") or topic.get("topic_id")
+    sk["_frozen"] = {"skeleton": str(cfg["skeleton"]), "pool": str(cfg.get("pool") or ""),
+                     "ids_traducidos": {k: v for k, v in remap.items() if v and v != k}, "notas": notes}
+    _persist(sk["topic_id"], sk)
+    return {"topic_id": sk["topic_id"], "chapters": sk["chapters"], "personajes": pers}
+
+
 def generate_skeleton(topic: dict) -> dict:
     """
     Genera el skeleton de 7 capítulos a partir de un topic completo (módulo 00).
@@ -859,6 +911,9 @@ def generate_skeleton(topic: dict) -> dict:
     topic_id = topic.get("id") or topic.get("topic_id")
     if not topic_id:
         raise ValueError("topic sin 'id' ni 'topic_id'")
+
+    if topic.get("skeleton_frozen"):                 # F5c: skeleton fijo, no se regenera
+        return frozen_skeleton(topic)
 
     facts = topic.get("verified_facts") or []
     expected_fact_ids = _fact_ids(facts)

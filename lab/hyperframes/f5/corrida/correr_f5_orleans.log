@@ -100,3 +100,38 @@ sim_v2 ch06: 97s · resolved OK
 sim_v2 ch07: 119s · resolved OK
 [2026-10-21 01:32:51] F5b etapa versionar
 versionar: C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f5\v2
+[2026-10-21 02:35:30] F5b etapa guion
+respaldo: C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f5\v2 → C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f5\v2_f5b
+respaldo: C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-f5v2\_fase2b_work → C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-f5v2\_bak_f5c_pre\_fase2b_work
+respaldo: C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-a091-41c0-8dad-afd2f4364747\_fase2b_work_f5sim_v1 → C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-a091-41c0-8dad-afd2f4364747\_fase2b_work_f5sim_v1_bak_f5c
+  [4a·pool] tecnico: 1 ítem(s) descartado(s) por no estar literales en el bloque
+  [4a·pool] misterio: 4 ítem(s) fuera por no relacionados (['antigua cárcel de Nueva Orleans construi', 'incluyendo el de un posible capitán de l', 'Un médium psíquico ha detectado la energ', 'Inn at the Old Jail'])
+  [4a·pool] personajes sin acción, fuera: ['Cornel Hubert', 'Raphael Schwarz']
+  [4a·pool] datos 67 · cronologia 27 · lugares 25 · citas 2 · personajes 6 · _descartados 8
+guion: pool 0s
+guion: skeleton 0s · reparaciones ["cronología: ['T03'] de cap_6 → cap_4 (anteriores a 2005-08-30)", "cronología: ['T03'] de cap_4 → cap_3 (anteriores a 2005-08-29)", "cronología: ['T03'] de cap_3 → cap_2 (anteriores a 2005-08-28)", 'cap 1: cliffhanger F02 inválido → T05 (primer id nuevo del cap 2)', 'cap 2: cliffhanger F04 inválido → T08 (primer id nuevo del cap 3)', 'cap 3: cliffhanger F01 inválido → T13 (primer id nuevo del cap 4)', 'cap 4: cliffhanger F08 inválido → D19 (primer id nuevo del cap 5)', 'cap 5: cliffhanger F07 inválido → D72 (primer id nuevo del cap 6)', 'cap 6: cliffhanger (vacío) inválido → D62 (primer id nuevo del cap 7)']
+guion: narración 521s · costo {'Gemini 2.5 Pro': 0.6900369999999999, 'Gemini 2.5 Flash': 0.002545} · violaciones {'1': ['- [dura] declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): D04', '- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D57] «6,375»; [T07] «29 de agosto»', '- [blanda] la cita «donde pertenecen…» va entre comillas y con su autor (Sheriff Marlin N. Gusman) al lado', '- [blanda] 1.59 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno'], '2': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [T05] «28 de agosto»; [T07] «29 de agosto»', '- [blanda] 0.69 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno'], '3': ['- [dura] declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): T12', '- [dura] cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «29 de agosto» ×2', '- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D06] «29 de agosto»; [D59] «500»; [D65] «29 de agosto»; [T10] «29 de agosto»; [T11] «29 de agosto»'], '4': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D32] «hasta el pecho»; [D38] «2 de septiembre»; [D66] «2 de septiembre»; [T17] «2 de septiembre»', '- [blanda] densidad 1.34 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción'], '5': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D43] «517»; [D69] «650,000»; [T23] «1 de septiembre»', '- [blanda] nombrá a Ronnie L. Morgan, Jr. por nombre y apellido y con su cargo (Recluso, demandante) la primera vez', '- [blanda] la cita «Están en la cárcel, hombre. Mienten... N…» va entre comillas y con su autor (Sheriff Gusman) al lado'], '6': ['- [blanda] estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D21] «17 de octubre»; [D50] «650,000»; [D61] «14»; [T19] «17 de octubre»; [T27] «14 de octubre»', '- [blanda] densidad 1.06 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción', '- [blanda] 1.06 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno'], '7': ['- [blanda] densidad 1.94 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción', '- [blanda] 21% de tus frases de 3 palabras ya se dijeron en caps anteriores (máximo 5%): no repitas fórmulas («sheriff Marlin N. Gusman» basta una vez; después «el sheriff», «Gusman»)']}
+guion: normalizer 17 spans (aplicados en 01b_narration_normalized.json)
+guion: juez v1 {'densidad': False, 'repeticion': False, 'adjetivacion': False, 'repeticion_en_cap': False, 'nombres': True, 'antagonista': False, 'cliffhanger': None} · v2 {'densidad': True, 'repeticion': False, 'adjetivacion': False, 'repeticion_en_cap': False, 'nombres': True, 'antagonista': True, 'cliffhanger': True}
+[2026-10-21 02:45:48] F5b etapa script
+script: data/scripts/ba6c3cac-f5v2.json (7 caps)
+[2026-10-21 02:45:48] F5b etapa visual
+visual: 97 prompts de imagen de v2 en 146s → C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\ba6c3cac-f5v2\03_visual.json
+[2026-10-21 02:48:16] F5b etapa sim_v1
+sim_v1 ch01: 49s · resolved OK
+sim_v1 ch02: 50s · resolved OK
+sim_v1 ch03: 84s · resolved OK
+sim_v1 ch04: 92s · resolved OK
+sim_v1 ch05: 40s · resolved OK
+sim_v1 ch06: 89s · resolved OK
+sim_v1 ch07: 66s · resolved OK
+[2026-10-21 02:56:07] F5b etapa sim_v2
+sim_v2 ch01: 82s · resolved OK
+sim_v2 ch02: 95s · resolved OK
+sim_v2 ch03: 155s · resolved OK
+sim_v2 ch04: 87s · resolved OK
+sim_v2 ch05: 79s · resolved OK
+sim_v2 ch06: 96s · resolved OK
+sim_v2 ch07: 89s · resolved OK
+[2026-10-21 03:07:32] F5b etapa versionar
+versionar: C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f5\v2

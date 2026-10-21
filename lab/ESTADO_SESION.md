@@ -1,9 +1,9 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (F5b terminado, PARADA para el analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (F5c terminado, PARADA para el analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
-- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit: F5b (`git log -1`), sobre `1ca7194`.
+- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit: F5c (`git log -1`), sobre `2fbac37` (F5b).
 - Cadena de ramas sin mergear: `f2-gfx-director` (F2b @ `31c671c`) → `f3-lab-identidad` (F3–F4e @ `39e37ac`) → `f5-guion-v2` (F5).
 - `main` = `43f528a`. NO se toca sin OK explícito de Omar.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
@@ -11,7 +11,21 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F5b — Arreglos de la validación (N1–N5, S1–S6) — PARADA: valida el analista, después decide Omar
+## F5c — Solo narración: skeleton congelado, narrador Pro, mejor de 3 — PARADA: valida el analista, después decide Omar
+- Leer `lab/hyperframes/f5/RESUMEN_F5c.md` (revisor íntegro) y `DECISIONES_F5.md` L1–L8. La pantalla y §1.6 de F5b no cambian.
+- **Hecho:**
+  - skeleton de F5 congelado (token `skeleton_frozen`, ids traducidos al pool de F5b; Hubert y Schwarz fuera);
+  - con pool, el narrador es Gemini Pro y elige el mejor de 3 por cap (puntaje del analista);
+  - reglas duras y blandas en el prompt y en `cap_review` (no inventar, no contaminar);
+  - 8 frases nuevas de relleno prohibido.
+- **Resultado:**
+  - densidad por id 2.16 (F5b 1.26); cliffhangers 6/6; Gusman desde el cap 1;
+  - en contra: 1017 palabras, adjetivos 1.87 y 3-gramas 8.6 %;
+  - pantalla: 0 fallas S1–S5, 3 recortes;
+  - prompts: el reemplazo del niño es ch05 imagen 6, en el centro juvenil; queda ch04 imagen 13 (adolescente en celda de adultos).
+- **Costo:** Pro US$ 0.69. Tests: 385 verdes + 3 viejas. Respaldos de F5b: `lab/hyperframes/f5/v2_f5b/`, `output/ba6c3cac-f5v2/_bak_f5c_pre/`.
+
+## F5b — Arreglos de la validación (N1–N5, S1–S6) — superado por F5c en la narración (la pantalla sigue)
 - Pedido: `lab/hyperframes/f5/VALIDACION_F5.md` §7. Leer `lab/hyperframes/f5/RESUMEN_F5b.md` (revisor íntegro) y `DECISIONES_F5.md` K1–K20.
 - **Hecho:**
   - pool: filtro de relevancia (fuera la posada de 1902 y el médium), personajes solo si actúan (fuera Schwarz y Hubert) y mayúsculas;

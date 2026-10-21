@@ -1,124 +1,162 @@
 {
   "topic_id": "ba6c3cac-f5v2",
-  "generated_at": "2026-10-21T01:09:37.961914",
+  "generated_at": "2026-10-21T02:44:39.756174",
   "chapters": [
     {
       "chapter_number": 1,
-      "narration_original": "El 29 de agosto de 2005, un huracán devastador golpeó Nueva Orleans. La Prisión Parroquial de Orleans se convirtió en una trampa brutal para 6,500 personas. El agua, densa y contaminada por aguas residuales, subió imparable hasta el pecho en celdas como Templeman 1 y 2. Días enteros, prisioneros de todas las edades, algunos niños, quedaron atrapados en la oscuridad sofocante. La desesperación flotaba en el aire estancado. Pero lo peor estaba por venir: la decisión fría del sheriff sellaría un destino aún más cruel.",
-      "narration_normalized": "El 29 de agosto de 2005, un huracán devastador golpeó Nueva Orleans. La Prisión Parroquial de Orleans se convirtió en una trampa brutal para seis mil quinientas personas. El agua, densa y contaminada por aguas residuales, subió imparable hasta el pecho en celdas como Templeman 1 y 2. Días enteros, prisioneros de todas las edades, algunos niños, quedaron atrapados en la oscuridad sofocante. La desesperación flotaba en el aire estancado. Pero lo peor estaba por venir: la decisión fría del sheriff sellaría un destino aún más cruel.",
+      "narration_original": "6,375 personas. Abandonadas a un huracán. El 29 de agosto de 2005, el agua ya subía alrededor de la Orleans Parish Prison. Adentro, el sheriff Marlin N. Gusman y su adjunto William Hunter tomaron una decisión. Los prisioneros, sentenció Gusman, se quedarían 'donde pertenecen'. Pero la orden que estaba a punto de dar en una conferencia de prensa sellaría el destino de todos.",
+      "narration_normalized": "seis mil trescientas setenta y cinco personas. Abandonadas a un huracán. El 29 de agosto de dos mil cinco, el agua ya subía alrededor de la Orleans Parish Prison. Adentro, el sheriff Marlin N. Gusman y su adjunto William Hunter tomaron una decisión. Los prisioneros, sentenció Gusman, se quedarían donde pertenecen. Pero la orden que estaba a punto de dar en una conferencia de prensa sellaría el destino de todos.",
       "spans_applied": [
         {
           "chapter_number": 1,
-          "original": "6,500 personas",
-          "suggested": "seis mil quinientas personas",
-          "category": "large_number",
+          "original": "'donde pertenecen'",
+          "suggested": "donde pertenecen",
+          "category": "punctuation_artifact",
           "is_recurring": false,
-          "reasoning": "Número grande con sustantivo femenino requiere concordancia.",
+          "reasoning": "las comillas simples pueden causar pausas extrañas",
+          "decision": "applied"
+        },
+        {
+          "chapter_number": 1,
+          "original": "6,375 personas",
+          "suggested": "seis mil trescientas setenta y cinco personas",
+          "category": "gender",
+          "is_recurring": false,
+          "reasoning": "personas es femenino, el número debe concordar en género",
+          "decision": "applied"
+        },
+        {
+          "chapter_number": 1,
+          "original": "2005",
+          "suggested": "dos mil cinco",
+          "category": "year_format",
+          "is_recurring": false,
+          "reasoning": "ElevenLabs suele tener artefactos al leer años de 4 dígitos",
           "decision": "applied"
         }
       ]
     },
     {
       "chapter_number": 2,
-      "narration_original": "Esa indiferencia, que marcaría el destino de miles, comenzó a manifestarse días antes del impacto devastador. El 27 de agosto de 2005, Robie Waganfeald y Paul Kunkel Jr. fueron arrestados en Bourbon Street por presunta intoxicación pública, sin imaginar la pesadilla carcelaria que les esperaba. Ese mismo día, los reclusos recibieron su última comida antes de que el huracán azote, un acto macabro previo a la inanición. Al día siguiente, el 28 de agosto de 2005, el sheriff Marlin N. Gusman, en una fría y tajante conferencia de prensa, anunció que los prisioneros no serían evacuados de la Prisión de Orleans Parish. Una sentencia de abandono, pronunciada mientras el monstruo se acercaba.\n\nFinalmente, el 29 de agosto de 2005, el huracán Katrina tocó tierra con una furia desatada. Los diques colapsaron. La vibrante ciudad de Nueva Orleans quedó sumergida bajo un manto de destrucción. Un devastador 80% de Nueva Orleans se hundió bajo hasta 15 pies de agua oscura y traicionera. Las calles se convirtieron en ríos caudalosos, las casas en precarias islas, y la prisión, ya aislada por la decisión humana, se vería pronto condenada a una oscuridad aún más profunda y terminal cuando, de forma inminente, su energía eléctrica se perdiera y sus generadores de respaldo fallaran.",
-      "narration_normalized": "Esa indiferencia, que marcaría el destino de miles, comenzó a manifestarse días antes del impacto devastador. El 27 de agosto de 2005, Robie Waganfeald y Paul Kunkel Jr. fueron arrestados en Bourbon Street por presunta intoxicación pública, sin imaginar la pesadilla carcelaria que les esperaba. Ese mismo día, los reclusos recibieron su última comida antes de que el huracán azote, un acto macabro previo a la inanición. Al día siguiente, el 28 de agosto de 2005, el sheriff Marlin N. Gusman, en una fría y tajante conferencia de prensa, anunció que los prisioneros no serían evacuados de la Prisión de Orleans Parish. Una sentencia de abandono, pronunciada mientras el monstruo se acercaba.\n\nFinalmente, el 29 de agosto de 2005, el huracán Katrina tocó tierra con una furia desatada. Los diques colapsaron. La vibrante ciudad de Nueva Orleans quedó sumergida bajo un manto de destrucción. Un devastador ochenta por ciento de Nueva Orleans se hundió bajo hasta 15 pies de agua oscura y traicionera. Las calles se convirtieron en ríos caudalosos, las casas en precarias islas, y la prisión, ya aislada por la decisión humana, se vería pronto condenada a una oscuridad aún más profunda y terminal cuando, de forma inminente, su energía eléctrica se perdiera y sus generadores de respaldo fallaran.",
+      "narration_original": "La orden que sellaría su destino se hizo oficial la noche del 28 de agosto, un día antes del impacto, cuando el sheriff Gusman anunció que los prisioneros no serían evacuados. Esa misma noche, la electricidad en la prisión se cortó, sumiendo los pabellones en una oscuridad premonitoria. Al amanecer del 29 de agosto de 2005, Katrina tocó tierra. Las defensas de la ciudad no resistieron: se produjeron más de 50 fallas en el sistema de diques, un error de diseño catastrófico que el teniente General Carl Strock, del Cuerpo de Ingenieros del Ejército de EE. UU., admitiría públicamente años después. Este colapso provocó la inundación del 80% de Nueva Orleans, dejando algunas zonas bajo 15 pies de agua. Dentro de la prisión, la única barrera contra la oscuridad total eran los generadores de respaldo. Pero su energía también estaba a punto de extinguirse.",
+      "narration_normalized": "La orden que sellaría su destino se hizo oficial la noche del 28 de agosto, un día antes del impacto, cuando el sheriff Gusman anunció que los prisioneros no serían evacuados. Esa misma noche, la electricidad en la prisión se cortó, sumiendo los pabellones en una oscuridad premonitoria. Al amanecer del 29 de agosto de dos mil cinco, Katrina tocó tierra. Las defensas de la ciudad no resistieron: se produjeron más de 50 fallas en el sistema de diques, un error de diseño catastrófico que el teniente General Carl Strock, del Cuerpo de Ingenieros del Ejército de EE. UU., admitiría públicamente años después. Este colapso provocó la inundación del ochenta por ciento de Nueva Orleans, dejando algunas zonas bajo 15 pies de agua. Dentro de la prisión, la única barrera contra la oscuridad total eran los generadores de respaldo. Pero su energía también estaba a punto de extinguirse.",
       "spans_applied": [
+        {
+          "chapter_number": 2,
+          "original": "2005",
+          "suggested": "dos mil cinco",
+          "category": "year_format",
+          "is_recurring": false,
+          "reasoning": "ElevenLabs suele tener artefactos al leer años de 4 dígitos",
+          "decision": "applied"
+        },
         {
           "chapter_number": 2,
           "original": "80%",
           "suggested": "ochenta por ciento",
           "category": "unit_symbol",
           "is_recurring": true,
-          "reasoning": "Símbolo de porcentaje leído incorrectamente.",
+          "reasoning": "el símbolo de porcentaje debe leerse explícitamente",
           "decision": "applied"
         }
       ]
     },
     {
       "chapter_number": 3,
-      "narration_original": "La oscuridad que se cernía se hizo realidad. El 29 de agosto de 2005, la energía eléctrica se perdió y los generadores de respaldo fallaron en la Prisión Parroquial de Orleans (OPP). Fue un colapso, un abismo de penumbra y quietud. Las luces se extinguieron, el aire acondicionado cesó y los sistemas electrónicos de las celdas quedaron sin funcionar. Ese mismo día, la catástrofe se extendió cuando las celdas del primer piso comenzaron a inundarse y las aguas residuales refluyeron. El agua dentro de algunos edificios de la Prisión Parroquial de Orleans (OPP), como Templeman 1 y 2, alcanzó el nivel del pecho, transformando los pasillos en ciénagas. En medio de este escenario, aproximadamente 6,500 personas, incluyendo hombres, mujeres y niños, estaban encarceladas en la Prisión de Orleans Parish (OPP). Miles de vidas, muchas por delitos menores, a merced de una infraestructura con fallas de diseño. Los diques que cedieron, por ejemplo, serían más tarde considerados el peor desastre de ingeniería en la historia de Estados Unidos. Ante esto, la indiferencia del sheriff Marlin N. Gusman y su adjunto William Hunter fue palpable. Para ellos, los reclusos eran un problema, no víctimas, y la negativa a evacuar fue una sentencia. ¿Qué significaría ahora la ausencia de luz y aire para los miles atrapados en esas celdas inundadas?",
-      "narration_normalized": "La oscuridad que se cernía se hizo realidad. El 29 de agosto de 2005, la energía eléctrica se perdió y los generadores de respaldo fallaron en la Prisión Parroquial de Orleans (o pe pe). Fue un colapso, un abismo de penumbra y quietud. Las luces se extinguieron, el aire acondicionado cesó y los sistemas electrónicos de las celdas quedaron sin funcionar. Ese mismo día, la catástrofe se extendió cuando las celdas del primer piso comenzaron a inundarse y las aguas residuales refluyeron. El agua dentro de algunos edificios de la Prisión Parroquial de Orleans (o pe pe), como Templeman 1 y 2, alcanzó el nivel del pecho, transformando los pasillos en ciénagas. En medio de este escenario, aproximadamente seis mil quinientas personas, incluyendo hombres, mujeres y niños, estaban encarceladas en la Prisión de Orleans Parish (o pe pe). Miles de vidas, muchas por delitos menores, a merced de una infraestructura con fallas de diseño. Los diques que cedieron, por ejemplo, serían más tarde considerados el peor desastre de ingeniería en la historia de Estados Unidos. Ante esto, la indiferencia del sheriff Marlin N. Gusman y su adjunto William Hunter fue palpable. Para ellos, los reclusos eran un problema, no víctimas, y la negativa a evacuar fue una sentencia. ¿Qué significaría ahora la ausencia de luz y aire para los miles atrapados en esas celdas inundadas?",
+      "narration_original": "La extinción fue súbita. El 29 de agosto de 2005, los generadores de respaldo de la prisión fallaron, sumiendo a las aproximadamente 6,500 personas atrapadas dentro en una oscuridad absoluta. Sin energía, las bombas dejaron de funcionar. Ese mismo 29 de agosto, el horror líquido comenzó a filtrarse: las celdas del primer piso empezaron a inundarse con aguas residuales que refluían de las tuberías. La prisión se convirtió en una trampa de hedor y penumbra. No fue hasta la medianoche de ese caótico día que llegó una señal de la autoridad: el sheriff Marlin N. Gusman finalmente hizo la solicitud formal de ayuda para una evacuación. Pero la petición llegó demasiado tarde. Para muchos, el agua ya no estaba en los tobillos; en los edificios Templeman 1 y 2, la inundación estaba a punto de alcanzar el nivel del pecho.",
+      "narration_normalized": "La extinción fue súbita. El 29 de agosto de dos mil cinco, los generadores de respaldo de la prisión fallaron, sumiendo a las aproximadamente seis mil quinientas personas atrapadas dentro en una oscuridad absoluta. Sin energía, las bombas dejaron de funcionar. Ese mismo 29 de agosto, el horror líquido comenzó a filtrarse: las celdas del primer piso empezaron a inundarse con aguas residuales que refluían de las tuberías. La prisión se convirtió en una trampa de hedor y penumbra. No fue hasta la medianoche de ese caótico día que llegó una señal de la autoridad: el sheriff Marlin N. Gusman finalmente hizo la solicitud formal de ayuda para una evacuación. Pero la petición llegó demasiado tarde. Para muchos, el agua ya no estaba en los tobillos; en los edificios Templeman 1 y 2, la inundación estaba a punto de alcanzar el nivel del pecho.",
       "spans_applied": [
         {
           "chapter_number": 3,
           "original": "6,500 personas",
           "suggested": "seis mil quinientas personas",
-          "category": "large_number",
+          "category": "gender",
           "is_recurring": false,
-          "reasoning": "Número grande con sustantivo femenino requiere concordancia.",
+          "reasoning": "personas es femenino, el número debe concordar en género",
           "decision": "applied"
         },
         {
           "chapter_number": 3,
-          "original": "OPP",
-          "suggested": "o pe pe",
-          "category": "acronym",
-          "is_recurring": true,
-          "reasoning": "Sigla no común en español, debe deletrearse.",
-          "decision": "applied"
-        },
-        {
-          "chapter_number": 3,
-          "original": "OPP",
-          "suggested": "o pe pe",
-          "category": "acronym",
-          "is_recurring": true,
-          "reasoning": "Sigla no común en español, debe deletrearse.",
-          "decision": "applied"
-        },
-        {
-          "chapter_number": 3,
-          "original": "OPP",
-          "suggested": "o pe pe",
-          "category": "acronym",
-          "is_recurring": true,
-          "reasoning": "Sigla no común en español, debe deletrearse.",
+          "original": "2005",
+          "suggested": "dos mil cinco",
+          "category": "year_format",
+          "is_recurring": false,
+          "reasoning": "ElevenLabs suele tener artefactos al leer años de 4 dígitos",
           "decision": "applied"
         }
       ]
     },
     {
       "chapter_number": 4,
-      "narration_original": "La ausencia de luz y aire transformó la prisión en un laberinto sofocante. Los días se hicieron indistinguibles en la oscuridad total. Los prisioneros quedaron atrapados durante días en celdas anegadas. La oscuridad era completa; los generadores de la prisión fallaron, dejando a los reclusos sin luces ni ventilación. Sin aire circulando, el calor era insoportable y el hedor a aguas residuales lo impregnaba todo. Aquel día fatídico, el agua de la inundación comenzó a entrar en los niveles inferiores de los edificios de la prisión, convirtiendo el suelo en una ciénaga contaminada. En muchas áreas, la inundación interna, que alcanzó niveles de hasta el pecho, era una tortura constante. Entre los miles atrapados, la vulnerabilidad era extrema. En la prisión había niños de hasta 10 años, una verdad escalofriante. La población juvenil, abrumadoramente afroamericana (un 98.7% en el CYC), enfrentaba un terror que ningún niño debería conocer. Estaban olvidados, sumergidos en el caos, sin esperanza de escape. ¿Cuánto más podrían resistir en ese infierno flotante? La agonía parecía interminable, pero un atisbo de movimiento se aproximaba. Algunos edificios comenzarían a ser evacuados, pero no sin antes enfrentar una prueba final en las aguas turbias.",
-      "narration_normalized": "La ausencia de luz y aire transformó la prisión en un laberinto sofocante. Los días se hicieron indistinguibles en la oscuridad total. Los prisioneros quedaron atrapados durante días en celdas anegadas. La oscuridad era completa; los generadores de la prisión fallaron, dejando a los reclusos sin luces ni ventilación. Sin aire circulando, el calor era insoportable y el hedor a aguas residuales lo impregnaba todo. Aquel día fatídico, el agua de la inundación comenzó a entrar en los niveles inferiores de los edificios de la prisión, convirtiendo el suelo en una ciénaga contaminada. En muchas áreas, la inundación interna, que alcanzó niveles de hasta el pecho, era una tortura constante. Entre los miles atrapados, la vulnerabilidad era extrema. En la prisión había niños de hasta 10 años, una verdad escalofriante. La población juvenil, abrumadoramente afroamericana (un noventa y ocho punto siete por ciento en el CYC), enfrentaba un terror que ningún niño debería conocer. Estaban olvidados, sumergidos en el caos, sin esperanza de escape. ¿Cuánto más podrían resistir en ese infierno flotante? La agonía parecía interminable, pero un atisbo de movimiento se aproximaba. Algunos edificios comenzarían a ser evacuados, pero no sin antes enfrentar una prueba final en las aguas turbias.",
+      "narration_original": "Y el agua subió. Superó esa marca. En los edificios Templeman 1 y 2, el agua alcanzó el nivel del pecho. Los prisioneros estuvieron atrapados por días, sumergidos en un líquido fétido. En otras áreas, el agua contaminada con aguas residuales llegó hasta el pecho de los reclusos, una sopa tóxica sin escapatoria. La evacuación de esos pabellones comenzó, pero el rescate era un caos. Los prisioneros eran llevados en botes hasta el paso elevado de Broad Street, donde quedaban expuestos. El calvario se extendió por días. La evacuación completa de la prisión no finalizó hasta el viernes 2 de septiembre de 2005, cuatro días después de la falla de los generadores. Cuatro días en la oscuridad, en el agua sucia. Pero cuando el último prisionero fue trasladado, el horror dio paso a una pregunta aún más inquietante: ¿estaban todos? El conteo oficial revelaría un vacío imposible de explicar.",
+      "narration_normalized": "Y el agua subió. Superó esa marca. En los edificios Templeman 1 y 2, el agua alcanzó el nivel del pecho. Los prisioneros estuvieron atrapados por días, sumergidos en un líquido fétido. En otras áreas, el agua contaminada con aguas residuales llegó hasta el pecho de los reclusos, una sopa tóxica sin escapatoria. La evacuación de esos pabellones comenzó, pero el rescate era un caos. Los prisioneros eran llevados en botes hasta el paso elevado de Broad Street, donde quedaban expuestos. El calvario se extendió por días. La evacuación completa de la prisión no finalizó hasta el viernes 2 de septiembre de dos mil cinco, cuatro días después de la falla de los generadores. Cuatro días en la oscuridad, en el agua sucia. Pero cuando el último prisionero fue trasladado, el horror dio paso a una pregunta aún más inquietante: ¿estaban todos? El conteo oficial revelaría un vacío imposible de explicar.",
       "spans_applied": [
         {
           "chapter_number": 4,
-          "original": "98.7%",
-          "suggested": "noventa y ocho punto siete por ciento",
-          "category": "unit_symbol",
-          "is_recurring": true,
-          "reasoning": "Símbolo de porcentaje con decimal leído incorrectamente.",
+          "original": "2005",
+          "suggested": "dos mil cinco",
+          "category": "year_format",
+          "is_recurring": false,
+          "reasoning": "ElevenLabs suele tener artefactos al leer años de 4 dígitos",
           "decision": "applied"
         }
       ]
     },
     {
       "chapter_number": 5,
-      "narration_original": "La agonía en las profundidades de la prisión parecía eterna, pero un atisbo de movimiento se aproximaba, aunque el rescate llegó tarde y manchado por un velo de misterio. La solicitud formal de ayuda para la evacuación por parte del sheriff Marlin N. Gusman no se realizó hasta la medianoche del 29 de agosto de 2005, una demora cruel que selló el destino de muchos. Al día siguiente, 30 de agosto, una evacuación parcial y precaria comenzó, en algunos edificios de la prisión, como Templeman 1 y 2, cuando el agua fangosa y contaminada aún alcanzaba el nivel del pecho en el interior. Los reclusos, exhaustos, se movían entre las corrientes traicioneras. Pero el horror no se detuvo con el escape. El 1 de septiembre, cuatro días después del huracán, los reclusos de la sección \"Templeman III\" fueron finalmente evacuados. Al salir de sus celdas anegadas, se toparon con una visión desgarradora que quedaría grabada para siempre en su memoria: algunos reportaron haber visto cadáveres flotando en las aguas turbias de la prisión, cuerpos inertes arrastrados por la inundación. Este testimonio sumó una capa sombría a la catástrofe. La realidad de la cárcel era aún más inquietante que los relatos. Human Rights Watch, una organización vigilante, registró a 517 prisioneros como \"desaparecidos\", almas borradas de los registros oficiales. Más de 500 individuos que simplemente no figuraban en las listas de evacuados de la cárcel, un número aterrador que nunca tuvo una explicación. ¿Dónde estaban? ¿Se los había tragado el diluvio, o fueron víctimas de un abandono aún más profundo? A pesar de los avistamientos y estas alarmantes cifras de ausencias, la Prisión Parroquial de Orleans aún esperaba una acción final. Una evacuación total estaba a punto de completarse, pero la verdad sobre lo ocurrido en sus muros inundados seguiría siendo un secreto oscuro.",
-      "narration_normalized": "La agonía en las profundidades de la prisión parecía eterna, pero un atisbo de movimiento se aproximaba, aunque el rescate llegó tarde y manchado por un velo de misterio. La solicitud formal de ayuda para la evacuación por parte del sheriff Marlin N. Gusman no se realizó hasta la medianoche del 29 de agosto de 2005, una demora cruel que selló el destino de muchos. Al día siguiente, 30 de agosto, una evacuación parcial y precaria comenzó, en algunos edificios de la prisión, como Templeman 1 y 2, cuando el agua fangosa y contaminada aún alcanzaba el nivel del pecho en el interior. Los reclusos, exhaustos, se movían entre las corrientes traicioneras. Pero el horror no se detuvo con el escape. El 1 de septiembre, cuatro días después del huracán, los reclusos de la sección Templeman III fueron finalmente evacuados. Al salir de sus celdas anegadas, se toparon con una visión desgarradora que quedaría grabada para siempre en su memoria: algunos reportaron haber visto cadáveres flotando en las aguas turbias de la prisión, cuerpos inertes arrastrados por la inundación. Este testimonio sumó una capa sombría a la catástrofe. La realidad de la cárcel era aún más inquietante que los relatos. Human Rights Watch, una organización vigilante, registró a 517 prisioneros como desaparecidos, almas borradas de los registros oficiales. Más de 500 individuos que simplemente no figuraban en las listas de evacuados de la cárcel, un número aterrador que nunca tuvo una explicación. ¿Dónde estaban? ¿Se los había tragado el diluvio, o fueron víctimas de un abandono aún más profundo? A pesar de los avistamientos y estas alarmantes cifras de ausencias, la Prisión Parroquial de Orleans aún esperaba una acción final. Una evacuación total estaba a punto de completarse, pero la verdad sobre lo ocurrido en sus muros inundados seguiría siendo un secreto oscuro.",
+      "narration_original": "Ese vacío imposible de explicar pronto tuvo una cifra oficial. Human Rights Watch confirmó la escala del desastre: inmediatamente después de la evacuación, 517 reclusos no estaban contabilizados. Pero a la ausencia se sumó el terror. El 1 de septiembre, mientras eran trasladados, reclusos de la sección 'Templeman III' informaron haber visto cadáveres flotando en las aguas de la inundación. Entre los rostros anónimos de esa tragedia había niños de hasta 10 años, parte de una población juvenil abrumadoramente afroamericana. Cuando la prensa confrontó al sheriff Gusman con estos testimonios, su desprecio fue absoluto. 'Están en la cárcel, hombre. Mienten... No confíen en drogadictos, cobardes y criminales para saber cuál es la historia', declaró. Oficialmente, su postura era inflexible: el sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos. Mientras la palabra de los prisioneros era enterrada, la pesadilla vivida por dos turistas atrapados en el caos estaba a punto de costarle a la ciudad más de 650,000 dólares en un tribunal federal.",
+      "narration_normalized": "Ese vacío imposible de explicar pronto tuvo una cifra oficial. Human Rights Watch confirmó la escala del desastre: inmediatamente después de la evacuación, 517 reclusos no estaban contabilizados. Pero a la ausencia se sumó el terror. El 1 de septiembre, mientras eran trasladados, reclusos de la sección Templeman tres informaron haber visto cadáveres flotando en las aguas de la inundación. Entre los rostros anónimos de esa tragedia había niños de hasta 10 años, parte de una población juvenil abrumadoramente afroamericana. Cuando la prensa confrontó al sheriff Gusman con estos testimonios, su desprecio fue absoluto. Están en la cárcel, hombre. Mienten... No confíen en drogadictos, cobardes y criminales para saber cuál es la historia, declaró. Oficialmente, su postura era inflexible: el sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos. Mientras la palabra de los prisioneros era enterrada, la pesadilla vivida por dos turistas atrapados en el caos estaba a punto de costarle a la ciudad más de seiscientos cincuenta mil dólares en un tribunal federal.",
       "spans_applied": [
         {
           "chapter_number": 5,
-          "category": "f5_pool_forms",
-          "decision": "applied",
-          "original": "(horas/dólares/porcentajes/comillas)",
-          "suggested": "(forma hablada)"
+          "original": "'Están en la cárcel, hombre. Mienten... No confíen en drogadictos, cobardes y criminales para saber cuál es la historia'",
+          "suggested": "Están en la cárcel, hombre. Mienten... No confíen en drogadictos, cobardes y criminales para saber cuál es la historia",
+          "category": "punctuation_artifact",
+          "is_recurring": false,
+          "reasoning": "las comillas simples pueden causar pausas extrañas",
+          "decision": "applied"
+        },
+        {
+          "chapter_number": 5,
+          "original": "'Templeman III'",
+          "suggested": "Templeman tres",
+          "category": "punctuation_artifact",
+          "is_recurring": false,
+          "reasoning": "las comillas simples pueden causar pausas extrañas y 'III' se lee mejor como 'tres'",
+          "decision": "applied"
+        },
+        {
+          "chapter_number": 5,
+          "original": "650,000",
+          "suggested": "seiscientos cincuenta mil",
+          "category": "large_number",
+          "is_recurring": false,
+          "reasoning": "ElevenLabs puede partir o recitar mal números grandes",
+          "decision": "applied"
         }
       ]
     },
     {
       "chapter_number": 6,
-      "narration_original": "Finalmente, la verdad sobre lo ocurrido en sus muros inundados no podía ser silenciada por completo. Se completó la evacuación total de la Prisión Parroquial de Orleans el viernes 2 de septiembre de 2005, un proceso tardío y caótico que marcó el fin de una agonía visible para miles. Pero las heridas invisibles, los relatos de horror y el abandono, fueron inmediatamente descartados por el sheriff Marlin N. Gusman. Él negó públicamente las acusaciones, afirmando que los prisioneros tenían comida y agua y que la evacuación se realizó según lo planeado. Lejos de mostrar arrepentimiento, el sheriff Gusman desestimó a los supervivientes con palabras duras: \"Están en la cárcel, hombre. Mienten... No confíen en drogadictos, cobardes y criminales para saber cuál es la historia\", sentenció, desacreditando sus vivencias. Pero la justicia, aunque lenta, no siempre da la espalda a las víctimas. En 2010, Robie Waganfeald y Paul Kunkel Jr., los turistas arrestados días antes del huracán, vieron sus derechos validados. Un jurado federal les otorgó una indemnización de más de 650,000 dólares por encarcelamiento falso e indiferencia deliberada a sus derechos constitucionales. Esta sentencia fue un eco potente de la negligencia, una voz que clamó por aquellos que no pudieron. A pesar de los intentos de barrer la verdad bajo la alfombra de la negación oficial, los ecos de Orleans persistían. Una investigación aún más profunda se avecinaba, proveniente de las más altas esferas del gobierno, que comenzaría a desvelar una narrativa institucional de fallas y abusos aún más sombría.",
-      "narration_normalized": "Finalmente, la verdad sobre lo ocurrido en sus muros inundados no podía ser silenciada por completo. Se completó la evacuación total de la Prisión Parroquial de Orleans el viernes 2 de septiembre de 2005, un proceso tardío y caótico que marcó el fin de una agonía visible para miles. Pero las heridas invisibles, los relatos de horror y el abandono, fueron inmediatamente descartados por el sheriff Marlin N. Gusman. Él negó públicamente las acusaciones, afirmando que los prisioneros tenían comida y agua y que la evacuación se realizó según lo planeado. Lejos de mostrar arrepentimiento, el sheriff Gusman desestimó a los supervivientes con palabras duras: Están en la cárcel, hombre. Mienten... No confíen en drogadictos, cobardes y criminales para saber cuál es la historia, sentenció, desacreditando sus vivencias. Pero la justicia, aunque lenta, no siempre da la espalda a las víctimas. En dos mil diez, Robie Waganfeald y Paul Kunkel Jr., los turistas arrestados días antes del huracán, vieron sus derechos validados. Un jurado federal les otorgó una indemnización de más de seiscientos cincuenta mil dólares por encarcelamiento falso e indiferencia deliberada a sus derechos constitucionales. Esta sentencia fue un eco potente de la negligencia, una voz que clamó por aquellos que no pudieron. A pesar de los intentos de barrer la verdad bajo la alfombra de la negación oficial, los ecos de Orleans persistían. Una investigación aún más profunda se avecinaba, proveniente de las más altas esferas del gobierno, que comenzaría a desvelar una narrativa institucional de fallas y abusos aún más sombría.",
+      "narration_original": "Ese costo de más de 650,000 dólares tuvo nombres y rostros: los de Robie Waganfeald y Paul Kunkel Jr., dos turistas de Ohio arrestados en Bourbon Street justo antes de la tormenta. Su caso, como el de miles, finalmente encontró una reparación. El 14 de octubre de 2010, un jurado federal les otorgó la indemnización, validando su historia de encarcelamiento falso e indiferencia deliberada. Este veredicto no fue un hecho aislado; fue una grieta en un muro de negación que se ampliaba con otras demandas, como la de Ronnie L. Morgan, Jr. La presión federal se materializó cuando el Departamento de Justicia de EE. UU. emitió una carta de hallazgos que condenaba formalmente las condiciones inhumanas. Pero mientras la justicia avanzaba lentamente, las autoridades carcelarias mostraron una prisa inquietante por reanudar operaciones. Apenas semanas después del desastre, el 17 de octubre de 2005, reabrieron el edificio 'House of Detention'. Estas investigaciones y demandas se basaron en testimonios, porque al buscar la versión oficial de los hechos, se toparon con un vacío documental absoluto: simplemente no existen registros oficiales de lo que ocurrió en la prisión durante esos días críticos.",
+      "narration_normalized": "Ese costo de más de seiscientos cincuenta mil dólares tuvo nombres y rostros: los de Robie Waganfeald y Paul Kunkel júnior, dos turistas de Ohio arrestados en Bourbon Street justo antes de la tormenta. Su caso, como el de miles, finalmente encontró una reparación. El 14 de octubre de dos mil diez, un jurado federal les otorgó la indemnización, validando su historia de encarcelamiento falso e indiferencia deliberada. Este veredicto no fue un hecho aislado; fue una grieta en un muro de negación que se ampliaba con otras demandas, como la de Ronnie L. Morgan, Jr. La presión federal se materializó cuando el Departamento de Justicia de EE. UU. emitió una carta de hallazgos que condenaba formalmente las condiciones inhumanas. Pero mientras la justicia avanzaba lentamente, las autoridades carcelarias mostraron una prisa inquietante por reanudar operaciones. Apenas semanas después del desastre, el 17 de octubre de dos mil cinco, reabrieron el edificio House of Detention. Estas investigaciones y demandas se basaron en testimonios, porque al buscar la versión oficial de los hechos, se toparon con un vacío documental absoluto: simplemente no existen registros oficiales de lo que ocurrió en la prisión durante esos días críticos.",
       "spans_applied": [
+        {
+          "chapter_number": 6,
+          "original": "'House of Detention'",
+          "suggested": "House of Detention",
+          "category": "punctuation_artifact",
+          "is_recurring": false,
+          "reasoning": "las comillas simples pueden causar pausas extrañas",
+          "decision": "applied"
+        },
         {
           "chapter_number": 6,
           "original": "650,000",
           "suggested": "seiscientos cincuenta mil",
           "category": "large_number",
           "is_recurring": false,
-          "reasoning": "Número grande de 6 cifras se lee mal o partido.",
+          "reasoning": "ElevenLabs puede partir o recitar mal números grandes",
           "decision": "applied"
         },
         {
@@ -127,31 +165,42 @@
           "suggested": "dos mil diez",
           "category": "year_format",
           "is_recurring": false,
-          "reasoning": "El formato de año de 4 dígitos puede generar artefactos de pronunciación.",
+          "reasoning": "ElevenLabs suele tener artefactos al leer años de 4 dígitos",
           "decision": "applied"
         },
         {
           "chapter_number": 6,
-          "category": "f5_pool_forms",
-          "decision": "applied",
-          "original": "(horas/dólares/porcentajes/comillas)",
-          "suggested": "(forma hablada)"
+          "original": "2005",
+          "suggested": "dos mil cinco",
+          "category": "year_format",
+          "is_recurring": false,
+          "reasoning": "ElevenLabs suele tener artefactos al leer años de 4 dígitos",
+          "decision": "applied"
+        },
+        {
+          "chapter_number": 6,
+          "original": "Jr.",
+          "suggested": "júnior",
+          "category": "abbreviation",
+          "is_recurring": true,
+          "reasoning": "la abreviatura 'Jr.' debe leerse 'júnior'",
+          "decision": "applied"
         }
       ]
     },
     {
       "chapter_number": 7,
-      "narration_original": "A pesar de la negación oficial, los ecos de Orleans persistían. La verdad institucional emergió cuando, el 15 de diciembre de 2009, el Departamento de Justicia de EE. UU. emitió una carta de hallazgos sobre las condiciones en la Prisión Parroquial de Orleans, tras ser llamado a investigar al Departamento del sheriff de Orleans. Esta revelación confirmó la brutal indiferencia. Un informe de Human Rights Watch ya había señalado que más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel, un número alarmante de desaparecidos. Los reclusos de Templeman III reportaron haber visto cadáveres flotando; una visión desgarradora que el sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, la contradicción llegó pronto: se emitieron 14 órdenes de arresto para fugitivos. Hoy, no existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina. El destino de miles, incluidos niños de hasta 10 años, permanece en la penumbra. ¿Cuántas vidas fueron realmente borradas en ese caos?",
-      "narration_normalized": "A pesar de la negación oficial, los ecos de Orleans persistían. La verdad institucional emergió cuando, el 15 de diciembre de 2009, el Departamento de Justicia de EE. UU. emitió una carta de hallazgos sobre las condiciones en la Prisión Parroquial de Orleans, tras ser llamado a investigar al Departamento del sheriff de Orleans. Esta revelación confirmó la brutal indiferencia. Un informe de Human Rights Watch ya había señalado que más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel, un número alarmante de desaparecidos. Los reclusos de Templeman III reportaron haber visto cadáveres flotando; una visión desgarradora que el sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, la contradicción llegó pronto: se emitieron 14 órdenes de arresto para fugitivos. Hoy, no existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina. El destino de miles, incluidos niños de hasta 10 años, permanece en la penumbra. ¿Cuántas vidas fueron realmente borradas en ese caos?",
+      "narration_original": "La revelación es un vacío documental: no existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina. En su lugar, solo hay cifras fantasmales. Según un informe de Human Rights Watch, más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel, mientras otras fuentes terminaron estimando que había hasta 8,000 evacuados de la prisión. La negación oficial fue tajante: el sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos. Esta contradicción provocó que el Departamento de Justicia de EE. UU. fue llamado a investigar la conducta del Departamento del sheriff de Orleans. Pero ninguna investigación pudo llenar los vacíos. El edificio fue demolido, la evidencia borrada. Y en una ciudad de memorias pesadas, la pregunta final no es qué les pasó a los desaparecidos, sino cuántos fueron realmente.",
+      "narration_normalized": "La revelación es un vacío documental: no existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina. En su lugar, solo hay cifras fantasmales. Según un informe de Human Rights Watch, más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel, mientras otras fuentes terminaron estimando que había hasta ocho mil evacuados de la prisión. La negación oficial fue tajante: el sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos. Esta contradicción provocó que el Departamento de Justicia de EE. UU. fue llamado a investigar la conducta del Departamento del sheriff de Orleans. Pero ninguna investigación pudo llenar los vacíos. El edificio fue demolido, la evidencia borrada. Y en una ciudad de memorias pesadas, la pregunta final no es qué les pasó a los desaparecidos, sino cuántos fueron realmente.",
       "spans_applied": [
         {
           "chapter_number": 7,
-          "original": "OPP",
-          "suggested": "o pe pe",
-          "category": "acronym",
-          "is_recurring": true,
-          "reasoning": "Sigla no común en español, debe deletrearse.",
-          "decision": "skipped_not_found"
+          "original": "8,000",
+          "suggested": "ocho mil",
+          "category": "large_number",
+          "is_recurring": false,
+          "reasoning": "ElevenLabs puede partir o recitar mal números grandes",
+          "decision": "applied"
         }
       ]
     }

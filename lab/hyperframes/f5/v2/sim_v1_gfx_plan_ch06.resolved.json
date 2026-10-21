@@ -50,52 +50,48 @@
   },
   "punch_in": [
    12.799,
-   48.739,
+   37.079,
    62.959,
    80.08
   ],
   "chapter_question": {
-   "text": "¿Quién responderá por tanto abandono?",
+   "text": "¿Quiénes abandonaron a los prisioneros?",
    "start": 98.133,
    "duration": 3.0,
-   "keyword": "responderá",
+   "keyword": "abandonaron",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "infierno",
+    "word": "atrapados",
     "category": "oscuridad_encierro",
     "layer": "oscuridad",
     "icon": null,
     "icon_anim": "stamp",
-    "start": 13.659,
+    "start": 12.799,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
     "sid": 1,
-    "rarity": 3,
+    "rarity": 6,
     "weight": 3,
     "icon_callout": false
    },
    {
-    "word": "violación",
-    "category": "caos_gritos",
-    "layer": "minima",
+    "word": "encarcelamiento",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
     "icon": null,
     "icon_anim": "stamp",
-    "start": 48.739,
+    "start": 37.079,
     "duration": 2.5,
-    "side": "right",
+    "side": "left",
     "stamp": true,
     "sid": 4,
     "rarity": 1,
     "weight": 3,
-    "sfx": {
-     "file": "rumor.wav",
-     "gain_db": -20
-    },
     "icon_callout": false
    },
    {
@@ -112,6 +108,24 @@
     "rarity": 1,
     "weight": 3,
     "icon_callout": false
+   },
+   {
+    "word": "desvanecieron",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 92.619,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "peak": true
    }
   ],
   "gap_warnings": [],
@@ -147,9 +161,10 @@
   ],
   "pico": {
    "t": 92.619,
-   "block": null,
+   "block": "emphasis",
    "word": "desvanecieron",
-   "sentence": "¿Y para aquellos quinientos prisioneros, cuyas vidas se desvanecieron sin rastro oficial, qué forma de justicia podría existir?"
+   "sentence": "¿Y para aquellos quinientos prisioneros, cuyas vidas se desvanecieron sin rastro oficial, qué forma de justicia podría existir?",
+   "palabra": "desvanecieron"
   },
   "transitions": {
    "1": {
@@ -323,13 +338,13 @@
   },
   "critico": [
    {
-    "t": 13.659,
-    "t_frame": 14.659,
+    "t": 12.799,
+    "t_frame": 13.799,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "infierno",
+    "texto": "atrapados",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el ambiente sombrío y la temática de 'oscuridad' y 'encierro' sin tapar elementos importantes.",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el ambiente de 'infierno carcelario' que la imagen por sí sola no comunica explícitamente.",
     "pasa": true,
     "voz": "Robie Waganfeald y Paul Kunkel Jr., turistas atrapados en el infierno carcelario, lograron una victoria legal que arrojó luz sobre la oscuridad institucional."
    },
@@ -340,18 +355,18 @@
     "bloque": "contador",
     "texto": "650,000",
     "veredicto": "repite",
-    "motivo": "La cifra de 650,000 dólares ya es claramente visible en el documento de la imagen y es mencionada por la voz.",
+    "motivo": "La cifra de 650,000 dólares ya es claramente visible en el documento de la foto y es mencionada explícitamente por la voz en off.",
     "pasa": false,
     "voz": "En el año 2010, les fue concedida una indemnización de más de seiscientos cincuenta mil dólares."
    },
    {
-    "t": 48.739,
-    "t_frame": 49.739,
+    "t": 37.079,
+    "t_frame": 38.079,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "violación",
+    "texto": "encarcelamiento",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood amplifica la sensación de injusticia y sufrimiento que la voz describe y la imagen sugiere.",
+    "motivo": "El bloque enfatiza una palabra clave de la voz que no está visible en la imagen, y el tinte de mood refuerza la atmósfera de encierro y violación de derechos.",
     "pasa": true,
     "voz": "Fue una sentencia contundente contra el encarcelamiento falso y la flagrante indiferencia deliberada hacia sus derechos constitucionales, confirmando que el abandono vivido no era un simple error, sino una violación profunda."
    },
@@ -362,7 +377,7 @@
     "bloque": "sello",
     "texto": "cicatrices",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el tono sombrío y la idea de daño interno, sin repetir la imagen ni la frase completa.",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetir una frase completa, y el tinte de mood refuerza la atmósfera sombría y el tema de las 'cicatrices invi",
     "pasa": true,
     "voz": "Sin embargo, ¿pueden los dólares borrar las profundas cicatrices invisibles?"
    },
@@ -373,7 +388,7 @@
     "bloque": "recorte",
     "texto": "días en celdas inundadas con agua contaminada con aguas residuales",
     "veredicto": "suma",
-    "motivo": "El bloque aporta detalles específicos sobre la contaminación del agua y una fecha concreta (2010) para el reporte, que la voz y la imagen no ofrecen, enriquecie",
+    "motivo": "El bloque añade detalles cruciales sobre la contaminación del agua y la duración del abandono, además de una fecha específica, que la imagen y la voz no mencion",
     "pasa": true,
     "voz": "Las experiencias de Robie y Paul son solo un eco, una pequeña porción de las innumerables vidas marcadas por el devastador 'tiempo Katrina', un período de abandono extremo."
    },
@@ -396,6 +411,17 @@
     "texto": "500 prisioneros",
     "veredicto": "suma",
     "motivo": "Refuerza visualmente un dato numérico clave mencionado por la voz, sin que la imagen lo muestre directamente, y no tapa elementos importantes.",
+    "pasa": true,
+    "voz": "¿Y para aquellos quinientos prisioneros, cuyas vidas se desvanecieron sin rastro oficial, qué forma de justicia podría existir?"
+   },
+   {
+    "t": 92.619,
+    "t_frame": 93.619,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "desvanecieron",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, visualmente apoyada por el libro quemado, y el tinte de mood refuerza la atmósfera sombría sin tapar información ",
     "pasa": true,
     "voz": "¿Y para aquellos quinientos prisioneros, cuyas vidas se desvanecieron sin rastro oficial, qué forma de justicia podría existir?"
    }

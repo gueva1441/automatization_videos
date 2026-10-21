@@ -44,7 +44,7 @@ import re
 from pathlib import Path
 
 from config import DATA_DIR
-from gemini_helpers import call_flash_json
+from gemini_helpers import call_flash_json, call_pro_json
 from script_engine import evidence as ev
 
 
@@ -227,8 +227,9 @@ D. Si el cap cuenta 2 o más eventos fechados, narralos EN ORDEN y decí las fec
 E. Citas: entre comillas, copiadas literal, con el autor DENTRO de la oración ("dijo el sheriff Gusman").
    Nunca como firma con guion al final ("— Sheriff Gusman"): la narración va a TTS.
 F. Prohibido el relleno: "imaginen", "una eternidad de", "cámara de tortura", "coloso de", "manto oscuro",
-   "infierno personal", "eco fantasmal", "sombra inalcanzable", "tragedia íntima", y más de 2 oraciones seguidas
-   que califican sin un dato. Cambiá adjetivos por hechos.
+   "infierno personal", "eco fantasmal", "sombra inalcanzable", "tragedia íntima", "manto de", "el monstruo",
+   "infierno flotante", "velo de misterio", "ecos de", "alfombra de la negación", "sentencia de abandono",
+   "trampa brutal", y más de 2 oraciones seguidas que califican sin un dato. Cambiá adjetivos por hechos.
 G. El cierre anticipa el dato CONCRETO del próximo cap (lo nombra o lo deja incompleto). Nada de retórica
    genérica como "¿cuánto podrían resistir?".
 H. Cada dato se dice UNA sola vez en el cap: la cifra o la fecha suena una vez; después, paráfrasis SIN la cifra
@@ -239,7 +240,15 @@ J. Nombrá a una persona solo si HACE algo en la historia (decide, declara, dema
    "casos como el de…" para llenar: si una persona no actúa, no la nombres.
 K. En "datos_usados" del JSON listá los ids ([D..], [T..], [Q..]) del EVIDENCE POOL que tu narración cuenta
    LITERALES (también los de caps anteriores que repitas). Nunca F## (los verified_facts no van ahí). Un id
-   declarado que no suena literal es un error; un dato que usaste y no declaraste NO cuenta para el cap."""
+   declarado que no suena literal es un error; un dato que usaste y no declaraste NO cuenta para el cap.
+
+PRIORIDAD DE LAS REGLAS (F5c):
+- DURAS (si fallan, el texto se rechaza): no inventar (toda cifra está en el research), cada dato asignado una
+  vez y literal (A, B, H, K), nada fuera del caso ni personas que no hacen nada (J), sin relleno prohibido (F),
+  cierre con el dato del cliffhanger (G).
+- BLANDAS (se avisan, nunca rechazan): la ventana de 2 a 4 adjetivos cada 100 palabras (I) y no repetir
+  fórmulas de caps anteriores (frases de 3 palabras ya dichas: menos del 5 %).
+Si no podés cumplir todo, sacrificá la ventana de adjetivos, nunca los datos ni los nombres."""
 
 
 def _prose_rules(topic: dict) -> str:
@@ -807,6 +816,106 @@ def _trim_to_sentence_boundary(text: str, max_chars: int) -> str:
     return out
 
 
+# F5c: con evidence_pool, el narrador es Gemini Pro y cada cap se elige entre 3 candidatos por puntaje
+# (m05_narrative.cap_review). Sin pool, todo sigue por _call_with_length_retry con Flash, como antes.
+POOL_NARRATOR = "pro"
+POOL_BEST_OF = 3
+
+
+def _call_narrator(prompt: str, model: str, cap_number: int) -> dict:
+    schema = _narration_schema(with_ids=True)
+    if model == "pro":
+        return call_pro_json(prompt, response_schema=schema, description=f"01b narrador cap {cap_number} (pro)")
+    return call_flash_json(prompt, response_schema=schema)
+
+
+def _base_direction(e: "NarrationValidationError", narr: str, role: str) -> str:
+    """Feedback de las reglas de siempre (largo, primera oración, frases prohibidas)."""
+    lo, hi = LEN_HOOK if role == "hook" else (LEN_OUTRO if role == "reveal_outro" else LEN_DEVELOPMENT)
+    if e.kind == "length":
+        return (f"Tu intento tuvo {len(narr)} caracteres; el LARGO OBLIGATORIO es entre {lo} y {hi}. "
+                f"{'Acortá' if len(narr) > hi else 'Alargá con datos del pool'} sin perder los datos.")
+    if e.kind == "first_sentence":
+        return f"La primera oración tiene que tener como máximo {HOOK_FIRST_SENTENCE_MAX_WORDS} palabras."
+    if e.kind == "phrase":
+        return f"Sacá «{e.detail}» y reescribí ese pasaje encadenando por contenido."
+    return str(e)
+
+
+def _best_of_n(prompt: str, role: str, cap_number: int, f5: dict, *, n: int = POOL_BEST_OF,
+               model: str = POOL_NARRATOR, violations: dict | None = None, declared: dict | None = None,
+               audit: dict | None = None) -> str:
+    """F5c: genera hasta n candidatos del cap (el 2.º y el 3.º con el feedback del anterior: primero las reglas
+    duras; las blandas, una sola vez), los puntúa con cap_review y se queda con el MEJOR, no con el último.
+    Orden: pasa largo/frases y no tiene problemas duros → mayor puntaje → menos avisos blandos. Si ningún candidato
+    pasa largo/frases, se comporta como antes (recorte del outro o error)."""
+    from script_engine.m05_narrative import cap_review
+    cands: list[dict] = []
+    attempt_prompt, soft_retry = prompt, False
+    last_err: NarrationValidationError | None = None
+    for k in range(1, n + 1):
+        raw = _call_narrator(attempt_prompt, model, cap_number)
+        narr = ev.fix_glued_caps((raw.get("narration") or "").strip())
+        ids_raw = [str(x).strip() for x in raw.get("datos_usados") or [] if str(x).strip()]
+        ids = ev.resolve_declared(ids_raw, f5["pool"], f5.get("facts"), narr)
+        c = {"k": k, "narration": narr, "ids": ids, "base_ok": True, "review": None}
+        try:
+            _validate_narration(narr, role=role, cap_number=cap_number)
+        except NarrationValidationError as e:
+            c["base_ok"], c["base_error"], last_err = False, str(e), e
+        if c["base_ok"]:
+            c["review"] = cap_review(narr, cap=cap_number, pool=f5["pool"], skeleton=f5["skeleton"],
+                                     previous=f5.get("previous") or [], declared=ids, facts=f5.get("facts"))
+        cands.append(c)
+        rv = c["review"]
+        if c["base_ok"] and not rv["hard"] and (not rv["soft"] or soft_retry):
+            break                                          # limpio, o blandas ya reintentadas una vez
+        if k == n:
+            break
+        if not c["base_ok"]:
+            direction = _base_direction(last_err, narr, role)
+        elif rv["hard"]:
+            direction = ("REGLAS DURAS que tu intento no cumple (corregilas sin perder datos ni nombres):\n"
+                         + "\n".join(f"- {x}" for x in rv["hard"]))
+        else:
+            soft_retry = True
+            direction = ("AVISOS (reglas blandas; si no podés cumplir todo, sacrificá la ventana de adjetivos, nunca "
+                         "los datos ni los nombres):\n" + "\n".join(f"- {x}" for x in rv["soft"]))
+        attempt_prompt = (prompt + "\n\n═══════════════════════════════════════════════════\n"
+                          f"REINTENTO {k + 1}/{n}\n═══════════════════════════════════════════════════\n"
+                          + direction + "\n\nReescribí la narración completa y devolvé el JSON.")
+        print(f"  [01b] cap {cap_number}: candidato {k}/{n} "
+              + ("inválido (largo/frases)" if not c["base_ok"] else
+                 f"puntaje {rv['score']} · {len(rv['hard'])} duras · {len(rv['soft'])} blandas"))
+    ok = [c for c in cands if c["base_ok"]]
+    if audit is not None:
+        audit[cap_number] = [{"candidato": c["k"], "valido": c["base_ok"],
+                              **({"puntaje": c["review"]["score"], "partes": c["review"]["parts"],
+                                  "duras": len(c["review"]["hard"]), "blandas": len(c["review"]["soft"])}
+                                 if c["review"] else {"error": c.get("base_error")})} for c in cands]
+    if not ok:
+        lo, hi = LEN_OUTRO
+        narr = cands[-1]["narration"]
+        if role == "reveal_outro" and len(narr) > hi:
+            trimmed = _trim_to_sentence_boundary(narr, hi)
+            if trimmed and lo <= len(trimmed) <= hi:
+                if declared is not None:
+                    declared[cap_number] = cands[-1]["ids"]
+                return trimmed
+        raise last_err
+    best = max(ok, key=lambda c: (not c["review"]["hard"], c["review"]["score"], -len(c["review"]["soft"]), -c["k"]))
+    if audit is not None:
+        audit[cap_number] = {"elegido": best["k"], "candidatos": audit[cap_number]}
+    if declared is not None:
+        declared[cap_number] = best["ids"]
+    probs = [f"- [dura] {x}" for x in best["review"]["hard"]] + [f"- [blanda] {x}" for x in best["review"]["soft"]]
+    if violations is not None and probs:
+        violations[cap_number] = probs
+    print(f"  [01b] cap {cap_number}: elegido el candidato {best['k']}/{len(cands)} (puntaje {best['review']['score']}, "
+          f"{len(best['review']['hard'])} duras, {len(best['review']['soft'])} blandas)")
+    return best["narration"]
+
+
 def _call_with_length_retry(prompt: str, role: str, cap_number: int,
                              max_attempts: int = 2, f5: dict | None = None,
                              violations: dict | None = None, declared: dict | None = None) -> str:
@@ -997,6 +1106,14 @@ def generate_narration(topic: dict, skeleton: dict) -> dict:
                 "facts": topic.get("verified_facts") or []} if pool else None
 
     declared: dict[int, list[str]] = {}
+    audit: dict[int, object] = {}
+
+    def _narrate(prompt: str, role: str, cap_n: int, attempts: int) -> str:
+        # F5c: con pool, Gemini Pro y el mejor de POOL_BEST_OF candidatos; sin pool, Flash con reintentos (igual que antes)
+        if pool:
+            return _best_of_n(prompt, role, cap_n, _f5(), violations=violations, declared=declared, audit=audit)
+        return _call_with_length_retry(prompt, role=role, cap_number=cap_n, max_attempts=attempts, f5=None,
+                                       violations=violations, declared=declared)
 
     def _cap(n: int, text: str) -> dict:
         # F5b N2: con pool, cada cap lleva los ids que el narrador declaró haber usado (las métricas cuentan por id)
@@ -1005,16 +1122,14 @@ def generate_narration(topic: dict, skeleton: dict) -> dict:
     # ─── CAP 1: HOOK ───
     print(f"  [01b] generando cap 1 (hook)...")
     prompt1 = _prompt_hook(topic, skeleton)
-    narr1 = _call_with_length_retry(prompt1, role="hook", cap_number=1, max_attempts=tries, f5=_f5(),
-                                    violations=violations, declared=declared)
+    narr1 = _narrate(prompt1, "hook", 1, tries)
     narrations.append(_cap(1, narr1))
 
     # ─── CAPS 2-6: DEVELOPMENT ───
     for cap_n in (2, 3, 4, 5, 6):
         print(f"  [01b] generando cap {cap_n} (development)...")
         prompt = _prompt_development(topic, skeleton, narrations, cap_n)
-        narr = _call_with_length_retry(prompt, role="development", cap_number=cap_n, max_attempts=tries, f5=_f5(),
-                                       violations=violations, declared=declared)
+        narr = _narrate(prompt, "development", cap_n, tries)
         narrations.append(_cap(cap_n, narr))
 
     # ─── CAP 7: OUTRO ───
@@ -1022,8 +1137,7 @@ def generate_narration(topic: dict, skeleton: dict) -> dict:
     prompt7 = _prompt_outro(topic, skeleton, narrations)
     # 1.3 (chat 51): un intento más SOLO para el outro (que converja antes de tocar el
     # recorte). hook/development quedan en max_attempts=2 (default).
-    narr7 = _call_with_length_retry(prompt7, role="reveal_outro", cap_number=7, max_attempts=3, f5=_f5(),
-                                    violations=violations, declared=declared)
+    narr7 = _narrate(prompt7, "reveal_outro", 7, 3)
     narrations.append(_cap(7, narr7))
 
     # ─── HUMANIZER PHRASES ───
@@ -1036,7 +1150,9 @@ def generate_narration(topic: dict, skeleton: dict) -> dict:
         "topic_id": topic_id,
         "chapters": narrations,
         "humanizer_phrases": humanizer,
-        **({"_f5_violations": {str(k): v for k, v in violations.items()}} if pool else {}),
+        **({"_f5_violations": {str(k): v for k, v in violations.items()},
+            "_f5c_candidatos": {str(k): v for k, v in audit.items()},
+            "_narrador": {"modelo": POOL_NARRATOR, "mejor_de": POOL_BEST_OF}} if pool else {}),
     }
     _persist(topic_id, out)
     return out

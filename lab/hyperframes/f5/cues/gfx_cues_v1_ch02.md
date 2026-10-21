@@ -17,6 +17,7 @@
 | 00:40.2 | shot_transition:cut R3 | «corte (ritmo rápido)» | 0.00 s |
 | 00:43.2 | shot_transition:cut R3 | «corte (ritmo rápido)» | 0.00 s |
 | 00:48.0 | shot_transition:dissolve R3 | «20 f» | 0.67 s |
+| 00:50.0 | count_up | «6,500 personas» | 3.70 s |
 | 00:52.2 | shot_transition:dissolve R3 | «20 f» | 0.67 s |
 | 00:58.9 | punch_in |  | 0.80 s |
 | 01:00.2 | shot_transition:flash R1 | «3 f» | 0.10 s |
@@ -33,7 +34,6 @@
 
 ## Notas del director (omitido / descartado / gap)
 - zoom descartado (sin frase ancla de la voz dentro de la escena 11): {'use': True, 'scene_idx': 11, 'anchor_word_idx': 76, 'anchor_len': 1}
-- count_up omitido (la cifra 6,500 ya se animó en un cap anterior → recorte o nada)
 - callout omitido (ya en text_in_image escena 0): '29 de agosto de 2005'
 - sfx descartado: title_card @ 0.05s cae sobre 'Aquel' sin hueco ≤ 120 ms
 - sfx descartado: evidence_zoom @ 78.57s cae sobre 'enfrentar' sin hueco ≤ 120 ms
@@ -46,6 +46,7 @@
 - archive_clipping: 2
 - black_hold: 1
 - chapter_question: 1
+- count_up: 1
 - evidence_zoom: 1
 - icon_callout: 1
 - keyword_emphasis: 2

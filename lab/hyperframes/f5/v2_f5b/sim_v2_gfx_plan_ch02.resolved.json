@@ -1,0 +1,434 @@
+{
+ "plan": {
+  "chapter_number": 2,
+  "title_card": {
+   "kicker": "CAPÍTULO 2",
+   "title": "Nueva Orleans Sumergida"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [
+   {
+    "kicker": "2005",
+    "headline": "los prisioneros no serán evacuados",
+    "body": "",
+    "scene_idx": 4,
+    "fact_idx": null,
+    "pool_id": "T05",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 37.101,
+    "duration": 6.0,
+    "side": "right"
+   }
+  ],
+  "evidence_zoom": null,
+  "punch_in": [
+   18.7,
+   30.856,
+   58.907,
+   64.517
+  ],
+  "chapter_question": {
+   "text": "¿Por qué fallaron las defensas de Orleans?",
+   "start": 97.633,
+   "duration": 3.0,
+   "keyword": "fallaron",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "pesadilla",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 18.7,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 2,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "inanición",
+    "category": "muerte",
+    "layer": "muerte",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 30.856,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 3,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "furia",
+    "category": "caos_gritos",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 58.907,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 7,
+    "rarity": 1,
+    "weight": 3,
+    "sfx": {
+     "file": "rumor.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "oscuridad",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 87.892,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 11,
+    "rarity": 5,
+    "weight": 2,
+    "icon_callout": false
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "id": "T03",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T04",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 20.7s"
+   },
+   {
+    "id": "D10",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D04",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D08",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T05",
+    "bloque": "recorte",
+    "ahora": "los prisioneros no serán evacuados",
+    "kicker": "2005",
+    "fuente": null,
+    "icono": null,
+    "icono_faltante": null,
+    "opciones": [
+     "los prisioneros no serán evacuados"
+    ]
+   }
+  ],
+  "pico": {
+   "t": 73.399,
+   "block": "water_level",
+   "word": "agua",
+   "sentence": "Un devastador 80% de Nueva Orleans se hundió bajo hasta 15 pies de agua oscura y traicionera.",
+   "intensity": 0.9,
+   "sentence_idx": 10
+  },
+  "water_level": {
+   "value_text": "4.6",
+   "unit": "metros",
+   "meters": 4.6,
+   "height": 0.605,
+   "start": 73.399,
+   "duration": 4.5,
+   "rise": 2.5,
+   "fact_idx": 1,
+   "word": "agua"
+  },
+  "time_ticker": {
+   "day": "27",
+   "month": "AGO",
+   "tail": "2005",
+   "times": [],
+   "advance": false,
+   "source_text": "Robie Waganfeald y Paul Kunkel Jr. son arrestados en Bourbon Street por presunta intoxicación pública.",
+   "pool_id": "T03",
+   "start": 7.48,
+   "duration": 23.843,
+   "side": "left"
+  },
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "2": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "10": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "12": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "13": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R1"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "quieta",
+     "motivo": "documento: tiene texto"
+    },
+    {
+     "scene": 1,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 2,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 3,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 4,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 5,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 6,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 7,
+     "forma": "paneo",
+     "motivo": "foto ancha con gente"
+    },
+    {
+     "scene": 8,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 9,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 10,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 11,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 12,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 13,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 14,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 100.633,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 18.7,
+    "t_frame": 19.7,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "pesadilla",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la sensación de 'pesadilla' y 'encierro' que la voz describe, conectando la catástrof",
+    "pasa": true,
+    "voz": "fueron arrestados en Bourbon Street por presunta intoxicación pública, sin imaginar la pesadilla carcelaria que les esperaba."
+   },
+   {
+    "t": 30.856,
+    "t_frame": 31.856,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "inanición",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza el ambiente sombrío de la imagen y el tema de la inanición sin estorbar elementos importantes",
+    "pasa": true,
+    "voz": "Ese mismo día, los reclusos recibieron su última comida antes de que el huracán azote, un acto macabro previo a la inanición."
+   },
+   {
+    "t": 37.101,
+    "t_frame": 38.101,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "los prisioneros no serán evacuados",
+    "veredicto": "suma",
+    "motivo": "Aporta un dato específico sobre las consecuencias del desastre (prisioneros no evacuados) que la voz no menciona, contextualizando la fecha.",
+    "pasa": true,
+    "voz": "Al día siguiente, el 28 de agosto de 2005, el sheriff Marlin N."
+   },
+   {
+    "t": 58.907,
+    "t_frame": 59.907,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "furia",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetirla, y el tinte de mood refuerza la atmósfera dramática de la imagen sin obstruir elementos importantes.",
+    "pasa": true,
+    "voz": "Finalmente, el 29 de agosto de 2005, el huracán Katrina tocó tierra con una furia desatada."
+   },
+   {
+    "t": 73.399,
+    "t_frame": 74.399,
+    "dur": 4.5,
+    "bloque": "nivel_agua",
+    "texto": "4.6",
+    "veredicto": "suma",
+    "motivo": "El bloque refuerza visualmente la magnitud de la inundación mencionada por la voz y ofrece la conversión de unidades (pies a metros), lo cual es un dato adicion",
+    "pasa": true,
+    "voz": "Un devastador 80% de Nueva Orleans se hundió bajo hasta 15 pies de agua oscura y traicionera."
+   },
+   {
+    "t": 87.892,
+    "t_frame": 88.892,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "oscuridad",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte visualiza la inminente oscuridad y encierro que la voz describe, contrastando con la luz actual de la i",
+    "pasa": true,
+    "voz": "Las calles se convirtieron en ríos caudalosos, las casas en precarias islas, y la prisión, ya aislada por la decisión humana, se vería pronto condenada a una oscuridad aún más profunda y terminal cuando, de forma inminente, su energía eléctrica se perdiera y sus generadores de respaldo fallaran."
+   },
+   {
+    "t": 88.55,
+    "t_frame": 89.55,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "dedos mojados",
+    "veredicto": "repite",
+    "motivo": "La imagen ya muestra claramente que los dedos están mojados, el bloque solo etiqueta una obviedad visual sin añadir información nueva.",
+    "pasa": false,
+    "voz": "Las calles se convirtieron en ríos caudalosos, las casas en precarias islas, y la prisión, ya aislada por la decisión humana, se vería pronto condenada a una oscuridad aún más profunda y terminal cuando, de forma inminente, su energía eléctrica se perdiera y sus generadores de respaldo fallaran."
+   }
+  ]
+ },
+ "rejected": []
+}

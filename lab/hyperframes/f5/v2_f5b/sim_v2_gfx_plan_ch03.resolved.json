@@ -1,0 +1,426 @@
+{
+ "plan": {
+  "chapter_number": 3,
+  "title_card": {
+   "kicker": "CAPÍTULO 3",
+   "title": "Prisión Inundada, Generadores Silenciosos"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [
+   {
+    "kicker": "2005",
+    "headline": "las aguas residuales refluyen",
+    "body": "",
+    "scene_idx": 5,
+    "fact_idx": null,
+    "pool_id": "T09",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 41.064,
+    "duration": 6.0,
+    "side": "right",
+    "icon": "biohazard"
+   }
+  ],
+  "evidence_zoom": null,
+  "punch_in": [
+   23.837,
+   51.881,
+   85.533,
+   148.632
+  ],
+  "chapter_question": {
+   "text": "¿Qué precio pagaría la indiferencia oficial?",
+   "start": 152.167,
+   "duration": 3.0,
+   "keyword": "indiferencia",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "celdas",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": "candado",
+    "icon_anim": "stamp",
+    "start": 38.56,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 3,
+    "rarity": 6,
+    "weight": 2,
+    "icon_callout": true
+   },
+   {
+    "word": "inundarse",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 51.881,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 4,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "ciénagas",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 75.017,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "peak": true
+   },
+   {
+    "word": "encarceladas",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 85.533,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 6,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "id": "T08",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 5.3s"
+   },
+   {
+    "id": "T03",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T04",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D10",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T09",
+    "bloque": "recorte",
+    "ahora": "las aguas residuales refluyen",
+    "kicker": "2005",
+    "fuente": null,
+    "icono": "biohazard",
+    "icono_faltante": null,
+    "opciones": [
+     "Las celdas del primer piso comienzan a inundarse",
+     "las aguas residuales refluyen"
+    ]
+   }
+  ],
+  "pico": {
+   "t": 75.017,
+   "block": "emphasis",
+   "word": "ciénagas",
+   "sentence": "El agua dentro de algunos edificios de la Prisión Parroquial de Orleans (OPP), como Templeman 1 y 2, alcanzó el nivel del pecho, transformando los pasillos en ciénagas.",
+   "intensity": 0.9,
+   "sentence_idx": 5,
+   "palabra": "ciénagas"
+  },
+  "time_ticker": null,
+  "transitions": {
+   "1": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "5": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R2"
+   },
+   "9": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "12": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "13": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "15": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "16": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "17": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 1,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 2,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 3,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 4,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 5,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 6,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 7,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 8,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 9,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 10,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 11,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 12,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 13,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 14,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 15,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 16,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 17,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 155.167,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 23.837,
+    "t_frame": 24.837,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "colapso",
+    "veredicto": "estorba",
+    "motivo": "El tinte de 'caos_gritos' contradice directamente la 'quietud' mencionada en la voz y la atmósfera visual de desolación y silencio de la prisión.",
+    "pasa": false,
+    "voz": "Fue un colapso, un abismo de penumbra y quietud."
+   },
+   {
+    "t": 38.56,
+    "t_frame": 39.56,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "celdas",
+    "veredicto": "suma",
+    "motivo": "El ícono de candado y la palabra 'CELDAS' enfatizan visualmente el encierro y la situación de los prisioneros, complementando la voz que habla de sistemas falli",
+    "pasa": true,
+    "voz": "Las luces se extinguieron, el aire acondicionado cesó y los sistemas electrónicos de las celdas quedaron sin funcionar."
+   },
+   {
+    "t": 41.064,
+    "t_frame": 42.064,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "las aguas residuales refluyen",
+    "veredicto": "suma",
+    "motivo": "El bloque introduce un detalle crucial sobre las condiciones (aguas residuales y riesgo biológico) y una fecha específica que ni la voz ni la imagen proporciona",
+    "pasa": true,
+    "voz": "Las luces se extinguieron, el aire acondicionado cesó y los sistemas electrónicos de las celdas quedaron sin funcionar."
+   },
+   {
+    "t": 51.881,
+    "t_frame": 52.881,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "inundarse",
+    "veredicto": "suma",
+    "motivo": "El tinte de 'agua' visualiza la inundación que la voz describe y la foto no muestra, y la palabra enfatiza el evento clave sin repetir una frase completa.",
+    "pasa": true,
+    "voz": "Ese mismo día, la catástrofe se extendió cuando las celdas del primer piso comenzaron a inundarse y las aguas residuales refluyeron."
+   },
+   {
+    "t": 75.017,
+    "t_frame": 76.017,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "ciénagas",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera opresiva de la escena sin tapar elementos cruciales.",
+    "pasa": true,
+    "voz": "El agua dentro de algunos edificios de la Prisión Parroquial de Orleans (OPP), como Templeman 1 y 2, alcanzó el nivel del pecho, transformando los pasillos en ciénagas."
+   },
+   {
+    "t": 85.533,
+    "t_frame": 86.533,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "encarceladas",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza la palabra clave de la voz y el estado de los personajes, y el tinte refuerza el ambiente de encierro.",
+    "pasa": true,
+    "voz": "En medio de este escenario, aproximadamente 6,500 personas, incluyendo hombres, mujeres y niños, estaban encarceladas en la Prisión de Orleans Parish (OPP)."
+   }
+  ]
+ },
+ "rejected": []
+}

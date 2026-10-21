@@ -12,6 +12,9 @@ Etapas (cada una idempotente; `--etapa todo` corre las 4 en orden):
     versionar copia lo de v2 a lab/hyperframes/f5/v2/ (la versión F5 queda en lab/hyperframes/f5/v2_f5/)
 F5b: antes de regenerar, la corrida F5 se respalda (v2_f5/ y output/<V2>/_bak_f5b_pre/): el caché del director no
 depende de la narración, así que la simulación de v2 arranca en un work dir limpio.
+F5c: el skeleton queda CONGELADO en el de F5 (`f5c/01a_skeleton_F5_e7b661c.json`, token skeleton_frozen; los ids se
+traducen al pool de F5b) y el narrador es Gemini Pro con el mejor de 3 por cap. La corrida F5b se respalda en
+lab/…/v2_f5b y output/<V2>/_bak_f5c_pre. El costo del guion (Flash y Pro) sale del cost_tracker y va al log.
 Uso: PYTHONIOENCODING=utf-8 python lab/hyperframes/f5/correr_f5_orleans.py --etapa todo
 """
 from __future__ import annotations
@@ -47,6 +50,10 @@ def _dump(p: Path, d) -> None:
     p.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+FROZEN = {"skeleton": str(LAB / "f5c" / "01a_skeleton_F5_e7b661c.json"),
+          "pool": str(LAB / "f5c" / "01_facts_sources_F5_e7b661c.json")}
+
+
 def topic_v2() -> dict:
     db = _load(ROOT / "data" / "topics_db.json")
     ts = db.get("topics", db) if isinstance(db, dict) else db
@@ -59,6 +66,20 @@ def topic_v2() -> dict:
 
 
 # ═══════════════════════════════════════════════════════════════
+def respaldo_f5b(log: list[str]) -> None:
+    """F5c: una sola vez, la corrida F5b a un costado (lab/…/v2_f5b, output/<V2>/_bak_f5c_pre, …_bak_f5c de v1)."""
+    dst = LAB / "v2_f5b"
+    if not dst.exists() and (LAB / "v2").exists():
+        shutil.copytree(LAB / "v2", dst)
+        log.append(f"respaldo: {LAB / 'v2'} → {dst}")
+    for work, bak in ((SIM_V2, OUT / V2 / "_bak_f5c_pre" / "_fase2b_work"),
+                      (SIM_V1, OUT / V1 / "_fase2b_work_f5sim_v1_bak_f5c")):
+        if work.exists() and not bak.exists():
+            bak.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(work), str(bak))
+            log.append(f"respaldo: {work} → {bak}")
+
+
 def respaldo_f5(log: list[str]) -> None:
     """F5b: una sola vez, la corrida F5 a un costado (lab/…/v2_f5 y output/<V2>/_bak_f5b_pre, output/<V1>/…_bak_f5b)."""
     dst = LAB / "v2_f5"
@@ -92,12 +113,21 @@ def etapa_guion(log: list[str]) -> None:
     _dump(d2 / "01_facts_sources.json", {**v1_facts, "evidence_pool": pool})   # verified_facts de v1 intactos
     log += plog + [f"guion: pool {time.time() - t0:.0f}s"]
     t = topic_v2()
+    t["skeleton_frozen"] = FROZEN                   # F5c: el skeleton de F5, con los ids traducidos al pool actual
     t0 = time.time()
     sk = generate_skeleton(t)
     log.append(f"guion: skeleton {time.time() - t0:.0f}s · reparaciones {_load(d2 / '01a_skeleton.json').get('_evidence_repairs')}")
+    from cost_tracker import cost_tracker
+    n0 = len(cost_tracker.session_overhead)
     t0 = time.time()
     nar = generate_narration(t, sk)
-    log.append(f"guion: narración {time.time() - t0:.0f}s · violaciones {nar.get('_f5_violations')}")
+    cost: dict[str, float] = {}
+    for e in cost_tracker.session_overhead[n0:]:
+        cost[e.service] = cost.get(e.service, 0.0) + e.total_cost
+    _dump(STEPS / V2 / "01b_costo.json", {"por_servicio": {k: round(v, 4) for k, v in cost.items()},
+                                          "total": round(sum(cost.values()), 4),
+                                          "llamadas": len(cost_tracker.session_overhead) - n0})
+    log.append(f"guion: narración {time.time() - t0:.0f}s · costo {cost} · violaciones {nar.get('_f5_violations')}")
     g = gate.gate_normalizer_for_topic(V2, nar, interactive=False, persist_dict=False)
     log.append(f"guion: normalizer {len(g['spans_detected'])} spans (aplicados en 01b_narration_normalized.json)")
     rep2 = judge_narration(V2, pool=pool, narration=nar, skeleton=_load(d2 / "01a_skeleton.json"))
@@ -107,6 +137,10 @@ def etapa_guion(log: list[str]) -> None:
     f5n, f5s = LAB / "v2_f5" / "01b_narration.json", LAB / "v2_f5" / "01a_skeleton.json"
     if f5n.exists():
         judge_narration(V2, pool=pool, narration=_load(f5n), skeleton=_load(f5s), out_name="06_judge_narrative_v2f5.json")
+    # F5c: la v2 de F5b, con sus ids declarados (mismo pool que F5c)
+    fbn, fbs = LAB / "v2_f5b" / "01b_narration.json", LAB / "v2_f5b" / "01a_skeleton.json"
+    if fbn.exists():
+        judge_narration(V2, pool=pool, narration=_load(fbn), skeleton=_load(fbs), out_name="06_judge_narrative_v2f5b.json")
     log.append(f"guion: juez v1 {rep1['video']['umbral']} · v2 {rep2['video']['umbral']}")
 
 
@@ -252,7 +286,8 @@ def etapa_versionar(log: list[str]) -> None:
     dst = LAB / "v2"
     dst.mkdir(exist_ok=True)
     for f in ("01_facts_sources.json", "01a_skeleton.json", "01b_narration.json", "01b_narration_normalized.json",
-              "06_judge_narrative.json", "06_judge_narrative_v1.json", "06_judge_narrative_v2f5.json", "03_visual.json"):
+              "06_judge_narrative.json", "06_judge_narrative_v1.json", "06_judge_narrative_v2f5.json",
+              "06_judge_narrative_v2f5b.json", "01b_costo.json", "03_visual.json"):
         if (STEPS / V2 / f).exists():
             shutil.copy2(STEPS / V2 / f, dst / f)
     for which, work in (("v1", SIM_V1), ("v2", SIM_V2)):
@@ -270,6 +305,7 @@ def main() -> None:
     try:
         if a.etapa in ("todo", "guion"):
             respaldo_f5(log)
+            respaldo_f5b(log)
         for et in (["guion", "script", "visual", "sim_v1", "sim_v2", "versionar"] if a.etapa == "todo" else [a.etapa]):
             if et == "guion":
                 etapa_guion(log)

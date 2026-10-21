@@ -10,14 +10,52 @@
   "archive_clippings": [],
   "evidence_zoom": null,
   "punch_in": [
-   8.119,
    24.199,
-   27.399,
+   26.719,
+   39.319,
    45.759
   ],
   "chapter_question": null,
   "icon_array": null,
   "emphasis": [
+   {
+    "word": "fría",
+    "category": "frio_abandono",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 26.719,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 3,
+    "rarity": 2,
+    "weight": 3,
+    "sfx": {
+     "file": "viento.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "borrados",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 39.319,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 4,
+    "rarity": 2,
+    "weight": 3,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
    {
     "word": "cadáveres",
     "category": "muerte",
@@ -58,27 +96,12 @@
     "duration": 2.5,
     "side": "left",
     "stamp": true,
-    "sid": 7,
-    "rarity": 4,
     "weight": 2,
+    "peak_word": true,
     "sfx": {
      "file": "viento.wav",
      "gain_db": -20
     },
-    "icon_callout": false
-   },
-   {
-    "word": "horrores",
-    "category": "oscuridad_encierro",
-    "layer": "oscuridad",
-    "icon": null,
-    "icon_anim": "stamp",
-    "start": 74.479,
-    "duration": 2.5,
-    "side": "right",
-    "stamp": true,
-    "weight": 3,
-    "peak_word": true,
     "peak": true
    }
   ],
@@ -98,11 +121,13 @@
    }
   ],
   "pico": {
-   "t": 74.479,
+   "t": 63.559,
    "block": "emphasis",
-   "word": "horrores",
-   "sentence": "Un recordatorio sombrío: en la oscuridad, algunos horrores nunca terminan.",
-   "palabra": "horrores"
+   "word": "abandono",
+   "sentence": "Este oscuro capítulo en la historia de Nueva Orleans es un monumento a un abandono institucional, el costo tangible de una sociedad que elige mirar hacia otro lado.",
+   "intensity": 0.98,
+   "sentence_idx": 7,
+   "palabra": "abandono"
   },
   "transitions": {
    "1": {
@@ -176,6 +201,17 @@
   },
   "critico": [
    {
+    "t": 26.719,
+    "t_frame": 27.719,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "fría",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera de la imagen sin repetir información visual o textual de forma redundant",
+    "pasa": true,
+    "voz": "El agua, fría y putrefacta, subió hasta el pecho en celdas sumidas en una oscuridad total."
+   },
+   {
     "t": 29.599,
     "t_frame": 30.599,
     "dur": 3.44,
@@ -187,13 +223,24 @@
     "voz": "El agua, fría y putrefacta, subió hasta el pecho en celdas sumidas en una oscuridad total."
    },
    {
+    "t": 39.319,
+    "t_frame": 40.319,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "borrados",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetirla, y el tinte de mood suma a la atmósfera de olvido y pérdida que transmite la imagen y el audio.",
+    "pasa": true,
+    "voz": "Más de quinientos prisioneros jamás figuraron en los registros de evacuación, borrados por el caos y el olvido."
+   },
+   {
     "t": 45.759,
     "t_frame": 46.759,
     "dur": 2.5,
     "bloque": "icono",
     "texto": "cadáveres",
     "veredicto": "suma",
-    "motivo": "El bloque enfatiza visualmente la palabra clave 'CADÁVERES' y el horror descrito por la voz, que no se ve en la imagen, añadiendo impacto y contexto sin repetir",
+    "motivo": "El bloque enfatiza la palabra clave 'CADÁVERES' de la voz y añade un ícono y tinte que refuerzan el mood de muerte, un elemento crucial no visible en la imagen ",
     "pasa": true,
     "voz": "Los escalofriantes relatos de reclusos, que vieron cadáveres flotando mientras eran evacuados, resuenan como un eco fantasmal."
    },
@@ -203,8 +250,8 @@
     "dur": 2.85,
     "bloque": "zoom",
     "texto": "rostro del hombre",
-    "veredicto": "repite",
-    "motivo": "El bloque de texto 'rostro del hombre' describe algo que la imagen ya muestra de forma evidente y que el zoom solo enfatiza, sin añadir información nueva o un m",
+    "veredicto": "estorba",
+    "motivo": "El texto 'rostro del hombre' taparía la expresión facial, que es el punto clave de la imagen y lo que el zoom intenta destacar, peleándose con el objetivo del b",
     "pasa": false,
     "voz": "Los escalofriantes relatos de reclusos, que vieron cadáveres flotando mientras eran evacuados, resuenan como un eco fantasmal."
    },
@@ -229,17 +276,6 @@
     "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza el mood de desolación de la imagen y el discurso, sin tapar elementos cruciales.",
     "pasa": true,
     "voz": "Este oscuro capítulo en la historia de Nueva Orleans es un monumento a un abandono institucional, el costo tangible de una sociedad que elige mirar hacia otro lado."
-   },
-   {
-    "t": 74.479,
-    "t_frame": 75.479,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "horrores",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte intensifica la atmósfera sombría y de encierro de la imagen, sin tapar elementos cruciales.",
-    "pasa": true,
-    "voz": "Un recordatorio sombrío: en la oscuridad, algunos horrores nunca terminan."
    }
   ]
  },

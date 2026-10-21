@@ -1,0 +1,425 @@
+{
+ "plan": {
+  "chapter_number": 2,
+  "title_card": {
+   "kicker": "CAPÍTULO 2",
+   "title": "La Tormenta Perfecta"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [
+   {
+    "kicker": "2005",
+    "headline": "El huracán Katrina tocó tierra el 29 de agosto",
+    "body": "",
+    "scene_idx": 1,
+    "fact_idx": 2,
+    "era_decade": 2000,
+    "start": 9.9,
+    "duration": 6.0,
+    "side": "left"
+   },
+   {
+    "kicker": "2005",
+    "headline": "días en celdas inundadas con agua contaminada con aguas residuales",
+    "body": "",
+    "scene_idx": 9,
+    "fact_idx": 5,
+    "era_decade": 2000,
+    "start": 60.733,
+    "duration": 6.0,
+    "side": "left",
+    "icon": "candado",
+    "category": "oscuridad_encierro"
+   }
+  ],
+  "evidence_zoom": {
+   "scene_idx": 11,
+   "box": [
+    0.53,
+    0.55,
+    0.15,
+    0.15
+   ],
+   "start": 77.917,
+   "anchor": "Pies del hombre",
+   "detail": "Pies del hombre",
+   "tipo": "persona",
+   "conf": 0.9,
+   "como": "nombrado",
+   "word": "prisioneros",
+   "latido": true,
+   "latido_t": 78.617
+  },
+  "punch_in": [
+   11.139,
+   25.42,
+   38.919,
+   58.939
+  ],
+  "chapter_question": {
+   "text": "¿Quién fue el culpable?",
+   "start": 97.633,
+   "duration": 3.0,
+   "keyword": "culpable",
+   "generated": true,
+   "pause": 3.0,
+   "manual": true
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "engullida",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 25.42,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 3,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "putrefacta",
+    "category": "veneno_enfermedad",
+    "layer": "veneno",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 38.919,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true
+   },
+   {
+    "word": "encierro",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": "candado",
+    "icon_anim": "stamp",
+    "start": 79.779,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 9,
+    "rarity": 1,
+    "weight": 2,
+    "icon_callout": true
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "bloque": "recorte0",
+    "antes": "El huracán Katrina tocó tierra el 29 de agosto",
+    "ahora": "El huracán Katrina tocó tierra el 29 de agosto",
+    "categoria": "agua",
+    "icono": null,
+    "opciones": 3
+   },
+   {
+    "bloque": "recorte1",
+    "antes": "días en celdas inundadas con agua contaminada con aguas residuales",
+    "ahora": "días en celdas inundadas con agua contaminada con aguas residuales",
+    "categoria": "oscuridad_encierro",
+    "icono": "candado",
+    "opciones": 3
+   },
+   {
+    "bloque": "dato0",
+    "antes": "4.6 metros",
+    "ahora": "4.6 metros",
+    "categoria": null,
+    "icono": null,
+    "opciones": 2
+   },
+   {
+    "bloque": "dato@35.4",
+    "antes": "4.6 metros",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   },
+   {
+    "bloque": "dato@43.4",
+    "antes": "Prisión Parroquial de Orleans",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   }
+  ],
+  "pico": {
+   "t": 33.7,
+   "block": "water_level",
+   "word": "sumergidos",
+   "sentence": "Calles y hogares enteros desaparecieron, sumergidos bajo hasta 4.6 metros, o quince pies, de agua putrefacta.",
+   "intensity": 0.9,
+   "sentence_idx": 4,
+   "palabra": "putrefacta"
+  },
+  "water_level": {
+   "value_text": "4.6",
+   "unit": "metros",
+   "meters": 4.6,
+   "height": 0.605,
+   "start": 33.7,
+   "duration": 4.5,
+   "rise": 2.5,
+   "fact_idx": 1,
+   "word": "sumergidos"
+  },
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "2": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "10": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "12": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
+   "13": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "quieta",
+     "motivo": "documento: tiene texto"
+    },
+    {
+     "scene": 1,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 2,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 3,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 4,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 5,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 6,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 7,
+     "forma": "paneo",
+     "motivo": "foto ancha con gente"
+    },
+    {
+     "scene": 8,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 9,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 10,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 11,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 12,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 13,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 14,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    }
+   ],
+   "violaciones": []
+  },
+  "black_hold": {
+   "start": 100.633,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 9.9,
+    "t_frame": 10.9,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "El huracán Katrina tocó tierra el 29 de agosto",
+    "veredicto": "suma",
+    "motivo": "El bloque añade la fecha exacta (29 de agosto) y el año (2005) del evento, información que la voz solo menciona vagamente como 'Ese día', y que la imagen no pro",
+    "pasa": true,
+    "voz": "Ese día, el huracán Katrina desató su furia implacable sobre Nueva Orleans."
+   },
+   {
+    "t": 25.42,
+    "t_frame": 26.42,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "engullida",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la narración, y el tinte refuerza el ambiente sombrío de la inundación sin tapar elementos importantes.",
+    "pasa": true,
+    "voz": "Rápidamente, un ochenta por ciento de la vibrante urbe quedó engullida bajo un manto oscuro y espeso de agua estancada."
+   },
+   {
+    "t": 33.7,
+    "t_frame": 34.7,
+    "dur": 4.5,
+    "bloque": "nivel_agua",
+    "texto": "4.6",
+    "veredicto": "suma",
+    "motivo": "El bloque visualiza el dato numérico del nivel del agua mencionado por la voz, reforzando la información y el impacto de la inundación sin repetir textualmente.",
+    "pasa": true,
+    "voz": "Calles y hogares enteros desaparecieron, sumergidos bajo hasta 4.6 metros, o quince pies, de agua putrefacta."
+   },
+   {
+    "t": 38.919,
+    "t_frame": 39.919,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "putrefacta",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz en off y el tinte de mood refuerza visualmente la idea de 'agua putrefacta' sin repetir lo que la imagen ya muestr",
+    "pasa": true,
+    "voz": "Calles y hogares enteros desaparecieron, sumergidos bajo hasta 4.6 metros, o quince pies, de agua putrefacta."
+   },
+   {
+    "t": 60.733,
+    "t_frame": 61.733,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "días en celdas inundadas con agua contaminada con aguas residuales",
+    "veredicto": "suma",
+    "motivo": "El bloque aporta datos específicos (duración, tipo de contaminación, fecha) que la voz y la imagen no detallan, enriqueciendo la narrativa sin repetir informaci",
+    "pasa": true,
+    "voz": "Desde sus celdas, la catástrofe parecía una fuerza incontenible que lo devoraba todo."
+   },
+   {
+    "t": 77.917,
+    "t_frame": 78.917,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "Pies del hombre",
+    "veredicto": "suma",
+    "motivo": "El zoom en los pies del hombre enfatiza la inmediatez y la vulnerabilidad del prisionero ante las aguas, haciendo tangible el 'nuevo tipo de encierro' y la 'osc",
+    "pasa": true,
+    "voz": "Los prisioneros, ya de por sí vulnerables, estaban a punto de enfrentar un nuevo tipo de encierro, donde la oscuridad no solo sería física, sino también moral, envolviéndolos en un silencio tan espeso como las aguas que rodeaban el edificio."
+   },
+   {
+    "t": 79.779,
+    "t_frame": 80.779,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "encierro",
+    "veredicto": "suma",
+    "motivo": "El ícono de candado y la palabra 'ENCIERRO' enfatizan el concepto clave de la voz y la atmósfera de la imagen, sin repetir visualmente lo que ya se ve o una fra",
+    "pasa": true,
+    "voz": "Los prisioneros, ya de por sí vulnerables, estaban a punto de enfrentar un nuevo tipo de encierro, donde la oscuridad no solo sería física, sino también moral, envolviéndolos en un silencio tan espeso como las aguas que rodeaban el edificio."
+   }
+  ]
+ },
+ "rejected": []
+}

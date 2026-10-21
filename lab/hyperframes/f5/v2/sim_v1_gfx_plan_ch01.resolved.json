@@ -6,26 +6,48 @@
    "title": "6,500 Almas Atrapadas"
   },
   "callouts": [],
-  "count_up": {
-   "value_text": "6,500",
-   "unit": "personas",
-   "start": 17.3,
-   "fact_idx": 4,
-   "source": ""
+  "count_up": null,
+  "archive_clippings": [
+   {
+    "kicker": "2005",
+    "headline": "dentro de algunos edificios de la Prisión Parroquial de Orleans",
+    "body": "",
+    "scene_idx": 3,
+    "fact_idx": 0,
+    "era_decade": 2000,
+    "start": 25.959,
+    "duration": 6.0,
+    "side": "right",
+    "peak": true
+   }
+  ],
+  "evidence_zoom": {
+   "scene_idx": 0,
+   "box": [
+    0.39,
+    0.18,
+    0.22,
+    0.28
+   ],
+   "start": 5.15,
+   "anchor": "rostro asustado",
+   "detail": "rostro asustado",
+   "tipo": "rostro",
+   "conf": 0.98,
+   "como": "de editor",
+   "word": "rostro asustado"
   },
-  "archive_clippings": [],
-  "evidence_zoom": null,
   "punch_in": [
    3.16,
    4.579,
-   12.3,
+   12.819,
    29.399
   ],
   "chapter_question": {
-   "text": "¿Qué ocultó la inundación?",
+   "text": "¿Cómo escaparon los que quedaron?",
    "start": 35.8,
    "duration": 3.0,
-   "keyword": "inundación",
+   "keyword": "escaparon",
    "generated": true,
    "pause": 3.0
   },
@@ -39,7 +61,7 @@
     "icon_anim": "ink_bleed",
     "start": 23.72,
     "duration": 2.5,
-    "side": "right",
+    "side": "left",
     "stamp": true,
     "weight": 2,
     "peak_word": true
@@ -48,9 +70,17 @@
   "gap_warnings": [],
   "fragmentos": [
    {
+    "bloque": "recorte0",
+    "antes": "dentro de algunos edificios de la Prisión Parroquial de Orleans",
+    "ahora": "dentro de algunos edificios de la Prisión Parroquial de Orleans",
+    "categoria": null,
+    "icono": null,
+    "opciones": 3
+   },
+   {
     "bloque": "dato1",
     "antes": "Katrina",
-    "ahora": "Katrina",
+    "ahora": "huracán Katrina",
     "categoria": null,
     "icono": null,
     "opciones": 2
@@ -63,32 +93,25 @@
    },
    {
     "bloque": "dato@12.3",
-    "antes": "Katrina",
-    "ahora": null,
-    "motivo": "la voz lo dice"
-   },
-   {
-    "bloque": "dato@26.0",
-    "antes": "nivel del pecho",
+    "antes": "huracán Katrina",
     "ahora": null,
     "motivo": "la voz lo dice"
    }
   ],
   "pico": {
    "t": 23.72,
-   "block": "evidence_zoom",
+   "block": "archive_clippings",
    "word": "contaminada",
    "sentence": "El agua contaminada subió implacable hasta el nivel del pecho en sus celdas oscuras.",
-   "intensity": 0.9,
+   "intensity": 1.0,
    "sentence_idx": 4,
-   "palabra": "contaminada",
-   "block_quitado_por_critico": true
+   "palabra": "contaminada"
   },
   "transitions": {
    "1": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
     "rank": "R3"
    },
    "2": {
@@ -98,15 +121,15 @@
     "rank": "R3"
    },
    "3": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "≥ 1 corte cada 3",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "4": {
     "kind": "cut",
     "frames": 0,
-    "why": "después del zoom",
+    "why": "≥ 1 corte cada 3",
     "rank": "R3"
    }
   },
@@ -120,14 +143,25 @@
   },
   "critico": [
    {
+    "t": 5.15,
+    "t_frame": 6.15,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "rostro asustado",
+    "veredicto": "suma",
+    "motivo": "La voz describe la situación, mientras que el bloque resalta y nombra la emoción específica del sujeto principal, añadiendo una capa de énfasis y detalle que la",
+    "pasa": true,
+    "voz": "Atrapados días en celdas inundadas."
+   },
+   {
     "t": 17.3,
     "t_frame": 18.3,
     "dur": 3.7,
     "bloque": "contador",
     "texto": "6,500",
-    "veredicto": "suma",
-    "motivo": "El contador visualmente enfatiza la magnitud de la cifra mencionada por la voz, aportando un refuerzo dinámico al dato sin tapar elementos clave.",
-    "pasa": true,
+    "veredicto": "repite",
+    "motivo": "El bloque numérico repite la cifra exacta de personas que la voz ya menciona de forma clara y precisa.",
+    "pasa": false,
     "voz": "En la Prisión Parroquial de Orleans, seis mil quinientas personas, incluidos niños pequeños, quedaron encerradas."
    },
    {
@@ -137,31 +171,20 @@
     "bloque": "sello",
     "texto": "contaminada",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz en off y el tinte visual refuerza la peligrosidad del agua, aportando una capa de significado que la imagen por sí",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza el ambiente de contaminación y peligro que la voz describe y la imagen sugiere.",
     "pasa": true,
     "voz": "El agua contaminada subió implacable hasta el nivel del pecho en sus celdas oscuras."
    },
    {
-    "t": 26.149,
-    "t_frame": 27.149,
-    "dur": 2.85,
-    "bloque": "zoom",
-    "texto": "contaminada",
-    "veredicto": "estorba",
-    "motivo": "El zoom de evidencia se enfoca en el rostro, que expresa angustia, pero no es evidencia visual directa de que el agua esté \"contaminada\", lo cual ya menciona la",
-    "pasa": false,
+    "t": 25.959,
+    "t_frame": 26.959,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "dentro de algunos edificios de la Prisión Parroquial de Orleans",
+    "veredicto": "suma",
+    "motivo": "Aporta la ubicación específica de la prisión y el año del evento, información no mencionada por la voz ni visible en la imagen.",
+    "pasa": true,
     "voz": "El agua contaminada subió implacable hasta el nivel del pecho en sus celdas oscuras."
-   },
-   {
-    "t": 29.399,
-    "t_frame": 30.399,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "infierno",
-    "veredicto": "estorba",
-    "motivo": "El tinte de 'fuego' contradice la atmósfera oscura, anegada y 'sin luz' de la imagen y la voz, creando una disonancia visual.",
-    "pasa": false,
-    "voz": "Días de infierno, sin luz, sin salida."
    }
   ]
  },

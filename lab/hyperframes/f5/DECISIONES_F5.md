@@ -192,3 +192,46 @@ Pedido: N1–N5 (narración) y S1–S6 (pantalla), regenerar v2, actualizar `com
 
   No se relajó ninguna regla.
 - **K20 (§1.6, lo que muestran los prompts)** Con el canon nuevo, los 3 prompts del cap 4 con niños (el ancla «niños de hasta 10 años» y las dos siguientes) ubican al chico en el centro juvenil (CYC). Ninguno mezcla mujer y niño en una celda. Igual quedan dos niños solos en una celda de la prisión de adultos: ch01 supp 3 («algunos niños, quedaron atrapados…») y ch07 Veo. El canon es texto pasivo y el validador no se toca (FRENOS). **Propuesta, no hecha:** que `m03` exija el lugar del grupo cuando el ancla nombra al grupo.
+
+
+---
+
+# F5c — solo narración (pantalla y §1.6 de F5b quedan como están)
+
+Pedido del analista: el guion de F5b adelgazó (18 datos contra 41, adjetivos 4.2 con el cap 1 en 10.6, 3-gramas 7 %) y el skeleton regenerado movió a Gusman al cap 3. La causa: demasiadas reglas duras a la vez para Flash. Rama `f5-guion-v2`, desde `2fbac37`.
+
+- **L1 (skeleton congelado)** Token `skeleton_frozen` en el topic: `{"skeleton": <01a_skeleton.json>, "pool": <01_facts_sources.json al que se refieren sus ids>}`. `m01a.generate_skeleton` no llama a Flash: usa `frozen_skeleton`. El de F5 sale de `git show e7b661c:lab/hyperframes/f5/v2/01a_skeleton.json` y queda en `lab/hyperframes/f5/f5c/`, junto con el pool de F5.
+  - Sus ids son del pool de F5. El pool de F5b se renumeró al sacar lo no relacionado, así que los ids se traducen por texto (sin mayúsculas ni tildes): D72 → D69, etc.
+  - Lo que ya no está se quita: D71, el médium, del cap 7.
+  - Los personajes que el pool actual no tiene quedan fuera: **Hubert** (solo demandado) y Schwarz. Gusman y Hunter entran en el cap 1, Strock en el 2, Morgan en el 5, Waganfeald y Kunkel en el 6.
+  - Todo queda en `_frozen` del 01a.
+- **L2 (narrador Pro)** Con evidence_pool, los 7 caps de m01b van por `call_pro_json` (`POOL_NARRATOR = "pro"`). Las humanizer phrases, el normalizer, el director, el crítico y m03 siguen con Flash. Sin pool, m01b es el de siempre (Flash con reintentos). Costo del guion de Orleans: **US$ 0.69 de Gemini 2.5 Pro** (20 llamadas: 3 candidatos en los caps 1–6 y 2 en el 7) **+ US$ 0.0025 de Flash** (1 llamada, humanizer). Lo registra `cost_tracker` y queda en `01b_costo.json`.
+- **L3 (prioridad de reglas)** `m05_narrative.cap_review` separa por prioridad.
+  - **Duras** (rechazan): no inventar (toda cifra en dígitos está en el pool o en los verified_facts), datos asignados literales y declarados, cada dato una vez por cap, ningún dato en más de 2 caps, no contaminar (lo descartado por N1/N5), relleno prohibido y cierre con el dato del cliffhanger.
+  - **Blandas** (aviso y un solo reintento, nunca rechazan): adjetivos entre 2 y 4 cada 100 palabras, 3-gramas ya dichos en caps anteriores < 5 %, densidad, cargo de las personas, orden de fechas, comillas de las citas, oraciones seguidas sin dato y datos sin declarar.
+  - El prompt lo dice con la frase literal del analista: «Si no podés cumplir todo, sacrificá la ventana de adjetivos, nunca los datos ni los nombres.»
+  - Dos clasificaciones mías: el relleno prohibido quedó como dura, porque siempre fue de rechazo y el puntaje lo castiga igual; la densidad quedó como blanda, porque la dura es «los datos asignados».
+- **L4 (no inventar / no contaminar)**
+  - `invented_numbers`: las cifras en dígitos se buscan en el pool y en los verified_facts; las fechas ISO aportan año y día. Las cifras dichas en palabras no se controlan acá.
+  - `contamination`: cuenta una cifra o un lugar que solo estaba en lo descartado, ≥ 2 palabras propias de un dato descartado («médium», «psíquico») o un personaje sin acción.
+  - Sobre la v2 de F5, el cap 7 da contaminado (1902 y el médium) y el 6 nombra a Hubert y a Schwarz. Las v2 de F5b y F5c dan limpias.
+- **L5 (mejor de 3)** `m01b._best_of_n`: hasta 3 candidatos por cap. El 2.º y el 3.º llevan el feedback del anterior: las duras siempre; las blandas, una sola vez. No se generan más si un candidato sale limpio, o si sale sin duras después del reintento por blandas (el cap 7 cortó en 2).
+  - **Puntaje** (lo pide el analista): datos declarados y literales ×3, cliffhanger ×2, −3 por dato repetido en el cap, −2 por relleno prohibido, −1 si los adjetivos salen del rango.
+  - **Elección:** gana el que pasa largo/frases y no tiene duras; después, el de mayor puntaje; después, el de menos blandas. Nunca «el último».
+  - Si ningún candidato pasa largo/frases, se comporta como antes (recorte del outro o error).
+  - Los problemas del elegido quedan en `_f5_violations` con la marca [dura]/[blanda]. Los puntajes de los 3 quedan en `_f5c_candidatos`.
+- **L6 (relleno)** A la lista se suman «manto de», «el monstruo», «infierno flotante», «velo de misterio», «ecos de», «alfombra de la negación», «sentencia de abandono» y «trampa brutal».
+- **L7 (resultado, lo que no mejoró)**
+  - **Densidad:** por id, 1.26 → 2.16; por hecho, 1.12 → 1.97.
+  - **Cliffhangers:** 4/6 → 6/6. Gusman vuelve al cap 1.
+  - **Lo que empeoró:**
+    - el texto es más corto (1017 palabras contra 1431; Pro escribe cerca del piso del largo en caracteres);
+    - los adjetivos cayeron a 1.87, debajo del piso. Es la regla que el prompt dice sacrificar primero;
+    - los 3-gramas ya dichos subieron a 8.6 %: el cap 7 repite el 21 % de sus fórmulas y el cap 5 el 14 %.
+  - Quedan 2 caps con una dura aceptada: el cap 1 declaró un id que no suena literal (D04) y el cap 3 dice «29 de agosto» dos veces y declaró T12 sin que suene literal. En ambos no hubo candidato sin duras.
+- **L8 (pantalla y prompts con el guion F5c)** Mismo código de pantalla que F5b.
+  - El chequeo S1–S5 sobre v2 da 0 fallas.
+  - Salen 3 recortes (F5b: 5; F5: 7): el guion es más corto y el cap 6 tiene sus candidatos pisados por otros bloques o fuera de la voz. El crítico da suma 26, repite 3, estorba 3. Hay reloj en 3 caps.
+  - Un ícono de énfasis sale en «tóxica» (calavera). Está en el mapa literal del perfil (`veneno_enfermedad.icon_words`), así que cumple S4, aunque es un adjetivo que la heurística no reconoce.
+  - En la re-simulación, v1 dio 6 recortes (en F5b, 5): es variación de Flash en los cachés que no se copian de v1.
+  - 97 prompts de imagen nuevos, 42 con personas. El que reemplaza al del niño en la celda es ch05 imagen 6 («Entre los rostros anónimos de esa tragedia había niños de hasta 10 años»): un chico en el agua dentro de un centro juvenil. El otro prompt cuya ancla nombra a los niños (ch05 imagen 7) también va al centro juvenil. Queda uno: ch04 imagen 13 pinta a un recluso adolescente solo en una celda de la prisión, con un ancla que no nombra niños («Cuatro días en la oscuridad, en el agua sucia»). El canon no lo frena porque el grupo no aparece en el ancla (K20 sigue abierto).

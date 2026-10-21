@@ -1,0 +1,39 @@
+[2026-10-21 02:45:48] F5b etapa script
+script: data/scripts/ba6c3cac-f5v2.json (7 caps)
+  [03] cap 1 (veo, pos=start) → 1 clip Veo 8s + 4 Flux extras (audio 35.8s, veo_zone≈84 chars), slots Pro + weave Flash...
+  [03] cap 2 (flux) → 15 imgs (audio 97.7s ÷ 7.0s target, role=development), slots Pro + weave Flash...
+  [03] cap 3 (flux) → 18 imgs (audio 152.1s ÷ 7.0s target, role=development), slots Pro + weave Flash...
+  [03] cap 4 (flux) → 17 imgs (audio 116.1s ÷ 7.0s target, role=development), slots Pro + weave Flash...
+  [03] cap 5 (flux) → 16 imgs (audio 111.1s ÷ 7.0s target, role=development), slots Pro + weave Flash...
+  [03] cap 6 (flux) → 15 imgs (audio 98.3s ÷ 7.0s target, role=development), slots Pro + weave Flash...
+  [03] cap 7 (veo, pos=end) → 1 clip Veo 8s + 10 Flux extras (audio 76.5s, veo_zone≈100 chars), slots Pro + weave Flash...
+  [03] cap 1 (veo)  ✓ Veo prompt + 4 supplementals
+  ⚠ [m03] cap 2 img #13: FIT — 1 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 4.6 (+length)
+  [03] cap 2 (flux) ✓ 15 imgs validadas
+  [03] cap 4 (flux) ✓ 17 imgs validadas
+  ⚠ [m03] cap 7 img #1: FIT — 1 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 4.6 (+length)
+  [03] cap 7 (veo)  ✓ Veo prompt + 10 supplementals
+  [03] cap 6 (flux) ✓ 15 imgs validadas
+  [03] cap 5 (flux) ✓ 16 imgs validadas
+  [03] cap 3 (flux) ✓ 18 imgs validadas
+[2026-10-21 02:45:48] F5b etapa visual
+visual: 97 prompts de imagen de v2 en 146s → C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\_steps\ba6c3cac-f5v2\03_visual.json
+[anchor_timing] anchor #1 por FALLBACK-1-token: 'Robie' @ 8.76s
+[2026-10-21 02:48:16] F5b etapa sim_v1
+sim_v1 ch01: 49s · resolved OK
+sim_v1 ch02: 50s · resolved OK
+sim_v1 ch03: 84s · resolved OK
+sim_v1 ch04: 92s · resolved OK
+sim_v1 ch05: 40s · resolved OK
+sim_v1 ch06: 89s · resolved OK
+sim_v1 ch07: 66s · resolved OK
+[2026-10-21 02:56:07] F5b etapa sim_v2
+sim_v2 ch01: 82s · resolved OK
+sim_v2 ch02: 95s · resolved OK
+sim_v2 ch03: 155s · resolved OK
+sim_v2 ch04: 87s · resolved OK
+sim_v2 ch05: 79s · resolved OK
+sim_v2 ch06: 96s · resolved OK
+sim_v2 ch07: 89s · resolved OK
+[2026-10-21 03:07:32] F5b etapa versionar
+versionar: C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f5\v2
