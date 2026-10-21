@@ -1,9 +1,9 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (Orleans v2 producido; PARADA: Omar ve el video) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (F5e en curso: re-render de la capa gfx; ver sección F5e) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
-- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit: producción de Orleans v2 (`git log -1`), sobre `19cf5d9` (F5d).
+- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit: `wip(f5e)` (`git log -1`), sobre `ee20f45` (producción de Orleans v2).
 - Cadena de ramas sin mergear: `f2-gfx-director` (F2b @ `31c671c`) → `f3-lab-identidad` (F3–F4e @ `39e37ac`) → `f5-guion-v2` (F5).
 - `main` = `43f528a`. NO se toca sin OK explícito de Omar.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
@@ -11,7 +11,30 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## Producción de Orleans v2 — PARADA: Omar ve el video
+## F5e — Arreglos de capa gfx tras ver el video — EN CURSO (re-render de la capa gfx corriendo)
+- Pedido (Omar/analista, después de ver Orleans v2): solo capa gfx, sin tocar guion ni imágenes.
+- **Hecho y commiteado en `wip(f5e)`:**
+  - G2: titular de recorte hasta 12 palabras; de 9 a 12 baja un cuerpo (`archive_head_max_words_pool`, `gfx_project.archive_head_px`). Los datos reservados para pantalla van primero y, si chocan, se corren dentro de la escena (`gfx_pool._free_slot`); un reservado entra aunque la voz no lo nombre (`_sentence_for(reserved=True)`).
+  - G1: el crítico recibe dos cuadros (foto sola + bloque dibujado) y no puede decir «repite» por su propio sello (`gfx_critic`, prompt `g1-snap-2`).
+  - Sellos: token `stamp_nouns_only`; el director de intensidad devuelve `clase` y `neutra` (`gfx_intensity` PROMPT_VERSION `f5e-1`). Fuera los verbos (`is_verb_form`, `stamp_lexicon`) y las neutras (estrella, suerte, estruendo, agujero).
+  - Contador: un contador por hecho (`gfx_pool.count_groups` / `pool_count_up`): 517 y «más de 500» son el mismo hecho; se anima 517 en el primer cap que lo dice (ch05) y se saca el 500 del ch07.
+  - m00: `topic_researcher.MAGNITUDE_SECTION` ([DATOS DE MAGNITUD]) solo en el ángulo técnico; humano y misterio quedan idénticos. Solo el prompt; Orleans no se re-investiga.
+  - QA Studio: marca «↻ regenerar» por foto (`/mark`, `/marks` → `output/<id>/assets/_qa_marks.json`). `lab/hyperframes/f5/regen_marcadas.py` regenera solo las marcadas con el mismo prompt, otra semilla y sin validador de visión (`qa_studio_server._reseed_core`).
+  - Sincronía: `lab/hyperframes/f5/sync_check.py` (faster-whisper del venv `C:/CLAUDE_PROJECTS/viral-video-pipeline/.venv`) → `produccion/SYNC_v2.md` y `SYNC_ba6c3cac_v1.md`. v2 da como v1: mediana +100 ms en los 7 caps, igual en v1, que no tenía aviso (sesgo de Whisper); p95 240–500 ms y máximo 1.04 s (ch06 «inició»). El ASS coincide con los timestamps (el pre-pad de 1.8 s solo va con `--hook`, que no se usó). No se miró a ojo: es una medición.
+  - Tests: `test_module_f5e.py` (6). Suites: 397 + 6 verdes, 3 viejas de 01b_pauses.
+- **Corriendo:** `produccion_orleans_v2.py --etapa render_gfx` (fase2b `--reuse-visuals --keep-segments --gfx --gfx-sparse --gfx-quality looks`), log en `lab/hyperframes/f5/produccion/render_gfx.out` y `fase2b_gfx.out`.
+  - Respaldo: capas, planes, hojas y cues anteriores en `output/ba6c3cac-f5v2/_fase2b_work/_bak_f5e_pre/`.
+  - El final anterior se renombró a `output/ba6c3cac-f5v2/ba6c3cac-f5v2_final_gfx_f5d.mp4`; el nuevo sale como `…_final_gfx.mp4`.
+- **Falta, en orden:**
+  1. Cuando termine el render, revisar en `_fase2b_work/gfx_chNN.log` los sellos (ninguna neutra ni verbo), el contador 517 en ch05 y nada en ch07, los recortes de hasta 12 palabras y los reservados en pantalla, el crítico con dos cuadros y los «repite» por su propio sello.
+  2. Copiar las hojas de contactos a `lab/hyperframes/f5/produccion/hojas_f5e/`.
+  3. Lanzar QA Studio sobre el topic (`C:/CLAUDE_PROJECTS/viral-video-pipeline/.venv/Scripts/python.exe qa_studio_server.py --topic ba6c3cac-f5v2`, puerto libre desde 8000; abre el navegador). No lanzarlo antes del render: Firefox cerrado durante renders.
+  4. Reporte corto `lab/hyperframes/f5/F5e_REPORT.md`: cambios, sincronía, bloques por cap con el crítico y la ruta del mp4. Decisiones Q1–Q7 en `DECISIONES_F5.md`.
+  5. Revisor-handoff (veredicto íntegro en el reporte) y commit final `feat(f5e)`.
+  6. Parar. Regenerar las marcadas solo después de que Omar marque (`regen_marcadas.py`), y después re-render con `--reuse-visuals`.
+- No commitear: `diag_234_cap4.py`, `gfx_profiles/lexico_propuestas.json` (lo decide Omar), `lab/hyperframes/f5/produccion/topics_db_pre.json`.
+
+## Producción de Orleans v2 — Omar vio el video; pidió F5e (arriba)
 - **Video:** `output/ba6c3cac-f5v2/ba6c3cac-f5v2_final_gfx.mp4` (571.2 s, gfx looks disperso, identidad y crítico activos).
 - Leer `lab/hyperframes/f5/F5_PRODUCCION_REPORT.md` (revisor íntegro) y `DECISIONES_F5.md` P1–P9.
 - **Hecho:** retoque de los caps 5 y 6; bloque G (G1 crítico sobre snapshot, G2 titular ≤ 8 palabras, G3 `verify_crop` del zoom final, G4 íconos espiral y rayo tachado); TTS, imágenes (81 + Veo ch01/ch07) y un solo render en 77.8 min.

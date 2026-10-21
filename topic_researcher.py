@@ -150,8 +150,24 @@ DEEP_RESEARCH_ANGLES: list[dict] = [
 ]
 
 
+# F5e: el ángulo técnico suma la magnitud del evento, sin tope (la pantalla y el guion la usan: categoría, viento,
+# marea, altura del agua, muertos, área)
+MAGNITUDE_SECTION = """
+[DATOS DE MAGNITUD]
+(todas las que el evento tenga, sin tope; cada una con su cifra, su unidad y su fuente)
+- categoría / escala (ej. «huracán de categoría 3 al tocar tierra»)
+- vientos máximos (km/h y mph)
+- marea de tormenta / crecida (metros y pies)
+- altura máxima del agua en el lugar (metros y pies)
+- muertos y desaparecidos (cifra oficial y estimaciones, cada una con quién la da)
+- área afectada (km², % de la ciudad o región)
+- ..."""
+
+
 def _build_angle_query_prompt(seed: dict, angle: dict) -> str:
-    """Prompt para UNA query angular (3 llamadas × seed en LONG)."""
+    """Prompt para UNA query angular (3 llamadas × seed en LONG). F5e: el ángulo técnico pide además
+    [DATOS DE MAGNITUD] (los otros ángulos, igual que antes)."""
+    magnitude = MAGNITUDE_SECTION if angle.get("key") == "tecnico" else ""
     return f"""Eres un investigador de documentales para History Channel / Netflix.
 
 TEMA: "{seed['seed_title']}"
@@ -177,7 +193,7 @@ FORMATO DE SALIDA — texto plano estructurado:
 - dato 1 (con fecha/nombre/cifra)
 - dato 2
 - ...
-
+{magnitude}
 [CRONOLOGÍA]
 - YYYY-MM-DD: evento
 - YYYY-MM-DD: evento

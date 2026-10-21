@@ -749,7 +749,11 @@ def archive_head_px(headline: str, width: int, height: int) -> tuple[int, int]:
     avail = height - 120 - 120 - fixed
     base = round(84 * ars)
     words = headline.split()
+    # F5e G2: hasta 8 palabras va el cuerpo normal si entra; de 9 a 12, un cuerpo menor desde el arranque
+    start = 1 if len(words) > 8 else 0
     for k, f in enumerate(HEAD_STEPS):
+        if k < start:
+            continue
         px = round(base * f)
         per_line = max(1, int(inner / (px * HEAD_CHAR_W)))
         lines, cur = 1, 0

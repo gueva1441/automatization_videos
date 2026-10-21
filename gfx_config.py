@@ -324,6 +324,8 @@ class GfxRules:
     question_rubric: bool = False            # R8: 3 preguntas + elección por rúbrica (gancho, no trivia)
     visual_critic: bool = False              # F4e 6b: Gemini juzga cada bloque contra el cuadro real (suma/repite/estorba)
     critic_snapshot: bool = False            # G1: el crítico mira el bloque DIBUJADO (snapshot de HyperFrames en t+1 s)
+    stamp_nouns_only: bool = False           # F5e: sellos solo en sustantivos/adjetivos de carga (nunca verbos ni neutras)
+    archive_head_max_words_pool: int = 12    # F5e G2: titular del recorte del pool hasta 12 palabras (> 8 → cuerpo menor)
     source_tag_scale: float = 0.4            # 40 % del tamaño del callout
     sfx_gain_db: float = -18.0               # bajo la voz
     sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano

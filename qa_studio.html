@@ -183,6 +183,9 @@
 
   /* ── fix panel inline por tarjeta (Zona 1) ── */
   .fixlink.on{color:#2dd4bf;cursor:pointer;}
+  .regenmark{font-family:var(--mono);font-size:10.5px;color:var(--dim);cursor:pointer;display:inline-flex;align-items:center;gap:5px;margin-right:10px;user-select:none;}
+  .regenmark input{accent-color:#f0506b;cursor:pointer;}
+  .regenmark.on{color:#f0506b;font-weight:700;}
   .fixpanel{padding:0 14px 14px;animation:slideDown .22s ease;}
   .fixpanel .top{border-top:1px solid rgba(45,212,191,.18);padding-top:12px;}
   .fixpanel .tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9px;
@@ -297,6 +300,19 @@ let fixPoll=null;
 let audioBust=0;          // cache-bust del /audio del cap tras un fix de narración
 
 // src de la imagen del segmento i, con cache-bust si fue regenerada por un fix.
+// F5e: fotos marcadas para regenerar (mismo prompt, otra semilla) → output/<id>/assets/_qa_marks.json
+let MARKS={};
+async function loadMarks(){ try{ MARKS=(await (await fetch('/marks')).json()).marks||{}; }catch(e){ MARKS={}; } }
+function markImage(cap, img_name, on, el){
+  fetch('/mark',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({cap,img_name,on})})
+   .then(r=>r.json()).then(d=>{
+      if(d.error){ toast('⚠ '+d.error); return; }
+      if(on) MARKS[img_name]={cap}; else delete MARKS[img_name];
+      if(el) el.classList.toggle('on', on);
+      toast((on?'Marcada':'Desmarcada')+' · '+d.n+' foto(s) para regenerar');
+   }).catch(e=>toast('⚠ '+e.message));
+}
+loadMarks();
 function imgSrc(i){
   const s=CUR&&CUR.segments?CUR.segments[i]:null; if(!s||!s.url) return '';
   return s.url + (FIXBUST[i]?('&t='+FIXBUST[i]):'');
@@ -509,7 +525,7 @@ function renderTimeline(c){
         <div class="foot">
           <div class="heat"><span class="heatdot" style="background:${h.solid};box-shadow:0 0 7px ${h.border}"></span>
             <span class="pv-time">${s.start!=null?fmt(s.start)+'–'+fmt(s.end)+' · '+s.dur+'s':'sin sync'}</span></div>
-          ${fixCtl}
+          <span>${isClip?'':`<label class="regenmark${MARKS[s.img_name]?' on':''}" title="Marcar para regenerar con el mismo prompt y otra semilla"><input type="checkbox" data-mark="${i}"${MARKS[s.img_name]?' checked':''}>↻ regenerar</label>`}${fixCtl}</span>
         </div>
       </div>${fixPanel}`;
     card.querySelector('[data-sel]').onclick=()=>setActive(i);
@@ -521,6 +537,8 @@ function renderTimeline(c){
     }else{
       card.querySelector('[data-fix]').onclick=()=>toggleFixPanel(i);
       card.querySelector('#fixbtn-'+i).onclick=()=>submitFix(c.cap, s.img_name, i);
+      const mk=card.querySelector('[data-mark]');
+      if(mk) mk.onchange=()=>markImage(c.cap, s.img_name, mk.checked, mk.parentElement);
     }
     grid.appendChild(card);
   });

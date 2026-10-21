@@ -535,7 +535,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                                          moods_all=moods_all, prev2=_q_sents(chs.get(n - 1, ""))[-2:],
                                          next2=_q_sents(chs.get(n + 1, ""))[:2], log=log,
                                          video_text=ctx.get("narration_all"))
-            ctx["moods"] = gi.augmented_moods(active_moods(), intensity)
+            ctx["moods"] = gi.stamp_lexicon(gi.augmented_moods(active_moods(), intensity))   # F5e: sin verbos
             ctx["intensity"] = intensity
             if intensity:
                 log.append(f"  intensidad: pico frase {gi.peak_sentence(intensity)} · cargas "
@@ -568,6 +568,8 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                 resolved["fragmentos"] = plan_pool_documents(resolved, ctx=ctx, words=words, scenes=scenes,
                                                              time_offset=time_offset, work_dir=work_dir, cap=cap,
                                                              log=log)
+                from script_engine.gfx_pool import pool_count_up                # F5e: un contador por hecho
+                pool_count_up(resolved, ctx=ctx, words=words, time_offset=time_offset, log=log)
                 resolved, rej_p = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                        question_sources=ctx.get("next_sources"))
                 rejected += rej_p

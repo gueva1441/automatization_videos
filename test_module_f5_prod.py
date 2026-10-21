@@ -56,10 +56,10 @@ def test_g1_el_critico_mira_el_bloque_dibujado(tmp_path):
     plan = {"emphasis": [{"word": "celdas", "category": "oscuridad_encierro", "start": 5.0, "duration": 2.5}]}
     prompts = []
 
-    def fake(img, prompt):
-        prompts.append((Path(img).name, prompt))
+    def fake(img, prompt, *more):
+        prompts.append((Path(more[0]).name if more else Path(img).name, prompt))
         return {"veredicto": "suma", "motivo": "ok"}
     rows = gc.criticize(plan, base=tmp_path / "base.mp4", words=[{"word": "celdas", "start": 5.0, "end": 5.4}], time_offset=0.0,
                         work_dir=tmp_path, cap="ch02", log=[], call=fake, fewshot=[], snaps={6.0: snap})
     assert rows and rows[0]["mira"] == "bloque dibujado" and prompts[0][0] == "snap.jpg"
-    assert "YA DIBUJADO" in prompts[0][1]
+    assert "YA DIBUJADO" in prompts[0][1] and "IMAGEN 1: la foto sola" in prompts[0][1]   # F5e: dos cuadros

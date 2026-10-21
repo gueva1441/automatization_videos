@@ -784,6 +784,70 @@ def _invalidate_baked(state, topic_id: str, cap: str) -> None:
             pass
 
 
+# ═══════════════════════════════════════════════════════════════
+#  F5e — MARCAR PARA REGENERAR (galería) · mismo prompt, otra semilla, sin validador de visión
+# ═══════════════════════════════════════════════════════════════
+
+MARKS_NAME = "_qa_marks.json"
+RESEED_STEP = 104729                    # primo: semillas nuevas lejos de la original
+
+
+def marks_path(state: "QAState") -> Path:
+    return state.assets_dir / MARKS_NAME
+
+
+def load_marks(state: "QAState") -> dict:
+    """{"marks": {img_name: {"cap", "ts"}}, "done": {img_name: [{"seed", "ts", "backup"}]}} (vacío si no hay)."""
+    try:
+        d = json.loads(marks_path(state).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        d = {}
+    return {"marks": d.get("marks") or {}, "done": d.get("done") or {}}
+
+
+def set_mark(state: "QAState", cap: str, img_name: str, on: bool) -> dict:
+    d = load_marks(state)
+    if on:
+        d["marks"][img_name] = {"cap": cap, "ts": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+    else:
+        d["marks"].pop(img_name, None)
+    marks_path(state).parent.mkdir(parents=True, exist_ok=True)
+    marks_path(state).write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
+    return d
+
+
+def _reseed_core(state: "QAState", topic_id: str, cap: str, img_name: str, *, attempt: int = 1,
+                 seed_fn=None, generate_fn=None, is_hook_fn=None, now_ts: str | None = None) -> tuple[bool, str | None, int | None]:
+    """Regenera UNA foto con el MISMO prompt del script y otra semilla (la del sujeto + attempt × RESEED_STEP). Sin
+    reescritura ni validador de visión. Backup en _qa_backups e invalidación del clip horneado del cap, como el fix.
+    Devuelve (ok, motivo, semilla)."""
+    if seed_fn is None or generate_fn is None or is_hook_fn is None:
+        import asset_manager as am  # noqa: PLC0415
+        seed_fn = seed_fn or am._seed_for_subject
+        generate_fn = generate_fn or am._generate_flux_image_at
+        is_hook_fn = is_hook_fn or am._is_hook_chapter
+    entry = state.resolve_fix_entry(img_name)
+    if not entry:
+        return False, "no se pudo resolver la entrada del prompt en el script", None
+    out_path = state.resolve_image(cap, img_name) or (state.assets_dir / f"{cap}_flux" / img_name)
+    if out_path.exists():
+        bdir = state.assets_dir / "_qa_backups"
+        bdir.mkdir(parents=True, exist_ok=True)
+        ts = now_ts or datetime.now().strftime("%Y%m%d_%H%M%S")
+        shutil.copy2(out_path, bdir / f"{img_name}.{ts}.bak.png")
+    import zlib  # noqa: PLC0415
+    base = seed_fn(topic_id, entry.get("subject_ref"))
+    if base is None:
+        base = zlib.crc32(f"{topic_id}:{img_name}".encode("utf-8"))
+    seed = (int(base) + attempt * RESEED_STEP) % (2 ** 32)
+    try:
+        generate_fn(entry["prompt"], entry.get("art_profile", ""), out_path, use_ultra=is_hook_fn(cap), seed=seed)
+    except Exception as e:  # noqa: BLE001
+        return False, f"{type(e).__name__}: {str(e)[:160]}", seed
+    _invalidate_baked(state, topic_id, cap)
+    return True, None, seed
+
+
 def _fix_core(
     state: "QAState",
     topic_id: str,
@@ -1770,6 +1834,8 @@ class Handler(BaseHTTPRequestHandler):
                 self._send_json(_form_state())
             elif route == "/thumbs_status":
                 self._send_json(_thumbs_status())   # HANDOFF_135
+            elif route == "/marks":
+                self._send_json(load_marks(STATE))  # F5e: fotos marcadas para regenerar
             else:
                 self._send_json({"error": "ruta no encontrada"}, status=404)
         except Exception as e:  # noqa: BLE001
@@ -1786,6 +1852,16 @@ class Handler(BaseHTTPRequestHandler):
                 else:
                     print(f"  ▶ assemble: lanzando fase2b para {TOPIC_ID[:8]}…")
                     self._send_json({"started": True})
+            elif route == "/mark":                       # F5e: marcar / desmarcar una foto para regenerar
+                length = int(self.headers.get("Content-Length", 0))
+                body = json.loads(self.rfile.read(length) or b"{}")
+                cap, img_name = str(body.get("cap", "")), str(body.get("img_name", ""))
+                if not _CAP_RE.match(cap) or not _IMG_NAME_RE.match(img_name) or not img_name.startswith(cap + "_"):
+                    self._send_json({"error": "cap/img_name inválido"}, status=400)
+                    return
+                d = set_mark(STATE, cap, img_name, bool(body.get("on", True)))
+                print(f"  ↻ marca: {img_name} {'ON' if body.get('on', True) else 'off'} ({len(d['marks'])} marcadas)")
+                self._send_json({"ok": True, "n": len(d["marks"])})
             elif route == "/fix_image":
                 length = int(self.headers.get("Content-Length", 0))
                 body = json.loads(self.rfile.read(length) or b"{}")

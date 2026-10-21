@@ -32,7 +32,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 PROMPT_VERSION = "f4e-1"
-PROMPT_VERSION_SNAP = "g1-snap-1"
+PROMPT_VERSION_SNAP = "g1-snap-2"     # F5e: dos cuadros (foto sola + bloque dibujado)
 VERDICTS = ("suma", "repite", "estorba")
 SYSTEM = ("Sos el editor final de un documental de misterio. Ves el cuadro REAL de la foto en un instante, la frase que "
           "dice la voz en ese momento y un bloque gráfico que se va a poner encima. Decidís si ese bloque SUMA, REPITE o "
@@ -135,21 +135,26 @@ def build_prompt(desc: str, voz: str, fewshot: list[dict[str, Any]], drawn: bool
         lines += [f"- bloque: {e['bloque']} · voz: «{e['voz']}» → {e['veredicto']}" for e in fewshot]
         lines.append("")
     lines += [f"LA VOZ EN ESTE INSTANTE DICE: «{voz}»", f"BLOQUE PROPUESTO: {desc}", "",
-              ("Mirá el cuadro: es el cuadro REAL del video con el bloque YA DIBUJADO encima (1 s después de que "
-               "entra; puede haber otro bloque al lado). Juzgá lo que se ve: tamaño, lugar, qué tapa, si se lee. "
-               "Motivo en UNA línea corta." if drawn else
+              ("IMAGEN 1: la foto sola, sin gráficos. IMAGEN 2: el mismo instante con el bloque propuesto YA "
+               "DIBUJADO (1 s después de que entra; puede haber otro bloque al lado). Juzgá el BLOQUE contra la FOTO: "
+               "qué agrega, qué tapa, si se lee. El sello, el ícono o el texto que ves en la imagen 2 SON el bloque: "
+               "nunca digas «repite» porque aparecen en la imagen 2. Repite solo si la FOTO (imagen 1) ya muestra lo "
+               "mismo o si la voz dice la misma frase. Motivo en UNA línea corta." if drawn else
                "Mirá el cuadro (es la foto tal cual, sin el bloque) y decidí. Motivo en UNA línea corta."),
               '{"veredicto": "suma" | "repite" | "estorba", "motivo": "…"}']
     return "\n".join(lines)
 
 
-def _gemini(img: Path, prompt: str) -> dict[str, Any]:
+def _gemini(img: Path, prompt: str, img2: Path | None = None) -> dict[str, Any]:
     from google.genai import types as genai_types
     from config import api, gemini_client
     from cost_tracker import cost_tracker
+    parts = [genai_types.Part.from_bytes(data=img.read_bytes(), mime_type="image/jpeg")]
+    if img2 is not None:                                  # F5e G1: foto sola + bloque dibujado
+        parts.append(genai_types.Part.from_bytes(data=Path(img2).read_bytes(), mime_type="image/jpeg"))
     resp = gemini_client.models.generate_content(
         model=api.gemini_model,
-        contents=[genai_types.Part.from_bytes(data=img.read_bytes(), mime_type="image/jpeg"), prompt],
+        contents=[*parts, prompt],
         config=genai_types.GenerateContentConfig(system_instruction=SYSTEM, temperature=0.0,
                                                  response_mime_type="application/json", response_schema=SCHEMA))
     cost_tracker.track_gemini_vision(description=f"gfx_critic:{img.stem}", calls=1)
@@ -157,10 +162,12 @@ def _gemini(img: Path, prompt: str) -> dict[str, Any]:
 
 
 def judge(img: Path, desc: str, voz: str, *, cache: Path, fewshot: list[dict[str, Any]],
-          call: Callable[[Path, str], dict] | None = None, drawn: bool = False) -> dict[str, Any]:
-    """{veredicto, motivo, cache: bool}. Caché por (cuadro, bloque, voz, versión)."""
+          call: Callable[..., dict] | None = None, drawn: Path | None = None) -> dict[str, Any]:
+    """{veredicto, motivo, cache: bool}. Caché por (cuadro(s), bloque, voz, versión). `drawn` = el cuadro con el
+    bloque dibujado (F5e G1): el crítico recibe la foto sola (img) y ese cuadro."""
     ver = PROMPT_VERSION_SNAP if drawn else PROMPT_VERSION
-    key = hashlib.sha1(Path(img).read_bytes() + f"|{desc}|{voz}|{ver}".encode("utf-8")).hexdigest()[:20]
+    extra = Path(drawn).read_bytes() if drawn else b""
+    key = hashlib.sha1(Path(img).read_bytes() + extra + f"|{desc}|{voz}|{ver}".encode("utf-8")).hexdigest()[:20]
     try:
         data = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
     except (OSError, ValueError):
@@ -168,7 +175,8 @@ def judge(img: Path, desc: str, voz: str, *, cache: Path, fewshot: list[dict[str
     if key in data:
         return {**data[key], "cache": True}
     try:
-        raw = (call or _gemini)(Path(img), build_prompt(desc, voz, fewshot, drawn=drawn))
+        args = (Path(img), build_prompt(desc, voz, fewshot, drawn=bool(drawn))) + ((Path(drawn),) if drawn else ())
+        raw = (call or _gemini)(*args)
         v = str((raw or {}).get("veredicto", "")).strip().lower()
         res = {"veredicto": v if v in VERDICTS else "error",
                "motivo": re.sub(r"\s+", " ", str((raw or {}).get("motivo", ""))).strip()[:160]}
@@ -233,10 +241,11 @@ def criticize(plan: dict[str, Any], *, base: Path, words: list[dict], time_offse
     for b in bl:
         tf = t_of[id(b)]
         drawn = tf in snaps
-        img = snaps[tf] if drawn else frame_at(base, tf, Path(work_dir) / f"gfx_critic_{cap}" / f"{b['kind']}_{tf:07.2f}.jpg")
+        img = frame_at(base, tf, Path(work_dir) / f"gfx_critic_{cap}" / f"{b['kind']}_{tf:07.2f}.jpg") \
+            if Path(base).exists() or not drawn else snaps[tf]
         n_drawn += drawn
         voz = voice_at(words, b["t"], time_offset)
-        v = judge(img, b["desc"], voz, cache=cache, fewshot=fs, call=call, drawn=drawn)
+        v = judge(img, b["desc"], voz, cache=cache, fewshot=fs, call=call, drawn=snaps[tf] if drawn else None)
         keep = v["veredicto"] in ("suma", "error")
         rows.append({"t": round(b["t"], 3), "t_frame": tf, "dur": b["dur"], "bloque": b["kind"], "texto": b["text"],
                      "veredicto": v["veredicto"], "motivo": v["motivo"], "pasa": keep, "voz": voz,

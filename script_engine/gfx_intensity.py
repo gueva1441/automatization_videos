@@ -29,7 +29,7 @@ from typing import Any, Callable
 ATTEMPTS = 2
 MIN_CARGAS, MAX_CARGAS = 3, 5
 ASK_CARGAS = 10                     # F4c R1: Flash propone hasta 10; el validador se queda con las MAX_CARGAS de más peso
-PROMPT_VERSION = "f4c-r2"           # entra al hash del cache: cambiar el prompt re-llama
+PROMPT_VERSION = "f5e-1"            # entra al hash del cache: cambiar el prompt re-llama (F5e: clase + neutra)
 # F4c R2: sensorial sobre abstracto (pares mejor/peor, del análisis del 2026-10-20)
 SENSORY_PAIRS = (("putrefacta", "catástrofe"), ("cadáveres", "tragedia"), ("sumergidos", "desastre"),
                  ("celdas", "caos"), ("pútrida", "horror"))
@@ -43,8 +43,10 @@ SCHEMA: dict[str, Any] = {
         "intensidad": {"type": "ARRAY", "items": {"type": "NUMBER"}},
         "cargas": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
             "word": {"type": "STRING"}, "sentence_idx": {"type": "INTEGER"}, "categoria": {"type": "STRING"},
-            "peso": {"type": "INTEGER"}, "concreta": {"type": "BOOLEAN"}},
-            "required": ["word", "sentence_idx", "categoria", "peso", "concreta"]}},
+            "peso": {"type": "INTEGER"}, "concreta": {"type": "BOOLEAN"},
+            "clase": {"type": "STRING", "enum": ["sustantivo", "adjetivo", "verbo", "otro"]},
+            "neutra": {"type": "BOOLEAN"}},
+            "required": ["word", "sentence_idx", "categoria", "peso", "concreta", "clase", "neutra"]}},
     },
     "required": ["pico_sentence_idx", "intensidad", "cargas"],
 }
@@ -80,6 +82,9 @@ def build_prompt(sents: list[str], prev2: list[str], next2: list[str], moods: di
         "sensoriales en esa frase. Revisá SIEMPRE la frase pico: su palabra más sensorial tiene que estar.",
         "- Ejemplos (mejor > peor): " + " · ".join(f"«{a}» > «{b}»" for a, b in SENSORY_PAIRS) + ".",
         "- Palabras comunes que se repiten en todo el relato (agua, oscuro) no son carga salvo que la frase las vuelva golpe.",
+        "- clase: sustantivo | adjetivo | verbo | otro (de la palabra en ESA frase). neutra=true si la palabra SOLA no "
+        "carga nada aunque la frase sí (estrella, suerte, agujero, estruendo, decisión): el golpe lo da la frase, no "
+        "la palabra. Los sellos van solo en sustantivos y adjetivos con carga propia (cadáveres, putrefacta, celdas).",
         "No inventes palabras ni categorías.",
     ]
     if rejected:
@@ -126,8 +131,14 @@ def validate(raw: dict[str, Any], sents: list[str], moods: dict[str, dict[str, A
             continue
         if (w, si) in seen:
             continue
+        # sin `clase` (respuesta anterior a F5e) solo se filtra la forma verbal
+        clase, neutra = str(c.get("clase") or ""), bool(c.get("neutra"))
+        if _stamp_rule() and ((clase and clase not in ("sustantivo", "adjetivo")) or neutra or is_verb_form(w)):
+            why.append(f"«{w}»: {clase}{' neutra' if neutra else ''} (sellos solo en sustantivos/adjetivos de carga)")
+            continue
         seen.add((w, si))
-        cargas.append({"word": w, "sentence_idx": si, "categoria": cat, "peso": peso, "concreta": bool(c.get("concreta"))})
+        cargas.append({"word": w, "sentence_idx": si, "categoria": cat, "peso": peso, "concreta": bool(c.get("concreta")),
+                       "clase": clase, "neutra": neutra})
     if not cargas:
         return None, why + ["ninguna carga válida"]
     pk = raw.get("pico_sentence_idx")
@@ -194,6 +205,42 @@ def intensity_for(sents: list[str], *, cap: str, work_dir: Path, moods_all: dict
         rejected += why
     log.append(f"  intensidad: el LLM falló {ATTEMPTS} veces → léxico fijo ({rejected[-3:]})")
     return None
+
+
+_VERB_FORM = re.compile(r"(ó|ió|aron|ieron|eron|aba|aban|ía|ían|ando|iendo|endo|arse|erse|irse|iera|ieran|ara|aran)$")
+_NOT_VERB_FORM = {"cara", "clara", "para", "agua", "aguas", "fiebre", "frente", "muerte", "suerte", "tumba", "barra",
+                  "guerra", "tierra", "sierra", "torre", "disentería", "policía", "energía", "compañía", "agonía",
+                  "alegría", "galería", "batería", "porquería"}
+
+
+def is_verb_form(word: str) -> bool:
+    """F5e: forma verbal conjugada, gerundio o infinitivo («murió», «ahogaban», «flotando», «ahogarse», «subiera»).
+    Los participios (atrapados, encerradas) son adjetivos: no cuentan."""
+    t = tok(word)
+    if t in _NOT_VERB_FORM or len(t) < 4:
+        return False
+    return bool(_VERB_FORM.search(t))       # (sin infinitivos sueltos: «lugar», «mujer» no son verbos)
+
+
+def _stamp_rule() -> bool:
+    from gfx_config import gfx_rules
+    return bool(gfx_rules.stamp_nouns_only)
+
+
+def stamp_lexicon(moods: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    """F5e (token stamp_nouns_only): el léxico del cap sin formas verbales; los sellos y moods solo disparan con
+    sustantivos y adjetivos (las cargas del director ya vienen filtradas por clase y neutra)."""
+    if not _stamp_rule():
+        return moods
+    out = copy.deepcopy(moods)
+    for m in out.values():
+        trig = m.get("triggers") or {}
+        for w in [w for w in trig if is_verb_form(w)]:
+            del trig[w]
+        iw = m.get("icon_words") or {}
+        for w in [w for w in iw if is_verb_form(w)]:
+            del iw[w]
+    return out
 
 
 def augmented_moods(active: dict[str, dict[str, Any]], res: dict[str, Any] | None) -> dict[str, dict[str, Any]]:

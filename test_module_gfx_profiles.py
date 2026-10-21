@@ -34,7 +34,7 @@ def test_misterio_reproduce_la_calibracion_0b():
                      "intensity_director", "fragment_director", "photo_first_zoom", "auto_icons",
                      "peak_word", "doc_clippings", "callout_no_repeat", "question_rubric",   # F4c: doctrina
                      "visual_critic",                                                         # F4e: crítico visual
-                     "icon_literal_only", "critic_snapshot"}, diffs                           # F5b S4 · G1
+                     "icon_literal_only", "critic_snapshot", "stamp_nouns_only"}, diffs       # F5b S4 · G1 · F5e
     assert (rm.interrupt_max_sec, rm.grain_opacity, rm.vignette_opacity) == (18.0, 0.0, 0.15)
     assert (rm.question_auto, rm.question_dim, rm.icon_px, rm.question_pause_sec) == (True, 0.7, 360, 3.0)
 

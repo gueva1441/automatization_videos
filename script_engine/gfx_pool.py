@@ -316,9 +316,11 @@ def cap_candidates(pool: dict[str, Any], skeleton: dict[str, Any], cap: int, use
 
 
 def _sentence_for(it: dict[str, Any], sents: list[dict[str, Any]], own: bool,
-                  allowed: list[bool] | None = None) -> dict[str, Any] | None:
+                  allowed: list[bool] | None = None, reserved: bool = False) -> dict[str, Any] | None:
     """La oración de la voz que habla de lo mismo que el dato (≥ 2 palabras de contenido en común; 1 si es del cap).
-    `allowed`: oraciones donde el dato puede salir (S2: la voz ya llegó a su fecha)."""
+    `allowed`: oraciones donde el dato puede salir (S2: la voz ya llegó a su fecha). F5e: un dato RESERVADO PARA
+    PANTALLA es del cap aunque la voz no lo nombre (no lo dice a propósito): va en la oración más cercana en tema, o
+    en la segunda del cap si ninguna comparte palabras."""
     words = ev._content(ev.text_of(it))
     best, score = None, 0
     for k, s in enumerate(sents):
@@ -327,7 +329,23 @@ def _sentence_for(it: dict[str, Any], sents: list[dict[str, Any]], own: bool,
         sc = len(words & ev._content(s["text"])) + (2 if ev.used_in(s["text"], it) else 0)
         if sc > score:
             best, score = s, sc
+    if reserved and best is None:
+        ok = [s for k, s in enumerate(sents) if allowed is None or allowed[k]]
+        return ok[1] if len(ok) > 1 else (ok[0] if ok else None)
     return best if best and score >= (1 if own else 2) else None
+
+
+def _free_slot(a: float, sc: Any, dur: float, busy: list[tuple[float, float]], length: float,
+               min_len: float, step: float = 0.5) -> tuple[float, float] | None:
+    """F5e: la primera ventana libre desde `a` dentro de la escena (corriéndose de a 0.5 s), de `length` s (mínimo
+    `min_len`). None si no hay."""
+    t = a
+    while t + min_len <= min(sc.end, dur - 0.3) + 1e-6:
+        b = min(t + length, dur - 0.3)
+        if b - t >= min_len and all(b <= x or t >= y for x, y in busy):
+            return round(t, 3), round(b, 3)
+        t += step
+    return None
 
 
 def _kicker(it: dict[str, Any], headline: str) -> str:
@@ -356,7 +374,8 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
     n = ctx["chapter_number"]
     ch_n = next((c for c in skel.get("chapters") or [] if c.get("chapter_number") == n), {})
     own_ids = list(ch_n.get("evidence_ids") or [])
-    own = set(own_ids) | set(ch_n.get("pantalla_ids") or [])         # F5d: los de pantalla son del cap
+    reserved = set(ch_n.get("pantalla_ids") or [])
+    own = set(own_ids) | reserved                                       # F5d: los de pantalla son del cap
     used = used_ids_before(work_dir, n)
     cands = cap_candidates(pool, skel, n, used)
     sents = sentences(words, time_offset)
@@ -383,7 +402,7 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
             continue
         when = ev.item_date(it, year)
         allowed = [d is None or when is None or when <= d for d in told]   # S2: nunca un hecho posterior a la voz
-        s = _sentence_for(it, sents, i in own, allowed)
+        s = _sentence_for(it, sents, i in own, allowed, reserved=i in reserved)
         if s is None:
             later = when and _sentence_for(it, sents, i in own) is not None
             rows.append({"id": i, "bloque": "recorte", "ahora": None,
@@ -393,19 +412,22 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
         sc = scene_at(scenes, s["t0"])
         span = narration_span(words, sc.start, sc.end, time_offset)
         text = ev.text_of(it)
-        # G2: en pantalla, ≤ archive_head_max_words (8) palabras; una cláusula más larga no se corta: no hay recorte
-        opts = sorted((f for f in pool_clause_options(text, gfx_rules.archive_head_max_words)
+        # G2/F5e: en pantalla, hasta archive_head_max_words_pool (12) palabras; > 8 baja el cuerpo (archive_head_px).
+        # Una cláusula más larga no se corta: no hay recorte
+        opts = sorted((f for f in pool_clause_options(text, gfx_rules.archive_head_max_words_pool)
                        if adds_something(f, span) and lock_ok(f, text)
                        and _kicker(it, f)), key=lambda f: (_doc_rank(f, span, narr), f))[:3]
         if not opts:
             rows.append({"id": i, "bloque": "recorte", "ahora": None,
-                         "motivo": "ninguna cláusula completa (≤ 8 palabras, métrica) suma a la voz con fuente o fecha"})
+                         "motivo": "ninguna cláusula completa (≤ 12 palabras, métrica) suma a la voz con fuente o fecha"})
             continue
         a = max(sc.start + 0.5, s["t0"] - 0.3)
-        b = min(a + gfx_rules.archive_dur, dur - 0.3)
-        if b - a < gfx_rules.archive_min_sec or not all(b <= x or a >= y for x, y in busy):
+        # F5e: si choca, se corre dentro de la escena (de a 0.5 s) antes de rendirse
+        slot = _free_slot(a, sc, dur, busy, gfx_rules.archive_dur, gfx_rules.archive_min_sec)
+        if slot is None:
             rows.append({"id": i, "bloque": "recorte", "ahora": None, "motivo": f"no entra sin pisar otro bloque @ {a:.1f}s"})
             continue
+        a, b = slot
         blk = {"kicker": _kicker(it, opts[0]), "headline": opts[0], "body": "", "scene_idx": sc.idx, "fact_idx": None,
                "pool_id": i, "fuente": it.get("fuente"), "era_decade": 2000, "start": round(a, 3),
                "duration": round(b - a, 3), "side": getattr(sc, "quiet_side", "right")}
@@ -529,3 +551,80 @@ def pool_ticker(ctx: dict[str, Any], words: list[dict], clip_dur: float, time_of
     return {"day": str(int(d)), "month": month, "tail": tail, "times": [first["hora"]] if first.get("hora") else [],
             "advance": False, "source_text": ev.text_of(first), "pool_id": first["id"],
             "start": round(start, 3), "duration": round(end - start, 3)}
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F5e — un contador por hecho (517 y «más de 500» son el mismo)
+# ═══════════════════════════════════════════════════════════════
+
+_COUNT_NOUNS = r"(personas|reclusos|presos|prisioneros|evacuados|internos|desaparecidos|fugitivos|víctimas|muertos)"
+_APPROX = re.compile(r"\b(más de|aproximadamente|alrededor de|cerca de|unos|unas|hasta|casi)\s*$", re.I)
+COUNT_SAME_TOL = 0.15                   # dos cifras del mismo conteo: a ±15 %
+
+
+def count_groups(pool: dict[str, Any]) -> list[dict[str, Any]]:
+    """Cifras de personas (≥ 100) que cuentan lo mismo: mismo sustantivo de conteo y a ±15 % (517 reclusos «no
+    contabilizados» y «más de 500» prisioneros que no figuraban). La canónica es la PRECISA (sin «más de», «hasta»…);
+    si hay varias, la primera del pool. [{"canon": {"id","num","unit","texto"}, "nums": {"517", "500"}}]"""
+    rows = []
+    for it in pool.get("datos") or []:
+        if it.get("tipo") not in ("cifra", "magnitud", "contradiccion"):
+            continue
+        for m in re.finditer(r"(\d[\d,.]*\d|\d+)\s+(?:\w+\s+)?" + _COUNT_NOUNS, it["texto"], re.I):
+            n = int(re.sub(r"[,.]", "", m.group(1)))
+            if n < 100:
+                continue
+            approx = bool(_APPROX.search(it["texto"][:m.start()]))
+            rows.append({"id": it["id"], "num": m.group(1), "n": n, "unit": m.group(2).lower(), "approx": approx,
+                         "texto": it["texto"], "fuente": it.get("fuente")})
+    groups: list[list[dict]] = []
+    for r in sorted(rows, key=lambda r: r["n"]):
+        g = next((g for g in groups if abs(r["n"] - g[0]["n"]) <= COUNT_SAME_TOL * g[0]["n"]), None)
+        (g.append(r) if g is not None else groups.append([r]))
+    out = []
+    for g in groups:
+        if len({r["n"] for r in g}) < 2:
+            continue
+        canon = next((r for r in g if not r["approx"]), None)
+        if canon:
+            out.append({"canon": canon, "nums": {r["num"] for r in g} | {str(r["n"]) for r in g}})
+    return out
+
+
+def pool_count_up(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], time_offset: float,
+                  log: list[str]) -> None:
+    """F5e (in place): un hecho contado con varias cifras se anima UNA vez, con la cifra precisa, en el primer cap cuya
+    voz la dice. En ese cap el contador es la canónica (reemplaza a uno del mismo hecho); en los demás caps se saca
+    cualquier contador o dato de ese hecho. El dedupe por hecho nunca deja el hecho sin su contador."""
+    from gfx_config import gfx_rules
+    pool = ctx.get("pool") or {}
+    n = ctx["chapter_number"]
+    chs = sorted(ctx.get("chapters") or [], key=lambda c: c.get("chapter_number", 0))
+    for g in count_groups(pool):
+        c = g["canon"]
+        home = next((ch.get("chapter_number") for ch in chs if ev.literal_in(c["num"], ch.get("narration") or "")), None)
+        cu = plan.get("count_up") or {}
+        same = re.sub(r"[,.]", "", str(cu.get("value_text") or "")) in {re.sub(r"[,.]", "", x) for x in g["nums"]}
+        if n != home:
+            if cu and same:
+                plan["count_up"] = None
+                log.append(f"  contador {cu.get('value_text')}: mismo hecho que {c['num']} (se anima en el cap {home})")
+            plan["callouts"] = [x for x in plan.get("callouts") or []
+                                if not any(ev.literal_in(v, x.get("text", "")) for v in g["nums"])]
+            continue
+        if cu and not same:
+            log.append(f"  contador {c['num']} {c['unit']}: el cap ya tiene otro contador ({cu.get('value_text')})")
+            continue
+        k = next((j for j in range(len(words))
+                  if ev.literal_in(c["num"], " ".join(str(x.get("word", "")) for x in words[j:j + 3]))
+                  and not ev.literal_in(c["num"], " ".join(str(x.get("word", "")) for x in words[j + 1:j + 3]))), None)
+        if k is None:
+            continue
+        t = round(float(words[k]["start"]) + time_offset, 3)
+        plan["count_up"] = {"value_text": c["num"], "unit": c["unit"], "start": t,
+                            "duration": round(gfx_rules.count_dur + gfx_rules.count_hold_sec, 3), "fact_idx": None,
+                            "source": short_source(c.get("fuente")), "pool_id": c["id"]}
+        plan["callouts"] = [x for x in plan.get("callouts") or []
+                            if not any(ev.literal_in(v, x.get("text", "")) for v in g["nums"])]
+        log.append(f"  contador del hecho: {c['num']} {c['unit']} [{c['id']}] @ {t:.1f}s (mismo hecho: "
+                   f"{sorted(g['nums'])})")

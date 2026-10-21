@@ -10,7 +10,10 @@ Etapas (cada una idempotente; el log va a lab/hyperframes/f5/produccion/producci
     imagenes  fase2a --topic V2: Seedream (97) + Veo (ch01/ch07)
     render    fase2b V2 --keep-segments --gfx --gfx-sparse --gfx-quality looks (UN render). Antes: Firefox cerrado y
               RAM libre > 14 GB, si no, no arranca
-Uso: PYTHONIOENCODING=utf-8 python lab/hyperframes/f5/produccion_orleans_v2.py --etapa preparar|guion|imagenes|render
+    render_gfx (F5e) re-render SOLO de la capa gfx: guion, imágenes y clips visuales quedan. Antes respalda el final y
+              las capas chNN_gfx.mp4 en _fase2b_work/_bak_f5e_pre/ (con --reuse-visuals fase2b reusaría la capa vieja)
+              y corre fase2b --reuse-visuals --keep-segments --gfx --gfx-sparse --gfx-quality looks
+Uso: PYTHONIOENCODING=utf-8 python lab/hyperframes/f5/produccion_orleans_v2.py --etapa preparar|guion|imagenes|render|render_gfx
 """
 from __future__ import annotations
 
@@ -101,9 +104,29 @@ def _run(cmd: list[str], log: list[str], name: str) -> None:
         raise SystemExit(r.returncode)
 
 
+def _backup_gfx(log: list[str], tag: str = "f5e") -> None:
+    """Respaldo (una vez) del final y de las capas gfx; el render nuevo las rehace desde los clips visuales."""
+    out = ROOT / "output" / V2
+    work = out / "_fase2b_work"
+    bak = work / f"_bak_{tag}_pre"
+    if bak.exists():
+        log.append(f"render_gfx: respaldo ya existe ({bak})")
+        return
+    bak.mkdir(parents=True)
+    for f in sorted(work.glob("ch0?_gfx.mp4")):
+        shutil.move(str(f), str(bak / f.name))
+    for f in sorted(work.glob("gfx_plan_ch0?.resolved.json")) + sorted(work.glob("hoja_contactos_ch0?.jpg")) + \
+            sorted(work.glob("gfx_cues_ch0?.md")):
+        shutil.copy2(f, bak / f.name)
+    for name in (f"{V2}_final_gfx.mp4", f"{V2}_final_gfx_no_music.mp4"):
+        if (out / name).exists():
+            shutil.move(str(out / name), str(out / name.replace("_final_gfx", "_final_gfx_f5d")))
+    log.append(f"render_gfx: capas y planes a {bak}; final anterior → *_final_gfx_f5d.mp4")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--etapa", choices=["preparar", "guion", "imagenes", "render"], required=True)
+    ap.add_argument("--etapa", choices=["preparar", "guion", "imagenes", "render", "render_gfx"], required=True)
     a = ap.parse_args()
     PROD.mkdir(exist_ok=True)
     log = [f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] producción Orleans v2 · etapa {a.etapa}"]
@@ -115,13 +138,16 @@ def main() -> None:
         elif a.etapa == "imagenes":
             _run([sys.executable, "fase2a.py", "--topic", V2], log, "fase2a")
         else:
+            if a.etapa == "render_gfx":
+                _backup_gfx(log)
             ram, ff = _ram_free_gb(), _firefox_open()
             log.append(f"render: RAM libre {ram:.1f} GB · Firefox {'ABIERTO' if ff else 'cerrado'}")
             if ff or ram <= 14:
                 log.append("render: NO arranca (regla de Omar: Firefox cerrado y RAM > 14 GB)")
                 raise SystemExit(3)
-            _run([sys.executable, "fase2b.py", V2, "--keep-segments", "--gfx", "--gfx-sparse", "--gfx-quality", "looks"],
-                 log, "fase2b")
+            extra = ["--reuse-visuals"] if a.etapa == "render_gfx" else []
+            _run([sys.executable, "fase2b.py", V2, *extra, "--keep-segments", "--gfx", "--gfx-sparse", "--gfx-quality",
+                  "looks"], log, "fase2b_gfx" if extra else "fase2b")
     finally:
         with (PROD / "produccion.log").open("a", encoding="utf-8") as fh:
             fh.write("\n".join(log) + "\n")
