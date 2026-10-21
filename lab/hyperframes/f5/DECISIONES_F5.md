@@ -14,3 +14,18 @@ Handoff: `lab/hyperframes/f5/HANDOFF_F5_guion_v2.md`. Rama `f5-guion-v2`.
 - **J5 (geocodificación)** Nominatim, 1 pedido por segundo, caché en `data/geocode_cache.json`. Primera corrida: «Templeman 1» cayó en Londres, «Angola» en África, «17th Street» en Nueva York. Por eso ahora se ancla al lugar principal del video (la ciudad más nombrada): se consulta «nombre, ancla» y solo se aceptan resultados a ≤ 400 km del ancla. Los de rol país, estado o ciudad no tienen tope. Las siglas (OPP, HOD, CYC) no se geocodifican. Sin resultado confiable → null.
 - **J6** `raw_cache` guarda la respuesta cruda de Flash por bloque, para re-correr el filtro sin volver a llamar.
 - **J7** El topic consolidado (`topic_researcher`) y el guion final (`m06_assembler`) llevan `evidence_pool`.
+
+## §1.2 skeleton (`script_engine/m01a_skeleton.py` + `script_engine/evidence.py`)
+- **J8** `script_engine/evidence.py`: helpers del pool compartidos por m01a, m01b, las métricas y gfx (IDs, texto, «anchors» = lo que tiene que sonar literal para contar un dato como usado, formato para prompts).
+- **J9** Con `evidence_pool`, el prompt suma el pool numerado y un paso 1b que pide `_evidence_plan` (cap_1..cap_7), `personajes` y `cliffhanger` por cap. Sin pool, el prompt y el schema quedan idénticos a los de antes (test). El `_distribution_plan` de los `verified_facts` sigue igual; los facts son para las imágenes.
+- **J10 (reparaciones deterministas)** En la prueba en vivo, Flash nunca cumplió todas las reglas en 3 intentos (faltaba el antagonista, el cap 7 quedaba con 1 dato nuevo, la cronología retrocedía un día, cliffhangers del mismo cap, F## mezclados). Por eso lo mecánico se repara en código y queda en `_evidence_repairs` del skeleton, auditable:
+  - eventos anteriores al primero del cap previo se mudan a ese cap;
+  - los repetidos que pasan de 1 se quitan;
+  - un cap con menos de 3 nuevos se completa con IDs sin usar (eventos en su rango de fechas, después datos; el cap 7 prefiere lo más reciente);
+  - el antagonista ausente entra en el primer cap cuyos datos lo nombran;
+  - un cliffhanger inválido pasa a ser el primer ID nuevo del cap siguiente;
+  - los F##, P## y L## dentro del plan se ignoran.
+  Solo un D/T/Q inexistente, o un pool que no alcanza, fuerzan error y reintento.
+- **J11** «Seguir la cronología» se valida en los caps 2–6, por la primera fecha de cada cap. El hook puede abrir con el momento más fuerte y el cap 7 con lo último que se supo.
+- **J12** Si el pool tiene menos de 21 datos, eventos y citas, el mínimo por cap baja a ⌊n/7⌋ (al menos 1).
+- **J13** Instrucción agregada al prompt: «si dos datos se contradicen, van al mismo cap y la narración cuenta la contradicción». Responde al riesgo 6 del handoff (6,375 vs 6,500 elegidos sin criterio).
