@@ -544,6 +544,7 @@ def _research_seed_deep(seed: dict, existing_titles: list[str]) -> dict:
         "research_summary": research_summary,
         "sources": sources,
         "verified_facts": verified_facts,
+        "evidence_pool": step_4a.get("evidence_pool"),          # F5 §1.1 (None en topics viejos)
         "era_visual_canon": era_visual_canon,
         "documented_people": documented_people,
         "anachronism_blocklist": anachronism_blocklist,

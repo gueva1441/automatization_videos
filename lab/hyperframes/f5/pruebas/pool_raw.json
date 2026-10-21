@@ -1,0 +1,1101 @@
+{
+ "tecnico": {
+  "hash": "fcf41b2b5fe0",
+  "raw": {
+   "datos": [
+    {
+     "texto": "Institución: Prisión Parroquial de Orleans",
+     "tipo": "nombre",
+     "valor": "Prisión Parroquial de Orleans"
+    },
+    {
+     "texto": "Institución: Prisión Parroquial de Orleans (Orleans Parish Prison - OPP).",
+     "tipo": "nombre",
+     "valor": "Orleans Parish Prison"
+    },
+    {
+     "texto": "Institución: Prisión Parroquial de Orleans (Orleans Parish Prison - OPP).",
+     "tipo": "nombre",
+     "valor": "OPP"
+    },
+    {
+     "texto": "Ubicación: Nueva Orleans, Luisiana.",
+     "tipo": "lugar",
+     "valor": "Nueva Orleans"
+    },
+    {
+     "texto": "Ubicación: Nueva Orleans, Luisiana.",
+     "tipo": "lugar",
+     "valor": "Luisiana"
+    },
+    {
+     "texto": "Evento principal: Huracán Katrina.",
+     "tipo": "nombre",
+     "valor": "Huracán Katrina"
+    },
+    {
+     "texto": "Fecha de impacto del huracán: 29 de agosto de 2005.",
+     "tipo": "fecha",
+     "valor": "29 de agosto de 2005",
+     "fecha": "2005-08-29"
+    },
+    {
+     "texto": "Población carcelaria al momento del evento: Aproximadamente 6,375 a más de 6,500 personas",
+     "tipo": "cifra",
+     "valor": "6,375"
+    },
+    {
+     "texto": "Población carcelaria al momento del evento: Aproximadamente 6,375 a más de 6,500 personas",
+     "tipo": "cifra",
+     "valor": "6,500"
+    },
+    {
+     "texto": "Los generadores de respaldo de la prisión fallaron el 29 de agosto de 2005",
+     "tipo": "fecha",
+     "valor": "29 de agosto de 2005",
+     "fecha": "2005-08-29"
+    },
+    {
+     "texto": "El agua dentro de algunos edificios de la prisión, como Templeman 1 y 2, alcanzó el nivel del pecho.",
+     "tipo": "lugar",
+     "valor": "Templeman 1"
+    },
+    {
+     "texto": "El agua dentro de algunos edificios de la prisión, como Templeman 1 y 2, alcanzó el nivel del pecho.",
+     "tipo": "lugar",
+     "valor": "Templeman 2"
+    },
+    {
+     "texto": "El agua dentro de algunos edificios de la prisión, como Templeman 1 y 2, alcanzó el nivel del pecho.",
+     "tipo": "magnitud",
+     "valor": "nivel del pecho"
+    },
+    {
+     "texto": "En otras áreas, el agua contaminada con aguas residuales llegó hasta el pecho de los reclusos.",
+     "tipo": "magnitud",
+     "valor": "hasta el pecho"
+    },
+    {
+     "texto": "Se produjeron más de 50 fallas en el sistema de diques y muros de contención",
+     "tipo": "cifra",
+     "valor": "50"
+    },
+    {
+     "texto": "causando la inundación del 80% de Nueva Orleans.",
+     "tipo": "cifra",
+     "valor": "80%"
+    },
+    {
+     "texto": "causando la inundación del 80% de Nueva Orleans.",
+     "tipo": "lugar",
+     "valor": "Nueva Orleans"
+    },
+    {
+     "texto": "Las fallas son consideradas el peor desastre de ingeniería en la historia de Estados Unidos.",
+     "tipo": "lugar",
+     "valor": "Estados Unidos"
+    },
+    {
+     "texto": "Investigaciones de la American Society of Civil Engineers (ASCE)",
+     "tipo": "nombre",
+     "valor": "American Society of Civil Engineers"
+    },
+    {
+     "texto": "Investigaciones de la American Society of Civil Engineers (ASCE)",
+     "tipo": "nombre",
+     "valor": "ASCE"
+    },
+    {
+     "texto": "y el Cuerpo de Ingenieros del Ejército de EE. UU. (USACE)",
+     "tipo": "nombre",
+     "valor": "Cuerpo de Ingenieros del Ejército de EE. UU."
+    },
+    {
+     "texto": "y el Cuerpo de Ingenieros del Ejército de EE. UU. (USACE)",
+     "tipo": "nombre",
+     "valor": "USACE"
+    },
+    {
+     "texto": "los pilotes de acero de los muros de contención en los canales de 17th Street y London Avenue no tenían la profundidad suficiente.",
+     "tipo": "lugar",
+     "valor": "17th Street"
+    },
+    {
+     "texto": "los pilotes de acero de los muros de contención en los canales de 17th Street y London Avenue no tenían la profundidad suficiente.",
+     "tipo": "lugar",
+     "valor": "London Avenue"
+    },
+    {
+     "texto": "Algunas partes de Nueva Orleans quedaron bajo 15 pies (4.6 metros) de agua.",
+     "tipo": "lugar",
+     "valor": "Nueva Orleans"
+    },
+    {
+     "texto": "Algunas partes de Nueva Orleans quedaron bajo 15 pies (4.6 metros) de agua.",
+     "tipo": "magnitud",
+     "valor": "15 pies"
+    },
+    {
+     "texto": "Algunas partes de Nueva Orleans quedaron bajo 15 pies (4.6 metros) de agua.",
+     "tipo": "magnitud",
+     "valor": "4.6 metros"
+    },
+    {
+     "texto": "La solicitud formal de ayuda para la evacuación por parte del Sheriff Marlin N. Gusman no se realizó hasta la medianoche del 29 de agosto de 2005.",
+     "tipo": "nombre",
+     "valor": "Marlin N. Gusman"
+    },
+    {
+     "texto": "La solicitud formal de ayuda para la evacuación por parte del Sheriff Marlin N. Gusman no se realizó hasta la medianoche del 29 de agosto de 2005.",
+     "tipo": "fecha",
+     "valor": "29 de agosto de 2005",
+     "fecha": "2005-08-29"
+    },
+    {
+     "texto": "La evacuación completa de la prisión no finalizó hasta el viernes 2 de septiembre de 2005.",
+     "tipo": "fecha",
+     "valor": "2 de septiembre de 2005",
+     "fecha": "2005-09-02"
+    },
+    {
+     "texto": "Los prisioneros fueron llevados en bote al paso elevado de Broad Street sobre la Interestatal 10.",
+     "tipo": "lugar",
+     "valor": "Broad Street"
+    },
+    {
+     "texto": "Los prisioneros fueron llevados en bote al paso elevado de Broad Street sobre la Interestatal 10.",
+     "tipo": "lugar",
+     "valor": "Interestatal 10"
+    },
+    {
+     "texto": "Inmediatamente después de la evacuación, 517 reclusos no estaban contabilizados",
+     "tipo": "cifra",
+     "valor": "517"
+    },
+    {
+     "texto": "El Sheriff Gusman reabrió el edificio House of Detention (HOD)",
+     "tipo": "nombre",
+     "valor": "Gusman"
+    },
+    {
+     "texto": "El Sheriff Gusman reabrió el edificio House of Detention (HOD)",
+     "tipo": "lugar",
+     "valor": "House of Detention"
+    },
+    {
+     "texto": "El Sheriff Gusman reabrió el edificio House of Detention (HOD)",
+     "tipo": "lugar",
+     "valor": "HOD"
+    },
+    {
+     "texto": "reabrió el edificio House of Detention (HOD), uno de los más antiguos del complejo, el 17 de octubre de 2005.",
+     "tipo": "fecha",
+     "valor": "17 de octubre de 2005",
+     "fecha": "2005-10-17"
+    },
+    {
+     "texto": "La Agencia Federal para el Manejo de Emergencias (FEMA)",
+     "tipo": "nombre",
+     "valor": "Agencia Federal para el Manejo de Emergencias"
+    },
+    {
+     "texto": "La Agencia Federal para el Manejo de Emergencias (FEMA)",
+     "tipo": "nombre",
+     "valor": "FEMA"
+    },
+    {
+     "texto": "destinó $223 millones a la Oficina del Sheriff de la Parroquia de Orleans",
+     "tipo": "magnitud",
+     "valor": "$223 millones"
+    },
+    {
+     "texto": "destinó $223 millones a la Oficina del Sheriff de la Parroquia de Orleans",
+     "tipo": "lugar",
+     "valor": "Oficina del Sheriff de la Parroquia de Orleans"
+    },
+    {
+     "texto": "La Parroquia de St. Bernard notifica que evacuará su población de reclusos",
+     "tipo": "lugar",
+     "valor": "Parroquia de St. Bernard"
+    },
+    {
+     "texto": "Reclusos del edificio Templeman III, que albergaba a más de 600 personas, son evacuados.",
+     "tipo": "lugar",
+     "valor": "Templeman III"
+    },
+    {
+     "texto": "Reclusos del edificio Templeman III, que albergaba a más de 600 personas, son evacuados.",
+     "tipo": "cifra",
+     "valor": "600"
+    },
+    {
+     "texto": "El Teniente General Carl Strock del Cuerpo de Ingenieros del Ejército de EE. UU.",
+     "tipo": "nombre",
+     "valor": "Carl Strock"
+    },
+    {
+     "texto": "testifica ante el Senado",
+     "tipo": "lugar",
+     "valor": "Senado"
+    },
+    {
+     "texto": "La ACLU publica el informe \"Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina\".",
+     "tipo": "nombre",
+     "valor": "ACLU",
+     "fuente": "American Civil Liberties Union (ACLU), 2006, \"Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina\""
+    },
+    {
+     "texto": "El Departamento de Justicia de EE. UU. emite una carta de hallazgos",
+     "tipo": "nombre",
+     "valor": "Departamento de Justicia de EE. UU.",
+     "fuente": "Departamento de Justicia de EE. UU., 2010, \"Orleans Parish Prison System -- Findings Letter\""
+    },
+    {
+     "texto": "Ley de Derechos Civiles de Personas Institucionalizadas (CRIPA)",
+     "tipo": "nombre",
+     "valor": "Ley de Derechos Civiles de Personas Institucionalizadas"
+    },
+    {
+     "texto": "Ley de Derechos Civiles de Personas Institucionalizadas (CRIPA)",
+     "tipo": "nombre",
+     "valor": "CRIPA"
+    },
+    {
+     "texto": "iniciada por una investigación conforme a la Ley de Derechos Civiles de Personas Institucionalizadas (CRIPA) del 12 de febrero de 2008.",
+     "tipo": "fecha",
+     "valor": "12 de febrero de 2008",
+     "fecha": "2008-02-12"
+    },
+    {
+     "texto": "el propio Cuerpo de Ingenieros del Ejército de EE. UU. atribuyó a deficiencias de diseño fundamentales y no a la fuerza imprevisible de la tormenta.",
+     "tipo": "contradiccion",
+     "valor": "deficiencias de diseño fundamentales y no a la fuerza imprevisible de la tormenta",
+     "fuente": "U.S. Army Corps of Engineers (USACE) Interagency Performance Evaluation Taskforce (IPET)"
+    },
+    {
+     "texto": "el propio Cuerpo de Ingenieros del Ejército de EE. UU. atribuyó a deficiencias de diseño fundamentales",
+     "tipo": "nombre",
+     "valor": "Cuerpo de Ingenieros del Ejército de EE. UU."
+    },
+    {
+     "texto": "La inundación interna, que alcanzó niveles de hasta el pecho",
+     "tipo": "magnitud",
+     "valor": "hasta el pecho"
+    }
+   ],
+   "cronologia": [
+    {
+     "fecha": "2005-08-26",
+     "evento": "Se cortan los teléfonos en la prisión y muchos reclusos reciben su última comida."
+    },
+    {
+     "fecha": "2005-08-27",
+     "evento": "La Parroquia de St. Bernard notifica que evacuará su población de reclusos a la Prisión Parroquial de Orleans (OPP)."
+    },
+    {
+     "fecha": "2005-08-29",
+     "evento": "El huracán Katrina toca tierra."
+    },
+    {
+     "fecha": "2005-08-29",
+     "evento": "La energía eléctrica se pierde y los generadores de respaldo fallan en la OPP."
+    },
+    {
+     "fecha": "2005-08-29",
+     "evento": "Las celdas del primer piso comienzan a inundarse y las aguas residuales refluyen."
+    },
+    {
+     "fecha": "2005-08-29",
+     "hora": "medianoche",
+     "evento": "A la medianoche, el Sheriff Marlin Gusman solicita ayuda para la evacuación."
+    },
+    {
+     "fecha": "2005-08-30",
+     "evento": "Comienza la evacuación de los edificios Templeman 1 y 2 cuando el agua alcanza el nivel del pecho."
+    },
+    {
+     "fecha": "2005-09-01",
+     "evento": "Reclusos del edificio Templeman III, que albergaba a más de 600 personas, son evacuados."
+    },
+    {
+     "fecha": "2005-09-02",
+     "evento": "Se completa la evacuación total de la Prisión Parroquial de Orleans."
+    },
+    {
+     "fecha": "2005-10-17",
+     "evento": "El Sheriff Gusman reabre el edificio House of Detention (HOD)."
+    },
+    {
+     "fecha": "2006-04-05",
+     "evento": "El Teniente General Carl Strock del Cuerpo de Ingenieros del Ejército de EE. UU. testifica ante el Senado que hubo problemas con el diseño de la estructura de los diques."
+    },
+    {
+     "fecha": "2006-08-10",
+     "evento": "La ACLU publica el informe \"Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina\"."
+    },
+    {
+     "fecha": "2009-12-15",
+     "evento": "El Departamento de Justicia de EE. UU. emite una carta de hallazgos sobre las condiciones en la OPP"
+    },
+    {
+     "fecha": "2008-02-12",
+     "evento": "iniciada por una investigación conforme a la Ley de Derechos Civiles de Personas Institucionalizadas (CRIPA)"
+    }
+   ],
+   "lugares": [
+    {
+     "nombre": "Prisión Parroquial de Orleans",
+     "rol": "Institución"
+    },
+    {
+     "nombre": "Orleans Parish Prison",
+     "rol": "Institución"
+    },
+    {
+     "nombre": "OPP",
+     "rol": "Institución"
+    },
+    {
+     "nombre": "Nueva Orleans",
+     "rol": "Ciudad"
+    },
+    {
+     "nombre": "Luisiana",
+     "rol": "Estado"
+    },
+    {
+     "nombre": "Templeman 1",
+     "rol": "Edificio de la prisión"
+    },
+    {
+     "nombre": "Templeman 2",
+     "rol": "Edificio de la prisión"
+    },
+    {
+     "nombre": "Estados Unidos",
+     "rol": "País"
+    },
+    {
+     "nombre": "17th Street",
+     "rol": "Canal"
+    },
+    {
+     "nombre": "London Avenue",
+     "rol": "Canal"
+    },
+    {
+     "nombre": "Broad Street",
+     "rol": "Paso elevado"
+    },
+    {
+     "nombre": "Interestatal 10",
+     "rol": "Carretera"
+    },
+    {
+     "nombre": "House of Detention",
+     "rol": "Edificio de la prisión"
+    },
+    {
+     "nombre": "HOD",
+     "rol": "Edificio de la prisión"
+    },
+    {
+     "nombre": "Oficina del Sheriff de la Parroquia de Orleans",
+     "rol": "Oficina gubernamental"
+    },
+    {
+     "nombre": "Parroquia de St. Bernard",
+     "rol": "Parroquia"
+    },
+    {
+     "nombre": "Templeman III",
+     "rol": "Edificio de la prisión"
+    },
+    {
+     "nombre": "Senado",
+     "rol": "Cámara legislativa"
+    }
+   ],
+   "citas": [],
+   "personajes": [
+    {
+     "nombre": "Marlin N. Gusman",
+     "rol": "Sheriff",
+     "antagonista": true
+    },
+    {
+     "nombre": "Carl Strock",
+     "rol": "Teniente General Cuerpo de Ingenieros del Ejército EE. UU."
+    }
+   ]
+  }
+ },
+ "humano": {
+  "hash": "3c28f38bc2fc",
+  "raw": {
+   "datos": [
+    {
+     "texto": "Aproximadamente 6,500 personas, incluyendo hombres, mujeres y niños, estaban encarceladas en la Prisión de Orleans Parish (OPP)",
+     "tipo": "cifra",
+     "valor": "6,500",
+     "fuente": ""
+    },
+    {
+     "texto": "Prisión de Orleans Parish (OPP)",
+     "tipo": "lugar",
+     "valor": "Prisión de Orleans Parish (OPP)",
+     "fuente": ""
+    },
+    {
+     "texto": "huracán Katrina",
+     "tipo": "nombre",
+     "valor": "huracán Katrina",
+     "fuente": ""
+    },
+    {
+     "texto": "Sheriff Marlin N. Gusman",
+     "tipo": "nombre",
+     "valor": "Marlin N. Gusman",
+     "fuente": ""
+    },
+    {
+     "texto": "más de 1,300 prisioneros fueron recopilados por la ACLU",
+     "tipo": "cifra",
+     "valor": "1,300",
+     "fuente": ""
+    },
+    {
+     "texto": "ACLU",
+     "tipo": "nombre",
+     "valor": "ACLU",
+     "fuente": ""
+    },
+    {
+     "texto": "El Sheriff Gusman negó públicamente las acusaciones, afirmando que los prisioneros tenían comida y agua y que la evacuación se realizó según lo planeado.",
+     "tipo": "contradiccion",
+     "valor": "negó públicamente las acusaciones, afirmando que los prisioneros tenían comida y agua y que la evacuación se realizó según lo planeado",
+     "fuente": ""
+    },
+    {
+     "texto": "2 de septiembre",
+     "tipo": "fecha",
+     "valor": "2 de septiembre",
+     "fecha": "2005-09-02",
+     "fuente": ""
+    },
+    {
+     "texto": "Interestatal 10",
+     "tipo": "lugar",
+     "valor": "Interestatal 10",
+     "fuente": ""
+    },
+    {
+     "texto": "Nueva Orleans",
+     "tipo": "lugar",
+     "valor": "Nueva Orleans",
+     "fuente": ""
+    },
+    {
+     "texto": "Luisiana",
+     "tipo": "lugar",
+     "valor": "Luisiana",
+     "fuente": ""
+    },
+    {
+     "texto": "Elayn Hunt Correctional Center",
+     "tipo": "lugar",
+     "valor": "Elayn Hunt Correctional Center",
+     "fuente": ""
+    },
+    {
+     "texto": "Penitenciaría Estatal de Luisiana (Angola)",
+     "tipo": "lugar",
+     "valor": "Penitenciaría Estatal de Luisiana (Angola)",
+     "fuente": ""
+    },
+    {
+     "texto": "Human Rights Watch registró a 517 prisioneros como \"desaparecidos\"",
+     "tipo": "cifra",
+     "valor": "517",
+     "fuente": ""
+    },
+    {
+     "texto": "Human Rights Watch",
+     "tipo": "nombre",
+     "valor": "Human Rights Watch",
+     "fuente": ""
+    },
+    {
+     "texto": "Ronnie L. Morgan, Jr.",
+     "tipo": "nombre",
+     "valor": "Ronnie L. Morgan, Jr.",
+     "fuente": ""
+    },
+    {
+     "texto": "Sheriff Marlin Gusman",
+     "tipo": "nombre",
+     "valor": "Marlin Gusman",
+     "fuente": ""
+    },
+    {
+     "texto": "alcaide Cornel Hubert",
+     "tipo": "nombre",
+     "valor": "Cornel Hubert",
+     "fuente": ""
+    },
+    {
+     "texto": "Robie Waganfeald",
+     "tipo": "nombre",
+     "valor": "Robie Waganfeald",
+     "fuente": ""
+    },
+    {
+     "texto": "Paul Kunkel Jr.",
+     "tipo": "nombre",
+     "valor": "Paul Kunkel Jr.",
+     "fuente": ""
+    },
+    {
+     "texto": "Ohio",
+     "tipo": "lugar",
+     "valor": "Ohio",
+     "fuente": ""
+    },
+    {
+     "texto": "más de 650,000 dólares",
+     "tipo": "cifra",
+     "valor": "650,000",
+     "fuente": ""
+    },
+    {
+     "texto": "2010",
+     "tipo": "fecha",
+     "valor": "2010",
+     "fecha": "2010",
+     "fuente": ""
+    },
+    {
+     "texto": "William Hunter",
+     "tipo": "nombre",
+     "valor": "William Hunter",
+     "fuente": ""
+    },
+    {
+     "texto": "Raphael Schwarz",
+     "tipo": "nombre",
+     "valor": "Raphael Schwarz",
+     "fuente": ""
+    },
+    {
+     "texto": "huracán de categoría 3",
+     "tipo": "magnitud",
+     "valor": "3",
+     "fuente": ""
+    },
+    {
+     "texto": "año 2005",
+     "tipo": "fecha",
+     "valor": "2005",
+     "fecha": "2005",
+     "fuente": ""
+    },
+    {
+     "texto": "Londres",
+     "tipo": "lugar",
+     "valor": "Londres",
+     "fuente": ""
+    }
+   ],
+   "cronologia": [
+    {
+     "fecha": "2005-08-27",
+     "evento": "Robie Waganfeald y Paul Kunkel Jr. son arrestados en Bourbon Street por presunta intoxicación pública.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-27",
+     "evento": "Raphael Schwarz es arrestado por intoxicación pública.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-28",
+     "evento": "El Sheriff Marlin N. Gusman anuncia en una conferencia de prensa que los prisioneros no serán evacuados de la Prisión de Orleans Parish.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-28",
+     "hora": "noche",
+     "evento": "Se corta la electricidad en la prisión por la noche.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-29",
+     "evento": "El huracán Katrina, un huracán de categoría 3, toca tierra en Nueva Orleans.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-29",
+     "evento": "Los generadores de la prisión fallan.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-29",
+     "evento": "El agua de la inundación comienza a entrar en los niveles inferiores de los edificios de la prisión.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-29",
+     "hora": "medianoche",
+     "evento": "El Sheriff Gusman pide ayuda para la evacuación a medianoche.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-31",
+     "evento": "Un equipo de tres hombres de la prisión de Angola rescata a prisioneras.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-09-01",
+     "evento": "Prisioneras llegan a la Penitenciaría Estatal de Luisiana (Angola).",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-09-02",
+     "evento": "Se completa la evacuación de la Prisión de Orleans Parish.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-09-28",
+     "evento": "La Unión Estadounidense por las Libertades Civiles (ACLU) exige acceso a los prisioneros reubicados.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2006-08-10",
+     "evento": "La ACLU publica su informe \"Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina\".",
+     "fuente": "American Civil Liberties Union (ACLU), 2006, \"Abandoned and Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina\""
+    },
+    {
+     "fecha": "2006-09-01",
+     "evento": "El recluso Ronnie L. Morgan, Jr. presenta una demanda federal por violación de sus derechos civiles.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2010-10-14",
+     "evento": "Un jurado federal otorga más de 650,000 dólares a Robie Waganfeald y Paul Kunkel Jr. en su demanda contra el Sheriff Gusman.",
+     "fuente": ""
+    }
+   ],
+   "lugares": [
+    {
+     "nombre": "Prisión de Orleans Parish (OPP)",
+     "rol": "Lugar de encarcelamiento de prisioneros"
+    },
+    {
+     "nombre": "Bourbon Street",
+     "rol": "Lugar de arresto"
+    },
+    {
+     "nombre": "Nueva Orleans",
+     "rol": "Ciudad afectada por el huracán Katrina"
+    },
+    {
+     "nombre": "Interestatal 10",
+     "rol": "Paso elevado para prisioneros evacuados"
+    },
+    {
+     "nombre": "Luisiana",
+     "rol": "Estado con instalaciones penitenciarias"
+    },
+    {
+     "nombre": "Elayn Hunt Correctional Center",
+     "rol": "Prisión de traslado de prisioneros"
+    },
+    {
+     "nombre": "Penitenciaría Estatal de Luisiana (Angola)",
+     "rol": "Prisión de rescate y traslado de prisioneras"
+    },
+    {
+     "nombre": "Ohio",
+     "rol": "Estado de origen de turistas"
+    },
+    {
+     "nombre": "Londres",
+     "rol": "Ciudad de atentado terrorista"
+    }
+   ],
+   "citas": [
+    {
+     "texto": "donde pertenecen",
+     "autor": "Sheriff Marlin N. Gusman",
+     "fuente": ""
+    },
+    {
+     "texto": "Están en la cárcel, hombre. Mienten... No confíen en drogadictos, cobardes y criminales para saber cuál es la historia",
+     "autor": "Sheriff Gusman",
+     "fuente": ""
+    }
+   ],
+   "personajes": [
+    {
+     "nombre": "Marlin N. Gusman",
+     "rol": "Sheriff",
+     "antagonista": true
+    },
+    {
+     "nombre": "Cornel Hubert",
+     "rol": "Alcaide del Elayn Hunt Correctional Center",
+     "antagonista": false
+    },
+    {
+     "nombre": "William Hunter",
+     "rol": "Adjunto del Sheriff Gusman",
+     "antagonista": true
+    },
+    {
+     "nombre": "Robie Waganfeald",
+     "rol": "Turista, demandante",
+     "antagonista": false
+    },
+    {
+     "nombre": "Paul Kunkel Jr.",
+     "rol": "Turista, demandante",
+     "antagonista": false
+    },
+    {
+     "nombre": "Ronnie L. Morgan, Jr.",
+     "rol": "Recluso, demandante",
+     "antagonista": false
+    },
+    {
+     "nombre": "Raphael Schwarz",
+     "rol": "Arrestado por intoxicación pública",
+     "antagonista": false
+    }
+   ]
+  }
+ },
+ "misterio": {
+  "hash": "f704d8877e2a",
+  "raw": {
+   "datos": [
+    {
+     "texto": "la Prisión de Orleans Parish (OPP) albergaba a 6,375 reclusos el 29 de agosto de 2005",
+     "tipo": "cifra",
+     "valor": "6,375",
+     "fecha": "2005-08-29",
+     "fuente": ""
+    },
+    {
+     "texto": "la Prisión de Orleans Parish (OPP) albergaba a 6,375 reclusos el 29 de agosto de 2005",
+     "tipo": "lugar",
+     "valor": "Prisión de Orleans Parish (OPP)",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "la Prisión de Orleans Parish (OPP) albergaba a 6,375 reclusos el 29 de agosto de 2005",
+     "tipo": "fecha",
+     "valor": "29 de agosto de 2005",
+     "fecha": "2005-08-29",
+     "fuente": ""
+    },
+    {
+     "texto": "estimando que había hasta 8,000 evacuados de la prisión",
+     "tipo": "cifra",
+     "valor": "8,000",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "Según un informe de Human Rights Watch, más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel",
+     "tipo": "cifra",
+     "valor": "500",
+     "fecha": "",
+     "fuente": "Human Rights Watch, 2005, \"New Orleans: Prisoners Abandoned to Floodwaters\""
+    },
+    {
+     "texto": "reclusos de la sección \"Templeman III\" informaron haber visto cadáveres flotando en las aguas de la inundación mientras eran evacuados el 1 de septiembre",
+     "tipo": "fecha",
+     "valor": "1 de septiembre",
+     "fecha": "2005-09-01",
+     "fuente": ""
+    },
+    {
+     "texto": "reclusos de la sección \"Templeman III\" informaron haber visto cadáveres flotando",
+     "tipo": "lugar",
+     "valor": "Templeman III",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "El sheriff de la cárcel declaró que ningún preso murió o escapó",
+     "tipo": "contradiccion",
+     "valor": "ningún preso murió o escapó",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "más tarde se emitieron 14 órdenes de arresto para fugitivos",
+     "tipo": "cifra",
+     "valor": "14",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "El sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos",
+     "tipo": "contradiccion",
+     "valor": "El sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "No existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina",
+     "tipo": "lugar",
+     "valor": "Prisión de Orleans Parish",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "El Departamento de Justicia de EE. UU. fue llamado a investigar la conducta del Departamento del Sheriff de Orleans",
+     "tipo": "nombre",
+     "valor": "Departamento de Justicia de EE. UU.",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "la conducta del Departamento del Sheriff de Orleans",
+     "tipo": "nombre",
+     "valor": "Departamento del Sheriff de Orleans",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "Cientos de testimonios de reclusos, recopilados por la ACLU",
+     "tipo": "nombre",
+     "valor": "ACLU",
+     "fecha": "",
+     "fuente": "American Civil Liberties Union (ACLU), 2006, \"Abandoned and Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina\""
+    },
+    {
+     "texto": "El Sheriff Marlin Gusman no solicitó ayuda para evacuar la prisión hasta la medianoche del lunes 29 de agosto",
+     "tipo": "fecha",
+     "valor": "29 de agosto",
+     "fecha": "2005-08-29",
+     "fuente": ""
+    },
+    {
+     "texto": "El Sheriff Marlin Gusman no solicitó ayuda para evacuar la prisión hasta la medianoche del lunes 29 de agosto",
+     "tipo": "nombre",
+     "valor": "Marlin Gusman",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "La evacuación no se completó hasta el viernes 2 de septiembre",
+     "tipo": "fecha",
+     "valor": "2 de septiembre",
+     "fecha": "2005-09-02",
+     "fuente": ""
+    },
+    {
+     "texto": "En la prisión había niños de hasta 10 años",
+     "tipo": "cifra",
+     "valor": "10",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "La población juvenil era abrumadoramente afroamericana (98.7% en el CYC y 95% en el YSC)",
+     "tipo": "cifra",
+     "valor": "98.7%",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "La población juvenil era abrumadoramente afroamericana (98.7% en el CYC y 95% en el YSC)",
+     "tipo": "nombre",
+     "valor": "CYC",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "La población juvenil era abrumadoramente afroamericana (98.7% en el CYC y 95% en el YSC)",
+     "tipo": "cifra",
+     "valor": "95%",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "La población juvenil era abrumadoramente afroamericana (98.7% en el CYC y 95% en el YSC)",
+     "tipo": "nombre",
+     "valor": "YSC",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "antigua cárcel de Nueva Orleans construida en 1902",
+     "tipo": "fecha",
+     "valor": "1902",
+     "fecha": "1902",
+     "fuente": ""
+    },
+    {
+     "texto": "antigua cárcel de Nueva Orleans",
+     "tipo": "lugar",
+     "valor": "Nueva Orleans",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "incluyendo el de un posible capitán de la guardia",
+     "tipo": "nombre",
+     "valor": "capitán de la guardia",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "Un médium psíquico ha detectado la energía de personas que trabajaron allí",
+     "tipo": "nombre",
+     "valor": "médium psíquico",
+     "fecha": "",
+     "fuente": ""
+    },
+    {
+     "texto": "Un jurado federal otorga más de $650,000 a dos turistas de Ohio",
+     "tipo": "cifra",
+     "valor": "650,000",
+     "fecha": "2010-10-14",
+     "fuente": ""
+    }
+   ],
+   "cronologia": [
+    {
+     "fecha": "2005-08-26",
+     "hora": "",
+     "evento": "Se cortan los teléfonos para los reclusos en la Prisión de Orleans Parish (OPP), días antes de la llegada del huracán Katrina.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-27",
+     "hora": "",
+     "evento": "Los reclusos reciben su última comida antes de que el huracán azote.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-28",
+     "hora": "",
+     "evento": "Los reclusos reciben su última comida antes de que el huracán azote.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-29",
+     "hora": "",
+     "evento": "El huracán Katrina golpea Nueva Orleans.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-29",
+     "hora": "",
+     "evento": "Los generadores de la prisión fallan, dejando a los reclusos sin luces ni ventilación.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-29",
+     "hora": "00:00",
+     "evento": "El Sheriff Marlin Gusman no solicita ayuda para la evacuación",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-08-30",
+     "hora": "",
+     "evento": "Comienza la evacuación de algunos edificios de la prisión (Templeman 1 y 2) cuando el agua alcanza el nivel del pecho en el interior.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-09-01",
+     "hora": "",
+     "evento": "Cuatro días después del huracán, los reclusos de la sección \"Templeman III\" son evacuados y algunos reportan haber visto cuerpos flotando.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2005-09-02",
+     "hora": "",
+     "evento": "Se completa la evacuación de la Prisión de Orleans Parish.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2006-08",
+     "hora": "",
+     "evento": "La ACLU publica el informe \"Abandoned and Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina\", que detalla los testimonios de los reclusos.",
+     "fuente": ""
+    },
+    {
+     "fecha": "2010-10-14",
+     "hora": "",
+     "evento": "Un jurado federal otorga más de $650,000 a dos turistas de Ohio que fueron encarcelados por ebriedad en la vía pública antes de Katrina y retenidos durante más de un mes en las caóticas secuelas.",
+     "fuente": ""
+    }
+   ],
+   "lugares": [
+    {
+     "nombre": "Prisión de Orleans Parish (OPP)",
+     "rol": "Cárcel durante el huracán Katrina"
+    },
+    {
+     "nombre": "Orleans Parish",
+     "rol": "Ubicación de la prisión"
+    },
+    {
+     "nombre": "Templeman III",
+     "rol": "Sección de la prisión"
+    },
+    {
+     "nombre": "Nueva Orleans",
+     "rol": "Ciudad"
+    },
+    {
+     "nombre": "Departamento de Justicia de EE. UU.",
+     "rol": "Organismo investigador"
+    },
+    {
+     "nombre": "Departamento del Sheriff de Orleans",
+     "rol": "Autoridad carcelaria"
+    },
+    {
+     "nombre": "CYC",
+     "rol": "Instalación juvenil"
+    },
+    {
+     "nombre": "YSC",
+     "rol": "Instalación juvenil"
+    },
+    {
+     "nombre": "Inn at the Old Jail",
+     "rol": "Antigua cárcel, ahora posada"
+    },
+    {
+     "nombre": "Ohio",
+     "rol": "Estado de origen"
+    }
+   ],
+   "citas": [],
+   "personajes": [
+    {
+     "nombre": "Marlin Gusman",
+     "rol": "Sheriff de la cárcel",
+     "antagonista": true
+    },
+    {
+     "nombre": "capitán de la guardia",
+     "rol": "Posible espíritu",
+     "antagonista": false
+    },
+    {
+     "nombre": "médium psíquico",
+     "rol": "Detector de energías paranormales",
+     "antagonista": false
+    }
+   ]
+  }
+ }
+}

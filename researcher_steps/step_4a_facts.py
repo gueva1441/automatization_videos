@@ -10,8 +10,10 @@ source_block (tecnico|humano|misterio), imposible mezclarlas.
 INPUT:  angle_blocks = {bloque_tecnico, bloque_humano, bloque_misterio}
 OUTPUT: {
   "verified_facts": [{"fact": "...", "source_block": "tecnico"}, ...],
-  "sources": ["autor/publicación/año", ...]
+  "sources": ["autor/publicación/año", ...],
+  "evidence_pool": {datos, cronologia, lugares, citas, personajes}   # F5 §1.1 (researcher_steps/evidence_pool.py)
 }
+Los verified_facts no cambian (6–12, los usan las imágenes); el evidence_pool es una 2.ª extracción SIN tope.
 """
 
 from gemini_helpers import call_flash_json
@@ -76,7 +78,7 @@ FORMATO DE SALIDA — JSON puro, sin markdown, sin texto adicional:
 RESPONDE SOLO CON EL JSON."""
 
 
-def extract_facts_and_sources(angle_blocks: dict[str, str]) -> dict:
+def extract_facts_and_sources(angle_blocks: dict[str, str], with_pool: bool = True) -> dict:
     """
     Sub-paso 4a: extrae verified_facts (etiquetados) + sources.
 
@@ -90,7 +92,7 @@ def extract_facts_and_sources(angle_blocks: dict[str, str]) -> dict:
         }
     """
     if not angle_blocks:
-        return {"verified_facts": [], "sources": []}
+        return {"verified_facts": [], "sources": [], **({"evidence_pool": None} if with_pool else {})}
 
     prompt = _build_prompt(angle_blocks)
     data = call_flash_json(prompt)
@@ -118,7 +120,18 @@ def extract_facts_and_sources(angle_blocks: dict[str, str]) -> dict:
         sources = []
     sources = [str(s).strip() for s in sources if str(s).strip()]
 
-    return {
+    out = {
         "verified_facts": valid_facts,
         "sources": sources,
     }
+    if with_pool:                           # F5 §1.1: el research completo (sin tope) para guion y pantalla
+        from researcher_steps.evidence_pool import extract_evidence_pool
+        log: list[str] = []
+        try:
+            out["evidence_pool"] = extract_evidence_pool(angle_blocks, log=log)
+        except Exception as e:  # noqa: BLE001 — sin pool el pipeline sigue con verified_facts (compatibilidad)
+            log.append(f"  [4a·pool] falló: {type(e).__name__}: {str(e)[:120]}")
+            out["evidence_pool"] = None
+        for ln in log:
+            print(ln)
+    return out

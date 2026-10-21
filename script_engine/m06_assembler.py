@@ -128,6 +128,7 @@ def assemble_final_script(topic_id: str) -> Path:
         "humanizer_phrases":         narration.get("humanizer_phrases", []),
         # metadata trazable:
         "verified_facts":            topic.get("verified_facts", []),
+        "evidence_pool":             topic.get("evidence_pool"),     # F5: candado, director, reloj, mapa (F6)
         "sources":                   topic.get("sources", []),
         "research_summary":          topic.get("research_summary", ""),
         "canonical_subject_description": topic.get("canonical_subject_description", ""),
