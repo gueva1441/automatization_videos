@@ -1,0 +1,98 @@
+# Escaleta — ba6c3cac-f6v3
+
+**Humano que seguimos:** Vincent Norman (Preso (chef arrestado por una multa impaga), P09) — Es un civil atrapado en el sistema, una víctima inocente cuya experiencia personal (el agua al pecho, el abandono) nos ancla en el horror. Su testimonio es directo y poderoso.
+**Antagonista:** Marlin N. Gusman — Como Sheriff, Marlin N. Gusman tenía la responsabilidad de evacuar a los prisioneros. Su decisión de no hacerlo [T05] y su posterior negación de los hechos [D37] lo convierten en la fuerza que se opone a la supervivencia y la verdad.
+**Promesa del gancho:** Abandonaron a miles de personas en celdas inundadas. Esta es la historia de los cuerpos que vieron y los cientos que nunca aparecieron.
+**Pico:** beat 5 · D60 «reclusos de la sección "Templeman III" informaron haber visto cadáveres flotando en las aguas de la inundación mientras eran evacuados el…» — Es el punto de máximo horror. No es la inundación en sí, sino la confirmación visual de la muerte a través de los ojos de los supervivientes, un tabú que las autoridades negaron.
+**Cierre humano:** Las historias de los abandonados en la Prisión Parroquial de Orleans, como la de Vincent Norman, son un recordatorio de que, como dijo el abogado Eric Balaban, 'Como sociedad vemos a los presos como ciudadanos de segunda clase, sus historias han pasado en gran medida desapercibidas y, por lo tanto, no contadas' [Q10].
+
+Curva: 1:2 → 2:2 → 3:3 → 4:4 → 5:5 → 6:1 → 7:3 → 8:2
+
+## Cap 1 · hook · 110 palabras · pantalla (no se narra): T09, T10
+
+**Beat 1 — gancho · Inquietud · intensidad 2 · 110 pal.**
+- Imagen: Oscuridad total, el sonido del agua de la tormenta golpeando las paredes de la prisión.
+- Dato central: T08 «La energía eléctrica se pierde y los generadores de respaldo fallan en la OPP.»
+- Apoyo: D03 «Evento principal: huracán Katrina.»; T07 «El huracán Katrina, un huracán de categoría 3, toca tierra en Nueva Orleans.»
+- Queda abierta: ¿Hay un plan para sacar a la gente de ahí?
+- Pregunta en pantalla: **¿Por qué se apagaron las luces?** ⚠ no pasa la rúbrica (respaldo: gfx_question)
+- Cierre: Mientras la ciudad se prepara para el impacto, el hombre a cargo toma una decisión que sellará el destino de miles.
+
+## Cap 2 · development · 190 palabras
+
+**Beat 2 — planteo · Tensión · intensidad 2 · humano en escena · 190 pal.**
+- Imagen: La cara del Sheriff Gusman en un televisor, anunciando que los presos se quedan 'donde pertenecen'.
+- Dato central: T05 «El sheriff Marlin N. Gusman anuncia en una conferencia de prensa que los prisioneros no serán evacuados de la Prisión de Orleans Parish.»
+- Apoyo: D57 «la Prisión de Orleans Parish (OPP) albergaba a 6,375 reclusos el 29 de agosto de 2005»; Q04 «Básicamente abandonaron la prisión» — Vincent Norman
+- Queda abierta: ¿Realmente los van a dejar encerrados con un huracán encima?
+- Pregunta en pantalla: **¿Quién decidió dejarlos allí dentro?**
+- Cierre: La decisión está tomada. Ahora, solo queda esperar que los muros aguanten. No lo harán.
+
+## Cap 3 · development · 190 palabras
+
+**Beat 3 — escalada · Angustia · intensidad 3 · humano en escena · 190 pal.**
+- Imagen: Agua negra y contaminada con aguas residuales subiendo por los barrotes de una celda del primer piso.
+- Dato central: D08 «En otras áreas, el agua contaminada con aguas residuales llegó hasta el pecho de los reclusos.»
+- Apoyo: D07 «El agua dentro de algunos edificios de la prisión, como Templeman 1 y 2, alcanzó el nivel del pecho.»; Q05 «Era como un campo de concentración. Estás hablando de gente en jaulas, con el agua hasta el pecho» — Vincent Norman
+- Queda abierta: ¿Van a ahogarse en sus propias celdas?
+- Pregunta en pantalla: **¿Cuánto tiempo los dejarían en el agua?**
+- Cierre: Atrapados en la oscuridad y en el agua, sin guardias a la vista, la supervivencia se convierte en una pesadilla de varios días.
+
+## Cap 4 · development · 190 palabras
+
+**Beat 4 — escalada · Desesperación · intensidad 4 · humano en escena · 190 pal.**
+- Imagen: Manos agarrando los barrotes superiores de una celda para mantenerse fuera del agua fétida.
+- Dato central: Q13 «Los guardias nos dejaron allí para que muriéramos encerrados en la celda... El agua estaba tan alta que tuvimos que nadar para salir de l…» — un preso anónimo, 19 años, del TCI (Templeman IV)
+- Apoyo: Q06 «Estábamos en la oscuridad. No teníamos comida ni agua» — Vincent Norman; D92 «3 o 4 días»
+- Queda abierta: ¿Nadie va a venir a rescatarlos?
+- Pregunta en pantalla: **¿Por qué los guardias abandonaron sus puestos?**
+- Cierre: Después de días de abandono, finalmente comienza una evacuación caótica. Pero lo que ven al salir es peor que lo que imaginaban.
+
+## Cap 5 · development · 190 palabras · pantalla (no se narra): T04, T16
+
+**Beat 5 — pico · Horror · intensidad 5 · 95 pal.**
+- Imagen: Un cuerpo flotando boca abajo en el agua oscura del pasillo, visto desde un bote de rescate.
+- Dato central: D60 «reclusos de la sección "Templeman III" informaron haber visto cadáveres flotando en las aguas de la inundación mientras eran evacuados el…»
+- Apoyo: T15 «Cuatro días después del huracán, los reclusos de la sección "Templeman III" son evacuados y algunos reportan haber visto cuerpos flotando.»
+- Queda abierta: ¿Cuánta gente murió ahí dentro?
+- Cierre: El horror tiene un rostro, pero el sistema tiene una voz que lo niega todo.
+
+**Beat 6 — respiro · Tristeza · intensidad 1 · 95 pal.**
+- Imagen: Una fotografía familiar gastada de un joven sonriendo, sostenida por la mano de su madre.
+- Dato central: Q08 «El último año ha sido devastador sin Chad en nuestras vidas. Chad era el corazón de nuestra familia. Era cariñoso, generoso y atento, y s…» — Lenore Burnley
+- Apoyo: D79 «Chad Joseph (un hombre que murió después de ser evacuado de OPP)»
+- Queda abierta: ¿Se hará justicia por estas muertes?
+- Pregunta en pantalla: **¿Cuántos cuerpos más había en el agua?**
+- Cierre: Mientras las familias lloran, las autoridades construyen su versión de la historia, una donde no falta nadie.
+
+## Cap 6 · development · 190 palabras · pantalla (no se narra): T23
+
+**Beat 7 — revelacion · Indignación · intensidad 3 · 190 pal.**
+- Imagen: Una lista de nombres en papel, manchada de agua, con cientos de espacios vacíos.
+- Dato central: D19 «Inmediatamente después de la evacuación, 517 reclusos no estaban contabilizados»
+- Apoyo: D59 «Según un informe de Human Rights Watch, más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel»; D61 «El sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos»; Q02 «Están en la cárcel, hombre. Mienten... No confíen en drogadictos, cobardes y criminales para saber cuál es la historia» — Sheriff Gusman
+- Queda abierta: ¿Cómo es posible que más de 500 personas simplemente desaparezcan?
+- Pregunta en pantalla: **¿Dónde están los 517 desaparecidos?**
+- Cierre: Con cientos de personas perdidas en el sistema, la lucha por la verdad se traslada de las celdas inundadas a los tribunales.
+
+## Cap 7 · reveal_outro · 110 palabras · pantalla (no se narra): D65, T12
+
+**Beat 8 — cierre · Reflexión · intensidad 2 · 110 pal.**
+- Imagen: El mazo de un juez golpeando sobre madera pulida en una sala de tribunal casi vacía.
+- Dato central: T26 «Un jurado federal otorga más de 650,000 dólares a Robie Waganfeald y Paul Kunkel Jr. en su demanda contra el sheriff Gusman.»
+- Apoyo: D50 «más de 650,000 dólares»; T03 «Robie Waganfeald y Paul Kunkel Jr. son arrestados en Bourbon Street por presunta intoxicación pública.»
+- Queda abierta: Si dos turistas pudieron ganar, ¿qué pasó con los miles de reclusos que sufrieron lo mismo o peor?
+- Pregunta en pantalla: **¿Cuántas historias siguen sin contarse?**
+- Cierre: Una pequeña victoria legal demostró que era posible encontrar culpables, pero para la mayoría, la justicia nunca llegó.
+
+## Reparaciones del validador
+
+- beat 5: apoyo L16 no existe en el pool → fuera
+
+## Avisos
+
+- pregunta de pantalla del cap 1 «¿Por qué se apagaron las luces?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)
+- beat 2: vuelve atrás en el tiempo (2005-08-28 < 2005-08-29)
+
+---
+Costo: US$ 0.2416 · 169.5 s · intentos: 3
