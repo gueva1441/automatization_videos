@@ -1,9 +1,9 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (F5d terminado, PARADA para el analista; después: producción de Orleans v2) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (Orleans v2 producido; PARADA: Omar ve el video) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
-- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit: F5d (`git log -1`), sobre `c55ca56` (F5c).
+- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit: producción de Orleans v2 (`git log -1`), sobre `19cf5d9` (F5d).
 - Cadena de ramas sin mergear: `f2-gfx-director` (F2b @ `31c671c`) → `f3-lab-identidad` (F3–F4e @ `39e37ac`) → `f5-guion-v2` (F5).
 - `main` = `43f528a`. NO se toca sin OK explícito de Omar.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
@@ -11,7 +11,19 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F5d — Último ajuste antes de producción — PARADA: valida el analista; con su OK, producción completa de Orleans v2
+## Producción de Orleans v2 — PARADA: Omar ve el video
+- **Video:** `output/ba6c3cac-f5v2/ba6c3cac-f5v2_final_gfx.mp4` (571.2 s, gfx looks disperso, identidad y crítico activos).
+- Leer `lab/hyperframes/f5/F5_PRODUCCION_REPORT.md` (revisor íntegro) y `DECISIONES_F5.md` P1–P9.
+- **Hecho:** retoque de los caps 5 y 6; bloque G (G1 crítico sobre snapshot, G2 titular ≤ 8 palabras, G3 `verify_crop` del zoom final, G4 íconos espiral y rayo tachado); TTS, imágenes (81 + Veo ch01/ch07) y un solo render en 77.8 min.
+- **Costo de esta tanda:** ≈ US$ 6.2 (imágenes 3.24, Veo 0.48, Gemini ≈ 2.0, TTS ≈ 0.21, íconos 0.27).
+- **Abierto:**
+  - G1 confunde el sello dibujado con la foto (2 bloques sacados de más);
+  - G2 dejó 2 recortes en todo el video;
+  - aviso de alineación del TTS sin verificar a ojo;
+  - tinte «lavado» del mood muerte.
+- Tests: 397 verdes + 3 viejas.
+
+## F5d — Último ajuste antes de producción — superado (producido)
 - Leer `lab/hyperframes/f5/RESUMEN_F5d.md` (revisor íntegro) y `DECISIONES_F5.md` M1–M11.
 - **Hecho:**
   - cifras canónicas (6,375 oficial; la contradicción solo en el cap 7);

@@ -733,6 +733,37 @@ def render_css(width: int, height: int) -> str:
         ar_ico_pad=round(ars * 150) + 16)                          # F3: aire para el ícono del recorte
 
 
+HEAD_CHAR_W = 0.58                   # ancho medio de una letra de Playfair Display SC 900, en cuerpos
+HEAD_STEPS = (1.0, 0.85, 0.72)       # G2: cuerpo del titular; si no entra, baja un cuerpo (nunca se corta)
+
+
+def archive_head_px(headline: str, width: int, height: int) -> tuple[int, int]:
+    """(cuerpo en px, escalón) del titular del recorte para que la tarjeta entre en el cuadro sin cortar texto.
+    Estima líneas por ancho de la tarjeta y alto total (kicker + regla + titular + márgenes) contra el alto útil
+    (de top 120 px a 120 px del borde de abajo). Escalón 0 = el cuerpo normal."""
+    from gfx_config import gfx_rules as r
+    ars = r.archive_scale
+    ar_w = min(round(1100 * ars), round(width * r.archive_max_w_frac))
+    inner = ar_w - 2 * round(60 * ars)
+    fixed = round(50 * ars) + round(34 * ars) + 42 + round(60 * ars)
+    avail = height - 120 - 120 - fixed
+    base = round(84 * ars)
+    words = headline.split()
+    for k, f in enumerate(HEAD_STEPS):
+        px = round(base * f)
+        per_line = max(1, int(inner / (px * HEAD_CHAR_W)))
+        lines, cur = 1, 0
+        for w in words:                                   # las palabras no se parten (.w sin corte interno)
+            n = len(w) + (1 if cur else 0)
+            if cur and cur + n > per_line:
+                lines, cur = lines + 1, len(w)
+            else:
+                cur += n
+        if lines * px * 1.04 <= avail:
+            return px, k
+    return round(base * HEAD_STEPS[-1]), len(HEAD_STEPS) - 1
+
+
 def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *,
                   duration: float, width: int, height: int, fps: int,
                   grade_variant: str | None = None, debug: bool = False,
@@ -879,7 +910,9 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         font, paper = (("Georgia, serif", "#e6dcc3") if decade < 1950
                        else ("'Courier New', monospace", "#e9e4d6") if decade < 1990
                        else ("'Times New Roman', Times, serif", "#ece6d8"))
+        head_px, head_step = archive_head_px(ar["headline"], width, height)
         overlays.append(_tpl("archive_clipping.html.tmpl").substitute(
+            head_style=(f' style="font-size:{head_px}px"' if head_step else ""),
             i=i, start=f"{a0:.3f}", duration=f"{a1 - a0:.3f}", paper=paper, font=font, side=ar.get("side", "right"),
             kicker=_esc(ar.get("kicker", "")),
             icon_html=(f'          <div class="ar-ico">{card_icon_html(f"ari{i}", ar.get("icon"), round(gfx_rules.archive_scale * 150), dark=True)}</div>\n'

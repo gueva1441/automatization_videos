@@ -182,3 +182,5 @@ sim_v2 ch06: 115s · resolved OK
 sim_v2 ch07: 86s · resolved OK
 [2026-10-21 05:09:38] F5b etapa versionar
 versionar: C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f5\v2
+[2026-10-21 05:58:42] F5b etapa retoque
+retoque: caps 5 y 6 en 207s · costo {'Gemini 2.5 Pro': 0.245022} · resto idéntico True · normalizer 17 spans · «dos turistas de Ohio» en cap 6: True · umbral {'densidad': True, 'repeticion': False, 'adjetivacion': True, 'repeticion_en_cap': True, 'nombres': True, 'antagonista': True, 'cliffhanger': True}

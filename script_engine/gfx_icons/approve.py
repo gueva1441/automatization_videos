@@ -24,7 +24,9 @@ from script_engine.gfx_icons.trace import ACCENT  # noqa: E402
 # Elección de Omar en la PARADA 2 (número de la tira → candidato)
 CHOICE: dict[str, str] = {"calavera": "b", "gota": "a", "llama": "a", "biohazard": "a", "reloj": "b", "candado": "a",
                           "ojo_tachado": "a", "balanza": "b", "cruz": "b", "persona": "b", "edificio_ruina": "b",
-                          "pregunta": "a"}
+                          "pregunta": "a",
+                          # F5d+ G4: elegidos por CC (sin PARADA de Omar): espiral «a» (sin marco), rayo tachado «b»
+                          "espiral": "a", "rayo_tachado": "b"}
 # calavera_2: centros de las cuencas medidos sobre el viewBox 200×200 (≤ 15 min a mano, regla del handoff)
 SKULL_EYES: tuple[tuple[float, float, float, float], ...] = ((70.0, 85.0, 15.0, 10.5), (127.0, 85.0, 15.0, 10.5))
 # cruz_2: clavo en el cruce de los maderos (viewBox 200×200)

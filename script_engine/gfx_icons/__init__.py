@@ -33,6 +33,8 @@ ICON_WHITELIST: dict[str, str] = {
     "calavera": "skull", "gota": "droplet", "llama": "flame", "biohazard": "biohazard", "reloj": "clock",
     "candado": "lock", "ojo_tachado": "eye-off", "balanza": "scale", "cruz": "cross", "persona": "person-standing",
     "edificio_ruina": "building", "pregunta": "circle-help",
+    # F5d+ G4: huracán y generadores (sin respaldo Lucide: solo el SVG propio)
+    "espiral": "tornado", "rayo_tachado": "zap-off",
 }
 VALID_ICON_ANIMS: frozenset[str] = frozenset({"ink_bleed", "press_wipe", "engrave", "stamp"})
 ENGRAVE_SEC: float = 0.8

@@ -46,11 +46,6 @@
      "dropped": 0,
      "kb": 163.2
     }
-   },
-   "approved": {
-    "candidate": "1b",
-    "file": "calavera.svg",
-    "accent": true
    }
   },
   "gota": {
@@ -82,11 +77,6 @@
      "dropped": 7,
      "kb": 44.4
     }
-   },
-   "approved": {
-    "candidate": "2a",
-    "file": "gota.svg",
-    "accent": false
    }
   },
   "llama": {
@@ -118,11 +108,6 @@
      "dropped": 5,
      "kb": 53.2
     }
-   },
-   "approved": {
-    "candidate": "3a",
-    "file": "llama.svg",
-    "accent": false
    }
   },
   "biohazard": {
@@ -154,11 +139,6 @@
      "dropped": 0,
      "kb": 71.6
     }
-   },
-   "approved": {
-    "candidate": "4a",
-    "file": "biohazard.svg",
-    "accent": false
    }
   },
   "reloj": {
@@ -190,11 +170,6 @@
      "dropped": 3,
      "kb": 146.9
     }
-   },
-   "approved": {
-    "candidate": "5b",
-    "file": "reloj.svg",
-    "accent": false
    }
   },
   "candado": {
@@ -226,11 +201,6 @@
      "dropped": 0,
      "kb": 73.1
     }
-   },
-   "approved": {
-    "candidate": "6a",
-    "file": "candado.svg",
-    "accent": true
    }
   },
   "ojo_tachado": {
@@ -262,11 +232,6 @@
      "dropped": 0,
      "kb": 127.3
     }
-   },
-   "approved": {
-    "candidate": "7a",
-    "file": "ojo_tachado.svg",
-    "accent": false
    }
   },
   "balanza": {
@@ -298,11 +263,6 @@
      "dropped": 0,
      "kb": 147.4
     }
-   },
-   "approved": {
-    "candidate": "8b",
-    "file": "balanza.svg",
-    "accent": false
    }
   },
   "cruz": {
@@ -334,11 +294,6 @@
      "dropped": 0,
      "kb": 33.4
     }
-   },
-   "approved": {
-    "candidate": "9b",
-    "file": "cruz.svg",
-    "accent": true
    }
   },
   "persona": {
@@ -370,11 +325,6 @@
      "dropped": 1,
      "kb": 74.2
     }
-   },
-   "approved": {
-    "candidate": "10b",
-    "file": "persona.svg",
-    "accent": false
    }
   },
   "edificio_ruina": {
@@ -406,11 +356,6 @@
      "dropped": 0,
      "kb": 191.1
     }
-   },
-   "approved": {
-    "candidate": "11b",
-    "file": "edificio_ruina.svg",
-    "accent": false
    }
   },
   "pregunta": {
@@ -442,10 +387,77 @@
      "dropped": 0,
      "kb": 138.9
     }
+   }
+  },
+  "espiral": {
+   "num": 13,
+   "object": "hurricane spiral symbol",
+   "prompt": "1890 poison label woodcut, single hurricane spiral symbol, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "13a": {
+     "file": "espiral_1.svg",
+     "seed": 1441,
+     "paths": 51,
+     "accent": true,
+     "dropped": 0,
+     "kb": 64.1
+    },
+    "13b": {
+     "file": "espiral_2.svg",
+     "seed": 1442,
+     "paths": 142,
+     "accent": true,
+     "dropped": 9,
+     "kb": 230.8
+    },
+    "13c": {
+     "file": "espiral_3.svg",
+     "seed": 1443,
+     "paths": 69,
+     "accent": true,
+     "dropped": 1,
+     "kb": 152.0
+    }
    },
    "approved": {
-    "candidate": "12a",
-    "file": "pregunta.svg",
+    "candidate": "13a",
+    "file": "espiral.svg",
+    "accent": false
+   }
+  },
+  "rayo_tachado": {
+   "num": 14,
+   "object": "lightning bolt crossed out by one diagonal slash",
+   "prompt": "1890 poison label woodcut, single lightning bolt crossed out by one diagonal slash, white ink on pure black background, thick irregular engraved strokes, no text, no letters, centered, isolated",
+   "candidates": {
+    "14a": {
+     "file": "rayo_tachado_1.svg",
+     "seed": 1441,
+     "paths": 41,
+     "accent": true,
+     "dropped": 0,
+     "kb": 66.8
+    },
+    "14b": {
+     "file": "rayo_tachado_2.svg",
+     "seed": 1442,
+     "paths": 84,
+     "accent": true,
+     "dropped": 0,
+     "kb": 161.3
+    },
+    "14c": {
+     "file": "rayo_tachado_3.svg",
+     "seed": 1443,
+     "paths": 72,
+     "accent": true,
+     "dropped": 0,
+     "kb": 166.2
+    }
+   },
+   "approved": {
+    "candidate": "14b",
+    "file": "rayo_tachado.svg",
     "accent": false
    }
   }

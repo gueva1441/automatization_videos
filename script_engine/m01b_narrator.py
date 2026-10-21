@@ -291,6 +291,11 @@ def _evidence_block(topic: dict, skeleton: dict, cap: int, previous: list[dict])
         lines += ["", "PERSONAS QUE ENTRAN EN ESTE CAP (nombre + cargo la primera vez):",
                   *[f"  • {p['nombre']} — {p.get('rol') or ''}{' (antagonista)' if p.get('antagonista') else ''}"
                     for p in people]]
+        roles = [str(p.get("rol") or "").lower() for p in people]
+        twins = sorted({r for r in roles if r and roles.count(r) > 1})
+        if twins:                                     # F5d+: «dos turistas de Ohio, A y B», no «A, turista, y B, turista»
+            lines += ["  (Personas con el mismo rol se presentan JUNTAS, con el rol en plural una sola vez: «dos "
+                      "turistas de Ohio, Robie Waganfeald y Paul Kunkel Jr.»; nunca «A, turista, y B, turista».)"]
     if cid and cid in its:
         lines += ["", f"CLIFFHANGER (el cierre anticipa ESTE dato, que se revela en el cap {cap + 1}):",
                   f"  [{cid}] {ev.text_of(its[cid])}"]
@@ -1186,4 +1191,42 @@ def generate_narration(topic: dict, skeleton: dict) -> dict:
             "_narrador": {"modelo": POOL_NARRATOR, "mejor_de": POOL_BEST_OF}} if pool else {}),
     }
     _persist(topic_id, out)
+    return out
+
+
+def regenerate_caps(topic: dict, skeleton: dict, narration: dict, caps: list[int],
+                    extra: dict[int, str] | None = None) -> dict:
+    """Retoque (F5d+): rehace SOLO los caps pedidos con el mejor de POOL_BEST_OF, con una instrucción extra por cap; el
+    resto de la narración queda byte-idéntica. Cada cap ve como «anteriores» los caps ya definitivos (incluidos los
+    retocados antes que él). Persiste 01b_narration.json con `_retoque` anotado."""
+    pool = topic.get("evidence_pool")
+    if not pool:
+        raise ValueError("regenerate_caps es para guiones con evidence_pool")
+    chapters = [dict(c) for c in sorted(narration["chapters"], key=lambda c: c["chapter_number"])]
+    violations = {int(k): v for k, v in (narration.get("_f5_violations") or {}).items()}
+    audit: dict = {int(k): v for k, v in (narration.get("_f5c_candidatos") or {}).items()}
+    declared: dict[int, list[str]] = {}
+    roles = {1: "hook", 7: "reveal_outro"}
+    for n in sorted(caps):
+        prev = [c for c in chapters if c["chapter_number"] < n]
+        if n == 1:
+            prompt = _prompt_hook(topic, skeleton)
+        elif n == 7:
+            prompt = _prompt_outro(topic, skeleton, prev)
+        else:
+            prompt = _prompt_development(topic, skeleton, prev, n)
+        if extra and extra.get(n):
+            prompt += ("\n\n═══════════════════════════════════════════════════\nRETOQUE PEDIDO PARA ESTE CAP\n"
+                       "═══════════════════════════════════════════════════\n" + extra[n])
+        f5 = {"pool": pool, "skeleton": skeleton, "previous": prev, "facts": topic.get("verified_facts") or []}
+        violations.pop(n, None)
+        text = _best_of_n(prompt, roles.get(n, "development"), n, f5, violations=violations, declared=declared,
+                          audit=audit)
+        k = next(i for i, c in enumerate(chapters) if c["chapter_number"] == n)
+        chapters[k] = {"chapter_number": n, "narration": text, "datos_usados": declared.get(n, [])}
+    out = {**narration, "chapters": chapters,
+           "_f5_violations": {str(k): v for k, v in violations.items()},
+           "_f5c_candidatos": {str(k): v for k, v in audit.items()},
+           "_retoque": {"caps": sorted(caps), "instrucciones": {str(k): v for k, v in (extra or {}).items()}}}
+    _persist(narration["topic_id"], out)
     return out

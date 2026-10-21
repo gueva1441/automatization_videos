@@ -165,6 +165,49 @@ def etapa_guion(log: list[str]) -> None:
     log.append(f"guion: juez v1 {rep1['video']['umbral']} · v2 {rep2['video']['umbral']}")
 
 
+RETOQUE = {
+    5: ("La frase «El sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron "
+        "14 órdenes de arresto para fugitivos» NO es una cita: es un dato del research. Contala SIN comillas (por "
+        "ejemplo: «El sheriff de la cárcel declaró que ningún preso murió o escapó; sin embargo, más tarde se emitieron "
+        "14 órdenes de arresto para fugitivos»). Comillas solo para la cita de Gusman [Q02]."),
+    6: ("Presentá a los dos demandantes juntos y una sola vez: «dos turistas de Ohio, Robie Waganfeald y Paul Kunkel "
+        "Jr.». Nunca «Robie Waganfeald, turista, y Paul Kunkel Jr., turista»."),
+}
+
+
+def etapa_retoque(log: list[str]) -> None:
+    """F5d+ (OK del analista): rehace SOLO los caps 5 y 6 con el mejor de 3; el resto queda igual. Re-valida con el
+    normalizer y el juez, y anota el costo en 01b_costo_retoque.json."""
+    from cost_tracker import cost_tracker
+    from script_engine import m02_5_normalizer_gate as gate
+    from script_engine.m01b_narrator import regenerate_caps
+    from script_engine.m05_narrative import judge_narration
+    d2 = STEPS / V2
+    nar0 = _load(d2 / "01b_narration.json")
+    bak = LAB / "pruebas" / "01b_narration_f5d_pre_retoque.json"
+    if not bak.exists():
+        _dump(bak, nar0)
+    t = topic_v2()
+    n0 = len(cost_tracker.session_overhead)
+    t0 = time.time()
+    nar = regenerate_caps(t, _load(d2 / "01a_skeleton.json"), nar0, [5, 6], extra=RETOQUE)
+    cost: dict[str, float] = {}
+    for e in cost_tracker.session_overhead[n0:]:
+        cost[e.service] = cost.get(e.service, 0.0) + e.total_cost
+    _dump(d2 / "01b_costo_retoque.json", {"por_servicio": {k: round(v, 4) for k, v in cost.items()},
+                                          "total": round(sum(cost.values()), 4),
+                                          "llamadas": len(cost_tracker.session_overhead) - n0})
+    same = all(a["narration"] == b["narration"] for a, b in zip(nar0["chapters"], nar["chapters"])
+               if a["chapter_number"] not in (5, 6))
+    g = gate.gate_normalizer_for_topic(V2, nar, interactive=False, persist_dict=False)
+    pool = _load(d2 / "01_facts_sources.json")["evidence_pool"]
+    rep2 = judge_narration(V2, pool=pool, narration=nar, skeleton=_load(d2 / "01a_skeleton.json"))
+    c6 = next(c["narration"] for c in nar["chapters"] if c["chapter_number"] == 6)
+    log.append(f"retoque: caps 5 y 6 en {time.time() - t0:.0f}s · costo {cost} · resto idéntico {same} · "
+               f"normalizer {len(g['spans_detected'])} spans · «dos turistas de Ohio» en cap 6: "
+               f"{'dos turistas de Ohio' in c6} · umbral {rep2['video']['umbral']}")
+
+
 def etapa_script(log: list[str]) -> None:
     s1 = _load(ROOT / "data" / "scripts" / f"{V1}.json")
     nar = {c["chapter_number"]: c["narration"] for c in _load(STEPS / V2 / "01b_narration.json")["chapters"]}
@@ -319,7 +362,7 @@ def etapa_versionar(log: list[str]) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--etapa", choices=["guion", "script", "visual", "sim_v1", "sim_v2", "versionar", "todo"],
+    ap.add_argument("--etapa", choices=["guion", "retoque", "script", "visual", "sim_v1", "sim_v2", "versionar", "todo"],
                     default="todo")
     a = ap.parse_args()
     log: list[str] = [f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] F5b etapa {a.etapa}"]
@@ -331,6 +374,8 @@ def main() -> None:
         for et in (["guion", "script", "visual", "sim_v1", "sim_v2", "versionar"] if a.etapa == "todo" else [a.etapa]):
             if et == "guion":
                 etapa_guion(log)
+            elif et == "retoque":
+                etapa_retoque(log)
             elif et == "script":
                 etapa_script(log)
             elif et == "visual":

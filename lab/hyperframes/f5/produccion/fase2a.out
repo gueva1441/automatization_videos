@@ -1,0 +1,134 @@
+[06:12:38] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f5v2
+[06:12:38] INFO     | viral_pipeline | [image_generator] 🏭 [ba6c3cac-f5v2] Asset Manager (Flux+Veo) — 7 capítulos | Vision Guardrail ACTIVO | Flux Pro=fal-ai/flux-2-pro | Ultra=fal-ai/flux-2-pro
+[06:12:38] INFO     | viral_pipeline | [image_generator] ──── [ch01] engine=veo ────
+[06:12:38] INFO     | viral_pipeline | [image_generator] [ch01] Imagen base clip 1 []...
+[06:12:38] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] → ch01_img_01.png
+[06:12:53] INFO     | viral_pipeline | [video_generator] [ch01] Veo clip 1...
+[06:15:14] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] → ch01_supp_01.png
+[06:15:27] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] → ch01_supp_02.png
+[06:15:41] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] → ch01_supp_03.png
+[06:15:58] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] → ch01_supp_04.png
+[06:16:10] INFO     | viral_pipeline | [image_generator] ──── [ch02] engine=flux ────
+[06:16:10] INFO     | viral_pipeline | [image_generator] [ch02] Flux-PRO []: 11 a generar, 0 skip
+[06:16:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1420550295 → ch02_img_01.png
+[06:16:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2865629360 → ch02_img_02.png
+[06:16:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch02_img_03.png
+[06:16:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch02_img_04.png
+[06:16:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1420550295 → ch02_img_05.png
+[06:16:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch02_img_06.png
+[06:16:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2468734038 → ch02_img_07.png
+[06:16:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1420550295 → ch02_img_08.png
+[06:16:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2865629360 → ch02_img_09.png
+[06:16:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch02_img_10.png
+[06:16:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch02_img_11.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] ──── [ch03] engine=flux ────
+[06:17:02] INFO     | viral_pipeline | [image_generator] [ch03] Flux-PRO []: 13 a generar, 0 skip
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch03_img_01.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch03_img_02.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch03_img_03.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch03_img_04.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch03_img_05.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2865629360 → ch03_img_06.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch03_img_07.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch03_img_08.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch03_img_09.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch03_img_10.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch03_img_11.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch03_img_12.png
+[06:17:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2865629360 → ch03_img_13.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] ──── [ch04] engine=flux ────
+[06:17:35] INFO     | viral_pipeline | [image_generator] [ch04] Flux-PRO []: 13 a generar, 0 skip
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch04_img_01.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch04_img_02.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2865629360 → ch04_img_03.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch04_img_04.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch04_img_05.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch04_img_06.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2468734038 → ch04_img_07.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2468734038 → ch04_img_08.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch04_img_09.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch04_img_10.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1420550295 → ch04_img_11.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1420550295 → ch04_img_12.png
+[06:17:35] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch04_img_13.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] ──── [ch05] engine=flux ────
+[06:18:04] INFO     | viral_pipeline | [image_generator] [ch05] Flux-PRO []: 14 a generar, 0 skip
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch05_img_01.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch05_img_02.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch05_img_03.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2865629360 → ch05_img_04.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2865629360 → ch05_img_05.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1420550295 → ch05_img_06.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch05_img_07.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch05_img_08.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch05_img_09.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch05_img_10.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch05_img_11.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2865629360 → ch05_img_12.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2865629360 → ch05_img_13.png
+[06:18:04] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch05_img_14.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] ──── [ch06] engine=flux ────
+[06:18:33] INFO     | viral_pipeline | [image_generator] [ch06] Flux-PRO []: 14 a generar, 0 skip
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1420550295 → ch06_img_01.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2865629360 → ch06_img_02.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1420550295 → ch06_img_03.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch06_img_04.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch06_img_05.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch06_img_06.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch06_img_07.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch06_img_08.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch06_img_09.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch06_img_10.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=1420550295 → ch06_img_11.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch06_img_12.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch06_img_13.png
+[06:18:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=167652431 → ch06_img_14.png
+[06:19:02] INFO     | viral_pipeline | [image_generator] ──── [ch07] engine=veo ────
+[06:19:02] INFO     | viral_pipeline | [image_generator] [ch07] Imagen base clip 1 []...
+[06:19:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_img_01.png
+[06:19:25] INFO     | viral_pipeline | [video_generator] [ch07] Veo clip 1...
+[06:20:46] ERROR    | viral_pipeline | [video_generator] Intento 1 — HTTPError: 422 Client Error: Unprocessable Entity for url: https://queue.fal.run/fal-ai/veo3.1/requests/01a15df9-0fc9-7573-a0e8-12c17d3fe5fd
+[06:20:46] WARNING  | viral_pipeline | [video_generator] ⚠ [ch07] Clip 1 falló técnicamente (422 Client Error: Unprocessable Entity for url: https://queue.fal.run/fal-ai/veo3.1/requests/01a15df) — technical_fallback
+[06:20:46] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_01.png
+[06:20:59] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_02.png
+[06:21:11] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_03.png
+[06:21:22] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_04.png
+[06:21:33] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_05.png
+[06:21:47] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_06.png
+[06:21:58] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_07.png
+[06:22:10] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_08.png
+[06:22:24] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_09.png
+[06:22:36] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] → ch07_supp_10.png
+[06:22:48] INFO     | viral_pipeline | [image_generator] ✓ ✅ [ba6c3cac-f5v2] Manifest: 65 imgs Flux | Veo ok=1 | kenburns=0 | technical_fallback=1 | failed=0
+
+════════════════════════════════════════════════════════════
+  🎬 FASE 2A — Generación de Assets
+  📂 Scripts encontrados: 1
+  ▶️  A procesar ahora: 1
+════════════════════════════════════════════════════════════
+
+  [1/1] ba6c3cac-f5v2
+     🎙️  Audio (LONG): cargando sync_map de fase1_5...
+     ✓ sync_map: sync_map.json
+     [foto_madre] skip subject:subject (ya existe)
+     🎨 Assets...
+     ✓ manifest: assets_manifest.json
+     ✅ OK
+
+════════════════════════════════════════════════════════════
+  📊 RESUMEN FASE 2A
+  ✅ OK:       1
+  ❌ Fallidos: 0
+════════════════════════════════════════════════════════════
+
+
+==================================================
+  💰 REPORTE DE COSTOS — SESIÓN
+==================================================
+  Videos generados:    0
+  Costo videos:        $0.0000 USD
+  Costo total:         $0.0000 USD
+--------------------------------------------------
+  Desglose por servicio:
+==================================================
+

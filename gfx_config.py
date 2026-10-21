@@ -323,6 +323,7 @@ class GfxRules:
     callout_no_repeat: bool = False          # R7: el dato no repite lo que la voz dice en ese tramo
     question_rubric: bool = False            # R8: 3 preguntas + elección por rúbrica (gancho, no trivia)
     visual_critic: bool = False              # F4e 6b: Gemini juzga cada bloque contra el cuadro real (suma/repite/estorba)
+    critic_snapshot: bool = False            # G1: el crítico mira el bloque DIBUJADO (snapshot de HyperFrames en t+1 s)
     source_tag_scale: float = 0.4            # 40 % del tamaño del callout
     sfx_gain_db: float = -18.0               # bajo la voz
     sfx_shift_max_ms: int = 120              # se corre al hueco entre palabras más cercano
@@ -387,7 +388,7 @@ VALID_MOOD_LAYERS: frozenset[str] = frozenset({"veneno", "agua", "muerte", "oscu
 MINIMAL_MOOD_LAYER = "minima"
 # claves del set de íconos (= gfx_icons.ICON_WHITELIST; acá sin importar gfx_icons para no crear un ciclo)
 ICON_KEYS: frozenset[str] = frozenset({"calavera", "gota", "llama", "biohazard", "reloj", "candado", "ojo_tachado",
-                                       "balanza", "cruz", "persona", "edificio_ruina", "pregunta"})
+                                       "balanza", "cruz", "persona", "edificio_ruina", "pregunta", "espiral", "rayo_tachado"})
 VALID_ICON_ANIMS: frozenset[str] = frozenset({"ink_bleed", "press_wipe", "engrave", "stamp"})
 MIN_TRIGGERS_ACTIVE: int = 25
 _FONT_KEYS: frozenset[str] = frozenset({"subs", "title", "callout", "callout_figure", "clipping"})

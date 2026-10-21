@@ -70,7 +70,7 @@
     "photo_first_zoom": true,
     "auto_icons": true,
     "peak_word": true,
-    "doc_clippings": true, "icon_literal_only": true,
+    "doc_clippings": true, "icon_literal_only": true, "critic_snapshot": true,
     "callout_no_repeat": true,
     "question_rubric": true,
     "visual_critic": true
@@ -84,7 +84,7 @@
     "caos_gritos": {"active": true, "layer": "minima", "sfx": {"file": "rumor.wav", "gain_db": -20}, "triggers": {"gritos": 2, "gritaban": 2, "pánico": 2, "caos": 1, "motín": 2, "disturbios": 2, "alaridos": 2, "desesperación": 2}, "icon_anim": "stamp", "icon_words": {}},
     "radiacion_quimico": {"active": true, "layer": "minima", "sfx": {"file": "zumbido.wav", "gain_db": -20}, "triggers": {"radiación": 2, "radiactivo": 2, "químicos": 2, "químico": 2, "nuclear": 2, "ácido": 2, "derrame": 2}, "icon_anim": "ink_bleed", "icon_words": {"radiación": "biohazard", "radiactivo": "biohazard"}},
     "frio_abandono": {"active": true, "layer": "minima", "sfx": {"file": "viento.wav", "gain_db": -20}, "triggers": {"abandonados": 2, "abandonadas": 2, "abandono": 2, "olvidados": 2, "frío": 2, "helado": 2, "hambre": 2, "sed": 2}, "icon_anim": "press_wipe", "icon_words": {}},
-    "silencio": {"active": true, "layer": "minima", "sfx": {"file": "vacio.wav", "gain_db": -20}, "triggers": {"silencio": 2, "callaron": 2, "nadie": 1, "desaparecidos": 2, "desaparecieron": 2, "nunca": 1}, "icon_anim": "press_wipe", "icon_words": {}}
+    "silencio": {"active": true, "layer": "minima", "sfx": {"file": "vacio.wav", "gain_db": -20}, "triggers": {"borradas": 3, "silencio": 2, "callaron": 2, "nadie": 1, "desaparecidos": 2, "desaparecieron": 2, "nunca": 1}, "icon_anim": "press_wipe", "icon_words": {}}
   },
   "sfx": {
     "title_card":       {"file": "golpe_grave.wav", "gain_db": -18},

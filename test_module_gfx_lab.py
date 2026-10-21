@@ -451,7 +451,7 @@ def test_mood_agua_sube_en_1s_y_baja_al_salir():
 def test_lab_iconos_y_contexto(server):
     _, url = server
     ctx = json.loads(_get(url + "/api/context")[2])
-    assert len(ctx["icon_keys"]) == 12 and ctx["category_icon"]["agua"] == "gota"
+    assert len(ctx["icon_keys"]) == 14 and ctx["category_icon"]["agua"] == "gota"   # 12 + espiral y rayo (G4)
     assert ctx["fact_icon"]                                            # datos con ícono de su categoría
     code, h, body = _get(url + "/media/icon/gota.svg")
     assert code == 200 and h["Content-Type"] == "image/svg+xml" and b"<svg" in body

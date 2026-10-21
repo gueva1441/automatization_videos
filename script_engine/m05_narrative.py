@@ -478,6 +478,25 @@ def date_problems(text: str, pool: dict[str, Any] | None, ids: list[str], year: 
     return list(dict.fromkeys(out))
 
 
+_QUOTED = re.compile(r"[\"“«]([^\"”»]{3,})[\"”»]")
+
+
+def false_quotes(text: str, pool: dict[str, Any] | None) -> list[str]:
+    """F5d+ (dura): texto entre comillas que no es una cita del pool. Una frase del research («El sheriff de la cárcel
+    declaró…») no es una cita: va sin comillas. Se permiten nombres o términos cortos entre comillas (≤ 3 palabras:
+    «Templeman III»)."""
+    cits = [ev.norm(q["texto"]) for q in (pool or {}).get("citas") or []]
+    out = []
+    for m in _QUOTED.finditer(text):
+        q = m.group(1).strip()
+        if len(q.split()) <= 3:
+            continue
+        nq = ev.norm(q).strip(" .,;:")
+        if not any(nq in c or c in nq for c in cits):
+            out.append(q[:60])
+    return out
+
+
 def trigram_vs_previous(text: str, previous: list[str]) -> float:
     """Fracción de los 3-gramas del cap (sin palabras funcionales) que ya sonaron en caps anteriores."""
     tg = _trigrams(text)
@@ -541,6 +560,10 @@ def cap_review(text: str, *, cap: int, pool: dict[str, Any], skeleton: dict[str,
     bad = forbidden_filler(text)
     if bad:
         hard.append(f"relleno prohibido: {', '.join(bad)}")
+    fq = false_quotes(text, pool)
+    if fq:
+        hard.append("comillas solo para las citas del pool (la frase del research va sin comillas): "
+                    + "; ".join(f"«{x}…»" for x in fq))
     nc = non_canonical(text, pool, ch)
     if nc:
         hard.append("cifra canónica: este conteo se dice con la oficial en todo el video; sacá " + "; ".join(nc))

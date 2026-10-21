@@ -1,0 +1,115 @@
+[06:08:01] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f5v2
+[06:08:01] INFO     | viral_pipeline | [audio_generator] 🎙️  [ba6c3cac-f5v2] Perfil: MISTERIO_ABISAL | Voz: pqHfZKP75CvOlQylNhV4 | Capítulos: 7
+[06:08:01] INFO     | viral_pipeline | [audio_generator] [ch01] intent=hook → stability=0.5, style=0.4
+[06:08:01] INFO     | viral_pipeline | [audio_generator] [ch01] usando narration_normalized del gate
+[06:08:01] INFO     | viral_pipeline | [audio_generator] [ch01] Generando audio (393 chars normalizados, 363 originales)...
+[06:08:08] INFO     | viral_pipeline | [audio_generator] ffprobe resuelto: C:\Users\Canada\AppData\Local\Microsoft\WinGet\Links\ffprobe.EXE
+[06:08:08] INFO     | viral_pipeline | [audio_generator] [ch01] Forced Alignment (ElevenLabs)...
+[06:08:09] WARNING  | viral_pipeline | [audio_generator] ⚠ [ch01] Forced Alignment loss alto: 0.6021085355724693 (>0.15) — revisar sync
+[06:08:09] INFO     | viral_pipeline | [audio_generator] ✓ [ch01] 31.0s, 66 palabras
+[06:08:09] INFO     | viral_pipeline | [audio_generator] [ch02] intent=setup → stability=0.65, style=0.4
+[06:08:09] INFO     | viral_pipeline | [audio_generator] [ch02] usando narration_normalized del gate
+[06:08:09] INFO     | viral_pipeline | [audio_generator] [ch02] Generando audio (948 chars normalizados, 932 originales)...
+[06:08:23] INFO     | viral_pipeline | [audio_generator] [ch02] Forced Alignment (ElevenLabs)...
+[06:08:24] WARNING  | viral_pipeline | [audio_generator] ⚠ [ch02] Forced Alignment loss alto: 0.5837884190716321 (>0.15) — revisar sync
+[06:08:24] INFO     | viral_pipeline | [audio_generator] ✓ [ch02] 69.1s, 158 palabras
+[06:08:24] INFO     | viral_pipeline | [audio_generator] [ch03] intent=rising_tension → stability=0.55, style=0.5
+[06:08:24] INFO     | viral_pipeline | [audio_generator] [ch03] usando narration_normalized del gate
+[06:08:24] INFO     | viral_pipeline | [audio_generator] [ch03] Generando audio (1090 chars normalizados, 1090 originales)...
+[06:08:41] INFO     | viral_pipeline | [audio_generator] [ch03] Forced Alignment (ElevenLabs)...
+[06:08:43] WARNING  | viral_pipeline | [audio_generator] ⚠ [ch03] Forced Alignment loss alto: 0.5321276620987359 (>0.15) — revisar sync
+[06:08:43] INFO     | viral_pipeline | [audio_generator] ✓ [ch03] 83.7s, 179 palabras
+[06:08:43] INFO     | viral_pipeline | [audio_generator] [ch04] intent=shock → stability=0.45, style=0.55
+[06:08:43] INFO     | viral_pipeline | [audio_generator] [ch04] usando narration_normalized del gate
+[06:08:43] INFO     | viral_pipeline | [audio_generator] [ch04] Generando audio (1203 chars normalizados, 1196 originales)...
+[06:09:02] INFO     | viral_pipeline | [audio_generator] [ch04] Forced Alignment (ElevenLabs)...
+[06:09:03] WARNING  | viral_pipeline | [audio_generator] ⚠ [ch04] Forced Alignment loss alto: 0.632190948511696 (>0.15) — revisar sync
+[06:09:03] INFO     | viral_pipeline | [audio_generator] ✓ [ch04] 91.2s, 197 palabras
+[06:09:03] INFO     | viral_pipeline | [audio_generator] [ch05] intent=consequences → stability=0.6, style=0.45
+[06:09:03] INFO     | viral_pipeline | [audio_generator] [ch05] usando narration_normalized del gate
+[06:09:03] INFO     | viral_pipeline | [audio_generator] [ch05] Generando audio (1280 chars normalizados, 1266 originales)...
+[06:09:23] INFO     | viral_pipeline | [audio_generator] [ch05] Forced Alignment (ElevenLabs)...
+[06:09:24] WARNING  | viral_pipeline | [audio_generator] ⚠ [ch05] Forced Alignment loss alto: 0.6538089200854301 (>0.15) — revisar sync
+[06:09:24] INFO     | viral_pipeline | [audio_generator] ✓ [ch05] 100.3s, 201 palabras
+[06:09:24] INFO     | viral_pipeline | [audio_generator] [ch06] intent=resolution → stability=0.7, style=0.35
+[06:09:24] INFO     | viral_pipeline | [audio_generator] [ch06] usando narration_normalized del gate
+[06:09:24] INFO     | viral_pipeline | [audio_generator] [ch06] Generando audio (1241 chars normalizados, 1222 originales)...
+[06:09:42] INFO     | viral_pipeline | [audio_generator] [ch06] Forced Alignment (ElevenLabs)...
+[06:09:44] WARNING  | viral_pipeline | [audio_generator] ⚠ [ch06] Forced Alignment loss alto: 0.5345330772430641 (>0.15) — revisar sync
+[06:09:44] INFO     | viral_pipeline | [audio_generator] ✓ [ch06] 91.6s, 193 palabras
+[06:09:44] INFO     | viral_pipeline | [audio_generator] [ch07] intent=outro → stability=0.75, style=0.3
+[06:09:44] INFO     | viral_pipeline | [audio_generator] [ch07] usando narration_normalized del gate
+[06:09:44] INFO     | viral_pipeline | [audio_generator] [ch07] Generando audio (1002 chars normalizados, 967 originales)...
+[06:09:59] INFO     | viral_pipeline | [audio_generator] [ch07] Forced Alignment (ElevenLabs)...
+[06:10:00] WARNING  | viral_pipeline | [audio_generator] ⚠ [ch07] Forced Alignment loss alto: 0.6314222674645825 (>0.15) — revisar sync
+[06:10:00] INFO     | viral_pipeline | [audio_generator] ✓ [ch07] 75.7s, 164 palabras
+[06:10:00] INFO     | viral_pipeline | [audio_generator] ✓ ✅ [ba6c3cac-f5v2] sync_map.json listo — 7 capítulos, 542.6s totales
+[06:10:00] INFO     | viral_pipeline | [audio_generator] [m07] library tiene 7 tracks acumulados.
+[06:10:00] INFO     | viral_pipeline | [audio_generator] [m07] match hook: single-candidate fallback (hook_curated) — no se llama LLM
+[06:10:00] INFO     | viral_pipeline | [audio_generator] [m07] match setup: single-candidate fallback (setup_curated) — no se llama LLM
+[06:10:00] INFO     | viral_pipeline | [audio_generator] [m07] match rising_tension: single-candidate fallback (rising_tension_curated) — no se llama LLM
+[06:10:00] INFO     | viral_pipeline | [audio_generator] [m07] match shock: single-candidate fallback (shock_curated) — no se llama LLM
+[06:10:00] INFO     | viral_pipeline | [audio_generator] [m07] match consequences: single-candidate fallback (consequences_curated) — no se llama LLM
+[06:10:00] INFO     | viral_pipeline | [audio_generator] [m07] match resolution: single-candidate fallback (resolution_curated) — no se llama LLM
+[06:10:00] INFO     | viral_pipeline | [audio_generator] [m07] match outro: single-candidate fallback (outro_curated) — no se llama LLM
+[06:10:00] INFO     | viral_pipeline | [audio_generator] ✓ [m07] music_map persistido: C:\CLAUDE_PROJECTS\automatization_videos\output\audio\ba6c3cac-f5v2\music_map.json
+
+════════════════════════════════════════════════════════════
+  📜 Procesando topic ba6c3cac-f5v2 desde audio
+════════════════════════════════════════════════════════════
+  [audio] Generando audio TTS + sync_map...
+  [07] Music director — match library / generar nuevos...
+
+━━━ [m07] ch01 (intent=hook) ━━━
+[m07] candidatos en library para hook: 1
+[m07] DECISION: REUSE hook_curated (score=100)
+
+━━━ [m07] ch02 (intent=setup) ━━━
+[m07] candidatos en library para setup: 1
+[m07] DECISION: REUSE setup_curated (score=100)
+
+━━━ [m07] ch03 (intent=rising_tension) ━━━
+[m07] candidatos en library para rising_tension: 1
+[m07] DECISION: REUSE rising_tension_curated (score=100)
+
+━━━ [m07] ch04 (intent=shock) ━━━
+[m07] candidatos en library para shock: 1
+[m07] DECISION: REUSE shock_curated (score=100)
+
+━━━ [m07] ch05 (intent=consequences) ━━━
+[m07] candidatos en library para consequences: 1
+[m07] DECISION: REUSE consequences_curated (score=100)
+
+━━━ [m07] ch06 (intent=resolution) ━━━
+[m07] candidatos en library para resolution: 1
+[m07] DECISION: REUSE resolution_curated (score=100)
+
+━━━ [m07] ch07 (intent=outro) ━━━
+[m07] candidatos en library para outro: 1
+[m07] DECISION: REUSE outro_curated (score=100)
+  [07] music_map listo — reused: 7, generated: 0, skipped: 0
+  [03] Generando visual prompts...
+  [03] cap 1 (veo, pos=start) → 1 clip Veo 8s + 4 Flux extras (audio 31.0s, veo_zone≈93 chars), slots Pro + weave Flash...
+  [03] cap 2 (flux) → 11 imgs (audio 69.1s ÷ 7.0s target, role=development), slots Pro + weave Flash...
+  [03] cap 3 (flux) → 13 imgs (audio 83.7s ÷ 7.0s target, role=development), slots Pro + weave Flash...
+  [03] cap 4 (flux) → 13 imgs (audio 91.2s ÷ 7.0s target, role=development), slots Pro + weave Flash...
+  [03] cap 5 (flux) → 14 imgs (audio 100.3s ÷ 7.0s target, role=development), slots Pro + weave Flash...
+  [03] cap 6 (flux) → 14 imgs (audio 91.6s ÷ 7.0s target, role=development), slots Pro + weave Flash...
+  [03] cap 7 (veo, pos=end) → 1 clip Veo 8s + 10 Flux extras (audio 75.7s, veo_zone≈102 chars), slots Pro + weave Flash...
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+  [03][audit] cap 5: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+  [03] cap 1 (veo)  ✓ Veo prompt + 4 supplementals
+  ⚠ [m03] cap 2 img #8: FIT — 1 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 4.6 (+length)
+  [03] cap 2 (flux) ✓ 11 imgs validadas
+  [03] cap 3 (flux) ✓ 13 imgs validadas
+  [03] cap 7 (veo)  ✓ Veo prompt + 10 supplementals
+  [03] cap 4 (flux) ✓ 13 imgs validadas
+  [03] cap 6 (flux) ✓ 14 imgs validadas
+  [03] cap 5 (flux) ✓ 14 imgs validadas
+  [paso0] Foto madre (sujeto + props anclados)...
+     [foto_madre] skip subject:subject (ya existe)
+  [assemble] Ensamblando data/scripts/ba6c3cac-f5v2.json...
+
+  ✅ Topic ba6c3cac-f5v2 OK — pasos: ['audio', 'm07', 'm03', 'assemble']
+[2026-10-21 06:08:00] producción Orleans v2 · etapa guion
+guion: PASS pasos ['audio', 'm07', 'm03', 'assemble'] en 241s 

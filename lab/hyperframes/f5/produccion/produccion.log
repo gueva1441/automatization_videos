@@ -1,0 +1,10 @@
+[2026-10-21 06:07:48] producción Orleans v2 · etapa preparar
+preparar: topic ba6c3cac-f5v2 agregado a topics_db.json
+preparar: C:\CLAUDE_PROJECTS\automatization_videos\output\ba6c3cac-f5v2 → C:\CLAUDE_PROJECTS\automatization_videos\output\_bak_ba6c3cac-f5v2_simulaciones
+[2026-10-21 06:08:00] producción Orleans v2 · etapa guion
+guion: PASS pasos ['audio', 'm07', 'm03', 'assemble'] en 241s 
+[2026-10-21 06:12:36] producción Orleans v2 · etapa imagenes
+fase2a: rc=0 en 10.2 min (fase2a.py --topic ba6c3cac-f5v2)
+[2026-10-21 06:25:33] producción Orleans v2 · etapa render
+render: RAM libre 19.5 GB · Firefox cerrado
+fase2b: rc=0 en 77.8 min (fase2b.py ba6c3cac-f5v2 --keep-segments --gfx --gfx-sparse --gfx-quality looks)

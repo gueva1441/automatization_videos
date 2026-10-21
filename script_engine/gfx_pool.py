@@ -393,11 +393,13 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
         sc = scene_at(scenes, s["t0"])
         span = narration_span(words, sc.start, sc.end, time_offset)
         text = ev.text_of(it)
-        opts = sorted((f for f in pool_clause_options(text) if adds_something(f, span) and lock_ok(f, text)
+        # G2: en pantalla, ≤ archive_head_max_words (8) palabras; una cláusula más larga no se corta: no hay recorte
+        opts = sorted((f for f in pool_clause_options(text, gfx_rules.archive_head_max_words)
+                       if adds_something(f, span) and lock_ok(f, text)
                        and _kicker(it, f)), key=lambda f: (_doc_rank(f, span, narr), f))[:3]
         if not opts:
             rows.append({"id": i, "bloque": "recorte", "ahora": None,
-                         "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"})
+                         "motivo": "ninguna cláusula completa (≤ 8 palabras, métrica) suma a la voz con fuente o fecha"})
             continue
         a = max(sc.start + 0.5, s["t0"] - 0.3)
         b = min(a + gfx_rules.archive_dur, dur - 0.3)

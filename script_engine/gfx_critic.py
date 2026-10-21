@@ -14,6 +14,11 @@ Para cada bloque del plan resuelto (sello, ícono, recorte, dato, contador, nive
 El crítico nunca agrega ni reescribe: solo quita. Las reglas duras (candado, un fact = un bloque, dedupe, máximos)
 corren antes, igual que siempre.
 
+G1 (token critic_snapshot): en vez de la foto sola + el bloque en texto, el crítico mira un SNAPSHOT de HyperFrames
+del proyecto del cap con el bloque YA DIBUJADO, 1 s después de que entra (o a mitad, si dura menos de 2 s): ve el
+tamaño real, el lugar y lo que tapa. Un solo `hyperframes snapshot --at t1,t2,…` por cap. Si el snapshot falla, cae
+al cuadro de la foto (como F4e) y lo anota.
+
 contact_sheet(): hoja_contactos_<cap>.jpg — un cuadro por bloque que pasó, tomado del render (capa gfx), etiquetado
 con tiempo, bloque y veredicto.
 """
@@ -27,6 +32,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 PROMPT_VERSION = "f4e-1"
+PROMPT_VERSION_SNAP = "g1-snap-1"
 VERDICTS = ("suma", "repite", "estorba")
 SYSTEM = ("Sos el editor final de un documental de misterio. Ves el cuadro REAL de la foto en un instante, la frase que "
           "dice la voz en ese momento y un bloque gráfico que se va a poner encima. Decidís si ese bloque SUMA, REPITE o "
@@ -122,14 +128,17 @@ def load_fewshot(path: Path | None = None) -> list[dict[str, Any]]:
         return []
 
 
-def build_prompt(desc: str, voz: str, fewshot: list[dict[str, Any]]) -> str:
+def build_prompt(desc: str, voz: str, fewshot: list[dict[str, Any]], drawn: bool = False) -> str:
     lines = ["CRITERIOS:", *[f"- {c}" for c in CRITERIA], ""]
     if fewshot:
         lines.append("EJEMPLOS aprobados por el dueño del canal (sin imagen; el tono del canal):")
         lines += [f"- bloque: {e['bloque']} · voz: «{e['voz']}» → {e['veredicto']}" for e in fewshot]
         lines.append("")
     lines += [f"LA VOZ EN ESTE INSTANTE DICE: «{voz}»", f"BLOQUE PROPUESTO: {desc}", "",
-              "Mirá el cuadro (es la foto tal cual, sin el bloque) y decidí. Motivo en UNA línea corta.",
+              ("Mirá el cuadro: es el cuadro REAL del video con el bloque YA DIBUJADO encima (1 s después de que "
+               "entra; puede haber otro bloque al lado). Juzgá lo que se ve: tamaño, lugar, qué tapa, si se lee. "
+               "Motivo en UNA línea corta." if drawn else
+               "Mirá el cuadro (es la foto tal cual, sin el bloque) y decidí. Motivo en UNA línea corta."),
               '{"veredicto": "suma" | "repite" | "estorba", "motivo": "…"}']
     return "\n".join(lines)
 
@@ -148,9 +157,10 @@ def _gemini(img: Path, prompt: str) -> dict[str, Any]:
 
 
 def judge(img: Path, desc: str, voz: str, *, cache: Path, fewshot: list[dict[str, Any]],
-          call: Callable[[Path, str], dict] | None = None) -> dict[str, Any]:
+          call: Callable[[Path, str], dict] | None = None, drawn: bool = False) -> dict[str, Any]:
     """{veredicto, motivo, cache: bool}. Caché por (cuadro, bloque, voz, versión)."""
-    key = hashlib.sha1(Path(img).read_bytes() + f"|{desc}|{voz}|{PROMPT_VERSION}".encode("utf-8")).hexdigest()[:20]
+    ver = PROMPT_VERSION_SNAP if drawn else PROMPT_VERSION
+    key = hashlib.sha1(Path(img).read_bytes() + f"|{desc}|{voz}|{ver}".encode("utf-8")).hexdigest()[:20]
     try:
         data = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
     except (OSError, ValueError):
@@ -158,7 +168,7 @@ def judge(img: Path, desc: str, voz: str, *, cache: Path, fewshot: list[dict[str
     if key in data:
         return {**data[key], "cache": True}
     try:
-        raw = (call or _gemini)(Path(img), build_prompt(desc, voz, fewshot))
+        raw = (call or _gemini)(Path(img), build_prompt(desc, voz, fewshot, drawn=drawn))
         v = str((raw or {}).get("veredicto", "")).strip().lower()
         res = {"veredicto": v if v in VERDICTS else "error",
                "motivo": re.sub(r"\s+", " ", str((raw or {}).get("motivo", ""))).strip()[:160]}
@@ -173,21 +183,64 @@ def judge(img: Path, desc: str, voz: str, *, cache: Path, fewshot: list[dict[str
     return {**res, "cache": False}
 
 
+def snapshots(project: Path, times: list[float], out_dir: Path, log: list[str] | None = None,
+              timeout: int = 900) -> dict[float, Path]:
+    """G1: un `hyperframes snapshot --at t1,t2,…` del proyecto del cap → {t: jpg}. {} si falla (se cae a la foto)."""
+    from PIL import Image
+    from script_engine.gfx_layer import _hf
+    times = sorted(set(round(t, 2) for t in times))
+    if not times:
+        return {}
+    project, out_dir = Path(project).resolve(), Path(out_dir).resolve()     # el CLI corre con cwd = project
+    out_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        r = _hf(["snapshot", str(project), "--at", ",".join(f"{t:.2f}" for t in times), "--no-end", "--keep",
+                 "--describe", "false", "-o", str(out_dir)], timeout=timeout, cwd=project)
+    except Exception as e:  # noqa: BLE001
+        if log is not None:
+            log.append(f"  crítico: snapshot falló ({type(e).__name__}) → cuadro de la foto")
+        return {}
+    got: dict[float, Path] = {}
+    for t in times:
+        name = f"at-{f'{t:.3f}'.rstrip('0').rstrip('.')}s.png"
+        png = out_dir / name
+        if png.exists():
+            jpg = png.with_suffix(".jpg")
+            Image.open(png).convert("RGB").resize((1280, 720)).save(jpg, quality=90)
+            got[t] = jpg
+    if log is not None and len(got) < len(times):
+        log.append(f"  crítico: snapshot rc={r.returncode} · {len(got)}/{len(times)} cuadros "
+                   f"{(r.stderr or r.stdout or '')[-160:]!r}")
+    return got
+
+
 def criticize(plan: dict[str, Any], *, base: Path, words: list[dict], time_offset: float, work_dir: Path, cap: str,
               log: list[str], call: Callable[[Path, str], dict] | None = None,
-              fewshot: list[dict[str, Any]] | None = None) -> list[dict[str, Any]]:
-    """Juzga cada bloque y saca del plan (in place) los que no «suman». Devuelve una fila por bloque."""
+              fewshot: list[dict[str, Any]] | None = None, project: Path | None = None,
+              snaps: dict[float, Path] | None = None) -> list[dict[str, Any]]:
+    """Juzga cada bloque y saca del plan (in place) los que no «suman». Devuelve una fila por bloque.
+    G1: con `project` (proyecto HyperFrames del cap ya escrito con este plan), el cuadro es el snapshot del bloque
+    dibujado en t + 1 s; `snaps` permite pasarlos ya sacados (tests)."""
     fs = load_fewshot() if fewshot is None else fewshot
     cache = Path(work_dir) / f"gfx_critic_{cap}.json"
     rows, gone = [], []
-    for b in blocks(plan):
-        tf = round(b["t"] + min(1.0, b["dur"] / 2), 3)          # el bloque ya entró (el cuadro de la foto en ese instante)
-        img = frame_at(base, tf, Path(work_dir) / f"gfx_critic_{cap}" / f"{b['kind']}_{tf:07.2f}.jpg")
+    bl = blocks(plan)
+    t_of = {id(b): round(b["t"] + (1.0 if b["dur"] >= 2.0 else b["dur"] / 2), 2) for b in bl}
+    if snaps is None and project is not None:
+        snaps = snapshots(project, list(t_of.values()), Path(work_dir) / f"gfx_critic_{cap}_snap", log)
+    snaps = snaps or {}
+    n_drawn = 0
+    for b in bl:
+        tf = t_of[id(b)]
+        drawn = tf in snaps
+        img = snaps[tf] if drawn else frame_at(base, tf, Path(work_dir) / f"gfx_critic_{cap}" / f"{b['kind']}_{tf:07.2f}.jpg")
+        n_drawn += drawn
         voz = voice_at(words, b["t"], time_offset)
-        v = judge(img, b["desc"], voz, cache=cache, fewshot=fs, call=call)
+        v = judge(img, b["desc"], voz, cache=cache, fewshot=fs, call=call, drawn=drawn)
         keep = v["veredicto"] in ("suma", "error")
         rows.append({"t": round(b["t"], 3), "t_frame": tf, "dur": b["dur"], "bloque": b["kind"], "texto": b["text"],
-                     "veredicto": v["veredicto"], "motivo": v["motivo"], "pasa": keep, "voz": voz})
+                     "veredicto": v["veredicto"], "motivo": v["motivo"], "pasa": keep, "voz": voz,
+                     "mira": "bloque dibujado" if drawn else "foto sola"})
         log.append(f"  crítico: {b['t']:6.1f}s {KIND_LABEL[b['kind']]:<13} «{b['text']}» → {v['veredicto'].upper()}"
                    f" — {v['motivo']}" + (" (caché)" if v.get("cache") else ""))
         if not keep:
@@ -203,6 +256,8 @@ def criticize(plan: dict[str, Any], *, base: Path, words: list[dict], time_offse
         pk["block_quitado_por_critico"] = True
         log.append(f"  crítico: el bloque del pico ({pk['block']}) no pasó → el pico queda con su palabra")
     n_ok = sum(r["pasa"] for r in rows)
+    if project is not None or snaps:
+        log.append(f"  crítico: {n_drawn}/{len(rows)} juzgados sobre el bloque dibujado (snapshot)")
     log.append(f"  crítico: {n_ok}/{len(rows)} bloques pasan"
                + (f" · {sum(r['veredicto'] == 'error' for r in rows)} sin veredicto (quedan)" if any(
                    r["veredicto"] == "error" for r in rows) else ""))

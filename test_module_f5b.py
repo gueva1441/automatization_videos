@@ -210,7 +210,10 @@ def test_s4_icono_solo_por_mapa_literal():
     assert gp.content_icon(cel, ICON_WHITELIST, moods, "el agua alcanza el nivel del pecho") == (None, None)  # agua sola
     assert gp.content_icon(cel, ICON_WHITELIST, moods, "una penumbra sofocante") == (None, None)
     assert gp.content_icon(cel, ICON_WHITELIST, moods, "la inundación del 80 %") == ("gota", None)
-    assert gp.content_icon(cel, ICON_WHITELIST, moods, "Los generadores de la prisión fallan") == (None, "rayo_tachado")
+    assert gp.content_icon(cel, ICON_WHITELIST, moods, "Los generadores de la prisión fallan") == ("rayo_tachado", None)
+    assert gp.content_icon(cel, ICON_WHITELIST - {"espiral"} if isinstance(ICON_WHITELIST, set) else
+                           {k: v for k, v in ICON_WHITELIST.items() if k != "espiral"}, moods,
+                           "El huracán Katrina toca tierra") == (None, "espiral")   # sin la clave: se anota
 
 
 # ═══════════════════════════════ S6 / §1.6 ubicaciones en el canon ═══════════════════════════════

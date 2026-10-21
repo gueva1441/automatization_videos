@@ -1,0 +1,1605 @@
+{
+  "video_id": "ba6c3cac-f5v2",
+  "generated_at": "2026-10-21T06:22:48.982559",
+  "prompt_protocol_version": "v2",
+  "image_engine": "fal.ai Flux 1.1 Pro",
+  "vision_guardrail": {
+    "enabled": false,
+    "model": "gemini-2.5-flash",
+    "max_attempts": 2
+  },
+  "flux_config": {
+    "standard_model": "fal-ai/flux-2-pro",
+    "ultra_model": "fal-ai/flux-2-pro",
+    "ultra_chapter_id": "ch01",
+    "resolution_standard": "2560x1440",
+    "resolution_ultra_aspect": "16:9",
+    "image_engine": "seedream",
+    "safety_checker": true
+  },
+  "veo_config": {
+    "poll_timeout_seconds": 600,
+    "max_attempts": 3,
+    "rate_limit_backoff_seconds": 20
+  },
+  "art_profiles_used": [],
+  "total_chapters": 7,
+  "chapters": [
+    {
+      "id": "ch01",
+      "engine": "veo",
+      "art_profile": "",
+      "model_used": "flux_ultra",
+      "clips": [
+        {
+          "index": 1,
+          "video_prompt": "The camera slowly pushes in towards the concrete wall as the dark, churning floodwater continuously slams against its base, sending spray exploding upwards. Wind-driven rain falls steadily across the scene, and the splintered lumber is tossed and turned in the powerful, chaotic current.",
+          "image_prompt": "A medium shot captures dark, churning floodwater filled with urban debris as it slams violently against the base of a concrete block prison wall. The camera's focus is fixed on the turbulent impact point, where water explodes upwards, depicting the exterior foundation of the Orleans Parish Prison, at the onset of the flood in New Orleans, 2005. A splintered piece of lumber is tossed in the violent current at the base of the wall, all rendered in murky grey-browns of floodwater, dark wet concrete, and desaturated blues from the stormy sky. Dark, chaotic daylight from a heavy hurricane overcast illuminates the scene, with wind-driven rain visible, creating a mood of overwhelming natural force and a sense of impending doom conveyed through the water's violence against the structure. The style is documentary photographic realism, dark-history, and faceless, utilizing a deep depth of field to capture the texture of both the water and the concrete wall, from a low angle, making the rising water seem powerful and menacing. The image has a 16:9 aspect ratio.",
+          "path": "ba6c3cac-f5v2\\assets\\ch01_veo\\ch01_clip_01.mp4",
+          "status": "ok",
+          "fallback_type": null
+        }
+      ],
+      "supplemental_images": [
+        {
+          "index": 1,
+          "prompt": "An extreme wide shot captures the sprawling, multi-building complex of the Orleans Parish Prison, standing silent and isolated, its lower levels partially submerged in a vast expanse of floodwater. A static, wide tableau emphasizes the immense, unmoving structures against the still water, set within the prison complex in New Orleans, surrounded by miles of floodwater under a grim, post-hurricane sky. The bleak, overcast sky is reflected on the still, debris-strewn surface of the water, rendered in a color palette of desaturated greys of concrete, muddy brown of the floodwater, and touches of rust-red on steel elements. Flat, bleak daylight emanates from a thick, uniform grey overcast sky, conveying a mood of utter desolation and large-scale abandonment, with the massive structures appearing like a modern tomb. The style is documentary photographic realism, dark-history, and faceless, achieved with a deep depth of field, capturing the entire complex and its flooded surroundings from a high-angle, aerial perspective. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "arish Prison, 6,375 reclusos son abandonados a su suerte.",
+          "path": "ba6c3cac-f5v2\\assets\\ch01_flux\\ch01_supp_01.png",
+          "status": "ok",
+          "art_profile": ""
+        },
+        {
+          "index": 2,
+          "prompt": "A medium shot of a male official in a sheriff's department uniform, seen from behind his shoulder with his face obscured in shadow, stands rigidly behind a wooden lectern, his hands resting flat on its surface. The figure's posture is directed forward, addressing an unseen audience, but the face is completely unreadable. The setting is an official, wood-paneled press room from the early 2000s, with a department flag out of focus in the background. A single, period-correct gooseneck microphone is on the lectern, pointed towards the speaker. The color palette consists of dark browns of wood, the deep green of the uniform, and stark white papers on the lectern. Harsh, directional top-down lighting casts the face into impenetrable shadow while highlighting his shoulders and hands, creating a mood of cold, bureaucratic indifference and impersonal authority. The style is documentary photographic realism, dark-history, and faceless, with a shallow depth of field focusing on the texture of the uniform on his back, blurring the rest of the scene. The eye-level camera angle is positioned to the side to ensure the face remains in shadow. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "El sheriff Marlin N. Gusman fue claro: se quedarían \"donde pertenecen\".",
+          "path": "ba6c3cac-f5v2\\assets\\ch01_flux\\ch01_supp_02.png",
+          "status": "ok",
+          "art_profile": ""
+        },
+        {
+          "index": 3,
+          "prompt": "A medium shot shows a group of incarcerated African American men in orange jumpsuits, their bodies partially visible as they stand in rising, dark water inside a prison cell block, some perched on benches. Their eyes, wide and reflecting dim light, are fixed on something unseen down the dark corridor beyond the bars. This scene unfolds in a lower tier of a cellblock in Orleans Parish Prison, with walls that are dark and wet, under failing fluorescent lights. One man's hand grips a rusty steel cell bar so tightly his knuckles are white, water dripping from his fingertips. The color palette is monochromatic, featuring grey concrete, desaturated orange uniforms, and the black sheen of oily water. Low-key lighting, sourced from a single, distant, failing fixture, creates long, deep shadows, contributing to a mood of palpable dread and rising panic, where the physical threat of the water is immediate and inescapable. The style is documentary photographic realism, with a dark-history and faceless approach. Deep depth of field keeps the men and the oppressive cell block behind them in focus, captured from an eye-level camera angle from the corridor, looking into the crowded cell. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "Una sentencia dictada antes de que subiera el agua",
+          "path": "ba6c3cac-f5v2\\assets\\ch01_flux\\ch01_supp_03.png",
+          "status": "ok",
+          "art_profile": ""
+        },
+        {
+          "index": 4,
+          "prompt": "A close shot captures a young, lean African American man in his late teens, his face streaked with grime, as he listens intently, his body completely still, pressed against the wet concrete wall of his cell. Staring directly forward through the lens, his pupils are dilated with the whites of his eyes visible all around the iris, and his jaw is trembling slightly. This scene unfolds in the dark interior of a flooded prison cell, with murky water visible at the bottom of the frame. Clean tracks left by tears cut paths through the filth on his cheeks. The color palette consists of cold blues and greys, with the orange of his soaked jumpsuit appearing almost brown, and stark contrast on his skin. A single, hard side light sculpts his features and highlights the wetness on his skin, leaving the other side in deep shadow, evoking the silent, crushing moment of realization and abject despair captured in a frozen instant. This is rendered with documentary photographic realism in a dark-history, faceless style, employing a shallow depth of field, with his face in sharp focus while the background dissolves into a dark blur. The camera angle is eye-level and confrontational. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "que sería confirmada por la terrible decisión que el sheriff estaba a punto de anunciar.",
+          "path": "ba6c3cac-f5v2\\assets\\ch01_flux\\ch01_supp_04.png",
+          "status": "ok",
+          "art_profile": ""
+        }
+      ],
+      "veo_position": "start"
+    },
+    {
+      "id": "ch02",
+      "engine": "flux",
+      "art_profile": "",
+      "subject_ref": null,
+      "profiles_used": [
+        ""
+      ],
+      "model_used": "flux_pro",
+      "images": [
+        {
+          "index": 1,
+          "prompt": "A close shot depicts a 2005 wall calendar page for August, resting pinned to a sterile office wall, with the date '28' circled in thick red marker. The focus is drawn to the circled date, which stands out starkly in a nondescript institutional office with beige-painted walls. A standard office wall calendar, with blocky, sans-serif numbers, clearly shows 'AUGUST 2005'. The color palette features muted off-whites and beiges, with a single, jarring point of crimson red, under flat, even fluorescent office lighting. There is a sense of quiet, bureaucratic foreboding; an ordinary object marked for a future catastrophe, presented with documentary photographic realism, dark-history, and a faceless style. A shallow depth of field is used, with the number '28' in sharp focus and the rest slightly blurred, captured at an eye-level, head-on camera angle. A sign on the top of the calendar page reads \"AGOSTO 2005\" in a block font. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "seed_used": 1420550295,
+          "path": "ba6c3cac-f5v2\\assets\\ch02_flux\\ch02_img_01.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 1420550295,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 2,
+          "prompt": "A medium shot of a Caucasian, middle-aged sheriff in a formal uniform, seen from behind his shoulder at a podium, delivering a statement, leaning slightly towards a cluster of microphones. His unseen face is directed forward towards an unseen press corps, projecting authority in a press conference room with a plain backdrop, suggesting a government building. A dense cluster of assorted early 2000s press microphones with foam windscreens is pushed forward on the podium. The color palette is dominated by the dark navy and khaki of the uniform, with neutral background tones, under harsh, direct frontal lighting, as if from multiple camera flashes. The mood is unyielding authority, a cold, irreversible announcement delivered under intense scrutiny, in a documentary photographic realism, dark-history, faceless style, captured with a 50mm lens and documentary style, from a low angle, looking up at the official. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "seed_used": 2865629360,
+          "path": "ba6c3cac-f5v2\\assets\\ch02_flux\\ch02_img_02.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 718145713,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 3,
+          "prompt": "A wide shot shows a long, empty prison corridor lined with solid steel cell doors. The overhead fluorescent lights flicker erratically and extinguish, plunging the hallway into deep shadow. The camera's perspective stares down the length of the corridor into the encroaching darkness of an institutional prison block with concrete walls showing wear and rust stains around the door frames. A long, rectangular fluorescent light fixture on the ceiling, its tubes glowing weakly for a final moment before dying, is visible. Cold fluorescent whites and institutional grays are abruptly replaced by deep blacks and muted metallic sheens. The lighting transitions from harsh, buzzing fluorescent light to almost complete darkness, broken only by a sliver of ambient light from a distant, unseen source, creating an abrupt plunge into isolation and dread, where the darkness itself becomes a confining presence. The style is documentary photographic realism, dark-history, and faceless, with a deep depth of field from an eye-level, centered and symmetrical camera angle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch02_flux\\ch02_img_03.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 4,
+          "prompt": "A close shot features sheets of wind-driven rain, smashing against the exterior of a small, barred prison window, viewed from inside a dark cell looking out at the storm's fury. The setting is a concrete-walled prison cell, with the view framed by the window opening, which includes thick, rusted horizontal steel bars set into the concrete frame. A monochromatic palette of dark storm-cloud greys, blacks, and the murky white of the rain fills the scene, illuminated by dark, turbulent overcast daylight from the hurricane's eye wall. The mood conveys claustrophobic tension, highlighting the overwhelming power of nature witnessed from a position of total confinement in 2005. The style is documentary photographic realism, dark-history, and faceless, achieved with a deep depth of field, showing rain streaking and distorting the view through the thick glass, captured at eye-level from an interior perspective. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch02_flux\\ch02_img_04.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 5,
+          "prompt": "An extreme wide shot captures a massive concrete levee wall failing catastrophically, with a torrent of brown floodwater bursting through a huge breach into a residential neighborhood. The scene is viewed from above, capturing the terrifying scale of the infrastructure collapse, an aerial view of a New Orleans neighborhood bordering an industrial canal. The jagged, crumbled edge of the thick concrete I-wall shows steel rebar twisted and exposed by the force of the water. Murky, muddy browns of the churning floodwater contrast with the orderly greens and pastels of the submerged homes, under gloomy, grey daylight filtering through dense hurricane clouds. A sense of immense, unstoppable destruction and man-made betrayal compounding a natural disaster imbues this documentary photographic realism, dark-history, faceless scene. A wide-angle lens, showing the vastness of the event, with a high angle, aerial perspective. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "seed_used": 1420550295,
+          "path": "ba6c3cac-f5v2\\assets\\ch02_flux\\ch02_img_05.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 1420550295,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 6,
+          "prompt": "A detail shot of an engineering blueprint shows a levee's cross-section where a man's hand, emerging from a military uniform cuff, points with a pen tip to the inadequate depth of the steel sheet pilings. The focus is precisely on the technical detail being indicated as the point of failure within a well-lit engineering office or briefing room table, covered with the complex technical drawing itself, filled with annotations, soil strata labels, and precise measurements. The image utilizes classic blueprint tones of deep blue and stark white, with fine black ink lines, under clean, focused task lighting, like from a desk lamp, evoking a forensic, analytical coldness; the quiet, intellectual discovery of a fatal error in the aftermath. The style is documentary photographic realism, dark-history, faceless, captured with a macro lens, isolating the pen tip and the flawed design specification, from a top-down, directly overhead camera angle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch02_flux\\ch02_img_06.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 7,
+          "prompt": "A static, wide shot of a breached floodwall shows that the immediate torrent has subsided, leaving a vast, gaping hole in the earthen and concrete structure. The eye takes in the sheer scale of the missing section and the debris-strewn landscape on the bank of a New Orleans canal after the storm has passed. A large, displaced section of concrete wall lies tilted on its side in the mud, like a fallen monument. The scene is depicted with earthy browns, dull concrete greys, and the rusty red of exposed rebar against a pale, overcast sky, illuminated by the flat, shadowless light of a grey, post-storm day. The mood conveys the desolate silence of ruin, evidence of immense power, now passed, in a documentary photographic realism style that is dark-history and faceless. A deep depth of field captures the full extent of the damage from an eye-level, observational camera angle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "landscape_view",
+          "foto_madre_refs": [],
+          "seed_used": 2468734038,
+          "path": "ba6c3cac-f5v2\\assets\\ch02_flux\\ch02_img_07.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 321250391,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 8,
+          "prompt": "An extreme wide shot captures the flooded cityscape of New Orleans, lying still under a vast sheet of murky brown water, with only rooftops and the tops of trees visible. A panoramic survey of the drowned city stretches to the horizon from an aerial viewpoint high above the submerged metropolis, revealing the iconic crescent of a street in the French Quarter, its shape delineated only by the line of rooftops emerging from the water. The scene is a monotonous expanse of muddy brown and grey, punctuated by the varied colors of rooftops, under diffused, somber daylight from a blanket of grey clouds. An eerie stillness and vast desolation prevail, a city silenced and erased by water, rendered in documentary photographic realism, dark-history, faceless style. A wide-angle lens emphasizes the vast scale of the inundation from a high aerial angle, illustrating 15 feet of water. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "seed_used": 1420550295,
+          "path": "ba6c3cac-f5v2\\assets\\ch02_flux\\ch02_img_08.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 1420550295,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 9,
+          "prompt": "A medium shot of a group of African American male prisoners in orange jumpsuits, standing in chest-deep, filthy water inside a darkened prison cell block, their bodies mostly in silhouette. Their faces are hidden in shadow, but their rigid postures and fixed gazes are directed towards an unseen point of faint light, all set on the ground floor of a massively flooded Orleans Parish Prison building, with high water marks stained on the concrete walls. One man's hands grip the steel bars of a cell door, knuckles white with strain, just above the waterline. The near-monochrome scene of deep blacks and grays, the dark sheen of oily water, and the faint, soiled orange of their uniforms is lit with extremely low-key light, a single sliver of dim, external light creating a faint rim-light on their shoulders and heads. This evokes a mood of trapped desperation; a palpable sense of rising water and encroaching darkness, with bodies rigid from cold and tension, in a style of documentary photographic realism, dark-history, and facelessness. A shallow depth of field focuses on the foreground figures, captured at eye-level, as if the viewer is also in the water. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "seed_used": 2865629360,
+          "path": "ba6c3cac-f5v2\\assets\\ch02_flux\\ch02_img_09.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 718145713,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 10,
+          "prompt": "A medium shot shows a large, industrial backup generator in a concrete utility room, running loudly with the entire machine vibrating from the effort of generating power. The focus is on the mechanical heart of the machine, the single point of hope, within a prison basement or utility room that features pipes and electrical conduit on the walls, and dark water starting to creep across the floor. An analog voltmeter on the generator's control panel has its needle holding steady in the green zone, contrasting with industrial yellows and greens of the machinery against drab concrete grey, with bright red warning labels. Lit by a single, bare work bulb hanging from the ceiling, the scene is tense, a mechanical lifeline; its deafening roar is the only sound holding back total darkness in a style of documentary photographic realism, dark-history, and facelessness. An 85mm lens isolates the generator from its surroundings, captured from a low angle, giving the machine a heavy, vital presence. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch02_flux\\ch02_img_10.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 11,
+          "prompt": "A close shot of the control panel of the backup generator, sputtering violently as sparks erupt from a junction box and the lights it powers flicker and die. The focus is on the needle of the voltmeter, which trembles and drops sharply to zero within the same generator room, now with rising water lapping at the machine's metal skid, and the needle of the voltmeter dropping dead as the machine shudders to a final, clattering halt. The scene is plunged into darkness, illuminated only by the frantic, bright orange and blue flashes of electrical arcing. The attached work bulb flickers and goes out, with the only illumination coming from the self-destructive sparks of the failure, conveying sudden, catastrophic failure, the abrupt sound of machinery dying, followed by a terrifying silence and absolute blackness, in a documentary photographic realism, dark-history, faceless style, captured in 2005 with a rapid focus pull from the sparking junction box to the dying voltmeter. The camera is eye-level with the control panel, slightly tilted. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch02_flux\\ch02_img_11.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch03",
+      "engine": "flux",
+      "art_profile": "",
+      "subject_ref": null,
+      "profiles_used": [
+        ""
+      ],
+      "model_used": "flux_pro",
+      "images": [
+        {
+          "index": 1,
+          "prompt": "A medium shot of a large, industrial backup generator sputtering violently, emitting a final thick puff of black smoke as it dies, with the focus on the machine's failure. It is set in a grimy, damp concrete utility basement within the Orleans Parish Prison complex, with rust-stained pipes on the walls, and a spreading puddle of dark, oily water on the floor, reflecting the last flickering light from the emergency bulb. The color palette is composed of industrial greys, rust-brown, oily blacks, and the sickly yellow of a single failing emergency bulb. A single, bare emergency bulb flickers erratically, casting harsh, moving shadows before extinguishing completely, evoking a mood of mechanical death, the extinguishing of the last artificial light against an encroaching, sodden darkness. The style is documentary photographic realism, dark-history, faceless, captured with a shallow depth of field from a low angle, depicting the year 2005. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_01.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 2,
+          "prompt": "A wide shot captures a long row of prison cells, with the silhouetted forms of incarcerated men visible inside, as the overhead fluorescent lights flicker erratically for a moment and then die, plunging the entire scene into absolute darkness. The silhouettes inside the cells are briefly visible turning towards the failing lights before they vanish, all within an interior two-tiered cell block of the prison, constructed from concrete and steel. The steel bars of the cell doors catch a final, sharp glint of light before being swallowed by the darkness. The harsh, cold blue-white of failing fluorescent lights is abruptly replaced by deep blacks and muted greys, under strobing, failing fluorescent light that culminates in pitch-blackness, faintly relieved by distant, ambient light. The mood is one of sudden sensory deprivation, the abrupt transition from noise and institutional light to a vast, metallic silence and darkness, in a documentary photographic realism, dark-history, faceless style from 2005. The scene is depicted with a deep depth of field from an eye-level camera angle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_02.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 3,
+          "prompt": "A detail shot captures an electronic lock panel on a solid steel cell door as a single red LED indicator on the lock mechanism flickers one last time and goes dark. An inmate's hand, seen through the food slot, grips the edge of the steel door, testing its immovability within a close-up view of a cell door in the darkened prison corridor. The blank, lifeless screen of the electronic keypad next to the lock is visible, all rendered with a cold metallic grey color palette, shades of rust-brown, and a final pinpoint of red from the dying LED. Extremely low-key lighting, with faint, reflected light from unseen water below catching the door's metallic texture, evokes the finality of entrapment and a technological failure that seals a concrete tomb. The style is documentary photographic realism, dark-history, and faceless, achieved with a macro lens with a very shallow depth of field, focusing on the dead LED light, from a straight-on camera angle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_03.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 4,
+          "prompt": "A close shot reveals the concrete floor of a ground-level prison cell, where dark, murky floodwater seeps persistently from beneath the steel cell door, spreading across the floor. The bare feet of an incarcerated man are seen quickly moving backward, away from the encroaching water, inside a ground-floor cell at Orleans Parish Prison, with the leg of a simple metal bunk visible. A thin, waterlogged mattress is on the floor, its edge darkening as it soaks up the invading liquid. The color palette features drab concrete grey, the dark, murky brown of the floodwater, and the orange of rust along the door's bottom edge. Dim, ambient light from a high, barred window creates a greasy sheen on the surface of the rising water, evoking an insidious, creeping dread as the supposedly secure space is violated by an unstoppable, filthy tide. This scene is captured with documentary photographic realism, dark-history, and a faceless style, using a wide-angle lens to emphasize the water's spread, from a low angle, almost at floor level. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_04.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 5,
+          "prompt": "A detail shot captures a cast iron floor drain in a communal prison washroom where thick, dark sewage bubbles up and overflows from the drain, spilling across the grimy tiled floor. The focus is on this foul eruption within a decrepit, tiled washroom area inside a cell block, featuring stained concrete block walls. Unidentifiable solid waste and foul debris are pushed out of the drain by the pressure of the backflow. The color palette consists of sickly institutional green and faded beige tiles, the black and dark grey of raw sewage, and the metallic glint of the drain cover. A single, harsh, directional light from an off-camera source creates sharp, wet reflections on the filth, evoking visceral revulsion and the horror of being trapped in a space actively contaminated from below. The style is documentary photographic realism, dark-history, and faceless, utilizing macro focus from a high angle, looking directly down into the overflowing drain. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_05.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 6,
+          "prompt": "A medium shot of a young adult African American incarcerated man, with a thin build, wearing a faded orange prison jumpsuit, standing precariously on the lower metal bunk of his bed to stay out of the rising water, and looking down at the opaque, debris-strewn water swirling around the bed's legs, his jaw tight and lips pressed thin, inside a flooded, cramped prison cell where the water has reached calf-level. A styrofoam cup and other unidentifiable debris float on the water's surface within the cell, all rendered in muted tones of grey concrete, the faded orange of the jumpsuit, and the dark, murky brown of the floodwater. Soft, dim light from a small, high barred window casts reflections off the disturbed surface of the water, creating a mood of claustrophobic helplessness and disgust, with the man trapped in a confined space being slowly filled with filth. The style is documentary photographic realism, dark-history, faceless, captured with a 50mm lens at eye-level. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "seed_used": 2865629360,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_06.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 718145713,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 7,
+          "prompt": "A wide shot shows a small group of prison guards, seen as indistinct silhouettes, standing clustered together on a dry, upper-level catwalk, looking down into the darkness of the flooded lower tier, their postures showing indecision. Their attention is focused downward into the flooded abyss, but their bodies are static, conveying inaction. The scene is an upper-tier walkway inside a large OPP cell block, overlooking the flooded and darkened ground floor. One guard holds a heavy-duty flashlight, its weak beam cutting a cone through the darkness, illuminating the swirling surface of the water below. The color palette consists of deep shadows, blacks, and greys, with the figures outlined by a single, distant light source. The lighting is extreme low-key, with a single source of backlighting that renders the guards as anonymous, powerless shapes. The mood evokes a vacuum of authority and abandonment, with the agents of control rendered impotent and uncertain by the scale of the disaster, in a style of documentary photographic realism, dark-history, and faceless. A deep depth of field is used, captured from a high angle, from behind the guards. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_07.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 8,
+          "prompt": "A medium shot captures a man in a sheriff's uniform, seen from behind his desk with his face obscured in shadow, sitting motionless at a large wooden desk, his hand resting beside a telephone. He is gazing down at the official papers spread before him on the desk, his posture heavy with deliberation in a sheriff's office away from the prison, late at night, where rain is visible streaking down a window pane. An old CRT computer monitor on the desk emits a soft glow, illuminating scattered maps and documents, all rendered in warm wood tones and amber from a desk lamp, sharply contrasted with the cold blue and black of the storm outside. The low-key lighting from a single desk lamp creates a pool of light on the desk, casting the man's face and the room into deep shadow, conveying the oppressive weight of a critical decision delayed and the slow pace of bureaucracy during a life-or-death crisis. This image has a documentary photographic realism, dark-history, faceless style, with a shallow depth of field, and is captured at eye-level, from the side. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_08.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 9,
+          "prompt": "A detail shot shows a formal, typewritten document on official letterhead, lying flat on a dark desk and starkly lit. The scene is a bureaucratic, administrative office setting. A date stamp showing 'AUG 29 2005' is clearly impressed in red ink near the bottom of the page. The color palette features stark black text on off-white paper, the beige of a manila folder, and the dark grain of a wooden desk, all under harsh, direct light from a single overhead source, as if from a desk lamp pulled down low. The mood is one of cold, impersonal bureaucracy, where the sterility of the document contrasts with the chaos it fails to address in time, presented in a documentary photographic realism style, evoking dark-history and facelessness. The lens technique is flat and documentary style, captured from a top-down camera angle. A header on the document reads \"SOLICITUD DE ASISTENCIA PARA EVACUACIÓN DE EMERGENCIA\" in a typewriter font. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_09.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 10,
+          "prompt": "A close shot reveals multiple rows of hands belonging to unseen inmates gripping the vertical steel bars of their cell doors from the inside, knuckles white with tension. The hands are the focus, representing a collective, silent plea within a flooded cell block, with the dark surface of the water visible just inches below the hands. A wavering reflection from a distant flashlight glints off the wet steel bars and the water's surface. The monochromatic palette features the cold grey of wet steel, the deep black of the water, and varied human skin tones under harsh light. A single, harsh beam of a flashlight cuts horizontally across the darkness, illuminating only the bars and the hands clinging to them, conveying a mood of desperate, silent endurance and the physical manifestation of mass entrapment and fading hope. The style is documentary photographic realism, dark-history, and faceless, presented with a deep depth of field and a straight-on camera angle, level with the hands. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_10.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 11,
+          "prompt": "A close shot depicts a growing stack of manila folders and official paperwork on a desk, where a clean hand in a white shirt cuff slowly and deliberately places another folder onto the stack, focusing on the bureaucratic action. The setting is a clean, dry, orderly government office, completely detached from the ongoing disaster. A ceramic coffee mug sits next to the stack, having left a wet ring on a document at the edge of the frame. The color palette consists of sterile beiges, off-whites, pale blues of government forms, and institutional greys, illuminated by flat, even, and characterless fluorescent office lighting. The mood conveys the infuriatingly slow pace of bureaucracy, creating a stark, indifferent contrast to the life-or-death urgency elsewhere, rendered in a documentary photographic realism, dark-history, and faceless style. A shallow depth of field is used, with the camera at an eye-level angle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_11.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 12,
+          "prompt": "A wide shot captures the interior of a long prison corridor, where dark, debris-filled water, now waist-high, flows with a discernible current. The water itself is the active subject within this main ground-floor corridor in the Orleans Parish Prison, which is lined with the submerged lower halves of steel cell doors. A submerged metal table creates a visible wake as the floodwater flows relentlessly past it. The scene features a monochromatic palette of deep greys, murky browns, and black, with high-contrast reflections on the water's moving surface. Very dark lighting, with a single, powerful light source from the far end of the corridor, illuminates the water's texture and movement, conveying an unstoppable, impersonal force where the prison environment has transformed into a deadly, moving river. The style is documentary photographic realism, dark-history, and faceless, rendered with a wide-angle lens and deep depth of field, set at a low angle with the lens just above the water's surface. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_12.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 13,
+          "prompt": "A medium shot captures an incarcerated African American man in his 30s, with a strong build and a face showing extreme strain, as he clings to the high, small bars of his cell window, treading water that is now up to his chest. His wide, strained eyes stare out the window into the darkness, his jaw clenched tightly, his grimy face streaked with clean tracks where tears have cut through the filth. He is inside a nearly submerged prison cell, with only the top few feet of wall remaining above the dark water. His knuckles are white as he grips the rusty window bars, his fingers straining against the metal. The color palette features cold blues and blacks of the night and water, with his submerged orange jumpsuit appearing as a dark, sodden brown. Faint, stormy ambient light coming through the window from outside models his face and creates glints on the water around him. The mood conveys the apex of desperation and the raw will to survive, with physical exhaustion and terror evident in his strained body and face. The style is documentary photographic realism, dark-history, and faceless, rendered with an 85mm lens, isolating him in his struggle, at eye-level with the man. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "seed_used": 2865629360,
+          "path": "ba6c3cac-f5v2\\assets\\ch03_flux\\ch03_img_13.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 718145713,
+            "nsfw_flag": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch04",
+      "engine": "flux",
+      "art_profile": "",
+      "subject_ref": null,
+      "profiles_used": [
+        ""
+      ],
+      "model_used": "flux_pro",
+      "images": [
+        {
+          "index": 1,
+          "prompt": "A close shot captures the feet and lower legs of an unseen inmate, clad in a stained orange jumpsuit, standing as murky, dark water rapidly rises, swirling with unseen debris around their calves. The subject's focus is directed downward at the encroaching water, body tense, on the bare concrete floor of a prison cell plunged into total darkness. A single, grimy piece of plastic trash floats past the legs in the opaque water. The color palette is monochromatic deep grays and blacks, with the orange of the uniform appearing almost brown where soaked. The scene is almost completely dark, with a faint, cold ambient bounce creating unsettling specular highlights on the water's surface, all evoking encroaching dread, claustrophobia, and the physical sensation of being trapped by rising, unseen filth. This image, from 2005, is rendered with documentary photographic realism, dark-history, and a faceless style, employing a shallow depth of field with sharp focus on the waterline creeping up the fabric, captured from a low angle just above the water's surface. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_01.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 2,
+          "prompt": "A wide shot of a long, empty prison corridor stands silent and flooded, with a high, dark waterline staining the concrete block walls far above the still, debris-strewn water. The perspective draws the viewer's gaze down the length of the decaying hallway into deeper shadow. This interior corridor of the Orleans Parish Prison is captured days into the flood, with a waterlogged office chair floating on its side in the middle of the hallway. The color palette features sickly greens and dark browns of contaminated water and mold, faded institutional beige, and reddish rust on steel doors. Dim, ambient light filters from a distant, unseen source, creating long, dark, unsettling shadows, contributing to a mood of post-apocalyptic stillness, oppressive silence, and the weight of large-scale abandonment. The style is documentary photographic realism, dark-history, and faceless, employing a deep depth of field, emphasizing the oppressive length and repeating geometry of the cell doors disappearing into darkness. The camera is at eye-level. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_02.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 3,
+          "prompt": "A medium shot captures an African American inmate, mid-30s, lean build, his orange jumpsuit soaked dark, standing rigidly still, submerged to his chest in filthy, opaque water inside a cell. His eyes stare forward, just past the camera, unfocused, with dilated pupils, a clenched jaw, and thin pressed lips. He is inside a cramped prison cell, where concrete walls are stained with a dark, greasy waterline well above his head. Floating refuse, including what looks like feces, bumps gently against his body. The color palette features murky brown and sewage-green water, the stained orange of the jumpsuit, and grimy gray concrete. A single, weak, off-camera light source from the side casts the side of his face in deep shadow and highlights the slickness of the water. The mood evokes trapped horror, physical revulsion, profound helplessness, with the air thick and unbreathable, all rendered in a documentary photographic realism style, dark-history, and faceless. An 85mm lens with shallow depth of field blurs the graffiti-covered back wall of the cell, viewed at eye-level, creating a direct, uncomfortable intimacy with his condition. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "seed_used": 2865629360,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_03.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 718145713,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 4,
+          "prompt": "A close shot reveals the hands and arms of several inmates pressed against the steel bars of a cell door, gripping the bars, knuckles white and straining, muscles in the forearms taut with exertion. The visual focus is entirely on the desperate, powerful grip of the hands on the immovable steel within a dark cellblock, looking from inside a cell out through the bars into an empty, flooded corridor. Condensation and filth on the bars catches the light, obscuring the view. The color palette is the dark rust-brown of the steel bars, varied grimy African American skin tones, and deep shadows, illuminated by harsh, high-contrast side-lighting that catches the texture of the skin and the pitted rust on the bars, plunging everything else into blackness. The mood conveyed is raw desperation, animalistic powerlessness, claustrophobia, and the feeling of being caged, rendered in a style of documentary photographic realism, dark-history, and faceless. Very shallow depth of field is used, focusing only on the white knuckles of one hand, captured from a slightly low angle, looking up at the straining hands. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_04.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 5,
+          "prompt": "A wide shot captures a mass of hundreds of African American inmates packed shoulder-to-shoulder in a large indoor space, surviving and standing motionless in murky, waist-deep water. Some lean on each other, others on the walls, and all faces show extreme exhaustion. Their faces are gaunt, with hollowed eyes staring into space, while one man in the foreground looks toward the lens, his mouth half-open, lips visibly cracked and dry. The setting is a flooded prison gymnasium or large common area, with high waterlines visible on the concrete block walls. An overturned plastic table floats in the foreground, serving as a makeshift raft for a single shoe. The color palette is a monotonous array of muddy browns, grays, and the faded, stained orange of hundreds of jumpsuits. Dim, flat light filters through high, grimy windows far above, providing no warmth or hope. The mood is a tableau of mass suffering, extreme exhaustion, and communal despair, rendered in a documentary photographic realism, dark-history, faceless style. A wide-angle lens with deep depth of field captures the immense scale of the crowd from an eye-level camera angle, as if from within the crowd, creating a suffocating sense of shared misery. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_05.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 6,
+          "prompt": "A medium shot captures inmates in orange jumpsuits and deputies in uniform in a flooded courtyard as inmates are roughly herded through thigh-deep water towards a small rescue boat, creating violent splashes, while a deputy shoves an inmate forward. A deputy's face is contorted in a shout, pointing aggressively, and an inmate who has stumbled looks back with wide, terrified eyes, his brow knotted, all set within a flooded prison courtyard littered with broken concrete and debris under a gray sky. An aluminum jon boat, heavily overloaded, lists precariously to one side, with drab grays of concrete and sky, the jarring bright orange of the jumpsuits, and dark navy of uniforms, all muted by the filthy water, under harsh, flat, overcast daylight that exposes every detail without shadow, creating a mood of frenetic chaos, aggression, fear, and the desperation of a disorganized escape, in a style of documentary photographic realism and dark-history, appearing faceless. Slight motion blur, as if shot with a handheld camera in a chaotic situation, is present from a low angle, from water level, making the action feel more immediate and violent. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_06.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 7,
+          "prompt": "A wide shot captures a flat-bottomed rescue boat packed with exhausted African American inmates, moving slowly through a vast expanse of brown floodwater, toward the looming concrete structure of an interstate overpass. The inmates are squinting against the harsh sun, some shielding their eyes, their posture slumped and defeated. The setting reveals the flooded landscape of New Orleans, with only rooftops and the massive I-10 overpass visible. The distant overpass has tiny figures of people already on it, emphasizing the scale. The color palette features bleached-out whites and pale blues of a sun-blasted sky, dull orange jumpsuits, and the endless brown of the floodwater. Blazing, high-noon sun provides the lighting, creating harsh highlights, deep shadows under chins, and a shimmering heat haze. The mood is one of oppressive heat, exposure, exhaustion, a journey from one circle of hell to another, rendered in a documentary photographic realism, dark-history, faceless style. A deep depth of field shows the immense scale of the flooded city and the journey ahead, captured at eye-level with the people in the boat. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "landscape_view",
+          "foto_madre_refs": [],
+          "seed_used": 2468734038,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_07.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 321250391,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 8,
+          "prompt": "A wide shot captures a long, dense line of inmates in orange jumpsuits on the I-10 overpass, waiting under the blazing sun. Some sit with heads buried in their hands, others lie directly on the hot asphalt, seeking any relief. A man in the foreground, his face slick with sweat and grime, stares vacantly past the camera, his eyes unfocused from heat and dehydration. The scene unfolds on the Broad Street overpass above I-10, surrounded by miles of floodwater, with no shade or shelter. A single, empty plastic water bottle lies crushed on the asphalt in the foreground. The color palette features overexposed tones of gray concrete, faded sun-beaten orange, and the shimmering brown water far below, all under unrelenting, direct overhead sunlight, casting almost no shadows. The mood conveys endless, agonizing waiting, physical misery from heat and dehydration, and a sense of being warehoused and forgotten, rendered in a documentary photographic realism, dark-history, faceless style. A telephoto lens compresses the perspective to make the line of hundreds of people look dense and endless, captured from a high angle, looking down the length of the overpass. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "landscape_view",
+          "foto_madre_refs": [],
+          "seed_used": 2468734038,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_08.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 321250391,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 9,
+          "prompt": "A medium shot shows the silhouette of the last inmate, a frail man, being helped onto a military truck by two officials. The man stumbles with profound weakness, his body limp as he is half-lifted, half-pushed over the tailgate, his head down, face completely obscured in shadow, a figure of total exhaustion. The setting is the now-empty courtyard of Orleans Parish Prison at dusk, its ground covered in a thick, cracked layer of foul-smelling mud and debris. Deep blues and fiery oranges of twilight fill the color palette, with the figures rendered as dark silhouettes against the fading sky. Golden hour lighting, from the low sun, creates dramatic backlighting and long shadows, evoking a somber endnote of immense relief mixed with visible, deep-seated trauma and exhaustion. The style is documentary photographic realism, dark-history, and faceless, captured with an 85mm lens, capturing the moment with a sense of somber finality. The camera angle is eye-level, from a respectful distance. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_09.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 10,
+          "prompt": "A detail shot of a wall calendar hanging in a ruined prison office, open to August 2005, with water-stained, curled, and mold-blooming paper. The camera's focus is on the block of dates from Monday the 29th through the end of the week, smudged with a grimy fingerprint within a destroyed prison administrator's office, with overturned furniture and mud-caked papers strewn everywhere. A thick, dried waterline of mud and filth cuts horizontally across the bottom third of the calendar page, rendered in moldy greens, water-stain browns, faded paper-white, and the gray of the concrete wall behind it. Muted, indirect daylight from a broken window casts a soft but grim light on the decay, creating a quiet, chilling testament to neglect and the physical evidence of abandoned time in a documentary photographic realism, dark-history, faceless style. A macro lens with a very shallow depth of field renders only the dates from 29 to 2 in sharp focus, captured straight on, eye-level with the calendar. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_10.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 11,
+          "prompt": "A wide shot captures an empty prison guard tower, standing silent and derelict, its windows broken, overlooking the devastated prison complex. The tower's empty windows stare out like vacant eyes over the muddy, debris-strewn grounds of the exterior of the Orleans Parish Prison complex after the floodwaters have receded, leaving a wasteland. Through a broken window, a guard's chair is visible inside the tower, knocked on its side. The color palette is monochromatic grays of concrete, browns of mud, and the bleak pale blue of an overcast sky, all under flat, unforgiving light from a gray, overcast sky, evoking utter desolation, the oppressive silence after chaos, and a symbol of systemic abandonment. This is rendered in documentary photographic realism, dark-history, and a faceless style, utilizing a wide-angle lens, exaggerating the perspective and isolation of the tower, with a low angle, looking up at the empty tower, making it look like a monument to neglect. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "seed_used": 1420550295,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_11.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 1420550295,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 12,
+          "prompt": "A close shot features a heavy padlock and chain securing the main gate of the now-empty prison complex, with an official's hand just pulling away after clicking the lock shut. The focus is entirely on the locked gate, a symbol of a supposedly closed chapter, at the main entrance gate to Orleans Parish Prison, with a blurred background of the muddy, debris-strewn exterior. A piece of torn, mud-splattered yellow caution tape is snagged on the gate's bars next to the lock, highlighting the cold, metallic gray of the new padlock against the deep rust and peeling paint of the gate bars. Late afternoon sun casts a long, ominous shadow from the gate across the ground, contributing to an ominous finality, a deceptive sense of closure that foreshadows a deeper problem. This is presented in documentary photographic realism, dark-history, faceless style, utilizing a shallow depth of field, blurring the devastated background to focus attention on the finality of the lock, all from an eye-level camera angle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "seed_used": 1420550295,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_12.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 1420550295,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 13,
+          "prompt": "A detail shot features a printed list of names on a desk, with an official's finger running down the long, typed list of inmate names, then stopping abruptly at a large, empty gap in the document. The official's unseen face is directed at the list; the camera's and viewer's focus is on the stark, white void on the paper. This scene unfolds in a cluttered, makeshift government office with stacks of files and a glowing CRT monitor visible in the background. The document itself is a spreadsheet printout, with the last entry before the gap highlighted in yellow, making the empty space that follows even more jarring. The color palette consists of the stark black and white of the printed list, the sterile beige of the desk, and the institutional gray of the office equipment. Harsh, buzzing fluorescent overhead light creates a cold, bureaucratic atmosphere, evoking a mood of sudden, stomach-dropping realization, bureaucratic horror, and the chilling shock of a numerical void where human lives should be. The style is documentary photographic realism, dark-history, and faceless, captured with a macro lens with extremely shallow depth of field, so only the empty space on the paper is in sharp, clinical focus. An over-the-shoulder shot looks directly down at the document. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch04_flux\\ch04_img_13.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch05",
+      "engine": "flux",
+      "art_profile": "",
+      "subject_ref": null,
+      "profiles_used": [
+        ""
+      ],
+      "model_used": "flux_pro",
+      "images": [
+        {
+          "index": 1,
+          "prompt": "A medium shot shows an empty clerk's desk in a flooded records room, with Manila folders and loose papers floating in the murky, stagnant water surrounding the desk. The focus is drawn to a single, open file binder floating on the water's surface, its pages empty and stained. This scene takes place in a prison administration office after the flood, with a high, dark watermark visible on the concrete block walls. A waterlogged ledger book, swollen and peeling, lies half-submerged on the desk chair. The color palette features faded institutional off-white and beige, rust-brown on metal furniture, murky green-brown water, and muted grays. Dim, ambient light filters through a high, grimy window, creating a somber, low-key atmosphere, conveying a heavy silence of bureaucratic collapse and untold loss; the air is still and thick with decay. The style is documentary photographic realism, dark-history, and faceless, using a shallow depth of field, focusing on the empty floating binder, captured at eye-level, angled slightly down. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_01.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 2,
+          "prompt": "A detail shot captures a mud-stained official document, a typewritten page lying on a damp concrete floor, creased and water-damaged. The camera's focus is sharply on the typed number '517' next to the heading 'UNACCOUNTED FOR' within the abandoned prison office setting, surrounded by scattered, ruined papers. The faint, partially obscured letterhead of a human rights organization is visible at the top of the page, all rendered on yellowed off-white paper stained with brown and grey mud, black ink, and grey concrete. A single, harsh light source from the side casts sharp shadows across the paper's texture, evoking a mood of stark, factual horror, the coldness of a number representing immense human loss, in a documentary photographic realism, dark-history, faceless style. Captured with a macro lens with extremely shallow depth of field from a top-down view. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_02.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 3,
+          "prompt": "A wide shot captures a long, empty prison corridor, still, filthy water covering the floor and creating a perfect, dark reflection of the decaying ceiling and barred cell doors. The perspective pulls the eye down the corridor to a vanishing point lost in deep shadow, within a cell block in Orleans Parish Prison weeks after the storm, with a prominent waterline staining the concrete walls. A single, waterlogged mattress is slumped against a cell door, partially submerged, all rendered in a monochromatic palette of muted grays, deep green-black water, and reddish-brown rust on steel doors. Low-key, atmospheric light emanates from a single, distant window at the far end of the hall, creating an oppressive silence and profound emptiness, suggesting a tragedy that has already unfolded. This documentary photographic realism, dark-history, faceless image uses deep depth of field, rendering the entire desolate length in sharp focus from an eye-level, perfectly centered camera angle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_03.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 4,
+          "prompt": "A medium shot of a thin, young adult African American inmate in a soaked orange jumpsuit, standing chest-deep in murky floodwater during an evacuation, gripping a thick rope for stability. His eyes are wide, fixed on a point just off-camera in the water. His jaw is slack and his mouth half-open, a physical manifestation of shock. The setting is a flooded prison courtyard, with the 'Templeman III' building vaguely visible in the background through the rain. Bits of floating debris, including a plastic bottle and splinters of wood, drift slowly past him. The color palette features muddy brown and grey water, a drab orange uniform, and an overcast grey sky. Flat, shadowless light from an overcast sky illuminates the scene, which conveys a silent scream of witnessed horror. The oppressive heat and foulness of the scene are palpable, rendered in a documentary photographic realism, dark-history, faceless style. A shallow depth of field focuses tightly on his facial expression and the water around his chest, captured at eye-level with the subject. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "seed_used": 2865629360,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_04.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 718145713,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 5,
+          "prompt": "A medium shot of a sheriff in a crisp uniform, seen from the chest down, standing behind a podium, one hand making a sharp, downward chopping gesture of dismissal. The focus is on the authoritative gesture and the shiny badge on his uniform shirt. The setting is a formal press conference, with a dark curtain backdrop and a cluster of microphones on the podium. A tight cluster of early 2000s era microphones, their foam covers pointing towards the speaker, is visible. The color palette features stark contrasts of a dark uniform, a white shirt, metallic silver microphones, and a dark wood podium, illuminated by harsh, direct on-camera flash lighting, typical of a media scrum. The mood is one of cold, arrogant authority, the physical embodiment of an official, unfeeling dismissal. The style is documentary photographic realism, dark-history, and faceless, captured with an 85mm lens, isolating the subject and his gesture. The camera angle is low, looking up to emphasize power and authority. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "seed_used": 2865629360,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_05.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 718145713,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 6,
+          "prompt": "A wide shot shows three exhausted African American male inmates in dirty orange jumpsuits, slumped on the concrete barrier of an interstate overpass, awaiting transfer. One man stares blankly at the flooded city below, another looks down at his hands, his shoulders hunched; their faces are hollow-eyed and etched with grime. This scene unfolds on the Broad Street overpass on I-10, used as a makeshift holding area, overlooking the drowned landscape of New Orleans. White plastic zip-tie restraints are cinched tightly around the wrists of the man in the foreground. The image has a washed-out palette, with faded orange jumpsuits, pale grey concrete, and a hazy blue-grey sky over brown water, all under the harsh, unforgiving midday sun. The mood is one of utter despair and human frailty, featuring anonymous figures dwarfed by a catastrophe, stripped of dignity. The style is documentary photographic realism, dark-history, and faceless, utilizing a deep depth of field, capturing both the men's exhaustion and the vast scale of the surrounding devastation, all from an eye-level camera angle from a distance. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "seed_used": 1420550295,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_06.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 1420550295,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 7,
+          "prompt": "A detail shot captures the small, bare feet of a child, who sits on a concrete bench with their feet dangling high above the institutional floor. The tight focus is on the vulnerability of the small feet, smudged with dirt, in a harsh, cold setting inside a juvenile detention facility (YSC), indicated by the stark concrete block wall in the background. The frayed, oversized cuff of an orange prison-issue pant leg hangs just above the child's ankle. A cold palette of greys, pale skin tones, and deep shadows pervades the scene, lit by a soft, cool light from a high, unseen source, emphasizing the texture of the concrete and skin. The mood conveys profound sadness and innocence lost, highlighting the juxtaposition of a child's vulnerability against a brutal, carceral environment in a style of documentary photographic realism, dark-history, and faceless depiction. A shallow depth of field, with only the feet in sharp focus, is achieved from a low camera angle, level with the floor. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_07.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 8,
+          "prompt": "A wide shot shows a line of African American teenagers, seen from behind, standing with their backs to the camera, their collective gaze directed down a long, empty institutional corridor, their postures reflecting a mix of slumped resignation and tense waiting, creating a sense of anonymity and a shared, uncertain fate. The bleak corridor in a juvenile correctional facility features concrete block walls and polished but scuffed linoleum floors, with a high window at the far end of the hall covered with thick security mesh, offering no view. Institutional tones of grey concrete, faded beige paint, and the uniform orange of their jumpsuits are present, illuminated by harsh, cold overhead fluorescent lighting that casts a sterile, greenish tint on the scene, conveying systemic entrapment and foreshortened lives, a visual representation of a demographic pipeline. This documentary photographic realism, dark-history, faceless image uses deep depth of field, emphasizing the length and oppressive geometry of the corridor stretching before them, captured at eye-level from behind the group. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_08.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 9,
+          "prompt": "A close shot features a heavy, solid steel door to an official's office, firmly shut and presenting an impassable barrier. The focus is on the polished brass doorknob and the keyhole, symbols of denied access and information withheld, all within an anonymous government building hallway with scuffed linoleum floors and institutional beige walls. A small, official-looking brass plaque is mounted on the wall next to the door, its engraved text deliberately out of focus. The color palette consists of dark lacquered wood, polished brass, muted beige, and the dark shadows of the door frame, illuminated by flat, sterile overhead office lighting. The mood is one of impersonal, bureaucratic obstruction and the cold finality of a closed door, rendered in a style of documentary photographic realism, dark-history, and facelessness. A shallow depth of field focuses only on the doorknob and lock mechanism, captured with an eye-level, straight-on camera angle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_09.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 10,
+          "prompt": "A medium shot shows a large, jagged hole punched through a prison cell's concrete block wall. Dust and rubble from the destroyed wall are scattered across the wet floor of the cell. The camera peers from inside the dark cell, through the violent opening, into the even darker, flooded corridor beyond. This interior cell of Orleans Parish Prison, post-evacuation, shows evidence of inmates' escape attempts. The corner of a rusted metal bed frame juts into the foreground of the cell. The color palette consists of shades of grey from concrete and dust, the deep black of the unlit corridor, and reddish-brown of exposed, rusting rebar. Dim, natural light from an unseen source catches the sharp, broken edges of the concrete, creating a silent testament to desperation and the physical evidence of chaos that directly contradicts the official narrative. Rendered in a documentary photographic realism style, dark-history, and faceless, a wide-angle lens exaggerates the violent rupture in the wall. The camera is at eye-level from inside the cell. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_10.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 11,
+          "prompt": "A close shot features a stack of freshly printed arrest warrants on a desk; the papers are slightly fanned out, revealing the repeated bold heading on each sheet. The focus is on the bold, stenciled letters of the header on the topmost warrant, in a cluttered sheriff's department office, with a beige CRT monitor and other early 2000s office equipment in the blurred background. A heavy-duty office stapler sits next to the stack of papers. Stark black ink on plain white paper, against a dark faux-wood desk surface, is illuminated by cool, flat, fluorescent office lighting, creating a mood of mundane, bureaucratic evidence of an official lie and the quiet thud of undeniable proof. The style is documentary photographic realism, dark-history, and faceless, with a sharp focus on the text of the top warrant, captured from a high angle looking down at the desk, where a sign reads \"ORDEN DE ARRESTO: FUGITIVO\" in a block serif font at the header of a warrant paper. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_11.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 12,
+          "prompt": "A medium shot depicts a small crowd of worried African American families gathered at a chain-link fence, trying to get information from officials inside a temporary command post. A woman in the foreground presses her face to the fence, her knuckles white from gripping the wire, while others behind her strain to see, their faces a mixture of knotted brows and tense jaws. The scene unfolds outside a temporary government building in New Orleans, under a grey, humid sky, with a woman clutching a folded, worn photograph of a young man. The color palette features muted colors of civilian clothing, the cold grey of the galvanized steel fence, and the drab beige of the building, all illuminated by flat, overcast daylight. The mood conveys raw desperation and agonizing uncertainty meeting a wall of institutional silence, rendered in a documentary photographic realism, dark-history, faceless style. Deep depth of field keeps both the foreground faces and the indifferent building in focus, captured at eye-level, shooting through the links of the fence to create a sense of separation. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "seed_used": 2865629360,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_12.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 718145713,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 13,
+          "prompt": "A wide shot captures a white couple in their 30s, dressed in tourist attire, as they stand amidst the debris on a deserted street, looking disoriented and exhausted. They look at each other with a shared expression of disbelief, their faces smudged with dirt, shoulders slumped, against the backdrop of a recognizable but devastated Bourbon Street, its iconic wrought-iron balconies intact but the street level filled with mud and storm debris. One of them holds a water-stained, crumpled tourist map, its colors bled together. The normally vibrant colors of the French Quarter are desaturated, coated in a film of grey-brown dust and mud. Late afternoon 'golden hour' light, filtered through a dusty haze, casts long, eerie shadows, creating a mood of surreal displacement and the profound irony of outsiders becoming the central figures in a local tragedy of injustice. The style is documentary photographic realism, dark-history, and faceless, captured with a standard 50mm lens, placing the subjects firmly within their surreal, destroyed surroundings. The camera is at eye-level. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "seed_used": 2865629360,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_13.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 718145713,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 14,
+          "prompt": "A detail shot features an official court judgment document laid flat on a polished, dark wood surface. The camera is focused with extreme precision on the typed monetary award figure: '$650,000.00'. This is set on a lawyer's conference table or a judge's bench. The corner of an official, embossed court seal is pressed into the paper, visible at the bottom of the frame, from the year 2010. A rich, dark brown wood grain, crisp cream-colored legal paper, and sharp black serif text dominate the color palette. Clean, direct light, as from a desk lamp, highlights the texture of the paper and the indentation of the typed characters, contributing to a mood of stark, definitive justice, quantified in dollars—a cold, factual resolution to a story of immense human suffering. The style is documentary photographic realism, dark-history, faceless, captured with a macro lens and a razor-thin depth of field, making only the number perfectly sharp, from a slightly oblique top-down view. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_14.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch06",
+      "engine": "flux",
+      "art_profile": "",
+      "subject_ref": null,
+      "profiles_used": [
+        ""
+      ],
+      "model_used": "flux_pro",
+      "images": [
+        {
+          "index": 1,
+          "prompt": "A medium shot of a weathered neoclassical courthouse facade stands silent and imposing under a flat, grey sky, with the camera looking up towards the building's pediment, focusing on the architectural details of the exterior of an American federal courthouse, showing signs of age but structurally sound. The carved scales of justice on the facade are slightly darkened with age and grime, all rendered in muted tones of grey, limestone, and beige stone against a pale, overcast sky. Overcast daylight creates a flat and shadowless illumination, contributing to a somber, heavy atmosphere, conveying the slow passage of time, in a documentary photographic realism, dark-history, faceless style, utilizing a deep depth of field and a low angle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "seed_used": 1420550295,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_01.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 1420550295,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 2,
+          "prompt": "A medium shot of two weary adult Caucasian men in early 2000s casual attire, representing the tourists, standing close together, one man's hand resting on the other's shoulder in a supportive gesture. One man looks directly forward, jaw set with determination; the other looks slightly down, his posture showing immense exhaustion and relief. They are on the stone steps outside the federal courthouse. One man tightly grips a folded set of legal papers, his knuckles white. Muted grays of the building contrast with the drab, earthy tones of their civilian clothing. Overcast daylight, soft and diffused, illuminates a moment of quiet, hard-won victory; relief cutting through profound exhaustion visible in tired eyes and slumping shoulders. The style is documentary photographic realism, dark-history, faceless, captured in 2010 with a shallow depth of field, blurring the courthouse columns behind them. The eye-level camera angle captures their struggle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "main_subject",
+          "foto_madre_refs": [],
+          "seed_used": 2865629360,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_02.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 718145713,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 3,
+          "prompt": "A wide shot captures the vibrant, chaotic scene of Bourbon Street at night, with neon lights blurring and reflecting on the wet pavement as indistinct crowds move through the frame. The camera looks down the length of the street, focusing on the glare of a specific neon sign within Bourbon Street, New Orleans, pre-Katrina, characterized by its wrought-iron balconies and lively storefronts. A garish neon sign for a bar casts an intense colored light on the people on the balcony below, with saturated neon pinks, blues, and greens cutting through the deep blacks and dark grays of the night. The scene is lit exclusively by the harsh, colorful glow of competing neon signs, creating a disorienting and overwhelming sensory experience, hinting at a loss of control. The style is documentary photographic realism, dark-history, and faceless, employing a shallow depth of field with a slow shutter to create motion blur in the crowds, all from an eye-level camera angle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "seed_used": 1420550295,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_03.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 1420550295,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 4,
+          "prompt": "A medium shot captures two incarcerated men in orange jumpsuits, seen from the waist down, standing motionless in murky, chest-deep floodwater inside a confined space. One man's hand grips the steel bars of the small window in the cell door, knuckles white, within a flooded concrete block cell in Orleans Parish Prison, where a dark, greasy watermark is visible on the wall above the water level. Small pieces of unidentifiable debris float on the surface of the contaminated water, all rendered in sickly green-brown water, faded institutional off-white walls, and the reddish-brown of rusted steel. Low-key, ambient light filters from an unseen source high above, leaving much of the cell in deep shadow, contributing to an oppressive, suffocating stillness and a sense of being trapped and abandoned in filth, presented in a documentary photographic realism, dark-history, faceless style. A wide-angle lens, creating a sense of claustrophobic distortion, is positioned at a low angle, with the lens just above the water's surface. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_04.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 5,
+          "prompt": "A detail shot features a massive, brutalist concrete wall, with a single, thin crack running vertically through the concrete, allowing a sliver of intense light to shine through. The camera is focused tightly on the texture of the crack and the light emerging from it within an abstract, non-descript location dominated by the immense wall, highlighting the crumbling, sharp edges of the concrete along the path of the crack. The color palette consists of monochromatic grays of textured concrete, contrasted with a piercing line of pure white light, and the high-contrast lighting features a single powerful backlight source creating the beam of light through darkness. The mood evokes a fragile, singular point of hope against an overwhelming and oppressive force, captured in a documentary photographic realism, dark-history, faceless style, utilizing a macro lens with a very shallow depth of field from an eye-level camera angle, perpendicular to the wall. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_05.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 6,
+          "prompt": "A close shot features a stack of early 2000s-era newspapers, with the top newspaper open and displaying a bold, damning headline about a prison scandal. The camera focuses on the headline and the grainy, high-contrast photo printed beneath it, set on a cluttered desk, suggesting a newsroom or an investigator's office. The main newspaper shows a sharp fold down the middle and slightly frayed edges, with black ink on the slightly yellowed-gray of newsprint, lit by harsh, direct light from a single source, mimicking a desk lamp. The mood evokes a sense of urgent public exposure and unfolding scandal, rendered in a documentary photographic realism, dark-history, faceless style, utilizing a 50mm lens with sharp focus on the text, from a high angle looking down. A sign reads \"ESCÁNDALO EN PRISIÓN DE NUEVA ORLEANS\" in newsprint font on the front page headline. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_06.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 7,
+          "prompt": "A wide shot captures a small group of federal investigators in dark, formal business suits walking with purpose down a long, decaying prison corridor, examining the flood damage. Their faces are turned away, focused intently on the high watermarks and peeling paint on the concrete block walls of a wide, debris-strewn hallway inside the abandoned Orleans Parish Prison complex. One investigator holds a bulky early 2000s digital camera, its flash unit prominent. The dark navy and charcoal of the suits contrast with the faded institutional beige and gray walls, punctuated by streaks of reddish-brown rust. Dim ambient light from distant broken windows is intermittently pierced by the harsh, cold light of the camera's flash, creating a grim, methodical official inquiry into the slow work of uncovering a vast, concealed failure. The style is documentary photographic realism, dark-history, and faceless, with a deep depth of field keeping both the investigators and the derelict environment in sharp focus. The camera is positioned at eye-level, from behind the group. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_07.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 8,
+          "prompt": "A close shot of an official findings letter from the U.S. Department of Justice, lying open on a dark, polished wood surface, revealing its contents. The camera is focused on the official letterhead and the first few paragraphs of dense, typewritten text within a formal office, implied by the rich wood of the desk and the serious nature of the document. The embossed seal of the Department of Justice at the top of the page catches a slight sheen from the light, presented with stark black serif text on heavy, cream-colored official paper, against the deep brown of the desk. Dramatic, low-key lighting from a single source casts a slight shadow from the edge of the paper, conveying a grave and authoritative mood, reflecting the undeniable weight of official condemnation in writing. The style is documentary photographic realism, dark-history, faceless, with sharp focus across the entire page from a directly overhead, flat lay camera angle. A document header reads \"U.S. DEPARTMENT OF JUSTICE\" in a serif font. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_08.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 9,
+          "prompt": "A detail shot captures a chaotic pile of waterlogged office files sprawled across a wet, filthy concrete floor, their papers warped and stained, ink bleeding into illegible smudges. The camera looks down upon the ruined documents, a symbol of collapsed order, on the floor of a flooded office inside the prison, with a rusted, overturned filing cabinet in the background. A single, heavily rusted paperclip clings to a solid mass of pages that have fused into a single block. The color palette features muddy browns, grays, and the sickly yellow of decaying paper, along with washed-out black and blue ink stains, all under dim, flat ambient light from a single, dirty window. The mood is one of irrevocable decay and the complete loss of information and order, presented in a documentary photographic realism, dark-history, faceless style, with macro focus emphasizing the texture of the ruined paper from a high angle, looking straight down. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_09.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 10,
+          "prompt": "A medium shot captures a lawyer in a formal suit, seen from behind, standing at a lectern and addressing the court, making a point with a decisive hand gesture. The lawyer's attention is focused forward, towards an unseen judge or jury box, within a traditional, wood-paneled American courtroom of the period. A thick, heavily tabbed legal binder is open on the wooden lectern. The scene is dominated by the warm, dark tones of polished wood, with the deep charcoal of the lawyer's suit, illuminated by even, neutral fluorescent lighting typical of a courtroom. A mood of formal tension and focused conflict is conveyed with documentary photographic realism, dark-history, and a faceless style, shot with a standard 85mm lens, isolating the subject, from a low angle, behind the lawyer's shoulder. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_10.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 11,
+          "prompt": "A medium shot shows a crew of workers in hard hats applying a fresh coat of beige paint to a flood-damaged prison wall, starkly covering a dark watermark. The workers are focused on their task, their faces and bodies angled towards the wall. This takes place in an exterior area of the OPP complex, with piles of storm debris still visible in the background, contrasting with the cleanup effort. A paint roller, wet with fresh paint, moves across the wall, obscuring the evidence of the flood. A clean patch of bright, flat beige paint is set against the stained, mottled gray and brown of the surrounding concrete. Harsh, direct midday sun highlights the cosmetic nature of the work, imparting a mood of superficiality and forced normalcy, a hasty attempt to paint over a deep trauma. The style is documentary photographic realism, dark-history, and faceless, with a deep depth of field, capturing the contrast between the repair and the remaining ruin, all from an eye-level camera angle. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "establishing_shot",
+          "foto_madre_refs": [],
+          "seed_used": 1420550295,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_11.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 1420550295,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 12,
+          "prompt": "A detail shot captures a split-screen composition of a survivor's hand and an official document. On the left, a hand with white knuckles grips the wooden rail of a witness stand. On the right, a key phrase in a report is sharply underlined in red ink. The focus is on the physical tension in the hand and the stark, damning finality of the underlined text, set in a courtroom witness stand on one side and an official desk on the other. The deep grain of the polished wood is compressed under the pressure of the gripping hand, with warm brown tones on the left contrasting with stark black, white, and a single slash of bright red on the right. Dramatic, focused light on each element isolates them against dark backgrounds, conveying a powerful contrast between personal testimony of suffering and its cold, bureaucratic validation in a documentary photographic realism, dark-history, faceless style. Shallow depth of field on both halves of the image, captured at eye-level, straight on. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_12.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 13,
+          "prompt": "An extreme wide shot captures the vast, empty interior of a multi-tiered prison block, where a single, powerful shaft of light cuts through the darkness from a high window, illuminating floating dust motes. The camera gazes down the immense, silent length of the block, taking in the scale of the emptiness within the cavernous central space of an abandoned OPP building. All cell doors are open, gaping into darkness, creating a repeating, rhythmic pattern of open, black rectangles that stretch into the gloom. The color palette is almost monochromatic, featuring deep gray concrete, black shadows, and one brilliant beam of dusty, golden-white light. A single, dramatic 'God ray' pierces the oppressive darkness, contributing to a mood of profound, echoing emptiness and the chilling silence of a place where a great tragedy is missing its records. The style is documentary photographic realism, dark-history, and faceless, achieved with a wide-angle lens and deep depth of field, taken at eye-level from the entrance of the cell block. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_13.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        },
+        {
+          "index": 14,
+          "prompt": "A close shot features an archivist's hands, clad in clean, white cotton gloves, hovering over an empty space on a dusty metal archive shelf, indicating where a file box should be. The focus is drawn to the void on the shelf between the two hands within a dim, vast government archive facility, with rows of identical shelves stretching into the blurred background. A faint, clean rectangle in the layer of dust on the shelf outlines the footprint of the missing records. The color palette consists of muted grays of steel shelving, the stark white of the gloves, and the pale tan of surrounding cardboard archive boxes, all under low, even, utilitarian fluorescent light from above. The mood is a quiet, chilling revelation of absence, the stark evidence of a deliberately erased history, rendered in a documentary photographic realism, dark-history, faceless style with a shallow depth of field, rendering the background into an abstract pattern. The camera is at eye-level, looking directly at the shelf. The image has a 16:9 aspect ratio.",
+          "art_profile": "",
+          "subject_ref": "interior_scene",
+          "foto_madre_refs": [],
+          "seed_used": 167652431,
+          "path": "ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_14.png",
+          "status": "ok",
+          "validated": null,
+          "vision_attempts": 1,
+          "vision_reason": "validator_disabled",
+          "model_used": "flux_pro",
+          "flux_meta": {
+            "endpoint": "fal-ai/bytedance/seedream/v4.5/text-to-image",
+            "width": null,
+            "height": null,
+            "seed": 167652431,
+            "nsfw_flag": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch07",
+      "engine": "veo",
+      "art_profile": "",
+      "model_used": "flux_pro",
+      "clips": [
+        {
+          "index": 1,
+          "video_prompt": "The camera performs a very slow, subtle push-in, gradually closing in on the ominous, floating orange jumpsuit. The murky, stagnant water stirs with almost imperceptible ripples, causing the fabric to gently bob and drift. The dim, haunting light reflecting on the water's surface remains constant, maintaining the somber atmosphere.",
+          "image_prompt": "A close shot reveals a single, waterlogged orange prison jumpsuit floating limply, half-submerged in murky, stagnant floodwater, inert, its focus drawn downward into the dark water. The scene is an abandoned, flooded prison corridor, with dark, chest-high water lines staining the concrete block walls. The orange prison jumpsuit is partially inflated with trapped air, hinting at a form beneath without revealing it. The color palette features murky greens and browns of contaminated water, faded institutional off-white, reddish-brown rust on steel, and a stark, faded orange. Dim, indirect daylight from a high, grimy window creates a somber, still reflection on the water's surface, contributing to a mood of haunting stillness and unresolved loss, the quiet aftermath of unseen tragedy. The style is documentary photographic realism, dark-history, and faceless, employing a shallow depth of field with sharp focus on the texture of the wet fabric. A high angle looks directly down into the water. The image has a 16:9 aspect ratio.",
+          "path": "ba6c3cac-f5v2\\assets\\ch07_flux\\ch07_img_01.png",
+          "status": "technical_fallback",
+          "fallback_type": "technical_fallback",
+          "fallback_reason": "technical: 422 Client Error: Unprocessable Entity for url: https://queue.fal.run/fal-ai/veo3.1/requests/01a15df9-0fc9-7573-a0e8-12c17d3fe5fd"
+        }
+      ],
+      "supplemental_images": [
+        {
+          "index": 1,
+          "prompt": "A wide shot captures an abandoned prison administration office standing in ruins, with file cabinets overturned and papers scattered and soaked in mud across the floor. The scene's focus is on the destroyed records, a void of information within a derelict office inside the Orleans Parish Prison complex, post-flood, with mold blooming on stained walls. A single empty manila folder lies open on a muddy, water-damaged desk, its label completely obscured. The color palette consists of muted grays of concrete, beiges of rotting paper, dark brown and black mold stains, and rust on metal furniture. Flat, overcast daylight filters through a broken, grimy window, contributing to a heavy silence of bureaucratic collapse and irreversible loss of history. The style is documentary photographic realism, dark-history, and faceless, rendered with a deep depth of field, showcasing the entire scene of destruction in sharp, bleak focus from an eye-level camera angle. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "Ese es el muro final: no existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina.",
+          "path": "ba6c3cac-f5v2\\assets\\ch07_flux\\ch07_supp_01.png",
+          "status": "ok",
+          "art_profile": ""
+        },
+        {
+          "index": 2,
+          "prompt": "A medium shot captures anonymous, silhouetted figures of incarcerated people wading with difficulty through chest-deep, dark water inside the prison. The figures are turned away or obscured by shadow and motion blur, their faces unseen, as they move through a large, flooded common area within the prison, with debris floating in the contaminated water under a low ceiling. A splintered wooden chair drifts past the figures in the foreground. The scene is rendered in a near-monochromatic dark palette, featuring deep shadows and murky water, with faint hints of orange uniforms. Very low-key, single-source emergency light from an unseen source creates long, distorted reflections, contributing to a mood of disorienting chaos and unseen panic, conveyed through blurred movement and an oppressive, dark atmosphere. The style is documentary photographic realism, dark-history, and faceless, utilizing a slow shutter speed to create motion blur, suggesting frantic, chaotic movement. The low camera angle, from the water's surface, enhances the sense of entrapment. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "El caos fue la coartada perfecta para el olvido administrativo.",
+          "path": "ba6c3cac-f5v2\\assets\\ch07_flux\\ch07_supp_02.png",
+          "status": "ok",
+          "art_profile": ""
+        },
+        {
+          "index": 3,
+          "prompt": "An extreme wide shot captures a vast, seemingly endless crowd of incarcerated people in orange jumpsuits, assembled in a tense, orderly formation, filling a concrete yard from edge to edge. Most figures are seen from behind; the few visible faces are indistinct, looking forward or down, lost in the mass within a pre-disaster prison yard surrounded by high chain-link fences topped with razor wire. A guard tower looms in the distance, partially obscured by heat haze. Faded colors dominate, with the mass of orange against gray concrete and a pale, hazy sky, all under harsh, direct midday sun casting short, hard shadows. The mood is one of impersonal and overwhelming scale, conveying the feeling of human beings being warehoused, in a documentary photographic realism style, dark-history, and faceless. A deep depth of field keeps the entire crowd in focus to emphasize its sheer scale, captured from a high angle, from a guard tower's perspective, looking down upon the overwhelming number of people. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "Oficialmente, la prisión albergaba a 6,375 reclusos, pero otras fuentes estiman que hubo hasta 8,000 evacuados de la prisión.",
+          "path": "ba6c3cac-f5v2\\assets\\ch07_flux\\ch07_supp_03.png",
+          "status": "ok",
+          "art_profile": ""
+        },
+        {
+          "index": 4,
+          "prompt": "A detail shot features a single, battered inmate identification card lying partially buried in the cracked, dried mud on the floor of an empty cell. The object is inert, its identity lost to the grime within an abandoned, post-flood prison cell where water has receded, leaving a floor of dried mud and debris. The plastic card is cracked, and its photo and name are completely obscured by a crust of dried, dark mud. The color palette is desaturated with earthy tones of dried mud, gray concrete, and the faded colors of the ID card. A single, harsh shaft of light from a high window illuminates the object against the darker floor, evoking a mood of profound, anonymous loss and the tangible evidence of a life erased from the record. The style is documentary photographic realism, dark-history, and faceless, utilizing extreme shallow depth of field, focusing only on the unreadable card and blurring the surrounding floor. The camera angle is directly overhead, looking straight down at the floor. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "En esa discrepancia numérica se perdieron vidas.",
+          "path": "ba6c3cac-f5v2\\assets\\ch07_flux\\ch07_supp_04.png",
+          "status": "ok",
+          "art_profile": ""
+        },
+        {
+          "index": 5,
+          "prompt": "A close shot depicts a person's hand attempting to write on a waterlogged ledger, pressing a pen to a sodden page, causing the black ink to bleed instantly into the damp, warped paper. The hand, belonging to an unseen person, moves with careful futility at a makeshift desk in a dimly lit emergency command post, surrounded by stacks of damaged documents. The ledger page is so waterlogged that the paper fibers are separating under the pressure of the pen tip. The color palette features sickly yellow-green from a single fluorescent lamp, gray concrete, and black ink bleeding on pulpy beige paper, all under harsh, direct overhead light from a single flickering fluorescent bulb. The mood is one of bureaucratic futility and desperation, capturing the physical act of a record being lost as it is made, in a documentary photographic realism style that is dark-history and faceless. A shallow depth of field focuses on the bleeding ink, captured at eye-level, tight on the hand and the disintegrating page. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "Según un informe de Human Rights Watch, más de 500 prisioneros no figuraban en la lista de personas evacuadas de la cárcel.",
+          "path": "ba6c3cac-f5v2\\assets\\ch07_flux\\ch07_supp_05.png",
+          "status": "ok",
+          "art_profile": ""
+        },
+        {
+          "index": 6,
+          "prompt": "A medium shot captures an empty press conference podium, standing alone and unused, with a bank of microphones aimed at no one; the focal point is the empty space where a speaker should be, within a sterile, generic government press room, with an official seal partially visible on the wall behind. A single glass of water sits untouched on the podium, its surface perfectly still. The scene is rendered in official blues and grays, with the polished wood tones of the podium and the metallic sheen of microphones, under flat, bright, unflattering fluorescent lighting from the ceiling. A mood of hollow silence and official denial pervades, suggesting the weight of an unsaid, unbelievable statement, all in a style of documentary photographic realism, dark-history, and facelessness. A deep depth of field emphasizes the stark emptiness of the setup, captured from an eye-level camera angle, from the perspective of an empty front-row seat. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "La versión oficial se volvió insostenible: el sheriff de la cárcel declaró que ningún preso murió o escapó.",
+          "path": "ba6c3cac-f5v2\\assets\\ch07_flux\\ch07_supp_06.png",
+          "status": "ok",
+          "art_profile": ""
+        },
+        {
+          "index": 7,
+          "prompt": "A close shot shows a stack of wanted posters being printed from an early 2000s inkjet printer, with the top sheet emerging slowly; the focus is mechanical, on the process of the official contradiction being created in a cluttered but functional police station office, with a CRT monitor glowing in the background. The emerging poster shows a grainy, anonymous mugshot, with bold text across the top that reads \"SE BUSCA - PRÓFUGO\" in a blocky, newsprint-style font. The color palette consists of office beige, the gray plastic of the printer, and stark black ink on plain white paper, under utilitarian office fluorescent lighting, with a slight glow from the nearby computer monitor. The mood is the cold, mechanical process of bureaucracy contradicting itself, grinding forward impassively. The style is documentary photographic realism, dark-history, and faceless, with a shallow depth of field, focused sharply on the text as it is printed, from a slightly high angle looking down at the printer's output tray. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos.",
+          "path": "ba6c3cac-f5v2\\assets\\ch07_flux\\ch07_supp_07.png",
+          "status": "ok",
+          "art_profile": ""
+        },
+        {
+          "index": 8,
+          "prompt": "A wide shot captures the facade of a federal justice building, standing impassively under a heavy, overcast sky; the building's gaze is institutional, impersonal, and unmoving. The scene depicts the main entrance of a large, imposing neoclassical government building with columns and grand steps, where the carved inscription of the department's name is deeply etched into the stone frieze above the entrance. The color palette features monochromatic grays of stone and concrete and dark bronze of the doors, set against a pale gray sky, all illuminated by flat, shadowless light from a completely overcast sky. The mood is one of somber, institutional gravity, reflecting the immense, slow-moving weight of federal power, rendered in a documentary photographic realism, dark-history, faceless style. A deep depth of field keeps all architectural details in sharp focus, viewed from a low angle, looking up to make the building appear powerful and immense. On the building's main frieze, a sign reads \"DEPARTAMENTO DE JUSTICIA\" in carved, serif capital letters. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "Ante la evidencia, el Departamento de Justicia de EE. UU. fue llamado a investigar.",
+          "path": "ba6c3cac-f5v2\\assets\\ch07_flux\\ch07_supp_08.png",
+          "status": "ok",
+          "art_profile": ""
+        },
+        {
+          "index": 9,
+          "prompt": "A medium shot shows a single, empty, rusted prison cell door, standing slightly ajar and opening onto an impenetrable, featureless darkness within the cell. The viewer's gaze is pulled into the black void beyond the doorway in a derelict cell block in the abandoned Orleans Parish Prison, its walls stained and peeling. A heavy, industrial lock mechanism on the door is seized with thick, textured rust, all in a color palette of reddish-brown rust on the steel door, peeling gray paint on concrete walls, and absolute, flat black from the cell's interior. Low-key, dramatic side-lighting from a single source down the corridor illuminates the door but not its interior, creating a visual dead end, representing a void of information and the hopelessness of the search for truth, in a documentary photographic realism, dark-history, faceless style. Deep depth of field renders the rust and concrete textures in sharp contrast to the flat void, captured at eye-level and framed symmetrically. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "Pero sin registros, ¿qué se puede probar?",
+          "path": "ba6c3cac-f5v2\\assets\\ch07_flux\\ch07_supp_09.png",
+          "status": "ok",
+          "art_profile": ""
+        },
+        {
+          "index": 10,
+          "prompt": "An extreme wide shot captures the floor of a vast, empty prison courtyard after a flood, showing the ground covered in a thick, cracked layer of pale, dried mud where the water has receded. The view looks across the desolate, empty expanse towards a high concrete wall, capturing the main courtyard of the abandoned Orleans Parish Prison complex, now silent and empty. A single, unrecognizable piece of rusted metal debris is half-buried in the cracked earth, casting a long shadow. Desaturated earth tones, with pale beige, gray, and brown of the dried mud against washed-out gray walls and a pale sky, are illuminated by weak, late afternoon golden hour light filtered through haze, casting long, stark shadows across the cracked ground. The mood is one of desolate emptiness and silence; a landscape permanently scarred by a disaster that has passed, rendered in a documentary photographic realism style, dark-history, and faceless. A wide-angle lens with deep depth of field is used, with a low angle making the empty courtyard feel vast and the surrounding walls impossibly high. The image has a 16:9 aspect ratio.",
+          "narration_anchor": "El agua retrocedió, pero la verdad sobre los cu",
+          "path": "ba6c3cac-f5v2\\assets\\ch07_flux\\ch07_supp_10.png",
+          "status": "ok",
+          "art_profile": ""
+        }
+      ],
+      "veo_position": "end"
+    }
+  ]
+}

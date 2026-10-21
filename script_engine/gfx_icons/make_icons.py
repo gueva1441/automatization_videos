@@ -56,6 +56,9 @@ ICONS: tuple[tuple[str, str], ...] = (
     ("persona", "standing human figure"),
     ("edificio_ruina", "ruined building"),
     ("pregunta", "question mark symbol"),
+    # F5d+ G4 (pendientes de F5 J33): mismo prompt base, mismas 3 semillas
+    ("espiral", "hurricane spiral symbol"),
+    ("rayo_tachado", "lightning bolt crossed out by one diagonal slash"),
 )
 
 

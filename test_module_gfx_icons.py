@@ -31,8 +31,11 @@ def approved(tmp_path, monkeypatch):
 
 
 def test_lista_blanca_12_y_lucide_local():
-    assert len(gi.ICON_WHITELIST) == 12
-    for name in gi.ICON_WHITELIST.values():                      # respaldo local, sin red
+    assert len(gi.ICON_WHITELIST) == 14                            # los 12 + espiral y rayo tachado (F5d+ G4)
+    for key, name in gi.ICON_WHITELIST.items():                  # respaldo local, sin red
+        if key in ("espiral", "rayo_tachado"):                   # sin Lucide local: solo el SVG propio aprobado
+            assert (gc.GFX_PROFILES_DIR / "icons" / f"{key}.svg").exists()
+            continue
         assert (gc.GFX_PROFILES_DIR / "icons" / "lucide" / f"{name}.svg").exists()
     moods = gc.active_moods()
     assert gc.ICON_KEYS == set(gi.ICON_WHITELIST)

@@ -705,10 +705,33 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             extend_base(project / "public" / "base.mp4", pause, fps)
             clip_dur = _ffprobe_duration(project / "public" / "base.mp4")
             scenes[-1].end = round(clip_dur, 3)
+        z = resolved.get("evidence_zoom")
+        if gfx_plan_override is None and z and z.get("box"):        # G3: la caja final del zoom se confirma por visión
+            from script_engine import gfx_vision as _gv3
+            si = z.get("scene_idx")
+            sc_z = next((s for s in scenes if s.idx == si), None)
+            img = scene_img.get(si)
+            if img is None and sc_z is not None:
+                img = _zoom_frame(project / "public" / "base.mp4", sc_z, work_dir / f"gfx_zoomframe_{cap}_s{si:02d}.jpg")
+            label = z.get("detail") or z.get("anchor") or z.get("word") or "detalle"
+            ok = bool(img) and _gv3.verify_crop(Path(img), {"box": z["box"], "label": label},
+                                                 Path(work_dir).parent / "assets" / "zoom_verify.json")
+            if not ok:
+                resolved["evidence_zoom"] = None
+                pk = resolved.get("pico") or {}
+                if pk.get("block") == "evidence_zoom":
+                    pk["block_quitado_por_verify"] = True
+            log.append(f"  zoom final: verify_crop «{label}» caja {z['box']} → {'se ve' if ok else 'NO se ve: zoom fuera'}")
         if gfx_plan_override is None and gfx_rules.visual_critic:     # F4e 6b: crítico visual antes del render
             from script_engine.gfx_critic import criticize
+            snap_proj = None
+            if gfx_rules.critic_snapshot and not plan_only:           # G1: el crítico mira el bloque dibujado
+                write_project(resolved, scenes, project, duration=clip_dur, width=width, height=height, fps=fps,
+                              debug=debug)
+                snap_proj = project
             resolved["critico"] = criticize(resolved, base=project / "public" / "base.mp4", words=words,
-                                            time_offset=time_offset, work_dir=work_dir, cap=cap, log=log)
+                                            time_offset=time_offset, work_dir=work_dir, cap=cap, log=log,
+                                            project=snap_proj)
         log.append(f"  plan: {json.dumps(resolved, ensure_ascii=False)}")
         log.append(f"  lock rechazados: {len(rejected)} {json.dumps(rejected, ensure_ascii=False)}")
         (work_dir / f"gfx_plan_{cap}.resolved.json").write_text(
