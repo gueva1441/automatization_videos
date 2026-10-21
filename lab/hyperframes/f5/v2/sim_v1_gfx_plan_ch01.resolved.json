@@ -6,20 +6,26 @@
    "title": "6,500 Almas Atrapadas"
   },
   "callouts": [],
-  "count_up": null,
+  "count_up": {
+   "value_text": "6,500",
+   "unit": "personas",
+   "start": 17.3,
+   "fact_idx": 4,
+   "source": ""
+  },
   "archive_clippings": [],
   "evidence_zoom": null,
   "punch_in": [
    3.16,
    4.579,
-   12.819,
+   12.3,
    29.399
   ],
   "chapter_question": {
-   "text": "¿Qué ocultaron las celdas?",
+   "text": "¿Qué ocultó la inundación?",
    "start": 35.8,
    "duration": 3.0,
-   "keyword": "ocultaron",
+   "keyword": "inundación",
    "generated": true,
    "pause": 3.0
   },
@@ -36,8 +42,7 @@
     "side": "right",
     "stamp": true,
     "weight": 2,
-    "peak_word": true,
-    "icon_callout": true
+    "peak_word": true
    }
   ],
   "gap_warnings": [],
@@ -109,7 +114,6 @@
    "movimientos": [],
    "violaciones": []
   },
-  "iconos_auto": [],
   "black_hold": {
    "start": 38.8,
    "duration": 1.0
@@ -121,19 +125,19 @@
     "dur": 3.7,
     "bloque": "contador",
     "texto": "6,500",
-    "veredicto": "repite",
-    "motivo": "El bloque numérico repite la cifra exacta de personas que la voz ya menciona de forma clara y precisa.",
-    "pasa": false,
+    "veredicto": "suma",
+    "motivo": "El contador visualmente enfatiza la magnitud de la cifra mencionada por la voz, aportando un refuerzo dinámico al dato sin tapar elementos clave.",
+    "pasa": true,
     "voz": "En la Prisión Parroquial de Orleans, seis mil quinientas personas, incluidos niños pequeños, quedaron encerradas."
    },
    {
     "t": 23.72,
     "t_frame": 24.72,
     "dur": 2.5,
-    "bloque": "icono",
+    "bloque": "sello",
     "texto": "contaminada",
     "veredicto": "suma",
-    "motivo": "El bloque enfatiza la palabra clave 'CONTAMINADA' y el ícono biohazard refuerza visualmente el peligro de la situación, añadiendo una capa de significado que la",
+    "motivo": "El sello enfatiza una palabra clave de la voz en off y el tinte visual refuerza la peligrosidad del agua, aportando una capa de significado que la imagen por sí",
     "pasa": true,
     "voz": "El agua contaminada subió implacable hasta el nivel del pecho en sus celdas oscuras."
    },
@@ -152,10 +156,10 @@
     "t": 29.399,
     "t_frame": 30.399,
     "dur": 2.5,
-    "bloque": "icono",
+    "bloque": "sello",
     "texto": "infierno",
     "veredicto": "estorba",
-    "motivo": "El tinte de 'fuego' y el ícono de 'llama' se pelean con la atmósfera fría, húmeda y de decadencia de la imagen, que no muestra elementos de fuego.",
+    "motivo": "El tinte de 'fuego' contradice la atmósfera oscura, anegada y 'sin luz' de la imagen y la voz, creando una disonancia visual.",
     "pasa": false,
     "voz": "Días de infierno, sin luz, sin salida."
    }

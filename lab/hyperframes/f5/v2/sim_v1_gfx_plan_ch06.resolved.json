@@ -55,50 +55,54 @@
    80.08
   ],
   "chapter_question": {
-   "text": "¿Por qué el abandono fue tan cruel?",
+   "text": "¿Quién responderá por tanto abandono?",
    "start": 98.133,
    "duration": 3.0,
-   "keyword": "abandono",
+   "keyword": "responderá",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "atrapados",
+    "word": "infierno",
     "category": "oscuridad_encierro",
     "layer": "oscuridad",
-    "icon": "candado",
+    "icon": null,
     "icon_anim": "stamp",
-    "start": 12.799,
+    "start": 13.659,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
     "sid": 1,
-    "rarity": 6,
+    "rarity": 3,
     "weight": 3,
-    "icon_callout": true
+    "icon_callout": false
    },
    {
-    "word": "encarcelamiento",
-    "category": "oscuridad_encierro",
-    "layer": "oscuridad",
-    "icon": "candado",
+    "word": "violación",
+    "category": "caos_gritos",
+    "layer": "minima",
+    "icon": null,
     "icon_anim": "stamp",
-    "start": 37.079,
+    "start": 48.739,
     "duration": 2.5,
-    "side": "left",
+    "side": "right",
     "stamp": true,
+    "sid": 4,
+    "rarity": 1,
     "weight": 3,
-    "peak_word": true,
-    "peak": true,
-    "icon_callout": true
+    "sfx": {
+     "file": "rumor.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
    },
    {
     "word": "cicatrices",
     "category": "veneno_enfermedad",
     "layer": "veneno",
-    "icon": "biohazard",
+    "icon": null,
     "icon_anim": "ink_bleed",
     "start": 62.959,
     "duration": 2.5,
@@ -107,7 +111,7 @@
     "sid": 6,
     "rarity": 1,
     "weight": 3,
-    "icon_callout": true
+    "icon_callout": false
    }
   ],
   "gap_warnings": [],
@@ -142,13 +146,10 @@
    }
   ],
   "pico": {
-   "t": 37.079,
-   "block": "emphasis",
-   "word": "encarcelamiento",
-   "sentence": "Fue una sentencia contundente contra el encarcelamiento falso y la flagrante indiferencia deliberada hacia sus derechos constitucionales, confirmando que el abandono vivido no era un simple error, sino una violación profunda.",
-   "intensity": 0.9,
-   "sentence_idx": 4,
-   "palabra": "encarcelamiento"
+   "t": 92.619,
+   "block": null,
+   "word": "desvanecieron",
+   "sentence": "¿Y para aquellos quinientos prisioneros, cuyas vidas se desvanecieron sin rastro oficial, qué forma de justicia podría existir?"
   },
   "transitions": {
    "1": {
@@ -316,20 +317,19 @@
    ],
    "violaciones": []
   },
-  "iconos_auto": [],
   "black_hold": {
    "start": 101.133,
    "duration": 1.0
   },
   "critico": [
    {
-    "t": 12.799,
-    "t_frame": 13.799,
+    "t": 13.659,
+    "t_frame": 14.659,
     "dur": 2.5,
-    "bloque": "icono",
-    "texto": "atrapados",
+    "bloque": "sello",
+    "texto": "infierno",
     "veredicto": "suma",
-    "motivo": "El bloque enfatiza la palabra \"ATRAPADOS\" y el ícono \"candado\" visualiza el aspecto \"carcelario\" de la voz, que la imagen no muestra explícitamente, añadiendo u",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el ambiente sombrío y la temática de 'oscuridad' y 'encierro' sin tapar elementos importantes.",
     "pasa": true,
     "voz": "Robie Waganfeald y Paul Kunkel Jr., turistas atrapados en el infierno carcelario, lograron una victoria legal que arrojó luz sobre la oscuridad institucional."
    },
@@ -345,13 +345,13 @@
     "voz": "En el año 2010, les fue concedida una indemnización de más de seiscientos cincuenta mil dólares."
    },
    {
-    "t": 37.079,
-    "t_frame": 38.079,
+    "t": 48.739,
+    "t_frame": 49.739,
     "dur": 2.5,
-    "bloque": "icono",
-    "texto": "encarcelamiento",
+    "bloque": "sello",
+    "texto": "violación",
     "veredicto": "suma",
-    "motivo": "El ícono de candado y la palabra 'ENCARCELAMIENTO' refuerzan visualmente un concepto clave de la voz que no está en la imagen, y el tinte de mood complementa la",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood amplifica la sensación de injusticia y sufrimiento que la voz describe y la imagen sugiere.",
     "pasa": true,
     "voz": "Fue una sentencia contundente contra el encarcelamiento falso y la flagrante indiferencia deliberada hacia sus derechos constitucionales, confirmando que el abandono vivido no era un simple error, sino una violación profunda."
    },
@@ -359,10 +359,10 @@
     "t": 62.959,
     "t_frame": 63.959,
     "dur": 2.5,
-    "bloque": "icono",
+    "bloque": "sello",
     "texto": "cicatrices",
     "veredicto": "suma",
-    "motivo": "El ícono de biohazard y el tinte de veneno/enfermedad añaden una capa de significado a las 'cicatrices invisibles', sugiriendo un daño profundo y tóxico que la ",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el tono sombrío y la idea de daño interno, sin repetir la imagen ni la frase completa.",
     "pasa": true,
     "voz": "Sin embargo, ¿pueden los dólares borrar las profundas cicatrices invisibles?"
    },
@@ -373,7 +373,7 @@
     "bloque": "recorte",
     "texto": "días en celdas inundadas con agua contaminada con aguas residuales",
     "veredicto": "suma",
-    "motivo": "El bloque añade detalles cruciales sobre la contaminación del agua y la duración del abandono, además de una fecha específica, que la imagen y la voz no mencion",
+    "motivo": "El bloque aporta detalles específicos sobre la contaminación del agua y una fecha concreta (2010) para el reporte, que la voz y la imagen no ofrecen, enriquecie",
     "pasa": true,
     "voz": "Las experiencias de Robie y Paul son solo un eco, una pequeña porción de las innumerables vidas marcadas por el devastador 'tiempo Katrina', un período de abandono extremo."
    },

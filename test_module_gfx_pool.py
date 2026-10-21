@@ -38,7 +38,11 @@ def test_icono_por_contenido_y_fuente_corta():
     its = {it["id"]: it for it in POOL["datos"]}
     assert gp.content_icon(its["D01"], ICON_WHITELIST) == (None, None)                 # cifra de personas
     reg = {"texto": "No existen registros oficiales de lo que ocurrió", "tipo": "contradiccion"}
-    assert gp.content_icon(reg, ICON_WHITELIST) == ("ojo_tachado", None)
+    assert gp.content_icon(reg, ICON_WHITELIST) == (None, None)                        # F5b S4: no está en el mapa
+    cel = {"texto": "Las celdas del primer piso comienzan a inundarse", "tipo": "fecha"}
+    assert gp.content_icon(cel, ICON_WHITELIST) == ("candado", None)                   # «celdas» → candado (literal)
+    adj = {"texto": "Un calor sofocante y escalofriante en el pabellón", "tipo": "fecha"}
+    assert gp.content_icon(adj, ICON_WHITELIST) == (None, None)                        # adjetivos: nunca
     assert gp.content_icon(its["D02"], ICON_WHITELIST) == (None, "rayo_tachado")      # falta en el set: se anota
     assert gp.content_icon(its["D03"], ICON_WHITELIST) == (None, None)                 # cifra de personas
     assert gp.short_source(POOL["datos"][0]["fuente"]) == "Human Rights Watch, 2005"

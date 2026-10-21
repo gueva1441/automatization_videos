@@ -120,10 +120,11 @@ _NUMWORD = re.compile(r"\b(?:cero|uno?|una|dos|tres|cuatro|cinco|seis|siete|ocho
                       r"ciento|\w+cient[oa]s|quinient[oa]s|mil|millon(?:es)?|y)$")
 
 
-def literal_in(anchor: str, text: str) -> bool:
-    """¿El anchor suena literal en el texto? Una cifra dicha en palabras no vale si es parte de otra cifra
-    («cincuenta» dentro de «seiscientos cincuenta mil» no es el 50)."""
+def _hits(anchor: str, text: str) -> set[int]:
+    """Posiciones (en el texto normalizado) donde el anchor suena literal. Una cifra dicha en palabras no vale si es
+    parte de otra cifra («cincuenta» dentro de «seiscientos cincuenta mil» no es el 50)."""
     t = norm(text)
+    out: set[int] = set()
     for f in _num_forms(anchor) if re.search(r"\d", anchor) else [anchor]:
         f = norm(f).strip(" .,;:")
         if not f:
@@ -135,8 +136,18 @@ def literal_in(anchor: str, text: str) -> bool:
                 after = t[m.end():].split()[:1] or [""]
                 if _NUMWORD.search(before[0]) or re.match(r"(mil|millon|millones|y)\b", after[0]):
                     continue
-            return True
-    return False
+            out.add(m.start())
+    return out
+
+
+def literal_in(anchor: str, text: str) -> bool:
+    """¿El anchor suena literal en el texto? (ver _hits)."""
+    return bool(_hits(anchor, text))
+
+
+def count_in(anchor: str, text: str) -> int:
+    """Cuántas veces suena el anchor (en dígitos o en palabras) en el texto (F5b N3)."""
+    return len(_hits(anchor, text))
 
 
 _FUNC = {"de", "del", "la", "las", "el", "los", "un", "una", "y", "en", "a", "al", "que", "por", "con", "para", "sin",
@@ -198,6 +209,160 @@ def is_hard(it: dict[str, Any]) -> bool:
     if k == "datos":
         return it.get("tipo") in ("cifra", "magnitud", "fecha", "contradiccion") and bool(anchors(it))
     return False
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F5b — repetición dentro del cap (N3), mismo hecho (S3), fecha del ítem (S2), mayúsculas pegadas (N5)
+# ═══════════════════════════════════════════════════════════════
+
+_VAGUE_W = {"algunos", "algunas", "otros", "otras", "muchos", "muchas", "todos", "todas", "varios", "varias",
+            "cientos", "mientras", "despues", "antes", "durante", "habian", "fueron", "estaban"}
+
+
+def signature_phrases(it: dict[str, Any]) -> list[str]:
+    """3-gramas del texto del ítem con ≥ 2 palabras de contenido en minúscula («nivel del pecho», «aguas residuales
+    refluyen»). Los nombres propios no cuentan: «Prisión de Orleans» repetida no es repetir el dato."""
+    ws = re.findall(r"[A-Za-zÁÉÍÓÚÑÜáéíóúñü]+", text_of(it))
+    out = []
+    for k in range(len(ws) - 2):
+        tri = ws[k:k + 3]
+        if sum(1 for w in tri if w[:1].islower() and len(w) >= 5 and norm(w) not in _FUNC | _VAGUE_W) >= 2 \
+                and not any(w[:1].isupper() for w in tri):
+            out.append(" ".join(tri))
+    return list(dict.fromkeys(out))
+
+
+def repeats_in_cap(text: str, ids: list[str], pool: dict[str, Any] | None) -> list[tuple[str, int]]:
+    """F5b N3: (forma, veces) de los datos declarados que suenan MÁS de una vez en el cap: su cifra/fecha (anchor) o
+    una frase firma del dato. Cada dato se dice una vez; después, paráfrasis sin la cifra."""
+    its = items(pool)
+    seen: dict[str, int] = {}
+    for i in dict.fromkeys(ids or []):
+        it = its.get(i)
+        if not it or it["_kind"] in ("personajes", "lugares"):
+            continue
+        for a in anchors(it) + signature_phrases(it):
+            if it["_kind"] == "citas" or re.fullmatch(r"(19|20)\d\d", a):
+                continue
+            n = count_in(a, text)
+            key = norm(a)
+            if n > 1 and n > seen.get(key, 0):
+                seen[key] = n
+    # «29 de agosto de 2005» ya cubre «29 de agosto»: se informa la forma más larga
+    keys = sorted(seen, key=len, reverse=True)
+    return [(k, seen[k]) for k in keys if not any(k != o and k in o and seen[o] >= seen[k] for o in keys)]
+
+
+_DATE_TXT = re.compile(r"\b(\d{1,2}) de (" + "|".join(MESES) + r")(?: de (\d{4}))?", re.I)
+
+
+def item_date(it: dict[str, Any], default_year: str | None = None) -> str | None:
+    """Fecha ISO (AAAA-MM-DD) del hecho: `fecha` completa, o la fecha escrita en su texto («29 de agosto de 2005»;
+    sin año → default_year). None si no tiene día."""
+    f = str(it.get("fecha") or "")
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", f):
+        return f
+    m = _DATE_TXT.search(text_of(it))
+    y = (m.group(3) if m else None) or (f[:4] if re.match(r"\d{4}", f) else None) or default_year
+    if not m or not y:
+        return None
+    return f"{y}-{MESES.index(m.group(2).lower()) + 1:02d}-{int(m.group(1)):02d}"
+
+
+def spoken_dates(text: str, default_year: str | None = None) -> list[str]:
+    """Fechas con día que dice un texto (ISO), en orden."""
+    out = []
+    for m in _DATE_TXT.finditer(str(text)):
+        y = m.group(3) or default_year
+        if y:
+            out.append(f"{y}-{MESES.index(m.group(2).lower()) + 1:02d}-{int(m.group(1)):02d}")
+    return out
+
+
+def _figures(s: str) -> set[str]:
+    """Cifras DURAS de un texto, sin separadores: no años, no días de una fecha («2 de septiembre»)."""
+    t = _DATE_TXT.sub(" ", str(s))
+    out = set()
+    for m in re.finditer(r"\$?\d[\d.,]*\d%?|\$?\d%?", t):
+        tok = m.group(0)
+        if re.fullmatch(r"(19|20)\d\d", tok):
+            continue
+        out.add(tok.replace("$", "").replace(",", "").rstrip("."))
+    return out
+
+
+def same_fact(a: dict[str, Any], b: dict[str, Any]) -> bool:
+    """F5b S3: dos ítems cuentan el MISMO hecho (dedupe por hecho, no por id):
+    - comparten una cifra grande (≥ 3 dígitos, o con $ o %) — «650,000» de la indemnización en D50 y D72;
+    - o una cifra chica + una palabra de contenido;
+    - o, sin cifras, la misma fecha con día y ≥ 50 % de las palabras de contenido del más corto."""
+    fa, fb = _figures(text_of(a)), _figures(text_of(b))
+    common = fa & fb
+    ca, cb = _content(text_of(a)), _content(text_of(b))
+    if any(len(re.sub(r"\D", "", x)) >= 3 or "%" in x for x in common):
+        return True
+    if common and ca & cb:
+        return True
+    if fa or fb:
+        return False
+    da, db = item_date(a), item_date(b)
+    return bool(da and da == db and ca and cb and len(ca & cb) / min(len(ca), len(cb)) >= 0.5)
+
+
+_COMMON_CAPS = {"arrestado", "arrestada", "arrestados", "turista", "turistas", "recluso", "reclusa", "reclusos",
+                "demandante", "sheriff", "alcaide", "huracán", "huracan", "adjunto", "teniente"}
+
+
+def fix_glued_caps(text: str) -> str:
+    """F5b N5: mayúsculas pegadas del pool a mitad de oración («…de Raphael Schwarz, Arrestado por…» → «…, arrestado
+    por…»; «el Sheriff Gusman» → «el sheriff Gusman»). Solo sustantivos/participios comunes conocidos, nunca un
+    nombre propio ni el arranque de una oración o de una cita."""
+    def _fix(m: re.Match) -> str:
+        w = m.group(2)
+        return m.group(1) + (w.lower() if norm(w) in {norm(x) for x in _COMMON_CAPS} else w)
+    return re.sub(r"((?<![.!?¿¡:\"«“])(?<![.!?¿¡:\"«“]\s)(?<=[\w,;]\s))([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)", _fix, text)
+
+
+def resolve_declared(raw: list[Any], pool: dict[str, Any] | None, facts: list[Any] | None, text: str) -> list[str]:
+    """F5b N2: lo que el narrador DECLARA en datos_usados → ids del pool. Sigue siendo lo declarado (nunca un regex
+    sobre todo el pool):
+    - «D07» / «[D07]» → D07;
+    - «F05» (un verified_fact) → los ítems del pool que cuentan ese mismo fact (≥ 50 % de palabras de contenido en
+      común) y que suenan literales en la narración;
+    - un texto («1 de septiembre», «cadáveres flotando») → el ítem del pool cuyo texto o anchor lo contiene, si es
+      uno solo (o el único que además suena literal)."""
+    its = items(pool)
+    out: list[str] = []
+    for x in raw or []:
+        s = str(x).strip().strip("[]«»\"'").strip()
+        if not s:
+            continue
+        m = re.fullmatch(r"([DTQPL])\s*0*(\d+)", s, re.I)
+        if m:
+            i = f"{m.group(1).upper()}{int(m.group(2)):02d}"
+            if i in its:
+                out.append(i)
+            continue
+        m = re.fullmatch(r"F\s*0*(\d+)", s, re.I)
+        if m:
+            k = int(m.group(1)) - 1
+            f = (facts or [])[k] if 0 <= k < len(facts or []) else None
+            ft = str(f.get("fact") if isinstance(f, dict) else f or "")
+            cf = _content(ft)
+            for i, it in its.items():
+                ci = _content(text_of(it))
+                if it["_kind"] in ("datos", "cronologia", "citas") and cf and ci \
+                        and len(cf & ci) / min(len(cf), len(ci)) >= 0.5 and used_in(text, it):
+                    out.append(i)
+            continue
+        n = norm(s)
+        cands = [i for i, it in its.items() if it["_kind"] in ("datos", "cronologia", "citas")
+                 and len(n) >= 4 and (n in norm(text_of(it)) or any(n == norm(a) for a in anchors(it)))]
+        if len(cands) > 1:
+            cands = [i for i in cands if used_in(text, its[i])]
+        if len(cands) == 1:
+            out.append(cands[0])
+    return list(dict.fromkeys(out))
 
 
 def primary_antagonist(pool: dict[str, Any] | None) -> dict[str, Any] | None:

@@ -56,13 +56,30 @@ def test_candidatos_frases_y_flexiones():
     ("enterrados", "cruz"), ("murieron", "cruz"), ("fallecidos", "cruz"), ("celda", "candado"), ("atrapados", "candado"),
     ("encerrados", "candado"), ("barrotes", "candado"), ("oscuridad", "candado"), ("inundación", "gota"),
     ("ahogados", "gota"), ("arsénico", "calavera"), ("infección", "biohazard"), ("incendio", "llama"), ("gritos", None)])
-def test_icono_por_categoria_y_peso(word, icon):
+def test_icono_por_categoria_y_peso(word, icon, monkeypatch):
     """F4c R4: ícono por categoría + peso ≥ 2 (el de la palabra es preferencia: tumba → cruz, cadáveres → calavera;
-    si la palabra no lo tiene, el más común de su categoría). Categoría sin ícono → solo sello + mood."""
+    si la palabra no lo tiene, el más común de su categoría). Categoría sin ícono → solo sello + mood.
+    Es el comportamiento con icon_literal_only=False (perfiles sin el token F5b S4)."""
+    from dataclasses import replace
+    monkeypatch.setattr(gc, "gfx_rules", replace(gc.gfx_rules, icon_literal_only=False))
     out = {"emphasis": [], "callouts": [], "punch_in": []}
     gd.place_emphasis(out, [], words=_words(f"Hablaban de {word} ahí."), scenes=[GfxScene(0, 0.0, 30.0)],
                       ctx={**CTX, "narration_all": word}, time_offset=0.0, limit=1)
     assert out["emphasis"] and out["emphasis"][0]["icon"] == icon
+
+
+@pytest.mark.parametrize("word,icon", [
+    ("cadáveres", "calavera"), ("tumba", "cruz"), ("celda", "candado"), ("encerrados", "candado"),
+    ("inundación", "gota"), ("residuales", "biohazard"), ("arsénico", "calavera"),
+    ("murieron", None), ("oscuridad", None), ("barrotes", None), ("ahogados", None),      # no están en el mapa literal
+    ("atrapados", None), ("sofocante", None), ("escalofriante", None), ("marea", None)])  # adjetivos / sin mapa
+def test_icono_solo_por_mapa_literal(word, icon):
+    """F5b S4 (perfil misterio: icon_literal_only): el ícono sale SOLO del mapa literal palabra→ícono del perfil; la
+    categoría decide el mood, nunca el ícono; un adjetivo nunca lleva ícono."""
+    out = {"emphasis": [], "callouts": [], "punch_in": []}
+    gd.place_emphasis(out, [], words=_words(f"Hablaban de {word} ahí."), scenes=[GfxScene(0, 0.0, 30.0)],
+                      ctx={**CTX, "narration_all": word}, time_offset=0.0, limit=1)
+    assert not out["emphasis"] or out["emphasis"][0]["icon"] == icon
 
 
 @pytest.mark.parametrize("word", ["agua", "muerte", "oscuro", "enfermos", "nunca", "caos"])

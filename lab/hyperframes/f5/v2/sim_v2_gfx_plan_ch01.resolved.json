@@ -3,50 +3,71 @@
   "chapter_number": 1,
   "title_card": {
    "kicker": "CAPÍTULO 1",
-   "title": "El Inicio del Olvido"
+   "title": "La Trampa de Katrina"
   },
   "callouts": [],
-  "count_up": {
-   "value_text": "6,500",
-   "unit": "personas",
-   "start": 10.112,
-   "fact_idx": 4,
-   "source": ""
-  },
+  "count_up": null,
   "archive_clippings": [],
   "evidence_zoom": null,
   "punch_in": [
-   8.194,
-   10.112,
-   12.669
+   25.389
   ],
   "chapter_question": {
-   "text": "¿Cómo afectó a los prisioneros?",
+   "text": "¿Qué decisión tomaría el sheriff?",
    "start": 35.8,
    "duration": 3.0,
-   "keyword": "prisioneros",
+   "keyword": "decisión",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "olvidado",
-    "category": "frio_abandono",
+    "word": "contaminada",
+    "category": "veneno_enfermedad",
+    "layer": "veneno",
+    "icon": "biohazard",
+    "icon_anim": "ink_bleed",
+    "start": 14.437,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 2,
+    "peak_word": true,
+    "peak": true
+   },
+   {
+    "word": "atrapados",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 25.389,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 3,
+    "rarity": 4,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "desesperación",
+    "category": "caos_gritos",
     "layer": "minima",
     "icon": null,
-    "icon_anim": "press_wipe",
-    "start": 26.096,
+    "icon_anim": "stamp",
+    "start": 27.917,
     "duration": 2.5,
-    "side": "left",
+    "side": "right",
     "stamp": true,
-    "weight": 3,
-    "peak_word": true,
+    "sid": 4,
+    "rarity": 1,
+    "weight": 2,
     "sfx": {
-     "file": "viento.wav",
+     "file": "rumor.wav",
      "gain_db": -20
     },
-    "peak": true,
     "icon_callout": false
    }
   ],
@@ -56,65 +77,23 @@
     "id": "D04",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 6.6s"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
-    "id": "D05",
+    "id": "D08",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
-   },
-   {
-    "id": "T07",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 1.5s"
-   },
-   {
-    "id": "Q01",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
-   },
-   {
-    "id": "T05",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 1.5s"
-   },
-   {
-    "id": "T06",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
-   },
-   {
-    "id": "D09",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
-   },
-   {
-    "id": "D10",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
-   },
-   {
-    "id": "T03",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    }
   ],
   "pico": {
-   "t": 25.457,
+   "t": 14.437,
    "block": "emphasis",
-   "word": "horror",
-   "sentence": "Un horror olvidado, enterrado bajo las aguas y la negligencia.",
-   "intensity": 1.0,
-   "sentence_idx": 6,
-   "palabra": "olvidado"
+   "word": "contaminada",
+   "sentence": "El agua, densa y contaminada por aguas residuales, subió imparable hasta el pecho en celdas como Templeman 1 y 2.",
+   "intensity": 0.9,
+   "sentence_idx": 2,
+   "palabra": "contaminada"
   },
   "time_ticker": null,
   "transitions": {
@@ -147,7 +126,6 @@
    "movimientos": [],
    "violaciones": []
   },
-  "iconos_auto": [],
   "black_hold": {
    "start": 38.8,
    "duration": 1.0
@@ -160,42 +138,42 @@
     "bloque": "zoom",
     "texto": "rostro asustado",
     "veredicto": "repite",
-    "motivo": "La imagen ya muestra claramente un rostro asustado; el zoom y el texto no añaden información nueva.",
+    "motivo": "El bloque de texto 'rostro asustado' describe explícitamente lo que la imagen ya muestra de forma clara y potente, sin añadir información nueva o contextual.",
     "pasa": false,
-    "voz": "Orleans Parish Prison, 29 de agosto de 2005."
+    "voz": "El 29 de agosto de 2005, un huracán devastador golpeó Nueva Orleans."
    },
    {
-    "t": 10.112,
-    "t_frame": 11.112,
-    "dur": 3.7,
-    "bloque": "contador",
-    "texto": "6,500",
-    "veredicto": "suma",
-    "motivo": "El contador visual enfatiza la cifra clave que la voz menciona, aportando un dato específico que la imagen no muestra y sin estorbar la composición.",
-    "pasa": true,
-    "voz": "Aproximadamente 6,500 personas estaban encarceladas."
-   },
-   {
-    "t": 21.621,
-    "t_frame": 22.621,
-    "dur": 2.5,
-    "bloque": "icono",
-    "texto": "sentencia",
-    "veredicto": "repite",
-    "motivo": "El ícono de candado y el tinte de mood reiteran visualmente el encierro y la oscuridad ya evidentes en la imagen, y la palabra 'SENTENCIA' repite directamente l",
-    "pasa": false,
-    "voz": "Gusman, junto a su adjunto William Hunter, lanzó su sentencia: los prisioneros \"donde pertenecen\"."
-   },
-   {
-    "t": 26.096,
-    "t_frame": 27.096,
+    "t": 14.437,
+    "t_frame": 15.437,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "olvidado",
+    "texto": "contaminada",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el ambiente de abandono y desesperación de la escena.",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza visualmente el peligro de la contaminación que la imagen por sí sola no muestra explícitament",
     "pasa": true,
-    "voz": "Un horror olvidado, enterrado bajo las aguas y la negligencia."
+    "voz": "El agua, densa y contaminada por aguas residuales, subió imparable hasta el pecho en celdas como Templeman 1 y 2."
+   },
+   {
+    "t": 25.389,
+    "t_frame": 26.389,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "atrapados",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood intensifica la sensación de encierro y oscuridad ya presentes en la imagen y el audio.",
+    "pasa": true,
+    "voz": "Días enteros, prisioneros de todas las edades, algunos niños, quedaron atrapados en la oscuridad sofocante."
+   },
+   {
+    "t": 27.917,
+    "t_frame": 28.917,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "desesperación",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza la palabra clave de la voz, y el tinte de mood refuerza la atmósfera de la imagen sin tapar elementos cruciales.",
+    "pasa": true,
+    "voz": "La desesperación flotaba en el aire estancado."
    }
   ]
  },

@@ -219,7 +219,8 @@ PROSE_RULE_6_POOL = """6. REGLA NUMÉRICA INVIOLABLE: cualquier cifra, fecha, no
 
 F5_RULES = """REGLAS DEL EVIDENCE POOL (inviolables, se validan):
 A. Usá entre 3 y 6 de los datos asignados a este cap (los que más golpean): cada uno aparece LITERAL (la cifra,
-   la fecha o el nombre tal cual). No hace falta usarlos todos: el LARGO OBLIGATORIO manda.
+   la fecha o el nombre tal cual). No hace falta usarlos todos: el LARGO OBLIGATORIO manda. Densidad: al menos
+   2 datos DISTINTOS cada 100 palabras (≈ 5 en un cap de 250 palabras); un párrafo sin dato es relleno.
 B. No repitas datos que ya salieron en 2 caps (lista de abajo). Un dato del video vive en 2 caps como máximo.
 C. Nombrá a cada persona por nombre y apellido y con su cargo la primera vez (p. ej. "el sheriff Marlin Gusman").
 D. Si el cap cuenta 2 o más eventos fechados, narralos EN ORDEN y decí las fechas.
@@ -229,7 +230,16 @@ F. Prohibido el relleno: "imaginen", "una eternidad de", "cámara de tortura", "
    "infierno personal", "eco fantasmal", "sombra inalcanzable", "tragedia íntima", y más de 2 oraciones seguidas
    que califican sin un dato. Cambiá adjetivos por hechos.
 G. El cierre anticipa el dato CONCRETO del próximo cap (lo nombra o lo deja incompleto). Nada de retórica
-   genérica como "¿cuánto podrían resistir?"."""
+   genérica como "¿cuánto podrían resistir?".
+H. Cada dato se dice UNA sola vez en el cap: la cifra o la fecha suena una vez; después, paráfrasis SIN la cifra
+   ("ese lunes", "esa noche", "el agua", "los desaparecidos"). Nada de "29 de agosto" tres veces.
+I. Ni acta ni novela: entre 2 y 4 adjetivos calificativos cada 100 palabras, atados a hechos (cómo era el agua,
+   la celda, el calor). Una lista seca de hechos también falla.
+J. Nombrá a una persona solo si HACE algo en la historia (decide, declara, demanda, testifica, rescata). Nada de
+   "casos como el de…" para llenar: si una persona no actúa, no la nombres.
+K. En "datos_usados" del JSON listá los ids ([D..], [T..], [Q..]) del EVIDENCE POOL que tu narración cuenta
+   LITERALES (también los de caps anteriores que repitas). Nunca F## (los verified_facts no van ahí). Un id
+   declarado que no suena literal es un error; un dato que usaste y no declaraste NO cuenta para el cap."""
 
 
 def _prose_rules(topic: dict) -> str:
@@ -249,9 +259,9 @@ def _evidence_block(topic: dict, skeleton: dict, cap: int, previous: list[dict])
         return ""
     from script_engine import m05_narrative as mn
     its = ev.items(pool)
-    prev_txt = [n.get("narration", "") for n in previous]
     from collections import Counter
-    spent = Counter(i for t in prev_txt for i in set(mn.repeat_items(t, pool)))
+    pairs = [mn.text_and_ids(n) for n in previous]
+    spent = Counter(i for t, d in pairs for i in set(mn.repeat_items(t, pool, declared=d)))
     gone = [i for i, n in spent.items() if n >= mn.MAX_DATO_CAPS]
     people = [p for p in skeleton.get("personajes") or [] if p.get("entra_en_cap") == cap]
     cid = ch.get("cliffhanger")
@@ -593,10 +603,20 @@ class NarrationValidationError(ValueError):
 #  DERIVADOS de los validadores y del contrato de salida de cada prompt.
 # ═══════════════════════════════════════════════════════════════
 
-def _narration_schema() -> dict:
+def _narration_schema(with_ids: bool = False) -> dict:
     """Schema de la salida per-cap. El prompt pide {"narration": "..."} (el
     chapter_number lo agrega el código, NO el modelo). _validate_narration
-    exige narration como string no vacío → único campo required."""
+    exige narration como string no vacío → único campo required.
+    F5b N2: con evidence_pool, además "datos_usados" (ids del pool que el narrador DECLARA haber usado)."""
+    if with_ids:
+        return {
+            "type": "OBJECT",
+            "properties": {
+                "narration": {"type": "STRING"},
+                "datos_usados": {"type": "ARRAY", "items": {"type": "STRING"}},
+            },
+            "required": ["narration", "datos_usados"],
+        }
     return {
         "type": "OBJECT",
         "properties": {
@@ -718,7 +738,7 @@ def _validate_narration(text: str, role: str, cap_number: int, f5: dict | None =
     if f5 and f5.get("pool"):                         # F5 §1.3: reglas del evidence_pool
         from script_engine.m05_narrative import cap_problems
         probs = cap_problems(text, cap=cap_number, pool=f5["pool"], skeleton=f5["skeleton"],
-                             previous=f5.get("previous") or [])
+                             previous=f5.get("previous") or [], declared=f5.get("declared"))
         if probs:
             raise NarrationValidationError(
                 f"cap {cap_number}: reglas del evidence_pool — " + " | ".join(probs),
@@ -789,7 +809,7 @@ def _trim_to_sentence_boundary(text: str, max_chars: int) -> str:
 
 def _call_with_length_retry(prompt: str, role: str, cap_number: int,
                              max_attempts: int = 2, f5: dict | None = None,
-                             violations: dict | None = None) -> str:
+                             violations: dict | None = None, declared: dict | None = None) -> str:
     """
     Llama Flash, valida largo y reglas, reintenta con feedback targeteado si la
     falla es reintentar-able (largo, primera-oración del hook, o FRASE prohibida
@@ -814,24 +834,35 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
     last_error: NarrationValidationError | None = None
     best_pool_only: tuple[str, str] | None = None    # F5: intento que solo fallaba reglas del pool (largo y frases OK)
 
+    ids: list[str] = []
     for attempt in range(1, max_attempts + 1):
         # HANDOFF 66b (R4): response_schema fuerza el shape {"narration": str}
-        raw = call_flash_json(attempt_prompt, response_schema=_narration_schema())
+        raw = call_flash_json(attempt_prompt, response_schema=_narration_schema(with_ids=bool(f5)))
         narr = (raw.get("narration") or "").strip()
+        if f5:
+            # F5b N5: mayúsculas pegadas del pool («…Schwarz, Arrestado por…»); N2: ids que declara el narrador
+            narr = ev.fix_glued_caps(narr)
+            ids_raw = [str(x).strip() for x in raw.get("datos_usados") or [] if str(x).strip()]
+            ids = ev.resolve_declared(ids_raw, f5["pool"], f5.get("facts"), narr)   # «F05», «[D07]», texto → ids
+            f5 = {**f5, "declared": ids}
         try:
             _validate_narration(narr, role=role, cap_number=cap_number, f5=f5)
+            if declared is not None:
+                declared[cap_number] = ids
             return narr
         except NarrationValidationError as e:
             # Retry si la falla es largo, primera-oración del hook, o frase prohibida.
             # (gate tipado: ya no se string-matchea el mensaje). "empty"/"other" → no retry.
             retryable = e.kind in ("length", "first_sentence", "phrase", "evidence")
             if e.kind == "evidence":
-                best_pool_only = (narr, e.detail or "")
+                best_pool_only = (narr, e.detail or "", ids)
             if e.kind != "evidence" and attempt == max_attempts and best_pool_only is not None:
                 # F5: el último intento rompió el largo/frases, pero uno anterior solo fallaba reglas del pool → ese
-                narr, det = best_pool_only
+                narr, det, ids = best_pool_only
                 if violations is not None:
                     violations[cap_number] = det.splitlines()
+                if declared is not None:
+                    declared[cap_number] = ids
                 print(f"  [01b] cap {cap_number}: último intento inválido ({e.kind}); acepta el anterior con "
                       f"{len(det.splitlines())} problema(s) del pool")
                 return narr
@@ -839,6 +870,8 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
                 # F5: las reglas del pool no matan el topic — se acepta y se anota (el juez lo reporta)
                 if violations is not None:
                     violations[cap_number] = (e.detail or "").splitlines()
+                if declared is not None:
+                    declared[cap_number] = ids
                 print(f"  [01b] cap {cap_number}: acepta con {len((e.detail or '').splitlines())} problema(s) del pool")
                 return narr
             if not retryable or attempt == max_attempts:
@@ -960,22 +993,29 @@ def generate_narration(topic: dict, skeleton: dict) -> dict:
     tries = 3 if pool else 2
 
     def _f5() -> dict | None:
-        return {"pool": pool, "skeleton": skeleton, "previous": [n["narration"] for n in narrations]} if pool else None
+        return {"pool": pool, "skeleton": skeleton, "previous": list(narrations),
+                "facts": topic.get("verified_facts") or []} if pool else None
+
+    declared: dict[int, list[str]] = {}
+
+    def _cap(n: int, text: str) -> dict:
+        # F5b N2: con pool, cada cap lleva los ids que el narrador declaró haber usado (las métricas cuentan por id)
+        return {"chapter_number": n, "narration": text, **({"datos_usados": declared.get(n, [])} if pool else {})}
 
     # ─── CAP 1: HOOK ───
     print(f"  [01b] generando cap 1 (hook)...")
     prompt1 = _prompt_hook(topic, skeleton)
     narr1 = _call_with_length_retry(prompt1, role="hook", cap_number=1, max_attempts=tries, f5=_f5(),
-                                    violations=violations)
-    narrations.append({"chapter_number": 1, "narration": narr1})
+                                    violations=violations, declared=declared)
+    narrations.append(_cap(1, narr1))
 
     # ─── CAPS 2-6: DEVELOPMENT ───
     for cap_n in (2, 3, 4, 5, 6):
         print(f"  [01b] generando cap {cap_n} (development)...")
         prompt = _prompt_development(topic, skeleton, narrations, cap_n)
         narr = _call_with_length_retry(prompt, role="development", cap_number=cap_n, max_attempts=tries, f5=_f5(),
-                                       violations=violations)
-        narrations.append({"chapter_number": cap_n, "narration": narr})
+                                       violations=violations, declared=declared)
+        narrations.append(_cap(cap_n, narr))
 
     # ─── CAP 7: OUTRO ───
     print(f"  [01b] generando cap 7 (reveal+outro)...")
@@ -983,8 +1023,8 @@ def generate_narration(topic: dict, skeleton: dict) -> dict:
     # 1.3 (chat 51): un intento más SOLO para el outro (que converja antes de tocar el
     # recorte). hook/development quedan en max_attempts=2 (default).
     narr7 = _call_with_length_retry(prompt7, role="reveal_outro", cap_number=7, max_attempts=3, f5=_f5(),
-                                    violations=violations)
-    narrations.append({"chapter_number": 7, "narration": narr7})
+                                    violations=violations, declared=declared)
+    narrations.append(_cap(7, narr7))
 
     # ─── HUMANIZER PHRASES ───
     print(f"  [01b] generando humanizer phrases...")

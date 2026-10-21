@@ -27,8 +27,9 @@ SKEL = {"chapters": [{"chapter_number": 2, "evidence_ids": ["T01", "Q01", "D01",
                      {"chapter_number": 3, "evidence_ids": ["T02", "D03", "D04"], "cliffhanger": None}],
         "personajes": [{"id": "P01", "nombre": "Marlin N. Gusman", "rol": "sheriff de Orleans", "antagonista": True,
                         "entra_en_cap": 2}]}
+IDS2 = ["T01", "Q01", "D01", "D02"]                         # F5b N2: los ids que declara el narrador
 GOOD2 = ("El 28 de agosto, el sheriff Marlin Gusman anunció que los presos no serían evacuados. "
-         "\"Permanecerán donde pertenecen\", dijo el sheriff Gusman. Había 6,500 personas en la prisión. "
+         "\"Permanecerán donde pertenecen\", dijo el sheriff Gusman. Había 6,500 personas en la prisión oscura. "
          "Después, 517 reclusos no estaban contabilizados. Esa noche, los generadores iban a fallar.")
 
 
@@ -104,16 +105,16 @@ def test_prompt_narrador_con_y_sin_pool():
 def test_retry_por_pool_y_aceptacion_con_violaciones(monkeypatch):
     base = "Los guardias contaron a los presos en el patio de la cárcel una vez más. "
     filler = (base * 14).strip()
-    good = (base * 10 + GOOD2).strip()
+    good = (base * 4 + "El patio estaba húmedo, sucio y oscuro, el aire pesado. " + base * 4 + GOOD2).strip()
     q = [filler, filler, filler]
     prompts = []
-    monkeypatch.setattr(nb, "call_flash_json", lambda p, response_schema=None: (prompts.append(p), {"narration": q.pop(0)})[1])
+    monkeypatch.setattr(nb, "call_flash_json", lambda p, response_schema=None: (prompts.append(p), {"narration": q.pop(0), "datos_usados": IDS2})[1])
     viol: dict = {}
     out = nb._call_with_length_retry("P", role="development", cap_number=2, max_attempts=3,
                                      f5={"pool": POOL, "skeleton": SKEL, "previous": []}, violations=viol)
     assert out == filler and 2 in viol and "REGLAS DEL EVIDENCE POOL" in prompts[1]   # acepta y anota
     q2 = [filler, good]
-    monkeypatch.setattr(nb, "call_flash_json", lambda p, response_schema=None: {"narration": q2.pop(0)})
+    monkeypatch.setattr(nb, "call_flash_json", lambda p, response_schema=None: {"narration": q2.pop(0), "datos_usados": IDS2})
     viol2: dict = {}
     nb._call_with_length_retry("P", role="development", cap_number=2, max_attempts=3,
                                f5={"pool": POOL, "skeleton": SKEL, "previous": []}, violations=viol2)

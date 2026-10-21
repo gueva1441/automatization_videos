@@ -1,0 +1,237 @@
+{
+ "plan": {
+  "chapter_number": 7,
+  "title_card": {
+   "kicker": "CAPÍTULO 7",
+   "title": "Un Horror Sin Registros"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [],
+  "evidence_zoom": null,
+  "punch_in": [
+   12.429,
+   24.38,
+   26.292,
+   76.009
+  ],
+  "chapter_question": null,
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "discrepancia",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 26.292,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 3,
+    "rarity": 1,
+    "weight": 3,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "abandono",
+    "category": "frio_abandono",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 51.629,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 8,
+    "rarity": 3,
+    "weight": 2,
+    "sfx": {
+     "file": "viento.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "horrores",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": "candado",
+    "icon_anim": "stamp",
+    "start": 70.75,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "peak": true,
+    "icon_callout": true
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "id": "D59",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 14.5s"
+   },
+   {
+    "id": "D58",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D61",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D58",
+    "bloque": "dato",
+    "ahora": "8,000 evacuados de la prisión",
+    "fuente": null
+   },
+   {
+    "bloque": "dato@23.4",
+    "antes": "8,000 evacuados de la prisión",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   }
+  ],
+  "pico": {
+   "t": 70.75,
+   "block": "emphasis",
+   "word": "horrores",
+   "sentence": "Allí, un médium psíquico ha detectado la energía de personas que trabajaron allí, y la pregunta persiste: ¿Qué otros horrores, sin nombre ni registro, yacen sepultados bajo las aguas del olvido?",
+   "intensity": 0.9,
+   "sentence_idx": 10,
+   "palabra": "horrores"
+  },
+  "time_ticker": null,
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   }
+  },
+  "identity": {
+   "movimientos": [],
+   "violaciones": []
+  },
+  "iconos_auto": [],
+  "outro_bug": {
+   "start": 76.4,
+   "duration": 3.5
+  },
+  "critico": [
+   {
+    "t": 24.398,
+    "t_frame": 25.398,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "rostro del niño",
+    "veredicto": "repite",
+    "motivo": "El rostro del niño ya es el foco principal de la imagen y la voz habla de cifras, no de la emoción del niño en este instante.",
+    "pasa": false,
+    "voz": "Esta laguna choca con la realidad: mientras los registros oficiales hablaban de 6,375 reclusos, algunas estimaciones señalaban hasta 8,000 evacuados de la prisión."
+   },
+   {
+    "t": 26.292,
+    "t_frame": 27.292,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "discrepancia",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza el ambiente sombrío de la imagen sin obstruir elementos importantes.",
+    "pasa": true,
+    "voz": "Una discrepancia abismal."
+   },
+   {
+    "t": 51.629,
+    "t_frame": 52.629,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "abandono",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, lo cual está permitido, y el tinte refuerza el ambiente de desolación de la imagen sin obstruir la vista.",
+    "pasa": true,
+    "voz": "fue llamado a investigar la conducta del Departamento del Sheriff de Orleans, en un intento por esclarecer el abandono sistemático."
+   },
+   {
+    "t": 70.75,
+    "t_frame": 71.75,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "horrores",
+    "veredicto": "suma",
+    "motivo": "El ícono de candado y el tinte de oscuridad refuerzan la idea de encierro y misterio que la voz sugiere, y la palabra 'HORRORES' enfatiza un concepto clave sin ",
+    "pasa": true,
+    "voz": "Allí, un médium psíquico ha detectado la energía de personas que trabajaron allí, y la pregunta persiste: ¿Qué otros horrores, sin nombre ni registro, yacen sepultados bajo las aguas del olvido?"
+   }
+  ]
+ },
+ "rejected": []
+}

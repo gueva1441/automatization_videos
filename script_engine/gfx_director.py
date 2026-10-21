@@ -554,6 +554,8 @@ def validate_plan(raw: dict[str, Any], *, n_facts: int, n_words: int, scenes: li
         val, unit = str(cu.get("value", "")).strip(), str(cu.get("unit", "")).strip()
         if fi is None or wi is None or not re.fullmatch(r"[\d.,]+%?", val) or not _literal_in(val, facts[fi]):
             log.append(f"count_up descartado: {cu}")
+        elif re.fullmatch(r"(?i)pies?|millas?|yardas?|pulgadas?|libras?|galones?|°?f", unit):
+            log.append(f"count_up descartado (en pantalla, unidades métricas — F5b S5): {cu}")
         else:
             plan["count_up"] = {"fact_idx": fi, "value": val, "unit": unit if _literal_in(unit, facts[fi]) else "",
                                 "trigger_word_idx": wi}
@@ -1028,6 +1030,11 @@ def emphasis_icon(cat: str, trig: str, weight: int, moods: dict[str, dict[str, A
     """F4c R4: ícono solo con peso ≥ 2 y si la categoría tiene ícono; el de la palabra es preferencia, no condición."""
     if weight < 2 or _tok(trig) in NEVER_ICON_ALONE:
         return None
+    from gfx_config import gfx_rules
+    if gfx_rules.icon_literal_only:                 # F5b S4: un adjetivo nunca lleva ícono
+        from script_engine.m05_narrative import adjectives
+        if adjectives(trig):
+            return None
     from script_engine.gfx_fragments import category_icon
     return category_icon(cat, _tok(trig), moods)
 

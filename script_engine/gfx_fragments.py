@@ -411,10 +411,14 @@ def category_of(text: str, moods: dict[str, dict[str, Any]]) -> tuple[str | None
 
 
 def category_icon(cat: str, word: str | None, moods: dict[str, dict[str, Any]]) -> str | None:
-    """Ícono de la palabra si el léxico lo mapea; si no, el ícono más común de la categoría (veneno → calavera)."""
+    """Ícono de la palabra si el léxico lo mapea; si no, el ícono más común de la categoría (veneno → calavera).
+    F5b S4 (token icon_literal_only): SOLO el mapa literal palabra→ícono; la categoría decide el mood, no el ícono."""
+    from gfx_config import gfx_rules
     iw = (moods.get(cat) or {}).get("icon_words") or {}
     if word and word in iw:
         return iw[word]
+    if gfx_rules.icon_literal_only:
+        return None
     common = Counter(iw.values()).most_common(1)
     return common[0][0] if common else None
 

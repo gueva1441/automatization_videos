@@ -1,9 +1,9 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (cierre de sesión: F5 hasta §3, PARADA para el analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (F5b terminado, PARADA para el analista) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
-- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit de código: `e7b661c` (F5 §3); el cierre de sesión es el commit siguiente (`git log -1`).
+- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f5-guion-v2`**, que sale de `39e37ac` (F4e, tip de `f3-lab-identidad`; F4f no existe). Último commit: F5b (`git log -1`), sobre `1ca7194`.
 - Cadena de ramas sin mergear: `f2-gfx-director` (F2b @ `31c671c`) → `f3-lab-identidad` (F3–F4e @ `39e37ac`) → `f5-guion-v2` (F5).
 - `main` = `43f528a`. NO se toca sin OK explícito de Omar.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
@@ -11,7 +11,21 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F5 — Guion v2 (`lab/hyperframes/f5/HANDOFF_F5_guion_v2.md`) — PARADA: falta `VALIDACION_F5.md` del analista; después decide Omar
+## F5b — Arreglos de la validación (N1–N5, S1–S6) — PARADA: valida el analista, después decide Omar
+- Pedido: `lab/hyperframes/f5/VALIDACION_F5.md` §7. Leer `lab/hyperframes/f5/RESUMEN_F5b.md` (revisor íntegro) y `DECISIONES_F5.md` K1–K20.
+- **Hecho:**
+  - pool: filtro de relevancia (fuera la posada de 1902 y el médium), personajes solo si actúan (fuera Schwarz y Hubert) y mayúsculas;
+  - narrador: declara `datos_usados` (las métricas cuentan por id), cada dato una vez por cap, adjetivos entre 2 y 4/100;
+  - pantalla: cláusula completa, cronología, dedupe por hecho (sin el cap siguiente), ícono por mapa literal (token `icon_literal_only`), metros;
+  - §1.6: bloque UBICACIONES DOCUMENTADAS en el canon de m03 (FRENOS respetados) y 97 prompts de v2 regenerados (texto).
+- **Resultado:**
+  - pantalla v2 sin fallas S1–S5;
+  - narración con menos datos que la v2 de F5: por hecho, 1.12 contra 2.01 (v1: 0.86); por id, 1.26;
+  - P5 (caps 6 y 7 sin recorte) sigue;
+  - dos prompts con un niño solo en celda de adultos (ch01 supp 3, ch07 Veo).
+- Tests: 379 verdes + 3 viejas de `01b_pauses`. Se reproduce con `correr_f5_orleans.py --etapa todo`. Respaldos de F5 en `lab/hyperframes/f5/v2_f5/`, `output/ba6c3cac-f5v2/_bak_f5b_pre/` y `output/ba6c3cac-a091…/_fase2b_work_f5sim_v1_bak_f5b`.
+
+## F5 — Guion v2 (`lab/hyperframes/f5/HANDOFF_F5_guion_v2.md`) — validado por el analista (`VALIDACION_F5.md`): pidió F5b
 - Commits en `f5-guion-v2`: `66ee44b` §1.1 · `2be6c11` §1.2 · `fc955ef` §1.3–§1.5 · `e18e656` §2 · `e7b661c` §3.
 - **Hecho:**
   - §1.1 `evidence_pool` en el research (`researcher_steps/evidence_pool.py`, lo llama `step_4a_facts`);

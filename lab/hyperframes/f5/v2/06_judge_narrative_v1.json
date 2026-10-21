@@ -12,6 +12,15 @@
    "adj_100": 4.11,
    "relleno_seguido": 1,
    "relleno_prohibido": [],
+   "conteo": "regex",
+   "repetidos_en_cap": [
+    [
+     "6,500",
+     2
+    ]
+   ],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.74,
    "trigramas_repetidos": 0.1556
   },
   {
@@ -27,6 +36,10 @@
     "coloso de",
     "manto oscuro"
    ],
+   "conteo": "regex",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.49,
    "trigramas_repetidos": 0.0407
   },
   {
@@ -46,6 +59,10 @@
     "imaginen",
     "cámara de tortura"
    ],
+   "conteo": "regex",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.32,
    "trigramas_repetidos": 0.0171
   },
   {
@@ -61,6 +78,10 @@
    "relleno_prohibido": [
     "una eternidad de"
    ],
+   "conteo": "regex",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.89,
    "trigramas_repetidos": 0.0236
   },
   {
@@ -75,6 +96,15 @@
    "relleno_prohibido": [
     "infierno personal"
    ],
+   "conteo": "regex",
+   "repetidos_en_cap": [
+    [
+     "500",
+     4
+    ]
+   ],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.43,
    "trigramas_repetidos": 0.0
   },
   {
@@ -82,13 +112,17 @@
    "datos_usados": [
     "D50",
     "D59",
-    "D72"
+    "D69"
    ],
    "densidad": 1.55,
    "adjetivos": 9,
    "adj_100": 4.64,
    "relleno_seguido": 1,
    "relleno_prohibido": [],
+   "conteo": "regex",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.03,
    "trigramas_repetidos": 0.0254
   },
   {
@@ -107,6 +141,10 @@
     "eco fantasmal",
     "sombra inalcanzable"
    ],
+   "conteo": "regex",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.94,
    "trigramas_repetidos": 0.0778
   }
  ],
@@ -132,10 +170,28 @@
   "cliffhangers": [],
   "datos_distintos": 12,
   "palabras": 1398,
+  "conteo": "regex",
+  "caps_con_repetidos_en_cap": [
+   1,
+   5
+  ],
+  "caps_fuera_de_adjetivos": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "nombres_sin_accion": [],
+  "densidad_hechos": 0.86,
   "umbral": {
    "densidad": false,
    "repeticion": false,
    "adjetivacion": false,
+   "repeticion_en_cap": false,
+   "nombres": true,
    "antagonista": false,
    "cliffhanger": null
   }
@@ -144,7 +200,8 @@
   "densidad_min": 2.0,
   "max_caps_por_dato": 2,
   "trigramas_max": 0.05,
-  "adj_100_max": 3.6
+  "adj_100_min": 2.0,
+  "adj_100_max": 4.0
  },
  "violaciones_narrador": {}
 }

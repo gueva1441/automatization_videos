@@ -1,133 +1,153 @@
 {
  "caps": [
   {
-   "palabras": 56,
-   "datos_usados": [
-    "D33",
-    "D59",
-    "T07",
-    "Q01"
-   ],
-   "densidad": 7.14,
-   "adjetivos": 2,
-   "adj_100": 3.57,
-   "relleno_seguido": 0,
-   "relleno_prohibido": [],
-   "trigramas_repetidos": 0.0857
-  },
-  {
-   "palabras": 232,
+   "palabras": 85,
    "datos_usados": [
     "D04",
-    "D09",
-    "D10",
-    "D54",
+    "D08"
+   ],
+   "densidad": 2.35,
+   "adjetivos": 9,
+   "adj_100": 10.59,
+   "relleno_seguido": 1,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.35,
+   "densidad_regex": 7.06,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0588
+  },
+  {
+   "palabras": 209,
+   "datos_usados": [
+    "T03",
     "T05",
+    "D10"
+   ],
+   "densidad": 1.44,
+   "adjetivos": 11,
+   "adj_100": 5.26,
+   "relleno_seguido": 1,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.44,
+   "densidad_regex": 2.39,
+   "declarados_no_literales": [
+    "T04"
+   ],
+   "trigramas_repetidos": 0.065
+  },
+  {
+   "palabras": 217,
+   "datos_usados": [
+    "T08",
+    "D33",
     "T07"
    ],
-   "densidad": 2.59,
-   "adjetivos": 5,
-   "adj_100": 2.16,
+   "densidad": 1.38,
+   "adjetivos": 4,
+   "adj_100": 1.84,
    "relleno_seguido": 0,
    "relleno_prohibido": [],
-   "trigramas_repetidos": 0.0315
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.92,
+   "densidad_regex": 3.69,
+   "declarados_no_literales": [
+    "T09"
+   ],
+   "trigramas_repetidos": 0.0667
   },
   {
-   "palabras": 286,
+   "palabras": 195,
    "datos_usados": [
-    "D06",
-    "D33",
-    "D59",
-    "D65",
-    "T08",
-    "T09",
-    "T10",
+    "D67",
+    "D32"
+   ],
+   "densidad": 1.03,
+   "adjetivos": 11,
+   "adj_100": 5.64,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.03,
+   "densidad_regex": 2.05,
+   "declarados_no_literales": [
     "T11",
-    "T12"
+    "T10"
    ],
-   "densidad": 3.15,
-   "adjetivos": 13,
-   "adj_100": 4.55,
-   "relleno_seguido": 3,
-   "relleno_prohibido": [],
-   "trigramas_repetidos": 0.0318
+   "trigramas_repetidos": 0.0278
   },
   {
-   "palabras": 152,
+   "palabras": 303,
    "datos_usados": [
-    "D08",
-    "D17",
-    "D32",
-    "D38",
-    "D66",
-    "D67",
     "T13",
-    "T17"
-   ],
-   "densidad": 5.26,
-   "adjetivos": 1,
-   "adj_100": 0.66,
-   "relleno_seguido": 0,
-   "relleno_prohibido": [],
-   "trigramas_repetidos": 0.0779
-  },
-  {
-   "palabras": 267,
-   "datos_usados": [
-    "D19",
-    "D43",
-    "D60",
-    "D61",
-    "D67",
-    "D68",
     "T15",
-    "T23",
-    "Q02"
+    "D43"
    ],
-   "densidad": 3.37,
-   "adjetivos": 14,
-   "adj_100": 5.24,
-   "relleno_seguido": 0,
+   "densidad": 0.99,
+   "adjetivos": 13,
+   "adj_100": 4.29,
+   "relleno_seguido": 1,
    "relleno_prohibido": [],
-   "trigramas_repetidos": 0.0397
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.99,
+   "densidad_regex": 2.97,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0783
   },
   {
-   "palabras": 244,
+   "palabras": 250,
    "datos_usados": [
-    "D21",
-    "D50",
-    "D61",
-    "D72",
-    "T19",
-    "T26",
-    "T27"
+    "D17",
+    "T17",
+    "D37",
+    "Q02",
+    "D50"
    ],
-   "densidad": 2.87,
-   "adjetivos": 3,
-   "adj_100": 1.23,
-   "relleno_seguido": 0,
+   "densidad": 2.0,
+   "adjetivos": 8,
+   "adj_100": 3.2,
+   "relleno_seguido": 1,
    "relleno_prohibido": [],
-   "trigramas_repetidos": 0.021
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.6,
+   "densidad_regex": 3.2,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0786
   },
   {
-   "palabras": 160,
-   "datos_usados": [
-    "D05",
-    "D57",
-    "D58"
-   ],
-   "densidad": 1.88,
-   "adjetivos": 3,
-   "adj_100": 1.88,
+   "palabras": 172,
+   "datos_usados": [],
+   "densidad": 0.0,
+   "adjetivos": 4,
+   "adj_100": 2.33,
    "relleno_seguido": 0,
    "relleno_prohibido": [],
-   "trigramas_repetidos": 0.0515
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.0,
+   "densidad_regex": 2.33,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.1031
   }
  ],
  "video": {
-  "densidad": 3.29,
-  "adj_100": 2.93,
-  "trigramas_repetidos": 0.0408,
+  "densidad": 1.26,
+  "adj_100": 4.19,
+  "trigramas_repetidos": 0.0696,
   "datos_en_mas_de_2_caps": {},
   "antagonista_nombrado": true,
   "antagonista": "Marlin N. Gusman",
@@ -135,10 +155,10 @@
    {
     "cap": 1,
     "id": "T05",
-    "texto": "El Sheriff Marlin N. Gusman anuncia en una conferencia de prensa que los prisioneros no serán evacuados de la Prisión de Orleans Parish.",
+    "texto": "El sheriff Marlin N. Gusman anuncia en una conferencia de prensa que los prisioneros no serán evacuados de la Prisión de Orleans Parish.",
     "ok": true,
     "en_cierre": [
-     "Gusman"
+     "sheriff"
     ]
    },
    {
@@ -147,6 +167,7 @@
     "texto": "La energía eléctrica se pierde y los generadores de respaldo fallan en la OPP.",
     "ok": true,
     "en_cierre": [
+     "energía",
      "eléctrica",
      "generadores",
      "respaldo"
@@ -154,45 +175,61 @@
    },
    {
     "cap": 3,
-    "id": "T13",
-    "texto": "Comienza la evacuación de algunos edificios de la prisión (Templeman 1 y 2) cuando el agua alcanza el nivel del pecho en el interior.",
+    "id": "D06",
+    "texto": "Los generadores de respaldo de la prisión fallaron el 29 de agosto de 2005",
     "ok": false,
     "en_cierre": []
    },
    {
     "cap": 4,
-    "id": "D19",
-    "texto": "Inmediatamente después de la evacuación, 517 reclusos no estaban contabilizados",
+    "id": "T13",
+    "texto": "Comienza la evacuación de algunos edificios de la prisión (Templeman 1 y 2) cuando el agua alcanza el nivel del pecho en el interior.",
     "ok": true,
     "en_cierre": [
-     "estaban"
+     "algunos",
+     "edificios"
     ]
    },
    {
     "cap": 5,
-    "id": "D72",
-    "texto": "Un jurado federal otorga más de $650,000 a dos turistas de Ohio",
+    "id": "T17",
+    "texto": "Se completa la evacuación total de la Prisión Parroquial de Orleans.",
     "ok": true,
     "en_cierre": [
-     "federal"
+     "Parroquial",
+     "Orleans",
+     "evacuación",
+     "Prisión"
     ]
    },
    {
     "cap": 6,
-    "id": "D62",
-    "texto": "No existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina",
-    "ok": true,
-    "en_cierre": [
-     "Prisión"
-    ]
+    "id": "T25",
+    "texto": "El Departamento de Justicia de EE. UU. emite una carta de hallazgos sobre las condiciones en la OPP",
+    "ok": false,
+    "en_cierre": []
    }
   ],
-  "datos_distintos": 41,
-  "palabras": 1397,
+  "datos_distintos": 18,
+  "palabras": 1431,
+  "conteo": "por_id",
+  "caps_con_repetidos_en_cap": [],
+  "caps_fuera_de_adjetivos": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "nombres_sin_accion": [],
+  "densidad_hechos": 1.12,
+  "densidad_regex": 3.08,
   "umbral": {
-   "densidad": true,
-   "repeticion": true,
-   "adjetivacion": true,
+   "densidad": false,
+   "repeticion": false,
+   "adjetivacion": false,
+   "repeticion_en_cap": true,
+   "nombres": true,
    "antagonista": true,
    "cliffhanger": false
   }
@@ -201,21 +238,43 @@
   "densidad_min": 2.0,
   "max_caps_por_dato": 2,
   "trigramas_max": 0.05,
-  "adj_100_max": 3.6
+  "adj_100_min": 2.0,
+  "adj_100_max": 4.0
  },
  "violaciones_narrador": {
+  "1": [
+   "- estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D32] «hasta el pecho»; [D33] «6,500»; [D59] «500»; [T07] «29 de agosto»",
+   "- 10.59 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — devastador, brutal, densa, imparable, atrapados, sofocante, estancado, fría, cruel"
+  ],
+  "2": [
+   "- declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): T04",
+   "- estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D04] «29 de agosto»; [T07] «29 de agosto»",
+   "- densidad 1.44 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "- 5.26 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — devastador, macabro, siguiente, fría, tajante, vibrante, oscura, caudalosos, profunda, inminente"
+  ],
   "3": [
-   "- 4.55 adjetivos/100 palabras (máximo 3.6): sacá adjetivos — impenetrable, sofocante, atrapados, oscuro, insostenibles, ineludible, evidente, desesperada, imparable, abandonados, implacable, inimaginables, mortales",
-   "- más de 2 oraciones seguidas que califican sin dato: cambiá adjetivos por hechos",
-   "- el cierre tiene que anticipar el dato concreto del cap 4: «Comienza la evacuación de algunos edificios de la prisión (Templeman 1 y 2) cuando el agua» (nombralo o dejalo incompleto; nada de retórica genérica)"
+   "- usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T09] «29 de agosto»",
+   "- declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): T09",
+   "- estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D06] «29 de agosto»; [D59] «500»; [D65] «29 de agosto»; [T10] «29 de agosto»; [T11] «29 de agosto»",
+   "- densidad 1.38 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "- 1.84 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "- el cierre tiene que anticipar el dato concreto del cap 4: «Los generadores de respaldo de la prisión fallaron el 29 de agosto de 2005» (nombralo o dejalo incompleto; nada de retórica genérica)"
+  ],
+  "4": [
+   "- usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D06] «29 de agosto»; [T10] «29 de agosto»; [T11] «29 de agosto»",
+   "- declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): T11, T10",
+   "- estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D08] «hasta el pecho»; [D68] «98.7%»",
+   "- densidad 1.03 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "- 5.64 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — sofocante, indistinguibles, atrapados, insoportable, constante, escalofriante, olvidados, flotante, interminable, turbias"
   ],
   "5": [
-   "- nombrá a Ronnie L. Morgan, Jr. por nombre y apellido y con su cargo (Recluso, demandante) la primera vez",
-   "- nombrá a Cornel Hubert por nombre y apellido y con su cargo (Alcaide del Elayn Hunt Correctional Center) la primera vez",
-   "- 5.24 adjetivos/100 palabras (máximo 3.6): sacá adjetivos — escalofriante, minucioso, profunda, macabra, narrativa, atrapadas, vulnerable, motivos, hizo, cruda, tajante, fugitivos, flagrante, inhumano"
+   "- estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D19] «517»; [D59] «500»; [D60] «1 de septiembre»; [D65] «29 de agosto»; [T12] «29 de agosto»; [T23] «1 de septiembre»",
+   "- densidad 0.99 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "- 4.29 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — eterna, cruel, siguiente, fangosa, desgarradora, turbias, sombría, inquietante, vigilante, aterrador, profundo, alarmantes, oscuro"
   ],
-  "7": [
-   "- densidad 1.88 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
+  "6": [
+   "- estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D38] «2 de septiembre»; [D66] «2 de septiembre»; [D69] «650,000»",
+   "- el cierre tiene que anticipar el dato concreto del cap 7: «El Departamento de Justicia de EE. UU. emite una carta de hallazgos sobre las condiciones » (nombralo o dejalo incompleto; nada de retórica genérica)"
   ]
  }
 }

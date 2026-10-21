@@ -1,0 +1,445 @@
+{
+ "plan": {
+  "chapter_number": 5,
+  "title_card": {
+   "kicker": "CAPÍTULO 5",
+   "title": "Los Desaparecidos y los Cuerpos"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [
+   {
+    "kicker": "2010",
+    "headline": "federal otorga más de $650,000 a dos turistas de Ohio",
+    "body": "",
+    "scene_idx": 14,
+    "fact_idx": null,
+    "pool_id": "D72",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 102.879,
+    "duration": 6.0,
+    "side": "left",
+    "icon": "balanza"
+   },
+   {
+    "kicker": "2010",
+    "headline": "650,000 dólares a Robie Waganfeald y Paul Kunkel Jr",
+    "body": "",
+    "scene_idx": 11,
+    "fact_idx": null,
+    "pool_id": "T26",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 82.909,
+    "duration": 6.0,
+    "side": "left",
+    "icon": "balanza"
+   }
+  ],
+  "evidence_zoom": null,
+  "punch_in": [
+   5.825,
+   18.306,
+   41.188,
+   46.181
+  ],
+  "chapter_question": {
+   "text": "¿Qué halló el jurado federal?",
+   "start": 111.033,
+   "duration": 3.0,
+   "keyword": "federal",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "escalofriante",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": "candado",
+    "icon_anim": "stamp",
+    "start": 5.825,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 2,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": true
+   },
+   {
+    "word": "cadáveres",
+    "category": "muerte",
+    "layer": "muerte",
+    "icon": "calavera",
+    "icon_anim": "ink_bleed",
+    "start": 34.116,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "peak": true,
+    "icon_callout": true
+   },
+   {
+    "word": "abandono",
+    "category": "frio_abandono",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 98.187,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 15,
+    "rarity": 3,
+    "weight": 2,
+    "sfx": {
+     "file": "viento.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "id": "D19",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D60",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 30.9s"
+   },
+   {
+    "id": "D61",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "Q02",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D08",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T17",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 96.2s"
+   },
+   {
+    "id": "D72",
+    "bloque": "recorte",
+    "ahora": "federal otorga más de $650,000 a dos turistas de Ohio",
+    "kicker": "2010",
+    "fuente": null,
+    "icono": "balanza",
+    "icono_faltante": null,
+    "opciones": [
+     "federal otorga más de $650,000 a dos turistas de Ohio",
+     "otorga más de $650,000 a dos turistas de Ohio",
+     "$650,000 a dos turistas de Ohio"
+    ]
+   },
+   {
+    "id": "T26",
+    "bloque": "recorte",
+    "ahora": "650,000 dólares a Robie Waganfeald y Paul Kunkel Jr",
+    "kicker": "2010",
+    "fuente": null,
+    "icono": "balanza",
+    "icono_faltante": null,
+    "opciones": [
+     "650,000 dólares a Robie Waganfeald y Paul Kunkel Jr",
+     "dólares a Robie Waganfeald y Paul Kunkel Jr",
+     "Robie Waganfeald y Paul Kunkel Jr"
+    ]
+   }
+  ],
+  "pico": {
+   "t": 34.116,
+   "block": "emphasis",
+   "word": "cadáveres",
+   "sentence": "Reclusos de la sección 'Templeman III' informaron haber visto cadáveres flotando en las aguas de la inundación mientras eran evacuados el 1 de septiembre, una visión macabra que contradecía cualquier narrativa de control.",
+   "palabra": "cadáveres"
+  },
+  "time_ticker": null,
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R2"
+   },
+   "9": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "10": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "12": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "13": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "15": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 1,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 2,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 3,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 4,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 5,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 6,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 7,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 8,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 9,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 10,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 11,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 12,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 13,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 14,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 15,
+     "forma": "alejar",
+     "motivo": "cierre del cap"
+    }
+   ],
+   "violaciones": []
+  },
+  "iconos_auto": [],
+  "black_hold": {
+   "start": 114.033,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 5.825,
+    "t_frame": 6.825,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "escalofriante",
+    "veredicto": "suma",
+    "motivo": "El ícono de candado y el tinte refuerzan la sensación de encierro y peligro que justifica el adjetivo 'escalofriante' de la voz, sin tapar elementos clave. La p",
+    "pasa": true,
+    "voz": "La respuesta fue escalofriante."
+   },
+   {
+    "t": 34.116,
+    "t_frame": 35.116,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "cadáveres",
+    "veredicto": "suma",
+    "motivo": "El bloque enfatiza visualmente la palabra clave 'CADÁVERES' de la voz en off con un ícono y texto, sin que la imagen muestre cadáveres, y se ubica en una zona q",
+    "pasa": true,
+    "voz": "Reclusos de la sección 'Templeman III' informaron haber visto cadáveres flotando en las aguas de la inundación mientras eran evacuados el 1 de septiembre, una visión macabra que contradecía cualquier narrativa de control."
+   },
+   {
+    "t": 47.429,
+    "t_frame": 48.429,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "infierno",
+    "veredicto": "estorba",
+    "motivo": "El ícono de llama y el tinte de fuego contradicen directamente la imagen de una prisión inundada y el concepto de 'infierno acuático' de la voz.",
+    "pasa": false,
+    "voz": "Entre los miles de personas atrapadas en este infierno acuático, había una población especialmente vulnerable: niños de hasta 10 años, encarcelados por diversos motivos."
+   },
+   {
+    "t": 51.236,
+    "t_frame": 52.236,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "Figura central",
+    "veredicto": "estorba",
+    "motivo": "El zoom en la 'Figura central' (un adulto) contradice y distrae del tema de los niños vulnerables que menciona la voz en off.",
+    "pasa": false,
+    "voz": "Entre los miles de personas atrapadas en este infierno acuático, había una población especialmente vulnerable: niños de hasta 10 años, encarcelados por diversos motivos."
+   },
+   {
+    "t": 82.909,
+    "t_frame": 83.909,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "650,000 dólares a Robie Waganfeald y Paul Kunkel Jr",
+    "veredicto": "suma",
+    "motivo": "Aporta datos específicos (nombres, monto, fecha) y un ícono de justicia que complementan la mención de contradicciones y órdenes de arresto en la voz, sin repet",
+    "pasa": true,
+    "voz": "Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos, una contradicción flagrante que socavaba su propia versión de los hechos."
+   },
+   {
+    "t": 98.187,
+    "t_frame": 99.187,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "abandono",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza la atmósfera de la imagen sin obstruir elementos importantes.",
+    "pasa": true,
+    "voz": "La deshumanización y el abandono en la Prisión Parroquial de Orleans no pasarían desapercibidos para siempre."
+   },
+   {
+    "t": 102.879,
+    "t_frame": 103.879,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "federal otorga más de $650,000 a dos turistas de Ohio",
+    "veredicto": "suma",
+    "motivo": "El bloque introduce un ejemplo concreto de una consecuencia legal (indemnización federal) y una fecha, complementando la idea de que el abandono no pasaría desa",
+    "pasa": true,
+    "voz": "La deshumanización y el abandono en la Prisión Parroquial de Orleans no pasarían desapercibidos para siempre."
+   }
+  ]
+ },
+ "rejected": []
+}

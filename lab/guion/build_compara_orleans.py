@@ -2,6 +2,9 @@
 
 v1 y v2 lado a lado por cap (datos del pool resaltados en el texto), métricas de §1.5 por cap y por video, y el
 evidence_pool completo con la marca de qué versión usó cada dato. Sin servidor: un HTML autocontenido.
+F5b: la tabla por video suma la columna «v2 F5» (la v2 de F5 medida con el pool nuevo, por regex) y las métricas
+nuevas (conteo por id declarado, piso/techo de adjetivos, repetición dentro del cap, nombres sin acción); al final, lo
+que el filtro del pool sacó (N1 no relacionado, N5 sin acción).
 Uso: PYTHONIOENCODING=utf-8 python lab/guion/build_compara_orleans.py
 """
 from __future__ import annotations
@@ -58,6 +61,9 @@ def main() -> None:
     pool = _load(STEPS / V2 / "01_facts_sources.json")["evidence_pool"]
     its = ev.items(pool)
     j1, j2 = _load(STEPS / V2 / "06_judge_narrative_v1.json"), _load(STEPS / V2 / "06_judge_narrative.json")
+    f5 = STEPS / V2 / "06_judge_narrative_v2f5.json"
+    j5 = _load(f5) if f5.exists() else None
+    dec2 = {c["chapter_number"]: c.get("datos_usados") for c in _load(STEPS / V2 / "01b_narration.json")["chapters"]}
     n1 = {c["chapter_number"]: c["narration"] for c in _load(STEPS / V1 / "01b_narration.json")["chapters"]}
     n2 = {c["chapter_number"]: c["narration"] for c in _load(STEPS / V2 / "01b_narration.json")["chapters"]}
     sk1, sk2 = _load(STEPS / V1 / "01a_skeleton.json"), _load(STEPS / V2 / "01a_skeleton.json")
@@ -65,22 +71,34 @@ def main() -> None:
     used2 = {i for c in j2["caps"] for i in c["datos_usados"]}
     cliffs = {c["cap"]: c for c in j2["video"].get("cliffhangers") or []}
 
-    def vrow(name, a, b, fmt=str, good=None):
-        return (f"<tr><th>{name}</th><td>{fmt(a)}</td><td>{fmt(b)}</td>"
-                f"<td>{'' if good is None else good}</td></tr>")
     v1, v2 = j1["video"], j2["video"]
-    rep = lambda v: ", ".join(f"{ev.anchors(its[i])[0] if ev.anchors(its[i]) else i} ({len(c)} caps)"  # noqa: E731
+    v5 = j5["video"] if j5 else None
+    cols = [v1] + ([v5] if v5 else []) + [v2]
+
+    def vrow(name, f):
+        return f"<tr><th>{name}</th>" + "".join(f"<td>{f(v)}</td>" for v in cols) + "</tr>"
+    rep = lambda v: ", ".join(f"{ev.anchors(its[i])[0] if i in its and ev.anchors(its[i]) else i} ({len(c)} caps)"  # noqa: E731
                               for i, c in v["datos_en_mas_de_2_caps"].items()) or "ninguno"
+    ncaps = lambda key: (lambda v: ", ".join(map(str, v.get(key) or [])) or "ninguno")  # noqa: E731
     video_tbl = "".join([
-        vrow("Densidad (datos/100 palabras, umbral ≥ 2.0)", v1["densidad"], v2["densidad"]),
-        vrow("Adjetivos/100 palabras (umbral ≤ 3.6, ver DECISIONES J18)", v1["adj_100"], v2["adj_100"]),
-        vrow("3-gramas repetidos entre caps (umbral < 5 %)", f"{v1['trigramas_repetidos']:.1%}", f"{v2['trigramas_repetidos']:.1%}"),
-        vrow("Datos en más de 2 caps", rep(v1), rep(v2)),
-        vrow("Antagonista nombrado", _ok(v1["antagonista_nombrado"]), _ok(v2["antagonista_nombrado"])),
-        vrow("Datos distintos del pool usados", v1["datos_distintos"], v2["datos_distintos"]),
-        vrow("Palabras", v1["palabras"], v2["palabras"]),
-        vrow("Umbrales que pasa", sum(1 for x in v1["umbral"].values() if x), sum(1 for x in v2["umbral"].values() if x)),
+        vrow("Conteo de datos", lambda v: "por id declarado" if v.get("conteo") == "por_id" else "regex (sin declaración)"),
+        vrow("Densidad (datos/100 palabras, umbral ≥ 2.0)", lambda v: v["densidad"]),
+        vrow("Densidad por regex (la medición de F5)", lambda v: v.get("densidad_regex", v["densidad"])),
+        vrow("Densidad por hecho (anclas distintas que suenan)", lambda v: v.get("densidad_hechos", "—")),
+        vrow("Adjetivos/100 palabras (F5b: entre 2 y 4)", lambda v: v["adj_100"]),
+        vrow("Caps fuera de 2–4 adjetivos/100", ncaps("caps_fuera_de_adjetivos")),
+        vrow("Caps con un dato repetido dentro del cap", ncaps("caps_con_repetidos_en_cap")),
+        vrow("3-gramas repetidos entre caps (umbral < 5 %)", lambda v: f"{v['trigramas_repetidos']:.1%}"),
+        vrow("Datos en más de 2 caps", rep),
+        vrow("Nombres sin acción en la historia", lambda v: ", ".join(v.get("nombres_sin_accion") or []) or "ninguno"),
+        vrow("Antagonista nombrado", lambda v: _ok(v["antagonista_nombrado"])),
+        vrow("Cliffhangers con el dato en el cierre", lambda v: f"{sum(1 for c in v.get('cliffhangers') or [] if c['ok'])}"
+                                                               f" de {len(v.get('cliffhangers') or [])}"),
+        vrow("Datos distintos del pool usados", lambda v: v["datos_distintos"]),
+        vrow("Palabras", lambda v: v["palabras"]),
+        vrow("Umbrales que pasa", lambda v: f"{sum(1 for x in v['umbral'].values() if x)} de {len(v['umbral'])}"),
     ])
+    video_head = "<tr><th></th><th>v1</th>" + ("<th>v2 F5</th>" if v5 else "") + "<th>v2 F5b</th></tr>"
     caps_html = []
     for k in range(1, 8):
         c1, c2 = j1["caps"][k - 1], j2["caps"][k - 1]
@@ -91,12 +109,18 @@ def main() -> None:
                  f'{_ok(cl["ok"])} en el cierre</p>') if cl else ""
         metr = lambda c: (f'<p class="m">densidad <b>{c["densidad"]}</b> · adjetivos <b>{c["adj_100"]}</b>/100 · '  # noqa: E731
                           f'3-gramas repetidos <b>{c["trigramas_repetidos"]:.0%}</b> · {c["palabras"]} palabras · '
-                          f'{len(c["datos_usados"])} datos</p>')
+                          f'{len(c["datos_usados"])} datos ({"por id" if c.get("conteo") == "por_id" else "regex"})'
+                          + (" · repetidos en el cap: " + ", ".join(f"«{f}» ×{n}" for f, n in c["repetidos_en_cap"])
+                             if c.get("repetidos_en_cap") else "")
+                          + (" · nombres sin acción: " + ", ".join(c["nombres_sin_accion"])
+                             if c.get("nombres_sin_accion") else "") + '</p>')
+        decl = (f'<p class="m">ids declarados por el narrador: {", ".join(dec2.get(k) or []) or "—"}</p>'
+                if dec2.get(k) is not None else "")
         caps_html.append(f"""
 <section class="cap"><h2>Cap {k}</h2>
 <div class="pair">
  <div><h3>v1 · {html.escape(t1)}</h3>{metr(c1)}<p class="txt">{highlight(n1[k], c1['datos_usados'], its)}</p></div>
- <div><h3>v2 · {html.escape(t2)}</h3>{metr(c2)}<p class="txt">{highlight(n2[k], c2['datos_usados'], its)}</p>{cliff}</div>
+ <div><h3>v2 F5b · {html.escape(t2)}</h3>{metr(c2)}{decl}<p class="txt">{highlight(n2[k], c2['datos_usados'], its)}</p>{cliff}</div>
 </div></section>""")
     rows = []
     lab = {"datos": "dato", "cronologia": "evento", "citas": "cita", "lugares": "lugar", "personajes": "persona"}
@@ -109,6 +133,9 @@ def main() -> None:
                     f"{' · ' + it.get('tipo', '') if it.get('tipo') else ''}</td><td>{html.escape(ev.text_of(it))}</td>"
                     f"<td>{html.escape(it.get('fecha') or '')}</td><td>{html.escape((it.get('fuente') or '')[:60])}</td>"
                     f"<td>{', '.join(map(str, caps1)) or ''}</td><td>{', '.join(map(str, caps2)) or ''}</td></tr>")
+    desc = "".join(f"<tr><td>{html.escape(d.get('kind') or '')}</td><td>{html.escape(d.get('texto') or '')}</td>"
+                   f"<td>{html.escape(d.get('bloque') or '')}</td><td>{html.escape(d.get('motivo') or '')}</td></tr>"
+                   for d in pool.get("_descartados") or [])
     pers = "".join(f"<li><b>{html.escape(p['nombre'])}</b> — {html.escape(p.get('rol') or '')}"
                    f"{' · <b>antagonista</b>' if p.get('antagonista') else ''} (entra en el cap {p.get('entra_en_cap')})</li>"
                    for p in sk2.get("personajes") or [])
@@ -129,14 +156,17 @@ mark sup{{font-size:9px;color:var(--mut);margin-left:1px}} .cliff{{font-size:13p
 .scroll{{overflow-x:auto}} @media (max-width:760px){{.pair{{grid-template-columns:1fr}}}}
 </style></head><body><main>
 <h1>Orleans — guion v1 vs v2</h1>
-<p class="sub">F5 §3. v1 = el guion producido (10 verified_facts). v2 = mismo research, con todo el evidence_pool
+<p class="sub">F5b. v1 = el guion producido (10 verified_facts). v2 F5b = mismo research, con todo el evidence_pool
 ({sum(1 for x in its.values() if x['_kind'] in ('datos','cronologia','citas'))} datos, eventos y citas). Las métricas usan el mismo pool para
-las dos versiones. Datos resaltados en el texto: <mark>así</mark> (el número chico es el id del pool).</p>
-<h2>Por video</h2><div class="scroll"><table><thead><tr><th></th><th>v1</th><th>v2</th><th></th></tr></thead><tbody>{video_tbl}</tbody></table></div>
+las versiones (la columna «v2 F5» es la v2 de F5, medida por regex con el pool nuevo: no declaraba ids). Datos
+resaltados en el texto: <mark>así</mark> (el número chico es el id del pool).</p>
+<h2>Por video</h2><div class="scroll"><table><thead>{video_head}</thead><tbody>{video_tbl}</tbody></table></div>
 <h2>Personajes de v2</h2><ul>{pers}</ul>
 {''.join(caps_html)}
 <h2>evidence_pool — qué dato usó cada versión</h2><div class="scroll"><table><thead><tr><th>id</th><th>tipo</th><th>texto (literal del research)</th><th>fecha</th><th>fuente</th><th>caps v1</th><th>caps v2</th></tr></thead>
 <tbody>{''.join(rows)}</tbody></table></div>
+<h2>Lo que el filtro del pool sacó (F5b N1 y N5)</h2><div class="scroll"><table><thead><tr><th>tipo</th><th>texto</th><th>bloque</th><th>motivo</th></tr></thead>
+<tbody>{desc or '<tr><td colspan="4">nada</td></tr>'}</tbody></table></div>
 </main></body></html>"""
     OUT.write_text(page, encoding="utf-8")
     print(f"{OUT} · v1 usa {len(used1)} datos del pool, v2 usa {len(used2)}")

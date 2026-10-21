@@ -1,0 +1,270 @@
+{
+ "plan": {
+  "chapter_number": 7,
+  "title_card": {
+   "kicker": "CAPÍTULO 7",
+   "title": "El Legado de la Indiferencia"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [],
+  "evidence_zoom": null,
+  "punch_in": [
+   24.199,
+   26.719,
+   39.319,
+   45.759
+  ],
+  "chapter_question": null,
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "fría",
+    "category": "frio_abandono",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 26.719,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 3,
+    "rarity": 2,
+    "weight": 3,
+    "sfx": {
+     "file": "viento.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "borrados",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 39.319,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 4,
+    "rarity": 2,
+    "weight": 3,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "cadáveres",
+    "category": "muerte",
+    "layer": "muerte",
+    "icon": "calavera",
+    "icon_anim": "ink_bleed",
+    "start": 45.759,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 5,
+    "rarity": 2,
+    "weight": 3,
+    "icon_callout": true
+   },
+   {
+    "word": "abandono",
+    "category": "frio_abandono",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 63.559,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "weight": 2,
+    "peak_word": true,
+    "sfx": {
+     "file": "viento.wav",
+     "gain_db": -20
+    },
+    "peak": true,
+    "icon_callout": false
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "bloque": "recorte@20.379",
+    "antes": "Aproximadamente 6,500 personas",
+    "ahora": null,
+    "motivo": "ningún fragmento del fact suma a la voz (con kicker posible y literal)"
+   },
+   {
+    "bloque": "dato@8.1",
+    "antes": "Robie Waganfeald y Paul Kunkel Jr.",
+    "ahora": null,
+    "motivo": "la voz lo dice"
+   }
+  ],
+  "pico": {
+   "t": 63.559,
+   "block": "emphasis",
+   "word": "abandono",
+   "sentence": "Este oscuro capítulo en la historia de Nueva Orleans es un monumento a un abandono institucional, el costo tangible de una sociedad que elige mirar hacia otro lado.",
+   "intensity": 1.0,
+   "sentence_idx": 7,
+   "palabra": "abandono"
+  },
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   }
+  },
+  "identity": {
+   "movimientos": [],
+   "violaciones": []
+  },
+  "iconos_auto": [],
+  "outro_bug": {
+   "start": 76.4,
+   "duration": 3.5
+  },
+  "critico": [
+   {
+    "t": 26.719,
+    "t_frame": 27.719,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "fría",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera de la imagen sin repetir información visual o textual de forma redundant",
+    "pasa": true,
+    "voz": "El agua, fría y putrefacta, subió hasta el pecho en celdas sumidas en una oscuridad total."
+   },
+   {
+    "t": 29.599,
+    "t_frame": 30.599,
+    "dur": 3.44,
+    "bloque": "dato",
+    "texto": "el nivel del pecho",
+    "veredicto": "repite",
+    "motivo": "El bloque de texto repite exactamente la información sobre el nivel del agua que ya menciona la voz en off.",
+    "pasa": false,
+    "voz": "El agua, fría y putrefacta, subió hasta el pecho en celdas sumidas en una oscuridad total."
+   },
+   {
+    "t": 39.319,
+    "t_frame": 40.319,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "borrados",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, reforzando visualmente la idea de registros perdidos en un libro dañado, y el tinte añade atmósfera sin tapar inf",
+    "pasa": true,
+    "voz": "Más de quinientos prisioneros jamás figuraron en los registros de evacuación, borrados por el caos y el olvido."
+   },
+   {
+    "t": 45.759,
+    "t_frame": 46.759,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "cadáveres",
+    "veredicto": "suma",
+    "motivo": "El bloque enfatiza visualmente la palabra clave 'CADÁVERES' y el horror descrito por la voz, que no se ve en la imagen, añadiendo impacto y contexto sin repetir",
+    "pasa": true,
+    "voz": "Los escalofriantes relatos de reclusos, que vieron cadáveres flotando mientras eran evacuados, resuenan como un eco fantasmal."
+   },
+   {
+    "t": 45.783,
+    "t_frame": 46.783,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "rostro del hombre",
+    "veredicto": "repite",
+    "motivo": "El bloque de texto 'rostro del hombre' describe algo que la imagen ya muestra de forma evidente y que el zoom solo enfatiza, sin añadir información nueva o un m",
+    "pasa": false,
+    "voz": "Los escalofriantes relatos de reclusos, que vieron cadáveres flotando mientras eran evacuados, resuenan como un eco fantasmal."
+   },
+   {
+    "t": 56.759,
+    "t_frame": 57.759,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "marea",
+    "veredicto": "repite",
+    "motivo": "El ícono de gota y el tinte de agua repiten lo que la imagen ya muestra, y la palabra 'MAREA' es mencionada explícitamente por la voz.",
+    "pasa": false,
+    "voz": "¿Cuántas vidas se perdieron realmente, cuántas más fueron tragadas por esa marea de negligencia?"
+   },
+   {
+    "t": 63.559,
+    "t_frame": 64.559,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "abandono",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetirla como frase, y el tinte de mood refuerza la atmósfera de la imagen y el mensaje.",
+    "pasa": true,
+    "voz": "Este oscuro capítulo en la historia de Nueva Orleans es un monumento a un abandono institucional, el costo tangible de una sociedad que elige mirar hacia otro lado."
+   }
+  ]
+ },
+ "rejected": []
+}

@@ -3,86 +3,111 @@
   "chapter_number": 5,
   "title_card": {
    "kicker": "CAPÍTULO 5",
-   "title": "Los Desaparecidos y los Cuerpos"
+   "title": "El Misterio de los Desaparecidos"
   },
   "callouts": [],
-  "count_up": null,
+  "count_up": {
+   "value_text": "500",
+   "unit": "prisioneros",
+   "start": 80.655,
+   "fact_idx": 7,
+   "source": "Human Rights Watch, 2005"
+  },
   "archive_clippings": [
    {
-    "kicker": "2010",
-    "headline": "federal otorga más de $650,000 a dos turistas de Ohio",
+    "kicker": "2005",
+    "headline": "el agua alcanza el nivel del pecho en el interior",
     "body": "",
-    "scene_idx": 14,
+    "scene_idx": 3,
     "fact_idx": null,
-    "pool_id": "D72",
+    "pool_id": "T13",
     "fuente": null,
     "era_decade": 2000,
-    "start": 102.879,
+    "start": 23.53,
     "duration": 6.0,
-    "side": "left",
-    "icon": "balanza"
+    "side": "left"
    },
    {
-    "kicker": "2010",
-    "headline": "650,000 dólares a Robie Waganfeald y Paul Kunkel Jr",
+    "kicker": "2005",
+    "headline": "el sheriff Marlin Gusman solicita ayuda para la evacuación",
     "body": "",
-    "scene_idx": 11,
+    "scene_idx": 1,
     "fact_idx": null,
-    "pool_id": "T26",
+    "pool_id": "T12",
     "fuente": null,
     "era_decade": 2000,
-    "start": 82.909,
+    "start": 10.332,
     "duration": 6.0,
-    "side": "left",
-    "icon": "balanza"
+    "side": "right"
    }
   ],
   "evidence_zoom": null,
   "punch_in": [
-   5.825,
-   18.306,
-   41.188,
-   46.181
+   34.095,
+   41.794,
+   63.424,
+   108.884
   ],
   "chapter_question": {
-   "text": "¿Qué halló el jurado federal?",
+   "text": "¿Quién abandonó a los de Orleans?",
    "start": 111.033,
    "duration": 3.0,
-   "keyword": "federal",
+   "keyword": "abandonó",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "escalofriante",
-    "category": "oscuridad_encierro",
-    "layer": "oscuridad",
-    "icon": "candado",
+    "word": "horror",
+    "category": "caos_gritos",
+    "layer": "minima",
+    "icon": null,
     "icon_anim": "stamp",
-    "start": 5.825,
+    "start": 41.794,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
-    "sid": 2,
-    "rarity": 1,
+    "sid": 5,
+    "rarity": 2,
     "weight": 3,
-    "icon_callout": true
+    "sfx": {
+     "file": "rumor.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
    },
    {
-    "word": "cadáveres",
+    "word": "cuerpos",
     "category": "muerte",
     "layer": "muerte",
     "icon": "calavera",
     "icon_anim": "ink_bleed",
-    "start": 34.116,
+    "start": 63.424,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
     "weight": 3,
-    "peak_word": true,
-    "peak": true,
-    "icon_callout": true
+    "peak_word": true
+   },
+   {
+    "word": "desaparecidos",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 77.356,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 10,
+    "rarity": 2,
+    "weight": 2,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
    },
    {
     "word": "abandono",
@@ -90,11 +115,11 @@
     "layer": "minima",
     "icon": null,
     "icon_anim": "press_wipe",
-    "start": 98.187,
+    "start": 93.487,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
-    "sid": 15,
+    "sid": 13,
     "rarity": 3,
     "weight": 2,
     "sfx": {
@@ -107,78 +132,69 @@
   "gap_warnings": [],
   "fragmentos": [
    {
-    "id": "D19",
+    "id": "T15",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+    "motivo": "no entra sin pisar otro bloque @ 44.1s"
    },
    {
-    "id": "D60",
+    "id": "D43",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 30.9s"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
-    "id": "D61",
+    "id": "T13",
     "bloque": "recorte",
-    "ahora": null,
-    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
-   },
-   {
-    "id": "Q02",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
-   },
-   {
-    "id": "D08",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
-   },
-   {
-    "id": "T17",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 96.2s"
-   },
-   {
-    "id": "D72",
-    "bloque": "recorte",
-    "ahora": "federal otorga más de $650,000 a dos turistas de Ohio",
-    "kicker": "2010",
+    "ahora": "el agua alcanza el nivel del pecho en el interior",
+    "kicker": "2005",
     "fuente": null,
-    "icono": "balanza",
+    "icono": null,
     "icono_faltante": null,
     "opciones": [
-     "federal otorga más de $650,000 a dos turistas de Ohio",
-     "otorga más de $650,000 a dos turistas de Ohio",
-     "$650,000 a dos turistas de Ohio"
+     "Comienza la evacuación de algunos edificios de la prisión",
+     "Comienza la evacuación de algunos edificios",
+     "el agua alcanza el nivel del pecho en el interior"
     ]
    },
    {
-    "id": "T26",
+    "id": "T12",
     "bloque": "recorte",
-    "ahora": "650,000 dólares a Robie Waganfeald y Paul Kunkel Jr",
-    "kicker": "2010",
+    "ahora": "el sheriff Marlin Gusman solicita ayuda para la evacuación",
+    "kicker": "2005",
     "fuente": null,
-    "icono": "balanza",
+    "icono": null,
     "icono_faltante": null,
     "opciones": [
-     "650,000 dólares a Robie Waganfeald y Paul Kunkel Jr",
-     "dólares a Robie Waganfeald y Paul Kunkel Jr",
-     "Robie Waganfeald y Paul Kunkel Jr"
+     "el sheriff Marlin Gusman solicita ayuda para la evacuación",
+     "el sheriff Marlin Gusman solicita ayuda"
     ]
    }
   ],
   "pico": {
-   "t": 34.116,
-   "block": "emphasis",
-   "word": "cadáveres",
-   "sentence": "Reclusos de la sección 'Templeman III' informaron haber visto cadáveres flotando en las aguas de la inundación mientras eran evacuados el 1 de septiembre, una visión macabra que contradecía cualquier narrativa de control.",
-   "palabra": "cadáveres"
+   "t": 55.359,
+   "block": "evidence_zoom",
+   "word": "desgarradora",
+   "sentence": "Al salir de sus celdas anegadas, se toparon con una visión desgarradora que quedaría grabada para siempre en su memoria: algunos reportaron haber visto cadáveres flotando en las aguas turbias de la prisión, cuerpos inertes arrastrados por la inundación.",
+   "intensity": 0.9,
+   "sentence_idx": 7,
+   "palabra": "cuerpos",
+   "block_quitado_por_critico": true
   },
-  "time_ticker": null,
+  "time_ticker": {
+   "day": "29",
+   "month": "AGO",
+   "tail": "medianoche",
+   "times": [
+    "medianoche"
+   ],
+   "advance": false,
+   "source_text": "A la medianoche, el sheriff Marlin Gusman solicita ayuda para la evacuación.",
+   "pool_id": "T12",
+   "start": 29.83,
+   "duration": -6.0,
+   "side": "left"
+  },
   "transitions": {
    "1": {
     "kind": "dissolve",
@@ -225,13 +241,13 @@
    "8": {
     "kind": "cut",
     "frames": 0,
-    "why": "después del zoom",
+    "why": "≥ 1 corte cada 3",
     "rank": "R2"
    },
    "9": {
-    "kind": "flash",
-    "frames": 3,
-    "why": "impacto",
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
     "rank": "R1"
    },
    "10": {
@@ -356,88 +372,98 @@
    ],
    "violaciones": []
   },
-  "iconos_auto": [],
   "black_hold": {
    "start": 114.033,
    "duration": 1.0
   },
   "critico": [
    {
-    "t": 5.825,
-    "t_frame": 6.825,
-    "dur": 2.5,
-    "bloque": "icono",
-    "texto": "escalofriante",
-    "veredicto": "suma",
-    "motivo": "El ícono de candado y el tinte refuerzan la sensación de encierro y peligro que justifica el adjetivo 'escalofriante' de la voz, sin tapar elementos clave. La p",
-    "pasa": true,
-    "voz": "La respuesta fue escalofriante."
-   },
-   {
-    "t": 34.116,
-    "t_frame": 35.116,
-    "dur": 2.5,
-    "bloque": "icono",
-    "texto": "cadáveres",
-    "veredicto": "suma",
-    "motivo": "El bloque enfatiza visualmente la palabra clave 'CADÁVERES' de la voz en off con un ícono y texto, sin que la imagen muestre cadáveres, y se ubica en una zona q",
-    "pasa": true,
-    "voz": "Reclusos de la sección 'Templeman III' informaron haber visto cadáveres flotando en las aguas de la inundación mientras eran evacuados el 1 de septiembre, una visión macabra que contradecía cualquier narrativa de control."
-   },
-   {
-    "t": 47.429,
-    "t_frame": 48.429,
-    "dur": 2.5,
-    "bloque": "icono",
-    "texto": "infierno",
-    "veredicto": "estorba",
-    "motivo": "El ícono de llama y el tinte de fuego contradicen directamente la imagen de una prisión inundada y el concepto de 'infierno acuático' de la voz.",
-    "pasa": false,
-    "voz": "Entre los miles de personas atrapadas en este infierno acuático, había una población especialmente vulnerable: niños de hasta 10 años, encarcelados por diversos motivos."
-   },
-   {
-    "t": 51.236,
-    "t_frame": 52.236,
-    "dur": 2.85,
-    "bloque": "zoom",
-    "texto": "Figura central",
-    "veredicto": "estorba",
-    "motivo": "El zoom en la 'Figura central' (un adulto) contradice y distrae del tema de los niños vulnerables que menciona la voz en off.",
-    "pasa": false,
-    "voz": "Entre los miles de personas atrapadas en este infierno acuático, había una población especialmente vulnerable: niños de hasta 10 años, encarcelados por diversos motivos."
-   },
-   {
-    "t": 82.909,
-    "t_frame": 83.909,
+    "t": 10.332,
+    "t_frame": 11.332,
     "dur": 6.0,
     "bloque": "recorte",
-    "texto": "650,000 dólares a Robie Waganfeald y Paul Kunkel Jr",
+    "texto": "el sheriff Marlin Gusman solicita ayuda para la evacuación",
     "veredicto": "suma",
-    "motivo": "Aporta datos específicos (nombres, monto, fecha) y un ícono de justicia que complementan la mención de contradicciones y órdenes de arresto en la voz, sin repet",
+    "motivo": "El bloque aporta un dato específico (nombre del sheriff, año) y la acción de solicitar ayuda para la evacuación, que contextualiza y enriquece la mención de 're",
     "pasa": true,
-    "voz": "Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos, una contradicción flagrante que socavaba su propia versión de los hechos."
+    "voz": "La agonía en las profundidades de la prisión parecía eterna, pero un atisbo de movimiento se aproximaba, aunque el rescate llegó tarde y manchado por un velo de misterio."
    },
    {
-    "t": 98.187,
-    "t_frame": 99.187,
+    "t": 23.53,
+    "t_frame": 24.53,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "el agua alcanza el nivel del pecho en el interior",
+    "veredicto": "suma",
+    "motivo": "Aporta un detalle visual y concreto sobre la magnitud del desastre (el nivel del agua) que la voz solo insinúa con 'selló el destino de muchos', sin tapar eleme",
+    "pasa": true,
+    "voz": "Gusman no se realizó hasta la medianoche del 29 de agosto de 2005, una demora cruel que selló el destino de muchos."
+   },
+   {
+    "t": 41.794,
+    "t_frame": 42.794,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "horror",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera ominosa de la imagen, añadiendo una capa emocional que complementa el au",
+    "pasa": true,
+    "voz": "Pero el horror no se detuvo con el escape."
+   },
+   {
+    "t": 57.05,
+    "t_frame": 58.05,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "desgarradora",
+    "veredicto": "estorba",
+    "motivo": "El zoom no muestra la evidencia específica (cadáveres flotando) que la voz describe como 'desgarradora', creando una disonancia entre audio y visual.",
+    "pasa": false,
+    "voz": "Al salir de sus celdas anegadas, se toparon con una visión desgarradora que quedaría grabada para siempre en su memoria: algunos reportaron haber visto cadáveres flotando en las aguas turbias de la prisión, cuerpos inertes arrastrados por la inundación."
+   },
+   {
+    "t": 63.424,
+    "t_frame": 64.424,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "cuerpos",
+    "veredicto": "suma",
+    "motivo": "El bloque enfatiza la palabra clave 'CUERPOS' que la voz menciona, y el tinte de 'muerte' refuerza la visión desgarradora descrita, sin que la imagen muestre ex",
+    "pasa": true,
+    "voz": "Al salir de sus celdas anegadas, se toparon con una visión desgarradora que quedaría grabada para siempre en su memoria: algunos reportaron haber visto cadáveres flotando en las aguas turbias de la prisión, cuerpos inertes arrastrados por la inundación."
+   },
+   {
+    "t": 77.356,
+    "t_frame": 78.356,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "desaparecidos",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetirla textualmente, y el tinte refuerza el mood desolador de la imagen.",
+    "pasa": true,
+    "voz": "Human Rights Watch, una organización vigilante, registró a 517 prisioneros como \"desaparecidos\", almas borradas de los registros oficiales."
+   },
+   {
+    "t": 80.655,
+    "t_frame": 81.655,
+    "dur": 3.7,
+    "bloque": "contador",
+    "texto": "500",
+    "veredicto": "suma",
+    "motivo": "El contador visualiza y enfatiza el número de víctimas mencionado por la voz, añadiendo impacto y especificando 'prisioneros' de forma explícita.",
+    "pasa": true,
+    "voz": "Más de 500 individuos que simplemente no figuraban en las listas de evacuados de la cárcel, un número aterrador que nunca tuvo una explicación."
+   },
+   {
+    "t": 93.487,
+    "t_frame": 94.487,
     "dur": 2.5,
     "bloque": "sello",
     "texto": "abandono",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza la atmósfera de la imagen sin obstruir elementos importantes.",
+    "motivo": "El sello enfatiza una palabra clave de la voz en off, y el tinte refuerza el ambiente sombrío y de abandono que ya transmite la imagen.",
     "pasa": true,
-    "voz": "La deshumanización y el abandono en la Prisión Parroquial de Orleans no pasarían desapercibidos para siempre."
-   },
-   {
-    "t": 102.879,
-    "t_frame": 103.879,
-    "dur": 6.0,
-    "bloque": "recorte",
-    "texto": "federal otorga más de $650,000 a dos turistas de Ohio",
-    "veredicto": "suma",
-    "motivo": "El bloque introduce un ejemplo concreto de una consecuencia legal (indemnización federal) y una fecha, complementando la idea de que el abandono no pasaría desa",
-    "pasa": true,
-    "voz": "La deshumanización y el abandono en la Prisión Parroquial de Orleans no pasarían desapercibidos para siempre."
+    "voz": "¿Se los había tragado el diluvio, o fueron víctimas de un abandono aún más profundo?"
    }
   ]
  },

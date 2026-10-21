@@ -3,147 +3,128 @@
   "chapter_number": 6,
   "title_card": {
    "kicker": "CAPÍTULO 6",
-   "title": "Demandas y Reparaciones Tardías"
+   "title": "Negación Oficial y Primeras Demandas"
   },
   "callouts": [],
-  "count_up": null,
-  "archive_clippings": [],
-  "evidence_zoom": {
-   "scene_idx": 0,
-   "box": [
-    0.23,
-    0.15,
-    0.15,
-    0.15
-   ],
-   "start": 5.817,
-   "anchor": "Rostro hombre",
-   "detail": "Rostro hombre",
-   "tipo": "rostro",
-   "conf": 0.95,
-   "como": "de editor",
-   "word": "Rostro hombre"
+  "count_up": {
+   "value_text": "650,000",
+   "unit": "dólares",
+   "start": 66.822,
+   "fact_idx": 6,
+   "source": ""
   },
+  "archive_clippings": [],
+  "evidence_zoom": null,
   "punch_in": [
-   7.249,
-   27.789,
-   32.219,
-   53.564
+   5.11,
+   14.937,
+   26.729,
+   38.128
   ],
   "chapter_question": {
-   "text": "¿Qué ocultaba la prisión de Orleans?",
+   "text": "¿Quién encubrió las condiciones de Orleans?",
    "start": 98.133,
    "duration": 3.0,
-   "keyword": "ocultaba",
+   "keyword": "condiciones",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "encarcelamiento",
-    "category": "oscuridad_encierro",
-    "layer": "oscuridad",
-    "icon": "candado",
-    "icon_anim": "stamp",
-    "start": 15.707,
-    "duration": 2.5,
-    "side": "right",
-    "stamp": true,
-    "sid": 1,
-    "rarity": 2,
-    "weight": 2,
-    "icon_callout": true
-   },
-   {
-    "word": "indignación",
-    "category": "caos_gritos",
+    "word": "silenciada",
+    "category": "silencio",
     "layer": "minima",
     "icon": null,
-    "icon_anim": "stamp",
-    "start": 53.564,
+    "icon_anim": "press_wipe",
+    "start": 5.11,
     "duration": 2.5,
     "side": "left",
     "stamp": true,
-    "sid": 5,
+    "sid": 0,
     "rarity": 1,
-    "weight": 3,
+    "weight": 2,
     "sfx": {
-     "file": "rumor.wav",
+     "file": "vacio.wav",
      "gain_db": -20
     },
     "icon_callout": false
    },
    {
-    "word": "inquietante",
-    "category": "oscuridad_encierro",
-    "layer": "oscuridad",
-    "icon": "candado",
-    "icon_anim": "stamp",
-    "start": 93.031,
+    "word": "heridas",
+    "category": "veneno_enfermedad",
+    "layer": "veneno",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 20.046,
     "duration": 2.5,
     "side": "right",
     "stamp": true,
     "weight": 3,
     "peak_word": true,
-    "peak": true,
-    "icon_callout": true
+    "peak": true
    }
   ],
   "gap_warnings": [],
   "fragmentos": [
    {
-    "id": "D19",
+    "id": "D17",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
-   },
-   {
-    "id": "D60",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
-   },
-   {
-    "id": "D61",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
     "id": "Q02",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
-    "id": "D59",
+    "id": "D37",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D50",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T17",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T15",
     "bloque": "recorte",
     "ahora": null,
     "motivo": "la voz no habla de esto en el cap"
    },
    {
-    "id": "D58",
+    "id": "D43",
     "bloque": "recorte",
     "ahora": null,
     "motivo": "la voz no habla de esto en el cap"
    }
   ],
   "pico": {
-   "t": 93.031,
+   "t": 20.046,
    "block": "emphasis",
-   "word": "inquietante",
-   "sentence": "Sin embargo, a pesar de estas victorias legales y las investigaciones de alto nivel, una verdad inquietante persistía sobre el caos de esos días: la ausencia completa de documentación.",
+   "word": "heridas",
+   "sentence": "Pero las heridas invisibles, los relatos de horror y el abandono, fueron inmediatamente descartados por el sheriff Marlin N.",
    "intensity": 0.9,
-   "sentence_idx": 10,
-   "palabra": "inquietante"
+   "sentence_idx": 2,
+   "palabra": "heridas"
   },
   "time_ticker": null,
   "transitions": {
    "1": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "después del zoom",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R2"
    },
    "2": {
@@ -153,15 +134,15 @@
     "rank": "R3"
    },
    "3": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
-    "rank": "R2"
-   },
-   "4": {
     "kind": "cut",
     "frames": 0,
     "why": "≥ 1 corte cada 3",
+    "rank": "R2"
+   },
+   "4": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "5": {
@@ -171,15 +152,15 @@
     "rank": "R3"
    },
    "6": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
-    "rank": "R2"
-   },
-   "7": {
     "kind": "cut",
     "frames": 0,
     "why": "≥ 1 corte cada 3",
+    "rank": "R2"
+   },
+   "7": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "8": {
@@ -195,15 +176,15 @@
     "rank": "R3"
    },
    "10": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
     "rank": "R3"
    },
    "11": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "≥ 1 corte cada 3",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "12": {
@@ -213,9 +194,9 @@
     "rank": "R3"
    },
    "13": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
     "rank": "R2"
    },
    "14": {
@@ -305,55 +286,54 @@
    ],
    "violaciones": []
   },
-  "iconos_auto": [],
   "black_hold": {
    "start": 101.133,
    "duration": 1.0
   },
   "critico": [
    {
-    "t": 5.817,
-    "t_frame": 6.817,
-    "dur": 2.85,
-    "bloque": "zoom",
-    "texto": "Rostro hombre",
-    "veredicto": "suma",
-    "motivo": "El zoom en el rostro del hombre enfatiza la carga emocional y el impacto personal de la 'indiferencia institucional' y la 'búsqueda de justicia' mencionadas en ",
-    "pasa": true,
-    "voz": "La búsqueda de justicia, tras la indiferencia institucional, finalmente llegó a los tribunales federales, revelando la magnitud del abandono."
-   },
-   {
-    "t": 15.707,
-    "t_frame": 16.707,
-    "dur": 2.5,
-    "bloque": "icono",
-    "texto": "encarcelamiento",
-    "veredicto": "suma",
-    "motivo": "El ícono y la palabra enfatizan el concepto central de la voz y la imagen (encarcelamiento en un juzgado), y el tinte refuerza el mood sin estorbar la informaci",
-    "pasa": true,
-    "voz": "Para Robie Waganfeald y Paul Kunkel Jr., dos turistas de Ohio arrestados en Bourbon Street justo antes del huracán, su encarcelamiento se convirtió en un caso emblemático."
-   },
-   {
-    "t": 53.564,
-    "t_frame": 54.564,
+    "t": 5.11,
+    "t_frame": 6.11,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "indignación",
+    "texto": "silenciada",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza la palabra clave de la voz y el tinte añade la atmósfera de caos y enojo que la imagen por sí sola no transmite.",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera de supresión que la verdad tuvo que superar, añadiendo impacto visual al",
     "pasa": true,
-    "voz": "La indignación escalaba: Ronnie L."
+    "voz": "Finalmente, la verdad sobre lo ocurrido en sus muros inundados no podía ser silenciada por completo."
    },
    {
-    "t": 93.031,
-    "t_frame": 94.031,
+    "t": 20.046,
+    "t_frame": 21.046,
     "dur": 2.5,
-    "bloque": "icono",
-    "texto": "inquietante",
+    "bloque": "sello",
+    "texto": "heridas",
     "veredicto": "suma",
-    "motivo": "El bloque enfatiza una palabra clave de la voz y añade un símbolo de misterio/encierro que complementa la imagen de la documentación dañada y el ambiente lúgubr",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte añade una capa emocional que la imagen no transmite, reforzando el contraste entre el acuerdo monetari",
     "pasa": true,
-    "voz": "Sin embargo, a pesar de estas victorias legales y las investigaciones de alto nivel, una verdad inquietante persistía sobre el caos de esos días: la ausencia completa de documentación."
+    "voz": "Pero las heridas invisibles, los relatos de horror y el abandono, fueron inmediatamente descartados por el sheriff Marlin N."
+   },
+   {
+    "t": 66.822,
+    "t_frame": 67.822,
+    "dur": 3.7,
+    "bloque": "contador",
+    "texto": "650,000",
+    "veredicto": "suma",
+    "motivo": "El contador visualiza y enfatiza el monto exacto de la indemnización mencionada en la voz, aportando un dato clave sin obstruir la imagen.",
+    "pasa": true,
+    "voz": "Un jurado federal les otorgó una indemnización de más de 650,000 dólares por encarcelamiento falso e indiferencia deliberada a sus derechos constitucionales."
+   },
+   {
+    "t": 69.05,
+    "t_frame": 70.05,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "Manos barandilla",
+    "veredicto": "repite",
+    "motivo": "El zoom destaca un detalle visual (manos en la barandilla) que ya es evidente en la imagen, sin aportar información nueva o un énfasis directo al contenido lega",
+    "pasa": false,
+    "voz": "Un jurado federal les otorgó una indemnización de más de 650,000 dólares por encarcelamiento falso e indiferencia deliberada a sus derechos constitucionales."
    }
   ]
  },

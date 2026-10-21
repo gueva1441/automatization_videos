@@ -26,6 +26,13 @@ Reglas (deterministas, después del LLM):
     lugares    geocodificados una vez con Nominatim (gratis; caché en data/geocode_cache.json), ANCLADOS al lugar
                principal del video (el más nombrado): «nombre, ancla» y solo resultados a ≤ GEO_MAX_KM del ancla;
                siglas sin geocodificar. Sin resultado confiable → null.
+F5b:
+    relevancia (N1) lo que el propio bloque marca como «no (directamente) relacionado» con el caso queda fuera: el
+               párrafo del marcador y las líneas que comparten ≥ 2 raíces RARAS con él (la posada de 1902, el médium).
+    nombres    (N5) un personaje entra solo si HACE algo en el research (verbo activo después de su nombre, autor de
+               una cita o antagonista); «Raphael Schwarz es arrestado» no alcanza. Sus datos de puro nombre, fuera.
+    mayúsculas (N5) «Institución: Prisión…» pierde el rótulo; el rol va en minúscula («arrestado por…»).
+    Lo descartado queda en pool["_descartados"] (auditable; evidence.items no lo lee).
 LLAMADAS: 1 Flash por bloque (tecnico, humano, misterio).
 """
 from __future__ import annotations
@@ -156,6 +163,154 @@ def _content_set(s: str) -> set[str]:
 
 
 # ═══════════════════════════════════════════════════════════════
+#  F5b N1 — relevancia: lo que el bloque marca como no relacionado
+# ═══════════════════════════════════════════════════════════════
+
+# sobre texto normalizado (sin tildes): «aunque no directamente relacionado con los eventos», «no prueban nada sobre»
+_UNRELATED_RE = re.compile(r"\bno (?:esta |estan |guarda |tiene |es )?(?:directamente |realmente )?"
+                           r"(?:relacionad[oa]s?|vinculad[oa]s?)\b|\bsin relacion (?:directa )?con\b|"
+                           r"\bno prueban? nada sobre\b|\bajen[oa]s? (?:al caso|a los hechos|a los eventos)\b")
+UNRELATED_MIN_SHARED = 2                 # raíces raras en común con la nota del marcador
+# palabras del propio marcador y de discurso: no dicen DE QUÉ trata lo no relacionado
+_MARKER_WORDS = {"directamente", "relacionado", "relacionada", "relacionados", "relacionadas", "existencia",
+                 "ocurrido", "prueban", "perspectiva", "eventos", "vinculado", "vinculada"}
+_SENT_SPLIT = re.compile(r"(?<=[a-záéíóúñ]{3}[.!?])\s+(?=[A-ZÁÉÍÓÚÑ¿¡])")
+
+
+def _sents(text: str) -> list[str]:
+    """Oraciones (sin cortar en «EE. UU.» ni en «Jr.»)."""
+    return [s for ln in text.splitlines() for s in _SENT_SPLIT.split(ln) if s.strip()]
+
+
+def _topic_roots(s: str) -> set[str]:
+    return {w[:5] for w in re.findall(r"[a-zñ]+", norm(s)) if len(w) >= 7 and w not in _MARKER_WORDS}
+
+
+def unrelated_lines(block: str) -> list[str]:
+    """Regiones del bloque que el propio research marca como NO relacionadas con el caso: la oración del marcador y
+    la siguiente (la nota), y las líneas que comparten ≥ UNRELATED_MIN_SHARED raíces RARAS con esa nota (raíz rara =
+    de una palabra de ≥ 7 letras que aparece en ≤ 2 líneas del bloque)."""
+    lines = [ln for ln in block.splitlines() if ln.strip()]
+    sents = _sents(block)
+    notes = [" ".join(sents[k:k + 2]) for k, s in enumerate(sents) if _UNRELATED_RE.search(norm(s))]
+    if not notes:
+        return []
+    from collections import Counter
+    df = Counter(w for ln in lines for w in _content_set(ln))
+    topic = {w for n in notes for w in _topic_roots(n) if df[w] <= 2}
+    return notes + [ln for ln in lines if not any(n in ln for n in notes)
+                    and len(_content_set(ln) & topic) >= UNRELATED_MIN_SHARED]
+
+
+def _in_lines(fragment: str, lines: list[str], block: str = "") -> bool:
+    """¿El fragmento está en una región no relacionada y en NINGUNA otra parte del bloque? («Nueva Orleans» está en
+    la nota de la posada, pero también en todo el resto: se queda)."""
+    f = norm(fragment)
+    if not f or not any(f in norm(ln) for ln in lines):
+        return False
+    rest = norm(block)
+    for ln in lines:
+        rest = rest.replace(norm(ln), " ")
+    return f not in rest
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F5b N5 — un nombre entra solo si hace algo
+# ═══════════════════════════════════════════════════════════════
+
+_PASSIVE_AUX = {"es", "son", "fue", "fueron", "era", "eran", "sera", "seran", "sido", "habia", "habian"}
+_CLITIC = {"no", "se", "le", "les", "lo", "la", "los", "las", "nunca", "luego", "tambien", "ya"}
+_NOT_VERB = {"antes", "entre", "sobre", "durante", "mientras", "donde", "cuando", "parte", "noche", "calle", "sheriff"}
+_VERB_END = re.compile(r"(o|io|aron|ieron|eron|aba|aban|ia|ian)$")
+_PRESENT_END = re.compile(r"(a|e|an|en)$")
+
+
+def _verb_like(tok: str) -> bool:
+    t = norm(tok)
+    if t in _NOT_VERB or len(t) < 3:
+        return False
+    if _VERB_END.search(t) and len(t) >= 4 and tok.lower().endswith(("ó", "ió", "aron", "ieron", "eron", "aba", "aban",
+                                                                      "ía", "ían")):
+        return True
+    return bool(_PRESENT_END.search(t)) and len(t) >= 5
+
+
+def _fold(s: str) -> str:
+    """Minúsculas y sin tildes, carácter por carácter: conserva las posiciones del original."""
+    return "".join(unicodedata.normalize("NFD", c)[0] for c in s.lower())
+
+
+def person_acts(name: str, blocks: list[str], citas: list[dict] | None = None) -> bool:
+    """¿El research le atribuye una ACCIÓN a la persona? Autor de una cita, o un verbo activo después de su nombre
+    (saltando «Jr.», un sujeto coordinado «y Paul Kunkel Jr.», una aposición «, un recluso,» y un «del Cuerpo de…»).
+    «Raphael Schwarz es arrestado» (pasiva) o «el alcaide Cornel Hubert del Elayn Hunt… por la violación» → no."""
+    surname = _person_key(name)[1]
+    if not surname:
+        return False
+    if any(_person_key(q.get("autor") or "")[1] == surname for q in citas or []):
+        return True
+    for block in blocks:
+        for sent in _sents(block):
+            for m in re.finditer(rf"\b{re.escape(surname)}\b", _fold(sent)):
+                toks = re.findall(r"[A-Za-zÁÉÍÓÚÑÜáéíóúñü.]+|,", sent[m.end():])
+                i = 0
+
+                def _skip_caps(j: int) -> int:
+                    while j < len(toks) and (toks[j][:1].isupper() or norm(toks[j]) in {"de", "del", "la", "los"}):
+                        j += 1
+                    return j
+                while i < len(toks):
+                    t = norm(toks[i]).strip(".")
+                    if toks[i] == "," or t in {"jr", "sr"}:
+                        if toks[i] == "," and i + 1 < len(toks) and norm(toks[i + 1]).strip(".") not in {"jr", "sr"}:
+                            j = next((x for x in range(i + 1, min(len(toks), i + 16)) if toks[x] == ","), None)
+                            if j is None:
+                                break
+                            i = j + 1
+                            continue
+                        i += 1
+                    elif t == "y" and i + 1 < len(toks) and toks[i + 1][:1].isupper():
+                        i = _skip_caps(i + 1)
+                    elif t in {"de", "del"} and i + 1 < len(toks) and toks[i + 1][:1].isupper():
+                        i = _skip_caps(i + 1)
+                    elif t in _CLITIC:
+                        i += 1
+                    else:
+                        break
+                if i < len(toks):
+                    t = norm(toks[i]).strip(".")
+                    if t not in _PASSIVE_AUX and _verb_like(toks[i].strip(".")):
+                        return True
+    return False
+
+
+_COMMON_HEADS = ("Sheriff", "Huracán", "Teniente General", "Teniente", "Alcaide", "Recluso")
+
+
+def fix_caps(texto: str) -> str:
+    """Mayúsculas pegadas del research (F5b N5). El texto sigue literal (la comparación es sin mayúsculas):
+    - tras un rótulo «Población carcelaria …: Aproximadamente 6,375…» → «…: aproximadamente 6,375…» (no si sigue un
+      nombre propio: «Institución: Prisión Parroquial de Orleans»);
+    - cargos y sustantivos comunes delante de un nombre, a mitad de oración: «El Sheriff Gusman» → «El sheriff
+      Gusman», «Evento principal: Huracán Katrina» → «…: huracán Katrina»."""
+    def _lab(m: re.Match) -> str:
+        nxt = (m.group(3) or "").strip()
+        return m.group(1) + m.group(2)[:1].lower() + m.group(2)[1:] if not nxt[:1].isupper() else m.group(0)
+    s = re.sub(r"(:\s+)([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)(?=(\s+\S+)?)", _lab, texto)
+    for h in _COMMON_HEADS:
+        s = re.sub(rf"(?<=\S\s){h}(?=\s+[A-ZÁÉÍÓÚÑ])", h.lower(), s)
+    return s
+
+
+def _lower_first(s: str | None) -> str | None:
+    """«Arrestado por…» → «arrestado por…» (el rol se pega a mitad de oración); siglas y nombres propios quedan."""
+    if not s:
+        return s
+    w = s.split()[0]
+    return s if w.isupper() or (len(s.split()) > 1 and s.split()[1][:1].isupper()) else s[:1].lower() + s[1:]
+
+
+# ═══════════════════════════════════════════════════════════════
 #  Prompt + validación por bloque
 # ═══════════════════════════════════════════════════════════════
 
@@ -240,6 +395,29 @@ def validate_block(raw: dict[str, Any], block_name: str, block: str, log: list[s
     out["datos"] = keep
     if drop:
         log.append(f"  [4a·pool] {block_name}: {drop} ítem(s) descartado(s) por no estar literales en el bloque")
+    # F5b N1: fuera lo que el propio bloque marca como no relacionado con el caso
+    unrel = unrelated_lines(block)
+    out["_descartados"] = []
+    if unrel:
+        for k in ("datos", "cronologia", "lugares", "citas", "personajes"):
+            kept = []
+            for it in out[k]:
+                if _in_lines(it[_KEY[k]], unrel, block):
+                    out["_descartados"].append({"kind": k, "texto": it[_KEY[k]], "bloque": block_name,
+                                                "motivo": "el bloque lo marca como no relacionado con el caso"})
+                else:
+                    kept.append(it)
+            out[k] = kept
+        if out["_descartados"]:
+            log.append(f"  [4a·pool] {block_name}: {len(out['_descartados'])} ítem(s) fuera por no relacionados "
+                       f"({[d['texto'][:40] for d in out['_descartados']]})")
+    # F5b N5: mayúsculas pegadas (las citas quedan como las dijo el autor)
+    for d in out["datos"]:
+        d["texto"] = fix_caps(d["texto"])           # `valor` queda: sigue literal (sin mayúsculas) en el texto
+    for c in out["cronologia"]:
+        c["evento"] = fix_caps(c["evento"])
+    for p in out["lugares"] + out["personajes"]:
+        p["rol"] = _lower_first(p.get("rol"))
     return out
 
 
@@ -369,6 +547,32 @@ def geocode(lugares: list[dict], cache_path: Path, *, fetch: Callable[[str], lis
         cache_path.write_text(json.dumps(cache, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+def acting_filter(pool: dict[str, Any], blocks: list[str], log: list[str]) -> None:
+    """F5b N5 (in place): fuera los personajes que no HACEN nada en el research (salvo el antagonista, al que el
+    research le atribuye la decisión) y los datos que son solo su nombre. Los ids de lo que queda no cambian."""
+    out = pool.setdefault("_descartados", [])
+    keep, gone = [], []
+    for p in pool.get("personajes") or []:
+        if p.get("antagonista") or person_acts(p["nombre"], blocks, pool.get("citas")):
+            keep.append(p)
+        else:
+            gone.append(p)
+            out.append({"kind": "personajes", "texto": p["nombre"], "bloque": p.get("bloque"),
+                        "motivo": "el research no le atribuye ninguna acción (un nombre entra solo si hace algo)"})
+    pool["personajes"] = keep
+    gone_keys = {_person_key(p["nombre"]) for p in gone}
+    datos = []
+    for d in pool.get("datos") or []:
+        if d.get("tipo") == "nombre" and _person_key(d["texto"]) in gone_keys and len(d["texto"].split()) <= 4:
+            out.append({"kind": "datos", "texto": d["texto"], "bloque": d.get("bloque"),
+                        "motivo": "solo el nombre de un personaje que no hace nada"})
+            continue
+        datos.append(d)
+    pool["datos"] = datos
+    if gone:
+        log.append(f"  [4a·pool] personajes sin acción, fuera: {[p['nombre'] for p in gone]}")
+
+
 # ═══════════════════════════════════════════════════════════════
 #  Pública
 # ═══════════════════════════════════════════════════════════════
@@ -408,6 +612,8 @@ def extract_evidence_pool(angle_blocks: dict[str, str], *, call: Callable[..., d
                 raw_cache.write_text(json.dumps(cached, ensure_ascii=False, indent=1), encoding="utf-8")
         parts.append(validate_block(raw or {}, name, block, log))
     pool = merge(parts)
+    pool["_descartados"] = [d for p in parts for d in p.get("_descartados") or []]
+    acting_filter(pool, [b for b in angle_blocks.values() if b], log)
     if geocode_cache is None:
         from config import DATA_DIR
         geocode_cache = DATA_DIR / GEOCODE_CACHE_NAME

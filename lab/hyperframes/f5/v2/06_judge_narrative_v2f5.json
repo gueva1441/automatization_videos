@@ -1,0 +1,328 @@
+{
+ "caps": [
+  {
+   "palabras": 56,
+   "datos_usados": [
+    "D33",
+    "D59",
+    "T07",
+    "Q01"
+   ],
+   "densidad": 7.14,
+   "adjetivos": 2,
+   "adj_100": 3.57,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "regex",
+   "repetidos_en_cap": [
+    [
+     "gusman",
+     2
+    ]
+   ],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 7.14,
+   "trigramas_repetidos": 0.0857
+  },
+  {
+   "palabras": 232,
+   "datos_usados": [
+    "D04",
+    "D09",
+    "D10",
+    "D54",
+    "T05",
+    "T07"
+   ],
+   "densidad": 2.59,
+   "adjetivos": 5,
+   "adj_100": 2.16,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "regex",
+   "repetidos_en_cap": [
+    [
+     "nueva orleans",
+     2
+    ]
+   ],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.16,
+   "trigramas_repetidos": 0.0315
+  },
+  {
+   "palabras": 286,
+   "datos_usados": [
+    "D06",
+    "D33",
+    "D59",
+    "D65",
+    "T08",
+    "T09",
+    "T10",
+    "T11",
+    "T12"
+   ],
+   "densidad": 3.15,
+   "adjetivos": 13,
+   "adj_100": 4.55,
+   "relleno_seguido": 3,
+   "relleno_prohibido": [],
+   "conteo": "regex",
+   "repetidos_en_cap": [
+    [
+     "prision de orleans parish",
+     2
+    ],
+    [
+     "generadores de respaldo",
+     2
+    ],
+    [
+     "29 de agosto",
+     3
+    ]
+   ],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.05,
+   "trigramas_repetidos": 0.0318
+  },
+  {
+   "palabras": 152,
+   "datos_usados": [
+    "D08",
+    "D17",
+    "D32",
+    "D38",
+    "D66",
+    "D67",
+    "T13",
+    "T17"
+   ],
+   "densidad": 5.26,
+   "adjetivos": 1,
+   "adj_100": 0.66,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "regex",
+   "repetidos_en_cap": [
+    [
+     "alcanzo el nivel",
+     2
+    ],
+    [
+     "nivel del pecho",
+     2
+    ],
+    [
+     "2 de septiembre",
+     2
+    ],
+    [
+     "templeman 1",
+     2
+    ]
+   ],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.63,
+   "trigramas_repetidos": 0.0779
+  },
+  {
+   "palabras": 267,
+   "datos_usados": [
+    "D19",
+    "D43",
+    "D60",
+    "D61",
+    "D67",
+    "D68",
+    "T15",
+    "T23",
+    "Q02"
+   ],
+   "densidad": 3.37,
+   "adjetivos": 14,
+   "adj_100": 5.24,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "regex",
+   "repetidos_en_cap": [
+    [
+     "517",
+     2
+    ]
+   ],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.25,
+   "trigramas_repetidos": 0.0397
+  },
+  {
+   "palabras": 244,
+   "datos_usados": [
+    "D21",
+    "D50",
+    "D61",
+    "D69",
+    "T19",
+    "T26",
+    "T27"
+   ],
+   "densidad": 2.87,
+   "adjetivos": 3,
+   "adj_100": 1.23,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "regex",
+   "repetidos_en_cap": [
+    [
+     "contra el sheriff",
+     2
+    ],
+    [
+     "gusman",
+     2
+    ]
+   ],
+   "nombres_sin_accion": [
+    "Cornel Hubert",
+    "Raphael Schwarz"
+   ],
+   "densidad_hechos": 1.64,
+   "trigramas_repetidos": 0.021
+  },
+  {
+   "palabras": 160,
+   "datos_usados": [
+    "D05",
+    "D57",
+    "D58"
+   ],
+   "densidad": 1.88,
+   "adjetivos": 3,
+   "adj_100": 1.88,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "regex",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.25,
+   "trigramas_repetidos": 0.0515
+  }
+ ],
+ "video": {
+  "densidad": 3.29,
+  "adj_100": 2.93,
+  "trigramas_repetidos": 0.0408,
+  "datos_en_mas_de_2_caps": {},
+  "antagonista_nombrado": true,
+  "antagonista": "Marlin N. Gusman",
+  "cliffhangers": [
+   {
+    "cap": 1,
+    "id": "T05",
+    "texto": "El sheriff Marlin N. Gusman anuncia en una conferencia de prensa que los prisioneros no serán evacuados de la Prisión de Orleans Parish.",
+    "ok": true,
+    "en_cierre": [
+     "Gusman"
+    ]
+   },
+   {
+    "cap": 2,
+    "id": "T08",
+    "texto": "La energía eléctrica se pierde y los generadores de respaldo fallan en la OPP.",
+    "ok": true,
+    "en_cierre": [
+     "eléctrica",
+     "generadores",
+     "respaldo"
+    ]
+   },
+   {
+    "cap": 3,
+    "id": "T13",
+    "texto": "Comienza la evacuación de algunos edificios de la prisión (Templeman 1 y 2) cuando el agua alcanza el nivel del pecho en el interior.",
+    "ok": false,
+    "en_cierre": []
+   },
+   {
+    "cap": 4,
+    "id": "D19",
+    "texto": "Inmediatamente después de la evacuación, 517 reclusos no estaban contabilizados",
+    "ok": true,
+    "en_cierre": [
+     "estaban"
+    ]
+   },
+   {
+    "cap": 5,
+    "id": "D72",
+    "texto": "",
+    "ok": false,
+    "en_cierre": []
+   },
+   {
+    "cap": 6,
+    "id": "D62",
+    "texto": "No existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina",
+    "ok": true,
+    "en_cierre": [
+     "Prisión"
+    ]
+   }
+  ],
+  "datos_distintos": 41,
+  "palabras": 1397,
+  "conteo": "regex",
+  "caps_con_repetidos_en_cap": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "caps_fuera_de_adjetivos": [
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "nombres_sin_accion": [
+   "Cornel Hubert",
+   "Raphael Schwarz"
+  ],
+  "densidad_hechos": 2.01,
+  "umbral": {
+   "densidad": true,
+   "repeticion": true,
+   "adjetivacion": true,
+   "repeticion_en_cap": false,
+   "nombres": false,
+   "antagonista": true,
+   "cliffhanger": false
+  }
+ },
+ "umbrales": {
+  "densidad_min": 2.0,
+  "max_caps_por_dato": 2,
+  "trigramas_max": 0.05,
+  "adj_100_min": 2.0,
+  "adj_100_max": 4.0
+ },
+ "violaciones_narrador": {
+  "3": [
+   "- 4.55 adjetivos/100 palabras (máximo 3.6): sacá adjetivos — impenetrable, sofocante, atrapados, oscuro, insostenibles, ineludible, evidente, desesperada, imparable, abandonados, implacable, inimaginables, mortales",
+   "- más de 2 oraciones seguidas que califican sin dato: cambiá adjetivos por hechos",
+   "- el cierre tiene que anticipar el dato concreto del cap 4: «Comienza la evacuación de algunos edificios de la prisión (Templeman 1 y 2) cuando el agua» (nombralo o dejalo incompleto; nada de retórica genérica)"
+  ],
+  "5": [
+   "- nombrá a Ronnie L. Morgan, Jr. por nombre y apellido y con su cargo (Recluso, demandante) la primera vez",
+   "- nombrá a Cornel Hubert por nombre y apellido y con su cargo (Alcaide del Elayn Hunt Correctional Center) la primera vez",
+   "- 5.24 adjetivos/100 palabras (máximo 3.6): sacá adjetivos — escalofriante, minucioso, profunda, macabra, narrativa, atrapadas, vulnerable, motivos, hizo, cruda, tajante, fugitivos, flagrante, inhumano"
+  ],
+  "7": [
+   "- densidad 1.88 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
+  ]
+ }
+}

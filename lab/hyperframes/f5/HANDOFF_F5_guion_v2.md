@@ -59,8 +59,21 @@ Métricas nuevas con umbral, por cap y por video:
 - **cliffhanger**: el cierre contiene el dato o entidad del `cliffhanger` del skeleton.
 Falla → reintento con feedback dirigido (ya existe el mecanismo `_call_with_length_retry`).
 
-### 1.6 `m03_visual` (opcional, si el tiempo alcanza)
-Los prompts de imagen pueden pedir lugares/objetos del pool (paso elevado de Broad St sobre la I-10; torre de 10 pisos de la House of Detention; teléfonos cortados). No cambia la arquitectura; cambia la especificidad.
+### 1.6 `m03_visual`: un bloque de contexto, nada más (CON FRENOS)
+Diagnóstico: la escena 8 de ch02 (mujer y niño de ~10 años en overol, misma celda) salió del ancla de narración *"Pequeños, algunos de apenas diez años, también estaban encerrados en esas jaulas de hormigón"*. `m03_visual` elige anclas exactas de la narración y escribe los slots desde ahí: **con la narración v2 precisa, la imagen se corrige sola.** El validador de visión se apagó en su momento por una razón y **no se toca**.
+
+Lo único que se agrega: en `_format_seedream_canon_block` (donde ya entran `documented_people`, `documented_props`, `anachronism_blocklist`), un bloque pasivo más, solo si el guion trae `evidence_pool`:
+```
+UBICACIONES DOCUMENTADAS (no mezclar en una misma escena):
+- Menores detenidos → Conchetta Youth Center (centro juvenil del complejo), separados de los adultos.
+- Mujeres → edificios de mujeres; nunca en la misma celda que hombres.
+- Evacuados → paso elevado de Broad Street sobre la I-10.
+```
+generado de `evidence_pool.personajes` + `lugares` (rol + dónde). Texto de contexto; sin regla nueva en el validador.
+
+**FRENOS (prohibido en F5):** tocar el plan de anclas, `_validate_anchor_substring`, `_reconcile_anchor_timing`, el fluidificador, `_find/_scrub_text_leakage`, `_enforce_measure_fit`, `_post_check_locked`, los rangos 120–400, `_calculate_image_count`, `foto_madre_ref`, `hard_fact_ids` o el orden/índices de `verified_facts`. Cualquier cambio fuera del bloque de canon se anota como propuesta y no se hace. Tests de `m03_visual` deben quedar byte-idénticos para guiones sin `evidence_pool`.
+
+Prueba de §1.6: regenerar solo `03_visual` de Orleans v2 (texto, sin imágenes), y listar los prompts de las anclas con personas para leerlos en la PARADA.
 
 ## 2. Cambios río abajo (producción)
 - **Candado literal** (`gfx_literal_lock`): texto permitido = narración ∪ `evidence_pool` (datos, citas, cronología, lugares). Un recorte que diga lo que la voz **no** dice es ahora el caso deseado, no un rechazo.
@@ -76,7 +89,7 @@ Los prompts de imagen pueden pedir lugares/objetos del pool (paso elevado de Bro
 1. Regenerar solo el guion de Orleans en un `topic_id` nuevo (copia del research: reusar `00_pool_etiquetado.json`, no volver a investigar): 4a → skeleton → narración → normalizer → juez.
 2. **Página de comparación** `lab/guion/compara_orleans.html` (estática): v1 y v2 lado a lado por cap, con las métricas de §1.5 por cap y por video, y debajo el `evidence_pool` con marca de qué dato usó cada versión. Sin servidor; un HTML que CC genera con un script.
 3. **Simulación del director sobre v2** sin render: correr `gfx_director` + fragmentos + crítico visual en modo plan (sin HyperFrames) para los 7 caps de v2 usando las fotos de v1 como proxy → `gfx_cues_v2_chNN.md`. Es para que el analista valide que los recortes ahora salen del pool con fuente.
-4. Costo estimado: Flash ≈ $0.30 (guion + juez + director). **Cero imágenes, cero render.**
+4. Costo estimado: Flash ≈ $0.30 (guion + juez + director). **Cero imágenes, cero render.** Para §1.6: regenerar solo los *prompts* de imagen de v2 (texto) y listar los de las escenas con personas para leerlos; sin generar imágenes.
 5. Entregables: `F5_REPORT.md` (métricas v1/v2, decisiones, veredictos), la página de comparación, los cues simulados.
 
 ## 4. PARADA — validación del analista (antes de que Omar decida)
@@ -93,4 +106,4 @@ Solo si 1–5 son sí, Omar lee la página de comparación y decide **rehacer el
 No inventar datos (todo literal del pool, con fuente o `null`) · `verified_facts` e imágenes de v1 intactos · `main` intacta · tests verdes y revisor por módulo · guiones viejos siguen corriendo · sin render completo en F5.
 
 ## 6. Orden y estimación
-§1.1 (2 h) → §1.2 (2 h) → §1.3 + §1.4 (3 h) → §1.5 (2 h) → §2 (3 h) → §3 (2 h) → **PARADA**. ≈ 14 h de CC, autónomo, decisiones conservadoras en `DECISIONES_F5.md`.
+§1.1 (2 h) → §1.2 (2 h) → §1.3 + §1.4 (3 h) → §1.5 (2 h) → §1.6 (1 h) → §2 (3 h) → §3 (2 h) → **PARADA**. ≈ 15 h de CC, autónomo, decisiones conservadoras en `DECISIONES_F5.md`.

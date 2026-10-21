@@ -63,6 +63,21 @@
   "icon_array": null,
   "emphasis": [
    {
+    "word": "disolvió",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 12.34,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 2,
+    "rarity": 1,
+    "weight": 2,
+    "icon_callout": false
+   },
+   {
     "word": "desvanecidas",
     "category": "silencio",
     "layer": "minima",
@@ -93,8 +108,7 @@
     "stamp": true,
     "weight": 3,
     "peak_word": true,
-    "peak": true,
-    "icon_callout": true
+    "peak": true
    },
    {
     "word": "desaparecidos",
@@ -341,7 +355,6 @@
    ],
    "violaciones": []
   },
-  "iconos_auto": [],
   "black_hold": {
    "start": 114.033,
    "duration": 1.0
@@ -362,11 +375,11 @@
     "t": 12.34,
     "t_frame": 13.34,
     "dur": 2.5,
-    "bloque": "icono",
+    "bloque": "sello",
     "texto": "disolvió",
-    "veredicto": "repite",
-    "motivo": "El ícono de gota repite visualmente el agua que ya es el elemento principal de la imagen y es mencionada por la voz, aunque la palabra 'DISOLVIÓ' sea un buen én",
-    "pasa": false,
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la sensación de disolución y opresión del agua, complementando el mensaje.",
+    "pasa": true,
     "voz": "Porque no solo la integridad humana se disolvió en el agua estancada, sino también la contabilidad de vidas."
    },
    {
@@ -406,10 +419,10 @@
     "t": 71.08,
     "t_frame": 72.08,
     "dur": 2.5,
-    "bloque": "icono",
+    "bloque": "sello",
     "texto": "cadáveres",
     "veredicto": "suma",
-    "motivo": "El bloque enfatiza una palabra clave de la voz y visualiza el concepto de muerte, que no se ve directamente en la imagen, reforzando el horror de la situación.",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el tono sombrío de la narración, complementando la imagen sin repetirla.",
     "pasa": true,
     "voz": "Testimonios desgarradores confirmaron la visión de cadáveres flotando, arrastrados por la corriente interna de la prisión inundada."
    },

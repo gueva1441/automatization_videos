@@ -315,6 +315,8 @@ class GfxRules:
     fragment_director: bool = False          # F4b §2: Flash elige el fragmento literal más impactante (gfx_fragments)
     photo_first_zoom: bool = False           # F4b §3: visión mira cada foto antes del zoom (gfx_vision)
     auto_icons: bool = False                 # F4b §4: palabra de carga concreta sin ícono propio → game-icons
+    icon_literal_only: bool = False          # F5b S4: ícono SOLO si la palabra está en icon_words del perfil (nunca la
+                                             # categoría, nunca un adjetivo, sin game-icons automáticos)
     # F4c: doctrina del director (ANALISIS_director_trace_2026-10-20 §3). OFF en el motor; misterio las prende
     peak_word: bool = False                  # R3: el pico lleva su palabra de mayor peso (sello + mood + ícono)
     doc_clippings: bool = False              # R6: recorte = documento (solo del fact, suma algo, kicker obligatorio)

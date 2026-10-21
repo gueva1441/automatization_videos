@@ -27,8 +27,9 @@ def main() -> None:
     nar = {"v1": [c["narration"] for c in _load(STEPS / V1 / "01b_narration.json")["chapters"]],
            "v2": [c["narration"] for c in _load(STEPS / V2 / "01b_narration.json")["chapters"]]}
     sk2 = _load(STEPS / V2 / "01a_skeleton.json")
-    L = ["# F5 §3 — Guion v1 vs v2 (evidencia para VALIDACION_F5)", "",
-         "Medido con `script_engine/m05_narrative.py` contra el MISMO evidence_pool para las dos versiones.", ""]
+    L = ["# F5b — Guion v1 vs v2 (evidencia para la validación del analista)", "",
+         "Medido con `script_engine/m05_narrative.py` contra el MISMO evidence_pool (el de F5b, ya filtrado) para las "
+         "dos versiones. v2 se cuenta por los ids que declaró el narrador (N2); v1 no declara, se cuenta por regex.", ""]
     L += ["## 1. Datos nuevos por cap y Gusman", "", "| cap | v1 datos nuevos | v2 datos nuevos | v2 asignados (skeleton) |",
           "|---|---|---|---|"]
     for v in ("v1", "v2"):
@@ -59,7 +60,9 @@ def main() -> None:
     L += ["", f"3-gramas repetidos entre caps: v1 {j['v1']['video']['trigramas_repetidos']:.1%} · "
           f"v2 {j['v2']['video']['trigramas_repetidos']:.1%} (umbral < 5 %)", ""]
     L += ["## 3. Adjetivos → hechos", "", "| | v1 | v2 |", "|---|---|---|",
-          f"| adjetivos / 100 palabras (heurística, umbral calibrado 3.6) | {j['v1']['video']['adj_100']} | {j['v2']['video']['adj_100']} |",
+          f"| adjetivos / 100 palabras (heurística, F5b: entre 2 y 4) | {j['v1']['video']['adj_100']} | {j['v2']['video']['adj_100']} |",
+          f"| caps fuera de 2–4 adjetivos/100 | {j['v1']['video'].get('caps_fuera_de_adjetivos')} | {j['v2']['video'].get('caps_fuera_de_adjetivos')} |",
+          f"| densidad por regex (medición de F5) | {j['v1']['video']['densidad']} | {j['v2']['video'].get('densidad_regex', '—')} |",
           f"| densidad (datos duros / 100 palabras, umbral 2.0) | {j['v1']['video']['densidad']} | {j['v2']['video']['densidad']} |",
           f"| datos distintos del pool | {j['v1']['video']['datos_distintos']} | {j['v2']['video']['datos_distintos']} |",
           f"| palabras | {j['v1']['video']['palabras']} | {j['v2']['video']['palabras']} |", "",
@@ -76,6 +79,13 @@ def main() -> None:
         tail = " ".join(sent(nar["v2"][c["cap"] - 1])[-2:])
         L += [f"- **cap {c['cap']} → [{c['id']}]** {c['texto']}", f"  cierre: «{tail}» — {'✔' if c['ok'] else '✘'} "
               + (f"(en el cierre: {', '.join(c['en_cierre'][:4])})" if c["en_cierre"] else "")]
+    L += ["", "## F5b — repetición dentro del cap (N3) y nombres (N5)", "", "| cap | v1 repetidos en el cap | v2 repetidos en el cap |",
+          "|---|---|---|"]
+    for k in range(7):
+        f = lambda v: ", ".join(f"«{a}» ×{n}" for a, n in j[v]["caps"][k].get("repetidos_en_cap") or []) or "—"  # noqa: E731
+        L.append(f"| {k + 1} | {f('v1')} | {f('v2')} |")
+    L += ["", f"Nombres sin acción en la historia: v1 {j['v1']['video'].get('nombres_sin_accion')} · "
+          f"v2 {j['v2']['video'].get('nombres_sin_accion')}", ""]
     v = j["v2"].get("violaciones_narrador") or {}
     L += ["", "## Violaciones que el narrador aceptó tras 3 intentos (v2)", ""]
     L += [f"- cap {k}: " + " · ".join(x.lstrip('- ')[:160] for x in vv) for k, vv in sorted(v.items())] or ["- ninguna"]

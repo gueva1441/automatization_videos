@@ -7,6 +7,11 @@ Etapas (cada una idempotente; `--etapa todo` corre las 4 en orden):
     sim_v1   director + fragmentos + crítico en modo plan (sin HyperFrames) sobre v1, con el código de hoy
     sim_v2   lo mismo sobre v2, usando las fotos de v1 como proxy: palabras de v2 repartidas en la duración del
              audio de v1 y escenas en los MISMOS tiempos que v1 (anchors sintéticos de 4 palabras de v2)
+    visual   (F5b S6 / §1.6) SOLO los prompts de imagen de v2 (texto, sin imágenes): m03 con el canon + UBICACIONES
+             DOCUMENTADAS; duraciones de v1 y sin timestamps de v2 (no hay audio de v2)
+    versionar copia lo de v2 a lab/hyperframes/f5/v2/ (la versión F5 queda en lab/hyperframes/f5/v2_f5/)
+F5b: antes de regenerar, la corrida F5 se respalda (v2_f5/ y output/<V2>/_bak_f5b_pre/): el caché del director no
+depende de la narración, así que la simulación de v2 arranca en un work dir limpio.
 Uso: PYTHONIOENCODING=utf-8 python lab/hyperframes/f5/correr_f5_orleans.py --etapa todo
 """
 from __future__ import annotations
@@ -54,6 +59,20 @@ def topic_v2() -> dict:
 
 
 # ═══════════════════════════════════════════════════════════════
+def respaldo_f5(log: list[str]) -> None:
+    """F5b: una sola vez, la corrida F5 a un costado (lab/…/v2_f5 y output/<V2>/_bak_f5b_pre, output/<V1>/…_bak_f5b)."""
+    dst = LAB / "v2_f5"
+    if not dst.exists() and (LAB / "v2").exists():
+        shutil.copytree(LAB / "v2", dst)
+        log.append(f"respaldo: {LAB / 'v2'} → {dst}")
+    for work, bak in ((SIM_V2, OUT / V2 / "_bak_f5b_pre" / "_fase2b_work"),
+                      (SIM_V1, OUT / V1 / "_fase2b_work_f5sim_v1_bak_f5b")):
+        if work.exists() and not bak.exists():
+            bak.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(work), str(bak))
+            log.append(f"respaldo: {work} → {bak}")
+
+
 def etapa_guion(log: list[str]) -> None:
     from researcher_steps.evidence_pool import extract_evidence_pool
     from script_engine.m01a_skeleton import generate_skeleton
@@ -84,6 +103,10 @@ def etapa_guion(log: list[str]) -> None:
     rep2 = judge_narration(V2, pool=pool, narration=nar, skeleton=_load(d2 / "01a_skeleton.json"))
     rep1 = judge_narration(V2, pool=pool, narration=_load(STEPS / V1 / "01b_narration.json"),
                            skeleton=_load(STEPS / V1 / "01a_skeleton.json"), out_name="06_judge_narrative_v1.json")
+    # F5b: la v2 de F5 medida con el pool nuevo (por regex: no declaraba ids) para comparar F5 → F5b
+    f5n, f5s = LAB / "v2_f5" / "01b_narration.json", LAB / "v2_f5" / "01a_skeleton.json"
+    if f5n.exists():
+        judge_narration(V2, pool=pool, narration=_load(f5n), skeleton=_load(f5s), out_name="06_judge_narrative_v2f5.json")
     log.append(f"guion: juez v1 {rep1['video']['umbral']} · v2 {rep2['video']['umbral']}")
 
 
@@ -209,17 +232,53 @@ def etapa_sim(which: str, log: list[str]) -> None:
             shutil.copy2(cues, dst)
 
 
+def etapa_visual(log: list[str]) -> None:
+    """F5b S6: SOLO los prompts de imagen de v2 (texto). m03 tal cual (FRENOS de §1.6): el único cambio es el bloque
+    de UBICACIONES en el canon. sync_map de v1 (mismas duraciones → mismo número de imágenes) con video_id = v2: no hay
+    timestamps de v2, así que la reconciliación temporal no corre (no hay audio de v2)."""
+    from script_engine.m03_visual import assign_visual_prompts
+    sm = _load(OUT / "audio" / V1 / "sync_map.json")
+    sm = {**sm, "video_id": V2}
+    t0 = time.time()
+    out = assign_visual_prompts(topic_v2(), _load(STEPS / V2 / "01a_skeleton.json"),
+                                _load(STEPS / V2 / "01b_narration.json"), sync_map=sm)
+    n = sum(len(c.get("image_prompts") or []) + len(c.get("supplemental_image_prompts") or []) + (1 if c.get("image_prompt") else 0)
+            for c in out["chapters"])
+    log.append(f"visual: {n} prompts de imagen de v2 en {time.time() - t0:.0f}s → {STEPS / V2 / '03_visual.json'}")
+
+
+def etapa_versionar(log: list[str]) -> None:
+    """Copia versionada de v2 (fuera de git en data/ y output/) a lab/hyperframes/f5/v2/."""
+    dst = LAB / "v2"
+    dst.mkdir(exist_ok=True)
+    for f in ("01_facts_sources.json", "01a_skeleton.json", "01b_narration.json", "01b_narration_normalized.json",
+              "06_judge_narrative.json", "06_judge_narrative_v1.json", "06_judge_narrative_v2f5.json", "03_visual.json"):
+        if (STEPS / V2 / f).exists():
+            shutil.copy2(STEPS / V2 / f, dst / f)
+    for which, work in (("v1", SIM_V1), ("v2", SIM_V2)):
+        for f in work.glob("gfx_plan_ch0?.resolved.json"):
+            shutil.copy2(f, dst / f"sim_{which}_{f.name}")
+    log.append(f"versionar: {dst}")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--etapa", choices=["guion", "script", "sim_v1", "sim_v2", "todo"], default="todo")
+    ap.add_argument("--etapa", choices=["guion", "script", "visual", "sim_v1", "sim_v2", "versionar", "todo"],
+                    default="todo")
     a = ap.parse_args()
-    log: list[str] = [f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] F5 §3 etapa {a.etapa}"]
+    log: list[str] = [f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] F5b etapa {a.etapa}"]
     try:
-        for et in (["guion", "script", "sim_v1", "sim_v2"] if a.etapa == "todo" else [a.etapa]):
+        if a.etapa in ("todo", "guion"):
+            respaldo_f5(log)
+        for et in (["guion", "script", "visual", "sim_v1", "sim_v2", "versionar"] if a.etapa == "todo" else [a.etapa]):
             if et == "guion":
                 etapa_guion(log)
             elif et == "script":
                 etapa_script(log)
+            elif et == "visual":
+                etapa_visual(log)
+            elif et == "versionar":
+                etapa_versionar(log)
             else:
                 etapa_sim(et.split("_")[1], log)
     finally:

@@ -3,34 +3,48 @@
   "chapter_number": 7,
   "title_card": {
    "kicker": "CAPÍTULO 7",
-   "title": "Un Horror Sin Registros"
+   "title": "Las Cuentas Pendientes"
   },
   "callouts": [],
   "count_up": null,
   "archive_clippings": [],
   "evidence_zoom": null,
   "punch_in": [
-   12.429,
-   24.38,
-   26.292,
-   76.009
+   25.792,
+   39.578,
+   43.58
   ],
   "chapter_question": null,
   "icon_array": null,
   "emphasis": [
    {
-    "word": "discrepancia",
+    "word": "murió",
+    "category": "muerte",
+    "layer": "muerte",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 50.25,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 6,
+    "rarity": 1,
+    "weight": 2,
+    "icon_callout": false
+   },
+   {
+    "word": "fugitivos",
     "category": "silencio",
     "layer": "minima",
     "icon": null,
     "icon_anim": "press_wipe",
-    "start": 26.292,
+    "start": 57.365,
     "duration": 2.5,
-    "side": "right",
+    "side": "left",
     "stamp": true,
-    "sid": 3,
+    "sid": 7,
     "rarity": 1,
-    "weight": 3,
+    "weight": 2,
     "sfx": {
      "file": "vacio.wav",
      "gain_db": -20
@@ -38,81 +52,99 @@
     "icon_callout": false
    },
    {
-    "word": "abandono",
-    "category": "frio_abandono",
+    "word": "penumbra",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 72.485,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 9,
+    "rarity": 2,
+    "weight": 2,
+    "icon_callout": false,
+    "peak": true
+   },
+   {
+    "word": "borradas",
+    "category": "silencio",
     "layer": "minima",
     "icon": null,
     "icon_anim": "press_wipe",
-    "start": 51.629,
-    "duration": 2.5,
-    "side": "left",
-    "stamp": true,
-    "sid": 8,
-    "rarity": 3,
-    "weight": 2,
-    "sfx": {
-     "file": "viento.wav",
-     "gain_db": -20
-    },
-    "icon_callout": false
-   },
-   {
-    "word": "horrores",
-    "category": "oscuridad_encierro",
-    "layer": "oscuridad",
-    "icon": "candado",
-    "icon_anim": "stamp",
-    "start": 70.75,
+    "start": 74.708,
     "duration": 2.5,
     "side": "right",
     "stamp": true,
     "weight": 3,
     "peak_word": true,
-    "peak": true,
-    "icon_callout": true
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "peak": true
    }
   ],
   "gap_warnings": [],
   "fragmentos": [
    {
+    "id": "T25",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
     "id": "D59",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 14.5s"
-   },
-   {
-    "id": "D58",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
     "id": "D61",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
-    "id": "D58",
-    "bloque": "dato",
-    "ahora": "8,000 evacuados de la prisión",
-    "fuente": null
-   },
-   {
-    "bloque": "dato@23.4",
-    "antes": "8,000 evacuados de la prisión",
+    "id": "D17",
+    "bloque": "recorte",
     "ahora": null,
-    "motivo": "la voz lo dice"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "Q02",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D37",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D50",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "T17",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    }
   ],
   "pico": {
-   "t": 70.75,
+   "t": 74.708,
    "block": "emphasis",
-   "word": "horrores",
-   "sentence": "Allí, un médium psíquico ha detectado la energía de personas que trabajaron allí, y la pregunta persiste: ¿Qué otros horrores, sin nombre ni registro, yacen sepultados bajo las aguas del olvido?",
-   "intensity": 0.9,
+   "word": "borradas",
+   "sentence": "¿Cuántas vidas fueron realmente borradas en ese caos?",
+   "intensity": 1.0,
    "sentence_idx": 10,
-   "palabra": "horrores"
+   "palabra": "borradas"
   },
   "time_ticker": null,
   "transitions": {
@@ -135,9 +167,9 @@
     "rank": "R3"
    },
    "4": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "después del zoom",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "5": {
@@ -147,21 +179,21 @@
     "rank": "R3"
    },
    "6": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
-    "rank": "R3"
-   },
-   "7": {
     "kind": "cut",
     "frames": 0,
     "why": "≥ 1 corte cada 3",
     "rank": "R3"
    },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
    "8": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
     "rank": "R3"
    },
    "9": {
@@ -171,9 +203,9 @@
     "rank": "R3"
    },
    "10": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "≥ 1 corte cada 3",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    }
   },
@@ -181,55 +213,65 @@
    "movimientos": [],
    "violaciones": []
   },
-  "iconos_auto": [],
   "outro_bug": {
    "start": 76.4,
    "duration": 3.5
   },
   "critico": [
    {
-    "t": 24.398,
-    "t_frame": 25.398,
+    "t": 46.066,
+    "t_frame": 47.066,
     "dur": 2.85,
     "bloque": "zoom",
-    "texto": "rostro del niño",
+    "texto": "rostro del hombre",
     "veredicto": "repite",
-    "motivo": "El rostro del niño ya es el foco principal de la imagen y la voz habla de cifras, no de la emoción del niño en este instante.",
+    "motivo": "La imagen ya muestra claramente el rostro aterrorizado del hombre, que encarna la 'visión desgarradora' mencionada por la voz. Un zoom solo re-enfatiza lo que y",
     "pasa": false,
-    "voz": "Esta laguna choca con la realidad: mientras los registros oficiales hablaban de 6,375 reclusos, algunas estimaciones señalaban hasta 8,000 evacuados de la prisión."
+    "voz": "Los reclusos de Templeman III reportaron haber visto cadáveres flotando; una visión desgarradora que el sheriff de la cárcel declaró que ningún preso murió o escapó."
    },
    {
-    "t": 26.292,
-    "t_frame": 27.292,
+    "t": 50.25,
+    "t_frame": 51.25,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "discrepancia",
+    "texto": "murió",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza el ambiente sombrío de la imagen sin obstruir elementos importantes.",
+    "motivo": "El sello enfatiza una palabra clave de la negación del sheriff, y el tinte de mood refuerza la atmósfera lúgubre de la escena y el tema de la muerte.",
     "pasa": true,
-    "voz": "Una discrepancia abismal."
+    "voz": "Los reclusos de Templeman III reportaron haber visto cadáveres flotando; una visión desgarradora que el sheriff de la cárcel declaró que ningún preso murió o escapó."
    },
    {
-    "t": 51.629,
-    "t_frame": 52.629,
+    "t": 57.365,
+    "t_frame": 58.365,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "abandono",
+    "texto": "fugitivos",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, lo cual está permitido, y el tinte refuerza el ambiente de desolación de la imagen sin obstruir la vista.",
+    "motivo": "El sello enfatiza una palabra clave de la voz que no está visualmente presente en la imagen, añadiendo un dato impactante sin estorbar.",
     "pasa": true,
-    "voz": "fue llamado a investigar la conducta del Departamento del Sheriff de Orleans, en un intento por esclarecer el abandono sistemático."
+    "voz": "Sin embargo, la contradicción llegó pronto: se emitieron 14 órdenes de arresto para fugitivos."
    },
    {
-    "t": 70.75,
-    "t_frame": 71.75,
+    "t": 72.485,
+    "t_frame": 73.485,
     "dur": 2.5,
-    "bloque": "icono",
-    "texto": "horrores",
+    "bloque": "sello",
+    "texto": "penumbra",
     "veredicto": "suma",
-    "motivo": "El ícono de candado y el tinte de oscuridad refuerzan la idea de encierro y misterio que la voz sugiere, y la palabra 'HORRORES' enfatiza un concepto clave sin ",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetir una frase completa, y el tinte refuerza el ambiente oscuro y misterioso de la imagen y el relato.",
     "pasa": true,
-    "voz": "Allí, un médium psíquico ha detectado la energía de personas que trabajaron allí, y la pregunta persiste: ¿Qué otros horrores, sin nombre ni registro, yacen sepultados bajo las aguas del olvido?"
+    "voz": "El destino de miles, incluidos niños de hasta 10 años, permanece en la penumbra."
+   },
+   {
+    "t": 74.708,
+    "t_frame": 75.708,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "borradas",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetirla, y el tinte de mood refuerza la atmósfera de misterio y desolación de la imagen.",
+    "pasa": true,
+    "voz": "¿Cuántas vidas fueron realmente borradas en ese caos?"
    }
   ]
  },

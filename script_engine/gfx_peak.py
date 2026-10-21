@@ -129,6 +129,15 @@ def water_level(peak: dict[str, Any], ctx: dict[str, Any], words: list[dict]) ->
             num, unit = m.group(1), m.group(2)
             if num in said or num.replace(",", ".") in said:
                 meters = _to_m(float(num.replace(",", ".")), unit)
+                if unit.startswith("pie"):
+                    # F5b S5: en pantalla, metros siempre. El fact guarda las dos («15 pies (4.6 metros)»): sale la
+                    # cifra métrica LITERAL del mismo fact; si el fact no la trae, no hay nivel de agua (sin convertir:
+                    # el candado no la aceptaría)
+                    mm = re.match(r"\s*\((\d+(?:[.,]\d+)?)\s*(metros|metro)\)", fact[m.end():])
+                    if not mm:
+                        continue
+                    num, unit = mm.group(1), mm.group(2)
+                    meters = float(num.replace(",", "."))
                 water_word = next(h for h in peak["hits"] if h["category"] == "agua")
                 return {"value_text": num, "unit": unit, "meters": round(meters, 2),
                         "height": round(min(0.85, max(0.15, meters / WATER_FULL_M)), 3),

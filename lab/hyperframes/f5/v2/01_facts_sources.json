@@ -73,7 +73,7 @@
       },
       {
         "id": "D03",
-        "texto": "Evento principal: Huracán Katrina.",
+        "texto": "Evento principal: huracán Katrina.",
         "tipo": "nombre",
         "valor": "Huracán Katrina",
         "fecha": null,
@@ -91,7 +91,7 @@
       },
       {
         "id": "D05",
-        "texto": "Población carcelaria al momento del evento: Aproximadamente 6,375 a más de 6,500 personas",
+        "texto": "Población carcelaria al momento del evento: aproximadamente 6,375 a más de 6,500 personas",
         "tipo": "cifra",
         "valor": "6,375",
         "fecha": null,
@@ -190,7 +190,7 @@
       },
       {
         "id": "D16",
-        "texto": "La solicitud formal de ayuda para la evacuación por parte del Sheriff Marlin N. Gusman no se realizó hasta la medianoche del 29 de agosto de 2005.",
+        "texto": "La solicitud formal de ayuda para la evacuación por parte del sheriff Marlin N. Gusman no se realizó hasta la medianoche del 29 de agosto de 2005.",
         "tipo": "nombre",
         "valor": "Marlin N. Gusman",
         "fecha": null,
@@ -226,7 +226,7 @@
       },
       {
         "id": "D20",
-        "texto": "El Sheriff Gusman reabrió el edificio House of Detention (HOD)",
+        "texto": "El sheriff Gusman reabrió el edificio House of Detention (HOD)",
         "tipo": "nombre",
         "valor": "Gusman",
         "fecha": null,
@@ -280,7 +280,7 @@
       },
       {
         "id": "D26",
-        "texto": "El Teniente General Carl Strock del Cuerpo de Ingenieros del Ejército de EE. UU.",
+        "texto": "El teniente general Carl Strock del Cuerpo de Ingenieros del Ejército de EE. UU.",
         "tipo": "nombre",
         "valor": "Carl Strock",
         "fecha": null,
@@ -379,7 +379,7 @@
       },
       {
         "id": "D37",
-        "texto": "El Sheriff Gusman negó públicamente las acusaciones, afirmando que los prisioneros tenían comida y agua y que la evacuación se realizó según lo planeado.",
+        "texto": "El sheriff Gusman negó públicamente las acusaciones, afirmando que los prisioneros tenían comida y agua y que la evacuación se realizó según lo planeado.",
         "tipo": "contradiccion",
         "valor": "negó públicamente las acusaciones, afirmando que los prisioneros tenían comida y agua y que la evacuación se realizó según lo planeado",
         "fecha": null,
@@ -459,15 +459,6 @@
         "fuente": null
       },
       {
-        "id": "D46",
-        "texto": "alcaide Cornel Hubert",
-        "tipo": "nombre",
-        "valor": "Cornel Hubert",
-        "fecha": null,
-        "bloque": "humano",
-        "fuente": null
-      },
-      {
         "id": "D47",
         "texto": "Robie Waganfeald",
         "tipo": "nombre",
@@ -517,15 +508,6 @@
         "texto": "William Hunter",
         "tipo": "nombre",
         "valor": "William Hunter",
-        "fecha": null,
-        "bloque": "humano",
-        "fuente": null
-      },
-      {
-        "id": "D53",
-        "texto": "Raphael Schwarz",
-        "tipo": "nombre",
-        "valor": "Raphael Schwarz",
         "fecha": null,
         "bloque": "humano",
         "fuente": null
@@ -631,7 +613,7 @@
       },
       {
         "id": "D65",
-        "texto": "El Sheriff Marlin Gusman no solicitó ayuda para evacuar la prisión hasta la medianoche del lunes 29 de agosto",
+        "texto": "El sheriff Marlin Gusman no solicitó ayuda para evacuar la prisión hasta la medianoche del lunes 29 de agosto",
         "tipo": "fecha",
         "valor": "29 de agosto",
         "fecha": "2005-08-29",
@@ -667,33 +649,6 @@
       },
       {
         "id": "D69",
-        "texto": "antigua cárcel de Nueva Orleans construida en 1902",
-        "tipo": "fecha",
-        "valor": "1902",
-        "fecha": "1902",
-        "bloque": "misterio",
-        "fuente": null
-      },
-      {
-        "id": "D70",
-        "texto": "incluyendo el de un posible capitán de la guardia",
-        "tipo": "nombre",
-        "valor": "capitán de la guardia",
-        "fecha": null,
-        "bloque": "misterio",
-        "fuente": null
-      },
-      {
-        "id": "D71",
-        "texto": "Un médium psíquico ha detectado la energía de personas que trabajaron allí",
-        "tipo": "nombre",
-        "valor": "médium psíquico",
-        "fecha": null,
-        "bloque": "misterio",
-        "fuente": null
-      },
-      {
-        "id": "D72",
         "texto": "Un jurado federal otorga más de $650,000 a dos turistas de Ohio",
         "tipo": "cifra",
         "valor": "650,000",
@@ -739,7 +694,7 @@
         "id": "T05",
         "fecha": "2005-08-28",
         "hora": null,
-        "evento": "El Sheriff Marlin N. Gusman anuncia en una conferencia de prensa que los prisioneros no serán evacuados de la Prisión de Orleans Parish.",
+        "evento": "El sheriff Marlin N. Gusman anuncia en una conferencia de prensa que los prisioneros no serán evacuados de la Prisión de Orleans Parish.",
         "bloque": "humano",
         "fuente": null
       },
@@ -795,7 +750,7 @@
         "id": "T12",
         "fecha": "2005-08-29",
         "hora": "medianoche",
-        "evento": "A la medianoche, el Sheriff Marlin Gusman solicita ayuda para la evacuación.",
+        "evento": "A la medianoche, el sheriff Marlin Gusman solicita ayuda para la evacuación.",
         "bloque": "tecnico",
         "fuente": null
       },
@@ -851,7 +806,7 @@
         "id": "T19",
         "fecha": "2005-10-17",
         "hora": null,
-        "evento": "El Sheriff Gusman reabre el edificio House of Detention (HOD).",
+        "evento": "El sheriff Gusman reabre el edificio House of Detention (HOD).",
         "bloque": "tecnico",
         "fuente": null
       },
@@ -859,7 +814,7 @@
         "id": "T20",
         "fecha": "2006-04-05",
         "hora": null,
-        "evento": "El Teniente General Carl Strock del Cuerpo de Ingenieros del Ejército de EE. UU. testifica ante el Senado que hubo problemas con el diseño de la estructura de los diques.",
+        "evento": "El teniente general Carl Strock del Cuerpo de Ingenieros del Ejército de EE. UU. testifica ante el Senado que hubo problemas con el diseño de la estructura de los diques.",
         "bloque": "tecnico",
         "fuente": null
       },
@@ -907,7 +862,7 @@
         "id": "T26",
         "fecha": "2010-10-14",
         "hora": null,
-        "evento": "Un jurado federal otorga más de 650,000 dólares a Robie Waganfeald y Paul Kunkel Jr. en su demanda contra el Sheriff Gusman.",
+        "evento": "Un jurado federal otorga más de 650,000 dólares a Robie Waganfeald y Paul Kunkel Jr. en su demanda contra el sheriff Gusman.",
         "bloque": "humano",
         "fuente": null
       },
@@ -924,7 +879,7 @@
       {
         "id": "L01",
         "nombre": "Prisión Parroquial de Orleans",
-        "rol": "Institución",
+        "rol": "institución",
         "bloque": "tecnico",
         "lat": null,
         "lon": null
@@ -932,7 +887,7 @@
       {
         "id": "L02",
         "nombre": "Orleans Parish Prison",
-        "rol": "Institución",
+        "rol": "institución",
         "bloque": "tecnico",
         "lat": 29.9613361,
         "lon": -90.0974708
@@ -940,7 +895,7 @@
       {
         "id": "L03",
         "nombre": "OPP",
-        "rol": "Institución",
+        "rol": "institución",
         "bloque": "tecnico",
         "lat": null,
         "lon": null
@@ -948,7 +903,7 @@
       {
         "id": "L04",
         "nombre": "Nueva Orleans",
-        "rol": "Ciudad",
+        "rol": "ciudad",
         "bloque": "tecnico",
         "lat": 29.9574657,
         "lon": -90.0629493
@@ -956,7 +911,7 @@
       {
         "id": "L05",
         "nombre": "Luisiana",
-        "rol": "Estado",
+        "rol": "estado",
         "bloque": "tecnico",
         "lat": 30.8703881,
         "lon": -92.007126
@@ -964,7 +919,7 @@
       {
         "id": "L06",
         "nombre": "Templeman 1",
-        "rol": "Edificio de la prisión",
+        "rol": "edificio de la prisión",
         "bloque": "tecnico",
         "lat": null,
         "lon": null
@@ -972,7 +927,7 @@
       {
         "id": "L07",
         "nombre": "Estados Unidos",
-        "rol": "País",
+        "rol": "país",
         "bloque": "tecnico",
         "lat": 39.7837304,
         "lon": -100.445882
@@ -980,7 +935,7 @@
       {
         "id": "L08",
         "nombre": "17th Street",
-        "rol": "Canal",
+        "rol": "canal",
         "bloque": "tecnico",
         "lat": 29.9806912,
         "lon": -90.1248786
@@ -988,7 +943,7 @@
       {
         "id": "L09",
         "nombre": "London Avenue",
-        "rol": "Canal",
+        "rol": "canal",
         "bloque": "tecnico",
         "lat": 29.9927557,
         "lon": -90.0684782
@@ -996,7 +951,7 @@
       {
         "id": "L10",
         "nombre": "Broad Street",
-        "rol": "Paso elevado",
+        "rol": "paso elevado",
         "bloque": "tecnico",
         "lat": 29.9641671,
         "lon": -90.0884729
@@ -1004,7 +959,7 @@
       {
         "id": "L11",
         "nombre": "Interestatal 10",
-        "rol": "Carretera",
+        "rol": "carretera",
         "bloque": "tecnico",
         "lat": null,
         "lon": null
@@ -1012,7 +967,7 @@
       {
         "id": "L12",
         "nombre": "House of Detention",
-        "rol": "Edificio de la prisión",
+        "rol": "edificio de la prisión",
         "bloque": "tecnico",
         "lat": null,
         "lon": null
@@ -1020,7 +975,7 @@
       {
         "id": "L13",
         "nombre": "HOD",
-        "rol": "Edificio de la prisión",
+        "rol": "edificio de la prisión",
         "bloque": "tecnico",
         "lat": null,
         "lon": null
@@ -1028,7 +983,7 @@
       {
         "id": "L14",
         "nombre": "Oficina del Sheriff de la Parroquia de Orleans",
-        "rol": "Oficina gubernamental",
+        "rol": "oficina gubernamental",
         "bloque": "tecnico",
         "lat": null,
         "lon": null
@@ -1036,7 +991,7 @@
       {
         "id": "L15",
         "nombre": "Parroquia de St. Bernard",
-        "rol": "Parroquia",
+        "rol": "parroquia",
         "bloque": "tecnico",
         "lat": 29.8676252,
         "lon": -89.910594
@@ -1044,7 +999,7 @@
       {
         "id": "L16",
         "nombre": "Templeman III",
-        "rol": "Edificio de la prisión",
+        "rol": "edificio de la prisión",
         "bloque": "tecnico",
         "lat": null,
         "lon": null
@@ -1052,7 +1007,7 @@
       {
         "id": "L17",
         "nombre": "Senado",
-        "rol": "Cámara legislativa",
+        "rol": "cámara legislativa",
         "bloque": "tecnico",
         "lat": null,
         "lon": null
@@ -1060,7 +1015,7 @@
       {
         "id": "L18",
         "nombre": "Bourbon Street",
-        "rol": "Lugar de arresto",
+        "rol": "lugar de arresto",
         "bloque": "humano",
         "lat": 29.954682,
         "lon": -90.069172
@@ -1068,7 +1023,7 @@
       {
         "id": "L19",
         "nombre": "Elayn Hunt Correctional Center",
-        "rol": "Prisión de traslado de prisioneros",
+        "rol": "prisión de traslado de prisioneros",
         "bloque": "humano",
         "lat": 30.2657852,
         "lon": -91.0856373
@@ -1076,7 +1031,7 @@
       {
         "id": "L20",
         "nombre": "Ohio",
-        "rol": "Estado de origen de turistas",
+        "rol": "estado de origen de turistas",
         "bloque": "humano",
         "lat": 40.2253569,
         "lon": -82.6881395
@@ -1084,7 +1039,7 @@
       {
         "id": "L21",
         "nombre": "Londres",
-        "rol": "Ciudad de atentado terrorista",
+        "rol": "ciudad de atentado terrorista",
         "bloque": "humano",
         "lat": 51.5074456,
         "lon": -0.1277653
@@ -1092,7 +1047,7 @@
       {
         "id": "L22",
         "nombre": "Departamento de Justicia de EE. UU.",
-        "rol": "Organismo investigador",
+        "rol": "organismo investigador",
         "bloque": "misterio",
         "lat": null,
         "lon": null
@@ -1100,7 +1055,7 @@
       {
         "id": "L23",
         "nombre": "Departamento del Sheriff de Orleans",
-        "rol": "Autoridad carcelaria",
+        "rol": "autoridad carcelaria",
         "bloque": "misterio",
         "lat": null,
         "lon": null
@@ -1108,7 +1063,7 @@
       {
         "id": "L24",
         "nombre": "CYC",
-        "rol": "Instalación juvenil",
+        "rol": "instalación juvenil",
         "bloque": "misterio",
         "lat": null,
         "lon": null
@@ -1116,15 +1071,7 @@
       {
         "id": "L25",
         "nombre": "YSC",
-        "rol": "Instalación juvenil",
-        "bloque": "misterio",
-        "lat": null,
-        "lon": null
-      },
-      {
-        "id": "L26",
-        "nombre": "Inn at the Old Jail",
-        "rol": "Antigua cárcel, ahora posada",
+        "rol": "instalación juvenil",
         "bloque": "misterio",
         "lat": null,
         "lon": null
@@ -1152,7 +1099,7 @@
       {
         "id": "P01",
         "nombre": "Marlin N. Gusman",
-        "rol": "Sheriff",
+        "rol": "sheriff",
         "antagonista": true,
         "bloque": "tecnico"
       },
@@ -1164,46 +1111,82 @@
         "bloque": "tecnico"
       },
       {
-        "id": "P03",
-        "nombre": "Cornel Hubert",
-        "rol": "Alcaide del Elayn Hunt Correctional Center",
-        "antagonista": false,
-        "bloque": "humano"
-      },
-      {
         "id": "P04",
         "nombre": "William Hunter",
-        "rol": "Adjunto del Sheriff Gusman",
+        "rol": "adjunto del Sheriff Gusman",
         "antagonista": true,
         "bloque": "humano"
       },
       {
         "id": "P05",
         "nombre": "Robie Waganfeald",
-        "rol": "Turista, demandante",
+        "rol": "turista, demandante",
         "antagonista": false,
         "bloque": "humano"
       },
       {
         "id": "P06",
         "nombre": "Paul Kunkel Jr.",
-        "rol": "Turista, demandante",
+        "rol": "turista, demandante",
         "antagonista": false,
         "bloque": "humano"
       },
       {
         "id": "P07",
         "nombre": "Ronnie L. Morgan, Jr.",
-        "rol": "Recluso, demandante",
+        "rol": "recluso, demandante",
         "antagonista": false,
         "bloque": "humano"
+      }
+    ],
+    "_descartados": [
+      {
+        "kind": "datos",
+        "texto": "antigua cárcel de Nueva Orleans construida en 1902",
+        "bloque": "misterio",
+        "motivo": "el bloque lo marca como no relacionado con el caso"
       },
       {
-        "id": "P08",
-        "nombre": "Raphael Schwarz",
-        "rol": "Arrestado por intoxicación pública",
-        "antagonista": false,
-        "bloque": "humano"
+        "kind": "datos",
+        "texto": "incluyendo el de un posible capitán de la guardia",
+        "bloque": "misterio",
+        "motivo": "el bloque lo marca como no relacionado con el caso"
+      },
+      {
+        "kind": "datos",
+        "texto": "Un médium psíquico ha detectado la energía de personas que trabajaron allí",
+        "bloque": "misterio",
+        "motivo": "el bloque lo marca como no relacionado con el caso"
+      },
+      {
+        "kind": "lugares",
+        "texto": "Inn at the Old Jail",
+        "bloque": "misterio",
+        "motivo": "el bloque lo marca como no relacionado con el caso"
+      },
+      {
+        "kind": "personajes",
+        "texto": "Cornel Hubert",
+        "bloque": "humano",
+        "motivo": "el research no le atribuye ninguna acción (un nombre entra solo si hace algo)"
+      },
+      {
+        "kind": "personajes",
+        "texto": "Raphael Schwarz",
+        "bloque": "humano",
+        "motivo": "el research no le atribuye ninguna acción (un nombre entra solo si hace algo)"
+      },
+      {
+        "kind": "datos",
+        "texto": "alcaide Cornel Hubert",
+        "bloque": "humano",
+        "motivo": "solo el nombre de un personaje que no hace nada"
+      },
+      {
+        "kind": "datos",
+        "texto": "Raphael Schwarz",
+        "bloque": "humano",
+        "motivo": "solo el nombre de un personaje que no hace nada"
       }
     ]
   }

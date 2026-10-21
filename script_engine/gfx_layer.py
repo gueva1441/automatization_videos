@@ -653,7 +653,8 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             viol = identity_violations(resolved, tr)
             resolved["identity"] = {"movimientos": movs, "violaciones": viol}
             log.append(f"  identidad: transiciones {[tr[k]['kind'] for k in sorted(tr)]} · violaciones {viol}")
-        if gfx_plan_override is None and gfx_rules.auto_icons and intensity:   # F4b §4: íconos gratis automáticos
+        # F4b §4: íconos gratis automáticos (F5b S4: con icon_literal_only, no: solo el mapa literal del perfil)
+        if gfx_plan_override is None and gfx_rules.auto_icons and intensity and not gfx_rules.icon_literal_only:
             from script_engine.gfx_director import mark_icon_callouts
             from script_engine.gfx_icons.auto_icons import choose_icons
             from script_engine.gfx_peak import sentences as _s3

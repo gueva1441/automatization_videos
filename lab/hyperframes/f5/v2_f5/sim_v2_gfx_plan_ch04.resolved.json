@@ -1,0 +1,446 @@
+{
+ "plan": {
+  "chapter_number": 4,
+  "title_card": {
+   "kicker": "CAPÍTULO 4",
+   "title": "Días Atrapados en la Marea"
+  },
+  "callouts": [],
+  "count_up": null,
+  "archive_clippings": [
+   {
+    "kicker": "2 de septiembre de 2005",
+    "headline": "la prisión no finalizó hasta el viernes 2 de septiembre",
+    "body": "",
+    "scene_idx": 13,
+    "fact_idx": null,
+    "pool_id": "D17",
+    "fuente": null,
+    "era_decade": 2000,
+    "start": 77.609,
+    "duration": 6.0,
+    "side": "right"
+   }
+  ],
+  "evidence_zoom": {
+   "scene_idx": 2,
+   "box": [
+    0.25,
+    0.35,
+    0.2,
+    0.25
+   ],
+   "start": 19.45,
+   "anchor": "atrapados",
+   "latido": true,
+   "latido_t": 20.623,
+   "word": "atrapados"
+  },
+  "punch_in": [
+   10.693,
+   26.734,
+   35.899,
+   46.593
+  ],
+  "chapter_question": {
+   "text": "¿Quiénes quedaron en las celdas?",
+   "start": 116.133,
+   "duration": 3.0,
+   "keyword": "quedaron",
+   "generated": true,
+   "pause": 3.0
+  },
+  "icon_array": null,
+  "emphasis": [
+   {
+    "word": "atrapados",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": "candado",
+    "icon_anim": "stamp",
+    "start": 20.623,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "weight": 3,
+    "peak_word": true,
+    "icon_callout": true
+   },
+   {
+    "word": "espera",
+    "category": "frio_abandono",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 106.934,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 9,
+    "rarity": 1,
+    "weight": 2,
+    "sfx": {
+     "file": "viento.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "silencio",
+    "category": "silencio",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 110.753,
+    "duration": 2.5,
+    "side": "right",
+    "stamp": true,
+    "sid": 10,
+    "rarity": 2,
+    "weight": 2,
+    "sfx": {
+     "file": "vacio.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   }
+  ],
+  "gap_warnings": [],
+  "fragmentos": [
+   {
+    "id": "D08",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "T17",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 90.6s"
+   },
+   {
+    "id": "T08",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D33",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+   },
+   {
+    "id": "D19",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D60",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "no entra sin pisar otro bloque @ 18.8s"
+   },
+   {
+    "id": "D61",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "Q02",
+    "bloque": "recorte",
+    "ahora": null,
+    "motivo": "la voz no habla de esto en el cap"
+   },
+   {
+    "id": "D17",
+    "bloque": "recorte",
+    "ahora": "la prisión no finalizó hasta el viernes 2 de septiembre",
+    "kicker": "2 de septiembre de 2005",
+    "fuente": null,
+    "icono": null,
+    "icono_faltante": null,
+    "opciones": [
+     "la prisión no finalizó hasta el viernes 2 de septiembre",
+     "prisión no finalizó hasta el viernes 2 de septiembre",
+     "el viernes 2 de septiembre"
+    ]
+   }
+  ],
+  "pico": {
+   "t": 20.623,
+   "block": "evidence_zoom",
+   "word": "atrapados",
+   "sentence": "Prisioneros quedaron atrapados por días en celdas donde el agua contaminada con aguas residuales llegó hasta el pecho de los reclusos.",
+   "intensity": 0.9,
+   "sentence_idx": 2,
+   "palabra": "atrapados"
+  },
+  "time_ticker": {
+   "day": "30",
+   "month": "AGO",
+   "tail": "2005",
+   "times": [],
+   "advance": false,
+   "source_text": "Comienza la evacuación de algunos edificios de la prisión (Templeman 1 y 2) cuando el agua alcanza el nivel del pecho en el interior.",
+   "pool_id": "T13",
+   "start": 40.482,
+   "duration": 37.427,
+   "side": "left"
+  },
+  "transitions": {
+   "1": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "2": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "3": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
+    "rank": "R3"
+   },
+   "4": {
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
+    "rank": "R3"
+   },
+   "5": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R2"
+   },
+   "7": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "8": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "9": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "10": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
+    "rank": "R3"
+   },
+   "11": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R2"
+   },
+   "12": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   },
+   "13": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "14": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
+    "rank": "R3"
+   },
+   "15": {
+    "kind": "cut",
+    "frames": 0,
+    "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "16": {
+    "kind": "flash",
+    "frames": 3,
+    "why": "impacto",
+    "rank": "R1"
+   }
+  },
+  "identity": {
+   "movimientos": [
+    {
+     "scene": 0,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    },
+    {
+     "scene": 1,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 2,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 3,
+     "forma": "acercar",
+     "motivo": "es un detalle"
+    },
+    {
+     "scene": 4,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 5,
+     "forma": "acercar",
+     "motivo": "base del documental"
+    },
+    {
+     "scene": 6,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 7,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 8,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 9,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 10,
+     "forma": "paneo",
+     "motivo": "foto ancha con gente"
+    },
+    {
+     "scene": 11,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 12,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 13,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 14,
+     "forma": "router",
+     "motivo": "riesgo rostro: push"
+    },
+    {
+     "scene": 15,
+     "forma": "acercar",
+     "motivo": "hay una persona"
+    },
+    {
+     "scene": 16,
+     "forma": "3D",
+     "motivo": "paisaje con profundidad"
+    }
+   ],
+   "violaciones": []
+  },
+  "iconos_auto": [],
+  "black_hold": {
+   "start": 119.133,
+   "duration": 1.0
+  },
+  "critico": [
+   {
+    "t": 19.45,
+    "t_frame": 20.45,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "atrapados",
+    "veredicto": "suma",
+    "motivo": "El zoom de evidencia en las manos que sujetan las rejas, junto con la palabra 'atrapados', enfatiza visualmente la condición de los prisioneros, reforzando un c",
+    "pasa": true,
+    "voz": "Prisioneros quedaron atrapados por días en celdas donde el agua contaminada con aguas residuales llegó hasta el pecho de los reclusos."
+   },
+   {
+    "t": 20.623,
+    "t_frame": 21.623,
+    "dur": 2.5,
+    "bloque": "icono",
+    "texto": "atrapados",
+    "veredicto": "suma",
+    "motivo": "El bloque enfatiza la palabra clave 'ATRAPADOS' de la voz y el ícono de candado refuerza el concepto de encierro, sin repetir visualmente lo que ya se ve en la ",
+    "pasa": true,
+    "voz": "Prisioneros quedaron atrapados por días en celdas donde el agua contaminada con aguas residuales llegó hasta el pecho de los reclusos."
+   },
+   {
+    "t": 77.609,
+    "t_frame": 78.609,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "la prisión no finalizó hasta el viernes 2 de septiembre",
+    "veredicto": "suma",
+    "motivo": "El bloque aporta una fecha clave sobre el fin de la situación en la prisión, información que ni la imagen ni la voz dan en este instante, complementando el rela",
+    "pasa": true,
+    "voz": "Se les llevó al paso elevado de Broad Street sobre la Interestatal 10."
+   },
+   {
+    "t": 106.934,
+    "t_frame": 107.934,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "espera",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, lo cual se considera énfasis y no repetición, y el tinte refuerza el mood de la imagen sin estorbar.",
+    "pasa": true,
+    "voz": "Cuatro días de espera."
+   },
+   {
+    "t": 110.753,
+    "t_frame": 111.753,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "silencio",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza la palabra clave de la voz y el tinte refuerza el ambiente de silencio y desolación de la prisión, sumando a la atmósfera sin repetir informac",
+    "pasa": true,
+    "voz": "La prisión, ahora en silencio."
+   }
+  ]
+ },
+ "rejected": []
+}

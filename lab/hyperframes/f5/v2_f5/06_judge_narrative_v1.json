@@ -1,0 +1,150 @@
+{
+ "caps": [
+  {
+   "palabras": 73,
+   "datos_usados": [
+    "D04",
+    "D33",
+    "T07"
+   ],
+   "densidad": 4.11,
+   "adjetivos": 3,
+   "adj_100": 4.11,
+   "relleno_seguido": 1,
+   "relleno_prohibido": [],
+   "trigramas_repetidos": 0.1556
+  },
+  {
+   "palabras": 205,
+   "datos_usados": [
+    "D33"
+   ],
+   "densidad": 0.49,
+   "adjetivos": 13,
+   "adj_100": 6.34,
+   "relleno_seguido": 2,
+   "relleno_prohibido": [
+    "coloso de",
+    "manto oscuro"
+   ],
+   "trigramas_repetidos": 0.0407
+  },
+  {
+   "palabras": 316,
+   "datos_usados": [
+    "D04",
+    "D06",
+    "T07",
+    "T08",
+    "T11"
+   ],
+   "densidad": 1.58,
+   "adjetivos": 21,
+   "adj_100": 6.65,
+   "relleno_seguido": 1,
+   "relleno_prohibido": [
+    "imaginen",
+    "cámara de tortura"
+   ],
+   "trigramas_repetidos": 0.0171
+  },
+  {
+   "palabras": 225,
+   "datos_usados": [
+    "D33",
+    "D67"
+   ],
+   "densidad": 0.89,
+   "adjetivos": 17,
+   "adj_100": 7.56,
+   "relleno_seguido": 2,
+   "relleno_prohibido": [
+    "una eternidad de"
+   ],
+   "trigramas_repetidos": 0.0236
+  },
+  {
+   "palabras": 230,
+   "datos_usados": [
+    "D59"
+   ],
+   "densidad": 0.43,
+   "adjetivos": 14,
+   "adj_100": 6.09,
+   "relleno_seguido": 2,
+   "relleno_prohibido": [
+    "infierno personal"
+   ],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 194,
+   "datos_usados": [
+    "D50",
+    "D59",
+    "D72"
+   ],
+   "densidad": 1.55,
+   "adjetivos": 9,
+   "adj_100": 4.64,
+   "relleno_seguido": 1,
+   "relleno_prohibido": [],
+   "trigramas_repetidos": 0.0254
+  },
+  {
+   "palabras": 155,
+   "datos_usados": [
+    "D08",
+    "D32",
+    "D33",
+    "D59"
+   ],
+   "densidad": 2.58,
+   "adjetivos": 10,
+   "adj_100": 6.45,
+   "relleno_seguido": 1,
+   "relleno_prohibido": [
+    "eco fantasmal",
+    "sombra inalcanzable"
+   ],
+   "trigramas_repetidos": 0.0778
+  }
+ ],
+ "video": {
+  "densidad": 1.36,
+  "adj_100": 6.22,
+  "trigramas_repetidos": 0.0339,
+  "datos_en_mas_de_2_caps": {
+   "D33": [
+    1,
+    2,
+    4,
+    7
+   ],
+   "D59": [
+    5,
+    6,
+    7
+   ]
+  },
+  "antagonista_nombrado": false,
+  "antagonista": "Marlin N. Gusman",
+  "cliffhangers": [],
+  "datos_distintos": 12,
+  "palabras": 1398,
+  "umbral": {
+   "densidad": false,
+   "repeticion": false,
+   "adjetivacion": false,
+   "antagonista": false,
+   "cliffhanger": null
+  }
+ },
+ "umbrales": {
+  "densidad_min": 2.0,
+  "max_caps_por_dato": 2,
+  "trigramas_max": 0.05,
+  "adj_100_max": 3.6
+ },
+ "violaciones_narrador": {}
+}

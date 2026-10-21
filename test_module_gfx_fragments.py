@@ -14,8 +14,10 @@ from script_engine.gfx_project import GfxScene
 
 @pytest.fixture
 def sin_doctrina(monkeypatch):
-    """Comportamiento F4b (opciones de la narración, sin kicker obligatorio): las reglas R6/R7 apagadas."""
-    monkeypatch.setattr(gfx_config, "gfx_rules", replace(gfx_config.gfx_rules, doc_clippings=False))
+    """Comportamiento F4b (opciones de la narración, sin kicker obligatorio): las reglas R6/R7 apagadas; ícono por
+    categoría (F5b S4 apagado: icon_literal_only=False)."""
+    monkeypatch.setattr(gfx_config, "gfx_rules", replace(gfx_config.gfx_rules, doc_clippings=False,
+                                                         icon_literal_only=False))
 
 FACT_A = "Los presos estuvieron con el agua hasta el pecho, agua putrefacta, durante días."
 FACT_B = "Aproximadamente 6,500 personas estaban en la prisión."

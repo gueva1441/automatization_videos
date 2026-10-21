@@ -22,26 +22,45 @@
   ],
   "evidence_zoom": null,
   "punch_in": [
+   3.18,
    22.78,
    34.84,
-   83.78,
-   104.38
+   58.92
   ],
   "chapter_question": {
-   "text": "¿Quién los dejó morir ahogados?",
+   "text": "¿Quién ignoró la agonía creciente?",
    "start": 152.167,
    "duration": 3.0,
-   "keyword": "ahogados",
+   "keyword": "creciente",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
+    "word": "brutal",
+    "category": "caos_gritos",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 3.18,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 0,
+    "rarity": 1,
+    "weight": 3,
+    "sfx": {
+     "file": "rumor.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
     "word": "negrura",
     "category": "oscuridad_encierro",
     "layer": "oscuridad",
-    "icon": "candado",
+    "icon": null,
     "icon_anim": "stamp",
     "start": 34.84,
     "duration": 2.5,
@@ -50,40 +69,21 @@
     "sid": 4,
     "rarity": 1,
     "weight": 3,
-    "icon_callout": true
-   },
-   {
-    "word": "putrefacto",
-    "category": "veneno_enfermedad",
-    "layer": "veneno",
-    "icon": "biohazard",
-    "icon_anim": "ink_bleed",
-    "start": 112.0,
-    "duration": 2.5,
-    "side": "left",
-    "stamp": true,
-    "sid": 16,
-    "rarity": 1,
-    "weight": 3,
     "icon_callout": false
    },
    {
-    "word": "tortura",
-    "category": "caos_gritos",
-    "layer": "minima",
+    "word": "torrente",
+    "category": "agua",
+    "layer": "agua",
     "icon": null,
-    "icon_anim": "stamp",
-    "start": 130.62,
+    "icon_anim": "press_wipe",
+    "start": 64.06,
     "duration": 2.5,
-    "side": "right",
+    "side": "left",
     "stamp": true,
+    "sid": 9,
+    "rarity": 1,
     "weight": 3,
-    "peak_word": true,
-    "sfx": {
-     "file": "rumor.wav",
-     "gain_db": -20
-    },
-    "peak": true,
     "icon_callout": false
    }
   ],
@@ -117,13 +117,10 @@
    }
   ],
   "pico": {
-   "t": 130.62,
-   "block": "emphasis",
-   "word": "tortura",
-   "sentence": "La prisión, diseñada para contener, se había transformado en una cámara de tortura líquida y asfixiante.",
-   "intensity": 1.0,
-   "sentence_idx": 20,
-   "palabra": "tortura"
+   "t": 129.06,
+   "block": null,
+   "word": "transformado",
+   "sentence": "La prisión, diseñada para contener, se había transformado en una cámara de tortura líquida y asfixiante."
   },
   "transitions": {
    "1": {
@@ -324,20 +321,30 @@
    ],
    "violaciones": []
   },
-  "iconos_auto": [],
   "black_hold": {
    "start": 155.167,
    "duration": 1.0
   },
   "critico": [
    {
+    "t": 3.18,
+    "t_frame": 4.18,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "brutal",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood intensifica la atmósfera ya ominosa de la imagen, reforzando el concepto de 'brutal'.",
+    "pasa": true,
+    "voz": "La respuesta a esa pregunta no tardó en llegar, y fue brutal."
+   },
+   {
     "t": 34.84,
     "t_frame": 35.84,
     "dur": 2.5,
-    "bloque": "icono",
+    "bloque": "sello",
     "texto": "negrura",
     "veredicto": "suma",
-    "motivo": "El ícono de candado y el tinte refuerzan el encierro y la oscuridad inminente, mientras que la palabra \"NEGRURA\" enfatiza un concepto clave de la voz sin repeti",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte visualiza la transición a la oscuridad total que la voz describe como inminente, complementando la ima",
     "pasa": true,
     "voz": "Las luces parpadearon una última vez antes de extinguirse por completo, dejando a miles en una negrura absoluta."
    },
@@ -353,13 +360,24 @@
     "voz": "La prisión dejó de respirar."
    },
    {
+    "t": 64.06,
+    "t_frame": 65.06,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "torrente",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, lo cual es permitido como énfasis, y el tinte de mood refuerza la atmósfera de la escena sin repetir información ",
+    "pasa": true,
+    "voz": "Un goteo constante se convirtió en un torrente imparable."
+   },
+   {
     "t": 96.82,
     "t_frame": 97.82,
     "dur": 2.5,
-    "bloque": "icono",
+    "bloque": "sello",
     "texto": "sin luz",
     "veredicto": "repite",
-    "motivo": "El ícono del candado ya es visible en la imagen, y el texto \"SIN LUZ\" repite exactamente lo que dice la voz en ese instante, además de que el tinte de mood refu",
+    "motivo": "El bloque de texto 'SIN LUZ' repite una frase clave que la voz ya pronuncia explícitamente en ese instante.",
     "pasa": false,
     "voz": "En celdas herméticamente cerradas, sin salida, sin luz, el agua oscura subiendo sin cesar."
    },
@@ -367,10 +385,10 @@
     "t": 104.38,
     "t_frame": 105.38,
     "dur": 2.5,
-    "bloque": "icono",
+    "bloque": "sello",
     "texto": "ahogados",
     "veredicto": "repite",
-    "motivo": "El ícono de gota y el tinte de agua repiten lo que ya se ve en la imagen (el hombre está en el agua), y la palabra \"AHOGADOS\" repite una palabra clave de la voz",
+    "motivo": "El tinte de 'mood agua' es redundante, ya que la imagen ya muestra claramente a la persona sumergida en agua, y la palabra 'AHOGADOS' repite un término clave de",
     "pasa": false,
     "voz": "El pánico se apoderó de las mentes, desatando gritos ahogados y una desesperación palpable en la penumbra."
    },
@@ -381,31 +399,9 @@
     "bloque": "zoom",
     "texto": "Ojos asustados",
     "veredicto": "repite",
-    "motivo": "La imagen ya muestra claramente unos ojos asustados, y la voz habla de pánico y desesperación, haciendo redundante el zoom y el texto.",
+    "motivo": "La imagen ya muestra claramente unos ojos asustados, el bloque solo reitera lo que es evidente visualmente.",
     "pasa": false,
     "voz": "El pánico se apoderó de las mentes, desatando gritos ahogados y una desesperación palpable en la penumbra."
-   },
-   {
-    "t": 112.0,
-    "t_frame": 113.0,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "putrefacto",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte refuerza el ambiente de contaminación y enfermedad descrito, sin tapar elementos cruciales.",
-    "pasa": true,
-    "voz": "El frío cortante del agua contaminada se mezclaba con el hedor putrefacto que llenaba el ambiente, volviendo cada respiración una tortura."
-   },
-   {
-    "t": 130.62,
-    "t_frame": 131.62,
-    "dur": 2.5,
-    "bloque": "sello",
-    "texto": "tortura",
-    "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, lo cual suma como énfasis, y el tinte de mood refuerza la atmósfera de tortura descrita sin repetir información v",
-    "pasa": true,
-    "voz": "La prisión, diseñada para contener, se había transformado en una cámara de tortura líquida y asfixiante."
    }
   ]
  },

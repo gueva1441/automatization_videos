@@ -3,115 +3,100 @@
   "chapter_number": 3,
   "title_card": {
    "kicker": "CAPÍTULO 3",
-   "title": "Generadores Caídos, Celdas Inundadas"
+   "title": "Prisión Inundada, Generadores Silenciosos"
   },
   "callouts": [],
   "count_up": null,
   "archive_clippings": [
    {
     "kicker": "2005",
-    "headline": "piso comienzan a inundarse y las aguas residuales refluyen",
+    "headline": "las aguas residuales refluyen",
     "body": "",
-    "scene_idx": 8,
+    "scene_idx": 5,
     "fact_idx": null,
     "pool_id": "T09",
     "fuente": null,
     "era_decade": 2000,
-    "start": 67.257,
-    "duration": 6.0,
-    "side": "left",
-    "icon": "biohazard"
-   },
-   {
-    "kicker": "2005",
-    "headline": "el agua alcanza el nivel del pecho en el interior",
-    "body": "",
-    "scene_idx": 16,
-    "fact_idx": null,
-    "pool_id": "T13",
-    "fuente": null,
-    "era_decade": 2000,
-    "start": 140.666,
+    "start": 41.064,
     "duration": 6.0,
     "side": "right",
-    "icon": "gota"
+    "icon": "biohazard"
    }
   ],
   "evidence_zoom": null,
   "punch_in": [
-   25.002,
-   56.918,
-   85.112,
-   115.965
+   23.837,
+   51.881,
+   85.533,
+   148.632
   ],
   "chapter_question": {
-   "text": "¿Cómo escaparon los prisioneros?",
+   "text": "¿Qué precio pagaría la indiferencia oficial?",
    "start": 152.167,
    "duration": 3.0,
-   "keyword": "prisioneros",
+   "keyword": "indiferencia",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "sofocante",
+    "word": "celdas",
     "category": "oscuridad_encierro",
     "layer": "oscuridad",
     "icon": "candado",
     "icon_anim": "stamp",
-    "start": 48.407,
+    "start": 38.56,
     "duration": 2.5,
     "side": "right",
     "stamp": true,
-    "weight": 3,
-    "peak_word": true,
-    "peak": true,
-    "icon_callout": true
-   },
-   {
-    "word": "residuales",
-    "category": "veneno_enfermedad",
-    "layer": "veneno",
-    "icon": "biohazard",
-    "icon_anim": "ink_bleed",
-    "start": 79.26,
-    "duration": 2.5,
-    "side": "left",
-    "stamp": true,
-    "sid": 5,
-    "rarity": 2,
+    "sid": 3,
+    "rarity": 6,
     "weight": 2,
     "icon_callout": true
    },
    {
-    "word": "fétido",
+    "word": "inundarse",
     "category": "agua",
     "layer": "agua",
-    "icon": "gota",
+    "icon": null,
     "icon_anim": "press_wipe",
-    "start": 92.027,
+    "start": 51.881,
     "duration": 2.5,
     "side": "right",
     "stamp": true,
-    "sid": 6,
+    "sid": 4,
     "rarity": 1,
     "weight": 3,
     "icon_callout": false
    },
    {
-    "word": "contaminado",
-    "category": "veneno_enfermedad",
-    "layer": "veneno",
-    "icon": "biohazard",
-    "icon_anim": "ink_bleed",
-    "start": 132.455,
+    "word": "ciénagas",
+    "category": "agua",
+    "layer": "agua",
+    "icon": null,
+    "icon_anim": "press_wipe",
+    "start": 75.017,
     "duration": 2.5,
     "side": "right",
     "stamp": true,
-    "sid": 11,
+    "weight": 3,
+    "peak_word": true,
+    "peak": true
+   },
+   {
+    "word": "encarceladas",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 85.533,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 6,
     "rarity": 1,
-    "weight": 2,
+    "weight": 3,
     "icon_callout": false
    }
   ],
@@ -121,22 +106,16 @@
     "id": "T08",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 27.9s"
+    "motivo": "no entra sin pisar otro bloque @ 5.3s"
    },
    {
-    "id": "D33",
+    "id": "T03",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+    "motivo": "la voz no habla de esto en el cap"
    },
    {
-    "id": "T06",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 0.5s"
-   },
-   {
-    "id": "D09",
+    "id": "T04",
     "bloque": "recorte",
     "ahora": null,
     "motivo": "la voz no habla de esto en el cap"
@@ -148,78 +127,46 @@
     "motivo": "la voz no habla de esto en el cap"
    },
    {
-    "id": "T03",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
-   },
-   {
     "id": "T09",
     "bloque": "recorte",
-    "ahora": "piso comienzan a inundarse y las aguas residuales refluyen",
+    "ahora": "las aguas residuales refluyen",
     "kicker": "2005",
     "fuente": null,
     "icono": "biohazard",
     "icono_faltante": null,
     "opciones": [
-     "piso comienzan a inundarse y las aguas residuales refluyen",
-     "las aguas residuales refluyen",
-     "aguas residuales refluyen"
-    ]
-   },
-   {
-    "id": "T13",
-    "bloque": "recorte",
-    "ahora": "el agua alcanza el nivel del pecho en el interior",
-    "kicker": "2005",
-    "fuente": null,
-    "icono": "gota",
-    "icono_faltante": null,
-    "opciones": [
-     "Templeman 1 y 2",
-     "el agua alcanza el nivel del pecho en el interior",
-     "Comienza la evacuación de algunos edificios de la prisión"
+     "Las celdas del primer piso comienzan a inundarse",
+     "las aguas residuales refluyen"
     ]
    }
   ],
   "pico": {
-   "t": 48.407,
+   "t": 75.017,
    "block": "emphasis",
-   "word": "sofocante",
-   "sentence": "Esta pérdida total de energía no solo sumió las entrañas de la prisión en una oscuridad impenetrable y sofocante, sino que también inhabilitó los sistemas de ventilación y los mecanismos vitales para abrir las celdas.",
+   "word": "ciénagas",
+   "sentence": "El agua dentro de algunos edificios de la Prisión Parroquial de Orleans (OPP), como Templeman 1 y 2, alcanzó el nivel del pecho, transformando los pasillos en ciénagas.",
    "intensity": 0.9,
-   "sentence_idx": 3,
-   "palabra": "sofocante"
+   "sentence_idx": 5,
+   "palabra": "ciénagas"
   },
-  "time_ticker": {
-   "day": "29",
-   "month": "AGO",
-   "tail": "2005",
-   "times": [],
-   "advance": false,
-   "source_text": "La energía eléctrica se pierde y los generadores de respaldo fallan en la OPP.",
-   "pool_id": "T08",
-   "start": 28.193,
-   "duration": 12.0,
-   "side": "left"
-  },
+  "time_ticker": null,
   "transitions": {
    "1": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
     "rank": "R3"
    },
    "2": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
+    "kind": "cut",
+    "frames": 0,
+    "why": "ritmo rápido",
     "rank": "R2"
    },
    "3": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "≥ 1 corte cada 3",
+    "kind": "dip",
+    "frames": 10,
+    "why": "fundido a negro (1 por cap)",
     "rank": "R3"
    },
    "4": {
@@ -229,15 +176,15 @@
     "rank": "R2"
    },
    "5": {
-    "kind": "dip",
-    "frames": 10,
-    "why": "fundido a negro (1 por cap)",
-    "rank": "R3"
-   },
-   "6": {
     "kind": "cut",
     "frames": 0,
     "why": "≥ 1 corte cada 3",
+    "rank": "R3"
+   },
+   "6": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "7": {
@@ -247,15 +194,15 @@
     "rank": "R3"
    },
    "8": {
-    "kind": "dissolve",
-    "frames": 20,
-    "why": "default",
-    "rank": "R2"
-   },
-   "9": {
     "kind": "cut",
     "frames": 0,
     "why": "≥ 1 corte cada 3",
+    "rank": "R2"
+   },
+   "9": {
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "10": {
@@ -402,88 +349,76 @@
    ],
    "violaciones": []
   },
-  "iconos_auto": [],
   "black_hold": {
    "start": 155.167,
    "duration": 1.0
   },
   "critico": [
    {
-    "t": 25.002,
-    "t_frame": 26.002,
+    "t": 23.837,
+    "t_frame": 24.837,
     "dur": 2.5,
-    "bloque": "icono",
-    "texto": "encarceladas",
-    "veredicto": "repite",
-    "motivo": "El ícono de candado y la palabra \"ENCARCELADAS\" repiten visual y textualmente lo que ya se ve en la imagen (una prisión) y se escucha en la voz (la palabra \"enc",
+    "bloque": "sello",
+    "texto": "colapso",
+    "veredicto": "estorba",
+    "motivo": "El tinte de 'caos_gritos' contradice directamente la 'quietud' mencionada en la voz y la atmósfera visual de desolación y silencio de la prisión.",
     "pasa": false,
-    "voz": "Con el huracán Katrina desatado, la ya precaria situación en la Prisión de Orleans Parish, donde aproximadamente 6,500 personas, incluyendo hombres, mujeres y niños, estaban encarceladas, se precipitó hacia el abismo."
+    "voz": "Fue un colapso, un abismo de penumbra y quietud."
    },
    {
-    "t": 48.407,
-    "t_frame": 49.407,
+    "t": 38.56,
+    "t_frame": 39.56,
     "dur": 2.5,
     "bloque": "icono",
-    "texto": "sofocante",
+    "texto": "celdas",
     "veredicto": "suma",
-    "motivo": "El ícono de candado refuerza la idea de celdas inhabilitadas que menciona la voz, y la palabra 'SOFOCANTE' enfatiza un término clave de la narración sin repetir",
+    "motivo": "El ícono de candado y la palabra 'CELDAS' enfatizan visualmente el encierro y la situación de los prisioneros, complementando la voz que habla de sistemas falli",
     "pasa": true,
-    "voz": "Esta pérdida total de energía no solo sumió las entrañas de la prisión en una oscuridad impenetrable y sofocante, sino que también inhabilitó los sistemas de ventilación y los mecanismos vitales para abrir las celdas."
+    "voz": "Las luces se extinguieron, el aire acondicionado cesó y los sistemas electrónicos de las celdas quedaron sin funcionar."
    },
    {
-    "t": 67.257,
-    "t_frame": 68.257,
+    "t": 41.064,
+    "t_frame": 42.064,
     "dur": 6.0,
     "bloque": "recorte",
-    "texto": "piso comienzan a inundarse y las aguas residuales refluyen",
+    "texto": "las aguas residuales refluyen",
     "veredicto": "suma",
-    "motivo": "Aporta el detalle específico de las aguas residuales y la fecha, que la voz y la imagen no explicitan, y el ícono refuerza el peligro.",
+    "motivo": "El bloque introduce un detalle crucial sobre las condiciones (aguas residuales y riesgo biológico) y una fecha específica que ni la voz ni la imagen proporciona",
     "pasa": true,
-    "voz": "Con la ciudad ahogándose, el agua de la inundación no tardó en penetrar los niveles inferiores de los edificios."
+    "voz": "Las luces se extinguieron, el aire acondicionado cesó y los sistemas electrónicos de las celdas quedaron sin funcionar."
    },
    {
-    "t": 79.26,
-    "t_frame": 80.26,
-    "dur": 2.5,
-    "bloque": "icono",
-    "texto": "residuales",
-    "veredicto": "suma",
-    "motivo": "El bloque enfatiza visualmente la naturaleza peligrosa de las 'aguas residuales' mencionadas por la voz, añadiendo un detalle específico (biohazard) que la imag",
-    "pasa": true,
-    "voz": "Las celdas del primer piso comenzaron a inundarse ese mismo 29 de agosto de 2005, y lo que era peor, las aguas residuales refluyeron, mezclándose con la marea de la tormenta."
-   },
-   {
-    "t": 92.027,
-    "t_frame": 93.027,
+    "t": 51.881,
+    "t_frame": 52.881,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "fétido",
+    "texto": "inundarse",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una cualidad sensorial clave ('fétido') que la imagen por sí sola no puede transmitir, y el tinte de mood refuerza la atmósfera opresiva del l",
+    "motivo": "El tinte de 'agua' visualiza la inundación que la voz describe y la foto no muestra, y la palabra enfatiza el evento clave sin repetir una frase completa.",
     "pasa": true,
-    "voz": "Los reclusos, atrapados en sus celdas metálicas y estrechas, observaban con horror cómo un líquido fétido y oscuro ascendía implacablemente."
+    "voz": "Ese mismo día, la catástrofe se extendió cuando las celdas del primer piso comenzaron a inundarse y las aguas residuales refluyeron."
    },
    {
-    "t": 132.455,
-    "t_frame": 133.455,
+    "t": 75.017,
+    "t_frame": 76.017,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "contaminado",
+    "texto": "ciénagas",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza visualmente la idea de contaminación y horror que la imagen sugiere pero no muestra e",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera opresiva de la escena sin tapar elementos cruciales.",
     "pasa": true,
-    "voz": "El diluvio contaminado seguía su ascenso imparable, prometiendo un horror aún mayor para los miles de prisioneros abandonados."
+    "voz": "El agua dentro de algunos edificios de la Prisión Parroquial de Orleans (OPP), como Templeman 1 y 2, alcanzó el nivel del pecho, transformando los pasillos en ciénagas."
    },
    {
-    "t": 140.666,
-    "t_frame": 141.666,
-    "dur": 6.0,
-    "bloque": "recorte",
-    "texto": "el agua alcanza el nivel del pecho en el interior",
+    "t": 85.533,
+    "t_frame": 86.533,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "encarceladas",
     "veredicto": "suma",
-    "motivo": "Aporta un nivel de agua específico ('nivel del pecho') y una fecha ('2005') que no se mencionan en la voz ni se muestran con exactitud en la imagen.",
+    "motivo": "El sello enfatiza la palabra clave de la voz y el estado de los personajes, y el tinte refuerza el ambiente de encierro.",
     "pasa": true,
-    "voz": "El diluvio contaminado seguía su ascenso imparable, prometiendo un horror aún mayor para los miles de prisioneros abandonados."
+    "voz": "En medio de este escenario, aproximadamente 6,500 personas, incluyendo hombres, mujeres y niños, estaban encarceladas en la Prisión de Orleans Parish (OPP)."
    }
   ]
  },

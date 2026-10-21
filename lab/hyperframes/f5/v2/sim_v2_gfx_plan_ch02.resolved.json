@@ -3,190 +3,135 @@
   "chapter_number": 2,
   "title_card": {
    "kicker": "CAPÍTULO 2",
-   "title": "El Diluvio y la Traición"
+   "title": "Nueva Orleans Sumergida"
   },
   "callouts": [],
   "count_up": null,
   "archive_clippings": [
    {
     "kicker": "2005",
-    "headline": "prisioneros no serán evacuados de la Prisión de Orleans Parish",
+    "headline": "los prisioneros no serán evacuados",
     "body": "",
-    "scene_idx": 1,
+    "scene_idx": 4,
     "fact_idx": null,
     "pool_id": "T05",
     "fuente": null,
     "era_decade": 2000,
-    "start": 14.862,
+    "start": 37.101,
     "duration": 6.0,
-    "side": "left"
-   },
-   {
-    "kicker": "2005",
-    "headline": "el Sheriff Marlin Gusman solicita ayuda para la evacuación",
-    "body": "",
-    "scene_idx": 0,
-    "fact_idx": null,
-    "pool_id": "T12",
-    "fuente": null,
-    "era_decade": 2000,
-    "start": 7.281,
-    "duration": 6.0,
-    "side": "left"
+    "side": "right"
    }
   ],
-  "evidence_zoom": {
-   "scene_idx": 11,
-   "box": [
-    0.53,
-    0.55,
-    0.15,
-    0.15
-   ],
-   "start": 77.917,
-   "anchor": "Pies del hombre",
-   "detail": "Pies del hombre",
-   "tipo": "persona",
-   "conf": 0.9,
-   "como": "nombrado",
-   "word": "prisión",
-   "latido": true,
-   "latido_t": 78.617
-  },
+  "evidence_zoom": null,
   "punch_in": [
-   5.896,
-   13.898,
-   24.849,
-   81.285
+   18.7,
+   30.856,
+   58.907,
+   64.517
   ],
   "chapter_question": {
-   "text": "¿Quién cortó la energía?",
+   "text": "¿Por qué fallaron las defensas de Orleans?",
    "start": 97.633,
    "duration": 3.0,
-   "keyword": "energía",
+   "keyword": "fallaron",
    "generated": true,
    "pause": 3.0
   },
   "icon_array": null,
   "emphasis": [
    {
-    "word": "penumbra",
+    "word": "pesadilla",
     "category": "oscuridad_encierro",
     "layer": "oscuridad",
-    "icon": "candado",
+    "icon": null,
     "icon_anim": "stamp",
-    "start": 32.43,
+    "start": 18.7,
     "duration": 2.5,
-    "side": "right",
+    "side": "left",
+    "stamp": true,
+    "sid": 2,
+    "rarity": 1,
+    "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "inanición",
+    "category": "muerte",
+    "layer": "muerte",
+    "icon": null,
+    "icon_anim": "ink_bleed",
+    "start": 30.856,
+    "duration": 2.5,
+    "side": "left",
     "stamp": true,
     "sid": 3,
     "rarity": 1,
-    "weight": 2,
-    "icon_callout": true
-   },
-   {
-    "word": "marea",
-    "category": "agua",
-    "layer": "agua",
-    "icon": "gota",
-    "icon_anim": "press_wipe",
-    "start": 45.065,
-    "duration": 2.5,
-    "side": "left",
-    "stamp": true,
-    "sid": 5,
-    "rarity": 4,
-    "weight": 2,
-    "icon_callout": true
-   },
-   {
-    "word": "inundación",
-    "category": "agua",
-    "layer": "agua",
-    "icon": "gota",
-    "icon_anim": "press_wipe",
-    "start": 69.492,
-    "duration": 2.5,
-    "side": "left",
-    "stamp": true,
-    "weight": 2,
-    "peak_word": true,
-    "icon_callout": true
-   },
-   {
-    "word": "diluvio",
-    "category": "agua",
-    "layer": "agua",
-    "icon": "gota",
-    "icon_anim": "press_wipe",
-    "start": 81.285,
-    "duration": 2.5,
-    "side": "left",
-    "stamp": true,
-    "sid": 9,
-    "rarity": 2,
     "weight": 3,
+    "icon_callout": false
+   },
+   {
+    "word": "furia",
+    "category": "caos_gritos",
+    "layer": "minima",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 58.907,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 7,
+    "rarity": 1,
+    "weight": 3,
+    "sfx": {
+     "file": "rumor.wav",
+     "gain_db": -20
+    },
+    "icon_callout": false
+   },
+   {
+    "word": "oscuridad",
+    "category": "oscuridad_encierro",
+    "layer": "oscuridad",
+    "icon": null,
+    "icon_anim": "stamp",
+    "start": 87.892,
+    "duration": 2.5,
+    "side": "left",
+    "stamp": true,
+    "sid": 11,
+    "rarity": 5,
+    "weight": 2,
     "icon_callout": false
    }
   ],
   "gap_warnings": [],
   "fragmentos": [
    {
-    "id": "T06",
+    "id": "T03",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 23.7s"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
-    "id": "D09",
+    "id": "T04",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
+    "motivo": "no entra sin pisar otro bloque @ 20.7s"
    },
    {
     "id": "D10",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "ninguna cláusula suma a la voz con fuente o fecha"
-   },
-   {
-    "id": "T03",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
     "id": "D04",
     "bloque": "recorte",
     "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 33.0s"
+    "motivo": "ninguna cláusula completa (≤ 10 palabras, métrica) suma a la voz con fuente o fecha"
    },
    {
-    "id": "D05",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
-   },
-   {
-    "id": "T07",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 33.0s"
-   },
-   {
-    "id": "Q01",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "la voz no habla de esto en el cap"
-   },
-   {
-    "id": "T08",
-    "bloque": "recorte",
-    "ahora": null,
-    "motivo": "no entra sin pisar otro bloque @ 83.1s"
-   },
-   {
-    "id": "T09",
+    "id": "D08",
     "bloque": "recorte",
     "ahora": null,
     "motivo": "la voz no habla de esto en el cap"
@@ -194,75 +139,46 @@
    {
     "id": "T05",
     "bloque": "recorte",
-    "ahora": "prisioneros no serán evacuados de la Prisión de Orleans Parish",
+    "ahora": "los prisioneros no serán evacuados",
     "kicker": "2005",
     "fuente": null,
     "icono": null,
     "icono_faltante": null,
     "opciones": [
-     "prisioneros no serán evacuados de la Prisión de Orleans Parish",
-     "serán evacuados de la Prisión de Orleans Parish",
-     "la Prisión de Orleans Parish"
+     "los prisioneros no serán evacuados"
     ]
-   },
-   {
-    "id": "T12",
-    "bloque": "recorte",
-    "ahora": "el Sheriff Marlin Gusman solicita ayuda para la evacuación",
-    "kicker": "2005",
-    "fuente": null,
-    "icono": null,
-    "icono_faltante": null,
-    "opciones": [
-     "el Sheriff Marlin Gusman solicita ayuda para la evacuación",
-     "Sheriff Marlin Gusman solicita ayuda para la evacuación",
-     "Marlin Gusman solicita ayuda para la evacuación"
-    ]
-   },
-   {
-    "id": "D10",
-    "bloque": "dato",
-    "ahora": "80% de Nueva Orleans",
-    "fuente": null
-   },
-   {
-    "bloque": "dato@70.3",
-    "antes": "80% de Nueva Orleans",
-    "ahora": null,
-    "motivo": "la voz lo dice"
    }
   ],
   "pico": {
-   "t": 69.492,
+   "t": 73.399,
    "block": "water_level",
-   "word": "inundación",
-   "sentence": "Estas brechas causaron la inundación del 80% de Nueva Orleans, dejando partes de la ciudad bajo hasta 15 pies de agua.",
-   "intensity": 0.8,
-   "sentence_idx": 8,
-   "palabra": "inundación"
+   "word": "agua",
+   "sentence": "Un devastador 80% de Nueva Orleans se hundió bajo hasta 15 pies de agua oscura y traicionera.",
+   "intensity": 0.9,
+   "sentence_idx": 10
   },
   "water_level": {
-   "value_text": "15",
-   "unit": "pies",
-   "meters": 4.57,
-   "height": 0.602,
-   "start": 69.492,
+   "value_text": "4.6",
+   "unit": "metros",
+   "meters": 4.6,
+   "height": 0.605,
+   "start": 73.399,
    "duration": 4.5,
    "rise": 2.5,
    "fact_idx": 1,
-   "word": "inundación"
+   "word": "agua"
   },
   "time_ticker": {
-   "day": "28",
+   "day": "27",
    "month": "AGO",
    "tail": "2005",
    "times": [],
    "advance": false,
-   "source_text": "El Sheriff Marlin N. Gusman anuncia en una conferencia de prensa que los prisioneros no serán evacuados de la Prisión de Orleans Parish.",
-   "pool_id": "T05",
-   "start": 7.581,
-   "duration": 12.0,
-   "side": "right"
+   "source_text": "Robie Waganfeald y Paul Kunkel Jr. son arrestados en Bourbon Street por presunta intoxicación pública.",
+   "pool_id": "T03",
+   "start": 7.48,
+   "duration": 23.843,
+   "side": "left"
   },
   "transitions": {
    "1": {
@@ -302,15 +218,15 @@
     "rank": "R3"
    },
    "7": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "ritmo rápido",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "8": {
-    "kind": "cut",
-    "frames": 0,
-    "why": "ritmo rápido",
+    "kind": "dissolve",
+    "frames": 20,
+    "why": "default",
     "rank": "R3"
    },
    "9": {
@@ -334,7 +250,7 @@
    "12": {
     "kind": "cut",
     "frames": 0,
-    "why": "después del zoom",
+    "why": "≥ 1 corte cada 3",
     "rank": "R3"
    },
    "13": {
@@ -344,9 +260,9 @@
     "rank": "R3"
    },
    "14": {
-    "kind": "flash",
-    "frames": 3,
-    "why": "impacto",
+    "kind": "cut",
+    "frames": 0,
+    "why": "después del zoom",
     "rank": "R1"
    }
   },
@@ -430,99 +346,87 @@
    ],
    "violaciones": []
   },
-  "iconos_auto": [],
   "black_hold": {
    "start": 100.633,
    "duration": 1.0
   },
   "critico": [
    {
-    "t": 7.281,
-    "t_frame": 8.281,
-    "dur": 6.0,
-    "bloque": "recorte",
-    "texto": "el Sheriff Marlin Gusman solicita ayuda para la evacuación",
-    "veredicto": "suma",
-    "motivo": "El bloque aporta un detalle específico (solicitud de evacuación del Sheriff Gusman) que contextualiza la 'decisión' y el 'caos inminente' mencionados por la voz",
-    "pasa": true,
-    "voz": "Esta decisión, velada por el caos inminente, se gestó incluso antes de que la tormenta perfecta tocara tierra."
-   },
-   {
-    "t": 14.862,
-    "t_frame": 15.862,
-    "dur": 6.0,
-    "bloque": "recorte",
-    "texto": "prisioneros no serán evacuados de la Prisión de Orleans Parish",
-    "veredicto": "suma",
-    "motivo": "El bloque añade un dato específico sobre las decisiones tomadas durante el desastre, complementando la imagen de destrucción y la introducción de la voz.",
-    "pasa": true,
-    "voz": "El 28 de agosto de 2005, mientras la ciudad se preparaba para el embate, el sheriff Marlin N."
-   },
-   {
-    "t": 32.43,
-    "t_frame": 33.43,
-    "dur": 2.5,
-    "bloque": "icono",
-    "texto": "penumbra",
-    "veredicto": "suma",
-    "motivo": "El ícono de candado aporta el contexto de 'prisión' que la voz menciona y la imagen no muestra, y la palabra 'PENUMBRA' enfatiza un término clave de la narració",
-    "pasa": true,
-    "voz": "Esa misma noche, la oscuridad comenzó a engullir sus muros: se cortó la electricidad en la prisión, sumiendo los corredores en una penumbra inquietante."
-   },
-   {
-    "t": 45.065,
-    "t_frame": 46.065,
-    "dur": 2.5,
-    "bloque": "icono",
-    "texto": "marea",
-    "veredicto": "suma",
-    "motivo": "El bloque enfatiza la palabra clave 'MAREA' de la voz y el ícono 'gota' refuerza el tema del agua y la catástrofe sin repetir visualmente lo que la foto ya mues",
-    "pasa": true,
-    "voz": "Sus vientos y la marea de tormenta provocaron una catástrofe que trascendería lo natural."
-   },
-   {
-    "t": 69.492,
-    "t_frame": 70.492,
-    "dur": 2.5,
-    "bloque": "icono",
-    "texto": "inundación",
-    "veredicto": "suma",
-    "motivo": "El bloque enfatiza y etiqueta el concepto clave de 'inundación' que la voz describe, conectando la imagen de un lugar húmedo y sombrío con el evento específico ",
-    "pasa": true,
-    "voz": "Estas brechas causaron la inundación del 80% de Nueva Orleans, dejando partes de la ciudad bajo hasta 15 pies de agua."
-   },
-   {
-    "t": 69.492,
-    "t_frame": 70.492,
-    "dur": 4.5,
-    "bloque": "nivel_agua",
-    "texto": "15",
-    "veredicto": "suma",
-    "motivo": "El gráfico visualiza la magnitud de la inundación (15 pies) que la voz menciona, complementando la imagen de la celda con agua en el suelo sin repetirla visualm",
-    "pasa": true,
-    "voz": "Estas brechas causaron la inundación del 80% de Nueva Orleans, dejando partes de la ciudad bajo hasta 15 pies de agua."
-   },
-   {
-    "t": 77.917,
-    "t_frame": 78.917,
-    "dur": 2.85,
-    "bloque": "zoom",
-    "texto": "Pies del hombre",
-    "veredicto": "suma",
-    "motivo": "El zoom en los pies del hombre sobre la cama enfatiza la inmediatez y el impacto personal del diluvio, mostrando la precariedad de su situación frente al agua.",
-    "pasa": true,
-    "voz": "La prisión, ya en tinieblas, quedaba completamente aislada, rodeada por un diluvio que lo cambiaría todo."
-   },
-   {
-    "t": 81.285,
-    "t_frame": 82.285,
+    "t": 18.7,
+    "t_frame": 19.7,
     "dur": 2.5,
     "bloque": "sello",
-    "texto": "diluvio",
+    "texto": "pesadilla",
     "veredicto": "suma",
-    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la atmósfera opresiva del diluvio en toda la escena, no solo en el agua visible.",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte de mood refuerza la sensación de 'pesadilla' y 'encierro' que la voz describe, conectando la catástrof",
     "pasa": true,
-    "voz": "La prisión, ya en tinieblas, quedaba completamente aislada, rodeada por un diluvio que lo cambiaría todo."
+    "voz": "fueron arrestados en Bourbon Street por presunta intoxicación pública, sin imaginar la pesadilla carcelaria que les esperaba."
+   },
+   {
+    "t": 30.856,
+    "t_frame": 31.856,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "inanición",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz, y el tinte refuerza el ambiente sombrío de la imagen y el tema de la inanición sin estorbar elementos importantes",
+    "pasa": true,
+    "voz": "Ese mismo día, los reclusos recibieron su última comida antes de que el huracán azote, un acto macabro previo a la inanición."
+   },
+   {
+    "t": 37.101,
+    "t_frame": 38.101,
+    "dur": 6.0,
+    "bloque": "recorte",
+    "texto": "los prisioneros no serán evacuados",
+    "veredicto": "suma",
+    "motivo": "Aporta un dato específico sobre las consecuencias del desastre (prisioneros no evacuados) que la voz no menciona, contextualizando la fecha.",
+    "pasa": true,
+    "voz": "Al día siguiente, el 28 de agosto de 2005, el sheriff Marlin N."
+   },
+   {
+    "t": 58.907,
+    "t_frame": 59.907,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "furia",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz sin repetirla, y el tinte de mood refuerza la atmósfera dramática de la imagen sin obstruir elementos importantes.",
+    "pasa": true,
+    "voz": "Finalmente, el 29 de agosto de 2005, el huracán Katrina tocó tierra con una furia desatada."
+   },
+   {
+    "t": 73.399,
+    "t_frame": 74.399,
+    "dur": 4.5,
+    "bloque": "nivel_agua",
+    "texto": "4.6",
+    "veredicto": "suma",
+    "motivo": "El bloque refuerza visualmente la magnitud de la inundación mencionada por la voz y ofrece la conversión de unidades (pies a metros), lo cual es un dato adicion",
+    "pasa": true,
+    "voz": "Un devastador 80% de Nueva Orleans se hundió bajo hasta 15 pies de agua oscura y traicionera."
+   },
+   {
+    "t": 87.892,
+    "t_frame": 88.892,
+    "dur": 2.5,
+    "bloque": "sello",
+    "texto": "oscuridad",
+    "veredicto": "suma",
+    "motivo": "El sello enfatiza una palabra clave de la voz y el tinte visualiza la inminente oscuridad y encierro que la voz describe, contrastando con la luz actual de la i",
+    "pasa": true,
+    "voz": "Las calles se convirtieron en ríos caudalosos, las casas en precarias islas, y la prisión, ya aislada por la decisión humana, se vería pronto condenada a una oscuridad aún más profunda y terminal cuando, de forma inminente, su energía eléctrica se perdiera y sus generadores de respaldo fallaran."
+   },
+   {
+    "t": 88.55,
+    "t_frame": 89.55,
+    "dur": 2.85,
+    "bloque": "zoom",
+    "texto": "dedos mojados",
+    "veredicto": "repite",
+    "motivo": "La imagen ya muestra claramente que los dedos están mojados, el bloque solo etiqueta una obviedad visual sin añadir información nueva.",
+    "pasa": false,
+    "voz": "Las calles se convirtieron en ríos caudalosos, las casas en precarias islas, y la prisión, ya aislada por la decisión humana, se vería pronto condenada a una oscuridad aún más profunda y terminal cuando, de forma inminente, su energía eléctrica se perdiera y sus generadores de respaldo fallaran."
    }
   ]
  },

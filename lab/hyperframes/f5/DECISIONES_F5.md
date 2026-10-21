@@ -107,3 +107,88 @@ Handoff: `lab/hyperframes/f5/HANDOFF_F5_guion_v2.md`. Rama `f5-guion-v2`.
   - los paréntesis cortan siempre la cláusula;
   - una cláusula no arranca en infinitivo reflexivo («inundarse…»).
 - **J44** §1.6 (`m03_visual`, opcional) no se hizo.
+
+
+---
+
+# F5b — arreglos de la validación del analista (`VALIDACION_F5.md`)
+
+Pedido: N1–N5 (narración) y S1–S6 (pantalla), regenerar v2, actualizar `compara_orleans.html`, re-simular los 7 caps. Sin imágenes ni render. Misma rama `f5-guion-v2`, desde `1ca7194`. El handoff con §1.6 y sus FRENOS (`HANDOFF_F5_guion_v2.md`) ya estaba en el disco sin commitear; entra en el commit de F5b junto con `VALIDACION_F5.md` y la versión previa del handoff (`HANDOFF_F5_guion_v2.v1_sin_frenos.md`).
+
+## Narración
+- **K1 (N1, relevancia)** `researcher_steps/evidence_pool.unrelated_lines`. El propio bloque marca lo ajeno («aunque no directamente relacionado con los eventos de Katrina», «no prueban nada sobre…»). Se toma la nota (la oración del marcador y la siguiente) y las líneas del bloque que comparten ≥ 2 raíces RARAS con ella (palabras de ≥ 7 letras que aparecen en ≤ 2 líneas). Un ítem sale solo si su texto está en esa zona y en ninguna otra parte del bloque: «Nueva Orleans» aparece en la nota de la posada, pero también en todo el resto, y se queda. En Orleans salen 4: la cárcel de 1902, el capitán de la guardia, el médium y la «Inn at the Old Jail». Lo que sale queda en `pool["_descartados"]` con el motivo. `evidence.items` no lo lee.
+- **K2 (N1, lo que no se tocó)** El bloque humano dice «El año 2005 fue también el año del atentado terrorista en Londres». No tiene marcador de «no relacionado», así que Londres sigue en el pool. No lo pidió el analista; queda anotado.
+- **K3 (N5, nombres)** `person_acts`: un personaje entra si es autor de una cita, si es antagonista (el research le atribuye la decisión) o si tiene un verbo activo después de su nombre. La heurística salta «Jr.», un sujeto coordinado («y Paul Kunkel Jr.»), una aposición («, un recluso,») y un «del Cuerpo de…». La pasiva no cuenta. Resultado:
+  - quedan Gusman, Hunter, Strock («testifica»), Waganfeald y Kunkel («recibieron») y Morgan («presentó»);
+  - salen Schwarz («es arrestado») y **Hubert**, que solo aparece como demandado. El analista lo había listado entre los nombres que entran; con la regla de N5 no hace nada. Que lo confirme.
+
+  También salen los datos que son solo el nombre de quien sale («Raphael Schwarz», «alcaide Cornel Hubert»). El juez marca `nombres_sin_accion` si la narración igual los nombra.
+- **K4 (N5, mayúsculas)** Dos arreglos:
+  - en el pool, `fix_caps`: minúscula después de un rótulo («…: aproximadamente 6,375»), salvo antes de un nombre propio, y en cargos comunes a mitad de oración («el sheriff Gusman», «huracán Katrina»). El rol va en minúscula. Las citas quedan como las dijo el autor;
+  - en la narración, `evidence.fix_glued_caps` baja una lista cerrada de sustantivos y participios comunes («…Schwarz, Arrestado por» → «arrestado»). Nunca toca un nombre propio ni el arranque de una oración o de una cita.
+
+  El candado compara sin mayúsculas, así que ningún texto deja de ser literal.
+- **K5 (N2, por id)** Con pool, el narrador devuelve `datos_usados` (schema + regla K del prompt). Cuenta lo declarado que además suena literal. Un id declarado que no suena literal es un problema que vuelve en el reintento. Si usa un dato y no lo declara, no cuenta: el error es conservador. v1 no declara y se mide por regex como en F5; el reporte dice `conteo: por_id | regex` y, para v2, también `densidad_regex`. Sin pool, el schema y el prompt quedan como antes (test).
+- **K6 (N3, una vez por cap)** `evidence.repeats_in_cap`: de cada dato declarado se cuentan sus anchors (cifra o fecha, en dígitos o en palabras) y sus «frases firma» (3-gramas del dato con ≥ 2 palabras de contenido en minúscula: «nivel del pecho»). Más de 1 vez en el cap es un problema y el feedback pide paráfrasis sin la cifra. Se informa la forma más larga («29 de agosto de 2005» cubre «29 de agosto»).
+- **K7 (N4, adjetivos)** `ADJ_MIN = 2.0`, `ADJ_MAX = 4.0`, en la misma escala de la heurística que usó el analista. Reemplaza al 3.6 de J18. Por debajo del piso, el feedback pide 2 o 3 calificativos atados a hechos, sin relleno.
+
+## Pantalla
+- **K8 (S1, cláusula completa)** `gfx_pool.pool_clause_options` reemplaza a `clause_options` en los recortes del pool. Hay una heurística de verbo, sin etiquetador.
+  - Una opción arranca donde arranca la cláusula: el comienzo de una parte entre comas, o una coordinada o subordinada («y», «que», «cuando»…) con verbo propio en su tramo. Un sujeto coordinado («Robie Waganfeald y Paul Kunkel Jr.») no corta.
+  - Termina donde termina la cláusula, o en un borde de frase (preposición, «que», «y», «de» + artículo) DESPUÉS de verbo + objeto. Antes de una fecha («fallaron | el 29 de agosto») puede cortar justo después del verbo, porque la fecha va al kicker.
+  - Nunca corta dentro de «más de 50».
+  - Una parte sin verbo vale solo entera y con su cifra («un huracán de categoría 3»).
+  - Una parte que arranca en verbo en minúscula («toca tierra en…») es un predicado sin sujeto y queda fuera.
+  - «EE. UU.», «Jr.», «N.» y una sigla entre paréntesis («(OPP)») no cortan.
+  - Si ninguna opción entra en ≤ 10 palabras, no hay recorte. Flash solo elige entre estas opciones.
+- **K9 (S1, casos del analista)** Resultado sobre sus tres ejemplos:
+  - «piso comienzan…» → «Las celdas del primer piso comienzan a inundarse» / «las aguas residuales refluyen»;
+  - «federal otorga…» → «Un jurado federal otorga más de $650,000»;
+  - «la prisión no finalizó…» → sin opción («La evacuación completa de la prisión no finalizó hasta el viernes 2 de septiembre» tiene 13 palabras, y cortarla deja el verbo sin su complemento).
+- **K10 (S2, cronología)** `narrated_dates`: la fecha que la voz viene narrando en cada oración es la última fecha con día dicha hasta esa oración. Antes de la primera, vale la primera fecha que dice el cap (la voz todavía no avanzó). La fecha del dato es `evidence.item_date`: su `fecha` completa o la fecha escrita en su texto, con el año del cap si no lo dice. Un dato solo puede salir en oraciones donde su fecha es ≤ la narrada. Un dato sin día no tiene restricción.
+- **K11 (S3, hecho)** `evidence.same_fact`. Dos ítems cuentan el mismo hecho si comparten:
+  - una cifra grande (≥ 3 dígitos, o con $ o %);
+  - una cifra chica más una palabra de contenido;
+  - o, sin cifras, la misma fecha con día y ≥ 50 % de las palabras de contenido.
+
+  Se aplica entre caps (contra lo ya mostrado) y dentro del cap (recortes y datos). Los candidatos salen del cap y del ANTERIOR, nunca del siguiente: con ±1, el cap 5 mostraba el jurado del cap 6.
+- **K12 (S4, ícono literal)** Token nuevo `icon_literal_only`: apagado por default, prendido en `misterio`.
+  - `category_icon` ya no cae al ícono más común de la categoría.
+  - `emphasis_icon` no pone ícono a un adjetivo (heurística de m05).
+  - Los íconos automáticos de game-icons (F4b §4) no corren.
+  - `gfx_pool.content_icon` busca en el TITULAR la primera palabra del mapa `icon_words` del perfil. «Agua» sola nunca lleva gota (R4). Espiral y rayo siguen anotados como faltantes (J33).
+
+  Al mapa del perfil se suman «inundación», «inundaciones» → gota y «residuales» → biohazard, que son los del analista. Los tests de F4c que fijaban el ícono por categoría corren ahora con el token apagado (el comportamiento sigue cubierto), y hay un test nuevo para el mapa literal.
+- **K13 (S5, metros)**
+  - Las opciones de recorte y de dato con pies, millas, libras, galones o °F quedan fuera.
+  - El nivel de agua, si la voz dice «15 pies», muestra la cifra métrica LITERAL del mismo fact («(4.6 metros)»). Si el fact no la trae, no hay nivel de agua: convertir daría un texto que el candado no acepta.
+  - Un contador con unidad imperial se descarta.
+
+## §1.6 / S6 — `m03_visual` con FRENOS
+- **K14** Un solo cambio en `_format_seedream_canon_block`: si `topic["evidence_pool"]`, se agrega `UBICACIONES DOCUMENTADAS (no mezclar en una misma escena):` antes del bloque `USO`. Lo arma `_format_documented_locations`:
+  - grupos fijos con su regla de composición: menores → «separados de los adultos»; mujeres → «nunca en la misma celda que hombres»; evacuados;
+  - el «dónde» sale literal del pool: lugares cuyo rol es del grupo («instalación juvenil») y lugares nombrados como destino en un dato o evento del grupo («al paso elevado de Broad Street sobre la Interestatal 10»). Un lugar de origen no cuenta. El escenario principal (nombrado en más de 4 textos) no distingue a nadie;
+  - personajes por rol, nunca por nombre.
+
+  No se tocó nada de la lista de FRENOS. Sin pool, el canon es byte-idéntico (comparado contra `1ca7194` sobre el topic de Orleans v1, y con un test). Las 5 fallas de `test_module_m03_merge_timing.py` y `test_module_03_plan_anchors.py` también fallan en `1ca7194` (corrido sobre un `git archive` del commit): no son de F5b.
+- **K15 (prueba de §1.6)** `correr_f5_orleans.py --etapa visual` corre `assign_visual_prompts` tal cual sobre v2, con el `sync_map` de v1 (mismas duraciones, mismo número de imágenes) y `video_id` = v2. No hay timestamps de v2, así que la reconciliación temporal no corre. Es comportamiento existente sin audio, no un cambio. Solo texto; cero imágenes.
+
+## Corrida
+- **K16 (respaldo y caché)** El caché del director (`gfx_plan_chNN.json`) se valida por versión del director, no por narración. Por eso la simulación de v2 arranca en un work dir limpio y la de F5 queda en `output/ba6c3cac-f5v2/_bak_f5b_pre/_fase2b_work`. La de v1 se re-simula con el código de F5b (cambian íconos y unidades) y la anterior queda en `…/_fase2b_work_f5sim_v1_bak_f5b`. Los archivos de v2 de F5 quedan en `lab/hyperframes/f5/v2_f5/`.
+- **K17 (N2, declaración tolerante)** En el 1.er intento el narrador declaró F## (verified_facts) y, en un cap, el texto del dato en vez del id. `evidence.resolve_declared` traduce lo DECLARADO a ids del pool, sin regex sobre el pool entero:
+  - «[D07]» → D07;
+  - «F05» → los ítems del pool que cuentan ese fact (≥ 50 % de palabras en común) y suenan literales;
+  - un texto → el único ítem que lo contiene.
+
+  Además, el feedback del reintento lista los datos que suenan y no se declararon («Interestatal 10 no son los niños»).
+- **K18 (densidad: por qué baja)** El regex de F5 contaba una vez por id. Un «29 de agosto» dicho una vez prendía 5 eventos, y «517» dos ids. Por eso el juez suma `densidad_hechos`: anclas DISTINTAS que suenan.
+  - **Por hecho:** v1 0.86 · v2 F5 2.01 · v2 F5b 1.12.
+  - **Por id** (lo que pide N2): v2 F5b 1.26.
+
+  La v2 de F5b tiene MENOS datos que la de F5. Las reglas nuevas tiran en contra de la densidad: cada dato una vez, piso de adjetivos, declarar ids. Flash no las cumple todas en 3 intentos y acepta con violaciones (J22). Hubo 3 corridas del guion: en la 2.ª se sumó K17; en la 3.ª, la meta explícita «2 datos distintos cada 100 palabras». Quedó la 3.ª (0 caps con repetidos dentro del cap, 0 nombres sin acción). Las otras dos están en `pruebas/01b_narration_f5b_intento{1,2}.json`.
+- **K19 (P5 sigue)** Los caps 6 y 7 siguen sin recorte. Hay candidatos (D17, D37, D50, Q02, T17, T25…), pero ninguno tiene una cláusula completa de ≤ 10 palabras que sume a la voz con fuente o fecha:
+  - D37 «El Sheriff Gusman negó públicamente las acusaciones» no tiene fecha ni fuente (kicker J30 → sin recorte);
+  - T25 «El Departamento de Justicia de EE. UU. emite una carta de hallazgos» tiene 11 palabras.
+
+  No se relajó ninguna regla.
+- **K20 (§1.6, lo que muestran los prompts)** Con el canon nuevo, los 3 prompts del cap 4 con niños (el ancla «niños de hasta 10 años» y las dos siguientes) ubican al chico en el centro juvenil (CYC). Ninguno mezcla mujer y niño en una celda. Igual quedan dos niños solos en una celda de la prisión de adultos: ch01 supp 3 («algunos niños, quedaron atrapados…») y ch07 Veo. El canon es texto pasivo y el validador no se toca (FRENOS). **Propuesta, no hecha:** que `m03` exija el lugar del grupo cuando el ancla nombra al grupo.
