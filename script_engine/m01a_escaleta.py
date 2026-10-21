@@ -38,6 +38,14 @@ F6b-3 (validación del analista sobre f6b-2):
     un conteo      517 y «más de 500» son un hecho (gfx_pool.count_groups): la aproximada no va en ningún beat.
     guionista      `instrucciones_guionista`: reglas deterministas para m01b (cifra única, quién no se nombra).
     notas          topic["escaleta_notas"]: indicaciones del editor para ESE tema (van al prompt tal cual).
+
+F6b-4 (validación del analista sobre f6b-3):
+    contador       `contador: true` en el beat cuya cifra sale como CONTADOR en pantalla
+    una cifra      una cifra se ve en pantalla UNA vez por video (preguntas de pantalla + contadores)
+    cap 7          la pregunta de pantalla del cap 7 es obligatoria (sin respaldo de gfx_question)
+    sin eco        la última frase no repite textual una cita del pool (≥ 5 palabras seguidas)
+    solo apoyo     topic["escaleta_solo_apoyo"]: ids que el editor permite solo como apoyo (nunca dato central)
+    pantalla       una cita sin verificar no va a pantalla (ni `a_pantalla` ni reservado automático)
 """
 from __future__ import annotations
 
@@ -51,8 +59,7 @@ from typing import Any, Callable
 from script_engine import evidence as ev
 from script_engine.m01a_skeleton import CHAPTER_SCHEMA, DEFAULT_INTENT_BY_CAP, STEPS_DIR, finalize_pool_plan
 
-PROMPT_VERSION = "f6b-3"            # f6b-3: flash-forward, cierre con testigo, a_pantalla, verificación, un conteo,
-#                                     cifras en letras en el gancho
+PROMPT_VERSION = "f6b-4"            # f6b-4: contador, una cifra en pantalla una vez, pregunta del cap 7, cierre sin eco
 MAX_ATTEMPTS = 3
 MIN_BEATS, MAX_BEATS = 7, 12
 CAP_WORDS = {1: 110, 2: 190, 3: 190, 4: 190, 5: 190, 6: 190, 7: 110}   # hook/outro 45 s, desarrollo 75 s
@@ -109,7 +116,7 @@ SCHEMA: dict[str, Any] = {
             "n": _I, "cap": _I, "funcion": {"type": "STRING", "enum": list(FUNCIONES)}, "emocion": _S,
             "intensidad": _I, "dato_central": _S, "datos_apoyo": {"type": "ARRAY", "items": _S},
             "humano_en_escena": _B, "imagen_sensorial": _S, "pregunta_abierta": _S, "pregunta_pantalla": _S,
-            "cierre": _S, "palabras_objetivo": _I, "flash_forward": _B},
+            "cierre": _S, "palabras_objetivo": _I, "flash_forward": _B, "contador": _B},
             "required": ["n", "cap", "funcion", "emocion", "intensidad", "dato_central", "datos_apoyo",
                          "humano_en_escena", "imagen_sensorial", "pregunta_abierta", "pregunta_pantalla", "cierre",
                          "palabras_objetivo"]}},
@@ -199,6 +206,11 @@ RULES = f"""REGLAS DE LA ESCALETA (duras: si no se cumplen, se rechaza):
     fuente, un dato que la imagen cuenta mejor). Un id de `a_pantalla` no está en ningún beat. Máximo 2 por cap.
 14. CITAS SIN VERIFICAR (marcadas en el pool): se pueden usar, pero la narración no dice el nombre de quien la dijo
     («un preso», «una guardia»). Solo las VERIFICADAS se dicen con nombre.
+15. `contador: true` en el beat cuya cifra conviene ver subir en pantalla (una cantidad: personas, días). UNA CIFRA SE
+    VE EN PANTALLA UNA SOLA VEZ en todo el video: si un beat lleva contador, ninguna pregunta de pantalla repite esa
+    cifra; y dos preguntas de pantalla no repiten la misma cifra.
+16. La pregunta de pantalla del cap 7 es OBLIGATORIA: humana, la que se queda («¿Cuántos siguen sin nombre?»).
+17. La última frase del video no repite textual ninguna cita: la dice con sus palabras o la deja implícita.
 
 LO QUE RETIENE (cada decisión responde a por qué alguien se iría):
 - Los primeros 30 s: una imagen concreta y una promesa, no contexto.
@@ -208,14 +220,34 @@ LO QUE RETIENE (cada decisión responde a por qué alguien se iría):
 - Final humano: lo que produce el like y el comentario."""
 
 
+def own_ids(pool: dict, persona: dict) -> list[str]:
+    """Datos que valen para poner a la persona EN ESCENA: los que la nombran (o son su cita); con verificación en el
+    pool, sus citas cuentan solo si están verificadas."""
+    its = ev.items(pool)
+    sur = ev.norm(persona["nombre"]).split()[-1]
+    vp = any(q.get("verificacion") for q in pool.get("citas") or [])
+    out = []
+    for i, it in its.items():
+        if it["_kind"] not in ("datos", "cronologia", "citas"):
+            continue
+        if sur not in ev.norm(ev.text_of(it) + " " + str(it.get("autor") or "")):
+            continue
+        if vp and it["_kind"] == "citas" and (it.get("verificacion") or {}).get("estado") != "verificada":
+            continue
+        out.append(i)
+    return out
+
+
 def _fmt_people(pool: dict) -> str:
     out = []
     for p in pool.get("personajes") or []:
         tags = [t for t, on in (("TESTIGO", p.get("testigo")), ("VERIFICADO", p.get("testigo_verificado")),
                                 ("ANTAGONISTA", p.get("antagonista"))) if on]
         pres = f" · estuvo en {', '.join(p['presente_en'])}" if p.get("presente_en") else ""
+        own = own_ids(pool, p) if p.get("testigo") else []
         out.append(f"  [{p['id']}] PERSONA: {p['nombre']} — {p.get('rol') or ''}"
-                   + (f" · {' · '.join(tags)}" if tags else "") + pres)
+                   + (f" · {' · '.join(tags)}" if tags else "") + pres
+                   + (f" · datos que lo ponen en escena: {', '.join(own)} (repartilos en caps distintos)" if own else ""))
     return "\n".join(out) or "  (ninguna)"
 
 
@@ -279,6 +311,9 @@ def build_prompt(topic: dict, pool: dict, feedback: list[str] | None = None) -> 
         fb = ("\n═══ TU ESCALETA ANTERIOR SE RECHAZÓ. CORREGÍ ESTO (sin romper lo demás) ═══\n"
               + "\n".join(f"- {x}" for x in feedback) + "\n")
     notes = str(topic.get("escaleta_notas") or "").strip()
+    if topic.get("escaleta_solo_apoyo"):
+        notes += ("\n" if notes else "") + ("Estos ids van SOLO como datos de apoyo, nunca como dato central: "
+                                             + ", ".join(topic["escaleta_solo_apoyo"]) + ".")
     if notes:
         fb = ("\n═══ INDICACIONES DEL EDITOR PARA ESTE TEMA (mandan sobre tu criterio, nunca sobre las reglas) ═══\n"
               + notes + "\n") + fb
@@ -353,7 +388,8 @@ def _beat_known(beats: list[dict], upto_cap: int, pool: dict, esc: dict, context
     return " ".join(txt)
 
 
-def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "") -> tuple[dict, list[str], list[str], list[str]]:
+def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
+             solo_apoyo: list[str] | tuple[str, ...] = ()) -> tuple[dict, list[str], list[str], list[str]]:
     """(escaleta reparada, problemas duros, reparaciones, avisos). Problemas duros → reintento. `context` = lo que el
     espectador sabe antes del primer segundo (el título del video)."""
     esc = copy.deepcopy(raw or {})
@@ -390,6 +426,9 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "") -
             hard.append(f"beat {b['n']}: dato_central {c} ya está en el beat {seen[c]} (un id, un solo beat)")
         else:
             seen[c] = b["n"]
+    for b in beats:
+        if b["dato_central"] in solo_apoyo:
+            hard.append(f"beat {b['n']}: {b['dato_central']} va solo como apoyo (indicación del editor), no como dato central")
     for b in beats:
         keep = []
         for i in b["datos_apoyo"]:
@@ -512,6 +551,10 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "") -
         if i in used:
             hard.append(f"a_pantalla {i} también está en un beat: lo que va a pantalla no lo dice la voz")
             continue
+        if its[i]["_kind"] == "citas" and its[i].get("verificacion") and \
+                its[i]["verificacion"].get("estado") != "verificada":
+            rep.append(f"a_pantalla {i}: cita sin verificar → no va a pantalla")
+            continue
         try:
             c = int(c)
         except (TypeError, ValueError):
@@ -567,11 +610,40 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "") -
         # chequeo de «nombra algo ya visto»; el resto de la rúbrica, igual
         probs = question_problems(last.get("pregunta_pantalla"), _beat_known(beats, n, pool, esc, context), n in (1, 7),
                                   people)
-        last["pregunta_valida"] = not probs
+        last["pregunta_valida"] = not [x for x in probs if not x.startswith("no nombra nada")]
         if probs:
             qbad.append(f"pregunta de pantalla del cap {n} «{last.get('pregunta_pantalla')}»: {'; '.join(probs)}")
     if qbad:
-        (warn if final else hard).extend(qbad)
+        # F6b-4: «nombra algo ya conocido» es heurística (raíces de palabras: «¿Por qué se negó a moverlos?» no pasa y
+        # es buena) → aviso. El resto de la rúbrica es objetivo → duro (en el último intento, marcada). La del cap 7
+        # es obligatoria (sin respaldo de gfx_question): siempre dura.
+        soft = [q for q in qbad if re.fullmatch(r".*: no nombra nada que el espectador ya conozca \(.*\)", q)]
+        warn.extend(soft)
+        objective = [q for q in qbad if q not in soft]
+        cap7 = [q for q in objective if q.startswith("pregunta de pantalla del cap 7")]
+        (warn if final else hard).extend([q for q in objective if q not in cap7])
+        hard.extend(cap7)
+    # una cifra se ve en pantalla una sola vez (preguntas de pantalla + contadores)
+    seen_fig: dict[str, str] = {}
+    for b in beats:
+        figs = []
+        if b.get("contador") and b["dato_central"] in its:
+            it = its[b["dato_central"]]
+            figs += re.findall(r"\d[\d,.]*\d|\d", str(it.get("valor") or ev.text_of(it)))[:1]
+        figs += re.findall(r"\d[\d,.]*\d|\d", str(b.get("pregunta_pantalla") or ""))
+        for f in figs:
+            k = re.sub(r"[,.]", "", f)
+            where = f"beat {b['n']} ({'contador' if b.get('contador') and f in figs[:1] else 'pregunta'})"
+            if k in seen_fig and seen_fig[k] != where:
+                hard.append(f"la cifra {f} se ve en pantalla dos veces ({seen_fig[k]} y {where}): una vez por video")
+            seen_fig.setdefault(k, where)
+    if beats:                                        # la última frase no repite textual una cita
+        last5 = _plain(beats[-1].get("cierre") or "")
+        for q in pool.get("citas") or []:
+            ws = _plain(q.get("texto") or "").split()
+            if any(" ".join(ws[k:k + 5]) in last5 for k in range(max(0, len(ws) - 4))) and len(ws) >= 5 or \
+                    (len(ws) < 5 and ws and " ".join(ws) in last5):
+                hard.append(f"la última frase repite textual la cita {q['id']}: decila con otras palabras")
     # cronología (aviso: la dramaturgia puede volver atrás)
     prev = None
     for b in beats:
@@ -634,12 +706,13 @@ def apply_pool_plan(esc: dict, pool: dict) -> None:
 
 
 def _cap_spans(esc: dict, pool: dict) -> dict[int, tuple[str, str]]:
-    """Rango de fechas que narra cada cap (datos de sus beats; el flash-forward no cuenta)."""
+    """Rango de fechas que narra cada cap: las fechas de sus DATOS CENTRALES (un apoyo puede ser un antecedente lejano y
+    estiraría el rango; el flash-forward no cuenta)."""
     its = ev.items(pool)
     out = {}
     for n in range(1, 8):
         ds = sorted(d for b in esc["beats"] if b["cap"] == n and not b.get("flash_forward")
-                    for d in (ev.item_date(its[i]) for i in [b["dato_central"]] + b["datos_apoyo"] if i in its) if d)
+                    for d in [ev.item_date(its[b["dato_central"]]) if b["dato_central"] in its else None] if d)
         if ds:
             out[n] = (ds[0], ds[-1])
     return out
@@ -683,6 +756,10 @@ def _screen_by_date(esc: dict, sk: dict, pool: dict) -> None:
         return None
     for n0, i in auto:
         if i in forced:
+            continue
+        v = (its.get(i) or {}).get("verificacion")
+        if v and v.get("estado") != "verificada":
+            notes.append(f"{i}: cita sin verificar → no va a pantalla")
             continue
         d = ev.item_date(its[i]) if i in its else None
         n = n0
@@ -758,7 +835,8 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
     for k in range(1, attempts + 1):
         raw = call(build_prompt(topic, pool, feedback), system_instruction=SYSTEM, response_schema=SCHEMA,
                    description=f"m01a_escaleta intento {k}")
-        esc, hard, rep, warn = validate(raw, pool, final=k == attempts, context=str(topic.get("video_title") or ""))
+        esc, hard, rep, warn = validate(raw, pool, final=k == attempts, context=str(topic.get("video_title") or ""),
+                                        solo_apoyo=tuple(topic.get("escaleta_solo_apoyo") or ()))
         intentos.append({"intento": k, "problemas": hard, "reparaciones": rep, "avisos": warn})
         log.append(f"  [escaleta] intento {k}: {len(hard)} problema(s) {hard[:4]} · {len(rep)} reparación(es)")
         if not hard:
@@ -812,7 +890,8 @@ def frozen_escaleta(topic: dict) -> dict:
     for k in ("humano", "antagonista", "pico"):
         if esc.get(k, {}).get("id") and remap:
             esc[k]["id"] = _m(esc[k]["id"]) or esc[k]["id"]
-    esc2, hard, rep, warn = validate(esc, cur, final=True, context=str(topic.get("video_title") or ""))
+    esc2, hard, rep, warn = validate(esc, cur, final=True, context=str(topic.get("video_title") or ""),
+                                     solo_apoyo=tuple(topic.get("escaleta_solo_apoyo") or ()))
     esc2.update({"topic_id": topic.get("id") or topic.get("topic_id"), "_reparaciones": rep, "_avisos": warn,
                  "_frozen": {"escaleta": str(cfg["escaleta"]), "pool": str(cfg.get("pool") or ""), "notas": notes,
                              "problemas": hard}})
@@ -851,7 +930,8 @@ def to_markdown(esc: dict, pool: dict) -> str:
         for b in [b for b in esc["beats"] if b["cap"] == n]:
             lines += [f"**Beat {b['n']} — {b['funcion']}{' (flash-forward)' if b.get('flash_forward') else ''} · "
                       f"{b['emocion']} · intensidad {b['intensidad']}"
-                      + (" · humano en escena" if b.get("humano_en_escena") else "") + f" · {b['palabras_objetivo']} pal.**",
+                      + (" · humano en escena" if b.get("humano_en_escena") else "")
+                      + (" · CONTADOR en pantalla" if b.get("contador") else "") + f" · {b['palabras_objetivo']} pal.**",
                       f"- Imagen: {b['imagen_sensorial']}",
                       f"- Dato central: {_t(b['dato_central'])}"]
             if b["datos_apoyo"]:

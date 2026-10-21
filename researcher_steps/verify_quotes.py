@@ -10,6 +10,15 @@ En el pool: `cita["verificacion"] = {"estado", "url_fuente", "publicacion", "cit
 "motivo"}` y `personaje["testigo_verificado"]` (al menos una cita suya verificada). Regla aguas abajo (escaleta /
 guionista): una cita sin_verificar no se usa CON NOMBRE en la narración.
 Caché por cita (`cache`): no se vuelve a buscar lo ya buscado.
+
+F6c (validación del analista, regla nueva): `verify_literal` — se BAJA el documento fuente y se busca la cita LITERAL
+(no alcanza el dominio). Un documento vale si su fecha es ≤ evento + 20 años y su texto nombra el lugar o el evento.
+La cita se busca tal como está en el pool y, si existe, en su original (inglés) — sin mayúsculas ni tildes, y con
+tolerancia al carácter de reemplazo (�) de las copias con la codificación rota. Estados:
+    verificada              la cita literal en un documento válido, con el apellido del autor a ≤ 400 caracteres
+    encontrada_sin_autor    la cita literal está, pero no junto a ese autor: se usa SIN nombre
+    sin_verificar           no está literal en ningún documento válido
+`verificacion` = {"estado", "metodo": "literal", "documento", "url_fuente", "fecha_documento", "contexto", "motivo"}.
 """
 from __future__ import annotations
 
@@ -104,6 +113,110 @@ def resolve_redirect(url: str, timeout: float = 10.0) -> str | None:
             return r.geturl()
     except Exception:  # noqa: BLE001
         return None
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F6c — verificación LITERAL contra el documento fuente
+# ═══════════════════════════════════════════════════════════════
+
+FFFD = "\ufffd"
+AUTHOR_WINDOW = 400
+
+
+def _nz(s: str) -> str:
+    """Minúsculas, sin tildes (conserva el carácter de reemplazo), comillas/guiones/puntuación → espacio, espacios
+    colapsados. Un � pegado a un espacio es puntuación rota (→ espacio); entre letras, una letra rota (queda)."""
+    import unicodedata
+    t = "".join(c for c in unicodedata.normalize("NFD", str(s or "")) if unicodedata.category(c) != "Mn").lower()
+    t = re.sub(rf"[^\w{FFFD}]+", " ", t)
+    t = re.sub(rf"(?<!\w){FFFD}+|{FFFD}+(?!\w)", " ", t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def _pattern(quote: str) -> re.Pattern | None:
+    q = _nz(quote).replace(FFFD, "")
+    if len(q.split()) < 3:
+        return None
+    parts = []
+    for ch in q:
+        parts.append(r"\s+" if ch == " " else f"(?:{re.escape(ch)}|{FFFD})")
+    return re.compile("".join(parts))
+
+
+def find_literal(quote: str, text: str) -> int | None:
+    """Posición de la cita literal en el texto normalizado (None si no está)."""
+    pat = _pattern(quote)
+    if pat is None:
+        return None
+    m = pat.search(_nz(text))
+    return m.start() if m else None
+
+
+def doc_ok(doc: dict[str, Any], event_year: int, place_re: str) -> str | None:
+    """Motivo por el que el documento NO vale (None si vale): fecha > evento + 20 años, o no nombra el lugar/evento."""
+    y = int(str(doc.get("fecha") or "0")[:4] or 0)
+    if not y or y > event_year + 20:
+        return f"fecha del documento {doc.get('fecha')} > evento + 20 años ({event_year + 20})"
+    if not re.search(place_re, doc.get("texto") or "", re.I):
+        return "el documento no nombra el lugar ni el evento"
+    return None
+
+
+def verify_literal(pool: dict[str, Any], docs: list[dict[str, Any]], *, event_year: int, place_re: str,
+                   ids: list[str] | None = None, log: list[str] | None = None) -> dict[str, int]:
+    """In place: `verificacion` literal de las citas testimonio (o de `ids`, también datos). Devuelve el conteo."""
+    from researcher_steps.evidence_pool import _person_key
+    log = log if log is not None else []
+    valid = []
+    for d in docs:
+        why = doc_ok(d, event_year, place_re)
+        if why:
+            log.append(f"  [literal] documento {d['id']} descartado: {why}")
+        else:
+            valid.append({**d, "_nz": _nz(d["texto"])})
+    count = {"verificada": 0, "encontrada_sin_autor": 0, "sin_verificar": 0}
+    items = [("citas", q) for q in pool.get("citas") or []] + [("datos", x) for x in pool.get("datos") or []]
+    for kind, it in items:
+        if ids is not None and it["id"] not in ids:
+            continue
+        if ids is None and not (kind == "citas" and it.get("testimonio")):
+            continue
+        text = it.get("texto") or ""
+        cands = [text] + [x for x in [(it.get("verificacion") or {}).get("cita_original")] if x]
+        sur = _person_key(it.get("autor") or "")[1] if kind == "citas" else ""
+        best = None
+        for d in valid:
+            for c in cands:
+                k = find_literal(c, d["texto"])
+                if k is None:
+                    continue
+                near = d["_nz"][max(0, k - AUTHOR_WINDOW):k + len(_nz(c)) + AUTHOR_WINDOW]
+                ok_author = not sur or re.search(rf"\b{re.escape(sur)}\b", near) is not None
+                cand = {"documento": d["id"], "url_fuente": d.get("url"), "fecha_documento": d.get("fecha"),
+                        "contexto": d["_nz"][max(0, k - 150):k + len(_nz(c)) + 150], "cita_buscada": c,
+                        "autor_cerca": ok_author}
+                if best is None or (ok_author and not best["autor_cerca"]):
+                    best = cand
+        prev = it.get("verificacion") or {}
+        if best and best["autor_cerca"]:
+            v = {"estado": "verificada", "metodo": "literal", **best, "motivo": f"literal en {best['documento']}"}
+        elif best:
+            v = {"estado": "encontrada_sin_autor", "metodo": "literal", **best,
+                 "motivo": f"literal en {best['documento']}, pero no junto a {it.get('autor')}: va sin nombre"}
+        else:
+            v = {"estado": "sin_verificar", "metodo": "literal", "documento": None, "url_fuente": None,
+                 "motivo": f"no está literal en {[d['id'] for d in valid]}"}
+        if prev.get("cita_original"):
+            v["cita_original"] = prev["cita_original"]
+        it["verificacion"] = v
+        count[v["estado"]] += 1
+        log.append(f"  [literal] {it['id']} {it.get('autor') or ''}: {v['estado']} — {v['motivo']}")
+    for p in pool.get("personajes") or []:
+        sur = _person_key(p["nombre"])[1]
+        p["testigo_verificado"] = any(
+            (q.get("verificacion") or {}).get("estado") == "verificada" and _person_key(q.get("autor") or "")[1] == sur
+            for q in pool.get("citas") or [])
+    return count
 
 
 def _search(prompt: str, model: str | None = None) -> tuple[str, list[dict[str, str]]]:

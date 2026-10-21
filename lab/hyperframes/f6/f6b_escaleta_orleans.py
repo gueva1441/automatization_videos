@@ -38,10 +38,30 @@ NOTAS_F6B3 = """1. GANCHO = FLASH-FORWARD (beat 1 con flash_forward: true, inten
 4. 517 una sola vez; nunca «más de 500»."""
 
 
+# F6b-4: validación del analista sobre f6b-3 (7.5/10), con el pool verificado LITERAL (F6c_verificacion.md):
+# verificadas Q03 (Burton), Q04 (Norman, literal BBC) y D95 (Norman, 103 días); Q05 y Burnley fuera del pool
+NOTAS_F6B4 = """1. PICO = los cadáveres flotando (D60), en el CAP 4, intensidad 5. Los 517 sin contabilizar (D19) son la
+   REVELACIÓN del cap 5, intensidad 4, con `contador: true` (el 517 sube en pantalla) y una pregunta de pantalla SIN
+   cifra.
+2. GANCHO = flash-forward (beat 1, intensidad 4): el peor momento adentro, el agua, la oscuridad, días sin que nadie
+   venga. Solo las citas VERIFICADAS van con nombre (Q03 Edward Burton, Q04 Vincent Norman); las sin verificar, sin
+   nombre. Sin cifras. El cap 2 baja a intensidad 2: cómo se llegó ahí. Curva objetivo ≈ 4-2-3-5-4-1-3-3.
+3. CAP 6: la pregunta de pantalla NO es sobre los turistas («¿A quién le creyeron?» o similar). Los turistas (T26), a lo
+   sumo como ironía en una frase de apoyo.
+4. CAP 7: dato central D61 (ningún preso murió ni escapó; después, 14 órdenes de arresto) y la ausencia de registros
+   (D62). Cierra con Vincent Norman y D95 (debía estar una semana y estuvo 103 días). Pregunta de pantalla humana
+   OBLIGATORIA. Q10 (Balaban) va a pantalla, no a la voz.
+   NORMAN EN ESCENA EN 3 CAPS, cada uno con un dato suyo verificado: D72 (quién es: un chef preso por una multa) en el
+   cap 2; su juicio Q04 («Simplemente abandonaron la cárcel») en el cap 3, 4 o 6; D95 (103 días) en el cap 7. La última
+   frase no repite Q04 textual.
+5. Una cifra se ve en pantalla una sola vez en todo el video."""
+
+
 def topic_v3() -> dict:
     db = json.loads((ROOT / "data" / "topics_db.json").read_text(encoding="utf-8"))
     t = json.loads(json.dumps(next(t for t in db["topics"] if t["id"] == V2)))
-    t.update({"id": V3, "video_id": V3, "guion_version": 3, "escaleta_notas": NOTAS_F6B3,
+    t.update({"id": V3, "video_id": V3, "guion_version": 3, "escaleta_notas": NOTAS_F6B4,
+              "escaleta_solo_apoyo": ["T26", "T27", "T03", "D50", "D69"],      # los turistas: ironía, nunca central
               "evidence_pool": json.loads((STEPS / "01_facts_sources.json").read_text(encoding="utf-8"))["evidence_pool"]})
     return t
 

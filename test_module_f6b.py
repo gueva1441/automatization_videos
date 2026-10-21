@@ -274,3 +274,38 @@ def test_cita_con_otra_cifra_del_conteo_se_parafrasea():
     e, _, _, _ = me.validate(good(), pool)
     e["beats"][5]["datos_apoyo"] = ["Q05"]
     assert any("Q05 trae otra cifra del conteo 517" in x for x in me.writer_instructions(e, pool))
+
+
+# ═══ F6b-4 ═══
+
+def test_una_cifra_en_pantalla_una_vez_y_cap7_obligatoria():
+    e = good()
+    e["beats"][4]["contador"] = True                      # D02: 517 como contador
+    e["beats"][5]["pregunta_pantalla"] = "¿Dónde están los 517 reclusos?"
+    assert any("dos veces" in h for h in me.validate(e, POOL)[1])
+    e["beats"][5]["pregunta_pantalla"] = "¿Dónde están esos reclusos?"
+    assert me.validate(e, POOL)[1] == []
+    e["beats"][-1]["pregunta_pantalla"] = ""
+    _, hard, _, _ = me.validate(e, POOL, final=True)       # aun en el último intento: obligatoria
+    assert any("cap 7" in h for h in hard)
+
+
+def test_ultima_frase_sin_eco_de_cita():
+    e = good()
+    e["beats"][-1]["cierre"] = "Edward Burton lo dijo: nadie allí, nos dejaron por muertos."
+    assert any("repite textual la cita Q01" in h for h in me.validate(e, POOL)[1])
+    e["beats"][-1]["cierre"] = "Edward Burton sigue esperando que alguien vuelva a buscarlo."
+    assert me.validate(e, POOL)[1] == []
+
+
+def test_solo_apoyo_y_citas_sin_verificar_fuera_de_pantalla():
+    e = good()
+    assert any("solo como apoyo" in h for h in me.validate(e, POOL, solo_apoyo=("D05",))[1])
+    pool = _pool3()
+    e["a_pantalla"] = [{"id": "Q03", "cap": 6}]
+    esc, hard, rep, _ = me.validate(e, pool)
+    assert esc["a_pantalla"] == [] and any("sin verificar" in r for r in rep)
+    sk = me.caps_view(esc)
+    sk["chapters"][0]["pantalla_ids"] = ["Q03"]
+    me._screen_by_date(esc, sk, pool)
+    assert all("Q03" not in c["pantalla_ids"] for c in sk["chapters"])

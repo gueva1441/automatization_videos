@@ -1,137 +1,111 @@
 # Escaleta — ba6c3cac-f6v3
 
-**Humano que seguimos:** Vincent Norman (Preso, P09) — Es un testigo verificado que estuvo atrapado dentro. Su historia, la de un chef arrestado por una multa impaga, representa lo absurdo y trágico de la situación.
-**Antagonista:** Marlin N. Gusman — Tomó la decisión explícita de no evacuar a los prisioneros y negó públicamente las condiciones inhumanas que su inacción provocó.
-**Promesa del gancho:** Miles de hombres, mujeres y niños fueron abandonados en sus celdas. Esta es la historia de los que nunca aparecieron en los registros.
-**Pico:** beat 7 · D19 «Inmediatamente después de la evacuación, 517 reclusos no estaban contabilizados» — Este es el clímax del misterio: no es solo el horror de la inundación, sino la revelación de que cientos de personas simplemente desaparecieron del sistema, convirtiendo la negligencia en una posible masacre encubierta.
-**Cierre humano:** Como dijo Vincent Norman: 'Básicamente abandonaron la prisión'.
+**Humano que seguimos:** Vincent Norman (preso, P09) — Es un testigo verificado que estuvo allí, arrestado por una multa impaga, lo que hace su terrible experiencia aún más injusta y ancla el desastre en una historia personal.
+**Antagonista:** Marlin N. Gusman — Como Sheriff, Marlin N. Gusman tomó la decisión de no evacuar a los prisioneros, solicitó ayuda demasiado tarde y negó públicamente las condiciones catastróficas que sufrieron.
+**Promesa del gancho:** Miles de personas fueron encerradas y abandonadas a la tormenta. Alguien tenía la llave de sus celdas.
+**Pico:** beat 4 · D60 «reclusos de la sección "Templeman III" informaron haber visto cadáveres flotando en las aguas de la inundación mientras eran evacuados el…» — Es la imagen más visceral y aterradora: el testimonio de prisioneros viendo cadáveres flotando en el agua, la consecuencia final del abandono.
+**Cierre humano:** Vincent Norman solo tenía que pagar una multa, pero para el sistema, simplemente lo habían abandonado.
 
-Curva: 1:4 → 2:2 → 3:2 → 4:3 → 5:3 → 6:4 → 7:5 → 8:1 → 9:3 → 10:3 → 11:3
+Curva: 1:4 → 2:2 → 3:3 → 4:5 → 5:4 → 6:1 → 7:3 → 8:3
 
-## Cap 1 · hook · 110 palabras
+## Cap 1 · hook · 110 palabras · pantalla (no se narra): D85
 
 **Beat 1 — gancho (flash-forward) · Terror · intensidad 4 · 110 pal.**
-- Imagen: Agua negra y sucia subiendo por los barrotes de una celda a oscuras.
+- Imagen: Agua sucia y negra subiendo por los barrotes de una celda a oscuras.
 - Dato central: Q13 «Los guardias nos dejaron allí para que muriéramos encerrados en la celda... El agua estaba tan alta que tuvimos que nadar para salir de l…» — un preso anónimo, 19 años, del TCI (Templeman IV)
-- Apoyo: Q06 «Estábamos en la oscuridad. No teníamos comida ni agua» — Vincent Norman; D08 «En otras áreas, el agua contaminada con aguas residuales llegó hasta el pecho de los reclusos.»
-- Queda abierta: ¿Van a morir todos ahogados?
-- Pregunta en pantalla: **¿Por qué nadie vino por ellos?**
-- Cierre: Pero antes de que el agua subiera, un hombre tomó una decisión.
+- Apoyo: Q11 «Las mujeres reclusas también fuimos dejadas para morir, sin atención médica, sin comida, sin agua. Vivimos en aguas altas, el edificio ti…» — una presa anónima, 35 años, del edificio Conchetta
+- Queda abierta: ¿Cómo llegaron a esto? ¿Nadie sabía que estaban ahí?
+- Pregunta en pantalla: **¿Quién cerró las puertas de la prisión?**
+- Cierre: Pero antes de que el agua subiera, alguien tomó una decisión.
 
-## Cap 2 · development · 190 palabras · pantalla (no se narra): T03
+## Cap 2 · development · 190 palabras · pantalla (no se narra): T03, T04
 
-**Beat 2 — planteo · Inquietud · intensidad 2 · 100 pal.**
-- Imagen: Un micrófono frente a un hombre con uniforme de sheriff.
+**Beat 2 — planteo · Inquietud · intensidad 2 · humano en escena · 190 pal.**
+- Imagen: Un micrófono en una sala de prensa, frente a un hombre con uniforme de sheriff.
 - Dato central: T05 «El sheriff Marlin N. Gusman anuncia en una conferencia de prensa que los prisioneros no serán evacuados de la Prisión de Orleans Parish.»
-- Apoyo: D57 «la Prisión de Orleans Parish (OPP) albergaba a 6,375 reclusos el 29 de agosto de 2005»; D67 «En la prisión había niños de hasta 10 años»
-- Queda abierta: ¿Por qué no los evacuaron si sabían que venía el huracán?
-- Cierre: Y mientras él hablaba, adentro la última comida ya se había servido.
+- Apoyo: D72 «Vincent Norman, preso (chef arrestado por una multa impaga)»; T02 «La Parroquia de St. Bernard notifica que evacuará su población de reclusos a la Prisión Parroquial de Orleans (OPP).»
+- Queda abierta: Si sabían que venía el huracán, ¿por qué no evacuaron?
+- Pregunta en pantalla: **¿Por qué el sheriff los dejó adentro?**
+- Cierre: La tormenta llegó. Y con ella, la oscuridad.
 
-**Beat 3 — planteo · Vulnerabilidad · intensidad 2 · humano en escena · 90 pal.**
-- Imagen: Una bandeja de metal con la última comida, empujada bajo la puerta de una celda.
-- Dato central: D72 «Vincent Norman, preso (chef arrestado por una multa impaga)»
-- Apoyo: T04 «Los reclusos reciben su última comida antes de que el huracán azote.»; T01 «Se cortan los teléfonos para los reclusos en la Prisión de Orleans Parish (OPP), días antes de la llegada del huracán Katrina.»
-- Queda abierta: ¿Qué le va a pasar a este hombre?
-- Pregunta en pantalla: **¿Por qué un chef estaba en esa celda?**
-- Cierre: Afuera, la tormenta estaba a punto de tocar tierra.
+## Cap 3 · development · 190 palabras · pantalla (no se narra): T09, T29
 
-## Cap 3 · development · 190 palabras · pantalla (no se narra): T10, T09
-
-**Beat 4 — escalada · Tensión · intensidad 3 · 95 pal.**
-- Imagen: Una luz parpadea y se apaga, sumiendo un pasillo de celdas en la oscuridad total.
+**Beat 3 — escalada · Angustia · intensidad 3 · humano en escena · 190 pal.**
+- Imagen: La última luz de un generador parpadea y se apaga, dejando todo en absoluta oscuridad.
 - Dato central: T08 «La energía eléctrica se pierde y los generadores de respaldo fallan en la OPP.»
-- Apoyo: D04 «Fecha de impacto del huracán: 29 de agosto de 2005.»; T07 «El huracán Katrina, un huracán de categoría 3, toca tierra en Nueva Orleans.»
-- Queda abierta: ¿No había un plan de respaldo?
-- Cierre: En la oscuridad, el sonido del agua comenzó a llenar los pasillos.
+- Apoyo: Q04 «Simplemente abandonaron la cárcel» — Vincent Norman; D08 «En otras áreas, el agua contaminada con aguas residuales llegó hasta el pecho de los reclusos.»
+- Queda abierta: Están a oscuras, en el agua, ¿nadie va a ayudarlos?
+- Pregunta en pantalla: **¿Por qué Gusman tardó tanto en pedir ayuda?**
+- Cierre: La ayuda no llegó. Y en el agua estancada, algunos vieron el horror.
 
-**Beat 5 — escalada · Pánico · intensidad 3 · 95 pal.**
-- Imagen: Un zapato flotando en el agua turbia que sube por una escalera de metal.
-- Dato central: D07 «El agua dentro de algunos edificios de la prisión, como Templeman 1 y 2, alcanzó el nivel del pecho.»
-- Apoyo: T12 «A la medianoche, el sheriff Marlin Gusman solicita ayuda para la evacuación.»
-- Queda abierta: ¿Por qué esperó tanto para pedir ayuda?
-- Pregunta en pantalla: **¿Por qué el sheriff esperó hasta medianoche?**
-- Cierre: El pedido de ayuda llegó tarde. Para muchos, demasiado tarde.
+## Cap 4 · development · 190 palabras · pantalla (no se narra): T13, T16
 
-## Cap 4 · development · 190 palabras · pantalla (no se narra): D85, T30
-
-**Beat 6 — escalada · Horror · intensidad 4 · 190 pal.**
-- Imagen: Algo oscuro y sin forma flotando en el agua turbia de un pasillo inundado.
+**Beat 4 — pico · Horror · intensidad 5 · 190 pal.**
+- Imagen: Una silueta flotando boca abajo en el agua turbia de un pasillo inundado.
 - Dato central: D60 «reclusos de la sección "Templeman III" informaron haber visto cadáveres flotando en las aguas de la inundación mientras eran evacuados el…»
-- Apoyo: D87 «Viviendo en aguas contaminadas durante 3 largos y miserables días»; Q11 «Las mujeres reclusas también fuimos dejadas para morir, sin atención médica, sin comida, sin agua. Vivimos en aguas altas, el edificio ti…» — una presa anónima, 35 años, del edificio Conchetta
-- Queda abierta: ¿Cuánta gente murió ahí dentro?
-- Pregunta en pantalla: **¿Cuántos cuerpos nunca fueron contados?**
-- Cierre: Mientras los reclusos luchaban por sobrevivir, las autoridades negaban todo.
+- Apoyo: T15 «Cuatro días después del huracán, los reclusos de la sección "Templeman III" son evacuados y algunos reportan haber visto cuerpos flotando.»
+- Queda abierta: Si había muertos, ¿por qué nadie lo dijo? ¿Cuántos eran?
+- Pregunta en pantalla: **¿Cuántos cuerpos no llegaron a salir?**
+- Cierre: Oficialmente, nadie murió. Pero cuando contaron a los evacuados, la historia fue otra.
 
-## Cap 5 · development · 190 palabras
+## Cap 5 · development · 190 palabras · pantalla (no se narra): Q10, D28
 
-**Beat 7 — pico · Desesperación · intensidad 5 · 190 pal.**
-- Imagen: Una fila interminable de personas con ropa de prisión, mojadas y sucias, sobre un puente bajo el sol abrasador.
+**Beat 5 — revelacion · Indignación · intensidad 4 · CONTADOR en pantalla · 190 pal.**
+- Imagen: Una lista de nombres en un portapapeles mojado, con cientos de espacios en blanco.
 - Dato central: D19 «Inmediatamente después de la evacuación, 517 reclusos no estaban contabilizados»
-- Apoyo: D18 «Los prisioneros fueron llevados en bote al paso elevado de Broad Street sobre la Interestatal 10.»; Q12 «Éramos más de 500 mujeres y niños. Estábamos en el paso elevado de Broad Street sin comida ni agua, y nos vimos obligados a usar el baño …» — una presa anónima del TCI (Templeman IV)
-- Queda abierta: ¿Dónde está esa gente? ¿Están muertos? ¿Escaparon?
-- Pregunta en pantalla: **¿Dónde están los 517 desaparecidos?**
-- Cierre: La respuesta oficial solo profundizó el misterio.
+- Apoyo: D43 «Human Rights Watch registró a 517 prisioneros como "desaparecidos"»; D37 «El sheriff Gusman negó públicamente las acusaciones, afirmando que los prisioneros tenían comida y agua y que la evacuación se realizó se…»
+- Queda abierta: ¿Dónde están esas 517 personas? ¿Son los cuerpos que vieron flotando?
+- Pregunta en pantalla: **¿Dónde están los prisioneros desaparecidos?**
+- Cierre: Mientras cientos de familias buscaban a los suyos, el sistema judicial seguía funcionando.
 
-## Cap 6 · development · 190 palabras · pantalla (no se narra): T21, Q10
+## Cap 6 · development · 190 palabras · pantalla (no se narra): T23
 
-**Beat 8 — respiro · Tristeza · intensidad 1 · 70 pal.**
-- Imagen: El rostro de un sobreviviente, mirando a la cámara, con los ojos cansados.
-- Dato central: Q03 «Nadie allí — nos dejaron por muertos, hombre» — Edward “Edgar” Burton
-- Apoyo: D70 «Edward “Edgar” Burton, preso»
-- Queda abierta: ¿Alguien les creyó?
-- Cierre: Pero el Sheriff tenía una versión muy diferente de los hechos.
-
-**Beat 9 — consecuencia · Indignación · intensidad 3 · 120 pal.**
-- Imagen: Un recorte de periódico con el titular de la negativa del Sheriff.
-- Dato central: D37 «El sheriff Gusman negó públicamente las acusaciones, afirmando que los prisioneros tenían comida y agua y que la evacuación se realizó se…»
-- Apoyo: Q02 «Están en la cárcel, hombre. Mienten... No confíen en drogadictos, cobardes y criminales para saber cuál es la historia» — Sheriff Gusman; T26 «Un jurado federal otorga más de 650,000 dólares a Robie Waganfeald y Paul Kunkel Jr. en su demanda contra el sheriff Gusman.»
-- Queda abierta: ¿Cómo puede negar algo que cientos de personas vivieron?
-- Pregunta en pantalla: **¿Por qué la justicia llegó para dos turistas?**
-- Cierre: Pero la mentira más grande aún estaba por revelarse.
+**Beat 6 — respiro · Perplejidad · intensidad 1 · 190 pal.**
+- Imagen: Un plano de ingeniería con líneas rojas marcando las fallas de un dique.
+- Dato central: D31 «el propio Cuerpo de Ingenieros del Ejército de EE. UU. atribuyó a deficiencias de diseño fundamentales y no a la fuerza imprevisible de l…»
+- Apoyo: T20 «El teniente general Carl Strock del Cuerpo de Ingenieros del Ejército de EE. UU. testifica ante el Senado que hubo problemas con el diseñ…»; T26 «Un jurado federal otorga más de 650,000 dólares a Robie Waganfeald y Paul Kunkel Jr. en su demanda contra el sheriff Gusman.»
+- Queda abierta: Si se sabía que los diques fallaron por diseño, ¿nadie es responsable de la inundación?
+- Pregunta en pantalla: **¿De quién fue la culpa de la inundación?**
+- Cierre: Pero mientras los ingenieros hablaban de acero, en Nueva Orleans seguía faltando la verdad.
 
 ## Cap 7 · reveal_outro · 110 palabras
 
-**Beat 10 — revelacion · Cinismo · intensidad 3 · 60 pal.**
-- Imagen: Una pila de papeles y carpetas cubiertas de lodo y agua.
+**Beat 7 — consecuencia · Frustración · intensidad 3 · 55 pal.**
+- Imagen: Un archivo polvoriento con una etiqueta que dice 'Prisión de Orleans - 2005' completamente vacío.
 - Dato central: D61 «El sheriff de la cárcel declaró que ningún preso murió o escapó. Sin embargo, más tarde se emitieron 14 órdenes de arresto para fugitivos»
 - Apoyo: D62 «No existen registros oficiales de lo que ocurrió en la Prisión de Orleans Parish inmediatamente después del huracán Katrina»
-- Queda abierta: Si nadie escapó, ¿por qué hay órdenes de arresto? Si nadie murió, ¿dónde están los 517?
-- Cierre: En la ausencia de registros, solo quedan los testimonios.
+- Queda abierta: Si no hay registros, ¿cómo se puede saber la verdad?
+- Cierre: 
 
-**Beat 11 — cierre · Melancolía · intensidad 3 · humano en escena · 50 pal.**
-- Imagen: La fachada de la prisión, años después, vista desde lejos.
-- Dato central: Q04 «Básicamente abandonaron la prisión» — Vincent Norman
-- Queda abierta: ¿Se hizo justicia alguna vez?
-- Cierre: Como dijo Vincent Norman: 'Básicamente abandonaron la prisión'.
+**Beat 8 — cierre · Tristeza · intensidad 3 · humano en escena · 55 pal.**
+- Imagen: Un calendario en una pared, con 103 días tachados uno por uno.
+- Dato central: D95 «Norman no debería haber estado allí más de una semana. En vez, pasó 103 días en la cárcel sin agua ni comida y en condiciones insalubres,…»
+- Apoyo: Q03 «Nadie allí — nos dejaron por muertos, hombre» — Edward “Edgar” Burton
+- Queda abierta: ¿Cuántas historias como la de Vincent Norman nunca se contaron?
+- Pregunta en pantalla: **¿Cuántos nombres siguen perdidos en el agua?**
+- Cierre: Vincent Norman solo tenía que pagar una multa, pero para el sistema, simplemente lo habían abandonado.
 
 ## A pantalla (la escaleta lo manda a pantalla; la voz no lo dice)
 
-- cap 6: T21 «La ACLU publica el informe "Abandoned and Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina", que detalla los testimonios…» — Mostrar la portada del informe de la ACLU 'Abandoned and Abused' para dar peso visual a los testimonios que se están contrastando con la versión oficial.
-- cap 6: Q10 «Como sociedad vemos a los presos como ciudadanos de segunda clase, sus historias han pasado en gran medida desapercibidas y, por lo tanto…» — Eric Balaban — La cita del abogado de la ACLU apoya visualmente la indignación del capítulo sin interrumpir la narración oral.
+- cap 5: Q10 «Como sociedad vemos a los presos como ciudadanos de segunda clase, sus historias han pasado en gran medida desapercibidas y, por lo tanto…» — Eric Balaban — La cita del abogado de la ACLU contextualiza por qué estas historias no se cuentan, reforzando el tema de los 'ciudadanos de segunda clase' mientras hablamos de los 517 desaparecidos.
+- cap 5: D28 «La ACLU publica el informe "Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina".» — Mostrar el título del informe 'Abandoned & Abused' de la ACLU mientras se narra sobre los prisioneros desaparecidos le da credibilidad y anclaje visual a la investigación.
 
 ## Instrucciones al guionista (deterministas)
 
 - La cifra 517 reclusos se dice UNA sola vez; nunca «500» ni «más de 500».
 - La cifra 6,375 reclusos se dice UNA sola vez; nunca «6,500», «6500» ni «más de 6500».
-- Q12 trae otra cifra del conteo 517: se parafrasea SIN esa cifra (no se cita textual).
-- Q06 (de Vincent Norman) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).
 - Q11 (de una presa anónima, 35 años, del edificio Conchetta) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).
-- Q12 (de una presa anónima del TCI (Templeman IV)) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).
 - Q13 (de un preso anónimo, 19 años, del TCI (Templeman IV)) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).
-- T21 va a pantalla (cap 6): la voz no lo dice.
-- Q10 va a pantalla (cap 6): la voz no lo dice.
+- Q10 va a pantalla (cap 5): la voz no lo dice.
+- D28 va a pantalla (cap 5): la voz no lo dice.
 
 ## Reservados movidos por fecha
 
-- T09 (2005-08-29) del cap 4 al cap 3 (por fecha)
-- T03 (2005-08-27) del cap 6 al cap 2 (por fecha)
-- T30 (2005-08-30) del cap 6 al cap 4 (por fecha)
-- T22 cuenta lo mismo que T21, ya en pantalla: fuera
-
-## Avisos
-
-- el pool tiene 2 dato(s) de Vincent Norman (['D72', 'Q04']): en escena en 2 cap(s)
-- pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla
+- Q06: cita sin verificar → no va a pantalla
+- D65 (2005-08-29) → cap 3 lleno: fuera
+- T12 (2005-08-29) → cap 3 lleno: fuera
+- T07 (2005-08-29) → cap 3 lleno: fuera
+- T22 cuenta lo mismo que D28, ya en pantalla: fuera
 
 ---
-Costo: US$ 0.2666 · 171.5 s · intentos: 3
+Costo: US$ 0.2567 · 155.5 s · intentos: 3
