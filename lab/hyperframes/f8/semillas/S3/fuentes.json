@@ -1,0 +1,525 @@
+{
+ "fuentes": [
+  {
+   "url": "https://www.ilpost.it/2023/10/09/disastro-vajont/",
+   "titulo": "Il disastro del Vajont non fu una calamità naturale",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "idioma": "it",
+   "por_que": "Artículo de aniversario que resume de forma exhaustiva las causas, el proceso judicial y las conclusiones de las comisiones de investigación, citando directamente los hallazgos.",
+   "prioridad": 2,
+   "url_modelo": "https://www.ilpost.it/2023/10/09/disastro-del-vajont/",
+   "match": "exacta",
+   "grounding_title": "ilpost.it",
+   "id": "F01",
+   "slug": "ilpost_2023_il_disastro_del_vajont_non"
+  },
+  {
+   "url": "https://www.tv2000.it/tgtg/2018/10/09/10-ottobre-1963-i-giornali-raccontando-la-tragedia-del-vajont/",
+   "titulo": "10 ottobre 1963: i giornali raccontando la tragedia del Vajont",
+   "tipo": "prensa_epoca",
+   "anio": 2018,
+   "idioma": "it",
+   "por_que": "Muestra las portadas y crónicas de los periódicos del 10 de octubre de 1963, el día después de la tragedia, reflejando el impacto inicial y las primeras informaciones.",
+   "prioridad": 2,
+   "url_modelo": "https://www.tv2000.it/tGTG/video/10-ottobre-1963-i-giornali-raccontando-la-tragedia-del-vajont/",
+   "match": "similar 0.89",
+   "grounding_title": "tv2000.it",
+   "id": "F02",
+   "slug": "tv2000_2018_10_ottobre_1963_i_giornali"
+  },
+  {
+   "url": "https://damsafety.org/content/dam-failure-case-study-vajont-dam-italy-1963",
+   "titulo": "Dam Failure Case Study: Vajont Dam, Italy, 1963",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Estudio de caso técnico que analiza las causas y consecuencias del desastre de la presa de Vajont, ofreciendo una perspectiva ingenieril o técnica sobre el fallo de la presa.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "damsafety.org",
+   "id": "F03",
+   "slug": "damsafety_dam_failure_case_study_vajont"
+  },
+  {
+   "url": "https://storiaefuturo.eu/una-lezione-dai-disastri-il-vajont-e-lalluvione-di-firenze/",
+   "titulo": "Una lezione dai disastri? Il Vajont e l'alluvione di Firenze",
+   "tipo": "academico",
+   "anio": 2014,
+   "idioma": "it",
+   "por_que": "Análisis académico que contextualiza el desastre del Vajont en la historia de la gestión de riesgos en Italia y cita los documentos de la comisión parlamentaria.",
+   "prioridad": 3,
+   "url_modelo": "https://www.storiaefuturo.eu/una-lezione-dai-disastri-il-vajont-e-lalluvione-di-firenze/",
+   "match": "exacta",
+   "grounding_title": "storiaefuturo.eu",
+   "id": "F04",
+   "slug": "storiaefuturo_2014_una_lezione_dai_disastri_il"
+  }
+ ],
+ "_descartadas": [
+  {
+   "url": "https://www.unesco.org/en/memory-world/criminal-proceedings-vajont-dam-disaster",
+   "titulo": "Criminal Proceedings of the Vajont dam disaster - Memory of the World - UNESCO",
+   "tipo": "fallo_judicial",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Describe el contenido y la importancia de los documentos del proceso penal, declarados Memoria del Mundo por la UNESCO. Es un punto de partida para entender la dimensión judicial.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://archivio.senato.it/inventario/pagina/commissione-parlamentare-d-inchiesta-sul-disastro-del-vajont.html",
+   "titulo": "Commissione parlamentare d'inchiesta sul disastro del Vajont - Inventario",
+   "tipo": "informe_oficial",
+   "anio": 1965,
+   "idioma": "it",
+   "por_que": "Es el inventario de los documentos de la Comisión Parlamentaria de Investigación, un documento oficial primario para entender las responsabilidades políticas e institucionales.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=R991d015cZc",
+   "titulo": "VAJONT, THE VOICES OF THE SURVIVORS",
+   "tipo": "testimonio",
+   "anio": 2022,
+   "idioma": "it",
+   "por_que": "Presenta testimonios directos de supervivientes (Gastone Liut, Romana De Lorenzi, Maddalena Mannarin), ofreciendo una perspectiva personal y humana de la tragedia.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=N_88n50PT18",
+   "titulo": "Vajont. La tragedia Sopravvissuti, superstiti, testimoni, immagini",
+   "tipo": "documental",
+   "anio": 2019,
+   "idioma": "it",
+   "por_que": "Documental que recoge testimonios de supervivientes y rescatistas, reconstruyendo los hechos con fotografías y visitas a los lugares simbólicos del desastre.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.disaster-law.ifrc.org/case-study/biadene-et-al-v-prosecutor",
+   "titulo": "Biadene et al v Prosecutor - Disaster Law - IFRC",
+   "tipo": "fallo_judicial",
+   "anio": 1971,
+   "idioma": "en",
+   "por_que": "Resume los hechos clave y las sentencias de los procesos judiciales, incluyendo los nombres de los acusados y las decisiones de los tribunales en diferentes instancias.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://alpina.corriere.it/2013/05/28/vajont-il-disastro-raccontato-dalle-prime-pagine/",
+   "titulo": "Vajont, il disastro raccontato dalle prime pagine - Corriere delle Alpi",
+   "tipo": "prensa_posterior",
+   "anio": 2013,
+   "idioma": "it",
+   "por_que": "Analiza y muestra cómo la prensa de la época cubrió el desastre, destacando los diferentes enfoques y titulares, incluyendo las denuncias previas de la periodista Tina Merlin.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.novecento.org/dossier/il-disastro-del-vajont-9-ottobre-1963/testimoni-e-superstiti-a-trentanni-dal-disastro-1033/",
+   "titulo": "TESTIMONI E SUPERSTITI A TRENT 'ANNI DAL DISASTRO - Novecento.org",
+   "tipo": "testimonio",
+   "anio": 1993,
+   "idioma": "it",
+   "por_que": "Recopila extractos de testimonios de supervivientes 30 años después de la tragedia, reflexionando sobre la memoria y la vida después del desastre.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.fanpage.it/video/un-boato-come-mille-bombe-il-disastro-del-vajont-raccontato-dal-sopravvissuto-arnaldo-olivier/",
+   "titulo": "\"Un boato come mille bombe\", il disastro del Vajont raccontato dal sopravvissuto Arnaldo Olivier",
+   "tipo": "testimonio",
+   "anio": 2023,
+   "idioma": "it",
+   "por_que": "Ofrece el testimonio detallado y personal de un superviviente, Arnaldo Olivier, aportando una narración en primera persona de la noche del desastre.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.articolo21.org/2020/10/il-9-ottobre-1963-la-strage-del-vajont-lettera-dei-sopravvissuti/",
+   "titulo": "Il 9 ottobre 1963 la strage del Vajont. Lettera dei sopravvissuti - Articolo21",
+   "tipo": "testimonio",
+   "anio": 2020,
+   "idioma": "it",
+   "por_que": "Contiene una carta escrita por Micaela Coletti, presidenta del Comité de Supervivientes del Vajont, que expresa el dolor y la pérdida desde una perspectiva íntima y a largo plazo.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=d_U5PjFyK-8",
+   "titulo": "'vajont. la prima sentenza', l'istruttoria integrale del giudice fabbri",
+   "tipo": "fallo_judicial",
+   "anio": 2023,
+   "idioma": "it",
+   "por_que": "Presenta un libro que publica por primera vez la transcripción íntegra de la sentencia de instrucción del juez Mario Fabbri, un documento judicial fundamental.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.visitlongarone.it/giudizi-e-sentenze/",
+   "titulo": "Giudizi e Sentenze - Visit Longarone",
+   "tipo": "fallo_judicial",
+   "anio": null,
+   "idioma": "it",
+   "por_que": "Proporciona un resumen cronológico y detallado de los diferentes juicios y sentencias relacionados con el desastre, nombrando a los imputados y las condenas.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "http://www.archivi.beniculturali.it/index.php/component/k2/item/330-commissione-parlamentare-d-inchiesta-sul-disastro-del-vajont-inventario-e-documenti",
+   "titulo": "Commissione parlamentare d'Inchiesta sul disastro del Vajont: inventario e documenti",
+   "tipo": "informe_oficial",
+   "anio": null,
+   "idioma": "it",
+   "por_que": "Describe la composición y el mandato de la Comisión Parlamentaria de Investigación, un recurso clave para acceder a los documentos oficiales.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://archivio.senato.it/inventario/repository/relazioni/ARCHIVIO%20DELLA%20COMMISSIONE%20PARLAMENTARE%20D'INCHIESTA%20SUL%20DISASTRO%20DEL%20VAJONT/Vajont_volume.pdf",
+   "titulo": "Commissione parlamentare d'inchiesta sul disastro del Vajont - Inventario e documenti",
+   "tipo": "informe_oficial",
+   "anio": 2003,
+   "idioma": "it",
+   "por_que": "Es el inventario oficial del archivo del Senado italiano sobre la comisión parlamentaria, un documento primario clave para entender la investigación política.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://unesdoc.unesco.org/ark:/48223/pf0000381329_mul",
+   "titulo": "Archival Fonds of the Vajont Criminal Proceedings - UNESCO Memory of the World",
+   "tipo": "fallo_judicial",
+   "anio": 2021,
+   "idioma": "en",
+   "por_que": "Documento de nominación de la UNESCO que describe en detalle el contenido y la importancia de los archivos completos del proceso penal, incluyendo peritajes y sentencias.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.vajont.net/page/laParolaAllaGiustizia/sentenzaFabbri.php",
+   "titulo": "Sentenza istruttoria del giudice Mario Fabbri",
+   "tipo": "fallo_judicial",
+   "anio": 1968,
+   "idioma": "it",
+   "por_que": "Presenta la sentencia de instrucción del juez Fabbri, un documento judicial fundamental que estableció la base para el juicio posterior al detallar las primeras conclusiones sobre las responsabilidades.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=1gmagS5T6_4",
+   "titulo": "Vajont, la prima sentenza: l'istruttoria integrale del giudice Fabbri",
+   "tipo": "documental",
+   "anio": 2023,
+   "idioma": "it",
+   "por_que": "Presentación en video del libro que transcribe íntegramente la primera sentencia de instrucción, con comentarios de los curadores y la hija del juez, ofreciendo contexto al documento judicial.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.fanpage.it/attualita/il-vajont-57-anni-dopo-la-mia-casa-fu-travolta-dallacqua-sono-sopravvissuta-per-miracolo/",
+   "titulo": "Il Vajont 57 anni dopo: \"La mia casa fu travolta dall'acqua. Sono sopravvissuta per miracolo\"",
+   "tipo": "testimonio",
+   "anio": 2020,
+   "idioma": "it",
+   "por_que": "Contiene el testimonio directo y detallado de una sobreviviente, Micaela Coletti, que ofrece una perspectiva personal y humana de la tragedia.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://memoriadellealpi.it/wp-content/uploads/2020/06/Relazione_Commissione_Inchiesta_Vajont.pdf",
+   "titulo": "Relazione della Commissione di inchiesta nominata dal Ministro dei Lavori Pubblici",
+   "tipo": "informe_oficial",
+   "anio": 1964,
+   "idioma": "it",
+   "por_que": "Texto de la relación de la comisión de investigación ministerial, uno de los primeros informes oficiales sobre las causas de la catástrofe.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.camera.it/leg17/1004?shadow_organo_parlamentare=2218",
+   "titulo": "Commissione parlamentare di inchiesta sul disastro del Vajont - IV Legislatura",
+   "tipo": "informe_oficial",
+   "anio": 1964,
+   "idioma": "it",
+   "por_que": "Página oficial del parlamento italiano que detalla la composición y el mandato de la comisión de investigación, un documento base para acceder a sus trabajos.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.ifrc.org/document/biadene-et-al-v-prosecutor",
+   "titulo": "Biadene et al v Prosecutor - Disaster Law - IFRC",
+   "tipo": "fallo_judicial",
+   "anio": 1971,
+   "idioma": "en",
+   "por_que": "Resumen en inglés del caso judicial, que destaca la conclusión de que el desastre fue causado por negligencia, proporcionando una síntesis legal internacional.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "http://damfailures.org/case-study/vajont-dam-italy-1963/",
+   "titulo": "Dam Failure Case Study: Vajont Dam (Italy, 1963)",
+   "tipo": "academico",
+   "anio": 2019,
+   "idioma": "en",
+   "por_que": "Estudio de caso técnico de una organización de seguridad de presas que analiza las causas del fallo desde una perspectiva de ingeniería y geología.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.famigliacristiana.it/articolo/vajont-9-ottobre-1963-il-fango-mi-seppelli-e-mi-ritrovai-sola.aspx",
+   "titulo": "Vajont 9 ottobre 1963: «Il fango mi seppellì e mi ritrovai sola»",
+   "tipo": "testimonio",
+   "anio": 2023,
+   "idioma": "it",
+   "por_que": "Entrevista en profundidad con una sobreviviente que refuta la idea de 'desastre natural' y habla sobre el impacto a largo plazo en su vida.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://archivio.senato.it/inventario/repository/commissioni/Vajont/Volume_Vajont.pdf",
+   "titulo": "Commissione parlamentare d'inchiesta sul disastro del Vajont - Inventario",
+   "tipo": "informe_oficial",
+   "anio": 1965,
+   "idioma": "it",
+   "por_que": "Es el inventario oficial de la comisión parlamentaria de investigación, un documento primario clave para entender las pesquisas institucionales.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.poliziamoderna.it/archivio/articolo/56c48b770591f422453123",
+   "titulo": "Noi, i poliziotti del Vajont",
+   "tipo": "testimonio",
+   "anio": 2013,
+   "idioma": "it",
+   "por_que": "Ofrece testimonios directos de los policías que intervinieron inmediatamente después del desastre, con detalles sobre las primeras horas de los rescates.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.sopravvissutivajont.it/archivio-giornali.html",
+   "titulo": "Archivio: giornali - Comitato Sopravvissuti del Vajont",
+   "tipo": "prensa_epoca",
+   "anio": 1963,
+   "idioma": "it",
+   "por_que": "Recopilación de artículos de periódicos de la época (Il Gazzettino, La Stampa) por parte de la asociación de supervivientes, dando acceso a la cobertura mediática original.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.novecento.org/dossier/le-memorie-del-vajont-2336/",
+   "titulo": "Le memorie del Vajont",
+   "tipo": "academico",
+   "anio": 2022,
+   "idioma": "it",
+   "por_que": "Analiza cómo la prensa de la época construyó la narrativa del desastre, incluyendo fragmentos y citas de artículos de periódicos como L'Unità y Corriere della Sera.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://archiviostorico.ivsla.it/scheda/giornale/109003/il-gazzettino.html",
+   "titulo": "Il Gazzettino - 10 Ottobre 1963",
+   "tipo": "prensa_epoca",
+   "anio": 1963,
+   "idioma": "it",
+   "por_que": "Ficha del archivo del IVSLA sobre la edición de 'Il Gazzettino' del 10 de octubre de 1963, detallando los artículos sobre Vajont en primera plana.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://archiviostorico.ivsla.it/scheda/giornale/109012/l-unita.html",
+   "titulo": "l'Unità - 16 Ottobre 1963",
+   "tipo": "prensa_epoca",
+   "anio": 1963,
+   "idioma": "it",
+   "por_que": "Detalla los artículos de 'l'Unità' del 16 de octubre de 1963, incluyendo una entrevista de Tina Merlin a los supervivientes de Erto, una semana después del suceso.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.impronteneltempo.org/2021/10/09/vajont-9-ottobre-1963-il-dovere-della-memoria/",
+   "titulo": "Vajont, 9 ottobre 1963 - Il dovere della memoria",
+   "tipo": "libro",
+   "anio": 2021,
+   "idioma": "it",
+   "por_que": "Publicación que incluye la crónica de un periódico de la época sobre el drama de un superviviente, ofreciendo un testimonio directo de los momentos del desastre.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.impronteneltempo.org/2013/10/09/1963-la-tragedia-del-vajont/",
+   "titulo": "1963 - La tragedia del Vajont",
+   "tipo": "prensa_posterior",
+   "anio": 2013,
+   "idioma": "it",
+   "por_que": "Contiene una cronología minuto a minuto del desastre (22:39 a 22:43) y cita la crónica de un periódico de la época sobre el testimonio de un superviviente.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.corrierealpi.it/belluno/cronaca/2013/05/28/news/vajont-il-disastro-raccontato-dalle-prime-pagine-1.7169131",
+   "titulo": "Vajont, il disastro raccontato dalle prime pagine",
+   "tipo": "prensa_posterior",
+   "anio": 2013,
+   "idioma": "it",
+   "por_que": "Artículo que revisa y muestra las portadas de periódicos de la época como 'L'Unità' y 'Corriere d'informazione', destacando los diferentes enfoques iniciales.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.sopravvissutivajont.it/files/RASSEGNA-STAMPA-VAJONT/il-resto-del-carlino-26-gennaio-2009.pdf",
+   "titulo": "Il Resto del Carlino - Le drammatiche testimonianze dei sopravvissuti",
+   "tipo": "testimonio",
+   "anio": 2009,
+   "idioma": "it",
+   "por_que": "PDF de una nota de prensa con testimonios detallados de dos supervivientes, Micaela Coletti y Gino Mazzorana, que eran niños en el momento de la tragedia.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGomik400E8Ll2CpnnjI3JSoK3F_H08nQyIkJ4SFfKMh3vNf6JV0FeisKD2JLPTSdsaSAF6kuEIf1qcsImZZD4emoLFZNgSEI4jEk49CqjkHTSjETMEmveff9hY62O84PDy18Sxi5av_bolDb1lmurV5VTzTWuC-N3DjEp2ZWziT7C92lpFiUMIe01QsuoqDcEDL0FhbSYtbPs5rfVvzsnxDLtrp6Fc_BISFjHtorbw1ymVdElR0TH4X6HhHbk4",
+   "titulo": "Relazione finale della commissione parlamentare d'inchiesta sul disastro del Vajont",
+   "tipo": "informe_oficial",
+   "anio": 1965,
+   "idioma": "it",
+   "por_que": "Referencia directa a la relación final de la comisión parlamentaria de investigación, un documento fundamental para comprender las conclusiones oficiales.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://patrimonio.archivio.senato.it/documenti/search/result.html?query=vajont&consts=COST,SEN,CAM,PARL,UE,CONS&section=sezione_commissioni&sezione_commissioni_id=22&nome=Commissione+parlamentare+d%27inchiesta+sul+disastro+del+Vajont",
+   "titulo": "Relazione introduttiva - Commissione Parlamentare d'inchiesta sul disastro del Vajont",
+   "tipo": "informe_oficial",
+   "anio": 1964,
+   "idioma": "it",
+   "por_que": "Es el documento oficial que inicia la investigación parlamentaria, estableciendo el alcance y los objetivos de la pesquisa sobre las causas y responsabilidades.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.disaster-law.ifrc.org/case-law/biadene-et-al-v-prosecutor",
+   "titulo": "Biadene et al v Prosecutor - Supreme Court of Cassation, Rome, Italy",
+   "tipo": "fallo_judicial",
+   "anio": 1971,
+   "idioma": "en",
+   "por_que": "Resume los hechos clave y los hallazgos de la sentencia definitiva de la Corte Suprema de Casación, estableciendo la previsibilidad del desastre y la responsabilidad penal.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.novecento.org/wp-content/uploads/2015/01/DOSSIER_Testimoni-e-superstiti-a-trentanni-dal-disastro.pdf",
+   "titulo": "TESTIMONI E SUPERSTITI A TRENT 'ANNI DAL DISASTRO",
+   "tipo": "testimonio",
+   "anio": 1993,
+   "idioma": "it",
+   "por_que": "Es una compilación directa de testimonios de supervivientes, ofreciendo extractos significativos de sus recuerdos y reflexiones sobre la tragedia y la memoria.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.giornaledellaprotezionecivile.it/t/approfondimenti/sessantanni-dopo-il-disastro-del-vajont",
+   "titulo": "Sessant'anni dopo il disastro del Vajont",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "idioma": "it",
+   "por_que": "Este artículo de aniversario incluye la famosa metáfora de Dino Buzzati publicada en el 'Corriere della Sera' en 1963, un documento periodístico histórico clave.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.researchgate.net/publication/271213076_The_dam_project_Who_are_the_experts_-_A_philosophical_lesson_from_the_Vajont_disaster",
+   "titulo": "The dam project: Who are the experts? - A philosophical lesson from the Vajont disaster",
+   "tipo": "academico",
+   "anio": 2014,
+   "idioma": "en",
+   "por_que": "Análisis académico en inglés que profundiza en el conflicto entre el conocimiento experto (ingenieros) y el conocimiento local (habitantes), un aspecto central del desastre.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://paduaresearch.cab.unipd.it/4622/1/Tesi_Vajont_Memoria.pdf",
+   "titulo": "VAJONT: LA COSTRUZIONE DI UNA MEMORIA. Dal disastro al Museo di Longarone.",
+   "tipo": "academico",
+   "anio": 2012,
+   "idioma": "it",
+   "por_que": "Tesis universitaria muy completa que analiza la historia, el trauma y la construcción de la memoria colectiva, incluyendo entrevistas y análisis de fuentes primarias.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.tirellipartners.com/it/news/vajont-61-anni-dal-disastro-storia-e-riflessioni-di-tina-merlin/",
+   "titulo": "Vajont: 61 Years since the Disaster - History and Reflections by Tina Merlin",
+   "tipo": "prensa_epoca",
+   "anio": 1963,
+   "idioma": "en",
+   "por_que": "Reproduce un artículo de la periodista Tina Merlin, quien investigó y denunció los peligros antes del desastre, escrito solo dos días después de la tragedia.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=sQCbZt9dE3g",
+   "titulo": "Vajont. La tragedia Sopravvissuti, superstiti, testimoni, immagini",
+   "tipo": "documental",
+   "anio": 2019,
+   "idioma": "it",
+   "por_que": "Documental televisivo con numerosas entrevistas a supervivientes, socorristas e informadores de la memoria, que reconstruyen los hechos con testimonios directos.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.un-ihe.org/sites/default/files/the_vajont_dam_disaster_-_a_paradigm_of_a_man-made_catastrophe.pdf",
+   "titulo": "The Vajont dam disaster: a paradigm of a man-made catastrophe",
+   "tipo": "academico",
+   "anio": 2018,
+   "idioma": "en",
+   "por_que": "Presentación académica que resume de manera técnica y visual las causas geológicas y los errores de ingeniería que llevaron al deslizamiento de tierra.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.ilmessaggero.it/rubriche/accadde_oggi/vajont_disastro_9_ottobre_1963_cos_accadde_storia_frana_diga_longarone-7681429.html",
+   "titulo": "Vajont, la storia del disastro del 9 ottobre 1963: la frana, l'onda e le 1.910 vittime. Cosa accadde?",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "idioma": "it",
+   "por_que": "Ofrece una cronología detallada de los eventos y proporciona cifras clave sobre la frana, la ola y las víctimas, sirviendo como una referencia fáctica concisa.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.ejatlas.org/conflict/vajont-dam-disaster-italy",
+   "titulo": "Vajont Dam disaster, Italy",
+   "tipo": "academico",
+   "anio": 2022,
+   "idioma": "en",
+   "por_que": "Ficha de un atlas de justicia ambiental que contextualiza el desastre como un caso de conflicto socioambiental, detallando los actores involucrados y el resultado judicial.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  }
+ ],
+ "_grounding": [
+  {
+   "title": "ilpost.it",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH5gyhVsfYiMTs-fdfGDtYuHZswZC70kkrEeg0IiULciEVRiH7gxXQq0DTPyVuid6XdOzQzJfTEoaqBiYd7L_ggUhgSgbn-WDHoQSVwKzHieSoYaRb3pGksKrVzlcV13EPvnaoj9hiaMhK97g==",
+   "url": "https://www.ilpost.it/2023/10/09/disastro-vajont/"
+  },
+  {
+   "title": "storiaefuturo.eu",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGhCYRVHr-dLHnJsBJ9vgDOXotnVM4TSk7K2Sq--c1PRnHex5JpukomwFDBD3IEUIVF_b60O0sfu_pJcNVy_UnF6-nQjw-l_lVL3loe44qskcmQ7cMddn3YWBaD72q2L01c94Pr9-GAY7E70tGUh1fPqBACQqbRq66CCd9CmQEPwCgU2DD1zEpI9piueHcv",
+   "url": "https://storiaefuturo.eu/una-lezione-dai-disastri-il-vajont-e-lalluvione-di-firenze/"
+  },
+  {
+   "title": "damsafety.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE7bvqxN4tXCoXeEqeh9lwxDJHeMeWwh01RZsoS-OZ3icSpabHuFDOgyWRU76YplDSkC_eTmz8FgB3jhD0Xfgcn3s92cfrRfLwWChkqQ0YtiypD0v4qAWa0nJOAWLtY9KvyoWshn0NKfa_NRsfcHO89FBiXMSufeFBGmnZ3V4_38FR3iVo=",
+   "url": "https://damsafety.org/content/dam-failure-case-study-vajont-dam-italy-1963"
+  },
+  {
+   "title": "tv2000.it",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFHdb17LH9eJP5eAVVEc2eiFIGrQRUddv1WQ0DAvByYLz2Z1R6L-tXyc0y670uKRZTJYy70EdQ3gKNffzQfkYmeKH75e-RjMlxIpa3GnyVjWuuFKEueJIqbNVPy-kRPt2rbKl-nmzaFUxqlG4bGvJG6m2S0BUZ2ac9DtPDWXvfwv-8nWricuNwHqhypXgZJmdsahSkWtcMxme_FotHKPQ==",
+   "url": "https://www.tv2000.it/tgtg/2018/10/09/10-ottobre-1963-i-giornali-raccontando-la-tragedia-del-vajont/"
+  }
+ ],
+ "prompt_version": "f7a-1"
+}

@@ -1,0 +1,14 @@
+{
+ "anio_evento": 1963,
+ "lugar_principal": "Longarone",
+ "idioma_local": "Italiano (Italia)",
+ "nombres_lugar": [
+  "Vajont Dam",
+  "Longarone",
+  "Vajont disaster",
+  "Disastro del Vajont",
+  "Diga del Vajont",
+  "Monte Toc"
+ ],
+ "place_re": "\\bVajont\\ Dam\\b|\\bLongarone\\b|\\bVajont\\ disaster\\b|\\bDisastro\\ del\\ Vajont\\b|\\bDiga\\ del\\ Vajont\\b|\\bMonte\\ Toc\\b"
+}

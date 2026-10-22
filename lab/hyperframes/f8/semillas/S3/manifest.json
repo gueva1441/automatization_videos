@@ -1,0 +1,201 @@
+{
+ "generado": "2026-10-22",
+ "place_re": "\\bVajont\\ Dam\\b|\\bLongarone\\b|\\bVajont\\ disaster\\b|\\bDisastro\\ del\\ Vajont\\b|\\bDiga\\ del\\ Vajont\\b|\\bMonte\\ Toc\\b",
+ "max_doc_chars": 300000,
+ "documentos": [
+  {
+   "id": "F01",
+   "slug": "ilpost_2023_il_disastro_del_vajont_non",
+   "url": "https://www.ilpost.it/2023/10/09/disastro-vajont/",
+   "titulo": "Il disastro del Vajont non fu una calamità naturale",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "prioridad": 2,
+   "por_que": "Artículo de aniversario que resume de forma exhaustiva las causas, el proceso judicial y las conclusiones de las comisiones de investigación, citando directamente los hallazgos.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.ilpost.it/2023/10/09/disastro-vajont/",
+     "status": 200,
+     "bytes": 155800
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.ilpost.it/2023/10/09/disastro-vajont/",
+   "archivo": "ilpost_2023_il_disastro_del_vajont_non.html",
+   "txt": "ilpost_2023_il_disastro_del_vajont_non.txt",
+   "bytes": 155800,
+   "caracteres": 12129,
+   "caracteres_total": 12129,
+   "recorte": null,
+   "sha1": "741660f67bcfd02680311adaa81304353c5e7411",
+   "idioma": "it",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Il disastro del Vajont non fu una calamità naturale",
+    "tipo": "prensa_posterior",
+    "anio": 2023
+   },
+   "autor": "ilpost.it"
+  },
+  {
+   "id": "F02",
+   "slug": "tv2000_2018_10_ottobre_1963_i_giornali",
+   "url": "https://www.tv2000.it/tgtg/2018/10/09/10-ottobre-1963-i-giornali-raccontando-la-tragedia-del-vajont/",
+   "titulo": "MODELLO DI ORGANIZZAZIONE, GESTIONE E CONTROLLO",
+   "tipo": "informe_oficial",
+   "anio": 2024,
+   "prioridad": 2,
+   "por_que": "Muestra las portadas y crónicas de los periódicos del 10 de octubre de 1963, el día después de la tragedia, reflejando el impacto inicial y las primeras informaciones.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.tv2000.it/tgtg/2018/10/09/10-ottobre-1963-i-giornali-raccontando-la-tragedia-del-vajont/",
+     "status": 200,
+     "bytes": 71986,
+     "nota": "portada corta con PDF enlazado: https://www.tv2000.it/wp-content/uploads/2024/11/Codice-Etico.pdf"
+    },
+    {
+     "via": "pdf_enlazado",
+     "url": "https://www.tv2000.it/wp-content/uploads/2024/11/Codice-Etico.pdf",
+     "status": 200,
+     "bytes": 653403
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "pdf_enlazado",
+   "url_descarga": "https://www.tv2000.it/wp-content/uploads/2024/11/Codice-Etico.pdf",
+   "archivo": "tv2000_2018_10_ottobre_1963_i_giornali.pdf",
+   "txt": "tv2000_2018_10_ottobre_1963_i_giornali.txt",
+   "bytes": 653403,
+   "caracteres": 44695,
+   "caracteres_total": 44695,
+   "recorte": null,
+   "sha1": "dbfac91b033f64e0e273a11bfad9e17c08ceb43a",
+   "idioma": "it",
+   "nombra_evento": false,
+   "ficha_busqueda": {
+    "titulo": "10 ottobre 1963: i giornali raccontando la tragedia del Vajont",
+    "tipo": "prensa_epoca",
+    "anio": 2018
+   },
+   "autor": "Rete Blu S.p.A."
+  },
+  {
+   "id": "F03",
+   "slug": "damsafety_dam_failure_case_study_vajont",
+   "url": "https://damsafety.org/content/dam-failure-case-study-vajont-dam-italy-1963",
+   "titulo": "Dam Failure Case Study: Vajont Dam (Italy, 1963)",
+   "tipo": "academico",
+   "anio": 2019,
+   "prioridad": 2,
+   "por_que": "Estudio de caso técnico que analiza las causas y consecuencias del desastre de la presa de Vajont, ofreciendo una perspectiva ingenieril o técnica sobre el fallo de la presa.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://damsafety.org/content/dam-failure-case-study-vajont-dam-italy-1963",
+     "status": 200,
+     "bytes": 224724
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://damsafety.org/content/dam-failure-case-study-vajont-dam-italy-1963",
+   "archivo": "damsafety_dam_failure_case_study_vajont.html",
+   "txt": "damsafety_dam_failure_case_study_vajont.txt",
+   "bytes": 224724,
+   "caracteres": 3715,
+   "caracteres_total": 3715,
+   "recorte": null,
+   "sha1": "6a19cf026cff7f551f98d3b8e7dfb90ed58d06e9",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Dam Failure Case Study: Vajont Dam, Italy, 1963",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": "Mauney, Lee"
+  },
+  {
+   "id": "F04",
+   "slug": "storiaefuturo_2014_una_lezione_dai_disastri_il",
+   "url": "https://storiaefuturo.eu/una-lezione-dai-disastri-il-vajont-e-lalluvione-di-firenze/",
+   "titulo": "Una lezione dai disastri: il Vajont e l’alluvione di Firenze",
+   "tipo": "academico",
+   "anio": 2014,
+   "prioridad": 3,
+   "por_que": "Análisis académico que contextualiza el desastre del Vajont en la historia de la gestión de riesgos en Italia y cita los documentos de la comisión parlamentaria.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://storiaefuturo.eu/una-lezione-dai-disastri-il-vajont-e-lalluvione-di-firenze/",
+     "status": 200,
+     "bytes": 359859
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://storiaefuturo.eu/una-lezione-dai-disastri-il-vajont-e-lalluvione-di-firenze/",
+   "archivo": "storiaefuturo_2014_una_lezione_dai_disastri_il.html",
+   "txt": "storiaefuturo_2014_una_lezione_dai_disastri_il.txt",
+   "bytes": 359859,
+   "caracteres": 36760,
+   "caracteres_total": 36760,
+   "recorte": null,
+   "sha1": "1c558215c84c239463465132249caea397500e5f",
+   "idioma": "it",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Una lezione dai disastri? Il Vajont e l'alluvione di Firenze",
+    "tipo": "academico",
+    "anio": 2014
+   },
+   "autor": "Gianni Silei"
+  }
+ ],
+ "_fichas": {
+  "hash": "9c80abd729678075",
+  "raw": {
+   "documentos": [
+    {
+     "id": "F01",
+     "titulo": "Il disastro del Vajont non fu una calamità naturale",
+     "autor": "ilpost.it",
+     "tipo": "prensa_posterior",
+     "anio": 2023
+    },
+    {
+     "id": "F02",
+     "titulo": "MODELLO DI ORGANIZZAZIONE, GESTIONE E CONTROLLO",
+     "autor": "Rete Blu S.p.A.",
+     "tipo": "informe_oficial",
+     "anio": 2024
+    },
+    {
+     "id": "F03",
+     "titulo": "Dam Failure Case Study: Vajont Dam (Italy, 1963)",
+     "autor": "Mauney, Lee",
+     "tipo": "academico",
+     "anio": 2019
+    },
+    {
+     "id": "F04",
+     "titulo": "Una lezione dai disastri: il Vajont e l’alluvione di Firenze",
+     "autor": "Gianni Silei",
+     "tipo": "academico",
+     "anio": 0
+    }
+   ]
+  }
+ }
+}

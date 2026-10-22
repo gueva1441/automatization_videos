@@ -202,7 +202,7 @@ def test_reglas_de_composicion():
 def test_auditoria_del_video():
     def it(prompt, shot="wide", subj="a building", ref="interior_scene", beat=None):
         return {"prompt": prompt, "shot_scale": shot, "subject": subj, "subject_ref": ref, "beat": beat}
-    caps = [[it("A long corridor. A body floating, partly hidden.", ref="establishing_shot")],
+    caps = [[it("A long corridor. A dead body floating, partly hidden.", ref="establishing_shot")],
             [it("A corridor with doors."), it("Another corridor."), it("The dead inmates in the water.", "medium", "men")],
             [it("A corridor again.", ref="establishing_shot"), it("Lifeless bodies under a tarp at a distance.")],
             [it("A sheriff at a podium.", "medium", "a man", "establishing_shot")]]
@@ -288,6 +288,9 @@ def test_render_v3_usa_beats_estilo_y_reglas(fake_llm):
     assert all(i["prompt"].startswith("Grainy 35mm documentary photograph, 2005") for i in its)
     assert all("jaw" not in i["prompt"] for i in its) and all("sensible" in i for i in its)
     assert any("ESTABLISHING" in p for p in fake_llm["prompts"][1:])   # sin establecimiento → se rehizo una
+    assert any(m3.F8_NOTE_CERRADA in p for p in fake_llm["prompts"][1:])  # la del pico salió wide → se rehizo
+    assert not v3.is_body("The jumpsuit clings to the body of one of the men.")
+    assert v3.is_body("A body floats face-down, dead, half hidden by the dark water.")
 
 
 def test_render_v3_cap1_sin_cuerpos(fake_llm):
@@ -295,6 +298,28 @@ def test_render_v3_cap1_sin_cuerpos(fake_llm):
     out = m3._render_prompts_seedream(_topic_f8(), {"chapter_number": 1}, NARR, plan, 1)
     assert not any(i["sensible"] for i in out["image_prompts"])
     assert any(m3.F8_NOTE_BODY_HOOK in p for p in fake_llm["prompts"])
+
+
+def test_pasada_de_video_rehace_excesos_menos_el_cuadro_veo(monkeypatch):
+    calls = []
+
+    def refill(topic, cap_data, narration, item, cap, note):
+        calls.append((cap, note))
+        return {**item, "prompt": "A wide exterior of the prison seen from the street.", "shot_scale": "wide",
+                "subject": "the building"}
+    monkeypatch.setattr(m3, "_f8_refill", refill)
+
+    def it(p):
+        return {"prompt": p, "shot_scale": "medium", "subject": "a man", "subject_ref": "interior_scene",
+                "narration_anchor": "x"}
+    items = {1: [it("A long corridor."), it("A corridor.")], 2: [it("A corridor again."), it("A hallway.")],
+             3: [], 4: [], 5: [], 6: [], 7: [it("A corridor at night.")]}
+    topic = {"_f8": {"beats": {}}}
+    rep = m3._f8_fix_video(topic, {n: {} for n in range(1, 8)}, {n: {"narration": ""} for n in range(1, 8)}, items)
+    assert rep["despues"]["exceso_motivos"] == [] and calls
+    assert items[1][0]["prompt"] == "A long corridor."           # el cuadro del clip Veo no se rehace
+    assert all("Motifs already used twice" in n for _, n in calls)
+    assert v3.problems("A close shot of a man drinking from his cupped hands.")
 
 
 def test_render_v2_sin_cambios(fake_llm):

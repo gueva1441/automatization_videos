@@ -1,0 +1,14 @@
+{
+ "anio_evento": 2004,
+ "lugar_principal": "República Cromañón",
+ "idioma_local": "español (Buenos Aires, Argentina)",
+ "nombres_lugar": [
+  "República Cromañón",
+  "Cromañón",
+  "Tragedia de Cromañón",
+  "Cromañón tragedy",
+  "República Cromañón fire",
+  "Buenos Aires nightclub fire"
+ ],
+ "place_re": "\\bRepública\\ Cromañón\\b|\\bCromañón\\b|\\bTragedia\\ de\\ Cromañón\\b|\\bCromañón\\ tragedy\\b|\\bRepública\\ Cromañón\\ fire\\b|\\bBuenos\\ Aires\\ nightclub\\ fire\\b"
+}

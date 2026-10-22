@@ -1044,8 +1044,11 @@ def _f8_finish_item(it: dict, locked: list[dict], profile, documented, cap_numbe
     palabras prohibidas o un menor en daño, un re-tejido con el motivo; si siguen, se saca la frase (backstop, como la
     regla 3). Después el estilo al principio y al final (C) y las marcas `sensible` y `motivos`."""
     prose = v3img.fix_counts_lr(it["prompt"])
-    probs = v3img.problems(prose)
+    probs = v3img.problems(prose, it.get("shot_scale"))
     if probs:
+        if any(f.startswith("manos en plano") for _, f in probs):   # manos en un plano cerrado: se abre a medio
+            it["shot_scale"] = "medium"
+            it["_f8_plano_abierto"] = True
         fb = ("COMPOSITION/SENSITIVE RULES broken by the previous weave: "
               + "; ".join(f"{k}: \"{f}\"" for k, f in probs[:5])
               + ". Re-weave WITHOUT them: no hands as subject, no face macro or face clichés, no exact counts of people,"
@@ -1053,10 +1056,10 @@ def _f8_finish_item(it: dict, locked: list[dict], profile, documented, cap_numbe
         prose2, _ = scrub_documented_names(_fluidify_item(it, locked, profile, f"cap {cap_number} img #{i} (f8)",
                                                           extra_feedback=fb), documented)
         prose2 = v3img.fix_counts_lr(prose2)
-        if not v3img.problems(prose2):
+        if not v3img.problems(prose2, it.get("shot_scale")):
             prose = prose2
         else:
-            prose = v3img.scrub_sentence_problems(prose2)
+            prose = v3img.scrub_sentence_problems(prose2, it.get("shot_scale"))
             print(f"  ⚠ [m03] cap {cap_number} img #{i}: reglas F8 DEGRADADAS ({probs[:2]}) → frase sacada (run sigue).")
         it["_f8_problemas"] = [f"{k}: {f}" for k, f in probs]
     it["prompt"] = v3img.wrap_style(prose, year)
@@ -1075,7 +1078,10 @@ def _f8_refill(topic: dict, cap_data: dict, narration: str, item: dict, cap_numb
     return new
 
 
-F8_NOTE_BODY_HOOK = "NO dead bodies in this image (it is the hook): show what was left — objects, water, empty space."
+F8_FIX_PASSES = 2
+F8_NOTE_BODY_HOOK ="NO dead bodies in this image (it is the hook): show what was left — objects, water, empty space."
+F8_NOTE_CERRADA = ("TIGHTEST framing of the cap (shot_scale close or detail) on the beat's sensory image: an object, a "
+                   "place detail or a posture; never a face macro, never hands.")
 F8_NOTE_ESTABLISHING = ("ESTABLISHING EXTERIOR: the place of this fragment seen from outside or from above, wide or "
                         "extreme wide; people small or absent.")
 
@@ -1085,36 +1091,47 @@ def _f8_fix_cap(topic: dict, cap_data: dict, narration: str, items: list[dict], 
     for k, it in enumerate(items):
         if cap_number == 1 and it.get("sensible"):
             items[k] = _f8_refill(topic, cap_data, narration, it, cap_number, F8_NOTE_BODY_HOOK)
-    if items and not any(v3img.establishing(it) for it in items):
+        elif it.get("cerrada") and it.get("shot_scale") not in ("close", "detail"):     # §1 B: la más cerrada del pico
+            items[k] = _f8_refill(topic, cap_data, narration, it, cap_number, F8_NOTE_CERRADA)
+    # con menos de MIN_FLUX_EXTRAS imágenes (humo, pruebas) no hay proporción que cuidar: no se rehace la del beat
+    if len(items) >= MIN_FLUX_EXTRAS and not any(v3img.establishing(it) for it in items):
         cand = [k for k, it in enumerate(items) if not it.get("cerrada") and k > 0] or [len(items) - 1]
         k = next((x for x in reversed(cand) if items[x].get("emotional_rank") == "R3"), cand[-1])
         items[k] = _f8_refill(topic, cap_data, narration, items[k], cap_number, F8_NOTE_ESTABLISHING)
 
 
 def _f8_fix_video(topic: dict, skel_by_n: dict, narr_by_n: dict, items_by_cap: dict[int, list[dict]]) -> dict:
-    """Arreglos del video entero (D1 motivos, E cuerpos, D5 humanos en plano medio) sobre los caps de fotos (2–6):
-    una pasada de re-hechura por imagen en exceso y una auditoría final. Los caps Veo (1 y 7) se auditan, no se rehacen."""
+    """Arreglos del video entero (D1 motivos, E cuerpos, D5 humanos en plano medio): hasta F8_FIX_PASSES pasadas de
+    re-hechura por imagen en exceso (cada nota junta todos sus motivos y avisa los motivos ya saturados) y una
+    auditoría final. En los caps Veo no se rehace la imagen 0 (el primer cuadro del clip: su movimiento ya está escrito);
+    el que llama vuelve a coser los supplementals."""
     beats = topic["_f8"]["beats"]
-    caps = [items_by_cap.get(n) or [] for n in range(1, EXPECTED_CHAPTER_COUNT + 1)]
-    before = v3img.video_audit(caps, beats)
-    notes: dict[tuple[int, int], str] = {}
-    for cap, i, m in before["exceso_motivos"]:
-        notes[(cap, i)] = (f"Do NOT show the motif «{m}» (already used twice in this video): show another part of the "
-                           f"beat's sensory image.")
-    for cap, i in before["exceso_cuerpos"]:
-        notes[(cap, i)] = "NO dead bodies in this image: show what they left — objects, water, empty space."
-    for cap, i in before["exceso_humano_medio"]:
-        notes.setdefault((cap, i), "NO person in medium shot: a wide shot of the place, people small, far or absent.")
+
+    def _caps() -> list[list[dict]]:
+        return [items_by_cap.get(n) or [] for n in range(1, EXPECTED_CHAPTER_COUNT + 1)]
+    before = cur = v3img.video_audit(_caps(), beats)
     rehechas = []
-    for (cap, i), note in sorted(notes.items()):
-        if cap in VEO_CHAPTERS:
-            continue
-        it = items_by_cap[cap][i]
-        items_by_cap[cap][i] = _f8_refill(topic, skel_by_n[cap], (narr_by_n[cap].get("narration") or "").strip(), it,
-                                          cap, note)
-        rehechas.append({"cap": cap, "img": i + 1, "motivo": note})
-    caps = [items_by_cap.get(n) or [] for n in range(1, EXPECTED_CHAPTER_COUNT + 1)]
-    after = v3img.video_audit(caps, beats)
+    for _pass in range(F8_FIX_PASSES):
+        notes: dict[tuple[int, int], list[str]] = {}
+        for cap, i, m in cur["exceso_motivos"]:
+            notes.setdefault((cap, i), []).append(f"do NOT show the motif «{m}» (already used twice in this video)")
+        for cap, i in cur["exceso_cuerpos"]:
+            notes.setdefault((cap, i), []).append("NO dead bodies: show what they left — objects, water, empty space")
+        for cap, i in cur["exceso_humano_medio"]:
+            notes.setdefault((cap, i), []).append("NO person in medium shot: a wide shot of the place, people small, "
+                                                  "far or absent")
+        notes = {k: v for k, v in notes.items() if not (k[0] in VEO_CHAPTERS and k[1] == 0)}
+        if not notes:
+            break
+        full = sorted(m for m, v in cur["motivos"].items() if len(v) >= v3img.MOTIF_MAX)
+        for (cap, i), why in sorted(notes.items()):
+            note = "; ".join(why) + (f". Motifs already used twice in this video (avoid them all): {', '.join(full)}"
+                                     if full else "") + ". Show another part of the beat's sensory image."
+            items_by_cap[cap][i] = _f8_refill(topic, skel_by_n[cap], (narr_by_n[cap].get("narration") or "").strip(),
+                                              items_by_cap[cap][i], cap, note)
+            rehechas.append({"cap": cap, "img": i + 1, "pasada": _pass + 1, "motivo": note})
+        cur = v3img.video_audit(_caps(), beats)
+    after = cur
 
     def _brief(a: dict) -> dict:
         return {"total": a["total"], "motivos": {k: len(v) for k, v in a["motivos"].items()},
@@ -2673,6 +2690,12 @@ def assign_visual_prompts(
         output["_f8_imagenes"] = _f8_fix_video(topic, skel_by_n, narr_by_n, by_cap)
         for c in output_chapters:
             c.pop("_f8_items", None)
+            if "supplemental_image_prompts" in c:         # caps Veo: los supplementals rehechos vuelven a su forma
+                c["supplemental_image_prompts"] = [
+                    {"prompt": it["prompt"], "narration_anchor": it["narration_anchor"], "art_profile": "",
+                     "raw_llm_prompt": it.get("raw_llm_prompt"),
+                     **{k: it[k] for k in ("beat", "sensible", "motivos") if k in it}}
+                    for it in by_cap[c["chapter_number"]][1:]]
 
     # PR 1 chat 24: persistir solo el video_id como referencia. El sync_map
     # autoritativo vive en output/audio/<id>/sync_map.json — duplicarlo acá

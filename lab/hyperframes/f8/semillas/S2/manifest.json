@@ -1,0 +1,422 @@
+{
+ "generado": "2026-10-22",
+ "place_re": "\\bRepública\\ Cromañón\\b|\\bCromañón\\b|\\bTragedia\\ de\\ Cromañón\\b|\\bCromañón\\ tragedy\\b|\\bRepública\\ Cromañón\\ fire\\b|\\bBuenos\\ Aires\\ nightclub\\ fire\\b",
+ "max_doc_chars": 300000,
+ "documentos": [
+  {
+   "id": "F01",
+   "slug": "youtube_2021_el_relato_de_una_sobreviviente",
+   "url": "https://www.youtube.com/watch?v=r04tb3eY4Hs",
+   "titulo": "El relato de una sobreviviente de Cromañón: 'No podía salir, me caí entre los cuerpos'",
+   "tipo": "testimonio",
+   "anio": 2021,
+   "prioridad": 1,
+   "por_que": "Ofrece el testimonio con nombre y apellido de una sobreviviente, Brenda Bigietti, con detalles vívidos de lo que sucedió dentro del local.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F02",
+   "slug": "gob_2019_a_15_anos_de_cromanon",
+   "url": "https://www.fiscales.gob.ar/procuracion-general/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
+   "titulo": "A 15 años de Cromañón: Cronología de las decisiones judiciales más importantes en las etapas de instrucción, juicio y revisión de sentencia",
+   "tipo": "informe_oficial",
+   "anio": 2019,
+   "prioridad": 1,
+   "por_que": "Documento oficial del Ministerio Público Fiscal que resume y ordena todo el proceso judicial, con fechas y detalles de cada etapa, ofreciendo un mapa completo del aspecto legal.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.fiscales.gob.ar/procuracion-general/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
+     "status": 200,
+     "bytes": 310207
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.fiscales.gob.ar/procuracion-general/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
+   "archivo": "gob_2019_a_15_anos_de_cromanon.html",
+   "txt": "gob_2019_a_15_anos_de_cromanon.txt",
+   "bytes": 310207,
+   "caracteres": 8174,
+   "caracteres_total": 8174,
+   "recorte": null,
+   "sha1": "94226b8be77ee3f9a8b3a1ab827c9b493cfd28ed",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "A 15 años de Cromañón: cronología de las decisiones judiciales más importantes",
+    "tipo": "informe_oficial",
+    "anio": 2019
+   },
+   "autor": "Fiscales.gob.ar"
+  },
+  {
+   "id": "F03",
+   "slug": "com_2004_tragedia_en_un_recital_169",
+   "url": "https://www.lanacion.com.ar/sociedad/tragedia-en-un-recital-169-muertos-nid667752/",
+   "titulo": "Tragedia en un recital: 169 muertos",
+   "tipo": "prensa_epoca",
+   "anio": 2004,
+   "prioridad": 1,
+   "por_que": "Artículo del día después de la tragedia (31 de diciembre de 2004) con cifras iniciales de víctimas y testimonios de testigos sobre las posibles causas y la cantidad de asistentes.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.lanacion.com.ar/sociedad/tragedia-en-un-recital-169-muertos-nid667752/",
+     "status": 200,
+     "bytes": 346532
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.lanacion.com.ar/sociedad/tragedia-en-un-recital-169-muertos-nid667752/",
+   "archivo": "com_2004_tragedia_en_un_recital_169.html",
+   "txt": "com_2004_tragedia_en_un_recital_169.txt",
+   "bytes": 346532,
+   "caracteres": 4185,
+   "caracteres_total": 4185,
+   "recorte": null,
+   "sha1": "b0f0d8150f9907cbaf24970f9ed9ed0767c30958",
+   "idioma": "es",
+   "nombra_evento": false,
+   "ficha_busqueda": {
+    "titulo": "Tragedia en un recital: 169 muertos",
+    "tipo": "prensa_epoca",
+    "anio": 2004
+   },
+   "autor": "La Nación"
+  },
+  {
+   "id": "F04",
+   "slug": "com_2004_el_peor_infierno_en_el",
+   "url": "https://www.pagina12.com.ar/diario/sociedad/3-126090-2009-06-04.html?mobile=1",
+   "titulo": "EL FISCAL RECLAMó 23 AñOS DE PRISIóN PARA CHABáN Y 15 PARA CALLEJEROS",
+   "tipo": "prensa_posterior",
+   "anio": 2009,
+   "prioridad": 1,
+   "por_que": "Cobertura del día siguiente al hecho que incluye relatos de sobrevivientes y el clima de caos y desesperación en las afueras del local durante las primeras horas.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.pagina12.com.ar/diario/sociedad/3-126090-2009-06-04.html?mobile=1",
+     "status": 200,
+     "bytes": 18194
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.pagina12.com.ar/diario/sociedad/3-126090-2009-06-04.html?mobile=1",
+   "archivo": "com_2004_el_peor_infierno_en_el.html",
+   "txt": "com_2004_el_peor_infierno_en_el.txt",
+   "bytes": 18194,
+   "caracteres": 4383,
+   "caracteres_total": 4383,
+   "recorte": null,
+   "sha1": "d1dff6e2558fdc216030eff432373e0a48eee6af",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "El peor infierno, en el lugar menos pensado",
+    "tipo": "prensa_epoca",
+    "anio": 2004
+   },
+   "autor": "Página/12"
+  },
+  {
+   "id": "F05",
+   "slug": "perfil_2008_cromanon_las_pericias_de_los",
+   "url": "https://www.perfil.com/noticias/sociedad/cromanon-las-pericias-de-los-bomberos-confirman-la-hipotesis-de-chaban-20080908-0022.phtml",
+   "titulo": "CROMANON: LAS PERICIAS DE LOS BOMBEROS CONFIRMAN LA HIPOTESIS DE CHABAN",
+   "tipo": "prensa_posterior",
+   "anio": 2008,
+   "prioridad": 1,
+   "por_que": "Artículo que detalla las conclusiones del informe pericial de la División Siniestros de la Policía Federal, un documento técnico clave sobre el origen del fuego.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.perfil.com/noticias/sociedad/cromanon-las-pericias-de-los-bomberos-confirman-la-hipotesis-de-chaban-20080908-0022.phtml",
+     "status": 200,
+     "bytes": 120700,
+     "nota": "portada corta con PDF enlazado: https://www.perfil.com/static/docs/brochure_perfil.pdf"
+    },
+    {
+     "via": "pdf_enlazado",
+     "url": "https://www.perfil.com/static/docs/brochure_perfil.pdf",
+     "status": 200,
+     "bytes": 11227345
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "pdf_enlazado",
+   "url_descarga": "https://www.perfil.com/static/docs/brochure_perfil.pdf",
+   "archivo": "perfil_2008_cromanon_las_pericias_de_los.pdf",
+   "txt": "perfil_2008_cromanon_las_pericias_de_los.txt",
+   "bytes": 11227345,
+   "caracteres": 294454,
+   "caracteres_total": 294454,
+   "recorte": null,
+   "sha1": "9f5aecba3bb2b70e3e4624bff64c5de19afe6d98",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Cromañón: las pericias de los bomberos confirman la hipótesis de Chabán",
+    "tipo": "informe_oficial",
+    "anio": 2008
+   },
+   "autor": "Perfil"
+  },
+  {
+   "id": "F06",
+   "slug": "infobae_2024_el_crudo_relato_del_primer",
+   "url": "https://www.infobae.com/sociedad/2024/12/29/el-crudo-relato-del-primer-bombero-que-llego-a-cromanon-y-abrio-con-la-fuerza-de-sus-manos-el-porton-que-atrapaba-a-la-gente/",
+   "titulo": "El crudo relato del primer bombero que llegó a Cromañón y abrió con la fuerza de sus manos el portón que atrapaba a la gente",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "prioridad": 2,
+   "por_que": "Testimonio directo y detallado del primer bombero que llegó al lugar, ofreciendo una perspectiva desde adentro de las operaciones de rescate en los momentos iniciales.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.infobae.com/sociedad/2024/12/29/el-crudo-relato-del-primer-bombero-que-llego-a-cromanon-y-abrio-con-la-fuerza-de-sus-manos-el-porton-que-atrapaba-a-la-gente/",
+     "status": 200,
+     "bytes": 222244
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.infobae.com/sociedad/2024/12/29/el-crudo-relato-del-primer-bombero-que-llego-a-cromanon-y-abrio-con-la-fuerza-de-sus-manos-el-porton-que-atrapaba-a-la-gente/",
+   "archivo": "infobae_2024_el_crudo_relato_del_primer.html",
+   "txt": "infobae_2024_el_crudo_relato_del_primer.txt",
+   "bytes": 222244,
+   "caracteres": 6505,
+   "caracteres_total": 6505,
+   "recorte": null,
+   "sha1": "329f7c41ae165766b2cbec69d1cd420d84f5aeb2",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "El crudo relato del primer bombero que llegó a Cromañón y abrió con la fuerza de sus manos el portón que atrapaba a la gente",
+    "tipo": "testimonio",
+    "anio": 2024
+   },
+   "autor": "Infobae"
+  },
+  {
+   "id": "F07",
+   "slug": "com_2004_la_noche_mas_triste",
+   "url": "https://www.lanacion.com.ar/espectaculos/la-noche-mas-triste-nid667793/",
+   "titulo": "La noche más triste",
+   "tipo": "prensa_epoca",
+   "anio": 2004,
+   "prioridad": 2,
+   "por_que": "Crónica publicada el 31 de diciembre de 2004 que contextualiza el recital de Callejeros y describe el ambiente previo a la tragedia, aportando detalles sobre la banda y el público.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.lanacion.com.ar/espectaculos/la-noche-mas-triste-nid667793/",
+     "status": 200,
+     "bytes": 363437
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.lanacion.com.ar/espectaculos/la-noche-mas-triste-nid667793/",
+   "archivo": "com_2004_la_noche_mas_triste.html",
+   "txt": "com_2004_la_noche_mas_triste.txt",
+   "bytes": 363437,
+   "caracteres": 6842,
+   "caracteres_total": 6842,
+   "recorte": null,
+   "sha1": "015c9d304ebcab72a2454f4ae3fc3b3795691a53",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "La noche más triste",
+    "tipo": "prensa_epoca",
+    "anio": 2004
+   },
+   "autor": "La Nación"
+  },
+  {
+   "id": "F08",
+   "slug": "clarin_2006_cromanon_un_ano_y_medio",
+   "url": "https://www.clarin.com/sociedad/cromanon-ano-medio-despues-todavia-respira-olor-tragedia_0_Hy7ZnOVkAFx.html",
+   "titulo": "Cromañón, un año y medio después: todavía se respira el olor de la tragedia",
+   "tipo": "prensa_posterior",
+   "anio": 2006,
+   "prioridad": 2,
+   "por_que": "Describe el estado del local un año y medio después, con detalles sobre los objetos que permanecían y testimonios de quienes ingresaron para las pericias.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.clarin.com/sociedad/cromanon-ano-medio-despues-todavia-respira-olor-tragedia_0_Hy7ZnOVkAFx.html",
+     "status": 200,
+     "bytes": 273885
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.clarin.com/sociedad/cromanon-ano-medio-despues-todavia-respira-olor-tragedia_0_Hy7ZnOVkAFx.html",
+   "archivo": "clarin_2006_cromanon_un_ano_y_medio.html",
+   "txt": "clarin_2006_cromanon_un_ano_y_medio.txt",
+   "bytes": 273885,
+   "caracteres": 3048,
+   "caracteres_total": 3048,
+   "recorte": null,
+   "sha1": "9a31119fe5ded23633c4fe51e3746564b2b74f34",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Cromañón, un año y medio después: todavía se respira el olor de la tragedia",
+    "tipo": "prensa_posterior",
+    "anio": 2006
+   },
+   "autor": "Clarín"
+  },
+  {
+   "id": "F09",
+   "slug": "buenosairesherald_2024_twenty_years_since_cromanon_the",
+   "url": "https://buenosairesherald.com/society/twenty-years-since-cromanon-the-deadliest-tragedy-in-rock-history",
+   "titulo": "Twenty years since Cromañón: the deadliest tragedy in rock history",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "prioridad": 3,
+   "por_que": "Proporciona un resumen detallado en inglés con testimonios de sobrevivientes, útil para una audiencia no hispanohablante.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://buenosairesherald.com/society/twenty-years-since-cromanon-the-deadliest-tragedy-in-rock-history",
+     "status": 200,
+     "bytes": 292857
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://buenosairesherald.com/society/twenty-years-since-cromanon-the-deadliest-tragedy-in-rock-history",
+   "archivo": "buenosairesherald_2024_twenty_years_since_cromanon_the.html",
+   "txt": "buenosairesherald_2024_twenty_years_since_cromanon_the.txt",
+   "bytes": 292857,
+   "caracteres": 6214,
+   "caracteres_total": 6214,
+   "recorte": null,
+   "sha1": "1df99506fcd5a9dc4b0798c09251b6864decd0f9",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Twenty years since Cromañón, the deadliest tragedy in rock history",
+    "tipo": "prensa_posterior",
+    "anio": 2024
+   },
+   "autor": "Buenos Aires Herald"
+  },
+  {
+   "id": "F10",
+   "slug": "theguardian_2009_five_jailed_over_fatal_buenos",
+   "url": "https://www.theguardian.com/world/2009/aug/20/argentina-nightclub-fire-court",
+   "titulo": "Five jailed over fatal Buenos Aires nightclub fire",
+   "tipo": "prensa_posterior",
+   "anio": 2009,
+   "prioridad": 3,
+   "por_que": "Nota de un medio internacional sobre las primeras condenas, que refleja la repercusión global y resume las responsabilidades señaladas por la justicia en ese momento.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.theguardian.com/world/2009/aug/20/argentina-nightclub-fire-court",
+     "status": 200,
+     "bytes": 283653,
+     "error": "texto de 2874 caracteres (< 3000: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "error": "sin copia en la Wayback Machine"
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "sin copia en la Wayback Machine"
+  }
+ ],
+ "_fichas": {
+  "hash": "e16f0cdc564a5718",
+  "raw": {
+   "documentos": [
+    {
+     "id": "F02",
+     "titulo": "A 15 años de Cromañón: Cronología de las decisiones judiciales más importantes en las etapas de instrucción, juicio y revisión de sentencia",
+     "autor": "Fiscales.gob.ar",
+     "tipo": "informe_oficial",
+     "anio": 2019
+    },
+    {
+     "id": "F03",
+     "titulo": "Tragedia en un recital: 169 muertos",
+     "autor": "La Nación",
+     "tipo": "prensa_epoca",
+     "anio": 2004
+    },
+    {
+     "id": "F04",
+     "titulo": "EL FISCAL RECLAMó 23 AñOS DE PRISIóN PARA CHABáN Y 15 PARA CALLEJEROS",
+     "autor": "Página/12",
+     "tipo": "prensa_posterior",
+     "anio": 2009
+    },
+    {
+     "id": "F05",
+     "titulo": "CROMANON: LAS PERICIAS DE LOS BOMBEROS CONFIRMAN LA HIPOTESIS DE CHABAN",
+     "autor": "Perfil",
+     "tipo": "prensa_posterior",
+     "anio": 2008
+    },
+    {
+     "id": "F06",
+     "titulo": "El crudo relato del primer bombero que llegó a Cromañón y abrió con la fuerza de sus manos el portón que atrapaba a la gente",
+     "autor": "Infobae",
+     "tipo": "prensa_posterior",
+     "anio": 2024
+    },
+    {
+     "id": "F07",
+     "titulo": "La noche más triste",
+     "autor": "La Nación",
+     "tipo": "prensa_epoca",
+     "anio": 2004
+    },
+    {
+     "id": "F08",
+     "titulo": "Cromañón, un año y medio después: todavía se respira el olor de la tragedia",
+     "autor": "Clarín",
+     "tipo": "prensa_posterior",
+     "anio": 2006
+    },
+    {
+     "id": "F09",
+     "titulo": "Twenty years since Cromañón: the deadliest tragedy in rock history",
+     "autor": "Buenos Aires Herald",
+     "tipo": "prensa_posterior",
+     "anio": 2024
+    }
+   ]
+  }
+ }
+}

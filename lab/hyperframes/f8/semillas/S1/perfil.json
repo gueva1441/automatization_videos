@@ -1,0 +1,12 @@
+{
+ "anio_evento": 2004,
+ "lugar_principal": "Asunción",
+ "idioma_local": "español (Asunción, Paraguay)",
+ "nombres_lugar": [
+  "Incendio del supermercado Ycuá Bolaños",
+  "Tragedia de Ycuá Bolaños",
+  "Ycuá Bolaños fire",
+  "Ycuá Bolaños"
+ ],
+ "place_re": "\\bIncendio\\ del\\ supermercado\\ Ycuá\\ Bolaños\\b|\\bTragedia\\ de\\ Ycuá\\ Bolaños\\b|\\bYcuá\\ Bolaños\\ fire\\b|\\bYcuá\\ Bolaños\\b"
+}

@@ -225,14 +225,24 @@ HANDS_FACE = [
     r"\bdilated\s+pupils?\b", r"\bwhites\s+of\s+(?:his|her|their|the)\s+eyes\b", r"\bwhites\s+visible\b",
     r"\btrembl\w*", r"\bextreme\s+close[- ]?up\s+of\s+(?:\w+\s+){0,2}(?:face|eyes)\b",
     r"\bmacro\b[^.]{0,30}\b(?:face|eyes?|skin)\b", r"\b(?:face|eyes)\s+fill(?:s|ing)?\s+the\s+frame\b",
+    # manos en un plano cerrado (sujeto o primer plano), aunque no se nombre el plano de las manos
+    r"\b(?:close|detail)(?:[- ]up)?\s+(?:shot|view|framing)\b[^.]*\bhands?\b",
+    r"\b(?:cupped|bare|bloodied|outstretched)\s+hands\b",
 ]
+# la frase de manos que se saca de la frase-sujeto en el backstop («… held in his hands», «with cupped hands»)
+HANDS_PHRASE = (r",?\s*(?:\w+\s+){0,2}(?:in|with|from|between|by)\s+(?:his|her|their|the|both|two)?\s*"
+                r"(?:cupped\s+|bare\s+|trembling\s+)?hands?\b")
 # sensible (E): palabras que no van nunca
 FORBIDDEN = [r"\bblood\w*", r"\bbleed\w*", r"\bwounds?\b", r"\bwounded\b", r"\bgore\b", r"\bgory\b", r"\bmutilat\w*",
              r"\bdismember\w*", r"\brope\s+around\s+(?:his|her|the|a)?\s*neck\b", r"\bnoose\b", r"\bhanged\s+body\b"]
 MINOR = r"\b(child|children|kid|kids|boy|girl|toddler|baby|infant|teen(?:ager)?s?|minor|juvenile)\b"
 HARM = r"\b(beaten|hurt|injur\w*|dead|dying|drown\w*|burn\w*|shot|kill\w*|corpse|body|bodies|abuse\w*|struck)\b"
 BODY = (r"\b(corpses?|cadavers?|dead\s+(?:body|bodies|man|men|woman|women|inmates?|prisoners?)|lifeless|"
-        r"(?:a|the|floating|drowned)\s+bod(?:y|ies)|body\s+bag|remains\s+of)\b")
+        r"(?:floating|drowned|bloated)\s+bod(?:y|ies)|body\s+bags?|human\s+remains)\b")
+# «body»/«bodies» solo cuenta como cuerpo con una palabra de muerte en la misma oración («the body of one of the men»
+# no lo es)
+BODY_WORD = r"\bbod(?:y|ies)\b"
+DEATH = r"\b(dead|death|died|deceased|lifeless|drown\w*|decompos\w*|corpse\w*|remains|floating\s+face[- ]?down)\b"
 HUMAN = r"\b(man|men|woman|women|person|people|inmates?|prisoners?|guards?|officers?|deputy|deputies|figures?|" \
         r"crowd|boy|girl|survivors?|workers?|firefighters?|families|mother|father|teen\w*)\b"
 COUNT_WORDS = "two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|a dozen"
@@ -247,10 +257,15 @@ def motifs_of(text: str) -> set[str]:
     return {k for k, p in MOTIFS.items() if re.search(p, t, re.I)}
 
 
-def problems(prose: str) -> list[tuple[str, str]]:
+def problems(prose: str, shot_scale: str | None = None) -> list[tuple[str, str]]:
     """[(tipo, fragmento)] de lo que el prompt no puede llevar: manos/cara (D2–D3), palabras prohibidas (E), menor en
-    daño (E), conteos exactos o izquierda/derecha (D4)."""
+    daño (E), conteos exactos o izquierda/derecha (D4). En un plano close/detail las manos no aparecen (serían sujeto o
+    primer plano)."""
     out = []
+    if shot_scale in ("close", "detail"):
+        m = re.search(r"\bhands?\b", prose, re.I)
+        if m:
+            out.append(("manos/cara", f"manos en plano {shot_scale}"))
     for p in HANDS_FACE:
         m = re.search(p, prose, re.I)
         if m:
@@ -280,15 +295,21 @@ def fix_counts_lr(prose: str) -> str:
     return re.sub(r"\s{2,}", " ", p)
 
 
-def scrub_sentence_problems(prose: str) -> str:
-    """Último recurso (backstop): saca la frase que lleva manos/cara, palabra prohibida o menor en daño; si es la única,
-    saca solo el fragmento."""
-    bad = [re.compile(p, re.I) for p in HANDS_FACE + FORBIDDEN]
+def scrub_sentence_problems(prose: str, shot_scale: str | None = None) -> str:
+    """Último recurso (backstop): saca la frase que lleva manos/cara, palabra prohibida o menor en daño (y, en un plano
+    close/detail, la que nombra manos); si es la única, saca solo el fragmento."""
+    bad = [re.compile(p, re.I) for p in HANDS_FACE + FORBIDDEN
+           + ([r"\bhands?\b"] if shot_scale in ("close", "detail") else [])]
     ss = re.split(r"(?<=[.!?])\s+", prose)
     keep = []
-    for s in ss:
+    for k, s in enumerate(ss):
         hit = any(r.search(s) for r in bad) or (re.search(MINOR, s, re.I) and re.search(HARM, s, re.I))
         if not hit:
+            keep.append(s)
+        elif k == 0:                                 # la primera frase es el sujeto: se saca el fragmento, no la frase
+            for p in [HANDS_PHRASE] + [x for x in HANDS_FACE if "[^.]*" not in x] + FORBIDDEN:
+                s = re.sub(p, "", s, flags=re.I)
+            s = re.sub(r"\s*,(\s*,)+", ",", re.sub(r"\s{2,}", " ", s)).replace(" ,", ",").strip()
             keep.append(s)
     if not keep:
         out = prose
@@ -315,7 +336,10 @@ def scrub_slots(slots: dict) -> list[str]:
 
 
 def is_body(text: str) -> bool:
-    return bool(re.search(BODY, text or "", re.I))
+    if re.search(BODY, text or "", re.I):
+        return True
+    return any(re.search(BODY_WORD, s, re.I) and re.search(DEATH, s, re.I)
+               for s in re.split(r"(?<=[.!?])\s+", text or ""))
 
 
 def human_medium(item: dict) -> bool:

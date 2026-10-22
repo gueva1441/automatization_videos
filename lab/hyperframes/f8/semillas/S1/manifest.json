@@ -1,0 +1,679 @@
+{
+ "generado": "2026-10-22",
+ "place_re": "\\bIncendio\\ del\\ supermercado\\ Ycuá\\ Bolaños\\b|\\bTragedia\\ de\\ Ycuá\\ Bolaños\\b|\\bYcuá\\ Bolaños\\ fire\\b|\\bYcuá\\ Bolaños\\b",
+ "max_doc_chars": 300000,
+ "documentos": [
+  {
+   "id": "F01",
+   "slug": "ultimahora_2024_memorias_del_ycua_bolanos",
+   "url": "https://www.ultimahora.com/memoriasdelycua/vea-la-docuserie-memorias-del-ycua-bolanos",
+   "titulo": "Memorias del Ycuá Bolaños",
+   "tipo": "documental",
+   "anio": 2024,
+   "prioridad": 1,
+   "por_que": "Micrositio del diario Última Hora con una docuserie de 4 capítulos que incluye testimonios directos de sobrevivientes, familiares, trabajadores y rescatistas, reconstruyendo el día de la tragedia y sus secuelas.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.ultimahora.com/memoriasdelycua/vea-la-docuserie-memorias-del-ycua-bolanos",
+     "status": 200,
+     "bytes": 148511,
+     "error": "texto de 1779 caracteres (< 3000: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "url": "http://web.archive.org/web/20240904165620id_/https://www.ultimahora.com/memoriasdelycua/vea-la-docuserie-memorias-del-ycua-bolanos",
+     "status": 429,
+     "bytes": 620
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "HTTP 429"
+  },
+  {
+   "id": "F02",
+   "slug": "youtube_2024_testimonio_de_un_sobreviviente_del",
+   "url": "https://www.youtube.com/watch?v=FnDGFelmtZA",
+   "titulo": "Testimonio de un sobreviviente del Ycuá Bolaños",
+   "tipo": "testimonio",
+   "anio": 2024,
+   "prioridad": 1,
+   "por_que": "Entrevista en video a Marcos Argüello, un sobreviviente que ofrece un relato personal y detallado de su experiencia durante el incendio, incluyendo el momento de la explosión y su escape.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F03",
+   "slug": "com_2020_ycua_bolanos_sobrevivio_a_la",
+   "url": "https://www.lanacion.com.py/pais/2020/08/02/ycua-bolanos-sobrevivio-a-la-tragedia-con-7-anos-y-hoy-estudia-derecho-para-contribuir-a-la-justicia/",
+   "titulo": "Ycuá Bolaños: Sobrevivió a la tragedia con 7 años y hoy estudia Derecho para contribuir a la justicia",
+   "tipo": "prensa_posterior",
+   "anio": 2020,
+   "prioridad": 1,
+   "por_que": "Historia oral detallada de Tatiana Gabaglio, quien era una niña en el momento del incendio. Ofrece una perspectiva a largo plazo sobre las secuelas físicas y su motivación para estudiar derecho.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.lanacion.com.py/pais/2020/08/02/ycua-bolanos-sobrevivio-a-la-tragedia-con-7-anos-y-hoy-estudia-derecho-para-contribuir-a-la-justicia/",
+     "status": 200,
+     "bytes": 92265
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.lanacion.com.py/pais/2020/08/02/ycua-bolanos-sobrevivio-a-la-tragedia-con-7-anos-y-hoy-estudia-derecho-para-contribuir-a-la-justicia/",
+   "archivo": "com_2020_ycua_bolanos_sobrevivio_a_la.html",
+   "txt": "com_2020_ycua_bolanos_sobrevivio_a_la.txt",
+   "bytes": 92265,
+   "caracteres": 5598,
+   "caracteres_total": 5598,
+   "recorte": null,
+   "sha1": "2885c9ace436205ffa7abb5ed25beb1d49eb5203",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Ycuá Bolaños: sobrevivió a la tragedia con 7 años y hoy estudia Derecho para contribuir a la justicia",
+    "tipo": "testimonio",
+    "anio": 2020
+   },
+   "autor": null
+  },
+  {
+   "id": "F04",
+   "slug": "com_2004_explosion_de_gas_habria_causado",
+   "url": "https://www.abc.com.py/edicion-impresa/policiales/explosion-de-gas-habria-causado-mortal-incendio-777516.html",
+   "titulo": "Explosión de gas habría causado mortal incendio",
+   "tipo": "prensa_epoca",
+   "anio": 2004,
+   "prioridad": 1,
+   "por_que": "Artículo de prensa del día después de la tragedia (2 de agosto de 2004), que ofrece una visión inmediata de los hechos y las hipótesis iniciales.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.abc.com.py/edicion-impresa/policiales/explosion-de-gas-habria-causado-mortal-incendio-777516.html",
+     "status": 200,
+     "bytes": 368242,
+     "error": "texto de 486 caracteres (< 3000: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "error": "sin copia en la Wayback Machine"
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "sin copia en la Wayback Machine"
+  },
+  {
+   "id": "F05",
+   "slug": "com_2024_a_20_anos_del_ycua",
+   "url": "https://www.abc.com.py/nacionales/2024/07/28/a-20-anos-del-ycua-bolanos-familiares-y-sobrevivientes-claman-por-justicia-y-memoria/",
+   "titulo": "A 20 años del Ycuá Bolaños: familiares y sobrevivientes claman por justicia y memoria",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "prioridad": 1,
+   "por_que": "Recoge testimonios directos y detallados de una madre que perdió a sus dos hijas y de una ex cajera sobreviviente, ofreciendo una perspectiva personal del horror.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.abc.com.py/nacionales/2024/07/28/a-20-anos-del-ycua-bolanos-familiares-y-sobrevivientes-claman-por-justicia-y-memoria/",
+     "status": 200,
+     "bytes": 403938
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.abc.com.py/nacionales/2024/07/28/a-20-anos-del-ycua-bolanos-familiares-y-sobrevivientes-claman-por-justicia-y-memoria/",
+   "archivo": "com_2024_a_20_anos_del_ycua.html",
+   "txt": "com_2024_a_20_anos_del_ycua.txt",
+   "bytes": 403938,
+   "caracteres": 4592,
+   "caracteres_total": 4592,
+   "recorte": null,
+   "sha1": "640ba11b609c4eb8b35c7f9fe84c1362fd5cdf8f",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "A 20 años del Ycuá Bolaños: familiares y sobrevivientes claman por justicia y memoria",
+    "tipo": "testimonio",
+    "anio": 2024
+   },
+   "autor": null
+  },
+  {
+   "id": "F06",
+   "slug": "ultimahora_2007_ycua_peritaje_indica_que_solo",
+   "url": "https://www.ultimahora.com/ycua-peritaje-indica-que-solo-tres-puertas-estaban-cerradas-n61255",
+   "titulo": "Ycuá: Peritaje indica que solo tres puertas estaban cerradas",
+   "tipo": "prensa_epoca",
+   "anio": 2004,
+   "prioridad": 1,
+   "por_que": "Resume las conclusiones del informe pericial de la Policía sobre el origen del fuego y, crucialmente, detalla cuáles puertas se encontraron cerradas.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.ultimahora.com/ycua-peritaje-indica-que-solo-tres-puertas-estaban-cerradas-n61255",
+     "status": 200,
+     "bytes": 171024
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.ultimahora.com/ycua-peritaje-indica-que-solo-tres-puertas-estaban-cerradas-n61255",
+   "archivo": "ultimahora_2007_ycua_peritaje_indica_que_solo.html",
+   "txt": "ultimahora_2007_ycua_peritaje_indica_que_solo.txt",
+   "bytes": 171024,
+   "caracteres": 3688,
+   "caracteres_total": 3688,
+   "recorte": null,
+   "sha1": "d050032c643ad5ee277468b62eb6b911d814e4db",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Ycuá: Peritaje indica que solo tres puertas estaban cerradas",
+    "tipo": "informe_oficial",
+    "anio": 2007
+   },
+   "autor": null
+  },
+  {
+   "id": "F07",
+   "slug": "ultimahora_2024_memorias_del_ycua_bolanos",
+   "url": "https://www.ultimahora.com/vea-todos-los-capitulos-de-la-docuserie-memorias-del-ycua-bolanos",
+   "titulo": "Vea todos los capítulos de la docuserie Memorias del Ycuá Bolaños",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "prioridad": 1,
+   "por_que": "Docuserie del diario Última Hora con testimonios en video de sobrevivientes, familiares, trabajadores y rescatistas que reconstruyen el día de la tragedia.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.ultimahora.com/vea-todos-los-capitulos-de-la-docuserie-memorias-del-ycua-bolanos",
+     "status": 200,
+     "bytes": 205267
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.ultimahora.com/vea-todos-los-capitulos-de-la-docuserie-memorias-del-ycua-bolanos",
+   "archivo": "ultimahora_2024_memorias_del_ycua_bolanos.html",
+   "txt": "ultimahora_2024_memorias_del_ycua_bolanos.txt",
+   "bytes": 205267,
+   "caracteres": 6368,
+   "caracteres_total": 6368,
+   "recorte": null,
+   "sha1": "79a7f8c2b846d728b0f4ef6f6d272933e51aecf8",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Memorias del Ycuá Bolaños",
+    "tipo": "documental",
+    "anio": 2024
+   },
+   "autor": "Redacción ÚH"
+  },
+  {
+   "id": "F08",
+   "slug": "ultimahora_2024_testimonios_de_sobrevivientes_del_ycua",
+   "url": "https://www.ultimahora.com/testimonios-de-sobrevivientes-del-ycua-se-plasman-en-docuserie-uh",
+   "titulo": "Testimonios de sobrevivientes del Ycuá se plasman en docuserie UH",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "prioridad": 1,
+   "por_que": "Artículo de Última Hora que presenta su miniserie documental 'Memorias del Ycuá Bolaños', con relatos de sobrevivientes y rescatistas que reconstruyen los hechos del 1 de agosto de 2004.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.ultimahora.com/testimonios-de-sobrevivientes-del-ycua-se-plasman-en-docuserie-uh",
+     "status": 200,
+     "bytes": 200857
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.ultimahora.com/testimonios-de-sobrevivientes-del-ycua-se-plasman-en-docuserie-uh",
+   "archivo": "ultimahora_2024_testimonios_de_sobrevivientes_del_ycua.html",
+   "txt": "ultimahora_2024_testimonios_de_sobrevivientes_del_ycua.txt",
+   "bytes": 200857,
+   "caracteres": 3166,
+   "caracteres_total": 3166,
+   "recorte": null,
+   "sha1": "1f1249e7fd201a24f49cec8b8b1a3216c9a26a76",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Testimonios de sobrevivientes del Ycuá se plasman en docuserie ÚH",
+    "tipo": "prensa_posterior",
+    "anio": 2024
+   },
+   "autor": null
+  },
+  {
+   "id": "F09",
+   "slug": "portalguarani_2006_la_tragedia_del_ycua_bolanos",
+   "url": "https://www.portalguarani.com/646_karin_becker_pessolani/25254_la_tragedia_del_ycua_bolanos__por_karin_becker.html",
+   "titulo": "La tragedia del Ycuá Bolaños",
+   "tipo": "libro",
+   "anio": 2006,
+   "prioridad": 1,
+   "por_que": "Libro que recopila entrevistas a protagonistas y expertos, ofreciendo diferentes perspectivas sobre las causas y consecuencias del incendio, incluyendo testimonios sobre el momento del siniestro.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.portalguarani.com/646_karin_becker_pessolani/25254_la_tragedia_del_ycua_bolanos__por_karin_becker.html",
+     "status": 200,
+     "bytes": 489774
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.portalguarani.com/646_karin_becker_pessolani/25254_la_tragedia_del_ycua_bolanos__por_karin_becker.html",
+   "archivo": "portalguarani_2006_la_tragedia_del_ycua_bolanos.html",
+   "txt": "portalguarani_2006_la_tragedia_del_ycua_bolanos.txt",
+   "bytes": 489774,
+   "caracteres": 299244,
+   "caracteres_total": 432655,
+   "recorte": "cortado en el último párrafo antes de 300000 (133411 caracteres fuera)",
+   "sha1": "ba01803b6191685bf4485af8780f505e8f7a7407",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "La Tragedia del Ycuá Bolaños - Por Karin Becker",
+    "tipo": "libro",
+    "anio": 2006
+   },
+   "autor": "KARIN BECKER"
+  },
+  {
+   "id": "F10",
+   "slug": "ultimahora_2025_ycua_bolanos_a_21_anos",
+   "url": "https://www.ultimahora.com/ycua-bolanos-a-21-anos-la-corte-dice-que-paiva-debe-pagar-g-4-500-millones",
+   "titulo": "Ycuá Bolaños: A 21 años, la Corte dice que Paiva debe pagar G. 4.500 millones",
+   "tipo": "prensa_posterior",
+   "anio": 2025,
+   "prioridad": 1,
+   "por_que": "Noticia sobre un fallo civil reciente de la Corte Suprema, que establece una indemnización para una familia, detallando parte de la resolución.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.ultimahora.com/ycua-bolanos-a-21-anos-la-corte-dice-que-paiva-debe-pagar-g-4-500-millones",
+     "status": 200,
+     "bytes": 199149
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.ultimahora.com/ycua-bolanos-a-21-anos-la-corte-dice-que-paiva-debe-pagar-g-4-500-millones",
+   "archivo": "ultimahora_2025_ycua_bolanos_a_21_anos.html",
+   "txt": "ultimahora_2025_ycua_bolanos_a_21_anos.txt",
+   "bytes": 199149,
+   "caracteres": 6607,
+   "caracteres_total": 6607,
+   "recorte": null,
+   "sha1": "3b0c694d7650404e6afffa84d23c5596b789d6e7",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Ycuá Bolaños: A 21 años, la Corte dice que Paiva debe pagar G. 4.500 millones",
+    "tipo": "fallo_judicial",
+    "anio": 2025
+   },
+   "autor": null
+  },
+  {
+   "id": "F11",
+   "slug": "swissinfo_2024_historias_de_ausencia_y_dolor",
+   "url": "https://www.swissinfo.ch/spa/historias-de-ausencia-y-dolor-perviven-20-a%C3%B1os-despu%C3%A9s-de-un-tr%C3%A1gico-incendio-en-paraguay/85687802",
+   "titulo": "Historias de ausencia y dolor perviven 20 años después de un trágico incendio en Paraguay",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "prioridad": 1,
+   "por_que": "Artículo de EFE que recoge testimonios de sobrevivientes y familiares en el 20º aniversario, originalmente publicado también en Última Hora.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.swissinfo.ch/spa/historias-de-ausencia-y-dolor-perviven-20-a%C3%B1os-despu%C3%A9s-de-un-tr%C3%A1gico-incendio-en-paraguay/85687802",
+     "status": 200,
+     "bytes": 1933302
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.swissinfo.ch/spa/historias-de-ausencia-y-dolor-perviven-20-a%C3%B1os-despu%C3%A9s-de-un-tr%C3%A1gico-incendio-en-paraguay/85687802",
+   "archivo": "swissinfo_2024_historias_de_ausencia_y_dolor.html",
+   "txt": "swissinfo_2024_historias_de_ausencia_y_dolor.txt",
+   "bytes": 1933302,
+   "caracteres": 5239,
+   "caracteres_total": 5239,
+   "recorte": null,
+   "sha1": "c1ef3340fab743b5076f209f87d1976d7f31ad5f",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Historias de ausencia y dolor perviven 20 años después de un trágico incendio en Paraguay",
+    "tipo": "prensa_posterior",
+    "anio": 2024
+   },
+   "autor": "Laura Barros y Nina Osorio"
+  },
+  {
+   "id": "F12",
+   "slug": "com_2008_documental_sobre_el_caso_ycua",
+   "url": "https://www.abc.com.py/espectaculos/documental-sobre-el-caso-ycua-bolanos-1104422.html",
+   "titulo": "Documental sobre el caso Ycuá Bolaños",
+   "tipo": "documental",
+   "anio": 2008,
+   "prioridad": 2,
+   "por_que": "Nota sobre el documental 'Paraguay fue noticia', que recopila el proceso judicial y la tragedia. Describe el contenido, incluyendo entrevistas a víctimas, bomberos, acusados y jueces.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.abc.com.py/espectaculos/documental-sobre-el-caso-ycua-bolanos-1104422.html",
+     "status": 200,
+     "bytes": 364020,
+     "error": "texto de 612 caracteres (< 3000: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "error": "sin copia en la Wayback Machine"
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "sin copia en la Wayback Machine"
+  },
+  {
+   "id": "F13",
+   "slug": "sfgate_2004_at_least_256_die_in",
+   "url": "https://www.sfgate.com/news/article/At-least-256-die-in-Paraguay-blast-fire-2736865.php",
+   "titulo": "At least 256 die in Paraguay blast, fire",
+   "tipo": "prensa_epoca",
+   "anio": 2004,
+   "prioridad": 2,
+   "por_que": "Artículo de prensa internacional (SFGATE) del día después de la tragedia, que recoge testimonios de testigos sobre las puertas cerradas y los esfuerzos de los vecinos por romperlas para liberar a la gente.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.sfgate.com/news/article/At-least-256-die-in-Paraguay-blast-fire-2736865.php",
+     "status": 200,
+     "bytes": 503212
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.sfgate.com/news/article/At-least-256-die-in-Paraguay-blast-fire-2736865.php",
+   "archivo": "sfgate_2004_at_least_256_die_in.html",
+   "txt": "sfgate_2004_at_least_256_die_in.txt",
+   "bytes": 503212,
+   "caracteres": 4793,
+   "caracteres_total": 4793,
+   "recorte": null,
+   "sha1": "6eba5d3dd2049d131b069c599bd528c4cdbe8d01",
+   "idioma": "en",
+   "nombra_evento": false,
+   "ficha_busqueda": {
+    "titulo": "At least 256 die in Paraguay blast, fire / Shoppers reported trapped by doors shut to stop looting",
+    "tipo": "prensa_epoca",
+    "anio": 2004
+   },
+   "autor": null
+  },
+  {
+   "id": "F14",
+   "slug": "reliefweb_2004_paraguayan_supermarket_fire_kills_at",
+   "url": "https://reliefweb.int/report/paraguay/paraguayan-supermarket-fire-kills-least-364",
+   "titulo": "Paraguayan supermarket fire kills at least 364",
+   "tipo": "informe_oficial",
+   "anio": 2004,
+   "prioridad": 2,
+   "por_que": "Informe de situación de la Cruz Roja publicado días después del desastre. Ofrece cifras de víctimas y una perspectiva de la respuesta humanitaria inicial, mencionando el cierre de las puertas.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://reliefweb.int/report/paraguay/paraguayan-supermarket-fire-kills-least-364",
+     "status": 200,
+     "bytes": 120598,
+     "error": "texto de 2107 caracteres (< 3000: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "url": "http://web.archive.org/web/20251207043626id_/https://reliefweb.int/report/paraguay/paraguayan-supermarket-fire-kills-least-364",
+     "status": 429,
+     "bytes": 620
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "HTTP 429"
+  },
+  {
+   "id": "F15",
+   "slug": "com_2011_caso_ycua_bolanos_concluye_proceso",
+   "url": "https://www.abc.com.py/nacionales/caso-ycua-bolanos-concluye-proceso-penal-con-tres-sentencias-condenatorias-289686.html",
+   "titulo": "Caso Ycuá Bolaños: Concluye proceso penal con tres sentencias condenatorias",
+   "tipo": "prensa_posterior",
+   "anio": 2011,
+   "prioridad": 2,
+   "por_que": "Resume las condenas finales de los tres juicios penales derivados del incendio, detallando los acusados, los cargos y las sentencias impuestas.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.abc.com.py/nacionales/caso-ycua-bolanos-concluye-proceso-penal-con-tres-sentencias-condenatorias-289686.html",
+     "status": 200,
+     "bytes": 370734
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.abc.com.py/nacionales/caso-ycua-bolanos-concluye-proceso-penal-con-tres-sentencias-condenatorias-289686.html",
+   "archivo": "com_2011_caso_ycua_bolanos_concluye_proceso.html",
+   "txt": "com_2011_caso_ycua_bolanos_concluye_proceso.txt",
+   "bytes": 370734,
+   "caracteres": 3102,
+   "caracteres_total": 3102,
+   "recorte": null,
+   "sha1": "269c8a84cf4100bb0dccc7dbed8721bfcfdc6ca1",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Caso Ycuá Bolaños: Concluye proceso penal con tres sentencias condenatorias",
+    "tipo": "fallo_judicial",
+    "anio": 2011
+   },
+   "autor": null
+  },
+  {
+   "id": "F16",
+   "slug": "ultimahora_2014_ycua_bolanos_la_tragedia_que",
+   "url": "https://www.ultimahora.com/ycua-bolanos-la-tragedia-que-marco-la-sociedad-n858461",
+   "titulo": "Ycuá Bolaños: La tragedia que marcó la sociedad",
+   "tipo": "prensa_posterior",
+   "anio": 2014,
+   "prioridad": 2,
+   "por_que": "Analiza el impacto de la tragedia en la sociedad paraguaya y menciona cambios en las medidas de seguridad contra incendios implementadas a raíz del suceso.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.ultimahora.com/ycua-bolanos-la-tragedia-que-marco-la-sociedad-n858461",
+     "status": 200,
+     "bytes": 201796
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.ultimahora.com/ycua-bolanos-la-tragedia-que-marco-la-sociedad-n858461",
+   "archivo": "ultimahora_2014_ycua_bolanos_la_tragedia_que.html",
+   "txt": "ultimahora_2014_ycua_bolanos_la_tragedia_que.txt",
+   "bytes": 201796,
+   "caracteres": 3889,
+   "caracteres_total": 3889,
+   "recorte": null,
+   "sha1": "1d92ee9bb5e52ff5ba5d2c1ad2c3f9e4abed274c",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Ycuá Bolaños, la tragedia que marcó a la sociedad",
+    "tipo": "prensa_posterior",
+    "anio": 2014
+   },
+   "autor": null
+  },
+  {
+   "id": "F17",
+   "slug": "com_2024_informe_tecnico_revela_tragedia_del",
+   "url": "https://www.trece.com.py/actualidad/informe-tecnico-revela-tragedia-del-ycua-bolanos-pudo-evitarse/",
+   "titulo": "Informe técnico revela tragedia del Ycuá Bolaños pudo evitarse",
+   "tipo": "informe_oficial",
+   "anio": 2024,
+   "prioridad": 2,
+   "por_que": "Presenta detalles de pericias técnicas posteriores, explicando las falencias de diseño y construcción del supermercado que contribuyeron a la magnitud de la tragedia.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F18",
+   "slug": "ultimahora_2024_el_largo_y_tortuoso_camino",
+   "url": "https://www.ultimahora.com/memoriasdelycua/el-largo-y-tortuoso-camino-de-la-justicia",
+   "titulo": "El largo y tortuoso camino de la Justicia",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "prioridad": 2,
+   "por_que": "Análisis periodístico extenso sobre las complejidades y controversias del juicio, incluyendo la reacción de las víctimas al fallo inicial.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F19",
+   "slug": "com_2024_ycua_bolanos_hace_18_anos",
+   "url": "https://www.lanacion.com.py/pais/2024/12/05/ycua-bolanos-hace-18-anos-victimas-y-familiares-forzaron-nuevo-juicio/",
+   "titulo": "Ycuá Bolaños: hace 18 años víctimas y familiares forzaron nuevo juicio",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "prioridad": 2,
+   "por_que": "Crónica detallada del día en que se leyó el controvertido fallo de 'homicidio culposo' y la violenta reacción que provocó.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F20",
+   "slug": "gov_2006_coordinadora_de_victimas_de_ycua",
+   "url": "https://www.pj.gov.py/notas/161-coordinadora-de-victimas-de-ycua-bolanos-pidio-al-presidente-de-la-corte-celeridad-del-juicio-para-acusados",
+   "titulo": "Coordinadora de víctimas de Ycuá Bolaños pidió al Presidente de la Corte celeridad del juicio para acusados",
+   "tipo": "prensa_epoca",
+   "anio": 2006,
+   "prioridad": 2,
+   "por_que": "Comunicado oficial del Poder Judicial que documenta la presión de las víctimas sobre el sistema de justicia durante el proceso.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  }
+ ],
+ "_fichas": {
+  "hash": "6ae8ed78f8126e82",
+  "raw": {
+   "documentos": [
+    {
+     "id": "F03",
+     "titulo": "Ycuá Bolaños: Sobrevivió a la tragedia con 7 años y hoy estudia Derecho para contribuir a la justicia",
+     "tipo": "prensa_posterior",
+     "anio": 2020
+    },
+    {
+     "id": "F05",
+     "titulo": "A 20 años del Ycuá Bolaños: familiares y sobrevivientes claman por justicia y memoria",
+     "tipo": "prensa_posterior",
+     "anio": 2024
+    },
+    {
+     "id": "F06",
+     "titulo": "Ycuá: Peritaje indica que solo tres puertas estaban cerradas",
+     "tipo": "prensa_epoca",
+     "anio": 2004
+    },
+    {
+     "id": "F07",
+     "titulo": "Vea todos los capítulos de la docuserie Memorias del Ycuá Bolaños",
+     "autor": "Redacción ÚH",
+     "tipo": "prensa_posterior",
+     "anio": 2024
+    },
+    {
+     "id": "F08",
+     "titulo": "Testimonios de sobrevivientes del Ycuá se plasman en docuserie UH",
+     "tipo": "prensa_posterior",
+     "anio": 2024
+    },
+    {
+     "id": "F09",
+     "titulo": "La tragedia del Ycuá Bolaños",
+     "autor": "KARIN BECKER",
+     "tipo": "libro",
+     "anio": 0
+    },
+    {
+     "id": "F10",
+     "titulo": "Ycuá Bolaños: A 21 años, la Corte dice que Paiva debe pagar G. 4.500 millones",
+     "tipo": "prensa_posterior",
+     "anio": 2025
+    },
+    {
+     "id": "F11",
+     "titulo": "Historias de ausencia y dolor perviven 20 años después de un trágico incendio en Paraguay",
+     "autor": "Laura Barros y Nina Osorio",
+     "tipo": "prensa_posterior",
+     "anio": 2024
+    },
+    {
+     "id": "F13",
+     "titulo": "At least 256 die in Paraguay blast, fire",
+     "tipo": "prensa_epoca",
+     "anio": 2004
+    },
+    {
+     "id": "F15",
+     "titulo": "Caso Ycuá Bolaños: Concluye proceso penal con tres sentencias condenatorias",
+     "tipo": "prensa_posterior",
+     "anio": 2011
+    },
+    {
+     "id": "F16",
+     "titulo": "Ycuá Bolaños: La tragedia que marcó la sociedad",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,574 @@
+{
+ "fuentes": [
+  {
+   "url": "https://www.ultimahora.com/memoriasdelycua/vea-la-docuserie-memorias-del-ycua-bolanos",
+   "titulo": "Memorias del Ycuá Bolaños",
+   "tipo": "documental",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Micrositio del diario Última Hora con una docuserie de 4 capítulos que incluye testimonios directos de sobrevivientes, familiares, trabajadores y rescatistas, reconstruyendo el día de la tragedia y sus secuelas.",
+   "prioridad": 1,
+   "url_modelo": "https://www.ultimahora.com/memoriasdelycua",
+   "match": "exacta",
+   "grounding_title": "ultimahora.com",
+   "id": "F01",
+   "slug": "ultimahora_2024_memorias_del_ycua_bolanos"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=FnDGFelmtZA",
+   "titulo": "Testimonio de un sobreviviente del Ycuá Bolaños",
+   "tipo": "testimonio",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Entrevista en video a Marcos Argüello, un sobreviviente que ofrece un relato personal y detallado de su experiencia durante el incendio, incluyendo el momento de la explosión y su escape.",
+   "prioridad": 1,
+   "url_modelo": "https://www.youtube.com/watch?v=s_t2f3yGj-w",
+   "match": "similar 0.50",
+   "grounding_title": "youtube.com",
+   "id": "F02",
+   "slug": "youtube_2024_testimonio_de_un_sobreviviente_del"
+  },
+  {
+   "url": "https://www.lanacion.com.py/pais/2020/08/02/ycua-bolanos-sobrevivio-a-la-tragedia-con-7-anos-y-hoy-estudia-derecho-para-contribuir-a-la-justicia/",
+   "titulo": "Ycuá Bolaños: sobrevivió a la tragedia con 7 años y hoy estudia Derecho para contribuir a la justicia",
+   "tipo": "testimonio",
+   "anio": 2020,
+   "idioma": "es",
+   "por_que": "Historia oral detallada de Tatiana Gabaglio, quien era una niña en el momento del incendio. Ofrece una perspectiva a largo plazo sobre las secuelas físicas y su motivación para estudiar derecho.",
+   "prioridad": 1,
+   "url_modelo": "https://www.lanacion.com.py/pais/2020/08/01/ycua-bolanos-sobrevivio-a-la-tragedia-con-7-anos-y-hoy-estudia-derecho-para-contribuir-a-la-justicia/",
+   "match": "exacta",
+   "grounding_title": "lanacion.com.py",
+   "id": "F03",
+   "slug": "com_2020_ycua_bolanos_sobrevivio_a_la"
+  },
+  {
+   "url": "https://www.abc.com.py/edicion-impresa/policiales/explosion-de-gas-habria-causado-mortal-incendio-777516.html",
+   "titulo": "Explosión de gas habría causado mortal incendio",
+   "tipo": "prensa_epoca",
+   "anio": 2004,
+   "idioma": "es",
+   "por_que": "Artículo de prensa del día después de la tragedia (2 de agosto de 2004), que ofrece una visión inmediata de los hechos y las hipótesis iniciales.",
+   "prioridad": 1,
+   "url_modelo": "https://www.abc.com.py/policiales/explosion-de-gas-habria-causado-mortal-incendio-798725.html",
+   "match": "similar 0.88",
+   "grounding_title": "abc.com.py",
+   "id": "F04",
+   "slug": "com_2004_explosion_de_gas_habria_causado"
+  },
+  {
+   "url": "https://www.abc.com.py/nacionales/2024/07/28/a-20-anos-del-ycua-bolanos-familiares-y-sobrevivientes-claman-por-justicia-y-memoria/",
+   "titulo": "A 20 años del Ycuá Bolaños: familiares y sobrevivientes claman por justicia y memoria",
+   "tipo": "testimonio",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Recoge testimonios directos y detallados de una madre que perdió a sus dos hijas y de una ex cajera sobreviviente, ofreciendo una perspectiva personal del horror.",
+   "prioridad": 1,
+   "url_modelo": "https://www.abc.com.py/nacionales/2024/07/28/a-20-anos-del-ycua-bolanos-familiares-y-sobrevivientes-claman-por-justicia-y-memoria/",
+   "match": "exacta",
+   "grounding_title": "abc.com.py",
+   "id": "F05",
+   "slug": "com_2024_a_20_anos_del_ycua"
+  },
+  {
+   "url": "https://www.ultimahora.com/ycua-peritaje-indica-que-solo-tres-puertas-estaban-cerradas-n61255",
+   "titulo": "Ycuá: Peritaje indica que solo tres puertas estaban cerradas",
+   "tipo": "informe_oficial",
+   "anio": 2007,
+   "idioma": "es",
+   "por_que": "Resume las conclusiones del informe pericial de la Policía sobre el origen del fuego y, crucialmente, detalla cuáles puertas se encontraron cerradas.",
+   "prioridad": 1,
+   "url_modelo": "https://www.ultimahora.com/ycua-peritaje-indica-que-solo-tres-puertas-estaban-cerradas-n86751.html",
+   "match": "similar 0.90",
+   "grounding_title": "ultimahora.com",
+   "id": "F06",
+   "slug": "ultimahora_2007_ycua_peritaje_indica_que_solo"
+  },
+  {
+   "url": "https://www.ultimahora.com/vea-todos-los-capitulos-de-la-docuserie-memorias-del-ycua-bolanos",
+   "titulo": "Memorias del Ycuá Bolaños",
+   "tipo": "documental",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Docuserie del diario Última Hora con testimonios en video de sobrevivientes, familiares, trabajadores y rescatistas que reconstruyen el día de la tragedia.",
+   "prioridad": 1,
+   "url_modelo": "https://www.ultimahora.com/memorias-del-ycua",
+   "match": "exacta",
+   "grounding_title": "ultimahora.com",
+   "id": "F07",
+   "slug": "ultimahora_2024_memorias_del_ycua_bolanos"
+  },
+  {
+   "url": "https://www.ultimahora.com/testimonios-de-sobrevivientes-del-ycua-se-plasman-en-docuserie-uh",
+   "titulo": "Testimonios de sobrevivientes del Ycuá se plasman en docuserie ÚH",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Artículo de Última Hora que presenta su miniserie documental 'Memorias del Ycuá Bolaños', con relatos de sobrevivientes y rescatistas que reconstruyen los hechos del 1 de agosto de 2004.",
+   "prioridad": 1,
+   "url_modelo": "https://www.ultimahora.com/testimonios-sobrevivientes-del-ycua-se-plasman-docuserie-uh-n3074094.html",
+   "match": "exacta",
+   "grounding_title": "ultimahora.com",
+   "id": "F08",
+   "slug": "ultimahora_2024_testimonios_de_sobrevivientes_del_ycua"
+  },
+  {
+   "url": "https://www.portalguarani.com/646_karin_becker_pessolani/25254_la_tragedia_del_ycua_bolanos__por_karin_becker.html",
+   "titulo": "La Tragedia del Ycuá Bolaños - Por Karin Becker",
+   "tipo": "libro",
+   "anio": 2006,
+   "idioma": "es",
+   "por_que": "Libro que recopila entrevistas a protagonistas y expertos, ofreciendo diferentes perspectivas sobre las causas y consecuencias del incendio, incluyendo testimonios sobre el momento del siniestro.",
+   "prioridad": 1,
+   "url_modelo": "https://www.portalguarani.com/854_karin_becker/17923_la_tragedia_del_ycua_bolanos_por_karin_becker_.html",
+   "match": "similar 0.78",
+   "grounding_title": "portalguarani.com",
+   "id": "F09",
+   "slug": "portalguarani_2006_la_tragedia_del_ycua_bolanos"
+  },
+  {
+   "url": "https://www.ultimahora.com/ycua-bolanos-a-21-anos-la-corte-dice-que-paiva-debe-pagar-g-4-500-millones",
+   "titulo": "Ycuá Bolaños: A 21 años, la Corte dice que Paiva debe pagar G. 4.500 millones",
+   "tipo": "fallo_judicial",
+   "anio": 2025,
+   "idioma": "es",
+   "por_que": "Noticia sobre un fallo civil reciente de la Corte Suprema, que establece una indemnización para una familia, detallando parte de la resolución.",
+   "prioridad": 1,
+   "url_modelo": "https://www.ultimahora.com/ycua-bolanos-21-anos-la-corte-dice-que-paiva-debe-pagar-g-4500-millones-n3046200",
+   "match": "similar 0.91",
+   "grounding_title": "ultimahora.com",
+   "id": "F10",
+   "slug": "ultimahora_2025_ycua_bolanos_a_21_anos"
+  },
+  {
+   "url": "https://www.swissinfo.ch/spa/historias-de-ausencia-y-dolor-perviven-20-a%C3%B1os-despu%C3%A9s-de-un-tr%C3%A1gico-incendio-en-paraguay/85687802",
+   "titulo": "Historias de ausencia y dolor perviven 20 años después de un trágico incendio en Paraguay",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Artículo de EFE que recoge testimonios de sobrevivientes y familiares en el 20º aniversario, originalmente publicado también en Última Hora.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "swissinfo.ch",
+   "id": "F11",
+   "slug": "swissinfo_2024_historias_de_ausencia_y_dolor"
+  },
+  {
+   "url": "https://www.abc.com.py/espectaculos/documental-sobre-el-caso-ycua-bolanos-1104422.html",
+   "titulo": "Documental sobre el caso Ycuá Bolaños",
+   "tipo": "documental",
+   "anio": 2008,
+   "idioma": "es",
+   "por_que": "Nota sobre el documental 'Paraguay fue noticia', que recopila el proceso judicial y la tragedia. Describe el contenido, incluyendo entrevistas a víctimas, bomberos, acusados y jueces.",
+   "prioridad": 2,
+   "url_modelo": "https://www.abc.com.py/espectaculos/documental-sobre-el-caso-ycua-bolanos-1107555.html",
+   "match": "similar 0.86",
+   "grounding_title": "abc.com.py",
+   "id": "F12",
+   "slug": "com_2008_documental_sobre_el_caso_ycua"
+  },
+  {
+   "url": "https://www.sfgate.com/news/article/At-least-256-die-in-Paraguay-blast-fire-2736865.php",
+   "titulo": "At least 256 die in Paraguay blast, fire / Shoppers reported trapped by doors shut to stop looting",
+   "tipo": "prensa_epoca",
+   "anio": 2004,
+   "idioma": "en",
+   "por_que": "Artículo de prensa internacional (SFGATE) del día después de la tragedia, que recoge testimonios de testigos sobre las puertas cerradas y los esfuerzos de los vecinos por romperlas para liberar a la gente.",
+   "prioridad": 2,
+   "url_modelo": "https://www.sfgate.com/news/article/At-least-256-die-in-Paraguay-blast-fire-2751101.php",
+   "match": "similar 0.86",
+   "grounding_title": "sfgate.com",
+   "id": "F13",
+   "slug": "sfgate_2004_at_least_256_die_in"
+  },
+  {
+   "url": "https://reliefweb.int/report/paraguay/paraguayan-supermarket-fire-kills-least-364",
+   "titulo": "Paraguayan supermarket fire kills at least 364",
+   "tipo": "informe_oficial",
+   "anio": 2004,
+   "idioma": "en",
+   "por_que": "Informe de situación de la Cruz Roja publicado días después del desastre. Ofrece cifras de víctimas y una perspectiva de la respuesta humanitaria inicial, mencionando el cierre de las puertas.",
+   "prioridad": 2,
+   "url_modelo": "https://reliefweb.int/report/paraguay/paraguayan-supermarket-fire-kills-least-364",
+   "match": "exacta",
+   "grounding_title": "reliefweb.int",
+   "id": "F14",
+   "slug": "reliefweb_2004_paraguayan_supermarket_fire_kills_at"
+  },
+  {
+   "url": "https://www.abc.com.py/nacionales/caso-ycua-bolanos-concluye-proceso-penal-con-tres-sentencias-condenatorias-289686.html",
+   "titulo": "Caso Ycuá Bolaños: Concluye proceso penal con tres sentencias condenatorias",
+   "tipo": "fallo_judicial",
+   "anio": 2011,
+   "idioma": "es",
+   "por_que": "Resume las condenas finales de los tres juicios penales derivados del incendio, detallando los acusados, los cargos y las sentencias impuestas.",
+   "prioridad": 2,
+   "url_modelo": "https://www.abc.com.py/nacionales/fallo-del-caso-ycua-bolanos-concluye-con-tres-sentencias-condenatorias-283431.html",
+   "match": "similar 0.75",
+   "grounding_title": "abc.com.py",
+   "id": "F15",
+   "slug": "com_2011_caso_ycua_bolanos_concluye_proceso"
+  },
+  {
+   "url": "https://www.ultimahora.com/ycua-bolanos-la-tragedia-que-marco-la-sociedad-n858461",
+   "titulo": "Ycuá Bolaños, la tragedia que marcó a la sociedad",
+   "tipo": "prensa_posterior",
+   "anio": 2014,
+   "idioma": "es",
+   "por_que": "Analiza el impacto de la tragedia en la sociedad paraguaya y menciona cambios en las medidas de seguridad contra incendios implementadas a raíz del suceso.",
+   "prioridad": 2,
+   "url_modelo": "https://www.ultimahora.com/ycua-bolanos-la-tragedia-que-marco-la-sociedad-n856885.html",
+   "match": "similar 0.86",
+   "grounding_title": "ultimahora.com",
+   "id": "F16",
+   "slug": "ultimahora_2014_ycua_bolanos_la_tragedia_que"
+  },
+  {
+   "url": "https://www.trece.com.py/actualidad/informe-tecnico-revela-tragedia-del-ycua-bolanos-pudo-evitarse/",
+   "titulo": "Informe técnico revela tragedia del Ycuá Bolaños pudo evitarse",
+   "tipo": "informe_oficial",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Presenta detalles de pericias técnicas posteriores, explicando las falencias de diseño y construcción del supermercado que contribuyeron a la magnitud de la tragedia.",
+   "prioridad": 2,
+   "url_modelo": "https://www.trece.com.py/actualidad/informe-tecnico-revela-tragedia-del-ycua-bolanos-pudo-evitarse",
+   "match": "exacta",
+   "grounding_title": "trece.com.py",
+   "id": "F17",
+   "slug": "com_2024_informe_tecnico_revela_tragedia_del"
+  },
+  {
+   "url": "https://www.ultimahora.com/memoriasdelycua/el-largo-y-tortuoso-camino-de-la-justicia",
+   "titulo": "El largo y tortuoso camino de la Justicia",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Análisis periodístico extenso sobre las complejidades y controversias del juicio, incluyendo la reacción de las víctimas al fallo inicial.",
+   "prioridad": 2,
+   "url_modelo": "https://www.ultimahora.com/el-largo-y-tortuoso-camino-la-justicia-n3073993",
+   "match": "similar 0.80",
+   "grounding_title": "ultimahora.com",
+   "id": "F18",
+   "slug": "ultimahora_2024_el_largo_y_tortuoso_camino"
+  },
+  {
+   "url": "https://www.lanacion.com.py/pais/2024/12/05/ycua-bolanos-hace-18-anos-victimas-y-familiares-forzaron-nuevo-juicio/",
+   "titulo": "Ycuá Bolaños: hace 18 años víctimas y familiares forzaron nuevo juicio",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Crónica detallada del día en que se leyó el controvertido fallo de 'homicidio culposo' y la violenta reacción que provocó.",
+   "prioridad": 2,
+   "url_modelo": "https://www.lanacion.com.py/investigacion/2022/12/05/ycua-bolanos-hace-16-anos-victimas-y-familiares-forzaron-nuevo-juicio/",
+   "match": "similar 0.82",
+   "grounding_title": "lanacion.com.py",
+   "id": "F19",
+   "slug": "com_2024_ycua_bolanos_hace_18_anos"
+  },
+  {
+   "url": "https://www.pj.gov.py/notas/161-coordinadora-de-victimas-de-ycua-bolanos-pidio-al-presidente-de-la-corte-celeridad-del-juicio-para-acusados",
+   "titulo": "Coordinadora de víctimas de Ycuá Bolaños pidió al Presidente de la Corte celeridad del juicio para acusados",
+   "tipo": "prensa_epoca",
+   "anio": 2006,
+   "idioma": "es",
+   "por_que": "Comunicado oficial del Poder Judicial que documenta la presión de las víctimas sobre el sistema de justicia durante el proceso.",
+   "prioridad": 2,
+   "url_modelo": "https://www.pj.gov.py/notas/125-coordinadora-de-victimas-de-ycua-bolanos-pidio-al-presidente-de-la-corte-celeridad-del-juicio-para-acusados",
+   "match": "similar 0.93",
+   "grounding_title": "pj.gov.py",
+   "id": "F20",
+   "slug": "gov_2006_coordinadora_de_victimas_de_ycua"
+  }
+ ],
+ "_descartadas": [
+  {
+   "url": "https://www.ultimahora.com/historias-ausencia-y-dolor-perviven-20-anos-despues-un-tragico-incendio-paraguay-n3105574.html",
+   "titulo": "Historias de ausencia y dolor perviven 20 años después de un trágico incendio en Paraguay",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Artículo de EFE que recoge testimonios con nombre y apellido de múltiples sobrevivientes (Cristian Sosa) y familiares de víctimas (Julia López, Angélica Roa) en el 20º aniversario, enfocándose en el impacto a largo plazo.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.pj.gov.py/notas/263-resoluciones-de-la-sala-penal-en-el-caso-ycua-bolanos",
+   "titulo": "Resoluciones de la Sala Penal en el caso Ycuá Bolaños",
+   "tipo": "fallo_judicial",
+   "anio": 2009,
+   "idioma": "es",
+   "por_que": "Contiene los enlaces a los PDF de las sentencias completas y autos interlocutorios de la Corte Suprema de Justicia, documentos primarios fundamentales.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.ultimahora.com/corte-suprema-de-justicia-fallo-favor-victimas-del-ycua-bolanos-n3046777",
+   "titulo": "Corte Suprema de Justicia falló a favor de víctimas del Ycuá Bolaños",
+   "tipo": "fallo_judicial",
+   "anio": 2025,
+   "idioma": "es",
+   "por_que": "Informa sobre un fallo civil reciente de la Corte Suprema que condena a pagar una indemnización millonaria a una familia que perdió a sus tres hijas.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.lahermandaddebomberos.com/portal/2014/11/ycua-bolanos-el-informe-articulo-de-carlos-britez/",
+   "titulo": "YCUA BOLAÑOS: EL INFORME / ARTICULO DE CARLOS BRITEZ",
+   "tipo": "academico",
+   "anio": 2014,
+   "idioma": "es",
+   "por_que": "Análisis detallado que resume el informe de la Oficina de Alcohol, Tabaco, Armas de Fuego y Explosivos (ATF) de EE.UU. sobre las causas del incendio, la propagación del fuego y la hipótesis del cierre de puertas.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.pj.gov.py/notas/2518-sala-penal-confirma-condena-de-primera-instancia-dictada-contra-acusados-en-el-caso-ycua-bolanos",
+   "titulo": "Sala Penal confirma condena de primera instancia dictada contra acusados en el caso Ycuá Bolaños",
+   "tipo": "fallo_judicial",
+   "anio": 2009,
+   "idioma": "es",
+   "por_que": "Comunicado oficial del Poder Judicial de Paraguay sobre la anulación del fallo de segunda instancia y la confirmación de la sentencia de primera instancia para los principales acusados, detallando las penas.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.pj.gov.py/notas/2627-remiten-expedientes-del-caso-ycua-bolanos-a-circunscripcion-de-paraguari",
+   "titulo": "Remiten expedientes del caso Ycuá Bolaños a circunscripción de Paraguari",
+   "tipo": "fallo_judicial",
+   "anio": 2009,
+   "idioma": "es",
+   "por_que": "Noticia del Poder Judicial que informa sobre el traslado de los 70 tomos del expediente del caso para la ejecución de la sentencia, evidenciando la magnitud del proceso judicial.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.ultimahora.com/queda-firme-sala-penal-la-causa-ycua-bolanos-n239893.html",
+   "titulo": "Queda firme Sala Penal de la causa Ycuá Bolaños",
+   "tipo": "prensa_epoca",
+   "anio": 2009,
+   "idioma": "es",
+   "por_que": "Artículo de Última Hora que informa sobre la conformación final de la Sala Penal de la Corte Suprema para resolver el caso, un hito en el largo proceso judicial.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.ultimahora.com/coordinadora-victimas-ycua-bolanos-da-mensaje-la-ciudadania-n540605.html",
+   "titulo": "Coordinadora de Víctimas de Ycuá Bolaños da mensaje a la ciudadanía",
+   "tipo": "prensa_posterior",
+   "anio": 2012,
+   "idioma": "es",
+   "por_que": "Comunicado de la Coordinadora de Víctimas que refleja su continua lucha contra la impunidad y su reclamo por las víctimas desaparecidas, mostrando el impacto a largo plazo de la tragedia.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.scribd.com/document/44322490/Mat-Ykua-Bolanos-PDF",
+   "titulo": "Ykua Bolaños, el accionar del Ministerio Público",
+   "tipo": "informe_oficial",
+   "anio": 2005,
+   "idioma": "es",
+   "por_que": "Informe cronológico de la fiscalía con testimonios primarios de los momentos iniciales del incendio.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.ipsnoticias.net/2009/08/paraguay-justicia-lenta-tenue-y-deslucida/",
+   "titulo": "PARAGUAY: Soft, Slow, Shabby Justice",
+   "tipo": "academico",
+   "anio": 2009,
+   "idioma": "en",
+   "por_que": "Análisis en inglés sobre las implicancias legales y la responsabilidad del Estado en el caso, citando a abogados de las víctimas.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.researchgate.net/publication/305626085_Antigona_una_tragedia_latinoamericana",
+   "titulo": "Antígona: una tragedia latinoamericana",
+   "tipo": "academico",
+   "anio": 2016,
+   "idioma": "es",
+   "por_que": "Reseña de una obra teatral basada en la tragedia, que explora el suceso desde una perspectiva cultural y simbólica.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.scribd.com/document/353457193/Informe-sobre-el-incendio-Ycua-Bolanos",
+   "titulo": "Informe sobre el incendio Ycuá Bolaños",
+   "tipo": "informe_oficial",
+   "anio": 2004,
+   "idioma": "es",
+   "por_que": "Presenta un informe técnico sobre el incendio, complementando otros informes con detalles específicos del suceso.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  }
+ ],
+ "_grounding": [
+  {
+   "title": "ultimahora.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEOHgSTr_UJuWvFVMSwJAPb6BmP29aZc5q5ZGpVRUyiYBe5FlXHtifverN_HxrnEGpVQO_23hivC4EcEhuUe_UMxGcYh11prmtIgedGXlSfo6I0_mYCkLFhqEyTAv3e-b41Z5bPpdMCQRyNOaxC62mrZGBU4YVfjBA6Dw5So6ILv0GqWL1TSib_H2t2B_gmDZh0aPVgcwd1",
+   "url": "https://www.ultimahora.com/testimonios-de-sobrevivientes-del-ycua-se-plasman-en-docuserie-uh"
+  },
+  {
+   "title": "youtube.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEIv7x1b5y3oVM6s460NX-oWwFNg0pvuPp6bCarHVNy6vI3LsQ1HchqmQCWl9Z6FgDJAZY8dKb1A1Whw3oa-4yXfDRy21ATfCkHuPOI57EWYt22NckrTYrR-5TFZu-J-7mHee3lelQ=",
+   "url": "https://www.youtube.com/watch?v=FnDGFelmtZA"
+  },
+  {
+   "title": "ultimahora.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEuTG2ijJMaQjryZoFHKqcqsmMth6nc_labhipK58kZ_8gI73qCC0yRV_XkoEfJD4V18TsAx2cjotWGXov7pMQoHijrzF6wlvpxJbtsmwKVe3kk_sjLqo15vWeD7GDZdG6YgWvcxh3mdcJaKoyaGIknmn15PaO6KZnow-5gnr2EFTOX9tGawBp-244oyQ2ges3UABHOrRe0",
+   "url": "https://www.ultimahora.com/vea-todos-los-capitulos-de-la-docuserie-memorias-del-ycua-bolanos"
+  },
+  {
+   "title": "youtube.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqpLRzmLbWcqNJDdvbdFHBQfRU91R7aKJHdxrCmNbtTL1RTBT29Rsu_LAvXekvs2kuKp6Sj1u5tI0VNzMt1OG4Z2MneB0ymjPTIV15CARrOpJYbienTqb4XKK4OeYTC3Hwet4YDKs=",
+   "url": "https://www.youtube.com/watch?v=wSyQf8Sa24U"
+  },
+  {
+   "title": "swissinfo.ch",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH5r9MBcCYXntzq23k-Tt8AZH8BZMxVGJ2PDsljC9jWv4vZnC8V3_ULrHVK0vYE0V1FobH8j8spre8erXqneRvhB-fCBLOCTnYbz5Hz2v6UrEShPLorlGOBoqeNycE8nj980mNekZfrXXZjK12P4qlHGFPAiJmKAV69STJfbck0DwQsK8fYOsFcA4ZvwM4MkAMxVOloGt3rKBwK7ltafRiVwaTGWglwH9JTsbBebTO_ecXX5iVwyURQVVmif2Hyil0TgFJj0z3e6eSP",
+   "url": "https://www.swissinfo.ch/spa/historias-de-ausencia-y-dolor-perviven-20-a%C3%B1os-despu%C3%A9s-de-un-tr%C3%A1gico-incendio-en-paraguay/85687802"
+  },
+  {
+   "title": "lanacion.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH-iYZbIUzInTkh13XzToap9Thh3nT90X5ZNOPaJZBJ2Taqx5ymkj6pOy8dVK647FlRddVfSh0i5BmNvrILsOGzavu0MnSrkJyUnbVqZl2raqItmsOFdDaJ6xLop5SrX_xrEYZHgNzanm4gB4SXuXjt-gNumLfxUIHFUzHsuL2QYEAMp8fqky8TtdVjQ8H1hqWkbSfc8S6ASsvqyxN1WOm00KovFQNTGtuI_05CJ3Sfb6of76jKdX8f8n6-SoTuHgcbPXfGtrtmZJ8DmRsJ",
+   "url": "https://www.lanacion.com.py/pais/2020/08/02/ycua-bolanos-sobrevivio-a-la-tragedia-con-7-anos-y-hoy-estudia-derecho-para-contribuir-a-la-justicia/"
+  },
+  {
+   "title": "abc.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFaC4cKQpC1mdj79kPemb0qatmJ2nLYEzIZy7pbhnAvaIol3D-w6HP129sR2nN-yhlsKj0Nf-4XJWmnhsBjPeTUsiXi8n9hkYzWAm2I-9T4Xs03ChM2Oa_x_pEH_GaL11KpwKygQsFQzcCUwCTB2GQUYALmSOkqo0VOA-cVA4a-A9_ArGJfLPrD2CweMbYUIq16",
+   "url": "https://www.abc.com.py/espectaculos/documental-sobre-el-caso-ycua-bolanos-1104422.html"
+  },
+  {
+   "title": "ultimahora.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcL4lF8dAIgqZuFcZs1ZSo2ZXU61PIMGVg10fWVtquevxkBkMiE3Hi2ZaBF83CJKkXTWXyhBsx4_h4XT0HhI0z0TTWLcxY1By8V-WaWoZl68snAEzApIRAZN5tWjPoVG7vmJeP-5SZXqJSdbgNByFQiB_hy5Xo8jGZSdHgpH45tqLp_MpwzurZYUlKA8vR41oMeYvbt11lhy5BoXCWHDLy",
+   "url": "https://www.ultimahora.com/ycua-bolanos-a-21-anos-la-corte-dice-que-paiva-debe-pagar-g-4-500-millones"
+  },
+  {
+   "title": "sfgate.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHlfNfT7-PGdJVM8399DZ_I6_rqw8NujLciaoA4iHeXpN2uxxCA_L99CmIc5wVC05kVkHFUKlpUXWm3njLPil_sfRHg96OcU9R6sOLwldogW4sRqRXtYw1gh4lVnRVJfL2YuEscGshD_bZjnzEUOfk4hHLjv5uAEm7anY-d0LmnGu4nNShf6z95V-DcQM_oSk7l0A==",
+   "url": "https://www.sfgate.com/news/article/At-least-256-die-in-Paraguay-blast-fire-2736865.php"
+  },
+  {
+   "title": "reliefweb.int",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEIVmrGVWGkbgNt1M3bzBX9OtRSF_y7QCUjeYAw4DRMngkv94-fMGt5bRSJFYBIQkW8pO7Rvy8Wsiq7FbPQGWlGU-CF72l1pWgBKqOpmu-gcBgUugyem6_EdX9ZOQzrYvUdz5MfNi3DfcTS33Yi3L4QbrIbETQV6XOchpFkdzVpS0FaPyxTirTvQaGXRQ==",
+   "url": "https://reliefweb.int/report/paraguay/paraguayan-supermarket-fire-kills-least-364"
+  },
+  {
+   "title": "youtube.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEnR7FubRDxZ04cB3iuUKQitJZkGn4STU5DkjgINzGHRtwJneMlrsuV184fY86oUZC29-NhF4FUub3SHPnWBmfrwxuQnvDaeWFFe3VJqTGPQ0k9zWf6WALGWSA9HHefPbBUph9Da6s=",
+   "url": "https://www.youtube.com/watch?v=xJnSn5649Z8"
+  },
+  {
+   "title": "elnacional.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHxlwJXmSs5R9C3KOjeHAsUmGSQ2kjJahl-ZGxKGA_gw2PhW21Q_dMgvqke2Tldgs97Lxm_Fj0zerVWGh4XyJmcHqzqoCDl6t-XMrW6-ltFU39enhBCwZl_de3gpDQF-NiRBVhJalEswOp4v0a8xCYg3DP6Fi4uD8hKJNN1xjJ3X1sT7Il3CHPiSRvXeN0e8qFpbdtOcfp-tLx5GHaGuE-k4HZ_mn81yewwU0hgWnqAaCGI",
+   "url": "https://elnacional.com.py/nacionales/21-anos-ycua-bolanos-muchos-sobrevivientes-murieron-esperando-resarcimiento-n14236"
+  },
+  {
+   "title": "lanacion.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGOWf9fm1ZP21_rtQ0jGgG5iJXa3PL_uqRjuR4sI-wKInujrOvWq4nG6a-gK1QsZ0AU_KrQZtv80kKwFuOCJd5KIoyiCBFP2m7Kwka8odUXvNOySSBsJgTiXwIsudhD4EFKmjlEYYM_4ZORY9Hf5DhpzADvWFi5s9P9kVmffnFj6dDFvAtYlrg59l12-cGZFpsJz580gNBscE7T30xjhNJ9jcryYcwBsPNqa2RxDEjGU4-B",
+   "url": "https://www.lanacion.com.py/judiciales/2021/08/01/ycua-bolanos-a-17-anos-de-la-tragedia-ya-ningun-condenado-esta-preso/"
+  },
+  {
+   "title": "theguardian.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGJju3zwcGnuuuWp4HFzT_OXvxKCFklHWwiDEchsVj0n0EywQdiue61uuNDiU--TgkkfevJnP-DwPbja2AikLTF0hYPRWlfp8Obu6dj2ZQ7_32fr5ZkbIsHBRS6oyUaJTnM5E9PJIQMdOOn",
+   "url": "https://www.theguardian.com/world/2004/aug/02/2"
+  },
+  {
+   "title": "youtube.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8OvW9Pgu_tTRFphUUpKhK7J-6bJ11TEpA3wiCilXku4AxjfPcZD8pi1sgYOOUCMAwBBoJ6A6FOccO2g4_KEoNdbmQ6MhJlc_nmr3LKfztouhQPbSwZzGb35Z7-uq9yB2fvTriqcE=",
+   "url": "https://www.youtube.com/watch?v=ZENxtYxRPK8"
+  },
+  {
+   "title": "ultimahora.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpBpkSIc59zAd0bdg_G2JADChBuaXZ7IsyIClHRNBl5lUVU_-hB3Yk66uB-06La3ugsaPTw6Na8S5A5gbD_eOlqJHqKxZX_G3zFl6FCvwgXxdb0d7vJ_JaNEeuMT07l3ffqQaPHn8DI18R8uFjjkny0SBrIRAKercHJ0ciNlqOGNs8s_iPqxbBkn4J3nlo8Lk=",
+   "url": "https://www.ultimahora.com/memoriasdelycua/vea-la-docuserie-memorias-del-ycua-bolanos"
+  },
+  {
+   "title": "abc.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF17n8PITiEEvUsZp9pA_chn1VfPNhOQ6H3IOfhTGjBJlSwJhqkhvT0bfuelhuvAw-1WiAWFY8wsltgDjUWmDMFuIU1CQ2ggUbUm1OOxBP2LVgDVp4lqaOp6UZfM4ArpXe_n-PX4ZytiP1KSA09LrvQC3Wwqq31heOSrMeRHI-pQfegA8Qk1s52lx_hle7hArALJrZks8zZE6SE1sfFY0ejS4zkE2uMLAQ=",
+   "url": "https://www.abc.com.py/edicion-impresa/policiales/explosion-de-gas-habria-causado-mortal-incendio-777516.html"
+  },
+  {
+   "title": "abc.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFkKscQqS-1qUxJac6Sb2KmwNUa3okJ2uFBhyFsVHqjaYqWN0TsNLNiQ74aOH_DdujJfdo9TiqOiXjg5pAGy5o-yEGxdpRgVkVlVH1YJFc6oPSI6t7TWnmybeN7QqZQah3zHmClUyri3Q0J7_UV-qO-H-PjJVbWWJdI7F2JqTLEaKc99lYq0vhAVwC3mERKi5UoJxSCUyWQ5XDpVuBoMjoleg5OWjOtoOaQer8IdT7bLlzWbm6LAfUvNx_4KbzZ",
+   "url": "https://www.abc.com.py/nacionales/2024/07/28/a-20-anos-del-ycua-bolanos-familiares-y-sobrevivientes-claman-por-justicia-y-memoria/"
+  },
+  {
+   "title": "ultimahora.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFIURzAofxKCITAJPrbwWmQjm7nT2aRHXqZsaV9JBz0Mpg2SjSjuPpVh93DOijy6UdVKGyA-F2P7rxALgu4jL25yndrLaQbCkSnoYF22Es9mGsXLdgF7x5SFv8UlxeBd03vXpfcvZEFiJWsOM0Ie-OMWx4_xkTjjZ7NrNxGB9uH_OYHbhtUEQrfR6xcYo5thN70J3mwbtFl1w==",
+   "url": "https://www.ultimahora.com/ycua-peritaje-indica-que-solo-tres-puertas-estaban-cerradas-n61255"
+  },
+  {
+   "title": "abc.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGHWkcGhDsxTG2r6H75OAXRNRV8db0I39oVfuuXEIDqxynHlapQLGx44KBfIoNGaQKXAd3TprRk0GjDlbEtCMf-e_dVf8VBRx3Fv7_Ojr7CoUuq6C7nBR78M46poISOW_wziy_c0rJzZd64bFiCjrYOJm8fxkuPDoNhmK53pzYlL-KnliVY_lyrBo5lFDEnm_MNCMnUvvPHNkuhAbBR5Dup7pacoc6O4uzpFP11PI6UDGKYKw==",
+   "url": "https://www.abc.com.py/nacionales/caso-ycua-bolanos-concluye-proceso-penal-con-tres-sentencias-condenatorias-289686.html"
+  },
+  {
+   "title": "ultimahora.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGF6VJj7mE413mwXeqRE2vk6IxHOEVoP9Ug8bCRkA-LIUYMYXJk-MRWbGbk6ME3BEucV_J7jrRt6LH--IBlIvqzwZkTRtaGzIxoHcjrWQkAIW4oakvFFuZ_qvogqUyjjfq3whKF3c-9amwAYBuvhPyuWYfEMQTVqjFa9FpG0lwjgk0zXr65iUJ5Tj2HOQ==",
+   "url": "https://www.ultimahora.com/ycua-bolanos-la-tragedia-que-marco-la-sociedad-n858461"
+  },
+  {
+   "title": "trece.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFNwp_x7OHIUGmNq00q0-L2VGxIC_EpQ3wf30ppPP7owEilVLXpqQB3e7mG2ULiN0WDrQtrQ8lLIFJ-kRAlEp1y4S3fHiV5g2yHXn_xlQCFTn6VoCjoj12ByXTx0o2UOG6GjbfbpIQuiC273GVh2BrBxo8KyBw8eJASf7yNhS2wjNzxP7dS0yEcbPbcIcz_0K-aCjWQJ5hmvuZxywuu3g==",
+   "url": "https://www.trece.com.py/actualidad/informe-tecnico-revela-tragedia-del-ycua-bolanos-pudo-evitarse/"
+  },
+  {
+   "title": "unicanal.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqYVsQL8gonX3PJAcFs2iU7Wl0sgOJzb4_n1PdE7C1hIlxejRZqDj1t4PGbR178kgFXCibwh3i7iUYpjM2yPCNhp_6i4UCLD9_wf-mwDUP7TV2KZ8R3xqIYEfcHJ5JNOmtaLOLXky3-wtFdMipHN0bB3sYstD5EVgZOYcuVXIQjZkZSEqiURdKKc4rie5BGHXcHxL4FLESvQtw-usS",
+   "url": "https://www.unicanal.com.py/pais/corte-suprema-de-justicia-fallo-a-favor-de-victimas-del-ycua-bolanos/"
+  },
+  {
+   "title": "abc.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFd4275h77Nwe-azdJLMVgj4xA8yzkAl9Al0W35nJ6Wyfeh_UKuozU_xmiqArda39rFl8fZszBokmeUHjlurkZLm4D50p1SGKa6Nqp6LqUs94f9Tia3mGDiiOuQChFna1p1vxl7nEYgZpv3OSevKxkMU_-z_pGJEObLI48rjNyMjopZXcPg-IqoF73mVDBCbYKgqbUc1kB7xToW_Vo23AZXrum-7leAMt2XYpvuP6cL2CFG",
+   "url": "https://www.abc.com.py/edicion-impresa/policiales/se-preparan-mas-imputaciones-tras-conclusion-del-peritaje-779176.html"
+  },
+  {
+   "title": "lanacion.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH75vnnXECWUxiMn2-3aVZ3lLwfS0GnwaiZ-PtLEIyydlR-Cg93NlsXo9Fi6NBpkf6SGQJkT1xxo48yIt4aCimOfkG_EeNhG1ACOnWJGiLnUW2Nn6WThXalS1xrwge9NO8_iC3H73gcmXxksBqRAkN3gLxFA7fTmKpVTsUbFzqCoHY20S3HijhaX0jZZEZnr2k7nPYSgJg3Ab7-7vinFHZZuq5K5ckWzeiwuTSzZJ0rNA==",
+   "url": "https://www.lanacion.com.py/pais/2026/08/01/ycua-bolanos-22-anos-despues-la-tragedia-que-paraguay-se-niega-a-olvidar/"
+  },
+  {
+   "title": "lanacion.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFTTDwcicfgSv0PDj5l4IViouvGdWmJzCKBVKerxLjbeLv8upJwxN8xoKYKNexdMb_sWx-7hygRzQjNiOU3gv00ZuoPL01VzcZswVuguszrkUNnWP1za2l4xgzgzVslHwduR8EyI1EMj_AwarrsYy53XxheiePuM6AkiSNwj0DPYqMFxZYV0dZ5UY73Dc57XXWTOzRMFTardgGB4LPxfMzeLRkk9kH85nAbsDQ0DffWRXyBRTyc",
+   "url": "https://www.lanacion.com.py/pais_edicion_impresa/2026/08/01/a-22-anos-de-ycua-bolanos-las-heridas-no-terminan-de-cerrarse/"
+  },
+  {
+   "title": "globalissues.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHITo06H9hEcNOKaPWw7IW1ZTLoWjPJ-L_Ps8q1NHt0uVTN30CCQpX78MGqPar9Cal8wXnFyQKXXjJCwKK2Q9nuTt4dE-QcXAWkwjFL_tvO2iSJhu_NdsVroKDkEReEtdj2o-xhU-vo5aHwHw8=",
+   "url": "https://www.globalissues.org/news/2009/08/25/2605"
+  },
+  {
+   "title": "portalguarani.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGhZ9X2UK3G90LW6WOeAC8l7xFtt3K36f-yN9M1ES5RGBSncneDD_5Ub1lSuhB7Ws5Wx-w0rT0NlDOpRQElIcbEQaUJMX1tnc6J-T5KUMLxh0ezws3at9LfQiFLQVNLb3Uey-y94gKHQ9E5BSnZDjM7YWP6crYv40DCERT8cGPBc0jhpVL21BBFTaHHrfyuKIITa5fc2OnDNCZ0-9mQavDg6y5DIRwheoAbwQnXoQ==",
+   "url": "https://www.portalguarani.com/646_karin_becker_pessolani/25254_la_tragedia_del_ycua_bolanos__por_karin_becker.html"
+  },
+  {
+   "title": "hermandadebomberos.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHFXV4CmTpMrJIbl-RLUCBJnpOCI7RFAAEVlMiOqLVXisp4ORHhnEa9chzdaqqj-GWVekj1smnWtMHBFcd79nNbKq5WkIiHL8X3JQ-JhMMX_Zwmihsnh-QIlMvYiRxUtSoczVcncylBiZioG5QL2Oq_nVvuhiTNiUXLFq8zbVvGbMJ4bbY8JWcKN2j6nUcYjEu8Raa67NIZmgzEJuUBJtlkwdRurjd8Qrqt46uN6m9f-CCk608gztw=",
+   "url": "https://hermandadebomberos.com/group/investigaciondeincendios/forum/topics/ycua-bolanos-el-informe-articulo-de-carlos-britez"
+  },
+  {
+   "title": "ultimahora.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHwiOo3han3cPYIoQIMYbrKrgKGA0Q8JchZ-wHOOqv0Gv2kBFPlndmzoXhexqiaNPDY3CT6zAtfVpIqIhQF7UTeETrXR2i3lrmAW4uvqhv6cf4GjvI8pdfMOe-tVZUXE1yqepWwBt6kizXdUMM9Gf1HclSz5gqP7xyhL65YWm12tvX-VCxTeUvNPIcbW_iUyw==",
+   "url": "https://www.ultimahora.com/memoriasdelycua/el-largo-y-tortuoso-camino-de-la-justicia"
+  },
+  {
+   "title": "lanacion.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHxou25OcdUa06ytmJNBFZbYIMX7i7_sMuWgR_MDFWNriOtvZYGoJmgRte95UTQGyD3ljkWslJfOpVMq0INmOur0XXZg0ncMiXX9hShNiMoLpAO0Yo8a0Vr72VxZNE2jBj_cv5yjaJI_bPbS7TY0RCmzkOR_EL-gu77Gi_kg7ldYnNj_8chF1FMHV_mEScAEVrUa00F-n4ie-6mCGPLZnz3wSndqaqHPsG1IwX1cQ==",
+   "url": "https://www.lanacion.com.py/pais/2024/12/05/ycua-bolanos-hace-18-anos-victimas-y-familiares-forzaron-nuevo-juicio/"
+  },
+  {
+   "title": "abc.com.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFsb3F0ZfE3TfwYmdMLRAWwsymFNddDlk1TbtFbRu6FKLSgnBphgntngarp69NqFe1M_zFt51CjpxTIKWYgBx4IZysgNAbUyfvhpDyzRS9WXmJk25YuwZtLULgyiVpt31nqWqbCFfYKb2p8cImbexF2MDVOkXDzFv5_Lm9AY_jh-8DeV-2dRZoM4WjOpFgAlSI9Fda_sOzNTmQi_-Z0uo4kpWqgTcLn0-I4jjDPnef7IeEcxdPj_wZOQfXvzWhWO1DwVVIw5VYkEixPiAhO",
+   "url": "https://www.abc.com.py/nacionales/2025/08/01/ycua-bolanos-sobrevivientes-y-familias-de-victimas-siguen-pidiendo-justicia-a-21-anos-del-siniestro/"
+  },
+  {
+   "title": "pj.gov.py",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQSz1oqE7bb6llTIuq2HQsGuQ134Oa0Hl0vosz2dfSgk83iTlv1vNwiBQov5B2jNW6QFybWaNutq96LWjH-392n87prsRKwYUtydRrn3AU7N8vCS45c_djNott-MHDhJJMRPhxP3vAEGjV5-0hs4ik_2-ka4MpTZqdetU9_kWSQXi9MZPieJsMYy9xTUnLsY6uAA1KfTSLPYhEIrwHVs2m9uWfqJgN-TgQtOaGBr0XhDTfbWvfq4OVdHASmrZ31oQpifh60u19",
+   "url": "https://www.pj.gov.py/notas/161-coordinadora-de-victimas-de-ycua-bolanos-pidio-al-presidente-de-la-corte-celeridad-del-juicio-para-acusados"
+  }
+ ],
+ "prompt_version": "f7a-1"
+}

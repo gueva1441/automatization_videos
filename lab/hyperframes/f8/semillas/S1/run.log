@@ -1,0 +1,54 @@
+  [R1] foco 1: 12 fichas del modelo, 14 URLs en el grounding
+  [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 2: 12 fichas del modelo, 15 URLs en el grounding
+  [R1] foco 3: 10 fichas del modelo, 5 URLs en el grounding
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: 12 fichas del modelo, 6 URLs en el grounding
+  [R1] 33 URLs reales: 34 con ficha del modelo, 6 con ficha de Flash, 0 fuera (no relevantes o listados) · 12 fichas del modelo sin URL del grounding
+  [R2] F01 ultimahora_2024_memorias_del_ycua_bolanos: FALLÓ — HTTP 429
+  [R2] F03 com_2020_ycua_bolanos_sobrevivio_a_la: OK (original) 5598 caracteres
+  [R2] F04 com_2004_explosion_de_gas_habria_causado: FALLÓ — sin copia en la Wayback Machine
+  [R2] F05 com_2024_a_20_anos_del_ycua: OK (original) 4592 caracteres
+  [R2] F06 ultimahora_2007_ycua_peritaje_indica_que_solo: OK (original) 3688 caracteres
+  [R2] F07 ultimahora_2024_memorias_del_ycua_bolanos: OK (original) 6368 caracteres
+  [R2] F08 ultimahora_2024_testimonios_de_sobrevivientes_del_ycua: OK (original) 3166 caracteres
+  [R2] F09 portalguarani_2006_la_tragedia_del_ycua_bolanos: OK (original) 299244 caracteres · recorte: cortado en el último párrafo antes de 300000 (133411 caracteres fuera)
+  [R2] F10 ultimahora_2025_ycua_bolanos_a_21_anos: OK (original) 6607 caracteres
+  [R2] F11 swissinfo_2024_historias_de_ausencia_y_dolor: OK (original) 5239 caracteres
+  [R2] F12 com_2008_documental_sobre_el_caso_ycua: FALLÓ — sin copia en la Wayback Machine
+  [R2] F13 sfgate_2004_at_least_256_die_in: OK (original) 4793 caracteres · NO nombra el evento
+  [R2] F14 reliefweb_2004_paraguayan_supermarket_fire_kills_at: FALLÓ — HTTP 429
+  [R2] F15 com_2011_caso_ycua_bolanos_concluye_proceso: OK (original) 3102 caracteres
+  [R2] F16 ultimahora_2014_ycua_bolanos_la_tragedia_que: OK (original) 3889 caracteres
+  [R2] 10 documentos OK de 16 intentados
+  [R2] ficha F03: prensa_posterior 2020 «Ycuá Bolaños: Sobrevivió a la tragedia con 7 años y hoy estu»
+  [R2] ficha F05: prensa_posterior 2024 «A 20 años del Ycuá Bolaños: familiares y sobrevivientes clam»
+  [R2] ficha F06: prensa_epoca 2004 «Ycuá: Peritaje indica que solo tres puertas estaban cerradas»
+  [R2] ficha F07: prensa_posterior 2024 «Vea todos los capítulos de la docuserie Memorias del Ycuá Bo»
+  [R2] ficha F08: prensa_posterior 2024 «Testimonios de sobrevivientes del Ycuá se plasman en docuser»
+  [R2] ficha F09: libro 2006 «La tragedia del Ycuá Bolaños»
+  [R2] ficha F10: prensa_posterior 2025 «Ycuá Bolaños: A 21 años, la Corte dice que Paiva debe pagar »
+  [R2] ficha F11: prensa_posterior 2024 «Historias de ausencia y dolor perviven 20 años después de un»
+  [R2] ficha F13: prensa_epoca 2004 «At least 256 die in Paraguay blast, fire»
+  [R2] ficha F15: prensa_posterior 2011 «Caso Ycuá Bolaños: Concluye proceso penal con tres sentencia»
+  [R2] ficha F16: prensa_posterior 2014 «Ycuá Bolaños: La tragedia que marcó la sociedad»
+  [R3] F03: 23 ítems con cita literal, 0 descartados
+  [R3] F05: 46 ítems con cita literal, 0 descartados
+  [R3] F06: 32 ítems con cita literal, 2 descartados
+  [R3] F07: 10 ítems con cita literal, 8 descartados
+  [R3] F08: 19 ítems con cita literal, 3 descartados
+  [R3] F09: 69 ítems con cita literal, 4 descartados
+  [R3] F09: 55 ítems con cita literal, 2 descartados
+  [R3] F09: 64 ítems con cita literal, 13 descartados
+  [R3] F09: 56 ítems con cita literal, 7 descartados
+  [R3] F09: 44 ítems con cita literal, 4 descartados
+  [R3] F09: 28 ítems con cita literal, 5 descartados
+  [R3] F11: 60 ítems con cita literal, 2 descartados
+  [R3] F15: 33 ítems con cita literal, 2 descartados
+  [R3] F16: 31 ítems con cita literal, 1 descartados
+  [R4] merge: datos 214 · cronologia 60 · lugares 41 · citas 88 · personajes 82 · 27 ítems con ≥ 2 documentos · 53 descartados
+  [R4] autores de cita sumados como personajes: ['Cadena Ycuá Bolaños', 'Dr. Stanley']
+  [4a·pool] personajes sin acción, fuera: ['Óscar “Nenecho” Rodríguez', 'Héctor Machado', 'Elizardo Rojas', 'Isidro Ayala Arrúa', 'Julio César Alarcón', 'Juan Pablo Bareiro', 'Victorino Martínez', 'Blas Cabriza', 'Don Julio', 'Oscar Acosta', 'Víctor Duarte', 'Baltazar Duarte']
+  [R4] presencia por párrafo: 178 vínculos persona-evento (54 personas con alguno)
+  [R5] citas: {'verificada': 58, 'verificada_parcial': 30, 'sin_verificar': 0}
