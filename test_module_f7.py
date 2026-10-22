@@ -331,12 +331,12 @@ def test_escaleta_reads_v3_pool():
     assert "Dan Bright" in prompt and "VERIFICADA" in prompt
 
 
-def test_flag_off_by_default(monkeypatch):
+def test_flag_on_by_default(monkeypatch):
+    """F7d (§9.2): research v3 es el default para seeds nuevos; RESEARCH_V3=0 vuelve al camino viejo."""
     monkeypatch.delenv("RESEARCH_V3", raising=False)
-    assert not r3.research_v3_enabled({})
-    monkeypatch.setenv("RESEARCH_V3", "1")
     assert r3.research_v3_enabled({})
     monkeypatch.setenv("RESEARCH_V3", "0")
+    assert not r3.research_v3_enabled({})
     assert r3.research_v3_enabled({"research_version": 3})
 
 

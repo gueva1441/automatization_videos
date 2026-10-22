@@ -545,10 +545,19 @@ def _research_seed_deep(seed: dict, existing_titles: list[str]) -> dict:
     """
     topic_id = str(uuid.uuid4())
 
-    # ─── Paso 1: 4 angle queries Pro EN PARALELO (HANDOFF_121) ───
-    # Cada ángulo depende SOLO de (seed, angle) → independiente. Antes: serie + sleeps entre
-    # ángulos (~4×T). Ahora: ThreadPool con backoff 429/503 por ángulo → ~1×T + overhead.
-    angle_blocks = _gather_angle_blocks(seed)
+    # ─── F7d: research v3 por defecto (documentos bajados y leídos; RESEARCH_V3=0 → el camino de abajo) ───
+    # La compuerta del pool corre adentro: rojo → PoolGateRed (research_topics deja el seed en el inbox con el motivo).
+    # Los bloques angulares para 4a–4e se arman con el pool (sin las 4 búsquedas de resumen).
+    from researcher_steps.research_v3 import research_v3_enabled
+    v3_pool = None
+    if research_v3_enabled():
+        from researcher_steps.research_v3 import run_seed
+        v3_pool, angle_blocks, _ = run_seed(seed, topic_id, STEPS_DIR / topic_id)
+    else:
+        # ─── Paso 1: 4 angle queries Pro EN PARALELO (HANDOFF_121) ───
+        # Cada ángulo depende SOLO de (seed, angle) → independiente. Antes: serie + sleeps entre
+        # ángulos (~4×T). Ahora: ThreadPool con backoff 429/503 por ángulo → ~1×T + overhead.
+        angle_blocks = _gather_angle_blocks(seed)
 
     if not angle_blocks:
         raise RuntimeError(
@@ -562,7 +571,10 @@ def _research_seed_deep(seed: dict, existing_titles: list[str]) -> dict:
 
     # ─── Sub-paso 4a: facts + sources etiquetados ───
     print(f"       → 4a: extrayendo facts + sources...")
-    step_4a = extract_facts_and_sources(angle_blocks)
+    if v3_pool is None:
+        step_4a = extract_facts_and_sources(angle_blocks)
+    else:                                       # F7d: el evidence_pool es el de research v3 (no se re-extrae)
+        step_4a = {**extract_facts_and_sources(angle_blocks, with_pool=False), "evidence_pool": v3_pool}
     _save_step_output(topic_id, "01_facts_sources", step_4a)
     verified_facts = step_4a.get("verified_facts", [])
     sources = step_4a.get("sources", [])
@@ -628,6 +640,8 @@ def _research_seed_deep(seed: dict, existing_titles: list[str]) -> dict:
         "documented_props": documented_props,
         "central_subject": central_subject,
     }
+    if v3_pool is not None:
+        data["research_version"] = 3                                # F7d
 
     # ─── Sanitización defensiva (espejo del archivo viejo) ───
     if not data.get("video_title"):
@@ -798,6 +812,24 @@ def _remove_seed_from_inbox(seed_id: str) -> bool:
         return False
 
 
+def _flag_seed_in_inbox(seed_id: str, gate: dict) -> bool:
+    """F7d: el seed cuyo pool dio ROJO se queda en el inbox con `pool_gate` (color, métricas, motivos, fecha): no se
+    vuelve a investigar a ciegas y el motivo queda a la vista."""
+    if not SEEDS_FILE.exists():
+        return False
+    try:
+        payload = json.loads(SEEDS_FILE.read_text(encoding="utf-8"))
+        for s in payload.get("seeds", []):
+            if s.get("seed_id") == seed_id:
+                s["pool_gate"] = {"color": gate["color"], "metricas": gate["metricas"], "motivos": gate["motivos"],
+                                  "fecha": datetime.now().isoformat(timespec="seconds")}
+                SEEDS_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+                return True
+        return False
+    except Exception:
+        return False
+
+
 def _archive_seed(seed: dict, topic_id: str) -> bool:
     try:
         archive: dict = {"archived": []}
@@ -960,6 +992,11 @@ def research_topics(
             else:
                 topic_data = _research_seed_simple(seed, existing_titles)
         except Exception as e:
+            from researcher_steps.pool_gate import PoolGateRed
+            if isinstance(e, PoolGateRed):              # F7d: el seed se queda en el inbox, con el motivo
+                _flag_seed_in_inbox(seed["seed_id"], e.gate)
+                print(f"     🔴 Compuerta del pool: {'; '.join(e.gate['motivos'])} → vuelve al inbox")
+                continue
             error_handler.log_error(
                 PipelineStage.TOPIC_RESEARCHER, e,
                 context={"seed_title": seed.get("seed_title", "?")}

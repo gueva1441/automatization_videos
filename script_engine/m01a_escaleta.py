@@ -168,11 +168,13 @@ beats:
  7 cap7 cierre · memoria 2 · imagen: "una anciana mirando la misma ventana, setenta años después" · humano en escena · pregunta pantalla: "¿Cuántas puertas siguen cerradas?"
 """
 
-RULES = f"""REGLAS DE LA ESCALETA (duras: si no se cumplen, se rechaza):
-1. Entre {MIN_BEATS} y {MAX_BEATS} beats, numerados 1..N en orden, cada uno con su `cap` (1–7, no decreciente). Los 7
+def rules_text(cap_words: dict[int, int], min_beats: int, max_beats: int) -> str:
+    """Las reglas con el perfil de largo (F7d: el amarillo de la compuerta acorta el video)."""
+    return f"""REGLAS DE LA ESCALETA (duras: si no se cumplen, se rechaza):
+1. Entre {min_beats} y {max_beats} beats, numerados 1..N en orden, cada uno con su `cap` (1–7, no decreciente). Los 7
    caps tienen al menos un beat. El beat 1 es la `funcion` "gancho" del cap 1.
-2. `palabras_objetivo`: los beats de un cap suman su largo: cap 1 ≈ {CAP_WORDS[1]}, caps 2–6 ≈ {CAP_WORDS[2]} cada uno,
-   cap 7 ≈ {CAP_WORDS[7]}.
+2. `palabras_objetivo`: los beats de un cap suman su largo: cap 1 ≈ {cap_words[1]}, caps 2–6 ≈ {cap_words[2]} cada uno,
+   cap 7 ≈ {cap_words[7]}.
 3. `intensidad` de {INTENSITY[0]} a {INTENSITY[1]}: NO BAJA hasta el pico (cada cap peor que el anterior). El pico no es
    el último beat, y después del pico hay al menos un beat de intensidad 1 (respiro: el espectador respira antes del
    cierre). FLASH-FORWARD: el beat 1 puede contar primero un momento POSTERIOR y más intenso (`flash_forward: true`);
@@ -224,6 +226,9 @@ LO QUE RETIENE (cada decisión responde a por qué alguien se iría):
 - Curva: cada cap peor que el anterior. Ritmo: respiros.
 - Cierres que obligan: culpa o consecuencia, nunca trivia administrativa.
 - Final humano: lo que produce el like y el comentario."""
+
+
+RULES = rules_text(CAP_WORDS, MIN_BEATS, MAX_BEATS)
 
 
 def own_ids(pool: dict, persona: dict) -> list[str]:
@@ -315,6 +320,13 @@ def pool_section(pool: dict) -> str:
             f"UN HECHO, UNA CIFRA:\n{_fmt_counts(pool)}")
 
 
+def _profile(topic: dict) -> tuple[dict[int, int], int, int]:
+    """(palabras por cap, mínimo y máximo de beats): los de siempre, o los del amarillo de la compuerta del pool
+    (`topic["_largo"]`, F7d)."""
+    lg = topic.get("_largo") or {}
+    return lg.get("cap_words") or CAP_WORDS, MIN_BEATS, lg.get("max_beats") or MAX_BEATS
+
+
 def build_prompt(topic: dict, pool: dict, feedback: list[str] | None = None) -> str:
     fb = ""
     if feedback:
@@ -338,7 +350,7 @@ Revelación: {topic.get("reveal") or "-"}
 
 ═══ CÓMO SE VE UNA BUENA ESCALETA ═══
 {FEWSHOT}
-═══ {RULES}
+═══ {rules_text(*_profile(topic))}
 {fb}
 Devolvé la escaleta de ESTE tema en el JSON pedido. Pensá primero a quién seguimos y dónde está el pico; después
 repartí los beats en los 7 caps."""
@@ -399,7 +411,8 @@ def _beat_known(beats: list[dict], upto_cap: int, pool: dict, esc: dict, context
 
 
 def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
-             solo_apoyo: list[str] | tuple[str, ...] = ()) -> tuple[dict, list[str], list[str], list[str]]:
+             solo_apoyo: list[str] | tuple[str, ...] = (), largo: dict | None = None
+             ) -> tuple[dict, list[str], list[str], list[str]]:
     """(escaleta reparada, problemas duros, reparaciones, avisos). Problemas duros → reintento. `context` = lo que el
     espectador sabe antes del primer segundo (el título del video)."""
     esc = copy.deepcopy(raw or {})
@@ -407,8 +420,9 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
     hard, rep, warn = [], [], []
     beats = sorted([b for b in esc.get("beats") or [] if isinstance(b, dict)], key=lambda b: int(b.get("n") or 0))
     esc["beats"] = beats
-    if not MIN_BEATS <= len(beats) <= MAX_BEATS:
-        hard.append(f"{len(beats)} beats (tienen que ser {MIN_BEATS}–{MAX_BEATS})")
+    cap_words, min_b, max_b = _profile({"_largo": largo} if largo else {})
+    if not min_b <= len(beats) <= max_b:
+        hard.append(f"{len(beats)} beats (tienen que ser {min_b}–{max_b})")
     for k, b in enumerate(beats, start=1):
         b["n"] = k
         try:
@@ -598,7 +612,7 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
             hard.append(f"la última frase del video (cierre del beat {beats[-1]['n']}) no nombra al humano ni a un testigo "
                         f"{'verificado ' if vp else ''}({', '.join(names)}): «{last}»")
     # palabras por cap (reparación)
-    for n, target in CAP_WORDS.items():
+    for n, target in cap_words.items():
         bs = [b for b in beats if b["cap"] == n]
         tot = sum(b["palabras_objetivo"] for b in bs)
         if bs and (tot <= 0 or abs(tot - target) > WORDS_TOL * target):
@@ -821,6 +835,26 @@ def _persist(topic_id: str, esc: dict) -> Path:
     return out
 
 
+def pool_gate_profile(topic: dict, pool: dict, *, persist: bool = True, log: list[str] | None = None) -> dict | None:
+    """F7d (HANDOFF_F7 §9.2): la compuerta del pool antes de la escaleta, solo para pools de research v3
+    (`_research_v3`; los pools viejos siguen igual). Escribe POOL_GATE.md en los pasos del topic. Rojo → PoolGateRed
+    (no se gasta en guion). Amarillo → `topic["_largo"]`: palabras por cap escaladas a `target_words` del amarillo y
+    hasta `gate_yellow_max_beats` beats. Devuelve el gate (o None)."""
+    if not pool.get("_research_v3"):
+        return None
+    from researcher_steps import pool_gate as pg
+    topic_id = topic.get("id") or topic.get("topic_id")
+    gate = pg.check(pool, topic_id, STEPS_DIR / topic_id if persist else None)
+    if gate["color"] == pg.YELLOW:
+        k = gate["target_words"] / max(1, sum(CAP_WORDS.values()))
+        topic["_largo"] = {"cap_words": {n: round(w * k) for n, w in CAP_WORDS.items()},
+                           "max_beats": gate["max_beats"]}
+    if log is not None:
+        log.append(f"  [escaleta] compuerta del pool: {gate['color']} {gate['metricas']}"
+                   + (f" · {gate['motivos']}" if gate["motivos"] else ""))
+    return gate
+
+
 def is_v3(topic: dict) -> bool:
     """Guion v3 solo con evidence_pool y con el flag (GUION_V3=1 o topic["guion_version"] == 3)."""
     return bool(topic.get("evidence_pool")) and (os.environ.get("GUION_V3") == "1" or topic.get("guion_version") == 3)
@@ -838,6 +872,7 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
     pool = topic.get("evidence_pool") or {}
     if not pool:
         raise ValueError("la escaleta v3 necesita evidence_pool (sin pool: camino v2)")
+    gate = pool_gate_profile(topic, pool, persist=persist, log=log)        # F7d: rojo → PoolGateRed, sin gastar
     if call is None:
         from gemini_helpers import call_pro_json as call
     feedback: list[str] = []
@@ -846,12 +881,15 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
         raw = call(build_prompt(topic, pool, feedback), system_instruction=SYSTEM, response_schema=SCHEMA,
                    description=f"m01a_escaleta intento {k}")
         esc, hard, rep, warn = validate(raw, pool, final=k == attempts, context=str(topic.get("video_title") or ""),
-                                        solo_apoyo=tuple(topic.get("escaleta_solo_apoyo") or ()))
+                                        solo_apoyo=tuple(topic.get("escaleta_solo_apoyo") or ()),
+                                        largo=topic.get("_largo"))
         intentos.append({"intento": k, "problemas": hard, "reparaciones": rep, "avisos": warn})
         log.append(f"  [escaleta] intento {k}: {len(hard)} problema(s) {hard[:4]} · {len(rep)} reparación(es)")
         if not hard:
             esc.update({"topic_id": topic_id, "prompt_version": PROMPT_VERSION, "_reparaciones": rep, "_avisos": warn,
                         "_intentos": intentos})
+            if gate:
+                esc["pool_gate"] = {k: gate[k] for k in ("color", "metricas", "motivos", "target_words")}
             apply_pool_plan(esc, pool)
             if persist:
                 _persist(topic_id, esc)

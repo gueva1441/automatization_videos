@@ -18,7 +18,8 @@ Reglas (handoff F7 §2–§3):
     pool       mismas claves que hoy (datos, cronologia, lugares, citas, personajes, _descartados,
                cifras_canonicas); lo nuevo es aditivo (doc_id, docs, n_fuentes, cita_literal, offset, idioma,
                texto_original, texto_es, testigo, presente_en, n_citas, n_datos).
-El camino viejo (`topic_researcher._research_seed_deep` con 4 ángulos) no cambia: v3 se activa con RESEARCH_V3=1.
+F7d: v3 es el default de `topic_researcher._research_seed_deep` para seeds nuevos (`run_seed`); el camino viejo
+(4 ángulos resumidos) queda detrás de RESEARCH_V3=0, sin cambios.
 """
 from __future__ import annotations
 
@@ -48,10 +49,10 @@ USER_AGENT = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHT
 
 
 def research_v3_enabled(topic: dict | None = None) -> bool:
-    """RESEARCH_V3=1 (o topic["research_version"] == 3) activa el camino v3; sin flag, el camino viejo."""
+    """F7d: v3 es el DEFAULT para seeds nuevos; RESEARCH_V3=0 vuelve al camino viejo (4 ángulos resumidos)."""
     if topic and topic.get("research_version") == 3:
         return True
-    return os.environ.get("RESEARCH_V3", "0") == "1"
+    return os.environ.get("RESEARCH_V3", "1") != "0"
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1791,3 +1792,96 @@ def add_fragments(pool: dict[str, Any]) -> None:
     """In place: `fragmento` en cada cita (aditivo; ver quote_fragment)."""
     for q in pool.get("citas") or []:
         q["fragmento"] = quote_fragment(q.get("texto") or "")
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F7d — research v3 de punta a punta para un seed nuevo (topic_researcher, RESEARCH_V3=1 por defecto)
+# ═══════════════════════════════════════════════════════════════
+
+PROFILE_SCHEMA: dict[str, Any] = {"type": "OBJECT", "properties": {
+    "anio_evento": {"type": "INTEGER"}, "lugar_principal": {"type": "STRING"},
+    "nombres_lugar": {"type": "ARRAY", "items": {"type": "STRING"}}, "idioma_local": {"type": "STRING"}},
+    "required": ["anio_evento", "nombres_lugar", "idioma_local"]}
+
+
+def seed_profile(seed: dict, *, call: Callable[..., dict] | None = None) -> dict[str, Any]:
+    """Año del evento y nombres del lugar/evento (en inglés y en el idioma local) para la contaminación y el «nombra el
+    evento» de R2 (1 Flash, sin búsqueda). `place_re` = esos nombres como alternativa."""
+    if call is None:
+        from gemini_helpers import call_flash_json as call
+    raw = call(f"""TEMA: "{seed['seed_title']}"
+Devolvé el año en que ocurrió el evento central, el lugar principal y de 3 a 6 nombres con los que un documento en
+inglés o en el idioma del lugar nombraría el lugar o el evento (nombre oficial, sigla, nombre corto, nombre del evento),
+y el idioma local («inglés (Nueva Orleans, EE. UU.)»).""", response_schema=PROFILE_SCHEMA,
+               description="research v3 perfil del seed") or {}
+    names = [str(n).strip() for n in raw.get("nombres_lugar") or [] if len(str(n).strip()) >= 3]
+    return {"anio_evento": int(raw.get("anio_evento") or 0), "lugar_principal": raw.get("lugar_principal") or "",
+            "idioma_local": raw.get("idioma_local") or "", "nombres_lugar": names,
+            "place_re": "|".join(rf"\b{re.escape(n)}\b" for n in names) or re.escape(seed["seed_title"][:30])}
+
+
+def pool_to_blocks(pool: dict[str, Any]) -> dict[str, str]:
+    """Bloques angulares (tecnico, humano, misterio, visual) armados con el pool leído de documentos, para que 4a–4e
+    sigan recibiendo lo de siempre sin las 4 búsquedas de resumen. Cada línea es un ítem del pool con su fuente."""
+    def line(it: dict, txt: str) -> str:
+        return f"- {txt} (fuente: {it.get('fuente')})"
+    srcs = sorted({it.get("fuente") for k in KINDS for it in pool.get(k) or [] if it.get("fuente")})
+    fuentes = "[FUENTES CONSULTADAS]\n" + "\n".join(f"- {s}" for s in srcs)
+    crono = "\n".join(line(c, f"{c['fecha']}{' ' + c['hora'] if c.get('hora') else ''}: {c['evento']}")
+                      for c in pool.get("cronologia") or [])
+    datos = "\n".join(line(d, d["texto"]) for d in pool.get("datos") or [] if d.get("tipo") in
+                      ("cifra", "magnitud", "fecha", "contradiccion"))
+    gente = "\n".join(f"- {p['nombre']} — {p.get('rol') or ''}{' · testigo' if p.get('testigo') else ''}"
+                      for p in pool.get("personajes") or [])
+    citas = "\n".join(line(q, f"«{q['texto']}» — {q.get('autor')}") for q in pool.get("citas") or []
+                      if (q.get("verificacion") or {}).get("estado") == "verificada")
+    canon = "\n".join(f"- {g.get('valor')} ({g.get('fuente_titulo') or g.get('fuente')}); variantes: "
+                      + ", ".join(f"{v['valor']} ({v['estatus']})" for v in g["variantes"])
+                      for g in pool.get("cifras_canonicas") or [])
+    otros = "\n".join(line(d, d["texto"]) for d in pool.get("datos") or [] if d.get("tipo") not in
+                      ("cifra", "magnitud", "fecha", "contradiccion"))
+    lugares = "\n".join(f"- {lg['nombre']}{' — ' + lg['rol'] if lg.get('rol') else ''}" for lg in pool.get("lugares") or [])
+    return {
+        "tecnico": f"=== HALLAZGOS: TÉCNICO ===\n[CRONOLOGÍA]\n{crono}\n\n[DATOS DUROS]\n{datos}\n\n{fuentes}",
+        "humano": f"=== HALLAZGOS: HUMANO ===\n[PERSONAS]\n{gente}\n\n[TESTIMONIOS]\n{citas}\n\n{fuentes}",
+        "misterio": f"=== HALLAZGOS: MISTERIO ===\n[CIFRAS EN DISPUTA]\n{canon or '- (ninguna)'}\n\n[OTROS DATOS]\n{otros}\n\n"
+                    f"{fuentes}",
+        "visual": f"=== HALLAZGOS VISUALES ===\n[LUGARES]\n{lugares}\n\n[DATOS FÍSICOS]\n{datos}\n\n{fuentes}",
+    }
+
+
+def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | None = None,
+             gate: bool = True) -> tuple[dict[str, Any], dict[str, str], dict[str, Any] | None]:
+    """Research v3 de un seed: perfil → R1 → R2 (+ fichas) → R3 → R4/R5 → compuerta del pool (rojo → PoolGateRed).
+    Deja en `steps_dir`: _perfil.json, fuentes.json, fuentes/ (+ manifest), _r3_cache/, 00_pool_v3.json, POOL_GATE.md.
+    Devuelve (pool, bloques angulares para 4a–4e, gate)."""
+    from config import DATA_DIR
+    log = log if log is not None else []
+    steps_dir.mkdir(parents=True, exist_ok=True)
+    pf = steps_dir / "_perfil.json"
+    prof = json.loads(pf.read_text(encoding="utf-8")) if pf.exists() else seed_profile(seed)
+    pf.write_text(json.dumps(prof, ensure_ascii=False, indent=1), encoding="utf-8")
+    s2 = {**seed, "lugar_idioma": prof.get("idioma_local") or None}
+    r1 = discover_sources(s2, cache=steps_dir / "_r1_cache.json", log=log)
+    (steps_dir / "fuentes.json").write_text(json.dumps(r1, ensure_ascii=False, indent=1), encoding="utf-8")
+    src = steps_dir / "fuentes"
+    man = download_sources(r1["fuentes"], src, place_re=prof["place_re"], log=log)
+    refine_fichas(man, src, seed, log=log)
+    (src / "manifest.json").write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
+    docs = [d for d in man["documentos"] if d.get("ok")]
+    texts, per_doc = {}, {}
+    year = prof.get("anio_evento") or date.today().year
+    for d in docs:
+        texts[d["id"]] = DocText(d["id"], (src / d["txt"]).read_text(encoding="utf-8"))
+        if doc_contamination(d, year):
+            continue
+        per_doc[d["id"]] = extract_document(seed, d, texts[d["id"]].text, cache_dir=steps_dir / "_r3_cache", log=log,
+                                            place_re=prof["place_re"])
+    pool = build_pool(per_doc, docs, texts, event_year=year, geocode_cache=DATA_DIR / "geocode_cache.json", log=log)
+    (steps_dir / "00_pool_v3.json").write_text(json.dumps(pool, ensure_ascii=False, indent=1), encoding="utf-8")
+    g = None
+    if gate:
+        from researcher_steps import pool_gate as pg
+        g = pg.check(pool, topic_id, steps_dir)                      # rojo → PoolGateRed (el seed vuelve al inbox)
+        pool["_pool_gate"] = {k: g[k] for k in ("color", "metricas", "motivos")}
+    return pool, pool_to_blocks(pool), g

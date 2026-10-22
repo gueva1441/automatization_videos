@@ -17,6 +17,14 @@ DEFAULTS = {
     "dev_cap_seconds": 105,        # antes 75
     "outro_cap_seconds": 45,
     "max_images_per_video": 90,    # el tope no es por costo: es el tiempo de QA de Omar
+    # F7d (§9.2): compuerta del pool (researcher_steps/pool_gate.py)
+    "gate_datos": 150,
+    "gate_citas_verificadas": 8,
+    "gate_elegibles": 2,
+    "gate_eventos_fecha": 10,
+    "gate_yellow_pct": 50,         # amarillo: todo ≥ la mitad de cada umbral
+    "gate_yellow_target_words": 1200,
+    "gate_yellow_max_beats": 8,
 }
 
 
