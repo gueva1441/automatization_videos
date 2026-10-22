@@ -104,6 +104,7 @@ from nicho_config import get_active_nicho
 from anchor_timing import compute_anchor_starts
 from script_engine.name_matching import scrub_documented_names
 from engine_profiles import select_profile
+from script_engine import m03_imagenes_v3 as v3img
 
 
 # Enums de shot_scale / light_mode. VALID_SHOT_SCALES lo usa el post-check de slots del skeleton seedream.
@@ -226,6 +227,14 @@ Fill ALL slots for EVERY item. Each value is a SHORT English phrase (not a parag
 TEXT DISCIPLINE: any text meant to appear in the image goes ONLY through the text_in_image slot, in Spanish. The prose slots (subject/action/setting/...) describe the scene — never embed letters or words to be rendered inside them.
 
 JSON only. No markdown. No preamble."""
+)
+
+
+# F8 §1 C–E (guion v3): la doctrina R6 sin los clichés de cara (jaw clenched, pupils dilated…) + reglas de composición
+# y de contenido sensible. El SI de arriba (v2 y m09) no cambia.
+SYSTEM_INSTRUCTION_VISUAL_SEEDREAM_V3 = (
+    SYSTEM_INSTRUCTION_VISUAL_SEEDREAM.replace(DOCTRINE_R6_PHYSICAL_TRANSLATION, v3img.DOCTRINE_R6_V3)
+    .replace("JSON only. No markdown. No preamble.", v3img.COMPOSITION_RULES_V3 + "\n\nJSON only. No markdown. No preamble.")
 )
 
 
@@ -839,7 +848,7 @@ Bias the shot_scale, lighting and mood of these images toward:
 """
 
 
-def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors) -> str:
+def _build_seedream_prompt_step2(topic, cap_data, narration_text, anchors, extra_block: str = "") -> str:
     """User-prompt del skeleton seedream: canon 2-capas + facts + anchors → pedir
     N slot-sets (uno por fragmento). El LLM elige hard_fact_ids; NO escribe cifras."""
     cap_n = cap_data["chapter_number"]
@@ -885,7 +894,7 @@ Fill the slots for EACH fragment below, in the SAME order (item i ↔ fragment i
 {anchor_list}
 
 Emit EXACTLY {n} slot-objects as a JSON array.
-{arc_block}{opening_clip_rule}
+{arc_block}{opening_clip_rule}{extra_block}
 DISTRIBUTION OF emotional_rank:
 - 1-2 items R1 (peak of cap: closing, revelation, biggest impact).
 - 2-3 items R2 (action, strong transition, person in tension).
@@ -932,7 +941,16 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
     facts = topic.get("verified_facts") or []
     documented = topic.get("documented_people")
     profile = select_profile("seedream")
-    prompt = _build_seedream_prompt_step2(topic, cap_data, narration, anchors)
+    # F8 §1 B: con escaleta (guion v3), cada imagen hereda el beat de su ancla y su imagen sensorial manda el sujeto
+    f8 = topic.get("_f8")
+    cap_beats = (f8 or {}).get("beats", {}).get(cap_number) or []
+    assign = (f8.get("force_assign") or v3img.assign_beats(narration, anchors, cap_beats)) if (f8 and cap_beats) else None
+    extra = ""
+    if assign:
+        extra = v3img.beats_block(cap_beats, assign, cap_data.get("bullets"))
+    if f8 and f8.get("note"):
+        extra += f"\nFOR THIS IMAGE: {f8['note']}\n"
+    prompt = _build_seedream_prompt_step2(topic, cap_data, narration, anchors, extra)
 
     def _validator(parsed):
         items = parsed.get("image_prompts") if isinstance(parsed, dict) else None
@@ -960,11 +978,18 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
 
     slots_out = _call_with_validation_retry(
         prompt, _validator, cap_number,
-        system_instruction=SYSTEM_INSTRUCTION_VISUAL_SEEDREAM,
+        system_instruction=SYSTEM_INSTRUCTION_VISUAL_SEEDREAM_V3 if f8 else SYSTEM_INSTRUCTION_VISUAL_SEEDREAM,
         response_schema=_seedream_slots_schema(n),
         use_pro=SEEDREAM_SLOTS_USE_PRO,
         description="m03:slots",
     )
+    if f8:
+        for k, it in enumerate(slots_out["image_prompts"]):
+            if assign:
+                it["beat"], it["cerrada"] = assign[k]["beat"], assign[k]["cerrada"]
+            gone = v3img.scrub_slots(it)                   # D2–D3, E: clichés y prohibidas fuera ANTES de tejer
+            if gone:
+                it["_f8_slots_scrub"] = gone
 
     # RUTA B (HANDOFF_134d): kind=place ancla la madre-establecimiento SOLO en exteriores.
     # Filtro DETERMINÍSTICO (red del rule del prompt, que el LLM puede filtrar mal).
@@ -996,6 +1021,8 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
         it["prompt"] = _fluidify_with_leakage_guard(
             it, locked, profile, documented, cap_number, i)
         it["art_profile"] = ""
+        if f8:
+            _f8_finish_item(it, locked, profile, documented, cap_number, i, f8.get("year") or "")
 
     items = list(enumerate(slots_out["image_prompts"], start=1))
     if len(items) <= 1:
@@ -1007,7 +1034,93 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
             for _f in as_completed(_futs):
                 _f.result()   # re-lanza la 1ª excepción (falla el cap, como la versión secuencial)
     slots_out["chapter_number"] = cap_number
+    if f8 and not f8.get("refill"):
+        _f8_fix_cap(topic, cap_data, narration, slots_out["image_prompts"], cap_number)
     return slots_out
+
+
+def _f8_finish_item(it: dict, locked: list[dict], profile, documented, cap_number: int, i: int, year: str) -> None:
+    """F8 §1 C–E sobre la prosa ya tejida: conteos e izquierda/derecha fuera (D4, determinista); si quedan manos, cara,
+    palabras prohibidas o un menor en daño, un re-tejido con el motivo; si siguen, se saca la frase (backstop, como la
+    regla 3). Después el estilo al principio y al final (C) y las marcas `sensible` y `motivos`."""
+    prose = v3img.fix_counts_lr(it["prompt"])
+    probs = v3img.problems(prose)
+    if probs:
+        fb = ("COMPOSITION/SENSITIVE RULES broken by the previous weave: "
+              + "; ".join(f"{k}: \"{f}\"" for k, f in probs[:5])
+              + ". Re-weave WITHOUT them: no hands as subject, no face macro or face clichés, no exact counts of people,"
+                " no left/right, never blood/wound/gore/mutilation, no minor in harm.")
+        prose2, _ = scrub_documented_names(_fluidify_item(it, locked, profile, f"cap {cap_number} img #{i} (f8)",
+                                                          extra_feedback=fb), documented)
+        prose2 = v3img.fix_counts_lr(prose2)
+        if not v3img.problems(prose2):
+            prose = prose2
+        else:
+            prose = v3img.scrub_sentence_problems(prose2)
+            print(f"  ⚠ [m03] cap {cap_number} img #{i}: reglas F8 DEGRADADAS ({probs[:2]}) → frase sacada (run sigue).")
+        it["_f8_problemas"] = [f"{k}: {f}" for k, f in probs]
+    it["prompt"] = v3img.wrap_style(prose, year)
+    it["sensible"] = v3img.is_body(it["prompt"])
+    it["motivos"] = sorted(v3img.motifs_of(it["prompt"]))
+
+
+def _f8_refill(topic: dict, cap_data: dict, narration: str, item: dict, cap_number: int, note: str) -> dict:
+    """Rehace UNA imagen (slots + tejido) con su mismo ancla y beat y una indicación (`note`). Sin arreglos de cap."""
+    f8 = dict(topic["_f8"], refill=True, note=note,
+              force_assign=[{"beat": item.get("beat"), "cerrada": item.get("cerrada", False)}])
+    out = _render_prompts_seedream({**topic, "_f8": f8}, cap_data, narration,
+                                   {"anchors": [{"anchor": item["narration_anchor"]}]}, cap_number)
+    new = out["image_prompts"][0]
+    new["_f8_rehecha"] = note
+    return new
+
+
+F8_NOTE_BODY_HOOK = "NO dead bodies in this image (it is the hook): show what was left — objects, water, empty space."
+F8_NOTE_ESTABLISHING = ("ESTABLISHING EXTERIOR: the place of this fragment seen from outside or from above, wide or "
+                        "extreme wide; people small or absent.")
+
+
+def _f8_fix_cap(topic: dict, cap_data: dict, narration: str, items: list[dict], cap_number: int) -> None:
+    """Arreglos que se ven en el cap: sin cuerpos en el cap 1 (E) y ≥ 1 establecimiento/exterior (D5)."""
+    for k, it in enumerate(items):
+        if cap_number == 1 and it.get("sensible"):
+            items[k] = _f8_refill(topic, cap_data, narration, it, cap_number, F8_NOTE_BODY_HOOK)
+    if items and not any(v3img.establishing(it) for it in items):
+        cand = [k for k, it in enumerate(items) if not it.get("cerrada") and k > 0] or [len(items) - 1]
+        k = next((x for x in reversed(cand) if items[x].get("emotional_rank") == "R3"), cand[-1])
+        items[k] = _f8_refill(topic, cap_data, narration, items[k], cap_number, F8_NOTE_ESTABLISHING)
+
+
+def _f8_fix_video(topic: dict, skel_by_n: dict, narr_by_n: dict, items_by_cap: dict[int, list[dict]]) -> dict:
+    """Arreglos del video entero (D1 motivos, E cuerpos, D5 humanos en plano medio) sobre los caps de fotos (2–6):
+    una pasada de re-hechura por imagen en exceso y una auditoría final. Los caps Veo (1 y 7) se auditan, no se rehacen."""
+    beats = topic["_f8"]["beats"]
+    caps = [items_by_cap.get(n) or [] for n in range(1, EXPECTED_CHAPTER_COUNT + 1)]
+    before = v3img.video_audit(caps, beats)
+    notes: dict[tuple[int, int], str] = {}
+    for cap, i, m in before["exceso_motivos"]:
+        notes[(cap, i)] = (f"Do NOT show the motif «{m}» (already used twice in this video): show another part of the "
+                           f"beat's sensory image.")
+    for cap, i in before["exceso_cuerpos"]:
+        notes[(cap, i)] = "NO dead bodies in this image: show what they left — objects, water, empty space."
+    for cap, i in before["exceso_humano_medio"]:
+        notes.setdefault((cap, i), "NO person in medium shot: a wide shot of the place, people small, far or absent.")
+    rehechas = []
+    for (cap, i), note in sorted(notes.items()):
+        if cap in VEO_CHAPTERS:
+            continue
+        it = items_by_cap[cap][i]
+        items_by_cap[cap][i] = _f8_refill(topic, skel_by_n[cap], (narr_by_n[cap].get("narration") or "").strip(), it,
+                                          cap, note)
+        rehechas.append({"cap": cap, "img": i + 1, "motivo": note})
+    caps = [items_by_cap.get(n) or [] for n in range(1, EXPECTED_CHAPTER_COUNT + 1)]
+    after = v3img.video_audit(caps, beats)
+
+    def _brief(a: dict) -> dict:
+        return {"total": a["total"], "motivos": {k: len(v) for k, v in a["motivos"].items()},
+                "exceso_motivos": a["exceso_motivos"], "cuerpos": a["cuerpos"], "exceso_cuerpos": a["exceso_cuerpos"],
+                "humano_medio": len(a["humano_medio"]), "caps_sin_establecimiento": a["caps_sin_establecimiento"]}
+    return {"antes": _brief(before), "rehechas": rehechas, "despues": _brief(after)}
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1118,6 +1231,7 @@ def _calculate_image_count(
     cap_duration_sec: float,
     chapter_number: int = None,
     total_chapters: int = 7,
+    capped: bool = True,
 ) -> int:
     """
     Cantidad adaptativa de imgs por cap según DURACIÓN REAL del audio TTS.
@@ -1151,6 +1265,8 @@ def _calculate_image_count(
             # else: middle, bonus = 0
 
     n = base + bonus_position
+    if not capped:                                      # F8 §1 F: lo que pide la duración (sin el tope por video)
+        return max(MIN_IMAGES_FLUX, min(MAX_IMAGES_FLUX, n))
     # HANDOFF_F7 §8.2: tope por video (config.long_video.max_images_per_video, 90): lo que dejan los caps veo (a su
     # duración nominal) repartido entre los caps de desarrollo. Con 105 s por cap: 16 fotos por cap como máximo.
     from script_engine.video_length import get
@@ -2277,9 +2393,11 @@ def _render_prompts_seedream_veo(topic, cap_data, narration, plan, veo_position,
             {"prompt": it["prompt"],
              "narration_anchor": it["narration_anchor"],
              "art_profile": "",
-             "raw_llm_prompt": it.get("raw_llm_prompt")}
+             "raw_llm_prompt": it.get("raw_llm_prompt"),
+             **({k: it[k] for k in ("beat", "sensible", "motivos") if k in it} if topic.get("_f8") else {})}
             for it in supp_items
         ],
+        **({"image_sensible": image_item.get("sensible", False), "_f8_items": items} if topic.get("_f8") else {}),
     }
 
 
@@ -2392,6 +2510,11 @@ def assign_visual_prompts(
 
     skel_by_n = {ch["chapter_number"]: ch for ch in skel_chapters}
     narr_by_n = {ch["chapter_number"]: ch for ch in narr_chapters}
+
+    # F8 §1 B–F: con escaleta (guion v3) las imágenes siguen los beats; sin escaleta (v2), todo como antes
+    f8_beats = v3img.load_beats(topic, STEPS_DIR)
+    if f8_beats:
+        topic = {**topic, "_f8": {"beats": f8_beats, "year": v3img.topic_year(topic, f8_beats)}}
 
     def _process_one_cap(cap_n: int) -> dict:
         sch = skel_by_n.get(cap_n) or {}
@@ -2513,6 +2636,11 @@ def assign_visual_prompts(
             # ESLABÓN 3b: Seedream usa el skeleton + fluidificador (prosa ya FINAL,
             # con Guarda 1 aplicada dentro) → NO tail-bake.
             cap_out = _render_prompts_seedream(topic, sch, narration_text, plan, cap_n)
+            if f8_beats:                                  # F8 §1 F: planos que pide la duración por encima del tope
+                pedidas = _calculate_image_count(cap_duration_sec, cap_n, EXPECTED_CHAPTER_COUNT, capped=False)
+                ranked = sorted(range(1, len(cap_out["image_prompts"]) + 1),
+                                key=lambda k: (cap_out["image_prompts"][k - 1].get("emotional_rank") or "R3", k))
+                cap_out["reencuadres_propuestos"] = v3img.reencuadres(pedidas, len(cap_out["image_prompts"]), ranked)
             # No-op desde chat 19 (catálogo desconectado). NO tocar.
             cap_out = _stitch_zone2_into_cap_flux(cap_out)
             print(f"  [03] cap {cap_n} (flux) ✓ {len(cap_out['image_prompts'])} imgs validadas")
@@ -2539,6 +2667,12 @@ def assign_visual_prompts(
         "topic_id": topic_id,
         "chapters": output_chapters,
     }
+    if f8_beats:                                          # F8 §1 D–E: motivos, cuerpos y planos medios del video
+        by_cap = {c["chapter_number"]: (c.get("image_prompts") if "image_prompts" in c else c.pop("_f8_items", []))
+                  for c in output_chapters}
+        output["_f8_imagenes"] = _f8_fix_video(topic, skel_by_n, narr_by_n, by_cap)
+        for c in output_chapters:
+            c.pop("_f8_items", None)
 
     # PR 1 chat 24: persistir solo el video_id como referencia. El sync_map
     # autoritativo vive en output/audio/<id>/sync_map.json — duplicarlo acá

@@ -32,6 +32,7 @@ class RenderProfile:
     base_url: str            # SYNC (status 200 directo) en ambos motores t2i de hoy
     image_size: str | dict | None   # enum ("landscape_16_9") | {"width","height"} | None (Kling usa resolution+aspect)
     cost_usd: float
+    accepts_seed: bool = True       # F8: Seedream 5.0 Lite no tiene `seed` de entrada (solo lo devuelve)
 
 
 @dataclass(frozen=True)
@@ -63,16 +64,20 @@ PERFIL_KLING = EngineProfile(
     ),
 )
 
-# Seedream 4.5 (SEEDREAM_4.5_REFERENCIA §1-2): SYNC, sin guidance_scale ni
-# negative_prompt (no existen en v4.5). CARGADO pero INACTIVO hasta que
-# api.image_engine == "seedream" (eslabón 3b o flip manual).
+# Seedream (SEEDREAM_4.5_REFERENCIA §1-2): SYNC, sin guidance_scale ni negative_prompt.
+# F8 §1A: motor → Seedream 5.0 Lite (probado por Omar: 10/12 y 9/12 en obediencia, $0.035). El /edit de la foto madre
+# sale del mismo id (text-to-image → edit; acepta `image_urls`, hasta 10). v5 Lite NO acepta `seed` de entrada.
+# Volver a 4.5: SEEDREAM_45_MODEL_ID + accepts_seed=True + cost_usd 0.04.
+SEEDREAM_45_MODEL_ID = "fal-ai/bytedance/seedream/v4.5/text-to-image"
+SEEDREAM_V5_LITE_MODEL_ID = "fal-ai/bytedance/seedream/v5/lite/text-to-image"
 PERFIL_SEEDREAM = EngineProfile(
     engine_key="seedream",
     render=RenderProfile(
-        model_id="fal-ai/bytedance/seedream/v4.5/text-to-image",
+        model_id=SEEDREAM_V5_LITE_MODEL_ID,
         base_url="https://fal.run",
-        image_size={"width": pipeline.image_width, "height": pipeline.image_height},   # 2560×1440 = canvas (1 fuente de verdad)
-        cost_usd=0.04,
+        image_size={"width": pipeline.image_width, "height": pipeline.image_height},   # 2560×1440 fijo (no «auto_2K»)
+        cost_usd=0.035,
+        accepts_seed=False,
     ),
     # ── mitad PROMPT (3b — DOC_SKELETON §3): orden oficial del ensamblador ──
     formula=(

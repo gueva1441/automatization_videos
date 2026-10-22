@@ -238,10 +238,10 @@ class CostTracker:
         modos — la real del /edit se confirma por delta dashboard (no inventar precio).
         El campo de costo NO viene en la respuesta de fal, igual que Kling.
         """
-        cost_per = pipeline.costs.get("seedream_per_image", 0.04)
+        cost_per = pipeline.costs.get("seedream_per_image", 0.035)     # F8: Seedream 5.0 Lite
         self._add_entry(
             stage=PipelineStage.IMAGE.value,
-            service=f"fal.ai Seedream 4.5 ({mode})",
+            service=f"fal.ai Seedream 5.0 Lite ({mode})",
             description=description,
             units=images,
             unit_label="images",

@@ -58,7 +58,8 @@ from script_engine.vision_validator import validate_image, build_corrected_promp
 # Concurrencia de render de imágenes (fal). = el límite de CONCURRENCIA de fal de la cuenta.
 # Los caps se procesan SECUENCIALES (process_script) → el pico global es este número, no ×caps.
 # NO paralelizar además los caps del asset_manager: caps × workers superaría el límite fal → 429.
-FLUX_MAX_WORKERS = 20
+# F8 §1A: sale de config (`pipeline.fal_concurrency`, default 20). Baja a 10 si no se compran $100 en 4 semanas.
+FLUX_MAX_WORKERS = int(getattr(pipeline, "fal_concurrency", 20) or 20)
 FLUX_POLL_TIMEOUT = 180
 VEO_POLL_TIMEOUT = 600
 VEO_MAX_ATTEMPTS_NON_REJECTION = 3
@@ -259,7 +260,7 @@ def _seedream_payload_for(prompt: str, seed: int | None = None) -> dict[str, Any
         "num_images": 1,
         "enable_safety_checker": True,
     }
-    if seed is not None:
+    if seed is not None and profile.render.accepts_seed:       # F8: v5 Lite no tiene seed de entrada
         payload["seed"] = seed
     return payload
 
@@ -281,7 +282,7 @@ def _seedream_edit_payload_for(
         "num_images": 1,
         "enable_safety_checker": True,
     }
-    if seed is not None:
+    if seed is not None and profile.render.accepts_seed:
         payload["seed"] = seed
     return payload
 
@@ -305,7 +306,8 @@ _SYNC_COST_TRACKERS = {
 }
 
 
-@error_handler.retry(PipelineStage.IMAGE, max_server_retries=2)
+# F8 §1A: 3 intentos con backoff exponencial (+ jitter) en 429/503 (error_handler.retry: ~15 s, ~23 s)
+@error_handler.retry(PipelineStage.IMAGE, max_server_retries=3)
 def _generate_image_raw(
     prompt: str,
     output_path: Path,
@@ -345,6 +347,7 @@ def _generate_image_raw(
             payload = _SYNC_PAYLOAD_BUILDERS[engine](prompt, seed)
         submit_url = f"{profile.render.base_url}/{model_id}"   # SYNC
 
+        t0 = time.time()
         try:
             resp = requests.post(submit_url, headers=_fal_headers(),
                                  json=payload, timeout=240)
@@ -379,6 +382,7 @@ def _generate_image_raw(
         nsfw_list = data.get("has_nsfw_concepts") or [False]
         return {
             "endpoint": model_id,   # el REAL enviado a fal (t2i o /edit) — la telemetría no miente
+            "ms": int((time.time() - t0) * 1000),   # F8: pedido + descarga de esta imagen (sin los reintentos)
             "width": img.get("width"),
             "height": img.get("height"),
             "seed": data.get("seed"),
@@ -729,6 +733,8 @@ def _iter_image_items(
             "art_profile": profile,
             "subject_ref": subject if subject else None,
             "foto_madre_refs": foto_madre_refs,   # HANDOFF_131: 0..2 refs → /edit; [] → t2i
+            # F8 §1 E: marca de contenido sensible de m03 v3 (None = guion v2, sin marca)
+            "sensible": raw.get("sensible") if isinstance(raw, dict) else None,
         })
     return out
 
@@ -784,6 +790,7 @@ def _process_flux_chapter(
             "seed": seed,
             "path": out_path,
             "needs": not out_path.exists(),
+            "sensible": item.get("sensible"),
         })
     
     to_generate = [p for p in plan if p["needs"]]
@@ -876,6 +883,10 @@ def _process_flux_chapter(
                         "model_used": "flux_ultra" if use_ultra else "flux_pro",
                     }
     
+    for p in plan:                                  # F8 §1 E: `sensible` al manifest (solo si m03 v3 lo marcó)
+        if p.get("sensible") is not None and p["idx"] in results_by_idx:
+            results_by_idx[p["idx"]]["sensible"] = bool(p["sensible"])
+
     # ── 2da pasada — PISO anti-desync (HANDOFF_112 · P2/RAÍZ1) ───────────────────
     # Cada item 'failed' deja path:None → fase2b ve menos fotos que narration_anchors
     # y cae a timing UNIFORME → desync silencioso de TODO el cap. Piso: copiar en disco

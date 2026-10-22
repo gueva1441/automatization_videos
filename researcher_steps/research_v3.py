@@ -406,6 +406,7 @@ _STOP = {
     "en": {"the", "and", "of", "to", "was", "were", "in", "that", "with", "they", "for"},
     "es": {"el", "la", "de", "que", "los", "las", "en", "y", "fue", "con", "por"},
     "fr": {"le", "la", "les", "des", "et", "est", "dans", "une", "que", "pour"},
+    "it": {"il", "di", "che", "della", "delle", "degli", "sono", "nel", "gli", "anche", "questo"},   # F8 (Vajont)
 }
 
 
@@ -1861,7 +1862,7 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
     pf = steps_dir / "_perfil.json"
     prof = json.loads(pf.read_text(encoding="utf-8")) if pf.exists() else seed_profile(seed)
     pf.write_text(json.dumps(prof, ensure_ascii=False, indent=1), encoding="utf-8")
-    s2 = {**seed, "lugar_idioma": prof.get("idioma_local") or None}
+    s2 = {**seed, "lugar_idioma": seed.get("idioma_local") or prof.get("idioma_local") or None}  # F8: el del seed manda
     r1 = discover_sources(s2, cache=steps_dir / "_r1_cache.json", log=log)
     (steps_dir / "fuentes.json").write_text(json.dumps(r1, ensure_ascii=False, indent=1), encoding="utf-8")
     src = steps_dir / "fuentes"
