@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (F7a hecho en `f7-research-v3`; F7b en marcha) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (F7a y F7b hechos en `f7-research-v3`; PARADA: el analista valida el pool) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «docs(f6): F6c cerrado como laboratorio…» (`git log -1`) en f6-guion-v3, sobre `7ec2025`; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
@@ -11,12 +11,16 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F7 — Research v3 (leer documentos) — EN CURSO: F7a hecho, F7b en marcha
+## F7 — Research v3 (leer documentos) — F7a y F7b HECHOS · PARADA: el analista valida el pool antes de F7c
+- **Leer:** `lab/hyperframes/f7/F7b_pool.md` (métricas contra f6v3, costo, lo que mirar; veredicto íntegro del revisor: CUMPLE CON OBSERVACIONES) y `F7a_fuentes.md`.
+- **Pool** `lab/hyperframes/f7/00_pool_v3.json` (= `data/scripts/_steps/ba6c3cac-f7r3/00_pool_v3.json`): 558 datos (6.1× f6v3), 152 eventos (28 con hora), 188 citas (162 verificadas literal), 25 citas de testigos con nombre verificadas (20 personas), 13 elegibles como humano, 100 % con doc_id + posición. 10 documentos (HRW 2005 bajó por Wayback en el reintento).
+- **Abierto:** costo ≈ US$ 2.6–2.8 por tema (> 2.5); cifras canónicas casi vacías; prompt de la escaleta ≈ 63 k tokens con este pool (riesgo 4: propuesta de resumen por documento para F7c); `RESEARCH_V3` sin cablear en `topic_researcher`; 4b–4e no corridos con el pool; faltan BBC, prensa de 2005 y el fallo Waganfeald.
+- **Topic** `ba6c3cac-f7r3`: `01_facts_sources.json` (f6v3 + pool nuevo) y entrada nueva en `data/topics_db.json` (copia de f5v2); respaldo `lab/hyperframes/f7/topics_db_pre_f7b.json` sin commitear.
+- Re-armar el pool gratis: `python -I lab/hyperframes/f7/f7b_pool_orleans.py --sin-llm --revalidar F01,F03,F08,F09`.
 - Handoff: `lab/hyperframes/f7/HANDOFF_F7_research_v3.md`. Rama **`f7-research-v3`** desde `c7da0ba` (f6-guion-v3). Sin merge a main.
 - Código: `researcher_steps/research_v3.py` (R1 descubrimiento, R2 descarga, R3 extracción, R4 merge, R5 verificación). Topic nuevo `ba6c3cac-f7r3` (datos en `data/scripts/_steps/ba6c3cac-f7r3/`, fuera de git).
-- **F7a** (`lab/hyperframes/f7/f7a_fuentes_orleans.py` → `F7a_fuentes.md`): 10 documentos bajados. R1: las URLs salen SOLO del grounding (el modelo pone la ficha; las que no fichó, Flash); Pro con temperatura 0.7 (con 0.0 contestaba de memoria, sin grounding). Faltan: HRW 2005 (403; Wayback con 429), BBC, Times-Picayune, Toledo Blade y el fallo Waganfeald (no salen en el grounding).
+- **F7a** (`lab/hyperframes/f7/f7a_fuentes_orleans.py` → `F7a_fuentes.md`): 10 documentos bajados. R1: las URLs salen SOLO del grounding (el modelo pone la ficha; las que no fichó, Flash); Pro con temperatura 0.7 (con 0.0 contestaba de memoria, sin grounding). Faltan: BBC, Times-Picayune, Toledo Blade y el fallo Waganfeald (no salen en el grounding).
 - Ojo: `python -I` ignora `PYTHONIOENCODING` (los runners hacen `sys.stdout.reconfigure`). archive.org devuelve 429 si se le pega seguido: no reintentar en bucle.
-- Sigue: F7b (R3–R5, `00_pool_v3.json`, `F7b_pool.md` con métricas contra f6v3), revisor, commit, PARADA para el analista.
 
 ## F6 — Guion v3 — F6c CERRADO COMO LABORATORIO; F6d/F6e pendientes hasta F7 (decisión del analista, 2026-10-21)
 - Handoff: `lab/hyperframes/f6/HANDOFF_F6_guion_v3.md`. Rama **`f6-guion-v3`**, desde `45c052c`. Sin merge a main.
