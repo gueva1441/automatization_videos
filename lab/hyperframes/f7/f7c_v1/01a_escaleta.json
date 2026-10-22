@@ -1,0 +1,361 @@
+{
+  "humano": {
+    "id": "P18",
+    "nombre": "Renard Reed",
+    "rol": "Oficial del sheriff",
+    "por_que": "Testigo presencial del abandono y la violencia desde dentro del sistema, su testimonio muestra el colapso moral y la humanidad en medio del caos.",
+    "colectivo": false
+  },
+  "antagonista": {
+    "id": "P03",
+    "por_que": "Como Sheriff a cargo, tomó la decisión de no evacuar y luego negó públicamente la gravedad de la crisis, contradiciendo los testimonios de presos y sus propios oficiales."
+  },
+  "promesa_gancho": "Cuando el agua subió, los guardias se fueron. Esta es la historia de por qué cientos de prisioneros nunca aparecieron en las listas.",
+  "pico": {
+    "beat": 5,
+    "id": "Q47",
+    "por_que": "Es el momento de máxima violencia e inhumanidad: no solo abandono, sino agresión activa, contado por el humano que seguimos."
+  },
+  "cierre_humano": "El testimonio del oficial Renard Reed, quien vio caer a los presos al agua, ancla la historia en una pregunta moral que va más allá de los fallos logísticos: la decisión deliberada de deshumanizar.",
+  "beats": [
+    {
+      "n": 1,
+      "cap": 1,
+      "funcion": "gancho",
+      "emocion": "caos",
+      "intensidad": 4,
+      "dato_central": "T08",
+      "datos_apoyo": [
+        "T96"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Monos naranjas bajo un sol abrasador, en un paso elevado sobre una ciudad inundada.",
+      "pregunta_abierta": "¿Cómo llegaron allí? ¿Por qué están abandonados?",
+      "pregunta_pantalla": "¿Quién los dejó en ese puente?",
+      "cierre": "Pero antes del puente, hubo una decisión que selló su destino.",
+      "palabras_objetivo": 110,
+      "flash_forward": true,
+      "pregunta_valida": true
+    },
+    {
+      "n": 2,
+      "cap": 2,
+      "funcion": "planteo",
+      "emocion": "tensión",
+      "intensidad": 2,
+      "dato_central": "Q24",
+      "datos_apoyo": [
+        "Q08",
+        "T55"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Un cielo que se oscurece sobre los muros de la prisión, mientras la radio anuncia la evacuación de la ciudad.",
+      "pregunta_abierta": "Si toda la ciudad se va, ¿qué pasará con ellos?",
+      "pregunta_pantalla": "¿Por qué nadie planeó evacuarlos?",
+      "cierre": "Pronto, la falta de un plan se convertiría en la menor de sus preocupaciones.",
+      "palabras_objetivo": 190,
+      "pregunta_valida": true
+    },
+    {
+      "n": 3,
+      "cap": 3,
+      "funcion": "escalada",
+      "emocion": "angustia",
+      "intensidad": 3,
+      "dato_central": "T76",
+      "datos_apoyo": [
+        "D545",
+        "T78",
+        "D538"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Oscuridad total en una celda, rota solo por el sonido del agua subiendo y los inodoros desbordándose.",
+      "pregunta_abierta": "¿Nadie va a sacarlos de ahí?",
+      "pregunta_pantalla": "¿Por qué se apagaron las luces?",
+      "cierre": "La oscuridad era aterradora, pero lo que flotaba en el agua era peor.",
+      "palabras_objetivo": 190,
+      "pregunta_valida": true
+    },
+    {
+      "n": 4,
+      "cap": 4,
+      "funcion": "giro",
+      "emocion": "desesperación",
+      "intensidad": 4,
+      "dato_central": "D183",
+      "datos_apoyo": [
+        "Q183",
+        "D186",
+        "Q184"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Un hombre de pie dentro de su celda, con agua contaminada hasta el pecho, bebiendo del inodoro.",
+      "pregunta_abierta": "¿Los van a dejar ahogarse?",
+      "pregunta_pantalla": "¿Cuántos días estuvieron sin agua?",
+      "cierre": "Cuando finalmente salieron, no fue para ser rescatados, sino para enfrentar una nueva amenaza.",
+      "palabras_objetivo": 190,
+      "contador": true,
+      "pregunta_valida": true
+    },
+    {
+      "n": 5,
+      "cap": 5,
+      "funcion": "pico",
+      "emocion": "horror",
+      "intensidad": 5,
+      "dato_central": "Q47",
+      "datos_apoyo": [
+        "Q14"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "La silueta de un francotirador en un tejado, y el chapoteo de un cuerpo cayendo en el agua de la inundación.",
+      "pregunta_abierta": "¿Les estaban disparando a matar?",
+      "pregunta_pantalla": "¿Quién dio la orden de disparar?",
+      "cierre": "A los que sobrevivieron a los disparos y al agua, les esperaba un destino distinto al de la libertad.",
+      "palabras_objetivo": 190,
+      "pregunta_valida": true
+    },
+    {
+      "n": 6,
+      "cap": 6,
+      "funcion": "respiro",
+      "emocion": "desolación",
+      "intensidad": 1,
+      "dato_central": "Q50",
+      "datos_apoyo": [
+        "D208",
+        "Q69"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Una mano a través de una jaula improvisada, intentando atrapar un sándwich arrojado desde lejos.",
+      "pregunta_abierta": "¿Por qué los trataban así después de todo lo que pasaron?",
+      "pregunta_pantalla": "¿Por qué los pusieron en jaulas?",
+      "cierre": "Mientras el sheriff aseguraba que todo salió según el plan, un dato oficial contaba otra historia.",
+      "palabras_objetivo": 190,
+      "pregunta_valida": true
+    },
+    {
+      "n": 7,
+      "cap": 7,
+      "funcion": "cierre",
+      "emocion": "incertidumbre",
+      "intensidad": 2,
+      "dato_central": "D185",
+      "datos_apoyo": [
+        "D190",
+        "Q60"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Una lista de nombres en papel, mojada y borroneada, con cientos de espacios vacíos.",
+      "pregunta_abierta": "¿Qué pasó con los prisioneros desaparecidos?",
+      "pregunta_pantalla": "¿Cuántos siguen sin nombre?",
+      "cierre": "Años después, el oficial Renard Reed sigue recordando que, aunque estuvieran presos, merecían saber.",
+      "palabras_objetivo": 110,
+      "pregunta_valida": true
+    }
+  ],
+  "a_pantalla": [
+    {
+      "id": "D51",
+      "cap": 2,
+      "por_que": "Establece la escala del desastre visualmente sin interrumpir la narración."
+    },
+    {
+      "id": "Q78",
+      "cap": 6,
+      "por_que": "Muestra la versión oficial en texto, contradiciendo brutalmente las imágenes de caos."
+    },
+    {
+      "id": "D05",
+      "cap": 7,
+      "por_que": "Aporta el peso legal de las consecuencias sin entrar en detalles administrativos en la narración."
+    }
+  ],
+  "topic_id": "ba6c3cac-f7r3",
+  "prompt_version": "f6b-4",
+  "_reparaciones": [],
+  "_avisos": [],
+  "_intentos": [
+    {
+      "intento": 1,
+      "problemas": [
+        "el humano está en escena en los caps [1, 6]: tienen que ser ≥ 3"
+      ],
+      "reparaciones": [
+        "beat 2: apoyo ['D533'] es otra cifra del conteo 5.919 → fuera"
+      ],
+      "avisos": []
+    },
+    {
+      "intento": 2,
+      "problemas": [],
+      "reparaciones": [],
+      "avisos": []
+    }
+  ],
+  "_pantalla_por_fecha": [
+    "T101 (2005-08-31) del cap 1 al cap 4 (por fecha)",
+    "T102 (2005-08-31) del cap 1 al cap 4 (por fecha)",
+    "T47 (2005-08-28) del cap 2 al cap 3 (por fecha)",
+    "T80 (2005-08-29) → cap 3 lleno: fuera",
+    "D182 (2005-09-01) → cap 4 lleno: fuera",
+    "T93 (2005-08-30) → cap 4 lleno: fuera",
+    "D406 (2005-08-28) → cap 3 lleno: fuera",
+    "Q77 (None) → cap 7 lleno: fuera"
+  ],
+  "instrucciones_guionista": [
+    "La cifra 150 reclusos se dice UNA sola vez; nunca «170» ni «más de 170».",
+    "La cifra 300 personas se dice UNA sola vez; nunca «270» ni «más de 270».",
+    "La cifra 1500 personas se dice UNA sola vez; nunca «1700» ni «más de 1700».",
+    "La cifra 1.800 personas se dice UNA sola vez; nunca «2.000», «2000» ni «más de 2000».",
+    "La cifra 5,000 reclusos se dice UNA sola vez; nunca «5.500», «5500» ni «más de 5500».",
+    "La cifra 5.919 reclusos se dice UNA sola vez; nunca «6.000», «6.295», «6.375», «6375», «6295», «6000» ni «más de 6375».",
+    "La cifra 8,000 reclusos se dice UNA sola vez; nunca «7000» ni «más de 7000».",
+    "Q08 (de Marlin Gusman) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+    "Q183 (de Edward “Edgar” Burton) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+    "D51 va a pantalla (cap 2): la voz no lo dice.",
+    "Q78 va a pantalla (cap 6): la voz no lo dice.",
+    "D05 va a pantalla (cap 7): la voz no lo dice."
+  ],
+  "caps": [
+    {
+      "chapter_number": 1,
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "evidence_ids": [
+        "T08",
+        "T96"
+      ],
+      "cliffhanger": "Q24",
+      "pantalla_ids": [],
+      "palabras_objetivo": 110
+    },
+    {
+      "chapter_number": 2,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "setup",
+      "evidence_ids": [
+        "Q24",
+        "Q08",
+        "T55"
+      ],
+      "cliffhanger": "T76",
+      "pantalla_ids": [
+        "D51",
+        "Q112"
+      ],
+      "palabras_objetivo": 190
+    },
+    {
+      "chapter_number": 3,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "rising_tension",
+      "evidence_ids": [
+        "T76",
+        "D545",
+        "T78",
+        "D538"
+      ],
+      "cliffhanger": "D183",
+      "pantalla_ids": [
+        "T47",
+        "T67"
+      ],
+      "palabras_objetivo": 190
+    },
+    {
+      "chapter_number": 4,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "shock",
+      "evidence_ids": [
+        "D183",
+        "Q183",
+        "D186",
+        "Q184"
+      ],
+      "cliffhanger": "Q47",
+      "pantalla_ids": [
+        "T101",
+        "T102"
+      ],
+      "palabras_objetivo": 190
+    },
+    {
+      "chapter_number": 5,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "consequences",
+      "evidence_ids": [
+        "Q47",
+        "Q14"
+      ],
+      "cliffhanger": "Q50",
+      "pantalla_ids": [
+        "Q154",
+        "T137"
+      ],
+      "palabras_objetivo": 190
+    },
+    {
+      "chapter_number": 6,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 75,
+      "narrative_intent": "resolution",
+      "evidence_ids": [
+        "Q50",
+        "D208",
+        "Q69"
+      ],
+      "cliffhanger": "D185",
+      "pantalla_ids": [
+        "Q78",
+        "D180"
+      ],
+      "palabras_objetivo": 190
+    },
+    {
+      "chapter_number": 7,
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "evidence_ids": [
+        "D185",
+        "D190",
+        "Q60"
+      ],
+      "cliffhanger": "",
+      "pantalla_ids": [
+        "D05",
+        "D167"
+      ],
+      "palabras_objetivo": 110
+    }
+  ],
+  "_pool_plan": {
+    "cifras_canonicas": [],
+    "pantalla": [
+      "cap 1: pantalla ['T101', 'T102']",
+      "cap 2: pantalla ['Q112', 'T47']",
+      "cap 3: pantalla ['T67', 'T80']",
+      "cap 4: pantalla ['D182', 'T93']",
+      "cap 5: pantalla ['Q154', 'T137']",
+      "cap 6: pantalla ['D180', 'D406']",
+      "cap 7: pantalla ['D167', 'Q77']"
+    ]
+  },
+  "_costo": {
+    "usd": 0.1976,
+    "segundos": 115.1
+  }
+}

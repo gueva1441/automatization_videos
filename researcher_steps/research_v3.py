@@ -1758,15 +1758,15 @@ def build_digest(pool: dict[str, Any], docs: list[dict], *, event_year: int) -> 
 # ═══════════════════════════════════════════════════════════════
 
 FRAGMENT_MAX_WORDS = 25
-FRAGMENT_MIN_WORDS = 5
+FRAGMENT_MIN_WORDS = 6
 _SENT_END = re.compile(r"(?<=[.!?…])\s+")
 _CLAUSE_END = re.compile(r"(?<=[,;:])\s+")
 
 
 def quote_fragment(texto: str) -> str:
     """El pedazo de la cita que la voz dice LITERAL (≤ FRAGMENT_MAX_WORDS palabras, tal cual está en `texto`); el resto
-    lo parafrasea el narrador. Una cita corta es su propio fragmento. Si no: la oración más larga que entra (≥
-    FRAGMENT_MIN_WORDS palabras); si ninguna entra, la primera oración cortada en el último fin de cláusula (coma, punto
+    lo parafrasea el narrador. Una cita corta es su propio fragmento. Si no: la PRIMERA oración que entra (≥
+    FRAGMENT_MIN_WORDS palabras: la frase fuerte de un testimonio suele ir primero); si ninguna entra, la primera oración cortada en el último fin de cláusula (coma, punto
     y coma) que entra; si tampoco, sus primeras FRAGMENT_MAX_WORDS palabras. Siempre una subcadena de `texto`."""
     t = str(texto or "").strip()
     if len(t.split()) <= FRAGMENT_MAX_WORDS:
@@ -1774,7 +1774,7 @@ def quote_fragment(texto: str) -> str:
     sents = [s.strip() for s in _SENT_END.split(t) if s.strip()]
     fit = [s for s in sents if FRAGMENT_MIN_WORDS <= len(s.split()) <= FRAGMENT_MAX_WORDS]
     if fit:
-        return max(fit, key=lambda s: len(s.split()))
+        return fit[0]
     first = sents[0] if sents else t
     acc = ""
     for c in _CLAUSE_END.split(first):

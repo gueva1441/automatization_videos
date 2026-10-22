@@ -1,0 +1,51 @@
+{
+  "escaleta": {
+    "usd": 0.1976,
+    "segundos": 115.1
+  },
+  "_corridas": [
+    {
+      "paso": "escaleta",
+      "usd": 0.5171,
+      "segundos": 323.3
+    },
+    {
+      "paso": "escaleta",
+      "usd": 0.194,
+      "segundos": 118.6
+    },
+    {
+      "paso": "guionista",
+      "usd": 0.1974,
+      "segundos": 162.7
+    },
+    {
+      "paso": "editor",
+      "usd": 0.1726,
+      "segundos": 459.3
+    },
+    {
+      "paso": "escaleta",
+      "usd": 0.1976,
+      "segundos": 115.1
+    },
+    {
+      "paso": "guionista",
+      "usd": 0.1461,
+      "segundos": 132.0
+    },
+    {
+      "paso": "editor",
+      "usd": 0.1558,
+      "segundos": 411.3
+    }
+  ],
+  "guionista": {
+    "usd": 0.1461,
+    "segundos": 132.0
+  },
+  "editor": {
+    "usd": 0.1558,
+    "segundos": 411.3
+  }
+}
