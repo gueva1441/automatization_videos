@@ -15,7 +15,7 @@
 - **F7c-2** (validación del analista sobre F7c: «material de 9, narración 7.5–8»; §8 confirmado por Omar). Leer `lab/hyperframes/f7/F7c2_REPORT.md` (revisor íntegro) y `compara_orleans_v3r.html` (4 columnas).
   - §8: `script_engine/video_length.py` (lee `config.long_video`; `config.py` está fuera de git): 1,500 / 1,700 palabras, caps de 105 s, 16 fotos por cap como máximo (90 por video). `m01a_skeleton.CHAPTER_SCHEMA` y `m01a_escaleta.CAP_WORDS` salen de ahí.
   - Reglas duras nuevas (`script_engine/guion_v3_reglas.py`, desde `m01b_guionista.review`): fragmento de cita ≤ 25 palabras (el candado lo acepta: `evidence.anchors`), una cita por párrafo, gancho sin fotos/fechas/citas de después, juicios fuera del pool, nombre completo 1 vez por cap, repetición de 3 palabras entre caps.
-  - Corrida: humano Reed, pico francotiradores (cap 5), gancho agua del inodoro. 1,252 palabras, 12 citas, 7 testigos con nombre, 11 duras (F7c: 16). A la lectura: dos roles cambiados (Ducre, Big Whappy) y juicios que la lista no ve.
+  - Corrida: humano Reed, pico francotiradores (cap 5), gancho agua del inodoro. 1,252 palabras, 12 citas, 7 testigos con nombre, 11 duras (F7c: 16). A la lectura: dos roles cambiados (Ducre, Big Whappy) y juicios que la lista no ve. Notas que no entraron: 6,375 suena 0 veces (fue a pantalla), T39 no se usó y Gusman no se nombra en el cap 2. Largo 83 % del objetivo. Revisor: CUMPLE CON OBSERVACIONES.
   - Tests: 447 verdes en guion/gfx/m01/m03; 5 fallas previas (3 `01b_pauses`, 2 `m03_merge_timing`).
 
 ## F7 — Research v3 — F7c (pool v3 por la tubería v3) — HECHO
