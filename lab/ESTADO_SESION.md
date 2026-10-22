@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (F7a y F7b hechos en `f7-research-v3`; PARADA: el analista valida el pool) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (F7c hecho en `f7-research-v3`; PARADA: el analista y Omar leen) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «docs(f6): F6c cerrado como laboratorio…» (`git log -1`) en f6-guion-v3, sobre `7ec2025`; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
@@ -11,7 +11,14 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F7 — Research v3 (leer documentos) — F7a y F7b HECHOS · PARADA: el analista valida el pool antes de F7c
+## F7 — Research v3 — F7c HECHO · PARADA: el analista y Omar leen la comparación
+- **F7c** (pedido: validación del pool «aprobado, materia prima de 9» + 3 arreglos + corrida). Leer `lab/hyperframes/f7/F7c_REPORT.md` (veredicto del revisor íntegro) y `compara_orleans_v3r.html`.
+  - Arreglos: `presente_en` por párrafo (±500), elegibles re-armados (12); población con todas sus variantes (oficial 6,375, ACLU/sheriff); `pool["digest"]` y `m01a_escaleta.pool_section` lo usa (flag `ESCALETA_DIGEST`): prompt de escaleta 18.7 k tokens.
+  - La corrida destapó 3 problemas del pool contra los validadores de F6 (cita de una palabra, descartes como «personajes», cifras con punto de miles): arreglados en el pool.
+  - Resultado (corrida 5, sin notas del analista): más testigos y citas (Reed humano; Richard, Reyes, Burton), pero 940 palabras, densidad 1.70 y 16 duras (F6c: 1,070 / 2.15 / 4). Las duras: el guionista parafrasea citas largas y el candado literal las rechaza.
+  - **Pendiente de confirmar:** el §8 del handoff (parámetros de largo 1,500 palabras, tope de fotos en m03, lat/lon en el digest, geocoder) no estaba en el pedido de chat: no aplicado.
+
+## F7 — Research v3 (leer documentos) — F7a y F7b HECHOS (pool aprobado por el analista)
 - **Leer:** `lab/hyperframes/f7/F7b_pool.md` (métricas contra f6v3, costo, lo que mirar; veredicto íntegro del revisor: CUMPLE CON OBSERVACIONES) y `F7a_fuentes.md`.
 - **Pool** `lab/hyperframes/f7/00_pool_v3.json` (= `data/scripts/_steps/ba6c3cac-f7r3/00_pool_v3.json`): 558 datos (6.1× f6v3), 152 eventos (28 con hora), 188 citas (162 verificadas literal), 25 citas de testigos con nombre verificadas (20 personas), 13 elegibles como humano, 100 % con doc_id + posición. 10 documentos (HRW 2005 bajó por Wayback en el reintento).
 - **Abierto:** costo ≈ US$ 2.6–2.8 por tema (> 2.5); cifras canónicas casi vacías; prompt de la escaleta ≈ 63 k tokens con este pool (riesgo 4: propuesta de resumen por documento para F7c); `RESEARCH_V3` sin cablear en `topic_researcher`; 4b–4e no corridos con el pool; faltan BBC, prensa de 2005 y el fallo Waganfeald.
