@@ -4,21 +4,49 @@ Topic `ba6c3cac-f7r3` · R1 `f7a-1` · costo R1 US$ 0.4773 (529.5 s) · 20 fuent
 
 Ficha: `exacta` / `similar x` = la del modelo para esa URL del grounding; `ficha_flash` = URL del grounding que el modelo no listó, fichada por Flash. Ninguna URL sale del modelo.
 
+Código: `researcher_steps/research_v3.py` (R1 `discover_sources`, R2 `download_sources` + `refine_fichas`) · runner `lab/hyperframes/f7/f7a_fuentes_orleans.py` · copias versionadas: `fuentes_orleans.json` (R1, con grounding y descartes) y `manifest_orleans.json` (R2: url, sha1, bytes, idioma, intentos, recorte). Los archivos bajados están en `data/scripts/_steps/ba6c3cac-f7r3/fuentes/` (fuera de git).
+
+## Lectura
+
+**Los 10 documentos** (≥ 8 pedidos): ACLU *Abandoned & Abused* completo (F01, PDF enlazado desde la portada), los 400 testimonios resumidos de la ACLU (F03, PDF), HRW 2005 (F02, por Wayback: hrw.org da 403), las cartas de presos de HRW 2005 (F05, por Wayback), la carta de hallazgos del DOJ de 2009 (F09, la copia en PDF de Prison Legal News; es OCR), la nota de la ACLU sobre abusos (F06), Vera Institute 2015 (F08), The Lens 2025 (F10, copia local de F6c: misma URL, no se volvió a pedir), la página del libro *Voices from the Storm* (F12, 3.7 k: solo la ficha de los narradores) y la lista de casos del DOJ (F04: 200 k caracteres con 6 menciones de OPP; R3 lee solo esa ventana).
+
+**Contra la lista del handoff (§4):**
+
+| pedido | estado |
+|---|---|
+| ACLU completo | ✔ F01 (+ F03, los 400 testimonios) |
+| HRW 2005 | ✔ F02 (Wayback) + F05 (cartas) |
+| DOJ 2010 findings letter | ✔ F09 (la carta es del 11-sep-2009; copia de PLN) |
+| BBC 2006 | ✖ ninguna URL de la BBC en el grounding (2 búsquedas + la pista); la página de WordPress que lo reproduce (F11) devolvió 429 |
+| Times-Picayune / NOLA semana del 29-ago-2005 | ✖ el modelo nombra la nota del Pulitzer («Help us, please») pero no sale en el grounding |
+| The Lens 2025 | ✔ F10 |
+| Toledo Blade 2005 | ✖ no sale en el grounding |
+| Fallo Waganfeald/Kunkel | ✖ justia/findlaw no salen en el grounding; sí la nota de CBS sobre el jurado (F14), fuera del cupo de 10 |
+
+**Decisiones de F7a** (en el código, comentadas):
+1. **Candidatos = URLs del grounding.** El primer diseño (aceptar la ficha del modelo solo si su URL era idéntica a una del grounding) descartó 18 de 23 fuentes reales: el modelo escribe `aclu.org/report/…` y la búsqueda vio `aclu.org/publications/…`. Ahora la URL sale siempre del grounding y el modelo solo le pone la ficha (misma URL, o mismo sitio y ≥ 50 % de las palabras de la ruta). Las URLs del grounding que el modelo no fichó las ficha Flash (1 llamada); los listados (`/category/`, `/tag/`) no son documentos. Ninguna URL inventada entra: las 21 fichas del modelo sin URL del grounding están abajo.
+2. **Pro con temperatura 0.7** (como el research viejo). Con 0.0, Pro contestó de memoria en 4 de 4 búsquedas (0 chunks de grounding). Aun con 0.7, algunas búsquedas vuelven sin grounding: hasta 2 reintentos con «no respondas de memoria» (eso explica la mayor parte del costo de R1).
+3. **Una búsqueda por pista** del analista que los focos no trajeron (5 de 8).
+4. **Ficha leída del documento** (`refine_fichas`, 1 Flash con los primeros 2.5 k caracteres de cada uno): la de la búsqueda era una conjetura sobre la URL (la carta del DOJ venía como «académico, sin año»). La ficha de la búsqueda queda en `ficha_busqueda`.
+5. **R2:** portada corta con un PDF del mismo sitio → se baja el PDF (ACLU). Duplicados por hash o por texto (otra edición del mismo PDF: F07 = F01). Mínimo 3 000 caracteres (las páginas de 2 k eran resúmenes o portadas). Videos sin texto (YouTube) no se piden. Wayback: API de disponibilidad + copia cruda (`id_`), con 3 s de pausa; un 429 se anota y no se reintenta en bucle (en la primera corrida archive.org dio 429; HRW 2005 bajó en un reintento una hora después).
+6. **PDF → texto:** `pdftotext` (poppler) primero, si está instalado; `pdfplumber` por columnas y `pypdf` de respaldo. Ver F7b §3: con `pdfplumber` el informe de la ACLU (dos columnas) salía intercalado y la cita literal no aparecía.
+7. **Recorte a 300 k por secciones:** F01 pierde las notas finales (98 k) y 71 k del cuerpo; F03 (los 400 testimonios, 473 k) pierde 175 k: unos 150 testimonios quedan sin leer. Ver propuestas en F7b.
+
 | id | tipo | año | prio | ficha | título | url | bytes | caracteres txt | idioma | ok | nota |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| F01 | informe_oficial | 2006 | 1 | exacta | Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane  | https://www.aclu.org/publications/abandoned-and-abused | 4064571 | 295888 | en | ✔ | vía pdf_enlazado; fuera la cola desde «ENDNOTES» (96988 caracteres); cortado en el último párrafo antes de 300000 (71053 caracteres fuera) |
-| F02 | informe_oficial | 2005 | 1 | exacta | New Orleans: Prisoners Abandoned to Floodwaters | https://www.hrw.org/news/2005/09/21/new-orleans-prisoners-abandoned-floodwaters |  |  |  | ✖ | original: 403 → wayback: 429 |
-| F03 | testimonio | 2006 | 1 | exacta | Testimonials from Inmates Incarcerated at Orleans Parish Prison during | https://www.aclu.org/documents/summaries-400-testimonials-inmates-incarcerated-orleans-parish-prison-during-hurricane-katrina | 506990 | 297061 | en | ✔ | vía pdf_enlazado; cortado en el último párrafo antes de 300000 (174577 caracteres fuera) |
+| F01 | informe_oficial | 2006 | 1 | exacta | Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane  | https://www.aclu.org/publications/abandoned-and-abused | 4064571 | 296928 | en | ✔ | vía pdf_enlazado; fuera la cola desde «ENDNOTES» (98482 caracteres); cortado en el último párrafo antes de 300000 (71139 caracteres fuera) |
+| F02 | informe_oficial | 2005 | 1 | exacta | New Orleans: Prisoners Abandoned in Floodwaters | https://www.hrw.org/news/2005/09/21/new-orleans-prisoners-abandoned-floodwaters | 40461 | 6351 | en | ✔ | vía wayback |
+| F03 | testimonio | 2006 | 1 | exacta | Testimonials from Inmates Incarcerated at Orleans Parish Prison during | https://www.aclu.org/documents/summaries-400-testimonials-inmates-incarcerated-orleans-parish-prison-during-hurricane-katrina | 506990 | 297707 | en | ✔ | vía pdf_enlazado; cortado en el último párrafo antes de 300000 (174992 caracteres fuera) |
 | F04 | informe_oficial | 2009 | 1 | exacta | Special Litigation Section Case Summaries | https://www.justice.gov/crt/special-litigation-section-case-summaries | 410786 | 200675 | en | ✔ |  |
-| F05 | testimonio | 2005 | 1 | exacta | Excerpts of letters written to Human Rights Watch and Corinne Carey re | https://www.hrw.org/news/2005/10/30/excerpts-letters-prisoners-abandoned-katrina | 142990 | 11094 | en | ✔ | vía wayback |
-| F06 | informe_oficial | 2006 | 1 | ficha_flash | Prison Conditions and Prisoner Abuse After Katrina | https://www.aclu.org/documents/prison-conditions-and-prisoner-abuse-after-katrina | 50616 | 3691 | en | ✔ |  |
-| F07 | informe_oficial | 2006 | 1 | ficha_flash | Abandoned & Abused: Complete Report | https://www.aclu.org/publications/abandoned-abused-complete-report | 4064571 | 295888 | en | ✖ | original: 200 → pdf_enlazado: 200 |
-| F08 | informe_oficial | 2015 | 1 | ficha_flash | Justice in Katrina’s Wake: Changing Course on Incarceration in New Orl | https://www.prisonpolicy.org/scans/vera/justice-in-katrinas-wake.pdf | 484504 | 53898 | en | ✔ |  |
-| F09 | informe_oficial | 2009 | 1 | ficha_flash | Re: Orleans Parish Prison System New Orleans, Louisiana | https://www.prisonlegalnews.org/media/publications/doj_cripa_findings_on_orleans_parish_prison_system_conditions_2009.pdf | 1601586 | 77214 | en | ✔ |  |
+| F05 | testimonio | 2005 | 1 | exacta | Excerpts of letters from prisoners abandoned in Katrina | https://www.hrw.org/news/2005/10/30/excerpts-letters-prisoners-abandoned-katrina | 142990 | 11094 | en | ✔ | vía wayback |
+| F06 | informe_oficial | 2006 | 1 | ficha_flash | Prison Conditions and Prisoner Abuse after Katrina | https://www.aclu.org/documents/prison-conditions-and-prisoner-abuse-after-katrina | 50616 | 3691 | en | ✔ |  |
+| F07 | informe_oficial | 2006 | 1 | ficha_flash | Abandoned & Abused: Complete Report | https://www.aclu.org/publications/abandoned-abused-complete-report | 4064571 | 296928 | en | ✖ | original: 200 → pdf_enlazado: 200 |
+| F08 | informe_oficial | 2015 | 1 | ficha_flash | Justice in Katrina’s Wake: Changing Course on Incarceration in New Orl | https://www.prisonpolicy.org/scans/vera/justice-in-katrinas-wake.pdf | 484504 | 53592 | en | ✔ |  |
+| F09 | informe_oficial | 2009 | 1 | ficha_flash | Department of Justice Civil Rights Division Letter: Re: Orleans Parish | https://www.prisonlegalnews.org/media/publications/doj_cripa_findings_on_orleans_parish_prison_system_conditions_2009.pdf | 1601586 | 82710 | en | ✔ |  |
 | F10 | prensa_posterior | 2025 | 2 | similar 0.88 | Reforms resulted from the thousands left to drown in OPP | https://thelensnola.org/2025/08/29/reforms-resulted-from-the-thousands-left-to-drown-in-opp/ | 142587 | 14045 | en | ✔ | copia local de F6c |
-| F11 | documental | 2012 | 2 | exacta | Prisoners of Katrina, a BBC Documentary | https://watchopp.wordpress.com/2012/04/24/prisoners-of-katrina-a-bbc-documentary/ |  |  |  | ✖ | original: 200 → wayback: API: RuntimeError: HTTP 429 de la API de disponibilidad |
+| F11 | documental | 2012 | 2 | exacta | Prisoners of Katrina, a BBC Documentary | https://watchopp.wordpress.com/2012/04/24/prisoners-of-katrina-a-bbc-documentary/ |  |  |  | ✖ | original: 200 → wayback: 429 |
 | F12 | libro | 2006 | 2 | exacta | Voices from the Storm: The People of New Orleans on Hurricane Katrina  | https://voiceofwitness.org/books/voices-from-the-storm/ | 144883 | 3712 | en | ✔ |  |
-| F13 | prensa_posterior | 2015 | 2 | exacta | Hurricane Katrina Was a Nightmare for Inmates in New Orleans | https://www.vice.com/en/article/hurricane-katrina-was-a-nightmare-for-inmates-in-new-orleans-829/ | 391314 | 15083 | en | ✔ |  |
+| F13 | prensa_posterior | 2015 | 2 | exacta | Hurricane Katrina Was a Nightmare for Inmates in New Orleans | https://www.vice.com/en/article/hurricane-katrina-was-a-nightmare-for-inmates-in-new-orleans-829/ |  |  |  | ✖ | ya hay 10 documentos |
 | F14 | prensa_posterior | 2010 | 2 | exacta | Katrina Jail Lawsuit: Jury Awards Tourists $650K | https://www.cbsnews.com/news/katrina-jail-lawsuit-jury-awards-tourists-650k/ |  |  |  | ✖ | ya hay 10 documentos |
 | F15 | academico | 2006 | 2 | ficha_flash | Abandoned and Abused: Orleans Parish Prisoners in the Wake of Hurrican | https://www.ojp.gov/ncjrs/virtual-library/abstracts/abandoned-and-abused-orleans-parish-prisoners-wake-hurricane |  |  |  | ✖ | ya hay 10 documentos |
 | F16 | academico | 2023 | 2 | ficha_flash | Prisons, Immigration Detention Centers, and Natural Disasters (Sulliva | https://sites.utexas.edu/tjclcr/wp-content/uploads/sites/3748/2023/05/Sullivan.-Prisons-Immigration-Detention-Centers-and-Natural-Diasters.pdf |  |  |  | ✖ | ya hay 10 documentos |

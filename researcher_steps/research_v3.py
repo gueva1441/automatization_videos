@@ -432,11 +432,62 @@ def html_to_text(raw: bytes) -> str:
     return re.sub(r"\n\s*\n+", "\n\n", re.sub(r"[ \t]+", " ", t)).strip()
 
 
+def _page_text(page: Any) -> str:
+    """Texto de una página; si es a dos columnas (un canal vertical que casi ninguna palabra cruza), primero la
+    columna izquierda y después la derecha (pdfplumber solo intercalaría las líneas de las dos)."""
+    page = page.filter(lambda o: o.get("object_type") != "char" or o.get("upright", True))   # fuera el texto girado
+    words = page.extract_words() or []
+    w = float(page.width)
+    if len(words) < 40:
+        return page.extract_text() or ""
+    best = None
+    for x in range(int(w * 0.35), int(w * 0.65), 2):
+        cross = sum(1 for t in words if t["x0"] < x - 1 and t["x1"] > x + 1)
+        if best is None or cross < best[1]:
+            best = (x, cross)
+    x, cross = best
+    left = sum(1 for t in words if t["x1"] <= x)
+    right = sum(1 for t in words if t["x0"] >= x)
+    if cross > 0.03 * len(words) or min(left, right) < 0.2 * len(words):
+        return page.extract_text() or ""
+    # letras SUELTAS en el canal (un rótulo vertical, letra por letra) no son de ninguna columna: fuera
+    lx = sorted(t["x1"] for t in words if t["x1"] <= x)
+    rx = sorted(t["x0"] for t in words if t["x0"] >= x)
+    l_edge, r_edge = lx[int(len(lx) * 0.9)], rx[int(len(rx) * 0.05)]
+    stray = {(round(t["x0"], 1), round(t["top"], 1)) for t in words
+             if len(t["text"]) == 1 and t["x0"] >= l_edge - 2 and t["x1"] <= r_edge + 2}
+    if stray:
+        page = page.filter(lambda o: o.get("object_type") != "char"
+                           or (round(o["x0"], 1), round(o["top"], 1)) not in stray)
+    h = float(page.height)
+    return ((page.crop((0, 0, x, h)).extract_text() or "") + "\n"
+            + (page.crop((x, 0, w, h)).extract_text() or ""))
+
+
+def _pdftotext(path: Path) -> str | None:
+    """poppler `pdftotext` (orden de lectura por bloques: columnas, recuadros y rótulos bien) si está instalado."""
+    import shutil
+    import subprocess
+    exe = shutil.which("pdftotext")
+    if not exe:
+        return None
+    try:
+        r = subprocess.run([exe, "-enc", "UTF-8", str(path), "-"], capture_output=True, timeout=120)
+    except (OSError, subprocess.SubprocessError):
+        return None
+    t = r.stdout.decode("utf-8", errors="replace").replace("\x0c", "\n\n") if r.returncode == 0 else ""
+    return t if len(t.strip()) >= MIN_DOC_CHARS else None
+
+
 def pdf_to_text(path: Path) -> str:
+    """PDF → texto: pdftotext si está; si no, pdfplumber por columnas; si no, pypdf. Siempre con `dehyphenate`."""
+    t = _pdftotext(path)
+    if t:
+        return dehyphenate(t)
     try:
         import pdfplumber
         with pdfplumber.open(str(path)) as pdf:
-            pages = [(p.extract_text() or "") for p in pdf.pages]
+            pages = [_page_text(p) for p in pdf.pages]
         t = "\n\n".join(pages)
         if len(t.strip()) >= MIN_DOC_CHARS:
             return dehyphenate(t)
@@ -448,8 +499,12 @@ def pdf_to_text(path: Path) -> str:
 
 
 def dehyphenate(t: str) -> str:
-    """Une las palabras cortadas al final de línea («concen-\\ntration» → «concentration»)."""
-    return re.sub(r"(\w)-\n(\w)", r"\1\2", t)
+    """Une las palabras cortadas al final de línea («concen-\\ntration» → «concentration») y saca las llamadas a nota
+    pegadas al texto («prisoners.11This», «OPP,17$2.00», «charges,14»): 1–3 dígitos justo después de una letra (o de
+    letra + puntuación) y antes de un espacio, una mayúscula, «$» o una comilla. Una cifra («$24.39», «1,300») no
+    entra: delante tiene un dígito o un espacio."""
+    t = re.sub(r"(\w)-\n(\w)", r"\1\2", t)
+    return re.sub(r"(?<=[A-Za-z][.,;:])\d{1,3}(?=\s|[A-Z$“\"])|(?<=[A-Za-z”’)])\d{1,3}(?=\s|[A-Z$“\"])", "", t)
 
 
 _TAIL_HEAD = re.compile(r"^\s*(end ?notes|notes|appendix|appendices|references|bibliography|sources|footnotes)\b.{0,40}$",
@@ -572,6 +627,23 @@ def download_sources(fuentes: list[dict], dest: Path, *, place_re: str, get: Cal
            "documentos": docs}
     man_path.write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
     log.append(f"  [R2] {n_ok} documentos OK de {sum(1 for d in docs if d['estado'] != 'no_intentada')} intentados")
+    return man
+
+
+def rebuild_texts(man: dict, dest: Path, place_re: str, ids: list[str] | None = None,
+                  log: list[str] | None = None) -> dict:
+    """Rehace el txt de los PDF ya bajados (sin pedir nada a la red) con la extracción actual. In place."""
+    log = log if log is not None else []
+    for d in man["documentos"]:
+        if not d.get("ok") or not str(d.get("archivo") or "").endswith(".pdf") or (ids and d["id"] not in ids):
+            continue
+        text = re.sub(r"[ \t]+\n", "\n", pdf_to_text(dest / d["archivo"])).strip()
+        full = len(text)
+        text, recorte = cap_text(text)
+        (dest / d["txt"]).write_text(text, encoding="utf-8")
+        d.update({"caracteres": len(text), "caracteres_total": full, "recorte": recorte,
+                  "nombra_evento": names_event(text, place_re, d.get("titulo") or "")})
+        log.append(f"  [R2] {d['id']}: txt rehecho ({len(text)} caracteres)")
     return man
 
 
@@ -742,10 +814,27 @@ class DocText:
         self.id, self.text = doc_id, text
         self.nz, self.idx = _nz_map(text)
         self._padded = f" {self.nz} "
+        self._ns = None                                 # versión sin espacios (OCR que pega palabras), a pedido
 
     def locate(self, quote: str) -> int | None:
         """Posición (en el txt crudo) de la cita literal; con «...» cada tramo de ≥ 3 palabras tiene que estar, en
-        orden y cerca del anterior. None si no está."""
+        orden y cerca del anterior. Si no está, un segundo intento sin espacios (OCR que pega o separa palabras:
+        «andefficientlyevacuatingthe»), solo para citas de ≥ 8 palabras. None si no está."""
+        k = self._locate(quote)
+        if k is None and len(re.findall(r"\w+", str(quote or ""))) >= 8:
+            k = self._locate_nospace(quote)
+        return k
+
+    def _locate_nospace(self, quote: str) -> int | None:
+        from researcher_steps.verify_quotes import _nz
+        if self._ns is None:
+            keep = [i for i, c in enumerate(self.nz) if c != " "]
+            self._ns = ("".join(self.nz[i] for i in keep), [self.idx[i] for i in keep])
+        q = _nz(_ELLIPSIS.split(str(quote))[0]).replace(" ", "")
+        k = self._ns[0].find(q) if len(q) >= 30 else -1
+        return self._ns[1][k] if k >= 0 else None
+
+    def _locate(self, quote: str) -> int | None:
         from researcher_steps.verify_quotes import _pattern
         pieces = [p for p in _ELLIPSIS.split(str(quote or "")) if len(re.findall(r"\w+", p)) >= 3]
         if not pieces:
@@ -869,13 +958,37 @@ def chunk_text(text: str, size: int = CHUNK_CHARS, overlap: int = CHUNK_OVERLAP)
     return out
 
 
+FOCUS_MIN_CHARS = 50_000
+FOCUS_DENSITY = 1 / 20_000               # menos de 1 mención del lugar/evento cada 20 k caracteres: documento de otra cosa
+FOCUS_WINDOW = 4_000
+
+
+def focus_text(text: str, place_re: str | None) -> tuple[str, str | None]:
+    """Un documento largo que casi no habla del tema (p. ej. una lista de casos del DOJ) se lee solo en las ventanas de
+    ±FOCUS_WINDOW caracteres alrededor de cada mención del lugar/evento (unidas si se tocan). Devuelve (texto, nota)."""
+    if not place_re or len(text) < FOCUS_MIN_CHARS:
+        return text, None
+    hits = [m.start() for m in re.finditer(place_re, text, re.I)]
+    if len(hits) >= len(text) * FOCUS_DENSITY:
+        return text, None
+    spans: list[list[int]] = []
+    for h in hits:
+        a, b = max(0, h - FOCUS_WINDOW), min(len(text), h + FOCUS_WINDOW)
+        if spans and a <= spans[-1][1]:
+            spans[-1][1] = b
+        else:
+            spans.append([a, b])
+    out = "\n[…]\n".join(text[a:b] for a, b in spans)
+    return out, f"{len(hits)} menciones en {len(text)} caracteres: se leen {len(spans)} ventanas ({len(out)} caracteres)"
+
+
 def _str(x: Any) -> str:
     return str(x or "").strip()
 
 
 def validate_doc_items(raw: dict, doc: dict, dt: DocText, log: list[str]) -> dict[str, list[dict]]:
     """Cada ítem con su cita_literal encontrada en el txt (posición cruda en `offset`); lo que no, a _descartados."""
-    from researcher_steps.evidence_pool import fix_caps, is_person
+    from researcher_steps.evidence_pool import fix_caps
     out: dict[str, list[dict]] = {k: [] for k in ("datos", "cronologia", "lugares", "citas", "personajes")}
     out["_descartados"] = []
     fuente = f"{doc.get('titulo')}, {doc.get('anio') or 's/f'}"
@@ -908,6 +1021,10 @@ def validate_doc_items(raw: dict, doc: dict, dt: DocText, log: list[str]) -> dic
                 if not re.match(r"^\d{4}(-\d{2}){0,2}$", f):
                     _drop(kind, it, f"fecha «{f}» no es AAAA-MM-DD")
                     continue
+                years = set(re.findall(r"\b(?:19|20)\d\d\b", lit))
+                if years and f[:4] not in years:            # «On August 10, 2001» fechado 2005-08-10
+                    _drop(kind, it, f"fecha {f} no coincide con el año de la cita literal ({', '.join(sorted(years))})")
+                    continue
                 h = _str(it.get("hora"))
                 item = {"fecha": f, "hora": h if re.match(r"^\d{1,2}:\d{2}$", h) else None,
                         "evento": fix_caps(_str(it["evento"])), "lugar": _str(it.get("lugar")) or None}
@@ -925,7 +1042,7 @@ def validate_doc_items(raw: dict, doc: dict, dt: DocText, log: list[str]) -> dic
                         "texto_es": es, "presente_en": [_str(it["lugar"])] if _str(it.get("lugar")) else []}
             else:
                 n = _str(it["nombre"])
-                if not is_person(n):
+                if not is_named_person(n):
                     _drop(kind, it, "no es una persona con nombre propio")
                     continue
                 if n.split()[-1].strip(".,").lower() not in dt.text.lower():
@@ -941,16 +1058,31 @@ def validate_doc_items(raw: dict, doc: dict, dt: DocText, log: list[str]) -> dic
 
 
 def extract_document(seed: dict, doc: dict, text: str, *, call: Callable[..., dict] | None = None,
-                     cache_dir: Path | None = None, log: list[str] | None = None) -> dict[str, list[dict]]:
-    """R3: 1 llamada Pro por trozo de CHUNK_CHARS (solape CHUNK_OVERLAP); caché cruda por trozo."""
+                     cache_dir: Path | None = None, log: list[str] | None = None,
+                     place_re: str | None = None, revalidate: bool = False) -> dict[str, list[dict]]:
+    """R3: 1 llamada Pro por trozo de CHUNK_CHARS (solape CHUNK_OVERLAP); caché cruda por trozo. Las posiciones son
+    siempre las del txt completo (aunque se lean solo ventanas, `focus_text`)."""
     log = log if log is not None else []
+    read, nota = focus_text(text, place_re)
+    if nota:
+        log.append(f"  [R3] {doc['id']}: {nota}")
     if call is None:
         from gemini_helpers import call_pro_json
 
         def call(prompt: str, **kw: Any) -> dict:
             return call_pro_json(prompt, thinking_budget=R3_THINKING, **kw)
     dt = DocText(doc["id"], text)
-    chunks = chunk_text(text)
+    if revalidate:                                      # el txt cambió (p. ej. columnas): re-validar lo ya extraído
+        cpath = cache_dir / f"r3_{doc['id']}.json" if cache_dir else None
+        store = json.loads(cpath.read_text(encoding="utf-8")) if cpath and cpath.exists() else {}
+        merged = {k: [] for k in ("datos", "cronologia", "lugares", "citas", "personajes", "_descartados")}
+        for raw in store.values():
+            part = validate_doc_items(raw or {}, doc, dt, log)
+            for kk in merged:
+                merged[kk] += part.get(kk) or []
+        log.append(f"  [R3] {doc['id']}: re-validado desde la caché ({len(store)} respuestas, sin llamadas)")
+        return merged
+    chunks = chunk_text(read)
     merged: dict[str, list[dict]] = {k: [] for k in ("datos", "cronologia", "lugares", "citas", "personajes",
                                                       "_descartados")}
     store: dict[str, Any] = {}
@@ -993,9 +1125,41 @@ def _nums(t: str) -> frozenset[str]:
     return frozenset(re.sub(r"[,.](?=\d{3}\b)", "", x) for x in re.findall(r"\d[\d,.]*\d|\d", t or ""))
 
 
+_TITLES = {"sheriff", "deputy", "sgt", "sergeant", "lieutenant", "lt", "captain", "capt", "capitan", "colonel", "col",
+           "officer", "ranking", "warden", "chief", "jefe", "mr", "mrs", "ms", "dr", "secretary", "secretario",
+           "alguacil", "teniente", "sargento", "oficial", "jr", "sr", "iii", "ii"}
+# descripciones de grupo o de cargo, no personas: «Abogado del Sheriff», «Oficiales en Conchetta», «National Guard
+# Officers», «Criminal Justice Working Group»
+_NOT_PERSON = re.compile(r"\b(del?|en|at|of|the|según|segun|group|officers|oficiales|guardias|guards|deputies|"
+                         r"abogado|abogada|attorney|warden|inmate|recluso|reclusa|preso|presa)\b", re.I)
+
+
+def person_key(name: str) -> tuple[str, str]:
+    """(nombre, apellido) sin cargos ni tratamientos: «Sgt. Bell» y «Sergeant Bell» → ("", "bell")."""
+    ws = [_ascii(w).lower() for w in re.findall(r"[A-Za-zÁÉÍÓÚÑáéíóúñ]+", name) if w[:1].isupper()]
+    ws = [w for w in ws if w not in _TITLES and len(w) >= 2]
+    if not ws:
+        return ("", "")
+    return (ws[0] if len(ws) > 1 else "", ws[-1])
+
+
+def is_named_person(name: str) -> bool:
+    """Persona con nombre propio (no un cargo ni un grupo): evidence_pool.is_person y sin palabras de grupo/cargo, o un
+    cargo + apellido («Deputy Foster»)."""
+    from researcher_steps.evidence_pool import is_person
+    return bool(is_person(name) and not _NOT_PERSON.search(name) and person_key(name)[1])
+
+
+def same_person(a: str, b: str) -> bool:
+    """Mismo apellido y nombre compatible: igual, o uno de los dos sin nombre de pila, o las 3 primeras letras iguales
+    («Marlin» / «Martin»: errata del documento)."""
+    (fa, la), (fb, lb) = person_key(a), person_key(b)
+    return bool(la) and la == lb and (not fa or not fb or fa[:3] == fb[:3])
+
+
 def same_fact(kind: str, a: dict, b: dict) -> bool:
     """¿Dos ítems (de documentos distintos o de trozos solapados) cuentan lo mismo?"""
-    from researcher_steps.evidence_pool import _content_set, _person_key, norm
+    from researcher_steps.evidence_pool import _content_set, norm
     if kind == "datos":
         if norm(a["texto"]) == norm(b["texto"]):
             return True
@@ -1011,9 +1175,9 @@ def same_fact(kind: str, a: dict, b: dict) -> bool:
         x, y = sorted((norm(a["texto_original"]), norm(b["texto_original"])), key=len)
         if len(x.split()) >= 4 and x in y:
             return True
-        return (_person_key(a["autor"])[1] == _person_key(b["autor"])[1]
+        return (person_key(a["autor"])[1] == person_key(b["autor"])[1]
                 and _overlap(_content_set(a["texto_original"]), _content_set(b["texto_original"])) >= 0.8)
-    return _person_key(a["nombre"]) == _person_key(b["nombre"]) != ("", "")
+    return same_person(a["nombre"], b["nombre"])
 
 
 def contamination(item: dict, event_year: int) -> str | None:
@@ -1076,8 +1240,8 @@ def merge_docs(per_doc: dict[str, dict[str, list[dict]]], docs: list[dict], *, e
                     prev["antagonista"] = prev.get("antagonista") or it.get("antagonista")
                     prev["fechas_presente"] = sorted(set(prev.get("fechas_presente") or [])
                                                      | set(it.get("fechas_presente") or []))
-                    if len(it["nombre"]) > len(prev["nombre"]):
-                        prev["nombre"] = it["nombre"]
+                    if it["nombre"] != prev["nombre"] and it["nombre"] not in prev.setdefault("variantes_nombre", []):
+                        prev["variantes_nombre"].append(it["nombre"])
                 if kind == "citas" and it.get("testimonio") and not prev.get("testimonio"):
                     prev["testimonio"] = prev["testigo"] = True
     pool["cronologia"].sort(key=lambda c: (c["fecha"], c.get("hora") or ""))
@@ -1091,15 +1255,12 @@ def merge_docs(per_doc: dict[str, dict[str, list[dict]]], docs: list[dict], *, e
 
 def add_quote_authors(pool: dict[str, Any], log: list[str]) -> None:
     """Un autor de cita con nombre propio que no está en personajes entra como personaje (con su rol y si es testigo)."""
-    from researcher_steps.evidence_pool import _person_key, is_person
-    keys = {_person_key(p["nombre"]) for p in pool["personajes"]}
     n = len(pool["personajes"])
     added = []
     for q in pool["citas"]:
         a = q.get("autor") or ""
-        if not is_person(a) or _person_key(a) in keys:
+        if not is_named_person(a) or any(same_person(a, p["nombre"]) for p in pool["personajes"]):
             continue
-        keys.add(_person_key(a))
         n += 1
         pool["personajes"].append({"id": f"P{n:02d}", "nombre": a, "rol": q.get("rol"), "antagonista": False,
                                    "testigo": bool(q.get("testimonio")), "fechas_presente": [], "lugar": None,
@@ -1112,34 +1273,76 @@ def add_quote_authors(pool: dict[str, Any], log: list[str]) -> None:
         log.append(f"  [R4] autores de cita sumados como personajes: {added}")
 
 
-def person_stats(pool: dict[str, Any]) -> None:
-    """`n_citas` (citas suyas), `n_datos` (datos y eventos que lo nombran) y `elegible_humano` (testigo con ≥ 3 citas
-    o ≥ 3 datos propios: el guionista elige su humano entre estos)."""
-    from researcher_steps.evidence_pool import _person_key, norm
+def person_stats(pool: dict[str, Any], event_year: int | None = None) -> None:
+    """`n_citas` (citas suyas), `n_datos` (datos y eventos que lo nombran) y `elegible_humano` (testigo, no antagonista,
+    con ≥ 3 citas o ≥ 3 datos propios y, si se da `event_year`, con alguna fecha de presencia en ese año: un preso
+    muerto años antes, que el informe cuenta como antecedente, no es el humano del evento)."""
+    from researcher_steps.evidence_pool import norm
+    crono = {c["id"]: str(c["fecha"]) for c in pool.get("cronologia") or []}
     for p in pool["personajes"]:
-        sur = _person_key(p["nombre"])[1]
-        p["n_citas"] = sum(1 for q in pool["citas"] if sur and _person_key(q.get("autor") or "")[1] == sur)
+        sur = person_key(p["nombre"])[1]
+        p["n_citas"] = sum(1 for q in pool["citas"] if same_person(q.get("autor") or "", p["nombre"]))
         p["n_datos"] = sum(1 for x in pool["datos"] + pool["cronologia"]
                            if sur and sur in re.findall(r"[a-zñ]+", norm(x.get("texto") or x.get("evento"))))
-        p["elegible_humano"] = bool(p.get("testigo") and (p["n_citas"] >= 3 or p["n_datos"] >= 3))
+        days = list(p.get("fechas_presente") or []) + [crono.get(i, "") for i in p.get("presente_en") or []]
+        in_event = event_year is None or any(str(d).startswith(str(event_year)) for d in days)
+        p["elegible_humano"] = bool(p.get("testigo") and not p.get("antagonista") and in_event
+                                    and (p["n_citas"] >= 3 or p["n_datos"] >= 3))
+
+
+def canonical_names(pool: dict[str, Any], texts: dict[str, "DocText"]) -> None:
+    """El nombre de cada personaje = la variante (de todas las que se fusionaron) que más aparece en los documentos,
+    sin cargo delante («Sheriff Martin Gusman», errata de un documento → «Marlin N. Gusman»). In place."""
+    blob = "\n".join(t.text for t in texts.values())
+    for p in pool["personajes"]:
+        vs = list(dict.fromkeys([p["nombre"]] + (p.get("variantes_nombre") or [])))
+        full = [re.sub(rf"^(?:(?:{'|'.join(_TITLES)})\.?\s+)+", "", v, flags=re.I) for v in vs if person_key(v)[0]]
+        # con nombre y apellido si alguna variante lo tiene («Marlin N. Gusman», no «Gusman»); si no, tal cual
+        best = max(full or vs, key=lambda v: (blob.count(v), len(v)))
+        if best != p["nombre"]:
+            p["variantes_nombre"] = [v for v in vs if v != best]
+            p["nombre"] = best
+
+
+_COUNT_OF = re.compile(r"(?<![\d,.])(\d{1,3}(?:[,.]\d{3})+|\d{4,})\s+(?:[a-záéíóúñ]+\s+){0,2}?"
+                       r"(reclusos|reclusas|presos|presas|prisioneros|prisioneras|internos|detenidos|personas|"
+                       r"evacuados)\b", re.I)
+
+
+CANON_TOPIC = 0.35
+CANON_RATIO = 1.25                      # más estricto que en v2 (1.5): acá hay cientos de cifras
+
+
+def count_value(texto: str) -> tuple[str, int] | None:
+    """La cifra de un CONTEO de personas presas: el número pegado (≤ 2 palabras) al sustantivo («6,375 presos», «8,000
+    reclusos más»), no cualquier número del texto (un año, una capacidad, otra cifra). None si no hay; si el texto trae
+    dos conteos distintos, None (es un rango o una comparación, no una cifra canónica)."""
+    ms = {m.group(1): int(re.sub(r"[,.]", "", m.group(1))) for m in _COUNT_OF.finditer(texto or "")}
+    if len(set(ms.values())) != 1:
+        return None
+    k = next(iter(ms))
+    return k, ms[k]
 
 
 def canonical_v3(pool: dict[str, Any], docs: list[dict], log: list[str]) -> None:
     """Cifras del mismo conteo (≥ 1000, mismo sustantivo, la mayor ≤ CANON_RATIO × la menor) entre documentos: la de
     la fuente más oficial (fallo > informe oficial .gov > informe) es la canónica; las otras, «estimación de <fuente>»."""
-    from researcher_steps.evidence_pool import CANON_RATIO, _COUNT_NOUN, _count_nums, norm
     meta = {d["id"]: d for d in docs}
 
     def _val(d: dict) -> int | None:
-        m = _count_nums(d["texto"])
-        try:
-            return int(re.sub(r"[,.]", "", m[-1])) if m else None
-        except ValueError:
-            return None
-    cands = [d for d in pool["datos"] if (_val(d) or 0) >= 1000 and _COUNT_NOUN.search(norm(d["texto"]))]
+        m = count_value(d["texto"])
+        return m[1] if m else None
+    from researcher_steps.evidence_pool import _content_set
+
+    def _topic(d: dict) -> set:
+        return {w for w in _content_set(d["texto"]) if not w[:1].isdigit()}
+    cands = [d for d in pool["datos"] if (_val(d) or 0) >= 1000]
+    # el mismo conteo = cifras cercanas (la mayor ≤ CANON_RATIO × la menor) Y el mismo asunto (≥ CANON_TOPIC de las
+    # palabras en común con el primero del grupo): con cientos de datos, la cercanía sola junta capacidad y población
     groups: list[list[dict]] = []
-    for d in sorted(cands, key=_val):
-        g = next((g for g in groups if _val(d) <= CANON_RATIO * min(_val(x) for x in g)), None)
+    for d in sorted(cands, key=lambda d: _doc_rank(meta.get(d["doc_id"], {"id": d["doc_id"]}))):
+        g = next((g for g in groups if max(_val(d), _val(g[0])) <= CANON_RATIO * min(_val(d), _val(g[0]))
+                  and _overlap(_topic(d), _topic(g[0])) >= CANON_TOPIC), None)
         (g.append(d) if g is not None else groups.append([d]))
     out = []
     for g in groups:
@@ -1150,14 +1353,15 @@ def canonical_v3(pool: dict[str, Any], docs: list[dict], log: list[str]) -> None
         if (meta.get(o["doc_id"]) or {}).get("tipo") not in OFFICIAL_TIPOS:
             continue
         o["estatus"] = "oficial"
-        var = []
+        var, seen = [], {_val(o)}
         for d in g[1:]:
-            if _val(d) == _val(o):
+            if _val(d) in seen:
                 continue
+            seen.add(_val(d))
             d["estatus"] = f"estimación de {(meta.get(d['doc_id']) or {}).get('titulo') or d['doc_id']}"[:120]
-            var.append({"id": d["id"], "valor": ", ".join(_count_nums(d["texto"])), "estatus": d["estatus"]})
+            var.append({"id": d["id"], "valor": count_value(d["texto"])[0], "estatus": d["estatus"]})
         if var:
-            out.append({"oficial": o["id"], "valor": _count_nums(o["texto"])[-1], "fuente": o["doc_id"],
+            out.append({"oficial": o["id"], "valor": count_value(o["texto"])[0], "fuente": o["doc_id"],
                         "variantes": var})
     pool["cifras_canonicas"] = out
     if out:
@@ -1179,7 +1383,6 @@ def verify_pool(pool: dict[str, Any], texts: dict[str, DocText], docs: list[dict
                apellido a ≤ AUTHOR_WINDOW caracteres; verificada_parcial = ≥ PARTIAL_WORDS palabras seguidas literales,
                o literal sin el apellido cerca (en los dos casos va SIN nombre); sin_verificar = lo demás.
     el resto   verificada = su `cita_literal` está en el documento (R3 ya lo exige: queda la constancia)."""
-    from researcher_steps.evidence_pool import _person_key, is_person
     log = log if log is not None else []
     meta = {d["id"]: d for d in docs}
     count = {"verificada": 0, "verificada_parcial": 0, "sin_verificar": 0}
@@ -1191,7 +1394,7 @@ def verify_pool(pool: dict[str, Any], texts: dict[str, DocText], docs: list[dict
                                       "url_fuente": d.get("url"), "offset": it["offset"],
                                       "motivo": f"cita_literal en {it['doc_id']}"}
                 continue
-            sur = _person_key(it.get("autor") or "")[1] if is_person(it.get("autor") or "") else ""
+            sur = person_key(it.get("autor") or "")[1] if is_named_person(it.get("autor") or "") else ""
             best: dict[str, Any] | None = None
             for did in it.get("docs") or [it["doc_id"]]:
                 dt = texts.get(did)
@@ -1225,9 +1428,8 @@ def verify_pool(pool: dict[str, Any], texts: dict[str, DocText], docs: list[dict
                                   "offset": (best or {}).get("offset"), "cita_original": it["texto_original"]}
             count[v["estado"]] += 1
     for p in pool["personajes"]:
-        sur = _person_key(p["nombre"])[1]
         p["testigo_verificado"] = any(
-            (q.get("verificacion") or {}).get("estado") == "verificada" and _person_key(q.get("autor") or "")[1] == sur
+            (q.get("verificacion") or {}).get("estado") == "verificada" and same_person(q.get("autor") or "", p["nombre"])
             for q in pool["citas"])
     log.append(f"  [R5] citas: {count}")
     return count
@@ -1242,10 +1444,16 @@ def build_pool(per_doc: dict[str, dict], docs: list[dict], texts: dict[str, DocT
     log = log if log is not None else []
     pool = merge_docs(per_doc, docs, event_year=event_year, log=log)
     add_quote_authors(pool, log)
+    canonical_names(pool, texts)
+    # el filtro de acción (verbos en español) es para los bloques resumidos: acá un testigo ya está probado por su
+    # cita_literal en el documento y no pasa por el filtro (si no, se pierden testigos de la ACLU)
     es_texts = [x.get("texto") or x.get("evento") or "" for k in ("datos", "cronologia", "citas") for x in pool[k]]
+    testigos = [p for p in pool["personajes"] if p.get("testigo")]
+    pool["personajes"] = [p for p in pool["personajes"] if not p.get("testigo")]
     acting_filter(pool, ["\n".join(es_texts)], log)
+    pool["personajes"] = sorted(pool["personajes"] + testigos, key=lambda p: int(p["id"][1:]))
     presence(pool, log)
-    person_stats(pool)
+    person_stats(pool, event_year)
     canonical_v3(pool, docs, log)
     if geocode_cache is not None:
         texts_es = [d["texto"] for d in pool["datos"]] + [c["evento"] for c in pool["cronologia"]]
@@ -1259,10 +1467,9 @@ def build_pool(per_doc: dict[str, dict], docs: list[dict], texts: dict[str, DocT
 
 def metrics(pool: dict[str, Any]) -> dict[str, Any]:
     """Métricas del criterio de éxito (handoff F7 §1) para comparar pools."""
-    from researcher_steps.evidence_pool import is_person
     citas = pool.get("citas") or []
     ver = [q for q in citas if (q.get("verificacion") or {}).get("estado") == "verificada"]
-    named_w = [q for q in ver if q.get("testimonio") and is_person(q.get("autor") or "")]
+    named_w = [q for q in ver if q.get("testimonio") and is_named_person(q.get("autor") or "")]
     items = [it for k in KINDS for it in pool.get(k) or []]
     pers = pool.get("personajes") or []
     return {

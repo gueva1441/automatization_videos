@@ -1,0 +1,663 @@
+{
+ "generado": "2026-10-21",
+ "place_re": "Orleans Parish|\\bOPP\\b|Katrina|Templeman|Jefferson Parish Prison",
+ "max_doc_chars": 300000,
+ "documentos": [
+  {
+   "id": "F01",
+   "slug": "aclu_2006_abandoned_abused_orleans_parish_prisoners",
+   "url": "https://www.aclu.org/publications/abandoned-and-abused",
+   "titulo": "Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina",
+   "tipo": "informe_oficial",
+   "anio": 2006,
+   "prioridad": 1,
+   "por_que": "Es el informe más completo y citado sobre el tema, con más de 1000 testimonios de prisioneros.",
+   "descargado": "2026-10-21",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.aclu.org/publications/abandoned-and-abused",
+     "status": 200,
+     "bytes": 35326,
+     "nota": "portada corta con PDF enlazado: https://www.aclu.org/sites/default/files/field_document/oppreport20060809.pdf"
+    },
+    {
+     "via": "pdf_enlazado",
+     "url": "https://www.aclu.org/sites/default/files/field_document/oppreport20060809.pdf",
+     "status": 200,
+     "bytes": 4064571
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "pdf_enlazado",
+   "url_descarga": "https://www.aclu.org/wp-content/uploads/publications/oppreport20060809.pdf",
+   "archivo": "aclu_2006_abandoned_abused_orleans_parish_prisoners.pdf",
+   "txt": "aclu_2006_abandoned_abused_orleans_parish_prisoners.txt",
+   "bytes": 4064571,
+   "caracteres": 296928,
+   "caracteres_total": 466553,
+   "recorte": "fuera la cola desde «ENDNOTES» (98482 caracteres); cortado en el último párrafo antes de 300000 (71139 caracteres fuera)",
+   "sha1": "47408cf3f301b81109ad345a854ad82017760dfd",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina",
+    "tipo": "informe_oficial",
+    "anio": 2006
+   },
+   "autor": "National Prison Project of the American Civil Liberties Union, American Civil Liberties Union of Louisiana, American Civil Liberties Union Human Rights Program"
+  },
+  {
+   "id": "F02",
+   "slug": "hrw_2005_new_orleans_prisoners_abandoned_to",
+   "url": "https://www.hrw.org/news/2005/09/21/new-orleans-prisoners-abandoned-floodwaters",
+   "titulo": "New Orleans: Prisoners Abandoned in Floodwaters",
+   "tipo": "informe_oficial",
+   "anio": 2005,
+   "prioridad": 1,
+   "por_que": "Publicado apenas semanas después del huracán, fue uno de los primeros informes en denunciar el abandono de los presos.",
+   "descargado": "2026-10-21",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.hrw.org/news/2005/09/21/new-orleans-prisoners-abandoned-floodwaters",
+     "status": 403,
+     "bytes": 424
+    },
+    {
+     "via": "wayback",
+     "url": "http://web.archive.org/web/20120504171100id_/http://www.hrw.org:80/news/2005/09/21/new-orleans-prisoners-abandoned-floodwaters",
+     "status": 200,
+     "bytes": 40461
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "wayback",
+   "url_descarga": "http://web.archive.org/web/20120504171100id_/http://www.hrw.org:80/news/2005/09/21/new-orleans-prisoners-abandoned-floodwaters",
+   "archivo": "hrw_2005_new_orleans_prisoners_abandoned_to.html",
+   "txt": "hrw_2005_new_orleans_prisoners_abandoned_to.txt",
+   "bytes": 40461,
+   "caracteres": 6351,
+   "caracteres_total": 6351,
+   "recorte": null,
+   "sha1": "6697df90c3aebac6b3d27fc5970bb29700cb2aba",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "New Orleans: Prisoners Abandoned to Floodwaters",
+    "tipo": "informe_oficial",
+    "anio": 2005
+   },
+   "autor": "Human Rights Watch"
+  },
+  {
+   "id": "F03",
+   "slug": "aclu_2006_summaries_of_400_testimonials_from",
+   "url": "https://www.aclu.org/documents/summaries-400-testimonials-inmates-incarcerated-orleans-parish-prison-during-hurricane-katrina",
+   "titulo": "Testimonials from Inmates Incarcerated at Orleans Parish Prison during Hurricane Katrina",
+   "tipo": "testimonio",
+   "anio": 2006,
+   "prioridad": 1,
+   "por_que": "Contiene resúmenes de 400 testimonios directos de los prisioneros, ofreciendo una visión detallada de las condiciones y abusos.",
+   "descargado": "2026-10-21",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.aclu.org/documents/summaries-400-testimonials-inmates-incarcerated-orleans-parish-prison-during-hurricane-katrina",
+     "status": 200,
+     "bytes": 35095,
+     "nota": "portada corta con PDF enlazado: https://assets.aclu.org/live/uploads/document/asset_upload_file182_23418.pdf"
+    },
+    {
+     "via": "pdf_enlazado",
+     "url": "https://assets.aclu.org/live/uploads/document/asset_upload_file182_23418.pdf",
+     "status": 200,
+     "bytes": 506990
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "pdf_enlazado",
+   "url_descarga": "https://assets.aclu.org/live/uploads/document/asset_upload_file182_23418.pdf",
+   "archivo": "aclu_2006_summaries_of_400_testimonials_from.pdf",
+   "txt": "aclu_2006_summaries_of_400_testimonials_from.txt",
+   "bytes": 506990,
+   "caracteres": 297707,
+   "caracteres_total": 472703,
+   "recorte": "cortado en el último párrafo antes de 300000 (174992 caracteres fuera)",
+   "sha1": "bc3ce1641f881646b6c1ffdaed62ec7ab75ae19d",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Summaries of 400 Testimonials From Inmates Incarcerated at Orleans Parish Prison During Hurricane Katrina",
+    "tipo": "testimonio",
+    "anio": 2006
+   },
+   "autor": "American Civil Liberties Union"
+  },
+  {
+   "id": "F04",
+   "slug": "justice_2009_civil_rights_division_special_litigation",
+   "url": "https://www.justice.gov/crt/special-litigation-section-case-summaries",
+   "titulo": "Special Litigation Section Case Summaries",
+   "tipo": "informe_oficial",
+   "anio": 2009,
+   "prioridad": 1,
+   "por_que": "Contiene el resumen oficial de los hallazgos del Departamento de Justicia sobre las condiciones inconstitucionales en la prisión, un documento gubernamental clave.",
+   "descargado": "2026-10-21",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.justice.gov/crt/special-litigation-section-case-summaries",
+     "status": 200,
+     "bytes": 410786
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.justice.gov/crt/special-litigation-section-case-summaries",
+   "archivo": "justice_2009_civil_rights_division_special_litigation.html",
+   "txt": "justice_2009_civil_rights_division_special_litigation.txt",
+   "bytes": 410786,
+   "caracteres": 200675,
+   "caracteres_total": 200675,
+   "recorte": null,
+   "sha1": "57dcf43215a92fac4e3228091af53a415446692b",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Civil Rights Division | Special Litigation Section Case Summaries (Orleans Parish Prison)",
+    "tipo": "informe_oficial",
+    "anio": 2009
+   },
+   "autor": "U.S. Department of Justice"
+  },
+  {
+   "id": "F05",
+   "slug": "hrw_2005_excerpts_of_letters_from_prisoners",
+   "url": "https://www.hrw.org/news/2005/10/30/excerpts-letters-prisoners-abandoned-katrina",
+   "titulo": "Excerpts of letters from prisoners abandoned in Katrina",
+   "tipo": "testimonio",
+   "anio": 2005,
+   "prioridad": 1,
+   "por_que": "Contiene transcripciones de cartas escritas a mano por prisioneras, ofreciendo una perspectiva femenina directa y urgente de los eventos.",
+   "descargado": "2026-10-21",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.hrw.org/news/2005/10/30/excerpts-letters-prisoners-abandoned-katrina",
+     "status": 403,
+     "bytes": 424
+    },
+    {
+     "via": "wayback",
+     "url": "http://web.archive.org/web/20190820181428id_/https://www.hrw.org/news/2005/10/30/excerpts-letters-prisoners-abandoned-katrina",
+     "status": 200,
+     "bytes": 142990
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "wayback",
+   "url_descarga": "http://web.archive.org/web/20190820181428id_/https://www.hrw.org/news/2005/10/30/excerpts-letters-prisoners-abandoned-katrina",
+   "archivo": "hrw_2005_excerpts_of_letters_from_prisoners.html",
+   "txt": "hrw_2005_excerpts_of_letters_from_prisoners.txt",
+   "bytes": 142990,
+   "caracteres": 11094,
+   "caracteres_total": 11094,
+   "recorte": null,
+   "sha1": "8f0e3bc9ab188b8d1ef30ed5993344db4c11b36a",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Excerpts of Letters from Prisoners Abandoned to Katrina",
+    "tipo": "testimonio",
+    "anio": 2005
+   },
+   "autor": "Human Rights Watch"
+  },
+  {
+   "id": "F06",
+   "slug": "aclu_2006_prison_conditions_and_prisoner_abuse",
+   "url": "https://www.aclu.org/documents/prison-conditions-and-prisoner-abuse-after-katrina",
+   "titulo": "Prison Conditions and Prisoner Abuse after Katrina",
+   "tipo": "informe_oficial",
+   "anio": 2006,
+   "prioridad": 1,
+   "por_que": "Documento de la ACLU sobre las condiciones carcelarias y abusos después de Katrina, probablemente un informe detallado o un resumen de hallazgos clave.",
+   "descargado": "2026-10-21",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.aclu.org/documents/prison-conditions-and-prisoner-abuse-after-katrina",
+     "status": 200,
+     "bytes": 50616
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.aclu.org/documents/prison-conditions-and-prisoner-abuse-after-katrina",
+   "archivo": "aclu_2006_prison_conditions_and_prisoner_abuse.html",
+   "txt": "aclu_2006_prison_conditions_and_prisoner_abuse.txt",
+   "bytes": 50616,
+   "caracteres": 3691,
+   "caracteres_total": 3691,
+   "recorte": null,
+   "sha1": "3ed6d903c84ea4b69ad24c31027e8bebf43aca13",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Prison Conditions and Prisoner Abuse After Katrina",
+    "tipo": "informe_oficial",
+    "anio": 2006
+   },
+   "autor": "American Civil Liberties Union"
+  },
+  {
+   "id": "F07",
+   "slug": "aclu_2006_abandoned_abused_complete_report",
+   "url": "https://www.aclu.org/publications/abandoned-abused-complete-report",
+   "titulo": "Abandoned & Abused: Complete Report",
+   "tipo": "informe_oficial",
+   "anio": 2006,
+   "prioridad": 1,
+   "por_que": "Es el informe completo de la ACLU, el más detallado y citado sobre el tema, con testimonios directos de prisioneros, personal y abogados.",
+   "descargado": "2026-10-21",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.aclu.org/publications/abandoned-abused-complete-report",
+     "status": 200,
+     "bytes": 36365,
+     "nota": "portada corta con PDF enlazado: https://assets.aclu.org/live/uploads/publications/oppreport20060809.pdf"
+    },
+    {
+     "via": "pdf_enlazado",
+     "url": "https://assets.aclu.org/live/uploads/publications/oppreport20060809.pdf",
+     "status": 200,
+     "bytes": 4064571
+    }
+   ],
+   "ok": false,
+   "estado": "duplicado",
+   "via": "pdf_enlazado",
+   "url_descarga": "https://assets.aclu.org/live/uploads/publications/oppreport20060809.pdf",
+   "archivo": "aclu_2006_abandoned_abused_complete_report.pdf",
+   "txt": "aclu_2006_abandoned_abused_complete_report.txt",
+   "bytes": 4064571,
+   "caracteres": 296928,
+   "caracteres_total": 466553,
+   "recorte": "fuera la cola desde «ENDNOTES» (98482 caracteres); cortado en el último párrafo antes de 300000 (71139 caracteres fuera)",
+   "sha1": "47408cf3f301b81109ad345a854ad82017760dfd",
+   "idioma": "en",
+   "nombra_evento": false,
+   "motivo": "mismo documento que F01"
+  },
+  {
+   "id": "F08",
+   "slug": "prisonpolicy_2006_justice_in_katrina_s_wake",
+   "url": "https://www.prisonpolicy.org/scans/vera/justice-in-katrinas-wake.pdf",
+   "titulo": "Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans",
+   "tipo": "informe_oficial",
+   "anio": 2015,
+   "prioridad": 1,
+   "por_que": "Informe en PDF del Vera Institute of Justice que evalúa el sistema de justicia en Nueva Orleans después de Katrina, incluyendo probable atención a la prisión.",
+   "descargado": "2026-10-21",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.prisonpolicy.org/scans/vera/justice-in-katrinas-wake.pdf",
+     "status": 200,
+     "bytes": 484504
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.prisonpolicy.org/scans/vera/justice-in-katrinas-wake.pdf",
+   "archivo": "prisonpolicy_2006_justice_in_katrina_s_wake.pdf",
+   "txt": "prisonpolicy_2006_justice_in_katrina_s_wake.txt",
+   "bytes": 484504,
+   "caracteres": 53592,
+   "caracteres_total": 53592,
+   "recorte": null,
+   "sha1": "7d23c536d394e0c39e8520beb83511bfd757bc63",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Justice in Katrina's Wake (Vera Institute of Justice Report)",
+    "tipo": "informe_oficial",
+    "anio": 2006
+   },
+   "autor": "Judge Calvin Johnson (Ret.), Mathilde Laisne, Jon Wool, Vera Institute of Justice"
+  },
+  {
+   "id": "F09",
+   "slug": "prisonlegalnews_2009_doj_cripa_findings_on_orleans",
+   "url": "https://www.prisonlegalnews.org/media/publications/doj_cripa_findings_on_orleans_parish_prison_system_conditions_2009.pdf",
+   "titulo": "Department of Justice Civil Rights Division Letter: Re: Orleans Parish Prison System New Orleans, Louisiana",
+   "tipo": "informe_oficial",
+   "anio": 2009,
+   "prioridad": 1,
+   "por_que": "Documento oficial en PDF de los hallazgos del Departamento de Justicia (DOJ) bajo CRIPA sobre las condiciones de la prisión de Orleans en 2009.",
+   "descargado": "2026-10-21",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.prisonlegalnews.org/media/publications/doj_cripa_findings_on_orleans_parish_prison_system_conditions_2009.pdf",
+     "status": 200,
+     "bytes": 1601586
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.prisonlegalnews.org/media/publications/doj_cripa_findings_on_orleans_parish_prison_system_conditions_2009.pdf",
+   "archivo": "prisonlegalnews_2009_doj_cripa_findings_on_orleans.pdf",
+   "txt": "prisonlegalnews_2009_doj_cripa_findings_on_orleans.txt",
+   "bytes": 1601586,
+   "caracteres": 82710,
+   "caracteres_total": 82710,
+   "recorte": null,
+   "sha1": "6484fc971da8fb56d15b18830eb25f332f3e58c2",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "DOJ CRIPA Findings on Orleans Parish Prison System Conditions (2009 PDF)",
+    "tipo": "informe_oficial",
+    "anio": 2009
+   },
+   "autor": "U.S. Department of Justice Civil Rights Division"
+  },
+  {
+   "id": "F10",
+   "slug": "thelensnola_2025_reforms_resulted_from_the_thousands",
+   "url": "https://thelensnola.org/2025/08/29/reforms-resulted-from-the-thousands-left-to-drown-in-opp/",
+   "titulo": "Reforms resulted from the thousands left to drown in OPP",
+   "tipo": "prensa_posterior",
+   "anio": 2025,
+   "prioridad": 2,
+   "por_que": "Análisis en el décimo aniversario que conecta directamente el abandono de los presos con las reformas posteriores en el sistema de justicia de la ciudad.",
+   "descargado": "2026-10-21",
+   "intentos": [
+    {
+     "via": "original",
+     "copia_local": "thelens_2025_opp.html",
+     "url": "https://thelensnola.org/2025/08/29/reforms-resulted-from-the-thousands-left-to-drown-in-opp/",
+     "status": 200
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://thelensnola.org/2025/08/29/reforms-resulted-from-the-thousands-left-to-drown-in-opp/",
+   "archivo": "thelensnola_2025_reforms_resulted_from_the_thousands.html",
+   "txt": "thelensnola_2025_reforms_resulted_from_the_thousands.txt",
+   "bytes": 142587,
+   "caracteres": 14045,
+   "caracteres_total": 14045,
+   "recorte": null,
+   "sha1": "216a2d756c2b1f45cc0c85c839ac3b756991f06c",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Reforms resulted from the thousands left to drown in OPP",
+    "tipo": "prensa_posterior",
+    "anio": 2025
+   },
+   "autor": "The Lens NOLA"
+  },
+  {
+   "id": "F11",
+   "slug": "wordpress_2012_prisoners_of_katrina_a_bbc",
+   "url": "https://watchopp.wordpress.com/2012/04/24/prisoners-of-katrina-a-bbc-documentary/",
+   "titulo": "Prisoners of Katrina, a BBC Documentary",
+   "tipo": "documental",
+   "anio": 2012,
+   "prioridad": 2,
+   "por_que": "Descripción y contexto del documental de la BBC que investigó la historia no contada de los casi 7,000 reclusos, con el testimonio de la periodista Olenka Frenkiel.",
+   "descargado": "2026-10-21",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://watchopp.wordpress.com/2012/04/24/prisoners-of-katrina-a-bbc-documentary/",
+     "status": 200,
+     "bytes": 90197,
+     "error": "texto de 2679 caracteres (< 3000: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "url": "http://web.archive.org/web/20190722083347id_/https://watchopp.wordpress.com/2012/04/24/prisoners-of-katrina-a-bbc-documentary/",
+     "status": 429,
+     "bytes": 620
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "HTTP 429"
+  },
+  {
+   "id": "F12",
+   "slug": "voiceofwitness_2006_voices_from_the_storm_the",
+   "url": "https://voiceofwitness.org/books/voices-from-the-storm/",
+   "titulo": "Voices from the Storm: The People of New Orleans on Hurricane Katrina and Its Aftermath",
+   "tipo": "libro",
+   "anio": 2006,
+   "prioridad": 2,
+   "por_que": "Incluye el testimonio de Dan Bright, un prisionero que relata cómo tuvieron que escapar de sus celdas para salvar sus vidas.",
+   "descargado": "2026-10-21",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://voiceofwitness.org/books/voices-from-the-storm/",
+     "status": 200,
+     "bytes": 144883
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://voiceofwitness.org/books/voices-from-the-storm/",
+   "archivo": "voiceofwitness_2006_voices_from_the_storm_the.html",
+   "txt": "voiceofwitness_2006_voices_from_the_storm_the.txt",
+   "bytes": 144883,
+   "caracteres": 3712,
+   "caracteres_total": 3712,
+   "recorte": null,
+   "sha1": "d268b67063dd6d17ea7d1a808cc21646c559dcc2",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Voices from the Storm: The People of New Orleans on Hurricane Katrina and Its Aftermath",
+    "tipo": "libro",
+    "anio": 2006
+   },
+   "autor": "Chris Ying, Lola Vollen, Voice of Witness"
+  },
+  {
+   "id": "F13",
+   "slug": "vice_2015_hurricane_katrina_was_a_nightmare",
+   "url": "https://www.vice.com/en/article/hurricane-katrina-was-a-nightmare-for-inmates-in-new-orleans-829/",
+   "titulo": "Hurricane Katrina Was a Nightmare for Inmates in New Orleans",
+   "tipo": "prensa_posterior",
+   "anio": 2015,
+   "prioridad": 2,
+   "por_que": "Artículo de Vice News para el décimo aniversario que resume bien los eventos e incluye entrevistas y testimonios retrospectivos.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F14",
+   "slug": "cbsnews_2010_katrina_jail_lawsuit_jury_awards",
+   "url": "https://www.cbsnews.com/news/katrina-jail-lawsuit-jury-awards-tourists-650k/",
+   "titulo": "Katrina Jail Lawsuit: Jury Awards Tourists $650K",
+   "tipo": "prensa_posterior",
+   "anio": 2010,
+   "prioridad": 2,
+   "por_que": "Informa sobre la decisión inicial del jurado que concedió 650.000 dólares a los demandantes antes de que el fallo fuera revocado.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F15",
+   "slug": "ojp_2006_abandoned_and_abused_orleans_parish",
+   "url": "https://www.ojp.gov/ncjrs/virtual-library/abstracts/abandoned-and-abused-orleans-parish-prisoners-wake-hurricane",
+   "titulo": "Abandoned and Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (Abstract)",
+   "tipo": "academico",
+   "anio": 2006,
+   "prioridad": 2,
+   "por_que": "Abstract de un informe clave sobre el abandono y abuso de prisioneros en OPP durante Katrina, publicado por el Departamento de Justicia.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F16",
+   "slug": "utexas_2023_prisons_immigration_detention_centers_and",
+   "url": "https://sites.utexas.edu/tjclcr/wp-content/uploads/sites/3748/2023/05/Sullivan.-Prisons-Immigration-Detention-Centers-and-Natural-Diasters.pdf",
+   "titulo": "Prisons, Immigration Detention Centers, and Natural Disasters (Sullivan)",
+   "tipo": "academico",
+   "anio": 2023,
+   "prioridad": 2,
+   "por_que": "Artículo académico en PDF que analiza la situación de las prisiones y centros de detención durante desastres naturales, donde el caso de Katrina y la OPP sería un estudio de caso relevante.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F17",
+   "slug": "hrw_2020_hurricane_katrina_us_15_years",
+   "url": "https://www.hrw.org/news/2020/08/29/hurricane-katrina-us-15-years-later",
+   "titulo": "Hurricane Katrina, US: 15 Years Later",
+   "tipo": "prensa_posterior",
+   "anio": 2020,
+   "prioridad": 2,
+   "por_que": "Artículo de Human Rights Watch que conmemora los 15 años del huracán Katrina, revisando sus impactos, incluyendo probablemente la situación de la prisión de Orleans.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F18",
+   "slug": "amazonaws_document_from_university_of_michigan",
+   "url": "https://clearinghouse-umich-production.s3.amazonaws.com/media/doc/47486.pdf",
+   "titulo": "Document from University of Michigan Clearinghouse (PDF)",
+   "tipo": "academico",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Documento PDF alojado por un clearinghouse de la Universidad de Michigan; es probable que sea un informe legal, académico o un documento de investigación relevante para el tema.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F19",
+   "slug": "laaclu_2009_doj_investigation_finds_conditions_at",
+   "url": "https://www.laaclu.org/press-releases/doj-investigation-finds-conditions-orleans-parish-prison-unconstitutional/",
+   "titulo": "DOJ Investigation Finds Conditions at Orleans Parish Prison Unconstitutional (Press Release)",
+   "tipo": "prensa_posterior",
+   "anio": 2009,
+   "prioridad": 2,
+   "por_que": "Comunicado de prensa de la ACLU de Luisiana informando sobre los hallazgos del Departamento de Justicia respecto a las condiciones inconstitucionales en la Prisión de Orleans.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F20",
+   "slug": "american_articulo_de_revista_de_derecho",
+   "url": "https://digitalcommons.wcl.american.edu/facsch_lawrev/1026/",
+   "titulo": "Artículo de Revista de Derecho (American University)",
+   "tipo": "academico",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Artículo académico de una revista de derecho de la American University, probablemente un análisis legal sobre las condiciones carcelarias o los derechos de los prisioneros post-Katrina.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  }
+ ],
+ "_fichas": {
+  "hash": "cf32433e95ea7286",
+  "raw": {
+   "documentos": [
+    {
+     "id": "F01",
+     "titulo": "Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina",
+     "autor": "National Prison Project of the American Civil Liberties Union, American Civil Liberties Union of Louisiana, American Civil Liberties Union Human Rights Program",
+     "tipo": "informe_oficial",
+     "anio": 2006
+    },
+    {
+     "id": "F02",
+     "titulo": "New Orleans: Prisoners Abandoned in Floodwaters",
+     "autor": "Human Rights Watch",
+     "tipo": "informe_oficial",
+     "anio": 2005
+    },
+    {
+     "id": "F03",
+     "titulo": "Testimonials from Inmates Incarcerated at Orleans Parish Prison during Hurricane Katrina",
+     "autor": "American Civil Liberties Union",
+     "tipo": "testimonio",
+     "anio": 0
+    },
+    {
+     "id": "F04",
+     "titulo": "Special Litigation Section Case Summaries",
+     "autor": "U.S. Department of Justice",
+     "tipo": "informe_oficial",
+     "anio": 0
+    },
+    {
+     "id": "F05",
+     "titulo": "Excerpts of letters from prisoners abandoned in Katrina",
+     "autor": "Human Rights Watch",
+     "tipo": "testimonio",
+     "anio": 2005
+    },
+    {
+     "id": "F06",
+     "titulo": "Prison Conditions and Prisoner Abuse after Katrina",
+     "autor": "American Civil Liberties Union",
+     "tipo": "informe_oficial",
+     "anio": 0
+    },
+    {
+     "id": "F08",
+     "titulo": "Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans",
+     "autor": "Judge Calvin Johnson (Ret.), Mathilde Laisne, Jon Wool, Vera Institute of Justice",
+     "tipo": "informe_oficial",
+     "anio": 2015
+    },
+    {
+     "id": "F09",
+     "titulo": "Department of Justice Civil Rights Division Letter: Re: Orleans Parish Prison System New Orleans, Louisiana",
+     "autor": "U.S. Department of Justice Civil Rights Division",
+     "tipo": "informe_oficial",
+     "anio": 2009
+    },
+    {
+     "id": "F10",
+     "titulo": "Reforms resulted from the thousands left to drown in OPP",
+     "autor": "The Lens NOLA",
+     "tipo": "prensa_posterior",
+     "anio": 2025
+    },
+    {
+     "id": "F12",
+     "titulo": "Voices from the Storm: The People of New Orleans on Hurricane Katrina and Its Aftermath",
+     "autor": "Chris Ying, Lola Vollen, Voice of Witness",
+     "tipo": "libro",
+     "anio": 0
+    }
+   ]
+  }
+ }
+}

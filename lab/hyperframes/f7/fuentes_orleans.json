@@ -1,0 +1,679 @@
+{
+ "fuentes": [
+  {
+   "url": "https://www.aclu.org/publications/abandoned-and-abused",
+   "titulo": "Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina",
+   "tipo": "informe_oficial",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Es el informe más completo y citado sobre el tema, con más de 1000 testimonios de prisioneros.",
+   "prioridad": 1,
+   "url_modelo": "https://www.aclu.org/report/abandoned-abused-orleans-parish-prisoners-wake-hurricane-katrina",
+   "match": "exacta",
+   "grounding_title": "aclu.org",
+   "id": "F01",
+   "slug": "aclu_2006_abandoned_abused_orleans_parish_prisoners"
+  },
+  {
+   "url": "https://www.hrw.org/news/2005/09/21/new-orleans-prisoners-abandoned-floodwaters",
+   "titulo": "New Orleans: Prisoners Abandoned to Floodwaters",
+   "tipo": "informe_oficial",
+   "anio": 2005,
+   "idioma": "en",
+   "por_que": "Publicado apenas semanas después del huracán, fue uno de los primeros informes en denunciar el abandono de los presos.",
+   "prioridad": 1,
+   "url_modelo": "https://www.hrw.org/news/2005/09/21/new-orleans-prisoners-abandoned-floodwaters",
+   "match": "exacta",
+   "grounding_title": "hrw.org",
+   "id": "F02",
+   "slug": "hrw_2005_new_orleans_prisoners_abandoned_to"
+  },
+  {
+   "url": "https://www.aclu.org/documents/summaries-400-testimonials-inmates-incarcerated-orleans-parish-prison-during-hurricane-katrina",
+   "titulo": "Summaries of 400 Testimonials From Inmates Incarcerated at Orleans Parish Prison During Hurricane Katrina",
+   "tipo": "testimonio",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Contiene resúmenes de 400 testimonios directos de los prisioneros, ofreciendo una visión detallada de las condiciones y abusos.",
+   "prioridad": 1,
+   "url_modelo": "https://www.aclu.org/documents/summaries-400-testimonials-inmates-incarcerated-orleans-parish-prison-during-hurricane-katrina",
+   "match": "exacta",
+   "grounding_title": "aclu.org",
+   "id": "F03",
+   "slug": "aclu_2006_summaries_of_400_testimonials_from"
+  },
+  {
+   "url": "https://www.justice.gov/crt/special-litigation-section-case-summaries",
+   "titulo": "Civil Rights Division | Special Litigation Section Case Summaries (Orleans Parish Prison)",
+   "tipo": "informe_oficial",
+   "anio": 2009,
+   "idioma": "en",
+   "por_que": "Contiene el resumen oficial de los hallazgos del Departamento de Justicia sobre las condiciones inconstitucionales en la prisión, un documento gubernamental clave.",
+   "prioridad": 1,
+   "url_modelo": "https://www.justice.gov/crt/special-litigation-section-case-summaries",
+   "match": "exacta",
+   "grounding_title": "justice.gov",
+   "id": "F04",
+   "slug": "justice_2009_civil_rights_division_special_litigation"
+  },
+  {
+   "url": "https://www.hrw.org/news/2005/10/30/excerpts-letters-prisoners-abandoned-katrina",
+   "titulo": "Excerpts of Letters from Prisoners Abandoned to Katrina",
+   "tipo": "testimonio",
+   "anio": 2005,
+   "idioma": "en",
+   "por_que": "Contiene transcripciones de cartas escritas a mano por prisioneras, ofreciendo una perspectiva femenina directa y urgente de los eventos.",
+   "prioridad": 1,
+   "url_modelo": "https://www.hrw.org/news/2005/10/30/excerpts-letters-prisoners-abandoned-katrina",
+   "match": "exacta",
+   "grounding_title": "hrw.org",
+   "id": "F05",
+   "slug": "hrw_2005_excerpts_of_letters_from_prisoners"
+  },
+  {
+   "url": "https://www.aclu.org/documents/prison-conditions-and-prisoner-abuse-after-katrina",
+   "titulo": "Prison Conditions and Prisoner Abuse After Katrina",
+   "tipo": "informe_oficial",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Documento de la ACLU sobre las condiciones carcelarias y abusos después de Katrina, probablemente un informe detallado o un resumen de hallazgos clave.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "aclu.org",
+   "id": "F06",
+   "slug": "aclu_2006_prison_conditions_and_prisoner_abuse"
+  },
+  {
+   "url": "https://www.aclu.org/publications/abandoned-abused-complete-report",
+   "titulo": "Abandoned & Abused: Complete Report",
+   "tipo": "informe_oficial",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Es el informe completo de la ACLU, el más detallado y citado sobre el tema, con testimonios directos de prisioneros, personal y abogados.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "aclu.org",
+   "id": "F07",
+   "slug": "aclu_2006_abandoned_abused_complete_report"
+  },
+  {
+   "url": "https://www.prisonpolicy.org/scans/vera/justice-in-katrinas-wake.pdf",
+   "titulo": "Justice in Katrina's Wake (Vera Institute of Justice Report)",
+   "tipo": "informe_oficial",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Informe en PDF del Vera Institute of Justice que evalúa el sistema de justicia en Nueva Orleans después de Katrina, incluyendo probable atención a la prisión.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "prisonpolicy.org",
+   "id": "F08",
+   "slug": "prisonpolicy_2006_justice_in_katrina_s_wake"
+  },
+  {
+   "url": "https://www.prisonlegalnews.org/media/publications/doj_cripa_findings_on_orleans_parish_prison_system_conditions_2009.pdf",
+   "titulo": "DOJ CRIPA Findings on Orleans Parish Prison System Conditions (2009 PDF)",
+   "tipo": "informe_oficial",
+   "anio": 2009,
+   "idioma": "en",
+   "por_que": "Documento oficial en PDF de los hallazgos del Departamento de Justicia (DOJ) bajo CRIPA sobre las condiciones de la prisión de Orleans en 2009.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "prisonlegalnews.org",
+   "id": "F09",
+   "slug": "prisonlegalnews_2009_doj_cripa_findings_on_orleans"
+  },
+  {
+   "url": "https://thelensnola.org/2025/08/29/reforms-resulted-from-the-thousands-left-to-drown-in-opp/",
+   "titulo": "Reforms resulted from the thousands left to drown in OPP",
+   "tipo": "prensa_posterior",
+   "anio": 2025,
+   "idioma": "en",
+   "por_que": "Análisis en el décimo aniversario que conecta directamente el abandono de los presos con las reformas posteriores en el sistema de justicia de la ciudad.",
+   "prioridad": 2,
+   "url_modelo": "https://thelensnola.org/2015/08/29/reforms-resulted-from-the-thousands-left-to-drown-in-opp/",
+   "match": "similar 0.88",
+   "grounding_title": "thelensnola.org",
+   "id": "F10",
+   "slug": "thelensnola_2025_reforms_resulted_from_the_thousands"
+  },
+  {
+   "url": "https://watchopp.wordpress.com/2012/04/24/prisoners-of-katrina-a-bbc-documentary/",
+   "titulo": "Prisoners of Katrina, a BBC Documentary",
+   "tipo": "documental",
+   "anio": 2012,
+   "idioma": "en",
+   "por_que": "Descripción y contexto del documental de la BBC que investigó la historia no contada de los casi 7,000 reclusos, con el testimonio de la periodista Olenka Frenkiel.",
+   "prioridad": 2,
+   "url_modelo": "https://watchopp.wordpress.com/2012/04/24/prisoners-of-katrina-a-bbc-documentary/",
+   "match": "exacta",
+   "grounding_title": "wordpress.com",
+   "id": "F11",
+   "slug": "wordpress_2012_prisoners_of_katrina_a_bbc"
+  },
+  {
+   "url": "https://voiceofwitness.org/books/voices-from-the-storm/",
+   "titulo": "Voices from the Storm: The People of New Orleans on Hurricane Katrina and Its Aftermath",
+   "tipo": "libro",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Incluye el testimonio de Dan Bright, un prisionero que relata cómo tuvieron que escapar de sus celdas para salvar sus vidas.",
+   "prioridad": 2,
+   "url_modelo": "https://voiceofwitness.org/books/voices-from-the-storm/",
+   "match": "exacta",
+   "grounding_title": "voiceofwitness.org",
+   "id": "F12",
+   "slug": "voiceofwitness_2006_voices_from_the_storm_the"
+  },
+  {
+   "url": "https://www.vice.com/en/article/hurricane-katrina-was-a-nightmare-for-inmates-in-new-orleans-829/",
+   "titulo": "Hurricane Katrina Was a Nightmare for Inmates in New Orleans",
+   "tipo": "prensa_posterior",
+   "anio": 2015,
+   "idioma": "en",
+   "por_que": "Artículo de Vice News para el décimo aniversario que resume bien los eventos e incluye entrevistas y testimonios retrospectivos.",
+   "prioridad": 2,
+   "url_modelo": "https://www.vice.com/en/article/kwxenv/hurricane-katrina-was-a-nightmare-for-inmates-in-new-orleans-829",
+   "match": "exacta",
+   "grounding_title": "vice.com",
+   "id": "F13",
+   "slug": "vice_2015_hurricane_katrina_was_a_nightmare"
+  },
+  {
+   "url": "https://www.cbsnews.com/news/katrina-jail-lawsuit-jury-awards-tourists-650k/",
+   "titulo": "Katrina Jail Lawsuit: Jury Awards Tourists $650K",
+   "tipo": "prensa_posterior",
+   "anio": 2010,
+   "idioma": "en",
+   "por_que": "Informa sobre la decisión inicial del jurado que concedió 650.000 dólares a los demandantes antes de que el fallo fuera revocado.",
+   "prioridad": 2,
+   "url_modelo": "https://www.cbsnews.com/news/katrina-jail-lawsuit-jury-awards-tourists-650k/",
+   "match": "exacta",
+   "grounding_title": "cbsnews.com",
+   "id": "F14",
+   "slug": "cbsnews_2010_katrina_jail_lawsuit_jury_awards"
+  },
+  {
+   "url": "https://www.ojp.gov/ncjrs/virtual-library/abstracts/abandoned-and-abused-orleans-parish-prisoners-wake-hurricane",
+   "titulo": "Abandoned and Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (Abstract)",
+   "tipo": "academico",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Abstract de un informe clave sobre el abandono y abuso de prisioneros en OPP durante Katrina, publicado por el Departamento de Justicia.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "ojp.gov",
+   "id": "F15",
+   "slug": "ojp_2006_abandoned_and_abused_orleans_parish"
+  },
+  {
+   "url": "https://sites.utexas.edu/tjclcr/wp-content/uploads/sites/3748/2023/05/Sullivan.-Prisons-Immigration-Detention-Centers-and-Natural-Diasters.pdf",
+   "titulo": "Prisons, Immigration Detention Centers, and Natural Disasters (Sullivan)",
+   "tipo": "academico",
+   "anio": 2023,
+   "idioma": "en",
+   "por_que": "Artículo académico en PDF que analiza la situación de las prisiones y centros de detención durante desastres naturales, donde el caso de Katrina y la OPP sería un estudio de caso relevante.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "utexas.edu",
+   "id": "F16",
+   "slug": "utexas_2023_prisons_immigration_detention_centers_and"
+  },
+  {
+   "url": "https://www.hrw.org/news/2020/08/29/hurricane-katrina-us-15-years-later",
+   "titulo": "Hurricane Katrina, US: 15 Years Later",
+   "tipo": "prensa_posterior",
+   "anio": 2020,
+   "idioma": "en",
+   "por_que": "Artículo de Human Rights Watch que conmemora los 15 años del huracán Katrina, revisando sus impactos, incluyendo probablemente la situación de la prisión de Orleans.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "hrw.org",
+   "id": "F17",
+   "slug": "hrw_2020_hurricane_katrina_us_15_years"
+  },
+  {
+   "url": "https://clearinghouse-umich-production.s3.amazonaws.com/media/doc/47486.pdf",
+   "titulo": "Document from University of Michigan Clearinghouse (PDF)",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Documento PDF alojado por un clearinghouse de la Universidad de Michigan; es probable que sea un informe legal, académico o un documento de investigación relevante para el tema.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "amazonaws.com",
+   "id": "F18",
+   "slug": "amazonaws_document_from_university_of_michigan"
+  },
+  {
+   "url": "https://www.laaclu.org/press-releases/doj-investigation-finds-conditions-orleans-parish-prison-unconstitutional/",
+   "titulo": "DOJ Investigation Finds Conditions at Orleans Parish Prison Unconstitutional (Press Release)",
+   "tipo": "prensa_posterior",
+   "anio": 2009,
+   "idioma": "en",
+   "por_que": "Comunicado de prensa de la ACLU de Luisiana informando sobre los hallazgos del Departamento de Justicia respecto a las condiciones inconstitucionales en la Prisión de Orleans.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "laaclu.org",
+   "id": "F19",
+   "slug": "laaclu_2009_doj_investigation_finds_conditions_at"
+  },
+  {
+   "url": "https://digitalcommons.wcl.american.edu/facsch_lawrev/1026/",
+   "titulo": "Artículo de Revista de Derecho (American University)",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Artículo académico de una revista de derecho de la American University, probablemente un análisis legal sobre las condiciones carcelarias o los derechos de los prisioneros post-Katrina.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "american.edu",
+   "id": "F20",
+   "slug": "american_articulo_de_revista_de_derecho"
+  }
+ ],
+ "_descartadas": [
+  {
+   "url": "https://www.justice.gov/sites/default/files/crt/legacy/2012/04/24/opp_findings_let_9-11-09.pdf",
+   "titulo": "Re: Orleans Parish Prison System, New Orleans, Louisiana",
+   "tipo": "informe_oficial",
+   "anio": 2009,
+   "idioma": "en",
+   "por_que": "Carta oficial del Departamento de Justicia de EE. UU. que detalla las violaciones de derechos constitucionales en la prisión, como resultado de una investigación federal.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://law.justia.com/cases/federal/appellate-courts/ca5/11-30081/11-30081-2012-03-12.html",
+   "titulo": "Wagenfeald, et al. v. Gusman, et al., No. 11-30081 (5th Cir. 2012)",
+   "tipo": "fallo_judicial",
+   "anio": 2012,
+   "idioma": "en",
+   "por_que": "Fallo completo del Circuito 5º en un caso clave iniciado por prisioneros, que detalla los argumentos legales y la decisión judicial sobre la responsabilidad de las autoridades.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.aclu-la.org/en/news/department-justice-issues-scathing-update-conditions-orleans-parish-prison",
+   "titulo": "Department of Justice Issues Scathing Update on Conditions at Orleans Parish Prison",
+   "tipo": "informe_oficial",
+   "anio": 2012,
+   "idioma": "en",
+   "por_que": "Actualización del Departamento de Justicia de 2012 que señala la falta de progreso y las continuas violaciones de derechos en la prisión años después de Katrina.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://caselaw.findlaw.com/us-5th-circuit/1596541.html",
+   "titulo": "WAGANFEALD v. GUSMAN | 674 F.3d 475 (2012)",
+   "tipo": "fallo_judicial",
+   "anio": 2012,
+   "idioma": "en",
+   "por_que": "Fallo del tribunal de apelaciones que detalla los hechos del caso de dos individuos arrestados justo antes de Katrina y su posterior terrible experiencia.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.snopes.com/fact-check/opp-katrina-abandoned/",
+   "titulo": "Were Inmates Abandoned at Orleans Parish Prison During Hurricane Katrina?",
+   "tipo": "prensa_posterior",
+   "anio": 2018,
+   "idioma": "en",
+   "por_que": "Recopila y verifica información de múltiples fuentes primarias, incluyendo el artículo del Toledo Blade y el documental de la BBC, sirviendo como un buen resumen fact-checking.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.urban.org/sites/default/files/publication/46946/411598-After-Katrina-Washed-Away-.PDF",
+   "titulo": "After Katrina: Washed Away? The Impact of Hurricane Katrina on the Criminal Justice System in New Orleans",
+   "tipo": "academico",
+   "anio": 2007,
+   "idioma": "en",
+   "por_que": "Informe del Urban Institute que analiza el impacto general en el sistema de justicia penal, proporcionando un contexto más amplio a la situación de la prisión.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.justice.gov/sites/default/files/crt/legacy/2012/12/13/Jones_v_Gusman_Findings_Letter.pdf",
+   "titulo": "U.S. Department of Justice, Civil Rights Division, Orleans Parish Prison findings letter",
+   "tipo": "informe_oficial",
+   "anio": 2009,
+   "idioma": "en",
+   "por_que": "Documento oficial del gobierno de EE.UU. que detalla las violaciones constitucionales sistémicas en la prisión, exacerbadas por Katrina.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://law.justia.com/cases/federal/appellate-courts/ca5/11-30081/11-30081-2012-03-12.html",
+   "titulo": "Waganfeald, et al. v. Gusman, et al., No. 11-30081 (5th Cir. 2012)",
+   "tipo": "fallo_judicial",
+   "anio": 2012,
+   "idioma": "en",
+   "por_que": "Fallo judicial clave del Circuito de Apelaciones que aborda la responsabilidad de las autoridades carcelarias durante la emergencia.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.aclu-la.org/en/news/doj-investigation-finds-conditions-orleans-parish-prison-unconstitutional",
+   "titulo": "DOJ Investigation Finds Conditions At Orleans Parish Prison Unconstitutional",
+   "tipo": "prensa_posterior",
+   "anio": 2009,
+   "idioma": "en",
+   "por_que": "Comunicado de prensa de la ACLU de Luisiana sobre el informe del Departamento de Justicia, ofreciendo el contexto local y de la organización.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://scholarship.law.duke.edu/cgi/viewcontent.cgi?article=1383&context=lcp",
+   "titulo": "Criminal Justice Collapse: The Constitution After Hurricane Katrina",
+   "tipo": "academico",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Análisis académico detallado sobre el colapso del sistema de justicia penal, contextualizando los eventos de la prisión en un marco legal y constitucional.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://digitalcommons.wcl.american.edu/cgi/viewcontent.cgi?article=1248&context=jgspl",
+   "titulo": "Lessons from Hurricane Katrina: Prison Emergency Preparedness as a Constitutional Imperative",
+   "tipo": "academico",
+   "anio": 2007,
+   "idioma": "en",
+   "por_que": "Artículo de revista jurídica que argumenta la violación de derechos constitucionales y la falta de preparación para emergencias, usando OPP como caso de estudio.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.voiceofwitness.org/narrators/dan-bright/",
+   "titulo": "Voices from the Storm: Dan Bright",
+   "tipo": "testimonio",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Es un testimonio oral en primera persona de un prisionero que tuvo que escapar de su celda para sobrevivir, parte de un proyecto de historia oral más amplio.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.justice.gov/crt/about/spl/documents/parish_findlet.pdf",
+   "titulo": "Orleans Parish Prison System: New Orleans, Louisiana. U.S. Department of Justice, Civil Rights Division. September 2009",
+   "tipo": "informe_oficial",
+   "anio": 2009,
+   "idioma": "en",
+   "por_que": "Es el documento original solicitado, alojado en el sitio web del Departamento de Justicia de EE.UU.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.prisonlegalnews.org/media/publications/Orleans%20Parish%20Prison%20Findings%20Letter%20re%20CRIPA%20Investigation%209-11-2009.pdf",
+   "titulo": "Orleans Parish Prison System -- Findings Letter - Prison Legal News",
+   "tipo": "prensa_posterior",
+   "anio": 2009,
+   "idioma": "en",
+   "por_que": "Es una copia del informe oficial, reproducido y alojado por un medio de prensa especializado.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.pulitzer.org/winners/times-picayune",
+   "titulo": "'Help us, please'",
+   "tipo": "prensa_epoca",
+   "anio": 2005,
+   "idioma": "en",
+   "por_que": "Un artículo de The Times-Picayune del 2 de septiembre de 2005 que, según el sitio del Premio Pulitzer, menciona la Prisión Parroquial de Orleans como una de las principales preocupaciones durante el huracán Katrina.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://digitalcommons.wcl.american.edu/jlr/vol42/iss1/1/",
+   "titulo": "Lessons from Hurricane Katrina: Prison Emergency Preparedness as a Constitutional Imperative",
+   "tipo": "academico",
+   "anio": 2008,
+   "idioma": "en",
+   "por_que": "Un artículo académico que analiza las fallas en la Prisión Parroquial de Orleans durante Katrina desde una perspectiva legal y constitucional, proporcionando un análisis en profundidad de los eventos.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.snopes.com/fact-check/orleans-parish-prison-katrina/",
+   "titulo": "Were Inmates Abandoned at Orleans Parish Prison During Hurricane Katrina?",
+   "tipo": "prensa_posterior",
+   "anio": 2018,
+   "idioma": "en",
+   "por_que": "Un artículo de Snopes que verifica las afirmaciones sobre el abandono de los reclusos en la Prisión Parroquial de Orleans, resumiendo y citando múltiples fuentes primarias y secundarias.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.aclu.org/sites/default/files/pdfs/prison/abandonedandabused.pdf",
+   "titulo": "Abandoned and Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina",
+   "tipo": "informe_oficial",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Este informe de la ACLU cita en repetidas ocasiones el artículo solicitado de George J. Tanber, lo que confirma su existencia y contenido. Es el documento más relevante que hace referencia directa al artículo que no pudo ser encontrado en su fuente original.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://scholarship.law.duke.edu/cgi/viewcontent.cgi?article=1148&context=lcp",
+   "titulo": "Criminal Justice Collapse: The Constitution After Hurricane Katrina",
+   "tipo": "academico",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Artículo académico que analiza el colapso del sistema de justicia penal en Nueva Orleans después del huracán Katrina, incluyendo la situación en la prisión.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://law.justia.com/cases/federal/appellate-courts/ca5/11-30081/11-30081-2012-03-12.html",
+   "titulo": "Wagenfeald, et al. v. Gusman, et al., No. 11-30081 (5th Cir. 2012)",
+   "tipo": "fallo_judicial",
+   "anio": 2012,
+   "idioma": "en",
+   "por_que": "Contiene el texto completo del fallo del 5º Circuito en el caso Waganfeald v. Gusman, que revocó una decisión anterior del jurado.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.themarylanddailyrecord.com/2012/03/12/5th-circuit-tosses-jurys-award-in-katrina-jail-lawsuit/",
+   "titulo": "5th Circuit tosses jury’s award in Katrina jail lawsuit",
+   "tipo": "prensa_posterior",
+   "anio": 2012,
+   "idioma": "en",
+   "por_que": "Informa sobre la anulación por parte del 5º Circuito de la indemnización del jurado en el caso de la cárcel de Katrina.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  }
+ ],
+ "_grounding": [
+  {
+   "title": "aclu.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH7LwcQxTV08Egbf2gliokjWHuKiGy8j3T6NZgh8UOIB0794ASLpASveIooydykIpQgCWiudbGuaK-eaNc8V_Y2kIRwM3rG83Foy8wrEUnW4kAD_NO5utjToP3QQEtU5DBSi3g3kfqS5x0bYLnDvEUtilhUNe-7G4EUzGzQEG-c7uIDsFGrJdXMGz2ETEcZLBmwHkJIygEAvv-h4mbS-v7VPZLrVSG_1lt5x69a7ynrWKpzOlOhV0wF",
+   "url": "https://www.aclu.org/documents/summaries-400-testimonials-inmates-incarcerated-orleans-parish-prison-during-hurricane-katrina"
+  },
+  {
+   "title": "aclu.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEdKqp5nFJTNV5VJpX2fIx7Ifs_i_FKutx1gEy2JCJDnCqQ445vK3R_BRKtFAnP2hJI8VEv_xjsQsHDB14ZcEzO-tMQ4Hu6gMDcHqRcIwevvLYXVnQSVyxvSk0eDZPC_BHNy2GiNZMkYa1sOExKam3izPMdJ9Lpdh1KJY8p0hqnINENiYG2LifWY2Hj-Q==",
+   "url": "https://www.aclu.org/documents/prison-conditions-and-prisoner-abuse-after-katrina"
+  },
+  {
+   "title": "ojp.gov",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQETy8bZjQxEP3Qa8zEEQOcfUrLFLz6FQvBl4xO2j1ZFml-lOrQeqYChnphNEjfdHWIpi1PdB55VknZhFIfhBi8GWeeIji6yd6-pAR_26HiWrNGeknTqCl28ob6Hwq_AOYvj5Djib4-UrsIaXnTefc1gdZa8FbiqqaShGbArfvLOoF2FkpTG8ZX0GHgPSnlyiXMejzR9Qgx2fuQYKYshgq6lh4DUJe-YnEZZ2dc=",
+   "url": "https://www.ojp.gov/ncjrs/virtual-library/abstracts/abandoned-and-abused-orleans-parish-prisoners-wake-hurricane"
+  },
+  {
+   "title": "nolacityarchives.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH91stJcfI-VWuuI-C7T9d-O06fmb5Q1KQt1xsgImCm-4SVumwygDGhizMIUeV6O-Y3oCGFbAtMSkQUQGKTn2yVmkqVrKj2QE5uB6Ug9FWwjcndpNdm2BVAw0QxjY6R8Xh5xjvFa3Si27QGYuE4jb9IFQgnJ7CT3BE6OTI3qXFYyezF6LwKeIaje7Wu7e_9SgSKLVgRnFP-Ch0N7XuCGXMcEFq8mBuWUvc6qDK2zpNVXQ7XEXidNg==",
+   "url": "https://nolacityarchives.org/2025/08/12/documenting-the-storm-researching-katrina-in-the-city-archives-special-collections/"
+  },
+  {
+   "title": "utexas.edu",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEp3s-J_LJFL584xmYvVgQr0P3bf167_gK2sxM2vgEup5dSlDwoqI40CU0rO63FBQDCvJlvi7-UvNl36jEHWmYnN-LPxjFxvwAc_jkZojZWhwLBPeLsabQQIB9oWII8TMg-cnphdw_Sfvno-nKdlvxoBX40M7u8zYSEPyckSF1zG_U-Ur7Do2YWr4vkz1yVdHXp6-uYRvh1sob6KX-bBihpLjQ5tGNSqR5LI3oZIufyuOg=",
+   "url": "https://sites.utexas.edu/tjclcr/wp-content/uploads/sites/3748/2023/05/Sullivan.-Prisons-Immigration-Detention-Centers-and-Natural-Diasters.pdf"
+  },
+  {
+   "title": "aclu.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFT15PWoPaweu3xN78BB7EQJJTtAXvtPHxbCI-_clOh6jY2DjpXVMOgu2AXgOYZOasScEd6uSTXimsitRtqph1N_EOq1PUM9X5vE80DWEDtEpi_MhIwEdI5UAvSsblLPFpN4Z04subJWCd4aDpeF8PzK97stLGATTn-SURdpg==",
+   "url": "https://www.aclu.org/publications/abandoned-abused-complete-report"
+  },
+  {
+   "title": "prisonpolicy.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQECEC2fgLpk7DOVfqmLBZxI4_62pa0JY-Edg3buIgXg5BzFgfRSnHXbqaXtIb-B11vFJ9EXYkLZ9EzqakOrFU4xMThDiDEBctwYHd1c1e9RRLOcGbvEwWihDjLK5c0BB-yiYkIh4C_Z69kgsn_AYR2mhgb6xg==",
+   "url": "https://www.prisonpolicy.org/blog/2005/09/23/floodwaters/"
+  },
+  {
+   "title": "hrw.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGOx81v8Pq_dC3C-F3fYbkqzLmylrC3Fyrtke2LZHC81lXCAhr0PyTfYQZhVpUKtR7l9jiURxuwtvU5ZTUsoPml_wFccoaxoqYEW1TgUq0G7cMKepmdDer26sv5t3rFWqDhqL7aSuWYL_98VYJWHnVN5XD4FZKY50vd-LH_Gpj7ibCIUeu6Wi9d5F0=",
+   "url": "https://www.hrw.org/news/2005/09/21/new-orleans-prisoners-abandoned-floodwaters"
+  },
+  {
+   "title": "wsws.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGdOJVQlZNeFd2b3kNPEAtRHkViwL0pvp_h4CjD43nTarGrazbc7-ZT05-Xg_PDLcOtjzA8QAjYm9AJJPHwQplz6pSwWq38E-6pIM7Y669V5vLmF_9j75t1oSu2UelALd-JPqJ_hmOY-HDH8noGEIR3hw==",
+   "url": "https://www.wsws.org/en/articles/2005/10/katr-o01.html"
+  },
+  {
+   "title": "hrw.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHPPdP85sJ_mlcmykPsvcq8o3wR5an58-1TbazYBafAKOmBq48a_n3Qx0qYdda7Ym5M9Ssj2r-yAXjcRobLXTFwYwWPMJGuzZZWuB7wNOscvQ5i5j5Nzcto4bWI2Qg5FsolXGl-Vn_WBjRq6WhsIaYE8nThLqt_Lx8SqgnHeltjyZty",
+   "url": "https://www.hrw.org/news/2020/08/29/hurricane-katrina-us-15-years-later"
+  },
+  {
+   "title": "amazonaws.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFFbvz4nVJGK-Uy1_I4L3txx6ATiNq736yxqFcbvIwxzOP6BHy0jqOm7XBHI_XUOWteWnWgbE2VN0w5vCtwu-p4V2n1vesy_KKMj4pYfkx3H5-VkM0KNlAsn-4I9luDRWAJ0K2p8ZCQUjao3yV54Ogt-LWg2N1Fi6Q-fI3gqNyNBiHHFNHoIw==",
+   "url": "https://clearinghouse-umich-production.s3.amazonaws.com/media/doc/47486.pdf"
+  },
+  {
+   "title": "laaclu.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFeq5hvZyOThvkI47QgsrC739NOM7nQVGez-YO59bQb8DMySquUK8EgDF7TUzksd1JRRrQsm4Puw52c3cc1mD_sffGiXSYxXD1XTWPUMuOIltmV0o_10C2PCMgHVWffcFQwFc7lKYIJ1ktwCClMbTK2_zkp36EnRWTYrkAmwJk5JzppyC_n8ARmK91MKlWr8rbUAFGKkt0S0nZgjZZbCdajX5DoctIaLZXA8U8=",
+   "url": "https://www.laaclu.org/press-releases/doj-investigation-finds-conditions-orleans-parish-prison-unconstitutional/"
+  },
+  {
+   "title": "justice.gov",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEtgerMd9AVaAfjquLnRhKj7IjrELyi6WqD36CA2AwyErwV_X8ZvNE071KGDMfqobTUcgDxw4SmL2iX4_vxyujfFkKgUkUUD2d8nphATE7cRmlKhAeOABvksO5rrvI1S16VeGlWlUz5F3IqfGX9hf58mbBRp0HTRP03HDeLIRk4vs1kMA==",
+   "url": "https://www.justice.gov/crt/special-litigation-section-cases-and-matters"
+  },
+  {
+   "title": "hrw.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHVHSHpfkZ7fHjRk_Vnkr0C9dKIDnta5praU8t2npl-pBD6QPZqLiGrMbLj5KCBO6DcLjD_sdxb5kOkqDyDkG-9L7P3Ag9MPgcOGNfIPpsH-pnIviaiH4enkn4dczLYyNuGl3VpxYVWa8WioGClRGtPBLP1szgvy53YNz19d6_EMLl73LAoWCnCRkcL",
+   "url": "https://www.hrw.org/news/2005/10/30/excerpts-letters-prisoners-abandoned-katrina"
+  },
+  {
+   "title": "thelensnola.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFGiQDnAHWCV_LT9_KMyS84Gc5Qfv9bQ1qgd3FVlO2mxbEgZdblRbFDoM7dbbWjrWIDxCOkOulD7pMPE8o-Tglejx4OeMcxzr4dYltyEGfEwaMxtFku3exSncsQ9oQqvNwCngOljDAwe-DSXXZZrxDRoX4A7b3cqKTO6hCmMavRhRv-QuC_eCNtAzQ1rVIsfk6AKlDstKXr",
+   "url": "https://thelensnola.org/2025/08/29/reforms-resulted-from-the-thousands-left-to-drown-in-opp/"
+  },
+  {
+   "title": "thelensnola.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQETRAMepsP73XRlad1C8Sl3-V8wmRSmrWgXGQDhyuP3oSZh6uIeKnSdfgCHZ4Kke2drSN8cREVDpn_hBPIRzX5E5cmw3Co5BAJ3K2ggOKOdG1O_xBtY7TKMLZwaOl2rOBeh5IWuhSo=",
+   "url": "https://thelensnola.org/category/katrina20/"
+  },
+  {
+   "title": "thelensnola.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQErcS245_7bw-_97fspVWSgWDskZwzaTt3sFN0ZmnvETtkxc1LuVr3Gw3ZcQGgS-AaHGHjNuMsHg4X6bp-kXICMOjP_wQPYzKXYw8a0urPclV_R0XpYMJOavLCAhCYswIbwV_QC",
+   "url": "https://thelensnola.org/tag/overcrowding/"
+  },
+  {
+   "title": "thelensnola.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGq680spQH8sEwm6E5pZy0Y5pYR8VL4iPbStTdwa7ygIM44xMqk9c2-1iyA_0JOs7HMxCmHXn16SzwN3TTfnBDFyUMWkpSyTA_cdWVYUtDm4gc6oPFrAo4KsXKw2nW_62cDiAUHize440EAMjYW",
+   "url": "https://thelensnola.org/tag/orleans-parish-prison/"
+  },
+  {
+   "title": "wordpress.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQExU9i6QGKYDuX1U4cn5cJT9SiYObR2jQg_VJOHT_WOlkxnsoLoT09GY_VPtJMh2w5LnyyWS8Yh0FyJfCzft_Xl6dNd5HM5luKIqPecchWiqkUWjj3RWjcY3SF287TpfS02usrRZP6vQJMdXAP8KSFNRsb35nqV4XK6QPZ-aQGLscgF-tbjr1-FFwQGSg==",
+   "url": "https://watchopp.wordpress.com/2012/04/24/prisoners-of-katrina-a-bbc-documentary/"
+  },
+  {
+   "title": "vice.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGKgi_J6w1tTBRUdNU7R83mTQvrvncAsOgNRvCuDFE6Fio1upBLKLaFxB9QmxRQaTDLppjsZ6ilNWwhK1MUrPWfpAMzMVk2koEOI46A_KSdw_9147tYCA6sRrthSc0h3LO0I4FF373aZ0fIjakRreLKS2lCVtXDkral4hZi38cweXNgLL6zYL4XAbrzVRlk294oLU_wT65yeX8gBKA=",
+   "url": "https://www.vice.com/en/article/hurricane-katrina-was-a-nightmare-for-inmates-in-new-orleans-829/"
+  },
+  {
+   "title": "prisonlegalnews.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHHQNfMqTecytRoeqPPRFDqFGFcydTRytozubvIjOdMcnObY0S3SMomu2BIcquXtb7WYS2s0FEnmqcPAS_7nsJC8bGsaX1TY8oUKeEEfLG818Ev0CKqeQN0ZmwYSJzgap00_Tn_3Lafzt0C49yYygZycp6joeGyV9P7_78PbojD",
+   "url": "https://www.prisonlegalnews.org/news/2007/may/15/doing-katrina-time/"
+  },
+  {
+   "title": "laaclu.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGasCnSldJvVaAtkcgjIi-xEGiZ7MUquWe9gfu--VOa4we4xByp_qf_yMEijRezRiS0NPaAwub_4LUX2GZGDPjKzD4a-ZOnCRu1yeWw4lR8JFQRAmMib14PTGJfcvbfTlpGr450F8GM0-POJdVBrlTiUckAUyrg61dzXohdIVyRg59sXj6QgRLuZgvKuPFG85ZBeDc73E0TY9qHEvsJWA0fl39hbV-2T8vR52Fg",
+   "url": "https://www.laaclu.org/press-releases/department-justice-issues-scathing-update-conditions-orleans-parish-prison/"
+  },
+  {
+   "title": "voiceofwitness.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEElALRVBzHYzKDuM1uPXNn5T-4elj8RPXiRPEEFPgS20vVqdIhtde29FQ1OYxZa11Xcu-a27pa-8qiynaxwkouwsFufWFlCal2y9yiCjvN4coIHr8BQIpjAJAPh76_MJwVrbQ4LOZ0zsSyEf6OjCKxhbo=",
+   "url": "https://voiceofwitness.org/books/voices-from-the-storm/"
+  },
+  {
+   "title": "laaclu.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF0ddxDuoAFINFFdyGatZ5gX2m1ar3q6BMVMbj9utLyLN93FjNIGt1qb-aY7WAzcT-60gYIodgSBQcRwS0Hc6CO74ZE4g9WMyU1mcrwRMWMivfRV07mgfocD4Wvc38484j-VYcqcPwzcSIfY5RBMGJvKxQQ1uqluf5kmcLHa3hTr-LVf79Nyqui8kUxTSH-zoWnwkQsve7B50Jv1LkbvgZgWmODhyCq0hF4FIyq2Mp9ln6dkBo=",
+   "url": "https://www.laaclu.org/press-releases/aclu-report-documents-thousands-trapped-flooded-orleans-parish-prison-days-without/"
+  },
+  {
+   "title": "aclu.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH8YK9qReitrpw4WFrIJUcTvshBeVM1KURCOdlTwYS42Xt8Iso9b_61FZSgn7rHCQQVJBxhxl7o4zAvvKJUkHCWZIBauzj2pebqkHD9m-6abw36J7s1442iheIRRkpAUSEFQU-EZfU5vPq_wEQp7jZ2tA==",
+   "url": "https://www.aclu.org/publications/abandoned-and-abused"
+  },
+  {
+   "title": "justice.gov",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHweDRQyV_GQaddblTgGeROJnKOUTnavm5KmMtinEhbgRvdcxSdvaWkVkNHrA_bE_tTeBTqc__hFXeRJ5RXu-nm92t5QQrlcfxgIxMHTcD7RekwqaEMQ7cCLvEVxhu1JXHN8496E7EsfnjiEHCTLkIian90wkFRINZ3-DK2C2h3",
+   "url": "https://www.justice.gov/crt/special-litigation-section-case-summaries"
+  },
+  {
+   "title": "american.edu",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6mPORUMaGME_qEkGjyw6eLSdLBYeLdQkyHZAlmX85JxwjWOGi6b408NQLFg_sEomfY2mmNbAM4dZgycVBasDNtmpAukyBBImvO56njLZmIdqP4sEOVt5s_LqV6iuLzgASWytZ-vaTVCFKtMs2_qvZfa7KfzE=",
+   "url": "https://digitalcommons.wcl.american.edu/facsch_lawrev/1026/"
+  },
+  {
+   "title": "democracynow.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF02q83O1xLeskJU10iU7fo5vNyAwHbBE_TIy5gcSNF6X-Om5itLDZg9kxXwY4QhsPFVB11vg3T_Jv4Da1LxkKkgfp2phNMm5bd_pKckTRSYHKjm74z_SJ11l9M7c7LUD3J4VzL9HfTisr4AgKLqvjTLpnazvZvELwz2c3D4AQFFwGDHaWKSNMB02F1o7Zi5VOHfOvDJtRRLT8t_FU3TA_Jynk=",
+   "url": "https://www.democracynow.org/2005/9/26/headlines/prisoners_left_to_die_in_cells_during_hurricane_katrina"
+  },
+  {
+   "title": "govinfo.gov",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGn2-T0ofbGt8B5-ggAi6DDxi8ZBoThvjPiJhHSxeajd6_5OX37_TlPJdon7_ng_aejst8Q3GoHJRCKjfsCRhdmCf7-Frs-9NoWYy6_mFXKQKeIyGOVTRkQGP4JTIF1CFNXDclnag9_qLyxNX3jYl8n_uOV7osncQYijZoyqI7aYKYWcGY_bL1pn2N1WZpIyJRwb1Q=",
+   "url": "https://www.govinfo.gov/content/pkg/USCOURTS-ca5-21-30210/pdf/USCOURTS-ca5-21-30210-0.pdf"
+  },
+  {
+   "title": "youtube.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFXVMa29xUdu-sUQ4xuTzu77fi5aeHX6iLV8XVJBf2smwiAbIWYHdAw1hC-jWiw0IYHorrcu5LlBGAiWPM1d6duVLTEDoag2nXKLktK2I5mPP0d1jreG_z2mwohD3xidWXLchZcYg==",
+   "url": "https://www.youtube.com/watch?v=zB5PdqpX4o8"
+  },
+  {
+   "title": "prisonpolicy.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHiuAp0o1cP_HeeqywqBNNDwQfMCGkJdfjQ0WzZ0LynInhB1WsclVy6yKzMsuwibx3FmaFran2B5MG0LHjWIe8aq6FFEo7Ee1IFAwYg2-HxnXjylOhl70GjHFChhT9WmvrN2X5W4jf-gRYziC0H4ws4WzdMuqek-ZE0o2ynTGzX",
+   "url": "https://www.prisonpolicy.org/scans/vera/justice-in-katrinas-wake.pdf"
+  },
+  {
+   "title": "prisonlegalnews.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGnkJDHgrzGh9jmJ9HT1TRyPAF6eyTbXuTI3uMEDp5TyuBXYuwv1Ys9h_2tmv6FRx_Ze_DJvPB3pdHSbJ7qFZc5BZ6YIY2eeLVT-HknzWT0f9acw05wcS0NqBSpvcgI9jZE1Xy1a-xwYbgxIYU-9PT-datSc5tQo4adN4_lLzqLM3YEmGZ6sKOr9CQ5GxZVPe6QKKYKFT1Lh4hVxTb7Vo_L9sfgvvC0Nbe-LI4Po9RC9ksXM1I=",
+   "url": "https://www.prisonlegalnews.org/media/publications/doj_cripa_findings_on_orleans_parish_prison_system_conditions_2009.pdf"
+  },
+  {
+   "title": "cbsnews.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHEXp89kclihCUsfhH-c4sZI1HnZ74rhbBIdqIOGXuf4qKsuNJa3brOwh5mRX7ojixfj1S-BaDxJYKH61husWrM24ymeP39Kb6nR9CO3SUc2exICyj-fNO9yPCCZSQLepUeJfUE71B-MP-wfLcYu6mwMOPxj7sVl4gmnhUpV2OPeLMkffQsm00=",
+   "url": "https://www.cbsnews.com/news/katrina-jail-lawsuit-jury-awards-tourists-650k/"
+  },
+  {
+   "title": "thelensnola.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHKpwwHgjH26Pp9ywPu_sb5jr5pIonpVz2rCHdJIl09-FQwcewe1ZvtzR7TnUcgzBUUtSW-dgHBLuDK5wn1dpssgZ-SYtGdu40fpyCnc7S7z4qrLVrJRiOE13HpAz8saL-MgpH7aYl-k2U_8zRZoB3-YZbntCQ=",
+   "url": "https://thelensnola.org/2010/10/12/gusman-katrina-lawsuit/"
+  },
+  {
+   "title": "thelensnola.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEWf-8FVaE9emz3oJzHrxmGoVqoMy3mS7oLExe4Olxi0pZv4MsD4hbXFAizFYtLQvSXoPvLefAWjNxfUvsO3T9sOcM4mIvAfZ4Br874cul7L8wIuBPSrBn4sj8rSTWYUlJWM6TlwNuK6PB3HMX4dwRmxSVVmvWFLQa7",
+   "url": "https://thelensnola.org/2010/10/14/gusman-katrina-lawsuit-two/"
+  }
+ ],
+ "prompt_version": "f7a-1",
+ "_costo": {
+  "usd": 0.4773,
+  "segundos": 529.5,
+  "fichas_usd": 0.0134
+ }
+}

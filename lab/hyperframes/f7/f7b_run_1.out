@@ -1,0 +1,92 @@
+[21:03:09] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[21:10:29] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.6743
+  [R3] F01: 2 ítems con cita literal, 12 descartados {'usd': 0.6743, 'segundos': 439.6}
+[21:10:29] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[21:19:37] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.8833
+  [R3] F03: 25 ítems con cita literal, 2 descartados {'usd': 0.8833, 'segundos': 548.6}
+[21:19:38] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[21:19:59] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.0344
+  [R3] F04: 14 ítems con cita literal, 1 descartados {'usd': 0.0344, 'segundos': 21.6}
+[21:19:59] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[21:19:59] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.0000
+  [R3] F05: 39 ítems con cita literal, 0 descartados {'usd': 0.0, 'segundos': 0.1}
+[21:19:59] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[21:20:35] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.0545
+  [R3] F06: 35 ítems con cita literal, 1 descartados {'usd': 0.0545, 'segundos': 35.4}
+[21:20:35] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[21:21:14] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.0732
+  [R3] F08: 28 ítems con cita literal, 9 descartados {'usd': 0.0732, 'segundos': 39.3}
+[21:21:14] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[21:21:41] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.0581
+  [R3] F09: 0 ítems con cita literal, 0 descartados {'usd': 0.0581, 'segundos': 27.6}
+[21:21:41] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[21:22:33] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.0757
+  [R3] F10: 54 ítems con cita literal, 0 descartados {'usd': 0.0757, 'segundos': 51.2}
+[21:22:33] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[21:22:52] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.0282
+  [R3] F12: 9 ítems con cita literal, 1 descartados {'usd': 0.0282, 'segundos': 18.9}
+[21:22:52] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[21:23:49] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.0906
+  [R3] F13: 59 ítems con cita literal, 0 descartados {'usd': 0.0906, 'segundos': 57.8}
+  [R3] F01: 7 ítems con cita literal, 39 descartados
+  [R3] F01: 29 ítems con cita literal, 63 descartados
+  [R3] F01: 26 ítems con cita literal, 80 descartados
+  [R3] F01: 14 ítems con cita literal, 76 descartados
+  [R3] F01: 18 ítems con cita literal, 64 descartados
+  [R3] F01: 2 ítems con cita literal, 12 descartados
+  [R3] F03: 168 ítems con cita literal, 69 descartados
+  [R3] F03: 105 ítems con cita literal, 4 descartados
+  [R3] F03: 64 ítems con cita literal, 7 descartados
+  [R3] F03: 103 ítems con cita literal, 6 descartados
+  [R3] F03: 100 ítems con cita literal, 2 descartados
+  [R3] F03: 25 ítems con cita literal, 2 descartados
+  [R3] F04: 6 menciones en 200675 caracteres: se leen 1 ventanas (8803 caracteres)
+  [R3] F04: 14 ítems con cita literal, 1 descartados
+  [R3] F05: 39 ítems con cita literal, 0 descartados
+  [R3] F06: 35 ítems con cita literal, 1 descartados
+  [R3] F08: 28 ítems con cita literal, 9 descartados
+  [R3] F09: 0 ítems con cita literal, 10 descartados
+  [R3] F09: 0 ítems con cita literal, 0 descartados
+  [R3] F10: 54 ítems con cita literal, 0 descartados
+  [R3] F12: 9 ítems con cita literal, 1 descartados
+  [R3] F13: 59 ítems con cita literal, 0 descartados
+  [R4] merge: datos 427 · cronologia 119 · lugares 57 · citas 145 · personajes 47 · 24 ítems con ≥ 2 documentos · 446 descartados
+  [R4] autores de cita sumados como personajes: ['Brady Richard', 'Abogado del Sheriff', 'Deputy Foster', 'Deputy Luis Reyes', 'Secretario Richard Stalder', 'Ms. Fontenot', 'Guardias (según Inmate #75)', 'Criminal Justice Working Group', 'National Guard Officers', 'warden at Hunt Correctional Center', 'Jefe Rudy', 'Capitán Jenkins', 'Warden de Hunt Correctional Center', 'Oficiales en Old Parish Prison', 'Oficial en Conchetta', 'Oficiales de St. Bernard Parish', 'Oficiales en Conchetta', 'Alguacil (Sheriff)', 'un recluso de Templeman Four']
+  [4a·pool] personajes sin acción, fuera: ['Greg Davis', 'C. Ray Nagin', 'Jimmy LeBlanc', 'Shantia Barnes', 'Darnell Smith', 'Ahmad Nelson', 'Stacy Head', 'Susan Guidry', 'Mrs. Paige', 'Michael Carrerras', 'Tina Johnson', 'Burl Cain', 'Susan Hutson', 'Len Davis', 'Renard Reed']
+  [4a·pool] testigos: [('Marlin N. Gusman', ['T25', 'T26', 'T27', 'T28', 'T29', 'T30', 'T31', 'T32', 'T33', 'T34', 'T35', 'T36', 'T37', 'T38', 'T39', 'T40', 'T41', 'T42', 'T114']), ('Christina Foster', []), ('Rhonda R. Ducre', ['T25', 'T26', 'T27', 'T28', 'T29', 'T30', 'T31', 'T32', 'T33', 'T34', 'T35', 'T36', 'T37', 'T38', 'T39', 'T40', 'T41', 'T42', 'T43', 'T44', 'T45', 'T46', 'T47', 'T48', 'T49', 'T50', 'T51', 'T52', 'T53', 'T54', 'T55', 'T56', 'T57', 'T58', 'T59', 'T60', 'T61', 'T62', 'T63']), ('Bonita Pittman', []), ('Luis Reyes', []), ('George Schaefer III', ['T17', 'T18', 'T33', 'T39', 'T49', 'T56', 'T60', 'T61', 'T62', 'T102', 'T110']), ('William Short', []), ('Sgt. Bell', []), ('Sheriff Martin Gusman', ['T34', 'T114']), ('Sergeant Bell', ['T64', 'T65', 'T66', 'T67', 'T68', 'T69', 'T70', 'T71', 'T72', 'T73']), ('Lieutenant Deputy Keiths', []), ('Mrs. Watson', []), ('Sheriff Gusman', ['T34', 'T98', 'T99', 'T114']), ('Ken Bailey', []), ('Iris Hardy', ['T43', 'T44', 'T45', 'T46', 'T47', 'T48', 'T49', 'T50', 'T51', 'T52', 'T53', 'T54', 'T55', 'T56', 'T57', 'T58', 'T59', 'T60', 'T61', 'T62', 'T63']), ('Colonel Joseph', ['T43', 'T44', 'T45', 'T46', 'T47', 'T48', 'T49', 'T50', 'T51', 'T52', 'T53', 'T54', 'T55', 'T56', 'T57', 'T58', 'T59', 'T60', 'T61', 'T62', 'T63']), ('Ms. Bowmen', ['T43', 'T44', 'T45', 'T46', 'T47', 'T48', 'T49', 'T50', 'T51', 'T52', 'T53', 'T54', 'T55', 'T56', 'T57', 'T58', 'T59', 'T60', 'T61', 'T62', 'T63']), ('Ranking Officer Watson', ['T25', 'T26', 'T27', 'T28', 'T29', 'T30', 'T31', 'T32', 'T33', 'T34', 'T35', 'T36', 'T37', 'T38', 'T39', 'T40', 'T41', 'T42']), ('Edward “Edgar” Burton', ['T43', 'T44', 'T45', 'T46', 'T47', 'T48', 'T49', 'T50', 'T51', 'T52', 'T53', 'T54', 'T55', 'T56', 'T57', 'T58', 'T59', 'T60', 'T61', 'T62', 'T63']), ('Big Whappy', ['T43', 'T44', 'T45', 'T46', 'T47', 'T48', 'T49', 'T50', 'T51', 'T52', 'T53', 'T54', 'T55', 'T56', 'T57', 'T58', 'T59', 'T60', 'T61', 'T62', 'T63', 'T64', 'T65', 'T66', 'T67', 'T68', 'T69', 'T70', 'T71', 'T72', 'T73', 'T74', 'T75', 'T76', 'T77', 'T78', 'T79', 'T80', 'T81', 'T82', 'T83', 'T84', 'T85', 'T86', 'T87']), ('Dan Bright', ['T07', 'T09', 'T19', 'T20', 'T21', 'T22', 'T23', 'T24', 'T43', 'T44', 'T45', 'T46', 'T47', 'T48', 'T49', 'T50', 'T51', 'T52', 'T53', 'T54', 'T55', 'T56', 'T57', 'T58', 'T59', 'T60', 'T61', 'T62', 'T63', 'T74', 'T75', 'T76', 'T77', 'T78', 'T79', 'T80', 'T81', 'T82', 'T83', 'T84', 'T85', 'T86', 'T87', 'T102', 'T103', 'T104']), ('Raphael Schwartz', ['T19', 'T20', 'T21', 'T22', 'T23', 'T24']), ('Ashley George', ['T110']), ('Brady Richard', []), ('Deputy Foster', []), ('Deputy Luis Reyes', []), ('Guardias (según Inmate #75)', []), ('Jefe Rudy', []), ('Capitán Jenkins', []), ('Oficiales en Old Parish Prison', ['T16', 'T30', 'T68']), ('Oficial en Conchetta', ['T26', 'T50', 'T75', 'T91']), ('Oficiales de St. Bernard Parish', ['T16', 'T30', 'T62', 'T63', 'T68']), ('Oficiales en Conchetta', ['T26', 'T50', 'T75', 'T91']), ('un recluso de Templeman Four', [])] · citas testimonio: 117
+  [R4] cifras canónicas: [('1300', 'F01', ['1000', '1500', '1,000']), ('6375', 'F01', ['3,000, 5,000', '6,800'])]
+  [R5] citas: {'verificada': 125, 'verificada_parcial': 19, 'sin_verificar': 1}
+{
+ "nuevo": {
+  "datos": 427,
+  "cronologia": 119,
+  "cronologia_con_hora": 28,
+  "lugares": 57,
+  "citas": 145,
+  "citas_verificadas": 125,
+  "citas_testigo_con_nombre_verificadas": 20,
+  "testigos_con_nombre_citados": 15,
+  "personajes": 51,
+  "testigos": 34,
+  "testigos_3_citas": 6,
+  "elegibles_humano": 11,
+  "pct_doc_y_posicion": 100.0,
+  "items_2_fuentes": 23
+ },
+ "f6v3": {
+  "datos": 91,
+  "cronologia": 30,
+  "cronologia_con_hora": 2,
+  "lugares": 29,
+  "citas": 11,
+  "citas_verificadas": 2,
+  "citas_testigo_con_nombre_verificadas": 2,
+  "testigos_con_nombre_citados": 2,
+  "personajes": 11,
+  "testigos": 3,
+  "testigos_3_citas": 0,
+  "elegibles_humano": 0,
+  "pct_doc_y_posicion": 0.0,
+  "items_2_fuentes": 0
+ }
+}

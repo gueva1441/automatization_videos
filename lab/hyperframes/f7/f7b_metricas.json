@@ -1,0 +1,92 @@
+{
+ "nuevo": {
+  "datos": 558,
+  "cronologia": 152,
+  "cronologia_con_hora": 28,
+  "lugares": 67,
+  "citas": 188,
+  "citas_verificadas": 162,
+  "citas_testigo_con_nombre_verificadas": 25,
+  "testigos_con_nombre_citados": 20,
+  "personajes": 69,
+  "testigos": 52,
+  "testigos_3_citas": 4,
+  "elegibles_humano": 13,
+  "pct_doc_y_posicion": 100.0,
+  "items_2_fuentes": 35
+ },
+ "f6v3": {
+  "datos": 91,
+  "cronologia": 30,
+  "cronologia_con_hora": 2,
+  "lugares": 29,
+  "citas": 11,
+  "citas_verificadas": 2,
+  "citas_testigo_con_nombre_verificadas": 2,
+  "testigos_con_nombre_citados": 2,
+  "personajes": 11,
+  "testigos": 3,
+  "testigos_3_citas": 0,
+  "elegibles_humano": 0,
+  "pct_doc_y_posicion": 0.0,
+  "items_2_fuentes": 0
+ },
+ "costo_r3": {
+  "_nota": "reconstruido de los logs de F7b (f7b_run_1.out, piloto y re-extracciones): ultimo = la extracción vigente; acumulado = todo lo gastado en la sesión",
+  "F01": {
+   "ultimo": 0.6743,
+   "acumulado": 0.6743,
+   "segundos": 439.6
+  },
+  "F02": {
+   "ultimo": 0.0614,
+   "acumulado": 0.0614,
+   "segundos": 40.8
+  },
+  "F03": {
+   "ultimo": 0.8833,
+   "acumulado": 0.8833,
+   "segundos": 548.6
+  },
+  "F04": {
+   "ultimo": 0.0344,
+   "acumulado": 0.0344,
+   "segundos": 21.6
+  },
+  "F05": {
+   "ultimo": 0.0671,
+   "acumulado": 0.125,
+   "segundos": 42.3
+  },
+  "F06": {
+   "ultimo": 0.0485,
+   "acumulado": 0.103,
+   "segundos": 35.4
+  },
+  "F08": {
+   "ultimo": 0.0732,
+   "acumulado": 0.0732,
+   "segundos": 39.3
+  },
+  "F09": {
+   "ultimo": 0.0581,
+   "acumulado": 0.0581,
+   "segundos": 27.6
+  },
+  "F10": {
+   "ultimo": 0.0757,
+   "acumulado": 0.0757,
+   "segundos": 51.2
+  },
+  "F12": {
+   "ultimo": 0.0282,
+   "acumulado": 0.0282,
+   "segundos": 18.9
+  },
+  "F13": {
+   "ultimo": 0.0906,
+   "acumulado": 0.0906,
+   "segundos": 57.8
+  }
+ }
+}

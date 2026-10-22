@@ -1,0 +1,44 @@
+[20:50:58] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[20:59:47] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.4773
+[21:00:32] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[21:00:54] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.0134
+  [R1] foco 1: 12 fichas del modelo, 23 URLs en el grounding
+  [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 2: 11 fichas del modelo, 0 URLs en el grounding
+  [R1] foco 3: 10 fichas del modelo, 17 URLs en el grounding
+  [R1] foco 4: 12 fichas del modelo, 19 URLs en el grounding
+  [R1] pista «U.S. Department of Justice, Civil Rights Division,»: 2 fichas del modelo, 2 URLs en el grounding
+  [R1] pista «BBC, Olenka Frenkiel, sobre los presos de Katrina »: sin grounding (de memoria) → reintento
+  [R1] pista «BBC, Olenka Frenkiel, sobre los presos de Katrina »: sin grounding (de memoria) → reintento
+  [R1] pista «BBC, Olenka Frenkiel, sobre los presos de Katrina »: 0 fichas del modelo, 0 URLs en el grounding
+  [R1] pista «The Times-Picayune / NOLA.com, notas de la semana »: sin grounding (de memoria) → reintento
+  [R1] pista «The Times-Picayune / NOLA.com, notas de la semana »: sin grounding (de memoria) → reintento
+  [R1] pista «The Times-Picayune / NOLA.com, notas de la semana »: 6 fichas del modelo, 0 URLs en el grounding
+  [R1] pista «Toledo Blade, George J. Tanber, «Arrested on misde»: sin grounding (de memoria) → reintento
+  [R1] pista «Toledo Blade, George J. Tanber, «Arrested on misde»: sin grounding (de memoria) → reintento
+  [R1] pista «Toledo Blade, George J. Tanber, «Arrested on misde»: 5 fichas del modelo, 0 URLs en el grounding
+  [R1] pista «Fallo judicial Waganfeald v. Gusman (Robie Waganfe»: sin grounding (de memoria) → reintento
+  [R1] pista «Fallo judicial Waganfeald v. Gusman (Robie Waganfe»: sin grounding (de memoria) → reintento
+  [R1] pista «Fallo judicial Waganfeald v. Gusman (Robie Waganfe»: 5 fichas del modelo, 3 URLs en el grounding
+  [R1] 35 URLs reales: 42 con ficha del modelo, 14 con ficha de Flash, 2 fuera (no relevantes o listados) · 21 fichas del modelo sin URL del grounding
+  [R2] F02 hrw_2005_new_orleans_prisoners_abandoned_to: FALLÓ — HTTP 429
+  [R2] F05 hrw_2005_excerpts_of_letters_from_prisoners: OK (wayback) 11094 caracteres
+  [R2] F07 aclu_2006_abandoned_abused_complete_report: OK (pdf_enlazado) 295888 caracteres · recorte: fuera la cola desde «ENDNOTES» (96988 caracteres); cortado en el último párrafo antes de 300000 (71053 caracteres fuera) · NO nombra el evento
+  [R2] F07: duplicado de F01
+  [R2] F08 prisonpolicy_2006_justice_in_katrina_s_wake: OK (original) 53898 caracteres
+  [R2] F09 prisonlegalnews_2009_doj_cripa_findings_on_orleans: OK (original) 77214 caracteres
+  [R2] F11 wordpress_2012_prisoners_of_katrina_a_bbc: FALLÓ — API: RuntimeError: HTTP 429 de la API de disponibilidad
+  [R2] F12 voiceofwitness_2006_voices_from_the_storm_the: OK (original) 3712 caracteres
+  [R2] F13 vice_2015_hurricane_katrina_was_a_nightmare: OK (original) 15083 caracteres
+  [R2] 10 documentos OK de 13 intentados
+  [R2] ficha F01: informe_oficial 2006 «Abandoned & Abused: Orleans Parish Prisoners in the Wake of »
+  [R2] ficha F03: testimonio 2006 «Testimonials from Inmates Incarcerated at Orleans Parish Pri»
+  [R2] ficha F04: informe_oficial 2009 «Special Litigation Section Case Summaries»
+  [R2] ficha F05: testimonio 2005 «Excerpts of letters written to Human Rights Watch and Corinn»
+  [R2] ficha F06: informe_oficial 2006 «Prison Conditions and Prisoner Abuse After Katrina»
+  [R2] ficha F08: informe_oficial 2015 «Justice in Katrina’s Wake: Changing Course on Incarceration »
+  [R2] ficha F09: informe_oficial 2009 «Re: Orleans Parish Prison System New Orleans, Louisiana»
+  [R2] ficha F10: prensa_posterior 2025 «Reforms resulted from the thousands left to drown in OPP»
+  [R2] ficha F12: libro 2006 «Voices from the Storm: The People of New Orleans on Hurrican»
+  [R2] ficha F13: prensa_posterior 2015 «Hurricane Katrina Was a Nightmare for Inmates in New Orleans»
