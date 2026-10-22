@@ -54,7 +54,7 @@
   },
   "_segundos_prompts": 56.4,
   "_pared_s": 68.0,
-  "_costo_imagenes_usd": 0.455,
+  "_costo_imagenes_usd": 0.7,
   "_edit_probe": {
    "estado": "ok",
    "endpoint": "fal-ai/bytedance/seedream/v5/lite/edit",
@@ -64,6 +64,14 @@
    "foto_madre": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-a091-41c0-8dad-afd2f4364747\\foto_madre\\subject.png",
    "jpg": "edit_probe.jpg",
    "usd": 0.035
+  },
+  "_grade": {
+   "enabled": true,
+   "saturation": 0.7,
+   "lift": 0.035,
+   "vignette_angle": 0.35,
+   "grain": 6,
+   "cool": 0.02
   }
  },
  {
@@ -93,7 +101,15 @@
   "h": null,
   "jpg": "v3_01.jpg",
   "v2_jpg": "v2_01.jpg",
-  "prompt_anterior": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. The color palette consists of cold blue-greys, deep shadows, the sickly brown of the water, and faded and stained institutional off-white. Low-key lighting creates near-total darkness, with a single sliver of cold, hard light from under the cell door. The high angle looks down upon the scene. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors."
+  "prompt_anterior": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. The color palette consists of cold blue-greys, deep shadows, the sickly brown of the water, and faded and stained institutional off-white. Low-key lighting creates near-total darkness, with a single sliver of cold, hard light from under the cell door. The high angle looks down upon the scene. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "graded_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\01_cap1_beat1_graded.png",
+  "grade_stats": {
+   "sat_antes": 0.545,
+   "sat_despues": 0.42,
+   "negro_puro_antes": 4.7,
+   "negro_puro_despues": 0.0
+  },
+  "f8b_jpg": "f8b_01.jpg"
  },
  {
   "cap": 1,
@@ -121,7 +137,15 @@
   "w": null,
   "h": null,
   "jpg": "v3_02.jpg",
-  "v2_jpg": "v2_02.jpg"
+  "v2_jpg": "v2_02.jpg",
+  "graded_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\02_cap1_beat1_graded.png",
+  "grade_stats": {
+   "sat_antes": 0.353,
+   "sat_despues": 0.289,
+   "negro_puro_antes": 0.04,
+   "negro_puro_despues": 0.0
+  },
+  "f8b_jpg": "f8b_02.jpg"
  },
  {
   "cap": 2,
@@ -129,7 +153,7 @@
   "cerrada": false,
   "anchor": "El 28 de agosto sonaron las alarmas.",
   "pos": 0.0,
-  "prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A close shot of a 2000s-era CRT television screen showing a weather broadcast map, displaying a menacing, brightly-colored graphic of a massive hurricane approaching the Louisiana coastline, the image just beginning to flicker. The camera's focus is centered on the hurricane graphic on the screen, highlighting the storm's projected path toward New Orleans. This is set in a sparse, institutional common room within the Orleans Parish Prison, with concrete block walls and utilitarian furniture visible in the soft-focus background, featuring the weather map on the CRT screen, showing a swirling hurricane symbol with a projected trajectory line pointing directly at the city, all occurring in 2005. The saturated reds and yellows of the weather map contrast with the faded institutional beige of the walls and the cool blue-white of the screen's background, under harsh, overhead fluorescent light from the room, with the television screen itself being the primary light source in the immediate frame. A sense of sterile, electronic foreboding is present; the clinical depiction of impending natural disaster contained within the old technology creates a quiet tension, rendered in a documentary photographic realism, dark-history, faceless style with shallow depth of field and an eye-level camera angle. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A close shot of a 2000s-era CRT television set displaying a weather broadcast with a satellite map of an approaching hurricane. The focal point is the swirling vortex of the storm on the glowing screen, aimed at the Gulf Coast, set in a sparse institutional common room inside the Orleans Parish Prison, under the sterile light of fluorescent fixtures. The television screen shows a doppler radar image of the massive, well-defined eye of Hurricane Katrina spinning over the ocean, with the vibrant, artificial reds and yellows of the weather map set against the washed-out beige and grey of the institutional walls. The primary light source is the cool, electronic glow from the CRT screen, with ambient fluorescent light filling the room, creating a sense of detached, electronic foreboding; the calm before the deluge, filtered through a screen. Rendered in a documentary photographic realism, dark-history, faceless style, with a shallow depth of field focusing on the screen's pixels, captured at an eye-level camera angle. A blocky digital newsprint banner superimposed at the bottom of the television screen reads \"CATEGORY 5\" in clear, crisp lettering. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
   "shot_scale": "close",
   "subject_ref": "interior_scene",
   "foto_madre_ref": [],
@@ -137,19 +161,33 @@
   "motivos": [],
   "problemas": [],
   "slots_scrub": [],
-  "rehecha": null,
+  "rehecha": "rehecha en F8b con las reglas nuevas",
   "n": 3,
   "v2_prompt": "A close shot depicts a 2005 wall calendar page for August, resting pinned to a sterile office wall, with the date '28' circled in thick red marker. The focus is drawn to the circled date, which stands out starkly in a nondescript institutional office with beige-painted walls. A standard office wall calendar, with blocky, sans-serif numbers, clearly shows 'AUGUST 2005'. The color palette features muted off-whites and beiges, with a single, jarring point of crimson red, under flat, even fluorescent office lighting. There is a sense of quiet, bureaucratic foreboding; an ordinary object marked for a future catastrophe, presented with documentary photographic realism, dark-history, and a faceless style. A shallow depth of field is used, with the number '28' in sharp focus and the rest slightly blurred, captured at an eye-level, head-on camera angle. A sign on the top of the calendar page reads \"AGOSTO 2005\" in a block font. The image has a 16:9 aspect ratio.",
   "v2_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f5v2\\assets\\ch02_flux\\ch02_img_01.png",
   "png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\03_cap2_beat2.png",
   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
-  "ms": 36691,
+  "ms": 40018,
   "estado": "ok",
   "nsfw": false,
   "w": null,
   "h": null,
   "jpg": "v3_03.jpg",
-  "v2_jpg": "v2_03.jpg"
+  "v2_jpg": "v2_03.jpg",
+  "f8_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\03_cap2_beat2_f8.png",
+  "f8_prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A close shot of a 2000s-era CRT television screen showing a weather broadcast map, displaying a menacing, brightly-colored graphic of a massive hurricane approaching the Louisiana coastline, the image just beginning to flicker. The camera's focus is centered on the hurricane graphic on the screen, highlighting the storm's projected path toward New Orleans. This is set in a sparse, institutional common room within the Orleans Parish Prison, with concrete block walls and utilitarian furniture visible in the soft-focus background, featuring the weather map on the CRT screen, showing a swirling hurricane symbol with a projected trajectory line pointing directly at the city, all occurring in 2005. The saturated reds and yellows of the weather map contrast with the faded institutional beige of the walls and the cool blue-white of the screen's background, under harsh, overhead fluorescent light from the room, with the television screen itself being the primary light source in the immediate frame. A sense of sterile, electronic foreboding is present; the clinical depiction of impending natural disaster contained within the old technology creates a quiet tension, rendered in a documentary photographic realism, dark-history, faceless style with shallow depth of field and an eye-level camera angle. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "f8_ms": 36691,
+  "prompt_anterior": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A close shot of a 2000s-era CRT television screen showing a weather broadcast map, displaying a menacing, brightly-colored graphic of a massive hurricane approaching the Louisiana coastline, the image just beginning to flicker. The camera's focus is centered on the hurricane graphic on the screen, highlighting the storm's projected path toward New Orleans. This is set in a sparse, institutional common room within the Orleans Parish Prison, with concrete block walls and utilitarian furniture visible in the soft-focus background, featuring the weather map on the CRT screen, showing a swirling hurricane symbol with a projected trajectory line pointing directly at the city, all occurring in 2005. The saturated reds and yellows of the weather map contrast with the faded institutional beige of the walls and the cool blue-white of the screen's background, under harsh, overhead fluorescent light from the room, with the television screen itself being the primary light source in the immediate frame. A sense of sterile, electronic foreboding is present; the clinical depiction of impending natural disaster contained within the old technology creates a quiet tension, rendered in a documentary photographic realism, dark-history, faceless style with shallow depth of field and an eye-level camera angle. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "texto_en_imagen": true,
+  "graded_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\03_cap2_beat2_graded.png",
+  "grade_stats": {
+   "sat_antes": 0.186,
+   "sat_despues": 0.156,
+   "negro_puro_antes": 0.0,
+   "negro_puro_despues": 0.0
+  },
+  "f8_jpg": "v3_03_f8.jpg",
+  "f8b_jpg": "f8b_03.jpg"
  },
  {
   "cap": 3,
@@ -179,7 +217,15 @@
   "w": null,
   "h": null,
   "jpg": "v3_04.jpg",
-  "v2_jpg": "v2_04.jpg"
+  "v2_jpg": "v2_04.jpg",
+  "graded_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\04_cap3_beat3_graded.png",
+  "grade_stats": {
+   "sat_antes": 0.275,
+   "sat_despues": 0.254,
+   "negro_puro_antes": 16.81,
+   "negro_puro_despues": 0.0
+  },
+  "f8b_jpg": "f8b_04.jpg"
  },
  {
   "cap": 4,
@@ -207,7 +253,15 @@
   "w": null,
   "h": null,
   "jpg": "v3_05.jpg",
-  "v2_jpg": "v2_05.jpg"
+  "v2_jpg": "v2_05.jpg",
+  "graded_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\05_cap4_beat4_graded.png",
+  "grade_stats": {
+   "sat_antes": 0.284,
+   "sat_despues": 0.248,
+   "negro_puro_antes": 0.79,
+   "negro_puro_despues": 0.0
+  },
+  "f8b_jpg": "f8b_05.jpg"
  },
  {
   "cap": 4,
@@ -238,7 +292,15 @@
   "w": null,
   "h": null,
   "jpg": "v3_06.jpg",
-  "v2_jpg": "v2_06.jpg"
+  "v2_jpg": "v2_06.jpg",
+  "graded_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\06_cap4_beat4_graded.png",
+  "grade_stats": {
+   "sat_antes": 0.354,
+   "sat_despues": 0.312,
+   "negro_puro_antes": 12.13,
+   "negro_puro_despues": 0.0
+  },
+  "f8b_jpg": "f8b_06.jpg"
  },
  {
   "cap": 5,
@@ -246,27 +308,46 @@
   "cerrada": false,
   "anchor": "El oficial Brady Richard observaba desde un lugar elevado.",
   "pos": 0.0,
-  "prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A wide shot captures a distant, silhouetted uniformed figure on a concrete rooftop, firing a rifle towards an unseen area below, producing a sharp, bright muzzle flash. The figure is aiming downwards, focused intently on the target zone out of frame, body tensed in a firing stance. The view is from inside a dark, flooded prison cell, looking out through a broken window at the roof of an adjacent institutional building amidst a desolate, hurricane-ravaged New Orleans. A scoped rifle, characteristic of the early 2000s, is briefly illuminated by its own flash. The color palette features muted grays of concrete and an overcast sky, dark browns of murky floodwater below, all punctuated by a single, bright orange-yellow flash. The gloomy, overcast daylight is broken by a harsh, momentary burst of light from the rifle that briefly casts sharp shadows. The mood is a scene of cold, distant violence framed by confinement and decay; the sudden flash of light creates a jarring, terrifying contrast against the gray desolation. The style is documentary photographic realism, dark-history, faceless. A deep depth of field is used, with the jagged edges of the broken window in the foreground framing the distant action. The camera angle is eye-level from the cell's perspective, looking across a distance to the other building in 2005. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A wide shot captures a couple of silhouetted figures of prison guards on a distant rooftop, focused downwards, looking through scopes towards the flooded grounds below, their bodies tensed. This scene unfolds on the flat, gravelled roof of a concrete prison building, viewed from a distance through the jagged opening of a broken cell window, with the wider New Orleans cityscape visible in the background, partially submerged and ruined in 2005. The color palette consists of washed-out grays and muted beiges of concrete and brick under a bleak, overcast sky, while the floodwater below is a murky, dark brown. Harsh, flat daylight from an overcast sky creates sharp silhouettes but few discernible details on the figures, evoking a mood of detached horror; the action is viewed from a helpless, trapped perspective, and the air is heavy with humidity, with the silence between shots palpable. The style is documentary photographic realism, dark-history, and faceless, rendered with a long telephoto lens, compressing the distance and creating a shallow depth of field, with the broken window frame in the foreground blurred. The camera angle is eye-level, looking out and slightly up, framed by the dark, broken edges of a cell window. The image has a 16:9 aspect ratio. No readable text, no signage, no labels. 35mm film grain, muted documentary colors.",
   "shot_scale": "wide",
   "subject_ref": "interior_scene",
   "foto_madre_ref": [],
   "sensible": false,
   "motivos": [],
-  "problemas": [],
-  "slots_scrub": [],
-  "rehecha": "NO person in medium shot: a wide shot of the place, people small, far or absent. Motifs already used twice in this video (avoid them all): pasillo. Show another part of the beat's sensory image.",
+  "problemas": [
+   "arma: scope"
+  ],
+  "slots_scrub": [
+   "action: Taking up positions and aiming rifles down towards an unseen area of the prison complex.",
+   "props_detail: A long-range rifle with a scope,"
+  ],
+  "rehecha": "rehecha en F8b: beat de arma contado desde las víctimas o el testigo",
   "n": 7,
   "v2_prompt": "A medium shot shows an empty clerk's desk in a flooded records room, with Manila folders and loose papers floating in the murky, stagnant water surrounding the desk. The focus is drawn to a single, open file binder floating on the water's surface, its pages empty and stained. This scene takes place in a prison administration office after the flood, with a high, dark watermark visible on the concrete block walls. A waterlogged ledger book, swollen and peeling, lies half-submerged on the desk chair. The color palette features faded institutional off-white and beige, rust-brown on metal furniture, murky green-brown water, and muted grays. Dim, ambient light filters through a high, grimy window, creating a somber, low-key atmosphere, conveying a heavy silence of bureaucratic collapse and untold loss; the air is still and thick with decay. The style is documentary photographic realism, dark-history, and faceless, using a shallow depth of field, focusing on the empty floating binder, captured at eye-level, angled slightly down. The image has a 16:9 aspect ratio.",
   "v2_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_01.png",
   "png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\07_cap5_beat5.png",
   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
-  "ms": 56293,
+  "ms": 46466,
   "estado": "ok",
   "nsfw": false,
   "w": null,
   "h": null,
   "jpg": "v3_07.jpg",
-  "v2_jpg": "v2_07.jpg"
+  "v2_jpg": "v2_07.jpg",
+  "f8_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\07_cap5_beat5_f8.png",
+  "f8_prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A wide shot captures a distant, silhouetted uniformed figure on a concrete rooftop, firing a rifle towards an unseen area below, producing a sharp, bright muzzle flash. The figure is aiming downwards, focused intently on the target zone out of frame, body tensed in a firing stance. The view is from inside a dark, flooded prison cell, looking out through a broken window at the roof of an adjacent institutional building amidst a desolate, hurricane-ravaged New Orleans. A scoped rifle, characteristic of the early 2000s, is briefly illuminated by its own flash. The color palette features muted grays of concrete and an overcast sky, dark browns of murky floodwater below, all punctuated by a single, bright orange-yellow flash. The gloomy, overcast daylight is broken by a harsh, momentary burst of light from the rifle that briefly casts sharp shadows. The mood is a scene of cold, distant violence framed by confinement and decay; the sudden flash of light creates a jarring, terrifying contrast against the gray desolation. The style is documentary photographic realism, dark-history, faceless. A deep depth of field is used, with the jagged edges of the broken window in the foreground framing the distant action. The camera angle is eye-level from the cell's perspective, looking across a distance to the other building in 2005. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "f8_ms": 56293,
+  "prompt_anterior": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A medium shot of a silhouetted law enforcement officer in a prone position on a rooftop, set on the flat, debris-strewn rooftop of a concrete prison building, seen from across a flooded courtyard through the jagged frame of a broken cell window. A long-range rifle with a telescopic sight is steadied on a bipod or sandbag. The color palette features desaturated grays and muted browns of wet concrete and gravel, under a heavy, overcast sky. Bleak, overcast daylight dramatically pierces the scene, conveying a sense of cold, methodical violence amidst city-wide chaos; the shooter is a distant, impersonal figure against the vast, waterlogged ruin of New Orleans in 2005. The style is documentary photographic realism, dark-history, and faceless, captured with a telephoto lens compressing the distance, with the broken window glass in the foreground out of focus, from an eye-level camera angle, as if viewed from a window in an adjacent building. The image has a 16:9 aspect ratio. No readable text, no signage, no labels. 35mm film grain, muted documentary colors.",
+  "texto_en_imagen": false,
+  "graded_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\07_cap5_beat5_graded.png",
+  "grade_stats": {
+   "sat_antes": 0.236,
+   "sat_despues": 0.199,
+   "negro_puro_antes": 1.68,
+   "negro_puro_despues": 0.0
+  },
+  "f8_jpg": "v3_07_f8.jpg",
+  "f8b_jpg": "f8b_07.jpg"
  },
  {
   "cap": 5,
@@ -274,27 +355,41 @@
   "cerrada": true,
   "anchor": "La espera en el paso elevado de Broad Street, bajo el sol de una Nueva Orleans destruida por Katrina.",
   "pos": 0.898,
-  "prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A detail shot captures the barrel of a law enforcement rifle discharging a round, producing a brilliant, starburst-shaped muzzle flash and a puff of smoke. The weapon is aimed downwards, away from the camera, towards an unseen target, set against the concrete parapet of a prison rooftop, with the flooded and ruined New Orleans cityscape blurred in the background. Particles of unburnt powder are caught in the bloom of the muzzle flash, creating a sense of frozen, violent motion. The dark, matte black of the rifle's metal is contrasted sharply by the explosive white, yellow, and orange of the muzzle blast, while the background is a desaturated gray-blue. The scene is primarily illuminated by the intense, self-contained blast of the gunshot, casting harsh, fleeting highlights on the weapon's surface, conveying impersonal, mechanical violence; the shot is captured with cold, forensic precision, detached from human cause or consequence. The style is documentary photographic realism, dark-history, faceless, with a shallow depth of field and sharp focus on the muzzle flash, achieved with an 85mm lens, and captured from a slightly low angle, looking up at the end of the rifle barrel. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
-  "shot_scale": "detail",
+  "prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A medium shot captures the silhouette of a wiry African American incarcerated man, seen from behind, as he intently watches a distant figure on a rooftop aiming a rifle. He stares through a jagged hole in a window, from inside a dark, concrete prison cell filled with murky, chest-level floodwater. Through the broken window, the flooded cityscape of post-Katrina New Orleans is visible, with the jagged, sharp edges of a broken pane of glass in a rusted frame. The color palette consists of muted grays and muddy browns of the flooded city, contrasted with the dark, rust-stained interior. Harsh midday sunlight pierces the darkness of the cell through the broken window, creating stark highlights on the water's surface, contributing to a tense, trapped atmosphere; the confinement of the dark cell is contrasted with the visible, distant threat under a blazing, indifferent sun. The style is documentary photographic realism, dark-history, and faceless, with a deep depth of field keeping both the window frame and the distant rooftop in focus. The camera is positioned at eye-level, just behind the subject's shoulder. The image has a 16:9 aspect ratio. No readable text, no signage, no labels. 35mm film grain, muted documentary colors.",
+  "shot_scale": "medium",
   "subject_ref": "interior_scene",
   "foto_madre_ref": [],
   "sensible": false,
   "motivos": [],
   "problemas": [],
   "slots_scrub": [],
-  "rehecha": null,
+  "rehecha": "rehecha en F8b con las reglas nuevas",
   "n": 8,
   "v2_prompt": "A wide shot captures a white couple in their 30s, dressed in tourist attire, as they stand amidst the debris on a deserted street, looking disoriented and exhausted. They look at each other with a shared expression of disbelief, their faces smudged with dirt, shoulders slumped, against the backdrop of a recognizable but devastated Bourbon Street, its iconic wrought-iron balconies intact but the street level filled with mud and storm debris. One of them holds a water-stained, crumpled tourist map, its colors bled together. The normally vibrant colors of the French Quarter are desaturated, coated in a film of grey-brown dust and mud. Late afternoon 'golden hour' light, filtered through a dusty haze, casts long, eerie shadows, creating a mood of surreal displacement and the profound irony of outsiders becoming the central figures in a local tragedy of injustice. The style is documentary photographic realism, dark-history, and faceless, captured with a standard 50mm lens, placing the subjects firmly within their surreal, destroyed surroundings. The camera is at eye-level. The image has a 16:9 aspect ratio.",
   "v2_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f5v2\\assets\\ch05_flux\\ch05_img_13.png",
   "png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\08_cap5_beat5.png",
   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
-  "ms": 56729,
+  "ms": 45372,
   "estado": "ok",
   "nsfw": false,
   "w": null,
   "h": null,
   "jpg": "v3_08.jpg",
-  "v2_jpg": "v2_08.jpg"
+  "v2_jpg": "v2_08.jpg",
+  "f8_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\08_cap5_beat5_f8.png",
+  "f8_prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A detail shot captures the barrel of a law enforcement rifle discharging a round, producing a brilliant, starburst-shaped muzzle flash and a puff of smoke. The weapon is aimed downwards, away from the camera, towards an unseen target, set against the concrete parapet of a prison rooftop, with the flooded and ruined New Orleans cityscape blurred in the background. Particles of unburnt powder are caught in the bloom of the muzzle flash, creating a sense of frozen, violent motion. The dark, matte black of the rifle's metal is contrasted sharply by the explosive white, yellow, and orange of the muzzle blast, while the background is a desaturated gray-blue. The scene is primarily illuminated by the intense, self-contained blast of the gunshot, casting harsh, fleeting highlights on the weapon's surface, conveying impersonal, mechanical violence; the shot is captured with cold, forensic precision, detached from human cause or consequence. The style is documentary photographic realism, dark-history, faceless, with a shallow depth of field and sharp focus on the muzzle flash, achieved with an 85mm lens, and captured from a slightly low angle, looking up at the end of the rifle barrel. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "f8_ms": 56729,
+  "prompt_anterior": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A detail shot captures the barrel of a law enforcement rifle discharging a round, producing a brilliant, starburst-shaped muzzle flash and a puff of smoke. The weapon is aimed downwards, away from the camera, towards an unseen target, set against the concrete parapet of a prison rooftop, with the flooded and ruined New Orleans cityscape blurred in the background. Particles of unburnt powder are caught in the bloom of the muzzle flash, creating a sense of frozen, violent motion. The dark, matte black of the rifle's metal is contrasted sharply by the explosive white, yellow, and orange of the muzzle blast, while the background is a desaturated gray-blue. The scene is primarily illuminated by the intense, self-contained blast of the gunshot, casting harsh, fleeting highlights on the weapon's surface, conveying impersonal, mechanical violence; the shot is captured with cold, forensic precision, detached from human cause or consequence. The style is documentary photographic realism, dark-history, faceless, with a shallow depth of field and sharp focus on the muzzle flash, achieved with an 85mm lens, and captured from a slightly low angle, looking up at the end of the rifle barrel. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "texto_en_imagen": false,
+  "graded_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\08_cap5_beat5_graded.png",
+  "grade_stats": {
+   "sat_antes": 0.179,
+   "sat_despues": 0.184,
+   "negro_puro_antes": 0.12,
+   "negro_puro_despues": 0.0
+  },
+  "f8_jpg": "v3_08_f8.jpg",
+  "f8b_jpg": "f8b_08.jpg"
  },
  {
   "cap": 6,
@@ -302,7 +397,7 @@
   "cerrada": false,
   "anchor": "Reclusos de la Prisión Parroquial de Orleans, con sus monos naranjas, sobre el asfalto caliente del paso elevado de Broad Street.",
   "pos": 0.009,
-  "prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A wide shot captures a group of exhausted, predominantly African American male inmates in faded orange prison jumpsuits, sitting and lying on the hot asphalt of a highway overpass, waiting under the sun. Their eyes squint against the bright sun, some looking down at the ground, others staring blankly into the distance. The setting is an exposed concrete and asphalt highway overpass in New Orleans, 2005, under a hazy, cloudless sky. The cracked and weathered surface of the asphalt road shimmers with visible heat waves. The color palette consists of washed-out grays of concrete and asphalt and a hazy pale blue sky, punctuated by the stark, faded orange of prison jumpsuits. Harsh, unfiltered midday sunlight casts short, dark shadows. An oppressive, stagnant heat rises from the ground; the figures are small and exposed against the vast, empty concrete structure. The style is documentary photographic realism, dark-history, and faceless, rendered with a deep depth of field using a 35mm lens from a low angle. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A wide shot captures a large group of predominantly African American incarcerated men, varied in age and build, wearing faded orange one-piece prison jumpsuits. They are sitting, crouching, and lying on the hot, dark asphalt of a highway overpass, some shielding their faces from the sun. Their eyes squint against the bright light, gazes are downcast towards the ground or staring blankly into the distance, faces slick with sweat, and postures slumped with exhaustion. The setting is an exposed concrete and asphalt highway overpass in New Orleans, 2005, with no shade or structures; the distant background shows a hazy, flooded cityscape. The orange prison jumpsuits are stained with sweat and grime from days of confinement. The harsh, overexposed palette is dominated by the gray of concrete, black of asphalt, and the stark, faded orange of the jumpsuits under a washed-out blue sky. Unrelenting, direct midday sun casts short, harsh shadows, and highlights on the pavement and shoulders are blown out. A palpable sense of desolation and abandonment is conveyed through the oppressive heat haze, the exposed figures, and the vast, empty sky, all rendered in a documentary photographic realism, dark-history, faceless style. There is a deep depth of field, with a visible heat shimmer rising from the asphalt, slightly distorting the background. The camera is at eye-level, looking down the length of the overpass. The image has a 16:9 aspect ratio. No readable text, no signage, no labels. 35mm film grain, muted documentary colors.",
   "shot_scale": "wide",
   "subject_ref": "main_subject",
   "foto_madre_ref": [],
@@ -310,19 +405,33 @@
   "motivos": [],
   "problemas": [],
   "slots_scrub": [],
-  "rehecha": null,
+  "rehecha": "rehecha en F8b con las reglas nuevas",
   "n": 9,
   "v2_prompt": "A medium shot of a weathered neoclassical courthouse facade stands silent and imposing under a flat, grey sky, with the camera looking up towards the building's pediment, focusing on the architectural details of the exterior of an American federal courthouse, showing signs of age but structurally sound. The carved scales of justice on the facade are slightly darkened with age and grime, all rendered in muted tones of grey, limestone, and beige stone against a pale, overcast sky. Overcast daylight creates a flat and shadowless illumination, contributing to a somber, heavy atmosphere, conveying the slow passage of time, in a documentary photographic realism, dark-history, faceless style, utilizing a deep depth of field and a low angle. The image has a 16:9 aspect ratio.",
   "v2_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f5v2\\assets\\ch06_flux\\ch06_img_01.png",
   "png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\09_cap6_beat6.png",
   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
-  "ms": 46184,
+  "ms": 43951,
   "estado": "ok",
   "nsfw": false,
   "w": null,
   "h": null,
   "jpg": "v3_09.jpg",
-  "v2_jpg": "v2_09.jpg"
+  "v2_jpg": "v2_09.jpg",
+  "f8_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\09_cap6_beat6_f8.png",
+  "f8_prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A wide shot captures a group of exhausted, predominantly African American male inmates in faded orange prison jumpsuits, sitting and lying on the hot asphalt of a highway overpass, waiting under the sun. Their eyes squint against the bright sun, some looking down at the ground, others staring blankly into the distance. The setting is an exposed concrete and asphalt highway overpass in New Orleans, 2005, under a hazy, cloudless sky. The cracked and weathered surface of the asphalt road shimmers with visible heat waves. The color palette consists of washed-out grays of concrete and asphalt and a hazy pale blue sky, punctuated by the stark, faded orange of prison jumpsuits. Harsh, unfiltered midday sunlight casts short, dark shadows. An oppressive, stagnant heat rises from the ground; the figures are small and exposed against the vast, empty concrete structure. The style is documentary photographic realism, dark-history, and faceless, rendered with a deep depth of field using a 35mm lens from a low angle. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "f8_ms": 46184,
+  "prompt_anterior": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A wide shot captures a group of exhausted, predominantly African American male inmates in faded orange prison jumpsuits, sitting and lying on the hot asphalt of a highway overpass, waiting under the sun. Their eyes squint against the bright sun, some looking down at the ground, others staring blankly into the distance. The setting is an exposed concrete and asphalt highway overpass in New Orleans, 2005, under a hazy, cloudless sky. The cracked and weathered surface of the asphalt road shimmers with visible heat waves. The color palette consists of washed-out grays of concrete and asphalt and a hazy pale blue sky, punctuated by the stark, faded orange of prison jumpsuits. Harsh, unfiltered midday sunlight casts short, dark shadows. An oppressive, stagnant heat rises from the ground; the figures are small and exposed against the vast, empty concrete structure. The style is documentary photographic realism, dark-history, and faceless, rendered with a deep depth of field using a 35mm lens from a low angle. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "texto_en_imagen": false,
+  "graded_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\09_cap6_beat6_graded.png",
+  "grade_stats": {
+   "sat_antes": 0.259,
+   "sat_despues": 0.2,
+   "negro_puro_antes": 0.5,
+   "negro_puro_despues": 0.0
+  },
+  "f8_jpg": "v3_09_f8.jpg",
+  "f8b_jpg": "f8b_09.jpg"
  },
  {
   "cap": 7,
@@ -330,29 +439,41 @@
   "cerrada": false,
   "anchor": "Oficialmente, la historia era simple.",
   "pos": 0.0,
-  "prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A close shot reveals a water-stained official document lying on a dark wooden desk, showing typed names and handwritten marks. The camera's focus is drawn to several lines where the name has been replaced with a stark handwritten 'desconocido'. The setting is a dimly lit, makeshift administrative office in the chaotic aftermath of the hurricane, with stacks of paperwork in the background. The single sheet of paper is slightly warped from humidity, with a prominent water ring stain on one corner, showing columns for name, inmate number, and status. The color palette consists of aged paper yellow, stark black ink, muted browns, and the desaturated gray of a cluttered office. Harsh, directional light from a single desk lamp casts sharp shadows across the paper's surface. The mood is one of cold, bureaucratic stillness that hints at a vast, concealed human tragedy through the stark absence of information. The style is documentary photographic realism, dark-history, and faceless. A shallow depth of field keeps the text in sharp focus while the surrounding desk clutter is blurred. The high angle looks directly down onto the document. A sign or inscription or headline reads \"DESCONOCIDO\" in hasty handwritten block letters, in a column on the official list. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A close shot of a typed, official-looking evacuation roster, lying abandoned on a debris-strewn, muddy floor, with the camera's focus tight on a column where multiple entries are marked 'UNKNOWN'. The setting is an office inside the flooded and abandoned Orleans Parish Prison complex. The paper is wrinkled and stained with a dirty waterline, the typed text slightly blurred by moisture. The color palette features damp, yellowed paper with black ink, against a background of dark gray concrete, mud, and rust-colored water stains. Bleak, overcast daylight filters through a high, grimy window, creating a flat, shadowless light, conveying a cold, bureaucratic emptiness by the stark repetition of the word on the list amidst the silent ruin. The style is documentary photographic realism, dark-history, and faceless, using a shallow depth of field, focusing sharply on the text while the surrounding debris is blurred, from a high angle, looking directly down at the document. A sign reads \"UNKNOWN\" in block font, repeated in a column on the document. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
   "shot_scale": "close",
   "subject_ref": "interior_scene",
   "foto_madre_ref": [],
   "sensible": false,
-  "motivos": [
-   "documento en escritorio"
-  ],
+  "motivos": [],
   "problemas": [],
   "slots_scrub": [],
-  "rehecha": null,
+  "rehecha": "rehecha en F8b con las reglas nuevas",
   "n": 10,
   "v2_prompt": "A wide shot captures an abandoned prison administration office standing in ruins, with file cabinets overturned and papers scattered and soaked in mud across the floor. The scene's focus is on the destroyed records, a void of information within a derelict office inside the Orleans Parish Prison complex, post-flood, with mold blooming on stained walls. A single empty manila folder lies open on a muddy, water-damaged desk, its label completely obscured. The color palette consists of muted grays of concrete, beiges of rotting paper, dark brown and black mold stains, and rust on metal furniture. Flat, overcast daylight filters through a broken, grimy window, contributing to a heavy silence of bureaucratic collapse and irreversible loss of history. The style is documentary photographic realism, dark-history, and faceless, rendered with a deep depth of field, showcasing the entire scene of destruction in sharp, bleak focus from an eye-level camera angle. The image has a 16:9 aspect ratio.",
   "v2_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f5v2\\assets\\ch07_flux\\ch07_supp_01.png",
   "png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\10_cap7_beat7.png",
   "endpoint": "fal-ai/bytedance/seedream/v5/lite/text-to-image",
-  "ms": 58898,
+  "ms": 32802,
   "estado": "ok",
   "nsfw": false,
   "w": null,
   "h": null,
   "jpg": "v3_10.jpg",
-  "v2_jpg": "v2_10.jpg"
+  "v2_jpg": "v2_10.jpg",
+  "f8_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\10_cap7_beat7_f8.png",
+  "f8_prompt": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A close shot reveals a water-stained official document lying on a dark wooden desk, showing typed names and handwritten marks. The camera's focus is drawn to several lines where the name has been replaced with a stark handwritten 'desconocido'. The setting is a dimly lit, makeshift administrative office in the chaotic aftermath of the hurricane, with stacks of paperwork in the background. The single sheet of paper is slightly warped from humidity, with a prominent water ring stain on one corner, showing columns for name, inmate number, and status. The color palette consists of aged paper yellow, stark black ink, muted browns, and the desaturated gray of a cluttered office. Harsh, directional light from a single desk lamp casts sharp shadows across the paper's surface. The mood is one of cold, bureaucratic stillness that hints at a vast, concealed human tragedy through the stark absence of information. The style is documentary photographic realism, dark-history, and faceless. A shallow depth of field keeps the text in sharp focus while the surrounding desk clutter is blurred. The high angle looks directly down onto the document. A sign or inscription or headline reads \"DESCONOCIDO\" in hasty handwritten block letters, in a column on the official list. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "f8_ms": 58898,
+  "prompt_anterior": "Grainy 35mm documentary photograph, 2005, dark-history realism, muted colors, visible film grain, slightly underexposed. A close shot reveals a water-stained official document lying on a dark wooden desk, showing typed names and handwritten marks. The camera's focus is drawn to several lines where the name has been replaced with a stark handwritten 'desconocido'. The setting is a dimly lit, makeshift administrative office in the chaotic aftermath of the hurricane, with stacks of paperwork in the background. The single sheet of paper is slightly warped from humidity, with a prominent water ring stain on one corner, showing columns for name, inmate number, and status. The color palette consists of aged paper yellow, stark black ink, muted browns, and the desaturated gray of a cluttered office. Harsh, directional light from a single desk lamp casts sharp shadows across the paper's surface. The mood is one of cold, bureaucratic stillness that hints at a vast, concealed human tragedy through the stark absence of information. The style is documentary photographic realism, dark-history, and faceless. A shallow depth of field keeps the text in sharp focus while the surrounding desk clutter is blurred. The high angle looks directly down onto the document. A sign or inscription or headline reads \"DESCONOCIDO\" in hasty handwritten block letters, in a column on the official list. The image has a 16:9 aspect ratio. 35mm film grain, muted documentary colors.",
+  "texto_en_imagen": true,
+  "graded_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\10_cap7_beat7_graded.png",
+  "grade_stats": {
+   "sat_antes": 0.231,
+   "sat_despues": 0.194,
+   "negro_puro_antes": 0.69,
+   "negro_puro_despues": 0.0
+  },
+  "f8_jpg": "v3_10_f8.jpg",
+  "f8b_jpg": "f8b_10.jpg"
  },
  {
   "cap": 7,
@@ -382,7 +503,15 @@
   "w": null,
   "h": null,
   "jpg": "v3_11.jpg",
-  "v2_jpg": "v2_11.jpg"
+  "v2_jpg": "v2_11.jpg",
+  "graded_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\11_cap7_beat7_graded.png",
+  "grade_stats": {
+   "sat_antes": 0.204,
+   "sat_despues": 0.175,
+   "negro_puro_antes": 7.93,
+   "negro_puro_despues": 0.0
+  },
+  "f8b_jpg": "f8b_11.jpg"
  },
  {
   "cap": 7,
@@ -410,6 +539,14 @@
   "w": null,
   "h": null,
   "jpg": "v3_12.jpg",
-  "v2_jpg": "v2_12.jpg"
+  "v2_jpg": "v2_12.jpg",
+  "graded_png": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\ba6c3cac-f7r3\\humo_f8\\12_cap7_beat8_graded.png",
+  "grade_stats": {
+   "sat_antes": 0.149,
+   "sat_despues": 0.163,
+   "negro_puro_antes": 1.78,
+   "negro_puro_despues": 0.0
+  },
+  "f8b_jpg": "f8b_12.jpg"
  }
 ]

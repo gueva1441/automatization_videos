@@ -5,63 +5,101 @@
  "documentos": [
   {
    "id": "F01",
-   "slug": "youtube_2021_el_relato_de_una_sobreviviente",
-   "url": "https://www.youtube.com/watch?v=r04tb3eY4Hs",
-   "titulo": "El relato de una sobreviviente de Cromañón: 'No podía salir, me caí entre los cuerpos'",
-   "tipo": "testimonio",
-   "anio": 2021,
+   "slug": "clarin_2008_cromanon_dolor_y_recuerdos_del",
+   "url": "https://www.clarin.com/sociedad/cromanon-dolor-recuerdos-horror-testimonios-sobrevivientes_0_rJ-bV12Cptg.html",
+   "titulo": "Cromañón: dolor, recuerdos, horror y testimonios de sobrevivientes",
+   "tipo": "prensa_posterior",
+   "anio": 2008,
    "prioridad": 1,
-   "por_que": "Ofrece el testimonio con nombre y apellido de una sobreviviente, Brenda Bigietti, con detalles vívidos de lo que sucedió dentro del local.",
+   "por_que": "Recoge testimonios directos y detallados de cuatro sobrevivientes durante el juicio oral, ofreciendo una perspectiva cruda y personal del horror vivido dentro del boliche.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.clarin.com/sociedad/cromanon-dolor-recuerdos-horror-testimonios-sobrevivientes_0_rJ-bV12Cptg.html",
+     "status": 200,
+     "bytes": 275847
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.clarin.com/sociedad/cromanon-dolor-recuerdos-horror-testimonios-sobrevivientes_0_rJ-bV12Cptg.html",
+   "archivo": "clarin_2008_cromanon_dolor_y_recuerdos_del.html",
+   "txt": "clarin_2008_cromanon_dolor_y_recuerdos_del.txt",
+   "bytes": 275847,
+   "caracteres": 3595,
+   "caracteres_total": 3595,
+   "recorte": null,
+   "sha1": "ed43ece46ece329620c047f181665cebb26f7d23",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Cromañón: dolor y recuerdos del horror en los testimonios de 4 sobrevivientes",
+    "tipo": "testimonio",
+    "anio": 2008
+   },
+   "autor": "Clarín"
+  },
+  {
+   "id": "F02",
+   "slug": "com_2013_carta_y_relato_de_un",
+   "url": "https://www.agenciapacourondo.com.ar/ddhh/carta-y-relato-de-un-sobreviviente-de-cromanon",
+   "titulo": "Carta y relato de un sobreviviente de Cromañón",
+   "tipo": "testimonio",
+   "anio": 2013,
+   "prioridad": 1,
+   "por_que": "Es un testimonio en primera persona, escrito en formato de carta, que no solo narra los hechos de la noche, sino que también reflexiona críticamente sobre el tratamiento mediático y judicial del caso.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.agenciapacourondo.com.ar/ddhh/carta-y-relato-de-un-sobreviviente-de-cromanon",
+     "status": 200,
+     "bytes": 70999
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.agenciapacourondo.com.ar/ddhh/carta-y-relato-de-un-sobreviviente-de-cromanon",
+   "archivo": "com_2013_carta_y_relato_de_un.html",
+   "txt": "com_2013_carta_y_relato_de_un.txt",
+   "bytes": 70999,
+   "caracteres": 33296,
+   "caracteres_total": 33296,
+   "recorte": null,
+   "sha1": "b04755fea53d6db2745a93c2ef6f0d8d87a50cf5",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Carta y relato de un sobreviviente de Cromañón",
+    "tipo": "testimonio",
+    "anio": 2013
+   },
+   "autor": "Sobreviviente anónimo"
+  },
+  {
+   "id": "F03",
+   "slug": "youtube_2024_el_relato_crudo_de_un",
+   "url": "https://www.youtube.com/watch?v=5z2t-yHdARc",
+   "titulo": "EL RELATO CRUDO de un SOBREVIVIENTE de CROMAÑÓN a 20 AÑOS de la TRAGEDIA",
+   "tipo": "documental",
+   "anio": 2024,
+   "prioridad": 1,
+   "por_que": "Es un testimonio oral en formato de video-documental donde un sobreviviente, Martín Maiolo, narra en primera persona y con detalle lo que vivió durante la tragedia.",
    "ok": false,
    "estado": "sin_texto",
    "intentos": [],
    "motivo": "video o tienda: no hay texto que bajar"
   },
   {
-   "id": "F02",
-   "slug": "gob_2019_a_15_anos_de_cromanon",
-   "url": "https://www.fiscales.gob.ar/procuracion-general/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
-   "titulo": "A 15 años de Cromañón: Cronología de las decisiones judiciales más importantes en las etapas de instrucción, juicio y revisión de sentencia",
-   "tipo": "informe_oficial",
-   "anio": 2019,
-   "prioridad": 1,
-   "por_que": "Documento oficial del Ministerio Público Fiscal que resume y ordena todo el proceso judicial, con fechas y detalles de cada etapa, ofreciendo un mapa completo del aspecto legal.",
-   "descargado": "2026-10-22",
-   "intentos": [
-    {
-     "via": "original",
-     "url": "https://www.fiscales.gob.ar/procuracion-general/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
-     "status": 200,
-     "bytes": 310207
-    }
-   ],
-   "ok": true,
-   "estado": "ok",
-   "via": "original",
-   "url_descarga": "https://www.fiscales.gob.ar/procuracion-general/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
-   "archivo": "gob_2019_a_15_anos_de_cromanon.html",
-   "txt": "gob_2019_a_15_anos_de_cromanon.txt",
-   "bytes": 310207,
-   "caracteres": 8174,
-   "caracteres_total": 8174,
-   "recorte": null,
-   "sha1": "94226b8be77ee3f9a8b3a1ab827c9b493cfd28ed",
-   "idioma": "es",
-   "nombra_evento": true,
-   "ficha_busqueda": {
-    "titulo": "A 15 años de Cromañón: cronología de las decisiones judiciales más importantes",
-    "tipo": "informe_oficial",
-    "anio": 2019
-   },
-   "autor": "Fiscales.gob.ar"
-  },
-  {
-   "id": "F03",
+   "id": "F04",
    "slug": "com_2004_tragedia_en_un_recital_169",
    "url": "https://www.lanacion.com.ar/sociedad/tragedia-en-un-recital-169-muertos-nid667752/",
    "titulo": "Tragedia en un recital: 169 muertos",
-   "tipo": "prensa_epoca",
-   "anio": 2004,
+   "tipo": "prensa_posterior",
+   "anio": 2020,
    "prioridad": 1,
    "por_que": "Artículo del día después de la tragedia (31 de diciembre de 2004) con cifras iniciales de víctimas y testimonios de testigos sobre las posibles causas y la cantidad de asistentes.",
    "descargado": "2026-10-22",
@@ -94,7 +132,7 @@
    "autor": "La Nación"
   },
   {
-   "id": "F04",
+   "id": "F05",
    "slug": "com_2004_el_peor_infierno_en_el",
    "url": "https://www.pagina12.com.ar/diario/sociedad/3-126090-2009-06-04.html?mobile=1",
    "titulo": "EL FISCAL RECLAMó 23 AñOS DE PRISIóN PARA CHABáN Y 15 PARA CALLEJEROS",
@@ -129,13 +167,51 @@
     "tipo": "prensa_epoca",
     "anio": 2004
    },
-   "autor": "Página/12"
+   "autor": "Pagina/12"
   },
   {
-   "id": "F05",
+   "id": "F06",
+   "slug": "gob_2019_a_15_anos_de_cromanon",
+   "url": "https://www.fiscales.gob.ar/procuracion-general/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
+   "titulo": "A 15 años de Cromañón: cronología de las decisiones judiciales más importantes en las etapas de instrucción, juicio y revisión de sentencia",
+   "tipo": "informe_oficial",
+   "anio": 2019,
+   "prioridad": 1,
+   "por_que": "Documento oficial del Ministerio Público Fiscal que resume las principales decisiones judiciales, procesados y condenas a lo largo de los años, aportando el marco legal completo.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.fiscales.gob.ar/procuracion-general/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
+     "status": 200,
+     "bytes": 310207
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.fiscales.gob.ar/procuracion-general/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
+   "archivo": "gob_2019_a_15_anos_de_cromanon.html",
+   "txt": "gob_2019_a_15_anos_de_cromanon.txt",
+   "bytes": 310207,
+   "caracteres": 8174,
+   "caracteres_total": 8174,
+   "recorte": null,
+   "sha1": "94226b8be77ee3f9a8b3a1ab827c9b493cfd28ed",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "A 15 años de Cromañón: cronología de las decisiones judiciales más importantes",
+    "tipo": "informe_oficial",
+    "anio": 2019
+   },
+   "autor": "Procuración General de la Nación"
+  },
+  {
+   "id": "F07",
    "slug": "perfil_2008_cromanon_las_pericias_de_los",
    "url": "https://www.perfil.com/noticias/sociedad/cromanon-las-pericias-de-los-bomberos-confirman-la-hipotesis-de-chaban-20080908-0022.phtml",
-   "titulo": "CROMANON: LAS PERICIAS DE LOS BOMBEROS CONFIRMAN LA HIPOTESIS DE CHABAN",
+   "titulo": "Cromañón: las pericias de los bomberos confirman la hipótesis de Chabán",
    "tipo": "prensa_posterior",
    "anio": 2008,
    "prioridad": 1,
@@ -177,7 +253,78 @@
    "autor": "Perfil"
   },
   {
-   "id": "F06",
+   "id": "F08",
+   "slug": "gob_2019_a_15_anos_de_cromanon",
+   "url": "https://www.fiscales.gob.ar/fiscalias/a-15-anos-de-cromanon-un-repaso-de-los-juicios-que-analizaron-la-responsabilidad-estatal-en-la-tragedia/",
+   "titulo": "A 15 años de Cromañón: un repaso de los juicios que analizaron la responsabilidad estatal en la Tragedia",
+   "tipo": "fallo_judicial",
+   "anio": 2019,
+   "prioridad": 1,
+   "por_que": "Ofrece un resumen detallado de las distintas instancias judiciales, incluyendo el juicio a los bomberos por coimas y la responsabilidad de funcionarios, citando partes de los fallos.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.fiscales.gob.ar/fiscalias/a-15-anos-de-cromanon-un-repaso-de-los-juicios-que-analizaron-la-responsabilidad-estatal-en-la-tragedia/",
+     "status": 200,
+     "bytes": 314723
+    }
+   ],
+   "ok": false,
+   "estado": "duplicado",
+   "via": "original",
+   "url_descarga": "https://www.fiscales.gob.ar/fiscalias/a-15-anos-de-cromanon-un-repaso-de-los-juicios-que-analizaron-la-responsabilidad-estatal-en-la-tragedia/",
+   "archivo": "gob_2019_a_15_anos_de_cromanon.html",
+   "txt": "gob_2019_a_15_anos_de_cromanon.txt",
+   "bytes": 314723,
+   "caracteres": 8340,
+   "caracteres_total": 8340,
+   "recorte": null,
+   "sha1": "f2afdd5a917ff86a2f2faf0a288634f52d9d1586",
+   "idioma": "es",
+   "nombra_evento": true,
+   "motivo": "mismo documento que F06"
+  },
+  {
+   "id": "F09",
+   "slug": "infobae_2024_el_caso_cromanon_cronologia_de",
+   "url": "https://www.infobae.com/judiciales/2024/12/30/el-caso-cromanon-cronologia-de-un-expediente-que-duro-doce-anos-en-la-justicia/",
+   "titulo": "El caso Cromañón: cronología de un expediente que duró doce años en la Justicia",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "prioridad": 1,
+   "por_que": "Presenta una cronología detallada de las decisiones judiciales más importantes a lo largo de los doce años que duró la causa, desde los primeros procesamientos hasta la decisión de la Corte Suprema.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.infobae.com/judiciales/2024/12/30/el-caso-cromanon-cronologia-de-un-expediente-que-duro-doce-anos-en-la-justicia/",
+     "status": 200,
+     "bytes": 233493
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.infobae.com/judiciales/2024/12/30/el-caso-cromanon-cronologia-de-un-expediente-que-duro-doce-anos-en-la-justicia/",
+   "archivo": "infobae_2024_el_caso_cromanon_cronologia_de.html",
+   "txt": "infobae_2024_el_caso_cromanon_cronologia_de.txt",
+   "bytes": 233493,
+   "caracteres": 10436,
+   "caracteres_total": 10436,
+   "recorte": null,
+   "sha1": "5dfccaa5f29eca179f1f900d7a1a0140feffdd1c",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "El caso Cromañón: cronología de un expediente que duró doce años en la Justicia",
+    "tipo": "prensa_posterior",
+    "anio": 2024
+   },
+   "autor": "Infobae"
+  },
+  {
+   "id": "F10",
    "slug": "infobae_2024_el_crudo_relato_del_primer",
    "url": "https://www.infobae.com/sociedad/2024/12/29/el-crudo-relato-del-primer-bombero-que-llego-a-cromanon-y-abrio-con-la-fuerza-de-sus-manos-el-porton-que-atrapaba-a-la-gente/",
    "titulo": "El crudo relato del primer bombero que llegó a Cromañón y abrió con la fuerza de sus manos el portón que atrapaba a la gente",
@@ -215,12 +362,12 @@
    "autor": "Infobae"
   },
   {
-   "id": "F07",
+   "id": "F11",
    "slug": "com_2004_la_noche_mas_triste",
    "url": "https://www.lanacion.com.ar/espectaculos/la-noche-mas-triste-nid667793/",
    "titulo": "La noche más triste",
-   "tipo": "prensa_epoca",
-   "anio": 2004,
+   "tipo": "prensa_posterior",
+   "anio": 2020,
    "prioridad": 2,
    "por_que": "Crónica publicada el 31 de diciembre de 2004 que contextualiza el recital de Callejeros y describe el ambiente previo a la tragedia, aportando detalles sobre la banda y el público.",
    "descargado": "2026-10-22",
@@ -253,10 +400,10 @@
    "autor": "La Nación"
   },
   {
-   "id": "F08",
+   "id": "F12",
    "slug": "clarin_2006_cromanon_un_ano_y_medio",
    "url": "https://www.clarin.com/sociedad/cromanon-ano-medio-despues-todavia-respira-olor-tragedia_0_Hy7ZnOVkAFx.html",
-   "titulo": "Cromañón, un año y medio después: todavía se respira el olor de la tragedia",
+   "titulo": "Cromañón: un año y medio después todavía se respira el olor de la tragedia",
    "tipo": "prensa_posterior",
    "anio": 2006,
    "prioridad": 2,
@@ -291,130 +438,215 @@
    "autor": "Clarín"
   },
   {
-   "id": "F09",
-   "slug": "buenosairesherald_2024_twenty_years_since_cromanon_the",
-   "url": "https://buenosairesherald.com/society/twenty-years-since-cromanon-the-deadliest-tragedy-in-rock-history",
-   "titulo": "Twenty years since Cromañón: the deadliest tragedy in rock history",
+   "id": "F13",
+   "slug": "org_2014_cromanon_relatos_de_los_que",
+   "url": "https://auno.org.ar/cromanon-los-que-sobrevivieron-para-contar-la-hist",
+   "titulo": "Cromañón: los que sobrevivieron para contar la historia",
    "tipo": "prensa_posterior",
-   "anio": 2024,
-   "prioridad": 3,
-   "por_que": "Proporciona un resumen detallado en inglés con testimonios de sobrevivientes, útil para una audiencia no hispanohablante.",
+   "anio": 2014,
+   "prioridad": 2,
+   "por_que": "Presenta los testimonios de tres sobrevivientes en el décimo aniversario, enfocándose en sus vivencias personales de esa noche y cómo la tragedia les cambió la vida.",
    "descargado": "2026-10-22",
    "intentos": [
     {
      "via": "original",
-     "url": "https://buenosairesherald.com/society/twenty-years-since-cromanon-the-deadliest-tragedy-in-rock-history",
+     "url": "https://auno.org.ar/cromanon-los-que-sobrevivieron-para-contar-la-hist",
      "status": 200,
-     "bytes": 292857
+     "bytes": 64537
     }
    ],
    "ok": true,
    "estado": "ok",
    "via": "original",
-   "url_descarga": "https://buenosairesherald.com/society/twenty-years-since-cromanon-the-deadliest-tragedy-in-rock-history",
-   "archivo": "buenosairesherald_2024_twenty_years_since_cromanon_the.html",
-   "txt": "buenosairesherald_2024_twenty_years_since_cromanon_the.txt",
-   "bytes": 292857,
-   "caracteres": 6214,
-   "caracteres_total": 6214,
+   "url_descarga": "https://auno.org.ar/cromanon-los-que-sobrevivieron-para-contar-la-hist",
+   "archivo": "org_2014_cromanon_relatos_de_los_que.html",
+   "txt": "org_2014_cromanon_relatos_de_los_que.txt",
+   "bytes": 64537,
+   "caracteres": 8139,
+   "caracteres_total": 8139,
    "recorte": null,
-   "sha1": "1df99506fcd5a9dc4b0798c09251b6864decd0f9",
-   "idioma": "en",
+   "sha1": "c111a6dcb2bbd22d7ce2f12eb895af7a220c6d24",
+   "idioma": "es",
    "nombra_evento": true,
    "ficha_busqueda": {
-    "titulo": "Twenty years since Cromañón, the deadliest tragedy in rock history",
-    "tipo": "prensa_posterior",
-    "anio": 2024
+    "titulo": "Cromañón: relatos de los que sobrevivieron para contar la historia",
+    "tipo": "testimonio",
+    "anio": 2014
    },
-   "autor": "Buenos Aires Herald"
+   "autor": "AUNO"
   },
   {
-   "id": "F10",
-   "slug": "theguardian_2009_five_jailed_over_fatal_buenos",
-   "url": "https://www.theguardian.com/world/2009/aug/20/argentina-nightclub-fire-court",
-   "titulo": "Five jailed over fatal Buenos Aires nightclub fire",
-   "tipo": "prensa_posterior",
-   "anio": 2009,
-   "prioridad": 3,
-   "por_que": "Nota de un medio internacional sobre las primeras condenas, que refleja la repercusión global y resume las responsabilidades señaladas por la justicia en ese momento.",
-   "descargado": "2026-10-22",
-   "intentos": [
-    {
-     "via": "original",
-     "url": "https://www.theguardian.com/world/2009/aug/20/argentina-nightclub-fire-court",
-     "status": 200,
-     "bytes": 283653,
-     "error": "texto de 2874 caracteres (< 3000: ¿paywall o portada?)"
-    },
-    {
-     "via": "wayback",
-     "error": "sin copia en la Wayback Machine"
-    }
-   ],
+   "id": "F14",
+   "slug": "theguardian_2004_175_killed_in_nightclub_blaze",
+   "url": "https://www.theguardian.com/world/2004/dec/31/argentina",
+   "titulo": "175 killed in nightclub blaze",
+   "tipo": "prensa_epoca",
+   "anio": 2004,
+   "prioridad": 2,
+   "por_que": "Cobertura internacional del día después de la tragedia, con testimonios de sobrevivientes y detalles iniciales de la investigación, como las puertas de emergencia cerradas.",
    "ok": false,
-   "estado": "error",
-   "motivo": "sin copia en la Wayback Machine"
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F15",
+   "slug": "casadellibro_2020_el_dia_que_apagaron_la",
+   "url": "https://www.casadellibro.com/ebook-el-dia-que-apagaron-la-luz-ebook/9788433948519/17191266",
+   "titulo": "El día que apagaron la luz",
+   "tipo": "libro",
+   "anio": 2020,
+   "prioridad": 2,
+   "por_que": "Es una novela de no ficción escrita por Camila Fabbri, quien estuvo en el recital la noche anterior. Combina sus recuerdos con testimonios de otros afectados para explorar la dimensión humana del desastre.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F16",
+   "slug": "clarin_2024_20_anos_de_cromanon_los",
+   "url": "https://www.clarin.com/sociedad/20-anos-cromanon-golpes-odio-dios-madrugada-angustia-inolvidable_0_IstEITjG8W.html",
+   "titulo": "20 años de Cromañón: los golpes 'como del odio de Dios' y la madrugada de la angustia inolvidable",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "prioridad": 2,
+   "por_que": "Crónica de una periodista que cubrió la noche de la tragedia, centrada en la angustia y la espera de los familiares fuera del boliche y en los hospitales.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F17",
+   "slug": "youtube_video_sobre_la_tragedia_de",
+   "url": "https://www.youtube.com/watch?v=r04tb3eY4Hs",
+   "titulo": "Video sobre la tragedia de Cromañón",
+   "tipo": "documental",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Documental o reportaje en video sobre la tragedia de Cromañón que podría contener testimonios o análisis.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F18",
+   "slug": "aacademica_articulo_academico_sobre_cromanon",
+   "url": "https://cdsa.aacademica.org/000-108/753.pdf",
+   "titulo": "Artículo académico sobre Cromañón",
+   "tipo": "academico",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Artículo académico en formato PDF que analiza la tragedia de Cromañón desde una perspectiva de investigación.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F19",
+   "slug": "buenosairesherald_2024_twenty_years_since_cromanon_the",
+   "url": "https://buenosairesherald.com/society/twenty-years-since-cromanon-the-deadliest-tragedy-in-rock-history",
+   "titulo": "Twenty years since Cromañón, the deadliest tragedy in rock history",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "prioridad": 3,
+   "por_que": "Ofrece un recuento detallado en inglés de la tragedia y sus consecuencias a los 20 años, incluyendo testimonios de sobrevivientes y un análisis del contexto social y la corrupción.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F20",
+   "slug": "cbsnews_2004_argentine_nightclub_fire_kills_175",
+   "url": "https://www.cbsnews.com/news/argentine-nightclub-fire-kills-175/",
+   "titulo": "Argentine Nightclub Fire Kills 175",
+   "tipo": "prensa_epoca",
+   "anio": 2004,
+   "prioridad": 3,
+   "por_que": "Nota de prensa internacional del día siguiente a la tragedia, que reporta los hechos iniciales, las cifras de víctimas y las primeras declaraciones de sobrevivientes y oficiales, mostrando la perspectiva contemporánea al evento.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
   }
  ],
  "_fichas": {
-  "hash": "e16f0cdc564a5718",
+  "hash": "d6cc9465b66950d1",
   "raw": {
    "documentos": [
     {
-     "id": "F02",
-     "titulo": "A 15 años de Cromañón: Cronología de las decisiones judiciales más importantes en las etapas de instrucción, juicio y revisión de sentencia",
-     "autor": "Fiscales.gob.ar",
-     "tipo": "informe_oficial",
-     "anio": 2019
+     "id": "F01",
+     "titulo": "Cromañón: dolor, recuerdos, horror y testimonios de sobrevivientes",
+     "autor": "Clarín",
+     "tipo": "prensa_posterior",
+     "anio": 2008
     },
     {
-     "id": "F03",
-     "titulo": "Tragedia en un recital: 169 muertos",
-     "autor": "La Nación",
-     "tipo": "prensa_epoca",
-     "anio": 2004
+     "id": "F02",
+     "titulo": "Carta y relato de un sobreviviente de Cromañón",
+     "autor": "Sobreviviente anónimo",
+     "tipo": "testimonio",
+     "anio": 0
     },
     {
      "id": "F04",
+     "titulo": "Tragedia en un recital: 169 muertos",
+     "autor": "La Nación",
+     "tipo": "prensa_posterior",
+     "anio": 2020
+    },
+    {
+     "id": "F05",
      "titulo": "EL FISCAL RECLAMó 23 AñOS DE PRISIóN PARA CHABáN Y 15 PARA CALLEJEROS",
-     "autor": "Página/12",
+     "autor": "Pagina/12",
      "tipo": "prensa_posterior",
      "anio": 2009
     },
     {
-     "id": "F05",
-     "titulo": "CROMANON: LAS PERICIAS DE LOS BOMBEROS CONFIRMAN LA HIPOTESIS DE CHABAN",
+     "id": "F06",
+     "titulo": "A 15 años de Cromañón: cronología de las decisiones judiciales más importantes en las etapas de instrucción, juicio y revisión de sentencia",
+     "autor": "Procuración General de la Nación",
+     "tipo": "informe_oficial",
+     "anio": 2019
+    },
+    {
+     "id": "F07",
+     "titulo": "Cromañón: las pericias de los bomberos confirman la hipótesis de Chabán",
      "autor": "Perfil",
      "tipo": "prensa_posterior",
      "anio": 2008
     },
     {
-     "id": "F06",
+     "id": "F09",
+     "titulo": "El caso Cromañón: cronología de un expediente que duró doce años en la Justicia",
+     "autor": "Infobae",
+     "tipo": "prensa_posterior",
+     "anio": 2024
+    },
+    {
+     "id": "F10",
      "titulo": "El crudo relato del primer bombero que llegó a Cromañón y abrió con la fuerza de sus manos el portón que atrapaba a la gente",
      "autor": "Infobae",
      "tipo": "prensa_posterior",
      "anio": 2024
     },
     {
-     "id": "F07",
+     "id": "F11",
      "titulo": "La noche más triste",
      "autor": "La Nación",
-     "tipo": "prensa_epoca",
-     "anio": 2004
+     "tipo": "prensa_posterior",
+     "anio": 2020
     },
     {
-     "id": "F08",
-     "titulo": "Cromañón, un año y medio después: todavía se respira el olor de la tragedia",
+     "id": "F12",
+     "titulo": "Cromañón: un año y medio después todavía se respira el olor de la tragedia",
      "autor": "Clarín",
      "tipo": "prensa_posterior",
      "anio": 2006
     },
     {
-     "id": "F09",
-     "titulo": "Twenty years since Cromañón: the deadliest tragedy in rock history",
-     "autor": "Buenos Aires Herald",
+     "id": "F13",
+     "titulo": "Cromañón: los que sobrevivieron para contar la historia",
+     "autor": "AUNO",
      "tipo": "prensa_posterior",
-     "anio": 2024
+     "anio": 2014
     }
    ]
   }

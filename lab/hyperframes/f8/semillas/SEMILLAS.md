@@ -1,3 +1,42 @@
+# Semillas — estado actual (F8b, 2026-10-22): research arreglado y S2/S3 re-corridas
+
+Arreglos del research (HANDOFF_F8b_F9 §1): la antigüedad se mide por ítem y no por documento; un PDF enlazado tiene
+que nombrar el evento; R3 reintenta 2 veces una caída de Pro; R1 reintenta 3 veces y, si Pro no busca, prueba Flash con
+búsqueda. S2 y S3 se re-corrieron una vez (research v3 + compuerta, sin escaleta). S1 no se tocó. **No elijo: elige Omar.**
+Lo de F8 (primera corrida) queda abajo como historia; los `POOL_GATE_f8.md`, `costo_f8.json` y `run_f8.log` de S2/S3
+son de esa corrida.
+
+| | S1 Ycuá Bolaños | S2 Cromañón | S3 Vajont |
+|---|---|---|---|
+| Compuerta ahora | 🟢 verde (sin cambios) | 🟡 **amarillo** (antes rojo) | 🔴 rojo (antes rojo en 0) |
+| datos · citas verificadas · elegibles · eventos con fecha | 214 · 58 · 12 · 49 | **129** · 39 · 5 · 38 | **121** · 9 · **0** · 30 |
+| documentos que aportan al pool | 11 | 10 (11 bajados de 13 intentados) | 7 (8 bajados de 19 intentados; 6 en italiano, 2 en inglés) |
+| focos de R1 con grounding | — | 3 de 4 (Pro); el 4.º tampoco con Flash | 3 de 4 (Pro); el 4.º tampoco con Flash |
+| costo de la re-corrida | — | US$ 0.87 · 16 min | US$ 0.82 · 15 min |
+
+**S2 Cromañón → amarillo (≈ 10 min, 7–8 beats).** Le faltan 21 datos para el verde. Humanos elegibles: Darío Salgado
+(bombero a cargo del destacamento; 8 citas), Daniela Sánchez y Christian Romero (sobrevivientes; 4 y 3 citas), Patricio
+Martínez (testigo de los recitales previos), María Sol (sobreviviente, testigo en el juicio). Testimonios verificados
+fuertes («Tenía un metro y medio de gente arriba mío», Iván; «Sentía en el piso como bultos. Yo sabía conscientemente
+que eran chicos», Graciela). Antagonistas con fallo: Chabán, Ibarra, funcionarios de Control Comunal (Fiszbin) y el
+subcomisario Díaz (Casación). Esta vez no hubo PDF equivocado ni caída de Pro. Riesgo sensible: MEDIO-ALTO (chicos
+aplastados, asfixia): nada de cuerpos, sí zapatillas, humo, la media sombra.
+
+**S3 Vajont → sigue rojo, ahora por una sola métrica: 0 humanos elegibles.** El arreglo de antigüedad funcionó: entraron
+documentos de 1971 (la sentencia), 2014–2024 en italiano e inglés, y solo 9 ítems se descartaron por fecha. Pero los
+sobrevivientes aparecen con una cita cada uno (Micaela Coletti, presidenta del comité de sobrevivientes: «La sensación
+de que la cama cogía velocidad…»; Mauro Corona: «como un millón de camiones que vuelcan un millón de cajas de grava») y
+el umbral de elegible pide 3 citas o 3 datos propios. Las fuentes que trajo la búsqueda son institucionales (comisión
+de investigación, proceso, ejército de EE. UU.). Qué faltaría: historia oral o libros de testimonios de Longarone/Erto
+(no salieron en el grounding). No se reintenta.
+
+**S1 Ycuá Bolaños — sin cambios (verde).** Riesgo para imágenes (m03 §2.3/E): **menores** entre las víctimas y como
+testigo (Tatiana Gabaglio tenía 7 años; 23 menciones de hijos, niños o adolescentes). Con las reglas v3, un menor solo
+aparece si el pool lo documenta y nunca en daño: preferir sus objetos (zapatos, el carrito, la mochila); ningún cuerpo de
+un chico, ni parcialmente oculto; ninguna imagen de un menor como candidata a miniatura.
+
+---
+
 # F8 §3 — Tres semillas por research v3 + compuerta del pool (sin escaleta, guion ni imágenes)
 
 Corridas en paralelo, una vez cada una, sin reintentos (§3). Runner: `lab/hyperframes/f8/f8_semillas.py --seed S#`.

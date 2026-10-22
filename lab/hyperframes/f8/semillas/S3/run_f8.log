@@ -1,0 +1,24 @@
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: 12 fichas del modelo, 0 URLs en el grounding
+  [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 2: 13 fichas del modelo, 4 URLs en el grounding
+  [R1] foco 3: sin grounding (de memoria) → reintento
+  [R1] foco 3: sin grounding (de memoria) → reintento
+  [R1] foco 3: 12 fichas del modelo, 0 URLs en el grounding
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: 12 fichas del modelo, 0 URLs en el grounding
+  [R1] 4 URLs reales: 5 con ficha del modelo, 1 con ficha de Flash, 0 fuera (no relevantes o listados) · 44 fichas del modelo sin URL del grounding
+  [R2] F01 ilpost_2023_il_disastro_del_vajont_non: OK (original) 12129 caracteres
+  [R2] F02 tv2000_2018_10_ottobre_1963_i_giornali: OK (pdf_enlazado) 44695 caracteres · NO nombra el evento
+  [R2] F03 damsafety_dam_failure_case_study_vajont: OK (original) 3715 caracteres
+  [R2] F04 storiaefuturo_2014_una_lezione_dai_disastri_il: OK (original) 36760 caracteres
+  [R2] 3 documentos OK de 4 intentados
+  [R2] ficha F01: prensa_posterior 2023 «Il disastro del Vajont non fu una calamità naturale»
+  [R2] ficha F02: informe_oficial 2024 «MODELLO DI ORGANIZZAZIONE, GESTIONE E CONTROLLO»
+  [R2] ficha F03: academico 2019 «Dam Failure Case Study: Vajont Dam (Italy, 1963)»
+  [R2] ficha F04: academico 2014 «Una lezione dai disastri: il Vajont e l’alluvione di Firenze»
+  [R4] merge: datos 0 · cronologia 0 · lugares 0 · citas 0 · personajes 0 · 0 ítems con ≥ 2 documentos · 0 descartados
+  [R4] presencia por párrafo: 0 vínculos persona-evento (0 personas con alguno)
+  [R5] citas: {'verificada': 0, 'verificada_parcial': 0, 'sin_verificar': 0}

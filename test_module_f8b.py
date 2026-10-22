@@ -145,11 +145,20 @@ from test_module_f8 import BEATS, NARR, _topic_f8, fake_llm  # noqa: E402,F401
 
 def test_armas_nunca_fogonazo_ni_primera_persona():
     for bad in ("A sniper rifle erupts in a muzzle flash.", "A first-person view down the rifle's barrel.",
-                "Officers firing from a rooftop.", "The gunman aims straight at the camera.", "POV of the shooter"):
+                "Officers firing from a rooftop.", "The gunman aims straight at the camera.", "POV of the shooter",
+                "A deputy prone on a rooftop with a long rifle.", "A distant figure aiming a rifle at the street."):
         assert any(k == "arma" for k, _ in v3.problems(bad)), bad
     ok = "Still silhouettes of deputies on a far rooftop, rifles at rest, seen from behind."
     assert not [k for k, _ in v3.problems(ok) if k == "arma"]
     assert "muzzle" not in v3.scrub_sentence_problems("A flooded cell. A muzzle flash lights the window. Water rises.")
+
+
+def test_beat_de_arma_se_cuenta_desde_las_victimas():
+    assert v3.weapon_subject({"subject": "a silhouetted sniper on a rooftop", "action": "lying still"})
+    assert not v3.weapon_subject({"subject": "inmates crouching in the water", "action": "ducking"})
+    b = [{"n": 5, "imagen_sensorial": "El fogonazo de un rifle desde un techo", "funcion": "pico"}]
+    assert "WEAPON BEAT" in v3.beats_block(b, [{"beat": 5, "cerrada": False}])
+    assert "victims or the witness" in m3.F8_NOTE_ARMA
 
 
 def test_pico_a_escala_humana():

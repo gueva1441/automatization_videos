@@ -1,41 +1,46 @@
   [R1] foco 1: sin grounding (de memoria) → reintento
   [R1] foco 1: sin grounding (de memoria) → reintento
-  [R1] foco 1: 10 fichas del modelo, 0 URLs en el grounding
+  [R1] foco 1: 12 fichas del modelo, 5 URLs en el grounding
   [R1] foco 2: sin grounding (de memoria) → reintento
   [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 2: Pro sin grounding tras 3 reintentos → Flash con búsqueda
   [R1] foco 2: 12 fichas del modelo, 0 URLs en el grounding
   [R1] foco 3: 12 fichas del modelo, 10 URLs en el grounding
-  [R1] foco 4: sin grounding (de memoria) → reintento
-  [R1] foco 4: sin grounding (de memoria) → reintento
-  [R1] foco 4: 12 fichas del modelo, 0 URLs en el grounding
-  [R1] 10 URLs reales: 19 con ficha del modelo, 0 con ficha de Flash, 0 fuera (no relevantes o listados) · 27 fichas del modelo sin URL del grounding
-  [R2] F02 gob_2019_a_15_anos_de_cromanon: OK (original) 8174 caracteres
-  [R2] F03 com_2004_tragedia_en_un_recital_169: OK (original) 4185 caracteres · NO nombra el evento
-  [R2] F04 com_2004_el_peor_infierno_en_el: OK (original) 4383 caracteres
-  [R2] F05 perfil_2008_cromanon_las_pericias_de_los: OK (pdf_enlazado) 294454 caracteres
-  [R2] F06 infobae_2024_el_crudo_relato_del_primer: OK (original) 6505 caracteres
-  [R2] F07 com_2004_la_noche_mas_triste: OK (original) 6842 caracteres
-  [R2] F08 clarin_2006_cromanon_un_ano_y_medio: OK (original) 3048 caracteres
-  [R2] F09 buenosairesherald_2024_twenty_years_since_cromanon_the: OK (original) 6214 caracteres
-  [R2] F10 theguardian_2009_five_jailed_over_fatal_buenos: FALLÓ — sin copia en la Wayback Machine
-  [R2] 7 documentos OK de 10 intentados
-  [R2] ficha F02: informe_oficial 2019 «A 15 años de Cromañón: Cronología de las decisiones judicial»
-  [R2] ficha F03: prensa_epoca 2004 «Tragedia en un recital: 169 muertos»
-  [R2] ficha F04: prensa_posterior 2009 «EL FISCAL RECLAMó 23 AñOS DE PRISIóN PARA CHABáN Y 15 PARA C»
-  [R2] ficha F05: prensa_posterior 2008 «CROMANON: LAS PERICIAS DE LOS BOMBEROS CONFIRMAN LA HIPOTESI»
-  [R2] ficha F06: prensa_posterior 2024 «El crudo relato del primer bombero que llegó a Cromañón y ab»
-  [R2] ficha F07: prensa_epoca 2004 «La noche más triste»
-  [R2] ficha F08: prensa_posterior 2006 «Cromañón, un año y medio después: todavía se respira el olor»
-  [R2] ficha F09: prensa_posterior 2024 «Twenty years since Cromañón: the deadliest tragedy in rock h»
-  [R3] F02: 58 ítems con cita literal, 0 descartados
-  [R3] F04: 40 ítems con cita literal, 2 descartados
-  [R3] F05: 0 menciones en 294454 caracteres: se leen 0 ventanas (0 caracteres)
-  [R3] F05: 0 ítems con cita literal, 0 descartados
-  [R3] F06: 32 ítems con cita literal, 0 descartados
-  [R3] F07: 41 ítems con cita literal, 1 descartados
-  [R3] F08 parte 1: Pro falló (RemoteProtocolError: Server disconnected without sending a response.)
-  [R3] F09: 45 ítems con cita literal, 1 descartados
-  [R4] merge: datos 67 · cronologia 35 · lugares 21 · citas 32 · personajes 36 · 16 ítems con ≥ 2 documentos · 4 descartados
-  [4a·pool] personajes sin acción, fuera: ['Eduardo Casal', 'María Sol']
-  [R4] presencia por párrafo: 150 vínculos persona-evento (27 personas con alguno)
-  [R5] citas: {'verificada': 30, 'verificada_parcial': 2, 'sin_verificar': 0}
+  [R1] foco 4: 13 fichas del modelo, 11 URLs en el grounding
+  [R1] focos con grounding: 3 por Pro, 0 por Flash, 1 sin grounding (de 4)
+  [R1] 22 URLs reales: 28 con ficha del modelo, 2 con ficha de Flash, 0 fuera (no relevantes o listados) · 21 fichas del modelo sin URL del grounding
+  [R2] F01 clarin_2008_cromanon_dolor_y_recuerdos_del: OK (original) 3595 caracteres
+  [R2] F02 com_2013_carta_y_relato_de_un: OK (original) 33296 caracteres
+  [R2] F08 gob_2019_a_15_anos_de_cromanon: OK (original) 8340 caracteres
+  [R2] F08: duplicado de F06
+  [R2] F09 infobae_2024_el_caso_cromanon_cronologia_de: OK (original) 10436 caracteres
+  [R2] F13 org_2014_cromanon_relatos_de_los_que: OK (original) 8139 caracteres
+  [R2] 10 documentos OK de 13 intentados
+  [R2] ficha F01: prensa_posterior 2008 «Cromañón: dolor, recuerdos, horror y testimonios de sobreviv»
+  [R2] ficha F02: testimonio 2013 «Carta y relato de un sobreviviente de Cromañón»
+  [R2] ficha F04: prensa_posterior 2020 «Tragedia en un recital: 169 muertos»
+  [R2] ficha F05: prensa_posterior 2009 «EL FISCAL RECLAMó 23 AñOS DE PRISIóN PARA CHABáN Y 15 PARA C»
+  [R2] ficha F06: informe_oficial 2019 «A 15 años de Cromañón: cronología de las decisiones judicial»
+  [R2] ficha F07: prensa_posterior 2008 «Cromañón: las pericias de los bomberos confirman la hipótesi»
+  [R2] ficha F09: prensa_posterior 2024 «El caso Cromañón: cronología de un expediente que duró doce »
+  [R2] ficha F10: prensa_posterior 2024 «El crudo relato del primer bombero que llegó a Cromañón y ab»
+  [R2] ficha F11: prensa_posterior 2020 «La noche más triste»
+  [R2] ficha F12: prensa_posterior 2006 «Cromañón: un año y medio después todavía se respira el olor »
+  [R2] ficha F13: prensa_posterior 2014 «Cromañón: los que sobrevivieron para contar la historia»
+  [R3] F01: 30 ítems con cita literal, 3 descartados
+  [R3] F02: 49 ítems con cita literal, 1 descartados
+  [R3] F05: 36 ítems con cita literal, 2 descartados
+  [R3] F06: 48 ítems con cita literal, 1 descartados
+  [R3] F07: 0 menciones en 294454 caracteres: se leen 0 ventanas (0 caracteres)
+  [R3] F07: 0 ítems con cita literal, 0 descartados
+  [R3] F09: 87 ítems con cita literal, 1 descartados
+  [R3] F10: 31 ítems con cita literal, 1 descartados
+  [R3] F11: 48 ítems con cita literal, 1 descartados
+  [R3] F12: 24 ítems con cita literal, 0 descartados
+  [R3] F13: 35 ítems con cita literal, 1 descartados
+  [R4] merge: datos 129 · cronologia 71 · lugares 38 · citas 51 · personajes 58 · 23 ítems con ≥ 2 documentos · 11 descartados
+  [R4] autores de cita sumados como personajes: ['Indio Solari']
+  [4a·pool] personajes sin acción, fuera: ['Néstor Kirchner', 'León Gieco', 'Rodrigo Lugones', 'Rafael Levy', 'Wanda Taddei', 'Eduardo Casal']
+  [R4] presencia por párrafo: 240 vínculos persona-evento (40 personas con alguno)
+  [R5] citas: {'verificada': 39, 'verificada_parcial': 12, 'sin_verificar': 0}

@@ -1,32 +1,46 @@
 {
  "fuentes": [
   {
-   "url": "https://www.youtube.com/watch?v=r04tb3eY4Hs",
-   "titulo": "El relato de una sobreviviente de Cromañón: 'No podía salir, me caí entre los cuerpos'",
+   "url": "https://www.clarin.com/sociedad/cromanon-dolor-recuerdos-horror-testimonios-sobrevivientes_0_rJ-bV12Cptg.html",
+   "titulo": "Cromañón: dolor y recuerdos del horror en los testimonios de 4 sobrevivientes",
    "tipo": "testimonio",
-   "anio": 2021,
+   "anio": 2008,
    "idioma": "es",
-   "por_que": "Ofrece el testimonio con nombre y apellido de una sobreviviente, Brenda Bigietti, con detalles vívidos de lo que sucedió dentro del local.",
+   "por_que": "Recoge testimonios directos y detallados de cuatro sobrevivientes durante el juicio oral, ofreciendo una perspectiva cruda y personal del horror vivido dentro del boliche.",
    "prioridad": 1,
-   "url_modelo": "https://www.youtube.com/watch?v=wGZJHTy9b2E",
-   "match": "similar 0.50",
-   "grounding_title": "youtube.com",
+   "url_modelo": "https://www.clarin.com/policiales/cromanon-dolor-recuerdos-horror-testimonios-sobrevivientes_0_B1T7a6J1Yx.html",
+   "match": "similar 0.75",
+   "grounding_title": "clarin.com",
    "id": "F01",
-   "slug": "youtube_2021_el_relato_de_una_sobreviviente"
+   "slug": "clarin_2008_cromanon_dolor_y_recuerdos_del"
   },
   {
-   "url": "https://www.fiscales.gob.ar/procuracion-general/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
-   "titulo": "A 15 años de Cromañón: cronología de las decisiones judiciales más importantes",
-   "tipo": "informe_oficial",
-   "anio": 2019,
+   "url": "https://www.agenciapacourondo.com.ar/ddhh/carta-y-relato-de-un-sobreviviente-de-cromanon",
+   "titulo": "Carta y relato de un sobreviviente de Cromañón",
+   "tipo": "testimonio",
+   "anio": 2013,
    "idioma": "es",
-   "por_que": "Documento oficial del Ministerio Público Fiscal que resume y ordena todo el proceso judicial, con fechas y detalles de cada etapa, ofreciendo un mapa completo del aspecto legal.",
+   "por_que": "Es un testimonio en primera persona, escrito en formato de carta, que no solo narra los hechos de la noche, sino que también reflexiona críticamente sobre el tratamiento mediático y judicial del caso.",
    "prioridad": 1,
-   "url_modelo": "https://www.fiscales.gob.ar/lesa-humanidad/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
-   "match": "similar 0.87",
-   "grounding_title": "fiscales.gob.ar",
+   "url_modelo": "https://www.agenciapacourondo.com.ar/sociedad/carta-y-relato-de-un-sobreviviente-de-cromanon",
+   "match": "similar 0.80",
+   "grounding_title": "agenciapacourondo.com.ar",
    "id": "F02",
-   "slug": "gob_2019_a_15_anos_de_cromanon"
+   "slug": "com_2013_carta_y_relato_de_un"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=5z2t-yHdARc",
+   "titulo": "EL RELATO CRUDO de un SOBREVIVIENTE de CROMAÑÓN a 20 AÑOS de la TRAGEDIA",
+   "tipo": "documental",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Es un testimonio oral en formato de video-documental donde un sobreviviente, Martín Maiolo, narra en primera persona y con detalle lo que vivió durante la tragedia.",
+   "prioridad": 1,
+   "url_modelo": "https://www.youtube.com/watch?v=Jm35hW43r4k",
+   "match": "similar 0.50",
+   "grounding_title": "youtube.com",
+   "id": "F03",
+   "slug": "youtube_2024_el_relato_crudo_de_un"
   },
   {
    "url": "https://www.lanacion.com.ar/sociedad/tragedia-en-un-recital-169-muertos-nid667752/",
@@ -39,7 +53,7 @@
    "url_modelo": "https://www.lanacion.com.ar/espectaculos/tragedia-en-un-recital-169-muertos-nid667314/",
    "match": "similar 0.67",
    "grounding_title": "lanacion.com.ar",
-   "id": "F03",
+   "id": "F04",
    "slug": "com_2004_tragedia_en_un_recital_169"
   },
   {
@@ -53,8 +67,22 @@
    "url_modelo": "https://www.pagina12.com.ar/diario/sociedad/3-45529-2004-12-31.html",
    "match": "similar 0.50",
    "grounding_title": "pagina12.com.ar",
-   "id": "F04",
+   "id": "F05",
    "slug": "com_2004_el_peor_infierno_en_el"
+  },
+  {
+   "url": "https://www.fiscales.gob.ar/procuracion-general/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
+   "titulo": "A 15 años de Cromañón: cronología de las decisiones judiciales más importantes",
+   "tipo": "fallo_judicial",
+   "anio": 2019,
+   "idioma": "es",
+   "por_que": "Documento oficial del Ministerio Público Fiscal que resume las principales decisiones judiciales, procesados y condenas a lo largo de los años, aportando el marco legal completo.",
+   "prioridad": 1,
+   "url_modelo": "https://www.fiscales.gob.ar/lesa-humanidad/a-15-anos-de-cromanon-cronologia-de-las-decisiones-judiciales-mas-importantes-en-las-etapas-de-instruccion-juicio-y-revision-de-sentencia/",
+   "match": "similar 0.87",
+   "grounding_title": "fiscales.gob.ar",
+   "id": "F06",
+   "slug": "gob_2019_a_15_anos_de_cromanon"
   },
   {
    "url": "https://www.perfil.com/noticias/sociedad/cromanon-las-pericias-de-los-bomberos-confirman-la-hipotesis-de-chaban-20080908-0022.phtml",
@@ -67,8 +95,36 @@
    "url_modelo": "https://www.perfil.com/noticias/policia/cromanon-las-pericias-de-los-bomberos-confirman-la-hipotesis-de-chaban.phtml",
    "match": "similar 0.91",
    "grounding_title": "perfil.com",
-   "id": "F05",
+   "id": "F07",
    "slug": "perfil_2008_cromanon_las_pericias_de_los"
+  },
+  {
+   "url": "https://www.fiscales.gob.ar/fiscalias/a-15-anos-de-cromanon-un-repaso-de-los-juicios-que-analizaron-la-responsabilidad-estatal-en-la-tragedia/",
+   "titulo": "A 15 años de Cromañón: un repaso de los juicios que analizaron la responsabilidad estatal en la Tragedia",
+   "tipo": "fallo_judicial",
+   "anio": 2019,
+   "idioma": "es",
+   "por_que": "Ofrece un resumen detallado de las distintas instancias judiciales, incluyendo el juicio a los bomberos por coimas y la responsabilidad de funcionarios, citando partes de los fallos.",
+   "prioridad": 1,
+   "url_modelo": "https://www.fiscales.gob.ar/lesa-humanidad/a-15-anos-de-cromanon-un-repaso-de-los-juicios-que-analizaron-la-responsabilidad-estatal-en-la-tragedia/",
+   "match": "similar 0.91",
+   "grounding_title": "fiscales.gob.ar",
+   "id": "F08",
+   "slug": "gob_2019_a_15_anos_de_cromanon"
+  },
+  {
+   "url": "https://www.infobae.com/judiciales/2024/12/30/el-caso-cromanon-cronologia-de-un-expediente-que-duro-doce-anos-en-la-justicia/",
+   "titulo": "El caso Cromañón: cronología de un expediente que duró doce años en la Justicia",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Presenta una cronología detallada de las decisiones judiciales más importantes a lo largo de los doce años que duró la causa, desde los primeros procesamientos hasta la decisión de la Corte Suprema.",
+   "prioridad": 1,
+   "url_modelo": "https://www.infobae.com/sociedad/2024/12/29/el-caso-cromanon-cronologia-de-un-expediente-que-duro-doce-anos-en-la-justicia/",
+   "match": "similar 0.91",
+   "grounding_title": "infobae.com",
+   "id": "F09",
+   "slug": "infobae_2024_el_caso_cromanon_cronologia_de"
   },
   {
    "url": "https://www.infobae.com/sociedad/2024/12/29/el-crudo-relato-del-primer-bombero-que-llego-a-cromanon-y-abrio-con-la-fuerza-de-sus-manos-el-porton-que-atrapaba-a-la-gente/",
@@ -81,7 +137,7 @@
    "url_modelo": "https://www.infobae.com/sociedad/2024/12/28/el-crudo-relato-del-primer-bombero-que-llego-a-cromanon-y-abrio-con-la-fuerza-de-sus-manos-el-porton-que-atrapaba-a-la-gente/",
    "match": "exacta",
    "grounding_title": "infobae.com",
-   "id": "F06",
+   "id": "F10",
    "slug": "infobae_2024_el_crudo_relato_del_primer"
   },
   {
@@ -95,7 +151,7 @@
    "url_modelo": "https://www.lanacion.com.ar/espectaculos/la-noche-mas-triste-nid667315/",
    "match": "similar 0.80",
    "grounding_title": "lanacion.com.ar",
-   "id": "F07",
+   "id": "F11",
    "slug": "com_2004_la_noche_mas_triste"
   },
   {
@@ -109,8 +165,92 @@
    "url_modelo": "https://www.clarin.com/sociedad/cromanon-ano-medio-despues-todavia-respira-olor-tragedia_0_Hk7e51CYl.html",
    "match": "similar 0.90",
    "grounding_title": "clarin.com",
-   "id": "F08",
+   "id": "F12",
    "slug": "clarin_2006_cromanon_un_ano_y_medio"
+  },
+  {
+   "url": "https://auno.org.ar/cromanon-los-que-sobrevivieron-para-contar-la-hist",
+   "titulo": "Cromañón: relatos de los que sobrevivieron para contar la historia",
+   "tipo": "testimonio",
+   "anio": 2014,
+   "idioma": "es",
+   "por_que": "Presenta los testimonios de tres sobrevivientes en el décimo aniversario, enfocándose en sus vivencias personales de esa noche y cómo la tragedia les cambió la vida.",
+   "prioridad": 2,
+   "url_modelo": "https://auno.org.ar/cromanon-relatos-de-los-que-sobrevivieron-para-contar-la-historia/",
+   "match": "similar 0.86",
+   "grounding_title": "auno.org.ar",
+   "id": "F13",
+   "slug": "org_2014_cromanon_relatos_de_los_que"
+  },
+  {
+   "url": "https://www.theguardian.com/world/2004/dec/31/argentina",
+   "titulo": "175 killed in nightclub blaze",
+   "tipo": "prensa_epoca",
+   "anio": 2004,
+   "idioma": "en",
+   "por_que": "Cobertura internacional del día después de la tragedia, con testimonios de sobrevivientes y detalles iniciales de la investigación, como las puertas de emergencia cerradas.",
+   "prioridad": 2,
+   "url_modelo": "https://www.theguardian.com/world/2004/dec/31/argentina",
+   "match": "exacta",
+   "grounding_title": "theguardian.com",
+   "id": "F14",
+   "slug": "theguardian_2004_175_killed_in_nightclub_blaze"
+  },
+  {
+   "url": "https://www.casadellibro.com/ebook-el-dia-que-apagaron-la-luz-ebook/9788433948519/17191266",
+   "titulo": "El día que apagaron la luz",
+   "tipo": "libro",
+   "anio": 2020,
+   "idioma": "es",
+   "por_que": "Es una novela de no ficción escrita por Camila Fabbri, quien estuvo en el recital la noche anterior. Combina sus recuerdos con testimonios de otros afectados para explorar la dimensión humana del desastre.",
+   "prioridad": 2,
+   "url_modelo": "https://www.casadellibro.com/ebook-el-dia-que-apagaron-la-luz-ebook/9789878319162/11693757",
+   "match": "similar 0.71",
+   "grounding_title": "casadellibro.com",
+   "id": "F15",
+   "slug": "casadellibro_2020_el_dia_que_apagaron_la"
+  },
+  {
+   "url": "https://www.clarin.com/sociedad/20-anos-cromanon-golpes-odio-dios-madrugada-angustia-inolvidable_0_IstEITjG8W.html",
+   "titulo": "20 años de Cromañón: los golpes 'como del odio de Dios' y la madrugada de la angustia inolvidable",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Crónica de una periodista que cubrió la noche de la tragedia, centrada en la angustia y la espera de los familiares fuera del boliche y en los hospitales.",
+   "prioridad": 2,
+   "url_modelo": "https://www.clarin.com/sociedad/20-anos-cromanon-golpes-odio-dios-madrugada-angustia-inolvidable_0_lC21k8N9rL.html",
+   "match": "similar 0.90",
+   "grounding_title": "clarin.com",
+   "id": "F16",
+   "slug": "clarin_2024_20_anos_de_cromanon_los"
+  },
+  {
+   "url": "https://www.youtube.com/watch?v=r04tb3eY4Hs",
+   "titulo": "Video sobre la tragedia de Cromañón",
+   "tipo": "documental",
+   "anio": null,
+   "idioma": "es",
+   "por_que": "Documental o reportaje en video sobre la tragedia de Cromañón que podría contener testimonios o análisis.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "youtube.com",
+   "id": "F17",
+   "slug": "youtube_video_sobre_la_tragedia_de"
+  },
+  {
+   "url": "https://cdsa.aacademica.org/000-108/753.pdf",
+   "titulo": "Artículo académico sobre Cromañón",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "es",
+   "por_que": "Artículo académico en formato PDF que analiza la tragedia de Cromañón desde una perspectiva de investigación.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "aacademica.org",
+   "id": "F18",
+   "slug": "aacademica_articulo_academico_sobre_cromanon"
   },
   {
    "url": "https://buenosairesherald.com/society/twenty-years-since-cromanon-the-deadliest-tragedy-in-rock-history",
@@ -118,207 +258,197 @@
    "tipo": "prensa_posterior",
    "anio": 2024,
    "idioma": "en",
-   "por_que": "Proporciona un resumen detallado en inglés con testimonios de sobrevivientes, útil para una audiencia no hispanohablante.",
+   "por_que": "Ofrece un recuento detallado en inglés de la tragedia y sus consecuencias a los 20 años, incluyendo testimonios de sobrevivientes y un análisis del contexto social y la corrupción.",
    "prioridad": 3,
-   "url_modelo": "https://www.buenosairesherald.com/world/argentina/twenty-years-since-cromanon-the-deadliest-tragedy-in-rock-history",
+   "url_modelo": "https://www.buenosairesherald.com/arts-and-living/music/twenty-years-since-cromanon-the-deadliest-tragedy-in-rock-history",
    "match": "similar 0.89",
    "grounding_title": "buenosairesherald.com",
-   "id": "F09",
+   "id": "F19",
    "slug": "buenosairesherald_2024_twenty_years_since_cromanon_the"
   },
   {
-   "url": "https://www.theguardian.com/world/2009/aug/20/argentina-nightclub-fire-court",
-   "titulo": "Five jailed over fatal Buenos Aires nightclub fire",
-   "tipo": "prensa_posterior",
-   "anio": 2009,
+   "url": "https://www.cbsnews.com/news/argentine-nightclub-fire-kills-175/",
+   "titulo": "Argentine Nightclub Fire Kills 175",
+   "tipo": "prensa_epoca",
+   "anio": 2004,
    "idioma": "en",
-   "por_que": "Nota de un medio internacional sobre las primeras condenas, que refleja la repercusión global y resume las responsabilidades señaladas por la justicia en ese momento.",
+   "por_que": "Nota de prensa internacional del día siguiente a la tragedia, que reporta los hechos iniciales, las cifras de víctimas y las primeras declaraciones de sobrevivientes y oficiales, mostrando la perspectiva contemporánea al evento.",
    "prioridad": 3,
-   "url_modelo": "https://www.theguardian.com/world/2009/aug/20/buenos-aires-nightclub-fire-jailed",
-   "match": "similar 0.71",
-   "grounding_title": "theguardian.com",
-   "id": "F10",
-   "slug": "theguardian_2009_five_jailed_over_fatal_buenos"
+   "url_modelo": "https://www.cbsnews.com/news/argentine-nightclub-fire-kills-175/",
+   "match": "exacta",
+   "grounding_title": "cbsnews.com",
+   "id": "F20",
+   "slug": "cbsnews_2004_argentine_nightclub_fire_kills_175"
   }
  ],
  "_descartadas": [
   {
-   "url": "https://www.fiscales.gob.ar/lesa-humanidad/wp-content/uploads/sites/4/2016/03/FALLO-COMPLETO-Causa-Croman%CC%83o%CC%81n-Tribunal-Oral-en-lo-Criminal-N%C2%B0-24.pdf",
-   "titulo": "Fallo Completo Causa Cromañón - Tribunal Oral en lo Criminal N° 24",
+   "url": "https://lavaca.org/notas/informe-alerta-argentina-el-caso-cromanon/",
+   "titulo": "Informe Alerta Argentina: el caso Cromañón",
+   "tipo": "prensa_posterior",
+   "anio": 2006,
+   "idioma": "es",
+   "por_que": "Es un informe temprano de una organización que analiza las múltiples causas de la tragedia, desde las condiciones del local hasta la respuesta de los servicios de emergencia, ofreciendo un panorama integral.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.lanacion.com.ar/sociedad/cromagnon-diez-historias-de-los-que-volvieron-a-la-vida-despues-del-horror-nid1755866/",
+   "titulo": "Cromañón: diez historias de los que volvieron a la vida después del horror",
+   "tipo": "testimonio",
+   "anio": 2014,
+   "idioma": "es",
+   "por_que": "Presenta diez historias personales de sobrevivientes y familiares al cumplirse una década, mostrando el impacto a largo plazo de la tragedia en sus vidas.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.pensamientopenal.com.ar/system/files/2014/12/fallos30397.pdf",
+   "titulo": "Causa Cromañón. Sentencia definitiva",
+   "tipo": "fallo_judicial",
+   "anio": 2014,
+   "idioma": "es",
+   "por_que": "Es el documento completo de la sentencia definitiva de la Cámara Federal de Casación Penal, una fuente primaria fundamental para entender los argumentos legales y las condenas.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://nonoscuenten.org/",
+   "titulo": "No Nos Cuenten Cromañón | Memoria y Concientización",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Página de una de las principales ONGs de sobrevivientes y familiares. Contiene información sobre asistencia, charlas y el libro 'Voces, Tiempo, Verdad', que compila testimonios.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://buenosaires.gob.ar/agencia-gubernamental-de-control/familias-por-la-vida",
+   "titulo": "Familias por la vida - Gobierno de la Ciudad de Buenos Aires",
+   "tipo": "prensa_posterior",
+   "anio": 2024,
+   "idioma": "es",
+   "por_que": "Describe el trabajo de la ONG 'Familias por la vida', formada por familiares de víctimas, y su convenio con la Agencia Gubernamental de Control para la prevención y fiscalización de locales.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG0KO4J77a53MWtOxq_FgsdAtxeFiNt-KgBl7hTcblLxeX6GE0yxRduwqaU5rBozDiWr7s1PFd66If2tfh8kNy9E5e4gSAtKc8iDhhssIeU_P0sPhoueRW_x_y7JPfs3b8PECBibkIGdblRTrdP1-rmK4D6iuFEDVuDMJS8mwa_SWSHRjfqbTScvcJygWpw7M8aLPzRr6UuSYRA2CO3QKgLsScWhF3orfkpktNVciBi-YRj0nw=",
+   "titulo": "Cromañón: la Cámara redujo a $590.700 la indemnización a una sobreviviente y rechazó el daño punitivo contra el Estado | Nino Legal",
+   "tipo": "fallo_judicial",
+   "anio": 2026,
+   "idioma": "es",
+   "por_que": "Reporta sobre una sentencia de la Cámara Contencioso Administrativo Federal en una demanda por el incendio de Cromañón, detallando la condena al GCBA y al Estado Nacional y la indemnización.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHSsJv0AcXRXPFDO3Gb5s6qgm9BQufOYqFAIcF3Ie4Jq05q72jJUZKaZrGSnnLi_3uRy8pFhJ6ZFRMVD9Digasr7_WxMBX5h2WwV4B7-oRQ86vLNqbmdfQzCqU-KQgcAO9gWpCPRAKeQysasojYoBEPfchXAa9_8JUADWNBQhghYPnnRqAjRahEz-8eZFX7q8sRTozblBlsGeaIzJWN07BT2R50VtLbt8KJXS5D4DCpaEkjJAr4UiJ6UPnli0GJ72KdiyvZ",
+   "titulo": "Cromañón: elevan la indemnización a una sobreviviente y distribuyen las responsabilidades por el hecho - Litigio",
+   "tipo": "fallo_judicial",
+   "anio": 2026,
+   "idioma": "es",
+   "por_que": "Detalla una sentencia de la Cámara Contencioso Administrativo Federal que elevó la indemnización a una sobreviviente y ratificó la responsabilidad del Estado Nacional, Gobierno porteño y particulares.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHG65s5d-fDMgDlzJU4SDs7XDj5ru8NadYnS3t8SDYShFMye7FZAMNibuKC8gz1fAEUFC43E3WcV1QtlsFUz8UXiYnVMieg9PfaVJo0fGVyN1wk1XCBm7JgdJHTklXipLEJ-NQIWcI_5LQ_d7eLY5MBcFY3BT2SXEDxHdJf",
+   "titulo": "Se conoció la sentencia por la causa Cromañón - Sur Capitalino",
    "tipo": "fallo_judicial",
    "anio": 2009,
    "idioma": "es",
-   "por_que": "Contiene la sentencia completa del primer juicio oral, con la descripción detallada de los hechos probados, testimonios y la fundamentación de las condenas y absoluciones.",
+   "por_que": "Informa sobre la sentencia del Tribunal Oral 24 en el juicio por la tragedia de Cromañón, condenando a Omar Chabán y otros.",
    "prioridad": 1,
    "motivo": "ninguna URL del grounding se le parece"
   },
   {
-   "url": "https://www.argentina.gob.ar/justicia/derechoshumanos/anm/memorias-de-cromanon",
-   "titulo": "Memorias de Cromañón - Archivo Nacional de la Memoria",
-   "tipo": "testimonio",
-   "anio": 2021,
-   "idioma": "es",
-   "por_que": "Es una colección oficial de historia oral que reúne entrevistas audiovisuales a sobrevivientes y familiares, constituyendo una fuente primaria de testimonios directos.",
-   "prioridad": 1,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://www.pagina12.com.ar/392437-cromanon-la-voz-de-los-sobrevivientes-a-17-anos-de-la-masac",
-   "titulo": "Cromañón: la voz de los sobrevivientes a 17 años de la masacre",
-   "tipo": "prensa_posterior",
-   "anio": 2021,
-   "idioma": "es",
-   "por_que": "Reúne múltiples testimonios de sobrevivientes con sus nombres, reflexionando sobre las secuelas y la lucha por la justicia años después del hecho.",
-   "prioridad": 2,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://www.lanacion.com.ar/sociedad/a-17-anos-de-cromanon-el-crudo-relato-de-la-mama-de-una-de-las-victimas-mi-hija-no-murio-por-el-nid30122021/",
-   "titulo": "A 17 años de Cromañón, el crudo relato de la mamá de una de las víctimas: 'Mi hija no murió por el rock, murió por la corrupción'",
-   "tipo": "testimonio",
-   "anio": 2021,
-   "idioma": "es",
-   "por_que": "Presenta el testimonio en primera persona y con nombre de Nilda Gómez, madre de una víctima y una figura central en la organización de familiares, ofreciendo una perspectiva a largo plazo.",
-   "prioridad": 2,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://www.clarin.com/ciudades/tapa-clarin-31-diciembre-2004-horror-once-175-muertos-incendio-recital-rock_0_S1nxYj3PQ.html",
-   "titulo": "La tapa de Clarín del 31 de diciembre de 2004: 'Horror en Once: 175 muertos en un incendio durante un recital de rock'",
-   "tipo": "prensa_epoca",
-   "anio": 2004,
-   "idioma": "es",
-   "por_que": "Es un documento de prensa primario, publicado el día inmediatamente posterior a la tragedia, que refleja el impacto inicial y los primeros datos que se conocieron.",
-   "prioridad": 2,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://www.telam.com.ar/notas/201912/419799-a-15-anos-de-cromanon-el-dolor-de-los-sobrevivientes-y-la-lucha-por-no-olvidar.html",
-   "titulo": "A 15 años de Cromañón, el dolor de los sobrevivientes y la lucha por no olvidar",
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEZmDJqira688DEWRgQAumLK1CRVOu6foFiFdjDpH9FBsQp17SI2IjavDDmu3WwA9x1yGHyo4eRGiEEywaZ1vzhRuXlyoDgIKzKijoTNazxa4YO7ZhuplL1vGyQf1usKQxTHGu2ZtjPrwhSaafN6xFBsRtPDpqy0yLmmRhsvnVCuZ5URfOEK63hQgjSkJ6iUaScII3HkcoIjeH38TmdjuVMTMzLTgXihX2nzFr-ljPheVcP2heQO3DI2njeIMep0NXIiQupQpFvtuFyET7CPcD5vuCrBHQJCtRO7rlNX0ki024NmCIQ28W6bX_neogItftBlYElI3Q=",
+   "titulo": "A 15 años de Cromañón: cronología de las decisiones judiciales más importantes en las etapas de instrucción, juicio y revisión de sentencia | Fiscales.gob.ar",
    "tipo": "prensa_posterior",
    "anio": 2019,
    "idioma": "es",
-   "por_que": "Incluye testimonios de varios sobrevivientes identificados, como Diego Rozas y Julián Rozengardt, que narran su experiencia y su vida posterior.",
-   "prioridad": 2,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://www.infobae.com/sociedad/2019/12/30/la-historia-de-los-dos-sobrevivientes-de-cromanon-que-se-enamoraron-y-formaron-una-familia-en-honor-a-los-que-ya-no-estan/",
-   "titulo": "La historia de los dos sobrevivientes de Cromañón que se enamoraron y formaron una familia 'en honor a los que ya no están'",
-   "tipo": "testimonio",
-   "anio": 2019,
-   "idioma": "es",
-   "por_que": "Relata en profundidad las historias personales y con nombre de dos sobrevivientes, Mailín Blanco y Federico Soto, uniendo la tragedia con la resiliencia.",
-   "prioridad": 2,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://sedici.unlp.edu.ar/bitstream/handle/10915/60341/Documento_completo.pdf-PDFA.pdf?sequence=1&isAllowed=y",
-   "titulo": "Cromañón: La construcción del 'acontecimiento' en Clarín, La Nación y Página/12",
-   "tipo": "academico",
-   "anio": 2017,
-   "idioma": "es",
-   "por_que": "Analiza el tratamiento de la tragedia en la prensa, ofreciendo un meta-análisis de los documentos periodísticos de la época.",
-   "prioridad": 3,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://www.pensamientopenal.com.ar/system/files/2011/04/FalloCromanon.pdf",
-   "titulo": "Causa Cromañón. Sentencia definitiva. Chabán, Omar Emir y otros s/ recurso de casación",
-   "tipo": "fallo_judicial",
-   "anio": 2011,
-   "idioma": "es",
-   "por_que": "Es el texto completo de la sentencia de la Cámara Nacional de Casación Penal, un documento judicial primario y fundamental que revisa las condenas y responsabilidades penales.",
+   "por_que": "Ofrece una cronología de las decisiones judiciales más importantes en la causa Cromañón, incluyendo instrucción, juicio y revisión de sentencia, desde una fuente gubernamental.",
    "prioridad": 1,
    "motivo": "ninguna URL del grounding se le parece"
   },
   {
-   "url": "https://www.argentina.gob.ar/justicia/derechoshumanos/anm/memorias-de-cromanon",
-   "titulo": "Memorias de Cromañón - Archivo Nacional de la Memoria",
-   "tipo": "testimonio",
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHpRyzCHwblaHE0PSvLu2g_3N16nny1nXqHemuHWBAc5BpD5YCnR5ybE0c21_xgA40FRXUUblziEjZ05icnvV8wJdpxZF4MaVvTZcGwOwSW-0iEs7nTmu_MRnwnQMcWPab_f4YlTHjT8tN25I530tmZNF3imkaxayaQmzS7pgmafwn25ZMnEtpNTUOy0AxQYwI-goy8S2u1Bcwg7vboNmQca5NZMUQgqDS8GgvIrYGc-YvODH99jjjMCynNnt4N8NPnFXqxBH4sJBQhf58TOQ==",
+   "titulo": "Familiares de víctimas y sobrevivientes de Cromañón denuncian ...",
+   "tipo": "prensa_posterior",
    "anio": 2021,
    "idioma": "es",
-   "por_que": "Colección oficial de entrevistas en video a sobrevivientes y familiares de víctimas, un archivo de historia oral primario y directo.",
-   "prioridad": 1,
+   "por_que": "Noticia que menciona una denuncia de familiares y sobrevivientes, incluyendo un 'pedido de acceso a la información pública' (FOIA) relacionado con Cromañón.",
+   "prioridad": 2,
    "motivo": "ninguna URL del grounding se le parece"
   },
   {
-   "url": "https://www.ungs.edu.ar/wp-content/uploads/2019/09/dt-idei-01-2017-Walter-y-otros.pdf",
-   "titulo": "Deficiencias en la regulación y el control de riesgos y en la gestión de la seguridad en la catástrofe de la 'discoteca' República Cromañón",
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGriQJ9tkjKM5lhSAKK_-rvsl6f-t1iSmejYrFsyOdUL3vpfbPwjsLoRFOqZEtca2MSvzUc-O0WjE7MLPDzXLcVidMRbyj8P99hg-dC1nJ8RtHotOJK-SdlD-_o6FnA0oqPRbjAcNmB8Rpgj050Jbi93AbyG5otf4sLEGmUYHITShA7GGvnUlMhFyIpZLjA1NQscZCdKZe5aspLA==",
+   "titulo": "Familiares de víctimas y sobrevivientes de Cromañon denunciaron al Gobierno porteño por violencia institucional - Pagina 12",
+   "tipo": "prensa_posterior",
+   "anio": 2021,
+   "idioma": "es",
+   "por_que": "Artículo de prensa que detalla una denuncia de familiares y sobrevivientes al Gobierno porteño, mencionando un pedido de acceso a la información pública (FOIA) y una 'nota oficial' como respuesta.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQESUBMkN7_Ues_YA4mNCs9P3W9drNgTjqzF2XAn7AUndyXphSWPXvzJXOt_6lvmc8X6JZwyB0vX9aHaBmhbpLhzs1jhyhohazLnZ6crI0VCcJEMm0TpPzcbKFygjHW72iEkswoYs10D0ZlqgWbCLyYigOGCwVnUEbpxWtExQJdDe9YKdHYoXVV1efpJdVjGR2h-1iYZylVXM=",
+   "titulo": "Imputación y ámbitos de organización. Causa República Cromagnon - Derecho Penal Online",
    "tipo": "academico",
-   "anio": 2017,
+   "anio": 2009,
    "idioma": "es",
-   "por_que": "Informe académico que analiza en profundidad las fallas estatales, basándose extensamente en el Informe Final de la Comisión Investigadora de la Legislatura, supliendo la ausencia del documento original.",
-   "prioridad": 1,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://www.clarin.com/ediciones-anteriores/20041231",
-   "titulo": "Al menos 169 muertos en un boliche de Once que se incendió durante un recital",
-   "tipo": "prensa_epoca",
-   "anio": 2004,
-   "idioma": "es",
-   "por_que": "Cobertura del principal diario argentino del día inmediatamente posterior a la tragedia, mostrando la información y el estado de shock del momento.",
+   "por_que": "Análisis legal que cita directamente el fallo del Tribunal Oral en lo Criminal Nº 24 sobre la imputación en la causa Cromañón.",
    "prioridad": 2,
    "motivo": "ninguna URL del grounding se le parece"
   },
   {
-   "url": "https://www.pagina12.com.ar/impresiones/2004-12-31",
-   "titulo": "Infierno en Once",
-   "tipo": "prensa_epoca",
-   "anio": 2004,
-   "idioma": "es",
-   "por_que": "Prensa del día después del evento, con el relato en caliente de los hechos y testimonios iniciales de los testigos. Es un documento histórico primario.",
-   "prioridad": 2,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://documentos.scribd.com/document/356531191/Fallo-Judicial-Caso-Cromanon",
-   "titulo": "Fallo Judicial: Caso Cromañón (Fragmentos de la causa civil)",
-   "tipo": "fallo_judicial",
-   "anio": 2017,
-   "idioma": "es",
-   "por_que": "Contiene extractos significativos de un fallo de una demanda civil por daños y perjuicios, detallando la responsabilidad del Estado y los particulares más allá de la causa penal.",
-   "prioridad": 2,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/7016335/20050107?busqueda=1",
-   "titulo": "Decreto 6/2005 - Boletín Oficial de la Ciudad de Buenos Aires",
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH6cs9UvaKHOmbrFOTiLDXrdmXTzAN8RzpP3wVuRN2SWGPnD0Z5KIkNCCOnwqpFaDjvHWqBmx1254a6ayJg8SsPQmhnpxSr7dztiDD4hxyzja10GFNA3JyKBWJ6QxMetcKy7C6Ya3R6uVlLZT0jFIdK0PtX9HYnVVX9O-JFrxnN5NoEOtZJydmxVclFLlEruisJUEptjL_11W4=",
+   "titulo": "INFORME GENERAL - Senado",
    "tipo": "informe_oficial",
-   "anio": 2005,
+   "anio": 2022,
    "idioma": "es",
-   "por_que": "Documento oficial primario. Es el decreto de necesidad y urgencia emitido por el Gobierno de la Ciudad una semana después de la tragedia, que establece nuevos requisitos de seguridad para locales.",
+   "por_que": "Informe oficial del Senado que menciona la declaración de utilidad pública y expropiación del inmueble 'República Cromañón' y las actividades de Acceso a la Información Pública.",
    "prioridad": 1,
    "motivo": "ninguna URL del grounding se le parece"
   },
   {
-   "url": "http://www.memoria.fahce.unlp.edu.ar/trab_eventos/ev.10257/ev.10257.pdf",
-   "titulo": "Cromañón, la construcción del acontecimiento y los procesos de memoria en la prensa escrita (2004-2014)",
-   "tipo": "academico",
-   "anio": 2017,
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFTC9cW8yzrkYKrGiVl7Rg_Rw9CDerrYeF2iKvI2bOGJ4xgsnuRtAQlvsOkB_Cz_d8ZX1PvvO_RhyKV_BQ4uCv0jZpRZPVpTc4An6lvFRykFwCSnVbzP7Ii3QX5jkBEOzqu4OzdSAHwPbs-CmmM",
+   "titulo": "Desarrollo Legislativo de los Derechos Constitucionales",
+   "tipo": "informe_oficial",
+   "anio": 2009,
    "idioma": "es",
-   "por_que": "Análisis académico de largo plazo sobre cómo la prensa construyó la narrativa de Cromañón, ofreciendo una visión crítica sobre las fuentes periodísticas.",
-   "prioridad": 3,
+   "por_que": "Documento que menciona la Ley CABA 3107 de Acceso a la Información Pública y la Ley CABA relacionada con 'República Cromañón'.",
+   "prioridad": 2,
    "motivo": "ninguna URL del grounding se le parece"
   },
   {
-   "url": "https://www.ambito.com/informacion-general/cromanon/la-vida-despues-n5913214",
-   "titulo": "La vida después de Cromañón: a 20 años de la tragedia, tres testimonios clave",
-   "tipo": "testimonio",
-   "anio": 2025,
-   "idioma": "es",
-   "por_que": "Recoge testimonios de sobrevivientes dos décadas después, ofreciendo una perspectiva a largo plazo sobre las secuelas y la memoria del evento.",
-   "prioridad": 3,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://en.wikipedia.org/wiki/Croma%C3%B1%C3%B3n_nightclub_fire",
-   "titulo": "Cromañón nightclub fire - Wikipedia",
-   "tipo": "academico",
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHqAsjG5H0fD2LR_4HWLzWjDGWBO5-AyJL059jgm_aalg2KaKt8_rGlFH0tv_e28VZfiqolWSYzAzQUqftqZAdg9vZJqE8EM1DrSvgnJy7k98LV0sFQKcJx7UrpGGcgci8hMmCfxhLg7AS72gvS5A==",
+   "titulo": "7 minutos - Newsletter - Clarin.com",
+   "tipo": "prensa_posterior",
    "anio": 2024,
+   "idioma": "es",
+   "por_que": "Noticia de Clarín que resume los hallazgos de la Justicia en el caso Cromañón y menciona la Agencia de Acceso a la Información Pública.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHiSkMmGfvbcnp31_JHVBuvljYw8wyeNH94hstm62V9cisBC3W8WmkCdeZLnxl0QB6BKp6CMKdxjWpiwlkI2PCisvDPjmaPmxTZaq8TUdOvS9HLyI3tRxMZpS3umN1Y9AztUKMwjBx0eGzcul1wwOxPKF0R1SPiGHVnAMAqAIo=",
+   "titulo": "Familia, política y emociones - FFyH",
+   "tipo": "academico",
+   "anio": 2006,
+   "idioma": "es",
+   "por_que": "Análisis académico que refiere a la tragedia de Cromañón y la objetivación del dolor en un 'documento oficial' o gubernamental.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE-b8NqBMlwCMeL8jxeQ1Pf2dfzTGJvMWWmVHJTJr5cSTVoV-EwPr7FOhrW1NKsTbyHjKpdYzhyKIHiZvZgNFJLW2TibPvk74hiso8R5GZUM7p9bEZmQOIrbN4iqelf3MoBbuPQUGjEBkQuJxs7lSRhGeIXjz_5rSFzh5Ux12SE5h1MQYmK2iUG2AskERWYVUP7PSekGhOi8KQNzzGvBhlmZOUASebbjw==",
+   "titulo": "The Oxford Handbook of Dance and Competition",
+   "tipo": "academico",
+   "anio": 2018,
    "idioma": "en",
-   "por_que": "Proporciona un resumen completo y referenciado en inglés, útil para obtener una visión general con terminología en ese idioma y enlaces a fuentes diversas.",
+   "por_que": "Capítulo de un libro académico que discute la tragedia de Cromañón en el contexto de las inspecciones gubernamentales y la burocracia en Buenos Aires.",
    "prioridad": 3,
    "motivo": "ninguna URL del grounding se le parece"
   },
@@ -333,87 +463,62 @@
    "motivo": "ninguna URL del grounding se le parece"
   },
   {
-   "url": "https://www.argentina.gob.ar/noticias/memorias-de-cromanon",
-   "titulo": "Memorias de Cromañón",
-   "tipo": "testimonio",
-   "anio": null,
+   "url": "https://www.lanacion.com.ar/sociedad/adn-del-crimen-la-trama-secreta-de-un-expediente-de-cromanon-que-paso-5-anos-cajoneado-nid02012022/",
+   "titulo": "ADN del crimen: la trama secreta de un expediente de Cromañón que pasó 5 años cajoneado",
+   "tipo": "prensa_posterior",
+   "anio": 2022,
    "idioma": "es",
-   "por_que": "Es un archivo oficial del Estado argentino que reúne entrevistas a sobrevivientes y familiares, constituyendo una fuente primaria de testimonios orales.",
+   "por_que": "Revela detalles de un expediente oculto que indicaba que el local ya estaba clausurado desde 1997, siete años antes de la tragedia, aportando un dato clave sobre la corrupción estructural.",
    "prioridad": 1,
    "motivo": "ninguna URL del grounding se le parece"
   },
   {
-   "url": "https://www.lavaca.org/notas/generacion-cromanon-el-libro-completo-a-20-anos-de-la-masacre/",
-   "titulo": "Generación Cromañón: el libro completo a 20 años de la masacre",
-   "tipo": "libro",
-   "anio": 2024,
+   "url": "https://www.actaacademica.org/000-033/154.pdf",
+   "titulo": "Las movilizaciones en torno al Crimen de Cromañón a la luz del Argentinazo: Buenos Aires, 2005",
+   "tipo": "academico",
+   "anio": 2005,
    "idioma": "es",
-   "por_que": "Permite el acceso libre y completo al libro \"Generación Cromañón\", una crónica detallada con voces de los sobrevivientes y análisis del contexto social y cultural.",
-   "prioridad": 1,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://www.clarin.com/ciudades/cromanon-dolor-recuerdos-horror-testimonios-4-sobrevivientes_0_H1xtX2R1CYe.html",
-   "titulo": "Cromañón: dolor y recuerdos del horror en los testimonios de 4 sobrevivientes",
-   "tipo": "prensa_posterior",
-   "anio": 2008,
-   "idioma": "es",
-   "por_que": "Recoge testimonios directos de sobrevivientes durante el juicio oral, ofreciendo una perspectiva cruda y detallada de los hechos desde la voz de las víctimas.",
-   "prioridad": 2,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://www.lanacion.com.ar/sociedad/cromanon-diez-historias-de-los-que-volvieron-a-la-vida-despues-del-horror-nid1755762/",
-   "titulo": "Cromañón: diez historias de los que volvieron a la vida después del horror",
-   "tipo": "prensa_posterior",
-   "anio": 2014,
-   "idioma": "es",
-   "por_que": "Presenta un seguimiento a largo plazo de las vidas de los sobrevivientes, una década después de la tragedia, mostrando las secuelas y procesos de resiliencia.",
-   "prioridad": 2,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://www.agenciapacourondo.com.ar/sociedad/carta-y-relato-de-un-sobreviviente-de-cromanon",
-   "titulo": "Carta y relato de un sobreviviente de Cromañón",
-   "tipo": "testimonio",
-   "anio": 2013,
-   "idioma": "es",
-   "por_que": "Es un testimonio escrito en primera persona, en formato de carta, que reflexiona sobre la tragedia y el rol de los medios de comunicación desde la perspectiva de un sobreviviente.",
-   "prioridad": 2,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://auno.org.ar/cromanon-relatos-de-los-que-sobrevivieron-para-contar-la-historia/",
-   "titulo": "Cromañón: relatos de los que sobrevivieron para contar la historia",
-   "tipo": "testimonio",
-   "anio": 2014,
-   "idioma": "es",
-   "por_que": "Presenta los testimonios de tres sobrevivientes de la zona sur del conurbano bonaerense, ofreciendo una perspectiva local y específica sobre cómo vivieron la tragedia.",
-   "prioridad": 2,
-   "motivo": "ninguna URL del grounding se le parece"
-  },
-  {
-   "url": "https://www.cbc.ca/news/world/at-least-88-dead-in-buenos-aires-club-fire-1.511197",
-   "titulo": "At least 88 dead in Buenos Aires club fire",
-   "tipo": "prensa_epoca",
-   "anio": 2004,
-   "idioma": "en",
-   "por_que": "Es una nota de un medio canadiense del mismo día de la tragedia, reflejando el impacto y la información inicial que circulaba a nivel internacional.",
+   "por_que": "Analiza desde una perspectiva académica el surgimiento del 'Movimiento por Cromañón' y su impacto político, que culminó en la destitución del Jefe de Gobierno Aníbal Ibarra.",
    "prioridad": 3,
    "motivo": "ninguna URL del grounding se le parece"
   },
   {
-   "url": "https://actacademica.org/000-032/11",
-   "titulo": "Los sentidos de juventud puestos en acto. Un estudio sobre el caso Cromañón",
+   "url": "https://www.ungs.edu.ar/wp-content/uploads/2018/09/PS_19_06_Deficiencias.pdf",
+   "titulo": "Deficiencias en la regulación y el control de riesgos y en la gestión de la seguridad en la catástrofe de la 'discoteca' República Cromañón (Buenos Aires, 2004)",
    "tipo": "academico",
-   "anio": 2005,
+   "anio": 2006,
    "idioma": "es",
-   "por_que": "Analiza desde una perspectiva antropológica la construcción de las demandas y el proceso asociativo que surgió tras el incendio, enfocándose en la cuestión juvenil.",
-   "prioridad": 2,
+   "por_que": "Un trabajo que analiza las fallas estructurales en la regulación y el control estatal que contribuyeron a la catástrofe, detallando la falta de prevención y la corrupción.",
+   "prioridad": 3,
    "motivo": "ninguna URL del grounding se le parece"
   }
  ],
  "_grounding": [
+  {
+   "title": "infobae.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF9n8NJPMvvo0QBAHDLOtN08J7Z_cLhshuS1WJWEeM1HV_5t7fw5YmzfLGtjOE4d3DIhex4Obx9mchzmTFsNTUjCvFdyoQJ7BpjpiHT1MRpggX-oTIrmh2nQYJheKQVREMKtlw5S4uB2Dw72rV0xeQKjc7tFgZzqJiVN9fyb5v1rGwWYJYRANe6idGftPGqTvlSTU6E2HMU2O8OsTFpXjYy0C--HWwF-CYPd8lC5wf3pk1m9Wx5kCU=",
+   "url": "https://www.infobae.com/judiciales/2024/12/30/el-caso-cromanon-cronologia-de-un-expediente-que-duro-doce-anos-en-la-justicia/"
+  },
+  {
+   "title": "clarin.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHGALxy9OD_ItpBgMFnGbUPKVRkYkWG1GmJB42JlbCZqq0m8fXWFPjU9hbzJJH8QN_aBJfRvhPCd5zqrBpp3FHFkZmBm4PvUmSgOUABkZe7Oz8C4Otf5mPNm0yL9V2d5bsYJj3l05UzxM39JRYUiyc6zJZRGMgECh7-M_JhlCvJkHmGcNO_jgTZPjOwmLhI8fbUYgg4DT9ntxTtY53w-zhm6xVWL0fSOw==",
+   "url": "https://www.clarin.com/sociedad/cromanon-dolor-recuerdos-horror-testimonios-sobrevivientes_0_rJ-bV12Cptg.html"
+  },
+  {
+   "title": "buenosairesherald.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFkHb3lMKBeUcm2Hcyj2P93OOCBevLF0fm63MxVcDlL4wKx2sjz3jyvApeq4bp5nJEJaM1zT9L3-9ONVpCyuzNgJZO-jwB3uklfJdLj9UabcgR9Mp4rzOPY6smVhcl8DM5eezWah6RvcvAMp5MxJjpmRt02wZMSSxvxd9hpH3UKy-AJLUGXQnlTR9Sz8kuzgfNx4amgMMnQ8y9-MbHamtT91w==",
+   "url": "https://buenosairesherald.com/society/twenty-years-since-cromanon-the-deadliest-tragedy-in-rock-history"
+  },
+  {
+   "title": "cbsnews.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF0xK-08kWZYOT8eUXMpLXoJInpgZKfc7Y2h3sb3avr-SiZ8I3VdWZpn4tHkj6dADIL73MuDheKQaPyykU_5EpzeNoI2UO14e_UbGFar1QrWPARVV1y6lH9agZYDSSWTsEBPaeVlzfZilRYU7oe2Dgp79BiwlNboaS8gA==",
+   "url": "https://www.cbsnews.com/news/argentine-nightclub-fire-kills-175/"
+  },
+  {
+   "title": "youtube.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEePs0uK8JwlmnHQzK74iUkSrfTwOJP_vmTP1DylB0XUhfRQd7JDsy1h3-EVcbu4p5tRN8bNVEKFuA6nfGlY1y6TWBV1LRiDTu1dxhoVv4P6SJXqiOX6-THEBRgKFbFKlxYY479VA==",
+   "url": "https://www.youtube.com/watch?v=5z2t-yHdARc"
+  },
   {
    "title": "lanacion.com.ar",
    "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEBTfZBAZue3E43H-lqoRaL5M9zNqrb9WVgCWcVjgpc56blBm8BbsrsYufb0_Ga3O63wEzoYA-vt8Yho7Wso1KdcRG4MEdyKXD8PFHUzMSLMcTnAzqOLK1DhuEWgxlehsL_aRUDgizxz50NoyujZMle968NIPavQRC8QdANdeHw0_T2nKBuCPTWmpKc7w4=",
@@ -445,11 +550,6 @@
    "url": "https://www.clarin.com/sociedad/cromanon-ano-medio-despues-todavia-respira-olor-tragedia_0_Hy7ZnOVkAFx.html"
   },
   {
-   "title": "buenosairesherald.com",
-   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGRBUDp8M6RAu_Z3EWeoXKp085Gi0zVudLouC1yzhZNKakkTpjP0je9Oa_hx87FBzPhzIJ4QMo1b_yeGjqdsBtOuUHjCbxU4pW2HluwNS-XaDUqU4lEJ0RkHGYVqP0VFHwzbP-7XrXg9gITBAcb-9ha9hMsqyIPtqRTyiSHE60JtSAAAeX2VShPmWTkj4wRp6ytbpDVuMU2RW3U8GBlAAYBHX8=",
-   "url": "https://buenosairesherald.com/society/twenty-years-since-cromanon-the-deadliest-tragedy-in-rock-history"
-  },
-  {
    "title": "theguardian.com",
    "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFbhJ1J0Y15sTKsfaAq7fa78lwwaZbrsHXs5hux7A1CvNaKHUhz_IX27OX2Ipcy1JD-Fanbzy0Ci1wIbBr7E4ANARis_Gfe9cMa9xUDX92YnkdrK7q6d_0wBwqgk_uhWDIOzTtu1guRed1Aks37XxUMseLOJhKcLSgp3Cpj7H-SRRQbfC0TvFQ=",
    "url": "https://www.theguardian.com/world/2009/aug/20/argentina-nightclub-fire-court"
@@ -463,7 +563,52 @@
    "title": "youtube.com",
    "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFHYdGZNUwDCurlLn6qsAJNC57_XKnBiCRzoEeZ7CMOLPiB_TWHBwuzPwYu6pKk4EmbYmTWKOj7r1VE-9MYeepEb5RWKlaeY5QGYxSWPClVkQvUBhLFqSBcAZLjreEPh2jWhVsog8Q=",
    "url": "https://www.youtube.com/watch?v=r04tb3eY4Hs"
+  },
+  {
+   "title": "fiscales.gob.ar",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6vNRjZ6Pgs8AWxa76On-zbvYS_jSfxkfiCaIGAC_2CBn6E0rqPc19f7nGae9z4sSGshQAK-gTnhZPGIXoGFonreTLFqsmzbMvWVL5bf6mJ1HwQ0hilXwcx_XqyQ5tZ99AtP5QiAZkpGnw5rbpXX9Ybp_APd90kkAWGaUv6oq_-anpNe7tRNsShiXx_eKsHmKYWefhoIEocZTfdy9i97Xx4qfRYSp2MPaxDHJMG9wRE_aWgG3cLrGQrZpAI0uOxRHOOYntR8ZJ1ahJ",
+   "url": "https://www.fiscales.gob.ar/fiscalias/a-15-anos-de-cromanon-un-repaso-de-los-juicios-que-analizaron-la-responsabilidad-estatal-en-la-tragedia/"
+  },
+  {
+   "title": "agenciapacourondo.com.ar",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEbhjwpdFqimi_B0VDs0wrEELp4v4SNMrW4pz0ighRSro2J9ZmURWhYnpMsCNYkE8oc5GC_j9PA-5jI2e6zAFq6t5VPIySw1x_hGqkhD3CeXKXUM5wnEgHKdbmUNz2EFTEIO2jK0yN143nKC0bTl-c_iyGPOOxWkS6dcKQqrf9uDeGipYEZ8APHWc7VW-sG4SFGLSs=",
+   "url": "https://www.agenciapacourondo.com.ar/ddhh/carta-y-relato-de-un-sobreviviente-de-cromanon"
+  },
+  {
+   "title": "auno.org.ar",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEqbTOSu0CWscyoemNatRd5GssiO880YqsY9SrWv7_k2W1iSSaTjUKAjvCEAs7krazmgnmQjqEGT9fKXmkgj8OQDsUPDNBEN-TlkmXiWz4yBKsK5vWaHaeMjLAgTnsAl4_zgKsdywndrQKorAuuhdw15KzatPISUNZxjuZEMRfaSa4=",
+   "url": "https://auno.org.ar/cromanon-los-que-sobrevivieron-para-contar-la-hist"
+  },
+  {
+   "title": "theguardian.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9neCyLjexSrcxHKoLlpePu4vSpz2ergjEX50PALIMlTe3xjtEs8ucfz5-LQlqUKxnu4QWqC693nZgWvN2Zk_10PVHEFxN2rDNwt6_BZwsR7pAptKXqwu6VQRgClKKdf_CQi2X5XAUbwU4hTzzdrQOxNM=",
+   "url": "https://www.theguardian.com/world/2004/dec/31/argentina"
+  },
+  {
+   "title": "casadellibro.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEZ1BXRyzAQHiX01tZ1VmoMnjWPgkvYxdo5ODojt9UpwVJhymECuyqYi_bwEPJds-MWFKje24TtDqFw1FrJe2rZN3nyRjlaOQ9x2FMRqBWAUaVZdcOr3eI01csrpzdagnWQJ1AQ0jZd26Ec7lKbrSiAqnL0PfSBTaUtOZPFYQVy4bqMKPoyAOIIIk-XshNlp4nsemPjxA==",
+   "url": "https://www.casadellibro.com/ebook-el-dia-que-apagaron-la-luz-ebook/9788433948519/17191266"
+  },
+  {
+   "title": "clarin.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE_2g5kctjmBz0FRn6HOhZNTREdtWatkdCjhwimD07q_L9MUbS_Vp8TxwiNT1uBDWV8gt6gjYAUzhlvFXfHhFQCYcxWmjcqZ_RNVwGkYcx3FyrDAy7FYY9bcopRikmTe1Iv7tVbISz_9L4U9vrJru4bianXJ8pTAH8Bw80I-hHltAx7YM9vp3uyQmE6tpvJpOJtUTq9uUH57hZbJ9JtNIOttJ9q5mf8clDm3q4Zxg==",
+   "url": "https://www.clarin.com/sociedad/20-anos-cromanon-golpes-odio-dios-madrugada-angustia-inolvidable_0_IstEITjG8W.html"
+  },
+  {
+   "title": "aacademica.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGG3eRY9OjyFzHJwW4qiL6O82V21rzaPQWD6bU62FZSfAMwuzPWa_xKNxtTe_NOm7zAdBpxgg0LS6c_SXXreuWQl1m0H3V0VKw3UR5OjydCZSadM0Bsz7mTKxSdwKj2PW6rMUDHjQk=",
+   "url": "https://cdsa.aacademica.org/000-108/753.pdf"
+  },
+  {
+   "title": "clarin.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6tOzZE-MnYS5TMmWIYTW9XHfUIwUsaZli28rvdtHP5ry9nCtfuBMRInR9Elb3lkSt3XDRiVcDbIqWEhi6vV4FR9KhWJHBYgLtOsSRfF9YrtMmtk6DZXQJZQz0pIqdv2a4vPwml3gT9Apnri4l4gcWGh2u0i66TUAR1nAmtPSfGhg7vpjFE2IhJErSkvJvM8KpvFtyMUVJy7ul5ux9BN6xA5LpiJggmJZeJvdzaOq5",
+   "url": "https://www.clarin.com/cartas-al-pais/20-anos-cromanon-nadie-marchar-foto-cuello-pidiendo-justicia_0_r8ZHitZxHH.html"
   }
  ],
- "prompt_version": "f7a-1"
+ "prompt_version": "f7a-1",
+ "_focos_grounding": {
+  "pro": 3,
+  "flash": 0,
+  "sin": 1
+ }
 }

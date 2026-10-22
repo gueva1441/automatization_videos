@@ -1100,6 +1100,9 @@ F8_NOTE_BODY_HOOK ="NO dead bodies in this image (it is the hook): show what was
 F8_NOTE_CERRADA = ("TIGHTEST framing of the cap (shot_scale close or detail) on the beat's sensory image, at HUMAN "
                    "scale: a person in posture or a human trace (belongings, clothes, a bunk); never an object or a "
                    "weapon in detail, never a face macro, never hands. The camera is with the victims or the witness.")
+F8_NOTE_ARMA = ("WEAPON BEAT told from the victims or the witness: people crouching in the water, a witness watching "
+                "from a terrace or a window, still silhouettes on a far rooftop. NO shooter or weapon as subject, no "
+                "muzzle flash, no aiming; a weapon only at rest, far away, from behind.")
 F8_NOTE_ESTABLISHING = ("ESTABLISHING EXTERIOR: the place of this fragment seen from outside or from above, wide or "
                         "extreme wide; people small or absent.")
 
@@ -1109,6 +1112,8 @@ def _f8_fix_cap(topic: dict, cap_data: dict, narration: str, items: list[dict], 
     for k, it in enumerate(items):
         if cap_number == 1 and it.get("sensible"):
             items[k] = _f8_refill(topic, cap_data, narration, it, cap_number, F8_NOTE_BODY_HOOK)
+        elif v3img.weapon_subject(it):                                                   # F8b §2.1
+            items[k] = _f8_refill(topic, cap_data, narration, it, cap_number, F8_NOTE_ARMA)
         elif it.get("cerrada") and (it.get("shot_scale") not in ("close", "detail") or not v3img.human_scale(it)):
             items[k] = _f8_refill(topic, cap_data, narration, it, cap_number, F8_NOTE_CERRADA)   # §1 B + F8b §2.2
     # con menos de MIN_FLUX_EXTRAS imágenes (humo, pruebas) no hay proporción que cuidar: no se rehace la del beat

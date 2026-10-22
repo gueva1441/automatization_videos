@@ -166,6 +166,10 @@ def beats_block(cap_beats: list[dict], assign: list[dict], bullets: list | None 
                  if a["cerrada"] else "")
         if b.get("escala"):
             extra += " · SCALE: hundreds of people, filling the frame (never a handful of figures)"
+        if WEAPON_ES.search(b.get("imagen_sensorial") or ""):
+            extra += (" · WEAPON BEAT: tell it from the victims or the witness (people crouching in the water, a "
+                      "witness watching from a terrace, still silhouettes on a far rooftop); never the shot, never "
+                      "the shooter as subject")
         lines.append(f"  [{i}] beat {a['beat']} · {b.get('funcion') or ''} · emotion {b.get('emocion') or ''} · "
                      f"intensity {b.get('intensidad') or ''}{extra}\n      SEEN: «{b.get('imagen_sensorial') or ''}»")
     ctx = ""
@@ -246,7 +250,10 @@ WEAPONS = [r"\bmuzzle[- ]?flash\w*", r"\bfiring\b", r"\bfires?\s+(?:a|the|his|he
            r"\bbarrel\s+of\s+(?:a|the|his|her)\s+(?:gun|rifle|weapon|pistol)\b", r"\bfirst[- ]person\b", r"\bPOV\b",
            r"\bpoint[- ]of[- ]view\b", r"\baim(?:s|ed|ing)?\b[^.]{0,30}\b(?:at|toward|towards)\s+(?:the\s+)?"
            r"(?:camera|viewer|lens)\b", r"\bscope\b", r"\bcrosshairs?\b", r"\bgunshots?\b", r"\bbullets?\b",
-           r"\b(?:over|from)\s+(?:the\s+)?(?:shoulder|position)\s+of\s+(?:the\s+)?(?:shooter|sniper|gunman)\b"]
+           r"\b(?:over|from)\s+(?:the\s+)?(?:shoulder|position)\s+of\s+(?:the\s+)?(?:shooter|sniper|gunman)\b",
+           # un arma apuntando (a quien sea) no está en reposo; tampoco un tirador tendido con el arma
+           r"\baim(?:s|ed|ing)\b", r"\bprone\b[^.]{0,60}\b(?:rifle|gun|weapon)s?\b",
+           r"\b(?:rifle|gun|weapon)s?\s+(?:raised|leveled|levelled|pointed|trained)\b"]
 
 # la frase de manos que se saca de la frase-sujeto en el backstop («… held in his hands», «with cupped hands»)
 HANDS_PHRASE = (r",?\s*(?:\w+\s+){0,2}(?:in|with|from|between|by)\s+(?:his|her|their|the|both|two)?\s*"
@@ -357,6 +364,16 @@ def scrub_slots(slots: dict) -> list[str]:
             gone += [f"{k}: {x}" for x in parts if x not in kept]
             slots[k] = " ".join(kept).strip(" ,;") or ("" if k not in ("subject",) else v)
     return gone
+
+
+WEAPON_ES = re.compile(r"\b(rifles?|fusil\w*|disparo\w*|dispar\w+|fogonazo\w*|francotirador\w*|armas?|balas?|"
+                       r"tiros?|escopeta\w*|pistola\w*)\b", re.I)
+SHOOTER_EN = re.compile(r"\b(snipers?|shooters?|gunm[ae]n|marksm[ae]n|rifles?|guns?|pistols?|shotguns?|weapons?)\b", re.I)
+
+
+def weapon_subject(item: dict) -> bool:
+    """§2.1: el tirador o el arma como sujeto de la imagen (la cámara tiene que estar con las víctimas o el testigo)."""
+    return bool(SHOOTER_EN.search(f"{item.get('subject') or ''} {item.get('action') or ''}"))
 
 
 TRACE = (r"\b(shoes?|boots?|sneakers?|belongings|clothes|clothing|jumpsuits?|blankets?|mattress(?:es)?|cots?|bags?|"

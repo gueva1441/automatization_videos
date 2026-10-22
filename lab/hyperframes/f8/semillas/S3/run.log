@@ -1,24 +1,41 @@
   [R1] foco 1: sin grounding (de memoria) → reintento
-  [R1] foco 1: sin grounding (de memoria) → reintento
-  [R1] foco 1: 12 fichas del modelo, 0 URLs en el grounding
-  [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 1: 12 fichas del modelo, 10 URLs en el grounding
   [R1] foco 2: 13 fichas del modelo, 4 URLs en el grounding
   [R1] foco 3: sin grounding (de memoria) → reintento
   [R1] foco 3: sin grounding (de memoria) → reintento
-  [R1] foco 3: 12 fichas del modelo, 0 URLs en el grounding
-  [R1] foco 4: sin grounding (de memoria) → reintento
-  [R1] foco 4: sin grounding (de memoria) → reintento
-  [R1] foco 4: 12 fichas del modelo, 0 URLs en el grounding
-  [R1] 4 URLs reales: 5 con ficha del modelo, 1 con ficha de Flash, 0 fuera (no relevantes o listados) · 44 fichas del modelo sin URL del grounding
-  [R2] F01 ilpost_2023_il_disastro_del_vajont_non: OK (original) 12129 caracteres
-  [R2] F02 tv2000_2018_10_ottobre_1963_i_giornali: OK (pdf_enlazado) 44695 caracteres · NO nombra el evento
-  [R2] F03 damsafety_dam_failure_case_study_vajont: OK (original) 3715 caracteres
-  [R2] F04 storiaefuturo_2014_una_lezione_dai_disastri_il: OK (original) 36760 caracteres
-  [R2] 3 documentos OK de 4 intentados
-  [R2] ficha F01: prensa_posterior 2023 «Il disastro del Vajont non fu una calamità naturale»
-  [R2] ficha F02: informe_oficial 2024 «MODELLO DI ORGANIZZAZIONE, GESTIONE E CONTROLLO»
-  [R2] ficha F03: academico 2019 «Dam Failure Case Study: Vajont Dam (Italy, 1963)»
-  [R2] ficha F04: academico 2014 «Una lezione dai disastri: il Vajont e l’alluvione di Firenze»
-  [R4] merge: datos 0 · cronologia 0 · lugares 0 · citas 0 · personajes 0 · 0 ítems con ≥ 2 documentos · 0 descartados
-  [R4] presencia por párrafo: 0 vínculos persona-evento (0 personas con alguno)
-  [R5] citas: {'verificada': 0, 'verificada_parcial': 0, 'sin_verificar': 0}
+  [R1] foco 3: sin grounding (de memoria) → reintento
+  [R1] foco 3: Pro sin grounding tras 3 reintentos → Flash con búsqueda
+  [R1] foco 3: 10 fichas del modelo, 0 URLs en el grounding
+  [R1] foco 4: 14 fichas del modelo, 11 URLs en el grounding
+  [R1] focos con grounding: 3 por Pro, 0 por Flash, 1 sin grounding (de 4)
+  [R1] 21 URLs reales: 13 con ficha del modelo, 13 con ficha de Flash, 2 fuera (no relevantes o listados) · 36 fichas del modelo sin URL del grounding
+  [R2] F01 canestrinilex_1971_vajont_fu_disastro_colposo_con: OK (original) 6565 caracteres
+  [R2] F03 archiui_comision_de_investigacion_sobre_el: FALLÓ — sin copia en la Wayback Machine
+  [R2] F05 geopop_2021_il_disastro_del_vajont_analisi: OK (original) 8010 caracteres
+  [R2] F06 fondazionevajont_pagina_informativa_de_la_fundacion: FALLÓ — HTTP 429
+  [R2] F12 certifico_analisis_tecnico_legal_del_desastre: OK (original) 14462 caracteres
+  [R2] F17 gov_noticia_del_archivo_estatal_de: PDF enlazado descartado (no nombra el evento): https://archiviodistatolaquila.cultura.gov.it/fileadmin/risorse/DOCUMENTI/Regolamento_Istituto_2026.pdf
+  [R2] F17 gov_noticia_del_archivo_estatal_de: FALLÓ — sin copia en la Wayback Machine
+  [R2] F18 leoneg_pagina_dedicada_a_longarone_y: FALLÓ — HTTP 429
+  [R2] F19 dvidshub_2023_recordando_el_desastre_de_la: OK (original) 4219 caracteres
+  [R2] 7 documentos OK de 19 intentados
+  [R2] ficha F01: prensa_posterior 1971 «Vajont: fu disastro colposo con previsione dell’evento (Cass»
+  [R2] ficha F04: prensa_posterior 2023 «Il disastro del Vajont non fu una calamità naturale»
+  [R2] ficha F05: prensa_posterior 2021 «Tragedia del Vajont: analisi geologica di una frana annuncia»
+  [R2] ficha F09: informe_oficial 2019 «Dam Failure Case Study: Vajont Dam (Italy, 1963)»
+  [R2] ficha F12: prensa_posterior 2018 «9 ottobre 1963: 63 anni dalla tragedia della diga del Vajont»
+  [R2] ficha F15: academico 2014 «Una lezione dai disastri: il Vajont e l’alluvione di Firenze»
+  [R2] ficha F16: informe_oficial 2024 «Modello di Organizzazione, Gestione e Controllo e Codice Eti»
+  [R2] ficha F19: prensa_posterior 2023 «Remembering the Vajont Dam Disaster: 60th Anniversary Observ»
+  [R3] F01: 51 ítems con cita literal, 1 descartados
+  [R3] F04: 61 ítems con cita literal, 1 descartados
+  [R3] F05: 45 ítems con cita literal, 0 descartados
+  [R3] F09: 17 ítems con cita literal, 0 descartados
+  [R3] F12: 75 ítems con cita literal, 1 descartados
+  [R3] F15: 47 ítems con cita literal, 5 descartados
+  [R3] F19: 29 ítems con cita literal, 1 descartados
+  [R4] merge: datos 121 · cronologia 61 · lugares 27 · citas 15 · personajes 34 · 45 ítems con ≥ 2 documentos · 18 descartados
+  [R4] autores de cita sumados como personajes: ['Relazione della Commissione di inchiesta nominata dal Ministro dei Lavori Pubblici', 'Daniele Ceschin']
+  [4a·pool] personajes sin acción, fuera: ['Lee Mauney', 'Benigno Zaccagnini', 'Fabio Mandarino', 'Arcangelo Mandarino', 'Francesco Cocco Ortu', 'Mario Alicata', 'Giuseppe Saragat', 'Emilie Anderson', 'Sergio Mattarella']
+  [R4] presencia por párrafo: 168 vínculos persona-evento (22 personas con alguno)
+  [R5] citas: {'verificada': 9, 'verificada_parcial': 6, 'sin_verificar': 0}
