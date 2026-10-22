@@ -21,7 +21,7 @@ from typing import Any, Callable
 
 from script_engine import evidence as ev
 
-PROMPT_VERSION = "f6c-1"
+PROMPT_VERSION = "f8-1"            # f8-1: cierre del video en cita o pregunta (blanda, F8 §2)
 
 SYSTEM = ("Sos el editor de guion de un canal de documentales de misterio. Recibís una narración ya escrita y la "
           "apretás: cortás, acortás, sacás repeticiones y relleno, reordenás frases dentro del mismo párrafo y "
@@ -43,7 +43,8 @@ SCHEMA: dict[str, Any] = {
 }
 
 
-def build_prompt(esc: dict, parrafos: list[dict], notas: list[str] | None = None) -> str:
+def build_prompt(esc: dict, parrafos: list[dict], notas: list[str] | None = None,
+                 cierre: list[str] | None = None) -> str:
     beats = {b["n"]: b for b in esc["beats"]}
     lines = []
     for k, p in enumerate(parrafos):
@@ -70,7 +71,9 @@ NUNCA:
 `ids_usados`: los ids que siguen sonando literales en el párrafo editado. `cambios`: uno por edición, con el número
 de párrafo, el antes, el después y el motivo (corta, ritmo, repetición, relleno, orden). Un párrafo que no tocás va
 igual y sin cambio.""" + (("\n\nCITA FUERTE, SILENCIO DESPUÉS (cortá estas frases-eco):\n" + "\n".join(f"- {x}" for x in notas))
-                          if notas else "")
+                          if notas else "") + (("\n\nÚLTIMA FRASE DEL VIDEO: una cita o una pregunta, nunca un resumen "
+                                                "(acá sí podés tocar la última frase, sin agregar nada):\n"
+                                                + "\n".join(f"- {x}" for x in cierre)) if cierre else "")
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -134,8 +137,9 @@ def edit(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[..., di
     log = log if log is not None else []
     if call is None:
         from gemini_helpers import call_pro_json as call
-    from script_engine.guion_v3_reglas import echo_soft
-    raw = call(build_prompt(esc, parrafos, echo_soft(parrafos)), system_instruction=SYSTEM, response_schema=SCHEMA,
+    from script_engine.guion_v3_reglas import closing_soft, echo_soft
+    raw = call(build_prompt(esc, parrafos, echo_soft(parrafos), closing_soft(parrafos)), system_instruction=SYSTEM,
+               response_schema=SCHEMA,
                description="m01c_editor")
     edited = raw.get("parrafos") or []
     cambios_llm = raw.get("cambios") or []

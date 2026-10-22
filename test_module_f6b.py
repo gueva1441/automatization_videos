@@ -9,6 +9,13 @@ import pytest
 
 from script_engine import m01a_escaleta as me
 
+
+@pytest.fixture(autouse=True)
+def _escaleta_pre_f8(monkeypatch):
+    """Las escaletas de prueba son de 8 beats (antes de F8 §2): 1 beat por cap de desarrollo alcanza acá; la regla de
+    ≥ 2 se prueba en test_module_f8.py."""
+    monkeypatch.setattr(me, "MIN_BEATS_DEV_CAP", 1)
+
 POOL = {
     "datos": [{"id": f"D{k:02d}", "texto": t, "tipo": "cifra", "valor": v, "bloque": "tecnico"} for k, (t, v) in enumerate([
         ("El agua llegó al nivel del pecho en Templeman 1 y 2", None),

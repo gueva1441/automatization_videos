@@ -191,7 +191,8 @@ PICO: beat {pico} · CIERRE HUMANO: {esc.get("cierre_humano")}
    contó: «…»»).
 7. Lo que dice «NO DECIR (va en pantalla)» no lo dice la voz.
 8. El último párrafo de cada cap 1–6 anticipa el dato CONCRETO del cap siguiente (lo nombra o lo deja incompleto).
-   La última frase del video es la del cierre del último beat (con tus palabras, sin repetir una cita textual).
+   La última frase del video es la del cierre del último beat: una cita (fragmento literal, del humano o de un
+   testigo verificado) o una pregunta; nunca un resumen («Cientos de familias nunca supieron…»).
 9. Adjetivos: entre 2 y 4 cada 100 palabras, atados a hechos (cómo era el agua, la celda, el calor).
 10. Prohibido el relleno: {", ".join(FORBIDDEN_FILLER)}. Prohibidos los conectores genéricos
     ({", ".join(GENERIC_CONNECTORS[:8])}…), las aperturas ({", ".join(FORBIDDEN_OPENINGS[:4])}…) y los cierres

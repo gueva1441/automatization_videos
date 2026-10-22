@@ -61,7 +61,15 @@ from script_engine.m01a_skeleton import CHAPTER_SCHEMA, DEFAULT_INTENT_BY_CAP, S
 
 PROMPT_VERSION = "f6b-4"            # f6b-4: contador, una cifra en pantalla una vez, pregunta del cap 7, cierre sin eco
 MAX_ATTEMPTS = 3
-MIN_BEATS, MAX_BEATS = 7, 12
+def _vl(name: str) -> int:
+    from script_engine.video_length import get
+    return get(name)
+
+
+MIN_BEATS, MAX_BEATS = _vl("min_beats"), _vl("max_beats")     # F8 §2: tope en video_length (12)
+MIN_BEATS_DEV_CAP = _vl("min_beats_dev_cap")                     # F8 §2: ≥ 2 beats en cada cap 2–6
+
+
 def _cap_words() -> dict[int, int]:
     """Palabras por cap desde config (HANDOFF_F7 §8.2: gancho 110, desarrollo 240 × 5, cierre 130)."""
     from script_engine.video_length import get
@@ -168,11 +176,12 @@ beats:
  7 cap7 cierre · memoria 2 · imagen: "una anciana mirando la misma ventana, setenta años después" · humano en escena · pregunta pantalla: "¿Cuántas puertas siguen cerradas?"
 """
 
-def rules_text(cap_words: dict[int, int], min_beats: int, max_beats: int) -> str:
+def rules_text(cap_words: dict[int, int], min_beats: int, max_beats: int, min_dev: int = 1) -> str:
     """Las reglas con el perfil de largo (F7d: el amarillo de la compuerta acorta el video)."""
+    dev = (f" Los caps de desarrollo (2–6) tienen al menos {min_dev} beats cada uno." if min_dev > 1 else "")
     return f"""REGLAS DE LA ESCALETA (duras: si no se cumplen, se rechaza):
 1. Entre {min_beats} y {max_beats} beats, numerados 1..N en orden, cada uno con su `cap` (1–7, no decreciente). Los 7
-   caps tienen al menos un beat. El beat 1 es la `funcion` "gancho" del cap 1.
+   caps tienen al menos un beat.{dev} El beat 1 es la `funcion` "gancho" del cap 1.
 2. `palabras_objetivo`: los beats de un cap suman su largo: cap 1 ≈ {cap_words[1]}, caps 2–6 ≈ {cap_words[2]} cada uno,
    cap 7 ≈ {cap_words[7]}.
 3. `intensidad` de {INTENSITY[0]} a {INTENSITY[1]}: NO BAJA hasta el pico (cada cap peor que el anterior). El pico no es
@@ -218,7 +227,8 @@ def rules_text(cap_words: dict[int, int], min_beats: int, max_beats: int) -> str
     VE EN PANTALLA UNA SOLA VEZ en todo el video: si un beat lleva contador, ninguna pregunta de pantalla repite esa
     cifra; y dos preguntas de pantalla no repiten la misma cifra.
 16. La pregunta de pantalla del cap 7 es OBLIGATORIA: humana, la que se queda («¿Cuántos siguen sin nombre?»).
-17. La última frase del video no repite textual ninguna cita: la dice con sus palabras o la deja implícita.
+17. El `cierre` del último beat describe la última frase del video sin copiar ninguna cita: esa frase va a ser una cita
+    (del humano o de un testigo verificado, por su id) o una pregunta; nunca un resumen (F8 §2).
 
 LO QUE RETIENE (cada decisión responde a por qué alguien se iría):
 - Los primeros 30 s: una imagen concreta y una promesa, no contexto.
@@ -228,7 +238,7 @@ LO QUE RETIENE (cada decisión responde a por qué alguien se iría):
 - Final humano: lo que produce el like y el comentario."""
 
 
-RULES = rules_text(CAP_WORDS, MIN_BEATS, MAX_BEATS)
+RULES = rules_text(CAP_WORDS, MIN_BEATS, MAX_BEATS, MIN_BEATS_DEV_CAP)
 
 
 def own_ids(pool: dict, persona: dict) -> list[str]:
@@ -320,11 +330,12 @@ def pool_section(pool: dict) -> str:
             f"UN HECHO, UNA CIFRA:\n{_fmt_counts(pool)}")
 
 
-def _profile(topic: dict) -> tuple[dict[int, int], int, int]:
-    """(palabras por cap, mínimo y máximo de beats): los de siempre, o los del amarillo de la compuerta del pool
-    (`topic["_largo"]`, F7d)."""
+def _profile(topic: dict) -> tuple[dict[int, int], int, int, int]:
+    """(palabras por cap, mínimo y máximo de beats, mínimo de beats por cap de desarrollo): los de siempre, o los del
+    amarillo de la compuerta del pool (`topic["_largo"]`, F7d)."""
     lg = topic.get("_largo") or {}
-    return lg.get("cap_words") or CAP_WORDS, MIN_BEATS, lg.get("max_beats") or MAX_BEATS
+    return (lg.get("cap_words") or CAP_WORDS, MIN_BEATS, lg.get("max_beats") or MAX_BEATS,
+            lg.get("min_beats_dev_cap") or MIN_BEATS_DEV_CAP)
 
 
 def build_prompt(topic: dict, pool: dict, feedback: list[str] | None = None) -> str:
@@ -420,7 +431,7 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
     hard, rep, warn = [], [], []
     beats = sorted([b for b in esc.get("beats") or [] if isinstance(b, dict)], key=lambda b: int(b.get("n") or 0))
     esc["beats"] = beats
-    cap_words, min_b, max_b = _profile({"_largo": largo} if largo else {})
+    cap_words, min_b, max_b, min_dev = _profile({"_largo": largo} if largo else {})
     if not min_b <= len(beats) <= max_b:
         hard.append(f"{len(beats)} beats (tienen que ser {min_b}–{max_b})")
     for k, b in enumerate(beats, start=1):
@@ -437,6 +448,10 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
     caps = [b["cap"] for b in beats]
     if caps != sorted(caps) or set(caps) != set(range(1, 8)):
         hard.append(f"caps de los beats {caps}: tienen que ir de 1 a 7, en orden, con al menos un beat cada uno")
+    short = [n for n in range(2, 7) if 0 < caps.count(n) < min_dev]
+    if short:                                        # F8 §2: ≥ 2 beats por cap de desarrollo (verde)
+        hard.append(f"caps de desarrollo con menos de {min_dev} beats: {short} (beats por cap: "
+                    f"{[caps.count(n) for n in range(1, 8)]})")
     if beats and (beats[0]["cap"] != 1 or beats[0].get("funcion") != "gancho"):
         hard.append("el beat 1 tiene que ser la función «gancho» del cap 1")
     # ids: un dato central por beat, existente; un id en un solo beat
@@ -848,7 +863,7 @@ def pool_gate_profile(topic: dict, pool: dict, *, persist: bool = True, log: lis
     if gate["color"] == pg.YELLOW:
         k = gate["target_words"] / max(1, sum(CAP_WORDS.values()))
         topic["_largo"] = {"cap_words": {n: round(w * k) for n, w in CAP_WORDS.items()},
-                           "max_beats": gate["max_beats"]}
+                           "max_beats": gate["max_beats"], "min_beats_dev_cap": _vl("gate_yellow_min_beats_dev_cap")}
     if log is not None:
         log.append(f"  [escaleta] compuerta del pool: {gate['color']} {gate['metricas']}"
                    + (f" · {gate['motivos']}" if gate["motivos"] else ""))

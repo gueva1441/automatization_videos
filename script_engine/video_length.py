@@ -17,6 +17,11 @@ DEFAULTS = {
     "dev_cap_seconds": 105,        # antes 75
     "outro_cap_seconds": 45,
     "max_images_per_video": 90,    # el tope no es por costo: es el tiempo de QA de Omar
+    # F8 §2: escaleta con ≥ 2 beats por cap de desarrollo (caps 2–6) → 1 + 2 × 5 + 1 = 12 como mínimo; el tope de 12
+    # del handoff («10–12») deja exactamente 12 (DECISIONES_F8 D2)
+    "min_beats": 7,
+    "max_beats": 12,
+    "min_beats_dev_cap": 2,
     # F7d (§9.2): compuerta del pool (researcher_steps/pool_gate.py)
     "gate_datos": 150,
     "gate_citas_verificadas": 8,
@@ -25,6 +30,7 @@ DEFAULTS = {
     "gate_yellow_pct": 50,         # amarillo: todo ≥ la mitad de cada umbral
     "gate_yellow_target_words": 1200,
     "gate_yellow_max_beats": 8,
+    "gate_yellow_min_beats_dev_cap": 1,  # amarillo: 7–8 beats no alcanzan para 2 por cap de desarrollo
 }
 
 

@@ -397,6 +397,26 @@ def hook_anchor_problems(cap1: str, pool: dict[str, Any]) -> list[str]:
 ECHO_MAX_WORDS = 6
 
 
+def closing_soft(parrafos: list[dict]) -> list[str]:
+    """F8 §2 (blanda, al editor): la última frase del video es una cita o una pregunta, nunca un resumen
+    («Cientos de familias nunca supieron…» → termina en la cita). El editor no agrega citas: reordena o corta dentro
+    del último párrafo para que lo último que suene sea la cita o la pregunta que ya tiene."""
+    if not parrafos:
+        return []
+    k = len(parrafos) - 1
+    ss = sentences_of(parrafos[k].get("texto") or "")
+    if not ss:
+        return []
+    last = ss[-1].strip()
+    if re.search(r"\?\W*$", last) or re.search(r"[«“\"]", last):     # pregunta, o cita (con su atribución)
+        return []
+    has_q = any(re.search(r"[«“\"]", s) or s.strip().endswith("?") for s in ss[:-1])
+    how = ("mové la cita o la pregunta de este párrafo al final, o cortá lo que viene después" if has_q else
+           "cortá la frase-resumen si el párrafo ya cierra con algo concreto antes")
+    return [f"párrafo {k} (último del video): la última frase «{last}» es un resumen; el video termina en una cita "
+            f"o una pregunta: {how}"]
+
+
 def echo_soft(parrafos: list[dict]) -> list[str]:
     """Una frase corta de eco justo después de una cita («Era la única opción.»): cortala (blanda; la ve el editor)."""
     out = []

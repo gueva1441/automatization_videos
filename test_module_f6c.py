@@ -2,12 +2,21 @@
 validadores, párrafo rechazado = original). Sin red."""
 from __future__ import annotations
 
+import pytest
+
 import copy
 
 from script_engine import m01a_escaleta as me
 from script_engine import m01b_guionista as mg
 from script_engine import m01c_editor as mc
 from test_module_f6b import POOL, good
+
+
+@pytest.fixture(autouse=True)
+def _escaleta_pre_f8(monkeypatch):
+    """Las escaletas de prueba son de 8 beats (antes de F8 §2): 1 beat por cap de desarrollo alcanza acá; la regla de
+    ≥ 2 se prueba en test_module_f8.py."""
+    monkeypatch.setattr(me, "MIN_BEATS_DEV_CAP", 1)
 
 
 def _setup():
