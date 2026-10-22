@@ -197,6 +197,13 @@ def build_outputs(data: list[dict]) -> None:
 <div class="pair">{img(r.get('v2_jpg'), 'v2 (F5, Seedream 4.5)')}{img(r.get('jpg'), f"v3 (F8, 5.0 Lite · {r.get('ms') or '-'} ms)")}</div>
 <details><summary>prompts</summary><p><b>v2</b> {html.escape(r.get('v2_prompt') or '')}</p><p><b>v3</b> {html.escape(r['prompt'])}</p>
 {'<p><b>arreglos</b> ' + html.escape('; '.join(r['problemas'] + r['slots_scrub'])) + '</p>' if r['problemas'] or r['slots_scrub'] else ''}</details></section>""")
+    ep = meta.get("_edit_probe") or {}
+    edit_card = (f"""<section class="card"><h2>Foto madre por /edit de v5 Lite ({html.escape(ep.get('estado') or '')},
+{ep.get('ms') or '-'} ms)</h2><p class="anchor">{html.escape(ep.get('endpoint') or '')}</p><div class="pair">
+<figure><img src="humo/edit_probe_madre.jpg"><figcaption>foto madre (referencia)</figcaption></figure>
+<figure><img src="humo/edit_probe.jpg"><figcaption>v5 Lite /edit</figcaption></figure></div>
+<details><summary>prompt</summary><p>{html.escape(ep.get('prompt') or '')}</p></details></section>"""
+                 if ep.get("jpg") else "")
     page = f"""<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Imágenes F8 antes y después</title><style>
 :root{{--bg:#111;--fg:#e8e8e8;--mute:#9a9a9a;--card:#1b1b1b;--acc:#c2302f}}
@@ -208,7 +215,7 @@ figure{{margin:0}} img{{width:100%;border-radius:4px;display:block}} figcaption{
 details p{{font-size:13px;color:#cfcfcf}} @media (max-width:700px){{.pair{{grid-template-columns:1fr}}}}
 </style></head><body><main><h1>Imágenes F8: Orleans v2 (izquierda) contra v3 con Seedream 5.0 Lite (derecha)</h1>
 <p>12 imágenes de la escaleta f7r3; a la izquierda, la foto de v2 en la misma posición relativa del mismo cap. Detalle en
-<code>humo/HUMO.md</code>.</p>{''.join(cards)}</main></body></html>"""
+<code>humo/HUMO.md</code>.</p>{''.join(cards)}{edit_card}</main></body></html>"""
     (LAB / "compara_imagenes_f8.html").write_text(page, encoding="utf-8")
 
 
