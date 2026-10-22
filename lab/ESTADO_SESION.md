@@ -1,9 +1,9 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (F6c hecho; PARADA: el analista lee la narración; ver sección F6) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (F6c cerrado como laboratorio; F6d/F6e pendientes hasta F7; F7 en sesión nueva) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
-- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «feat(f6c): …» (`git log -1`) en f6-guion-v3; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
+- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «docs(f6): F6c cerrado como laboratorio…» (`git log -1`) en f6-guion-v3, sobre `7ec2025`; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
 - Cadena de ramas sin mergear: `f2-gfx-director` (F2b @ `31c671c`) → `f3-lab-identidad` (F3–F4e @ `39e37ac`) → `f5-guion-v2` (F5).
 - `main` = `43f528a`. NO se toca sin OK explícito de Omar.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
@@ -11,8 +11,10 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F6 — Guion v3 — F6a, F6b, F6b-3, F6c (A verificación literal + B escaleta f6b-4 + C guionista/editor) HECHOS · PARADA: el analista lee la narración
+## F6 — Guion v3 — F6c CERRADO COMO LABORATORIO; F6d/F6e pendientes hasta F7 (decisión del analista, 2026-10-21)
 - Handoff: `lab/hyperframes/f6/HANDOFF_F6_guion_v3.md`. Rama **`f6-guion-v3`**, desde `45c052c`. Sin merge a main.
+- **Cierre:** el analista paró F6 acá: no se regeneran la escaleta ni la narración. F6c queda como laboratorio; F6d (partición en 7 caps, `regenerate_caps` v3, m05 ampliado) y F6e (comparación) esperan a F7 (research v3: fuentes con URL, documentos bajados, pool extraído leyéndolos). F7 corre en una sesión nueva, rama `f7-research-v3` desde `f6-guion-v3`, con el handoff `lab/hyperframes/f7/HANDOFF_F7_research_v3.md`.
+- **Último commit de F6:** `7ec2025` («feat(f6c): …») + este cierre de ESTADO_SESION.
 - **Leer:** `lab/hyperframes/f6/F6c_REPORT.md` (A/B/C, lo que queda, veredicto íntegro del revisor: CUMPLE CON OBSERVACIONES), `NARRACION_orleans_v3.md`, `ESCALETA_orleans.md` (f6b-4) y `F6c_verificacion.md`. Antes: `F6b3_REPORT.md` y `F6ab_REPORT.md`.
 - **Frenos (§5) intactos** (+ `m05_narrative` y `m01b_narrator` sin tocar: se usan).
 - **A — verificación literal:** `researcher_steps/verify_quotes.verify_literal`. Fuentes bajadas en `data/scripts/_steps/ba6c3cac-f6v3/fuentes/` (BBC/rebelion 2006, PDF de la ACLU 2006, The Lens 2025).
