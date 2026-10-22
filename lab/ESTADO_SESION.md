@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (F6c cerrado como laboratorio; F6d/F6e pendientes hasta F7; F7 en sesión nueva) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-21 (F7a hecho en `f7-research-v3`; F7b en marcha) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «docs(f6): F6c cerrado como laboratorio…» (`git log -1`) en f6-guion-v3, sobre `7ec2025`; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
@@ -10,6 +10,13 @@
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
+
+## F7 — Research v3 (leer documentos) — EN CURSO: F7a hecho, F7b en marcha
+- Handoff: `lab/hyperframes/f7/HANDOFF_F7_research_v3.md`. Rama **`f7-research-v3`** desde `c7da0ba` (f6-guion-v3). Sin merge a main.
+- Código: `researcher_steps/research_v3.py` (R1 descubrimiento, R2 descarga, R3 extracción, R4 merge, R5 verificación). Topic nuevo `ba6c3cac-f7r3` (datos en `data/scripts/_steps/ba6c3cac-f7r3/`, fuera de git).
+- **F7a** (`lab/hyperframes/f7/f7a_fuentes_orleans.py` → `F7a_fuentes.md`): 10 documentos bajados. R1: las URLs salen SOLO del grounding (el modelo pone la ficha; las que no fichó, Flash); Pro con temperatura 0.7 (con 0.0 contestaba de memoria, sin grounding). Faltan: HRW 2005 (403; Wayback con 429), BBC, Times-Picayune, Toledo Blade y el fallo Waganfeald (no salen en el grounding).
+- Ojo: `python -I` ignora `PYTHONIOENCODING` (los runners hacen `sys.stdout.reconfigure`). archive.org devuelve 429 si se le pega seguido: no reintentar en bucle.
+- Sigue: F7b (R3–R5, `00_pool_v3.json`, `F7b_pool.md` con métricas contra f6v3), revisor, commit, PARADA para el analista.
 
 ## F6 — Guion v3 — F6c CERRADO COMO LABORATORIO; F6d/F6e pendientes hasta F7 (decisión del analista, 2026-10-21)
 - Handoff: `lab/hyperframes/f6/HANDOFF_F6_guion_v3.md`. Rama **`f6-guion-v3`**, desde `45c052c`. Sin merge a main.
