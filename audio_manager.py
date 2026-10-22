@@ -456,6 +456,15 @@ def tts_v4_enabled(chapter: dict) -> bool:
     return bool(chapter.get("narration_tts")) and os.environ.get("TTS_V2") != "1"
 
 
+def _normalize_loudness(path: Path, lufs: float) -> None:
+    """F9: lleva el mp3 a `lufs` LUFS integrados (loudnorm, una pasada; pico real −1.5 dBTP), en el lugar."""
+    tmp = path.with_name(f"{path.stem}._norm{path.suffix}")
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(path), "-af",
+                    f"loudnorm=I={lufs}:TP=-1.5:LRA=11", "-ar", "44100", "-c:a", "libmp3lame", "-b:a", "128k",
+                    str(tmp)], check=True, capture_output=True)
+    tmp.replace(path)
+
+
 def _resolve_voice_settings_v4(narrative_intent: str | None) -> dict:
     """F9 §3.2: v4 solo acepta stability + similarity_boost: base del perfil + stability por intent."""
     base = dict(AUDIO_STYLE.get("voice_settings_v4") or {"stability": 0.55, "similarity_boost": 0.8})
@@ -656,6 +665,8 @@ def generate_chapter_assets(
             voice_settings=voice_settings,
             **({"model_id": tts_model, "language_code": language_code} if tts_model else {}),
         )
+        if tts_model and AUDIO_STYLE.get("voice_lufs_v4") is not None:   # F9: al nivel de la música calibrada
+            _normalize_loudness(audio_path, float(AUDIO_STYLE["voice_lufs_v4"]))
 
     duration = _get_audio_duration(audio_path)
 

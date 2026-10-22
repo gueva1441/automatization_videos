@@ -1,0 +1,38 @@
+{
+ "msnarrador/ch02": {
+  "palabras_alineado": 213,
+  "palabras_whisper": 214,
+  "coinciden": 211,
+  "mediana_ms": 80.0,
+  "p95_abs_ms": 300.0,
+  "max_abs_ms": 779.0,
+  "fuera_de_150ms_pct": 19.0
+ },
+ "msnarrador/ch04": {
+  "palabras_alineado": 184,
+  "palabras_whisper": 185,
+  "coinciden": 181,
+  "mediana_ms": 80.0,
+  "p95_abs_ms": 300.0,
+  "max_abs_ms": 500.0,
+  "fuera_de_150ms_pct": 18.2
+ },
+ "bill/ch02": {
+  "palabras_alineado": 213,
+  "palabras_whisper": 213,
+  "coinciden": 211,
+  "mediana_ms": 100.0,
+  "p95_abs_ms": 260.0,
+  "max_abs_ms": 660.0,
+  "fuera_de_150ms_pct": 22.3
+ },
+ "bill/ch04": {
+  "palabras_alineado": 184,
+  "palabras_whisper": 185,
+  "coinciden": 181,
+  "mediana_ms": 80.0,
+  "p95_abs_ms": 260.0,
+  "max_abs_ms": 760.0,
+  "fuera_de_150ms_pct": 18.8
+ }
+}

@@ -1,0 +1,120 @@
+{
+ "corridas": [
+  {
+   "msnarrador": {
+    "sync_map": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\audio\\ba6c3cac-f7r3-f9voz\\sync_map.json",
+    "usd": 0.0731,
+    "chars": 2436
+   },
+   "bill": {
+    "sync_map": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\audio\\ba6c3cac-f7r3-f9voz-bill\\sync_map.json",
+    "usd": 0.0731,
+    "chars": 2436
+   },
+   "tags": {
+    "ch02": {
+     "[long pause]": 3,
+     "[short pause]": 0,
+     "[quietly]": 0,
+     "[whispers]": 0,
+     "[slowly]": 0
+    },
+    "ch04": {
+     "[long pause]": 1,
+     "[short pause]": 0,
+     "[quietly]": 1,
+     "[whispers]": 0,
+     "[slowly]": 0
+    }
+   },
+   "slowly_dev": false
+  },
+  {
+   "msnarrador": {
+    "sync_map": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\audio\\ba6c3cac-f7r3-f9voz\\sync_map.json",
+    "usd": 0.0731,
+    "chars": 2436
+   },
+   "bill": {
+    "sync_map": "C:\\CLAUDE_PROJECTS\\automatization_videos\\output\\audio\\ba6c3cac-f7r3-f9voz-bill\\sync_map.json",
+    "usd": 0.0731,
+    "chars": 2436
+   },
+   "tags": {
+    "ch02": {
+     "[long pause]": 3,
+     "[short pause]": 0,
+     "[quietly]": 0,
+     "[whispers]": 0,
+     "[slowly]": 0
+    },
+    "ch04": {
+     "[long pause]": 1,
+     "[short pause]": 0,
+     "[quietly]": 1,
+     "[whispers]": 0,
+     "[slowly]": 0
+    }
+   },
+   "slowly_dev": false
+  }
+ ],
+ "medicion": {
+  "msnarrador": {
+   "ch02": {
+    "duracion_s": 95.6,
+    "palabras": 213,
+    "wps": 2.23,
+    "wps_hablado": 3.52,
+    "pausas_ge_0_6": 17,
+    "pausa_max_s": 2.36,
+    "pausa_mediana_larga_s": 0.92,
+    "residuos_de_etiqueta": [],
+    "voz": "N9Z5MLTIaHFLflaLtbDi",
+    "modelo": "eleven_v4",
+    "transfer": "oracion"
+   },
+   "ch04": {
+    "duracion_s": 80.64,
+    "palabras": 184,
+    "wps": 2.28,
+    "wps_hablado": 3.82,
+    "pausas_ge_0_6": 20,
+    "pausa_max_s": 1.14,
+    "pausa_mediana_larga_s": 0.87,
+    "residuos_de_etiqueta": [],
+    "voz": "N9Z5MLTIaHFLflaLtbDi",
+    "modelo": "eleven_v4",
+    "transfer": "oracion"
+   }
+  },
+  "bill": {
+   "ch02": {
+    "duracion_s": 91.76,
+    "palabras": 213,
+    "wps": 2.32,
+    "wps_hablado": 3.35,
+    "pausas_ge_0_6": 13,
+    "pausa_max_s": 2.0,
+    "pausa_mediana_larga_s": 0.66,
+    "residuos_de_etiqueta": [],
+    "voz": "pqHfZKP75CvOlQylNhV4",
+    "modelo": "eleven_v4",
+    "transfer": "oracion"
+   },
+   "ch04": {
+    "duracion_s": 75.52,
+    "palabras": 184,
+    "wps": 2.44,
+    "wps_hablado": 3.73,
+    "pausas_ge_0_6": 6,
+    "pausa_max_s": 0.66,
+    "pausa_mediana_larga_s": 0.64,
+    "residuos_de_etiqueta": [],
+    "voz": "pqHfZKP75CvOlQylNhV4",
+    "modelo": "eleven_v4",
+    "transfer": "oracion"
+   }
+  }
+ }
+}

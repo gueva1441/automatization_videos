@@ -18,6 +18,9 @@ AUDIO_PROFILES: dict[str, dict] = {
         "elevenlabs_model_v4": "eleven_v4",
         "language_code_v4": "es",
         "voice_settings_v4": {"stability": 0.55, "similarity_boost": 0.8},
+        # MS Narrador sale ~8 dB más fuerte que Bill (−15.8 contra −23.9 LUFS medidos en F9): la música por track está
+        # calibrada con Bill, así que la voz v4 se lleva al nivel de Bill (loudnorm de ffmpeg, una pasada)
+        "voice_lufs_v4": -24.0,
         "voice_settings": {
             "stability": 0.45,
             "similarity_boost": 0.8,

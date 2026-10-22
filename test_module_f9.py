@@ -101,8 +101,9 @@ def test_payload_v2_identico_y_v4_con_idioma(monkeypatch, tmp_path):
 
 @pytest.fixture
 def fake_eleven(monkeypatch, tmp_path):
-    calls = {"tts": [], "fa": []}
+    calls = {"tts": [], "fa": [], "norm": []}
     monkeypatch.setattr(am, "OUTPUT_DIR", tmp_path)
+    monkeypatch.setattr(am, "_normalize_loudness", lambda p, lufs: calls["norm"].append(lufs))
 
     def tts(text, output_path, voice_id, voice_settings, model_id=None, language_code=None):
         calls["tts"].append({"text": text, "voice": voice_id, "vs": voice_settings, "model": model_id})
@@ -138,12 +139,14 @@ def test_v3_va_a_v4_con_etiquetas_y_alinea_limpio(fake_eleven):
     assert "[" not in fake_eleven["fa"][0]                               # forced alignment con el texto limpio
     ch = sm["chapters"][0]
     assert ch["tts_transfer"] == "oracion" and "[" not in ch["text_for_tts"]
+    assert fake_eleven["norm"] == [-24.0]                                 # la voz v4 al nivel de la música calibrada
 
 
 def test_v2_sigue_igual_y_tts_v2_fuerza_bill(fake_eleven, monkeypatch):
     am.process_script(_script(False))
     t = fake_eleven["tts"][0]
     assert t["voice"] == "pqHfZKP75CvOlQylNhV4" and t["model"] is None and "[" not in t["text"]
+    assert fake_eleven["norm"] == []                                      # v2: sin normalizar (como antes)
     monkeypatch.setenv("TTS_V2", "1")
     fake_eleven["tts"].clear()
     s = _script(True)
