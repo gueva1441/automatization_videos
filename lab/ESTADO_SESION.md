@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-22 (F8 hecho en `f8-imagenes-v3`, modo autónomo; esperando a Omar) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-22 (F8b + F9 hechos en `f9-voz-v4`, modo autónomo; esperando a Omar) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «docs(f6): F6c cerrado como laboratorio…» (`git log -1`) en f6-guion-v3, sobre `7ec2025`; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
@@ -10,6 +10,13 @@
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
+
+## F8b + F9 — Research, imágenes y voz v4 — HECHO (§5 completo; Omar escucha y mira al volver)
+- Rama **`f9-voz-v4`** desde `cd3f2e5`. Handoff `lab/hyperframes/f9/HANDOFF_F8b_F9.md`; reporte `lab/hyperframes/f9/F8b_F9_REPORT.md` (revisor íntegro); decisiones `DECISIONES_F9.md` (D1–D21). Sin merge, sin render, sin QA Studio.
+- **Research:** antigüedad por ítem, PDF enlazado que nombra el evento, R3 con reintento, R1 con Flash alternativo. S2 Cromañón rojo → **amarillo**; S3 Vajont sigue **rojo** solo por 0 elegibles (121 datos). S1 verde.
+- **Imágenes:** armas (beat de disparo desde las víctimas), pico humano, texto en el idioma del lugar, escala del pool, clichés; **grade de post** (`script_engine/image_grade.py`, `_graded.png`, solo v3 o `IMAGE_GRADE=1`). Re-humo en `compara_imagenes_f8.html` (3 columnas) y `humo/hoja_contactos_f8b.jpg`. El #7 sigue flojo.
+- **Voz:** v4 + MS Narrador (`voice_id_v4` en el perfil; v2 + Bill intactos; `TTS_V2=1`), etiquetas desde el guion (`script_engine/tts_tags.py`, `narration_tts`), voz v4 normalizada a −24 LUFS. Prueba: `lab/hyperframes/f9/audio/cap2_cap4_v4_msnarrador.mp3` y `…_bill.mp3` (fuera de git).
+- `max_beats` 14. Tests: 563 verdes + 5 previas. Costo medido de la tanda: US$ 2.23.
 
 ## F8 — Imágenes v3 + cierre de guion + 3 semillas — HECHO (§4 completo; Omar lee al volver)
 - Rama **`f8-imagenes-v3`** desde `524573d` (punta de `f7-research-v3`). Commits: `a59ab76` §2 · `73e3613` §1 A–F · `c24de5c` humo + semillas · `db387b4` reporte · commit final con el veredicto del revisor. Sin merge, sin render, sin QA Studio.
