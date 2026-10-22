@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-22 (F7 cerrado en `f7-research-v3`; F8 sigue en una sesión nueva, modo autónomo) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-22 (F8 hecho en `f8-imagenes-v3`, modo autónomo; esperando a Omar) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «docs(f6): F6c cerrado como laboratorio…» (`git log -1`) en f6-guion-v3, sobre `7ec2025`; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
@@ -11,9 +11,16 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F8 — Imágenes v3 + cierre de guion + 3 semillas — EN SESIÓN NUEVA (modo autónomo 8 h)
-- Handoff: `lab/hyperframes/f8/HANDOFF_F8_imagenes_v3.md` (commiteado en `f7-research-v3` al cerrar F7). Rama **`f8-imagenes-v3`** desde la punta de `f7-research-v3` (contiene `560dcf7`). Orden: §4; frenos: §5; decisiones: `lab/hyperframes/f8/DECISIONES_F8.md`; prompt de continuación: §7.
-- La sesión de F7 se cerró el 2026-10-22: todo commiteado por ruta. Sin commitear a propósito: `diag_234_cap4.py`, `gfx_profiles/lexico_propuestas.json`, `gfx_profiles/misterio.json` (no son de F7) y `lab/hyperframes/f7/topics_db_pre_f7b.json` (respaldo de `data/topics_db.json`).
+## F8 — Imágenes v3 + cierre de guion + 3 semillas — HECHO (§4 completo; Omar lee al volver)
+- Rama **`f8-imagenes-v3`** desde `524573d` (punta de `f7-research-v3`). Commits: `a59ab76` §2 · `73e3613` §1 A–F · `c24de5c` humo + semillas · `db387b4` reporte · commit final con el veredicto del revisor. Sin merge, sin render, sin QA Studio.
+- **Leer:** `lab/hyperframes/f8/F8_REPORT.md` (revisor íntegro), `compara_imagenes_f8.html`, `humo/hoja_contactos.jpg`, `semillas/SEMILLAS.md`, `DECISIONES_F8.md` (D1–D23).
+- **§2:** escaleta con ≥ 2 beats por cap de desarrollo → 12 beats exactos en verde (`video_length`: `min_beats_dev_cap`, `max_beats`); última frase del video = cita o pregunta (blanda al editor, prompt `f8-1`).
+- **§1:** Seedream 5.0 Lite (`fal-ai/bytedance/seedream/v5/lite/text-to-image`, `/edit` probado OK, sin `seed`, US$ 0.035), `pipeline.fal_concurrency` 20, 3 intentos en 429/503, `ms` por imagen. m03 v3 (`script_engine/m03_imagenes_v3.py`) solo con escaleta: ancla por beat, estilo al principio y al final, reglas de composición y sensible con validador + re-hechuras, marca `sensible` al manifest; re-encuadre solo como propuesta inerte. v2 byte-idéntico.
+- **Humo:** 12/12 imágenes de Orleans f7r3, 35–68 s c/u, 68 s de pared, US$ 0.49 con la rehecha y el `/edit`.
+- **Semillas:** S1 Ycuá verde (US$ 1.29) · S2 Cromañón rojo por datos (PDF equivocado de R2, caída de Pro) · S3 Vajont rojo en 0 (la regla «documento > evento + 20 años» descarta todo lo de 1963). No se eligió; S2 y S3 marcadas en el inbox.
+- `config.py` (fuera de git) editado en local: `seedream_per_image` 0.035, `pipeline.fal_concurrency` 20.
+- Tests: 526 verdes + las 5 fallas previas conocidas.
+- Sin commitear a propósito: `diag_234_cap4.py`, `gfx_profiles/lexico_propuestas.json`, `gfx_profiles/misterio.json`, `lab/hyperframes/f7/topics_db_pre_f7b.json`.
 
 ## F7 — Research v3 — F7c-3 + F7d HECHOS (cerrado; Omar lee la columna F7c-3)
 - Leer `lab/hyperframes/f7/F7c3_REPORT.md` (revisor íntegro) y `compara_orleans_v3r.html` (5 columnas).

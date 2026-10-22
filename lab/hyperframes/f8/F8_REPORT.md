@@ -23,7 +23,7 @@
 ### §1 G — Corrida de humo (commit `c24de5c`)
 - 12 imágenes de Orleans f7r3 (8 beats: gancho y pico con 2) → `humo/` (JPG livianos, `humo.json`, `HUMO.md`, hoja de contactos) y `compara_imagenes_f8.html`. PNG completos en `output/ba6c3cac-f7r3/humo_f8/` (fuera de git). Anclas y foto v2 «equivalente»: aproximadas (D20).
 - **Medido:** 12/12 OK, 2560×1440, endpoint `…/v5/lite/text-to-image` en las 12; **35–68 s por imagen** en la corrida de 12 (mediana 49 s; el handoff estimaba 33–60; la #1 rehecha sola tardó 87 s) y **68 s de pared con 12 en paralelo**; US$ 0.42 las 12 + 0.035 la rehecha (#1) + 0.035 la prueba del `/edit` (31.7 s). Prompts (Pro + Flash): 56 s; su costo de Gemini **no se midió** (el cost_tracker solo envolvió las imágenes).
-- **Auditoría del video (después de la pasada):** 2 pasillos (antes de los arreglos de D21 salían 4), 0 cuerpos, 3 de 12 humanos en plano medio (25 %), ningún cliché de cara en los prompts.
+- **Auditoría del video (después de la pasada):** 2 pasillos, 0 cuerpos, 3 de 12 humanos en plano medio (25 %), ningún cliché de cara en los prompts. Los «4 pasillos» salieron en una armada anterior de solo prompts, antes de los arreglos de D21; ese `humo.json` se pisó y no queda como artefacto. La auditoría marca `caps_sin_establecimiento` [1, 2, 3, 4, 5, 7]: en el humo cada cap tiene 1–3 imágenes y la regla solo se exige con 4 o más (D21 a).
 - **A ojo (mío, para que Omar confirme):** las imágenes v3 siguen la imagen sensorial de cada beat (el televisor con el huracán, el fogonazo desde el techo, el paso elevado, la lista con «desconocido», la celda vacía con la marca del agua), donde v2 tenía calendario, generador, una macro de cara y una pareja de turistas. Flojo: varias salen limpias y saturadas (más «película» que foto de archivo: #1, #3, #8); el #8 (pico) parece un videojuego; el #6 muestra un brazo levantado sobre el agua (¿mano como sujeto?); el #10 inventa nombres en la lista («MARIA G.» en una cárcel de hombres).
 - El `/edit` conserva la forma del complejo de la foto madre y le agrega la inundación.
 
@@ -65,4 +65,42 @@ No elegí ninguna. S2 y S3 quedan en el inbox con la marca `pool_gate` (D23).
 5. ¿Las reglas C–E también para guiones v2, o solo v3?
 
 ## 6. Veredicto del revisor-handoff
-(pendiente: se pega íntegro abajo)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+Tabla punto por punto
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | §2.1 escaleta con al menos 2 beats por cap de desarrollo | OK (con desvío declarado) | video_length.py: min_beats_dev_cap 2, max_beats 12. En verde quedan exactamente 12 beats, porque "10–12" no cierra con 1+2×5+1. Declarado en D2/D3. |
+| 2 | §2.2 última frase = cita o pregunta (soft al editor) | OK | m01c_editor.py y guion_v3_reglas.closing_soft; reglas 8 (guionista) y 17 (escaleta) reescritas (D4). |
+| 3 | §2.3 no re-correr Orleans | OK | No hay corrida de Orleans. Reporte §2 admite que los 12 beats exactos no se probaron con Pro. |
+| 4 | A Motor v5 Lite, 0.035, 2560×1440, /edit v5, concurrencia, 429/503, ms | OK | engine_profiles.py (v5/lite/text-to-image, cost 0.035, accepts_seed=False); asset_manager.py (fal_concurrency, max_server_retries=3, ms); cost_tracker.py 0.035. config.py no está en el diff (fuera de git, D8). El /edit funcionó en el humo. |
+| 5 | B Ancla por beat | OK | m03_visual.py: assign_beats, beats_block, hook solo con topic["_f8"]. Cobertura (cada beat ≥1, pico 2 y una cerrada) en m03_imagenes_v3.py. |
+| 6 | C Estilo al inicio y al final | OK | Los 12 prompts v3 de HUMO.md empiezan con "Grainy 35mm documentary photograph, 2005…". |
+| 7 | D Reglas de composición | OK | m03_imagenes_v3.py (430 líneas), SI v3 aparte. El SI compartido con m09 queda intacto (D13). |
+| 8 | E Sensible, con flag en el manifest | OK | asset_manager.py pasa "sensible" al manifest. Miniatura/m09 NO cableado: declarado en D16 y en el reporte §2. |
+| 9 | F Re-encuadre | PARCIAL (declarado) | Solo propuesta inerte (`reencuadres_propuestos`, m03_imagenes_v3.py:428); fase2a no arma clips. Motivo en D17. El handoff permitía anotarlo como propuesta. |
+| 10 | G Humo: 12 imágenes, hoja de contactos, tabla, HTML | OK | humo/HUMO.md, humo.json, hoja_contactos.jpg, compara_imagenes_f8.html existen. 12/12 OK. |
+| 11 | §3 tres semillas + fichas + no elegir | OK | semillas/SEMILLAS.md, S1..S3/. Ninguna elegida. |
+| 12 | FRENOS §5 | OK | El diff de m03_visual.py no toca plan de anclas, `_validate_anchor_substring`, `_reconcile_anchor_timing`, fluidificador, candado, foto_madre_ref ni hard_fact_ids. No hay gfx_*, fase2a, validador de visión ni render. |
+| 13 | v2 byte-idéntico | OK | Todo cuelga de `f8 = topic.get("_f8")`; sin escaleta se usa el SI y el prompt viejos (extra_block="" no cambia el texto). Hay un test en test_module_f8.py (no lo leí línea por línea; los 101 pasan). |
+| 14 | Cifras del reporte vs artefactos | OK | Humo: US$ 0.455 (HUMO.md) = 0.42+0.035; 35–87 s, mediana 49 s, pared 68 s; 3/12 humanos. Semillas: S1 verde 214/58/12/49, S2 rojo datos 67, S3 rojo todo en 0 (POOL_GATE.md). Costos 1.29/0.66/0.33 = 2.28 (_f8_costo.json). |
+| 15 | Tests | OK | Foco: 101 passed. Suite amplia: 526 passed y 5 failed, que son exactamente las 5 previas conocidas (3 de 01b_pauses y 2 de m03_merge_timing). |
+| 16 | No commitear archivos vedados | OK | `git diff 524573d HEAD --name-only` no incluye diag_234_cap4.py, lexico_propuestas.json, misterio.json, topics_db_pre_f7b.json ni config.py. Siguen como M en el working tree. |
+
+Fuera de alcance
+- researcher_steps/research_v3.py (+italiano en _STOP y prioridad del idioma_local del seed): cambio de 2 líneas, previsto en tu lista de entregables y declarado en D18. Es research y no imágenes, así que conviene que lo valides.
+- Ninguno más.
+
+Observaciones
+1. F8_REPORT.md §6 dice "veredicto pendiente". Tiene que completarse con este veredicto, y lab/ESTADO_SESION.md quedó modificado sin commitear (promete un "commit final con el veredicto").
+2. Humo, auditoría: en HUMO.md el "antes → después" muestra 2 pasillos en ambos lados. El "antes eran 4" del reporte se refiere a una corrida previa a los arreglos D21 y no está respaldado por ese artefacto. La misma auditoría marca `caps_sin_establecimiento` [1,2,3,4,5,7] y el reporte no lo menciona; D21(a) lo explica (caps con menos de 4 imágenes no lo exigen).
+3. El reporte admite problemas de calidad visual que quedan para Omar: el #8 (pico) parece videojuego, el #6 tiene una mano sosteniendo un barrote (tensión con la regla de manos del handoff D2), el #10 inventa nombres y varias salen limpias y saturadas. El costo de Gemini del humo no se midió (el reporte lo dice).
+4. Re-encuadre y filtro de miniaturas no sensibles quedan sin efecto real, ambos declarados.
+5. No juzgué las imágenes ni revisé el contenido de SEMILLAS.md (fichas) más allá de la existencia. Las imágenes del humo son NO VERIFICABLES para mí; la evaluación visual es solo la del autor.
+
+Riesgos que el contrato no cubre
+- Perder el `seed` determinista (v5 Lite no lo acepta) cambia la consistencia entre imágenes; solo la sostiene la foto madre.
+- Los 12 beats exactos pueden subir los reintentos de Pro en la escaleta y no se midió.
+- config.py editado solo en local: otro entorno vuelve a 0.04 de costo y concurrencia por defecto.
+
+Respuesta del autor a las observaciones (después del veredicto): la 1 se resuelve con este commit final; la 2 quedó aclarada en §1 G del reporte (los «4 pasillos» eran de una armada previa que se pisó, y `caps_sin_establecimiento` se explica por D21 a); la 3, la 4 y los riesgos quedan para Omar (§5).
