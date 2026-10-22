@@ -234,6 +234,12 @@ JSON only. No markdown. No preamble."""
 # y de contenido sensible. El SI de arriba (v2 y m09) no cambia.
 SYSTEM_INSTRUCTION_VISUAL_SEEDREAM_V3 = (
     SYSTEM_INSTRUCTION_VISUAL_SEEDREAM.replace(DOCTRINE_R6_PHYSICAL_TRANSLATION, v3img.DOCTRINE_R6_V3)
+    # F8b §2.3 y §2.5: el texto va en el idioma del lugar (no en español) y el cuerpo no lleva clichés de cara
+    .replace("text = the literal content IN SPANISH (the audience reads Spanish — a headline reads 'PRÓFUGO', not "
+             "'ESCAPED')", "text = the literal content in the LANGUAGE OF THE PLACE of the event (given in the user "
+             "prompt), at most 3 words")
+    .replace("goes ONLY through the text_in_image slot, in Spanish.", "goes ONLY through the text_in_image slot.")
+    .replace("hollow exhausted eyes, cracked lips, accumulated filth", "slumped exhausted posture, accumulated filth")
     .replace("JSON only. No markdown. No preamble.", v3img.COMPOSITION_RULES_V3 + "\n\nJSON only. No markdown. No preamble.")
 )
 
@@ -947,7 +953,7 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
     assign = (f8.get("force_assign") or v3img.assign_beats(narration, anchors, cap_beats)) if (f8 and cap_beats) else None
     extra = ""
     if assign:
-        extra = v3img.beats_block(cap_beats, assign, cap_data.get("bullets"))
+        extra = v3img.beats_block(cap_beats, assign, cap_data.get("bullets"), f8.get("lang"))
     if f8 and f8.get("note"):
         extra += f"\nFOR THIS IMAGE: {f8['note']}\n"
     prompt = _build_seedream_prompt_step2(topic, cap_data, narration, anchors, extra)
@@ -988,6 +994,9 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
             if assign:
                 it["beat"], it["cerrada"] = assign[k]["beat"], assign[k]["cerrada"]
             gone = v3img.scrub_slots(it)                   # D2–D3, E: clichés y prohibidas fuera ANTES de tejer
+            why = v3img.fix_text_slot(it, f8.get("lang") or "en")   # F8b §2.3: idioma del lugar, ≤ 3 palabras
+            if why:
+                gone.append(f"text_in_image: {why}")
             if gone:
                 it["_f8_slots_scrub"] = gone
 
@@ -1022,7 +1031,8 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
             it, locked, profile, documented, cap_number, i)
         it["art_profile"] = ""
         if f8:
-            _f8_finish_item(it, locked, profile, documented, cap_number, i, f8.get("year") or "")
+            b = next((x for x in cap_beats if x["n"] == it.get("beat")), {})
+            _f8_finish_item(it, locked, profile, documented, cap_number, i, f8.get("year") or "", bool(b.get("escala")))
 
     items = list(enumerate(slots_out["image_prompts"], start=1))
     if len(items) <= 1:
@@ -1039,11 +1049,14 @@ def _render_prompts_seedream(topic, cap_data, narration, plan, cap_number):
     return slots_out
 
 
-def _f8_finish_item(it: dict, locked: list[dict], profile, documented, cap_number: int, i: int, year: str) -> None:
+def _f8_finish_item(it: dict, locked: list[dict], profile, documented, cap_number: int, i: int, year: str,
+                    escala: bool = False) -> None:
     """F8 §1 C–E sobre la prosa ya tejida: conteos e izquierda/derecha fuera (D4, determinista); si quedan manos, cara,
     palabras prohibidas o un menor en daño, un re-tejido con el motivo; si siguen, se saca la frase (backstop, como la
     regla 3). Después el estilo al principio y al final (C) y las marcas `sensible` y `motivos`."""
     prose = v3img.fix_counts_lr(it["prompt"])
+    if escala:                                                # F8b §2.4: masa del pool, nunca un puñado
+        prose = v3img.fix_scale(prose)
     probs = v3img.problems(prose, it.get("shot_scale"))
     if probs:
         if any(f.startswith("manos en plano") for _, f in probs):   # manos en un plano cerrado: se abre a medio
@@ -1062,6 +1075,10 @@ def _f8_finish_item(it: dict, locked: list[dict], profile, documented, cap_numbe
             prose = v3img.scrub_sentence_problems(prose2, it.get("shot_scale"))
             print(f"  ⚠ [m03] cap {cap_number} img #{i}: reglas F8 DEGRADADAS ({probs[:2]}) → frase sacada (run sigue).")
         it["_f8_problemas"] = [f"{k}: {f}" for k, f in probs]
+    if escala and re.search(v3img.HUMAN, prose, re.I) and not v3img.SCALE_EN.search(prose):
+        prose = prose.rstrip() + " Hundreds of people fill the frame."
+    if not (it.get("text_in_image") or {}).get("present"):   # F8b §2.3: sin texto legible por defecto
+        prose = prose.rstrip() + " " + v3img.NO_TEXT
     it["prompt"] = v3img.wrap_style(prose, year)
     it["sensible"] = v3img.is_body(it["prompt"])
     it["motivos"] = sorted(v3img.motifs_of(it["prompt"]))
@@ -1080,8 +1097,9 @@ def _f8_refill(topic: dict, cap_data: dict, narration: str, item: dict, cap_numb
 
 F8_FIX_PASSES = 2
 F8_NOTE_BODY_HOOK ="NO dead bodies in this image (it is the hook): show what was left — objects, water, empty space."
-F8_NOTE_CERRADA = ("TIGHTEST framing of the cap (shot_scale close or detail) on the beat's sensory image: an object, a "
-                   "place detail or a posture; never a face macro, never hands.")
+F8_NOTE_CERRADA = ("TIGHTEST framing of the cap (shot_scale close or detail) on the beat's sensory image, at HUMAN "
+                   "scale: a person in posture or a human trace (belongings, clothes, a bunk); never an object or a "
+                   "weapon in detail, never a face macro, never hands. The camera is with the victims or the witness.")
 F8_NOTE_ESTABLISHING = ("ESTABLISHING EXTERIOR: the place of this fragment seen from outside or from above, wide or "
                         "extreme wide; people small or absent.")
 
@@ -1091,8 +1109,8 @@ def _f8_fix_cap(topic: dict, cap_data: dict, narration: str, items: list[dict], 
     for k, it in enumerate(items):
         if cap_number == 1 and it.get("sensible"):
             items[k] = _f8_refill(topic, cap_data, narration, it, cap_number, F8_NOTE_BODY_HOOK)
-        elif it.get("cerrada") and it.get("shot_scale") not in ("close", "detail"):     # §1 B: la más cerrada del pico
-            items[k] = _f8_refill(topic, cap_data, narration, it, cap_number, F8_NOTE_CERRADA)
+        elif it.get("cerrada") and (it.get("shot_scale") not in ("close", "detail") or not v3img.human_scale(it)):
+            items[k] = _f8_refill(topic, cap_data, narration, it, cap_number, F8_NOTE_CERRADA)   # §1 B + F8b §2.2
     # con menos de MIN_FLUX_EXTRAS imágenes (humo, pruebas) no hay proporción que cuidar: no se rehace la del beat
     if len(items) >= MIN_FLUX_EXTRAS and not any(v3img.establishing(it) for it in items):
         cand = [k for k, it in enumerate(items) if not it.get("cerrada") and k > 0] or [len(items) - 1]
@@ -2531,7 +2549,8 @@ def assign_visual_prompts(
     # F8 §1 B–F: con escaleta (guion v3) las imágenes siguen los beats; sin escaleta (v2), todo como antes
     f8_beats = v3img.load_beats(topic, STEPS_DIR)
     if f8_beats:
-        topic = {**topic, "_f8": {"beats": f8_beats, "year": v3img.topic_year(topic, f8_beats)}}
+        topic = {**topic, "_f8": {"beats": f8_beats, "year": v3img.topic_year(topic, f8_beats),
+                                  "lang": v3img.place_language(topic)}}
 
     def _process_one_cap(cap_n: int) -> dict:
         sch = skel_by_n.get(cap_n) or {}

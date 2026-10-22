@@ -59,6 +59,7 @@ def load_beats(topic: dict, steps_dir: Path | None = None) -> dict[int, list[dic
         d["dato_texto"] = ev.text_of(it) if it else ""
         d["fecha"] = (ev.item_date(it) or "") if it else ""
         d["parrafos"] = [p.get("texto") or "" for p in parrafos or [] if p.get("beat") == b.get("n")]
+        d["escala"] = beat_scale(d)                                   # F8b §2.4
         out.setdefault(int(b["cap"]), []).append(d)
     return out
 
@@ -153,20 +154,26 @@ def assign_beats(narration: str, anchors: list[str], cap_beats: list[dict]) -> l
     return [{"beat": bn, "cerrada": c} for bn, c in zip(seq, cer)]
 
 
-def beats_block(cap_beats: list[dict], assign: list[dict], bullets: list | None = None) -> str:
+def beats_block(cap_beats: list[dict], assign: list[dict], bullets: list | None = None, lang: str | None = None) -> str:
     """Bloque del user-prompt de slots: qué se VE en cada imagen (la imagen sensorial del beat), en el idioma del guion;
     los slots se escriben en inglés."""
     by_n = {b["n"]: b for b in cap_beats}
     lines = []
     for i, a in enumerate(assign, start=1):
         b = by_n.get(a["beat"]) or {}
-        extra = (" · PEAK beat — this is the TIGHTEST framing of the cap (close or detail on an object, a place "
-                 "detail or a posture; never a face macro, never hands)" if a["cerrada"] else "")
+        extra = (" · PEAK beat — this is the TIGHTEST framing of the cap, at HUMAN scale (a person in posture or a "
+                 "human trace; never an object or a weapon in detail, never a face macro, never hands)"
+                 if a["cerrada"] else "")
+        if b.get("escala"):
+            extra += " · SCALE: hundreds of people, filling the frame (never a handful of figures)"
         lines.append(f"  [{i}] beat {a['beat']} · {b.get('funcion') or ''} · emotion {b.get('emocion') or ''} · "
                      f"intensity {b.get('intensidad') or ''}{extra}\n      SEEN: «{b.get('imagen_sensorial') or ''}»")
     ctx = ""
     if bullets:
         ctx = "\nCap bullets (context only):\n" + "\n".join(f"  - {x}" for x in bullets)
+    if lang:
+        ctx += (f"\nLanguage of the place of the event (for any text in the image, max 3 words, only if the beat "
+                f"demands it): {LANG_NAMES.get(lang, lang)}.")
     return f"""
 ═══════════════════════════════════════════════════
 VISUAL SUBJECT PER IMAGE — decided by the scriptwriter (MANDATORY)
@@ -224,11 +231,23 @@ HANDS_FACE = [
     r"\bjaw\s+(?:clenched|tight|set)\b", r"\bclenched\s+jaw\b", r"\blips\s+pressed\b", r"\bpupils?\s+dilated\b",
     r"\bdilated\s+pupils?\b", r"\bwhites\s+of\s+(?:his|her|their|the)\s+eyes\b", r"\bwhites\s+visible\b",
     r"\btrembl\w*", r"\bextreme\s+close[- ]?up\s+of\s+(?:\w+\s+){0,2}(?:face|eyes)\b",
+    # F8b §2.5: sinónimos que salieron en el humo
+    r"\bhollow(?:ed)?(?:,?\s+\w+)?\s+eyes\b", r"\bcracked\s+lips\b", r"\bfacial\s+muscles\b",
+    r"\btense[d]?\s+(?:facial\s+)?muscles\b", r"\beyes\s+squeezed\s+shut\b", r"\bgrimac\w*", r"\bveins?\b",
     r"\bmacro\b[^.]{0,30}\b(?:face|eyes?|skin)\b", r"\b(?:face|eyes)\s+fill(?:s|ing)?\s+the\s+frame\b",
     # manos en un plano cerrado (sujeto o primer plano), aunque no se nombre el plano de las manos
     r"\b(?:close|detail)(?:[- ]up)?\s+(?:shot|view|framing)\b[^.]*\bhands?\b",
     r"\b(?:cupped|bare|bloodied|outstretched)\s+hands\b",
 ]
+# F8b §2.1: armas y disparos. Nunca fogonazo, nunca arma en primera persona ni encuadre desde el tirador: armas solo en
+# reposo, a distancia, de espaldas; la cámara está con las víctimas o con el testigo
+WEAPONS = [r"\bmuzzle[- ]?flash\w*", r"\bfiring\b", r"\bfires?\s+(?:a|the|his|her|their)?\s*(?:shot|round|rifle|gun)s?\b",
+           r"\bdischarg\w+", r"\b(?:gun|rifle|weapon|pistol|shotgun)'?s?\s+barrel\b",
+           r"\bbarrel\s+of\s+(?:a|the|his|her)\s+(?:gun|rifle|weapon|pistol)\b", r"\bfirst[- ]person\b", r"\bPOV\b",
+           r"\bpoint[- ]of[- ]view\b", r"\baim(?:s|ed|ing)?\b[^.]{0,30}\b(?:at|toward|towards)\s+(?:the\s+)?"
+           r"(?:camera|viewer|lens)\b", r"\bscope\b", r"\bcrosshairs?\b", r"\bgunshots?\b", r"\bbullets?\b",
+           r"\b(?:over|from)\s+(?:the\s+)?(?:shoulder|position)\s+of\s+(?:the\s+)?(?:shooter|sniper|gunman)\b"]
+
 # la frase de manos que se saca de la frase-sujeto en el backstop («… held in his hands», «with cupped hands»)
 HANDS_PHRASE = (r",?\s*(?:\w+\s+){0,2}(?:in|with|from|between|by)\s+(?:his|her|their|the|both|two)?\s*"
                 r"(?:cupped\s+|bare\s+|trembling\s+)?hands?\b")
@@ -274,6 +293,10 @@ def problems(prose: str, shot_scale: str | None = None) -> list[tuple[str, str]]
         m = re.search(p, prose, re.I)
         if m:
             out.append(("prohibida", m.group(0)))
+    for p in WEAPONS:
+        m = re.search(p, prose, re.I)
+        if m:
+            out.append(("arma", m.group(0)))
     for s in re.split(r"(?<=[.!?])\s+", prose):
         if re.search(MINOR, s, re.I) and re.search(HARM, s, re.I):
             out.append(("menor en daño", s[:80]))
@@ -298,7 +321,7 @@ def fix_counts_lr(prose: str) -> str:
 def scrub_sentence_problems(prose: str, shot_scale: str | None = None) -> str:
     """Último recurso (backstop): saca la frase que lleva manos/cara, palabra prohibida o menor en daño (y, en un plano
     close/detail, la que nombra manos); si es la única, saca solo el fragmento."""
-    bad = [re.compile(p, re.I) for p in HANDS_FACE + FORBIDDEN
+    bad = [re.compile(p, re.I) for p in HANDS_FACE + FORBIDDEN + WEAPONS
            + ([r"\bhands?\b"] if shot_scale in ("close", "detail") else [])]
     ss = re.split(r"(?<=[.!?])\s+", prose)
     keep = []
@@ -307,7 +330,8 @@ def scrub_sentence_problems(prose: str, shot_scale: str | None = None) -> str:
         if not hit:
             keep.append(s)
         elif k == 0:                                 # la primera frase es el sujeto: se saca el fragmento, no la frase
-            for p in [HANDS_PHRASE] + [x for x in HANDS_FACE if "[^.]*" not in x] + FORBIDDEN:
+            for p in [HANDS_PHRASE] + [x for x in HANDS_FACE + WEAPONS if "[^.]*" not in x and "{0,30}" not in x] \
+                    + FORBIDDEN:
                 s = re.sub(p, "", s, flags=re.I)
             s = re.sub(r"\s*,(\s*,)+", ",", re.sub(r"\s{2,}", " ", s)).replace(" ,", ",").strip()
             keep.append(s)
@@ -323,7 +347,7 @@ def scrub_slots(slots: dict) -> list[str]:
     """In place: saca de los slots de texto las frases con clichés de cara/manos o palabras prohibidas ANTES de tejer (si
     no, el fluidificador las copia). Devuelve lo que sacó."""
     gone = []
-    bad = [re.compile(p, re.I) for p in HANDS_FACE + FORBIDDEN]
+    bad = [re.compile(p, re.I) for p in HANDS_FACE + FORBIDDEN + WEAPONS]
     for k, v in list(slots.items()):
         if not isinstance(v, str) or not v.strip():
             continue
@@ -333,6 +357,82 @@ def scrub_slots(slots: dict) -> list[str]:
             gone += [f"{k}: {x}" for x in parts if x not in kept]
             slots[k] = " ".join(kept).strip(" ,;") or ("" if k not in ("subject",) else v)
     return gone
+
+
+TRACE = (r"\b(shoes?|boots?|sneakers?|belongings|clothes|clothing|jumpsuits?|blankets?|mattress(?:es)?|cots?|bags?|"
+         r"letters?|photographs?|tray|cups?|toys?|footprints?|handprints?|bunks?|beds?)\b")
+
+
+def human_scale(item: dict) -> bool:
+    """§2.2: el pico es a escala humana: una persona (o un grupo) o un rastro humano; nunca un objeto ni un arma solos."""
+    subj = f"{item.get('subject') or ''} {item.get('props_detail') or ''}"
+    weapon = re.search(r"\b(rifle|gun|pistol|weapon|shotgun|barrel)\b", item.get("subject") or "", re.I)
+    return not weapon and bool(re.search(HUMAN, subj, re.I) or re.search(TRACE, subj, re.I))
+
+
+SCALE_ES = re.compile(r"\b(cientos|centenares|miles|millares|multitud|muchedumbre|masiv\w+|interminable|hacinad\w+|"
+                      r"amontonad\w+|repleto|repleta)\b", re.I)
+PEOPLE_ES = re.compile(r"\b(hombres|mujeres|presos|reclusos|internos|personas|gente|familias|j[oó]venes|chicos|"
+                       r"evacuados|sobrevivientes|v[ií]ctimas|fila|filas)\b", re.I)
+
+
+def beat_scale(beat: dict) -> bool:
+    """§2.4: el beat pide escala de masa (cientos/miles de personas) si su imagen sensorial nombra gente en plural y la
+    imagen o el dato central dicen cientos/miles, o el dato trae una cifra de 100 o más."""
+    img = beat.get("imagen_sensorial") or ""
+    dato = beat.get("dato_texto") or ""
+    if not PEOPLE_ES.search(img):
+        return False
+    big = any(int(n.replace(",", "").replace(".", "")) >= 100 for n in re.findall(r"\d[\d.,]*\d|\d", dato)
+              if n.replace(",", "").replace(".", "").isdigit())
+    return bool(SCALE_ES.search(img) or SCALE_ES.search(dato) or big)
+
+
+SCALE_EN = re.compile(r"\b(hundreds|thousands|crowd(?:ed|s)?|masses|mass of|packed|filling the frame|sea of)\b", re.I)
+
+
+def fix_scale(prose: str) -> str:
+    """§2.4: en un beat de masa, «a few/several inmates» → «hundreds of inmates» (nunca 5–7 figuras)."""
+    return re.sub(rf"\b(?:a few|several|a couple of|a handful of|a small group of|a group of)\s+(?=(?:\w+\s+){{0,2}}"
+                  rf"{HUMAN[2:]})", "hundreds of ", prose, flags=re.I)
+
+
+LANG_NAMES = {"en": "English", "es": "Spanish", "it": "Italian", "fr": "French", "pt": "Portuguese", "de": "German"}
+SPANISH_WORDS = re.compile(r"[ñáéíóú¿¡]|\b(de|del|la|los|las|el|sin|registro|desconocido|desaparecido|muertos?|"
+                           r"c[aá]rcel|prisi[oó]n|lista|nombres?|estado|atendido|pr[oó]fugo)\b", re.I)
+NO_TEXT = "No readable text, no signage, no labels."
+TEXT_MAX_WORDS = 3
+
+
+def place_language(topic: dict) -> str:
+    """Código del idioma del lugar del evento: el más común entre los documentos del pool v3 (los locales); si no hay,
+    `idioma_local` del topic; si no, inglés."""
+    docs = ((topic.get("evidence_pool") or {}).get("_research_v3") or {}).get("documentos") or []
+    langs = [d.get("idioma") for d in docs if d.get("idioma") in LANG_NAMES]
+    if langs:
+        return Counter(langs).most_common(1)[0][0]
+    loc = (topic.get("idioma_local") or "").lower()
+    for code, name in LANG_NAMES.items():
+        if loc.startswith(code) or name.lower()[:5] in loc or {"es": "españ", "it": "italia", "en": "ingl"}.get(code, "#") in loc:
+            return code
+    return "en"
+
+
+def fix_text_slot(item: dict, lang: str) -> str | None:
+    """§2.3: texto en imagen solo si el beat lo exige; en el idioma del lugar (nunca español en documentos de otro país),
+    ≤ 3 palabras. In place sobre `text_in_image`; marca `texto_en_imagen`. Devuelve el motivo si sacó o recortó."""
+    tii = item.get("text_in_image") or {}
+    why = None
+    if tii.get("present"):
+        txt = str(tii.get("text") or "").strip()
+        if lang != "es" and SPANISH_WORDS.search(txt):
+            tii["present"], why = False, f"texto en español en un lugar de habla {LANG_NAMES.get(lang, lang)}: «{txt}»"
+        elif len(txt.split()) > TEXT_MAX_WORDS:
+            tii["text"] = " ".join(txt.split()[:TEXT_MAX_WORDS])
+            why = f"texto recortado a {TEXT_MAX_WORDS} palabras: «{txt}»"
+    item["text_in_image"] = tii
+    item["texto_en_imagen"] = bool(tii.get("present"))
+    return why
 
 
 def is_body(text: str) -> bool:
@@ -372,13 +472,21 @@ COMPOSITION_RULES_V3 = """COMPOSITION RULES (v3 — HARD, the prompt is validate
    ("toward the window", "beside the podium", "a few men").
 4. At most a QUARTER of the images show a person in medium shot; prefer places, objects, distance and silhouettes.
    Every cap has at least ONE establishing / exterior image (the place seen from outside or from above).
-5. Recurring motifs are rationed across the WHOLE video (corridor, podium/sheriff, hands on bars, generator, calendar,
+5. WEAPONS: never a muzzle flash, never a weapon in first person, never framed from the shooter. A weapon only at
+   rest, at a distance, from behind. The camera is WITH THE VICTIMS OR THE WITNESS (crouching in the water, watching
+   from a terrace; still silhouettes on a far rooftop).
+6. The PEAK image is at HUMAN scale: a person, a group or a human trace — never an object or a weapon in detail.
+7. NO readable text by default (no signage, no labels). Only if the beat demands it: in the LANGUAGE OF THE PLACE of
+   the event (given in the user prompt), at most 3 words. Never Spanish on documents of another country.
+8. SCALE from the research: if the beat speaks of hundreds or thousands of people, write "hundreds of …, filling the
+   frame" — never five or seven figures for an endless line.
+9. Recurring motifs are rationed across the WHOLE video (corridor, podium/sheriff, hands on bars, generator, calendar,
    document on a desk, closed door): use one only when THIS beat's sensory image names it.
 SENSITIVE CONTENT (YouTube, HARD):
-6. Dead bodies: only if the beat demands it, ALWAYS partially hidden (by water, shadow or distance), never a face, never
+10. Dead bodies: only if the beat demands it, ALWAYS partially hidden (by water, shadow or distance), never a face, never
    a close shot. Never in the hook.
-7. NEVER write: blood, wound, gore, mutilated, dismembered, rope around a neck (a hanging only as a shadow or feet).
-8. Minors: only if the research documents them, never in a situation of physical harm; prefer their objects (shoes, a
+11. NEVER write: blood, wound, gore, mutilated, dismembered, rope around a neck (a hanging only as a shadow or feet).
+12. Minors: only if the research documents them, never in a situation of physical harm; prefer their objects (shoes, a
    tray) to their bodies."""
 
 

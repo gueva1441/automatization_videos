@@ -35,6 +35,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import os
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
@@ -1194,6 +1195,48 @@ def _process_veo_chapter(
 #  API pública
 # ═══════════════════════════════════════════
 
+def _grade_enabled(script: dict[str, Any]) -> bool:
+    """F8b §2.6: el grade de post corre en guiones v3 (m03 marca `sensible` en cada imagen) o con IMAGE_GRADE=1;
+    IMAGE_GRADE=0 lo apaga. Guiones v2 (sin la marca): como antes, sin archivos nuevos."""
+    env = os.environ.get("IMAGE_GRADE")
+    if env in ("0", "1"):
+        return env == "1"
+    for ch in script.get("chapters") or []:
+        for it in (ch.get("image_prompts") or []) + (ch.get("supplemental_image_prompts") or []):
+            if isinstance(it, dict) and "sensible" in it:
+                return True
+    return False
+
+
+def _apply_grade(chapter_results: list[dict]) -> int:
+    """F8b §2.6: grade de post (script_engine.image_grade) sobre cada foto del manifest: `<stem>_graded.png` al lado,
+    el original se conserva (`path_original`) y `path` pasa al graduado, que es lo que reciben DepthFlow/Ken Burns.
+    Devuelve cuántas graduó. Una que falla queda con el original y un aviso."""
+    from script_engine import image_grade
+    prm = image_grade.params()
+    if not prm.get("enabled", True):
+        return 0
+    n = 0
+    for res in chapter_results:
+        for img in (res.get("images") or []) + (res.get("supplemental_images") or []):
+            rel = img.get("path")
+            if not rel or img.get("path_original") or str(rel).endswith(image_grade.SUFFIX + ".png"):
+                continue
+            src = OUTPUT_DIR / rel
+            if not src.exists():
+                continue
+            try:
+                dst = image_grade.grade(src, prm)
+            except Exception as e:  # noqa: BLE001
+                error_handler.log_warning(PipelineStage.IMAGE, f"grade falló en {src.name}: {e} — queda el original")
+                continue
+            img["path_original"] = rel
+            img["path"] = str(dst.relative_to(OUTPUT_DIR))
+            img["graded"] = True
+            n += 1
+    return n
+
+
 def _ensure_cost_tracking(video_id: str) -> None:
     active = cost_tracker.current_video
     if active is None:
@@ -1273,6 +1316,10 @@ def process_script(
             }
 
         chapter_results.append(result)
+
+    if _grade_enabled(script):                       # F8b §2.6: grade de post antes de DepthFlow/Ken Burns
+        n_graded = _apply_grade(chapter_results)
+        error_handler.log_info(PipelineStage.IMAGE, f"[{video_id}] grade de post: {n_graded} imagen(es) → *_graded.png")
 
     assets_dir = _assets_dir(video_id)
     assets_dir.mkdir(parents=True, exist_ok=True)

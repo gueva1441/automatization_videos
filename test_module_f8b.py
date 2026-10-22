@@ -132,3 +132,108 @@ def test_r1_flash_alternativo_y_conteo_de_focos():
     assert fg == {"pro": 1, "flash": 1, "sin": 2}
     assert len(pro_calls) == 1 + 3 * (1 + r3.R1_RETRIES) and r3.R1_RETRIES == 3
     assert len(alt_calls) == 3 and all('"Diga del Vajont"' in p and "italiano" in p for p in alt_calls)
+
+
+# ═══════════════════════════════════════════════════════════════
+#  §2.1–§2.5 — reglas de imagen
+# ═══════════════════════════════════════════════════════════════
+
+from script_engine import m03_imagenes_v3 as v3  # noqa: E402
+from script_engine import m03_visual as m3  # noqa: E402
+from test_module_f8 import BEATS, NARR, _topic_f8, fake_llm  # noqa: E402,F401
+
+
+def test_armas_nunca_fogonazo_ni_primera_persona():
+    for bad in ("A sniper rifle erupts in a muzzle flash.", "A first-person view down the rifle's barrel.",
+                "Officers firing from a rooftop.", "The gunman aims straight at the camera.", "POV of the shooter"):
+        assert any(k == "arma" for k, _ in v3.problems(bad)), bad
+    ok = "Still silhouettes of deputies on a far rooftop, rifles at rest, seen from behind."
+    assert not [k for k, _ in v3.problems(ok) if k == "arma"]
+    assert "muzzle" not in v3.scrub_sentence_problems("A flooded cell. A muzzle flash lights the window. Water rises.")
+
+
+def test_pico_a_escala_humana():
+    assert not v3.human_scale({"subject": "the barrel of a sniper rifle", "props_detail": "smoke"})
+    assert v3.human_scale({"subject": "inmates crouching in the water", "props_detail": ""})
+    assert v3.human_scale({"subject": "an empty bunk", "props_detail": "a pair of shoes"})
+    assert "HUMAN scale" in m3.F8_NOTE_CERRADA
+
+
+def test_texto_en_el_idioma_del_lugar():
+    it = {"text_in_image": {"present": True, "text": "desconocido", "font": "typed", "location": "list"}}
+    assert v3.fix_text_slot(it, "en") and it["text_in_image"]["present"] is False and it["texto_en_imagen"] is False
+    it = {"text_in_image": {"present": True, "text": "ORLEANS PARISH PRISON INMATE LIST", "font": "x", "location": "y"}}
+    v3.fix_text_slot(it, "en")
+    assert it["text_in_image"]["text"] == "ORLEANS PARISH PRISON" and it["texto_en_imagen"] is True
+    assert v3.place_language({"evidence_pool": {"_research_v3": {"documentos": [{"idioma": "en"}, {"idioma": "en"},
+                                                                                 {"idioma": "es"}]}}}) == "en"
+    assert v3.place_language({"idioma_local": "italiano (Longarone)"}) == "it"
+    si = m3.SYSTEM_INSTRUCTION_VISUAL_SEEDREAM_V3
+    assert "IN SPANISH" not in si and "LANGUAGE OF THE PLACE" in si
+
+
+def test_escala_desde_el_pool():
+    b = {"imagen_sensorial": "Hombres con monos naranjas sentados en el asfalto", "dato_texto": "Unos 6,375 presos"}
+    assert v3.beat_scale(b)
+    assert not v3.beat_scale({"imagen_sensorial": "una celda vacía", "dato_texto": "6,375 presos"})
+    assert v3.fix_scale("A wide shot of a few inmates sitting on the overpass.").startswith("A wide shot of hundreds of")
+
+
+def test_cliches_ampliados():
+    for c in ("hollowed eyes", "cracked lips", "facial muscles tensed", "eyes squeezed shut", "a grimace", "bulging veins"):
+        assert any(k == "manos/cara" for k, _ in v3.problems(f"A man with {c} in a cell.")), c
+    assert "cracked lips" not in m3.SYSTEM_INSTRUCTION_VISUAL_SEEDREAM_V3
+
+
+def test_render_v3_sin_texto_por_defecto(fake_llm):
+    plan = {"anchors": [{"anchor": a} for a in ["Primer párrafo del beat uno", "Sigue el agua",
+                                                   "Segundo párrafo, el pico", "Tercer párrafo, respiro"]]}
+    topic = _topic_f8()
+    topic["_f8"]["lang"] = "en"
+    out = m3._render_prompts_seedream(topic, {"chapter_number": 5}, NARR, plan, 5)
+    assert all(v3.NO_TEXT in i["prompt"] for i in out["image_prompts"])
+    assert all(i["texto_en_imagen"] is False for i in out["image_prompts"])
+    assert "Language of the place of the event" in fake_llm["prompts"][0] and "English" in fake_llm["prompts"][0]
+
+
+# ═══════════════════════════════════════════════════════════════
+#  §2.6 — grade de post
+# ═══════════════════════════════════════════════════════════════
+
+def _img(path):
+    from PIL import Image, ImageDraw
+    im = Image.new("RGB", (320, 180), (200, 60, 30))
+    d = ImageDraw.Draw(im)
+    d.rectangle([0, 0, 100, 180], fill=(0, 0, 0))               # negro puro
+    d.rectangle([220, 0, 320, 180], fill=(40, 90, 200))
+    im.save(path)
+    return path
+
+
+def test_grade_baja_saturacion_y_no_recorta_negros(tmp_path):
+    from script_engine import image_grade as g
+    src = _img(tmp_path / "ch02_img_01.png")
+    dst = g.grade(src)
+    assert dst.name == "ch02_img_01_graded.png" and src.exists()
+    a, b = g.stats(src), g.stats(dst)
+    assert b["sat_media"] < 0.85 * a["sat_media"]                   # ≥ 15 % menos saturada
+    assert a["negro_puro_pct"] > 20 and b["negro_puro_pct"] == 0 and b["luma_min"] >= 3
+    assert g.grade(src) == dst                                      # no rehace si ya existe
+
+
+def test_asset_manager_aplica_el_grade_solo_en_v3(tmp_path, monkeypatch):
+    import asset_manager as am
+    monkeypatch.setattr(am, "OUTPUT_DIR", tmp_path)
+    monkeypatch.delenv("IMAGE_GRADE", raising=False)
+    (tmp_path / "v" / "assets" / "ch02_flux").mkdir(parents=True)
+    _img(tmp_path / "v" / "assets" / "ch02_flux" / "ch02_img_01.png")
+    v2 = {"chapters": [{"image_prompts": [{"prompt": "x"}]}]}
+    v3s = {"chapters": [{"image_prompts": [{"prompt": "x", "sensible": False}]}]}
+    assert not am._grade_enabled(v2) and am._grade_enabled(v3s)
+    monkeypatch.setenv("IMAGE_GRADE", "0")
+    assert not am._grade_enabled(v3s)
+    res = [{"images": [{"path": "v/assets/ch02_flux/ch02_img_01.png", "status": "ok"}]}]
+    assert am._apply_grade(res) == 1
+    img = res[0]["images"][0]
+    assert img["path"].endswith("ch02_img_01_graded.png") and img["path_original"].endswith("ch02_img_01.png")
+    assert am._apply_grade(res) == 0                                # idempotente
