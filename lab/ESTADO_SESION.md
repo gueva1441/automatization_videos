@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-22 (F7c-3 + F7d hechos en `f7-research-v3`; PARADA: Omar lee la columna F7c-3) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-22 (F7 cerrado en `f7-research-v3`; F8 sigue en una sesión nueva, modo autónomo) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «docs(f6): F6c cerrado como laboratorio…» (`git log -1`) en f6-guion-v3, sobre `7ec2025`; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
@@ -11,7 +11,11 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F7 — Research v3 — F7c-3 + F7d HECHOS · PARADA: Omar lee la columna F7c-3
+## F8 — Imágenes v3 + cierre de guion + 3 semillas — EN SESIÓN NUEVA (modo autónomo 8 h)
+- Handoff: `lab/hyperframes/f8/HANDOFF_F8_imagenes_v3.md` (commiteado en `f7-research-v3` al cerrar F7). Rama **`f8-imagenes-v3`** desde la punta de `f7-research-v3` (contiene `560dcf7`). Orden: §4; frenos: §5; decisiones: `lab/hyperframes/f8/DECISIONES_F8.md`; prompt de continuación: §7.
+- La sesión de F7 se cerró el 2026-10-22: todo commiteado por ruta. Sin commitear a propósito: `diag_234_cap4.py`, `gfx_profiles/lexico_propuestas.json`, `gfx_profiles/misterio.json` (no son de F7) y `lab/hyperframes/f7/topics_db_pre_f7b.json` (respaldo de `data/topics_db.json`).
+
+## F7 — Research v3 — F7c-3 + F7d HECHOS (cerrado; Omar lee la columna F7c-3)
 - Leer `lab/hyperframes/f7/F7c3_REPORT.md` (revisor íntegro) y `compara_orleans_v3r.html` (5 columnas).
 - **F7c-3** (§9.1): 7 reglas de oficio en `script_engine/guion_v3_reglas.py` (rol, párrafo sin dato, antagonista con nombre, sin fotos, sin tráiler, ancla de lugar y fecha; eco blando al editor) y 110 + 250 × 5 + 140. Corrida (2.ª, tras arreglar un bug del ancla): 1,143 palabras, 21 duras (re-medidas con las reglas de hoy: F6c 12, F7c 29, F7c-2 23). Arregla roles, tráiler, ancla, Gusman con nombre; queda largo corto (5 caps bajo el mínimo), párrafos sin dato y el candado literal.
 - **F7d** (§9.2): `researcher_steps/pool_gate.py` (verde/amarillo/rojo, `POOL_GATE.md`, umbrales en `video_length.py`) antes de la escaleta; research v3 por defecto en `topic_researcher` (`RESEARCH_V3=0` → viejo); seed rojo vuelve al inbox con motivo. Orleans: verde. `run_seed` sin probar con un seed real.
