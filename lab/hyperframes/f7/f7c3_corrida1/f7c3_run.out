@@ -1,0 +1,21 @@
+[02:06:02] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[02:07:57] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.1804
+  [escaleta] intento 1: 2 problema(s) ['el humano entra recién en el cap 3: tiene que entrar antes del cap 3', 'pregunta de pantalla del cap 4 «¿Vio alguien los cuerpos flotando?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)'] · 1 reparación(es)
+  [escaleta] intento 2: 0 problema(s) [] · 0 reparación(es)
+[02:07:57] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[02:10:31] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.1520
+  [escaleta] intento 1: 2 problema(s) ['el humano entra recién en el cap 3: tiene que entrar antes del cap 3', 'pregunta de pantalla del cap 4 «¿Vio alguien los cuerpos flotando?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)'] · 1 reparación(es)
+  [escaleta] intento 2: 0 problema(s) [] · 0 reparación(es)
+  [guionista] intento 1: 28 duras · 28 blandas · puntaje 78
+  [guionista] intento 2: 27 duras · 35 blandas · puntaje 82
+[02:10:31] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[02:20:21] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.1811
+# Narración v3 con el pool de research v3 — Orleans `ba6c3cac-f7r3` (F7c-3)
+
+- Escaleta: `escaleta_orleans_v3r3.json` (2 intento(s), digest del pool). Guionista: Pro, best_of_2 → elegido el intento 2 (intento 1: 28 duras, 28 blandas; intento 2: 27 duras, 35 blandas).
+- Editor: 24 párrafo(s) editado(s), 21 aceptado(s). Duras: guionista 27 → final 26 · blandas 35 → 33.
+- 1065 palabras · 1.69 adjetivos/100 · costo: escaleta US$ 0.1804 + guionista US$ 0.152 + editor US$ 0.1811.
+
+## Problemas duros que quedan
+
+rc=0

@@ -235,6 +235,10 @@ _ROLE_BEFORE = re.compile(r"\b(?:el|la|los|las|un|una)\s+((?:\w+\s+){0,1}?(?:" +
                           + _ROLE_GUARDIA.pattern[3:-3] + r"))(?:\s+del?\s+\w+)?\s*$", re.I)
 
 
+_ROLE_AFTER = re.compile(r"\s*,\s*(?:el|la|un|una)\s+((?:\w+\s+){0,1}?(?:" + _ROLE_PRESO.pattern[3:-3] + "|"
+                         + _ROLE_GUARDIA.pattern[3:-3] + r"))\b", re.I)
+
+
 def role_problems(text: str, pool: dict[str, Any]) -> list[str]:
     """El rol con que la narración presenta a quien habla tiene que ser su rol en el pool (preso / guardia):
     «la reclusa Rhonda Ducre» (es guardia), «un guardia lo describió: «…»» (la cita es de un preso)."""
@@ -254,6 +258,11 @@ def role_problems(text: str, pool: dict[str, Any]) -> list[str]:
                 got = role_class(rm.group(1)) if rm else None
                 if got and got != want:
                     out.append(f"«{rm.group(0).strip()} {p['nombre']}»: en el pool es {p.get('rol')} ({want})")
+                after = low[m.end():m.end() + 40]                 # en aposición: «Brady Richard, un preso,»
+                am = _ROLE_AFTER.match(after)
+                got = role_class(am.group(1)) if am else None
+                if got and got != want:
+                    out.append(f"«{p['nombre']}{am.group(0).rstrip()}»: en el pool es {p.get('rol')} ({want})")
     # citas anónimas presentadas con un rol
     cits = pool.get("citas") or []
     for s in sentences_of(text):
@@ -345,7 +354,7 @@ def photo_problems(caps: list[dict]) -> list[str]:
 TRAILER = [r"\b(?:esta|esa|[eé]sta) es la historia de\b", r"\bes la historia de\b", r"\blo que sigue\b",
            r"\ben este (?:video|documental|cap[ií]tulo)\b", r"\bte vamos a contar\b", r"\bvamos a (?:ver|contar)\b",
            r"\bacomp[aá][ñn]a(?:nos|me)\b", r"\bqu[eé]date\b", r"\blo que vas a (?:ver|escuchar)\b",
-           r"\bse negaron a olvidar\b", r"\bdescubriremos\b", r"\besta historia\b", r"\bnuestra historia\b",
+           r"\bse nieg\w+ a olvidar\b|\bse negaron a olvidar\b", r"\bdescubriremos\b", r"\besta historia\b", r"\bnuestra historia\b",
            r"\bhistoria que (?:nadie|pocos) (?:cuenta|conoce)\b"]
 
 
@@ -361,14 +370,14 @@ _YEAR = re.compile(r"\b(?:19|20)\d\d\b")
 
 
 def _place_tokens(pool: dict[str, Any]) -> set[str]:
-    return {w for lg in pool.get("lugares") or [] for w in ev.norm(lg.get("nombre") or "").split() if len(w) >= 5}
+    return {w for lg in pool.get("lugares") or [] for w in _tokens(lg.get("nombre") or "") if len(w) >= 5}
 
 
 def anchor_sentences(cap1: str, pool: dict[str, Any]) -> list[str]:
     """Frases cortas (≤ ANCHOR_MAX_WORDS palabras) con un año y un lugar del pool: «Nueva Orleans, agosto de 2005»."""
     places = _place_tokens(pool)
     return [s for s in sentences_of(cap1) if len(s.split()) <= ANCHOR_MAX_WORDS and _YEAR.search(s)
-            and set(ev.norm(s).split()) & places]
+            and set(_tokens(s)) & places]
 
 
 def hook_anchor_problems(cap1: str, pool: dict[str, Any]) -> list[str]:

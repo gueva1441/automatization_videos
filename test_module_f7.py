@@ -580,6 +580,7 @@ def test_rule1_role_of_speaker():
     assert any("Rhonda Ducre" in x for x in p) and any("Q01" in x for x in p)
     assert role_problems("La guardia Rhonda Ducre lo resumió. Un preso lo describió: «Hombre, ese lugar olía a muerte».",
                          POOL_C3) == []
+    assert any("Rhonda Ducre, una reclusa" in x for x in role_problems("Rhonda Ducre, una reclusa, lo vio.", POOL_C3))
 
 
 def test_rule2_paragraph_without_id_is_filler():
@@ -613,6 +614,7 @@ def test_rule4_no_photos_in_any_cap():
 def test_rule5_no_trailer_voice():
     from script_engine.guion_v3_reglas import trailer_problems
     assert len(trailer_problems("Es la historia de la orden y de los testigos que se negaron a olvidar.")) == 2
+    assert trailer_problems("Una verdad que algunos testigos se niegan a olvidar.")
     assert trailer_problems("El agua llegó al pecho el 30 de agosto.") == []
 
 
@@ -621,6 +623,8 @@ def test_rule6_hook_anchor_place_and_year():
     good = ("El agua negra llega al pecho. Nadie viene. «Tuvimos que beber agua del inodoro para vivir», contó Burton. "
             "Nueva Orleans, agosto de 2005. «Hombre, ese lugar olía a muerte», dijo un preso.")
     assert hook_anchor_problems(good, POOL_C3) == [] and hook_problems(good, [], POOL_C3) == []
+    pool_p = {**POOL_C3, "lugares": [{"id": "L01", "nombre": "Nueva Orleans, Luisiana"}]}     # coma en el nombre
+    assert hook_anchor_problems("Nadie viene. Ni nadie. Nueva Orleans, agosto de 2005. El agua sube.", pool_p) == []
     late = ("El agua negra llega al pecho. «Tuvimos que beber agua del inodoro para vivir», contó Burton. «Hombre, ese "
             "lugar olía a muerte», dijo un preso. Nueva Orleans, agosto de 2005.")
     assert hook_anchor_problems(late, POOL_C3) == ["gancho: el ancla de lugar y fecha va antes de la segunda cita"]

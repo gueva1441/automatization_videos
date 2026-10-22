@@ -1,8 +1,8 @@
 """F7c: página estática de comparación del guion de Orleans → lab/hyperframes/f7/compara_orleans_v3r.html
 
-Cuatro columnas por cap: v2 F5d (`lab/hyperframes/f5/pruebas/01b_narration_f5d_pre_retoque.json`, pool f5v2) · v3 con
+Cinco columnas por cap: v2 F5d (`lab/hyperframes/f5/pruebas/01b_narration_f5d_pre_retoque.json`, pool f5v2) · v3 con
 el pool viejo (F6c, `ba6c3cac-f6v3`) · v3 con el pool de research v3 (F7c, guardada en `lab/hyperframes/f7/f7c_v1/`)
-· F7c-2 (reglas nuevas, 1,500 palabras y notas del analista; `ba6c3cac-f7r3`). Arriba, las métricas del juez
+· F7c-2 (`lab/hyperframes/f7/f7c2_v1/`) · F7c-3 (reglas de oficio §9.1; `ba6c3cac-f7r3`). Arriba, las métricas del juez
 (`m05_narrative.video_metrics`, cada versión con su pool y su skeleton/escaleta) y la revisión v3 (`m01b_guionista`:
 duras/blandas). Debajo de cada texto v3, su escaleta (beats del cap). Sin servidor: HTML autocontenido.
 Uso: python -I lab/hyperframes/f7/build_compara_v3r.py
@@ -39,8 +39,10 @@ def versions() -> list[dict]:
              "escaleta + guionista + editor (pool f6v3 + testimonios, notas del analista)"),
             ("v3r", "ba6c3cac-f7r3", LAB / "f7c_v1", "v3 · pool nuevo (F7c)",
              "la misma tubería, pool de research v3 (10 documentos), sin notas"),
-            ("v3r2", "ba6c3cac-f7r3", STEPS / "ba6c3cac-f7r3", "v3 · pool nuevo (F7c-2)",
-             "reglas nuevas (fragmento de cita, gancho, sin juicios), 1,500 palabras, notas del analista")):
+            ("v3r2", "ba6c3cac-f7r3", LAB / "f7c2_v1", "v3 · pool nuevo (F7c-2)",
+             "reglas nuevas (fragmento de cita, gancho, sin juicios), 1,500 palabras, notas del analista"),
+            ("v3r3", "ba6c3cac-f7r3", STEPS / "ba6c3cac-f7r3", "v3 · pool nuevo (F7c-3)",
+             "+ reglas de oficio §9.1 (rol, párrafo con dato, antagonista, sin fotos ni tráiler, ancla), 110+250×5+140")):
         nar = _load(src / "01b_narracion_v3.json")
         esc = _load(src / "01a_escaleta.json")
         out.append({"key": key, "titulo": titulo, "sub": sub,
@@ -113,7 +115,7 @@ p.lead{color:var(--mut);font-family:system-ui,sans-serif;font-size:13px;margin:0
 table{border-collapse:collapse;width:100%;font:13px/1.4 system-ui,sans-serif;margin-bottom:28px}
 th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 th{color:var(--mut);font-weight:600}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:26px}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:26px}
 .col{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
 .col h3{font:600 13px system-ui,sans-serif;margin:0 0 6px;color:var(--acc)}
 .col p{margin:0 0 8px;white-space:pre-wrap}
@@ -147,11 +149,11 @@ def main() -> None:
                         + esc_html(v["esc"], n, v["pool"]) + "</div>")
         caps_html.append(f"<h2>Cap {n}</h2><div class=grid>{''.join(cols)}</div>")
     doc = f"""<!doctype html><html lang=es><head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><title>Orleans: guion v2 · v3 · v3r · v3r2</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Orleans: cinco versiones del guion</title>
 <style>{CSS}</style></head><body><main>
-<h1>Orleans — cuatro versiones del guion</h1>
+<h1>Orleans — cinco versiones del guion</h1>
 <p class=lead>v2 F5d · v3 con el pool viejo (F6c) · v3 con el pool de research v3 (F7c) · F7c-2 (reglas nuevas, 1,500 palabras,
-notas del analista). Métricas del juez
+notas del analista) · F7c-3 (reglas de oficio §9.1). Métricas del juez
 (m05_narrative) medidas con el pool y la escaleta/skeleton de cada versión.</p>
 <table><tr><th>métrica</th>{head}</tr>{rows}</table>
 {''.join(caps_html)}
