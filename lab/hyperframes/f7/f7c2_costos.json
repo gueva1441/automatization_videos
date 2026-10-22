@@ -1,0 +1,31 @@
+{
+  "escaleta": {
+    "usd": 0.4933,
+    "segundos": 301.2
+  },
+  "_corridas": [
+    {
+      "paso": "escaleta",
+      "usd": 0.4933,
+      "segundos": 301.2
+    },
+    {
+      "paso": "guionista",
+      "usd": 0.1613,
+      "segundos": 171.0
+    },
+    {
+      "paso": "editor",
+      "usd": 0.2018,
+      "segundos": 756.6
+    }
+  ],
+  "guionista": {
+    "usd": 0.1613,
+    "segundos": 171.0
+  },
+  "editor": {
+    "usd": 0.2018,
+    "segundos": 756.6
+  }
+}

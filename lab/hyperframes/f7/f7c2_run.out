@@ -1,0 +1,26 @@
+[01:14:38] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[01:19:39] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.4933
+  [escaleta] intento 1: 2 problema(s) ['pregunta de pantalla del cap 4 «¿Había cuerpos flotando en el agua?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)', 'la última frase repite textual la cita Q60: decila con otras palabras'] · 1 reparación(es)
+  [escaleta] intento 2: 1 problema(s) ['el humano está en escena en los caps [2]: tienen que ser ≥ 3'] · 0 reparación(es)
+  [escaleta] intento 3: 1 problema(s) ["pregunta de pantalla del cap 3 «¿Por qué fallaron los generadores?»: término administrativo ['generadores']"] · 1 reparación(es)
+  [escaleta] intento 4: 1 problema(s) ['el humano entra recién en el cap 3: tiene que entrar antes del cap 3'] · 1 reparación(es)
+  [escaleta] intento 5: 0 problema(s) [] · 0 reparación(es)
+[01:19:39] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[01:22:30] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.1613
+  [escaleta] intento 1: 2 problema(s) ['pregunta de pantalla del cap 4 «¿Había cuerpos flotando en el agua?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)', 'la última frase repite textual la cita Q60: decila con otras palabras'] · 1 reparación(es)
+  [escaleta] intento 2: 1 problema(s) ['el humano está en escena en los caps [2]: tienen que ser ≥ 3'] · 0 reparación(es)
+  [escaleta] intento 3: 1 problema(s) ["pregunta de pantalla del cap 3 «¿Por qué fallaron los generadores?»: término administrativo ['generadores']"] · 1 reparación(es)
+  [escaleta] intento 4: 1 problema(s) ['el humano entra recién en el cap 3: tiene que entrar antes del cap 3'] · 1 reparación(es)
+  [escaleta] intento 5: 0 problema(s) [] · 0 reparación(es)
+  [guionista] intento 1: 17 duras · 28 blandas · puntaje 81
+  [guionista] intento 2: 11 duras · 29 blandas · puntaje 70
+[01:22:30] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[01:35:07] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.2018
+# Narración v3 con el pool de research v3 — Orleans `ba6c3cac-f7r3` (F7c-2)
+
+- Escaleta: `escaleta_orleans_v3r2.json` (5 intento(s), digest del pool). Guionista: Pro, best_of_2 → elegido el intento 2 (intento 1: 17 duras, 28 blandas; intento 2: 11 duras, 29 blandas).
+- Editor: 24 párrafo(s) editado(s), 13 aceptado(s). Duras: guionista 11 → final 11 · blandas 29 → 30.
+- 1252 palabras · 1.52 adjetivos/100 · costo: escaleta US$ 0.4933 + guionista US$ 0.1613 + editor US$ 0.2018.
+
+## Problemas duros que quedan
+

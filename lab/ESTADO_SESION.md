@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-21 (F7c hecho en `f7-research-v3`; PARADA: el analista y Omar leen) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-22 (F7c-2 hecho en `f7-research-v3`; PARADA: Omar lee) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «docs(f6): F6c cerrado como laboratorio…» (`git log -1`) en f6-guion-v3, sobre `7ec2025`; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
@@ -11,7 +11,14 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F7 — Research v3 — F7c HECHO · PARADA: el analista y Omar leen la comparación
+## F7 — Research v3 — F7c-2 HECHO · PARADA: Omar lee
+- **F7c-2** (validación del analista sobre F7c: «material de 9, narración 7.5–8»; §8 confirmado por Omar). Leer `lab/hyperframes/f7/F7c2_REPORT.md` (revisor íntegro) y `compara_orleans_v3r.html` (4 columnas).
+  - §8: `script_engine/video_length.py` (lee `config.long_video`; `config.py` está fuera de git): 1,500 / 1,700 palabras, caps de 105 s, 16 fotos por cap como máximo (90 por video). `m01a_skeleton.CHAPTER_SCHEMA` y `m01a_escaleta.CAP_WORDS` salen de ahí.
+  - Reglas duras nuevas (`script_engine/guion_v3_reglas.py`, desde `m01b_guionista.review`): fragmento de cita ≤ 25 palabras (el candado lo acepta: `evidence.anchors`), una cita por párrafo, gancho sin fotos/fechas/citas de después, juicios fuera del pool, nombre completo 1 vez por cap, repetición de 3 palabras entre caps.
+  - Corrida: humano Reed, pico francotiradores (cap 5), gancho agua del inodoro. 1,252 palabras, 12 citas, 7 testigos con nombre, 11 duras (F7c: 16). A la lectura: dos roles cambiados (Ducre, Big Whappy) y juicios que la lista no ve.
+  - Tests: 447 verdes en guion/gfx/m01/m03; 5 fallas previas (3 `01b_pauses`, 2 `m03_merge_timing`).
+
+## F7 — Research v3 — F7c (pool v3 por la tubería v3) — HECHO
 - **F7c** (pedido: validación del pool «aprobado, materia prima de 9» + 3 arreglos + corrida). Leer `lab/hyperframes/f7/F7c_REPORT.md` (veredicto del revisor íntegro) y `compara_orleans_v3r.html`.
   - Arreglos: `presente_en` por párrafo (±500), elegibles re-armados (12); población con todas sus variantes (oficial 6,375, ACLU/sheriff); `pool["digest"]` y `m01a_escaleta.pool_section` lo usa (flag `ESCALETA_DIGEST`): prompt de escaleta 18.7 k tokens.
   - La corrida destapó 3 problemas del pool contra los validadores de F6 (cita de una palabra, descartes como «personajes», cifras con punto de miles): arreglados en el pool.

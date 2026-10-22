@@ -1,7 +1,8 @@
 """F7c: página estática de comparación del guion de Orleans → lab/hyperframes/f7/compara_orleans_v3r.html
 
-Tres columnas por cap: v2 F5d (`lab/hyperframes/f5/pruebas/01b_narration_f5d_pre_retoque.json`, pool f5v2) · v3 con el
-pool viejo (F6c, `ba6c3cac-f6v3`) · v3 con el pool de research v3 (F7c, `ba6c3cac-f7r3`). Arriba, las métricas del juez
+Cuatro columnas por cap: v2 F5d (`lab/hyperframes/f5/pruebas/01b_narration_f5d_pre_retoque.json`, pool f5v2) · v3 con
+el pool viejo (F6c, `ba6c3cac-f6v3`) · v3 con el pool de research v3 (F7c, guardada en `lab/hyperframes/f7/f7c_v1/`)
+· F7c-2 (reglas nuevas, 1,500 palabras y notas del analista; `ba6c3cac-f7r3`). Arriba, las métricas del juez
 (`m05_narrative.video_metrics`, cada versión con su pool y su skeleton/escaleta) y la revisión v3 (`m01b_guionista`:
 duras/blandas). Debajo de cada texto v3, su escaleta (beats del cap). Sin servidor: HTML autocontenido.
 Uso: python -I lab/hyperframes/f7/build_compara_v3r.py
@@ -33,17 +34,22 @@ def versions() -> list[dict]:
                      for c in v2["chapters"]],
             "pool": _load(STEPS / "ba6c3cac-f5v2/01_facts_sources.json")["evidence_pool"],
             "skeleton": _load(STEPS / "ba6c3cac-f5v2/01a_skeleton.json"), "esc": None, "rev": None}]
-    for key, tid, titulo, sub in (("v3", "ba6c3cac-f6v3", "v3 · pool viejo (F6c)",
-                                   "escaleta + guionista + editor (pool f6v3 + testimonios, notas del analista)"),
-                                  ("v3r", "ba6c3cac-f7r3", "v3 · pool nuevo (F7c)",
-                                   "la misma tubería, pool de research v3 (10 documentos), sin notas")):
-        nar = _load(STEPS / tid / "01b_narracion_v3.json")
-        esc = _load(STEPS / tid / "01a_escaleta.json")
+    for key, tid, src, titulo, sub in (
+            ("v3", "ba6c3cac-f6v3", STEPS / "ba6c3cac-f6v3", "v3 · pool viejo (F6c)",
+             "escaleta + guionista + editor (pool f6v3 + testimonios, notas del analista)"),
+            ("v3r", "ba6c3cac-f7r3", LAB / "f7c_v1", "v3 · pool nuevo (F7c)",
+             "la misma tubería, pool de research v3 (10 documentos), sin notas"),
+            ("v3r2", "ba6c3cac-f7r3", STEPS / "ba6c3cac-f7r3", "v3 · pool nuevo (F7c-2)",
+             "reglas nuevas (fragmento de cita, gancho, sin juicios), 1,500 palabras, notas del analista")):
+        nar = _load(src / "01b_narracion_v3.json")
+        esc = _load(src / "01a_escaleta.json")
         out.append({"key": key, "titulo": titulo, "sub": sub,
                     "caps": [{"n": c["chapter_number"], "texto": c["narration"], "ids": c.get("datos_usados")}
                              for c in nar["caps"]],
                     "pool": _load(STEPS / tid / "01_facts_sources.json")["evidence_pool"],
-                    "skeleton": me.caps_view(esc), "esc": esc, "rev": nar.get("revision"), "costo": nar.get("costo")})
+                    "facts": _load(STEPS / tid / "01_facts_sources.json").get("verified_facts") or [],
+                    "skeleton": me.caps_view(esc), "esc": esc, "rev": nar.get("revision"), "costo": nar.get("costo"),
+                    "parrafos": nar.get("parrafos")})
     return out
 
 
@@ -66,9 +72,19 @@ def metrics(v: dict) -> dict:
             "datos en > 2 caps": len(m["datos_en_mas_de_2_caps"]), "problemas de fechas": m["problemas_de_fechas"],
             "cifras no canónicas": len(m["cifras_no_canonicas"]), "citas usadas": len(citas),
             "testigos con nombre citados": ", ".join(named) or "—",
-            "revisión v3: duras / blandas": (f"{len(rev.get('hard') or [])} / {len(rev.get('soft') or [])}"
-                                             if rev else "— (v2)"),
+            "revisión v3 de su corrida: duras / blandas": (f"{len(rev.get('hard') or [])} / {len(rev.get('soft') or [])}"
+                                                          if rev else "— (v2)"),
+            "duras con las reglas de F7c-2 (re-medido)": now_hard(v),
             "pool: datos / citas": f"{len(v['pool'].get('datos') or [])} / {len(v['pool'].get('citas') or [])}"}
+
+
+def now_hard(v: dict) -> str:
+    """Duras de la versión v3 medidas HOY (m01b_guionista.review con las reglas de F7c-2), para comparar parejo."""
+    if not v.get("esc") or not v.get("parrafos"):
+        return "— (v2)"
+    from script_engine import m01b_guionista as mg
+    rv = mg.review({"evidence_pool": v["pool"], "verified_facts": v.get("facts") or []}, v["esc"], v["parrafos"])
+    return str(len(rv["hard"]))
 
 
 def esc_html(esc: dict | None, n: int, pool: dict) -> str:
@@ -97,7 +113,7 @@ p.lead{color:var(--mut);font-family:system-ui,sans-serif;font-size:13px;margin:0
 table{border-collapse:collapse;width:100%;font:13px/1.4 system-ui,sans-serif;margin-bottom:28px}
 th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 th{color:var(--mut);font-weight:600}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:26px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:26px}
 .col{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
 .col h3{font:600 13px system-ui,sans-serif;margin:0 0 6px;color:var(--acc)}
 .col p{margin:0 0 8px;white-space:pre-wrap}
@@ -107,7 +123,8 @@ summary{cursor:pointer;color:var(--mut)}
 ul{padding-left:18px;margin:6px 0}
 .m{color:var(--mut)}
 h2{font:600 17px system-ui,sans-serif;margin:30px 0 10px}
-@media (max-width:900px){.grid{grid-template-columns:1fr}}
+@media (max-width:1200px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:700px){.grid{grid-template-columns:1fr}}
 """
 
 
@@ -130,10 +147,11 @@ def main() -> None:
                         + esc_html(v["esc"], n, v["pool"]) + "</div>")
         caps_html.append(f"<h2>Cap {n}</h2><div class=grid>{''.join(cols)}</div>")
     doc = f"""<!doctype html><html lang=es><head><meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1"><title>Orleans: guion v2 · v3 · v3r</title>
+<meta name=viewport content="width=device-width,initial-scale=1"><title>Orleans: guion v2 · v3 · v3r · v3r2</title>
 <style>{CSS}</style></head><body><main>
-<h1>Orleans — el guion con tres materias primas</h1>
-<p class=lead>v2 F5d · v3 con el pool viejo (F6c) · v3 con el pool de research v3 (F7c). Métricas del juez
+<h1>Orleans — cuatro versiones del guion</h1>
+<p class=lead>v2 F5d · v3 con el pool viejo (F6c) · v3 con el pool de research v3 (F7c) · F7c-2 (reglas nuevas, 1,500 palabras,
+notas del analista). Métricas del juez
 (m05_narrative) medidas con el pool y la escaleta/skeleton de cada versión.</p>
 <table><tr><th>métrica</th>{head}</tr>{rows}</table>
 {''.join(caps_html)}
