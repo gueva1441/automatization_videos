@@ -119,7 +119,7 @@ def main() -> None:
     _dump(STEPS / "01b_editor_v3.json", e)
     _dump(cpath, cost)
     final = e["parrafos"]
-    caps = mg.caps_text(esc, final)
+    caps = mc.narration_tts(esc, final, mg.caps_text(esc, final))      # F9: + narration_tts (etiquetas de v4)
     _dump(STEPS / "01b_narracion_v3.json", {"topic_id": TOPIC, "parrafos": final, "caps": caps,
                                             "revision": e["revision_despues"], "costo": cost})
     rv0, rv1 = e["revision_antes"], e["revision_despues"]

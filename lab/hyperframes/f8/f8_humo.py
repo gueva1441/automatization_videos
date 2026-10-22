@@ -145,24 +145,32 @@ def build_outputs(data: list[dict]) -> None:
     from PIL import Image, ImageDraw
     meta, rows = data[0], data[1:]
     for r in rows:
+        if r.get("f8_png") and Path(r["f8_png"]).exists():          # F8b: la versión F8 de una imagen rehecha
+            r["f8_jpg"] = _jpg(r["f8_png"], HUMO / f"v3_{r['n']:02d}_f8.jpg")
         if r.get("png") and Path(r["png"]).exists():
             r["jpg"] = _jpg(r["png"], HUMO / f"v3_{r['n']:02d}.jpg")
+        if r.get("graded_png") and Path(r["graded_png"]).exists():
+            r["f8b_jpg"] = _jpg(r["graded_png"], HUMO / f"f8b_{r['n']:02d}.jpg")
         if r.get("v2_png") and Path(r["v2_png"]).exists():
             r["v2_jpg"] = _jpg(r["v2_png"], HUMO / f"v2_{r['n']:02d}.jpg")
-    # hoja de contactos (4 × 3, v3)
+    # hojas de contactos (4 × 3): F8 (la v3 de la primera tanda) y F8b (reglas nuevas + grade)
     W, H = 480, 270
-    sheet = Image.new("RGB", (W * 4, (H + 22) * 3), (12, 12, 12))
-    d = ImageDraw.Draw(sheet)
-    for k, r in enumerate(rows[:12]):
-        x, y = (k % 4) * W, (k // 4) * (H + 22)
-        if r.get("jpg"):
-            im = Image.open(HUMO / r["jpg"])
-            im.thumbnail((W, H))
-            sheet.paste(im, (x, y))
-        d.text((x + 4, y + H + 4), f"{r['n']:02d} cap{r['cap']} beat{r['beat']}{' PICO' if r['cerrada'] else ''}"
-                                   f"{' SENSIBLE' if r.get('sensible') else ''} {r.get('ms') or '-'} ms",
-               fill=(230, 230, 230))
-    sheet.save(HUMO / "hoja_contactos.jpg", "JPEG", quality=85)
+    for name, key in (("hoja_contactos.jpg", "f8"), ("hoja_contactos_f8b.jpg", "f8b")):
+        if key == "f8b" and not any(r.get("f8b_jpg") for r in rows):
+            continue
+        sheet = Image.new("RGB", (W * 4, (H + 22) * 3), (12, 12, 12))
+        d = ImageDraw.Draw(sheet)
+        for k, r in enumerate(rows[:12]):
+            x, y = (k % 4) * W, (k // 4) * (H + 22)
+            j = (r.get("f8_jpg") or r.get("jpg")) if key == "f8" else r.get("f8b_jpg")
+            if j:
+                im = Image.open(HUMO / j)
+                im.thumbnail((W, H))
+                sheet.paste(im, (x, y))
+            tag = (" REHECHA" if key == "f8b" and r.get("f8_png") else "")
+            d.text((x + 4, y + H + 4), f"{r['n']:02d} cap{r['cap']} beat{r['beat']}{' PICO' if r['cerrada'] else ''}"
+                                       f"{' SENSIBLE' if r.get('sensible') else ''}{tag}", fill=(230, 230, 230))
+        sheet.save(HUMO / name, "JPEG", quality=85)
     (HUMO / "humo.json").write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
     # tabla
     ok = [r for r in rows if r.get("estado") == "ok"]
@@ -194,8 +202,8 @@ def build_outputs(data: list[dict]) -> None:
         cards.append(f"""<section class="card"><h2>#{r['n']:02d} · cap {r['cap']} · beat {r['beat']}
 {'<span class="tag">pico · la más cerrada</span>' if r['cerrada'] else ''}{'<span class="tag warn">sensible</span>' if r.get('sensible') else ''}</h2>
 <p class="anchor">«{html.escape(r['anchor'])}»</p>
-<div class="pair">{img(r.get('v2_jpg'), 'v2 (F5, Seedream 4.5)')}{img(r.get('jpg'), f"v3 (F8, 5.0 Lite · {r.get('ms') or '-'} ms)")}</div>
-<details><summary>prompts</summary><p><b>v2</b> {html.escape(r.get('v2_prompt') or '')}</p><p><b>v3</b> {html.escape(r['prompt'])}</p>
+<div class="pair{' tri' if r.get('f8b_jpg') else ''}">{img(r.get('v2_jpg'), 'v2 (F5, Seedream 4.5)')}{img(r.get('f8_jpg') or r.get('jpg'), "v3 (F8, 5.0 Lite)")}{img(r.get('f8b_jpg'), ('F8b: rehecha con las reglas nuevas + grade' if r.get('f8_png') else 'F8b: misma imagen + grade')) if r.get('f8b_jpg') else ''}</div>
+<details><summary>prompts</summary><p><b>v2</b> {html.escape(r.get('v2_prompt') or '')}</p><p><b>v3 F8</b> {html.escape(r.get('f8_prompt') or r['prompt'])}</p>{('<p><b>F8b</b> ' + html.escape(r['prompt']) + '</p>') if r.get('f8_png') else ''}
 {'<p><b>arreglos</b> ' + html.escape('; '.join(r['problemas'] + r['slots_scrub'])) + '</p>' if r['problemas'] or r['slots_scrub'] else ''}</details></section>""")
     ep = meta.get("_edit_probe") or {}
     edit_card = (f"""<section class="card"><h2>Foto madre por /edit de v5 Lite ({html.escape(ep.get('estado') or '')},
@@ -212,14 +220,17 @@ main{{max-width:1500px;margin:0 auto;padding:16px}} h1{{font-size:22px}} .card{{
 .card h2{{font-size:16px;margin:0 0 6px}} .anchor{{color:var(--mute);margin:0 0 8px}} .pair{{display:grid;grid-template-columns:1fr 1fr;gap:10px}}
 figure{{margin:0}} img{{width:100%;border-radius:4px;display:block}} figcaption{{color:var(--mute);font-size:13px;margin-top:4px}}
 .tag{{background:var(--acc);color:#fff;font-size:12px;padding:1px 6px;border-radius:3px;margin-left:8px}} .tag.warn{{background:#8a6d00}}
-details p{{font-size:13px;color:#cfcfcf}} @media (max-width:700px){{.pair{{grid-template-columns:1fr}}}}
-</style></head><body><main><h1>Imágenes F8: Orleans v2 (izquierda) contra v3 con Seedream 5.0 Lite (derecha)</h1>
-<p>12 imágenes de la escaleta f7r3; a la izquierda, la foto de v2 en la misma posición relativa del mismo cap. Detalle en
-<code>humo/HUMO.md</code>.</p>{''.join(cards)}{edit_card}</main></body></html>"""
+.pair.tri{{grid-template-columns:1fr 1fr 1fr}}
+details p{{font-size:13px;color:#cfcfcf}} @media (max-width:700px){{.pair,.pair.tri{{grid-template-columns:1fr}}}}
+</style></head><body><main><h1>Imágenes F8 / F8b: Orleans v2 · v3 F8 · F8b</h1>
+<p>12 imágenes de la escaleta f7r3. Columnas: la foto de v2 en la misma posición relativa del mismo cap; la v3 de F8
+(Seedream 5.0 Lite); F8b: #3, #7, #8, #9 y #10 rehechas con las reglas nuevas (armas, pico humano, texto, escala) y
+las 12 con el grade de post. Detalle en <code>humo/HUMO.md</code>.</p>{''.join(cards)}{edit_card}</main></body></html>"""
     (LAB / "compara_imagenes_f8.html").write_text(page, encoding="utf-8")
 
 
-def rehacer(n: int, data: list[dict]) -> None:
+def rehacer(n: int, data: list[dict], note: str | None = None, label: str = "rehecha tras arreglar el respaldo (F8)"
+            ) -> None:
     """Rehace la imagen `n` (prompt con el código actual, mismo ancla y beat) y la vuelve a generar."""
     from script_engine import m03_imagenes_v3 as v3
     from script_engine import m03_visual as m3
@@ -227,8 +238,8 @@ def rehacer(n: int, data: list[dict]) -> None:
     r = next(x for x in data[1:] if x["n"] == n)
     topic = _topic()
     beats = v3.load_beats(topic, STEPS_DIR)
-    f8 = {"beats": beats, "year": v3.topic_year(topic, beats), "refill": True,
-          "force_assign": [{"beat": r["beat"], "cerrada": r["cerrada"]}]}
+    f8 = {"beats": beats, "year": v3.topic_year(topic, beats), "refill": True, "lang": v3.place_language(topic),
+          "force_assign": [{"beat": r["beat"], "cerrada": r["cerrada"]}], **({"note": note} if note else {})}
     narr = json.loads((STEPS_DIR / TOPIC / "01b_narracion_v3.json").read_text(encoding="utf-8"))
     esc = json.loads((STEPS_DIR / TOPIC / "01a_escaleta.json").read_text(encoding="utf-8"))
     cap_txt = next(c["narration"] for c in narr["caps"] if c["chapter_number"] == r["cap"])
@@ -238,11 +249,38 @@ def rehacer(n: int, data: list[dict]) -> None:
                                      r["cap"])["image_prompts"][0]
     r.update({"prompt_anterior": r["prompt"], "prompt": it["prompt"], "shot_scale": it.get("shot_scale"),
               "sensible": it.get("sensible"), "motivos": it.get("motivos"), "problemas": it.get("_f8_problemas") or [],
-              "slots_scrub": it.get("_f8_slots_scrub") or [], "rehecha": "rehecha tras arreglar el respaldo (F8)"})
+              "slots_scrub": it.get("_f8_slots_scrub") or [], "rehecha": label,
+              "texto_en_imagen": it.get("texto_en_imagen")})
     old = data[0].get("_costo_imagenes_usd") or 0.0
     generate([r])
     data[0]["_costo_imagenes_usd"] = round(old + (r.pop("_costo_imagenes_usd", 0.0) or 0.0), 4)
     r.pop("_pared_s", None)
+
+
+def f8b(ns: list[int], data: list[dict]) -> None:
+    """F8b §2.7: rehace `ns` con las reglas nuevas (la versión F8 queda en *_f8.png) y aplica el grade a las 12."""
+    import shutil
+
+    from script_engine import image_grade
+    from script_engine import m03_visual as m3
+    for r in data[1:]:
+        if r["n"] in ns and not r.get("f8_png"):
+            p = Path(r["png"])
+            f8p = p.with_name(f"{p.stem}_f8{p.suffix}")
+            shutil.copy2(p, f8p)
+            r.update({"f8_png": str(f8p), "f8_prompt": r["prompt"], "f8_ms": r.get("ms")})
+            rehacer(r["n"], data, note=m3.F8_NOTE_CERRADA if r["cerrada"] else None,
+                    label="rehecha en F8b con las reglas nuevas")
+            print(f"  F8b #{r['n']}: {r.get('estado')} {r.get('ms')} ms", flush=True)
+    prm = image_grade.params()
+    for r in data[1:]:
+        if r.get("png") and Path(r["png"]).exists():
+            r["graded_png"] = str(image_grade.grade(Path(r["png"]), prm, overwrite=True))
+            a, b = image_grade.stats(Path(r["png"])), image_grade.stats(Path(r["graded_png"]))
+            r["grade_stats"] = {"sat_antes": round(a["sat_media"], 3), "sat_despues": round(b["sat_media"], 3),
+                                "negro_puro_antes": round(a["negro_puro_pct"], 2),
+                                "negro_puro_despues": round(b["negro_puro_pct"], 2)}
+    data[0]["_grade"] = prm
 
 
 def probar_edit(data: list[dict]) -> None:
@@ -276,6 +314,11 @@ def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")                # -I ignora PYTHONIOENCODING
     a = sys.argv[1:]
     HUMO.mkdir(parents=True, exist_ok=True)
+    if "--f8b" in a:
+        data = json.loads((HUMO / "humo.json").read_text(encoding="utf-8"))
+        f8b([int(x) for x in a[a.index("--f8b") + 1].split(",")], data)
+        build_outputs(data)
+        return
     if "--rehacer" in a or "--probar-edit" in a:
         data = json.loads((HUMO / "humo.json").read_text(encoding="utf-8"))
         if "--rehacer" in a:

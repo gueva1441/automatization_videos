@@ -11,7 +11,13 @@ Cada perfil incluye:
 AUDIO_PROFILES: dict[str, dict] = {
     "MISTERIO_ABISAL": {
         "description": "Voz pausada y profunda. Ideal para temas tipo El Bloop.",
-        "voice_id": "pqHfZKP75CvOlQylNhV4",  # Bill
+        "voice_id": "pqHfZKP75CvOlQylNhV4",  # Bill (guiones v2, y v3 con TTS_V2=1)
+        # F9: guiones v3 (con `narration_tts`) → ElevenLabs v4 + MS Narrador v1 (Voice Design de Omar, 2026-10-22).
+        # v4 no acepta style, speed ni SSML: solo stability + similarity_boost (VOICE_SETTINGS_BY_INTENT_V4).
+        "voice_id_v4": "N9Z5MLTIaHFLflaLtbDi",  # MS Narrador v1
+        "elevenlabs_model_v4": "eleven_v4",
+        "language_code_v4": "es",
+        "voice_settings_v4": {"stability": 0.55, "similarity_boost": 0.8},
         "voice_settings": {
             "stability": 0.45,
             "similarity_boost": 0.8,
@@ -101,4 +107,15 @@ VOICE_SETTINGS_BY_INTENT: dict[str, dict] = {
     "consequences":   {"stability": 0.60, "style": 0.45},  # subí ambos
     "resolution":     {"stability": 0.70, "style": 0.35},  # igual
     "outro":          {"stability": 0.75, "style": 0.30},  # igual
+}
+
+# F9 §3.2: ElevenLabs v4 (MS Narrador). Solo stability: similarity_boost es la identidad de la voz (0.8, del perfil).
+VOICE_SETTINGS_BY_INTENT_V4: dict[str, dict] = {
+    "hook":           {"stability": 0.45},
+    "setup":          {"stability": 0.65},
+    "rising_tension": {"stability": 0.55},
+    "shock":          {"stability": 0.45},
+    "consequences":   {"stability": 0.60},
+    "resolution":     {"stability": 0.65},
+    "outro":          {"stability": 0.60},
 }

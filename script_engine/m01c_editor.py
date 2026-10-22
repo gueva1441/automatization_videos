@@ -124,6 +124,13 @@ def lexical_guard(before: str, after: str) -> list[str]:
 #  Edición con validación
 # ═══════════════════════════════════════════════════════════════
 
+def narration_tts(esc: dict, parrafos: list[dict], caps: list[dict], *, slowly_dev: bool = False) -> list[dict]:
+    """F9 §3.3: `narration_tts` (etiquetas de v4: pausas, susurro en la frase de golpe, [slowly]) por cap, sobre los
+    párrafos ya editados. `narration` no cambia. In place sobre `caps` (m01b_guionista.caps_text); devuelve `caps`."""
+    from script_engine.tts_tags import caps_tts
+    return caps_tts(esc, parrafos, caps, slowly_dev=slowly_dev)
+
+
 def _cap_hard(review: dict, cap: int) -> int:
     pc = review["por_cap"].get(cap) or {}
     glob = [h for h in review["hard"] if not h.startswith("cap ")]

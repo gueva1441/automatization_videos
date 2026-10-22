@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -52,7 +53,7 @@ from config import api, OUTPUT_DIR, DATA_DIR
 
 _NORMALIZED_NARRATION_FILENAME = "01b_narration_normalized.json"
 from audio_config import AUDIO_STYLE, ACTIVE_AUDIO_PROFILE
-from audio_profiles import VOICE_SETTINGS_BY_INTENT
+from audio_profiles import VOICE_SETTINGS_BY_INTENT, VOICE_SETTINGS_BY_INTENT_V4
 from error_handler import error_handler, PipelineStage
 from cost_tracker import cost_tracker
 
@@ -384,16 +385,21 @@ def _generate_chapter_audio(
     output_path: Path,
     voice_id: str,
     voice_settings: dict[str, Any],
+    model_id: str | None = None,
+    language_code: str | None = None,
 ) -> Path:
     """
     Llama a ElevenLabs y escribe el .mp3. Registra costo.
     Protegido por @retry: 3 intentos normales, 5 si es 503/429.
+    F9: `model_id`/`language_code` solo para v4 (None → el payload de siempre, byte-idéntico).
     """
     payload = {
         "text": text,
-        "model_id": api.elevenlabs_model,
+        "model_id": model_id or api.elevenlabs_model,
         "voice_settings": voice_settings,
     }
+    if language_code:
+        payload["language_code"] = language_code
     resp = requests.post(
         f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}",
         headers={
@@ -443,6 +449,17 @@ def _resolve_voice_settings(
     if not override:
         return base_settings
     return {**base_settings, **override}
+
+
+def tts_v4_enabled(chapter: dict) -> bool:
+    """F9: v4 + MS Narrador cuando el cap trae `narration_tts` (guion v3); TTS_V2=1 vuelve a v2 + Bill."""
+    return bool(chapter.get("narration_tts")) and os.environ.get("TTS_V2") != "1"
+
+
+def _resolve_voice_settings_v4(narrative_intent: str | None) -> dict:
+    """F9 §3.2: v4 solo acepta stability + similarity_boost: base del perfil + stability por intent."""
+    base = dict(AUDIO_STYLE.get("voice_settings_v4") or {"stability": 0.55, "similarity_boost": 0.8})
+    return {**base, **(VOICE_SETTINGS_BY_INTENT_V4.get(narrative_intent or "") or {})}
 
 
 def _ensure_cost_tracking(video_id: str) -> None:
@@ -550,11 +567,16 @@ def generate_chapter_assets(
     voice_settings: dict[str, Any],
     language: str = "es",
     skip_if_exists: bool = True,
+    tts_model: str | None = None,
+    language_code: str | None = None,
 ) -> dict[str, Any]:
     """
     Genera .mp3 + _timestamps.json para UN capítulo.
 
     Retorna el entry del capítulo para el sync_map.
+    F9: si el cap trae `narration_tts` y viene `tts_model` (v4), a Eleven va el texto normalizado CON las etiquetas
+    (trasladadas por oración, `tts_tags.transfer_tags`); el forced alignment, el hash y los subtítulos siguen con el
+    texto normalizado limpio (`text_for_tts`).
     """
     chapter_id: str = chapter["id"]
     text: str = chapter["text"]
@@ -582,6 +604,13 @@ def generate_chapter_assets(
     # m01b regeneró narración y resulta en TTS distinto. PR 1 chat 24.
     text_hash = hashlib.md5(text_for_tts.encode("utf-8")).hexdigest()[:12]
 
+    # F9: v4 — el texto que se graba lleva las etiquetas; el hash del pedido (texto + modelo + voz) invalida la caché
+    tts_text, tts_mode, tts_hash = text_for_tts, None, None
+    if tts_model and chapter.get("narration_tts"):
+        from script_engine.tts_tags import transfer_tags
+        tts_text, tts_mode = transfer_tags(chapter["narration_tts"], text_for_tts)
+        tts_hash = hashlib.md5(f"{tts_model}|{voice_id}|{tts_text}".encode("utf-8")).hexdigest()[:12]
+
     # Si los assets existen, validar que correspondan al texto actual.
     # Si el hash difiere → texto cambió, regenerar audio + timestamps.
     if skip_if_exists and audio_path.exists():
@@ -593,6 +622,12 @@ def generate_chapter_assets(
             except (json.JSONDecodeError, OSError):
                 prior_hash = None
 
+        if tts_hash is not None and meta_path.exists():
+            try:
+                if json.loads(meta_path.read_text(encoding="utf-8")).get("tts_hash") != tts_hash:
+                    prior_hash = None                      # F9: cambió el modelo, la voz o las etiquetas
+            except (json.JSONDecodeError, OSError):
+                prior_hash = None
         if prior_hash != text_hash:
             error_handler.log_info(
                 PipelineStage.AUDIO,
@@ -615,10 +650,11 @@ def generate_chapter_assets(
             f"{len(text)} originales)...",
         )
         _generate_chapter_audio(
-            text=text_for_tts,
+            text=tts_text,                     # = text_for_tts salvo en v4 (con etiquetas)
             output_path=audio_path,
             voice_id=voice_id,
             voice_settings=voice_settings,
+            **({"model_id": tts_model, "language_code": language_code} if tts_model else {}),
         )
 
     duration = _get_audio_duration(audio_path)
@@ -675,7 +711,9 @@ def generate_chapter_assets(
     # Persistir el text_hash para la próxima corrida (cache invalidation).
     meta_path.write_text(
         json.dumps(
-            {"text_hash": text_hash, "generated_at": datetime.now().isoformat()},
+            {"text_hash": text_hash, "generated_at": datetime.now().isoformat(),
+             **({"tts_hash": tts_hash, "tts_model": tts_model, "voice_id": voice_id, "tts_transfer": tts_mode,
+                 "tts_chars": len(tts_text)} if tts_hash else {})},
             ensure_ascii=False,
             indent=2,
         ),
@@ -696,6 +734,8 @@ def generate_chapter_assets(
         "timestamps_path": timestamps_path.name,
         "duration_sec": round(duration, 3),
         "word_count": len(words),
+        **({"tts_text": tts_text, "tts_model": tts_model, "voice_id": voice_id, "tts_transfer": tts_mode}
+           if tts_hash else {}),
     }
 
 
@@ -750,6 +790,12 @@ def process_script(
             base_settings=voice_settings,
             narrative_intent=cap_intent,
         )
+        cap_voice_id, v4_kw = voice_id, {}
+        if tts_v4_enabled(ch):                         # F9: guion v3 → v4 + MS Narrador (TTS_V2=1 → v2 + Bill)
+            cap_voice_settings = _resolve_voice_settings_v4(cap_intent)
+            cap_voice_id = AUDIO_STYLE.get("voice_id_v4") or voice_id
+            v4_kw = {"tts_model": AUDIO_STYLE.get("elevenlabs_model_v4") or "eleven_v4",
+                     "language_code": AUDIO_STYLE.get("language_code_v4") or "es"}
 
         if cap_intent:
             error_handler.log_info(
@@ -762,10 +808,11 @@ def process_script(
         entry = generate_chapter_assets(
             chapter=ch,
             video_id=video_id,
-            voice_id=voice_id,
+            voice_id=cap_voice_id,
             voice_settings=cap_voice_settings,
             language=language,
             skip_if_exists=skip_if_exists,
+            **v4_kw,
         )
         entry["narrative_intent"] = cap_intent or ""
         entry["voice_settings_applied"] = cap_voice_settings
