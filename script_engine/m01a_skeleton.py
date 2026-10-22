@@ -59,15 +59,15 @@ from script_engine import evidence as ev
 
 STEPS_DIR: Path = DATA_DIR / "scripts" / "_steps"
 
-# Estructura fija del skeleton — NO se le pide a Flash que la decida.
+# Estructura fija del skeleton — NO se le pide a Flash que la decida. Duraciones desde config (HANDOFF_F7 §8.2:
+# desarrollo 105 s, antes 75). Contrato de 7 caps intacto.
+from script_engine.video_length import get as _len  # noqa: E402
+
 CHAPTER_SCHEMA = [
-    {"chapter_number": 1, "role": "hook",         "render_engine": "veo",  "duration_seconds": 45},
-    {"chapter_number": 2, "role": "development",  "render_engine": "flux", "duration_seconds": 75},
-    {"chapter_number": 3, "role": "development",  "render_engine": "flux", "duration_seconds": 75},
-    {"chapter_number": 4, "role": "development",  "render_engine": "flux", "duration_seconds": 75},
-    {"chapter_number": 5, "role": "development",  "render_engine": "flux", "duration_seconds": 75},
-    {"chapter_number": 6, "role": "development",  "render_engine": "flux", "duration_seconds": 75},
-    {"chapter_number": 7, "role": "reveal_outro", "render_engine": "veo",  "duration_seconds": 45},
+    {"chapter_number": 1, "role": "hook",         "render_engine": "veo",  "duration_seconds": _len("hook_cap_seconds")},
+    *[{"chapter_number": n, "role": "development", "render_engine": "flux", "duration_seconds": _len("dev_cap_seconds")}
+      for n in range(2, 7)],
+    {"chapter_number": 7, "role": "reveal_outro", "render_engine": "veo",  "duration_seconds": _len("outro_cap_seconds")},
 ]
 
 MIN_BULLETS_PER_CHAPTER = 4

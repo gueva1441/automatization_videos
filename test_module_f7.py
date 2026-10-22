@@ -484,3 +484,73 @@ def test_pool_does_not_trip_f6_validators():
     g = {"oficial": "D01", "valor": "6,375", "variantes": [{"id": "D02", "valor": "6,000", "estatus": "según X"}]}
     assert mn.non_canonical("Había 6,375 presos.", {"cifras_canonicas": [g]}, {}) == []
     assert mn.non_canonical("Había 6,000 presos.", {"cifras_canonicas": [g]}, {})
+
+
+# ── F7c-2: parámetros de largo, fragmento de cita y reglas duras nuevas ───────
+
+def test_length_params_from_config():
+    from script_engine import m01a_escaleta as me
+    from script_engine import video_length as vl
+    from script_engine.m01a_skeleton import CHAPTER_SCHEMA
+    from script_engine.m03_visual import _calculate_flux_extras_count, _calculate_image_count
+    assert [vl.get(k) for k in ("target_words", "max_words", "dev_cap_seconds", "max_images_per_video")] == \
+        [1500, 1700, 105, 90]
+    assert me.CAP_WORDS == {1: 110, 2: 240, 3: 240, 4: 240, 5: 240, 6: 240, 7: 130}
+    assert [c["duration_seconds"] for c in CHAPTER_SCHEMA] == [45, 105, 105, 105, 105, 105, 45]
+    dev = sum(_calculate_image_count(400, n) for n in range(2, 7))          # caps larguísimos: manda el tope
+    assert dev + 2 * _calculate_flux_extras_count(45) <= vl.get("max_images_per_video")
+    assert _calculate_image_count(75, 3) == 12                              # un cap normal no cambia (11 + 1 de posición)
+
+
+def test_quote_fragment_is_literal_and_short():
+    long_q = ("Parecía que estaban abatiendo a la gente. Ves a alguien caer. No sé si les estaban disparando con "
+              "munición real o qué; caían al agua y eso fue suficiente para que yo lo viera allí mismo, desde la "
+              "terraza del edificio, sin poder hacer nada por ellos.")
+    f = r3.quote_fragment(long_q)
+    assert f in long_q and r3.FRAGMENT_MIN_WORDS <= len(f.split()) <= r3.FRAGMENT_MAX_WORDS
+    assert r3.quote_fragment("Nos dejaron morir allí.") == "Nos dejaron morir allí."
+    one = "todo el mundo tenía que pelear para conseguir un sándwich, " * 4
+    assert len(r3.quote_fragment(one).split()) <= 25 and r3.quote_fragment(one) in one
+    from script_engine import evidence as ev
+    q = {"_kind": "citas", "texto": long_q, "fragmento": f}
+    assert ev.anchors(q) == [f, long_q]
+    assert ev.anchors({"_kind": "citas", "texto": "Nos dejaron morir allí."}) == ["Nos dejaron morir allí."]
+
+
+def test_one_literal_quote_per_paragraph():
+    from script_engine.guion_v3_reglas import quotes_per_paragraph
+    ok = [{"beat": 1, "texto": "Reed lo dijo: «los oficiales empezaron a renunciar a diestra y siniestra». «Templeman»."}]
+    bad = [{"beat": 2, "texto": "«Nos dejaron morir allí, hombre», dijo Burton. Y Reyes: «todavía hay presos muertos ahí»."}]
+    assert quotes_per_paragraph(ok) == [] and quotes_per_paragraph(bad)
+
+
+def test_hook_rules():
+    from script_engine.guion_v3_reglas import hook_problems
+    later = ["Tuvimos que beber agua del inodoro solo para mantenernos con vida"]
+    assert hook_problems("El agua negra llega al pecho. Nadie viene. Huele a cloaca.", later) == []
+    p = hook_problems("La foto es del 31 de agosto de 2005: tuvimos que beber agua del inodoro para vivir.", later)
+    assert any("foto" in x for x in p) and any("fechas" in x for x in p)
+    assert any("adelanta" in x for x in hook_problems("Contó: «tuvimos que beber agua del inodoro solo para»", later))
+
+
+def test_judgments_outside_pool_are_hard():
+    from script_engine.guion_v3_reglas import judgment_problems
+    pool = {"datos": [{"id": "D01", "texto": "Los guardias arrojaban sándwiches a los presos."}]}
+    assert judgment_problems("Un caos deliberado. Ya no eran considerados humanos.", pool)
+    assert judgment_problems("Arrojaban sándwiches a la multitud.", pool) == []
+    pool2 = {"datos": [{"id": "D01", "texto": "Un abogado dijo que fue un castigo deliberado."}]}
+    assert judgment_problems("Fue un castigo deliberado.", pool2) == []                 # lo dice el documento
+
+
+def test_full_name_once_per_cap_and_cross_cap_repetition():
+    from script_engine.guion_v3_reglas import full_name_problems, repetition_problems
+    caps = [{"chapter_number": 2, "narration": "Renard Reed vio todo. Más tarde, Renard Reed volvió."},
+            {"chapter_number": 3, "narration": "Renard Reed habló una vez. Reed calló."}]
+    assert full_name_problems(caps, "Renard Reed") == [
+        "cap 2: el nombre completo de Renard Reed suena 2 veces; una vez por cap, después solo el apellido"]
+    pool = {"personajes": [{"nombre": "Renard Reed"}], "lugares": [{"nombre": "Templeman III"}]}
+    caps2 = [{"chapter_number": 1, "narration": "Los oficiales empezaron a renunciar. El agua subía en Templeman III."},
+             {"chapter_number": 2, "narration": "Otra vez, los oficiales empezaron a renunciar. Templeman III quedó a oscuras."}]
+    rep = repetition_problems(caps2, pool)
+    assert len(rep) == 1 and "oficiales empezaron renunciar" not in rep[0] and "«oficiales empezaron a»" in rep[0]
+    assert repetition_problems([caps2[0], {"chapter_number": 2, "narration": "En Templeman III el agua."}], pool) == []

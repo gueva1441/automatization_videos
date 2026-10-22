@@ -1479,6 +1479,7 @@ def build_pool(per_doc: dict[str, dict], docs: list[dict], texts: dict[str, DocT
         geocode(pool["lugares"], geocode_cache, fetch=fetch, log=log, anchor=anchor_place(pool["lugares"], texts_es))
     verify_pool(pool, texts, docs, log)
     person_stats(pool, event_year)                        # F7c: otra vez, ya con las citas verificadas
+    add_fragments(pool)                                   # F7c-2: lo que la voz cita literal (≤ 25 palabras)
     pool["digest"] = build_digest(pool, docs, event_year=event_year)   # F7c: lo que lee la escaleta
     pool["_research_v3"] = {"prompt_r1": PROMPT_VERSION_R1, "prompt_r3": PROMPT_VERSION_R3,
                             "documentos": [{k: d.get(k) for k in ("id", "titulo", "tipo", "anio", "url", "txt",
@@ -1649,11 +1650,16 @@ def _short_src(fuente: str | None) -> str:
 
 
 def _q_line(q: dict) -> str:
+    """Línea de cita del digest: con fragmento, la voz cita SOLO el fragmento y parafrasea el resto (F7c-2)."""
     v = (q.get("verificacion") or {}).get("estado")
     tag = (" · TESTIMONIO (estuvo ahí)" if q.get("testimonio") else "") + (
         "" if not v else " · VERIFICADA" if v == "verificada" else " · SIN VERIFICAR (se usa sin el nombre)")
     rol = f" ({q['rol']})" if q.get("rol") else ""
-    return f'  [{q["id"]}] CITA: "{q["texto"]}" — {q.get("autor")}{rol}{tag} · fuente: {_short_src(q.get("fuente"))}'
+    frag = q.get("fragmento") or q["texto"]
+    rest = (f" (la cita entera tiene {len(q['texto'].split())} palabras: el resto se parafrasea)"
+            if frag != q["texto"] else "")
+    return (f'  [{q["id"]}] CITA: "{frag}"{rest} — {q.get("autor")}{rol}{tag} · '
+            f'fuente: {_short_src(q.get("fuente"))}')
 
 
 def _d_line(it: dict, kind: str) -> str:
@@ -1745,3 +1751,43 @@ def build_digest(pool: dict[str, Any], docs: list[dict], *, event_year: int) -> 
         ids += [d["id"] for d in sc]
     texto = "\n".join(L)
     return {"version": DIGEST_VERSION, "texto": texto, "ids": list(dict.fromkeys(ids)), "caracteres": len(texto)}
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F7c-2 (validación del analista sobre F7c) — fragmento citable
+# ═══════════════════════════════════════════════════════════════
+
+FRAGMENT_MAX_WORDS = 25
+FRAGMENT_MIN_WORDS = 5
+_SENT_END = re.compile(r"(?<=[.!?…])\s+")
+_CLAUSE_END = re.compile(r"(?<=[,;:])\s+")
+
+
+def quote_fragment(texto: str) -> str:
+    """El pedazo de la cita que la voz dice LITERAL (≤ FRAGMENT_MAX_WORDS palabras, tal cual está en `texto`); el resto
+    lo parafrasea el narrador. Una cita corta es su propio fragmento. Si no: la oración más larga que entra (≥
+    FRAGMENT_MIN_WORDS palabras); si ninguna entra, la primera oración cortada en el último fin de cláusula (coma, punto
+    y coma) que entra; si tampoco, sus primeras FRAGMENT_MAX_WORDS palabras. Siempre una subcadena de `texto`."""
+    t = str(texto or "").strip()
+    if len(t.split()) <= FRAGMENT_MAX_WORDS:
+        return t
+    sents = [s.strip() for s in _SENT_END.split(t) if s.strip()]
+    fit = [s for s in sents if FRAGMENT_MIN_WORDS <= len(s.split()) <= FRAGMENT_MAX_WORDS]
+    if fit:
+        return max(fit, key=lambda s: len(s.split()))
+    first = sents[0] if sents else t
+    acc = ""
+    for c in _CLAUSE_END.split(first):
+        nxt = (acc + " " + c).strip() if acc else c
+        if len(nxt.split()) > FRAGMENT_MAX_WORDS:
+            break
+        acc = nxt
+    if len(acc.split()) >= FRAGMENT_MIN_WORDS:
+        return acc.rstrip(",;: ")
+    return " ".join(first.split()[:FRAGMENT_MAX_WORDS]).rstrip(",;: ")
+
+
+def add_fragments(pool: dict[str, Any]) -> None:
+    """In place: `fragmento` en cada cita (aditivo; ver quote_fragment)."""
+    for q in pool.get("citas") or []:
+        q["fragmento"] = quote_fragment(q.get("texto") or "")

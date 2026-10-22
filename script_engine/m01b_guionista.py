@@ -28,7 +28,7 @@ from typing import Any, Callable
 
 from script_engine import evidence as ev
 
-PROMPT_VERSION = "f6c-3"             # f6c-3: párrafos de 55–80 palabras por beat y material extra por cap
+PROMPT_VERSION = "f7c2-1"            # f7c2-1: citas por fragmento, gancho flash-forward, sin juicios, nombre, repetición
 PARA_WORDS = (55, 80)
 EXTRA_PER_CAP = 3
 MIN_WORDS_FACTOR = 0.85
@@ -68,6 +68,10 @@ def _item_line(i: str, its: dict) -> str:
         v = it.get("verificacion") or {}
         mark = "" if not v else (" · VERIFICADA: con nombre" if v.get("estado") == "verificada"
                                  else " · SIN VERIFICAR: sin el nombre de quien la dijo")
+        frag = it.get("fragmento")
+        if frag and frag != txt:                    # F7c-2: literal SOLO el fragmento; el resto, parafraseado
+            return (f'[{i}] CITA «{frag}» — {it.get("autor")}{mark} · entre comillas va SOLO este fragmento, palabra '
+                    f'por palabra, con quién lo dijo; el resto de lo que contó, con tus palabras: «{txt}»')
         return f'[{i}] CITA «{txt}» — {it.get("autor")}{mark} · se copia ENTERA, palabra por palabra, o no se usa'
     extra = f" ({it['fecha']})" if it.get("fecha") else ""
     lit = " / ".join(f"«{a}»" for a in ev.anchors(it))
@@ -181,8 +185,10 @@ PICO: beat {pico} · CIERRE HUMANO: {esc.get("cierre_humano")}
 5. DATOS: toda cifra, fecha, nombre y cita sale LITERAL de los datos del beat («tiene que sonar literal»: eso, tal
    cual, o el dato no cuenta). Cada dato se dice UNA vez; después se parafrasea sin la cifra. Cada evento con su fecha;
    nunca fundas dos fechas. No inventes NADA. Un dato que no podés decir literal, no lo pongas en ids_usados.
-6. CITAS: entre comillas, copiadas literal, con el autor DENTRO de la oración («dijo Vincent Norman»), nunca como
-   firma. Una cita SIN VERIFICAR va sin el nombre de quien la dijo («un preso de diecinueve años contó: «…»»).
+6. CITAS: entre comillas va SOLO el fragmento de la cita (≤ 25 palabras), copiado literal, con el autor DENTRO de la
+   oración («dijo Vincent Norman»), nunca como firma; lo demás que contó, con tus palabras. UNA cita literal por
+   párrafo como máximo. Una cita SIN VERIFICAR va sin el nombre de quien la dijo («un preso de diecinueve años
+   contó: «…»»).
 7. Lo que dice «NO DECIR (va en pantalla)» no lo dice la voz.
 8. El último párrafo de cada cap 1–6 anticipa el dato CONCRETO del cap siguiente (lo nombra o lo deja incompleto).
    La última frase del video es la del cierre del último beat (con tus palabras, sin repetir una cita textual).
@@ -191,6 +197,13 @@ PICO: beat {pico} · CIERRE HUMANO: {esc.get("cierre_humano")}
     ({", ".join(GENERIC_CONNECTORS[:8])}…), las aperturas ({", ".join(FORBIDDEN_OPENINGS[:4])}…) y los cierres
     ({", ".join(FORBIDDEN_CLOSINGS[:4])}…).
 11. `ids_usados` de cada párrafo: los ids del pool cuya cifra, fecha, nombre o cita suena LITERAL en ese párrafo.
+12. GANCHO (cap 1) = flash-forward sensorial del peor momento (el beat 1): lo que se ve, se oye, se huele adentro.
+    Nunca describe una foto ni da la fecha de una foto; no adelanta citas que suenan en caps siguientes.
+13. SOLO HECHOS, CITAS Y PREGUNTAS: ninguna interpretación ni juicio tuyo que no esté en los datos («caos
+    deliberado», «no eran considerados humanos», «el colapso de la humanidad»). Si querés que el espectador juzgue,
+    dale el hecho o preguntá.
+14. {hum.get("nombre")}: nombre completo UNA vez por cap como mucho; después, solo el apellido.
+15. No repitas entre caps una frase de 3 o más palabras ya dicha: cada cap lo cuenta con palabras nuevas.
 
 {_prose_rules(topic)}
 {fb}
@@ -336,6 +349,8 @@ def review(topic: dict, esc: dict, parrafos: list[dict]) -> dict[str, Any]:
         if not v or v.get("estado") == "verificada":
             continue
         k = nf.find(ev.norm(q["texto"])[:40])
+        if k < 0 and q.get("fragmento"):               # F7c-2: la voz cita el fragmento
+            k = nf.find(ev.norm(q["fragmento"])[:40])
         if k < 0:
             continue
         from researcher_steps.verify_quotes import _named
@@ -344,6 +359,13 @@ def review(topic: dict, esc: dict, parrafos: list[dict]) -> dict[str, Any]:
         sur = _surname(q.get("autor") or "")
         if sur and len(sur) > 3 and re.search(rf"\b{re.escape(sur)}\b", nf[max(0, k - 200):k + len(q["texto"]) + 200]):
             hard.append(f"{q['id']} está SIN VERIFICAR y va con el nombre de {q.get('autor')}: decila sin el nombre")
+    # F7c-2: reglas duras nuevas (citas por párrafo, gancho, juicios, nombre completo, repetición) y tope del video
+    from script_engine.guion_v3_reglas import review_v3
+    from script_engine.video_length import get as _len
+    hard += review_v3(caps, parrafos, pool, esc)
+    tw = wc(full)
+    if tw > _len("max_words"):
+        hard.append(f"el video tiene {tw} palabras: el tope es {_len('max_words')}")
     # un conteo, una cifra (en todo el video)
     for g in count_variants(pool):
         n_canon = len(re.findall(rf"(?<![\d,.]){re.escape(g['num'])}(?![\d,.])", full))

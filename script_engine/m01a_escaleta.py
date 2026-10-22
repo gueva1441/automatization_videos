@@ -62,7 +62,13 @@ from script_engine.m01a_skeleton import CHAPTER_SCHEMA, DEFAULT_INTENT_BY_CAP, S
 PROMPT_VERSION = "f6b-4"            # f6b-4: contador, una cifra en pantalla una vez, pregunta del cap 7, cierre sin eco
 MAX_ATTEMPTS = 3
 MIN_BEATS, MAX_BEATS = 7, 12
-CAP_WORDS = {1: 110, 2: 190, 3: 190, 4: 190, 5: 190, 6: 190, 7: 110}   # hook/outro 45 s, desarrollo 75 s
+def _cap_words() -> dict[int, int]:
+    """Palabras por cap desde config (HANDOFF_F7 §8.2: gancho 110, desarrollo 240 × 5, cierre 130)."""
+    from script_engine.video_length import get
+    return {1: get("hook_words"), **{n: get("dev_words") for n in range(2, 7)}, 7: get("outro_words")}
+
+
+CAP_WORDS = _cap_words()          # antes {1: 110, 2–6: 190, 7: 110} (desarrollo 75 s)
 WORDS_TOL = 0.15
 INTENSITY = (1, 5)
 MIN_HUMAN_CAPS = 3

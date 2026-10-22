@@ -44,14 +44,14 @@ def good() -> dict:
             "antagonista": {"id": "P01"}, "promesa_gancho": "Esa noche dejaron a miles encerrados con el agua subiendo.",
             "pico": {"beat": 6, "id": "D08", "por_que": "los cadáveres"}, "cierre_humano": "¿Cuántos siguen sin nombre?",
             "beats": [
-                _beat(1, 1, "Q01", 2, "¿Quién dejó a Edward Burton ahí?", fn="gancho", hum=True, words=110),
-                {**_beat(2, 2, "T01", 2, "¿Por qué el sheriff no los sacó?", hum=True, words=190), "datos_apoyo": ["D03"]},
-                _beat(3, 3, "T02", 3, "¿Quién apagó las luces de la prisión?", words=190),
-                {**_beat(4, 4, "D01", 4, "¿Por qué nadie abrió las celdas?", hum=True, words=190), "datos_apoyo": ["D06"]},
-                _beat(5, 5, "D02", 4, words=100),
-                _beat(6, 5, "D08", 5, "¿Dónde están los 517 reclusos?", fn="pico", words=90),
-                _beat(7, 6, "D09", 1, "¿Por qué mintió el sheriff?", fn="respiro", words=190),
-                {**_beat(8, 7, "D05", 2, "¿Cuántos siguen sin nombre en la prisión?", fn="cierre", words=110),
+                _beat(1, 1, "Q01", 2, "¿Quién dejó a Edward Burton ahí?", fn="gancho", hum=True, words=me.CAP_WORDS[1]),
+                {**_beat(2, 2, "T01", 2, "¿Por qué el sheriff no los sacó?", hum=True, words=me.CAP_WORDS[2]), "datos_apoyo": ["D03"]},
+                _beat(3, 3, "T02", 3, "¿Quién apagó las luces de la prisión?", words=me.CAP_WORDS[3]),
+                {**_beat(4, 4, "D01", 4, "¿Por qué nadie abrió las celdas?", hum=True, words=me.CAP_WORDS[4]), "datos_apoyo": ["D06"]},
+                _beat(5, 5, "D02", 4, words=me.CAP_WORDS[5] - me.CAP_WORDS[5] * 9 // 19),
+                _beat(6, 5, "D08", 5, "¿Dónde están los 517 reclusos?", fn="pico", words=me.CAP_WORDS[5] * 9 // 19),
+                _beat(7, 6, "D09", 1, "¿Por qué mintió el sheriff?", fn="respiro", words=me.CAP_WORDS[6]),
+                {**_beat(8, 7, "D05", 2, "¿Cuántos siguen sin nombre en la prisión?", fn="cierre", words=me.CAP_WORDS[7]),
                  "cierre": "Edward Burton todavía espera que alguien diga cuántos eran."}]}
 
 
@@ -89,7 +89,7 @@ def test_reparaciones_mecanicas():
     e["pico"]["id"] = "D02"                                          # no es el central de su beat
     e["humano"]["nombre"] = "edward burton"
     esc, hard, rep, _ = me.validate(e, POOL)
-    assert hard == [] and esc["beats"][2]["palabras_objetivo"] == 190 and esc["beats"][3]["datos_apoyo"] == ["D06"]
+    assert hard == [] and esc["beats"][2]["palabras_objetivo"] == me.CAP_WORDS[3] and esc["beats"][3]["datos_apoyo"] == ["D06"]
     assert esc["pico"]["id"] == "D08" and esc["humano"]["nombre"] == "Edward Burton" and len(rep) == 5
 
 

@@ -1151,7 +1151,12 @@ def _calculate_image_count(
             # else: middle, bonus = 0
 
     n = base + bonus_position
-    return max(MIN_IMAGES_FLUX, min(MAX_IMAGES_FLUX, n))
+    # HANDOFF_F7 §8.2: tope por video (config.long_video.max_images_per_video, 90): lo que dejan los caps veo (a su
+    # duración nominal) repartido entre los caps de desarrollo. Con 105 s por cap: 16 fotos por cap como máximo.
+    from script_engine.video_length import get
+    veo_extras = 2 * _calculate_flux_extras_count(get("hook_cap_seconds"))
+    cap_max = max(MIN_IMAGES_FLUX, (get("max_images_per_video") - veo_extras) // max(1, total_chapters - 2))
+    return max(MIN_IMAGES_FLUX, min(MAX_IMAGES_FLUX, cap_max, n))
 
 
 def _calculate_flux_extras_count(cap_audio_duration_sec: float) -> int:

@@ -95,8 +95,8 @@ def anchors(it: dict[str, Any]) -> list[str]:
         return [v] if v else []
     if k == "cronologia":
         return [x for x in (spoken_date(it.get("fecha")),) if x]
-    if k == "citas":
-        return [it["texto"]]
+    if k == "citas":                    # F7c-2: con `fragmento` (≤ 25 palabras), decir el fragmento ya es usar la cita
+        return [x for x in (it.get("fragmento"), it["texto"]) if x]
     if k == "personajes":
         return [_surname(it["nombre"])]
     if k == "lugares":
