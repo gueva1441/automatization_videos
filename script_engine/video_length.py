@@ -11,8 +11,8 @@ DEFAULTS = {
     "target_words": 1500,          # largo objetivo del guion v3
     "max_words": 1700,             # tope duro (≈ 13 min)
     "hook_words": 110,             # cap 1
-    "dev_words": 240,              # caps 2–6, cada uno
-    "outro_words": 130,            # cap 7
+    "dev_words": 250,              # caps 2–6, cada uno (§9.1; el §8 decía 240 y sumaba 1,440)
+    "outro_words": 140,            # cap 7 (§9.1; antes 130)
     "hook_cap_seconds": 45,
     "dev_cap_seconds": 105,        # antes 75
     "outro_cap_seconds": 45,

@@ -495,7 +495,7 @@ def test_length_params_from_config():
     from script_engine.m03_visual import _calculate_flux_extras_count, _calculate_image_count
     assert [vl.get(k) for k in ("target_words", "max_words", "dev_cap_seconds", "max_images_per_video")] == \
         [1500, 1700, 105, 90]
-    assert me.CAP_WORDS == {1: 110, 2: 240, 3: 240, 4: 240, 5: 240, 6: 240, 7: 130}
+    assert me.CAP_WORDS == {1: 110, 2: 250, 3: 250, 4: 250, 5: 250, 6: 250, 7: 140}      # §9.1: 1,500
     assert [c["duration_seconds"] for c in CHAPTER_SCHEMA] == [45, 105, 105, 105, 105, 105, 45]
     dev = sum(_calculate_image_count(400, n) for n in range(2, 7))          # caps larguísimos: manda el tope
     assert dev + 2 * _calculate_flux_extras_count(45) <= vl.get("max_images_per_video")
@@ -529,7 +529,7 @@ def test_hook_rules():
     later = ["Tuvimos que beber agua del inodoro solo para mantenernos con vida"]
     assert hook_problems("El agua negra llega al pecho. Nadie viene. Huele a cloaca.", later) == []
     p = hook_problems("La foto es del 31 de agosto de 2005: tuvimos que beber agua del inodoro para vivir.", later)
-    assert any("foto" in x for x in p) and any("fechas" in x for x in p)
+    assert any("fechas" in x for x in p)                     # las fotos: photo_problems, en todos los caps (F7c-3)
     assert any("adelanta" in x for x in hook_problems("Contó: «tuvimos que beber agua del inodoro solo para»", later))
 
 
@@ -554,3 +554,86 @@ def test_full_name_once_per_cap_and_cross_cap_repetition():
     rep = repetition_problems(caps2, pool)
     assert len(rep) == 1 and "oficiales empezaron renunciar" not in rep[0] and "«oficiales empezaron a»" in rep[0]
     assert repetition_problems([caps2[0], {"chapter_number": 2, "narration": "En Templeman III el agua."}], pool) == []
+
+
+# ── F7c-3 (HANDOFF_F7 §9.1): una prueba por regla ────────────────────────────
+
+POOL_C3 = {
+    "personajes": [{"id": "P01", "nombre": "Rhonda Ducre", "rol": "Alguacil en el edificio HOD"},
+                   {"id": "P02", "nombre": "Big Whappy", "rol": "Preso"},
+                   {"id": "P03", "nombre": "Marlin Gusman", "rol": "sheriff", "antagonista": True}],
+    "citas": [{"id": "Q01", "autor": "Big Whappy", "rol": "Preso", "texto": "Hombre, ese lugar olía a muerte.",
+               "fragmento": "Hombre, ese lugar olía a muerte."},
+              {"id": "Q02", "autor": "Marlin Gusman", "rol": "sheriff",
+               "texto": "Vamos a mantener a nuestros prisioneros donde pertenecen.",
+               "verificacion": {"estado": "verificada_parcial"}}],
+    "cronologia": [{"id": "T39", "fecha": "2005-08-28", "evento": "El sheriff Gusman mantuvo una reunión para discutir el huracán.",
+                    "verificacion": {"estado": "verificada"}}],
+    "datos": [], "lugares": [{"id": "L01", "nombre": "Nueva Orleans", "rol": "ciudad"}],
+}
+
+
+def test_rule1_role_of_speaker():
+    from script_engine.guion_v3_reglas import role_problems, role_class
+    assert role_class("Alguacil en el edificio HOD") == "guardia" and role_class("Preso") == "preso"
+    p = role_problems("La reclusa Rhonda Ducre lo resumió. Un guardia lo describió: «Hombre, ese lugar olía a muerte».", POOL_C3)
+    assert any("Rhonda Ducre" in x for x in p) and any("Q01" in x for x in p)
+    assert role_problems("La guardia Rhonda Ducre lo resumió. Un preso lo describió: «Hombre, ese lugar olía a muerte».",
+                         POOL_C3) == []
+
+
+def test_rule2_paragraph_without_id_is_filler():
+    from script_engine.guion_v3_reglas import empty_paragraph_problems
+    filler = {"beat": 4, "ids_usados": [], "texto": "Era una tumba sellada. Nadie venía. Afuera, la ciudad se ahogaba."}
+    bridge = {"beat": 5, "ids_usados": [], "texto": "Pero eso no fue lo peor. Lo peor llegó con la luz."}
+    data = {"beat": 6, "ids_usados": ["T39"], "texto": "Una. Dos. Tres. Cuatro."}
+    assert len(empty_paragraph_problems([filler, bridge, data])) == 1
+
+
+def test_rule3_antagonist_named_and_partial_quote_allowed():
+    from script_engine import m01b_guionista as mg
+    from script_engine.guion_v3_reglas import antagonist_problems
+    esc = {"antagonista": {"id": "P03"}, "beats": [{"n": 2, "cap": 2, "dato_central": "T39", "datos_apoyo": ["Q02"]}]}
+    caps = [{"chapter_number": 2, "narration": "El 28 de agosto hubo una reunión. La orden fue clara, según alguien."}]
+    p = antagonist_problems(caps, esc, POOL_C3)
+    assert any("no se nombra" in x for x in p) and any("según alguien" in x for x in p)
+    ok = [{"chapter_number": 2, "narration": "El sheriff Marlin Gusman se reunió el 28 de agosto."}]
+    assert antagonist_problems(ok, esc, POOL_C3) == []
+    assert mg._verified_antagonist(esc, POOL_C3, "Gusman") and not mg._verified_antagonist(esc, POOL_C3, "Ducre")
+
+
+def test_rule4_no_photos_in_any_cap():
+    from script_engine.guion_v3_reglas import photo_problems
+    caps = [{"chapter_number": 1, "narration": "El agua sube."},
+            {"chapter_number": 6, "narration": "Las imágenes dieron la vuelta al mundo. Una fotógrafa tomó la foto."}]
+    p = photo_problems(caps)
+    assert len(p) == 1 and p[0].startswith("cap 6")
+
+
+def test_rule5_no_trailer_voice():
+    from script_engine.guion_v3_reglas import trailer_problems
+    assert len(trailer_problems("Es la historia de la orden y de los testigos que se negaron a olvidar.")) == 2
+    assert trailer_problems("El agua llegó al pecho el 30 de agosto.") == []
+
+
+def test_rule6_hook_anchor_place_and_year():
+    from script_engine.guion_v3_reglas import hook_anchor_problems, hook_problems
+    good = ("El agua negra llega al pecho. Nadie viene. «Tuvimos que beber agua del inodoro para vivir», contó Burton. "
+            "Nueva Orleans, agosto de 2005. «Hombre, ese lugar olía a muerte», dijo un preso.")
+    assert hook_anchor_problems(good, POOL_C3) == [] and hook_problems(good, [], POOL_C3) == []
+    late = ("El agua negra llega al pecho. «Tuvimos que beber agua del inodoro para vivir», contó Burton. «Hombre, ese "
+            "lugar olía a muerte», dijo un preso. Nueva Orleans, agosto de 2005.")
+    assert hook_anchor_problems(late, POOL_C3) == ["gancho: el ancla de lugar y fecha va antes de la segunda cita"]
+    assert hook_anchor_problems("El agua negra llega al pecho. Nadie viene.", POOL_C3)
+
+
+def test_rule7_echo_after_quote_is_soft_and_goes_to_editor():
+    from script_engine import m01c_editor as mc
+    from script_engine.guion_v3_reglas import echo_soft
+    ps = [{"beat": 1, "cap": 1, "ids_usados": ["Q01"],
+           "texto": "Burton contó: «Tuvimos que beber agua del inodoro para vivir». Era la única opción. El agua subía."}]
+    soft = echo_soft(ps)
+    assert soft and "Era la única opción" in soft[0]
+    assert "CITA FUERTE, SILENCIO DESPUÉS" in mc.build_prompt({"beats": [], "pico": {}}, ps, soft)
+    assert echo_soft([{**ps[0], "texto": "Burton contó: «Tuvimos que beber agua del inodoro para vivir». El 30 de "
+                                         "agosto el agua llegó al segundo piso."}]) == []

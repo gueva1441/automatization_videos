@@ -10,7 +10,8 @@ NARRACION_orleans_v3r.md, f7c_costos.json.
 F7c-2 (`--f7c2`): validación del analista sobre F7c — notas del analista (NOTAS_F7C2) y salidas con sufijo _v3r2
 (ESCALETA_orleans_v3r2.md, NARRACION_orleans_v3r2.md, f7c2_costos.json, escaleta_orleans_v3r2.json). Las reglas nuevas
 (fragmento de cita, gancho, juicios, nombre, repetición) y el largo de 1,500 palabras están en el código de F6.
-Uso: python -I lab/hyperframes/f7/f7c_orleans.py [--f7c2] [--desde guionista|editor]
+F7c-3 (`--f7c3`, HANDOFF_F7 §9.1): las mismas notas + T39 obligatorio en el cap 2 (NOTAS_F7C3); salidas _v3r3.
+Uso: python -I lab/hyperframes/f7/f7c_orleans.py [--f7c2 | --f7c3] [--desde guionista|editor]
 """
 from __future__ import annotations
 
@@ -46,6 +47,11 @@ def _dump(p: Path, d) -> None:
     p.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+NOTAS_F7C3 = NOTAS_F7C2 + """
+7. T39 (la reunión del sheriff Gusman del 28 de agosto, verificada) va como dato del cap 2: el antagonista se nombra
+   ahí aunque su cita Q08 esté sin verificar del todo."""
+
+
 def topic_v3r(notas: str | None = None) -> dict:
     db = json.loads((ROOT / "data" / "topics_db.json").read_text(encoding="utf-8"))
     t = json.loads(json.dumps(next(t for t in db["topics"] if t["id"] == TOPIC)))
@@ -66,7 +72,8 @@ def _timed(fn, label: str, cost: dict):
         r = cost_tracker.end_video()
         cost[label] = {"usd": round(getattr(r, "total_cost", 0.0) or 0.0, 4), "segundos": round(time.time() - t0, 1)}
         cost.setdefault("_corridas", []).append({"paso": label, **cost[label]})
-        _dump(LAB / ("f7c2_costos.json" if "--f7c2" in sys.argv else "f7c_costos.json"), cost)
+        _dump(LAB / ("f7c3_costos.json" if "--f7c3" in sys.argv else "f7c2_costos.json" if "--f7c2" in sys.argv
+                     else "f7c_costos.json"), cost)
     return out
 
 
@@ -78,12 +85,14 @@ def main() -> None:
     from script_engine.m05_narrative import adjectives
     args = sys.argv[1:]
     desde = args[args.index("--desde") + 1] if "--desde" in args else "escaleta"
-    c2 = "--f7c2" in args
-    sfx = "_v3r2" if c2 else "_v3r"
-    topic = topic_v3r(NOTAS_F7C2 if c2 else None)
+    c3 = "--f7c3" in args
+    c2 = "--f7c2" in args or c3
+    sfx = "_v3r3" if c3 else "_v3r2" if c2 else "_v3r"
+    tag = "f7c3" if c3 else "f7c2" if c2 else "f7c"
+    topic = topic_v3r(NOTAS_F7C3 if c3 else NOTAS_F7C2 if c2 else None)
     pool = topic["evidence_pool"]
     log: list[str] = []
-    cpath = LAB / ("f7c2_costos.json" if c2 else "f7c_costos.json")
+    cpath = LAB / f"{tag}_costos.json"
     cost = json.loads(cpath.read_text(encoding="utf-8")) if cpath.exists() else {}
     if desde == "escaleta":
         # 5 intentos (el default es 3): en la 1.ª corrida los 3 fallaron, cada uno por algo distinto
@@ -119,7 +128,7 @@ def main() -> None:
     intentos = "; ".join("intento %s: %d duras, %s blandas" % (x["intento"], len(x["duras"]), x["blandas"])
                          for x in g["_intentos"])
     beats = {b["n"]: b for b in esc["beats"]}
-    L = [f"# Narración v3 con el pool de research v3 — Orleans `ba6c3cac-f7r3` ({'F7c-2' if c2 else 'F7c'})", "",
+    L = [f"# Narración v3 con el pool de research v3 — Orleans `ba6c3cac-f7r3` ({tag.upper().replace('F7C', 'F7c-').rstrip('-')})", "",
          f"- Escaleta: `escaleta_orleans{sfx}.json` ({len(esc.get('_intentos') or [])} intento(s), digest del pool). "
          f"Guionista: Pro, best_of_{mg.BEST_OF} → elegido el intento {g['elegido']} ({intentos}).",
          f"- Editor: {len(e['cambios'])} párrafo(s) editado(s), {e['aceptados']} aceptado(s). Duras: guionista "

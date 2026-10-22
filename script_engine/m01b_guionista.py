@@ -28,7 +28,7 @@ from typing import Any, Callable
 
 from script_engine import evidence as ev
 
-PROMPT_VERSION = "f7c2-1"            # f7c2-1: citas por fragmento, gancho flash-forward, sin juicios, nombre, repetición
+PROMPT_VERSION = "f7c3-1"            # f7c3-1: + rol, párrafo con dato, antagonista con nombre, sin fotos ni tráiler, ancla
 PARA_WORDS = (55, 80)
 EXTRA_PER_CAP = 3
 MIN_WORDS_FACTOR = 0.85
@@ -204,6 +204,19 @@ PICO: beat {pico} · CIERRE HUMANO: {esc.get("cierre_humano")}
     dale el hecho o preguntá.
 14. {hum.get("nombre")}: nombre completo UNA vez por cap como mucho; después, solo el apellido.
 15. No repitas entre caps una frase de 3 o más palabras ya dicha: cada cap lo cuenta con palabras nuevas.
+16. ROL: a quien habla se lo presenta con SU rol del pool (preso, guardia, oficial…), nunca con otro. Si no sabés el
+    rol, sin rol.
+17. Todo párrafo lleva al menos un dato del pool (su id en `ids_usados`); un párrafo sin dato solo puede ser una
+    transición de 2 frases como mucho. Nada de párrafos de atmósfera.
+18. ANTAGONISTA CON NOMBRE: si el beat trae un hecho verificado que lo nombra (su decisión, su reunión), decí su
+    nombre, aunque su cita esté sin verificar. Nunca «según alguien», «una voz oficial».
+19. Ninguna foto ni imagen en ningún cap («las imágenes dieron la vuelta al mundo», «una fotógrafa tomó la foto»):
+    contá la escena.
+20. Sin voz de tráiler: el narrador no habla del video («esta es la historia de…», «lo que sigue», «los testigos que
+    se negaron a olvidar»).
+21. GANCHO: una frase corta con la ciudad y el año («Nueva Orleans, agosto de 2005.») antes de la segunda cita; es la
+    única fecha del cap 1.
+22. Después de una cita fuerte, silencio: no la cierres con una frase-eco («Era la única opción.»).
 
 {_prose_rules(topic)}
 {fb}
@@ -253,6 +266,17 @@ def wc(s: str) -> int:
 
 def _surname(name: str) -> str:
     return ev.norm(name).split()[-1] if name else ""
+
+
+def _verified_antagonist(esc: dict, pool: dict, sur: str) -> bool:
+    """¿`sur` es el apellido del antagonista de la escaleta y algún dato o evento VERIFICADO del pool lo nombra?"""
+    aid = (esc.get("antagonista") or {}).get("id")
+    ant = next((p for p in pool.get("personajes") or [] if p.get("id") == aid), None)
+    if not ant or not sur or ev.norm(_surname(ant["nombre"])) != ev.norm(sur):
+        return False
+    return any((it.get("verificacion") or {}).get("estado") == "verificada"
+               and re.search(rf"\b{re.escape(ev.norm(sur))}\b", ev.norm(ev.text_of(it)))
+               for k in ("datos", "cronologia") for it in pool.get(k) or [])
 
 
 def review(topic: dict, esc: dict, parrafos: list[dict]) -> dict[str, Any]:
@@ -357,12 +381,16 @@ def review(topic: dict, esc: dict, parrafos: list[dict]) -> dict[str, Any]:
         if not _named(q.get("autor") or ""):            # un anónimo («una presa de Conchetta») no tiene nombre que ocultar
             continue
         sur = _surname(q.get("autor") or "")
+        if v.get("estado") == "verificada_parcial" and _verified_antagonist(esc, pool, sur):
+            continue                                    # F7c-3 §9.1.3: el antagonista va con nombre
         if sur and len(sur) > 3 and re.search(rf"\b{re.escape(sur)}\b", nf[max(0, k - 200):k + len(q["texto"]) + 200]):
             hard.append(f"{q['id']} está SIN VERIFICAR y va con el nombre de {q.get('autor')}: decila sin el nombre")
     # F7c-2: reglas duras nuevas (citas por párrafo, gancho, juicios, nombre completo, repetición) y tope del video
     from script_engine.guion_v3_reglas import review_v3
     from script_engine.video_length import get as _len
-    hard += review_v3(caps, parrafos, pool, esc)
+    v3_hard, v3_soft = review_v3(caps, parrafos, pool, esc)
+    hard += v3_hard
+    soft += v3_soft
     tw = wc(full)
     if tw > _len("max_words"):
         hard.append(f"el video tiene {tw} palabras: el tope es {_len('max_words')}")

@@ -43,7 +43,7 @@ SCHEMA: dict[str, Any] = {
 }
 
 
-def build_prompt(esc: dict, parrafos: list[dict]) -> str:
+def build_prompt(esc: dict, parrafos: list[dict], notas: list[str] | None = None) -> str:
     beats = {b["n"]: b for b in esc["beats"]}
     lines = []
     for k, p in enumerate(parrafos):
@@ -69,7 +69,8 @@ NUNCA:
 - tocar la primera frase del video ni la última frase de cada cap (anticipa el cap siguiente) salvo para acortarlas.
 `ids_usados`: los ids que siguen sonando literales en el párrafo editado. `cambios`: uno por edición, con el número
 de párrafo, el antes, el después y el motivo (corta, ritmo, repetición, relleno, orden). Un párrafo que no tocás va
-igual y sin cambio."""
+igual y sin cambio.""" + (("\n\nCITA FUERTE, SILENCIO DESPUÉS (cortá estas frases-eco):\n" + "\n".join(f"- {x}" for x in notas))
+                          if notas else "")
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -133,7 +134,8 @@ def edit(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[..., di
     log = log if log is not None else []
     if call is None:
         from gemini_helpers import call_pro_json as call
-    raw = call(build_prompt(esc, parrafos), system_instruction=SYSTEM, response_schema=SCHEMA,
+    from script_engine.guion_v3_reglas import echo_soft
+    raw = call(build_prompt(esc, parrafos, echo_soft(parrafos)), system_instruction=SYSTEM, response_schema=SCHEMA,
                description="m01c_editor")
     edited = raw.get("parrafos") or []
     cambios_llm = raw.get("cambios") or []
