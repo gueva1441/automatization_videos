@@ -80,7 +80,7 @@ def test_escaleta_gate_red_spends_nothing_yellow_shortens(tmp_path, monkeypatch)
     assert "Entre 7 y 8 beats" in me.build_prompt(t, YELLOW)
     old = {k: v for k, v in GREEN.items() if k != "_research_v3"}      # pool viejo: sin compuerta
     assert me.pool_gate_profile({"id": "t-old"}, old) is None
-    assert "Entre 7 y 12 beats" in me.build_prompt({"id": "t-old"}, old)
+    assert f"Entre 7 y {me.MAX_BEATS} beats" in me.build_prompt({"id": "t-old"}, old)       # F8b: tope 14
 
 
 # ── RESEARCH_V3 por defecto en topic_researcher ───────────────────────────────

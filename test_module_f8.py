@@ -19,7 +19,7 @@ def _dev_msgs(hard):
 
 
 def test_minimo_dos_beats_por_cap_de_desarrollo():
-    assert DEFAULTS["min_beats_dev_cap"] == 2 and DEFAULTS["max_beats"] == 12
+    assert DEFAULTS["min_beats_dev_cap"] == 2 and DEFAULTS["max_beats"] == 14
     assert me.MIN_BEATS_DEV_CAP == 2
     _, hard, _, _ = me.validate(good(), POOL)              # 8 beats: caps 2, 3, 4 y 6 con uno solo
     assert _dev_msgs(hard) and "[2, 3, 4, 6]" in _dev_msgs(hard)[0]

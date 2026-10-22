@@ -20,7 +20,7 @@ DEFAULTS = {
     # F8 §2: escaleta con ≥ 2 beats por cap de desarrollo (caps 2–6) → 1 + 2 × 5 + 1 = 12 como mínimo; el tope de 12
     # del handoff («10–12») deja exactamente 12 (DECISIONES_F8 D2)
     "min_beats": 7,
-    "max_beats": 12,
+    "max_beats": 14,                # F8b (respuesta 1 del analista): 12 mínimos + 2 opcionales en gancho o cierre
     "min_beats_dev_cap": 2,
     # F7d (§9.2): compuerta del pool (researcher_steps/pool_gate.py)
     "gate_datos": 150,
