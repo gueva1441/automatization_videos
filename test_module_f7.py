@@ -281,7 +281,7 @@ def test_contamination_by_item_date():
     assert r3.contamination({"fecha": "2026-03-01"}, 2005).startswith("fecha 2026")
     assert r3.contamination({"fecha": "2025-08-29"}, 2005) is None
     assert r3.doc_contamination({"nombra_evento": False}, 2005)
-    assert r3.doc_contamination({"nombra_evento": True, "anio": 2031}, 2005)
+    assert r3.doc_contamination({"nombra_evento": True, "anio": 2031}, 2005) is None   # F8b: el año del documento ya no cuenta
 
 
 def test_canonical_prefers_official():

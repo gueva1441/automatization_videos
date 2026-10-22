@@ -161,9 +161,41 @@ def search_pro(prompt: str) -> tuple[str, list[dict[str, str]]]:
     return text, _grounding(resp)
 
 
-R1_RETRIES = 2
+R1_RETRIES = 3                           # F8b: 3 reintentos (antes 2) con la misma temperatura 0.7
 R1_FORCE_SEARCH = ("\n\nIMPORTANTE: no respondas de memoria. Hacé ahora varias búsquedas en Google (una por tipo de "
                    "documento) y listá solo páginas que aparezcan en esos resultados.")
+
+
+def search_flash(prompt: str) -> tuple[str, list[dict[str, str]]]:
+    """F8b: Flash + Google Search → (texto, chunks del grounding): la búsqueda alternativa cuando Pro no busca."""
+    from google.genai import types
+
+    from config import api, gemini_client
+    from cost_tracker import cost_tracker
+    from researcher_steps.verify_quotes import _grounding
+    model = api.gemini_model
+    resp = gemini_client.models.generate_content(
+        model=model, contents=prompt,
+        config=types.GenerateContentConfig(tools=[types.Tool(google_search=types.GoogleSearch())],
+                                           temperature=R1_TEMPERATURE))
+    cost_tracker.track_gemini_response(resp, model, "R1 descubrimiento (Flash)")
+    text = ""
+    try:
+        text = "".join(p.text for p in resp.candidates[0].content.parts or [] if getattr(p, "text", None))
+    except (AttributeError, IndexError, TypeError):
+        pass
+    return text, _grounding(resp)
+
+
+def build_alt_prompt(seed: dict, foco: str) -> str:
+    """F8b: query corta para Flash + búsqueda, con las palabras clave del seed en el idioma local."""
+    names = [n for n in seed.get("nombres_lugar") or [] if n] or [seed["seed_title"]]
+    lugar = seed.get("lugar_idioma") or "el idioma del lugar"
+    return f"""Buscá en Google, en {lugar} y en inglés, con estas palabras clave: {" · ".join(f'"{n}"' for n in names[:6])}.
+Qué busco: {foco}
+Listá SOLO páginas que aparezcan en los resultados de la búsqueda (nunca inventes ni completes una URL), entre 5 y 12.
+Respondé SOLO un JSON, sin markdown:
+{{"fuentes":[{{"url":"…","titulo":"…","tipo":"{'|'.join(TIPOS_FUENTE)}","anio":2006,"idioma":"it","por_que":"una línea","prioridad":1}}]}}"""
 
 
 def _parse_json(text: str) -> dict[str, Any]:
@@ -318,7 +350,8 @@ def _dedupe_ground(ground: list[dict]) -> list[dict]:
 def discover_sources(seed: dict, *, search: Callable[[str], tuple[str, list[dict]]] | None = None,
                      resolve: Callable[[str], str | None] | None = None, pistas: list[str] | None = None,
                      cache: Path | None = None, log: list[str] | None = None,
-                     annotate: Callable[..., dict] | None = None) -> dict[str, Any]:
+                     annotate: Callable[..., dict] | None = None,
+                     search_alt: Callable[[str], tuple[str, list[dict]]] | None = None) -> dict[str, Any]:
     """R1: 1 llamada Pro + Google Search por foco (DISCOVERY_FOCOS) + 1 Flash para la ficha de las URLs del grounding
     que el modelo no listó. Devuelve {"fuentes": [...], "_descartadas": [...], "_grounding": [...],
     "prompt_version"}; caché por prompt."""
@@ -326,15 +359,17 @@ def discover_sources(seed: dict, *, search: Callable[[str], tuple[str, list[dict
     log = log if log is not None else []
     resolve = resolve if resolve is not None else resolve_redirect
     search = search or search_pro
+    search_alt = search_alt or search_flash
     store = json.loads(cache.read_text(encoding="utf-8")) if cache and cache.exists() else {}
     fuentes, ground_all, notes = [], [], []
+    focos_grounding = {"pro": 0, "flash": 0, "sin": 0}       # F8b: cuántos focos salieron con grounding y por qué vía
 
     def _save() -> None:
         if cache:
             cache.parent.mkdir(parents=True, exist_ok=True)
             cache.write_text(json.dumps(store, ensure_ascii=False, indent=1), encoding="utf-8")
 
-    def _run(prompt: str, label: str) -> None:
+    def _run(prompt: str, label: str, alt_prompt: str | None = None) -> None:
         key = f"{PROMPT_VERSION_R1}|" + hashlib.sha1(prompt.encode("utf-8")).hexdigest()[:16]
         if key not in store or not store[key]["chunks"]:
             text, chunks = search(prompt)
@@ -343,9 +378,16 @@ def discover_sources(seed: dict, *, search: Callable[[str], tuple[str, list[dict
                     break
                 log.append(f"  [R1] {label}: sin grounding (de memoria) → reintento")
                 text, chunks = search(prompt + R1_FORCE_SEARCH)
-            store[key] = {"text": text, "chunks": chunks}
+            via = "pro"
+            if not chunks and alt_prompt:               # F8b: Flash + búsqueda con las palabras clave del seed
+                log.append(f"  [R1] {label}: Pro sin grounding tras {R1_RETRIES} reintentos → Flash con búsqueda")
+                text, chunks = search_alt(alt_prompt)
+                via = "flash"
+            store[key] = {"text": text, "chunks": chunks, "via": via if chunks else "sin"}
             _save()
         entry = store[key]
+        if label.startswith("foco"):
+            focos_grounding[entry.get("via") or ("pro" if entry["chunks"] else "sin")] += 1
         if "ground" not in entry:
             entry["ground"] = grounding_urls(entry["chunks"], resolve)
             _save()
@@ -356,7 +398,9 @@ def discover_sources(seed: dict, *, search: Callable[[str], tuple[str, list[dict
         log.append(f"  [R1] {label}: {len(raw)} fichas del modelo, {len(entry['ground'])} URLs en el grounding")
 
     for n, foco in enumerate(DISCOVERY_FOCOS, start=1):
-        _run(build_discovery_prompt(seed, foco, pistas), f"foco {n}")
+        _run(build_discovery_prompt(seed, foco, pistas), f"foco {n}", build_alt_prompt(seed, foco))
+    log.append(f"  [R1] focos con grounding: {focos_grounding['pro']} por Pro, {focos_grounding['flash']} por Flash, "
+               f"{focos_grounding['sin']} sin grounding (de {len(DISCOVERY_FOCOS)})")
     # una búsqueda por cada pista del analista que los focos no trajeron (con URL del grounding)
     for p in pistas or []:
         ok_now, _, _ = match_grounding(fuentes, _dedupe_ground(ground_all))
@@ -384,7 +428,8 @@ def discover_sources(seed: dict, *, search: Callable[[str], tuple[str, list[dict
     for i, f in enumerate(out, start=1):
         f["id"] = f"F{i:02d}"
         f["slug"] = slugify(f)
-    return {"fuentes": out, "_descartadas": descartadas, "_grounding": ground_all, "prompt_version": PROMPT_VERSION_R1}
+    return {"fuentes": out, "_descartadas": descartadas, "_grounding": ground_all, "prompt_version": PROMPT_VERSION_R1,
+            "_focos_grounding": focos_grounding}
 
 
 def slugify(f: dict) -> str:
@@ -765,6 +810,13 @@ def _fetch_one(f: dict, dest: Path, *, place_re: str, get: Callable, local: dict
         if len(text) < MIN_DOC_CHARS:
             d["intentos"][-1]["error"] = f"texto de {len(text)} caracteres (< {MIN_DOC_CHARS}: ¿paywall o portada?)"
             continue
+        if via == "pdf_enlazado" and not names_event(text, place_re, ""):
+            # F8b: el PDF enlazado desde una portada corta tiene que nombrar el evento/lugar en sus primeros
+            # EVENT_CHECK_CHARS caracteres (el título de la ficha es el de la portada, no el del PDF): si no, fuera
+            d["intentos"][-1]["error"] = (f"PDF enlazado que no nombra el evento en sus primeros {EVENT_CHECK_CHARS} "
+                                          f"caracteres: descartado")
+            log.append(f"  [R2] {f['id']} {f['slug']}: PDF enlazado descartado (no nombra el evento): {url}")
+            continue
         full = len(text)
         text, recorte = cap_text(text)
         (dest / f"{f['slug']}.txt").write_text(text, encoding="utf-8")
@@ -882,6 +934,9 @@ CITA_MAX = 300
 CITA_MIN_WORDS = 3
 R3_THINKING = 2048
 TIPOS_DATO = ("magnitud", "cifra", "fecha", "nombre", "lugar", "cita", "contradiccion")
+
+R3_RETRIES = 2                           # F8b: reintentos de Pro por trozo (backoff R3_BACKOFF_S × intento)
+R3_BACKOFF_S = 10.0
 
 R3_SYSTEM = ("Sos un documentalista que extrae evidencia de UN documento. Todo lo que devolvés sale de ese documento y "
              "trae el fragmento EXACTO de donde sale. Nunca agregás conocimiento propio ni de otras fuentes. "
@@ -1102,12 +1157,23 @@ def extract_document(seed: dict, doc: dict, text: str, *, call: Callable[..., di
         prompt = build_extraction_prompt(seed, doc, ch, (i, len(chunks)))
         k = f"{PROMPT_VERSION_R3}|{hashlib.sha1(prompt.encode('utf-8')).hexdigest()[:16]}"
         if k not in store:
-            try:
-                store[k] = call(prompt, system_instruction=R3_SYSTEM, response_schema=R3_SCHEMA,
-                                description=f"R3 {doc['id']} {i}/{len(chunks)}")
-            except Exception as e:  # noqa: BLE001
-                log.append(f"  [R3] {doc['id']} parte {i}: Pro falló ({type(e).__name__}: {str(e)[:100]})")
+            res, err = None, None
+            for attempt in range(R3_RETRIES + 1):        # F8b: una caída de Pro no tira el documento
+                try:
+                    res = call(prompt, system_instruction=R3_SYSTEM, response_schema=R3_SCHEMA,
+                               description=f"R3 {doc['id']} {i}/{len(chunks)}")
+                    break
+                except Exception as e:  # noqa: BLE001
+                    err = e
+                    log.append(f"  [R3] {doc['id']} parte {i}: Pro falló ({type(e).__name__}: {str(e)[:100]})"
+                               + (f" → reintento {attempt + 1}" if attempt < R3_RETRIES else " → extracción fallida"))
+                    if attempt < R3_RETRIES:
+                        time.sleep(R3_BACKOFF_S * (attempt + 1))
+            if res is None:
+                merged.setdefault("_extraccion_fallida", []).append(
+                    {"parte": i, "de": len(chunks), "error": f"{type(err).__name__}: {str(err)[:200]}"})
                 continue
+            store[k] = res
             if cpath:
                 cpath.parent.mkdir(parents=True, exist_ok=True)
                 cpath.write_text(json.dumps(store, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -1189,22 +1255,41 @@ def same_fact(kind: str, a: dict, b: dict) -> bool:
     return same_person(a["nombre"], b["nombre"])
 
 
+ITEM_YEARS = 20
+# F8b: lo que puede estar lejos del evento sin ser de OTRA historia: el juicio, la consecuencia, el aniversario (después)
+# y los antecedentes del lugar (antes). Español, inglés e italiano.
+LATE_OK = re.compile(r"\b(juicio|proceso|sentencia|condena\w*|fallo|tribunal|apelaci\w+|casaci\w+|absuel\w+|demanda\w*|"
+                     r"indemniza\w+|aniversario|homenaje|memorial|monumento|conmemora\w+|reabr\w+|investigaci\w+|"
+                     r"trial|verdict|sentenced|convict\w*|acquitt\w*|court|appeal|lawsuit|settlement|compensation|"
+                     r"anniversary|memorial|commemorat\w+|processo|sentenza|condann\w+|assolt\w+|risarciment\w+|"
+                     r"anniversario|commemorazion\w+|cerimonia|legislatura|inquiry|commission|comisi[oó]n|commissione)\b",
+                     re.I)
+EARLY_OK = re.compile(r"\b(constru\w+|fund\w+|inaugur\w+|habilit\w+|proyect\w+|built|founded|opened|construct\w+|"
+                      r"designed|costru\w+|progett\w+|inaugurat\w+|concession\w*|concesi[oó]n)\b", re.I)
+
+
 def contamination(item: dict, event_year: int) -> str | None:
-    """Motivo por el que un ítem es de OTRO tiempo (fecha > evento + 20 años); None si vale."""
+    """Motivo por el que un ítem es de OTRO tiempo; None si vale. F8b: la antigüedad se mide POR ÍTEM (su `fecha`
+    contra el año del evento, ±ITEM_YEARS); después del margen valen el juicio, la consecuencia y el aniversario; antes,
+    los antecedentes del lugar (construcción, fundación, habilitación)."""
     f = _str(item.get("fecha"))
     m = re.match(r"^(\d{4})", f)
-    if m and int(m.group(1)) > event_year + 20:
-        return f"fecha {f} > evento + 20 años ({event_year + 20})"
+    if not m:
+        return None
+    y = int(m.group(1))
+    text = " ".join(_str(item.get(k)) for k in ("texto", "evento", "cita_literal", "tipo"))
+    if y > event_year + ITEM_YEARS and not LATE_OK.search(text):
+        return f"fecha {f} > evento + {ITEM_YEARS} años ({event_year + ITEM_YEARS}) y no es juicio/consecuencia/aniversario"
+    if y < event_year - ITEM_YEARS and not EARLY_OK.search(text):
+        return f"fecha {f} < evento − {ITEM_YEARS} años ({event_year - ITEM_YEARS}) y no es un antecedente del lugar"
     return None
 
 
 def doc_contamination(doc: dict, event_year: int) -> str | None:
-    """Motivo por el que TODO un documento queda fuera: no nombra el lugar/evento al principio (ni en el título), o es
-    de más de 20 años después del evento."""
+    """Motivo por el que TODO un documento queda fuera: no nombra el lugar/evento al principio (ni en el título). F8b:
+    el año del documento ya no cuenta (un documento de 2014 sobre 1963 vale); la antigüedad se mide por ítem."""
     if not doc.get("nombra_evento"):
         return f"el documento no nombra el lugar/evento en sus primeros {EVENT_CHECK_CHARS} caracteres ni en el título"
-    if doc.get("anio") and int(doc["anio"]) > event_year + 20:
-        return f"documento de {doc['anio']} > evento + 20 años"
     return None
 
 
@@ -1862,7 +1947,8 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
     pf = steps_dir / "_perfil.json"
     prof = json.loads(pf.read_text(encoding="utf-8")) if pf.exists() else seed_profile(seed)
     pf.write_text(json.dumps(prof, ensure_ascii=False, indent=1), encoding="utf-8")
-    s2 = {**seed, "lugar_idioma": seed.get("idioma_local") or prof.get("idioma_local") or None}  # F8: el del seed manda
+    s2 = {**seed, "lugar_idioma": seed.get("idioma_local") or prof.get("idioma_local") or None,  # F8: el del seed manda
+          "nombres_lugar": prof.get("nombres_lugar") or []}                                       # F8b: R1 alternativo
     r1 = discover_sources(s2, cache=steps_dir / "_r1_cache.json", log=log)
     (steps_dir / "fuentes.json").write_text(json.dumps(r1, ensure_ascii=False, indent=1), encoding="utf-8")
     src = steps_dir / "fuentes"
@@ -1878,6 +1964,12 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
             continue
         per_doc[d["id"]] = extract_document(seed, d, texts[d["id"]].text, cache_dir=steps_dir / "_r3_cache", log=log,
                                             place_re=prof["place_re"])
+        fail = per_doc[d["id"]].pop("_extraccion_fallida", None)
+        if fail:                                         # F8b: el pool sigue; el documento queda marcado
+            d["extraccion_fallida"] = fail
+            log.append(f"  [R3] {d['id']}: extracción fallida en {len(fail)} parte(s): el pool sigue sin ellas")
+    if any(d.get("extraccion_fallida") for d in docs):
+        (src / "manifest.json").write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
     pool = build_pool(per_doc, docs, texts, event_year=year, geocode_cache=DATA_DIR / "geocode_cache.json", log=log)
     (steps_dir / "00_pool_v3.json").write_text(json.dumps(pool, ensure_ascii=False, indent=1), encoding="utf-8")
     g = None
