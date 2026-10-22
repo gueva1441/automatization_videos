@@ -136,3 +136,34 @@ Validación del pool F7b: aprobado. Tres arreglos y F7c.
 4) Parámetros nuevos en config: target_words=1500, max_words=1700, dev_cap_seconds=105, max_images_per_video=90 (m03: solo el tope de _calculate_image_count).
 5) F7c: correr Orleans ba6c3cac-f7r3 por la tubería v3 (escaleta → guionista → editor → validadores) con esos parámetros, sin otros cambios en F6. compara_orleans_v3r.html con 3 columnas: v2 F5d · v3 pool viejo (F6c) · v3 pool nuevo; métricas del juez; escaleta al lado. Revisor, commit. PARADA: el analista y Omar leen.
 ```
+
+---
+
+## 9. F7c-3 (cierre de guion v3) + F7d (compuerta del pool) — decidido 2026-10-22 02:00
+
+**Validación F7c-2 del analista: 8/10** (v2 = 7, F6c = 7.5). Mejora en una pasada con reglas de oficio → la tubería v3 funciona. Esta es la última corrida de afinado de guion sobre Orleans.
+
+### 9.1 F7c-3 — correcciones (todas reglas de oficio, no dependen del tema)
+1. **Validador de rol** (determinista): el rol con que la narración presenta a quien habla ("la reclusa X", "un guardia") debe coincidir con `personajes[].rol` / `citas[].rol` del pool. Errores vistos: Rhonda Ducre es guardia (dicha reclusa); «olía a muerte» es de un preso (dicho guardia). Dura.
+2. **Párrafo sin id = relleno**: todo párrafo lleva ≥1 id del pool o es transición de ≤2 frases. Dura. (Vistos: "tumba sellada", "zona de guerra", "caos controlado por la fuerza".)
+3. **Antagonista con nombre**: si el hecho está verificado como dato (T39: reunión/decisión del sheriff, 28-ago), el nombre va aunque la cita (Q08 "donde pertenecen") sea `verificada_parcial`. Nunca "según alguien".
+4. **Sin descripción de fotos en ningún cap** (regla del gancho extendida): fuera "las imágenes dieron la vuelta al mundo", "una fotógrafa tomó la foto".
+5. **Sin voz de tráiler**: prohibido que el narrador hable del video ("esta es la historia de…", "los testigos que se negaron a olvidar", "lo que sigue es…"). Dura, lista de patrones.
+6. **Ancla de lugar y fecha en el gancho**: una frase corta con ciudad + año antes de la segunda cita ("Nueva Orleans, agosto de 2005").
+7. **Cita fuerte, silencio después**: no cerrar una cita con una frase-eco ("Era la única opción"). Soft, al editor.
+Objetivo por cap sube a 110 + 250×5 + 140 = 1,500 (el §8 sumaba 1,440).
+
+### 9.2 F7d — compuerta del pool (semáforo entre research y guion)
+Puntaje determinista sobre el pool, antes de escaleta/guion/imágenes:
+- **Verde**: datos ≥150 · citas verificadas ≥8 · humanos elegibles ≥2 · eventos con fecha ≥10 → 12 min, tubería normal.
+- **Amarillo**: ≥ la mitad de cada umbral → `target_words` baja a 1,200 (≈10 min), escaleta con 6–8 beats, aviso en reporte.
+- **Rojo**: por debajo → el topic vuelve al inbox con motivo ("sin testigos", "sin cronología", "pocas fuentes bajadas") y no se gasta en guion ni imágenes.
+Umbrales en `video_length.py`/config, no constantes. Reporte `POOL_GATE.md` por topic con el puntaje y qué faltó. Además: conectar `RESEARCH_V3=1` como default para seeds nuevos (el camino viejo queda detrás de `=0`).
+
+### 9.3 Prompt para CC
+```
+Leé lab/hyperframes/f7/HANDOFF_F7_research_v3.md §9. Rama f7-research-v3.
+A) F7c-3: implementar las 7 reglas de §9.1 (1–6 duras, 7 soft al editor) + objetivo 110+250×5+140; re-correr Orleans f7r3 (escaleta → guionista → editor → validadores); compara_orleans_v3r.html pasa a 5 columnas (v2 · F6c · F7c · F7c-2 · F7c-3). Tests por regla.
+B) F7d: compuerta del pool según §9.2 (verde/amarillo/rojo, umbrales en config, POOL_GATE.md por topic) enganchada antes de la escaleta; RESEARCH_V3=1 default para seeds nuevos; test con tres pools sintéticos (uno por color) y el de Orleans (debe dar verde).
+Commit wip antes de compactar; ESTADO_SESION.md. Revisor. PARADA: Omar lee la columna F7c-3.
+```

@@ -28,7 +28,7 @@
   "citas usadas": 4,
   "testigos con nombre citados": "Edward “Edgar” Burton, Vincent Norman",
   "revisión v3 de su corrida: duras / blandas": "4 / 14",
-  "duras con las reglas de F7c-2 (re-medido)": "6",
+  "duras con las reglas de F7c-2 (re-medido)": "12",
   "pool: datos / citas": "91 / 11"
  },
  "v3r": {
@@ -44,7 +44,7 @@
   "citas usadas": 9,
   "testigos con nombre citados": "Brady Richard, Deputy Luis Reyes, Deputy Renard Reed, Edward “Edgar” Burton, Marlin Gusman",
   "revisión v3 de su corrida: duras / blandas": "16 / 25",
-  "duras con las reglas de F7c-2 (re-medido)": "25",
+  "duras con las reglas de F7c-2 (re-medido)": "29",
   "pool: datos / citas": "558 / 187"
  },
  "v3r2": {
@@ -60,7 +60,23 @@
   "citas usadas": 12,
   "testigos con nombre citados": "Big Whappy, Brady Richard, Deputy Luis Reyes, Deputy Renard Reed, Edward “Edgar” Burton, Marlin Gusman, Rhonda Ducre",
   "revisión v3 de su corrida: duras / blandas": "11 / 30",
-  "duras con las reglas de F7c-2 (re-medido)": "11",
+  "duras con las reglas de F7c-2 (re-medido)": "23",
+  "pool: datos / citas": "558 / 187"
+ },
+ "v3r3": {
+  "palabras": 1143,
+  "densidad (ids/100 pal.)": 1.66,
+  "datos distintos": 19,
+  "adjetivos/100": 1.49,
+  "trigramas repetidos": 0.0124,
+  "cliffhangers ok": "6/6",
+  "datos en > 2 caps": 0,
+  "problemas de fechas": 0,
+  "cifras no canónicas": 0,
+  "citas usadas": 9,
+  "testigos con nombre citados": "Brady Richard, Deputy Luis Reyes, Deputy Renard Reed, Edward “Edgar” Burton, Marlin Gusman",
+  "revisión v3 de su corrida: duras / blandas": "21 / 33",
+  "duras con las reglas de F7c-2 (re-medido)": "21",
   "pool: datos / citas": "558 / 187"
  }
 }

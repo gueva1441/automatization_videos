@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-22 (F7c-2 hecho en `f7-research-v3`; PARADA: Omar lee) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-22 (F7c-3 + F7d hechos en `f7-research-v3`; PARADA: Omar lee la columna F7c-3) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «docs(f6): F6c cerrado como laboratorio…» (`git log -1`) en f6-guion-v3, sobre `7ec2025`; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
@@ -11,7 +11,13 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F7 — Research v3 — F7c-2 HECHO · PARADA: Omar lee
+## F7 — Research v3 — F7c-3 + F7d HECHOS · PARADA: Omar lee la columna F7c-3
+- Leer `lab/hyperframes/f7/F7c3_REPORT.md` (revisor íntegro) y `compara_orleans_v3r.html` (5 columnas).
+- **F7c-3** (§9.1): 7 reglas de oficio en `script_engine/guion_v3_reglas.py` (rol, párrafo sin dato, antagonista con nombre, sin fotos, sin tráiler, ancla de lugar y fecha; eco blando al editor) y 110 + 250 × 5 + 140. Corrida (2.ª, tras arreglar un bug del ancla): 1,143 palabras, 21 duras (re-medidas con las reglas de hoy: F6c 12, F7c 29, F7c-2 23). Arregla roles, tráiler, ancla, Gusman con nombre; queda largo corto (5 caps bajo el mínimo), párrafos sin dato y el candado literal.
+- **F7d** (§9.2): `researcher_steps/pool_gate.py` (verde/amarillo/rojo, `POOL_GATE.md`, umbrales en `video_length.py`) antes de la escaleta; research v3 por defecto en `topic_researcher` (`RESEARCH_V3=0` → viejo); seed rojo vuelve al inbox con motivo. Orleans: verde. `run_seed` sin probar con un seed real.
+- Tests: 466 verdes (+ las 5 fallas previas fuera de la lista).
+
+## F7 — Research v3 — F7c-2 HECHO
 - **F7c-2** (validación del analista sobre F7c: «material de 9, narración 7.5–8»; §8 confirmado por Omar). Leer `lab/hyperframes/f7/F7c2_REPORT.md` (revisor íntegro) y `compara_orleans_v3r.html` (4 columnas).
   - §8: `script_engine/video_length.py` (lee `config.long_video`; `config.py` está fuera de git): 1,500 / 1,700 palabras, caps de 105 s, 16 fotos por cap como máximo (90 por video). `m01a_skeleton.CHAPTER_SCHEMA` y `m01a_escaleta.CAP_WORDS` salen de ahí.
   - Reglas duras nuevas (`script_engine/guion_v3_reglas.py`, desde `m01b_guionista.review`): fragmento de cita ≤ 25 palabras (el candado lo acepta: `evidence.anchors`), una cita por párrafo, gancho sin fotos/fechas/citas de después, juicios fuera del pool, nombre completo 1 vez por cap, repetición de 3 palabras entre caps.

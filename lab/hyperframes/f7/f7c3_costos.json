@@ -1,0 +1,41 @@
+{
+  "escaleta": {
+    "usd": 0.1804,
+    "segundos": 114.8
+  },
+  "_corridas": [
+    {
+      "paso": "escaleta",
+      "usd": 0.1804,
+      "segundos": 114.8
+    },
+    {
+      "paso": "guionista",
+      "usd": 0.152,
+      "segundos": 153.8
+    },
+    {
+      "paso": "editor",
+      "usd": 0.1811,
+      "segundos": 590.4
+    },
+    {
+      "paso": "guionista",
+      "usd": 0.1707,
+      "segundos": 169.7
+    },
+    {
+      "paso": "editor",
+      "usd": 0.1541,
+      "segundos": 659.8
+    }
+  ],
+  "guionista": {
+    "usd": 0.1707,
+    "segundos": 169.7
+  },
+  "editor": {
+    "usd": 0.1541,
+    "segundos": 659.8
+  }
+}
