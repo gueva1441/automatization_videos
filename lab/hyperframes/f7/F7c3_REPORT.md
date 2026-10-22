@@ -64,3 +64,44 @@ A la lectura, juicios que la lista no ve: «tortura lenta y metódica», «Estab
 ## Archivos
 
 Código: `script_engine/guion_v3_reglas.py`, `m01b_guionista.py` (prompt f7c3-1, `_verified_antagonist`), `m01c_editor.py` (ecos al prompt), `m01a_escaleta.py` (`rules_text`, `_profile`, `pool_gate_profile`), `script_engine/video_length.py` (250/140 y `gate_*`), `researcher_steps/pool_gate.py` (nuevo), `researcher_steps/research_v3.py` (`seed_profile`, `pool_to_blocks`, `run_seed`, default on), `topic_researcher.py` (rama v3, `_flag_seed_in_inbox`). Tests: `test_module_f7.py`, `test_module_f7d.py`. Runner: `f7c_orleans.py --f7c3`; comparación: `build_compara_v3r.py`. Salidas: `compara_orleans_v3r.html`, `f7c_metricas_compara.json`, `NARRACION_orleans_v3r3.md`, `ESCALETA_orleans_v3r3.md`, `escaleta_orleans_v3r3.json`, `f7c3_costos.json`, `f7c3_run.out`, `f7c3_corrida1/`, `f7c2_v1/`, `POOL_GATE_orleans.md`.
+
+Nota: el §9 que el analista agregó a `HANDOFF_F7_research_v3.md` entró en el commit wip `c613f3d` junto con mis archivos; no lo escribí yo.
+
+## Veredicto del revisor-handoff (íntegro)
+
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+Los pytest, corridos por mí, dan 466 passed en 21.6 s con el comando exacto del pedido. No edité nada.
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Regla 1, validador de rol (dura) | OK | `guion_v3_reglas.py:242` `role_problems`; `test_module_f7.py:576`. En la corrida no queda ningún problema de rol en la lista de duras. |
+| 2 | Regla 2, párrafo sin id = relleno (dura) | OK | `guion_v3_reglas.py:292`; test en `test_module_f7.py:586`. En la corrida aparecen 5 duras de este tipo (beats 1, 2, 3, 4 y 6). |
+| 3 | Regla 3, antagonista con nombre (dura) | OK | `guion_v3_reglas.py:311`; test en `test_module_f7.py:594`. La narración final dice "El sheriff Gusman rechazó…" y no tiene "según alguien". |
+| 4 | Regla 4, sin fotos en ningún cap (dura) | OK | `guion_v3_reglas.py:342`; test en `test_module_f7.py:606`. Busqué foto e imagen en la narración final y hay 0 coincidencias. |
+| 5 | Regla 5, sin voz de tráiler (dura) | OK | `guion_v3_reglas.py:361`; test en `test_module_f7.py:614`. La única coincidencia de "historia de" es "en la historia de Nueva Orleans", que es un dato, no voz de tráiler. |
+| 6 | Regla 6, ancla de lugar y fecha en el gancho (dura) | OK | `guion_v3_reglas.py:383`; test en `test_module_f7.py:621`. La narración dice "Nueva Orleans, agosto de 2005." en el cap 1. |
+| 7 | Regla 7, cita fuerte y silencio (blanda, al editor) | OK | `guion_v3_reglas.py:400` `echo_soft`. `m01c_editor.py` la pasa a `build_prompt` bajo "CITA FUERTE, SILENCIO DESPUÉS". Test en `test_module_f7.py:634`. |
+| 8 | Largo 110+250×5+140 = 1,500 | OK | `video_length.py`: dev_words 250, outro_words 140, target 1,500. |
+| 9 | Compuerta §9.2: colores y umbrales | OK | `pool_gate.py` y `video_length.py` (`gate_*`). Verde 150/8/2/10. Amarillo si todo llega a la mitad, con 1,200 palabras y máximo 8 beats. Rojo levanta `PoolGateRed` con motivos. Los umbrales salen de `video_length`, no son constantes. |
+| 10 | `POOL_GATE.md` por topic | OK | `write_report`. El archivo de la corrida (`data/scripts/_steps/ba6c3cac-f7r3/POOL_GATE.md`) es idéntico a `lab/hyperframes/f7/POOL_GATE_orleans.md`. |
+| 11 | Enganche antes de la escaleta | OK | `m01a_escaleta.generate_escaleta` llama a `pool_gate_profile`, y `test_module_f7d.py:67` comprueba que rojo no llama al LLM. |
+| 12 | `RESEARCH_V3` por defecto y `=0` al camino viejo | OK | `research_v3.py`: `os.environ.get("RESEARCH_V3","1") != "0"`. En el diff de `topic_researcher.py` el camino viejo (`_gather_angle_blocks` y `extract_facts_and_sources(angle_blocks)`) queda intacto bajo el `else`. Test en `test_module_f7d.py:100`. |
+| 13 | Seed rojo vuelve al inbox con motivo | OK | `_flag_seed_in_inbox` y la rama `PoolGateRed` en `research_topics`. Test en `test_module_f7d.py:118`. |
+| 14 | Test con tres pools sintéticos y Orleans verde | OK | `test_module_f7d.py:32` y `:44`. El de Orleans usa el pool real `00_pool_v3.json`, que está versionado. |
+| 15 | Comparación de 5 columnas | OK | `compara_orleans_v3r.html` y `build_compara_v3r.py` modificados. `f7c_metricas_compara.json` trae v2, v3, v3r, v3r2 y v3r3. |
+| 16 | Cifras del reporte contra los archivos | OK | La tabla coincide con `f7c_metricas_compara.json`: 1,143 palabras; densidad 1.66; 19 datos; 1.49 adjetivos; trigramas 0.0124; 9 citas; 21 duras y 21 re-medidas. En `01b_narracion_v3.json` hay 21 duras y 33 blandas. El desglose del reporte (5 de largo, 5 de párrafo sin dato, 8 de candado, 1 con 2 citas, 2 repeticiones) suma 21 contra la lista real. Los costos suman 0.1804+0.152+0.1811+0.1707+0.1541 = 0.84, igual que `f7c3_costos.json`. La explicación de las dos corridas es consistente con `f7c3_corrida1/`. |
+| 17 | Desvío "7–8 beats en vez de 6–8" | OK | Está declarado en `F7c3_REPORT.md` (sección B) y en el docstring de `pool_gate.py`. El motivo es válido: el contrato de 7 caps con al menos 1 beat cada uno pone el piso en 7. El desvío es real pero está bien declarado; es decisión de Omar aceptarlo. |
+| 18 | Tests de la etapa | OK | 466 passed. |
+
+Observaciones (no son fallas de contrato):
+- El guion no cumple el largo objetivo. Salieron 1,143 palabras contra 1,500, y los caps 3–7 quedaron bajo el mínimo. Es una dura que sigue abierta y el reporte la declara.
+- Las 21 duras son más que las 11 de F7c-2 en su propia corrida, aunque con las reglas de hoy F7c-3 mejora (21 contra 23). El reporte lo dice con claridad.
+- T39 (la decisión del sheriff, 28-ago) no entró otra vez en la escaleta. El reporte lo declara. El nombre de Gusman salió igual, por la regla 3 en el prompt.
+- El reporte dice "5 fallas previas" fuera de la lista de tests (3 de `01b_pauses` y 2 de `m03_merge_timing`). No las corrí, así que no las verifiqué.
+
+Fuera de alcance: ninguno en los commits `da81084..HEAD`. Siguen modificados `diag_234_cap4.py`, `gfx_profiles/lexico_propuestas.json` y `gfx_profiles/misterio.json`. Ya estaban sucios en el `git status` inicial y ningún commit de la etapa los toca.
+
+Riesgos que el contrato no cubre:
+- `run_seed` con un seed nuevo real (red y LLM) no se probó de punta a punta; los tests usan dobles. Ahora es el camino por defecto y cuesta unos US$ 2.6–2.8 por seed.
+- Las reglas son regex y listas de patrones; no detectan juicios semánticos como "tortura lenta y metódica", que el reporte reconoce.
