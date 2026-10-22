@@ -437,8 +437,8 @@ def test_population_canon_lists_all_variants_with_source():
         {"id": "D04", "doc_id": "F01", "texto": "En Hunt, 5,000 presos de la OPP esperaron en un patio."},     # otro lugar
         {"id": "D05", "doc_id": "F10", "texto": "6.375 personas estaban detenidas en la OPP."}]}
     g = r3.population_canon(pool, docs)
-    assert g["oficial"] == "D01" and g["valor"] == "6375" and not g["sin_oficial"]
-    assert {v["valor"] for v in g["variantes"]} == {"6.295", "6,500", "6.375"}
+    assert g["oficial"] == "D01" and g["valor"] == "6,375" and not g["sin_oficial"]
+    assert {v["valor"] for v in g["variantes"]} == {"6,295", "6,500", "6,375"}
     assert next(v for v in g["variantes"] if v["id"] == "D03")["estatus"] == "según The Lens (2025)"
     assert next(v for v in g["variantes"] if v["id"] == "D05")["estatus"] == "oficial (mismo valor)"
     docs2 = [{**d, "tipo": "prensa_posterior"} for d in docs]
@@ -461,3 +461,26 @@ def test_digest_has_real_ids_and_escaleta_uses_it(monkeypatch):
     monkeypatch.delenv("ESCALETA_DIGEST")
     assert me.pool_section(old) == me.pool_section({**old})                 # sin digest: el camino de siempre
     assert "DATOS, CRONOLOGÍA Y LUGARES" in me.pool_section(old)
+
+
+def test_one_word_quote_is_not_a_quote():
+    raw = {"datos": [], "cronologia": [], "lugares": [], "personajes": [], "citas": [
+        {"autor": "an officer", "texto_original": "no", "texto_es": "no", "testigo": True,
+         "cita_literal": "Deputies abandoned Templeman III."}]}
+    part = r3.validate_doc_items(raw, {**DOCS[0], "idioma": "en"}, r3.DocText("F01", DOC_A), [])
+    assert part["citas"] == [] and "menos de 3 palabras" in part["_descartados"][0]["motivo"]
+
+
+def test_pool_does_not_trip_f6_validators():
+    """Los validadores de F6 (m05) leen el pool: un descarte de lectura no veta palabras y las cifras canónicas se
+    escriben con coma de miles."""
+    from script_engine import m05_narrative as mn
+    raw = {"datos": [], "cronologia": [], "lugares": [], "citas": [],
+           "personajes": [{"nombre": "Preso #13", "rol": "preso", "testigo": True, "cita_literal": "Deputies abandoned Templeman III."}]}
+    part = r3.validate_doc_items(raw, {**DOCS[0], "idioma": "en"}, r3.DocText("F01", DOC_A), [])
+    pool = {"_descartados": part["_descartados"]}
+    assert part["_descartados"][0]["kind"] == "personajes_r3"
+    assert mn.silent_names("Un preso gritó en la oscuridad.", pool) == []
+    g = {"oficial": "D01", "valor": "6,375", "variantes": [{"id": "D02", "valor": "6,000", "estatus": "según X"}]}
+    assert mn.non_canonical("Había 6,375 presos.", {"cifras_canonicas": [g]}, {}) == []
+    assert mn.non_canonical("Había 6,000 presos.", {"cifras_canonicas": [g]}, {})

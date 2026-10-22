@@ -1,0 +1,17 @@
+[22:29:23] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[22:33:00] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 — Costo total: $0.3430
+Traceback (most recent call last):
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f7\f7c_orleans.py", line 119, in <module>
+    main()
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f7\f7c_orleans.py", line 65, in main
+    esc = _timed(lambda: me.generate_escaleta(topic, log=log), "escaleta", cost)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f7\f7c_orleans.py", line 44, in _timed
+    out = fn()
+          ^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f7\f7c_orleans.py", line 65, in <lambda>
+    esc = _timed(lambda: me.generate_escaleta(topic, log=log), "escaleta", cost)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\script_engine\m01a_escaleta.py", line 859, in generate_escaleta
+    raise EscaletaValidationError(f"escaleta rechazada después de {attempts} intentos: {intentos[-1]['problemas']}")
+script_engine.m01a_escaleta.EscaletaValidationError: escaleta rechazada después de 3 intentos: ['el humano está en escena en los caps [5, 7]: tienen que ser \u2265 3']

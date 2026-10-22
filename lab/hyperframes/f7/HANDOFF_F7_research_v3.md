@@ -102,3 +102,37 @@ Total ≈ 9 h, 2 sesiones (F7a–b, F7c). Commit wip antes de cada compactación
 
 ## 7. Después
 Si Orleans v3-research sube a 8.5+: siguiente tema nuevo con research v3 desde la semilla; luego Imágenes (ANALISIS_imagenes §0), deuda gfx (BACKLOG §0), primer video completo, merge a `main`.
+
+---
+
+## 8. DECISIONES POST-F7b (Omar, 2026-10-21 22:30) — entran en F7c
+
+**Validación del pool F7b: aprobado** (558 datos, 162 citas literales, 28 eventos con hora, 13 humanos posibles). Confirmado: el techo estaba en el research.
+
+### 8.1 Arreglos antes de F7c
+1. `presente_en`: solo eventos cuya `cita_literal` nombra a la persona o están en su mismo párrafo (±500 caracteres del offset); nunca rangos (Renard Reed salía con T38→T125). Re-armar `elegible_humano` (≥3 citas o ≥3 datos propios con presencia real). Test.
+2. `cifras_canonicas`: listar todas las variantes de la población (6,295 / 6,375 / 6,500 / 8,000) con fuente; oficial = documento tipo informe_oficial/fallo; si no hay, "sin oficial" y la voz dice "según <fuente>". Test.
+3. `pool["digest"]` (aditivo): personajes elegibles completos con sus citas, cifras canónicas, cronología con hora, lugares con lat/lon, datos resumidos por documento (≤40 líneas por doc). `m01a_escaleta` usa digest si existe (cambio mínimo, flag). Objetivo ≤20 k tokens de prompt (hoy 63 k).
+4. Geocoder: Jena cayó en Nueva Orleans, I-10 en Baton Rouge, Angola 4 veces con nombres distintos → dedupe de lugares por coordenada y nombre; edificios internos (Templeman III, HOD, Broad St Overpass) quedan sin lat/lon a propósito (van al plano del lugar, BACKLOG A.1). No bloquea F7c.
+
+### 8.2 Largo del video — parámetros (hipótesis de arranque; los ajusta la curva de retención de YouTube Studio)
+Medido en v2 F5d: 1,171 palabras en 571 s ≈ **2.05 palabras/s** con pausas. Objetivo **12 min** (centro del rango 10–15 de documental en español; pasa el umbral de mid-roll).
+- `target_words = 1500` · `max_words = 1700` (≈13 min, tope duro)
+- Por cap: gancho 110 · desarrollo 240 × 5 · cierre 130
+- `dev_cap_seconds = 105` (antes 75); gancho y cierre igual. Contrato de 7 caps intacto.
+- `max_images_per_video = 90` (hoy ~80; la fórmula por duración daría ~112). Fotos a **8–9 s** en pantalla. El tiempo extra lo cargan: movimiento DepthFlow, golpes de zoom, bloques gfx (cita, contador, recorte, mapa), clips Veo (caps 1 y 7) y **re-encuadre** (misma foto dos veces con otro recorte y movimiento = plano nuevo gratis).
+- Tocar en `m03_visual` **solo** el tope de `_calculate_image_count` (freno levantado para esa línea).
+- Razón del tope de fotos: no es el costo ($0.035 c/u) sino el tiempo de Omar en QA Studio.
+Todo como parámetros en config, no constantes.
+
+### 8.3 Mapa (BACKLOG A.4/A.5): el pool trae 19 lugares con lat/lon que cuentan la diáspora (cárcel → paso elevado → Hunt 100 km → Angola 200 km → Rapides/Winn/Tallulah 400 km). Primer candidato real para una escena de mapa. No entra en F7c.
+
+### 8.4 Prompt F7c para CC
+```
+Validación del pool F7b: aprobado. Tres arreglos y F7c.
+1) presente_en solo por cita_literal/mismo párrafo (±500 chars), nunca rangos; re-armar elegibles; test.
+2) cifras_canonicas con todas las variantes y fuente; oficial = informe/fallo; test.
+3) pool["digest"] aditivo (≤20k tokens) y m01a_escaleta lo usa si existe.
+4) Parámetros nuevos en config: target_words=1500, max_words=1700, dev_cap_seconds=105, max_images_per_video=90 (m03: solo el tope de _calculate_image_count).
+5) F7c: correr Orleans ba6c3cac-f7r3 por la tubería v3 (escaleta → guionista → editor → validadores) con esos parámetros, sin otros cambios en F6. compara_orleans_v3r.html con 3 columnas: v2 F5d · v3 pool viejo (F6c) · v3 pool nuevo; métricas del juez; escaleta al lado. Revisor, commit. PARADA: el analista y Omar leen.
+```

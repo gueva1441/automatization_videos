@@ -1,0 +1,222 @@
+{
+  "topic_id": "ba6c3cac-f7r3",
+  "prompt_version": "f6b-4",
+  "_intentos": [
+    {
+      "intento": 1,
+      "problemas": [
+        "falta un beat de intensidad 1 (respiro) después del pico",
+        "el humano está en escena en los caps [5]: tienen que ser ≥ 3",
+        "pregunta de pantalla del cap 5 «¿Alguien iba a morir ahí dentro?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+        "pregunta de pantalla del cap 6 «¿Era un rescate o un castigo?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+        "la última frase repite textual la cita Q172: decila con otras palabras"
+      ],
+      "reparaciones": [
+        "beat 2: apoyo ['D51'] es otra cifra del conteo 300 → fuera"
+      ],
+      "avisos": [
+        "pregunta de pantalla del cap 2 «¿Quién decidió encerrar a seis mil personas?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+      ]
+    },
+    {
+      "intento": 2,
+      "problemas": [
+        "la intensidad baja antes del pico en los beats [2] ([3, 2, 3, 4, 5, 1, 3, 2]): cada cap peor que el anterior",
+        "la última frase repite textual la cita Q172: decila con otras palabras"
+      ],
+      "reparaciones": [
+        "beat 2: apoyo ['D51'] es otra cifra del conteo 300 → fuera"
+      ],
+      "avisos": [
+        "pregunta de pantalla del cap 3 «¿Quién se quedó con las llaves?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "pregunta de pantalla del cap 4 «¿Qué encontraron al otro lado?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+      ]
+    },
+    {
+      "intento": 3,
+      "problemas": [
+        "el humano está en escena en los caps [5, 7]: tienen que ser ≥ 3"
+      ],
+      "reparaciones": [
+        "beat 2: apoyo ['D51'] es otra cifra del conteo 300 → fuera"
+      ],
+      "avisos": [
+        "pregunta de pantalla del cap 2 «¿Por qué no los evacuaron?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "pregunta de pantalla del cap 4 «¿Quién estaba al mando ahora?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "pregunta de pantalla del cap 3 «¿Nadie iba a abrir las celdas?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)"
+      ]
+    }
+  ],
+  "ultima": {
+    "humano": {
+      "id": "P01",
+      "nombre": "Brady Richard",
+      "rol": "Oficial de Suministros Médicos",
+      "por_que": "Es un testigo verificado desde 'adentro'. No es un prisionero, pero sufre y atestigua el abandono, dándonos una perspectiva única y creíble del horror institucional.",
+      "colectivo": false
+    },
+    "antagonista": {
+      "id": "P03",
+      "por_que": "Como Sheriff a cargo, tomó la decisión de no evacuar y luego públicamente negó la catástrofe que sus propias decisiones provocaron."
+    },
+    "promesa_gancho": "Miles de personas fueron abandonadas en una prisión inundada. Esta es la historia de lo que vio uno de los oficiales que se quedó.",
+    "pico": {
+      "beat": 5,
+      "id": "Q14",
+      "por_que": "El momento en que un oficial se da cuenta de que sus colegas están disparando a los prisioneros que intentan sobrevivir. Es la ruptura total del orden y la humanidad, vista desde adentro."
+    },
+    "cierre_humano": "Para Brady Richard, la pregunta no es por qué el agua entró, sino por qué a nadie le importó sacar a la gente que estaba adentro.",
+    "beats": [
+      {
+        "n": 1,
+        "cap": 1,
+        "funcion": "gancho",
+        "emocion": "Shock",
+        "intensidad": 5,
+        "dato_central": "T08",
+        "datos_apoyo": [
+          "D207"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "Cientos de hombres en monos naranjas, bajo un sol abrasador, agrupados en un puente de autopista.",
+        "pregunta_abierta": "¿Quiénes son y cómo llegaron ahí en medio de una ciudad inundada?",
+        "pregunta_pantalla": "¿Quién los dejó ahí fuera?",
+        "cierre": "Para entenderlo hay que volver atrás. A la decisión que los condenó antes de la primera gota de lluvia.",
+        "palabras_objetivo": 110,
+        "flash_forward": true
+      },
+      {
+        "n": 2,
+        "cap": 2,
+        "funcion": "planteo",
+        "emocion": "Inquietud",
+        "intensidad": 2,
+        "dato_central": "Q08",
+        "datos_apoyo": [
+          "D51",
+          "Q16"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "El rostro del Sheriff en una pantalla de TV, con el símbolo de un huracán categoría 5 acercándose.",
+        "pregunta_abierta": "¿Nadie se opuso a esa decisión suicida?",
+        "pregunta_pantalla": "¿Por qué no los evacuaron?",
+        "cierre": "La decisión estaba tomada. Y cuando la ciudad se quedó a oscuras, la prisión se convirtió en una trampa.",
+        "palabras_objetivo": 190
+      },
+      {
+        "n": 3,
+        "cap": 3,
+        "funcion": "escalada",
+        "emocion": "Angustia",
+        "intensidad": 3,
+        "dato_central": "T76",
+        "datos_apoyo": [
+          "D183",
+          "D543",
+          "D233"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "La chispa de un cortocircuito en una cerradura electrónica, y luego oscuridad total mientras el agua sube.",
+        "pregunta_abierta": "¿Cómo iban a salir si las puertas no funcionaban?",
+        "pregunta_pantalla": "¿Nadie iba a abrir las celdas?",
+        "cierre": "En la oscuridad, el sonido del agua era lo único que se oía. Hasta que empezó el silencio de los guardias.",
+        "palabras_objetivo": 190,
+        "contador": true
+      },
+      {
+        "n": 4,
+        "cap": 4,
+        "funcion": "giro",
+        "emocion": "Desesperación",
+        "intensidad": 4,
+        "dato_central": "Q73",
+        "datos_apoyo": [
+          "Q24",
+          "D532"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "Un pasillo vacío, con los puestos de los guardias abandonados y el agua ondulando en silencio.",
+        "pregunta_abierta": "Si los guardias se fueron, ¿quién quedó a cargo?",
+        "pregunta_pantalla": "¿Quién estaba al mando ahora?",
+        "cierre": "Algunos no se fueron. Y a uno de ellos le dieron una orden imposible: entrar al infierno con un botiquín.",
+        "palabras_objetivo": 190
+      },
+      {
+        "n": 5,
+        "cap": 5,
+        "funcion": "pico",
+        "emocion": "Horror",
+        "intensidad": 5,
+        "dato_central": "Q14",
+        "datos_apoyo": [
+          "T92"
+        ],
+        "humano_en_escena": true,
+        "imagen_sensorial": "La mira de un rifle en un tejado, apuntando hacia abajo, hacia figuras en el agua.",
+        "pregunta_abierta": "¿Estaban disparando a matar? ¿Quién dio la orden?",
+        "pregunta_pantalla": "¿A quiénes estaban disparando?",
+        "cierre": "El caos en el exterior era una tapadera para el verdadero misterio: el de los que se quedaron adentro.",
+        "palabras_objetivo": 190
+      },
+      {
+        "n": 6,
+        "cap": 6,
+        "funcion": "respiro",
+        "emocion": "Indignación",
+        "intensidad": 1,
+        "dato_central": "Q78",
+        "datos_apoyo": [
+          "D190",
+          "D196"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "El Sheriff Marlin Gusman en una rueda de prensa, con un traje impecable, frente a micrófonos.",
+        "pregunta_abierta": "¿Cómo podía mentir de forma tan descarada con tantos testigos?",
+        "pregunta_pantalla": "¿Dónde estaban los desaparecidos?",
+        "cierre": "Mientras el Sheriff hablaba de un éxito, sus propios oficiales contaban una historia de fantasmas.",
+        "palabras_objetivo": 190
+      },
+      {
+        "n": 7,
+        "cap": 7,
+        "funcion": "cierre",
+        "emocion": "Tristeza",
+        "intensidad": 2,
+        "dato_central": "D185",
+        "datos_apoyo": [
+          "Q60",
+          "D228",
+          "Q11"
+        ],
+        "humano_en_escena": true,
+        "imagen_sensorial": "Una lista de evacuados escrita a mano, con un final abrupto y páginas en blanco.",
+        "pregunta_abierta": "¿Se hizo justicia alguna vez por esos 517?",
+        "pregunta_pantalla": "¿Cuántos nunca recuperaron su nombre?",
+        "cierre": "Para el oficial Brady Richard y los supervivientes, el agua ya bajó, pero la pregunta sigue ahí: por qué a nadie le importó sacar a la gente que estaba adentro.",
+        "palabras_objetivo": 110
+      }
+    ],
+    "a_pantalla": [
+      {
+        "id": "Q23",
+        "cap": 2,
+        "por_que": "La ironía de Gusman hablando de 'no tener equipamiento eléctrico en zonas bajas' es más potente si se lee."
+      },
+      {
+        "id": "D234",
+        "cap": 3,
+        "por_que": "Visualizar la altura del agua (6 pies) con una referencia humana es muy impactante y funciona mejor como texto en pantalla."
+      },
+      {
+        "id": "D05",
+        "cap": 6,
+        "por_que": "Muestra la consecuencia legal ('Jones v. Gusman') sin tener que explicarla en la narración."
+      },
+      {
+        "id": "D546",
+        "cap": 7,
+        "por_que": "La negación rotunda y oficial de las muertes por parte de Gusman es un texto clave para el cierre."
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+[22:33:20] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[22:38:48] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 — Costo total: $0.4949
+Traceback (most recent call last):
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f7\f7c_orleans.py", line 121, in <module>
+    main()
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f7\f7c_orleans.py", line 67, in main
+    esc = _timed(lambda: me.generate_escaleta(topic, log=log, attempts=ESC_ATTEMPTS), "escaleta", cost)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f7\f7c_orleans.py", line 45, in _timed
+    out = fn()
+          ^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f7\f7c_orleans.py", line 67, in <lambda>
+    esc = _timed(lambda: me.generate_escaleta(topic, log=log, attempts=ESC_ATTEMPTS), "escaleta", cost)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\script_engine\m01a_escaleta.py", line 859, in generate_escaleta
+    raise EscaletaValidationError(f"escaleta rechazada después de {attempts} intentos: {intentos[-1]['problemas']}")
+script_engine.m01a_escaleta.EscaletaValidationError: escaleta rechazada después de 5 intentos: ['la última frase repite textual la cita Q172: decila con otras palabras']

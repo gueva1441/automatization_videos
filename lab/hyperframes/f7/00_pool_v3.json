@@ -32592,45 +32592,6 @@
   },
   {
    "id": "Q172",
-   "texto": "no",
-   "autor": "an officer",
-   "fecha": "2005-08",
-   "rol": "Oficial",
-   "testimonio": true,
-   "testigo": true,
-   "texto_original": "no",
-   "texto_es": "no",
-   "presente_en": [],
-   "doc_id": "F03",
-   "bloque": "F03",
-   "fuente": "Testimonials from Inmates Incarcerated at Orleans Parish Prison during Hurricane Katrina, 2006",
-   "idioma": "en",
-   "cita_literal": "When the men tried to turn themselves in, the officer reportedly said “no” and shot them.",
-   "offset": 297058,
-   "docs": [
-    "F03"
-   ],
-   "n_fuentes": 1,
-   "evidencia": [
-    {
-     "doc_id": "F03",
-     "offset": 297058,
-     "cita_literal": "When the men tried to turn themselves in, the officer reportedly said “no” and shot them."
-    }
-   ],
-   "verificacion": {
-    "estado": "sin_verificar",
-    "motivo": "no está en ['F03']",
-    "metodo": "literal_v3",
-    "documento": null,
-    "url_fuente": null,
-    "fecha_documento": null,
-    "offset": null,
-    "cita_original": "no"
-   }
-  },
-  {
-   "id": "Q173",
    "texto": "Piénsenlo. Eso es lo que les va a pasar a ustedes.",
    "autor": "an officer",
    "fecha": "2005-08",
@@ -32669,7 +32630,7 @@
    }
   },
   {
-   "id": "Q174",
+   "id": "Q173",
    "texto": "¡¡Vamos a matar a algunas más de esas perras!!",
    "autor": "an officer",
    "fecha": "2005-08",
@@ -32708,7 +32669,7 @@
    }
   },
   {
-   "id": "Q175",
+   "id": "Q174",
    "texto": "A nosotras, las reclusas, también nos dejaron morir, sin atención médica, sin comida, sin agua.",
    "autor": "Una reclusa de Conchetta",
    "fecha": null,
@@ -32749,7 +32710,7 @@
    }
   },
   {
-   "id": "Q176",
+   "id": "Q175",
    "texto": "Muchos de los oficiales nos dejaron allí para morir.",
    "autor": "Una reclusa del Edificio CTA",
    "fecha": null,
@@ -32790,7 +32751,7 @@
    }
   },
   {
-   "id": "Q177",
+   "id": "Q176",
    "texto": "¡los reclusos deben permanecer donde pertenecen!",
    "autor": "The sheriff",
    "fecha": null,
@@ -32829,7 +32790,7 @@
    }
   },
   {
-   "id": "Q178",
+   "id": "Q177",
    "texto": "¡No tuvimos más alternativa que terminar bebiendo agua del inodoro!",
    "autor": "Una reclusa del Edificio CTA",
    "fecha": null,
@@ -32870,7 +32831,7 @@
    }
   },
   {
-   "id": "Q179",
+   "id": "Q178",
    "texto": "nos dejaron morir, no les importó lo que nos pasara, creo que deseaban que hubiéramos muerto.",
    "autor": "Un recluso de Templeman 4",
    "fecha": null,
@@ -32911,7 +32872,7 @@
    }
   },
   {
-   "id": "Q180",
+   "id": "Q179",
    "texto": "No había nadie, nos dejaron morir, hombre.",
    "autor": "Edward “Edgar” Burton",
    "fecha": null,
@@ -32952,7 +32913,7 @@
    }
   },
   {
-   "id": "Q181",
+   "id": "Q180",
    "texto": "Creo que humanizó a quienes estaban encerrados. Hay una gran diferencia entre que la gente esté encerrada detrás de enormes edificios y que nadie sepa lo que pasa allí. Pero cuando vimos a tantos humanos abandonados en un puente...",
    "autor": "Sade Dumas",
    "fecha": null,
@@ -32991,7 +32952,7 @@
    }
   },
   {
-   "id": "Q182",
+   "id": "Q181",
    "texto": "Hombre, ese lugar olía a muerte.",
    "autor": "Big Whappy",
    "fecha": null,
@@ -33032,7 +32993,7 @@
    }
   },
   {
-   "id": "Q183",
+   "id": "Q182",
    "texto": "Ese fue el peor momento de mi vida. Es lo peor que he soportado en toda mi vida.",
    "autor": "Big Whappy",
    "fecha": null,
@@ -33073,7 +33034,7 @@
    }
   },
   {
-   "id": "Q184",
+   "id": "Q183",
    "texto": "Cuando vi que algo que estaba atornillado al suelo empezaba a flotar, supe que era grave. La gente gritaba pidiendo ayuda, pero nadie venía. Pensamos que nos íbamos a ahogar allí dentro.",
    "autor": "Edward “Edgar” Burton",
    "fecha": null,
@@ -33114,7 +33075,7 @@
    }
   },
   {
-   "id": "Q185",
+   "id": "Q184",
    "texto": "Tuvimos que beber agua del inodoro solo para mantenernos con vida.",
    "autor": "Edward “Edgar” Burton",
    "fecha": null,
@@ -33155,7 +33116,7 @@
    }
   },
   {
-   "id": "Q186",
+   "id": "Q185",
    "texto": "Nos dijeron que no quedaba nadie.",
    "autor": "Rescatistas anónimos",
    "fecha": null,
@@ -33196,7 +33157,7 @@
    }
   },
   {
-   "id": "Q187",
+   "id": "Q186",
    "texto": "Ninguno de los directores de prisión sabía a quién tenían: eran personas en prisión preventiva, personas ya juzgadas, personas en programas de tratamiento. Personas que habían sido arrestadas recientemente y ni siquiera habían pasado por el tribunal para que les fijaran una fianza. Simplemente todo el mundo.",
    "autor": "Phyllis Mann",
    "fecha": null,
@@ -33235,7 +33196,7 @@
    }
   },
   {
-   "id": "Q188",
+   "id": "Q187",
    "texto": "Cuando una persona ha sido sentenciada y ha cumplido su condena completa y no es liberada, eso es una violación de la Constitución.",
    "autor": "Phyllis Mann",
    "fecha": null,
@@ -36379,847 +36340,854 @@
  ],
  "_descartados": [
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F04",
    "texto": "the Sheriff",
    "cita_literal": "In April 2016, we moved for an order to show cause why the Sheriff, who oversees OPP, should not be held in contempt and to place the jail into receivership.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "lugares",
+   "kind": "lugares_r3",
    "doc_id": "F01",
    "texto": "Jena Correctional Facility",
    "cita_literal": "The one exception is contained in the section of the report discussing the experiences of prisoners from Calcasieu and Jefferson parishes who endured systemic abuse at the Jena Correctional Facility (",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F01",
    "texto": "Según las estadísticas del sheriff, la Prisión Parroquial de Orleans albergaba a 6375 presos el 29 de agosto de 2005.",
    "cita_literal": "According to the Sheriff’s statistics, OPP held 6375 prisoners on August 29, 2005. This figure includes OPP’s own population of 6021, plus 354 juveniles from YSC who were evacuated to Templeman V prio",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F01",
    "texto": "Los alguaciles rociaron dos latas de gas pimienta en la celda de Raphael Schwarz después de que un prisionero pateara la puerta para llamar la atención.",
    "cita_literal": "When the prisoner con- tinued to kick the door, the deputies sprayed two cans of mace into the cell, and left. I was in the back of the cell at the time, and I got mace on my arms.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F01",
    "texto": "Una alguacil encontró a 11 presos, incluido Raphael Schwarz, en el edificio Templeman III tras haber sido informada de que no quedaba nadie allí.",
    "cita_literal": "a female deputy came into the unit ... She told us that she had been told by officers that there was no one left in our build- ing. ... She then gathered the 11 prisoners on our tier, along with about",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "cronologia",
+   "kind": "cronologia_r3",
    "doc_id": "F01",
    "texto": "Un prisionero nota que el Sr. Duncan no está respirando, tras más de 42 horas inmovilizado.",
    "cita_literal": "On August 10, 2001, another prisoner noticed that Mr. Duncan was not breathing.",
    "motivo": "fecha 2005-08-10 no coincide con el año de la cita literal (2001)"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F01",
    "texto": "Glyendale Stevenson",
    "cita_literal": "GLYENDALE AND COREY STEVENSON ... The last time I saw him was in August 2005, the Thursday before the storm hit.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F01",
    "texto": "A las 4 p.m. del 27 de agosto, los teléfonos de los reclusos en la unidad TP3/A1 fueron cortados deliberadamente.",
    "cita_literal": "I was placed in TP3/A1 before noon and by 4pm the phones were purposely cut off, so I had no contact with my family members.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "cronologia",
+   "kind": "cronologia_r3",
    "doc_id": "F01",
    "texto": "Los teléfonos de los reclusos en la unidad TP3/A1 son desconectados.",
    "cita_literal": "I was placed in TP3/A1 before noon and by 4pm the phones were purposely cut off, so I had no contact with my family members.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "lugares",
+   "kind": "lugares_r3",
    "doc_id": "F01",
    "texto": "Angola (Louisiana State Penitentiary)",
    "cita_literal": "When many of the women wereloaded onto a bus to be transported to the Louisiana State Penitentiary at Angola, Ms. Hardeman was transferred by van.",
    "motivo": "el nombre del lugar no está en el documento"
   },
   {
-   "kind": "citas",
+   "kind": "citas_r3",
    "doc_id": "F01",
    "texto": "There has never been a plan for what to do when the hurricanes hit. To my knowledge, there was no preparation for this storm.",
    "cita_literal": "There has never been a plan for what to do when the hurricanes hit. To my knowledge, there was no preparation for this storm.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F01",
    "texto": "Foster",
    "cita_literal": "According to Deputy Foster, “[a]ll the hard work we put in every day, we risk our lives going into the jail and dealing with these inmates. And when something comes like a hurricane we bring our famil",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F01",
    "texto": "Los detenidos tardaron aproximadamente 12 horas en hacer un agujero en el edificio utilizando el aro de una canasta de baloncesto como herramienta.",
    "cita_literal": "It took about a twelve hours of various detainees of the OPP corrections officers. We working to try to make a hole out of lay down on the floor on our stom- the building.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F01",
    "texto": "Un prisionero colgó un cartel que decía \"AYUDA SIN COMIDA MURIENDO\" cuando vio un helicóptero de noticias.",
    "cita_literal": "One pris- oner writes that when he saw a news helicopter several days after the storm, he and another prisoner hung a sign saying “HELP NO FOOD DYING.”",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "cronologia",
+   "kind": "cronologia_r3",
    "doc_id": "F01",
    "texto": "Quantonio Williams fue liberado de la prisión bajo una fianza de 500 dólares.",
    "cita_literal": "I was able to get through the proce- dure to get me released on a $500 bond. I was released on Septem- ber 22, 2005.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "lugares",
+   "kind": "lugares_r3",
    "doc_id": "F01",
    "texto": "CCC building (Community Corrections Center)",
    "cita_literal": "The CCC building houses prisoners who participate in OPP’s rehabilitation programs, such as the Francois Alternative Center at New Orleans, the About Face Boot Camp Program, and the Blue Walters Subst",
    "motivo": "el nombre del lugar no está en el documento"
   },
   {
-   "kind": "lugares",
+   "kind": "lugares_r3",
    "doc_id": "F01",
    "texto": "F Side",
    "cita_literal": "They led us to a door and I we were still on the bottom level, by F Side. The water was freezing cold and had a stench to it.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "lugares",
+   "kind": "lugares_r3",
    "doc_id": "F01",
    "texto": "Broad Street Overpass",
    "cita_literal": "I could see prisoners breaking out windows on the 2nd &3rd floors, waving blankets yelling for help. I per- sonally saw 6 prisoners jump to the water below from the floors mentioned.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "citas",
+   "kind": "citas_r3",
    "doc_id": "F01",
    "texto": "so you arethe people who were left to die.",
    "cita_literal": "When we get therethe warden greeted us by saying so you arethe people who were left to die.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "citas",
+   "kind": "citas_r3",
    "doc_id": "F01",
    "texto": "Lewis? Are you planning to return to work?",
    "cita_literal": "“Lewis?” she asked. “Are you planning to return to work?” “Yes,” I told her,“when I am well. I just had surgery,Ihave a 106 fever.”",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F01",
    "texto": "Las reclusas no tenían comida, excepto la que habían comprado en el economato.",
    "cita_literal": "We had no food to eat, except the little bit that people had bought from commissary, but we’d eaten all of that long before they finally moved us.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F01",
    "texto": "La reclusa que cargaba a la anciana de 65 años estuvo de pie en el agua en Central Lock-Up durante 9,5 horas.",
    "cita_literal": "[W]e were moved to Central Lock Up to wade and stood in water for 9 1/2 hours.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "lugares",
+   "kind": "lugares_r3",
    "doc_id": "F01",
    "texto": "Overpass (Paso elevado)",
    "cita_literal": "They took us to the Overpass and told us to sit down. We were on one side of the bridge and the men were on the other side.",
    "motivo": "el nombre del lugar no está en el documento"
   },
   {
-   "kind": "citas",
+   "kind": "citas_r3",
    "doc_id": "F01",
    "texto": "[A]n officer told her that if she didn’t learn to swim quick they had a body bag with her name on it.",
    "cita_literal": "[A]n officer told her that if she didn’t learn to swim quick they had a body bag with her name on it.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "citas",
+   "kind": "citas_r3",
    "doc_id": "F01",
    "texto": "She was trying to get a personal boat to get her family out of there. They just treated us like dirt. They had Kentwood jugs. . . . Warden had those things stockpiled when no one else had any. She’d o",
    "cita_literal": "She was trying to get a personal boat to get her family out of there. They just treated us like dirt. They had Kentwood jugs. . . . Warden had those things stockpiled when no one else had any. She’d o",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F01",
    "texto": "Un hombre detenido por violación de la libertad condicional describió las condiciones en Hunt como caóticas porque mezclaron a los presos no violentos.",
    "cita_literal": "One man held on a probation violation writes that conditions at Hunt were chaotic for the simple reason that they mixed non violent uees.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F01",
    "texto": "One man",
    "cita_literal": "One man writes: “Everywhere you looked there were fights, people getting stabbed, people gets- ting raped also.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F01",
    "texto": "un hombre detenido por violación de la libertad condicional",
    "cita_literal": "One man held on a probation violation writes that conditions at Hunt were chaotic",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F08",
    "texto": "La población carcelaria diaria promedio se redujo de 6.000 antes del huracán a 3.400 en 2010, y a menos de 1.900 en abril de 2015, una caída total del 67%.",
    "cita_literal": "The average daily jail population was reduced from 6,000 prior to the storm to 3,400 in 2010, and to less than 1,900 in April 2015, a 67 percent drop overall.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "lugares",
+   "kind": "lugares_r3",
    "doc_id": "F08",
    "texto": "Orleans Parish Prison (OPP)",
    "cita_literal": "New Orleans’ local jail—misnamed the “Orleans Parish Prison” or “OPP”—was not only widely used, it was widely misused.",
    "motivo": "el nombre del lugar no está en el documento"
   },
   {
-   "kind": "lugares",
+   "kind": "lugares_r3",
    "doc_id": "F08",
    "texto": "detrás de la estación de autobuses",
    "cita_literal": "stories of inmates held in makeshift cages behind the bus station...",
    "motivo": "el nombre del lugar no está en el documento"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F08",
    "texto": "Landrieu",
    "cita_literal": "Mayor Landrieu tasked First Deputy Mayor Kopplin with convening a Criminal Justice Working Group to fully review the proposal.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "lugares",
+   "kind": "lugares_r3",
    "doc_id": "F09",
    "texto": "Prisión Parroquial de Orleans (OPP)",
    "cita_literal": "We remain sensitive to the fact that OPP is still recovering from the devastating effects of Hurricane Katrina and commend the Sheriff and his staff for their extraordinary efforts to structurally reb",
    "motivo": "el nombre del lugar no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "Un preso de Templeman II E-2 informó que los guardias los dejaron morir sin comida, agua ni aire.",
    "cita_literal": "He reports that he received, “no Food are [sic] water are [sic] air . . . . They left us to Die.” He was left in a locked cell and says that guards assaulted and maced him and other inmates.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "A un recluso con hipertensión se le amenazó con dispararle si volvía a pedir su medicación en el paso elevado de la Interestatal 10.",
    "cita_literal": "Once Inmate #13 reached the Interstate 10 overpass he asked for his blood pressure medication, “and was told if I ask again I would be shot.”",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "En la unidad Conchetta, los guardias dieron a las reclusas agua contaminada de una ducha para beber.",
    "cita_literal": "She states that guards gave the inmates contaminated water from a shower to drink. Then the guards took the water back to bathe in and afterwards returned it to the inmates to drink.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "Una presa estuvo atrapada en un dormitorio a nivel del suelo con 4 a 5 pies de agua durante 2 días.",
    "cita_literal": "She was trapped in a ground-level dorm in 4-5 feet of water for two days. There were inmates shot and tear gas released.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "Un recluso no comió durante 6 a 7 días.",
    "cita_literal": "Those escaping prisoners were maced and shot with bean bags by deputies. The prisoners still trapped in their cells broke windows to get fresh air. Inmate #46 did not eat for six to seven days.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "Personal de Angola rescató a las reclusas el 1 de septiembre.",
    "cita_literal": "Inmate #54 states that Angola officials rescued the inmates on September 1. She was housed in “an overcrowded, airless open dormitory.”",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "Oficiales de la División de Investigaciones Especiales (S.I.D.) y alguaciles dispararon a un hombre en el cuarto piso de la Casa de Detención.",
    "cita_literal": "Inmate #57 also states that Special Investigation Division (S.I.D.) officers and deputies shot a man on the 4th Floor claiming that he was out of his cell.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "cronologia",
+   "kind": "cronologia_r3",
    "doc_id": "F03",
    "texto": "Funcionarios de Angola rescataron a las reclusas.",
    "cita_literal": "Inmate #54 states that Angola officials rescued the inmates on September 1. She was housed in “an overcrowded, airless open dormitory.”",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "citas",
+   "kind": "citas_r3",
    "doc_id": "F03",
    "texto": "no Food are [sic] water are [sic] air . . . . They left us to Die.",
    "cita_literal": "He reports that he received, “no Food are [sic] water are [sic] air . . . . They left us to Die.”",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #1",
    "cita_literal": "Inmate #1 states she was housed in Templeman IV during Hurricane Katrina. She says she had been incarcerated in OPP for four months prior to Hurricane Katrina.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #2",
    "cita_literal": "Inmate #2 says he was housed in Templeman I (Units A-3 and D-4) during Hurricane Katrina. Inmate #2 states he was housed in OPP for 2 and a half weeks prior to Hurricane Katrina.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #3",
    "cita_literal": "Inmate #3 was incarcerated in the House of Detention (HOD) for over a month prior to Hurricane Katrina. He says he was locked in his cell with no food or water.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #4",
    "cita_literal": "Inmate #4 was incarcerated in OPP (HOD) for three months prior to Hurricane Katrina. He was left in a locked cell and not moved until three days after Hurricane Katrina hit the jail.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #5",
    "cita_literal": "Inmate #5 was incarcerated in OPP (Templeman III F and C Side) for 2 weeks prior to Hurricane Katrina. OPP guards left Inmate #5 locked in his cell in rapidly rising water for 3 days.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #6",
    "cita_literal": "Inmate #6 was incarcerated in OPP (Templeman IV Unit A) for a month prior to Hurricane Katrina. She says that there were virtually no deputies present the night of the hurricane.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #7",
    "cita_literal": "Inmate #7 was incarcerated in OPP (Templeman II E-2) for four months prior to Hurricane Katrina. He reports that he received, “no Food are [sic] water are [sic] air . . . .",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #8",
    "cita_literal": "Inmate #8 was incarcerated in OPP (Templeman I Unit D-4) for 5 months prior to Hurricane Katrina. During the hurricane itself, Inmate #8 fell on the wet floor",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #9",
    "cita_literal": "Inmate #9 was incarcerated in OPP (Templeman I Unit F-4) for a month prior to Hurricane Katrina. He says that the deputies abandoned their posts and he was left in a locked cell.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #10",
    "cita_literal": "Inmate #10 was incarcerated in OPP (Templeman III Unit A-4) for three days prior to Hurricane Katrina. The deputies abandoned their posts and locked Inmate #10 in his cell.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #11",
    "cita_literal": "Inmate #11 was incarcerated in OPP (Templeman II) for fifty days prior to Hurricane Katrina. He was left in total darkness with no food and water for several days.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #12",
    "cita_literal": "Inmate #12 was incarcerated in OPP (Templeman I Unit E-1) for 2 months prior to Hurricane Katrina. Before the hurricane, staff members at OPP told the inmates that Katrina was scheduled to hit New Orl",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #13",
    "cita_literal": "Inmate #13 was incarcerated in OPP (Rendon Work Release) for eighteen months prior to Hurricane Katrina. The day before the hurricane, Inmate #13 was moved to Templeman V.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #14",
    "cita_literal": "Inmate #14 was incarcerated in OPP (Conchetta Unit 1-2) for six days prior to Hurricane Katrina. She was moved from the first floor because it was flooded.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #15",
    "cita_literal": "Inmate #15 was incarcerated in OPP (HOD) for one year prior to Hurricane Katrina. He reports that he knows the deputies left their posts because, “we couldn’t get an answer for days.”",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #16",
    "cita_literal": "Inmate #16 was incarcerated in OPP (Templeman II Unit D-3) for two months prior to Hurricane Katrina. Inmate #16 reports that the deputies did not stay on their posts",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #17",
    "cita_literal": "Inmate #17 was incarcerated in OPP (Conchetta Unit 3-1) for sixteen to seventeen days prior to Hurricane Katrina. She states that guards gave the inmates contaminated water from a shower to drink.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #18",
    "cita_literal": "Inmate #18 was incarcerated in OPP (Conchetta Unit 3-2) for two days prior to Hurricane Katrina. She says that she had no water and was forced to drink out of the toilet.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #19",
    "cita_literal": "Inmate #19 was incarcerated in OPP (Conchetta Unit D-1) for two months prior to Hurricane Katrina. “It was like we were left to die. No water, no air, no food.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #20",
    "cita_literal": "Inmate #20 was incarcerated in OPP (Conchetta) for 25 months prior to Hurricane Katrina. The first day of the hurricane the inmates were “left without lights and air venthilation [sic].”",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #21",
    "cita_literal": "Inmate #21 was incarcerated in OPP (Templeman I) for four days prior to Hurricane Katrina. He was locked in a cell with other inmates where water rose to chest level.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #22",
    "cita_literal": "Inmate #22 was incarcerated in OPP (Templeman I) for five months prior to Hurricane Katrina. During the hurricane, there was no electricity in the prison and deputies left their posts.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #23",
    "cita_literal": "Inmate #23 was incarcerated in OPP (Old Parish Prison) for six months prior to Hurricane Katrina. His unit lost electricity and he was ankle deep in water.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #24",
    "cita_literal": "Inmate #24 was incarcerated in OPP (Templeman I) for two days prior to Hurricane Katrina. His building lost power prior to the storm; and there was no access to food, water, or medication.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #25",
    "cita_literal": "Inmate #25 was incarcerated in OPP (Templeman IV) for two months prior to Hurricane Katrina. There was no electricity at the time the hurricane hit and they received their last meal on the morning of ",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #26",
    "cita_literal": "Inmate #26 was incarcerated in OPP (Conchetta) for one day prior to Hurricane Katrina. Her cell filled with backed-up toilet water.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #27",
    "cita_literal": "Inmate #27 was incarcerated in OPP (Templeman) for eight months prior to Hurricane Katrina. On the evening of the hurricane, water had entered the cells.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #28",
    "cita_literal": "Inmate #28 was incarcerated in OPP (Conchetta) for five days prior to Hurricane Katrina. She was evacuated after the water reached five inches.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #29",
    "cita_literal": "Inmate #29 was incarcerated in OPP (Conchetta) for three months prior to Hurricane Katrina. They lost power due to the hurricane and were forced to drink “contaminated water from unsanitized garbage c",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #30",
    "cita_literal": "Inmate #30 was incarcerated in OPP (Conchetta) for 26 days prior to Hurricane Katrina and had not yet gone to court. She was on the second floor and water only reached the top of the stairs.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #31",
    "cita_literal": "Inmate #31 was incarcerated in OPP (Templeman I Unit D2) for 6 and a half months prior to Hurricane Katrina. He states that the inmates on his unit were forced to break windows to get fresh air.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #32",
    "cita_literal": "Inmate #32 was incarcerated in OPP (Templeman I Unit D2) for three months prior to Hurricane Katrina. The power in Inmate #32's cell went out the night of the hurricane",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #33",
    "cita_literal": "Inmate #33 was incarcerated in OPP (Templeman II Unit E-3) for a month prior to Hurricane Katrina. According to Inmate #33, Unit E-3 was completely abandoned by the prison staff",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #34",
    "cita_literal": "Inmate #34 was incarcerated in OPP (Templeman I Unit D-4) for ten months prior to Hurricane Katrina. Unit D-4 was without power and food during the hurricane.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #35",
    "cita_literal": "Inmate #35 was incarcerated in OPP (Old Parish Prison Unit B-4) prior to Hurricane Katrina. The deputies in Inmate #35's unit abandoned the prisoners with no food, water and medication",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #36",
    "cita_literal": "Inmate #36 was incarcerated in OPP (Templeman I Unit F-1) for seven months prior to Hurricane Katrina. For more than twenty-four hours Inmate #36 was without lights, water, food or facilities.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #37",
    "cita_literal": "Inmate #37 was incarcerated in OPP prior to Hurricane Katrina. Inmate #37 was forced to go several days without food; he also had to drink contaminated water.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #38",
    "cita_literal": "Inmate #38 was incarcerated in OPP (Templeman I Medical Unit B-1) for ten months prior to Hurricane Katrina. Inmate #38 (who uses a wheelchair) was housed in a unit abandoned by deputies and filled wi",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #39",
    "cita_literal": "Inmate #39 was incarcerated in OPP (Templeman I A Side) for two days prior to Hurricane Katrina. Inmate #39 says that the water in Templeman A side was twelve feet high and the deputies “left us in th",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #40",
    "cita_literal": "Inmate #40 was incarcerated in OPP (Templeman III Unit A-1) for a week prior to Hurricane Katrina. In Unit A-1 inmates were locked in cell–four to six people in two men cells.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #41",
    "cita_literal": "Inmate #41 was incarcerated in OPP (Templeman II Unit F-2) for thirteen months prior to Hurricane Katrina. He says the deputies assigned to Unit F-2 left their posts for hours at a time.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #42",
    "cita_literal": "Inmate #42 was incarcerated in OPP (Templeman I Unit F-3) for three months prior to Hurricane Katrina. After the hurricane hit, Inmate #42 says he had no water or food in the prison for two days.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #43",
    "cita_literal": "Inmate #43 was incarcerated in OPP (Old Parish Prison Unit A-2) for ten months prior to Hurricane Katrina. The deputies in Unit A-2 abandoned their posts.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #44",
    "cita_literal": "Inmate #44 was incarcerated in OPP (South White Street Unit A-1) for three weeks prior to Hurricane Katrina. Inmate #44 went without food or water for three to four days.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #45",
    "cita_literal": "Inmate #45 was incarcerated in OPP (Templeman III Unit C-3) for eleven days prior to Hurricane Katrina. On the day the hurricane hit, the deputies in Inmate #45's unit locked the prisoners in their ce",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #46",
    "cita_literal": "Inmate #46 was incarcerated in OPP (Templeman III Unit F-3) for four months prior to Hurricane Katrina. He was locked in a cell on the first floor with three and a half feet of flood water.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #47",
    "cita_literal": "Inmate #47 was incarcerated in OPP (Templeman III Unit B-4) for four days prior to Hurricane Katrina. The deputies in Unit B-4 left their posts the Sunday night prior to Hurricane Katrina.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #48",
    "cita_literal": "Inmate #48 was incarcerated in OPP (Templeman I Unit D3) for four months prior to Hurricane Katrina. Inmate #48 says that the deputies were never on their posts",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #49",
    "cita_literal": "Inmate #49 was incarcerated in OPP (Old Parish Prison) for twenty two months prior to Hurricane Katrina. Inmate #49 was not moved from OPP until three days after the hurricane.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #50",
    "cita_literal": "Inmate #50 was incarcerated in OPP (Templeman II Unit E4 2nd floor) for nine months prior to Hurricane Katrina. He says that he was left in a locked cell unattended",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #51",
    "cita_literal": "Inmate #51 states she was housed in Conchetta Unit 3-2 during Hurricane Katrina. She says she had been incarcerated in OPP for six months prior to the hurricane.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #52",
    "cita_literal": "Inmate #52 reports that he was housed in Templeman III F Side. He was in OPP for one day before the hurricane. Inmate #52 states he was housed in the gym when the water started rising.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #53",
    "cita_literal": "Inmate #53 reports that she was housed in Conchetta Unit 1-2 during Hurricane Katrina. She arrived in OPP in December 2004.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Presa #54",
    "cita_literal": "Inmate #54 was housed in Conchetta Unit 3-2. She had been in OPP since mid-August at the time of the hurricane.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #55",
    "cita_literal": "Inmate #55 was housed in Templeman I B-1 Medical Observation Unit. He had be in OPP for 36 days prior to the hurricane.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #56",
    "cita_literal": "Inmate #56 was housed in Templeman II Unit E-1 during the storm, and he had been in OPP for approximately 20 days prior to the hurricane.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Preso #57",
    "cita_literal": "Inmate #57 reports being housed in HOD (Unit 3) during the hurricane. He had been at OPP for 59 days prior to the hurricane.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "Un hombre en el 4º piso fue baleado por oficiales de la S.I.D. por supuestamente estar fuera de su celda.",
    "cita_literal": "Inmate #57 also states that Special Investigation Division (S.I.D.) officers and deputies shot a man on the 4th Floor claiming that he was out of his cell.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "El Preso #61 no tuvo comida ni agua durante 4 días y medio.",
    "cita_literal": "Inmate #61 reports that she had no food and water for 4 and a half days, and that the medications were all on the first floor, and were floating in the water.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "El Preso #84 estuvo encerrado en su celda sin comida, agua o electricidad desde el domingo 28 de agosto de 2005 hasta el 4 de septiembre de 2005.",
    "cita_literal": "The inmates in Unit H-1 were left locked in their cells without food, water or power from that Sunday, August 28, 2005 until September 4, 2005.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "cronologia",
+   "kind": "cronologia_r3",
    "doc_id": "F03",
    "texto": "El Preso #63 fue transferido a la prisión de Angola.",
    "cita_literal": "On September 2, he was transferred to Angola, where he sleeps on a mat on the floor, has suffered physical abuse from guards, and has not had access to phone privileges since he arrived.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "El preso #100 estuvo sin comida durante 72 horas en la prisión.",
    "cita_literal": "Inmate #100 states that he was assaulted and maced, and that he went without food for 72 hours in the prison.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "lugares",
+   "kind": "lugares_r3",
    "doc_id": "F03",
    "texto": "Hunt Correctional Center",
    "cita_literal": "Inmate #94 was eventually bused to Hunt Correctional Center, where he was given water, but no food or medication; he spent the night in a tent on the wet grass.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "lugares",
+   "kind": "lugares_r3",
    "doc_id": "F03",
    "texto": "HOD (House of Detention)",
    "cita_literal": "Inmate #95 was housed on the third floor of HOD (Cell 2).",
    "motivo": "el nombre del lugar no está en el documento"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Gusman",
    "cita_literal": "when they asked Gusman what are you going to do about the prisoners is [sic] responded saying that they is going to stay in their [sic] so when the water started to rise I thought I was going to die.”",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Mallette",
    "cita_literal": "The deputies here at Rapides Parish Detention Center are racist. They have told me several racist things towards me and one of them–the rank mallette–choken me, cursed me, called me nigga and physical",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Rudy",
    "cita_literal": "On Sunday morning, Chief Rudy–who was in charge of the building–came to talk to the inmates. He told them that they should “pray on this situation...",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Jenkins",
    "cita_literal": "Captain Jenkins said, “those of you that have enemies and knives, arm yourselves because we have to put you on tiers where you might meet up with an enemy.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "Las oficiales Mrs. Watson y Mrs. Paige se desmayaron en el paso elevado, junto con reclusas.",
    "cita_literal": "Inmate #145 states that even some deputies–including Mrs. Watson and Mrs. Paige–passed out. At one point she walked down the bridge to beg for water, and she was maced.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "El recluso #149, que debía cumplir 30 días, seguía encarcelado 60 días después del huracán.",
    "cita_literal": "Inmate #149 states that he was supposed to serve 30 days for dirty urine, but after 60 days he is still incarcerated at JB Evans Correctional Center.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "El Sargento Green dijo a los reclusos que iban a ser trasladados al piso de arriba a las 10 p.m.",
    "cita_literal": "At 10p.m., Sgt. Green told the inmates that they were going to be moved upstairs.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "datos",
+   "kind": "datos_r3",
    "doc_id": "F03",
    "texto": "El recluso #167, que cumplía una sentencia de siete días, seguía encarcelado en el Centro de Detención de la Parroquia de Claiborne el 13 de octubre de 2005.",
    "cita_literal": "Inmate #167 was still incarcerated in Claiborne Parish Detention Center on October 13, 2005, one and a half months after the date of the hurricane.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "lugares",
+   "kind": "lugares_r3",
    "doc_id": "F03",
    "texto": "Community Correctional Center (CCC)",
    "cita_literal": "Inmate #133 was housed in OPP (Community Correctional Center Unit 3-1) for six months prior to Hurricane Katrina.",
    "motivo": "el nombre del lugar no está en el documento"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Sgt. Green",
    "cita_literal": "At 10p.m., Sgt. Green told the inmates that they were going to be moved upstairs.",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Mrs. Jackson",
    "cita_literal": "Inmate #192 reports that her unit never filled with water, and that the deputies on duty remained on their posts (Mrs. Jackson and Ms. Holmes were the daytime deputies for Unit 3-1, and they remained)",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Ms. Holmes",
    "cita_literal": "Inmate #192 reports that her unit never filled with water, and that the deputies on duty remained on their posts (Mrs. Jackson and Ms. Holmes were the daytime deputies for Unit 3-1, and they remained)",
    "motivo": "cita_literal no está en el documento"
   },
   {
-   "kind": "personajes",
+   "kind": "citas_r3",
+   "doc_id": "F03",
+   "texto": "no",
+   "cita_literal": "When the men tried to turn themselves in, the officer reportedly said “no” and shot them.",
+   "motivo": "cita de menos de 3 palabras"
+  },
+  {
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Inmate #220",
    "cita_literal": "Inmate #220 was housed in Templeman IV (Unit B). She had been in OPP for four months.",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F03",
    "texto": "Watson",
    "cita_literal": "All of the deputies had left, with the exception of Ranking Officer Watson, who told the women to make the water last",
    "motivo": "no es una persona con nombre propio"
   },
   {
-   "kind": "personajes",
+   "kind": "personajes_r3",
    "doc_id": "F12",
    "texto": "Guardias",
    "cita_literal": "When the storm came, guards abandoned the building, leaving Bright and his fellow inmates to break out of their cells to save their lives.",
@@ -37278,56 +37246,56 @@
   {
    "tipo": "poblacion",
    "oficial": "D51",
-   "valor": "6375",
+   "valor": "6,375",
    "fuente": "F01",
    "fuente_titulo": "Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)",
    "sin_oficial": false,
    "variantes": [
     {
      "id": "D214",
-     "valor": "5.919",
+     "valor": "5,919",
      "estatus": "según Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (2015)",
      "fuente": "Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (2015)",
      "texto": "La población diaria promedio de la Prisión Parroquial de Orleans (OPP) para el año que finalizó el 30 de junio de 2005 fue de 5.919 reclusos."
     },
     {
      "id": "D198",
-     "valor": "6.000",
+     "valor": "6,000",
      "estatus": "según Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (2015)",
      "fuente": "Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (2015)",
      "texto": "Justo antes del huracán Katrina, la cárcel de Nueva Orleans albergaba a 6.000 personas."
     },
     {
      "id": "D87",
-     "valor": "6.000",
+     "valor": "6,000",
      "estatus": "según Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)",
      "fuente": "Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)",
      "texto": "Más de la mitad de los más de 6.000 prisioneros de la OPP recibían algún tipo de medicación antes de la tormenta."
     },
     {
      "id": "D213",
-     "valor": "6.295",
+     "valor": "6,295",
      "estatus": "según Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (2015)",
      "fuente": "Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (2015)",
      "texto": "El 30 de junio de 2005, había 6.295 reclusos en la Prisión Parroquial de Orleans (OPP)."
     },
     {
      "id": "D533",
-     "valor": "6.375",
+     "valor": "6,375",
      "estatus": "oficial (mismo valor)",
      "fuente": "Reforms resulted from the thousands left to drown in OPP (2025)",
      "texto": "6.375 personas estaban detenidas en el complejo carcelario de 12 edificios de la ciudad cuando llegó la tormenta."
     },
     {
      "id": "D15",
-     "valor": "6500",
+     "valor": "6,500",
      "estatus": "según Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)",
      "fuente": "Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)",
      "texto": "Antes de Katrina, la Prisión Parroquial de Orleans (OPP) albergaba a casi 6500 individuos en un día promedio, lo que la convertía en la novena cárcel local más grande de Estados Unidos."
     },
     {
      "id": "D152",
-     "valor": "7000",
+     "valor": "7,000",
      "estatus": "según Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)",
      "fuente": "Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)",
      "texto": "El sheriff tenía solo 3 barcos disponibles para transportar a los casi 7000 prisioneros de OPP."
@@ -37344,7 +37312,7 @@
  ],
  "digest": {
   "version": "f7c-1",
-  "texto": "PERSONAS (las elegibles como humano y los antagonistas; el resto del pool no se lista):\n  [P01] PERSONA: Brady Richard — Oficial de Suministros Médicos · TESTIGO · VERIFICADO · ELEGIBLE COMO HUMANO · estuvo en T39, T92 · sus datos: D39, D41, D136, T92\n  [P15] PERSONA: Rhonda Ducre — Alguacil en el edificio HOD · TESTIGO · VERIFICADO · ELEGIBLE COMO HUMANO · estuvo en T142 · sus datos: D43, T142\n  [P17] PERSONA: Raphael Schwarz — Preso · TESTIGO · ELEGIBLE COMO HUMANO · estuvo en T63 · sus datos: D57, D58, T63\n  [P18] PERSONA: Renard Reed — Oficial del sheriff · TESTIGO · VERIFICADO · ELEGIBLE COMO HUMANO\n  [P20] PERSONA: Iris Hardeman — Reclusa · TESTIGO · ELEGIBLE COMO HUMANO · estuvo en T110 · sus datos: D76, D77, D78, D155, T110\n  [P22] PERSONA: Joyce Gilson — Reclusa · TESTIGO · ELEGIBLE COMO HUMANO · estuvo en T41, T79 · sus datos: D140, T41, T79\n  [P29] PERSONA: Tyrone Lewis — Recluso · TESTIGO · ELEGIBLE COMO HUMANO · estuvo en T130 · sus datos: D94, D95, D96, T130\n  [P32] PERSONA: Pearl Cornelia Bland — Reclusa · TESTIGO · VERIFICADO · ELEGIBLE COMO HUMANO · estuvo en T65, T144 · sus datos: D100, D101, T65, T144\n  [P34] PERSONA: William Short — Jefe Adjunto · TESTIGO · ELEGIBLE COMO HUMANO · estuvo en T06, T53, T56 · sus datos: D169\n  [P35] PERSONA: Quantonio Williams — Prisionero · TESTIGO · ELEGIBLE COMO HUMANO · estuvo en T37 · sus datos: D108, D111, T37\n  [P49] PERSONA: Dan Bright — recluso de Orleans Parish Prison · TESTIGO · VERIFICADO · ELEGIBLE COMO HUMANO · estuvo en T16, T17, T18, T26, T36, T80 · sus datos: D555, D556, D558, T16, T18\n  [P68] PERSONA: Edward “Edgar” Burton — Preso · TESTIGO · VERIFICADO · ELEGIBLE COMO HUMANO · sus datos: D544\n  [P03] PERSONA: Marlin Gusman — Orleans Parish Criminal Sheriff · TESTIGO · VERIFICADO · ANTAGONISTA · estuvo en T12, T29, T30, T39, T51, T73, T82, T87, T93, T120 · sus datos: D05, D18, D35, D38, D60, D61, D131, D135, D163, D164, D165, D166\n  [P04] PERSONA: Charles Foti — Ex Sheriff de la Parroquia de Orleans · ANTAGONISTA · estuvo en T01, T03, T04, T82 · sus datos: D131, T03, T04\n  [P47] PERSONA: Cathy Fontenot — Portavoz del Departamento de Correccionales · ANTAGONISTA · sus datos: D179\n  [P56] PERSONA: Sergeant Bell — Sargento · TESTIGO · VERIFICADO · ANTAGONISTA · estuvo en T72 · sus datos: D231\n  [P58] PERSONA: Chief Rudy — Jefe · TESTIGO · VERIFICADO · ANTAGONISTA · estuvo en T69, T78, T79 · sus datos: D315\n\nCITAS (de esas personas; otros testigos con nombre y testimonios sin nombre, verificados):\n  [Q02] CITA: \"drogadictos, cobardes y criminales.\" — Marlin N. Gusman (Orleans Parish Criminal Sheriff) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q08] CITA: \"Vamos a mantener a nuestros prisioneros donde pertenecen.\" — Marlin Gusman (Alguacil de la Parroquia de Orleans) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q11] CITA: \"La gente necesita entender que simplemente nunca deberíamos haber estado allí en primer lugar.\" — Brady Richard (Oficial de Suministros Médicos) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q13] CITA: \"Esos son detalles incidentales, y nos ocuparemos de ellos más tarde.\" — Marlin Gusman (Alguacil de la Parroquia de Orleans) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q14] CITA: \"Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD disparando a los reclusos... Recuerdo que pensé: '¿En qué diablos me he metido?'\" — Brady Richard (Oficial de Suministros Médicos) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q16] CITA: \"Llevo aquí cuatro años y siempre es lo mismo cuando vienen los huracanes. No hay ningún plan.\" — Rhonda Ducre (Alguacil en el edificio HOD) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q21] CITA: \"La ventana de nuestra celda estaba rota, y empezamos a agitar nuestras camisetas naranjas del uniforme de la prisión cada vez que oíamos pasar un helicóptero para indicar que todavía estábamos en la cárcel.\" — Raphael Schwarz (Preso) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q23] CITA: \"tienes que ser muy cuidadoso y no tener equipamiento eléctrico en zonas bajas y lugares vulnerables.\" — Sheriff Gusman (Sheriff) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q24] CITA: \"Una vez que se fue la luz, los oficiales empezaron a renunciar a diestra y siniestra. No se fueron del edificio, por supuesto, pero simplemente no volvieron a trabajar. Las mujeres en especial se asustaron una vez que la tormenta golpeó y se fue la luz.\" — Deputy Renard Reed (Oficial del sheriff) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q27] CITA: \"Ese hombre no tocó esa agua, y no intentó decirle a nadie nada diferente.\" — Rhonda R. Ducre (Ex oficial del Sheriff) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q37] CITA: \"Los oficiales no me agredieron personalmente, pero no ayudaron a detener la agresión que las señoras me hicieron.\" — Pearl Cornelia Bland (Reclusa) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q40] CITA: \"Otros detenidos me dijeron que le habían disparado a un detenido, pero no lo vi.\" — Quantonio Williams (Prisionero) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q47] CITA: \"Parecía que estaban abatiendo a la gente. Ves a alguien caer... Parecía irreal. No sé si les estaban disparando con munición real o qué; caían al agua y eso fue suficiente para que yo lo viera allí mismo.\" — Deputy Renard Reed (Guardia) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q50] CITA: \"Aunque estén en la cárcel, son seres humanos. No estoy a favor de los derechos de los reclusos ni nada, pero no sabían nada de sus familias ni nada, y merecían saberlo.\" — Deputy Renard Reed (Guardia) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q53] CITA: \"La Oficina del Sheriff de la Parroquia de St. Bernard mantuvo la responsabilidad por la seguridad y el bienestar de estos reclusos... Ellos proveyeron sus propios guardias para vigilar a sus propios reclusos.\" — Marlin Gusman (Sheriff) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q54] CITA: \"No te imaginarías que una persona dejaría que otro ser humano pasara por eso, cuando hubo tiempo para dejarnos salir. Nunca se me ocurriría que una persona pudiera permitir que eso sucediera; aunque estemos en la cárcel somos seres humanos.\" — Joyce Gilson (Presa) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q55] CITA: \"Fue aterrador. En ese momento, los oficiales nos decían que estaban tratando de contactar a gente para sacarnos de allí, pero no podían conseguir ayuda.\" — Joyce Gilson (Presa) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q56] CITA: \"Y luego Gusman mintió sobre que teníamos comida y agua cuando él sabe que no teníamos. Él sabe que no teníamos.\" — Joyce Gilson (Presa) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q70] CITA: \"Alimentamos a esos reclusos lo mejor que pudimos. No pudimos darles comidas calientes como a las que están acostumbrados.\" — Ms. Fontenot (Funcionaria) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q73] CITA: \"Nos dejaron morir allí.\" — Dan Bright (recluso de Orleans Parish Prison) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: New Orleans: Prisoners Abandoned in Floo…, 2005\n  [Q78] CITA: \"los prisioneros tenían comida y agua y que la evacuación salió según lo planeado.\" — Sheriff Marlin N. Gusman (Sheriff) · VERIFICADA · fuente: Prison Conditions and Prisoner Abuse aft…, 2006\n  [Q129] CITA: \"era su culpa por lo que pasaron los evacuados.\" — Sheriff Martin Gusman (Sheriff) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q131] CITA: \"les importaban una mierda los reclusos.\" — Sergeant Bell (Sargento) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q135] CITA: \"rezaran por esta situación, como si ya supiera que no tenía ayuda para sacarnos después de un día y medio en esas condiciones.\" — Jefe Rudy (Jefe del edificio Templeman) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q148] CITA: \"Lo siento mucho, no sabía que el agua iba a subir tanto, no tenía idea de que subiría tanto.\" — Sheriff Gusman (Sheriff de la Parroquia de Orleans) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q149] CITA: \"las cosas van a mejorar\" — Sheriff Gusman (Sheriff de la Parroquia de Orleans) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q180] CITA: \"No había nadie, nos dejaron morir, hombre.\" — Edward “Edgar” Burton (Preso) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Reforms resulted from the thousands left…, 2025\n  [Q184] CITA: \"Cuando vi que algo que estaba atornillado al suelo empezaba a flotar, supe que era grave. La gente gritaba pidiendo ayuda, pero nadie venía. Pensamos que nos íbamos a ahogar allí dentro.\" — Edward “Edgar” Burton (Preso) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Reforms resulted from the thousands left…, 2025\n  [Q185] CITA: \"Tuvimos que beber agua del inodoro solo para mantenernos con vida.\" — Edward “Edgar” Burton (Preso) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Reforms resulted from the thousands left…, 2025\n  [Q182] CITA: \"Hombre, ese lugar olía a muerte.\" — Big Whappy (Preso) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Reforms resulted from the thousands left…, 2025\n  [Q168] CITA: \"hicieran durar el agua porque no había más comida ni agua\" — Ranking Officer Watson (Oficial) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q26] CITA: \"Gusman me decepcionó totalmente y me falló cuando más lo necesitábamos.\" — Deputy Foster (Oficial) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q29] CITA: \"Iris siempre se quejaba de tener fuertes dolores de cabeza; le dolía mucho la cabeza.\" — Gedra Payne Robinson (Reclusa, amiga de Iris Hardeman) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q31] CITA: \"Yo estaba asustado, como mucha gente. Pensábamos que podría haber una batalla campal. No había oficiales en la instalación.\" — Albert G. Couvillion (Prisionero de St. Bernard Parish) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q63] CITA: \"No es que quisiéramos escapar. Los cargos que tenía no eran realmente por nada. ¿Por qué querría escapar? Escapé por mi vida.\" — David Fernandez (Preso que escapó) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q60] CITA: \"Todavía hay presos muertos ahí dentro. Cuando los guardias estaban haciendo sus últimas rondas había uno o dos por aquí y por allá.\" — Deputy Luis Reyes (Oficial) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q32] CITA: \"Por la negligencia de O.P.P. desarrollé una infección bacteriana grave en mi estómago que lo hizo hincharse al tamaño de una mujer embarazada de 9 meses.\" — Keanna Herbert (Reclusa VIH positiva y diabética) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q61] CITA: \"Estuve en el paso elevado durante varios días junto a los prisioneros. A los civiles se les dijo que no tomaran fotografías, pero yo tomé esta foto el miércoles por la tarde.\" — Mary Gehman (Escritora) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q139] CITA: \"aquellos de ustedes que tengan enemigos y cuchillos, ármense porque tenemos que ponerlos en pabellones donde podrían encontrarse con un enemigo. No tenemos otro lugar donde ponerlos, así que hagan lo que tengan que hacer.\" — Capitán Jenkins (Capitán) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q57] CITA: \"Intenté recoger mis documentos legales, pero un guardia me apuntó con su pistola, así que los dejé allí. Perdí todo mi trabajo legal. También perdí fotos de bebé de mis hijas, y la tormenta se llevó las fotos que tenía su mamá.\" — Ronnie Lee Morgan, Jr. (Preso federal en HOD) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q69] CITA: \"todo el mundo tenía que pelear para conseguir un sándwich, estaban muy desorganizados, manejando la situación... la mayoría de nosotros los mayores nos quedamos sin comida ni agua mientras estuvimos allí porque los tipos peleaban, se cortaban entre sí, los guardias solo miraban y se reían. ¡Arrojaban sándwiches a la multitud como si estuvieran en Nueva Orleans, en el Mardi Gras!\" — un preso no identificado (Preso) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q146] CITA: \"están tratando de escapar.\" — alguien afuera (Persona no identificada) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q165] CITA: \"dejen que le pateen el culo\" — Oficiales en Conchetta (Oficiales) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q169] CITA: \"más vale que aprendan rápido\" — Un oficial (Oficial) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q04] CITA: \"Pensé que había ido al infierno\" — un detenido de inmigración (Detenido) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q117] CITA: \"Dejen que se maten entre ellos.\" — Presa #53 (Presa) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q83] CITA: \"...Nos llamaron perras, putas...\" — Inmate #54 (Presa) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Prison Conditions and Prisoner Abuse aft…, 2006\n  [Q140] CITA: \"pueden matarse todos aquí dentro.\" — Oficiales de la prisión (Guardias) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q186] CITA: \"Nos dijeron que no quedaba nadie.\" — Rescatistas anónimos (Rescatista) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Reforms resulted from the thousands left…, 2025\n  [Q142] CITA: \"Sé que tienen hambre ahí dentro...\" — Guardias anónimos (Guardias) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n\nCIFRAS CANÓNICAS:\n  POBLACIÓN: la OFICIAL es [D51] 6375 (Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)). Usá esa.\n    variante [D214] 5.919 — según Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (2015)\n    variante [D198] 6.000 — según Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (2015)\n    variante [D87] 6.000 — según Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)\n    variante [D213] 6.295 — según Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (2015)\n    variante [D533] 6.375 — oficial (mismo valor)\n    variante [D15] 6500 — según Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)\n    variante [D152] 7000 — según Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)\n    variante [D219] 8,000 — según Department of Justice Civil Rights Division Letter: Re: Orleans Parish Prison System New Orleans, Louisiana (2009)\n\nCRONOLOGÍA (con hora, y los días del evento más confirmados):\n  [T07] CRONO: El huracán Katrina paraliza el sistema de justicia penal de Nueva Orleans durante meses. (2005) · fuente: Justice in Katrina’s Wake: Changing Cour…, 2015\n  [T08] CRONO: Tras el huracán Katrina, reclusos de la Prisión Parroquial de Orleans (OPP) son vistos con monos naranjas en el paso elevado de Broad Street. (2005) · fuente: Justice in Katrina’s Wake: Changing Cour…, 2015\n  [T09] CRONO: Después del huracán Katrina, los reclusos fueron mantenidos en jaulas improvisadas detrás de la estación de autobuses. (2005) · fuente: Justice in Katrina’s Wake: Changing Cour…, 2015\n  [T10] CRONO: La Prisión Parroquial de Orleans (OPP) tenía 6.295 reclusos. (2005-06-30) · fuente: Justice in Katrina’s Wake: Changing Cour…, 2015\n  [T11] CRONO: Los prisioneros pasaron días sin electricidad, comida ni agua. (2005-08) · fuente: Prison Conditions and Prisoner Abuse aft…, 2006\n  [T27] CRONO: El último tratamiento médico que recibieron los reclusos en la unidad D-1 de Templeman III fue la 'llamada de píldoras'. (2005-08-26 10:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T36] CRONO: Los reclusos recibieron su última comida antes de que se cortaran los suministros. (2005-08-27 17:00) · fuente: New Orleans: Prisoners Abandoned in Floo…, 2005\n  [T37] CRONO: Quantonio Williams fue arrestado en Nueva Orleans y llevado a la Prisión Parroquial de Orleans (OPP). (2005-08-27 23:30) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T41] CRONO: Se cortó la transmisión de televisión y los teléfonos ya no funcionaban en la unidad de Joyce Gilson. (2005-08-28) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T53] CRONO: La lluvia y el viento comenzaron a entrar en las celdas 1, 2 y 3 de la unidad HOD. (2005-08-28 00:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T54] CRONO: Se cortó la electricidad en la unidad del Preso #92 en Templeman II. (2005-08-28 01:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T55] CRONO: El alcalde de Nueva Orleans, C. Ray Nagin, declaró la primera evacuación obligatoria en la historia de la ciudad. (2005-08-28 10:00) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T56] CRONO: Cientos de prisioneros de la cárcel de St. Bernard Parish son trasladados en autobuses a la Orleans Parish Prison y alojados en un gimnasio. (2005-08-28 12:30) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T57] CRONO: El generador de respaldo de Templeman III perdió energía. (2005-08-28 14:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T58] CRONO: El preso #130 recibió su última comida, unos sándwiches, en Templeman I. (2005-08-28 18:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T59] CRONO: El recluso #175 fue encerrado en su celda; fue la última vez que vio a los guardias. (2005-08-28 20:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T60] CRONO: El agua comenzó a inundar el dormitorio de las reclusas en Templeman IV. (2005-08-28 23:59) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T61] CRONO: El huracán Katrina azota Nueva Orleans. (2005-08-29) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T75] CRONO: Se cortó la electricidad en el edificio Templeman III alrededor de la medianoche. (2005-08-29 00:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T76] CRONO: Los generadores perdieron energía. (2005-08-29 01:30) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T77] CRONO: Se cortaron las luces en la unidad del Preso #93. (2005-08-29 03:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T78] CRONO: Los reclusos informaron que los inodoros se estaban desbordando. (2005-08-29 07:30) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T79] CRONO: Joyce Gilson y otras reclusas fueron evacuadas de Templeman III a Central Lock-Up. (2005-08-29 12:00) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T80] CRONO: Los generadores de Templeman III fallaron, dejando a los reclusos sin luz ni ventilación. (2005-08-29 17:00) · fuente: New Orleans: Prisoners Abandoned in Floo…, 2005\n  [T81] CRONO: Tres prisioneros de St. Bernard Parish se fugan a través del techo del gimnasio en Templeman III. (2005-08-29 20:00) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T82] CRONO: La oficina del Sheriff de Orleans Parish llama al DOC solicitando asistencia para la evacuación de OPP. (2005-08-29 23:55) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T92] CRONO: El alguacil Brady Richard fue enviado al edificio HOD para entregar suministros médicos, teniendo que caminar con agua hasta el pecho. (2005-08-30 01:00) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T93] CRONO: Los oficiales comenzaron a evacuar a los prisioneros de los edificios Templeman 1 y 2 cuando las aguas de la inundación alcanzaron el nivel del pecho. (2005-08-30 17:00) · fuente: New Orleans: Prisoners Abandoned in Floo…, 2005\n  [T94] CRONO: Un recluso llegó al paso elevado de Broad Street. (2005-08-30 22:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T96] CRONO: Una fotógrafa civil tomó una foto de los presos en el paso elevado, a pesar de que se les dijo que no tomaran fotografías. (2005-08-31) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T100] CRONO: El recluso #133 fue evacuado del Centro Correccional Comunitario a través de agua de cinco pies de profundidad. (2005-08-31) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T101] CRONO: El recluso #134 fue evacuado de la Prisión Parroquial de Orleans por oficiales de OPP y Angola. (2005-08-31) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T102] CRONO: El recluso #140 fue evacuado en bote al paso elevado de Broad Street. (2005-08-31) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T103] CRONO: La reclusa #179 fue rescatada por la noche por oficiales de la Penitenciaría del Estado de Louisiana (Angola). (2005-08-31) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T104] CRONO: Un equipo de tres hombres de Angola rescató a las reclusas en la tarde. (2005-08-31) · fuente: Excerpts of letters from prisoners aband…, 2005\n  [T105] CRONO: El sistema de agua de la ciudad dejó de funcionar, provocando que los inodoros se desbordaran. (2005-08-31) · fuente: Reforms resulted from the thousands left…, 2025\n  [T106] CRONO: Los presos dejaron de recibir comida a partir del miércoles. (2005-08-31) · fuente: Reforms resulted from the thousands left…, 2025\n  [T107] CRONO: La celda del recluso #149 fue desbloqueada manualmente por un trabajador de mantenimiento. (2005-08-31 16:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T108] CRONO: El recluso #175 fue sacado del paso elevado y subido a un autobús hacia Hunt Correctional Center. (2005-08-31 17:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T109] CRONO: Un recluso fue reubicado a una sección de la I-10. (2005-08-31 22:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T110] CRONO: Iris Hardeman, mientras estaba en Angola, se desmaya en las primeras horas de la mañana, golpeándose la cabeza, y es llevada en ambulancia. (2005-09) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T111] CRONO: Los prisioneros fueron forzados a vadear a través de agua tóxica y llena de desechos hasta el paso elevado de Broad Street en la Interestatal 10. (2005-09) · fuente: Prison Conditions and Prisoner Abuse aft…, 2006\n  [T112] CRONO: La familia de Glyendale Stevenson abandonó Nueva Orleans. (2005-09-01) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T113] CRONO: Guardias del Departamento de Correccionales (DOC) llegaron al piso de Ronnie Lee Morgan, Jr. para evacuar a los presos. (2005-09-01) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T114] CRONO: El Preso #89 fue evacuado de su celda y llevado al paso elevado de Broad Street. (2005-09-01) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T120] CRONO: Los reclusos de Templeman III fueron evacuados. (2005-09-01 02:00) · fuente: New Orleans: Prisoners Abandoned in Floo…, 2005\n  [T124] CRONO: Los reclusos abordaron botes para ser evacuados. (2005-09-02 00:30) · fuente: Excerpts of letters from prisoners aband…, 2005\n  [T125] CRONO: El DOC llegó al paso elevado de Broad Street y un oficial roció con gas pimienta al recluso Michael Carrerras. (2005-09-02 12:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n\nLUGARES (los 30 más nombrados):\n  [L32] LUGAR: Templeman — Edificio de la Prisión Parroquial de Orleans.\n  [L11] LUGAR: Templeman III — Edificio de la Prisión Parroquial de Orleans\n  [L16] LUGAR: Conchetta — Edificio de la Prisión Parroquial de Orleans que albergaba a reclusas.\n  [L24] LUGAR: Hunt — Lugar de evacuación de prisioneros\n  [L18] LUGAR: Templeman IV — Edificio de la Prisión Parroquial de Orleans con unidades de vivienda tipo dormitorio para mujeres.\n  [L04] LUGAR: Old Parish Prison — El edificio más antiguo del complejo de la Prisión Parroquial de Orleans, construido en 1929.\n  [L22] LUGAR: Angola — Prisión estatal de Luisiana de la que provinieron los oficiales del DOC para la evacuación\n  [L14] LUGAR: Central Lock-Up — Instalación de la Prisión Parroquial de Orleans\n  [L08] LUGAR: Louisiana — Estado donde se encuentra Nueva Orleans y la prisión\n  [L56] LUGAR: Templeman 4 — Edificio de la Prisión Parroquial de Orleans.\n  [L29] LUGAR: Templeman V — Edificio de la prisión\n  [L02] LUGAR: Elayn Hunt Correctional Center — Centro correccional donde miles de evacuados de la OPP pasaron varios días en un campo al aire libre con violencia rampante.\n  [L17] LUGAR: South White Street — Edificio de la Prisión Parroquial de Orleans.\n  [L34] LUGAR: Fish Farm — Área elevada a la que se trasladó a los presos para esperar el rescate.\n  [L07] LUGAR: New Orleans — Ciudad donde se encuentra la Prisión Parroquial de Orleans\n  [L09] LUGAR: Tallulah — Lugar al que fue trasladado el preso Corey Stevenson\n  [L27] LUGAR: Charity Hospital — Hospital cuyo cierre tras el huracán Katrina eliminó camas de salud mental para los pobres\n  [L28] LUGAR: Rendon Work Release — Edificio de la prisión\n  [L30] LUGAR: Riverbend — Centro de detención donde un preso recibió su tercera comida en seis días.\n  [L44] LUGAR: Richwood Correctional Center — Centro correccional al que fueron trasladados los reclusos\n  [L54] LUGAR: overpass — Lugar al que fueron llevadas las reclusas tras la evacuación\n  [L58] LUGAR: I.P.C. — Lugar frente al cual los reclusos esperaron en el agua.\n  [L66] LUGAR: Jena — Ubicación de una prisión privada desaparecida a la que fueron transferidos algunos prisioneros.\n  [L01] LUGAR: Orleans Parish Prison (OPP) — Cárcel investigada por condiciones inconstitucionales.\n  [L03] LUGAR: House of Detention (HOD) — Edificio dentro del complejo de la Prisión Parroquial de Orleans.\n  [L05] LUGAR: Conchetta Youth Center (CYC) — Parte de la instalación de South White Street de la OPP que albergaba a menores.\n  [L06] LUGAR: Tent City — Centro de Detención de Emergencia construido por el Sheriff Foti para lidiar con el hacinamiento, que consistía en tiendas de lona.\n  [L10] LUGAR: Forcht-Wade Correctional Center — Centro correccional a donde fue trasladado Corey Stevenson\n  [L12] LUGAR: Community Correctional Center (CCC) — Edificio de la Prisión Parroquial de Orleans en la calle Gravier\n  [L13] LUGAR: Broad Street Overpass — Paso elevado usado como punto de evacuación\n\nDATOS POR DOCUMENTO (hasta 25 por documento):\n── F04: Special Litigation Section Case Summaries (informe_oficial, 2009) — 6 de 6 datos\n  [D01] DATO: El 22 de septiembre de 2009, se encontraron condiciones inconstitucionales en la Prisión Parroquial de Orleans (OPP) como resultado de una investigación.\n  [D02] DATO: Se encontró que la Prisión Parroquial de Orleans (OPP) no protege a los prisioneros de daños, incluyendo el uso de fuerza excesiva por parte del personal y la violencia de otros prisioneros.\n  [D03] DATO: Se encontró que los prisioneros de la Prisión Parroquial de Orleans (OPP) no reciben atención de salud mental adecuada.\n  [D04] DATO: Se encontró que los prisioneros de la Prisión Parroquial de Orleans (OPP) están expuestos a condiciones ambientales y sanitarias peligrosas.\n  [D05] DATO: La demanda privada sobre las condiciones en la Prisión Parroquial de Orleans fue Jones v. Gusman. [valor: Jones v. Gusman]\n  [D06] DATO: Se designó un Director Independiente de Cumplimiento de la Cárcel para la Prisión Parroquial de Orleans.\n── F01: Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (informe_oficial, 2006) — 25 de 173 datos\n  [D07] DATO: Más de 1300 evacuados de la Prisión Parroquial de Orleans (OPP) contactaron al Proyecto Nacional de Prisiones (NPP) para discutir sus experiencias durante y después del huracán Katrina. [valor: 1300]\n  [D11] DATO: La Prisión Parroquial de Orleans (OPP) albergaba a casi 2000 prisioneros del Departamento de Correccionales (DOC) el 29 de agosto de 2005. [valor: casi 2000]\n  [D12] DATO: Más de 200 de los presos en la Prisión Parroquial de Orleans (OPP) durante la tormenta estaban bajo custodia federal. [valor: Más de 200]\n  [D13] DATO: El 60% de la población de la Prisión Parroquial de Orleans (OPP) antes del huracán Katrina estaba compuesta por individuos detenidos por multas, infracciones de tráfico o cargos municipales. [valor: 60%]\n  [D14] DATO: En 1974, la Prisión Parroquial de Orleans (OPP) tenía una población de unos 800 presos; 30 años después, su capacidad había aumentado a aproximadamente 8500. [valor: 800]\n  [D15] DATO: Antes de Katrina, la Prisión Parroquial de Orleans (OPP) albergaba a casi 6500 individuos en un día promedio, lo que la convertía en la novena cárcel local más grande de Estados Unidos. [valor: casi 6500] · 2 documentos\n  [D16] DATO: Con una tasa de encarcelamiento de 1480 por cada 100,000 residentes, Nueva Orleans tenía la tasa más alta de cualquier gran ciudad de Estados Unidos. [valor: 1480]\n  [D17] DATO: En el momento del huracán Katrina, la Prisión Parroquial de Orleans (OPP) albergaba aproximadamente a 670 mujeres.\n  [D18] DATO: El estado de Luisiana paga al sheriff Gusman $24.39 por día por cada prisionero estatal alojado en la Prisión Parroquial de Orleans (OPP). [valor: $24.39]\n  [D20] DATO: Un preso que estaba en la Prisión Parroquial de Orleans (OPP) durante la tormenta fue liberado en marzo de 2006, tras descubrirse que estaba retenido por $448 en multas judiciales vencidas. [valor: $448]\n  [D26] DATO: En 2005, la tasa de encarcelamiento de negros en las prisiones y cárceles locales de Luisiana era 4.7 veces mayor que la tasa de blancos. [valor: 4.7]\n  [D58] DATO: La alguacil que rescató a Raphael Schwarz le dijo que ya había encontrado tres cadáveres durante su búsqueda del edificio.\n  [D77] DATO: El personal de la prisión tardó cerca de media hora en llevar a Iris Hardeman a la enfermería. [valor: media hora]\n  [D78] DATO: En Central Lock-Up, Iris Hardeman y otras reclusas tuvieron que permanecer de pie durante 14 horas en agua profunda. [valor: 14 horas]\n  [D100] DATO: Pearl Cornelia Bland, quien debería haber sido liberada el 12 de agosto, fue retenida en OPP por una deuda de $398 en multas y tasas. [valor: $398]\n  [D108] DATO: A Quantonio Williams le desaparecieron aproximadamente 700 dólares tras su arresto y nunca le fueron devueltos. [valor: 700]\n  [D111] DATO: Quantonio Williams permaneció en la cancha de baloncesto durante 2 días sin comida y la mayor parte del tiempo sin agua. [valor: 2 días]\n  [D112] DATO: En el paso elevado, 3 barcos transportaban a 10 hombres a la vez. [valor: 3] · 2 documentos\n  [D130] DATO: En Templeman I (Unidad E-2), un oficial de SID agredió a un recluso con la culata de su rifle. · 2 documentos\n  [D131] DATO: Según algunos guardias, la evacuación comenzó después de que los oficiales a cargo pasaran por encima del sheriff Marlin Gusman y llamaran al Fiscal General Charles Foti.\n  [D135] DATO: El sheriff Gusman mantuvo que la Oficina del Sheriff de St. Bernard era responsable de la seguridad de sus propios reclusos transferidos a OPP.\n  [D136] DATO: El coronel Richard Baumy de St. Bernard Parish declaró que enviaron seis guardias para ayudar en OPP, pero que estaban bajo el mando de los guardias de Nueva Orleans. [valor: seis]\n  [D140] DATO: Joyce Gilson llevaba aproximadamente 1 año en la Prisión Parroquial de Orleans cuando ocurrió la tormenta. [valor: aproximadamente 1 año]\n  [D167] DATO: La oficina del sheriff Gusman emitió órdenes de arresto para 14 presos fugitivos mientras afirmaba públicamente que nadie había escapado. [valor: 14]\n  [D169] DATO: El subjefe William Short afirmó que en la Casa de Detención tenían tres cámaras frigoríficas llenas de perritos calientes, hamburguesas y pollo. [valor: tres]\n── F02: New Orleans: Prisoners Abandoned in Floodwaters (informe_oficial, 2005) — 12 de 12 datos\n  [D180] DATO: El departamento del sheriff abandonó a cientos de reclusos en la cárcel de la ciudad cuando el huracán Katrina comenzó a azotar Nueva Orleans. [valor: cientos]\n  [D181] DATO: El edificio Templeman III albergaba a más de 600 reclusos. [valor: más de 600]\n  [D182] DATO: Los reclusos de Templeman III, incluidos algunos en celdas de la planta baja, no fueron evacuados hasta el jueves 1 de septiembre, cuatro días después de que las aguas de la inundación alcanzaran el nivel del pecho. [valor: cuatro días]\n  [D183] DATO: Las aguas de la inundación en la cárcel alcanzaron el nivel del pecho. [valor: nivel del pecho]\n  [D184] DATO: Human Rights Watch pidió al Departamento de Justicia de EE. UU. que investigue la conducta del Departamento del Sheriff de Orleans.\n  [D185] DATO: 517 reclusos están desaparecidos de la lista de personas evacuadas de la cárcel. [valor: 517]\n  [D186] DATO: Los reclusos de Templeman III no tuvieron comida ni agua desde su última comida el fin de semana del 27-28 de agosto hasta que fueron evacuados el 1 de septiembre.\n  [D187] DATO: Los reclusos prendieron fuego a mantas y camisas y las colgaron por las ventanas para que la gente supiera que todavía estaban en la instalación.\n  [D188] DATO: Al menos una docena de reclusos saltaron por las ventanas. [valor: al menos una docena]\n  [D189] DATO: Varios oficiales penitenciarios declararon que no había un plan de evacuación para la prisión.\n  [D190] DATO: Una portavoz del departamento del sheriff insistió en que \"nadie se ahogó, nadie se quedó atrás\", mientras que la lista de evacuados no incluía a 517 reclusos.\n  [D191] DATO: De los reclusos no contabilizados, 130 eran de Templeman III. [valor: 130]\n── F06: Prison Conditions and Prisoner Abuse after Katrina (informe_oficial, 2006) — 6 de 6 datos\n  [D192] DATO: El caos en la Prisión Parroquial de Orleans duró 5 días después de que el huracán Katrina azotara Nueva Orleans el 29 de agosto. [valor: 5 días]\n  [D193] DATO: Algunos presos estuvieron de pie en agua contaminada con aguas residuales que les llegaba hasta el pecho o el cuello. [valor: hasta el pecho o el cuello]\n  [D194] DATO: La Unión Americana de Libertades Civiles (ACLU) exigió acceso a los prisioneros reubicados el 28 de septiembre de 2005. [valor: 28 de septiembre de 2005]\n  [D195] DATO: La ACLU ha obtenido más de 1000 testimonios de prisioneros.\n  [D196] DATO: Los testimonios de los prisioneros contradicen las declaraciones públicas del sheriff Marlin N. Gusman de que la evacuación fue según lo planeado y tenían comida y agua.\n  [D197] DATO: El Proyecto Nacional de Prisiones de la ACLU publicó el informe 'Abandoned & Abused' en agosto de 2006.\n── F08: Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (informe_oficial, 2015) — 17 de 17 datos\n  [D198] DATO: Justo antes del huracán Katrina, la cárcel de Nueva Orleans albergaba a 6.000 personas.\n  [D199] DATO: Para 2015, la población carcelaria de Nueva Orleans se había reducido a menos de 1.800 personas.\n  [D200] DATO: La cantidad de personas encarceladas en Nueva Orleans en un día determinado se ha reducido en más de dos tercios desde el huracán Katrina. [valor: más de dos tercios]\n  [D201] DATO: El número de reclusos en la cárcel local de Nueva Orleans aumentó de poco más de 2.300 en 1981 a aproximadamente 6.300 en vísperas del huracán Katrina.\n  [D202] DATO: En 2005, la tasa de encarcelamiento local de Nueva Orleans era más de cinco veces el promedio nacional. [valor: más de cinco veces el promedio nacional]\n  [D203] DATO: La cárcel local de Nueva Orleans es llamada incorrectamente \"Orleans Parish Prison\" u \"OPP\". [valor: Orleans Parish Prison]\n  [D204] DATO: El huracán Katrina expuso los daños causados por las prácticas de encarcelamiento de la ciudad de Nueva Orleans.\n  [D205] DATO: El sistema de justicia penal de Nueva Orleans quedó paralizado durante meses tras el huracán Katrina, con empleados desplazados, edificios inundados y archivos destruidos.\n  [D206] DATO: La difícil situación de los reclusos de la Prisión Parroquial de Orleans (OPP) fue el aspecto más perturbador del sistema de justicia penal tras el huracán Katrina.\n  [D207] DATO: Tras el huracán Katrina, hubo imágenes de reclusos con monos naranjas en el paso elevado de Broad Street bajo un sol abrasador.\n  [D208] DATO: Después del huracán Katrina, se informó que los reclusos fueron retenidos en jaulas improvisadas detrás de la estación de autobuses en Nueva Orleans. [valor: detrás de la estación de autobuses]\n  [D209] DATO: Tras el huracán Katrina, la búsqueda de reclusos perdidos en cárceles y prisiones de todo el estado de Luisiana duró meses. [valor: meses]\n  [D210] DATO: Las imágenes e historias de los reclusos de la Prisión Parroquial de Orleans (OPP) tras el huracán Katrina revelaron un sistema de justicia penal que no era ni eficaz ni justo.\n  [D211] DATO: Tras el huracán Katrina, el cierre del Charity Hospital eliminó prácticamente todas las camas de salud mental para pacientes hospitalizados pobres en Nueva Orleans.\n  [D212] DATO: El huracán Katrina aumentó la prevalencia de traumas y enfermedades mentales entre los habitantes de Nueva Orleans.\n  [D213] DATO: El 30 de junio de 2005, había 6.295 reclusos en la Prisión Parroquial de Orleans (OPP).\n  [D214] DATO: La población diaria promedio de la Prisión Parroquial de Orleans (OPP) para el año que finalizó el 30 de junio de 2005 fue de 5.919 reclusos.\n── F09: Department of Justice Civil Rights Division Letter: Re: Orleans Parish Prison System New Orleans, Louisiana (informe_oficial, 2009) — 7 de 7 datos\n  [D215] DATO: La División de Derechos Civiles del Departamento de Justicia reconoció los esfuerzos extraordinarios del sheriff y su personal para reconstruir estructuralmente las instalaciones tras la devastación del huracán Katrina.\n  [D216] DATO: El Departamento de Justicia reconoció los enormes avances y mejoras realizados por el sheriff y su personal en la Prisión Parroquial de Orleans (OPP) a la luz de la destrucción causada por el huracán Katrina.\n  [D217] DATO: Tras el huracán Katrina, circularon muchos informes de prensa, alegaciones y rumores sobre las condiciones en la cárcel.\n  [D218] DATO: El sheriff Marlin N. Gusman recibió elogios por sus esfuerzos para evacuar de manera segura y eficiente a los reclusos tras el huracán Katrina.\n  [D219] DATO: Antes del huracán Katrina, la capacidad de la Prisión Parroquial de Orleans (OPP) era de 8,000 reclusos.\n  [D220] DATO: Después de los daños sufridos por el huracán Katrina, la capacidad de la Prisión Parroquial de Orleans (OPP) se redujo a 2,545 reclusos.\n  [D221] DATO: El huracán Katrina dejó partes de la Prisión Parroquial de Orleans (OPP) inhabitables y otras severamente dañadas por inundaciones. [valor: Prisión Parroquial de Orleans (OPP)]\n── F03: Testimonials from Inmates Incarcerated at Orleans Parish Prison during Hurricane Katrina (testimonio, 2006) — 25 de 290 datos\n  [D224] DATO: Una presa de Templeman IV estuvo sin comida ni agua por 3 días. [valor: 3 días]\n  [D225] DATO: Una presa fue obligada a permanecer en una habitación llena de agua durante 24 horas antes de ser trasladada al paso elevado de la Interestatal 10. [valor: 24 horas]\n  [D228] DATO: Un preso vio 2 cadáveres flotando en el pabellón médico del primer piso de la Prisión Parroquial de Orleans. [valor: 2]\n  [D232] DATO: Un preso de la Casa de Detención (HOD) fue dejado en una celda cerrada por 3 días después del impacto del huracán Katrina. [valor: 3 días]\n  [D233] DATO: Ningún prisionero en el área del Preso #4 recibió comida o agua durante 4 o 5 días. [valor: 4 o 5 días]\n  [D234] DATO: En Templeman III, el agua de la inundación alcanzó los 6 pies de altura, llegando al cuello de un preso de 6'1\" de estatura. [valor: 6 pies]\n  [D251] DATO: Un preso estuvo de 2 a 3 días sin comida, agua, luz ni medicación en Templeman I. [valor: 2 a 3 días]\n  [D260] DATO: En Templeman V no hubo seguridad, electricidad, comida ni agua durante 4 días, afectando incluso a las jóvenes embarazadas. [valor: 4 días]\n  [D261] DATO: En el exterior del edificio Templeman V el agua tenía 6 pies de profundidad, por lo que los presos tuvieron que ayudar a las mujeres embarazadas a evacuar. [valor: 6 pies]\n  [D262] DATO: Una presa en la unidad Conchetta estuvo 5 días sin comida ni agua. [valor: 5 días]\n  [D263] DATO: Los oficiales no regresaron para mover a un recluso en HOD durante 4 o 5 días.\n  [D269] DATO: Durante 4 días, una presa no tuvo comida y solo bebió agua contaminada de un cubo de basura. [valor: 4 días]\n  [D270] DATO: En un dormitorio de Conchetta se alojaron 100 mujeres, volviéndose insoportablemente caluroso. [valor: 100]\n  [D275] DATO: Un recluso fue liberado de su celda y evacuado a un piso superior, donde fue encerrado y abandonado por 2 días. [valor: 2 días]\n  [D279] DATO: Un preso fue obligado a \"tumbarse sobre hierba mojada afuera durante 24 horas\" con una botella de agua pero sin comida. [valor: 24 horas]\n  [D280] DATO: Una presa permaneció 24 horas a punta de pistola en un puente, sin mantas, comida ni agua. [valor: 24 horas]\n  [D281] DATO: Durante los 2 días entre el impacto del huracán y su evacuación, una presa solo recibió un plato de sémola y un vaso de agua. [valor: 2 días]\n  [D283] DATO: A las 3pm del día después del huracán, el agua en Templeman llegaba a las axilas.\n  [D284] DATO: Para evacuar a 1700 personas del paso elevado, llegaron 6 botes con capacidad para 6 personas cada uno. [valor: 1700]\n  [D286] DATO: Una reclusa no comió ni bebió entre la mañana del día 29 y la noche del día 31.\n  [D288] DATO: Un preso de Templeman II, Unit E-3, informó que el personal de la prisión los abandonó por completo durante 5 días y noches. [valor: 5 días]\n  [D289] DATO: El suelo en la Unidad E-3 de Templeman II se llenó con 2 pies de agua contaminada con orina y heces. [valor: 2 pies]\n  [D290] DATO: Seis oficiales mujeres le dijeron a un recluso que 21 presos habían muerto en OPP. [valor: 21]\n  [D291] DATO: En el primer piso de Templeman I, el agua contaminada con combustible y desechos humanos alcanzó los 4.5 pies de altura. [valor: 4.5 pies]\n  [D292] DATO: Un recluso estuvo más de 24 horas sin luces, agua, comida ni instalaciones en Templeman I. [valor: más de 24 horas]\n── F05: Excerpts of letters from prisoners abandoned in Katrina (testimonio, 2005) — 19 de 19 datos\n  [D512] DATO: La instalación de Conchetta solo albergaba a mujeres.\n  [D513] DATO: El primer piso del edificio de 3 pisos de Conchetta se inundó hasta el techo.\n  [D514] DATO: En Conchetta, los ayudantes del sheriff golpearon a las reclusas.\n  [D515] DATO: En la Prisión Parroquial de Orleans, se rompieron las tuberías de gas durante el huracán.\n  [D516] DATO: Las reclusas de la instalación de Conchetta estuvieron 3 días viviendo en aguas contaminadas. [valor: 3 días]\n  [D517] DATO: Las reclusas del Edificio CTA estuvieron sin comida, agua, luces y atención médica por más de 4 días. [valor: más de 4 días]\n  [D518] DATO: Una reclusa estuvo encarcelada por más de 11 meses sin ser condenada ni sentenciada. [valor: más de 11 meses]\n  [D519] DATO: Los guardias apuntaron con armas a los reclusos.\n  [D520] DATO: El agua en el edificio Templeman 4 llegó hasta la segunda litera.\n  [D521] DATO: Los reclusos estuvieron de pie en aguas infestadas frente al I.P.C. por al menos 12 horas. [valor: 12 horas]\n  [D522] DATO: Algunos reclusos de Templeman 4 pasaron al menos cuatro días sin agua ni comida. [valor: cuatro días]\n  [D523] DATO: 120 reclusos evacuados al Centro Correccional de Avoyelles compartían 2 baños portátiles. [valor: 120]\n  [D524] DATO: Los reclusos en Avoyelles tenían 4 minutos para comer y 4 minutos para una llamada telefónica por semana. [valor: 4 minutos]\n  [D525] DATO: En Avoyelles, algunos reclusos fueron puestos en una celda para 2 hombres de a 3, sin colchonetas, almohadas ni mantas.\n  [D526] DATO: En Avoyelles, los 428 reclusos tenían 30 minutos de recreación divididos en dos grupos. [valor: 30 minutos]\n  [D527] DATO: Una reclusa fue arrestada por cheques sin fondos de su propia cuenta corriente.\n  [D528] DATO: La fianza de una reclusa se fijó en 2.500 dólares. [valor: 2.500 dólares]\n  [D529] DATO: En el edificio de la Prisión Parroquial de Orleans, los inodoros dejaron de funcionar el segundo día.\n  [D530] DATO: 750 de los 1.500 reclusos de O.P.P. fueron liberados en las siete semanas posteriores a Katrina. [valor: 750]\n── F10: Reforms resulted from the thousands left to drown in OPP (prensa_posterior, 2025) — 24 de 24 datos\n  [D531] DATO: Miles de personas quedaron atrapadas dentro de la Prisión Parroquial de Orleans mientras el agua de la inundación subía por horas.\n  [D532] DATO: Los guardias de seguridad dejaron a los hombres encerrados en la cárcel para salvar sus propias vidas.\n  [D533] DATO: 6.375 personas estaban detenidas en el complejo carcelario de 12 edificios de la ciudad cuando llegó la tormenta.\n  [D534] DATO: La población de la cárcel de Orleans era mayor que la de la Penitenciaría Estatal de Luisiana en Angola en ese momento.\n  [D535] DATO: Antes del huracán, aproximadamente 2.000 presos (casi un tercio del total) eran sentenciados estatales por los que la cárcel recibía un pago diario.\n  [D536] DATO: El Departamento de Policía de Nueva Orleans arrestó a 300 personas nuevas en los tres días previos a la tormenta. [valor: 300]\n  [D537] DATO: Sheriffs de otras áreas bajas llevaron a personas de sus cárceles a Orleans, llenando aún más las prisiones de la ciudad.\n  [D538] DATO: A medida que los edificios se llenaban de agua mezclada con aguas residuales, las celdas se sentían como ataúdes.\n  [D539] DATO: Los presos vieron cómo el agua subía, cubriendo primero los parachoques de los autos y luego los autos enteros.\n  [D540] DATO: Debido a que el sistema de ventilación y la energía de respaldo fallaron, las temperaturas interiores aumentaron muy rápidamente.\n  [D541] DATO: Tres días después de la tormenta, los presos rescatados fueron esposados con precintos y llevados en bote a un terreno más alto.\n  [D542] DATO: Algunas celdas estaban superpobladas, llegando casi al doble de su capacidad oficial.\n  [D543] DATO: Las puertas de las celdas sufrieron un cortocircuito, lo que obligó a los rescatistas a usar palancas y otras herramientas para sacar a la gente.\n  [D544] DATO: Edward \"Edgar\" Burton rompió una barra de ducha y la usó para romper una ventana de tres capas y permitir que circulara aire fresco.\n  [D545] DATO: No había generador ni luces, dejando la cárcel en completa oscuridad.\n  [D546] DATO: El sheriff Marlin Gusman ha sostenido consistentemente que no hubo muertes en el complejo OPP durante la inundación y sus secuelas. [valor: Marlin Gusman]\n  [D547] DATO: En el informe de la ACLU, varios oficiales y muchos prisioneros presenciaron cuerpos colgando de cercas o flotando en el agua.\n  [D548] DATO: El agua inutilizó el sistema de datos de la cárcel y nadie tenía documentos para identificarse.\n  [D549] DATO: El ex policía Len Davis, sentenciado a muerte, fue trasladado a Hunt y puesto en un patio abierto junto con personas detenidas por diversas acusaciones. [valor: Len Davis]\n  [D550] DATO: Los guardias de la prisión lanzaban sándwiches por encima de la cerca para alimentar a los prisioneros evacuados.\n  [D551] DATO: Un equipo de abogados defensores liderado por Phyllis Mann entrevistó a 4.000 de los aproximadamente 8.500 reclusos del área del desastre.\n  [D552] DATO: Guardias de prisiones de todo el país, tanto de prisiones privadas como estatales, fueron llevados para ayudar.\n  [D553] DATO: Los registros legales se perdieron o destruyeron, y las fechas de corte desaparecieron.\n  [D554] DATO: El Tribunal Penal del Distrito de la Parroquia de Orleans reabrió casi un año después de la tormenta, en junio de 2006.\n── F12: Voices from the Storm: The People of New Orleans on Hurricane Katrina and Its Aftermath (libro, 2006) — 4 de 4 datos\n  [D555] DATO: Dan Bright fue arrestado por cargos falsos la noche antes de la tormenta. [valor: Dan Bright]\n  [D556] DATO: Dan Bright fue retenido en la Prisión Parroquial de Orleans (Orleans Parish Prison). [valor: Orleans Parish Prison]\n  [D557] DATO: Los guardias abandonaron el edificio de la Prisión Parroquial de Orleans cuando llegó la tormenta.\n  [D558] DATO: Dan Bright y sus compañeros reclusos tuvieron que forzar la salida de sus celdas para salvar sus vidas después de que los guardias abandonaran el edificio.",
+  "texto": "PERSONAS (las elegibles como humano y los antagonistas; el resto del pool no se lista):\n  [P01] PERSONA: Brady Richard — Oficial de Suministros Médicos · TESTIGO · VERIFICADO · ELEGIBLE COMO HUMANO · estuvo en T39, T92 · sus datos: D39, D41, D136, T92\n  [P15] PERSONA: Rhonda Ducre — Alguacil en el edificio HOD · TESTIGO · VERIFICADO · ELEGIBLE COMO HUMANO · estuvo en T142 · sus datos: D43, T142\n  [P17] PERSONA: Raphael Schwarz — Preso · TESTIGO · ELEGIBLE COMO HUMANO · estuvo en T63 · sus datos: D57, D58, T63\n  [P18] PERSONA: Renard Reed — Oficial del sheriff · TESTIGO · VERIFICADO · ELEGIBLE COMO HUMANO\n  [P20] PERSONA: Iris Hardeman — Reclusa · TESTIGO · ELEGIBLE COMO HUMANO · estuvo en T110 · sus datos: D76, D77, D78, D155, T110\n  [P22] PERSONA: Joyce Gilson — Reclusa · TESTIGO · ELEGIBLE COMO HUMANO · estuvo en T41, T79 · sus datos: D140, T41, T79\n  [P29] PERSONA: Tyrone Lewis — Recluso · TESTIGO · ELEGIBLE COMO HUMANO · estuvo en T130 · sus datos: D94, D95, D96, T130\n  [P32] PERSONA: Pearl Cornelia Bland — Reclusa · TESTIGO · VERIFICADO · ELEGIBLE COMO HUMANO · estuvo en T65, T144 · sus datos: D100, D101, T65, T144\n  [P34] PERSONA: William Short — Jefe Adjunto · TESTIGO · ELEGIBLE COMO HUMANO · estuvo en T06, T53, T56 · sus datos: D169\n  [P35] PERSONA: Quantonio Williams — Prisionero · TESTIGO · ELEGIBLE COMO HUMANO · estuvo en T37 · sus datos: D108, D111, T37\n  [P49] PERSONA: Dan Bright — recluso de Orleans Parish Prison · TESTIGO · VERIFICADO · ELEGIBLE COMO HUMANO · estuvo en T16, T17, T18, T26, T36, T80 · sus datos: D555, D556, D558, T16, T18\n  [P68] PERSONA: Edward “Edgar” Burton — Preso · TESTIGO · VERIFICADO · ELEGIBLE COMO HUMANO · sus datos: D544\n  [P03] PERSONA: Marlin Gusman — Orleans Parish Criminal Sheriff · TESTIGO · VERIFICADO · ANTAGONISTA · estuvo en T12, T29, T30, T39, T51, T73, T82, T87, T93, T120 · sus datos: D05, D18, D35, D38, D60, D61, D131, D135, D163, D164, D165, D166\n  [P04] PERSONA: Charles Foti — Ex Sheriff de la Parroquia de Orleans · ANTAGONISTA · estuvo en T01, T03, T04, T82 · sus datos: D131, T03, T04\n  [P47] PERSONA: Cathy Fontenot — Portavoz del Departamento de Correccionales · ANTAGONISTA · sus datos: D179\n  [P56] PERSONA: Sergeant Bell — Sargento · TESTIGO · VERIFICADO · ANTAGONISTA · estuvo en T72 · sus datos: D231\n  [P58] PERSONA: Chief Rudy — Jefe · TESTIGO · VERIFICADO · ANTAGONISTA · estuvo en T69, T78, T79 · sus datos: D315\n\nCITAS (de esas personas; otros testigos con nombre y testimonios sin nombre, verificados):\n  [Q02] CITA: \"drogadictos, cobardes y criminales.\" — Marlin N. Gusman (Orleans Parish Criminal Sheriff) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q08] CITA: \"Vamos a mantener a nuestros prisioneros donde pertenecen.\" — Marlin Gusman (Alguacil de la Parroquia de Orleans) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q11] CITA: \"La gente necesita entender que simplemente nunca deberíamos haber estado allí en primer lugar.\" — Brady Richard (Oficial de Suministros Médicos) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q13] CITA: \"Esos son detalles incidentales, y nos ocuparemos de ellos más tarde.\" — Marlin Gusman (Alguacil de la Parroquia de Orleans) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q14] CITA: \"Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD disparando a los reclusos... Recuerdo que pensé: '¿En qué diablos me he metido?'\" — Brady Richard (Oficial de Suministros Médicos) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q16] CITA: \"Llevo aquí cuatro años y siempre es lo mismo cuando vienen los huracanes. No hay ningún plan.\" — Rhonda Ducre (Alguacil en el edificio HOD) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q21] CITA: \"La ventana de nuestra celda estaba rota, y empezamos a agitar nuestras camisetas naranjas del uniforme de la prisión cada vez que oíamos pasar un helicóptero para indicar que todavía estábamos en la cárcel.\" — Raphael Schwarz (Preso) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q23] CITA: \"tienes que ser muy cuidadoso y no tener equipamiento eléctrico en zonas bajas y lugares vulnerables.\" — Sheriff Gusman (Sheriff) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q24] CITA: \"Una vez que se fue la luz, los oficiales empezaron a renunciar a diestra y siniestra. No se fueron del edificio, por supuesto, pero simplemente no volvieron a trabajar. Las mujeres en especial se asustaron una vez que la tormenta golpeó y se fue la luz.\" — Deputy Renard Reed (Oficial del sheriff) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q27] CITA: \"Ese hombre no tocó esa agua, y no intentó decirle a nadie nada diferente.\" — Rhonda R. Ducre (Ex oficial del Sheriff) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q37] CITA: \"Los oficiales no me agredieron personalmente, pero no ayudaron a detener la agresión que las señoras me hicieron.\" — Pearl Cornelia Bland (Reclusa) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q40] CITA: \"Otros detenidos me dijeron que le habían disparado a un detenido, pero no lo vi.\" — Quantonio Williams (Prisionero) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q47] CITA: \"Parecía que estaban abatiendo a la gente. Ves a alguien caer... Parecía irreal. No sé si les estaban disparando con munición real o qué; caían al agua y eso fue suficiente para que yo lo viera allí mismo.\" — Deputy Renard Reed (Guardia) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q50] CITA: \"Aunque estén en la cárcel, son seres humanos. No estoy a favor de los derechos de los reclusos ni nada, pero no sabían nada de sus familias ni nada, y merecían saberlo.\" — Deputy Renard Reed (Guardia) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q53] CITA: \"La Oficina del Sheriff de la Parroquia de St. Bernard mantuvo la responsabilidad por la seguridad y el bienestar de estos reclusos... Ellos proveyeron sus propios guardias para vigilar a sus propios reclusos.\" — Marlin Gusman (Sheriff) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q54] CITA: \"No te imaginarías que una persona dejaría que otro ser humano pasara por eso, cuando hubo tiempo para dejarnos salir. Nunca se me ocurriría que una persona pudiera permitir que eso sucediera; aunque estemos en la cárcel somos seres humanos.\" — Joyce Gilson (Presa) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q55] CITA: \"Fue aterrador. En ese momento, los oficiales nos decían que estaban tratando de contactar a gente para sacarnos de allí, pero no podían conseguir ayuda.\" — Joyce Gilson (Presa) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q56] CITA: \"Y luego Gusman mintió sobre que teníamos comida y agua cuando él sabe que no teníamos. Él sabe que no teníamos.\" — Joyce Gilson (Presa) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q70] CITA: \"Alimentamos a esos reclusos lo mejor que pudimos. No pudimos darles comidas calientes como a las que están acostumbrados.\" — Ms. Fontenot (Funcionaria) · SIN VERIFICAR (se usa sin el nombre) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q73] CITA: \"Nos dejaron morir allí.\" — Dan Bright (recluso de Orleans Parish Prison) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: New Orleans: Prisoners Abandoned in Floo…, 2005\n  [Q78] CITA: \"los prisioneros tenían comida y agua y que la evacuación salió según lo planeado.\" — Sheriff Marlin N. Gusman (Sheriff) · VERIFICADA · fuente: Prison Conditions and Prisoner Abuse aft…, 2006\n  [Q129] CITA: \"era su culpa por lo que pasaron los evacuados.\" — Sheriff Martin Gusman (Sheriff) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q131] CITA: \"les importaban una mierda los reclusos.\" — Sergeant Bell (Sargento) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q135] CITA: \"rezaran por esta situación, como si ya supiera que no tenía ayuda para sacarnos después de un día y medio en esas condiciones.\" — Jefe Rudy (Jefe del edificio Templeman) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q148] CITA: \"Lo siento mucho, no sabía que el agua iba a subir tanto, no tenía idea de que subiría tanto.\" — Sheriff Gusman (Sheriff de la Parroquia de Orleans) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q149] CITA: \"las cosas van a mejorar\" — Sheriff Gusman (Sheriff de la Parroquia de Orleans) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q179] CITA: \"No había nadie, nos dejaron morir, hombre.\" — Edward “Edgar” Burton (Preso) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Reforms resulted from the thousands left…, 2025\n  [Q183] CITA: \"Cuando vi que algo que estaba atornillado al suelo empezaba a flotar, supe que era grave. La gente gritaba pidiendo ayuda, pero nadie venía. Pensamos que nos íbamos a ahogar allí dentro.\" — Edward “Edgar” Burton (Preso) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre) · fuente: Reforms resulted from the thousands left…, 2025\n  [Q184] CITA: \"Tuvimos que beber agua del inodoro solo para mantenernos con vida.\" — Edward “Edgar” Burton (Preso) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Reforms resulted from the thousands left…, 2025\n  [Q181] CITA: \"Hombre, ese lugar olía a muerte.\" — Big Whappy (Preso) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Reforms resulted from the thousands left…, 2025\n  [Q168] CITA: \"hicieran durar el agua porque no había más comida ni agua\" — Ranking Officer Watson (Oficial) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q26] CITA: \"Gusman me decepcionó totalmente y me falló cuando más lo necesitábamos.\" — Deputy Foster (Oficial) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q29] CITA: \"Iris siempre se quejaba de tener fuertes dolores de cabeza; le dolía mucho la cabeza.\" — Gedra Payne Robinson (Reclusa, amiga de Iris Hardeman) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q31] CITA: \"Yo estaba asustado, como mucha gente. Pensábamos que podría haber una batalla campal. No había oficiales en la instalación.\" — Albert G. Couvillion (Prisionero de St. Bernard Parish) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q63] CITA: \"No es que quisiéramos escapar. Los cargos que tenía no eran realmente por nada. ¿Por qué querría escapar? Escapé por mi vida.\" — David Fernandez (Preso que escapó) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q60] CITA: \"Todavía hay presos muertos ahí dentro. Cuando los guardias estaban haciendo sus últimas rondas había uno o dos por aquí y por allá.\" — Deputy Luis Reyes (Oficial) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q32] CITA: \"Por la negligencia de O.P.P. desarrollé una infección bacteriana grave en mi estómago que lo hizo hincharse al tamaño de una mujer embarazada de 9 meses.\" — Keanna Herbert (Reclusa VIH positiva y diabética) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q61] CITA: \"Estuve en el paso elevado durante varios días junto a los prisioneros. A los civiles se les dijo que no tomaran fotografías, pero yo tomé esta foto el miércoles por la tarde.\" — Mary Gehman (Escritora) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q139] CITA: \"aquellos de ustedes que tengan enemigos y cuchillos, ármense porque tenemos que ponerlos en pabellones donde podrían encontrarse con un enemigo. No tenemos otro lugar donde ponerlos, así que hagan lo que tengan que hacer.\" — Capitán Jenkins (Capitán) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q57] CITA: \"Intenté recoger mis documentos legales, pero un guardia me apuntó con su pistola, así que los dejé allí. Perdí todo mi trabajo legal. También perdí fotos de bebé de mis hijas, y la tormenta se llevó las fotos que tenía su mamá.\" — Ronnie Lee Morgan, Jr. (Preso federal en HOD) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q69] CITA: \"todo el mundo tenía que pelear para conseguir un sándwich, estaban muy desorganizados, manejando la situación... la mayoría de nosotros los mayores nos quedamos sin comida ni agua mientras estuvimos allí porque los tipos peleaban, se cortaban entre sí, los guardias solo miraban y se reían. ¡Arrojaban sándwiches a la multitud como si estuvieran en Nueva Orleans, en el Mardi Gras!\" — un preso no identificado (Preso) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q146] CITA: \"están tratando de escapar.\" — alguien afuera (Persona no identificada) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q165] CITA: \"dejen que le pateen el culo\" — Oficiales en Conchetta (Oficiales) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q169] CITA: \"más vale que aprendan rápido\" — Un oficial (Oficial) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q04] CITA: \"Pensé que había ido al infierno\" — un detenido de inmigración (Detenido) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [Q117] CITA: \"Dejen que se maten entre ellos.\" — Presa #53 (Presa) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q83] CITA: \"...Nos llamaron perras, putas...\" — Inmate #54 (Presa) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Prison Conditions and Prisoner Abuse aft…, 2006\n  [Q140] CITA: \"pueden matarse todos aquí dentro.\" — Oficiales de la prisión (Guardias) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [Q185] CITA: \"Nos dijeron que no quedaba nadie.\" — Rescatistas anónimos (Rescatista) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Reforms resulted from the thousands left…, 2025\n  [Q142] CITA: \"Sé que tienen hambre ahí dentro...\" — Guardias anónimos (Guardias) · TESTIMONIO (estuvo ahí) · VERIFICADA · fuente: Testimonials from Inmates Incarcerated a…, 2006\n\nCIFRAS CANÓNICAS:\n  POBLACIÓN: la OFICIAL es [D51] 6,375 (Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)). Usá esa.\n    variante [D214] 5,919 — según Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (2015)\n    variante [D198] 6,000 — según Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (2015)\n    variante [D87] 6,000 — según Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)\n    variante [D213] 6,295 — según Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (2015)\n    variante [D533] 6,375 — oficial (mismo valor)\n    variante [D15] 6,500 — según Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)\n    variante [D152] 7,000 — según Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (2006)\n    variante [D219] 8,000 — según Department of Justice Civil Rights Division Letter: Re: Orleans Parish Prison System New Orleans, Louisiana (2009)\n\nCRONOLOGÍA (con hora, y los días del evento más confirmados):\n  [T07] CRONO: El huracán Katrina paraliza el sistema de justicia penal de Nueva Orleans durante meses. (2005) · fuente: Justice in Katrina’s Wake: Changing Cour…, 2015\n  [T08] CRONO: Tras el huracán Katrina, reclusos de la Prisión Parroquial de Orleans (OPP) son vistos con monos naranjas en el paso elevado de Broad Street. (2005) · fuente: Justice in Katrina’s Wake: Changing Cour…, 2015\n  [T09] CRONO: Después del huracán Katrina, los reclusos fueron mantenidos en jaulas improvisadas detrás de la estación de autobuses. (2005) · fuente: Justice in Katrina’s Wake: Changing Cour…, 2015\n  [T10] CRONO: La Prisión Parroquial de Orleans (OPP) tenía 6.295 reclusos. (2005-06-30) · fuente: Justice in Katrina’s Wake: Changing Cour…, 2015\n  [T11] CRONO: Los prisioneros pasaron días sin electricidad, comida ni agua. (2005-08) · fuente: Prison Conditions and Prisoner Abuse aft…, 2006\n  [T27] CRONO: El último tratamiento médico que recibieron los reclusos en la unidad D-1 de Templeman III fue la 'llamada de píldoras'. (2005-08-26 10:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T36] CRONO: Los reclusos recibieron su última comida antes de que se cortaran los suministros. (2005-08-27 17:00) · fuente: New Orleans: Prisoners Abandoned in Floo…, 2005\n  [T37] CRONO: Quantonio Williams fue arrestado en Nueva Orleans y llevado a la Prisión Parroquial de Orleans (OPP). (2005-08-27 23:30) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T41] CRONO: Se cortó la transmisión de televisión y los teléfonos ya no funcionaban en la unidad de Joyce Gilson. (2005-08-28) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T53] CRONO: La lluvia y el viento comenzaron a entrar en las celdas 1, 2 y 3 de la unidad HOD. (2005-08-28 00:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T54] CRONO: Se cortó la electricidad en la unidad del Preso #92 en Templeman II. (2005-08-28 01:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T55] CRONO: El alcalde de Nueva Orleans, C. Ray Nagin, declaró la primera evacuación obligatoria en la historia de la ciudad. (2005-08-28 10:00) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T56] CRONO: Cientos de prisioneros de la cárcel de St. Bernard Parish son trasladados en autobuses a la Orleans Parish Prison y alojados en un gimnasio. (2005-08-28 12:30) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T57] CRONO: El generador de respaldo de Templeman III perdió energía. (2005-08-28 14:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T58] CRONO: El preso #130 recibió su última comida, unos sándwiches, en Templeman I. (2005-08-28 18:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T59] CRONO: El recluso #175 fue encerrado en su celda; fue la última vez que vio a los guardias. (2005-08-28 20:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T60] CRONO: El agua comenzó a inundar el dormitorio de las reclusas en Templeman IV. (2005-08-28 23:59) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T61] CRONO: El huracán Katrina azota Nueva Orleans. (2005-08-29) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T75] CRONO: Se cortó la electricidad en el edificio Templeman III alrededor de la medianoche. (2005-08-29 00:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T76] CRONO: Los generadores perdieron energía. (2005-08-29 01:30) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T77] CRONO: Se cortaron las luces en la unidad del Preso #93. (2005-08-29 03:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T78] CRONO: Los reclusos informaron que los inodoros se estaban desbordando. (2005-08-29 07:30) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T79] CRONO: Joyce Gilson y otras reclusas fueron evacuadas de Templeman III a Central Lock-Up. (2005-08-29 12:00) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T80] CRONO: Los generadores de Templeman III fallaron, dejando a los reclusos sin luz ni ventilación. (2005-08-29 17:00) · fuente: New Orleans: Prisoners Abandoned in Floo…, 2005\n  [T81] CRONO: Tres prisioneros de St. Bernard Parish se fugan a través del techo del gimnasio en Templeman III. (2005-08-29 20:00) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T82] CRONO: La oficina del Sheriff de Orleans Parish llama al DOC solicitando asistencia para la evacuación de OPP. (2005-08-29 23:55) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T92] CRONO: El alguacil Brady Richard fue enviado al edificio HOD para entregar suministros médicos, teniendo que caminar con agua hasta el pecho. (2005-08-30 01:00) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T93] CRONO: Los oficiales comenzaron a evacuar a los prisioneros de los edificios Templeman 1 y 2 cuando las aguas de la inundación alcanzaron el nivel del pecho. (2005-08-30 17:00) · fuente: New Orleans: Prisoners Abandoned in Floo…, 2005\n  [T94] CRONO: Un recluso llegó al paso elevado de Broad Street. (2005-08-30 22:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T96] CRONO: Una fotógrafa civil tomó una foto de los presos en el paso elevado, a pesar de que se les dijo que no tomaran fotografías. (2005-08-31) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T100] CRONO: El recluso #133 fue evacuado del Centro Correccional Comunitario a través de agua de cinco pies de profundidad. (2005-08-31) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T101] CRONO: El recluso #134 fue evacuado de la Prisión Parroquial de Orleans por oficiales de OPP y Angola. (2005-08-31) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T102] CRONO: El recluso #140 fue evacuado en bote al paso elevado de Broad Street. (2005-08-31) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T103] CRONO: La reclusa #179 fue rescatada por la noche por oficiales de la Penitenciaría del Estado de Louisiana (Angola). (2005-08-31) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T104] CRONO: Un equipo de tres hombres de Angola rescató a las reclusas en la tarde. (2005-08-31) · fuente: Excerpts of letters from prisoners aband…, 2005\n  [T105] CRONO: El sistema de agua de la ciudad dejó de funcionar, provocando que los inodoros se desbordaran. (2005-08-31) · fuente: Reforms resulted from the thousands left…, 2025\n  [T106] CRONO: Los presos dejaron de recibir comida a partir del miércoles. (2005-08-31) · fuente: Reforms resulted from the thousands left…, 2025\n  [T107] CRONO: La celda del recluso #149 fue desbloqueada manualmente por un trabajador de mantenimiento. (2005-08-31 16:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T108] CRONO: El recluso #175 fue sacado del paso elevado y subido a un autobús hacia Hunt Correctional Center. (2005-08-31 17:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T109] CRONO: Un recluso fue reubicado a una sección de la I-10. (2005-08-31 22:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T110] CRONO: Iris Hardeman, mientras estaba en Angola, se desmaya en las primeras horas de la mañana, golpeándose la cabeza, y es llevada en ambulancia. (2005-09) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T111] CRONO: Los prisioneros fueron forzados a vadear a través de agua tóxica y llena de desechos hasta el paso elevado de Broad Street en la Interestatal 10. (2005-09) · fuente: Prison Conditions and Prisoner Abuse aft…, 2006\n  [T112] CRONO: La familia de Glyendale Stevenson abandonó Nueva Orleans. (2005-09-01) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T113] CRONO: Guardias del Departamento de Correccionales (DOC) llegaron al piso de Ronnie Lee Morgan, Jr. para evacuar a los presos. (2005-09-01) · fuente: Abandoned & Abused: Orleans Parish Priso…, 2006\n  [T114] CRONO: El Preso #89 fue evacuado de su celda y llevado al paso elevado de Broad Street. (2005-09-01) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n  [T120] CRONO: Los reclusos de Templeman III fueron evacuados. (2005-09-01 02:00) · fuente: New Orleans: Prisoners Abandoned in Floo…, 2005\n  [T124] CRONO: Los reclusos abordaron botes para ser evacuados. (2005-09-02 00:30) · fuente: Excerpts of letters from prisoners aband…, 2005\n  [T125] CRONO: El DOC llegó al paso elevado de Broad Street y un oficial roció con gas pimienta al recluso Michael Carrerras. (2005-09-02 12:00) · fuente: Testimonials from Inmates Incarcerated a…, 2006\n\nLUGARES (los 30 más nombrados):\n  [L32] LUGAR: Templeman — Edificio de la Prisión Parroquial de Orleans.\n  [L11] LUGAR: Templeman III — Edificio de la Prisión Parroquial de Orleans\n  [L16] LUGAR: Conchetta — Edificio de la Prisión Parroquial de Orleans que albergaba a reclusas.\n  [L24] LUGAR: Hunt — Lugar de evacuación de prisioneros\n  [L18] LUGAR: Templeman IV — Edificio de la Prisión Parroquial de Orleans con unidades de vivienda tipo dormitorio para mujeres.\n  [L04] LUGAR: Old Parish Prison — El edificio más antiguo del complejo de la Prisión Parroquial de Orleans, construido en 1929.\n  [L22] LUGAR: Angola — Prisión estatal de Luisiana de la que provinieron los oficiales del DOC para la evacuación\n  [L14] LUGAR: Central Lock-Up — Instalación de la Prisión Parroquial de Orleans\n  [L08] LUGAR: Louisiana — Estado donde se encuentra Nueva Orleans y la prisión\n  [L56] LUGAR: Templeman 4 — Edificio de la Prisión Parroquial de Orleans.\n  [L29] LUGAR: Templeman V — Edificio de la prisión\n  [L02] LUGAR: Elayn Hunt Correctional Center — Centro correccional donde miles de evacuados de la OPP pasaron varios días en un campo al aire libre con violencia rampante.\n  [L17] LUGAR: South White Street — Edificio de la Prisión Parroquial de Orleans.\n  [L34] LUGAR: Fish Farm — Área elevada a la que se trasladó a los presos para esperar el rescate.\n  [L07] LUGAR: New Orleans — Ciudad donde se encuentra la Prisión Parroquial de Orleans\n  [L09] LUGAR: Tallulah — Lugar al que fue trasladado el preso Corey Stevenson\n  [L27] LUGAR: Charity Hospital — Hospital cuyo cierre tras el huracán Katrina eliminó camas de salud mental para los pobres\n  [L28] LUGAR: Rendon Work Release — Edificio de la prisión\n  [L30] LUGAR: Riverbend — Centro de detención donde un preso recibió su tercera comida en seis días.\n  [L44] LUGAR: Richwood Correctional Center — Centro correccional al que fueron trasladados los reclusos\n  [L54] LUGAR: overpass — Lugar al que fueron llevadas las reclusas tras la evacuación\n  [L58] LUGAR: I.P.C. — Lugar frente al cual los reclusos esperaron en el agua.\n  [L66] LUGAR: Jena — Ubicación de una prisión privada desaparecida a la que fueron transferidos algunos prisioneros.\n  [L01] LUGAR: Orleans Parish Prison (OPP) — Cárcel investigada por condiciones inconstitucionales.\n  [L03] LUGAR: House of Detention (HOD) — Edificio dentro del complejo de la Prisión Parroquial de Orleans.\n  [L05] LUGAR: Conchetta Youth Center (CYC) — Parte de la instalación de South White Street de la OPP que albergaba a menores.\n  [L06] LUGAR: Tent City — Centro de Detención de Emergencia construido por el Sheriff Foti para lidiar con el hacinamiento, que consistía en tiendas de lona.\n  [L10] LUGAR: Forcht-Wade Correctional Center — Centro correccional a donde fue trasladado Corey Stevenson\n  [L12] LUGAR: Community Correctional Center (CCC) — Edificio de la Prisión Parroquial de Orleans en la calle Gravier\n  [L13] LUGAR: Broad Street Overpass — Paso elevado usado como punto de evacuación\n\nDATOS POR DOCUMENTO (hasta 25 por documento):\n── F04: Special Litigation Section Case Summaries (informe_oficial, 2009) — 6 de 6 datos\n  [D01] DATO: El 22 de septiembre de 2009, se encontraron condiciones inconstitucionales en la Prisión Parroquial de Orleans (OPP) como resultado de una investigación.\n  [D02] DATO: Se encontró que la Prisión Parroquial de Orleans (OPP) no protege a los prisioneros de daños, incluyendo el uso de fuerza excesiva por parte del personal y la violencia de otros prisioneros.\n  [D03] DATO: Se encontró que los prisioneros de la Prisión Parroquial de Orleans (OPP) no reciben atención de salud mental adecuada.\n  [D04] DATO: Se encontró que los prisioneros de la Prisión Parroquial de Orleans (OPP) están expuestos a condiciones ambientales y sanitarias peligrosas.\n  [D05] DATO: La demanda privada sobre las condiciones en la Prisión Parroquial de Orleans fue Jones v. Gusman. [valor: Jones v. Gusman]\n  [D06] DATO: Se designó un Director Independiente de Cumplimiento de la Cárcel para la Prisión Parroquial de Orleans.\n── F01: Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina (informe_oficial, 2006) — 25 de 173 datos\n  [D07] DATO: Más de 1300 evacuados de la Prisión Parroquial de Orleans (OPP) contactaron al Proyecto Nacional de Prisiones (NPP) para discutir sus experiencias durante y después del huracán Katrina. [valor: 1300]\n  [D11] DATO: La Prisión Parroquial de Orleans (OPP) albergaba a casi 2000 prisioneros del Departamento de Correccionales (DOC) el 29 de agosto de 2005. [valor: casi 2000]\n  [D12] DATO: Más de 200 de los presos en la Prisión Parroquial de Orleans (OPP) durante la tormenta estaban bajo custodia federal. [valor: Más de 200]\n  [D13] DATO: El 60% de la población de la Prisión Parroquial de Orleans (OPP) antes del huracán Katrina estaba compuesta por individuos detenidos por multas, infracciones de tráfico o cargos municipales. [valor: 60%]\n  [D14] DATO: En 1974, la Prisión Parroquial de Orleans (OPP) tenía una población de unos 800 presos; 30 años después, su capacidad había aumentado a aproximadamente 8500. [valor: 800]\n  [D15] DATO: Antes de Katrina, la Prisión Parroquial de Orleans (OPP) albergaba a casi 6500 individuos en un día promedio, lo que la convertía en la novena cárcel local más grande de Estados Unidos. [valor: casi 6500] · 2 documentos\n  [D16] DATO: Con una tasa de encarcelamiento de 1480 por cada 100,000 residentes, Nueva Orleans tenía la tasa más alta de cualquier gran ciudad de Estados Unidos. [valor: 1480]\n  [D17] DATO: En el momento del huracán Katrina, la Prisión Parroquial de Orleans (OPP) albergaba aproximadamente a 670 mujeres.\n  [D18] DATO: El estado de Luisiana paga al sheriff Gusman $24.39 por día por cada prisionero estatal alojado en la Prisión Parroquial de Orleans (OPP). [valor: $24.39]\n  [D20] DATO: Un preso que estaba en la Prisión Parroquial de Orleans (OPP) durante la tormenta fue liberado en marzo de 2006, tras descubrirse que estaba retenido por $448 en multas judiciales vencidas. [valor: $448]\n  [D26] DATO: En 2005, la tasa de encarcelamiento de negros en las prisiones y cárceles locales de Luisiana era 4.7 veces mayor que la tasa de blancos. [valor: 4.7]\n  [D58] DATO: La alguacil que rescató a Raphael Schwarz le dijo que ya había encontrado tres cadáveres durante su búsqueda del edificio.\n  [D77] DATO: El personal de la prisión tardó cerca de media hora en llevar a Iris Hardeman a la enfermería. [valor: media hora]\n  [D78] DATO: En Central Lock-Up, Iris Hardeman y otras reclusas tuvieron que permanecer de pie durante 14 horas en agua profunda. [valor: 14 horas]\n  [D100] DATO: Pearl Cornelia Bland, quien debería haber sido liberada el 12 de agosto, fue retenida en OPP por una deuda de $398 en multas y tasas. [valor: $398]\n  [D108] DATO: A Quantonio Williams le desaparecieron aproximadamente 700 dólares tras su arresto y nunca le fueron devueltos. [valor: 700]\n  [D111] DATO: Quantonio Williams permaneció en la cancha de baloncesto durante 2 días sin comida y la mayor parte del tiempo sin agua. [valor: 2 días]\n  [D112] DATO: En el paso elevado, 3 barcos transportaban a 10 hombres a la vez. [valor: 3] · 2 documentos\n  [D130] DATO: En Templeman I (Unidad E-2), un oficial de SID agredió a un recluso con la culata de su rifle. · 2 documentos\n  [D131] DATO: Según algunos guardias, la evacuación comenzó después de que los oficiales a cargo pasaran por encima del sheriff Marlin Gusman y llamaran al Fiscal General Charles Foti.\n  [D135] DATO: El sheriff Gusman mantuvo que la Oficina del Sheriff de St. Bernard era responsable de la seguridad de sus propios reclusos transferidos a OPP.\n  [D136] DATO: El coronel Richard Baumy de St. Bernard Parish declaró que enviaron seis guardias para ayudar en OPP, pero que estaban bajo el mando de los guardias de Nueva Orleans. [valor: seis]\n  [D140] DATO: Joyce Gilson llevaba aproximadamente 1 año en la Prisión Parroquial de Orleans cuando ocurrió la tormenta. [valor: aproximadamente 1 año]\n  [D167] DATO: La oficina del sheriff Gusman emitió órdenes de arresto para 14 presos fugitivos mientras afirmaba públicamente que nadie había escapado. [valor: 14]\n  [D169] DATO: El subjefe William Short afirmó que en la Casa de Detención tenían tres cámaras frigoríficas llenas de perritos calientes, hamburguesas y pollo. [valor: tres]\n── F02: New Orleans: Prisoners Abandoned in Floodwaters (informe_oficial, 2005) — 12 de 12 datos\n  [D180] DATO: El departamento del sheriff abandonó a cientos de reclusos en la cárcel de la ciudad cuando el huracán Katrina comenzó a azotar Nueva Orleans. [valor: cientos]\n  [D181] DATO: El edificio Templeman III albergaba a más de 600 reclusos. [valor: más de 600]\n  [D182] DATO: Los reclusos de Templeman III, incluidos algunos en celdas de la planta baja, no fueron evacuados hasta el jueves 1 de septiembre, cuatro días después de que las aguas de la inundación alcanzaran el nivel del pecho. [valor: cuatro días]\n  [D183] DATO: Las aguas de la inundación en la cárcel alcanzaron el nivel del pecho. [valor: nivel del pecho]\n  [D184] DATO: Human Rights Watch pidió al Departamento de Justicia de EE. UU. que investigue la conducta del Departamento del Sheriff de Orleans.\n  [D185] DATO: 517 reclusos están desaparecidos de la lista de personas evacuadas de la cárcel. [valor: 517]\n  [D186] DATO: Los reclusos de Templeman III no tuvieron comida ni agua desde su última comida el fin de semana del 27-28 de agosto hasta que fueron evacuados el 1 de septiembre.\n  [D187] DATO: Los reclusos prendieron fuego a mantas y camisas y las colgaron por las ventanas para que la gente supiera que todavía estaban en la instalación.\n  [D188] DATO: Al menos una docena de reclusos saltaron por las ventanas. [valor: al menos una docena]\n  [D189] DATO: Varios oficiales penitenciarios declararon que no había un plan de evacuación para la prisión.\n  [D190] DATO: Una portavoz del departamento del sheriff insistió en que \"nadie se ahogó, nadie se quedó atrás\", mientras que la lista de evacuados no incluía a 517 reclusos.\n  [D191] DATO: De los reclusos no contabilizados, 130 eran de Templeman III. [valor: 130]\n── F06: Prison Conditions and Prisoner Abuse after Katrina (informe_oficial, 2006) — 6 de 6 datos\n  [D192] DATO: El caos en la Prisión Parroquial de Orleans duró 5 días después de que el huracán Katrina azotara Nueva Orleans el 29 de agosto. [valor: 5 días]\n  [D193] DATO: Algunos presos estuvieron de pie en agua contaminada con aguas residuales que les llegaba hasta el pecho o el cuello. [valor: hasta el pecho o el cuello]\n  [D194] DATO: La Unión Americana de Libertades Civiles (ACLU) exigió acceso a los prisioneros reubicados el 28 de septiembre de 2005. [valor: 28 de septiembre de 2005]\n  [D195] DATO: La ACLU ha obtenido más de 1000 testimonios de prisioneros.\n  [D196] DATO: Los testimonios de los prisioneros contradicen las declaraciones públicas del sheriff Marlin N. Gusman de que la evacuación fue según lo planeado y tenían comida y agua.\n  [D197] DATO: El Proyecto Nacional de Prisiones de la ACLU publicó el informe 'Abandoned & Abused' en agosto de 2006.\n── F08: Justice in Katrina’s Wake: Changing Course on Incarceration in New Orleans (informe_oficial, 2015) — 17 de 17 datos\n  [D198] DATO: Justo antes del huracán Katrina, la cárcel de Nueva Orleans albergaba a 6.000 personas.\n  [D199] DATO: Para 2015, la población carcelaria de Nueva Orleans se había reducido a menos de 1.800 personas.\n  [D200] DATO: La cantidad de personas encarceladas en Nueva Orleans en un día determinado se ha reducido en más de dos tercios desde el huracán Katrina. [valor: más de dos tercios]\n  [D201] DATO: El número de reclusos en la cárcel local de Nueva Orleans aumentó de poco más de 2.300 en 1981 a aproximadamente 6.300 en vísperas del huracán Katrina.\n  [D202] DATO: En 2005, la tasa de encarcelamiento local de Nueva Orleans era más de cinco veces el promedio nacional. [valor: más de cinco veces el promedio nacional]\n  [D203] DATO: La cárcel local de Nueva Orleans es llamada incorrectamente \"Orleans Parish Prison\" u \"OPP\". [valor: Orleans Parish Prison]\n  [D204] DATO: El huracán Katrina expuso los daños causados por las prácticas de encarcelamiento de la ciudad de Nueva Orleans.\n  [D205] DATO: El sistema de justicia penal de Nueva Orleans quedó paralizado durante meses tras el huracán Katrina, con empleados desplazados, edificios inundados y archivos destruidos.\n  [D206] DATO: La difícil situación de los reclusos de la Prisión Parroquial de Orleans (OPP) fue el aspecto más perturbador del sistema de justicia penal tras el huracán Katrina.\n  [D207] DATO: Tras el huracán Katrina, hubo imágenes de reclusos con monos naranjas en el paso elevado de Broad Street bajo un sol abrasador.\n  [D208] DATO: Después del huracán Katrina, se informó que los reclusos fueron retenidos en jaulas improvisadas detrás de la estación de autobuses en Nueva Orleans. [valor: detrás de la estación de autobuses]\n  [D209] DATO: Tras el huracán Katrina, la búsqueda de reclusos perdidos en cárceles y prisiones de todo el estado de Luisiana duró meses. [valor: meses]\n  [D210] DATO: Las imágenes e historias de los reclusos de la Prisión Parroquial de Orleans (OPP) tras el huracán Katrina revelaron un sistema de justicia penal que no era ni eficaz ni justo.\n  [D211] DATO: Tras el huracán Katrina, el cierre del Charity Hospital eliminó prácticamente todas las camas de salud mental para pacientes hospitalizados pobres en Nueva Orleans.\n  [D212] DATO: El huracán Katrina aumentó la prevalencia de traumas y enfermedades mentales entre los habitantes de Nueva Orleans.\n  [D213] DATO: El 30 de junio de 2005, había 6.295 reclusos en la Prisión Parroquial de Orleans (OPP).\n  [D214] DATO: La población diaria promedio de la Prisión Parroquial de Orleans (OPP) para el año que finalizó el 30 de junio de 2005 fue de 5.919 reclusos.\n── F09: Department of Justice Civil Rights Division Letter: Re: Orleans Parish Prison System New Orleans, Louisiana (informe_oficial, 2009) — 7 de 7 datos\n  [D215] DATO: La División de Derechos Civiles del Departamento de Justicia reconoció los esfuerzos extraordinarios del sheriff y su personal para reconstruir estructuralmente las instalaciones tras la devastación del huracán Katrina.\n  [D216] DATO: El Departamento de Justicia reconoció los enormes avances y mejoras realizados por el sheriff y su personal en la Prisión Parroquial de Orleans (OPP) a la luz de la destrucción causada por el huracán Katrina.\n  [D217] DATO: Tras el huracán Katrina, circularon muchos informes de prensa, alegaciones y rumores sobre las condiciones en la cárcel.\n  [D218] DATO: El sheriff Marlin N. Gusman recibió elogios por sus esfuerzos para evacuar de manera segura y eficiente a los reclusos tras el huracán Katrina.\n  [D219] DATO: Antes del huracán Katrina, la capacidad de la Prisión Parroquial de Orleans (OPP) era de 8,000 reclusos.\n  [D220] DATO: Después de los daños sufridos por el huracán Katrina, la capacidad de la Prisión Parroquial de Orleans (OPP) se redujo a 2,545 reclusos.\n  [D221] DATO: El huracán Katrina dejó partes de la Prisión Parroquial de Orleans (OPP) inhabitables y otras severamente dañadas por inundaciones. [valor: Prisión Parroquial de Orleans (OPP)]\n── F03: Testimonials from Inmates Incarcerated at Orleans Parish Prison during Hurricane Katrina (testimonio, 2006) — 25 de 290 datos\n  [D224] DATO: Una presa de Templeman IV estuvo sin comida ni agua por 3 días. [valor: 3 días]\n  [D225] DATO: Una presa fue obligada a permanecer en una habitación llena de agua durante 24 horas antes de ser trasladada al paso elevado de la Interestatal 10. [valor: 24 horas]\n  [D228] DATO: Un preso vio 2 cadáveres flotando en el pabellón médico del primer piso de la Prisión Parroquial de Orleans. [valor: 2]\n  [D232] DATO: Un preso de la Casa de Detención (HOD) fue dejado en una celda cerrada por 3 días después del impacto del huracán Katrina. [valor: 3 días]\n  [D233] DATO: Ningún prisionero en el área del Preso #4 recibió comida o agua durante 4 o 5 días. [valor: 4 o 5 días]\n  [D234] DATO: En Templeman III, el agua de la inundación alcanzó los 6 pies de altura, llegando al cuello de un preso de 6'1\" de estatura. [valor: 6 pies]\n  [D251] DATO: Un preso estuvo de 2 a 3 días sin comida, agua, luz ni medicación en Templeman I. [valor: 2 a 3 días]\n  [D260] DATO: En Templeman V no hubo seguridad, electricidad, comida ni agua durante 4 días, afectando incluso a las jóvenes embarazadas. [valor: 4 días]\n  [D261] DATO: En el exterior del edificio Templeman V el agua tenía 6 pies de profundidad, por lo que los presos tuvieron que ayudar a las mujeres embarazadas a evacuar. [valor: 6 pies]\n  [D262] DATO: Una presa en la unidad Conchetta estuvo 5 días sin comida ni agua. [valor: 5 días]\n  [D263] DATO: Los oficiales no regresaron para mover a un recluso en HOD durante 4 o 5 días.\n  [D269] DATO: Durante 4 días, una presa no tuvo comida y solo bebió agua contaminada de un cubo de basura. [valor: 4 días]\n  [D270] DATO: En un dormitorio de Conchetta se alojaron 100 mujeres, volviéndose insoportablemente caluroso. [valor: 100]\n  [D275] DATO: Un recluso fue liberado de su celda y evacuado a un piso superior, donde fue encerrado y abandonado por 2 días. [valor: 2 días]\n  [D279] DATO: Un preso fue obligado a \"tumbarse sobre hierba mojada afuera durante 24 horas\" con una botella de agua pero sin comida. [valor: 24 horas]\n  [D280] DATO: Una presa permaneció 24 horas a punta de pistola en un puente, sin mantas, comida ni agua. [valor: 24 horas]\n  [D281] DATO: Durante los 2 días entre el impacto del huracán y su evacuación, una presa solo recibió un plato de sémola y un vaso de agua. [valor: 2 días]\n  [D283] DATO: A las 3pm del día después del huracán, el agua en Templeman llegaba a las axilas.\n  [D284] DATO: Para evacuar a 1700 personas del paso elevado, llegaron 6 botes con capacidad para 6 personas cada uno. [valor: 1700]\n  [D286] DATO: Una reclusa no comió ni bebió entre la mañana del día 29 y la noche del día 31.\n  [D288] DATO: Un preso de Templeman II, Unit E-3, informó que el personal de la prisión los abandonó por completo durante 5 días y noches. [valor: 5 días]\n  [D289] DATO: El suelo en la Unidad E-3 de Templeman II se llenó con 2 pies de agua contaminada con orina y heces. [valor: 2 pies]\n  [D290] DATO: Seis oficiales mujeres le dijeron a un recluso que 21 presos habían muerto en OPP. [valor: 21]\n  [D291] DATO: En el primer piso de Templeman I, el agua contaminada con combustible y desechos humanos alcanzó los 4.5 pies de altura. [valor: 4.5 pies]\n  [D292] DATO: Un recluso estuvo más de 24 horas sin luces, agua, comida ni instalaciones en Templeman I. [valor: más de 24 horas]\n── F05: Excerpts of letters from prisoners abandoned in Katrina (testimonio, 2005) — 19 de 19 datos\n  [D512] DATO: La instalación de Conchetta solo albergaba a mujeres.\n  [D513] DATO: El primer piso del edificio de 3 pisos de Conchetta se inundó hasta el techo.\n  [D514] DATO: En Conchetta, los ayudantes del sheriff golpearon a las reclusas.\n  [D515] DATO: En la Prisión Parroquial de Orleans, se rompieron las tuberías de gas durante el huracán.\n  [D516] DATO: Las reclusas de la instalación de Conchetta estuvieron 3 días viviendo en aguas contaminadas. [valor: 3 días]\n  [D517] DATO: Las reclusas del Edificio CTA estuvieron sin comida, agua, luces y atención médica por más de 4 días. [valor: más de 4 días]\n  [D518] DATO: Una reclusa estuvo encarcelada por más de 11 meses sin ser condenada ni sentenciada. [valor: más de 11 meses]\n  [D519] DATO: Los guardias apuntaron con armas a los reclusos.\n  [D520] DATO: El agua en el edificio Templeman 4 llegó hasta la segunda litera.\n  [D521] DATO: Los reclusos estuvieron de pie en aguas infestadas frente al I.P.C. por al menos 12 horas. [valor: 12 horas]\n  [D522] DATO: Algunos reclusos de Templeman 4 pasaron al menos cuatro días sin agua ni comida. [valor: cuatro días]\n  [D523] DATO: 120 reclusos evacuados al Centro Correccional de Avoyelles compartían 2 baños portátiles. [valor: 120]\n  [D524] DATO: Los reclusos en Avoyelles tenían 4 minutos para comer y 4 minutos para una llamada telefónica por semana. [valor: 4 minutos]\n  [D525] DATO: En Avoyelles, algunos reclusos fueron puestos en una celda para 2 hombres de a 3, sin colchonetas, almohadas ni mantas.\n  [D526] DATO: En Avoyelles, los 428 reclusos tenían 30 minutos de recreación divididos en dos grupos. [valor: 30 minutos]\n  [D527] DATO: Una reclusa fue arrestada por cheques sin fondos de su propia cuenta corriente.\n  [D528] DATO: La fianza de una reclusa se fijó en 2.500 dólares. [valor: 2.500 dólares]\n  [D529] DATO: En el edificio de la Prisión Parroquial de Orleans, los inodoros dejaron de funcionar el segundo día.\n  [D530] DATO: 750 de los 1.500 reclusos de O.P.P. fueron liberados en las siete semanas posteriores a Katrina. [valor: 750]\n── F10: Reforms resulted from the thousands left to drown in OPP (prensa_posterior, 2025) — 24 de 24 datos\n  [D531] DATO: Miles de personas quedaron atrapadas dentro de la Prisión Parroquial de Orleans mientras el agua de la inundación subía por horas.\n  [D532] DATO: Los guardias de seguridad dejaron a los hombres encerrados en la cárcel para salvar sus propias vidas.\n  [D533] DATO: 6.375 personas estaban detenidas en el complejo carcelario de 12 edificios de la ciudad cuando llegó la tormenta.\n  [D534] DATO: La población de la cárcel de Orleans era mayor que la de la Penitenciaría Estatal de Luisiana en Angola en ese momento.\n  [D535] DATO: Antes del huracán, aproximadamente 2.000 presos (casi un tercio del total) eran sentenciados estatales por los que la cárcel recibía un pago diario.\n  [D536] DATO: El Departamento de Policía de Nueva Orleans arrestó a 300 personas nuevas en los tres días previos a la tormenta. [valor: 300]\n  [D537] DATO: Sheriffs de otras áreas bajas llevaron a personas de sus cárceles a Orleans, llenando aún más las prisiones de la ciudad.\n  [D538] DATO: A medida que los edificios se llenaban de agua mezclada con aguas residuales, las celdas se sentían como ataúdes.\n  [D539] DATO: Los presos vieron cómo el agua subía, cubriendo primero los parachoques de los autos y luego los autos enteros.\n  [D540] DATO: Debido a que el sistema de ventilación y la energía de respaldo fallaron, las temperaturas interiores aumentaron muy rápidamente.\n  [D541] DATO: Tres días después de la tormenta, los presos rescatados fueron esposados con precintos y llevados en bote a un terreno más alto.\n  [D542] DATO: Algunas celdas estaban superpobladas, llegando casi al doble de su capacidad oficial.\n  [D543] DATO: Las puertas de las celdas sufrieron un cortocircuito, lo que obligó a los rescatistas a usar palancas y otras herramientas para sacar a la gente.\n  [D544] DATO: Edward \"Edgar\" Burton rompió una barra de ducha y la usó para romper una ventana de tres capas y permitir que circulara aire fresco.\n  [D545] DATO: No había generador ni luces, dejando la cárcel en completa oscuridad.\n  [D546] DATO: El sheriff Marlin Gusman ha sostenido consistentemente que no hubo muertes en el complejo OPP durante la inundación y sus secuelas. [valor: Marlin Gusman]\n  [D547] DATO: En el informe de la ACLU, varios oficiales y muchos prisioneros presenciaron cuerpos colgando de cercas o flotando en el agua.\n  [D548] DATO: El agua inutilizó el sistema de datos de la cárcel y nadie tenía documentos para identificarse.\n  [D549] DATO: El ex policía Len Davis, sentenciado a muerte, fue trasladado a Hunt y puesto en un patio abierto junto con personas detenidas por diversas acusaciones. [valor: Len Davis]\n  [D550] DATO: Los guardias de la prisión lanzaban sándwiches por encima de la cerca para alimentar a los prisioneros evacuados.\n  [D551] DATO: Un equipo de abogados defensores liderado por Phyllis Mann entrevistó a 4.000 de los aproximadamente 8.500 reclusos del área del desastre.\n  [D552] DATO: Guardias de prisiones de todo el país, tanto de prisiones privadas como estatales, fueron llevados para ayudar.\n  [D553] DATO: Los registros legales se perdieron o destruyeron, y las fechas de corte desaparecieron.\n  [D554] DATO: El Tribunal Penal del Distrito de la Parroquia de Orleans reabrió casi un año después de la tormenta, en junio de 2006.\n── F12: Voices from the Storm: The People of New Orleans on Hurricane Katrina and Its Aftermath (libro, 2006) — 4 de 4 datos\n  [D555] DATO: Dan Bright fue arrestado por cargos falsos la noche antes de la tormenta. [valor: Dan Bright]\n  [D556] DATO: Dan Bright fue retenido en la Prisión Parroquial de Orleans (Orleans Parish Prison). [valor: Orleans Parish Prison]\n  [D557] DATO: Los guardias abandonaron el edificio de la Prisión Parroquial de Orleans cuando llegó la tormenta.\n  [D558] DATO: Dan Bright y sus compañeros reclusos tuvieron que forzar la salida de sus celdas para salvar sus vidas después de que los guardias abandonaran el edificio.",
   "ids": [
    "P01",
    "D39",
@@ -37441,10 +37409,10 @@
    "Q135",
    "Q148",
    "Q149",
-   "Q180",
+   "Q179",
+   "Q183",
    "Q184",
-   "Q185",
-   "Q182",
+   "Q181",
    "Q168",
    "Q26",
    "Q29",
@@ -37463,7 +37431,7 @@
    "Q117",
    "Q83",
    "Q140",
-   "Q186",
+   "Q185",
    "Q142",
    "D51",
    "D214",
@@ -37670,7 +37638,7 @@
    "D554",
    "D557"
   ],
-  "caracteres": 50062
+  "caracteres": 50065
  },
  "_research_v3": {
   "prompt_r1": "f7a-1",

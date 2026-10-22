@@ -1,0 +1,20 @@
+[22:59:47] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[23:01:42] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.1976
+  [escaleta] intento 1: 1 problema(s) ['el humano está en escena en los caps [1, 6]: tienen que ser ≥ 3'] · 1 reparación(es)
+  [escaleta] intento 2: 0 problema(s) [] · 0 reparación(es)
+[23:01:42] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[23:03:54] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.1461
+  [escaleta] intento 1: 1 problema(s) ['el humano está en escena en los caps [1, 6]: tienen que ser ≥ 3'] · 1 reparación(es)
+  [escaleta] intento 2: 0 problema(s) [] · 0 reparación(es)
+  [guionista] intento 1: 21 duras · 20 blandas · puntaje 48
+  [guionista] intento 2: 16 duras · 24 blandas · puntaje 56
+[23:03:54] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[23:10:45] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.1558
+# Narración v3 con el pool de research v3 — Orleans `ba6c3cac-f7r3` (F7c)
+
+- Escaleta: `escaleta_orleans_v3r.json` (2 intento(s), digest del pool). Guionista: Pro, best_of_2 → elegido el intento 2 (intento 1: 21 duras, 20 blandas; intento 2: 16 duras, 24 blandas).
+- Editor: 19 párrafo(s) editado(s), 16 aceptado(s). Duras: guionista 16 → final 16 · blandas 24 → 25.
+- 940 palabras · 1.81 adjetivos/100 · costo: escaleta US$ 0.1976 + guionista US$ 0.1461 + editor US$ 0.1558.
+
+## Problemas duros que quedan
+

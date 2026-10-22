@@ -1,0 +1,264 @@
+{
+  "topic_id": "ba6c3cac-f7r3",
+  "prompt_version": "f6b-4",
+  "_intentos": [
+    {
+      "intento": 1,
+      "problemas": [
+        "beat 1: Dan Bright en escena sin un dato suyo verificado (ninguna cita ni mención en ['T80', 'D540', 'D545']); datos suyos que valen: ['D555', 'D556', 'D558', 'T16', 'T18', 'Q73']",
+        "beat 3: Dan Bright en escena sin un dato suyo verificado (ninguna cita ni mención en ['D183', 'D193', 'T78']); datos suyos que valen: ['D555', 'D556', 'D558', 'T16', 'T18', 'Q73']",
+        "la promesa del gancho no lleva cifras ni años (tampoco en letras: «seis mil»; «miles» sí)",
+        "la última frase repite textual la cita Q172: decila con otras palabras"
+      ],
+      "reparaciones": [
+        "beat 2: apoyo ['D51'] es otra cifra del conteo 300 → fuera"
+      ],
+      "avisos": [
+        "pregunta de pantalla del cap 2 «¿Quién decidió dejarlos allí?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+      ]
+    },
+    {
+      "intento": 2,
+      "problemas": [
+        "pregunta de pantalla del cap 4 «¿Estaban disparando a matar?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+        "pregunta de pantalla del cap 6 «¿Contarían la verdad alguna vez?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+        "la última frase repite textual la cita Q172: decila con otras palabras"
+      ],
+      "reparaciones": [
+        "beat 2: apoyo ['D51'] es otra cifra del conteo 300 → fuera"
+      ],
+      "avisos": [
+        "pregunta de pantalla del cap 2 «¿Por qué decidieron encerrarlos?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "pregunta de pantalla del cap 3 «¿Quién iba a abrir las puertas?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "beat 2: vuelve atrás en el tiempo (2005-08-28 < 2005-08-29)"
+      ]
+    },
+    {
+      "intento": 3,
+      "problemas": [
+        "beat 6: Joyce Gilson en escena sin un dato suyo verificado (ninguna cita ni mención en ['D185', 'D209', 'D553', 'Q54']); datos suyos que valen: ['D140', 'T41', 'T79']",
+        "la última frase repite textual la cita Q172: decila con otras palabras"
+      ],
+      "reparaciones": [
+        "beat 2: apoyo ['D51'] es otra cifra del conteo 300 → fuera"
+      ],
+      "avisos": [
+        "pregunta de pantalla del cap 3 «¿Cuánto tiempo estuvieron sin luz?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+      ]
+    },
+    {
+      "intento": 4,
+      "problemas": [
+        "beat 1: Edward “Edgar” Burton en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q184', 'D538']); datos suyos que valen: ['D544', 'Q180', 'Q185']",
+        "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla"
+      ],
+      "reparaciones": [
+        "beat 2: apoyo ['D51'] es otra cifra del conteo 300 → fuera"
+      ],
+      "avisos": [
+        "pregunta de pantalla del cap 4 «¿Cuántos días estuvieron así?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+      ]
+    },
+    {
+      "intento": 5,
+      "problemas": [
+        "la última frase repite textual la cita Q172: decila con otras palabras"
+      ],
+      "reparaciones": [
+        "beat 2: apoyo ['D51'] es otra cifra del conteo 300 → fuera"
+      ],
+      "avisos": [
+        "pregunta de pantalla del cap 3 «¿Cuánto tiempo podían sobrevivir así?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "pregunta de pantalla del cap 2 «¿Nadie tenía un plan de emergencia?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?); no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+      ]
+    }
+  ],
+  "ultima": {
+    "humano": {
+      "id": "P49",
+      "nombre": "Dan Bright",
+      "rol": "Recluso",
+      "por_que": "Fue arrestado justo antes de la tormenta, vivió el abandono en primera persona y su testimonio verificado articula la sensación de traición de los prisioneros.",
+      "colectivo": false
+    },
+    "antagonista": {
+      "id": "P03",
+      "por_que": "Como Sheriff a cargo, tomó la decisión de no evacuar la prisión y luego sostuvo públicamente una versión de los hechos que contradecía cientos de testimonios."
+    },
+    "promesa_gancho": "Las autoridades juraron que no dejaron a nadie atrás. Esta es la historia de los hombres que vieron los cuerpos flotando.",
+    "pico": {
+      "beat": 5,
+      "id": "D558",
+      "por_que": "Es el punto de quiebre: el sistema falla por completo y los prisioneros, liderados por nuestro humano, deben tomar su supervivencia en sus propias manos. Es el máximo momento de agencia y desesperación."
+    },
+    "cierre_humano": "Años después, Dan Bright y cientos de sobrevivientes siguen esperando respuestas. Para ellos, el agua nunca bajó del todo.",
+    "beats": [
+      {
+        "n": 1,
+        "cap": 1,
+        "funcion": "gancho",
+        "emocion": "Injusticia",
+        "intensidad": 2,
+        "dato_central": "D555",
+        "datos_apoyo": [
+          "T37"
+        ],
+        "humano_en_escena": true,
+        "imagen_sensorial": "Las luces de una patrulla reflejadas en un charco de agua sucia en una calle vacía.",
+        "pregunta_abierta": "¿Qué le espera dentro, con un huracán a punto de golpear la ciudad?",
+        "pregunta_pantalla": "¿Por qué detener a alguien justo ahora?",
+        "cierre": "Pero la verdadera tormenta no estaba afuera. Estaba a punto de desatarse dentro de los muros de la prisión.",
+        "palabras_objetivo": 110
+      },
+      {
+        "n": 2,
+        "cap": 2,
+        "funcion": "planteo",
+        "emocion": "Tensión",
+        "intensidad": 3,
+        "dato_central": "Q08",
+        "datos_apoyo": [
+          "T55",
+          "D51"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "Un boletín de evacuación obligatoria en una televisión, visto desde detrás de unos barrotes.",
+        "pregunta_abierta": "¿De verdad los van a dejar ahí adentro?",
+        "pregunta_pantalla": "¿Nadie tenía un plan de emergencia?",
+        "cierre": "El plan era simple: no había plan. Y las luces estaban a punto de apagarse.",
+        "palabras_objetivo": 190
+      },
+      {
+        "n": 3,
+        "cap": 3,
+        "funcion": "escalada",
+        "emocion": "Pánico",
+        "intensidad": 4,
+        "dato_central": "T76",
+        "datos_apoyo": [
+          "D545",
+          "T78"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "La oscuridad absoluta de una celda, rota solo por el sonido del agua empezando a filtrarse por debajo de la puerta.",
+        "pregunta_abierta": "¿Qué harías si el agua empieza a subir en tu celda cerrada?",
+        "pregunta_pantalla": "",
+        "cierre": "La oscuridad era total. El sonido del agua, constante. Y el nivel no dejaba de subir.",
+        "palabras_objetivo": 95
+      },
+      {
+        "n": 4,
+        "cap": 3,
+        "funcion": "escalada",
+        "emocion": "Terror",
+        "intensidad": 4,
+        "dato_central": "D183",
+        "datos_apoyo": [
+          "D193",
+          "D538"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "Agua contaminada con heces y combustible, llegando hasta el pecho de un hombre atrapado.",
+        "pregunta_abierta": "¿Van a morir ahogados?",
+        "pregunta_pantalla": "¿Cuánto tiempo podían sobrevivir así?",
+        "cierre": "Pero no estaban solos en el agua. Los guardias todavía estaban allí. O eso creían.",
+        "palabras_objetivo": 95
+      },
+      {
+        "n": 5,
+        "cap": 4,
+        "funcion": "pico",
+        "emocion": "Furia",
+        "intensidad": 5,
+        "dato_central": "D558",
+        "datos_apoyo": [
+          "D532",
+          "D543"
+        ],
+        "humano_en_escena": true,
+        "imagen_sensorial": "El chasquido de una cerradura forzada, y el sonido de una puerta de acero abriéndose con esfuerzo bajo el agua.",
+        "pregunta_abierta": "¿Y ahora qué? ¿A dónde van?",
+        "pregunta_pantalla": "¿Por qué los guardias los abandonaron?",
+        "cierre": "Afuera de las celdas no encontraron la salvación. Encontraron la confirmación del horror.",
+        "palabras_objetivo": 190
+      },
+      {
+        "n": 6,
+        "cap": 5,
+        "funcion": "respiro",
+        "emocion": "Desolación",
+        "intensidad": 1,
+        "dato_central": "D228",
+        "datos_apoyo": [
+          "Q60",
+          "D58"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "Un cuerpo flotando boca abajo en el agua turbia y quieta de un pasillo oscuro.",
+        "pregunta_abierta": "¿Cuántos más hay? ¿Alguien sabrá alguna vez la cifra real?",
+        "pregunta_pantalla": "¿Cuántos cuerpos más había?",
+        "cierre": "La pesadilla no terminó al salir del edificio. Afuera, bajo el sol, les esperaba otra forma de infierno.",
+        "palabras_objetivo": 190
+      },
+      {
+        "n": 7,
+        "cap": 6,
+        "funcion": "consecuencia",
+        "emocion": "Indignación",
+        "intensidad": 3,
+        "dato_central": "Q73",
+        "datos_apoyo": [
+          "T08",
+          "Q69"
+        ],
+        "humano_en_escena": true,
+        "imagen_sensorial": "Manos desesperadas a través de una reja tratando de atrapar un sándwich lanzado desde arriba.",
+        "pregunta_abierta": "¿Cómo puede ser que la versión oficial sea tan distinta?",
+        "pregunta_pantalla": "¿Por qué la versión oficial era diferente?",
+        "cierre": "Mientras ellos luchaban por un poco de agua, el sheriff le contaba otra historia al mundo. Y los números no cuadraban.",
+        "palabras_objetivo": 190
+      },
+      {
+        "n": 8,
+        "cap": 7,
+        "funcion": "revelacion",
+        "emocion": "Tristeza",
+        "intensidad": 2,
+        "dato_central": "D185",
+        "datos_apoyo": [
+          "Q78",
+          "D546"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "Una lista de nombres en papel, manchada de agua, con cientos de ausencias inexplicables.",
+        "pregunta_abierta": "¿Dónde están esas personas?",
+        "pregunta_pantalla": "¿Cuántos siguen sin nombre?",
+        "cierre": "Años después, Dan Bright y cientos de sobrevivientes siguen esperando respuestas. Para ellos, el agua nunca bajó del todo.",
+        "palabras_objetivo": 110,
+        "contador": true
+      }
+    ],
+    "a_pantalla": [
+      {
+        "id": "Q23",
+        "cap": 3,
+        "por_que": "La cita del Sheriff Gusman sobre el equipamiento eléctrico es devastadoramente irónica en el capítulo donde fallan los generadores."
+      },
+      {
+        "id": "D197",
+        "cap": 5,
+        "por_que": "Mostrar la portada del informe 'Abandoned & Abused' da credibilidad y ancla visualmente la investigación que destapó la historia."
+      },
+      {
+        "id": "D05",
+        "cap": 7,
+        "por_que": "El nombre del caso 'Jones v. Gusman' en pantalla resume la batalla legal que siguió, sin necesidad de explicarla en la narración."
+      },
+      {
+        "id": "Q13",
+        "cap": 7,
+        "por_que": "La cita verificada de Gusman sobre los 'detalles incidentales' es una frase final perfecta para mostrar la indiferencia oficial."
+      }
+    ]
+  }
+}

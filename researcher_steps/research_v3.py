@@ -877,6 +877,7 @@ PROMPT_VERSION_R3 = "f7b-1"
 CHUNK_CHARS = 60_000
 CHUNK_OVERLAP = 3_000
 CITA_MAX = 300
+CITA_MIN_WORDS = 3
 R3_THINKING = 2048
 TIPOS_DATO = ("magnitud", "cifra", "fecha", "nombre", "lugar", "cita", "contradiccion")
 
@@ -997,7 +998,9 @@ def validate_doc_items(raw: dict, doc: dict, dt: DocText, log: list[str]) -> dic
            "personajes": "nombre"}
 
     def _drop(kind: str, it: dict, why: str) -> None:
-        out["_descartados"].append({"kind": kind, "doc_id": doc["id"], "texto": _str(it.get(key[kind]))[:200],
+        # kind «<tipo>_r3»: un descarte de lectura (sin cita literal, «Preso #13» no es un nombre) no es un personaje
+        # «que no hace nada»: m05.silent_names lee los `personajes` descartados y vetaría «preso» en la narración
+        out["_descartados"].append({"kind": f"{kind}_r3", "doc_id": doc["id"], "texto": _str(it.get(key[kind]))[:200],
                                     "cita_literal": _str(it.get("cita_literal"))[:200], "motivo": why})
     for kind in key:
         for it in raw.get(kind) or []:
@@ -1035,6 +1038,10 @@ def validate_doc_items(raw: dict, doc: dict, dt: DocText, log: list[str]) -> dic
                     continue
                 item = {"nombre": n, "rol": _str(it.get("rol")) or None}
             elif kind == "citas":
+                if len(re.findall(r"\w+", _str(it["texto_original"]))) < CITA_MIN_WORDS:
+                    # «no» (un guardia): no es una cita; además choca con cualquier frase («años») en los chequeos
+                    _drop(kind, it, f"cita de menos de {CITA_MIN_WORDS} palabras")
+                    continue
                 es = _str(it.get("texto_es")) or _str(it["texto_original"])
                 item = {"texto": es, "autor": _str(it.get("autor")), "fecha": _str(it.get("fecha")) or None,
                         "rol": _str(it.get("rol")) or None, "testimonio": bool(it.get("testigo")),
@@ -1316,6 +1323,11 @@ CANON_TOPIC = 0.35
 CANON_RATIO = 1.25                      # más estricto que en v2 (1.5): acá hay cientos de cifras
 
 
+def fmt_count(n: int) -> str:
+    """6375 → «6,375»: la forma de cifra que leen los validadores (m05.non_canonical, evidence._num_forms)."""
+    return f"{n:,}"
+
+
 def count_value(texto: str) -> tuple[str, int] | None:
     """La cifra de un CONTEO de personas presas: el número pegado (≤ 2 palabras) al sustantivo («6,375 presos», «8,000
     reclusos más»), no cualquier número del texto (un año, una capacidad, otra cifra). None si no hay; si el texto trae
@@ -1362,9 +1374,9 @@ def canonical_v3(pool: dict[str, Any], docs: list[dict], log: list[str]) -> None
                 continue
             seen.add(_val(d))
             d["estatus"] = f"estimación de {(meta.get(d['doc_id']) or {}).get('titulo') or d['doc_id']}"[:120]
-            var.append({"id": d["id"], "valor": count_value(d["texto"])[0], "estatus": d["estatus"]})
+            var.append({"id": d["id"], "valor": fmt_count(_val(d)), "estatus": d["estatus"]})
         if var:
-            out.append({"oficial": o["id"], "valor": count_value(o["texto"])[0], "fuente": o["doc_id"],
+            out.append({"oficial": o["id"], "valor": fmt_count(_val(o)), "fuente": o["doc_id"],
                         "variantes": var})
     pool["cifras_canonicas"] = out
     if out:
@@ -1585,7 +1597,7 @@ def population_canon(pool: dict[str, Any], docs: list[dict], subject_re: str = S
         if not cv or cv[1] < 1000 or not about or _OTHER_PLACE.search(d["texto"]):
             continue
         m = meta.get(d["doc_id"]) or {}
-        rows.append({"id": d["id"], "valor": cv[0], "n": cv[1], "doc_id": d["doc_id"],
+        rows.append({"id": d["id"], "valor": fmt_count(cv[1]), "n": cv[1], "doc_id": d["doc_id"],
                      "fuente": f"{m.get('titulo') or d['doc_id']} ({m.get('anio') or 's/f'})", "tipo_doc": m.get("tipo"),
                      "texto": d["texto"], "atribuida_oficial": bool(_OFFICIAL_SAYS.search(d["texto"]))})
     if rows:

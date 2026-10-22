@@ -1,0 +1,271 @@
+{
+  "topic_id": "ba6c3cac-f7r3",
+  "prompt_version": "f6b-4",
+  "_intentos": [
+    {
+      "intento": 1,
+      "problemas": [
+        "beat 1: Edward “Edgar” Burton en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q184', 'D538']); datos suyos que valen: ['D544', 'Q180', 'Q185']",
+        "la promesa del gancho no lleva cifras ni años (tampoco en letras: «seis mil»; «miles» sí)",
+        "pregunta de pantalla del cap 6 «¿Y los que no llegaron al puente?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)"
+      ],
+      "reparaciones": [
+        "beat 2: apoyo ['D51'] es otra cifra del conteo 300 → fuera"
+      ],
+      "avisos": []
+    },
+    {
+      "intento": 2,
+      "problemas": [
+        "el humano entra recién en el cap 3: tiene que entrar antes del cap 3",
+        "la última frase repite textual la cita Q172: decila con otras palabras"
+      ],
+      "reparaciones": [
+        "a_pantalla Q54: cita sin verificar → no va a pantalla"
+      ],
+      "avisos": [
+        "pregunta de pantalla del cap 3 «¿Quién quedó a cargo de los presos?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "pregunta de pantalla del cap 6 «¿Por qué la ayuda fue violenta?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+      ]
+    },
+    {
+      "intento": 3,
+      "problemas": [
+        "beat 3: Edward “Edgar” Burton en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q184', 'T60']); datos suyos que valen: ['D544', 'Q180', 'Q185']",
+        "pregunta de pantalla del cap 5 «¿Les estaban disparando a los presos?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+        "la última frase repite textual la cita Q172: decila con otras palabras"
+      ],
+      "reparaciones": [
+        "beat 2: apoyo ['D51'] es otra cifra del conteo 300 → fuera"
+      ],
+      "avisos": []
+    },
+    {
+      "intento": 4,
+      "problemas": [
+        "el humano está en escena en los caps [3, 6]: tienen que ser ≥ 3",
+        "pregunta de pantalla del cap 3 «¿Había guardias dentro con ellos?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+        "pregunta de pantalla del cap 4 «¿Los iban a dejar morir ahogados?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?); no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+      ],
+      "reparaciones": [],
+      "avisos": []
+    },
+    {
+      "intento": 5,
+      "problemas": [
+        "la última frase repite textual la cita Q172: decila con otras palabras"
+      ],
+      "reparaciones": [
+        "beat 2: apoyo ['D51'] es otra cifra del conteo 300 → fuera"
+      ],
+      "avisos": [
+        "pregunta de pantalla del cap 2 «¿Quién dio la orden de encerrarlos?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "pregunta de pantalla del cap 4 «¿Por qué los rescatistas no entraron?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+      ]
+    }
+  ],
+  "ultima": {
+    "humano": {
+      "id": "P18",
+      "nombre": "Renard Reed",
+      "rol": "Oficial del sheriff",
+      "por_que": "Testigo desde adentro. Su testimonio verifica el abandono de los guardias, el caos de la evacuación y la violencia de los disparos, ofreciendo una perspectiva única y creíble de la traición institucional.",
+      "colectivo": false
+    },
+    "antagonista": {
+      "id": "P03",
+      "por_que": "Como Sheriff de Orleans Parish, era el máximo responsable de la seguridad de los reclusos. La investigación muestra que no ordenó una evacuación a tiempo y que luego mintió públicamente sobre las condiciones y el resultado."
+    },
+    "promesa_gancho": "Los guardias se fueron y las puertas quedaron cerradas. Esta es la historia de los prisioneros que fueron abandonados para morir.",
+    "pico": {
+      "beat": 5,
+      "id": "Q47",
+      "por_que": "Es el momento de máxima brutalidad e inhumanidad. Nuestro humano, un guardia, ve a otros guardias disparar a prisioneros indefensos que caen al agua. Es el colapso total de cualquier orden o moral."
+    },
+    "cierre_humano": "La cifra oficial del Sheriff Gusman es cero muertes. Cientos de familias nunca volvieron a ver a sus seres queridos. Como dijo el guardia Renard Reed, aunque estuvieran en la cárcel, eran seres humanos.",
+    "beats": [
+      {
+        "n": 1,
+        "cap": 1,
+        "funcion": "gancho",
+        "emocion": "Confusión",
+        "intensidad": 4,
+        "dato_central": "T08",
+        "datos_apoyo": [
+          "D207",
+          "T94"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "Monos naranjas de prisioneros recortados contra el cielo, en un paso elevado, bajo un sol abrasador.",
+        "pregunta_abierta": "¿Cómo llegaron miles de prisioneros a una autopista en medio de una inundación?",
+        "pregunta_pantalla": "¿Por qué los dejaron bajo el sol?",
+        "cierre": "Para entenderlo, hay que volver a dos días antes, cuando el Sheriff tomó una decisión que sellaría el destino de todos.",
+        "palabras_objetivo": 110,
+        "flash_forward": true
+      },
+      {
+        "n": 2,
+        "cap": 2,
+        "funcion": "planteo",
+        "emocion": "Inquietud",
+        "intensidad": 2,
+        "dato_central": "Q08",
+        "datos_apoyo": [
+          "D51",
+          "T55",
+          "Q24"
+        ],
+        "humano_en_escena": true,
+        "imagen_sensorial": "Un mapa de Nueva Orleans con una marca roja sobre la prisión, mientras se escucha el viento de una tormenta que se acerca.",
+        "pregunta_abierta": "Si toda la ciudad está evacuando, ¿por qué no la prisión?",
+        "pregunta_pantalla": "¿Quién dio la orden de encerrarlos?",
+        "cierre": "Mientras la ciudad se vaciaba, dentro de los muros de la prisión, la tormenta ya había empezado.",
+        "palabras_objetivo": 190
+      },
+      {
+        "n": 3,
+        "cap": 3,
+        "funcion": "escalada",
+        "emocion": "Ansiedad",
+        "intensidad": 3,
+        "dato_central": "T76",
+        "datos_apoyo": [
+          "T61",
+          "D538",
+          "D545"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "Una bombilla que parpadea y se apaga, sumiendo el pasillo de una celda en una oscuridad total y absoluta.",
+        "pregunta_abierta": "Están encerrados, a oscuras y el agua está subiendo. ¿Alguien va a abrir las puertas?",
+        "pregunta_pantalla": "¿Por qué nadie abrió las celdas?",
+        "cierre": "Pronto, la oscuridad no sería su único problema. Tampoco el agua. Sería lo que venía con ella.",
+        "palabras_objetivo": 190
+      },
+      {
+        "n": 4,
+        "cap": 4,
+        "funcion": "escalada",
+        "emocion": "Desesperación",
+        "intensidad": 4,
+        "dato_central": "D193",
+        "datos_apoyo": [
+          "D186",
+          "Q185",
+          "D187"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "Agua negra y aceitosa, llena de basura y excrementos, subiendo por los barrotes de una celda hasta la altura del pecho.",
+        "pregunta_abierta": "¿Cuánto tiempo puede sobrevivir un ser humano en estas condiciones?",
+        "pregunta_pantalla": "¿Por qué los rescatistas no entraron?",
+        "cierre": "Después de días de abandono, los prisioneros oyeron un ruido. No eran rescatistas. Eran guardias. Y no venían a ayudar.",
+        "palabras_objetivo": 190,
+        "contador": true
+      },
+      {
+        "n": 5,
+        "cap": 5,
+        "funcion": "pico",
+        "emocion": "Horror",
+        "intensidad": 5,
+        "dato_central": "Q47",
+        "datos_apoyo": [
+          "Q14",
+          "Q40"
+        ],
+        "humano_en_escena": true,
+        "imagen_sensorial": "El fogonazo de un rifle desde un tejado, y una silueta humana que cae de un paso elevado al agua oscura.",
+        "pregunta_abierta": "¿Los están matando en lugar de rescatarlos?",
+        "pregunta_pantalla": "¿Quiénes disparaban desde los techos?",
+        "cierre": "El horror no terminó en el puente. Para los supervivientes, lo que siguió fue una humillación inimaginable.",
+        "palabras_objetivo": 190
+      },
+      {
+        "n": 6,
+        "cap": 6,
+        "funcion": "respiro",
+        "emocion": "Indignación",
+        "intensidad": 1,
+        "dato_central": "Q69",
+        "datos_apoyo": [
+          "T09",
+          "D208"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "Manos desesperadas tratando de atrapar un sándwich lanzado por encima de una cerca hacia una multitud embarrada.",
+        "pregunta_abierta": "Después de todo esto, ¿alguien se hará responsable?",
+        "pregunta_pantalla": "",
+        "cierre": "Mientras los prisioneros luchaban por un trozo de pan, el Sheriff Gusman daba su versión oficial de los hechos.",
+        "palabras_objetivo": 95
+      },
+      {
+        "n": 7,
+        "cap": 6,
+        "funcion": "consecuencia",
+        "emocion": "Rabia",
+        "intensidad": 3,
+        "dato_central": "Q78",
+        "datos_apoyo": [
+          "D196",
+          "Q50"
+        ],
+        "humano_en_escena": true,
+        "imagen_sensorial": "Un micrófono de prensa frente a la cara del Sheriff Marlin Gusman, mientras él niega la realidad con calma.",
+        "pregunta_abierta": "Si la evacuación fue un éxito, ¿dónde está toda la gente que falta?",
+        "pregunta_pantalla": "¿Por qué mintió el sheriff Gusman?",
+        "cierre": "Las mentiras del Sheriff ocultaban una verdad mucho más oscura. Una que se podía contar con una sola cifra.",
+        "palabras_objetivo": 95
+      },
+      {
+        "n": 8,
+        "cap": 7,
+        "funcion": "revelacion",
+        "emocion": "Tristeza",
+        "intensidad": 2,
+        "dato_central": "D185",
+        "datos_apoyo": [
+          "D546",
+          "D228",
+          "Q180"
+        ],
+        "humano_en_escena": false,
+        "imagen_sensorial": "Una lista de nombres impresa en papel, con una línea tachada en rojo sobre el número 517.",
+        "pregunta_abierta": "¿Qué pasó con los 517 que nunca aparecieron en las listas de evacuados?",
+        "pregunta_pantalla": "¿Cuántos de los 517 siguen sin nombre?",
+        "cierre": "Edward Burton, uno de los presos atrapados, lo resumió en una frase: 'Nos dejaron morir allí'.",
+        "palabras_objetivo": 110
+      }
+    ],
+    "a_pantalla": [
+      {
+        "id": "D18",
+        "cap": 2,
+        "por_que": "Muestra el incentivo económico para mantener la prisión llena, un dato clave que se lee mejor en pantalla que dicho en voz alta."
+      },
+      {
+        "id": "Q16",
+        "cap": 2,
+        "por_que": "La cita de la alguacil Rhonda Ducre sobre la falta de planes confirma desde adentro la negligencia sistémica."
+      },
+      {
+        "id": "D543",
+        "cap": 3,
+        "por_que": "El detalle técnico de que las puertas hicieron cortocircuito es muy visual y explica por qué no podían salir, incluso si alguien hubiera querido liberarlos."
+      },
+      {
+        "id": "Q135",
+        "cap": 4,
+        "por_que": "La imagen de un jefe de prisión pidiendo a los reclusos que recen es una admisión de impotencia y abandono tan surrealista que impacta más si se lee."
+      },
+      {
+        "id": "Q13",
+        "cap": 6,
+        "por_que": "La cita de Gusman calificando las muertes o el sufrimiento como 'detalles incidentales' es tan cínica que debe verse para ser creída."
+      },
+      {
+        "id": "Q60",
+        "cap": 7,
+        "por_que": "El testimonio de otro oficial sobre cuerpos de presos en la prisión contradice directamente la versión oficial y refuerza el misterio final."
+      }
+    ]
+  }
+}

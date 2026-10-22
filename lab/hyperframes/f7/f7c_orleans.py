@@ -22,6 +22,7 @@ sys.path.insert(0, str(ROOT))
 TOPIC = "ba6c3cac-f7r3"
 STEPS = ROOT / "data" / "scripts" / "_steps" / TOPIC
 LAB = Path(__file__).resolve().parent
+ESC_ATTEMPTS = 5
 
 
 def _dump(p: Path, d) -> None:
@@ -42,9 +43,11 @@ def _timed(fn, label: str, cost: dict):
     t0 = time.time()
     try:
         out = fn()
-    finally:
+    finally:                                            # el costo queda aunque el paso falle
         r = cost_tracker.end_video()
-    cost[label] = {"usd": round(getattr(r, "total_cost", 0.0) or 0.0, 4), "segundos": round(time.time() - t0, 1)}
+        cost[label] = {"usd": round(getattr(r, "total_cost", 0.0) or 0.0, 4), "segundos": round(time.time() - t0, 1)}
+        cost.setdefault("_corridas", []).append({"paso": label, **cost[label]})
+        _dump(LAB / "f7c_costos.json", cost)
     return out
 
 
@@ -62,7 +65,8 @@ def main() -> None:
     cpath = LAB / "f7c_costos.json"
     cost = json.loads(cpath.read_text(encoding="utf-8")) if cpath.exists() else {}
     if desde == "escaleta":
-        esc = _timed(lambda: me.generate_escaleta(topic, log=log), "escaleta", cost)
+        # 5 intentos (el default es 3): en la 1.ª corrida los 3 fallaron, cada uno por algo distinto
+        esc = _timed(lambda: me.generate_escaleta(topic, log=log, attempts=ESC_ATTEMPTS), "escaleta", cost)
         esc["_costo"] = cost["escaleta"]
         _dump(STEPS / "01a_escaleta.json", esc)
         _dump(cpath, cost)

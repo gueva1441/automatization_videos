@@ -1,0 +1,20 @@
+[22:45:50] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[22:47:48] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.1940
+  [escaleta] intento 1: 4 problema(s) ['el humano está en escena en los caps [4, 5]: tienen que ser ≥ 3', 'pregunta de pantalla del cap 2 «¿Nadie tenía un plan?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?); no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)', 'pregunta de pantalla del cap 4 «¿Alguien escuchaba los gritos?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?); no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)', 'pregunta de pantalla del cap 5 «¿Alguien iba a volver por ellos?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)'] · 1 reparación(es)
+  [escaleta] intento 2: 0 problema(s) [] · 1 reparación(es)
+[22:47:48] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[22:50:31] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.1974
+  [escaleta] intento 1: 4 problema(s) ['el humano está en escena en los caps [4, 5]: tienen que ser ≥ 3', 'pregunta de pantalla del cap 2 «¿Nadie tenía un plan?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?); no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)', 'pregunta de pantalla del cap 4 «¿Alguien escuchaba los gritos?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?); no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)', 'pregunta de pantalla del cap 5 «¿Alguien iba a volver por ellos?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)'] · 1 reparación(es)
+  [escaleta] intento 2: 0 problema(s) [] · 1 reparación(es)
+  [guionista] intento 1: 25 duras · 28 blandas · puntaje 58
+  [guionista] intento 2: 25 duras · 25 blandas · puntaje 55
+[22:50:31] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3
+[22:58:10] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3 � Costo total: $0.1726
+# Narración v3 con el pool de research v3 — Orleans `ba6c3cac-f7r3` (F7c)
+
+- Escaleta: `escaleta_orleans_v3r.json` (2 intento(s), digest del pool). Guionista: Pro, best_of_2 → elegido el intento 1 (intento 1: 25 duras, 28 blandas; intento 2: 25 duras, 25 blandas).
+- Editor: 19 párrafo(s) editado(s), 13 aceptado(s). Duras: guionista 25 → final 23 · blandas 28 → 27.
+- 964 palabras · 1.35 adjetivos/100 · costo: escaleta US$ 0.194 + guionista US$ 0.1974 + editor US$ 0.1726.
+
+## Problemas duros que quedan
+
