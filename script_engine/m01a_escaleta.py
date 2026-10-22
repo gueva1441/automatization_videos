@@ -299,6 +299,10 @@ def _fmt_counts(pool: dict) -> str:
 
 
 def pool_section(pool: dict) -> str:
+    # F7c: un pool de research v3 (cientos de datos) trae `digest`, su resumen con ids reales; la escaleta lo lee en vez
+    # del pool entero (≈ 63 k → ≤ 20 k tokens). ESCALETA_DIGEST=0 lo apaga. Sin digest, todo igual que antes.
+    if (pool.get("digest") or {}).get("texto") and os.environ.get("ESCALETA_DIGEST", "1") != "0":
+        return pool["digest"]["texto"]
     ids = [i for i, it in ev.items(pool).items() if it["_kind"] in ("datos", "cronologia", "lugares")]
     return (f"DATOS, CRONOLOGÍA Y LUGARES:\n{ev.format_pool(pool, ids)}\n\nCITAS:\n{_fmt_quotes(pool)}\n\n"
             f"PERSONAS:\n{_fmt_people(pool)}\n\nCIFRAS CANÓNICAS:\n{_fmt_canonical(pool)}\n\n"

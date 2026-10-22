@@ -1277,15 +1277,18 @@ def person_stats(pool: dict[str, Any], event_year: int | None = None) -> None:
     """`n_citas` (citas suyas), `n_datos` (datos y eventos que lo nombran) y `elegible_humano` (testigo, no antagonista,
     con ≥ 3 citas o ≥ 3 datos propios y, si se da `event_year`, con alguna fecha de presencia en ese año: un preso
     muerto años antes, que el informe cuenta como antecedente, no es el humano del evento)."""
-    from researcher_steps.evidence_pool import norm
     crono = {c["id"]: str(c["fecha"]) for c in pool.get("cronologia") or []}
-    for p in pool["personajes"]:
-        sur = person_key(p["nombre"])[1]
+    people = pool["personajes"]
+    for p in people:
+        terms = name_terms(p, people)                   # F7c: Tyrone y Duane Lewis no se cuentan uno al otro
         p["n_citas"] = sum(1 for q in pool["citas"] if same_person(q.get("autor") or "", p["nombre"]))
         p["n_datos"] = sum(1 for x in pool["datos"] + pool["cronologia"]
-                           if sur and sur in re.findall(r"[a-zñ]+", norm(x.get("texto") or x.get("evento"))))
-        days = list(p.get("fechas_presente") or []) + [crono.get(i, "") for i in p.get("presente_en") or []]
-        in_event = event_year is None or any(str(d).startswith(str(event_year)) for d in days)
+                           if _names_in(terms, x.get("texto") or x.get("evento")) or _names_in(terms, x.get("cita_literal")))
+        days = [crono.get(i, "") for i in p.get("presente_en") or []]       # F7c: presencia real, nunca rangos
+        said = any(q.get("testimonio") and (q.get("verificacion") or {}).get("estado") == "verificada"
+                   and same_person(q.get("autor") or "", p["nombre"]) for q in pool["citas"])
+        # presencia real: un evento del año que lo nombra (o en su párrafo), o su propio testimonio verificado
+        in_event = event_year is None or said or any(str(d).startswith(str(event_year)) for d in days)
         p["elegible_humano"] = bool(p.get("testigo") and not p.get("antagonista") and in_event
                                     and (p["n_citas"] >= 3 or p["n_datos"] >= 3))
 
@@ -1306,7 +1309,7 @@ def canonical_names(pool: dict[str, Any], texts: dict[str, "DocText"]) -> None:
 
 _COUNT_OF = re.compile(r"(?<![\d,.])(\d{1,3}(?:[,.]\d{3})+|\d{4,})\s+(?:[a-záéíóúñ]+\s+){0,2}?"
                        r"(reclusos|reclusas|presos|presas|prisioneros|prisioneras|internos|detenidos|personas|"
-                       r"evacuados)\b", re.I)
+                       r"evacuados|individuos)\b", re.I)
 
 
 CANON_TOPIC = 0.35
@@ -1437,10 +1440,10 @@ def verify_pool(pool: dict[str, Any], texts: dict[str, DocText], docs: list[dict
 
 def build_pool(per_doc: dict[str, dict], docs: list[dict], texts: dict[str, DocText], *, event_year: int,
                geocode_cache: Path | None = None, fetch: Callable | None = None,
-               log: list[str] | None = None) -> dict[str, Any]:
+               log: list[str] | None = None, subject_re: str | None = None) -> dict[str, Any]:
     """R4 + R5: merge, contaminación, autores de cita, acción, presencia, estadísticas de personajes, cifras canónicas,
     geocodificación (si hay caché) y verificación. Mismo contrato que `extract_evidence_pool` + campos nuevos."""
-    from researcher_steps.evidence_pool import acting_filter, anchor_place, geocode, presence
+    from researcher_steps.evidence_pool import acting_filter, anchor_place, geocode
     log = log if log is not None else []
     pool = merge_docs(per_doc, docs, event_year=event_year, log=log)
     add_quote_authors(pool, log)
@@ -1452,13 +1455,19 @@ def build_pool(per_doc: dict[str, dict], docs: list[dict], texts: dict[str, DocT
     pool["personajes"] = [p for p in pool["personajes"] if not p.get("testigo")]
     acting_filter(pool, ["\n".join(es_texts)], log)
     pool["personajes"] = sorted(pool["personajes"] + testigos, key=lambda p: int(p["id"][1:]))
-    presence(pool, log)
+    presence_v3(pool, texts, log)                         # F7c: por párrafo (antes: evidence_pool.presence)
     person_stats(pool, event_year)
     canonical_v3(pool, docs, log)
+    pop = population_canon(pool, docs, subject_re or SUBJECT_RE_DEFAULT, log)   # F7c: la población con todas sus variantes, primero
+    if pop:
+        pool["cifras_canonicas"] = [pop] + [g for g in pool["cifras_canonicas"]
+                                            if g["oficial"] not in {v["id"] for v in pop["variantes"]} | {pop["oficial"]}]
     if geocode_cache is not None:
         texts_es = [d["texto"] for d in pool["datos"]] + [c["evento"] for c in pool["cronologia"]]
         geocode(pool["lugares"], geocode_cache, fetch=fetch, log=log, anchor=anchor_place(pool["lugares"], texts_es))
     verify_pool(pool, texts, docs, log)
+    person_stats(pool, event_year)                        # F7c: otra vez, ya con las citas verificadas
+    pool["digest"] = build_digest(pool, docs, event_year=event_year)   # F7c: lo que lee la escaleta
     pool["_research_v3"] = {"prompt_r1": PROMPT_VERSION_R1, "prompt_r3": PROMPT_VERSION_R3,
                             "documentos": [{k: d.get(k) for k in ("id", "titulo", "tipo", "anio", "url", "txt",
                                                                   "caracteres", "idioma")} for d in docs]}
@@ -1485,3 +1494,242 @@ def metrics(pool: dict[str, Any]) -> dict[str, Any]:
                                     / max(len(items), 1), 1),
         "items_2_fuentes": sum(1 for it in items if (it.get("n_fuentes") or 1) > 1),
     }
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F7c (validación del analista sobre F7b) — presencia por párrafo, población, digest
+# ═══════════════════════════════════════════════════════════════
+
+PRESENCE_WINDOW = 500
+
+
+def name_terms(p: dict, people: list[dict]) -> list[str]:
+    """Cómo se busca a una persona en un texto (sin tildes, minúsculas): sus nombres completos (nombre + apellido, de
+    todas sus variantes) y el apellido solo si ninguna otra persona del pool lo comparte (Tyrone y Duane Lewis no)."""
+    out = []
+    for v in [p["nombre"]] + list(p.get("variantes_nombre") or []):
+        f, last = person_key(v)
+        if f and last:
+            out.append(f"{f} {last}")
+    sur = person_key(p["nombre"])[1]
+    if sur and sum(1 for q in people if person_key(q["nombre"])[1] == sur) == 1:
+        out.append(sur)
+    return list(dict.fromkeys(out))
+
+
+def _names_in(terms: list[str], text: str) -> bool:
+    t = " " + re.sub(r"[^a-z0-9ñ]+", " ", _ascii(str(text or "")).lower()) + " "
+    return any(f" {x} " in t for x in terms)
+
+
+def presence_v3(pool: dict[str, Any], texts: dict[str, "DocText"], log: list[str] | None = None) -> None:
+    """In place: `presente_en` = los eventos de la cronología donde la persona está DE VERDAD: la cita literal del evento
+    (o su texto) la nombra, o el evento está en el mismo párrafo del documento que una mención suya (±PRESENCE_WINDOW
+    caracteres de su posición). Nunca por fechas ni rangos (`fechas_presente` queda como dato del modelo, sin usar).
+    `testigo`: lo marcó el modelo o dice una cita de testigo."""
+    people = pool.get("personajes") or []
+    crono = pool.get("cronologia") or []
+    for p in people:
+        terms = name_terms(p, people)
+        pos: dict[str, list[int]] = {}
+        for did, dt in texts.items():
+            low = _ascii(dt.text).lower()                 # _ascii conserva el largo (una letra por letra)
+            hits = []
+            for x in terms:
+                pat = r"\b" + r"[ .]+".join(re.escape(w) for w in x.split()) + r"\b"
+                hits += [m.start() for m in re.finditer(pat, low)]
+            pos[did] = sorted(hits)
+        ids = []
+        for c in crono:
+            refs = c.get("evidencia") or [{"doc_id": c.get("doc_id"), "offset": c.get("offset"),
+                                           "cita_literal": c.get("cita_literal")}]
+            if _names_in(terms, c.get("evento")) or any(
+                    _names_in(terms, r.get("cita_literal")) or any(abs(k - (r.get("offset") or -10 ** 9))
+                                                                   <= PRESENCE_WINDOW for k in pos.get(r.get("doc_id"), []))
+                    for r in refs):
+                ids.append(c["id"])
+        p["presente_en"] = ids
+        p["testigo"] = bool(p.get("testigo") or any(q.get("testimonio") and same_person(q.get("autor") or "", p["nombre"])
+                                                    for q in pool.get("citas") or []))
+        p.setdefault("fechas_presente", [])
+    if log is not None:
+        log.append(f"  [R4] presencia por párrafo: {sum(len(p['presente_en']) for p in people)} vínculos persona-evento "
+                   f"({sum(1 for p in people if p['presente_en'])} personas con alguno)")
+
+
+SUBJECT_RE_DEFAULT = (r"\b(OPP|Prisi[oó]n Parroquial de Orleans|Orleans Parish Prison|c[aá]rcel de (?:Nueva )?Orleans|"
+                      r"complejo carcelario)\b")
+_OTHER_PLACE = re.compile(r"\b(Hunt|Angola|Jena|Elayn|Rapides|Templeman (?:I|II|III|IV|V)\b|Conchetta|paso elevado|"
+                          r"overpass)", re.I)
+# la cifra se ATRIBUYE a una fuente oficial («según el sheriff», «el conteo oficial de 6375»), no solo la nombra («el
+# sheriff tenía 3 botes para casi 7000 presos»)
+_OFFICIAL_SAYS = re.compile(r"seg[uú]n (?:el |la |las |los )?(?:sheriff|alguacil|estad[ií]sticas|registros|cifras? "
+                            r"oficial)|conteo oficial|cifra oficial|estad[ií]sticas del (?:sheriff|alguacil)|"
+                            r"oficialmente|registros oficiales", re.I)
+POP_BAND = (0.6, 1.4)                    # el conteo total: dentro de 0.6–1.4 × la mediana (fuera los subconjuntos)
+
+
+def population_canon(pool: dict[str, Any], docs: list[dict], subject_re: str = SUBJECT_RE_DEFAULT,
+                     log: list[str] | None = None) -> dict[str, Any] | None:
+    """La cifra de POBLACIÓN del lugar del video con TODAS sus variantes y su fuente (6,295 / 6,375 / 6,500 / 8,000…):
+    datos con un conteo ≥ 1000 de personas (`count_value`) que nombran al sujeto (`subject_re`), no hablan de otro
+    lugar (Hunt, el paso elevado, un edificio) y caen en POP_BAND × la mediana (fuera los subconjuntos: los 2,000 presos
+    del DOC, los 1,300 evacuados que escribieron). Oficial = la de un documento informe_oficial / fallo_judicial / foia,
+    primero la que se atribuye al sheriff o a registros oficiales; si no hay, `oficial: None` y `sin_oficial: true`
+    (la voz dice «según <fuente>»). Devuelve el grupo (o None) para ponerlo primero en `cifras_canonicas`."""
+    meta = {d["id"]: d for d in docs}
+    rows = []
+    for d in pool.get("datos") or []:
+        cv = count_value(d["texto"])
+        about = re.search(subject_re, d["texto"], re.I) or _OFFICIAL_SAYS.search(d["texto"])   # «del sheriff»
+        if not cv or cv[1] < 1000 or not about or _OTHER_PLACE.search(d["texto"]):
+            continue
+        m = meta.get(d["doc_id"]) or {}
+        rows.append({"id": d["id"], "valor": cv[0], "n": cv[1], "doc_id": d["doc_id"],
+                     "fuente": f"{m.get('titulo') or d['doc_id']} ({m.get('anio') or 's/f'})", "tipo_doc": m.get("tipo"),
+                     "texto": d["texto"], "atribuida_oficial": bool(_OFFICIAL_SAYS.search(d["texto"]))})
+    if rows:
+        ns = sorted(r["n"] for r in rows)
+        med = ns[len(ns) // 2]
+        rows = [r for r in rows if POP_BAND[0] * med <= r["n"] <= POP_BAND[1] * med]
+    if len({r["n"] for r in rows}) < 2:
+        return None
+    of = sorted([r for r in rows if r["tipo_doc"] in OFFICIAL_TIPOS],
+                key=lambda r: (not r["atribuida_oficial"], _doc_rank(meta.get(r["doc_id"], {"id": r["doc_id"]}))))
+    o = of[0] if of else None
+    var = []
+    for r in sorted(rows, key=lambda r: (r["n"], r["id"])):
+        if o and r["id"] == o["id"]:
+            continue
+        est = "oficial (mismo valor)" if o and r["n"] == o["n"] else f"según {r['fuente']}"
+        var.append({"id": r["id"], "valor": r["valor"], "estatus": est, "fuente": r["fuente"], "texto": r["texto"]})
+    for r in rows:
+        d = next(x for x in pool["datos"] if x["id"] == r["id"])
+        d["estatus"] = "oficial" if o and (r["id"] == o["id"] or r["n"] == o["n"]) else f"según {r['fuente']}"[:140]
+    g = {"tipo": "poblacion", "oficial": o["id"] if o else None, "valor": o["valor"] if o else None,
+         "fuente": o["doc_id"] if o else None, "fuente_titulo": o["fuente"] if o else None, "sin_oficial": o is None,
+         "variantes": var}
+    if log is not None:
+        log.append(f"  [R4] población: oficial {g['valor']} ({g['fuente']}) · variantes "
+                   f"{[(v['valor'], v['id']) for v in var]}" if o else
+                   f"  [R4] población SIN OFICIAL: {[(v['valor'], v['fuente']) for v in var]}")
+    return g
+
+
+DIGEST_VERSION = "f7c-1"
+DIGEST_DATOS_POR_DOC = 25
+DIGEST_CRONO_SIN_HORA = 20
+DIGEST_CITAS_ANONIMAS = 10
+DIGEST_CITAS_CON_NOMBRE = 12
+DIGEST_LUGARES = 30
+DIGEST_FUENTE_CHARS = 40
+
+
+def _short_src(fuente: str | None) -> str:
+    """«Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina, 2006» → «Abandoned & Abused:
+    Orleans Parish Prisoners…, 2006»: la fuente se repite en cada línea del digest; el título entero, en el pool."""
+    f = str(fuente or "")
+    head, _, year = f.rpartition(", ")
+    if not head:
+        head, year = f, ""
+    head = head if len(head) <= DIGEST_FUENTE_CHARS else head[:DIGEST_FUENTE_CHARS].rstrip() + "…"
+    return head + (f", {year}" if year else "")
+
+
+def _q_line(q: dict) -> str:
+    v = (q.get("verificacion") or {}).get("estado")
+    tag = (" · TESTIMONIO (estuvo ahí)" if q.get("testimonio") else "") + (
+        "" if not v else " · VERIFICADA" if v == "verificada" else " · SIN VERIFICAR (se usa sin el nombre)")
+    rol = f" ({q['rol']})" if q.get("rol") else ""
+    return f'  [{q["id"]}] CITA: "{q["texto"]}" — {q.get("autor")}{rol}{tag} · fuente: {_short_src(q.get("fuente"))}'
+
+
+def _d_line(it: dict, kind: str) -> str:
+    if kind == "cronologia":
+        h = f" {it['hora']}" if it.get("hora") else ""
+        return f"  [{it['id']}] CRONO: {it['evento']} ({it['fecha']}{h}) · fuente: {_short_src(it.get('fuente'))}"
+    if kind == "lugares":
+        return f"  [{it['id']}] LUGAR: {it['nombre']}" + (f" — {it['rol']}" if it.get("rol") else "")
+    v = f" [valor: {it['valor']}]" if it.get("valor") else ""
+    n = f" · {it['n_fuentes']} documentos" if (it.get("n_fuentes") or 1) > 1 else ""
+    return f"  [{it['id']}] DATO: {it['texto']}{v}{n}"
+
+
+def build_digest(pool: dict[str, Any], docs: list[dict], *, event_year: int) -> dict[str, Any]:
+    """`pool["digest"]` (aditivo): la sección del pool que lee la escaleta cuando el pool es grande. Con ids reales del
+    pool (la escaleta y sus validadores siguen usando el pool entero):
+      personas    las elegibles como humano, completas (rol, testigo, verificado, en qué eventos estuvo, sus datos), y
+                  los antagonistas con ≥ 3 citas o datos; todas sus citas
+      citas       además, testimonios verificados: hasta DIGEST_CITAS_CON_NOMBRE de otros testigos con nombre y hasta
+                  DIGEST_CITAS_ANONIMAS sin nombre propio (los más confirmados, los más cortos)
+      cifras      las canónicas (la población primero, con todas sus variantes y fuente)
+      cronología  todos los eventos con hora + hasta DIGEST_CRONO_SIN_HORA del año del evento (los más confirmados)
+      lugares     los DIGEST_LUGARES más nombrados en datos y cronología
+      datos       por documento, hasta DIGEST_DATOS_POR_DOC (más documentos que lo confirman, cifras, personas
+                  elegibles), en el orden del documento
+    Devuelve {"version", "texto", "ids", "caracteres"}."""
+    meta = {d["id"]: d for d in docs}
+    people = pool.get("personajes") or []
+    chosen = [p for p in people if p.get("elegible_humano")] + [
+        p for p in people if p.get("antagonista") and (p.get("n_citas") or 0) + (p.get("n_datos") or 0) >= 3]
+    terms = {p["id"]: name_terms(p, people) for p in chosen}
+    ids: list[str] = []
+    L = ["PERSONAS (las elegibles como humano y los antagonistas; el resto del pool no se lista):"]
+    for p in chosen:
+        tags = [t for t, on in (("TESTIGO", p.get("testigo")), ("VERIFICADO", p.get("testigo_verificado")),
+                                ("ANTAGONISTA", p.get("antagonista")), ("ELEGIBLE COMO HUMANO", p.get("elegible_humano")))
+                if on]
+        own = [x["id"] for k in ("datos", "cronologia") for x in pool[k]
+               if _names_in(terms[p["id"]], x.get("texto") or x.get("evento"))][:12]
+        L.append(f"  [{p['id']}] PERSONA: {p['nombre']} — {p.get('rol') or ''} · {' · '.join(tags)}"
+                 + (f" · estuvo en {', '.join(p['presente_en'][:10])}" if p.get("presente_en") else "")
+                 + (f" · sus datos: {', '.join(own)}" if own else ""))
+        ids += [p["id"]] + own
+    L += ["", "CITAS (de esas personas; otros testigos con nombre y testimonios sin nombre, verificados):"]
+    qs = [q for q in pool["citas"] if any(same_person(q.get("autor") or "", p["nombre"]) for p in chosen)]
+    def _best(cands: list[dict], n: int) -> list[dict]:
+        return sorted([q for q in cands if q.get("testimonio") and q not in qs
+                       and (q.get("verificacion") or {}).get("estado") == "verificada"],
+                      key=lambda q: (-(q.get("n_fuentes") or 1), len(q["texto"])))[:n]
+    named = _best([q for q in pool["citas"] if is_named_person(q.get("autor") or "")], DIGEST_CITAS_CON_NOMBRE)
+    anon = _best([q for q in pool["citas"] if not is_named_person(q.get("autor") or "")], DIGEST_CITAS_ANONIMAS)
+    for q in qs + named + anon:
+        L.append(_q_line(q))
+        ids.append(q["id"])
+    L += ["", "CIFRAS CANÓNICAS:"]
+    for g in pool.get("cifras_canonicas") or []:
+        if g.get("tipo") == "poblacion":
+            head = (f"  POBLACIÓN: la OFICIAL es [{g['oficial']}] {g['valor']} ({g['fuente_titulo']}). Usá esa."
+                    if not g.get("sin_oficial") else "  POBLACIÓN: SIN CIFRA OFICIAL; la voz dice «según <fuente>».")
+            L.append(head)
+            L += [f"    variante [{v['id']}] {v['valor']} — {v['estatus']}" for v in g["variantes"]]
+        else:
+            L.append(f"  {g['valor']}: la OFICIAL es [{g['oficial']}]; variantes "
+                     + ", ".join(f"{v['id']} ({v['valor']}, {v['estatus']})" for v in g["variantes"]))
+        ids += [x for x in [g.get("oficial")] + [v["id"] for v in g["variantes"]] if x]
+    L += ["", "CRONOLOGÍA (con hora, y los días del evento más confirmados):"]
+    con = [c for c in pool["cronologia"] if c.get("hora")]
+    sin = sorted([c for c in pool["cronologia"] if not c.get("hora") and str(c["fecha"]).startswith(str(event_year))],
+                 key=lambda c: (-(c.get("n_fuentes") or 1), c["id"]))[:DIGEST_CRONO_SIN_HORA]
+    for c in sorted(con + sin, key=lambda c: (c["fecha"], c.get("hora") or "")):
+        L.append(_d_line(c, "cronologia"))
+        ids.append(c["id"])
+    blob = " ".join((x.get("texto") or x.get("evento") or "") for k in ("datos", "cronologia") for x in pool[k]).lower()
+    lug = sorted(pool["lugares"], key=lambda x: -blob.count(x["nombre"].lower()))[:DIGEST_LUGARES]
+    L += ["", f"LUGARES (los {DIGEST_LUGARES} más nombrados):"] + [_d_line(x, "lugares") for x in lug]
+    ids += [x["id"] for x in lug]
+    all_terms = [t for ts in terms.values() for t in ts]
+    L += ["", f"DATOS POR DOCUMENTO (hasta {DIGEST_DATOS_POR_DOC} por documento):"]
+    for did in sorted({d["doc_id"] for d in pool["datos"]}, key=lambda i: _doc_rank(meta.get(i, {"id": i}))):
+        ds = [d for d in pool["datos"] if d["doc_id"] == did]
+        sc = sorted(ds, key=lambda d: (-((d.get("n_fuentes") or 1) * 3
+                                         + 2 * (d.get("tipo") in ("cifra", "magnitud", "contradiccion"))
+                                         + 2 * _names_in(all_terms, d["texto"]) + bool(re.search(r"\d", d["texto"]))),
+                                       d.get("offset") or 0))[:DIGEST_DATOS_POR_DOC]
+        sc.sort(key=lambda d: d.get("offset") or 0)
+        m = meta.get(did) or {}
+        L.append(f"── {did}: {m.get('titulo')} ({m.get('tipo')}, {m.get('anio') or 's/f'}) — {len(sc)} de {len(ds)} datos")
+        L += [_d_line(d, "datos") for d in sc]
+        ids += [d["id"] for d in sc]
+    texto = "\n".join(L)
+    return {"version": DIGEST_VERSION, "texto": texto, "ids": list(dict.fromkeys(ids)), "caracteres": len(texto)}

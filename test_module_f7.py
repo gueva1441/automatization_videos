@@ -369,9 +369,10 @@ def test_people_names_and_eligibility():
     assert r3.is_named_person("Deputy Foster") and r3.is_named_person("Keanna Herbert")
     assert not r3.is_named_person("Abogado del Sheriff") and not r3.is_named_person("Oficiales en Conchetta")
     pool = {"datos": [{"texto": f"Bright vio el agua {i}"} for i in range(3)], "citas": [],
-            "cronologia": [{"id": "T01", "fecha": "2001-08-10", "evento": "Duncan muere"}],
+            "cronologia": [{"id": "T01", "fecha": "2001-08-10", "evento": "Duncan muere"},
+                           {"id": "T02", "fecha": "2005-08-29", "evento": "El agua sube"}],
             "personajes": [
-                {"nombre": "Dan Bright", "testigo": True, "fechas_presente": ["2005-08-29"], "presente_en": []},
+                {"nombre": "Dan Bright", "testigo": True, "fechas_presente": [], "presente_en": ["T02"]},
                 {"nombre": "Marlin Gusman", "testigo": True, "antagonista": True, "fechas_presente": ["2005-08-29"],
                  "presente_en": []},
                 {"nombre": "Shawn Duncan", "testigo": True, "fechas_presente": [], "presente_en": ["T01"]}]}
@@ -388,3 +389,75 @@ def test_count_value_takes_the_number_next_to_the_noun():
     assert r3.count_value("En junio había 6,295 reclusos; el promedio fue 5,919 reclusos.") is None   # dos: rango
     assert r3.count_value("En 1974 había 800 presos; en 2004, 6,500 presos.") == ("6,500", 6500)   # < 1000 no cuenta
     assert r3.count_value("La capacidad era de 8,000 camas.") is None
+
+
+# ── F7c: presencia por párrafo, población, digest ─────────────────────────────
+
+PRES_DOC = ("Tyrone Lewis was arrested in July. " + "x " * 400 + "\nOn August 29 the water rose in Templeman III. "
+            + "y " * 400 + "\nDuane Lewis, a deputy, stayed at his post on August 30. " + "z " * 400
+            + "\nOn September 1 the evacuation began from the overpass.")
+
+
+def _pres_pool():
+    def ev_(i, fecha, evento, lit):
+        return {"id": i, "fecha": fecha, "evento": evento, "doc_id": "F01", "offset": PRES_DOC.index(lit),
+                "cita_literal": lit, "evidencia": [{"doc_id": "F01", "offset": PRES_DOC.index(lit), "cita_literal": lit}]}
+    return {"datos": [], "citas": [], "lugares": [],
+            "cronologia": [ev_("T01", "2005-08-29", "El agua sube en Templeman III.", "On August 29 the water rose"),
+                           ev_("T02", "2005-08-30", "Un guardia se queda en su puesto.", "Duane Lewis, a deputy, stayed"),
+                           ev_("T03", "2005-09-01", "Empieza la evacuación.", "On September 1 the evacuation began")],
+            "personajes": [{"id": "P01", "nombre": "Tyrone Lewis", "testigo": True,
+                            "fechas_presente": ["2005-08-29", "2005-08-30", "2005-08-31", "2005-09-01"]},
+                           {"id": "P02", "nombre": "Duane Lewis", "testigo": True, "fechas_presente": []}]}
+
+
+def test_presence_by_paragraph_never_by_date_range():
+    pool = _pres_pool()
+    r3.presence_v3(pool, {"F01": r3.DocText("F01", PRES_DOC)})
+    p = {x["nombre"]: x["presente_en"] for x in pool["personajes"]}
+    assert p["Duane Lewis"] == ["T02"]                       # su cita literal lo nombra
+    assert p["Tyrone Lewis"] == []                           # sus fechas cubren T01–T03, pero ningún párrafo lo nombra
+    assert r3.name_terms(pool["personajes"][0], pool["personajes"]) == ["tyrone lewis"]   # «lewis» es ambiguo
+    near = PRES_DOC.replace("x " * 400, "x " * 100)        # Tyrone a < 500 caracteres del evento del agua
+    pool2 = _pres_pool()
+    for c in pool2["cronologia"]:
+        c["evidencia"][0]["offset"] = near.index(c["cita_literal"])
+    r3.presence_v3(pool2, {"F01": r3.DocText("F01", near)})
+    assert pool2["personajes"][0]["presente_en"] == ["T01"]
+
+
+def test_population_canon_lists_all_variants_with_source():
+    docs = [{"id": "F01", "titulo": "ACLU", "tipo": "informe_oficial", "anio": 2006, "prioridad": 1, "url": "u"},
+            {"id": "F08", "titulo": "Vera", "tipo": "informe_oficial", "anio": 2015, "prioridad": 1, "url": "v"},
+            {"id": "F10", "titulo": "The Lens", "tipo": "prensa_posterior", "anio": 2025, "prioridad": 2, "url": "w"}]
+    pool = {"datos": [
+        {"id": "D01", "doc_id": "F01", "texto": "Según el sheriff, la OPP tenía 6375 presos el 29 de agosto."},
+        {"id": "D02", "doc_id": "F08", "texto": "El 30 de junio de 2005 había 6.295 reclusos en la Prisión Parroquial de Orleans."},
+        {"id": "D03", "doc_id": "F10", "texto": "La cárcel de Nueva Orleans tenía 6,500 presos."},
+        {"id": "D04", "doc_id": "F01", "texto": "En Hunt, 5,000 presos de la OPP esperaron en un patio."},     # otro lugar
+        {"id": "D05", "doc_id": "F10", "texto": "6.375 personas estaban detenidas en la OPP."}]}
+    g = r3.population_canon(pool, docs)
+    assert g["oficial"] == "D01" and g["valor"] == "6375" and not g["sin_oficial"]
+    assert {v["valor"] for v in g["variantes"]} == {"6.295", "6,500", "6.375"}
+    assert next(v for v in g["variantes"] if v["id"] == "D03")["estatus"] == "según The Lens (2025)"
+    assert next(v for v in g["variantes"] if v["id"] == "D05")["estatus"] == "oficial (mismo valor)"
+    docs2 = [{**d, "tipo": "prensa_posterior"} for d in docs]
+    g2 = r3.population_canon(copy.deepcopy(pool), docs2)
+    assert g2["sin_oficial"] and g2["oficial"] is None
+    assert all(v["estatus"].startswith("según ") for v in g2["variantes"])
+
+
+def test_digest_has_real_ids_and_escaleta_uses_it(monkeypatch):
+    from script_engine import m01a_escaleta as me
+    pool = r3.build_pool(_per_doc(), DOCS, _texts(), event_year=2005)
+    dg = pool["digest"]
+    its = {it["id"] for k in r3.KINDS for it in pool[k]}
+    assert dg["ids"] and set(dg["ids"]) <= its and "DATOS POR DOCUMENTO" in dg["texto"]
+    topic = {"id": "t", "video_title": "OPP", "evidence_pool": pool, "verified_facts": []}
+    assert dg["texto"] in me.build_prompt(topic, pool)
+    monkeypatch.setenv("ESCALETA_DIGEST", "0")
+    assert dg["texto"] not in me.build_prompt(topic, pool)
+    old = {k: v for k, v in pool.items() if k != "digest"}
+    monkeypatch.delenv("ESCALETA_DIGEST")
+    assert me.pool_section(old) == me.pool_section({**old})                 # sin digest: el camino de siempre
+    assert "DATOS, CRONOLOGÍA Y LUGARES" in me.pool_section(old)
