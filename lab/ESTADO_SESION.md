@@ -30,7 +30,7 @@
 
   Tanda US$ 1.204 de 2.00. Ninguna final cumple 1,350–1,700: **la pasada del editor m01c recorta ≈ 220–270 palabras de los GPT**. Los crudos de Sol y Astra cumplen. Decide Omar con el analista; no se tocó la ronda.
 - D80/D81/D97: el ancla «1» (de «A-1» en el texto) se expande a «una/uno» y matchea cualquier artículo; D97 tiene valor «una». No se parcheó.
-- No se pisó F11, `_v1`, `_ajuste` ni `topics_db`. Sin merge. **No seguir a producción.**
+- No se pisó F11, `_v1`, `_ajuste` ni `topics_db`. Sin merge. **No seguir a producción.** Commit `4fe4db7`. Revisor: CUMPLE CON OBSERVACIONES.
 
 ## F11 — Guion v4 (menos reglas, oficio, reparar por edición) — HECHO, **NO cumple el criterio → PARADA** (el analista lee del disco)
 - Handoff `lab/hyperframes/f11/HANDOFF_F11_guion_v4.md`. Reporte `lab/hyperframes/f11/F11_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_v3_v4.html` (teléfono OK). Textos: `NARRACION_{orleans,ycua}_v4{A,B}.md`.
