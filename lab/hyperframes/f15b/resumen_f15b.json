@@ -1,0 +1,473 @@
+[
+ {
+  "tema": "ycua",
+  "clave": "f15",
+  "nombre": "F15 · v5",
+  "usd": 0.8713,
+  "error": null,
+  "palabras": 755,
+  "minutos": 6.1,
+  "palabras_por_cap": {
+   "1": [
+    72,
+    110
+   ],
+   "2": [
+    151,
+    250
+   ],
+   "3": [
+    102,
+    250
+   ],
+   "4": [
+    72,
+    250
+   ],
+   "5": [
+    132,
+    250
+   ],
+   "6": [
+    127,
+    250
+   ],
+   "7": [
+    99,
+    140
+   ]
+  },
+  "parrafos": 37,
+  "frases_por_parrafo": 2.0,
+  "de_una_frase": 14,
+  "por_cap": {
+   "1": {
+    "parrafos": 3,
+    "frases_por_parrafo": 2.3,
+    "de_una_frase": 0
+   },
+   "2": {
+    "parrafos": 5,
+    "frases_por_parrafo": 2.6,
+    "de_una_frase": 1
+   },
+   "3": {
+    "parrafos": 6,
+    "frases_por_parrafo": 1.8,
+    "de_una_frase": 4
+   },
+   "4": {
+    "parrafos": 4,
+    "frases_por_parrafo": 1.5,
+    "de_una_frase": 3
+   },
+   "5": {
+    "parrafos": 8,
+    "frases_por_parrafo": 1.9,
+    "de_una_frase": 4
+   },
+   "6": {
+    "parrafos": 6,
+    "frases_por_parrafo": 2.0,
+    "de_una_frase": 1
+   },
+   "7": {
+    "parrafos": 5,
+    "frases_por_parrafo": 2.0,
+    "de_una_frase": 1
+   }
+  },
+  "escenas_usadas": [],
+  "escena_gancho": null,
+  "escena_pico": null,
+  "bloqueantes": [],
+  "duras_v3": 31,
+  "citas": 10,
+  "preguntas": 0,
+  "frases_analista": {
+   "los datos": 0,
+   "el testimonio": 0,
+   "la frase señala": 0,
+   "no permiten explicar": 0
+  },
+  "humano": "Liz Torres",
+  "humano_caps": [
+   1
+  ],
+  "pico": {
+   "beat": 8,
+   "id": "Q20",
+   "texto": "Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...",
+   "por_que": "Es el momento en que la huida se detiene y el peligro se vuelve inescapable. La protagonista cree que va a morir, rodeada por los gritos que se apagan. Es el clímax del horror."
+  },
+  "avisos": [
+   "pregunta de pantalla del cap 2 «¿Por qué sonaban las alarmas?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+  ],
+  "cierre": "cita",
+  "embudo": {
+   "pool": 509,
+   "seleccion": 314,
+   "escaleta": 46,
+   "guion": 11
+  }
+ },
+ {
+  "tema": "ycua",
+  "clave": "f15b",
+  "nombre": "F15b · v5.1 sobre la escaleta F15 (la F15b no salió)",
+  "usd": 0.9518,
+  "error": null,
+  "palabras": 858,
+  "minutos": 7.0,
+  "palabras_por_cap": {
+   "1": [
+    87,
+    110
+   ],
+   "2": [
+    188,
+    250
+   ],
+   "3": [
+    110,
+    250
+   ],
+   "4": [
+    83,
+    250
+   ],
+   "5": [
+    155,
+    250
+   ],
+   "6": [
+    106,
+    250
+   ],
+   "7": [
+    129,
+    140
+   ]
+  },
+  "parrafos": 20,
+  "frases_por_parrafo": 4.0,
+  "de_una_frase": 3,
+  "por_cap": {
+   "1": {
+    "parrafos": 2,
+    "frases_por_parrafo": 3.5,
+    "de_una_frase": 0
+   },
+   "2": {
+    "parrafos": 3,
+    "frases_por_parrafo": 4.7,
+    "de_una_frase": 0
+   },
+   "3": {
+    "parrafos": 3,
+    "frases_por_parrafo": 3.7,
+    "de_una_frase": 1
+   },
+   "4": {
+    "parrafos": 3,
+    "frases_por_parrafo": 2.7,
+    "de_una_frase": 1
+   },
+   "5": {
+    "parrafos": 4,
+    "frases_por_parrafo": 4.2,
+    "de_una_frase": 1
+   },
+   "6": {
+    "parrafos": 2,
+    "frases_por_parrafo": 5.0,
+    "de_una_frase": 0
+   },
+   "7": {
+    "parrafos": 3,
+    "frases_por_parrafo": 4.3,
+    "de_una_frase": 0
+   }
+  },
+  "escenas_usadas": [],
+  "escena_gancho": null,
+  "escena_pico": null,
+  "bloqueantes": [],
+  "duras_v3": 32,
+  "citas": 9,
+  "preguntas": 0,
+  "frases_analista": {
+   "los datos": 0,
+   "el testimonio": 0,
+   "la frase señala": 0,
+   "no permiten explicar": 0
+  },
+  "humano": "Liz Torres",
+  "humano_caps": [
+   1
+  ],
+  "pico": {
+   "beat": 8,
+   "id": "Q20",
+   "texto": "Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...",
+   "por_que": "Es el momento en que la huida se detiene y el peligro se vuelve inescapable. La protagonista cree que va a morir, rodeada por los gritos que se apagan. Es el clímax del horror."
+  },
+  "avisos": [
+   "pregunta de pantalla del cap 2 «¿Por qué sonaban las alarmas?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+  ],
+  "cierre": "cita",
+  "embudo": {
+   "pool": 509,
+   "seleccion": 319,
+   "escaleta": 46,
+   "guion": 11
+  }
+ },
+ {
+  "tema": "orleans",
+  "clave": "f15",
+  "nombre": "F15 · v5",
+  "usd": 1.2447,
+  "error": null,
+  "palabras": 866,
+  "minutos": 7.0,
+  "palabras_por_cap": {
+   "1": [
+    77,
+    110
+   ],
+   "2": [
+    149,
+    250
+   ],
+   "3": [
+    125,
+    250
+   ],
+   "4": [
+    136,
+    250
+   ],
+   "5": [
+    159,
+    250
+   ],
+   "6": [
+    145,
+    250
+   ],
+   "7": [
+    75,
+    140
+   ]
+  },
+  "parrafos": 32,
+  "frases_por_parrafo": 2.2,
+  "de_una_frase": 7,
+  "por_cap": {
+   "1": {
+    "parrafos": 3,
+    "frases_por_parrafo": 1.7,
+    "de_una_frase": 1
+   },
+   "2": {
+    "parrafos": 6,
+    "frases_por_parrafo": 2.5,
+    "de_una_frase": 1
+   },
+   "3": {
+    "parrafos": 4,
+    "frases_por_parrafo": 2.8,
+    "de_una_frase": 0
+   },
+   "4": {
+    "parrafos": 5,
+    "frases_por_parrafo": 2.0,
+    "de_una_frase": 0
+   },
+   "5": {
+    "parrafos": 5,
+    "frases_por_parrafo": 2.8,
+    "de_una_frase": 0
+   },
+   "6": {
+    "parrafos": 6,
+    "frases_por_parrafo": 2.0,
+    "de_una_frase": 3
+   },
+   "7": {
+    "parrafos": 3,
+    "frases_por_parrafo": 1.3,
+    "de_una_frase": 2
+   }
+  },
+  "escenas_usadas": [
+   2,
+   3,
+   5,
+   7,
+   10
+  ],
+  "escena_gancho": null,
+  "escena_pico": 7,
+  "bloqueantes": [],
+  "duras_v3": 36,
+  "citas": 9,
+  "preguntas": 0,
+  "frases_analista": {
+   "los datos": 0,
+   "el testimonio": 0,
+   "la frase señala": 0,
+   "no permiten explicar": 0
+  },
+  "humano": "Brady Richard",
+  "humano_caps": [
+   1,
+   2,
+   4,
+   5,
+   7
+  ],
+  "pico": {
+   "beat": 9,
+   "id": "D155",
+   "texto": "Otras reclusas se turnaron para sostener a Iris Hardeman en Central Lock-Up, ya que era demasiado débil para mantenerse de pie sobre el agua.",
+   "por_que": "Una reclusa enferma, demasiado débil para sostenerse, es mantenida a flote por sus compañeras en agua contaminada hasta el pecho. Es la imagen más potente del abandono y la solidaridad en medio del desastre."
+  },
+  "avisos": [
+   "pregunta de pantalla del cap 3 «¿Quién apagó las luces?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+   "pregunta de pantalla del cap 6 «¿Dónde están los quinientos diecisiete?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+   "beat 8: vuelve atrás en el tiempo (2005-08-29 < 2005-08-30)"
+  ],
+  "cierre": "cita",
+  "embudo": {
+   "pool": 1033,
+   "seleccion": 363,
+   "escaleta": 47,
+   "guion": 10
+  }
+ },
+ {
+  "tema": "orleans",
+  "clave": "f15b",
+  "nombre": "F15b · v5.1",
+  "usd": 0.3692,
+  "error": null,
+  "palabras": 867,
+  "minutos": 7.0,
+  "palabras_por_cap": {
+   "1": [
+    65,
+    110
+   ],
+   "2": [
+    111,
+    250
+   ],
+   "3": [
+    145,
+    250
+   ],
+   "4": [
+    143,
+    250
+   ],
+   "5": [
+    213,
+    250
+   ],
+   "6": [
+    119,
+    250
+   ],
+   "7": [
+    71,
+    140
+   ]
+  },
+  "parrafos": 19,
+  "frases_por_parrafo": 3.9,
+  "de_una_frase": 3,
+  "por_cap": {
+   "1": {
+    "parrafos": 2,
+    "frases_por_parrafo": 3.5,
+    "de_una_frase": 0
+   },
+   "2": {
+    "parrafos": 2,
+    "frases_por_parrafo": 5.5,
+    "de_una_frase": 0
+   },
+   "3": {
+    "parrafos": 2,
+    "frases_por_parrafo": 5.5,
+    "de_una_frase": 0
+   },
+   "4": {
+    "parrafos": 3,
+    "frases_por_parrafo": 3.7,
+    "de_una_frase": 1
+   },
+   "5": {
+    "parrafos": 5,
+    "frases_por_parrafo": 3.8,
+    "de_una_frase": 1
+   },
+   "6": {
+    "parrafos": 3,
+    "frases_por_parrafo": 3.0,
+    "de_una_frase": 1
+   },
+   "7": {
+    "parrafos": 2,
+    "frases_por_parrafo": 3.5,
+    "de_una_frase": 0
+   }
+  },
+  "escenas_usadas": [
+   9,
+   11
+  ],
+  "escena_gancho": null,
+  "escena_pico": 9,
+  "bloqueantes": [],
+  "duras_v3": 31,
+  "citas": 6,
+  "preguntas": 0,
+  "frases_analista": {
+   "los datos": 0,
+   "el testimonio": 0,
+   "la frase señala": 0,
+   "no permiten explicar": 0
+  },
+  "humano": "Edward “Edgar” Burton",
+  "humano_caps": [
+   1,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "pico": {
+   "beat": 8,
+   "id": "D155",
+   "texto": "Otras reclusas se turnaron para sostener a Iris Hardeman en Central Lock-Up, ya que era demasiado débil para mantenerse de pie sobre el agua.",
+   "por_que": "Es el momento de mayor vulnerabilidad y humanidad. La supervivencia de una mujer enferma depende enteramente de la solidaridad de otras presas, en medio del caos y el abandono institucional. Es el punto donde el colapso sistémico se convierte en una lucha física por cada respiro."
+  },
+  "avisos": [
+   "pregunta de pantalla del cap 3 «¿Quién apagó las luces?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+   "pregunta de pantalla del cap 5 «¿Adónde los llevaron a todos?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+   "pregunta de pantalla del cap 6 «¿Dónde están los quinientos?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+   "gancho sin escena de la ficha"
+  ],
+  "cierre": "cita",
+  "embudo": {
+   "pool": 1033,
+   "seleccion": 366,
+   "escaleta": 51,
+   "guion": 10
+  }
+ }
+]

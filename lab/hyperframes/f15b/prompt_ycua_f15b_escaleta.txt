@@ -1,0 +1,552 @@
+===== SISTEMA (md5 694bd28816d6c57682b98146db53fd0d) =====
+Sos el guionista jefe de un canal de documentales de misterio en YouTube. Antes de que nadie escriba una línea, decidís la HISTORIA: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea y por qué se queda al segundo siguiente. Trabajás SOLO con la investigación que te dan: no inventás nombres, cifras, fechas ni citas. Respondés SOLO JSON.
+
+===== USUARIO, intento 1 (md5 d0f68f3d604f3f490ab49e1dd1d0640b) =====
+TEMA DEL VIDEO: Ycuá Bolaños: el domingo que cerraron las puertas
+Ángulo: La tragedia del 1 de agosto de 2004 dejó 244 heridos y 204 huérfanos. Tatiana Gabaglio sobrevivió con 7 años perdiendo una pierna, y Cristian Sosa estuvo 22 días en coma.
+Hook del research: El 1 de agosto de 2004, 400 personas murieron: las puertas se cerraron.
+Misterio: ¿Cómo 400 personas quedaron atrapadas por las puertas cerradas del Ycuá Bolaños?
+Revelación: El dueño Juan Pío Paiva fue condenado a 12 años de cárcel por las puertas cerradas.
+
+═══ INVESTIGACIÓN (EVIDENCE POOL): la ÚNICA fuente de nombres, cifras, fechas y citas ═══
+FICHA DEL CASO (el research depurado: la única fuente; los ids son los del pool)
+
+HISTORIA:
+  HUMANOS CANDIDATOS (el humano se elige entre estos; si elegís otro, explicá por qué en `justificacion_humano`):
+    [D01, D03, D04, D05, D08, P01, Q01] Tatiana Gabaglio — Sobreviviente que era una niña cuando ocurrió el incendio. · Entra al supermercado siendo niña, queda atrapada bajo un panel derretido y pierde una pierna, y después estudia Derecho y llega a ejercer como abogada mientras denuncia la falta de reparación. · citas verificadas: 3
+    [T02, D110, D111, D116, Q24, Q36, Q37] Mariana Aquino de Chamorro — Madre de un empleado fallecido. · Recibe el primer sueldo de su hijo recién incorporado al supermercado, lo pierde en el incendio y pasa a acompañar en la calle a los grupos que reclaman justicia. · citas verificadas: 3
+    [T14, T19, T24, T25, T27, P42, Q39, Q49] Blas Cristaldo — Viudo de Estela y miembro del Colectivo Ni Olvido Ni Perdón; sus citas del pool están verificadas solo parcialmente. · Se queda trabajando mientras Estela sale con amigos, descubre que estuvo en el supermercado y termina retirando su cuerpo, para después integrarse al reclamo colectivo. · citas verificadas: 0
+    [P13, P80, Q19, Q20, Q77, Q78, Q12, Q14] Liz Torres — Sobreviviente y activista de organizaciones de víctimas. · Va al supermercado con su esposo, queda atrapada bajo una avalancha humana y es rescatada, y después transforma esa supervivencia en una lucha por justicia, memoria y seguridad. · citas verificadas: 4
+  GIROS:
+    1. La jornada de compras se convierte en una huida cuando los testigos oyen una explosión y ven humo o llamas sobre el patio de comidas. [Q10, Q17, Q70]
+    2. La salida deja de ser una salida para quienes declaran haber encontrado cerrados el blíndex o el portón hacia Artigas; el estado de esos accesos será disputado por la pericia y la defensa. [Q18, D106, D31, D172]
+    3. Un boquete en la pared aparece como vía de supervivencia para personas que no habían podido salir por los accesos previstos. [D107, D147]
+    4. La búsqueda de familiares vivos se convierte en identificación y retiro de cuerpos para Blas Cristaldo. [T25, D137, D141, T27]
+    5. La lectura judicial de una pericia introduce una versión incompatible con los testimonios de cierre: los accesos de hierro de la rampa habrían estado abiertos. [T59, D25, D29, D30, D31]
+    6. La condena indemnizatoria reseñada en F10 llega con el principal demandado ya fallecido y con dudas de su abogado sobre la existencia de bienes para cobrar. [D186, D193, T75, P70]
+  PICO: Liz Torres queda atrapada entre cuerpos, siente el ambiente como un horno con cenizas y escucha gritos que se van apagando. — Es el momento en que la huida se detiene y el peligro deja de ser una amenaza próxima: la testigo cree que no saldrá viva mientras desaparecen las voces a su alrededor. [Q19, Q20, Q77]
+  PREGUNTA FINAL: ¿Podrán los sobrevivientes y familiares convertir las sentencias en una reparación económica efectiva, si el principal demandado murió y ni su abogado sabe si quedan bienes de la sociedad para cobrar? [Q01, Q02, D186, D193, T75, P70]
+
+ESCENAS (El beat 1 (gancho) y el beat del pico toman su `imagen_sensorial` de una escena de la ficha cuando hay una para ese momento; los demás beats, cuando sirva. El beat que usa una escena lleva su número en `escena_idx`.):
+  E1. Cena de amistad anterior al incendio. · Blas Cristaldo, Estela, Rubén y Teresa Urbieta y sus amigos. — El grupo cena y baila; al despedirse, Rubén le dice a Blas que lo quiere y le propone ir al barco. · se ve, se oye, se huele: Paella, sangría y vino mencionados en el relato; baile y palabras de despedida. [T03, D135]
+  E2. Casa de Ángela Pujol, antes de la salida al supermercado. · Yessica Vanessa y Yessica Natalia, recordadas por su madre. — La menor toma del brazo a su hermana y las dos salen a buscar comida y regalos. · se ve, se oye, se huele: El gesto visible de las hermanas saliendo tomadas del brazo. [Q08]
+  E3. Casa de Mariana, el sábado anterior a la tragedia. · Mariana Aquino de Chamorro y Mario Eduardo Chamorro. — Mario entrega a su madre su primer sueldo. · se ve, se oye, se huele: El dinero entregado y la frase recordada por Mariana: «Mamá, este es mi sueldo». [T02, D113, D110]
+  E4. Salón próximo al patio de comidas. · Víctor Galeano y otros compradores. — Galeano oye un ruido muy fuerte mientras las miradas se dirigen al sector de la parrilla. · se ve, se oye, se huele: Un sonido comparado con agua arrojada en aceite hirviendo y la vibración del sector de la parrilla. [Q17, D45, L13, L14]
+  E5. Patio de comidas del supermercado. · Cristian Sosa y personas que almorzaban. — Sosa ve caer las llamas sobre los comensales y describe un desbande. · se ve, se oye, se huele: Llamas cayendo sobre las personas y movimiento de huida. [Q70, T12]
+  E6. Caja de Beatriz González y recorrido hacia el estacionamiento. · Beatriz González. — La cajera abandona su puesto, salta y corre después de escuchar una explosión. · se ve, se oye, se huele: Explosión y una nube de humo negro que, según ella, cubría todo. [D17, Q10]
+  E7. Puerta de blíndex y sector próximo al estacionamiento. · Víctor Galeano y Santiago. — Galeano declara que el acceso está cerrado y cae con Santiago en brazos. · se ve, se oye, se huele: Un estruendo hacia el estacionamiento y humo que sube. [Q18, D47, D48]
+  E8. Interior del supermercado, en la concentración de personas que intentaban salir. · Liz Torres y otras personas atrapadas. — Torres siente que una avalancha la devuelve hacia adentro y cree que todos morirán. · se ve, se oye, se huele: Presión de cuerpos, calor comparado con un tatakua, cenizas y gritos que se van apagando. [Q19, Q20, Q77]
+  E9. Interior del supermercado en llamas. · Tatiana Gabaglio. — Un panel derretido del cielorraso cae sobre su pierna y la deja atrapada hasta que intervienen bomberos voluntarios. · se ve, se oye, se huele: La instalación ardiendo y el panel derretido sobre la pierna. [D03, D04]
+  E10. Bajada hacia el estacionamiento y boquete hacia Artigas. · Digna Felicia Cáceres. — Después de quedar trabada donde habían caído escombros, Cáceres despierta y distingue la abertura en la pared. · se ve, se oye, se huele: Escombros que tapan el paso, agua que aparentemente le arrojan desde arriba y claridad visible en el boquete. [D105, D107]
+  E11. Supermercado, al comenzar el derrumbe que recuerda Nelson Astigarraga. · Nelson Astigarraga. — Astigarraga oye un gran ruido y ve caer el techo. · se ve, se oye, se huele: Un estruendo que compara con el chorro de un avión por despegar. [T09]
+  E12. Estacionamiento abierto del supermercado, durante la identificación de víctimas. · Blas Cristaldo, su hija Mónica y el cuerpo de Estela. — El equipo organizado por Mónica encuentra a Estela y Blas termina retirando su cuerpo. · se ve, se oye, se huele: La mano y la oreja quemadas, una herida en la espalda, un golpe en el rostro y la ausencia de sus zapatos nuevos, según Cristaldo. [D141, D142, T27]
+  E13. Avenida Artigas, durante la movilización del 14 de agosto. · Participantes de la movilización. — Los manifestantes dan vueltas por la avenida en una marcha recordada como muy silenciosa. · se ve, se oye, se huele: Silencio y ausencia de bombos, según el testimonio. [T34]
+  E14. Patio de las luces del Memorial 1A. · Ángela Pujol. — Sentada en el memorial, Ángela cuenta que su historia termina allí. · se ve, se oye, se huele: La imagen documentada de Ángela sentada en el patio y sus palabras: «Mi historia termina acá». [P02, L03, Q07]
+
+PERSONAS:
+  [P01, D02, D08] PERSONA: Tatiana Gabaglio — Sobreviviente; sufrió la amputación de una pierna y posteriormente estudió Derecho y ejerció como abogada. · TESTIGO · VERIFICADO · datos que lo ponen en escena: D01, D02, D03, D04, D05, D08, T22, Q01, Q02, Q03 (repartilos en caps distintos)
+  [P02, P03, P04, Q08] PERSONA: Ángela Pujol — Madre de Yessica Vanessa y Yessica Natalia, fallecidas en el incendio. · TESTIGO · VERIFICADO · datos que lo ponen en escena: Q07, Q08 (repartilos en caps distintos) · nombre en el pool: Yessica Vanessa · nombre en el pool: Yessica Natalia
+  [P03, D15] PERSONA: Yessica Vanessa — Hija de Ángela Pujol; víctima fallecida.
+  [P04, D16] PERSONA: Yessica Natalia — Hija de Ángela Pujol; víctima fallecida.
+  [P05, Q10] PERSONA: Beatriz González — Cajera que relató haber abandonado su puesto y corrido hacia el estacionamiento. · TESTIGO · VERIFICADO · datos que lo ponen en escena: D17, D167, Q10 (repartilos en caps distintos)
+  [P06, P40, P61, D19, D185, D191] PERSONA: Juan Pío Helvidio Paiva Escobar — Propietario y principal accionista del supermercado; condenado en la causa penal y demandado por indemnizaciones. · TESTIGO · VERIFICADO · ANTAGONISTA · nombre en el pool: Juan Pío Paiva · datos que lo ponen en escena: D19, D20, D66, D77, D109, D156, D169, D173, D185, D186, D189, D191, D193, D215, D218, D222, T40, T53, T65, T70, T75, T76, Q23, Q54, Q62, Q63, Q64, Q68 (repartilos en caps distintos) · nombre en el pool: Pío Paiva
+  [P07, P28, P48, D20, D215] PERSONA: Víctor Daniel Paiva — Hijo del propietario y acusado en la causa principal; la identificación como Emiliano en F05 queda expresamente en contradicciones. · ANTAGONISTA · nombre en el pool: Emiliano Paiva · TESTIGO · datos que lo ponen en escena: D19, D20, D66, D77, D109, D156, D169, D173, D185, D186, D189, D191, D193, D215, D218, D222, T40, T53, T65, T70, T75, T76, Q23, Q54, Q62, Q63, Q64, Q68 (repartilos en caps distintos) · VERIFICADO · nombre en el pool: Daniel Paiva · datos que lo ponen en escena: D19, D20, D66, D77, D109, D156, D169, D173, D185, D186, D189, D191, D193, D215, D218, D222, T40, T53, T65, T70, T75, T76, Q23, Q54, Q62, Q63, Q64, Q68 (repartilos en caps distintos)
+  [P08] PERSONA: Jorge Alfonso — Vocero de la Fundación de Víctimas y padre de Guillermo Alfonso Ortíz. · TESTIGO · datos que lo ponen en escena: D18 (repartilos en caps distintos)
+  [P09, D18] PERSONA: Guillermo Alfonso Ortíz — Carritero del supermercado; víctima fallecida e hijo de Jorge Alfonso.
+  [P10, D21, D215] PERSONA: Daniel Areco — Guardia de seguridad condenado en la causa principal. · TESTIGO · ANTAGONISTA · datos que lo ponen en escena: D21, D66, D215, T65 (repartilos en caps distintos)
+  [P11, D22, D217] PERSONA: Humberto Casaccia — Directivo condenado por exposición de personas a lugares de trabajo peligrosos; las fuentes discrepan sobre la duración de la pena. · ANTAGONISTA
+  [P13, D212, Q78] PERSONA: Liz Torres — Sobreviviente y miembro de organizaciones de víctimas; esposa de Alfredo Vallovera. · TESTIGO · VERIFICADO · datos que lo ponen en escena: D210, D212, Q12, Q14, Q19, Q77 (repartilos en caps distintos)
+  [P14, Q12] PERSONA: Enrique Riera — Intendente de Asunción en la época del incendio, señalado por organizaciones de víctimas por la falta de controles. · ANTAGONISTA
+  [P15, Q12] PERSONA: Martín Burt — Intendente anterior a Riera; Liz Torres le atribuye la habilitación provisoria del local. · ANTAGONISTA
+  [P16, T54] PERSONA: Benedicto Pérez — Oficial inspector y perito de Formosa especializado en protección contra siniestros. · TESTIGO · VERIFICADO · datos que lo ponen en escena: D94, T54 (repartilos en caps distintos)
+  [P22, P95, T53, Q64] PERSONA: Luis Escobar Faella — Abogado defensor de Juan Pío Paiva. · VERIFICADO · nombre en el pool: Escobar Faella
+  [P25, D34] PERSONA: Mirta Elizabeth González — Madre que rescató a un adolescente cuyo padre había sufrido quemaduras en el incendio. · TESTIGO · datos que lo ponen en escena: D17, D167, Q10 (repartilos en caps distintos)
+  [P26, Q17, Q18] PERSONA: Víctor Galeano — Sobreviviente que describió el ruido inicial y su caída junto a una puerta de blíndex. · TESTIGO · VERIFICADO · datos que lo ponen en escena: Q17, Q18 (repartilos en caps distintos)
+  [P27, T43, D64] PERSONA: Alejandro Nissen — Abogado querellante de familias de víctimas.
+  [P29, P86, D220] PERSONA: Bernardo Ismachoviez — Director y arquitecto de la obra, posteriormente condenado como constructor; la grafía de su apellido no queda dirimida. · ANTAGONISTA · nombre en el pool: Bernardo Ismachowiez
+  [P30, P96, T30, Q40] PERSONA: Edgar Sánchez — Fiscal de la causa; denunció una presunta obstrucción policial de la investigación. · TESTIGO · ANTAGONISTA · datos que lo ponen en escena: D121, D145, T30, Q40 (repartilos en caps distintos) · VERIFICADO · nombre en el pool: Fiscal Edgar Sánchez · datos que lo ponen en escena: D121, D145, T30, Q40 (repartilos en caps distintos)
+  [P31, D67] PERSONA: Matilde Moreno — Fiscala vinculada a la investigación de responsabilidades municipales. · ANTAGONISTA
+  [P32, Q26] PERSONA: Amada Correa — Funcionaria que, según la exposición de la querella, avisó que algo ocurría en el techo. · TESTIGO · VERIFICADO · datos que lo ponen en escena: Q26 (repartilos en caps distintos)
+  [P33, D79] PERSONA: Rodas Cristaldo — Sobreviviente identificada solo por sus apellidos, con quemaduras graves según la querella. · TESTIGO · datos que lo ponen en escena: D79, D127, D134, D135, D141, D143, T03, T14, T24, T25, T26, T27, T50, Q42 (repartilos en caps distintos)
+  [P34] PERSONA: Hugo Cabral — Guardia de salón fallecido en el incendio. · TESTIGO
+  [P35] PERSONA: Leticia Lusich — Portera del supermercado. · TESTIGO
+  [P36, T07] PERSONA: Nicolás Núñez — Comisario que encabezó el contingente de Criminalística de Formosa para identificar víctimas. · TESTIGO · datos que lo ponen en escena: T07 (repartilos en caps distintos)
+  [P37, D92, D121] PERSONA: Teresa Sosa — Fiscala que participó en la investigación y en la coordinación de peritos. · TESTIGO · ANTAGONISTA · datos que lo ponen en escena: D121, D200, T12, Q70 (repartilos en caps distintos)
+  [P38, T44, D104] PERSONA: Alejandro Maciel — Médico siquiatra entrevistado sobre las consecuencias de la tragedia.
+  [P39, D105, D107, Q35] PERSONA: Digna Felicia Cáceres — Bioquímica y sobreviviente que describió el portón cerrado y su despertar frente a un boquete. · TESTIGO · datos que lo ponen en escena: D105, D106, D107, D108, D109, D191, D218, T18 (repartilos en caps distintos)
+  [P41, D110, D111] PERSONA: Mario Eduardo Chamorro — Empleado fallecido; hijo de Mariana Aquino de Chamorro. · TESTIGO · VERIFICADO · datos que lo ponen en escena: D110, D111, T16, T45, Q36 (repartilos en caps distintos)
+  [T45, Q24, Q36, Q37, D116] PERSONA: Mariana Aquino de Chamorro — Madre de Mario Eduardo Chamorro y participante en los reclamos de justicia.
+  [P42, P58, T14, T50, Q39] PERSONA: Blas Cristaldo — Ingeniero, viudo de Estela e integrante del Colectivo Ni Olvido Ni Perdón. · TESTIGO · datos que lo ponen en escena: D79, D127, D134, D135, D141, D143, T03, T14, T24, T25, T26, T27, T50, Q42 (repartilos en caps distintos) · nombre en el pool: Ingeniero Cristaldo · datos que lo ponen en escena: D79, D127, D134, D135, D141, D143, T03, T14, T24, T25, T26, T27, T50, Q42 (repartilos en caps distintos)
+  [P42, D134, D141, D144] PERSONA: Estela — Esposa de Blas Cristaldo; víctima fallecida. · TESTIGO · nombre en el pool: Blas Cristaldo · datos que lo ponen en escena: D79, D127, D134, D135, D141, D143, T03, T14, T24, T25, T26, T27, T50, Q42 (repartilos en caps distintos)
+  [P44, D119] PERSONA: Olindo López — Fiscal que inició la imputación del arquitecto, según los testimonios recopilados.
+  [P46, D121] PERSONA: Ismael Alcaraz — Guardia al que se atribuyó haber reconocido la recepción por radio de una orden de cierre. · TESTIGO · ANTAGONISTA · datos que lo ponen en escena: D121 (repartilos en caps distintos)
+  [P47, P97, D129, Q41] PERSONA: Fernando Ortiz Mieres — Exempleado sobreviviente con quemaduras graves. · TESTIGO · datos que lo ponen en escena: D129 (repartilos en caps distintos) · nombre en el pool: Fernando Ortiz · datos que lo ponen en escena: D18, D129 (repartilos en caps distintos)
+  [P49, Q42] PERSONA: Lili Cristaldo — Sobreviviente que intervino en una reunión de víctimas. · TESTIGO · VERIFICADO · datos que lo ponen en escena: D79, D127, D134, D135, D141, D143, T03, T14, T24, T25, T26, T27, T50, Q42 (repartilos en caps distintos)
+  [P50, Q44] PERSONA: Verónica Becker — Familiar que perdió a su esposo y a su hija. · TESTIGO · VERIFICADO · datos que lo ponen en escena: D51, D128, Q44 (repartilos en caps distintos)
+  [P51, Q30] PERSONA: Ignacio González — Sociólogo y antiguo residente de Santísima Trinidad. · TESTIGO · datos que lo ponen en escena: D17, D167, Q10 (repartilos en caps distintos)
+  [P52, D137] PERSONA: Rubén Urbieta — Amigo de Blas Cristaldo; víctima fallecida, identificada por su reloj según el testimonio de Cristaldo. · TESTIGO · datos que lo ponen en escena: D135, D137, D138, D139, D140, T03, T19, T24, T25, T26 (repartilos en caps distintos)
+  [T03, D140] PERSONA: Teresa Urbieta — Esposa de Rubén Urbieta; víctima fallecida.
+  [T19, D139] PERSONA: Adriana — Hija mayor de Rubén y Teresa Urbieta, mencionada en el relato de Blas Cristaldo.
+  [T19, D139, D140] PERSONA: Gaby — Hija menor de Rubén y Teresa Urbieta; víctima fallecida según el relato de Blas Cristaldo.
+  [P53, D145, D146, Q40] PERSONA: Juan Pereira — Comisario denunciado por presunta obstrucción de la investigación; el pool lo vincula con la empresa de seguridad Prevención. · ANTAGONISTA
+  [P54, D148, D149] PERSONA: Nelson Astigarraga — Ingeniero sobreviviente que perdió a su esposa, a su hijo y a su sobrina. · TESTIGO · datos que lo ponen en escena: D147, D148, D149, T09 (repartilos en caps distintos)
+  [P55, D150, D151] PERSONA: José Luis Simón — Sociólogo entrevistado sobre responsabilidades estatales y sociales.
+  [P56, T52, D163, D169] PERSONA: Juan Brizuela — Ingeniero fallecido; esposo de María Berzabé Meza. · TESTIGO · datos que lo ponen en escena: D158, D160, D163, D169, T23, T52, Q59, Q61, Q63 (repartilos en caps distintos)
+  [T36, T52, Q59, Q61, Q63] PERSONA: María Berzabé Meza Vda. de Brizuela — Viuda de Juan Brizuela y participante en los reclamos de justicia.
+  [P57, D167] PERSONA: Arístides González — Coordinador del Comité de Emergencia Nacional al que Berzabé solicitó ayuda.
+  [P62, D187, D188] PERSONA: María Estela Palacios Morínigo — Una de las tres hijas fallecidas del matrimonio Palacios Morínigo. · TESTIGO · datos que lo ponen en escena: D187, D188, D190, Q68 (repartilos en caps distintos)
+  [P62, D187, D188] PERSONA: María Estefanía Palacios Morínigo — Otra de las tres hijas fallecidas del matrimonio Palacios Morínigo; no es una variante de María Estela. · TESTIGO · nombre en el pool: María Estela Palacios Morínigo · datos que lo ponen en escena: D187, D188, D190, Q68 (repartilos en caps distintos)
+  [D187, D188] PERSONA: María del Carmen Palacios Morínigo — Otra de las tres hijas fallecidas del matrimonio Palacios Morínigo.
+  [D186, D187] PERSONA: Felipe De Jesús Palacios Giménez — Demandante indemnizado por sus lesiones y la muerte de sus hijas.
+  [D186, D187] PERSONA: María Estela Morínigo Giménez de Palacios — Esposa de Felipe De Jesús Palacios Giménez y demandante indemnizada.
+  [P63, D189] PERSONA: Enrique Mongelós — Juez que admitió en primera instancia la demanda del matrimonio Palacios Morínigo.
+  [P64, D191, D216, D218] PERSONA: María Victoria Cáceres de Paiva — Esposa de Juan Pío Paiva y directiva enjuiciada; absuelta en la causa por exposición a lugares de trabajo peligrosos. · nombre en el pool: María Victoria Cáceres
+  [P65, D189, D216, D218] PERSONA: Antoliana Burgos — Demandada y directiva enjuiciada; su nombre presenta una discrepancia no dirimida. · ANTAGONISTA
+  [P67] PERSONA: Alberto Martínez Simón — Ministro de la Corte que intervino en la revisión de la sentencia indemnizatoria.
+  [P70, Q68] PERSONA: Antonio Morínigo — Abogado que advirtió sobre la incertidumbre de hacer efectiva la indemnización. · VERIFICADO
+  [P71, D200, Q70] PERSONA: Cristian Sosa — Sobreviviente con quemaduras en manos, rostro y pulmones. · TESTIGO · VERIFICADO · datos que lo ponen en escena: D121, D200, T12, Q70 (repartilos en caps distintos)
+  [P72, T20, Q74] PERSONA: Julia López — Familiar de víctimas; hermana de María Angélica. · TESTIGO · VERIFICADO · datos que lo ponen en escena: D119, D201, T20 (repartilos en caps distintos)
+  [P73, D208, Q75] PERSONA: Angélica Roa — Sobreviviente y familiar de víctimas; sicóloga jubilada. · TESTIGO · VERIFICADO · datos que lo ponen en escena: D202, D208, Q75 (repartilos en caps distintos)
+  [P74, D203, Q74] PERSONA: María Angélica — Maestra de párvulos, hermana de Julia López y esposa de Gustavo Lima; víctima fallecida. · TESTIGO · datos que lo ponen en escena: D202, D203, D204, D208, T20, T32, T55, Q75 (repartilos en caps distintos)
+  [P74, P75, T55] PERSONA: Mara Angélica — Hija de María Angélica y Gustavo Lima; víctima fallecida, distinta de su madre. · TESTIGO · nombre en el pool: María Angélica · datos que lo ponen en escena: D202, D203, D204, D208, T20, T32, T55, Q75 (repartilos en caps distintos) · nombre en el pool: Gustavo Lima · datos que lo ponen en escena: D205, D206, T55, T56 (repartilos en caps distintos)
+  [P75, D204] PERSONA: Gustavo Lima — Esposo de María Angélica; víctima fallecida. · TESTIGO · datos que lo ponen en escena: D205, D206, T55, T56 (repartilos en caps distintos)
+  [P76, D205] PERSONA: Victorina Lima — Víctima fallecida cuyos restos fueron identificados posteriormente. · TESTIGO · datos que lo ponen en escena: D205, D206, T55, T56 (repartilos en caps distintos)
+  [P74, P77, D206] PERSONA: Juan Adolfo Lima — Hijo de María Angélica y Gustavo Lima; su cuerpo no fue hallado según F11. · TESTIGO · nombre en el pool: María Angélica · datos que lo ponen en escena: D202, D203, D204, D208, T20, T32, T55, Q75 (repartilos en caps distintos) · datos que lo ponen en escena: D205, D206, T55, T56 (repartilos en caps distintos)
+  [P78, T13] PERSONA: Carolina — Hermana de Angélica Roa y madre de Mara Soledad; víctima fallecida. · TESTIGO · nombre en el pool: Mara Soledad
+  [P78, D207] PERSONA: Mara Soledad — Hija de Carolina y sobrina de Angélica Roa; víctima del incendio. · TESTIGO
+  [P79, T13] PERSONA: Diana Benítez — Sobrina política de Angélica Roa; falleció en el hospital al día siguiente del incendio. · TESTIGO · datos que lo ponen en escena: T13 (repartilos en caps distintos)
+  [D207, D209] PERSONA: Melani — Niña fallecida cuya identificación se realizó mediante ADN.
+  [P80, D210, Q20] PERSONA: Alfredo Vallovera — Esposo de Liz Torres; ambos fueron rescatados. · TESTIGO · datos que lo ponen en escena: D210 (repartilos en caps distintos)
+  [P81, Q79] PERSONA: Tania Campos — Directora del Sitio de Memoria y Centro Cultural 1A – Ycuá Bolaños. · VERIFICADO
+  [P82, D218] PERSONA: Agustín Alfonzo — Directivo absuelto en la causa por exposición de personas a lugares de trabajo peligrosos. · ANTAGONISTA
+  [P83, D219] PERSONA: Jorge Gamarra Morínigo — Funcionario municipal condenado por producción de riesgos comunes. · ANTAGONISTA
+  [P84, D219] PERSONA: Jesús María Insaurralde — Funcionario municipal condenado por producción de riesgos comunes. · ANTAGONISTA
+  [P85, D219] PERSONA: Rodrigo Castillo Fraccia — Funcionario municipal condenado por producción de riesgos comunes. · ANTAGONISTA
+  [P87, T66] PERSONA: Hugo Morán — Juez que dictó la primera sentencia indemnizatoria reseñada en el pool.
+  [P88, D221] PERSONA: Emigdio Wendell — Demandante indemnizado por la muerte de familiares. · TESTIGO
+  [P89, D221] PERSONA: Nilda Ortellado — Demandante, esposa de Emigdio Wendell. · TESTIGO
+  [P90, D222] PERSONA: Miguel Ángel Rodas — Juez que dictó otra condena indemnizatoria contra los Paiva y la sociedad.
+  [P91] PERSONA: Pedro Ramón Ramírez Carballo — Demandante por la muerte de su hija, que trabajaba como cajera. · TESTIGO
+  [P91] PERSONA: Susana Acuña de Ramírez — Esposa de Pedro Ramón Ramírez Carballo y demandante por la muerte de su hija. · TESTIGO · nombre en el pool: Pedro Ramón Ramírez Carballo
+  [P92, Q80] PERSONA: Rubén Valdez — Jefe del Cuerpo de Bomberos Voluntarios del Paraguay. · VERIFICADO
+  [P93, Q81] PERSONA: Nelson Jara — Arquitecto y docente de seguridad contra incendios en FADA-UNA. · VERIFICADO
+  [P94, Q82] PERSONA: Carlos Halke — Director municipal de Prevención contra Incendios que describió la ausencia de inspección final. · VERIFICADO
+  [D26, T28] PERSONA: Victorino Martínez — Comisario que encabezó el trabajo de Criminalística de la Policía.
+  [T24] PERSONA: Juan Carlos Casco — Amigo que alertó a Blas Cristaldo sobre la posible presencia de Rubén Urbieta en el supermercado.
+  [D141] PERSONA: Mónica — Hija de Blas Cristaldo y Estela; organizó un equipo que encontró a su madre.
+  [Q18] PERSONA: Santiago — Persona a la que Víctor Galeano sostenía en brazos cuando cayó junto a la salida.
+  [T47, T49, D131] PERSONA: Latorre — Fiscal al que los familiares reclamaron reuniones y explicaciones.
+  [L24] PERSONA: Miguel Ángel Guillén — Propietario de la gomería utilizada para reuniones de afectados.
+  [D51] PERSONA: Karin Becker — Autora de la recopilación de entrevistas utilizada como F09.
+
+PERSONAS QUE EL RESEARCH DESCARTÓ Y LA HISTORIA NECESITA:
+  [T45, D110, D116, Q24, Q36, Q37] Mariana Aquino de Chamorro — Madre de Mario Eduardo Chamorro. · por qué hace falta: Su entrevista da un arco completo de trabajo, pérdida y reclamo, y permite recuperar citas erróneamente anonimizadas.
+  [T36, T52, Q59, Q61, Q63] María Berzabé Meza Vda. de Brizuela — Viuda de Juan Brizuela. · por qué hace falta: Es la fuente identificada para la historia de Brizuela y para el paso del encierro al reclamo colectivo.
+  [T19, T27, D141, D142] Estela — Esposa de Blas Cristaldo y víctima fallecida. · por qué hace falta: Su salida, búsqueda e identificación sostienen el arco de Blas y una de las escenas centrales.
+  [T03, T19, T26, D140] Teresa Urbieta — Amiga de Estela y esposa de Rubén Urbieta. · por qué hace falta: Conecta la despedida previa con el viaje de Estela y la identificación nocturna de víctimas.
+  [P80, D210, Q20] Alfredo Vallovera — Esposo de Liz Torres. · por qué hace falta: Permite identificar al Alfredo del relato y documentar que la pareja fue rescatada.
+  [Q18] Santiago — Acompañante al que Galeano llevaba en brazos. · por qué hace falta: Es indispensable para reproducir con precisión la escena de la caída, sin inventar en la ficha un parentesco no corroborado por el pasaje disponible.
+  [D186, D187] Felipe De Jesús Palacios Giménez — Demandante indemnizado. · por qué hace falta: Identifica al beneficiario de la resolución económica utilizada en el cierre.
+  [D186, D187] María Estela Morínigo Giménez de Palacios — Demandante indemnizada. · por qué hace falta: Permite distinguir la asignación individual de la indemnización total al matrimonio.
+  [D187, D188] María del Carmen Palacios Morínigo — Hija fallecida del matrimonio demandante. · por qué hace falta: Completa la identificación de las hijas y evita convertir nombres de hermanas en variantes de una sola persona.
+  [P78, D207, T13] Carolina — Hermana de Angélica Roa. · por qué hace falta: Permite reconstruir sin confusiones el grupo familiar separado durante la compra.
+  [D207, D209] Melani — Niña fallecida. · por qué hace falta: Su identificación por ADN aporta la duración de las consecuencias y una persona concreta detrás del conteo familiar.
+  [P91] Susana Acuña de Ramírez — Demandante por la muerte de su hija cajera. · por qué hace falta: Identifica a la otra integrante del matrimonio de una demanda indemnizatoria reseñada.
+  [T28, D26] Victorino Martínez — Jefe del trabajo de Criminalística de la Policía. · por qué hace falta: La pericia sobre las puertas es un giro central y el pasaje sí le atribuye la dirección del trabajo.
+  [T47, T49, D131] Latorre — Fiscal reclamado por organizaciones de víctimas. · por qué hace falta: La reunión frustrada y los reclamos posteriores requieren identificar al funcionario mencionado, aunque el pool no dé su nombre completo.
+  [D191, D216, D218] María Victoria Cáceres de Paiva — Directiva y esposa de Juan Pío Paiva. · por qué hace falta: Es necesaria para no atribuir a todos los directivos una condena y para distinguir el rechazo de la demanda civil.
+
+CRONOLOGÍA:
+  [T14] 1 de agosto de 2004 a las siete de la mañana por ahí (aproximada) — Blas Cristaldo se levanta y empieza a trabajar en su computadora.
+  [T14] 1 de agosto de 2004 a las nueve — Estela se levanta e invita a Blas Cristaldo a desayunar.
+  [T15, D73, D74] 1 de agosto de 2004 alrededor de las 9 de la mañana (aproximada) — Según la reconstrucción de la querella, ya se iniciaba el proceso de incendio que su relato vincula con las primeras explosiones.
+  [T16, T17] 1 de agosto de 2004 a las diez de la mañana — Mario Eduardo Chamorro entra a trabajar, según su madre.
+  [T19] 1 de agosto de 2004 a las diez y media — Teresa Urbieta y sus hijas pasan a buscar a Estela, según Blas Cristaldo.
+  [T20] 1 de agosto de 2004 11.10 — Julia López se despide de su hermana María Angélica.
+  [T21, T16, T20, D42] 1 de agosto de 2004 11:25 / 11 y 27 / diez minutos después de las 11.10 (aproximada) — Las fuentes sitúan de manera diferente el estallido o el momento principal del incendio; no hay una hora coincidente entre fuentes independientes.
+  [Q10, D42] 1 de agosto de 2004 No consta; durante el incendio — Beatriz González oye una explosión, ve humo negro y corre hacia el estacionamiento.
+  [Q18, D42] 1 de agosto de 2004 No consta; durante el incendio — Víctor Galeano declara que encuentra cerrado el blíndex y cae con Santiago en brazos después de un estruendo hacia el estacionamiento.
+  [Q19, Q20, D42] 1 de agosto de 2004 No consta; durante el incendio — Liz Torres queda atrapada entre personas y posteriormente es rescatada junto con su esposo.
+  [D03, D04, D01] 1 de agosto de 2004 No consta; durante el incendio — Tatiana Gabaglio queda atrapada bajo un panel derretido y es rescatada por bomberos voluntarios.
+  [D107, D42] 1 de agosto de 2004 No consta; durante el incendio — Digna Cáceres despierta después de que aparentemente le arrojaran agua y ve la claridad de un boquete hacia Artigas.
+  [D147] 1 de agosto de 2004 No consta; durante el incendio — Nelson Astigarraga relata que utilizó el boquete abierto debajo de una escalera para salir.
+  [T14] 1 de agosto de 2004 a las doce menos veinte — La madre de Blas Cristaldo lo llama y le pregunta si sabe lo que ocurre en el supermercado.
+  [T23] 1 de agosto de 2004 cerca de la una, las dos de la tarde (aproximada) — Las hermanas de Juan Brizuela consiguen entrar al Tropi Club y encuentran su cuerpo.
+  [T24] 1 de agosto de 2004 a las tres y media — Juan Carlos Casco llama a Blas Cristaldo y cuestiona su creencia de que Rubén Urbieta está en el río.
+  [T25] 1 de agosto de 2004 a las cuatro y cuarto — Cuando comienzan la búsqueda, Blas Cristaldo y sus acompañantes se enteran de que Rubén Urbieta ha sido identificado.
+  [T26] 1 de agosto de 2004 a las nueve de la noche — Blas Cristaldo se entera de que encontraron a Teresa y Gaby en el cuartel 4 de Mayo.
+  [T27, Q49] 1 de agosto de 2004 a las diez y media de la noche — Blas Cristaldo retira el cuerpo de Estela.
+  [T07] 1 de agosto de 2004 No consta — Se dispone el envío de peritos de Criminalística de Formosa para identificar víctimas; el pasaje no permite ubicarlos dentro de la secuencia horaria anterior.
+  [T13] al día siguiente del incendio No consta — Diana Benítez fallece en el hospital.
+  [T28, D26] entre el 2 y el 10 de agosto del 2004 No consta — Criminalística de la Policía realiza el trabajo pericial encabezado por Victorino Martínez.
+  [T29, D91] al otro día de la tragedia por la mañana — Llegan bomberos de Formosa y realizan una primera evaluación que considera un incendio y no un atentado.
+  [T30, D145] 2 de agosto No consta — Según el testimonio recogido en F09, Edgar Sánchez ya había denunciado que Juan Pereira obstruía la investigación.
+  [T32, D203] cinco días después del incendio No consta — Es hallada María Angélica.
+  [T34] 14 de agosto No consta — Se realiza una movilización silenciosa sobre Artigas.
+  [T36] octubre, después de agosto y setiembre No consta — La hija mayor de María Berzabé Meza la impulsa a salir de su encierro y acercarse a los grupos que exigen justicia.
+  [T40, T41, D66] 31 de diciembre No consta — La querella presenta acusación contra Juan Pío Paiva, Víctor Daniel Paiva y guardias, además de otra querella contra el arquitecto.
+  [T49] 17-01-05 19 hs. — Familiares y víctimas se reúnen en CONATEL; el fiscal Latorre, que había prometido asistir, manda decir que no irá.
+  [T55, D204] julio de 2005 No consta — Son identificados los restos de Gustavo Lima y de su hija.
+  [T56, D205] 2006 No consta — Son identificados los restos de Victorina Lima.
+  [T57] 24 de julio del 2006 No consta — Comienza el primer juicio oral y público reseñado en F16.
+  [T57, T58] 5 de diciembre de ese mismo año No consta — Los incidentes obligan a suspender la lectura de la sentencia del primer juicio.
+  [T64] agosto del 2007 No consta — Comienza una nueva audiencia de juicio con otro tribunal.
+  [T65] 2 de febrero de 2008 No consta — Son condenados los Paiva y Daniel Areco.
+  [T66] 4 de junio de 2009 No consta — Hugo Morán dicta la primera sentencia indemnizatoria reseñada en F15.
+  [T75, T76] 25 de enero, según el artículo de Febrero 7, 2025 No consta — F10 informa la muerte del principal demandado, Juan Pío Paiva.
+  [T76, D186, D193] antes de la publicación de Febrero 7, 2025 No consta — La Sala Civil de la Corte condena al fallecido Paiva y a la sociedad a indemnizar al matrimonio Palacios Morínigo; la fecha y hora de publicación no se toman como fecha y hora de la resolución.
+
+HECHOS:
+  [D53, L05] (nivel 2 · contexto) El supermercado estaba en la esquina de Artigas y Santísima Trinidad, en Asunción.
+  [T01, D59] (nivel 2 · contexto) El local incendiado había sido inaugurado en diciembre de 2001.
+  [D58] (nivel 2 · contexto) El establecimiento era la cuarta sucursal de una cadena fundada en 1978.
+  [D42, T22] (nivel 1 · gancho) El incendio ocurrió el domingo 1 de agosto de 2004.
+  [D93, P16] (nivel 2 · contexto) Benedicto Pérez estimó que ese día había más de 1.000 personas en el supermercado.
+  [D27] (nivel 1 · contexto) La pericia de Criminalística situó el inicio del fuego en desperdicios de cocción acumulados en el tramo en forma de S de la chimenea de la parrilla.
+  [D84] (nivel 2 · contexto) El tinglado de zinc estaba recubierto con poliuretano como aislante del calor.
+  [D85] (nivel 2 · contexto) La cara superior del cielorraso de yeso estaba cubierta por una placa de isopor, descrito como un material de alta combustión.
+  [D28] (nivel 1 · escalada) La pericia indicó que las llamas se propagaron por el material aislante del techo.
+  [D96, P16] (nivel 2 · contexto) Según Pérez, empleados le dijeron que las alarmas entre el techo y el cielorraso ya habían sonado días o semanas antes.
+  [D96, P16] (nivel 2 · contexto) Según el mismo relato de Pérez, el personal no sabía por qué sonaban esas alarmas ni cómo actuar.
+  [D97, P16] (nivel 2 · escalada) Pérez afirmó que el día del incendio la parrilla trabajó a su máxima capacidad.
+  [D82, P27] (nivel 1 · contexto) Alejandro Nissen sostuvo que no había salidas de emergencia señalizadas y que se utilizaban las mismas puertas para ingresar y salir.
+  [D95, P16] (nivel 2 · contexto) Pérez sostuvo que debían existir doce metros totales de puertas de emergencia, pero que había dos puertas de dos metros cada una.
+  [Q12] (nivel 2 · contexto) Liz Torres atribuyó a Martín Burt la habilitación provisoria del supermercado y a la administración de Riera la obligación de realizar los controles posteriores.
+  [Q82] (nivel 1 · contexto) Carlos Halke reconoció que la Municipalidad aprobaba los planos sin realizar después la inspección final del funcionamiento de los sistemas contra incendios.
+  [D17] (nivel 2 · contexto) Beatriz González tenía asignada la caja identificada con el número once.
+  [Q10] (nivel 1 · escalada) Beatriz González relató que oyó una explosión, vio humo negro y corrió hacia el estacionamiento.
+  [Q70] (nivel 2 · escalada) Cristian Sosa declaró que las llamas cayeron sobre las personas que almorzaban en el patio de comidas.
+  [Q17, D45] (nivel 2 · escalada) Víctor Galeano comparó el ruido inicial con el de agua arrojada sobre aceite hirviendo.
+  [Q18, D47] (nivel 1 · giro) Víctor Galeano declaró que encontró cerrada la puerta de blíndex al intentar salir.
+  [D106, Q34] (nivel 2 · escalada) Digna Cáceres declaró que el portón hacia Artigas estaba cerrado y que las personas que corrían hacia él regresaban.
+  [D109, Q35] (nivel 1 · giro) Digna Cáceres atribuyó a Pío Paiva la orden de cerrar las puertas.
+  [Q64] (nivel 1 · giro) Luis Escobar Faella afirmó que los Paiva negaron categóricamente haber ordenado el cierre de puertas.
+  [D75] (nivel 2 · escalada) La querella sostuvo que entre quince y veinte personas vencieron una puerta de blíndex y un portón de la rampa para llegar a Artigas.
+  [D105] (nivel 2 · pico) Digna Cáceres relató que quedó trabada en la bajada al estacionamiento cuando los escombros taparon el lugar.
+  [D107] (nivel 2 · giro) Digna Cáceres recordó haber despertado mojada y haber visto la claridad del boquete hacia Artigas.
+  [Q19] (nivel 2 · pico) Liz Torres recordó una avalancha humana que la dejó atrapada y la hizo pensar que moriría.
+  [Q20] (nivel 1 · pico) Liz Torres describió calor de horno, cenizas y gritos que se fueron apagando.
+  [Q77] (nivel 2 · consecuencia) Liz Torres afirmó que las personas que cayeron sobre su cuerpo le salvaron la vida.
+  [Q20, P80] (nivel 2 · consecuencia) Liz Torres y Alfredo Vallovera pudieron ser rescatados.
+  [D01] (nivel 2 · contexto) Tatiana Gabaglio tenía siete años cuando ocurrió el incendio.
+  [D03] (nivel 1 · pico) Un panel derretido del cielorraso cayó sobre la pierna de Tatiana Gabaglio y la dejó atrapada.
+  [D04] (nivel 2 · consecuencia) Bomberos voluntarios rescataron a Tatiana Gabaglio.
+  [D05] (nivel 1 · consecuencia) Los médicos amputaron la pierna de Tatiana Gabaglio debido a la gravedad de las quemaduras.
+  [T09] (nivel 2 · escalada) Nelson Astigarraga relató que escuchó un ruido semejante al de un avión y después vio caer el techo.
+  [D148] (nivel 2 · consecuencia) Nelson Astigarraga estuvo internado quince días por las secuelas del humo.
+  [P54, D149] (nivel 1 · consecuencia) Nelson Astigarraga perdió a su esposa, a su hijo y a su sobrina.
+  [D200] (nivel 2 · consecuencia) Cristian Sosa permaneció veintidós días en coma por quemaduras en los pulmones.
+  [D110] (nivel 1 · consecuencia) Mario Eduardo Chamorro, empleado de veinticinco años e hijo de Mariana Aquino de Chamorro, falleció en el incendio.
+  [D111] (nivel 2 · contexto) Mario Eduardo Chamorro llevaba veintiocho días trabajando en el supermercado.
+  [T16] (nivel 2 · contexto) Según su madre, Mario Eduardo Chamorro entró a trabajar a las diez de la mañana del día del incendio.
+  [Q36, D112] (nivel 2 · contexto) Mariana Aquino de Chamorro afirmó que su hijo trabajaba doce horas diarias, de lunes a lunes y sin descanso.
+  [D55, D56, T45] (nivel 2 · contexto) Mariana sostuvo que se descontaban cien mil guaraníes del sueldo si se perdía algo en la sección del trabajador.
+  [T02, D113] (nivel 2 · contexto) Mariana recordó que su hijo le entregó su primer sueldo el sábado anterior a la tragedia.
+  [P03, P04] (nivel 2 · consecuencia) Ángela Pujol perdió a sus dos únicas hijas en el incendio.
+  [D15, D16] (nivel 2 · contexto) Yessica Vanessa tenía veintinueve años y Yessica Natalia tenía veintidós.
+  [D18] (nivel 2 · contexto) Guillermo Alfonso Ortíz tenía diecisiete años y trabajaba como carritero en el supermercado.
+  [D134] (nivel 2 · contexto) Blas Cristaldo declaró que llevaba treinta y dos años casado con Estela.
+  [T19] (nivel 2 · contexto) Blas Cristaldo relató que pasaron a buscar a Estela a las diez y media de la mañana.
+  [D137] (nivel 2 · consecuencia) Según Blas Cristaldo, Rubén Urbieta fue reconocido por su reloj porque su cuerpo estaba calcinado.
+  [D138] (nivel 2 · consecuencia) Blas Cristaldo afirmó que el automóvil de Rubén Urbieta estaba prácticamente intacto en el estacionamiento.
+  [T26, D140] (nivel 2 · consecuencia) Blas Cristaldo supo a las nueve de la noche que habían encontrado a Teresa y Gaby en el cuartel 4 de Mayo.
+  [D141] (nivel 1 · consecuencia) El equipo organizado por Mónica encontró el cuerpo de Estela en el estacionamiento abierto del supermercado.
+  [T27, Q49] (nivel 2 · consecuencia) Blas Cristaldo retiró el cuerpo de Estela a las diez y media de la noche.
+  [D201] (nivel 2 · consecuencia) La familia de Julia López perdió cinco integrantes.
+  [P77, D206] (nivel 2 · consecuencia) El cuerpo de Juan Adolfo Lima nunca fue hallado según F11.
+  [D204, T55] (nivel 2 · consecuencia) Los restos de Gustavo Lima y de su hija fueron identificados en julio de 2005.
+  [D26] (nivel 2 · consecuencia) Criminalística de la Policía trabajó en el local entre el dos y el diez de agosto de 2004.
+  [D25, D29] (nivel 1 · giro) La pericia reseñada en F06 sostuvo que solo estaban cerradas la puerta hacia azotea y mirador y las dos de Administración.
+  [D30] (nivel 2 · giro) La misma pericia describió las cuatro puertas de blíndex como pivotantes y cerradas sin llave.
+  [D31] (nivel 2 · giro) La pericia reseñada en F06 afirmó que los accesos de hierro de la rampa estaban abiertos.
+  [T65, D19, D20, D21, D215] (nivel 1 · consecuencia) Los Paiva y Daniel Areco fueron condenados el dos de febrero de 2008, con penas de doce, diez y cinco años de prisión respectivamente.
+  [D217] (nivel 2 · consecuencia) F15 reseñó para Humberto Casaccia una condena de dos años y seis meses por exposición de personas a lugares de trabajo peligrosos.
+  [D219] (nivel 2 · consecuencia) Jorge Gamarra Morínigo, Jesús María Insaurralde y Rodrigo Castillo Fraccia fueron condenados a un año y seis meses por producción de riesgos comunes.
+  [D220] (nivel 2 · consecuencia) F15 informó que el constructor Bernardo Ismachowiez fue condenado a dos años por actividades peligrosas en la construcción.
+  [D218] (nivel 2 · consecuencia) Agustín Alfonzo, María Victoria Cáceres de Paiva y Antolina Burgos fueron absueltos en la causa por exposición de personas a lugares de trabajo peligrosos.
+  [Q01] (nivel 1 · cierre) Tatiana Gabaglio manifestó que nunca recibió una indemnización real o reparación suficiente por el daño.
+  [D08] (nivel 2 · consecuencia) Tatiana Gabaglio dijo que comenzó a estudiar Derecho en la Universidad Nacional de Asunción por rabia.
+  [P01] (nivel 2 · consecuencia) F05 presenta posteriormente a Tatiana Gabaglio como abogada.
+  [D186, D193] (nivel 1 · consecuencia) La Sala Civil de la Corte condenó a Paiva y a la sociedad a pagar un total de cuatro mil quinientos millones de guaraníes al matrimonio Palacios Morínigo.
+  [P70, T75] (nivel 1 · cierre) Antonio Morínigo advirtió que Paiva había muerto y que no sabía si aún existían bienes de la sociedad para hacer efectiva la indemnización.
+  [L40] (nivel 2 · cierre) Sobre las ruinas del supermercado demolido se edificó el Sitio de Memoria y Centro Cultural 1A – Ycuá Bolaños.
+  [D214, D215] (nivel 2 · consecuencia) La causa principal contra Juan Pío Paiva, Víctor Daniel Paiva y Daniel Areco fue por homicidio doloso.
+  [T58] (nivel 2 · consecuencia) En el primer juicio oral los incidentes obligaron a suspender la lectura de la sentencia.
+  [Q80] (nivel 2 · cierre) Rubén Valdez advirtió que seguían existiendo edificios con dispositivos contra incendios sin el mantenimiento correspondiente.
+
+CIFRAS (con unidad; la principal y las otras versiones):
+  [D192] Muertos: cifra que F10 presenta expresamente como oficial, sin incluir a los desaparecidos.: 327 personas fallecidas · F10@3213; referencia periodística a una cifra oficial, no registro primario. · otras fuentes: 400 personas fallecidas [D14, D38]; unas 400 personas fallecidas [D62]; unas 364 personas fallecidas [D194]; más de 400 personas fallecidas [D62]; más de 500 personas fallecidas, estimación testimonial [D108]
+  [D195, D223] Heridos.: No dirimido personas heridas · Las dos fuentes ofrecen cifras distintas sin identificar un registro oficial común. · otras fuentes: 244 personas heridas [D195]; 500 personas heridas [D223]
+  [D196] Huérfanos.: 204 personas huérfanas · F11@336.
+  [D197, D192] Desaparecidos cuantificados en F11.: 6 personas desaparecidas · F11@336; F10 menciona desaparecidos, pero no los cuantifica.
+  [D93] Personas presentes dentro del supermercado, según estimaciones testimoniales.: más de 1.000 personas · Benedicto Pérez, F09@61777; no es un recuento oficial. · otras fuentes: más de 1500 personas [D108]
+  [D01] Edad de Tatiana Gabaglio durante el incendio.: 7 años · F03@0.
+  [D15] Edad de Yessica Vanessa.: 29 años · F05@256.
+  [D16] Edad de Yessica Natalia.: 22 años · F05@305.
+  [D18] Edad de Guillermo Alfonso Ortíz.: 17 años · F05@1937.
+  [D110] Edad de Mario Eduardo Chamorro.: 25 años · F09@113567.
+  [D111] Antigüedad laboral de Mario Eduardo Chamorro.: 28 días de trabajo · F09@115748 y F09@126755.
+  [D112, Q36] Jornada laboral de Mario, según su madre.: 12 horas diarias · Mariana Aquino de Chamorro, F09@116880.
+  [D55, D56] Descuento salarial por pérdidas denunciado por Mariana.: 100.000 guaraníes por pérdida en la sección · F09@7194 y F09@7232.
+  [P03, P04] Hijas fallecidas de Ángela Pujol.: 2 hijas · F05@256.
+  [D134] Duración del matrimonio de Blas Cristaldo y Estela al momento de la entrevista.: 32 años de matrimonio · Blas Cristaldo, F09@177174.
+  [D201] Integrantes perdidos por la familia de Julia López.: 5 personas fallecidas · F11@1709.
+  [D202] Integrantes perdidos por la familia de Angélica Roa.: 4 personas fallecidas · F11@1709.
+  [D200] Coma de Cristian Sosa.: 22 días · F11@1384.
+  [D148] Internación de Nelson Astigarraga.: 15 días · F09@212771.
+  [D208] Internación de Angélica Roa.: 10 días · F11@3171.
+  [Q41, D129] Quemaduras de Fernando Ortiz Mieres.: 50 porcentaje de superficie corporal, según su testimonio · F09@141482 y F09@165749.
+  [D75] Personas que la querella sostuvo que vencieron los accesos hacia Artigas.: 15 a 20 personas · F09@28892.
+  [D95] Ancho total de salidas que Pérez consideraba necesario.: 12 metros de puertas de salida de emergencia · F09@62049.
+  [D95] Puertas disponibles según la descripción de Pérez.: 2 puertas de 2 metros de ancho cada una · F09@62049.
+  [D25, D29] Puertas cerradas según el resumen de la pericia de Criminalística.: 3 puertas hacia azotea y mirador o Administración · F06@92 y F06@1799; no equivale a la cantidad de accesos que los testigos dicen haber encontrado cerrados.
+  [D30] Puertas de blíndex descritas por la pericia.: 4 puertas pivotantes · F06@1922.
+  [D101, Q29] Temperatura entre cielorraso y techo que Pérez afirmó que se alcanzó.: 600 °C · F09@64470; afirmación del entrevistado, sin medición primaria adjunta.
+  [D174, D199] Temperaturas generales mencionadas sin condiciones de medición comparables.: No se adopta una temperatura única grados, escala no indicada en esos pasajes · F09@291474 y F11@1242. · otras fuentes: más de 1.000 grados, escala no indicada [D174]; 1.500 grados, escala no indicada [D199, Q71]
+  [D19] Condena de Juan Pío Paiva.: 12 años de prisión · F05@2163; F10@3282; F15@1218; F16@2383.
+  [D20, P28] Condena del hijo de Juan Pío Paiva.: 10 años de prisión · F10@3282 y F15@1218 lo identifican como Víctor Paiva; F05@2282 lo llama Emiliano.
+  [D21] Condena de Daniel Areco.: 5 años de prisión · F05@2407; F10@3282; F15@1218.
+  [D22, D217] Condena de Humberto Casaccia.: No dirimida duración de prisión · F05 y F15 discrepan; no se aportó la sentencia original. · otras fuentes: 2 años de prisión [D22]; 2 años y 6 meses duración de prisión [D217]
+  [D219] Condena de los funcionarios municipales nombrados.: 1 año y 6 meses prisión para cada funcionario reseñado · F15@1726.
+  [D220] Condena del constructor.: 2 años de prisión · F15@1986.
+  [D77, D225] Pena solicitada para los Paiva y los guardias.: 25 años de prisión · F09@32417 y F16@2723.
+  [D193, D186] Indemnización total al matrimonio Palacios Morínigo en la resolución de la Corte.: 4.500.000.000 guaraníes · F10@3406; F10@856 detalla una asignación igual a cada cónyuge.
+  [D186] Indemnización por cada cónyuge del matrimonio Palacios Morínigo.: 2.250.000.000 guaraníes por persona · F10@856.
+  [D189, D190] Monto de la sentencia de primera instancia del matrimonio Palacios Morínigo, luego revocada en apelación.: 5.000.000.000 guaraníes · F10@1379 y F10@1730; es otra instancia procesal, no otra versión del monto final.
+  [D221] Indemnización al matrimonio Wendell-Ortellado.: 600.000.000 guaraníes · F15@2524.
+  [D222, P91] Indemnización en la demanda reseñada contra los Paiva y la sociedad por la muerte de una cajera.: más de 400.000.000 guaraníes · F15@2772 y F15@2943.
+  [D64] Familias representadas por Alejandro Nissen.: 92 familias · F09@17162.
+
+CITAS:
+  [Q01] CITA: "A más de lo que recibí del Estado, nunca recibí indemnización real o reparación del daño. Lo que alguna vez me dieron, particularmente como una persona para mí que de por vida quedé así, no alcanza. Los culpables, bien gracias. Siguen afuera." — Tatiana Gabaglio (Sobreviviente.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q02] CITA: "Ni ellos le quitaron un solo guaraní a estos criminales. Y hoy, a esta altura, luego de 16 años, ya es medio difícil también." — Tatiana Gabaglio (Sobreviviente.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q03] CITA: "Solo queda vivir la vida como una persona normal y tratar de superarse cada día. ¿Para qué quedarnos con ese dolor y ese pasado?" — Tatiana Gabaglio (Sobreviviente.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q08] CITA: "Cuando salieron de casa, la menor le agarró del brazo a su hermana y así salieron juntas para ir al supermercado; tenían que buscar la comida del día y unos regalos para el Día de la Amistad que estábamos organizando" — Ángela Pujol (Madre de dos víctimas.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q10] CITA: "Escuché una explosión y después ya vi que la nube de humo negro cubría todo. En ese momento dejé mi caja, salté y corrí hacia el estacionamiento para tratar de salir" — Beatriz González (Excajera.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q12] CITA: "Burt habilitó provisoriamente el supermercado y en la administración de Riera debieron hacerse los controles. Esto (Ycua) no tenía un solo extractor eólico, no tenía ventilación alguna con un techo absolutamente inflamable" — Liz Torres (Sobreviviente y miembro de organizaciones de víctimas.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q14] CITA: "Que nunca más ocurra un 1A" — Liz Torres (Sobreviviente y activista.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q17] CITA: "Era uno de los peores lugares ese día para comprar porque estaba repleto. Nos quedamos a hacer lo que no hacíamos habitualmente, nos quedamos a recorrer un poquito más. Escuchamos un sonido muy fuerte, parecía como mil veces el sonido de agua cuando tirás en aceite hirviendo." — Víctor Galeano (Sobreviviente.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q18] CITA: "Cuando estábamos llegando a la puerta de blíndex, nos dimos cuenta de que eso estaba cerrado... Hubo un estruendo hacia el estacionamiento y sube el humo; entonces ahí no había nada que hacer. Me caí con Santiago en mis brazos" — Víctor Galeano (Sobreviviente.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q19] CITA: "Cuando sentí la avalancha, dije acá nos morimos todos, no me voy a salvar, se me pasó toda la vida por la cabeza, que les dejaba a mis hijos adolescentes, tan jóvenes, solos" — Liz Torres (Sobreviviente.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q20] CITA: "Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando..." — Liz Torres (Sobreviviente.) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre)
+  [Q24, T45, D110] CITA: "Yo desde el primero de agosto, terminó mi vida, me enterraron con mi hijo." — Mariana Aquino de Chamorro (Madre de Mario Eduardo Chamorro.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q35, D109, Q23] CITA: "Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las puertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo." — Digna Felicia Cáceres (Sobreviviente; expresa su atribución de la orden, no una constatación independiente.) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre)
+  [Q36] CITA: "Porque eran doce horas de explotación, ¡doce horas trabajaba! De lunes a lunes. No había feriado, no había un momento de descanso." — Mariana Aquino de Chamorro (Madre de un empleado fallecido.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q37, T45] CITA: "estaban todas las puertas cerradas, yo estuve ahí, gritando “¡Mi hijo está adentro!”, el humo llenaba todo, no se podía mirar, y los que estaban adentro, ¿cómo iban a estar?" — Mariana Aquino de Chamorro (Madre de un empleado fallecido.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q40] CITA: "Mientras nosotros levantábamos cadáveres en el supermercado, el comisario Juan Pereira, en el Departamento de Investigación de Delitos de la Policía Nacional, estaba induciendo a los guardias a no decir la verdad." — Edgar Sánchez (Fiscal; denuncia reproducida dentro de un testimonio de F09.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q41, P47, P97] CITA: "yo me voy y le empujo a ella cuando ya me doy cuenta de que el incendio era muy intenso. Y salí, y me quemé con gravedad, el 50% de mi cuerpo, mis dos pulmones y la laringe, por eso es que estoy un poco ronco." — Fernando Ortiz Mieres (Exempleado sobreviviente.) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre)
+  [Q49] CITA: "No tengo dudas de que le quitaron, le comieron. Yo le retiré a las diez y media de la noche." — Blas Cristaldo (Esposo de Estela; la sospecha sobre la sustracción de pertenencias es suya.) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre)
+  [Q61, T52] CITA: "nosotros decimos “no vamos a olvidar, y no vamos a perdonar” mientras no se haga justicia." — María Berzabé Meza Vda. de Brizuela (Viuda de Juan Brizuela.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q64] CITA: "la primera consulta que yo le hago a los Paiva es si realmente ellos dieron la orden de cerrar las puertas. Cuando me dicen categóricamente que no, que eso no es cierto, que no fue nunca ni política de la empresa ni nada" — Luis Escobar Faella (Abogado defensor; transmite la negativa de los Paiva.) · VERIFICADA
+  [Q70] CITA: "Las llamas cayeron sobre las personas que estaban almorzando y hubo un desbande total" — Cristian Sosa (Sobreviviente.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q77] CITA: "Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida" — Liz Torres (Sobreviviente.) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q78] CITA: "Nos pusimos, como decimos ahora, en los zapatos de los que ya no están y empezamos a caminar para luchar por la justicia, por la memoria, eso permitió que nos reconstruyamos" — Liz Torres (Sobreviviente y activista.) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre)
+  [Q80] CITA: "Pero todavía queda mucho por hacer en cuanto al mantenimiento del sistema de prevención. Actualmente, muchos de los edificios tienen dispositivos de seguridad contra incendios, pero no realizan el mantenimiento correspondiente" — Rubén Valdez (Jefe del Cuerpo de Bomberos Voluntarios del Paraguay.) · VERIFICADA
+
+VERSIONES (hechos disputados: se cuentan como versiones, no se resuelven):
+  Estado de las puertas de blíndex durante la huida.
+    - Víctor Galeano declara que al llegar encontró cerrada la puerta de blíndex. [Q18, D47]
+    - La pericia describe cuatro puertas pivotantes cerradas sin llave; no establece por esa frase que permitieran efectivamente el paso durante la huida. [D30]
+    - La querella sostiene que un grupo consiguió vencer una puerta de blíndex y un portón para escapar. [D75]
+  Estado de los portones y accesos de la rampa hacia Artigas.
+    - Digna Cáceres declara que el portón hacia Artigas estaba cerrado y que las personas regresaban al encontrarlo. [D106]
+    - La pericia de Criminalística reseñada por F06 sostiene que los accesos de hierro de la rampa estaban abiertos. [D31]
+    - Escobar Faella afirma que motocicletas encadenadas impedían cerrar las puertas del estacionamiento. [D173]
+    - Escobar Faella sostiene que la deformación causada por el fuego demuestra que las puertas de la rampa no pudieron estar cerradas. [D175]
+    - La defensa propone que algunos testigos confundieron rejas fijas con puertas cerradas. [D177]
+  Existencia, autoría y motivo de la orden de cierre.
+    - Digna Cáceres atribuye la orden a Pío Paiva; su respuesta está formulada ante una pregunta sobre lo que piensa que ocurrió. [Q35, D109]
+    - La narración de F09 afirma que alguien ordenó cerrar por miedo al robo de mercadería, sin identificar allí una constatación directa. [D61]
+    - Un participante de una reunión dice que los fiscales comunicaron a la prensa que Ismael Alcaraz había reconocido recibir una orden por radio. [D121]
+    - Escobar Faella transmite que los Paiva negaron haber dado la orden y negaron que fuera una política de la empresa. [Q64]
+  Existencia de salidas de emergencia.
+    - Nissen sostiene que no había puertas de emergencia ni señalización y que entrada y salida utilizaban los mismos accesos. [D82]
+    - La reconstrucción técnica reproducida en F09 menciona una salida de emergencia clausurada. [D89]
+    - Pérez describe dos puertas de emergencia de dos metros cada una y un ancho total insuficiente. [D95]
+  Presunta obstrucción policial de la investigación.
+    - Una intervención reproduce la denuncia de Sánchez de que Pereira inducía a los guardias a no decir la verdad. [Q40]
+    - Otro pasaje habla expresamente de una versión sobre la interferencia y agrega que Latorre habría omitido investigarla. [P53]
+    - El pool no incorpora una respuesta de Pereira ni una resolución judicial sobre esa denuncia. [D145]
+  Sustracción de pertenencias de Estela y atribución de los robos.
+    - Blas Cristaldo describe la ausencia de los zapatos nuevos de Estela y expresa su convicción de que se los quitaron. [D142]
+    - Cristaldo dice que el sobre de dinero apareció vacío dentro de la cartera. [D143]
+    - José Luis Simón acusa genéricamente a bomberos y policías de robar pertenencias, sin individualizar responsables de los objetos de Estela. [D153]
+  Recriminación atribuida a un Paiva por abrir el boquete.
+    - Nelson Astigarraga transmite lo que Guillén le contó que le había dicho el Paiva; ese pasaje no da su nombre de pila. [Q54, D147]
+    - Otro pasaje plantea condicionalmente si es cierto que Daniel Paiva gritó que le estaban rompiendo el supermercado. [P48]
+    - La etiqueta de Q54 identifica directamente a Daniel Paiva y marca la cita como verificada, pero la evidencia disponible es de segunda mano y no permite cerrar esa identificación. [Q54]
+
+DECISIONES DE LA FICHA (la versión que quedó y las otras):
+  Nombre completo del propietario y unificación de registros. · Se agrupan los registros del propietario bajo el nombre completo consignado en la reseña del juicio de indemnización, manteniendo sus formas abreviadas. [P06, P40, P61, D185, D191]
+    - Juan Pío Paiva, propietario del local. [P06]
+    - Pío Paiva, identificado como el jefe. [P40]
+    - Juan Pío Helvidio Paiva Escobar, demandado en el juicio indemnizatorio. [P61]
+  Nombre del hijo condenado. · Se utiliza Víctor Daniel Paiva porque esa forma y su abreviación Víctor Paiva aparecen en más documentos, pero la identificación como Emiliano también permanece en contradicciones. [P07, P28, D20, D215]
+    - Emiliano Paiva, hijo del propietario y condenado. [P07]
+    - Víctor Daniel Paiva, acusado junto con Juan Pío Paiva. [P28]
+    - Víctor Paiva, hijo condenado. [D20]
+    - Víctor Daniel Paiva, hijo enjuiciado en la causa principal. [D215]
+  Nombre del abogado defensor. · Se usa Luis Escobar Faella, forma repetida en más documentos, y se conserva Luis Emilio Escobar Faella como variante. [P22, P95]
+    - Luis Escobar Faella. [P22]
+    - Luis Escobar Faella. [P22]
+    - Luis Emilio Escobar Faella. [P22]
+  Falsa variante entre María Estela y María Estefanía Palacios Morínigo. · Se separan María Estela y María Estefanía porque el pasaje enumera a ambas, junto con María del Carmen, como hijas distintas. [P62, D187, D188]
+    - P62 presenta María Estefanía como variante de María Estela, pero el pasaje enumera a María Estefanía, María del Carmen y María Estela. [P62]
+    - La indemnización corresponde, entre otros daños, a la muerte de las tres hijas nombradas por separado. [D187]
+  Falsa variante entre María Angélica y Mara Angélica. · Se separan la madre María Angélica y su hija Mara Angélica porque el pasaje las presenta como personas distintas. [P74, P75, T55]
+    - P74 reúne María Angélica y Mara Angélica como variantes, pero el pasaje distingue a la madre y a sus hijos. [P74]
+    - Se identificaron después los restos de su esposo e hija. [T55]
+  Muertos. · Se toma como referencia la cifra que F10 denomina oficialmente de muertos, separando desaparecidos y conservando todas las demás versiones sin sumarlas. [D192, D14, D194, D108]
+    - Oficialmente hubo 327 muertos, más los desaparecidos. [D192]
+    - El suceso se cobró 400 vidas. [D14]
+    - El incendio dejó unas 364 víctimas mortales. [D194]
+    - Digna Cáceres estima más de 500 muertos. [D108]
+  Hora del estallido o momento principal del incendio. · No se fija una hora exacta porque ninguna coincide entre fuentes independientes y la cronología se marca aproximada. [T21, T16, T20]
+    - Personas viendo y sintiendo lo ocurrido a las 11:25 de la mañana. [T21]
+    - La madre de Mario sitúa lo sucedido a las 11 y 27. [T16]
+    - El estallido ocurrió diez minutos después de la despedida de las 11.10. [T20]
+  Hora asignada al atrapamiento de Tatiana. · Se elimina la hora atribuida al atrapamiento porque proviene de un relato sobre Mario y no del pasaje que describe a Tatiana. [T22, D03, T16]
+    - El pasaje sobre Tatiana describe el panel derretido, pero no da una hora. [D03]
+    - La referencia a las 11 y 27 pertenece al relato de la entrada a trabajar de Mario. [T22]
+  Llegada de Digna al supermercado. · No se usa la hora de despertar como hora comprobada de llegada al supermercado. [T18]
+    - T18 extrae una llegada a las diez y media, pero el pasaje atribuye esa hora al despertar y solo después dice que fue al supermercado. [T18]
+  Fecha de muerte de Diana Benítez. · Se conserva al día siguiente en lugar de la fecha del día del incendio asignada por la extracción. [T13]
+    - T13 la sitúa el día del incendio, pero el pasaje dice que Diana falleció al día siguiente en el hospital. [T13]
+  Entrega del primer sueldo de Mario. · Se conserva sábado anterior a la tragedia sin convertir en fecha exacta el ambiguo ese 28 del relato. [T02, D113, D111]
+    - El relato combina ese 28, un sábado y un sábado antes de la tragedia, sin una fecha calendario inequívoca. [T02, D113]
+    - Otro pasaje sí identifica veintiocho días de antigüedad laboral, pero no permite trasladarlos a una fecha de cobro. [D111]
+  Edad o antigüedad de Juan Brizuela. · Se interpreta la referencia de D160 como años de funcionariado y no como edad al morir. [D160, D158]
+    - El encabezado de D160 puede leerse como edad, pero el pasaje especifica 34 años de funcionariado. [D160]
+    - Berzabé afirma que habría cumplido 53 años el 27 de enero. [D158]
+  Extensión realmente respaldada de las citas de Galeano y Torres. · Se recortan las citas al texto de los pasajes disponibles y se rebaja a parcial la verificación de sus versiones extensas. [Q17, Q18, Q19]
+    - Q17 incorpora una continuación sobre la parrilla que no está en su propio pasaje de evidencia. [Q17]
+    - Q18 incluye antes del blíndex una secuencia sobre Mary, la luz y la multitud que no aparece en su pasaje aportado. [Q18]
+    - Q19 aporta una larga secuencia previa, pero su evidencia solo reproduce el tramo que comienza con la avalancha. [Q19]
+  Error de transcripción en la atribución de Digna. · Se corrige muertas por puertas y se conserva el original, sin transformar la opinión de Digna sobre la orden en una constatación. [Q35, D109, Q23]
+    - La transcripción dice si no cerraban las muertas. [Q35]
+    - La reproducción introductoria de la misma afirmación dice si no cerraban las puertas. [Q23]
+  Autoría recuperada de la cita de la madre. · Se atribuye a Mariana Aquino de Chamorro el fragmento de Q24 que reaparece en su entrevista identificada. [Q24, T45]
+    - Q24 etiqueta como anónima a una madre. [Q24]
+    - La misma frase reaparece en el cuerpo de la entrevista identificada de Mariana. [Q24]
+    - El encabezado identifica a Mariana Aquino de Chamorro como madre de Mario Eduardo Chamorro. [T45]
+  Citas extraídas de narración periodística o de voces distintas. · No se usan como declaraciones literales las narraciones indirectas ni las citas atribuidas a quien no habla en el pasaje. [Q15, Q32, Q60, Q66, Q68, Q81, Q82]
+    - Q15 es una oración del narrador sobre Escobar Faella, no palabras literales del abogado. [Q15]
+    - Q32 atribuye al bombero una explicación emitida en la entrevista al siquiatra. [Q32]
+    - Q60 atribuye al hijo una frase que Berzabé introduce con le dije a mi hijo. [Q60]
+    - Q66 atribuye al exempleado No vas a salir, aunque el pasaje dice que se lo dijo ella. [Q66]
+    - Q68 es el resumen periodístico de lo que señaló Antonio Morínigo. [Q68]
+    - Q81 está presentado como narración con atribución a Nelson Jara, no como una cita entrecomillada en el pasaje. [Q81]
+    - Q82 está presentado como explicación indirecta atribuida a Carlos Halke y se conserva como hecho atribuido, no como cita literal seleccionada. [Q82]
+  Idioma de la frase atribuida a Paiva sobre el sistema preventivo. · No se reproduce la traducción española de Q62 como si fuera la literalidad del pasaje, que contiene No, péa hepyma. [Q62, D169]
+    - Q62 ofrece No, eso es muy caro, pero la evidencia escribe No, péa hepyma y lo transmite por medio de Berzabé. [Q62, D169]
+  Fecha y hora de la resolución indemnizatoria de F10. · Se distingue la fecha de publicación del artículo de la fecha de la resolución, que el pasaje no precisa. [T76, D186]
+    - Febrero 7, 2025 11:42 a. m. corresponde al encabezado de publicación; el texto solo informa que la Corte se pronunció. [T76]
+  Duplicados de evidencia. · Los pasajes repetidos o señalados como iguales al anterior se contabilizan una sola vez y no se convierten en corroboración independiente. [D14, D38, D62, D186, P03, P04]
+    - Las entradas de las dos hijas de Ángela remiten al mismo pasaje. [P03, P04]
+    - La entrada de D186 repite el mismo pasaje indemnizatorio. [D186]
+    - D38 reutiliza el pasaje que ya sostiene T05. [D38, T05]
+
+CONTRADICCIONES SIN RESOLVER:
+  Identidad del hijo condenado: Emiliano frente a Víctor Daniel.
+    - F05 llama Emiliano Paiva al hijo condenado y le atribuye una muerte posterior por complicaciones de Covid. [P07, D20, T70]
+    - F15 identifica al hijo enjuiciado como Víctor Daniel Paiva. [P28, D215]
+    - F10 identifica al hijo condenado como Víctor Paiva. [D20]
+  Grafía del apellido del arquitecto y constructor sin documento oficial original para desempatar.
+    - Bernardo Ismachoviez. [P29]
+    - Bernardo Ismachowiez. [P86]
+  Nombre de Burgos sin documento oficial original para desempatar.
+    - Antoliana Burgos. [P65, D189]
+    - Antolina Burgos. [P65, D216]
+  Cantidad de heridos sin cifra oficial identificada ni mayoría entre documentos.
+    - 244 heridos. [D195]
+    - 500 personas heridas. [D223]
+  Duración de la condena de Humberto Casaccia.
+    - Dos años. [D22]
+    - Dos años y seis meses. [D217]
+
+═══ CÓMO SE VE UNA BUENA ESCALETA ═══
+EJEMPLO 1 (OTRO TEMA, solo para la FORMA — no uses nada de su contenido):
+Tema: la mina de Sago, 2006. Humano: Randal McCloy, el único minero que salió vivo. Antagonista: la empresa.
+promesa_gancho: "Esa noche le dijeron a doce familias que sus hombres estaban vivos. Esta es la historia de las tres horas que siguieron."
+beats:
+ 1 cap1 gancho · miedo 3 · imagen: "un casco con la lámpara todavía encendida, tirado en el barro negro del túnel" · pregunta: "¿qué pasó allá abajo?" · cierre: anticipa la explosión de las 6:26
+ 2 cap2 planteo · inquietud 2 · imagen: "trece hombres bajando en el carro, termos de café entre las rodillas" · humano en escena
+ 3 cap3 escalada · angustia 3 · imagen: "golpes con un martillo contra el techo de roca, cada quince minutos"
+ 4 cap4 escalada · esperanza falsa 4 · imagen: "la iglesia llena, las campanas sonando a medianoche" · pregunta pantalla: "¿Quién dijo que estaban vivos?"
+ 5 cap5 pico · horror 5 · imagen: "la misma iglesia, tres horas después, alguien grita desde el fondo" · pregunta pantalla: "¿Por qué nadie corrigió la noticia?"
+ 6 cap5 respiro · duelo 1 · imagen: "una nota escrita a lápiz en el reverso de un seguro de vida"
+ 7 cap6 consecuencia · rabia 3 · imagen: "un sobre de multas de la mina, sin abrir, sobre un escritorio" · humano en escena
+ 8 cap7 cierre · tristeza 2 · imagen: "McCloy aprendiendo a caminar otra vez en un pasillo de hospital" · humano en escena · pregunta pantalla: "¿Cuántas minas siguen así?"
+
+EJEMPLO 2 (OTRO TEMA, solo para la FORMA):
+Tema: el incendio de la fábrica Triangle, Nueva York, 1911. Humano: una obrera de 16 años que sobrevivió.
+promesa_gancho: "Las puertas del noveno piso estaban cerradas con llave. Alguien tenía esa llave."
+beats:
+ 1 cap1 gancho · terror 3 · imagen: "humo saliendo por las ventanas del noveno piso y gente mirando desde la vereda" · cierre: anticipa la puerta cerrada
+ 2 cap2 planteo · rutina 2 · imagen: "doscientas máquinas de coser, pelusa de algodón flotando en la luz de la tarde" · humano en escena
+ 3 cap3 escalada · pánico 4 · imagen: "una manija de bronce que no gira" · humano en escena · pregunta pantalla: "¿Quién cerró esa puerta?"
+ 4 cap4 pico · horror 5 · imagen: "la escalera de los bomberos llega hasta el sexto piso; ellas están en el noveno"
+ 5 cap5 respiro · silencio 1 · imagen: "zapatos de mujer alineados en el muelle, esperando que alguien los reconozca"
+ 6 cap6 consecuencia · indignación 3 · imagen: "los dueños saliendo del tribunal entre fotógrafos" · pregunta pantalla: "¿Por qué los dueños salieron libres?"
+ 7 cap7 cierre · memoria 2 · imagen: "una anciana mirando la misma ventana, setenta años después" · humano en escena · pregunta pantalla: "¿Cuántas puertas siguen cerradas?"
+
+═══ REGLAS DE LA ESCALETA (duras: si no se cumplen, se rechaza):
+1. Entre 7 y 14 beats, numerados 1..N en orden, cada uno con su `cap` (1–7, no decreciente). Los 7
+   caps tienen al menos un beat. Los caps de desarrollo (2–6) tienen al menos 2 beats cada uno. El beat 1 es la `funcion` "gancho" del cap 1.
+2. `palabras_objetivo`: los beats de un cap suman su largo: cap 1 ≈ 110, caps 2–6 ≈ 250 cada uno,
+   cap 7 ≈ 140.
+3. `intensidad` de 1 a 5: NO BAJA hasta el pico (cada cap peor que el anterior). El pico no es
+   el último beat, y después del pico hay al menos un beat de intensidad 1 (respiro: el espectador respira antes del
+   cierre). FLASH-FORWARD: el beat 1 puede contar primero un momento POSTERIOR y más intenso (`flash_forward: true`);
+   el cap 2 vuelve atrás («cómo se llegó ahí») y la curva se mide desde el beat 2. Solo el beat 1 puede serlo.
+4. Cada beat tiene UN `dato_central` (un id D##, T## o Q## del pool) y 0–6 `datos_apoyo`. Un id aparece en UN solo beat
+   en todo el video (después se puede parafrasear sin la cifra). `pico.id` = el dato central del beat del pico.
+5. `humano`: UNA persona del pool que estuvo ahí (preferí un TESTIGO, con testimonio: es a quien seguimos). Va con su
+   `id` P## y su `nombre` EXACTO del pool. Si el pool no tiene testigos con nombre: un personaje colectivo con rostro
+   («un preso de Templeman III, 19 años, según la ACLU») con `colectivo: true`, `nombre` = esa descripción, `id` = el
+   Q## o D## que lo documenta y `fuente` = el mismo id. NUNCA un nombre inventado.
+   `humano_en_escena: true` SOLO en los beats que tienen un dato SUYO VERIFICADO (su cita, o un dato que lo nombra) como
+   dato central o de apoyo: el guionista no puede ponerlo en una escena que el research no documenta. Tiene que
+   estar así en al menos 3 caps distintos (el primero, antes del cap 3); si el pool tiene menos datos
+   suyos, en tantos caps como datos tenga. En los demás beats se lo puede nombrar, no poner en escena.
+6. `antagonista`: el P## del pool al que el research le atribuye la decisión que causó el daño.
+7. `imagen_sensorial`: algo que se VE, se OYE, se HUELE o se TOCA en ese momento («agua negra subiendo por la escalera
+   de la celda»); nunca una idea abstracta («la desesperación»). Sale del pool: no inventes objetos que contradigan el
+   research. Es el ancla de la imagen del cap.
+8. Gancho: `promesa_gancho` = UNA frase con lo que el espectador va a descubrir; sin cifras ni años (tampoco en
+   letras: «seis mil» es una cifra; «miles» no). La
+   `imagen_sensorial` del beat 1 tampoco lleva cifras. La narración va a abrir con esa imagen y esa promesa.
+9. `pregunta_pantalla` en el ÚLTIMO beat de cada cap (en los otros, ""): ≤ 8 palabras, empieza con «¿» y
+   termina con «?»; nombra algo que el espectador YA conoce (persona, grupo, lugar u objeto de este cap o de antes);
+   implica culpa, consecuencia o un destino no resuelto; sin nombres propios nuevos y sin términos administrativos
+   (indemnización, generadores, registros, demanda, informe, autoridades, evacuación). Modelos: «¿Quién apagó las
+   luces?», «¿Por qué nadie abrió las celdas?», «¿Dónde están los 517?». Cap 7: no es gancho; es la pregunta humana
+   que se queda («¿Cuántos siguen sin nombre?»).
+10. `cierre` de cada beat que termina un cap 1–6: anticipa algo CONCRETO del cap siguiente (su dato central o su
+    imagen). `pregunta_abierta`: lo que el espectador se pregunta al terminar el beat.
+11. Las cifras de conteo van con su id OFICIAL (ver CIFRAS CANÓNICAS); la variante de medios solo en el beat que cuenta
+    la contradicción. Un conteo con dos cifras (ver UN HECHO, UNA CIFRA) se cuenta UNA vez, con la precisa: los ids de la
+    aproximada no van en ningún beat.
+12. CIERRE: el último beat (cap 7) tiene como dato central una CONSECUENCIA (lo que falta, lo que se negó, lo que nunca
+    se contó), no una victoria ajena. Su `cierre` es la última frase del video y nombra al humano o a otro testigo
+    VERIFICADO. Nunca termina en la cita de alguien que no estuvo ahí: esa va a `a_pantalla`.
+13. `a_pantalla`: [{"id", "cap", "por_que"}] — ids que preferís que se VEAN y no se digan (la cita de un abogado, una
+    fuente, un dato que la imagen cuenta mejor). Un id de `a_pantalla` no está en ningún beat. Máximo 2 por cap.
+14. CITAS SIN VERIFICAR (marcadas en el pool): se pueden usar, pero la narración no dice el nombre de quien la dijo
+    («un preso», «una guardia»). Solo las VERIFICADAS se dicen con nombre.
+15. `contador: true` en el beat cuya cifra conviene ver subir en pantalla (una cantidad: personas, días). UNA CIFRA SE
+    VE EN PANTALLA UNA SOLA VEZ en todo el video: si un beat lleva contador, ninguna pregunta de pantalla repite esa
+    cifra; y dos preguntas de pantalla no repiten la misma cifra.
+16. La pregunta de pantalla del cap 7 es OBLIGATORIA: humana, la que se queda («¿Cuántos siguen sin nombre?»).
+17. El `cierre` del último beat describe la última frase del video sin copiar ninguna cita: esa frase va a ser una cita
+    (del humano o de un testigo verificado, por su id) o una pregunta; nunca un resumen (F8 §2).
+
+LO QUE RETIENE (cada decisión responde a por qué alguien se iría):
+- Los primeros 30 s: una imagen concreta y una promesa, no contexto.
+- Un humano con nombre al que seguimos todo el video.
+- Curva: cada cap peor que el anterior. Ritmo: respiros.
+- Cierres que obligan: culpa o consecuencia, nunca trivia administrativa.
+- Final humano: lo que produce el like y el comentario.
+
+Devolvé la escaleta de ESTE tema en el JSON pedido. Pensá primero a quién seguimos y dónde está el pico; después
+repartí los beats en los 7 caps.

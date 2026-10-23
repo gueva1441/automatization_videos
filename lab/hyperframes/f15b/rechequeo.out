@@ -1,0 +1,20 @@
+[ycua rechequeo] respaldo ficha_caso.json (F15) → ficha_caso_f15.json
+[ycua rechequeo] F15 {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 9, 'contradicciones': 5, 'decisiones': 19, 'versiones': 7, 'personas': 94, 'personas_descartadas': 15, 'cifras': 29, 'cronologia': 38, 'hechos': 76, 'citas': 24, 'descartados': 53} · sacados 17
+[ycua rechequeo] F15b {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 14, 'contradicciones': 5, 'decisiones': 19, 'versiones': 7, 'personas': 94, 'personas_descartadas': 15, 'cifras': 41, 'cronologia': 38, 'hechos': 76, 'citas': 24, 'descartados': 36} · sacados 0 · vuelven 17
+[orl rechequeo] respaldo ficha_caso.json (F15) → ficha_caso_f15.json
+[orl rechequeo] F15 {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 10, 'contradicciones': 3, 'decisiones': 21, 'versiones': 10, 'personas': 72, 'personas_descartadas': 7, 'cifras': 22, 'cronologia': 38, 'hechos': 77, 'citas': 23, 'descartados': 42} · sacados 20
+[orl rechequeo] F15b {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 15, 'contradicciones': 3, 'decisiones': 21, 'versiones': 10, 'personas': 72, 'personas_descartadas': 7, 'cifras': 23, 'cronologia': 38, 'hechos': 77, 'citas': 23, 'descartados': 36} · sacados 14 · vuelven 6
+  sigue afuera [decisiones] [decisiones] Finalización de la evacuación → no respaldado: cifra 84
+  sigue afuera [versiones] [versiones] Por qué no funcionó la alimentación habitual en Hunt → no respaldado: cifra 91
+  sigue afuera [personas_descartadas] [personas_descartadas] recluso identificado como #5 → no respaldado: «recluso identificado como #5» no está entre los descartados del pool
+  sigue afuera [personas_descartadas] [personas_descartadas] reclusa identificada como #6 → no respaldado: «reclusa identificada como #6» no está entre los descartados del pool
+  sigue afuera [personas_descartadas] [personas_descartadas] recluso identificado como #55 → no respaldado: «recluso identificado como #55» no está entre los descartados del pool
+  sigue afuera [personas_descartadas] [personas_descartadas] recluso identificado como #56 → no respaldado: «recluso identificado como #56» no está entre los descartados del pool
+  sigue afuera [personas_descartadas] [personas_descartadas] reclusa identificada como #220 → no respaldado: «reclusa identificada como #220» no está entre los descartados del pool
+  sigue afuera [cifras] [cifras] Muertes reconocidas por el sheriff dentro de OPP durante la tormenta y  → no respaldado: cifra 0
+  sigue afuera [cronologia] [cronologia] El recluso identificado como #175 sitúa en la llamada de medicación → no respaldado: cifra 175
+  sigue afuera [cronologia] [cronologia] Blanco solicita una declaración federal de emergencia para un perío → no respaldado: fecha 2005-08-27
+  sigue afuera [cronologia] [cronologia] La reclusa identificada como #220 sitúa el comienzo de la entrada d → no respaldado: cifra 220
+  sigue afuera [citas] [citas] Intenté recoger mis documentos legales, pero un guardia me apuntó con su → no respaldado: cita corregida a 94 caracteres de su original (máximo 3)
+  sigue afuera [citas] [citas] Nos dispararon con escopetas de beanbags y nos rociaron con gas pimienta → no respaldado: cita corregida a 13 caracteres de su original (máximo 3)
+  sigue afuera [descartados] [descartados] Personas descartadas del research sin pasaje de respaldo en el poo → no respaldado: sin ids

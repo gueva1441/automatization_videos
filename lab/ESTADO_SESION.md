@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-23 (F15: guionista v5 + ficha v2; Ycuá 755 / Orleans 866 palabras con Sol high → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-23 (F15b: guionista v5.1; Orleans OK, la escaleta de Ycuá no salió → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -10,7 +10,22 @@
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
-  - F15: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 621 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+  - F15b: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 628 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F15b — v5.1: la escena merece un párrafo (Ycuá y Orleans) — HECHO, **PARADA** (la escaleta nueva de Ycuá no salió; el analista revisa el diff y lee los guiones)
+- Handoff `lab/hyperframes/f15b/HANDOFF_F15b_escena_por_parrafo.md`; prompt `lab/hyperframes/f15/PROMPT_GUIONISTA_v5_1.md` (md5 6dcc4294…). Reporte `F15b_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES; la escaleta de Ycuá en PARADA) y `compara_f15b.html` (teléfono OK).
+- Código:
+  - `guion_v4.SYSTEM_V5_1`, literal (md5 cdce609a…); `PROMPT_VERSION` `f15b-1`; el v5 sigue con `version="f15-1"`.
+  - `m01a`: el texto de ESCENAS pide gancho y pico desde las escenas, y avisa «gancho sin escena de la ficha». Sin ficha, byte-idéntica.
+  - `ficha_caso`: cifras normalizadas (G., $, US$, °, espacios, miles) **+ números en letras y «millones» (ampliación que eligió Omar: el afloje literal recuperaba 0 de 12)**; sentidos: alcanza con una palabra.
+- Tests: `test_module_f15b.py` (7); suite amplia 628 verdes + las 5 previas.
+- Re-chequeo sin llamada: en Ycuá vuelven los 17 (12 cifras + 5 escenas); en Orleans vuelven 6 y siguen afuera 14 que no están respaldados. Fichas F15 respaldadas como `ficha_caso_f15.json`.
+- Resultado:
+  - **Frases por párrafo: Ycuá 2.0 → 4.0 y Orleans 2.2 → 3.9; párrafos de 1 frase: 14 → 3 y 7 → 3.** Los dos guiones duran 7.0 min y tienen 0 bloqueantes.
+  - Orleans: escaleta nueva (humano Burton, el pico con escena E9, el gancho sin escena) y guion de 867 palabras.
+  - **Ycuá: la escaleta nueva quedó rechazada en 3 pases (7 intentos), por reglas que ya existían** (sobre todo la curva de intensidad en el beat 2, porque el gancho sale de una escena sin `flash_forward`, y Liz Torres en escena con Q20 sin verificar). El freno de costo la cortó: **PARADA**. Como sustituto, el guion v5.1 sobre la escaleta F15: 858 palabras, con el gancho de las cenizas.
+  - Tanda **US$ 1.321** de 1.50.
+- Sin merge. **No seguir a producción.**
 
 ## F15 — Prompt del guionista v5 + ficha v2 (Ycuá y Orleans) — HECHO, **PARADA** (el analista revisa el diff y después lee fichas, escaletas y guiones)
 - Handoff `lab/hyperframes/f15/HANDOFF_F15_prompt_v5.md`; prompts del analista `PROMPT_GUIONISTA_v5.md` (md5 411782fa…) y `PROMPT_FICHA_v2.md` (1fdbd0b9…). Reporte `F15_REPORT.md` (revisor íntegro: 1.ª NO CUMPLE por el sistema mal extraído → arreglado → 2.ª CUMPLE CON OBSERVACIONES) y `compara_f15.html` (teléfono OK).

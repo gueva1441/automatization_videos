@@ -1,0 +1,149 @@
+{
+ "etapas": [
+  {
+   "tema": "ycua",
+   "etapa": "escaleta",
+   "usd": 0.3243,
+   "segundos": 208.8,
+   "llamadas": [
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 1",
+     "in": 24235,
+     "out": 2978,
+     "thinking": 5591,
+     "usd": 0.116
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 2",
+     "in": 24497,
+     "out": 3017,
+     "thinking": 4126,
+     "usd": 0.1021
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 3",
+     "in": 24309,
+     "out": 3055,
+     "thinking": 4535,
+     "usd": 0.1063
+    }
+   ],
+   "prompt_md5_intento1": "d0f68f3d604f3f490ab49e1dd1d0640b",
+   "error": "EscaletaValidationError: escaleta rechazada después de 3 intentos: ['la intensidad baja antes del pico en los beats [2] ([3, 1, 2, 3, 4, 4, 4, 5, 5, 1, 3, 2]): cada cap peor que el anterior — si el beat 1 cuenta primero un momento POSTERIOR y más intenso, marcalo `flash_forward: true` (la curva se mide desde el beat 2)', 'la última frase repite textual la cita Q14: decila con otras palabras']"
+  },
+  {
+   "tema": "ycua",
+   "etapa": "escaleta",
+   "usd": 0.2305,
+   "segundos": 146.4,
+   "llamadas": [
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 1",
+     "in": 24235,
+     "out": 3114,
+     "thinking": 5556,
+     "usd": 0.117
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 2",
+     "in": 24451,
+     "out": 3057,
+     "thinking": 5240,
+     "usd": 0.1135
+    }
+   ],
+   "prompt_md5_intento1": "d0f68f3d604f3f490ab49e1dd1d0640b",
+   "error": "Parada: tope de costo: US$ 0.555 + peor caso de otro intento + reserva > 1.50"
+  },
+  {
+   "tema": "orl",
+   "etapa": "escaleta",
+   "usd": 0.222,
+   "segundos": 146.6,
+   "llamadas": [
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 1",
+     "in": 21539,
+     "out": 3389,
+     "thinking": 5965,
+     "usd": 0.1205
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 2",
+     "in": 21721,
+     "out": 3673,
+     "thinking": 3768,
+     "usd": 0.1016
+    }
+   ],
+   "prompt_md5_intento1": "18d0157035789445de68b5d2a0036089",
+   "error": null
+  },
+  {
+   "tema": "orl",
+   "etapa": "guion",
+   "usd": 0.1472,
+   "segundos": 351.5,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 6129,
+     "out": 1658,
+     "thinking": 11832,
+     "usd": 0.1472
+    }
+   ]
+  },
+  {
+   "tema": "ycua",
+   "etapa": "escaleta",
+   "usd": 0.234,
+   "segundos": 150.8,
+   "llamadas": [
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 1",
+     "in": 24235,
+     "out": 3340,
+     "thinking": 5085,
+     "usd": 0.1145
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 2",
+     "in": 24475,
+     "out": 3556,
+     "thinking": 5329,
+     "usd": 0.1194
+    }
+   ],
+   "prompt_md5_intento1": "d0f68f3d604f3f490ab49e1dd1d0640b",
+   "error": "Parada: tope de costo: US$ 1.158 + peor caso de otro intento + reserva > 1.50"
+  },
+  {
+   "tema": "ycua",
+   "etapa": "guion",
+   "usd": 0.163,
+   "segundos": 345.3,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 6190,
+     "out": 1750,
+     "thinking": 13308,
+     "usd": 0.163
+    }
+   ]
+  }
+ ],
+ "usd_total": 1.321
+}

@@ -34,11 +34,11 @@ def test_sistema_v5_byte_identico_al_archivo():
     md = _md("PROMPT_GUIONISTA_v5.md")
     i0 = md.index("\n## SISTEMA\n\n") + len("\n## SISTEMA\n\n")         # el bloque, no el «<rol>» de la intro
     bloque = md[i0:md.index("</errores>", i0) + len("</errores>")]
-    assert bloque.startswith("<rol>\nSos el guionista") and "Base: técnicas" not in g4.system()
-    assert g4.system() == bloque and g4.SYSTEM_V5 == bloque
+    assert bloque.startswith("<rol>\nSos el guionista") and "Base: técnicas" not in g4.system("f15-1")
+    assert g4.system("f15-1") == bloque and g4.SYSTEM_V5 == bloque      # F15b: el v5 se pide explícito
     for tag in ("<rol>", "<voz>", "<estructura>", "<oficio>", "<ejemplos>", "<errores>"):
-        assert tag in g4.system()
-    assert g4.PROMPT_VERSION == "f15-1" and g4.system("f11c-1") == g4.system_f11c() != g4.system()
+        assert tag in g4.system("f15-1")
+    assert g4.PROMPT_VERSION_V5 == "f15-1" and g4.system("f11c-1") == g4.system_f11c() != g4.system("f15-1")
 
 
 def test_usuario_v5_caso_escaleta_y_tarea_literal():
@@ -46,12 +46,12 @@ def test_usuario_v5_caso_escaleta_y_tarea_literal():
     u0 = md.index("\n## USUARIO")                                             # la tarea del bloque USUARIO
     tarea = md[md.index("<tarea>", u0):md.index("</tarea>", u0) + len("</tarea>")]
     esc = _esc_ok()
-    p = g4.prompt(TOPIC11, esc)
+    p = g4.prompt(TOPIC11, esc, version="f15-1")
     assert p.endswith(tarea) and g4.TAREA_V5 == tarea
     assert p.index("<caso>") < p.index("</caso>") < p.index("<escaleta>") < p.index("</escaleta>") < p.index("<tarea>")
     assert "palabras" not in p.split("<tarea>")[0] and "≈" not in p          # sin cifras de largo
     assert "CAP 1 (gancho)" in p and "intensidad" in p and "por qué:" in p
-    assert g4.prompt_version() == "f15-1" and g4.prompt(TOPIC11, esc, "objetivo") == p   # largo no cambia el v5
+    assert g4.prompt_version(version="f15-1") == "f15-1" and g4.prompt(TOPIC11, esc, "objetivo", version="f15-1") == p
 
 
 def test_marca_version_de_quien():
@@ -72,8 +72,9 @@ def test_write_por_defecto_v5():
     def call(prompt, **kw):
         seen.update(p=prompt, s=kw.get("system_instruction"))
         return {"parrafos": [{"beat": p["beat"], "texto": p["texto"]} for p in _parrafos(esc)]}
-    g = g4.write(TOPIC11, esc, call=call)
-    assert seen["s"] == g4.SYSTEM_V5 and seen["p"] == g4.prompt(TOPIC11, esc) and g["prompt_version"] == "f15-1"
+    g = g4.write(TOPIC11, esc, call=call, version="f15-1")
+    assert seen["s"] == g4.SYSTEM_V5 and seen["p"] == g4.prompt(TOPIC11, esc, version="f15-1")
+    assert g["prompt_version"] == "f15-1"
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -107,7 +108,7 @@ def test_escena_con_sentidos_respaldados_y_sin_respaldo():
     sin_sentidos = {**ok, "sentidos": ""}
     out, sacados = fc.check(_f(escenas=[ok, sin, sin_sentidos]), POOL)
     assert out["escenas"] == [ok] and len(sacados) == 2
-    assert "sentido «olor a pan recién horneado» no está en sus ids" in sacados[0]["motivo"]
+    assert "ningún sentido de la escena («olor a pan recién horneado») está en sus ids" in sacados[0]["motivo"]   # F15b
     assert "la escena no trae sentidos" in sacados[1]["motivo"]
 
 

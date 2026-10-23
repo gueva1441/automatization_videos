@@ -400,8 +400,9 @@ def ficha_section(ficha: dict, pool: dict) -> str:
             out += [f"    - {v.get('dice')} [{', '.join(v.get('ids') or [])}]" for v in x.get(key) or []]
         return out
     blocks = ([("HISTORIA", historia),
-               ("ESCENAS (si una escena sirve para un beat, su `imagen_sensorial` sale de esa escena y `escena_idx` lleva "
-                "su número; si no hay, escribila como siempre)", escenas)] if "historia" in ficha else [])
+               ("ESCENAS (El beat 1 (gancho) y el beat del pico toman su `imagen_sensorial` de una escena de la ficha "
+                "cuando hay una para ese momento; los demás beats, cuando sirva. El beat que usa una escena lleva su "
+                "número en `escena_idx`.)", escenas)] if "historia" in ficha else [])
     blocks += [("PERSONAS", people), ("PERSONAS QUE EL RESEARCH DESCARTÓ Y LA HISTORIA NECESITA", gone),
               ("CRONOLOGÍA", crono), ("HECHOS", hechos), ("CIFRAS (con unidad; la principal y las otras versiones)", cifras),
               ("CITAS", citas),
@@ -985,6 +986,9 @@ def ficha_notes(esc: dict, ficha: dict) -> None:
             esc.setdefault("_reparaciones", []).append(f"beat {b['n']}: escena_idx {b['escena_idx']} no es una escena "
                                                        f"de la ficha → fuera")
             b.pop("escena_idx")
+    beats = esc.get("beats") or []
+    if escenas and beats and not beats[0].get("escena_idx"):        # F15b §1.2: aviso, no rechaza
+        esc.setdefault("_avisos", []).append("gancho sin escena de la ficha")
     cands = (ficha.get("historia") or {}).get("humanos_candidatos") or []
     if not cands:
         return

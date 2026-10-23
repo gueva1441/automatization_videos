@@ -258,8 +258,92 @@ def _num_forms(tok: str) -> set[str]:
     return {x.lstrip("0") or "0" for x in out}
 
 
+# F15b §1.3: antes de comparar cifras se normalizan los dos lados: sin «US$», «G.», «$», «°» ni espacios entre grupos
+# de miles (4.500 = 4500 = 4,500 = 4 500). Ampliación pedida por Omar (el afloje literal no recuperaba ninguna de las 12
+# cifras de Ycuá): un número con escala («4.500 millones», «2 mil») vale también por su valor completo, y los números en
+# letras («seis», «quince días», «treinta y cinco») cuentan como cifras del texto. «un» y «una» no: son artículos y
+# respaldarían cualquier «1» (revisor F15b); sí «uno» y «veintiún»/«veintiuna».
+_SCALE = re.compile(r"(\d+(?:[.,]\d+)*)\s*(mil millones|millones|millón|mil)\b", re.I)
+_UNITS = {"cero": 0, "uno": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5, "seis": 6, "siete": 7,
+          "ocho": 8, "nueve": 9, "diez": 10, "once": 11, "doce": 12, "trece": 13, "catorce": 14, "quince": 15,
+          "dieciseis": 16, "diecisiete": 17, "dieciocho": 18, "diecinueve": 19, "veinte": 20, "veintiun": 21,
+          "veintiuno": 21, "veintiuna": 21, "veintidos": 22, "veintitres": 23, "veinticuatro": 24, "veinticinco": 25,
+          "veintiseis": 26, "veintisiete": 27, "veintiocho": 28, "veintinueve": 29}
+_TENS = {"treinta": 30, "cuarenta": 40, "cincuenta": 50, "sesenta": 60, "setenta": 70, "ochenta": 80, "noventa": 90}
+_HUND = {"cien": 100, "ciento": 100, "doscientos": 200, "doscientas": 200, "trescientos": 300, "trescientas": 300,
+         "cuatrocientos": 400, "cuatrocientas": 400, "quinientos": 500, "quinientas": 500, "seiscientos": 600,
+         "seiscientas": 600, "setecientos": 700, "setecientas": 700, "ochocientos": 800, "ochocientas": 800,
+         "novecientos": 900, "novecientas": 900}
+
+
+def _canon(text: str) -> str:
+    t = re.sub(r"US\$|G\.(?=\s*\d)|\$|°", " ", text or "")
+    return re.sub(r"(?<=\d)[ \u00a0](?=\d{3}\b)", "", t)
+
+
+def _plain_int(tok: str) -> float | None:
+    """«4.500» → 4500; «4,5» → 4.5; «2.250.000» → 2250000."""
+    if re.fullmatch(r"\d+[.,]\d{1,2}", tok):
+        return float(tok.replace(",", "."))
+    try:
+        return float(tok.replace(".", "").replace(",", ""))
+    except ValueError:
+        return None
+
+
+def _scaled(text: str) -> set[str]:
+    out = set()
+    for m in _SCALE.finditer(text):
+        v = _plain_int(m.group(1))
+        if v is None:
+            continue
+        mult = {"mil millones": 1e9, "millones": 1e6, "millón": 1e6, "mil": 1e3}[m.group(2).lower()]
+        out.add(str(int(round(v * mult))))
+    return out
+
+
+def word_numbers(text: str) -> set[str]:
+    """Números en letras del texto («seis» → 6, «treinta y cinco» → 35, «ciento veinte» → 120, «dos mil» → 2000)."""
+    out: set[str] = set()
+    for clause in re.split(r"[,;.:!?()\"«»]", ev.norm(text)):           # un número no cruza la puntuación
+        out |= _clause_numbers(re.findall(r"[a-z]+", clause))
+    return out
+
+
+def _clause_numbers(ws: list[str]) -> set[str]:
+    out: set[str] = set()
+    k = 0
+    while k < len(ws):
+        total, cur, used = 0, 0, 0
+        j = k
+        while j < len(ws):
+            w = ws[j]
+            if w in _HUND:
+                cur += _HUND[w]
+            elif w in _TENS:
+                cur += _TENS[w]
+            elif w in _UNITS:
+                cur += _UNITS[w]
+            elif w == "mil" and (cur or used == 0):
+                total += (cur or 1) * 1000
+                cur = 0
+            elif w == "y" and used and j + 1 < len(ws) and ws[j + 1] in _UNITS:
+                pass
+            else:
+                break
+            used += 1
+            j += 1
+        if used:
+            out.add(str(total + cur))
+            k = j
+        else:
+            k += 1
+    return out
+
+
 def numbers(text: str) -> set[str]:
-    return {f for t in _NUM.findall(text or "") for f in _num_forms(t)}
+    t = _canon(text)
+    return {f for x in _NUM.findall(t) for f in _num_forms(x)} | _scaled(t) | word_numbers(t)
 
 
 def hours(text: str) -> set[str]:
@@ -284,10 +368,12 @@ def unsupported(text: str, src: str) -> list[str]:
     """Cifras, horas y fechas de `text` que no aparecen en `src` (las horas y fechas ISO se miran enteras)."""
     out = [f"hora {h}" for h in sorted(hours(text)) if h not in hours(src)]
     out += [f"fecha {d}" for d in _ISO.findall(text or "") if d not in src]
-    rest = _ISO.sub(" ", _HORA.sub(" ", _ID.sub(" ", text or "")))
+    rest = _canon(_ISO.sub(" ", _HORA.sub(" ", _ID.sub(" ", text or ""))))
     src_n = numbers(src)
-    for tok in _NUM.findall(rest):
-        if not (_num_forms(tok) & src_n):
+    for m in _NUM.finditer(rest):
+        tok = m.group(0)
+        forms = _num_forms(tok) | _scaled(rest[m.start():m.start() + len(tok) + 14])
+        if not (forms & src_n):
             out.append(f"cifra {tok}")
     return out
 
@@ -328,18 +414,15 @@ def _versions_problems(vs: list[dict], its: dict) -> list[str]:
 
 
 def sentidos_problems(sentidos: str, src: str) -> list[str]:
-    """F15 §1.2: los sentidos de una escena tienen que estar en el texto de sus ids. Se parten en tramos («;», «,», «y»);
-    cada tramo necesita al menos una palabra de contenido (≥ 4 letras) cuya raíz (5 letras) aparezca en el texto."""
-    segs = [x.strip() for x in re.split(r"[;,]|\by\b", sentidos or "") if x.strip()]
-    if not segs:
+    """F15b §1.3: basta UNA palabra de contenido (≥ 4 letras, no de la lista de vacías) del campo `sentidos` cuya raíz
+    (5 letras) aparezca en el texto de sus ids. (F15 pedía una por tramo.)"""
+    if not str(sentidos or "").strip():
         return ["la escena no trae sentidos"]
     srcw = set(re.findall(r"[a-z0-9ñ]+", ev.norm(src)))
-    out = []
-    for seg in segs:
-        ws = [w for w in re.findall(r"[a-zñ]+", ev.norm(seg)) if len(w) >= 4 and w not in SENT_STOP]
-        if ws and not any(sw.startswith(w[:5]) for w in ws for sw in srcw):
-            out.append(f"sentido «{seg}» no está en sus ids")
-    return out
+    ws = [w for w in re.findall(r"[a-zñ]+", ev.norm(sentidos)) if len(w) >= 4 and w not in SENT_STOP]
+    if ws and not any(sw.startswith(w[:5]) for w in ws for sw in srcw):
+        return [f"ningún sentido de la escena («{str(sentidos)[:60]}») está en sus ids"]
+    return []
 
 
 def problems(section: str, item: dict, its: dict, gone: set[str] | None = None) -> list[str]:
