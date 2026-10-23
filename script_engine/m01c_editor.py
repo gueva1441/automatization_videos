@@ -102,20 +102,24 @@ def _adjs(t: str) -> set[str]:
     return {ev.norm(a) for a in adjectives(t)}
 
 
-def lexical_guard(before: str, after: str) -> list[str]:
-    """Lo que el párrafo editado AGREGA respecto del original (cifras, nombres, adjetivos, citas). Vacío = pasa."""
+GUARD_ALL = ("cifras", "nombres", "adjetivos", "citas")
+
+
+def lexical_guard(before: str, after: str, checks: tuple[str, ...] = GUARD_ALL) -> list[str]:
+    """Lo que el párrafo editado AGREGA respecto del original (cifras, nombres, adjetivos, citas). Vacío = pasa.
+    F11b: `checks` elige qué se mide (la regeneración del v4 no mide adjetivos); por defecto, todo, como siempre."""
     out = []
     n = _numbers(after) - _numbers(before)
-    if n:
+    if n and "cifras" in checks:
         out.append(f"cifras nuevas {sorted(n)}")
     nm = _names(after) - _names(before) - {ev.norm(w) for w in re.findall(r"[\wáéíóúñ]+", before)}
-    if nm:
+    if nm and "nombres" in checks:
         out.append(f"nombres nuevos {sorted(nm)}")
     a = _adjs(after) - _adjs(before) - {ev.norm(w) for w in re.findall(r"[\wáéíóúñ]+", before)}
-    if a:
+    if a and "adjetivos" in checks:
         out.append(f"adjetivos nuevos {sorted(a)}")
     q = {ev.norm(x) for x in _QUOTE.findall(after)} - {ev.norm(x) for x in _QUOTE.findall(before)}
-    if q and not all(any(x in ev.norm(before) for x in [y]) for y in q):
+    if q and not all(any(x in ev.norm(before) for x in [y]) for y in q) and "citas" in checks:
         out.append(f"citas nuevas {sorted(q)[:2]}")
     return out
 

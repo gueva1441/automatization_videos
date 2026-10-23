@@ -61,3 +61,6 @@ _fase2b_work/**/gfx_*/renders/
 
 # F4b §4: set de game-icons.net (CC BY 3.0), se baja con script_engine/gfx_icons/fetch_game_icons.sh
 script_engine/gfx_runtime/icons/
+
+# claves locales (F11b)
+.env

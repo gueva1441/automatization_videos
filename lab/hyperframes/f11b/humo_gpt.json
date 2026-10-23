@@ -1,0 +1,21 @@
+{
+ "resultados": [
+  {
+   "modelo": "gpt-6.1-sol",
+   "ok": true,
+   "respuesta": {
+    "texto": "hola"
+   },
+   "segundos": 2.6
+  },
+  {
+   "modelo": "gpt-6-astra",
+   "ok": true,
+   "respuesta": {
+    "texto": "hola"
+   },
+   "segundos": 1.6
+  }
+ ],
+ "usd": 0.0013
+}

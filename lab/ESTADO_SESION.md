@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-23 (F11: guion v4 hecho; la convergencia no cumple el criterio → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-23 (F11b: v4 con largo + 3 modelos sobre Ycuá; ninguna final cumple, los crudos GPT sí → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -10,6 +10,27 @@
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
+  - F11b: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 571 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F11b — v4 con largo + comparación de modelos (Ycuá) — HECHO, **PARADA** (el analista lee las tres narraciones y le da nota a Omar)
+- Handoff `lab/hyperframes/f11b/HANDOFF_F11b_largo_y_modelos.md`. Reporte `lab/hyperframes/f11b/F11b_REPORT.md` (revisor íntegro) y `compara_f11b.html`. Textos `NARRACION_ycua_v4b_{gem,sol,astra}.md`; prompt único `prompt_ycua_v4b.txt`.
+- Código:
+  - línea de largo en el prompt v4 (`f11b-1`);
+  - guardia de la regeneración solo cifras, nombres y citas (`lexical_guard(checks=)`, `regenerate_cap_v3(guard=)`; v3 intacto);
+  - modelo enchufable: `gpt_helpers.py`, `guion_v4.call_for` y `fase1_5 --guion v4 --modelo gemini-pro|gpt-6.1-sol|gpt-6-astra`; llave `OPENAI_API_KEY` en `.env` (ignorado);
+  - ids por beat (`used_items ∩ beat_ids`).
+- Tests: `test_module_f11b.py` (15); suite 571 verdes + las 5 previas.
+- Resultado (Ycuá v1, sin notas):
+
+  | corrida | palabras finales | bloqueantes | US$ |
+  |---|---|---|---|
+  | gem | 882 | 5 | 0.611 |
+  | sol | 1,229 (crudo 1,501) | 0 | 0.187 |
+  | astra | 1,270 (crudo 1,489) | 0 | 0.405 |
+
+  Tanda US$ 1.204 de 2.00. Ninguna final cumple 1,350–1,700: **la pasada del editor m01c recorta ≈ 220–270 palabras de los GPT**. Los crudos de Sol y Astra cumplen. Decide Omar con el analista; no se tocó la ronda.
+- D80/D81/D97: el ancla «1» (de «A-1» en el texto) se expande a «una/uno» y matchea cualquier artículo; D97 tiene valor «una». No se parcheó.
+- No se pisó F11, `_v1`, `_ajuste` ni `topics_db`. Sin merge. **No seguir a producción.**
 
 ## F11 — Guion v4 (menos reglas, oficio, reparar por edición) — HECHO, **NO cumple el criterio → PARADA** (el analista lee del disco)
 - Handoff `lab/hyperframes/f11/HANDOFF_F11_guion_v4.md`. Reporte `lab/hyperframes/f11/F11_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_v3_v4.html` (teléfono OK). Textos: `NARRACION_{orleans,ycua}_v4{A,B}.md`.

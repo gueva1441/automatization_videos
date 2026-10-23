@@ -251,14 +251,20 @@ def _item_line(it: dict) -> str:
 
 def regenerate_cap_v3(topic: dict, esc: dict, parrafos: list[dict], cap: int, pool: dict, *, notas: list[str],
                       permitidos: list[str] | None = None, min_words: int = 0, attempts: int = REGEN_ATTEMPTS,
-                      call: Callable[..., dict] | None = None, log: list[str] | None = None) -> list[dict]:
+                      call: Callable[..., dict] | None = None, log: list[str] | None = None,
+                      guard: tuple[str, ...] | None = None) -> list[dict]:
     """Reescribe UN cap con la escaleta, el texto vecino y las notas del analista. Puede AGREGAR solo lo que está en
     el cap o en `permitidos` (ids del pool, con su texto literal): la guardia léxica de m01c (cifras, nombres,
     adjetivos, citas nuevas) se mide contra el cap original + esos ítems. Hasta REGEN_ATTEMPTS con el motivo del
     rechazo; si ninguno pasa, el cap queda como estaba. Devuelve los párrafos (los demás caps, intactos).
-    F11: `attempts` (v4 usa 1) y un cap vacío (beats salteados) recibe sus párrafos antes del cap siguiente."""
+    F11: `attempts` (v4 usa 1) y un cap vacío (beats salteados) recibe sus párrafos antes del cap siguiente.
+    F11b: `guard` = qué mide la guardia (m01c.GUARD_ALL por defecto); el v4 pasa cifras, nombres y citas, y entonces
+    la línea de REGLAS deja de prohibir adjetivos (prosa nueva permitida)."""
     from script_engine import evidence as ev
-    from script_engine.m01c_editor import lexical_guard
+    from script_engine.m01c_editor import GUARD_ALL, lexical_guard
+    guard = tuple(guard) if guard is not None else GUARD_ALL
+    forbid = "datos, cifras, fechas, nombres, adjetivos ni citas" if "adjetivos" in guard else \
+        "datos, cifras, fechas, nombres ni citas"
     log = log if log is not None else []
     if call is None:
         from gemini_helpers import call_pro_json as call
@@ -295,7 +301,7 @@ DATOS QUE PODÉS AGREGAR (además de los que ya están en el texto actual), lite
 NOTAS DEL ANALISTA (mandan):
 {chr(10).join(f"- {x}" for x in notas)}
 
-REGLAS: no agregues datos, cifras, fechas, nombres, adjetivos ni citas que no estén en el texto actual o en los datos
+REGLAS: no agregues {forbid} que no estén en el texto actual o en los datos
 permitidos. Las citas, literales y con el autor dentro de la oración, ≤ 25 palabras. Sin juicios del narrador
 («fue una masacre», «un infierno», «una bofetada»), sin resumen, sin hablar del video. Un párrafo por beat o los mismos
 que hay (no cambies los beats). {f"El cap tiene que tener AL MENOS {min_words} palabras." if min_words else ""}
@@ -307,9 +313,9 @@ que hay (no cambies los beats). {f"El cap tiene que tener AL MENOS {min_words} p
             continue
         new = [p for p in raw.get("parrafos") or [] if str(p.get("texto") or "").strip()]
         new_text = "\n\n".join(str(p["texto"]).strip() for p in new)
-        guard = lexical_guard(base_text + "\n" + allowed_text, new_text)
+        lg = lexical_guard(base_text + "\n" + allowed_text, new_text, guard)
         words = len(re.findall(r"[\wáéíóúñü]+", new_text, re.I))
-        probs = guard + ([f"{words} palabras (mínimo {min_words})"] if min_words and words < min_words else [])
+        probs = lg + ([f"{words} palabras (mínimo {min_words})"] if min_words and words < min_words else [])
         valid_beats = {b["n"] for b in beats}
         if any(int(p.get("beat") or 0) not in valid_beats for p in new):
             probs.append(f"beats fuera del cap (válidos {sorted(valid_beats)})")

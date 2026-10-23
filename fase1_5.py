@@ -238,10 +238,12 @@ def run_guion_v3(topic_id: str) -> dict:
     return {"guionista": g, "editor": e, "particion": part, "juez": judge}
 
 
-def run_guion_v4(topic_id: str) -> dict:
+def run_guion_v4(topic_id: str, modelo: str | None = None) -> dict:
     """F11: m01b v4: guionista v4 (UNA llamada) → reparación (una ronda: cap, oración, fechas, editor) → m01d_particion
     → juez m05. Escribe 01b_guionista_v4 (texto, bloqueantes antes/después, pasos), 01a_skeleton, 01b_narration,
-    01b_narracion_v3 y 06_judge_narrative. Si quedan bloqueantes, se reportan (no hay segunda ronda)."""
+    01b_narracion_v3 y 06_judge_narrative. Si quedan bloqueantes, se reportan (no hay segunda ronda).
+    F11b: `modelo` (`--modelo`) = el de toda la cadena v4 (guionista + reparación); la partición y el juez, los de
+    siempre."""
     from script_engine import guion_v4 as g4
     from script_engine import m01d_particion as md
     from script_engine.m05_narrative import judge_narration
@@ -251,8 +253,9 @@ def run_guion_v4(topic_id: str) -> dict:
     esc = _load_step_output(topic_id, "01a_escaleta.json")
     log: list[str] = []
     d = STEPS_DIR / topic_id
-    g = _step_cost(topic_id, "guionista_v4", lambda: g4.write(topic, esc, log=log))
-    r = _step_cost(topic_id, "reparacion_v4", lambda: g4.reparar(topic, esc, g["parrafos"], log=log))
+    call = g4.call_for(modelo)
+    g = _step_cost(topic_id, "guionista_v4", lambda: g4.write(topic, esc, call=call, log=log))
+    r = _step_cost(topic_id, "reparacion_v4", lambda: g4.reparar(topic, esc, g["parrafos"], call=call, log=log))
     out = {**g, "reparacion": r, "metricas": g4.metricas(topic, esc, r["parrafos"])}
     (d / "01b_guionista_v4.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     part = _step_cost(topic_id, "particion", lambda: md.particionar(topic, esc, r["parrafos"], pool, log=log,
@@ -276,6 +279,7 @@ def process_topic(
     stop_after_step: str | None = None,
     v3: bool = False,
     guion: str | None = None,
+    modelo: str | None = None,
 ) -> dict:
     """Corre la cadena m01a → m03 + assemble para 1 topic, reanudando desde from_step.
 
@@ -337,7 +341,7 @@ def process_topic(
         # m01b — narración
         if from_step in ("m01a", "m01b") and use_v3 and is_v4_guion(_load_topic_by_id(topic_id), guion):
             print(f"  [01b v4] Guionista v4 → reparación (una ronda) → partición → juez...")
-            v3out = run_guion_v4(topic_id)
+            v3out = run_guion_v4(topic_id, modelo=modelo) if modelo else run_guion_v4(topic_id)
             topic = _topic_v3(topic_id)
             skeleton, narration = v3out["particion"]["skeleton"], v3out["particion"]["narration"]
             result["steps_completed"].append("m01b")
@@ -649,6 +653,9 @@ def main():
     parser.add_argument("--guion", choices=("v3", "v4"), default=None,
                         help="F11: con --v3, el guionista v4 (una llamada → reparación de una ronda); también corre "
                              "si el topic tiene guion_version == 4")
+    parser.add_argument("--modelo", choices=("gemini-pro", "gpt-6.1-sol", "gpt-6-astra"), default=None,
+                        help="F11b: con --guion v4, el modelo de toda la cadena v4 (guionista + reparación); el juez "
+                             "es el de siempre")
     parser.add_argument("--batch", action="store_true",
                         help="Modo batch desatendido: desactiva los gates del medio "
                              "(normalizer_gate + music_gate). Equivale a "
@@ -698,6 +705,7 @@ def main():
             stop_after_step=stop_after_step,
             v3=args.v3,
             guion=args.guion,
+            modelo=args.modelo,
         ))
         
     # Resumen final

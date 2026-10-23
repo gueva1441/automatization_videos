@@ -19,6 +19,9 @@ script_engine/guion_v4.py — F11 (HANDOFF_F11 §1): guion v4. Menos reglas, ofi
                                        Si quedan bloqueantes, se reportan: no hay segunda ronda.
     metricas(topic, esc, parrafos)     todo lo de review + review_v3 + cap_review, tal cual (nunca rechaza).
 m01b_guionista, m01c_editor, m05_narrative y guion_v3_reglas NO se modifican: se usan.
+F11b: el prompt dice el largo (≈ N palabras por cap y el total); la regeneración de un cap corto mide solo cifras,
+nombres y citas nuevas (REGEN_GUARD); `call_for(modelo)` enchufa Gemini Pro o un GPT en toda la cadena; los ids de
+cada párrafo son `used_items ∩ beat_ids` (dato central, apoyos y lo asignado a su cap).
 """
 from __future__ import annotations
 
@@ -30,8 +33,11 @@ from typing import Any, Callable
 from script_engine import evidence as ev
 from script_engine import m01b_guionista as mg
 
-PROMPT_VERSION = "f11-1"
+PROMPT_VERSION = "f11b-1"
 CAP_TOL = 0.25                       # (c) cap fuera de ±25 % de su objetivo
+REGEN_GUARD = ("cifras", "nombres", "citas")   # F11b §1.2: la regeneración de un cap corto permite prosa y adjetivos
+MODELOS = ("gemini-pro", "gpt-6.1-sol", "gpt-6-astra")   # F11b §1.3: `--modelo`
+ESFUERZO = {"gpt-6.1-sol": "high"}   # F11b §2: Sol en esfuerzo high; Astra, el de la API por defecto
 DIAS = ("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo")
 
 OFICIO = [
@@ -113,7 +119,7 @@ def escaleta_section(esc: dict, pool: dict) -> str:
     for n in range(1, 8):
         c = caps.get(n, {})
         bs = [b for b in esc["beats"] if b["cap"] == n]
-        out.append(f"── CAP {n} · {c.get('palabras_objetivo') or 0} palabras")
+        out.append(f"── CAP {n} · ≈ {c.get('palabras_objetivo') or 0} palabras")
         in_beats = {i for b in bs for i in [b["dato_central"]] + list(b.get("datos_apoyo") or [])}
         for i in c.get("pantalla_ids") or []:
             if i not in in_beats:
@@ -138,6 +144,7 @@ def prompt(topic: dict, esc: dict) -> str:
     hum = esc.get("humano") or {}
     pico = esc.get("pico") or {}
     oficio = "\n".join(f"{k}. {x}" for k, x in enumerate(OFICIO, start=1))
+    total = sum(c.get("palabras_objetivo") or 0 for c in esc.get("caps") or [])
     return f"""TEMA: {topic.get("video_title")}
 HUMANO: {hum.get("nombre")} ({hum.get("rol")})
 PROMESA DEL GANCHO: {esc.get("promesa_gancho")}
@@ -149,17 +156,50 @@ PICO: beat {pico.get("beat")} · CIERRE HUMANO: {esc.get("cierre_humano")}
 ═══ OFICIO ═══
 {oficio}
 
-Escribí la narración completa, en párrafos, cada uno con su beat. Devolvé {{"parrafos": [{{"beat": 1, "texto": "…"}}, …]}}."""
+Escribí la narración completa, en párrafos, cada uno con su beat. Devolvé {{"parrafos": [{{"beat": 1, "texto": "…"}}, …]}}.
+
+Cada cap tiene que tener cerca de las palabras que dice su encabezado: es su largo, no un máximo. El video completo ≈ {total:,} palabras."""
 
 
 # ═══════════════════════════════════════════════════════════════
 #  Escritura (una llamada) e ids calculados
 # ═══════════════════════════════════════════════════════════════
 
-def with_ids(parrafos: list[dict], pool: dict) -> list[dict]:
-    """Cada párrafo con `ids_usados` calculados (lo que leen m03/gfx), nunca declarados por el modelo."""
+def beat_ids(esc: dict, beat: int) -> set[str]:
+    """F11b §1.4: los ids que un párrafo puede reclamar: dato central y apoyos de su beat + lo asignado a su cap
+    (`evidence_ids`)."""
+    b = next((x for x in esc.get("beats") or [] if x["n"] == beat), None)
+    if not b:
+        return set()
+    cap = next((c for c in esc.get("caps") or [] if c["chapter_number"] == b["cap"]), {})
+    return {b["dato_central"], *(b.get("datos_apoyo") or []), *(cap.get("evidence_ids") or [])}
+
+
+def with_ids(parrafos: list[dict], pool: dict, esc: dict | None = None) -> list[dict]:
+    """Cada párrafo con `ids_usados` calculados (lo que leen m03/gfx), nunca declarados por el modelo.
+    F11b §1.4: con `esc`, `used_items(texto) ∩ beat_ids(beat)` (sin `esc`, todo lo que matchea en el pool, como F11)."""
     from script_engine.m05_narrative import used_items
-    return [{**p, "ids_usados": used_items(p["texto"], pool, hard=False)} for p in parrafos]
+    out = []
+    for p in parrafos:
+        ids = used_items(p["texto"], pool, hard=False)
+        if esc is not None:
+            own = beat_ids(esc, p["beat"])
+            ids = [i for i in ids if i in own]
+        out.append({**p, "ids_usados": ids})
+    return out
+
+
+def call_for(modelo: str | None) -> Callable[..., dict]:
+    """F11b §1.3: el `call` de toda la cadena v4 de una corrida (guionista, regeneración, edición de oración, editor).
+    `gemini-pro` (o None) → gemini_helpers.call_pro_json; los GPT → gpt_helpers.make_call con su esfuerzo. Un modelo
+    que no está en MODELOS es un error (no se reemplaza por otro)."""
+    if modelo in (None, "gemini-pro"):
+        from gemini_helpers import call_pro_json
+        return call_pro_json
+    if modelo not in MODELOS:
+        raise ValueError(f"modelo desconocido: {modelo} (válidos: {', '.join(MODELOS)})")
+    import gpt_helpers
+    return gpt_helpers.make_call(modelo, ESFUERZO.get(modelo))
 
 
 def write(topic: dict, esc: dict, *, call: Callable[..., dict] | None = None,
@@ -169,7 +209,7 @@ def write(topic: dict, esc: dict, *, call: Callable[..., dict] | None = None,
         from gemini_helpers import call_pro_json as call
     raw = call(prompt(topic, esc), system_instruction=mg.SYSTEM, response_schema=SCHEMA,
                description="guion_v4 guionista")
-    ps = with_ids(mg.normalize(raw, esc), topic["evidence_pool"])
+    ps = with_ids(mg.normalize(raw, esc), topic["evidence_pool"], esc)
     log.append(f"  [guionista v4] {len(ps)} párrafos · {sum(mg.wc(p['texto']) for p in ps)} palabras")
     return {"parrafos": ps, "prompt_version": PROMPT_VERSION}
 
@@ -379,7 +419,7 @@ def editor_pass(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[
             estado.append({**rec, "estado": "rechazado", "motivo_rechazo": "; ".join(lg)})
             continue
         trial = [dict(p) for p in out]
-        trial[k] = with_ids([{**orig, "texto": new_t}], pool)[0]
+        trial[k] = with_ids([{**orig, "texto": new_t}], pool, esc)[0]
         n = len(bloqueantes(topic, esc, trial))
         if n > cur:
             estado.append({**rec, "estado": "rechazado", "motivo_rechazo": f"bloqueantes {cur} → {n}"})
@@ -400,7 +440,7 @@ def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[...,
     if call is None:
         from gemini_helpers import call_pro_json as call
     pool = topic["evidence_pool"]
-    ps = with_ids(parrafos, pool)
+    ps = with_ids(parrafos, pool, esc)
     bl0 = bloqueantes(topic, esc, ps)
     pasos: dict[str, Any] = {"regenerados": [], "ediciones": [], "fechas": [], "editor": []}
     # (c) → regenerate_cap_v3 SOLO de ese cap, 1 intento, notas = el texto del bloqueante
@@ -408,8 +448,9 @@ def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[...,
     for cap, notas in sorted(_structural_caps(bl0).items()):
         before = [p for p in ps if p["cap"] == cap]
         ps = md.regenerate_cap_v3(topic, esc, ps, cap, pool, notas=notas, permitidos=_cap_ids(esc, cap),
-                                  min_words=round((1 - CAP_TOL) * caps_tgt.get(cap, 0)), attempts=1, call=call, log=log)
-        ps = with_ids(ps, pool)
+                                  min_words=round((1 - CAP_TOL) * caps_tgt.get(cap, 0)), attempts=1, call=call, log=log,
+                                  guard=REGEN_GUARD)
+        ps = with_ids(ps, pool, esc)
         after = [p for p in ps if p["cap"] == cap]
         pasos["regenerados"].append({"cap": cap, "notas": notas, "cambio": before != after,
                                      "palabras": [sum(mg.wc(p["texto"]) for p in before),
@@ -423,7 +464,7 @@ def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[...,
         new, why = edit_sentences(p, mine, call=call)
         n_before = len([x for x in bloqueantes(topic, esc, ps) if x["codigo"] != "c"])
         trial = [dict(q) for q in ps]
-        trial[k] = with_ids([{**p, "texto": new}], pool)[0]
+        trial[k] = with_ids([{**p, "texto": new}], pool, esc)[0]
         n_after = len([x for x in bloqueantes(topic, esc, trial) if x["codigo"] != "c"])
         ok = not why and n_after < n_before
         if not why and not ok:
@@ -435,7 +476,7 @@ def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[...,
             ps = trial
     # fechas repetidas (determinista)
     ps, pasos["fechas"] = replace_repeated_dates(ps, event_date(esc, pool))
-    ps = with_ids(ps, pool)
+    ps = with_ids(ps, pool, esc)
     # una pasada del editor m01c
     ps, pasos["editor"] = editor_pass(topic, esc, ps, call=call, log=log)
     bl2 = bloqueantes(topic, esc, ps)
@@ -463,7 +504,7 @@ def metricas(topic: dict, esc: dict, parrafos: list[dict], *, declared: bool = F
     la tabla. `declared`: los párrafos traen los ids que declaró el modelo (v3); si no, se calculan (v4)."""
     from script_engine.guion_v3_reglas import echo_soft, quotes_in
     pool = topic["evidence_pool"]
-    ps = [dict(p) for p in parrafos] if declared else with_ids(parrafos, pool)
+    ps = [dict(p) for p in parrafos] if declared else with_ids(parrafos, pool, esc)
     rv = mg.review(topic, esc, ps)
     caps = mg.caps_text(esc, ps)
     hum = esc.get("humano") or {}
@@ -476,4 +517,16 @@ def metricas(topic: dict, esc: dict, parrafos: list[dict], *, declared: bool = F
                                  for c in caps},
             "citas": sum(len(quotes_in(p["texto"])) for p in ps),
             "humano_caps": human_caps, "cierre": closing_kind(ps), "ecos": echo_soft(ps),
-            "por_cap": rv["por_cap"]}
+            "por_cap": rv["por_cap"], "ids_por_parrafo": ids_per_paragraph(ps, pool, esc, declared=declared)}
+
+
+def ids_per_paragraph(parrafos: list[dict], pool: dict, esc: dict, *, declared: bool = False) -> dict[str, float]:
+    """F11b §1.4: promedio de ids por párrafo antes (todo lo que matchea en el pool; en v3, lo declarado) y después
+    (∩ los ids del beat)."""
+    from script_engine.m05_narrative import used_items
+    if not parrafos:
+        return {"antes": 0.0, "despues": 0.0}
+    before = [p.get("ids_usados") or [] if declared else used_items(p["texto"], pool, hard=False) for p in parrafos]
+    after = [[i for i in used_items(p["texto"], pool, hard=False) if i in beat_ids(esc, p["beat"])] for p in parrafos]
+    n = len(parrafos)
+    return {"antes": round(sum(map(len, before)) / n, 2), "despues": round(sum(map(len, after)) / n, 2)}

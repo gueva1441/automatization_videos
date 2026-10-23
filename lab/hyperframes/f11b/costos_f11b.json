@@ -1,0 +1,33 @@
+{
+ "corridas": [
+  {
+   "corrida": "humo",
+   "modelo": "gpt-6.1-sol + gpt-6-astra",
+   "usd": 0.0013,
+   "segundos": 0,
+   "error": null
+  },
+  {
+   "corrida": "gem",
+   "modelo": "gemini-pro",
+   "usd": 0.6113,
+   "segundos": 539.8,
+   "error": null
+  },
+  {
+   "corrida": "sol",
+   "modelo": "gpt-6.1-sol",
+   "usd": 0.1866,
+   "segundos": 348.5,
+   "error": null
+  },
+  {
+   "corrida": "astra",
+   "modelo": "gpt-6-astra",
+   "usd": 0.4047,
+   "segundos": 141.7,
+   "error": null
+  }
+ ],
+ "usd_total": 1.2039
+}

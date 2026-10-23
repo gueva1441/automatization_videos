@@ -1,0 +1,10 @@
+prompt 10757 caracteres · md5 18618ded
+[01:34:37] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-v4b_gem
+[01:43:36] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-v4b_gem � Costo total: $0.6113
+[gem gemini-pro] bloqueantes 12 → 5 · 882 palabras · US$ 0.611 · total US$ 0.613
+[01:43:36] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-v4b_sol
+[01:49:25] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-v4b_sol � Costo total: $0.1866
+[sol gpt-6.1-sol] bloqueantes 0 → 0 · 1229 palabras · US$ 0.187 · total US$ 0.799
+[01:49:25] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-v4b_astra
+[01:51:47] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-v4b_astra � Costo total: $0.4047
+[astra gpt-6-astra] bloqueantes 0 → 0 · 1270 palabras · US$ 0.405 · total US$ 1.204
