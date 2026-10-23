@@ -928,6 +928,9 @@ def _enrich_with_seed_metadata(topic_data: dict, seed: dict) -> dict:
         "documented_props": topic_data.get("documented_props", []),
         "central_subject": topic_data.get("central_subject", {"kind": "other", "foto_madre": ""}),
         "virality_score": topic_data.get("virality_score", 5),
+        # F10: el pool de research v3 viaja al topic (antes se perdía acá y el guion v3 no corría sin carga a mano)
+        **({"evidence_pool": topic_data["evidence_pool"]} if topic_data.get("evidence_pool") else {}),
+        **({"research_version": topic_data["research_version"]} if topic_data.get("research_version") else {}),
         "status": "researched",
         "competition_level": None,
         "market_verdict": None,

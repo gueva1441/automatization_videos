@@ -149,3 +149,13 @@ def test_sin_flag_corre_el_camino_viejo(monkeypatch):
     monkeypatch.setattr(f15, "_load_topic_by_id", lambda tid: {"id": tid, "evidence_pool": {"datos": []}})
     r = f15.process_topic("t", from_step="m01a", stop_after_step="m01a", v3=True)
     assert r["status"] == "PASS" and called == ["escaleta"]
+
+
+def test_el_pool_v3_llega_al_topic():
+    import topic_researcher as tr
+    seed = {"seed_id": "s", "discovery_mode": "manual", "tags": []}
+    data = {"_pre_topic_id": "t9", "video_title": "x", "evidence_pool": {"datos": [{"id": "D01"}]}, "research_version": 3}
+    t = tr._enrich_with_seed_metadata(dict(data), seed)
+    assert t["id"] == "t9" and t["evidence_pool"]["datos"][0]["id"] == "D01" and t["research_version"] == 3
+    t2 = tr._enrich_with_seed_metadata({"video_title": "y"}, seed)
+    assert "evidence_pool" not in t2 and "research_version" not in t2          # camino viejo: igual que antes
