@@ -82,7 +82,7 @@ def test_argon_es_del_guion_y_no_del_research(monkeypatch):
     assert gh._cfg.gemini_model_research != "gemini-4-argon"           # el research sigue con su modelo
     cfg = seen["config"]
     assert cfg.temperature is None and cfg.top_p is None and cfg.top_k is None and cfg.thinking_config is None
-    assert g4.call_for(None) is gh.call_pro_json and g4.call_for("gemini-pro") is gh.call_pro_json
+    assert g4.call_for("gemini-pro") is gh.call_pro_json                 # F12: None → Sol (test_module_f12)
 
 
 def test_argon_precio_oficial():

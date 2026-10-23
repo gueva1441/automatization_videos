@@ -1,0 +1,17 @@
+entrada ≈ US$ 0.111 (cota) · max_completion_tokens 38,403 · peor caso US$ 0.495
+[11:42:20] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f12-ficha
+[11:48:33] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f12-ficha � Costo total: $0.3385
+conteos crudo {'contradicciones': 24, 'personas': 99, 'cifras': 61, 'cronologia': 20, 'hechos': 76, 'citas': 25, 'descartados': 34}
+conteos ficha {'contradicciones': 19, 'personas': 99, 'cifras': 60, 'cronologia': 19, 'hechos': 71, 'citas': 25, 'descartados': 46} · sacados por el chequeo 12 · US$ 0.339 · 374 s
+  sacado [contradicciones] [contradicciones] Alcance de los delitos atribuidos a los condenados → no respaldado: cifra 16; cifra 15; cifra 15
+  sacado [contradicciones] [contradicciones] Conflicto entre la fecha extraída para la muerte de Diana y el pasaje fu → no respaldado: cifra 13; cifra 13
+  sacado [contradicciones] [contradicciones] Conflicto entre el evento extraído para Digna Cáceres y la acción narrad → no respaldado: cifra 18
+  sacado [contradicciones] [contradicciones] Identidades fusionadas en P62 → no respaldado: cifra 62
+  sacado [contradicciones] [contradicciones] Identidades fusionadas en P74 → no respaldado: cifra 74
+  sacado [cifras] [cifras] Condena del constructor identificado en F15 como Bernardo Ismachowiez → no respaldado: cifra 15
+  sacado [cronologia] [cronologia] El relato introductorio de F09 ubica a esta hora a las personas que estaban d → no respaldado: cifra 09
+  sacado [hechos] [hechos] Una reconstrucción recogida en F09 planteó como probable una segunda explosión de → no respaldado: cifra 09
+  sacado [hechos] [hechos] La crónica judicial de F15 identifica a Juan Pío Paiva, Víctor Daniel Paiva y Dan → no respaldado: cifra 15
+  sacado [hechos] [hechos] La crónica judicial de F15 informa que Humberto Casaccia fue condenado a 2 años y → no respaldado: cifra 15
+  sacado [hechos] [hechos] F15 informa que el constructor, identificado allí como Bernardo Ismachowiez, reci → no respaldado: cifra 15
+  sacado [hechos] [hechos] F15 informa que los demás directivos acusados en la causa por exposición de perso → no respaldado: cifra 15

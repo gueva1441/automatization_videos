@@ -1,0 +1,3530 @@
+{
+ "personas": [
+  {
+   "nombre": "Tatiana Gabaglio",
+   "rol": "Sobreviviente; perdió una pierna por las quemaduras y posteriormente estudió Derecho y Criminalística.",
+   "variantes": [],
+   "ids": [
+    "P01",
+    "D02",
+    "D08",
+    "D09"
+   ]
+  },
+  {
+   "nombre": "Ángela Pujol",
+   "rol": "Madre de Yessica Vanessa y Yessica Natalia, fallecidas en el incendio.",
+   "variantes": [],
+   "ids": [
+    "P02",
+    "P03",
+    "P04"
+   ]
+  },
+  {
+   "nombre": "Yessica Vanessa",
+   "rol": "Víctima fallecida; hija de Ángela Pujol.",
+   "variantes": [],
+   "ids": [
+    "P03",
+    "D15"
+   ]
+  },
+  {
+   "nombre": "Yessica Natalia",
+   "rol": "Víctima fallecida; hija de Ángela Pujol.",
+   "variantes": [],
+   "ids": [
+    "P04",
+    "D16"
+   ]
+  },
+  {
+   "nombre": "Beatriz González",
+   "rol": "Cajera del supermercado y sobreviviente.",
+   "variantes": [],
+   "ids": [
+    "P05",
+    "Q10"
+   ]
+  },
+  {
+   "nombre": "Juan Pío Paiva",
+   "rol": "Propietario y principal accionista del supermercado; condenado y demandado en causas indemnizatorias; las formas de su nombre se registran sin establecer una preferencia documental.",
+   "variantes": [
+    "Juan Pio Paiva",
+    "Pío Paiva",
+    "Juan Pío Helvidio Paiva Escobar",
+    "Juan Pío Paiva Escobar"
+   ],
+   "ids": [
+    "P06",
+    "P40",
+    "P61",
+    "D19",
+    "D185",
+    "D191"
+   ]
+  },
+  {
+   "nombre": "Hijo de Juan Pío Paiva — nombre en conflicto",
+   "rol": "Hijo del propietario y acusado; las fuentes lo identifican como Víctor Daniel, Víctor, Daniel o Emiliano Paiva, sin que la ficha resuelva la discrepancia.",
+   "variantes": [
+    "Víctor Daniel Paiva",
+    "Víctor Paiva",
+    "Daniel Paiva",
+    "Emiliano Paiva"
+   ],
+   "ids": [
+    "P07",
+    "P28",
+    "P48",
+    "D20"
+   ]
+  },
+  {
+   "nombre": "Jorge Alfonso",
+   "rol": "Vocero de la Fundación de Víctimas del Ycua Bolaños; padre de Guillermo Alfonso Ortíz.",
+   "variantes": [],
+   "ids": [
+    "P08"
+   ]
+  },
+  {
+   "nombre": "Guillermo Alfonso Ortíz",
+   "rol": "Carritero del supermercado y víctima fallecida; hijo de Jorge Alfonso.",
+   "variantes": [],
+   "ids": [
+    "P09",
+    "D18"
+   ]
+  },
+  {
+   "nombre": "Daniel Areco",
+   "rol": "Guardia de seguridad; procesado y condenado por el caso.",
+   "variantes": [
+    "Areco"
+   ],
+   "ids": [
+    "P10",
+    "D21",
+    "D215"
+   ]
+  },
+  {
+   "nombre": "Humberto Casaccia",
+   "rol": "Directivo del supermercado; condenado y demandado en una causa civil.",
+   "variantes": [
+    "Casaccia"
+   ],
+   "ids": [
+    "P11",
+    "D217",
+    "D189"
+   ]
+  },
+  {
+   "nombre": "Liz Torres",
+   "rol": "Sobreviviente e integrante de la Coordinadora de Víctimas y amigos del Ycua Bolaños.",
+   "variantes": [],
+   "ids": [
+    "P13",
+    "Q12",
+    "Q77"
+   ]
+  },
+  {
+   "nombre": "Enrique Riera",
+   "rol": "Intendente de Asunción en la época del incendio; identificado como ministro del Interior en un testimonio posterior.",
+   "variantes": [
+    "Riera"
+   ],
+   "ids": [
+    "P14",
+    "Q13"
+   ]
+  },
+  {
+   "nombre": "Martín Burt",
+   "rol": "Intendente de Asunción anterior a Enrique Riera.",
+   "variantes": [
+    "Burt"
+   ],
+   "ids": [
+    "P15",
+    "Q12"
+   ]
+  },
+  {
+   "nombre": "Benedicto Pérez",
+   "rol": "Perito formoseño y oficial inspector especialista en Sistemas de Protección contra Siniestros.",
+   "variantes": [],
+   "ids": [
+    "P16",
+    "T54"
+   ]
+  },
+  {
+   "nombre": "Héctor Machado",
+   "rol": "Perito formoseño que compareció ante el Tribunal de Sentencia.",
+   "variantes": [],
+   "ids": [
+    "P16"
+   ]
+  },
+  {
+   "nombre": "Victorino Martínez",
+   "rol": "Perito paraguayo y comisario que encabezó el trabajo de Criminalística de la Policía.",
+   "variantes": [],
+   "ids": [
+    "P16",
+    "D26"
+   ]
+  },
+  {
+   "nombre": "Elizardo Rojas",
+   "rol": "Perito paraguayo que compareció ante el Tribunal de Sentencia.",
+   "variantes": [],
+   "ids": [
+    "P16"
+   ]
+  },
+  {
+   "nombre": "José del Carmen Bogarín",
+   "rol": "Perito paraguayo que compareció ante el Tribunal de Sentencia.",
+   "variantes": [],
+   "ids": [
+    "P16"
+   ]
+  },
+  {
+   "nombre": "Isidro Ayala Arrúa",
+   "rol": "Perito paraguayo que compareció ante el Tribunal de Sentencia.",
+   "variantes": [],
+   "ids": [
+    "P16"
+   ]
+  },
+  {
+   "nombre": "Luis Escobar Faella",
+   "rol": "Abogado defensor de Juan Pío Paiva; el pool también registra un nombre de pila ampliado.",
+   "variantes": [
+    "Luis Emilio Escobar Faella",
+    "Escobar Faella"
+   ],
+   "ids": [
+    "P22",
+    "P95",
+    "D227"
+   ]
+  },
+  {
+   "nombre": "Mirta Elizabeth González",
+   "rol": "Madre del adolescente mencionado como afectado indirecto; lo rescató y trasladó a un centro médico.",
+   "variantes": [],
+   "ids": [
+    "P25"
+   ]
+  },
+  {
+   "nombre": "Víctor Galeano",
+   "rol": "Sobreviviente que estaba en el supermercado con su familia.",
+   "variantes": [],
+   "ids": [
+    "P26",
+    "Q18"
+   ]
+  },
+  {
+   "nombre": "Alejandro Nissen",
+   "rol": "Abogado querellante de familias de víctimas.",
+   "variantes": [
+    "Nissen",
+    "doctor Nissen"
+   ],
+   "ids": [
+    "P27",
+    "T43",
+    "D64"
+   ]
+  },
+  {
+   "nombre": "Bernardo Ismachoviez",
+   "rol": "Director y arquitecto de la obra, mencionado también como constructor; la grafía del apellido está en conflicto.",
+   "variantes": [
+    "Bernardo Ismachowiez"
+   ],
+   "ids": [
+    "P29",
+    "P86",
+    "D220"
+   ]
+  },
+  {
+   "nombre": "Edgar Sánchez",
+   "rol": "Fiscal del caso.",
+   "variantes": [
+    "Fiscal Edgar Sánchez",
+    "Fiscal Sánchez",
+    "fiscal Sánchez"
+   ],
+   "ids": [
+    "P30",
+    "P96",
+    "Q40"
+   ]
+  },
+  {
+   "nombre": "Matilde Moreno",
+   "rol": "Fiscala a cargo de una investigación vinculada con las responsabilidades municipales, según el relato recogido.",
+   "variantes": [],
+   "ids": [
+    "P31",
+    "D67"
+   ]
+  },
+  {
+   "nombre": "Amada Correa",
+   "rol": "Funcionaria del supermercado que, según el relato de la querella, avisó que ocurría algo en el techo.",
+   "variantes": [],
+   "ids": [
+    "P32",
+    "Q26"
+   ]
+  },
+  {
+   "nombre": "Rodas Cristaldo",
+   "rol": "Sobreviviente identificada únicamente por sus apellidos; se mencionan quemaduras extensas y gastos de tratamiento.",
+   "variantes": [],
+   "ids": [
+    "P33",
+    "D79"
+   ]
+  },
+  {
+   "nombre": "Hugo Cabral",
+   "rol": "Guardia de salón fallecido en el incendio.",
+   "variantes": [],
+   "ids": [
+    "P34"
+   ]
+  },
+  {
+   "nombre": "Leticia Lusich",
+   "rol": "Portera del supermercado.",
+   "variantes": [],
+   "ids": [
+    "P35"
+   ]
+  },
+  {
+   "nombre": "Nicolás Núñez",
+   "rol": "Comisario que presidió el contingente de peritos de Criminalística de Formosa.",
+   "variantes": [],
+   "ids": [
+    "P36",
+    "T07"
+   ]
+  },
+  {
+   "nombre": "Teresa Sosa",
+   "rol": "Fiscala del caso.",
+   "variantes": [],
+   "ids": [
+    "P37",
+    "D92",
+    "D121"
+   ]
+  },
+  {
+   "nombre": "Alejandro Maciel",
+   "rol": "Médico siquiatra entrevistado sobre las consecuencias de la tragedia.",
+   "variantes": [
+    "doctor Maciel"
+   ],
+   "ids": [
+    "P38",
+    "T44",
+    "D104"
+   ]
+  },
+  {
+   "nombre": "Digna Felicia Cáceres",
+   "rol": "Sobreviviente; bioquímica especialista en control de infecciones hospitalarias.",
+   "variantes": [
+    "Digna Cáceres"
+   ],
+   "ids": [
+    "P39",
+    "D105",
+    "Q35"
+   ]
+  },
+  {
+   "nombre": "Mario Eduardo Chamorro",
+   "rol": "Empleado del supermercado fallecido en el incendio.",
+   "variantes": [],
+   "ids": [
+    "P41",
+    "D110"
+   ]
+  },
+  {
+   "nombre": "Mariana Aquino de Chamorro",
+   "rol": "Madre de Mario Eduardo Chamorro.",
+   "variantes": [
+    "Mariana"
+   ],
+   "ids": [
+    "P41",
+    "T45",
+    "Q36",
+    "Q37"
+   ]
+  },
+  {
+   "nombre": "Blas Cristaldo",
+   "rol": "Ingeniero, integrante del Colectivo Ni Olvido Ni Perdón y esposo de Estela, fallecida en el incendio.",
+   "variantes": [
+    "Ing. Blas Cristaldo",
+    "Ing. Cristaldo"
+   ],
+   "ids": [
+    "P42",
+    "T50"
+   ]
+  },
+  {
+   "nombre": "Estela",
+   "rol": "Esposa de Blas Cristaldo y víctima fallecida.",
+   "variantes": [
+    "Estelita"
+   ],
+   "ids": [
+    "P42",
+    "D141",
+    "D144"
+   ]
+  },
+  {
+   "nombre": "Olindo López",
+   "rol": "Fiscal que inició una imputación contra el responsable de la construcción.",
+   "variantes": [],
+   "ids": [
+    "P44",
+    "D119"
+   ]
+  },
+  {
+   "nombre": "Ismael Alcaraz",
+   "rol": "Guardia de seguridad al que se atribuye haber reconocido la recepción de una orden de cierre por radio.",
+   "variantes": [],
+   "ids": [
+    "P46",
+    "D121"
+   ]
+  },
+  {
+   "nombre": "Fernando Ortiz Mieres",
+   "rol": "Exempleado y sobreviviente; el pool también lo identifica con el apellido abreviado.",
+   "variantes": [
+    "Fernando Ortiz"
+   ],
+   "ids": [
+    "P47",
+    "P97",
+    "D129",
+    "Q41"
+   ]
+  },
+  {
+   "nombre": "Lili Cristaldo",
+   "rol": "Sobreviviente que intervino en una reunión de afectados.",
+   "variantes": [],
+   "ids": [
+    "P49",
+    "Q42"
+   ]
+  },
+  {
+   "nombre": "Verónica Becker",
+   "rol": "Familiar de víctimas; perdió a su esposo y a su hija.",
+   "variantes": [
+    "Verónica"
+   ],
+   "ids": [
+    "P50",
+    "Q44"
+   ]
+  },
+  {
+   "nombre": "Ignacio González",
+   "rol": "Sociólogo que había vivido en el barrio Santísima Trinidad.",
+   "variantes": [],
+   "ids": [
+    "P51"
+   ]
+  },
+  {
+   "nombre": "Rubén Urbieta",
+   "rol": "Amigo de Blas Cristaldo y víctima fallecida.",
+   "variantes": [
+    "Rubén"
+   ],
+   "ids": [
+    "P52",
+    "D137"
+   ]
+  },
+  {
+   "nombre": "Teresa Urbieta",
+   "rol": "Esposa de Rubén Urbieta y víctima fallecida.",
+   "variantes": [
+    "Teresa"
+   ],
+   "ids": [
+    "T03",
+    "T19",
+    "D139",
+    "D140"
+   ]
+  },
+  {
+   "nombre": "Adriana",
+   "rol": "Hija mayor de Rubén y Teresa Urbieta, mencionada entre quienes fueron al supermercado.",
+   "variantes": [],
+   "ids": [
+    "T19",
+    "D139"
+   ]
+  },
+  {
+   "nombre": "Gaby",
+   "rol": "Hija menor de Rubén y Teresa Urbieta; su cuerpo fue localizado en el cuartel mencionado en el relato.",
+   "variantes": [],
+   "ids": [
+    "T19",
+    "D139",
+    "D140"
+   ]
+  },
+  {
+   "nombre": "Juan Pereira",
+   "rol": "Comisario denunciado por presunta obstrucción de la investigación; señalado como socio de la compañía de seguridad Prevención.",
+   "variantes": [
+    "Comisario Juan Pereira"
+   ],
+   "ids": [
+    "P53",
+    "D145",
+    "D146"
+   ]
+  },
+  {
+   "nombre": "Nelson Astigarraga",
+   "rol": "Ingeniero, sobreviviente y familiar de víctimas; perdió a su esposa, su hijo y su sobrina.",
+   "variantes": [
+    "Ing. Nelson Astigarraga"
+   ],
+   "ids": [
+    "P54",
+    "D148",
+    "D149"
+   ]
+  },
+  {
+   "nombre": "José Luis Simón",
+   "rol": "Sociólogo entrevistado sobre las responsabilidades y consecuencias del incendio; otro ítem lo presenta como profesor y periodista.",
+   "variantes": [],
+   "ids": [
+    "P55",
+    "Q58"
+   ]
+  },
+  {
+   "nombre": "Juan Brizuela",
+   "rol": "Ingeniero fallecido en el incendio; esposo de María Berzabé Meza.",
+   "variantes": [],
+   "ids": [
+    "P56",
+    "T52",
+    "D163"
+   ]
+  },
+  {
+   "nombre": "María Berzabé Meza",
+   "rol": "Viuda de Juan Brizuela y participante de las movilizaciones por justicia.",
+   "variantes": [
+    "María Berzabé Meza Vda. de Brizuela",
+    "Berzabé"
+   ],
+   "ids": [
+    "T36",
+    "T52",
+    "Q43",
+    "Q59"
+   ]
+  },
+  {
+   "nombre": "Arístides González",
+   "rol": "Coordinador del Comité de Emergencia Nacional mencionado como proveedor de una ayuda económica.",
+   "variantes": [],
+   "ids": [
+    "P57",
+    "D167"
+   ]
+  },
+  {
+   "nombre": "María Estefanía Palacios Morínigo",
+   "rol": "Hija del matrimonio Palacios Morínigo fallecida en el incendio; no se la trata como variante de su hermana María Estela.",
+   "variantes": [],
+   "ids": [
+    "P62",
+    "T11",
+    "D187"
+   ]
+  },
+  {
+   "nombre": "María del Carmen Palacios Morínigo",
+   "rol": "Hija del matrimonio Palacios Morínigo fallecida en el incendio.",
+   "variantes": [],
+   "ids": [
+    "T11",
+    "D187"
+   ]
+  },
+  {
+   "nombre": "María Estela Palacios Morínigo",
+   "rol": "Hija del matrimonio Palacios Morínigo fallecida en el incendio.",
+   "variantes": [],
+   "ids": [
+    "P62",
+    "T11",
+    "D187"
+   ]
+  },
+  {
+   "nombre": "Felipe De Jesús Palacios Giménez",
+   "rol": "Sobreviviente y demandante por lesiones propias y por la muerte de sus hijas.",
+   "variantes": [],
+   "ids": [
+    "D186",
+    "D187"
+   ]
+  },
+  {
+   "nombre": "María Estela Morínigo Giménez de Palacios",
+   "rol": "Sobreviviente y demandante por lesiones propias y por la muerte de sus hijas.",
+   "variantes": [],
+   "ids": [
+    "D186",
+    "D187"
+   ]
+  },
+  {
+   "nombre": "Enrique Mongelós",
+   "rol": "Juez de primera instancia en una demanda indemnizatoria.",
+   "variantes": [
+    "juez Mongelós"
+   ],
+   "ids": [
+    "P63",
+    "D189"
+   ]
+  },
+  {
+   "nombre": "María Victoria Cáceres",
+   "rol": "Esposa de Juan Pío Paiva y directiva; enjuiciada en una causa penal y demandada en una causa civil.",
+   "variantes": [
+    "María Victoria Cáceres de Paiva"
+   ],
+   "ids": [
+    "P64",
+    "D216",
+    "D191"
+   ]
+  },
+  {
+   "nombre": "Antoliana Burgos",
+   "rol": "Demandada civil e identificada como directiva en la causa penal; el nombre presenta una variante en conflicto.",
+   "variantes": [
+    "Antolina Burgos"
+   ],
+   "ids": [
+    "P65",
+    "D216"
+   ]
+  },
+  {
+   "nombre": "Alberto Martínez Simón",
+   "rol": "Ministro de la Corte que intervino en el juicio indemnizatorio.",
+   "variantes": [],
+   "ids": [
+    "P67"
+   ]
+  },
+  {
+   "nombre": "Eugenio Jiménez Rolón",
+   "rol": "Ministro de la Corte que intervino en el juicio indemnizatorio.",
+   "variantes": [],
+   "ids": [
+    "P67"
+   ]
+  },
+  {
+   "nombre": "Manuel Dejesús Ramírez Candia",
+   "rol": "Ministro de la Corte que intervino en el juicio indemnizatorio.",
+   "variantes": [],
+   "ids": [
+    "P67"
+   ]
+  },
+  {
+   "nombre": "Antonio Morínigo",
+   "rol": "Abogado que comentó las dificultades para hacer efectiva una indemnización.",
+   "variantes": [],
+   "ids": [
+    "P70"
+   ]
+  },
+  {
+   "nombre": "Cristian Sosa",
+   "rol": "Sobreviviente con quemaduras en manos, rostro y pulmones.",
+   "variantes": [],
+   "ids": [
+    "P71",
+    "D200"
+   ]
+  },
+  {
+   "nombre": "Julia López",
+   "rol": "Hermana de María Angélica y familiar de víctimas.",
+   "variantes": [
+    "Julia"
+   ],
+   "ids": [
+    "P72",
+    "T20",
+    "Q72"
+   ]
+  },
+  {
+   "nombre": "Angélica Roa",
+   "rol": "Sobreviviente y familiar de víctimas; identificada como sicóloga jubilada.",
+   "variantes": [
+    "Angélica"
+   ],
+   "ids": [
+    "P73",
+    "D208",
+    "Q75"
+   ]
+  },
+  {
+   "nombre": "María Angélica",
+   "rol": "Maestra de párvulos fallecida; hermana de Julia López y esposa de Gustavo Lima.",
+   "variantes": [
+    "Kelita"
+   ],
+   "ids": [
+    "P74",
+    "D203",
+    "Q74"
+   ]
+  },
+  {
+   "nombre": "Mara Angélica",
+   "rol": "Hija de María Angélica y Gustavo Lima, fallecida en el incendio; no se la trata como variante de su madre.",
+   "variantes": [],
+   "ids": [
+    "P74",
+    "T55",
+    "D204"
+   ]
+  },
+  {
+   "nombre": "Gustavo Lima",
+   "rol": "Esposo de María Angélica y víctima fallecida.",
+   "variantes": [],
+   "ids": [
+    "P75",
+    "T55"
+   ]
+  },
+  {
+   "nombre": "Victorina Lima",
+   "rol": "Víctima fallecida cuyos restos fueron identificados posteriormente.",
+   "variantes": [
+    "tía Vicky"
+   ],
+   "ids": [
+    "P76",
+    "D205"
+   ]
+  },
+  {
+   "nombre": "Juan Adolfo Lima",
+   "rol": "Hijo de María Angélica y Gustavo Lima cuyo cuerpo no fue hallado.",
+   "variantes": [
+    "Juan Adolfo"
+   ],
+   "ids": [
+    "P74",
+    "P77",
+    "D206"
+   ]
+  },
+  {
+   "nombre": "Carolina",
+   "rol": "Hermana de Angélica Roa y madre de Mara Soledad; víctima fallecida.",
+   "variantes": [],
+   "ids": [
+    "P78",
+    "T13",
+    "D207"
+   ]
+  },
+  {
+   "nombre": "Mara Soledad",
+   "rol": "Hija de Carolina y sobrina de Angélica Roa; víctima del incendio.",
+   "variantes": [],
+   "ids": [
+    "P78",
+    "D207"
+   ]
+  },
+  {
+   "nombre": "Diana Benítez",
+   "rol": "Sobrina política de Angélica Roa; falleció en el hospital al día siguiente del incendio.",
+   "variantes": [
+    "Diana"
+   ],
+   "ids": [
+    "P79",
+    "T13"
+   ]
+  },
+  {
+   "nombre": "Melani",
+   "rol": "Víctima cuyos restos fueron identificados mediante pruebas de ADN en España.",
+   "variantes": [],
+   "ids": [
+    "D207",
+    "D209"
+   ]
+  },
+  {
+   "nombre": "Alfredo Vallovera",
+   "rol": "Esposo de Liz Torres; estaba con ella en el supermercado y fue rescatado.",
+   "variantes": [
+    "Alfredo"
+   ],
+   "ids": [
+    "P80",
+    "Q20"
+   ]
+  },
+  {
+   "nombre": "Tania Campos",
+   "rol": "Directora del Sitio de Memoria y Centro Cultural 1A – Ycuá Bolaños.",
+   "variantes": [],
+   "ids": [
+    "P81"
+   ]
+  },
+  {
+   "nombre": "Agustín Alfonzo",
+   "rol": "Directivo enjuiciado y absuelto en la causa por exposición de personas a lugares de trabajo peligrosos.",
+   "variantes": [],
+   "ids": [
+    "P82",
+    "D218"
+   ]
+  },
+  {
+   "nombre": "Jorge Gamarra Morínigo",
+   "rol": "Funcionario municipal condenado por producción de riesgos comunes.",
+   "variantes": [],
+   "ids": [
+    "P83",
+    "D219"
+   ]
+  },
+  {
+   "nombre": "Jesús María Insaurralde",
+   "rol": "Funcionario municipal condenado por producción de riesgos comunes.",
+   "variantes": [],
+   "ids": [
+    "P84",
+    "D219"
+   ]
+  },
+  {
+   "nombre": "Rodrigo Castillo Fraccia",
+   "rol": "Funcionario municipal condenado por producción de riesgos comunes.",
+   "variantes": [],
+   "ids": [
+    "P85",
+    "D219"
+   ]
+  },
+  {
+   "nombre": "Hugo Morán",
+   "rol": "Juez que dictó la primera sentencia indemnizatoria mencionada en el pool.",
+   "variantes": [],
+   "ids": [
+    "P87",
+    "T66"
+   ]
+  },
+  {
+   "nombre": "Emigdio Wendell",
+   "rol": "Demandante indemnizatorio junto con Nilda Ortellado.",
+   "variantes": [],
+   "ids": [
+    "P88",
+    "D221"
+   ]
+  },
+  {
+   "nombre": "Nilda Ortellado",
+   "rol": "Demandante indemnizatoria junto con Emigdio Wendell.",
+   "variantes": [],
+   "ids": [
+    "P89",
+    "D221"
+   ]
+  },
+  {
+   "nombre": "Miguel Ángel Rodas",
+   "rol": "Juez que dictó una condena indemnizatoria contra los Paiva y la sociedad.",
+   "variantes": [],
+   "ids": [
+    "P90",
+    "D222"
+   ]
+  },
+  {
+   "nombre": "Pedro Ramón Ramírez Carballo",
+   "rol": "Demandante por la muerte de su hija, que trabajaba como cajera.",
+   "variantes": [],
+   "ids": [
+    "P91"
+   ]
+  },
+  {
+   "nombre": "Susana Acuña de Ramírez",
+   "rol": "Demandante por la muerte de su hija, que trabajaba como cajera.",
+   "variantes": [],
+   "ids": [
+    "P91"
+   ]
+  },
+  {
+   "nombre": "Rubén Valdez",
+   "rol": "Capitán y jefe del Cuerpo de Bomberos Voluntarios del Paraguay.",
+   "variantes": [],
+   "ids": [
+    "P92",
+    "Q80"
+   ]
+  },
+  {
+   "nombre": "Nelson Jara",
+   "rol": "Arquitecto y docente de Seguridad contra incendios en los edificios en FADA-UNA.",
+   "variantes": [],
+   "ids": [
+    "P93",
+    "Q81"
+   ]
+  },
+  {
+   "nombre": "Carlos Halke",
+   "rol": "Ingeniero y director del Departamento de Prevención contra Incendios de la Municipalidad de Asunción.",
+   "variantes": [],
+   "ids": [
+    "P94",
+    "Q82"
+   ]
+  },
+  {
+   "nombre": "Juan Carlos Casco",
+   "rol": "Amigo de Blas Cristaldo que lo llamó durante la búsqueda de familiares.",
+   "variantes": [],
+   "ids": [
+    "T24"
+   ]
+  },
+  {
+   "nombre": "Mónica",
+   "rol": "Hija de Blas Cristaldo que organizó un equipo de búsqueda y localizó a Estela.",
+   "variantes": [],
+   "ids": [
+    "D141"
+   ]
+  },
+  {
+   "nombre": "Miguel Ángel Guillén",
+   "rol": "Propietario o anfitrión de la gomería propuesta como lugar de reunión de afectados.",
+   "variantes": [],
+   "ids": [
+    "L24"
+   ]
+  },
+  {
+   "nombre": "Baltazar Duarte",
+   "rol": "Broker de seguros que intervino en la contratación de la póliza del supermercado, según el abogado defensor.",
+   "variantes": [],
+   "ids": [
+    "D182"
+   ]
+  },
+  {
+   "nombre": "Dora",
+   "rol": "Moderadora de una reunión e integrante del Colectivo Ni Olvido Ni Perdón, según la identificación del pool.",
+   "variantes": [],
+   "ids": [
+    "Q38"
+   ]
+  }
+ ],
+ "cronologia": [
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "siete de la mañana por ahí",
+   "evento": "Blas Cristaldo relató que se levantó y comenzó a trabajar en su computadora.",
+   "ids": [
+    "T14",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "alrededor de las 9 de la mañana",
+   "evento": "El relato de la querella sitúa a esta hora el comienzo de un proceso de fuego y explosiones previo al episodio principal; no se adopta como hora consensuada del estallido.",
+   "ids": [
+    "T15",
+    "D73",
+    "D74",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "a las nueve",
+   "evento": "Según Blas Cristaldo, Estela se levantó y lo llamó para desayunar.",
+   "ids": [
+    "T14",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "a las diez de la mañana",
+   "evento": "Según su madre, Mario Eduardo Chamorro entró a trabajar en el supermercado.",
+   "ids": [
+    "T16",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "a las diez y media por ahí",
+   "evento": "Digna Cáceres situó a esta hora su despertar antes de ir al supermercado, no su llegada al local.",
+   "ids": [
+    "T18",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "a las diez y media",
+   "evento": "Según Blas Cristaldo, Teresa y sus hijas pasaron a buscar a Estela.",
+   "ids": [
+    "T19",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "a las 11.10 de esa mañana",
+   "evento": "Julia López se despidió de su hermana; su relato sitúa el estallido diez minutos después.",
+   "ids": [
+    "T20",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "a las 11:25 de la mañana",
+   "evento": "El relato introductorio de F09 ubica a esta hora a las personas que estaban dentro del supermercado durante la catástrofe; la hora difiere de otras versiones.",
+   "ids": [
+    "T21",
+    "D60",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "a las 11 y 27",
+   "evento": "Mariana Aquino de Chamorro situó a esta hora el episodio del incendio que afectó a su hijo.",
+   "ids": [
+    "T16",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "",
+   "evento": "Durante la emergencia, Beatriz González abandonó su caja y corrió hacia el estacionamiento tras escuchar una explosión y ver humo negro.",
+   "ids": [
+    "Q10",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "",
+   "evento": "Víctor Galeano relató que encontró cerrada una puerta de blíndex y cayó con Santiago en brazos después de un estruendo hacia el estacionamiento.",
+   "ids": [
+    "Q18",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "",
+   "evento": "Tatiana Gabaglio quedó atrapada por un panel de cielorraso derretido y fue rescatada por bomberos voluntarios.",
+   "ids": [
+    "D03",
+    "D04",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "",
+   "evento": "Digna Cáceres relató que quedó atrapada por escombros y que, después de recibir agua, recobró el conocimiento y vio un boquete hacia la avenida Artigas.",
+   "ids": [
+    "D105",
+    "D107",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "",
+   "evento": "Se dispuso enviar a Asunción un contingente de peritos de Criminalística de Formosa para identificar víctimas.",
+   "ids": [
+    "T07",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "a las doce menos veinte",
+   "evento": "La madre de Blas Cristaldo lo llamó y le preguntó si había escuchado lo que pasaba en el Ycuá Bolaños.",
+   "ids": [
+    "T14",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "cerca de la una, las dos de la tarde",
+   "evento": "Según el testimonio recogido, las hermanas de Juan Brizuela lograron entrar al Tropi Club y encontraron su cuerpo.",
+   "ids": [
+    "T23",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "a las tres y media",
+   "evento": "Juan Carlos Casco llamó a Blas Cristaldo para preguntarle por Rubén Urbieta y le dijo que no estaba en el río.",
+   "ids": [
+    "T24",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "a las cuatro y cuarto",
+   "evento": "Blas Cristaldo relató que, cuando se disponían a iniciar la búsqueda, supieron que Rubén Urbieta había sido identificado por su reloj.",
+   "ids": [
+    "T25",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "a las nueve de la noche",
+   "evento": "Blas Cristaldo supo que habían encontrado a Teresa y Gaby en el cuartel mencionado como 4 de mayo.",
+   "ids": [
+    "T26",
+    "D42"
+   ]
+  },
+  {
+   "fecha": "1 de agosto de 2004",
+   "hora": "a las diez y media de la noche",
+   "evento": "Blas Cristaldo retiró el cuerpo de Estela.",
+   "ids": [
+    "T27",
+    "D141",
+    "D42"
+   ]
+  }
+ ],
+ "hechos": [
+  {
+   "texto": "El incendio del supermercado Ycuá Bolaños ocurrió el 1 de agosto de 2004 en Asunción.",
+   "ids": [
+    "D42",
+    "L05"
+   ]
+  },
+  {
+   "texto": "El edificio estaba en la esquina de las avenidas Artigas y Santísima Trinidad.",
+   "ids": [
+    "D53"
+   ]
+  },
+  {
+   "texto": "El local incendiado había sido inaugurado en diciembre de 2001.",
+   "ids": [
+    "D59"
+   ]
+  },
+  {
+   "texto": "La cadena de supermercados había sido fundada en 1978.",
+   "ids": [
+    "D58"
+   ]
+  },
+  {
+   "texto": "Nelson Astigarraga describió el supermercado como un lugar familiar de esparcimiento cercano a su casa.",
+   "ids": [
+    "Q50"
+   ]
+  },
+  {
+   "texto": "Ángela Pujol relató que sus hijas salieron juntas para comprar la comida del día y regalos para una celebración del Día de la Amistad.",
+   "ids": [
+    "Q08"
+   ]
+  },
+  {
+   "texto": "Beatriz González tenía asignada la caja N° 11 el día del incendio.",
+   "ids": [
+    "D17"
+   ]
+  },
+  {
+   "texto": "Cristian Sosa había ido a buscar un producto para su hijo menor y decidió llevar una gaseosa al no encontrarlo.",
+   "ids": [
+    "D198"
+   ]
+  },
+  {
+   "texto": "Liz Torres fue al supermercado con Alfredo Vallovera después de dejar a sus hijos haciendo una tarea.",
+   "ids": [
+    "D210"
+   ]
+  },
+  {
+   "texto": "Blas Cristaldo relató que esa mañana trabajaba en su computadora en su casa.",
+   "ids": [
+    "T14"
+   ]
+  },
+  {
+   "texto": "Según Blas Cristaldo, Teresa y sus hijas pasaron a buscar a Estela para salir.",
+   "ids": [
+    "T19"
+   ]
+  },
+  {
+   "texto": "Mariana Aquino de Chamorro relató que su hijo entró a trabajar a las diez de la mañana de ese domingo.",
+   "ids": [
+    "T16"
+   ]
+  },
+  {
+   "texto": "El relato de la querella atribuye a Amada Correa un aviso de que ocurría algo en el techo.",
+   "ids": [
+    "Q26"
+   ]
+  },
+  {
+   "texto": "El análisis de Criminalística situó el inicio del fuego en desperdicios de cocción acumulados en el tramo en forma de S de la chimenea de la parrilla.",
+   "ids": [
+    "D27"
+   ]
+  },
+  {
+   "texto": "El informe pericial describió la propagación de las llamas por el material aislante del techo.",
+   "ids": [
+    "D28"
+   ]
+  },
+  {
+   "texto": "El tinglado de zinc estaba recubierto con poliuretano para aislar el calor.",
+   "ids": [
+    "D84"
+   ]
+  },
+  {
+   "texto": "La cara superior del cielorraso de yeso estaba cubierta con una placa de isopor descrita como combustible.",
+   "ids": [
+    "D85"
+   ]
+  },
+  {
+   "texto": "La explicación de la querella señaló que el fuego quemó poliuretano entre el cielorraso y el techo.",
+   "ids": [
+    "D72"
+   ]
+  },
+  {
+   "texto": "La primera hipótesis de los bomberos de Formosa fue que se había producido un incendio y no un atentado.",
+   "ids": [
+    "D91"
+   ]
+  },
+  {
+   "texto": "Una reconstrucción recogida en F09 planteó como probable una segunda explosión de humo o backdraft.",
+   "ids": [
+    "D87"
+   ]
+  },
+  {
+   "texto": "Benedicto Pérez refirió que trabajadores le habían contado que las alarmas entre el techo y el cielorraso sonaban desde días o semanas antes.",
+   "ids": [
+    "D96"
+   ]
+  },
+  {
+   "texto": "En su entrevista, Alejandro Nissen afirmó que no había salidas de emergencia señalizadas y que las puertas de ingreso también eran las de salida.",
+   "ids": [
+    "D82",
+    "T43"
+   ]
+  },
+  {
+   "texto": "Benedicto Pérez describió las puertas como abiertas hacia adentro y cuestionó esa disposición.",
+   "ids": [
+    "D98"
+   ]
+  },
+  {
+   "texto": "Víctor Galeano recordó un sonido muy fuerte parecido al del agua al caer en aceite hirviendo.",
+   "ids": [
+    "Q17"
+   ]
+  },
+  {
+   "texto": "Víctor Galeano relató que encontró cerrada una puerta de blíndex durante su intento de salida.",
+   "ids": [
+    "Q18"
+   ]
+  },
+  {
+   "texto": "Beatriz González relató que abandonó la caja y corrió hacia el estacionamiento después de una explosión y una nube de humo negro.",
+   "ids": [
+    "Q10"
+   ]
+  },
+  {
+   "texto": "Liz Torres recordó una avalancha de personas durante la cual creyó que no sobreviviría.",
+   "ids": [
+    "Q19"
+   ]
+  },
+  {
+   "texto": "Liz Torres describió el ambiente como un horno y recordó gritos que se fueron apagando.",
+   "ids": [
+    "Q20"
+   ]
+  },
+  {
+   "texto": "Digna Cáceres relató que los escombros la dejaron atrapada en la bajada hacia el estacionamiento.",
+   "ids": [
+    "D105"
+   ]
+  },
+  {
+   "texto": "Digna Cáceres afirmó que el portón hacia la avenida Artigas estaba cerrado.",
+   "ids": [
+    "D106"
+   ]
+  },
+  {
+   "texto": "Digna Cáceres relató que despertó después de recibir agua y vio la claridad de un boquete hacia la avenida Artigas.",
+   "ids": [
+    "D107"
+   ]
+  },
+  {
+   "texto": "Fernando Ortiz relató que empujó a una mujer que estaba en la portería antes de salir.",
+   "ids": [
+    "P97",
+    "Q41"
+   ]
+  },
+  {
+   "texto": "Fernando Ortiz dijo que sufrió quemaduras en el 50% del cuerpo, además de lesiones en los pulmones y la laringe.",
+   "ids": [
+    "Q41"
+   ]
+  },
+  {
+   "texto": "Un panel de cielorraso derretido cayó sobre la pierna de Tatiana Gabaglio y la dejó atrapada.",
+   "ids": [
+    "D03"
+   ]
+  },
+  {
+   "texto": "Tatiana Gabaglio fue rescatada por bomberos voluntarios.",
+   "ids": [
+    "D04"
+   ]
+  },
+  {
+   "texto": "Los médicos amputaron la pierna de Tatiana Gabaglio debido a la gravedad de las quemaduras.",
+   "ids": [
+    "D05"
+   ]
+  },
+  {
+   "texto": "Tatiana Gabaglio estudió Derecho en la Universidad Nacional de Asunción.",
+   "ids": [
+    "D08"
+   ]
+  },
+  {
+   "texto": "Tatiana Gabaglio también cursó estudios de Criminalística.",
+   "ids": [
+    "D09"
+   ]
+  },
+  {
+   "texto": "Cristian Sosa sufrió quemaduras en las manos y el rostro.",
+   "ids": [
+    "P71"
+   ]
+  },
+  {
+   "texto": "Cristian Sosa permaneció 22 días en coma por quemaduras en los pulmones.",
+   "ids": [
+    "D200"
+   ]
+  },
+  {
+   "texto": "Nelson Astigarraga recordó un ruido intenso y el comienzo de la caída del techo.",
+   "ids": [
+    "T09"
+   ]
+  },
+  {
+   "texto": "Nelson Astigarraga permaneció quince días internado por las secuelas de la inhalación de humo.",
+   "ids": [
+    "D148"
+   ]
+  },
+  {
+   "texto": "Nelson Astigarraga perdió a su esposa, a su hijo y a su sobrina.",
+   "ids": [
+    "P54"
+   ]
+  },
+  {
+   "texto": "Yessica Vanessa y Yessica Natalia, las únicas hijas de Ángela Pujol, murieron en el incendio.",
+   "ids": [
+    "P03",
+    "P04"
+   ]
+  },
+  {
+   "texto": "Jorge Alfonso perdió a su hijo Guillermo Alfonso Ortíz, que trabajaba como carritero.",
+   "ids": [
+    "P08",
+    "D18"
+   ]
+  },
+  {
+   "texto": "Mario Eduardo Chamorro era empleado del supermercado y falleció en el incendio.",
+   "ids": [
+    "D110"
+   ]
+  },
+  {
+   "texto": "Según su madre, Mario Eduardo Chamorro llevaba 28 días trabajando en el supermercado.",
+   "ids": [
+    "D111"
+   ]
+  },
+  {
+   "texto": "Según Blas Cristaldo, Rubén Urbieta fue identificado por su reloj.",
+   "ids": [
+    "D137"
+   ]
+  },
+  {
+   "texto": "Blas Cristaldo relató que el automóvil de Rubén Urbieta estaba prácticamente intacto en el estacionamiento.",
+   "ids": [
+    "D138"
+   ]
+  },
+  {
+   "texto": "Blas Cristaldo supo esa noche que habían encontrado a Teresa y Gaby en el cuartel mencionado como 4 de mayo.",
+   "ids": [
+    "D140"
+   ]
+  },
+  {
+   "texto": "El cuerpo de Estela fue localizado entre los cuerpos depositados en el estacionamiento abierto del supermercado.",
+   "ids": [
+    "D141",
+    "L33"
+   ]
+  },
+  {
+   "texto": "Blas Cristaldo relató que retiró el cuerpo de Estela a las diez y media de la noche.",
+   "ids": [
+    "T27",
+    "D141"
+   ]
+  },
+  {
+   "texto": "La familia López perdió a María Angélica, Gustavo Lima, Juan Adolfo Lima, Mara Angélica y Victorina Lima.",
+   "ids": [
+    "P74",
+    "D201"
+   ]
+  },
+  {
+   "texto": "El cuerpo de María Angélica fue hallado cinco días después del incendio.",
+   "ids": [
+    "D203"
+   ]
+  },
+  {
+   "texto": "Los restos de Gustavo Lima y de su hija fueron identificados en julio de 2005.",
+   "ids": [
+    "P75",
+    "D204"
+   ]
+  },
+  {
+   "texto": "Los restos de Victorina Lima fueron identificados en 2006.",
+   "ids": [
+    "D205"
+   ]
+  },
+  {
+   "texto": "El cuerpo de Juan Adolfo Lima nunca fue hallado, según el relato de su familia.",
+   "ids": [
+    "P77"
+   ]
+  },
+  {
+   "texto": "Angélica Roa sobrevivió después de apartarse unos pasos del grupo familiar que esperaba en las cajas.",
+   "ids": [
+    "D207"
+   ]
+  },
+  {
+   "texto": "Diana Benítez falleció en el hospital al día siguiente del incendio.",
+   "ids": [
+    "T13"
+   ]
+  },
+  {
+   "texto": "Melani fue identificada mediante pruebas de ADN practicadas en España quince días después del incendio.",
+   "ids": [
+    "D209"
+   ]
+  },
+  {
+   "texto": "Verónica Becker relató que perdió a su esposo y a su hija de cuatro meses.",
+   "ids": [
+    "Q44"
+   ]
+  },
+  {
+   "texto": "Peritos de Chile y España participaron en una rueda de especialistas con representantes de las fuerzas intervinientes.",
+   "ids": [
+    "D92"
+   ]
+  },
+  {
+   "texto": "El trabajo de Criminalística de la Policía se realizó entre el 2 y el 10 de agosto del 2004.",
+   "ids": [
+    "D26"
+   ]
+  },
+  {
+   "texto": "La crónica judicial de F15 identifica a Juan Pío Paiva, Víctor Daniel Paiva y Daniel Areco como enjuiciados en la causa principal por homicidio doloso.",
+   "ids": [
+    "D215"
+   ]
+  },
+  {
+   "texto": "El segundo juicio concluyó con penas de 12 años para Juan Pío Paiva y de 5 años para Daniel Areco.",
+   "ids": [
+    "D19",
+    "D21"
+   ]
+  },
+  {
+   "texto": "En agosto del 2007 comenzó una nueva audiencia de juicio con otro tribunal.",
+   "ids": [
+    "T64"
+   ]
+  },
+  {
+   "texto": "Los Paiva y Daniel Areco fueron condenados el 2 de febrero de 2008.",
+   "ids": [
+    "T65"
+   ]
+  },
+  {
+   "texto": "La crónica judicial de F15 informa que Humberto Casaccia fue condenado a 2 años y 6 meses por exposición de personas a lugares de trabajo peligrosos.",
+   "ids": [
+    "D217"
+   ]
+  },
+  {
+   "texto": "Jorge Gamarra Morínigo, Jesús María Insaurralde y Rodrigo Castillo Fraccia fueron condenados a 1 año y 6 meses por producción de riesgos comunes.",
+   "ids": [
+    "D219"
+   ]
+  },
+  {
+   "texto": "F15 informa que el constructor, identificado allí como Bernardo Ismachowiez, recibió una pena de 2 años por actividades peligrosas en la construcción.",
+   "ids": [
+    "D220"
+   ]
+  },
+  {
+   "texto": "F15 informa que los demás directivos acusados en la causa por exposición de personas a lugares de trabajo peligrosos fueron absueltos.",
+   "ids": [
+    "D216",
+    "D218"
+   ]
+  },
+  {
+   "texto": "La primera sentencia indemnizatoria mencionada condenó a Ycuá Bolaños y a Mapfre a pagar G. 600 millones a Emigdio Wendell y Nilda Ortellado.",
+   "ids": [
+    "D221"
+   ]
+  },
+  {
+   "texto": "La demanda del matrimonio Palacios Morínigo comprendió sus lesiones y la muerte de sus hijas por inhalación de monóxido de carbono y quemaduras.",
+   "ids": [
+    "D187",
+    "D188"
+   ]
+  },
+  {
+   "texto": "La Sala Civil de la Corte condenó a Paiva y a la sociedad a abonar G. 2.250.000.000 a cada integrante del matrimonio Palacios Morínigo.",
+   "ids": [
+    "D186"
+   ]
+  },
+  {
+   "texto": "Carlos Halke reconoció que la Municipalidad aprobaba planos sin realizar después la inspección final del funcionamiento de los sistemas contra incendios.",
+   "ids": [
+    "Q82"
+   ]
+  },
+  {
+   "texto": "Sobre las ruinas del supermercado demolido se edificó el Sitio de Memoria y Centro Cultural 1A – Ycuá Bolaños.",
+   "ids": [
+    "L40"
+   ]
+  }
+ ],
+ "cifras": [
+  {
+   "que": "Personas fallecidas; versiones conservadas sin adoptar un total definitivo",
+   "valor": "400",
+   "unidad": "personas fallecidas",
+   "fuente": "F05, F07, F08 y F15",
+   "ids": [
+    "D14",
+    "D38"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "unas 364",
+     "unidad": "personas fallecidas",
+     "fuente": "F11",
+     "ids": [
+      "D194"
+     ]
+    },
+    {
+     "valor": "327, más los desaparecidos",
+     "unidad": "personas fallecidas; desaparecidos sin cuantificar en ese pasaje",
+     "fuente": "F10, presentado como dato oficial",
+     "ids": [
+      "D192"
+     ]
+    },
+    {
+     "valor": "más de 400",
+     "unidad": "personas fallecidas",
+     "fuente": "F09, relato sobre la formación de asociaciones",
+     "ids": [
+      "D62"
+     ]
+    },
+    {
+     "valor": "más de 500",
+     "unidad": "personas fallecidas",
+     "fuente": "F09, estimación personal de Digna Cáceres",
+     "ids": [
+      "D108"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Personas heridas",
+   "valor": "244",
+   "unidad": "personas heridas",
+   "fuente": "F11",
+   "ids": [
+    "D195"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "500",
+     "unidad": "personas heridas",
+     "fuente": "F16",
+     "ids": [
+      "D223"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Huérfanos reportados",
+   "valor": "204",
+   "unidad": "personas huérfanas",
+   "fuente": "F11",
+   "ids": [
+    "D196"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Desaparecidos reportados",
+   "valor": "seis",
+   "unidad": "personas desaparecidas",
+   "fuente": "F11",
+   "ids": [
+    "D197"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personas presentes en el supermercado; estimaciones de distinto umbral",
+   "valor": "más de 1.000",
+   "unidad": "personas presentes",
+   "fuente": "F09, entrevista a Benedicto Pérez",
+   "ids": [
+    "D93"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "más de 1500",
+     "unidad": "personas presentes",
+     "fuente": "F09, estimación de Digna Cáceres",
+     "ids": [
+      "D108"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Familias afectadas mencionadas en el relato introductorio",
+   "valor": "más de 400",
+   "unidad": "familias",
+   "fuente": "F09",
+   "ids": [
+    "D63"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Familias representadas por el equipo de Alejandro Nissen",
+   "valor": "92",
+   "unidad": "familias representadas",
+   "fuente": "F09, entrevista a Alejandro Nissen",
+   "ids": [
+    "D64"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Víctimas comprendidas en la representación mencionada por Nissen",
+   "valor": "115",
+   "unidad": "víctimas representadas",
+   "fuente": "F09, entrevista a Alejandro Nissen",
+   "ids": [
+    "D64"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Trabajadores que habrían muerto en la portería",
+   "valor": "como 40",
+   "unidad": "trabajadores fallecidos",
+   "fuente": "F09, intervención en reunión; estimación testimonial",
+   "ids": [
+    "D122"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personas que habrían vencido una puerta de blíndex y el portón de la rampa",
+   "valor": "15 a 20",
+   "unidad": "personas",
+   "fuente": "F09, relato de la querella",
+   "ids": [
+    "D75"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Puertas cerradas según la conclusión pericial publicada",
+   "valor": "tres",
+   "unidad": "puertas",
+   "fuente": "F06; el cierre general de accesos está controvertido en otros testimonios",
+   "ids": [
+    "D25"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Puertas de blíndex descritas por la pericia",
+   "valor": "cuatro",
+   "unidad": "puertas de blíndex",
+   "fuente": "F06",
+   "ids": [
+    "D30"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Puertas descritas como blindadas por una madre",
+   "valor": "doce",
+   "unidad": "puertas",
+   "fuente": "F09, testimonio; no se equipara su alcance con el conteo pericial de puertas de blíndex",
+   "ids": [
+    "D115"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Salidas mencionadas por Benedicto Pérez",
+   "valor": "dos",
+   "unidad": "puertas de salida",
+   "fuente": "F09, entrevista a Benedicto Pérez",
+   "ids": [
+    "D95"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Ancho de cada puerta de salida descrita por Pérez",
+   "valor": "2",
+   "unidad": "metros por puerta",
+   "fuente": "F09",
+   "ids": [
+    "D95"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Ancho total de salidas que Pérez consideró necesario",
+   "valor": "12",
+   "unidad": "metros de puertas de salida",
+   "fuente": "F09",
+   "ids": [
+    "D95"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Ancho conjunto de los paños señalado por la defensa",
+   "valor": "cuatro",
+   "unidad": "metros de puertas",
+   "fuente": "F09, entrevista a Luis Escobar Faella",
+   "ids": [
+    "D176"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Superficie del salón de ventas",
+   "valor": "cinco mil",
+   "unidad": "metros cuadrados",
+   "fuente": "F09, reconstrucción del incendio",
+   "ids": [
+    "D83"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Temperaturas mencionadas; los pasajes no describen necesariamente el mismo punto ni indican siempre la escala",
+   "valor": "600",
+   "unidad": "°C entre el cielorraso y el techo",
+   "fuente": "F09, explicación atribuida a Benedicto Pérez",
+   "ids": [
+    "D101"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "más de 1.000",
+     "unidad": "grados; escala no indicada",
+     "fuente": "F09, comparación formulada por Luis Escobar Faella",
+     "ids": [
+      "D174"
+     ]
+    },
+    {
+     "valor": "1.500",
+     "unidad": "grados; escala no indicada",
+     "fuente": "F11, recuerdo de Cristian Sosa sobre informes no reproducidos",
+     "ids": [
+      "D199"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Edad de Tatiana Gabaglio durante el incendio",
+   "valor": "7",
+   "unidad": "años de edad",
+   "fuente": "F03",
+   "ids": [
+    "D01"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Edad de Yessica Vanessa",
+   "valor": "29",
+   "unidad": "años de edad",
+   "fuente": "F05",
+   "ids": [
+    "D15"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Edad de Yessica Natalia",
+   "valor": "22",
+   "unidad": "años de edad",
+   "fuente": "F05",
+   "ids": [
+    "D16"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Edad de Guillermo Alfonso Ortíz",
+   "valor": "17",
+   "unidad": "años de edad",
+   "fuente": "F05",
+   "ids": [
+    "D18"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Edad de Víctor Galeano durante el incendio",
+   "valor": "24",
+   "unidad": "años de edad",
+   "fuente": "F08",
+   "ids": [
+    "D46"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Edad de Mario Eduardo Chamorro",
+   "valor": "25",
+   "unidad": "años de edad",
+   "fuente": "F09",
+   "ids": [
+    "D110"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Edad de Juan Adolfo Lima",
+   "valor": "9",
+   "unidad": "años de edad",
+   "fuente": "F11",
+   "ids": [
+    "D206"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Edad de Melani",
+   "valor": "tres",
+   "unidad": "años de edad",
+   "fuente": "F11",
+   "ids": [
+    "D207"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Edad de Liz Torres durante el incendio",
+   "valor": "37",
+   "unidad": "años de edad",
+   "fuente": "F11",
+   "ids": [
+    "D212"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Edad de la hija fallecida de Verónica Becker",
+   "valor": "cuatro",
+   "unidad": "meses de edad",
+   "fuente": "F09, testimonio de Verónica Becker",
+   "ids": [
+    "Q44"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Familiares perdidos por la familia López",
+   "valor": "cinco",
+   "unidad": "integrantes de la familia",
+   "fuente": "F11",
+   "ids": [
+    "D201"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Familiares perdidos por la familia de Angélica Roa",
+   "valor": "cuatro",
+   "unidad": "integrantes de la familia",
+   "fuente": "F11",
+   "ids": [
+    "D202"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Tiempo en coma de Cristian Sosa",
+   "valor": "22",
+   "unidad": "días en coma",
+   "fuente": "F11",
+   "ids": [
+    "D200"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Internación de Nelson Astigarraga",
+   "valor": "quince",
+   "unidad": "días de internación",
+   "fuente": "F09, testimonio de Nelson Astigarraga",
+   "ids": [
+    "D148"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Hospitalización de Angélica Roa",
+   "valor": "diez",
+   "unidad": "días de hospitalización",
+   "fuente": "F11",
+   "ids": [
+    "D208"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Tiempo transcurrido hasta la identificación de Melani",
+   "valor": "quince",
+   "unidad": "días después del incendio",
+   "fuente": "F11",
+   "ids": [
+    "D209"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Antigüedad laboral de Mario Eduardo Chamorro",
+   "valor": "28",
+   "unidad": "días de trabajo",
+   "fuente": "F09, testimonio de su madre",
+   "ids": [
+    "D111"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Jornada de trabajo de Mario Eduardo Chamorro según su madre",
+   "valor": "doce",
+   "unidad": "horas de trabajo por día",
+   "fuente": "F09",
+   "ids": [
+    "D112"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Descuento salarial por pérdidas denunciado en el testimonio",
+   "valor": "cien mil",
+   "unidad": "guaraníes por pérdida en la sección",
+   "fuente": "F09; afirmación testimonial, sin comprobantes en el pool",
+   "ids": [
+    "D55",
+    "D56"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Condena de Juan Pío Paiva",
+   "valor": "12",
+   "unidad": "años de prisión",
+   "fuente": "F05, F10, F15 y F16",
+   "ids": [
+    "D19"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Condena del hijo del propietario; el monto coincide y el nombre difiere",
+   "valor": "10",
+   "unidad": "años de prisión",
+   "fuente": "F10 y F15: Víctor Paiva",
+   "ids": [
+    "P28",
+    "D20"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "10",
+     "unidad": "años de prisión",
+     "fuente": "F05: Emiliano Paiva",
+     "ids": [
+      "D20"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Condena de Daniel Areco",
+   "valor": "5",
+   "unidad": "años de prisión",
+   "fuente": "F05, F10 y F15",
+   "ids": [
+    "D21"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Condena de Humberto Casaccia",
+   "valor": "2 años y 6 meses",
+   "unidad": "tiempo de prisión",
+   "fuente": "F15",
+   "ids": [
+    "D217"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "2",
+     "unidad": "años de prisión",
+     "fuente": "F05",
+     "ids": [
+      "D22"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Condena de los funcionarios municipales mencionados",
+   "valor": "1 año y 6 meses",
+   "unidad": "tiempo de condena para cada funcionario mencionado",
+   "fuente": "F15",
+   "ids": [
+    "D219"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Condena del constructor identificado en F15 como Bernardo Ismachowiez",
+   "valor": "2",
+   "unidad": "años de condena",
+   "fuente": "F15",
+   "ids": [
+    "D220"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Pena solicitada para los Paiva y los guardias",
+   "valor": "25",
+   "unidad": "años de prisión solicitados",
+   "fuente": "F09 y F16",
+   "ids": [
+    "D77",
+    "D225"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Seguro embargado o depositado en el Banco de Fomento",
+   "valor": "tres millones",
+   "unidad": "dólares estadounidenses, o su equivalente en guaraníes según el relato del depósito",
+   "fuente": "F09; monto del embargo y del depósito, no del seguro total",
+   "ids": [
+    "D78",
+    "D183"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Valor total aproximado por el que estaba asegurado el supermercado",
+   "valor": "aproximadamente cinco millones",
+   "unidad": "dólares estadounidenses de cobertura total",
+   "fuente": "F09, entrevista a Luis Escobar Faella",
+   "ids": [
+    "D171"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Cobertura del seguro para personas",
+   "valor": "200 millones",
+   "unidad": "guaraníes de cobertura",
+   "fuente": "F09, entrevista a Luis Escobar Faella",
+   "ids": [
+    "D181"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Cobertura del seguro para bienes de terceros",
+   "valor": "200 millones",
+   "unidad": "guaraníes de cobertura",
+   "fuente": "F09, entrevista a Luis Escobar Faella",
+   "ids": [
+    "D181"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Primera indemnización mencionada para Emigdio Wendell y Nilda Ortellado",
+   "valor": "600 millones",
+   "unidad": "guaraníes de indemnización",
+   "fuente": "F15",
+   "ids": [
+    "D221"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Indemnización mencionada para Pedro Ramón Ramírez Carballo y Susana Acuña de Ramírez",
+   "valor": "más de 400 millones",
+   "unidad": "guaraníes de indemnización",
+   "fuente": "F15",
+   "ids": [
+    "D222",
+    "P91"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Indemnización total del matrimonio Palacios Morínigo; montos de etapas procesales diferentes",
+   "valor": "4.500 millones",
+   "unidad": "guaraníes de indemnización total",
+   "fuente": "F10, decisión de la Sala Civil de la Corte",
+   "ids": [
+    "D193"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "5.000 millones",
+     "unidad": "guaraníes de indemnización total",
+     "fuente": "F10, sentencia de primera instancia; no es un total simultáneo alternativo",
+     "ids": [
+      "D189"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Indemnización fijada para Felipe De Jesús Palacios Giménez",
+   "valor": "2.250.000.000",
+   "unidad": "guaraníes de indemnización",
+   "fuente": "F10",
+   "ids": [
+    "D186"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Indemnización fijada para María Estela Morínigo Giménez de Palacios",
+   "valor": "2.250.000.000",
+   "unidad": "guaraníes de indemnización",
+   "fuente": "F10",
+   "ids": [
+    "D186"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Gastos de tratamiento atribuidos a Rodas Cristaldo",
+   "valor": "60 mil",
+   "unidad": "dólares; moneda denominada así en el pasaje",
+   "fuente": "F09, afirmación de un entrevistado",
+   "ids": [
+    "D79"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Extensión de las quemaduras de Rodas Cristaldo",
+   "valor": "casi un 80%",
+   "unidad": "porcentaje de superficie corporal quemada",
+   "fuente": "F09, afirmación de un entrevistado",
+   "ids": [
+    "P33"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Extensión de las quemaduras de Fernando Ortiz",
+   "valor": "50%",
+   "unidad": "porcentaje de superficie corporal quemada",
+   "fuente": "F09, testimonio del sobreviviente",
+   "ids": [
+    "Q41",
+    "D129"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Probabilidad de supervivencia que Fernando Ortiz dijo haber recibido",
+   "valor": "30%",
+   "unidad": "probabilidad de supervivencia referida por el paciente",
+   "fuente": "F09; no se adjunta el pronóstico clínico",
+   "ids": [
+    "D129"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Ayuda del CEN mencionada por María Berzabé Meza",
+   "valor": "200 mil",
+   "unidad": "guaraníes de ayuda",
+   "fuente": "F09, testimonio de María Berzabé Meza",
+   "ids": [
+    "D167"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Fotografías incluidas en la prueba descrita por la querella",
+   "valor": "839",
+   "unidad": "fotografías",
+   "fuente": "F09, entrevista a Alejandro Nissen",
+   "ids": [
+    "D69"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Velas previstas para el homenaje",
+   "valor": "400",
+   "unidad": "velas",
+   "fuente": "F05",
+   "ids": [
+    "D24"
+   ],
+   "otras_versiones": []
+  }
+ ],
+ "citas": [
+  {
+   "autor": "Tatiana Gabaglio",
+   "rol": "Sobreviviente",
+   "verificacion": "verificada en el pool; declaración personal, no comprobación independiente de las indemnizaciones",
+   "texto": "A más de lo que recibí del Estado, nunca recibí indemnización real o reparación del daño. Lo que alguna vez me dieron, particularmente como una persona para mí que de por vida quedé así, no alcanza. Los culpables, bien gracias. Siguen afuera.",
+   "original": "",
+   "ids": [
+    "Q01"
+   ]
+  },
+  {
+   "autor": "Tatiana Gabaglio",
+   "rol": "Sobreviviente",
+   "verificacion": "verificada en el pool",
+   "texto": "Solo queda vivir la vida como una persona normal y tratar de superarse cada día. ¿Para qué quedarnos con ese dolor y ese pasado?",
+   "original": "",
+   "ids": [
+    "Q03"
+   ]
+  },
+  {
+   "autor": "Ángela Pujol",
+   "rol": "Madre de víctimas",
+   "verificacion": "verificada en el pool",
+   "texto": "Mi historia termina acá",
+   "original": "",
+   "ids": [
+    "Q07"
+   ]
+  },
+  {
+   "autor": "Ángela Pujol",
+   "rol": "Madre de víctimas",
+   "verificacion": "verificada en el pool",
+   "texto": "Cuando salieron de casa, la menor le agarró del brazo a su hermana y así salieron juntas para ir al supermercado; tenían que buscar la comida del día y unos regalos para el Día de la Amistad que estábamos organizando",
+   "original": "",
+   "ids": [
+    "Q08"
+   ]
+  },
+  {
+   "autor": "Beatriz González",
+   "rol": "Cajera y sobreviviente",
+   "verificacion": "verificada en el pool",
+   "texto": "Escuché una explosión y después ya vi que la nube de humo negro cubría todo. En ese momento dejé mi caja, salté y corrí hacia el estacionamiento para tratar de salir",
+   "original": "",
+   "ids": [
+    "Q10"
+   ]
+  },
+  {
+   "autor": "Liz Torres",
+   "rol": "Sobreviviente e integrante de la Coordinadora de Víctimas",
+   "verificacion": "verificada en el pool; las responsabilidades y condiciones edilicias son afirmaciones de la entrevistada",
+   "texto": "Burt habilitó provisoriamente el supermercado y en la administración de Riera debieron hacerse los controles. Esto (Ycua) no tenía un solo extractor eólico, no tenía ventilación alguna con un techo absolutamente inflamable",
+   "original": "",
+   "ids": [
+    "Q12"
+   ]
+  },
+  {
+   "autor": "Liz Torres",
+   "rol": "Sobreviviente y activista",
+   "verificacion": "verificada en el pool",
+   "texto": "Que nunca más ocurra un 1A",
+   "original": "",
+   "ids": [
+    "Q14"
+   ]
+  },
+  {
+   "autor": "Víctor Galeano",
+   "rol": "Sobreviviente",
+   "verificacion": "verificada parcialmente; se conserva únicamente el fragmento presente en la evidencia",
+   "texto": "Cuando estábamos llegando a la puerta de blíndex, nos dimos cuenta de que eso estaba cerrado... Hubo un estruendo hacia el estacionamiento y sube el humo; entonces ahí no había nada que hacer. Me caí con Santiago en mis brazos",
+   "original": "",
+   "ids": [
+    "Q18"
+   ]
+  },
+  {
+   "autor": "Liz Torres",
+   "rol": "Sobreviviente",
+   "verificacion": "verificada parcialmente; se conserva únicamente el fragmento presente en la evidencia",
+   "texto": "Cuando sentí la avalancha, dije acá nos morimos todos, no me voy a salvar, se me pasó toda la vida por la cabeza, que les dejaba a mis hijos adolescentes, tan jóvenes, solos",
+   "original": "",
+   "ids": [
+    "Q19"
+   ]
+  },
+  {
+   "autor": "Liz Torres",
+   "rol": "Sobreviviente",
+   "verificacion": "verificada_parcial en el pool",
+   "texto": "Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...",
+   "original": "",
+   "ids": [
+    "Q20"
+   ]
+  },
+  {
+   "autor": "Digna Felicia Cáceres",
+   "rol": "Sobreviviente",
+   "verificacion": "verificada_parcial en el pool; corregido un error evidente de transcripción",
+   "texto": "la gente corría y volvían todos porque el portón que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.",
+   "original": "la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.",
+   "ids": [
+    "Q34"
+   ]
+  },
+  {
+   "autor": "Digna Felicia Cáceres",
+   "rol": "Sobreviviente",
+   "verificacion": "verificada_parcial en el pool; corregido un error evidente de transcripción; la atribución de la orden es una afirmación de la testigo",
+   "texto": "Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las puertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.",
+   "original": "Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.",
+   "ids": [
+    "Q35"
+   ]
+  },
+  {
+   "autor": "Mariana Aquino de Chamorro",
+   "rol": "Madre de un empleado fallecido",
+   "verificacion": "verificada en el pool",
+   "texto": "Porque eran doce horas de explotación, ¡doce horas trabajaba! De lunes a lunes. No había feriado, no había un momento de descanso.",
+   "original": "",
+   "ids": [
+    "Q36"
+   ]
+  },
+  {
+   "autor": "Edgar Sánchez",
+   "rol": "Fiscal",
+   "verificacion": "verificada en el pool como declaración reproducida; denuncia de conducta, no resolución judicial adjunta",
+   "texto": "Mientras nosotros levantábamos cadáveres en el supermercado, el comisario Juan Pereira, en el Departamento de Investigación de Delitos de la Policía Nacional, estaba induciendo a los guardias a no decir la verdad.",
+   "original": "",
+   "ids": [
+    "Q40"
+   ]
+  },
+  {
+   "autor": "Fernando Ortiz",
+   "rol": "Exempleado y sobreviviente",
+   "verificacion": "verificada_parcial en el pool",
+   "texto": "yo me voy y le empujo a ella cuando ya me doy cuenta de que el incendio era muy intenso. Y salí, y me quemé con gravedad, el 50% de mi cuerpo, mis dos pulmones y la laringe, por eso es que estoy un poco ronco.",
+   "original": "",
+   "ids": [
+    "Q41"
+   ]
+  },
+  {
+   "autor": "Verónica Becker",
+   "rol": "Familiar de víctimas",
+   "verificacion": "verificada en el pool",
+   "texto": "He perdido a mi esposo y a mi hijita de apenas cuatro meses, y como digo, externamente no se me ve ninguna herida, pero internamente estoy totalmente destrozada.",
+   "original": "",
+   "ids": [
+    "Q44"
+   ]
+  },
+  {
+   "autor": "Nelson Astigarraga",
+   "rol": "Sobreviviente y familiar de víctimas",
+   "verificacion": "verificada_parcial en el pool",
+   "texto": "El Ycuá Bolaños era un lugar de esparcimiento, era un lugar familiar, me quedaba cerca. A mi esposa pues le encantaba recorrer, mirar, comprar las cosas que necesitaba, mirá, era algo tan, tan familiar.",
+   "original": "",
+   "ids": [
+    "Q50"
+   ]
+  },
+  {
+   "autor": "Nelson Astigarraga",
+   "rol": "Sobreviviente y familiar de víctimas",
+   "verificacion": "verificada_parcial en el pool",
+   "texto": "Lo único que pensaba era “Acá termina todo”.",
+   "original": "",
+   "ids": [
+    "Q52"
+   ]
+  },
+  {
+   "autor": "María Berzabé Meza",
+   "rol": "Viuda de Juan Brizuela",
+   "verificacion": "verificada en el pool",
+   "texto": "no se merece nadie del mundo morir de la forma como murió esta gente. Eso es lo único que puedo decir.",
+   "original": "",
+   "ids": [
+    "Q59"
+   ]
+  },
+  {
+   "autor": "María Berzabé Meza",
+   "rol": "Viuda de Juan Brizuela",
+   "verificacion": "verificada en el pool",
+   "texto": "nosotros decimos “no vamos a olvidar, y no vamos a perdonar” mientras no se haga justicia.",
+   "original": "",
+   "ids": [
+    "Q61"
+   ]
+  },
+  {
+   "autor": "Luis Escobar Faella",
+   "rol": "Abogado defensor de Juan Pío Paiva",
+   "verificacion": "verificada en el pool; reproduce la negativa que el abogado atribuye a sus defendidos",
+   "texto": "la primera consulta que yo le hago a los Paiva es si realmente ellos dieron la orden de cerrar las puertas. Cuando me dicen categóricamente que no, que eso no es cierto, que no fue nunca ni política de la empresa ni nada",
+   "original": "",
+   "ids": [
+    "Q64"
+   ]
+  },
+  {
+   "autor": "Cristian Sosa",
+   "rol": "Sobreviviente",
+   "verificacion": "verificada en el pool",
+   "texto": "Las llamas cayeron sobre las personas que estaban almorzando y hubo un desbande total",
+   "original": "",
+   "ids": [
+    "Q70"
+   ]
+  },
+  {
+   "autor": "Angélica Roa",
+   "rol": "Sobreviviente y familiar de víctimas",
+   "verificacion": "verificada_parcial en el pool",
+   "texto": "El duelo fue tan colectivo que había un sostén colectivo también en cuanto al duelo. Y yo creo que eso nos ayudó muchísimo a transitar",
+   "original": "",
+   "ids": [
+    "Q76"
+   ]
+  },
+  {
+   "autor": "Liz Torres",
+   "rol": "Sobreviviente",
+   "verificacion": "verificada en el pool",
+   "texto": "Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida",
+   "original": "",
+   "ids": [
+    "Q77"
+   ]
+  },
+  {
+   "autor": "Liz Torres",
+   "rol": "Sobreviviente",
+   "verificacion": "verificada_parcial en el pool",
+   "texto": "Nos pusimos, como decimos ahora, en los zapatos de los que ya no están y empezamos a caminar para luchar por la justicia, por la memoria, eso permitió que nos reconstruyamos",
+   "original": "",
+   "ids": [
+    "Q78"
+   ]
+  }
+ ],
+ "contradicciones": [
+  {
+   "tema": "Total de fallecidos",
+   "versiones": [
+    {
+     "dice": "El suceso se cobró 400 vidas.",
+     "doc_id": "F05",
+     "offset": 256,
+     "ids": [
+      "D14"
+     ]
+    },
+    {
+     "dice": "El incendio cegó unas 364 vidas.",
+     "doc_id": "F11",
+     "offset": 141,
+     "ids": [
+      "D194"
+     ]
+    },
+    {
+     "dice": "Hubo oficialmente 327 muertos, más los desaparecidos.",
+     "doc_id": "F10",
+     "offset": 3213,
+     "ids": [
+      "D192"
+     ]
+    },
+    {
+     "dice": "El relato menciona más de 400 personas fallecidas.",
+     "doc_id": "F09",
+     "offset": 65591,
+     "ids": [
+      "D62"
+     ]
+    },
+    {
+     "dice": "Digna Cáceres dice que cree que murieron más de 500 personas.",
+     "doc_id": "F09",
+     "offset": 109514,
+     "ids": [
+      "D108"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Total de heridos",
+   "versiones": [
+    {
+     "dice": "La tragedia dejó 244 heridos.",
+     "doc_id": "F11",
+     "offset": 336,
+     "ids": [
+      "D195"
+     ]
+    },
+    {
+     "dice": "Otras 500 personas sufrieron heridas de diversas consideraciones.",
+     "doc_id": "F16",
+     "offset": 397,
+     "ids": [
+      "D223"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Estimaciones de ocupación; los umbrales distintos no son necesariamente excluyentes",
+   "versiones": [
+    {
+     "dice": "Ese día había más de 1.000 personas en el supermercado.",
+     "doc_id": "F09",
+     "offset": 61777,
+     "ids": [
+      "D93"
+     ]
+    },
+    {
+     "dice": "Digna Cáceres afirma que estuvieron más de 1500 personas.",
+     "doc_id": "F09",
+     "offset": 109514,
+     "ids": [
+      "D108"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Nombre del hijo del propietario identificado como condenado",
+   "versiones": [
+    {
+     "dice": "El hijo del propietario es identificado como Emiliano Paiva.",
+     "doc_id": "F05",
+     "offset": 1484,
+     "ids": [
+      "P07"
+     ]
+    },
+    {
+     "dice": "El hijo enjuiciado en la causa principal es identificado como Víctor Daniel Paiva.",
+     "doc_id": "F15",
+     "offset": 524,
+     "ids": [
+      "P28",
+      "D215"
+     ]
+    },
+    {
+     "dice": "La noticia de condenas lo identifica como Víctor Paiva.",
+     "doc_id": "F10",
+     "offset": 3282,
+     "ids": [
+      "P28",
+      "D20"
+     ]
+    },
+    {
+     "dice": "Un testimonio identifica al hijo del dueño presente en el supermercado como Daniel Paiva.",
+     "doc_id": "F09",
+     "offset": 143800,
+     "ids": [
+      "P48"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Formas nominales del propietario; se conservan sin decidir una forma documental preferente",
+   "versiones": [
+    {
+     "dice": "El propietario es nombrado Juan Pío Paiva.",
+     "doc_id": "F05",
+     "offset": 1472,
+     "ids": [
+      "P06"
+     ]
+    },
+    {
+     "dice": "El demandado es nombrado Juan Pío Helvidio Paiva Escobar.",
+     "doc_id": "F10",
+     "offset": 684,
+     "ids": [
+      "P61"
+     ]
+    },
+    {
+     "dice": "La admisión de la acción lo nombra Juan Pío Paiva Escobar.",
+     "doc_id": "F10",
+     "offset": 2395,
+     "ids": [
+      "D191"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Grafía del apellido del arquitecto o constructor",
+   "versiones": [
+    {
+     "dice": "El director y arquitecto de la obra es nombrado Bernardo Ismachoviez.",
+     "doc_id": "F09",
+     "offset": 18732,
+     "ids": [
+      "P29"
+     ]
+    },
+    {
+     "dice": "El constructor es nombrado Bernardo Ismachowiez.",
+     "doc_id": "F15",
+     "offset": 1936,
+     "ids": [
+      "P86"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Nombre de la directiva y demandada Burgos",
+   "versiones": [
+    {
+     "dice": "La demanda civil menciona a Antoliana Burgos.",
+     "doc_id": "F10",
+     "offset": 1379,
+     "ids": [
+      "P65"
+     ]
+    },
+    {
+     "dice": "La causa penal menciona a Antolina Burgos.",
+     "doc_id": "F15",
+     "offset": 775,
+     "ids": [
+      "P65",
+      "D216"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Formas nominales del abogado defensor",
+   "versiones": [
+    {
+     "dice": "El abogado es identificado como Luis Escobar Faella.",
+     "doc_id": "F09",
+     "offset": 285031,
+     "ids": [
+      "P22"
+     ]
+    },
+    {
+     "dice": "El representante es identificado como Luis Emilio Escobar Faella.",
+     "doc_id": "F16",
+     "offset": 3100,
+     "ids": [
+      "P22"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Formas nominales del exempleado sobreviviente",
+   "versiones": [
+    {
+     "dice": "El personaje del pool es identificado como Fernando Ortiz Mieres y se presenta como empleado que se salvó.",
+     "doc_id": "F09",
+     "offset": 141128,
+     "ids": [
+      "P47"
+     ]
+    },
+    {
+     "dice": "La cita del mismo pasaje de reunión es atribuida en el pool a Fernando Ortiz.",
+     "doc_id": "F09",
+     "offset": 141482,
+     "ids": [
+      "P97",
+      "Q41"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Duración de la condena de Humberto Casaccia",
+   "versiones": [
+    {
+     "dice": "El directivo fue condenado por 2 años.",
+     "doc_id": "F05",
+     "offset": 2407,
+     "ids": [
+      "D22"
+     ]
+    },
+    {
+     "dice": "Casaccia fue condenado a 2 años y 6 meses de prisión.",
+     "doc_id": "F15",
+     "offset": 1442,
+     "ids": [
+      "D217"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Estado general de las puertas durante el incendio",
+   "versiones": [
+    {
+     "dice": "El informe pericial concluyó que solo tres puertas estaban cerradas y las demás no.",
+     "doc_id": "F06",
+     "offset": 92,
+     "ids": [
+      "D25"
+     ]
+    },
+    {
+     "dice": "Mariana afirma que estaban todas las puertas cerradas.",
+     "doc_id": "F09",
+     "offset": 119147,
+     "ids": [
+      "Q37"
+     ]
+    },
+    {
+     "dice": "La defensa sostiene que los peritos se ratificaron en que las puertas estaban abiertas.",
+     "doc_id": "F09",
+     "offset": 289525,
+     "ids": [
+      "D172"
+     ]
+    },
+    {
+     "dice": "La crónica afirma que las puertas se cerraron herméticamente.",
+     "doc_id": "F16",
+     "offset": 397,
+     "ids": [
+      "D223"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Estado de los accesos de la rampa y hacia la avenida Artigas",
+   "versiones": [
+    {
+     "dice": "El informe pericial describe los accesos examinados como abiertos.",
+     "doc_id": "F06",
+     "offset": 2177,
+     "ids": [
+      "D31"
+     ]
+    },
+    {
+     "dice": "Digna Cáceres afirma que el portón hacia la avenida Artigas estaba cerrado.",
+     "doc_id": "F09",
+     "offset": 105017,
+     "ids": [
+      "D106"
+     ]
+    },
+    {
+     "dice": "La defensa afirma que motocicletas encadenadas a las puertas impedían cerrarlas.",
+     "doc_id": "F09",
+     "offset": 290301,
+     "ids": [
+      "D173"
+     ]
+    },
+    {
+     "dice": "La defensa afirma que las puertas estaban abiertas y retorcidas por el fuego, y que no pudieron haberse cerrado.",
+     "doc_id": "F09",
+     "offset": 291867,
+     "ids": [
+      "D175"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Configuración de las puertas; descripciones técnicas que requieren cotejo",
+   "versiones": [
+    {
+     "dice": "La pericia describe las puertas de blíndex como pivotantes y cerradas sin llavear.",
+     "doc_id": "F06",
+     "offset": 1922,
+     "ids": [
+      "D30"
+     ]
+    },
+    {
+     "dice": "Benedicto Pérez describe puertas que se abrían hacia adentro y cuestiona esa disposición.",
+     "doc_id": "F09",
+     "offset": 62840,
+     "ids": [
+      "D98"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Existencia y condición de las salidas de emergencia",
+   "versiones": [
+    {
+     "dice": "En la entrevista a Nissen se afirma que no había señalización ni puertas de salida de emergencia.",
+     "doc_id": "F09",
+     "offset": 50572,
+     "ids": [
+      "D82"
+     ]
+    },
+    {
+     "dice": "Una reconstrucción afirma que una de las salidas de emergencia estaba clausurada.",
+     "doc_id": "F09",
+     "offset": 59418,
+     "ids": [
+      "D89"
+     ]
+    },
+    {
+     "dice": "Pérez menciona dos puertas de salida de dos metros cada una.",
+     "doc_id": "F09",
+     "offset": 62049,
+     "ids": [
+      "D95"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Existencia y autoría de la orden de cerrar puertas",
+   "versiones": [
+    {
+     "dice": "Digna Cáceres atribuye la orden a Pío Paiva.",
+     "doc_id": "F09",
+     "offset": 111669,
+     "ids": [
+      "D109"
+     ]
+    },
+    {
+     "dice": "El abogado defensor dice que los Paiva negaron categóricamente haber dado la orden.",
+     "doc_id": "F09",
+     "offset": 285254,
+     "ids": [
+      "Q64"
+     ]
+    },
+    {
+     "dice": "Un relato de reunión atribuye a los fiscales el anuncio de que Ismael Alcaraz reconoció haber recibido una orden por radio.",
+     "doc_id": "F09",
+     "offset": 138961,
+     "ids": [
+      "D121"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Hora del episodio principal o estallido",
+   "versiones": [
+    {
+     "dice": "El relato introductorio sitúa a las personas dentro del supermercado a las 11:25 de la mañana.",
+     "doc_id": "F09",
+     "offset": 11551,
+     "ids": [
+      "T21",
+      "D60"
+     ]
+    },
+    {
+     "dice": "Mariana sitúa lo sucedido a las 11 y 27.",
+     "doc_id": "F09",
+     "offset": 115307,
+     "ids": [
+      "T16"
+     ]
+    },
+    {
+     "dice": "Julia se despidió a las 11.10 y el estallido ocurrió diez minutos después.",
+     "doc_id": "F11",
+     "offset": 2117,
+     "ids": [
+      "T20"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Temperaturas publicadas; ubicación, escala y base documental no homogéneas",
+   "versiones": [
+    {
+     "dice": "La explicación atribuida a Pérez menciona 600 °C entre el cielorraso y el techo.",
+     "doc_id": "F09",
+     "offset": 64470,
+     "ids": [
+      "D101"
+     ]
+    },
+    {
+     "dice": "Escobar Faella dice que se habla de más de 1.000 grados en Ycuá Bolaños.",
+     "doc_id": "F09",
+     "offset": 291474,
+     "ids": [
+      "D174"
+     ]
+    },
+    {
+     "dice": "Cristian Sosa recuerda informes que hablaban de 1.500 grados sobre las personas.",
+     "doc_id": "F11",
+     "offset": 1242,
+     "ids": [
+      "D199"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Alcance de los delitos atribuidos a los condenados",
+   "versiones": [
+    {
+     "dice": "F16 atribuye conjuntamente a los cuatro condenados homicidio doloso, tentativa y exposición de personas a lugares de trabajo peligroso.",
+     "doc_id": "F16",
+     "offset": 2808,
+     "ids": [
+      "D226"
+     ]
+    },
+    {
+     "dice": "F15 distingue la causa principal por homicidio doloso contra Juan Pío Paiva, su hijo y Daniel Areco.",
+     "doc_id": "F15",
+     "offset": 524,
+     "ids": [
+      "D215"
+     ]
+    },
+    {
+     "dice": "F15 atribuye a Casaccia una condena por exposición de personas a lugares de trabajo peligrosos.",
+     "doc_id": "F15",
+     "offset": 1442,
+     "ids": [
+      "D217"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Conflicto entre la fecha extraída para la muerte de Diana y el pasaje fuente",
+   "versiones": [
+    {
+     "dice": "El encabezado de T13 ubica la muerte en el mismo día del incendio.",
+     "doc_id": "F11",
+     "offset": 3216,
+     "ids": [
+      "T13"
+     ]
+    },
+    {
+     "dice": "La evidencia de T13 dice que Diana falleció al día siguiente en el hospital.",
+     "doc_id": "F11",
+     "offset": 3216,
+     "ids": [
+      "T13"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Conflicto entre el evento extraído para Digna Cáceres y la acción narrada",
+   "versiones": [
+    {
+     "dice": "El encabezado de T18 asigna las diez y media a la llegada al supermercado.",
+     "doc_id": "F09",
+     "offset": 104073,
+     "ids": [
+      "T18"
+     ]
+    },
+    {
+     "dice": "El pasaje asigna las diez y media al despertar y después menciona la ida al supermercado.",
+     "doc_id": "F09",
+     "offset": 104073,
+     "ids": [
+      "T18"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Identidades fusionadas en P62",
+   "versiones": [
+    {
+     "dice": "P62 presenta María Estefanía como variante del nombre de María Estela Palacios Morínigo.",
+     "doc_id": "F10",
+     "offset": 1122,
+     "ids": [
+      "P62"
+     ]
+    },
+    {
+     "dice": "El pasaje enumera separadamente a María Estefanía, María del Carmen y María Estela como hijas fallecidas.",
+     "doc_id": "F10",
+     "offset": 1122,
+     "ids": [
+      "T11",
+      "P62"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Identidades fusionadas en P74",
+   "versiones": [
+    {
+     "dice": "P74 presenta Mara Angélica como variante de María Angélica.",
+     "doc_id": "F11",
+     "offset": 1816,
+     "ids": [
+      "P74"
+     ]
+    },
+    {
+     "dice": "El pasaje distingue a María Angélica de su hija Mara Angélica.",
+     "doc_id": "F11",
+     "offset": 1816,
+     "ids": [
+      "P74"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Autor atribuido a la cita Q60",
+   "versiones": [
+    {
+     "dice": "El encabezado atribuye la frase a un hijo de Berzabé.",
+     "doc_id": "F09",
+     "offset": 258544,
+     "ids": [
+      "Q60"
+     ]
+    },
+    {
+     "dice": "El pasaje dice que la entrevistada se la dijo a su hijo mayor.",
+     "doc_id": "F09",
+     "offset": 258544,
+     "ids": [
+      "Q60"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Autor atribuido a la frase de Q66",
+   "versiones": [
+    {
+     "dice": "El encabezado atribuye la frase al exempleado.",
+     "doc_id": "F09",
+     "offset": 293863,
+     "ids": [
+      "Q66"
+     ]
+    },
+    {
+     "dice": "El pasaje dice que una mujer le dijo al exempleado que no iba a salir.",
+     "doc_id": "F09",
+     "offset": 293863,
+     "ids": [
+      "Q66",
+      "D179"
+     ]
+    }
+   ]
+  }
+ ],
+ "descartados": [
+  {
+   "que": "Hora precisa atribuida a la caída del panel sobre Tatiana en T22",
+   "motivo": "La evidencia de esa hora corresponde al relato sobre Mario Chamorro y no fecha el episodio particular de Tatiana.",
+   "ids": [
+    "T22",
+    "D03",
+    "T16"
+   ]
+  },
+  {
+   "que": "Fecha exacta del primer sueldo del hijo de Mariana",
+   "motivo": "La extracción no coincide de forma inequívoca con el pasaje, que combina una referencia de día y la expresión sábado antes de la tragedia.",
+   "ids": [
+    "T02",
+    "D113"
+   ]
+  },
+  {
+   "que": "Hora normalizada de despedida tras la cena de Blas Cristaldo",
+   "motivo": "El testimonio dice a las dos de la mañana por ahí, pero el extracto no fija inequívocamente la fecha civil de esa despedida.",
+   "ids": [
+    "T03",
+    "D135"
+   ]
+  },
+  {
+   "que": "Fechas absolutas calculadas a partir de al día siguiente o cinco días después",
+   "motivo": "Se conserva la expresión relativa de la evidencia sin convertirla en una fecha no escrita en el pasaje.",
+   "ids": [
+    "T13",
+    "T32",
+    "D203"
+   ]
+  },
+  {
+   "que": "Fechas anuales asignadas por extracción a noticias con ayer, el lunes, mayo pasado o abril pasado",
+   "motivo": "Esas expresiones no bastan por sí solas para sostener las fechas absolutas de los encabezados.",
+   "ids": [
+    "T59",
+    "T61",
+    "T62",
+    "T67"
+   ]
+  },
+  {
+   "que": "Equivalencia automática entre Ingeniero Cristaldo y Blas Cristaldo",
+   "motivo": "El pasaje aislado no aporta el nombre completo y no se usa para resolver una identidad.",
+   "ids": [
+    "P58",
+    "P42"
+   ]
+  },
+  {
+   "que": "Equivalencia automática entre Guillén y Miguel Ángel Guillén",
+   "motivo": "La mención de apellido en el relato del boquete no identifica por sí sola al anfitrión de la gomería.",
+   "ids": [
+    "D147",
+    "L24"
+   ]
+  },
+  {
+   "que": "María Estefanía como variante de María Estela y Mara Angélica como variante de María Angélica",
+   "motivo": "Los pasajes enumeran personas diferentes; se descartan las fusiones del extractor, conservando las identidades por separado.",
+   "ids": [
+    "P62",
+    "P74",
+    "D187"
+   ]
+  },
+  {
+   "que": "Edad de muerte atribuida a Juan Brizuela en D160",
+   "motivo": "El pasaje habla de antigüedad como funcionario y no de su edad.",
+   "ids": [
+    "D160"
+   ]
+  },
+  {
+   "que": "Q04 como cita completa",
+   "motivo": "La evidencia termina antes que la cita del encabezado y no permite reproducir su cierre.",
+   "ids": [
+    "Q04"
+   ]
+  },
+  {
+   "que": "Versiones completas de Q17, Q18, Q19, Q31, Q32, Q55 y Q56",
+   "motivo": "Los encabezados contienen texto que excede los fragmentos de evidencia disponibles; solo se admiten fragmentos documentados cuando se seleccionan.",
+   "ids": [
+    "Q17",
+    "Q18",
+    "Q19",
+    "Q31",
+    "Q32",
+    "Q55",
+    "Q56"
+   ]
+  },
+  {
+   "que": "Q15, Q68, Q81 y Q82 como citas textuales directas",
+   "motivo": "Los pasajes son narración periodística o discurso indirecto; pueden respaldar hechos atribuidos, no comillas literales de los protagonistas.",
+   "ids": [
+    "Q15",
+    "Q68",
+    "Q81",
+    "Q82"
+   ]
+  },
+  {
+   "que": "Atribución de Q32 a un bombero",
+   "motivo": "El pasaje formula una pregunta sobre un bombero y una explicación posterior, sin sostener que el bombero sea quien habla.",
+   "ids": [
+    "Q32"
+   ]
+  },
+  {
+   "que": "Q54 como declaración directa y verificada de Daniel Paiva",
+   "motivo": "Es un relato de oídas transmitido por Nelson a partir de Guillén y el pasaje identifica al supuesto hablante solo como el Paiva.",
+   "ids": [
+    "Q54",
+    "D147"
+   ]
+  },
+  {
+   "que": "Versión española de Q62 como cita literal de Juan Pío Paiva",
+   "motivo": "La evidencia reproduce una expresión en guaraní; la traducción del encabezado no es una corrección de transcripción.",
+   "ids": [
+    "Q62",
+    "D169"
+   ]
+  },
+  {
+   "que": "Negativa a salir de Q66 atribuida al exempleado",
+   "motivo": "La evidencia atribuye esa frase a una mujer que se dirigió al exempleado.",
+   "ids": [
+    "Q66"
+   ]
+  },
+  {
+   "que": "Q60 atribuida al hijo de Berzabé",
+   "motivo": "La evidencia indica que la madre pronunció la frase dirigida a su hijo.",
+   "ids": [
+    "Q60"
+   ]
+  },
+  {
+   "que": "Represión como cierre literal de D12",
+   "motivo": "El fragmento se corta antes de completar la frase y no permite restituir su continuación.",
+   "ids": [
+    "D12"
+   ]
+  },
+  {
+   "que": "Supuesto ofrecimiento de dinero a empleados a cambio de silencio como hecho establecido",
+   "motivo": "Se conserva como alegación no corroborada, sin contratos, pagos ni declaraciones directas de receptores en el pool.",
+   "ids": [
+    "D81",
+    "D154"
+   ]
+  },
+  {
+   "que": "Intento de compra atribuido a Bernardo Eulerich como hecho establecido",
+   "motivo": "La acusación personal no cuenta con corroboración adicional en el pool.",
+   "ids": [
+    "D127"
+   ]
+  },
+  {
+   "que": "Lavado de dinero y enriquecimiento de la familia Paiva como hechos probados",
+   "motivo": "El pasaje formula una sospecha y no aporta prueba financiera.",
+   "ids": [
+    "D156"
+   ]
+  },
+  {
+   "que": "Porcentaje de responsabilidad atribuido a funcionarios",
+   "motivo": "Es una valoración personal de Verónica Becker, no una medición documentada.",
+   "ids": [
+    "D128"
+   ]
+  },
+  {
+   "que": "Afirmaciones generales de robo por bomberos y policías",
+   "motivo": "Se trata de una acusación amplia sin identificación ni resolución comprobatoria adjunta.",
+   "ids": [
+    "D153"
+   ]
+  },
+  {
+   "que": "Robo de dinero, calzado o teléfono de Estela como delito acreditado",
+   "motivo": "Los pasajes recogen el relato y las conclusiones de Blas Cristaldo, sin corroboración judicial aportada.",
+   "ids": [
+    "D142",
+    "D143",
+    "D144"
+   ]
+  },
+  {
+   "que": "Muerte instantánea de todas las personas del patio de comidas por la temperatura citada",
+   "motivo": "Es una explicación atribuida a un entrevistado y no se adjuntan informes clínicos o periciales individuales que permitan generalizarla.",
+   "ids": [
+    "D101",
+    "Q29"
+   ]
+  },
+  {
+   "que": "Comparación de aforo con una superficie hipotética en Formosa",
+   "motivo": "El pasaje compara criterios normativos y no establece que esa superficie fuera la del salón incendiado.",
+   "ids": [
+    "D94",
+    "D83"
+   ]
+  },
+  {
+   "que": "Temperatura de Cromañón como dato del caso",
+   "motivo": "Pertenece a una comparación externa y no describe Ycuá Bolaños.",
+   "ids": [
+    "D174"
+   ]
+  },
+  {
+   "que": "Recaudación diaria y pérdida de valor del dinero del seguro como cifras firmes",
+   "motivo": "Son estimaciones de entrevistados sin registros contables o cálculo verificable adjunto.",
+   "ids": [
+    "D80",
+    "D184"
+   ]
+  },
+  {
+   "que": "Importes del seguro total y del depósito como una contradicción de monto",
+   "motivo": "Los pasajes describen cobertura total y dinero depositado o embargado, que no son el mismo concepto.",
+   "ids": [
+    "D78",
+    "D171",
+    "D183"
+   ]
+  },
+  {
+   "que": "Montos indemnizatorios de primera instancia y de la Corte como fallos simultáneos incompatibles",
+   "motivo": "La fuente describe etapas procesales sucesivas y una revocación intermedia.",
+   "ids": [
+    "D189",
+    "D190",
+    "D193"
+   ]
+  },
+  {
+   "que": "Método del intento de suicidio del adolescente",
+   "motivo": "No es necesario para narrar las consecuencias del incendio y se omite el detalle del método.",
+   "ids": [
+    "D34",
+    "T62"
+   ]
+  },
+  {
+   "que": "Descripción anatómica del cajón de restos y amenaza de venganza",
+   "motivo": "Se excluyen los detalles gráficos y la amenaza por no ser necesarios para establecer la secuencia del caso.",
+   "ids": [
+    "D164",
+    "Q33"
+   ]
+  },
+  {
+   "que": "Comentario sobre los coquitos",
+   "motivo": "El extracto no aporta contexto suficiente para integrarlo a la historia principal.",
+   "ids": [
+    "Q11"
+   ]
+  },
+  {
+   "que": "Calendario de estrenos de la docuserie, duración de sus episodios y material promocional",
+   "motivo": "Describe una producción periodística posterior y no los hechos centrales del incendio.",
+   "ids": [
+    "D35",
+    "D36",
+    "D39",
+    "D43",
+    "D44",
+    "T72",
+    "T73"
+   ]
+  }
+ ]
+}

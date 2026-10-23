@@ -84,14 +84,15 @@ def _track(model: str, usage: dict, description: str) -> float:
 
 def call_json(prompt: str, *, model: str, system_instruction: str | None = None, response_schema: Any = None,
               reasoning_effort: str | None = None, description: str | None = None,
-              post: Callable[[dict], dict] | None = None) -> dict:
+              post: Callable[[dict], dict] | None = None, max_completion_tokens: int | None = None) -> dict:
     """Una llamada a chat completions con salida JSON. `response_schema` (estilo Gemini) va como `json_schema` no
     estricto; sin esquema, `json_object`. Reintenta 429/5xx/timeout y JSON roto (generación fresca) hasta
-    MAX_ATTEMPTS; 4xx (modelo inexistente, parámetro inválido) → GPTError en el acto."""
+    MAX_ATTEMPTS; 4xx (modelo inexistente, parámetro inválido) → GPTError en el acto. `max_completion_tokens` (F12):
+    tope de salida + razonamiento de la llamada; None → MAX_COMPLETION_TOKENS."""
     post = post or _post
     msgs = ([{"role": "system", "content": system_instruction}] if system_instruction else []) + \
         [{"role": "user", "content": prompt}]
-    body: dict[str, Any] = {"model": model, "messages": msgs, "max_completion_tokens": MAX_COMPLETION_TOKENS,
+    body: dict[str, Any] = {"model": model, "messages": msgs, "max_completion_tokens": max_completion_tokens or MAX_COMPLETION_TOKENS,
                             "response_format": ({"type": "json_schema", "json_schema": {
                                 "name": "salida", "schema": json_schema(response_schema), "strict": False}}
                                 if response_schema is not None else {"type": "json_object"})}

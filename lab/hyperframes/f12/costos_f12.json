@@ -1,0 +1,21 @@
+{
+ "corrida": "ficha_ycua",
+ "usd": 0.3385,
+ "segundos": 373.5,
+ "llamadas": [
+  {
+   "servicio": "OpenAI gpt-6.1-sol",
+   "desc": "ficha_caso",
+   "in": 46217,
+   "out": 18969,
+   "thinking": 5634,
+   "usd": 0.3385
+  }
+ ],
+ "max_completion_tokens": 38403,
+ "caracteres": {
+  "sistema": 1907,
+  "usuario": 164535
+ },
+ "error": null
+}

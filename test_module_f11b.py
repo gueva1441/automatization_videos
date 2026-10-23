@@ -142,7 +142,7 @@ def test_gpt_reintenta_5xx_y_json_roto(monkeypatch):
 
 def test_call_for_elige_modelo_y_esfuerzo(monkeypatch):
     import gemini_helpers
-    assert g4.call_for("gemini-pro") is gemini_helpers.call_pro_json and g4.call_for(None) is gemini_helpers.call_pro_json
+    assert g4.call_for("gemini-pro") is gemini_helpers.call_pro_json and g4.call_for(None).model == "gpt-6.1-sol"
     sol, astra = g4.call_for("gpt-6.1-sol"), g4.call_for("gpt-6-astra")
     assert (sol.model, sol.reasoning_effort) == ("gpt-6.1-sol", "high")
     assert (astra.model, astra.reasoning_effort) == ("gpt-6-astra", None)

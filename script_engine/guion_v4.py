@@ -43,6 +43,7 @@ REGEN_GUARD = ("cifras", "nombres", "citas")   # F11b §1.2: la regeneración de
 MODELOS = ("gemini-pro", "gpt-6.1-sol", "gpt-6-astra", "gemini-4-argon")   # F11b §1.3 / F11c §1.2: `--modelo`
 GEMINI_PROPIOS = ("gemini-4-argon",)  # F11c §1.2: modelo propio del guionista (gemini_model_research no cambia)
 ESFUERZO = {"gpt-6.1-sol": "high"}   # F11b §2: Sol en esfuerzo high; Astra, el de la API por defecto
+DEFAULT_MODELO = "gpt-6.1-sol"       # F12 §1 (decisión de Omar): sin `--modelo`, el guion v4 es Sol en esfuerzo high
 DIAS = ("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo")
 
 OFICIO = [
@@ -222,10 +223,11 @@ def with_ids(parrafos: list[dict], pool: dict, esc: dict | None = None) -> list[
 
 def call_for(modelo: str | None) -> Callable[..., dict]:
     """F11b §1.3: el `call` de toda la cadena v4 de una corrida (guionista, regeneración, edición de oración, editor).
-    `gemini-pro` (o None) → gemini_helpers.call_pro_json; `gemini-4-argon` (F11c) → gemini_helpers.make_call con ese
+    None → DEFAULT_MODELO (F12: gpt-6.1-sol high); `gemini-pro` → gemini_helpers.call_pro_json; `gemini-4-argon` (F11c) → gemini_helpers.make_call con ese
     modelo (sin temperature ni thinking); los GPT → gpt_helpers.make_call con su esfuerzo. Un modelo
     que no está en MODELOS es un error (no se reemplaza por otro)."""
-    if modelo in (None, "gemini-pro"):
+    modelo = modelo or DEFAULT_MODELO
+    if modelo == "gemini-pro":
         from gemini_helpers import call_pro_json
         return call_pro_json
     if modelo not in MODELOS:
@@ -241,7 +243,7 @@ def write(topic: dict, esc: dict, *, call: Callable[..., dict] | None = None,
           log: list[str] | None = None) -> dict[str, Any]:
     log = log if log is not None else []
     if call is None:
-        from gemini_helpers import call_pro_json as call
+        call = call_for(None)
     raw = call(prompt(topic, esc), system_instruction=system(), response_schema=SCHEMA,
                description="guion_v4 guionista")
     ps = with_ids(mg.normalize(raw, esc), topic["evidence_pool"], esc)
@@ -473,7 +475,7 @@ def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[...,
     from script_engine import m01d_particion as md
     log = log if log is not None else []
     if call is None:
-        from gemini_helpers import call_pro_json as call
+        call = call_for(None)
     pool = topic["evidence_pool"]
     ps = with_ids(parrafos, pool, esc)
     bl0 = bloqueantes(topic, esc, ps)

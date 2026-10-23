@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-23 (F11c: prompt con estructura oficial + Argon vs Sol sobre Ycuá; Sol cumple, Argon no → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-23 (F12: ficha del caso de Ycuá con Sol high; Sol queda por defecto en el guion v4 → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -10,7 +10,18 @@
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
-  - F11c: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 579 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+  - F12: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 591 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F12 — Ficha del caso (Ycuá) — HECHO, **PARADA** (el analista lee la ficha y le pasa a Omar las contradicciones para decidir)
+- Handoff `lab/hyperframes/f12/HANDOFF_F12_ficha_del_caso.md`. Reporte `lab/hyperframes/f12/F12_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Ficha `FICHA_ycua.md` (contradicciones arriba) + `ficha_caso.json`, en `lab/hyperframes/f12/` y en `data/scripts/_steps/f8s1-ycua-bolanos/`.
+- **Decisión de Omar:** el guionista es GPT-6.1 Sol (high) con el prompt de F11c, y se terminaron las pruebas de modelos. `guion_v4.DEFAULT_MODELO = "gpt-6.1-sol"` (sin `--modelo` → Sol high; `config.py` intacto).
+- Código:
+  - `researcher_steps/ficha_caso.py`: UNA llamada a Sol high con el pool completo (509 ítems, evidencias con doc@offset; repetidas como «(= arriba)»), estructura de F11c. Secciones: personas, cronologia, hechos, cifras con unidad, citas con `original`, contradicciones (sin resolver) y descartados.
+  - Chequeo determinista (ids existen; cifras, horas y fechas en el texto de sus ids; cita corregida ≤ 3 Levenshtein) → `descartados` «no respaldado», sin reintento. `save()` re-aplica el chequeo sobre un crudo guardado.
+  - `gpt_helpers.call_json(max_completion_tokens=)`.
+- Tests: `test_module_f12.py` (12); suite amplia 591 verdes + las 5 previas.
+- Resultado: 24 contradicciones (Paiva hijo ✅: Emiliano F05 / Víctor Daniel F15 / Víctor F10 / Daniel F09; también totales de muertos y heridos, la orden de cerrar, puertas e identidades fusionadas en P62 y P74), 99 personas, 61 cifras, 20 de cronología, 76 hechos, 25 citas (Q34 «portón» ✅) y 34 descartados. Chequeo: 12 falsos positivos en la corrida (los ids «F15» se leían como cifras) → corregido → 0 en el rechequeo, sobre el mismo crudo. **US$ 0.339** de 0.50.
+- **Siguiente (otra tanda, después de que Omar decida):** cablear la ficha a la escaleta y al guionista. No se corrió escaleta ni guion. Sin merge.
 
 ## F11c — Prompt con estructura oficial + Gemini 4 Argon vs GPT-6.1 Sol (Ycuá) — HECHO, **PARADA** (el analista lee los dos crudos y finales y le da la nota a Omar)
 - Handoff `lab/hyperframes/f11c/HANDOFF_F11c_estructura_y_modelos.md`. Reporte `lab/hyperframes/f11c/F11c_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f11c.html` (teléfono OK). Textos `NARRACION_ycua_v4c_{argon,sol}.md` (crudo + final); prompt único `prompt_ycua_v4c_{sistema,usuario}.txt` + `.md5`.
