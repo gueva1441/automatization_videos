@@ -208,7 +208,7 @@ def test_prompt_v4_corto_y_con_marcas_como_dato():
     assert "— Nelson Astigarraga · SIN VERIFICAR (sin nombre)" in pr
     assert "[D13] El portón número 13 estaba cerrado · PANTALLA (no va en la voz)" in pr
     assert "ids_usados" not in pr and pr.count("\n") < 120
-    assert all(x in pr for x in g4.OFICIO) and len(g4.OFICIO) == 8
+    assert all(x in g4.system() for x in g4.OFICIO) and len(g4.OFICIO) == 8   # F11c: el oficio va en el sistema
 
 
 def test_fechas_repetidas_con_dia_de_la_semana():

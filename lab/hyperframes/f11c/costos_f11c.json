@@ -1,0 +1,26 @@
+{
+ "corridas": [
+  {
+   "corrida": "humo",
+   "modelo": "gemini-4-argon",
+   "usd": 0.00063,
+   "segundos": 7.2,
+   "error": null
+  },
+  {
+   "corrida": "argon",
+   "modelo": "gemini-4-argon",
+   "usd": 0.0788,
+   "segundos": 157.7,
+   "error": null
+  },
+  {
+   "corrida": "sol",
+   "modelo": "gpt-6.1-sol",
+   "usd": 0.1169,
+   "segundos": 267.7,
+   "error": null
+  }
+ ],
+ "usd_total": 0.1963
+}

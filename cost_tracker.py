@@ -25,6 +25,8 @@ _DEFAULT_GEMINI_RATES_PER_1M = {
     "gemini-2.5-pro":         {"input": 1.25, "output": 10.00},
     "gemini-2.5-flash":       {"input": 0.30, "output": 2.50},
     "gemini-3-flash-preview": {"input": 0.30, "output": 2.50},
+    # F11c: precio oficial vigente hasta el 2026-11-30 (ai.google.dev/gemini-api/docs/pricing, HANDOFF_F11c §1.2)
+    "gemini-4-argon":         {"input": 2.00, "output": 10.00},
     "_default":               {"input": 1.25, "output": 10.00},
 }
 

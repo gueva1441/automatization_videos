@@ -194,3 +194,37 @@ def call_pro_json(prompt: str, system_instruction: str | None = None,
         cost_tracker.track_gemini_response(resp, _cfg.gemini_model_research, description or "call_pro_json")
         return resp.text
     return _parse_with_retry(_get_text)
+
+
+def call_model_json(prompt: str, *, model: str, system_instruction: str | None = None,
+                    response_schema=None, thinking_budget: int | None = None,
+                    description: str | None = None) -> dict:
+    """F11c (HANDOFF_F11c §1.2): como call_pro_json, pero con el modelo explícito (el guionista v4 tiene el suyo;
+    `gemini_model_research` no cambia). Sin temperature/top_p/top_k; thinking por defecto salvo `thinking_budget`."""
+    def _get_text():
+        config_kwargs = {"response_mime_type": "application/json"}
+        if system_instruction is not None:
+            config_kwargs["system_instruction"] = system_instruction
+        if response_schema is not None:
+            config_kwargs["response_schema"] = response_schema
+        if thinking_budget is not None:
+            config_kwargs["thinking_config"] = types.ThinkingConfig(thinking_budget=thinking_budget)
+        resp = _with_retry(lambda: _client.models.generate_content(
+            model=model,
+            contents=prompt,
+            config=types.GenerateContentConfig(**config_kwargs),
+        ))
+        cost_tracker.track_gemini_response(resp, model, description or "call_model_json")
+        return resp.text
+    return _parse_with_retry(_get_text)
+
+
+def make_call(model: str):
+    """Un `call` con la firma de call_pro_json atado a `model` (F11c: `gemini-4-argon` para el guion v4)."""
+    def _call(prompt: str, system_instruction: str | None = None, response_schema=None,
+              thinking_budget: int | None = None, description: str | None = None) -> dict:
+        return call_model_json(prompt, model=model, system_instruction=system_instruction,
+                               response_schema=response_schema, thinking_budget=thinking_budget,
+                               description=description)
+    _call.model = model
+    return _call

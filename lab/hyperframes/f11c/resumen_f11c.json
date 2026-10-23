@@ -1,0 +1,980 @@
+{
+ "tokens_prompt_argon": {
+  "sistema": 506,
+  "usuario": 3214
+ },
+ "prompt_md5": {
+  "sistema": "8edea05efeac91afdb88f9a7bb2f0b73",
+  "usuario": "e7062b6c95a00e77896e423e49c351f5"
+ },
+ "versiones": [
+  {
+   "nombre": "v3 (v1)",
+   "clave": "v1",
+   "error": null,
+   "usd": 0.88,
+   "segundos": null,
+   "bloqueantes": [
+    {
+     "codigo": "a",
+     "cap": 4,
+     "beat": 7,
+     "frase": "Una sobreviviente relató: «la gente corría y volvían todos porque el portón que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.",
+     "motivo": "entre comillas, pero no es una cita del pool: «la gente corría y volvían todos porque el portón que queda h…»"
+    },
+    {
+     "codigo": "c",
+     "cap": 4,
+     "beat": null,
+     "frase": "",
+     "motivo": "cap 4 corto: 181 palabras (objetivo 250, mínimo 188)"
+    },
+    {
+     "codigo": "c",
+     "cap": 7,
+     "beat": null,
+     "frase": "",
+     "motivo": "cap 7 corto: 96 palabras (objetivo 140, mínimo 105)"
+    }
+   ],
+   "criterio": false,
+   "preguntas": 1,
+   "frases_analista": {
+    "los datos": 0,
+    "el testimonio": 0,
+    "la frase señala": 0,
+    "no permiten explicar": 0
+   },
+   "guionista_tokens": [],
+   "metricas": {
+    "palabras": 1235,
+    "palabras_por_cap": {
+     "1": [
+      121,
+      110
+     ],
+     "2": [
+      214,
+      250
+     ],
+     "3": [
+      214,
+      250
+     ],
+     "4": [
+      181,
+      250
+     ],
+     "5": [
+      195,
+      250
+     ],
+     "6": [
+      214,
+      250
+     ],
+     "7": [
+      96,
+      140
+     ]
+    },
+    "cierre": "resumen",
+    "ids_por_parrafo": {
+     "antes": 1.54,
+     "despues": 0.96
+    },
+    "citas": 12,
+    "humano_caps": [
+     1,
+     2,
+     7
+    ],
+    "duras_v3": [
+     "cap 3: declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): D71, D27, D48",
+     "cap 3: comillas solo para las citas del pool (la frase del research va sin comillas): «de una chimenea que partía de la parrilla del patio de comid…»",
+     "cap 4: 181 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 4: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q34] «la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. / la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+     "cap 4: declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): D30, Q34, D47",
+     "cap 4: comillas solo para las citas del pool (la frase del research va sin comillas): «la gente corría y volvían todos porque el portón que queda h…»",
+     "cap 5: 195 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 5: declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): D101",
+     "cap 5: esto está reservado para la pantalla de este cap, no lo digas: [D192] «Oficialmente, en el incendio hubo 327 muertos, además de los»",
+     "cap 6: declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): D173, D25, D29",
+     "cap 6: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «12» ×2",
+     "cap 7: 96 palabras: el mínimo del cap es 119 (objetivo 140); contá más hechos del beat con escenas, no adjetivos",
+     "cap 7: declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): D13",
+     "gancho: adelanta una cita de un cap siguiente («El Ycuá Bolaños era un lugar de esparcimiento, era…»): que suene recién en su cap",
+     "gancho: el ancla de lugar y fecha va antes de la segunda cita",
+     "cap 2: juicio que no está en el pool: «…da gente en un solo lugar. Un peligro que nadie veía.\n\nDe repente, Víctor escuchó…»: contá el hecho, la cita o una pregunta",
+     "cap 4: juicio que no está en el pool: «…emperatura subía. Solo podían esperar un milagro. Y entonces, todo tuvo una ex…»: contá el hecho, la cita o una pregunta",
+     "cap 5: juicio que no está en el pool: «…só sobre el patio de comidas. Fue una masacre.\n\nUn perito explicó que «la t…»: contá el hecho, la cita o una pregunta",
+     "cap 6: juicio que no está en el pool: «…que todos los sobrevivientes sabían que era verdad.\n\nUn peritaje sobr…»: contá el hecho, la cita o una pregunta",
+     "cap 4: repite frases de caps anteriores («cerrar las puertas»): decilo de otra forma o no lo repitas",
+     "beat 3 (párrafo 6): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "beat 5 (párrafo 10): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "beat 9 (párrafo 18): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)"
+    ]
+   },
+   "reparacion": null,
+   "juez": null
+  },
+  {
+   "nombre": "F11b sol · gpt-6.1-sol high — crudo",
+   "clave": "v4b_sol_crudo",
+   "error": null,
+   "usd": 0.0756,
+   "segundos": 154.5,
+   "bloqueantes": [],
+   "criterio": true,
+   "preguntas": 20,
+   "frases_analista": {
+    "los datos": 0,
+    "el testimonio": 0,
+    "la frase señala": 0,
+    "no permiten explicar": 0
+   },
+   "guionista_tokens": [],
+   "metricas": {
+    "palabras": 1501,
+    "palabras_por_cap": {
+     "1": [
+      110,
+      110
+     ],
+     "2": [
+      247,
+      250
+     ],
+     "3": [
+      250,
+      250
+     ],
+     "4": [
+      248,
+      250
+     ],
+     "5": [
+      254,
+      250
+     ],
+     "6": [
+      252,
+      250
+     ],
+     "7": [
+      140,
+      140
+     ]
+    },
+    "cierre": "cita",
+    "ids_por_parrafo": {
+     "antes": 4.42,
+     "despues": 1.17
+    },
+    "citas": 6,
+    "humano_caps": [
+     1,
+     2,
+     7
+    ],
+    "duras_v3": [
+     "cap 1: usaste 1 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [Q20] «Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. / Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...»",
+     "cap 3: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T15] «1 de agosto»; [D27] «El fuego se inició por la acumulación de grasa, ca»; [D48] «Hubo un estruendo hacia el estacionamiento y el hu»",
+     "cap 3: fechas: contaste [T15] sin su fecha (1 de agosto): «La panadería fue el escenario de las primeras explosiones.…»",
+     "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la ord» (nombralo o dejalo incompleto; nada de retórica genérica)",
+     "cap 4: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q35] «El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. / Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.»; [T06] «1 de agosto»; [Q34] «la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. / la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+     "cap 4: fechas: contaste [T06] sin su fecha (1 de agosto): «Se dieron órdenes de cerrar las puertas de acceso al supermercado.…»",
+     "cap 5: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T21] «1 de agosto»; [Q29] «la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación / la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación, la gente que estaba en el patio de comidas ya murió, pues esa temperatura quema las vías respiratorias al instante.»; [Q53] «después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas! / después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!»",
+     "cap 5: el cierre tiene que anticipar el dato concreto del cap 6: «Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+     "cap 6: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «12» ×2",
+     "cap 6: el cierre tiene que anticipar el dato concreto del cap 7: «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida» (nombralo o dejalo incompleto; nada de retórica genérica)",
+     "gancho: adelanta una cita de un cap siguiente («El Ycuá Bolaños era un lugar de esparcimiento, era…»): que suene recién en su cap",
+     "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+     "cap 3: voz de tráiler (el narrador habla del video): «esta historia»",
+     "cap 3: repite frases de caps anteriores («las primeras explosiones»): decilo de otra forma o no lo repitas",
+     "cap 4: repite frases de caps anteriores («cerrar las puertas»; «las primeras explosiones»): decilo de otra forma o no lo repitas",
+     "cap 5: repite frases de caps anteriores («el incendio principal»; «las primeras explosiones»): decilo de otra forma o no lo repitas",
+     "cap 6: repite frases de caps anteriores («el incendio principal»): decilo de otra forma o no lo repitas",
+     "beat 6 (párrafo 6): 15 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "beat 7 (párrafo 7): 14 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "beat 9 (párrafo 9): 12 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "beat 11 (párrafo 11): 12 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "cap 1: «alguien ordenó»: decí quién (el nombre está en los datos)"
+    ]
+   },
+   "reparacion": null,
+   "juez": null
+  },
+  {
+   "nombre": "F11b astra · gpt-6-astra — crudo",
+   "clave": "v4b_astra_crudo",
+   "error": null,
+   "usd": 0.1569,
+   "segundos": 59.5,
+   "bloqueantes": [],
+   "criterio": true,
+   "preguntas": 14,
+   "frases_analista": {
+    "los datos": 0,
+    "el testimonio": 1,
+    "la frase señala": 0,
+    "no permiten explicar": 0
+   },
+   "guionista_tokens": [],
+   "metricas": {
+    "palabras": 1489,
+    "palabras_por_cap": {
+     "1": [
+      106,
+      110
+     ],
+     "2": [
+      250,
+      250
+     ],
+     "3": [
+      252,
+      250
+     ],
+     "4": [
+      242,
+      250
+     ],
+     "5": [
+      249,
+      250
+     ],
+     "6": [
+      245,
+      250
+     ],
+     "7": [
+      145,
+      140
+     ]
+    },
+    "cierre": "cita",
+    "ids_por_parrafo": {
+     "antes": 4.08,
+     "despues": 1.08
+    },
+    "citas": 6,
+    "humano_caps": [
+     1,
+     2,
+     7
+    ],
+    "duras_v3": [
+     "cap 1: usaste 1 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [Q20] «Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. / Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...»",
+     "cap 3: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T15] «1 de agosto»; [D27] «El fuego se inició por la acumulación de grasa, ca»; [D48] «Hubo un estruendo hacia el estacionamiento y el hu»",
+     "cap 3: fechas: contaste [T15] sin su fecha (1 de agosto): «La panadería fue el sector de las primeras explosiones.…»",
+     "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la ord» (nombralo o dejalo incompleto; nada de retórica genérica)",
+     "cap 4: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q35] «El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. / Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.»; [T06] «1 de agosto»; [Q34] «la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. / la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+     "cap 5: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T21] «1 de agosto»; [Q29] «la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación / la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación, la gente que estaba en el patio de comidas ya murió, pues esa temperatura quema las vías respiratorias al instante.»; [Q53] «después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas! / después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!»",
+     "cap 5: fechas: contaste [T21] sin su fecha (1 de agosto): «La gran explosión había desatado el incendio principal y las llamas al…»",
+     "cap 6: cap 6: conector genérico prohibido — contiene \"por otro lado\"",
+     "beat 3: ninguna frase de 6 palabras o menos",
+     "beat 4: 1 frase(s) de más de 30 palabras (31)",
+     "gancho: sin fechas en el flash-forward (1 de agosto, 2004); la fecha llega en el cap 2",
+     "gancho: adelanta una cita de un cap siguiente («El Ycuá Bolaños era un lugar de esparcimiento, era…»): que suene recién en su cap",
+     "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+     "cap 3: repite frases de caps anteriores («las primeras explosiones»): decilo de otra forma o no lo repitas",
+     "cap 4: repite frases de caps anteriores («cerrar las puertas»): decilo de otra forma o no lo repitas",
+     "cap 5: repite frases de caps anteriores («el incendio principal»): decilo de otra forma o no lo repitas",
+     "cap 6: repite frases de caps anteriores («quienes habian estado»): decilo de otra forma o no lo repitas",
+     "cap 7: repite frases de caps anteriores («personas que cayeron»): decilo de otra forma o no lo repitas",
+     "beat 6 (párrafo 6): 12 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "beat 7 (párrafo 7): 14 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "beat 9 (párrafo 9): 11 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "beat 11 (párrafo 11): 11 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "cap 1: «alguien ordenó»: decí quién (el nombre está en los datos)",
+     "cap 2: describe fotos o imágenes (imagen): contá la escena, no la foto"
+    ]
+   },
+   "reparacion": null,
+   "juez": null
+  },
+  {
+   "nombre": "v4c argon · gemini-4-argon — crudo",
+   "clave": "argon_crudo",
+   "error": null,
+   "usd": 0.0279,
+   "segundos": 29.7,
+   "bloqueantes": [
+    {
+     "codigo": "a",
+     "cap": 4,
+     "beat": 7,
+     "frase": "«La gente corría y volvían todos porque el portón que queda hacia Avenida Artigas estaba cerrado, por donde yo entré», relató una sobreviviente.",
+     "motivo": "entre comillas, pero no es una cita del pool: «La gente corría y volvían todos porque el portón que queda h…»"
+    }
+   ],
+   "criterio": false,
+   "preguntas": 10,
+   "frases_analista": {
+    "los datos": 0,
+    "el testimonio": 0,
+    "la frase señala": 0,
+    "no permiten explicar": 0
+   },
+   "guionista_tokens": [],
+   "metricas": {
+    "palabras": 1220,
+    "palabras_por_cap": {
+     "1": [
+      95,
+      110
+     ],
+     "2": [
+      203,
+      250
+     ],
+     "3": [
+      204,
+      250
+     ],
+     "4": [
+      195,
+      250
+     ],
+     "5": [
+      212,
+      250
+     ],
+     "6": [
+      206,
+      250
+     ],
+     "7": [
+      105,
+      140
+     ]
+    },
+    "cierre": "cita",
+    "ids_por_parrafo": {
+     "antes": 4.42,
+     "despues": 1.58
+    },
+    "citas": 12,
+    "humano_caps": [
+     1,
+     2,
+     6,
+     7
+    ],
+    "duras_v3": [
+     "cap 2: 203 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Comienzan a producirse las primeras explosiones en la zona de la panadería.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+     "cap 3: 204 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 3: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T15] «1 de agosto»; [D27] «El fuego se inició por la acumulación de grasa, ca»; [D48] «Hubo un estruendo hacia el estacionamiento y el hu»",
+     "cap 3: fechas: contaste [T15] sin su fecha (1 de agosto): «De pronto, se escuchan las primeras explosiones en la zona de la panad…»",
+     "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la ord» (nombralo o dejalo incompleto; nada de retórica genérica)",
+     "cap 4: 195 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 4: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T06] «1 de agosto»; [Q34] «la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. / la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+     "cap 4: comillas solo para las citas del pool (la frase del research va sin comillas): «La gente corría y volvían todos porque el portón que queda h…»",
+     "cap 4: fechas: contaste [T06] sin su fecha (1 de agosto): «Se dan las órdenes de cerrar las puertas de acceso al supermercado.…»",
+     "cap 4: el cierre tiene que anticipar el dato concreto del cap 5: «Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bo» (nombralo o dejalo incompleto; nada de retórica genérica)",
+     "cap 5: 212 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 5: fechas: contaste [T21] sin su fecha (1 de agosto): «Una gran explosión sacude el edificio y desata el incendio principal e…»",
+     "cap 5: el cierre tiene que anticipar el dato concreto del cap 6: «Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+     "cap 6: 206 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 6: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «12» ×2",
+     "cap 7: 105 palabras: el mínimo del cap es 119 (objetivo 140); contá más hechos del beat con escenas, no adjetivos",
+     "beat 3: ninguna frase de 6 palabras o menos",
+     "beat 9: ninguna frase de 6 palabras o menos",
+     "beat 11: ninguna frase de 6 palabras o menos",
+     "beat 12: ninguna frase de 6 palabras o menos",
+     "Q20 está SIN VERIFICAR y va con el nombre de Liz Torres: decila sin el nombre",
+     "beat 1 (párrafo 1): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«El fuego avanzaba por el techo…»', '«Era como estar dentro de un horno, con l…»']",
+     "beat 8 (párrafo 8): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Las llamas cayeron sobre las personas qu…»', '«la temperatura entre el cielorraso y el …»']",
+     "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+     "cap 1: el nombre completo de Liz Torres suena 2 veces; una vez por cap, después solo el apellido",
+     "cap 7: el nombre completo de Liz Torres suena 2 veces; una vez por cap, después solo el apellido",
+     "cap 3: repite frases de caps anteriores («el techo recordo»): decilo de otra forma o no lo repitas",
+     "cap 4: repite frases de caps anteriores («cerrar las puertas»): decilo de otra forma o no lo repitas",
+     "beat 7 (párrafo 7): 8 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "beat 11 (párrafo 11): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "cap 6: describe fotos o imágenes (fotos): contá la escena, no la foto"
+    ]
+   },
+   "reparacion": null,
+   "juez": null
+  },
+  {
+   "nombre": "v4c argon · gemini-4-argon — final",
+   "clave": "argon",
+   "error": null,
+   "usd": 0.0788,
+   "segundos": 157.7,
+   "bloqueantes": [
+    {
+     "codigo": "c",
+     "cap": 4,
+     "beat": null,
+     "frase": "",
+     "motivo": "cap 4 corto: 115 palabras (objetivo 250, mínimo 188)"
+    }
+   ],
+   "criterio": false,
+   "preguntas": 7,
+   "frases_analista": {
+    "los datos": 0,
+    "el testimonio": 0,
+    "la frase señala": 0,
+    "no permiten explicar": 0
+   },
+   "guionista_tokens": [
+    {
+     "servicio": "Gemini 4 Argon",
+     "desc": "guion_v4 guionista",
+     "in": 3917,
+     "out": 2011,
+     "thinking": 0,
+     "usd": 0.0279
+    }
+   ],
+   "metricas": {
+    "palabras": 1111,
+    "palabras_por_cap": {
+     "1": [
+      95,
+      110
+     ],
+     "2": [
+      203,
+      250
+     ],
+     "3": [
+      204,
+      250
+     ],
+     "4": [
+      115,
+      250
+     ],
+     "5": [
+      198,
+      250
+     ],
+     "6": [
+      191,
+      250
+     ],
+     "7": [
+      105,
+      140
+     ]
+    },
+    "cierre": "cita",
+    "ids_por_parrafo": {
+     "antes": 4.17,
+     "despues": 1.58
+    },
+    "citas": 11,
+    "humano_caps": [
+     1,
+     2,
+     6,
+     7
+    ],
+    "duras_v3": [
+     "cap 2: 203 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Comienzan a producirse las primeras explosiones en la zona de la panadería.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+     "cap 3: 204 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 3: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T15] «1 de agosto»; [D27] «El fuego se inició por la acumulación de grasa, ca»; [D48] «Hubo un estruendo hacia el estacionamiento y el hu»",
+     "cap 3: fechas: contaste [T15] sin su fecha (1 de agosto): «De pronto, se escuchan las primeras explosiones en la zona de la panad…»",
+     "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la ord» (nombralo o dejalo incompleto; nada de retórica genérica)",
+     "cap 4: 115 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 4: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T06] «1 de agosto»; [Q34] «la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. / la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+     "cap 4: fechas: contaste [T06] sin su fecha (1 de agosto): «Escuchan una instrucción desde arriba: cerrar las puertas de acceso.…»",
+     "cap 4: el cierre tiene que anticipar el dato concreto del cap 5: «Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bo» (nombralo o dejalo incompleto; nada de retórica genérica)",
+     "cap 5: 198 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 5: fechas: contaste [T21] sin su fecha (1 de agosto): «Una explosión sacude el edificio y desata el incendio principal en el …»",
+     "cap 5: el cierre tiene que anticipar el dato concreto del cap 6: «Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+     "cap 6: 191 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 6: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «12» ×2",
+     "cap 7: 105 palabras: el mínimo del cap es 119 (objetivo 140); contá más hechos del beat con escenas, no adjetivos",
+     "beat 3: ninguna frase de 6 palabras o menos",
+     "beat 9: ninguna frase de 6 palabras o menos",
+     "beat 11: ninguna frase de 6 palabras o menos",
+     "beat 12: ninguna frase de 6 palabras o menos",
+     "Q20 está SIN VERIFICAR y va con el nombre de Liz Torres: decila sin el nombre",
+     "beat 1 (párrafo 1): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«El fuego avanzaba por el techo…»', '«Era como estar dentro de un horno, con l…»']",
+     "beat 8 (párrafo 8): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Las llamas cayeron sobre las personas qu…»', '«la temperatura entre el cielorraso y el …»']",
+     "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+     "cap 1: el nombre completo de Liz Torres suena 2 veces; una vez por cap, después solo el apellido",
+     "cap 7: el nombre completo de Liz Torres suena 2 veces; una vez por cap, después solo el apellido",
+     "cap 3: repite frases de caps anteriores («el techo recordo»): decilo de otra forma o no lo repitas",
+     "cap 4: repite frases de caps anteriores («cerrar las puertas»): decilo de otra forma o no lo repitas",
+     "beat 7 (párrafo 7): 8 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "beat 11 (párrafo 11): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "cap 6: describe fotos o imágenes (fotos): contá la escena, no la foto"
+    ]
+   },
+   "reparacion": {
+    "bloqueantes": [
+     1,
+     1
+    ],
+    "regenerados": [],
+    "ediciones": [
+     {
+      "beat": 7,
+      "aceptada": true,
+      "motivo_rechazo": "",
+      "problemas": [
+       "entre comillas, pero no es una cita del pool: «La gente corría y volvían todos porque el portón que queda h…»"
+      ]
+     }
+    ],
+    "fechas": [],
+    "editor": [
+     {
+      "beat": 1,
+      "estado": "rechazado",
+      "motivo_rechazo": "bloqueantes 1 → 2"
+     },
+     {
+      "beat": 2,
+      "estado": "rechazado",
+      "motivo_rechazo": "bloqueantes 1 → 2"
+     },
+     {
+      "beat": 3,
+      "estado": "rechazado",
+      "motivo_rechazo": "bloqueantes 1 → 2"
+     },
+     {
+      "beat": 4,
+      "estado": "rechazado",
+      "motivo_rechazo": "bloqueantes 1 → 2"
+     },
+     {
+      "beat": 5,
+      "estado": "rechazado",
+      "motivo_rechazo": "bloqueantes 1 → 2"
+     },
+     {
+      "beat": 6,
+      "estado": "aceptado",
+      "motivo_rechazo": null
+     },
+     {
+      "beat": 7,
+      "estado": "aceptado",
+      "motivo_rechazo": null
+     },
+     {
+      "beat": 8,
+      "estado": "aceptado",
+      "motivo_rechazo": null
+     },
+     {
+      "beat": 9,
+      "estado": "rechazado",
+      "motivo_rechazo": "bloqueantes 1 → 2"
+     },
+     {
+      "beat": 10,
+      "estado": "rechazado",
+      "motivo_rechazo": "adjetivos nuevos ['ante']"
+     },
+     {
+      "beat": 11,
+      "estado": "aceptado",
+      "motivo_rechazo": null
+     },
+     {
+      "beat": 12,
+      "estado": "rechazado",
+      "motivo_rechazo": "bloqueantes 1 → 2"
+     }
+    ],
+    "palabras": [
+     1220,
+     1111
+    ],
+    "log": [
+     "  [guionista v4] 12 párrafos · 1220 palabras",
+     "  [editar v4] beat 7: aceptada",
+     "  [editor v4] 12 párrafo(s) editado(s): 4 aceptado(s), 8 rechazado(s)",
+     "  [reparación v4] bloqueantes 1 → 1 (una ronda; no hay segunda)",
+     "  [01d] cap 4: 662 caracteres < 680 (corto; aviso, no se inventa texto)"
+    ]
+   },
+   "juez": {
+    "densidad": 1.71,
+    "adj_100": 2.34,
+    "trigramas_repetidos": 0.0032,
+    "datos_en_mas_de_2_caps": {},
+    "antagonista_nombrado": true,
+    "antagonista": "Juan Pío Paiva",
+    "cliffhangers": [
+     {
+      "cap": 1,
+      "id": "Q50",
+      "texto": "El Ycuá Bolaños era un lugar de esparcimiento, era un lugar familiar, me quedaba cerca. A mi esposa pues le encantaba recorrer, mirar, comprar las cosas que necesitaba, mirá, era algo tan, tan familiar.",
+      "ok": true,
+      "en_cierre": [
+       "Bolaños"
+      ]
+     },
+     {
+      "cap": 2,
+      "id": "T15",
+      "texto": "Comienzan a producirse las primeras explosiones en la zona de la panadería.",
+      "ok": false,
+      "en_cierre": []
+     },
+     {
+      "cap": 3,
+      "id": "Q35",
+      "texto": "Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.",
+      "ok": false,
+      "en_cierre": []
+     },
+     {
+      "cap": 4,
+      "id": "T21",
+      "texto": "Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bolaños.",
+      "ok": false,
+      "en_cierre": []
+     },
+     {
+      "cap": 5,
+      "id": "D19",
+      "texto": "Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio.",
+      "ok": false,
+      "en_cierre": []
+     },
+     {
+      "cap": 6,
+      "id": "Q77",
+      "texto": "Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida",
+      "ok": true,
+      "en_cierre": [
+       "salvaron"
+      ]
+     }
+    ],
+    "datos_distintos": 19,
+    "palabras": 1111,
+    "conteo": "por_id",
+    "caps_con_repetidos_en_cap": [
+     6
+    ],
+    "caps_fuera_de_adjetivos": [
+     1,
+     2,
+     6,
+     7
+    ],
+    "nombres_sin_accion": [],
+    "cifras_no_canonicas": [],
+    "problemas_de_fechas": 3,
+    "pantalla_dichos": [],
+    "densidad_hechos": 1.8,
+    "densidad_regex": 4.05,
+    "umbral": {
+     "densidad": false,
+     "repeticion": true,
+     "adjetivacion": true,
+     "repeticion_en_cap": false,
+     "nombres": true,
+     "antagonista": true,
+     "cliffhanger": false
+    }
+   }
+  },
+  {
+   "nombre": "v4c sol · gpt-6.1-sol high — crudo",
+   "clave": "sol_crudo",
+   "error": null,
+   "usd": 0.114,
+   "segundos": 239.2,
+   "bloqueantes": [],
+   "criterio": true,
+   "preguntas": 6,
+   "frases_analista": {
+    "los datos": 0,
+    "el testimonio": 0,
+    "la frase señala": 0,
+    "no permiten explicar": 0
+   },
+   "guionista_tokens": [],
+   "metricas": {
+    "palabras": 1425,
+    "palabras_por_cap": {
+     "1": [
+      102,
+      110
+     ],
+     "2": [
+      236,
+      250
+     ],
+     "3": [
+      233,
+      250
+     ],
+     "4": [
+      238,
+      250
+     ],
+     "5": [
+      241,
+      250
+     ],
+     "6": [
+      243,
+      250
+     ],
+     "7": [
+      132,
+      140
+     ]
+    },
+    "cierre": "cita",
+    "ids_por_parrafo": {
+     "antes": 4.42,
+     "despues": 1.58
+    },
+    "citas": 11,
+    "humano_caps": [
+     1,
+     2,
+     5,
+     6,
+     7
+    ],
+    "duras_v3": [
+     "cap 3: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T15] «1 de agosto»; [D27] «El fuego se inició por la acumulación de grasa, ca»; [D48] «Hubo un estruendo hacia el estacionamiento y el hu»",
+     "cap 3: fechas: contaste [T15] sin su fecha (1 de agosto): «Las primeras explosiones se producen en la zona de la panadería.…»",
+     "cap 4: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T06] «1 de agosto»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+     "cap 4: fechas: contaste [T06] sin su fecha (1 de agosto): «La instrucción es cerrar los accesos al supermercado.…»",
+     "cap 5: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T21] «1 de agosto»; [Q29] «la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación / la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación, la gente que estaba en el patio de comidas ya murió, pues esa temperatura quema las vías respiratorias al instante.»",
+     "cap 5: fechas: contaste [T21] sin su fecha (1 de agosto): «Se desata el incendio principal.…»",
+     "Q20 está SIN VERIFICAR y va con el nombre de Liz Torres: decila sin el nombre",
+     "beat 1 (párrafo 1): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«El fuego avanzaba por el techo…»', '«Era como estar dentro de un horno, con l…»']",
+     "gancho: adelanta una cita de un cap siguiente («El Ycuá Bolaños era un lugar de esparcimiento, era…»): que suene recién en su cap",
+     "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+     "cap 5: el nombre completo de Liz Torres suena 2 veces; una vez por cap, después solo el apellido",
+     "cap 6: el nombre completo de Liz Torres suena 2 veces; una vez por cap, después solo el apellido",
+     "cap 4: repite frases de caps anteriores («cerrar las puertas»): decilo de otra forma o no lo repitas",
+     "cap 5: repite frases de caps anteriores («ese techo estan»; «estan las familias»; «quienes estan comiendo»; «techo estan las»): decilo de otra forma o no lo repitas",
+     "cap 6: repite frases de caps anteriores («las puertas cerradas»): decilo de otra forma o no lo repitas",
+     "beat 11 (párrafo 11): 13 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "cap 1: «alguien ordenó»: decí quién (el nombre está en los datos)"
+    ]
+   },
+   "reparacion": null,
+   "juez": null
+  },
+  {
+   "nombre": "v4c sol · gpt-6.1-sol high — final",
+   "clave": "sol",
+   "error": null,
+   "usd": 0.1169,
+   "segundos": 267.7,
+   "bloqueantes": [],
+   "criterio": true,
+   "preguntas": 6,
+   "frases_analista": {
+    "los datos": 0,
+    "el testimonio": 0,
+    "la frase señala": 0,
+    "no permiten explicar": 0
+   },
+   "guionista_tokens": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 3537,
+     "out": 2281,
+     "thinking": 8412,
+     "usd": 0.114
+    }
+   ],
+   "metricas": {
+    "palabras": 1425,
+    "palabras_por_cap": {
+     "1": [
+      102,
+      110
+     ],
+     "2": [
+      236,
+      250
+     ],
+     "3": [
+      233,
+      250
+     ],
+     "4": [
+      238,
+      250
+     ],
+     "5": [
+      241,
+      250
+     ],
+     "6": [
+      243,
+      250
+     ],
+     "7": [
+      132,
+      140
+     ]
+    },
+    "cierre": "cita",
+    "ids_por_parrafo": {
+     "antes": 4.42,
+     "despues": 1.58
+    },
+    "citas": 11,
+    "humano_caps": [
+     1,
+     2,
+     5,
+     6,
+     7
+    ],
+    "duras_v3": [
+     "cap 3: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T15] «1 de agosto»; [D27] «El fuego se inició por la acumulación de grasa, ca»; [D48] «Hubo un estruendo hacia el estacionamiento y el hu»",
+     "cap 3: fechas: contaste [T15] sin su fecha (1 de agosto): «Las primeras explosiones se producen en la zona de la panadería.…»",
+     "cap 4: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T06] «1 de agosto»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+     "cap 4: fechas: contaste [T06] sin su fecha (1 de agosto): «La instrucción es cerrar los accesos al supermercado.…»",
+     "cap 5: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T21] «1 de agosto»; [Q29] «la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación / la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación, la gente que estaba en el patio de comidas ya murió, pues esa temperatura quema las vías respiratorias al instante.»",
+     "cap 5: fechas: contaste [T21] sin su fecha (1 de agosto): «Se desata el incendio principal.…»",
+     "Q20 está SIN VERIFICAR y va con el nombre de Liz Torres: decila sin el nombre",
+     "beat 1 (párrafo 1): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«El fuego avanzaba por el techo…»', '«Era como estar dentro de un horno, con l…»']",
+     "gancho: adelanta una cita de un cap siguiente («El Ycuá Bolaños era un lugar de esparcimiento, era…»): que suene recién en su cap",
+     "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+     "cap 5: el nombre completo de Liz Torres suena 2 veces; una vez por cap, después solo el apellido",
+     "cap 6: el nombre completo de Liz Torres suena 2 veces; una vez por cap, después solo el apellido",
+     "cap 4: repite frases de caps anteriores («cerrar las puertas»): decilo de otra forma o no lo repitas",
+     "cap 5: repite frases de caps anteriores («ese techo estan»; «estan las familias»; «quienes estan comiendo»; «techo estan las»): decilo de otra forma o no lo repitas",
+     "cap 6: repite frases de caps anteriores («las puertas cerradas»): decilo de otra forma o no lo repitas",
+     "beat 11 (párrafo 11): 13 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+     "cap 1: «alguien ordenó»: decí quién (el nombre está en los datos)"
+    ]
+   },
+   "reparacion": {
+    "bloqueantes": [
+     0,
+     0
+    ],
+    "regenerados": [],
+    "ediciones": [],
+    "fechas": [],
+    "editor": [],
+    "palabras": [
+     1425,
+     1425
+    ],
+    "log": [
+     "  [guionista v4] 12 párrafos · 1425 palabras",
+     "  [editor v4] crudo con 0 bloqueantes: sin pasada del editor m01c",
+     "  [reparación v4] bloqueantes 0 → 0 (una ronda; no hay segunda)"
+    ]
+   },
+   "juez": {
+    "densidad": 1.33,
+    "adj_100": 1.19,
+    "trigramas_repetidos": 0.0221,
+    "datos_en_mas_de_2_caps": {},
+    "antagonista_nombrado": true,
+    "antagonista": "Juan Pío Paiva",
+    "cliffhangers": [
+     {
+      "cap": 1,
+      "id": "Q50",
+      "texto": "El Ycuá Bolaños era un lugar de esparcimiento, era un lugar familiar, me quedaba cerca. A mi esposa pues le encantaba recorrer, mirar, comprar las cosas que necesitaba, mirá, era algo tan, tan familiar.",
+      "ok": true,
+      "en_cierre": [
+       "Bolaños",
+       "familiar"
+      ]
+     },
+     {
+      "cap": 2,
+      "id": "T15",
+      "texto": "Comienzan a producirse las primeras explosiones en la zona de la panadería.",
+      "ok": true,
+      "en_cierre": [
+       "Comienzan",
+       "explosiones",
+       "panadería"
+      ]
+     },
+     {
+      "cap": 3,
+      "id": "Q35",
+      "texto": "Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.",
+      "ok": true,
+      "en_cierre": [
+       "puertas"
+      ]
+     },
+     {
+      "cap": 4,
+      "id": "T21",
+      "texto": "Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bolaños.",
+      "ok": true,
+      "en_cierre": [
+       "explosión",
+       "supermercado"
+      ]
+     },
+     {
+      "cap": 5,
+      "id": "D19",
+      "texto": "Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio.",
+      "ok": true,
+      "en_cierre": [
+       "incendio"
+      ]
+     },
+     {
+      "cap": 6,
+      "id": "Q77",
+      "texto": "Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida",
+      "ok": true,
+      "en_cierre": [
+       "cayeron",
+       "salvaron"
+      ]
+     }
+    ],
+    "datos_distintos": 19,
+    "palabras": 1425,
+    "conteo": "por_id",
+    "caps_con_repetidos_en_cap": [],
+    "caps_fuera_de_adjetivos": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7
+    ],
+    "nombres_sin_accion": [],
+    "cifras_no_canonicas": [],
+    "problemas_de_fechas": 3,
+    "pantalla_dichos": [],
+    "densidad_hechos": 1.4,
+    "densidad_regex": 3.02,
+    "umbral": {
+     "densidad": false,
+     "repeticion": true,
+     "adjetivacion": false,
+     "repeticion_en_cap": true,
+     "nombres": true,
+     "antagonista": true,
+     "cliffhanger": true
+    }
+   }
+  }
+ ]
+}

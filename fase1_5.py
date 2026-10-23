@@ -653,7 +653,7 @@ def main():
     parser.add_argument("--guion", choices=("v3", "v4"), default=None,
                         help="F11: con --v3, el guionista v4 (una llamada → reparación de una ronda); también corre "
                              "si el topic tiene guion_version == 4")
-    parser.add_argument("--modelo", choices=("gemini-pro", "gpt-6.1-sol", "gpt-6-astra"), default=None,
+    parser.add_argument("--modelo", choices=("gemini-pro", "gpt-6.1-sol", "gpt-6-astra", "gemini-4-argon"), default=None,
                         help="F11b: con --guion v4, el modelo de toda la cadena v4 (guionista + reparación); el juez "
                              "es el de siempre")
     parser.add_argument("--batch", action="store_true",

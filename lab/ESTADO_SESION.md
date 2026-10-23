@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-23 (F11b: v4 con largo + 3 modelos sobre Ycuá; ninguna final cumple, los crudos GPT sí → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-23 (F11c: prompt con estructura oficial + Argon vs Sol sobre Ycuá; Sol cumple, Argon no → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -10,7 +10,18 @@
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
-  - F11b: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 571 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+  - F11c: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 579 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F11c — Prompt con estructura oficial + Gemini 4 Argon vs GPT-6.1 Sol (Ycuá) — HECHO, **PARADA** (el analista lee los dos crudos y finales y le da la nota a Omar)
+- Handoff `lab/hyperframes/f11c/HANDOFF_F11c_estructura_y_modelos.md`. Reporte `lab/hyperframes/f11c/F11c_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f11c.html` (teléfono OK). Textos `NARRACION_ycua_v4c_{argon,sol}.md` (crudo + final); prompt único `prompt_ycua_v4c_{sistema,usuario}.txt` + `.md5`.
+- Código:
+  - `guion_v4` `f11c-1`: `system()` = rol, voz, oficio y ejemplos (Orleans F7c-3, literal); `prompt()` = <caso>, <escaleta> y <tarea> al final;
+  - `--modelo gemini-4-argon` (`gemini_helpers.make_call`, sin temperature ni thinking; `gemini_model_research` intacto; precio 2/10 en `cost_tracker`);
+  - m01c se saltea con 0 bloqueantes.
+- Tests: `test_module_f11c.py` (8) + 2 aserciones de estructura adaptadas en f11/f11b; suite amplia 579 verdes + las 5 previas.
+- Resultado: **Sol high 1,425 palabras, 0 bloqueantes, crudo = final → cumple**; preguntas 20 → 6. **Argon 1,220 → 1,111 palabras, 1 bloqueante → no cumple:** la cita inventada se sacó, pero el cap 4 quedó corto y el m01c lo recortó a 115/250, porque acepta por conteo. Humo de argon OK (thinking informado 0). Tanda **US$ 0.196** de 1.50.
+- Abierto para Omar: Paiva hijo («Emiliano», solo F05, contra «Víctor Daniel», en F09/F10/F15/F16); las dos narraciones dicen «Emiliano». Y la aceptación del m01c por conteo cuando un cap ya está corto.
+- No se pisó nada ni se tocó `topics_db` ni `config.py`. Sin merge. **No seguir a producción.**
 
 ## F11b — v4 con largo + comparación de modelos (Ycuá) — HECHO, **PARADA** (el analista lee las tres narraciones y le da nota a Omar)
 - Handoff `lab/hyperframes/f11b/HANDOFF_F11b_largo_y_modelos.md`. Reporte `lab/hyperframes/f11b/F11b_REPORT.md` (revisor íntegro) y `compara_f11b.html`. Textos `NARRACION_ycua_v4b_{gem,sol,astra}.md`; prompt único `prompt_ycua_v4b.txt`.

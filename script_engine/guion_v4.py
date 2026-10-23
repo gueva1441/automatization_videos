@@ -22,6 +22,10 @@ m01b_guionista, m01c_editor, m05_narrative y guion_v3_reglas NO se modifican: se
 F11b: el prompt dice el largo (≈ N palabras por cap y el total); la regeneración de un cap corto mide solo cifras,
 nombres y citas nuevas (REGEN_GUARD); `call_for(modelo)` enchufa Gemini Pro o un GPT en toda la cadena; los ids de
 cada párrafo son `used_items ∩ beat_ids` (dato central, apoyos y lo asignado a su cap).
+F11c: el prompt sigue la estructura de los fabricantes: `system()` = rol, voz, oficio y ejemplos de voz (XML);
+`prompt()` = el usuario, con los datos primero (<caso>, <escaleta>) y la <tarea> al final. `--modelo gemini-4-argon`
+es el modelo propio del guionista (no toca `gemini_model_research`). La pasada del editor m01c se saltea cuando el
+crudo tiene 0 bloqueantes.
 """
 from __future__ import annotations
 
@@ -33,23 +37,50 @@ from typing import Any, Callable
 from script_engine import evidence as ev
 from script_engine import m01b_guionista as mg
 
-PROMPT_VERSION = "f11b-1"
+PROMPT_VERSION = "f11c-1"
 CAP_TOL = 0.25                       # (c) cap fuera de ±25 % de su objetivo
 REGEN_GUARD = ("cifras", "nombres", "citas")   # F11b §1.2: la regeneración de un cap corto permite prosa y adjetivos
-MODELOS = ("gemini-pro", "gpt-6.1-sol", "gpt-6-astra")   # F11b §1.3: `--modelo`
+MODELOS = ("gemini-pro", "gpt-6.1-sol", "gpt-6-astra", "gemini-4-argon")   # F11b §1.3 / F11c §1.2: `--modelo`
+GEMINI_PROPIOS = ("gemini-4-argon",)  # F11c §1.2: modelo propio del guionista (gemini_model_research no cambia)
 ESFUERZO = {"gpt-6.1-sol": "high"}   # F11b §2: Sol en esfuerzo high; Astra, el de la API por defecto
 DIAS = ("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo")
 
 OFICIO = [
-    "El gancho es la imagen del beat 1; después, la promesa.",
+    "Gancho: la imagen del beat 1; después, la promesa.",
     "Seguimos a un humano con nombre.",
     "Frases cortas antes del golpe.",
-    "Cita literal, de 25 palabras como máximo, con quién la dijo.",
-    "El narrador no habla del video.",
-    "Hechos, citas y preguntas; no juicios.",
-    "La fecha completa, una vez; después, «ese día», «esa noche».",
+    "Cita literal, 25 palabras o menos, con quién la dijo (la marcada SIN VERIFICAR va sin el nombre).",
+    "Hechos, citas y alguna pregunta; no juicios.",
+    "La fecha completa, una vez; después, \"ese día\", \"esa noche\".",
+    "Lo marcado PANTALLA no lo dice la voz.",
     "La última frase es una cita o una pregunta.",
 ]
+
+# F11c §1.1: párrafos de lab/hyperframes/f7/NARRACION_orleans_v3r3.md (F7c-3, nota 8.5), copiados literal. Solo la voz.
+EJEMPLOS_VOZ = [
+    "El 30 de agosto, el agua sucia de la inundación irrumpió en las celdas. Olía a una mezcla de aguas residuales y "
+    "combustible diésel. En varios pabellones, los presos quedaron atrapados en sus celdas cerradas. Vieron cómo el "
+    "nivel subía sin poder hacer nada. Pronto, el agua les llegaría hasta el pecho.",
+    "El oficial Renard Reed también fue testigo. «Parecía que estaban abatiendo a la gente», dijo Reed. Vio a alguien "
+    "caer al agua. No sabía si la munición era real o de goma. Fue suficiente. Lo vio.",
+]
+
+
+def system() -> str:
+    """F11c §1.1: el mensaje de sistema / desarrollador (rol → voz → oficio → ejemplos), igual para todos los modelos."""
+    oficio = "\n".join(f"{k}. {x}" for k, x in enumerate(OFICIO, start=1))
+    ejemplos = "\n\n".join(EJEMPLOS_VOZ)
+    return f"""<rol>Sos el guionista de Misterios Sepultados, un canal de documentales de historia oscura en YouTube, en español neutro.
+Escribís la narración en off que escucha el espectador. Tu meta: que no se vaya. Contás una historia real con un humano con nombre, escenas concretas y suspenso; no explicás ni analizás. No inventás: toda cifra, fecha, hora, nombre y cita sale de los datos que te dan.</rol>
+<voz>Narrativa y cinematográfica. Presente o pasado cercano. Frases cortas cuando algo golpea. Lo que se ve, se oye, se huele. El narrador no habla de sus fuentes ("los datos", "el testimonio señala", "la frase indica") ni del video.</voz>
+<oficio>
+{oficio}
+</oficio>
+<ejemplos_de_voz>
+(Solo la voz; los hechos son de otro caso y no se usan.)
+
+{ejemplos}
+</ejemplos_de_voz>"""
 
 SCHEMA: dict[str, Any] = {
     "type": "OBJECT",
@@ -119,7 +150,7 @@ def escaleta_section(esc: dict, pool: dict) -> str:
     for n in range(1, 8):
         c = caps.get(n, {})
         bs = [b for b in esc["beats"] if b["cap"] == n]
-        out.append(f"── CAP {n} · ≈ {c.get('palabras_objetivo') or 0} palabras")
+        out.append(f"CAP {n} · ≈ {c.get('palabras_objetivo') or 0} palabras")
         in_beats = {i for b in bs for i in [b["dato_central"]] + list(b.get("datos_apoyo") or [])}
         for i in c.get("pantalla_ids") or []:
             if i not in in_beats:
@@ -130,7 +161,7 @@ def escaleta_section(esc: dict, pool: dict) -> str:
             out.append(f"    dato central: {data_line(b['dato_central'], its, esc, pool)}")
             for i in b.get("datos_apoyo") or []:
                 out.append(f"    apoyo: {data_line(i, its, esc, pool)}")
-            out.append(f"    queda abierta: {b.get('pregunta_abierta')}")
+            out.append(f"    el espectador se pregunta: {b.get('pregunta_abierta')}")
             if b.get("cierre"):
                 out.append(f"    cierre: {b['cierre']}")
             cl = c.get("cliffhanger")
@@ -140,25 +171,25 @@ def escaleta_section(esc: dict, pool: dict) -> str:
 
 
 def prompt(topic: dict, esc: dict) -> str:
+    """F11c §1.1: el mensaje del usuario: los datos primero (<caso>, <escaleta>) y la tarea al final (<tarea>). El rol,
+    la voz, el oficio y los ejemplos van en `system()`."""
     pool = topic["evidence_pool"]
     hum = esc.get("humano") or {}
     pico = esc.get("pico") or {}
-    oficio = "\n".join(f"{k}. {x}" for k, x in enumerate(OFICIO, start=1))
     total = sum(c.get("palabras_objetivo") or 0 for c in esc.get("caps") or [])
-    return f"""TEMA: {topic.get("video_title")}
+    return f"""<caso>
+TEMA: {topic.get("video_title")}
 HUMANO: {hum.get("nombre")} ({hum.get("rol")})
 PROMESA DEL GANCHO: {esc.get("promesa_gancho")}
-PICO: beat {pico.get("beat")} · CIERRE HUMANO: {esc.get("cierre_humano")}
+PICO: beat {pico.get("beat")}
+CIERRE HUMANO: {esc.get("cierre_humano")}
+</caso>
 
-═══ ESCALETA ═══
+<escaleta>
 {escaleta_section(esc, pool)}
+</escaleta>
 
-═══ OFICIO ═══
-{oficio}
-
-Escribí la narración completa, en párrafos, cada uno con su beat. Devolvé {{"parrafos": [{{"beat": 1, "texto": "…"}}, …]}}.
-
-Cada cap tiene que tener cerca de las palabras que dice su encabezado: es su largo, no un máximo. El video completo ≈ {total:,} palabras."""
+<tarea>Con lo de arriba, escribí la narración completa en párrafos, cada uno con su beat. Cada cap, cerca de sus palabras (es su largo, no un máximo); el video completo ≈ {total:,} palabras. Devolvé el JSON del esquema.</tarea>"""
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -191,13 +222,17 @@ def with_ids(parrafos: list[dict], pool: dict, esc: dict | None = None) -> list[
 
 def call_for(modelo: str | None) -> Callable[..., dict]:
     """F11b §1.3: el `call` de toda la cadena v4 de una corrida (guionista, regeneración, edición de oración, editor).
-    `gemini-pro` (o None) → gemini_helpers.call_pro_json; los GPT → gpt_helpers.make_call con su esfuerzo. Un modelo
+    `gemini-pro` (o None) → gemini_helpers.call_pro_json; `gemini-4-argon` (F11c) → gemini_helpers.make_call con ese
+    modelo (sin temperature ni thinking); los GPT → gpt_helpers.make_call con su esfuerzo. Un modelo
     que no está en MODELOS es un error (no se reemplaza por otro)."""
     if modelo in (None, "gemini-pro"):
         from gemini_helpers import call_pro_json
         return call_pro_json
     if modelo not in MODELOS:
         raise ValueError(f"modelo desconocido: {modelo} (válidos: {', '.join(MODELOS)})")
+    if modelo in GEMINI_PROPIOS:
+        import gemini_helpers
+        return gemini_helpers.make_call(modelo)
     import gpt_helpers
     return gpt_helpers.make_call(modelo, ESFUERZO.get(modelo))
 
@@ -207,7 +242,7 @@ def write(topic: dict, esc: dict, *, call: Callable[..., dict] | None = None,
     log = log if log is not None else []
     if call is None:
         from gemini_helpers import call_pro_json as call
-    raw = call(prompt(topic, esc), system_instruction=mg.SYSTEM, response_schema=SCHEMA,
+    raw = call(prompt(topic, esc), system_instruction=system(), response_schema=SCHEMA,
                description="guion_v4 guionista")
     ps = with_ids(mg.normalize(raw, esc), topic["evidence_pool"], esc)
     log.append(f"  [guionista v4] {len(ps)} párrafos · {sum(mg.wc(p['texto']) for p in ps)} palabras")
@@ -477,8 +512,11 @@ def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[...,
     # fechas repetidas (determinista)
     ps, pasos["fechas"] = replace_repeated_dates(ps, event_date(esc, pool))
     ps = with_ids(ps, pool, esc)
-    # una pasada del editor m01c
-    ps, pasos["editor"] = editor_pass(topic, esc, ps, call=call, log=log)
+    # una pasada del editor m01c; F11c §1.3: solo si el crudo trae bloqueantes (con 0 se saltea)
+    if bl0:
+        ps, pasos["editor"] = editor_pass(topic, esc, ps, call=call, log=log)
+    else:
+        log.append("  [editor v4] crudo con 0 bloqueantes: sin pasada del editor m01c")
     bl2 = bloqueantes(topic, esc, ps)
     log.append(f"  [reparación v4] bloqueantes {len(bl0)} → {len(bl2)} (una ronda; no hay segunda)")
     return {"parrafos": ps, "bloqueantes_antes": bl0, "bloqueantes_despues": bl2, "pasos": pasos,

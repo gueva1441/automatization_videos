@@ -1,0 +1,18 @@
+{
+ "modelo": "gemini-4-argon",
+ "ok": true,
+ "respuesta": {
+  "texto": "hola"
+ },
+ "segundos": 7.2,
+ "usd": 0.00063,
+ "llamadas": [
+  {
+   "servicio": "Gemini 4 Argon",
+   "in": 204,
+   "out": 22,
+   "thinking": 0,
+   "usd": 0.00063
+  }
+ ]
+}
