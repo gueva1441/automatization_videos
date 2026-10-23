@@ -116,8 +116,21 @@ def _dated_said(text: str, it: dict[str, Any]) -> bool:
     y el evento se puede contar con otras palabras en la oración siguiente (F5d: paráfrasis permitida en lo que no es
     cifra, nombre, fecha o cita). Sin fecha, como siempre (used_in)."""
     if it["_kind"] == "cronologia" or (it["_kind"] == "datos" and it.get("tipo") == "fecha"):
-        return any(ev.literal_in(a, text) for a in ev.anchors(it))
+        if any(ev.literal_in(a, text) for a in ev.anchors(it)):
+            return True
+        return _date_paraphrased(text, it)
     return ev.used_in(text, it)
+
+
+def _date_paraphrased(text: str, it: dict[str, Any]) -> bool:
+    """F10 (Omar: una fecha literal por cap; «el candado acepta la paráfrasis»): un evento con fecha también cuenta si
+    la oración lo dice con «ese domingo», «esa noche»… y comparte una palabra de contenido con el evento."""
+    from script_engine.guion_v3_reglas import DATE_PARAPHRASE
+    words = ev._content(ev.text_of(it))
+    for s in ev._sentences(text):
+        if DATE_PARAPHRASE.search(s) and (not words or words & ev._content(s)):
+            return True
+    return False
 
 
 def repeat_items(text: str, pool: dict[str, Any] | None, declared: list[str] | None = None) -> list[str]:

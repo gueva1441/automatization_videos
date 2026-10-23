@@ -86,6 +86,10 @@ JUDGMENTS: list[tuple[str, str]] = [
     (r"\bel sistema (?:los|las|la|lo) (?:abandon[oó]|olvid[oó]|trag[oó])\b", "el sistema"),
     (r"\bcaos (?:deliberado|calculado|organizado)\b", "caos"),
     (r"\bmonstruos[oa]s?\b|\bdiab[oó]lic\w*|\binfiern\w*", "infiern"),
+    # F10 (notas del analista sobre Ycuá)
+    (r"\bfue una masacre\b", "masacre"),
+    (r"\bpeligro que nadie ve[ií]a\b", "nadie veia"),
+    (r"\besperar? un milagro\b|\besperaban un milagro\b", "milagro"),
 ]
 
 
@@ -200,7 +204,37 @@ def review_v3(caps: list[dict], parrafos: list[dict], pool: dict[str, Any], esc:
     out += empty_paragraph_problems(parrafos)                                           # F7c-3 §2
     out += antagonist_problems(caps, esc, pool)                                         # F7c-3 §3
     out += photo_problems(caps)                                                         # F7c-3 §4
+    out += date_problems(caps)                                                          # F10
     return out, echo_soft(parrafos)                                                     # F7c-3 §7 (blanda)
+
+
+# ── F10: fechas literales ─────────────────────────────────────────────────────
+
+MESES = "enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre"
+DATE_RE = re.compile(rf"\b(?:\d{{1,2}}|primero)\s+de\s+(?:{MESES})(?:\s+de\s+(\d{{4}}))?\b", re.I)
+DATE_MAX_PER_CAP = 1
+# lo que reemplaza una fecha ya dicha (el chequeo de «dato literal» de m05 lo acepta para un evento con fecha)
+DATE_PARAPHRASE = re.compile(r"\b(?:ese|aquel|aquél) (?:domingo|lunes|martes|miércoles|jueves|viernes|sábado|día|"
+                             r"mediodía|mismo día)\b|\besa (?:mañana|tarde|noche|madrugada)\b", re.I)
+
+
+def date_problems(caps: list[dict]) -> list[str]:
+    """F10 (Omar): una fecha literal como máximo por cap, y la fecha completa (con año) de un día una sola vez en el
+    video; después, «ese domingo», «esa noche»."""
+    out, seen = [], {}
+    for c in caps:
+        ds = [m.group(0) for m in DATE_RE.finditer(c.get("narration") or "")]
+        if len(ds) > DATE_MAX_PER_CAP:
+            out.append(f"cap {c['chapter_number']}: {len(ds)} fechas literales ({', '.join(ds)}; máximo "
+                       f"{DATE_MAX_PER_CAP} por cap): después de la primera, «ese domingo», «esa noche», «esa mañana»")
+        for m in DATE_RE.finditer(c.get("narration") or ""):
+            if m.group(1):
+                k = ev.norm(m.group(0))
+                if k in seen:
+                    out.append(f"cap {c['chapter_number']}: la fecha completa «{m.group(0)}» ya se dijo en el cap "
+                               f"{seen[k]}: una sola vez en el video")
+                seen.setdefault(k, c["chapter_number"])
+    return list(dict.fromkeys(out))
 
 
 # ═══════════════════════════════════════════════════════════════
