@@ -1,0 +1,30 @@
+{
+ "corridas": [
+  {
+   "paso": "escaleta",
+   "usd": 0.297,
+   "segundos": 198.0
+  },
+  {
+   "paso": "escaleta",
+   "usd": 0.2095,
+   "segundos": 141.4
+  },
+  {
+   "paso": "guionista",
+   "usd": 0.1701,
+   "segundos": 160.7
+  },
+  {
+   "paso": "editor",
+   "usd": 0.2052,
+   "segundos": 482.4
+  },
+  {
+   "paso": "particion",
+   "usd": 0.003,
+   "segundos": 5.6
+  }
+ ],
+ "usd_total": 0.8848
+}

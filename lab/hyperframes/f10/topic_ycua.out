@@ -1,0 +1,27 @@
+[22:18:56] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-m00
+[22:33:20] INFO     | viral_pipeline | [topic_researcher] \u2713 \u2713 [DEEP] Ycu� Bola�os: Puertas cerradas, 400 vidas atrapadas en el fuego � research_summary=3380 chars � sources=10 � facts=9
+[22:33:20] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-m00 � Costo total: $0.9914
+
+  🔬 Investigando 1 seed(s) en modo LONG...
+     (4 angle queries Pro en paralelo + 4 sub-pasos Flash por seed)
+
+  [1/1] El incendio del supermercado Ycuá Bolaños: las puertas que cerraron con la gente adentro (Asunción, 1 de agosto de 2004)
+       → 4a: extrayendo facts + sources...
+       → 4b: extrayendo canonical...
+       → 4c: extrayendo meta narrativa...
+       → 4d: extrayendo research_summary...
+       → 4e: extrayendo visual canon...
+     ✓ Título: Ycuá Bolaños: Puertas cerradas, 400 vidas atrapadas en el fuego
+     🪝 Hook:  El 1 de agosto de 2004, 400 personas murieron: las puertas se cerraron
+     📎 Fuentes: 10  ·  Datos: 9
+     📜 research_summary: 3380 chars
+
+────────────────────────────────────────────────────────────
+  ✅ 1 topic(s) investigado(s)
+     - manual_f8: 1
+
+  📥 Bandeja: 27 seed(s) pendiente(s)
+
+  ➡  Siguiente paso: topic_validator
+
+{'topics': ['f8s1-ycua-bolanos'], 'usd': 0.9914, 'segundos': 863.5}

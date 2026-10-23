@@ -1,0 +1,214 @@
+{
+  "topic_id": "f8s1-ycua-bolanos",
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "title": "Lluvia de Cenizas",
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "bullets": [
+        "Cenizas calientes cayendo del cielorraso como una lluvia negra y espesa. · El fuego avanzaba por el techo. Lo que me dijo Alfredo (marido) es ‘corré’ y yo, como todos, corrí por nuestra vida hacia el único lugar donde sabíamos que había una puerta y personas que corrían en sentido contrario porque buscaban a sus familiares; mucha gente que nos cruzaba, que llamaba por sus nombres, seguro a sus hijos, a su familia... Me encontré con una pared humana difícil de pasar. Toda esa gente vino sobre mí de vuelta y quedamos atrapados. Cuando sentí la avalancha, dije acá nos morimos todos, no me voy a salvar, se me pasó toda la vida por la cabeza, que les dejaba a mis hijos adolescentes, tan jóvenes, solos"
+      ],
+      "evidence_ids": [
+        "Q19",
+        "Q20"
+      ],
+      "cliffhanger": "Q50",
+      "pantalla_ids": [
+        "D177",
+        "D181"
+      ]
+    },
+    {
+      "chapter_number": 2,
+      "title": "El Carrito Repleto",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "setup",
+      "bullets": [
+        "El sonido de los carritos de supermercado sobre las baldosas y las familias eligiendo qué almorzar. · El Ycuá Bolaños era un lugar de esparcimiento, era un lugar familiar, me quedaba cerca. A mi esposa pues le encantaba recorrer, mirar, comprar las cosas que necesitaba, mirá, era algo tan, tan familiar.",
+        "Una multitud de gente haciendo fila en las cajas, con los carritos repletos de comida. · Era uno de los peores lugares ese día para comprar porque estaba repleto. Nos quedamos a hacer lo que no hacíamos habitualmente, nos quedamos a recorrer un poquito más. Escuchamos un sonido muy fuerte, parecía como mil veces el sonido de agua cuando tirás en aceite hirviendo. Me quedé centrado hacia el patio de comida porque la gente miraba también hacia el sector de la parrilla y ese lugar vibraba, vibraba y era como que iba a estallar en cualquier momento"
+      ],
+      "evidence_ids": [
+        "Q50",
+        "D212",
+        "D210",
+        "Q17",
+        "D108"
+      ],
+      "cliffhanger": "T15",
+      "pantalla_ids": [
+        "D10",
+        "D139"
+      ]
+    },
+    {
+      "chapter_number": 3,
+      "title": "La Nube Negra",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "El zumbido de los hornos eléctricos y el olor a grasa acumulada en una chimenea. · Comienzan a producirse las primeras explosiones en la zona de la panadería.",
+        "Una nube de humo negro que avanza por los pasillos y lo cubre todo en segundos. · Escuché una explosión y después ya vi que la nube de humo negro cubría todo. En ese momento dejé mi caja, salté y corrí hacia el estacionamiento para tratar de salir"
+      ],
+      "evidence_ids": [
+        "T15",
+        "Q26",
+        "D27",
+        "Q10",
+        "D48"
+      ],
+      "cliffhanger": "Q35",
+      "pantalla_ids": [
+        "D73"
+      ]
+    },
+    {
+      "chapter_number": 4,
+      "title": "Manos en el Vidrio",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "shock",
+      "bullets": [
+        "Un guardia de seguridad escuchando una orden por su radio mientras el caos empieza. · Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.",
+        "Manos golpeando un panel de vidrio ahumado por el hollín, sin poder abrirlo. · la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré."
+      ],
+      "evidence_ids": [
+        "Q35",
+        "T06",
+        "Q34",
+        "D47"
+      ],
+      "cliffhanger": "T21",
+      "pantalla_ids": [
+        "Q62"
+      ]
+    },
+    {
+      "chapter_number": 5,
+      "title": "Bola de Fuego",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "consequences",
+      "bullets": [
+        "Una bola de fuego que recorre el techo del supermercado y cae sobre la gente en el patio de comidas. · Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bolaños.",
+        "Cuerpos cubiertos con sábanas blancas, alineados en el piso de una discoteca vacía. · después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!"
+      ],
+      "evidence_ids": [
+        "T21",
+        "Q70",
+        "Q29",
+        "Q53"
+      ],
+      "cliffhanger": "D19",
+      "pantalla_ids": [
+        "Q54",
+        "D192"
+      ]
+    },
+    {
+      "chapter_number": 6,
+      "title": "El Mazo del Juez",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "resolution",
+      "bullets": [
+        "El mazo de un juez golpeando la madera en una sala de tribunal repleta. · Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio.",
+        "Un perito policial señalando un plano del supermercado en un tribunal. · Un peritaje sobre las puertas del Ycuá Bolaños concluyó que solo tres de ellas estaban cerradas."
+      ],
+      "evidence_ids": [
+        "D19",
+        "D20",
+        "D21",
+        "D25",
+        "D29"
+      ],
+      "cliffhanger": "Q77",
+      "pantalla_ids": [
+        "D189",
+        "D222"
+      ]
+    },
+    {
+      "chapter_number": 7,
+      "title": "Velas en las Ruinas",
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "bullets": [
+        "Cientos de velas encendidas sobre las baldosas rotas de lo que fue un supermercado. · Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida"
+      ],
+      "evidence_ids": [
+        "Q77",
+        "D196",
+        "D195"
+      ],
+      "cliffhanger": "",
+      "pantalla_ids": [
+        "D179",
+        "D203"
+      ]
+    }
+  ],
+  "personajes": [
+    {
+      "id": "P13",
+      "nombre": "Liz Torres",
+      "rol": "Miembro de la Coordinadora de Víctimas, y amigos del Ycua Bolaños",
+      "antagonista": false,
+      "entra_en_cap": 7
+    },
+    {
+      "id": "P40",
+      "nombre": "Pío Paiva",
+      "rol": "Jefe (dueño) del supermercado",
+      "antagonista": true,
+      "entra_en_cap": 1
+    }
+  ],
+  "_pool_plan": {
+    "cifras_canonicas": [],
+    "pantalla": [
+      "cap 1: pantalla ['D177', 'D181']",
+      "cap 2: pantalla ['D10', 'D139']",
+      "cap 3: pantalla ['D73', 'T25']",
+      "cap 4: pantalla ['D199', 'D60']",
+      "cap 5: pantalla ['D223', 'T24']",
+      "cap 6: pantalla ['D222', 'T65']",
+      "cap 7: pantalla ['D179', 'D203']"
+    ]
+  },
+  "_v3": {
+    "escaleta": "01a_escaleta.json",
+    "prompt_version": "f6b-4",
+    "humano": {
+      "id": "P13",
+      "nombre": "Liz Torres",
+      "rol": "Sobreviviente y activista",
+      "por_que": "Sobrevivió al infierno cubierta por otros cuerpos y dedicó su vida a buscar justicia para los que no salieron, convirtiéndose en la voz de las víctimas.",
+      "colectivo": false
+    },
+    "antagonista": {
+      "id": "P40",
+      "por_que": "El dueño del supermercado, condenado por la decisión que convirtió un incendio en una trampa mortal para cientos de personas."
+    },
+    "pico": {
+      "beat": 8,
+      "id": "T21",
+      "por_que": "Es el momento exacto en que el fuego se vuelve un infierno ineludible, la explosión que sella el destino de cientos de personas ya atrapadas."
+    },
+    "particion": {
+      "notas": [],
+      "titulos": "flash"
+    }
+  }
+}

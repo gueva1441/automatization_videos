@@ -1,0 +1,473 @@
+{
+  "humano": {
+    "id": "P13",
+    "nombre": "Liz Torres",
+    "rol": "Sobreviviente y activista",
+    "por_que": "Sobrevivió al infierno cubierta por otros cuerpos y dedicó su vida a buscar justicia para los que no salieron, convirtiéndose en la voz de las víctimas.",
+    "colectivo": false
+  },
+  "antagonista": {
+    "id": "P40",
+    "por_que": "El dueño del supermercado, condenado por la decisión que convirtió un incendio en una trampa mortal para cientos de personas."
+  },
+  "promesa_gancho": "Era el lugar de encuentro del barrio. Hasta el domingo en que alguien ordenó cerrar las puertas.",
+  "pico": {
+    "beat": 8,
+    "id": "T21",
+    "por_que": "Es el momento exacto en que el fuego se vuelve un infierno ineludible, la explosión que sella el destino de cientos de personas ya atrapadas."
+  },
+  "cierre_humano": "La lucha de Liz Torres y las familias busca asegurar que ninguna puerta vuelva a cerrarse sobre la gente.",
+  "beats": [
+    {
+      "n": 1,
+      "cap": 1,
+      "funcion": "gancho",
+      "emocion": "Asfixia",
+      "intensidad": 4,
+      "dato_central": "Q19",
+      "datos_apoyo": [
+        "Q20"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Cenizas calientes cayendo del cielorraso como una lluvia negra y espesa.",
+      "pregunta_abierta": "¿Cómo se llegó a este infierno?",
+      "pregunta_pantalla": "¿Quién los dejó atrapados?",
+      "cierre": "Pero horas antes, ese mismo domingo, el Ycuá Bolaños era el lugar más familiar de todo el barrio.",
+      "palabras_objetivo": 110,
+      "flash_forward": true,
+      "pregunta_valida": true
+    },
+    {
+      "n": 2,
+      "cap": 2,
+      "funcion": "planteo",
+      "emocion": "Cotidianeidad",
+      "intensidad": 1,
+      "dato_central": "Q50",
+      "datos_apoyo": [
+        "D212",
+        "D210"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "El sonido de los carritos de supermercado sobre las baldosas y las familias eligiendo qué almorzar.",
+      "pregunta_abierta": "¿Qué hacía toda esa gente ahí?",
+      "pregunta_pantalla": "",
+      "cierre": "Era el lugar perfecto para el almuerzo del domingo, y ese día estaba más lleno que nunca.",
+      "palabras_objetivo": 125
+    },
+    {
+      "n": 3,
+      "cap": 2,
+      "funcion": "planteo",
+      "emocion": "Congestión",
+      "intensidad": 2,
+      "dato_central": "Q17",
+      "datos_apoyo": [
+        "D108"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Una multitud de gente haciendo fila en las cajas, con los carritos repletos de comida.",
+      "pregunta_abierta": "Si había tanta gente, ¿estaba el lugar preparado para una emergencia?",
+      "pregunta_pantalla": "¿Qué podía salir mal?",
+      "cierre": "Nadie lo sabía, pero en la cocina, el desastre ya había comenzado.",
+      "palabras_objetivo": 125,
+      "pregunta_valida": true
+    },
+    {
+      "n": 4,
+      "cap": 3,
+      "funcion": "escalada",
+      "emocion": "Inquietud",
+      "intensidad": 2,
+      "dato_central": "T15",
+      "datos_apoyo": [
+        "Q26",
+        "D27"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "El zumbido de los hornos eléctricos y el olor a grasa acumulada en una chimenea.",
+      "pregunta_abierta": "¿Nadie se dio cuenta del peligro?",
+      "pregunta_pantalla": "",
+      "cierre": "El ruido sordo se convirtió en un estruendo. Y después, el humo.",
+      "palabras_objetivo": 125
+    },
+    {
+      "n": 5,
+      "cap": 3,
+      "funcion": "escalada",
+      "emocion": "Confusión",
+      "intensidad": 3,
+      "dato_central": "Q10",
+      "datos_apoyo": [
+        "D48"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Una nube de humo negro que avanza por los pasillos y lo cubre todo en segundos.",
+      "pregunta_abierta": "Si hubo una explosión, ¿por qué la gente no pudo escapar?",
+      "pregunta_pantalla": "¿Por qué nadie podía salir?",
+      "cierre": "La gente corrió hacia las salidas. Pero se encontraron con algo que no esperaban.",
+      "palabras_objetivo": 125,
+      "pregunta_valida": true
+    },
+    {
+      "n": 6,
+      "cap": 4,
+      "funcion": "giro",
+      "emocion": "Indignación",
+      "intensidad": 4,
+      "dato_central": "Q35",
+      "datos_apoyo": [
+        "T06"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Un guardia de seguridad escuchando una orden por su radio mientras el caos empieza.",
+      "pregunta_abierta": "¿Por qué alguien daría una orden así?",
+      "pregunta_pantalla": "",
+      "cierre": "La orden se cumplió. Las puertas de vidrio, que debían ser una salida, se convirtieron en un muro.",
+      "palabras_objetivo": 125
+    },
+    {
+      "n": 7,
+      "cap": 4,
+      "funcion": "giro",
+      "emocion": "Pánico",
+      "intensidad": 4,
+      "dato_central": "Q34",
+      "datos_apoyo": [
+        "D47"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Manos golpeando un panel de vidrio ahumado por el hollín, sin poder abrirlo.",
+      "pregunta_abierta": "¿Quién fue el guardia que cerró la puerta?",
+      "pregunta_pantalla": "¿Quién cumplió esa orden?",
+      "cierre": "Atrapados entre el humo y las puertas cerradas, solo les quedaba esperar. Y entonces, todo explotó.",
+      "palabras_objetivo": 125,
+      "pregunta_valida": true
+    },
+    {
+      "n": 8,
+      "cap": 5,
+      "funcion": "pico",
+      "emocion": "Terror",
+      "intensidad": 5,
+      "dato_central": "T21",
+      "datos_apoyo": [
+        "Q70",
+        "Q29"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Una bola de fuego que recorre el techo del supermercado y cae sobre la gente en el patio de comidas.",
+      "pregunta_abierta": "¿Alguien pudo sobrevivir a eso?",
+      "pregunta_pantalla": "",
+      "cierre": "Cuando el fuego se apagó, el silencio que quedó era más aterrador que las llamas.",
+      "palabras_objetivo": 125
+    },
+    {
+      "n": 9,
+      "cap": 5,
+      "funcion": "respiro",
+      "emocion": "Duelo",
+      "intensidad": 1,
+      "dato_central": "Q53",
+      "datos_apoyo": [],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Cuerpos cubiertos con sábanas blancas, alineados en el piso de una discoteca vacía.",
+      "pregunta_abierta": "¿Cómo pudieron identificar a las víctimas?",
+      "pregunta_pantalla": "¿Cuántos no volverían a casa?",
+      "cierre": "Mientras las familias buscaban a sus desaparecidos, la justicia empezaba a buscar a los culpables.",
+      "palabras_objetivo": 125,
+      "contador": true,
+      "pregunta_valida": true
+    },
+    {
+      "n": 10,
+      "cap": 6,
+      "funcion": "consecuencia",
+      "emocion": "Justicia incompleta",
+      "intensidad": 3,
+      "dato_central": "D19",
+      "datos_apoyo": [
+        "D20",
+        "D21"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "El mazo de un juez golpeando la madera en una sala de tribunal repleta.",
+      "pregunta_abierta": "¿Doce años son suficientes por cientos de vidas?",
+      "pregunta_pantalla": "",
+      "cierre": "Pero durante el juicio, un informe oficial sembró la duda sobre lo que todos los sobrevivientes sabían.",
+      "palabras_objetivo": 125
+    },
+    {
+      "n": 11,
+      "cap": 6,
+      "funcion": "revelacion",
+      "emocion": "Frustración",
+      "intensidad": 4,
+      "dato_central": "D25",
+      "datos_apoyo": [
+        "D29"
+      ],
+      "humano_en_escena": false,
+      "imagen_sensorial": "Un perito policial señalando un plano del supermercado en un tribunal.",
+      "pregunta_abierta": "¿Cómo puede ser que el informe oficial contradiga a los testigos?",
+      "pregunta_pantalla": "¿Por qué la justicia no les creyó?",
+      "cierre": "Para los sobrevivientes, la verdad no estaba en los papeles, sino en los cuerpos que los salvaron.",
+      "palabras_objetivo": 125,
+      "pregunta_valida": true
+    },
+    {
+      "n": 12,
+      "cap": 7,
+      "funcion": "cierre",
+      "emocion": "Memoria",
+      "intensidad": 2,
+      "dato_central": "Q77",
+      "datos_apoyo": [
+        "D196",
+        "D195"
+      ],
+      "humano_en_escena": true,
+      "imagen_sensorial": "Cientos de velas encendidas sobre las baldosas rotas de lo que fue un supermercado.",
+      "pregunta_abierta": "¿Cómo se vive después de sobrevivir al infierno?",
+      "pregunta_pantalla": "¿Cuántas puertas siguen cerradas?",
+      "cierre": "El lema de Liz Torres y los sobrevivientes resuena cada año: 'Que nunca más'.",
+      "palabras_objetivo": 140,
+      "pregunta_valida": true
+    }
+  ],
+  "a_pantalla": [
+    {
+      "id": "Q62",
+      "cap": 4,
+      "por_que": "Muestra la mentalidad de ahorro de costos del dueño, que es clave para entender la negligencia."
+    },
+    {
+      "id": "Q54",
+      "cap": 5,
+      "por_que": "Expone la increíble desconexión de la familia dueña con la tragedia humana que estaba ocurriendo."
+    },
+    {
+      "id": "D192",
+      "cap": 5,
+      "por_que": "Para mostrar en pantalla la cifra oficial de muertos según la Corte, sin que el narrador tenga que entrar en el detalle numérico."
+    },
+    {
+      "id": "D189",
+      "cap": 6,
+      "por_que": "Visualizar la cifra de la condena económica, que luego fue revocada, muestra la dificultad de la reparación."
+    }
+  ],
+  "topic_id": "f8s1-ycua-bolanos",
+  "prompt_version": "f6b-4",
+  "_reparaciones": [
+    "beat 9: apoyo L37 no existe en el pool → fuera"
+  ],
+  "_avisos": [
+    "pregunta de pantalla del cap 2 «¿Qué podía salir mal?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+    "pregunta de pantalla del cap 5 «¿Cuántos no volverían a casa?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+    "pregunta de pantalla del cap 6 «¿Por qué la justicia no les creyó?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+  ],
+  "_intentos": [
+    {
+      "intento": 1,
+      "problemas": [
+        "pregunta de pantalla del cap 6 «¿Fueron 12 años justicia suficiente?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+        "pregunta de pantalla del cap 7 «¿Por qué el informe oficial no vio las puertas cerradas?»: 10 palabras (máximo 8); término administrativo ['informe']",
+        "la última frase repite textual la cita Q14: decila con otras palabras"
+      ],
+      "reparaciones": [
+        "beat 9: apoyo L37 no existe en el pool → fuera"
+      ],
+      "avisos": []
+    },
+    {
+      "intento": 2,
+      "problemas": [],
+      "reparaciones": [
+        "beat 9: apoyo L37 no existe en el pool → fuera"
+      ],
+      "avisos": [
+        "pregunta de pantalla del cap 2 «¿Qué podía salir mal?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "pregunta de pantalla del cap 5 «¿Cuántos no volverían a casa?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+        "pregunta de pantalla del cap 6 «¿Por qué la justicia no les creyó?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+      ]
+    }
+  ],
+  "pool_gate": {
+    "color": "verde",
+    "metricas": {
+      "datos": 227,
+      "citas_verificadas": 52,
+      "elegibles_humano": 15,
+      "eventos_con_fecha": 62
+    },
+    "motivos": [],
+    "target_words": 1500
+  },
+  "_pantalla_por_fecha": [
+    "T25 (2004-08-01) → cap 2 lleno: fuera",
+    "D199 (2004-08-01) → cap 2 lleno: fuera",
+    "D60 (2004-08-01) → cap 2 lleno: fuera",
+    "D223 (2004-08-01) → cap 2 lleno: fuera",
+    "T24 (2004-08-01) → cap 2 lleno: fuera",
+    "T65 cuenta lo mismo que D222, ya en pantalla: fuera"
+  ],
+  "instrucciones_guionista": [
+    "La cifra 327 muertos se dice UNA sola vez; nunca «364» ni «más de 364».",
+    "Q20 (de Liz Torres) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+    "Q29 (de Benedicto Pérez) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+    "Q34 (de Digna Felicia Cáceres) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+    "Q35 (de Digna Felicia Cáceres) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+    "Q50 (de Nelson Astigarraga) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+    "Q53 (de Nelson Astigarraga) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+    "Q62 va a pantalla (cap 4): la voz no lo dice.",
+    "Q54 va a pantalla (cap 5): la voz no lo dice.",
+    "D192 va a pantalla (cap 5): la voz no lo dice.",
+    "D189 va a pantalla (cap 6): la voz no lo dice."
+  ],
+  "caps": [
+    {
+      "chapter_number": 1,
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "evidence_ids": [
+        "Q19",
+        "Q20"
+      ],
+      "cliffhanger": "Q50",
+      "pantalla_ids": [
+        "D177",
+        "D181"
+      ],
+      "palabras_objetivo": 110
+    },
+    {
+      "chapter_number": 2,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "setup",
+      "evidence_ids": [
+        "Q50",
+        "D212",
+        "D210",
+        "Q17",
+        "D108"
+      ],
+      "cliffhanger": "T15",
+      "pantalla_ids": [
+        "D10",
+        "D139"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 3,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "evidence_ids": [
+        "T15",
+        "Q26",
+        "D27",
+        "Q10",
+        "D48"
+      ],
+      "cliffhanger": "Q35",
+      "pantalla_ids": [
+        "D73"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 4,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "shock",
+      "evidence_ids": [
+        "Q35",
+        "T06",
+        "Q34",
+        "D47"
+      ],
+      "cliffhanger": "T21",
+      "pantalla_ids": [
+        "Q62"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 5,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "consequences",
+      "evidence_ids": [
+        "T21",
+        "Q70",
+        "Q29",
+        "Q53"
+      ],
+      "cliffhanger": "D19",
+      "pantalla_ids": [
+        "Q54",
+        "D192"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 6,
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "resolution",
+      "evidence_ids": [
+        "D19",
+        "D20",
+        "D21",
+        "D25",
+        "D29"
+      ],
+      "cliffhanger": "Q77",
+      "pantalla_ids": [
+        "D189",
+        "D222"
+      ],
+      "palabras_objetivo": 250
+    },
+    {
+      "chapter_number": 7,
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "evidence_ids": [
+        "Q77",
+        "D196",
+        "D195"
+      ],
+      "cliffhanger": "",
+      "pantalla_ids": [
+        "D179",
+        "D203"
+      ],
+      "palabras_objetivo": 140
+    }
+  ],
+  "_pool_plan": {
+    "cifras_canonicas": [],
+    "pantalla": [
+      "cap 1: pantalla ['D177', 'D181']",
+      "cap 2: pantalla ['D10', 'D139']",
+      "cap 3: pantalla ['D73', 'T25']",
+      "cap 4: pantalla ['D199', 'D60']",
+      "cap 5: pantalla ['D223', 'T24']",
+      "cap 6: pantalla ['D222', 'T65']",
+      "cap 7: pantalla ['D179', 'D203']"
+    ]
+  }
+}
