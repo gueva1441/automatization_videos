@@ -62,4 +62,36 @@ No sigo a producción hasta el OK de Omar. Según §4.3:
 3. Título del video: dice «400 vidas»; el guion dice 327 oficiales.
 
 ## 5. Veredicto del revisor-handoff
-(pendiente: se pega íntegro abajo)
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | Requisito | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Contrato §2: chapters[7], solo se agregan narration_tts e ids_usados; sin flag byte-idéntico | OK | 01a_skeleton.json (Ycuá) trae 7 caps con bullets, chapter_number, cliffhanger, duration_seconds, evidence_ids, narrative_intent, pantalla_ids, render_engine, role y title. 01b_narration.json trae 7 caps con chapter_number, datos_usados, ids_usados, narration, narration_tts (los 7 con tts e ids). El diff de fase1_5.py en `_build_audio_script` y `process_topic` solo agrega ramas `use_v3`, y el `else` viejo queda igual. Tests `test_audio_script_v2_igual_y_v3_con_narration_tts` y `test_sin_flag_corre_el_camino_viejo`. Los tests prueban "igual" y no comparan bytes de una corrida real. |
+| 2 | FRENOS §3 | OK | `git diff 790bec9 HEAD --stat`: no hay m02_5, tts_normalizer, m07, fase2a, fase2b, gfx_*, m03_visual, evidence.py, foto madre, candado ni anclas. m03_imagenes_v3 sí está tocado, y es lo permitido (14 líneas, decisión 2 de Omar). Sin merge (rama f10-integracion-v3). Sin validador de visión. |
+| 3 | §4.1 tests y corrida en seco | OK | `test_module_f10.py` tiene 10 tests: frontera de párrafo y pico intacto, acortar con el editor, cap corto como aviso, contrato de 7 caps, v2 sin flag. `seco/seco_chequeos.json` da status PASS en m01a, m01b, normalizer_gate, audio, m07, m03 y assemble, con `normalizado: true` y `fase2a_normaliza: true`. El check del m02_5 en batch queda registrado en D13 (corrió real) y en el reporte. |
+| 4 | §4.2 cadena y 4 entregas | OK | 01_v3_costos.json y costo_guion_ycua.json: escaleta (2 corridas), guionista, editor y partición. El juez está en 06_judge_ycua.json. Están ESCALETA_ycua.md, NARRACION_ycua.md, el juez y el costo. Las notas del analista están en escaleta_notas.md. El pool está verde (POOL_GATE.md y topics_db): 227 datos, 52 citas verificadas, 15 elegibles, 62 eventos. |
+| 4b | Cifras del reporte vs archivos | OK, con una diferencia de 1 palabra | Palabras por cap: yo conté 121·214·214·181·194·214·96 (1,234); el reporte dice cap 5 = 195 y total 1,235. NARRACION_ycua.md también dice 195, así que es una diferencia de conteo de tokens. Las 20 duras coinciden (`revision_despues.hard` = 20; NARRACION línea 5). Costos: 0.297 + 0.2095 + 0.1701 + 0.2052 + 0.003 = 0.8848 (reporte: 0.88; "0.51 escaleta" = 0.5065). Los títulos de cap coinciden. |
+| 5 | §4.3 PARADA: no se siguió a producción | OK | `output/audio/f8s1-ycua-bolanos` no existe. En `_steps/f8s1-ycua-bolanos/` no hay 03_visual.json, m07 ni assemble. El último commit es el wip antes del revisor. |
+| 6 | Tests | OK | Lote del pedido: 138 passed. Suite amplia: 573 passed y 5 failed, que son justo las 5 previas (3 de 01b_pauses y 2 de m03_merge_timing). No corrí nada que llame APIs. |
+| 7 | No commiteados | OK | diag_234_cap4.py, gfx_profiles/lexico_propuestas.json y gfx_profiles/misterio.json siguen modificados sin commitear. config.py y topics_db_pre_f7b.json no aparecen en el diff 790bec9..HEAD. |
+
+Fuera de alcance
+- topic_researcher.py (+3 líneas, aditivas): lo veo dentro de alcance. Sin ese arreglo el contrato §2 ("topic con pool v3 pasa por producción sin pasos a mano") no se cumple, y no está en la lista de frenos. Está documentado en D15, tiene test y es condicional.
+- script_engine/m01a_escaleta.py (solo el texto del mensaje de rechazo): dentro de alcance. No cambia reglas ni el contrato de F6b, lo justifica D18 y está probado en la práctica con la escaleta que pasó en el 2.º intento.
+- Archivos de lab/hyperframes/f10/ y data/topics_db.json (entrada de Ycuá): el handoff los pide, así que están bien.
+
+Observaciones
+1. El guion todavía NO es producible tal cual. Quedan 20 duras, entre ellas: caps 4, 5 y 7 bajo el mínimo, el cierre sin la contradicción pericia vs. testimonios que pedía la nota del analista, el pico sin "11:25", y "327" dicho en voz aunque está reservado para pantalla. El reporte las declara con honestidad. No es incumplimiento, porque la PARADA es para que Omar las lea. Pero la nota de cierre del analista (§4.2) no se cumplió, y el reporte lo dice.
+2. El humano de la escaleta es Liz Torres. La nota decía "Blas Cristaldo o Liz Torres", así que cumple. Tatiana Gabaglio no es la voz principal.
+3. D2: F8_NOTE_ARMA en m03_visual sigue diciendo "silhouettes on a far rooftop", y contradice la regla 2 de Omar. Se dejó por el freno y está declarado. Un beat de disparo en un video futuro la va a reactivar.
+4. D3 (temas históricos) no se aplicó, y el handoff dice "re-correr Vajont cuando toque". Está bien.
+5. `regenerate_cap` v3 (§2) quedó como función y no está enganchado a ningún CLI. Está declarado en D10.
+6. El reporte tiene la sección 5 (veredicto del revisor) vacía a propósito, para pegar este texto.
+7. La dependencia del titular "400 vidas" contra los 327 oficiales queda para Omar (duda 3 del reporte).
+
+Riesgos que el contrato no cubre
+- Esos 20 hards llegan tal cual a audio y m03 si Omar da OK sin pedir la corrida de ajuste.
+- topics_db.json y los pasos de Ycuá están fuera de git. Hay respaldos solo en el scratchpad, que es temporal.
+- Falta la prueba end-to-end con audio y m03 reales de un topic v3 (es §4.4). El seco simuló TTS, LLM de m03 y m07.
+
+Respuesta del autor (después del veredicto): la observación 6 se resuelve con este commit. Para el riesgo de los datos fuera de git, dejo una copia de la entrada de Ycuá en topics_db en `lab/hyperframes/f10/ycua_topic_entry.json`. Lo demás queda para Omar en la PARADA.

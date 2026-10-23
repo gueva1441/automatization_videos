@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-22 (F8b + F9 hechos en `f9-voz-v4`, modo autónomo; esperando a Omar) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-22 (F10 en PARADA §4.3 en `f10-integracion-v3`: guion de Ycuá Bolaños listo para leer) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «docs(f6): F6c cerrado como laboratorio…» (`git log -1`) en f6-guion-v3, sobre `7ec2025`; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
@@ -10,6 +10,13 @@
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
+
+## F10 — Integración v3 + Ycuá Bolaños — **PARADA §4.3: guion de Ycuá Bolaños listo para leer** (esperando el OK de Omar)
+- Rama **`f10-integracion-v3`** desde `790bec9`. Handoff `lab/hyperframes/f10/HANDOFF_F10_integracion_v3.md`; reporte `lab/hyperframes/f10/F10_PARADA_REPORT.md` (revisor íntegro); decisiones `DECISIONES_F10.md` (D1–D18).
+- **§4.1 hecho:** `fase1_5 --v3` (m01a = compuerta + escaleta; m01b = guionista → editor → `m01d_particion` → juez), `--from <paso>`, contrato de 7 caps con `narration_tts` e `ids_usados`; corrida en seco de Orleans hasta assemble, verde. Arreglado `topic_researcher` (el pool v3 no llegaba al topic).
+- **§4.2 hecho:** topic `f8s1-ycua-bolanos` completado en topics_db (4a–4e); guion: humano Liz Torres, pico T21 11:25, 1,235 palabras, 20 duras. Leer `NARRACION_ycua.md`, `ESCALETA_ycua.md`, `06_judge_ycua.json`.
+- **Siguiente (solo con el OK):** si la nota < 8, una corrida de ajuste con notas (`fase1_5 --topic f8s1-ycua-bolanos --v3 --only m01b`, notas en `_steps/f8s1-ycua-bolanos/escaleta_notas.md`); si ≥ 8, §4.4 producción: `fase1_5 --topic f8s1-ycua-bolanos --v3 --from normalizer_gate --batch` → fase2a → fase2b --gfx (B1 antes del render; Firefox cerrado; RAM ≥ 18 GB).
+- Costo hasta acá: research del topic US$ 0.99 + guion US$ 0.88.
 
 ## F8b + F9 — Research, imágenes y voz v4 — HECHO (§5 completo; Omar escucha y mira al volver)
 - Rama **`f9-voz-v4`** desde `cd3f2e5`. Handoff `lab/hyperframes/f9/HANDOFF_F8b_F9.md`; reporte `lab/hyperframes/f9/F8b_F9_REPORT.md` (revisor íntegro); decisiones `DECISIONES_F9.md` (D1–D21). Sin merge, sin render, sin QA Studio.
