@@ -1,0 +1,1533 @@
+{
+ "tema": "ycua",
+ "tid": "f8s1-ycua-bolanos",
+ "corrida": "B",
+ "escaleta": "01a_escaleta_v1.json",
+ "notas": null,
+ "crudo": [
+  {
+   "beat": 1,
+   "cap": 1,
+   "texto": "Cenizas calientes caen del cielorraso. Son una lluvia negra y espesa. La sobreviviente Liz Torres recuerda: «El fuego avanzaba por el techo». Horas antes, ese mismo domingo, el Ycuá Bolaños era el lugar de encuentro del barrio. Hasta el día en que alguien ordenó cerrar las puertas.",
+   "ids_usados": [
+    "D154",
+    "D219",
+    "Q19"
+   ]
+  },
+  {
+   "beat": 2,
+   "cap": 2,
+   "texto": "El domingo 1 de agosto de 2004, el supermercado suena a carritos sobre las baldosas. «El Ycuá Bolaños era un lugar de esparcimiento, era un lugar familiar», cuenta un cliente. Liz Torres, de 37 años, está ahí con su esposo, Alfredo Vallovera. Habían dejado a sus hijos de 14 y 12 en casa. Era el lugar perfecto para el almuerzo del domingo, y ese día estaba más lleno que nunca.",
+   "ids_usados": [
+    "D19",
+    "D42",
+    "D115",
+    "D139",
+    "D154",
+    "D177",
+    "D210",
+    "D212",
+    "D219",
+    "T05",
+    "T06",
+    "T08",
+    "T09",
+    "T10",
+    "T12",
+    "T16",
+    "T18",
+    "T21",
+    "T22",
+    "T27"
+   ]
+  },
+  {
+   "beat": 3,
+   "cap": 2,
+   "texto": "Hay una multitud haciendo fila en las cajas, con los carritos repletos. «Era uno de los peores lugares ese día para comprar porque estaba repleto», diría el sobreviviente Víctor Galeano. Una empleada, Digna Cáceres, cree que en el supermercado había más de 1500 personas. Nadie lo sabía, pero en la cocina, el desastre ya había comenzado.",
+   "ids_usados": [
+    "D108",
+    "D154",
+    "D199",
+    "D219",
+    "D224",
+    "Q17"
+   ]
+  },
+  {
+   "beat": 4,
+   "cap": 3,
+   "texto": "En la cocina zumban los hornos. Hay olor a grasa acumulada en una chimenea. El fuego se inició ahí, por la acumulación de grasa y carbonilla en el ducto. Comienzan a producirse las primeras explosiones. Una clienta, Amada Correa, nota que «algo ocurría en el techo». El ruido sordo se convirtió en un estruendo. Y después, el humo.",
+   "ids_usados": [
+    "D154",
+    "D219",
+    "D224",
+    "Q26"
+   ]
+  },
+  {
+   "beat": 5,
+   "cap": 3,
+   "texto": "Una nube de humo negro avanza por los pasillos. En segundos, lo cubre todo. «Escuché una explosión y después ya vi que la nube de humo negro cubría todo», cuenta Beatriz González. Hubo un estruendo hacia el estacionamiento. La gente corrió hacia las salidas. Pero se encontraron con algo que no esperaban.",
+   "ids_usados": [
+    "D154",
+    "D219",
+    "Q10"
+   ]
+  },
+  {
+   "beat": 6,
+   "cap": 4,
+   "texto": "Un guardia de seguridad escucha una orden por su radio. Una empleada, Digna Felicia Cáceres, testificaría después: «El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él». Los registros confirman que se dieron las órdenes de cerrar los accesos al supermercado. La orden se cumplió. Las puertas de vidrio, que debían ser una salida, se convirtieron en un muro.",
+   "ids_usados": [
+    "D154",
+    "D219",
+    "Q23",
+    "Q35"
+   ]
+  },
+  {
+   "beat": 7,
+   "cap": 4,
+   "texto": "Hay manos golpeando un panel de vidrio ahumado por el hollín. No pueden abrirlo. Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón... estaba cerrado». Las puertas de blíndex del supermercado estaban cerradas. Atrapados entre el humo y las puertas, solo les quedaba esperar. Y entonces, todo explotó.",
+   "ids_usados": []
+  },
+  {
+   "beat": 8,
+   "cap": 5,
+   "texto": "Una bola de fuego recorre el techo del supermercado. A las 11:25 de la mañana, se produce la gran explosión. El sobreviviente Cristian Sosa lo vio: «Las llamas cayeron sobre las personas que estaban almorzando y hubo un desbande total». Un perito explicaría que «la temperatura entre el cielorraso y el techo llegó a 600º C». Cuando el fuego se apagó, el silencio que quedó era más aterrador que las llamas.",
+   "ids_usados": [
+    "D17",
+    "D154",
+    "D219",
+    "Q70"
+   ]
+  },
+  {
+   "beat": 9,
+   "cap": 5,
+   "texto": "Los cuerpos son alineados en el piso de una discoteca, cubiertos con sábanas blancas. Un voluntario, Nelson Astigarraga, diría: «después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!». Mientras las familias buscaban a sus desaparecidos, la justicia empezaba a buscar a los culpables.",
+   "ids_usados": [
+    "D154",
+    "D219",
+    "Q53"
+   ]
+  },
+  {
+   "beat": 10,
+   "cap": 6,
+   "texto": "El mazo de un juez golpea la madera. Juan Pío Paiva, dueño del local, fue condenado a 12 años de cárcel. Su hijo, Emiliano Paiva, a 10 años. El guardia de seguridad, Daniel Areco, a 5 años de prisión. Pero durante el juicio, un informe oficial sembró la duda sobre lo que todos los sobrevivientes sabían.",
+   "ids_usados": [
+    "D19",
+    "D20",
+    "D21",
+    "D73",
+    "D115",
+    "D177",
+    "D210"
+   ]
+  },
+  {
+   "beat": 11,
+   "cap": 6,
+   "texto": "Un perito policial señala un plano del supermercado en el tribunal. Su informe concluyó que solo tres puertas estaban cerradas. Según esa pericia, eran las de la azotea, el mirador y la administración. Para los sobrevivientes, la verdad no estaba en los papeles, sino en los cuerpos que los salvaron.",
+   "ids_usados": [
+    "D149"
+   ]
+  },
+  {
+   "beat": 12,
+   "cap": 7,
+   "texto": "Hay cientos de velas encendidas sobre las baldosas rotas de lo que fue el supermercado. «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida», dice Liz Torres. El incendio dejó 204 huérfanos y 244 heridos. El lema de Liz y los sobrevivientes resuena cada año: 'Que nunca más'.",
+   "ids_usados": [
+    "D195",
+    "D196",
+    "Q77"
+   ]
+  }
+ ],
+ "prompt_version": "f11-1",
+ "bloqueantes_crudo": [
+  {
+   "codigo": "a",
+   "cap": 4,
+   "beat": 7,
+   "frase": "Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón...",
+   "motivo": "entre comillas, pero no es una cita del pool: «la gente corría y volvían todos porque el portón... estaba c…»"
+  },
+  {
+   "codigo": "e",
+   "cap": 4,
+   "beat": 7,
+   "frase": "Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón...",
+   "motivo": "Q34 está SIN VERIFICAR y va con el nombre de Digna Felicia Cáceres"
+  },
+  {
+   "codigo": "e",
+   "cap": 4,
+   "beat": 6,
+   "frase": "Una empleada, Digna Felicia Cáceres, testificaría después: «El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él».",
+   "motivo": "Q35 está SIN VERIFICAR y va con el nombre de Digna Felicia Cáceres"
+  },
+  {
+   "codigo": "e",
+   "cap": 5,
+   "beat": 9,
+   "frase": "Un voluntario, Nelson Astigarraga, diría: «después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!».",
+   "motivo": "Q53 está SIN VERIFICAR y va con el nombre de Nelson Astigarraga"
+  },
+  {
+   "codigo": "c",
+   "cap": 1,
+   "beat": null,
+   "frase": "",
+   "motivo": "cap 1 corto: 47 palabras (objetivo 110, mínimo 82)"
+  },
+  {
+   "codigo": "c",
+   "cap": 2,
+   "beat": null,
+   "frase": "",
+   "motivo": "cap 2 corto: 126 palabras (objetivo 250, mínimo 188)"
+  },
+  {
+   "codigo": "c",
+   "cap": 3,
+   "beat": null,
+   "frase": "",
+   "motivo": "cap 3 corto: 110 palabras (objetivo 250, mínimo 188)"
+  },
+  {
+   "codigo": "c",
+   "cap": 4,
+   "beat": null,
+   "frase": "",
+   "motivo": "cap 4 corto: 117 palabras (objetivo 250, mínimo 188)"
+  },
+  {
+   "codigo": "c",
+   "cap": 5,
+   "beat": null,
+   "frase": "",
+   "motivo": "cap 5 corto: 118 palabras (objetivo 250, mínimo 188)"
+  },
+  {
+   "codigo": "c",
+   "cap": 6,
+   "beat": null,
+   "frase": "",
+   "motivo": "cap 6 corto: 106 palabras (objetivo 250, mínimo 188)"
+  },
+  {
+   "codigo": "c",
+   "cap": 7,
+   "beat": null,
+   "frase": "",
+   "motivo": "cap 7 corto: 54 palabras (objetivo 140, mínimo 105)"
+  }
+ ],
+ "metricas_crudo": {
+  "duras_v3": [
+   "cap 1: 47 palabras: el mínimo del cap es 94 (objetivo 110); contá más hechos del beat con escenas, no adjetivos",
+   "cap 1: usaste 1 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [Q20] «Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. / Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...»",
+   "cap 2: 126 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 2: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×4",
+   "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Comienzan a producirse las primeras explosiones en la zona de la panadería.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 3: 110 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 3: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T15] «1 de agosto»; [D27] «El fuego se inició por la acumulación de grasa, ca»; [D48] «Hubo un estruendo hacia el estacionamiento y el hu»",
+   "cap 3: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×4",
+   "cap 3: estos datos ya salieron en 2 caps, no los repitas: «1»; «1 / 6»",
+   "cap 3: fechas: contaste [T15] sin su fecha (1 de agosto): «Comienzan a producirse las primeras explosiones.…»",
+   "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la ord» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 4: 117 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 4: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q34] «la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. / la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+   "cap 4: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×3",
+   "cap 4: estos datos ya salieron en 2 caps, no los repitas: «1»; «1 / 6»",
+   "cap 4: comillas solo para las citas del pool (la frase del research va sin comillas): «la gente corría y volvían todos porque el portón... estaba c…»",
+   "cap 4: fechas: contaste [T06] sin su fecha (1 de agosto): «Los registros confirman que se dieron las órdenes de cerrar los acceso…»",
+   "cap 4: el cierre tiene que anticipar el dato concreto del cap 5: «Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bo» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 5: 118 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 5: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q29] «la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación / la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación, la gente que estaba en el patio de comidas ya murió, pues esa temperatura quema las vías respiratorias al instante.»",
+   "cap 5: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×3",
+   "cap 5: estos datos ya salieron en 2 caps, no los repitas: «1»; «1 / 6»",
+   "cap 5: el cierre tiene que anticipar el dato concreto del cap 6: «Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 6: 106 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 6: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D25] «Un peritaje sobre las puertas del Ycuá Bolaños con»; [D29] «Las únicas puertas cerradas según la pericia eran »",
+   "cap 7: 54 palabras: el mínimo del cap es 119 (objetivo 140); contá más hechos del beat con escenas, no adjetivos",
+   "beat 2: ninguna frase de 6 palabras o menos",
+   "beat 3: ninguna frase de 6 palabras o menos",
+   "beat 8: ninguna frase de 6 palabras o menos",
+   "beat 9: ninguna frase de 6 palabras o menos",
+   "beat 10: ninguna frase de 6 palabras o menos",
+   "beat 11: ninguna frase de 6 palabras o menos",
+   "beat 12: ninguna frase de 6 palabras o menos",
+   "antes del pico (beat 8): faltan dos frases cortas seguidas",
+   "Q34 está SIN VERIFICAR y va con el nombre de Digna Felicia Cáceres: decila sin el nombre",
+   "Q35 está SIN VERIFICAR y va con el nombre de Digna Felicia Cáceres: decila sin el nombre",
+   "Q53 está SIN VERIFICAR y va con el nombre de Nelson Astigarraga: decila sin el nombre",
+   "beat 8 (párrafo 8): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Las llamas cayeron sobre las personas qu…»', '«la temperatura entre el cielorraso y el …»']",
+   "gancho: adelanta una cita de un cap siguiente («El Ycuá Bolaños era un lugar de esparcimiento, era…»): que suene recién en su cap",
+   "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+   "cap 4: repite frases de caps anteriores («cerrar las puertas»): decilo de otra forma o no lo repitas",
+   "beat 7 (párrafo 7): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "cap 1: «alguien ordenó»: decí quién (el nombre está en los datos)"
+  ],
+  "blandas_v3": [
+   "cap 1: la cita «El fuego avanzaba por el techo. Lo que m…» va entre comillas y con su autor (Liz Torres) al lado",
+   "cap 1: 6.38 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — calientes, negra, espesa",
+   "cap 2: la cita «Era uno de los peores lugares ese día pa…» va entre comillas y con su autor (Víctor Galeano) al lado",
+   "cap 2: 1.59 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "cap 3: la cita «Escuché una explosión y después ya vi qu…» va entre comillas y con su autor (Beatriz González) al lado",
+   "cap 4: la cita «El jefe mandó cerrar las puertas y el je…» va entre comillas y con su autor (Anónimo) al lado",
+   "cap 4: la cita «Claro, ellos mandaron. El jefe mandó cer…» va entre comillas y con su autor (Digna Felicia Cáceres) al lado",
+   "cap 4: 0.85 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "cap 6: 0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "cap 7: 1.85 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "beat 1: 47 palabras (objetivo 110 ±15 %)",
+   "beat 2: 70 palabras (objetivo 125 ±15 %)",
+   "beat 3: 56 palabras (objetivo 125 ±15 %)",
+   "beat 4: 58 palabras (objetivo 125 ±15 %)",
+   "beat 5: 52 palabras (objetivo 125 ±15 %)",
+   "beat 6: 66 palabras (objetivo 125 ±15 %)",
+   "beat 7: 51 palabras (objetivo 125 ±15 %)",
+   "beat 8: 72 palabras (objetivo 125 ±15 %)",
+   "beat 9: 46 palabras (objetivo 125 ±15 %)",
+   "beat 10: 56 palabras (objetivo 125 ±15 %)",
+   "beat 11: 50 palabras (objetivo 125 ±15 %)",
+   "beat 12: 54 palabras (objetivo 140 ±15 %)"
+  ],
+  "puntaje": 143,
+  "palabras": 678,
+  "palabras_por_cap": {
+   "1": [
+    47,
+    110
+   ],
+   "2": [
+    126,
+    250
+   ],
+   "3": [
+    110,
+    250
+   ],
+   "4": [
+    117,
+    250
+   ],
+   "5": [
+    118,
+    250
+   ],
+   "6": [
+    106,
+    250
+   ],
+   "7": [
+    54,
+    140
+   ]
+  },
+  "citas": 11,
+  "humano_caps": [
+   1,
+   2,
+   7
+  ],
+  "cierre": "resumen",
+  "ecos": [],
+  "por_cap": {
+   "1": {
+    "palabras": 47,
+    "duras": [
+     "47 palabras: el mínimo del cap es 94 (objetivo 110); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 1 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [Q20] «Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. / Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...»"
+    ],
+    "blandas": [
+     "la cita «El fuego avanzaba por el techo. Lo que m…» va entre comillas y con su autor (Liz Torres) al lado",
+     "6.38 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — calientes, negra, espesa"
+    ],
+    "puntaje": 10,
+    "objetivo": 110
+   },
+   "2": {
+    "palabras": 126,
+    "duras": [
+     "126 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×4",
+     "el cierre tiene que anticipar el dato concreto del cap 3: «Comienzan a producirse las primeras explosiones en la zona de la panadería.» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "la cita «Era uno de los peores lugares ese día pa…» va entre comillas y con su autor (Víctor Galeano) al lado",
+     "1.59 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": 68,
+    "objetivo": 250
+   },
+   "3": {
+    "palabras": 110,
+    "duras": [
+     "110 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T15] «1 de agosto»; [D27] «El fuego se inició por la acumulación de grasa, ca»; [D48] «Hubo un estruendo hacia el estacionamiento y el hu»",
+     "cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×4",
+     "estos datos ya salieron en 2 caps, no los repitas: «1»; «1 / 6»",
+     "fechas: contaste [T15] sin su fecha (1 de agosto): «Comienzan a producirse las primeras explosiones.…»",
+     "el cierre tiene que anticipar el dato concreto del cap 4: «Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la ord» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "la cita «Escuché una explosión y después ya vi qu…» va entre comillas y con su autor (Beatriz González) al lado"
+    ],
+    "puntaje": 12,
+    "objetivo": 250
+   },
+   "4": {
+    "palabras": 117,
+    "duras": [
+     "117 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q34] «la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. / la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+     "cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×3",
+     "estos datos ya salieron en 2 caps, no los repitas: «1»; «1 / 6»",
+     "comillas solo para las citas del pool (la frase del research va sin comillas): «la gente corría y volvían todos porque el portón... estaba c…»",
+     "fechas: contaste [T06] sin su fecha (1 de agosto): «Los registros confirman que se dieron las órdenes de cerrar los acceso…»",
+     "el cierre tiene que anticipar el dato concreto del cap 5: «Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bo» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "la cita «El jefe mandó cerrar las puertas y el je…» va entre comillas y con su autor (Anónimo) al lado",
+     "la cita «Claro, ellos mandaron. El jefe mandó cer…» va entre comillas y con su autor (Digna Felicia Cáceres) al lado",
+     "0.85 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": 8,
+    "objetivo": 250
+   },
+   "5": {
+    "palabras": 118,
+    "duras": [
+     "118 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q29] «la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación / la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación, la gente que estaba en el patio de comidas ya murió, pues esa temperatura quema las vías respiratorias al instante.»",
+     "cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×3",
+     "estos datos ya salieron en 2 caps, no los repitas: «1»; «1 / 6»",
+     "el cierre tiene que anticipar el dato concreto del cap 6: «Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio.» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [],
+    "puntaje": 12,
+    "objetivo": 250
+   },
+   "6": {
+    "palabras": 106,
+    "duras": [
+     "106 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D25] «Un peritaje sobre las puertas del Ycuá Bolaños con»; [D29] «Las únicas puertas cerradas según la pericia eran »"
+    ],
+    "blandas": [
+     "0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": 25,
+    "objetivo": 250
+   },
+   "7": {
+    "palabras": 54,
+    "duras": [
+     "54 palabras: el mínimo del cap es 119 (objetivo 140); contá más hechos del beat con escenas, no adjetivos"
+    ],
+    "blandas": [
+     "1.85 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": 8,
+    "objetivo": 140
+   }
+  }
+ },
+ "reparacion": {
+  "parrafos": [
+   {
+    "beat": 1,
+    "cap": 1,
+    "texto": "Cenizas calientes caen del cielorraso como una lluvia negra y espesa. «El ambiente era muy caliente», recuerda la sobreviviente Liz Torres, «muchos gritos que luego se fueron apagando». Mientras el fuego avanzaba por el techo, su marido, Alfredo, le dijo «corré». Ella, como todos, corrió hacia la única puerta que conocían. Allí se encontró con una pared humana buscando a sus familiares en sentido contrario. Horas antes, el Ycuá Bolaños era el lugar de encuentro del barrio. Hasta el día en que alguien ordenó cerrar las puertas.",
+    "ids_usados": [
+     "D154",
+     "D219",
+     "Q19"
+    ]
+   },
+   {
+    "beat": 2,
+    "cap": 2,
+    "texto": "El domingo 1 de agosto de 2004, el supermercado suena a carritos sobre las baldosas. «El Ycuá Bolaños era un lugar de esparcimiento, era un lugar familiar», cuenta un cliente. Liz Torres, de 37 años, está con su esposo, Alfredo Vallovera. Habían dejado a sus hijos de 14 y 12 en casa. Era el lugar del almuerzo del domingo, y estaba más lleno que nunca.",
+    "ids_usados": [
+     "D19",
+     "D42",
+     "D115",
+     "D139",
+     "D154",
+     "D177",
+     "D210",
+     "D212",
+     "D219",
+     "T05",
+     "T06",
+     "T08",
+     "T09",
+     "T10",
+     "T12",
+     "T16",
+     "T18",
+     "T21",
+     "T22",
+     "T27"
+    ]
+   },
+   {
+    "beat": 3,
+    "cap": 2,
+    "texto": "Una empleada, Digna Cáceres, cree que en el supermercado había más de 1500 personas. Hay una multitud en las cajas, con los carritos repletos. «Era uno de los peores lugares ese día para comprar porque estaba repleto», diría el sobreviviente Víctor Galeano. Nadie lo sabía, pero en la cocina, el desastre ya había comenzado.",
+    "ids_usados": [
+     "D108",
+     "D154",
+     "D199",
+     "D219",
+     "D224",
+     "Q17"
+    ]
+   },
+   {
+    "beat": 4,
+    "cap": 3,
+    "texto": "En la cocina, el fuego se inició por la acumulación de grasa y carbonilla en el ducto de una chimenea. Ocurren las primeras explosiones. Una clienta, Amada Correa, nota que «algo ocurría en el techo». El ruido sordo se convirtió en un estruendo. Y después, el humo.",
+    "ids_usados": [
+     "D154",
+     "D219",
+     "D224",
+     "Q26"
+    ]
+   },
+   {
+    "beat": 5,
+    "cap": 3,
+    "texto": "«Escuché una explosión y después ya vi que la nube de humo negro cubría todo», cuenta Beatriz González. Un estruendo sonó hacia el estacionamiento. La gente corrió hacia las salidas. Pero se encontraron con algo que no esperaban.",
+    "ids_usados": [
+     "D154",
+     "D219",
+     "Q10"
+    ]
+   },
+   {
+    "beat": 6,
+    "cap": 4,
+    "texto": "Un guardia de seguridad escucha una orden por su radio. Los registros confirman la orden de cerrar los accesos al supermercado. La orden se cumplió. Las puertas de vidrio, que debían ser una salida, se convirtieron en un muro.",
+    "ids_usados": [
+     "D154",
+     "D219"
+    ]
+   },
+   {
+    "beat": 7,
+    "cap": 4,
+    "texto": "Hay manos golpeando un panel de vidrio ahumado por el hollín. No pueden abrirlo. Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón... estaba cerrado». Atrapados entre el humo y las puertas, solo les quedaba esperar. Y entonces, todo explotó.",
+    "ids_usados": []
+   },
+   {
+    "beat": 8,
+    "cap": 5,
+    "texto": "Son las 11:25 de la mañana en el supermercado Ycuá Bolaños. Se produce la gran explosión y se desata el incendio principal. Una bola de fuego recorre el techo y cae sobre la gente en el patio de comidas. El sobreviviente Cristian Sosa lo vio: «Las llamas cayeron sobre las personas que estaban almorzando y hubo un desbande total». El perito Benedicto Pérez explicaría después la letalidad del incendio. Su informe determinó que «la temperatura entre el cielorraso y el techo llegó a 600º C». Pérez aclaró que con ese calor, la gente que estaba en el patio de comidas murió a la primera inhalación, pues esa temperatura quema las vías respiratorias al instante. Cuando el fuego se apagó, el silencio que quedó era más aterrador que las llamas.",
+    "ids_usados": [
+     "D17",
+     "D154",
+     "D219",
+     "Q70"
+    ]
+   },
+   {
+    "beat": 9,
+    "cap": 5,
+    "texto": "Después de las llamas, el silencio. Los cuerpos son recuperados y alineados en el piso de una discoteca vacía, un lugar hecho para la vida, ahora convertido en una morgue improvisada. Uno a uno, son cubiertos con sábanas blancas. La escena confundió incluso a quienes estaban allí para ayudar. Mientras las familias iniciaban la búsqueda de sus desaparecidos, la justicia empezaba a buscar a los culpables.",
+    "ids_usados": [
+     "D154",
+     "D219"
+    ]
+   },
+   {
+    "beat": 10,
+    "cap": 6,
+    "texto": "El mazo de un juez golpea la madera. Juan Pío Paiva, dueño del local, fue condenado a 12 años de cárcel. Su hijo, Emiliano Paiva, a 10 años. El guardia de seguridad, Daniel Areco, a 5 años. Pero durante el juicio, un informe oficial sembró la duda sobre lo que todos los sobrevivientes sabían.",
+    "ids_usados": [
+     "D19",
+     "D20",
+     "D21",
+     "D73",
+     "D115",
+     "D177",
+     "D210"
+    ]
+   },
+   {
+    "beat": 11,
+    "cap": 6,
+    "texto": "Un perito policial señala un plano del supermercado en el tribunal. Su informe concluyó que solo tres puertas estaban cerradas: las de la azotea, el mirador y la administración. Para los sobrevivientes, la verdad no estaba en los papeles, sino en los cuerpos que los salvaron.",
+    "ids_usados": [
+     "D149"
+    ]
+   },
+   {
+    "beat": 12,
+    "cap": 7,
+    "texto": "Sobre las baldosas rotas de lo que fue un supermercado, cientos de velas encendidas rinden homenaje. Cada llama es un recuerdo. Para los que estuvieron allí, la verdad no estaba en los papeles, sino en los cuerpos que los salvaron. «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida», dice Liz Torres. Su testimonio es el de muchos que sobrevivieron gracias al sacrificio ajeno. Las consecuencias de la tragedia se miden en ausencias y secuelas. El incendio dejó 204 huérfanos. La tragedia del Ycuá Bolaños dejó también 244 heridos. Por ellos, y por los que ya no están, Liz y los sobrevivientes levantan un lema que resuena cada año con más fuerza: 'Que nunca más'.",
+    "ids_usados": [
+     "D195",
+     "D196",
+     "Q77"
+    ]
+   }
+  ],
+  "bloqueantes_antes": [
+   {
+    "codigo": "a",
+    "cap": 4,
+    "beat": 7,
+    "frase": "Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón...",
+    "motivo": "entre comillas, pero no es una cita del pool: «la gente corría y volvían todos porque el portón... estaba c…»"
+   },
+   {
+    "codigo": "e",
+    "cap": 4,
+    "beat": 7,
+    "frase": "Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón...",
+    "motivo": "Q34 está SIN VERIFICAR y va con el nombre de Digna Felicia Cáceres"
+   },
+   {
+    "codigo": "e",
+    "cap": 4,
+    "beat": 6,
+    "frase": "Una empleada, Digna Felicia Cáceres, testificaría después: «El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él».",
+    "motivo": "Q35 está SIN VERIFICAR y va con el nombre de Digna Felicia Cáceres"
+   },
+   {
+    "codigo": "e",
+    "cap": 5,
+    "beat": 9,
+    "frase": "Un voluntario, Nelson Astigarraga, diría: «después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!».",
+    "motivo": "Q53 está SIN VERIFICAR y va con el nombre de Nelson Astigarraga"
+   },
+   {
+    "codigo": "c",
+    "cap": 1,
+    "beat": null,
+    "frase": "",
+    "motivo": "cap 1 corto: 47 palabras (objetivo 110, mínimo 82)"
+   },
+   {
+    "codigo": "c",
+    "cap": 2,
+    "beat": null,
+    "frase": "",
+    "motivo": "cap 2 corto: 126 palabras (objetivo 250, mínimo 188)"
+   },
+   {
+    "codigo": "c",
+    "cap": 3,
+    "beat": null,
+    "frase": "",
+    "motivo": "cap 3 corto: 110 palabras (objetivo 250, mínimo 188)"
+   },
+   {
+    "codigo": "c",
+    "cap": 4,
+    "beat": null,
+    "frase": "",
+    "motivo": "cap 4 corto: 117 palabras (objetivo 250, mínimo 188)"
+   },
+   {
+    "codigo": "c",
+    "cap": 5,
+    "beat": null,
+    "frase": "",
+    "motivo": "cap 5 corto: 118 palabras (objetivo 250, mínimo 188)"
+   },
+   {
+    "codigo": "c",
+    "cap": 6,
+    "beat": null,
+    "frase": "",
+    "motivo": "cap 6 corto: 106 palabras (objetivo 250, mínimo 188)"
+   },
+   {
+    "codigo": "c",
+    "cap": 7,
+    "beat": null,
+    "frase": "",
+    "motivo": "cap 7 corto: 54 palabras (objetivo 140, mínimo 105)"
+   }
+  ],
+  "bloqueantes_despues": [
+   {
+    "codigo": "a",
+    "cap": 4,
+    "beat": 7,
+    "frase": "Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón...",
+    "motivo": "entre comillas, pero no es una cita del pool: «la gente corría y volvían todos porque el portón... estaba c…»"
+   },
+   {
+    "codigo": "e",
+    "cap": 5,
+    "beat": 8,
+    "frase": "El perito Benedicto Pérez explicaría después la letalidad del incendio.",
+    "motivo": "Q29 está SIN VERIFICAR y va con el nombre de Benedicto Pérez"
+   },
+   {
+    "codigo": "e",
+    "cap": 4,
+    "beat": 7,
+    "frase": "Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón...",
+    "motivo": "Q34 está SIN VERIFICAR y va con el nombre de Digna Felicia Cáceres"
+   },
+   {
+    "codigo": "c",
+    "cap": 2,
+    "beat": null,
+    "frase": "",
+    "motivo": "cap 2 corto: 119 palabras (objetivo 250, mínimo 188)"
+   },
+   {
+    "codigo": "c",
+    "cap": 3,
+    "beat": null,
+    "frase": "",
+    "motivo": "cap 3 corto: 85 palabras (objetivo 250, mínimo 188)"
+   },
+   {
+    "codigo": "c",
+    "cap": 4,
+    "beat": null,
+    "frase": "",
+    "motivo": "cap 4 corto: 82 palabras (objetivo 250, mínimo 188)"
+   },
+   {
+    "codigo": "c",
+    "cap": 6,
+    "beat": null,
+    "frase": "",
+    "motivo": "cap 6 corto: 100 palabras (objetivo 250, mínimo 188)"
+   }
+  ],
+  "pasos": {
+   "regenerados": [
+    {
+     "cap": 1,
+     "notas": [
+      "cap 1 corto: 47 palabras (objetivo 110, mínimo 82)"
+     ],
+     "cambio": true,
+     "palabras": [
+      47,
+      100
+     ]
+    },
+    {
+     "cap": 2,
+     "notas": [
+      "cap 2 corto: 126 palabras (objetivo 250, mínimo 188)"
+     ],
+     "cambio": false,
+     "palabras": [
+      126,
+      126
+     ]
+    },
+    {
+     "cap": 3,
+     "notas": [
+      "cap 3 corto: 110 palabras (objetivo 250, mínimo 188)"
+     ],
+     "cambio": false,
+     "palabras": [
+      110,
+      110
+     ]
+    },
+    {
+     "cap": 4,
+     "notas": [
+      "cap 4 corto: 117 palabras (objetivo 250, mínimo 188)"
+     ],
+     "cambio": false,
+     "palabras": [
+      117,
+      117
+     ]
+    },
+    {
+     "cap": 5,
+     "notas": [
+      "cap 5 corto: 118 palabras (objetivo 250, mínimo 188)"
+     ],
+     "cambio": true,
+     "palabras": [
+      118,
+      217
+     ]
+    },
+    {
+     "cap": 6,
+     "notas": [
+      "cap 6 corto: 106 palabras (objetivo 250, mínimo 188)"
+     ],
+     "cambio": false,
+     "palabras": [
+      106,
+      106
+     ]
+    },
+    {
+     "cap": 7,
+     "notas": [
+      "cap 7 corto: 54 palabras (objetivo 140, mínimo 105)"
+     ],
+     "cambio": true,
+     "palabras": [
+      54,
+      121
+     ]
+    }
+   ],
+   "ediciones": [
+    {
+     "beat": 6,
+     "problemas": [
+      {
+       "codigo": "e",
+       "cap": 4,
+       "beat": 6,
+       "frase": "Una empleada, Digna Felicia Cáceres, testificaría después: «El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él».",
+       "motivo": "Q35 está SIN VERIFICAR y va con el nombre de Digna Felicia Cáceres"
+      }
+     ],
+     "antes": "Un guardia de seguridad escucha una orden por su radio. Una empleada, Digna Felicia Cáceres, testificaría después: «El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él». Los registros confirman que se dieron las órdenes de cerrar los accesos al supermercado. La orden se cumplió. Las puertas de vidrio, que debían ser una salida, se convirtieron en un muro.",
+     "despues": "Un guardia de seguridad escucha una orden por su radio. Los registros confirman que se dieron las órdenes de cerrar los accesos al supermercado. La orden se cumplió. Las puertas de vidrio, que debían ser una salida, se convirtieron en un muro.",
+     "aceptada": true,
+     "motivo_rechazo": ""
+    },
+    {
+     "beat": 7,
+     "problemas": [
+      {
+       "codigo": "a",
+       "cap": 4,
+       "beat": 7,
+       "frase": "Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón...",
+       "motivo": "entre comillas, pero no es una cita del pool: «la gente corría y volvían todos porque el portón... estaba c…»"
+      },
+      {
+       "codigo": "e",
+       "cap": 4,
+       "beat": 7,
+       "frase": "Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón...",
+       "motivo": "Q34 está SIN VERIFICAR y va con el nombre de Digna Felicia Cáceres"
+      }
+     ],
+     "antes": "Hay manos golpeando un panel de vidrio ahumado por el hollín. No pueden abrirlo. Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón... estaba cerrado». Las puertas de blíndex del supermercado estaban cerradas. Atrapados entre el humo y las puertas, solo les quedaba esperar. Y entonces, todo explotó.",
+     "despues": "Hay manos golpeando un panel de vidrio ahumado por el hollín. No pueden abrirlo. Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón... estaba cerrado». Las puertas de blíndex del supermercado estaban cerradas. Atrapados entre el humo y las puertas, solo les quedaba esperar. Y entonces, todo explotó.",
+     "aceptada": false,
+     "motivo_rechazo": "guardia léxica: nombres nuevos ['felicia']"
+    },
+    {
+     "beat": 8,
+     "problemas": [
+      {
+       "codigo": "e",
+       "cap": 5,
+       "beat": 8,
+       "frase": "El perito Benedicto Pérez explicaría después la letalidad del incendio.",
+       "motivo": "Q29 está SIN VERIFICAR y va con el nombre de Benedicto Pérez"
+      }
+     ],
+     "antes": "Son las 11:25 de la mañana en el supermercado Ycuá Bolaños. Se produce la gran explosión y se desata el incendio principal. Una bola de fuego recorre el techo y cae sobre la gente en el patio de comidas. El sobreviviente Cristian Sosa lo vio: «Las llamas cayeron sobre las personas que estaban almorzando y hubo un desbande total». El perito Benedicto Pérez explicaría después la letalidad del incendio. Su informe determinó que «la temperatura entre el cielorraso y el techo llegó a 600º C». Pérez aclaró que con ese calor, la gente que estaba en el patio de comidas murió a la primera inhalación, pues esa temperatura quema las vías respiratorias al instante. Cuando el fuego se apagó, el silencio que quedó era más aterrador que las llamas.",
+     "despues": "Son las 11:25 de la mañana en el supermercado Ycuá Bolaños. Se produce la gran explosión y se desata el incendio principal. Una bola de fuego recorre el techo y cae sobre la gente en el patio de comidas. El sobreviviente Cristian Sosa lo vio: «Las llamas cayeron sobre las personas que estaban almorzando y hubo un desbande total». El perito Benedicto Pérez explicaría después la letalidad del incendio. Su informe determinó que «la temperatura entre el cielorraso y el techo llegó a 600º C». Pérez aclaró que con ese calor, la gente que estaba en el patio de comidas murió a la primera inhalación, pues esa temperatura quema las vías respiratorias al instante. Cuando el fuego se apagó, el silencio que quedó era más aterrador que las llamas.",
+     "aceptada": false,
+     "motivo_rechazo": "no bajó los bloqueantes (4 → 4)"
+    },
+    {
+     "beat": 9,
+     "problemas": [
+      {
+       "codigo": "e",
+       "cap": 5,
+       "beat": 9,
+       "frase": "El voluntario Nelson Astigarraga relataría su experiencia, y diría: «después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!».",
+       "motivo": "Q53 está SIN VERIFICAR y va con el nombre de Nelson Astigarraga"
+      }
+     ],
+     "antes": "Después de las llamas, el silencio. Los cuerpos son recuperados y alineados en el piso de una discoteca vacía, un lugar hecho para la vida, ahora convertido en una morgue improvisada. Uno a uno, son cubiertos con sábanas blancas. La escena confundió incluso a quienes estaban allí para ayudar. El voluntario Nelson Astigarraga relataría su experiencia, y diría: «después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!». Mientras las familias iniciaban la búsqueda de sus desaparecidos, la justicia empezaba a buscar a los culpables.",
+     "despues": "Después de las llamas, el silencio. Los cuerpos son recuperados y alineados en el piso de una discoteca vacía, un lugar hecho para la vida, ahora convertido en una morgue improvisada. Uno a uno, son cubiertos con sábanas blancas. La escena confundió incluso a quienes estaban allí para ayudar. Mientras las familias iniciaban la búsqueda de sus desaparecidos, la justicia empezaba a buscar a los culpables.",
+     "aceptada": true,
+     "motivo_rechazo": ""
+    }
+   ],
+   "fechas": [],
+   "editor": [
+    {
+     "parrafo": 0,
+     "beat": 1,
+     "antes": "Cenizas calientes caen del cielorraso como una lluvia negra y espesa. «El ambiente era muy caliente», recuerda la sobreviviente Liz Torres, «muchos gritos que luego se fueron apagando». Mientras el fuego avanzaba por el techo, su marido, Alfredo, le dijo una sola palabra: «corré». Y ella, como todos, corrió por su vida hacia la única puerta que conocían. Allí se encontró con una pared humana, gente que corría en sentido contrario buscando a sus familiares. Horas antes, ese mismo domingo, el Ycuá Bolaños era el lugar de encuentro del barrio. Hasta el día en que alguien ordenó cerrar las puertas.",
+     "despues": "Cenizas calientes caen del cielorraso como una lluvia negra y espesa. «El ambiente era muy caliente», recuerda la sobreviviente Liz Torres, «muchos gritos que luego se fueron apagando». Mientras el fuego avanzaba por el techo, su marido, Alfredo, le dijo «corré». Ella, como todos, corrió hacia la única puerta que conocían. Allí se encontró con una pared humana buscando a sus familiares en sentido contrario. Horas antes, el Ycuá Bolaños era el lugar de encuentro del barrio. Hasta el día en que alguien ordenó cerrar las puertas.",
+     "motivo": "repetición",
+     "estado": "aceptado"
+    },
+    {
+     "parrafo": 1,
+     "beat": 2,
+     "antes": "El domingo 1 de agosto de 2004, el supermercado suena a carritos sobre las baldosas. «El Ycuá Bolaños era un lugar de esparcimiento, era un lugar familiar», cuenta un cliente. Liz Torres, de 37 años, está ahí con su esposo, Alfredo Vallovera. Habían dejado a sus hijos de 14 y 12 en casa. Era el lugar perfecto para el almuerzo del domingo, y ese día estaba más lleno que nunca.",
+     "despues": "El domingo 1 de agosto de 2004, el supermercado suena a carritos sobre las baldosas. «El Ycuá Bolaños era un lugar de esparcimiento, era un lugar familiar», cuenta un cliente. Liz Torres, de 37 años, está con su esposo, Alfredo Vallovera. Habían dejado a sus hijos de 14 y 12 en casa. Era el lugar del almuerzo del domingo, y estaba más lleno que nunca.",
+     "motivo": "corta",
+     "estado": "aceptado"
+    },
+    {
+     "parrafo": 2,
+     "beat": 3,
+     "antes": "Hay una multitud haciendo fila en las cajas, con los carritos repletos. «Era uno de los peores lugares ese día para comprar porque estaba repleto», diría el sobreviviente Víctor Galeano. Una empleada, Digna Cáceres, cree que en el supermercado había más de 1500 personas. Nadie lo sabía, pero en la cocina, el desastre ya había comenzado.",
+     "despues": "Una empleada, Digna Cáceres, cree que en el supermercado había más de 1500 personas. Hay una multitud en las cajas, con los carritos repletos. «Era uno de los peores lugares ese día para comprar porque estaba repleto», diría el sobreviviente Víctor Galeano. Nadie lo sabía, pero en la cocina, el desastre ya había comenzado.",
+     "motivo": "orden",
+     "estado": "aceptado"
+    },
+    {
+     "parrafo": 3,
+     "beat": 4,
+     "antes": "En la cocina zumban los hornos. Hay olor a grasa acumulada en una chimenea. El fuego se inició ahí, por la acumulación de grasa y carbonilla en el ducto. Comienzan a producirse las primeras explosiones. Una clienta, Amada Correa, nota que «algo ocurría en el techo». El ruido sordo se convirtió en un estruendo. Y después, el humo.",
+     "despues": "En la cocina, el fuego se inició por la acumulación de grasa y carbonilla en el ducto de una chimenea. Ocurren las primeras explosiones. Una clienta, Amada Correa, nota que «algo ocurría en el techo». El ruido sordo se convirtió en un estruendo. Y después, el humo.",
+     "motivo": "corta",
+     "estado": "aceptado"
+    },
+    {
+     "parrafo": 4,
+     "beat": 5,
+     "antes": "Una nube de humo negro avanza por los pasillos. En segundos, lo cubre todo. «Escuché una explosión y después ya vi que la nube de humo negro cubría todo», cuenta Beatriz González. Hubo un estruendo hacia el estacionamiento. La gente corrió hacia las salidas. Pero se encontraron con algo que no esperaban.",
+     "despues": "«Escuché una explosión y después ya vi que la nube de humo negro cubría todo», cuenta Beatriz González. Un estruendo sonó hacia el estacionamiento. La gente corrió hacia las salidas. Pero se encontraron con algo que no esperaban.",
+     "motivo": "ritmo",
+     "estado": "aceptado"
+    },
+    {
+     "parrafo": 5,
+     "beat": 6,
+     "antes": "Un guardia de seguridad escucha una orden por su radio. Los registros confirman que se dieron las órdenes de cerrar los accesos al supermercado. La orden se cumplió. Las puertas de vidrio, que debían ser una salida, se convirtieron en un muro.",
+     "despues": "Un guardia de seguridad escucha una orden por su radio. Los registros confirman la orden de cerrar los accesos al supermercado. La orden se cumplió. Las puertas de vidrio, que debían ser una salida, se convirtieron en un muro.",
+     "motivo": "corta",
+     "estado": "aceptado"
+    },
+    {
+     "parrafo": 6,
+     "beat": 7,
+     "antes": "Hay manos golpeando un panel de vidrio ahumado por el hollín. No pueden abrirlo. Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón... estaba cerrado». Las puertas de blíndex del supermercado estaban cerradas. Atrapados entre el humo y las puertas, solo les quedaba esperar. Y entonces, todo explotó.",
+     "despues": "Hay manos golpeando un panel de vidrio ahumado por el hollín. No pueden abrirlo. Digna Cáceres recuerda: «la gente corría y volvían todos porque el portón... estaba cerrado». Atrapados entre el humo y las puertas, solo les quedaba esperar. Y entonces, todo explotó.",
+     "motivo": "repetición",
+     "estado": "aceptado"
+    },
+    {
+     "parrafo": 7,
+     "beat": 8,
+     "antes": "Son las 11:25 de la mañana en el supermercado Ycuá Bolaños. Se produce la gran explosión y se desata el incendio principal. Una bola de fuego recorre el techo y cae sobre la gente en el patio de comidas. El sobreviviente Cristian Sosa lo vio: «Las llamas cayeron sobre las personas que estaban almorzando y hubo un desbande total». El perito Benedicto Pérez explicaría después la letalidad del incendio. Su informe determinó que «la temperatura entre el cielorraso y el techo llegó a 600º C». Pérez aclaró que con ese calor, la gente que estaba en el patio de comidas murió a la primera inhalación, pues esa temperatura quema las vías respiratorias al instante. Cuando el fuego se apagó, el silencio que quedó era más aterrador que las llamas.",
+     "despues": "Son las 11:25 de la mañana en el Ycuá Bolaños. La gran explosión desata el incendio principal. Una bola de fuego recorre el techo y cae sobre la gente en el patio de comidas. El sobreviviente Cristian Sosa lo vio: «Las llamas cayeron sobre las personas que estaban almorzando y hubo un desbande total». El perito Benedicto Pérez explicó la letalidad del incendio. Su informe determinó que «la temperatura entre el cielorraso y el techo llegó a 600º C». Con ese calor, la gente murió a la primera inhalación. La temperatura quema las vías respiratorias al instante. Cuando el fuego se apagó, el silencio fue más aterrador que las llamas.",
+     "motivo": "corta",
+     "estado": "rechazado",
+     "motivo_rechazo": "bloqueantes 7 → 8"
+    },
+    {
+     "parrafo": 8,
+     "beat": 9,
+     "antes": "Después de las llamas, el silencio. Los cuerpos son recuperados y alineados en el piso de una discoteca vacía, un lugar hecho para la vida, ahora convertido en una morgue improvisada. Uno a uno, son cubiertos con sábanas blancas. La escena confundió incluso a quienes estaban allí para ayudar. Mientras las familias iniciaban la búsqueda de sus desaparecidos, la justicia empezaba a buscar a los culpables.",
+     "despues": "Después de las llamas, el silencio. Los cuerpos son recuperados y alineados en el piso de una discoteca vacía, convertida en morgue improvisada. Uno a uno, son cubiertos con sábanas blancas. Mientras las familias buscaban a sus desaparecidos, la justicia empezaba a buscar a los culpables.",
+     "motivo": "corta",
+     "estado": "rechazado",
+     "motivo_rechazo": "bloqueantes 7 → 8"
+    },
+    {
+     "parrafo": 9,
+     "beat": 10,
+     "antes": "El mazo de un juez golpea la madera. Juan Pío Paiva, dueño del local, fue condenado a 12 años de cárcel. Su hijo, Emiliano Paiva, a 10 años. El guardia de seguridad, Daniel Areco, a 5 años de prisión. Pero durante el juicio, un informe oficial sembró la duda sobre lo que todos los sobrevivientes sabían.",
+     "despues": "El mazo de un juez golpea la madera. Juan Pío Paiva, dueño del local, fue condenado a 12 años de cárcel. Su hijo, Emiliano Paiva, a 10 años. El guardia de seguridad, Daniel Areco, a 5 años. Pero durante el juicio, un informe oficial sembró la duda sobre lo que todos los sobrevivientes sabían.",
+     "motivo": "corta",
+     "estado": "aceptado"
+    },
+    {
+     "parrafo": 10,
+     "beat": 11,
+     "antes": "Un perito policial señala un plano del supermercado en el tribunal. Su informe concluyó que solo tres puertas estaban cerradas. Según esa pericia, eran las de la azotea, el mirador y la administración. Para los sobrevivientes, la verdad no estaba en los papeles, sino en los cuerpos que los salvaron.",
+     "despues": "Un perito policial señala un plano del supermercado en el tribunal. Su informe concluyó que solo tres puertas estaban cerradas: las de la azotea, el mirador y la administración. Para los sobrevivientes, la verdad no estaba en los papeles, sino en los cuerpos que los salvaron.",
+     "motivo": "repetición",
+     "estado": "aceptado"
+    },
+    {
+     "parrafo": 11,
+     "beat": 12,
+     "antes": "Sobre las baldosas rotas de lo que fue un supermercado, cientos de velas encendidas rinden homenaje. Cada llama es un recuerdo. Para los que estuvieron allí, la verdad no estaba en los papeles, sino en los cuerpos que los salvaron. «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida», dice Liz Torres. Su testimonio es el de muchos que sobrevivieron gracias al sacrificio ajeno. Las consecuencias de la tragedia se miden en ausencias y secuelas. El incendio dejó 204 huérfanos. La tragedia del Ycuá Bolaños dejó también 244 heridos. Por ellos, y por los que ya no están, Liz y los sobrevivientes levantan un lema que resuena cada año con más fuerza: 'Que nunca más'.",
+     "despues": "Sobre las baldosas rotas del supermercado, cientos de velas encendidas rinden homenaje. El incendio dejó 204 huérfanos y la tragedia del Ycuá Bolaños, 244 heridos. «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida», dice Liz Torres.",
+     "motivo": "orden",
+     "estado": "rechazado",
+     "motivo_rechazo": "bloqueantes 7 → 8"
+    }
+   ]
+  },
+  "parada": true
+ },
+ "metricas": {
+  "duras_v3": [
+   "cap 1: 87 palabras: el mínimo del cap es 94 (objetivo 110); contá más hechos del beat con escenas, no adjetivos",
+   "cap 1: usaste 1 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [Q20] «Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. / Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...»",
+   "cap 1: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×2",
+   "cap 2: 119 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 2: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×4",
+   "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Comienzan a producirse las primeras explosiones en la zona de la panadería.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 3: 85 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 3: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T15] «1 de agosto»; [D27] «El fuego se inició por la acumulación de grasa, ca»; [D48] «Hubo un estruendo hacia el estacionamiento y el hu»",
+   "cap 3: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×3",
+   "cap 3: estos datos ya salieron en 2 caps, no los repitas: «1»; «1 / 6»",
+   "cap 3: fechas: contaste [T15] sin su fecha (1 de agosto): «Ocurren las primeras explosiones.…»",
+   "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la ord» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 4: 82 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 4: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q35] «El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. / Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.»; [Q34] «la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. / la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+   "cap 4: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×2",
+   "cap 4: estos datos ya salieron en 2 caps, no los repitas: «1»; «1 / 6»",
+   "cap 4: comillas solo para las citas del pool (la frase del research va sin comillas): «la gente corría y volvían todos porque el portón... estaba c…»",
+   "cap 4: fechas: contaste [T06] sin su fecha (1 de agosto): «Los registros confirman la orden de cerrar los accesos al supermercado…»",
+   "cap 4: el cierre tiene que anticipar el dato concreto del cap 5: «Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bo» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 5: 196 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 5: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q29] «la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación / la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación, la gente que estaba en el patio de comidas ya murió, pues esa temperatura quema las vías respiratorias al instante.»; [Q53] «después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas! / después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!»",
+   "cap 5: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×5",
+   "cap 5: estos datos ya salieron en 2 caps, no los repitas: «1»; «1 / 6»",
+   "cap 5: fechas: contaste [T21] sin su fecha (1 de agosto): «Se produce la gran explosión y se desata el incendio principal.…»",
+   "cap 5: el cierre tiene que anticipar el dato concreto del cap 6: «Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 6: 100 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 6: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D25] «Un peritaje sobre las puertas del Ycuá Bolaños con»; [D29] «Las únicas puertas cerradas según la pericia eran »",
+   "beat 1: ninguna frase de 6 palabras o menos",
+   "beat 2: ninguna frase de 6 palabras o menos",
+   "beat 3: ninguna frase de 6 palabras o menos",
+   "beat 8: ninguna frase de 6 palabras o menos",
+   "beat 10: ninguna frase de 6 palabras o menos",
+   "beat 11: ninguna frase de 6 palabras o menos",
+   "antes del pico (beat 8): faltan dos frases cortas seguidas",
+   "Q29 está SIN VERIFICAR y va con el nombre de Benedicto Pérez: decila sin el nombre",
+   "Q34 está SIN VERIFICAR y va con el nombre de Digna Felicia Cáceres: decila sin el nombre",
+   "beat 1 (párrafo 1): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«El ambiente era muy caliente…»', '«muchos gritos que luego se fueron apagan…»']",
+   "beat 8 (párrafo 8): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Las llamas cayeron sobre las personas qu…»', '«la temperatura entre el cielorraso y el …»']",
+   "gancho: adelanta una cita de un cap siguiente («El Ycuá Bolaños era un lugar de esparcimiento, era…»): que suene recién en su cap",
+   "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+   "cap 7: repite frases de caps anteriores («papeles sino en»): decilo de otra forma o no lo repitas",
+   "beat 7 (párrafo 7): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "cap 1: «alguien ordenó»: decí quién (el nombre está en los datos)"
+  ],
+  "blandas_v3": [
+   "cap 1: la cita «El fuego avanzaba por el techo. Lo que m…» va entre comillas y con su autor (Liz Torres) al lado",
+   "cap 1: 4.6 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — calientes, negra, espesa, caliente",
+   "cap 2: la cita «Era uno de los peores lugares ese día pa…» va entre comillas y con su autor (Víctor Galeano) al lado",
+   "cap 2: 1.68 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "cap 3: la cita «Escuché una explosión y después ya vi qu…» va entre comillas y con su autor (Beatriz González) al lado",
+   "cap 4: 1.22 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "cap 5: 1.02 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "cap 6: 0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "cap 7: 0.83 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "cap 7: 6% de tus frases de 3 palabras ya se dijeron en caps anteriores (máximo 5%): no repitas fórmulas («sheriff Marlin N. Gusman» basta una vez; después «el sheriff», «Gusman»)",
+   "beat 1: 87 palabras (objetivo 110 ±15 %)",
+   "beat 2: 65 palabras (objetivo 125 ±15 %)",
+   "beat 3: 54 palabras (objetivo 125 ±15 %)",
+   "beat 4: 47 palabras (objetivo 125 ±15 %)",
+   "beat 5: 38 palabras (objetivo 125 ±15 %)",
+   "beat 6: 39 palabras (objetivo 125 ±15 %)",
+   "beat 7: 43 palabras (objetivo 125 ±15 %)",
+   "beat 9: 66 palabras (objetivo 125 ±15 %)",
+   "beat 10: 54 palabras (objetivo 125 ±15 %)",
+   "beat 11: 46 palabras (objetivo 125 ±15 %)"
+  ],
+  "puntaje": 130,
+  "palabras": 790,
+  "palabras_por_cap": {
+   "1": [
+    87,
+    110
+   ],
+   "2": [
+    119,
+    250
+   ],
+   "3": [
+    85,
+    250
+   ],
+   "4": [
+    82,
+    250
+   ],
+   "5": [
+    196,
+    250
+   ],
+   "6": [
+    100,
+    250
+   ],
+   "7": [
+    121,
+    140
+   ]
+  },
+  "citas": 10,
+  "humano_caps": [
+   1,
+   2,
+   7
+  ],
+  "cierre": "resumen",
+  "ecos": [],
+  "por_cap": {
+   "1": {
+    "palabras": 87,
+    "duras": [
+     "87 palabras: el mínimo del cap es 94 (objetivo 110); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 1 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [Q20] «Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. / Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...»",
+     "cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×2"
+    ],
+    "blandas": [
+     "la cita «El fuego avanzaba por el techo. Lo que m…» va entre comillas y con su autor (Liz Torres) al lado",
+     "4.6 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — calientes, negra, espesa, caliente"
+    ],
+    "puntaje": 7,
+    "objetivo": 110
+   },
+   "2": {
+    "palabras": 119,
+    "duras": [
+     "119 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×4",
+     "el cierre tiene que anticipar el dato concreto del cap 3: «Comienzan a producirse las primeras explosiones en la zona de la panadería.» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "la cita «Era uno de los peores lugares ese día pa…» va entre comillas y con su autor (Víctor Galeano) al lado",
+     "1.68 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": 68,
+    "objetivo": 250
+   },
+   "3": {
+    "palabras": 85,
+    "duras": [
+     "85 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T15] «1 de agosto»; [D27] «El fuego se inició por la acumulación de grasa, ca»; [D48] «Hubo un estruendo hacia el estacionamiento y el hu»",
+     "cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×3",
+     "estos datos ya salieron en 2 caps, no los repitas: «1»; «1 / 6»",
+     "fechas: contaste [T15] sin su fecha (1 de agosto): «Ocurren las primeras explosiones.…»",
+     "el cierre tiene que anticipar el dato concreto del cap 4: «Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la ord» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "la cita «Escuché una explosión y después ya vi qu…» va entre comillas y con su autor (Beatriz González) al lado"
+    ],
+    "puntaje": 12,
+    "objetivo": 250
+   },
+   "4": {
+    "palabras": 82,
+    "duras": [
+     "82 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q35] «El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. / Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.»; [Q34] «la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. / la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+     "cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×2",
+     "estos datos ya salieron en 2 caps, no los repitas: «1»; «1 / 6»",
+     "comillas solo para las citas del pool (la frase del research va sin comillas): «la gente corría y volvían todos porque el portón... estaba c…»",
+     "fechas: contaste [T06] sin su fecha (1 de agosto): «Los registros confirman la orden de cerrar los accesos al supermercado…»",
+     "el cierre tiene que anticipar el dato concreto del cap 5: «Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bo» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "1.22 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": 2,
+    "objetivo": 250
+   },
+   "5": {
+    "palabras": 196,
+    "duras": [
+     "196 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q29] «la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación / la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación, la gente que estaba en el patio de comidas ya murió, pues esa temperatura quema las vías respiratorias al instante.»; [Q53] «después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas! / después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!»",
+     "cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1» ×5",
+     "estos datos ya salieron en 2 caps, no los repitas: «1»; «1 / 6»",
+     "fechas: contaste [T21] sin su fecha (1 de agosto): «Se produce la gran explosión y se desata el incendio principal.…»",
+     "el cierre tiene que anticipar el dato concreto del cap 6: «Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio.» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "1.02 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": 8,
+    "objetivo": 250
+   },
+   "6": {
+    "palabras": 100,
+    "duras": [
+     "100 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D25] «Un peritaje sobre las puertas del Ycuá Bolaños con»; [D29] «Las únicas puertas cerradas según la pericia eran »"
+    ],
+    "blandas": [
+     "0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": 25,
+    "objetivo": 250
+   },
+   "7": {
+    "palabras": 121,
+    "duras": [],
+    "blandas": [
+     "0.83 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+     "6% de tus frases de 3 palabras ya se dijeron en caps anteriores (máximo 5%): no repitas fórmulas («sheriff Marlin N. Gusman» basta una vez; después «el sheriff», «Gusman»)"
+    ],
+    "puntaje": 8,
+    "objetivo": 140
+   }
+  }
+ },
+ "skeleton": {
+  "topic_id": "f8s1-ycua-bolanos",
+  "chapters": [
+   {
+    "chapter_number": 1,
+    "title": "Lluvia de Cenizas",
+    "role": "hook",
+    "render_engine": "veo",
+    "duration_seconds": 45,
+    "narrative_intent": "hook",
+    "bullets": [
+     "Cenizas calientes cayendo del cielorraso como una lluvia negra y espesa. · El fuego avanzaba por el techo. Lo que me dijo Alfredo (marido) es ‘corré’ y yo, como todos, corrí por nuestra vida hacia el único lugar donde sabíamos que había una puerta y personas que corrían en sentido contrario porque buscaban a sus familiares; mucha gente que nos cruzaba, que llamaba por sus nombres, seguro a sus hijos, a su familia... Me encontré con una pared humana difícil de pasar. Toda esa gente vino sobre mí de vuelta y quedamos atrapados. Cuando sentí la avalancha, dije acá nos morimos todos, no me voy a salvar, se me pasó toda la vida por la cabeza, que les dejaba a mis hijos adolescentes, tan jóvenes, solos"
+    ],
+    "evidence_ids": [
+     "Q19",
+     "Q20"
+    ],
+    "cliffhanger": "Q50",
+    "pantalla_ids": [
+     "D177",
+     "D181"
+    ]
+   },
+   {
+    "chapter_number": 2,
+    "title": "Pasillos del Supermercado",
+    "role": "development",
+    "render_engine": "flux",
+    "duration_seconds": 105,
+    "narrative_intent": "setup",
+    "bullets": [
+     "El sonido de los carritos de supermercado sobre las baldosas y las familias eligiendo qué almorzar. · El Ycuá Bolaños era un lugar de esparcimiento, era un lugar familiar, me quedaba cerca. A mi esposa pues le encantaba recorrer, mirar, comprar las cosas que necesitaba, mirá, era algo tan, tan familiar.",
+     "Una multitud de gente haciendo fila en las cajas, con los carritos repletos de comida. · Era uno de los peores lugares ese día para comprar porque estaba repleto. Nos quedamos a hacer lo que no hacíamos habitualmente, nos quedamos a recorrer un poquito más. Escuchamos un sonido muy fuerte, parecía como mil veces el sonido de agua cuando tirás en aceite hirviendo. Me quedé centrado hacia el patio de comida porque la gente miraba también hacia el sector de la parrilla y ese lugar vibraba, vibraba y era como que iba a estallar en cualquier momento"
+    ],
+    "evidence_ids": [
+     "Q50",
+     "D212",
+     "D210",
+     "Q17",
+     "D108"
+    ],
+    "cliffhanger": "T15",
+    "pantalla_ids": [
+     "D10",
+     "D139"
+    ]
+   },
+   {
+    "chapter_number": 3,
+    "title": "Nube de Humo",
+    "role": "development",
+    "render_engine": "flux",
+    "duration_seconds": 105,
+    "narrative_intent": "rising_tension",
+    "bullets": [
+     "El zumbido de los hornos eléctricos y el olor a grasa acumulada en una chimenea. · Comienzan a producirse las primeras explosiones en la zona de la panadería.",
+     "Una nube de humo negro que avanza por los pasillos y lo cubre todo en segundos. · Escuché una explosión y después ya vi que la nube de humo negro cubría todo. En ese momento dejé mi caja, salté y corrí hacia el estacionamiento para tratar de salir"
+    ],
+    "evidence_ids": [
+     "T15",
+     "Q26",
+     "D27",
+     "Q10",
+     "D48"
+    ],
+    "cliffhanger": "Q35",
+    "pantalla_ids": [
+     "D73"
+    ]
+   },
+   {
+    "chapter_number": 4,
+    "title": "Manos en el Vidrio",
+    "role": "development",
+    "render_engine": "flux",
+    "duration_seconds": 105,
+    "narrative_intent": "shock",
+    "bullets": [
+     "Un guardia de seguridad escuchando una orden por su radio mientras el caos empieza. · Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.",
+     "Manos golpeando un panel de vidrio ahumado por el hollín, sin poder abrirlo. · la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré."
+    ],
+    "evidence_ids": [
+     "Q35",
+     "T06",
+     "Q34",
+     "D47"
+    ],
+    "cliffhanger": "T21",
+    "pantalla_ids": [
+     "Q62"
+    ]
+   },
+   {
+    "chapter_number": 5,
+    "title": "Sábanas Blancas",
+    "role": "development",
+    "render_engine": "flux",
+    "duration_seconds": 105,
+    "narrative_intent": "consequences",
+    "bullets": [
+     "Una bola de fuego que recorre el techo del supermercado y cae sobre la gente en el patio de comidas. · Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bolaños.",
+     "Cuerpos cubiertos con sábanas blancas, alineados en el piso de una discoteca vacía. · después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!"
+    ],
+    "evidence_ids": [
+     "T21",
+     "Q70",
+     "Q29",
+     "Q53"
+    ],
+    "cliffhanger": "D19",
+    "pantalla_ids": [
+     "Q54",
+     "D192"
+    ]
+   },
+   {
+    "chapter_number": 6,
+    "title": "Mazo en el Tribunal",
+    "role": "development",
+    "render_engine": "flux",
+    "duration_seconds": 105,
+    "narrative_intent": "resolution",
+    "bullets": [
+     "El mazo de un juez golpeando la madera en una sala de tribunal repleta. · Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio.",
+     "Un perito policial señalando un plano del supermercado en un tribunal. · Un peritaje sobre las puertas del Ycuá Bolaños concluyó que solo tres de ellas estaban cerradas."
+    ],
+    "evidence_ids": [
+     "D19",
+     "D20",
+     "D21",
+     "D25",
+     "D29"
+    ],
+    "cliffhanger": "Q77",
+    "pantalla_ids": [
+     "D189",
+     "D222"
+    ]
+   },
+   {
+    "chapter_number": 7,
+    "title": "Velas en las Baldosas",
+    "role": "reveal_outro",
+    "render_engine": "veo",
+    "duration_seconds": 45,
+    "narrative_intent": "outro",
+    "bullets": [
+     "Cientos de velas encendidas sobre las baldosas rotas de lo que fue un supermercado. · Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida"
+    ],
+    "evidence_ids": [
+     "Q77",
+     "D196",
+     "D195"
+    ],
+    "cliffhanger": "",
+    "pantalla_ids": [
+     "D179",
+     "D203"
+    ]
+   }
+  ],
+  "personajes": [
+   {
+    "id": "P13",
+    "nombre": "Liz Torres",
+    "rol": "Miembro de la Coordinadora de Víctimas, y amigos del Ycua Bolaños",
+    "antagonista": false,
+    "entra_en_cap": 7
+   },
+   {
+    "id": "P40",
+    "nombre": "Pío Paiva",
+    "rol": "Jefe (dueño) del supermercado",
+    "antagonista": true,
+    "entra_en_cap": 1
+   }
+  ],
+  "_pool_plan": {
+   "cifras_canonicas": [],
+   "pantalla": [
+    "cap 1: pantalla ['D177', 'D181']",
+    "cap 2: pantalla ['D10', 'D139']",
+    "cap 3: pantalla ['D73', 'T25']",
+    "cap 4: pantalla ['D199', 'D60']",
+    "cap 5: pantalla ['D223', 'T24']",
+    "cap 6: pantalla ['D222', 'T65']",
+    "cap 7: pantalla ['D179', 'D203']"
+   ]
+  },
+  "_v3": {
+   "escaleta": "01a_escaleta.json",
+   "prompt_version": "f6b-4",
+   "humano": {
+    "id": "P13",
+    "nombre": "Liz Torres",
+    "rol": "Sobreviviente y activista",
+    "por_que": "Sobrevivió al infierno cubierta por otros cuerpos y dedicó su vida a buscar justicia para los que no salieron, convirtiéndose en la voz de las víctimas.",
+    "colectivo": false
+   },
+   "antagonista": {
+    "id": "P40",
+    "por_que": "El dueño del supermercado, condenado por la decisión que convirtió un incendio en una trampa mortal para cientos de personas."
+   },
+   "pico": {
+    "beat": 8,
+    "id": "T21",
+    "por_que": "Es el momento exacto en que el fuego se vuelve un infierno ineludible, la explosión que sella el destino de cientos de personas ya atrapadas."
+   },
+   "particion": {
+    "notas": [
+     "cap 2: 679 caracteres < 680 (corto; aviso, no se inventa texto)",
+     "cap 3: 496 caracteres < 680 (corto; aviso, no se inventa texto)",
+     "cap 4: 493 caracteres < 680 (corto; aviso, no se inventa texto)",
+     "cap 6: 571 caracteres < 680 (corto; aviso, no se inventa texto)"
+    ],
+    "titulos": "flash"
+   }
+  }
+ },
+ "particion_notas": [
+  "cap 2: 679 caracteres < 680 (corto; aviso, no se inventa texto)",
+  "cap 3: 496 caracteres < 680 (corto; aviso, no se inventa texto)",
+  "cap 4: 493 caracteres < 680 (corto; aviso, no se inventa texto)",
+  "cap 6: 571 caracteres < 680 (corto; aviso, no se inventa texto)"
+ ],
+ "costo": {
+  "usd": 0.5939,
+  "segundos": 511.7,
+  "llamadas": [
+   {
+    "desc": "guion_v4 guionista",
+    "in": 3387,
+    "out": 1274,
+    "thinking": 2631,
+    "usd": 0.0433
+   },
+   {
+    "desc": "m01d regenerate_cap 1",
+    "in": 723,
+    "out": 209,
+    "thinking": 3024,
+    "usd": 0.0332
+   },
+   {
+    "desc": "m01d regenerate_cap 2",
+    "in": 1067,
+    "out": 489,
+    "thinking": 5047,
+    "usd": 0.0567
+   },
+   {
+    "desc": "m01d regenerate_cap 3",
+    "in": 873,
+    "out": 445,
+    "thinking": 3316,
+    "usd": 0.0387
+   },
+   {
+    "desc": "m01d regenerate_cap 4",
+    "in": 871,
+    "out": 398,
+    "thinking": 1936,
+    "usd": 0.0244
+   },
+   {
+    "desc": "m01d regenerate_cap 5",
+    "in": 892,
+    "out": 454,
+    "thinking": 4208,
+    "usd": 0.0477
+   },
+   {
+    "desc": "m01d regenerate_cap 6",
+    "in": 874,
+    "out": 369,
+    "thinking": 2555,
+    "usd": 0.0303
+   },
+   {
+    "desc": "m01d regenerate_cap 7",
+    "in": 560,
+    "out": 257,
+    "thinking": 2949,
+    "usd": 0.0328
+   },
+   {
+    "desc": "guion_v4 editar frase",
+    "in": 230,
+    "out": 63,
+    "thinking": 1744,
+    "usd": 0.0184
+   },
+   {
+    "desc": "guion_v4 editar frase",
+    "in": 252,
+    "out": 88,
+    "thinking": 1405,
+    "usd": 0.0152
+   },
+   {
+    "desc": "guion_v4 editar frase",
+    "in": 295,
+    "out": 191,
+    "thinking": 6468,
+    "usd": 0.067
+   },
+   {
+    "desc": "guion_v4 editar frase",
+    "in": 272,
+    "out": 99,
+    "thinking": 1576,
+    "usd": 0.0171
+   },
+   {
+    "desc": "guion_v4 editor",
+    "in": 2453,
+    "out": 3573,
+    "thinking": 12732,
+    "usd": 0.1661
+   },
+   {
+    "desc": "m01d_particion: títulos",
+    "in": 391,
+    "out": 50,
+    "thinking": 1073,
+    "usd": 0.0029
+   }
+  ]
+ },
+ "log": [
+  "  [guionista v4] 12 párrafos · 678 palabras",
+  "  [regen] cap 1: OK en el intento 1 (100 palabras)",
+  "  [regen] cap 2 intento 1: rechazado — citas nuevas ['a mi esposa le encantaba recorrer, mirar, comprar las cosas que necesitaba, era algo tan familiar', 'escuchamos un sonido muy fuerte']",
+  "  [regen] cap 2: ningún intento pasó; el cap queda como estaba",
+  "  [regen] cap 3 intento 1: rechazado — adjetivos nuevos ['denso', 'silenciosa']; citas nuevas ['del ducto. poco despues, en la zona de la panaderia, comienzan a producirse las primeras explosiones. es un ruido sordo que llama la atencion de algunos. una clienta, amada correa, nota que \"algo ocurria en el techo', 'en ese momento deje mi caja, salte y corri hacia el estacionamiento para tratar de salir']",
+  "  [regen] cap 3: ningún intento pasó; el cap queda como estaba",
+  "  [regen] cap 4 intento 1: rechazado — adjetivos nuevos ['directiva', 'infranqueable', 'negro']; citas nuevas ['la gente corria y volvian todos porque el porton que queda hacia avenida artigas estaba cerrado']",
+  "  [regen] cap 4: ningún intento pasó; el cap queda como estaba",
+  "  [regen] cap 5: OK en el intento 1 (217 palabras)",
+  "  [regen] cap 6 intento 1: rechazado — adjetivos nuevos ['culpables']",
+  "  [regen] cap 6: ningún intento pasó; el cap queda como estaba",
+  "  [regen] cap 7: OK en el intento 1 (121 palabras)",
+  "  [editar v4] beat 6: aceptada",
+  "  [editar v4] beat 7: rechazada (guardia léxica: nombres nuevos ['felicia'])",
+  "  [editar v4] beat 8: rechazada (no bajó los bloqueantes (4 → 4))",
+  "  [editar v4] beat 9: aceptada",
+  "  [editor v4] 12 párrafo(s) editado(s): 9 aceptado(s), 3 rechazado(s)",
+  "  [reparación v4] bloqueantes 11 → 7 (una ronda; no hay segunda)",
+  "  [01d] cap 2: 679 caracteres < 680 (corto; aviso, no se inventa texto)",
+  "  [01d] cap 3: 496 caracteres < 680 (corto; aviso, no se inventa texto)",
+  "  [01d] cap 4: 493 caracteres < 680 (corto; aviso, no se inventa texto)",
+  "  [01d] cap 6: 571 caracteres < 680 (corto; aviso, no se inventa texto)"
+ ]
+}

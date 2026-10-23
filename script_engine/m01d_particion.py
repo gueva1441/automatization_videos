@@ -250,12 +250,13 @@ def _item_line(it: dict) -> str:
 
 
 def regenerate_cap_v3(topic: dict, esc: dict, parrafos: list[dict], cap: int, pool: dict, *, notas: list[str],
-                      permitidos: list[str] | None = None, min_words: int = 0,
+                      permitidos: list[str] | None = None, min_words: int = 0, attempts: int = REGEN_ATTEMPTS,
                       call: Callable[..., dict] | None = None, log: list[str] | None = None) -> list[dict]:
     """Reescribe UN cap con la escaleta, el texto vecino y las notas del analista. Puede AGREGAR solo lo que está en
     el cap o en `permitidos` (ids del pool, con su texto literal): la guardia léxica de m01c (cifras, nombres,
     adjetivos, citas nuevas) se mide contra el cap original + esos ítems. Hasta REGEN_ATTEMPTS con el motivo del
-    rechazo; si ninguno pasa, el cap queda como estaba. Devuelve los párrafos (los demás caps, intactos)."""
+    rechazo; si ninguno pasa, el cap queda como estaba. Devuelve los párrafos (los demás caps, intactos).
+    F11: `attempts` (v4 usa 1) y un cap vacío (beats salteados) recibe sus párrafos antes del cap siguiente."""
     from script_engine import evidence as ev
     from script_engine.m01c_editor import lexical_guard
     log = log if log is not None else []
@@ -272,7 +273,7 @@ def regenerate_cap_v3(topic: dict, esc: dict, parrafos: list[dict], cap: int, po
     blines = "\n".join(f"- beat {b['n']} · {b.get('funcion')} · {b.get('emocion')} {b.get('intensidad')} · ve: "
                        f"«{b.get('imagen_sensorial')}» · dato central {b['dato_central']}" for b in beats)
     feedback = ""
-    for attempt in range(1, REGEN_ATTEMPTS + 1):
+    for attempt in range(1, attempts + 1):
         prompt = f"""Reescribí el CAP {cap} de un documental en español (narración en off). Es un arreglo quirúrgico: el
 resto del video no cambia.
 
@@ -319,13 +320,19 @@ que hay (no cambies los beats). {f"El cap tiene que tener AL MENOS {min_words} p
             feedback = "\n\nTU VERSIÓN ANTERIOR SE RECHAZÓ: " + "; ".join(probs) + ". Corregí eso."
             continue
         out, done = [], False
+        fresh = [{"beat": int(q["beat"]), "cap": cap, "texto": str(q["texto"]).strip(),
+                  "ids_usados": [str(x).upper() for x in q.get("ids_usados") or []]} for q in new]
         for p in parrafos:
+            if not done and int(p["cap"]) > cap:        # F11: cap vacío → sus párrafos van antes del cap siguiente
+                out += fresh
+                done = True
             if p["cap"] != cap:
                 out.append(p)
             elif not done:
-                out += [{"beat": int(q["beat"]), "cap": cap, "texto": str(q["texto"]).strip(),
-                         "ids_usados": [str(x).upper() for x in q.get("ids_usados") or []]} for q in new]
+                out += fresh
                 done = True
+        if not done:
+            out += fresh
         log.append(f"  [regen] cap {cap}: OK en el intento {attempt} ({words} palabras)")
         return out
     log.append(f"  [regen] cap {cap}: ningún intento pasó; el cap queda como estaba")

@@ -1,0 +1,13 @@
+{"orleans": {"v3": 6717, "v4": 2840, "chars_v3": 22347, "chars_v4": 9201}, "ycua": {"v3": 7938, "v4": 3387, "chars_v3": 26743, "chars_v4": 10608}}
+[00:35:47] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3-v4A
+[00:43:09] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3-v4A � Costo total: $0.4856
+[orleans A] bloqueantes 7 → 6 · 486 palabras · US$ 0.486 · total US$ 0.486
+[00:43:09] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-v4A
+[00:50:13] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-v4A � Costo total: $0.4813
+[ycua A] bloqueantes 12 → 6 · 619 palabras · US$ 0.481 · total US$ 0.967
+[00:50:13] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3-v4B
+[00:57:07] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3-v4B � Costo total: $0.4315
+[orleans B] bloqueantes 7 → 7 · 450 palabras · US$ 0.431 · total US$ 1.398
+[00:57:07] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-v4B
+[01:05:38] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-v4B � Costo total: $0.5939
+[ycua B] bloqueantes 11 → 7 · 790 palabras · US$ 0.594 · total US$ 1.992

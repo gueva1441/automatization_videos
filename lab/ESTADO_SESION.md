@@ -1,15 +1,30 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-23 (F10: el ajuste del guion de Ycuá no cumplió el criterio → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-23 (F11: guion v4 hecho; la convergencia no cumple el criterio → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
-- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «docs(f6): F6c cerrado como laboratorio…» (`git log -1`) en f6-guion-v3, sobre `7ec2025`; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
+- Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
 - Cadena de ramas sin mergear: `f2-gfx-director` (F2b @ `31c671c`) → `f3-lab-identidad` (F3–F4e @ `39e37ac`) → `f5-guion-v2` (F5).
 - `main` = `43f528a`. NO se toca sin OK explícito de Omar.
 - Video de prueba: Orleans `ba6c3cac-a091-41c0-8dad-afd2f4364747` (7 caps; ch02 es el cap de calibración, ch05 el segundo). Copia del research para F5: **`ba6c3cac-f5v2`**.
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
+
+## F11 — Guion v4 (menos reglas, oficio, reparar por edición) — HECHO, **NO cumple el criterio → PARADA** (el analista lee del disco)
+- Handoff `lab/hyperframes/f11/HANDOFF_F11_guion_v4.md`. Reporte `lab/hyperframes/f11/F11_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_v3_v4.html` (teléfono OK). Textos: `NARRACION_{orleans,ycua}_v4{A,B}.md`.
+- Código:
+  - `script_engine/guion_v4.py`: prompt corto con marcas como dato y 8 líneas de oficio; una llamada a Pro; bloqueantes a–e con funciones existentes; reparación de UNA ronda; métricas.
+  - `fase1_5 --v3 --guion v4` (o `guion_version == 4`). El camino v3 queda byte-idéntico (test con hash).
+  - `m01d.regenerate_cap_v3`: `attempts` y cap vacío.
+  - Tests: `test_module_f11.py` (10); suite 564 verdes + las 5 previas.
+- Convergencia (escaletas fijas F7c-3 e Ycuá v1, sin notas): prompt 6.7 k → 2.8 k tokens (Orleans) y 7.9 k → 3.4 k (Ycuá). Bloqueantes finales Orleans A/B 6/7, Ycuá A/B 6/7 (criterio 0–2 ❌); ningún cap vacío ✅; A vs B ≤ 2 ✅. **Causa: el v4 escribe 450–790 palabras** (objetivo ≈ 1,500). La regeneración de caps cortos choca con la guardia léxica: 5 de 26 pasaron. Costo US$ 1.992 de 2.00.
+- Abierto para Omar y el analista (no se programó nada): el largo del v4, la guardia de la regeneración, Nagin (el pool lo descarta y la escaleta lo usa), comillas simples que no ve `false_quotes`, Q20 de Liz Torres (verificada_parcial, va con nombre por la excepción §1.1).
+- Salidas en `_steps/<topic>/*_v4{A,B}.json`. No se pisó `_v1`, `_ajuste`, F7c-3 ni topics_db. Sin merge. **No seguir a producción.**
+
+## ⛔ 2026-10-23 — Omar: la narración v3 se va a REESTRUCTURAR (demasiados remiendos). No seguir con arreglos ni producción de Ycuá
+- Omar canceló los arreglos quirúrgicos sobre la v1 (la corrida se mató a mitad: solo alcanzó a reescribir `_steps/f8s1-ycua-bolanos/01a_escaleta.json` = escaleta v1 + D192 a la voz; la narración vigente sigue siendo la del ajuste; v1 y ajuste guardadas como `*_v1` / `*_ajuste`). El código de `b8ff4ef` (regenerate_cap_v3, cut_phrases, replace_repeated_dates) quedó commiteado pero sin usar.
+- Omar analiza con el analista (Claude web) y manda indicaciones nuevas → llegaron como F11 (arriba).
 
 ## F10 — Ajuste de Ycuá: **NO cumplió el criterio → PARADA** (esperando decisión de Omar)
 - Leer `lab/hyperframes/f10/F10_AJUSTE_REPORT.md` (revisor íntegro) y `ajuste_chequeos.json`. Cierre en la cita de Liz ✅, 11:25 ✅, fecha doble en el cap 5 ❌, 26 duras ❌ (tope 12) y **cap 3 vacío** (el guionista se salteó los beats 4 y 5). No se empezó producción.

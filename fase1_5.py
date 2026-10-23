@@ -166,8 +166,14 @@ def _load_narration(topic_id: str) -> dict:
 # ═══════════════════════════════════════════════════════════════
 
 def is_v3_topic(topic: dict, flag: bool = False) -> bool:
-    """F10: el camino v3 corre con `--v3` o `topic["guion_version"] == 3`, y solo si el topic trae evidence_pool."""
-    return bool(topic.get("evidence_pool")) and (flag or topic.get("guion_version") == 3)
+    """F10: el camino v3 corre con `--v3` o `topic["guion_version"] == 3` (F11: o 4), y solo si el topic trae
+    evidence_pool."""
+    return bool(topic.get("evidence_pool")) and (flag or topic.get("guion_version") in (3, 4))
+
+
+def is_v4_guion(topic: dict, guion: str | None = None) -> bool:
+    """F11: el guionista v4 (una llamada → reparación de una ronda) con `--guion v4` o `topic["guion_version"] == 4`."""
+    return guion == "v4" or (guion is None and topic.get("guion_version") == 4)
 
 
 def _topic_v3(topic_id: str) -> dict:
@@ -232,6 +238,32 @@ def run_guion_v3(topic_id: str) -> dict:
     return {"guionista": g, "editor": e, "particion": part, "juez": judge}
 
 
+def run_guion_v4(topic_id: str) -> dict:
+    """F11: m01b v4: guionista v4 (UNA llamada) → reparación (una ronda: cap, oración, fechas, editor) → m01d_particion
+    → juez m05. Escribe 01b_guionista_v4 (texto, bloqueantes antes/después, pasos), 01a_skeleton, 01b_narration,
+    01b_narracion_v3 y 06_judge_narrative. Si quedan bloqueantes, se reportan (no hay segunda ronda)."""
+    from script_engine import guion_v4 as g4
+    from script_engine import m01d_particion as md
+    from script_engine.m05_narrative import judge_narration
+    topic = _topic_v3(topic_id)
+    topic["guion_version"] = 4
+    pool = topic["evidence_pool"]
+    esc = _load_step_output(topic_id, "01a_escaleta.json")
+    log: list[str] = []
+    d = STEPS_DIR / topic_id
+    g = _step_cost(topic_id, "guionista_v4", lambda: g4.write(topic, esc, log=log))
+    r = _step_cost(topic_id, "reparacion_v4", lambda: g4.reparar(topic, esc, g["parrafos"], log=log))
+    out = {**g, "reparacion": r, "metricas": g4.metricas(topic, esc, r["parrafos"])}
+    (d / "01b_guionista_v4.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+    part = _step_cost(topic_id, "particion", lambda: md.particionar(topic, esc, r["parrafos"], pool, log=log,
+                                                                     shorten=md.editor_shorten()))
+    judge = judge_narration(topic_id, pool=pool, narration=part["narration"], skeleton=part["skeleton"])
+    print("\n".join(log[-12:]))
+    if r["parada"]:
+        print(f"  [v4] quedan {len(r['bloqueantes_despues'])} bloqueante(s) después de la ronda única: PARADA")
+    return {"guionista": g, "reparacion": r, "particion": part, "juez": judge}
+
+
 # ═══════════════════════════════════════════════════════════════
 #  PIPELINE POR TOPIC
 # ═══════════════════════════════════════════════════════════════
@@ -243,6 +275,7 @@ def process_topic(
     music_gate_interactive: bool = True,
     stop_after_step: str | None = None,
     v3: bool = False,
+    guion: str | None = None,
 ) -> dict:
     """Corre la cadena m01a → m03 + assemble para 1 topic, reanudando desde from_step.
 
@@ -302,7 +335,17 @@ def process_topic(
             skeleton = None  # se carga abajo si hace falta
 
         # m01b — narración
-        if from_step in ("m01a", "m01b") and use_v3:
+        if from_step in ("m01a", "m01b") and use_v3 and is_v4_guion(_load_topic_by_id(topic_id), guion):
+            print(f"  [01b v4] Guionista v4 → reparación (una ronda) → partición → juez...")
+            v3out = run_guion_v4(topic_id)
+            topic = _topic_v3(topic_id)
+            skeleton, narration = v3out["particion"]["skeleton"], v3out["particion"]["narration"]
+            result["steps_completed"].append("m01b")
+            if stop_after_step == "m01b":
+                result["status"] = "PASS"
+                print(f"\n  ✅ Topic {topic_id} OK (stop after m01b) — pasos: {result['steps_completed']}")
+                return result
+        elif from_step in ("m01a", "m01b") and use_v3:
             print(f"  [01b v3] Guionista → editor → partición → juez...")
             v3out = run_guion_v3(topic_id)
             topic = _topic_v3(topic_id)
@@ -603,6 +646,9 @@ def main():
     parser.add_argument("--v3", action="store_true",
                         help="F10: guion v3 (compuerta → escaleta → guionista → editor → partición → juez); también "
                              "corre solo si el topic tiene guion_version == 3")
+    parser.add_argument("--guion", choices=("v3", "v4"), default=None,
+                        help="F11: con --v3, el guionista v4 (una llamada → reparación de una ronda); también corre "
+                             "si el topic tiene guion_version == 4")
     parser.add_argument("--batch", action="store_true",
                         help="Modo batch desatendido: desactiva los gates del medio "
                              "(normalizer_gate + music_gate). Equivale a "
@@ -651,6 +697,7 @@ def main():
             music_gate_interactive=music_gate_interactive,
             stop_after_step=stop_after_step,
             v3=args.v3,
+            guion=args.guion,
         ))
         
     # Resumen final
