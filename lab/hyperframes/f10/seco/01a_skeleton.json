@@ -1,0 +1,202 @@
+{
+  "topic_id": "ba6c3cac-f10seco",
+  "chapters": [
+    {
+      "chapter_number": 1,
+      "title": "El sabor amargo",
+      "role": "hook",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "hook",
+      "bullets": [
+        "El sabor del agua sucia del inodoro en la boca, en una celda a oscuras. · Tuvimos que beber agua del inodoro solo para mantenernos con vida."
+      ],
+      "evidence_ids": [
+        "Q184"
+      ],
+      "cliffhanger": "Q08",
+      "pantalla_ids": [
+        "Q177"
+      ]
+    },
+    {
+      "chapter_number": 2,
+      "title": "Antes de la tormenta",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "setup",
+      "bullets": [
+        "Un mapa del huracán en un televisor, antes de que se corte la señal. · Vamos a mantener a nuestros prisioneros donde pertenecen."
+      ],
+      "evidence_ids": [
+        "Q08",
+        "T55",
+        "Q24"
+      ],
+      "cliffhanger": "T76",
+      "pantalla_ids": [
+        "D18",
+        "Q112"
+      ]
+    },
+    {
+      "chapter_number": 3,
+      "title": "Voces en el viento",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "rising_tension",
+      "bullets": [
+        "Oscuridad total, solo se oye el viento y los gritos ahogados entre pabellones. · Los generadores perdieron energía."
+      ],
+      "evidence_ids": [
+        "T76",
+        "T80",
+        "D545"
+      ],
+      "cliffhanger": "T93",
+      "pantalla_ids": [
+        "D292",
+        "T64"
+      ]
+    },
+    {
+      "chapter_number": 4,
+      "title": "La marea negra",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "shock",
+      "bullets": [
+        "Agua negra y aceitosa subiendo por las piernas en una celda cerrada, flotan la basura y las heces. · Los oficiales comenzaron a evacuar a los prisioneros de los edificios Templeman 1 y 2 cuando las aguas de la inundación alcanzaron el nivel del pecho."
+      ],
+      "evidence_ids": [
+        "T93",
+        "D193",
+        "D228"
+      ],
+      "cliffhanger": "Q14",
+      "pantalla_ids": [
+        "D25"
+      ]
+    },
+    {
+      "chapter_number": 5,
+      "title": "La luz del disparo",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "consequences",
+      "bullets": [
+        "El fogonazo de un rifle desde un techo, visto a través de la ventana rota de una celda. · Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD disparando a los reclusos... Recuerdo que pensé: '¿En qué diablos me he metido?'"
+      ],
+      "evidence_ids": [
+        "Q14",
+        "Q47",
+        "Q146"
+      ],
+      "cliffhanger": "T08",
+      "pantalla_ids": [
+        "Q154",
+        "D431"
+      ]
+    },
+    {
+      "chapter_number": 6,
+      "title": "Naranjas bajo el sol",
+      "role": "development",
+      "render_engine": "flux",
+      "duration_seconds": 105,
+      "narrative_intent": "resolution",
+      "bullets": [
+        "Hombres con monos naranjas sentados en el asfalto caliente de un paso elevado, bajo el sol abrasador. · Tras el huracán Katrina, reclusos de la Prisión Parroquial de Orleans (OPP) son vistos con monos naranjas en el paso elevado de Broad Street."
+      ],
+      "evidence_ids": [
+        "T08",
+        "T09",
+        "D550"
+      ],
+      "cliffhanger": "D185",
+      "pantalla_ids": [
+        "D08"
+      ]
+    },
+    {
+      "chapter_number": 7,
+      "title": "La lista olvidada",
+      "role": "reveal_outro",
+      "render_engine": "veo",
+      "duration_seconds": 45,
+      "narrative_intent": "outro",
+      "bullets": [
+        "Una lista de nombres en papel, con cientos de espacios marcados como 'desconocido'. · 517 reclusos están desaparecidos de la lista de personas evacuadas de la cárcel.",
+        "Una celda vacía, con la marca del agua seca en la pared de hormigón. · Todavía hay presos muertos ahí dentro. Cuando los guardias estaban haciendo sus últimas rondas había uno o dos por aquí y por allá."
+      ],
+      "evidence_ids": [
+        "D185",
+        "D190",
+        "D546",
+        "Q60",
+        "Q50"
+      ],
+      "cliffhanger": "",
+      "pantalla_ids": [
+        "D05",
+        "D167"
+      ]
+    }
+  ],
+  "personajes": [
+    {
+      "id": "P18",
+      "nombre": "Renard Reed",
+      "rol": "Oficial del sheriff",
+      "antagonista": false,
+      "entra_en_cap": 7
+    },
+    {
+      "id": "P03",
+      "nombre": "Marlin Gusman",
+      "rol": "Orleans Parish Criminal Sheriff",
+      "antagonista": true,
+      "entra_en_cap": 1
+    }
+  ],
+  "_pool_plan": {
+    "cifras_canonicas": [],
+    "pantalla": [
+      "cap 1: pantalla ['Q177']",
+      "cap 2: pantalla ['Q112', 'T47']",
+      "cap 3: pantalla ['D292', 'T57']",
+      "cap 4: pantalla ['T64', 'D25']",
+      "cap 5: pantalla ['Q154', 'D431']",
+      "cap 6: pantalla ['D08', 'D192']",
+      "cap 7: pantalla ['D167', 'Q77']"
+    ]
+  },
+  "_v3": {
+    "escaleta": "01a_escaleta.json",
+    "prompt_version": "f6b-4",
+    "humano": {
+      "id": "P18",
+      "nombre": "Renard Reed",
+      "rol": "Oficial del sheriff",
+      "por_que": "Es un testigo desde adentro, un guardia que no abandonó su humanidad y vio el horror, dándole una perspectiva única y creíble al relato.",
+      "colectivo": false
+    },
+    "antagonista": {
+      "id": "P03",
+      "por_que": "Como Sheriff a cargo, tomó la decisión de no evacuar la prisión, contradiciendo la orden de evacuación obligatoria de la ciudad, y públicamente negó la gravedad de la situación."
+    },
+    "pico": {
+      "beat": 5,
+      "id": "Q14",
+      "por_que": "Es el punto de no retorno: la negligencia se convierte en violencia activa. El Estado, que debía proteger incluso a los prisioneros, les dispara desde los techos."
+    },
+    "particion": {
+      "notas": [],
+      "titulos": "flash"
+    }
+  }
+}

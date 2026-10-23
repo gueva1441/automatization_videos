@@ -110,6 +110,8 @@ def _build_audio_script(
             "id": f"ch{ch['chapter_number']:02d}",  # mismo formato que fase2a._chapter_id
             "text": ch["narration"],
             "narrative_intent": intent_by_cap.get(ch["chapter_number"], ""),
+            # F10: guion v3 → el texto con etiquetas de v4 (audio_manager lo manda a Eleven; alinea con `text`)
+            **({"narration_tts": ch["narration_tts"]} if ch.get("narration_tts") else {}),
         }
         for ch in narration["chapters"]
     ]
@@ -160,6 +162,77 @@ def _load_narration(topic_id: str) -> dict:
 
 
 # ═══════════════════════════════════════════════════════════════
+#  GUION v3 (F10): compuerta → escaleta → guionista → editor → partición → juez
+# ═══════════════════════════════════════════════════════════════
+
+def is_v3_topic(topic: dict, flag: bool = False) -> bool:
+    """F10: el camino v3 corre con `--v3` o `topic["guion_version"] == 3`, y solo si el topic trae evidence_pool."""
+    return bool(topic.get("evidence_pool")) and (flag or topic.get("guion_version") == 3)
+
+
+def _topic_v3(topic_id: str) -> dict:
+    """El topic con lo que la tubería v3 necesita: guion_version 3 y las notas del analista para la escaleta
+    (`_steps/<id>/escaleta_notas.md`, si existe; van como indicaciones, no como reglas)."""
+    topic = dict(_load_topic_by_id(topic_id))
+    topic["guion_version"] = 3
+    notes = STEPS_DIR / topic_id / "escaleta_notas.md"
+    if notes.exists() and not topic.get("escaleta_notas"):
+        topic["escaleta_notas"] = notes.read_text(encoding="utf-8").strip()
+    return topic
+
+
+def _step_cost(topic_id: str, label: str, fn):
+    """Corre `fn` con el costo medido (cost_tracker) y lo acumula en _steps/<id>/01_v3_costos.json."""
+    import time as _time
+    from cost_tracker import cost_tracker
+    f = STEPS_DIR / topic_id / "01_v3_costos.json"
+    costs = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
+    cost_tracker.start_video(topic_id)
+    t0 = _time.time()
+    try:
+        return fn()
+    finally:
+        r = cost_tracker.end_video()
+        costs.setdefault("_corridas", []).append({"paso": label, "usd": round(getattr(r, "total_cost", 0.0) or 0.0, 4),
+                                                  "segundos": round(_time.time() - t0, 1)})
+        f.parent.mkdir(parents=True, exist_ok=True)
+        f.write_text(json.dumps(costs, ensure_ascii=False, indent=1), encoding="utf-8")
+
+
+def run_escaleta_v3(topic_id: str) -> dict:
+    """m01a v3: compuerta del pool (rojo → PoolGateRed, sin gastar) + escaleta (Pro, con reintentos)."""
+    from script_engine import m01a_escaleta as me
+    topic = _topic_v3(topic_id)
+    log: list[str] = []
+    esc = _step_cost(topic_id, "escaleta", lambda: me.generate_escaleta(topic, log=log))
+    print("\n".join(log[-8:]))
+    return esc
+
+
+def run_guion_v3(topic_id: str) -> dict:
+    """m01b v3: guionista (best_of_2) → editor → m01d_particion (contrato de 7 caps) → juez m05.
+    Escribe 01b_guionista_v3, 01b_editor_v3, 01a_skeleton, 01b_narration, 01b_narracion_v3 y 06_judge_narrative."""
+    from script_engine import m01b_guionista as mg
+    from script_engine import m01c_editor as mc
+    from script_engine import m01d_particion as md
+    from script_engine.m05_narrative import judge_narration
+    topic = _topic_v3(topic_id)
+    pool = topic["evidence_pool"]
+    esc = _load_step_output(topic_id, "01a_escaleta.json")
+    log: list[str] = []
+    d = STEPS_DIR / topic_id
+    g = _step_cost(topic_id, "guionista", lambda: mg.write(topic, esc, log=log))
+    (d / "01b_guionista_v3.json").write_text(json.dumps(g, ensure_ascii=False, indent=2), encoding="utf-8")
+    e = _step_cost(topic_id, "editor", lambda: mc.edit(topic, esc, g["parrafos"], log=log))
+    (d / "01b_editor_v3.json").write_text(json.dumps(e, ensure_ascii=False, indent=2), encoding="utf-8")
+    part = _step_cost(topic_id, "particion", lambda: md.particionar(topic, esc, e["parrafos"], pool, log=log,
+                                                                     shorten=md.editor_shorten()))
+    judge = judge_narration(topic_id, pool=pool, narration=part["narration"], skeleton=part["skeleton"])
+    print("\n".join(log[-12:]))
+    return {"guionista": g, "editor": e, "particion": part, "juez": judge}
+
+
+# ═══════════════════════════════════════════════════════════════
 #  PIPELINE POR TOPIC
 # ═══════════════════════════════════════════════════════════════
 
@@ -169,6 +242,7 @@ def process_topic(
     gate_interactive: bool = True,
     music_gate_interactive: bool = True,
     stop_after_step: str | None = None,
+    v3: bool = False,
 ) -> dict:
     """Corre la cadena m01a → m03 + assemble para 1 topic, reanudando desde from_step.
 
@@ -198,8 +272,23 @@ def process_topic(
     result = {"topic_id": topic_id, "steps_completed": [], "status": "RUNNING"}
 
     try:
+        # F10: guion v3 (--v3 o topic["guion_version"] == 3) — m01a = compuerta + escaleta; m01b = guionista →
+        # editor → partición (deja 01a_skeleton/01b_narration con el contrato de siempre) → juez. Lo demás, igual.
+        use_v3 = is_v3_topic(_load_topic_by_id(topic_id), v3)
+        if use_v3:
+            print(f"  [v3] guion v3 (escaleta → guionista → editor → partición)")
+
         # m01a — skeleton
-        if from_step in ("m01a",):
+        if from_step in ("m01a",) and use_v3:
+            print(f"  [01a v3] Compuerta del pool + escaleta...")
+            run_escaleta_v3(topic_id)
+            skeleton = None
+            result["steps_completed"].append("m01a")
+            if stop_after_step == "m01a":
+                result["status"] = "PASS"
+                print(f"\n  ✅ Topic {topic_id} OK (stop after m01a) — pasos: {result['steps_completed']}")
+                return result
+        elif from_step in ("m01a",):
             topic = _load_topic_by_id(topic_id)
             print(f"  [01a] Generando skeleton...")
             skeleton = generate_skeleton(topic)
@@ -213,7 +302,17 @@ def process_topic(
             skeleton = None  # se carga abajo si hace falta
 
         # m01b — narración
-        if from_step in ("m01a", "m01b"):
+        if from_step in ("m01a", "m01b") and use_v3:
+            print(f"  [01b v3] Guionista → editor → partición → juez...")
+            v3out = run_guion_v3(topic_id)
+            topic = _topic_v3(topic_id)
+            skeleton, narration = v3out["particion"]["skeleton"], v3out["particion"]["narration"]
+            result["steps_completed"].append("m01b")
+            if stop_after_step == "m01b":
+                result["status"] = "PASS"
+                print(f"\n  ✅ Topic {topic_id} OK (stop after m01b) — pasos: {result['steps_completed']}")
+                return result
+        elif from_step in ("m01a", "m01b"):
             if skeleton is None:
                 topic = _load_topic_by_id(topic_id)
                 skeleton = _load_skeleton(topic_id)
@@ -490,6 +589,8 @@ def main():
                         choices=VALID_FROM_STEPS,
                         help="Correr SOLO este módulo (equivale a --from <step> + cortar "
                              "después). Útil para validar 1 módulo aislado sin arrastrar la cadena.")
+    parser.add_argument("--from", dest="from_arg", type=str, default=None, choices=VALID_FROM_STEPS,
+                        help="F10: reanudar desde este módulo y seguir la cadena hasta assemble")
     parser.add_argument("--csv", type=str, default=None,
                         help="Path al CSV editado (default: data/fase1_review.csv)")
     parser.add_argument("--no-gate", dest="no_gate", action="store_true",
@@ -499,6 +600,9 @@ def main():
                         help="Skipear el gate interactivo de m07 music_director "
                              "(modo batch nocturno; todos los tracks generados "
                              "se aprueban automáticamente)")
+    parser.add_argument("--v3", action="store_true",
+                        help="F10: guion v3 (compuerta → escaleta → guionista → editor → partición → juez); también "
+                             "corre solo si el topic tiene guion_version == 3")
     parser.add_argument("--batch", action="store_true",
                         help="Modo batch desatendido: desactiva los gates del medio "
                              "(normalizer_gate + music_gate). Equivale a "
@@ -517,7 +621,7 @@ def main():
         args.from_step = args.only_step
         stop_after_step = args.only_step
     else:
-        args.from_step = "m01a"
+        args.from_step = args.from_arg or "m01a"
         stop_after_step = None
 
 
@@ -546,6 +650,7 @@ def main():
             gate_interactive=gate_interactive,
             music_gate_interactive=music_gate_interactive,
             stop_after_step=stop_after_step,
+            v3=args.v3,
         ))
         
     # Resumen final

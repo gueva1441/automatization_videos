@@ -167,9 +167,11 @@ def beats_block(cap_beats: list[dict], assign: list[dict], bullets: list | None 
         if b.get("escala"):
             extra += " · SCALE: hundreds of people, filling the frame (never a handful of figures)"
         if WEAPON_ES.search(b.get("imagen_sensorial") or ""):
-            extra += (" · WEAPON BEAT: tell it from the victims or the witness (people crouching in the water, a "
-                      "witness watching from a terrace, still silhouettes on a far rooftop); never the shot, never "
-                      "the shooter as subject")
+            # F10 §0.2 (Omar): la imagen es SIEMPRE la reacción de las víctimas o del testigo; el tirador no aparece
+            # nunca, ni lejos
+            extra += (" · WEAPON BEAT: show ONLY the reaction of the victims or the witness (people crouching in the "
+                      "water, faces turned up, a witness watching from a terrace); the shooter and the weapon NEVER "
+                      "appear, not even far away or as a silhouette")
         lines.append(f"  [{i}] beat {a['beat']} · {b.get('funcion') or ''} · emotion {b.get('emocion') or ''} · "
                      f"intensity {b.get('intensidad') or ''}{extra}\n      SEEN: «{b.get('imagen_sensorial') or ''}»")
     ctx = ""
@@ -489,9 +491,9 @@ COMPOSITION_RULES_V3 = """COMPOSITION RULES (v3 — HARD, the prompt is validate
    ("toward the window", "beside the podium", "a few men").
 4. At most a QUARTER of the images show a person in medium shot; prefer places, objects, distance and silhouettes.
    Every cap has at least ONE establishing / exterior image (the place seen from outside or from above).
-5. WEAPONS: never a muzzle flash, never a weapon in first person, never framed from the shooter. A weapon only at
-   rest, at a distance, from behind. The camera is WITH THE VICTIMS OR THE WITNESS (crouching in the water, watching
-   from a terrace; still silhouettes on a far rooftop).
+5. WEAPONS: never a muzzle flash, never a weapon in first person, never framed from the shooter. When a beat is
+   about shooting, the SHOOTER NEVER APPEARS (not even far away or as a silhouette): the image is the REACTION of
+   the victims or the witness (crouching in the water, faces turned up, watching from a terrace).
 6. The PEAK image is at HUMAN scale: a person, a group or a human trace — never an object or a weapon in detail.
 7. NO readable text by default (no signage, no labels). Only if the beat demands it: in the LANGUAGE OF THE PLACE of
    the event (given in the user prompt), at most 3 words. Never Spanish on documents of another country.

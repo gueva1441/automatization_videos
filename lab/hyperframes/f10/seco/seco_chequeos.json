@@ -1,0 +1,93 @@
+{
+ "pasos": [
+  "m01a",
+  "m01b",
+  "normalizer_gate",
+  "audio",
+  "m07",
+  "m03",
+  "assemble"
+ ],
+ "status": "PASS",
+ "llamadas_simuladas": {
+  "escaleta": 1,
+  "guionista": 1,
+  "editor": 1
+ },
+ "skeleton_7_caps_con_contrato": true,
+ "titulos": [
+  "El sabor amargo",
+  "Antes de la tormenta",
+  "Voces en el viento",
+  "La marea negra",
+  "La luz del disparo",
+  "Naranjas bajo el sol",
+  "La lista olvidada"
+ ],
+ "titulos_fuente": "flash",
+ "particion_notas": [],
+ "narracion_7_caps_con_contrato": true,
+ "narration_tts_limpia_igual_a_narration": true,
+ "audio_recibe_narration_tts": true,
+ "audio_text_sin_etiquetas": true,
+ "palabras_por_cap": [
+  117,
+  213,
+  181,
+  184,
+  169,
+  171,
+  108
+ ],
+ "juez": true,
+ "normalizado": true,
+ "m03_v3_activo": true,
+ "m03_auditoria": {
+  "total": 76,
+  "motivos": {},
+  "exceso_motivos": [],
+  "cuerpos": [],
+  "exceso_cuerpos": [],
+  "humano_medio": 0,
+  "caps_sin_establecimiento": []
+ },
+ "imagenes_por_cap": [
+  6,
+  15,
+  12,
+  12,
+  11,
+  12,
+  6
+ ],
+ "final_caps": 7,
+ "fase2a_normaliza": true,
+ "marca_sensible_en_final": true,
+ "pantalla_ids": [
+  [
+   "Q177"
+  ],
+  [
+   "D18",
+   "Q112"
+  ],
+  [
+   "D292",
+   "T64"
+  ],
+  [
+   "D25"
+  ],
+  [
+   "Q154",
+   "D431"
+  ],
+  [
+   "D08"
+  ],
+  [
+   "D05",
+   "D167"
+  ]
+ ]
+}

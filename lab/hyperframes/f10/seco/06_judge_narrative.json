@@ -1,0 +1,280 @@
+{
+ "caps": [
+  {
+   "palabras": 117,
+   "datos_usados": [
+    "Q184"
+   ],
+   "densidad": 0.85,
+   "adjetivos": 2,
+   "adj_100": 1.71,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.85,
+   "densidad_regex": 11.11,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 213,
+   "datos_usados": [
+    "T55",
+    "Q08",
+    "Q24"
+   ],
+   "densidad": 1.41,
+   "adjetivos": 1,
+   "adj_100": 0.47,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.41,
+   "densidad_regex": 6.1,
+   "declarados_no_literales": [
+    "D30",
+    "D35"
+   ],
+   "trigramas_repetidos": 0.009
+  },
+  {
+   "palabras": 181,
+   "datos_usados": [
+    "T76",
+    "T80"
+   ],
+   "densidad": 1.1,
+   "adjetivos": 4,
+   "adj_100": 2.21,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.55,
+   "densidad_regex": 7.18,
+   "declarados_no_literales": [
+    "D47",
+    "D545",
+    "D139"
+   ],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 184,
+   "datos_usados": [
+    "T93",
+    "D09",
+    "D228",
+    "D193",
+    "D182"
+   ],
+   "densidad": 2.72,
+   "adjetivos": 5,
+   "adj_100": 2.72,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [
+    [
+     "hasta el pecho",
+     2
+    ],
+    [
+     "2",
+     2
+    ],
+    [
+     "1",
+     4
+    ]
+   ],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.72,
+   "densidad_regex": 33.7,
+   "declarados_no_literales": [
+    "D414"
+   ],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 169,
+   "datos_usados": [
+    "Q14",
+    "Q47",
+    "Q146"
+   ],
+   "densidad": 1.78,
+   "adjetivos": 2,
+   "adj_100": 1.18,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.78,
+   "densidad_regex": 7.1,
+   "declarados_no_literales": [
+    "Q42",
+    "D187",
+    "T08"
+   ],
+   "trigramas_repetidos": 0.0312
+  },
+  {
+   "palabras": 171,
+   "datos_usados": [
+    "D07"
+   ],
+   "densidad": 0.58,
+   "adjetivos": 3,
+   "adj_100": 1.75,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 0.58,
+   "densidad_regex": 7.02,
+   "declarados_no_literales": [
+    "D207",
+    "D550"
+   ],
+   "trigramas_repetidos": 0.0316
+  },
+  {
+   "palabras": 108,
+   "datos_usados": [
+    "D190",
+    "D185",
+    "Q60",
+    "Q50"
+   ],
+   "densidad": 3.7,
+   "adjetivos": 0,
+   "adj_100": 0.0,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.78,
+   "densidad_regex": 27.78,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0145
+  }
+ ],
+ "video": {
+  "densidad": 1.66,
+  "adj_100": 1.49,
+  "trigramas_repetidos": 0.0124,
+  "datos_en_mas_de_2_caps": {},
+  "antagonista_nombrado": true,
+  "antagonista": "Marlin Gusman",
+  "cliffhangers": [
+   {
+    "cap": 1,
+    "id": "Q08",
+    "texto": "Vamos a mantener a nuestros prisioneros donde pertenecen.",
+    "ok": true,
+    "en_cierre": [
+     "mantener"
+    ]
+   },
+   {
+    "cap": 2,
+    "id": "T76",
+    "texto": "Los generadores perdieron energía.",
+    "ok": true,
+    "en_cierre": [
+     "generadores",
+     "energía"
+    ]
+   },
+   {
+    "cap": 3,
+    "id": "T93",
+    "texto": "Los oficiales comenzaron a evacuar a los prisioneros de los edificios Templeman 1 y 2 cuando las aguas de la inundación alcanzaron el nivel del pecho.",
+    "ok": true,
+    "en_cierre": [
+     "oficiales",
+     "evacuar",
+     "prisioneros"
+    ]
+   },
+   {
+    "cap": 4,
+    "id": "Q14",
+    "texto": "Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD disparando a los reclusos... Recuerdo que pensé: '¿En qué diablos me he metido?'",
+    "ok": true,
+    "en_cierre": [
+     "terraza",
+     "edificio"
+    ]
+   },
+   {
+    "cap": 5,
+    "id": "T08",
+    "texto": "Tras el huracán Katrina, reclusos de la Prisión Parroquial de Orleans (OPP) son vistos con monos naranjas en el paso elevado de Broad Street.",
+    "ok": true,
+    "en_cierre": [
+     "Katrina",
+     "Orleans",
+     "Broad",
+     "Street",
+     "elevado"
+    ]
+   },
+   {
+    "cap": 6,
+    "id": "D185",
+    "texto": "517 reclusos están desaparecidos de la lista de personas evacuadas de la cárcel.",
+    "ok": true,
+    "en_cierre": [
+     "reclusos",
+     "desaparecidos"
+    ]
+   }
+  ],
+  "datos_distintos": 19,
+  "palabras": 1143,
+  "conteo": "por_id",
+  "caps_con_repetidos_en_cap": [
+   4
+  ],
+  "caps_fuera_de_adjetivos": [
+   1,
+   2,
+   5,
+   6,
+   7
+  ],
+  "nombres_sin_accion": [],
+  "cifras_no_canonicas": [],
+  "problemas_de_fechas": 0,
+  "pantalla_dichos": [],
+  "densidad_hechos": 1.49,
+  "densidad_regex": 13.56,
+  "umbral": {
+   "densidad": false,
+   "repeticion": true,
+   "adjetivacion": false,
+   "repeticion_en_cap": false,
+   "nombres": true,
+   "antagonista": true,
+   "cliffhanger": true
+  }
+ },
+ "umbrales": {
+  "densidad_min": 2.0,
+  "max_caps_por_dato": 2,
+  "trigramas_max": 0.05,
+  "adj_100_min": 2.0,
+  "adj_100_max": 4.0
+ },
+ "violaciones_narrador": {}
+}
