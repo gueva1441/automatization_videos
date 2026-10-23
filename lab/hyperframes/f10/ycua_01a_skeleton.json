@@ -23,7 +23,7 @@
     },
     {
       "chapter_number": 2,
-      "title": "El Carrito Repleto",
+      "title": "Carritos Llenos",
       "role": "development",
       "render_engine": "flux",
       "duration_seconds": 105,
@@ -47,7 +47,7 @@
     },
     {
       "chapter_number": 3,
-      "title": "La Nube Negra",
+      "title": "Humo en Pasillos",
       "role": "development",
       "render_engine": "flux",
       "duration_seconds": 105,
@@ -70,7 +70,7 @@
     },
     {
       "chapter_number": 4,
-      "title": "Manos en el Vidrio",
+      "title": "Manos en Vidrio",
       "role": "development",
       "render_engine": "flux",
       "duration_seconds": 105,
@@ -92,14 +92,14 @@
     },
     {
       "chapter_number": 5,
-      "title": "Bola de Fuego",
+      "title": "El Fuego Cae",
       "role": "development",
       "render_engine": "flux",
       "duration_seconds": 105,
       "narrative_intent": "consequences",
       "bullets": [
         "Una bola de fuego que recorre el techo del supermercado y cae sobre la gente en el patio de comidas. · Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bolaños.",
-        "Cuerpos cubiertos con sábanas blancas, alineados en el piso de una discoteca vacía. · después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!"
+        "Cuerpos cubiertos con sábanas blancas, alineados en el piso de una discoteca vacía. · Oficialmente, en el incendio hubo 327 muertos, además de los desaparecidos."
       ],
       "evidence_ids": [
         "T21",
@@ -109,13 +109,12 @@
       ],
       "cliffhanger": "D19",
       "pantalla_ids": [
-        "Q54",
-        "D192"
+        "Q54"
       ]
     },
     {
       "chapter_number": 6,
-      "title": "El Mazo del Juez",
+      "title": "En el Tribunal",
       "role": "development",
       "render_engine": "flux",
       "duration_seconds": 105,
@@ -139,7 +138,7 @@
     },
     {
       "chapter_number": 7,
-      "title": "Velas en las Ruinas",
+      "title": "Velas en Ruinas",
       "role": "reveal_outro",
       "render_engine": "veo",
       "duration_seconds": 45,
@@ -207,7 +206,9 @@
       "por_que": "Es el momento exacto en que el fuego se vuelve un infierno ineludible, la explosión que sella el destino de cientos de personas ya atrapadas."
     },
     "particion": {
-      "notas": [],
+      "notas": [
+        "cap 3: 0 caracteres < 680 (corto; aviso, no se inventa texto)"
+      ],
       "titulos": "flash"
     }
   }

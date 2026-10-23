@@ -57,7 +57,7 @@ Curva: 1:4 → 2:1 → 3:2 → 4:2 → 5:3 → 6:4 → 7:4 → 8:5 → 9:1 → 1
 **Beat 6 — giro · Indignación · intensidad 4 · 125 pal.**
 - Imagen: Un guardia de seguridad escuchando una orden por su radio mientras el caos empieza.
 - Dato central: Q35 «Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iba…» — Digna Felicia Cáceres
-- Apoyo: T06 «Se dan las órdenes de cerrar las puertas de acceso al supermercado.»
+- Apoyo: T06 «Se dan las órdenes de cerrar las puertas de acceso al supermercado.»; T19 «Teresa Urbieta y sus hijas pasan a buscar a Estela para ir al río.»; T20 «Julia López se despide de su hermana María Angélica.»
 - Queda abierta: ¿Por qué alguien daría una orden así?
 - Cierre: La orden se cumplió. Las puertas de vidrio, que debían ser una salida, se convirtieron en un muro.
 
@@ -69,7 +69,7 @@ Curva: 1:4 → 2:1 → 3:2 → 4:2 → 5:3 → 6:4 → 7:4 → 8:5 → 9:1 → 1
 - Pregunta en pantalla: **¿Quién cumplió esa orden?**
 - Cierre: Atrapados entre el humo y las puertas cerradas, solo les quedaba esperar. Y entonces, todo explotó.
 
-## Cap 5 · development · 250 palabras · pantalla (no se narra): Q54, D192
+## Cap 5 · development · 250 palabras · pantalla (no se narra): Q54
 
 **Beat 8 — pico · Terror · intensidad 5 · 125 pal.**
 - Imagen: Una bola de fuego que recorre el techo del supermercado y cae sobre la gente en el patio de comidas.
@@ -80,7 +80,8 @@ Curva: 1:4 → 2:1 → 3:2 → 4:2 → 5:3 → 6:4 → 7:4 → 8:5 → 9:1 → 1
 
 **Beat 9 — respiro · Duelo · intensidad 1 · CONTADOR en pantalla · 125 pal.**
 - Imagen: Cuerpos cubiertos con sábanas blancas, alineados en el piso de una discoteca vacía.
-- Dato central: Q53 «después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!» — Nelson Astigarraga
+- Dato central: D192 «Oficialmente, en el incendio hubo 327 muertos, además de los desaparecidos.»
+- Apoyo: Q53 «después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!» — Nelson Astigarraga; T25 «Blas Cristaldo y otros comienzan la búsqueda de sus familiares y se enteran de que Rubén Urbieta ha sido identificado como una de las víc…»; T27 «Blas Cristaldo retira el cuerpo de su esposa Estela del estacionamiento del supermercado.»
 - Queda abierta: ¿Cómo pudieron identificar a las víctimas?
 - Pregunta en pantalla: **¿Cuántos no volverían a casa?**
 - Cierre: Mientras las familias buscaban a sus desaparecidos, la justicia empezaba a buscar a los culpables.
@@ -107,16 +108,15 @@ Curva: 1:4 → 2:1 → 3:2 → 4:2 → 5:3 → 6:4 → 7:4 → 8:5 → 9:1 → 1
 **Beat 12 — cierre · Memoria · intensidad 2 · humano en escena · 140 pal.**
 - Imagen: Cientos de velas encendidas sobre las baldosas rotas de lo que fue un supermercado.
 - Dato central: Q77 «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida» — Liz Torres
-- Apoyo: D196 «El incendio dejó 204 huérfanos.»; D195 «La tragedia del Ycuá Bolaños dejó 244 heridos.»
+- Apoyo: D196 «El incendio dejó 204 huérfanos.»; Q03 «Solo queda vivir la vida como una persona normal y tratar de superarse cada día. ¿Para qué quedarnos con ese dolor y ese pasado?» — Tatiana Gabaglio
 - Queda abierta: ¿Cómo se vive después de sobrevivir al infierno?
 - Pregunta en pantalla: **¿Cuántas puertas siguen cerradas?**
-- Cierre: El lema de Liz Torres y los sobrevivientes resuena cada año: 'Que nunca más'.
+- Cierre: Termina en la cita de Liz Torres (Q77) después de la contradicción pericia–testimonios y una pregunta.
 
 ## A pantalla (la escaleta lo manda a pantalla; la voz no lo dice)
 
 - cap 4: Q62 «No, eso es muy caro.» — Juan Pío Paiva — Muestra la mentalidad de ahorro de costos del dueño, que es clave para entender la negligencia.
 - cap 5: Q54 «¡Qué lo que estás haciendo, estás rompiendo todo mi supermercado!» — Daniel Paiva — Expone la increíble desconexión de la familia dueña con la tragedia humana que estaba ocurriendo.
-- cap 5: D192 «Oficialmente, en el incendio hubo 327 muertos, además de los desaparecidos.» — Para mostrar en pantalla la cifra oficial de muertos según la Corte, sin que el narrador tenga que entrar en el detalle numérico.
 - cap 6: D189 «En primera instancia, el juez Enrique Mongelós condenó a Paiva, su esposa, Humberto Casaccia y Antoliana Burgos a pagar G. 5.000 millones.» — Visualizar la cifra de la condena económica, que luego fue revocada, muestra la dificultad de la reparación.
 
 ## Instrucciones al guionista (deterministas)
@@ -130,8 +130,13 @@ Curva: 1:4 → 2:1 → 3:2 → 4:2 → 5:3 → 6:4 → 7:4 → 8:5 → 9:1 → 1
 - Q53 (de Nelson Astigarraga) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).
 - Q62 va a pantalla (cap 4): la voz no lo dice.
 - Q54 va a pantalla (cap 5): la voz no lo dice.
-- D192 va a pantalla (cap 5): la voz no lo dice.
 - D189 va a pantalla (cap 6): la voz no lo dice.
+- NOTA DEL ANALISTA 1 — CIERRE (cap 7): la contradicción entre la pericia (solo tres puertas cerradas: azotea, mirador y administración) y los cientos de testimonios de portones cerrados por los guardias; después UNA pregunta; y la ÚLTIMA FRASE DEL VIDEO es la cita de Liz Torres «Soy la vida de muchas personas que cayeron sobre mi cuerpo» (Q77). Sin resumen, sin activismo, sin «su lucha», sin «que la memoria no se apague».
+- NOTA DEL ANALISTA 2 — FECHAS: la fecha completa «1 de agosto de 2004» se dice UNA sola vez en todo el video (en el gancho, con el ancla de lugar). Después: «ese domingo», «esa mañana», «esa noche». Como máximo una fecha literal por cap. Un evento contado con «ese domingo» cuenta como dicho.
+- NOTA DEL ANALISTA 3 — PICO (cap 5): la hora «11:25» suena en la voz, tal cual, en el momento de la explosión.
+- NOTA DEL ANALISTA 4 — SIN JUICIOS NI RELLENO: nada de «fue una masacre», «un peligro que nadie veía», «solo podían esperar un milagro», «un infierno», «el silencio era aterrador». Cada frase cuenta un hecho, una cita o una pregunta.
+- NOTA DEL ANALISTA 5 — LARGO: los caps 4, 5 y 7 llegan a su mínimo con material del pool: Blas Cristaldo hora por hora (T19: Teresa y sus hijas pasan a buscar a Estela a las 10:30; T25 y T27: la búsqueda y las 22:30, cuando retira el cuerpo de Estela del estacionamiento) y Tatiana Gabaglio como la adulta que hoy recuerda (Q03), nunca como niña.
+- NOTA DEL ANALISTA 6 — 327: la cifra oficial (D192, «oficialmente 327 muertos, además de los desaparecidos») se dice UNA vez en la voz, en el beat 9 (la morgue); en ese momento sube el contador en pantalla.
 
 ## Reservados movidos por fecha
 

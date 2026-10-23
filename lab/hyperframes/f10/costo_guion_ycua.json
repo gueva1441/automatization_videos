@@ -24,7 +24,22 @@
    "paso": "particion",
    "usd": 0.003,
    "segundos": 5.6
+  },
+  {
+   "paso": "guionista",
+   "usd": 0.1872,
+   "segundos": 152.5
+  },
+  {
+   "paso": "editor",
+   "usd": 0.1874,
+   "segundos": 232.1
+  },
+  {
+   "paso": "particion",
+   "usd": 0.0032,
+   "segundos": 5.9
   }
  ],
- "usd_total": 0.8848
+ "usd_total": 1.2626
 }

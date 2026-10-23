@@ -218,7 +218,15 @@ def particionar(topic: dict, esc: dict, parrafos: list[dict], pool: dict, *, per
         d.mkdir(parents=True, exist_ok=True)
         for name, obj in (("01a_skeleton.json", sk), ("01b_narration.json", na), ("01b_narracion_v3.json", n3)):
             (d / name).write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
+    empty = [c["chapter_number"] for c in na["chapters"] if not c["narration"].strip()]
+    if empty:                                       # F10: un cap sin texto rompe el audio y todo lo de abajo
+        raise ParticionError(f"caps sin narración: {empty} (el guionista no escribió sus beats); los archivos quedan "
+                             f"escritos para leerlos, pero la cadena no sigue")
     return {"skeleton": sk, "narration": na, "narracion_v3": n3, "notas": notes}
+
+
+class ParticionError(ValueError):
+    """La partición dejó un cap sin narración: la cadena no puede seguir a audio."""
 
 
 def regenerate_cap(topic: dict, esc: dict, parrafos: list[dict], cap: int, *,

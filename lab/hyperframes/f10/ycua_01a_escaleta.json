@@ -117,7 +117,9 @@
       "intensidad": 4,
       "dato_central": "Q35",
       "datos_apoyo": [
-        "T06"
+        "T06",
+        "T19",
+        "T20"
       ],
       "humano_en_escena": false,
       "imagen_sensorial": "Un guardia de seguridad escuchando una orden por su radio mientras el caos empieza.",
@@ -168,8 +170,12 @@
       "funcion": "respiro",
       "emocion": "Duelo",
       "intensidad": 1,
-      "dato_central": "Q53",
-      "datos_apoyo": [],
+      "dato_central": "D192",
+      "datos_apoyo": [
+        "Q53",
+        "T25",
+        "T27"
+      ],
       "humano_en_escena": false,
       "imagen_sensorial": "Cuerpos cubiertos con sábanas blancas, alineados en el piso de una discoteca vacía.",
       "pregunta_abierta": "¿Cómo pudieron identificar a las víctimas?",
@@ -224,13 +230,13 @@
       "dato_central": "Q77",
       "datos_apoyo": [
         "D196",
-        "D195"
+        "Q03"
       ],
       "humano_en_escena": true,
       "imagen_sensorial": "Cientos de velas encendidas sobre las baldosas rotas de lo que fue un supermercado.",
       "pregunta_abierta": "¿Cómo se vive después de sobrevivir al infierno?",
       "pregunta_pantalla": "¿Cuántas puertas siguen cerradas?",
-      "cierre": "El lema de Liz Torres y los sobrevivientes resuena cada año: 'Que nunca más'.",
+      "cierre": "Termina en la cita de Liz Torres (Q77) después de la contradicción pericia–testimonios y una pregunta.",
       "palabras_objetivo": 140,
       "pregunta_valida": true
     }
@@ -245,11 +251,6 @@
       "id": "Q54",
       "cap": 5,
       "por_que": "Expone la increíble desconexión de la familia dueña con la tragedia humana que estaba ocurriendo."
-    },
-    {
-      "id": "D192",
-      "cap": 5,
-      "por_que": "Para mostrar en pantalla la cifra oficial de muertos según la Corte, sin que el narrador tenga que entrar en el detalle numérico."
     },
     {
       "id": "D189",
@@ -322,8 +323,13 @@
     "Q53 (de Nelson Astigarraga) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
     "Q62 va a pantalla (cap 4): la voz no lo dice.",
     "Q54 va a pantalla (cap 5): la voz no lo dice.",
-    "D192 va a pantalla (cap 5): la voz no lo dice.",
-    "D189 va a pantalla (cap 6): la voz no lo dice."
+    "D189 va a pantalla (cap 6): la voz no lo dice.",
+    "NOTA DEL ANALISTA 1 — CIERRE (cap 7): la contradicción entre la pericia (solo tres puertas cerradas: azotea, mirador y administración) y los cientos de testimonios de portones cerrados por los guardias; después UNA pregunta; y la ÚLTIMA FRASE DEL VIDEO es la cita de Liz Torres «Soy la vida de muchas personas que cayeron sobre mi cuerpo» (Q77). Sin resumen, sin activismo, sin «su lucha», sin «que la memoria no se apague».",
+    "NOTA DEL ANALISTA 2 — FECHAS: la fecha completa «1 de agosto de 2004» se dice UNA sola vez en todo el video (en el gancho, con el ancla de lugar). Después: «ese domingo», «esa mañana», «esa noche». Como máximo una fecha literal por cap. Un evento contado con «ese domingo» cuenta como dicho.",
+    "NOTA DEL ANALISTA 3 — PICO (cap 5): la hora «11:25» suena en la voz, tal cual, en el momento de la explosión.",
+    "NOTA DEL ANALISTA 4 — SIN JUICIOS NI RELLENO: nada de «fue una masacre», «un peligro que nadie veía», «solo podían esperar un milagro», «un infierno», «el silencio era aterrador». Cada frase cuenta un hecho, una cita o una pregunta.",
+    "NOTA DEL ANALISTA 5 — LARGO: los caps 4, 5 y 7 llegan a su mínimo con material del pool: Blas Cristaldo hora por hora (T19: Teresa y sus hijas pasan a buscar a Estela a las 10:30; T25 y T27: la búsqueda y las 22:30, cuando retira el cuerpo de Estela del estacionamiento) y Tatiana Gabaglio como la adulta que hoy recuerda (Q03), nunca como niña.",
+    "NOTA DEL ANALISTA 6 — 327: la cifra oficial (D192, «oficialmente 327 muertos, además de los desaparecidos») se dice UNA vez en la voz, en el beat 9 (la morgue); en ese momento sube el contador en pantalla."
   ],
   "caps": [
     {
@@ -414,8 +420,7 @@
       ],
       "cliffhanger": "D19",
       "pantalla_ids": [
-        "Q54",
-        "D192"
+        "Q54"
       ],
       "palabras_objetivo": 250
     },
@@ -469,5 +474,23 @@
       "cap 6: pantalla ['D222', 'T65']",
       "cap 7: pantalla ['D179', 'D203']"
     ]
-  }
+  },
+  "_ajuste_f10": {
+    "notas": [
+      "NOTA DEL ANALISTA 1 — CIERRE (cap 7): la contradicción entre la pericia (solo tres puertas cerradas: azotea, mirador y administración) y los cientos de testimonios de portones cerrados por los guardias; después UNA pregunta; y la ÚLTIMA FRASE DEL VIDEO es la cita de Liz Torres «Soy la vida de muchas personas que cayeron sobre mi cuerpo» (Q77). Sin resumen, sin activismo, sin «su lucha», sin «que la memoria no se apague».",
+      "NOTA DEL ANALISTA 2 — FECHAS: la fecha completa «1 de agosto de 2004» se dice UNA sola vez en todo el video (en el gancho, con el ancla de lugar). Después: «ese domingo», «esa mañana», «esa noche». Como máximo una fecha literal por cap. Un evento contado con «ese domingo» cuenta como dicho.",
+      "NOTA DEL ANALISTA 3 — PICO (cap 5): la hora «11:25» suena en la voz, tal cual, en el momento de la explosión.",
+      "NOTA DEL ANALISTA 4 — SIN JUICIOS NI RELLENO: nada de «fue una masacre», «un peligro que nadie veía», «solo podían esperar un milagro», «un infierno», «el silencio era aterrador». Cada frase cuenta un hecho, una cita o una pregunta.",
+      "NOTA DEL ANALISTA 5 — LARGO: los caps 4, 5 y 7 llegan a su mínimo con material del pool: Blas Cristaldo hora por hora (T19: Teresa y sus hijas pasan a buscar a Estela a las 10:30; T25 y T27: la búsqueda y las 22:30, cuando retira el cuerpo de Estela del estacionamiento) y Tatiana Gabaglio como la adulta que hoy recuerda (Q03), nunca como niña.",
+      "NOTA DEL ANALISTA 6 — 327: la cifra oficial (D192, «oficialmente 327 muertos, además de los desaparecidos») se dice UNA vez en la voz, en el beat 9 (la morgue); en ese momento sube el contador en pantalla."
+    ],
+    "cambios": [
+      "D192: de a_pantalla a dato central del beat 9 con contador",
+      "beat 9 apoyo Q53, T25, T27",
+      "beat 6 apoyo + T19, T20",
+      "beat 12 apoyo D196, Q03",
+      "beat 12 cierre: cita de Liz"
+    ]
+  },
+  "_reparaciones_ajuste": []
 }

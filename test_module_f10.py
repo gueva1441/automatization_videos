@@ -185,3 +185,12 @@ def test_validador_de_cuadro_congelado(tmp_path):
     r = fc.check(mov)
     assert not r["ok"] and abs(r["congelados"][0][0] - 4.0) < 0.3      # el gris quieto desde los 4 s
     assert fc.check(mov, allow=[(3.9, 7.1)])["ok"]                     # una pausa a propósito no cuenta
+
+
+def test_cap_vacio_frena_la_cadena(tmp_path, monkeypatch):
+    monkeypatch.setattr(md, "STEPS_DIR", tmp_path)
+    esc = _esc()
+    ps = [p for p in _parrafos(esc) if p["cap"] != 3]        # el guionista se salteó los beats del cap 3
+    with pytest.raises(md.ParticionError):
+        md.particionar({"id": "t2"}, esc, ps, POOL, call_titles=lambda p, **k: {"titulos": []})
+    assert (tmp_path / "t2" / "01b_narration.json").exists()   # quedan escritos para leerlos

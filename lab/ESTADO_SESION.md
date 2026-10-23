@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-22 (F10 en PARADA §4.3 en `f10-integracion-v3`: guion de Ycuá Bolaños listo para leer) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-23 (F10: el ajuste del guion de Ycuá no cumplió el criterio → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f6-guion-v3`** (desde `45c052c`, tip de `f5-guion-v2`, que sale de `39e37ac`). Último commit: «docs(f6): F6c cerrado como laboratorio…» (`git log -1`) en f6-guion-v3, sobre `7ec2025`; f5-guion-v2 termina en `45c052c` («F5f: cierre Orleans (lab)»).
@@ -11,7 +11,13 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
 
-## F10 — Integración v3 + Ycuá Bolaños — **PARADA §4.3: guion de Ycuá Bolaños listo para leer** (esperando el OK de Omar)
+## F10 — Ajuste de Ycuá: **NO cumplió el criterio → PARADA** (esperando decisión de Omar)
+- Leer `lab/hyperframes/f10/F10_AJUSTE_REPORT.md` (revisor íntegro) y `ajuste_chequeos.json`. Cierre en la cita de Liz ✅, 11:25 ✅, fecha doble en el cap 5 ❌, 26 duras ❌ (tope 12) y **cap 3 vacío** (el guionista se salteó los beats 4 y 5). No se empezó producción.
+- Hecho además: regla de fechas + paráfrasis «ese domingo» (m05), juicios nuevos, título provisional «Ycuá Bolaños: el domingo que cerraron las puertas», `ParticionError` si un cap queda vacío, B1 adelantado (ventana dispersa ≠ 100 %, `script_engine/freeze_check.py`).
+- Versiones: v1 en `_steps/f8s1-ycua-bolanos/*_v1.json` y `lab/hyperframes/f10/*_v1.*`; la del ajuste es la vigente en los pasos (`*_ajuste.*` en lab).
+- Opciones para Omar (reporte §4): otra corrida con prompt más liviano · editor solo sobre caps flojos desde la v1 · v1 + arreglos a mano.
+
+## F10 — Integración v3 + Ycuá Bolaños — PARADA §4.3 (superada por el ajuste de arriba)
 - Rama **`f10-integracion-v3`** desde `790bec9`. Handoff `lab/hyperframes/f10/HANDOFF_F10_integracion_v3.md`; reporte `lab/hyperframes/f10/F10_PARADA_REPORT.md` (revisor íntegro); decisiones `DECISIONES_F10.md` (D1–D18).
 - **§4.1 hecho:** `fase1_5 --v3` (m01a = compuerta + escaleta; m01b = guionista → editor → `m01d_particion` → juez), `--from <paso>`, contrato de 7 caps con `narration_tts` e `ids_usados`; corrida en seco de Orleans hasta assemble, verde. Arreglado `topic_researcher` (el pool v3 no llegaba al topic).
 - **§4.2 hecho:** topic `f8s1-ycua-bolanos` completado en topics_db (4a–4e); guion: humano Liz Torres, pico T21 11:25, 1,235 palabras, 20 duras. Leer `NARRACION_ycua.md`, `ESCALETA_ycua.md`, `06_judge_ycua.json`.

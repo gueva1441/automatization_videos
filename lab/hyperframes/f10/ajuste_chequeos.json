@@ -1,0 +1,52 @@
+{
+ "cierre_en_cita_de_liz": true,
+ "ultima_frase": "«Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida».",
+ "hora_11_25_en_voz": true,
+ "fechas": [
+  "cap 5: 2 fechas literales (1 de agosto, 1 de agosto; máximo 1 por cap): después de la primera, «ese domingo», «esa noche», «esa mañana»"
+ ],
+ "fecha_max_1_por_cap": false,
+ "duras": 26,
+ "duras_ok": false,
+ "lista_duras": [
+  "faltan los beats [4, 5]",
+  "cap 2: declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): D27, D48",
+  "cap 2: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «las primeras explosiones» ×2",
+  "cap 2: fechas: contaste [T15] sin su fecha (1 de agosto): «Nadie sabía que el desastre ya había comenzado con las primeras explos…»",
+  "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Comienzan a producirse las primeras explosiones en la zona de la panadería.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+  "cap 3 vacío",
+  "cap 4: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q34] «la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. / la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+  "cap 4: declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): Q34, D47",
+  "cap 4: comillas solo para las citas del pool (la frase del research va sin comillas): «la gente corría y volvían todos porque el portón que queda h…»",
+  "cap 5: declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): D101",
+  "cap 5: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «1 de agosto» ×2",
+  "cap 6: declaraste en datos_usados ids que no están LITERALES en la narración (decí la cifra/fecha tal cual o sacalos de la lista): D25, D29",
+  "cap 6: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «12» ×2",
+  "cap 7: 109 palabras: el mínimo del cap es 119 (objetivo 140); contá más hechos del beat con escenas, no adjetivos",
+  "cap 7: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D195] «244»",
+  "beat 9: ninguna frase de 6 palabras o menos",
+  "gancho: adelanta una cita de un cap siguiente («El Ycuá Bolaños era un lugar de esparcimiento, era…»): que suene recién en su cap",
+  "cap 2: repite frases de caps anteriores («un lugar familiar»): decilo de otra forma o no lo repitas",
+  "cap 4: repite frases de caps anteriores («cerrar las puertas»): decilo de otra forma o no lo repitas",
+  "cap 7: repite frases de caps anteriores («personas que cayeron»; «un informe oficial»): decilo de otra forma o no lo repitas",
+  "beat 6 (párrafo 8): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+  "beat 7 (párrafo 10): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+  "beat 10 (párrafo 16): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+  "beat 11 (párrafo 18): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+  "cap 1: «alguien ordenó»: decí quién (el nombre está en los datos)",
+  "cap 5: 2 fechas literales (1 de agosto, 1 de agosto; máximo 1 por cap): después de la primera, «ese domingo», «esa noche», «esa mañana»"
+ ],
+ "palabras": 1127,
+ "palabras_por_cap": [
+  126,
+  238,
+  0,
+  223,
+  215,
+  216,
+  109
+ ],
+ "dice_327": 1,
+ "juicios_viejos": [],
+ "seguir_a_produccion": false
+}

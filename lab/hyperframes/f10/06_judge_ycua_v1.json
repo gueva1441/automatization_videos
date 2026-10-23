@@ -1,0 +1,275 @@
+{
+ "caps": [
+  {
+   "palabras": 121,
+   "datos_usados": [
+    "Q19",
+    "Q20"
+   ],
+   "densidad": 1.65,
+   "adjetivos": 4,
+   "adj_100": 3.31,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.65,
+   "densidad_regex": 4.13,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0317
+  },
+  {
+   "palabras": 214,
+   "datos_usados": [
+    "Q50",
+    "D212",
+    "D210",
+    "T18",
+    "Q17",
+    "D108"
+   ],
+   "densidad": 2.8,
+   "adjetivos": 2,
+   "adj_100": 0.93,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 3.27,
+   "densidad_regex": 10.28,
+   "declarados_no_literales": [],
+   "trigramas_repetidos": 0.0083
+  },
+  {
+   "palabras": 214,
+   "datos_usados": [
+    "T15",
+    "Q26",
+    "Q10"
+   ],
+   "densidad": 1.4,
+   "adjetivos": 8,
+   "adj_100": 3.74,
+   "relleno_seguido": 1,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.4,
+   "densidad_regex": 2.8,
+   "declarados_no_literales": [
+    "D71",
+    "D27",
+    "D48"
+   ],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 181,
+   "datos_usados": [
+    "Q35",
+    "T06"
+   ],
+   "densidad": 1.1,
+   "adjetivos": 6,
+   "adj_100": 3.31,
+   "relleno_seguido": 1,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.1,
+   "densidad_regex": 4.42,
+   "declarados_no_literales": [
+    "D30",
+    "Q34",
+    "D47"
+   ],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 194,
+   "datos_usados": [
+    "T21",
+    "Q70",
+    "Q29",
+    "D93",
+    "Q53"
+   ],
+   "densidad": 2.58,
+   "adjetivos": 6,
+   "adj_100": 3.09,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 2.58,
+   "densidad_regex": 9.28,
+   "declarados_no_literales": [
+    "D101"
+   ],
+   "trigramas_repetidos": 0.0
+  },
+  {
+   "palabras": 214,
+   "datos_usados": [
+    "D19",
+    "D20",
+    "D21"
+   ],
+   "densidad": 1.4,
+   "adjetivos": 1,
+   "adj_100": 0.47,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [
+    [
+     "12",
+     2
+    ]
+   ],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 1.4,
+   "densidad_regex": 5.14,
+   "declarados_no_literales": [
+    "D173",
+    "D25",
+    "D29"
+   ],
+   "trigramas_repetidos": 0.0091
+  },
+  {
+   "palabras": 96,
+   "datos_usados": [
+    "Q77",
+    "D195",
+    "D196",
+    "T05"
+   ],
+   "densidad": 4.17,
+   "adjetivos": 0,
+   "adj_100": 0.0,
+   "relleno_seguido": 0,
+   "relleno_prohibido": [],
+   "conteo": "por_id",
+   "repetidos_en_cap": [],
+   "nombres_sin_accion": [],
+   "densidad_hechos": 4.17,
+   "densidad_regex": 9.38,
+   "declarados_no_literales": [
+    "D13"
+   ],
+   "trigramas_repetidos": 0.0
+  }
+ ],
+ "video": {
+  "densidad": 2.03,
+  "adj_100": 2.19,
+  "trigramas_repetidos": 0.0061,
+  "datos_en_mas_de_2_caps": {},
+  "antagonista_nombrado": true,
+  "antagonista": "Juan Pío Paiva",
+  "cliffhangers": [
+   {
+    "cap": 1,
+    "id": "Q50",
+    "texto": "El Ycuá Bolaños era un lugar de esparcimiento, era un lugar familiar, me quedaba cerca. A mi esposa pues le encantaba recorrer, mirar, comprar las cosas que necesitaba, mirá, era algo tan, tan familiar.",
+    "ok": true,
+    "en_cierre": [
+     "Bolaños",
+     "familiar"
+    ]
+   },
+   {
+    "cap": 2,
+    "id": "T15",
+    "texto": "Comienzan a producirse las primeras explosiones en la zona de la panadería.",
+    "ok": true,
+    "en_cierre": [
+     "primeras",
+     "explosiones"
+    ]
+   },
+   {
+    "cap": 3,
+    "id": "Q35",
+    "texto": "Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.",
+    "ok": true,
+    "en_cierre": [
+     "Paiva",
+     "Porque",
+     "mandaron"
+    ]
+   },
+   {
+    "cap": 4,
+    "id": "T21",
+    "texto": "Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bolaños.",
+    "ok": true,
+    "en_cierre": [
+     "explosión"
+    ]
+   },
+   {
+    "cap": 5,
+    "id": "D19",
+    "texto": "Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio.",
+    "ok": true,
+    "en_cierre": [
+     "Paiva",
+     "condenado"
+    ]
+   },
+   {
+    "cap": 6,
+    "id": "Q77",
+    "texto": "Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida",
+    "ok": true,
+    "en_cierre": [
+     "personas",
+     "salvaron"
+    ]
+   }
+  ],
+  "datos_distintos": 25,
+  "palabras": 1234,
+  "conteo": "por_id",
+  "caps_con_repetidos_en_cap": [
+   6
+  ],
+  "caps_fuera_de_adjetivos": [
+   2,
+   6,
+   7
+  ],
+  "nombres_sin_accion": [],
+  "cifras_no_canonicas": [],
+  "problemas_de_fechas": 0,
+  "pantalla_dichos": [
+   "cap 5: [D192] «Oficialmente, en el incendio hubo 327 muertos, además de los»"
+  ],
+  "densidad_hechos": 2.11,
+  "densidad_regex": 6.4,
+  "umbral": {
+   "densidad": true,
+   "repeticion": true,
+   "adjetivacion": true,
+   "repeticion_en_cap": false,
+   "nombres": true,
+   "antagonista": true,
+   "cliffhanger": true
+  }
+ },
+ "umbrales": {
+  "densidad_min": 2.0,
+  "max_caps_por_dato": 2,
+  "trigramas_max": 0.05,
+  "adj_100_min": 2.0,
+  "adj_100_max": 4.0
+ },
+ "violaciones_narrador": {}
+}
