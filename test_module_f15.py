@@ -22,7 +22,8 @@ F15 = Path(__file__).resolve().parent / "lab" / "hyperframes" / "f15"
 
 
 def _md(name: str) -> str:
-    return (F15 / name).read_text(encoding="utf-8")
+    # git (autocrlf) puede dejar el .md con CRLF en un checkout nuevo: el contenido es el mismo, se compara en LF
+    return (F15 / name).read_text(encoding="utf-8").replace("\r\n", "\n")
 
 
 # ═══════════════════════════════════════════════════════════════
