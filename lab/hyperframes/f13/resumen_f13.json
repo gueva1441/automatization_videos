@@ -1,0 +1,427 @@
+[
+ {
+  "tema": "orl",
+  "nombre": "objetivo (f11c-1, corrida del analista)",
+  "largo": "objetivo",
+  "usd": 0.0608,
+  "segundos": 118,
+  "tokens": {
+   "in": 3027,
+   "out": 5476,
+   "thinking": 3027
+  },
+  "error": null,
+  "bloqueantes": [
+   {
+    "codigo": "d",
+    "cap": 2,
+    "beat": 2,
+    "frase": "El 28 de agosto de 2005, el alcalde C. Ray Nagin declara la primera evacuación obligatoria en la historia de la ciudad. Nueva Orleans debe evacuarse. Pero las puertas de la prisión siguen cerradas. Para los hombres que están detrás de ellas, la orden de abandonar la ciudad no abre una salida. El huracán se acerca también a los edificios donde están encerrados. Ellos no pueden marcharse por su cuenta.",
+    "motivo": "fuera del caso (descartado en el pool): C. Ray Nagin"
+   }
+  ],
+  "minutos": 11.8,
+  "repeticion": 0.6,
+  "repeticion_por_cap": {
+   "1": 0.0,
+   "2": 0.0,
+   "3": 0.0,
+   "4": 0.0,
+   "5": 4.2,
+   "6": 0.0,
+   "7": 0.0
+  },
+  "preguntas": 5,
+  "frases_analista": {
+   "los datos": 0,
+   "el testimonio": 0,
+   "la frase señala": 0,
+   "no permiten explicar": 0
+  },
+  "metricas": {
+   "palabras": 1456,
+   "palabras_por_cap": {
+    "1": [
+     98,
+     110
+    ],
+    "2": [
+     238,
+     250
+    ],
+    "3": [
+     230,
+     250
+    ],
+    "4": [
+     245,
+     250
+    ],
+    "5": [
+     249,
+     250
+    ],
+    "6": [
+     249,
+     250
+    ],
+    "7": [
+     147,
+     140
+    ]
+   },
+   "citas": 9,
+   "cierre": "cita",
+   "humano_caps": [
+    1,
+    2,
+    3,
+    5,
+    7
+   ],
+   "duras_v3": [
+    "cap 1: el cierre tiene que anticipar el dato concreto del cap 2: «Vamos a mantener a nuestros prisioneros donde pertenecen.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 2: esto está fuera del caso o no hace nada en la historia; no lo nombres: C. Ray Nagin",
+    "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Los generadores perdieron energía.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 3: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T76] «29 de agosto»; [T80] «29 de agosto»; [D545] «No había generador ni luces, dejando la cárcel en »",
+    "cap 3: fechas: contaste [T76] sin su fecha (29 de agosto): «Al día siguiente, los generadores pierden energía.…» | contaste [T76] sin su fecha (29 de agosto): «Después, la energía de los generadores.…»",
+    "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «Los oficiales comenzaron a evacuar a los prisioneros de los edificios Templeman 1 y 2 cuan» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 4: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T93] «30 de agosto»",
+    "cap 4: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «2» ×3",
+    "cap 4: el cierre tiene que anticipar el dato concreto del cap 5: «Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD » (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 6: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T08] «2005»; [T09] «2005»; [D550] «Los guardias de la prisión lanzaban sándwiches por»",
+    "cap 6: el cierre tiene que anticipar el dato concreto del cap 7: «517 reclusos están desaparecidos de la lista de personas evacuadas de la cárcel.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 7: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «517» ×2",
+    "antes del pico (beat 5): faltan dos frases cortas seguidas",
+    "beat 5 (párrafo 17): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Parecía que estaban abatiendo a la gente…»', '«están tratando de escapar.…»']",
+    "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+    "cap 1: voz de tráiler (el narrador habla del video): «Esta es la historia de»",
+    "cap 1: voz de tráiler (el narrador habla del video): «es la historia de»",
+    "cap 2: repite frases de caps anteriores («empiezan a irse»): decilo de otra forma o no lo repitas",
+    "cap 4: repite frases de caps anteriores («donde estan encerrados»; «los hombres permanecen»; «oficiales empiezan a»): decilo de otra forma o no lo repitas",
+    "cap 5: repite frases de caps anteriores («el agua contaminada»; «hay hombres armados»; «los hombres siguen»): decilo de otra forma o no lo repitas",
+    "cap 7: repite frases de caps anteriores («cuerpos dentro de»; «todavia hay presos»): decilo de otra forma o no lo repitas",
+    "beat 1 (párrafo 2): 8 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 2 (párrafo 6): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 3 (párrafo 7): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 3 (párrafo 8): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 3 (párrafo 9): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 3 (párrafo 10): 8 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 4 (párrafo 11): 9 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 4 (párrafo 14): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 5 (párrafo 15): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 6 (párrafo 19): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 6 (párrafo 20): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 6 (párrafo 21): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 6 (párrafo 22): 8 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "cap 6: describe fotos o imágenes (imagen): contá la escena, no la foto"
+   ]
+  }
+ },
+ {
+  "tema": "orl",
+  "nombre": "abierto (f13-1)",
+  "largo": "abierto",
+  "usd": 0.0454,
+  "segundos": 107.5,
+  "tokens": {
+   "in": 2973,
+   "out": 1385,
+   "thinking": 2559
+  },
+  "error": null,
+  "bloqueantes": [
+   {
+    "codigo": "d",
+    "cap": 2,
+    "beat": 2,
+    "frase": "Un mapa del huracán ocupa la pantalla de un televisor. Todavía hay señal. El 28 de agosto de 2005, el alcalde de Nueva Orleans, C. Ray Nagin, declara la primera evacuación obligatoria en la historia de la ciudad. La orden es salir. Pero dentro de la prisión, los hombres siguen encerrados.",
+    "motivo": "fuera del caso (descartado en el pool): C. Ray Nagin"
+   }
+  ],
+  "minutos": 6.3,
+  "repeticion": 1.1,
+  "repeticion_por_cap": {
+   "1": 0.0,
+   "2": 0.0,
+   "3": 0.0,
+   "4": 0.0,
+   "5": 6.7,
+   "6": 0.0,
+   "7": 1.2
+  },
+  "preguntas": 2,
+  "frases_analista": {
+   "los datos": 0,
+   "el testimonio": 0,
+   "la frase señala": 0,
+   "no permiten explicar": 0
+  },
+  "metricas": {
+   "palabras": 777,
+   "palabras_por_cap": {
+    "1": [
+     96,
+     110
+    ],
+    "2": [
+     111,
+     250
+    ],
+    "3": [
+     85,
+     250
+    ],
+    "4": [
+     93,
+     250
+    ],
+    "5": [
+     121,
+     250
+    ],
+    "6": [
+     88,
+     250
+    ],
+    "7": [
+     183,
+     140
+    ]
+   },
+   "citas": 9,
+   "cierre": "cita",
+   "humano_caps": [
+    2,
+    5,
+    7
+   ],
+   "duras_v3": [
+    "cap 1: cap 1 (hook): primera oración tiene 13 palabras (máx 12): \"El agua sucia de un inodoro entra en la boca de un hombre.\"",
+    "cap 1: el cierre tiene que anticipar el dato concreto del cap 2: «Vamos a mantener a nuestros prisioneros donde pertenecen.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 2: 111 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 2: esto está fuera del caso o no hace nada en la historia; no lo nombres: C. Ray Nagin",
+    "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Los generadores perdieron energía.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 3: 85 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 3: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T76] «29 de agosto»; [T80] «29 de agosto»; [D545] «No había generador ni luces, dejando la cárcel en »",
+    "cap 3: fechas: contaste [T76] sin su fecha (29 de agosto): «Al día siguiente, los generadores pierden energía.…»",
+    "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «Los oficiales comenzaron a evacuar a los prisioneros de los edificios Templeman 1 y 2 cuan» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 4: 93 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 4: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T93] «30 de agosto»; [D193] «hasta el pecho o el cuello»",
+    "cap 4: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «2» ×2",
+    "cap 4: fechas: contaste [T93] sin su fecha (30 de agosto): «Cuando el agua alcanza el pecho, los oficiales comienzan a evacuar los…»",
+    "cap 4: el cierre tiene que anticipar el dato concreto del cap 5: «Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD » (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 5: 121 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 5: el cierre tiene que anticipar el dato concreto del cap 6: «Tras el huracán Katrina, reclusos de la Prisión Parroquial de Orleans (OPP) son vistos con» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 6: 88 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 6: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T08] «2005»; [T09] «2005»; [D550] «Los guardias de la prisión lanzaban sándwiches por»",
+    "cap 6: el cierre tiene que anticipar el dato concreto del cap 7: «517 reclusos están desaparecidos de la lista de personas evacuadas de la cárcel.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 7: 183 palabras: el máximo del cap es 161 (objetivo 140)",
+    "cap 7: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «lista de evacuados» ×2; «517» ×3",
+    "antes del pico (beat 5): faltan dos frases cortas seguidas",
+    "beat 2 (párrafo 4): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Vamos a mantener a nuestros prisioneros …»', '«Una vez que se fue la luz, los oficiales…»']",
+    "beat 5 (párrafo 10): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Parecía que estaban abatiendo a la gente…»', '«están tratando de escapar.…»']",
+    "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+    "cap 1: voz de tráiler (el narrador habla del video): «Esta es la historia de»",
+    "cap 1: voz de tráiler (el narrador habla del video): «es la historia de»",
+    "beat 1 (párrafo 1): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 3 (párrafo 5): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 3 (párrafo 6): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 4 (párrafo 7): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 6 (párrafo 11): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 6 (párrafo 12): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)"
+   ]
+  }
+ },
+ {
+  "tema": "ycua",
+  "nombre": "objetivo (f11c-1, F11c sol crudo)",
+  "largo": "objetivo",
+  "usd": 0.114,
+  "segundos": 239.2,
+  "tokens": {
+   "in": 3537,
+   "out": 2281,
+   "thinking": 8412
+  },
+  "error": null,
+  "bloqueantes": [],
+  "minutos": 11.6,
+  "repeticion": 0.3,
+  "repeticion_por_cap": {
+   "1": 0.0,
+   "2": 0.0,
+   "3": 1.2,
+   "4": 1.2,
+   "5": 0.0,
+   "6": 0.0,
+   "7": 0.0
+  },
+  "preguntas": 6,
+  "frases_analista": {
+   "los datos": 0,
+   "el testimonio": 0,
+   "la frase señala": 0,
+   "no permiten explicar": 0
+  },
+  "metricas": {
+   "palabras": 1425,
+   "palabras_por_cap": {
+    "1": [
+     102,
+     110
+    ],
+    "2": [
+     236,
+     250
+    ],
+    "3": [
+     233,
+     250
+    ],
+    "4": [
+     238,
+     250
+    ],
+    "5": [
+     241,
+     250
+    ],
+    "6": [
+     243,
+     250
+    ],
+    "7": [
+     132,
+     140
+    ]
+   },
+   "citas": 11,
+   "cierre": "cita",
+   "humano_caps": [
+    1,
+    2,
+    5,
+    6,
+    7
+   ],
+   "duras_v3": [
+    "cap 3: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T15] «1 de agosto»; [D27] «El fuego se inició por la acumulación de grasa, ca»; [D48] «Hubo un estruendo hacia el estacionamiento y el hu»",
+    "cap 3: fechas: contaste [T15] sin su fecha (1 de agosto): «Las primeras explosiones se producen en la zona de la panadería.…»",
+    "cap 4: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T06] «1 de agosto»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+    "cap 4: fechas: contaste [T06] sin su fecha (1 de agosto): «La instrucción es cerrar los accesos al supermercado.…»",
+    "cap 5: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T21] «1 de agosto»; [Q29] «la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación / la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación, la gente que estaba en el patio de comidas ya murió, pues esa temperatura quema las vías respiratorias al instante.»",
+    "cap 5: fechas: contaste [T21] sin su fecha (1 de agosto): «Se desata el incendio principal.…»",
+    "Q20 está SIN VERIFICAR y va con el nombre de Liz Torres: decila sin el nombre",
+    "beat 1 (párrafo 1): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«El fuego avanzaba por el techo…»', '«Era como estar dentro de un horno, con l…»']",
+    "gancho: adelanta una cita de un cap siguiente («El Ycuá Bolaños era un lugar de esparcimiento, era…»): que suene recién en su cap",
+    "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+    "cap 5: el nombre completo de Liz Torres suena 2 veces; una vez por cap, después solo el apellido",
+    "cap 6: el nombre completo de Liz Torres suena 2 veces; una vez por cap, después solo el apellido",
+    "cap 4: repite frases de caps anteriores («cerrar las puertas»): decilo de otra forma o no lo repitas",
+    "cap 5: repite frases de caps anteriores («ese techo estan»; «estan las familias»; «quienes estan comiendo»; «techo estan las»): decilo de otra forma o no lo repitas",
+    "cap 6: repite frases de caps anteriores («las puertas cerradas»): decilo de otra forma o no lo repitas",
+    "beat 11 (párrafo 11): 13 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "cap 1: «alguien ordenó»: decí quién (el nombre está en los datos)"
+   ]
+  }
+ },
+ {
+  "tema": "ycua",
+  "nombre": "abierto (f13-1)",
+  "largo": "abierto",
+  "usd": 0.0638,
+  "segundos": 133.7,
+  "tokens": {
+   "in": 3474,
+   "out": 1861,
+   "thinking": 3827
+  },
+  "error": null,
+  "bloqueantes": [],
+  "minutos": 9.4,
+  "repeticion": 0.0,
+  "repeticion_por_cap": {
+   "1": 0.0,
+   "2": 0.0,
+   "3": 0.0,
+   "4": 0.0,
+   "5": 0.0,
+   "6": 0.0,
+   "7": 0.0
+  },
+  "preguntas": 6,
+  "frases_analista": {
+   "los datos": 0,
+   "el testimonio": 0,
+   "la frase señala": 0,
+   "no permiten explicar": 0
+  },
+  "metricas": {
+   "palabras": 1153,
+   "palabras_por_cap": {
+    "1": [
+     110,
+     110
+    ],
+    "2": [
+     197,
+     250
+    ],
+    "3": [
+     180,
+     250
+    ],
+    "4": [
+     183,
+     250
+    ],
+    "5": [
+     184,
+     250
+    ],
+    "6": [
+     202,
+     250
+    ],
+    "7": [
+     97,
+     140
+    ]
+   },
+   "citas": 10,
+   "cierre": "cita",
+   "humano_caps": [
+    1,
+    2,
+    5,
+    6,
+    7
+   ],
+   "duras_v3": [
+    "cap 1: usaste 1 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [Q20] «Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. / Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...»",
+    "cap 2: 197 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Comienzan a producirse las primeras explosiones en la zona de la panadería.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 3: 180 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 3: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T15] «1 de agosto»; [D27] «El fuego se inició por la acumulación de grasa, ca»; [D48] «Hubo un estruendo hacia el estacionamiento y el hu»",
+    "cap 3: fechas: contaste [T15] sin su fecha (1 de agosto): «Entonces comienzan las primeras explosiones en la zona de la panadería…»",
+    "cap 4: 183 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 4: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T06] «1 de agosto»; [Q34] «la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. / la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.»; [D47] «Las puertas de blíndex del supermercado estaban ce»",
+    "cap 4: fechas: contaste [T06] sin su fecha (1 de agosto): «Se dan las órdenes de cerrar las puertas de acceso.…»",
+    "cap 5: 184 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 5: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T21] «1 de agosto»; [Q29] «la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación / la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación, la gente que estaba en el patio de comidas ya murió, pues esa temperatura quema las vías respiratorias al instante.»",
+    "cap 5: fechas: contaste [T21] sin su fecha (1 de agosto): «La explosión desata el incendio principal.…»",
+    "cap 6: 202 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 7: 97 palabras: el mínimo del cap es 119 (objetivo 140); contá más hechos del beat con escenas, no adjetivos",
+    "gancho: adelanta una cita de un cap siguiente («El Ycuá Bolaños era un lugar de esparcimiento, era…»): que suene recién en su cap",
+    "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+    "cap 2: repite frases de caps anteriores («un lugar familiar»): decilo de otra forma o no lo repitas",
+    "cap 4: repite frases de caps anteriores («cerrar las puertas»): decilo de otra forma o no lo repitas",
+    "beat 7 (párrafo 7): 12 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 11 (párrafo 11): 9 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "cap 1: «alguien ordenó»: decí quién (el nombre está en los datos)",
+    "cap 6: describe fotos o imágenes (imagen): contá la escena, no la foto"
+   ]
+  }
+ }
+]

@@ -1,0 +1,407 @@
+{
+ "tema": "orleans",
+ "tid": "ba6c3cac-f7r3",
+ "corrida": "f13_orl_abierto",
+ "modelo": "gpt-6.1-sol",
+ "esfuerzo": "high",
+ "escaleta": "01a_escaleta.json",
+ "notas": null,
+ "largo": "abierto",
+ "max_completion_tokens": 32000,
+ "prompt_md5": {
+  "sistema": "8edea05efeac91afdb88f9a7bb2f0b73",
+  "usuario": "61d3196e180cdcdb1f936b0f968b2adc"
+ },
+ "prompt_version": "f13-1",
+ "parrafos": [
+  {
+   "beat": 1,
+   "cap": 1,
+   "texto": "El agua sucia de un inodoro entra en la boca de un hombre. La celda está a oscuras. Bebe para seguir vivo. Miles de hombres han sido abandonados en celdas inundadas. Esta es la historia de la orden que los condenó.",
+   "ids_usados": []
+  },
+  {
+   "beat": 1,
+   "cap": 1,
+   "texto": "El hombre se llama Edward “Edgar” Burton. «Tuvimos que beber agua del inodoro solo para mantenernos con vida», dice Burton. Está en la Prisión Parroquial de Orleans. La misma agua que debería desechar se ha convertido en algo que necesita tragar. Pero días antes de la sed, llegó la tormenta. Y con ella, una decisión.",
+   "ids_usados": [
+    "Q184"
+   ]
+  },
+  {
+   "beat": 2,
+   "cap": 2,
+   "texto": "Un mapa del huracán ocupa la pantalla de un televisor. Todavía hay señal. El 28 de agosto de 2005, el alcalde de Nueva Orleans, C. Ray Nagin, declara la primera evacuación obligatoria en la historia de la ciudad. La orden es salir. Pero dentro de la prisión, los hombres siguen encerrados.",
+   "ids_usados": [
+    "T55"
+   ]
+  },
+  {
+   "beat": 2,
+   "cap": 2,
+   "texto": "«Vamos a mantener a nuestros prisioneros donde pertenecen». Esa es la decisión. Renard Reed es oficial del sheriff. Cuando se corta la electricidad, ve cómo empiezan a irse otros oficiales. «Una vez que se fue la luz, los oficiales empezaron a renunciar a diestra y siniestra», dice Reed. Los presos se quedan. Los hombres encargados de vigilarlos empiezan a marcharse.",
+   "ids_usados": [
+    "Q08",
+    "Q24"
+   ]
+  },
+  {
+   "beat": 3,
+   "cap": 3,
+   "texto": "Al día siguiente, los generadores pierden energía. En Templeman III, la falla deja a los reclusos sin luz y sin ventilación. La oscuridad es completa. Se oye el viento. Entre los pabellones llegan gritos.",
+   "ids_usados": []
+  },
+  {
+   "beat": 3,
+   "cap": 3,
+   "texto": "Las puertas de las celdas siguen cerradas. Ya no hay una pantalla encendida que permita seguir la tormenta. Ya no hay luz para ver lo que ocurre al otro lado de los barrotes. Y entonces aparece algo que los presos pueden sentir aunque no puedan verlo. El agua empieza a subir.",
+   "ids_usados": []
+  },
+  {
+   "beat": 4,
+   "cap": 4,
+   "texto": "Agua negra y aceitosa alrededor de las piernas. Basura. Heces flotando dentro de una celda cerrada. El nivel sigue subiendo. Algunos presos permanecen de pie con el agua contaminada hasta el pecho. A otros les llega al cuello. No pueden apartarse de ella.",
+   "ids_usados": []
+  },
+  {
+   "beat": 4,
+   "cap": 4,
+   "texto": "Cuando el agua alcanza el pecho, los oficiales comienzan a evacuar los edificios Templeman 1 y 2. En el pabellón médico del primer piso, un preso ve dos cadáveres flotando. Hay hombres que todavía intentan pedir ayuda desde el encierro. Pero lo que llega después no es solo un rescate.",
+   "ids_usados": [
+    "D228"
+   ]
+  },
+  {
+   "beat": 5,
+   "cap": 5,
+   "texto": "Un fogonazo en un techo. Se ve a través de la ventana rota de una celda. Brady Richard está en la terraza del edificio CCC. Desde allí alcanza a ver el techo del edificio HOD. «Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD disparando a los reclusos...», dice Richard.",
+   "ids_usados": [
+    "Q14"
+   ]
+  },
+  {
+   "beat": 5,
+   "cap": 5,
+   "texto": "Renard Reed también ve lo que está pasando. «Parecía que estaban abatiendo a la gente», dice el oficial. Afuera, alguien dice: «están tratando de escapar.» Dentro hay celdas inundadas, agua contaminada y hombres que han tenido que beber de un inodoro. ¿Están tratando de escapar o de sobrevivir? Después de los disparos, a los evacuados todavía les queda otra espera. Esta vez, sobre un puente.",
+   "ids_usados": [
+    "Q47",
+    "Q146"
+   ]
+  },
+  {
+   "beat": 6,
+   "cap": 6,
+   "texto": "En el paso elevado de Broad Street hay hombres con monos naranjas sentados sobre el asfalto caliente. El sol cae sobre ellos. Han salido de la prisión inundada. Ahora esperan a cielo abierto.",
+   "ids_usados": []
+  },
+  {
+   "beat": 6,
+   "cap": 6,
+   "texto": "Después vienen las jaulas improvisadas detrás de la estación de autobuses. Los guardias lanzan sándwiches por encima de la cerca para alimentar a los prisioneros evacuados. La comida llega desde el otro lado de otra barrera. Los sobrevivientes son enviados a distintos lugares del estado. Pero, al reunir los nombres de los evacuados, faltan cientos.",
+   "ids_usados": []
+  },
+  {
+   "beat": 7,
+   "cap": 7,
+   "texto": "La lista de evacuados no incluye a 517 reclusos. Quinientos diecisiete nombres ausentes del registro de quienes salieron de la cárcel. Una portavoz del departamento del sheriff insiste: «nadie se ahogó, nadie se quedó atrás». Pero esos nombres no están.",
+   "ids_usados": [
+    "D185",
+    "D190"
+   ]
+  },
+  {
+   "beat": 7,
+   "cap": 7,
+   "texto": "El sheriff Marlin Gusman sostiene que no hubo muertes en el complejo durante la inundación ni en sus secuelas. ¿Dónde están los 517 prisioneros que faltan en la lista? Mientras la versión oficial niega las muertes, dentro de la prisión otros hombres han visto cuerpos.",
+   "ids_usados": [
+    "D185",
+    "D190",
+    "D546"
+   ]
+  },
+  {
+   "beat": 8,
+   "cap": 7,
+   "texto": "Una celda vacía. Sobre la pared de hormigón queda la marca del agua. El oficial Luis Reyes dice: «Todavía hay presos muertos ahí dentro. Cuando los guardias estaban haciendo sus últimas rondas había uno o dos por aquí y por allá».",
+   "ids_usados": [
+    "Q60"
+   ]
+  },
+  {
+   "beat": 8,
+   "cap": 7,
+   "texto": "Los relatos sobre cuerpos flotando nunca son investigados. Más de quinientos prisioneros faltan en la lista de evacuados, y la verdadera cifra de muertos queda sin esclarecer. Renard Reed ha visto marcharse a los oficiales. Ha visto los disparos. Al hablar de los hombres que estaban bajo custodia, dice: «Aunque estén en la cárcel, son seres humanos».",
+   "ids_usados": [
+    "Q50"
+   ]
+  }
+ ],
+ "bloqueantes": [
+  {
+   "codigo": "d",
+   "cap": 2,
+   "beat": 2,
+   "frase": "Un mapa del huracán ocupa la pantalla de un televisor. Todavía hay señal. El 28 de agosto de 2005, el alcalde de Nueva Orleans, C. Ray Nagin, declara la primera evacuación obligatoria en la historia de la ciudad. La orden es salir. Pero dentro de la prisión, los hombres siguen encerrados.",
+   "motivo": "fuera del caso (descartado en el pool): C. Ray Nagin"
+  }
+ ],
+ "metricas": {
+  "duras_v3": [
+   "cap 1: cap 1 (hook): primera oración tiene 13 palabras (máx 12): \"El agua sucia de un inodoro entra en la boca de un hombre.\"",
+   "cap 1: el cierre tiene que anticipar el dato concreto del cap 2: «Vamos a mantener a nuestros prisioneros donde pertenecen.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 2: 111 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 2: esto está fuera del caso o no hace nada en la historia; no lo nombres: C. Ray Nagin",
+   "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Los generadores perdieron energía.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 3: 85 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 3: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T76] «29 de agosto»; [T80] «29 de agosto»; [D545] «No había generador ni luces, dejando la cárcel en »",
+   "cap 3: fechas: contaste [T76] sin su fecha (29 de agosto): «Al día siguiente, los generadores pierden energía.…»",
+   "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «Los oficiales comenzaron a evacuar a los prisioneros de los edificios Templeman 1 y 2 cuan» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 4: 93 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 4: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T93] «30 de agosto»; [D193] «hasta el pecho o el cuello»",
+   "cap 4: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «2» ×2",
+   "cap 4: fechas: contaste [T93] sin su fecha (30 de agosto): «Cuando el agua alcanza el pecho, los oficiales comienzan a evacuar los…»",
+   "cap 4: el cierre tiene que anticipar el dato concreto del cap 5: «Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD » (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 5: 121 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 5: el cierre tiene que anticipar el dato concreto del cap 6: «Tras el huracán Katrina, reclusos de la Prisión Parroquial de Orleans (OPP) son vistos con» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 6: 88 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 6: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T08] «2005»; [T09] «2005»; [D550] «Los guardias de la prisión lanzaban sándwiches por»",
+   "cap 6: el cierre tiene que anticipar el dato concreto del cap 7: «517 reclusos están desaparecidos de la lista de personas evacuadas de la cárcel.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 7: 183 palabras: el máximo del cap es 161 (objetivo 140)",
+   "cap 7: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «lista de evacuados» ×2; «517» ×3",
+   "antes del pico (beat 5): faltan dos frases cortas seguidas",
+   "beat 2 (párrafo 4): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Vamos a mantener a nuestros prisioneros …»', '«Una vez que se fue la luz, los oficiales…»']",
+   "beat 5 (párrafo 10): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Parecía que estaban abatiendo a la gente…»', '«están tratando de escapar.…»']",
+   "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+   "cap 1: voz de tráiler (el narrador habla del video): «Esta es la historia de»",
+   "cap 1: voz de tráiler (el narrador habla del video): «es la historia de»",
+   "beat 1 (párrafo 1): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 3 (párrafo 5): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 3 (párrafo 6): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 4 (párrafo 7): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 6 (párrafo 11): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 6 (párrafo 12): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)"
+  ],
+  "blandas_v3": [
+   "cap 1: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D08] «miles»; [D80] «1»; [D81] «1 / 5 / 6 pies»; [D97] «una»; [D140] «1»; [D182] «1»; [D186] «27 / 28 / 1»; [D312] «1 / 4»",
+   "cap 1: la cita «Tuvimos que beber agua del inodoro solo …» va entre comillas y con su autor (Edward “Edgar” Burton) al lado",
+   "cap 1: densidad 1.04 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 1: 4.17 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — sucia, oscuras, vivo, abandonados",
+   "cap 2: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D21] «28 de agosto»; [D25] «agosto de 2005»; [D80] «1»; [D81] «1 / 5 / 6 pies»; [D82] «12 / 30 / 28»; [D97] «una»; [D140] «1»; [D182] «1»",
+   "cap 2: la cita «Vamos a mantener a nuestros prisioneros …» va entre comillas y con su autor (Marlin Gusman) al lado",
+   "cap 2: la cita «Una vez que se fue la luz, los oficiales…» va entre comillas y con su autor (Deputy Renard Reed) al lado",
+   "cap 2: 0.9 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "cap 3: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D80] «1»; [D81] «1 / 5 / 6 pies»; [D97] «una»; [D140] «1»; [D182] «1»; [D186] «27 / 28 / 1»; [D312] «1 / 4»; [D375] «100 / 150 / 1 / 39»",
+   "cap 3: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 3: 1.18 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "cap 4: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D09] «hasta el pecho»; [D56] «2»; [D65] «hasta el pecho»; [D80] «1»; [D81] «1 / 5 / 6 pies»; [D83] «dos»; [D91] «Dos»; [D97] «una»",
+   "cap 4: densidad 1.08 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 5: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D80] «1»; [D81] «1 / 5 / 6 pies»; [D97] «una»; [D140] «1»; [D182] «1»; [D186] «27 / 28 / 1»; [D312] «1 / 4»; [D375] «100 / 150 / 1 / 39»",
+   "cap 5: la cita «Desde la terraza del edificio CCC, podía…» va entre comillas y con su autor (Brady Richard) al lado",
+   "cap 5: la cita «Parecía que estaban abatiendo a la gente…» va entre comillas y con su autor (Deputy Renard Reed) al lado",
+   "cap 5: la cita «están tratando de escapar.…» va entre comillas y con su autor (alguien afuera) al lado",
+   "cap 5: 0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "cap 6: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D180] «cientos»",
+   "cap 6: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 6: 1.14 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "cap 7: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D56] «2»; [D80] «1»; [D81] «1 / 5 / 6 pies»; [D83] «dos»; [D91] «Dos»; [D97] «una»; [D140] «1»; [D144] «1,57 / 5 / 2»",
+   "cap 7: la cita «Aunque estén en la cárcel, son seres hum…» va entre comillas y con su autor (Deputy Renard Reed) al lado",
+   "cap 7: la cita «Todavía hay presos muertos ahí dentro. C…» va entre comillas y con su autor (Deputy Luis Reyes) al lado",
+   "cap 7: la cita «nadie se ahogó, nadie se quedó atrás.…» va entre comillas y con su autor (portavoz del departamento del sheriff) al lado",
+   "cap 7: 0.55 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno",
+   "beat 2: 111 palabras (objetivo 250 ±15 %)",
+   "beat 3: 85 palabras (objetivo 250 ±15 %)",
+   "beat 4: 93 palabras (objetivo 250 ±15 %)",
+   "beat 5: 121 palabras (objetivo 250 ±15 %)",
+   "beat 6: 88 palabras (objetivo 250 ±15 %)",
+   "beat 7: 85 palabras (objetivo 70 ±15 %)",
+   "beat 8: 98 palabras (objetivo 70 ±15 %)",
+   "párrafo 1: eco después de la cita: «Burton.»: cortalo, que la cita quede sola",
+   "párrafo 3: eco después de la cita: «Esa es la decisión.»: cortalo, que la cita quede sola",
+   "párrafo 12: eco después de la cita: «Pero esos nombres no están.»: cortalo, que la cita quede sola"
+  ],
+  "puntaje": 24,
+  "palabras": 777,
+  "palabras_por_cap": {
+   "1": [
+    96,
+    110
+   ],
+   "2": [
+    111,
+    250
+   ],
+   "3": [
+    85,
+    250
+   ],
+   "4": [
+    93,
+    250
+   ],
+   "5": [
+    121,
+    250
+   ],
+   "6": [
+    88,
+    250
+   ],
+   "7": [
+    183,
+    140
+   ]
+  },
+  "citas": 9,
+  "humano_caps": [
+   2,
+   5,
+   7
+  ],
+  "cierre": "cita",
+  "ecos": [
+   "párrafo 1: eco después de la cita: «Burton.»: cortalo, que la cita quede sola",
+   "párrafo 3: eco después de la cita: «Esa es la decisión.»: cortalo, que la cita quede sola",
+   "párrafo 12: eco después de la cita: «Pero esos nombres no están.»: cortalo, que la cita quede sola"
+  ],
+  "por_cap": {
+   "1": {
+    "palabras": 96,
+    "duras": [
+     "cap 1 (hook): primera oración tiene 13 palabras (máx 12): \"El agua sucia de un inodoro entra en la boca de un hombre.\"",
+     "el cierre tiene que anticipar el dato concreto del cap 2: «Vamos a mantener a nuestros prisioneros donde pertenecen.» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D08] «miles»; [D80] «1»; [D81] «1 / 5 / 6 pies»; [D97] «una»; [D140] «1»; [D182] «1»; [D186] «27 / 28 / 1»; [D312] «1 / 4»",
+     "la cita «Tuvimos que beber agua del inodoro solo …» va entre comillas y con su autor (Edward “Edgar” Burton) al lado",
+     "densidad 1.04 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "4.17 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — sucia, oscuras, vivo, abandonados"
+    ],
+    "puntaje": 2,
+    "objetivo": 110
+   },
+   "2": {
+    "palabras": 111,
+    "duras": [
+     "111 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "esto está fuera del caso o no hace nada en la historia; no lo nombres: C. Ray Nagin",
+     "el cierre tiene que anticipar el dato concreto del cap 3: «Los generadores perdieron energía.» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D21] «28 de agosto»; [D25] «agosto de 2005»; [D80] «1»; [D81] «1 / 5 / 6 pies»; [D82] «12 / 30 / 28»; [D97] «una»; [D140] «1»; [D182] «1»",
+     "la cita «Vamos a mantener a nuestros prisioneros …» va entre comillas y con su autor (Marlin Gusman) al lado",
+     "la cita «Una vez que se fue la luz, los oficiales…» va entre comillas y con su autor (Deputy Renard Reed) al lado",
+     "0.9 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": 8,
+    "objetivo": 250
+   },
+   "3": {
+    "palabras": 85,
+    "duras": [
+     "85 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T76] «29 de agosto»; [T80] «29 de agosto»; [D545] «No había generador ni luces, dejando la cárcel en »",
+     "fechas: contaste [T76] sin su fecha (29 de agosto): «Al día siguiente, los generadores pierden energía.…»",
+     "el cierre tiene que anticipar el dato concreto del cap 4: «Los oficiales comenzaron a evacuar a los prisioneros de los edificios Templeman 1 y 2 cuan» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D80] «1»; [D81] «1 / 5 / 6 pies»; [D97] «una»; [D140] «1»; [D182] «1»; [D186] «27 / 28 / 1»; [D312] «1 / 4»; [D375] «100 / 150 / 1 / 39»",
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "1.18 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": -1,
+    "objetivo": 250
+   },
+   "4": {
+    "palabras": 93,
+    "duras": [
+     "93 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T93] «30 de agosto»; [D193] «hasta el pecho o el cuello»",
+     "cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «2» ×2",
+     "fechas: contaste [T93] sin su fecha (30 de agosto): «Cuando el agua alcanza el pecho, los oficiales comienzan a evacuar los…»",
+     "el cierre tiene que anticipar el dato concreto del cap 5: «Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD » (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D09] «hasta el pecho»; [D56] «2»; [D65] «hasta el pecho»; [D80] «1»; [D81] «1 / 5 / 6 pies»; [D83] «dos»; [D91] «Dos»; [D97] «una»",
+     "densidad 1.08 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
+    ],
+    "puntaje": 0,
+    "objetivo": 250
+   },
+   "5": {
+    "palabras": 121,
+    "duras": [
+     "121 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "el cierre tiene que anticipar el dato concreto del cap 6: «Tras el huracán Katrina, reclusos de la Prisión Parroquial de Orleans (OPP) son vistos con» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D80] «1»; [D81] «1 / 5 / 6 pies»; [D97] «una»; [D140] «1»; [D182] «1»; [D186] «27 / 28 / 1»; [D312] «1 / 4»; [D375] «100 / 150 / 1 / 39»",
+     "la cita «Desde la terraza del edificio CCC, podía…» va entre comillas y con su autor (Brady Richard) al lado",
+     "la cita «Parecía que estaban abatiendo a la gente…» va entre comillas y con su autor (Deputy Renard Reed) al lado",
+     "la cita «están tratando de escapar.…» va entre comillas y con su autor (alguien afuera) al lado",
+     "0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": 8,
+    "objetivo": 250
+   },
+   "6": {
+    "palabras": 88,
+    "duras": [
+     "88 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T08] «2005»; [T09] «2005»; [D550] «Los guardias de la prisión lanzaban sándwiches por»",
+     "el cierre tiene que anticipar el dato concreto del cap 7: «517 reclusos están desaparecidos de la lista de personas evacuadas de la cárcel.» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D180] «cientos»",
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "1.14 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": -1,
+    "objetivo": 250
+   },
+   "7": {
+    "palabras": 183,
+    "duras": [
+     "183 palabras: el máximo del cap es 161 (objetivo 140)",
+     "cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «lista de evacuados» ×2; «517» ×3"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): [D56] «2»; [D80] «1»; [D81] «1 / 5 / 6 pies»; [D83] «dos»; [D91] «Dos»; [D97] «una»; [D140] «1»; [D144] «1,57 / 5 / 2»",
+     "la cita «Aunque estén en la cárcel, son seres hum…» va entre comillas y con su autor (Deputy Renard Reed) al lado",
+     "la cita «Todavía hay presos muertos ahí dentro. C…» va entre comillas y con su autor (Deputy Luis Reyes) al lado",
+     "la cita «nadie se ahogó, nadie se quedó atrás.…» va entre comillas y con su autor (portavoz del departamento del sheriff) al lado",
+     "0.55 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno"
+    ],
+    "puntaje": 8,
+    "objetivo": 140
+   }
+  },
+  "ids_por_parrafo": {
+   "antes": 8.81,
+   "despues": 0.94
+  }
+ },
+ "repeticion_por_cap": {
+  "1": 0.0,
+  "2": 0.0,
+  "3": 0.0,
+  "4": 0.0,
+  "5": 6.7,
+  "6": 0.0,
+  "7": 1.2
+ },
+ "minutos": 6.3,
+ "costo": {
+  "usd": 0.0454,
+  "segundos": 107.5,
+  "llamadas": [
+   {
+    "servicio": "OpenAI gpt-6.1-sol",
+    "desc": "guion_v4 guionista",
+    "in": 2973,
+    "out": 1385,
+    "thinking": 2559,
+    "usd": 0.0454
+   }
+  ]
+ }
+}

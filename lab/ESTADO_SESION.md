@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-23 (F12: ficha del caso de Ycuá con Sol high; Sol queda por defecto en el guion v4 → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-23 (F13: largo abierto en guion v4, Orleans 777 / Ycuá 1,153 palabras con Sol high → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -10,7 +10,21 @@
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
-  - F12: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 591 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+  - F13: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 595 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F13 — Largo abierto (Orleans + Ycuá, Sol high) — HECHO, **PARADA** (el analista lee las dos versiones abiertas y le dice a Omar si el guion gana filo y cuántos minutos da)
+- Handoff `lab/hyperframes/f13/HANDOFF_F13_largo_abierto.md`. Reporte `lab/hyperframes/f13/F13_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f13.html` (objetivo | abierto por cap; teléfono OK). Textos `NARRACION_{orleans,ycua}_f13_abierto.md`.
+- Código: `guion_v4` con `largo="objetivo"|"abierto"` en `prompt`, `escaleta_section`, `write` y `bloqueantes`.
+  - `abierto` = sin «≈ N palabras» ni el total, con «Cada cap dura lo que su historia necesita: ni relleno ni resumen.», sin el ±25 % (c) y prompt `f13-1`.
+  - `objetivo` (el valor por defecto) es byte-idéntico a `f11c-1`, con test.
+- Tests: `test_module_f13.py` (4); suite amplia 595 verdes + las 5 previas.
+- Resultado (Sol high, una llamada, sin notas, sin reparación):
+  - **Orleans: 1,456 → 777 palabras (11.8 → 6.3 min).**
+  - **Ycuá: 1,425 → 1,153 palabras (11.6 → 9.4 min).**
+  - Bloqueantes iguales (Orleans 1, el Nagin de siempre; Ycuá 0).
+  - La «repetición interna» (3-gramas) casi no separa las versiones, porque el relleno es paráfrasis: el cap 3 de Orleans objetivo da 0 %.
+  - Tanda **US$ 0.109** de 0.50.
+- Referencias objetivo (no se re-corrieron): `lab/_gpt_probe_analista/orleans/orleans_v4c_sol.json` (no se commitea) y el crudo de `f11c/guion_ycua_v4c_sol.json`. No se escribió en `_steps` ni en `topics_db`. Sin merge. **No seguir a producción.**
 
 ## F12 — Ficha del caso (Ycuá) — HECHO, **PARADA** (el analista lee la ficha y le pasa a Omar las contradicciones para decidir)
 - Handoff `lab/hyperframes/f12/HANDOFF_F12_ficha_del_caso.md`. Reporte `lab/hyperframes/f12/F12_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Ficha `FICHA_ycua.md` (contradicciones arriba) + `ficha_caso.json`, en `lab/hyperframes/f12/` y en `data/scripts/_steps/f8s1-ycua-bolanos/`.

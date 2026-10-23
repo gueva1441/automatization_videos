@@ -38,6 +38,8 @@ from script_engine import evidence as ev
 from script_engine import m01b_guionista as mg
 
 PROMPT_VERSION = "f11c-1"
+PROMPT_VERSION_ABIERTO = "f13-1"     # F13: largo abierto (sin cifras de largo en el prompt)
+LARGOS = ("objetivo", "abierto")     # F13 §1: `objetivo` = lo de F11c (byte-idéntico); `abierto` = sin largo
 CAP_TOL = 0.25                       # (c) cap fuera de ±25 % de su objetivo
 REGEN_GUARD = ("cifras", "nombres", "citas")   # F11b §1.2: la regeneración de un cap corto permite prosa y adjetivos
 MODELOS = ("gemini-pro", "gpt-6.1-sol", "gpt-6-astra", "gemini-4-argon")   # F11b §1.3 / F11c §1.2: `--modelo`
@@ -144,14 +146,14 @@ def data_line(i: str, its: dict, esc: dict, pool: dict) -> str:
     return f"[{i}] {ev.text_of(it)}{fecha}{m}"
 
 
-def escaleta_section(esc: dict, pool: dict) -> str:
+def escaleta_section(esc: dict, pool: dict, largo: str = "objetivo") -> str:
     its = ev.items(pool)
     caps = {c["chapter_number"]: c for c in esc.get("caps") or []}
     out = []
     for n in range(1, 8):
         c = caps.get(n, {})
         bs = [b for b in esc["beats"] if b["cap"] == n]
-        out.append(f"CAP {n} · ≈ {c.get('palabras_objetivo') or 0} palabras")
+        out.append(f"CAP {n} · ≈ {c.get('palabras_objetivo') or 0} palabras" if largo == "objetivo" else f"CAP {n}")
         in_beats = {i for b in bs for i in [b["dato_central"]] + list(b.get("datos_apoyo") or [])}
         for i in c.get("pantalla_ids") or []:
             if i not in in_beats:
@@ -171,9 +173,13 @@ def escaleta_section(esc: dict, pool: dict) -> str:
     return "\n".join(out)
 
 
-def prompt(topic: dict, esc: dict) -> str:
+def prompt(topic: dict, esc: dict, largo: str = "objetivo") -> str:
     """F11c §1.1: el mensaje del usuario: los datos primero (<caso>, <escaleta>) y la tarea al final (<tarea>). El rol,
-    la voz, el oficio y los ejemplos van en `system()`."""
+    la voz, el oficio y los ejemplos van en `system()`.
+    F13: con `largo="abierto"`, sin «≈ N palabras» en los caps ni el total en la tarea: «Cada cap dura lo que su
+    historia necesita: ni relleno ni resumen.»"""
+    if largo not in LARGOS:
+        raise ValueError(f"largo desconocido: {largo} (válidos: {', '.join(LARGOS)})")
     pool = topic["evidence_pool"]
     hum = esc.get("humano") or {}
     pico = esc.get("pico") or {}
@@ -187,10 +193,20 @@ CIERRE HUMANO: {esc.get("cierre_humano")}
 </caso>
 
 <escaleta>
-{escaleta_section(esc, pool)}
+{escaleta_section(esc, pool, largo)}
 </escaleta>
 
-<tarea>Con lo de arriba, escribí la narración completa en párrafos, cada uno con su beat. Cada cap, cerca de sus palabras (es su largo, no un máximo); el video completo ≈ {total:,} palabras. Devolvé el JSON del esquema.</tarea>"""
+<tarea>Con lo de arriba, escribí la narración completa en párrafos, cada uno con su beat. {_largo_line(largo, total)} Devolvé el JSON del esquema.</tarea>"""
+
+
+def _largo_line(largo: str, total: int) -> str:
+    if largo == "abierto":
+        return "Cada cap dura lo que su historia necesita: ni relleno ni resumen."
+    return f"Cada cap, cerca de sus palabras (es su largo, no un máximo); el video completo ≈ {total:,} palabras."
+
+
+def prompt_version(largo: str = "objetivo") -> str:
+    return PROMPT_VERSION_ABIERTO if largo == "abierto" else PROMPT_VERSION
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -240,15 +256,15 @@ def call_for(modelo: str | None) -> Callable[..., dict]:
 
 
 def write(topic: dict, esc: dict, *, call: Callable[..., dict] | None = None,
-          log: list[str] | None = None) -> dict[str, Any]:
+          log: list[str] | None = None, largo: str = "objetivo") -> dict[str, Any]:
     log = log if log is not None else []
     if call is None:
         call = call_for(None)
-    raw = call(prompt(topic, esc), system_instruction=system(), response_schema=SCHEMA,
+    raw = call(prompt(topic, esc, largo), system_instruction=system(), response_schema=SCHEMA,
                description="guion_v4 guionista")
     ps = with_ids(mg.normalize(raw, esc), topic["evidence_pool"], esc)
     log.append(f"  [guionista v4] {len(ps)} párrafos · {sum(mg.wc(p['texto']) for p in ps)} palabras")
-    return {"parrafos": ps, "prompt_version": PROMPT_VERSION}
+    return {"parrafos": ps, "prompt_version": prompt_version(largo)}
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -296,8 +312,10 @@ def unverified_named(esc: dict, pool: dict, parrafos: list[dict]) -> list[dict]:
     return out
 
 
-def bloqueantes(topic: dict, esc: dict, parrafos: list[dict]) -> list[dict]:
-    """[{codigo, cap, beat, frase, motivo}] — lo único que frena. Lista vacía = pasa."""
+def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "objetivo") -> list[dict]:
+    """[{codigo, cap, beat, frase, motivo}] — lo único que frena. Lista vacía = pasa.
+    F13: con `largo="abierto"` no se evalúa el cap fuera de ±25 % de su objetivo (quedan beat faltante, cap vacío y
+    el tope `max_words`)."""
     from script_engine.guion_v3_reglas import role_problems
     from script_engine.m05_narrative import contamination, false_quotes, invented_numbers
     from script_engine.video_length import get as _len
@@ -328,6 +346,8 @@ def bloqueantes(topic: dict, esc: dict, parrafos: list[dict]) -> list[dict]:
         w = sum(mg.wc(p["texto"]) for p in ps)
         if not ps:
             out.append(_b("c", None, "", f"cap {n} vacío", cap=n))
+        elif largo == "abierto":
+            pass
         elif tgt and w < (1 - CAP_TOL) * tgt:
             out.append(_b("c", None, "", f"cap {n} corto: {w} palabras (objetivo {tgt}, mínimo "
                                          f"{round((1 - CAP_TOL) * tgt)})", cap=n))

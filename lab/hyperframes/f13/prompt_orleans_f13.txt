@@ -1,0 +1,112 @@
+===== SISTEMA (md5 8edea05efeac91afdb88f9a7bb2f0b73) =====
+<rol>Sos el guionista de Misterios Sepultados, un canal de documentales de historia oscura en YouTube, en español neutro.
+Escribís la narración en off que escucha el espectador. Tu meta: que no se vaya. Contás una historia real con un humano con nombre, escenas concretas y suspenso; no explicás ni analizás. No inventás: toda cifra, fecha, hora, nombre y cita sale de los datos que te dan.</rol>
+<voz>Narrativa y cinematográfica. Presente o pasado cercano. Frases cortas cuando algo golpea. Lo que se ve, se oye, se huele. El narrador no habla de sus fuentes ("los datos", "el testimonio señala", "la frase indica") ni del video.</voz>
+<oficio>
+1. Gancho: la imagen del beat 1; después, la promesa.
+2. Seguimos a un humano con nombre.
+3. Frases cortas antes del golpe.
+4. Cita literal, 25 palabras o menos, con quién la dijo (la marcada SIN VERIFICAR va sin el nombre).
+5. Hechos, citas y alguna pregunta; no juicios.
+6. La fecha completa, una vez; después, "ese día", "esa noche".
+7. Lo marcado PANTALLA no lo dice la voz.
+8. La última frase es una cita o una pregunta.
+</oficio>
+<ejemplos_de_voz>
+(Solo la voz; los hechos son de otro caso y no se usan.)
+
+El 30 de agosto, el agua sucia de la inundación irrumpió en las celdas. Olía a una mezcla de aguas residuales y combustible diésel. En varios pabellones, los presos quedaron atrapados en sus celdas cerradas. Vieron cómo el nivel subía sin poder hacer nada. Pronto, el agua les llegaría hasta el pecho.
+
+El oficial Renard Reed también fue testigo. «Parecía que estaban abatiendo a la gente», dijo Reed. Vio a alguien caer al agua. No sabía si la munición era real o de goma. Fue suficiente. Lo vio.
+</ejemplos_de_voz>
+
+===== USUARIO (md5 61d3196e180cdcdb1f936b0f968b2adc) =====
+<caso>
+TEMA: Prisión Parroquial Orleans: El Horror Olvidado por Katrina
+HUMANO: Renard Reed (Oficial del sheriff)
+PROMESA DEL GANCHO: Miles de hombres fueron abandonados en celdas inundadas. Esta es la historia de la orden que los condenó.
+PICO: beat 5
+CIERRE HUMANO: Más de quinientos prisioneros desaparecieron de las listas oficiales, y los testimonios sobre cuerpos flotando nunca fueron investigados, dejando la verdadera cifra de muertos en el olvido.
+</caso>
+
+<escaleta>
+CAP 1
+  en pantalla: [Q177] CITA «¡No tuvimos más alternativa que terminar bebiendo agua del inodoro!» — Una reclusa del Edificio CTA · PANTALLA (no va en la voz) · VERIFICADA
+  BEAT 1 · gancho · repulsión
+    imagen: El sabor del agua sucia del inodoro en la boca, en una celda a oscuras.
+    dato central: [Q184] CITA «Tuvimos que beber agua del inodoro solo para mantenernos con vida.» — Edward “Edgar” Burton · VERIFICADA
+    el espectador se pregunta: ¿Cómo llegaron a este punto?
+    cierre: Pero días antes de la sed, llegó la tormenta. Y con ella, una decisión.
+    lo que abre el cap 2: [Q08] CITA «Vamos a mantener a nuestros prisioneros donde pertenecen.» — Marlin Gusman · SIN VERIFICAR (sin nombre)
+CAP 2
+  en pantalla: [D18] El estado de Luisiana paga al sheriff Gusman $24.39 por día por cada prisionero estatal alojado en la Prisión Parroquial de Orleans (OPP). · PANTALLA (no va en la voz)
+  en pantalla: [Q112] CITA «Pero nuestro Alcalde y Sheriff dijeron 'manténganlos donde pertenecen'.» — Presa #30 · PANTALLA (no va en la voz) · VERIFICADA
+  BEAT 2 · planteo · inquietud
+    imagen: Un mapa del huracán en un televisor, antes de que se corte la señal.
+    dato central: [Q08] CITA «Vamos a mantener a nuestros prisioneros donde pertenecen.» — Marlin Gusman · SIN VERIFICAR (sin nombre)
+    apoyo: [T55] El alcalde de Nueva Orleans, C. Ray Nagin, declaró la primera evacuación obligatoria en la historia de la ciudad. (2005-08-28)
+    apoyo: [Q24] CITA «Una vez que se fue la luz, los oficiales empezaron a renunciar a diestra y siniestra.» — Deputy Renard Reed · VERIFICADA
+    el espectador se pregunta: ¿Por qué tomarían una decisión que pone en riesgo a miles?
+    cierre: La decisión estaba tomada. Y cuando la luz se fue, los guardias también empezaron a irse.
+    lo que abre el cap 3: [T76] Los generadores perdieron energía. (2005-08-29)
+CAP 3
+  en pantalla: [D292] Un recluso estuvo más de 24 horas sin luces, agua, comida ni instalaciones en Templeman I. · PANTALLA (no va en la voz)
+  en pantalla: [T64] Las aguas de la inundación comienzan a entrar en los niveles inferiores de los edificios de la Prisión Parroquial de Orleans. (2005-08-29) · PANTALLA (no va en la voz)
+  BEAT 3 · escalada · angustia
+    imagen: Oscuridad total, solo se oye el viento y los gritos ahogados entre pabellones.
+    dato central: [T76] Los generadores perdieron energía. (2005-08-29)
+    apoyo: [T80] Los generadores de Templeman III fallaron, dejando a los reclusos sin luz ni ventilación. (2005-08-29)
+    apoyo: [D545] No había generador ni luces, dejando la cárcel en completa oscuridad.
+    el espectador se pregunta: ¿Qué se siente estar encerrado en la oscuridad total mientras el mundo se derrumba afuera?
+    cierre: En la oscuridad total, el agua empezó a subir.
+    lo que abre el cap 4: [T93] Los oficiales comenzaron a evacuar a los prisioneros de los edificios Templeman 1 y 2 cuando las aguas de la inundación alcanzaron el nivel del pecho. (2005-08-30)
+CAP 4
+  en pantalla: [D25] Poco más de tres semanas antes de que el huracán Katrina azotara la Prisión Parroquial de Orleans, otro preso en el pabellón de salud mental se suicidó ahorcándose. (2005-08) · PANTALLA (no va en la voz)
+  BEAT 4 · escalada · desesperación
+    imagen: Agua negra y aceitosa subiendo por las piernas en una celda cerrada, flotan la basura y las heces.
+    dato central: [T93] Los oficiales comenzaron a evacuar a los prisioneros de los edificios Templeman 1 y 2 cuando las aguas de la inundación alcanzaron el nivel del pecho. (2005-08-30)
+    apoyo: [D193] Algunos presos estuvieron de pie en agua contaminada con aguas residuales que les llegaba hasta el pecho o el cuello.
+    apoyo: [D228] Un preso vio 2 cadáveres flotando en el pabellón médico del primer piso de la Prisión Parroquial de Orleans.
+    el espectador se pregunta: ¿Cuánto tiempo puedes sobrevivir con agua contaminada hasta el pecho?
+    cierre: Abandonados en el agua, algunos intentaron pedir ayuda. La respuesta que recibieron no fue un rescate.
+    lo que abre el cap 5: [Q14] CITA «Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD disparando a los reclusos...» — Brady Richard · VERIFICADA
+CAP 5
+  en pantalla: [Q154] CITA «SID estaba disparando escopetas a estos reclusos.» — Inmate #171 · PANTALLA (no va en la voz) · VERIFICADA
+  en pantalla: [D431] Las esposas de plástico del recluso #136 estaban tan apretadas que le dejaron una marca y le hicieron sangrar la muñeca. · PANTALLA (no va en la voz)
+  BEAT 5 · pico · horror
+    imagen: El fogonazo de un rifle desde un techo, visto a través de la ventana rota de una celda.
+    dato central: [Q14] CITA «Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD disparando a los reclusos...» — Brady Richard · VERIFICADA
+    apoyo: [Q47] CITA «Parecía que estaban abatiendo a la gente.» — Deputy Renard Reed · VERIFICADA
+    apoyo: [Q146] CITA «están tratando de escapar.» — alguien afuera · VERIFICADA
+    el espectador se pregunta: ¿Estaban tratando de escapar o simplemente de sobrevivir?
+    cierre: Después de los disparos, el caos dio paso a un nuevo tipo de infierno: la espera en el puente.
+    lo que abre el cap 6: [T08] Tras el huracán Katrina, reclusos de la Prisión Parroquial de Orleans (OPP) son vistos con monos naranjas en el paso elevado de Broad Street. (2005)
+CAP 6
+  en pantalla: [D08] Durante y después del huracán Katrina, miles de hombres, mujeres y niños fueron abandonados en la Prisión Parroquial de Orleans (OPP). · PANTALLA (no va en la voz)
+  BEAT 6 · respiro · desolación
+    imagen: Hombres con monos naranjas sentados en el asfalto caliente de un paso elevado, bajo el sol abrasador.
+    dato central: [T08] Tras el huracán Katrina, reclusos de la Prisión Parroquial de Orleans (OPP) son vistos con monos naranjas en el paso elevado de Broad Street. (2005)
+    apoyo: [T09] Después del huracán Katrina, los reclusos fueron mantenidos en jaulas improvisadas detrás de la estación de autobuses. (2005)
+    apoyo: [D550] Los guardias de la prisión lanzaban sándwiches por encima de la cerca para alimentar a los prisioneros evacuados.
+    el espectador se pregunta: Sobrevivieron a la inundación, ¿sobrevivirían al rescate?
+    cierre: Los sobrevivientes fueron esparcidos por todo el estado. Pero cientos de nombres nunca aparecieron en las listas.
+    lo que abre el cap 7: [D185] 517 reclusos están desaparecidos de la lista de personas evacuadas de la cárcel.
+CAP 7
+  en pantalla: [D05] La demanda privada sobre las condiciones en la Prisión Parroquial de Orleans fue Jones v. Gusman. · PANTALLA (no va en la voz)
+  en pantalla: [D167] La oficina del sheriff Gusman emitió órdenes de arresto para 14 presos fugitivos mientras afirmaba públicamente que nadie había escapado. · PANTALLA (no va en la voz)
+  BEAT 7 · revelacion · indignación
+    imagen: Una lista de nombres en papel, con cientos de espacios marcados como 'desconocido'.
+    dato central: [D185] 517 reclusos están desaparecidos de la lista de personas evacuadas de la cárcel.
+    apoyo: [D190] Una portavoz del departamento del sheriff insistió en que "nadie se ahogó, nadie se quedó atrás", mientras que la lista de evacuados no incluía a 517 reclusos.
+    apoyo: [D546] El sheriff Marlin Gusman ha sostenido consistentemente que no hubo muertes en el complejo OPP durante la inundación y sus secuelas.
+    el espectador se pregunta: ¿Dónde están los 517 prisioneros que faltan?
+    cierre: Mientras la versión oficial negaba las muertes, los testigos contaban otra historia.
+  BEAT 8 · cierre · tristeza
+    imagen: Una celda vacía, con la marca del agua seca en la pared de hormigón.
+    dato central: [Q60] CITA «Todavía hay presos muertos ahí dentro. Cuando los guardias estaban haciendo sus últimas rondas había uno o dos por aquí y por allá.» — Deputy Luis Reyes · VERIFICADA
+    apoyo: [Q50] CITA «Aunque estén en la cárcel, son seres humanos.» — Deputy Renard Reed · VERIFICADA
+    el espectador se pregunta: ¿Se hará justicia alguna vez por los que no tienen nombre?
+    cierre: Una verdad que, como el oficial Renard Reed, algunos testigos se niegan a olvidar.
+</escaleta>
+
+<tarea>Con lo de arriba, escribí la narración completa en párrafos, cada uno con su beat. Cada cap dura lo que su historia necesita: ni relleno ni resumen. Devolvé el JSON del esquema.</tarea>
