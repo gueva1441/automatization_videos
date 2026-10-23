@@ -218,6 +218,34 @@ DATE_PARAPHRASE = re.compile(r"\b(?:ese|aquel|aquél) (?:domingo|lunes|martes|mi
                              r"mediodía|mismo día)\b|\besa (?:mañana|tarde|noche|madrugada)\b", re.I)
 
 
+def replace_repeated_dates(parrafos: list[dict], day: str = "1 de agosto", year: str | None = None
+                           ) -> tuple[list[dict], list[str]]:
+    """F10 (Omar): la primera aparición del día del evento (con o sin año) se queda; las siguientes pasan a «ese
+    domingo» («el 1 de agosto» → «ese domingo», «del 1 de agosto» → «de ese domingo»). Determinista; devuelve
+    (párrafos, cambios). `day` = «1 de agosto»; `year` = «2004» (opcional)."""
+    tail = rf"(?:\s+de\s+{year})?" if year else r"(?:\s+de\s+\d{4})?"
+    pat = re.compile(rf"\b(?:(?P<art>[Ee]l|[Dd]el)\s+)?{re.escape(day)}{tail}\b")
+    seen, out, changes = False, [], []
+
+    def _rep(m: re.Match) -> str:
+        nonlocal seen
+        if not seen:
+            seen = True
+            return m.group(0)
+        art = m.group("art") or ""
+        if art.lower() == "del":
+            new = "de ese domingo"
+        else:
+            new = "ese domingo"
+        if art[:1].isupper() or (not art and m.start() == 0):
+            new = new[0].upper() + new[1:]
+        changes.append(f"«{m.group(0)}» → «{new}»")
+        return new
+    for p in parrafos:
+        out.append({**p, "texto": pat.sub(_rep, p["texto"])})
+    return out, changes
+
+
 def date_problems(caps: list[dict]) -> list[str]:
     """F10 (Omar): una fecha literal como máximo por cap, y la fecha completa (con año) de un día una sola vez en el
     video; después, «ese domingo», «esa noche»."""

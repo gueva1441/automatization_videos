@@ -229,6 +229,137 @@ class ParticionError(ValueError):
     """La partición dejó un cap sin narración: la cadena no puede seguir a audio."""
 
 
+# ═══════════════════════════════════════════════════════════════
+#  regenerate_caps v3 con datos permitidos (F10, arreglos quirúrgicos de Omar)
+# ═══════════════════════════════════════════════════════════════
+
+REGEN_SCHEMA = {"type": "OBJECT", "properties": {"parrafos": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+    "beat": {"type": "INTEGER"}, "texto": {"type": "STRING"},
+    "ids_usados": {"type": "ARRAY", "items": {"type": "STRING"}}}, "required": ["beat", "texto", "ids_usados"]}}},
+    "required": ["parrafos"]}
+REGEN_ATTEMPTS = 3
+
+
+def _item_line(it: dict) -> str:
+    from script_engine import evidence as ev
+    t = ev.text_of(it)
+    extra = f" (hora {it['hora']})" if it.get("hora") else ""
+    if it.get("_kind") == "citas":
+        return f"«{t}» — {it.get('autor')}{extra}"
+    return f"{t}{extra}"
+
+
+def regenerate_cap_v3(topic: dict, esc: dict, parrafos: list[dict], cap: int, pool: dict, *, notas: list[str],
+                      permitidos: list[str] | None = None, min_words: int = 0,
+                      call: Callable[..., dict] | None = None, log: list[str] | None = None) -> list[dict]:
+    """Reescribe UN cap con la escaleta, el texto vecino y las notas del analista. Puede AGREGAR solo lo que está en
+    el cap o en `permitidos` (ids del pool, con su texto literal): la guardia léxica de m01c (cifras, nombres,
+    adjetivos, citas nuevas) se mide contra el cap original + esos ítems. Hasta REGEN_ATTEMPTS con el motivo del
+    rechazo; si ninguno pasa, el cap queda como estaba. Devuelve los párrafos (los demás caps, intactos)."""
+    from script_engine import evidence as ev
+    from script_engine.m01c_editor import lexical_guard
+    log = log if log is not None else []
+    if call is None:
+        from gemini_helpers import call_pro_json as call
+    its = ev.items(pool)
+    own = [p for p in parrafos if p["cap"] == cap]
+    prev = [p for p in parrafos if p["cap"] == cap - 1][-1:]
+    nxt = [p for p in parrafos if p["cap"] == cap + 1][:1]
+    beats = [b for b in esc["beats"] if b["cap"] == cap]
+    allowed = [i for i in permitidos or [] if i in its]
+    base_text = "\n\n".join(p["texto"] for p in own)
+    allowed_text = "\n".join(_item_line(its[i]) for i in allowed)
+    blines = "\n".join(f"- beat {b['n']} · {b.get('funcion')} · {b.get('emocion')} {b.get('intensidad')} · ve: "
+                       f"«{b.get('imagen_sensorial')}» · dato central {b['dato_central']}" for b in beats)
+    feedback = ""
+    for attempt in range(1, REGEN_ATTEMPTS + 1):
+        prompt = f"""Reescribí el CAP {cap} de un documental en español (narración en off). Es un arreglo quirúrgico: el
+resto del video no cambia.
+
+BEATS DEL CAP:
+{blines}
+
+TEXTO ACTUAL DEL CAP (párrafos, con su beat):
+{chr(10).join(f"[beat {p['beat']}] {p['texto']}" for p in own)}
+
+FINAL DEL CAP ANTERIOR (contexto, no lo repitas):
+{prev[0]['texto'] if prev else '(es el primer cap)'}
+
+PRINCIPIO DEL CAP SIGUIENTE (contexto):
+{nxt[0]['texto'] if nxt else '(es el último cap)'}
+
+DATOS QUE PODÉS AGREGAR (además de los que ya están en el texto actual), literales:
+{allowed_text or '(ninguno)'}
+
+NOTAS DEL ANALISTA (mandan):
+{chr(10).join(f"- {x}" for x in notas)}
+
+REGLAS: no agregues datos, cifras, fechas, nombres, adjetivos ni citas que no estén en el texto actual o en los datos
+permitidos. Las citas, literales y con el autor dentro de la oración, ≤ 25 palabras. Sin juicios del narrador
+(«fue una masacre», «un infierno», «una bofetada»), sin resumen, sin hablar del video. Un párrafo por beat o los mismos
+que hay (no cambies los beats). {f"El cap tiene que tener AL MENOS {min_words} palabras." if min_words else ""}
+`ids_usados` de cada párrafo: los ids cuya cifra, fecha, nombre o cita suena literal en él.{feedback}"""
+        try:
+            raw = call(prompt, response_schema=REGEN_SCHEMA, description=f"m01d regenerate_cap {cap}") or {}
+        except Exception as e:  # noqa: BLE001
+            log.append(f"  [regen] cap {cap} intento {attempt}: falló ({type(e).__name__})")
+            continue
+        new = [p for p in raw.get("parrafos") or [] if str(p.get("texto") or "").strip()]
+        new_text = "\n\n".join(str(p["texto"]).strip() for p in new)
+        guard = lexical_guard(base_text + "\n" + allowed_text, new_text)
+        words = len(re.findall(r"[\wáéíóúñü]+", new_text, re.I))
+        probs = guard + ([f"{words} palabras (mínimo {min_words})"] if min_words and words < min_words else [])
+        valid_beats = {b["n"] for b in beats}
+        if any(int(p.get("beat") or 0) not in valid_beats for p in new):
+            probs.append(f"beats fuera del cap (válidos {sorted(valid_beats)})")
+        if not new:
+            probs.append("sin párrafos")
+        if probs:
+            log.append(f"  [regen] cap {cap} intento {attempt}: rechazado — {'; '.join(probs)}")
+            feedback = "\n\nTU VERSIÓN ANTERIOR SE RECHAZÓ: " + "; ".join(probs) + ". Corregí eso."
+            continue
+        out, done = [], False
+        for p in parrafos:
+            if p["cap"] != cap:
+                out.append(p)
+            elif not done:
+                out += [{"beat": int(q["beat"]), "cap": cap, "texto": str(q["texto"]).strip(),
+                         "ids_usados": [str(x).upper() for x in q.get("ids_usados") or []]} for q in new]
+                done = True
+        log.append(f"  [regen] cap {cap}: OK en el intento {attempt} ({words} palabras)")
+        return out
+    log.append(f"  [regen] cap {cap}: ningún intento pasó; el cap queda como estaba")
+    return [dict(p) for p in parrafos]
+
+
+def cut_phrases(parrafos: list[dict], frases: list[str], *, call: Callable[..., dict] | None = None,
+                log: list[str] | None = None) -> list[dict]:
+    """El editor saca SOLO las expresiones de `frases` de los párrafos donde aparecen (reescribe esa oración sin ella;
+    no toca el resto). Guardia léxica de m01c: si agrega algo, el párrafo queda como estaba."""
+    from script_engine.m01c_editor import lexical_guard
+    log = log if log is not None else []
+    if call is None:
+        from gemini_helpers import call_pro_json as call
+    out = []
+    for p in parrafos:
+        hits = [f for f in frases if f.lower() in p["texto"].lower()]
+        if not hits:
+            out.append(p)
+            continue
+        raw = call(f"""Sacá de este párrafo SOLO estas expresiones (son juicios del narrador): {hits}. Si la oración queda
+sin sentido, sacala entera o reescribila sin esa idea, con las palabras que ya tiene. No toques nada más; no agregues
+nada.
+
+PÁRRAFO:
+{p['texto']}""", response_schema={"type": "OBJECT", "properties": {"texto": {"type": "STRING"}}, "required": ["texto"]},
+                   description="m01d cortar juicios") or {}
+        new = str(raw.get("texto") or "").strip()
+        ok = new and not lexical_guard(p["texto"], new) and not any(f.lower() in new.lower() for f in hits)
+        log.append(f"  [juicios] beat {p['beat']}: {'cortado' if ok else 'sin cambio (la edición no pasó)'} {hits}")
+        out.append({**p, "texto": new} if ok else p)
+    return out
+
+
 def regenerate_cap(topic: dict, esc: dict, parrafos: list[dict], cap: int, *,
                    call: Callable[..., dict] | None = None, log: list[str] | None = None) -> list[dict]:
     """F10 §2 «regenerate_caps v3»: rehace UN cap con el editor (escaleta + texto vecino), no con el guionista entero.
