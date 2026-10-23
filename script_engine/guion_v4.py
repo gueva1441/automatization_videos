@@ -22,6 +22,7 @@ m01b_guionista, m01c_editor, m05_narrative y guion_v3_reglas NO se modifican: se
 F11b: el prompt dice el largo (≈ N palabras por cap y el total); la regeneración de un cap corto mide solo cifras,
 nombres y citas nuevas (REGEN_GUARD); `call_for(modelo)` enchufa Gemini Pro o un GPT en toda la cadena; los ids de
 cada párrafo son `used_items ∩ beat_ids` (dato central, apoyos y lo asignado a su cap).
+F14: con `ficha` (ficha_caso.json), el texto de cada id del prompt sale de la ficha (`data_line`); sin ficha, igual.
 F11c: el prompt sigue la estructura de los fabricantes: `system()` = rol, voz, oficio y ejemplos de voz (XML);
 `prompt()` = el usuario, con los datos primero (<caso>, <escaleta>) y la <tarea> al final. `--modelo gemini-4-argon`
 es el modelo propio del guionista (no toca `gemini_model_research`). La pasada del editor m01c se saltea cuando el
@@ -134,20 +135,32 @@ def mark(i: str, its: dict, esc: dict, pool: dict) -> str:
     return " · ".join(out)
 
 
-def data_line(i: str, its: dict, esc: dict, pool: dict) -> str:
+def data_line(i: str, its: dict, esc: dict, pool: dict, fx: dict[str, str] | None = None) -> str:
+    """F14 §1.3: con `fx` (`ficha_caso.id_texts`), el texto del id sale de la ficha (hecho limpio, cifra con unidad,
+    cita corregida); si la ficha no lo tiene, del pool. Las marcas salen siempre del pool."""
     it = its.get(i)
     if not it:
         return f"[{i}] (no existe)"
     m = mark(i, its, esc, pool)
     m = f" · {m}" if m else ""
+    if fx and i in fx:
+        if it["_kind"] == "citas":
+            return f"[{i}] CITA {fx[i]}{m}"
+        fecha = f" ({it['fecha']})" if it.get("fecha") and it["_kind"] != "cronologia" else ""
+        return f"[{i}] {fx[i]}{fecha}{m}"
     if it["_kind"] == "citas":
         return f"[{i}] CITA «{it.get('fragmento') or ev.text_of(it)}» — {it.get('autor')}{m}"
     fecha = f" ({it['fecha']})" if it.get("fecha") else ""
     return f"[{i}] {ev.text_of(it)}{fecha}{m}"
 
 
-def escaleta_section(esc: dict, pool: dict, largo: str = "objetivo") -> str:
+def escaleta_section(esc: dict, pool: dict, largo: str = "objetivo", ficha: dict | None = None) -> str:
     its = ev.items(pool)
+    if ficha:
+        from researcher_steps.ficha_caso import id_texts
+        fx = id_texts(ficha)
+    else:
+        fx = None
     caps = {c["chapter_number"]: c for c in esc.get("caps") or []}
     out = []
     for n in range(1, 8):
@@ -157,23 +170,23 @@ def escaleta_section(esc: dict, pool: dict, largo: str = "objetivo") -> str:
         in_beats = {i for b in bs for i in [b["dato_central"]] + list(b.get("datos_apoyo") or [])}
         for i in c.get("pantalla_ids") or []:
             if i not in in_beats:
-                out.append(f"  en pantalla: {data_line(i, its, esc, pool)}")
+                out.append(f"  en pantalla: {data_line(i, its, esc, pool, fx)}")
         for b in bs:
             out.append(f"  BEAT {b['n']} · {b.get('funcion')} · {b.get('emocion')}")
             out.append(f"    imagen: {b.get('imagen_sensorial')}")
-            out.append(f"    dato central: {data_line(b['dato_central'], its, esc, pool)}")
+            out.append(f"    dato central: {data_line(b['dato_central'], its, esc, pool, fx)}")
             for i in b.get("datos_apoyo") or []:
-                out.append(f"    apoyo: {data_line(i, its, esc, pool)}")
+                out.append(f"    apoyo: {data_line(i, its, esc, pool, fx)}")
             out.append(f"    el espectador se pregunta: {b.get('pregunta_abierta')}")
             if b.get("cierre"):
                 out.append(f"    cierre: {b['cierre']}")
             cl = c.get("cliffhanger")
             if b is bs[-1] and n <= 6 and cl in its:          # el cliffhanger es un dato del último beat, no una regla
-                out.append(f"    lo que abre el cap {n + 1}: {data_line(cl, its, esc, pool)}")
+                out.append(f"    lo que abre el cap {n + 1}: {data_line(cl, its, esc, pool, fx)}")
     return "\n".join(out)
 
 
-def prompt(topic: dict, esc: dict, largo: str = "objetivo") -> str:
+def prompt(topic: dict, esc: dict, largo: str = "objetivo", ficha: dict | None = None) -> str:
     """F11c §1.1: el mensaje del usuario: los datos primero (<caso>, <escaleta>) y la tarea al final (<tarea>). El rol,
     la voz, el oficio y los ejemplos van en `system()`.
     F13: con `largo="abierto"`, sin «≈ N palabras» en los caps ni el total en la tarea: «Cada cap dura lo que su
@@ -193,7 +206,7 @@ CIERRE HUMANO: {esc.get("cierre_humano")}
 </caso>
 
 <escaleta>
-{escaleta_section(esc, pool, largo)}
+{escaleta_section(esc, pool, largo, ficha)}
 </escaleta>
 
 <tarea>Con lo de arriba, escribí la narración completa en párrafos, cada uno con su beat. {_largo_line(largo, total)} Devolvé el JSON del esquema.</tarea>"""
@@ -256,15 +269,18 @@ def call_for(modelo: str | None) -> Callable[..., dict]:
 
 
 def write(topic: dict, esc: dict, *, call: Callable[..., dict] | None = None,
-          log: list[str] | None = None, largo: str = "objetivo") -> dict[str, Any]:
+          log: list[str] | None = None, largo: str = "objetivo", ficha: dict | None = None) -> dict[str, Any]:
     log = log if log is not None else []
     if call is None:
         call = call_for(None)
-    raw = call(prompt(topic, esc, largo), system_instruction=system(), response_schema=SCHEMA,
+    raw = call(prompt(topic, esc, largo, ficha), system_instruction=system(), response_schema=SCHEMA,
                description="guion_v4 guionista")
     ps = with_ids(mg.normalize(raw, esc), topic["evidence_pool"], esc)
     log.append(f"  [guionista v4] {len(ps)} párrafos · {sum(mg.wc(p['texto']) for p in ps)} palabras")
-    return {"parrafos": ps, "prompt_version": prompt_version(largo)}
+    out = {"parrafos": ps, "prompt_version": prompt_version(largo)}
+    if ficha:
+        out["ficha"] = {"prompt_version": ficha.get("prompt_version"), "pool_md5": ficha.get("pool_md5")}
+    return out
 
 
 # ═══════════════════════════════════════════════════════════════

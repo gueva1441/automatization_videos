@@ -1,0 +1,369 @@
+[
+ {
+  "nombre": "F13 abierto · digest + escaleta F7c-3",
+  "clave": "f13",
+  "usd": 0.0454,
+  "usd_nota": "solo el guion (el digest y la escaleta F7c-3 son de antes)",
+  "etapas": null,
+  "error": null,
+  "bloqueantes": [
+   {
+    "codigo": "d",
+    "cap": 2,
+    "beat": 2,
+    "frase": "Un mapa del huracán ocupa la pantalla de un televisor. Todavía hay señal. El 28 de agosto de 2005, el alcalde de Nueva Orleans, C. Ray Nagin, declara la primera evacuación obligatoria en la historia de la ciudad. La orden es salir. Pero dentro de la prisión, los hombres siguen encerrados.",
+    "motivo": "fuera del caso (descartado en el pool): C. Ray Nagin"
+   }
+  ],
+  "minutos": 6.3,
+  "repeticion": 1.1,
+  "repeticion_por_cap": {
+   "1": 0.0,
+   "2": 0.0,
+   "3": 0.0,
+   "4": 0.0,
+   "5": 6.7,
+   "6": 0.0,
+   "7": 1.2
+  },
+  "preguntas": 2,
+  "frases_analista": {
+   "los datos": 0,
+   "el testimonio": 0,
+   "la frase señala": 0,
+   "no permiten explicar": 0
+  },
+  "embudo": {
+   "pool": 1033,
+   "seleccion": 336,
+   "escaleta": 32,
+   "guion": 13
+  },
+  "escaleta_fuera_de_seleccion": [
+   "D08",
+   "D25",
+   "D431",
+   "Q112",
+   "Q154",
+   "Q177",
+   "T64"
+  ],
+  "beats": 8,
+  "apoyos_por_beat": 1.62,
+  "ids_por_cap": {
+   "1": 1,
+   "2": 3,
+   "3": 0,
+   "4": 1,
+   "5": 3,
+   "6": 0,
+   "7": 5
+  },
+  "citas_por_cap": {
+   "1": 1,
+   "2": 2,
+   "3": 0,
+   "4": 0,
+   "5": 3,
+   "6": 0,
+   "7": 3
+  },
+  "humano": "Renard Reed",
+  "metricas": {
+   "palabras": 777,
+   "palabras_por_cap": {
+    "1": [
+     96,
+     110
+    ],
+    "2": [
+     111,
+     250
+    ],
+    "3": [
+     85,
+     250
+    ],
+    "4": [
+     93,
+     250
+    ],
+    "5": [
+     121,
+     250
+    ],
+    "6": [
+     88,
+     250
+    ],
+    "7": [
+     183,
+     140
+    ]
+   },
+   "citas": 9,
+   "cierre": "cita",
+   "humano_caps": [
+    2,
+    5,
+    7
+   ],
+   "duras_v3": [
+    "cap 1: cap 1 (hook): primera oración tiene 13 palabras (máx 12): \"El agua sucia de un inodoro entra en la boca de un hombre.\"",
+    "cap 1: el cierre tiene que anticipar el dato concreto del cap 2: «Vamos a mantener a nuestros prisioneros donde pertenecen.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 2: 111 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 2: esto está fuera del caso o no hace nada en la historia; no lo nombres: C. Ray Nagin",
+    "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Los generadores perdieron energía.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 3: 85 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 3: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T76] «29 de agosto»; [T80] «29 de agosto»; [D545] «No había generador ni luces, dejando la cárcel en »",
+    "cap 3: fechas: contaste [T76] sin su fecha (29 de agosto): «Al día siguiente, los generadores pierden energía.…»",
+    "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «Los oficiales comenzaron a evacuar a los prisioneros de los edificios Templeman 1 y 2 cuan» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 4: 93 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 4: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T93] «30 de agosto»; [D193] «hasta el pecho o el cuello»",
+    "cap 4: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «2» ×2",
+    "cap 4: fechas: contaste [T93] sin su fecha (30 de agosto): «Cuando el agua alcanza el pecho, los oficiales comienzan a evacuar los…»",
+    "cap 4: el cierre tiene que anticipar el dato concreto del cap 5: «Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD » (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 5: 121 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 5: el cierre tiene que anticipar el dato concreto del cap 6: «Tras el huracán Katrina, reclusos de la Prisión Parroquial de Orleans (OPP) son vistos con» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 6: 88 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 6: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T08] «2005»; [T09] «2005»; [D550] «Los guardias de la prisión lanzaban sándwiches por»",
+    "cap 6: el cierre tiene que anticipar el dato concreto del cap 7: «517 reclusos están desaparecidos de la lista de personas evacuadas de la cárcel.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 7: 183 palabras: el máximo del cap es 161 (objetivo 140)",
+    "cap 7: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «lista de evacuados» ×2; «517» ×3",
+    "antes del pico (beat 5): faltan dos frases cortas seguidas",
+    "beat 2 (párrafo 4): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Vamos a mantener a nuestros prisioneros …»', '«Una vez que se fue la luz, los oficiales…»']",
+    "beat 5 (párrafo 10): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Parecía que estaban abatiendo a la gente…»', '«están tratando de escapar.…»']",
+    "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+    "cap 1: voz de tráiler (el narrador habla del video): «Esta es la historia de»",
+    "cap 1: voz de tráiler (el narrador habla del video): «es la historia de»",
+    "beat 1 (párrafo 1): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 3 (párrafo 5): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 3 (párrafo 6): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 4 (párrafo 7): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 6 (párrafo 11): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 6 (párrafo 12): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)"
+   ]
+  }
+ },
+ {
+  "nombre": "F14 · ficha + escaleta nueva",
+  "clave": "f14",
+  "usd": 0.8115,
+  "usd_nota": "ficha + escaleta + guion",
+  "etapas": [
+   {
+    "etapa": "ficha",
+    "usd": 0.4311,
+    "segundos": 390.9,
+    "llamadas": [
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "ficha_caso",
+      "in": 91016,
+      "out": 21838,
+      "thinking": 3072,
+      "usd": 0.4311
+     }
+    ],
+    "max_completion_tokens": 60000,
+    "prompt_md5": {
+     "sistema": "ffbb6366db56261b73c98acae0dd76f6",
+     "usuario": "1612e06c3935a51e41d9850e16c69510"
+    }
+   },
+   {
+    "etapa": "escaleta",
+    "usd": 0.3287,
+    "segundos": 212.1,
+    "llamadas": [
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "m01a_escaleta intento 1",
+      "in": 19945,
+      "out": 3439,
+      "thinking": 6421,
+      "usd": 0.1235
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "m01a_escaleta intento 2",
+      "in": 20324,
+      "out": 3595,
+      "thinking": 4335,
+      "usd": 0.1047
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "m01a_escaleta intento 3",
+      "in": 20318,
+      "out": 3932,
+      "thinking": 3579,
+      "usd": 0.1005
+     }
+    ],
+    "prompt_md5_intento1": "19241609629a7a1ea0cda04d41f89f95",
+    "error": null
+   },
+   {
+    "etapa": "guion",
+    "usd": 0.0517,
+    "segundos": 131.8,
+    "llamadas": [
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "guion_v4 guionista",
+      "in": 4515,
+      "out": 2223,
+      "thinking": 2047,
+      "usd": 0.0517
+     }
+    ]
+   }
+  ],
+  "error": null,
+  "bloqueantes": [
+   {
+    "codigo": "d",
+    "cap": 6,
+    "beat": 10,
+    "frase": "La ayuda para evacuar la prisión se había solicitado cerca de la medianoche del lunes. La llegada de oficiales de Angola, junto al alcaide Burl Cain, pone en marcha la evacuación. Ahora hay movimiento hacia el exterior. Pero salir también exige esperar dentro del agua. En Central Lock-Up, algunos internos pasan doce o trece horas con el agua hasta el pecho antes de continuar. Horas de pie, todavía dentro de la inundación de la que intentan escapar. Después vienen el paso elevado y los traslados. Los hombres de naranja que Mary Gehman fotografía han llegado hasta allí. La cárcel queda atrás. El encierro continúa.",
+    "motivo": "fuera del caso (descartado en el pool): Burl Cain"
+   },
+   {
+    "codigo": "d",
+    "cap": 7,
+    "beat": 14,
+    "frase": "Meses después, Katherine Mattes obtiene una orden de liberación para Pearl. Es junio del año siguiente. La deuda de 398 dólares por la que la habían retenido ya estaba allí antes del huracán, antes del apagón y antes de la agresión que los oficiales no detuvieron. Pearl finalmente sale. Su historia encuentra una puerta abierta y una orden que permite cruzarla. Pero en aquella lista de evacuados siguen faltando 517 nombres. No son 517 muertes confirmadas. Son personas ausentes de ese registro, sin una respuesta sobre todas ellas. Pearl pudo recuperar la libertad. ¿Quién iba a responder por cada uno de los nombres que faltaban?",
+    "motivo": "fuera del caso (descartado en el pool): Katherine Mattes"
+   }
+  ],
+  "minutos": 11.8,
+  "repeticion": 0.0,
+  "repeticion_por_cap": {
+   "1": 0.0,
+   "2": 0.0,
+   "3": 0.0,
+   "4": 0.0,
+   "5": 0.0,
+   "6": 0.0,
+   "7": 0.0
+  },
+  "preguntas": 2,
+  "frases_analista": {
+   "los datos": 0,
+   "el testimonio": 0,
+   "la frase señala": 0,
+   "no permiten explicar": 0
+  },
+  "embudo": {
+   "pool": 1033,
+   "seleccion": 378,
+   "escaleta": 53,
+   "guion": 18
+  },
+  "escaleta_fuera_de_seleccion": [
+   "D08",
+   "D261"
+  ],
+  "beats": 14,
+  "apoyos_por_beat": 2.07,
+  "ids_por_cap": {
+   "1": 1,
+   "2": 1,
+   "3": 3,
+   "4": 3,
+   "5": 2,
+   "6": 5,
+   "7": 3
+  },
+  "citas_por_cap": {
+   "1": 1,
+   "2": 1,
+   "3": 2,
+   "4": 2,
+   "5": 0,
+   "6": 2,
+   "7": 0
+  },
+  "humano": "Pearl Cornelia Bland",
+  "metricas": {
+   "palabras": 1451,
+   "palabras_por_cap": {
+    "1": [
+     115,
+     110
+    ],
+    "2": [
+     209,
+     250
+    ],
+    "3": [
+     205,
+     250
+    ],
+    "4": [
+     190,
+     250
+    ],
+    "5": [
+     207,
+     250
+    ],
+    "6": [
+     316,
+     250
+    ],
+    "7": [
+     209,
+     140
+    ]
+   },
+   "citas": 8,
+   "cierre": "pregunta",
+   "humano_caps": [
+    1,
+    2,
+    3,
+    7
+   ],
+   "duras_v3": [
+    "cap 1: cap 1 (hook): primera oración tiene 17 palabras (máx 12): \"Una fila de hombres con uniformes naranjas permanece sentada sobre el asfalto caliente de un paso elevado.\"",
+    "cap 1: usaste 1 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [T96] «31 de agosto»",
+    "cap 1: el cierre tiene que anticipar el dato concreto del cap 2: «El sheriff Gusman rechazó la oferta del Departamento de Correccionales (DOC) para ayudar e» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 2: 209 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 2: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D35] «El sheriff Gusman rechazó la oferta del Departamen»; [T30] «27 de agosto»; [D100] «$398»; [D13] «60%»; [D27] «90%»",
+    "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Las aguas de la inundación comienzan a entrar en los niveles inferiores de los edificios d» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 3: 205 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 3: fechas: fundiste fechas: [T40] es del 28 de agosto, pero la oración queda en el 29 de agosto: «En CCC, Darnell Smith ya ha vivido el apagón desde la noche anterior; …»",
+    "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «Algunos presos en la Prisión Parroquial de Orleans (OPP) quedaron en celdas cerradas con a» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 4: 190 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 4: el cierre tiene que anticipar el dato concreto del cap 5: «Los prisioneros comenzaron a prender fuego a cartones de leche, sábanas y toallas para pod» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 5: 207 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+    "cap 5: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D107] «Los prisioneros comenzaron a prender fuego a carto»; [D120] «barra de metal»; [T95] «31 de agosto»",
+    "cap 5: el cierre tiene que anticipar el dato concreto del cap 6: «Cientos de prisioneros permanecieron en Central Lock-Up en agua hasta el pecho por hasta 1» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 6: 316 palabras: el máximo del cap es 288 (objetivo 250)",
+    "cap 6: esto está fuera del caso o no hace nada en la historia; no lo nombres: Burl Cain",
+    "cap 6: fechas: contaste [D132] sin su fecha (29 de agosto): «La ayuda para evacuar la prisión se había solicitado cerca de la media…»",
+    "cap 6: el cierre tiene que anticipar el dato concreto del cap 7: «517 reclusos están desaparecidos de la lista de personas evacuadas de la cárcel.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+    "cap 7: 209 palabras: el máximo del cap es 161 (objetivo 140)",
+    "cap 7: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «517» ×3",
+    "cap 7: esto está fuera del caso o no hace nada en la historia; no lo nombres: Katherine Mattes",
+    "cap 7: fechas: contaste [T144] sin su fecha (28 de junio): «Meses después, Katherine Mattes obtiene una orden de liberación para P…»",
+    "beat 12: ninguna frase de 6 palabras o menos",
+    "beat 5 (párrafo 5): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Los oficiales no me agredieron personalm…»', '«Una vez que se fue la luz, los oficiales…»']",
+    "beat 7 (párrafo 7): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Tuvimos que beber agua del inodoro solo …»', '«Nos dejaron morir allí…»']",
+    "beat 12 (párrafo 12): 2 citas literales; una por párrafo como máximo (el resto, con tus palabras): ['«Todavía hay presos muertos ahí dentro. C…»', '«Nadie se ahogó, nadie se quedó atrás…»']",
+    "gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita",
+    "cap 1: voz de tráiler (el narrador habla del video): «Esta es la historia de»",
+    "cap 1: voz de tráiler (el narrador habla del video): «es la historia de»",
+    "cap 6: repite frases de caps anteriores («ayuda para evacuar»; «el paso elevado»): decilo de otra forma o no lo repitas",
+    "cap 7: repite frases de caps anteriores («una puerta abierta»): decilo de otra forma o no lo repitas",
+    "beat 3 (párrafo 3): 11 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "beat 9 (párrafo 9): 13 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+    "cap 6: el antagonista (Marlin Gusman) no se nombra, y D163 lo nombra como hecho verificado: decí su nombre",
+    "cap 1: describe fotos o imágenes (fotografías): contá la escena, no la foto",
+    "cap 6: describe fotos o imágenes (fotografía): contá la escena, no la foto"
+   ]
+  }
+ }
+]

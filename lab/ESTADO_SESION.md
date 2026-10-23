@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-23 (F13: largo abierto en guion v4, Orleans 777 / Ycuá 1,153 palabras con Sol high → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-23 (F14: la ficha reemplaza al digest; Orleans 777 → 1,451 palabras con Sol high → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -10,7 +10,22 @@
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
-  - F13: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 595 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+  - F14: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 609 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F14 — La ficha en el camino (Orleans) — HECHO, **PARADA** (el analista lee la ficha, la escaleta y el guion y le dice a Omar si el video ganó material y filo)
+- Handoff `lab/hyperframes/f14/HANDOFF_F14_ficha_en_el_camino.md`. Reporte `lab/hyperframes/f14/F14_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f14.html` (F13 | F14 con el embudo; teléfono OK). Textos: `FICHA_orleans.md`, `ESCALETA_orleans_f14.md`, `NARRACION_orleans_f14.md`.
+- Código:
+  - `ficha_caso` `f14-1`: 5 criterios → `decisiones` (1, 2, 3, 5), `versiones` (4), `contradicciones` (el resto), `personas_descartadas` y `aproximada`, más el chequeo de las secciones nuevas; `id_texts` y `load`.
+  - `m01a_escaleta`: con ficha (`generate_escaleta(ficha="auto")` lee `_steps/<topic>/ficha_caso.json`), la escaleta lee la ficha y no el digest, con apoyos 0–6. **Sin ficha es byte-idéntica** (md5 de HEAD), con apoyos 0–3.
+  - `guion_v4.data_line`: con ficha, el texto de cada id sale de la ficha. `fase1_5.run_guion_v4` pasa la ficha si existe. **Ojo: Ycuá ya tiene ficha (F12) en `_steps`.**
+- Tests: `test_module_f14.py` (14); suite amplia 609 verdes + las 5 previas.
+- Resultado:
+  - **777 → 1,451 palabras (6.3 → 11.8 min)** con largo abierto.
+  - Embudo pool → selección → escaleta → guion: 1,033 → 336 (digest) / 378 (ficha) → 32 / 53 → 13 / 18. Beats: 8 → 14. Humano: Reed → Pearl Cornelia Bland.
+  - Decisiones: 22 (criterio 1: 14; 2: 1; 3: 4; 5: 3); versiones: 10; contradicciones abiertas: 5.
+  - **Nagin:** rescatado en la ficha y no usado por la escaleta, así que su bloqueante falso desapareció. **Los 2 bloqueantes de F14 son (d) por Burl Cain y Katherine Mattes, que la ficha rescató de los descartados del pool**: el (d) mira el pool, no la ficha. Decide Omar.
+  - Tanda **US$ 0.811** de 1.50.
+- La escaleta F7c-3 no se pisó (copia en `01a_escaleta_f7c3.json`; la nueva es `01a_escaleta_f14.json`). Pool y `topics_db` intactos. Sin merge. **No seguir a producción.**
 
 ## F13 — Largo abierto (Orleans + Ycuá, Sol high) — HECHO, **PARADA** (el analista lee las dos versiones abiertas y le dice a Omar si el guion gana filo y cuántos minutos da)
 - Handoff `lab/hyperframes/f13/HANDOFF_F13_largo_abierto.md`. Reporte `lab/hyperframes/f13/F13_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f13.html` (objetivo | abierto por cap; teléfono OK). Textos `NARRACION_{orleans,ycua}_f13_abierto.md`.

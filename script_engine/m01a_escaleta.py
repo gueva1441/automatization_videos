@@ -176,7 +176,12 @@ beats:
  7 cap7 cierre · memoria 2 · imagen: "una anciana mirando la misma ventana, setenta años después" · humano en escena · pregunta pantalla: "¿Cuántas puertas siguen cerradas?"
 """
 
-def rules_text(cap_words: dict[int, int], min_beats: int, max_beats: int, min_dev: int = 1) -> str:
+MAX_APOYOS = 3                      # datos_apoyo por beat (sin ficha, como siempre)
+MAX_APOYOS_FICHA = 6                # F14 §1.2: con la ficha, 0–6 (deja pasar material; no es una regla nueva)
+
+
+def rules_text(cap_words: dict[int, int], min_beats: int, max_beats: int, min_dev: int = 1,
+               max_apoyos: int = MAX_APOYOS) -> str:
     """Las reglas con el perfil de largo (F7d: el amarillo de la compuerta acorta el video)."""
     dev = (f" Los caps de desarrollo (2–6) tienen al menos {min_dev} beats cada uno." if min_dev > 1 else "")
     return f"""REGLAS DE LA ESCALETA (duras: si no se cumplen, se rechaza):
@@ -188,7 +193,7 @@ def rules_text(cap_words: dict[int, int], min_beats: int, max_beats: int, min_de
    el último beat, y después del pico hay al menos un beat de intensidad 1 (respiro: el espectador respira antes del
    cierre). FLASH-FORWARD: el beat 1 puede contar primero un momento POSTERIOR y más intenso (`flash_forward: true`);
    el cap 2 vuelve atrás («cómo se llegó ahí») y la curva se mide desde el beat 2. Solo el beat 1 puede serlo.
-4. Cada beat tiene UN `dato_central` (un id D##, T## o Q## del pool) y 0–3 `datos_apoyo`. Un id aparece en UN solo beat
+4. Cada beat tiene UN `dato_central` (un id D##, T## o Q## del pool) y 0–{max_apoyos} `datos_apoyo`. Un id aparece en UN solo beat
    en todo el video (después se puede parafrasear sin la cifra). `pico.id` = el dato central del beat del pico.
 5. `humano`: UNA persona del pool que estuvo ahí (preferí un TESTIGO, con testimonio: es a quien seguimos). Va con su
    `id` P## y su `nombre` EXACTO del pool. Si el pool no tiene testigos con nombre: un personaje colectivo con rostro
@@ -319,7 +324,72 @@ def _fmt_counts(pool: dict) -> str:
                      for g in count_variants(pool)) or "  (ninguno)"
 
 
-def pool_section(pool: dict) -> str:
+def ficha_section(ficha: dict, pool: dict) -> str:
+    """F14 §1.2: la ficha del caso completa (personas, cronología, hechos, cifras con unidad, citas, versiones,
+    decisiones, contradicciones abiertas) con sus ids, que son los del pool. Las marcas (TESTIGO, VERIFICADA…) salen
+    del pool por id."""
+    its = ev.items(pool)
+    in_ficha = {i for sec in ficha.values() if isinstance(sec, list) for x in sec if isinstance(x, dict)
+                for i in list(x.get("ids") or []) + [j for v in (x.get("versiones") or x.get("otras_versiones") or [])
+                                                      for j in v.get("ids") or []]}
+
+    def ids(x: dict) -> str:
+        return "[" + ", ".join(x.get("ids") or []) + "]"
+    people = []
+    for x in ficha.get("personas") or []:
+        tags = []
+        for i in x.get("ids") or []:
+            p = its.get(i)
+            if p and p["_kind"] == "personajes":
+                tags += [t for t, on in (("TESTIGO", p.get("testigo")), ("VERIFICADO", p.get("testigo_verificado")),
+                                         ("ANTAGONISTA", p.get("antagonista"))) if on and t not in tags]
+                if p["nombre"] != x.get("nombre"):
+                    tags.append(f"nombre en el pool: {p['nombre']}")
+                own = [j for j in own_ids(pool, p) if j in in_ficha] if p.get("testigo") else []
+                if own:
+                    tags.append(f"datos que lo ponen en escena: {', '.join(own)} (repartilos en caps distintos)")
+        people.append(f"  {ids(x)} PERSONA: {x.get('nombre')} — {x.get('rol')}" + (f" · {' · '.join(tags)}" if tags else ""))
+    gone = [f"  {ids(x)} {x.get('nombre')} — {x.get('rol')} · por qué hace falta: {x.get('motivo')}"
+            for x in ficha.get("personas_descartadas") or []]
+    crono = []
+    for x in ficha.get("cronologia") or []:
+        h = x.get("hora") if x.get("hora") and str(x.get("hora")).lower() not in ("null", "none") else ""
+        crono.append(f"  {ids(x)} {x.get('fecha')}{' ' + h if h else ''}{' (aproximada)' if x.get('aproximada') else ''}"
+                     f" — {x.get('evento')}")
+    hechos = [f"  {ids(x)} {x.get('texto')}" for x in ficha.get("hechos") or []]
+    cifras = []
+    for x in ficha.get("cifras") or []:
+        otras = "; ".join(f"{v.get('valor')} {v.get('unidad')} [{', '.join(v.get('ids') or [])}]"
+                          for v in x.get("otras_versiones") or [])
+        cifras.append(f"  {ids(x)} {x.get('que')}: {x.get('valor')} {x.get('unidad')} · {x.get('fuente')}"
+                      + (f" · otras fuentes: {otras}" if otras else ""))
+    citas = []
+    for x in ficha.get("citas") or []:
+        q = next((its[i] for i in x.get("ids") or [] if i in its and its[i]["_kind"] == "citas"), None)
+        tag = ((" · TESTIMONIO (estuvo ahí)" if q.get("testimonio") else "") + _verif(q)) if q else ""
+        citas.append(f'  {ids(x)} CITA: "{x.get("texto")}" — {x.get("autor")} ({x.get("rol")}){tag}')
+
+    def vers(xs: list[dict], key: str = "versiones") -> list[str]:
+        out = []
+        for x in xs:
+            out.append(f"  {x.get('tema')}" + (f" · {x['decision']} {ids(x)}" if x.get("decision") else ""))
+            out += [f"    - {v.get('dice')} [{', '.join(v.get('ids') or [])}]" for v in x.get(key) or []]
+        return out
+    blocks = [("PERSONAS", people), ("PERSONAS QUE EL RESEARCH DESCARTÓ Y LA HISTORIA NECESITA", gone),
+              ("CRONOLOGÍA", crono), ("HECHOS", hechos), ("CIFRAS (con unidad; la principal y las otras versiones)", cifras),
+              ("CITAS", citas),
+              ("VERSIONES (hechos disputados: se cuentan como versiones, no se resuelven)", vers(ficha.get("versiones") or [])),
+              ("DECISIONES DE LA FICHA (la versión que quedó y las otras)",
+               vers(ficha.get("decisiones") or [], "otras_versiones")),
+              ("CONTRADICCIONES SIN RESOLVER", vers(ficha.get("contradicciones") or []))]
+    return ("FICHA DEL CASO (el research depurado: la única fuente; los ids son los del pool)\n\n"
+            + "\n\n".join(f"{t}:\n" + ("\n".join(b) or "  (ninguno)") for t, b in blocks))
+
+
+def pool_section(pool: dict, ficha: dict | None = None) -> str:
+    # F14: si hay ficha del caso, la escaleta lee la ficha (no el digest ni el pool). Sin ficha, como siempre.
+    if ficha:
+        return ficha_section(ficha, pool)
     # F7c: un pool de research v3 (cientos de datos) trae `digest`, su resumen con ids reales; la escaleta lo lee en vez
     # del pool entero (≈ 63 k → ≤ 20 k tokens). ESCALETA_DIGEST=0 lo apaga. Sin digest, todo igual que antes.
     if (pool.get("digest") or {}).get("texto") and os.environ.get("ESCALETA_DIGEST", "1") != "0":
@@ -338,7 +408,7 @@ def _profile(topic: dict) -> tuple[dict[int, int], int, int, int]:
             lg.get("min_beats_dev_cap") or MIN_BEATS_DEV_CAP)
 
 
-def build_prompt(topic: dict, pool: dict, feedback: list[str] | None = None) -> str:
+def build_prompt(topic: dict, pool: dict, feedback: list[str] | None = None, ficha: dict | None = None) -> str:
     fb = ""
     if feedback:
         fb = ("\n═══ TU ESCALETA ANTERIOR SE RECHAZÓ. CORREGÍ ESTO (sin romper lo demás) ═══\n"
@@ -357,11 +427,11 @@ Misterio: {topic.get("mystery") or "-"}
 Revelación: {topic.get("reveal") or "-"}
 
 ═══ INVESTIGACIÓN (EVIDENCE POOL): la ÚNICA fuente de nombres, cifras, fechas y citas ═══
-{pool_section(pool)}
+{pool_section(pool, ficha)}
 
 ═══ CÓMO SE VE UNA BUENA ESCALETA ═══
 {FEWSHOT}
-═══ {rules_text(*_profile(topic))}
+═══ {rules_text(*_profile(topic), max_apoyos=MAX_APOYOS_FICHA if ficha else MAX_APOYOS)}
 {fb}
 Devolvé la escaleta de ESTE tema en el JSON pedido. Pensá primero a quién seguimos y dónde está el pico; después
 repartí los beats en los 7 caps."""
@@ -422,7 +492,7 @@ def _beat_known(beats: list[dict], upto_cap: int, pool: dict, esc: dict, context
 
 
 def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
-             solo_apoyo: list[str] | tuple[str, ...] = (), largo: dict | None = None
+             solo_apoyo: list[str] | tuple[str, ...] = (), largo: dict | None = None, max_apoyos: int = MAX_APOYOS
              ) -> tuple[dict, list[str], list[str], list[str]]:
     """(escaleta reparada, problemas duros, reparaciones, avisos). Problemas duros → reintento. `context` = lo que el
     espectador sabe antes del primer segundo (el título del video)."""
@@ -479,7 +549,7 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
             else:
                 seen[i] = b["n"]
                 keep.append(i)
-        b["datos_apoyo"] = keep[:3]
+        b["datos_apoyo"] = keep[:max_apoyos]
     # curva
     pk = esc.get("pico") or {}
     try:
@@ -879,8 +949,10 @@ def is_v3(topic: dict) -> bool:
 
 
 def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, attempts: int = MAX_ATTEMPTS,
-                      log: list[str] | None = None, persist: bool = True) -> dict:
-    """Escaleta del topic (Pro, hasta `attempts` con feedback). EscaletaValidationError si ninguna pasa."""
+                      log: list[str] | None = None, persist: bool = True, ficha: dict | None | str = "auto") -> dict:
+    """Escaleta del topic (Pro, hasta `attempts` con feedback). EscaletaValidationError si ninguna pasa.
+    F14: `ficha="auto"` lee `_steps/<topic>/ficha_caso.json` si existe (la escaleta lee la ficha, no el digest, y los
+    apoyos van de 0 a 6); sin ficha, todo como siempre."""
     log = log if log is not None else []
     topic_id = topic.get("id") or topic.get("topic_id")
     if not topic_id:
@@ -891,21 +963,27 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
     if not pool:
         raise ValueError("la escaleta v3 necesita evidence_pool (sin pool: camino v2)")
     gate = pool_gate_profile(topic, pool, persist=persist, log=log)        # F7d: rojo → PoolGateRed, sin gastar
+    if ficha == "auto":
+        from researcher_steps.ficha_caso import load as _load_ficha
+        ficha = _load_ficha(topic_id, STEPS_DIR)
+    max_ap = MAX_APOYOS_FICHA if ficha else MAX_APOYOS
     if call is None:
         from gemini_helpers import call_pro_json as call
     feedback: list[str] = []
     intentos = []
     for k in range(1, attempts + 1):
-        raw = call(build_prompt(topic, pool, feedback), system_instruction=SYSTEM, response_schema=SCHEMA,
+        raw = call(build_prompt(topic, pool, feedback, ficha), system_instruction=SYSTEM, response_schema=SCHEMA,
                    description=f"m01a_escaleta intento {k}")
         esc, hard, rep, warn = validate(raw, pool, final=k == attempts, context=str(topic.get("video_title") or ""),
                                         solo_apoyo=tuple(topic.get("escaleta_solo_apoyo") or ()),
-                                        largo=topic.get("_largo"))
+                                        largo=topic.get("_largo"), max_apoyos=max_ap)
         intentos.append({"intento": k, "problemas": hard, "reparaciones": rep, "avisos": warn})
         log.append(f"  [escaleta] intento {k}: {len(hard)} problema(s) {hard[:4]} · {len(rep)} reparación(es)")
         if not hard:
             esc.update({"topic_id": topic_id, "prompt_version": PROMPT_VERSION, "_reparaciones": rep, "_avisos": warn,
                         "_intentos": intentos})
+            if ficha:
+                esc["ficha"] = {"prompt_version": ficha.get("prompt_version"), "pool_md5": ficha.get("pool_md5")}
             if gate:
                 esc["pool_gate"] = {k: gate[k] for k in ("color", "metricas", "motivos", "target_words")}
             apply_pool_plan(esc, pool)

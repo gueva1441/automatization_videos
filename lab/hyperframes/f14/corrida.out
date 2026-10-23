@@ -1,0 +1,31 @@
+[ficha] prompt 341,056 car · max_completion_tokens 60,000
+[13:08:59] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3-f14-ficha
+[13:15:30] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3-f14-ficha � Costo total: $0.4311
+  [ficha] US$ 0.4311 · 391 s · tanda US$ 0.4311
+[ficha] crudo {'contradicciones': 5, 'decisiones': 24, 'versiones': 10, 'personas': 73, 'personas_descartadas': 14, 'cifras': 34, 'cronologia': 52, 'hechos': 78, 'citas': 23, 'descartados': 25}
+[ficha] final {'contradicciones': 5, 'decisiones': 22, 'versiones': 10, 'personas': 73, 'personas_descartadas': 8, 'cifras': 34, 'cronologia': 50, 'hechos': 78, 'citas': 22, 'descartados': 36} · sacados 13
+  sacado [decisiones] [decisiones] Hora de fallo del generador de Templeman III → no respaldado: cifra 175
+  sacado [decisiones] [decisiones] Fecha de finalización de la evacuación → no respaldado: cifra 84
+  sacado [personas_descartadas] [personas_descartadas] Interno identificado como #5 → no respaldado: «Interno identificado como #5» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Interno identificado como #33 → no respaldado: «Interno identificado como #33» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Interna identificada como #51 → no respaldado: «Interna identificada como #51» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Interna identificada como #53 → no respaldado: «Interna identificada como #53» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Interno identificado como #56 → no respaldado: «Interno identificado como #56» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Interna identificada como #220 → no respaldado: «Interna identificada como #220» no está entre los descartados del pool
+  sacado [cronologia] [cronologia] Según el interno de Templeman III identificado como #175, la llamada para rep → no respaldado: cifra 175
+  sacado [cronologia] [cronologia] Blanco solicitó a Bush una declaración de emergencia para un período que come → no respaldado: fecha 2005-08-27
+  sacado [citas] [citas] Están en la cárcel, hombre. Mienten. → no respaldado: el texto de la cita no está en sus ids
+  sacado [descartados] [descartados] Jimmy LeBlanc, Sandra Thompson, Stacy Head, Susan Guidry y Susan Hutson → no respaldado: sin ids
+  sacado [descartados] [descartados] Mallette, Sgt. Green, Mrs. Jackson y Ms. Holmes → no respaldado: sin ids
+[13:15:31] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3-f14-escaleta
+[13:19:03] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3-f14-escaleta � Costo total: $0.3287
+  [escaleta] US$ 0.3287 · 212 s · tanda US$ 0.7598
+  [escaleta] compuerta del pool: verde {'datos': 558, 'citas_verificadas': 162, 'elegibles_humano': 12, 'eventos_con_fecha': 127}
+  [escaleta] intento 1: 4 problema(s) ["beat 1: Joyce Gilson en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q61', 'D147', 'D149']); datos suyos que valen: ['D140', 'T41', 'T79']", "beat 9: Joyce Gilson en escena sin un dato suyo verificado (ninguna cita ni mención en ['D155', 'D76', 'D78']); datos suyos que valen: ['D140', 'T41', 'T79']", "la última frase del video (cierre del beat 13) no nombra al humano ni a un testigo verificado (Brady Richard, Oliver Thomas, Marlin Gusman, Christina Foster, Rhonda Ducre, Luis Reyes, Renard Reed, Gedra Payne Robinson, Albert G. Couvillion, Keanna Herbert, Pearl Cornelia Bland, Ronnie Lee Morgan, Jr., Mary Gehman, David Fernandez, Dan Bright, Arnie Fielkow, Andy Kopplin, Sergeant Bell, Chief Rudy, Ranking Officer Watson, Edward “Edgar” Burton, Big Whappy, Phyllis Mann, Denise Lewis Henry, Richard Stalder, Capitán Jenkins): «Años después, la hermana de uno de los hombres que murió tras la evacuación solo podía preguntar lo que tantos otros seguían preguntando: '¿Sufrió? No sabemos nada'.»", 'pregunta de pantalla del cap 2 «¿Nadie vio venir la tormenta?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)'] · 2 reparación(es)
+  [escaleta] intento 2: 5 problema(s) ["beat 14: Joyce Gilson en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q54', 'Q56', 'Q73']); datos suyos que valen: ['D140', 'T41', 'T79']", 'el humano está en escena en los caps [2, 7]: tienen que ser ≥ 3', "la última frase del video (cierre del beat 14) no nombra al humano ni a un testigo verificado (Brady Richard, Oliver Thomas, Marlin Gusman, Christina Foster, Rhonda Ducre, Luis Reyes, Renard Reed, Gedra Payne Robinson, Albert G. Couvillion, Keanna Herbert, Pearl Cornelia Bland, Ronnie Lee Morgan, Jr., Mary Gehman, David Fernandez, Dan Bright, Arnie Fielkow, Andy Kopplin, Sergeant Bell, Chief Rudy, Ranking Officer Watson, Edward “Edgar” Burton, Big Whappy, Phyllis Mann, Denise Lewis Henry, Richard Stalder, Capitán Jenkins): «La frase final del video recuerda la pregunta de Joyce Gilson: 'Nunca se me ocurriría que una persona pudiera permitir que eso sucediera'.»", 'pregunta de pantalla del cap 5 «¿Alguien escuchó sus gritos de auxilio?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?); no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)'] · 2 reparación(es)
+  [escaleta] intento 3: 0 problema(s) [] · 2 reparación(es)
+[escaleta] 14 beats · humano Pearl Cornelia Bland · pico beat 9
+[13:19:04] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3-f14-guion
+[13:21:16] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3-f14-guion � Costo total: $0.0517
+  [guion] US$ 0.0517 · 132 s · tanda US$ 0.8115
+[guion] 1451 palabras ≈ 11.8 min · bloqueantes 2 · por cap [115, 209, 205, 190, 207, 316, 209]

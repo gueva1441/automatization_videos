@@ -1,0 +1,4244 @@
+{
+ "topic": "ba6c3cac-f7r3",
+ "titulo": "Prisión Parroquial Orleans: El Horror Olvidado por Katrina (Nueva Orleans, huracán Katrina, agosto–septiembre de 2005)",
+ "modelo": "gpt-6.1-sol",
+ "esfuerzo": "high",
+ "prompt_version": "f14-1",
+ "pool_md5": "e90d6ca9869077fd2759766817588741",
+ "conteos_crudo": {
+  "contradicciones": 5,
+  "decisiones": 24,
+  "versiones": 10,
+  "personas": 73,
+  "personas_descartadas": 14,
+  "cifras": 34,
+  "cronologia": 52,
+  "hechos": 78,
+  "citas": 23,
+  "descartados": 25
+ },
+ "conteos": {
+  "contradicciones": 5,
+  "decisiones": 22,
+  "versiones": 10,
+  "personas": 73,
+  "personas_descartadas": 8,
+  "cifras": 34,
+  "cronologia": 50,
+  "hechos": 78,
+  "citas": 22,
+  "descartados": 36
+ },
+ "sacados": 13,
+ "usd": 0.4311,
+ "contradicciones": [
+  {
+   "tema": "Nombre del sheriff en un testimonio",
+   "versiones": [
+    {
+     "dice": "El documento oficial del Departamento de Justicia se dirige a Marlin N. Gusman.",
+     "doc_id": "F09",
+     "offset": 139,
+     "ids": [
+      "P03"
+     ]
+    },
+    {
+     "dice": "Un testimonio de F03 usa Sheriff Martin Gusman; la discrepancia queda registrada aunque el nombre canónico se normaliza por el documento oficial.",
+     "doc_id": "F03",
+     "offset": 90623,
+     "ids": [
+      "P03",
+      "Q129"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Posible confusión de identidad entre Iris Hardy e Iris Hardeman",
+   "versiones": [
+    {
+     "dice": "F01 identifica a Iris L. Hardeman y recoge que fue trasladada a Angola, donde una compañera relató una caída posterior.",
+     "doc_id": "F01",
+     "offset": 136931,
+     "ids": [
+      "P20",
+      "T110"
+     ]
+    },
+    {
+     "dice": "Una interna de Templeman IV identifica a una amiga como Iris Hardy y afirma que murió por coma diabético; el pool no permite demostrar si se trata de la misma persona.",
+     "doc_id": "F03",
+     "offset": 247108,
+     "ids": [
+      "P63",
+      "D476"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Identidad de Mr. Gussman o Mr. Gusmen",
+   "versiones": [
+    {
+     "dice": "F03 registra a un Mr. Gussman al que una interna atribuye la orden de dejar a los presos donde estaban.",
+     "doc_id": "F03",
+     "offset": 47010,
+     "ids": [
+      "P57",
+      "D305"
+     ]
+    },
+    {
+     "dice": "F01 reproduce una formulación semejante usando Mr. Gusmen, sin aportar en ese pasaje un nombre completo.",
+     "doc_id": "F01",
+     "offset": 109293,
+     "ids": [
+      "Q19"
+     ]
+    },
+    {
+     "dice": "El sheriff aparece identificado oficialmente como Marlin N. Gusman; no se fusionan automáticamente las identidades de los pasajes incompletos.",
+     "doc_id": "F09",
+     "offset": 139,
+     "ids": [
+      "P03"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Identificación del edificio en el testimonio del interno identificado como #63",
+   "versiones": [
+    {
+     "dice": "F03 describe su lugar de detención como Old Parish Prison y añade Templeman III entre paréntesis.",
+     "doc_id": "F03",
+     "offset": 68663,
+     "ids": [
+      "L11"
+     ]
+    },
+    {
+     "dice": "El listado de edificios de F01 presenta Old Parish Prison y los edificios Templeman como instalaciones distintas.",
+     "doc_id": "F01",
+     "offset": 39617,
+     "ids": [
+      "L03"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Denominación del cargo de Bonita Pittman",
+   "versiones": [
+    {
+     "dice": "Un testimonio la denomina Associate Warden Bonita Pittman.",
+     "doc_id": "F01",
+     "offset": 169229,
+     "ids": [
+      "D98"
+     ]
+    },
+    {
+     "dice": "Otro pasaje la denomina Assistant Warden Bonita Pittman, sin aclarar si corresponde a una diferencia temporal o de denominación.",
+     "doc_id": "F01",
+     "offset": 282979,
+     "ids": [
+      "D170"
+     ]
+    }
+   ]
+  }
+ ],
+ "decisiones": [
+  {
+   "tema": "Nombre canónico del sheriff",
+   "criterio": 2,
+   "decision": "Se usa Marlin N. Gusman, forma del documento oficial dirigido al sheriff, y se conserva Martin como variante discordante sin ocultarla.",
+   "ids": [
+    "P03"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Inmate #77 lo identifica como Sheriff Martin Gusman.",
+     "doc_id": "F03",
+     "offset": 90623,
+     "ids": [
+      "P03",
+      "Q129"
+     ]
+    },
+    {
+     "dice": "Otros pasajes usan Marlin Gusman, sin inicial intermedia.",
+     "doc_id": "F01",
+     "offset": 215691,
+     "ids": [
+      "P03"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha de la primera solicitud federal de Blanco",
+   "criterio": 1,
+   "decision": "La solicitud se fecha el sábado 27 de agosto; el 26 de agosto es el comienzo del período de emergencia solicitado, no la fecha de la carta.",
+   "ids": [
+    "P10",
+    "T21"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T21 asigna a la solicitud la fecha 2005-08-26, pero el pasaje dice que Blanco escribió el sábado 27.",
+     "doc_id": "F01",
+     "offset": 68789,
+     "ids": [
+      "T21"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha de llegada de Katrina",
+   "criterio": 5,
+   "decision": "Se adopta el 29 de agosto de 2005 por coincidencia entre documentos y se marca aproximada por la discordancia del pool.",
+   "ids": [
+    "T61",
+    "T73"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Una carta fecha la llegada del huracán el domingo 28 de agosto.",
+     "doc_id": "F05",
+     "offset": 9456,
+     "ids": [
+      "T52"
+     ]
+    },
+    {
+     "dice": "Otro testimonio asocia el apagón del domingo 28 con el momento en que golpeó la tormenta.",
+     "doc_id": "F03",
+     "offset": 122731,
+     "ids": [
+      "T47"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha del corte de teléfonos",
+   "criterio": 5,
+   "decision": "Se adopta el viernes 26 de agosto por coincidencia entre F01 y testimonios de F03, con aproximada en true porque existe una versión que lo sitúa el sábado.",
+   "ids": [
+    "D55",
+    "T25",
+    "D442"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El interno identificado como #140 sitúa el corte del servicio telefónico el sábado.",
+     "doc_id": "F03",
+     "offset": 191992,
+     "ids": [
+      "D437"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Hora del arresto de Quantonio Williams",
+   "criterio": 1,
+   "decision": "Se conserva el arresto del 27 de agosto sin hora, porque la hora nocturna añadida en T37 corresponde al abandono de puestos relatado por otro interno.",
+   "ids": [
+    "P35",
+    "T37",
+    "D247"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T37 asigna 23:30 al arresto, pero el pasaje de F03 trata de oficiales que dejaron sus puestos.",
+     "doc_id": "F03",
+     "offset": 7548,
+     "ids": [
+      "T37",
+      "D247"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Hora de la evacuación obligatoria de la ciudad",
+   "criterio": 1,
+   "decision": "Se conserva únicamente por la mañana, porque el pasaje no respalda la hora exacta que añade T55.",
+   "ids": [
+    "T55"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T55 añade 10:00, mientras el pasaje solo dice la mañana del domingo.",
+     "doc_id": "F01",
+     "offset": 70036,
+     "ids": [
+      "T55"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Última comida del interno identificado como #130",
+   "criterio": 1,
+   "decision": "Se usa domingo por la tarde o noche, sin la hora exacta añadida por la extracción.",
+   "ids": [
+    "T58",
+    "D406"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T58 añade 18:00, pero el pasaje solo dice Sunday evening.",
+     "doc_id": "F03",
+     "offset": 177444,
+     "ids": [
+      "T58",
+      "D406"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Inicio de inundación del dormitorio de la interna identificada como #220",
+   "criterio": 1,
+   "decision": "Se usa domingo por la noche sin una hora de reloj, porque el pasaje no respalda la precisión de T60.",
+   "ids": [
+    "T60"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T60 añade 23:59, pero el pasaje solo sitúa la entrada de agua el domingo por la noche.",
+     "doc_id": "F03",
+     "offset": 295373,
+     "ids": [
+      "T60"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Traslado de Joyce Gilson confundido con el de otro interno",
+   "criterio": 1,
+   "decision": "No se fecha el traslado de Gilson al mediodía del 29 de agosto, porque T79 combina su relato sin fecha explícita con el traslado de otra persona.",
+   "ids": [
+    "T79",
+    "P22"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Gilson dice que salieron de Templeman III probablemente alrededor de 7 u 8 de la mañana, sin fecha explícita en ese pasaje.",
+     "doc_id": "F01",
+     "offset": 241106,
+     "ids": [
+      "T79"
+     ]
+    },
+    {
+     "dice": "El traslado al mediodía del 29 de agosto corresponde al interno identificado como #102.",
+     "doc_id": "F03",
+     "offset": 133978,
+     "ids": [
+      "T79"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Entrega de suministros médicos de Brady Richard",
+   "criterio": 1,
+   "decision": "Se conserva martes por la noche sin hora exacta, porque la hora añadida en T92 procede de un apagón relatado por otro interno.",
+   "ids": [
+    "D41",
+    "T92"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "La hora aproximada de 1 a.m. del 30 de agosto corresponde al corte de electricidad de otro testimonio, no a Richard.",
+     "doc_id": "F03",
+     "offset": 145834,
+     "ids": [
+      "T92"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Hora de comienzo de la evacuación de Templeman I y II",
+   "criterio": 1,
+   "decision": "Se conserva el martes 30 de agosto sin hora general y se limita la referencia aproximada de la tarde a la evacuación del interno que la declaró.",
+   "ids": [
+    "T93",
+    "D320"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El pasaje de Human Rights Watch fecha el comienzo el martes, sin hora.",
+     "doc_id": "F02",
+     "offset": 2005,
+     "ids": [
+      "T93"
+     ]
+    },
+    {
+     "dice": "La evacuación aproximadamente a las 5 p.m. es la experiencia del interno identificado como #56.",
+     "doc_id": "F03",
+     "offset": 57406,
+     "ids": [
+      "T93",
+      "D320"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Hora general de evacuación de Templeman III",
+   "criterio": 1,
+   "decision": "Se elimina la hora exacta de T120 porque ninguno de sus pasajes respalda una evacuación general a esa hora.",
+   "ids": [
+    "T120"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Human Rights Watch solo indica jueves 1 de septiembre.",
+     "doc_id": "F02",
+     "offset": 449,
+     "ids": [
+      "T120"
+     ]
+    },
+    {
+     "dice": "La carta de Templeman IV habla de un intervalo entre 4:00am y quizá 2:00pm, no de una evacuación general a las 02:00.",
+     "doc_id": "F05",
+     "offset": 3785,
+     "ids": [
+      "T120"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Solicitud de ayuda al DOC cerca de medianoche",
+   "criterio": 5,
+   "decision": "Al no coincidir las horas exactas, se conserva como aproximada la hora del informe técnico del DOC y se registra la referencia de Human Rights Watch a medianoche.",
+   "ids": [
+    "D132",
+    "T82",
+    "P03"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Human Rights Watch sitúa la solicitud de Gusman a medianoche del lunes 29 de agosto.",
+     "doc_id": "F02",
+     "offset": 1609,
+     "ids": [
+      "P03",
+      "T82"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Población de OPP durante la tormenta",
+   "criterio": 3,
+   "decision": "Se adopta el conteo del sheriff reproducido en el pool como cifra registrada, advirtiendo que excluye trasladados de St. Bernard y no equivale al total exhaustivo de personas dentro.",
+   "ids": [
+    "D51",
+    "D533"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "La ACLU calcula casi 7000 presos por evacuar.",
+     "doc_id": "F01",
+     "offset": 101029,
+     "ids": [
+      "D48"
+     ]
+    },
+    {
+     "dice": "F08 habla de aproximadamente 6300 internos en vísperas de la tormenta.",
+     "doc_id": "F08",
+     "offset": 5839,
+     "ids": [
+      "D201"
+     ]
+    },
+    {
+     "dice": "Otro resumen de F08 habla de 6000 personas.",
+     "doc_id": "F08",
+     "offset": 2104,
+     "ids": [
+      "D198"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Capacidad anterior a Katrina",
+   "criterio": 3,
+   "decision": "Se adopta la capacidad indicada por el Departamento de Justicia y se conserva la cifra de la ACLU con su referencia al final de la gestión de Foti.",
+   "ids": [
+    "D219",
+    "D14"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "F01 atribuye al final de la gestión de Foti una capacidad aproximada de 8500 presos.",
+     "doc_id": "F01",
+     "offset": 40521,
+     "ids": [
+      "D14"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Conteo de fallecidos",
+   "criterio": 3,
+   "decision": "Se registra ninguna muerte únicamente como cifra oficial declarada por Gusman, sin resolver las denuncias de fallecimientos ni presentar esa cifra como verificación independiente.",
+   "ids": [
+    "D163",
+    "D546"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Un interno dijo que seis oficiales le comunicaron que habían muerto 21 presos.",
+     "doc_id": "F03",
+     "offset": 30065,
+     "ids": [
+      "D290"
+     ]
+    },
+    {
+     "dice": "Luis Reyes afirmó que todavía había internos muertos dentro.",
+     "doc_id": "F01",
+     "offset": 252606,
+     "ids": [
+      "Q60"
+     ]
+    },
+    {
+     "dice": "Raphael Schwarz relató que una oficial le dijo que había encontrado tres cadáveres.",
+     "doc_id": "F01",
+     "offset": 115556,
+     "ids": [
+      "D58"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Caracterización penal de los internos de CCC",
+   "criterio": 3,
+   "decision": "Para contar acusaciones se usan los datos atribuidos al sheriff, no la caracterización general del director médico.",
+   "ids": [
+    "D117",
+    "P28"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Inglese describió a los internos de CCC como personas peligrosas y afirmó que algunos eran violadores y asesinos.",
+     "doc_id": "F01",
+     "offset": 197082,
+     "ids": [
+      "P28"
+     ]
+    },
+    {
+     "dice": "Los datos del sheriff citados por la ACLU indican que ninguno estaba acusado de violación y solo uno de asesinato.",
+     "doc_id": "F01",
+     "offset": 197385,
+     "ids": [
+      "D117"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Identificación de quien relata el disparo junto al agujero",
+   "criterio": 1,
+   "decision": "La declaración se atribuye al interno Ace Martin y no a un guardia, porque la presentación del pasaje lo identifica como preso de Templeman III.",
+   "ids": [
+    "P38",
+    "Q48"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Q48 rotula al autor como un guardia, aunque el pasaje introductorio de P38 identifica a Ace Martin como interno.",
+     "doc_id": "F01",
+     "offset": 203111,
+     "ids": [
+      "Q48"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Conteo del gimnasio procedente de St. Bernard",
+   "criterio": 1,
+   "decision": "Se conserva que el declarante estaba con otros internos, sin convertir el número de acompañantes en un total de ocupantes.",
+   "ids": [
+    "D399"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "D399 resume 368 internos, pero el pasaje dice que colocaron al declarante y a otros 368 en el gimnasio.",
+     "doc_id": "F03",
+     "offset": 160738,
+     "ids": [
+      "D399"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Ocupación del dormitorio diseñado para 36 mujeres",
+   "criterio": 1,
+   "decision": "Se conserva la formulación de la declarante y se descarta usar el número de las otras mujeres como total del dormitorio.",
+   "ids": [
+    "D487"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "D487 resume 200 mujeres, pero el pasaje dice que la declarante estaba con otras 200.",
+     "doc_id": "F03",
+     "offset": 256065,
+     "ids": [
+      "D487"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Lugar de la profundidad descrita por el interno identificado como #175",
+   "criterio": 1,
+   "decision": "La profundidad se refiere al agua a la que cayó al descender por un agujero, no al interior de su celda.",
+   "ids": [
+    "D473"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "D473 la presenta como profundidad de la celda, pero el pasaje describe una caída desde el tercer piso al agua.",
+     "doc_id": "F03",
+     "offset": 242068,
+     "ids": [
+      "D473"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Alcance de la carta sobre liberaciones en Angola",
+   "criterio": 1,
+   "decision": "Las liberaciones mencionadas en la carta se limitan a los evacuados alojados en esa institución masculina y no se usan como balance de todos los presos de OPP.",
+   "ids": [
+    "D530"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El pasaje sitúa las liberaciones entre 1500 internos de OPP alojados en esa institución, no entre toda la población original de OPP.",
+     "doc_id": "F05",
+     "offset": 10839,
+     "ids": [
+      "D530"
+     ]
+    }
+   ]
+  }
+ ],
+ "versiones": [
+  {
+   "tema": "Disponibilidad de comida y agua y desarrollo de la evacuación",
+   "versiones": [
+    {
+     "dice": "F06 atribuye a Gusman la afirmación de que los presos tenían comida y agua y de que la evacuación siguió lo planeado; el pasaje es una paráfrasis, no una cita literal del sheriff.",
+     "doc_id": "F06",
+     "offset": 931,
+     "ids": [
+      "D196",
+      "Q78"
+     ]
+    },
+    {
+     "dice": "Joyce Gilson afirmó que no tuvieron comida ni agua y acusó a Gusman de mentir sobre ello.",
+     "doc_id": "F01",
+     "offset": 244251,
+     "ids": [
+      "Q56"
+     ]
+    },
+    {
+     "dice": "Human Rights Watch recogió testimonios de internos de Templeman III que no recibieron comida ni agua desde el fin de semana hasta su evacuación.",
+     "doc_id": "F02",
+     "offset": 2856,
+     "ids": [
+      "D186"
+     ]
+    },
+    {
+     "dice": "F10 describe entregas de comida en HOD el lunes y martes, seguidas de falta de alimentos desde el miércoles; no es una versión aplicable automáticamente a todos los edificios.",
+     "doc_id": "F10",
+     "offset": 4493,
+     "ids": [
+      "T74",
+      "T91",
+      "T106"
+     ]
+    },
+    {
+     "dice": "El Departamento de Justicia elogió los esfuerzos del sheriff para evacuar de forma segura y eficiente.",
+     "doc_id": "F09",
+     "offset": 3149,
+     "ids": [
+      "D218"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Existencia y suficiencia del plan de evacuación",
+   "versiones": [
+    {
+     "dice": "Rhonda Ducre afirmó que no había un plan para los huracanes.",
+     "doc_id": "F01",
+     "offset": 97474,
+     "ids": [
+      "Q16"
+     ]
+    },
+    {
+     "dice": "Oficiales dijeron a Human Rights Watch que no existía un plan de evacuación.",
+     "doc_id": "F02",
+     "offset": 4893,
+     "ids": [
+      "D189"
+     ]
+    },
+    {
+     "dice": "La ACLU examinó un plan de contingencia, pero señaló que carecía de instrucciones para evacuar fuera de los edificios.",
+     "doc_id": "F01",
+     "offset": 99352,
+     "ids": [
+      "D45"
+     ]
+    },
+    {
+     "dice": "El abogado del sheriff respondió que los documentos relativos a planes de evacuación estaban bajo el agua y no podían encontrarse.",
+     "doc_id": "F01",
+     "offset": 96709,
+     "ids": [
+      "D42"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Abandono de puestos y permanencia de oficiales",
+   "versiones": [
+    {
+     "dice": "Internos de Templeman III dijeron que ya no había oficiales en el edificio desde el lunes.",
+     "doc_id": "F02",
+     "offset": 233,
+     "ids": [
+      "T66"
+     ]
+    },
+    {
+     "dice": "Renard Reed describió oficiales que renunciaron y dejaron de trabajar, aunque no salieron del edificio.",
+     "doc_id": "F01",
+     "offset": 122977,
+     "ids": [
+      "Q24"
+     ]
+    },
+    {
+     "dice": "La ACLU recogió testimonios según los cuales oficiales permanecieron en Conchetta, Templeman IV y algunos pisos de HOD.",
+     "doc_id": "F01",
+     "offset": 122123,
+     "ids": [
+      "L16"
+     ]
+    },
+    {
+     "dice": "Una interna afirmó que todos los oficiales de su tercer piso de Conchetta permanecieron hasta la evacuación.",
+     "doc_id": "F03",
+     "offset": 193914,
+     "ids": [
+      "D439"
+     ]
+    },
+    {
+     "dice": "Gusman desestimó las denuncias de antiguos oficiales como mentiras de exempleados descontentos y posibles desertores.",
+     "doc_id": "F01",
+     "offset": 278016,
+     "ids": [
+      "D164"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Quién desencadenó la solicitud de refuerzos",
+   "versiones": [
+    {
+     "dice": "Algunos oficiales sostuvieron que la evacuación comenzó realmente después de que responsables de edificios recurrieran a Charles Foti por encima de Gusman.",
+     "doc_id": "F01",
+     "offset": 223397,
+     "ids": [
+      "D131"
+     ]
+    },
+    {
+     "dice": "El informe de asistencia técnica del DOC solo registra una llamada de la oficina del sheriff solicitando ayuda.",
+     "doc_id": "F01",
+     "offset": 223868,
+     "ids": [
+      "D132"
+     ]
+    },
+    {
+     "dice": "Un testimonio atribuyó a Foti la obtención de botes y refugios después de una llamada por radio.",
+     "doc_id": "F01",
+     "offset": 220653,
+     "ids": [
+      "P04"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Responsabilidad por los presos trasladados de St. Bernard",
+   "versiones": [
+    {
+     "dice": "Gusman sostuvo que St. Bernard conservaba la responsabilidad por la seguridad y el bienestar de sus presos y aportaba sus propios oficiales.",
+     "doc_id": "F01",
+     "offset": 235030,
+     "ids": [
+      "D135",
+      "Q53"
+     ]
+    },
+    {
+     "dice": "Richard Baumy afirmó que los oficiales enviados por St. Bernard estaban bajo el mando de los de Nueva Orleans.",
+     "doc_id": "F01",
+     "offset": 235236,
+     "ids": [
+      "D136",
+      "P40"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Muertes dentro de OPP y personas no localizadas en los registros",
+   "versiones": [
+    {
+     "dice": "Gusman declaró que no hubo muertes durante la tormenta ni la posterior evacuación.",
+     "doc_id": "F01",
+     "offset": 252350,
+     "ids": [
+      "D163"
+     ]
+    },
+    {
+     "dice": "Una portavoz del sheriff afirmó que nadie se ahogó y que nadie quedó atrás.",
+     "doc_id": "F02",
+     "offset": 5572,
+     "ids": [
+      "D190",
+      "Q77"
+     ]
+    },
+    {
+     "dice": "Luis Reyes declaró que todavía había internos muertos dentro.",
+     "doc_id": "F01",
+     "offset": 252606,
+     "ids": [
+      "Q60"
+     ]
+    },
+    {
+     "dice": "Un interno afirmó haber visto cadáveres flotando dentro de Templeman III.",
+     "doc_id": "F03",
+     "offset": 37468,
+     "ids": [
+      "D297"
+     ]
+    },
+    {
+     "dice": "Human Rights Watch señaló ausencias de la lista de evacuados y pidió esclarecer el destino de esas personas, sin afirmar que todas hubieran muerto.",
+     "doc_id": "F02",
+     "offset": 1121,
+     "ids": [
+      "D185"
+     ]
+    },
+    {
+     "dice": "Un testigo dijo que los muertos que vio cubiertos con mantas en el puente no eran presos.",
+     "doc_id": "F03",
+     "offset": 147863,
+     "ids": [
+      "D395"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Disparos, uso de fuerza y su justificación",
+   "versiones": [
+    {
+     "dice": "Brady Richard declaró que vio tiradores en el techo de HOD disparando contra internos.",
+     "doc_id": "F01",
+     "offset": 88698,
+     "ids": [
+      "Q14"
+     ]
+    },
+    {
+     "dice": "Renard Reed describió personas alcanzadas y caídas, pero dijo no saber si se utilizaba munición real.",
+     "doc_id": "F01",
+     "offset": 202464,
+     "ids": [
+      "Q47"
+     ]
+    },
+    {
+     "dice": "Varios internos denunciaron golpes y disparos de proyectiles beanbag durante la evacuación.",
+     "doc_id": "F01",
+     "offset": 210098,
+     "ids": [
+      "D128"
+     ]
+    },
+    {
+     "dice": "Un oficial consideró que una intervención que normalmente habría juzgado excesiva resultaba apropiada en aquellas circunstancias.",
+     "doc_id": "F01",
+     "offset": 209585,
+     "ids": [
+      "Q49"
+     ]
+    },
+    {
+     "dice": "Quantonio Williams distinguió que el supuesto disparo del que hablaba se lo habían contado otros y no lo había visto.",
+     "doc_id": "F01",
+     "offset": 180393,
+     "ids": [
+      "Q40"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Condiciones y violencia en Hunt",
+   "versiones": [
+    {
+     "dice": "La ACLU describe violencia entre internos que no fue controlada por los oficiales.",
+     "doc_id": "F01",
+     "offset": 24685,
+     "ids": [
+      "L02"
+     ]
+    },
+    {
+     "dice": "Cathy Fontenot negó las denuncias de violencia de internos en Hunt y los describió como dóciles.",
+     "doc_id": "F01",
+     "offset": 295042,
+     "ids": [
+      "D176"
+     ]
+    },
+    {
+     "dice": "Un interno denunció una violación cometida por otros internos en Hunt.",
+     "doc_id": "F03",
+     "offset": 221583,
+     "ids": [
+      "D455"
+     ]
+    },
+    {
+     "dice": "Fontenot sostuvo que alimentaron a los evacuados lo mejor que pudieron, aunque no pudieron darles comidas calientes.",
+     "doc_id": "F01",
+     "offset": 296776,
+     "ids": [
+      "Q70"
+     ]
+    },
+    {
+     "dice": "Internos describieron peleas para conseguir los sándwiches arrojados a la multitud.",
+     "doc_id": "F01",
+     "offset": 296188,
+     "ids": [
+      "Q69"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Motivo por el que no se servían comidas desde la cocina de Hunt",
+   "versiones": [
+    {
+     "dice": "Fontenot explicó que la cocina cerró porque no podía preparar alimentos para tantos evacuados.",
+     "doc_id": "F01",
+     "offset": 296673,
+     "ids": [
+      "D178"
+     ]
+    },
+    {
+     "dice": "Un interno atribuyó al alcaide de Hunt la explicación de que no podían comer porque otro preso había intentado tomar la cocina.",
+     "doc_id": "F03",
+     "offset": 110759,
+     "ids": [
+      "Q132"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Presencia de Gusman en el recorrido inundado",
+   "versiones": [
+    {
+     "dice": "Rhonda Ducre afirmó que Gusman no tocó el agua.",
+     "doc_id": "F01",
+     "offset": 130227,
+     "ids": [
+      "Q27"
+     ]
+    },
+    {
+     "dice": "Joyce Gilson relató que Gusman estaba presente mientras caminaban por el agua y les decía que se sujetaran a la pared o a la cerca; el pasaje no precisa si él estaba dentro del agua.",
+     "doc_id": "F01",
+     "offset": 239751,
+     "ids": [
+      "P03"
+     ]
+    }
+   ]
+  }
+ ],
+ "personas": [
+  {
+   "nombre": "Marlin N. Gusman",
+   "rol": "Sheriff criminal de la parroquia de Orleans, responsable de OPP.",
+   "variantes": [
+    "Marlin Gusman",
+    "Sheriff Gusman",
+    "Sheriff Martin Gusman"
+   ],
+   "ids": [
+    "P03",
+    "D35",
+    "D163",
+    "D196"
+   ]
+  },
+  {
+   "nombre": "Brady Richard",
+   "rol": "Oficial de suministros médicos de OPP y testigo de las condiciones durante la tormenta.",
+   "variantes": [
+    "BRADY RICHARD"
+   ],
+   "ids": [
+    "P01",
+    "D39",
+    "D41",
+    "Q11",
+    "Q14"
+   ]
+  },
+  {
+   "nombre": "Charles Foti",
+   "rol": "Antiguo sheriff de Orleans y fiscal general mencionado en los relatos sobre la solicitud de refuerzos.",
+   "variantes": [
+    "Sheriff Foti",
+    "Charles Foti, the old Sheriff",
+    "Attorney General Charles Foti"
+   ],
+   "ids": [
+    "P04",
+    "T04",
+    "D131"
+   ]
+  },
+  {
+   "nombre": "Kathleen Babineaux Blanco",
+   "rol": "Gobernadora de Luisiana que solicitó declaraciones federales de emergencia y desastre.",
+   "variantes": [
+    "Governor Blanco"
+   ],
+   "ids": [
+    "P10",
+    "T21",
+    "T38"
+   ]
+  },
+  {
+   "nombre": "Bush",
+   "rol": "Presidente de Estados Unidos al que se dirigieron las solicitudes de Blanco.",
+   "variantes": [
+    "President Bush",
+    "the President"
+   ],
+   "ids": [
+    "P10",
+    "T28",
+    "T38",
+    "T62"
+   ]
+  },
+  {
+   "nombre": "C. Ray Nagin",
+   "rol": "Alcalde de Nueva Orleans que declaró la evacuación obligatoria de la ciudad.",
+   "variantes": [
+    "Mayor Nagin"
+   ],
+   "ids": [
+    "T55",
+    "D30"
+   ]
+  },
+  {
+   "nombre": "Christina Foster",
+   "rol": "Oficial de HOD que describió la falta de preparación y cuestionó la actuación del sheriff.",
+   "variantes": [
+    "Deputy Foster",
+    "Foster"
+   ],
+   "ids": [
+    "P14",
+    "Q26"
+   ]
+  },
+  {
+   "nombre": "Rhonda Ducre",
+   "rol": "Oficial de HOD y testigo de la falta de planificación y de la distribución de suministros.",
+   "variantes": [
+    "Rhonda R. Ducre",
+    "Deputy Ducre"
+   ],
+   "ids": [
+    "P15",
+    "D43",
+    "D63",
+    "D170",
+    "T142"
+   ]
+  },
+  {
+   "nombre": "Luis Reyes",
+   "rol": "Oficial de CCC que declaró sobre la falta de personal, los intentos de salida y la presencia de muertos.",
+   "variantes": [
+    "Deputy Luis Reyes"
+   ],
+   "ids": [
+    "P16",
+    "Q17",
+    "Q60"
+   ]
+  },
+  {
+   "nombre": "Renard Reed",
+   "rol": "Oficial de OPP que describió renuncias, disparos y condiciones de trabajo.",
+   "variantes": [
+    "Deputy Renard Reed",
+    "Deputy Reed"
+   ],
+   "ids": [
+    "P18",
+    "Q24",
+    "Q47",
+    "Q50"
+   ]
+  },
+  {
+   "nombre": "Shantia Barnes",
+   "rol": "Oficial que renunció después de que le dijeran que los guardias quedarían por su cuenta tras la evacuación de los presos.",
+   "variantes": [
+    "Deputy Shantia Barnes"
+   ],
+   "ids": [
+    "P19"
+   ]
+  },
+  {
+   "nombre": "Duane Lewis",
+   "rol": "Oficial de HOD que se presentó a trabajar antes de la tormenta.",
+   "variantes": [],
+   "ids": [
+    "P39",
+    "D133"
+   ]
+  },
+  {
+   "nombre": "Bonita Pittman",
+   "rol": "Alcaide de OPP, denominada asociada o asistente según el pasaje.",
+   "variantes": [
+    "Associate Warden Pittman",
+    "Associate Warden Bonita Pittman",
+    "Assistant Warden Bonita Pittman"
+   ],
+   "ids": [
+    "P31",
+    "D98",
+    "D170"
+   ]
+  },
+  {
+   "nombre": "William Short",
+   "rol": "Subjefe que declaró sobre ventanas rotas y reservas de alimentos en HOD.",
+   "variantes": [
+    "Deputy Chief William Short"
+   ],
+   "ids": [
+    "P34",
+    "D169"
+   ]
+  },
+  {
+   "nombre": "Gary Bordelon",
+   "rol": "Director de Templeman III.",
+   "variantes": [
+    "Chief Gary Bordelon",
+    "Chief Bordelon"
+   ],
+   "ids": [
+    "P26"
+   ]
+  },
+  {
+   "nombre": "R. Demaree Inglese",
+   "rol": "Director médico de OPP durante la tormenta.",
+   "variantes": [
+    "Dr. R. Demaree Inglese",
+    "Medical Director R. Demaree Inglese"
+   ],
+   "ids": [
+    "P28",
+    "Q34"
+   ]
+  },
+  {
+   "nombre": "Burl Cain",
+   "rol": "Alcaide de Angola que llegó con oficiales estatales vinculados a la evacuación.",
+   "variantes": [
+    "Warden Burl Cain",
+    "warden Burl Cain"
+   ],
+   "ids": [
+    "D137",
+    "L22",
+    "L61"
+   ]
+  },
+  {
+   "nombre": "Richard Baumy",
+   "rol": "Coronel de St. Bernard que disputó la versión de Gusman sobre el mando de los oficiales trasladados.",
+   "variantes": [
+    "St. Bernard Parish Colonel Richard Baumy"
+   ],
+   "ids": [
+    "P40",
+    "D136"
+   ]
+  },
+  {
+   "nombre": "Richard Stalder",
+   "rol": "Secretario y jefe del Departamento de Correccionales de Luisiana.",
+   "variantes": [
+    "Secretary Richard Stalder",
+    "Secretario Richard Stalder"
+   ],
+   "ids": [
+    "P76",
+    "Q62"
+   ]
+  },
+  {
+   "nombre": "Cathy Fontenot",
+   "rol": "Portavoz del Departamento de Correccionales que respondió sobre las condiciones en Hunt.",
+   "variantes": [
+    "Ms. Fontenot"
+   ],
+   "ids": [
+    "P47",
+    "D176",
+    "Q70"
+   ]
+  },
+  {
+   "nombre": "Brooke Moss",
+   "rol": "Oficial de OPP que relató haber visto señales de auxilio e internos saltando desde Templeman III.",
+   "variantes": [],
+   "ids": [
+    "P51",
+    "Q75"
+   ]
+  },
+  {
+   "nombre": "Sergeant Bell",
+   "rol": "Sargento mencionado en denuncias de golpes y amenazas.",
+   "variantes": [
+    "Sgt. Bell"
+   ],
+   "ids": [
+    "P56",
+    "D231",
+    "Q131"
+   ]
+  },
+  {
+   "nombre": "Chief Rudy",
+   "rol": "Jefe que comunicó a internos que serían trasladados.",
+   "variantes": [
+    "Rudy"
+   ],
+   "ids": [
+    "P58",
+    "D315",
+    "Q118",
+    "Q135"
+   ]
+  },
+  {
+   "nombre": "Lieutenant Deputy Keiths",
+   "rol": "Oficial que, según un testimonio, dio agua a menores en el paso elevado.",
+   "variantes": [],
+   "ids": [
+    "P59",
+    "D425"
+   ]
+  },
+  {
+   "nombre": "Ranking Officer Watson",
+   "rol": "Oficial que permaneció inicialmente con un grupo de mujeres de Templeman IV.",
+   "variantes": [
+    "Mrs. Watson",
+    "Watson"
+   ],
+   "ids": [
+    "P60",
+    "D503",
+    "Q168"
+   ]
+  },
+  {
+   "nombre": "Mrs. Paige",
+   "rol": "Oficial mencionada entre quienes se desmayaron.",
+   "variantes": [],
+   "ids": [
+    "P61"
+   ]
+  },
+  {
+   "nombre": "Colonel Joseph",
+   "rol": "Oficial de Conchetta reconocida por internas por permanecer con ellas y ordenar que las puertas quedaran abiertas.",
+   "variantes": [
+    "Coronel Joseph"
+   ],
+   "ids": [
+    "P64",
+    "D499"
+   ]
+  },
+  {
+   "nombre": "Ms. Bowmen",
+   "rol": "Oficial de HOD acusada por un interno de rociar a los presentes con un extintor.",
+   "variantes": [],
+   "ids": [
+    "P65"
+   ]
+  },
+  {
+   "nombre": "Capitán Jenkins",
+   "rol": "Capitán al que un testimonio atribuye una advertencia sobre mezclar internos con enemigos.",
+   "variantes": [
+    "Captain Jenkins",
+    "Jenkins"
+   ],
+   "ids": [
+    "P77",
+    "Q139"
+   ]
+  },
+  {
+   "nombre": "Ken Bailey",
+   "rol": "Persona identificada como sheriff en una denuncia de agresión posterior al traslado.",
+   "variantes": [],
+   "ids": [
+    "P62"
+   ]
+  },
+  {
+   "nombre": "Mr. Gussman",
+   "rol": "Persona de identidad no confirmada a la que una interna atribuyó la orden de dejar a los presos donde estaban.",
+   "variantes": [
+    "Mr. Gusmen"
+   ],
+   "ids": [
+    "P57",
+    "D305",
+    "Q19",
+    "Q116"
+   ]
+  },
+  {
+   "nombre": "Raphael Schwarz",
+   "rol": "Interno de Templeman III que relató su encierro y las señales dirigidas a helicópteros.",
+   "variantes": [],
+   "ids": [
+    "P17",
+    "D57",
+    "D58",
+    "Q21"
+   ]
+  },
+  {
+   "nombre": "Joyce Gilson",
+   "rol": "Interna de Templeman IV, testigo del traslado de mujeres y de la debilidad de Iris Hardeman.",
+   "variantes": [
+    "Ms. Gilson"
+   ],
+   "ids": [
+    "P22",
+    "D78",
+    "D140",
+    "Q54",
+    "Q56"
+   ]
+  },
+  {
+   "nombre": "Iris L. Hardeman",
+   "rol": "Interna enferma que necesitó ayuda durante la evacuación y posteriormente sufrió una caída en Angola.",
+   "variantes": [
+    "Iris Hardeman",
+    "Ms. Hardeman"
+   ],
+   "ids": [
+    "P20",
+    "D75",
+    "D76",
+    "D155",
+    "T110"
+   ]
+  },
+  {
+   "nombre": "Iris Hardy",
+   "rol": "Interna cuya muerte por coma diabético fue denunciada por la interna identificada en el pool como #178; su identidad no está corroborada.",
+   "variantes": [],
+   "ids": [
+    "P63",
+    "D476"
+   ]
+  },
+  {
+   "nombre": "Gedra Payne Robinson",
+   "rol": "Interna y amiga de Iris Hardeman que describió sus problemas de salud.",
+   "variantes": [],
+   "ids": [
+    "P21",
+    "Q29"
+   ]
+  },
+  {
+   "nombre": "William Hardeman",
+   "rol": "Hermano de Iris Hardeman.",
+   "variantes": [],
+   "ids": [
+    "P23",
+    "Q30"
+   ]
+  },
+  {
+   "nombre": "David Williams",
+   "rol": "Hombre detenido por intoxicación pública y alojado en Templeman III.",
+   "variantes": [
+    "Mr. Williams"
+   ],
+   "ids": [
+    "P24",
+    "D79",
+    "T31"
+   ]
+  },
+  {
+   "nombre": "Albert G. Couvillion",
+   "rol": "Interno procedente de St. Bernard que relató el traslado al gimnasio y la ausencia de suministros.",
+   "variantes": [],
+   "ids": [
+    "P25",
+    "Q31",
+    "D82"
+   ]
+  },
+  {
+   "nombre": "Keanna Herbert",
+   "rol": "Interna de la unidad de observación médica de Templeman I que denunció falta de tratamiento.",
+   "variantes": [],
+   "ids": [
+    "P27",
+    "D89",
+    "Q32",
+    "L20"
+   ]
+  },
+  {
+   "nombre": "Tyrone Lewis",
+   "rol": "Interno de Templeman I y músico que fue hospitalizado después de la evacuación y murió posteriormente.",
+   "variantes": [
+    "Mr. Lewis"
+   ],
+   "ids": [
+    "P29",
+    "D94",
+    "D95",
+    "D96"
+   ]
+  },
+  {
+   "nombre": "Denise Lewis Henry",
+   "rol": "Hermana de Tyrone Lewis.",
+   "variantes": [],
+   "ids": [
+    "P75",
+    "Q36"
+   ]
+  },
+  {
+   "nombre": "Pearl Cornelia Bland",
+   "rol": "Interna de Conchetta retenida por multas y tasas, que denunció una agresión de otras internas.",
+   "variantes": [
+    "Pearl Bland",
+    "Ms. Bland"
+   ],
+   "ids": [
+    "P32",
+    "D100",
+    "Q37",
+    "T144"
+   ]
+  },
+  {
+   "nombre": "Katherine Mattes",
+   "rol": "Abogada de la clínica jurídica de Tulane que obtuvo una orden de liberación para Pearl Bland.",
+   "variantes": [],
+   "ids": [
+    "D101",
+    "T144"
+   ]
+  },
+  {
+   "nombre": "Quantonio Williams",
+   "rol": "Interno que describió traslados entre edificios, falta de alimentos y su evacuación.",
+   "variantes": [],
+   "ids": [
+    "P35",
+    "D108",
+    "D111",
+    "Q40"
+   ]
+  },
+  {
+   "nombre": "Leroy P. Gardner, III",
+   "rol": "Interno procedente de St. Bernard que relató el traslado a OPP y las condiciones en F Side.",
+   "variantes": [
+    "Leroy P. Gardner III"
+   ],
+   "ids": [
+    "P36",
+    "D115",
+    "Q44"
+   ]
+  },
+  {
+   "nombre": "Darnell Smith",
+   "rol": "Interno del programa About Face Boot Camp que describió la salida de CCC.",
+   "variantes": [],
+   "ids": [
+    "P37",
+    "Q46",
+    "T95"
+   ]
+  },
+  {
+   "nombre": "Ace Martin",
+   "rol": "Interno de Templeman III que relató un disparo contra un hombre que salía por un agujero.",
+   "variantes": [],
+   "ids": [
+    "P38",
+    "Q48"
+   ]
+  },
+  {
+   "nombre": "Ronnie Lee Morgan, Jr.",
+   "rol": "Interno federal de HOD que denunció la pérdida de documentos y maltrato posterior en Hunt.",
+   "variantes": [],
+   "ids": [
+    "P42",
+    "Q57",
+    "Q66",
+    "T113"
+   ]
+  },
+  {
+   "nombre": "Dan Bright",
+   "rol": "Interno de OPP entrevistado por Human Rights Watch después de la evacuación.",
+   "variantes": [
+    "Bright"
+   ],
+   "ids": [
+    "P49",
+    "Q73",
+    "D555",
+    "D558"
+   ]
+  },
+  {
+   "nombre": "Earrand Kelly",
+   "rol": "Interno de Templeman III entrevistado por Human Rights Watch.",
+   "variantes": [],
+   "ids": [
+    "P50",
+    "Q74"
+   ]
+  },
+  {
+   "nombre": "Edward “Edgar” Burton",
+   "rol": "Interno de Old Parish que relató haber roto una ventana para obtener aire.",
+   "variantes": [
+    "Edward \"Edgar\" Burton",
+    "Burton"
+   ],
+   "ids": [
+    "P68",
+    "D544",
+    "Q179",
+    "Q183",
+    "Q184"
+   ]
+  },
+  {
+   "nombre": "Big Whappy",
+   "rol": "Interno de HOD que se encontraba en prisión preventiva durante la tormenta.",
+   "variantes": [],
+   "ids": [
+    "P71",
+    "Q181",
+    "Q182"
+   ]
+  },
+  {
+   "nombre": "Corey Stevenson",
+   "rol": "Menor encarcelado en OPP durante Katrina y posteriormente trasladado a Tallulah.",
+   "variantes": [
+    "Corey"
+   ],
+   "ids": [
+    "P12",
+    "D33",
+    "D34"
+   ]
+  },
+  {
+   "nombre": "Glyendale Stevenson",
+   "rol": "Madre de Corey Stevenson que relató la incertidumbre sobre su paradero.",
+   "variantes": [],
+   "ids": [
+    "P74",
+    "Q09",
+    "Q10",
+    "T112"
+   ]
+  },
+  {
+   "nombre": "George Schaefer III",
+   "rol": "Interno procedente de St. Bernard identificado como fugado y posteriormente detenido en Mississippi.",
+   "variantes": [],
+   "ids": [
+    "P44",
+    "T141"
+   ]
+  },
+  {
+   "nombre": "David Fernandez",
+   "rol": "Interno identificado como fugado que dijo haber escapado para salvar su vida.",
+   "variantes": [],
+   "ids": [
+    "P45",
+    "Q63"
+   ]
+  },
+  {
+   "nombre": "Ahmad Nelson",
+   "rol": "Interno identificado entre quienes consiguieron escapar.",
+   "variantes": [],
+   "ids": [
+    "P46",
+    "D168"
+   ]
+  },
+  {
+   "nombre": "Michael Carrerras",
+   "rol": "Interno de St. Bernard que, según un testimonio, fue rociado con gas pimienta al pedir agua.",
+   "variantes": [],
+   "ids": [
+    "P66",
+    "D497",
+    "T125"
+   ]
+  },
+  {
+   "nombre": "Tina Johnson",
+   "rol": "Interna mencionada en una denuncia de golpes por parte de oficiales.",
+   "variantes": [],
+   "ids": [
+    "P67"
+   ]
+  },
+  {
+   "nombre": "Len Davis",
+   "rol": "Ex policía condenado a muerte que fue trasladado a un patio de Hunt con otros evacuados.",
+   "variantes": [],
+   "ids": [
+    "P72",
+    "D549"
+   ]
+  },
+  {
+   "nombre": "Phyllis Mann",
+   "rol": "Abogada que encabezó la búsqueda de presos desplazados.",
+   "variantes": [],
+   "ids": [
+    "P73",
+    "D551",
+    "D552",
+    "Q186",
+    "Q187"
+   ]
+  },
+  {
+   "nombre": "Corinne Carey",
+   "rol": "Investigadora de Human Rights Watch que denunció el abandono de internos.",
+   "variantes": [],
+   "ids": [
+    "P48",
+    "Q71"
+   ]
+  },
+  {
+   "nombre": "Mary Gehman",
+   "rol": "Escritora que fotografió a los presos en el paso elevado.",
+   "variantes": [],
+   "ids": [
+    "P43",
+    "Q61",
+    "T96"
+   ]
+  },
+  {
+   "nombre": "Oliver Thomas",
+   "rol": "Presidente del Concejo Municipal que difundió una versión sobre una toma de rehenes.",
+   "variantes": [],
+   "ids": [
+    "P02",
+    "Q01"
+   ]
+  },
+  {
+   "nombre": "Sade Dumas",
+   "rol": "Dirigente de la Orleans Parish Prison Reform Coalition después de la tormenta.",
+   "variantes": [],
+   "ids": [
+    "P69",
+    "Q180"
+   ]
+  },
+  {
+   "nombre": "Louis Hamilton",
+   "rol": "Interno que presentó una demanda colectiva sobre las condiciones de OPP.",
+   "variantes": [],
+   "ids": [
+    "P05",
+    "T02"
+   ]
+  },
+  {
+   "nombre": "Greg Davis",
+   "rol": "Interno durante Katrina que fue liberado después de la intervención de estudiantes de derecho.",
+   "variantes": [],
+   "ids": [
+    "P06",
+    "D20"
+   ]
+  },
+  {
+   "nombre": "Mark Jones",
+   "rol": "Hombre cuya muerte por una presunta golpiza de oficiales aparece como antecedente de OPP.",
+   "variantes": [],
+   "ids": [
+    "P07",
+    "T06"
+   ]
+  },
+  {
+   "nombre": "Shawn Duncan",
+   "rol": "Interno fallecido por deshidratación antes de Katrina.",
+   "variantes": [
+    "Mr. Duncan"
+   ],
+   "ids": [
+    "P08",
+    "D22"
+   ]
+  },
+  {
+   "nombre": "Matthew Bonnette",
+   "rol": "Interno que murió por suicidio antes de Katrina.",
+   "variantes": [
+    "Mr. Bonnette"
+   ],
+   "ids": [
+    "P09",
+    "D23",
+    "D24"
+   ]
+  },
+  {
+   "nombre": "Arnie Fielkow",
+   "rol": "Presidente del Concejo Municipal citado en el contexto de las reformas posteriores.",
+   "variantes": [],
+   "ids": [
+    "P52",
+    "Q89"
+   ]
+  },
+  {
+   "nombre": "Andy Kopplin",
+   "rol": "Primer teniente de alcalde vinculado al grupo de trabajo sobre justicia penal y a las reformas posteriores.",
+   "variantes": [
+    "First Deputy Mayor Kopplin"
+   ],
+   "ids": [
+    "P55",
+    "Q90",
+    "Q92"
+   ]
+  }
+ ],
+ "personas_descartadas": [
+  {
+   "nombre": "C. Ray Nagin",
+   "rol": "Alcalde de Nueva Orleans",
+   "motivo": "Es necesario para explicar la evacuación obligatoria y la exclusión de los presos, acciones que sí aparecen en el pool.",
+   "ids": [
+    "T55",
+    "D30"
+   ]
+  },
+  {
+   "nombre": "Burl Cain",
+   "rol": "Alcaide de Angola",
+   "motivo": "Es necesario para identificar a quien llegó con los oficiales estatales vinculados a la evacuación.",
+   "ids": [
+    "D137",
+    "L22",
+    "L61"
+   ]
+  },
+  {
+   "nombre": "Katherine Mattes",
+   "rol": "Abogada de la clínica jurídica de Tulane",
+   "motivo": "Su intervención permite cerrar el recorrido de Pearl Bland y está documentada mediante la orden de liberación.",
+   "ids": [
+    "D101",
+    "T144"
+   ]
+  },
+  {
+   "nombre": "Glyendale Stevenson",
+   "rol": "Madre de Corey Stevenson",
+   "motivo": "Su testimonio explica la incertidumbre de las familias y el traslado de un menor con adultos, aunque el research la había descartado.",
+   "ids": [
+    "P74",
+    "D33",
+    "D34",
+    "Q09",
+    "Q10"
+   ]
+  },
+  {
+   "nombre": "Christina Foster",
+   "rol": "Oficial de HOD",
+   "motivo": "La referencia descartada como Foster puede vincularse al nombre completo del pool y aporta conocimiento directo de la preparación.",
+   "ids": [
+    "P14",
+    "Q26"
+   ]
+  },
+  {
+   "nombre": "Chief Rudy",
+   "rol": "Jefe de una unidad de OPP",
+   "motivo": "Es necesario para atribuir los anuncios de traslado sin inventar un nombre completo.",
+   "ids": [
+    "P58",
+    "D315",
+    "Q118"
+   ]
+  },
+  {
+   "nombre": "Capitán Jenkins",
+   "rol": "Capitán",
+   "motivo": "Permite atribuir correctamente la advertencia sobre mezclar internos con enemigos, si se utiliza ese testimonio.",
+   "ids": [
+    "P77",
+    "Q139"
+   ]
+  },
+  {
+   "nombre": "Ranking Officer Watson",
+   "rol": "Oficial que permaneció con internas de Templeman IV",
+   "motivo": "Evita generalizar que todos los oficiales abandonaron a las internas.",
+   "ids": [
+    "P60",
+    "D503",
+    "Q168"
+   ]
+  }
+ ],
+ "cifras": [
+  {
+   "que": "Conteo de presos de OPP atribuido al sheriff, sin incluir todos los trasladados adicionales",
+   "valor": "6375",
+   "unidad": "personas",
+   "fuente": "D51 identifica el conteo como del sheriff; F10 reproduce la cifra a partir del informe de la ACLU.",
+   "ids": [
+    "D51",
+    "D533"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "casi 7000",
+     "unidad": "personas por evacuar",
+     "fuente": "F01, estimación operativa que no debe confundirse con el registro del sheriff.",
+     "ids": [
+      "D48"
+     ]
+    },
+    {
+     "valor": "aproximadamente 6300",
+     "unidad": "personas en vísperas de la tormenta",
+     "fuente": "F08, cifra retrospectiva redondeada.",
+     "ids": [
+      "D201"
+     ]
+    },
+    {
+     "valor": "6000",
+     "unidad": "personas",
+     "fuente": "F08, resumen retrospectivo.",
+     "ids": [
+      "D198"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Adultos trasladados desde St. Bernard no incluidos en el conteo del sheriff",
+   "valor": "más de 270",
+   "unidad": "personas",
+   "fuente": "F01.",
+   "ids": [
+    "D51"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "368",
+     "unidad": "otros internos, además del declarante",
+     "fuente": "F03; testimonio sobre el gimnasio, no censo oficial ni total expresado del traslado.",
+     "ids": [
+      "D399"
+     ]
+    },
+    {
+     "valor": "cientos",
+     "unidad": "personas",
+     "fuente": "F01, relato de un traslado en autobuses.",
+     "ids": [
+      "D82"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Promedio diario de internos anterior a los daños de Katrina",
+   "valor": "6500",
+   "unidad": "personas por día",
+   "fuente": "F09, Departamento de Justicia.",
+   "ids": [
+    "D15",
+    "D219"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "casi 6500",
+     "unidad": "personas por día",
+     "fuente": "F01.",
+     "ids": [
+      "D15"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Promedio diario del año terminado el 30 de junio de 2005",
+   "valor": "5919",
+   "unidad": "personas por día",
+   "fuente": "F08; período estadístico específico.",
+   "ids": [
+    "D214"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Población registrada el 30 de junio de 2005",
+   "valor": "6295",
+   "unidad": "personas",
+   "fuente": "F08; corte anterior a Katrina.",
+   "ids": [
+    "D213"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Capacidad de OPP anterior a los daños de Katrina",
+   "valor": "8000",
+   "unidad": "plazas para personas",
+   "fuente": "F09, Departamento de Justicia.",
+   "ids": [
+    "D219"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "aproximadamente 8500",
+     "unidad": "plazas para personas",
+     "fuente": "F01, capacidad al finalizar la gestión de Foti; referencia temporal distinta.",
+     "ids": [
+      "D14"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Presos del DOC alojados en OPP al llegar Katrina",
+   "valor": "casi 2000",
+   "unidad": "personas",
+   "fuente": "F01.",
+   "ids": [
+    "D11"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "aproximadamente 2000",
+     "unidad": "personas",
+     "fuente": "F10.",
+     "ids": [
+      "D535"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Internos bajo custodia federal",
+   "valor": "más de 200",
+   "unidad": "personas",
+   "fuente": "F01.",
+   "ids": [
+    "D12"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Mujeres alojadas en OPP durante Katrina",
+   "valor": "aproximadamente 670",
+   "unidad": "personas",
+   "fuente": "F01.",
+   "ids": [
+    "D17"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Internos de Templeman III según Human Rights Watch",
+   "valor": "más de 600",
+   "unidad": "personas",
+   "fuente": "F02.",
+   "ids": [
+    "D181"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Internos alojados en CCC según datos del sheriff citados por la ACLU",
+   "valor": "más de 700",
+   "unidad": "personas",
+   "fuente": "F01.",
+   "ids": [
+    "D117"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Internos de CCC acusados de violación",
+   "valor": "ninguno",
+   "unidad": "personas",
+   "fuente": "Datos del sheriff citados en F01.",
+   "ids": [
+    "D117"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Internos de CCC acusados de asesinato",
+   "valor": "uno",
+   "unidad": "persona",
+   "fuente": "Datos del sheriff citados en F01.",
+   "ids": [
+    "D117"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Muertes en OPP durante la tormenta y evacuación, según la versión oficial",
+   "valor": "ninguna",
+   "unidad": "personas fallecidas",
+   "fuente": "Declaraciones de Gusman; no constituyen una comprobación independiente del saldo.",
+   "ids": [
+    "D163",
+    "D546"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "21",
+     "unidad": "personas fallecidas",
+     "fuente": "F03; un interno dijo que seis oficiales le comunicaron ese total, sin corroboración aportada en el pool.",
+     "ids": [
+      "D290"
+     ]
+    },
+    {
+     "valor": "no cuantificadas como saldo total",
+     "unidad": "personas fallecidas denunciadas",
+     "fuente": "F01 y F10 recogen declaraciones sobre cadáveres; los avistamientos parciales no pueden sumarse.",
+     "ids": [
+      "Q60",
+      "D58",
+      "D547"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Internos ausentes de la lista de evacuados examinada por Human Rights Watch",
+   "valor": "517",
+   "unidad": "personas no incluidas en esa lista",
+   "fuente": "F02; no equivale a un conteo de muertos ni prueba desaparición definitiva.",
+   "ids": [
+    "D185",
+    "D191"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Internos de Templeman III dentro de los ausentes de esa lista",
+   "valor": "130",
+   "unidad": "personas no incluidas en esa lista",
+   "fuente": "F02.",
+   "ids": [
+    "D191"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Botes disponibles según información de la oficina del sheriff",
+   "valor": "tres",
+   "unidad": "botes",
+   "fuente": "F01, información atribuida a la oficina del sheriff.",
+   "ids": [
+    "D152",
+    "D48"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "seis",
+     "unidad": "botes en una operación posterior desde el paso elevado",
+     "fuente": "F03; otro tramo del traslado, no necesariamente la misma flota disponible inicialmente.",
+     "ids": [
+      "D284"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Reserva exigida por el plan de contingencia",
+   "valor": "96",
+   "unidad": "horas de comida y agua por edificio",
+   "fuente": "F01.",
+   "ids": [
+    "D49"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Riesgo de altura de inundación identificado para la zona",
+   "valor": "hasta ocho",
+   "unidad": "pies de agua",
+   "fuente": "F01, equipo de planificación parroquial.",
+   "ids": [
+    "D50"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Órdenes de arresto para presos considerados fugados",
+   "valor": "catorce",
+   "unidad": "personas",
+   "fuente": "F01, actuación atribuida a la oficina del sheriff.",
+   "ids": [
+    "D167"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Presos detenidos por órdenes de detención, infracciones de tráfico o cargos municipales antes de Katrina",
+   "valor": "60",
+   "unidad": "porcentaje de la población de OPP",
+   "fuente": "F01.",
+   "ids": [
+    "D13"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Población negra de OPP en el momento de la tormenta",
+   "valor": "89.3",
+   "unidad": "porcentaje de personas encarceladas",
+   "fuente": "F01, desglose preciso.",
+   "ids": [
+    "D27"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "casi 90",
+     "unidad": "porcentaje de personas encarceladas",
+     "fuente": "F01, formulación redondeada compatible.",
+     "ids": [
+      "D27"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Edades de las personas encarceladas",
+   "valor": "10 a 73",
+   "unidad": "años de edad",
+   "fuente": "F01.",
+   "ids": [
+    "D52"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personas arrestadas y fichadas durante la emergencia previa que seguían en OPP",
+   "valor": "más de 300",
+   "unidad": "personas",
+   "fuente": "F01.",
+   "ids": [
+    "D54"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "300",
+     "unidad": "personas",
+     "fuente": "F10, resumen de las detenciones previas basado en la ACLU.",
+     "ids": [
+      "D536"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Internas embarazadas evacuadas a Angola",
+   "valor": "al menos diez",
+   "unidad": "personas",
+   "fuente": "F01.",
+   "ids": [
+    "D90"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Mujeres que informaron abortos espontáneos en OPP después de la tormenta",
+   "valor": "dos",
+   "unidad": "personas que denunciaron abortos espontáneos",
+   "fuente": "F01; denuncias, no saldo médico independientemente verificado.",
+   "ids": [
+    "D91"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Edad de Corey Stevenson durante Katrina",
+   "valor": "15",
+   "unidad": "años de edad",
+   "fuente": "Testimonio de su madre en F01.",
+   "ids": [
+    "D33"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Deuda por la que permaneció retenida Pearl Bland",
+   "valor": "398",
+   "unidad": "dólares estadounidenses en multas y tasas",
+   "fuente": "F01.",
+   "ids": [
+    "D100"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Multas judiciales vencidas por las que estaba retenido Greg Davis",
+   "valor": "448",
+   "unidad": "dólares estadounidenses",
+   "fuente": "F01.",
+   "ids": [
+    "D20"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Espera máxima descrita en Central Lock-Up por el informe",
+   "valor": "doce o trece",
+   "unidad": "horas en agua hasta el pecho",
+   "fuente": "F01; duración de algunas esperas, no de todos los evacuados.",
+   "ids": [
+    "D151"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "14",
+     "unidad": "horas para el paso de Iris Hardeman por Central Lock-Up",
+     "fuente": "F01, relato de Joyce Gilson sobre un caso individual.",
+     "ids": [
+      "D78"
+     ]
+    },
+    {
+     "valor": "unas nueve",
+     "unidad": "horas para otra interna",
+     "fuente": "F03, testimonio individual.",
+     "ids": [
+      "D488"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Personas entrevistadas por el equipo encabezado por Phyllis Mann",
+   "valor": "4000",
+   "unidad": "personas",
+   "fuente": "F10.",
+   "ids": [
+    "D551"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Universo aproximado de encarcelados en la zona del desastre referido por Mann",
+   "valor": "aproximadamente 8500",
+   "unidad": "personas",
+   "fuente": "F10; no es la población de OPP.",
+   "ids": [
+    "D551"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Evacuados de OPP que contactaron al Proyecto Nacional de Prisiones",
+   "valor": "más de 1300",
+   "unidad": "personas",
+   "fuente": "Agradecimientos del informe F01.",
+   "ids": [
+    "D07"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Testimonios de presos obtenidos por la ACLU",
+   "valor": "más de 1000",
+   "unidad": "testimonios",
+   "fuente": "F06; no es necesariamente el mismo universo que los contactos citados en F01.",
+   "ids": [
+    "D195"
+   ],
+   "otras_versiones": []
+  }
+ ],
+ "cronologia": [
+  {
+   "fecha": "2005-08-26",
+   "hora": "",
+   "evento": "Los teléfonos de los internos dejaron de funcionar según el informe de la ACLU y varios testimonios; otro interno sitúa el corte en el sábado.",
+   "aproximada": true,
+   "ids": [
+    "T22",
+    "T24",
+    "T25",
+    "D437",
+    "D442"
+   ]
+  },
+  {
+   "fecha": "2005-08-26",
+   "hora": "",
+   "evento": "Una interna de Conchetta afirmó que había autobuses del DOC disponibles y que les habían ordenado preparar una bolsa para una posible evacuación.",
+   "aproximada": false,
+   "ids": [
+    "T23",
+    "D310"
+   ]
+  },
+  {
+   "fecha": "2005-08-27",
+   "hora": "",
+   "evento": "El presidente declaró una emergencia para Luisiana.",
+   "aproximada": false,
+   "ids": [
+    "P10",
+    "T28"
+   ]
+  },
+  {
+   "fecha": "2005-08-27",
+   "hora": "",
+   "evento": "El DOC evacuó Plaquemines Parish Prison y St. Tammany Work Release.",
+   "aproximada": false,
+   "ids": [
+    "T30"
+   ]
+  },
+  {
+   "fecha": "2005-08-27",
+   "hora": "",
+   "evento": "David Williams fue detenido por intoxicación pública y alojado en Templeman III.",
+   "aproximada": false,
+   "ids": [
+    "T31",
+    "D79"
+   ]
+  },
+  {
+   "fecha": "2005-08-27",
+   "hora": "",
+   "evento": "Quantonio Williams fue detenido por posesión de marihuana y llevado a OPP; el pasaje no indica una hora de arresto.",
+   "aproximada": false,
+   "ids": [
+    "P35",
+    "T37"
+   ]
+  },
+  {
+   "fecha": "2005-08-27",
+   "hora": "aproximadamente 5 p.m.",
+   "evento": "El interno identificado como #92 situó en ese momento la última entrega de comida y agua a su unidad de Templeman II.",
+   "aproximada": true,
+   "ids": [
+    "T36",
+    "T54"
+   ]
+  },
+  {
+   "fecha": "2005-08-27",
+   "hora": "about 11:30 P.M.",
+   "evento": "El interno identificado como #8 afirmó que los oficiales abandonaron sus puestos.",
+   "aproximada": true,
+   "ids": [
+    "D247",
+    "T37"
+   ]
+  },
+  {
+   "fecha": "2005-08-28",
+   "hora": "",
+   "evento": "Blanco solicitó una declaración federal acelerada de desastre mayor.",
+   "aproximada": false,
+   "ids": [
+    "T38"
+   ]
+  },
+  {
+   "fecha": "2005-08-28",
+   "hora": "por la mañana",
+   "evento": "Nagin declaró la evacuación obligatoria de Nueva Orleans, que excluía al personal esencial de la oficina del sheriff criminal y a sus internos.",
+   "aproximada": false,
+   "ids": [
+    "T55",
+    "D30"
+   ]
+  },
+  {
+   "fecha": "2005-08-28",
+   "hora": "",
+   "evento": "Según un empleado, Gusman celebró una reunión sobre preparación para el huracán.",
+   "aproximada": false,
+   "ids": [
+    "T39",
+    "D38"
+   ]
+  },
+  {
+   "fecha": "2005-08-28",
+   "hora": "Maybe around 12:30 pm",
+   "evento": "Un interno procedente de St. Bernard situó a esa hora la salida en autobuses hacia OPP; otro describió preparativos desde temprano.",
+   "aproximada": true,
+   "ids": [
+    "T56",
+    "D82"
+   ]
+  },
+  {
+   "fecha": "2005-08-28",
+   "hora": "",
+   "evento": "OPP recibió presos adultos y menores de St. Bernard, además de menores del Youth Study Center.",
+   "aproximada": false,
+   "ids": [
+    "D37",
+    "T50"
+   ]
+  },
+  {
+   "fecha": "2005-08-28",
+   "hora": "Sunday evening",
+   "evento": "El interno identificado como #130 recibió sándwiches como última comida antes de su evacuación.",
+   "aproximada": false,
+   "ids": [
+    "T58",
+    "D406"
+   ]
+  },
+  {
+   "fecha": "2005-08-28",
+   "hora": "Sunday night",
+   "evento": "Darnell Smith situó el apagón de CCC en esa noche; otros edificios y unidades tuvieron cortes en momentos diferentes.",
+   "aproximada": false,
+   "ids": [
+    "T40",
+    "P37"
+   ]
+  },
+  {
+   "fecha": "2005-08-28",
+   "hora": "Sunday night",
+   "evento": "La interna identificada como #220 afirmó que el agua comenzó a entrar en su dormitorio de Templeman IV.",
+   "aproximada": false,
+   "ids": [
+    "T60",
+    "D501"
+   ]
+  },
+  {
+   "fecha": "2005-08-29",
+   "hora": "",
+   "evento": "Katrina golpeó Nueva Orleans; algunos testimonios del pool sitúan su llegada en el día anterior.",
+   "aproximada": true,
+   "ids": [
+    "T61",
+    "T52",
+    "T73"
+   ]
+  },
+  {
+   "fecha": "2005-08-29",
+   "hora": "",
+   "evento": "Bush declaró un desastre mayor para Luisiana.",
+   "aproximada": false,
+   "ids": [
+    "T62"
+   ]
+  },
+  {
+   "fecha": "2005-08-29",
+   "hora": "",
+   "evento": "El informe de la ACLU sitúa en este día la entrada de agua de inundación en los niveles inferiores de los edificios de OPP.",
+   "aproximada": false,
+   "ids": [
+    "T64"
+   ]
+  },
+  {
+   "fecha": "2005-08-29",
+   "hora": "",
+   "evento": "Raphael Schwarz despertó y encontró agua en el suelo de la sala común de Templeman III.",
+   "aproximada": false,
+   "ids": [
+    "T63"
+   ]
+  },
+  {
+   "fecha": "2005-08-29",
+   "hora": "",
+   "evento": "Internos entrevistados por Human Rights Watch dijeron que ya no había oficiales en Templeman III.",
+   "aproximada": false,
+   "ids": [
+    "T66"
+   ]
+  },
+  {
+   "fecha": "2005-08-29",
+   "hora": "",
+   "evento": "Pearl Cornelia Bland denunció que otras internas la agredieron en Conchetta sin que los oficiales lo impidieran.",
+   "aproximada": false,
+   "ids": [
+    "T65",
+    "Q37"
+   ]
+  },
+  {
+   "fecha": "2005-08-29",
+   "hora": "aproximadamente 5 p.m.",
+   "evento": "El interno identificado como #149 situó a esa hora la caída del generador auxiliar de Templeman III; otro testimonio la fecha en el día anterior.",
+   "aproximada": true,
+   "ids": [
+    "T80",
+    "D443",
+    "T57"
+   ]
+  },
+  {
+   "fecha": "2005-08-29",
+   "hora": "around 8 p.m.",
+   "evento": "Según un oficial de Templeman III, tres presos de St. Bernard consiguieron trepar por el techo del gimnasio.",
+   "aproximada": true,
+   "ids": [
+    "T81",
+    "D114"
+   ]
+  },
+  {
+   "fecha": "2005-08-29",
+   "hora": "aproximadamente 11:55 pm",
+   "evento": "El informe de asistencia técnica del DOC registra una llamada de la oficina del sheriff para solicitar ayuda en la evacuación; Human Rights Watch la sitúa a medianoche.",
+   "aproximada": true,
+   "ids": [
+    "T82",
+    "D132",
+    "P03"
+   ]
+  },
+  {
+   "fecha": "2005-08-30",
+   "hora": "temprano en la mañana",
+   "evento": "Un interno de St. Bernard relató que los oficiales regresaron y trasladaron al grupo del gimnasio a F Side.",
+   "aproximada": false,
+   "ids": [
+    "T83"
+   ]
+  },
+  {
+   "fecha": "2005-08-30",
+   "hora": "",
+   "evento": "Según oficiales entrevistados por Human Rights Watch, comenzó la evacuación de Templeman I y II cuando el agua alcanzó el pecho.",
+   "aproximada": false,
+   "ids": [
+    "T93"
+   ]
+  },
+  {
+   "fecha": "2005-08-30",
+   "hora": "aproximadamente 5 p.m.",
+   "evento": "El interno identificado como #56 situó a esa hora su propia evacuación.",
+   "aproximada": true,
+   "ids": [
+    "D320"
+   ]
+  },
+  {
+   "fecha": "2005-08-30",
+   "hora": "around 10 p.m.",
+   "evento": "El interno identificado como #56 llegó al paso elevado de Broad Street y vio a miles de internos sentados bajo vigilancia.",
+   "aproximada": true,
+   "ids": [
+    "T94",
+    "D321"
+   ]
+  },
+  {
+   "fecha": "2005-08-30",
+   "hora": "Tuesday night",
+   "evento": "Brady Richard fue llevado en bote a HOD para entregar suministros médicos y tuvo que vadear agua hasta el pecho dentro del edificio.",
+   "aproximada": false,
+   "ids": [
+    "T92",
+    "D41"
+   ]
+  },
+  {
+   "fecha": "2005-08-31",
+   "hora": "Wednesday morning",
+   "evento": "Según el relato de Darnell Smith, internos de CCC usaron una barra del techo para abrirse paso a través de las paredes.",
+   "aproximada": false,
+   "ids": [
+    "T95",
+    "D120",
+    "P37"
+   ]
+  },
+  {
+   "fecha": "2005-08-31",
+   "hora": "Wednesday afternoon",
+   "evento": "Mary Gehman fotografió a los internos en el paso elevado pese a que habían dicho a los civiles que no tomaran fotografías.",
+   "aproximada": false,
+   "ids": [
+    "T96",
+    "Q61"
+   ]
+  },
+  {
+   "fecha": "2005-08-31",
+   "hora": "around 4 p.m.",
+   "evento": "Un trabajador de mantenimiento abrió manualmente la celda del interno identificado como #149.",
+   "aproximada": true,
+   "ids": [
+    "T107",
+    "D444"
+   ]
+  },
+  {
+   "fecha": "2005-08-31",
+   "hora": "por la noche",
+   "evento": "La interna identificada como #179 afirmó que oficiales de Angola la rescataron tras abrir un agujero en una reja del segundo piso de Conchetta.",
+   "aproximada": false,
+   "ids": [
+    "T103"
+   ]
+  },
+  {
+   "fecha": "2005-09-01",
+   "hora": "",
+   "evento": "Human Rights Watch fecha en este día la evacuación de los internos de Templeman III a los que se refiere su investigación, aunque hay testimonios de salidas anteriores y posteriores.",
+   "aproximada": true,
+   "ids": [
+    "T120",
+    "T107",
+    "T114",
+    "T128"
+   ]
+  },
+  {
+   "fecha": "2005-09-01",
+   "hora": "",
+   "evento": "Ronnie Lee Morgan, Jr. relató que guardias del DOC llegaron a su pabellón de HOD y les ordenaron abandonar sus pertenencias.",
+   "aproximada": false,
+   "ids": [
+    "T113",
+    "Q57"
+   ]
+  },
+  {
+   "fecha": "2005-09-01",
+   "hora": "3 p.m.",
+   "evento": "El interno identificado como #206 situó en ese momento su primer trago de agua potable.",
+   "aproximada": false,
+   "ids": [
+    "T118"
+   ]
+  },
+  {
+   "fecha": "2005-09-02",
+   "hora": "",
+   "evento": "Human Rights Watch fecha en este día la finalización de la evacuación de OPP; otros pasajes ofrecen un intervalo anterior o rescates posteriores.",
+   "aproximada": true,
+   "ids": [
+    "T121",
+    "D138",
+    "T128",
+    "T133"
+   ]
+  },
+  {
+   "fecha": "2005-09-02",
+   "hora": "noon",
+   "evento": "Según el interno identificado como #205, al llegar el DOC al paso elevado Michael Carrerras pidió agua y fue rociado con gas pimienta.",
+   "aproximada": false,
+   "ids": [
+    "T125",
+    "D497"
+   ]
+  },
+  {
+   "fecha": "2005-09-04",
+   "hora": "",
+   "evento": "El interno identificado como #84 afirmó que la Guardia Nacional rescató a los internos de la unidad H-1 de Templeman III.",
+   "aproximada": false,
+   "ids": [
+    "T128",
+    "Q130"
+   ]
+  },
+  {
+   "fecha": "2005-09-04",
+   "hora": "",
+   "evento": "El interno identificado como #161 denunció que fue violado por otros internos en Hunt.",
+   "aproximada": false,
+   "ids": [
+    "T129",
+    "D455"
+   ]
+  },
+  {
+   "fecha": "2005-09",
+   "hora": "maybe 3am",
+   "evento": "Una compañera de Iris Hardeman relató que esta cayó de su cama en Angola y se golpeó la cabeza.",
+   "aproximada": true,
+   "ids": [
+    "T110"
+   ]
+  },
+  {
+   "fecha": "2005-09-14",
+   "hora": "",
+   "evento": "Tyrone Lewis fue ingresado en el Hospital E.A. Conway; el pasaje indica que murió tres días después.",
+   "aproximada": false,
+   "ids": [
+    "T130",
+    "D96"
+   ]
+  },
+  {
+   "fecha": "2005-09-22",
+   "hora": "",
+   "evento": "Evacuados de OPP firmaron una petición sobre sus condiciones en Avoyelles.",
+   "aproximada": false,
+   "ids": [
+    "T132"
+   ]
+  },
+  {
+   "fecha": "2005-09-28",
+   "hora": "",
+   "evento": "La ACLU exigió acceso a los presos reubicados a los que representaba en una demanda colectiva.",
+   "aproximada": false,
+   "ids": [
+    "T134",
+    "D194"
+   ]
+  },
+  {
+   "fecha": "2006-03",
+   "hora": "",
+   "evento": "Greg Davis fue liberado después de que estudiantes de la clínica de defensa penal de Tulane asumieran su caso.",
+   "aproximada": false,
+   "ids": [
+    "P06",
+    "D20"
+   ]
+  },
+  {
+   "fecha": "2006-06-05",
+   "hora": "",
+   "evento": "El antiguo edificio del tribunal comenzó su primer juicio desde Katrina.",
+   "aproximada": false,
+   "ids": [
+    "T143"
+   ]
+  },
+  {
+   "fecha": "2006-06-28",
+   "hora": "",
+   "evento": "Katherine Mattes obtuvo una orden de liberación para Pearl Bland.",
+   "aproximada": false,
+   "ids": [
+    "T144",
+    "D101"
+   ]
+  },
+  {
+   "fecha": "2006-08",
+   "hora": "",
+   "evento": "El Proyecto Nacional de Prisiones de la ACLU publicó Abandoned & Abused.",
+   "aproximada": false,
+   "ids": [
+    "T145",
+    "D197"
+   ]
+  },
+  {
+   "fecha": "2009-09-22",
+   "hora": "",
+   "evento": "El Departamento de Justicia informó haber encontrado condiciones inconstitucionales en OPP.",
+   "aproximada": false,
+   "ids": [
+    "T146",
+    "D01"
+   ]
+  }
+ ],
+ "hechos": [
+  {
+   "texto": "Orleans Parish Prison era la cárcel local de Nueva Orleans.",
+   "ids": [
+    "L01",
+    "D203"
+   ]
+  },
+  {
+   "texto": "El complejo incluía Central Lock-Up, CCC, Conchetta, HOD, Old Parish Prison, South White Street y los edificios Templeman.",
+   "ids": [
+    "L03"
+   ]
+  },
+  {
+   "texto": "Old Parish Prison, el edificio más antiguo del conjunto, fue construido en 1929.",
+   "ids": [
+    "T01"
+   ]
+  },
+  {
+   "texto": "Old Parish Prison fue diseñado para alojar entre 400 y 450 personas.",
+   "ids": [
+    "T01"
+   ]
+  },
+  {
+   "texto": "Louis Hamilton presentó una demanda colectiva sobre las condiciones de OPP en 1969.",
+   "ids": [
+    "T02"
+   ]
+  },
+  {
+   "texto": "Según el informe de la ACLU, el 60% de la población anterior a Katrina estaba detenida por órdenes de detención, infracciones de tráfico o cargos municipales.",
+   "ids": [
+    "D13"
+   ]
+  },
+  {
+   "texto": "El informe de la ACLU indica que el 89.3% de la población de OPP en el momento de la tormenta era negra.",
+   "ids": [
+    "D27"
+   ]
+  },
+  {
+   "texto": "El informe de la ACLU sitúa las edades de los presos entre 10 y 73 años.",
+   "ids": [
+    "D52"
+   ]
+  },
+  {
+   "texto": "Más de 300 personas que estaban en OPP cuando llegó Katrina habían sido arrestadas y fichadas durante los días de emergencia previos.",
+   "ids": [
+    "D54"
+   ]
+  },
+  {
+   "texto": "Más de 200 internos estaban bajo custodia federal por asuntos penales o migratorios.",
+   "ids": [
+    "D12"
+   ]
+  },
+  {
+   "texto": "OPP alojaba a casi 2000 presos del Departamento de Correccionales cuando Katrina golpeó Nueva Orleans.",
+   "ids": [
+    "D11"
+   ]
+  },
+  {
+   "texto": "En Templeman IV había mujeres que dormían en el suelo porque no había suficientes camas.",
+   "ids": [
+    "D142"
+   ]
+  },
+  {
+   "texto": "La orden de evacuación obligatoria de Nagin excluyó al personal esencial de la oficina del sheriff criminal y a sus internos.",
+   "ids": [
+    "D30"
+   ]
+  },
+  {
+   "texto": "El DOC evacuó otras instalaciones penitenciarias antes de la llegada de Katrina.",
+   "ids": [
+    "T30"
+   ]
+  },
+  {
+   "texto": "El informe de la ACLU afirma que Gusman rechazó la oferta del DOC de ayudar a evacuar OPP antes de la tormenta.",
+   "ids": [
+    "D35"
+   ]
+  },
+  {
+   "texto": "En lugar de evacuar, OPP recibió presos adicionales de St. Bernard y menores del Youth Study Center.",
+   "ids": [
+    "D37"
+   ]
+  },
+  {
+   "texto": "Según un empleado citado por la ACLU, Gusman fue advertido de que faltaban agua, linternas, baterías y alimentos.",
+   "ids": [
+    "D38"
+   ]
+  },
+  {
+   "texto": "Brady Richard declaró que no fue consultado sobre preparativos médicos para la tormenta.",
+   "ids": [
+    "D39"
+   ]
+  },
+  {
+   "texto": "El plan de contingencia examinado por la ACLU no explicaba cómo evacuar a los presos fuera de los edificios.",
+   "ids": [
+    "D45"
+   ]
+  },
+  {
+   "texto": "El plan de contingencia exigía reservas de comida y agua para 96 horas en cada edificio.",
+   "ids": [
+    "D49"
+   ]
+  },
+  {
+   "texto": "El plan de contingencia no explicaba cómo distribuir la comida y el agua potable almacenadas.",
+   "ids": [
+    "D49"
+   ]
+  },
+  {
+   "texto": "Un equipo de planificación parroquial había identificado un riesgo de inundación de hasta ocho pies en la zona de OPP.",
+   "ids": [
+    "D50"
+   ]
+  },
+  {
+   "texto": "El plan exigía abastecer y probar los generadores, pero no indicaba que debían colocarse por encima de los niveles de inundación previstos.",
+   "ids": [
+    "D46"
+   ]
+  },
+  {
+   "texto": "La información atribuida a la oficina del sheriff indica que solo había tres botes disponibles.",
+   "ids": [
+    "D152"
+   ]
+  },
+  {
+   "texto": "El informe de la ACLU y varios testimonios sitúan el corte de los teléfonos de los presos antes de la llegada del huracán.",
+   "ids": [
+    "D55",
+    "T25",
+    "D442"
+   ]
+  },
+  {
+   "texto": "Joyce Gilson relató que, después del corte de televisión y teléfonos, su grupo perdió contacto con lo que ocurría fuera.",
+   "ids": [
+    "T41"
+   ]
+  },
+  {
+   "texto": "El agua de inundación entró en los niveles inferiores de los edificios de OPP.",
+   "ids": [
+    "T64"
+   ]
+  },
+  {
+   "texto": "Raphael Schwarz relató que los oficiales entregaron a los internos un cubo y una fregona para retirar el agua de la sala común.",
+   "ids": [
+    "T63"
+   ]
+  },
+  {
+   "texto": "El informe de la ACLU señala que los generadores auxiliares también fallaron después del corte de la energía principal.",
+   "ids": [
+    "D47"
+   ]
+  },
+  {
+   "texto": "Gusman reconoció posteriormente que hubo fallos eléctricos porque los generadores no estaban colocados suficientemente altos.",
+   "ids": [
+    "D60"
+   ]
+  },
+  {
+   "texto": "Muchos internos permanecieron encerrados mientras los desechos salían de los inodoros que no funcionaban.",
+   "ids": [
+    "D66"
+   ]
+  },
+  {
+   "texto": "La ACLU recogió relatos de presos encerrados en celdas con agua contaminada hasta el pecho.",
+   "ids": [
+    "D09"
+   ]
+  },
+  {
+   "texto": "Renard Reed declaró que varios oficiales dejaron de trabajar después del apagón, aunque no necesariamente abandonaron el edificio.",
+   "ids": [
+    "Q24"
+   ]
+  },
+  {
+   "texto": "Otros testimonios indican que oficiales permanecieron con las internas de Conchetta y Templeman IV y con internos de algunos pisos de HOD.",
+   "ids": [
+    "L16",
+    "D439"
+   ]
+  },
+  {
+   "texto": "A oficiales de Templeman III les dijeron que trabajarían sin descanso y que no cobrarían por el servicio adicional.",
+   "ids": [
+    "D70"
+   ]
+  },
+  {
+   "texto": "Renard Reed denunció que Bonita Pittman encerró a oficiales en los pisos con los internos sin una vía de salida.",
+   "ids": [
+    "D98",
+    "P31"
+   ]
+  },
+  {
+   "texto": "Un interno procedente de St. Bernard describió un gimnasio con solo dos baños para cientos de personas.",
+   "ids": [
+    "D83",
+    "D82"
+   ]
+  },
+  {
+   "texto": "Brady Richard informó que personal, oficiales y familiares recibían raciones mientras los presos de CCC no recibían nada.",
+   "ids": [
+    "P01"
+   ]
+  },
+  {
+   "texto": "Internos de Old Parish y una interna de CTA relataron que bebieron agua del inodoro.",
+   "ids": [
+    "D85",
+    "Q177",
+    "Q184"
+   ]
+  },
+  {
+   "texto": "Internas de Conchetta dijeron que antes de la tormenta les hicieron llenar cubos de basura con agua.",
+   "ids": [
+    "D84"
+   ]
+  },
+  {
+   "texto": "Según la ACLU, más de la mitad de los presos de OPP recibía alguna medicación antes de la tormenta.",
+   "ids": [
+    "D87"
+   ]
+  },
+  {
+   "texto": "Keanna Herbert denunció que no le administraron tratamiento para la diabetes ni para el VIH.",
+   "ids": [
+    "D89"
+   ]
+  },
+  {
+   "texto": "Dos mujeres informaron a la ACLU que habían sufrido abortos espontáneos en OPP después de la tormenta.",
+   "ids": [
+    "D91"
+   ]
+  },
+  {
+   "texto": "Iris Hardeman había presentado dolores de pecho y dificultades respiratorias antes del huracán.",
+   "ids": [
+    "D76"
+   ]
+  },
+  {
+   "texto": "Otras mujeres se turnaron para sostener a Iris Hardeman cuando pasó por Central Lock-Up.",
+   "ids": [
+    "D155"
+   ]
+  },
+  {
+   "texto": "Una compañera relató que Iris Hardeman sufrió una caída y un golpe en la cabeza después de ser trasladada a Angola.",
+   "ids": [
+    "T110"
+   ]
+  },
+  {
+   "texto": "Tyrone Lewis fue hospitalizado después de la evacuación y el informe de la ACLU indica que murió tres días más tarde.",
+   "ids": [
+    "D96"
+   ]
+  },
+  {
+   "texto": "Pearl Cornelia Bland denunció que otras internas la agredieron y que los oficiales no detuvieron el ataque.",
+   "ids": [
+    "Q37",
+    "T65"
+   ]
+  },
+  {
+   "texto": "Presos de Old Parish Prison denunciaron agresiones sexuales entre internos sin posibilidad de pedir ayuda.",
+   "ids": [
+    "D105"
+   ]
+  },
+  {
+   "texto": "Internos prendieron fuego a cartones de leche, sábanas y toallas para poder ver en la oscuridad.",
+   "ids": [
+    "D107"
+   ]
+  },
+  {
+   "texto": "Un interno de Templeman III relató que el humo se volvió insoportable y que rompieron ventanas para respirar.",
+   "ids": [
+    "D235",
+    "D236"
+   ]
+  },
+  {
+   "texto": "Internos de CCC usaron una barra metálica del techo para abrir un paso a través de las paredes.",
+   "ids": [
+    "D120"
+   ]
+  },
+  {
+   "texto": "En varios edificios, los presos ataron sábanas para descender desde ventanas rotas.",
+   "ids": [
+    "D121"
+   ]
+  },
+  {
+   "texto": "Presos y oficiales informaron haber visto internos colgando de los rollos de alambre cortante que rodeaban las instalaciones.",
+   "ids": [
+    "D122"
+   ]
+  },
+  {
+   "texto": "La División de Investigaciones Especiales llegó con escopetas cargadas con proyectiles beanbag, gas pimienta y porras.",
+   "ids": [
+    "D126",
+    "D127"
+   ]
+  },
+  {
+   "texto": "Varios testimonios atribuyeron a oficiales de la SID golpes y disparos de proyectiles beanbag durante los traslados.",
+   "ids": [
+    "D128",
+    "D129",
+    "D344"
+   ]
+  },
+  {
+   "texto": "La oficina del sheriff emitió órdenes de arresto para catorce presos que se creía que habían escapado.",
+   "ids": [
+    "D167"
+   ]
+  },
+  {
+   "texto": "El informe técnico del DOC registra una solicitud de ayuda para evacuar OPP cerca de la medianoche del lunes.",
+   "ids": [
+    "D132"
+   ]
+  },
+  {
+   "texto": "El informe de la ACLU vincula el comienzo de la evacuación con la llegada de oficiales de Angola junto al alcaide Burl Cain.",
+   "ids": [
+    "D137"
+   ]
+  },
+  {
+   "texto": "Según un oficial, la evacuación de B-Side de Templeman III se retrasó porque un comandante había extraviado la llave.",
+   "ids": [
+    "D139"
+   ]
+  },
+  {
+   "texto": "Un relato de la unidad A-1 indica que los oficiales tuvieron que abrir celdas con palancas.",
+   "ids": [
+    "D80"
+   ]
+  },
+  {
+   "texto": "El informe de la ACLU recoge esperas de hasta doce o trece horas en agua hasta el pecho dentro de Central Lock-Up.",
+   "ids": [
+    "D151"
+   ]
+  },
+  {
+   "texto": "Gusman y Richard Baumy ofrecieron versiones distintas sobre quién mandaba a los oficiales que acompañaron a los presos de St. Bernard.",
+   "ids": [
+    "D135",
+    "D136"
+   ]
+  },
+  {
+   "texto": "Joyce Gilson relató que en el paso elevado esposaron a cada mujer con la que estaba a su lado.",
+   "ids": [
+    "D147",
+    "P22"
+   ]
+  },
+  {
+   "texto": "Joyce Gilson declaró que civiles intentaron dar agua a las presas y que los oficiales les impidieron acercarse.",
+   "ids": [
+    "D149",
+    "P22"
+   ]
+  },
+  {
+   "texto": "Mary Gehman tomó una fotografía de los internos en el paso elevado pese a la indicación de no fotografiarlos.",
+   "ids": [
+    "Q61"
+   ]
+  },
+  {
+   "texto": "Miles de evacuados fueron trasladados a Hunt y después dispersados a instalaciones de todo el estado.",
+   "ids": [
+    "D171"
+   ]
+  },
+  {
+   "texto": "En Hunt se mezclaron presos preventivos, condenados y personas bajo custodia municipal, estatal y federal.",
+   "ids": [
+    "D172"
+   ]
+  },
+  {
+   "texto": "Len Davis fue colocado en un patio abierto de Hunt con personas detenidas por acusaciones de distinta gravedad.",
+   "ids": [
+    "D549"
+   ]
+  },
+  {
+   "texto": "Diversos relatos describen a guardias de Hunt arrojando bolsas de sándwiches por encima de una valla.",
+   "ids": [
+    "D177",
+    "D460",
+    "D550"
+   ]
+  },
+  {
+   "texto": "Cathy Fontenot admitió que la cocina de Hunt cerró porque no podía preparar comida para tantos evacuados.",
+   "ids": [
+    "P47",
+    "D178"
+   ]
+  },
+  {
+   "texto": "Human Rights Watch señaló que faltaban 517 internos en la lista de personas evacuadas que examinó.",
+   "ids": [
+    "D185"
+   ]
+  },
+  {
+   "texto": "Human Rights Watch indicó que 130 de los internos ausentes de esa lista eran de Templeman III.",
+   "ids": [
+    "D191"
+   ]
+  },
+  {
+   "texto": "Gusman sostuvo que no hubo muertes en OPP durante la tormenta y la evacuación, mientras oficiales e internos denunciaron haber visto muertos.",
+   "ids": [
+    "D163",
+    "Q60",
+    "D547"
+   ]
+  },
+  {
+   "texto": "La inundación inutilizó el sistema de datos de la cárcel y se perdieron o destruyeron registros legales.",
+   "ids": [
+    "D548",
+    "D553"
+   ]
+  },
+  {
+   "texto": "El equipo de abogados encabezado por Phyllis Mann entrevistó a 4000 personas que habían estado encarceladas en la zona del desastre.",
+   "ids": [
+    "D551"
+   ]
+  },
+  {
+   "texto": "El Departamento de Justicia informó posteriormente que OPP no protegía adecuadamente a los presos y presentaba deficiencias de salud mental y saneamiento.",
+   "ids": [
+    "D01",
+    "D02",
+    "D03",
+    "D04"
+   ]
+  },
+  {
+   "texto": "Katherine Mattes obtuvo una orden de liberación para Pearl Bland después de que OPP la retuviera por una deuda de multas y tasas.",
+   "ids": [
+    "D100",
+    "D101"
+   ]
+  }
+ ],
+ "citas": [
+  {
+   "autor": "Brady Richard",
+   "rol": "Oficial de suministros médicos",
+   "verificacion": "Verificada en el pasaje citado; declaración testimonial.",
+   "texto": "La gente necesita entender que simplemente nunca deberíamos haber estado allí en primer lugar.",
+   "original": "",
+   "ids": [
+    "Q11"
+   ]
+  },
+  {
+   "autor": "Rhonda Ducre",
+   "rol": "Oficial de HOD",
+   "verificacion": "Verificada en el pasaje citado; declaración testimonial.",
+   "texto": "Llevo aquí cuatro años y siempre es lo mismo cuando vienen los huracanes. No hay ningún plan.",
+   "original": "",
+   "ids": [
+    "Q16"
+   ]
+  },
+  {
+   "autor": "Abogado del sheriff, sin nombre en el pool",
+   "rol": "Representante legal del sheriff",
+   "verificacion": "Verificada como texto de la respuesta documental reproducida por la ACLU.",
+   "texto": "Todos los documentos sobre los planes de evacuación estaban bajo el agua, no se puede encontrar ninguno ahora.",
+   "original": "",
+   "ids": [
+    "Q15",
+    "D42"
+   ]
+  },
+  {
+   "autor": "Interna anónima de Conchetta",
+   "rol": "Presa",
+   "verificacion": "Verificada en el pasaje citado; testimonio anónimo.",
+   "texto": "Quería saber si mis hijos estaban bien.",
+   "original": "",
+   "ids": [
+    "Q18"
+   ]
+  },
+  {
+   "autor": "Raphael Schwarz",
+   "rol": "Interno de Templeman III",
+   "verificacion": "Verificación parcial según el pool; el fragmento seleccionado está en el pasaje.",
+   "texto": "La ventana de nuestra celda estaba rota, y empezamos a agitar nuestras camisetas naranjas del uniforme de la prisión cada vez que oíamos pasar un helicóptero para indicar que todavía estábamos en la cárcel.",
+   "original": "",
+   "ids": [
+    "Q21"
+   ]
+  },
+  {
+   "autor": "Renard Reed",
+   "rol": "Oficial de OPP",
+   "verificacion": "Verificada en el pasaje citado; declaración testimonial.",
+   "texto": "Una vez que se fue la luz, los oficiales empezaron a renunciar a diestra y siniestra. No se fueron del edificio, por supuesto, pero simplemente no volvieron a trabajar. Las mujeres en especial se asustaron una vez que la tormenta golpeó y se fue la luz.",
+   "original": "",
+   "ids": [
+    "Q24"
+   ]
+  },
+  {
+   "autor": "Denise Lewis Henry",
+   "rol": "Hermana de Tyrone Lewis",
+   "verificacion": "Verificada en el pasaje citado como fragmento de su declaración.",
+   "texto": "¿Sufrió? No sabemos nada de estas cosas.",
+   "original": "",
+   "ids": [
+    "Q36",
+    "P75"
+   ]
+  },
+  {
+   "autor": "Pearl Cornelia Bland",
+   "rol": "Interna de Conchetta",
+   "verificacion": "Verificada como denuncia de la declarante; no acredita por sí sola los hechos denunciados.",
+   "texto": "Los oficiales no me agredieron personalmente, pero no ayudaron a detener la agresión que las señoras me hicieron.",
+   "original": "",
+   "ids": [
+    "Q37"
+   ]
+  },
+  {
+   "autor": "Quantonio Williams",
+   "rol": "Interno de OPP",
+   "verificacion": "Verificación parcial según el pool; distingue expresamente información de terceros de observación propia.",
+   "texto": "Otros detenidos me dijeron que le habían disparado a un detenido, pero no lo vi.",
+   "original": "",
+   "ids": [
+    "Q40"
+   ]
+  },
+  {
+   "autor": "Renard Reed",
+   "rol": "Oficial de OPP",
+   "verificacion": "Verificada en el pasaje citado; declaración testimonial.",
+   "texto": "Aunque estén en la cárcel, son seres humanos. No estoy a favor de los derechos de los reclusos ni nada, pero no sabían nada de sus familias ni nada, y merecían saberlo.",
+   "original": "",
+   "ids": [
+    "Q50"
+   ]
+  },
+  {
+   "autor": "Joyce Gilson",
+   "rol": "Interna de Templeman IV",
+   "verificacion": "Verificación parcial según el pool; el fragmento seleccionado está en el pasaje.",
+   "texto": "No te imaginarías que una persona dejaría que otro ser humano pasara por eso, cuando hubo tiempo para dejarnos salir. Nunca se me ocurriría que una persona pudiera permitir que eso sucediera; aunque estemos en la cárcel somos seres humanos.",
+   "original": "",
+   "ids": [
+    "Q54"
+   ]
+  },
+  {
+   "autor": "Joyce Gilson",
+   "rol": "Interna de Templeman IV",
+   "verificacion": "Verificación parcial según el pool; acusación de la declarante, no conclusión independiente.",
+   "texto": "Y luego Gusman mintió sobre que teníamos comida y agua cuando él sabe que no teníamos. Él sabe que no teníamos.",
+   "original": "",
+   "ids": [
+    "Q56"
+   ]
+  },
+  {
+   "autor": "Luis Reyes",
+   "rol": "Oficial de CCC",
+   "verificacion": "Verificada como declaración atribuida al oficial; su afirmación sobre fallecidos sigue disputada.",
+   "texto": "Todavía hay presos muertos ahí dentro. Cuando los guardias estaban haciendo sus últimas rondas había uno o dos por aquí y por allá.",
+   "original": "",
+   "ids": [
+    "Q60"
+   ]
+  },
+  {
+   "autor": "Mary Gehman",
+   "rol": "Escritora y testigo civil",
+   "verificacion": "Verificada en el pasaje citado.",
+   "texto": "Estuve en el paso elevado durante varios días junto a los prisioneros. A los civiles se les dijo que no tomaran fotografías, pero yo tomé esta foto el miércoles por la tarde.",
+   "original": "",
+   "ids": [
+    "Q61"
+   ]
+  },
+  {
+   "autor": "David Fernandez",
+   "rol": "Interno identificado como fugado",
+   "verificacion": "Verificada como explicación del declarante.",
+   "texto": "No es que quisiéramos escapar. Los cargos que tenía no eran realmente por nada. ¿Por qué querría escapar? Escapé por mi vida.",
+   "original": "",
+   "ids": [
+    "Q63"
+   ]
+  },
+  {
+   "autor": "Cathy Fontenot",
+   "rol": "Portavoz del Departamento de Correccionales",
+   "verificacion": "Verificación parcial según el pool; declaración oficial reproducida, no comprobación independiente de las condiciones.",
+   "texto": "Alimentamos a esos reclusos lo mejor que pudimos. No pudimos darles comidas calientes como a las que están acostumbrados.",
+   "original": "",
+   "ids": [
+    "Q70"
+   ]
+  },
+  {
+   "autor": "Corinne Carey",
+   "rol": "Investigadora de Human Rights Watch",
+   "verificacion": "Verificación parcial según el pool; declaración de la investigadora reproducida en F02.",
+   "texto": "De todas las pesadillas durante el huracán Katrina, esta debe ser una de las peores. Los prisioneros fueron abandonados en sus celdas sin comida ni agua durante días mientras las aguas de la inundación subían hacia el techo.",
+   "original": "",
+   "ids": [
+    "Q71"
+   ]
+  },
+  {
+   "autor": "Dan Bright",
+   "rol": "Interno de OPP entrevistado después de la evacuación",
+   "verificacion": "Verificada como declaración a Human Rights Watch.",
+   "texto": "Nos dejaron morir allí.",
+   "original": "",
+   "ids": [
+    "Q73"
+   ]
+  },
+  {
+   "autor": "Portavoz del departamento del sheriff, sin nombre en el pool",
+   "rol": "Portavoz oficial",
+   "verificacion": "Verificada como declaración a Human Rights Watch; el contenido sigue disputado.",
+   "texto": "Nadie se ahogó, nadie se quedó atrás.",
+   "original": "",
+   "ids": [
+    "Q77"
+   ]
+  },
+  {
+   "autor": "Edward “Edgar” Burton",
+   "rol": "Interno de Old Parish",
+   "verificacion": "Verificación parcial según el pool; testimonio retrospectivo reproducido en F10.",
+   "texto": "Cuando vi que algo que estaba atornillado al suelo empezaba a flotar, supe que era grave. La gente gritaba pidiendo ayuda, pero nadie venía. Pensamos que nos íbamos a ahogar allí dentro.",
+   "original": "",
+   "ids": [
+    "Q183"
+   ]
+  },
+  {
+   "autor": "Edward “Edgar” Burton",
+   "rol": "Interno de Old Parish",
+   "verificacion": "Verificada como testimonio retrospectivo en F10.",
+   "texto": "Tuvimos que beber agua del inodoro solo para mantenernos con vida.",
+   "original": "",
+   "ids": [
+    "Q184"
+   ]
+  },
+  {
+   "autor": "Phyllis Mann",
+   "rol": "Abogada que encabezó la búsqueda de presos desplazados",
+   "verificacion": "Verificada en el pasaje citado.",
+   "texto": "Ninguno de los directores de prisión sabía a quién tenían: eran personas en prisión preventiva, personas ya juzgadas, personas en programas de tratamiento. Personas que habían sido arrestadas recientemente y ni siquiera habían pasado por el tribunal para que les fijaran una fianza. Simplemente todo el mundo.",
+   "original": "",
+   "ids": [
+    "Q186"
+   ]
+  }
+ ],
+ "descartados": [
+  {
+   "que": "[decisiones] Hora de fallo del generador de Templeman III",
+   "motivo": "no respaldado: cifra 175",
+   "ids": [
+    "T57",
+    "T80",
+    "D443"
+   ]
+  },
+  {
+   "que": "[decisiones] Fecha de finalización de la evacuación",
+   "motivo": "no respaldado: cifra 84",
+   "ids": [
+    "T121",
+    "D138",
+    "T128",
+    "T133"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Interno identificado como #5",
+   "motivo": "no respaldado: «Interno identificado como #5» no está entre los descartados del pool",
+   "ids": [
+    "D235",
+    "D236",
+    "D237",
+    "Q101"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Interno identificado como #33",
+   "motivo": "no respaldado: «Interno identificado como #33» no está entre los descartados del pool",
+   "ids": [
+    "D288",
+    "D290"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Interna identificada como #51",
+   "motivo": "no respaldado: «Interna identificada como #51» no está entre los descartados del pool",
+   "ids": [
+    "P57",
+    "D303",
+    "D305",
+    "Q116"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Interna identificada como #53",
+   "motivo": "no respaldado: «Interna identificada como #53» no está entre los descartados del pool",
+   "ids": [
+    "T23",
+    "T24",
+    "D310",
+    "D311"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Interno identificado como #56",
+   "motivo": "no respaldado: «Interno identificado como #56» no está entre los descartados del pool",
+   "ids": [
+    "D320",
+    "T94",
+    "D321"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Interna identificada como #220",
+   "motivo": "no respaldado: «Interna identificada como #220» no está entre los descartados del pool",
+   "ids": [
+    "T60",
+    "D501",
+    "D503",
+    "D508"
+   ]
+  },
+  {
+   "que": "[cronologia] Según el interno de Templeman III identificado como #175, la llamada para repartir pastillas fue el último tratamiento médico recibido en su",
+   "motivo": "no respaldado: cifra 175",
+   "ids": [
+    "T27"
+   ]
+  },
+  {
+   "que": "[cronologia] Blanco solicitó a Bush una declaración de emergencia para un período que comenzaba el día anterior.",
+   "motivo": "no respaldado: fecha 2005-08-27",
+   "ids": [
+    "P10",
+    "T21"
+   ]
+  },
+  {
+   "que": "[citas] Están en la cárcel, hombre. Mienten.",
+   "motivo": "no respaldado: el texto de la cita no está en sus ids",
+   "ids": [
+    "D165"
+   ]
+  },
+  {
+   "que": "Uso de los internos ausentes de una lista como saldo de muertos o desaparecidos definitivos",
+   "motivo": "La evidencia solo establece una falta de correspondencia con la lista de evacuados examinada.",
+   "ids": [
+    "D185",
+    "D191",
+    "D190"
+   ]
+  },
+  {
+   "que": "Suma de todos los avistamientos de cadáveres",
+   "motivo": "Son observaciones parciales potencialmente superpuestas y no todos los cuerpos fueron identificados como presos.",
+   "ids": [
+    "D228",
+    "D297",
+    "D371",
+    "D391",
+    "D395",
+    "D484"
+   ]
+  },
+  {
+   "que": "Muerte de Iris Hardy presentada como fallecimiento comprobado de Iris Hardeman",
+   "motivo": "La identidad no está resuelta y la denuncia de muerte no está corroborada por los otros pasajes.",
+   "ids": [
+    "D476",
+    "P20",
+    "T110"
+   ]
+  },
+  {
+   "que": "Pasaje sobre falta de pastillas usado como prueba adicional de la muerte de Iris Hardy",
+   "motivo": "La carta habla de la medicación de su propia autora y no menciona a Iris.",
+   "ids": [
+    "D476"
+   ]
+  },
+  {
+   "que": "Temperatura convertida a grados Celsius o presentada como medición instrumental",
+   "motivo": "El pasaje describe una sensación térmica subjetiva y no especifica la escala ni respalda la conversión añadida por la extracción.",
+   "ids": [
+    "D498"
+   ]
+  },
+  {
+   "que": "Supuesto gas para dormir como sustancia identificada",
+   "motivo": "Los testimonios lo denominan así, pero el pool no aporta identificación química ni corroboración independiente.",
+   "ids": [
+    "D448",
+    "D505"
+   ]
+  },
+  {
+   "que": "Supuesto contenido porcentual de combustible en el agua como análisis químico",
+   "motivo": "El testigo describe un olor mediante una comparación, no una medición de composición.",
+   "ids": [
+    "D157",
+    "Q58"
+   ]
+  },
+  {
+   "que": "Toma de rehenes presentada como hecho establecido",
+   "motivo": "El pool contiene una afirmación pública de Oliver Thomas, pero no la corroboración del episodio.",
+   "ids": [
+    "P02",
+    "Q01"
+   ]
+  },
+  {
+   "que": "Q01 como cita textual de Oliver Thomas",
+   "motivo": "La evidencia está redactada en estilo indirecto y no acredita esas palabras como cita literal.",
+   "ids": [
+    "Q01"
+   ]
+  },
+  {
+   "que": "Q78 como cita literal de Gusman",
+   "motivo": "El pasaje de F06 resume declaraciones públicas del sheriff sin reproducirlas entre comillas.",
+   "ids": [
+    "Q78",
+    "D196"
+   ]
+  },
+  {
+   "que": "Parte de Q57 sobre fotografías de las hijas",
+   "motivo": "El pasaje aportado solo respalda la pérdida de documentos legales, no la extensión sobre fotografías.",
+   "ids": [
+    "Q57"
+   ]
+  },
+  {
+   "que": "Extensiones de Q74 y Q75 ausentes de sus pasajes",
+   "motivo": "Los extractos disponibles no permiten reproducir como literales todos los detalles añadidos en las citas del pool.",
+   "ids": [
+    "Q74",
+    "Q75"
+   ]
+  },
+  {
+   "que": "Identificación de guardia para el autor de Q48",
+   "motivo": "La introducción del pasaje lo identifica como el interno Ace Martin.",
+   "ids": [
+    "Q48",
+    "P38"
+   ]
+  },
+  {
+   "que": "Fecha exacta añadida al embarque nocturno de T124",
+   "motivo": "El pasaje contiene una hora nocturna, pero no identifica por sí mismo la fecha del embarque.",
+   "ids": [
+    "T124"
+   ]
+  },
+  {
+   "que": "Profundidad de T13 y D506 usada con unidad inferida",
+   "motivo": "El extracto dice 4½ de profundidad sin expresar la unidad; se prefieren otras descripciones que sí la incluyen.",
+   "ids": [
+    "T13",
+    "D506",
+    "D156"
+   ]
+  },
+  {
+   "que": "Interpretación literal de inhabitable como descripción segura del daño",
+   "motivo": "La redacción inglesa de F09 y el resumen español no permiten resolver ese término sin corregir el documento por conjetura.",
+   "ids": [
+    "D221"
+   ]
+  },
+  {
+   "que": "Relato de encierro hasta el final de septiembre como fecha general de evacuación",
+   "motivo": "Se conserva únicamente como versión discordante de un interno y no se extiende a toda OPP.",
+   "ids": [
+    "T133"
+   ]
+  },
+  {
+   "que": "Muerte presunta anterior al huracán como víctima comprobada de la inundación",
+   "motivo": "El propio pasaje declara que no se conocen detalles y su ámbito temporal es distinto.",
+   "ids": [
+    "D21"
+   ]
+  },
+  {
+   "que": "Historias detalladas de las muertes anteriores de Mark Jones, Shawn Duncan y Matthew Bonnette",
+   "motivo": "Son antecedentes del establecimiento, no víctimas de Katrina; se mantienen sus identidades sin desarrollar esos casos en la ficha narrativa principal.",
+   "ids": [
+    "T06",
+    "D22",
+    "D23",
+    "D24"
+   ]
+  },
+  {
+   "que": "Reformas municipales y evolución institucional posterior desarrolladas hasta el final del período del pool",
+   "motivo": "Se limita el epílogo a las consecuencias necesarias y al hallazgo del Departamento de Justicia, sin convertir la ficha en otra historia de reformas.",
+   "ids": [
+    "D199",
+    "D200",
+    "Q89",
+    "Q90",
+    "Q91",
+    "T147",
+    "T148",
+    "T149",
+    "T150",
+    "T151",
+    "T152"
+   ]
+  },
+  {
+   "que": "[descartados] Jimmy LeBlanc, Sandra Thompson, Stacy Head, Susan Guidry y Susan Hutson",
+   "motivo": "no respaldado: sin ids",
+   "ids": []
+  },
+  {
+   "que": "[descartados] Mallette, Sgt. Green, Mrs. Jackson y Ms. Holmes",
+   "motivo": "no respaldado: sin ids",
+   "ids": []
+  },
+  {
+   "que": "Landrieu como protagonista adicional",
+   "motivo": "Su mención disponible corresponde a una propuesta de reforma posterior, fuera del núcleo de la evacuación.",
+   "ids": [
+    "P55"
+   ]
+  },
+  {
+   "que": "Conteos y tiempos de instalaciones receptoras presentados como si fueran de OPP",
+   "motivo": "Las cifras de Hunt, Angola y Avoyelles corresponden a lugares y universos distintos y no se trasladan al saldo de la cárcel original.",
+   "ids": [
+    "D376",
+    "D383",
+    "D400",
+    "D446",
+    "D457",
+    "D523",
+    "D526",
+    "D530",
+    "D551"
+   ]
+  },
+  {
+   "que": "Duplicación de evidencia como corroboración independiente",
+   "motivo": "Los ítems repetidos y las marcas de igualdad remiten al mismo pasaje, no a nuevas fuentes.",
+   "ids": [
+    "D103",
+    "D104",
+    "D194",
+    "T134",
+    "D197",
+    "T145"
+   ]
+  }
+ ],
+ "chequeo": {
+  "sacados": [
+   {
+    "que": "[decisiones] Hora de fallo del generador de Templeman III",
+    "motivo": "no respaldado: cifra 175",
+    "ids": [
+     "T57",
+     "T80",
+     "D443"
+    ],
+    "seccion": "decisiones",
+    "item": {
+     "tema": "Hora de fallo del generador de Templeman III",
+     "criterio": 5,
+     "decision": "No hay coincidencia suficiente para fijar una hora única y se presenta como aproximado el horario del testimonio individual, no como horario de todo el complejo.",
+     "ids": [
+      "T57",
+      "T80",
+      "D443"
+     ],
+     "otras_versiones": [
+      {
+       "dice": "El interno identificado como #175 sitúa la caída del generador auxiliar aproximadamente a las 2:00 p.m. del 28 de agosto.",
+       "doc_id": "F03",
+       "offset": 240986,
+       "ids": [
+        "T57"
+       ]
+      },
+      {
+       "dice": "El interno identificado como #149 la sitúa aproximadamente a las 5 p.m. del lunes.",
+       "doc_id": "F03",
+       "offset": 201173,
+       "ids": [
+        "T80",
+        "D443"
+       ]
+      },
+      {
+       "dice": "Human Rights Watch dice que para el lunes 29 los generadores ya habían fallado, sin precisar hora.",
+       "doc_id": "F02",
+       "offset": 3051,
+       "ids": [
+        "T80"
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "que": "[decisiones] Fecha de finalización de la evacuación",
+    "motivo": "no respaldado: cifra 84",
+    "ids": [
+     "T121",
+     "D138",
+     "T128",
+     "T133"
+    ],
+    "seccion": "decisiones",
+    "item": {
+     "tema": "Fecha de finalización de la evacuación",
+     "criterio": 5,
+     "decision": "Se usa el viernes 2 de septiembre solo como finalización informada por Human Rights Watch y aproximada, dejando expresas las fechas discordantes y sin invalidar los testimonios posteriores.",
+     "ids": [
+      "T121",
+      "D138",
+      "T128",
+      "T133"
+     ],
+     "otras_versiones": [
+      {
+       "dice": "La ACLU considera que el proceso parece haber terminado entre la noche del jueves y las primeras horas del viernes.",
+       "doc_id": "F01",
+       "offset": 235968,
+       "ids": [
+        "D138"
+       ]
+      },
+      {
+       "dice": "El interno identificado como #84 afirma que fue rescatado el 4 de septiembre.",
+       "doc_id": "F03",
+       "offset": 98363,
+       "ids": [
+        "T128"
+       ]
+      },
+      {
+       "dice": "El interno identificado como #99 afirma que permaneció en su celda hasta el 23 de septiembre.",
+       "doc_id": "F03",
+       "offset": 129126,
+       "ids": [
+        "T133"
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Interno identificado como #5",
+    "motivo": "no respaldado: «Interno identificado como #5» no está entre los descartados del pool",
+    "ids": [
+     "D235",
+     "D236",
+     "D237",
+     "Q101"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Interno identificado como #5",
+     "rol": "Testigo anónimo de Templeman III",
+     "motivo": "Aporta la denuncia sobre humo, ventanas rotas y personas que seguían encerradas; el anonimato no invalida su uso atribuido.",
+     "ids": [
+      "D235",
+      "D236",
+      "D237",
+      "Q101"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Interno identificado como #33",
+    "motivo": "no respaldado: «Interno identificado como #33» no está entre los descartados del pool",
+    "ids": [
+     "D288",
+     "D290"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Interno identificado como #33",
+     "rol": "Testigo anónimo de Templeman II",
+     "motivo": "Es indispensable identificar el carácter indirecto del total de fallecidos que dijo haber oído de oficiales.",
+     "ids": [
+      "D288",
+      "D290"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Interna identificada como #51",
+    "motivo": "no respaldado: «Interna identificada como #51» no está entre los descartados del pool",
+    "ids": [
+     "P57",
+     "D303",
+     "D305",
+     "Q116"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Interna identificada como #51",
+     "rol": "Testigo anónima de Conchetta",
+     "motivo": "Su relato es la fuente de la referencia a Mr. Gussman y debe conservarse sin convertirla en una orden comprobada.",
+     "ids": [
+      "P57",
+      "D303",
+      "D305",
+      "Q116"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Interna identificada como #53",
+    "motivo": "no respaldado: «Interna identificada como #53» no está entre los descartados del pool",
+    "ids": [
+     "T23",
+     "T24",
+     "D310",
+     "D311"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Interna identificada como #53",
+     "rol": "Testigo anónima de Conchetta",
+     "motivo": "Aporta los anuncios previos de evacuación, la disponibilidad alegada de autobuses y el corte de teléfonos.",
+     "ids": [
+      "T23",
+      "T24",
+      "D310",
+      "D311"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Interno identificado como #56",
+    "motivo": "no respaldado: «Interno identificado como #56» no está entre los descartados del pool",
+    "ids": [
+     "D320",
+     "T94",
+     "D321"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Interno identificado como #56",
+     "rol": "Testigo anónimo de su evacuación y del paso elevado",
+     "motivo": "Permite limitar los horarios de su recorrido a su experiencia y no extenderlos a todos los presos.",
+     "ids": [
+      "D320",
+      "T94",
+      "D321"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Interna identificada como #220",
+    "motivo": "no respaldado: «Interna identificada como #220» no está entre los descartados del pool",
+    "ids": [
+     "T60",
+     "D501",
+     "D503",
+     "D508"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Interna identificada como #220",
+     "rol": "Testigo anónima de Templeman IV",
+     "motivo": "Su relato documenta el comienzo nocturno de la inundación y la permanencia inicial de Watson.",
+     "ids": [
+      "T60",
+      "D501",
+      "D503",
+      "D508"
+     ]
+    }
+   },
+   {
+    "que": "[cronologia] Según el interno de Templeman III identificado como #175, la llamada para repartir pastillas fue el último tratamiento médico recibido en su",
+    "motivo": "no respaldado: cifra 175",
+    "ids": [
+     "T27"
+    ],
+    "seccion": "cronologia",
+    "item": {
+     "fecha": "2005-08-26",
+     "hora": "10:00 a.m.",
+     "evento": "Según el interno de Templeman III identificado como #175, la llamada para repartir pastillas fue el último tratamiento médico recibido en su unidad.",
+     "aproximada": false,
+     "ids": [
+      "T27"
+     ]
+    }
+   },
+   {
+    "que": "[cronologia] Blanco solicitó a Bush una declaración de emergencia para un período que comenzaba el día anterior.",
+    "motivo": "no respaldado: fecha 2005-08-27",
+    "ids": [
+     "P10",
+     "T21"
+    ],
+    "seccion": "cronologia",
+    "item": {
+     "fecha": "2005-08-27",
+     "hora": "",
+     "evento": "Blanco solicitó a Bush una declaración de emergencia para un período que comenzaba el día anterior.",
+     "aproximada": false,
+     "ids": [
+      "P10",
+      "T21"
+     ]
+    }
+   },
+   {
+    "que": "[citas] Están en la cárcel, hombre. Mienten.",
+    "motivo": "no respaldado: el texto de la cita no está en sus ids",
+    "ids": [
+     "D165"
+    ],
+    "seccion": "citas",
+    "item": {
+     "autor": "Marlin N. Gusman",
+     "rol": "Sheriff criminal de Orleans",
+     "verificacion": "Verificada como declaración reproducida por la ACLU.",
+     "texto": "Están en la cárcel, hombre. Mienten.",
+     "original": "",
+     "ids": [
+      "D165"
+     ]
+    }
+   },
+   {
+    "que": "[descartados] Jimmy LeBlanc, Sandra Thompson, Stacy Head, Susan Guidry y Susan Hutson",
+    "motivo": "no respaldado: sin ids",
+    "ids": [],
+    "seccion": "descartados",
+    "item": {
+     "que": "Jimmy LeBlanc, Sandra Thompson, Stacy Head, Susan Guidry y Susan Hutson",
+     "motivo": "Solo figuran en los descartes del research y no hay en el pool pasajes con acciones que permitan incorporarlos.",
+     "ids": []
+    }
+   },
+   {
+    "que": "[descartados] Mallette, Sgt. Green, Mrs. Jackson y Ms. Holmes",
+    "motivo": "no respaldado: sin ids",
+    "ids": [],
+    "seccion": "descartados",
+    "item": {
+     "que": "Mallette, Sgt. Green, Mrs. Jackson y Ms. Holmes",
+     "motivo": "El pool no aporta evidencia utilizable para reconstruir sus identidades o intervenciones.",
+     "ids": []
+    }
+   }
+  ]
+ },
+ "costo": {
+  "etapa": "ficha",
+  "usd": 0.4311,
+  "segundos": 390.9,
+  "llamadas": [
+   {
+    "servicio": "OpenAI gpt-6.1-sol",
+    "desc": "ficha_caso",
+    "in": 91016,
+    "out": 21838,
+    "thinking": 3072,
+    "usd": 0.4311
+   }
+  ],
+  "max_completion_tokens": 60000,
+  "prompt_md5": {
+   "sistema": "ffbb6366db56261b73c98acae0dd76f6",
+   "usuario": "1612e06c3935a51e41d9850e16c69510"
+  }
+ }
+}

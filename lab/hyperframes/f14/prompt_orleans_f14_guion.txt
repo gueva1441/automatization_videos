@@ -1,0 +1,157 @@
+===== SISTEMA (md5 8edea05efeac91afdb88f9a7bb2f0b73) =====
+<rol>Sos el guionista de Misterios Sepultados, un canal de documentales de historia oscura en YouTube, en español neutro.
+Escribís la narración en off que escucha el espectador. Tu meta: que no se vaya. Contás una historia real con un humano con nombre, escenas concretas y suspenso; no explicás ni analizás. No inventás: toda cifra, fecha, hora, nombre y cita sale de los datos que te dan.</rol>
+<voz>Narrativa y cinematográfica. Presente o pasado cercano. Frases cortas cuando algo golpea. Lo que se ve, se oye, se huele. El narrador no habla de sus fuentes ("los datos", "el testimonio señala", "la frase indica") ni del video.</voz>
+<oficio>
+1. Gancho: la imagen del beat 1; después, la promesa.
+2. Seguimos a un humano con nombre.
+3. Frases cortas antes del golpe.
+4. Cita literal, 25 palabras o menos, con quién la dijo (la marcada SIN VERIFICAR va sin el nombre).
+5. Hechos, citas y alguna pregunta; no juicios.
+6. La fecha completa, una vez; después, "ese día", "esa noche".
+7. Lo marcado PANTALLA no lo dice la voz.
+8. La última frase es una cita o una pregunta.
+</oficio>
+<ejemplos_de_voz>
+(Solo la voz; los hechos son de otro caso y no se usan.)
+
+El 30 de agosto, el agua sucia de la inundación irrumpió en las celdas. Olía a una mezcla de aguas residuales y combustible diésel. En varios pabellones, los presos quedaron atrapados en sus celdas cerradas. Vieron cómo el nivel subía sin poder hacer nada. Pronto, el agua les llegaría hasta el pecho.
+
+El oficial Renard Reed también fue testigo. «Parecía que estaban abatiendo a la gente», dijo Reed. Vio a alguien caer al agua. No sabía si la munición era real o de goma. Fue suficiente. Lo vio.
+</ejemplos_de_voz>
+
+===== USUARIO (md5 6a0d94033d999c99f562bf5b1c3d4fe8) =====
+<caso>
+TEMA: Prisión Parroquial Orleans: El Horror Olvidado por Katrina
+HUMANO: Pearl Cornelia Bland (Interna de Conchetta)
+PROMESA DEL GANCHO: Miles de personas fueron abandonadas en sus celdas inundadas. Esta es la historia de los que nadie contó.
+PICO: beat 9
+CIERRE HUMANO: Pearl Bland fue liberada, pero más de quinientos prisioneros seguían sin aparecer en las listas oficiales, un misterio que la ciudad nunca resolvió.
+</caso>
+
+<escaleta>
+CAP 1
+  BEAT 1 · gancho · Intriga
+    imagen: Una fila de hombres con uniformes naranjas, sentados en el asfalto caliente de un paso elevado, bajo la mirada de guardias armados.
+    dato central: [Q61] CITA «Estuve en el paso elevado durante varios días junto a los prisioneros. A los civiles se les dijo que no tomaran fotografías, pero yo tomé esta foto el miércoles por la tarde.» — Mary Gehman · VERIFICADA
+    apoyo: [T96] Mary Gehman fotografió a los internos en el paso elevado pese a que habían dicho a los civiles que no tomaran fotografías. (2005-08-31, Wednesday afternoon)
+    el espectador se pregunta: ¿Quiénes son esas personas y por qué están ahí arriba, a la vista de toda la ciudad?
+    cierre: Pero para entender cómo llegaron a ese puente, hay que volver a los días en que el sheriff de Nueva Orleans tomó una decisión que sellaría su destino.
+    lo que abre el cap 2: [D35] El informe de la ACLU afirma que Gusman rechazó la oferta del DOC de ayudar a evacuar OPP antes de la tormenta.
+CAP 2
+  en pantalla: [Q11] CITA «La gente necesita entender que simplemente nunca deberíamos haber estado allí en primer lugar.» — Brady Richard · PANTALLA (no va en la voz) · VERIFICADA
+  en pantalla: [D20] Multas judiciales vencidas por las que estaba retenido Greg Davis: 448 dólares estadounidenses (2006-03) · PANTALLA (no va en la voz)
+  BEAT 2 · planteo · Inquietud
+    imagen: Un teléfono sonando en una oficina oficial, una oferta de ayuda que es rechazada con un gesto.
+    dato central: [D35] El informe de la ACLU afirma que Gusman rechazó la oferta del DOC de ayudar a evacuar OPP antes de la tormenta.
+    apoyo: [T30] El DOC evacuó Plaquemines Parish Prison y St. Tammany Work Release. (2005-08-27)
+    apoyo: [Q16] CITA «Llevo aquí cuatro años y siempre es lo mismo cuando vienen los huracanes. No hay ningún plan.» — Rhonda Ducre · VERIFICADA
+    el espectador se pregunta: Si otras prisiones estaban evacuando, ¿por qué la más grande de la ciudad no lo hizo?
+    cierre: Mientras el sheriff rechazaba la ayuda, dentro de la prisión había miles de personas atrapadas por delitos menores, como Pearl Bland.
+  BEAT 3 · planteo · Injusticia
+    imagen: Un papel con una cifra escrita: 398 dólares. El precio de la libertad de una mujer.
+    dato central: [D100] Deuda por la que permaneció retenida Pearl Bland: 398 dólares estadounidenses en multas y tasas
+    apoyo: [D13] Presos detenidos por órdenes de detención, infracciones de tráfico o cargos municipales antes de Katrina: 60 porcentaje de la población de OPP
+    apoyo: [D27] Población negra de OPP en el momento de la tormenta: 89.3 porcentaje de personas encarceladas (otras fuentes: casi 90 porcentaje de personas encarceladas)
+    el espectador se pregunta: ¿Cuántas personas como ella estaban encerradas por deudas o infracciones menores, esperando una tormenta de la que no podían escapar?
+    cierre: La tormenta llegó. Y con ella, el agua y la oscuridad.
+    lo que abre el cap 3: [T64] El informe de la ACLU sitúa en este día la entrada de agua de inundación en los niveles inferiores de los edificios de OPP. (2005-08-29)
+CAP 3
+  en pantalla: [D45] El plan de contingencia examinado por la ACLU no explicaba cómo evacuar a los presos fuera de los edificios. · PANTALLA (no va en la voz)
+  en pantalla: [D08] Durante y después del huracán Katrina, miles de hombres, mujeres y niños fueron abandonados en la Prisión Parroquial de Orleans (OPP). · PANTALLA (no va en la voz)
+  BEAT 4 · escalada · Ansiedad
+    imagen: Un pasillo oscuro de la prisión. El agua de la inundación, sucia, empieza a filtrarse por debajo de las puertas de las celdas.
+    dato central: [T64] El informe de la ACLU sitúa en este día la entrada de agua de inundación en los niveles inferiores de los edificios de OPP. (2005-08-29)
+    apoyo: [T61] Katrina golpeó Nueva Orleans; algunos testimonios del pool sitúan su llegada en el día anterior. (2005-08-29, aproximada)
+    apoyo: [D47] El informe de la ACLU señala que los generadores auxiliares también fallaron después del corte de la energía principal.
+    apoyo: [D60] Gusman reconoció posteriormente que hubo fallos eléctricos porque los generadores no estaban colocados suficientemente altos.
+    apoyo: [T40] Darnell Smith situó el apagón de CCC en esa noche; otros edificios y unidades tuvieron cortes en momentos diferentes. (2005-08-28, Sunday night)
+    el espectador se pregunta: Sin luz, sin comunicación, sin guardias a la vista... ¿qué pasa cuando la estructura de una prisión se derrumba?
+    cierre: En esa oscuridad, la única ley era la supervivencia. Y para Pearl, el peligro no solo venía del agua.
+  BEAT 5 · escalada · Miedo
+    imagen: El sonido de golpes en la oscuridad de una celda comunal, y el silencio de los guardias que no intervienen.
+    dato central: [Q37] CITA «Los oficiales no me agredieron personalmente, pero no ayudaron a detener la agresión que las señoras me hicieron.» — Pearl Cornelia Bland · VERIFICADA
+    apoyo: [T65] Pearl Cornelia Bland denunció que otras internas la agredieron en Conchetta sin que los oficiales lo impidieran. (2005-08-29)
+    apoyo: [Q24] CITA «Una vez que se fue la luz, los oficiales empezaron a renunciar a diestra y siniestra. No se fueron del edificio, por supuesto, pero simplemente no volvieron a trabajar. Las mujeres en especial se asustaron una vez que la tormenta golpeó y se fue la luz.» — Renard Reed · VERIFICADA
+    el espectador se pregunta: Si los oficiales no protegían a los internos de otros internos, ¿quién los protegería de la tormenta?
+    cierre: Afuera, el agua seguía subiendo. Adentro, las condiciones se volvieron inhumanas.
+    lo que abre el cap 4: [D09] La ACLU recogió relatos de presos encerrados en celdas con agua contaminada hasta el pecho.
+CAP 4
+  BEAT 6 · escalada · Repulsión
+    imagen: Agua negra y contaminada con heces subiendo por las piernas en una celda oscura, sin un lugar seco donde pararse.
+    dato central: [D09] La ACLU recogió relatos de presos encerrados en celdas con agua contaminada hasta el pecho.
+    apoyo: [D66] Muchos internos permanecieron encerrados mientras los desechos salían de los inodoros que no funcionaban.
+    el espectador se pregunta: ¿Cuánto tiempo puede sobrevivir un ser humano en estas condiciones?
+    cierre: Atrapados durante días, la sed se volvió una tortura peor que la inundación.
+  BEAT 7 · escalada · Desesperación
+    imagen: Un hombre arrodillado en el suelo de su celda, bebiendo directamente de la taza de un inodoro.
+    dato central: [Q184] CITA «Tuvimos que beber agua del inodoro solo para mantenernos con vida.» — Edward “Edgar” Burton · VERIFICADA
+    apoyo: [D85] Internos de Old Parish y una interna de CTA relataron que bebieron agua del inodoro.
+    apoyo: [Q73] CITA «Nos dejaron morir allí.» — Dan Bright · VERIFICADA
+    el espectador se pregunta: ¿Dónde estaban las reservas de comida y agua que debían durar 96 horas?
+    cierre: Abandonados, sin comida, sin agua y en la más completa oscuridad, algunos empezaron a hacer su propia luz.
+    lo que abre el cap 5: [D107] Internos prendieron fuego a cartones de leche, sábanas y toallas para poder ver en la oscuridad.
+CAP 5
+  en pantalla: [D128] Varios testimonios atribuyeron a oficiales de la SID golpes y disparos de proyectiles beanbag durante los traslados. · PANTALLA (no va en la voz)
+  en pantalla: [D261] En el exterior del edificio Templeman V el agua tenía 6 pies de profundidad, por lo que los presos tuvieron que ayudar a las mujeres embarazadas a evacuar. · PANTALLA (no va en la voz)
+  BEAT 8 · giro · Caos
+    imagen: Pequeñas hogueras hechas con cartones de leche y sábanas, iluminando rostros desesperados en medio de un humo espeso.
+    dato central: [D107] Internos prendieron fuego a cartones de leche, sábanas y toallas para poder ver en la oscuridad.
+    apoyo: [D235] Un interno de Templeman III relató que el humo se volvió insoportable y que rompieron ventanas para respirar.
+    apoyo: [D236] Un interno de Templeman III relató que el humo se volvió insoportable y que rompieron ventanas para respirar.
+    el espectador se pregunta: Si estaban prendiendo fuego dentro de la prisión, ¿no era eso un grito de auxilio?
+    cierre: Pero el fuego no podía abrir las puertas. Los prisioneros de un edificio decidieron abrirse paso ellos mismos.
+  BEAT 9 · pico · Horror
+    imagen: El sonido metálico y repetitivo de una barra de hierro golpeando una pared de bloques de hormigón, una y otra vez, hasta que se abre un agujero.
+    dato central: [D120] Internos de CCC usaron una barra metálica del techo para abrir un paso a través de las paredes.
+    apoyo: [T95] Según el relato de Darnell Smith, internos de CCC usaron una barra del techo para abrirse paso a través de las paredes. (2005-08-31, Wednesday morning)
+    el espectador se pregunta: ¿Qué nivel de abandono lleva a alguien a romper los muros de su propia cárcel para sobrevivir?
+    cierre: La evacuación finalmente comenzó. Pero salir de las celdas fue solo el principio de otra pesadilla.
+    lo que abre el cap 6: [D151] Espera máxima descrita en Central Lock-Up por el informe: doce o trece horas en agua hasta el pecho (otras fuentes: 14 horas para el paso de Iris Hardeman por Central Lock-Up; unas nueve horas para otra interna)
+CAP 6
+  en pantalla: [Q186] CITA «Ninguno de los directores de prisión sabía a quién tenían: eran personas en prisión preventiva, personas ya juzgadas, personas en programas de tratamiento. Personas que habían sido arrestadas recientemente y ni siquiera habían pasado por el tribunal para que les fijaran una fianza. Simplemente todo el mundo.» — Phyllis Mann · PANTALLA (no va en la voz) · VERIFICADA
+  en pantalla: [D167] Órdenes de arresto para presos considerados fugados: catorce personas · PANTALLA (no va en la voz)
+  BEAT 10 · respiro · Alivio tenso
+    imagen: Una fila de internos vadeando lentamente a través de un pasillo inundado, con el agua hasta el pecho, esperando durante horas para salir.
+    dato central: [D151] Espera máxima descrita en Central Lock-Up por el informe: doce o trece horas en agua hasta el pecho (otras fuentes: 14 horas para el paso de Iris Hardeman por Central Lock-Up; unas nueve horas para otra interna)
+    apoyo: [D132] El informe técnico del DOC registra una solicitud de ayuda para evacuar OPP cerca de la medianoche del lunes. (2005-08-29)
+    apoyo: [D137] El informe de la ACLU vincula el comienzo de la evacuación con la llegada de oficiales de Angola junto al alcaide Burl Cain.
+    el espectador se pregunta: Después de días de abandono, ¿qué tipo de rescate les esperaba?
+    cierre: El traslado a otras prisiones no fue un alivio, sino una nueva forma de humillación.
+  BEAT 11 · consecuencia · Indignación
+    imagen: Manos extendiéndose a través de una valla de alambre mientras un guardia arroja bolsas de sándwiches al suelo, como si alimentara animales.
+    dato central: [D177] Diversos relatos describen a guardias de Hunt arrojando bolsas de sándwiches por encima de una valla.
+    apoyo: [D171] Miles de evacuados fueron trasladados a Hunt y después dispersados a instalaciones de todo el estado.
+    apoyo: [D172] En Hunt se mezclaron presos preventivos, condenados y personas bajo custodia municipal, estatal y federal.
+    apoyo: [D549] Len Davis fue colocado en un patio abierto de Hunt con personas detenidas por acusaciones de distinta gravedad.
+    apoyo: [Q70] CITA «Alimentamos a esos reclusos lo mejor que pudimos. No pudimos darles comidas calientes como a las que están acostumbrados.» — Cathy Fontenot · SIN VERIFICAR (sin nombre)
+    el espectador se pregunta: ¿Por qué los trataron así después de todo lo que habían pasado?
+    cierre: Pero mientras la versión oficial insistía en que la evacuación había sido un éxito, un oficial contaba una historia muy diferente.
+  BEAT 12 · revelacion · Conmoción
+    imagen: La cara de un oficial de prisiones, en la sombra, confesando que vio cadáveres de presos dentro de los edificios.
+    dato central: [Q60] CITA «Todavía hay presos muertos ahí dentro. Cuando los guardias estaban haciendo sus últimas rondas había uno o dos por aquí y por allá.» — Luis Reyes · VERIFICADA
+    apoyo: [D163] Muertes en OPP durante la tormenta y evacuación, según la versión oficial: ninguna personas fallecidas (otras fuentes: 21 personas fallecidas; no cuantificadas como saldo total personas fallecidas denunciadas)
+    apoyo: [Q77] CITA «Nadie se ahogó, nadie se quedó atrás.» — Portavoz del departamento del sheriff, sin nombre en el pool · VERIFICADA
+    el espectador se pregunta: Si hubo muertos, ¿por qué el sheriff lo negó?
+    cierre: Las muertes nunca fueron confirmadas, pero los registros de la evacuación revelaron un agujero negro aún más grande.
+    lo que abre el cap 7: [D185] Internos ausentes de la lista de evacuados examinada por Human Rights Watch: 517 personas no incluidas en esa lista
+CAP 7
+  en pantalla: [D01] El Departamento de Justicia informó posteriormente que OPP no protegía adecuadamente a los presos y presentaba deficiencias de salud mental y saneamiento. (2009-09-22) · PANTALLA (no va en la voz)
+  en pantalla: [T106] Los presos dejaron de recibir comida a partir del miércoles. (2005-08-31) · PANTALLA (no va en la voz)
+  BEAT 13 · revelacion · Incredulidad
+    imagen: Una lista de nombres en papel, con un espacio en blanco donde deberían estar los registros de más de quinientas personas.
+    dato central: [D185] Internos ausentes de la lista de evacuados examinada por Human Rights Watch: 517 personas no incluidas en esa lista
+    apoyo: [D191] Internos ausentes de la lista de evacuados examinada por Human Rights Watch: 517 personas no incluidas en esa lista
+    apoyo: [D548] La inundación inutilizó el sistema de datos de la cárcel y se perdieron o destruyeron registros legales.
+    apoyo: [D551] Personas entrevistadas por el equipo encabezado por Phyllis Mann: 4000 personas
+    el espectador se pregunta: ¿Cómo es posible que un sistema penitenciario 'pierda' a más de 500 personas?
+    cierre: En medio del caos administrativo y las negaciones oficiales, algunas historias, como la de Pearl Bland, encontraron un final.
+  BEAT 14 · cierre · Tristeza
+    imagen: Un martillo de juez golpeando la madera. Una orden de liberación firmada. La puerta de una prisión abriéndose para una mujer.
+    dato central: [T144] Katherine Mattes obtuvo una orden de liberación para Pearl Bland. (2006-06-28)
+    apoyo: [D101] Katherine Mattes obtuvo una orden de liberación para Pearl Bland después de que OPP la retuviera por una deuda de multas y tasas. (2006-06-28)
+    el espectador se pregunta: Si ella pudo salir, ¿qué pasó con todos los demás?
+    cierre: La frase final del video recuerda la pregunta que se hizo el oficial Renard Reed: aunque estuvieran en la cárcel, eran seres humanos.
+</escaleta>
+
+<tarea>Con lo de arriba, escribí la narración completa en párrafos, cada uno con su beat. Cada cap dura lo que su historia necesita: ni relleno ni resumen. Devolvé el JSON del esquema.</tarea>

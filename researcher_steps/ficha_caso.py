@@ -9,6 +9,15 @@ researcher_steps/ficha_caso.py — F12 (HANDOFF_F12 §1): la ficha del caso, los
 Secciones: personas · cronologia · hechos (60–80) · cifras (con unidad) · citas (15–25; error de transcripción
 corregido con `original`) · contradicciones (versiones lado a lado con doc_id y offset; NO se resuelven) · descartados.
 
+F14 (HANDOFF_F14 §1.1): la ficha resuelve las contradicciones con 5 criterios generales (en el prompt):
+    1 error de extracción → gana el pasaje · 2 variantes de un nombre → la forma oficial/judicial, si no la más repetida
+    3 conteos → la cifra oficial, si no la más repetida (las otras en `otras_versiones`) · 4 hechos disputados → NO se
+    resuelven: van a `versiones` · 5 horas y fechas → la que coincide en ≥ 2 fuentes; si ninguna, `aproximada`.
+    Cada decisión va a `decisiones` con su `criterio`, su `decision` y `otras_versiones`; lo que no cae en ningún
+    criterio queda en `contradicciones`. `personas_descartadas`: personas que el pool descartó (`_descartados`) pero
+    que la historia necesita, con el motivo y los ids que las nombran.
+    `id_texts(ficha)`: el texto limpio de cada id (cita corregida, cifra con unidad, hecho), para la escaleta y el guion.
+
 Chequeo determinista después de la llamada (control de la ficha, no una regla del guion; sin reintento):
     1. todo ítem cita ids que existen en el pool;
     2. toda cifra, hora y fecha del ítem aparece en el texto de esos ids (texto, cita literal y evidencias);
@@ -27,11 +36,18 @@ from typing import Any, Callable
 from script_engine import evidence as ev
 
 MODELO, ESFUERZO = "gpt-6.1-sol", "high"
-PROMPT_VERSION = "f12-1"
+PROMPT_VERSION = "f14-1"           # f12-1: sin criterios (ficha de Ycuá de F12)
 MAX_LEV = 3
-SECCIONES = ("contradicciones", "personas", "cifras", "cronologia", "hechos", "citas", "descartados")
+SECCIONES = ("contradicciones", "decisiones", "versiones", "personas", "personas_descartadas", "cifras", "cronologia",
+             "hechos", "citas", "descartados")
+CRITERIOS = {1: "error de extracción: gana el pasaje", 2: "variantes de un nombre: forma oficial o judicial; si no, la más repetida",
+             3: "conteos: cifra oficial; si no, la más repetida", 4: "hecho disputado: no se resuelve (versiones)",
+             5: "horas y fechas: la que coincide en 2 o más fuentes; si ninguna, aproximada"}
 
 _IDS = {"type": "ARRAY", "items": {"type": "STRING"}}
+_VERSIONES = {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+    "dice": {"type": "STRING"}, "doc_id": {"type": "STRING"}, "offset": {"type": "INTEGER"}, "ids": _IDS},
+    "required": ["dice", "doc_id", "offset", "ids"]}}
 SCHEMA: dict[str, Any] = {
     "type": "OBJECT",
     "properties": {
@@ -40,8 +56,9 @@ SCHEMA: dict[str, Any] = {
             "variantes": {"type": "ARRAY", "items": {"type": "STRING"}}, "ids": _IDS},
             "required": ["nombre", "rol", "variantes", "ids"]}},
         "cronologia": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
-            "fecha": {"type": "STRING"}, "hora": {"type": "STRING"}, "evento": {"type": "STRING"}, "ids": _IDS},
-            "required": ["fecha", "hora", "evento", "ids"]}},
+            "fecha": {"type": "STRING"}, "hora": {"type": "STRING"}, "evento": {"type": "STRING"},
+            "aproximada": {"type": "BOOLEAN"}, "ids": _IDS},
+            "required": ["fecha", "hora", "evento", "aproximada", "ids"]}},
         "hechos": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
             "texto": {"type": "STRING"}, "ids": _IDS}, "required": ["texto", "ids"]}},
         "cifras": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
@@ -61,11 +78,21 @@ SCHEMA: dict[str, Any] = {
                 "dice": {"type": "STRING"}, "doc_id": {"type": "STRING"}, "offset": {"type": "INTEGER"}, "ids": _IDS},
                 "required": ["dice", "doc_id", "offset", "ids"]}}},
             "required": ["tema", "versiones"]}},
+        "decisiones": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+            "tema": {"type": "STRING"}, "criterio": {"type": "INTEGER"}, "decision": {"type": "STRING"},
+            "ids": _IDS, "otras_versiones": _VERSIONES},
+            "required": ["tema", "criterio", "decision", "ids", "otras_versiones"]}},
+        "versiones": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+            "tema": {"type": "STRING"}, "versiones": _VERSIONES}, "required": ["tema", "versiones"]}},
+        "personas_descartadas": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+            "nombre": {"type": "STRING"}, "rol": {"type": "STRING"}, "motivo": {"type": "STRING"}, "ids": _IDS},
+            "required": ["nombre", "rol", "motivo", "ids"]}},
         "descartados": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
             "que": {"type": "STRING"}, "motivo": {"type": "STRING"}, "ids": _IDS},
             "required": ["que", "motivo", "ids"]}},
     },
-    "required": ["personas", "cronologia", "hechos", "cifras", "citas", "contradicciones", "descartados"],
+    "required": ["personas", "cronologia", "hechos", "cifras", "citas", "contradicciones", "decisiones", "versiones",
+                 "personas_descartadas", "descartados"],
 }
 
 
@@ -82,7 +109,15 @@ Leés el pool de research completo (cada ítem con su id, y cada evidencia con s
 - hechos: entre 60 y 80 hechos útiles para contar la historia, cada uno en una oración limpia, con sus ids de origen. Sin interpretación.
 - cifras: una cifra por conteo (muertos, heridos, huérfanos, personas adentro…), con su fuente y las otras versiones. Cada cifra con su unidad (personas, °C, años, guaraníes…): nunca un número sin qué cuenta.
 - citas: las mejores 15 a 25, con autor, rol, estado de verificación y el texto. Si hay un error evidente de transcripción, lo corregís en «texto» y dejás el texto del pool en «original»; si no corregís nada, «original» va vacío.
-- contradicciones: cada conflicto entre fuentes (nombres, cifras, fechas, roles), con las versiones lado a lado, cada una con su doc_id y su offset tal como están en la evidencia. No resolvés nada: decide el productor.
+- cronologia: si la hora o la fecha no coincide en 2 o más fuentes, «aproximada» va en true.
+- decisiones, versiones y contradicciones: cada conflicto entre fuentes lo resolvés con estos criterios, que valen para cualquier caso:
+  1. Error de extracción (lo que dice el ítem del pool no coincide con lo que dice su pasaje): gana el pasaje.
+  2. Variantes de un nombre: gana la forma del documento oficial o judicial; si no hay, la que más fuentes repiten.
+  3. Conteos (muertos, heridos, personas): gana la cifra oficial; si no hay, la que más fuentes repiten. Las otras van en otras_versiones (el guion podrá decir «otras fuentes hablan de…»).
+  4. Hechos disputados (quién dio una orden, cómo estaban las puertas): no se resuelven. Van a «versiones», cada versión con su fuente, para que el guion las cuente como versiones.
+  5. Horas y fechas: gana la que coincide en 2 o más fuentes; si ninguna coincide, se marca aproximada.
+  Lo que resolvés con los criterios 1, 2, 3 o 5 va a «decisiones»: el tema, el número de criterio, la decisión en una oración, los ids que la sostienen y las otras versiones (cada una con su doc_id y su offset). Lo del criterio 4 va a «versiones». Lo que no cae en ningún criterio va a «contradicciones», con las versiones lado a lado, y no se resuelve. En las tres secciones, cada versión lleva su doc_id y su offset tal como están en la evidencia.
+- personas_descartadas: personas que el research descartó (están en <descartados_del_research>) pero que la historia necesita, con su rol, el motivo por el que hacen falta y los ids del pool que las nombran.
 - descartados: lo que dejás afuera por dudoso o fuera del caso, con el motivo en una línea.
 En el pool, una evidencia que ya apareció en otro ítem va como «(= arriba)»: es el mismo pasaje del mismo documento.
 Cada cifra, hora, fecha y cita que escribas tiene que estar en el texto de los ids que citás. No agregás nada que no esté en el pool.
@@ -136,6 +171,10 @@ def pool_section(pool: dict) -> str:
         for x in sub:
             out += item_line(x, seen)
         out.append(f"</{k}>")
+    gone = [d for d in pool.get("_descartados") or [] if str(d.get("kind") or "").startswith("personajes")]
+    out.append(f"<descartados_del_research n=\"{len(gone)}\">")
+    out += [f"  {d.get('texto')} ({d.get('doc_id') or d.get('bloque')}): {d.get('motivo')}" for d in gone]
+    out.append("</descartados_del_research>")
     return "\n".join(out)
 
 
@@ -146,7 +185,7 @@ def prompt(pool: dict, title: str) -> str:
 {pool_section(pool)}
 </pool>
 
-<tarea>Con el pool de arriba, armá la ficha del caso: personas, cronologia, hechos (60–80), cifras (con unidad), citas (15–25), contradicciones (sin resolver, con doc_id y offset) y descartados. Devolvé el JSON del esquema.</tarea>"""
+<tarea>Con el pool de arriba, armá la ficha del caso: personas, personas_descartadas, cronologia, hechos (60–80), cifras (con unidad), citas (15–25), decisiones (con su criterio), versiones, contradicciones (las que ningún criterio resuelve) y descartados. Devolvé el JSON del esquema.</tarea>"""
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -221,11 +260,36 @@ def _strings(x: Any, skip: tuple[str, ...] = ("ids", "original", "doc_id", "offs
     return [str(x)] if isinstance(x, (str, int, float)) and str(x) else []
 
 
-def problems(section: str, item: dict, its: dict) -> list[str]:
-    """Por qué un ítem de la ficha no está respaldado ([] = está)."""
-    ids = list(item.get("ids") or [])
-    if section == "contradicciones":
-        ids = [i for v in item.get("versiones") or [] for i in v.get("ids") or []]
+def _all_ids(section: str, item: dict) -> list[str]:
+    """Los ids que cita un ítem (en contradicciones y versiones, los de sus versiones; en decisiones, también los de
+    sus otras versiones)."""
+    vs = item.get("versiones") or []
+    if section == "decisiones":
+        vs = item.get("otras_versiones") or []
+    return list(dict.fromkeys(list(item.get("ids") or []) + [i for v in vs for i in v.get("ids") or []]))
+
+
+def _versions_problems(vs: list[dict], its: dict) -> list[str]:
+    """Cada versión: con ids, su doc_id@offset es una evidencia de esos ids y sus cifras están en su texto."""
+    out: list[str] = []
+    for v in vs:
+        vids = v.get("ids") or []
+        if not vids:
+            out.append(f"versión sin ids («{str(v.get('dice'))[:40]}»)")
+            continue
+        evs = {(e.get("doc_id"), e.get("offset")) for i in vids
+               for e in (its[i].get("evidencia") or []) + [{"doc_id": its[i].get("doc_id"),
+                                                             "offset": its[i].get("offset")}]}
+        if (v.get("doc_id"), v.get("offset")) not in evs:
+            out.append(f"{v.get('doc_id')}@{v.get('offset')} no es evidencia de {', '.join(vids)}")
+        out += unsupported(str(v.get("dice") or ""), source_text(vids, its))
+    return out
+
+
+def problems(section: str, item: dict, its: dict, gone: set[str] | None = None) -> list[str]:
+    """Por qué un ítem de la ficha no está respaldado ([] = está). `gone`: nombres (normalizados) de las personas que
+    el pool descartó (`_descartados`), para `personas_descartadas`."""
+    ids = _all_ids(section, item)
     if not ids:
         return ["sin ids"]
     bad = [i for i in ids if i not in its]
@@ -234,19 +298,21 @@ def problems(section: str, item: dict, its: dict) -> list[str]:
     if section == "descartados":
         return []
     out: list[str] = []
-    if section == "contradicciones":
-        for v in item.get("versiones") or []:
-            vids = v.get("ids") or []
-            if not vids:
-                out.append(f"versión sin ids («{str(v.get('dice'))[:40]}»)")
-                continue
-            evs = {(e.get("doc_id"), e.get("offset")) for i in vids
-                   for e in (its[i].get("evidencia") or []) + [{"doc_id": its[i].get("doc_id"),
-                                                                 "offset": its[i].get("offset")}]}
-            if (v.get("doc_id"), v.get("offset")) not in evs:
-                out.append(f"{v.get('doc_id')}@{v.get('offset')} no es evidencia de {', '.join(vids)}")
-            out += unsupported(str(v.get("dice") or ""), source_text(vids, its))
-        return out
+    if section in ("contradicciones", "versiones"):
+        return _versions_problems(item.get("versiones") or [], its)
+    if section == "decisiones":
+        if item.get("criterio") not in (1, 2, 3, 5):
+            out.append(f"criterio {item.get('criterio')} no es de decisiones (1, 2, 3 o 5; el 4 va a versiones)")
+        out += unsupported(str(item.get("decision") or ""), source_text(item.get("ids") or [], its))
+        return out + _versions_problems(item.get("otras_versiones") or [], its)
+    if section == "personas_descartadas":
+        nom = ev.norm(item.get("nombre") or "")
+        if not nom or not any(nom in g or g in nom for g in gone or set()):
+            out.append(f"«{item.get('nombre')}» no está entre los descartados del pool")
+        sur = nom.split()[-1] if nom else ""
+        if sur and sur not in ev.norm(source_text(ids, its)):
+            out.append(f"sus ids no nombran a «{item.get('nombre')}»")
+        return out + unsupported(f"{item.get('nombre')} {item.get('rol')}", source_text(ids, its))
     if section == "cifras":
         out += unsupported(" ".join(_strings({k: item.get(k) for k in ("que", "valor")})), source_text(ids, its))
         for v in item.get("otras_versiones") or []:
@@ -277,15 +343,17 @@ def check(ficha: dict, pool: dict) -> tuple[dict, list[dict]]:
     """La ficha con solo lo respaldado; lo que falla va a `descartados` («no respaldado: …»). Devuelve también la
     lista de lo que sacó el chequeo (para el reporte)."""
     its = ev.items(pool)
+    gone = {ev.norm(d.get("texto") or "") for d in pool.get("_descartados") or []
+            if str(d.get("kind") or "").startswith("personajes") and d.get("texto")}
     out: dict[str, list] = {s: [] for s in SECCIONES}
     sacados: list[dict] = []
     for s in SECCIONES:
         for item in ficha.get(s) or []:
-            pr = problems(s, item, its)
+            pr = problems(s, item, its, gone)
             if not pr:
                 out[s].append(item)
                 continue
-            ids = item.get("ids") or [i for v in item.get("versiones") or [] for i in v.get("ids") or []]
+            ids = _all_ids(s, item)
             rec = {"que": f"[{s}] {_label(s, item)}", "motivo": "no respaldado: " + "; ".join(pr),
                    "ids": [i for i in ids if i in its], "seccion": s, "item": item}
             sacados.append(rec)
@@ -295,7 +363,8 @@ def check(ficha: dict, pool: dict) -> tuple[dict, list[dict]]:
 
 def _label(s: str, item: dict) -> str:
     key = {"personas": "nombre", "cronologia": "evento", "hechos": "texto", "cifras": "que", "citas": "texto",
-           "contradicciones": "tema", "descartados": "que"}[s]
+           "contradicciones": "tema", "descartados": "que", "decisiones": "tema", "versiones": "tema",
+           "personas_descartadas": "nombre"}[s]
     return str(item.get(key) or "")[:140]
 
 
@@ -331,11 +400,31 @@ def markdown(ficha: dict, meta: dict) -> str:
         for v in x.get("versiones") or []:
             L.append(f"- {v.get('dice')} <sub>{v.get('doc_id')}@{v.get('offset')} · {', '.join(v.get('ids') or [])}</sub>")
         L.append("")
+    if ficha.get("decisiones") is not None:
+        L += ["## Decisiones (resueltas con un criterio)", ""]
+        for x in ficha["decisiones"]:
+            L.append(f"**{x.get('tema')}** · criterio {x.get('criterio')} ({CRITERIOS.get(x.get('criterio'), '?')})")
+            L.append(f"- decisión: {x.get('decision')}{_ids(x)}")
+            for v in x.get("otras_versiones") or []:
+                L.append(f"- otra versión: {v.get('dice')} <sub>{v.get('doc_id')}@{v.get('offset')} · "
+                         f"{', '.join(v.get('ids') or [])}</sub>")
+            L.append("")
+        L += ["## Versiones (hechos disputados, criterio 4: no se resuelven)", ""]
+        for x in ficha["versiones"]:
+            L.append(f"**{x.get('tema')}**")
+            for v in x.get("versiones") or []:
+                L.append(f"- {v.get('dice')} <sub>{v.get('doc_id')}@{v.get('offset')} · "
+                         f"{', '.join(v.get('ids') or [])}</sub>")
+            L.append("")
     L += ["## Personas", ""]
     for x in ficha["personas"]:
         var = [v for v in x.get("variantes") or [] if v != x.get("nombre")]
         L.append(f"- **{x.get('nombre')}** — {x.get('rol')}" + (f" (también: {', '.join(var)})" if var else "")
                  + _ids(x))
+    if ficha.get("personas_descartadas") is not None:
+        L += ["", "## Personas que el research descartó y la historia necesita", ""]
+        L += [f"- **{x.get('nombre')}** — {x.get('rol')} · {x.get('motivo')}{_ids(x)}"
+              for x in ficha["personas_descartadas"]]
     L += ["", "## Cifras", ""]
     for x in ficha["cifras"]:
         L.append(f"- **{x.get('que')}:** {x.get('valor')} {x.get('unidad')} · {x.get('fuente')}" + _ids(x))
@@ -345,7 +434,8 @@ def markdown(ficha: dict, meta: dict) -> str:
     L += ["", "## Cronología", ""]
     for x in ficha["cronologia"]:
         h = f" {x.get('hora')}" if x.get("hora") and str(x.get("hora")).lower() not in ("null", "none") else ""
-        L.append(f"- **{x.get('fecha')}{h}** — {x.get('evento')}" + _ids(x))
+        ap = " <sub>(aproximada)</sub>" if x.get("aproximada") else ""
+        L.append(f"- **{x.get('fecha')}{h}**{ap} — {x.get('evento')}" + _ids(x))
     L += ["", "## Hechos", ""]
     L += [f"{k}. {x.get('texto')}{_ids(x)}" for k, x in enumerate(ficha["hechos"], 1)]
     L += ["", "## Citas", ""]
@@ -355,6 +445,40 @@ def markdown(ficha: dict, meta: dict) -> str:
     L += ["", "## Descartados", ""]
     L += [f"- {x.get('que')} — {x.get('motivo')}{_ids(x)}" for x in ficha["descartados"]]
     return "\n".join(L) + "\n"
+
+
+def load(topic_id: str, steps_dir: Path | None = None) -> dict | None:
+    """La ficha del topic (`_steps/<topic>/ficha_caso.json`) o None si no hay."""
+    if steps_dir is None:
+        from script_engine.m01a_skeleton import STEPS_DIR as steps_dir
+    p = Path(steps_dir) / topic_id / "ficha_caso.json"
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+
+
+def id_texts(ficha: dict | None) -> dict[str, str]:
+    """F14 §1.3: el texto limpio de cada id según la ficha. Una cita va con su texto corregido; una cifra, con su
+    unidad y sus otras versiones; un evento, con fecha y hora; si no, el primer hecho que lo cita. Lo que la ficha no
+    menciona no está (el guion usa el texto del pool)."""
+    out: dict[str, str] = {}
+    if not ficha:
+        return out
+
+    def put(ids, text):
+        for i in ids or []:
+            out.setdefault(i, text)
+    for c in ficha.get("citas") or []:
+        put([i for i in c.get("ids") or [] if i.startswith("Q")], f"«{c.get('texto')}» — {c.get('autor')}")
+    for c in ficha.get("cronologia") or []:
+        h = c.get("hora") if c.get("hora") and str(c.get("hora")).lower() not in ("null", "none", "") else ""
+        put([i for i in c.get("ids") or [] if i.startswith("T")],
+            f"{c.get('evento')} ({c.get('fecha')}{', ' + h if h else ''}{', aproximada' if c.get('aproximada') else ''})")
+    for c in ficha.get("cifras") or []:
+        otras = "; ".join(f"{v.get('valor')} {v.get('unidad')}" for v in c.get("otras_versiones") or [])
+        put(c.get("ids"), f"{c.get('que')}: {c.get('valor')} {c.get('unidad')}"
+                          + (f" (otras fuentes: {otras})" if otras else ""))
+    for c in ficha.get("hechos") or []:
+        put(c.get("ids"), str(c.get("texto")))
+    return out
 
 
 def run(topic_id: str, *, steps_dir: Path, title: str, tag: str, out_dirs: list[Path] = (),
