@@ -500,7 +500,10 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
         k0 = 1 if beats[0].get("flash_forward") else 0     # la curva se mide desde el beat 2 si el 1 es flash-forward
         drop = [beats[k]["n"] for k in range(k0 + 1, pb) if inten[k] < inten[k - 1]]
         if drop:
-            hard.append(f"la intensidad baja antes del pico en los beats {drop} ({inten}): cada cap peor que el anterior")
+            hard.append(f"la intensidad baja antes del pico en los beats {drop} ({inten}): cada cap peor que el anterior"
+                        + (" — si el beat 1 cuenta primero un momento POSTERIOR y más intenso, marcalo "
+                           "`flash_forward: true` (la curva se mide desde el beat 2)"
+                           if drop == [2] and not beats[0].get("flash_forward") else ""))
         if pb - 1 >= k0 and max(inten[k0:pb]) != inten[pb - 1]:
             hard.append(f"el beat del pico ({pb}) no es el de mayor intensidad hasta ahí ({inten})")
         if k0 and inten[0] > inten[pb - 1]:
