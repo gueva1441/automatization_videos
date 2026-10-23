@@ -1,0 +1,532 @@
+{
+ "humano": {
+  "id": "P01",
+  "nombre": "Brady Richard",
+  "rol": "Oficial de suministros médicos",
+  "por_que": "Es un testigo interno, un oficial que vio el colapso desde dentro. Sus citas verificadas ofrecen una perspectiva creíble y diferente a la de los presos, mostrando la disfuncionalidad y el peligro que afectó también a parte del personal.",
+  "colectivo": false
+ },
+ "antagonista": {
+  "id": "P03",
+  "por_que": "Como Sheriff Criminal, Marlin N. Gusman era el responsable máximo de la prisión y, según la investigación, tomó la decisión de no evacuar a los presos, a pesar de las advertencias y las ofertas de ayuda."
+ },
+ "promesa_gancho": "Miles de personas quedaron atrapadas en una cárcel inundada. Las autoridades dijeron que no hubo muertos. Esta es la historia de las voces que lo negaron.",
+ "pico": {
+  "beat": 9,
+  "id": "D155",
+  "por_que": "Una reclusa enferma, demasiado débil para sostenerse, es mantenida a flote por sus compañeras en agua contaminada hasta el pecho. Es la imagen más potente del abandono y la solidaridad en medio del desastre."
+ },
+ "cierre_humano": "La pregunta de Brady Richard sobre por qué los dejaron allí, en primer lugar, sigue sin respuesta.",
+ "beats": [
+  {
+   "n": 1,
+   "cap": 1,
+   "funcion": "gancho",
+   "emocion": "Shock",
+   "intensidad": 4,
+   "dato_central": "Q14",
+   "datos_apoyo": [],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Francotiradores en un techo, recortados contra un cielo gris tormenta.",
+   "pregunta_abierta": "¿Por qué le están disparando a los prisioneros?",
+   "pregunta_pantalla": "¿Quién dio la orden de disparar?",
+   "cierre": "Pero antes de los disparos, antes del agua, hubo una decisión: dejarlos adentro.",
+   "palabras_objetivo": 110,
+   "flash_forward": true,
+   "pregunta_valida": true
+  },
+  {
+   "n": 2,
+   "cap": 2,
+   "funcion": "planteo",
+   "emocion": "Inquietud",
+   "intensidad": 2,
+   "dato_central": "D30",
+   "datos_apoyo": [
+    "Q08",
+    "D35"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Un mapa de evacuación de la ciudad con un complejo de edificios deliberadamente excluido.",
+   "pregunta_abierta": "¿Por qué no evacuar la cárcel más grande de la ciudad?",
+   "pregunta_pantalla": "",
+   "cierre": "Mientras la ciudad se vaciaba, el oficial Brady Richard entraba a trabajar, sin saber que no había ningún plan.",
+   "palabras_objetivo": 125
+  },
+  {
+   "n": 3,
+   "cap": 2,
+   "funcion": "planteo",
+   "emocion": "Aprensión",
+   "intensidad": 2,
+   "dato_central": "D39",
+   "datos_apoyo": [
+    "Q16"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Un pasillo de hospital vacío dentro de la prisión, con los gabinetes de medicinas bajo llave.",
+   "pregunta_abierta": "Si ni siquiera los oficiales saben qué hacer, ¿qué les espera a los presos?",
+   "pregunta_pantalla": "¿Por qué no había un plan?",
+   "cierre": "Afuera, la tormenta golpea. Adentro, el agua empieza a entrar por debajo de las puertas.",
+   "palabras_objetivo": 125,
+   "pregunta_valida": true
+  },
+  {
+   "n": 4,
+   "cap": 3,
+   "funcion": "escalada",
+   "emocion": "Angustia",
+   "intensidad": 3,
+   "dato_central": "T64",
+   "datos_apoyo": [
+    "D74",
+    "D143"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Agua de alcantarilla brotando de los inodoros e inundando el piso de un dormitorio lleno de literas.",
+   "pregunta_abierta": "¿Cuánto va a subir el agua?",
+   "pregunta_pantalla": "",
+   "cierre": "El agua seguía subiendo. Y entonces, se hizo la oscuridad.",
+   "palabras_objetivo": 125,
+   "escena_idx": 2
+  },
+  {
+   "n": 5,
+   "cap": 3,
+   "funcion": "escalada",
+   "emocion": "Miedo",
+   "intensidad": 3,
+   "dato_central": "D47",
+   "datos_apoyo": [
+    "D106",
+    "D67"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "La chispa de un generador que se apaga, seguida de una oscuridad total solo rota por gritos lejanos.",
+   "pregunta_abierta": "¿Los abandonaron en la oscuridad?",
+   "pregunta_pantalla": "¿Quién apagó las luces?",
+   "cierre": "Encerrados en la oscuridad, algunos presos solo tenían una opción: romper los muros.",
+   "palabras_objetivo": 125,
+   "pregunta_valida": true
+  },
+  {
+   "n": 6,
+   "cap": 4,
+   "funcion": "escalada",
+   "emocion": "Desesperación",
+   "intensidad": 4,
+   "dato_central": "Q21",
+   "datos_apoyo": [
+    "D57",
+    "D236"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Un trozo de tela naranja de un uniforme de preso, agitándose a través de los barrotes de una ventana rota.",
+   "pregunta_abierta": "¿Alguien los verá? ¿Alguien vendrá a ayudarlos?",
+   "pregunta_pantalla": "",
+   "cierre": "Mientras los presos luchaban por aire, el oficial Brady Richard intentaba llegar a ellos a través del agua.",
+   "palabras_objetivo": 125,
+   "escena_idx": 3
+  },
+  {
+   "n": 7,
+   "cap": 4,
+   "funcion": "escalada",
+   "emocion": "Tensión",
+   "intensidad": 4,
+   "dato_central": "D41",
+   "datos_apoyo": [
+    "T92"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Un hombre con uniforme de oficial avanza con el agua turbia hasta el pecho, llevando una caja de suministros médicos sobre su cabeza.",
+   "pregunta_abierta": "¿Logrará llegar? ¿Servirá de algo?",
+   "pregunta_pantalla": "¿Por qué nadie abrió las celdas?",
+   "cierre": "La ayuda, cuando finalmente se pidió, no significó un rescate. Significó caminar por el agua.",
+   "palabras_objetivo": 125,
+   "escena_idx": 5,
+   "pregunta_valida": true
+  },
+  {
+   "n": 8,
+   "cap": 5,
+   "funcion": "giro",
+   "emocion": "Falsa esperanza",
+   "intensidad": 4,
+   "dato_central": "T82",
+   "datos_apoyo": [
+    "D132"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Una radio de policía crepitando en la oscuridad de la noche, pidiendo ayuda casi 24 horas después del impacto.",
+   "pregunta_abierta": "Ahora que pidieron ayuda, ¿los van a sacar a todos?",
+   "pregunta_pantalla": "",
+   "cierre": "Pero salir de la celda no significaba estar a salvo. Para Iris Hardeman, solo era el comienzo de otra pesadilla.",
+   "palabras_objetivo": 125
+  },
+  {
+   "n": 9,
+   "cap": 5,
+   "funcion": "pico",
+   "emocion": "Horror",
+   "intensidad": 5,
+   "dato_central": "D155",
+   "datos_apoyo": [
+    "D151",
+    "D158",
+    "D78"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "El cuerpo de una mujer enferma siendo sostenido por los brazos de otras reclusas para mantener su cabeza fuera del agua sucia y aceitosa.",
+   "pregunta_abierta": "¿Sobrevivirá? ¿Qué pasará con las demás?",
+   "pregunta_pantalla": "¿Por qué los dejaron en el agua?",
+   "cierre": "Algunos no salieron del agua. Otros, ni siquiera tuvieron la oportunidad de llegar a ella.",
+   "palabras_objetivo": 125,
+   "escena_idx": 7,
+   "pregunta_valida": true
+  },
+  {
+   "n": 10,
+   "cap": 6,
+   "funcion": "respiro",
+   "emocion": "Desolación",
+   "intensidad": 1,
+   "dato_central": "Q185",
+   "datos_apoyo": [
+    "D544",
+    "Q184"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Un rayo de luz de una linterna de rescatista ilumina una cara a través de una ventana rota, días después de la tormenta.",
+   "pregunta_abierta": "Si lo dejaron a él, ¿a cuántos más dejaron?",
+   "pregunta_pantalla": "",
+   "cierre": "Los que fueron evacuados, descubrieron que el sistema que los había abandonado, ahora los había perdido.",
+   "palabras_objetivo": 125,
+   "escena_idx": 10
+  },
+  {
+   "n": 11,
+   "cap": 6,
+   "funcion": "consecuencia",
+   "emocion": "Confusión",
+   "intensidad": 3,
+   "dato_central": "D185",
+   "datos_apoyo": [
+    "D191",
+    "D548"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Una lista de nombres en papel, manchada de agua, con cientos de casillas vacías.",
+   "pregunta_abierta": "¿Dónde están? ¿Están vivos o muertos?",
+   "pregunta_pantalla": "¿Dónde están los quinientos diecisiete?",
+   "cierre": "Mientras cientos de familias buscaban a los suyos, las autoridades daban su versión final.",
+   "palabras_objetivo": 125,
+   "contador": true,
+   "pregunta_valida": true
+  },
+  {
+   "n": 12,
+   "cap": 7,
+   "funcion": "revelacion",
+   "emocion": "Indignación",
+   "intensidad": 3,
+   "dato_central": "D163",
+   "datos_apoyo": [
+    "Q77",
+    "Q60"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Un micrófono de prensa frente a un funcionario que niega rotundamente cualquier muerte.",
+   "pregunta_abierta": "¿Cómo pueden negarlo con tantos testimonios en contra?",
+   "pregunta_pantalla": "",
+   "cierre": "Años después, un oficial que estuvo allí todavía no entiende cómo pudo pasar.",
+   "palabras_objetivo": 70
+  },
+  {
+   "n": 13,
+   "cap": 7,
+   "funcion": "cierre",
+   "emocion": "Tristeza",
+   "intensidad": 2,
+   "dato_central": "Q11",
+   "datos_apoyo": [],
+   "humano_en_escena": true,
+   "imagen_sensorial": "La mirada de Brady Richard, recordando el caos desde la distancia de los años.",
+   "pregunta_abierta": "¿Se hará justicia alguna vez por los que no fueron contados?",
+   "pregunta_pantalla": "¿Cuántos siguen sin nombre?",
+   "cierre": "Brady Richard lo dijo claro: nunca debieron haber estado allí.",
+   "palabras_objetivo": 70,
+   "pregunta_valida": true
+  }
+ ],
+ "a_pantalla": [
+  {
+   "id": "Q13",
+   "cap": 2,
+   "por_que": "La cita atribuida a Gusman sobre los 'detalles incidentales' es una prueba contundente de la negligencia, ideal para mostrar en pantalla mientras se narra la falta de preparación."
+  },
+  {
+   "id": "D45",
+   "cap": 2,
+   "por_que": "Mostrar en un gráfico que el 'plan de contingencia' no incluía cómo sacar a la gente refuerza visualmente la absurdidad de la situación."
+  },
+  {
+   "id": "Q63",
+   "cap": 4,
+   "por_que": "La cita de David Fernandez 'Escapé por mi vida' es poderosa y resume la motivación de los que intentaron salir. Funciona bien como un texto superpuesto a imágenes del caos."
+  },
+  {
+   "id": "D152",
+   "cap": 5,
+   "por_que": "El dato de los '3 botes' disponibles para evacuar a miles de personas es tan ridículo que impacta más si se muestra visualmente que si solo se narra."
+  },
+  {
+   "id": "Q186",
+   "cap": 6,
+   "por_que": "La cita de la abogada Phyllis Mann describe el caos administrativo post-evacuación. Es perfecta para acompañar imágenes de los presos siendo reubicados."
+  },
+  {
+   "id": "D01",
+   "cap": 7,
+   "por_que": "El hallazgo de la investigación federal sobre 'condiciones inconstitucionales' es un veredicto oficial que debe aparecer en pantalla para dar peso al cierre."
+  }
+ ],
+ "topic_id": "ba6c3cac-f7r3",
+ "prompt_version": "f6b-4",
+ "_reparaciones": [
+  "beat 3: apoyo ['D51'] es otra cifra del conteo 300 → fuera",
+  "beat 3: apoyo ['D533'] es otra cifra del conteo 5.919 → fuera"
+ ],
+ "_avisos": [
+  "pregunta de pantalla del cap 3 «¿Quién apagó las luces?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+  "pregunta de pantalla del cap 6 «¿Dónde están los quinientos diecisiete?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+  "beat 8: vuelve atrás en el tiempo (2005-08-29 < 2005-08-30)"
+ ],
+ "_intentos": [
+  {
+   "intento": 1,
+   "problemas": [
+    "beat 4: Edward “Edgar” Burton en escena sin un dato suyo verificado (ninguna cita ni mención en ['T64', 'D47', 'Q183']); datos suyos que valen: ['D544', 'Q179', 'Q184']",
+    "beat 11: Edward “Edgar” Burton en escena sin un dato suyo verificado (ninguna cita ni mención en ['D185', 'D163', 'Q77', 'Q60', 'Q185']); datos suyos que valen: ['D544', 'Q179', 'Q184']",
+    "la imagen sensorial del gancho no lleva cifras",
+    "beat 2: D533 es otra cifra del conteo 5.919 [D214]: un hecho, una cifra (la precisa)",
+    "la última frase repite textual la cita Q11: decila con otras palabras"
+   ],
+   "reparaciones": [
+    "beat 2: apoyo L01 no existe en el pool → fuera",
+    "a_pantalla Q70: cita sin verificar → no va a pantalla",
+    "beat 7: apoyo ['D152'] es otra cifra del conteo 8,000 → fuera"
+   ],
+   "avisos": [
+    "pregunta de pantalla del cap 4 «¿Por qué la salida era otro infierno?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+   ]
+  },
+  {
+   "intento": 2,
+   "problemas": [],
+   "reparaciones": [
+    "beat 3: apoyo ['D51'] es otra cifra del conteo 300 → fuera",
+    "beat 3: apoyo ['D533'] es otra cifra del conteo 5.919 → fuera"
+   ],
+   "avisos": [
+    "pregunta de pantalla del cap 3 «¿Quién apagó las luces?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+    "pregunta de pantalla del cap 6 «¿Dónde están los quinientos diecisiete?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+    "beat 8: vuelve atrás en el tiempo (2005-08-29 < 2005-08-30)"
+   ]
+  }
+ ],
+ "ficha": {
+  "prompt_version": "f15-1",
+  "pool_md5": "e90d6ca9869077fd2759766817588741"
+ },
+ "pool_gate": {
+  "color": "verde",
+  "metricas": {
+   "datos": 558,
+   "citas_verificadas": 162,
+   "elegibles_humano": 12,
+   "eventos_con_fecha": 127
+  },
+  "motivos": [],
+  "target_words": 1500
+ },
+ "_pantalla_por_fecha": [
+  "T101 (2005-08-31) del cap 2 al cap 6 (por fecha)",
+  "T35 (2005-08-27) del cap 2 al cap 3 (por fecha)",
+  "D65 (None) → cap 3 lleno: fuera",
+  "D320 (2005-08-30) → cap 4 lleno: fuera",
+  "T79 (2005-08-29) → cap 3 lleno: fuera",
+  "T120 (2005-09-01) → cap 6 lleno: fuera",
+  "D188 (None) → cap 6 lleno: fuera",
+  "D340 (None) → cap 7 lleno: fuera"
+ ],
+ "instrucciones_guionista": [
+  "La cifra 150 reclusos se dice UNA sola vez; nunca «170» ni «más de 170».",
+  "La cifra 300 personas se dice UNA sola vez; nunca «270» ni «más de 270».",
+  "La cifra 1500 personas se dice UNA sola vez; nunca «1700» ni «más de 1700».",
+  "La cifra 1.800 personas se dice UNA sola vez; nunca «2.000», «2000» ni «más de 2000».",
+  "La cifra 5,000 reclusos se dice UNA sola vez; nunca «5.500», «5500» ni «más de 5500».",
+  "La cifra 5.919 reclusos se dice UNA sola vez; nunca «6.295», «6.375», «6.000», «6295», «6375», «6000» ni «más de 6295».",
+  "La cifra 8,000 reclusos se dice UNA sola vez; nunca «7000» ni «más de 7000».",
+  "Q08 (de Marlin Gusman) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+  "Q21 (de Raphael Schwarz) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+  "Q13 va a pantalla (cap 2): la voz no lo dice.",
+  "D45 va a pantalla (cap 2): la voz no lo dice.",
+  "Q63 va a pantalla (cap 4): la voz no lo dice.",
+  "D152 va a pantalla (cap 5): la voz no lo dice.",
+  "Q186 va a pantalla (cap 6): la voz no lo dice.",
+  "D01 va a pantalla (cap 7): la voz no lo dice."
+ ],
+ "caps": [
+  {
+   "chapter_number": 1,
+   "role": "hook",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "hook",
+   "evidence_ids": [
+    "Q14"
+   ],
+   "cliffhanger": "D30",
+   "pantalla_ids": [
+    "D181",
+    "D517"
+   ],
+   "palabras_objetivo": 110
+  },
+  {
+   "chapter_number": 2,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "setup",
+   "evidence_ids": [
+    "D30",
+    "Q08",
+    "D35",
+    "D39",
+    "Q16"
+   ],
+   "cliffhanger": "T64",
+   "pantalla_ids": [
+    "Q13",
+    "D45"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 3,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "T64",
+    "D74",
+    "D143",
+    "D47",
+    "D106",
+    "D67"
+   ],
+   "cliffhanger": "Q21",
+   "pantalla_ids": [
+    "T35",
+    "D08"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 4,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "shock",
+   "evidence_ids": [
+    "Q21",
+    "D57",
+    "D236",
+    "D41",
+    "T92"
+   ],
+   "cliffhanger": "T82",
+   "pantalla_ids": [
+    "Q63",
+    "D261"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 5,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "consequences",
+   "evidence_ids": [
+    "T82",
+    "D132",
+    "D155",
+    "D151",
+    "D158",
+    "D78"
+   ],
+   "cliffhanger": "Q185",
+   "pantalla_ids": [
+    "D152",
+    "D488"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 6,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "resolution",
+   "evidence_ids": [
+    "Q185",
+    "D544",
+    "Q184",
+    "D185",
+    "D191",
+    "D548"
+   ],
+   "cliffhanger": "D163",
+   "pantalla_ids": [
+    "Q186",
+    "T101"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 7,
+   "role": "reveal_outro",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "outro",
+   "evidence_ids": [
+    "D163",
+    "Q77",
+    "Q60",
+    "Q11"
+   ],
+   "cliffhanger": "",
+   "pantalla_ids": [
+    "D01",
+    "D167"
+   ],
+   "palabras_objetivo": 140
+  }
+ ],
+ "_pool_plan": {
+  "cifras_canonicas": [],
+  "pantalla": [
+   "cap 1: pantalla ['D181', 'D517']",
+   "cap 2: pantalla ['T101', 'T35']",
+   "cap 3: pantalla ['D08', 'D65']",
+   "cap 4: pantalla ['D261', 'D320']",
+   "cap 5: pantalla ['D488', 'T79']",
+   "cap 6: pantalla ['T120', 'D188']",
+   "cap 7: pantalla ['D167', 'D340']"
+  ]
+ }
+}

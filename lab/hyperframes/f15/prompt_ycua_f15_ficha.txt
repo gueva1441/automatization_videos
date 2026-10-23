@@ -1,0 +1,1245 @@
+===== SISTEMA (md5 2e151732da47e09acf0cb48eb7089fcb) =====
+<rol>Sos el documentalista de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que el guionista escriba, depurás el research de un caso real y armás su ficha: la única fuente de la escaleta y del guion. Lo que no está en la ficha no existe para ellos.</rol>
+<tarea>
+Leés el pool de research completo (cada ítem con su id, y cada evidencia con su documento y su posición) y devolvés la ficha del caso:
+- personas: un nombre canónico por persona, su rol, las variantes del nombre que encontraste y sus ids. Si dos fuentes dan nombres distintos para la misma persona, no elegís: la persona va también a contradicciones.
+- cronologia: los eventos del día en orden, con la fecha y la hora tal como están en el pool, y sus ids.
+- historia: antes de listar hechos, decidís qué historia hay en este caso. Devolvés:
+  - humanos_candidatos (2 a 4): personas con arco, es decir, que entran en el caso en un estado, les pasa algo y salen en otro. Para cada una: nombre canónico, rol, en una oración qué le pasa (entra → sufre → sale), qué ids la sostienen y cuántas citas verificadas tiene. Una persona sin cita verificada puede ser candidata, pero lo decís.
+  - giros (3 a 6): los momentos en que la historia cambia de dirección (una orden, una puerta que no abre, una cifra que aparece, una negación oficial). Cada uno con sus ids y en qué orden pasan.
+  - pico: el peor momento, el que todo lo anterior prepara. Uno solo, con sus ids y por qué es el pico.
+  - pregunta_final: la pregunta que el caso deja abierta y que ningún documento cierra, con los ids que la sostienen.
+- escenas (8 a 15): momentos concretos que se pueden ver. Cada escena en una o dos oraciones: dónde, quién, qué está pasando, y lo que un testigo o documento dice que se veía, se oía, se olía o se tocaba. Solo con lo que los ids permiten. Una escena sin ningún detalle sensorial en los datos no es escena: es hecho, y va a hechos.
+- hechos (60 a 80) con un campo nivel: 1 = sostiene la historia (sin él no se entiende el caso; entre 12 y 20), 2 = apoyo (da contexto o escala). Además, cada hecho lleva el campo sirve_para: gancho, contexto, escalada, giro, pico, consecuencia o cierre.
+
+Ejemplo de humano candidato (de otro caso; copiá la forma, no el contenido):
+{"nombre": "Pearl Cornelia Bland", "rol": "detenida por una deuda de 398 dólares", "arco": "entra presa por multas, queda encerrada cuando llega el huracán, es agredida en Conchetta sin que los oficiales intervengan, y sale en junio del año siguiente por una orden de liberación", "ids": ["D301", "Q88", "D512"], "citas_verificadas": 1}
+
+Ejemplo de giro:
+{"orden": 2, "que_cambia": "El sheriff rechaza la ayuda del Departamento de Correcciones para evacuar: la prisión no se vacía", "ids": ["D35", "Q08"]}
+
+Ejemplo de escena:
+{"donde": "Celdas de Templeman III, 30 de agosto", "quien": "presos encerrados", "que_pasa": "el agua de la inundación entra y sube hasta el pecho", "sentidos": "olor a aguas residuales y combustible diésel; oscuridad total; gritos entre pabellones", "ids": ["T93", "D414", "D09", "D545"]}
+
+Ejemplo de hecho nivel 1:
+{"texto": "La lista de evacuados no incluye a 517 reclusos.", "nivel": 1, "sirve_para": "consecuencia", "ids": ["D185"]}
+- hechos: entre 60 y 80 hechos útiles para contar la historia, cada uno en una oración limpia, con sus ids de origen. Sin interpretación.
+- cifras: una cifra por conteo (muertos, heridos, huérfanos, personas adentro…), con su fuente y las otras versiones. Cada cifra con su unidad (personas, °C, años, guaraníes…): nunca un número sin qué cuenta.
+- citas: las mejores 15 a 25, con autor, rol, estado de verificación y el texto. Si hay un error evidente de transcripción, lo corregís en «texto» y dejás el texto del pool en «original»; si no corregís nada, «original» va vacío.
+- cronologia: si la hora o la fecha no coincide en 2 o más fuentes, «aproximada» va en true.
+- decisiones, versiones y contradicciones: cada conflicto entre fuentes lo resolvés con estos criterios, que valen para cualquier caso:
+  1. Error de extracción (lo que dice el ítem del pool no coincide con lo que dice su pasaje): gana el pasaje.
+  2. Variantes de un nombre: gana la forma del documento oficial o judicial; si no hay, la que más fuentes repiten.
+  3. Conteos (muertos, heridos, personas): gana la cifra oficial; si no hay, la que más fuentes repiten. Las otras van en otras_versiones (el guion podrá decir «otras fuentes hablan de…»).
+  4. Hechos disputados (quién dio una orden, cómo estaban las puertas): no se resuelven. Van a «versiones», cada versión con su fuente, para que el guion las cuente como versiones.
+  5. Horas y fechas: gana la que coincide en 2 o más fuentes; si ninguna coincide, se marca aproximada.
+  Lo que resolvés con los criterios 1, 2, 3 o 5 va a «decisiones»: el tema, el número de criterio, la decisión en una oración, los ids que la sostienen y las otras versiones (cada una con su doc_id y su offset). Lo del criterio 4 va a «versiones». Lo que no cae en ningún criterio va a «contradicciones», con las versiones lado a lado, y no se resuelve. En las tres secciones, cada versión lleva su doc_id y su offset tal como están en la evidencia.
+- personas_descartadas: personas que el research descartó (están en <descartados_del_research>) pero que la historia necesita, con su rol, el motivo por el que hacen falta y los ids del pool que las nombran.
+- descartados: lo que dejás afuera por dudoso o fuera del caso, con el motivo en una línea.
+En el pool, una evidencia que ya apareció en otro ítem va como «(= arriba)»: es el mismo pasaje del mismo documento.
+Cada cifra, hora, fecha y cita que escribas tiene que estar en el texto de los ids que citás. No agregás nada que no esté en el pool.
+</tarea>
+
+===== USUARIO (md5 5a352b6b3586cede594b1429d3c829ce) =====
+<caso>Ycuá Bolaños (Asunción, 1 de agosto de 2004)</caso>
+
+<pool>
+<personajes n="82">
+[P01] Tatiana Gabaglio · Sobreviviente
+    F03@0: «Tatiana Gabaglio es una joven que sobrevivió al infierno que consumió el supermercado Ycuá Bolaños aquel fatídico domingo 1 de agosto del 2004. Tenía tan solo 7 años cuando ocurrió el hecho.»
+    F05@4135: «...charlas con los sobrevivientes, como es el caso de la joven abogada Tatiana Gabaglio, quien en el 2004 era apenas una niña.»
+[P02] Ángela Pujol · Madre de dos víctimas del incendio
+    F05@1: «“Mi historia termina acá”, cuenta Ángela Pujol, sentada en el patio de las luces del Memorial 1A, a pocos días del 1 de agosto...»
+[P03] Yessica Vanessa · Víctima del incendio
+    F05@256: «El suceso se cobró 400 vidas, entre ellas las de Yessica Vanessa, que tenía en ese entonces 29 años y Yessica Natalia, de 22 en aquel momento, las dos únicas hijas de Ángela.»
+[P04] Yessica Natalia · Víctima del incendio
+    F05@256: (= arriba)
+[P05] Beatriz González · Ex cajera del supermercado
+    F05@875: «Beatriz González era cajera en el supermercado. Tenía asignada la caja N° 11 ese domingo del 2004.»
+[P06] Juan Pío Paiva · Propietario del local
+    F05@1472: «...de parte de Juan Pío Paiva (propietario del local) o de su hijo, Emiliano Paiva, ambos condenados por la tragedia.»
+    F09@12918: «“El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él.»
+    F09@284681: «Me comuniqué con el abogado defensor de Juan Pío Paiva, el abogado Luis Escobar Faella, quien me manifestó que su defendido no desea brindar entrevistas.»
+    F09@295111: «...que es la que se le atribuye al presidente de los supermercados, de que era una política[1]... es una política cuando vos ves, a lo mejor, un ramito de llamas, de fuego...»
+    F15@524: «En la causa principal, por homicidio doloso, fueron enjuiciados el principal accionista, Juan Pío Paiva; su hijo Víctor Daniel Paiva y el guardia de seguridad Daniel Areco.»
+    F16@2383: «Juan Pío Paiva fue condenado a 12 años de prisión, su hijo Víctor Paiva también fue a prisión»
+[P07] Emiliano Paiva · Hijo del propietario del local
+    F05@1484: «...Juan Pío Paiva (propietario del local) o de su hijo, Emiliano Paiva, ambos condenados por la tragedia.»
+[P08] Jorge Alfonso · Vocero de la Fundación de Víctimas del Ycua Bolaños
+    F05@1860: «...recuerda Jorge Alfonso, vocero de la Fundación de Víctimas del Ycua Bolaños. Alfonso perdió a su hijo Guillermo Alfonso Ortíz...»
+[P09] Guillermo Alfonso Ortíz · Víctima del incendio, carritero en el supermercado
+    F05@1937: «Alfonso perdió a su hijo Guillermo Alfonso Ortíz, quien tenía 17 años y era carritero en el ex supermercado del barrio Trinidad de Asunción.»
+[P10] Daniel Areco · Guardia de seguridad
+    F05@2407: «Además, fueron también condenados Daniel Areco, guardia de seguridad que fue a 5 años de prisión...»
+    F10@3282: «En el caso, condenaron a Juan Pío Paiva a 12 años; a su hijo Víctor Paiva, a 10 años, y al guardia Daniel Areco, a 5 años.»
+    F15@524: (= arriba)
+    F16@2544: «El otro procesado fue el guardia que cerró las puertas para que la gente no pueda salir durante el incendio, Daniel Areco»
+[P11] Humberto Casaccia · Directivo
+    F05@2504: «...y el directivo Humberto Casaccia, por 2 años.»
+    F10@1379: «En primera instancia, el entonces juez Enrique Mongelós había admitido la demanda contra Paiva, su esposa María Victoria Cáceres, Humberto Casaccia y Antoliana Burgos.»
+    F15@775: «fueron enjuiciados los directivos del supermercado Humberto Casaccia, Agustín Alfonzo, María Victoria Cáceres de Paiva y Antolina Burgos.»
+    F16@2667: «y también un miembro del directorio, Humberto Casaccia. La Fiscalía y los querellantes pedían 25 años de pena privativa para los procesados.»
+[P13] Liz Torres · Miembro de la Coordinadora de Víctimas, y amigos del Ycua Bolaños
+    F05@3076: «Liz Torres, de la Coordinadora de Víctimas, y amigos del Ycua Bolaños, también recordó que el intendente de Asunción en ese entonces, Enrique Riera, o el anterior, Martín Burt, ni siquiera fueron imputados por el incendio.»
+    F08@2287: «Liz Torres también recordó su experiencia de terror. “El fuego avanzaba por el techo.»
+    F09@158890: «Buenas noches. Nosotros, varios de los que estamos acá, nos unimos hoy a esta reunión... como Coordinadora.»
+    F11@3691: «Liz Torres sobrevivió y salió prácticamente ilesa del incendio. Llegó al supermercado junto a su esposo, Alfredo Vallovera.»
+[P14] Enrique Riera · Intendente de Asunción en la época del incendio y actual ministro del Interior
+    F05@3167: «...el intendente de Asunción en ese entonces, Enrique Riera, o el anterior, Martín Burt, ni siquiera fueron imputados por el incendio.»
+    F09@136087: «Imputación a Riera. Si se dan la vuelta, fíjense. Está un tingladito de morondanga, como suelo decir. ¿Alguien me puede ayudar a ver cuántos extractores eólicos tiene?»
+[P15] Martín Burt · Intendente de Asunción anterior a la época del incendio
+    F05@3167: (= arriba)
+[P16] Benedicto Pérez · Perito formoseño
+    F06@300: «Los peritos formoseños Benedicto Pérez, Héctor Machado, a más de los paraguayos Victorino Martínez, Elizardo Rojas, José del Carmen Bogarín e Isidro Ayala Arrúa, estuvieron ayer ante el Tribunal de Sentencia»
+    F09@60012: «El oficial inspector Benedicto Pérez, licenciado especialista en Sistemas de Protección contra Siniestros, me recibió en la Dirección de Cuerpos y Servicios Especiales (Policía de la provincia de Formosa).»
+[P22] Luis Escobar Faella · Abogado defensor · variantes: Luis Emilio Escobar Faella
+    F06@969: «Cuando los jueces lo admitieron tras el pedido formal del Dr. Luis Escobar Faella, planteó una reposición que fue rechazada con costas.»
+    F09@285031: «ENTREVISTA AL ABOGADO LUIS ESCOBAR FAELLA, QUIEN DEFIENDE A JUAN PÍO PAIVA. MARTES 15 DE FEBRERO DE 2005, 16:30 HS.»
+    F16@3100: «luego de que su representante, Luis Emilio Escobar Faella, realizara el pedido de libertad condicional el 23 de junio»
+[P25] Mirta Elizabeth González · Madre de víctima indirecta
+    F06@3341: «El menor fue rescatado por su madre Mirta Elizabeth González, quien lo derivó rápidamente a un centro médico.»
+[P26] Víctor Galeano · Sobreviviente
+    F08@1628: «relató Víctor Galeano, quien en ese entonces tenía 24 años y se encontraba en el lugar con su familia.»
+[P27] Alejandro Nissen · Abogado querellante de 92 familias de víctimas
+    F09@1288: «Comencé el 10 de enero, recurriendo a Alejandro Nissen, uno de los abogados defensores de las víctimas.»
+[P28] Víctor Daniel Paiva · Gerente de salón del supermercado e hijo de Juan Pío Paiva · variantes: Víctor Paiva
+    F09@17775: «presentamos una formal acusación contra los señores Juan Pío Paiva y Víctor Daniel Paiva»
+    F10@3282: (= arriba)
+    F15@524: (= arriba)
+    F16@2434: «su hijo Víctor Paiva también fue a prisión aunque en agosto del 2007 consiguió la libertad con restricciones.»
+[P29] Bernardo Ismachoviez · Director y arquitecto de la obra
+    F09@18732: «presentamos una nueva querella criminal, también en representación de 92 familias, en contra del director y arquitecto de la obra que es Bernardo Ismachoviez»
+    F09@131761: «le reclamábamos que impute a Bernardo Ismachoviez y a Enrique Riera, Olindo López al día siguiente inició la imputación para Bernardo Ismachoviez.»
+[P30] Edgar Sánchez · Fiscal
+    F09@19774: «El 7 de diciembre del año pasado a las 19:30 hs. en el local de la CONATEL el fiscal Edgar Sánchez se hizo presente en ese lugar»
+    F09@138620: «El otro punto es la acusación de Edgar Sánchez, que es deficitaria, para mí es una trampa para nosotros. Le acusa a un solo guardia de haber cerrado las puertas.»
+    F09@205123: «el 2 de agosto ya tenía la denuncia de Edgar Sánchez, de que el comisario Juan Pereira obstruyó la investigación de la Fiscalía...»
+[P31] Matilde Moreno · Fiscala
+    F09@20137: «él manifestó que esa carpeta fiscal, esa investigación está a cargo de la fiscala Matilde Moreno y que estaban esperando el resultado de un sumario administrativo.»
+    F09@132568: «el doctor Almirón había manifestado que la fiscala Matilde Moreno, tenía, para su entender, había motivos de inhibición.»
+    F09@275743: «Se le quitó a Matilde Moreno, vino un nuevo fiscal cuya madre era funcionaria de la Municipalidad...»
+[P32] Amada Correa · Funcionaria del supermercado
+    F09@27393: «fueron comunicados por una funcionaria de nombre Amada Correa, de que algo ocurría en el techo»
+[P33] Rodas Cristaldo · Sobreviviente con quemaduras en el 80% de su cuerpo
+    F09@37795: «Hay una señorita de apellido Rodas Cristaldo que hasta el momento gastó 60 mil dólares para poder sobrevivir. Aquí está su historia clínica. Esta chica está quemada casi en un 80% de su cuerpo.»
+[P34] Hugo Cabral · Guardia de salón fallecido en el incendio
+    F09@45394: «Uno de ellos es Hugo Cabral, que falleció. El otro es Daniel Areco a quien la gente le vio cerrando las puertas que dan a la rampa»
+[P35] Leticia Lusich · Portera
+    F09@46318: «Entonces acá abajo estaban tres guardias, más una portera que se llama Leticia Lusich.»
+[P36] Nicolás Núñez · Comisario que presidió a los peritos de Criminalística de Formosa
+    F09@60740: «Vinieron los peritos de la provincia, del área Criminalística, presididos por el comisario Nicolás Núñez. Identificaron a víctimas.»
+[P37] Teresa Sosa · Fiscala
+    F09@61357: «la fiscala Teresa Sosa – sobre la cual Pérez dijo que era una de las mejores que conoció – eligió a dos representantes de cada fuerza, y todos coincidían en las hipótesis.»
+    F09@138961: «Teresa Sosa y Edgar Sánchez manifestaron a la prensa que recibieron el reconocimiento de Ismael Alcaraz[4] de que habían recibido la orden de cerrar las puertas, por radio.»
+    F09@295645: «La fiscal, Teresa Sosa. Entonces frustró toda posibilidad...»
+[P38] Alejandro Maciel · Médico siquiatra
+    F09@69219: «ENTREVISTA AL MÉDICO SIQUIATRA ALEJANDRO MACIEL, MIÉRCOLES 12 DE ENERO DE 2005 – 08:00 HS.»
+[P39] Digna Felicia Cáceres · Sobreviviente de la tragedia
+    F09@102834: «DIGNA FELICIA CÁCERES – BIOQUÍMICA, ESPECIALISTA EN CONTROL DE INFECCIONES HOSPITALARIAS. SOBREVIVIENTE DE LA TRAGEDIA.»
+[P40] Pío Paiva · Jefe (dueño) del supermercado
+    F09@111692: «El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.»
+[P41] Mario Eduardo Chamorro · Empleado del Ycuá Bolaños, fallecido
+    F09@113567: «MARIANA AQUINO DE CHAMORRO, 44 AÑOS – MADRE DE MARIO EDUARDO CHAMORRO, 25 AÑOS, EMPLEADO DEL YCUÁ BOLAÑOS, FALLECIDO.»
+[P42] Blas Cristaldo · Ingeniero, miembro del Colectivo Ni Olvido Ni Perdón, perdió a su esposa
+    F09@127594: «El mismo día en que conocí a Digna Cáceres, el doctor Nissen me presentó al Ing. Blas Cristaldo, del Colectivo Ni Olvido Ni Perdón. Al rato, el Ing. Cristaldo me presentó a Berzabé. Ellos andan por la ciudad. Visitan gente. Él perdió a su esposa»
+    F09@176993: «ENTREVISTA AL ING. BLAS CRISTALDO, QUIEN PERDIÓ A SU ESPOSA, ESTELA. SABADO 22 DE ENERO, 09:00 HS.»
+[P44] Olindo López · Doctor (Fiscal)
+    F09@131830: «Olindo López al día siguiente inició la imputación para Bernardo Ismachoviez.»
+[P46] Ismael Alcaraz · Guardia de seguridad
+    F09@138961: (= arriba)
+[P47] Fernando Ortiz Mieres · Ex empleado del Ycuá Bolaños, sobreviviente
+    F09@141128: «Hola, yo soy uno de los empleados del Ycuá Bolaños, que me salvé, por milagro, seguramente. Puedo apoyar lo que dice el señor.»
+[P48] Daniel Paiva · Hijo del dueño del supermercado
+    F09@143800: «lo único que les puedo decir que este Daniel Paiva, él estaba, él estaba en el supermercado, porque su papá le trataba como un empleado más»
+    F09@213016: «si es cierto que eso gritó Daniel Paiva (que le estaban rompiendo el supermercado), este hombre debe estar realmente mal sicológicamente.»
+[P49] Lili Cristaldo · Sobreviviente
+    F09@146942: «Hola, yo soy Lili Cristaldo. Algunos a lo mejor me ven por primera vez, porque estoy saliendo muy poco.»
+[P50] Verónica Becker · Familiar de víctimas (perdió a su esposo e hija)
+    F09@154441: «Soy Verónica, y como dijo, el fuego terminó hace mucho, pero dentro mío sigue ardiendo ese fuego. He perdido a mi esposo y a mi hijita de apenas cuatro meses»
+[P51] Ignacio González · Sociólogo, ex-residente del barrio
+    F09@167127: «ENTREVISTA A IGNACIO GONZÁLEZ, 27 AÑOS, SOCIÓLOGO, QUIEN VIVIÓ VARIOS AÑOS EN EL BARRIO SANTÍSIMA TRINIDAD. 17 DE ENERO.»
+[P52] Rubén Urbieta · Víctima fallecida, amigo de Blas Cristaldo
+    F09@180063: «últimamente teníamos un grupo que la base éramos dos matrimonios: era Rubén Urbieta, su señora Teresa, Estela y yo.»
+[P53] Juan Pereira · Comisario
+    F09@205123: «el 2 de agosto ya tenía la denuncia de Edgar Sánchez, de que el comisario Juan Pereira obstruyó la investigación de la Fiscalía, induciéndoles a los guardias a no contar la verdad.»
+    F09@233342: «Hay una versión de que el Comisario Juan Pereira interfirió en la investigación, se lo denunció, pero que Latorre “olvidó” iniciar la investigación sobre el caso.»
+[P54] Nelson Astigarraga · Sobreviviente del incendio y familiar de víctimas
+    F09@207562: «ENTREVISTA AL ING. NELSON ASTIGARRAGA, QUIEN PERDIÓ A SU ESPOSA, HIJO Y SOBRINA.»
+[P55] José Luis Simón · Sociólogo
+    F09@215075: «ENTREVISTA AL SOCIÓLOGO JOSÉ LUIS SIMÓN, VIERNES 4 DE FEBRERO DE 2005, 17:00 HS.»
+[P56] Juan Brizuela · Víctima del incendio, ingeniero
+    F09@252634: «El tema está en que él presentó una tesis muy difícil que es “industrialización de la carne”, le llevó casi dos años y medio de preparación»
+[P57] Arístides González · Coordinador del CEN (Comité de Emergencia Nacional)
+    F09@265888: «lo primero que hice fue mandarle una carta a Arístides González que era coordinador del CEN para que me ayude. Me mandó una ayuda de 200 mil guaraníes»
+[P58] Ingeniero Cristaldo · Ingeniero
+    F09@293571: «La otra gran interrogante es, cómo pudieron hacer, como dijo el Ingeniero Cristaldo, “superman”, un solo guardia se le atribuye que cerró todas las puertas.»
+[P61] Juan Pío Helvidio Paiva Escobar · Demandado
+    F10@684: «la Sala Civil de la Corte se pronunció en uno de los últimos juicios de indemnización contra el fallecido Juan Pío Helvidio Paiva Escobar y la empresa Ycuá Bolaños V SACI.»
+[P62] María Estela Palacios Morínigo · Víctima fallecida · variantes: María Estefanía Palacios Morínigo
+    F10@1122: «la muerte de sus tres hijas María Estefanía, María del Carmen y María Estela Palacios Morínigo, todas muertas por inhalación de monóxido de carbono y quemaduras, el 1 de agosto de 2004»
+    F10@1122: (= arriba)
+[P63] Enrique Mongelós · Juez de primera instancia
+    F10@1379: (= arriba)
+[P64] María Victoria Cáceres · Demandada
+    F10@1379: (= arriba)
+[P65] Antoliana Burgos · Demandada · variantes: Antolina Burgos
+    F10@1379: (= arriba)
+    F15@775: (= arriba)
+[P67] Alberto Martínez Simón · Ministro de la Corte
+    F10@1948: «donde los ministros Alberto Martínez Simón, Eugenio Jiménez Rolón y Manuel Dejesús Ramírez Candia, finalmente, confirmaron parcialmente la sentencia dictada por el juez Mongelós.»
+[P70] Antonio Morínigo · Abogado
+    F10@2889: «El abogado Antonio Morínigo señaló que era una victoria pírrica, ya que Juan Pío Paiva murió y no sabe si aún existen bienes de la sociedad Ycuá Bolaños V.»
+[P71] Cristian Sosa · Sobreviviente
+    F11@551: «Cristian Sosa, quien sufrió quemaduras en sus manos y rostro, recuerda lo ocurrido «como si fuera ayer».»
+[P72] Julia López · Familiar de víctimas
+    F11@1709: «Las familias de Julia López y Angélica Roa perdieron de golpe cinco y cuatro integrantes, respectivamente.»
+[P73] Angélica Roa · Sobreviviente y familiar de víctimas
+    F11@1709: (= arriba)
+[P74] María Angélica · Víctima del incendio (maestra de párvulos) · variantes: Mara Angélica
+    F11@1816: «El incendio arrebató la vida de María Angélica, la última de los ocho hermanos López; de su esposo, Gustavo Lima, sus hijos, Juan Adolfo Lima y Mara Angélica, así como de Victorina Lima.»
+    F11@1816: (= arriba)
+[P75] Gustavo Lima · Víctima del incendio
+    F11@1816: (= arriba)
+[P76] Victorina Lima · Víctima del incendio
+    F11@1816: (= arriba)
+[P77] Juan Adolfo Lima · Víctima del incendio (desaparecido)
+    F11@2405: «El cuerpo de Juan Adolfo, de 9 años, quien practicaba taekwondo y era portero de fútbol, nunca fue hallado.»
+[P78] Mara Soledad · Víctima del incendio (sobrina de Angélica Roa)
+    F11@2757: «Una historia similar vivió Angélica Roa, quien sobrevivió después de que se apartara unos pasos de su hermana, Carolina, de la hija de esta, Mara Soledad, de su sobrina política Diana Benítez y de Melani, de tres años»
+[P79] Diana Benítez · Víctima del incendio (sobrina política de Angélica Roa)
+    F11@2757: (= arriba)
+[P80] Alfredo Vallovera · Esposo de la sobreviviente Liz Torres
+    F11@3691: (= arriba)
+[P81] Tania Campos · Directora del Sitio de Memoria y Centro Cultural 1A – Ycuá Bolaños
+    F11@4956: ««Es un centro que está abierto a la comunidad», explicó a EFE la directora del lugar, Tania Campos, quien destacó que la intención es que «no quede en el olvido aquel 1 de agosto».»
+[P82] Agustín Alfonzo · Directivo del supermercado
+    F15@775: (= arriba)
+[P83] Jorge Gamarra Morínigo · Funcionario de la Municipalidad
+    F15@1726: «fueron condenados a 1 año y 6 meses los funcionarios de la Municipalidad Jorge Gamarra Morínigo, Jesús María Insaurralde y Rodrigo Castillo Fraccia por producción de riesgos comunes»
+[P84] Jesús María Insaurralde · Funcionario de la Municipalidad
+    F15@1726: (= arriba)
+[P85] Rodrigo Castillo Fraccia · Funcionario de la Municipalidad
+    F15@1726: (= arriba)
+[P86] Bernardo Ismachowiez · Constructor
+    F15@1936: «Finalmente, el tercer juicio promovido en contra del constructor Bernardo Ismachowiez, por supuestas fallas en la construcción, el mismo fue sentenciado a 2 años»
+[P87] Hugo Morán · Juez
+    F15@2429: «La primera sentencia indemnizatoria fue dictada el 4 de junio de 2009, por el juez Hugo Morán.»
+[P88] Emigdio Wendell · Demandante
+    F15@2593: «pagar G. 600 millones al matrimonio Emigdio Wendell y Nilda Ortellado, por indemnización de daños y perjuicios por la muerte de su menor hija y de la madre de la mujer.»
+[P89] Nilda Ortellado · Demandante
+    F15@2593: (= arriba)
+[P90] Miguel Ángel Rodas · Juez
+    F15@2762: «Asimismo, el juez Miguel Ángel Rodas condenó en abril pasado al empresario Juan Pío Paiva, su hijo Víctor Daniel Paiva y la sociedad Ycuá Bolaños»
+[P91] Pedro Ramón Ramírez Carballo · Demandante
+    F15@2943: «indemnización al matrimonio Pedro Ramón Ramírez Carballo y Susana Acuña de Ramírez, cuya hija –quien se desempeñaba como cajera– falleció en el fatal incendio.»
+[P92] Rubén Valdez · jefe del Cuerpo de Bomberos Voluntarios del Paraguay
+    F16@1010: «El capitán Rubén Valdez, jefe del Cuerpo de Bomberos Voluntarios del Paraguay, comentó que desde aquel momento se implementaron más medidas de seguridad.»
+[P93] Nelson Jara · arquitecto, docente adjunto de FADA-UNA
+    F16@1781: «indicó el arquitecto Nelson Jara, docente adjunto de la materia opcional Seguridad contra incendios en los edificios, en FADA-UNA.»
+[P94] Carlos Halke · director del Departamento de Prevención contra Incendios de la Municipalidad de Asunción
+    F16@1993: «según el director del Departamento de Prevención contra Incendios, ingeniero Carlos Halke, quien asume que la Municipalidad aprobaba los planos»
+[P95] Escobar Faella · Abogado defensor
+    F06@2757: «Por otro lado, Escobar Faella alabó la gestión del tribunal y se retractó ante la prensa de las críticas anteriores realizadas a los miembros del tribunal.»
+[P96] Fiscal Edgar Sánchez · Fiscal
+    F09@20135: «y él manifestó que esa carpeta fiscal, esa investigación está a cargo de la fiscala Matilde Moreno y que estaban esperando el resultado de un sumario administrativo.»
+[P97] Fernando Ortiz · Ex empleado del Ycuá Bolaños, sobreviviente
+    F09@141482: «En ese momento que ella estaba ahí atajando la portería, yo me voy y le empujo a ella cuando ya me doy cuenta de que el incendio era muy intenso. Y salí, y me quemé con gravedad, el 50% de mi cuerpo, mis dos pulmones y la laringe, por eso es que estoy un poco ronco.»
+</personajes>
+<cronologia n="76">
+[T01] Se inaugura el supermercado Ycuá Bolaños - Botánico. · fecha 2001-12 · hora None · lugar Asunción
+    F09@10469: «En el espacio de Internet se puede visitar una galería de fotos del local que ardió el domingo, en donde se muestran tomas fotográficas diurnas y nocturnas de la fachada, así como escenas del día de la inauguración, en diciembre de 2001»
+[T02] El hijo de Mariana cobra su primer sueldo y le dice que seguirá trabajando hasta diciembre. · fecha 2004-07-31 · hora None · lugar Casa de Mariana
+    F09@118111: «Y ese 28, él cobró un sábado y sale, “Mamá, este es mi sueldo”, y me da su primer sueldo. Era un sábado antes de la tragedia.»
+[T03] Blas Cristaldo, su esposa Estela, y sus amigos Rubén y Teresa Urbieta, entre otros, asisten a una cena por el día de la amistad. · fecha 2004-07-31 · hora 02:00 · lugar None
+    F09@191207: «esa noche tuvimos la cena, nos divertimos muchísimo, comimos paella, tomamos sangría, vino, bailamos, y Teresa, la señora de Rubén, tenía la particularidad de que ella [...] era la más divertida, la que más quería bailar...»
+    F09@191866: «A las dos de la mañana por ahí nos despedimos, y Rubén se acercó para despedirse también, “Cómo te quiero”, me dijo, “Y yo también” le dije. “Pero me tenés abandonado che raa, vamos pues al barco mañana”, dijo.»
+[T04] A la semana del incendio se realiza la primera gran movilización hacia la Fiscalía. · fecha 2004-08 · hora None · lugar Fiscalía
+    F09@169706: «Yo no recuerdo bien, habría que ver los registros periodísticos, pero creo que a la semana es que se da la primera gran movilización, se va la Fiscalía por el tema de que se empieza a plantear que las puertas estaban cerradas»
+[T05] Ocurrió la tragedia del incendio del supermercado Ycuá Bolaños, que resultó en la muerte de 400 personas. · fecha 2004-08-01 · hora None · lugar barrio Santísima Trinidad
+    F07@1168: «la tragedia ocurrida el 1 de agosto del 2004, que terminó con la muerte de 400 personas.»
+    F11@141: «Hace 20 años, un 1 de agosto de 2004, las historias de cientos de personas se cruzaron al ser sacudidas por un voraz incendio que cegó unas 364 vidas en el supermercado Ycuá Bolaños de Asunción.»
+[T06] Se dan las órdenes de cerrar las puertas de acceso al supermercado. · fecha 2004-08-01 · hora None · lugar Supermercado Ycuá Bolaños
+    F09@28332: «Entonces cuando eso estaba ocurriendo vienen las órdenes de cerrar las puertas de acceso al supermercado, que son varias.»
+[T07] Peritos de Criminalística de la provincia de Formosa, presididos por el comisario Nicolás Núñez, son enviados a Asunción para identificar víctimas. · fecha 2004-08-01 · hora None · lugar Asunción
+    F09@60643: «El mismo día de la tragedia, el 1 de agosto, se dispuso enviar el primer contingente a Asunción. Vinieron los peritos de la provincia, del área Criminalística, presididos por el comisario Nicolás Núñez. Identificaron a víctimas.»
+[T08] Nelson Astigarraga llega con su familia al supermercado Ycuá Bolaños justo cuando sucede la catástrofe. · fecha 2004-08-01 · hora None · lugar None
+    F09@208259: «Y ese día no fue la excepción, nos fuimos, y llegamos justamente en el momento en que sucedió la catástrofe.»
+[T09] Nelson Astigarraga escucha un fuerte ruido en el supermercado y ve cómo el techo empieza a caer. · fecha 2004-08-01 · hora None · lugar None
+    F09@209141: «Al irme ya veo que el techo se cae. O sea, primero escucho un ruido, como si fuese un chorro, parecía un chorro de un avión que está por despegar. Un ruidazo. Parecía el gas que se estaba escapando. De repente veo que se cae el techo...»
+[T10] Juan Brizuela va al supermercado Ycuá Bolaños a comprar vino y manzanas y muere en el incendio. · fecha 2004-08-01 · hora None · lugar Ycuá Bolaños
+    F09@255786: «Él se fue al Ycuá Bolaños como casi todos los domingos (...) simplemente para una cosa simple y vulgar, y él ya no volvió. Y ese recuerdo tan doloroso queda pendiente.»
+[T11] Murieron las tres hijas del matrimonio Palacios Morínigo: María Estefanía, María del Carmen y María Estela. · fecha 2004-08-01 · hora None · lugar supermercado Ycuá Bolaños
+    F10@1122: (= arriba)
+[T12] Cristian Sosa ve brotar el incendio en el patio de comidas del supermercado. · fecha 2004-08-01 · hora None · lugar patio de comidas, supermercado Ycuá Bolaños
+    F11@812: «Hacía fila en las cajas cuando vio brotar el incendio en el patio de comidas.»
+[T13] Diana Benítez, víctima del incendio, fallece en el hospital. · fecha 2004-08-01 · hora None · lugar hospital
+    F11@3216: «Los cuerpos de su hermana y pequeña sobrina fueron hallados horas después en el lugar, mientras que Diana falleció al día siguiente en el hospital.»
+[T14] Blas Cristaldo se levanta para trabajar en su computadora. · fecha 2004-08-01 · hora 07:00 · lugar None
+    F09@193688: «El domingo 1 de agosto yo me levanté a las siete de la mañana por ahí, ya empecé a trabajar en mi computadora, trabajo en casa.»
+    F09@193816: «Y a las nueve se levantó Estela y me dice “Coco, ¿vas a desayunar?”, “Sí”. “Bueno, vení pues”.»
+    F09@196418: «A las doce menos veinte me llama mi madre y me dice “¿Y Rodrigo?” [...] “¿Y no escuchaste lo que pasa en el Ycuá Bolaños?”, “No, ¿qué pasa?” le digo.»
+[T15] Comienzan a producirse las primeras explosiones en la zona de la panadería. · fecha 2004-08-01 · hora 09:00 · lugar Supermercado Ycuá Bolaños
+    F09@27240: «Esto se inició alrededor de las 9 de la mañana ya. Es por eso que el señor Paiva hijo se salva, porque ellos conocían de que algo existía arriba»
+[T16] Mario Eduardo Chamorro entra a trabajar en el supermercado Ycuá Bolaños. · fecha 2004-08-01 · hora 10:00 · lugar Supermercado Ycuá Bolaños
+    F09@115307: «y fríamente, él entró a las diez de la mañana ese domingo, y a las 11 y 27 sucedió esto.»
+    F09@115396: «A las doce a él se le remitió en Emergencias y yo me fui a retirarle, a las tres me enteré que estaba allá mi hijo.»
+[T17] El hijo de Mariana tenía que entrar a trabajar a las diez de la mañana. · fecha 2004-08-01 · hora 10:00 · lugar Supermercado Ycuá Bolaños
+    F09@118689: «él entraba a las diez de la mañana al otro día.»
+[T18] La sobreviviente Digna Cáceres llega al supermercado Ycuá Bolaños para hacer compras. · fecha 2004-08-01 · hora 10:30 · lugar Supermercado Ycuá Bolaños
+    F09@104073: «Ese día yo dormí hasta las diez de la mañana, era domingo, y mi vecina se fue y me despertó para ir a comprar la carne, porque íbamos a hacer comida juntas. Y me desperté a las diez y media por ahí, y me fui al súper.»
+[T19] Teresa Urbieta y sus hijas pasan a buscar a Estela para ir al río. · fecha 2004-08-01 · hora 10:30 · lugar None
+    F09@195258: «Yo seguí trabajando, y a las diez y media le vinieron a buscar. [...] me dijo que vinieron a buscarle una señora de pelo rubio con otra chica y una nenita atrás. O sea que evidentemente se fueron Teresa, Adriana – la hija mayor – y Gaby que es la hija menor.»
+[T20] Julia López se despide de su hermana María Angélica. · fecha 2004-08-01 · hora 11:10 · lugar Asunción
+    F11@2117: «Se había despedido de su hermana a las 11.10 de esa mañana. El estallido tuvo lugar diez minutos después.»
+[T21] Se produce una gran explosión y se desata el incendio principal en el supermercado Ycuá Bolaños. · fecha 2004-08-01 · hora 11:25 · lugar Supermercado Ycuá Bolaños
+    F09@11551: «Ni qué decir, por todo lo que habrían de pasar las personas que estuvieron allí, a las 11:25 de la mañana, viendo y sintiendo todo aquello.»
+[T22] Tatiana Gabaglio, de 7 años, quedó atrapada en el incendio del supermercado Ycuá Bolaños cuando un panel del cielorraso derretido cayó sobre su pierna. · fecha 2004-08-01 · hora 11:27 · lugar supermercado Ycuá Bolaños
+    F03@0: (= arriba)
+    F05@875: (= arriba)
+    F08@401: «El primer capítulo de la miniserie documental de Última Hora Memorias del Ycuá Bolaños trata sobre aquel domingo 1 de agosto de 2004.»
+    F09@58179: «Explosión de humo: La onda expansiva tomó con celeridad el salón de ventas y encontró el oxígeno necesario para aumentar el tamaño de las llamas.»
+    F09@115320: «él entró a las diez de la mañana ese domingo, y a las 11 y 27 sucedió esto.»
+    F09@121679: «Yo desde el primero de agosto, terminó mi vida, me enterraron con mi hijo. Y yo como madre solamente pido justicia.»
+    F10@527: «Tragedia. El 1 de agosto de 2004 se produjo el incendio del supermercado Ycuá Bolaños.»
+    F11@2117: (= arriba)
+    F15@403: «el fatal incendio ocurrido el 1 de agosto de 2004 en el supermercado Ycuá Bolaños, y que dejara un saldo de 400 muertos.»
+    F16@0: «La mañana del domingo 1 de agosto de 2004 quedó marcada en la sociedad paraguaya como el día en que se desató un infierno en la esquina de la avenida Artigas y Santísima Trinidad»
+[T23] Las hermanas de Juan Brizuela logran entrar al Tropi Club y lo encuentran entre los fallecidos. · fecha 2004-08-01 · hora 14:00 · lugar Tropi Club
+    F09@259378: «Pero ya cerca de la una, las dos de la tarde les dejaron, pero con atropellos y peleas les dejaron entrar hasta el Tropi Club, que estaba ahí al costado, y ahí le buscaron a su hermano, y le encontraron.»
+[T24] Juan Carlos Casco llama a Blas Cristaldo y le informa que Rubén Urbieta y su familia podrían haber estado en el Ycuá Bolaños. · fecha 2004-08-01 · hora 15:30 · lugar None
+    F09@198807: «A las tres y media me llama Juan Carlos Casco – se llama un amigo en común, que estuvo también en la cena la noche anterior – me dice “¿Qué sabés de Rubén?”, “Está en el río”. “No, no está en el río”, me dice.»
+[T25] Blas Cristaldo y otros comienzan la búsqueda de sus familiares y se enteran de que Rubén Urbieta ha sido identificado como una de las víctimas fatales. · fecha 2004-08-01 · hora 16:15 · lugar None
+    F09@199327: «porque a las cuatro y cuarto cuando nosotros nos dispusimos a salir en la búsqueda ya nos enteramos de que a Rubén ya lo habían identificado, él murió calcinado, totalmente, se le reconoció por el reloj.»
+[T26] Blas Cristaldo se entera de que Teresa y Gaby Urbieta fueron encontradas en el cuartel 4 de Mayo. · fecha 2004-08-01 · hora 21:00 · lugar 4 de mayo
+    F09@200185: «pero a las nueve de la noche ya nos enteramos de que le habían encontrado a Teresa y a Gaby en el 4 de mayo.»
+[T27] Blas Cristaldo retira el cuerpo de su esposa Estela del estacionamiento del supermercado. · fecha 2004-08-01 · hora 22:30 · lugar Estacionamiento del Ycuá Bolaños
+    F09@201934: «Yo le retiré a las diez y media de la noche. Yo había comprado un tiempo atrás cuatro celulares porque se vendían en pareja y era más barato...»
+[T28] Comienza el trabajo de peritaje de la división de Criminalística de la Policía en el local del Ycuá Bolaños, que se extendería hasta el 10 de agosto. · fecha 2004-08-02 · hora None · lugar None
+    F06@1252: «Es el trabajo de Criminalística de la Policía, encabezado por el comisario Victorino Martínez. Se hizo entre el 2 y el 10 de agosto del 2004.»
+[T29] Bomberos de la provincia de Formosa llegan a Asunción y realizan la primera evaluación del incendio. · fecha 2004-08-02 · hora None · lugar Asunción
+    F09@60872: «Luego, al otro día, por la mañana llegaron los bomberos de la provincia de Formosa. Hicieron una primera evaluación, la primera hipótesis fue que se trató de un incendio, no de un atentado.»
+[T30] Edgar Sánchez denuncia al comisario Juan Pereira por obstrucción de la investigación. · fecha 2004-08-02 · hora None · lugar None
+    F09@205070: «el reconocimiento del fiscal general del Estado, que el 2 de agosto ya tenía la denuncia de Edgar Sánchez, de que el comisario Juan Pereira obstruyó la investigación de la Fiscalía, induciéndoles a los guardias a no contar la verdad.»
+[T31] Los diarios ABC y La Nación publican que los fiscales Teresa Sosa y Edgar Sánchez informaron que Ismael Alcaraz reconoció haber recibido la orden de cerrar las puertas por radio. · fecha 2004-08-03 · hora None · lugar None
+    F09@138847: «el martes 3 de agosto, por lo menos a mí me consta, en dos diarios – tengo los recortes, diario ABC y La Nación – Teresa Sosa y Edgar Sánchez manifestaron a la prensa que recibieron el reconocimiento de Ismael Alcaraz»
+[T32] El cuerpo de María Angélica, maestra de párvulos, es hallado. · fecha 2004-08-06 · hora None · lugar supermercado Ycuá Bolaños
+    F11@2223: «María Angélica, una maestra de párvulos, fue hallada cinco días después del incendio»
+[T33] El sitio web noticiasdot.com publica un artículo sobre la página de internet de la cadena Ycuá Bolaños. · fecha 2004-08-07 · hora None · lugar None
+    F09@9345: «En la página web www.noticiasdot.com/publicaciones, con fecha 7 de agosto de 2004, tenemos el siguiente texto, que se refiere a la página web de la cadena Ycuá Bolaños:»
+[T34] Se realiza una movilización silenciosa sobre la avenida Artigas. · fecha 2004-08-14 · hora None · lugar Avenida Artigas, Asunción
+    F09@169993: «Resulta que el 14 se da una movilización, no recuerdo quién convocó la marcha. (...) La movilización fue sobre Artigas, dieron unas cuantas vueltas, era una movilización muy silenciosa, no había bombos ni cosas así.»
+[T35] Se celebra una misa por los niños en el barrio Santísima Trinidad, a la que asiste el intendente Riera, generando una reacción de enojo y forcejeos entre la gente y su escolta. · fecha 2004-08-15 · hora None · lugar Iglesia de la Santísima Trinidad
+    F09@170343: «ese domingo yo me acuerdo que invitan a la Iglesia trinidad, iba a haber una misa por el tema de los desaparecidos y una reunión con los asesores jurídicos (...) El 15 cuando llegamos (a la misa) se empieza a saber que... yo llegué por ejemplo cuando la misa había empezado y decían que el intendente»
+[T36] María Berzabé Meza sale de su encierro y se une al grupo de familiares que exigen justicia por las víctimas del incendio. · fecha 2004-10 · hora None · lugar None
+    F09@260559: «agosto, setiembre, en octubre me sacaron prácticamente de mi encierro, mi hija mayor me sacó, me dijo “Vamos al grupo donde se están juntando y están protestando para que se haga justicia”»
+[T37] El fiscal Edgar Sánchez se reúne con las víctimas en el local de la CONATEL para informar sobre los avances del proceso. · fecha 2004-12-07 · hora 19:30 · lugar local de la CONATEL
+    F09@19774: (= arriba)
+[T38] Se publica una manifestación del fiscal Sánchez denunciando que el comisario Pereira inducía a los guardias a mentir. · fecha 2004-12-25 · hora None · lugar None
+    F09@140205: «apareció publicado el sábado 25 de diciembre, manifestaciones del fiscal Sánchez. Qué es lo que él dice: “Mientras nosotros levantábamos cadáveres en el supermercado, el comisario Juan Pereira... estaba induciendo a los guardias a no decir la verdad”.»
+[T39] El fiscal presenta la acusación contra los Paiva pero no incluye la figura de tentativa de homicidio para los heridos leves. · fecha 2004-12-30 · hora None · lugar None
+    F09@30659: «A pesar de que el fiscal se comprometió a acusar por tentativa, el día jueves 30 de diciembre presentó la acusación y no previó la tentativa de homicidio.»
+[T40] Los abogados querellantes presentan una acusación formal contra Juan Pío Paiva, Víctor Daniel Paiva y otros. · fecha 2004-12-31 · hora None · lugar None
+    F09@17691: «a grandes rasgos te puedo decir que concluimos este trabajo el día 31 de diciembre, presentamos una formal acusación contra los señores Juan Pío Paiva y Víctor Daniel Paiva»
+[T41] Los abogados querellantes presentan una nueva querella criminal contra el arquitecto Bernardo Ismachoviez. · fecha 2004-12-31 · hora None · lugar None
+    F09@18688: «Y además de eso, también el 31 de diciembre presentamos una nueva querella criminal, también en representación de 92 familias, en contra del director y arquitecto de la obra que es Bernardo Ismachoviez»
+[T42] 45 personas afectadas por el incendio presentan una nota al fiscal general del Estado pidiendo una reunión con los fiscales. · fecha 2005-01-07 · hora None · lugar Fiscalía General del Estado
+    F09@129880: «El día lunes 7 de enero habíamos presentado una nota al fiscal general del Estado, firmando 45 personas directamente afectadas por este siniestro.»
+[T43] La autora entrevista al abogado Alejandro Nissen. · fecha 2005-01-11 · hora 08:00 · lugar None
+    F09@15906: «ENTREVISTA AL ABOG. ALEJANDRO NISSEN, ABOGADO QUERELLANTE DE 92 FAMILIAS. MARTES 11 DE ENERO DE 2005 – 08:00 HS.»
+[T44] La autora entrevista al médico siquiatra Alejandro Maciel. · fecha 2005-01-12 · hora 08:00 · lugar None
+    F09@69219: (= arriba)
+[T45] La autora entrevista a Mariana Aquino de Chamorro. · fecha 2005-01-13 · hora 18:00 · lugar Casa de Gladys
+    F09@113567: «MARIANA AQUINO DE CHAMORRO, 44 AÑOS – MADRE DE MARIO EDUARDO CHAMORRO, 25 AÑOS, EMPLEADO DEL YCUÁ BOLAÑOS, FALLECIDO. JUEVES 13/01/05, 18 HS.»
+[T46] Se realiza una convocatoria de protesta en la fiscalía, donde les cierran las puertas y se producen tensiones. · fecha 2005-01-14 · hora None · lugar Fiscalía
+    F09@130680: «entonces nos reunimos y decidimos hacer una convocatoria para el viernes 14, volvimos a irnos el viernes, un número interesante (...) de nuevo la provocación, nos cierran las puertas, no saben qué hacer, el comisario hace venir a los cascos azules»
+[T47] Tras la reunión en CONATEL, los manifestantes realizan una sentata frente al Ycuá Bolaños y luego marchan hacia la casa del fiscal Latorre, pero la policía les impide el paso. · fecha 2005-01-17 · hora None · lugar Frente al Ycuá Bolaños y cercanías de la casa del fiscal Latorre
+    F09@175694: «La sorpresa al llegar cerca de la casa de Latorre, fue que media cuadra antes de la misma esperaban como cinco patrulleras tapando la calle y unos 50 efectivos policiales, impidiendo seguir camino»
+[T48] Miembros del Colectivo Ni Olvido Ni Perdón se reúnen en una gomería. · fecha 2005-01-17 · hora 18:00 · lugar La gomería
+    F09@128143: «17 de enero. Le llamo al Ing. Cristaldo y me cuenta que a las 18 hs. los miembros del Colectivo se reunirían en la gomería»
+[T49] Víctimas y familiares se reúnen en CONATEL, pero el Fiscal Latorre, que había prometido asistir, no se presenta. · fecha 2005-01-17 · hora 19:00 · lugar CONATEL
+    F09@128406: «Reunión de los grupos de víctimas, en CONATEL, el lunes 17-01-05 a las 19 hs. El Fiscal Latorre prometió ir, pero finalmente mandó decir que no iba.»
+[T50] La autora del libro entrevista al Ingeniero Blas Cristaldo. · fecha 2005-01-22 · hora 09:00 · lugar None
+    F09@176993: (= arriba)
+[T51] La autora del libro entrevista al sociólogo José Luis Simón. · fecha 2005-02-04 · hora 17:00 · lugar None
+    F09@215075: (= arriba)
+[T52] La autora del libro entrevista a María Berzabé Meza Vda. de Brizuela. · fecha 2005-02-07 · hora 16:30 · lugar None
+    F09@251607: «ENTREVISTA A MARÍA BERZABÉ MEZA VDA. DE BRIZUELA, QUIEN PERDIÓ A SU ESPOSO, JUAN BRIZUELA. LUNES 7 DE FEBRERO, 16:30 HS.»
+[T53] La autora del libro entrevista a Luis Escobar Faella, abogado defensor de Juan Pío Paiva. · fecha 2005-02-15 · hora 16:30 · lugar None
+    F09@285031: (= arriba)
+[T54] La autora entrevista al oficial Benedicto Pérez de los Bomberos de Formosa. · fecha 2005-04-20 · hora 20:00 · lugar Dirección de Cuerpos y Servicios Especiales (Policía de la provincia de Formosa)
+    F09@60423: «DATOS DE LA ENTREVISTA AL OFICIAL BENEDICTO PÉREZ, BOMBEROS DE FORMOSA, 20 DE ABRIL DE 2005, 20:00 HS.»
+[T55] Se identifican los restos de Gustavo Lima y su hija Mara Angélica. · fecha 2005-07 · hora None · lugar None
+    F11@2309: «los restos de su esposo e hija fueron identificados en julio de 2005 y la ‘tía Vicky’, en 2006.»
+[T56] Se identifican los restos de Victorina Lima, conocida como 'tía Vicky'. · fecha 2006 · hora None · lugar None
+    F11@2309: (= arriba)
+[T57] Se inició el primer juicio oral y público por el caso. · fecha 2006-07-24 · hora None · lugar None
+    F16@3462: «El primer juicio oral y público fue realizado entre el 24 de julio del 2006 y 5 de diciembre de ese mismo año, más de 2 años después del siniestro.»
+[T58] Incidentes obligaron a suspender la lectura de la sentencia del primer juicio. · fecha 2006-12-05 · hora None · lugar None
+    F16@3462: «El primer juicio oral y público fue realizado entre el 24 de julio del 2006 y 5 de diciembre de ese mismo año (...) En aquella ocasión los incidentes obligaron a suspender la lectura de la sentencia.»
+[T59] Los peritajes del caso Ycuá Bolaños fueron introducidos al juicio oral mediante su lectura. · fecha 2007 · hora None · lugar None
+    F06@0: «Los peritajes del caso Ycuá Bolaños fueron introducidos ayer al juicio oral por su lectura.»
+[T60] Daniel Areco consiguió su libertad. · fecha 2007 · hora None · lugar None
+    F16@2985: «Areco consiguió su libertad ya en el 2007.»
+[T61] El juicio oral continuará el próximo lunes. · fecha 2007 · hora 08:30 · lugar None
+    F06@2913: «El juicio oral continúa el lunes a las 8.30, por la importancia de la prueba, alegan los jueces.»
+[T62] Un adolescente de 13 años, hijo de un sobreviviente del incendio, intentó suicidarse. · fecha 2007-05 · hora None · lugar barrio Kennedy, de Lambaré
+    F06@3033: «Un adolescente de 13 años, cuyo padre sufrió quemaduras en el siniestro del Ycuá Bolaños, intentó suicidarse en mayo pasado, atándose del cuello con una soga.»
+[T63] Víctor Paiva consiguió la libertad con restricciones. · fecha 2007-08 · hora None · lugar None
+    F16@2434: (= arriba)
+[T64] Inició una nueva audiencia de juicio con un nuevo tribunal. · fecha 2007-08 · hora None · lugar None
+    F16@3694: «En agosto del 2007 inició una nueva audiencia de juicio con un nuevo tribunal.»
+[T65] Los Paiva y Daniel Areco fueron condenados. · fecha 2008-02-02 · hora None · lugar None
+    F16@3773: «Los Paiva y Areco fueron condenados el 2 de febrero de 2008.»
+[T66] El juez Hugo Morán dictó la primera sentencia indemnizatoria del caso. · fecha 2009-06-04 · hora None · lugar None
+    F15@2429: (= arriba)
+[T67] El juez Miguel Ángel Rodas condenó a Juan Pío Paiva, su hijo y a la sociedad Ycuá Bolaños a pagar más de G. 400 millones por indemnización. · fecha 2011-04 · hora None · lugar None
+    F15@2762: «Asimismo, el juez Miguel Ángel Rodas condenó en abril pasado al empresario Juan Pío Paiva, su hijo Víctor Daniel Paiva y la sociedad Ycuá Bolaños a pagar más de G. 400 millones por indemnización»
+[T68] Se publica un artículo resumiendo la conclusión del proceso penal del caso Ycuá Bolaños. · fecha 2011-07-30 · hora 22:07 · lugar None
+    F15@149: «30 de julio de 2011 - 22:07 Caso Ycuá Bolaños: Concluye proceso penal con tres sentencias condenatorias»
+[T69] Fecha en la que la condena de Juan Pío Paiva debía terminar originalmente. · fecha 2017 · hora None · lugar None
+    F16@3834: «La condena de Juan Pío Paiva debía purgarse en el 2017.»
+[T70] Murió Emiliano Paiva, hijo del dueño del supermercado, en libertad, por complicaciones de Covid. · fecha 2020 · hora None · lugar None
+    F05@2293: «...Emiliano Paiva, a 10 años de prisión y quien murió en libertad en el 2020, a raíz de complicaciones por el Covid.»
+[T71] Al cumplirse 16 años de la tragedia, Tatiana Gabaglio compartió un mensaje en una red social. · fecha 2020-08-01 · hora None · lugar None
+    F03@3033: «Este sábado, al cumplirse 16 años de la tragedia, la joven compartió un mensaje a través de la red social, que expresa:»
+[T72] El segundo episodio de la miniserie documental "Memorias del Ycuá Bolaños" estará disponible. · fecha 2024-07-25 · hora None · lugar None
+    F08@694: «El segundo episodio estará disponible el jueves 25 de julio.»
+[T73] Se estrenó el cuarto y último capítulo de la docuserie Memorias del Ycuá Bolaños, coincidiendo con el 20° aniversario del incendio. · fecha 2024-08-01 · hora None · lugar None
+    F07@945: «estrenó este jueves el cuarto y último capítulo, en coincidencia con el 20° aniversario del incendio del supermercado.»
+[T74] Se tiene previsto el acto central en conmemoración de los 20 años de la tragedia. · fecha 2024-08-01 · hora 11:00 · lugar Memorial 1A
+    F05@4304: «Para el jueves 1 de agosto, se tiene previsto el acto central a las 11:00, en el memorial ubicado sobre la avenida Artigas...»
+[T75] Falleció Juan Pío Paiva, el principal demandado. · fecha 2025-01-25 · hora None · lugar None
+    F10@3045: «Con el fallecimiento del principal demandado, el pasado 25 de enero, debería ir en contra de sus sucesores para intentar hacer efectiva la sentencia de la Sala Civil.»
+[T76] La Sala Civil de la Corte se pronunció en un juicio de indemnización contra Juan Pío Paiva y la empresa Ycuá Bolaños V SACI. · fecha 2025-02-07 · hora 11:42 · lugar None
+    F10@434: «Febrero 7, 2025 11:42 a. m. ... A casi 21 años de la tragedia del Supermercado Ycuá Bolaños, la Sala Civil de la Corte se pronunció en uno de los últimos juicios de indemnización contra el fallecido Juan Pío Helvidio Paiva Escobar y la empresa Ycuá Bolaños V SACI.»
+</cronologia>
+<datos n="227">
+[D01] Tatiana Gabaglio tenía 7 años cuando ocurrió el incendio del supermercado Ycuá Bolaños. · tipo cifra · valor 7 · fecha 2004-08-01
+    F03@0: (= arriba)
+[D02] Como consecuencia de las quemaduras, Tatiana Gabaglio perdió una pierna. · tipo magnitud · valor None · fecha None
+    F03@191: «A consecuencia de las quemaduras perdió una pierna. Hoy estudia derecho, es atleta y comparte su testimonio de vida con cientos de jóvenes.»
+[D03] Un panel del cielorraso derretido cayó sobre la pierna de Tatiana Gabaglio, dejándola atrapada durante el incendio. · tipo nombre · valor panel del cielorraso derretido · fecha None
+    F03@555: «Tatiana recordó que cuando estaba en el supermercado, al momento que toda la instalación ardía en llamas, un panel del cielorraso derretido cayó sobre su pierna y quedó atrapada.»
+[D04] Tatiana Gabaglio fue rescatada por bomberos voluntarios. · tipo nombre · valor bomberos voluntarios · fecha None
+    F03@734: «Gracias a la intervención heroica de bomberos voluntarios, la pequeña niña logró salvar su vida. No obstante, su miembro recibió quemaduras muy graves, debido a que cayó un panel de cielorraso derretido, por lo que los médicos intervinientes tuvieron que amputárselo.»
+[D05] La pierna de Tatiana Gabaglio tuvo que ser amputada por los médicos debido a la gravedad de las quemaduras. · tipo magnitud · valor None · fecha None
+    F03@844: «...su miembro recibió quemaduras muy graves, debido a que cayó un panel de cielorraso derretido, por lo que los médicos intervinientes tuvieron que amputárselo.»
+[D06] Tatiana Gabaglio lamentó que, 16 años después, los culpables de la tragedia siguen afuera. · tipo cita · valor None · fecha 2020-08
+    F03@1003: «A más de lo que recibí del Estado, nunca recibí indemnización real o reparación del daño. Lo que alguna vez me dieron, particularmente como una persona para mí que de por vida quedé así, no alcanza. Los culpables, bien gracias. Siguen afuera”»
+[D07] Según Tatiana Gabaglio, ni las personas que ganaron juicios a los propietarios del supermercado lograron resarcimientos monetarios. · tipo cita · valor None · fecha None
+    F03@1292: «Gabaglio manifestó además que ni las mismas personas que ganaron en juicio a los propietarios del supermercado lograron resarcimientos monetarios. “Ni ellos le quitaron un solo guaraní a estos criminales.»
+[D08] Tatiana Gabaglio estudia Derecho en la Universidad Nacional de Asunción (UNA). · tipo nombre · valor Derecho en la Universidad Nacional de Asunción (UNA) · fecha None
+    F03@1910: «En otra parte de la entrevista, Tatiana mencionó que se puso a estudiar la carrera de Derecho en la Universidad Nacional de Asunción (UNA) por pura rabia.»
+[D09] Tatiana Gabaglio también estudia la licenciatura en Criminalística. · tipo nombre · valor licenciatura en Criminalística · fecha None
+    F03@2453: «Además de cursar el cuarto año de la carrera de Derecho, Tatiana también estudia licenciatura en Criminalística.»
+[D10] La tragedia del Ycuá Bolaños afectó a miles de personas. · tipo cifra · valor miles · fecha None
+    F03@3222: «Bueno, aquí nadie puede hablar por todos porque fuimos miles de afectados, no se puede pretender un “consenso emocional”, es decir, seguimos viviendo tan diversos estados de ánimo.»
+[D11] Según un mensaje de Tatiana Gabaglio, la tragedia se debió a una actitud desalmada de los empresarios y a un Estado ineficiente y corrupto. · tipo cita · valor None · fecha None
+    F03@4700: «Segundo, porque las causas van más allá de “un simple accidente”, pues allí hubo actitud desalmada de empresarios que solo valoran el dinero y un Estado paquidérmico, infestado de ineficiencia y corrupción que permitió que ocurriera.»
+[D12] Tatiana Gabaglio denunció que el Estado respondió a los afectados con procesos judiciales amañados y represión. · tipo cita · valor None · fecha None
+    F03@4934: «Tercero, porque ese mismo estado causal, corresponsable, no pudo dar respuesta con mínima justicia y dignidad a tantos miles de afectados, solo nos respondieron con los consabidos procesos judiciales amañados, y cuando osamos en reclamar con firmeza nuestros derechos conculcados nos respondieron con»
+[D13] El incendio del supermercado Ycua Bolaños es considerado la tragedia más grande en tiempos de paz de Paraguay. · tipo cita · valor None · fecha None
+    F05@135: «se conmemoran 20 años del incendio del supermercado Ycua Bolaños, la tragedia más grande en tiempos de paz del Paraguay.»
+    F10@1308: «en la tragedia más grande en tiempos de paz ocurrida en el Paraguay.»
+[D14] El incendio del supermercado Ycua Bolaños causó 400 muertes. · tipo cifra · valor 400 · fecha None
+    F05@256: (= arriba)
+    F08@1056: «reconstruir esa jornada que cambió la vida de un barrio, una ciudad y un país con la pérdida de 400 vidas.»
+    F09@118971: «Cómo no va a haber elementos, si son 400 personas, más, que fallecieron, ¡qué más que eso quieren, y los heridos que quedaron!»
+    F15@403: (= arriba)
+[D15] Yessica Vanessa, víctima del incendio, tenía 29 años en ese entonces. · tipo cifra · valor 29 · fecha 2004-08-01
+    F05@256: «El suceso se cobró 400 vidas, entre ellas las de Yessica Vanessa, que tenía en ese entonces 29 años y Yessica Natalia, de 22 en aquel momento...»
+[D16] Yessica Natalia, víctima del incendio, tenía 22 años en aquel momento. · tipo cifra · valor 22 · fecha 2004-08-01
+    F05@305: «...Yessica Vanessa, que tenía en ese entonces 29 años y Yessica Natalia, de 22 en aquel momento, las dos únicas hijas de Ángela.»
+[D17] La cajera Beatriz González tenía asignada la caja N° 11 el día del incendio. · tipo cifra · valor 11 · fecha 2004-08-01
+    F05@875: (= arriba)
+[D18] Guillermo Alfonso Ortíz, víctima del incendio, tenía 17 años y era carritero en el supermercado. · tipo cifra · valor 17 · fecha 2004-08-01
+    F05@1937: (= arriba)
+[D19] Juan Pio Paiva, dueño del local, fue condenado a 12 años de cárcel por el incendio. · tipo cifra · valor 12 · fecha None
+    F05@2163: «En lo penal, fueron condenados a 12 años de cárcel por el incendio, el dueño del local, Juan Pio Paiva, ya en libertad...»
+    F10@3282: (= arriba)
+    F15@1218: «El segundo juicio oral y público concluyó con la condena de Juan Pío Paiva, Víctor Paiva y Areco, con 12, 10 y 5 años de prisión, respectivamente.»
+    F16@2383: (= arriba)
+[D20] Emiliano Paiva, hijo del dueño, fue condenado a 10 años de prisión. · tipo cifra · valor 10 · fecha None
+    F05@2282: «...y su hijo, Emiliano Paiva, a 10 años de prisión y quien murió en libertad en el 2020, a raíz de complicaciones por el Covid.»
+    F10@3282: (= arriba)
+    F15@1218: (= arriba)
+[D21] Daniel Areco, guardia de seguridad, fue condenado a 5 años de prisión. · tipo cifra · valor 5 · fecha None
+    F05@2407: «Además, fueron también condenados Daniel Areco, guardia de seguridad que fue a 5 años de prisión y el directivo Humberto Casaccia, por 2 años.»
+    F10@3282: (= arriba)
+    F15@1120: «La condena de homicidio culposo es de cinco años, e implicaba considerar el hecho como accidente.»
+    F15@1218: (= arriba)
+[D22] Humberto Casaccia, directivo, fue condenado a 2 años. · tipo cifra · valor 2 · fecha None
+    F05@2407: (= arriba)
+[D23] El supermercado Ycua Bolaños no tenía ningún extractor eólico ni ventilación. · tipo cita · valor None · fecha None
+    F05@3410: «Esto (Ycua) no tenía un solo extractor eólico, no tenía ventilación alguna con un techo absolutamente inflamable”»
+[D24] Para la conmemoración se prevé el encendido de 400 velas en homenaje a las víctimas. · tipo cifra · valor 400 · fecha None
+    F05@4480: «el encendido de 400 velas en homenaje a las víctimas, el toque de sirenas y el despliegue de un telón simbólico.»
+[D25] Un peritaje sobre las puertas del Ycuá Bolaños concluyó que solo tres de ellas estaban cerradas. · tipo cifra · valor None · fecha None
+    F06@92: «El informe sobre las puertas concluyó que solo tres de ellas estaban cerradas. Las demás no.»
+[D26] El peritaje de Criminalística de la Policía sobre el Ycuá Bolaños se realizó entre el 2 y el 10 de agosto del 2004. · tipo fecha · valor entre el 2 y el 10 de agosto del 2004 · fecha 2004-08-02
+    F06@1252: (= arriba)
+[D27] El fuego se inició por la acumulación de grasa, carbonilla y cenizas en el tramo en forma de "S" de la chimenea de la parrilla. · tipo cita · valor None · fecha None
+    F06@1394: «El análisis había determinado que el fuego se inició a raíz de la acumulación de desperdicios de la cocción en la chimenea de la parrilla, específicamente en el tramo en forma de “S”.»
+[D28] Las llamas del incendio se propagaron por el material aislante del techo. · tipo cita · valor None · fecha None
+    F06@1681: «previa humareda y chispeada, propagándose por el material ais-lante del techo”.»
+[D29] Las únicas puertas cerradas según la pericia eran las de la azotea y mirador y las dos de la Administración. · tipo lugar · valor None · fecha None
+    F06@1799: «Las únicas cerradas según la pericia eran las que dan a la azotea y mirador; a más de las dos que dan a la Administración.»
+[D30] Las cuatro puertas de blíndex del supermercado eran pivotantes y estaban cerradas pero sin llave. · tipo cifra · valor None · fecha None
+    F06@1922: «Concluyen que las cuatro puertas de blíndex eran pivotantes, “por lo tanto estaban cerradas sin llavear”.»
+[D31] Las puertas de hierro de la rampa se encontraban abiertas, según el informe pericial. · tipo cita · valor None · fecha None
+    F06@2177: «Del sitio se levantaron restos de tela. Explica que esos accesos “se encontraban abiertos”.»
+[D32] El ducto de la chimenea donde se originó el fuego fue entregado en la Embajada de los Estados Unidos. · tipo lugar · valor Embajada de los Estados Unidos · fecha None
+    F06@2396: «Al final, informó que la evidencia fue entregada en la Embajada de los Estados Unidos. Se libró un oficio para solicitarla, pero al parecer fue enviada a aquella nación.»
+[D33] Los vehículos que se encontraban en el sitio durante el incendio ya fueron entregados a sus dueños. · tipo cita · valor None · fecha None
+    F06@2683: «El fiscal replicó que los rodados ya habían sido entregados a sus dueños.»
+[D34] Un adolescente de 13 años, cuyo padre sufrió quemaduras en el incendio del Ycuá Bolaños, intentó suicidarse en mayo. · tipo cifra · valor 13 · fecha 2007-05
+    F06@3033: (= arriba)
+[D35] Se produjo una docuserie llamada Memorias del Ycuá Bolaños sobre el incendio del supermercado. · tipo nombre · valor Memorias del Ycuá Bolaños · fecha None
+    F07@689: «La docuserie Memorias del Ycuá Bolaños, producida por Última Hora, cuenta con cuatro capítulos que ya están disponibles.»
+[D36] La docuserie sobre el incendio del supermercado Ycuá Bolaños tiene cuatro capítulos. · tipo cifra · valor None · fecha None
+    F07@689: (= arriba)
+[D37] El incendio del supermercado cumplió 20 años. · tipo magnitud · valor 20 años · fecha 2024-08-01
+    F07@994: «En coincidencia con el 20° aniversario del incendio del supermercado.»
+[D38] En la tragedia ocurrida el 1 de agosto de 2004 murieron 400 personas. · tipo cifra · valor 400 · fecha 2004-08-01
+    F07@1168: (= arriba)
+[D39] El diario Última Hora y Telefuturo cedieron material de archivo e imágenes para la docuserie. · tipo nombre · valor Última Hora y Telefuturo · fecha None
+    F07@1258: «Además, material de archivo del diario Última Hora e imágenes exclusivas cedidas por Telefuturo ayudan a describir con detalles momentos claves de esta historia»
+[D40] La memoria de las 400 almas perdidas el 1 de agosto de 2004 se mantiene presente a través de un memorial. · tipo cifra · valor 400 · fecha 2004-08-01
+    F07@3050: «mantener presente la memoria de las 400 almas perdidas aquel 1 de agosto del 2004.»
+[D41] El Supermercado Ycuá Bolaños de Trinidad ardió en llamas. · tipo lugar · valor Supermercado Ycuá Bolaños de Trinidad · fecha None
+    F08@297: «en que el Supermercado Ycuá Bolaños de Trinidad ardió en llamas y dejó heridas difíciles de cicatrizar.»
+[D42] El 1 de agosto de 2004 ocurrió la tragedia civil del Supermercado Ycuá Bolaños. · tipo fecha · valor None · fecha 2004-08-01
+    F08@401: (= arriba)
+    F09@10917: «Domingo 1 de agosto de 2004, asado en casa, la familia reunida, en el patio.»
+    F11@141: (= arriba)
+    F15@361: «Esto coincide con el séptimo aniversario del fatal incendio ocurrido el 1 de agosto de 2004 en el supermercado Ycuá Bolaños, y que dejara un saldo de 400 muertos.»
+    F16@0: (= arriba)
+[D43] Última Hora presenta una miniserie documental llamada "Memorias del Ycuá Bolaños". · tipo nombre · valor Memorias del Ycuá Bolaños · fecha None
+    F08@401: (= arriba)
+[D44] El segundo episodio de la miniserie documental estará disponible el 25 de julio. · tipo fecha · valor 25 de julio · fecha 2024-07-25
+    F08@694: (= arriba)
+[D45] Durante el incendio se escuchó un sonido muy fuerte, parecido a mil veces el sonido de agua en aceite hirviendo. · tipo cita · valor None · fecha None
+    F08@1333: «Escuchamos un sonido muy fuerte, parecía como mil veces el sonido de agua cuando tirás en aceite hirviendo.»
+[D46] Víctor Galeano tenía 24 años en el momento de la tragedia. · tipo cifra · valor 24 · fecha 2004-08-01
+    F08@1628: (= arriba)
+[D47] Las puertas de blíndex del supermercado estaban cerradas durante el incendio. · tipo cita · valor None · fecha None
+    F08@2016: «Cuando estábamos llegando a la puerta de blíndex, nos dimos cuenta de que eso estaba cerrado...»
+    F09@119098: «Hicieron huecos, rompieron para quitarle de ahí, estaban todas las puertas cerradas, yo estuve ahí, gritando “¡Mi hijo está adentro!”»
+[D48] Hubo un estruendo hacia el estacionamiento y el humo subió. · tipo cita · valor None · fecha None
+    F08@2112: «Hubo un estruendo hacia el estacionamiento y sube el humo; entonces ahí no había nada que hacer.»
+[D49] Una sobreviviente describió el ambiente dentro del supermercado como estar en un horno o un tatakua, muy caliente y con cenizas. · tipo cita · valor None · fecha None
+    F08@2975: «Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente.»
+[D50] El libro La Tragedia del Ycuá Bolaños es una recopilación de doce o más cassettes de entrevistas. · tipo cifra · valor None · fecha None
+    F09@1178: «Doce cassettes (quizás más) desgrabados, cada uno contendiendo interesantes y valiosas opiniones e historias.»
+[D51] La autora, Karin Becker, comenzó la recopilación de entrevistas el 10 de enero. · tipo fecha · valor 10 de enero · fecha None
+    F09@1288: (= arriba)
+[D52] El supermercado Ycuá Bolaños "Botánico" fue inaugurado en Asunción en el año 2001. · tipo fecha · valor 2001 · fecha None
+    F09@5438: «En el año 2001 se inauguraba en Asunción el supermercado “Ycuá Bolaños”.»
+[D53] El supermercado estaba ubicado en la esquina de las avenidas Artigas y Santísima Trinidad. · tipo lugar · valor None · fecha None
+    F09@5511: «Una gran edificación, asentada en una esquina donde se cruzan dos avenidas, la citada Artigas y Santísima Trinidad.»
+[D54] Los empleados del supermercado Ycuá Bolaños trabajaban doce horas diarias, de lunes a lunes. · tipo magnitud · valor None · fecha None
+    F09@6919: «“...Eran doce horas de explotación, ¡doce horas trabajaba! De lunes a lunes. No había feriado, no había un momento de descanso»
+    F09@116880: «Porque eran doce horas de explotación, ¡doce horas trabajaba! De lunes a lunes. No había feriado, no había un momento de descanso.»
+[D55] A los empleados que trabajaban parados doce horas se les descontaban cien mil guaraníes de su sueldo si algo se perdía en su sección. · tipo magnitud · valor cien mil guaraníes · fecha None
+    F09@7194: «él tenía que estar parado doce horas, no se tenía que perder nada, porque ellos se pierde una cosa donde ellos están, en su sección, cien mil guaraníes le descuentan de su sueldo.»
+    F09@7327: «cien mil guaraníes le descuentan de su sueldo ”»
+[D56] A los empleados del supermercado les descontaban 100.000 guaraníes de su sueldo si se perdía algo en su sección. · tipo cifra · valor 100.000 guaraníes · fecha None
+    F09@7232: «no se tenía que perder nada, porque ellos se pierde una cosa donde ellos están, en su sección, cien mil guaraníes le descuentan de su sueldo.»
+[D57] El sitio web del supermercado era www.ycuabolanos.com.py. · tipo nombre · valor www.ycuabolanos.com.py · fecha None
+    F09@9515: «En la página de Internet www.ycuabolanos.com.py, se puede leer que el edificio que fue escenario de la peor tragedia de la historia paraguaya es catalogado como "un hito de la ciudad capital"»
+[D58] La cadena de supermercados Ycuá Bolaños fue fundada en 1978. · tipo fecha · valor 1978 · fecha None
+    F09@9777: «Además resalta que el supermercado Ycua Bolaños cercano al Jardín Zoológico y Botánico de esta capital es la cuarta sucursal de una cadena fundada en 1978»
+[D59] El local incendiado fue inaugurado en diciembre de 2001. · tipo fecha · valor diciembre de 2001 · fecha None
+    F09@10640: «así como escenas del día de la inauguración, en diciembre de 2001, y del interior.»
+[D60] El incendio comenzó a ser percibido por la gente aproximadamente a las 11:25 de la mañana. · tipo fecha · valor None · fecha 2004-08-01
+    F09@11551: (= arriba)
+[D61] Se dio la orden de cerrar las puertas del supermercado por miedo a que se robaran productos. · tipo cita · valor None · fecha None
+    F09@12447: «Alguien dio la fatídica, asesina y completamente loca orden de cerrarlas, por miedo a que se robe lo que había dentro del supermercado.»
+[D62] En la tragedia murieron 400 personas. · tipo cifra · valor 400 · fecha None
+    F09@14126: «Olvidábamos que murieron 400 personas, de una manera terrible, sufrida, infernal.»
+    F09@65591: «A partir de tamaña tragedia, la cantidad de familiares de las más de 400 personas fallecidas y otros tantos heridos, era lógico que se agrupen y formen asociaciones.»
+    F16@298: «Unas 400 personas que llegaron a ese sitio para pasar en familia o hacer compras perdieron la vida»
+[D63] Más de 400 familias resultaron afectadas por la tragedia. · tipo cifra · valor 400 · fecha None
+    F09@14208: «Olvidábamos, poco a poco, que más de 400 familias estaban llorando si cesar, sin poder dormir, sin querer vivir más.»
+[D64] El abogado Alejandro Nissen representa a 92 familias de víctimas del Ycuá Bolaños. · tipo cifra · valor 92 · fecha None
+    F09@17162: «nosotros en realidad representamos a 92 familias, no a toda la asociación, somos abogados de 92 familias que componen parte de la asociación de víctimas, 115 víctimas.»
+[D65] La acusación formal fue presentada por los querellantes el 31 de diciembre. · tipo fecha · valor 31 de diciembre · fecha None
+    F09@17691: (= arriba)
+    F09@18713: «el 31 de diciembre presentamos una nueva querella criminal, también en representación de 92 familias, en contra del director y arquitecto de la obra que es Bernardo Ismachoviez»
+[D66] Se presentó acusación contra Juan Pío Paiva, Víctor Daniel Paiva, el guardia Areco y cuatro guardias de seguridad del estacionamiento. · tipo nombre · valor None · fecha None
+    F09@17775: «presentamos una formal acusación contra los señores Juan Pío Paiva y Víctor Daniel Paiva, contra el guardia privado Areco y contra cuatro guardias de seguridad que estaban cubriendo el estacionamiento.»
+[D67] La fiscala a cargo de la investigación sobre los responsables municipales era Matilde Moreno. · tipo nombre · valor Matilde Moreno · fecha None
+    F09@20137: (= arriba)
+[D68] El sumario administrativo de la Municipalidad sancionó a los inspectores con 30 días de suspensión, sin encontrar responsables entre los directores. · tipo magnitud · valor 30 días · fecha None
+    F09@20641: «concluyó el sumario administrativo en donde fueron encontrados responsables solamente los funcionarios, directores ninguno. Solamente los inspectores, y recibieron una sanción de 30 días de suspensión.»
+[D69] Las pruebas presentadas al juez por la querella incluyen un DVD con 839 fotos. · tipo cifra · valor 839 · fecha None
+    F09@21276: «Esta prueba contiene 839 fotos, contiene las principales declaraciones testificales, contiene las pericias que hicieron el Cuerpo de Bomberos Voluntarios del Paraguay, la Policía Nacional, la Policía de Formosa y los americanos.»
+[D70] La Ordenanza 2597/88 regula las normas de seguridad y prevención contra incendios. · tipo nombre · valor Ordenanza 2597/88 · fecha None
+    F09@23935: «La ordenanza 2597/88 que regula las normas de seguridad y prevención contra incendios.»
+[D71] El fuego se inició en el codo en forma de "S" de una chimenea que partía de una parrilla en el patio de comidas. · tipo lugar · valor None · fecha None
+    F09@25812: «ese día lo que ocurrió fue, como consecuencia de la construcción de una chimenea que partía de una parilla ubicada en el patio de comidas, el constructor qué hizo: elevó una chimenea y le dio la forma de “S”»
+[D72] El fuego se concentró entre el cielorraso y el techo, quemando una capa de poliuretano, un aislante tóxico. · tipo nombre · valor poliuretano · fecha None
+    F09@26522: «Al concentrarse ese fuego entre el cielorraso y el techo, fue quemando una capa de poliuretano. El poliuretano es simplemente un aislante para el calor, no es antiflama. (...) y es altamente tóxico.»
+[D73] La primera explosión se produjo en el sector de panadería, que tenía 5 hornos eléctricos. · tipo magnitud · valor 5 hornos · fecha None
+    F09@27042: «En panadería existían 5 hornos eléctricos, que no despiden humo, despiden vapor. Entonces al encontrar ese fuego el vapor de los hornos (sin ningún extractor) entonces produce la primera explosión.»
+[D74] Las primeras explosiones comenzaron alrededor de las 9 de la mañana. · tipo fecha · valor None · fecha 2004-08-01
+    F09@27240: (= arriba)
+[D75] Entre 15 y 20 personas lograron romper una puerta de blindex y un portón de la rampa para escapar hacia la Avenida Artigas. · tipo cifra · valor None · fecha None
+    F09@28892: «Un pequeño número de personas, 15 a 20, que logran vencer la puerta de blindex y un portón que es el portón de la rampa y llegan hasta la Av. Artigas»
+[D76] El fiscal no incluyó a los heridos leves en la categoría de tentativa de homicidio en la acusación del 30 de diciembre. · tipo fecha · valor None · fecha None
+    F09@30659: (= arriba)
+[D77] La querella pide 25 años de cárcel para los Paiva y los guardias. · tipo magnitud · valor 25 años · fecha None
+    F09@32417: «Nosotros pedimos 25 años para los Paiva y los guardias. Para los otros pedimos 12 y 5 años.»
+[D78] Se embargó una póliza de seguros de tres millones de dólares en una cuenta del Banco de Fomento. · tipo magnitud · valor None · fecha None
+    F09@34729: «Lo que se consiguió es embargar la totalidad de la póliza de seguros, tres millones de dólares que están embargados en una cuenta del Banco de Fomento»
+[D79] Una sobreviviente, de apellido Rodas Cristaldo, gastó 60 mil dólares para su tratamiento. · tipo magnitud · valor None · fecha None
+    F09@37795: (= arriba)
+[D80] La recaudación diaria del supermercado incendiado era de aproximadamente 98 millones de guaraníes. · tipo magnitud · valor None · fecha None
+    F09@42923: «Más o menos el Ycuá Bolaños que se incendió tenía una recaudación de 98 millones por día.»
+[D81] A los funcionarios sobrevivientes se les ofreció un millón de guaraníes por mes durante 30 meses a cambio de que no declararan. · tipo magnitud · valor None · fecha None
+    F09@44872: «le ofrecían un pago de un millón de guaraníes por mes, durante 30 meses, a cambio de que ellos se borren del mapa.»
+[D82] El supermercado no tenía puertas de salida de emergencia señalizadas; las de ingreso eran también las de salida. · tipo cita · valor None · fecha None
+    F09@50572: «No, no había. Las mismas puertas de ingreso son las de salida. No había ninguna señalización, no había puertas de salida de emergencia, nada.»
+[D83] El salón de ventas del supermercado tenía cinco mil metros cuadrados. · tipo magnitud · valor None · fecha None
+    F09@54870: «El devastador incendio, de características inusuales, fue resultado de una conjunción de factores que causó una violentísima reacción en cadena que arrasó en cuestión de minutos con los cinco mil metros cuadrados del salón de ventas del supermercado.»
+[D84] El tinglado de zinc estaba recubierto con poliuretano como aislante del calor. · tipo nombre · valor poliuretano · fecha None
+    F09@55728: «El tinglado de zinc estaba recubierto con poliuretano, con la intención de contener el calor hacia el interior del local.»
+[D85] La parte superior del cielo raso de yeso estaba cubierta con una placa de isopor, un material de alta combustión. · tipo nombre · valor isopor · fecha None
+    F09@56076: «Se descubrió que la parte superior (mirando al techo) estaba cubierta con una placa de isopor, que es un buen aislante, pero de alta combustión.»
+[D86] Una explosión en el sector de panadería desplazó una columna de hormigón de 50 centímetros de diámetro. · tipo magnitud · valor 50 centímetros · fecha None
+    F09@57457: «El gas recalentado se introdujo por este ducto y causó una violenta explosión, con una onda expansiva que llegó a desplazar una columna de hormigón de 50 centímetros de diámetro.»
+[D87] Las llamas se transformaron en un gigantesco soplete que se desplazaba en forma circular, posiblemente registrando una segunda explosión conocida como "backdraft" o "explosión de humo". · tipo nombre · valor backdraft · fecha None
+    F09@58421: «Las llamas se transformaron en un gigantesco soplete que se desplazaba en forma circular hasta llegar a ocupar completamente el espacio existente a lo largo, ancho y alto de la rampa. Es probable que aquí se haya registrado la segunda explosión, que es el fenómeno conocido como "backdraft", o "explo»
+    F09@58605: «Es probable que aquí se haya registrado la segunda explosión, que es el fenómeno conocido como "backdraft", o "explosión de humo".»
+[D88] La combustión de isopor y la cobertura de poliuretano generó monóxido de carbono de alta temperatura. · tipo magnitud · valor None · fecha None
+    F09@58813: «Sin contar el proceso de combustión del isopor y la cobertura de poliuretano, que generó monóxido de carbono de alta temperatura, el proceso que vino desde la explosión de la cámara de maduración hasta la llamarada que cruzó el estacionamiento, el tiempo de desplazamiento del fuego fue rapidísimo y »
+[D89] Una de las salidas de emergencia del supermercado Ycuá Bolaños estaba clausurada y los guardias cerraron los portones. · tipo cita · valor None · fecha None
+    F09@59418: «Si aquí agregamos que una de las salidas de emergencia estaba clausurada, que los guardias cerraron los portones, tenemos una explicación de lo que sucedió en el supermercado Ycuá Bolaños.»
+[D90] Hubo falta de mantenimiento y verificación de accesorios, incluyendo chimeneas sucias, tubos con codos y falsas chimeneas. · tipo cita · valor None · fecha None
+    F09@59607: «Un último detalle: la falta de mantenimiento y verificación de los accesorios que tenían al fuego como principal elemento. Chimeneas sucias, tubos con codos y falsas chimeneas, una conjunción fatídica.»
+[D91] La primera hipótesis de los bomberos de Formosa fue que se trató de un incendio accidental y no de un atentado. · tipo cita · valor None · fecha None
+    F09@60956: «Hicieron una primera evaluación, la primera hipótesis fue que se trató de un incendio, no de un atentado. El fuego es diferente cuando se trata de un incendio accidental o intencional, los daños son distintos, por ejemplo, en el caso de un atentado, la onda expansiva desplaza cosas.»
+[D92] Peritos de Chile y España participaron en una rueda de peritos junto a los locales. · tipo lugar · valor Chile · fecha None
+    F09@61285: «Se realizó una rueda de peritos, de países como Chile y España también, la fiscala Teresa Sosa – sobre la cual Pérez dijo que era una de las mejores que conoció – eligió a dos representantes de cada fuerza, y todos coincidían en las hipótesis.»
+[D93] El día del incendio había más de 1.000 personas en el supermercado Ycuá Bolaños. · tipo cifra · valor None · fecha 2004-08-01
+    F09@61777: «En el Ycuá Bolaños, ese día, había más de 1.000 personas.»
+[D94] Para una superficie de 8.000 metros cuadrados, el coeficiente de ocupación en Formosa es de 600 personas máximo, mientras que en Paraguay, según vio el oficial Pérez, es de 4.000 personas. · tipo cifra · valor None · fecha None
+    F09@61835: «En el caso de Formosa, para una superficie de 8.000 metros cuadrados, según las ordenzazas, el coeficiente de ocupación es de 600 personas, máximo, cuando que lo que él vio en Paraguay es que es de 4.000 personas.»
+[D95] El supermercado debería haber tenido 12 metros de puertas de salidas de emergencia en total, pero solo había dos puertas de 2 metros cada una. · tipo magnitud · valor 12 metros · fecha None
+    F09@62049: «En cuanto a las salidas de emergencia, debería haber habido 12 metros de puertas de salidas de emergencia en total, y allí había dos puertas de 2 metros cada una.»
+[D96] Días o semanas antes del incendio, las alarmas ubicadas entre el techo y el cielorraso ya estaban sonando, pero el personal no estaba capacitado para actuar. · tipo cita · valor None · fecha None
+    F09@62360: «consultando con personal del Ycuá Bolaños ellos le dijeron que días, incluso semanas antes las alarmas que estaban entre el techo y el cielorraso ya estaban sonando, pero que la gente no tenía capacitación para determinar por qué sonaban y qué había que hacer.»
+[D97] El 1 de agosto, la parrilla del supermercado trabajó a su máxima capacidad. · tipo cita · valor None · fecha 2004-08-01
+    F09@62621: «Y el 1 de agosto, la parrilla trabajó a full – mencionó que peritos de EE.UU. se llevaron partes de la chimenea, pero él no sabe si los resultados de los análisis ya están).»
+[D98] Las puertas del supermercado se abrían hacia adentro, lo cual era incorrecto para una salida de emergencia. · tipo cita · valor None · fecha None
+    F09@62840: «la disposición de las puertas (se abrían hacia adentro) estaba al revés, etc., todo se mezcló para que sucediera la tragedia de la forma como fue.»
+[D99] Según el oficial Benedicto Pérez, un material importado tóxico que no debió haberse quemado se quemó, y si eso no hubiera ocurrido, la tragedia no habría sucedido. · tipo cita · valor None · fecha None
+    F09@63283: «había un material importado que no debió haberse quemado, era tóxico, sin embargo, se quemó (sería una falla de origen, de la empresa que lo vende), y para peor, según Pérez, si eso no se hubiera quemado, esta tragedia no hubiera sucedido, no pasaba nada.»
+[D100] El diseño de la chimenea estaba mal y además tenía falta de mantenimiento, aspecto que el arquitecto desconocía. · tipo cita · valor None · fecha None
+    F09@63539: «El diseño de la chimenea estaba mal, además tenía falta de mantenimiento, el arquitecto desconocía este aspecto, según el entrevistado, y si algo de eso no va en contra de ninguna ordenanza, es “legal”.»
+[D101] La temperatura entre el cielorraso y el techo alcanzó los 600 °C, lo que causó la muerte instantánea por quemaduras en las vías respiratorias de quienes estaban en el patio de comidas al inhalar. · tipo magnitud · valor None · fecha None
+    F09@64470: «la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación, la gente que estaba en el patio de comidas ya murió, pues esa temperatura quema las vías respiratorias al instante.»
+[D102] Tras la tragedia se conformaron organizaciones como la Coordinadora de familiares de desaparecidos, la Coordinadora de familiares y amigos, y el Colectivo Ni Olvido Ni Perdón. · tipo nombre · valor Colectivo Ni Olvido Ni Perdón · fecha None
+    F09@66998: «Las organizaciones son: 1. Coordinadora de familiares de desaparecidos 2. Coordinadora de familiares y amigos 3. Coordinadora de familiares de Zeballos Cué 4. Asociación de víctimas y familiares de víctimas 5. Colectivo Ni Olvido Ni Perdón»
+    F09@127594: «El mismo día en que conocí a Digna Cáceres, el doctor Nissen me presentó al Ing. Blas Cristaldo, del Colectivo Ni Olvido Ni Perdón.»
+[D103] Según el médico siquiatra Alejandro Maciel, las consecuencias de tanta mortandad no fueron accidentales, sino intencionales, por el cierre de puertas y la falta de seguridad. · tipo cita · valor None · fecha None
+    F09@73851: «Pero acá lo que veíamos es el tema de que esto no era lo mismo, se inició como un accidente pero las consecuencias de tanta mortandad no fueron accidentales, sino que fueron intencionales, el tema de cerrar puertas, el tema de la seguridad que no existía, el tema de los controles»
+[D104] El tratamiento de un gran quemado es muy costoso, incluso más que el de un paciente oncológico. · tipo cita · valor None · fecha None
+    F09@75020: «un quemado es más caro que un paciente oncológico, en cuanto al mantenimiento y el sostenimiento del tratamiento, lo digo como médico. Sé bien que es un tratamiento muy costoso el del quemado, sobre todo el del gran quemado, y ahí vemos que ya la solidaridad se terminó.»
+[D105] La sobreviviente Digna Cáceres fue tapada por escombros que cayeron y por gente que cayó encima de ella. · tipo cita · valor None · fecha None
+    F09@104903: «Yo me trabé ahí en donde se baja la escalera para el estacionamiento, porque se cayó el escombro y nos tapó todo.»
+[D106] El portón hacia la Avenida Artigas, por donde Digna Cáceres había entrado, estaba cerrado. · tipo lugar · valor Avenida Artigas · fecha None
+    F09@105017: «está la escalera y después la rampa, ahí la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.»
+[D107] La sobreviviente Digna Cáceres perdió el conocimiento y se despertó cuando le arrojaron agua desde arriba, saliendo arrastrada hacia un boquete abierto en la pared de la Avenida Artigas. · tipo cita · valor None · fecha None
+    F09@106770: «Y después cuando me desperté vi la claridad del boquete de la Avenida Artigas, el material ese se abrió. ¿Te despertaste sola? Me desperté sola. Después de que me mojaron, parece que me tiraron agua de hacia arriba. Ahí me desperté.»
+[D108] Digna Cáceres cree que en el supermercado había más de 1500 personas el día de la tragedia. · tipo cifra · valor más de 1500 · fecha 2004-08-01
+    F09@109514: «Y no piensan que fue una tragedia tan grande, que murieron más de ... yo digo que más de 500 personas porque en ese día parece que habían 1500 personas. [...] Mucha gente, más de 1500 personas estuvimos ahí ese día en el supermercado.»
+[D109] Digna Cáceres afirma que Pío Paiva, el jefe, mandó cerrar las puertas. · tipo cita · valor None · fecha None
+    F09@111669: «Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.»
+[D110] Mario Eduardo Chamorro, de 25 años, era empleado del Ycuá Bolaños y falleció en el incendio. · tipo nombre · valor Mario Eduardo Chamorro · fecha None
+    F09@113567: (= arriba)
+[D111] Mario Eduardo Chamorro llevaba 28 días trabajando en el supermercado cuando ocurrió la tragedia. · tipo magnitud · valor 28 días · fecha None
+    F09@115748: «Una persona buenísima, era futbolista, se dedicaba mucho al fútbol, todos los tiempos que él tenía, y al entrar, a los 28 días de entrar ahí , le sucedió esto.»
+    F09@126755: «Este muchacho tenía que estar doce horas parado. Llevaba trabajando veintiocho días cuando sucedió la tragedia.»
+[D112] El hijo de Mariana trabajaba 12 horas diarias, de lunes a lunes, sin feriados ni descanso. · tipo magnitud · valor 12 horas · fecha None
+    F09@116880: (= arriba)
+[D113] El hijo de Mariana cobró su primer sueldo el sábado 28, un día antes de la tragedia. · tipo fecha · valor None · fecha 2004-07-31
+    F09@118111: (= arriba)
+[D114] El abogado Nissen estimó que el juicio oral podría ser en junio. · tipo fecha · valor junio · fecha None
+    F09@120219: «El abogado Nissen me dijo que a lo mejor en junio sería el juicio oral.»
+[D115] Una madre afirma que había 12 puertas blindadas en el supermercado. · tipo cifra · valor 12 · fecha None
+    F09@120465: «Porque entonces es un Superman ese uno que cerró, son doce puertas que están ahí. Muchísimas puertas hay, blindadas.»
+[D116] Desde el 1 de agosto, la madre de una víctima está en la calle pidiendo justicia. · tipo fecha · valor 1 de agosto · fecha None
+    F09@122767: «Yo estoy todo el día en la calle. Desde el 1 de agosto estoy en la calle, estoy acompañada con todos, encontré a los muchachos, a todos estos grupos que están acá.»
+[D117] El Comité de Emergencias, los taiwaneses y la Pastoral Social ayudaron a las víctimas. · tipo nombre · valor Comité de Emergencias · fecha None
+    F09@123592: «A mí el Estado nunca me ayudó. Jamás. El Comité de Emergencias me ayudó una parte. Los taiwaneses también nos ayudaron.»
+[D118] La Pastoral Social distribuyó donaciones de Telefuturo, Radio Uno y el senador Galaverna en tres cuotas mensuales hasta febrero. · tipo magnitud · valor tres cuotas · fecha None
+    F09@123929: «Radio Uno con Víctor Benítez y ese senador Galaverna. Ellos dieron todo a la Pastoral para que se distribuya. Nos están dando en tres cuotas la mensualidad hasta febrero.»
+[D119] El fiscal Olindo López presentará su acusación contra Bernardo Ismachoviez en abril. · tipo fecha · valor abril · fecha None
+    F09@131830: «Olindo López al día siguiente inició la imputación para Bernardo Ismachoviez. Pero su acusación va a presentarla recién en abril.»
+[D120] El fiscal Edgar Sánchez acusó a un solo guardia de haber cerrado las puertas. · tipo cifra · valor None · fecha None
+    F09@138620: (= arriba)
+[D121] Los fiscales Teresa Sosa y Edgar Sánchez manifestaron a la prensa que Ismael Alcaraz reconoció haber recibido la orden de cerrar las puertas por radio. · tipo cita · valor None · fecha None
+    F09@138961: (= arriba)
+[D122] Aproximadamente 40 funcionarios del supermercado murieron en la puerta llamada "portería", que fue cerrada. · tipo cifra · valor 40 · fecha None
+    F09@139423: «Esa puerta fue cerrada, ahí murieron como 40 funcionarios del supermercado. ¿Y quién cerró esa puerta?»
+[D123] Según el fiscal Sánchez, el comisario Juan Pereira estaba induciendo a los guardias a no decir la verdad mientras se levantaban los cadáveres. · tipo nombre · valor Juan Pereira · fecha None
+    F09@140372: «el comisario Juan Pereira, en el Departamento de Investigación de Delitos de la Policía Nacional, estaba induciendo a los guardias a no decir la verdad”.»
+[D124] El comisario Juan Pereira es asociado de la empresa de seguridad Prevención, que trabajaba en el Ycuá Bolaños. · tipo nombre · valor Prevención · fecha None
+    F09@141807: «el comisario Juan Pereira es asociado de esta empresa, Prevención, que estaba encargada de la seguridad. Por eso es que él estaba atajando a esa gente, ahí está la conexión, ¿me entienden?»
+[D125] Hay 650 afectados entre muertos y sobrevivientes del incendio. · tipo cifra · valor 650 · fecha None
+    F09@142873: «Y somos 650 afectados, entre los muertos y los sobrevivientes que estamos acá. Somos muchos.»
+[D126] Daniel Paiva estaba en el supermercado durante el incendio y, según un testigo, desde afuera guiaba para que la gente se cocinara adentro. · tipo nombre · valor Daniel Paiva · fecha None
+    F09@143833: «este Daniel Paiva, él estaba, él estaba en el supermercado, porque su papá le trataba como un empleado más, pero no por eso le tenemos que perdonar... y desde afuera estaba guiando para que nosotros nos cocinemos ahí»
+[D127] Bernardo Eulerich, socio de Luis Escobar Faella, intentó tener una reunión con el Ing. Cristaldo para "contarle la verdad". · tipo nombre · valor Bernardo Eulerich · fecha None
+    F09@146104: «Intentó comprarme. Intentó. Y voy a dar nombres: Bernardo Eulerich, socio con Luis Escobar Faella[7]. Me enojé con este señor. Intentó tener reunión conmigo, para contarme la verdad, que yo tengo que entender...»
+[D128] Un 80% de lo que sucedió fue por el incumplimiento del deber de los funcionarios, según Verónica Becker. · tipo cifra · valor 80% · fecha None
+    F09@154835: «estoy convencida – que un 80% de lo que ha sucedido fue por el incumplimiento del deber de los funcionarios.»
+[D129] Fernando Ortiz Mieres, ex empleado de 26 años, sobrevivió con el 50% de su cuerpo quemado y una probabilidad de vida del 30%. · tipo magnitud · valor None · fecha None
+    F09@165749: «Pero me quedé con 50% de quemaduras, y con unas probabilidades de vida en eso momento de 30% nomás, los doctores.»
+[D130] El intendente Riera no se encontraba en el país cuando ocurrió la catástrofe y estaba sin permiso. · tipo nombre · valor Riera · fecha None
+    F09@171017: «hay que entender que Riera no estuvo cuando pasó la catástrofe, que estaba, encima, sin permiso afuera del país»
+[D131] Un grupo de manifestantes fue a la casa del fiscal Latorre, pero unas 5 patrulleras y 50 policías les impidieron el paso a media cuadra de distancia. · tipo cifra · valor 50 · fecha None
+    F09@175694: «La sorpresa al llegar cerca de la casa de Latorre, fue que media cuadra antes de la misma esperaban como cinco patrulleras tapando la calle y unos 50 efectivos policiales, impidiendo seguir camino, fuertemente armados, algunos.»
+[D132] Un fiscal se comunicó por celular con los manifestantes que estaban frente a la casa de Latorre, diciendo que estaba en Coronel Oviedo y citándolos para el día siguiente a las 10:00 en la Fiscalía. · tipo cita · valor None · fecha None
+    F09@175922: «Los manifestantes clamaron justicia, pidieron hablar con el fiscal, pero éste sólo se comunicó vía teléfono celular con una de las mujeres presentes, dijo estar en Coronel Oviedo y sugirió que al día siguiente a las diez de la mañana vayan de nuevo a la Fiscalía para hablar.»
+[D133] Tras una manifestación pacífica de un par de horas, un grupo decidió citar nuevamente al fiscal para el día siguiente a las 19:00 horas en CONATEL. · tipo cita · valor None · fecha None
+    F09@176371: «Luego de un par de horas de manifestación, absolutamente pacífica, inclusive con cantos, el grupo decidió citar para el día siguiente, a las 19 horas al fiscal, nuevamente en CONATEL.»
+[D134] Blas Cristaldo estuvo casado 32 años con su esposa Estela, a quien conoció cuando ella tenía 13 años. · tipo magnitud · valor 32 años · fecha 2005-01-22
+    F09@177174: «Para que me conozcas, 32 años de casados, 5 años de novios, eso es nuestra vida con Estela. Realmente yo la conocía a ella cuando tenía 13 años.»
+[D135] La noche del 31 de julio de 2004, Blas Cristaldo y su esposa Estela cenaron con sus amigos Rubén y Teresa Urbieta, entre otros, para celebrar el día de la amistad. · tipo fecha · valor 31 de julio de 2004 · fecha 2004-07-31
+    F09@190505: «Entonces mi señora fue la que tomó la posta digamos, y se encargó ella de organizar la cena para el sábado 31 de julio. El viernes estuvimos bailando en la rampa, el sábado – yo en ese tiempo estaba trabajando...»
+[D136] La mañana del 1 de agosto de 2004, Estela, esposa de Blas Cristaldo, decidió ir al río con Teresa Urbieta tras una llamada telefónica. · tipo fecha · valor 1 de agosto de 2004 · fecha 2004-08-01
+    F09@195132: «Cortó el teléfono y me dijo “Me voy a ir con ellos, me van a venir a buscar”. “E´á, me dijiste que no te ibas a ir”, le dije.»
+[D137] El cuerpo de Rubén Urbieta quedó totalmente calcinado y fue reconocido por su reloj. · tipo cita · valor None · fecha 2004-08-01
+    F09@199410: «ya nos enteramos de que a Rubén ya lo habían identificado, él murió calcinado, totalmente, se le reconoció por el reloj. Pero, el resto no aparecía.»
+[D138] El auto de Rubén Urbieta fue encontrado prácticamente intacto en el estacionamiento del supermercado Ycuá Bolaños. · tipo lugar · valor estacionamiento del supermercado Ycuá Bolaños · fecha 2004-08-01
+    F09@199559: «Y sí estaba confirmadísimo que el auto estaba en el estacionamiento, estaba intacto, prácticamente, sucio un poco, pero no había tenido daños.»
+[D139] Rubén Urbieta y su familia murieron en el incendio: él, su esposa Teresa, su hija mayor Adriana y su hija menor Gaby, de 14 años. · tipo cifra · valor 14 · fecha 2004-08-01
+    F09@199702: «Entre los cinco se fueron: Rubén, Teresa, Adriana que es la hija mayor (divorciada, con una nena) y Gaby, que tenía 14 años... ahora va a cumplir 15, todos somos de febrero.»
+[D140] Los cuerpos de Teresa y Gaby Urbieta fueron encontrados en el cuartel "4 de mayo" la noche del 1 de agosto de 2004. · tipo lugar · valor 4 de mayo · fecha 2004-08-01
+    F09@200185: «pero a las nueve de la noche ya nos enteramos de que le habían encontrado a Teresa y a Gaby en el 4 de mayo. Entonces yo le llamé a mi hija, ella estaba allí...»
+[D141] El cuerpo de Estela, esposa de Blas Cristaldo, fue encontrado en el estacionamiento abierto del supermercado, en una fila de cadáveres. · tipo lugar · valor None · fecha 2004-08-01
+    F09@200828: «“Hay más cuerpos”, “¿Y dónde?” le digo, “Y en el estacionamiento abierto del súper. ¿Va a ir?”, “Y claro”, le dije. Había sido que mi hija Mónica ya había organizado también un equipo y ellos ya le habían encontrado a Estela.»
+[D142] El cuerpo de Estela no estaba muy quemado, pero tenía una herida en la espalda y un golpe en el rostro. Sus zapatos nuevos no estaban. · tipo cita · valor None · fecha 2004-08-01
+    F09@201448: «Ella no se quemó mucho, se quemó la mano, la oreja un poco, tenía una herida fuerte en la espalda y un golpe bastante fuerte en el rostro, lado derecho. [...] Ya no tenía su champión. Era nuevito, se acababa de comprar. No tengo dudas de que le quitaron, le comieron.»
+[D143] A la hija de Blas Cristaldo le entregaron la cartera de su madre, Estela, con sus documentos adentro, pero sin el dinero que llevaba. · tipo cita · valor None · fecha 2004-08-01
+    F09@203159: «Y en la cartera estaban todos los documentos, papeles, y estaba el sobrecito donde tenía la plata, intacto, pero sin la plata.»
+[D144] Dos semanas después del incendio, el celular robado de Estela fue localizado en posesión de una mujer llamada Jeny, quien dijo que se lo había regalado su novio. · tipo magnitud · valor Dos semanas · fecha None
+    F09@203425: «Porque encima, dos semanas después, me llama Mecha Armele[11] y me dice “Encontré el celular de Estelita. Disqué el número y me atendió”, le dije “Hola ¿quién sos vos?”, “Jeny”...»
+[D145] El 2 de agosto, Edgar Sánchez denunció que el comisario Juan Pereira obstruyó la investigación de la Fiscalía, induciendo a los guardias a mentir. · tipo nombre · valor Juan Pereira · fecha 2004-08-02
+    F09@205123: (= arriba)
+[D146] El comisario Juan Pereira es socio de la compañía de seguridad Prevención, según el texto. · tipo nombre · valor Prevención · fecha None
+    F09@205319: «Había sido que Juan Pereira es socio de la compañía Prevención.»
+[D147] Nelson Astigarraga se salvó del incendio al salir descalzo por un boquete que otras personas hicieron en una pared debajo de la escalera. · tipo cita · valor None · fecha 2004-08-01
+    F09@211514: «y vi debajo de la escalera el boquete que hizo la gente, Guillén me dijo que fue uno de los primeros que hizo el boquete, y eso le recriminó el Paiva, le dijo “¡Qué lo que estás haciendo, estás rompiendo todo mi supermercado!” le dijo. Y si no hacía eso, no iba a salvar gente, imagináte, yo por ahí »
+[D148] Nelson Astigarraga estuvo internado quince días por las secuelas de la inhalación de humo. · tipo magnitud · valor quince días · fecha 2004-08
+    F09@212771: «Por las secuelas del humo me quedé quince días internado. Al final, salí entero.»
+[D149] Nelson Astigarraga perdió a su esposa de 33 años, a su hijo de 1 año y 3 meses, y a su sobrina de 19 años en el incendio del Ycuá Bolaños. · tipo cifra · valor 3 · fecha 2004-08-01
+    F09@212852: «Yo tengo 42 años y mi señora tenía 33. Mi hijo, un año tres meses. Mi sobrina, 19 años.»
+[D150] El sociólogo José Luis Simón opina que la primera responsabilidad de la tragedia es del Estado por no garantizar la seguridad pública. · tipo cita · valor None · fecha 2005-02-04
+    F09@218599: «no tengo la menor duda que la primera responsabilidad es del Estado. La primera responsabilidad es del Estado, porque el Estado debe garantizar la seguridad pública. Aunque se trate de una empresa privada, ahí hay público...»
+[D151] Según José Luis Simón, la Municipalidad de Asunción es responsable por los permisos y la falta de control sobre la construcción del supermercado. · tipo cita · valor None · fecha 2005-02-04
+    F09@219392: «Segundo responsable (primero el Estado), luego, la Municipalidad de Asunción. La Municipalidad de Asunción en cuanto a los permisos, en cuanto a los controles, en cuanto a la autorización que se le da a un arquitecto que, evidentemente, no estaba preparado para construir un edificio de esta naturale»
+[D152] Un especialista llamado doctor Stanley explicó que la explosión se debió a una saturación de gases en la chimenea, que se expandieron a gran velocidad y temperatura. · tipo nombre · valor Stanley · fecha None
+    F09@220564: «Esto me lo explicó un señor, el doctor Stanley, que es un especialista en Bromatología, y me contó [...] que ahí las chispas iniciales, ya había llegado a un nivel de saturación los gases de la chimenea.»
+[D153] José Luis Simón señala que bomberos y policías robaron pertenencias de las víctimas durante la tragedia. · tipo cita · valor None · fecha 2005-02-04
+    F09@226897: «Si hasta robaron, bomberos y policías, todas las cosas... yo estoy seguro que hasta debe haber habido, ¿por qué no habrán habido parientes que intentaron hacer lo mismo?»
+[D154] Se menciona que a los empleados sobrevivientes del Ycuá Bolaños se les ofreció 1 millón de guaraníes al mes por 30 meses a cambio de su silencio. · tipo cifra · valor 1 millón · fecha None
+    F09@228954: «en una reunión comentaron que a los empleados sobrevivientes se les ofreció un millón al mes por 30 meses, a cambio de silencio.»
+[D155] Juan Paiva y su hermana son conocidos como muy trabajadores pero durísimos en materia de dinero. · tipo cita · valor None · fecha None
+    F09@233891: «todo el mundo lo conoce a él y a la hermana como muy trabajadores – pero durísimos en materia de dinero.»
+[D156] La familia Paiva se hizo multimillonaria en diez años. · tipo magnitud · valor diez años · fecha None
+    F09@234033: «Ellos en diez años se hicieron multimillonarios. Entonces cabría la posibilidad de preguntarse, ¿no hay lavado de dinero ahí?»
+[D157] El sueldo de un simple policía es de menos de 900.000 guaraníes al mes. · tipo cifra · valor 900.000 guaraníes · fecha None
+    F09@234757: «me dice el doctor Maciel que, ¿cómo vamos a exigir a un policía que nos cuide, si le pagamos 900 mil guaraníes al mes? (...) Ni 900 mil guaraníes.»
+[D158] Juan Brizuela habría cumplido 53 años el 27 de enero. · tipo cifra · valor 53 años · fecha XXXX-01-27
+    F09@251760: «El tema es que él este 27 de enero habría cumplido 53 años.»
+[D159] Juan Brizuela se recibió de ingeniero teniendo seis hijos. · tipo cifra · valor seis hijos · fecha None
+    F09@251992: «cuando terminó el sexto año de la facultad de Ingeniería terminamos con seis hijos, un hijo cada año. Se recibió él, de padre y también de ingeniero.»
+[D160] Juan Brizuela falleció con 34 años como funcionario del Ministerio de Agricultura. · tipo cifra · valor 34 años · fecha None
+    F09@253180: «Él estuvo trabajando como funcionario del Ministerio de Agricultura, él falleció con 34 años de funcionariado.»
+[D161] El séptimo hijo de la familia Brizuela, María José, tiene cinco años. · tipo cifra · valor cinco años · fecha None
+    F09@254711: «vino la reconciliación, nos fuimos de luna de miel y vino María José que tiene cinco años ahora, es el séptimo hijo que vino de regalo de amor»
+[D162] Los Brizuela vivían en Trinidad desde hacía seis años. · tipo magnitud · valor seis años · fecha None
+    F09@255639: «Vivimos hace seis años en Trinidad, nosotros somos de Sajonia, nos mudamos a Trinidad a nuestra casa propia.»
+[D163] Juan Brizuela fue al supermercado Ycuá Bolaños a comprar vino y manzanas para su hija menor. · tipo nombre · valor None · fecha None
+    F09@256289: «me dijo “No, tengo que traerle manzanita a la beba” – porque le había pedido eso, y el vino. Simplemente para una cosa simple y vulgar, y él ya no volvió.»
+[D164] El hijo mayor de Berzabé encontró entre los cuerpos un cajón grande que contenía brazos, cabezas y dedos. · tipo cita · valor None · fecha None
+    F09@259851: «un cajón grande que él no se olvida, un cajón grande donde solamente había brazos, cabezas, dedos... es traumático, jamás en esta vida nadie se puede imaginar lo traumático que es.»
+[D165] El primer cartel que hizo la hija de María Berzabé Meza decía 'Somos siete hermanos huérfanos y exigimos justicia'. · tipo cita · valor Somos siete hermanos huérfanos y exigimos justicia · fecha None
+    F09@261432: «su primer cartel fue “Somos siete hermanos huérfanos y exigimos justicia”. Ese fue su primer cartel. Luego empezamos a tener “Riera cómplice”»
+[D166] Los empleados que llevaban los carritos en el supermercado no tenían sueldo y vivían de las propinas, sin recibir de los dueños ni cien mil guaraníes mensuales. · tipo cifra · valor cien mil guaraníes mensuales · fecha None
+    F09@261970: «llevaban los carritos, que no tenían sueldo, que fallecieron. Y de la propina que da la gente, inclusive con delantal del supermercado, con todo eso, igual no les daban (los dueños) ni cien mil guaraníes mensuales.»
+[D167] Arístides González, coordinador del CEN, le dio a Berzabé una ayuda de 200.000 guaraníes para los gastos médicos de su hija. · tipo cifra · valor None · fecha None
+    F09@265888: «lo primero que hice fue mandarle una carta a Arístides González que era coordinador del CEN para que me ayude. Me mandó una ayuda de 200 mil guaraníes que no era casi nada»
+[D168] Juan Brizuela había presentado proyectos de prevención contra incendios, que incluían detectores de humo, rociadores y extractores de humo. · tipo nombre · valor None · fecha None
+    F09@268913: «le dieron para instalar el detector de humo, uno de los preventivos contra incendios. Luego están las lluviecitas estas, luego está el extractor de humo.»
+[D169] Juan Brizuela le ofreció a Juan Pío Paiva un sistema de prevención contra incendios y este lo rechazó por considerarlo caro. · tipo cita · valor None · fecha None
+    F09@269421: «Mi marido le ofreció a Juan Pío Paiva prevención contra incendios. Y éste le dijo “No, péa hepyma”. Entonces, qué pasa, mi marido se fue a morir ahí, en el incendio que él quiso prevenir.»
+[D170] En la audiencia preliminar de marzo o abril se deben incluir las carpetas de los sobrevivientes con heridas leves en la carátula de 'Tentativa de homicidio'. · tipo fecha · valor marzo o abril · fecha None
+    F09@277097: «en marzo o abril tenemos la audiencia preliminar. Ahí nosotros tenemos que meter las carpetas que faltan, que se olvidaron de los sobrevivientes, con heridas leves, que tenían que meter en la carpeta Tentativa de homicidio.»
+[D171] El supermercado Ycuá Bolaños estaba asegurado por aproximadamente cinco millones de dólares con una compañía internacional. · tipo cifra · valor cinco millones de dólares · fecha None
+    F09@287672: «esta era una compañía internacional de primer nivel que tenía asegurado por el total, aproximadamente cinco millones de dólares tenía asegurado el supermercado, o sea, una cosa bastante seria.»
+    F09@296371: «...siendo un seguro de cinco millones de dólares, solamente cubría 200 millones de guaraníes para personas y 200 millones para bienes de terceros.»
+[D172] Según Luis Escobar Faella, los peritos se ratificaron en que las puertas estaban abiertas. · tipo contradiccion · valor None · fecha None
+    F09@289525: «los peritos ofrecieron una reunión de prensa y se ratificaron y desafiaron a que le dijeran que lo que dijeron no era verdad, o sea que las puertas estaban abiertas. Y este es el momento que nadie puede discutir.»
+[D173] El abogado de Paiva afirma que las puertas del estacionamiento estaban abiertas y que había motocicletas encadenadas a ellas. · tipo contradiccion · valor None · fecha None
+    F09@290301: «habían motocicletas que estaban con cadenas y candados llaveadas por esa puerta, entonces cómo físicamente pudieron cerrarse nuca, si estaban estas cosas llaveadas por esos.»
+[D174] Se estima que la temperatura en el incendio del Ycuá Bolaños superó los 1.000 grados, mientras que en Cromañón fue de 200 grados. · tipo magnitud · valor None · fecha None
+    F09@291474: «Por ejemplo acá se habla de más de 1.000 grados, cuando que en Cromañón se habla de 200 grados nomás la temperatura.»
+[D175] Según el abogado Escobar Faella, las puertas de la rampa no pudieron cerrarse porque el fuego las retorció. · tipo contradiccion · valor None · fecha None
+    F09@291867: «Y no solamente las puertas están abiertas sino que por efecto del fuego están todas retorcidas. Esto nunca se pudo haber cerrado. Porque si se hubieran cerrado y después vino el fuego, esto había que cortar para poder abrir»
+[D176] Los dos paños de puertas medían dos metros cada uno, sumando un total de cuatro metros. · tipo magnitud · valor cuatro metros · fecha None
+    F09@292317: «Este paño de puertas y el otro paño de allá tienen dos metros y dos metros, son cuatro metros, y había más de doce a catorce rejas idénticas a la puerta.»
+[D177] Había entre 12 y 14 rejas fijas idénticas a la puerta que la gente confundió con puertas cerradas. · tipo cifra · valor None · fecha None
+    F09@292412: «...y había más de doce a catorce rejas idénticas a la puerta. En el pánico, la gente que estuvo allí, dijo “Las puertas estaban cerradas”. Pero eran realmente los paños fijos, rejas que bajaban al estacionamiento, al subsuelo.»
+[D178] Las personas que estaban en la rampa recibieron fuego por detrás y por delante debido a una segunda explosión. · tipo cita · valor None · fecha None
+    F09@292701: «O sea, esta gente que vino a la rampa, recibió fuego por detrás y fuego por delante. Eso tampoco se estudió. ¿Por qué mucha gente estaba quemada de frente y no de atrás?»
+[D179] Un ex empleado que escapó del incendio sufrió quemaduras en el 50% de su cuerpo. · tipo magnitud · valor 50% · fecha None
+    F09@293863: «...un ex empleado contó públicamente que se fue corriendo para salir y ella le dijo “No vas a salir”, y él le golpeó y salir, aún así se quemó en un 50% de su cuerpo...»
+[D180] La fiscal Teresa Sosa impidió la entrada al liquidador de seguros de MAPFRE que intentaba determinar la causa del siniestro. · tipo nombre · valor Teresa Sosa · fecha None
+    F09@295547: «Y eso es lo que el liquidador de seguros quiso determinar y no le permitieron la entrada. ¿Quién? La fiscal, Teresa Sosa. Entonces frustró toda posibilidad...»
+[D181] La póliza de seguro cubría 200 millones de guaraníes para personas. · tipo magnitud · valor 200 millones de guaraníes · fecha None
+    F09@296418: «...solamente cubría 200 millones de guaraníes para personas y 200 millones para bienes de terceros. Esto la gente del seguro explicó...»
+    F09@296418: (= arriba)
+[D182] El broker de seguros contratado por Paiva fue Baltazar Duarte. · tipo nombre · valor Baltazar Duarte · fecha None
+    F09@296818: «...tanto el broker que se llama Baltazar Duarte, que contrató sus propios técnicos de construcción, como los que trajo la compañía aseguradora antes de emitir la póliza, determinaron que el edificio era de una alta seguridad y confiabilidad...»
+[D183] La aseguradora MAPFRE depositó el equivalente a tres millones de dólares en el Banco de Fomento en octubre. · tipo magnitud · valor tres millones de dólares · fecha octubre
+    F09@298166: «...tres millones de dólares, o el equivalente en guaraníes de tres millones de dólares, en octubre, depositó la empresa MAPFRE en el Banco de Fomento porque así le dijeron los jueces...»
+[D184] El dinero del seguro depositado perdió 1500 millones de guaraníes de su valor debido a la devaluación. · tipo magnitud · valor 1500 millones de guaraníes · fecha None
+    F09@299069: «...con el deterioro del guaraní frente al dólar en todos estos meses, ya perdieron 1500 millones de guaraníes, ya se devaluó ese dinero.»
+[D185] Juan Pío Helvidio Paiva Escobar y la empresa Ycuá Bolaños V SACI fueron objeto de uno de los últimos juicios de indemnización por la tragedia del Supermercado Ycuá Bolaños. · tipo nombre · valor Juan Pío Helvidio Paiva Escobar · fecha None
+    F10@623: «A casi 21 años de la tragedia del Supermercado Ycuá Bolaños, la Sala Civil de la Corte se pronunció en uno de los últimos juicios de indemnización contra el fallecido Juan Pío Helvidio Paiva Escobar y la empresa Ycuá Bolaños V SACI.»
+[D186] Juan Pío Paiva y la sociedad Ycuá Bolaños V SACI fueron condenados a pagar G. 2.250.000.000 a Felipe De Jesús Palacios Giménez. · tipo cifra · valor G. 2.250.000.000 · fecha None
+    F10@856: «Por voto unánime, condenaron al extinto Paiva y a la sociedad a abonar la suma de G. 2.250.000.000 a Felipe De Jesús Palacios Giménez y G. 2.250.000.000 a su esposa María Estela Morínigo Giménez de Palacios.»
+    F10@856: (= arriba)
+[D187] La indemnización al matrimonio Palacios Morínigo fue por las lesiones sufridas y por la muerte de sus tres hijas: María Estefanía, María del Carmen y María Estela Palacios Morínigo. · tipo nombre · valor María Estefanía, María del Carmen y María Estela Palacios Morínigo · fecha None
+    F10@1066: «Esto, por las lesiones sufridas por el matrimonio y por la muerte de sus tres hijas María Estefanía, María del Carmen y María Estela Palacios Morínigo, todas muertas por inhalación de monóxido de carbono y quemaduras, el 1 de agosto de 2004»
+[D188] Las tres hijas del matrimonio Palacios Morínigo murieron por inhalación de monóxido de carbono y quemaduras. · tipo cita · valor None · fecha None
+    F10@1150: «María Estefanía, María del Carmen y María Estela Palacios Morínigo, todas muertas por inhalación de monóxido de carbono y quemaduras, el 1 de agosto de 2004, en la tragedia más grande en tiempos de paz ocurrida en el Paraguay.»
+[D189] En primera instancia, el juez Enrique Mongelós condenó a Paiva, su esposa, Humberto Casaccia y Antoliana Burgos a pagar G. 5.000 millones. · tipo cifra · valor G. 5.000 millones · fecha None
+    F10@1379: «En primera instancia, el entonces juez Enrique Mongelós había admitido la demanda contra Paiva, su esposa María Victoria Cáceres, Humberto Casaccia y Antoliana Burgos. Los condenó a pagar la suma de G. 5.000 millones.»
+[D190] El Tribunal de Apelación Civil y Comercial, Cuarta Sala, revocó la sentencia de primera instancia y rechazó la demanda del matrimonio Palacios Morínigo. · tipo cita · valor None · fecha None
+    F10@1730: «Sin embargo, el Tribunal de Apelación Civil y Comercial, Cuarta Sala, había revocado la sentencia, y rechazado la demanda del matrimonio Palacios Morínigo.»
+[D191] La Sala Civil de la Corte rechazó la demanda contra María Victoria Cáceres de Paiva. · tipo cita · valor None · fecha None
+    F10@2395: «Además, los ministros rechazaron la demanda contra María Victoria Cáceres de Paiva. Admitieron sí la acción contra Juan Pío Paiva Escobar y la sociedad Ycuá Bolaños V, SACI»
+[D192] Oficialmente, en el incendio hubo 327 muertos, además de los desaparecidos. · tipo cifra · valor 327 · fecha None
+    F10@3213: «En el incendio hubo oficialmente 327 muertos, más los desaparecidos. En el caso, condenaron a Juan Pío Paiva a 12 años; a su hijo Víctor Paiva, a 10 años, y al guardia Daniel Areco, a 5 años.»
+[D193] La Sala Civil de la Corte condenó a Juan Pío Paiva y a Ycuá Bolaños V a pagar un total de G. 4.500 millones a un matrimonio. · tipo cifra · valor G. 4.500 millones · fecha None
+    F10@3406: «La Sala Civil de la Corte condenó al ya fallecido Juan Pío Paiva y a la firma Ycuá Bolaños Va pagar G. 4.500 millones a un matrimonio que perdió a sus 3 hijas en el incendio del supermercado.»
+[D194] En el incendio del supermercado Ycuá Bolaños murieron unas 364 personas. · tipo cifra · valor 364 · fecha 2004-08-01
+    F11@141: (= arriba)
+[D195] La tragedia del Ycuá Bolaños dejó 244 heridos. · tipo cifra · valor 244 · fecha 2004-08-01
+    F11@336: «Hoy, sobrevivientes y familiares de fallecidos recuerdan el dolor vivido y reclaman que no se repita una tragedia de esta magnitud, que también dejó 244 heridos, 204 huérfanos y seis desaparecidos.»
+[D196] El incendio dejó 204 huérfanos. · tipo cifra · valor 204 · fecha 2004-08-01
+    F11@336: (= arriba)
+[D197] Tras la tragedia, se reportaron seis personas desaparecidas. · tipo cifra · valor None · fecha 2004-08-01
+    F11@336: (= arriba)
+[D198] El hijo menor de Cristian Sosa tenía 8 meses en el momento del incendio. · tipo cifra · valor 8 meses · fecha 2004-08-01
+    F11@656: «Esa mañana fue al supermercado a comprar un producto para el último de sus tres hijos, entonces de 8 meses, y al no hallarlo, decidió llevarse una gaseosa.»
+[D199] Informes indicaban que la temperatura durante el incendio alcanzó los 1.500 grados. · tipo magnitud · valor None · fecha 2004-08-01
+    F11@1242: ««Los informes decían que eran 1.500 grados de calor que pasaban sobre nosotros», rememoró.»
+[D200] El sobreviviente Cristian Sosa estuvo 22 días en coma por quemaduras en los pulmones. · tipo magnitud · valor 22 días · fecha None
+    F11@1384: «Sin embargo, estuvo 22 días en coma por quemaduras en los pulmones.»
+[D201] La familia López perdió cinco integrantes en el incendio. · tipo cifra · valor None · fecha 2004-08-01
+    F11@1709: (= arriba)
+[D202] La familia de Angélica Roa perdió cuatro integrantes en el incendio. · tipo cifra · valor None · fecha 2004-08-01
+    F11@1709: (= arriba)
+[D203] El cuerpo de María Angélica fue hallado cinco días después del incendio. · tipo fecha · valor cinco días después del incendio · fecha 2004-08-06
+    F11@2223: «María Angélica, una maestra de párvulos, fue hallada cinco días después del incendio, los restos de su esposo e hija fueron identificados en julio de 2005 y la ‘tía Vicky’, en 2006.»
+[D204] Los restos del esposo e hija de María Angélica fueron identificados en julio de 2005. · tipo fecha · valor julio de 2005 · fecha 2005-07
+    F11@2309: (= arriba)
+[D205] Los restos de Victorina Lima, apodada 'tía Vicky', fueron identificados en 2006. · tipo fecha · valor 2006 · fecha 2006
+    F11@2309: (= arriba)
+[D206] Juan Adolfo Lima, de 9 años, practicaba taekwondo y era portero de fútbol. · tipo cifra · valor 9 años · fecha None
+    F11@2405: (= arriba)
+[D207] Melani, una de las víctimas, tenía tres años. · tipo cifra · valor None · fecha 2004-08-01
+    F11@2757: «Una historia similar vivió Angélica Roa, quien sobrevivió después de que se apartara unos pasos de su hermana, Carolina, de la hija de esta, Mara Soledad, de su sobrina política Diana Benítez y de Melani, de tres años, que esperaban en las cajas.»
+[D208] La sobreviviente Angélica Roa permaneció diez días hospitalizada. · tipo magnitud · valor diez días · fecha None
+    F11@3171: «Angélica permaneció diez días hospitalizada.»
+[D209] La identificación del cuerpo de Melani se logró quince días después del incendio mediante pruebas de ADN en España. · tipo magnitud · valor quince días · fecha None
+    F11@3364: «La identificación de Melani se logró pasados quince días del incendio mediante pruebas de ADN practicadas en España.»
+[D210] Liz Torres y Alfredo Vallovera habían dejado a sus hijos de 14 y 12 años haciendo una tarea antes de ir al supermercado. · tipo cifra · valor 14 y 12 años · fecha 2004-08-01
+    F11@3755: «Llegó al supermercado junto a su esposo, Alfredo Vallovera. Habían dejado a sus hijos, de 14 y 12 años, haciendo una tarea.»
+[D211] El supermercado Ycuá Bolaños incendiado era el cuarto de la cadena. · tipo cifra · valor None · fecha None
+    F11@3879: «El sitio estaba repleto, en especial de sus vecinos del barrio Santísima Trinidad, donde fue construido el cuatro de los establecimientos de la cadena Ycuá Bolaños.»
+[D212] La sobreviviente Liz Torres tenía 37 años en el momento del incendio. · tipo cifra · valor 37 años · fecha 2004-08-01
+    F11@4164: ««Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida», contó Torres a EFE, que entonces tenía 37 años, y que recordó el lugar como un verdadero «horno» del que salió con leves quemaduras en los ojos.»
+[D213] En el incendio murieron 16 vecinos de la calle donde vivía Liz Torres. · tipo cifra · valor 16 · fecha 2004-08-01
+    F11@4391: «En el incendio murieron 16 vecinos de su calle. Su caso es casi un milagro, ya que recuerda que una madre le aseguró haber encontrado sólo el fémur de su hijo.»
+[D214] La causa principal del caso Ycuá Bolaños fue por homicidio doloso. · tipo nombre · valor homicidio doloso · fecha None
+    F15@524: (= arriba)
+[D215] Juan Pío Paiva, Víctor Daniel Paiva y Daniel Areco fueron enjuiciados por homicidio doloso. · tipo nombre · valor Juan Pío Paiva, Víctor Daniel Paiva y Daniel Areco · fecha None
+    F15@524: (= arriba)
+[D216] Directivos del supermercado fueron enjuiciados por exposición a personas a lugares de trabajos peligrosos. · tipo nombre · valor exposición a personas a lugares de trabajos peligrosos · fecha None
+    F15@697: «Por otra parte, y por exposición a personas a lugares de trabajos peligrosos, fueron enjuiciados los directivos del supermercado Humberto Casaccia, Agustín Alfonzo, María Victoria Cáceres de Paiva y Antolina Burgos.»
+[D217] Humberto Casaccia fue condenado a 2 años y 6 meses de prisión por exposición de personas a lugares de trabajo peligrosos. · tipo cifra · valor 2 años y 6 meses · fecha None
+    F15@1442: «Casaccia fue condenado a 2 años y 6 meses de prisión, por exposición de personas a lugares de trabajo peligrosos, terminando con la absolución de los demás acusados.»
+[D218] Agustín Alfonzo, María Victoria Cáceres de Paiva y Antolina Burgos fueron absueltos en la causa por exposición de personas a lugares de trabajo peligrosos. · tipo nombre · valor Agustín Alfonzo, María Victoria Cáceres de Paiva y Antolina Burgos · fecha None
+    F15@1442: (= arriba)
+[D219] Funcionarios de la Municipalidad de Asunción fueron condenados a 1 año y 6 meses por producción de riesgos comunes. · tipo cifra · valor 1 año y 6 meses · fecha None
+    F15@1726: (= arriba)
+[D220] El constructor Bernardo Ismachowiez fue sentenciado a 2 años por actividades peligrosas en la construcción. · tipo cifra · valor 2 años · fecha None
+    F15@1986: «el constructor Bernardo Ismachowiez, por supuestas fallas en la construcción, el mismo fue sentenciado a 2 años por actividades peligrosas en la construcción.»
+[D221] La primera sentencia indemnizatoria condenó a Ycuá Bolaños y a Mapfre a pagar G. 600 millones a un matrimonio. · tipo cifra · valor 600 millones · fecha None
+    F15@2524: «La misma condenó a la firma Ycuá Bolaños y a la aseguradora Mapfre a pagar G. 600 millones al matrimonio Emigdio Wendell y Nilda Ortellado»
+[D222] Juan Pío Paiva, Víctor Daniel Paiva y la sociedad Ycuá Bolaños fueron condenados a pagar más de G. 400 millones en otra demanda. · tipo cifra · valor 400 millones · fecha None
+    F15@2772: «el juez Miguel Ángel Rodas condenó en abril pasado al empresario Juan Pío Paiva, su hijo Víctor Daniel Paiva y la sociedad Ycuá Bolaños a pagar más de G. 400 millones»
+[D223] Otras 500 personas sufrieron heridas de diversas consideraciones en el siniestro. · tipo cifra · valor 500 · fecha 2004-08-01
+    F16@397: «y otras 500 sufrieron heridas de diversas consideraciones al quedar atrapadas porque las puertas se cerraron herméticamente»
+[D224] El fuego se inició en la cocina del local. · tipo lugar · valor cocina · fecha 2004-08-01
+    F16@808: «Las llamas que iniciaron en la cocina rápidamente se extendieron hasta consumir todo el local comercial»
+[D225] La Fiscalía y los querellantes pedían una pena de 25 años de prisión para los procesados. · tipo magnitud · valor 25 años · fecha None
+    F16@2723: «La Fiscalía y los querellantes pedían 25 años de pena privativa para los procesados.»
+[D226] Los 4 procesados fueron condenados por homicidio doloso simple, por dolo eventual, homicidio doloso en grado de tentativa agravada y exposición de personas a lugares de trabajo peligroso. · tipo cita · valor None · fecha None
+    F16@2808: «Los 4 fueron condenados por homicidio doloso simple, por dolo eventual, homicidio doloso en grado de tentativa agravada y exposición de personas a lugares de trabajo peligroso.»
+[D227] El pedido de libertad condicional para Juan Pío Paiva se realizó el 23 de junio, cuando cumplió las dos terceras partes de su condena. · tipo fecha · valor 23 de junio · fecha None
+    F16@3113: «su representante, Luis Emilio Escobar Faella, realizara el pedido de libertad condicional el 23 de junio, fecha en que Paiva cumplió las dos terceras partes de su condena.»
+</datos>
+<citas n="82">
+[Q01] CITA «A más de lo que recibí del Estado, nunca recibí indemnización real o reparación del daño. Lo que alguna vez me dieron, particularmente como una persona para mí que de por vida quedé así, no alcanza. Los culpables, bien gracias. Siguen afuera.» — Tatiana Gabaglio (Sobreviviente) · verificada · fecha 2020-08
+    F03@1003: «“A más de lo que recibí del Estado, nunca recibí indemnización real o reparación del daño. Lo que alguna vez me dieron, particularmente como una persona para mí que de por vida quedé así, no alcanza. Los culpables, bien gracias. Siguen afuera”, lamentó la joven durante el contacto radial.»
+[Q02] CITA «Ni ellos le quitaron un solo guaraní a estos criminales. Y hoy, a esta altura, luego de 16 años, ya es medio difícil también.» — Tatiana Gabaglio (Sobreviviente) · verificada · fecha 2020-08
+    F03@1440: «“Ni ellos le quitaron un solo guaraní a estos criminales. Y hoy, a esta altura, luego de 16 años, ya es medio difícil también”, expuso.»
+[Q03] CITA «Solo queda vivir la vida como una persona normal y tratar de superarse cada día. ¿Para qué quedarnos con ese dolor y ese pasado?» — Tatiana Gabaglio (Sobreviviente) · verificada · fecha 2020-08
+    F03@1686: «“Solo queda vivir la vida como una persona normal y tratar de superarse cada día. ¿Para qué quedarnos con ese dolor y ese pasado?”, agregó.»
+[Q04] CITA «Me metí a Derecho para hacer justicia por mano propia. Pero ya no para mí porque sé que en este caso ya no hay nada para hacer. Lamentablemente esa es nuestra historia y de las demás familias afectadas. Pero si me preparo, si soy una buena profesional y si tengo la oportunidad de ayudar a otras personas a que no les pase lo mismo que a mí, voy a estar sumamente satisfecha.» — Tatiana Gabaglio (Sobreviviente) · verificada_parcial · fecha 2020-08
+    F03@2066: «“Me metí a Derecho para hacer justicia por mano propia. Pero ya no para mí porque sé que en este caso ya no hay nada para hacer. Lamentablemente esa es nuestra historia y de las demás familias afectadas. Pero si me preparo, si soy una buena profesional y si tengo la oportunidad de ayudar a otras per»
+[Q05] CITA «Respeto sinceramente a los hermanos de la tragedia que piensan distinto, pues “solo cada quien sabe dónde le aprieta su zapato”, pero lucho por el “yo no olvido”.» — Tatiana Gabaglio (Sobreviviente) · verificada_parcial · fecha 2020-08-01
+    F03@4339: «Respeto sinceramente a los hermanos de la tragedia que piensan distinto, pues “solo cada quien sabe dónde le aprieta su zapato”, pero lucho por el “yo no olvido”.»
+[Q06] CITA «porque las causas van más allá de “un simple accidente”, pues allí hubo actitud desalmada de empresarios que solo valoran el dinero y un Estado paquidérmico, infestado de ineficiencia y corrupción que permitió que ocurriera.» — Tatiana Gabaglio (Sobreviviente) · verificada_parcial · fecha 2020-08-01
+    F03@4700: (= arriba)
+[Q07] CITA «Mi historia termina acá» — Ángela Pujol (Madre de dos víctimas) · verificada · fecha 2024-07
+    F05@1: (= arriba)
+[Q08] CITA «Cuando salieron de casa, la menor le agarró del brazo a su hermana y así salieron juntas para ir al supermercado; tenían que buscar la comida del día y unos regalos para el Día de la Amistad que estábamos organizando» — Ángela Pujol (Madre de dos víctimas) · verificada · fecha 2024-07
+    F05@432: «“Cuando salieron de casa, la menor le agarró del brazo a su hermana y así salieron juntas para ir al supermercado; tenían que buscar la comida del día y unos regalos para el Día de la Amistad que estábamos organizando”»
+[Q09] CITA «Era el infierno en la tierra» — Ángela Pujol (Madre de dos víctimas) · verificada_parcial · fecha 2024-07
+    F05@668: «Al rato, dice, un niño que era vecino de la familia se acercó para informarle que el Ycua se estaba incendiando. “Era el infierno en la tierra”, asegura.»
+[Q10] CITA «Escuché una explosión y después ya vi que la nube de humo negro cubría todo. En ese momento dejé mi caja, salté y corrí hacia el estacionamiento para tratar de salir» — Beatriz González (Ex cajera del supermercado Ycua Bolaños) · verificada · fecha 2024-07
+    F05@975: «“Escuché una explosión y después ya vi que la nube de humo negro cubría todo. En ese momento dejé mi caja, salté y corrí hacia el estacionamiento para tratar de salir”, explica.»
+[Q11] CITA «Los coquitos son incomibles, no se rompen ni con el cocido» — uno de los familiares (Familiar de víctima) · verificada_parcial · fecha 2024-07
+    F05@2912: «“Los coquitos son incomibles, no se rompen ni con el cocido”, indica uno de los familiares.»
+[Q12] CITA «Burt habilitó provisoriamente el supermercado y en la administración de Riera debieron hacerse los controles. Esto (Ycua) no tenía un solo extractor eólico, no tenía ventilación alguna con un techo absolutamente inflamable» — Liz Torres (De la Coordinadora de Víctimas, y amigos del Ycua Bolaños) · verificada · fecha 2024-07
+    F05@3300: «“Burt habilitó provisoriamente el supermercado y en la administración de Riera debieron hacerse los controles. Esto (Ycua) no tenía un solo extractor eólico, no tenía ventilación alguna con un techo absolutamente inflamable”, recuerda.»
+[Q13] CITA «Para nosotros debe hacerse un cambio en la cultura de la seguridad y justamente la seguridad está hoy en manos de Riera, actual ministro del Interior» — Liz Torres (De la Coordinadora de Víctimas, y amigos del Ycua Bolaños) · verificada · fecha 2024-07
+    F05@3593: «“Para nosotros debe hacerse un cambio en la cultura de la seguridad y justamente la seguridad está hoy en manos de Riera, actual ministro del Interior”, dice Torres.»
+[Q14] CITA «Que nunca más ocurra un 1A» — Liz Torres (Activista) · verificada · fecha 2024-07
+    F05@3758: «La expropiación del Ycua y su transformación en un centro cultural, el Memorial 1A es una oportunidad para educar para la memoria, expresa Torres. “Que nunca más ocurra un 1A”, pide la activista.»
+[Q15] CITA «Escobar Faella alabó la gestión del tribunal y se retractó ante la prensa de las críticas anteriores realizadas a los miembros del tribunal.» — Escobar Faella (Abogado defensor) · verificada · fecha None
+    F06@2757: (= arriba)
+[Q16] CITA «por la importancia de la prueba» — los jueces (Miembros del tribunal) · verificada · fecha None
+    F06@2913: (= arriba)
+[Q17] CITA «Era uno de los peores lugares ese día para comprar porque estaba repleto. Nos quedamos a hacer lo que no hacíamos habitualmente, nos quedamos a recorrer un poquito más. Escuchamos un sonido muy fuerte, parecía como mil veces el sonido de agua cuando tirás en aceite hirviendo. Me quedé centrado hacia el patio de comida porque la gente miraba también hacia el sector de la parrilla y ese lugar vibraba, vibraba y era como que iba a estallar en cualquier momento» — Víctor Galeano (Sobreviviente) · verificada · fecha 2004-08-01
+    F08@1164: «Era uno de los peores lugares ese día para comprar porque estaba repleto. Nos quedamos a hacer lo que no hacíamos habitualmente, nos quedamos a recorrer un poquito más. Escuchamos un sonido muy fuerte, parecía como mil veces el sonido de agua cuando tirás en aceite hirviendo.»
+[Q18] CITA «Viene Mary (esposa), le alcé a mi hijo Santiago y empezamos a correr. Justo en ese momento se fue la luz, ya no veíamos nada y fue un momento de terror porque la gente se nos apretujaba, giré como para agarrarle a mi señora, pero era otra persona... En ese momento se me perdió Mary. Cuando estábamos llegando a la puerta de blíndex, nos dimos cuenta de que eso estaba cerrado... Hubo un estruendo hacia el estacionamiento y sube el humo; entonces ahí no había nada que hacer. Me caí con Santiago en mis brazos» — Víctor Galeano (Sobreviviente) · verificada · fecha 2004-08-01
+    F08@2016: «Cuando estábamos llegando a la puerta de blíndex, nos dimos cuenta de que eso estaba cerrado... Hubo un estruendo hacia el estacionamiento y sube el humo; entonces ahí no había nada que hacer. Me caí con Santiago en mis brazos»
+[Q19] CITA «El fuego avanzaba por el techo. Lo que me dijo Alfredo (marido) es ‘corré’ y yo, como todos, corrí por nuestra vida hacia el único lugar donde sabíamos que había una puerta y personas que corrían en sentido contrario porque buscaban a sus familiares; mucha gente que nos cruzaba, que llamaba por sus nombres, seguro a sus hijos, a su familia... Me encontré con una pared humana difícil de pasar. Toda esa gente vino sobre mí de vuelta y quedamos atrapados. Cuando sentí la avalancha, dije acá nos morimos todos, no me voy a salvar, se me pasó toda la vida por la cabeza, que les dejaba a mis hijos adolescentes, tan jóvenes, solos» — Liz Torres (Sobreviviente) · verificada · fecha 2004-08-01
+    F08@2798: «Cuando sentí la avalancha, dije acá nos morimos todos, no me voy a salvar, se me pasó toda la vida por la cabeza, que les dejaba a mis hijos adolescentes, tan jóvenes, solos”.»
+[Q20] CITA «Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...» — Liz Torres (Sobreviviente) · verificada_parcial · fecha 2004-08-01
+    F08@2975: «“Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...”. Liz y su esposo pudieron ser rescatados.»
+[Q21] CITA «Eran doce horas de explotación, ¡doce horas trabajaba! De lunes a lunes. No había feriado, no había un momento de descanso (...) Él venía cansado a las diez de la noche en casa, le friccionaba su pie porque el pie era lo que le cansaba mucho porque estaba parado doce horas» — Anónimo (Familiar de un empleado) · verificada · fecha None
+    F09@6919: «“...Eran doce horas de explotación, ¡doce horas trabajaba! De lunes a lunes. No había feriado, no había un momento de descanso (...) Él venía cansado a las diez de la noche en casa, le friccionaba su pie porque el pie era lo que le cansaba mucho porque estaba parado doce horas»
+[Q22] CITA «Lo que he visto... que la gente lloraba y gritaba, y el humo, el humo caliente, parecía una tormenta y volaba toda esa suciedad, entraba todo por mi ojo, por mi nariz, por mi boca, ya no aguantaba más.» — Anónimo (Sobreviviente) · verificada · fecha None
+    F09@12584: «“Lo que he visto... que la gente lloraba y gritaba, y el humo, el humo caliente, parecía una tormenta y volaba toda esa suciedad, entraba todo por mi ojo, por mi nariz, por mi boca, ya no aguantaba más.»
+[Q23] CITA «El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las puertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo. Pero ellos mandaron cerrar las puertas.» — Anónimo (Sobreviviente) · verificada · fecha None
+    F09@12918: «“El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las puertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo. Pero ellos mandaron cerrar las puertas.»
+[Q24] CITA «Y yo, mi vida desde que falleció mi hijo, estoy muerta. Yo soy una... es lo que se dice, en vida estoy muerta. Como te digo, mi vida ha cambiado. [...] Yo desde el primero de agosto, terminó mi vida, me enterraron con mi hijo.» — Anónimo (Madre de una víctima fallecida) · verificada · fecha None
+    F09@14329: «“...Y yo, mi vida desde que falleció mi hijo, estoy muerta. Yo soy una... es lo que se dice, en vida estoy muerta. Como te digo, mi vida ha cambiado. [...] Yo desde el primero de agosto, terminó mi vida, me enterraron con mi hijo ”.»
+    F09@121670: «Terminó. Yo desde el primero de agosto, terminó mi vida, me enterraron con mi hijo. Y yo como madre solamente pido justicia.»
+[Q25] CITA «esa carpeta fiscal, esa investigación está a cargo de la fiscala Matilde Moreno y que estaban esperando el resultado de un sumario administrativo.» — Fiscal Edgar Sánchez (Fiscal) · verificada · fecha 2004-12-07
+    F09@20135: (= arriba)
+[Q26] CITA «algo ocurría en el techo» — Amada Correa (Funcionaria del supermercado) · verificada · fecha 2004-08-01
+    F09@27393: «fueron comunicados por una funcionaria de nombre Amada Correa, de que algo ocurría en el techo, entonces por eso es que este señor, de un físico voluminoso, a pesar de ese impedimento físico él pudo salir del lugar.»
+[Q27] CITA «un manojo de llaves le entregó al gordo Paiva» — don Julio (Hombre de confianza de Paiva) · verificada · fecha None
+    F09@49941: «un manojo de llaves le entregó al gordo Paiva. Eso mismo él declara. Entonces si bien es cierto él abrió el supermercado, otro manojo de llaves tenía el gordo Paiva.»
+[Q28] CITA «había un material importado que no debió haberse quemado, era tóxico, sin embargo, se quemó (sería una falla de origen, de la empresa que lo vende), y para peor, según Pérez, si eso no se hubiera quemado, esta tragedia no hubiera sucedido, no pasaba nada.» — Benedicto Pérez (Oficial inspector, Bomberos de Formosa) · verificada · fecha 2005-04-20
+    F09@63283: (= arriba)
+[Q29] CITA «la temperatura entre el cielorraso y el techo llegó a 600º C, y a la primera inhalación, la gente que estaba en el patio de comidas ya murió, pues esa temperatura quema las vías respiratorias al instante.» — Benedicto Pérez (Oficial inspector, Bomberos de Formosa) · verificada_parcial · fecha 2005-04-20
+    F09@64470: (= arriba)
+[Q30] CITA «era muy común ir por una cuadra y vos encontrabas, en una cuadra, tres o cuatro velorios y la gente caminando, con cara de desconcierto, entrando de un velorio en otro.» — Ignacio González (Sociólogo, ex-residente del barrio Santísima Trinidad) · verificada_parcial · fecha 2005-01-17
+    F09@68285: «era muy común ir por una cuadra y vos encontrabas, en una cuadra, tres o cuatro velorios y la gente caminando, con cara de desconcierto, entrando de un velorio en otro.»
+[Q31] CITA «se inició como un accidente pero las consecuencias de tanta mortandad no fueron accidentales, sino que fueron intencionales, el tema de cerrar puertas, el tema de la seguridad que no existía, el tema de los controles, que evidentemente tampoco existían, por parte del Estado.» — Alejandro Maciel (Médico siquiatra) · verificada_parcial · fecha 2005-01-12
+    F09@73851: «Pero acá lo que veíamos es el tema de que esto no era lo mismo, se inició como un accidente pero las consecuencias de tanta mortandad no fueron accidentales, sino que fueron intencionales, el tema de cerrar puertas, el tema de la seguridad que no existía, el tema de los controles, que evidentemente »
+[Q32] CITA «esa es una de las consecuencia que le dije. El bloqueo para la expresión, porque todavía le mente está tratando de poner en su lugar cada cosa de lo que ha visto, y recomponer el mundo. Porque hasta ese día ese señor creía que el mundo era una cosa. A partir de ese momento, vio que el mundo es otra cosa.» — un bombero (Bombero) · verificada · fecha None
+    F09@82334: «Leí que un bombero que estuvo en el lugar del hecho no pudo hablar por un tiempo. No sé cuántas horas o días después del hecho. ¿Por qué? Y bueno, esa es una de las consecuencia que le dije. El bloqueo para la expresión, porque todavía le mente está tratando de poner en su lugar cada cosa de lo que »
+[Q33] CITA «Si a mí me pagan diez millones de dólares, voy a utilizar cinco para matar a los culpables, y los otros cinco para rajarme de acá» — familiar de víctima (Familiar de víctima) · verificada · fecha None
+    F09@94944: «Una persona (familiar de víctima) ha dicho: “Si a mí me pagan diez millones de dólares, voy a utilizar cinco para matar a los culpables, y los otros cinco para rajarme de acá”. Eso refleja, en una frase, la rabia que muchos no se animan a expresar tan abiertamente.»
+[Q34] CITA «la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré.» — Digna Felicia Cáceres (Sobreviviente de la tragedia) · verificada_parcial · fecha 2005-01
+    F09@105054: «ahí la gente corría y volvían todos porque el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. Por ahí yo iba a salir sin coche, iba a salir corriendo pero felizmente que me quedé ahí en el pasillo, porque no iba luego a poder salir.»
+[Q35] CITA «Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.» — Digna Felicia Cáceres (Sobreviviente de la tragedia) · verificada_parcial · fecha 2005-01
+    F09@111629: «¿Pensás que mandaron cerrar las puertas? Claro, ellos mandaron. El jefe mandó cerrar las puertas y el jefe es Pío Paiva, fue la orden de él. Porque si no cerraban las muertas iban a morir pocos, diez, veinte por ahí, el resto iba a salir corriendo.»
+[Q36] CITA «Porque eran doce horas de explotación, ¡doce horas trabajaba! De lunes a lunes. No había feriado, no había un momento de descanso.» — Mariana Aquino de Chamorro (Madre de empleado fallecido) · verificada · fecha 2005-01-13
+    F09@116880: «Porque eran doce horas de explotación, ¡doce horas trabajaba! De lunes a lunes. No había feriado, no había un momento de descanso. Y era mi único hijo, me desesperaba, y él me prometió a mí, hasta diciembre trabajar.»
+[Q37] CITA «estaban todas las puertas cerradas, yo estuve ahí, gritando “¡Mi hijo está adentro!”, el humo llenaba todo, no se podía mirar, y los que estaban adentro, ¿cómo iban a estar?» — Mariana (Madre de víctima fallecida) · verificada · fecha None
+    F09@119147: «estaban todas las puertas cerradas, yo estuve ahí, gritando “¡Mi hijo está adentro!”, el humo llenaba todo, no se podía mirar, y los que estaban adentro, ¿cómo iban a estar?»
+[Q38] CITA «El punto principal fue la imputación a Riera y la justicia para los sobrevivientes. Más aún para aquellos leves.» — Dora (Moderadora de reunión, miembro del Colectivo “Ni olvido ni perdón”) · verificada · fecha 2005-01-17
+    F09@128832: «El punto principal fue la imputación a Riera y la justicia para los sobrevivientes. Más aún para aquellos leves. “Leves” parece que ellos están midiendo porque no tienen tanta quemadura, no se le nota la quemadura.»
+[Q39] CITA «Cerraron las puertas, por favor, no nos quedemos quietos. Así de claro es. Y este inútil de Enrique Riera sigue todavía, altanero como es, verdad, en vez de venir a consustanciarse con nosotros, sigue acusándonos de dirigentes de movimientos estudiantiles revolucionarios.» — Ing. Blas Cristaldo (Miembro del Colectivo Ni Olvido Ni Perdón, familiar de víctima) · verificada_parcial · fecha 2005-01-17
+    F09@137008: «Cerraron las puertas, por favor, no nos quedemos quietos. Así de claro es. Y este inútil de Enrique Riera sigue todavía, altanero como es, verdad, en vez de venir a consustanciarse con nosotros, sigue acusándonos de dirigentes de movimientos estudiantiles revolucionarios.»
+[Q40] CITA «Mientras nosotros levantábamos cadáveres en el supermercado, el comisario Juan Pereira, en el Departamento de Investigación de Delitos de la Policía Nacional, estaba induciendo a los guardias a no decir la verdad.» — Fiscal Sánchez (Fiscal) · verificada · fecha 2004-12-25
+    F09@140287: «Qué es lo que él dice: “Mientras nosotros levantábamos cadáveres en el supermercado, el comisario Juan Pereira, en el Departamento de Investigación de Delitos de la Policía Nacional, estaba induciendo a los guardias a no decir la verdad”.»
+[Q41] CITA «yo me voy y le empujo a ella cuando ya me doy cuenta de que el incendio era muy intenso. Y salí, y me quemé con gravedad, el 50% de mi cuerpo, mis dos pulmones y la laringe, por eso es que estoy un poco ronco.» — Fernando Ortiz (Ex empleado del Ycuá Bolaños, sobreviviente) · verificada_parcial · fecha 2005-01-17
+    F09@141482: (= arriba)
+[Q42] CITA «Yo por favor les pido que no hagan nada, eso de ir a tirar huevos y eso en la casa del fiscal, por favor quedémonos acá nomás y hablemos de cosas mucho más importantes que podemos hacer acá.» — Lili Cristaldo (Sobreviviente) · verificada · fecha 2005-01-17
+    F09@147046: «Yo por favor les pido que no hagan nada, eso de ir a tirar huevos y eso en la casa del fiscal, por favor quedémonos acá nomás y hablemos de cosas mucho más importantes que podemos hacer acá.»
+[Q43] CITA «¡Yo no pedí que se le mate a mi esposo! Vos tenés que exigir, en todo momento, en todo lugar a donde te vas. “Yo soy sobreviviente. Y necesito estos medicamentos”.» — Berzabé (Familiar de víctima (perdió a su esposo)) · verificada · fecha 2005-01-17
+    F09@150413: «“¡Yo no pedí que se le mate a mi esposo!” Vos tenés que exigir, en todo momento, en todo lugar a donde te vas. “Yo soy sobreviviente. Y necesito estos medicamentos”.»
+[Q44] CITA «He perdido a mi esposo y a mi hijita de apenas cuatro meses, y como digo, externamente no se me ve ninguna herida, pero internamente estoy totalmente destrozada.» — Verónica Becker (Familiar de víctimas (perdió a su esposo e hija)) · verificada · fecha 2005-01-17
+    F09@154539: «He perdido a mi esposo y a mi hijita de apenas cuatro meses, y como digo, externamente no se me ve ninguna herida, pero internamente estoy totalmente destrozada.»
+[Q45] CITA «Perdí a mi hija, perdí a mi mamá. Las quemaduras físicas que nosotros tenemos, al menos las que yo tengo, nos están matando. Y nosotros estamos perdiendo tiempo hablando: tenemos que actuar.» — Familiar de víctima (Familiar de víctima) · verificada · fecha 2005-01-17
+    F09@156412: «Perdí a mi hija, perdí a mi mamá. Las quemaduras físicas que nosotros tenemos, al menos las que yo tengo, nos están matando. Y nosotros estamos perdiendo tiempo hablando: tenemos que actuar (el público concuerda y aplaude).»
+[Q46] CITA «cobraron por la tasa de incendio y nunca hicieron ese control. Entonces las pruebas están.» — Liz Torres (Miembro de la Coordinadora de Víctimas) · verificada_parcial · fecha 2005-01-17
+    F09@160311: «el error más grave: que cobraron por la tasa de incendio y nunca hicieron ese control. Entonces las pruebas están.»
+[Q47] CITA «No me insistas porque no me voy a ir”, le dije, “a las diez yo no me voy a ir, prefiero en todo caso irme con María Silvia al Chaco”. Ella dijo “Ah, bueno, entonces le voy a llamar a Teresa para decirle que no nos vamos a ir”.» — Blas Cristaldo (Esposo de víctima fallecida) · verificada_parcial · fecha 2005-01-22
+    F09@194314: «“No me insistas porque no me voy a ir”, le dije, “a las diez yo no me voy a ir, prefiero en todo caso irme con María Silvia al Chaco”. Ella dijo “Ah, bueno, entonces le voy a llamar a Teresa para decirle que no nos vamos a ir”.»
+[Q48] CITA «Dejáte de macanear, Estela está con ellos... por Dios”... y ahí empezamos la búsqueda.» — Blas Cristaldo (Esposo de víctima fallecida) · verificada_parcial · fecha 2005-01-22
+    F09@199147: «Yo le dije “Dejáte de macanear, Estela está con ellos... por Dios”... y ahí empezamos la búsqueda.»
+[Q49] CITA «No tengo dudas de que le quitaron, le comieron. Yo le retiré a las diez y media de la noche.» — Blas Cristaldo (Esposo de víctima fallecida) · verificada_parcial · fecha 2005-01-22
+    F09@201825: «Ya no tenía su champión. Era nuevito, se acababa de comprar. No tengo dudas de que le quitaron, le comieron. Yo le retiré a las diez y media de la noche.»
+[Q50] CITA «El Ycuá Bolaños era un lugar de esparcimiento, era un lugar familiar, me quedaba cerca. A mi esposa pues le encantaba recorrer, mirar, comprar las cosas que necesitaba, mirá, era algo tan, tan familiar.» — Nelson Astigarraga (Sobreviviente y familiar de víctimas) · verificada_parcial · fecha None
+    F09@208056: «El Ycuá Bolaños era un lugar de esparcimiento, era un lugar familiar, me quedaba cerca. A mi esposa pues le encantaba recorrer, mirar, comprar las cosas que necesitaba, mirá, era algo tan, tan familiar.»
+[Q51] CITA «Lo único que atino a correr hacia donde ellos están, como todo el mundo, buscando la salida y todas esas cosas, veo que hay un montón de gente, se volcaron en la salida, y segundos nada más,... antes de que suceda todo eso lo que me acuerdo que se me pasó era eso del efecto de la “tormenta”.» — Nelson Astigarraga (Sobreviviente y familiar de víctimas) · verificada_parcial · fecha None
+    F09@209427: «Lo único que atino a correr hacia donde ellos están, como todo el mundo, buscando la salida y todas esas cosas, veo que hay un montón de gente, se volcaron en la salida, y segundos nada más,... antes de que suceda todo eso lo que me acuerdo que se me pasó era eso del efecto de la “tormenta”.»
+[Q52] CITA «Lo único que pensaba era “Acá termina todo”.» — Nelson Astigarraga (Sobreviviente y familiar de víctimas) · verificada_parcial · fecha None
+    F09@209872: «Lo único que pensaba era “Acá termina todo”. Ahí uno... piensa muchas cosas, uno escuchando el griterío, inentendible era, una cosa desesperante, lleno de gente, pilas de gente, cerca de la puerta.»
+[Q53] CITA «después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas!» — Nelson Astigarraga (Sobreviviente y familiar de víctimas) · verificada_parcial · fecha None
+    F09@211223: «presencié y en la confusión pensé “A la pucha, qué muchos maniquíes”, después uno vuelve a la realidad: qué maniquíes, ¡estas son gentes carbonizadas! Que quedaron ahí.»
+[Q54] CITA «¡Qué lo que estás haciendo, estás rompiendo todo mi supermercado!» — Daniel Paiva (Hijo del dueño del supermercado) · verificada · fecha 2004-08-01
+    F09@211571: «Guillén me dijo que fue uno de los primeros que hizo el boquete, y eso le recriminó el Paiva, le dijo “¡Qué lo que estás haciendo, estás rompiendo todo mi supermercado!” le dijo.»
+[Q55] CITA «no tengo la menor duda que la primera responsabilidad es del Estado. La primera responsabilidad es del Estado, porque el Estado debe garantizar la seguridad pública.» — José Luis Simón (Sociólogo) · verificada_parcial · fecha 2005-02-04
+    F09@218599: «no tengo la menor duda que la primera responsabilidad es del Estado. La primera responsabilidad es del Estado, porque el Estado debe garantizar la seguridad pública. Aunque se trate de una empresa privada, ahí hay público y entonces hay una dimensión privada de responsabilidad, y una dimensión públi»
+[Q56] CITA «Entonces, la gente como que tira a los demás – el Estado, la Municipalidad, los dueños que sin duda son señores feudales, de horca y cuchillo [...], son corresponsables, pero también hay una responsabilidad de la sociedad, que nunca se preocupó...» — José Luis Simón (Sociólogo) · verificada_parcial · fecha 2005-02-04
+    F09@223781: «son corresponsables, pero también hay una responsabilidad de la sociedad, que nunca se preocupó...»
+[Q57] CITA «Ycuá Bolaños es un panorama posible de lo que puede ser el Paraguay, colectivamente, en poco tiempo. O sea, un gran incendio. Es una metáfora de uno de los caminos del Paraguay, si es que nosotros continuamos así.» — José Luis Simón (Sociólogo) · verificada_parcial · fecha 2005-02-04
+    F09@226533: «Ycuá Bolaños es un panorama posible de lo que puede ser el Paraguay, colectivamente, en poco tiempo. O sea, un gran incendio. Es una metáfora de uno de los caminos del Paraguay, si es que nosotros continuamos así.»
+[Q58] CITA «Todo el Paraguay es un inmenso Ycuá Bolaños. En materia laboral.» — José Luis Simón (Profesor y periodista) · verificada_parcial · fecha None
+    F09@243918: «Eso te iba a decir. Todo el Paraguay es un inmenso Ycuá Bolaños. En materia laboral. Empezando por el Estado, que no respeta las leyes laborales.»
+[Q59] CITA «no se merece nadie del mundo morir de la forma como murió esta gente. Eso es lo único que puedo decir.» — María Berzabé Meza Vda. de Brizuela (Viuda de una víctima) · verificada · fecha None
+    F09@257790: «Y no se merece nadie del mundo morir de la forma como murió esta gente. Eso es lo único que puedo decir.»
+[Q60] CITA «Bueno, te vas a ir a buscarle a tu papá. Porque seguro que estará ayudando, y se va accidentar.» — Un hijo de Berzabé (Testigo en el lugar del incendio) · verificada · fecha None
+    F09@258544: «le dije a mi hijo mayor de los varones “Bueno, te vas a ir a buscarle a tu papá. Porque seguro que estará ayudando, y se va accidentar”.»
+[Q61] CITA «nosotros decimos “no vamos a olvidar, y no vamos a perdonar” mientras no se haga justicia.» — María Berzabé Meza Vda. de Brizuela (Viuda de una víctima) · verificada · fecha None
+    F09@260365: «Por eso nosotros decimos “no vamos a olvidar, y no vamos a perdonar” mientras no se haga justicia.»
+[Q62] CITA «No, eso es muy caro.» — Juan Pío Paiva (Dueño del supermercado Ycuá Bolaños) · verificada · fecha None
+    F09@269421: «Mi marido le ofreció a Juan Pío Paiva prevención contra incendios. Y éste le dijo “No, péa hepyma”.»
+[Q63] CITA «aquí no le mató solamente el fuego, le mató también la corrupción. Porque si eso estaba bien fiscalizado, con todos los elementos de seguridad, no se iba a incendiar y los Paiva no tendrían por qué cerrar las puertas.» — María Berzabé Meza Vda. de Brizuela (Viuda de una víctima) · verificada · fecha None
+    F09@278901: «aquí no le mató solamente el fuego, le mató también la corrupción. Porque si eso estaba bien fiscalizado, con todos los elementos de seguridad, no se iba a incendiar y los Paiva no tendrían por qué cerrar las puertas.»
+[Q64] CITA «la primera consulta que yo le hago a los Paiva es si realmente ellos dieron la orden de cerrar las puertas. Cuando me dicen categóricamente que no, que eso no es cierto, que no fue nunca ni política de la empresa ni nada» — Luis Escobar Faella (Abogado defensor de Juan Pío Paiva) · verificada · fecha None
+    F09@285254: «la primera consulta que yo le hago a los Paiva es si realmente ellos dieron la orden de cerrar las puertas. Cuando me dicen categóricamente que no, que eso no es cierto, que no fue nunca ni política de la empresa ni nada»
+[Q65] CITA «la investigación fue totalmente parcial, que hay mucha motivación política detrás de todo esto.» — Luis Escobar Faella (Abogado defensor de Juan Pío Paiva) · verificada_parcial · fecha None
+    F09@287865: «Hoy podemos decir a esta altura, existiendo una acusación, que la investigación fue totalmente parcial, que hay mucha motivación política detrás de todo esto.»
+[Q66] CITA «No vas a salir» — un ex empleado (Ex empleado) · verificada · fecha None
+    F09@293863: (= arriba)
+[Q67] CITA «Acá vamos a morir todos» — la funcionaria que estaba de guardia (Funcionaria de guardia) · verificada · fecha None
+    F09@294029: «La chica esa que dijo “Acá vamos a morir todos”. Si uno ve o visualiza cómo ocurre la tragedia, no le entra a nadie que no haya pensado en su propia supervivencia.»
+[Q68] CITA «era una victoria pírrica, ya que Juan Pío Paiva murió y no sabe si aún existen bienes de la sociedad Ycuá Bolaños V.» — Antonio Morínigo (Abogado) · verificada · fecha None
+    F10@2889: (= arriba)
+[Q69] CITA «como si fuera ayer» — Cristian Sosa (Sobreviviente) · verificada · fecha 2004-08-01
+    F11@551: (= arriba)
+[Q70] CITA «Las llamas cayeron sobre las personas que estaban almorzando y hubo un desbande total» — Cristian Sosa (Sobreviviente) · verificada · fecha 2004-08-01
+    F11@891: ««Las llamas cayeron sobre las personas que estaban almorzando y hubo un desbande total», refirió a EFE.»
+[Q71] CITA «Los informes decían que eran 1.500 grados de calor que pasaban sobre nosotros» — Cristian Sosa (Sobreviviente) · verificada_parcial · fecha 2004-08-01
+    F11@1242: (= arriba)
+[Q72] CITA «Yo digo entraron para morir» — Julia López (Familiar de víctimas) · verificada · fecha None
+    F11@2004: ««Yo digo entraron para morir», recordó Julia, al señalar que «al poco rato que ellos entraron hubo la explosión».»
+[Q73] CITA «al poco rato que ellos entraron hubo la explosión» — Julia López (Familiar de víctimas) · verificada · fecha None
+    F11@2004: (= arriba)
+[Q74] CITA «Lejos estaba de imaginarme que en esa cueva de avaricia las llamas de la muerte devorarían todos los anhelos, las ilusiones y los proyectos que tenían mi querida Kelita y familia» — Julia López (Familiar de víctimas) · verificada_parcial · fecha None
+    F11@2514: ««Lejos estaba de imaginarme que en esa cueva de avaricia las llamas de la muerte devorarían todos los anhelos, las ilusiones y los proyectos que tenían mi querida Kelita y familia», escribió Julia en una de sus muchas cartas sobre la tragedia.»
+[Q75] CITA «Toda mi familia estaba desestructurada en ese momento» — Angélica Roa (Sobreviviente y familiar de víctimas) · verificada · fecha 2004-08-01
+    F11@3005: ««Toda mi familia estaba desestructurada en ese momento», relata esta sicóloga jubilada sobre el impacto que causó la pérdida de su hermana, la menor, la «más mimada».»
+[Q76] CITA «El duelo fue tan colectivo que había un sostén colectivo también en cuanto al duelo. Y yo creo que eso nos ayudó muchísimo a transitar» — Angélica Roa (Sobreviviente y familiar de víctimas) · verificada_parcial · fecha None
+    F11@3482: ««El duelo fue tan colectivo que había un sostén colectivo también en cuanto al duelo. Y yo creo que eso nos ayudó muchísimo a transitar», recuerda del acompañamiento entre las víctimas.»
+[Q77] CITA «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida» — Liz Torres (Sobreviviente) · verificada · fecha 2004-08-01
+    F11@4164: ««Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida», contó Torres a EFE, que entonces tenía 37 años»
+[Q78] CITA «Nos pusimos, como decimos ahora, en los zapatos de los que ya no están y empezamos a caminar para luchar por la justicia, por la memoria, eso permitió que nos reconstruyamos» — Liz Torres (Sobreviviente) · verificada_parcial · fecha None
+    F11@4656: ««Nos pusimos, como decimos ahora, en los zapatos de los que ya no están y empezamos a caminar para luchar por la justicia, por la memoria, eso permitió que nos reconstruyamos», afirmó.»
+[Q79] CITA «Es un centro que está abierto a la comunidad» — Tania Campos (Directora del Sitio de Memoria y Centro Cultural 1A – Ycuá Bolaños) · verificada · fecha None
+    F11@4956: (= arriba)
+[Q80] CITA «Pero todavía queda mucho por hacer en cuanto al mantenimiento del sistema de prevención. Actualmente, muchos de los edificios tienen dispositivos de seguridad contra incendios, pero no realizan el mantenimiento correspondiente» — Rubén Valdez (jefe del Cuerpo de Bomberos Voluntarios del Paraguay) · verificada · fecha None
+    F16@1165: «“Pero todavía queda mucho por hacer en cuanto al mantenimiento del sistema de prevención. Actualmente, muchos de los edificios tienen dispositivos de seguridad contra incendios, pero no realizan el mantenimiento correspondiente”, explica el bombero»
+[Q81] CITA «El Ycuá Bolaños también dejó al desnudo la inmadurez profesional y ciudadana para cumplir con las reglas-normas de seguridad, no solamente en el diseño y la construcción, sino también en el mantenimiento responsable de los edificios» — Nelson Jara (arquitecto, docente adjunto de la materia opcional Seguridad contra incendios en los edificios, en FADA-UNA) · verificada · fecha None
+    F16@1547: «El Ycuá Bolaños también dejó al desnudo la inmadurez profesional y ciudadana para cumplir con las reglas-normas de seguridad, no solamente en el diseño y la construcción, sino también en el mantenimiento responsable de los edificios, indicó el arquitecto Nelson Jara»
+[Q82] CITA «la Municipalidad aprobaba los planos, y no realizaba luego la inspección final para ver si realmente los sistemas de seguridad contra incendios se encontraban en funcionamiento» — Carlos Halke (director del Departamento de Prevención contra Incendios de la Municipalidad de Asunción) · verificada · fecha None
+    F16@2084: «quien asume que la Municipalidad aprobaba los planos, y no realizaba luego la inspección final para ver si realmente los sistemas de seguridad contra incendios se encontraban en funcionamiento.»
+</citas>
+<lugares n="42">
+[L01] supermercado Ycuá Bolaños · Lugar del incendio
+    F03@0: «Tatiana Gabaglio es una joven que sobrevivió al infierno que consumió el supermercado Ycuá Bolaños aquel fatídico domingo 1 de agosto del 2004.»
+    F05@135: (= arriba)
+    F06@228: «Sigue la controversia por las evidencias robadas del local siniestrado.»
+    F08@297: (= arriba)
+    F09@59418: (= arriba)
+    F09@129052: «aquel que sobrevivió también tiene dentro, la quemadura en el alma, verdad, y esos son los dos puntos principales que queremos pedirle»
+    F09@196797: «“¿Y no escuchaste lo que pasa en el Ycuá Bolaños?”, “No, ¿qué pasa?” le digo. “Y hay un desastre, parece que un incendio, prendé un poco la radio, la tele”.»
+    F09@255786: «Él se fue al Ycuá Bolaños como casi todos los domingos, que nos íbamos a misa y de ahí pasábamos al Ycuá»
+    F10@623: «A casi 21 años de la tragedia del Supermercado Ycuá Bolaños, la Sala Civil de la Corte se pronunció en uno de los últimos juicios de indemnización»
+    F11@249: «un voraz incendio que cegó unas 364 vidas en el supermercado Ycuá Bolaños de Asunción.»
+    F15@403: (= arriba)
+[L02] Universidad Nacional de Asunción (UNA) · Institución donde estudia Tatiana Gabaglio
+    F03@1910: (= arriba)
+[L03] Memorial 1A · Centro cultural y sitio de memoria construido en el lugar del ex supermercado.
+    F05@1: «“Mi historia termina acá”, cuenta Ángela Pujol, sentada en el patio de las luces del Memorial 1A...»
+[L04] Paraguay · País donde ocurrió la tragedia.
+    F05@135: (= arriba)
+    F09@243938: «Todo el Paraguay es un inmenso Ycuá Bolaños. En materia laboral. Empezando por el Estado, que no respeta las leyes laborales.»
+    F09@297944: «...para que veas que este caso es el caso del absurdo, como es el Paraguay, el Paraguay es el caso del absurdo, hacemos todo lo que no nos conviene y no somos capaces de generar riquezas sobre lo que nos conviene...»
+    F10@1308: (= arriba)
+    F16@0: «La mañana del domingo 1 de agosto de 2004 quedó marcada en la sociedad paraguaya»
+[L05] Asunción · Ciudad donde se encontraba el supermercado.
+    F05@2023: «...en el ex supermercado del barrio Trinidad de Asunción.»
+    F07@1540: «la importancia que tenía en aquel tiempo el supermercado Ycuá Bolaños para el barrio Trinidad y Asunción.»
+    F09@8966: «el asesinato colectivo más espantoso que se recuerde en tiempos modernos en Asunción, Paraguay.»
+    F09@60643: «El mismo día de la tragedia, el 1 de agosto, se dispuso enviar el primer contingente a Asunción.»
+    F11@249: (= arriba)
+    F16@1912: «Para la Municipalidad de Asunción existe un antes y un después del Ycuá Bolaños»
+[L06] barrio Trinidad · Barrio de Asunción donde se ubicaba el supermercado.
+    F05@2023: (= arriba)
+    F09@103575: «Estuve viviendo antes en la Avenida Choferes del Chaco, de ahí me mudé en el Barrio Trinidad, porque es un barrio muy tranquilo»
+[L07] avenida Artigas · Ubicación del Memorial 1A.
+    F05@4332: «...se tiene previsto el acto central a las 11:00, en el memorial ubicado sobre la avenida Artigas, con la lectura de un manifiesto...»
+    F09@105097: «el portó que queda hacia Avenida Artigas estaba cerrado, por donde yo entré. Por ahí yo iba a salir sin coche, iba a salir corriendo pero felizmente que me quedé ahí en el pasillo, porque no iba luego a poder salir.»
+    F16@100: «se desató un infierno en la esquina de la avenida Artigas y Santísima Trinidad, lugar donde acudieron numerosas unidades de bomberos»
+[L08] Azotea y mirador · Ubicación de puertas cerradas
+    F06@1799: (= arriba)
+[L09] Administración · Ubicación de puertas cerradas
+    F06@1799: (= arriba)
+[L10] Embajada de los Estados Unidos · Lugar de entrega de una prueba (el ducto de la chimenea)
+    F06@2396: «Al final, informó que la evidencia fue entregada en la Embajada de los Estados Unidos.»
+[L11] barrio Kennedy, de Lambaré · Lugar de residencia de una víctima indirecta
+    F06@3290: «El muchacho vive en el barrio Kennedy, de Lambaré.»
+[L12] barrio Santísima Trinidad · Ubicación del supermercado Ycuá Bolaños
+    F07@1405: «esta historia que tuvo inicio con la tragedia ocurrida en el barrio Santísima Trinidad.»
+    F09@6454: «Como no soy del barrio “Santísima Trinidad”, nunca fui de compras al Ycuá Bolaños – Botánico.»
+    F09@67504: «Trinidad tiene características diferentes a otras regiones de Asunción. Ya sea por su historia, porque en un primer momento no fue parte de Asunción, un pueblito cercano.»
+    F11@3879: (= arriba)
+[L13] patio de comida · Área del supermercado
+    F08@1441: «Me quedé centrado hacia el patio de comida porque la gente miraba también hacia el sector de la parrilla y ese lugar vibraba»
+    F09@25840: «como consecuencia de la construcción de una chimenea que partía de una parilla ubicada en el patio de comidas»
+    F09@64470: (= arriba)
+    F11@812: (= arriba)
+[L14] sector de la parrilla · Área del supermercado que vibraba
+    F08@1491: «la gente miraba también hacia el sector de la parrilla y ese lugar vibraba, vibraba y era como que iba a estallar en cualquier momento»
+[L15] puerta de blíndex · Salida del supermercado que se encontraba cerrada
+    F08@2016: (= arriba)
+[L16] estacionamiento · Lugar desde donde provino un estruendo y humo
+    F08@2112: (= arriba)
+    F09@58736: «En el estacionamiento simplemente arrasó con todo lo que encontró a su paso.»
+    F11@1054: «fue sorprendido por el fuego que entró como «un cometa» desde el estacionamiento.»
+[L17] Ycuá Bolaños - Botánico · Supermercado incendiado
+    F09@5438: (= arriba)
+[L18] CONATEL · Lugar de reunión entre fiscal y víctimas
+    F09@19774: (= arriba)
+    F09@128406: (= arriba)
+    F09@176371: (= arriba)
+[L19] Sector de panadería · Lugar de la primera explosión
+    F09@26928: «fue ganando espacio y se fue recorriendo el techo consumiendo el poliuretano hasta llegar al sector de panadería.»
+[L20] Dirección de Cuerpos y Servicios Especiales (Policía de la provincia de Formosa) · Lugar de la entrevista con Benedicto Pérez
+    F09@60012: (= arriba)
+[L21] Formosa · Lugar de origen de los bomberos y peritos que asistieron
+    F09@60526: «El oficial comentó que los bomberos de la Policía de Formosa guardan estrecha relación con los bomberos de Paraguay.»
+[L22] Buenos Aires · Lugar de comparación por la rapidez de la justicia
+    F09@119921: «Y acá en este país... en Buenos Aires, en un mes, ya están quitando cuántos . Cuántos están en la calle gritando, y están ya haciendo justicia ya casi.»
+[L23] Fiscalía · Institución a la que las víctimas exigen justicia
+    F09@129278: «Y esos son los dos principales pedidos que quisimos hacer en la Fiscalía.»
+[L24] La gomería · Lugar de reunión del Colectivo Ni Olvido Ni Perdón
+    F09@130070: «le pedíamos una reunión con los fiscales, en un local acá del señor Miguel Ángel Guillén, que está acá con nosotros, que es la gomería, ya han de conocer todos.»
+[L25] Departamento de Investigación de Delitos de la Policía Nacional · Lugar donde el comisario Juan Pereira habría inducido a los guardias a mentir
+    F09@140372: (= arriba)
+[L26] Max Boettner · Hospital donde fue atendido un sobreviviente
+    F09@144503: «Yo le visité a él en varias ocasiones, estaba en el Max Boettner, estaba muy mal... y era otra la situación.»
+[L27] Hospital Militar · Lugar donde fue atendida la hija de una víctima
+    F09@150131: «porque mi hija se me enfermó a los pocos días que murió mi marido y le internado en el hospital Militar.»
+    F09@265598: «fuimos al Hospital Militar, me atendieron muy bien, sin problema, ya nomás entramos, le pusieron los sueros, los medicamentos»
+[L28] Zeballos Cué · Barrio de residencia de un grupo de víctimas
+    F09@152437: «Me refiero al de Zeballos Cué. Nadie se acuerda de eso. Y otra cosa.»
+[L29] Pastoral Social · Organización que distribuyó donaciones a las víctimas
+    F09@152620: «Y fue y depositó en la Pastoral Social. En la Pastoral Social está una señora de nombre Liz de Giangreco, mi amiga.»
+[L30] Coronel Oviedo · Lugar donde un fiscal dijo estar mientras manifestantes lo buscaban
+    F09@175959: «pidieron hablar con el fiscal, pero éste sólo se comunicó vía teléfono celular con una de las mujeres presentes, dijo estar en Coronel Oviedo y sugirió que al día siguiente a las diez de la mañana vayan de nuevo a la Fiscalía para hablar.»
+[L31] Tropi · Morgue improvisada para los fallecidos
+    F09@199986: «el único lugar en donde yo no había entrado cuando comencé fue en el Tropi[10], porque allá iban los fallecidos ya... entonces como nosotros priorizamos a víctimas vivas, recorrimos por todos lados»
+[L32] 4 de mayo · Cuartel donde se identificaron cuerpos de víctimas
+    F09@200190: «a las nueve de la noche ya nos enteramos de que le habían encontrado a Teresa y a Gaby en el 4 de mayo.»
+[L33] estacionamiento abierto del súper · Lugar donde se depositaron cuerpos de víctimas para su identificación
+    F09@200828: «Hay más cuerpos”, “¿Y dónde?” le digo, “Y en el estacionamiento abierto del súper. ¿Va a ir?”, “Y claro”, le dije.»
+[L34] Hospital del Quemado · Lugar donde fue atendido Nelson Astigarraga
+    F09@212406: «lo que sí que ahí llegué en Hospital del Quemado, me cortaron todo (la ropa) y yo decía “¡No me pasó nada!”»
+[L35] Trinidad · Barrio de Asunción donde vivía la familia Brizuela.
+    F09@255639: (= arriba)
+[L36] Sajonia · Barrio de Asunción donde vivía anteriormente la familia Brizuela.
+    F09@255639: (= arriba)
+[L37] Tropi Club · Discoteca al costado del supermercado donde se colocaron los cuerpos de las víctimas.
+    F09@259441: «con atropellos y peleas les dejaron entrar hasta el Tropi Club, que estaba ahí al costado, y ahí le buscaron a su hermano, y le encontraron.»
+[L38] Banco de Fomento · Lugar donde se depositó el dinero del seguro
+    F09@298166: (= arriba)
+[L39] España · País donde se realizaron pruebas de ADN para identificar a una víctima
+    F11@3364: (= arriba)
+[L40] Sitio de Memoria y Centro Cultural 1A – Ycuá Bolaños · Espacio cultural edificado sobre las ruinas del supermercado
+    F11@4840: «Hoy sobre las ruinas del demolido supermercado se edificó el Sitio de Memoria y Centro Cultural 1A – Ycuá Bolaños.»
+[L41] Municipalidad de Asunción · Institución a la que pertenecían funcionarios enjuiciados por falta de fiscalización
+    F15@1608: «el segundo juicio, abierto contra funcionarios de la Municipalidad de Asunción por falta de fiscalización de la obra»
+[L42] memorial · Lugar de conmemoración a las víctimas
+    F16@703: «Actualmente, en uno de sus laterales está el memorial donde cada 1 de agosto se recuerda a las víctimas.»
+</lugares>
+<descartados_del_research n="55">
+  José del Carmen Bogarín (F06): no es una persona con nombre propio
+  Sobrevivientes (F07): no es una persona con nombre propio
+  parientes de víctimas (F07): no es una persona con nombre propio
+  rescatistas (F07): no es una persona con nombre propio
+  un ex jefe de uno de los hospitales (F07): no es una persona con nombre propio
+  un periodista (F07): cita_literal no está en el documento
+  el abogado defensor del accionista principal del supermercado (F07): no es una persona con nombre propio
+  Mary (F08): no es una persona con nombre propio
+  Santiago (F08): no es una persona con nombre propio
+  Alfredo (F08): no es una persona con nombre propio
+  Areco (F09): no es una persona con nombre propio
+  Casaccia (F09): no es una persona con nombre propio
+  don Julio (F09): no es una persona con nombre propio
+  Cynthia (F09): no es una persona con nombre propio
+  Berzabé (F09): no es una persona con nombre propio
+  Mariana Aquino de Chamorro (F09): no es una persona con nombre propio
+  Mariana (F09): no es una persona con nombre propio
+  Hijo de Mariana (F09): no es una persona con nombre propio
+  Nissen (F09): no es una persona con nombre propio
+  Paiva (F09): no es una persona con nombre propio
+  Berzabé (F09): no es una persona con nombre propio
+  Latorre (F09): no es una persona con nombre propio
+  Pereira (F09): cita_literal no está en el documento
+  Leticia (F09): no es una persona con nombre propio
+  Latorre (F09): no es una persona con nombre propio
+  Estela (F09): no es una persona con nombre propio
+  Teresa (F09): no es una persona con nombre propio
+  Paiva (F09): no es una persona con nombre propio
+  María Berzabé Meza Vda. de Brizuela (F09): no es una persona con nombre propio
+  Enrique Riera (F09): cita_literal no está en el documento
+  Burt (F09): no es una persona con nombre propio
+  Ismachoviez (F09): no es una persona con nombre propio
+  Areco (F09): no es una persona con nombre propio
+  Felipe De Jesús Palacios Giménez (F10): no es una persona con nombre propio
+  María Estela Morínigo Giménez de Palacios (F10): no es una persona con nombre propio
+  María del Carmen Palacios Morínigo (F10): no es una persona con nombre propio
+  Carolina (F11): no es una persona con nombre propio
+  Melani (F11): no es una persona con nombre propio
+  María Victoria Cáceres de Paiva (F15): no es una persona con nombre propio
+  Susana Acuña de Ramírez (F15): no es una persona con nombre propio
+  Óscar “Nenecho” Rodríguez (F05): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Héctor Machado (F06): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Elizardo Rojas (F06): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Isidro Ayala Arrúa (F06): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Julio César Alarcón (F06): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Juan Pablo Bareiro (F06): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Victorino Martínez (F06): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Blas Cabriza (F06): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Carlos Arregui (F09): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Sandra Mayeregger (F09): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Víctor Duarte (F09): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Baltazar Duarte (F09): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Agustín Alfonso Martínez (F10): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Eugenio Jiménez Rolón (F10): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Manuel Dejesús Ramírez Candia (F10): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+</descartados_del_research>
+</pool>
+
+<tarea>Con el pool de arriba, armá la ficha del caso: personas, personas_descartadas, cronologia, historia, escenas (8–15), hechos (60–80, con nivel y sirve_para), cifras (con unidad), citas (15–25), decisiones (con su criterio), versiones, contradicciones (las que ningún criterio resuelve) y descartados. Devolvé el JSON del esquema.</tarea>

@@ -257,7 +257,8 @@ def run_guion_v4(topic_id: str, modelo: str | None = None) -> dict:
     from researcher_steps.ficha_caso import load as load_ficha
     ficha = load_ficha(topic_id, STEPS_DIR)                  # F14: si hay ficha, el texto de los ids sale de ella
     g = _step_cost(topic_id, "guionista_v4", lambda: g4.write(topic, esc, call=call, log=log, ficha=ficha))
-    r = _step_cost(topic_id, "reparacion_v4", lambda: g4.reparar(topic, esc, g["parrafos"], call=call, log=log))
+    r = _step_cost(topic_id, "reparacion_v4", lambda: g4.reparar(topic, esc, g["parrafos"], call=call, log=log,
+                                                                         ficha=ficha))
     out = {**g, "reparacion": r, "metricas": g4.metricas(topic, esc, r["parrafos"])}
     (d / "01b_guionista_v4.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     part = _step_cost(topic_id, "particion", lambda: md.particionar(topic, esc, r["parrafos"], pool, log=log,

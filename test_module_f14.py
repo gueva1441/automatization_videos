@@ -69,7 +69,7 @@ def test_los_cinco_criterios_estan_en_el_prompt_de_la_ficha():
     s = fc.system()
     for t in ("Error de extracción", "Variantes de un nombre", "Conteos", "Hechos disputados", "Horas y fechas"):
         assert t in s
-    assert set(fc.SCHEMA["required"]) == set(fc.SECCIONES) and fc.PROMPT_VERSION == "f14-1"
+    assert set(fc.SCHEMA["required"]) == set(fc.SECCIONES) | {"historia"} and fc.PROMPT_VERSION == "f15-1"
     assert "<descartados_del_research" in fc.prompt(POOL, "x") and "C. Ray Nagin" in fc.prompt(POOL, "x")
 
 

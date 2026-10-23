@@ -38,8 +38,9 @@ from typing import Any, Callable
 from script_engine import evidence as ev
 from script_engine import m01b_guionista as mg
 
-PROMPT_VERSION = "f11c-1"
-PROMPT_VERSION_ABIERTO = "f13-1"     # F13: largo abierto (sin cifras de largo en el prompt)
+PROMPT_VERSION = "f15-1"             # F15: prompt del guionista v5, escrito por el analista (va literal)
+PROMPT_VERSION_F11C = "f11c-1"       # el de F11c–F14 (sigue disponible con version="f11c-1", byte-idéntico)
+PROMPT_VERSION_ABIERTO = "f13-1"     # F13: f11c-1 con largo abierto (sin cifras de largo en el prompt)
 LARGOS = ("objetivo", "abierto")     # F13 §1: `objetivo` = lo de F11c (byte-idéntico); `abierto` = sin largo
 CAP_TOL = 0.25                       # (c) cap fuera de ±25 % de su objetivo
 REGEN_GUARD = ("cifras", "nombres", "citas")   # F11b §1.2: la regeneración de un cap corto permite prosa y adjetivos
@@ -70,7 +71,102 @@ EJEMPLOS_VOZ = [
 ]
 
 
-def system() -> str:
+# F15 §1.1: el bloque SISTEMA de lab/hyperframes/f15/PROMPT_GUIONISTA_v5.md, literal (test byte-idéntico contra el .md).
+SYSTEM_V5 = """<rol>
+Sos el guionista de Misterios Sepultados, un canal de documentales de historia oscura en YouTube, en español neutro. Escribís la narración en off: lo que el espectador oye mientras mira las imágenes. Contás casos reales. Tu trabajo es que la persona que puso el video no se vaya, y eso se logra con una historia bien contada, no con adjetivos ni con promesas.
+
+No inventás hechos: cada cifra, fecha, hora, nombre, lugar y cita sale de los datos que te dan. Lo que no está en los datos, no pasó. Pero sí ponés al espectador dentro de la escena con lo que los datos permiten ver, oír, oler y tocar: eso no es inventar, es narrar.
+</rol>
+
+<voz>
+La voz es la de alguien que estuvo ahí y lo cuenta en voz baja, cerca del oído, de noche. Sin gritar. Sin explicar. Confía en que el oyente entiende.
+
+- Contás en presente cuando la escena está pasando («El agua sube.») y en pasado cuando mirás hacia atrás («Días antes, llegó la tormenta.»). Podés cambiar entre los dos; lo que no podés es dudar.
+- Frases cortas cuando algo golpea. Una frase larga sirve para acumular; después, una de tres palabras que cae.
+- El hecho concreto vale más que el adjetivo: «el agua le llegaba al pecho» dice más que «el agua era aterradora».
+- Después de una cita fuerte, silencio. No la expliques, no la repitas con tus palabras.
+- Nunca hablás del video, del canal ni de vos («esta es la historia de», «lo que vas a ver», «en este episodio»). El espectador no está viendo un video: está en la cárcel, en el supermercado, en el valle.
+- No juzgás. No decís «cruel», «inhumano», «monstruoso», «negligente». Mostrás el hecho y dejás que el oyente lo juzgue. Si querés que juzgue, le das el dato que lo obliga.
+- No preguntás por costumbre. Una pregunta cada tanto, cuando el oyente ya se la estaba haciendo; nunca para cerrar cada párrafo.
+</voz>
+
+<estructura>
+El video tiene siete capítulos. La escaleta que recibís ya decidió la historia: el humano, el pico, el gancho, los beats. Vos la escribís. No la cambiás.
+
+1. Gancho (cap 1): la escena del peor momento, ya en curso. Primera frase: lo que se ve, sin año, sin cifra, sin institución. Segunda: la promesa. Antes de terminar el cap, una frase corta con lugar y año. El cap 1 termina volviendo atrás: «horas antes», «días antes».
+2. Caps 2 a 6: cada uno avanza la historia y termina con algo sin resolver que el siguiente paga. La última frase de cada cap no resume: deja una puerta abierta o nombra lo que viene.
+3. El humano: nombre y apellido con su rol la primera vez; después, nombre o apellido solo. Aparece en el gancho, en el pico y en el cierre. Lo que le pasa a él es lo que le pasa al oyente.
+4. El pico: antes del golpe, dos frases cortas seguidas. Después del golpe, la frase más corta del video.
+5. Cierre (cap 7): la última frase es una cita o una pregunta. Nunca un resumen, nunca una moraleja, nunca «hoy».
+6. Lo marcado PANTALLA no lo dice la voz: aparece en la imagen. Lo marcado SIN VERIFICAR va sin el nombre de quien lo dijo («un preso contó», «una sobreviviente recuerda»).
+7. Cada cap dura lo que su historia necesita. Ni relleno ni resumen. Si un beat tiene tres datos, son tres datos bien contados, no diez frases.
+</estructura>
+
+<oficio>
+Las citas: entre comillas va solo el fragmento (25 palabras o menos), copiado literal, con quién lo dijo dentro de la misma oración. Lo demás que esa persona contó, con tus palabras. Una cita por párrafo como máximo.
+
+Las cifras: una vez, exacta. Después se nombra sin el número («esos hombres», «la lista»). Un conteo tiene una sola cifra en todo el video: la que viene marcada como oficial. Si hay otras versiones, podés decir «otras fuentes hablan de casi cuatrocientos», sin dar la segunda cifra como si fuera la verdad.
+
+Las fechas: la fecha completa una vez, en el cap 2. Después: «ese día», «esa noche», «al día siguiente», «el miércoles».
+
+Las versiones en disputa (quién dio una orden, si las puertas estaban cerradas): se cuentan como versiones, cada una con su dueño: «Según los testigos… Los dueños lo negaron». No elegís vos.
+
+El nombre de los lugares y las personas, como vienen en los datos. Sin traducir, sin acortar, sin «el edificio» cuando el dato dice «Templeman III».
+</oficio>
+
+<ejemplos>
+Los ejemplos son de otros casos. Copiá la técnica, no el contenido.
+
+Gancho (escena en curso, sin contexto, promesa, vuelta atrás):
+«El agua sucia de un inodoro entra en la boca de un hombre. La celda está a oscuras. Bebe para seguir vivo. Miles de hombres han sido abandonados en celdas inundadas por una orden. Nueva Orleans, agosto de 2005. Pero días antes de la sed, llegó la tormenta. Y con ella, una decisión.»
+
+Escena con los sentidos, sin inventar hechos (todo sale de "agua contaminada hasta el pecho, olor a aguas residuales y diésel, celdas cerradas"):
+«El 30 de agosto, el agua sucia de la inundación irrumpió en las celdas. Olía a una mezcla de aguas residuales y combustible diésel. En varios pabellones, los presos quedaron atrapados en sus celdas cerradas. Vieron cómo el nivel subía sin poder hacer nada. Pronto, el agua les llegaría hasta el pecho.»
+
+Cita y silencio después:
+«El oficial Renard Reed también fue testigo. "Parecía que estaban abatiendo a la gente", dijo Reed. Vio a alguien caer al agua. No sabía si la munición era real o de goma. Fue suficiente. Lo vio.»
+
+El hecho concreto en vez del juicio (no dice "cruel", "abandono", "inhumano"):
+«Pearl debe 398 dólares en multas. Por esa deuda sigue encerrada cuando llega el huracán. Meses después, en junio, una abogada consigue la orden que la libera.»
+
+Pico (dos frases cortas antes, la más corta después):
+«Los internos encuentran una barra metálica en el techo. La arrancan. La llevan contra la pared. El miércoles por la mañana, en CCC, la barra golpea los bloques de hormigón. Una vez. Otra. Hasta que la pared cede.»
+
+Versiones en disputa, sin elegir:
+«Una empleada declaró que la orden de cerrar las puertas vino del dueño. Los Paiva lo negaron ante el tribunal. El guardia reconoció que recibió una orden por radio. Las puertas de vidrio, esa mañana, no se abrieron.»
+
+Cierre de cap que abre el siguiente (no resume):
+«Los sobrevivientes fueron repartidos por prisiones de todo el estado. Cuando se armó la lista de los evacuados, faltaban cientos de nombres.»
+
+Cierre del video (cita, sin moraleja):
+«Renard Reed no habla de una lista. Habla de los hombres que estaban encerrados: "Aunque estén en la cárcel, son seres humanos".»
+</ejemplos>
+
+<errores>
+Esto es lo que NO hacés. Son errores reales de versiones anteriores.
+
+- Voz de tráiler: «Esta es la historia de los que nadie contó.» → Se corta. La historia se cuenta, no se anuncia.
+- Explicar lo obvio: «Los hombres a los que se refiere son los presos que intentan salir.» → Se corta. El oyente ya lo sabe.
+- Voz de analista: «Los datos disponibles no permiten explicar aquí el motivo.» / «La frase señala una decisión humana.» → Nunca. El narrador no tiene datos; tiene una historia.
+- Repetir para llenar: decir tres veces en un cap que no hay luz, que hay gritos, que están encerrados. → Se dice una vez, bien.
+- Pregunta de cierre automática: terminar cada párrafo con «¿Quién…?», «¿Cómo…?». → Una pregunta cada varios párrafos, y solo cuando duele.
+- Adelantar la cita del final: contar en el cap 6 con tus palabras lo que la cita del cap 7 va a decir. → La cita llega una sola vez, en su lugar.
+- Juicio disfrazado de pregunta: «¿Doce años son suficientes por cientos de vidas?» → Se da el dato: «Doce años. Trescientos veintisiete muertos.»
+- Inventar color: «meses de grasa sin limpiar», «olor a pan recién horneado», «familiares con fotos en las manos» cuando ningún dato lo dice. → Solo lo que los datos permiten ver.
+</errores>"""
+
+# F15 §1.1: el cierre del mensaje de usuario del mismo archivo, literal.
+TAREA_V5 = """<tarea>
+Con la escaleta de arriba, escribí la narración completa, en párrafos, cada uno con su beat. Cada cap dura lo que su historia necesita. Devolvé {"parrafos": [{"beat": 1, "texto": "…"}, …]}.
+</tarea>"""
+
+
+def system(version: str = PROMPT_VERSION) -> str:
+    """F15: el sistema v5 (literal del analista). `version="f11c-1"` (o "f13-1") → el de F11c–F14."""
+    return SYSTEM_V5 if version == PROMPT_VERSION else system_f11c()
+
+
+def system_f11c() -> str:
     """F11c §1.1: el mensaje de sistema / desarrollador (rol → voz → oficio → ejemplos), igual para todos los modelos."""
     oficio = "\n".join(f"{k}. {x}" for k, x in enumerate(OFICIO, start=1))
     ejemplos = "\n\n".join(EJEMPLOS_VOZ)
@@ -135,13 +231,15 @@ def mark(i: str, its: dict, esc: dict, pool: dict) -> str:
     return " · ".join(out)
 
 
-def data_line(i: str, its: dict, esc: dict, pool: dict, fx: dict[str, str] | None = None) -> str:
+def data_line(i: str, its: dict, esc: dict, pool: dict, fx: dict[str, str] | None = None,
+              extra: dict[str, str] | None = None) -> str:
     """F14 §1.3: con `fx` (`ficha_caso.id_texts`), el texto del id sale de la ficha (hecho limpio, cifra con unidad,
-    cita corregida); si la ficha no lo tiene, del pool. Las marcas salen siempre del pool."""
+    cita corregida); si la ficha no lo tiene, del pool. Las marcas salen siempre del pool.
+    F15: `extra` = marcas que vienen de la ficha («VERSIÓN DE: quién»)."""
     it = its.get(i)
     if not it:
         return f"[{i}] (no existe)"
-    m = mark(i, its, esc, pool)
+    m = " · ".join(x for x in (mark(i, its, esc, pool), (extra or {}).get(i, "")) if x)
     m = f" · {m}" if m else ""
     if fx and i in fx:
         if it["_kind"] == "citas":
@@ -186,7 +284,84 @@ def escaleta_section(esc: dict, pool: dict, largo: str = "objetivo", ficha: dict
     return "\n".join(out)
 
 
-def prompt(topic: dict, esc: dict, largo: str = "objetivo", ficha: dict | None = None) -> str:
+def version_marks(ficha: dict | None, pool: dict) -> dict[str, str]:
+    """F15 §1.1: «VERSIÓN DE: quién» para los ids que la ficha dejó en `versiones` (hechos disputados). Quién = el autor
+    si es una cita; si no, la fuente del ítem en el pool."""
+    its = ev.items(pool)
+    out: dict[str, str] = {}
+    for x in (ficha or {}).get("versiones") or []:
+        for v in x.get("versiones") or []:
+            for i in v.get("ids") or []:
+                it = its.get(i) or {}
+                quien = it.get("autor") or it.get("fuente") or v.get("doc_id") or "?"
+                out.setdefault(i, f"VERSIÓN DE: {quien}")
+    return out
+
+
+def escaleta_section_v5(esc: dict, pool: dict, ficha: dict | None = None) -> str:
+    """F15: «CAP n (función)»; por beat: función · emoción · intensidad, imagen sensorial, dato central, apoyos, el
+    espectador se pregunta, cierre; cada dato con el texto de la ficha y sus marcas (+ VERSIÓN DE)."""
+    its = ev.items(pool)
+    fx = None
+    if ficha:
+        from researcher_steps.ficha_caso import id_texts
+        fx = id_texts(ficha)
+    vm = version_marks(ficha, pool)
+    caps = {c["chapter_number"]: c for c in esc.get("caps") or []}
+    out = []
+    for n in range(1, 8):
+        c = caps.get(n, {})
+        bs = [b for b in esc["beats"] if b["cap"] == n]
+        fun = ", ".join(dict.fromkeys(str(b.get("funcion")) for b in bs))
+        out.append(f"CAP {n} ({fun})")
+        in_beats = {i for b in bs for i in [b["dato_central"]] + list(b.get("datos_apoyo") or [])}
+        for i in c.get("pantalla_ids") or []:
+            if i not in in_beats:
+                out.append(f"  en pantalla: {data_line(i, its, esc, pool, fx, vm)}")
+        for b in bs:
+            out.append(f"  BEAT {b['n']} · {b.get('funcion')} · {b.get('emocion')} · intensidad {b.get('intensidad')}")
+            out.append(f"    imagen sensorial: {b.get('imagen_sensorial')}")
+            out.append(f"    dato central: {data_line(b['dato_central'], its, esc, pool, fx, vm)}")
+            for i in b.get("datos_apoyo") or []:
+                out.append(f"    apoyo: {data_line(i, its, esc, pool, fx, vm)}")
+            out.append(f"    el espectador se pregunta: {b.get('pregunta_abierta')}")
+            if b.get("cierre"):
+                out.append(f"    cierre: {b['cierre']}")
+    return "\n".join(out)
+
+
+def prompt_v5(topic: dict, esc: dict, ficha: dict | None = None) -> str:
+    """F15 §1.1: <caso> (tema · humano con su porqué · promesa · pico con su porqué · cierre humano), <escaleta> y la
+    <tarea> literal del archivo del analista. Sin cifras de largo."""
+    hum = esc.get("humano") or {}
+    pico = esc.get("pico") or {}
+    return f"""<caso>
+TEMA: {topic.get("video_title")}
+HUMANO: {hum.get("nombre")} ({hum.get("rol")}) — por qué: {hum.get("por_que")}
+PROMESA DEL GANCHO: {esc.get("promesa_gancho")}
+PICO: beat {pico.get("beat")} — por qué: {pico.get("por_que")}
+CIERRE HUMANO: {esc.get("cierre_humano")}
+</caso>
+
+<escaleta>
+{escaleta_section_v5(esc, topic["evidence_pool"], ficha)}
+</escaleta>
+
+{TAREA_V5}"""
+
+
+def prompt(topic: dict, esc: dict, largo: str = "abierto", ficha: dict | None = None,
+           version: str = PROMPT_VERSION) -> str:
+    """F15: por defecto, el usuario v5 (`prompt_v5`; largo abierto siempre). Con `version="f11c-1"`, el de F11c–F14
+    (abajo), donde `largo` decide entre f11c-1 (objetivo) y f13-1 (abierto)."""
+    if version == PROMPT_VERSION:
+        if largo not in LARGOS:
+            raise ValueError(f"largo desconocido: {largo} (válidos: {', '.join(LARGOS)})")
+        return prompt_v5(topic, esc, ficha)
+    return prompt_f11c(topic, esc, largo, ficha)
+
+
+def prompt_f11c(topic: dict, esc: dict, largo: str = "objetivo", ficha: dict | None = None) -> str:
     """F11c §1.1: el mensaje del usuario: los datos primero (<caso>, <escaleta>) y la tarea al final (<tarea>). El rol,
     la voz, el oficio y los ejemplos van en `system()`.
     F13: con `largo="abierto"`, sin «≈ N palabras» en los caps ni el total en la tarea: «Cada cap dura lo que su
@@ -218,8 +393,10 @@ def _largo_line(largo: str, total: int) -> str:
     return f"Cada cap, cerca de sus palabras (es su largo, no un máximo); el video completo ≈ {total:,} palabras."
 
 
-def prompt_version(largo: str = "objetivo") -> str:
-    return PROMPT_VERSION_ABIERTO if largo == "abierto" else PROMPT_VERSION
+def prompt_version(largo: str = "abierto", version: str = PROMPT_VERSION) -> str:
+    if version == PROMPT_VERSION:
+        return PROMPT_VERSION
+    return PROMPT_VERSION_ABIERTO if largo == "abierto" else PROMPT_VERSION_F11C
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -269,15 +446,16 @@ def call_for(modelo: str | None) -> Callable[..., dict]:
 
 
 def write(topic: dict, esc: dict, *, call: Callable[..., dict] | None = None,
-          log: list[str] | None = None, largo: str = "objetivo", ficha: dict | None = None) -> dict[str, Any]:
+          log: list[str] | None = None, largo: str = "abierto", ficha: dict | None = None,
+          version: str = PROMPT_VERSION) -> dict[str, Any]:
     log = log if log is not None else []
     if call is None:
         call = call_for(None)
-    raw = call(prompt(topic, esc, largo, ficha), system_instruction=system(), response_schema=SCHEMA,
+    raw = call(prompt(topic, esc, largo, ficha, version), system_instruction=system(version), response_schema=SCHEMA,
                description="guion_v4 guionista")
     ps = with_ids(mg.normalize(raw, esc), topic["evidence_pool"], esc)
     log.append(f"  [guionista v4] {len(ps)} párrafos · {sum(mg.wc(p['texto']) for p in ps)} palabras")
-    out = {"parrafos": ps, "prompt_version": prompt_version(largo)}
+    out = {"parrafos": ps, "prompt_version": prompt_version(largo, version)}
     if ficha:
         out["ficha"] = {"prompt_version": ficha.get("prompt_version"), "pool_md5": ficha.get("pool_md5")}
     return out
@@ -328,7 +506,22 @@ def unverified_named(esc: dict, pool: dict, parrafos: list[dict]) -> list[dict]:
     return out
 
 
-def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "objetivo") -> list[dict]:
+def pool_sin_rescatados(pool: dict, ficha: dict | None) -> dict:
+    """F15 §1.4: el pool que mira el bloqueante (d) cuando hay ficha: sin las personas que el pool descartó y la ficha
+    rescató (`personas_descartadas`). Cambia la fuente del chequeo, no su criterio; el pool no se toca (copia)."""
+    names = [ev.norm(x.get("nombre") or "") for x in (ficha or {}).get("personas_descartadas") or []]
+    names = [x for x in names if x]
+    if not names:
+        return pool
+
+    def rescued(d: dict) -> bool:
+        t = ev.norm(d.get("texto") or "")
+        return d.get("kind") == "personajes" and bool(t) and any(t in x or x in t for x in names)
+    return {**pool, "_descartados": [d for d in pool.get("_descartados") or [] if not rescued(d)]}
+
+
+def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "abierto",
+                ficha: dict | None = None) -> list[dict]:
     """[{codigo, cap, beat, frase, motivo}] — lo único que frena. Lista vacía = pasa.
     F13: con `largo="abierto"` no se evalúa el cap fuera de ±25 % de su objetivo (quedan beat faltante, cap vacío y
     el tope `max_words`)."""
@@ -337,6 +530,7 @@ def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "obje
     from script_engine.video_length import get as _len
     pool = topic["evidence_pool"]
     facts = topic.get("verified_facts") or []
+    pool_d = pool_sin_rescatados(pool, ficha)                # F15 §1.4: (d) mira la ficha
     out: list[dict] = []
     for p in parrafos:
         t = p["texto"]
@@ -347,7 +541,7 @@ def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "obje
         for x in role_problems(t, pool):
             name = x.split("»")[0].split()[-1] if "»" in x else ""
             out.append(_b("b", p, _sentence_with(t, name), f"rol: {x}"))
-        for x in contamination(t, pool, facts):
+        for x in contamination(t, pool_d, facts):
             out.append(_b("d", p, t, f"fuera del caso (descartado en el pool): {x[:80]}"))
     out += unverified_named(esc, pool, parrafos)
     # (c) estructura
@@ -465,7 +659,7 @@ def replace_repeated_dates(parrafos: list[dict], iso: str | None) -> tuple[list[
 
 
 def editor_pass(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[..., dict],
-                log: list[str]) -> tuple[list[dict], list[dict]]:
+                log: list[str], largo: str = "abierto", ficha: dict | None = None) -> tuple[list[dict], list[dict]]:
     """Una pasada del editor m01c (su prompt, sus blandas: eco y cierre) aceptando cada párrafo si pasa la guardia
     léxica y NO sube la cantidad de bloqueantes (el conteo de duras v3 ya no decide)."""
     from script_engine import m01c_editor as mc
@@ -479,7 +673,7 @@ def editor_pass(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[
         log.append(f"  [editor v4] devolvió {len(edited)} párrafos (se esperaban {len(parrafos)}): sin cambios")
         return [dict(p) for p in parrafos], [{"estado": "rechazado", "motivo_rechazo": "cantidad de párrafos"}]
     out = [dict(p) for p in parrafos]
-    cur = len(bloqueantes(topic, esc, out))
+    cur = len(bloqueantes(topic, esc, out, largo, ficha))
     estado = []
     for k, (orig, e) in enumerate(zip(parrafos, edited)):
         new_t = ev.fix_glued_caps(str(e.get("texto") or "").strip())
@@ -493,7 +687,7 @@ def editor_pass(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[
             continue
         trial = [dict(p) for p in out]
         trial[k] = with_ids([{**orig, "texto": new_t}], pool, esc)[0]
-        n = len(bloqueantes(topic, esc, trial))
+        n = len(bloqueantes(topic, esc, trial, largo, ficha))
         if n > cur:
             estado.append({**rec, "estado": "rechazado", "motivo_rechazo": f"bloqueantes {cur} → {n}"})
             continue
@@ -505,7 +699,7 @@ def editor_pass(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[
 
 
 def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[..., dict] | None = None,
-            log: list[str] | None = None) -> dict[str, Any]:
+            log: list[str] | None = None, largo: str = "abierto", ficha: dict | None = None) -> dict[str, Any]:
     """UNA ronda de reparación. Nunca vuelve a llamar al guionista completo. Devuelve los párrafos finales, los
     bloqueantes antes/después y lo que hizo cada paso."""
     from script_engine import m01d_particion as md
@@ -514,7 +708,7 @@ def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[...,
         call = call_for(None)
     pool = topic["evidence_pool"]
     ps = with_ids(parrafos, pool, esc)
-    bl0 = bloqueantes(topic, esc, ps)
+    bl0 = bloqueantes(topic, esc, ps, largo, ficha)
     pasos: dict[str, Any] = {"regenerados": [], "ediciones": [], "fechas": [], "editor": []}
     # (c) → regenerate_cap_v3 SOLO de ese cap, 1 intento, notas = el texto del bloqueante
     caps_tgt = {c["chapter_number"]: c.get("palabras_objetivo") or 0 for c in esc.get("caps") or []}
@@ -529,16 +723,16 @@ def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[...,
                                      "palabras": [sum(mg.wc(p["texto"]) for p in before),
                                                   sum(mg.wc(p["texto"]) for p in after)]})
     # (a)(b)(d)(e) → edición sobre la oración
-    bl1 = [x for x in bloqueantes(topic, esc, ps) if x["codigo"] in ("a", "b", "d", "e")]
+    bl1 = [x for x in bloqueantes(topic, esc, ps, largo, ficha) if x["codigo"] in ("a", "b", "d", "e")]
     for k, p in enumerate(ps):
         mine = [x for x in bl1 if x["beat"] == p["beat"] and ev.norm(x["frase"]) in ev.norm(p["texto"])]
         if not mine:
             continue
         new, why = edit_sentences(p, mine, call=call)
-        n_before = len([x for x in bloqueantes(topic, esc, ps) if x["codigo"] != "c"])
+        n_before = len([x for x in bloqueantes(topic, esc, ps, largo, ficha) if x["codigo"] != "c"])
         trial = [dict(q) for q in ps]
         trial[k] = with_ids([{**p, "texto": new}], pool, esc)[0]
-        n_after = len([x for x in bloqueantes(topic, esc, trial) if x["codigo"] != "c"])
+        n_after = len([x for x in bloqueantes(topic, esc, trial, largo, ficha) if x["codigo"] != "c"])
         ok = not why and n_after < n_before
         if not why and not ok:
             why = f"no bajó los bloqueantes ({n_before} → {n_after})"
@@ -552,10 +746,10 @@ def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[...,
     ps = with_ids(ps, pool, esc)
     # una pasada del editor m01c; F11c §1.3: solo si el crudo trae bloqueantes (con 0 se saltea)
     if bl0:
-        ps, pasos["editor"] = editor_pass(topic, esc, ps, call=call, log=log)
+        ps, pasos["editor"] = editor_pass(topic, esc, ps, call=call, log=log, largo=largo, ficha=ficha)
     else:
         log.append("  [editor v4] crudo con 0 bloqueantes: sin pasada del editor m01c")
-    bl2 = bloqueantes(topic, esc, ps)
+    bl2 = bloqueantes(topic, esc, ps, largo, ficha)
     log.append(f"  [reparación v4] bloqueantes {len(bl0)} → {len(bl2)} (una ronda; no hay segunda)")
     return {"parrafos": ps, "bloqueantes_antes": bl0, "bloqueantes_despues": bl2, "pasos": pasos,
             "parada": bool(bl2)}

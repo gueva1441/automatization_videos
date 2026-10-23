@@ -1,0 +1,70 @@
+[ycua ficha] respaldo ficha_caso.json (f12-1) → ficha_caso_f12.json
+[ycua ficha] prompt 174,477 car · max_completion_tokens 60,000
+[13:53:10] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f15-ficha
+[14:02:16] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f15-ficha � Costo total: $0.3998
+  [ycua ficha] US$ 0.3998 · 546 s · tanda US$ 0.3998
+[ycua ficha] crudo {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 14, 'contradicciones': 5, 'decisiones': 19, 'versiones': 7, 'personas': 94, 'personas_descartadas': 15, 'cifras': 41, 'cronologia': 38, 'hechos': 76, 'citas': 24, 'descartados': 36}
+[ycua ficha] final {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 9, 'contradicciones': 5, 'decisiones': 19, 'versiones': 7, 'personas': 94, 'personas_descartadas': 15, 'cifras': 29, 'cronologia': 38, 'hechos': 76, 'citas': 24, 'descartados': 53} · sacados 17
+  sacado [escenas] [escenas] El grupo cena y baila; al despedirse, Rubén le dice a Blas que lo quiere y le pr → no respaldado: sentido «baile» no está en sus ids
+  sacado [escenas] [escenas] Mario entrega a su madre su primer sueldo. → no respaldado: sentido «El dinero entregado» no está en sus ids
+  sacado [escenas] [escenas] Sosa ve caer las llamas sobre los comensales y describe un desbande. → no respaldado: sentido «movimiento de huida.» no está en sus ids
+  sacado [escenas] [escenas] La cajera abandona su puesto, salta y corre después de escuchar una explosión. → no respaldado: sentido «según ella» no está en sus ids
+  sacado [escenas] [escenas] Los manifestantes dan vueltas por la avenida en una marcha recordada como muy si → no respaldado: sentido «según el testimonio.» no está en sus ids
+  sacado [cifras] [cifras] Desaparecidos cuantificados en F11. → no respaldado: cifra 6
+  sacado [cifras] [cifras] Hijas fallecidas de Ángela Pujol. → no respaldado: cifra 2
+  sacado [cifras] [cifras] Integrantes perdidos por la familia de Julia López. → no respaldado: cifra 5
+  sacado [cifras] [cifras] Integrantes perdidos por la familia de Angélica Roa. → no respaldado: cifra 4
+  sacado [cifras] [cifras] Internación de Nelson Astigarraga. → no respaldado: cifra 15
+  sacado [cifras] [cifras] Internación de Angélica Roa. → no respaldado: cifra 10
+  sacado [cifras] [cifras] Puertas cerradas según el resumen de la pericia de Criminalística. → no respaldado: cifra 3
+  sacado [cifras] [cifras] Puertas de blíndex descritas por la pericia. → no respaldado: cifra 4
+  sacado [cifras] [cifras] Indemnización total al matrimonio Palacios Morínigo en la resolución de la Corte. → no respaldado: cifra 4.500.000.000
+  sacado [cifras] [cifras] Monto de la sentencia de primera instancia del matrimonio Palacios Morínigo, lueg → no respaldado: cifra 5.000.000.000
+  sacado [cifras] [cifras] Indemnización al matrimonio Wendell-Ortellado. → no respaldado: cifra 600.000.000
+  sacado [cifras] [cifras] Indemnización en la demanda reseñada contra los Paiva y la sociedad por la muerte → no respaldado: cifra 400.000.000
+[14:02:17] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f15-escaleta
+[14:04:38] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f15-escaleta � Costo total: $0.2194
+  [ycua escaleta] US$ 0.2194 · 142 s · tanda US$ 0.6192
+  [escaleta] compuerta del pool: verde {'datos': 227, 'citas_verificadas': 52, 'elegibles_humano': 15, 'eventos_con_fecha': 62}
+  [escaleta] intento 1: 5 problema(s) ['beat 13: dato_central «P70» no existe en el pool (o no es D/T/Q)', 'pregunta de pantalla del cap 2 «¿Era solo un accidente?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?); no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)', 'pregunta de pantalla del cap 4 «¿Alguien podría salir vivo de ahí?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)', 'pregunta de pantalla del cap 6 «¿Terminaba todo con la cárcel?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)'] · 0 reparación(es)
+  [escaleta] intento 2: 0 problema(s) [] · 1 reparación(es)
+[ycua escaleta] 13 beats · humano Liz Torres · pico beat 8 · avisos ['pregunta de pantalla del cap 2 «¿Por qué sonaban las alarmas?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)']
+[14:04:39] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f15-guion
+[14:09:13] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f15-guion � Costo total: $0.1401
+  [ycua guion] US$ 0.1401 · 274 s · tanda US$ 0.7593
+[ycua guion] 718 palabras ≈ 5.8 min · bloqueantes 0 · por cap [66, 145, 103, 72, 130, 98, 104]
+[orl ficha] respaldo ficha_caso.json (f14-1) → ficha_caso_f14.json
+[orl ficha] prompt 343,548 car · max_completion_tokens 60,000
+[14:09:13] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3-f15-ficha
+[14:16:43] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3-f15-ficha � Costo total: $0.4497
+  [orl ficha] US$ 0.4497 · 450 s · tanda US$ 1.2090
+[orl ficha] crudo {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 15, 'contradicciones': 3, 'decisiones': 22, 'versiones': 11, 'personas': 72, 'personas_descartadas': 12, 'cifras': 24, 'cronologia': 41, 'hechos': 77, 'citas': 25, 'descartados': 23}
+[orl ficha] final {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 10, 'contradicciones': 3, 'decisiones': 21, 'versiones': 10, 'personas': 72, 'personas_descartadas': 7, 'cifras': 22, 'cronologia': 38, 'hechos': 77, 'citas': 23, 'descartados': 42} · sacados 20
+  sacado [escenas] [escenas] Los llevan en autobús a OPP y los instalan en el gimnasio en vez de sacarlos de  → no respaldado: sentido «Llovía un poco» no está en sus ids; sentido «el ambiente todavía era distendido al llegar.» no está en sus ids
+  sacado [escenas] [escenas] Los incendios encendidos dentro del edificio producen tanto humo que rompen las  → no respaldado: sentido «oscuridad que no permite ver delante de uno.» no está en sus ids
+  sacado [escenas] [escenas] Los oficiales atan a cada mujer con la que tiene al lado y las hacen sentarse es → no respaldado: sentido «restringen sus movimientos.» no está en sus ids
+  sacado [escenas] [escenas] Cuando algunas mujeres intentan alcanzar el agua y el hielo, reciben gas pimient → no respaldado: sentido «hielo que Gilson dice no haber llegado a tocar.» no está en sus ids
+  sacado [escenas] [escenas] Los guardias arrojan bolsas de sándwiches por encima de la cerca hacia la multit → no respaldado: sentido «según los testimonios» no está en sus ids
+  sacado [decisiones] [decisiones] Finalización de la evacuación → no respaldado: cifra 84
+  sacado [versiones] [versiones] Por qué no funcionó la alimentación habitual en Hunt → no respaldado: cifra 91
+  sacado [personas_descartadas] [personas_descartadas] recluso identificado como #5 → no respaldado: «recluso identificado como #5» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] reclusa identificada como #6 → no respaldado: «reclusa identificada como #6» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] recluso identificado como #55 → no respaldado: «recluso identificado como #55» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] recluso identificado como #56 → no respaldado: «recluso identificado como #56» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] reclusa identificada como #220 → no respaldado: «reclusa identificada como #220» no está entre los descartados del pool
+  sacado [cifras] [cifras] Muertes reconocidas por el sheriff dentro de OPP durante la tormenta y la evacuac → no respaldado: cifra 0; cifra 3
+  sacado [cifras] [cifras] Duración de la investigación que produjo el informe de la ACLU → no respaldado: cifra 11
+  sacado [cronologia] [cronologia] El recluso identificado como #175 sitúa en la llamada de medicación de esa ma → no respaldado: cifra 175
+  sacado [cronologia] [cronologia] Blanco solicita una declaración federal de emergencia para un período que com → no respaldado: fecha 2005-08-27
+  sacado [cronologia] [cronologia] La reclusa identificada como #220 sitúa el comienzo de la entrada de agua en  → no respaldado: cifra 220
+  sacado [citas] [citas] Intenté recoger mis documentos legales, pero un guardia me apuntó con su pistola,  → no respaldado: cita corregida a 94 caracteres de su original (máximo 3)
+  sacado [citas] [citas] Nos dispararon con escopetas de beanbags y nos rociaron con gas pimienta al azar.  → no respaldado: cita corregida a 13 caracteres de su original (máximo 3)
+  sacado [descartados] [descartados] Personas descartadas del research sin pasaje de respaldo en el pool → no respaldado: sin ids
+[14:16:44] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3-f15-escaleta
+[14:20:32] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3-f15-escaleta � Costo total: $0.3514
+  [orl escaleta] US$ 0.3514 · 228 s · tanda US$ 1.5604
+  [escaleta] compuerta del pool: verde {'datos': 558, 'citas_verificadas': 162, 'elegibles_humano': 12, 'eventos_con_fecha': 127}
+  [escaleta] intento 1: 1 problema(s) ["beat 1: Edward “Edgar” Burton en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q185']); datos suyos que valen: ['D544', 'Q179', 'Q184']"] · 1 reparación(es)
+  [escaleta] intento 2: 4 problema(s) ['el humano está en escena en los caps [3, 4]: tienen que ser ≥ 3', 'pregunta de pantalla del cap 4 «¿Era escapar o sobrevivir?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)', 'pregunta de pantalla del cap 7 «¿Alguna vez se sabrán sus nombres?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)', 'la cifra 517 se ve en pantalla dos veces (beat 11 (pregunta) y beat 12 (contador)): una vez por video'] · 3 reparación(es)
+  [escaleta] intento 3: 1 problema(s) ['beat 3: D533 es otra cifra del conteo 5.919 [D214]: un hecho, una cifra (la precisa)'] · 2 reparación(es)
+PARADA (orl escaleta): escaleta de orl: EscaletaValidationError: escaleta rechazada después de 3 intentos: ['beat 3: D533 es otra cifra del conteo 5.919 [D214]: un hecho, una cifra (la precisa)']

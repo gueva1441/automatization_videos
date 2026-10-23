@@ -45,7 +45,7 @@ def _ficha(**over):
 # ═══════════════════════════════════════════════════════════════
 
 def test_esquema_tiene_las_siete_secciones():
-    assert set(fc.SCHEMA["required"]) == set(fc.SECCIONES)
+    assert set(fc.SCHEMA["required"]) == set(fc.SECCIONES) | {"historia"}   # F15: + historia
     assert "unidad" in fc.SCHEMA["properties"]["cifras"]["items"]["required"]
     v = fc.SCHEMA["properties"]["contradicciones"]["items"]["properties"]["versiones"]["items"]["required"]
     assert {"doc_id", "offset", "ids"} <= set(v)

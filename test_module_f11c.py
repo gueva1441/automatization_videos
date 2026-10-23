@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parent
 # ═══════════════════════════════════════════════════════════════
 
 def test_sistema_rol_voz_oficio_ejemplos_en_orden():
-    s = g4.system()
+    s = g4.system_f11c()                                              # F15: el sistema de F11c
     tags = ["<rol>", "</rol>", "<voz>", "</voz>", "<oficio>", "</oficio>", "<ejemplos_de_voz>", "</ejemplos_de_voz>"]
     pos = [s.index(t) for t in tags]
     assert pos == sorted(pos)
@@ -36,13 +36,13 @@ def test_ejemplos_literales_de_orleans_f7c3():
 
 def test_usuario_datos_primero_y_tarea_al_final():
     esc = _esc_ok()
-    p = g4.prompt(TOPIC, esc)
+    p = g4.prompt(TOPIC, esc, "objetivo", version="f11c-1")
     assert p.startswith("<caso>") and p.index("</caso>") < p.index("<escaleta>") < p.index("</escaleta>")
     assert p.rstrip().endswith("</tarea>") and p.index("<tarea>") > p.index("</escaleta>")
     assert "el espectador se pregunta:" in p and "queda abierta" not in p
     assert not any(x in p for x in g4.OFICIO) and "<rol>" not in p    # el oficio y el rol van en el sistema
     assert "═══" not in p and "──" not in p
-    assert g4.PROMPT_VERSION == "f11c-1"
+    assert g4.PROMPT_VERSION_F11C == "f11c-1"
 
 
 def test_write_manda_sistema_y_usuario_separados():
@@ -52,8 +52,8 @@ def test_write_manda_sistema_y_usuario_separados():
     def call(prompt, **kw):
         seen.update(prompt=prompt, system=kw.get("system_instruction"))
         return {"parrafos": [{"beat": p["beat"], "texto": p["texto"]} for p in _parrafos(esc)]}
-    g4.write(TOPIC, esc, call=call)
-    assert seen["system"] == g4.system() and seen["prompt"] == g4.prompt(TOPIC, esc)
+    g4.write(TOPIC, esc, call=call, largo="objetivo", version="f11c-1")
+    assert seen["system"] == g4.system_f11c() and seen["prompt"] == g4.prompt(TOPIC, esc, "objetivo", version="f11c-1")
 
 
 # ═══════════════════════════════════════════════════════════════

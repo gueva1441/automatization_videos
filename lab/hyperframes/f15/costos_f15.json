@@ -1,0 +1,197 @@
+{
+ "etapas": [
+  {
+   "tema": "ycua",
+   "etapa": "ficha",
+   "usd": 0.3998,
+   "segundos": 545.7,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "ficha_caso",
+     "in": 48904,
+     "out": 24962,
+     "thinking": 5237,
+     "usd": 0.3998
+    }
+   ],
+   "max_completion_tokens": 60000,
+   "prompt_md5": {
+    "sistema": "2e151732da47e09acf0cb48eb7089fcb",
+    "usuario": "5a352b6b3586cede594b1429d3c829ce"
+   }
+  },
+  {
+   "tema": "ycua",
+   "etapa": "escaleta",
+   "usd": 0.2194,
+   "segundos": 141.9,
+   "llamadas": [
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 1",
+     "in": 23193,
+     "out": 3188,
+     "thinking": 5641,
+     "usd": 0.1173
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 2",
+     "in": 23455,
+     "out": 3526,
+     "thinking": 3753,
+     "usd": 0.1021
+    }
+   ],
+   "prompt_md5_intento1": "7be2ef52a860d6148d96eefee0b04e7d",
+   "error": null
+  },
+  {
+   "tema": "ycua",
+   "etapa": "guion",
+   "usd": 0.1401,
+   "segundos": 274.3,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 6085,
+     "out": 1785,
+     "thinking": 11011,
+     "usd": 0.1401
+    }
+   ]
+  },
+  {
+   "tema": "orl",
+   "etapa": "ficha",
+   "usd": 0.4497,
+   "segundos": 450.5,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "ficha_caso",
+     "in": 91985,
+     "out": 22990,
+     "thinking": 3587,
+     "usd": 0.4497
+    }
+   ],
+   "max_completion_tokens": 60000,
+   "prompt_md5": {
+    "sistema": "2e151732da47e09acf0cb48eb7089fcb",
+    "usuario": "36b4e5807d175c5e94f02550d8dc55cc"
+   }
+  },
+  {
+   "tema": "orl",
+   "etapa": "escaleta",
+   "usd": 0.3514,
+   "segundos": 227.5,
+   "llamadas": [
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 1",
+     "in": 21061,
+     "out": 3331,
+     "thinking": 5634,
+     "usd": 0.116
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 2",
+     "in": 21150,
+     "out": 3376,
+     "thinking": 4784,
+     "usd": 0.108
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 3",
+     "in": 21236,
+     "out": 3430,
+     "thinking": 6652,
+     "usd": 0.1274
+    }
+   ],
+   "prompt_md5_intento1": "35743ec59e745933b240c8e52cc74175",
+   "error": "EscaletaValidationError: escaleta rechazada después de 3 intentos: ['beat 3: D533 es otra cifra del conteo 5.919 [D214]: un hecho, una cifra (la precisa)']"
+  },
+  {
+   "tema": "orl",
+   "etapa": "escaleta",
+   "usd": 0.2199,
+   "segundos": 139.3,
+   "llamadas": [
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 1",
+     "in": 21061,
+     "out": 3367,
+     "thinking": 5132,
+     "usd": 0.1113
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "m01a_escaleta intento 2",
+     "in": 21309,
+     "out": 3572,
+     "thinking": 4619,
+     "usd": 0.1085
+    }
+   ],
+   "prompt_md5_intento1": "35743ec59e745933b240c8e52cc74175",
+   "error": null
+  },
+  {
+   "tema": "orl",
+   "etapa": "guion",
+   "usd": 0.0936,
+   "segundos": 202.8,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 5782,
+     "out": 1610,
+     "thinking": 6595,
+     "usd": 0.0936
+    }
+   ]
+  },
+  {
+   "tema": "ycua",
+   "etapa": "guion",
+   "usd": 0.112,
+   "segundos": 253.4,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 5929,
+     "out": 1824,
+     "thinking": 8191,
+     "usd": 0.112
+    }
+   ]
+  },
+  {
+   "tema": "orl",
+   "etapa": "guion",
+   "usd": 0.1301,
+   "segundos": 314.6,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 5626,
+     "out": 1868,
+     "thinking": 10012,
+     "usd": 0.1301
+    }
+   ]
+  }
+ ],
+ "usd_total": 2.116
+}

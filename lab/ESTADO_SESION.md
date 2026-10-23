@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-23 (F14: la ficha reemplaza al digest; Orleans 777 → 1,451 palabras con Sol high → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-23 (F15: guionista v5 + ficha v2; Ycuá 755 / Orleans 866 palabras con Sol high → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -10,7 +10,24 @@
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
-  - F14: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 609 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+  - F15: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 621 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F15 — Prompt del guionista v5 + ficha v2 (Ycuá y Orleans) — HECHO, **PARADA** (el analista revisa el diff y después lee fichas, escaletas y guiones)
+- Handoff `lab/hyperframes/f15/HANDOFF_F15_prompt_v5.md`; prompts del analista `PROMPT_GUIONISTA_v5.md` (md5 411782fa…) y `PROMPT_FICHA_v2.md` (1fdbd0b9…). Reporte `F15_REPORT.md` (revisor íntegro: 1.ª NO CUMPLE por el sistema mal extraído → arreglado → 2.ª CUMPLE CON OBSERVACIONES) y `compara_f15.html` (teléfono OK).
+- Código:
+  - `guion_v4`: `SYSTEM_V5` y `TAREA_V5`, literales (test contra el .md); `PROMPT_VERSION` `f15-1`; `prompt_v5` (caso con el porqué, «CAP n (función)», intensidad, marca «VERSIÓN DE: quién»). `version="f11c-1"` reproduce F11c–F14. `largo` vale `abierto` por defecto en el prompt, los bloqueantes y la reparación.
+  - (d) con ficha: `pool_sin_rescatados` (`m05` intacto).
+  - `ficha_caso` `f15-1`: `historia`, `escenas` (los sentidos tienen que estar en sus ids), `nivel` y `sirve_para`.
+  - `m01a`: con ficha v2, historia y escenas van primero; `SCHEMA_FICHA` (`escena_idx`, `justificacion_humano`) y `ficha_notes`. **Sin ficha, byte-idéntica.**
+- Tests: `test_module_f15.py` (12) + aserciones viejas pinneadas a `version="f11c-1"`; suite amplia 621 verdes + las 5 previas.
+- Resultado:
+  - **Ycuá 1,153 → 755 palabras (9.4 → 6.1 min). Orleans 1,451 → 866 (11.8 → 7.0 min).** 0 bloqueantes y 0 preguntas en los dos.
+  - **Incidente arreglado:** la primera extracción del SISTEMA v5 tomaba el `<rol>` del párrafo introductorio del .md (md5 f157a2ce…). Ahora se ancla en «## SISTEMA» (md5 2ff2a5cd…) y el test también. Los dos guiones se re-corrieron (los contaminados quedan como `*_preambulo`; daban 718 y 763).
+  - Humano: Liz Torres en Ycuá y Brady Richard en Orleans (los dos, candidatos de la ficha). Pico: el de la ficha.
+  - Escenas usadas: Ycuá 0, Orleans 5.
+  - La escaleta de Orleans quedó rechazada en los 3 intentos la primera vez («un hecho, una cifra», D533/D214) y salió en un segundo pase.
+  - Tanda **US$ 2.116** de 2.50.
+- Fichas anteriores respaldadas (`ficha_caso_f12.json`, `ficha_caso_f14.json`); `ficha_caso.json` es ahora la v2 en los dos temas. Escaletas nuevas: `01a_escaleta_f15.json`. Sin merge. **No seguir a producción.**
 
 ## F14 — La ficha en el camino (Orleans) — HECHO, **PARADA** (el analista lee la ficha, la escaleta y el guion y le dice a Omar si el video ganó material y filo)
 - Handoff `lab/hyperframes/f14/HANDOFF_F14_ficha_en_el_camino.md`. Reporte `lab/hyperframes/f14/F14_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f14.html` (F13 | F14 con el embudo; teléfono OK). Textos: `FICHA_orleans.md`, `ESCALETA_orleans_f14.md`, `NARRACION_orleans_f14.md`.

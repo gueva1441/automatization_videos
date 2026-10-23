@@ -1,0 +1,507 @@
+===== SISTEMA (md5 694bd28816d6c57682b98146db53fd0d) =====
+Sos el guionista jefe de un canal de documentales de misterio en YouTube. Antes de que nadie escriba una línea, decidís la HISTORIA: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea y por qué se queda al segundo siguiente. Trabajás SOLO con la investigación que te dan: no inventás nombres, cifras, fechas ni citas. Respondés SOLO JSON.
+
+===== USUARIO, intento 1 (md5 35743ec59e745933b240c8e52cc74175) =====
+TEMA DEL VIDEO: Prisión Parroquial Orleans: El Horror Olvidado por Katrina
+Ángulo: El agua dentro de algunos edificios de la prisión, como Templeman 1 y 2, alcanzó el nivel del pecho. Aproximadamente 6,500 personas, incluyendo niños hasta 10 años, estaban encarceladas cuando los generadores fallaron el 29 de agosto de ...
+Hook del research: 6,500 prisioneros atrapados días en celdas inundadas hasta el pecho.
+Misterio: Más de 500 prisioneros no figuraban en la lista de evacuados y reclusos vieron cadáveres flotando.
+Revelación: Robie Waganfeald y Paul Kunkel Jr. recibieron $650,000 en 2010 por encarcelamiento falso e indiferencia deliberada.
+
+═══ INVESTIGACIÓN (EVIDENCE POOL): la ÚNICA fuente de nombres, cifras, fechas y citas ═══
+FICHA DEL CASO (el research depurado: la única fuente; los ids son los del pool)
+
+HISTORIA:
+  HUMANOS CANDIDATOS (el humano se elige entre estos; si elegís otro, explicá por qué en `justificacion_humano`):
+    [D100, T65, Q37, D101] Pearl Cornelia Bland — reclusa retenida por multas y tasas · Permanece presa por una deuda, atraviesa la tormenta y una agresión que los oficiales no detienen, y finalmente obtiene una orden judicial de liberación. · citas verificadas: 1
+    [P01, D39, D41, Q11, Q14, Q45] Brady Richard — oficial de suministros médicos · Entra a trabajar sin haber sido consultado sobre preparativos médicos, presencia disparos y el colapso de la cárcel, y sale en uno de los últimos botes denunciando que nunca debieron permanecer allí. · citas verificadas: 3
+    [P22, D143, D144, D147, D148, L22, Q54, Q55, Q56] Joyce Gilson — reclusa de Templeman IV y compañera de Iris Hardeman · Pasa del dormitorio a la inundación y a sucesivos lugares de espera, pierde de vista a Iris durante la evacuación y vuelve a encontrarla en Angola; sus citas del pool están verificadas solo parcialmente. · citas verificadas: 0
+    [P68, D544, Q179, Q183, Q184, Q185] Edward “Edgar” Burton — preso de Old Parish · Queda encerrado mientras sube el agua, rompe una ventana y bebe agua del inodoro para sobrevivir, y es encontrado por rescatistas que dicen haber sido informados de que no quedaba nadie. · citas verificadas: 2
+  GIROS:
+    1. La evacuación obligatoria de la ciudad excluye a los presos y, según el informe de la ACLU, Gusman rechaza la ayuda ofrecida para sacarlos antes de la tormenta. [D30, D35, Q08]
+    2. OPP no se vacía: recibe presos adultos y menores de otras instalaciones y aloja a hombres de St. Bernard Parish en un gimnasio de la planta baja. [D37, L11, D82]
+    3. El agua entra, fallan los generadores y numerosos oficiales abandonan sus puestos, mientras quedan personas encerradas. [T64, D47, D09, D67]
+    4. Cerca de la medianoche posterior al impacto, la oficina del sheriff solicita finalmente ayuda al DOC para evacuar. [T82, D132, P03]
+    5. Salir del pabellón no significa salir del peligro: Central Lock-Up se convierte en una espera dentro del agua y otras reclusas deben sostener a Iris Hardeman. [D151, D154, D155, D78]
+    6. La evacuación termina en dispersión: en Hunt se mezclan categorías de detenidos y continúan las denuncias de violencia, mientras una lista de evacuados deja personas sin contabilizar. [D171, D172, D174, D185, D548]
+  PICO: Iris Hardeman no puede sostenerse sola en Central Lock-Up y otras reclusas se turnan para mantenerla sobre el agua mientras esperan la salida en bote. — Concentra en una persona enferma el peligro preparado por la decisión de permanecer, la inundación y la evacuación insuficiente: incluso después de abandonar el dormitorio, su seguridad depende físicamente de las demás reclusas. [D76, D78, D155]
+  PREGUNTA FINAL: ¿Qué ocurrió con cada una de las personas que no figuraban en la lista de evacuados y cómo se puede establecer si hubo muertes dentro de OPP frente a las negativas oficiales y los testimonios contrapuestos? [D185, D191, D184, D163, Q60, Q77, Q185, D548]
+
+ESCENAS (si una escena sirve para un beat, su `imagen_sensorial` sale de esa escena y `escena_idx` lleva su número; si no hay, escribila como siempre):
+  E1. Sala común de Templeman III · Raphael Schwarz y oficiales — Schwarz despierta y encuentra el piso cubierto de agua; los oficiales entregan un trapeador y un balde para limpiarla. · se ve, se oye, se huele: Varias pulgadas de agua cubren el suelo. [T63]
+  E2. Dormitorio de la planta baja de Templeman IV · Joyce Gilson y otras reclusas — El agua sale de los inodoros y entra bajo las puertas hasta alcanzar la segunda litera. · se ve, se oye, se huele: Aguas cloacales dentro del dormitorio y mujeres obligadas a subir a las literas superiores. [D143, D74, D141]
+  E3. Celda de Raphael Schwarz, Templeman III · Schwarz y sus compañeros — Agitan las partes superiores naranjas de sus uniformes por la ventana rota para señalar que siguen adentro. · se ve, se oye, se huele: Oyen pasar helicópteros y muestran las prendas naranjas por la abertura. [D57, Q21]
+  E4. CCC, camino hacia el área de ascensores · Darnell Smith y otros presos — Arrancan una barra metálica del techo y la usan como ariete para abrirse paso por las paredes. · se ve, se oye, se huele: Una barra de metal golpea las paredes hasta abrir una salida. [P37, T95, D120]
+  E5. Entrada y escalera de House of Detention · Brady Richard — Llega en bote con suministros médicos y debe continuar a pie por el interior inundado. · se ve, se oye, se huele: El agua le llega al pecho durante el trayecto hacia la escalera. [D41, T92]
+  E6. Paso de Templeman IV a Templeman III · Joyce Gilson y otras reclusas — Caminan por la planta baja de la cárcel para cambiar de edificio. · se ve, se oye, se huele: El agua alcanza el pecho de Gilson; el traslado de todo el grupo tarda entre media hora y una hora según su relato. [D144, D145]
+  E7. Central Lock-Up · Iris Hardeman y otras reclusas — Las mujeres se turnan para sostener a Iris, demasiado débil para permanecer de pie por sí sola. · se ve, se oye, se huele: El cuerpo de Iris debe ser sostenido físicamente sobre el agua. [D155]
+  E8. Central Lock-Up · una reclusa cuyo nombre no figura — Permanece en el agua durante la espera de evacuación y denuncia que le quema la piel. · se ve, se oye, se huele: Ardor en la piel y agua que la testigo describe como espesa por combustible diésel. [D158]
+  E9. Paso elevado fotografiado por Mary Gehman · Gehman, presos y civiles — La escritora toma una fotografía pese a que se había indicado a los civiles que no fotografiaran. · se ve, se oye, se huele: Los presos están sentados a lo largo del puente; otras imágenes documentan uniformes naranjas bajo el sol abrasador. [Q61, T96, D207]
+  E10. Pabellón de Old Parish · Edward “Edgar” Burton y otros presos — Burton arranca una barra de ducha y rompe una ventana para que entre aire. · se ve, se oye, se huele: La ventana tiene tres capas y el aire fresco empieza a circular en el pabellón sofocante. [D544]
+
+PERSONAS:
+  [P01, D39, D41, Q11, Q14, Q45] PERSONA: Brady Richard — oficial de suministros médicos de OPP y testigo de la emergencia · TESTIGO · VERIFICADO · datos que lo ponen en escena: D39, D41, D136, T92, Q11, Q14, Q62 (repartilos en caps distintos)
+  [P02, Q01] PERSONA: Oliver Thomas — presidente del Concejo Municipal que difundió una versión sobre rehenes · VERIFICADO
+  [P03, Q08, D35, D60, D163, D196, Q129] PERSONA: Marlin N. Gusman — sheriff criminal de Orleans Parish, responsable de OPP · TESTIGO · VERIFICADO · ANTAGONISTA · nombre en el pool: Marlin Gusman · datos que lo ponen en escena: D35, D38, D60, D131, D135, D163, D196, D218, D546, T39, T147, Q13, Q19, Q26, Q45, Q53, Q78, Q129 (repartilos en caps distintos)
+  [P04, D131] PERSONA: Charles Foti — exsheriff y fiscal general al que algunos oficiales dicen haber solicitado refuerzos · ANTAGONISTA
+  [P05, T02] PERSONA: Louis Hamilton — preso que presentó una demanda colectiva sobre las condiciones de OPP · TESTIGO · datos que lo ponen en escena: T02 (repartilos en caps distintos)
+  [P06, D20] PERSONA: Greg Davis — preso durante Katrina, liberado tras la intervención de estudiantes de Derecho · TESTIGO · datos que lo ponen en escena: D549 (repartilos en caps distintos)
+  [P07, T06] PERSONA: Mark Jones — hombre cuya muerte anterior a Katrina se atribuyó presuntamente a una golpiza de oficiales · TESTIGO · datos que lo ponen en escena: T06, T147 (repartilos en caps distintos)
+  [P08, D22] PERSONA: Shawn Duncan — preso fallecido antes de Katrina durante una inmovilización prolongada · TESTIGO · datos que lo ponen en escena: D22, D23 (repartilos en caps distintos)
+  [P09, D23, D24] PERSONA: Matthew Bonnette — preso que se suicidó antes de Katrina · TESTIGO · datos que lo ponen en escena: D23, D24 (repartilos en caps distintos)
+  [P10, T21, T38] PERSONA: Kathleen Babineaux Blanco — gobernadora de Luisiana que solicitó declaraciones federales de emergencia
+  [P12, D33, D34, L09] PERSONA: Corey Stevenson — menor detenido en OPP durante Katrina y trasladado posteriormente a Tallulah · TESTIGO · datos que lo ponen en escena: D33, D34, T112 (repartilos en caps distintos)
+  [P14, Q26] PERSONA: Christina Foster — oficial de House of Detention · TESTIGO · VERIFICADO · datos que lo ponen en escena: Q26 (repartilos en caps distintos)
+  [P15, Q16, D63, D170, T142] PERSONA: Rhonda R. Ducre — oficial de House of Detention, testigo de la falta de preparación y posterior renunciante · TESTIGO · VERIFICADO · nombre en el pool: Rhonda Ducre · datos que lo ponen en escena: D43, T142, Q16 (repartilos en caps distintos)
+  [P16, Q17, Q60] PERSONA: Luis Reyes — oficial de CCC que describió falta de personal, personas en las cercas y posibles muertos · TESTIGO · VERIFICADO · datos que lo ponen en escena: Q60 (repartilos en caps distintos)
+  [P17, D57, D58, Q21, T63] PERSONA: Raphael Schwarz — detenido por intoxicación pública y encerrado en Templeman III · TESTIGO · datos que lo ponen en escena: D57, D58, T63 (repartilos en caps distintos)
+  [P18, Q24, Q47, Q50] PERSONA: Renard Reed — oficial de OPP que testimonió sobre renuncias y disparos · TESTIGO · VERIFICADO · datos que lo ponen en escena: Q24, Q47, Q50 (repartilos en caps distintos)
+  [P19] PERSONA: Shantia Barnes — oficial que renunció durante la emergencia · TESTIGO
+  [P20, D75, D76, D78, D155, T110] PERSONA: Iris L. Hardeman — reclusa enferma de Templeman IV que necesitó ayuda de sus compañeras durante la evacuación · TESTIGO · nombre en el pool: Iris Hardeman · datos que lo ponen en escena: D75, D76, D78, D155, T110 (repartilos en caps distintos)
+  [P21, Q29] PERSONA: Gedra Payne Robinson — reclusa y amiga de Iris Hardeman · TESTIGO · VERIFICADO · datos que lo ponen en escena: Q29 (repartilos en caps distintos)
+  [P22, D140, D143, D144, D147, D148, Q54, Q55, Q56] PERSONA: Joyce Gilson — reclusa de Templeman IV y testigo del recorrido de evacuación de Iris Hardeman · TESTIGO · datos que lo ponen en escena: D140, T79 (repartilos en caps distintos)
+  [P23, Q30] PERSONA: William Hardeman — hermano de Iris Hardeman
+  [P24, D79, T31] PERSONA: David Williams — detenido por intoxicación pública, alojado en la planta baja de Templeman III · TESTIGO · datos que lo ponen en escena: D79, D108, D111, T31, T37 (repartilos en caps distintos)
+  [P25, Q31] PERSONA: Albert G. Couvillion — preso trasladado desde St. Bernard Parish y testigo del abandono del gimnasio · TESTIGO · VERIFICADO · datos que lo ponen en escena: Q31 (repartilos en caps distintos)
+  [P26] PERSONA: Gary Bordelon — director de Templeman III · ANTAGONISTA
+  [P27, D89, Q32, L20] PERSONA: Keanna Herbert — reclusa de observación médica que denunció interrupción de tratamiento y enfermedad · TESTIGO · VERIFICADO · datos que lo ponen en escena: D89, Q32 (repartilos en caps distintos)
+  [P28, Q34] PERSONA: R. Demaree Inglese — director médico de OPP durante la tormenta · ANTAGONISTA
+  [P29, D94, D95, D96] PERSONA: Tyrone Lewis — músico y recluso con un marcapasos-desfibrilador que murió después de su traslado · TESTIGO · datos que lo ponen en escena: D94, D95, D96, D133, T130, Q36 (repartilos en caps distintos)
+  [P31, D98, D170] PERSONA: Bonita Pittman — alcaide asociada de House of Detention, señalada por oficiales por encierros y reservas de agua · TESTIGO · ANTAGONISTA · datos que lo ponen en escena: D98, D170 (repartilos en caps distintos)
+  [P32, D100, T65, Q37, D101] PERSONA: Pearl Cornelia Bland — reclusa retenida por multas y tasas, agredida durante la tormenta y beneficiaria de una posterior orden de liberación · TESTIGO · VERIFICADO · datos que lo ponen en escena: D100, D101, T65, T144, Q37 (repartilos en caps distintos)
+  [P34, D169] PERSONA: William Short — subjefe que describió roturas de ventanas y sostuvo que había alimentos almacenados · TESTIGO · datos que lo ponen en escena: D169 (repartilos en caps distintos)
+  [P35, D108, D111, Q40] PERSONA: Quantonio Williams — detenido antes de Katrina y trasladado a una cancha de baloncesto durante la emergencia · TESTIGO · datos que lo ponen en escena: D79, D108, D111, T31, T37 (repartilos en caps distintos)
+  [P36, D115, Q44] PERSONA: Leroy P. Gardner III — preso de St. Bernard Parish trasladado al gimnasio de Templeman III · TESTIGO · nombre en el pool: Leroy P. Gardner, III · datos que lo ponen en escena: D57, D79, D114, D115, D139, D144, D145, D146, D181, D182, D186, D191, D234, D235, D236, D240, D399, D443, T27, T31, T57, T63, T66, T79, T80, T81, T120, T128, T141, Q48 (repartilos en caps distintos)
+  [P37, Q46, T95] PERSONA: Darnell Smith — preso del programa About Face que describió una salida forzada de CCC · TESTIGO
+  [P38, Q48] PERSONA: Ace Martin — preso de Templeman III que describió un disparo contra alguien que salía por un agujero · TESTIGO · datos que lo ponen en escena: Q129 (repartilos en caps distintos)
+  [P39, D133, D134] PERSONA: Duane Lewis — oficial de House of Detention · TESTIGO · datos que lo ponen en escena: D94, D95, D96, D133, T130, Q36 (repartilos en caps distintos)
+  [P40, D136] PERSONA: Richard Baumy — coronel de St. Bernard Parish que disputó la versión de Gusman sobre la cadena de mando
+  [P42, T113, Q57, Q66] PERSONA: Ronnie Lee Morgan, Jr. — preso federal de House of Detention que denunció pérdida de documentos y violencia posterior en Hunt · TESTIGO · VERIFICADO · datos que lo ponen en escena: T113, Q57 (repartilos en caps distintos)
+  [P43, Q61, T96] PERSONA: Mary Gehman — escritora que fotografió a los presos en el paso elevado · TESTIGO · VERIFICADO · datos que lo ponen en escena: Q61 (repartilos en caps distintos)
+  [P44, T141] PERSONA: George Schaefer III — preso de St. Bernard Parish identificado como fugado · TESTIGO · datos que lo ponen en escena: D57, D79, D114, D115, D139, D144, D145, D146, D181, D182, D186, D191, D234, D235, D236, D240, D399, D443, T27, T31, T57, T63, T66, T79, T80, T81, T120, T128, T141, Q48 (repartilos en caps distintos)
+  [P45, Q63] PERSONA: David Fernandez — preso fugado que declaró haber escapado para salvar su vida · TESTIGO · VERIFICADO · datos que lo ponen en escena: Q63 (repartilos en caps distintos)
+  [P46, D168] PERSONA: Ahmad Nelson — preso identificado como fugado · TESTIGO · datos que lo ponen en escena: D168 (repartilos en caps distintos)
+  [P47, D176, D178, Q70] PERSONA: Cathy Fontenot — portavoz del Departamento de Correcciones que defendió el trato dado a los evacuados en Hunt · ANTAGONISTA
+  [P48, Q71] PERSONA: Corinne Carey — investigadora de Human Rights Watch
+  [P49, Q73, D555, D558, L26] PERSONA: Dan Bright — detenido en OPP que forzó una salida y fue trasladado a Rapides Parish Prison · TESTIGO · VERIFICADO · datos que lo ponen en escena: D555, D558, Q73 (repartilos en caps distintos)
+  [P50, Q74] PERSONA: Earrand Kelly — recluso de Templeman III que describió el ascenso del agua y el contacto con personas encerradas debajo · TESTIGO
+  [P51, Q75] PERSONA: Brooke Moss — oficial que vio señales de fuego y personas saltando desde Templeman III · TESTIGO
+  [P52, Q89] PERSONA: Arnie Fielkow — presidente del Concejo Municipal que posteriormente cuestionó el encarcelamiento como política de seguridad · VERIFICADO
+  [P55, Q90, Q92] PERSONA: Andy Kopplin — primer teniente de alcalde vinculado a las reformas posteriores · VERIFICADO
+  [P56, D231, Q131] PERSONA: Sergeant Bell — sargento mencionado en denuncias de golpes y amenazas · TESTIGO · VERIFICADO · ANTAGONISTA · datos que lo ponen en escena: D25, D228, D231, Q131, Q139 (repartilos en caps distintos)
+  [P57, D305, Q116] PERSONA: Mr. Gussman — persona cuya identidad no queda establecida y a quien una reclusa atribuye una orden de permanecer en el lugar · ANTAGONISTA
+  [P58, D315, Q118, Q135] PERSONA: Chief Rudy — jefe que anunció traslados a reclusos de observación médica · TESTIGO · VERIFICADO · ANTAGONISTA · datos que lo ponen en escena: D315, Q118, Q135 (repartilos en caps distintos)
+  [P59, D425] PERSONA: Lieutenant Deputy Keiths — oficial al que se atribuye haber dado agua a menores en el paso elevado · TESTIGO · datos que lo ponen en escena: D425 (repartilos en caps distintos)
+  [P60, D503, Q168] PERSONA: Ranking Officer Watson — oficial que permaneció inicialmente con reclusas de Templeman IV · TESTIGO · VERIFICADO · ANTAGONISTA · datos que lo ponen en escena: D503, Q168 (repartilos en caps distintos)
+  [P61] PERSONA: Mrs. Paige — oficial mencionada entre quienes se desmayaron · TESTIGO
+  [P62] PERSONA: Ken Bailey — sheriff mencionado en una denuncia de agresión posterior · TESTIGO · ANTAGONISTA
+  [P63, D476] PERSONA: Iris Hardy — reclusa cuya muerte por coma diabético es denunciada por la reclusa identificada como #178; identidad no equiparada a Iris Hardeman · TESTIGO · datos que lo ponen en escena: D476 (repartilos en caps distintos)
+  [P64, D499] PERSONA: Colonel Joseph — oficial de Conchetta elogiada por permanecer con las reclusas · TESTIGO · datos que lo ponen en escena: D499 (repartilos en caps distintos)
+  [P65, D492] PERSONA: Ms. Bowmen — oficial de House of Detention mencionada en un testimonio sobre el uso de un extintor · TESTIGO · ANTAGONISTA
+  [P66, D497, T125] PERSONA: Michael Carrerras — recluso de St. Bernard Parish que, según un testigo, recibió gas pimienta al pedir agua · TESTIGO · datos que lo ponen en escena: D497, T125 (repartilos en caps distintos)
+  [P67] PERSONA: Tina Johnson — reclusa mencionada en una denuncia de golpiza en Conchetta · TESTIGO
+  [P68, D544, Q179, Q183, Q184, Q185] PERSONA: Edward “Edgar” Burton — preso de Old Parish que rompió una ventana para conseguir ventilación y sobrevivió al encierro · TESTIGO · VERIFICADO · datos que lo ponen en escena: D544, Q179, Q184 (repartilos en caps distintos)
+  [P69, Q180] PERSONA: Sade Dumas — dirigente de la Orleans Parish Prison Reform Coalition después de la tormenta
+  [P71, Q181, Q182] PERSONA: Big Whappy — preso preventivo de House of Detention que relató las condiciones durante la inundación · TESTIGO · VERIFICADO · datos que lo ponen en escena: Q181 (repartilos en caps distintos)
+  [P72, D549] PERSONA: Len Davis — expolicía sentenciado a muerte y trasladado al patio de Hunt junto con otros evacuados · TESTIGO · datos que lo ponen en escena: D549 (repartilos en caps distintos)
+  [P73, D551, Q186, Q187] PERSONA: Phyllis Mann — abogada que encabezó la búsqueda de presos dispersados · VERIFICADO
+  [P74, Q09, Q10, T112] PERSONA: Glyendale Stevenson — madre de Corey Stevenson y testigo de la búsqueda familiar posterior a la evacuación
+  [P75, Q36] PERSONA: Denise Lewis Henry — hermana de Tyrone Lewis · VERIFICADO
+  [P76, Q62] PERSONA: Richard Stalder — secretario del Departamento de Correcciones de Luisiana · VERIFICADO
+  [P77, Q139] PERSONA: Captain Jenkins — capitán al que un testimonio atribuye una advertencia sobre mezclar presos enemigos · TESTIGO · VERIFICADO · nombre en el pool: Capitán Jenkins · datos que lo ponen en escena: Q139 (repartilos en caps distintos)
+  [T55, D30] PERSONA: C. Ray Nagin — alcalde que declaró la evacuación obligatoria de Nueva Orleans
+  [T144, D101] PERSONA: Katherine Mattes — abogada de la clínica jurídica de Tulane que obtuvo una orden de liberación para Pearl Bland
+  [D137, L22, L61] PERSONA: Burl Cain — alcaide de Angola que llegó con oficiales estatales para la evacuación
+
+PERSONAS QUE EL RESEARCH DESCARTÓ Y LA HISTORIA NECESITA:
+  [P74, Q09, Q10, D33, D34, T112] Glyendale Stevenson — madre de Corey Stevenson · por qué hace falta: Hace falta para contar la búsqueda familiar y el daño sufrido por un menor; los pasajes sí respaldan su testimonio aunque el research lo hubiera descartado.
+  [P14, Q26] Christina Foster — oficial de House of Detention · por qué hace falta: Permite distinguir la experiencia de los oficiales de la de los presos y está identificada con nombre completo en el pool.
+  [T55, D30] C. Ray Nagin — alcalde de Nueva Orleans · por qué hace falta: Su declaración de evacuación y la exclusión de los presos sostienen el primer giro del caso.
+  [D101, T144] Katherine Mattes — abogada de la clínica jurídica de Tulane · por qué hace falta: Su acción judicial proporciona el desenlace documentado del arco de Pearl Bland.
+  [D137, L22, L61] Burl Cain — alcaide de Angola · por qué hace falta: El pool sí lo vincula con la llegada de oficiales estatales para evacuar OPP.
+  [P58, D315, Q118] Chief Rudy — jefe que anunció un traslado · por qué hace falta: Hace falta para contar la promesa de movimiento a presos de observación médica sin inventar su nombre completo.
+  [P60, D503, Q168] Ranking Officer Watson — oficial de Templeman IV · por qué hace falta: Su permanencia impide presentar el abandono de puestos como una conducta universal de todos los oficiales.
+
+CRONOLOGÍA:
+  [T22, T24, T25, D442, D437] 2005-08-26 por la noche (aproximada) — Se desconectan los teléfonos de presos; varios testimonios coinciden en el viernes, aunque otro sitúa el corte en el sábado.
+  [T28, P10] 2005-08-27 — El presidente declara una emergencia para Luisiana.
+  [T30] 2005-08-27 — El DOC evacúa Plaquemines Parish Prison y St. Tammany Work Release.
+  [T31, D79] 2005-08-27 — David Williams es arrestado por intoxicación pública y alojado en una celda de la planta baja de Templeman III.
+  [P35, T37] 2005-08-27 — Quantonio Williams es arrestado por posesión de marihuana y llevado a OPP; el pasaje de su arresto no precisa una hora.
+  [D247] 2005-08-27 about 11:30 P.M. (aproximada) — El recluso identificado como #8 sitúa a esa hora el abandono de puestos por oficiales de su sector.
+  [T55, D30] 2005-08-28 por la mañana — Nagin declara la evacuación obligatoria de Nueva Orleans; la orden excluye a los reclusos y al personal esencial de la oficina del sheriff.
+  [T39, D38] 2005-08-28 — Un empleado sitúa en ese domingo una reunión de Gusman sobre preparación para el huracán.
+  [T56, D82] 2005-08-28 Maybe around 12:30 pm (aproximada) — Un preso de St. Bernard Parish sitúa aproximadamente a esa hora su traslado en autobús a OPP con cientos de personas.
+  [T58, D406] 2005-08-28 Sunday evening — El recluso identificado como #130 recibe sándwiches, su última comida antes de la evacuación.
+  [T61, T52, T73] 2005-08-29 (aproximada) — Katrina golpea Nueva Orleans; otras referencias del pool adelantan este acontecimiento al día anterior.
+  [T63] 2005-08-29 al despertar — Raphael Schwarz encuentra varias pulgadas de agua en la sala común y los oficiales entregan un trapeador y un balde para retirarla.
+  [T64] 2005-08-29 — Las aguas de inundación empiezan a entrar en los niveles inferiores de los edificios de OPP.
+  [T65, Q37] 2005-08-29 — Pearl Bland denuncia una agresión de otras mujeres que los oficiales no detuvieron.
+  [T79] 2005-08-29 noon — El recluso identificado como #102 declara haber sido evacuado de Templeman III al mediodía; ese horario no corresponde al relato de Joyce Gilson.
+  [D443, T80, T57] 2005-08-29 approximately 5 p.m. (aproximada) — El recluso identificado como #149 sitúa la falla de los generadores de respaldo de Templeman III alrededor de esa hora; otro testimonio del mismo edificio la adelanta al día anterior.
+  [T81, D114] 2005-08-29 around 8 p.m. (aproximada) — Un oficial de Templeman III sitúa la salida de tres presos de St. Bernard Parish a través del techo del gimnasio.
+  [T82, D132, P03] 2005-08-29 aproximadamente medianoche (aproximada) — La oficina del sheriff solicita ayuda al DOC para evacuar OPP; los pasajes la sitúan aproximadamente a las 11:55 p.m. o a medianoche.
+  [T83, T81] 2005-08-30 temprano por la mañana (aproximada) — Según un preso trasladado desde St. Bernard Parish, los oficiales regresan y llevan al grupo desde el gimnasio inundado hacia F-Side.
+  [T93] 2005-08-30 — Oficiales de Templeman I y II sitúan el comienzo de las evacuaciones de esos edificios cuando el agua interior alcanza el pecho.
+  [D320] 2005-08-30 approximately 5 p.m. (aproximada) — El recluso identificado como #56 sitúa su evacuación individual alrededor de esa hora.
+  [T94, D321] 2005-08-30 around 10 p.m. (aproximada) — El recluso identificado como #56 llega al paso elevado de Broad Street y ve a miles de presos sentados muy juntos y rodeados por guardias.
+  [T92, D41] 2005-08-30 Tuesday night — Brady Richard lleva suministros médicos a HOD y debe vadear agua hasta el pecho entre la entrada y la escalera.
+  [T95, D120, P37] 2005-08-31 Wednesday morning — Según Darnell Smith, presos de CCC arrancan una barra del techo y la usan para abrir paredes hasta el área de ascensores.
+  [T96, Q61] 2005-08-31 Wednesday afternoon — Mary Gehman fotografía a los presos del paso elevado pese a la indicación dada a civiles de no tomar fotografías.
+  [T107, D444] 2005-08-31 around 4 p.m. (aproximada) — Un trabajador de mantenimiento abre manualmente la celda del recluso identificado como #149.
+  [T103] 2005-08-31 por la noche — La reclusa identificada como #179 declara que oficiales de Angola cortan una abertura en una reja del segundo piso de Conchetta para rescatarla.
+  [T120, D182] 2005-09-01 — Human Rights Watch sitúa en ese jueves la evacuación de los presos de Templeman III a los que entrevistó.
+  [T113, Q57] 2005-09-01 — Según Ronnie Lee Morgan, oficiales del DOC llegan a su pabellón de HOD y ordenan dejar las pertenencias para evacuar.
+  [T118] 2005-09-01 3 p.m. — El recluso identificado como #206 sitúa su primer trago de agua potable en esa tarde.
+  [T121, D138, T128, T133] 2005-09-02 (aproximada) — Human Rights Watch informa que la evacuación de OPP se completó ese viernes, aunque hay testimonios que sitúan rescates posteriores.
+  [T125, D497] 2005-09-02 noon — Según el recluso identificado como #205, Michael Carrerras pide agua al llegar el DOC al paso elevado y recibe gas pimienta.
+  [T128, Q130] 2005-09-04 (aproximada) — El recluso identificado como #84 afirma que la Guardia Nacional rescató ese día a los presos de H-1 de Templeman III.
+  [T129, D455] 2005-09-04 — El recluso identificado como #161 denuncia haber sido violado en Hunt por otros presos.
+  [T110] 2005-09 early morning hours—maybe 3am (aproximada) — Una compañera relata que Iris Hardeman se cae de la cama y se golpea la cabeza en Angola; el pasaje no permite fijar el día.
+  [T130, D96] 2005-09-14 — Tyrone Lewis ingresa en el Hospital E.A. Conway y muere tres días después.
+  [T134, D194] 2005-09-28 — La ACLU exige acceso a los presos reubicados que representa.
+  [T144, D101] 2006-06-28 — Katherine Mattes obtiene una orden judicial de liberación para Pearl Bland.
+
+HECHOS:
+  [L01, L03, D533] (nivel 2 · contexto) OPP era la cárcel local de Nueva Orleans y estaba distribuida en un complejo de doce edificios.
+  [P03] (nivel 1 · contexto) Marlin N. Gusman era el sheriff criminal responsable de OPP durante Katrina.
+  [D533, D51] (nivel 1 · contexto) El conteo atribuido al sheriff registraba 6.375 presos al llegar la tormenta.
+  [D51] (nivel 2 · contexto) Ese conteo no incluía a más de 270 presos adultos trasladados desde St. Bernard Parish.
+  [D13] (nivel 1 · contexto) Según el informe de la ACLU, el 60% de la población anterior a Katrina estaba detenida por órdenes de comparecencia, infracciones de tráfico o cargos municipales.
+  [D17] (nivel 2 · contexto) OPP albergaba aproximadamente a 670 mujeres cuando llegó Katrina.
+  [D52] (nivel 2 · contexto) Las edades de las personas presas iban de 10 a 73 años.
+  [D27] (nivel 2 · contexto) La población de OPP durante la tormenta era afroamericana en un 89,3%, según el informe de la ACLU.
+  [D11] (nivel 2 · contexto) OPP alojaba a casi 2.000 presos del Departamento de Correcciones el día del impacto.
+  [D12] (nivel 2 · contexto) Más de 200 presos de OPP estaban bajo custodia federal durante la tormenta.
+  [D54] (nivel 2 · escalada) Más de 300 personas presentes en OPP habían sido arrestadas y fichadas durante los días de emergencia previos al impacto.
+  [D100] (nivel 1 · gancho) Pearl Bland seguía detenida porque debía 398 dólares en multas y tasas de una condena anterior.
+  [D55, D311, D442] (nivel 1 · escalada) Varios testimonios sitúan la desconexión de los teléfonos de presos antes de la llegada de Katrina.
+  [D30] (nivel 1 · giro) La orden de evacuación obligatoria excluía a los presos y al personal esencial de la oficina del sheriff criminal.
+  [T30] (nivel 2 · contexto) El DOC había evacuado otras instalaciones penitenciarias antes de que Katrina golpeara Nueva Orleans.
+  [D35] (nivel 1 · giro) El informe de la ACLU sostiene que Gusman rechazó una oferta del DOC para ayudar a evacuar OPP antes de la tormenta.
+  [D37] (nivel 1 · giro) OPP recibió presos adultos y menores de St. Bernard Parish y menores del Youth Study Center en lugar de evacuar.
+  [L11] (nivel 2 · escalada) Los hombres trasladados desde St. Bernard Parish fueron alojados en un gimnasio de la planta baja de Templeman III.
+  [D83] (nivel 2 · escalada) En el gimnasio había solamente dos baños para cientos de personas.
+  [D45] (nivel 1 · contexto) El plan de contingencia examinado por la ACLU no explicaba cómo evacuar los edificios hacia un lugar externo.
+  [D49] (nivel 2 · contexto) El plan exigía reservas de comida y agua para 96 horas sin explicar su distribución.
+  [D46] (nivel 2 · contexto) El plan exigía combustible y pruebas para los generadores, pero no indicaba que debieran colocarse por encima del nivel de inundación previsto.
+  [D50] (nivel 2 · contexto) Un equipo de planificación había identificado un riesgo de inundación de hasta ocho pies en la zona de OPP.
+  [D39] (nivel 2 · contexto) Brady Richard declaró que no fue consultado sobre preparativos médicos antes de la tormenta.
+  [D38] (nivel 2 · escalada) Según un empleado, Gusman calificó de incidentales las advertencias sobre falta de agua, linternas, baterías y comida.
+  [T64] (nivel 1 · escalada) El agua empezó a entrar en los niveles inferiores de OPP el día del impacto de Katrina.
+  [D47] (nivel 1 · giro) Los generadores de respaldo fallaron después de perderse la electricidad principal.
+  [D60] (nivel 2 · consecuencia) Gusman reconoció posteriormente que los generadores no habían sido colocados suficientemente altos.
+  [D67] (nivel 1 · escalada) El Times-Picayune informó de abandonos masivos de puestos después de entrevistar a oficiales.
+  [L16, D439] (nivel 2 · contexto) También hay testimonios de oficiales que permanecieron de servicio en Conchetta, Templeman IV y algunos pisos de HOD.
+  [D98] (nivel 2 · escalada) Una oficial denunció que Bonita Pittman la dejó encerrada con los presos durante un turno de doce horas.
+  [D106] (nivel 2 · escalada) Presos de Old Parish describieron una oscuridad que impedía ver la mano delante de la cara.
+  [D66] (nivel 2 · escalada) Muchos presos siguieron encerrados mientras los desechos corporales salían de inodoros que no funcionaban.
+  [D74] (nivel 2 · escalada) En Templeman IV, el ascenso del agua obligó a mujeres a subir a los niveles superiores de las literas.
+  [D57] (nivel 2 · escalada) Raphael Schwarz declaró que lo encerraron en una celda de Templeman III con otros siete presos.
+  [Q21] (nivel 2 · escalada) Schwarz y sus compañeros agitaban prendas naranjas por una ventana rota cuando oían helicópteros.
+  [D107] (nivel 2 · escalada) Algunos presos encendieron cartones de leche, sábanas y toallas para poder ver.
+  [D236] (nivel 2 · escalada) Un preso de Templeman III declaró que el humo se volvió insoportable y tuvieron que romper ventanas para respirar.
+  [P37, D120] (nivel 2 · giro) Según Darnell Smith, presos de CCC usaron una barra arrancada del techo para abrirse paso por las paredes.
+  [D121] (nivel 2 · escalada) En varios edificios, presos ataron sábanas para bajar desde ventanas rotas hacia el agua.
+  [D122] (nivel 2 · escalada) Presos y oficiales declararon haber visto personas colgando de los rollos de alambre cortante de las cercas.
+  [D128] (nivel 2 · escalada) Un testimonio atribuye a oficiales de SID disparos con escopetas de beanbags y golpes en la cara durante un traslado.
+  [T82, D132, P03] (nivel 1 · giro) La oficina del sheriff solicitó asistencia del DOC cerca de la medianoche posterior al impacto.
+  [T93] (nivel 2 · escalada) Oficiales de Templeman I y II declararon que comenzaron a evacuar cuando el agua interior alcanzó el pecho.
+  [D152] (nivel 2 · escalada) La información posterior de la oficina del sheriff indicaba que había solamente tres botes disponibles.
+  [D80, D543] (nivel 2 · escalada) Algunas celdas tuvieron que abrirse con palancas u otras herramientas.
+  [D139] (nivel 2 · giro) Un testimonio de Templeman III atribuye el retraso de la evacuación de B-Side a una llave extraviada.
+  [D144] (nivel 2 · escalada) Joyce Gilson declaró que caminó de Templeman IV a Templeman III con agua hasta el pecho.
+  [D146] (nivel 2 · escalada) Gilson relató que los hombres habían encendido fuegos en el dormitorio de Templeman III para conseguir que los sacaran.
+  [D151] (nivel 2 · pico) El informe de la ACLU describe a cientos de presos esperando en Central Lock-Up dentro de agua hasta el pecho.
+  [D155] (nivel 1 · pico) Otras reclusas se turnaron para sostener a Iris Hardeman durante su paso por Central Lock-Up.
+  [D78] (nivel 2 · pico) Según Gilson, Iris fue llevada en bote al paso elevado después de catorce horas en Central Lock-Up.
+  [D157] (nivel 2 · pico) Un preso describió un intenso olor a combustible diésel en el agua de Central Lock-Up.
+  [D158] (nivel 2 · pico) Una reclusa declaró que el agua de Central Lock-Up le quemaba la piel.
+  [D161] (nivel 2 · consecuencia) Un preso declaró que guardias armados le ordenaron abandonar sus pertenencias, incluidas direcciones y teléfonos familiares.
+  [D147] (nivel 2 · consecuencia) Gilson declaró que en el paso elevado ataron a las mujeres entre sí con precintos plásticos.
+  [D148] (nivel 2 · consecuencia) Gilson denunció que los oficiales usaron gas pimienta y perros cuando algunas mujeres intentaron alcanzar las hieleras.
+  [D149] (nivel 2 · consecuencia) Gilson relató que los oficiales impidieron que civiles se acercaran a dar agua a las reclusas.
+  [Q61, T96] (nivel 2 · consecuencia) Mary Gehman fotografió a los presos del paso elevado pese a la indicación de no tomar fotografías.
+  [T121, T128, T133] (nivel 1 · consecuencia) Human Rights Watch informó que la evacuación de OPP se completó el viernes, aunque el pool contiene testimonios de rescates posteriores.
+  [D163, D546] (nivel 1 · cierre) Gusman sostuvo que no hubo muertes en OPP durante la tormenta y la evacuación.
+  [Q60] (nivel 2 · cierre) Luis Reyes declaró que todavía quedaban presos muertos dentro de la cárcel al realizar las últimas revisiones.
+  [D185] (nivel 1 · cierre) Human Rights Watch señaló que 517 presos no figuraban en la lista de evacuados examinada.
+  [D191] (nivel 2 · cierre) De los presos que no figuraban en esa lista, 130 eran de Templeman III.
+  [D171] (nivel 2 · consecuencia) Miles de hombres evacuados pasaron por Hunt antes de ser dispersados a otras instalaciones de Luisiana.
+  [D172] (nivel 2 · consecuencia) En Hunt se mezclaron presos preventivos con personas condenadas y detenidos municipales, estatales y federales.
+  [D174, D455] (nivel 2 · consecuencia) Varios hombres denunciaron violaciones entre presos en el campo de Hunt.
+  [D176] (nivel 2 · cierre) Cathy Fontenot negó las denuncias de violencia entre presos en Hunt.
+  [D177, D550] (nivel 2 · consecuencia) Los testimonios describen a guardias de Hunt arrojando bolsas de sándwiches por encima de la cerca.
+  [D548] (nivel 2 · consecuencia) La inundación inutilizó el sistema de datos de la cárcel y los evacuados carecían de documentos para identificarse.
+  [D101] (nivel 1 · cierre) Katherine Mattes obtuvo una orden judicial de liberación para Pearl Bland el 28 de junio de 2006.
+  [D01, D02, D03, D04] (nivel 2 · cierre) Una investigación federal posterior encontró condiciones inconstitucionales de seguridad, salud mental y saneamiento en OPP.
+  [T65, Q37] (nivel 2 · consecuencia) Pearl Bland denunció que otras mujeres la agredieron durante la tormenta y que los oficiales no detuvieron el ataque.
+  [D96] (nivel 2 · consecuencia) Tyrone Lewis fue hospitalizado después de su traslado y murió tres días después del ingreso.
+  [Q36] (nivel 2 · cierre) Denise Lewis Henry declaró que la familia no sabía cómo había muerto su hermano Tyrone ni si había sufrido.
+  [D34] (nivel 2 · consecuencia) Glyendale Stevenson relató que dos presos adultos golpearon a Corey en Tallulah y le lesionaron la mandíbula y un ojo.
+  [D553] (nivel 2 · consecuencia) Los registros legales perdidos o destruidos impidieron a algunos detenidos demostrar su situación procesal.
+
+CIFRAS (con unidad; la principal y las otras versiones):
+  [D533, D51] Conteo de presos atribuido al sheriff al llegar la tormenta, sin incluir todos los trasladados desde St. Bernard Parish: 6.375 personas · conteo del sheriff recogido por el informe de la ACLU y citado en F10 · otras fuentes: aproximadamente 6.300 personas en vísperas de la tormenta [D201]; 6.000 personas antes de Katrina [D198]; casi 7.000 presos que debían ser evacuados [D48]
+  [D15] Promedio diario anterior a Katrina, sin equipararlo al conteo del día de la tormenta: 6.500 personas por día · Departamento de Justicia, F09 · otras fuentes: casi 6.500 personas por día [D15]
+  [D214] Promedio diario del año terminado el 30 de junio de 2005: 5.919 personas por día · F08
+  [D213] Población registrada el 30 de junio de 2005: 6.295 personas · F08
+  [D219] Capacidad anterior a los daños de Katrina: 8.000 plazas para presos · Departamento de Justicia, F09 · otras fuentes: aproximadamente 8.500 plazas al finalizar la administración de Foti [D14]
+  [D51] Adultos trasladados desde St. Bernard Parish que no estaban en el conteo del sheriff: más de 270 personas · F01
+  [D17] Mujeres alojadas en OPP durante Katrina: aproximadamente 670 personas · F01
+  [D13] Presos por órdenes de comparecencia, infracciones de tráfico o cargos municipales antes de Katrina: 60 porcentaje de la población de OPP · F01
+  [D11] Presos del Departamento de Correcciones alojados en OPP el día del impacto: casi 2.000 personas · F01 · otras fuentes: aproximadamente 2.000 personas sentenciadas por el estado [D535]
+  [D12] Personas bajo custodia federal en OPP durante la tormenta: más de 200 personas · F01
+  [D52] Edades de la población presa: de 10 a 73 años de edad · F01
+  [D27] Población afroamericana de OPP durante la tormenta: 89,3 porcentaje de la población de OPP · F01 · otras fuentes: casi 90 porcentaje de la población de OPP [D27]
+  [D54] Personas presentes en OPP arrestadas y fichadas entre el 26 y el 28 de agosto: más de 300 personas · F01 · otras fuentes: 300 personas fichadas durante tres días previos a la tormenta [D536]
+  [D152, D48] Botes disponibles según información posterior de la oficina del sheriff: 3 botes · oficina del sheriff citada en F01
+  [D49] Reservas exigidas por el plan de contingencia: 96 horas de comida y agua por edificio · plan de contingencia citado en F01
+  [D50] Riesgo de inundación identificado para la zona de OPP: hasta 8 pies de altura de agua · equipo de planificación parroquial citado en F01
+  [D100] Deuda que mantenía detenida a Pearl Bland: 398 dólares en multas y tasas · F01
+  [D78] Tiempo de Iris Hardeman en Central Lock-Up según Joyce Gilson: 14 horas · testimonio de Gilson recogido en F01
+  [D181] Población de Templeman III descrita por Human Rights Watch: más de 600 personas · F02
+  [D185] Presos ausentes de la lista de evacuados examinada por Human Rights Watch: 517 personas no incluidas en la lista · Human Rights Watch, F02
+  [D191] Presos de Templeman III ausentes de esa lista: 130 personas no incluidas en la lista · Human Rights Watch, F02
+  [D07] Evacuados que contactaron al National Prison Project para relatar sus experiencias: más de 1.300 personas · agradecimientos del informe F01
+
+CITAS:
+  [Q08] CITA: "Vamos a mantener a nuestros prisioneros donde pertenecen." — Marlin N. Gusman (sheriff criminal de Orleans Parish) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre)
+  [Q11] CITA: "La gente necesita entender que simplemente nunca deberíamos haber estado allí en primer lugar." — Brady Richard (oficial de suministros médicos) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q13, D38] CITA: "Esos son detalles incidentales, y nos ocuparemos de ellos más tarde." — Marlin N. Gusman (sheriff; palabras atribuidas por un empleado) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q14] CITA: "Desde la terraza del edificio CCC, podía ver francotiradores en el techo del edificio HOD disparando a los reclusos... Recuerdo que pensé: '¿En qué diablos me he metido?'" — Brady Richard (oficial de suministros médicos) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q16] CITA: "Llevo aquí cuatro años y siempre es lo mismo cuando vienen los huracanes. No hay ningún plan." — Rhonda R. Ducre (oficial de House of Detention) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q21] CITA: "La ventana de nuestra celda estaba rota, y empezamos a agitar nuestras camisetas naranjas del uniforme de la prisión cada vez que oíamos pasar un helicóptero para indicar que todavía estábamos en la cárcel." — Raphael Schwarz (preso de Templeman III) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre)
+  [Q24] CITA: "Una vez que se fue la luz, los oficiales empezaron a renunciar a diestra y siniestra. No se fueron del edificio, por supuesto, pero simplemente no volvieron a trabajar. Las mujeres en especial se asustaron una vez que la tormenta golpeó y se fue la luz." — Renard Reed (oficial de OPP) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q37] CITA: "Los oficiales no me agredieron personalmente, pero no ayudaron a detener la agresión que las señoras me hicieron." — Pearl Cornelia Bland (reclusa de Conchetta) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q48, P38] CITA: "Un tipo saltó por el agujero y le dispararon... Cayó sobre una cerca de alambre de púas. Lo recogieron en un bote y nos dijeron que nos quedáramos en el agujero o nos dispararían." — Ace Martin (preso de Templeman III, no guardia) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q54] CITA: "No te imaginarías que una persona dejaría que otro ser humano pasara por eso, cuando hubo tiempo para dejarnos salir. Nunca se me ocurriría que una persona pudiera permitir que eso sucediera; aunque estemos en la cárcel somos seres humanos." — Joyce Gilson (reclusa de Templeman IV) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre)
+  [Q56] CITA: "Y luego Gusman mintió sobre que teníamos comida y agua cuando él sabe que no teníamos. Él sabe que no teníamos." — Joyce Gilson (reclusa de Templeman IV) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre)
+  [Q60] CITA: "Todavía hay presos muertos ahí dentro. Cuando los guardias estaban haciendo sus últimas rondas había uno o dos por aquí y por allá." — Luis Reyes (oficial de OPP) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q63] CITA: "No es que quisiéramos escapar. Los cargos que tenía no eran realmente por nada. ¿Por qué querría escapar? Escapé por mi vida." — David Fernandez (preso que escapó) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q70] CITA: "Alimentamos a esos reclusos lo mejor que pudimos. No pudimos darles comidas calientes como a las que están acostumbrados." — Cathy Fontenot (portavoz del Departamento de Correcciones) · SIN VERIFICAR (se usa sin el nombre)
+  [Q73] CITA: "Nos dejaron morir allí." — Dan Bright (preso evacuado a Rapides Parish Prison) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q77] CITA: "Nadie se ahogó, nadie se quedó atrás." — portavoz no identificada del departamento del sheriff (portavoz oficial) · VERIFICADA
+  [Q100] CITA: "Teníamos miedo de morir en el agua alta, estábamos colgados de las ventanas con carteles que decían ayúdennos ¡Pero nadie vino!" — recluso identificado como #5 (preso de Templeman III) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q102, D240] CITA: "No había 'NINGUNA' ventilación y estaba lleno de humo a tal capacidad que tosíamos incontrolablemente y literalmente no podíamos respirar." — reclusa identificada como #6 (presa trasladada de Templeman IV a Templeman III) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q179] CITA: "No había nadie, nos dejaron morir, hombre." — Edward “Edgar” Burton (preso de Old Parish) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q183] CITA: "Cuando vi que algo que estaba atornillado al suelo empezaba a flotar, supe que era grave. La gente gritaba pidiendo ayuda, pero nadie venía. Pensamos que nos íbamos a ahogar allí dentro." — Edward “Edgar” Burton (preso de Old Parish) · TESTIMONIO (estuvo ahí) · SIN VERIFICAR (se usa sin el nombre)
+  [Q184] CITA: "Tuvimos que beber agua del inodoro solo para mantenernos con vida." — Edward “Edgar” Burton (preso de Old Parish) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q185] CITA: "Nos dijeron que no quedaba nadie." — rescatistas no identificados, citados en el relato de Burton (equipo de rescate) · TESTIMONIO (estuvo ahí) · VERIFICADA
+  [Q186] CITA: "Ninguno de los directores de prisión sabía a quién tenían: eran personas en prisión preventiva, personas ya juzgadas, personas en programas de tratamiento. Personas que habían sido arrestadas recientemente y ni siquiera habían pasado por el tribunal para que les fijaran una fianza. Simplemente todo el mundo." — Phyllis Mann (abogada que buscó a los presos dispersados) · VERIFICADA
+
+VERSIONES (hechos disputados: se cuentan como versiones, no se resuelven):
+  Quién puso en marcha la solicitud efectiva de refuerzos
+    - Algunos oficiales sostuvieron que los responsables de los edificios pasaron por encima de Gusman y llamaron a Charles Foti. [D131]
+    - El informe técnico del DOC registra una llamada de la oficina del sheriff solicitando asistencia cerca de la medianoche, sin identificar quién tomó la decisión interna. [D132]
+  Responsabilidad por los presos trasladados desde St. Bernard Parish
+    - Gusman sostuvo que St. Bernard mantuvo la responsabilidad por sus presos y aportó sus propios oficiales para vigilarlos. [D135, Q53]
+    - Baumy sostuvo que los seis oficiales enviados estaban bajo el mando de oficiales de Nueva Orleans. [D136]
+  Comida, agua y funcionamiento de la evacuación
+    - La ACLU recoge la posición pública de Gusman de que los presos tenían comida y agua y la evacuación se realizó según lo planeado; el pasaje es una paráfrasis, no una cita literal completa del sheriff. [D196]
+    - Presos entrevistados por Human Rights Watch declararon no haber tenido comida ni agua entre su última comida del fin de semana y la evacuación. [D186]
+    - Gilson acusó a Gusman de mentir sobre la disponibilidad de comida y agua. [Q56]
+    - Big Whappy describió alimentación el lunes y parte del martes, seguida de ausencia de comida desde el miércoles en HOD. [T74, T91, T106]
+  Seguridad y eficiencia de la evacuación
+    - El Departamento de Justicia elogió los esfuerzos del sheriff para evacuar a los presos de manera segura y eficiente. [D218]
+    - Human Rights Watch describió abandono de presos encerrados en Templeman III. [T66, D181]
+    - El informe de la ACLU describió presos abandonados en celdas cerradas dentro de agua contaminada. [D09]
+  Existencia de un plan de evacuación utilizable
+    - Ducre declaró que no había ningún plan para huracanes. [D43, Q16]
+    - El informe de la ACLU examinó un plan de contingencia, pero señaló que no contenía información para realizar una evacuación externa. [D45]
+    - El abogado del sheriff respondió que los documentos sobre planes de evacuación estaban bajo el agua y no podían encontrarse. [D42]
+  Muertes dentro de OPP y personas presuntamente dejadas atrás
+    - Gusman sostuvo que no hubo muertes durante la tormenta ni la evacuación. [D163]
+    - Una portavoz afirmó que nadie se ahogó y nadie quedó atrás. [D190, Q77]
+    - Luis Reyes declaró que aún había presos muertos dentro cuando se hicieron las últimas revisiones. [Q60]
+    - El recluso #2 declaró haber visto dos cuerpos flotando en el pabellón médico de la planta baja. [D228]
+    - El recluso #85 declaró haber visto doce cuerpos flotando. [D371]
+    - Los rescatistas citados en el relato de Burton dijeron que les habían informado de que no quedaba nadie. [Q185]
+  Disparos contra presos y tipo de munición
+    - Reed describió personas que caían al agua tras disparos, pero dijo no saber si se trataba de munición real. [Q47]
+    - Un testimonio identifica escopetas de beanbags utilizadas por SID. [D128]
+    - La reclusa #153 afirmó haber visto a dos hombres muertos a tiros mientras intentaban entregarse. [D449]
+    - La reclusa #220 afirmó que un oficial disparó y mató a dos hombres que habían saltado de un edificio en llamas. [D509]
+  Situación de los presos federales de CCC
+    - Inglese los describió como personas de alta peligrosidad, incluidos violadores y asesinos. [P28]
+    - El informe de la ACLU afirma que los datos del propio sheriff no mostraban acusados de violación en CCC y solo mostraban una persona acusada de asesinato. [D117]
+    - El mismo informe señala que muchos presos federales eran detenidos migratorios sin acusación penal. [D116]
+  Violencia entre presos en Hunt
+    - Fontenot negó las denuncias de violencia y describió a los presos como dóciles. [D176]
+    - Un preso describió peleas, apuñalamientos y violaciones en el campo. [Q68]
+    - El recluso #161 denunció que fue violado en Hunt. [D455]
+  Puertas cerradas y decisiones de apertura en distintos sectores
+    - Hay testimonios de oficiales que aseguraron puertas de celdas con grilletes para impedir que los presos salieran. [D134]
+    - Otro testimonio atribuye a Colonel Joseph la orden de dejar abiertas las puertas de un dormitorio de Conchetta después del apagón. [P64]
+    - Rescatistas debieron usar palancas y herramientas por cortocircuitos en puertas de celdas. [D543]
+
+DECISIONES DE LA FICHA (la versión que quedó y las otras):
+  Nombre del sheriff · Se usa Marlin N. Gusman por ser la forma del documento oficial del Departamento de Justicia, conservando Martin como variante discordante y también en contradicciones. [P03]
+    - El documento oficial se dirige a Marlin N. Gusman. [P03]
+    - El testimonio del recluso identificado como #77 lo llama Sheriff Martin Gusman. [P03, Q129]
+  Fecha de la solicitud inicial de Blanco · La solicitud se fecha el sábado 27 de agosto y no el 26, que era el comienzo del período para el cual se pedía la emergencia. [T21, P10]
+    - El ítem fecha la solicitud el 26; el pasaje dice que Blanco escribió el sábado 27 para un período iniciado el 26. [T21, P10]
+  Fecha del impacto de Katrina en Nueva Orleans · Se adopta el 29 de agosto por coincidencia de F01 y F06, y se marca aproximada por la referencia discordante al 28. [T61, T52, T73]
+    - Katrina golpeó Nueva Orleans el 29 de agosto. [T61]
+    - Katrina golpeó Nueva Orleans el 29 de agosto. [T61]
+    - Katrina golpeó el domingo 28 de agosto. [T52]
+    - Otra carta del mismo documento llama al lunes 29 el día del huracán. [T73]
+  Desconexión de teléfonos · Se adopta el viernes 26 como fecha predominante, sin excluir que hubiera diferencias entre sectores y marcando la fecha como aproximada. [D55, D311, T25, D442, D437]
+    - Los teléfonos dejaron de funcionar el viernes 26. [D55]
+    - Los teléfonos fueron desconectados la noche del viernes 26. [D311]
+    - Otro preso de Old Parish sitúa el corte en el sábado. [D437]
+  Hora del arresto de Quantonio Williams · Se elimina la hora 23:30 de su arresto porque el pasaje con esa hora describe abandono de puestos en otro testimonio. [T37, P35, D247]
+    - Williams dice que fue arrestado el sábado 27, sin hora. [P35, T37]
+    - Las 11:30 P.M. corresponden al abandono de puestos según otro recluso, no al arresto de Williams. [T37, D247]
+  Horas añadidas a la evacuación obligatoria, la última comida y la inundación de Templeman IV · Se reemplazan las horas exactas no respaldadas por las expresiones por la mañana, domingo por la noche y noche del domingo que contienen los pasajes. [T55, T58, T60]
+    - El ítem asigna las 10:00; el pasaje solo dice la mañana del domingo. [T55]
+    - El ítem asigna las 18:00; el pasaje solo dice domingo por la noche. [T58]
+    - El ítem asigna las 23:59; el pasaje solo dice noche del domingo. [T60]
+  Mezcla de la evacuación de Joyce Gilson con la del recluso identificado como #102 · El mediodía del 29 se atribuye únicamente al recluso #102 y no se usa para fechar el traslado de Gilson. [T79]
+    - Gilson recuerda haber salido de Templeman III probablemente a las siete u ocho de la mañana y de Central Lock-Up tarde por la noche, sin fecha en el pasaje. [T79]
+    - El recluso #102 declara haber sido evacuado de Templeman III al mediodía del 29. [T79]
+  Hora de la entrega médica de Brady Richard · Se elimina la 01:00 y se conserva martes por la noche, porque la hora pertenece a un corte eléctrico relatado por otro preso. [T92, D41]
+    - Richard sitúa la entrega de suministros el martes por la noche. [T92, D41]
+    - La una de la mañana del 30 corresponde al apagón en el edificio de un recluso. [T92]
+  Inicio general de la evacuación de Templeman I y II · Se conserva el martes 30 sin hora general y se separa la evacuación individual de un preso alrededor de las cinco de la tarde. [T93, D320]
+    - Los oficiales sitúan el inicio el martes 30 cuando el agua alcanzó el pecho, sin hora. [T93]
+    - El recluso #56 sitúa su propia evacuación aproximadamente a las cinco de la tarde del martes. [T93, D320]
+  Hora de evacuación de los entrevistados de Templeman III · Se elimina la hora 02:00 de T120 porque Human Rights Watch solo fecha la evacuación en el jueves 1 de septiembre. [T120, D182]
+    - La evacuación de estos entrevistados se fecha el jueves 1 de septiembre sin una hora. [T120, D182]
+    - Las horas de la carta describen otra espera y no prueban una evacuación general a las dos de la madrugada. [T120]
+  Hora omitida en T118 · Se incorpora 3 p.m. al evento del primer trago de agua potable porque la hora sí aparece en el pasaje. [T118]
+    - El campo horario del ítem está vacío, pero el testigo dice que su primer trago fue a las 3 p.m. del 1 de septiembre. [T118]
+  Falla de generadores de Templeman III · No se fija una hora única para todo el edificio y se presentan como aproximados los horarios de testimonios incompatibles. [T57, D443, T80]
+    - Un preso sitúa la falla del generador de respaldo aproximadamente a las dos de la tarde del 28. [T57]
+    - Otro preso sitúa la falla aproximadamente a las cinco de la tarde del lunes. [D443, T80]
+    - Human Rights Watch solo indica que los generadores habían fallado para el lunes 29. [T80]
+  Conteo de población al llegar Katrina · Se usa 6.375 como conteo atribuido al sheriff, aclarando sus exclusiones y conservando las estimaciones alternativas sin tratarlas como un censo completo equivalente. [D533, D51, D198, D201, D48]
+    - F10 recoge 6.375 personas y atribuye el dato al informe de la ACLU. [D533]
+    - El conteo del sheriff excluía a más de 270 adultos de St. Bernard Parish y a algunos menores. [D51]
+    - F08 habla de 6.000 personas antes de Katrina. [D198]
+    - F08 estima aproximadamente 6.300 en vísperas de la tormenta. [D201]
+    - F01 habla de casi 7.000 presos por evacuar. [D48]
+  Capacidad anterior a Katrina · Se adopta la capacidad de 8.000 plazas del documento oficial y se conserva la estimación de 8.500 al final de la administración de Foti con su referencia temporal. [D219, D14]
+    - El Departamento de Justicia fija en 8.000 la capacidad anterior a los daños. [D219]
+    - El informe de la ACLU estima una capacidad de aproximadamente 8.500 al finalizar la administración de Foti. [D14]
+  Muertes: cifra oficial y ausencia de un balance comprobado · Se conserva cero únicamente como cifra declarada por el sheriff y no como mortalidad comprobada, porque las denuncias contrapuestas son hechos disputados que permanecen en versiones. [D163, D546, D290, D371, D58]
+    - Gusman sostuvo que no hubo muertes durante la tormenta y la evacuación. [D163]
+    - El recluso #33 dice que seis oficiales le hablaron de 21 muertos. [D290]
+    - El recluso #85 afirma haber visto doce cuerpos. [D371]
+    - Schwarz dice que una oficial le habló de tres cuerpos encontrados. [D58]
+  Autor de Q48 · Se atribuye la cita a Ace Martin, preso de Templeman III, porque el pasaje introductorio lo identifica y contradice la etiqueta de guardia del ítem. [Q48, P38]
+    - El ítem Q48 etiqueta al hablante como guardia. [Q48]
+    - La introducción identifica al hablante como Ace Martin, preso de Templeman III. [P38]
+  Extensión no respaldada de Q57 · Se conserva la pérdida de documentos legales y se elimina la referencia a fotografías de las hijas porque no aparece en el pasaje suministrado. [Q57]
+    - El ítem añade fotografías familiares, pero el pasaje solo respalda la amenaza con un arma y la pérdida del trabajo legal. [Q57]
+  Beanbags y balas de goma · Se mantiene el término beanbags cuando así lo dice el original y no se lo traduce como balines o balas de goma. [Q125, D344, D348, D415]
+    - El original de Q125 dice beanbag shotguns y no rubber bullets. [Q125]
+    - El original de D344 dice beanbag shotguns. [D344]
+    - El original de D415 dice bean bags. [D415]
+  Tamaño del grupo de St. Bernard Parish descrito en D399 · Se lee un recluso y otros 368, no un total de 368 ni un total general de todos los trasladados desde St. Bernard Parish. [D399]
+    - El pasaje dice que colocaron al testigo y a otros 368 reclusos en el gimnasio. [D399]
+  Profundidad atribuida a la celda en D473 · Los aproximadamente cuatro pies corresponden al agua a la que cayó el testigo al salir por un agujero del tercer piso y no a la profundidad dentro de su celda. [D473]
+    - El ítem habla de agua en la celda; el pasaje describe un descenso con un cable y una caída al agua. [D473]
+  Evidencia agregada a la denuncia sobre Iris Hardy · La denuncia de muerte de Iris Hardy se atribuye únicamente al testimonio de F03 y no a la carta de otra mujer diabética en F05. [D476, P63]
+    - La reclusa #178 denuncia que Iris Hardy murió por falta de insulina y comida. [D476, P63]
+    - La carta de F05 habla de la propia falta de pastillas y gafas de su autora, sin nombrar a Iris ni describir esa muerte. [D476]
+
+CONTRADICCIONES SIN RESOLVER:
+  Nombre discordante del mismo sheriff: Marlin frente a Martin; se conserva el conflicto aunque se normaliza el nombre oficial
+    - Marlin N. Gusman en el documento oficial dirigido al sheriff. [P03]
+    - Sheriff Martin Gusman en el testimonio del recluso #77. [P03, Q129]
+  Identidad de Mr. Gussman y Mr. Gusmen: el pool no permite confirmar que sean la misma persona que el sheriff
+    - Una reclusa atribuye una orden de permanecer a un Mr. Gussman, sin identificación completa. [P57, D305, Q116]
+    - Otro pasaje reproduce una queja contra un Mr. Gusmen, sin nombre de pila. [Q19]
+    - El sheriff identificado oficialmente es Marlin N. Gusman. [P03]
+  Posible confusión entre Iris Hardy e Iris L. Hardeman; no se fusionan las identidades ni sus desenlaces
+    - F01 identifica a Iris L. Hardeman como una mujer enferma que pasa por la evacuación y aparece posteriormente en Angola. [P20, D75]
+    - Una compañera relata una caída de Iris Hardeman en Angola durante septiembre. [T110]
+    - La reclusa #178 nombra a Iris Hardy y denuncia que murió por un coma diabético al no recibir insulina ni comida. [P63, D476]
+
+═══ CÓMO SE VE UNA BUENA ESCALETA ═══
+EJEMPLO 1 (OTRO TEMA, solo para la FORMA — no uses nada de su contenido):
+Tema: la mina de Sago, 2006. Humano: Randal McCloy, el único minero que salió vivo. Antagonista: la empresa.
+promesa_gancho: "Esa noche le dijeron a doce familias que sus hombres estaban vivos. Esta es la historia de las tres horas que siguieron."
+beats:
+ 1 cap1 gancho · miedo 3 · imagen: "un casco con la lámpara todavía encendida, tirado en el barro negro del túnel" · pregunta: "¿qué pasó allá abajo?" · cierre: anticipa la explosión de las 6:26
+ 2 cap2 planteo · inquietud 2 · imagen: "trece hombres bajando en el carro, termos de café entre las rodillas" · humano en escena
+ 3 cap3 escalada · angustia 3 · imagen: "golpes con un martillo contra el techo de roca, cada quince minutos"
+ 4 cap4 escalada · esperanza falsa 4 · imagen: "la iglesia llena, las campanas sonando a medianoche" · pregunta pantalla: "¿Quién dijo que estaban vivos?"
+ 5 cap5 pico · horror 5 · imagen: "la misma iglesia, tres horas después, alguien grita desde el fondo" · pregunta pantalla: "¿Por qué nadie corrigió la noticia?"
+ 6 cap5 respiro · duelo 1 · imagen: "una nota escrita a lápiz en el reverso de un seguro de vida"
+ 7 cap6 consecuencia · rabia 3 · imagen: "un sobre de multas de la mina, sin abrir, sobre un escritorio" · humano en escena
+ 8 cap7 cierre · tristeza 2 · imagen: "McCloy aprendiendo a caminar otra vez en un pasillo de hospital" · humano en escena · pregunta pantalla: "¿Cuántas minas siguen así?"
+
+EJEMPLO 2 (OTRO TEMA, solo para la FORMA):
+Tema: el incendio de la fábrica Triangle, Nueva York, 1911. Humano: una obrera de 16 años que sobrevivió.
+promesa_gancho: "Las puertas del noveno piso estaban cerradas con llave. Alguien tenía esa llave."
+beats:
+ 1 cap1 gancho · terror 3 · imagen: "humo saliendo por las ventanas del noveno piso y gente mirando desde la vereda" · cierre: anticipa la puerta cerrada
+ 2 cap2 planteo · rutina 2 · imagen: "doscientas máquinas de coser, pelusa de algodón flotando en la luz de la tarde" · humano en escena
+ 3 cap3 escalada · pánico 4 · imagen: "una manija de bronce que no gira" · humano en escena · pregunta pantalla: "¿Quién cerró esa puerta?"
+ 4 cap4 pico · horror 5 · imagen: "la escalera de los bomberos llega hasta el sexto piso; ellas están en el noveno"
+ 5 cap5 respiro · silencio 1 · imagen: "zapatos de mujer alineados en el muelle, esperando que alguien los reconozca"
+ 6 cap6 consecuencia · indignación 3 · imagen: "los dueños saliendo del tribunal entre fotógrafos" · pregunta pantalla: "¿Por qué los dueños salieron libres?"
+ 7 cap7 cierre · memoria 2 · imagen: "una anciana mirando la misma ventana, setenta años después" · humano en escena · pregunta pantalla: "¿Cuántas puertas siguen cerradas?"
+
+═══ REGLAS DE LA ESCALETA (duras: si no se cumplen, se rechaza):
+1. Entre 7 y 14 beats, numerados 1..N en orden, cada uno con su `cap` (1–7, no decreciente). Los 7
+   caps tienen al menos un beat. Los caps de desarrollo (2–6) tienen al menos 2 beats cada uno. El beat 1 es la `funcion` "gancho" del cap 1.
+2. `palabras_objetivo`: los beats de un cap suman su largo: cap 1 ≈ 110, caps 2–6 ≈ 250 cada uno,
+   cap 7 ≈ 140.
+3. `intensidad` de 1 a 5: NO BAJA hasta el pico (cada cap peor que el anterior). El pico no es
+   el último beat, y después del pico hay al menos un beat de intensidad 1 (respiro: el espectador respira antes del
+   cierre). FLASH-FORWARD: el beat 1 puede contar primero un momento POSTERIOR y más intenso (`flash_forward: true`);
+   el cap 2 vuelve atrás («cómo se llegó ahí») y la curva se mide desde el beat 2. Solo el beat 1 puede serlo.
+4. Cada beat tiene UN `dato_central` (un id D##, T## o Q## del pool) y 0–6 `datos_apoyo`. Un id aparece en UN solo beat
+   en todo el video (después se puede parafrasear sin la cifra). `pico.id` = el dato central del beat del pico.
+5. `humano`: UNA persona del pool que estuvo ahí (preferí un TESTIGO, con testimonio: es a quien seguimos). Va con su
+   `id` P## y su `nombre` EXACTO del pool. Si el pool no tiene testigos con nombre: un personaje colectivo con rostro
+   («un preso de Templeman III, 19 años, según la ACLU») con `colectivo: true`, `nombre` = esa descripción, `id` = el
+   Q## o D## que lo documenta y `fuente` = el mismo id. NUNCA un nombre inventado.
+   `humano_en_escena: true` SOLO en los beats que tienen un dato SUYO VERIFICADO (su cita, o un dato que lo nombra) como
+   dato central o de apoyo: el guionista no puede ponerlo en una escena que el research no documenta. Tiene que
+   estar así en al menos 3 caps distintos (el primero, antes del cap 3); si el pool tiene menos datos
+   suyos, en tantos caps como datos tenga. En los demás beats se lo puede nombrar, no poner en escena.
+6. `antagonista`: el P## del pool al que el research le atribuye la decisión que causó el daño.
+7. `imagen_sensorial`: algo que se VE, se OYE, se HUELE o se TOCA en ese momento («agua negra subiendo por la escalera
+   de la celda»); nunca una idea abstracta («la desesperación»). Sale del pool: no inventes objetos que contradigan el
+   research. Es el ancla de la imagen del cap.
+8. Gancho: `promesa_gancho` = UNA frase con lo que el espectador va a descubrir; sin cifras ni años (tampoco en
+   letras: «seis mil» es una cifra; «miles» no). La
+   `imagen_sensorial` del beat 1 tampoco lleva cifras. La narración va a abrir con esa imagen y esa promesa.
+9. `pregunta_pantalla` en el ÚLTIMO beat de cada cap (en los otros, ""): ≤ 8 palabras, empieza con «¿» y
+   termina con «?»; nombra algo que el espectador YA conoce (persona, grupo, lugar u objeto de este cap o de antes);
+   implica culpa, consecuencia o un destino no resuelto; sin nombres propios nuevos y sin términos administrativos
+   (indemnización, generadores, registros, demanda, informe, autoridades, evacuación). Modelos: «¿Quién apagó las
+   luces?», «¿Por qué nadie abrió las celdas?», «¿Dónde están los 517?». Cap 7: no es gancho; es la pregunta humana
+   que se queda («¿Cuántos siguen sin nombre?»).
+10. `cierre` de cada beat que termina un cap 1–6: anticipa algo CONCRETO del cap siguiente (su dato central o su
+    imagen). `pregunta_abierta`: lo que el espectador se pregunta al terminar el beat.
+11. Las cifras de conteo van con su id OFICIAL (ver CIFRAS CANÓNICAS); la variante de medios solo en el beat que cuenta
+    la contradicción. Un conteo con dos cifras (ver UN HECHO, UNA CIFRA) se cuenta UNA vez, con la precisa: los ids de la
+    aproximada no van en ningún beat.
+12. CIERRE: el último beat (cap 7) tiene como dato central una CONSECUENCIA (lo que falta, lo que se negó, lo que nunca
+    se contó), no una victoria ajena. Su `cierre` es la última frase del video y nombra al humano o a otro testigo
+    VERIFICADO. Nunca termina en la cita de alguien que no estuvo ahí: esa va a `a_pantalla`.
+13. `a_pantalla`: [{"id", "cap", "por_que"}] — ids que preferís que se VEAN y no se digan (la cita de un abogado, una
+    fuente, un dato que la imagen cuenta mejor). Un id de `a_pantalla` no está en ningún beat. Máximo 2 por cap.
+14. CITAS SIN VERIFICAR (marcadas en el pool): se pueden usar, pero la narración no dice el nombre de quien la dijo
+    («un preso», «una guardia»). Solo las VERIFICADAS se dicen con nombre.
+15. `contador: true` en el beat cuya cifra conviene ver subir en pantalla (una cantidad: personas, días). UNA CIFRA SE
+    VE EN PANTALLA UNA SOLA VEZ en todo el video: si un beat lleva contador, ninguna pregunta de pantalla repite esa
+    cifra; y dos preguntas de pantalla no repiten la misma cifra.
+16. La pregunta de pantalla del cap 7 es OBLIGATORIA: humana, la que se queda («¿Cuántos siguen sin nombre?»).
+17. El `cierre` del último beat describe la última frase del video sin copiar ninguna cita: esa frase va a ser una cita
+    (del humano o de un testigo verificado, por su id) o una pregunta; nunca un resumen (F8 §2).
+
+LO QUE RETIENE (cada decisión responde a por qué alguien se iría):
+- Los primeros 30 s: una imagen concreta y una promesa, no contexto.
+- Un humano con nombre al que seguimos todo el video.
+- Curva: cada cap peor que el anterior. Ritmo: respiros.
+- Cierres que obligan: culpa o consecuencia, nunca trivia administrativa.
+- Final humano: lo que produce el like y el comentario.
+
+Devolvé la escaleta de ESTE tema en el JSON pedido. Pensá primero a quién seguimos y dónde está el pico; después
+repartí los beats en los 7 caps.

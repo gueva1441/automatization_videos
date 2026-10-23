@@ -1,0 +1,11 @@
+[14:20:53] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3-f15-escaleta
+[14:23:13] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3-f15-escaleta � Costo total: $0.2199
+  [orl escaleta] US$ 0.2199 · 139 s · tanda US$ 1.7803
+  [escaleta] compuerta del pool: verde {'datos': 558, 'citas_verificadas': 162, 'elegibles_humano': 12, 'eventos_con_fecha': 127}
+  [escaleta] intento 1: 5 problema(s) ["beat 4: Edward “Edgar” Burton en escena sin un dato suyo verificado (ninguna cita ni mención en ['T64', 'D47', 'Q183']); datos suyos que valen: ['D544', 'Q179', 'Q184']", "beat 11: Edward “Edgar” Burton en escena sin un dato suyo verificado (ninguna cita ni mención en ['D185', 'D163', 'Q77', 'Q60', 'Q185']); datos suyos que valen: ['D544', 'Q179', 'Q184']", 'la imagen sensorial del gancho no lleva cifras', 'beat 2: D533 es otra cifra del conteo 5.919 [D214]: un hecho, una cifra (la precisa)'] · 3 reparación(es)
+  [escaleta] intento 2: 0 problema(s) [] · 2 reparación(es)
+[orl escaleta] 13 beats · humano Brady Richard · pico beat 9 · avisos ['pregunta de pantalla del cap 3 «¿Quién apagó las luces?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)', 'pregunta de pantalla del cap 6 «¿Dónde están los quinientos diecisiete?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)', 'beat 8: vuelve atrás en el tiempo (2005-08-29 < 2005-08-30)']
+[14:23:14] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3-f15-guion
+[14:26:36] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3-f15-guion � Costo total: $0.0936
+  [orl guion] US$ 0.0936 · 203 s · tanda US$ 1.8739
+[orl guion] 763 palabras ≈ 6.2 min · bloqueantes 0 · por cap [81, 123, 96, 113, 139, 129, 82]

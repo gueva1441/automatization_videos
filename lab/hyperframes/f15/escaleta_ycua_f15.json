@@ -1,0 +1,514 @@
+{
+ "humano": {
+  "id": "P13",
+  "nombre": "Liz Torres",
+  "rol": "Sobreviviente y activista",
+  "por_que": "Su testimonio del pico de la tragedia (quedar atrapada en la avalancha humana) es el centro emocional del relato, y su transformación en activista le da un arco de supervivencia y lucha.",
+  "colectivo": false,
+  "fuente": "D212"
+ },
+ "antagonista": {
+  "id": "P06",
+  "por_que": "Como propietario del supermercado y principal condenado, encarna la responsabilidad empresarial y la decisión (disputada pero central al misterio) de cerrar las puertas."
+ },
+ "promesa_gancho": "Cuando el fuego empezó, alguien dio la orden de cerrar las puertas. Esta es la historia de por qué cientos de personas nunca salieron.",
+ "pico": {
+  "beat": 8,
+  "id": "Q20",
+  "por_que": "Es el momento en que la huida se detiene y el peligro se vuelve inescapable. La protagonista cree que va a morir, rodeada por los gritos que se apagan. Es el clímax del horror."
+ },
+ "cierre_humano": "Liz Torres sobrevive a la avalancha de cuerpos y transforma su experiencia en una lucha por la memoria, para que el desastre del Ycuá Bolaños no vuelva a repetirse.",
+ "beats": [
+  {
+   "n": 1,
+   "cap": 1,
+   "funcion": "gancho",
+   "emocion": "Terror",
+   "intensidad": 5,
+   "dato_central": "Q19",
+   "datos_apoyo": [],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Una avalancha de cuerpos empujando hacia adentro, el calor de un horno, cenizas en el aire y gritos que empiezan a apagarse.",
+   "pregunta_abierta": "¿Cómo llegó a ese punto?",
+   "pregunta_pantalla": "¿Por qué nadie podía salir?",
+   "cierre": "Pero para entender por qué nadie salía, hay que volver al principio de ese domingo, cuando el Ycuá Bolaños era el lugar más concurrido de Asunción.",
+   "palabras_objetivo": 110,
+   "flash_forward": true,
+   "pregunta_valida": true
+  },
+  {
+   "n": 2,
+   "cap": 2,
+   "funcion": "planteo",
+   "emocion": "Inquietud",
+   "intensidad": 2,
+   "dato_central": "D93",
+   "datos_apoyo": [
+    "T01",
+    "Q12"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Pasillos de supermercado repletos de familias comprando en un domingo al mediodía.",
+   "pregunta_abierta": "¿Qué estaba mal en ese lugar aparentemente normal?",
+   "pregunta_pantalla": "",
+   "cierre": "El supermercado estaba lleno, pero debajo del ruido de los carritos y las cajas, algo estaba a punto de estallar.",
+   "palabras_objetivo": 125
+  },
+  {
+   "n": 3,
+   "cap": 2,
+   "funcion": "planteo",
+   "emocion": "Alarma",
+   "intensidad": 3,
+   "dato_central": "Q17",
+   "datos_apoyo": [
+    "D27",
+    "D28"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Un sonido agudo y fuerte, como agua arrojada sobre aceite hirviendo, que hace que todas las cabezas se giren hacia el patio de comidas.",
+   "pregunta_abierta": "¿De dónde viene ese ruido?",
+   "pregunta_pantalla": "¿Por qué sonaban las alarmas?",
+   "cierre": "El ruido fue solo el comienzo. Segundos después, las llamas cayeron sobre la gente.",
+   "palabras_objetivo": 125,
+   "pregunta_valida": true
+  },
+  {
+   "n": 4,
+   "cap": 3,
+   "funcion": "escalada",
+   "emocion": "Pánico",
+   "intensidad": 3,
+   "dato_central": "Q70",
+   "datos_apoyo": [
+    "Q10"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Llamas cayendo del techo sobre las mesas del patio de comidas y una estampida de gente corriendo entre humo negro.",
+   "pregunta_abierta": "¿Lograrán salir todos a tiempo?",
+   "pregunta_pantalla": "",
+   "cierre": "La gente corría hacia las salidas que conocía, pero en la puerta de vidrio, el escape se encontró con un primer obstáculo.",
+   "palabras_objetivo": 125
+  },
+  {
+   "n": 5,
+   "cap": 3,
+   "funcion": "giro",
+   "emocion": "Angustia",
+   "intensidad": 4,
+   "dato_central": "Q18",
+   "datos_apoyo": [
+    "D47"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Un hombre con un niño en brazos empujando una puerta de blíndex que no se abre, mientras el humo sube a su alrededor.",
+   "pregunta_abierta": "¿Por qué estaba cerrada esa puerta?",
+   "pregunta_pantalla": "¿Quién no dejó salir a la gente?",
+   "cierre": "No era la única salida bloqueada. En el acceso principal, la trampa se estaba cerrando.",
+   "palabras_objetivo": 125,
+   "pregunta_valida": true
+  },
+  {
+   "n": 6,
+   "cap": 4,
+   "funcion": "escalada",
+   "emocion": "Desesperación",
+   "intensidad": 4,
+   "dato_central": "D106",
+   "datos_apoyo": [
+    "Q34"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Una multitud corriendo hacia un portón de rejas y dándose la vuelta al encontrarlo cerrado, chocando con los que vienen detrás.",
+   "pregunta_abierta": "¿Estaban todas las puertas cerradas?",
+   "pregunta_pantalla": "",
+   "cierre": "Las puertas estaban cerradas. Y según una sobreviviente, no fue por accidente: alguien había dado la orden.",
+   "palabras_objetivo": 125
+  },
+  {
+   "n": 7,
+   "cap": 4,
+   "funcion": "revelacion",
+   "emocion": "Indignación",
+   "intensidad": 5,
+   "dato_central": "D109",
+   "datos_apoyo": [
+    "Q35"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "El rostro de Juan Pío Paiva mientras una voz en off dice: 'El jefe mandó cerrar las puertas'.",
+   "pregunta_abierta": "¿Es verdad que ordenó cerrarlas para que no robaran?",
+   "pregunta_pantalla": "¿Por qué Paiva ordenó cerrar?",
+   "cierre": "Con las salidas bloqueadas y el fuego avanzando, la estampida se convirtió en una trampa mortal.",
+   "palabras_objetivo": 125,
+   "pregunta_valida": true
+  },
+  {
+   "n": 8,
+   "cap": 5,
+   "funcion": "pico",
+   "emocion": "Horror",
+   "intensidad": 5,
+   "dato_central": "Q20",
+   "datos_apoyo": [
+    "D105",
+    "Q77"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Oscuridad casi total, el peso de cuerpos apilados, calor de horno, el aire lleno de cenizas y gritos que se van apagando uno a uno.",
+   "pregunta_abierta": "¿Cómo se puede sobrevivir a eso?",
+   "pregunta_pantalla": "",
+   "cierre": "En medio del caos, cuando todas las salidas oficiales estaban bloqueadas, la salvación vino de un lugar inesperado.",
+   "palabras_objetivo": 125
+  },
+  {
+   "n": 9,
+   "cap": 5,
+   "funcion": "respiro",
+   "emocion": "Alivio frágil",
+   "intensidad": 1,
+   "dato_central": "D107",
+   "datos_apoyo": [
+    "D147"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Un rayo de luz que entra por un boquete recién abierto en una pared, revelando el polvo y el humo en el aire.",
+   "pregunta_abierta": "¿Cuántos lograron salir por ahí?",
+   "pregunta_pantalla": "¿Cuántos quedaron atrapados adentro?",
+   "cierre": "Para cientos de personas, ese boquete no fue suficiente. Afuera, la larga noche de reconocer a los muertos apenas comenzaba.",
+   "palabras_objetivo": 125,
+   "pregunta_valida": true
+  },
+  {
+   "n": 10,
+   "cap": 6,
+   "funcion": "consecuencia",
+   "emocion": "Duelo",
+   "intensidad": 3,
+   "dato_central": "D192",
+   "datos_apoyo": [
+    "D195",
+    "D196",
+    "D141"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Cuerpos cubiertos con sábanas blancas, alineados en el estacionamiento del supermercado.",
+   "pregunta_abierta": "¿Quiénes eran los responsables?",
+   "pregunta_pantalla": "",
+   "cierre": "Mientras las familias buscaban a sus muertos, la investigación oficial llegó a una conclusión que contradecía lo que todos los sobrevivientes decían.",
+   "palabras_objetivo": 125,
+   "contador": true
+  },
+  {
+   "n": 11,
+   "cap": 6,
+   "funcion": "giro",
+   "emocion": "Frustración",
+   "intensidad": 3,
+   "dato_central": "D31",
+   "datos_apoyo": [
+    "D30",
+    "T59"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Un perito policial señalando un plano del supermercado, mientras un texto en pantalla dice 'ACCESOS DE HIERRO: ABIERTOS'.",
+   "pregunta_abierta": "¿Le creerían a los peritos o a las víctimas?",
+   "pregunta_pantalla": "¿Por qué la pericia negó el cierre?",
+   "cierre": "Con testimonios y pericias enfrentadas, el caso llegó a un juicio que mantuvo en vilo a todo el país.",
+   "palabras_objetivo": 125,
+   "pregunta_valida": true
+  },
+  {
+   "n": 12,
+   "cap": 7,
+   "funcion": "revelacion",
+   "emocion": "Justicia parcial",
+   "intensidad": 2,
+   "dato_central": "T65",
+   "datos_apoyo": [
+    "D19",
+    "D20",
+    "D21"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Juan Pío Paiva escuchando su condena en la sala de un tribunal.",
+   "pregunta_abierta": "¿Es esto justicia?",
+   "pregunta_pantalla": "",
+   "cierre": "Los dueños fueron a la cárcel. Pero para los sobrevivientes, la lucha por una reparación real estaba lejos de terminar.",
+   "palabras_objetivo": 70
+  },
+  {
+   "n": 13,
+   "cap": 7,
+   "funcion": "cierre",
+   "emocion": "Resignación",
+   "intensidad": 2,
+   "dato_central": "Q01",
+   "datos_apoyo": [
+    "T75",
+    "Q14"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Una sobreviviente mirando las ruinas del supermercado, convertidas ahora en un memorial.",
+   "pregunta_abierta": "¿Recibirán alguna vez una reparación completa?",
+   "pregunta_pantalla": "¿Cuántos siguen esperando justicia?",
+   "cierre": "La historia cierra con el reclamo de Liz Torres por la memoria.",
+   "palabras_objetivo": 70,
+   "pregunta_valida": true
+  }
+ ],
+ "a_pantalla": [
+  {
+   "id": "Q82",
+   "cap": 2,
+   "por_que": "Muestra la falla estructural del Estado: la confesión de un funcionario sobre la falta de inspecciones es más potente en texto que narrada."
+  },
+  {
+   "id": "D82",
+   "cap": 3,
+   "por_que": "El dato técnico del abogado sobre la falta de salidas de emergencia refuerza visualmente la idea de la trampa."
+  },
+  {
+   "id": "Q64",
+   "cap": 4,
+   "por_que": "La defensa de Paiva, en sus propias palabras (transmitidas por su abogado), debe verse para contrastar con las acusaciones de las víctimas."
+  },
+  {
+   "id": "D25",
+   "cap": 6,
+   "por_que": "Es el dato clave del giro judicial. Mostrar el texto de la pericia crea un impacto directo de la contradicción."
+  },
+  {
+   "id": "D186",
+   "cap": 7,
+   "por_que": "La cifra millonaria de la indemnización es un dato duro que se lee mejor de lo que se escucha, y resalta la ironía de que no se pueda cobrar."
+  },
+  {
+   "id": "Q80",
+   "cap": 7,
+   "por_que": "La advertencia final del jefe de bomberos sobre los riesgos actuales funciona como una coda visual, un llamado de atención que queda en pantalla."
+  }
+ ],
+ "justificacion_humano": "",
+ "topic_id": "f8s1-ycua-bolanos",
+ "prompt_version": "f6b-4",
+ "_reparaciones": [
+  "beat 13: apoyo P70 no existe en el pool → fuera"
+ ],
+ "_avisos": [
+  "pregunta de pantalla del cap 2 «¿Por qué sonaban las alarmas?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+ ],
+ "_intentos": [
+  {
+   "intento": 1,
+   "problemas": [
+    "beat 13: dato_central «P70» no existe en el pool (o no es D/T/Q)",
+    "pregunta de pantalla del cap 2 «¿Era solo un accidente?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?); no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+    "pregunta de pantalla del cap 4 «¿Alguien podría salir vivo de ahí?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+    "pregunta de pantalla del cap 6 «¿Terminaba todo con la cárcel?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+    "pregunta de pantalla del cap 7 «¿Se puede poner precio a una vida?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)"
+   ],
+   "reparaciones": [],
+   "avisos": [
+    "pregunta de pantalla del cap 5 «¿Cuántos no volverían a casa?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+   ]
+  },
+  {
+   "intento": 2,
+   "problemas": [],
+   "reparaciones": [
+    "beat 13: apoyo P70 no existe en el pool → fuera"
+   ],
+   "avisos": [
+    "pregunta de pantalla del cap 2 «¿Por qué sonaban las alarmas?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+   ]
+  }
+ ],
+ "ficha": {
+  "prompt_version": "f15-1",
+  "pool_md5": "5f3c6d0bc31ebf868dd432b2c79fdcec"
+ },
+ "pool_gate": {
+  "color": "verde",
+  "metricas": {
+   "datos": 227,
+   "citas_verificadas": 52,
+   "elegibles_humano": 15,
+   "eventos_con_fecha": 62
+  },
+  "motivos": [],
+  "target_words": 1500
+ },
+ "_pantalla_por_fecha": [
+  "D171 (None) → cap 2 lleno: fuera",
+  "D115 (None) → cap 3 lleno: fuera",
+  "T34 (2004-08-14) → cap 7 lleno: fuera",
+  "D134 (2005-01-22) → cap 7 lleno: fuera",
+  "D135 (2004-07-31) → cap 2 lleno: fuera",
+  "D222 cuenta lo mismo que D186, ya en pantalla: fuera",
+  "D37 cuenta lo mismo que D14, ya en pantalla: fuera"
+ ],
+ "instrucciones_guionista": [
+  "La cifra 327 muertos se dice UNA sola vez; nunca «364» ni «más de 364».",
+  "Q20 (de Liz Torres) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+  "Q34 (de Digna Felicia Cáceres) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+  "Q35 (de Digna Felicia Cáceres) está SIN VERIFICAR: se usa sin su nombre («un preso», «una guardia»…).",
+  "Q82 va a pantalla (cap 2): la voz no lo dice.",
+  "D82 va a pantalla (cap 3): la voz no lo dice.",
+  "Q64 va a pantalla (cap 4): la voz no lo dice.",
+  "D25 va a pantalla (cap 6): la voz no lo dice.",
+  "D186 va a pantalla (cap 7): la voz no lo dice.",
+  "Q80 va a pantalla (cap 7): la voz no lo dice."
+ ],
+ "caps": [
+  {
+   "chapter_number": 1,
+   "role": "hook",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "hook",
+   "evidence_ids": [
+    "Q19"
+   ],
+   "cliffhanger": "D93",
+   "pantalla_ids": [
+    "D181"
+   ],
+   "palabras_objetivo": 110
+  },
+  {
+   "chapter_number": 2,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "setup",
+   "evidence_ids": [
+    "D93",
+    "T01",
+    "Q12",
+    "Q17",
+    "D27",
+    "D28"
+   ],
+   "cliffhanger": "Q70",
+   "pantalla_ids": [
+    "Q82",
+    "D14"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 3,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "Q70",
+    "Q10",
+    "Q18",
+    "D47"
+   ],
+   "cliffhanger": "D106",
+   "pantalla_ids": [
+    "D82",
+    "D177"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 4,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "shock",
+   "evidence_ids": [
+    "D106",
+    "Q34",
+    "D109",
+    "Q35"
+   ],
+   "cliffhanger": "Q20",
+   "pantalla_ids": [
+    "Q64",
+    "Q67"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 5,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "consequences",
+   "evidence_ids": [
+    "Q20",
+    "D105",
+    "Q77",
+    "D107",
+    "D147"
+   ],
+   "cliffhanger": "D192",
+   "pantalla_ids": [
+    "D148",
+    "D179"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 6,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "resolution",
+   "evidence_ids": [
+    "D192",
+    "D195",
+    "D196",
+    "D141",
+    "D31",
+    "D30",
+    "T59"
+   ],
+   "cliffhanger": "T65",
+   "pantalla_ids": [
+    "D25"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 7,
+   "role": "reveal_outro",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "outro",
+   "evidence_ids": [
+    "T65",
+    "D19",
+    "D20",
+    "D21",
+    "Q01",
+    "T75",
+    "Q14"
+   ],
+   "cliffhanger": "",
+   "pantalla_ids": [
+    "D186",
+    "Q80"
+   ],
+   "palabras_objetivo": 140
+  }
+ ],
+ "_pool_plan": {
+  "cifras_canonicas": [],
+  "pantalla": [
+   "cap 1: pantalla ['D181']",
+   "cap 2: pantalla ['D14', 'D171']",
+   "cap 3: pantalla ['D177', 'D115']",
+   "cap 4: pantalla ['Q67', 'T34']",
+   "cap 5: pantalla ['D148', 'D179']",
+   "cap 6: pantalla ['D134', 'D135']",
+   "cap 7: pantalla ['D222', 'D37']"
+  ]
+ }
+}

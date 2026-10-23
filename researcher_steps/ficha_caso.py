@@ -36,10 +36,13 @@ from typing import Any, Callable
 from script_engine import evidence as ev
 
 MODELO, ESFUERZO = "gpt-6.1-sol", "high"
-PROMPT_VERSION = "f14-1"           # f12-1: sin criterios (ficha de Ycuá de F12)
+PROMPT_VERSION = "f15-1"           # f12-1: sin criterios (Ycuá F12) · f14-1: criterios (Orleans F14) · f15-1: historia y escenas
 MAX_LEV = 3
-SECCIONES = ("contradicciones", "decisiones", "versiones", "personas", "personas_descartadas", "cifras", "cronologia",
-             "hechos", "citas", "descartados")
+SECCIONES = ("escenas", "contradicciones", "decisiones", "versiones", "personas", "personas_descartadas", "cifras",
+             "cronologia", "hechos", "citas", "descartados")
+HISTORIA = ("humanos_candidatos", "giros", "pico", "pregunta_final")   # F15: `historia` (pico y pregunta: un objeto)
+SENT_STOP = {"entre", "sobre", "desde", "hasta", "total", "todo", "toda", "todos", "todas", "cada", "otro", "otra",
+             "como", "pero", "para", "porque", "donde", "cuando", "mientras", "muy", "mucho", "mucha", "poco", "durante"}
 CRITERIOS = {1: "error de extracción: gana el pasaje", 2: "variantes de un nombre: forma oficial o judicial; si no, la más repetida",
              3: "conteos: cifra oficial; si no, la más repetida", 4: "hecho disputado: no se resuelve (versiones)",
              5: "horas y fechas: la que coincide en 2 o más fuentes; si ninguna, aproximada"}
@@ -59,8 +62,26 @@ SCHEMA: dict[str, Any] = {
             "fecha": {"type": "STRING"}, "hora": {"type": "STRING"}, "evento": {"type": "STRING"},
             "aproximada": {"type": "BOOLEAN"}, "ids": _IDS},
             "required": ["fecha", "hora", "evento", "aproximada", "ids"]}},
+        "historia": {"type": "OBJECT", "properties": {
+            "humanos_candidatos": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+                "nombre": {"type": "STRING"}, "rol": {"type": "STRING"}, "arco": {"type": "STRING"}, "ids": _IDS,
+                "citas_verificadas": {"type": "INTEGER"}},
+                "required": ["nombre", "rol", "arco", "ids", "citas_verificadas"]}},
+            "giros": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+                "orden": {"type": "INTEGER"}, "que_cambia": {"type": "STRING"}, "ids": _IDS},
+                "required": ["orden", "que_cambia", "ids"]}},
+            "pico": {"type": "OBJECT", "properties": {
+                "que": {"type": "STRING"}, "por_que": {"type": "STRING"}, "ids": _IDS}, "required": ["que", "por_que", "ids"]},
+            "pregunta_final": {"type": "OBJECT", "properties": {
+                "pregunta": {"type": "STRING"}, "ids": _IDS}, "required": ["pregunta", "ids"]}},
+            "required": ["humanos_candidatos", "giros", "pico", "pregunta_final"]},
+        "escenas": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
+            "donde": {"type": "STRING"}, "quien": {"type": "STRING"}, "que_pasa": {"type": "STRING"},
+            "sentidos": {"type": "STRING"}, "ids": _IDS},
+            "required": ["donde", "quien", "que_pasa", "sentidos", "ids"]}},
         "hechos": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
-            "texto": {"type": "STRING"}, "ids": _IDS}, "required": ["texto", "ids"]}},
+            "texto": {"type": "STRING"}, "nivel": {"type": "INTEGER"}, "sirve_para": {"type": "STRING"}, "ids": _IDS},
+            "required": ["texto", "nivel", "sirve_para", "ids"]}},
         "cifras": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
             "que": {"type": "STRING"}, "valor": {"type": "STRING"}, "unidad": {"type": "STRING"},
             "fuente": {"type": "STRING"}, "ids": _IDS,
@@ -91,8 +112,8 @@ SCHEMA: dict[str, Any] = {
             "que": {"type": "STRING"}, "motivo": {"type": "STRING"}, "ids": _IDS},
             "required": ["que", "motivo", "ids"]}},
     },
-    "required": ["personas", "cronologia", "hechos", "cifras", "citas", "contradicciones", "decisiones", "versiones",
-                 "personas_descartadas", "descartados"],
+    "required": ["personas", "cronologia", "historia", "escenas", "hechos", "cifras", "citas", "contradicciones",
+                 "decisiones", "versiones", "personas_descartadas", "descartados"],
 }
 
 
@@ -106,6 +127,25 @@ def system() -> str:
 Leés el pool de research completo (cada ítem con su id, y cada evidencia con su documento y su posición) y devolvés la ficha del caso:
 - personas: un nombre canónico por persona, su rol, las variantes del nombre que encontraste y sus ids. Si dos fuentes dan nombres distintos para la misma persona, no elegís: la persona va también a contradicciones.
 - cronologia: los eventos del día en orden, con la fecha y la hora tal como están en el pool, y sus ids.
+- historia: antes de listar hechos, decidís qué historia hay en este caso. Devolvés:
+  - humanos_candidatos (2 a 4): personas con arco, es decir, que entran en el caso en un estado, les pasa algo y salen en otro. Para cada una: nombre canónico, rol, en una oración qué le pasa (entra → sufre → sale), qué ids la sostienen y cuántas citas verificadas tiene. Una persona sin cita verificada puede ser candidata, pero lo decís.
+  - giros (3 a 6): los momentos en que la historia cambia de dirección (una orden, una puerta que no abre, una cifra que aparece, una negación oficial). Cada uno con sus ids y en qué orden pasan.
+  - pico: el peor momento, el que todo lo anterior prepara. Uno solo, con sus ids y por qué es el pico.
+  - pregunta_final: la pregunta que el caso deja abierta y que ningún documento cierra, con los ids que la sostienen.
+- escenas (8 a 15): momentos concretos que se pueden ver. Cada escena en una o dos oraciones: dónde, quién, qué está pasando, y lo que un testigo o documento dice que se veía, se oía, se olía o se tocaba. Solo con lo que los ids permiten. Una escena sin ningún detalle sensorial en los datos no es escena: es hecho, y va a hechos.
+- hechos (60 a 80) con un campo nivel: 1 = sostiene la historia (sin él no se entiende el caso; entre 12 y 20), 2 = apoyo (da contexto o escala). Además, cada hecho lleva el campo sirve_para: gancho, contexto, escalada, giro, pico, consecuencia o cierre.
+
+Ejemplo de humano candidato (de otro caso; copiá la forma, no el contenido):
+{"nombre": "Pearl Cornelia Bland", "rol": "detenida por una deuda de 398 dólares", "arco": "entra presa por multas, queda encerrada cuando llega el huracán, es agredida en Conchetta sin que los oficiales intervengan, y sale en junio del año siguiente por una orden de liberación", "ids": ["D301", "Q88", "D512"], "citas_verificadas": 1}
+
+Ejemplo de giro:
+{"orden": 2, "que_cambia": "El sheriff rechaza la ayuda del Departamento de Correcciones para evacuar: la prisión no se vacía", "ids": ["D35", "Q08"]}
+
+Ejemplo de escena:
+{"donde": "Celdas de Templeman III, 30 de agosto", "quien": "presos encerrados", "que_pasa": "el agua de la inundación entra y sube hasta el pecho", "sentidos": "olor a aguas residuales y combustible diésel; oscuridad total; gritos entre pabellones", "ids": ["T93", "D414", "D09", "D545"]}
+
+Ejemplo de hecho nivel 1:
+{"texto": "La lista de evacuados no incluye a 517 reclusos.", "nivel": 1, "sirve_para": "consecuencia", "ids": ["D185"]}
 - hechos: entre 60 y 80 hechos útiles para contar la historia, cada uno en una oración limpia, con sus ids de origen. Sin interpretación.
 - cifras: una cifra por conteo (muertos, heridos, huérfanos, personas adentro…), con su fuente y las otras versiones. Cada cifra con su unidad (personas, °C, años, guaraníes…): nunca un número sin qué cuenta.
 - citas: las mejores 15 a 25, con autor, rol, estado de verificación y el texto. Si hay un error evidente de transcripción, lo corregís en «texto» y dejás el texto del pool en «original»; si no corregís nada, «original» va vacío.
@@ -185,7 +225,7 @@ def prompt(pool: dict, title: str) -> str:
 {pool_section(pool)}
 </pool>
 
-<tarea>Con el pool de arriba, armá la ficha del caso: personas, personas_descartadas, cronologia, hechos (60–80), cifras (con unidad), citas (15–25), decisiones (con su criterio), versiones, contradicciones (las que ningún criterio resuelve) y descartados. Devolvé el JSON del esquema.</tarea>"""
+<tarea>Con el pool de arriba, armá la ficha del caso: personas, personas_descartadas, cronologia, historia, escenas (8–15), hechos (60–80, con nivel y sirve_para), cifras (con unidad), citas (15–25), decisiones (con su criterio), versiones, contradicciones (las que ningún criterio resuelve) y descartados. Devolvé el JSON del esquema.</tarea>"""
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -252,7 +292,8 @@ def unsupported(text: str, src: str) -> list[str]:
     return out
 
 
-def _strings(x: Any, skip: tuple[str, ...] = ("ids", "original", "doc_id", "offset")) -> list[str]:
+def _strings(x: Any, skip: tuple[str, ...] = ("ids", "original", "doc_id", "offset", "nivel", "orden",
+                                              "citas_verificadas", "aproximada", "sirve_para")) -> list[str]:
     if isinstance(x, dict):
         return [s for k, v in x.items() if k not in skip for s in _strings(v, skip)]
     if isinstance(x, list):
@@ -283,6 +324,21 @@ def _versions_problems(vs: list[dict], its: dict) -> list[str]:
         if (v.get("doc_id"), v.get("offset")) not in evs:
             out.append(f"{v.get('doc_id')}@{v.get('offset')} no es evidencia de {', '.join(vids)}")
         out += unsupported(str(v.get("dice") or ""), source_text(vids, its))
+    return out
+
+
+def sentidos_problems(sentidos: str, src: str) -> list[str]:
+    """F15 §1.2: los sentidos de una escena tienen que estar en el texto de sus ids. Se parten en tramos («;», «,», «y»);
+    cada tramo necesita al menos una palabra de contenido (≥ 4 letras) cuya raíz (5 letras) aparezca en el texto."""
+    segs = [x.strip() for x in re.split(r"[;,]|\by\b", sentidos or "") if x.strip()]
+    if not segs:
+        return ["la escena no trae sentidos"]
+    srcw = set(re.findall(r"[a-z0-9ñ]+", ev.norm(src)))
+    out = []
+    for seg in segs:
+        ws = [w for w in re.findall(r"[a-zñ]+", ev.norm(seg)) if len(w) >= 4 and w not in SENT_STOP]
+        if ws and not any(sw.startswith(w[:5]) for w in ws for sw in srcw):
+            out.append(f"sentido «{seg}» no está en sus ids")
     return out
 
 
@@ -323,6 +379,8 @@ def problems(section: str, item: dict, its: dict, gone: set[str] | None = None) 
             out += unsupported(str(v.get("valor") or ""), source_text(vids, its))
         return out
     src = source_text(ids, its)
+    if section == "escenas":
+        out += sentidos_problems(str(item.get("sentidos") or ""), src)
     if section == "citas":
         orig = str(item.get("original") or "").strip()
         texto = str(item.get("texto") or "").strip()
@@ -358,13 +416,33 @@ def check(ficha: dict, pool: dict) -> tuple[dict, list[dict]]:
                    "ids": [i for i in ids if i in its], "seccion": s, "item": item}
             sacados.append(rec)
             out["descartados"].append({k: rec[k] for k in ("que", "motivo", "ids")})
+    if "historia" in ficha:                                   # F15: humanos, giros, pico y pregunta, el mismo control
+        hist = ficha.get("historia") or {}
+        oh: dict[str, Any] = {"humanos_candidatos": [], "giros": [], "pico": None, "pregunta_final": None}
+        for key in HISTORIA:
+            val = hist.get(key)
+            for item in (val if isinstance(val, list) else [val] if isinstance(val, dict) else []):
+                pr = problems("historia", item, its, gone)
+                if not pr:
+                    if isinstance(oh[key], list):
+                        oh[key].append(item)
+                    else:
+                        oh[key] = item
+                    continue
+                rec = {"que": f"[historia.{key}] {_label('historia', item)}", "motivo": "no respaldado: " + "; ".join(pr),
+                       "ids": [i for i in item.get("ids") or [] if i in its], "seccion": f"historia.{key}", "item": item}
+                sacados.append(rec)
+                out["descartados"].append({k: rec[k] for k in ("que", "motivo", "ids")})
+        out["historia"] = oh
     return out, sacados
 
 
 def _label(s: str, item: dict) -> str:
     key = {"personas": "nombre", "cronologia": "evento", "hechos": "texto", "cifras": "que", "citas": "texto",
            "contradicciones": "tema", "descartados": "que", "decisiones": "tema", "versiones": "tema",
-           "personas_descartadas": "nombre"}[s]
+           "personas_descartadas": "nombre", "escenas": "que_pasa"}.get(s)
+    if s == "historia":
+        key = next((k for k in ("nombre", "que_cambia", "que", "pregunta") if item.get(k)), "ids")
     return str(item.get(key) or "")[:140]
 
 
@@ -378,7 +456,12 @@ def build(pool: dict, title: str, *, call: Callable[..., dict]) -> dict:
 
 
 def counts(ficha: dict) -> dict[str, int]:
-    return {s: len(ficha.get(s) or []) for s in SECCIONES}
+    out = {s: len(ficha.get(s) or []) for s in SECCIONES}
+    if "historia" in ficha:
+        h = ficha.get("historia") or {}
+        out = {"humanos_candidatos": len(h.get("humanos_candidatos") or []), "giros": len(h.get("giros") or []),
+               "pico": int(bool(h.get("pico"))), "pregunta_final": int(bool(h.get("pregunta_final"))), **out}
+    return out
 
 
 def _ids(item: dict) -> str:
@@ -394,6 +477,21 @@ def markdown(ficha: dict, meta: dict) -> str:
          f"{str(meta.get('pool_md5'))[:8]} · US$ {meta.get('usd', 0):.3f}</sub>", "",
          " · ".join(f"**{s}** {n}" for s, n in c.items()), "",
          f"El chequeo determinista sacó {meta.get('sacados', 0)} ítem(s) (están en descartados, «no respaldado»).", ""]
+    if "historia" in ficha:
+        h = ficha.get("historia") or {}
+        L += ["## Historia", "", "### Humanos candidatos", ""]
+        L += [f"- **{x.get('nombre')}** — {x.get('rol')} · {x.get('arco')} · citas verificadas: "
+              f"{x.get('citas_verificadas')}{_ids(x)}" for x in h.get("humanos_candidatos") or []]
+        L += ["", "### Giros", ""]
+        L += [f"{x.get('orden')}. {x.get('que_cambia')}{_ids(x)}"
+              for x in sorted(h.get("giros") or [], key=lambda g: g.get("orden") or 0)]
+        pk, pq = h.get("pico") or {}, h.get("pregunta_final") or {}
+        L += ["", "### Pico", "", f"{pk.get('que')} — {pk.get('por_que')}{_ids(pk)}" if pk else "(sin pico respaldado)",
+              "", "### Pregunta final", "", f"{pq.get('pregunta')}{_ids(pq)}" if pq else "(sin pregunta respaldada)", ""]
+        L += ["## Escenas", ""]
+        L += [f"{k}. **{x.get('donde')}** · {x.get('quien')} — {x.get('que_pasa')} · *{x.get('sentidos')}*{_ids(x)}"
+              for k, x in enumerate(ficha.get("escenas") or [], 1)]
+        L.append("")
     L += ["## Contradicciones (decide Omar)", ""]
     for x in ficha["contradicciones"]:
         L.append(f"**{x.get('tema')}**")
@@ -437,7 +535,8 @@ def markdown(ficha: dict, meta: dict) -> str:
         ap = " <sub>(aproximada)</sub>" if x.get("aproximada") else ""
         L.append(f"- **{x.get('fecha')}{h}**{ap} — {x.get('evento')}" + _ids(x))
     L += ["", "## Hechos", ""]
-    L += [f"{k}. {x.get('texto')}{_ids(x)}" for k, x in enumerate(ficha["hechos"], 1)]
+    L += [f"{k}. {x.get('texto')}" + (f" <sub>nivel {x['nivel']} · {x.get('sirve_para')}</sub>" if x.get("nivel") else "")
+          + _ids(x) for k, x in enumerate(ficha["hechos"], 1)]
     L += ["", "## Citas", ""]
     for x in ficha["citas"]:
         fix = f" <sub>(original: «{x.get('original')}»)</sub>" if x.get("original") and x["original"] != x.get("texto") else ""

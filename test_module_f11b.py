@@ -206,6 +206,6 @@ def test_ids_por_parrafo_antes_y_despues():
 
 def test_prompt_dice_el_largo():
     esc = _esc()
-    p = g4.prompt(TOPIC, esc)
+    p = g4.prompt(TOPIC, esc, "objetivo", version="f11c-1")
     assert "CAP 2 · ≈ 125 palabras" in p                                  # F11c: sin «──» (un solo delimitador)
     assert "es su largo, no un máximo); el video completo ≈ 735 palabras." in p

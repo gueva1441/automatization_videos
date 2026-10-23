@@ -24,22 +24,22 @@ def _md5(s: str) -> str:
 
 def test_objetivo_byte_identico_a_f11c():
     for f in (_esc_ok, _esc):
-        assert _md5(g4.prompt(TOPIC, f())) == _md5(g4.prompt(TOPIC, f(), "objetivo")) == F11C_MD5[f.__name__]
-    assert _md5(g4.system()) == F11C_SYSTEM_MD5
-    assert g4.prompt_version("objetivo") == g4.PROMPT_VERSION == "f11c-1"
+        assert _md5(g4.prompt(TOPIC, f(), "objetivo", None, "f11c-1")) == F11C_MD5[f.__name__]   # F15: pedido explícito
+    assert _md5(g4.system("f11c-1")) == _md5(g4.system_f11c()) == F11C_SYSTEM_MD5
+    assert g4.prompt_version("objetivo", "f11c-1") == g4.PROMPT_VERSION_F11C == "f11c-1"
 
 
 def test_abierto_sin_cifras_de_largo():
     esc = _esc_ok()
-    a, o = g4.prompt(TOPIC, esc, "abierto"), g4.prompt(TOPIC, esc, "objetivo")
+    a, o = g4.prompt(TOPIC, esc, "abierto", version="f11c-1"), g4.prompt(TOPIC, esc, "objetivo", version="f11c-1")
     assert "palabras" not in a and "≈" not in a and re.search(r"^CAP \d+$", a, re.M)
     assert "Cada cap dura lo que su historia necesita: ni relleno ni resumen." in a
-    assert a.rstrip().endswith("</tarea>") and g4.prompt_version("abierto") == "f13-1"
+    assert a.rstrip().endswith("</tarea>") and g4.prompt_version("abierto", "f11c-1") == "f13-1"
     # fuera del largo, el prompt es el mismo
     strip = lambda s: re.sub(r"(CAP \d+)( · ≈ \d+ palabras)?", r"\1", s.split("<tarea>")[0])
     assert strip(a) == strip(o)
     with pytest.raises(ValueError):
-        g4.prompt(TOPIC, esc, "corto")
+        g4.prompt(TOPIC, esc, "corto", version="f11c-1")
 
 
 def test_write_abierto_manda_el_prompt_abierto():
@@ -49,15 +49,15 @@ def test_write_abierto_manda_el_prompt_abierto():
     def call(prompt, **kw):
         seen["p"] = prompt
         return {"parrafos": [{"beat": p["beat"], "texto": p["texto"]} for p in _parrafos(esc)]}
-    g = g4.write(TOPIC, esc, call=call, largo="abierto")
-    assert seen["p"] == g4.prompt(TOPIC, esc, "abierto") and g["prompt_version"] == "f13-1"
+    g = g4.write(TOPIC, esc, call=call, largo="abierto", version="f11c-1")
+    assert seen["p"] == g4.prompt(TOPIC, esc, "abierto", version="f11c-1") and g["prompt_version"] == "f13-1"
 
 
 def test_bloqueante_de_largo_apagado_solo_con_abierto():
     esc = _esc_ok()
     ps = [p for p in _parrafos(esc) if p["cap"] != 3]
     ps = [{**p, "texto": p["texto"] + " Y otra cosa más." * 40} if p["cap"] == 2 else p for p in ps]
-    obj = [x["motivo"] for x in g4.bloqueantes(TOPIC, esc, ps)]
+    obj = [x["motivo"] for x in g4.bloqueantes(TOPIC, esc, ps, largo="objetivo")]
     abi = [x["motivo"] for x in g4.bloqueantes(TOPIC, esc, ps, largo="abierto")]
     assert any("cap 2 largo" in m for m in obj) and not any(" largo:" in m or " corto:" in m for m in abi)
     assert "cap 3 vacío" in obj and "cap 3 vacío" in abi                    # cap vacío sigue

@@ -158,7 +158,7 @@ def test_bloqueantes_a_b_d_e():
     ps[4]["texto"] += " En Rosario el fuego dejó 194 muertos."                                   # d (y a)
     ps[5]["texto"] += " Nelson Astigarraga contó: «Cerraron las puertas para que nadie saliera sin pagar»."  # e
     ps[6]["texto"] += " Liz Torres lo contó: «Era como estar dentro de un horno, con las cenizas»."  # humano: no es e
-    bl = g4.bloqueantes(TOPIC, esc, ps)
+    bl = g4.bloqueantes(TOPIC, esc, ps, largo="objetivo")       # F15: el default es abierto
     by = {(x["codigo"], x["beat"]) for x in bl}
     assert ("a", 2) in by and ("a", 3) in by and ("b", 4) in by and ("d", 5) in by and ("e", 6) in by
     assert not any(x["beat"] == 7 for x in bl)
@@ -170,11 +170,11 @@ def test_bloqueantes_a_b_d_e():
 def test_estructura_como_el_ajuste_de_ycua():
     esc = _esc_ok()
     ps = [p for p in _parrafos(esc) if p["cap"] != 3]           # se salteó los beats 4 y 5 (cap 3 vacío)
-    ms = [x["motivo"] for x in g4.bloqueantes(TOPIC, esc, ps)]
+    ms = [x["motivo"] for x in g4.bloqueantes(TOPIC, esc, ps, largo="objetivo")]
     assert ms == ["falta el beat 4 (escalada)", "falta el beat 5 (escalada)", "cap 3 vacío"]
     ps = _parrafos(esc)
     ps[1]["texto"] = "Corto."                                    # cap 2: 1 + 40 palabras < 75
-    assert any("cap 2 corto" in x["motivo"] for x in g4.bloqueantes(TOPIC, esc, ps))
+    assert any("cap 2 corto" in x["motivo"] for x in g4.bloqueantes(TOPIC, esc, ps, largo="objetivo"))
 
 
 STEPS = f15.STEPS_DIR
@@ -202,13 +202,13 @@ def test_corridas_guardadas():
 def test_prompt_v4_corto_y_con_marcas_como_dato():
     esc = _esc_ok()
     esc["beats"][1]["datos_apoyo"] = ["Q2", "D50"]
-    pr = g4.prompt(TOPIC, esc)
+    pr = g4.prompt(TOPIC, esc, "objetivo", version="f11c-1")                 # F15: el v4 de F11c, pedido explícito
     assert "Q1 (de Liz Torres)" not in pr and "INSTRUCCIONES" not in pr and "sonar literal" not in pr
     assert "— Liz Torres · SIN VERIFICAR\n" in pr                       # el humano: sin «(sin nombre)»
     assert "— Nelson Astigarraga · SIN VERIFICAR (sin nombre)" in pr
     assert "[D13] El portón número 13 estaba cerrado · PANTALLA (no va en la voz)" in pr
     assert "ids_usados" not in pr and pr.count("\n") < 120
-    assert all(x in g4.system() for x in g4.OFICIO) and len(g4.OFICIO) == 8   # F11c: el oficio va en el sistema
+    assert all(x in g4.system_f11c() for x in g4.OFICIO) and len(g4.OFICIO) == 8   # F11c: el oficio va en el sistema
 
 
 def test_fechas_repetidas_con_dia_de_la_semana():

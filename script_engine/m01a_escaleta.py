@@ -176,6 +176,12 @@ beats:
  7 cap7 cierre · memoria 2 · imagen: "una anciana mirando la misma ventana, setenta años después" · humano en escena · pregunta pantalla: "¿Cuántas puertas siguen cerradas?"
 """
 
+# F15 §1.3: con ficha v2, cada beat puede citar la escena de la ficha que usa (`escena_idx`) y la escaleta justifica
+# un humano que no está entre los candidatos (`justificacion_humano`). Esquema aparte: sin ficha se manda SCHEMA.
+SCHEMA_FICHA: dict[str, Any] = copy.deepcopy(SCHEMA)
+SCHEMA_FICHA["properties"]["beats"]["items"]["properties"]["escena_idx"] = _I
+SCHEMA_FICHA["properties"]["justificacion_humano"] = _S
+
 MAX_APOYOS = 3                      # datos_apoyo por beat (sin ficha, como siempre)
 MAX_APOYOS_FICHA = 6                # F14 §1.2: con la ficha, 0–6 (deja pasar material; no es una regla nueva)
 
@@ -335,6 +341,23 @@ def ficha_section(ficha: dict, pool: dict) -> str:
 
     def ids(x: dict) -> str:
         return "[" + ", ".join(x.get("ids") or []) + "]"
+    # F15 §1.3: la historia y las escenas de la ficha v2 van primero
+    hist = ficha.get("historia") or {}
+    historia: list[str] = []
+    if hist:
+        historia.append("  HUMANOS CANDIDATOS (el humano se elige entre estos; si elegís otro, explicá por qué en "
+                        "`justificacion_humano`):")
+        historia += [f"    {ids(x)} {x.get('nombre')} — {x.get('rol')} · {x.get('arco')} · citas verificadas: "
+                     f"{x.get('citas_verificadas')}" for x in hist.get("humanos_candidatos") or []]
+        historia.append("  GIROS:")
+        historia += [f"    {x.get('orden')}. {x.get('que_cambia')} {ids(x)}"
+                     for x in sorted(hist.get("giros") or [], key=lambda g: g.get("orden") or 0)]
+        if hist.get("pico"):
+            historia.append(f"  PICO: {hist['pico'].get('que')} — {hist['pico'].get('por_que')} {ids(hist['pico'])}")
+        if hist.get("pregunta_final"):
+            historia.append(f"  PREGUNTA FINAL: {hist['pregunta_final'].get('pregunta')} {ids(hist['pregunta_final'])}")
+    escenas = [f"  E{k}. {x.get('donde')} · {x.get('quien')} — {x.get('que_pasa')} · se ve, se oye, se huele: "
+               f"{x.get('sentidos')} {ids(x)}" for k, x in enumerate(ficha.get("escenas") or [], 1)]
     people = []
     for x in ficha.get("personas") or []:
         tags = []
@@ -356,7 +379,8 @@ def ficha_section(ficha: dict, pool: dict) -> str:
         h = x.get("hora") if x.get("hora") and str(x.get("hora")).lower() not in ("null", "none") else ""
         crono.append(f"  {ids(x)} {x.get('fecha')}{' ' + h if h else ''}{' (aproximada)' if x.get('aproximada') else ''}"
                      f" — {x.get('evento')}")
-    hechos = [f"  {ids(x)} {x.get('texto')}" for x in ficha.get("hechos") or []]
+    hechos = [f"  {ids(x)}" + (f" (nivel {x['nivel']} · {x.get('sirve_para')})" if x.get("nivel") else "")
+              + f" {x.get('texto')}" for x in ficha.get("hechos") or []]
     cifras = []
     for x in ficha.get("cifras") or []:
         otras = "; ".join(f"{v.get('valor')} {v.get('unidad')} [{', '.join(v.get('ids') or [])}]"
@@ -375,7 +399,10 @@ def ficha_section(ficha: dict, pool: dict) -> str:
             out.append(f"  {x.get('tema')}" + (f" · {x['decision']} {ids(x)}" if x.get("decision") else ""))
             out += [f"    - {v.get('dice')} [{', '.join(v.get('ids') or [])}]" for v in x.get(key) or []]
         return out
-    blocks = [("PERSONAS", people), ("PERSONAS QUE EL RESEARCH DESCARTÓ Y LA HISTORIA NECESITA", gone),
+    blocks = ([("HISTORIA", historia),
+               ("ESCENAS (si una escena sirve para un beat, su `imagen_sensorial` sale de esa escena y `escena_idx` lleva "
+                "su número; si no hay, escribila como siempre)", escenas)] if "historia" in ficha else [])
+    blocks += [("PERSONAS", people), ("PERSONAS QUE EL RESEARCH DESCARTÓ Y LA HISTORIA NECESITA", gone),
               ("CRONOLOGÍA", crono), ("HECHOS", hechos), ("CIFRAS (con unidad; la principal y las otras versiones)", cifras),
               ("CITAS", citas),
               ("VERSIONES (hechos disputados: se cuentan como versiones, no se resuelven)", vers(ficha.get("versiones") or [])),
@@ -943,6 +970,34 @@ def pool_gate_profile(topic: dict, pool: dict, *, persist: bool = True, log: lis
     return gate
 
 
+def ficha_notes(esc: dict, ficha: dict) -> None:
+    """F15 §1.3 (no rechaza nada): un `escena_idx` que no es una escena de la ficha sale (reparación); un humano que no
+    está entre los `humanos_candidatos` va a `_avisos` con la justificación de la escaleta."""
+    escenas = ficha.get("escenas") or []
+    for b in esc.get("beats") or []:
+        if "escena_idx" not in b:
+            continue
+        try:
+            ok = 1 <= int(b["escena_idx"]) <= len(escenas)
+        except (TypeError, ValueError):
+            ok = False
+        if not ok:
+            esc.setdefault("_reparaciones", []).append(f"beat {b['n']}: escena_idx {b['escena_idx']} no es una escena "
+                                                       f"de la ficha → fuera")
+            b.pop("escena_idx")
+    cands = (ficha.get("historia") or {}).get("humanos_candidatos") or []
+    if not cands:
+        return
+    hum = esc.get("humano") or {}
+    hn = ev.norm(hum.get("nombre") or "")
+    sur = hn.split()[-1] if hn else ""
+    if not any(hum.get("id") in (c.get("ids") or []) or (sur and sur in ev.norm(c.get("nombre") or "")) for c in cands):
+        esc.setdefault("_avisos", []).append(
+            f"humano «{hum.get('nombre')}» no está entre los humanos_candidatos de la ficha "
+            f"({', '.join(str(c.get('nombre')) for c in cands)}); justificación: "
+            f"{esc.get('justificacion_humano') or '(sin justificación)'}")
+
+
 def is_v3(topic: dict) -> bool:
     """Guion v3 solo con evidence_pool y con el flag (GUION_V3=1 o topic["guion_version"] == 3)."""
     return bool(topic.get("evidence_pool")) and (os.environ.get("GUION_V3") == "1" or topic.get("guion_version") == 3)
@@ -972,7 +1027,8 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
     feedback: list[str] = []
     intentos = []
     for k in range(1, attempts + 1):
-        raw = call(build_prompt(topic, pool, feedback, ficha), system_instruction=SYSTEM, response_schema=SCHEMA,
+        raw = call(build_prompt(topic, pool, feedback, ficha), system_instruction=SYSTEM,
+                   response_schema=SCHEMA_FICHA if ficha and "historia" in ficha else SCHEMA,
                    description=f"m01a_escaleta intento {k}")
         esc, hard, rep, warn = validate(raw, pool, final=k == attempts, context=str(topic.get("video_title") or ""),
                                         solo_apoyo=tuple(topic.get("escaleta_solo_apoyo") or ()),
@@ -984,6 +1040,7 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
                         "_intentos": intentos})
             if ficha:
                 esc["ficha"] = {"prompt_version": ficha.get("prompt_version"), "pool_md5": ficha.get("pool_md5")}
+                ficha_notes(esc, ficha)
             if gate:
                 esc["pool_gate"] = {k: gate[k] for k in ("color", "metricas", "motivos", "target_words")}
             apply_pool_plan(esc, pool)
