@@ -159,3 +159,29 @@ def test_el_pool_v3_llega_al_topic():
     assert t["id"] == "t9" and t["evidence_pool"]["datos"][0]["id"] == "D01" and t["research_version"] == 3
     t2 = tr._enrich_with_seed_metadata({"video_title": "y"}, seed)
     assert "evidence_pool" not in t2 and "research_version" not in t2          # camino viejo: igual que antes
+
+
+# ═══════════════════════════════════════════════════════════════
+#  B1 — sin ventana del 100 % y validador de cuadro congelado
+# ═══════════════════════════════════════════════════════════════
+
+def test_ventana_del_100_por_ciento_se_corta():
+    from script_engine import gfx_sparse as sp
+    plan = {"callouts": [{"start": t, "duration": 2.0} for t in (1.0, 4.5, 8.0, 11.5, 15.0, 18.5)]}
+    w = sp.event_windows(plan, [], 30, 21.0)
+    assert len(w) > 1                                         # antes: 1 ventana de todo el cap
+    assert sum(b - a for a, b in w) < 0.95 * 21.0
+    plan2 = {"callouts": [{"start": 1.0, "duration": 2.0}, {"start": 12.0, "duration": 2.0}]}
+    assert len(sp.event_windows(plan2, [], 30, 40.0)) == 2     # lo normal no cambia
+
+
+def test_validador_de_cuadro_congelado(tmp_path):
+    import subprocess
+    from script_engine import freeze_check as fc
+    mov = tmp_path / "mov.mp4"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "lavfi", "-i", "testsrc2=s=320x180:r=30:d=4",
+                    "-f", "lavfi", "-i", "color=c=gray:s=320x180:r=30:d=3", "-filter_complex",
+                    "[0:v][1:v]concat=n=2:v=1[v]", "-map", "[v]", str(mov)], check=True)
+    r = fc.check(mov)
+    assert not r["ok"] and abs(r["congelados"][0][0] - 4.0) < 0.3      # el gris quieto desde los 4 s
+    assert fc.check(mov, allow=[(3.9, 7.1)])["ok"]                     # una pausa a propósito no cuenta

@@ -77,13 +77,25 @@ def event_windows(plan: dict[str, Any], scenes: list[GfxScene], fps: int, dur: f
         d = max(tr["frames"] / fps, 0.35)                       # cut_punch dura .35 s
         iv.append((st - 1.5 / fps, st + d))                     # incluye el freeze del saliente
     iv = sorted((max(0.0, a - margin), min(dur, b + margin)) for a, b in iv if b > a)
-    merged: list[list[float]] = []
-    for a, b in iv:
-        if merged and a - merged[-1][1] <= merge_gap:
-            merged[-1][1] = max(merged[-1][1], b)
-        else:
-            merged.append([a, b])
+
+    def _merge(gap: float) -> list[list[float]]:
+        out: list[list[float]] = []
+        for a, b in iv:
+            if out and a - out[-1][1] <= gap:
+                out[-1][1] = max(out[-1][1], b)
+            else:
+                out.append([a, b])
+        return out
+    merged = _merge(merge_gap)
+    # F10 B1: si la fusión deja (casi) todo el cap en UNA ventana, el cap entero pasa por HyperFrames y el clip de
+    # base se congela (ch05 de Orleans, 100 %). Se vuelve a cortar fusionando solo lo que se pisa: los tramos sin
+    # eventos salen del base, con su movimiento.
+    if dur > 0 and sum(b - a for a, b in merged) >= FULL_COVER_FRAC * dur and len(merged) <= 1 and merge_gap > 0:
+        merged = _merge(0.0)
     return [(_frame(a, fps), _frame(b, fps)) for a, b in merged if b - a >= 2 / fps]
+
+
+FULL_COVER_FRAC = 0.95
 
 
 def compose_sparse(plan: dict[str, Any], scenes: list[GfxScene], windows: list[tuple[float, float]], fps: int
