@@ -36,10 +36,11 @@ def _sistema(md: str) -> str:
 
 def test_sistema_v5_1_byte_identico_al_archivo():
     bloque = _sistema(_md("PROMPT_GUIONISTA_v5_1.md"))
-    assert g4.system() == bloque == g4.SYSTEM_V5_1 and g4.PROMPT_VERSION == "f15b-1"
+    # F22: el v5.1 queda con su versión (f15b-1), byte-idéntico; el por defecto es el v5.2 (test_module_f22)
+    assert g4.system("f15b-1") == bloque == g4.SYSTEM_V5_1 and g4.PROMPT_VERSION_V5_1 == "f15b-1"
     for nuevo in ("Una escena merece un párrafo entero", "no es más corto el que dice menos, sino el que no repite",
                   "- Telegrama:", "- Gancho abstracto:"):
-        assert nuevo in g4.system() and nuevo not in g4.system("f15-1")
+        assert nuevo in g4.system("f15b-1") and nuevo not in g4.system("f15-1")
     assert g4.system("f15-1") == _sistema(_md("PROMPT_GUIONISTA_v5.md"))         # el v5, reproducible
 
 
@@ -51,7 +52,7 @@ def test_usuario_igual_al_v5_y_version_f15b():
     def call(prompt, **kw):
         seen["s"] = kw.get("system_instruction")
         return {"parrafos": [{"beat": b["n"], "texto": "x"} for b in esc["beats"]]}
-    g = g4.write(TOPIC11, esc, call=call)
+    g = g4.write(TOPIC11, esc, call=call, version="f15b-1")
     assert seen["s"] == g4.SYSTEM_V5_1 and g["prompt_version"] == "f15b-1"
 
 

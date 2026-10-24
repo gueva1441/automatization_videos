@@ -54,7 +54,8 @@ def _sistema_md() -> tuple[str, str]:
 
 def test_sistema_v2_byte_identico_al_archivo():
     sis, tarea = _sistema_md()
-    assert me.SYSTEM_V2 == sis and me.TAREA_V2 == tarea and me.PROMPT_VERSION_V2 == "f16-1"
+    # F22: la v2 de F16 queda con su versión, byte-idéntica (la v2.1 en test_module_f22)
+    assert me.SYSTEM_V2_F16_1 == sis and me.TAREA_V2 == tarea and me.PROMPT_VERSION_V2_F16 == "f16-1"
     assert sis.startswith("<rol>\nSos el guionista jefe") and sis.endswith("</errores>")
 
 
@@ -189,7 +190,7 @@ def test_regeneracion_que_pasa_y_sin_instrucciones(monkeypatch, tmp_path):
     mala["antagonista"]["id"] = "P99"
     prompts, go = _run([mala, good()], monkeypatch, tmp_path)
     esc = go()
-    assert len(prompts) == 2 and esc["prompt_version"] == "f16-1"
+    assert len(prompts) == 2 and esc["prompt_version"] == me.PROMPT_VERSION_V2
     assert "instrucciones_guionista" not in esc and "caps" in esc and "_metricas" in esc
     m = esc["_metricas"]
     assert m["giros_total"] == 3 and m["giros_con_beat"] == 2 and m["humano_en_candidatos"] is True

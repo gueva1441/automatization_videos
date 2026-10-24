@@ -70,7 +70,10 @@ def _parrafos(esc, text=FRASE):
 # ═══════════════════════════════════════════════════════════════
 
 # sha256 de los 6 archivos que escribe run_guion_v3 con el call falso, medido en b8ff4ef (antes de F11)
-V3_GOLDEN = "76101fbe25c8dec5aaa1f42978d541f2150d778cc30368ef67588061fe79bb6a"
+# F22: cambian solo cinco mensajes de feedback al modelo (sin nombres de Orleans); con esos textos vueltos atrás el
+# hash es el de F21 (76101fbe…): test_module_f22.test_dorado_v3_solo_cambian_los_mensajes_de_f22
+V3_GOLDEN = "cf2181e4a83d166cefd7afb530a4ef495dcefe067b4942ed10f88325dfb2b6bd"
+V3_GOLDEN_F21 = "76101fbe25c8dec5aaa1f42978d541f2150d778cc30368ef67588061fe79bb6a"
 
 
 def _fake_pro(prompt, **kw):

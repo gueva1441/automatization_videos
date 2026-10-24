@@ -1,0 +1,13 @@
+[18:20:11] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f22-columna
+[18:22:09] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f22-columna � Costo total: $0.0916
+  [ycua columna] US$ 0.0916 · 118 s · tema US$ 0.0916 · tanda US$ 0.0916
+  [columna] intento 1: 0 problema(s) []
+  respaldo 01a_columna.json → 01a_columna_f17.json
+[ycua columna] humano Liz Torres · quién decide persona «Juan Pío Paiva» · pico cap 5 · personas con nombre 7
+[18:22:09] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f22-escaleta
+[18:25:02] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f22-escaleta � Costo total: $0.1340
+  [ycua escaleta] US$ 0.1340 · 173 s · tema US$ 0.2256 · tanda US$ 0.2256
+  [escaleta] compuerta del pool: verde {'datos': 227, 'citas_verificadas': 52, 'elegibles_humano': 15, 'eventos_con_fecha': 62}
+  [escaleta v2] intento 1: 13 bloqueante(s) ['beat 2: dato_central «P13, P80: LIZ VA AL SUPERMERCADO CON SU ESPOSO, ALFREDO VALLOVERA. ES UNA SALIDA DE LA PAREJA ANTES DE QUE EMPIECE LA HUIDA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D42 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D27 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D28 también está en un beat: lo que va a pantalla no lo dice la voz'] · 53 reparación(es) · 16 a métricas
+PARADA (ycua escaleta): escaleta de ycua: Parada: tope de costo (paso) antes de «m01a_escaleta v2 intento 2»: US$ 0.134 + peor caso 0.343 > 0.45
+tanda US$ 0.2256

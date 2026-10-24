@@ -1,0 +1,42 @@
+# Columna vertebral — Ycuá Bolaños: el domingo que cerraron las puertas
+
+_f22-1 · gpt-6.1-sol high · personas con nombre en toda la columna: 7_
+
+**HUMANO:** Liz Torres: Une la salida con su esposo, el encierro bajo otros cuerpos, el rescate y el reclamo organizado. Su experiencia sostiene el pico de la ficha sin cambiar de protagonista.
+
+**QUIÉN DECIDE:** Juan Pío Paiva: Digna Cáceres le atribuye la orden de cerrar; el dueño fue condenado a doce años por homicidio doloso. La atribución testimonial y la condena se distinguen: no reconstruimos como comprobada una orden que la defensa niega.
+
+**PICO:** cap 5, Liz queda inmovilizada entre cuerpos, cree que morirá y recuerda cenizas, calor de horno y gritos que se apagan. El panel derretido que atrapa a Tatiana aporta otra imagen concreta del mismo encierro.
+
+**CAP 1 · QUÉ PASA:** Liz está atrapada bajo otros cuerpos. Recuerda cenizas y un calor de horno. Los gritos a su alrededor se van apagando. **TERMINA:** Antes de quedar debajo de esos cuerpos, Liz había entrado con su esposo.
+
+**CAP 2 · QUÉ PASA:** Liz tiene hijos adolescentes y va al supermercado con su esposo, Alfredo Vallovera. Es el domingo 1 de agosto de 2004, en Asunción. En el local de Artigas y Santísima Trinidad, unos compran y otros almuerzan. **TERMINA:** Según un perito, empleados contaron que las alarmas ya habían sonado; no sabían cómo actuar.
+
+**CAP 3 · QUÉ PASA:** Beatriz González oye una explosión, ve humo negro y abandona su caja hacia el estacionamiento. La pericia ubicará el inicio del fuego en residuos de cocción acumulados en el tramo en S de la chimenea de la parrilla. Las llamas se propagan por el aislante del techo, con Liz todavía dentro. **TERMINA:** Pero alcanzar una puerta no significa poder salir.
+
+**CAP 4 · QUÉ PASA:** Víctor Galeano declara que encuentra cerrado el blíndex y cae con su acompañante en brazos. Digna Cáceres describe el portón hacia Artigas cerrado y personas que regresan al encontrarlo. La huida que recuerda Liz se convierte en una avalancha. **TERMINA:** La avalancha devuelve a Liz hacia adentro.
+
+**CAP 5 · QUÉ PASA:** La avalancha deja a Liz bajo otros cuerpos y ella cree que no saldrá viva. Piensa en sus hijos adolescentes; recuerda calor de horno, cenizas y gritos que se apagan. También Tatiana Gabaglio, de siete años, queda inmovilizada cuando un panel derretido del cielorraso cae sobre su pierna. Liz atribuirá su supervivencia a quienes cayeron encima de ella: esos cuerpos le salvaron la vida. **TERMINA:** Atrapada.
+
+**CAP 6 · QUÉ PASA:** Liz y Alfredo son rescatados; bomberos sacan a Tatiana y los médicos le amputan una pierna por las quemaduras. El boquete hacia Artigas permite escapar; Digna recuerda su claridad al despertar mojada. En el estacionamiento abierto, un equipo organizado por una hija encuentra el cuerpo de su madre. A pantalla: 327 fallecidos, cifra citada como oficial sin desaparecidos; 204 huérfanos; heridos sin cifra común, 244 o 500 según la fuente. **TERMINA:** Después del rescate, una pericia dará otra versión de aquellas puertas.
+
+**CAP 7 · QUÉ PASA:** Frente a los testimonios de cierre, la pericia describe blíndex cerrados sin llave y accesos de hierro abiertos; la defensa niega la orden. Juan Pío Paiva recibe doce años por homicidio doloso. Tatiana llega a ser abogada y denuncia reparación insuficiente; Liz integra organizaciones de víctimas. La Corte ordena indemnizar a otro matrimonio, pero Paiva ya murió y no está asegurado el cobro. **TERMINA:** ¿Podrán los sobrevivientes y familiares convertir las sentencias en una reparación económica efectiva, si el principal demandado murió y ni su abogado sabe si quedan bienes de la sociedad para cobrar?
+
+**AFUERA:** Los arcos completos de Mariana y su hijo, Blas y Estela, y Ángela y sus hijas; la cena, el primer sueldo y el memorial. (Abrirían otras películas; la identificación de cuerpos entra sin desplegar una segunda familia protagonista.); Cristian Sosa y sus veintidós días en coma. (Su arco hospitalario duplicaría las consecuencias físicas ya encarnadas por Tatiana.); Los nombres y penas de Víctor Daniel Paiva, Daniel Areco y los demás responsables juzgados. (El cierre concentra la responsabilidad penal en el dueño, sin presentar su condena como la única.); La presunta obstrucción policial, los robos de pertenencias y la recriminación por abrir el boquete. (Son denuncias o relatos indirectos que exigirían otra investigación y desviarían el conflicto de las puertas.); Las temperaturas, los cálculos de anchura de salidas y el detalle de las causas municipales y constructivas. (La propagación por el techo alcanza para comprender el peligro sin abrir una explicación técnica paralela.); Las 400 muertes como total indiscutido y los 244 heridos como cifra única. (La ficha registra recuentos incompatibles; la pantalla distingue la cifra presentada como oficial de las versiones.)
+
+---
+
+| cap | personas | ids |
+|---|---|---|
+| humano | Liz Torres | P13, Q19, Q20, Q77, D210, Q78 |
+| quién decide | Juan Pío Paiva | P06, D109, Q35, Q64, D19, D214 |
+| pico | — | Q19, Q20, Q77, D03 |
+| 1 | Liz Torres | Q19, Q20, Q77, P13 |
+| 2 | Liz Torres, Alfredo Vallovera | P13, P80, Q19, D42, D53, Q70, D96 |
+| 3 | Liz Torres, Beatriz González | Q10, D27, D28, Q19 |
+| 4 | Liz Torres, Víctor Galeano, Digna Felicia Cáceres | Q18, D106, Q19 |
+| 5 | Liz Torres, Tatiana Gabaglio | Q19, Q20, Q77, D01, D03 |
+| 6 | Liz Torres, Alfredo Vallovera, Tatiana Gabaglio, Digna Felicia Cáceres | D210, D04, D05, D107, D147, D141, D192, D196, D195, D223, D30, D31 |
+| 7 | Liz Torres, Tatiana Gabaglio, Juan Pío Paiva | D30, D31, Q18, D106, Q64, D19, D214, P01, D08, Q01, P13, D186, D193, T75, P70 |
+
+Personas con nombre (7): Liz Torres, Alfredo Vallovera, Beatriz González, Víctor Galeano, Digna Felicia Cáceres, Tatiana Gabaglio, Juan Pío Helvidio Paiva Escobar

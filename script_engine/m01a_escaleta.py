@@ -182,9 +182,10 @@ SCHEMA_FICHA: dict[str, Any] = copy.deepcopy(SCHEMA)
 SCHEMA_FICHA["properties"]["beats"]["items"]["properties"]["escena_idx"] = _I
 SCHEMA_FICHA["properties"]["justificacion_humano"] = _S
 # F19 §1.2: con ficha, el antagonista puede ser una persona (P## del pool, como siempre) o una institución de la ficha.
+# F22 §1.2: o ninguno (con `por_que`): el mismo contrato que la columna.
 SCHEMA_FICHA["properties"]["antagonista"] = {"type": "OBJECT", "properties": {
-    "tipo": {"type": "STRING", "enum": ["persona", "institucion"]}, "id": _S, "nombre": _S, "por_que": _S},
-    "required": ["tipo", "id", "nombre"]}
+    "tipo": {"type": "STRING", "enum": ["persona", "institucion", "ninguno"]}, "id": _S, "nombre": _S, "por_que": _S},
+    "required": ["tipo", "id", "nombre", "por_que"]}
 
 MAX_APOYOS = 3                      # datos_apoyo por beat (sin ficha, como siempre)
 MAX_APOYOS_FICHA = 6                # F14 §1.2: con la ficha, 0–6 (deja pasar material; no es una regla nueva)
@@ -672,6 +673,9 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
     if institucion_ok and ag.get("tipo") == "institucion":
         if not institucion_ok(str(ag.get("nombre") or "")):
             hard.append(f"antagonista «{ag.get('nombre')}» no es una persona del pool ni una institución de la ficha")
+    elif institucion_ok and ag.get("tipo") == "ninguno":            # F22 §1.2: no se rechaza si dice por qué
+        if not str(ag.get("por_que") or "").strip():
+            hard.append("antagonista «ninguno» sin por_que: decí por qué la ficha no le atribuye la decisión a nadie")
     elif not ant:
         hard.append(f"antagonista {(esc.get('antagonista') or {}).get('id')} no es una persona del pool")
     # gancho
@@ -1089,11 +1093,80 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
 #  F16: escaleta v2 (con ficha v2): prompt del analista, Sol high, 13 bloqueantes, el resto a métricas
 # ═══════════════════════════════════════════════════════════════
 
-PROMPT_VERSION_V2 = "f16-1"
+PROMPT_VERSION_V2 = "f22-1"         # F22: escaleta v2.1 (ejemplo del caso inventado, antagonista de tres tipos)
+PROMPT_VERSION_V2_F16 = "f16-1"     # la v2 de F16: SYSTEM_V2_F16_1, byte-idéntico
 REGENERACIONES_V2 = 1               # F16 §1.3: si fallan los bloqueantes, UNA regeneración; si vuelve a fallar, PARADA
 
-# F16 §1.1: el bloque SISTEMA de lab/hyperframes/f16/PROMPT_ESCALETA_v2.md, literal (test byte-idéntico contra el .md).
+# F22 §1.1: el bloque SISTEMA de lab/hyperframes/f22/PROMPT_ESCALETA_v2_1.md, literal (test byte-idéntico contra
+# el .md, extraído anclando en «## SISTEMA»).
 SYSTEM_V2 = """<rol>
+Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que nadie escriba una línea, vos decidís la historia: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea, y con qué se queda al final. Trabajás solo con la ficha del caso que te dan: no inventás nombres, cifras, fechas ni citas. Lo que no está en la ficha no pasó.
+</rol>
+
+<que_es_una_escaleta>
+Siete capítulos, de 7 a 14 beats. Cada beat es un momento de la historia: tiene un dato central, hasta seis apoyos, una imagen que se puede ver (o oír, u oler), lo que el espectador se pregunta en ese punto, y la frase con la que el capítulo deja la puerta abierta al siguiente. El guionista va a escribir exactamente lo que vos decidas. Si la escaleta es plana, el guion va a ser plano.
+
+El antagonista es quien decide: una persona de la ficha, o una institución que la ficha nombra (un ministerio, una empresa, una dirección). Si en este caso no hay a quién atribuirle la decisión, lo decís («ninguno») y por qué.
+</que_es_una_escaleta>
+
+<oficio>
+1. El humano primero. La ficha trae candidatos con arco. Elegí al que tenga más momentos concretos (entra, sufre, sale) y más citas verificadas. Tiene que aparecer en el gancho, en el pico y en el cierre; si en el medio desaparece dos caps, el espectador lo olvida.
+2. El gancho es el peor momento, ya en curso. Tomá la escena más fuerte de la ficha y ponela en el beat 1, marcado como flash-forward. Sin contexto, sin año, sin cifras: lo que se ve. La promesa es una frase que dice qué va a entender el espectador si se queda.
+3. Del gancho se vuelve atrás. El cap 2 es la vida antes: quién era esta gente, qué hacía ahí. Es el único cap tranquilo y por eso es el más importante para que duela lo que viene.
+4. Cada cap avanza y deja algo abierto. La frase de cierre de un cap nombra lo que viene o lo deja incompleto. Nunca resume.
+5. El pico es uno solo, y es el que la ficha marcó salvo que tengas una razón mejor (decila). Antes del pico, un cap que aprieta; después del pico, un respiro: lo que queda cuando pasa lo peor, el recuento, el silencio.
+6. Los giros de la ficha son los puntos donde la historia cambia de dirección. Cada giro tiene su beat. Si un giro no entra, decí cuál y por qué.
+7. Las escenas de la ficha son tus imágenes. El beat 1 y el pico toman su imagen de una escena; los demás, cuando haya una. Una imagen es algo para ver, oír, oler o tocar: «manos contra un vidrio ahumado», no «la desesperación de la gente».
+8. Las versiones en disputa (quién dio la orden, si un aviso llegó a tiempo) son material, no problema: dales su beat. El contraste entre la versión oficial y lo que cuentan los testigos suele ser el mejor cap 6.
+9. El cierre vuelve al humano con una cita suya o una pregunta que nadie respondió. Nunca una moraleja, nunca «hoy».
+10. Lo que va a pantalla (cifras oficiales, documentos) no lo dice la voz. Marcalo en `a_pantalla`. Las cifras que sí dice la voz, una vez cada una.
+11. Un dato vive en un solo beat. Si lo necesitás en dos, elegí dónde pega más.
+12. Las citas sin verificar van sin nombre, pero no excluyen a nadie: el humano puede estar en escena con una cita suya sin verificar; el guionista sabrá no ponerle el nombre a esa frase.
+</oficio>
+
+<ejemplo>
+De un caso que no es el tuyo (una estación de radio y faro en una isla, mil novecientos sesenta y ocho). Copiá la forma, no el contenido. Los ids van como Q##, D##, T##, E#: ## es el número que tenga el id en TU ficha; ninguno de estos existe en tus datos.
+
+humano: Elvira Soto, telegrafista de la estación. Por qué: manda los telegramas pidiendo el barco, recibe las respuestas sin firma, sostiene la radio con las baterías del faro la noche del pico, y años después es la única que guardó el registro. 3 citas verificadas.
+antagonista: institución · la Dirección de Faros y Balizas. Por qué: los telegramas de «mantener servicio» salen de ahí y nadie los firma.
+promesa_gancho: «Once personas esperaron veintitrés días un barco que no llegó. Esta es la historia de quién decidió que no llegara.»
+pico: beat 5 (la noche del generador). Por qué: es el momento en que esperar deja de ser una decisión de la Dirección y pasa a ser una de ellos; todo lo anterior lo prepara.
+
+beat 1 · cap 1 · gancho · flash-forward · intensidad 4 · escena E#
+  imagen: una mujer transmite en morse a la luz de una vela; olor a querosén
+  dato central: Q## (Soto: «transmitía con las baterías del faro»)
+  el espectador se pregunta: ¿por qué sigue transmitiendo?
+  cierre: Tres semanas antes de la vela, llegó un telegrama. Y con él, una orden.
+beat 2 · cap 2 · planteo · intensidad 1
+  imagen: el libro de telegramas abierto, la letra de Elvira
+  dato central: T## (el primer telegrama de la Dirección: mantener servicio) · apoyos: D## (once personas en la estación, tres familias), Q## (Bascuñán: «el faro no se apaga»), D## (la fecha prevista del Alborada)
+  humano en escena: sí
+  el espectador se pregunta: ¿quién manda cuando el que manda está a tres días de barco?
+  cierre: El Alborada tenía que llegar el lunes. No llegó el lunes.
+…
+beat 5 · cap 5 · pico · intensidad 5 · escena E#
+  imagen: el generador que tose dos veces y se apaga; una silla rota contra el piso
+  dato central: Q## (Soto: la noche que se apagó el generador) · apoyos: D## (Bascuñán ordena quemar los muebles), T## (la muerte del niño esa noche)
+  humano en escena: sí
+  el espectador se pregunta: ¿cuánto dura una batería?
+  cierre: A la mañana, el faro seguía encendido. Adentro, eran uno menos.
+beat 6 · cap 6 · respiro · intensidad 2 …
+beat 8 · cap 7 · cierre · intensidad 3
+  dato central: D## (la comisión: dos muertos; las familias: tres) · apoyos: Q## (Marín: «el capitán leyó el papel y dio la vuelta»), Q## (Soto: «nadie me dijo que los leyeran»)
+  cierre: la cita de Soto.
+a_pantalla: D## (el recuento oficial), D## (el informe de la comisión, fecha y folio).
+</ejemplo>
+
+<errores>
+- Elegir un humano distinto cada vez que se corre. Si la ficha lo propone y tiene arco, es él.
+- Poner el gancho tranquilo para que la curva «suba». El gancho es el peor momento; la curva empieza alta, baja en el cap 2 y vuelve a subir. Eso es un flash-forward, no un error.
+- Ignorar las escenas de la ficha y escribir imágenes abstractas («la tensión en el aire»).
+- Repartir el material parejo para llenar siete caps. Un cap puede tener dos beats densos y otro uno solo.
+- Convertir «el espectador se pregunta» en una pregunta retórica para el guion. Es una nota para vos y para el guionista, no una frase del video.
+</errores>"""
+
+# F16 §1.1: el bloque SISTEMA de lab/hyperframes/f16/PROMPT_ESCALETA_v2.md, literal (test byte-idéntico contra el .md).
+SYSTEM_V2_F16_1 = """<rol>
 Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que nadie escriba una línea, vos decidís la historia: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea, y con qué se queda al final. Trabajás solo con la ficha del caso que te dan: no inventás nombres, cifras, fechas ni citas. Lo que no está en la ficha no pasó.
 </rol>
 
@@ -1179,7 +1252,7 @@ BLOQUEANTES_V2 = (
     ("el pico es un beat", r"^pico\.beat .* no es un beat"),
     ("el pico no es el último beat", r"^el pico no puede ser el último beat"),
     ("humano es una persona de la ficha", r"^humano (\S+ no es una persona del pool|colectivo sin fuente|colectivo con algo)"),
-    ("antagonista es persona de la ficha", r"^antagonista .* no es una persona del pool"),
+    ("antagonista es persona de la ficha", r"^antagonista (.* no es una persona del pool|«ninguno» sin por_que)"),
     ("a_pantalla no repite un id de un beat", r"^a_pantalla \S+ también está en un beat"),
     ("otra cifra del mismo conteo fuera", r"^beat \d+: \S+ es otra cifra del conteo "),
 )
@@ -1191,16 +1264,11 @@ def bloqueante_de(msg: str) -> str | None:
 
 
 def institucion_de_la_ficha(nombre: str, ficha: dict) -> bool:
-    """F19 §1.2: una institución existe en la ficha si su nombre aparece literal como persona de la ficha (nombre o
-    variante) o en el texto de 2 o más hechos. Es el «existe en la ficha» de siempre, con dos fuentes posibles. El
-    artículo de adelante no cuenta («el Ministerio…» está en «al Ministerio…»): es leer el nombre, no un chequeo."""
-    n = re.sub(r"^(el|la|los|las) ", "", ev.norm(nombre))
-    if len(n) < 3:
-        return False
-    if any(n == ev.norm(x) for p in ficha.get("personas") or [] for x in [p.get("nombre"), *(p.get("variantes") or [])]
-           if x):
-        return True
-    return sum(1 for h in ficha.get("hechos") or [] if n in ev.norm(h.get("texto") or "")) >= 2
+    """F19 §1.2: una institución existe en la ficha si su nombre aparece como persona de la ficha (nombre o variante) o
+    en el texto de 2 o más hechos. F22 §1.2: la misma función que la columna (`m01a_columna.institucion_de_la_ficha`:
+    sin el artículo en los dos lados, y en los hechos también con las variantes)."""
+    from script_engine.m01a_columna import institucion_de_la_ficha as _inst
+    return _inst(nombre, ficha)
 
 
 def bloqueantes(raw: dict, pool: dict, ficha: dict | None, *, context: str = "", largo: dict | None = None
@@ -1246,8 +1314,8 @@ def ids_v2(raw: dict) -> tuple[dict, list[str]]:
         if isinstance(x, dict):
             x["id"] = first(x.get("id"), _ID_DTQ)
     for k, rx in (("pico", _ID_DTQ), ("humano", _ID_P), ("antagonista", _ID_P)):
-        if k == "antagonista" and (esc.get(k) or {}).get("tipo") == "institucion":
-            continue                                 # F19: una institución no lleva P##
+        if k == "antagonista" and (esc.get(k) or {}).get("tipo") in ("institucion", "ninguno"):
+            continue                                 # F19: una institución no lleva P## (F22: ninguno tampoco)
         if isinstance(esc.get(k), dict) and esc[k].get("id"):
             esc[k]["id"] = first(esc[k]["id"], rx)
     return esc, rep
@@ -1307,6 +1375,7 @@ def metricas_escaleta(esc: dict, pool: dict, ficha: dict | None, otros: list[str
                                     for c in cands) if cands else None,
         "pico_es_el_de_la_ficha": bool(hist.get("pico")) and bool(bids.get(pb, set()) & _ids_of(hist.get("pico"))),
         "palabras_objetivo_por_cap": words,
+        **antagonista_metricas(esc, pool),                                  # F22 §1.2 (informativas)
         "cifra_en_pantalla_repetida": _msgs(r"se ve en pantalla dos veces"),
         "ultima_frase_repite_cita": _msgs(r"la última frase repite textual"),
         "ultima_frase_sin_humano": _msgs(r"la última frase del video .* no nombra"),
@@ -1316,6 +1385,24 @@ def metricas_escaleta(esc: dict, pool: dict, ficha: dict | None, otros: list[str
             r"intensidad|flash-forward|respiro|el beat del pico|en escena|el humano entra|es una idea|imagen sensorial "
             r"vacía|se ve en pantalla dos veces|la última frase|^pregunta de pantalla", m)],
     }
+
+
+def antagonista_metricas(esc: dict, pool: dict) -> dict[str, Any]:
+    """F22 §1.2 (informativas): `antagonista_tipo` y `antagonista_caps` = los caps con un beat que lo nombra (en sus
+    textos o en los de sus datos), con `nombres.menciona` sobre los términos de `guion_v3_reglas.antagonista_terminos`."""
+    from script_engine import nombres
+    from script_engine.guion_v3_reglas import antagonista_terminos, antagonista_tipo
+    its = ev.items(pool)
+    ts = antagonista_terminos(esc, pool)
+    caps = []
+    for b in esc.get("beats") or []:
+        txt = " ".join([str(b.get(k) or "") for k in ("imagen_sensorial", "pregunta_abierta", "pregunta_pantalla",
+                                                       "cierre")]
+                       + [ev.text_of(its[i]) + " " + str(its[i].get("autor") or "")
+                          for i in [b.get("dato_central"), *(b.get("datos_apoyo") or [])] if i in its])
+        if any(nombres.menciona(txt, t) for t in ts) and b.get("cap") not in caps:
+            caps.append(b.get("cap"))
+    return {"antagonista_tipo": antagonista_tipo(esc), "antagonista_caps": sorted(caps)}
 
 
 def ficha_section_v2(ficha: dict, pool: dict) -> str:
@@ -1404,7 +1491,8 @@ REVELACIÓN: {topic.get("reveal") or "-"}
 #  F17: la escaleta v2 lee la columna (solo con ficha y columna; sin columna, F16 byte-idéntica)
 # ═══════════════════════════════════════════════════════════════
 
-PROMPT_VERSION_COLUMNA = "f17-1"
+PROMPT_VERSION_COLUMNA = "f22-1"    # F22: con columna, también la v2.1
+PROMPT_VERSION_COLUMNA_F17 = "f17-1"
 
 # F17 §1.2: el texto de «CÓMO SE USA LA COLUMNA» de lab/hyperframes/f17/PROMPT_COLUMNA_v1.md, literal (test contra el .md).
 TAREA_COLUMNA = """<tarea>
@@ -1459,7 +1547,17 @@ def metricas_columna(esc: dict, pool: dict, ficha: dict, columna: dict) -> dict[
         te = c.get("termina") or ""
         cierres[cap] = {"termina": te, "cierre": ci, "igual": ev.norm(ci) == ev.norm(te),
                         "parecido": round(SequenceMatcher(None, ev.norm(ci), ev.norm(te)).ratio(), 2)}
-    return {"humano_es_el_de_la_columna": bool(hc) and hc == he, "humano_columna": hc, "humano_escaleta": he,
+    # F22 §1.2: «antagonista escaleta = antagonista columna» (tipo y nombre; una persona, por `persona_de`)
+    ac, ae = columna.get("antagonista") or {}, esc.get("antagonista") or {}
+
+    def _quien(a: dict) -> tuple[str, str]:
+        t = str(a.get("tipo") or "persona")
+        n = (persona_de(str(a.get("nombre") or ""), ficha) or a.get("nombre")) if t == "persona" else a.get("nombre")
+        return t, ("" if t == "ninguno" else re.sub(r"^(el|la|los|las) ", "", ev.norm(n or "")))
+    ant = {"antagonista_es_el_de_la_columna": bool(ac) and _quien(ac) == _quien(ae),
+           "antagonista_columna": {"tipo": ac.get("tipo"), "nombre": ac.get("nombre")} if ac else None,
+           "antagonista_escaleta": {"tipo": ae.get("tipo") or "persona", "nombre": ae.get("nombre")}}
+    return {**ant, "humano_es_el_de_la_columna": bool(hc) and hc == he, "humano_columna": hc, "humano_escaleta": he,
             "personas_fuera_de_la_columna": fuera, "caps_con_personas_fuera": sorted(fuera),
             "cierres": cierres, "cierres_iguales": sum(1 for x in cierres.values() if x["igual"])}
 
@@ -1490,6 +1588,10 @@ def generate_escaleta_v2(topic: dict, pool: dict, ficha: dict, *, call: Callable
         log.append(f"  [escaleta v2] intento {k}: {len(bloq)} bloqueante(s) {bloq[:4]} · {len(rep)} reparación(es) · "
                    f"{len(otros)} a métricas")
         if not bloq:
+            ag = esc.get("antagonista") or {}
+            if ag.get("tipo") == "institucion":             # F22 §1.2: lectura, no chequeo
+                from script_engine.m01a_columna import variantes_de
+                ag["variantes"] = variantes_de(str(ag.get("nombre") or ""), ficha)
             esc.update({"topic_id": topic_id, "prompt_version": version, "_reparaciones": rep, "_avisos": [],
                         "_intentos": intentos,
                         "ficha": {"prompt_version": ficha.get("prompt_version"), "pool_md5": ficha.get("pool_md5")}})

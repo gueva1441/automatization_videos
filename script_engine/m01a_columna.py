@@ -8,6 +8,8 @@ termina / personas / ids) y afuera.
 Chequeo determinista (estructura e ids, nada de estilo): 7 caps, el humano es persona de la ficha, los ids existen y
 las personas de cada cap existen en la ficha. Si falla, UNA regeneración; si vuelve a fallar, ColumnaError (PARADA).
 Métrica informativa: personas distintas con nombre en toda la columna.
+F22 (v1.1): ejemplo del caso inventado de Puerto Cardal; QUIÉN DECIDE = `antagonista` {tipo persona | institucion |
+ninguno, nombre, por_que, ids}, con el chequeo de `antagonista_problemas` (el mismo contrato que la escaleta v2.1).
 
 Se guarda `_steps/<topic>/01a_columna.json`; `to_markdown` da la página legible (`COLUMNA_<tema>.md`).
 """
@@ -22,7 +24,8 @@ from typing import Any, Callable
 from script_engine import evidence as ev
 from script_engine.m01a_skeleton import STEPS_DIR
 
-PROMPT_VERSION = "f17-1"
+PROMPT_VERSION = "f22-1"            # F22: columna v1.1 (caso inventado en el ejemplo, QUIÉN DECIDE)
+PROMPT_VERSION_F17 = "f17-1"        # la v1 de F17: SYSTEM_F17_1 / TAREA_F17_1, byte-idénticos
 REGENERACIONES = 1                  # F17 §1.1: si falla el chequeo, UNA regeneración; si vuelve a fallar, PARADA
 CAPS = 7
 
@@ -31,9 +34,63 @@ class ColumnaError(ValueError):
     """La columna no pasó el chequeo después de la regeneración (PARADA)."""
 
 
+# F22 §1.1: el bloque SISTEMA de lab/hyperframes/f22/PROMPT_COLUMNA_v1_1.md, literal (test byte-idéntico contra el
+# .md, extraído anclando en «## SISTEMA»).
+SYSTEM = """<rol>
+Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de armar la escaleta, decidís la columna vertebral de la historia: a quién seguimos, qué pasa en cada uno de los siete capítulos, dónde golpea y con qué termina. Trabajás solo con la ficha del caso. No inventás nombres, cifras, fechas ni citas.
+</rol>
+
+<que_es>
+La columna es una página. Siete filas, una por capítulo, con dos cosas en cada una: qué pasa (los hechos y las personas que entran, en tres o cuatro frases) y con qué termina (la frase que deja la puerta abierta al siguiente). Arriba, el humano, quién decide y el pico. Abajo, qué dejaste afuera y por qué. No es el guion ni la escaleta: es la decisión. Alguien que no sabe nada del caso tiene que leerla en un minuto y entender qué video va a ver.
+</que_es>
+
+<oficio>
+1. Un humano. El que tenga arco (entra, sufre, sale) y más momentos concretos. Lo seguimos del cap 1 al 7.
+2. Pocas personas con nombre: cinco o seis en todo el video, además del humano. Una persona entra solo si hace algo que se ve o dice algo que se oye. Cada nombre que agregás le quita memoria al espectador para los que importan.
+3. Quién decide: la persona o la institución a la que la ficha atribuye la decisión que causó el daño. Si la ficha no se lo atribuye a nadie, decís «ninguno» y por qué; no inventás un culpable.
+4. Cap 1: el peor momento, ya en curso. Una imagen física (lo que se ve, se oye, se huele) con el humano adentro. Sin año, sin cifras, sin juicio. Termina volviendo atrás.
+5. Cap 2: la vida antes. Quién era esta gente y qué hacía ahí. Es el único cap tranquilo; termina con la primera señal del peligro.
+6. Caps 3 y 4: la escalada. Cada uno agrega un giro de la ficha y termina peor que el anterior.
+7. Cap 5: el pico. El de la ficha, salvo razón mejor. Es el cap con más hechos, no el de menos: todo lo anterior lo prepara. Termina con la frase más corta del video.
+8. Cap 6: el respiro y las consecuencias inmediatas: los que salen, los cuerpos, la búsqueda, las cifras oficiales (que van a pantalla).
+9. Cap 7: las versiones en disputa, lo que la justicia dijo, y el humano otra vez. Termina con una cita del humano o la pregunta final de la ficha.
+10. Lo que queda afuera se dice: nombres, hechos y escenas que no entraron, con una razón de una línea.
+</oficio>
+
+<ejemplo>
+De un caso que no es el tuyo (una estación de radio y faro en una isla, mil novecientos sesenta y ocho). Copiá la forma, no el contenido: ninguno de estos nombres ni cifras está en tu ficha.
+
+HUMANO: Elvira Soto, telegrafista de la estación: manda los telegramas pidiendo el barco, recibe las respuestas sin firma, sostiene la radio con las baterías del faro la noche del pico, y años después es la única que guardó el registro.
+QUIÉN DECIDE: la Dirección de Faros y Balizas (institución): los telegramas de «mantener servicio» salen de ahí y nadie los firma.
+PICO: cap 5, la noche en que el generador se apaga y muere el niño.
+
+CAP 1 · QUÉ PASA: una mujer transmite en morse a la luz de una vela; la sala huele a querosén; afuera el faro sigue encendido; once personas esperan un barco. TERMINA: Tres semanas antes de la vela, llegó un telegrama. Y con él, una orden.
+CAP 2 · QUÉ PASA: la estación en invierno: once personas, tres familias, el Alborada que viene cada quince días; Elvira recién llegada; el primer telegrama de la Dirección cuando el temporal cierra el paso: mantener servicio. TERMINA: El Alborada tenía que llegar el lunes. No llegó el lunes.
+CAP 3 · QUÉ PASA: Elvira pide el barco; la respuesta es la misma; el combustible del generador se raciona; Bascuñán apaga la calefacción de las casas para que el faro siga. TERMINA: Cuando se apagó la última estufa, empezaron a mirar los muebles.
+CAP 4 · QUÉ PASA: el niño enferma; el mecánico Ismael Rojo sale a revisar el generador bajo la tormenta y no vuelve; el séptimo telegrama; la misma respuesta. TERMINA: El séptimo telegrama tampoco tuvo firma.
+CAP 5 · QUÉ PASA: el generador tose y se apaga; Elvira transmite con las baterías del faro; Bascuñán rompe la primera silla y la mete en la estufa; esa noche el niño deja de toser. TERMINA: Uno menos.
+CAP 6 · QUÉ PASA: el Alborada entra a la bahía; el padre Quiroga cuenta a los que bajan; dos muertos para la comisión, tres para las familias; Teo Marín, marinero: «el capitán leyó el papel y dio la vuelta». TERMINA: El papel que leyó el capitán nunca apareció.
+CAP 7 · QUÉ PASA: la comisión; el capitán: nunca zarpó por el temporal; los telegramas de Elvira: zarpó y recibió orden de volver; nadie de la Dirección firma nada; Elvira, años después, lee su libro en la radio. TERMINA: «Yo mandaba los telegramas. Nadie me dijo que los leyeran.»
+
+AFUERA: la historia del farero anterior (buen arco, pero es otro invierno); la discusión técnica sobre el alcance del faro (va a pantalla si hace falta); el nombre del capitán del Alborada (la versión alcanza con «el capitán»); los nombres de las tres familias (entran solo el niño y su madre, sin nombre, en el cap 5).
+</ejemplo>
+
+<errores>
+- Repartir todas las personas de la ficha entre los caps para «aprovechar el material». La ficha puede tener decenas de personas; el video tiene lugar para seis.
+- Un cap 1 que explica lo que va a pasar («esto terminará en una comisión») en vez de mostrar el peor momento.
+- Un cap 5 con un solo hecho. El pico es el cap más denso.
+- Resumir al final de un cap. La frase de cierre abre el siguiente, no cierra este.
+- Cambiar de humano porque otro candidato «también es interesante». Se elige uno.
+- Inventar un culpable para que haya antagonista. Si la ficha no se lo atribuye a nadie, «ninguno».
+</errores>"""
+# F22 §1.1: la tarea del bloque USUARIO del mismo archivo, literal (con QUIÉN DECIDE y `antagonista`).
+TAREA = """<tarea>
+Con la ficha de arriba, escribí la columna vertebral de este caso: HUMANO, QUIÉN DECIDE, PICO, siete filas CAP n · QUÉ PASA / TERMINA, y AFUERA. Devolvé el JSON del esquema: {"humano": {"nombre", "por_que", "ids"}, "antagonista": {"tipo": "persona"|"institucion"|"ninguno", "nombre", "por_que", "ids"}, "pico": {"cap", "que", "ids"}, "caps": [{"cap", "que_pasa", "termina", "personas", "ids"}], "afuera": [{"que", "por_que"}]}. En `ids`, los ids de la ficha que sostienen cada fila; en `personas`, los nombres que entran en ese cap.
+</tarea>"""
+
 # F17 §1.1: el bloque SISTEMA de lab/hyperframes/f17/PROMPT_COLUMNA_v1.md, literal (test byte-idéntico contra el .md,
 # extraído anclando en «## SISTEMA»: el párrafo de arriba del archivo también nombra un <rol>).
-SYSTEM = """<rol>
+SYSTEM_F17_1 = """<rol>
 Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de armar la escaleta, decidís la columna vertebral de la historia: a quién seguimos, qué pasa en cada uno de los siete capítulos, dónde golpea y con qué termina. Trabajás solo con la ficha del caso. No inventás nombres, cifras, fechas ni citas.
 </rol>
 
@@ -79,17 +136,22 @@ AFUERA: Pearl Bland y su deuda de 398 dólares (buen arco, pero compite con Reed
 </errores>"""
 
 # F17 §1.1: la tarea del bloque USUARIO del mismo archivo, literal.
-TAREA = """<tarea>
+TAREA_F17_1 = """<tarea>
 Con la ficha de arriba, escribí la columna vertebral de este caso: HUMANO, PICO, siete filas CAP n · QUÉ PASA / TERMINA, y AFUERA. Devolvé el JSON del esquema: {"humano": {"nombre", "por_que", "ids"}, "pico": {"cap", "que", "ids"}, "caps": [{"cap", "que_pasa", "termina", "personas", "ids"}], "afuera": [{"que", "por_que"}]}. En `ids`, los ids de la ficha que sostienen cada fila; en `personas`, los nombres que entran en ese cap.
 </tarea>"""
 
 _S, _I = {"type": "STRING"}, {"type": "INTEGER"}
+TIPOS_ANTAGONISTA = ("persona", "institucion", "ninguno")           # F22 §1.2: el contrato de punta a punta
 _IDS = {"type": "ARRAY", "items": _S}
 SCHEMA: dict[str, Any] = {
     "type": "OBJECT",
     "properties": {
         "humano": {"type": "OBJECT", "properties": {"nombre": _S, "por_que": _S, "ids": _IDS},
                    "required": ["nombre", "por_que", "ids"]},
+        # F22 §1.2: QUIÉN DECIDE (persona de la ficha, institución de la ficha o ninguno)
+        "antagonista": {"type": "OBJECT", "properties": {
+            "tipo": {"type": "STRING", "enum": list(TIPOS_ANTAGONISTA)}, "nombre": _S, "por_que": _S, "ids": _IDS},
+            "required": ["tipo", "nombre", "por_que", "ids"]},
         "pico": {"type": "OBJECT", "properties": {"cap": _I, "que": _S, "ids": _IDS}, "required": ["cap", "que", "ids"]},
         "caps": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
             "cap": _I, "que_pasa": _S, "termina": _S, "personas": {"type": "ARRAY", "items": _S}, "ids": _IDS},
@@ -97,7 +159,7 @@ SCHEMA: dict[str, Any] = {
         "afuera": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {"que": _S, "por_que": _S},
                                               "required": ["que", "por_que"]}},
     },
-    "required": ["humano", "pico", "caps", "afuera"],
+    "required": ["humano", "antagonista", "pico", "caps", "afuera"],
 }
 
 
@@ -150,7 +212,7 @@ def _ids(xs: Any) -> list[str]:
 
 def leer_ids(raw: dict) -> dict:
     col = copy.deepcopy(raw or {})
-    for k in ("humano", "pico"):
+    for k in ("humano", "antagonista", "pico"):
         if isinstance(col.get(k), dict):
             col[k]["ids"] = _ids(col[k].get("ids"))
     for c in col.get("caps") or []:
@@ -191,13 +253,62 @@ def persona_de(nombre: str, ficha: dict) -> str | None:
     return None
 
 
+def institucion_de_la_ficha(nombre: str, ficha: dict) -> bool:
+    """F19 §1.2 + F22 §1.2: una institución existe en la ficha si su nombre es el nombre o una de las variantes de una
+    de las `personas` de la ficha, o si aparece literal en el texto de 2 o más hechos. El artículo de adelante no
+    cuenta, en ninguno de los dos lados («el Ministerio…» está en «al Ministerio…»)."""
+    from script_engine import nombres
+
+    def _n(x: str) -> str:
+        return re.sub(r"^(el|la|los|las|the) ", "", nombres.norm(x or ""))
+    n = _n(nombre)
+    if len(n) < 3:
+        return False
+    for p in ficha.get("personas") or []:
+        if n in {_n(x) for x in [p.get("nombre"), *(p.get("variantes") or [])] if x}:
+            return True
+    return sum(1 for h in ficha.get("hechos") or [] if n in nombres.norm(h.get("texto") or "")) >= 2
+
+
+def variantes_de(nombre: str, ficha: dict) -> list[str]:
+    """F22 §1.2: las variantes de la ficha de la persona o institución `nombre` (las de su entrada en `personas`), para
+    que la escaleta, la partición y el guion la busquen con todas sus formas. Lectura, no chequeo."""
+    from script_engine import nombres
+
+    def _n(x: str) -> str:
+        return re.sub(r"^(el|la|los|las|the) ", "", nombres.norm(x or ""))
+    n = _n(nombre)
+    for p in ficha.get("personas") or []:
+        vs = [x for x in [p.get("nombre"), *(p.get("variantes") or [])] if x]
+        if n and n in {_n(x) for x in vs}:
+            return [x for x in vs if _n(x) != n]
+    return []
+
+
+def antagonista_problemas(ag: dict | None, ficha: dict, *, persona_ok: Callable[[dict], bool] | None = None
+                          ) -> list[str]:
+    """F22 §1.2: el contrato del antagonista (columna y escaleta v2.1). persona → está en la ficha (`persona_ok`, por
+    defecto `persona_de`); institucion → `institucion_de_la_ficha`; ninguno → `por_que` no vacío. Mensajes con la
+    forma «antagonista … no es …» de siempre (es el bloqueante de la escaleta)."""
+    ag = ag or {}
+    tipo = str(ag.get("tipo") or "persona")
+    if tipo == "ninguno":
+        return [] if str(ag.get("por_que") or "").strip() else ["antagonista «ninguno» sin por_que: decí por qué la "
+                                                                 "ficha no le atribuye la decisión a nadie"]
+    if tipo == "institucion":
+        return [] if institucion_de_la_ficha(str(ag.get("nombre") or ""), ficha) else [
+            f"antagonista «{ag.get('nombre')}» no es una persona del pool ni una institución de la ficha"]
+    ok = persona_ok(ag) if persona_ok else bool(persona_de(str(ag.get("nombre") or ""), ficha))
+    return [] if ok else [f"antagonista «{ag.get('nombre') or ag.get('id')}» no es una persona del pool ni de la ficha"]
+
+
 # ═══════════════════════════════════════════════════════════════
 #  Chequeo (estructura e ids) y métrica
 # ═══════════════════════════════════════════════════════════════
 
 def chequeo(col: dict, pool: dict, ficha: dict) -> list[str]:
     """F17 §1.1: 7 caps (1–7, una fila cada uno), el humano es persona de la ficha, los ids existen, las personas de cada
-    cap existen en la ficha. Nada más."""
+    cap existen en la ficha. F22 §1.2: más el antagonista (`antagonista_problemas`). Nada más."""
     its = ev.items(pool)
     prob: list[str] = []
     caps = [c for c in col.get("caps") or [] if isinstance(c, dict)]
@@ -212,7 +323,9 @@ def chequeo(col: dict, pool: dict, ficha: dict) -> list[str]:
     hum = col.get("humano") or {}
     if not persona_de(hum.get("nombre") or "", ficha):
         prob.append(f"humano «{hum.get('nombre')}» no es una persona de la ficha")
-    filas = [("humano", hum), ("pico", col.get("pico") or {})] + [(f"cap {c.get('cap')}", c) for c in caps]
+    prob += antagonista_problemas(col.get("antagonista"), ficha)
+    filas = [("humano", hum), ("antagonista", col.get("antagonista") or {}), ("pico", col.get("pico") or {})] + \
+        [(f"cap {c.get('cap')}", c) for c in caps]
     for donde, x in filas:
         for i in x.get("ids") or []:
             if i not in its:
@@ -298,13 +411,24 @@ def section(col: dict) -> str:
     def ids(x: dict) -> str:
         return " [" + ", ".join(x.get("ids") or []) + "]" if x.get("ids") else ""
     h, pk = col.get("humano") or {}, col.get("pico") or {}
-    L = [f"HUMANO: {h.get('nombre')}: {h.get('por_que')}{ids(h)}",
-         f"PICO: cap {pk.get('cap')}, {pk.get('que')}{ids(pk)}", ""]
+    L = [f"HUMANO: {h.get('nombre')}: {h.get('por_que')}{ids(h)}"]
+    if col.get("antagonista"):                                    # F22 §1.2: la forma del ejemplo del prompt
+        L.append(f"QUIÉN DECIDE: {quien_decide(col)}{ids(col['antagonista'])}")
+    L += [f"PICO: cap {pk.get('cap')}, {pk.get('que')}{ids(pk)}", ""]
     for c in col.get("caps") or []:
         L.append(f"CAP {c.get('cap')} · QUÉ PASA: {c.get('que_pasa')} PERSONAS: "
                  f"{', '.join(c.get('personas') or []) or '—'}. TERMINA: {c.get('termina')}{ids(c)}")
     L += ["", "AFUERA: " + "; ".join(f"{a.get('que')} ({a.get('por_que')})" for a in col.get("afuera") or [])]
     return "\n".join(L)
+
+
+def quien_decide(col: dict) -> str:
+    """F22: la línea QUIÉN DECIDE como en el ejemplo del prompt: «nombre (institución): por qué»; «ninguno: por qué»."""
+    a = col.get("antagonista") or {}
+    tipo = str(a.get("tipo") or "persona")
+    if tipo == "ninguno":
+        return f"ninguno: {a.get('por_que')}"
+    return f"{a.get('nombre')}{' (institución)' if tipo == 'institucion' else ''}: {a.get('por_que')}"
 
 
 def to_markdown(col: dict, titulo: str = "") -> str:
@@ -314,13 +438,17 @@ def to_markdown(col: dict, titulo: str = "") -> str:
     L = [f"# Columna vertebral{' — ' + titulo if titulo else ''}", "",
          f"_{col.get('prompt_version')} · gpt-6.1-sol high · personas con nombre en toda la columna: "
          f"{m.get('personas_con_nombre')}_", "",
-         f"**HUMANO:** {h.get('nombre')}: {h.get('por_que')}", "",
-         f"**PICO:** cap {pk.get('cap')}, {pk.get('que')}", ""]
+         f"**HUMANO:** {h.get('nombre')}: {h.get('por_que')}", ""]
+    if col.get("antagonista"):                                    # F22 §1.1: entre HUMANO y PICO
+        L += [f"**QUIÉN DECIDE:** {quien_decide(col)}", ""]
+    L += [f"**PICO:** cap {pk.get('cap')}, {pk.get('que')}", ""]
     for c in col.get("caps") or []:
         L += [f"**CAP {c.get('cap')} · QUÉ PASA:** {c.get('que_pasa')} **TERMINA:** {c.get('termina')}", ""]
     L.append("**AFUERA:** " + "; ".join(f"{a.get('que')} ({a.get('por_que')})" for a in col.get("afuera") or []))
     L += ["", "---", "", "| cap | personas | ids |", "|---|---|---|",
           f"| humano | {h.get('nombre')} | {', '.join(h.get('ids') or [])} |",
+          f"| quién decide | {(col.get('antagonista') or {}).get('nombre') or '—'} | "
+          f"{', '.join((col.get('antagonista') or {}).get('ids') or [])} |",
           f"| pico | — | {', '.join(pk.get('ids') or [])} |"]
     L += [f"| {c.get('cap')} | {', '.join(c.get('personas') or []) or '—'} | {', '.join(c.get('ids') or [])} |"
           for c in col.get("caps") or []]

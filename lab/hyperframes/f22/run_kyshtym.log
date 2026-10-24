@@ -1,0 +1,48 @@
+  respaldo ficha_caso.json → ficha_caso_f18.json
+[kyshtym ficha] prompt 124,713 car · max_completion_tokens 60,000 · peor caso US$ 0.683
+[18:35:46] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f22-ficha
+[18:43:52] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f22-ficha � Costo total: $0.4132
+  [kyshtym ficha] US$ 0.4132 · 486 s · tema US$ 0.4132 · tanda US$ 1.0135
+[kyshtym ficha] crudo {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 13, 'contradicciones': 3, 'decisiones': 17, 'versiones': 8, 'personas': 36, 'personas_descartadas': 17, 'cifras': 34, 'cronologia': 41, 'hechos': 75, 'citas': 20, 'descartados': 14}
+[kyshtym ficha] final {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 11, 'contradicciones': 3, 'decisiones': 15, 'versiones': 8, 'personas': 36, 'personas_descartadas': 2, 'cifras': 33, 'cronologia': 40, 'hechos': 74, 'citas': 20, 'descartados': 36} · sacados 23
+  sacado [escenas] [escenas] Los primeros contingentes llegan para excavar el terreno y construir el reactor. → no respaldado: ningún sentido de la escena («El documento permite mostrar la excavación del pozo de obra ») está en sus ids
+  sacado [escenas] [escenas] Kutepova atribuye a la jueza una negativa explícita a crear precedentes que perm → no respaldado: ningún sentido de la escena («La voz citada se dirige a ella como «Надя»; no hay datos del») está en sus ids
+  sacado [decisiones] [decisiones] Visita a la obra e inicio de construcción → no respaldado: cifra 40
+  sacado [decisiones] [decisiones] Humo amarillo y hora de la explosión → no respaldado: hora 16:00
+  sacado [personas_descartadas] [personas_descartadas] Nadezhda Kutepova → no respaldado: «Nadezhda Kutepova» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Nadezhda Ivanovna Kozlova → no respaldado: «Nadezhda Ivanovna Kozlova» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Lev Nikolaevich Gaev → no respaldado: «Lev Nikolaevich Gaev» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Lyubov Ladeyshchikova → no respaldado: «Lyubov Ladeyshchikova» no está entre los descartados del pool; sus ids no nombran a «Lyubov Ladeyshchikova»
+  sacado [personas_descartadas] [personas_descartadas] V. I. Komarov → no respaldado: «V. I. Komarov» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] V. M. Osetrov → no respaldado: «V. M. Osetrov» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] I. F. Serov → no respaldado: «I. F. Serov» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Е. П. Славский → no respaldado: «Е. П. Славский» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Зверев А.Д. → no respaldado: sus ids no nombran a «Зверев А.Д.»
+  sacado [personas_descartadas] [personas_descartadas] Andrei Talevlin → no respaldado: «Andrei Talevlin» no está entre los descartados del pool; sus ids no nombran a «Andrei Talevlin»
+  sacado [personas_descartadas] [personas_descartadas] V. D. Kamynin → no respaldado: «V. D. Kamynin» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Dmitri Medvédev → no respaldado: «Dmitri Medvédev» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Vladímir Borísovich Kudryashov → no respaldado: «Vladímir Borísovich Kudryashov» no está entre los descartados del pool
+  sacado [personas_descartadas] [personas_descartadas] Soldados-bomberos → no respaldado: «Soldados-bomberos» no está entre los descartados del pool; sus ids no nombran a «Soldados-bomberos»
+  sacado [personas_descartadas] [personas_descartadas] Radiotelefonistas de la estación de bomberos → no respaldado: «Radiotelefonistas de la estación de bomberos» no está entre los descartados del pool
+  sacado [cifras] [cifras] Casos de enfermedad por radiación detectados en ese grupo examinado → no respaldado: cifra 0
+  sacado [cronologia] [cronologia] F16 sitúa un partido de fútbol en el poblado y el aviso visual de humo amaril → no respaldado: hora 16:00
+  sacado [hechos] [hechos] F16 sitúa un partido de fútbol y la observación de humo amarillo procedente del a → no respaldado: hora 16:00
+  sacado [descartados] [descartados] Personas descartadas por el research que no reaparecen identificadas en pasa → no respaldado: sin ids
+[18:43:52] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f22-columna
+[18:45:52] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f22-columna � Costo total: $0.0891
+  [kyshtym columna] US$ 0.0891 · 119 s · tema US$ 0.5023 · tanda US$ 1.1026
+  [columna] intento 1: 0 problema(s) []
+[kyshtym columna] humano V. I. Komarov · quién decide ninguno «Ninguno identificado para la decisión que provoca la explosión» · pico cap 5 · personas con nombre 6
+[18:45:52] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f22-escaleta
+[18:51:03] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f22-escaleta � Costo total: $0.2467
+  [kyshtym escaleta] US$ 0.2467 · 311 s · tema US$ 0.7490 · tanda US$ 1.3493
+  [escaleta] compuerta del pool: verde {'datos': 208, 'citas_verificadas': 18, 'elegibles_humano': 7, 'eventos_con_fecha': 22}
+  [escaleta v2] intento 1: 4 bloqueante(s) ['beat 14: dato_central Q17 ya está en el beat 1 (un id, un solo beat)', 'a_pantalla D57 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D88 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D25 también está en un beat: lo que va a pantalla no lo dice la voz'] · 49 reparación(es) · 18 a métricas
+  [escaleta v2] intento 2: 0 bloqueante(s) [] · 42 reparación(es) · 16 a métricas
+[kyshtym escaleta] 14 beats · humano V.I. Komarov (= columna True) · antagonista ninguno (= columna True) en caps [] · pico beat 7 · escenas [1, 2, 3, 4, 5, 7, 9, 10]
+[18:51:03] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f22-guion
+[18:54:15] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f22-guion � Costo total: $0.1179
+  [kyshtym guion] US$ 0.1179 · 192 s · tema US$ 0.8669 · tanda US$ 1.4672
+[kyshtym guion] 1003 palabras ≈ 8.2 min · bloqueantes 1 · párrafos 20 · por cap [90, 77, 143, 114, 151, 131, 297] · antagonista ninguno en caps []
+PARADA (kyshtym guion): guion de kyshtym: 1 bloqueante(s) (crudo guardado, no se parchea)
+tanda US$ 1.4672

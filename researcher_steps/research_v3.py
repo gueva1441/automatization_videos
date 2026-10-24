@@ -122,7 +122,7 @@ REGLAS:
 - prioridad: 1 = imprescindible (texto primario largo, con testimonios o cifras oficiales), 2 = útil, 3 = complemento.
 
 Respondé SOLO un JSON, sin markdown:
-{{"fuentes":[{{"url":"…","titulo":"…","tipo":"{'|'.join(TIPOS_FUENTE)}","anio":2006,"idioma":"en","por_que":"una línea: qué tiene que no tengan las otras","prioridad":1}}]}}"""
+{{"fuentes":[{{"url":"…","titulo":"…","tipo":"{'|'.join(TIPOS_FUENTE)}","anio":0,"idioma":"xx","por_que":"una línea: qué tiene que no tengan las otras","prioridad":1}}]}}"""
 
 
 DISCOVERY_FOCOS = (
@@ -197,7 +197,7 @@ def build_alt_prompt(seed: dict, foco: str) -> str:
 Qué busco: {foco}
 Listá SOLO páginas que aparezcan en los resultados de la búsqueda (nunca inventes ni completes una URL), entre 5 y 12.
 Respondé SOLO un JSON, sin markdown:
-{{"fuentes":[{{"url":"…","titulo":"…","tipo":"{'|'.join(TIPOS_FUENTE)}","anio":2006,"idioma":"it","por_que":"una línea","prioridad":1}}]}}"""
+{{"fuentes":[{{"url":"…","titulo":"…","tipo":"{'|'.join(TIPOS_FUENTE)}","anio":0,"idioma":"xx","por_que":"una línea","prioridad":1}}]}}"""
 
 
 def _parse_json(text: str) -> dict[str, Any]:
@@ -330,7 +330,7 @@ Si encontrás el original y también copias o notas que lo reproducen completo, 
 Nunca inventes ni completes una URL: solo páginas que aparezcan en los resultados de la búsqueda.
 
 Respondé SOLO un JSON, sin markdown:
-{{"fuentes":[{{"url":"…","titulo":"…","tipo":"{'|'.join(TIPOS_FUENTE)}","anio":2006,"idioma":"en","por_que":"una línea","prioridad":1}}]}}"""
+{{"fuentes":[{{"url":"…","titulo":"…","tipo":"{'|'.join(TIPOS_FUENTE)}","anio":0,"idioma":"xx","por_que":"una línea","prioridad":1}}]}}"""
 
 
 def _words(s: str) -> set[str]:
@@ -974,10 +974,11 @@ R3_SCHEMA: dict[str, Any] = {
         "lugares": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
             "nombre": _S, "rol": _S, "cita_literal": _S}, "required": ["nombre", "cita_literal"]}},
         "citas": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
-            "autor": _S, "rol": _S, "testigo": _B, "lugar": _S, "fecha": _S, "texto_original": _S, "texto_es": _S,
-            "cita_literal": _S}, "required": ["autor", "texto_original", "texto_es", "testigo", "cita_literal"]}},
+            "autor": _S, "autor_en_documento": _S, "rol": _S, "testigo": _B, "lugar": _S, "fecha": _S,
+            "texto_original": _S, "texto_es": _S, "cita_literal": _S},
+            "required": ["autor", "texto_original", "texto_es", "testigo", "cita_literal"]}},
         "personajes": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
-            "nombre": _S, "rol": _S, "antagonista": _B, "testigo": _B,
+            "nombre": _S, "nombre_en_documento": _S, "rol": _S, "antagonista": _B, "testigo": _B,
             "fechas_presente": {"type": "ARRAY", "items": _S}, "lugar": _S, "cita_literal": _S},
             "required": ["nombre", "rol", "testigo", "cita_literal"]}},
     },
@@ -1010,12 +1011,15 @@ REGLAS:
 5. Cronología: fecha AAAA-MM-DD (AAAA-MM si no hay día); `hora` HH:MM (24 h) SOLO si el texto la da; `lugar` si lo dice.
 6. Citas: palabras que alguien dijo o escribió, entre comillas o en declaración atribuida. `texto_original` exacto;
    `texto_es` traducción natural y fiel (igual al original si ya está en español). `autor`: el nombre como lo da el
-   texto; si es anónimo, la descripción que da el texto («un preso de Templeman III»). NUNCA inventes un nombre.
+   texto; si es anónimo, la descripción que da el texto (por ejemplo, el rol: «una vecina», «un operario»). NUNCA
+   inventes un nombre. `autor_en_documento`: el nombre exactamente como aparece en ESTE texto, en su alfabeto; vacío
+   si el texto no lo nombra.
    `testigo` = true si quien habla estuvo en el lugar de los hechos o los vivió ({_roles(seed, "roles_testigo")});
    false para quien habla desde afuera. `lugar`: dónde estaba quien habla.
 7. Personajes: personas con nombre propio que hacen algo o declaran en el texto (no organizaciones). `testigo` como en
    6; `fechas_presente`: los días AAAA-MM-DD en que el texto la ubica en el lugar; `antagonista` = true si el texto le
-   atribuye decisiones que causaron el daño ({_roles(seed, "roles_antagonista")}).
+   atribuye decisiones que causaron el daño ({_roles(seed, "roles_antagonista")}). `nombre_en_documento`: el nombre
+   exactamente como aparece en ESTE texto, en su alfabeto; vacío si el texto no lo nombra.
 
 TEXTO:
 <<<
@@ -1126,6 +1130,7 @@ def validate_doc_items(raw: dict, doc: dict, dt: DocText, log: list[str]) -> dic
                     continue
                 es = _str(it.get("texto_es")) or _str(it["texto_original"])
                 item = {"texto": es, "autor": _str(it.get("autor")), "fecha": _str(it.get("fecha")) or None,
+                        "autor_en_documento": _str(it.get("autor_en_documento")),                    # F22 §1.3
                         "rol": _str(it.get("rol")) or None, "testimonio": bool(it.get("testigo")),
                         "testigo": bool(it.get("testigo")), "texto_original": _str(it["texto_original"]),
                         "texto_es": es, "presente_en": [_str(it["lugar"])] if _str(it.get("lugar")) else []}
@@ -1134,11 +1139,14 @@ def validate_doc_items(raw: dict, doc: dict, dt: DocText, log: list[str]) -> dic
                 if not nombres.es_persona(n, mononimo_ok=bool(_str(it.get("rol")))):   # F21: nombres.py
                     _drop(kind, it, "no es una persona con nombre propio")
                     continue
-                if not any(nombres.menciona(dt.text, x) for x in nombres.partes(n)):
+                ned = _str(it.get("nombre_en_documento"))
+                # F22 §1.3: el nombre como lo escribe el documento cuenta (otro alfabeto: «Осетров» por «Osetrov»)
+                if not any(nombres.menciona(dt.text, x) for x in nombres.partes(n) + nombres.partes(ned)):
                     _drop(kind, it, "el apellido no está en el documento")
                     continue
                 fp = [x for x in (it.get("fechas_presente") or []) if re.match(r"^\d{4}-\d{2}-\d{2}$", str(x))]
-                item = {"nombre": n, "rol": _str(it.get("rol")) or None, "antagonista": bool(it.get("antagonista")),
+                item = {"nombre": n, "nombre_en_documento": ned, "rol": _str(it.get("rol")) or None,
+                        "antagonista": bool(it.get("antagonista")),
                         "testigo": bool(it.get("testigo")), "fechas_presente": fp, "lugar": _str(it.get("lugar")) or None}
             out[kind].append({**item, **base, "cita_literal": lit, "offset": off})
     n_ok = sum(len(out[k]) for k in key)
@@ -1240,9 +1248,18 @@ def _count_re(nouns: list[str]) -> re.Pattern:
                       rf"({'|'.join(re.escape(n) for n in ns)})\b", re.I)
 
 
+_CASO: dict[str, Any] = {"lugar": "", "anio": 0}
+
+
 def vocabulario() -> dict[str, list[str]]:
     """F21: el vocabulario del caso en uso (lo lee `guion_v3_reglas.role_class`)."""
     return {k: list(v) for k, v in _VOC.items()}
+
+
+def caso() -> dict[str, Any]:
+    """F22 §1.1: el lugar y el año del seed en uso (`lugar_principal`, `anio_evento` del perfil), para los mensajes al
+    modelo que necesitan un ejemplo del caso («Lugar, año.»). Sin perfil: vacío."""
+    return dict(_CASO)
 
 
 def set_vocabulario(perfil: dict | None) -> None:
@@ -1251,6 +1268,7 @@ def set_vocabulario(perfil: dict | None) -> None:
     Sin perfil (o sin esos campos), solo la base genérica."""
     global _TITLES, _COUNT_OF
     perfil = perfil or {}
+    _CASO.update(lugar=str(perfil.get("lugar_principal") or "").strip(), anio=int(perfil.get("anio_evento") or 0))
     for k in _VOC:
         _VOC[k] = _formas(perfil.get(k)) if k != "lugares_excluidos" else [str(x) for x in perfil.get(k) or []]
     roles = _VOC["roles_testigo"] + _VOC["roles_antagonista"]
@@ -1365,6 +1383,11 @@ def merge_docs(per_doc: dict[str, dict[str, list[dict]]], docs: list[dict], *, e
                 if prev is None:
                     pool[kind].append({**it, "docs": [did], "n_fuentes": 1, "evidencia": [ref]})
                     continue
+                for campo in ("nombre_en_documento", "autor_en_documento"):                    # F22 §1.3
+                    if it.get(campo):
+                        prev.setdefault(campo + "s", [prev[campo]] if prev.get(campo) else [])
+                        if it[campo] not in prev[campo + "s"]:
+                            prev[campo + "s"].append(it[campo])
                 if did not in prev["docs"]:
                     prev["docs"].append(did)
                     prev["n_fuentes"] = len(prev["docs"])
@@ -1553,6 +1576,8 @@ def verify_pool(pool: dict[str, Any], texts: dict[str, DocText], docs: list[dict
             # F21: el apellido o cualquier parte del nombre cerca (como en R3: «Mariana Aquino de Chamorro» puede ser
             # «Aquino» en el documento)
             partes_autor = nombres.partes(it.get("autor") or "") if sur else []
+            # F22 §1.3: o cualquier parte del nombre como lo escribe el documento, en su alfabeto
+            partes_autor += [x for a in en_documento(it, "autor_en_documento") for x in nombres.partes(a)] if sur else []
             best: dict[str, Any] | None = None
             for did in it.get("docs") or [it["doc_id"]]:
                 dt = texts.get(did)
@@ -1661,8 +1686,17 @@ def metrics(pool: dict[str, Any]) -> dict[str, Any]:
 PRESENCE_WINDOW = 500
 
 
+def en_documento(it: dict, campo: str) -> list[str]:
+    """F22 §1.3: cómo escribe el nombre cada documento (`nombre_en_documento` / `autor_en_documento` de R3, y los de
+    los otros documentos del mismo ítem después del merge). Un pool viejo no los tiene: []."""
+    return [x for x in dict.fromkeys([it.get(campo) or "", *(it.get(campo + "s") or [])]) if x]
+
+
 def name_terms(p: dict, people: list[dict]) -> list[str]:
-    return nombres.terminos(p, people)                                          # F21: alias
+    # F21: alias; F22 §1.3: más el nombre como lo escribe el documento («nombre apellido» y el apellido)
+    doc = [nombres.clave(n) for n in en_documento(p, "nombre_en_documento")]
+    return list(dict.fromkeys(nombres.terminos(p, people) + [f"{f} {a}" for f, a in doc if f and a]
+                              + [a for _, a in doc if a]))
 
 
 def _names_in(terms: list[str], text: str | None) -> bool:
@@ -1981,9 +2015,10 @@ FUENTES ENCONTRADAS:
 Con el tema y las fuentes, describí el caso con tres listas de palabras, cada una de 4 a 10, en español y además sus
 formas en los otros idiomas del research (singular y plural cuando cambian). Cada término va con su forma en
 español en «es» y sus formas en los otros idiomas, una por elemento, en «otras»:
-- roles_testigo: quiénes estuvieron ahí o lo vivieron, en las palabras del caso (por ejemplo, en una cárcel: preso,
-  guardia, oficial).
-- roles_antagonista: quién decide lo que causó el daño (un cargo o una institución: sheriff, el ministerio, el dueño).
+- roles_testigo: quiénes estuvieron ahí o lo vivieron, en las palabras del caso (un incendio: cliente, cajera, bombero ·
+  una planta: operario, ingeniero, evacuado · una cárcel: preso, guardia).
+- roles_antagonista: quién decide lo que causó el daño (un cargo o una institución: el dueño · el ministerio · el
+  sheriff).
 - sustantivos_conteo: con qué sustantivos se cuentan las víctimas en las fuentes (muertos, heridos, evacuados…).""",
                response_schema=VOCAB_SCHEMA, description="research v3 vocabulario del caso") or {}
     return {k: _formas([f for t in raw.get(k) or [] for f in ([t.get("es"), *(t.get("otras") or [])]
@@ -2021,7 +2056,7 @@ def seed_profile(seed: dict, *, call: Callable[..., dict] | None = None) -> dict
     raw = call(f"""TEMA: "{seed['seed_title']}"
 Devolvé el año en que ocurrió el evento central, el lugar principal y de 3 a 6 nombres con los que un documento en
 inglés o en el idioma del lugar nombraría el lugar o el evento (nombre oficial, sigla, nombre corto, nombre del evento),
-y el idioma local («inglés (Nueva Orleans, EE. UU.)»).
+y el idioma local (el idioma del lugar del caso).
 En `nombres_locales`, de 3 a 8 formas del lugar y del evento escritas en el alfabeto del idioma local, tal como las
 escribe un documento en ese idioma (nombre oficial, sigla, nombre corto, nombre del evento).""",
                response_schema=PROFILE_SCHEMA, description="research v3 perfil del seed") or {}

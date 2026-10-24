@@ -175,17 +175,30 @@ def build_contract(topic: dict, esc: dict, parrafos: list[dict], pool: dict, *, 
             "cliffhanger": ec.get("cliffhanger") if ec.get("cliffhanger") is not None else vc.get("cliffhanger", ""),
             "pantalla_ids": ec.get("pantalla_ids") or [],
         })
-    pers = {p.get("id"): p for p in pool.get("personajes") or []}
+    from script_engine import nombres
+    from script_engine.guion_v3_reglas import antagonista_terminos, antagonista_tipo
+    people = pool.get("personajes") or []
+    pers = {p.get("id"): p for p in people}
     hum = esc.get("humano") or {}
-    ant = str((esc.get("antagonista") or {}).get("id") or "")
+    ag = esc.get("antagonista") or {}
+    tipo = antagonista_tipo(esc)
+    ant = str(ag.get("id") or "") if tipo == "persona" else ""
+
+    def _entra(menciona: Callable[[str], bool]) -> int:
+        return next((b["cap"] for b in esc["beats"] if menciona(json.dumps(b, ensure_ascii=False))), 1)
     personajes = []
     for pid in [str(hum.get("id") or ""), ant]:
         p = pers.get(pid)
         if p:
-            first = next((b["cap"] for b in esc["beats"]
-                          if p["nombre"].split()[-1].lower() in json.dumps(b, ensure_ascii=False).lower()), 1)
+            first = _entra(lambda t: nombres.nombra(t, p, people))               # F22 §1.2: nombres.nombra
             personajes.append({"id": pid, "nombre": p["nombre"], "rol": p.get("rol") or "",
-                               "antagonista": pid == ant, "entra_en_cap": first})
+                               "antagonista": pid == ant, "entra_en_cap": first})   # sin `tipo` = persona
+    if tipo == "institucion" and str(ag.get("nombre") or "").strip():
+        # F22 §1.2: la institución que decide no desaparece de `personajes`: va con su tipo y su nombre, sin P##
+        ts = antagonista_terminos(esc, pool)
+        personajes.append({"id": "", "nombre": ag["nombre"], "rol": "institución", "tipo": "institucion",
+                           "variantes": list(ag.get("variantes") or []), "antagonista": True,
+                           "entra_en_cap": _entra(lambda t: any(nombres.menciona(t, x) for x in ts))})
     skeleton = {"topic_id": topic.get("id") or topic.get("topic_id"), "chapters": chapters, "personajes": personajes,
                 "_pool_plan": esc.get("_pool_plan") or {},
                 "_v3": {"escaleta": "01a_escaleta.json", "prompt_version": esc.get("prompt_version"),

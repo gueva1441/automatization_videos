@@ -240,7 +240,7 @@ def date_problems(caps: list[dict]) -> list[str]:
         ds = [m.group(0) for m in DATE_RE.finditer(c.get("narration") or "")]
         if len(ds) > DATE_MAX_PER_CAP:
             out.append(f"cap {c['chapter_number']}: {len(ds)} fechas literales ({', '.join(ds)}; máximo "
-                       f"{DATE_MAX_PER_CAP} por cap): después de la primera, «ese domingo», «esa noche», «esa mañana»")
+                       f"{DATE_MAX_PER_CAP} por cap): después de la primera, «ese día», «esa noche», «esa mañana»")
         for m in DATE_RE.finditer(c.get("narration") or ""):
             if m.group(1):
                 k = ev.norm(m.group(0))
@@ -383,10 +383,19 @@ _ANON_VOICE = re.compile(r"\bseg[uú]n alguien\b|\balguien (?:dijo|orden[oó]|de
                          r"\buna voz oficial\b|\bseg[uú]n algunos\b", re.I)
 
 
+def antagonista_tipo(esc: dict) -> str:
+    """F22 §1.2: persona / institucion / ninguno. Una escaleta sin `tipo` (v1, F16 y antes) es de persona."""
+    return str((esc.get("antagonista") or {}).get("tipo") or "persona")
+
+
 def antagonist_problems(caps: list[dict], esc: dict, pool: dict[str, Any]) -> list[str]:
-    """Si un cap usa un dato VERIFICADO que nombra al antagonista (la decisión del sheriff), la voz dice su apellido
-    (aunque su cita sea verificada_parcial). Nunca «según alguien» ni «una voz oficial»."""
-    out = []
+    """Si un cap usa un dato VERIFICADO que nombra al antagonista (la decisión de quien decide), la voz dice su
+    apellido (aunque su cita sea verificada_parcial). Nunca «según alguien» ni «una voz oficial».
+    F22 §1.2: solo con un antagonista persona; con una institución o ninguno no se evalúa (la institución va a la
+    métrica `antagonista_caps`)."""
+    out: list[str] = []
+    if antagonista_tipo(esc) != "persona":
+        return out
     for c in caps:
         for m in _ANON_VOICE.finditer(c.get("narration") or ""):
             out.append(f"cap {c['chapter_number']}: «{m.group(0)}»: decí quién (el nombre está en los datos)")
@@ -406,6 +415,37 @@ def antagonist_problems(caps: list[dict], esc: dict, pool: dict[str, Any]) -> li
             out.append(f"cap {n}: el antagonista ({ant['nombre']}) no se nombra, y {', '.join(named)} lo nombra como "
                        "hecho verificado: decí su nombre")
     return out
+
+
+def antagonista_terminos(esc: dict, pool: dict[str, Any]) -> list[str]:
+    """F22 §1.2: cómo buscar al antagonista en la narración (normalizado). Persona: los términos de `nombres.terminos`
+    (su P## del pool). Institución: su nombre y sus variantes (las de la ficha, que la escaleta copia), sin el artículo.
+    Ninguno: []."""
+    from script_engine import nombres
+    ag = esc.get("antagonista") or {}
+    tipo = antagonista_tipo(esc)
+    if tipo == "persona":
+        people = pool.get("personajes") or []
+        p = next((x for x in people if x.get("id") == ag.get("id")), None)
+        if not p:
+            return []
+        completos = [nombres.norm(n) for n in [p.get("nombre"), *(p.get("variantes_nombre") or [])] if n]
+        return list(dict.fromkeys(nombres.terminos(p, people) + [n for n in completos if len(n.split()) >= 2]))
+    if tipo != "institucion":
+        return []
+    out = []
+    for n in [ag.get("nombre"), *(ag.get("variantes") or [])]:
+        t = re.sub(r"^(el|la|los|las|the) ", "", nombres.norm(n or ""))
+        if len(t) >= 3:
+            out.append(t)
+    return list(dict.fromkeys(out))
+
+
+def antagonista_caps(caps: list[dict], esc: dict, pool: dict[str, Any]) -> list[int]:
+    """F22 §1.2 (métrica informativa): los caps donde la narración nombra al antagonista (`nombres.menciona`)."""
+    from script_engine import nombres
+    ts = antagonista_terminos(esc, pool)
+    return [c["chapter_number"] for c in caps if any(nombres.menciona(c.get("narration") or "", t) for t in ts)]
 
 
 # ── 4. sin fotos en ningún cap ────────────────────────────────────────────────
@@ -450,18 +490,26 @@ def _place_tokens(pool: dict[str, Any]) -> set[str]:
 
 
 def anchor_sentences(cap1: str, pool: dict[str, Any]) -> list[str]:
-    """Frases cortas (≤ ANCHOR_MAX_WORDS palabras) con un año y un lugar del pool: «Nueva Orleans, agosto de 2005»."""
+    """Frases cortas (≤ ANCHOR_MAX_WORDS palabras) con un año y un lugar del pool («<lugar>, <mes> de <año>»)."""
     places = _place_tokens(pool)
     return [s for s in sentences_of(cap1) if len(s.split()) <= ANCHOR_MAX_WORDS and _YEAR.search(s)
             and set(_tokens(s)) & places]
+
+
+def _ancla_modelo() -> str:
+    """F22 §1.1: el ejemplo del ancla, con el lugar y el año del seed actual (`research_v3.caso()`); sin perfil, nada
+    (antes, el ancla de Orleans para cualquier caso)."""
+    from researcher_steps.research_v3 import caso
+    c = caso()
+    return f": «{c['lugar']}, {c['anio']}.»" if c.get("lugar") and c.get("anio") else ""
 
 
 def hook_anchor_problems(cap1: str, pool: dict[str, Any]) -> list[str]:
     """El gancho lleva una frase corta con ciudad + año antes de la segunda cita."""
     anchors = anchor_sentences(cap1, pool)
     if not anchors:
-        return ["gancho: falta el ancla de lugar y fecha (una frase corta con la ciudad y el año: «Nueva Orleans, agosto "
-                "de 2005.») antes de la segunda cita"]
+        return [f"gancho: falta el ancla de lugar y fecha (una frase corta con el lugar y el año{_ancla_modelo()}) "
+                "antes de la segunda cita"]
     qpos = [m.start() for m in _QUOTED.finditer(cap1 or "") if len(m.group(1).split()) > 3]
     if len(qpos) >= 2 and (cap1 or "").find(anchors[0]) > qpos[1]:
         return ["gancho: el ancla de lugar y fecha va antes de la segunda cita"]

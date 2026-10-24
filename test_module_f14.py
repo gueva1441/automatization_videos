@@ -69,7 +69,8 @@ def test_los_cinco_criterios_estan_en_el_prompt_de_la_ficha():
     s = fc.system()
     for t in ("Error de extracción", "Variantes de un nombre", "Conteos", "Hechos disputados", "Horas y fechas"):
         assert t in s
-    assert set(fc.SCHEMA["required"]) == set(fc.SECCIONES) | {"historia"} and fc.PROMPT_VERSION == "f15-1"
+    assert set(fc.SCHEMA["required"]) == set(fc.SECCIONES) | {"historia"} and fc.PROMPT_VERSION_F15 == "f15-1"
+    assert all(t in fc.system("f15-1") for t in ("Error de extracción", "Horas y fechas"))   # F22: el v2 de F15 también
     assert "<descartados_del_research" in fc.prompt(POOL, "x") and "C. Ray Nagin" in fc.prompt(POOL, "x")
 
 

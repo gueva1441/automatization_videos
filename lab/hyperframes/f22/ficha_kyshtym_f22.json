@@ -1,0 +1,4131 @@
+{
+ "topic": "f18-kyshtym-mayak",
+ "titulo": "Kyshtym Mayak: El Desastre Nuclear Abandonado De La URSS",
+ "modelo": "gpt-6.1-sol",
+ "esfuerzo": "high",
+ "prompt_version": "f22-1",
+ "pool_md5": "8a40a7f3ceb75d94ef9b1ee25b713e4e",
+ "conteos_crudo": {
+  "humanos_candidatos": 4,
+  "giros": 6,
+  "pico": 1,
+  "pregunta_final": 1,
+  "escenas": 13,
+  "contradicciones": 3,
+  "decisiones": 17,
+  "versiones": 8,
+  "personas": 36,
+  "personas_descartadas": 17,
+  "cifras": 34,
+  "cronologia": 41,
+  "hechos": 75,
+  "citas": 20,
+  "descartados": 14
+ },
+ "conteos": {
+  "humanos_candidatos": 4,
+  "giros": 6,
+  "pico": 1,
+  "pregunta_final": 1,
+  "escenas": 11,
+  "contradicciones": 3,
+  "decisiones": 15,
+  "versiones": 8,
+  "personas": 36,
+  "personas_descartadas": 2,
+  "cifras": 33,
+  "cronologia": 40,
+  "hechos": 74,
+  "citas": 20,
+  "descartados": 36
+ },
+ "sacados": 23,
+ "usd": 0.4132,
+ "escenas": [
+  {
+   "donde": "Río junto a Mitino",
+   "quien": "Los niños recordados por Lyubov Ladeyshchikova",
+   "que_pasa": "Ladeyshchikova recuerda que los niños estaban contentos por lo que ocurría en el río.",
+   "sentidos": "Peces muertos flotando con el vientre hacia arriba; el pasaje no verifica que los niños los asaran.",
+   "ids": [
+    "P14",
+    "Q19",
+    "D150"
+   ]
+  },
+  {
+   "donde": "El poblado cerrado y la dirección del almacenamiento de residuos",
+   "quien": "Participantes del partido de fútbol y un trabajador del turno",
+   "que_pasa": "Mientras se juega un partido, un trabajador advierte humo procedente del complejo de almacenamiento.",
+   "sentidos": "Humo amarillo visible en la dirección del complejo que F16 denomina S-30.",
+   "ids": [
+    "T25"
+   ]
+  },
+  {
+   "donde": "Estación de bombeo, junto al panel de instrumentos",
+   "quien": "El maquinista identificado en el pool como V. M. Osetrov",
+   "que_pasa": "La sacudida y el estallido lo alcanzan junto al panel y lo arrojan al exterior con las puertas.",
+   "sentidos": "Fuerte temblor del suelo, estruendo y expulsión física hacia afuera.",
+   "ids": [
+    "P11",
+    "Q16"
+   ]
+  },
+  {
+   "donde": "Complejo S-3 y su exterior inmediato",
+   "quien": "V. I. Komarov",
+   "que_pasa": "Komarov es arrojado al suelo, se levanta y sale para mirar hacia donde estaba la elevación del complejo.",
+   "sentidos": "Una alta columna de polvo blanco impide ver lo que hay detrás.",
+   "ids": [
+    "P12",
+    "Q17"
+   ]
+  },
+  {
+   "donde": "Zona desde la que Serov observa el almacenamiento y su regimiento",
+   "quien": "I. F. Serov",
+   "que_pasa": "Serov oye una fuerte explosión y observa que el polvo se desplaza hacia la ubicación del regimiento.",
+   "sentidos": "Un gran estallido y una enorme columna de polvo marrón.",
+   "ids": [
+    "T24",
+    "Q18"
+   ]
+  },
+  {
+   "donde": "Cielo observado desde la zona de Kyshtym",
+   "quien": "Observadores no identificados",
+   "que_pasa": "Por la noche se advierte un resplandor extraño.",
+   "sentidos": "Colores rosa y azul claro en el cielo; el pasaje no explica su mecanismo físico.",
+   "ids": [
+    "T28"
+   ]
+  },
+  {
+   "donde": "Carreteras, explanada y vehículos de la estación de bomberos",
+   "quien": "Dotaciones de bomberos",
+   "que_pasa": "Durante el resto del turno, los bomberos lavan las superficies y los vehículos.",
+   "sentidos": "Chorros de espuma y agua sobre el pavimento y los camiones; monos de lona, cascos y guantes como indumentaria de trabajo.",
+   "ids": [
+    "D44",
+    "D51"
+   ]
+  },
+  {
+   "donde": "Servicio de bomberos después de los trabajos de lavado",
+   "quien": "Soldados-bomberos",
+   "que_pasa": "Muchos presentan malestar y rechazan la comida; el relato dice que se atribuye al cansancio.",
+   "sentidos": "Debilidad y náuseas descritas por el documento, sin diagnóstico clínico verificable en ese pasaje.",
+   "ids": [
+    "D45"
+   ]
+  },
+  {
+   "donde": "Karabolka, en el lugar de la cosecha",
+   "quien": "Escolares",
+   "que_pasa": "Reciben la orden de volver a enterrar lo que habían cosechado.",
+   "sentidos": "La cosecha desenterrada pasa otra vez bajo tierra; el documento no aporta vestimenta, herramientas concretas ni diálogo.",
+   "ids": [
+    "T32"
+   ]
+  },
+  {
+   "donde": "Carretera Cheliábinsk-Sverdlovsk",
+   "quien": "Lev Tumerman",
+   "que_pasa": "Tumerman encuentra una advertencia para atravesar un tramo sin detenerse y describe el paisaje a ambos lados.",
+   "sentidos": "El cartel ordena circular a máxima velocidad y la tierra aparece, en sus palabras, muerta; no se incorporan las ruinas y chimeneas ausentes del pasaje reproducido.",
+   "ids": [
+    "T52",
+    "Q09"
+   ]
+  },
+  {
+   "donde": "Clínica para enfermos por radiación, según el recuerdo transmitido a Kutepova",
+   "quien": "Madre de Nadezhda Kutepova",
+   "que_pasa": "Cuenta que se colocaba pescado procedente de la región de Cheliábinsk sobre papel radiográfico.",
+   "sentidos": "Según su relato, el papel producía una imagen semejante a una radiografía; se conserva como testimonio, no como medición técnica demostrada.",
+   "ids": [
+    "P15",
+    "Q20"
+   ]
+  }
+ ],
+ "contradicciones": [
+  {
+   "tema": "Identificador del complejo de almacenamiento",
+   "versiones": [
+    {
+     "dice": "F13 denomina S-3 al complejo atendido por la brigada de Komarov.",
+     "doc_id": "F13",
+     "offset": 12386,
+     "ids": [
+      "T23"
+     ]
+    },
+    {
+     "dice": "F16 denomina S-30 al complejo de almacenamiento del que sale humo amarillo.",
+     "doc_id": "F16",
+     "offset": 5445,
+     "ids": [
+      "T25"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Inconsistencia interna de la actividad del contenedor en F13",
+   "versiones": [
+    {
+     "dice": "Un pasaje sitúa veinte millones de curies dentro del contenedor.",
+     "doc_id": "F13",
+     "offset": 13905,
+     "ids": [
+      "D128"
+     ]
+    },
+    {
+     "dice": "El pasaje siguiente dice literalmente 2.0 millones de curies almacenados y que el diez por ciento se elevó al aire.",
+     "doc_id": "F13",
+     "offset": 14056,
+     "ids": [
+      "D129"
+     ]
+    },
+    {
+     "dice": "El pasaje posterior afirma que los dieciocho millones de curies restantes quedaron en el emplazamiento industrial.",
+     "doc_id": "F13",
+     "offset": 14166,
+     "ids": [
+      "D56"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Predominio de radionúclidos sin un denominador temporal o material común",
+   "versiones": [
+    {
+     "dice": "F18 describe la contaminación como predominantemente compuesta por cesio-137 y estroncio-90.",
+     "doc_id": "F18",
+     "offset": 7269,
+     "ids": [
+      "D187"
+     ]
+    },
+    {
+     "dice": "La tabla de F13 asigna al cerio-144 y praseodimio-144 el 66 por ciento de la mezcla descrita.",
+     "doc_id": "F13",
+     "offset": 21057,
+     "ids": [
+      "D145"
+     ]
+    },
+    {
+     "dice": "La misma tabla asigna al cesio-137 el 0,036 por ciento, sin que los pasajes permitan equiparar esa tabla con la descripción general de F18.",
+     "doc_id": "F13",
+     "offset": 21023,
+     "ids": [
+      "D144"
+     ]
+    }
+   ]
+  }
+ ],
+ "decisiones": [
+  {
+   "tema": "Meses y años añadidos a la cronología de producción",
+   "criterio": 1,
+   "decision": "No se conservan enero de 1949 para T07, el año de T08 basado solo en su pasaje, ni agosto de 1949 para T09, porque sus evidencias no contienen esas precisiones.",
+   "ids": [
+    "T07",
+    "T08",
+    "T09",
+    "T06"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El pasaje solo dice que se puso en marcha una planta radioquímica, sin mes ni año.",
+     "doc_id": "F04",
+     "offset": 10029,
+     "ids": [
+      "T07"
+     ]
+    },
+    {
+     "dice": "El pasaje menciona febrero, pero no reproduce el año.",
+     "doc_id": "F04",
+     "offset": 10112,
+     "ids": [
+      "T08"
+     ]
+    },
+    {
+     "dice": "El pasaje dice finales de 1949, no agosto.",
+     "doc_id": "F11",
+     "offset": 24361,
+     "ids": [
+      "T09"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha y hora de la explosión",
+   "criterio": 5,
+   "decision": "Se adopta el 29 de septiembre de 1957 a las 16:22 por coincidencia de varias fuentes y se marca aproximada la entrada por la hora distinta del testigo.",
+   "ids": [
+    "T25",
+    "T24",
+    "D54",
+    "T43",
+    "D95",
+    "T50"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Serov recuerda una fuerte explosión aproximadamente a las 16:20.",
+     "doc_id": "F13",
+     "offset": 14600,
+     "ids": [
+      "T24"
+     ]
+    },
+    {
+     "dice": "Guinness sitúa el accidente aproximadamente en diciembre de 1957.",
+     "doc_id": "F13",
+     "offset": 8346,
+     "ids": [
+      "T43",
+      "Q13"
+     ]
+    },
+    {
+     "dice": "La hipótesis de Medvedev se formula inicialmente para el intervalo 1957-1958.",
+     "doc_id": "F11",
+     "offset": 1105,
+     "ids": [
+      "D95"
+     ]
+    },
+    {
+     "dice": "La noticia danesa atribuía el supuesto accidente a pruebas nucleares de marzo de 1958.",
+     "doc_id": "F13",
+     "offset": 3219,
+     "ids": [
+      "T50"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Llegada de la nube a Tiumén",
+   "criterio": 5,
+   "decision": "No se fija una hora de llegada a Tiumén porque no hay coincidencia y los pasajes tampoco describen exactamente el mismo ámbito geográfico.",
+   "ids": [
+    "T29",
+    "D136"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "La nube alcanzó el territorio de la región de Tiumén 22 horas después.",
+     "doc_id": "F04",
+     "offset": 9366,
+     "ids": [
+      "T29"
+     ]
+    },
+    {
+     "dice": "La nube llegó al área de la ciudad de Tiumén entre seis y ocho horas después.",
+     "doc_id": "F13",
+     "offset": 17252,
+     "ids": [
+      "D136"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Período de vertidos al Techa",
+   "criterio": 5,
+   "decision": "Se utiliza 1949-1956 como período principal, con inicio aproximado por la discrepancia de F19, sin confundir la decisión sobre residuos de alta actividad de 1951 con el cese de todos los vertidos.",
+   "ids": [
+    "D70",
+    "T05",
+    "T10",
+    "D204",
+    "L16"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "F19 sitúa los vertidos directos entre 1948 y 1956.",
+     "doc_id": "F19",
+     "offset": 1485,
+     "ids": [
+      "D204"
+     ]
+    },
+    {
+     "dice": "F04 menciona vertidos entre 1949 y 1951, un intervalo más corto.",
+     "doc_id": "F04",
+     "offset": 9899,
+     "ids": [
+      "L16"
+     ]
+    },
+    {
+     "dice": "F16 sitúa en 1951 la decisión de dejar de verter residuos de alta actividad.",
+     "doc_id": "F16",
+     "offset": 4204,
+     "ids": [
+      "T10"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fechas asignadas por ítems sin respaldo en sus pasajes",
+   "criterio": 1,
+   "decision": "Se eliminan las precisiones temporales no visibles para el traslado de bomberos, la zona sanitaria, la reserva, las emisiones posteriores y el recurso judicial, y se conserva solo principios de 1958 para la descontaminación urbana.",
+   "ids": [
+    "T20",
+    "T47",
+    "T51",
+    "T57",
+    "T58",
+    "T61"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El pasaje del traslado de la estación de bomberos no contiene septiembre de 1957.",
+     "doc_id": "F20",
+     "offset": 5140,
+     "ids": [
+      "T20"
+     ]
+    },
+    {
+     "dice": "El pasaje habla de principios de 1958, no fija enero.",
+     "doc_id": "F02",
+     "offset": 11262,
+     "ids": [
+      "T47"
+     ]
+    },
+    {
+     "dice": "El pasaje de la zona sanitaria no contiene 1959.",
+     "doc_id": "F04",
+     "offset": 8910,
+     "ids": [
+      "T51"
+     ]
+    },
+    {
+     "dice": "El pasaje de la reserva no contiene 1968.",
+     "doc_id": "F04",
+     "offset": 8643,
+     "ids": [
+      "T57"
+     ]
+    },
+    {
+     "dice": "El pasaje de emisiones y su detección no contiene 1973.",
+     "doc_id": "F04",
+     "offset": 8239,
+     "ids": [
+      "T58"
+     ]
+    },
+    {
+     "dice": "El pasaje judicial dice 11 de enero de este año, sin explicitar 2008.",
+     "doc_id": "F15",
+     "offset": 3515,
+     "ids": [
+      "T61"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Identificación del reactor F-1",
+   "criterio": 1,
+   "decision": "No se identifica F-1 como el primer reactor industrial productor de plutonio porque el pasaje distingue el primer reactor de uranio-grafito del primer reactor industrial.",
+   "ids": [
+    "D104",
+    "D105"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado de D104 fusiona dos construcciones que el pasaje presenta separadamente.",
+     "doc_id": "F11",
+     "offset": 10490,
+     "ids": [
+      "D104"
+     ]
+    },
+    {
+     "dice": "Otro pasaje denomina Unidad 0 al primer reactor productor de plutonio del complejo.",
+     "doc_id": "F11",
+     "offset": 12419,
+     "ids": [
+      "D105"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Actividad total frente a actividad dispersada por los alrededores",
+   "criterio": 1,
+   "decision": "Los dos millones de curies de D41 corresponden a la dispersión por los alrededores y no sustituyen el total de veinte millones liberados.",
+   "ids": [
+    "D41",
+    "D57",
+    "D56",
+    "D185"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado de D41 presenta dos millones como liberación total, pero el pasaje dice que se dispersaron por los alrededores.",
+     "doc_id": "F20",
+     "offset": 4256,
+     "ids": [
+      "D41"
+     ]
+    },
+    {
+     "dice": "F02 distingue veinte millones liberados y dieciocho millones en la planta.",
+     "doc_id": "F02",
+     "offset": 7447,
+     "ids": [
+      "D57"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Extracción de D129",
+   "criterio": 1,
+   "decision": "D129 no se usa como prueba limpia del balance veinte millones frente a dos millones, porque su pasaje dice literalmente 2.0 millones y un diez por ciento y la inconsistencia se conserva en contradicciones.",
+   "ids": [
+    "D129",
+    "D128",
+    "D56",
+    "D185"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El ítem afirma veinte millones y dos millones elevados, pero el pasaje reproducido dice 2.0 millones almacenados y un diez por ciento elevado.",
+     "doc_id": "F13",
+     "offset": 14056,
+     "ids": [
+      "D129"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Extensiones de citas no contenidas en el pasaje",
+   "criterio": 1,
+   "decision": "Se recortan las citas al texto visible y no se convierten las etiquetas de verificación del pool en respaldo de frases ausentes.",
+   "ids": [
+    "Q04",
+    "Q09",
+    "Q10",
+    "Q19",
+    "Q24"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Q04 desarrolla afirmaciones sobre todos los habitantes de Russkaya Techa que no son visibles completas en su evidencia.",
+     "doc_id": "F15",
+     "offset": 7041,
+     "ids": [
+      "Q04"
+     ]
+    },
+    {
+     "dice": "Q09 añade pueblos ausentes, chimeneas, campos y rebaños que no aparecen en el pasaje reproducido.",
+     "doc_id": "F11",
+     "offset": 6093,
+     "ids": [
+      "Q09"
+     ]
+    },
+    {
+     "dice": "Q10 añade muertos y heridos a un pasaje que solo reproduce lo que le dijeron sobre una explosión.",
+     "doc_id": "F11",
+     "offset": 7060,
+     "ids": [
+      "Q10"
+     ]
+    },
+    {
+     "dice": "Q19 añade que los niños atrapaban y asaban los peces, pero el pasaje termina con los peces flotando.",
+     "doc_id": "F16",
+     "offset": 2433,
+     "ids": [
+      "Q19"
+     ]
+    },
+    {
+     "dice": "La evidencia de Q24 reproduce solo la primera oración del largo bloque atribuido a Greenpeace.",
+     "doc_id": "F19",
+     "offset": 736,
+     "ids": [
+      "Q24"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Autoría de la pregunta de Q22",
+   "criterio": 1,
+   "decision": "La pregunta sobre la madre y el feto se atribuye a Kutepova, mientras la negativa de los abogados de Rosatom se conserva como respuesta referida por ella.",
+   "ids": [
+    "Q22"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El ítem atribuye todo a los abogados, pero el pasaje comienza con la narradora explicando lo que ella discutía con ellos.",
+     "doc_id": "F16",
+     "offset": 12108,
+     "ids": [
+      "Q22"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Naturaleza de la estimación de muertes de D190",
+   "criterio": 1,
+   "decision": "Se conserva la estimación de muertes en exceso sin añadir cáncer a la cifra, porque esa causa no aparece en el pasaje reproducido.",
+   "ids": [
+    "D190"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado habla de cáncer, pero el pasaje solo dice que un estudio estimó entre 49 y 55 muertes en exceso.",
+     "doc_id": "F18",
+     "offset": 9755,
+     "ids": [
+      "D190"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Nombre canónico de Slavsky",
+   "criterio": 2,
+   "decision": "Se adopta Е. П. Славский a partir de la forma nominal del acta y se conservan las transliteraciones y formas flexionadas como variantes.",
+   "ids": [
+    "T39",
+    "T37",
+    "T41"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El acta registra Славский Е.П. como presidente.",
+     "doc_id": "F17",
+     "offset": 3086,
+     "ids": [
+      "T39"
+     ]
+    },
+    {
+     "dice": "F02 utiliza la forma flexionada Е.П.Славским.",
+     "doc_id": "F02",
+     "offset": 6007,
+     "ids": [
+      "T37"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Total de personas evacuadas y localidades de procedencia",
+   "criterio": 3,
+   "decision": "Se adoptan 12.763 personas de 24 localidades, por atribución explícita a especialistas de Mayak y coincidencia de F02, y se conservan los demás balances con sus alcances.",
+   "ids": [
+    "D88",
+    "D68"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "F04 habla de 23 aldeas liquidadas con 12.700 habitantes.",
+     "doc_id": "F04",
+     "offset": 3463,
+     "ids": [
+      "D17"
+     ]
+    },
+    {
+     "dice": "F18 menciona la evacuación de 10.000 personas.",
+     "doc_id": "F18",
+     "offset": 7828,
+     "ids": [
+      "D188"
+     ]
+    },
+    {
+     "dice": "Otro pasaje de F18 habla de 22 asentamientos y más de 10.000 personas reasentadas.",
+     "doc_id": "F18",
+     "offset": 12833,
+     "ids": [
+      "D194"
+     ]
+    },
+    {
+     "dice": "F16 resume 23 aldeas desalojadas.",
+     "doc_id": "F16",
+     "offset": 7331,
+     "ids": [
+      "D161"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Hospitalizaciones posteriores al accidente",
+   "criterio": 3,
+   "decision": "Se adopta para el conteo principal la cifra expresamente atribuida a datos oficiales de cinco personas, pero la afirmación de doce militares se mantiene como otra versión sin sumarlas.",
+   "ids": [
+    "D21",
+    "D131"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "F13 afirma que doce militares fueron hospitalizados.",
+     "doc_id": "F13",
+     "offset": 15553,
+     "ids": [
+      "D131"
+     ]
+    },
+    {
+     "dice": "F04 atribuye a datos oficiales el envío de cinco personas a hospitales.",
+     "doc_id": "F04",
+     "offset": 4985,
+     "ids": [
+      "D21"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Población general afectada",
+   "criterio": 3,
+   "decision": "Se conserva 272.000 como magnitud repetida por F16 y F19, sin denominarla cifra oficial ni igualar automáticamente población residente, exposición y enfermedad.",
+   "ids": [
+    "D159",
+    "D202",
+    "D66",
+    "D174"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "F02 habla de más de 270.000 habitantes en la zona contaminada.",
+     "doc_id": "F02",
+     "offset": 11627,
+     "ids": [
+      "D66"
+     ]
+    },
+    {
+     "dice": "F18 habla de aproximadamente 270.000 residentes del área afectada.",
+     "doc_id": "F18",
+     "offset": 363,
+     "ids": [
+      "D174"
+     ]
+    },
+    {
+     "dice": "F19 formula 272.000 como mínimo de personas expuestas a niveles crónicos.",
+     "doc_id": "F19",
+     "offset": 1281,
+     "ids": [
+      "D202"
+     ]
+    }
+   ]
+  }
+ ],
+ "versiones": [
+  {
+   "tema": "Explicación causal de la contaminación y del accidente",
+   "versiones": [
+    {
+     "dice": "F10 describe un fallo de refrigeración, calentamiento, reacción química y explosión del tanque.",
+     "doc_id": "F10",
+     "offset": 1293,
+     "ids": [
+      "D83"
+     ]
+    },
+    {
+     "dice": "F18 describe un sistema de refrigeración averiado que permaneció sin reparar.",
+     "doc_id": "F18",
+     "offset": 5740,
+     "ids": [
+      "D125"
+     ]
+    },
+    {
+     "dice": "Los autores de F11 rechazan que un accidente de residuos nucleares sea la causa de la contaminación alegada por Medvedev.",
+     "doc_id": "F11",
+     "offset": 1206,
+     "ids": [
+      "D96"
+     ]
+    },
+    {
+     "dice": "F11 atribuye la contaminación principalmente al descuido y al desprecio por la población y el ambiente.",
+     "doc_id": "F11",
+     "offset": 1394,
+     "ids": [
+      "D97"
+     ]
+    },
+    {
+     "dice": "En otro tramo, F11 contempla una explosión química que involucraría residuos, diferenciándola de una explosión nuclear.",
+     "doc_id": "F11",
+     "offset": 39377,
+     "ids": [
+      "D116"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Contaminación de Ozersk o Cheliábinsk-40",
+   "versiones": [
+    {
+     "dice": "F04 afirma que Ozersk, Kyshtym y Kasli no recibieron contaminación gracias a la dirección del viento.",
+     "doc_id": "F04",
+     "offset": 3539,
+     "ids": [
+      "D18"
+     ]
+    },
+    {
+     "dice": "F02 describe aumentos del fondo beta y gamma en Cheliábinsk-40.",
+     "doc_id": "F02",
+     "offset": 9904,
+     "ids": [
+      "D63"
+     ]
+    },
+    {
+     "dice": "F20 afirma que el viento llevó la nube en dirección opuesta a la ciudad, sin ofrecer en ese pasaje un balance completo de su contaminación.",
+     "doc_id": "F20",
+     "offset": 4194,
+     "ids": [
+      "D40"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Comienzo y alcance de las evacuaciones",
+   "versiones": [
+    {
+     "dice": "F04 afirma que más de 4.500 residentes fueron reasentados inmediatamente después del accidente.",
+     "doc_id": "F04",
+     "offset": 3250,
+     "ids": [
+      "D16"
+     ]
+    },
+    {
+     "dice": "F20 sitúa una evacuación desde la zona contaminada hacia la ciudad al día siguiente.",
+     "doc_id": "F20",
+     "offset": 5017,
+     "ids": [
+      "T30"
+     ]
+    },
+    {
+     "dice": "F02 sitúa la evacuación de cuatro aldeas y 1.383 habitantes entre los días 7 y 10.",
+     "doc_id": "F02",
+     "offset": 12347,
+     "ids": [
+      "D67",
+      "T34"
+     ]
+    },
+    {
+     "dice": "F18 dice que la evacuación de 10.000 personas no comenzó hasta una semana después.",
+     "doc_id": "F18",
+     "offset": 7828,
+     "ids": [
+      "D188",
+      "T35"
+     ]
+    },
+    {
+     "dice": "Otro pasaje de F18 sitúa la evacuación de tres asentamientos y 1.100 residentes entre los días 7 y 14.",
+     "doc_id": "F18",
+     "offset": 10984,
+     "ids": [
+      "D191",
+      "T36"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Enfermedad por radiación y malestar de los liquidadores",
+   "versiones": [
+    {
+     "dice": "F04 afirma que ninguno de los liquidadores sufrió enfermedad aguda o crónica por radiación.",
+     "doc_id": "F04",
+     "offset": 5111,
+     "ids": [
+      "D22"
+     ]
+    },
+    {
+     "dice": "F20 describe debilidad, náuseas y rechazo de la comida entre muchos bomberos, pero no aporta un diagnóstico de enfermedad por radiación.",
+     "doc_id": "F20",
+     "offset": 4897,
+     "ids": [
+      "D45"
+     ]
+    },
+    {
+     "dice": "F17 registra dosis de entre 25 y 30 roentgen para unas 10.500 personas y casos de hasta 100 roentgen, sin que ese pasaje establezca diagnósticos.",
+     "doc_id": "F17",
+     "offset": 1169,
+     "ids": [
+      "D166",
+      "D167"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Afirmaciones sobre la mortalidad, sin un total común verificable",
+   "versiones": [
+    {
+     "dice": "Medvedev afirmó que cientos murieron, al tiempo que señalaba que las cifras reales no se habían hecho públicas.",
+     "doc_id": "F11",
+     "offset": 5380,
+     "ids": [
+      "Q08"
+     ]
+    },
+    {
+     "dice": "F13 presenta los cientos de muertos como un cálculo sostenido por Medvedev, no como un recuento oficial.",
+     "doc_id": "F13",
+     "offset": 8714,
+     "ids": [
+      "Q14"
+     ]
+    },
+    {
+     "dice": "F18 menciona una estimación de entre 49 y 55 muertes en exceso, categoría que no equivale a un total de muertos inmediatos.",
+     "doc_id": "F18",
+     "offset": 9755,
+     "ids": [
+      "D190"
+     ]
+    },
+    {
+     "dice": "Guinness, citado por F13, habla de muchos muertos no revelados y ofrece una fecha del accidente que no coincide con las fuentes principales.",
+     "doc_id": "F13",
+     "offset": 8346,
+     "ids": [
+      "Q13"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Dimensiones del rastro y de la pluma",
+   "versiones": [
+    {
+     "dice": "F20 describe un rastro de hasta diez kilómetros de ancho y trescientos kilómetros de largo.",
+     "doc_id": "F20",
+     "offset": 4351,
+     "ids": [
+      "D42",
+      "D43"
+     ]
+    },
+    {
+     "dice": "F18 describe un desplazamiento de trescientos a trescientos cincuenta kilómetros durante las horas posteriores.",
+     "doc_id": "F18",
+     "offset": 7140,
+     "ids": [
+      "D186"
+     ]
+    },
+    {
+     "dice": "F19 describe una pluma de cincuenta kilómetros de ancho y mil kilómetros de largo, sin umbral comparable en el pasaje.",
+     "doc_id": "F19",
+     "offset": 1364,
+     "ids": [
+      "D203"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Altura alcanzada por el material dispersado",
+   "versiones": [
+    {
+     "dice": "F13 habla de material elevado hasta un kilómetro, en un pasaje que además contiene una inconsistencia numérica.",
+     "doc_id": "F13",
+     "offset": 14056,
+     "ids": [
+      "D129"
+     ]
+    },
+    {
+     "dice": "F16 atribuye a Rosatom la afirmación de que dos millones de curies ascendieron varios kilómetros.",
+     "doc_id": "F16",
+     "offset": 5982,
+     "ids": [
+      "D157"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Peso de la radiación en el riesgo de cáncer",
+   "versiones": [
+    {
+     "dice": "Krestinina afirma que el riesgo de cáncer es un 2,5 por ciento mayor entre quienes recibieron exposición adicional en las áreas descritas.",
+     "doc_id": "F04",
+     "offset": 4288,
+     "ids": [
+      "Q01",
+      "D19"
+     ]
+    },
+    {
+     "dice": "Vazhenin atribuye mayor peso al tabaquismo, el alcohol y la industria pesada regional.",
+     "doc_id": "F04",
+     "offset": 4783,
+     "ids": [
+      "Q03",
+      "P02"
+     ]
+    }
+   ]
+  }
+ ],
+ "personas": [
+  {
+   "nombre": "Nadezhda Kutepova",
+   "rol": "Fundadora de Planeta de las Esperanzas, descendiente de trabajadores de Mayak y narradora de litigios por el reconocimiento de víctimas",
+   "variantes": [
+    "Надежда Кутепова",
+    "Надя",
+    "Nadia"
+   ],
+   "ids": [
+    "D163",
+    "T04",
+    "T31",
+    "Q22",
+    "Q23"
+   ]
+  },
+  {
+   "nombre": "Nadezhda Ivanovna Kozlova",
+   "rol": "Ingeniera que llegó a construir Mayak y abuela de Nadezhda Kutepova",
+   "variantes": [
+    "Козлова Надежда Ивановна",
+    "Nadezhda Ivanovna Kozlova"
+   ],
+   "ids": [
+    "T04"
+   ]
+  },
+  {
+   "nombre": "Lev Nikolaevich Gaev",
+   "rol": "Padre de Nadezhda Kutepova, movilizado para la liquidación del accidente",
+   "variantes": [
+    "Гаев Лев Николаевич",
+    "Lev Nikolaevich Gaev"
+   ],
+   "ids": [
+    "T31"
+   ]
+  },
+  {
+   "nombre": "Madre de Nadezhda Kutepova",
+   "rol": "Practicante en una clínica para enfermos por radiación; su nombre no aparece en el pool",
+   "variantes": [
+    "Мама de Надежда Кутепова"
+   ],
+   "ids": [
+    "P15",
+    "Q20"
+   ]
+  },
+  {
+   "nombre": "Lyubov Ladeyshchikova",
+   "rol": "Residente de Mitino que recordó los peces muertos en el río",
+   "variantes": [
+    "Любовь Ладейщикова",
+    "Любовь Ладейщикова"
+   ],
+   "ids": [
+    "P14",
+    "Q19"
+   ]
+  },
+  {
+   "nombre": "V. I. Komarov",
+   "rol": "Técnico de la brigada de servicio del complejo S-3 y testigo de la explosión",
+   "variantes": [
+    "V.I. Komarov",
+    "В.И. Комаров",
+    "В.И. Комарова"
+   ],
+   "ids": [
+    "P12",
+    "T23",
+    "Q17"
+   ]
+  },
+  {
+   "nombre": "V. M. Osetrov",
+   "rol": "Maquinista de la estación de bombeo; la atribución nominal procede del ítem del pool y no se ve en el pasaje reproducido",
+   "variantes": [
+    "V.M. Osetrov"
+   ],
+   "ids": [
+    "P11",
+    "Q16"
+   ]
+  },
+  {
+   "nombre": "I. F. Serov",
+   "rol": "Teniente coronel retirado y testigo de la explosión y de la columna de polvo",
+   "variantes": [
+    "I.F. Serov",
+    "И.Ф. Серов"
+   ],
+   "ids": [
+    "P13",
+    "T24",
+    "Q18"
+   ]
+  },
+  {
+   "nombre": "Zhores Medvedev",
+   "rol": "Científico soviético exiliado que divulgó el accidente y formuló estimaciones sobre sus consecuencias",
+   "variantes": [
+    "Zhores Medvedev",
+    "Жорес Медведев",
+    "Ж. Медведев"
+   ],
+   "ids": [
+    "P03",
+    "T59",
+    "T60",
+    "Q08",
+    "Q14"
+   ]
+  },
+  {
+   "nombre": "Lev Tumerman",
+   "rol": "Científico soviético que describió una zona restringida durante un viaje por carretera",
+   "variantes": [
+    "Lev Tumerman",
+    "Professor Tumerman"
+   ],
+   "ids": [
+    "P04",
+    "T52",
+    "Q09",
+    "Q10",
+    "D111"
+   ]
+  },
+  {
+   "nombre": "Igor Vasil'evich Kurchatov",
+   "rol": "Director de la construcción de reactores soviéticos y destinatario del encargo de crear armas nucleares",
+   "variantes": [
+    "Igor Vasil'evich Kurchatov",
+    "I. V. Kurchatov",
+    "Курчатов",
+    "Курчатовым"
+   ],
+   "ids": [
+    "P06",
+    "T02",
+    "D104",
+    "D147"
+   ]
+  },
+  {
+   "nombre": "Josef Stalin",
+   "rol": "Líder soviético que impulsó la aceleración del programa nuclear",
+   "variantes": [
+    "Josef Stalin",
+    "Сталин"
+   ],
+   "ids": [
+    "P08",
+    "D147"
+   ]
+  },
+  {
+   "nombre": "B. L. Vannikov",
+   "rol": "Visitante de la obra junto con Kurchatov",
+   "variantes": [
+    "B. L. Vannikov"
+   ],
+   "ids": [
+    "T02"
+   ]
+  },
+  {
+   "nombre": "N. V. Timofeyev-Resovskiy",
+   "rol": "Científico vinculado por Medvedev y otros con Cheliábinsk-40",
+   "variantes": [
+    "N. V. Timofeyev-Resovskiy"
+   ],
+   "ids": [
+    "P07"
+   ]
+  },
+  {
+   "nombre": "Е. П. Славский",
+   "rol": "Ministro de Construcción de Maquinaria Mediana y presidente de la comisión de investigación y liquidación",
+   "variantes": [
+    "Е.П.Славский",
+    "Е.П.Славским",
+    "Славский Е.П.",
+    "E.P. Slavsky"
+   ],
+   "ids": [
+    "T37",
+    "T39",
+    "T41",
+    "D58"
+   ]
+  },
+  {
+   "nombre": "Зверев А.Д.",
+   "rol": "Responsable que aprobó medidas prioritarias de seguridad para los complejos de almacenamiento",
+   "variantes": [
+    "Зверев А.Д.",
+    "Зверевым А.Д.",
+    "A.D. Zverev"
+   ],
+   "ids": [
+    "T40"
+   ]
+  },
+  {
+   "nombre": "Lyudmila Krestinina",
+   "rol": "Jefa del laboratorio de epidemiología del centro de medicina de radiación de los Urales",
+   "variantes": [
+    "Lyudmila Krestinina"
+   ],
+   "ids": [
+    "P01",
+    "Q01",
+    "Q02"
+   ]
+  },
+  {
+   "nombre": "Andrei Vazhenin",
+   "rol": "Oncólogo jefe de la región de Cheliábinsk",
+   "variantes": [
+    "Andrei Vazhenin"
+   ],
+   "ids": [
+    "P02",
+    "Q03"
+   ]
+  },
+  {
+   "nombre": "Andrei Talevlin",
+   "rol": "Abogado de Pravoznaniye que denuncia exclusiones de la ayuda social",
+   "variantes": [
+    "Андрей Талевлин",
+    "Андрей Талевлин"
+   ],
+   "ids": [
+    "P09",
+    "Q04"
+   ]
+  },
+  {
+   "nombre": "V. D. Kamynin",
+   "rol": "Investigador citado sobre las restricciones de acceso a documentos",
+   "variantes": [
+    "В.Д. Камынин",
+    "V.D. Kamynin"
+   ],
+   "ids": [
+    "P10",
+    "D79",
+    "Q06"
+   ]
+  },
+  {
+   "nombre": "Tolstikov",
+   "rol": "Investigador citado sobre la escala de la liquidación; el pasaje no proporciona su nombre completo",
+   "variantes": [
+    "Толстиков"
+   ],
+   "ids": [
+    "Q05"
+   ]
+  },
+  {
+   "nombre": "Bochkareva",
+   "rol": "Investigadora citada sobre la escala de la liquidación; el pasaje no proporciona su nombre completo",
+   "variantes": [
+    "Бочкарева"
+   ],
+   "ids": [
+    "Q05"
+   ]
+  },
+  {
+   "nombre": "Dmitri Medvédev",
+   "rol": "Presidente que encargó la elaboración de una nueva ley para los afectados de Mayak",
+   "variantes": [
+    "Дмитрий Медведев",
+    "Дмитрия Медведева",
+    "Dmitri Medvédev"
+   ],
+   "ids": [
+    "D23"
+   ]
+  },
+  {
+   "nombre": "Vladímir Borísovich Kudryashov",
+   "rol": "Afectado de Chernóbil cuyo recurso es presentado por la fuente como precedente adverso para las reclamaciones de Mayak",
+   "variantes": [
+    "Владимир Борисович Кудряшов",
+    "Владимира Борисовича Кудряшова"
+   ],
+   "ids": [
+    "T61",
+    "L19"
+   ]
+  },
+  {
+   "nombre": "Soldados-bomberos",
+   "rol": "Colectivo que realizó tareas de descontaminación y comunicó malestar después de los trabajos",
+   "variantes": [
+    "солдаты-пожарные",
+    "солдат-пожарных"
+   ],
+   "ids": [
+    "D44",
+    "D45",
+    "D46",
+    "D51"
+   ]
+  },
+  {
+   "nombre": "Radiotelefonistas de la estación de bomberos",
+   "rol": "Trabajadoras que permanecieron en el edificio contaminado",
+   "variantes": [
+    "женщины-радиотелефонисты",
+    "женщин-радиотелефонистов"
+   ],
+   "ids": [
+    "D46"
+   ]
+  },
+  {
+   "nombre": "Jueza no identificada, exabogada de Mayak",
+   "rol": "Interlocutora judicial a la que Kutepova atribuye el rechazo a crear precedentes favorables a las viudas",
+   "variantes": [
+    "Судья, которая ранее была юристом «Маяка»"
+   ],
+   "ids": [
+    "Q23"
+   ]
+  },
+  {
+   "nombre": "Mayak",
+   "rol": "Institución operadora del complejo nuclear y fuente de un recuento de personas evacuadas",
+   "variantes": [
+    "ПО «Маяк»",
+    "Химкомбинат «Маяк»",
+    "Mayak chemical plant",
+    "Государственный химический завод имени Д.И. Менделеева",
+    "ГХЗ",
+    "комбинат 817"
+   ],
+   "ids": [
+    "D122",
+    "D146",
+    "D88",
+    "T39",
+    "L17"
+   ]
+  },
+  {
+   "nombre": "Ministerio de Construcción de Maquinaria Mediana de la URSS",
+   "rol": "Ministerio del que dependía la comisión de investigación y organización de la liquidación",
+   "variantes": [
+    "Министерство среднего машиностроения СССР",
+    "Средмаш",
+    "МСМ",
+    "MSM"
+   ],
+   "ids": [
+    "T37",
+    "T42"
+   ]
+  },
+  {
+   "nombre": "Comisión presidida por Е. П. Славский",
+   "rol": "Órgano que organizó trabajos de liquidación y emitió un acta de investigación",
+   "variantes": [
+    "комиссия во главе с министром",
+    "комиссия по расследованию причин взрыва"
+   ],
+   "ids": [
+    "T37",
+    "T39",
+    "D62"
+   ]
+  },
+  {
+   "nombre": "Rosatom",
+   "rol": "Institución a la que se atribuye un balance de la dispersión y cuyos abogados intervinieron en litigios por prestaciones",
+   "variantes": [
+    "Росатом",
+    "Росатома"
+   ],
+   "ids": [
+    "D157",
+    "Q22"
+   ]
+  },
+  {
+   "nombre": "Ministerio de Desarrollo Social de la Federación Rusa",
+   "rol": "Institución encargada de elaborar un proyecto de ley para los afectados de Mayak",
+   "variantes": [
+    "министерство социального развития Российской Федерации"
+   ],
+   "ids": [
+    "D23"
+   ]
+  },
+  {
+   "nombre": "Tribunal Supremo de la Federación Rusa",
+   "rol": "Institución judicial cuyo precedente es presentado como un obstáculo para la indexación de compensaciones",
+   "variantes": [
+    "Верховный Суд РФ",
+    "Верховный Суд"
+   ],
+   "ids": [
+    "T61",
+    "L19"
+   ]
+  },
+  {
+   "nombre": "Autoridades soviéticas",
+   "rol": "Colectivo institucional al que se atribuyen el silencio público inicial y las órdenes de intervención en las aldeas",
+   "variantes": [
+    "советские власти"
+   ],
+   "ids": [
+    "D87",
+    "D89"
+   ]
+  },
+  {
+   "nombre": "Planeta de las Esperanzas",
+   "rol": "Organización pública fundada por Kutepova para ofrecer apoyo a los afectados",
+   "variantes": [
+    "Планета надежд",
+    "Planeta de las Esperanzas"
+   ],
+   "ids": [
+    "D163"
+   ]
+  },
+  {
+   "nombre": "Pravoznaniye",
+   "rol": "Organización de Cheliábinsk con la que el pool identifica al abogado Talevlin",
+   "variantes": [
+    "Pravoznaniye",
+    "Правознание"
+   ],
+   "ids": [
+    "P09",
+    "Q04"
+   ]
+  }
+ ],
+ "personas_descartadas": [
+  {
+   "nombre": "Zhores Medvedev",
+   "rol": "Científico exiliado y divulgador",
+   "motivo": "Su nombre aparece expresamente en los pasajes y es central para la salida pública del caso.",
+   "ids": [
+    "P03",
+    "T59",
+    "T60",
+    "Q08"
+   ]
+  },
+  {
+   "nombre": "B. L. Vannikov",
+   "rol": "Visitante de la obra junto con Kurchatov",
+   "motivo": "Permite narrar la visita sin borrar a uno de los participantes nombrados por el documento.",
+   "ids": [
+    "T02"
+   ]
+  }
+ ],
+ "cifras": [
+  {
+   "que": "Clasificación del accidente",
+   "valor": "6",
+   "unidad": "nivel de una escala de 7 niveles",
+   "fuente": "F04, F02, F13 y F18 coinciden en la clasificación",
+   "ids": [
+    "D01",
+    "D55",
+    "D138",
+    "D175"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Prisioneros presentes en la construcción según F16",
+   "valor": "Hasta 10.000",
+   "unidad": "personas",
+   "fuente": "F16; presencia en la obra a partir de 1945",
+   "ids": [
+    "T01",
+    "D148"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Alrededor de 40.000",
+     "unidad": "personas forzadas a construir la planta",
+     "fuente": "F18; incluye reclusos del GULAG o prisioneros de guerra y no declara el mismo corte temporal",
+     "ids": [
+      "D176"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Asentamientos en las orillas del Techa mencionados por F16",
+   "valor": "39",
+   "unidad": "asentamientos",
+   "fuente": "F16",
+   "ids": [
+    "D149"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Capacidad del hospital rural ordenado",
+   "valor": "10",
+   "unidad": "camas",
+   "fuente": "F16",
+   "ids": [
+    "D153"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Residuos contenidos en el tanque",
+   "valor": "70-80",
+   "unidad": "toneladas de residuos radiactivos líquidos",
+   "fuente": "F13 y F18",
+   "ids": [
+    "D125"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Temperatura alcanzada por el tanque según F18",
+   "valor": "Aproximadamente 350",
+   "unidad": "grados Celsius",
+   "fuente": "F18",
+   "ids": [
+    "D180"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Masa de la losa expulsada",
+   "valor": "160",
+   "unidad": "toneladas",
+   "fuente": "F13; F18 la presenta como aproximada",
+   "ids": [
+    "D127",
+    "D182"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Distancia a la que fue arrojada la losa",
+   "valor": "25",
+   "unidad": "metros",
+   "fuente": "F13",
+   "ids": [
+    "D127"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Actividad total liberada por la explosión",
+   "valor": "20 millones",
+   "unidad": "curies",
+   "fuente": "F02 y F16; F18 expresa la misma cantidad en megacuries",
+   "ids": [
+    "D57",
+    "D183"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Actividad que quedó en el emplazamiento industrial",
+   "valor": "18 millones",
+   "unidad": "curies",
+   "fuente": "F02 y F13; F16 lo atribuye a Rosatom",
+   "ids": [
+    "D56",
+    "D157"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Actividad transportada por la pluma fuera del emplazamiento",
+   "valor": "2 millones",
+   "unidad": "curies",
+   "fuente": "F18, F20 y el balance atribuido a Rosatom en F16",
+   "ids": [
+    "D185",
+    "D41",
+    "D157"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Extensión longitudinal descrita para el rastro o desplazamiento inicial",
+   "valor": "Aproximadamente 300",
+   "unidad": "kilómetros",
+   "fuente": "F10 y F20",
+   "ids": [
+    "D84",
+    "D42"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "300-350",
+     "unidad": "kilómetros de desplazamiento",
+     "fuente": "F18",
+     "ids": [
+      "D186"
+     ]
+    },
+    {
+     "valor": "1.000",
+     "unidad": "kilómetros de longitud de la pluma",
+     "fuente": "F19; no identifica el mismo umbral espacial",
+     "ids": [
+      "D203"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Anchura descrita para el rastro",
+   "valor": "Hasta 10",
+   "unidad": "kilómetros",
+   "fuente": "F20",
+   "ids": [
+    "D42"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "50",
+     "unidad": "kilómetros de anchura de la pluma",
+     "fuente": "F19; no identifica el mismo umbral espacial",
+     "ids": [
+      "D203"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Superficie delimitada por dos curies por kilómetro cuadrado de estroncio-90",
+   "valor": "1.000",
+   "unidad": "kilómetros cuadrados",
+   "fuente": "F18",
+   "ids": [
+    "D196"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "1.000",
+     "unidad": "kilómetros cuadrados",
+     "fuente": "F20; no explicita el umbral en el pasaje",
+     "ids": [
+      "D43"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Superficie delimitada por 0,1 curies por kilómetro cuadrado de estroncio-90",
+   "valor": "23.000",
+   "unidad": "kilómetros cuadrados",
+   "fuente": "F18",
+   "ids": [
+    "D195"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "23.000",
+     "unidad": "kilómetros cuadrados de territorio contaminado",
+     "fuente": "F16; no declara umbral en el pasaje",
+     "ids": [
+      "D161"
+     ]
+    },
+    {
+     "valor": "Más de 20.000",
+     "unidad": "kilómetros cuadrados",
+     "fuente": "F13; sin umbral declarado en el pasaje",
+     "ids": [
+      "D135"
+     ]
+    },
+    {
+     "valor": "Alrededor de 20.000",
+     "unidad": "kilómetros cuadrados",
+     "fuente": "F18; resumen general",
+     "ids": [
+      "D173"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Superficie de la zona de protección sanitaria",
+   "valor": "700",
+   "unidad": "kilómetros cuadrados",
+   "fuente": "F18",
+   "ids": [
+    "D192"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Población situada en la zona contaminada o expuesta según los recuentos generales",
+   "valor": "272.000",
+   "unidad": "personas",
+   "fuente": "F16 y F19 repiten la magnitud; F19 la expresa como mínimo",
+   "ids": [
+    "D159",
+    "D202"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Más de 270.000",
+     "unidad": "habitantes de la zona contaminada",
+     "fuente": "F02",
+     "ids": [
+      "D66"
+     ]
+    },
+    {
+     "valor": "Aproximadamente 270.000",
+     "unidad": "habitantes del área afectada",
+     "fuente": "F18",
+     "ids": [
+      "D174"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Localidades afectadas según los recuentos generales",
+   "valor": "Más de 200",
+   "unidad": "localidades",
+   "fuente": "F02; se conserva esta formulación sin presentarla como un total exacto",
+   "ids": [
+    "D66"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "217",
+     "unidad": "ciudades y pueblos",
+     "fuente": "F19",
+     "ids": [
+      "D201"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Personas evacuadas en los períodos de emergencia y planificados",
+   "valor": "12.763",
+   "unidad": "personas",
+   "fuente": "F10 lo atribuye a especialistas de Mayak y F02 repite el total",
+   "ids": [
+    "D88",
+    "D68"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "12.700",
+     "unidad": "habitantes de aldeas liquidadas",
+     "fuente": "F04; cifra redondeada y alcance formulado como liquidación de aldeas",
+     "ids": [
+      "D17"
+     ]
+    },
+    {
+     "valor": "10.000",
+     "unidad": "personas evacuadas",
+     "fuente": "F18",
+     "ids": [
+      "D188"
+     ]
+    },
+    {
+     "valor": "Más de 10.000",
+     "unidad": "personas reasentadas",
+     "fuente": "F18; balance posterior de actividades de emergencia y programadas",
+     "ids": [
+      "D194"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Localidades incluidas en el total de evacuación",
+   "valor": "24",
+   "unidad": "localidades",
+   "fuente": "F10 lo atribuye a especialistas de Mayak y F02 coincide",
+   "ids": [
+    "D88",
+    "D68"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "23",
+     "unidad": "aldeas liquidadas",
+     "fuente": "F04",
+     "ids": [
+      "D17"
+     ]
+    },
+    {
+     "valor": "23",
+     "unidad": "aldeas desalojadas",
+     "fuente": "F16",
+     "ids": [
+      "D161"
+     ]
+    },
+    {
+     "valor": "22",
+     "unidad": "asentamientos reasentados",
+     "fuente": "F18",
+     "ids": [
+      "D194"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Habitantes del primer grupo de cuatro aldeas evacuadas descrito por F02",
+   "valor": "1.383",
+   "unidad": "personas",
+   "fuente": "F02; grupo evacuado entre los días 7 y 10",
+   "ids": [
+    "D67"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "1.100",
+     "unidad": "habitantes de tres asentamientos",
+     "fuente": "F18; grupo evacuado entre los días 7 y 14, sin equivalencia demostrada con el grupo de F02",
+     "ids": [
+      "D191"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Personas enviadas al hospital después de la explosión",
+   "valor": "5",
+   "unidad": "personas",
+   "fuente": "Datos oficiales del Instituto de Biofísica de los Urales del Sur citados por F04",
+   "ids": [
+    "D21"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "12",
+     "unidad": "militares hospitalizados",
+     "fuente": "F13; el pool no concilia esta cifra con el total oficial citado por F04",
+     "ids": [
+      "D131"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Muertes totales atribuibles al accidente",
+   "valor": "No establecido",
+   "unidad": "personas fallecidas",
+   "fuente": "El pool no contiene un recuento oficial total verificable",
+   "ids": [
+    "Q08",
+    "Q13",
+    "Q14",
+    "D190"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Cientos",
+     "unidad": "personas fallecidas",
+     "fuente": "Afirmación de Medvedev reproducida por F11, no recuento oficial",
+     "ids": [
+      "Q08",
+      "D100"
+     ]
+    },
+    {
+     "valor": "Muchos, pero no revelado",
+     "unidad": "personas fallecidas",
+     "fuente": "Guinness citado por F13, junto con una fecha del accidente incorrecta",
+     "ids": [
+      "Q13"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Muertes en exceso estimadas por un estudio mencionado en F18",
+   "valor": "49-55",
+   "unidad": "personas fallecidas en exceso",
+   "fuente": "F18; el pasaje reproducido no identifica el estudio ni explicita por sí solo la causa de muerte",
+   "ids": [
+    "D190"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Participantes en la liquidación industrial durante el período estudiado",
+   "valor": "38.500",
+   "unidad": "personas",
+   "fuente": "F17; período 1957-1959, incluidas personas expuestas directamente durante el accidente",
+   "ids": [
+    "D165"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personal del período inicial más difícil en el emplazamiento industrial",
+   "valor": "Alrededor de 10.000",
+   "unidad": "personas",
+   "fuente": "F02; no es el total acumulado de participantes",
+   "ids": [
+    "D60"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Integrantes del cuerpo de bomberos participantes",
+   "valor": "679",
+   "unidad": "personas",
+   "fuente": "F20",
+   "ids": [
+    "D50"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personal que permaneció en el edificio contaminado",
+   "valor": "2 bomberos y 3 radiotelefonistas",
+   "unidad": "personas, desglosadas por función",
+   "fuente": "F20; no se suman a otros recuentos porque puede haber solapamiento",
+   "ids": [
+    "D46"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Militares de tropas internas expuestos durante el accidente",
+   "valor": "1.007",
+   "unidad": "personas",
+   "fuente": "F13",
+   "ids": [
+    "D130"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Soldados con exposiciones entre diez y cincuenta roentgen",
+   "valor": "63",
+   "unidad": "personas",
+   "fuente": "F13",
+   "ids": [
+    "D130",
+    "D131"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Participantes que recibieron dosis de veinticinco a treinta roentgen",
+   "valor": "Aproximadamente 10.500",
+   "unidad": "personas",
+   "fuente": "F17",
+   "ids": [
+    "D166"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Dosis máximas descritas para algunos participantes",
+   "valor": "Hasta 100",
+   "unidad": "roentgen",
+   "fuente": "F17",
+   "ids": [
+    "D167"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personas examinadas en el territorio del rastro",
+   "valor": "2.767",
+   "unidad": "personas",
+   "fuente": "F02; período 1958-1963",
+   "ids": [
+    "D69"
+   ],
+   "otras_versiones": []
+  }
+ ],
+ "cronologia": [
+  {
+   "fecha": "1945",
+   "hora": "",
+   "evento": "Llegan militares y prisioneros del GULAG para excavar y construir el reactor en el territorio del futuro Ozersk.",
+   "aproximada": false,
+   "ids": [
+    "T01"
+   ]
+  },
+  {
+   "fecha": "1947",
+   "hora": "",
+   "evento": "D103 sitúa el comienzo de la construcción de Cheliábinsk-40 en este año; el pasaje de T02 describe una visita de Kurchatov y Vannikov durante el otoño.",
+   "aproximada": false,
+   "ids": [
+    "D103",
+    "T02"
+   ]
+  },
+  {
+   "fecha": "1948",
+   "hora": "",
+   "evento": "La ingeniera Nadezhda Ivanovna Kozlova llega para construir Mayak.",
+   "aproximada": false,
+   "ids": [
+    "T04"
+   ]
+  },
+  {
+   "fecha": "1948-1958",
+   "hora": "",
+   "evento": "Se registran importantes emisiones de gases y aerosoles durante el período inicial de funcionamiento.",
+   "aproximada": false,
+   "ids": [
+    "T03",
+    "D72"
+   ]
+  },
+  {
+   "fecha": "1949-1956",
+   "hora": "",
+   "evento": "Período de vertidos al Techa adoptado para la ficha; otra fuente adelanta el inicio.",
+   "aproximada": true,
+   "ids": [
+    "T05",
+    "D70",
+    "D204"
+   ]
+  },
+  {
+   "fecha": "1949",
+   "hora": "",
+   "evento": "La Unión Soviética detona su primera arma nuclear; no se conserva el mes asignado por T09.",
+   "aproximada": false,
+   "ids": [
+    "T06",
+    "T09"
+   ]
+  },
+  {
+   "fecha": "1951",
+   "hora": "",
+   "evento": "Según el relato de F16, se decide dejar de verter residuos de alta actividad al Techa y almacenarlos bajo tierra.",
+   "aproximada": false,
+   "ids": [
+    "T10"
+   ]
+  },
+  {
+   "fecha": "1952",
+   "hora": "",
+   "evento": "Se ordena organizar un hospital para la población rural.",
+   "aproximada": false,
+   "ids": [
+    "T11"
+   ]
+  },
+  {
+   "fecha": "1953",
+   "hora": "",
+   "evento": "Para este año se había añadido una instalación de almacenamiento de residuos líquidos de alta actividad.",
+   "aproximada": false,
+   "ids": [
+    "T13",
+    "D179"
+   ]
+  },
+  {
+   "fecha": "1955-1960",
+   "hora": "",
+   "evento": "Se reasienta en zonas limpias a población de los asentamientos afectados por la contaminación del Techa.",
+   "aproximada": false,
+   "ids": [
+    "T15",
+    "D75"
+   ]
+  },
+  {
+   "fecha": "1957-03",
+   "hora": "",
+   "evento": "El relato de F16 sitúa en marzo la detección de deficiencias en el almacén y afirma que no recibieron atención.",
+   "aproximada": false,
+   "ids": [
+    "T19",
+    "D156"
+   ]
+  },
+  {
+   "fecha": "1957-09-29",
+   "hora": "13:40",
+   "evento": "Comienza normalmente el turno de la brigada del complejo S-3, de la que forma parte Komarov.",
+   "aproximada": false,
+   "ids": [
+    "T23"
+   ]
+  },
+  {
+   "fecha": "1957-09-29",
+   "hora": "16:22",
+   "evento": "Explota un contenedor de residuos de alta actividad; se adopta esta hora frente al recuerdo de Serov de aproximadamente las 16:20.",
+   "aproximada": true,
+   "ids": [
+    "T25",
+    "T24"
+   ]
+  },
+  {
+   "fecha": "1957-09-29",
+   "hora": "",
+   "evento": "Los bomberos comienzan las tareas de liquidación y lavan carreteras, la explanada y vehículos.",
+   "aproximada": false,
+   "ids": [
+    "T21",
+    "D44"
+   ]
+  },
+  {
+   "fecha": "1957-09-29",
+   "hora": "19:20",
+   "evento": "F04 registra el movimiento de las masas de aire hacia Bagaryak y Kamensk-Uralsky.",
+   "aproximada": false,
+   "ids": [
+    "T26"
+   ]
+  },
+  {
+   "fecha": "1957-09-29",
+   "hora": "22:00",
+   "evento": "Aproximadamente a esta hora se había establecido un panorama general de la situación radiológica.",
+   "aproximada": true,
+   "ids": [
+    "T27"
+   ]
+  },
+  {
+   "fecha": "1957-09-29",
+   "hora": "23:00",
+   "evento": "Se observa aproximadamente a esta hora un resplandor rosa y azul claro.",
+   "aproximada": true,
+   "ids": [
+    "T28"
+   ]
+  },
+  {
+   "fecha": "",
+   "hora": "6-8 horas después / 22 horas después",
+   "evento": "La llegada a la zona de Tiumén no puede colocarse con precisión: F13 habla del área de la ciudad y F04 del territorio regional, con intervalos diferentes.",
+   "aproximada": true,
+   "ids": [
+    "D136",
+    "T29"
+   ]
+  },
+  {
+   "fecha": "1957-09-30",
+   "hora": "05:00",
+   "evento": "Se establece un control dosimétrico en el puesto de entrada al emplazamiento industrial.",
+   "aproximada": false,
+   "ids": [
+    "T33"
+   ]
+  },
+  {
+   "fecha": "1957-09-30",
+   "hora": "",
+   "evento": "Lev Nikolaevich Gaev es movilizado para participar en la liquidación.",
+   "aproximada": false,
+   "ids": [
+    "T31"
+   ]
+  },
+  {
+   "fecha": "1957-09-30",
+   "hora": "",
+   "evento": "Se ordena a escolares de Karabolka volver a enterrar la cosecha recogida anteriormente.",
+   "aproximada": false,
+   "ids": [
+    "T32"
+   ]
+  },
+  {
+   "fecha": "Al día siguiente de la explosión",
+   "hora": "",
+   "evento": "F20 sitúa el comienzo de una evacuación desde la zona contaminada hacia la ciudad por carreteras lavadas de manera incompleta.",
+   "aproximada": false,
+   "ids": [
+    "T30"
+   ]
+  },
+  {
+   "fecha": "1957-10-02",
+   "hora": "",
+   "evento": "La comisión encabezada por Slavsky comienza a organizar los trabajos de liquidación en Cheliábinsk-40.",
+   "aproximada": false,
+   "ids": [
+    "T37"
+   ]
+  },
+  {
+   "fecha": "1957-10-02",
+   "hora": "",
+   "evento": "Se aprueba un programa de actividades de emergencia.",
+   "aproximada": false,
+   "ids": [
+    "T38"
+   ]
+  },
+  {
+   "fecha": "1957-10-03",
+   "hora": "",
+   "evento": "Se fecha el acta de la comisión presidida por Slavsky sobre las causas de la explosión.",
+   "aproximada": false,
+   "ids": [
+    "T39"
+   ]
+  },
+  {
+   "fecha": "Entre el 7.º y el 10.º día después del accidente",
+   "hora": "",
+   "evento": "F02 sitúa la evacuación de las cuatro aldeas de su recuento; F18 describe otro grupo de tres asentamientos evacuado entre los días 7 y 14.",
+   "aproximada": true,
+   "ids": [
+    "T34",
+    "T36"
+   ]
+  },
+  {
+   "fecha": "1957-10-23",
+   "hora": "",
+   "evento": "Zverev aprueba medidas prioritarias para asegurar el funcionamiento de los complejos de almacenamiento.",
+   "aproximada": false,
+   "ids": [
+    "T40"
+   ]
+  },
+  {
+   "fecha": "1957-10-30",
+   "hora": "",
+   "evento": "Slavsky dicta una orden que proyecta terminar la descontaminación industrial para mayo de 1958.",
+   "aproximada": false,
+   "ids": [
+    "T41",
+    "D58"
+   ]
+  },
+  {
+   "fecha": "1957-11-25",
+   "hora": "",
+   "evento": "Se fecha otra acta de la comisión del ministerio sobre la investigación de las causas.",
+   "aproximada": false,
+   "ids": [
+    "T42"
+   ]
+  },
+  {
+   "fecha": "Principios de 1958",
+   "hora": "",
+   "evento": "F02 afirma que la contaminación de Cheliábinsk-40 había descendido hasta niveles equivalentes a los anteriores al accidente.",
+   "aproximada": false,
+   "ids": [
+    "T47",
+    "D64"
+   ]
+  },
+  {
+   "fecha": "Principios de 1958",
+   "hora": "",
+   "evento": "F18 sitúa el establecimiento de una zona sanitaria con prohibición de residencia y actividad económica.",
+   "aproximada": false,
+   "ids": [
+    "T46"
+   ]
+  },
+  {
+   "fecha": "1958-04-13",
+   "hora": "",
+   "evento": "F13 fecha la noticia de Berlingske Tidende, que atribuía el supuesto accidente a pruebas nucleares de marzo de 1958.",
+   "aproximada": false,
+   "ids": [
+    "T50"
+   ]
+  },
+  {
+   "fecha": "1960",
+   "hora": "",
+   "evento": "Lev Tumerman recorre la carretera Cheliábinsk-Sverdlovsk y describe una zona restringida.",
+   "aproximada": false,
+   "ids": [
+    "T52",
+    "Q09"
+   ]
+  },
+  {
+   "fecha": "1962",
+   "hora": "",
+   "evento": "F15 presenta este año como fecha de terminación de la liquidación a efectos de la legislación citada.",
+   "aproximada": false,
+   "ids": [
+    "T54",
+    "D37"
+   ]
+  },
+  {
+   "fecha": "1966-03-04",
+   "hora": "",
+   "evento": "La Planta Química Estatal Mendeléyev pasa a denominarse Combinado Químico Mayak.",
+   "aproximada": false,
+   "ids": [
+    "T55"
+   ]
+  },
+  {
+   "fecha": "1967",
+   "hora": "",
+   "evento": "El viento transporta limo radiactivo del lago Karachay y añade contaminación.",
+   "aproximada": false,
+   "ids": [
+    "T56",
+    "D73"
+   ]
+  },
+  {
+   "fecha": "1976",
+   "hora": "",
+   "evento": "Medvedev divulga el accidente y publica una comunicación en New Scientist.",
+   "aproximada": false,
+   "ids": [
+    "T59",
+    "T60",
+    "P03"
+   ]
+  },
+  {
+   "fecha": "1979",
+   "hora": "",
+   "evento": "F18 identifica el libro de Medvedev The Nuclear Disaster in the Urals como una vía de difusión de los detalles.",
+   "aproximada": false,
+   "ids": [
+    "P03"
+   ]
+  },
+  {
+   "fecha": "1997",
+   "hora": "",
+   "evento": "Según F15, los supervivientes comienzan a recibir oficialmente certificados de afectados.",
+   "aproximada": false,
+   "ids": [
+    "D25"
+   ]
+  },
+  {
+   "fecha": "11 de enero de «este año», sin año identificable en el pasaje",
+   "hora": "",
+   "evento": "El Tribunal Supremo rechaza el recurso de Kudryashov; el año asignado por el ítem no queda verificado.",
+   "aproximada": true,
+   "ids": [
+    "T61"
+   ]
+  }
+ ],
+ "hechos": [
+  {
+   "texto": "El accidente ocurrió en Mayak el 29 de septiembre de 1957.",
+   "nivel": 1,
+   "sirve_para": "gancho",
+   "ids": [
+    "D54",
+    "T25"
+   ]
+  },
+  {
+   "texto": "La catástrofe recibió el nombre de Kyshtym porque la ciudad cerrada donde estaba Mayak no aparecía en los mapas públicos.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "D02",
+    "D85",
+    "D86"
+   ]
+  },
+  {
+   "texto": "F16 afirma que Stalin encargó a Kurchatov la creación de armas nucleares.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D147"
+   ]
+  },
+  {
+   "texto": "En 1945 llegaron militares y prisioneros del GULAG para excavar y construir el reactor.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T01"
+   ]
+  },
+  {
+   "texto": "Kurchatov y Vannikov visitaron la obra en el otoño de 1947, cuando ya se había levantado una ciudad.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T02"
+   ]
+  },
+  {
+   "texto": "Mayak era un emplazamiento de producción de plutonio para armas y de reprocesamiento de combustible nuclear.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "D54"
+   ]
+  },
+  {
+   "texto": "La Unión Soviética detonó su primera arma nuclear en 1949.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T06"
+   ]
+  },
+  {
+   "texto": "La actividad inicial de Mayak incluyó importantes emisiones de gases y aerosoles entre 1948 y 1958.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D72"
+   ]
+  },
+  {
+   "texto": "Mayak vertió residuos radiactivos al Techa entre 1949 y 1956 según el período documentado por F03.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "D70",
+    "T05"
+   ]
+  },
+  {
+   "texto": "F16 sitúa 39 asentamientos en las orillas del Techa utilizado para los vertidos.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D149"
+   ]
+  },
+  {
+   "texto": "Mitino estaba a siete kilómetros del punto de vertido según F16.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D150"
+   ]
+  },
+  {
+   "texto": "Ladeyshchikova recordaba peces muertos flotando con el vientre hacia arriba y la alegría de los niños ante lo que ocurría en el río.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "Q19"
+   ]
+  },
+  {
+   "texto": "Según F16, en 1951 se decidió dejar de verter residuos de alta actividad al Techa y almacenarlos en depósitos subterráneos.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T10"
+   ]
+  },
+  {
+   "texto": "En 1952 se ordenó organizar un hospital de diez camas para la población rural.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T11",
+    "D153"
+   ]
+  },
+  {
+   "texto": "Para 1953 se había añadido un almacenamiento de residuos líquidos de alta actividad con tanques de acero inoxidable sobre una base de hormigón.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D179"
+   ]
+  },
+  {
+   "texto": "F16 afirma que las primeras deficiencias del almacén se detectaron en marzo de 1957 y no recibieron atención.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D156"
+   ]
+  },
+  {
+   "texto": "F18 describe una refrigeración averiada que permaneció sin reparar durante un período considerable.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D125"
+   ]
+  },
+  {
+   "texto": "Según F18, el tanque alcanzó aproximadamente 350 grados Celsius y el agua se evaporó.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D180"
+   ]
+  },
+  {
+   "texto": "El contenedor albergaba entre 70 y 80 toneladas de residuos radiactivos líquidos.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D125"
+   ]
+  },
+  {
+   "texto": "La explosión destruyó un recipiente soldado, cilíndrico y de acero inoxidable.",
+   "nivel": 2,
+   "sirve_para": "pico",
+   "ids": [
+    "D124"
+   ]
+  },
+  {
+   "texto": "El recipiente estaba dentro de un cañón de hormigón de nueve metros de diámetro y 7,4 metros de profundidad.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D126"
+   ]
+  },
+  {
+   "texto": "El turno de la brigada del complejo S-3 comenzó normalmente a las 13:40.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T23"
+   ]
+  },
+  {
+   "texto": "F10 atribuye la explosión a una reacción química producida después de que el contenido se calentara por la pérdida de refrigeración.",
+   "nivel": 1,
+   "sirve_para": "pico",
+   "ids": [
+    "D83"
+   ]
+  },
+  {
+   "texto": "La explosión arrancó una losa de hormigón de 160 toneladas y la arrojó a 25 metros según F13.",
+   "nivel": 2,
+   "sirve_para": "pico",
+   "ids": [
+    "D127"
+   ]
+  },
+  {
+   "texto": "El maquinista identificado como Osetrov en el pool fue arrojado al exterior con las puertas después de sentir la sacudida y oír un estruendo.",
+   "nivel": 2,
+   "sirve_para": "pico",
+   "ids": [
+    "P11",
+    "Q16"
+   ]
+  },
+  {
+   "texto": "Komarov contó que fue arrojado al suelo y que al salir vio una columna blanca de polvo que impedía ver detrás.",
+   "nivel": 2,
+   "sirve_para": "pico",
+   "ids": [
+    "Q17"
+   ]
+  },
+  {
+   "texto": "Serov describió una enorme columna de polvo marrón que se dirigía hacia la posición del regimiento.",
+   "nivel": 2,
+   "sirve_para": "pico",
+   "ids": [
+    "Q18"
+   ]
+  },
+  {
+   "texto": "F02 cifra en 20 millones de curies la actividad liberada por la explosión.",
+   "nivel": 1,
+   "sirve_para": "pico",
+   "ids": [
+    "D57"
+   ]
+  },
+  {
+   "texto": "El balance documentado distingue 18 millones de curies que quedaron en el emplazamiento industrial y dos millones transportados por la pluma.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D56",
+    "D157",
+    "D185"
+   ]
+  },
+  {
+   "texto": "El viento llevó la nube hacia el noreste y formó el Rastro Radiactivo de los Urales Orientales.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D84"
+   ]
+  },
+  {
+   "texto": "La nube cubrió instalaciones de Mayak, una estación de bomberos, unidades militares y un campo de prisioneros.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D39"
+   ]
+  },
+  {
+   "texto": "F13 y F16 sitúan la formación del rastro radiactivo en las once horas posteriores a la explosión.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D137",
+    "D158"
+   ]
+  },
+  {
+   "texto": "F02 sitúa más de 200 localidades y más de 270.000 habitantes dentro de la zona contaminada.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D66"
+   ]
+  },
+  {
+   "texto": "F18 distingue un área de 23.000 kilómetros cuadrados al umbral de 0,1 curies por kilómetro cuadrado de estroncio-90 y otra de 1.000 kilómetros cuadrados al umbral de dos curies por kilómetro cuadrado.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D195",
+    "D196"
+   ]
+  },
+  {
+   "texto": "F02 afirma que en Cheliábinsk-40 el fondo beta aumentó 1.200 veces y el gamma 40 veces.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D63"
+   ]
+  },
+  {
+   "texto": "Aproximadamente a las 22:00 se había establecido el panorama general de la situación radiológica.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T27"
+   ]
+  },
+  {
+   "texto": "F04 registra aproximadamente a las 23:00 un resplandor rosa y azul claro en el cielo.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T28"
+   ]
+  },
+  {
+   "texto": "Los bomberos estuvieron entre los primeros participantes en la liquidación de las consecuencias.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T21"
+   ]
+  },
+  {
+   "texto": "Las dotaciones lavaron carreteras, la explanada y vehículos con chorros de espuma y agua.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D44"
+   ]
+  },
+  {
+   "texto": "Muchos soldados-bomberos sintieron debilidad y náuseas y rechazaron la comida después de los trabajos de lavado.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D45"
+   ]
+  },
+  {
+   "texto": "F20 afirma que no se realizó un control dosimétrico adecuado durante los trabajos de descontaminación.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D48"
+   ]
+  },
+  {
+   "texto": "F20 describe la ausencia de equipo especial y el uso de camiones de bomberos, bulldozers y palas.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D49"
+   ]
+  },
+  {
+   "texto": "Los bomberos trabajaron con su uniforme habitual de lona, cascos y guantes y los primeros días sin las mascarillas mencionadas por la fuente.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D51"
+   ]
+  },
+  {
+   "texto": "Dos soldados-bomberos y tres radiotelefonistas permanecieron trabajando dos meses en el edificio contaminado según F20.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D46"
+   ]
+  },
+  {
+   "texto": "F20 cifra en 679 los empleados del cuerpo de bomberos que participaron en la liquidación.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D50"
+   ]
+  },
+  {
+   "texto": "Durante el año y medio siguiente los bomberos lavaron diariamente superficies e instalaciones, con excepción del invierno.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D47"
+   ]
+  },
+  {
+   "texto": "F20 sitúa una evacuación hacia la ciudad al día siguiente de la explosión por carreteras que no habían quedado completamente descontaminadas.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T30"
+   ]
+  },
+  {
+   "texto": "Lev Nikolaevich Gaev fue movilizado el 30 de septiembre de 1957 para participar en la liquidación.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T31"
+   ]
+  },
+  {
+   "texto": "El 30 de septiembre se ordenó a escolares de Karabolka enterrar de nuevo la cosecha que habían recogido el 28 de septiembre.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T32"
+   ]
+  },
+  {
+   "texto": "El 30 de septiembre de 1957 a las 05:00 se estableció control dosimétrico en el acceso al emplazamiento industrial.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T33"
+   ]
+  },
+  {
+   "texto": "La comisión encabezada por Slavsky comenzó a organizar los trabajos de liquidación el 2 de octubre de 1957.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T37"
+   ]
+  },
+  {
+   "texto": "El programa de actividades de emergencia fue aprobado el 2 de octubre de 1957.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T38"
+   ]
+  },
+  {
+   "texto": "El acta de la comisión presidida por Slavsky sobre las causas de la explosión está fechada el 3 de octubre de 1957.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T39"
+   ]
+  },
+  {
+   "texto": "Zverev aprobó medidas prioritarias de seguridad para los complejos de almacenamiento el 23 de octubre de 1957.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T40"
+   ]
+  },
+  {
+   "texto": "La orden de Slavsky del 30 de octubre de 1957 proyectaba completar la descontaminación industrial para mayo de 1958.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T41",
+    "D58"
+   ]
+  },
+  {
+   "texto": "F02 describe alrededor de 10.000 personas trabajando diariamente, sin días libres y en tres turnos durante el período inicial más difícil.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D60"
+   ]
+  },
+  {
+   "texto": "El análisis de F17 estima que 38.500 personas participaron en la liquidación industrial entre 1957 y 1959, incluidas las expuestas en el momento del accidente.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D165"
+   ]
+  },
+  {
+   "texto": "F17 estima que unas 10.500 personas recibieron dosis de entre 25 y 30 roentgen.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D166"
+   ]
+  },
+  {
+   "texto": "F17 registra casos de exposición de hasta 100 roentgen.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D167"
+   ]
+  },
+  {
+   "texto": "Las autoridades soviéticas no anunciaron públicamente el accidente durante los primeros días y semanas según F10.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D89"
+   ]
+  },
+  {
+   "texto": "F02 sitúa la evacuación de 1.383 habitantes de cuatro aldeas entre el séptimo y el décimo día después del accidente.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D67"
+   ]
+  },
+  {
+   "texto": "El recuento atribuido a especialistas de Mayak cifra en 12.763 las personas evacuadas de 24 localidades en distintos períodos.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D68",
+    "D88"
+   ]
+  },
+  {
+   "texto": "F04 atribuye a datos oficiales del Instituto de Biofísica de los Urales del Sur el envío de cinco personas al hospital después de la explosión.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D21"
+   ]
+  },
+  {
+   "texto": "F13 afirma que doce militares fueron hospitalizados, cifra que no se concilia en el pool con el recuento oficial de cinco personas.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D131",
+    "D21"
+   ]
+  },
+  {
+   "texto": "F02 afirma que entre las 2.767 personas examinadas en el territorio del rastro entre 1958 y 1963 no se detectó enfermedad por radiación aguda o crónica.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D69"
+   ]
+  },
+  {
+   "texto": "F18 menciona un estudio que estimó entre 49 y 55 muertes en exceso en su discusión sobre las consecuencias sanitarias.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D190"
+   ]
+  },
+  {
+   "texto": "F18 sitúa a principios de 1958 una zona sanitaria con prohibición de residencia y actividad económica.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T46"
+   ]
+  },
+  {
+   "texto": "En 1976 Medvedev llevó el accidente a la discusión científica y publicó una comunicación en New Scientist.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "P03",
+    "T59",
+    "T60"
+   ]
+  },
+  {
+   "texto": "F15 afirma que los supervivientes comenzaron a recibir certificados oficiales de afectados en 1997.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D25"
+   ]
+  },
+  {
+   "texto": "Kutepova fundó Planeta de las Esperanzas después de una conferencia ecológica.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D163"
+   ]
+  },
+  {
+   "texto": "Kutepova relata que los abogados de Rosatom negaban prestaciones por exposición fetal alegando que todavía no existía una persona física.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "Q22"
+   ]
+  },
+  {
+   "texto": "Kutepova atribuye a una jueza que había sido abogada de Mayak el rechazo a crear precedentes de pagos a viudas de liquidadores.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "Q23"
+   ]
+  },
+  {
+   "texto": "Talevlin afirma que la población de asentamientos reasentados parcialmente no recibe ayuda social.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "Q04"
+   ]
+  },
+  {
+   "texto": "Kamynin señala que el secreto de Estado sobre documentos dificulta su utilización.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D79",
+    "Q06"
+   ]
+  }
+ ],
+ "citas": [
+  {
+   "autor": "Lyudmila Krestinina, citada por F04",
+   "rol": "Jefa del laboratorio de epidemiología",
+   "verificacion": "Verificada en el pasaje como declaración referida por el documento, no como transcripción de una entrevista completa",
+   "texto": "the risk of developing cancer in the area where the radioactive cloud is spreading and on the banks of the Techa River is 2.5% higher than for people who have not been exposed to additional radiation.",
+   "original": "",
+   "traduccion": "El riesgo de desarrollar cáncer en el área donde se propaga la nube radiactiva y en las orillas del río Techa es un 2,5 % mayor que para las personas que no han estado expuestas a radiación adicional.",
+   "ids": [
+    "Q01",
+    "D19"
+   ]
+  },
+  {
+   "autor": "Lyudmila Krestinina, citada por F04",
+   "rol": "Jefa del laboratorio de epidemiología",
+   "verificacion": "Verificada en el pasaje como declaración referida por el documento",
+   "texto": "92% of the dose was received by people during the first two years, and now most of the territories of the East Ural radiation footprint are safe and even open for economic activity.",
+   "original": "",
+   "traduccion": "Las personas recibieron el 92 % de la dosis durante los dos primeros años y, al momento de esa declaración, la mayoría de los territorios del rastro radiactivo de los Urales Orientales eran seguros e incluso estaban abiertos a la actividad económica.",
+   "ids": [
+    "Q02",
+    "D20"
+   ]
+  },
+  {
+   "autor": "Andrei Vazhenin, citado por F04",
+   "rol": "Oncólogo jefe de la región de Cheliábinsk",
+   "verificacion": "Verificada en el pasaje como posición atribuida por el documento",
+   "texto": "cancer is provoked not so much by radiation as by smoking and alcohol, as well as the heavy industry of the region.",
+   "original": "",
+   "traduccion": "El cáncer no es provocado tanto por la radiación como por el tabaquismo y el alcohol, además de la industria pesada de la región.",
+   "ids": [
+    "Q03",
+    "P02"
+   ]
+  },
+  {
+   "autor": "Andrei Talevlin",
+   "rol": "Abogado de Pravoznaniye",
+   "verificacion": "Verificada parcialmente en el pool; se conserva únicamente el tramo completo visible",
+   "texto": "Не получает социальную помощь население тех поселков и деревень, где переселение осуществлялось частично",
+   "original": "",
+   "traduccion": "La población de los pueblos y aldeas donde el reasentamiento se realizó parcialmente no recibe ayuda social.",
+   "ids": [
+    "Q04",
+    "P09"
+   ]
+  },
+  {
+   "autor": "Tolstikov y Bochkareva, citados por F03",
+   "rol": "Investigadores",
+   "verificacion": "Verificada como cita reproducida por una fuente secundaria",
+   "texto": "В результате ликвидации ее последствий впервые был приобретен опыт такого масштаба",
+   "original": "",
+   "traduccion": "Como resultado de la liquidación de sus consecuencias, se adquirió por primera vez experiencia de semejante magnitud.",
+   "ids": [
+    "Q05"
+   ]
+  },
+  {
+   "autor": "V. D. Kamynin, citado por F03",
+   "rol": "Investigador",
+   "verificacion": "Verificada como afirmación atribuida por el documento",
+   "texto": "Таким образом, и в наше время сохраняется государственная тайна в отношении этих документов, что затрудняет их использование",
+   "original": "",
+   "traduccion": "Así, también en nuestro tiempo se mantiene el secreto de Estado sobre estos documentos, lo que dificulta su utilización.",
+   "ids": [
+    "Q06",
+    "D79"
+   ]
+  },
+  {
+   "autor": "Zhores Medvedev, citado por F11",
+   "rol": "Científico soviético exiliado",
+   "verificacion": "Verificada documentalmente como afirmación de Medvedev; el número de muertos no está corroborado",
+   "texto": "strong winds blew the radioactive clouds hundreds of miles away. . . . Tens of thousands of people were affected, hundreds dying, though the real figures have never been made public.",
+   "original": "",
+   "traduccion": "Fuertes vientos llevaron las nubes radiactivas a cientos de millas de distancia... Decenas de miles de personas resultaron afectadas y cientos murieron, aunque las cifras reales nunca se han hecho públicas.",
+   "ids": [
+    "Q08"
+   ]
+  },
+  {
+   "autor": "Lev Tumerman",
+   "rol": "Científico soviético",
+   "verificacion": "Verificada parcialmente; se elimina la prolongación no visible y se corrige «read» por «road»",
+   "texto": "About 100 kilometres from Sverdlovsk, a highway sign warned drivers not to stop for the next 20 or 30 kilometres and to drive through at maximum speed. On both sides of the road, as far as one could see, the land was 'dead'",
+   "original": "About 100 kilometres from Sverdlovsk, a highway sign warned drivers not to stop for the next 20 or 30 kilometres and to drive through at maximum speed. On both sides of the read, as far as one could see, the land was 'dead'",
+   "traduccion": "A unos 100 kilómetros de Sverdlovsk, una señal advertía a los conductores que no se detuvieran durante los siguientes 20 o 30 kilómetros y atravesaran el tramo a máxima velocidad. A ambos lados de la carretera, hasta donde alcanzaba la vista, la tierra estaba «muerta».",
+   "ids": [
+    "Q09"
+   ]
+  },
+  {
+   "autor": "Lev Tumerman",
+   "rol": "Científico soviético",
+   "verificacion": "Verificada en el pasaje como relato de lo que le dijeron otras personas, no como observación de la explosión",
+   "texto": "What I was told by many people in Sverdlovsk and Belpyarsk, was that the fallout was a consequence of a major nuclear explosion on a military nuclear plant near Kyshtym.",
+   "original": "What i was told by many people in Sverdlovsk and Belpyarsk, was that the fallout was a consequence of a major nuclear explosion on a military nuclear plant near Kyshtym.",
+   "traduccion": "Lo que me dijeron muchas personas en Sverdlovsk y Belpyarsk fue que la lluvia radiactiva era consecuencia de una gran explosión nuclear en una planta nuclear militar cerca de Kyshtym.",
+   "ids": [
+    "Q10"
+   ]
+  },
+  {
+   "autor": "Testimonio atribuido en el pool a V. M. Osetrov, reproducido por F13",
+   "rol": "Maquinista de la estación de bombeo",
+   "verificacion": "Verificada parcialmente; el pasaje está en tercera persona y no reproduce el nombre",
+   "texto": "находясь у щита с приборами и почувствовав сильное содрогание земли, он услышал грохот, и его с дверьми вынесло наружу.",
+   "original": "",
+   "traduccion": "Mientras estaba junto al panel de instrumentos y sentía una fuerte sacudida del suelo, oyó un estruendo y fue arrojado afuera junto con las puertas.",
+   "ids": [
+    "Q16",
+    "P11"
+   ]
+  },
+  {
+   "autor": "Testimonio de V. I. Komarov, referido por F13",
+   "rol": "Técnico",
+   "verificacion": "Verificada parcialmente; relato en tercera persona, no palabras directas completas del testigo",
+   "texto": "По свидетельству В.И. Комарова, после взрыва его подкинуло и бросило на пол. Поднявшись и выйдя улицу, он увидел, что на том месте, где возвышался холм комплекса С-3, стоял высокий столб пыли белого цвета, за которым ничего не было видно.",
+   "original": "",
+   "traduccion": "Según el testimonio de V. I. Komarov, después de la explosión fue levantado y arrojado al suelo. Al incorporarse y salir a la calle, vio que donde se elevaba la colina del complejo S-3 había una alta columna de polvo blanco, detrás de la cual no se veía nada.",
+   "ids": [
+    "Q17",
+    "P12"
+   ]
+  },
+  {
+   "autor": "I. F. Serov, citado por F13",
+   "rol": "Teniente coronel retirado",
+   "verificacion": "Verificada parcialmente en el pool",
+   "texto": "В это время в районе завода 25, там, где находилось хранилище радиоактивных отходов, поднялся огромный бурый столб пыли, который направлялся в сторону расположения полка.",
+   "original": "",
+   "traduccion": "En ese momento, en la zona de la planta 25, donde estaba el almacenamiento de residuos radiactivos, se levantó una enorme columna de polvo marrón que se dirigía hacia la ubicación del regimiento.",
+   "ids": [
+    "Q18",
+    "P13"
+   ]
+  },
+  {
+   "autor": "Lyubov Ladeyshchikova, recordada por la narradora de F16",
+   "rol": "Residente de Mitino",
+   "verificacion": "Verificada como recuerdo transmitido; se conserva únicamente lo visible y se corrige la concordancia verbal",
+   "texto": "дети были очень рады тому, что происходило с рекой: мертвые рыбы плавали вверх животами.",
+   "original": "дети были очень рады тому, что происходило с рекой: мертвые рыбы плавала вверх животами.",
+   "traduccion": "Los niños estaban muy contentos con lo que ocurría en el río: los peces muertos flotaban con el vientre hacia arriba.",
+   "ids": [
+    "Q19",
+    "P14"
+   ]
+  },
+  {
+   "autor": "Madre de Nadezhda Kutepova, citada por su hija",
+   "rol": "Practicante en una clínica para enfermos por radiación",
+   "verificacion": "Verificada como testimonio referido, no como ensayo técnico documentado",
+   "texto": "рыба, которую привозили из Челябинской области, когда ее клали на рентгенбумагу, мгновенно давала такой же снимок, как и рентгеновский.",
+   "original": "",
+   "traduccion": "El pescado que traían de la región de Cheliábinsk, al colocarlo sobre papel radiográfico, producía de inmediato una imagen como una radiografía.",
+   "ids": [
+    "Q20",
+    "P15"
+   ]
+  },
+  {
+   "autor": "Médicos no identificados, según el relato de F16",
+   "rol": "Personal médico",
+   "verificacion": "Verificada como diálogo reproducido por la narradora; sin identificación de los médicos",
+   "texto": "Все понятно, ваша мама была ликвидатором",
+   "original": "",
+   "traduccion": "Está todo claro: su madre fue liquidadora.",
+   "ids": [
+    "Q21"
+   ]
+  },
+  {
+   "autor": "Nadezhda Kutepova",
+   "rol": "Defensora de los afectados",
+   "verificacion": "Verificada; se corrige la atribución del pool, porque la pregunta pertenece a Kutepova y no a los abogados de Rosatom",
+   "texto": "как можно разделять мать и плод, если они являются единым целым, и на плод воздействие вредных факторов оказывается более сильное?",
+   "original": "",
+   "traduccion": "¿Cómo se puede separar a la madre y al feto si forman un todo y los factores nocivos afectan con mayor intensidad al feto?",
+   "ids": [
+    "Q22"
+   ]
+  },
+  {
+   "autor": "Jueza no identificada, según Nadezhda Kutepova",
+   "rol": "Exabogada de Mayak",
+   "verificacion": "Verificada como cita dentro del testimonio de Kutepova, no mediante una resolución o transcripción judicial",
+   "texto": "Надя, мы не хотим ни одного прецедента, чтобы в области вдовы ликвидаторов «Маяка» получали хоть какие-нибудь деньги",
+   "original": "",
+   "traduccion": "Nadia, no queremos ni un solo precedente para que en la región las viudas de los liquidadores de Mayak reciban siquiera algo de dinero.",
+   "ids": [
+    "Q23"
+   ]
+  },
+  {
+   "autor": "Greenpeace 2007a, citado por F19",
+   "rol": "Organización citada por una fuente secundaria",
+   "verificacion": "Verificada únicamente para la oración visible en el pasaje de Q24",
+   "texto": "The Mayak nuclear plant in the Southern Urals was one of the dark secrets of the cold war.",
+   "original": "",
+   "traduccion": "La planta nuclear de Mayak, en los Urales del Sur, fue uno de los oscuros secretos de la Guerra Fría.",
+   "ids": [
+    "Q24"
+   ]
+  },
+  {
+   "autor": "Documento F20",
+   "rol": "Relato sobre la participación de los bomberos",
+   "verificacion": "Verificada en el pasaje; no constituye diagnóstico de enfermedad por radiación",
+   "texto": "Многие солдаты-пожарные после этого почувствовали слабость, тошноту, отказывались от приема пищи. Списали на усталость…",
+   "original": "",
+   "traduccion": "Muchos soldados-bomberos sintieron después debilidad y náuseas y rechazaban la comida. Se atribuyó al cansancio…",
+   "ids": [
+    "D45"
+   ]
+  },
+  {
+   "autor": "Documento F20",
+   "rol": "Relato sobre las condiciones de descontaminación",
+   "verificacion": "Verificada en el pasaje",
+   "texto": "Должного дозиметрического контроля не проводилось. Опыта отмывки не было. Не было и специальной техники. Только пожарные машины, бульдозеры да лопаты.",
+   "original": "",
+   "traduccion": "No se realizaba el debido control dosimétrico. No había experiencia en el lavado. Tampoco había equipo especial. Solo camiones de bomberos, bulldozers y palas.",
+   "ids": [
+    "D48"
+   ]
+  }
+ ],
+ "descartados": [
+  {
+   "que": "[escenas] Los primeros contingentes llegan para excavar el terreno y construir el reactor.",
+   "motivo": "no respaldado: ningún sentido de la escena («El documento permite mostrar la excavación del pozo de obra ») está en sus ids",
+   "ids": [
+    "T01"
+   ]
+  },
+  {
+   "que": "[escenas] Kutepova atribuye a la jueza una negativa explícita a crear precedentes que permitieran pagos a viudas de liquidadores.",
+   "motivo": "no respaldado: ningún sentido de la escena («La voz citada se dirige a ella como «Надя»; no hay datos del») está en sus ids",
+   "ids": [
+    "Q23"
+   ]
+  },
+  {
+   "que": "[decisiones] Visita a la obra e inicio de construcción",
+   "motivo": "no respaldado: cifra 40",
+   "ids": [
+    "T02",
+    "D103",
+    "T01"
+   ]
+  },
+  {
+   "que": "[decisiones] Humo amarillo y hora de la explosión",
+   "motivo": "no respaldado: hora 16:00",
+   "ids": [
+    "T25"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Nadezhda Kutepova",
+   "motivo": "no respaldado: «Nadezhda Kutepova» no está entre los descartados del pool",
+   "ids": [
+    "D163",
+    "T04",
+    "T31",
+    "Q22",
+    "Q23"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Nadezhda Ivanovna Kozlova",
+   "motivo": "no respaldado: «Nadezhda Ivanovna Kozlova» no está entre los descartados del pool",
+   "ids": [
+    "T04"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Lev Nikolaevich Gaev",
+   "motivo": "no respaldado: «Lev Nikolaevich Gaev» no está entre los descartados del pool",
+   "ids": [
+    "T31"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Lyubov Ladeyshchikova",
+   "motivo": "no respaldado: «Lyubov Ladeyshchikova» no está entre los descartados del pool; sus ids no nombran a «Lyubov Ladeyshchikova»",
+   "ids": [
+    "P14",
+    "Q19"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] V. I. Komarov",
+   "motivo": "no respaldado: «V. I. Komarov» no está entre los descartados del pool",
+   "ids": [
+    "P12",
+    "T23",
+    "Q17"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] V. M. Osetrov",
+   "motivo": "no respaldado: «V. M. Osetrov» no está entre los descartados del pool",
+   "ids": [
+    "P11",
+    "Q16"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] I. F. Serov",
+   "motivo": "no respaldado: «I. F. Serov» no está entre los descartados del pool",
+   "ids": [
+    "P13",
+    "T24",
+    "Q18"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Е. П. Славский",
+   "motivo": "no respaldado: «Е. П. Славский» no está entre los descartados del pool",
+   "ids": [
+    "T37",
+    "T39",
+    "T41"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Зверев А.Д.",
+   "motivo": "no respaldado: sus ids no nombran a «Зверев А.Д.»",
+   "ids": [
+    "T40"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Andrei Talevlin",
+   "motivo": "no respaldado: «Andrei Talevlin» no está entre los descartados del pool; sus ids no nombran a «Andrei Talevlin»",
+   "ids": [
+    "P09",
+    "Q04"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] V. D. Kamynin",
+   "motivo": "no respaldado: «V. D. Kamynin» no está entre los descartados del pool",
+   "ids": [
+    "P10",
+    "D79",
+    "Q06"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Dmitri Medvédev",
+   "motivo": "no respaldado: «Dmitri Medvédev» no está entre los descartados del pool",
+   "ids": [
+    "D23"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Vladímir Borísovich Kudryashov",
+   "motivo": "no respaldado: «Vladímir Borísovich Kudryashov» no está entre los descartados del pool",
+   "ids": [
+    "T61",
+    "L19"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Soldados-bomberos",
+   "motivo": "no respaldado: «Soldados-bomberos» no está entre los descartados del pool; sus ids no nombran a «Soldados-bomberos»",
+   "ids": [
+    "D44",
+    "D45",
+    "D46",
+    "D51"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Radiotelefonistas de la estación de bomberos",
+   "motivo": "no respaldado: «Radiotelefonistas de la estación de bomberos» no está entre los descartados del pool",
+   "ids": [
+    "D46"
+   ]
+  },
+  {
+   "que": "[cifras] Casos de enfermedad por radiación detectados en ese grupo examinado",
+   "motivo": "no respaldado: cifra 0",
+   "ids": [
+    "D69"
+   ]
+  },
+  {
+   "que": "[cronologia] F16 sitúa un partido de fútbol en el poblado y el aviso visual de humo amarillo procedente del almacenamiento; este pasaje no fija la hora d",
+   "motivo": "no respaldado: hora 16:00",
+   "ids": [
+    "T25"
+   ]
+  },
+  {
+   "que": "[hechos] F16 sitúa un partido de fútbol y la observación de humo amarillo procedente del almacenamiento a las 16:00.",
+   "motivo": "no respaldado: hora 16:00",
+   "ids": [
+    "T25"
+   ]
+  },
+  {
+   "que": "Alióshenka y la vinculación de anomalías con el accidente",
+   "motivo": "El propio pool dice que no existe investigación fiable que demuestre la conexión.",
+   "ids": [
+    "D92",
+    "Q07"
+   ]
+  },
+  {
+   "que": "Escena hospitalaria de desprendimiento de piel como imagen del accidente de Mayak",
+   "motivo": "El relato está asociado a una supuesta explosión de 1960 y no permite identificarlo como consecuencia del accidente documentado de 1957.",
+   "ids": [
+    "Q12",
+    "T53"
+   ]
+  },
+  {
+   "que": "Reactor supuestamente explotado en 1956",
+   "motivo": "Es una explicación transmitida a tropas, no evidencia suficiente para sustituir la explosión documentada del tanque de residuos.",
+   "ids": [
+    "D118"
+   ]
+  },
+  {
+   "que": "Acusaciones de que Estados Unidos enviaba veneno por el aire",
+   "motivo": "El pasaje reproduce una acusación mediática sin demostrar su causa ni su relación precisa con el accidente.",
+   "ids": [
+    "D117",
+    "Q11"
+   ]
+  },
+  {
+   "que": "Comparaciones con Chernóbil, Hiroshima y Fukushima como equivalencias de daño",
+   "motivo": "Los pasajes mezclan inventarios, emisiones y consecuencias sin una base homogénea que permita convertirlos en equivalencias narrativas.",
+   "ids": [
+    "D10",
+    "D52",
+    "D199",
+    "D208"
+   ]
+  },
+  {
+   "que": "Afirmación de Komsomolskaya Pravda de que murieron más personas que en Chernóbil",
+   "motivo": "Es una afirmación periodística citada sin recuento que la sostenga.",
+   "ids": [
+    "Q15"
+   ]
+  },
+  {
+   "que": "Cientos de muertos como cifra cerrada del caso",
+   "motivo": "Se conserva como afirmación de Medvedev, no como balance verificado.",
+   "ids": [
+    "D100",
+    "Q08",
+    "Q14"
+   ]
+  },
+  {
+   "que": "Porcentaje de enfermedad por radiación en Muslyumovo como balance sanitario de la explosión",
+   "motivo": "El dato se refiere a vertidos anteriores y no puede trasladarse al accidente del tanque.",
+   "ids": [
+    "D151",
+    "D152"
+   ]
+  },
+  {
+   "que": "Inventario atribuido al episodio de dispersión de Karachay como emisión comprobada",
+   "motivo": "El pasaje es un recuerdo de lo que contó otra persona y no ofrece documentación técnica del volumen emitido.",
+   "ids": [
+    "D162"
+   ]
+  },
+  {
+   "que": "Plazos de limpieza del Techa y dinámica subterránea de Karachay",
+   "motivo": "Son afirmaciones ambientales posteriores con metodología no visible y desvían la ficha del accidente y su reconocimiento humano.",
+   "ids": [
+    "D08",
+    "D09",
+    "D13",
+    "D14",
+    "D15"
+   ]
+  },
+  {
+   "que": "Producción comercial de cesio y supuesta reconversión posterior de la empresa",
+   "motivo": "No sostienen la secuencia del accidente y la fecha de reconversión del ítem no aparece en su pasaje.",
+   "ids": [
+    "D06",
+    "L11"
+   ]
+  },
+  {
+   "que": "Montos económicos presentados como actuales",
+   "motivo": "No se trasladan al presente porque los pasajes dependen de la fecha del artículo, que no queda establecida en el pool.",
+   "ids": [
+    "D26",
+    "D27",
+    "D28",
+    "D29",
+    "D31"
+   ]
+  },
+  {
+   "que": "Conteos de archivos del repositorio",
+   "motivo": "Son útiles para describir la investigación, pero no aportan un acontecimiento ni una consecuencia del caso.",
+   "ids": [
+    "D80",
+    "D81",
+    "D82"
+   ]
+  },
+  {
+   "que": "[descartados] Personas descartadas por el research que no reaparecen identificadas en pasajes del pool",
+   "motivo": "no respaldado: sin ids",
+   "ids": []
+  }
+ ],
+ "historia": {
+  "humanos_candidatos": [
+   {
+    "nombre": "Nadezhda Kutepova",
+    "rol": "Descendiente de trabajadores de Mayak y defensora de los afectados",
+    "arco": "Entra como nieta de una ingeniera de Mayak e hija de un liquidador, funda una organización para ofrecer esperanza a los afectados y llega a tribunales donde relata negativas al reconocimiento y a las compensaciones.",
+    "ids": [
+     "T04",
+     "T31",
+     "D163",
+     "Q22",
+     "Q23"
+    ],
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "V. I. Komarov",
+    "rol": "Técnico de la brigada de servicio del complejo S-3",
+    "arco": "Entra en un turno que comienza normalmente, la explosión lo arroja al suelo y sale al exterior para encontrar una columna blanca que oculta el lugar del complejo; su cita está verificada parcialmente, no de forma plena.",
+    "ids": [
+     "T23",
+     "P12",
+     "Q17"
+    ],
+    "citas_verificadas": 0
+   },
+   {
+    "nombre": "Zhores Medvedev",
+    "rol": "Científico exiliado que hace público el accidente",
+    "arco": "Entra como científico soviético exiliado, lleva el accidente a la comunidad científica y sale convertido en divulgador de una catástrofe cuyas causas y estimaciones humanas son discutidas por otros autores.",
+    "ids": [
+     "P03",
+     "T59",
+     "T60",
+     "Q08",
+     "D96",
+     "D97"
+    ],
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Lev Tumerman",
+    "rol": "Científico y testigo de una zona restringida",
+    "arco": "Entra como viajero por la carretera Cheliábinsk-Sverdlovsk, encuentra un cartel que prohíbe detenerse y un paisaje que describe como muerto, y su relato pasa a utilizarse como corroboración de la contaminación denunciada por Medvedev.",
+    "ids": [
+     "P04",
+     "T52",
+     "Q09",
+     "Q10"
+    ],
+    "citas_verificadas": 1
+   }
+  ],
+  "giros": [
+   {
+    "orden": 1,
+    "que_cambia": "La decisión de trasladar los residuos de alta actividad del río a depósitos subterráneos cambia el lugar donde se concentra el peligro.",
+    "ids": [
+     "T10",
+     "D179"
+    ]
+   },
+   {
+    "orden": 2,
+    "que_cambia": "El relato de F16 sitúa deficiencias detectadas e ignoradas antes del accidente, mientras otras fuentes describen una refrigeración averiada sin reparar.",
+    "ids": [
+     "D156",
+     "D125",
+     "D83"
+    ]
+   },
+   {
+    "orden": 3,
+    "que_cambia": "La explosión rompe el almacenamiento y el viento convierte el accidente industrial en contaminación de territorios habitados.",
+    "ids": [
+     "T25",
+     "D127",
+     "D84",
+     "D66"
+    ]
+   },
+   {
+    "orden": 4,
+    "que_cambia": "La respuesta incluye descontaminación y evacuaciones demoradas en las aldeas, pero no una explicación pública clara del riesgo.",
+    "ids": [
+     "D44",
+     "D67",
+     "T32",
+     "D89"
+    ]
+   },
+   {
+    "orden": 5,
+    "que_cambia": "Medvedev lleva la catástrofe a la discusión científica internacional, aunque el alcance humano y las causas siguen siendo objeto de versiones enfrentadas.",
+    "ids": [
+     "T59",
+     "T60",
+     "Q08",
+     "D96"
+    ]
+   },
+   {
+    "orden": 6,
+    "que_cambia": "El conflicto pasa del secreto del accidente al reconocimiento de las víctimas: aparecen certificados, pero también exclusiones de ayuda y negativas judiciales relatadas por los afectados.",
+    "ids": [
+     "D25",
+     "Q04",
+     "Q22",
+     "Q23"
+    ]
+   }
+  ],
+  "pico": {
+   "que": "La explosión del contenedor de residuos de alta actividad en Mayak.",
+   "por_que": "Es el momento en que el fallo de almacenamiento se vuelve irreversible: la explosión arroja la losa, golpea a los trabajadores y libera material que alcanza instalaciones, militares, prisioneros y poblaciones.",
+   "ids": [
+    "T25",
+    "D127",
+    "Q16",
+    "Q17",
+    "D39",
+    "D57"
+   ]
+  },
+  "pregunta_final": {
+   "pregunta": "¿Cuántas personas afectadas por Mayak quedaron fuera del reconocimiento y de la reparación estatal?",
+   "ids": [
+    "D25",
+    "Q04",
+    "Q22",
+    "Q23",
+    "D79"
+   ]
+  }
+ },
+ "chequeo": {
+  "sacados": [
+   {
+    "que": "[escenas] Los primeros contingentes llegan para excavar el terreno y construir el reactor.",
+    "motivo": "no respaldado: ningún sentido de la escena («El documento permite mostrar la excavación del pozo de obra ») está en sus ids",
+    "ids": [
+     "T01"
+    ],
+    "seccion": "escenas",
+    "item": {
+     "donde": "Territorio del futuro Ozersk durante la construcción",
+     "quien": "Militares y prisioneros del GULAG",
+     "que_pasa": "Los primeros contingentes llegan para excavar el terreno y construir el reactor.",
+     "sentidos": "El documento permite mostrar la excavación del pozo de obra y a los contingentes trabajando; no aporta sonidos ni condiciones meteorológicas.",
+     "ids": [
+      "T01"
+     ]
+    }
+   },
+   {
+    "que": "[escenas] Kutepova atribuye a la jueza una negativa explícita a crear precedentes que permitieran pagos a viudas de liquidadores.",
+    "motivo": "no respaldado: ningún sentido de la escena («La voz citada se dirige a ella como «Надя»; no hay datos del») está en sus ids",
+    "ids": [
+     "Q23"
+    ],
+    "seccion": "escenas",
+    "item": {
+     "donde": "Interlocución judicial relatada por Nadezhda Kutepova",
+     "quien": "Kutepova y una jueza no identificada que había sido abogada de Mayak",
+     "que_pasa": "Kutepova atribuye a la jueza una negativa explícita a crear precedentes que permitieran pagos a viudas de liquidadores.",
+     "sentidos": "La voz citada se dirige a ella como «Надя»; no hay datos del aspecto de la sala ni de otros presentes.",
+     "ids": [
+      "Q23"
+     ]
+    }
+   },
+   {
+    "que": "[decisiones] Visita a la obra e inicio de construcción",
+    "motivo": "no respaldado: cifra 40",
+    "ids": [
+     "T02",
+     "D103",
+     "T01"
+    ],
+    "seccion": "decisiones",
+    "item": {
+     "tema": "Visita a la obra e inicio de construcción",
+     "criterio": 1,
+     "decision": "T02 se utiliza para la visita de Kurchatov y Vannikov, no como prueba autónoma del inicio de construcción, que se apoya en D103.",
+     "ids": [
+      "T02",
+      "D103",
+      "T01"
+     ],
+     "otras_versiones": [
+      {
+       "dice": "El encabezado de T02 convierte en comienzo de la construcción un pasaje que describe una visita de otoño y una ciudad ya levantada.",
+       "doc_id": "F11",
+       "offset": 11371,
+       "ids": [
+        "T02"
+       ]
+      },
+      {
+       "dice": "La llegada para excavar y construir se sitúa en 1945 y no se equipara automáticamente con la fase de construcción descrita para Cheliábinsk-40.",
+       "doc_id": "F16",
+       "offset": 1350,
+       "ids": [
+        "T01"
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "que": "[decisiones] Humo amarillo y hora de la explosión",
+    "motivo": "no respaldado: hora 16:00",
+    "ids": [
+     "T25"
+    ],
+    "seccion": "decisiones",
+    "item": {
+     "tema": "Humo amarillo y hora de la explosión",
+     "criterio": 1,
+     "decision": "La referencia de F16 a las 16:00 se reserva al partido de fútbol y a la observación de humo, no se transforma en otra hora documentada del estallido.",
+     "ids": [
+      "T25"
+     ],
+     "otras_versiones": [
+      {
+       "dice": "El pasaje de F16 describe un partido de fútbol y humo amarillo procedente del complejo denominado S-30.",
+       "doc_id": "F16",
+       "offset": 5445,
+       "ids": [
+        "T25"
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Nadezhda Kutepova",
+    "motivo": "no respaldado: «Nadezhda Kutepova» no está entre los descartados del pool",
+    "ids": [
+     "D163",
+     "T04",
+     "T31",
+     "Q22",
+     "Q23"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Nadezhda Kutepova",
+     "rol": "Fundadora de Planeta de las Esperanzas y narradora de litigios",
+     "motivo": "Es necesaria para conectar la historia familiar de Mayak con las disputas por reconocimiento y prestaciones.",
+     "ids": [
+      "D163",
+      "T04",
+      "T31",
+      "Q22",
+      "Q23"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Nadezhda Ivanovna Kozlova",
+    "motivo": "no respaldado: «Nadezhda Ivanovna Kozlova» no está entre los descartados del pool",
+    "ids": [
+     "T04"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Nadezhda Ivanovna Kozlova",
+     "rol": "Ingeniera y abuela de Kutepova",
+     "motivo": "Ancla la relación familiar con la construcción de Mayak.",
+     "ids": [
+      "T04"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Lev Nikolaevich Gaev",
+    "motivo": "no respaldado: «Lev Nikolaevich Gaev» no está entre los descartados del pool",
+    "ids": [
+     "T31"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Lev Nikolaevich Gaev",
+     "rol": "Liquidador y padre de Kutepova",
+     "motivo": "Conecta a la familia con la movilización posterior a la explosión.",
+     "ids": [
+      "T31"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Lyubov Ladeyshchikova",
+    "motivo": "no respaldado: «Lyubov Ladeyshchikova» no está entre los descartados del pool; sus ids no nombran a «Lyubov Ladeyshchikova»",
+    "ids": [
+     "P14",
+     "Q19"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Lyubov Ladeyshchikova",
+     "rol": "Residente de Mitino",
+     "motivo": "Aporta el recuerdo sensorial verificable de los peces muertos y la reacción de los niños.",
+     "ids": [
+      "P14",
+      "Q19"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] V. I. Komarov",
+    "motivo": "no respaldado: «V. I. Komarov» no está entre los descartados del pool",
+    "ids": [
+     "P12",
+     "T23",
+     "Q17"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "V. I. Komarov",
+     "rol": "Técnico y testigo",
+     "motivo": "Sostiene el paso de un turno normal a la experiencia física de la explosión.",
+     "ids": [
+      "P12",
+      "T23",
+      "Q17"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] V. M. Osetrov",
+    "motivo": "no respaldado: «V. M. Osetrov» no está entre los descartados del pool",
+    "ids": [
+     "P11",
+     "Q16"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "V. M. Osetrov",
+     "rol": "Maquinista de la estación de bombeo",
+     "motivo": "Su atribución en el pool permite identificar el testimonio de la sacudida y la expulsión al exterior, aunque el nombre no aparece en el pasaje reproducido.",
+     "ids": [
+      "P11",
+      "Q16"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] I. F. Serov",
+    "motivo": "no respaldado: «I. F. Serov» no está entre los descartados del pool",
+    "ids": [
+     "P13",
+     "T24",
+     "Q18"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "I. F. Serov",
+     "rol": "Teniente coronel retirado y testigo",
+     "motivo": "Aporta una observación independiente de la explosión y del polvo dirigido hacia el regimiento.",
+     "ids": [
+      "P13",
+      "T24",
+      "Q18"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Е. П. Славский",
+    "motivo": "no respaldado: «Е. П. Славский» no está entre los descartados del pool",
+    "ids": [
+     "T37",
+     "T39",
+     "T41"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Е. П. Славский",
+     "rol": "Ministro y presidente de la comisión",
+     "motivo": "La historia necesita nombrar a quien encabeza la respuesta y dicta el plazo de descontaminación.",
+     "ids": [
+      "T37",
+      "T39",
+      "T41"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Зверев А.Д.",
+    "motivo": "no respaldado: sus ids no nombran a «Зверев А.Д.»",
+    "ids": [
+     "T40"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Зверев А.Д.",
+     "rol": "Aprobador de medidas de seguridad",
+     "motivo": "Permite atribuir la aprobación documentada de medidas sobre los complejos.",
+     "ids": [
+      "T40"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Andrei Talevlin",
+    "motivo": "no respaldado: «Andrei Talevlin» no está entre los descartados del pool; sus ids no nombran a «Andrei Talevlin»",
+    "ids": [
+     "P09",
+     "Q04"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Andrei Talevlin",
+     "rol": "Abogado de Pravoznaniye",
+     "motivo": "Identifica la denuncia de exclusión de ayuda en asentamientos reasentados parcialmente.",
+     "ids": [
+      "P09",
+      "Q04"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] V. D. Kamynin",
+    "motivo": "no respaldado: «V. D. Kamynin» no está entre los descartados del pool",
+    "ids": [
+     "P10",
+     "D79",
+     "Q06"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "V. D. Kamynin",
+     "rol": "Investigador",
+     "motivo": "Sostiene la limitación documental que impide presentar el expediente como completamente abierto.",
+     "ids": [
+      "P10",
+      "D79",
+      "Q06"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Dmitri Medvédev",
+    "motivo": "no respaldado: «Dmitri Medvédev» no está entre los descartados del pool",
+    "ids": [
+     "D23"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Dmitri Medvédev",
+     "rol": "Presidente que encarga un proyecto de ley",
+     "motivo": "Permite atribuir el encargo institucional de una nueva regulación.",
+     "ids": [
+      "D23"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Vladímir Borísovich Kudryashov",
+    "motivo": "no respaldado: «Vladímir Borísovich Kudryashov» no está entre los descartados del pool",
+    "ids": [
+     "T61",
+     "L19"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Vladímir Borísovich Kudryashov",
+     "rol": "Recurrente en un litigio de Chernóbil",
+     "motivo": "Es necesario si se cuenta el precedente que la fuente vincula con el freno a las reclamaciones de Mayak.",
+     "ids": [
+      "T61",
+      "L19"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Soldados-bomberos",
+    "motivo": "no respaldado: «Soldados-bomberos» no está entre los descartados del pool; sus ids no nombran a «Soldados-bomberos»",
+    "ids": [
+     "D44",
+     "D45",
+     "D46",
+     "D51"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Soldados-bomberos",
+     "rol": "Colectivo de liquidadores",
+     "motivo": "Aunque no tienen nombres individuales, son imprescindibles para las escenas de descontaminación y malestar.",
+     "ids": [
+      "D44",
+      "D45",
+      "D46",
+      "D51"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Radiotelefonistas de la estación de bomberos",
+    "motivo": "no respaldado: «Radiotelefonistas de la estación de bomberos» no está entre los descartados del pool",
+    "ids": [
+     "D46"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Radiotelefonistas de la estación de bomberos",
+     "rol": "Trabajadoras del edificio contaminado",
+     "motivo": "Su permanencia explica que el traslado de la estación no retiró de inmediato a todo el personal.",
+     "ids": [
+      "D46"
+     ]
+    }
+   },
+   {
+    "que": "[cifras] Casos de enfermedad por radiación detectados en ese grupo examinado",
+    "motivo": "no respaldado: cifra 0",
+    "ids": [
+     "D69"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Casos de enfermedad por radiación detectados en ese grupo examinado",
+     "valor": "0",
+     "unidad": "casos de enfermedad aguda o crónica por radiación",
+     "fuente": "Afirmación de F02, limitada a las personas examinadas",
+     "ids": [
+      "D69"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cronologia] F16 sitúa un partido de fútbol en el poblado y el aviso visual de humo amarillo procedente del almacenamiento; este pasaje no fija la hora d",
+    "motivo": "no respaldado: hora 16:00",
+    "ids": [
+     "T25"
+    ],
+    "seccion": "cronologia",
+    "item": {
+     "fecha": "1957-09-29",
+     "hora": "16:00",
+     "evento": "F16 sitúa un partido de fútbol en el poblado y el aviso visual de humo amarillo procedente del almacenamiento; este pasaje no fija la hora de la explosión.",
+     "aproximada": false,
+     "ids": [
+      "T25"
+     ]
+    }
+   },
+   {
+    "que": "[hechos] F16 sitúa un partido de fútbol y la observación de humo amarillo procedente del almacenamiento a las 16:00.",
+    "motivo": "no respaldado: hora 16:00",
+    "ids": [
+     "T25"
+    ],
+    "seccion": "hechos",
+    "item": {
+     "texto": "F16 sitúa un partido de fútbol y la observación de humo amarillo procedente del almacenamiento a las 16:00.",
+     "nivel": 2,
+     "sirve_para": "escalada",
+     "ids": [
+      "T25"
+     ]
+    }
+   },
+   {
+    "que": "[descartados] Personas descartadas por el research que no reaparecen identificadas en pasajes del pool",
+    "motivo": "no respaldado: sin ids",
+    "ids": [],
+    "seccion": "descartados",
+    "item": {
+     "que": "Personas descartadas por el research que no reaparecen identificadas en pasajes del pool",
+     "motivo": "No se reconstruyen acciones, biografías ni participaciones utilizando únicamente la lista de descartados.",
+     "ids": []
+    }
+   }
+  ]
+ },
+ "costo": {
+  "tema": "kyshtym",
+  "etapa": "ficha",
+  "usd": 0.4132,
+  "segundos": 486.2,
+  "llamadas": [
+   {
+    "servicio": "OpenAI gpt-6.1-sol",
+    "desc": "ficha_caso",
+    "in": 36204,
+    "out": 27933,
+    "thinking": 6142,
+    "usd": 0.4132
+   }
+  ],
+  "max_completion_tokens": 60000,
+  "prompt_md5": {
+   "sistema": "7d3599dc6e4123a3bb883fc15a541e71",
+   "usuario": "8a828e6953b09426051a3d9eb6bf5a43"
+  }
+ },
+ "chequeo_version": "f15b (afloje de cifras y sentidos)"
+}

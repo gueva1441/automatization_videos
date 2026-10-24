@@ -1,0 +1,199 @@
+{
+ "etapas": [
+  {
+   "tema": "ycua",
+   "etapa": "columna",
+   "usd": 0.0916,
+   "segundos": 117.8,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_columna intento 1",
+     "in": 16033,
+     "out": 1866,
+     "thinking": 4083,
+     "usd": 0.0916
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "f294cf6b1220983903ce339f5b21cb27",
+    "usuario": "4edba77329cda971df5f29cde8ab1a0c"
+   },
+   "error": null,
+   "log": [
+    "  [columna] intento 1: 0 problema(s) []"
+   ]
+  },
+  {
+   "tema": "ycua",
+   "etapa": "escaleta",
+   "usd": 0.134,
+   "segundos": 172.8,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 17846,
+     "out": 5729,
+     "thinking": 4097,
+     "usd": 0.134
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "7ea18a6aa1ca91c5ad0dfb7cc9b239a8",
+    "usuario": "3b1fe0eb12e7388947cfa69c1e9439c5"
+   },
+   "error": "Parada: tope de costo (paso) antes de «m01a_escaleta v2 intento 2»: US$ 0.134 + peor caso 0.343 > 0.45",
+   "log": [
+    "  [escaleta] compuerta del pool: verde {'datos': 227, 'citas_verificadas': 52, 'elegibles_humano': 15, 'eventos_con_fecha': 62}",
+    "  [escaleta v2] intento 1: 13 bloqueante(s) ['beat 2: dato_central «P13, P80: LIZ VA AL SUPERMERCADO CON SU ESPOSO, ALFREDO VALLOVERA. ES UNA SALIDA DE LA PAREJA ANTES DE QUE EMPIECE LA HUIDA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D42 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D27 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D28 también está en un beat: lo que va a pantalla no lo dice la voz'] · 53 reparación(es) · 16 a métricas"
+   ]
+  },
+  {
+   "tema": "ycua",
+   "etapa": "escaleta",
+   "usd": 0.269,
+   "segundos": 352.1,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 17846,
+     "out": 5286,
+     "thinking": 4096,
+     "usd": 0.1295
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 18090,
+     "out": 5211,
+     "thinking": 5120,
+     "usd": 0.1395
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "7ea18a6aa1ca91c5ad0dfb7cc9b239a8",
+    "usuario": "3b1fe0eb12e7388947cfa69c1e9439c5"
+   },
+   "error": null,
+   "log": [
+    "  [escaleta] compuerta del pool: verde {'datos': 227, 'citas_verificadas': 52, 'elegibles_humano': 15, 'eventos_con_fecha': 62}",
+    "  [escaleta v2] intento 1: 8 bloqueante(s) ['beat 2: dato_central «P13, P80: LIZ VA AL SUPERMERCADO CON SU ESPOSO, ALFREDO VALLOVERA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D192 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D196 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D195 también está en un beat: lo que va a pantalla no lo dice la voz'] · 48 reparación(es) · 16 a métricas",
+    "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 39 reparación(es) · 14 a métricas"
+   ]
+  },
+  {
+   "tema": "ycua",
+   "etapa": "guion",
+   "usd": 0.1057,
+   "segundos": 180.3,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 6165,
+     "out": 1655,
+     "thinking": 7681,
+     "usd": 0.1057
+    }
+   ]
+  },
+  {
+   "tema": "kyshtym",
+   "etapa": "ficha",
+   "usd": 0.4132,
+   "segundos": 486.2,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "ficha_caso",
+     "in": 36204,
+     "out": 27933,
+     "thinking": 6142,
+     "usd": 0.4132
+    }
+   ],
+   "max_completion_tokens": 60000,
+   "prompt_md5": {
+    "sistema": "7d3599dc6e4123a3bb883fc15a541e71",
+    "usuario": "8a828e6953b09426051a3d9eb6bf5a43"
+   }
+  },
+  {
+   "tema": "kyshtym",
+   "etapa": "columna",
+   "usd": 0.0891,
+   "segundos": 119.3,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_columna intento 1",
+     "in": 14137,
+     "out": 1985,
+     "thinking": 4096,
+     "usd": 0.0891
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "f294cf6b1220983903ce339f5b21cb27",
+    "usuario": "0101863f02f813e666eb20e8347d08c6"
+   },
+   "error": null,
+   "log": [
+    "  [columna] intento 1: 0 problema(s) []"
+   ]
+  },
+  {
+   "tema": "kyshtym",
+   "etapa": "escaleta",
+   "usd": 0.2467,
+   "segundos": 311.3,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 16054,
+     "out": 5318,
+     "thinking": 3584,
+     "usd": 0.1211
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 16176,
+     "out": 4987,
+     "thinking": 4337,
+     "usd": 0.1256
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "7ea18a6aa1ca91c5ad0dfb7cc9b239a8",
+    "usuario": "eb1ea31e88348ac66d01d93c0a0afe87"
+   },
+   "error": null,
+   "log": [
+    "  [escaleta] compuerta del pool: verde {'datos': 208, 'citas_verificadas': 18, 'elegibles_humano': 7, 'eventos_con_fecha': 22}",
+    "  [escaleta v2] intento 1: 4 bloqueante(s) ['beat 14: dato_central Q17 ya está en el beat 1 (un id, un solo beat)', 'a_pantalla D57 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D88 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D25 también está en un beat: lo que va a pantalla no lo dice la voz'] · 49 reparación(es) · 18 a métricas",
+    "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 42 reparación(es) · 16 a métricas"
+   ]
+  },
+  {
+   "tema": "kyshtym",
+   "etapa": "guion",
+   "usd": 0.1179,
+   "segundos": 191.5,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 6467,
+     "out": 1863,
+     "thinking": 8631,
+     "usd": 0.1179
+    }
+   ]
+  }
+ ],
+ "usd_total": 1.4672
+}

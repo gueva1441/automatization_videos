@@ -555,7 +555,7 @@ def cap_review(text: str, *, cap: int, pool: dict[str, Any], skeleton: dict[str,
         undecl = [i for i in used_items(text, pool) if i not in set(declared)]
         if undecl:
             soft.append("estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, "
-                        "declaralos; si es un choque de cifras —«Interestatal 10» no son los niños de 10 años—, no): "
+                        "declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): "
                         + "; ".join(f"[{i}] «{' / '.join(ev.anchors(its[i]))}»" for i in undecl[:8]))
     reps = ev.repeats_in_cap(text, sorted(lit) if declared is not None else used_items(text, pool, hard=False), pool)
     if reps:
@@ -598,6 +598,8 @@ def cap_review(text: str, *, cap: int, pool: dict[str, Any], skeleton: dict[str,
                         f"(nombralo o dejalo incompleto; nada de retórica genérica)")
     # ── blandas
     for p in skeleton.get("personajes") or []:
+        if p.get("tipo") == "institucion":                  # F22 §1.2: una institución no tiene nombre y apellido
+            continue
         if p.get("entra_en_cap") == cap:
             named, role = names_with_role(text, p)
             if not named or not role:
@@ -627,14 +629,14 @@ def cap_review(text: str, *, cap: int, pool: dict[str, Any], skeleton: dict[str,
                     + ", ".join(dict.fromkeys(adjectives(text)))[:160])
     elif cm["adj_100"] < ADJ_MIN:
         soft.append(f"{cm['adj_100']} adjetivos/100 palabras (mínimo {ADJ_MIN}): se lee como un acta; sumá 2 o 3 "
-                    "calificativos concretos atados a los hechos (cómo era el agua, la celda, el calor), sin relleno")
+                    "calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno")
     if filler_run(text, pool) > FILLER_RUN_MAX:
         soft.append(f"más de {FILLER_RUN_MAX} oraciones seguidas que califican sin dato: cambiá adjetivos por hechos")
     tri = trigram_vs_previous(text, [t for t, _ in prev])
     if tri >= TRIGRAM_CAP_MAX:
         soft.append(f"{tri:.0%} de tus frases de 3 palabras ya se dijeron en caps anteriores (máximo "
-                    f"{TRIGRAM_CAP_MAX:.0%}): no repitas fórmulas («sheriff Marlin N. Gusman» basta una vez; después "
-                    "«el sheriff», «Gusman»)")
+                    f"{TRIGRAM_CAP_MAX:.0%}): no repitas fórmulas (el nombre completo con el cargo basta una vez; "
+                    "después, el cargo o el apellido solo)")
     n_dat = len([i for i in lit if its[i]["_kind"] in ("datos", "cronologia", "citas")]) if declared is not None \
         else len(used_items(text, pool, hard=False))
     score = (SCORE["dato"] * n_dat + SCORE["cliffhanger"] * bool(cliff_ok) + SCORE["repetido"] * len(reps)

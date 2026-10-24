@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-24 (F21c: cargos genéricos en nombres, perfil de Orleans con seed_profile (6 de 7 variantes), elegible exige es_persona; US$ 0.0021 → PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-24 (F22: ejemplos de un caso inventado en los 4 prompts, antagonista persona/institución/ninguno, nombre en documento; Ycuá 0 bloqueantes pero 838 palabras; Kyshtym llega a guion con 1 bloqueante → PARADA; US$ 1.467) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,14 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F22 — Familias C + E (ejemplos de Puerto Cardal, antagonista de tres tipos) y nombre en documento — HECHO, **PARADA** (el analista revisa el diff de prompts y lee las dos cadenas)
+- Sobre `8be0ea9`. Handoff `lab/hyperframes/f22/HANDOFF_F22_ejemplos_y_antagonista.md` (md5 2685deec…, con sus 5 archivos verificados). Reporte `lab/hyperframes/f22/F22_REPORT.md` (diff línea a línea de los 4 prompts; revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f22.html` (teléfono OK). Runner `f22_corridas.py`, página `f22_compara.py`, diff `f22_diffs.py`, `cero_cardal.py`. `_transfer_tmp/` borrado.
+- Prompts literales: ficha `f22-1`, columna `f22-1` (+ tarea con QUIÉN DECIDE), escaleta v2.1 `f22-1` (con o sin columna), guion v5.2 `f22-1`. **Los viejos quedan en código con su versión** (`ficha_caso.system("f15-1")`, `m01a_columna.SYSTEM_F17_1/TAREA_F17_1`, `m01a_escaleta.SYSTEM_V2_F16_1`, `guion_v4.system("f15b-1")`). Escaleta v1 y tareas de escaleta/guion byte-idénticas.
+- E: `antagonista {tipo persona|institucion|ninguno, id, nombre, por_que}` en columna (chequeo), escaleta (bloqueante; copia variantes de la ficha), m01d (la institución queda en `personajes` con `tipo`), `antagonist_problems`/`_ANON_VOICE` solo con persona; métricas `antagonista_tipo/_caps`. R3: `nombre_en_documento`/`autor_en_documento` (verify_pool, presencia, validate).
+- Corridas: **Ycuá** 0 bloqueantes (Liz Torres; Paiva persona) pero **838 palabras ≈ 6.8 min** (F16: 1,384). **Kyshtym**: pool de F21c recalculado (verde, 7 elegibles; `00_pool_v3_f20.json` respaldo; topics_db sin tocar), ficha nueva, columna (humano Komarov, **antagonista «ninguno»**), escaleta OK, guion 1,003 palabras con **1 bloqueante (a) «1982»** (año en `fuente`, no en el texto) → PARADA. Cero Cardal en todo. US$ 1.4672 de 3.00.
+- Hallazgos para el analista: 3 cambios de los prompts fuera de su «qué cambia»; «Осетров» no verifica (declinación: junto a la cita dice «Осетрова»); dos `P09` en el pool de Kyshtym (`add_quote_authors`); el dorado v3 cambió solo por los 5 mensajes (probado).
+- Tests `test_module_f22.py` (52) + 7 adaptados; suite amplia 795 verdes + las 5 previas. Sin merge.
 
 ## F21c — Cargos genéricos, perfil de Orleans, elegible = persona — HECHO, **PARADA**
 - Sobre `fd54356`. Sección «F21c» al final de `lab/hyperframes/f21/F21_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `RECHECK_f21c.md` (F21b → F21c).

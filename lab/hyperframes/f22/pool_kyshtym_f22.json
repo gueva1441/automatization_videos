@@ -1,0 +1,97 @@
+{
+ "compuerta": "verde",
+ "metricas": {
+  "datos": 208,
+  "citas_verificadas": 18,
+  "elegibles_humano": 7,
+  "eventos_con_fecha": 22
+ },
+ "motivos": [],
+ "verificacion": {
+  "verificada": 18,
+  "verificada_parcial": 6,
+  "sin_verificar": 0
+ },
+ "personajes": [
+  [
+   "P01",
+   "Lyudmila Krestinina",
+   true
+  ],
+  [
+   "P02",
+   "Andrei Vazhenin",
+   true
+  ],
+  [
+   "P03",
+   "Zhores Medvedev",
+   true
+  ],
+  [
+   "P04",
+   "Lev Tumerman",
+   true
+  ],
+  [
+   "P06",
+   "Igor Vasil'evich Kurchatov",
+   false
+  ],
+  [
+   "P07",
+   "N. V. Timofeyev-Resovskiy",
+   false
+  ],
+  [
+   "P08",
+   "Josef Stalin",
+   false
+  ],
+  [
+   "P09",
+   "periódico Komsomolskaya Pravda",
+   false
+  ],
+  [
+   "P09",
+   "Андрей Талевлин",
+   false
+  ],
+  [
+   "P10",
+   "В.Д. Камынин",
+   true
+  ],
+  [
+   "P11",
+   "V.M. Osetrov",
+   false
+  ],
+  [
+   "P12",
+   "V.I. Komarov",
+   false
+  ],
+  [
+   "P13",
+   "I.F. Serov",
+   false
+  ],
+  [
+   "P14",
+   "Любовь Ладейщикова",
+   true
+  ],
+  [
+   "P15",
+   "Мама de Надежда Кутепова",
+   true
+  ]
+ ],
+ "log": [
+  "  [R4] autores de cita sumados como personajes: ['Андрей Талевлин', 'В.Д. Камынин', 'V.M. Osetrov', 'V.I. Komarov', 'I.F. Serov', 'Любовь Ладейщикова', 'Мама de Надежда Кутепова']",
+  "  [R4] presencia por párrafo: 14 vínculos persona-evento (7 personas con alguno)",
+  "  [R5] citas: {'verificada': 18, 'verificada_parcial': 6, 'sin_verificar': 0}"
+ ]
+}

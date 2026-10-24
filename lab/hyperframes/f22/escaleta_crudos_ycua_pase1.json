@@ -1,0 +1,361 @@
+[
+ {
+  "humano": {
+   "id": "P13",
+   "nombre": "Liz Torres",
+   "rol": "Sobreviviente y miembro de organizaciones de víctimas",
+   "por_que": "Une la salida con su esposo, la avalancha, el encierro bajo otros cuerpos, el rescate y el reclamo organizado. Su experiencia sostiene el pico sin cambiar de protagonista. La ficha registra cuatro citas verificadas suyas.",
+   "colectivo": false,
+   "fuente": "P13, P80, Q19, Q20, Q77, D210, Q78"
+  },
+  "antagonista": {
+   "tipo": "persona",
+   "id": "P06",
+   "nombre": "Juan Pío Paiva",
+   "por_que": "Es el propietario al que una sobreviviente atribuye la orden de cerrar y que recibió una condena por homicidio doloso. La atribución testimonial, la negativa de la defensa y la condena se presentan por separado: no se reconstruye una orden como si estuviera documentada directamente."
+  },
+  "promesa_gancho": "Vas a entender cómo Liz quedó atrapada entre quienes buscaban salir y qué resolvió la Justicia sobre la responsabilidad del dueño.",
+  "pico": {
+   "beat": 7,
+   "id": "E8",
+   "por_que": "Se conserva el pico de la ficha y de la columna: Liz ya no puede huir, cree que morirá y piensa en sus hijos. El retorno al instante del gancho agrega su experiencia interior, el calor y las cenizas, sin repetir el fragmento de los gritos. El panel que inmoviliza a Tatiana pertenece al mismo encierro y no abre otro clímax."
+  },
+  "cierre_humano": "Volver a Liz como sobreviviente que integra organizaciones de víctimas. La resolución civil corresponde a otro matrimonio, no a ella. Desde su reclamo, cerrar con la pregunta pendiente sobre la reparación económica efectiva, sin una moraleja ni una cita no verificada atribuida por nombre.",
+  "beats": [
+   {
+    "n": 1,
+    "cap": 1,
+    "funcion": "gancho",
+    "emocion": "Asfixia",
+    "intensidad": 4,
+    "dato_central": "Q20, fragmento reservado al gancho: los gritos alrededor de la mujer atrapada se van apagando. Si se utiliza la cita literal, va sin atribución nominal por estar sin verificar.",
+    "datos_apoyo": [],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E8: Liz inmovilizada bajo otros cuerpos; se oyen gritos que dejan de escucharse. Sin fecha, cifras ni explicación del incendio. No identificar por nombre la voz de la cita Q20.",
+    "pregunta_abierta": "¿Qué la dejó atrapada y por qué ya no consigue salir?",
+    "pregunta_pantalla": "",
+    "cierre": "Antes de quedar debajo de esos cuerpos, Liz había entrado con su esposo.",
+    "palabras_objetivo": 85,
+    "flash_forward": true,
+    "contador": false,
+    "escena_idx": 8
+   },
+   {
+    "n": 2,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "Normalidad",
+    "intensidad": 1,
+    "dato_central": "P13, P80: Liz va al supermercado con su esposo, Alfredo Vallovera. Es una salida de la pareja antes de que empiece la huida.",
+    "datos_apoyo": [
+     "Q19, únicamente el dato familiar: Liz tiene hijos adolescentes; reservar para el pico su pensamiento de que podría dejarlos solos.",
+     "D42: domingo 1 de agosto de 2004, solo a pantalla.",
+     "D53: el local está en Artigas y Santísima Trinidad, en Asunción.",
+     "Q70, únicamente el contexto previo: hay personas almorzando en el patio de comidas, mientras otras hacen compras.",
+     "D96: según el relato de un perito, empleados le contaron que las alarmas habían sonado anteriormente y que no sabían por qué ni cómo actuar."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "La esquina del supermercado y su patio de comidas, apoyados en D53 y en el contexto de Q70. No hay una escena previa documentada de la pareja: no inventar conversaciones, productos comprados ni gestos domésticos. Mantener el capítulo tranquilo hasta la advertencia final.",
+    "pregunta_abierta": "¿Qué podía advertir del peligro una pareja que había ido a hacer una compra?",
+    "pregunta_pantalla": "",
+    "cierre": "Según un perito, empleados contaron que las alarmas ya habían sonado; no sabían cómo actuar.",
+    "palabras_objetivo": 200,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 3,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "Sobresalto",
+    "intensidad": 3,
+    "dato_central": "Q10: Beatriz González oye una explosión, ve una nube de humo negro, abandona su caja y corre hacia el estacionamiento. Es el giro de la compra a la huida.",
+    "datos_apoyo": [
+     "Q19, únicamente como continuidad del recorrido: Liz todavía está dentro; no asignarle una ubicación precisa ni acciones que no constan."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E6: una cajera deja su puesto, salta y corre mientras el humo negro cubre el lugar. Se escucha la explosión que ella recuerda.",
+    "pregunta_abierta": "¿De dónde sale un fuego capaz de interrumpir todo de esa manera?",
+    "pregunta_pantalla": "",
+    "cierre": "La pericia buscará el origen de ese humo en la chimenea de la parrilla.",
+    "palabras_objetivo": 110,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 6
+   },
+   {
+    "n": 4,
+    "cap": 3,
+    "funcion": "escalada",
+    "emocion": "Amenaza",
+    "intensidad": 3,
+    "dato_central": "D27: la pericia de Criminalística sitúa el inicio del fuego en residuos de cocción acumulados en el tramo en S de la chimenea de la parrilla. El hallazgo se presenta a pantalla, no como una observación de los compradores.",
+    "datos_apoyo": [
+     "D28: la misma pericia indica que las llamas se propagaron por el material aislante del techo; solo a pantalla."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Esquema del tramo en S y del recorrido hacia el aislante del techo, limitado a D27 y D28. No añadir temperaturas, tiempos de propagación ni una explosión técnicamente reconstruida. La voz enlaza el avance del peligro con la necesidad de salir, sin leer las placas.",
+    "pregunta_abierta": "¿Qué encuentran quienes alcanzan los accesos mientras el fuego avanza por arriba?",
+    "pregunta_pantalla": "",
+    "cierre": "Pero alcanzar una puerta no significa poder salir.",
+    "palabras_objetivo": 100,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 5,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "Encierro",
+    "intensidad": 4,
+    "dato_central": "Q18: Víctor Galeano declara que encuentra cerrado el blíndex y que cae con su acompañante en brazos después de un estruendo hacia el estacionamiento. Presentarlo expresamente como su testimonio.",
+    "datos_apoyo": [],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E7: el blíndex al que llega Galeano, el humo que sube y su caída con la persona que sostiene en brazos. No inventar un parentesco ni mostrar una llave o un cierre accionado.",
+    "pregunta_abierta": "¿Es ese acceso el único que los sobrevivientes recuerdan cerrado?",
+    "pregunta_pantalla": "",
+    "cierre": "Hacia Artigas, otra sobreviviente describe a personas que llegan al portón y vuelven.",
+    "palabras_objetivo": 125,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 7
+   },
+   {
+    "n": 6,
+    "cap": 4,
+    "funcion": "escalada",
+    "emocion": "Compresión",
+    "intensidad": 4,
+    "dato_central": "D106: Digna Cáceres declara que el portón hacia Artigas está cerrado y que quienes corren hacia él regresan. Es un relato de lo que encontró, todavía no la atribución de quién habría ordenado el cierre.",
+    "datos_apoyo": [
+     "Q19, únicamente el movimiento de la huida: Liz siente la avalancha que la devuelve hacia adentro. Reservar su certeza de morir y el pensamiento sobre sus hijos para el beat siguiente."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El movimiento de ida y regreso descrito por Digna enlaza con E8: cuerpos que presionan a Liz en dirección contraria a la salida. No dibujar un recorrido exacto que conecte testimonios independientes.",
+    "pregunta_abierta": "¿Qué le ocurre a quien queda debajo cuando la huida cambia de dirección?",
+    "pregunta_pantalla": "",
+    "cierre": "La avalancha devuelve a Liz hacia adentro.",
+    "palabras_objetivo": 140,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 8
+   },
+   {
+    "n": 7,
+    "cap": 5,
+    "funcion": "pico",
+    "emocion": "Terror e inmovilidad",
+    "intensidad": 5,
+    "dato_central": "Q19, fragmento reservado al pico: Liz cree que no saldrá viva —«acá nos morimos todos, no me voy a salvar»— y piensa en los hijos que podría dejar solos. Retomar el instante del gancho sin volver a explicar la avalancha.",
+    "datos_apoyo": [
+     "Q20, fragmento distinto del gancho: calor comparado con un horno o tatakua y cenizas. Si se cita literalmente, hacerlo sin nombre; no repetir los gritos que se apagan.",
+     "D01: Tatiana Gabaglio tiene siete años; la edad se dice una sola vez.",
+     "D03: un panel derretido del cielorraso cae sobre la pierna de Tatiana y la inmoviliza. Es otra imagen del mismo encierro, no un segundo pico.",
+     "Q77: Liz dirá «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida». Usar esta reinterpretación retrospectiva sin adelantar cómo se produjo el rescate."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E8 como imagen principal: Liz sin posibilidad de moverse, calor de horno y cenizas. Insertar brevemente E9: el panel derretido sobre la pierna de Tatiana. Volver a Liz antes del corte final; no añadir heridas ni sonidos no registrados.",
+    "pregunta_abierta": "¿Cómo puede seguir con vida alguien que ya no tiene espacio para escapar?",
+    "pregunta_pantalla": "",
+    "cierre": "Atrapada.",
+    "palabras_objetivo": 260,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 8
+   },
+   {
+    "n": 8,
+    "cap": 6,
+    "funcion": "respiro",
+    "emocion": "Alivio incompleto",
+    "intensidad": 2,
+    "dato_central": "D210: Liz y Alfredo son rescatados. No atribuirles rescatistas, maniobras ni una vía de salida que la ficha no identifica.",
+    "datos_apoyo": [
+     "D04: bomberos voluntarios rescatan a Tatiana.",
+     "D05: los médicos le amputan una pierna por la gravedad de las quemaduras."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E9 permite pasar del panel que inmovilizaba a Tatiana a la intervención documentada de bomberos. Para Liz y Alfredo, no fabricar una escena física de extracción. Bajar el ritmo: el rescate no devuelve intactos a quienes salen.",
+    "pregunta_abierta": "¿Qué vía de escape encontraron quienes no habían logrado salir por los accesos previstos?",
+    "pregunta_pantalla": "",
+    "cierre": "En la pared hacia Artigas apareció otra salida.",
+    "palabras_objetivo": 125,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 9
+   },
+   {
+    "n": 9,
+    "cap": 6,
+    "funcion": "giro",
+    "emocion": "Desorientación y alivio",
+    "intensidad": 2,
+    "dato_central": "D107: Digna recuerda despertar mojada y distinguir la claridad del boquete hacia Artigas. Es el giro que convierte una abertura en la pared en posibilidad de supervivencia.",
+    "datos_apoyo": [
+     "D105: antes había quedado trabada en la bajada al estacionamiento, donde los escombros taparon el paso.",
+     "D147, solo el uso del boquete: otro relato confirma una salida por esa abertura. No incorporar un nuevo protagonista ni la recriminación de segunda mano atribuida a un Paiva."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E10: escombros en la bajada, Digna mojada y la claridad visible en la pared. El agua se presenta con la incertidumbre del recuerdo: aparentemente se la habían arrojado desde arriba.",
+    "pregunta_abierta": "¿Qué encuentran afuera quienes todavía están buscando a los suyos?",
+    "pregunta_pantalla": "",
+    "cierre": "En el estacionamiento abierto también están reuniendo cuerpos.",
+    "palabras_objetivo": 130,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 10
+   },
+   {
+    "n": 10,
+    "cap": 6,
+    "funcion": "consecuencia",
+    "emocion": "Duelo y silencio",
+    "intensidad": 2,
+    "dato_central": "D141: un equipo organizado por una hija encuentra el cuerpo de su madre en el estacionamiento abierto. La búsqueda termina en identificación, sin desplegar otra familia protagonista.",
+    "datos_apoyo": [
+     "D192: solo a pantalla, 327 fallecidos, cifra presentada como oficial por F10 y sin incluir desaparecidos; aclarar que es una referencia periodística, no un registro primario.",
+     "D196: solo a pantalla, 204 huérfanos.",
+     "D195: solo a pantalla, 244 heridos según una fuente.",
+     "D223: junto a la cifra anterior, solo a pantalla, 500 heridos según otra fuente; no existe un recuento común dirimido."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E12, recortada a la identificación en el estacionamiento y al cuerpo encontrado. No incorporar nombres, lesiones detalladas ni sospechas sobre pertenencias. Después, placas de recuento sin que la voz lea las cifras.",
+    "pregunta_abierta": "¿Coincidirá la investigación de los accesos con lo que relataron quienes intentaron escapar?",
+    "pregunta_pantalla": "",
+    "cierre": "Después del rescate, una pericia dará otra versión de aquellas puertas.",
+    "palabras_objetivo": 110,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 12
+   },
+   {
+    "n": 11,
+    "cap": 7,
+    "funcion": "revelacion",
+    "emocion": "Desconcierto",
+    "intensidad": 3,
+    "dato_central": "D30: la pericia describe los blíndex como pivotantes y cerrados sin llave. El contenido técnico va a pantalla; esa descripción no demuestra por sí sola que permitieran pasar durante la huida.",
+    "datos_apoyo": [
+     "D31: solo a pantalla, la pericia sostiene que los accesos de hierro de la rampa estaban abiertos. Es el giro de la versión pericial incompatible con los testimonios ya escuchados.",
+     "D109, Q35: una sobreviviente atribuye la orden de cerrar a Pío Paiva. Explicar que es una atribución formulada sobre lo que piensa que ocurrió, no una constatación independiente; cualquier cita literal va sin nombre por estar sin verificar.",
+     "Q64: la defensa transmite que los Paiva negaron haber dado la orden y negaron que fuera una política de la empresa."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Placas separadas para el resumen pericial y las versiones sobre la orden. No simular un facsímil de una pericia original que la ficha no aporta. No volver a recitar los testimonios de puertas cerradas: el contraste se hace contra lo que el espectador ya escuchó.",
+    "pregunta_abierta": "¿Qué responsabilidad penal se estableció en medio de esas versiones enfrentadas?",
+    "pregunta_pantalla": "",
+    "cierre": "La responsabilidad del dueño también llegó a una sentencia penal.",
+    "palabras_objetivo": 230,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 12,
+    "cap": 7,
+    "funcion": "consecuencia",
+    "emocion": "Justicia incompleta",
+    "intensidad": 3,
+    "dato_central": "D214: Juan Pío Paiva fue condenado por homicidio doloso. Presentar la condena sin convertirla en una reconstrucción audiovisual de la orden discutida y sin afirmar que fue la única condena del caso.",
+    "datos_apoyo": [
+     "D19: doce años de prisión, solo a pantalla; la voz no repite la duración.",
+     "D08: Tatiana cuenta que comenzó a estudiar Derecho por rabia.",
+     "P01: Tatiana llega a ejercer como abogada.",
+     "Q01: Tatiana afirma que nunca recibió una indemnización real o reparación suficiente. Puede usarse el fragmento verificado «nunca recibí indemnización real o reparación del daño»."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Una placa con el nombre del dueño y la duración de la pena da paso al testimonio de Tatiana. No inventar un despacho, una audiencia ni una entrega de dinero. El contraste es entre la condena y lo que ella dice no haber recibido.",
+    "pregunta_abierta": "¿Una sentencia favorable garantiza que los sobrevivientes y familiares puedan cobrar?",
+    "pregunta_pantalla": "",
+    "cierre": "Otra resolución reconocerá una indemnización. Pero reconocerla y cobrarla no serán la misma certeza.",
+    "palabras_objetivo": 175,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 13,
+    "cap": 7,
+    "funcion": "cierre",
+    "emocion": "Incertidumbre",
+    "intensidad": 3,
+    "dato_central": "D186: solo a pantalla, la Sala Civil de la Corte ordena indemnizar al matrimonio Palacios Morínigo. Identificarlo como otro matrimonio: esta resolución no corresponde a Liz ni a Tatiana.",
+    "datos_apoyo": [
+     "D193: solo a pantalla, monto total de 4.500.000.000 de guaraníes para el matrimonio; no confundirlo con la asignación individual ni con el monto de primera instancia.",
+     "T75: el principal demandado, Juan Pío Paiva, ya murió.",
+     "P70: el abogado del matrimonio advierte que no sabe si quedan bienes de la sociedad para hacer efectiva la indemnización.",
+     "P13: regreso final a Liz como integrante de organizaciones de víctimas; su supervivencia desemboca en el reclamo organizado."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Placa del reconocimiento económico, seguida por la incertidumbre documentada sobre el cobro. Volver narrativamente a Liz, sin atribuirle la indemnización ni inventar una escena suya en tribunales. No mostrar un pago ni cerrar con una imagen de reparación consumada.",
+    "pregunta_abierta": "¿El reclamo que sostiene Liz puede traducirse en una reparación efectiva para los sobrevivientes y familiares?",
+    "pregunta_pantalla": "",
+    "cierre": "¿Podrán los sobrevivientes y familiares convertir las sentencias en una reparación económica efectiva, si el principal demandado murió y ni su abogado sabe si quedan bienes de la sociedad para cobrar?",
+    "palabras_objetivo": 170,
+    "flash_forward": false,
+    "contador": false
+   }
+  ],
+  "a_pantalla": [
+   {
+    "id": "D42",
+    "cap": 2,
+    "por_que": "Situar el regreso cronológico: domingo 1 de agosto de 2004. La fecha no aparece en el gancho ni se repite en voz."
+   },
+   {
+    "id": "D27",
+    "cap": 3,
+    "por_que": "Mostrar el hallazgo pericial sobre los residuos acumulados en el tramo en S de la chimenea. Identificarlo como conclusión pericial; la voz no lee el contenido."
+   },
+   {
+    "id": "D28",
+    "cap": 3,
+    "por_que": "Completar el esquema con la propagación por el aislante del techo, sin añadir cálculos ni temperaturas y sin duplicación en voz."
+   },
+   {
+    "id": "D192",
+    "cap": 6,
+    "por_que": "327 fallecidos. Indicar que F10 presenta la cifra como oficial, que no incluye desaparecidos y que la ficha contiene otros recuentos. No locutar la cifra."
+   },
+   {
+    "id": "D196",
+    "cap": 6,
+    "por_que": "204 huérfanos, con referencia a la fuente. No locutar la cifra."
+   },
+   {
+    "id": "D195",
+    "cap": 6,
+    "por_que": "244 heridos según esta fuente, presentada junto con la versión de D223 y sin declararla cifra única."
+   },
+   {
+    "id": "D223",
+    "cap": 6,
+    "por_que": "500 heridos según esta otra fuente. Explicitar que el recuento común no está dirimido; ninguna de las dos cifras se lee en voz."
+   },
+   {
+    "id": "D30",
+    "cap": 7,
+    "por_que": "Exponer el resumen pericial: cuatro blíndex pivotantes cerrados sin llave. No equiparar automáticamente esa condición con una salida practicable durante la huida."
+   },
+   {
+    "id": "D31",
+    "cap": 7,
+    "por_que": "Exponer la afirmación pericial de que los accesos de hierro de la rampa estaban abiertos. La voz señala la contradicción, pero no repite el documento."
+   },
+   {
+    "id": "D19",
+    "cap": 7,
+    "por_que": "Mostrar la duración de la condena de Juan Pío Paiva: 12 años de prisión. La voz informa el delito, no repite la pena."
+   },
+   {
+    "id": "D186",
+    "cap": 7,
+    "por_que": "Identificar la resolución de la Sala Civil y a sus beneficiarios, el matrimonio Palacios Morínigo. No presentarla como indemnización de Liz o Tatiana ni como dinero ya cobrado."
+   },
+   {
+    "id": "D193",
+    "cap": 7,
+    "por_que": "Mostrar una sola vez el total reconocido al matrimonio: 4.500.000.000 de guaraníes. No locutarlo ni mezclarlo con otros montos procesales."
+   }
+  ],
+  "justificacion_humano": "Se conserva íntegramente la elección de la columna: Liz abre, sostiene la aproximación al encierro, protagoniza el único pico, reaparece rescatada y cierra desde el reclamo colectivo. Tatiana aporta la lesión y la reparación insuficiente sin sustituirla. Los seis giros tienen lugar: explosión en el beat 3, accesos encontrados cerrados en el 5, boquete en el 9, identificación de un cuerpo en el 10, contradicción pericial en el 11 e indemnización de cobro incierto en el 13. El cuarto giro entra reducido a la identificación prevista por la columna, sin abrir el arco completo de Blas y Estela. Q19 y Q20 se dividen en fragmentos distintos para no repetir información entre gancho, avalancha y pico; las citas sin verificar no llevan atribución nominal. Se mantienen fuera los demás arcos, denuncias y desarrollos técnicos descartados por la columna."
+ }
+]

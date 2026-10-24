@@ -1,0 +1,411 @@
+{
+ "costos": {
+  "etapas": [
+   {
+    "tema": "ycua",
+    "etapa": "columna",
+    "usd": 0.0916,
+    "segundos": 117.8,
+    "llamadas": [
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "m01a_columna intento 1",
+      "in": 16033,
+      "out": 1866,
+      "thinking": 4083,
+      "usd": 0.0916
+     }
+    ],
+    "prompt_md5_intento1": {
+     "sistema": "f294cf6b1220983903ce339f5b21cb27",
+     "usuario": "4edba77329cda971df5f29cde8ab1a0c"
+    },
+    "error": null,
+    "log": [
+     "  [columna] intento 1: 0 problema(s) []"
+    ]
+   },
+   {
+    "tema": "ycua",
+    "etapa": "escaleta",
+    "usd": 0.134,
+    "segundos": 172.8,
+    "llamadas": [
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "m01a_escaleta v2 intento 1",
+      "in": 17846,
+      "out": 5729,
+      "thinking": 4097,
+      "usd": 0.134
+     }
+    ],
+    "prompt_md5_intento1": {
+     "sistema": "7ea18a6aa1ca91c5ad0dfb7cc9b239a8",
+     "usuario": "3b1fe0eb12e7388947cfa69c1e9439c5"
+    },
+    "error": "Parada: tope de costo (paso) antes de «m01a_escaleta v2 intento 2»: US$ 0.134 + peor caso 0.343 > 0.45",
+    "log": [
+     "  [escaleta] compuerta del pool: verde {'datos': 227, 'citas_verificadas': 52, 'elegibles_humano': 15, 'eventos_con_fecha': 62}",
+     "  [escaleta v2] intento 1: 13 bloqueante(s) ['beat 2: dato_central «P13, P80: LIZ VA AL SUPERMERCADO CON SU ESPOSO, ALFREDO VALLOVERA. ES UNA SALIDA DE LA PAREJA ANTES DE QUE EMPIECE LA HUIDA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D42 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D27 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D28 también está en un beat: lo que va a pantalla no lo dice la voz'] · 53 reparación(es) · 16 a métricas"
+    ]
+   },
+   {
+    "tema": "ycua",
+    "etapa": "escaleta",
+    "usd": 0.269,
+    "segundos": 352.1,
+    "llamadas": [
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "m01a_escaleta v2 intento 1",
+      "in": 17846,
+      "out": 5286,
+      "thinking": 4096,
+      "usd": 0.1295
+     },
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "m01a_escaleta v2 intento 2",
+      "in": 18090,
+      "out": 5211,
+      "thinking": 5120,
+      "usd": 0.1395
+     }
+    ],
+    "prompt_md5_intento1": {
+     "sistema": "7ea18a6aa1ca91c5ad0dfb7cc9b239a8",
+     "usuario": "3b1fe0eb12e7388947cfa69c1e9439c5"
+    },
+    "error": null,
+    "log": [
+     "  [escaleta] compuerta del pool: verde {'datos': 227, 'citas_verificadas': 52, 'elegibles_humano': 15, 'eventos_con_fecha': 62}",
+     "  [escaleta v2] intento 1: 8 bloqueante(s) ['beat 2: dato_central «P13, P80: LIZ VA AL SUPERMERCADO CON SU ESPOSO, ALFREDO VALLOVERA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D192 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D196 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D195 también está en un beat: lo que va a pantalla no lo dice la voz'] · 48 reparación(es) · 16 a métricas",
+     "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 39 reparación(es) · 14 a métricas"
+    ]
+   },
+   {
+    "tema": "ycua",
+    "etapa": "guion",
+    "usd": 0.1057,
+    "segundos": 180.3,
+    "llamadas": [
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "guion_v4 guionista",
+      "in": 6165,
+      "out": 1655,
+      "thinking": 7681,
+      "usd": 0.1057
+     }
+    ]
+   },
+   {
+    "tema": "kyshtym",
+    "etapa": "ficha",
+    "usd": 0.4132,
+    "segundos": 486.2,
+    "llamadas": [
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "ficha_caso",
+      "in": 36204,
+      "out": 27933,
+      "thinking": 6142,
+      "usd": 0.4132
+     }
+    ],
+    "max_completion_tokens": 60000,
+    "prompt_md5": {
+     "sistema": "7d3599dc6e4123a3bb883fc15a541e71",
+     "usuario": "8a828e6953b09426051a3d9eb6bf5a43"
+    }
+   },
+   {
+    "tema": "kyshtym",
+    "etapa": "columna",
+    "usd": 0.0891,
+    "segundos": 119.3,
+    "llamadas": [
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "m01a_columna intento 1",
+      "in": 14137,
+      "out": 1985,
+      "thinking": 4096,
+      "usd": 0.0891
+     }
+    ],
+    "prompt_md5_intento1": {
+     "sistema": "f294cf6b1220983903ce339f5b21cb27",
+     "usuario": "0101863f02f813e666eb20e8347d08c6"
+    },
+    "error": null,
+    "log": [
+     "  [columna] intento 1: 0 problema(s) []"
+    ]
+   },
+   {
+    "tema": "kyshtym",
+    "etapa": "escaleta",
+    "usd": 0.2467,
+    "segundos": 311.3,
+    "llamadas": [
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "m01a_escaleta v2 intento 1",
+      "in": 16054,
+      "out": 5318,
+      "thinking": 3584,
+      "usd": 0.1211
+     },
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "m01a_escaleta v2 intento 2",
+      "in": 16176,
+      "out": 4987,
+      "thinking": 4337,
+      "usd": 0.1256
+     }
+    ],
+    "prompt_md5_intento1": {
+     "sistema": "7ea18a6aa1ca91c5ad0dfb7cc9b239a8",
+     "usuario": "eb1ea31e88348ac66d01d93c0a0afe87"
+    },
+    "error": null,
+    "log": [
+     "  [escaleta] compuerta del pool: verde {'datos': 208, 'citas_verificadas': 18, 'elegibles_humano': 7, 'eventos_con_fecha': 22}",
+     "  [escaleta v2] intento 1: 4 bloqueante(s) ['beat 14: dato_central Q17 ya está en el beat 1 (un id, un solo beat)', 'a_pantalla D57 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D88 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D25 también está en un beat: lo que va a pantalla no lo dice la voz'] · 49 reparación(es) · 18 a métricas",
+     "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 42 reparación(es) · 16 a métricas"
+    ]
+   },
+   {
+    "tema": "kyshtym",
+    "etapa": "guion",
+    "usd": 0.1179,
+    "segundos": 191.5,
+    "llamadas": [
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "guion_v4 guionista",
+      "in": 6467,
+      "out": 1863,
+      "thinking": 8631,
+      "usd": 0.1179
+     }
+    ]
+   }
+  ],
+  "usd_total": 1.4672
+ },
+ "ycua": {
+  "antes": {
+   "palabras": 1384,
+   "minutos": 11.3,
+   "bloqueantes": 0,
+   "bloqueantes_lista": [],
+   "prompt_version": "f15b-1",
+   "antagonista": {
+    "id": "P06",
+    "por_que": "Juan Pío Paiva concentra la responsabilidad empresarial, la condena penal y el posterior conflicto indemnizatorio. No convertir ese papel en una afirmación independiente de que dio una orden concreta: la autoría del cierre y su supuesto motivo deben presentarse con sus respectivas atribuciones y negativas."
+   },
+   "antagonista_tipo": "persona",
+   "antagonista_caps": [
+    7
+   ],
+   "humano": "Liz Torres",
+   "personas_total": [
+    "Alejandro Nissen",
+    "Alfredo Vallovera",
+    "Beatriz González",
+    "Benedicto Pérez",
+    "Blas Cristaldo",
+    "Carlos Halke",
+    "Cristian Sosa",
+    "Daniel Areco",
+    "Digna Felicia Cáceres",
+    "Edgar Sánchez",
+    "Enrique Riera",
+    "Ismael Alcaraz",
+    "Juan Pío Helvidio Paiva Escobar",
+    "Liz Torres",
+    "Luis Escobar Faella",
+    "Martín Burt",
+    "María Estela Morínigo Giménez de Palacios",
+    "Nelson Astigarraga",
+    "Rubén Urbieta",
+    "Tatiana Gabaglio",
+    "Teresa Sosa",
+    "Teresa Urbieta",
+    "Víctor Galeano",
+    "Ángela Pujol"
+   ],
+   "escenas_usadas": [
+    2,
+    3,
+    5,
+    7,
+    8,
+    9,
+    10,
+    12
+   ]
+  },
+  "f22": {
+   "palabras": 838,
+   "minutos": 6.8,
+   "bloqueantes": 0,
+   "bloqueantes_lista": [],
+   "prompt_version": "f22-1",
+   "antagonista": {
+    "tipo": "persona",
+    "id": "P06",
+    "nombre": "Juan Pío Paiva",
+    "por_que": "Es el propietario al que Digna Cáceres atribuye la orden de cerrar y que recibió una condena por homicidio doloso. La atribución testimonial, la negativa de la defensa y la resolución judicial se presentan por separado. No se reconstruye una orden de cierre como constatación independiente."
+   },
+   "antagonista_tipo": "persona",
+   "antagonista_caps": [
+    7
+   ],
+   "humano": "Liz Torres",
+   "personas_total": [
+    "Alfredo Vallovera",
+    "Antonio Morínigo",
+    "Beatriz González",
+    "Benedicto Pérez",
+    "Daniel Areco",
+    "Digna Felicia Cáceres",
+    "Juan Pío Helvidio Paiva Escobar",
+    "Liz Torres",
+    "Luis Escobar Faella",
+    "Nelson Astigarraga",
+    "Tatiana Gabaglio",
+    "Víctor Daniel Paiva",
+    "Víctor Galeano"
+   ],
+   "escenas_usadas": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    12
+   ]
+  },
+  "columna_f17": {
+   "humano": "Liz Torres",
+   "personas": 6
+  },
+  "columna_f22": {
+   "humano": "Liz Torres",
+   "antagonista": {
+    "tipo": "persona",
+    "nombre": "Juan Pío Paiva",
+    "por_que": "Digna Cáceres le atribuye la orden de cerrar; el dueño fue condenado a doce años por homicidio doloso. La atribución testimonial y la condena se distinguen: no reconstruimos como comprobada una orden que la defensa niega.",
+    "ids": [
+     "P06",
+     "D109",
+     "Q35",
+     "Q64",
+     "D19",
+     "D214"
+    ]
+   },
+   "personas": 7
+  }
+ },
+ "kyshtym": {
+  "pasos": {
+   "ficha": "prompt f22-1 · sacados 23",
+   "columna": "intento 1: 0 problema(s)",
+   "escaleta": "intento 1: 4 bloqueante(s) · intento 2: 0 bloqueante(s)",
+   "guion": "1 bloqueante(s) · 1003 palabras ≈ 8.2 min · antagonista ninguno nombrado en caps []"
+  },
+  "guion": {
+   "palabras": 1003,
+   "minutos": 8.2,
+   "bloqueantes": 1,
+   "bloqueantes_lista": [
+    {
+     "codigo": "a",
+     "cap": 7,
+     "beat": 13,
+     "frase": "En 1982, los autores de An Analysis of the Alleged Kyshtym Disaster expresan su completo desacuerdo con que la causa haya sido un accidente de desechos nucleares.",
+     "motivo": "cifra que no está en el research: 1982"
+    }
+   ],
+   "prompt_version": "f22-1",
+   "antagonista": {
+    "tipo": "ninguno",
+    "id": "",
+    "nombre": "ninguno",
+    "por_que": "La ficha describe deficiencias desatendidas y una refrigeración sin reparar, pero no identifica quién decidió ignorarlas. El silencio público inicial sí se atribuye, por separado, a las autoridades soviéticas."
+   },
+   "antagonista_tipo": "ninguno",
+   "antagonista_caps": [],
+   "humano": "V.I. Komarov",
+   "personas_total": [
+    "Lev Tumerman",
+    "Lyubov Ladeyshchikova",
+    "Nadezhda Kutepova",
+    "Planeta de las Esperanzas",
+    "V. I. Komarov",
+    "Zhores Medvedev"
+   ],
+   "escenas_usadas": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    7,
+    9,
+    10
+   ]
+  }
+ },
+ "cero_cardal": [
+  {
+   "salida": "ycua columna",
+   "archivo": "COLUMNA_ycua.md",
+   "existe": true,
+   "coincidencias": {}
+  },
+  {
+   "salida": "ycua escaleta",
+   "archivo": "ESCALETA_ycua.md",
+   "existe": true,
+   "coincidencias": {}
+  },
+  {
+   "salida": "ycua narracion",
+   "archivo": "NARRACION_ycua_f22.md",
+   "existe": true,
+   "coincidencias": {}
+  },
+  {
+   "salida": "kyshtym ficha",
+   "archivo": "FICHA_kyshtym.md",
+   "existe": true,
+   "coincidencias": {}
+  },
+  {
+   "salida": "kyshtym columna",
+   "archivo": "COLUMNA_kyshtym.md",
+   "existe": true,
+   "coincidencias": {}
+  },
+  {
+   "salida": "kyshtym escaleta",
+   "archivo": "ESCALETA_kyshtym.md",
+   "existe": true,
+   "coincidencias": {}
+  },
+  {
+   "salida": "kyshtym narracion",
+   "archivo": "NARRACION_kyshtym_f22.md",
+   "existe": true,
+   "coincidencias": {}
+  }
+ ]
+}

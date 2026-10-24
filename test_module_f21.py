@@ -180,10 +180,11 @@ def test_md5_de_los_cuatro_prompts():
 
     def m(s: str) -> str:
         return hashlib.md5(s.encode("utf-8")).hexdigest()
-    assert m(fc.system()) == "2e151732da47e09acf0cb48eb7089fcb"
-    assert m(mc.SYSTEM) == "1408569c5c9de22ec406a10ba0cd9b13"
-    assert m(me.SYSTEM_V2) == "49ed74d941def064cdda077212629ff1"
-    assert m(g4.system()) == "cdce609abea95ee36d0eb4f44d74dda8"
+    # F22: los cuatro de F21 siguen byte-idénticos con su versión (los nuevos, en test_module_f22)
+    assert m(fc.system("f15-1")) == "2e151732da47e09acf0cb48eb7089fcb"
+    assert m(mc.SYSTEM_F17_1) == "1408569c5c9de22ec406a10ba0cd9b13"
+    assert m(me.SYSTEM_V2_F16_1) == "49ed74d941def064cdda077212629ff1"
+    assert m(g4.system("f15b-1")) == "cdce609abea95ee36d0eb4f44d74dda8"
 
 
 # ═══════════════════════════════════════════════════════════════

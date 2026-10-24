@@ -85,9 +85,9 @@ def test_ficha_v2_bloque_literal_y_esquema():
     md = _md("PROMPT_FICHA_v2.md")
     a0 = "## Lo que se agrega al <tarea> del sistema\n\n"
     bloque = md[md.index(a0) + len(a0):md.index("\n\n---\n\n## Lo que cambia en la escaleta")]
-    s = fc.system()
+    s = fc.system("f15-1")                                   # F22: el v2 de F15 queda con su versión, byte-idéntico
     assert bloque in s and s.index(bloque) < s.index("- hechos: entre 60 y 80")
-    assert fc.PROMPT_VERSION == "f15-1"
+    assert fc.PROMPT_VERSION_F15 == "f15-1"
     pr = fc.SCHEMA["properties"]
     assert {"humanos_candidatos", "giros", "pico", "pregunta_final"} <= set(pr["historia"]["properties"])
     assert {"donde", "quien", "que_pasa", "sentidos", "ids"} <= set(pr["escenas"]["items"]["properties"])

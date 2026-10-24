@@ -1,0 +1,896 @@
+{
+ "humano": {
+  "id": "P12",
+  "nombre": "V.I. Komarov",
+  "rol": "Técnico de la brigada de servicio del complejo S-3",
+  "por_que": "Tiene un recorrido concreto dentro del desastre: comienza un turno normal, la explosión lo derriba y sale ante una columna blanca. Su lugar de trabajo permite seguir la cadena del accidente sin abrir otra biografía. La atribución de su testimonio es parcial: no se presenta como cita nominal plenamente verificada ni se inventa su vida posterior.",
+  "colectivo": false,
+  "fuente": "T23, P12, Q17"
+ },
+ "antagonista": {
+  "tipo": "ninguno",
+  "id": "",
+  "nombre": "ninguno",
+  "por_que": "La ficha describe deficiencias desatendidas y una refrigeración sin reparar, pero no identifica quién decidió ignorarlas. El silencio público inicial sí se atribuye, por separado, a las autoridades soviéticas."
+ },
+ "promesa_gancho": "Vas a entender qué salió de aquel almacenamiento, cómo quedó sin explicación pública y por qué reconocer a sus afectados terminó siendo otra disputa.",
+ "pico": {
+  "beat": 7,
+  "id": "D127",
+  "por_que": "Se mantiene el pico del capítulo 5: la explosión vuelve irreversible el fallo del almacenamiento. La losa sale despedida y el golpe alcanza a los trabajadores; el beat siguiente despliega su consecuencia territorial sin construir un segundo pico."
+ },
+ "cierre_humano": "Volver al técnico del comienzo, sin repetir su testimonio ni atribuirle un destino posterior. Su experiencia no permite contar a todos los afectados. Cerrar con la pregunta pendiente: ¿Cuántas personas afectadas por Mayak quedaron fuera del reconocimiento y de la reparación estatal?",
+ "beats": [
+  {
+   "n": 1,
+   "cap": 1,
+   "funcion": "gancho",
+   "emocion": "Desorientación",
+   "intensidad": 4,
+   "dato_central": "Q17",
+   "datos_apoyo": [],
+   "humano_en_escena": true,
+   "imagen_sensorial": "E4: el cuerpo contra el suelo; después, el exterior y una alta columna blanca que tapa el lugar del complejo. Entrar con la acción ya en curso, sin contexto, año ni cifras.",
+   "pregunta_abierta": "¿Qué acaba de ocurrir en su lugar de trabajo y qué está ocultando esa columna?",
+   "pregunta_pantalla": "",
+   "cierre": "Antes de esa columna, su turno había empezado con normalidad.",
+   "palabras_objetivo": 110,
+   "flash_forward": true,
+   "contador": false,
+   "escena_idx": 4,
+   "pregunta_valida": false
+  },
+  {
+   "n": 2,
+   "cap": 2,
+   "funcion": "planteo",
+   "emocion": "Normalidad",
+   "intensidad": 1,
+   "dato_central": "T23",
+   "datos_apoyo": [
+    "D54",
+    "D02"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "El complejo S-3 antes de la sacudida, situado mediante un esquema de localización. No inventar herramientas, conversaciones ni tareas específicas para el turno de Komarov.",
+   "pregunta_abierta": "¿Qué significa trabajar normalmente en un lugar que no figura en los mapas públicos?",
+   "pregunta_pantalla": "",
+   "cierre": "En el Techa hay peces muertos, con el vientre hacia arriba.",
+   "palabras_objetivo": 230,
+   "flash_forward": false,
+   "contador": false,
+   "pregunta_valida": false
+  },
+  {
+   "n": 3,
+   "cap": 3,
+   "funcion": "escalada",
+   "emocion": "Inquietud",
+   "intensidad": 2,
+   "dato_central": "Q19",
+   "datos_apoyo": [
+    "D70"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E1: peces muertos, vientres hacia arriba, sobre el río junto a Mitino. Contrastar esa imagen con la alegría recordada por Ladeyshchikova; no mostrar que los niños los asan.",
+   "pregunta_abierta": "¿Qué está llegando al río desde el complejo?",
+   "pregunta_pantalla": "",
+   "cierre": "El río no será el último lugar donde se guarden esos residuos.",
+   "palabras_objetivo": 125,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 1
+  },
+  {
+   "n": 4,
+   "cap": 3,
+   "funcion": "giro",
+   "emocion": "Alivio precario",
+   "intensidad": 3,
+   "dato_central": "T10",
+   "datos_apoyo": [
+    "D179"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Esquema del río y, después, del almacenamiento subterráneo: acero dentro de hormigón. Mantener como referencia el complejo donde trabaja Komarov, sin situarlo personalmente en aquellas decisiones.",
+   "pregunta_abierta": "¿Qué necesita ese almacenamiento para seguir siendo seguro?",
+   "pregunta_pantalla": "",
+   "cierre": "El peligro cambia de sitio: ahora depende de mantener fríos los residuos.",
+   "palabras_objetivo": 125,
+   "flash_forward": false,
+   "contador": false,
+   "pregunta_valida": false
+  },
+  {
+   "n": 5,
+   "cap": 4,
+   "funcion": "giro",
+   "emocion": "Impotencia",
+   "intensidad": 3,
+   "dato_central": "D156",
+   "datos_apoyo": [
+    "D125",
+    "D180"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Animación explicativa del almacenamiento: el circuito de refrigeración deja de funcionar y el nivel de agua desciende. No presentarla como una observación de Komarov ni como una filmación del interior.",
+   "pregunta_abierta": "¿Qué sucede dentro del tanque mientras la refrigeración sigue sin funcionar?",
+   "pregunta_pantalla": "",
+   "cierre": "Fuera del almacenamiento, el poblado sigue con su partido de fútbol.",
+   "palabras_objetivo": 155,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 6,
+   "cap": 4,
+   "funcion": "escalada",
+   "emocion": "Alarma",
+   "intensidad": 4,
+   "dato_central": "T25",
+   "datos_apoyo": [],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E2: el partido y el humo amarillo visible hacia el complejo. El trabajador que lo advierte no se identifica con Komarov; tampoco se confunden las denominaciones S-30 y S-3.",
+   "pregunta_abierta": "¿Qué anuncia ese humo antes de que el almacenamiento se rompa?",
+   "pregunta_pantalla": "",
+   "cierre": "Dentro del tanque, el calentamiento prepara una reacción química.",
+   "palabras_objetivo": 95,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 2,
+   "pregunta_valida": false
+  },
+  {
+   "n": 7,
+   "cap": 5,
+   "funcion": "pico",
+   "emocion": "Violencia",
+   "intensidad": 5,
+   "dato_central": "D127",
+   "datos_apoyo": [
+    "D83",
+    "Q16"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "E3: el suelo se sacude, se oye el estruendo y las puertas salen despedidas con el maquinista. Komarov sigue siendo el anclaje humano del complejo: recuperar su presencia mediante el montaje del arranque, sin volver a narrar ni citar su caída.",
+   "pregunta_abierta": "¿Hasta dónde llegará lo que acaba de salir del almacenamiento?",
+   "pregunta_pantalla": "",
+   "cierre": "El golpe termina en el suelo; el material liberado sigue en el aire.",
+   "palabras_objetivo": 134,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 3
+  },
+  {
+   "n": 8,
+   "cap": 5,
+   "funcion": "giro",
+   "emocion": "Desamparo",
+   "intensidad": 4,
+   "dato_central": "D84",
+   "datos_apoyo": [
+    "Q18",
+    "D39"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E5: la enorme columna marrón se desplaza hacia la posición del regimiento. Desde el lugar de trabajo de Komarov, abrir el encuadre hacia los espacios alcanzados, sin añadir dimensiones incompatibles de la pluma.",
+   "pregunta_abierta": "¿Quiénes están en el recorrido de esa nube sin saber qué transporta?",
+   "pregunta_pantalla": "",
+   "cierre": "Sigue avanzando.",
+   "palabras_objetivo": 116,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 5,
+   "pregunta_valida": false
+  },
+  {
+   "n": 9,
+   "cap": 6,
+   "funcion": "respiro",
+   "emocion": "Agotamiento",
+   "intensidad": 2,
+   "dato_central": "D44",
+   "datos_apoyo": [
+    "D45"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E7 y E8: chorros de agua y espuma sobre pavimento y camiones; después, la comida rechazada. Permanecer en el emplazamiento donde trabaja Komarov, sin inventarle tareas de descontaminación ni síntomas.",
+   "pregunta_abierta": "¿Qué pueden explicar esos síntomas y qué no permite afirmar el relato?",
+   "pregunta_pantalla": "",
+   "cierre": "Mientras se lavan las carreteras, a los escolares les llega otra orden.",
+   "palabras_objetivo": 119,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 7
+  },
+  {
+   "n": 10,
+   "cap": 6,
+   "funcion": "giro",
+   "emocion": "Incertidumbre",
+   "intensidad": 2,
+   "dato_central": "T32",
+   "datos_apoyo": [
+    "D67",
+    "D89"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E9: la cosecha recogida vuelve bajo tierra. No añadir herramientas, vestimenta ni diálogos. El recuento agregado de evacuación queda reservado al gráfico, separado de este grupo de aldeas.",
+   "pregunta_abierta": "¿Cómo interpretar una orden de enterrar alimentos cuando nadie explica públicamente lo ocurrido?",
+   "pregunta_pantalla": "",
+   "cierre": "Las evacuaciones no vienen acompañadas de una explicación pública.",
+   "palabras_objetivo": 131,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 9,
+   "pregunta_valida": false
+  },
+  {
+   "n": 11,
+   "cap": 7,
+   "funcion": "revelacion",
+   "emocion": "Extrañeza",
+   "intensidad": 2,
+   "dato_central": "T52",
+   "datos_apoyo": [],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E10: un cartel ordena atravesar el tramo sin detenerse y a máxima velocidad. No añadir aldeas arrasadas, ruinas ni chimeneas ausentes del pasaje; tampoco reproducir una cita nominal no verificada.",
+   "pregunta_abierta": "¿Qué ocurrió en una zona por la que se puede pasar, pero no detenerse?",
+   "pregunta_pantalla": "",
+   "cierre": "La advertencia al borde de la carretera no explicaba el accidente.",
+   "palabras_objetivo": 27,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 10
+  },
+  {
+   "n": 12,
+   "cap": 7,
+   "funcion": "giro",
+   "emocion": "Expectativa",
+   "intensidad": 3,
+   "dato_central": "T59",
+   "datos_apoyo": [
+    "T60"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Rótulos tipográficos con el nombre de Medvedev y el de New Scientist, sin fabricar una portada, un titular ni un facsímil del artículo.",
+   "pregunta_abierta": "¿Hacer público el accidente permite establecer también sus causas y su coste humano?",
+   "pregunta_pantalla": "",
+   "cierre": "La publicación abre la discusión; no cierra las discrepancias.",
+   "palabras_objetivo": 29,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 13,
+   "cap": 7,
+   "funcion": "revelacion",
+   "emocion": "Desconfianza",
+   "intensidad": 3,
+   "dato_central": "D96",
+   "datos_apoyo": [
+    "Q08",
+    "D190"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Separar visualmente tres categorías mediante rótulos: afirmación de un autor, estimación de mortalidad en exceso y total oficial no establecido. No sumar categorías ni fabricar un contador de víctimas.",
+   "pregunta_abierta": "¿Cómo reclamar reconocimiento si las estimaciones no equivalen a un recuento común verificable?",
+   "pregunta_pantalla": "",
+   "cierre": "La siguiente disputa ya no será solo por lo que pasó, sino por quién puede ser reconocido como afectado.",
+   "palabras_objetivo": 40,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 14,
+   "cap": 7,
+   "funcion": "cierre",
+   "emocion": "Ausencia",
+   "intensidad": 3,
+   "dato_central": "Q23",
+   "datos_apoyo": [
+    "D163",
+    "Q22"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "La cuestión del reconocimiento entra mediante el inserto reservado de los certificados. Después, volver al exterior del complejo que abrió la historia y al lugar de Komarov en ese recuerdo, sin repetir la cita, recrear otra acción suya ni inventar su vida posterior.",
+   "pregunta_abierta": "¿Cuántas personas afectadas por Mayak quedaron fuera del reconocimiento y de la reparación estatal?",
+   "pregunta_pantalla": "",
+   "cierre": "¿Cuántas personas afectadas por Mayak quedaron fuera del reconocimiento y de la reparación estatal?",
+   "palabras_objetivo": 44,
+   "flash_forward": false,
+   "contador": false,
+   "pregunta_valida": false
+  }
+ ],
+ "a_pantalla": [
+  {
+   "id": "D57",
+   "cap": 5,
+   "por_que": "Placa: «Actividad liberada por la explosión: 20 millones de curies. Según F02». La magnitud aparece solo en pantalla; no se verbaliza ni se incorpora a los datos de los beats."
+  },
+  {
+   "id": "D88",
+   "cap": 6,
+   "por_que": "Placa: «12.763 personas evacuadas de 24 localidades. Recuento atribuido a especialistas de Mayak; reúne distintos períodos». Solo pantalla. No presentarlo como evacuación inmediata ni confundirlo con el grupo de aldeas descrito en voz."
+  },
+  {
+   "id": "D25",
+   "cap": 7,
+   "por_que": "Placa: «1997: comienzan a emitirse certificados oficiales de afectados, según F15». Solo pantalla; no fabricar un certificado real ni repetir en voz la fecha o este dato."
+  }
+ ],
+ "justificacion_humano": "Se conserva al humano decidido por la columna. Komarov aporta la entrada normal, el impacto físico y la mirada al exterior. Está en el gancho, vuelve como anclaje del pico y sostiene el retorno final. Los pasajes sobre el río y el almacenamiento siguen su lugar de trabajo, pero no lo convierten en testigo de hechos para los que no hay registro. Su testimonio vive únicamente en el beat 1; el cierre recupera al humano mediante la pregunta pendiente, no mediante una segunda cita.",
+ "topic_id": "f18-kyshtym-mayak",
+ "prompt_version": "f22-1",
+ "_reparaciones": [
+  "id leído de «Q17: un técnico es levantado y arrojado al suelo; se incorpo» → Q17",
+  "id leído de «T23: el turno de la brigada del complejo S-3 comienza normal» → T23",
+  "apoyo «D54: Mayak produce plutonio para armas y reprocesa combustib» → D54",
+  "apoyo «D02: la ciudad cerrada donde está el complejo no aparece en » → D02",
+  "id leído de «Q19: Lyubov Ladeyshchikova recuerda la alegría de los niños » → Q19",
+  "apoyo «D70: Mayak, el lugar de trabajo que seguimos, lleva años ver» → D70",
+  "id leído de «T10: según el relato de F16, en 1951 se decide dejar de vert» → T10",
+  "apoyo «D179: para 1953 se ha añadido una instalación de almacenamie» → D179",
+  "id leído de «D156: F16 sitúa en marzo de 1957 la detección de deficiencia» → D156",
+  "apoyo «D125: F18 describe una refrigeración averiada que permanece » → D125",
+  "apoyo «D180: según F18, el contenido se calienta y el agua se evapo» → D180",
+  "id leído de «T25: el 29 de septiembre de 1957, mientras se juega al fútbo» → T25",
+  "id leído de «D127: la explosión arranca una losa de hormigón de 160 tonel» → D127",
+  "apoyo «D83: F10 explica la explosión como una reacción química post» → D83",
+  "apoyo «Q16: un maquinista junto al panel de instrumentos siente la » → Q16",
+  "id leído de «D84: el viento transporta material radiactivo hacia el nores» → D84",
+  "apoyo «Q18: una columna de polvo marrón avanza hacia un regimiento.» → Q18",
+  "apoyo «D39: la nube alcanza instalaciones de Mayak, una estación de» → D39",
+  "id leído de «D44: durante el resto del turno, las dotaciones de bomberos » → D44",
+  "apoyo «D45: después del trabajo, muchos soldados-bomberos sienten d» → D45",
+  "id leído de «T32: al día siguiente de la explosión, los escolares de Kara» → T32",
+  "apoyo «D67: F02 sitúa la evacuación del grupo de cuatro aldeas de s» → D67",
+  "apoyo «D89: las autoridades soviéticas no anuncian públicamente el » → D89",
+  "id leído de «T52: en 1960, Lev Tumerman recorre la carretera Cheliábinsk-» → T52",
+  "id leído de «T59: en 1976, Zhores Medvedev lleva el accidente a la discus» → T59",
+  "apoyo «T60: publica una comunicación en New Scientist; unir publica» → T60",
+  "id leído de «D96: los autores de F11 rechazan la explicación de Medvedev » → D96",
+  "apoyo «Q08: Medvedev afirma que murieron cientos y advierte que las» → Q08",
+  "apoyo «D190: F18 menciona una estimación de muertes en exceso; esa » → D190",
+  "id leído de «Q23: Kutepova atribuye a una jueza el rechazo a crear preced» → Q23",
+  "apoyo «D163: Nadezhda Kutepova funda Planeta de las Esperanzas para» → D163",
+  "apoyo «Q22: Kutepova relata negativas de prestaciones por exposició» → Q22",
+  "beat 2: apoyo P12: PRESENTAR A V. I. KOMAROV COMO TÉCNICO DE ESA BRIGADA, SIN AÑADIR FAMILIA, RUTINAS NI ANTECEDENTES PERSONALES. no existe en el pool → fuera",
+  "beat 8: apoyo P13: I. F. SEROV ES EL OBSERVADOR MILITAR DE ESTA PARTE DEL RELATO; NO CONVERTIR LA CITA SIN VERIFICAR EN UNA DECLARACIÓN NOMINAL. no existe en el pool → fuera",
+  "beat 12: apoyo P03: PRESENTARLO COMO CIENTÍFICO SOVIÉTICO EXILIADO, NO COMO TESTIGO PRESENCIAL DE LA EXPLOSIÓN. no existe en el pool → fuera",
+  "humano.nombre «V. I. Komarov» → «V.I. Komarov» (el nombre exacto del pool)",
+  "cap 1: palabras 140 → 110 (objetivo 110)",
+  "cap 3: palabras 360 → 250 (objetivo 250)",
+  "cap 4: palabras 370 → 250 (objetivo 250)",
+  "cap 5: palabras 430 → 250 (objetivo 250)",
+  "cap 6: palabras 420 → 250 (objetivo 250)",
+  "cap 7: palabras 770 → 140 (objetivo 140)"
+ ],
+ "_avisos": [],
+ "_intentos": [
+  {
+   "intento": 1,
+   "bloqueantes": [
+    "beat 14: dato_central Q17 ya está en el beat 1 (un id, un solo beat)",
+    "a_pantalla D57 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D88 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D25 también está en un beat: lo que va a pantalla no lo dice la voz"
+   ],
+   "reparaciones": [
+    "id leído de «Q17: un trabajador acaba de ser arrojado al suelo; se incorp» → Q17",
+    "apoyo «P12: el trabajador que seguimos es Komarov; la identificació» → Q17",
+    "id leído de «T23: el turno de la brigada del complejo S-3 comienza normal» → T23",
+    "apoyo «D54: Mayak es un emplazamiento de producción de plutonio par» → D54",
+    "apoyo «D02 y D85: la ciudad cerrada no aparece en los mapas público» → D02, D85",
+    "id leído de «D70 y T05: el emplazamiento donde trabaja Komarov lleva años» → D70",
+    "apoyo «Q19: Lyubov Ladeyshchikova recuerda a los niños contentos an» → Q19",
+    "id leído de «T10: según el relato de F16, en 1951 se decide trasladar los» → T10",
+    "apoyo «D179: para 1953 se había añadido un almacenamiento de residu» → D179",
+    "id leído de «D156: F16 sitúa en marzo de 1957 la detección de deficiencia» → D156",
+    "apoyo «D125: F18 describe una refrigeración averiada que permaneció» → D125",
+    "id leído de «D180: según F18, el contenido del tanque se calienta y el ag» → D180",
+    "apoyo «T25, únicamente su pasaje previo a la explosión: mientras se» → T25",
+    "id leído de «D83: según la explicación de F10, la pérdida de refrigeració» → D83",
+    "apoyo «T25, únicamente el momento del estallido: el accidente ocurr» → T25",
+    "apoyo «D127: la explosión arranca una losa de hormigón de 160 tonel» → D127",
+    "apoyo «Q16: el relato del maquinista describe la sacudida, el estru» → Q16",
+    "id leído de «D84: el viento transporta material radiactivo hacia el nores» → D84",
+    "apoyo «Q18: el testimonio asociado a Serov describe polvo marrón de» → Q18",
+    "apoyo «D39: la nube alcanza instalaciones de Mayak, una estación de» → D39",
+    "apoyo «D57: actividad total liberada según F02; su cifra queda excl» → D57",
+    "id leído de «D44: en el emplazamiento donde trabaja Komarov, las dotacion» → D44",
+    "apoyo «D45: después del lavado, muchos soldados-bomberos sienten de» → D45",
+    "id leído de «T32: los escolares de Karabolka reciben la orden de volver a» → T32",
+    "apoyo «D89: las autoridades soviéticas no anuncian públicamente el » → D89",
+    "apoyo «D67: F02 sitúa la evacuación de cuatro aldeas entre los días» → D67",
+    "apoyo «D88 y D68: el total atribuido a especialistas de Mayak reúne» → D88, D68",
+    "id leído de «T52: en 1960 Lev Tumerman recorre la carretera Cheliábinsk-S» → T52",
+    "apoyo «Q09: el relato describe un cartel que prohíbe detenerse y un» → Q09",
+    "id leído de «T59 y T60: Zhores Medvedev lleva el accidente a la discusión» → T59",
+    "apoyo «D96: los autores de F11 cuestionan que un accidente de resid» → D96",
+    "apoyo «Q08: Medvedev afirma que hubo muertos y admite que las cifra» → Q08",
+    "apoyo «Q14: F13 presenta la mortalidad defendida por Medvedev como » → Q14",
+    "apoyo «D190: la estimación de muertes en exceso mencionada por F18 » → D190",
+    "id leído de «D25: comienzan a emitirse certificados oficiales de afectado» → D25",
+    "apoyo «D163: Nadezhda Kutepova funda Planeta de las Esperanzas para» → D163",
+    "apoyo «Q22: Kutepova relata negativas de prestaciones por exposició» → Q22",
+    "apoyo «Q23: Kutepova atribuye a una jueza, antes abogada de Mayak, » → Q23",
+    "id leído de «Límite del testimonio del humano elegido: el relato conserva» → Q17",
+    "beat 7: apoyo T25 ya está en el beat 6 → fuera",
+    "pico.id T25 → D83 (el dato central del beat 7)",
+    "humano.nombre «V. I. Komarov» → «V.I. Komarov» (el nombre exacto del pool)",
+    "beat 10: apoyo ['D88'] es otra cifra del conteo 12,700 → fuera",
+    "cap 2: palabras 180 → 250 (objetivo 250)",
+    "cap 3: palabras 330 → 250 (objetivo 250)",
+    "cap 4: palabras 350 → 250 (objetivo 250)",
+    "cap 5: palabras 400 → 250 (objetivo 250)",
+    "cap 6: palabras 400 → 250 (objetivo 250)",
+    "cap 7: palabras 695 → 144 (objetivo 140)"
+   ],
+   "no_bloqueantes": [
+    "caps de desarrollo con menos de 2 beats: [2] (beats por cap: [1, 1, 2, 2, 2, 2, 4])",
+    "falta un beat de intensidad 1 (respiro) después del pico",
+    "beat 1: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q17', 'Q17']); datos suyos que valen: []",
+    "beat 2: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['T23', 'D54', 'D02', 'D85']); datos suyos que valen: []",
+    "beat 4: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['T10', 'D179']); datos suyos que valen: []",
+    "beat 5: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['D156', 'D125']); datos suyos que valen: []",
+    "beat 7: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['D83', 'D127', 'Q16']); datos suyos que valen: []",
+    "beat 14: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q17']); datos suyos que valen: []",
+    "la imagen sensorial del gancho no lleva cifras",
+    "la última frase del video (cierre del beat 14) no nombra al humano ni a un testigo verificado (Lyudmila Krestinina, Andrei Vazhenin, Zhores Medvedev, Lev Tumerman, В.Д. Камынин, Любовь Ладейщикова, Мама de Надежда Кутепова): «¿Cuántas personas afectadas por Mayak quedaron fuera del reconocimiento y de la reparación estatal?»",
+    "pregunta de pantalla del cap 7 «None»: falta la pregunta de pantalla",
+    "el pool tiene 0 dato(s) de V.I. Komarov ([]): en escena en 1 cap(s)",
+    "pregunta de pantalla del cap 1 «None»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 2 «None»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 3 «None»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 4 «None»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 5 «None»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 6 «None»: falta la pregunta de pantalla"
+   ]
+  },
+  {
+   "intento": 2,
+   "bloqueantes": [],
+   "reparaciones": [
+    "id leído de «Q17: un técnico es levantado y arrojado al suelo; se incorpo» → Q17",
+    "id leído de «T23: el turno de la brigada del complejo S-3 comienza normal» → T23",
+    "apoyo «D54: Mayak produce plutonio para armas y reprocesa combustib» → D54",
+    "apoyo «D02: la ciudad cerrada donde está el complejo no aparece en » → D02",
+    "id leído de «Q19: Lyubov Ladeyshchikova recuerda la alegría de los niños » → Q19",
+    "apoyo «D70: Mayak, el lugar de trabajo que seguimos, lleva años ver» → D70",
+    "id leído de «T10: según el relato de F16, en 1951 se decide dejar de vert» → T10",
+    "apoyo «D179: para 1953 se ha añadido una instalación de almacenamie» → D179",
+    "id leído de «D156: F16 sitúa en marzo de 1957 la detección de deficiencia» → D156",
+    "apoyo «D125: F18 describe una refrigeración averiada que permanece » → D125",
+    "apoyo «D180: según F18, el contenido se calienta y el agua se evapo» → D180",
+    "id leído de «T25: el 29 de septiembre de 1957, mientras se juega al fútbo» → T25",
+    "id leído de «D127: la explosión arranca una losa de hormigón de 160 tonel» → D127",
+    "apoyo «D83: F10 explica la explosión como una reacción química post» → D83",
+    "apoyo «Q16: un maquinista junto al panel de instrumentos siente la » → Q16",
+    "id leído de «D84: el viento transporta material radiactivo hacia el nores» → D84",
+    "apoyo «Q18: una columna de polvo marrón avanza hacia un regimiento.» → Q18",
+    "apoyo «D39: la nube alcanza instalaciones de Mayak, una estación de» → D39",
+    "id leído de «D44: durante el resto del turno, las dotaciones de bomberos » → D44",
+    "apoyo «D45: después del trabajo, muchos soldados-bomberos sienten d» → D45",
+    "id leído de «T32: al día siguiente de la explosión, los escolares de Kara» → T32",
+    "apoyo «D67: F02 sitúa la evacuación del grupo de cuatro aldeas de s» → D67",
+    "apoyo «D89: las autoridades soviéticas no anuncian públicamente el » → D89",
+    "id leído de «T52: en 1960, Lev Tumerman recorre la carretera Cheliábinsk-» → T52",
+    "id leído de «T59: en 1976, Zhores Medvedev lleva el accidente a la discus» → T59",
+    "apoyo «T60: publica una comunicación en New Scientist; unir publica» → T60",
+    "id leído de «D96: los autores de F11 rechazan la explicación de Medvedev » → D96",
+    "apoyo «Q08: Medvedev afirma que murieron cientos y advierte que las» → Q08",
+    "apoyo «D190: F18 menciona una estimación de muertes en exceso; esa » → D190",
+    "id leído de «Q23: Kutepova atribuye a una jueza el rechazo a crear preced» → Q23",
+    "apoyo «D163: Nadezhda Kutepova funda Planeta de las Esperanzas para» → D163",
+    "apoyo «Q22: Kutepova relata negativas de prestaciones por exposició» → Q22",
+    "beat 2: apoyo P12: PRESENTAR A V. I. KOMAROV COMO TÉCNICO DE ESA BRIGADA, SIN AÑADIR FAMILIA, RUTINAS NI ANTECEDENTES PERSONALES. no existe en el pool → fuera",
+    "beat 8: apoyo P13: I. F. SEROV ES EL OBSERVADOR MILITAR DE ESTA PARTE DEL RELATO; NO CONVERTIR LA CITA SIN VERIFICAR EN UNA DECLARACIÓN NOMINAL. no existe en el pool → fuera",
+    "beat 12: apoyo P03: PRESENTARLO COMO CIENTÍFICO SOVIÉTICO EXILIADO, NO COMO TESTIGO PRESENCIAL DE LA EXPLOSIÓN. no existe en el pool → fuera",
+    "humano.nombre «V. I. Komarov» → «V.I. Komarov» (el nombre exacto del pool)",
+    "cap 1: palabras 140 → 110 (objetivo 110)",
+    "cap 3: palabras 360 → 250 (objetivo 250)",
+    "cap 4: palabras 370 → 250 (objetivo 250)",
+    "cap 5: palabras 430 → 250 (objetivo 250)",
+    "cap 6: palabras 420 → 250 (objetivo 250)",
+    "cap 7: palabras 770 → 140 (objetivo 140)"
+   ],
+   "no_bloqueantes": [
+    "caps de desarrollo con menos de 2 beats: [2] (beats por cap: [1, 1, 2, 2, 2, 2, 4])",
+    "falta un beat de intensidad 1 (respiro) después del pico",
+    "beat 1: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q17']); datos suyos que valen: []",
+    "beat 2: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['T23', 'D54', 'D02']); datos suyos que valen: []",
+    "beat 7: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['D127', 'D83', 'Q16']); datos suyos que valen: []",
+    "beat 14: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q23', 'D163', 'Q22']); datos suyos que valen: []",
+    "la imagen sensorial del gancho no lleva cifras",
+    "la última frase del video (cierre del beat 14) no nombra al humano ni a un testigo verificado (Lyudmila Krestinina, Andrei Vazhenin, Zhores Medvedev, Lev Tumerman, В.Д. Камынин, Любовь Ладейщикова, Мама de Надежда Кутепова): «¿Cuántas personas afectadas por Mayak quedaron fuera del reconocimiento y de la reparación estatal?»",
+    "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+    "el pool tiene 0 dato(s) de V.I. Komarov ([]): en escena en 1 cap(s)",
+    "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+   ]
+  }
+ ],
+ "ficha": {
+  "prompt_version": "f22-1",
+  "pool_md5": "8a40a7f3ceb75d94ef9b1ee25b713e4e"
+ },
+ "columna": {
+  "prompt_version": "f22-1"
+ },
+ "pool_gate": {
+  "color": "verde",
+  "metricas": {
+   "datos": 208,
+   "citas_verificadas": 18,
+   "elegibles_humano": 7,
+   "eventos_con_fecha": 22
+  },
+  "motivos": [],
+  "target_words": 1500
+ },
+ "_pantalla_por_fecha": [
+  "D151 cuenta lo mismo que D57, ya en pantalla: fuera",
+  "D200 (1957-09-29) → cap 2 lleno: fuera",
+  "D183 (1957-09-29) → cap 2 lleno: fuera",
+  "D158 (1957-09-29) → cap 2 lleno: fuera",
+  "D16 (None) → cap 6 lleno: fuera",
+  "T50 (1958-04-13) → cap 7 lleno: fuera"
+ ],
+ "caps": [
+  {
+   "chapter_number": 1,
+   "role": "hook",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "hook",
+   "evidence_ids": [
+    "Q17"
+   ],
+   "cliffhanger": "T23",
+   "pantalla_ids": [],
+   "palabras_objetivo": 110
+  },
+  {
+   "chapter_number": 2,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "setup",
+   "evidence_ids": [
+    "T23",
+    "D54",
+    "D02"
+   ],
+   "cliffhanger": "Q19",
+   "pantalla_ids": [
+    "D201",
+    "D132"
+   ],
+   "palabras_objetivo": 230
+  },
+  {
+   "chapter_number": 3,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "Q19",
+    "D70",
+    "T10",
+    "D179"
+   ],
+   "cliffhanger": "D156",
+   "pantalla_ids": [
+    "D09"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 4,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "shock",
+   "evidence_ids": [
+    "D156",
+    "D125",
+    "D180",
+    "T25"
+   ],
+   "cliffhanger": "D127",
+   "pantalla_ids": [],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 5,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "consequences",
+   "evidence_ids": [
+    "D127",
+    "D83",
+    "Q16",
+    "D84",
+    "Q18",
+    "D39"
+   ],
+   "cliffhanger": "D44",
+   "pantalla_ids": [
+    "D57",
+    "D126"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 6,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "resolution",
+   "evidence_ids": [
+    "D44",
+    "D45",
+    "T32",
+    "D67",
+    "D89"
+   ],
+   "cliffhanger": "T52",
+   "pantalla_ids": [
+    "D88",
+    "T30"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 7,
+   "role": "reveal_outro",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "outro",
+   "evidence_ids": [
+    "T52",
+    "T59",
+    "T60",
+    "D96",
+    "Q08",
+    "D190",
+    "Q23",
+    "D163",
+    "Q22"
+   ],
+   "cliffhanger": "",
+   "pantalla_ids": [
+    "D25",
+    "D100"
+   ],
+   "palabras_objetivo": 140
+  }
+ ],
+ "_pool_plan": {
+  "cifras_canonicas": [],
+  "pantalla": [
+   "cap 2: pantalla ['D201', 'D132']",
+   "cap 3: pantalla ['D151', 'D09']",
+   "cap 4: pantalla ['D200', 'D183']",
+   "cap 5: pantalla ['D126', 'D158']",
+   "cap 6: pantalla ['T30', 'D16']",
+   "cap 7: pantalla ['D100', 'T50']"
+  ]
+ },
+ "_metricas": {
+  "curva_intensidad": [
+   4,
+   1,
+   2,
+   3,
+   3,
+   4,
+   5,
+   4,
+   2,
+   2,
+   2,
+   3,
+   3,
+   3
+  ],
+  "flash_forward_beat1": true,
+  "curva_problemas": [
+   "falta un beat de intensidad 1 (respiro) después del pico"
+  ],
+  "humano_en_escena_caps": [
+   1,
+   2,
+   5,
+   7
+  ],
+  "humano_entra_cap": 1,
+  "humano_con_cita_sin_verificar_en_escena": [
+   1
+  ],
+  "humano_en_escena_problemas": [
+   "beat 1: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q17']); datos suyos que valen: []",
+   "beat 2: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['T23', 'D54', 'D02']); datos suyos que valen: []",
+   "beat 7: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['D127', 'D83', 'Q16']); datos suyos que valen: []",
+   "beat 14: V.I. Komarov en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q23', 'D163', 'Q22']); datos suyos que valen: []",
+   "el pool tiene 0 dato(s) de V.I. Komarov ([]): en escena en 1 cap(s)"
+  ],
+  "promesa_con_cifras": false,
+  "imagen_gancho_con_cifras": true,
+  "imagenes_abstractas": [],
+  "escenas_usadas": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   7,
+   9,
+   10
+  ],
+  "escena_gancho": 4,
+  "escena_pico": 3,
+  "giros": [
+   {
+    "orden": 1,
+    "que_cambia": "La decisión de trasladar los residuos de alta actividad del río a depósitos subterráneos cambia el lugar donde se concentra el peligro.",
+    "beat": 4
+   },
+   {
+    "orden": 2,
+    "que_cambia": "El relato de F16 sitúa deficiencias detectadas e ignoradas antes del accidente, mientras otras fuentes describen una refrigeración averiada sin reparar.",
+    "beat": 5
+   },
+   {
+    "orden": 3,
+    "que_cambia": "La explosión rompe el almacenamiento y el viento convierte el accidente industrial en contaminación de territorios habitados.",
+    "beat": 6
+   },
+   {
+    "orden": 4,
+    "que_cambia": "La respuesta incluye descontaminación y evacuaciones demoradas en las aldeas, pero no una explicación pública clara del riesgo.",
+    "beat": 9
+   },
+   {
+    "orden": 5,
+    "que_cambia": "Medvedev lleva la catástrofe a la discusión científica internacional, aunque el alcance humano y las causas siguen siendo objeto de versiones enfrentadas.",
+    "beat": 12
+   },
+   {
+    "orden": 6,
+    "que_cambia": "El conflicto pasa del secreto del accidente al reconocimiento de las víctimas: aparecen certificados, pero también exclusiones de ayuda y negativas judiciales relatadas por los afectados.",
+    "beat": 14
+   }
+  ],
+  "giros_con_beat": 6,
+  "giros_total": 6,
+  "humano_en_candidatos": true,
+  "pico_es_el_de_la_ficha": true,
+  "palabras_objetivo_por_cap": {
+   "1": 110,
+   "2": 230,
+   "3": 250,
+   "4": 250,
+   "5": 250,
+   "6": 250,
+   "7": 140
+  },
+  "antagonista_tipo": "ninguno",
+  "antagonista_caps": [],
+  "cifra_en_pantalla_repetida": [],
+  "ultima_frase_repite_cita": [],
+  "ultima_frase_sin_humano": [
+   "la última frase del video (cierre del beat 14) no nombra al humano ni a un testigo verificado (Lyudmila Krestinina, Andrei Vazhenin, Zhores Medvedev, Lev Tumerman, В.Д. Камынин, Любовь Ладейщикова, Мама de Надежда Кутепова): «¿Cuántas personas afectadas por Mayak quedaron fuera del reconocimiento y de la reparación estatal?»"
+  ],
+  "preguntas_pantalla": [
+   "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+  ],
+  "preguntas_abiertas": [
+   "¿Qué acaba de ocurrir en su lugar de trabajo y qué está ocultando esa columna?",
+   "¿Qué significa trabajar normalmente en un lugar que no figura en los mapas públicos?",
+   "¿Qué está llegando al río desde el complejo?",
+   "¿Qué necesita ese almacenamiento para seguir siendo seguro?",
+   "¿Qué sucede dentro del tanque mientras la refrigeración sigue sin funcionar?",
+   "¿Qué anuncia ese humo antes de que el almacenamiento se rompa?",
+   "¿Hasta dónde llegará lo que acaba de salir del almacenamiento?",
+   "¿Quiénes están en el recorrido de esa nube sin saber qué transporta?",
+   "¿Qué pueden explicar esos síntomas y qué no permite afirmar el relato?",
+   "¿Cómo interpretar una orden de enterrar alimentos cuando nadie explica públicamente lo ocurrido?",
+   "¿Qué ocurrió en una zona por la que se puede pasar, pero no detenerse?",
+   "¿Hacer público el accidente permite establecer también sus causas y su coste humano?",
+   "¿Cómo reclamar reconocimiento si las estimaciones no equivalen a un recuento común verificable?",
+   "¿Cuántas personas afectadas por Mayak quedaron fuera del reconocimiento y de la reparación estatal?"
+  ],
+  "otros": [
+   "caps de desarrollo con menos de 2 beats: [2] (beats por cap: [1, 1, 2, 2, 2, 2, 4])",
+   "la imagen sensorial del gancho no lleva cifras"
+  ],
+  "columna": {
+   "antagonista_es_el_de_la_columna": true,
+   "antagonista_columna": {
+    "tipo": "ninguno",
+    "nombre": "Ninguno identificado para la decisión que provoca la explosión"
+   },
+   "antagonista_escaleta": {
+    "tipo": "ninguno",
+    "nombre": "ninguno"
+   },
+   "humano_es_el_de_la_columna": true,
+   "humano_columna": "V. I. Komarov",
+   "humano_escaleta": "V. I. Komarov",
+   "personas_fuera_de_la_columna": {
+    "5": [
+     "V. M. Osetrov"
+    ],
+    "7": [
+     "Jueza no identificada, exabogada de Mayak",
+     "Rosatom"
+    ]
+   },
+   "caps_con_personas_fuera": [
+    5,
+    7
+   ],
+   "cierres": {
+    "1": {
+     "termina": "Antes de esa columna, su turno había empezado con normalidad.",
+     "cierre": "Antes de esa columna, su turno había empezado con normalidad.",
+     "igual": true,
+     "parecido": 1.0
+    },
+    "2": {
+     "termina": "En el Techa hay peces muertos, con el vientre hacia arriba.",
+     "cierre": "En el Techa hay peces muertos, con el vientre hacia arriba.",
+     "igual": true,
+     "parecido": 1.0
+    },
+    "3": {
+     "termina": "El peligro cambia de sitio: ahora depende de mantener fríos los residuos.",
+     "cierre": "El peligro cambia de sitio: ahora depende de mantener fríos los residuos.",
+     "igual": true,
+     "parecido": 1.0
+    },
+    "4": {
+     "termina": "Dentro del tanque, el calentamiento prepara una reacción química.",
+     "cierre": "Dentro del tanque, el calentamiento prepara una reacción química.",
+     "igual": true,
+     "parecido": 1.0
+    },
+    "5": {
+     "termina": "Sigue avanzando.",
+     "cierre": "Sigue avanzando.",
+     "igual": true,
+     "parecido": 1.0
+    },
+    "6": {
+     "termina": "Las evacuaciones no vienen acompañadas de una explicación pública.",
+     "cierre": "Las evacuaciones no vienen acompañadas de una explicación pública.",
+     "igual": true,
+     "parecido": 1.0
+    },
+    "7": {
+     "termina": "¿Cuántas personas afectadas por Mayak quedaron fuera del reconocimiento y de la reparación estatal?",
+     "cierre": "¿Cuántas personas afectadas por Mayak quedaron fuera del reconocimiento y de la reparación estatal?",
+     "igual": true,
+     "parecido": 1.0
+    }
+   },
+   "cierres_iguales": 7
+  }
+ }
+}

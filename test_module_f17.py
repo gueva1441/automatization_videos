@@ -48,7 +48,9 @@ def col_buena() -> dict:
     caps = [{"cap": k, "que_pasa": f"pasa {k}", "termina": f"termina {k}", "personas": ["Edward Burton"],
              "ids": [i]} for k, i in enumerate(["Q01", "T01", "T02", "D01", "D08", "D09", "D05"], 1)]
     caps[1]["personas"].append("Sheriff Gusman")
+    # F22: la columna v1.1 trae QUIÉN DECIDE (antagonista); el sheriff de la ficha
     return {"humano": {"nombre": "Edward Burton", "por_que": "entra, sufre, sale", "ids": ["P08", "Q01"]},
+            "antagonista": {"tipo": "persona", "nombre": "Marlin N. Gusman", "por_que": "decide", "ids": ["P01"]},
             "pico": {"cap": 5, "que": "los cadáveres", "ids": ["D08"]}, "caps": caps,
             "afuera": [{"que": "Catorce órdenes de arresto", "por_que": "no suma al hilo"}]}
 
@@ -59,9 +61,10 @@ def col_buena() -> dict:
 
 def test_sistema_columna_byte_identico_al_archivo():
     sis, tarea, _ = _sistema_md()
-    assert mc.SYSTEM == sis and mc.TAREA == tarea and mc.PROMPT_VERSION == "f17-1"
+    # F22: la v1 de F17 queda con su versión, byte-idéntica (la v1.1 en test_module_f22)
+    assert mc.SYSTEM_F17_1 == sis and mc.TAREA_F17_1 == tarea and mc.PROMPT_VERSION_F17 == "f17-1"
     assert sis.startswith("<rol>\nSos el guionista jefe") and sis.endswith("</errores>")
-    assert "## SISTEMA" not in mc.SYSTEM and "Para CC" not in mc.SYSTEM
+    assert "## SISTEMA" not in mc.SYSTEM_F17_1 and "Para CC" not in mc.SYSTEM_F17_1
 
 
 def test_usuario_columna_caso_ficha_tarea():
@@ -81,7 +84,7 @@ def test_usuario_columna_caso_ficha_tarea():
 
 def test_esquema_de_la_tarea():
     props = mc.SCHEMA["properties"]
-    assert set(props) == {"humano", "pico", "caps", "afuera"}
+    assert set(props) == {"humano", "antagonista", "pico", "caps", "afuera"}             # F22: + antagonista
     assert set(props["humano"]["properties"]) == {"nombre", "por_que", "ids"}
     assert set(props["pico"]["properties"]) == {"cap", "que", "ids"}
     assert set(props["caps"]["items"]["properties"]) == {"cap", "que_pasa", "termina", "personas", "ids"}
@@ -146,7 +149,7 @@ def test_regeneracion_que_pasa_guarda_y_mide(tmp_path, monkeypatch):
     mala["humano"]["nombre"] = "Nadie"
     prompts, go = _gen([mala, col_buena()], tmp_path, monkeypatch)
     col = go()
-    assert len(prompts) == 2 and col["prompt_version"] == "f17-1"
+    assert len(prompts) == 2 and col["prompt_version"] == mc.PROMPT_VERSION
     assert col["_metricas"] == {"personas_con_nombre": 2, "personas": ["Edward Burton", "Marlin N. Gusman"]}
     assert json.loads((tmp_path / "t-f16" / "01a_columna.json").read_text(encoding="utf-8"))["humano"]["nombre"] == \
         "Edward Burton"
@@ -174,7 +177,7 @@ def test_columna_usa_sol_high(monkeypatch, tmp_path):
 
 def test_tarea_columna_literal():
     assert me.TAREA_COLUMNA == "<tarea>\n" + _sistema_md()[2] + "\n</tarea>"
-    assert me.PROMPT_VERSION_COLUMNA == "f17-1"
+    assert me.PROMPT_VERSION_COLUMNA_F17 == "f17-1" and me.PROMPT_VERSION_COLUMNA == "f22-1"
 
 
 def test_escaleta_con_columna_antes_de_la_ficha():
@@ -200,7 +203,7 @@ def test_escaleta_sin_columna_byte_identica_a_f16():
     assert _md5(me.build_prompt_v2(TOPIC, POOL, FICHA16)) == ESC_V2_MD5["sin_fb"]
     assert _md5(me.build_prompt_v2(TOPIC, POOL, FICHA16, ["a"])) == ESC_V2_MD5["fb"]
     assert me.build_prompt_v2(TOPIC, POOL, FICHA16, columna=None) == me.build_prompt_v2(TOPIC, POOL, FICHA16)
-    assert _md5(me.SYSTEM_V2) == F16_REAL["sistema"]
+    assert _md5(me.SYSTEM_V2_F16_1) == F16_REAL["sistema"]                 # F22: la v2 de F16, con su versión
 
 
 @pytest.mark.parametrize("tema", ["ycua", "orl"])
@@ -230,7 +233,7 @@ def _esc(monkeypatch, tmp_path, respuestas, **kw):
 def test_escaleta_con_columna_version_y_metricas(monkeypatch, tmp_path):
     prompts, esc = _esc(monkeypatch, tmp_path, [good()], columna=col_buena())
     assert len(prompts) == 1 and prompts[0][1] == me.SYSTEM_V2 and "<columna>" in prompts[0][0]
-    assert esc["prompt_version"] == "f17-1" and esc["columna"]["prompt_version"] is None
+    assert esc["prompt_version"] == me.PROMPT_VERSION_COLUMNA and esc["columna"]["prompt_version"] is None
     m = esc["_metricas"]["columna"]
     assert m["humano_es_el_de_la_columna"] is True
     assert m["caps_con_personas_fuera"] == []                          # Gusman (Q02) no está en ningún beat
@@ -252,12 +255,12 @@ def test_escaleta_con_columna_mismos_bloqueantes(monkeypatch, tmp_path):
 def test_generar_columna_y_despues_escaleta(monkeypatch, tmp_path):
     prompts, esc = _esc(monkeypatch, tmp_path, [col_buena(), good()], columna="generar")
     assert [p[1] for p in prompts] == [mc.SYSTEM, me.SYSTEM_V2]
-    assert "<columna>" in prompts[1][0] and esc["prompt_version"] == "f17-1"
+    assert "<columna>" in prompts[1][0] and esc["prompt_version"] == me.PROMPT_VERSION_COLUMNA
 
 
 def test_sin_columna_la_escaleta_es_f16(monkeypatch, tmp_path):
     prompts, esc = _esc(monkeypatch, tmp_path, [good()])
-    assert len(prompts) == 1 and "<columna>" not in prompts[0][0] and esc["prompt_version"] == "f16-1"
+    assert len(prompts) == 1 and "<columna>" not in prompts[0][0] and esc["prompt_version"] == me.PROMPT_VERSION_V2
     assert "columna" not in esc and "columna" not in esc["_metricas"]
 
 
