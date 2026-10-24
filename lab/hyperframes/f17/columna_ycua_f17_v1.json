@@ -1,0 +1,193 @@
+{
+ "humano": {
+  "nombre": "Tatiana Gabaglio",
+  "por_que": "Entra siendo niña, queda atrapada bajo un panel, pierde una pierna y llega a ejercer como abogada. Su supervivencia permite seguir el daño hasta el reclamo de reparación.",
+  "ids": [
+   "D01",
+   "D03",
+   "D04",
+   "D05",
+   "D08",
+   "P01",
+   "Q01"
+  ]
+ },
+ "pico": {
+  "cap": 5,
+  "que": "Liz Torres queda atrapada entre cuerpos y relata calor de horno, cenizas y gritos que se apagan. Tatiana permanece inmovilizada bajo el panel: el incendio ya no permite seguir huyendo.",
+  "ids": [
+   "Q19",
+   "Q20",
+   "Q77",
+   "D03"
+  ]
+ },
+ "caps": [
+  {
+   "cap": 1,
+   "que_pasa": "Un panel derretido del cielorraso cae sobre la pierna de Tatiana Gabaglio. El supermercado arde alrededor. La niña queda atrapada.",
+   "termina": "Antes del panel, había un domingo de compras.",
+   "personas": [
+    "Tatiana Gabaglio"
+   ],
+   "ids": [
+    "D03",
+    "D42"
+   ]
+  },
+  {
+   "cap": 2,
+   "que_pasa": "Es el domingo 1 de agosto de 2004, en Asunción. Tatiana tiene siete años y entra al supermercado; Beatriz González trabaja en una caja. En el patio de comidas hay personas almorzando.",
+   "termina": "Entonces se oye una explosión.",
+   "personas": [
+    "Tatiana Gabaglio",
+    "Beatriz González"
+   ],
+   "ids": [
+    "D42",
+    "D53",
+    "D01",
+    "D17",
+    "Q70",
+    "Q10"
+   ]
+  },
+  {
+   "cap": 3,
+   "que_pasa": "Beatriz oye la explosión, ve humo negro, abandona su caja y corre hacia el estacionamiento. La pericia ubicará el origen del fuego en residuos de cocción acumulados en la chimenea de la parrilla. Las llamas se propagan por el aislante del techo del supermercado donde está Tatiana.",
+   "termina": "Llegar a una puerta no garantiza poder salir.",
+   "personas": [
+    "Beatriz González",
+    "Tatiana Gabaglio"
+   ],
+   "ids": [
+    "Q10",
+    "D27",
+    "D28",
+    "D03"
+   ]
+  },
+  {
+   "cap": 4,
+   "que_pasa": "Víctor Galeano declara que encuentra cerrada una puerta de blíndex. Digna Cáceres relata que el portón hacia Artigas está cerrado y que quienes corren hacia él regresan. Tatiana sigue dentro mientras los intentos de salida de otros compradores fracasan.",
+   "termina": "La huida empieza a convertirse en una acumulación de cuerpos.",
+   "personas": [
+    "Víctor Galeano",
+    "Digna Felicia Cáceres",
+    "Tatiana Gabaglio"
+   ],
+   "ids": [
+    "Q18",
+    "D47",
+    "D106",
+    "D03"
+   ]
+  },
+  {
+   "cap": 5,
+   "que_pasa": "Una avalancha devuelve a Liz Torres hacia adentro, la atrapa entre cuerpos y le hace pensar en los hijos adolescentes que dejaría solos. Relata calor de horno, cenizas y gritos que se van apagando. Tatiana queda inmovilizada por el panel derretido; en la bajada al estacionamiento, los escombros dejan trabada a Digna. Liz cree que morirá, aunque después dirá que las personas caídas sobre su cuerpo le salvaron la vida.",
+   "termina": "¿Quién sale?",
+   "personas": [
+    "Liz Torres",
+    "Tatiana Gabaglio",
+    "Digna Felicia Cáceres"
+   ],
+   "ids": [
+    "Q19",
+    "Q20",
+    "Q77",
+    "D03",
+    "D105"
+   ]
+  },
+  {
+   "cap": 6,
+   "que_pasa": "Digna despierta y distingue claridad en un boquete; Liz es rescatada junto con su esposo. Los bomberos voluntarios sacan a Tatiana y los médicos le amputan la pierna por las quemaduras. Blas Cristaldo retira el cuerpo de su esposa. Pantalla: 327 fallecidos —cifra citada como oficial, sin desaparecidos—; 204 huérfanos; 244 o 500 heridos según la fuente, sin recuento dirimido.",
+   "termina": "Después de sacar a los vivos, queda explicar por qué no pudieron salir.",
+   "personas": [
+    "Digna Felicia Cáceres",
+    "Liz Torres",
+    "Tatiana Gabaglio",
+    "Blas Cristaldo"
+   ],
+   "ids": [
+    "D107",
+    "Q20",
+    "P80",
+    "D04",
+    "D05",
+    "T27",
+    "D192",
+    "D196",
+    "D195",
+    "D223"
+   ]
+  },
+  {
+   "cap": 7,
+   "que_pasa": "Frente a los testimonios, la pericia sostiene que los accesos de hierro de la rampa estaban abiertos; la defensa transmite que los Paiva negaron ordenar el cierre. La justicia condena al dueño, Juan Pío Paiva, a doce años por homicidio doloso. Tatiana estudia Derecho por rabia, llega a ejercer como abogada y denuncia que la reparación sigue siendo insuficiente.",
+   "termina": "«A más de lo que recibí del Estado, nunca recibí indemnización real o reparación del daño.»",
+   "personas": [
+    "Juan Pío Paiva",
+    "Tatiana Gabaglio"
+   ],
+   "ids": [
+    "D31",
+    "Q64",
+    "D19",
+    "D214",
+    "D215",
+    "D08",
+    "P01",
+    "Q01"
+   ]
+  }
+ ],
+ "afuera": [
+  {
+   "que": "Mariana Aquino de Chamorro y el primer sueldo de su hijo; Ángela Pujol y sus hijas; Cristian Sosa y sus veintidós días en coma.",
+   "por_que": "Son otros arcos completos: desplazarían el seguimiento de Tatiana."
+  },
+  {
+   "que": "La cena de amistad, los Urbieta y la búsqueda completa de Blas Cristaldo.",
+   "por_que": "De Blas queda únicamente el retiro del cuerpo, para mostrar a quienes no salieron."
+  },
+  {
+   "que": "La supuesta orden por radio, el motivo de evitar robos, la presunta obstrucción policial y la sustracción de pertenencias.",
+   "por_que": "Las atribuciones indirectas o disputadas exigirían otra investigación dentro del relato."
+  },
+  {
+   "que": "Las demás condenas y absoluciones; la muerte de Paiva y el fallo indemnizatorio al matrimonio Palacios Morínigo.",
+   "por_que": "Abren otra trama judicial; el cierre elegido es la reparación que Tatiana dice no haber recibido."
+  },
+  {
+   "que": "Las 400 personas del misterio como total comprobado de atrapados; las temperaturas extremas y Q20 como cita literal.",
+   "por_que": "Ese total no está establecido, las temperaturas no son comparables y la cita figura sin verificar."
+  }
+ ],
+ "topic_id": "f8s1-ycua-bolanos",
+ "prompt_version": "f17-1",
+ "_intentos": [
+  {
+   "intento": 1,
+   "problemas": []
+  }
+ ],
+ "notas": null,
+ "ficha": {
+  "prompt_version": "f15-1",
+  "pool_md5": "5f3c6d0bc31ebf868dd432b2c79fdcec"
+ },
+ "_metricas": {
+  "personas_con_nombre": 7,
+  "personas": [
+   "Tatiana Gabaglio",
+   "Beatriz González",
+   "Víctor Galeano",
+   "Digna Felicia Cáceres",
+   "Liz Torres",
+   "Blas Cristaldo",
+   "Juan Pío Helvidio Paiva Escobar"
+  ]
+ }
+}

@@ -205,12 +205,14 @@ def _step_cost(topic_id: str, label: str, fn):
         f.write_text(json.dumps(costs, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
-def run_escaleta_v3(topic_id: str) -> dict:
-    """m01a v3: compuerta del pool (rojo → PoolGateRed, sin gastar) + escaleta (Pro, con reintentos)."""
+def run_escaleta_v3(topic_id: str, sin_columna: bool = False) -> dict:
+    """m01a v3: compuerta del pool (rojo → PoolGateRed, sin gastar) + escaleta (Pro, con reintentos).
+    F17: con ficha v2, m01a = columna → escaleta (`sin_columna=True` reproduce F16: escaleta sin columna)."""
     from script_engine import m01a_escaleta as me
     topic = _topic_v3(topic_id)
     log: list[str] = []
-    esc = _step_cost(topic_id, "escaleta", lambda: me.generate_escaleta(topic, log=log))
+    columna = None if sin_columna else "generar"
+    esc = _step_cost(topic_id, "escaleta", lambda: me.generate_escaleta(topic, log=log, columna=columna))
     print("\n".join(log[-8:]))
     return esc
 
@@ -283,6 +285,7 @@ def process_topic(
     v3: bool = False,
     guion: str | None = None,
     modelo: str | None = None,
+    sin_columna: bool = False,
 ) -> dict:
     """Corre la cadena m01a → m03 + assemble para 1 topic, reanudando desde from_step.
 
@@ -321,7 +324,7 @@ def process_topic(
         # m01a — skeleton
         if from_step in ("m01a",) and use_v3:
             print(f"  [01a v3] Compuerta del pool + escaleta...")
-            run_escaleta_v3(topic_id)
+            run_escaleta_v3(topic_id, sin_columna=True) if sin_columna else run_escaleta_v3(topic_id)
             skeleton = None
             result["steps_completed"].append("m01a")
             if stop_after_step == "m01a":
@@ -659,6 +662,8 @@ def main():
     parser.add_argument("--modelo", choices=("gemini-pro", "gpt-6.1-sol", "gpt-6-astra", "gemini-4-argon"), default=None,
                         help="F11b: con --guion v4, el modelo de toda la cadena v4 (guionista + reparación); el juez "
                              "es el de siempre")
+    parser.add_argument("--sin-columna", dest="sin_columna", action="store_true",
+                        help="F17: con ficha v2, la escaleta sin la columna vertebral (reproduce F16)")
     parser.add_argument("--batch", action="store_true",
                         help="Modo batch desatendido: desactiva los gates del medio "
                              "(normalizer_gate + music_gate). Equivale a "
@@ -709,6 +714,7 @@ def main():
             v3=args.v3,
             guion=args.guion,
             modelo=args.modelo,
+            sin_columna=args.sin_columna,
         ))
         
     # Resumen final

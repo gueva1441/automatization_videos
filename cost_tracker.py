@@ -9,6 +9,7 @@ Rastreador de costos del pipeline.
 """
 
 import json
+import os
 from datetime import datetime
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
@@ -335,7 +336,9 @@ class CostTracker:
             self.session_overhead.append(entry)
 
     def _save_to_history(self, report: VideoCostReport) -> None:
-        """Guarda el reporte al historial persistente."""
+        """Guarda el reporte al historial persistente. F17: bajo pytest no escribe (los tests no ensucian el historial)."""
+        if os.environ.get("PYTEST_CURRENT_TEST"):
+            return
         history = self._load_history()
         history.append(asdict(report))
         self.HISTORY_FILE.write_text(

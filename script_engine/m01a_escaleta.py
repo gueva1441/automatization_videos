@@ -1009,12 +1009,15 @@ def is_v3(topic: dict) -> bool:
 
 
 def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, attempts: int = MAX_ATTEMPTS,
-                      log: list[str] | None = None, persist: bool = True, ficha: dict | None | str = "auto") -> dict:
+                      log: list[str] | None = None, persist: bool = True, ficha: dict | None | str = "auto",
+                      columna: dict | None | str = None) -> dict:
     """Escaleta del topic (Pro, hasta `attempts` con feedback). EscaletaValidationError si ninguna pasa.
     F14: `ficha="auto"` lee `_steps/<topic>/ficha_caso.json` si existe (la escaleta lee la ficha, no el digest, y los
     apoyos van de 0 a 6); sin ficha, todo como siempre.
     F16: con ficha v2 (con `historia`), `generate_escaleta_v2`: prompt del analista, Sol high, 13 bloqueantes y una sola
-    regeneración (`attempts` no aplica)."""
+    regeneración (`attempts` no aplica).
+    F17: `columna` (solo con ficha v2): None → F16 tal cual; un dict → la escaleta lee esa columna; "generar" → después
+    de la compuerta del pool, `m01a_columna.generate_columna` (Sol high, mismo `call`) y la escaleta la lee."""
     log = log if log is not None else []
     topic_id = topic.get("id") or topic.get("topic_id")
     if not topic_id:
@@ -1029,8 +1032,11 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
         from researcher_steps.ficha_caso import load as _load_ficha
         ficha = _load_ficha(topic_id, STEPS_DIR)
     if ficha and "historia" in ficha:                # F16: con ficha v2, la escaleta v2 (Sol, 13 bloqueantes)
+        if columna == "generar":                     # F17: ficha → columna → escaleta
+            from script_engine.m01a_columna import generate_columna
+            columna = generate_columna(topic, pool, ficha, call=call, log=log, persist=persist)
         return generate_escaleta_v2(topic, pool, ficha, call=call, log=log, persist=persist, gate=gate,
-                                    topic_id=topic_id)
+                                    topic_id=topic_id, columna=columna or None)
     max_ap = MAX_APOYOS_FICHA if ficha else MAX_APOYOS
     if call is None:
         from gemini_helpers import call_pro_json as call
@@ -1333,13 +1339,20 @@ def ficha_section_v2(ficha: dict, pool: dict) -> str:
     return "\n".join(L)
 
 
-def build_prompt_v2(topic: dict, pool: dict, ficha: dict, feedback: list[str] | None = None) -> str:
+def build_prompt_v2(topic: dict, pool: dict, ficha: dict, feedback: list[str] | None = None,
+                    columna: dict | None = None) -> str:
     """F16 §1.1: <caso> (título, ángulo, misterio, revelación) · <ficha> · <tarea> literal. Sin notas, sin FEWSHOT,
-    sin reglas. Con `feedback` (la única regeneración), los bloqueantes van antes de la tarea."""
+    sin reglas. Con `feedback` (la única regeneración), los bloqueantes van antes de la tarea.
+    F17 §1.2: con `columna`, la columna va antes de la ficha y la tarea es la de «CÓMO SE USA LA COLUMNA»; sin columna,
+    byte-idéntico a F16."""
     fb = ""
     if feedback:
         fb = ("<rechazo>\nTu escaleta anterior no pasó estos controles. Corregilos sin cambiar lo demás:\n"
               + "\n".join(f"- {x}" for x in feedback) + "\n</rechazo>\n\n")
+    col = ""
+    if columna:
+        from script_engine.m01a_columna import section as columna_section
+        col = f"<columna>\n{columna_section(columna)}\n</columna>\n\n"
     return f"""<caso>
 TÍTULO: {topic.get("video_title") or "(sin título)"}
 ÁNGULO: {topic.get("angle") or "-"}
@@ -1347,24 +1360,91 @@ MISTERIO: {topic.get("mystery") or "-"}
 REVELACIÓN: {topic.get("reveal") or "-"}
 </caso>
 
-<ficha>
+{col}<ficha>
 {ficha_section_v2(ficha, pool)}
 </ficha>
 
-{fb}{TAREA_V2}"""
+{fb}{TAREA_COLUMNA if columna else TAREA_V2}"""
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F17: la escaleta v2 lee la columna (solo con ficha y columna; sin columna, F16 byte-idéntica)
+# ═══════════════════════════════════════════════════════════════
+
+PROMPT_VERSION_COLUMNA = "f17-1"
+
+# F17 §1.2: el texto de «CÓMO SE USA LA COLUMNA» de lab/hyperframes/f17/PROMPT_COLUMNA_v1.md, literal (test contra el .md).
+TAREA_COLUMNA = """<tarea>
+La columna de arriba ya decidió la historia: humano, pico, qué pasa en cada cap y qué queda afuera. No la cambies. Convertila en beats: a cada cap dale sus beats con dato central, apoyos, imagen (de las escenas de la ficha), lo que el espectador se pregunta y el cierre que dice la columna. Las personas de cada cap son las que la columna nombra.
+</tarea>"""
+
+
+def _personas_beat(b: dict, its: dict, ficha: dict) -> set[str]:
+    """Las personas de la ficha que entran en un beat: P de sus ids, autores de sus citas y nombres completos de la
+    ficha que aparecen en sus textos."""
+    from script_engine.m01a_columna import persona_de, personas_ficha
+    out: set[str] = set()
+    for i in [b.get("dato_central"), *(b.get("datos_apoyo") or [])]:
+        it = its.get(i) or {}
+        n = it.get("autor") if it.get("_kind") == "citas" else (it.get("nombre") if str(i).startswith("P") else None)
+        p = persona_de(n, ficha) if n else None
+        if p:
+            out.add(p)
+    txt = " " + " ".join(re.findall(r"[a-z0-9ñ]+", ev.norm(" ".join(
+        str(b.get(k) or "") for k in ("imagen_sensorial", "pregunta_abierta", "pregunta_pantalla", "cierre"))))) + " "
+    for p in personas_ficha(ficha):
+        for n in p["nombres"]:
+            t = " ".join(re.findall(r"[a-z0-9ñ]+", ev.norm(n or "")))
+            if len(t.split()) >= 2 and f" {t} " in txt:
+                out.add(p["nombre"])
+    return out
+
+
+def metricas_columna(esc: dict, pool: dict, ficha: dict, columna: dict) -> dict[str, Any]:
+    """F17 §1.2 (informativas, no rechazan): humano = el de la columna; personas de cada cap ⊆ las de la columna (más
+    el humano); el cierre de cada cap (el `cierre` de su último beat) = el «termina» de la columna."""
+    from difflib import SequenceMatcher
+
+    from script_engine.m01a_columna import persona_de
+    its = ev.items(pool)
+    beats = esc.get("beats") or []
+    hc = persona_de((columna.get("humano") or {}).get("nombre") or "", ficha)
+    he = persona_de((esc.get("humano") or {}).get("nombre") or "", ficha)
+    fuera: dict[int, list[str]] = {}
+    cierres: dict[int, dict] = {}
+    for c in columna.get("caps") or []:
+        cap = int(c.get("cap"))
+        bs = [b for b in beats if b.get("cap") == cap]
+        permitidas = {persona_de(n, ficha) or n for n in c.get("personas") or []} | {hc}
+        vistas = set().union(*[_personas_beat(b, its, ficha) for b in bs]) if bs else set()
+        if bs and hc and any(b.get("humano_en_escena") for b in bs):
+            vistas.add(he or hc)
+        extra = sorted(vistas - permitidas)
+        if extra:
+            fuera[cap] = extra
+        ci = (bs[-1].get("cierre") if bs else "") or ""
+        te = c.get("termina") or ""
+        cierres[cap] = {"termina": te, "cierre": ci, "igual": ev.norm(ci) == ev.norm(te),
+                        "parecido": round(SequenceMatcher(None, ev.norm(ci), ev.norm(te)).ratio(), 2)}
+    return {"humano_es_el_de_la_columna": bool(hc) and hc == he, "humano_columna": hc, "humano_escaleta": he,
+            "personas_fuera_de_la_columna": fuera, "caps_con_personas_fuera": sorted(fuera),
+            "cierres": cierres, "cierres_iguales": sum(1 for x in cierres.values() if x["igual"])}
 
 
 def generate_escaleta_v2(topic: dict, pool: dict, ficha: dict, *, call: Callable[..., dict] | None, log: list[str],
-                         persist: bool, gate: dict | None, topic_id: str) -> dict:
+                         persist: bool, gate: dict | None, topic_id: str, columna: dict | None = None) -> dict:
     """F16: UNA llamada (Sol high por `guion_v4.call_for`) → 13 bloqueantes → si fallan, UNA regeneración con ellos
-    como feedback → si vuelven a fallar, EscaletaValidationError (PARADA). Sin `instrucciones_guionista`."""
+    como feedback → si vuelven a fallar, EscaletaValidationError (PARADA). Sin `instrucciones_guionista`.
+    F17: con `columna`, el prompt la lleva antes de la ficha, `prompt_version` f17-1 y tres métricas más; los
+    bloqueantes son los mismos 13."""
     if call is None:
         from script_engine.guion_v4 import call_for
         call = call_for(None)
     feedback: list[str] = []
     intentos = []
+    version = PROMPT_VERSION_COLUMNA if columna else PROMPT_VERSION_V2
     for k in range(1, REGENERACIONES_V2 + 2):
-        raw = call(build_prompt_v2(topic, pool, ficha, feedback), system_instruction=SYSTEM_V2,
+        raw = call(build_prompt_v2(topic, pool, ficha, feedback, columna=columna), system_instruction=SYSTEM_V2,
                    response_schema=SCHEMA_FICHA, description=f"m01a_escaleta v2 intento {k}")
         raw, rep_ids = ids_v2(raw)
         esc, bloq, rep, otros = bloqueantes(raw, pool, ficha, context=str(topic.get("video_title") or ""),
@@ -1374,19 +1454,23 @@ def generate_escaleta_v2(topic: dict, pool: dict, ficha: dict, *, call: Callable
         log.append(f"  [escaleta v2] intento {k}: {len(bloq)} bloqueante(s) {bloq[:4]} · {len(rep)} reparación(es) · "
                    f"{len(otros)} a métricas")
         if not bloq:
-            esc.update({"topic_id": topic_id, "prompt_version": PROMPT_VERSION_V2, "_reparaciones": rep, "_avisos": [],
+            esc.update({"topic_id": topic_id, "prompt_version": version, "_reparaciones": rep, "_avisos": [],
                         "_intentos": intentos,
                         "ficha": {"prompt_version": ficha.get("prompt_version"), "pool_md5": ficha.get("pool_md5")}})
+            if columna:
+                esc["columna"] = {"prompt_version": columna.get("prompt_version")}
             ficha_notes(esc, ficha)
             if gate:
                 esc["pool_gate"] = {g: gate[g] for g in ("color", "metricas", "motivos", "target_words")}
             apply_pool_plan(esc, pool, instrucciones=False)
             esc["_metricas"] = metricas_escaleta(esc, pool, ficha, otros)
+            if columna:
+                esc["_metricas"]["columna"] = metricas_columna(esc, pool, ficha, columna)
             if persist:
                 _persist(topic_id, esc)
             return esc
         feedback = bloq
-    fail = {"topic_id": topic_id, "prompt_version": PROMPT_VERSION_V2, "_intentos": intentos, "ultima": raw}
+    fail = {"topic_id": topic_id, "prompt_version": version, "_intentos": intentos, "ultima": raw}
     if persist:
         (STEPS_DIR / topic_id).mkdir(parents=True, exist_ok=True)
         (STEPS_DIR / topic_id / "01a_escaleta_rechazada.json").write_text(json.dumps(fail, ensure_ascii=False, indent=2),

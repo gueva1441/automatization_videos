@@ -1,0 +1,200 @@
+{
+ "humano": {
+  "nombre": "Liz Torres",
+  "por_que": "Entra con su esposo, queda inmovilizada entre cuerpos, cree que morirá y es rescatada. Después convierte la supervivencia en un reclamo de justicia y prevención: seguimos a la misma mujer del encierro a la palabra pública.",
+  "ids": [
+   "P13",
+   "Q19",
+   "Q77",
+   "D210",
+   "D212",
+   "Q14"
+  ]
+ },
+ "pico": {
+  "cap": 5,
+  "que": "La avalancha inmoviliza a Liz entre cuerpos: piensa en sus hijos, siente calor de horno y cenizas, y escucha apagarse los gritos. Las personas que cayeron sobre ella también le salvaron la vida.",
+  "ids": [
+   "Q19",
+   "Q20",
+   "Q77"
+  ]
+ },
+ "caps": [
+  {
+   "cap": 1,
+   "que_pasa": "El peso de otros cuerpos inmoviliza a Liz Torres dentro del supermercado. Una avalancha la ha devuelto hacia adentro. Piensa en sus hijos y cree que no va a salvarse: «acá nos morimos todos».",
+   "termina": "Antes de quedar bajo los cuerpos, Liz había llegado con su esposo.",
+   "personas": [
+    "Liz Torres"
+   ],
+   "ids": [
+    "Q19",
+    "Q77",
+    "P80"
+   ]
+  },
+  {
+   "cap": 2,
+   "que_pasa": "Es domingo, 1 de agosto de 2004, en el Ycuá Bolaños de Asunción. Liz ha ido con su esposo al supermercado. Hay compradores recorriendo el local y personas almorzando en el patio de comidas.",
+   "termina": "Pero, según empleados citados por un perito, las alarmas ya habían sonado antes y no sabían cómo actuar.",
+   "personas": [
+    "Liz Torres"
+   ],
+   "ids": [
+    "D42",
+    "D53",
+    "P80",
+    "Q17",
+    "Q70",
+    "D96"
+   ]
+  },
+  {
+   "cap": 3,
+   "que_pasa": "Víctor Galeano oye un ruido que compara con agua arrojada sobre aceite hirviendo. Cristian Sosa ve caer las llamas sobre quienes almuerzan: comienza el desbande. La pericia reconstruirá que el fuego nació en residuos de la chimenea y se propagó por el aislante del techo. Liz está dentro de ese local que todos intentan abandonar.",
+   "termina": "Pero Víctor declara que encuentra cerrado el blíndex.",
+   "personas": [
+    "Víctor Galeano",
+    "Cristian Sosa",
+    "Liz Torres"
+   ],
+   "ids": [
+    "Q17",
+    "Q70",
+    "D27",
+    "D28",
+    "Q19",
+    "Q18"
+   ]
+  },
+  {
+   "cap": 4,
+   "que_pasa": "Digna Cáceres declara que el portón hacia Artigas está cerrado y que quienes corren hacia él regresan. Atribuye al dueño Juan Pío Paiva la orden de cerrar: es su interpretación de lo ocurrido, no una orden que ella haya oído. Tatiana Gabaglio, una niña, queda atrapada cuando un panel derretido cae sobre su pierna. Liz sigue dentro, entre quienes no consiguen salir.",
+   "termina": "La avalancha devuelve a Liz hacia adentro.",
+   "personas": [
+    "Digna Felicia Cáceres",
+    "Juan Pío Paiva",
+    "Tatiana Gabaglio",
+    "Liz Torres"
+   ],
+   "ids": [
+    "D106",
+    "D109",
+    "Q35",
+    "D03",
+    "D01",
+    "Q19"
+   ]
+  },
+  {
+   "cap": 5,
+   "que_pasa": "La avalancha inmoviliza a Liz y otros cuerpos caen sobre ella. Cree que va a morir y piensa en sus hijos adolescentes, que quedarían solos. Según su relato, el ambiente es un horno: calor, cenizas y gritos que se van apagando. Esos mismos cuerpos también la protegen; después dirá: «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida».",
+   "termina": "Sigue viva.",
+   "personas": [
+    "Liz Torres"
+   ],
+   "ids": [
+    "Q19",
+    "Q20",
+    "Q77"
+   ]
+  },
+  {
+   "cap": 6,
+   "que_pasa": "Liz y su esposo son rescatados; Digna distingue la claridad de un boquete que ofrece otra salida. Los bomberos sacan a Tatiana, de siete años, y los médicos deben amputarle una pierna. La búsqueda de familiares se convierte también en identificación y retiro de cuerpos. En pantalla: 327 fallecidos, cifra citada como oficial sin incluir desaparecidos, y 204 huérfanos.",
+   "termina": "Las puertas vuelven a aparecer, esta vez en el expediente.",
+   "personas": [
+    "Liz Torres",
+    "Digna Felicia Cáceres",
+    "Tatiana Gabaglio"
+   ],
+   "ids": [
+    "D210",
+    "D107",
+    "D01",
+    "D04",
+    "D05",
+    "D141",
+    "T27",
+    "D192",
+    "D196"
+   ]
+  },
+  {
+   "cap": 7,
+   "que_pasa": "La pericia enumera tres puertas cerradas hacia azotea y Administración, describe los blíndex sin llave y los accesos de la rampa abiertos; los testimonios de cierre incluyen una madre que declaró que estaban todas cerradas. Los Paiva negaron la orden; un participante de una reunión contó que los fiscales habían comunicado que un guardia reconoció recibirla por radio. La justicia condenó a Juan Pío Paiva a doce años por homicidio doloso. Liz vuelve como sobreviviente y activista: su reclamo es que no se repita.",
+   "termina": "«Que nunca más ocurra un 1A».",
+   "personas": [
+    "Juan Pío Paiva",
+    "Liz Torres"
+   ],
+   "ids": [
+    "D25",
+    "D29",
+    "D30",
+    "D31",
+    "Q18",
+    "D106",
+    "Q37",
+    "Q64",
+    "D121",
+    "D19",
+    "D214",
+    "D215",
+    "P13",
+    "Q14"
+   ]
+  }
+ ],
+ "afuera": [
+  {
+   "que": "Mariana y el primer sueldo de Mario; Blas, Estela y la cena de despedida; Ángela y sus hijas.",
+   "por_que": "Son arcos familiares completos que competirían con Liz; la búsqueda de cuerpos entra sin abrir otra historia."
+  },
+  {
+   "que": "Beatriz González corriendo desde su caja y los veintidós días en coma de Cristian Sosa.",
+   "por_que": "Víctor y Sosa ya sostienen el comienzo del fuego; las consecuencias quedan concentradas en Liz y Tatiana."
+  },
+  {
+   "que": "La obstrucción policial denunciada, los supuestos robos y la recriminación atribuida a un Paiva por el boquete.",
+   "por_que": "Abren acusaciones laterales con evidencia incompleta y desplazan el misterio de las puertas."
+  },
+  {
+   "que": "El detalle de condenas a otros directivos, funcionarios y constructor, y las sucesivas instancias judiciales.",
+   "por_que": "Multiplican nombres y expedientes sin cambiar el recorrido elegido."
+  },
+  {
+   "que": "La indemnización del matrimonio Palacios Morínigo, la muerte de Paiva y las dudas sobre bienes para cobrar.",
+   "por_que": "Abren un cierre económico distinto; este video termina con el reclamo preventivo de Liz."
+  },
+  {
+   "que": "400 muertos como cifra oficial y 244 heridos como recuento único.",
+   "por_que": "La ficha cita 327 fallecidos como cifra oficial y no dirime entre 244 y 500 heridos; no se unifican versiones."
+  }
+ ],
+ "topic_id": "f8s1-ycua-bolanos",
+ "prompt_version": "f17-1",
+ "_intentos": [
+  {
+   "intento": 1,
+   "problemas": []
+  }
+ ],
+ "notas": "1. El humano es Liz Torres, no Tatiana. Liz tiene el pico (la avalancha, los cuerpos, «acá nos morimos todos») y citas verificadas en gancho, pico y cierre. Tatiana queda como segunda historia: entra en el cap 4 (la niña atrapada bajo el panel) y vuelve en el cap 6 (los bomberos la sacan, pierde la pierna). No es el hilo.\n2. Las puertas son el misterio del video y no pueden quedar afuera. En el cap 4 entra la orden: Digna y «el jefe mandó cerrar las puertas». En el cap 7 entran las versiones: la pericia dice tres puertas cerradas, los testigos dicen todas, los Paiva niegan la orden, el guardia reconoce la radio.\n3. El cap 3 arranca el fuego con lo que se oye y se ve: el ruido «como aceite hirviendo» de Víctor, la bola de fuego por el techo, las llamas cayendo sobre el patio de comidas (Sosa). Beatriz y la pericia son apoyo, no el centro.",
+ "ficha": {
+  "prompt_version": "f15-1",
+  "pool_md5": "5f3c6d0bc31ebf868dd432b2c79fdcec"
+ },
+ "_metricas": {
+  "personas_con_nombre": 6,
+  "personas": [
+   "Liz Torres",
+   "Víctor Galeano",
+   "Cristian Sosa",
+   "Digna Felicia Cáceres",
+   "Juan Pío Helvidio Paiva Escobar",
+   "Tatiana Gabaglio"
+  ]
+ }
+}

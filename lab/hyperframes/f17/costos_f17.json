@@ -1,0 +1,47 @@
+{
+ "etapas": [
+  {
+   "tema": "ycua",
+   "etapa": "columna",
+   "usd": 0.0888,
+   "segundos": 147.9,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_columna intento 1",
+     "in": 15747,
+     "out": 1631,
+     "thinking": 4096,
+     "usd": 0.0888
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "1408569c5c9de22ec406a10ba0cd9b13",
+    "usuario": "2a3576acca599716b181e7a0136fd1b4"
+   },
+   "error": null
+  },
+  {
+   "tema": "ycua",
+   "etapa": "columna_notas",
+   "usd": 0.0804,
+   "segundos": 102.4,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_columna intento 1",
+     "in": 15989,
+     "out": 1770,
+     "thinking": 3072,
+     "usd": 0.0804
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "1408569c5c9de22ec406a10ba0cd9b13",
+    "usuario": "0e6b212465a9080af166e8e813e58f98"
+   },
+   "error": null
+  }
+ ],
+ "usd_total": 0.1692
+}

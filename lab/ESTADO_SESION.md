@@ -12,6 +12,14 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
 
+## F17 — Columna vertebral (ficha → columna → escaleta → guion) — **CERRADO en PARADA 1** (2026-10-24: Omar cambió de tema → F18 Kyshtym/Mayak; **Ycuá queda en PARADA 1 para siempre**: no se regenera su columna ni se corre nada más de Ycuá; Orleans tampoco). Reporte corto `lab/hyperframes/f17/F17_REPORT.md` (dos veredictos del revisor íntegros: CUMPLE CON OBSERVACIONES)
+- Handoff `lab/hyperframes/f17/HANDOFF_F17_columna_vertebral.md`; prompt `PROMPT_COLUMNA_v1.md` (sistema md5 1408569c…, extraído anclando en «## SISTEMA», LF). Runner `lab/hyperframes/f17/f17_corridas.py` (tope US$ 2.00, `costos_f17.json`).
+- Código: `script_engine/m01a_columna.py` (`f17-1`, Sol high, chequeo: 7 caps, humano y personas de la ficha, ids; una regeneración → PARADA; métrica de personas con nombre; `columna_notas.md` = UNA regeneración con notas). `m01a_escaleta`: `build_prompt_v2(columna=)` (columna antes de la ficha, `TAREA_COLUMNA` literal), `generate_escaleta(columna=None|dict|"generar")`, `metricas_columna`; **sin columna, byte-idéntica a F16** (md5 de fixtures y de los prompts reales de Ycuá/Orleans). `fase1_5 --sin-columna`. `cost_tracker` no escribe el historial bajo pytest.
+- `data/cost_history.json`: sacadas las entradas `t-f11b` (encontré 33 por US$ 99.0, no 59; respaldo `data/cost_history.pre_f17.json`; 505 → 472).
+- Tests: `test_module_f17.py` (27); suite amplia 677 verdes + las 5 previas; dorado v3 verde.
+- Corrida: **columna de Ycuá v1** (US$ 0.089, 1 intento, 0 problemas): humano Tatiana Gabaglio, pico cap 5 (Liz Torres), 7 personas con nombre → guardada como `COLUMNA_ycua_v1.md` / `01a_columna_v1.json`.
+- **Decisión de Omar (2026-10-24):** tres notas en `_steps/f8s1-ycua-bolanos/columna_notas.md` (humano Liz Torres, Tatiana como segunda historia en caps 4 y 6; las puertas: la orden en el cap 4 y las versiones en el cap 7; el cap 3 arranca con lo que se oye y se ve). Regeneración única con las notas en la tarea: US$ 0.080, 1 intento, 0 problemas; humano Liz Torres, 6 personas con nombre. Tanda US$ 0.169. **PARADA**; no hubo «dale»: el plan cambió a F18.
+
 ## F16 — Escaleta v2 (13 bloqueantes, Sol) · Ycuá y Orleans completos — HECHO, **PARADA** (el analista revisa el diff y lee escaletas y guiones; si Ycuá da ≥ 8, lo que sigue es producción)
 - Handoff `lab/hyperframes/f16/HANDOFF_F16_escaleta_v2.md`; prompt `PROMPT_ESCALETA_v2.md` (md5 8d573288…). Reporte `F16_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f16.html` (teléfono OK).
 - Código (`m01a_escaleta`):
