@@ -1,0 +1,2031 @@
+{
+ "orleans": {
+  "pool": {
+   "color": "verde",
+   "metricas": {
+    "datos": 558,
+    "citas_verificadas": 162,
+    "elegibles_humano": 33,
+    "eventos_con_fecha": 127
+   },
+   "motivos": [],
+   "personajes": [
+    {
+     "nombre": "Brady Richard",
+     "rol": "Oficial de Suministros Médicos",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 4,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Oliver Thomas",
+     "rol": "New Orleans City Council President",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Marlin Gusman",
+     "rol": "Orleans Parish Criminal Sheriff",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 9,
+     "n_datos": 20,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Charles Foti",
+     "rol": "Ex Sheriff de la Parroquia de Orleans",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 4,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Louis Hamilton",
+     "rol": "Preso de la OPP",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Greg Davis",
+     "rol": "Preso evacuado de la OPP",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Mark Jones",
+     "rol": "Hombre golpeado hasta la muerte en la OPP",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 3,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Shawn Duncan",
+     "rol": "Preso fallecido en la OPP",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 3,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Matthew Bonnette",
+     "rol": "Preso que se suicidó",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 2,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Kathleen Babineaux Blanco",
+     "rol": "Gobernadora de Luisiana",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 3,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Corey Stevenson",
+     "rol": "Preso de 15 años",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Christina Foster",
+     "rol": "Alguacil en el edificio HOD",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Rhonda Ducre",
+     "rol": "Alguacil en el edificio HOD",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 4,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Luis Reyes",
+     "rol": "Alguacil",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Raphael Schwarz",
+     "rol": "Preso",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 3,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Renard Reed",
+     "rol": "Oficial del sheriff",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 3,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Shantia Barnes",
+     "rol": "Oficial",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Iris Hardeman",
+     "rol": "Reclusa",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 5,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Gedra Payne Robinson",
+     "rol": "Reclusa",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Joyce Gilson",
+     "rol": "Reclusa",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 3,
+     "n_datos": 4,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "William Hardeman",
+     "rol": "Hermano de Iris Hardeman",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "David Williams",
+     "rol": "Recluso",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 2,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Albert G. Couvillion",
+     "rol": "Recluso",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Gary Bordelon",
+     "rol": "Jefe, Director de Templeman III",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Keanna Herbert",
+     "rol": "Reclusa",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "R. Demaree Inglese",
+     "rol": "Director Médico de OPP",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Tyrone Lewis",
+     "rol": "Recluso",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 4,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Bonita Pittman",
+     "rol": "Alcaide asociada",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 2,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Pearl Cornelia Bland",
+     "rol": "Reclusa",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 4,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "William Short",
+     "rol": "Jefe Adjunto",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 3,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Quantonio Williams",
+     "rol": "Prisionero",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 3,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Leroy P. Gardner, III",
+     "rol": "Prisionero",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Darnell Smith",
+     "rol": "Prisionero",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Ace Martin",
+     "rol": "Prisionero",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Duane Lewis",
+     "rol": "Guardia (Deputy)",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Richard Baumy",
+     "rol": "Coronel de St. Bernard Parish",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Ronnie Lee Morgan, Jr.",
+     "rol": "Preso federal",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Mary Gehman",
+     "rol": "Escritora",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "George Schaefer III",
+     "rol": "Preso fugado",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "David Fernandez",
+     "rol": "Preso fugado",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Ahmad Nelson",
+     "rol": "Preso fugado",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Cathy Fontenot",
+     "rol": "Portavoz del Departamento de Correccionales",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 1,
+     "n_datos": 2,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Corinne Carey",
+     "rol": "investigadora de Human Rights Watch",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Dan Bright",
+     "rol": "recluso de Orleans Parish Prison",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 7,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Earrand Kelly",
+     "rol": "recluso de Templeman III",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Brooke Moss",
+     "rol": "oficial de Orleans Parish Prison",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Arnie Fielkow",
+     "rol": "Presidente del Concejo Municipal",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Andy Kopplin",
+     "rol": "Primer Teniente de Alcalde",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Sergeant Bell",
+     "rol": "Sargento",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 1,
+     "n_datos": 2,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Mr. Gussman",
+     "rol": "No especificado",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Chief Rudy",
+     "rol": "Jefe",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 1,
+     "n_datos": 2,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Lieutenant Deputy Keiths",
+     "rol": "Teniente Oficial",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Ranking Officer Watson",
+     "rol": "Oficial de Prisiones",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 1,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Mrs. Paige",
+     "rol": "Oficial de Prisiones",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Ken Bailey",
+     "rol": "Sheriff",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Iris Hardy",
+     "rol": "Reclusa diabética",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Colonel Joseph",
+     "rol": "Oficial de Conchetta",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Ms. Bowmen",
+     "rol": "Oficial en House of Detention",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Michael Carrerras",
+     "rol": "Recluso de St. Bernard",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 2,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Tina Johnson",
+     "rol": "Reclusa",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Edward “Edgar” Burton",
+     "rol": "Preso",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 3,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Sade Dumas",
+     "rol": "Líder de la Orleans Parish Prison Reform Coalition (OPPRC)",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Big Whappy",
+     "rol": "Preso",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Len Davis",
+     "rol": "Preso (ex policía sentenciado a muerte)",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Phyllis Mann",
+     "rol": "Abogada principal que busca a los prisioneros desplazados",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 2,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Glyendale Stevenson",
+     "rol": "Madre de un preso de 15 años",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 2,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Denise Lewis Henry",
+     "rol": "Hermana de Tyrone Lewis",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Richard Stalder",
+     "rol": "Jefe del Departamento de Correccionales de Luisiana",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Capitán Jenkins",
+     "rol": "Capitán",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Warden de Hunt Correctional Center",
+     "rol": "Alcaide",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 17,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    }
+   ],
+   "elegibles": [
+    "Brady Richard",
+    "Oliver Thomas",
+    "Mark Jones",
+    "Shawn Duncan",
+    "Kathleen Babineaux Blanco",
+    "Christina Foster",
+    "Rhonda Ducre",
+    "Luis Reyes",
+    "Raphael Schwarz",
+    "Renard Reed",
+    "Iris Hardeman",
+    "Gedra Payne Robinson",
+    "Joyce Gilson",
+    "Albert G. Couvillion",
+    "Keanna Herbert",
+    "Tyrone Lewis",
+    "Pearl Cornelia Bland",
+    "William Short",
+    "Quantonio Williams",
+    "Ronnie Lee Morgan, Jr.",
+    "Mary Gehman",
+    "David Fernandez",
+    "Dan Bright",
+    "Arnie Fielkow",
+    "Andy Kopplin",
+    "Edward “Edgar” Burton",
+    "Big Whappy",
+    "Phyllis Mann",
+    "Glyendale Stevenson",
+    "Denise Lewis Henry",
+    "Richard Stalder",
+    "Capitán Jenkins",
+    "Warden de Hunt Correctional Center"
+   ],
+   "citas_verificadas": 162,
+   "verificacion": {
+    "verificada": 162,
+    "verificada_parcial": 25,
+    "sin_verificar": 0
+   },
+   "textos": 10,
+   "canonicas": [
+    {
+     "valor": "6,375",
+     "variantes": [
+      "7,000"
+     ]
+    },
+    {
+     "valor": "6,295",
+     "variantes": [
+      "5,919"
+     ]
+    }
+   ],
+   "log": [
+    "  [R4] autores de cita sumados como personajes: ['Warden de Hunt Correctional Center']",
+    "  [R4] población: oficial 6,375 (F01) · variantes [('7,000', 'D152')]"
+   ]
+  },
+  "ficha": {
+   "problemas": 1,
+   "sacados": [
+    "[descartados] [descartados] [descartados] Personas descartadas del research sin pasa → no respaldado: sin ids"
+   ]
+  },
+  "columna": null,
+  "escaleta": {
+   "bloqueantes": [],
+   "no_bloqueantes": 18
+  },
+  "guion": {
+   "bloqueantes": [],
+   "metricas": {
+    "palabras": 1443,
+    "citas": 7,
+    "humano_caps": [
+     1
+    ],
+    "cierre": "pregunta",
+    "duras_v3": 44,
+    "duras_v3_lista": [
+     "cap 1: 92 palabras: el mínimo del cap es 94 (objetivo 110); contá más hechos del beat con escenas, no adjetivos",
+     "cap 1: usaste 0 de los datos asignados (mínimo 1); faltan literales o sin declarar en datos_usados: [D76] «Aproximadamen",
+     "cap 2: 117 palabras: el mínimo del cap es 196 (objetivo 230); contá más hechos del beat con escenas, no adjetivos",
+     "cap 2: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D100] «$398»",
+     "cap 2: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «por in",
+     "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «El sheriff Gusman rechazó la oferta del Departamento d",
+     "cap 3: 373 palabras: el máximo del cap es 288 (objetivo 250)",
+     "cap 3: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D35] «El sheriff Gu",
+     "cap 3: fechas: contaste [T56] sin su fecha (28 de agosto): «El domingo, los trasladados bajan de un autobús y entran en ",
+     "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «El agua de la inundación y de las cloacas llenó la uni",
+     "cap 4: 375 palabras: el máximo del cap es 288 (objetivo 250)",
+     "cap 4: esto está fuera del caso o no hace nada en la historia; no lo nombres: Burl Cain",
+     "cap 4: esto está reservado para la pantalla de este cap, no lo digas: [D152] «El sheriff tenía solo 3 barcos disponibles",
+     "cap 5: 61 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 5: usaste 1 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [D155] «Otras reclus",
+     "cap 6: 183 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 6: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D147] «Las mujeres ",
+     "cap 6: fechas: contaste [T74] sin su fecha (29 de agosto): «Un reportaje posterior recoge otra secuencia: recibieron com",
+     "cap 6: el cierre tiene que anticipar el dato concreto del cap 7: «El agua inutilizó el sistema de datos de la cárcel y n",
+     "cap 7: 242 palabras: el máximo del cap es 161 (objetivo 140)",
+     "cap 7: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D548] «El agua inut",
+     "beat 2: ninguna frase de 6 palabras o menos",
+     "beat 3: 1 frase(s) de más de 30 palabras (36)",
+     "beat 11: ninguna frase de 6 palabras o menos",
+     "beat 12: ninguna frase de 6 palabras o menos",
+     "beat 13: ninguna frase de 6 palabras o menos",
+     "beat 14: ninguna frase de 6 palabras o menos",
+     "Joyce Gilson aparece por nombre en los caps [1]: tienen que ser ≥ 3",
+     "cap 4: repite frases de caps anteriores («dentro del agua»; «llega al pecho»): decilo de otra forma o no lo repitas",
+     "cap 5: repite frases de caps anteriores («mujeres que esperan»): decilo de otra forma o no lo repitas",
+     "cap 6: repite frases de caps anteriores («el paso elevado»): decilo de otra forma o no lo repitas",
+     "beat 1 (párrafo 1): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición ",
+     "beat 4 (párrafo 7): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición ",
+     "beat 5 (párrafo 9): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición ",
+     "beat 8 (párrafo 14): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición",
+     "beat 9 (párrafo 18): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición",
+     "beat 9 (párrafo 19): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición",
+     "beat 10 (párrafo 20): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transició",
+     "beat 11 (párrafo 23): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transició",
+     "beat 12 (párrafo 24): 3 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transició",
+     "beat 12 (párrafo 25): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transició",
+     "beat 13 (párrafo 26): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transició",
+     "beat 13 (párrafo 27): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transició",
+     "beat 14 (párrafo 28): 3 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transició"
+    ]
+   }
+  }
+ },
+ "ycua": {
+  "pool": {
+   "color": "verde",
+   "metricas": {
+    "datos": 227,
+    "citas_verificadas": 53,
+    "elegibles_humano": 34,
+    "eventos_con_fecha": 62
+   },
+   "motivos": [],
+   "personajes": [
+    {
+     "nombre": "Tatiana Gabaglio",
+     "rol": "Sobreviviente",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 6,
+     "n_datos": 13,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Ángela Pujol",
+     "rol": "Madre de dos víctimas del incendio",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 3,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Yessica Vanessa",
+     "rol": "Víctima del incendio",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 3,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Yessica Natalia",
+     "rol": "Víctima del incendio",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 3,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Beatriz González",
+     "rol": "Ex cajera del supermercado",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Juan Pío Paiva",
+     "rol": "Propietario del local",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 1,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Emiliano Paiva",
+     "rol": "Hijo del propietario del local",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 2,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Jorge Alfonso",
+     "rol": "Vocero de la Fundación de Víctimas del Ycua Bolaños",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Guillermo Alfonso Ortíz",
+     "rol": "Víctima del incendio, carritero en el supermercado",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Daniel Areco",
+     "rol": "Guardia de seguridad",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 8,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Humberto Casaccia",
+     "rol": "Directivo",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 6,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Liz Torres",
+     "rol": "Miembro de la Coordinadora de Víctimas, y amigos del Ycua Bolaños",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 8,
+     "n_datos": 3,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Enrique Riera",
+     "rol": "Intendente de Asunción en la época del incendio y actual ministro del Interior",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 3,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Martín Burt",
+     "rol": "Intendente de Asunción anterior a la época del incendio",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Benedicto Pérez",
+     "rol": "Perito formoseño",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 4,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Luis Escobar Faella",
+     "rol": "Abogado defensor",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Mirta Elizabeth González",
+     "rol": "Madre de víctima indirecta",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Víctor Galeano",
+     "rol": "Sobreviviente",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Alejandro Nissen",
+     "rol": "Abogado querellante de 92 familias de víctimas",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 4,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Víctor Daniel Paiva",
+     "rol": "Gerente de salón del supermercado e hijo de Juan Pío Paiva",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 2,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Bernardo Ismachoviez",
+     "rol": "Director y arquitecto de la obra",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 2,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Edgar Sánchez",
+     "rol": "Fiscal",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 2,
+     "n_datos": 6,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Matilde Moreno",
+     "rol": "Fiscala",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Amada Correa",
+     "rol": "Funcionaria del supermercado",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Rodas Cristaldo",
+     "rol": "Sobreviviente con quemaduras en el 80% de su cuerpo",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Hugo Cabral",
+     "rol": "Guardia de salón fallecido en el incendio",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Leticia Lusich",
+     "rol": "Portera",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Nicolás Núñez",
+     "rol": "Comisario que presidió a los peritos de Criminalística de Formosa",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Teresa Sosa",
+     "rol": "Fiscala",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 4,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Alejandro Maciel",
+     "rol": "Médico siquiatra",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 3,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Digna Felicia Cáceres",
+     "rol": "Sobreviviente de la tragedia",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 6,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Pío Paiva",
+     "rol": "Jefe (dueño) del supermercado",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 19,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Mario Eduardo Chamorro",
+     "rol": "Empleado del Ycuá Bolaños, fallecido",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 4,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Blas Cristaldo",
+     "rol": "Ingeniero, miembro del Colectivo Ni Olvido Ni Perdón, perdió a su esposa",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 3,
+     "n_datos": 12,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Olindo López",
+     "rol": "Doctor (Fiscal)",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Ismael Alcaraz",
+     "rol": "Guardia de seguridad",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 2,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Fernando Ortiz Mieres",
+     "rol": "Ex empleado del Ycuá Bolaños, sobreviviente",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Daniel Paiva",
+     "rol": "Hijo del dueño del supermercado",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 1,
+     "n_datos": 8,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Lili Cristaldo",
+     "rol": "Sobreviviente",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Verónica Becker",
+     "rol": "Familiar de víctimas (perdió a su esposo e hija)",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 2,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Ignacio González",
+     "rol": "Sociólogo, ex-residente del barrio",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Rubén Urbieta",
+     "rol": "Víctima fallecida, amigo de Blas Cristaldo",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 11,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Juan Pereira",
+     "rol": "Comisario",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 6,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Nelson Astigarraga",
+     "rol": "Sobreviviente del incendio y familiar de víctimas",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 4,
+     "n_datos": 5,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "José Luis Simón",
+     "rol": "Sociólogo",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 4,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Juan Brizuela",
+     "rol": "Víctima del incendio, ingeniero",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 9,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Arístides González",
+     "rol": "Coordinador del CEN (Comité de Emergencia Nacional)",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Ingeniero Cristaldo",
+     "rol": "Ingeniero",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Juan Pío Helvidio Paiva Escobar",
+     "rol": "Demandado",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 8,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "María Estela Palacios Morínigo",
+     "rol": "Víctima fallecida",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Enrique Mongelós",
+     "rol": "Juez de primera instancia",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "María Victoria Cáceres",
+     "rol": "Demandada",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Antoliana Burgos",
+     "rol": "Demandada",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 3,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Alberto Martínez Simón",
+     "rol": "Ministro de la Corte",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Antonio Morínigo",
+     "rol": "Abogado",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Cristian Sosa",
+     "rol": "Sobreviviente",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 3,
+     "n_datos": 3,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Julia López",
+     "rol": "Familiar de víctimas",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 3,
+     "n_datos": 3,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Angélica Roa",
+     "rol": "Sobreviviente y familiar de víctimas",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 4,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "María Angélica",
+     "rol": "Víctima del incendio (maestra de párvulos)",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 9,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Gustavo Lima",
+     "rol": "Víctima del incendio",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Victorina Lima",
+     "rol": "Víctima del incendio",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 2,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Juan Adolfo Lima",
+     "rol": "Víctima del incendio (desaparecido)",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Mara Soledad",
+     "rol": "Víctima del incendio (sobrina de Angélica Roa)",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Diana Benítez",
+     "rol": "Víctima del incendio (sobrina política de Angélica Roa)",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 3,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Alfredo Vallovera",
+     "rol": "Esposo de la sobreviviente Liz Torres",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Tania Campos",
+     "rol": "Directora del Sitio de Memoria y Centro Cultural 1A – Ycuá Bolaños",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Agustín Alfonzo",
+     "rol": "Directivo del supermercado",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 2,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Jorge Gamarra Morínigo",
+     "rol": "Funcionario de la Municipalidad",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Jesús María Insaurralde",
+     "rol": "Funcionario de la Municipalidad",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Rodrigo Castillo Fraccia",
+     "rol": "Funcionario de la Municipalidad",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Bernardo Ismachowiez",
+     "rol": "Constructor",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Hugo Morán",
+     "rol": "Juez",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Emigdio Wendell",
+     "rol": "Demandante",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Nilda Ortellado",
+     "rol": "Demandante",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Miguel Ángel Rodas",
+     "rol": "Juez",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 3,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Pedro Ramón Ramírez Carballo",
+     "rol": "Demandante",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Rubén Valdez",
+     "rol": "jefe del Cuerpo de Bomberos Voluntarios del Paraguay",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Nelson Jara",
+     "rol": "arquitecto, docente adjunto de FADA-UNA",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 5,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Carlos Halke",
+     "rol": "director del Departamento de Prevención contra Incendios de la Municipalidad de Asunción",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Escobar Faella",
+     "rol": "Abogado defensor",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 5,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Edgar Sánchez",
+     "rol": "Fiscal",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 6,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Fernando Ortiz",
+     "rol": "Ex empleado del Ycuá Bolaños, sobreviviente",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "don Julio",
+     "rol": "Hombre de confianza de Paiva",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 11,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "María Berzabé Meza Vda. de Brizuela",
+     "rol": "Viuda de una víctima",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 3,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    }
+   ],
+   "elegibles": [
+    "Tatiana Gabaglio",
+    "Ángela Pujol",
+    "Yessica Vanessa",
+    "Yessica Natalia",
+    "Beatriz González",
+    "Liz Torres",
+    "Benedicto Pérez",
+    "Luis Escobar Faella",
+    "Víctor Galeano",
+    "Alejandro Nissen",
+    "Amada Correa",
+    "Alejandro Maciel",
+    "Digna Felicia Cáceres",
+    "Mario Eduardo Chamorro",
+    "Blas Cristaldo",
+    "Lili Cristaldo",
+    "Verónica Becker",
+    "Rubén Urbieta",
+    "Nelson Astigarraga",
+    "José Luis Simón",
+    "Juan Brizuela",
+    "Antonio Morínigo",
+    "Cristian Sosa",
+    "Julia López",
+    "Angélica Roa",
+    "María Angélica",
+    "Diana Benítez",
+    "Tania Campos",
+    "Rubén Valdez",
+    "Nelson Jara",
+    "Carlos Halke",
+    "Escobar Faella",
+    "don Julio",
+    "María Berzabé Meza Vda. de Brizuela"
+   ],
+   "citas_verificadas": 53,
+   "verificacion": {
+    "verificada": 53,
+    "verificada_parcial": 29,
+    "sin_verificar": 0
+   },
+   "textos": 11,
+   "canonicas": [],
+   "log": [
+    "  [R4] autores de cita sumados como personajes: ['don Julio', 'María Berzabé Meza Vda. de Brizuela']"
+   ]
+  },
+  "ficha": {
+   "problemas": 0,
+   "sacados": []
+  },
+  "columna": {
+   "problemas": [],
+   "personas": [
+    "Liz Torres",
+    "Víctor Galeano",
+    "Cristian Sosa",
+    "Digna Felicia Cáceres",
+    "Juan Pío Helvidio Paiva Escobar",
+    "Tatiana Gabaglio"
+   ]
+  },
+  "escaleta": {
+   "bloqueantes": [],
+   "no_bloqueantes": 13
+  },
+  "guion": {
+   "bloqueantes": [],
+   "metricas": {
+    "palabras": 1384,
+    "citas": 9,
+    "humano_caps": [
+     1
+    ],
+    "cierre": "cita",
+    "duras_v3": 40,
+    "duras_v3_lista": [
+     "cap 1: cap 1 (hook): primera oración tiene 15 palabras (máx 12): \"Los cuerpos empujan hacia adentro y una mujer ya no pu",
+     "cap 1: usaste 0 de los datos asignados (mínimo 1); faltan literales o sin declarar en datos_usados: [Q19] «El fuego avan",
+     "cap 2: 129 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 2: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q08] «Cuando salier",
+     "cap 2: fechas: contaste [T19] sin su fecha (1 de agosto): «A la mañana siguiente, según contaría Blas Cristaldo, Teresa ",
+     "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «El fuego se inició por la acumulación de grasa, carbon",
+     "cap 3: 295 palabras: el máximo del cap es 288 (objetivo 250)",
+     "cap 3: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D27] «El fuego se i",
+     "cap 4: 177 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 4: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q18] «Viene Mary (e",
+     "cap 4: el cierre tiene que anticipar el dato concreto del cap 5: «Era como estar dentro de un horno, con las cenizas, er",
+     "cap 5: 46 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "cap 5: el cierre tiene que anticipar el dato concreto del cap 6: «La sobreviviente Digna Cáceres perdió el conocimiento ",
+     "cap 6: 340 palabras: el máximo del cap es 288 (objetivo 250)",
+     "cap 6: fechas: contaste [T25] sin su fecha (1 de agosto): «Cuando Blas y sus acompañantes comienzan la búsqueda, a las c",
+     "cap 7: 303 palabras: el máximo del cap es 162 (objetivo 141)",
+     "cap 7: fechas: contaste [T58] sin su fecha (5 de diciembre): «En el primer juicio, los incidentes habían obligado a susp",
+     "beat 2: ninguna frase de 6 palabras o menos",
+     "beat 6: ninguna frase de 6 palabras o menos",
+     "beat 10: ninguna frase de 6 palabras o menos",
+     "beat 11: ninguna frase de 6 palabras o menos",
+     "beat 12: ninguna frase de 6 palabras o menos",
+     "beat 12: 1 frase(s) de más de 30 palabras (32)",
+     "beat 13: ninguna frase de 6 palabras o menos",
+     "beat 14: ninguna frase de 6 palabras o menos",
+     "antes del pico (beat 8): faltan dos frases cortas seguidas",
+     "Liz Torres aparece por nombre en los caps [1]: tienen que ser ≥ 3",
+     "cap 6: repite frases de caps anteriores («reconstruccion publicada en»; «su primer sueldo»): decilo de otra forma o no l",
+     "beat 1 (párrafo 1): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición ",
+     "beat 2 (párrafo 3): 3 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición ",
+     "beat 4 (párrafo 6): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición ",
+     "beat 5 (párrafo 8): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición ",
+     "beat 5 (párrafo 9): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición ",
+     "beat 6 (párrafo 10): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición",
+     "beat 6 (párrafo 11): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición",
+     "beat 8 (párrafo 14): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición",
+     "beat 11 (párrafo 19): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transició",
+     "beat 12 (párrafo 20): 3 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transició",
+     "beat 12 (párrafo 21): 3 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transició",
+     "beat 13 (párrafo 22): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transició"
+    ]
+   }
+  }
+ },
+ "kyshtym": {
+  "pool": {
+   "color": "verde",
+   "metricas": {
+    "datos": 208,
+    "citas_verificadas": 18,
+    "elegibles_humano": 8,
+    "eventos_con_fecha": 22
+   },
+   "motivos": [],
+   "personajes": [
+    {
+     "nombre": "Lyudmila Krestinina",
+     "rol": "Jefa del laboratorio de epidemiología del Centro Científico y Práctico de Medicina de Radiación de los Urales",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Andrei Vazhenin",
+     "rol": "Oncólogo jefe de la región de Chelyabinsk",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Zhores Medvedev",
+     "rol": "Genetista soviético exiliado",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 11,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Lev Tumerman",
+     "rol": "Científico soviético",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 2,
+     "n_datos": 3,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Igor Vasil'evich Kurchatov",
+     "rol": "Padre de la ciencia atómica en la Unión Soviética",
+     "testigo": true,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 3,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "N. V. Timofeyev-Resovskiy",
+     "rol": "Científico que realizó investigaciones radioecológicas",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 0,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Josef Stalin",
+     "rol": "Líder de la URSS",
+     "testigo": false,
+     "antagonista": true,
+     "n_citas": 0,
+     "n_datos": 1,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "periódico Komsomolskaya Pravda",
+     "rol": null,
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Андрей Талевлин",
+     "rol": "Abogado de la organización \"Pravoznaniye\" de Cheliábinsk",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "В.Д. Камынин",
+     "rol": "Investigador",
+     "testigo": false,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 2,
+     "presente_en_evento": false,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "V.M. Osetrov",
+     "rol": "Maquinista de la estación de bombeo",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "V.I. Komarov",
+     "rol": "Técnico",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": false,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "I.F. Serov",
+     "rol": "Teniente coronel retirado",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 1,
+     "presente_en_evento": true,
+     "elegible_humano": false
+    },
+    {
+     "nombre": "Любовь Ладейщикова",
+     "rol": "Residente de la aldea de Mitino",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    },
+    {
+     "nombre": "Мама de Надежда Кутепова",
+     "rol": "Practicante en clínica para enfermos por radiación",
+     "testigo": true,
+     "antagonista": false,
+     "n_citas": 1,
+     "n_datos": 0,
+     "presente_en_evento": true,
+     "elegible_humano": true
+    }
+   ],
+   "elegibles": [
+    "Lyudmila Krestinina",
+    "Andrei Vazhenin",
+    "Zhores Medvedev",
+    "Lev Tumerman",
+    "periódico Komsomolskaya Pravda",
+    "В.Д. Камынин",
+    "Любовь Ладейщикова",
+    "Мама de Надежда Кутепова"
+   ],
+   "citas_verificadas": 18,
+   "verificacion": {
+    "verificada": 18,
+    "verificada_parcial": 6,
+    "sin_verificar": 0
+   },
+   "textos": 15,
+   "canonicas": [],
+   "log": [
+    "  [R4] autores de cita sumados como personajes: ['Андрей Талевлин', 'В.Д. Камынин', 'V.M. Osetrov', 'V.I. Komarov', 'I.F. Serov', 'Любовь Ладейщикова', 'Мама de Надежда Кутепова']"
+   ]
+  },
+  "ficha": {
+   "problemas": 1,
+   "sacados": [
+    "[descartados] [descartados] [descartados] A. I. Burnazyan, M. A. Demyanovich, Diane  → no respaldado: sin ids"
+   ]
+  },
+  "columna": {
+   "problemas": [],
+   "personas": [
+    "Lev Tumerman",
+    "Zhores Medvedev",
+    "E.P. Slavsky"
+   ]
+  },
+  "escaleta": {
+   "bloqueantes": [
+    "antagonista D50, D68 no es una persona del pool",
+    "a_pantalla D04 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T20 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T32 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T34 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D80 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla Q12 también está en un beat: lo que va a pantalla no lo dice la voz"
+   ],
+   "no_bloqueantes": 15
+  },
+  "guion": null
+ }
+}

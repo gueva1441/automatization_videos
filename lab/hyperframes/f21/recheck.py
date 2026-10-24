@@ -26,10 +26,10 @@ sys.path.insert(0, str(ROOT))
 STEPS = ROOT / "data" / "scripts" / "_steps"
 F16, F18 = LAB.parent / "f16", LAB.parent / "f18"
 TEMAS = {
-    "orleans": {"tid": "ba6c3cac-f7r3", "anio": 2005, "perfil": "_perfil_f20.json", "pool": "00_pool_v3.json",
+    "orleans": {"tid": "ba6c3cac-f7r3", "anio": 2005, "perfil": "_perfil.json", "pool": "00_pool_v3.json",
                 "ficha": "ficha_caso.json", "columna": None, "escaleta": "01a_escaleta_f16.json",
                 "guion": F16 / "guion_orleans_f16.json"},
-    "ycua": {"tid": "f8s1-ycua-bolanos", "anio": 2004, "perfil": "_perfil_f20.json", "pool": "00_pool_v3.json",
+    "ycua": {"tid": "f8s1-ycua-bolanos", "anio": 2004, "perfil": "_perfil.json", "pool": "00_pool_v3.json",
              "ficha": "ficha_caso.json", "columna": "01a_columna.json", "escaleta": "01a_escaleta_f16.json",
              "guion": F16 / "guion_ycua_f16.json"},
     "kyshtym": {"tid": "f18-kyshtym-mayak", "anio": 1957, "perfil": "_perfil.json", "pool": "00_pool_v3.json",

@@ -176,11 +176,22 @@ def is_v4_guion(topic: dict, guion: str | None = None) -> bool:
     return guion == "v4" or (guion is None and topic.get("guion_version") == 4)
 
 
+def cargar_perfil(topic_id: str) -> bool:
+    """F21b: carga el perfil del seed (`_steps/<id>/_perfil.json`) en `research_v3.set_vocabulario` para la escaleta y el
+    guion v4 (roles del caso para (b), conteos, tratamientos). Sin perfil, el vocabulario queda vacío. Devuelve si había."""
+    from researcher_steps.research_v3 import set_vocabulario
+    f = STEPS_DIR / topic_id / "_perfil.json"
+    perfil = json.loads(f.read_text(encoding="utf-8")) if f.exists() else None
+    set_vocabulario(perfil)
+    return perfil is not None
+
+
 def _topic_v3(topic_id: str) -> dict:
     """El topic con lo que la tubería v3 necesita: guion_version 3 y las notas del analista para la escaleta
     (`_steps/<id>/escaleta_notas.md`, si existe; van como indicaciones, no como reglas)."""
     topic = dict(_load_topic_by_id(topic_id))
     topic["guion_version"] = 3
+    cargar_perfil(topic_id)                                  # F21b: el vocabulario del caso, antes de cualquier bloqueante
     notes = STEPS_DIR / topic_id / "escaleta_notas.md"
     if notes.exists() and not topic.get("escaleta_notas"):
         topic["escaleta_notas"] = notes.read_text(encoding="utf-8").strip()
@@ -261,12 +272,14 @@ def run_guion_v4(topic_id: str, modelo: str | None = None) -> dict:
     g = _step_cost(topic_id, "guionista_v4", lambda: g4.write(topic, esc, call=call, log=log, ficha=ficha))
     r = _step_cost(topic_id, "reparacion_v4", lambda: g4.reparar(topic, esc, g["parrafos"], call=call, log=log,
                                                                          ficha=ficha))
-    out = {**g, "reparacion": r, "metricas": g4.metricas(topic, esc, r["parrafos"])}
+    out = {**g, "reparacion": r, "metricas": g4.metricas(topic, esc, r["parrafos"]), "nota_b": g4.nota_b()}
     (d / "01b_guionista_v4.json").write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     part = _step_cost(topic_id, "particion", lambda: md.particionar(topic, esc, r["parrafos"], pool, log=log,
                                                                      shorten=md.editor_shorten()))
     judge = judge_narration(topic_id, pool=pool, narration=part["narration"], skeleton=part["skeleton"])
     print("\n".join(log[-12:]))
+    if out["nota_b"]:
+        print(f"  [v4] {out['nota_b']}")
     if r["parada"]:
         print(f"  [v4] quedan {len(r['bloqueantes_despues'])} bloqueante(s) después de la ronda única: PARADA")
     return {"guionista": g, "reparacion": r, "particion": part, "juez": judge}

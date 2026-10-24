@@ -272,3 +272,173 @@ Corrí los 7 archivos de test: 133 passed. Corrí `recheck.py revisor` y reprodu
   - «ranking» en `TRATAMIENTOS_BASE` y «´» en `_Q`: son los valores de antes (`_TITLES_BASE` y `evidence_pool._QUOTES`), y se agregaron para que `norm` y los tratamientos no cambien en texto latino;
   - `norm` escrito por categoría Mn: el código literal del handoff dejaba las tildes ya descompuestas (frecuentes en PDF), y el viejo las sacaba;
   - `tratamientos()` es un getter que usan `research_v3._TITLES` y `canonical_names`.
+
+---
+
+## F21b — perfil en el guion, atribución oficial, dos criterios de forma (sobre `b24c505`; cero API, cero prompts)
+
+### 1. Qué se hizo
+1. **El perfil entra en el camino del guion.**
+   - `fase1_5.cargar_perfil(topic_id)` carga `_steps/<id>/_perfil.json` en `research_v3.set_vocabulario`. La llama `_topic_v3`, que usan la escaleta y el guion v4, así que corre antes de cualquier bloqueante; sin perfil, vacía el vocabulario.
+   - `guion_v4.nota_b()` devuelve «(b) sin perfil: no evaluado» cuando no hay roles. `run_guion_v4` la guarda en `01b_guionista_v4.json` (`nota_b`) y la imprime.
+   - Perfil canónico: en Orleans e Ycuá copié `_perfil_f20.json` a `_perfil.json`. Ycuá ya tenía uno y quedó como `_perfil_pre_f20.json`; Orleans no tenía (`data/` no se commitea).
+   - `recheck.py` lee `_perfil.json` en los tres temas.
+2. **Atribución oficial:** `research_v3._official_says` cuenta un rol de `roles_antagonista` en cualquier parte del dato (palabra entera), no solo después de «según».
+   - **Orleans vuelve a 6,375 (F01) como oficial**: el dato D51 del documento F01 tiene «sheriff».
+   - Pero el grupo de población trae solo la variante 7,000 (antes de F21 eran 5,919, 6,000 ×2, 6,295, 6,375, 7,000 y 8,000). El perfil de Orleans no tiene `nombres_lugar`, porque su `place_re` de F7 se escribió a mano y nunca pasó por `seed_profile`. Entonces `subject_re_del_perfil` da `None`, y solo entran los datos con atribución oficial. Además sigue el grupo 6,295 de `canonical_v3`, que ya estaba en F21.
+   - Para recuperar las variantes, el perfil de Orleans necesita `nombres_lugar`. No lo toqué.
+3. **`nombres.es_persona`, criterios de forma:**
+   - con coma, « y » o « and » no es una persona. La coma antes de un sufijo (Jr., Sr., II, III, IV) sí es parte del nombre: «Leroy P. Gardner, III» y «Ronnie Lee Morgan, Jr.» siguen siendo personas. Sin ese ajuste dejaban de serlo, y la cita de Gardner se verificaba sin pedir el apellido, lo que lo volvía elegible;
+   - un tratamiento o cargo seguido de partícula («de», «del», «of»…) es un cargo («Sheriff de Orleans Parish», «Captain of the Guard»);
+   - `add_quote_authors` los salta porque usa `is_named_person` (test).
+   - **No alcanza a «Warden de Hunt Correctional Center»**: «warden» no es tratamiento (F20 lo sacó de `_TITLES` por ser término de tema, y el perfil de Orleans no lo trae). Tampoco a «Director of…», que no es tratamiento, aunque «Director of Corrections» ya era no-persona por la palabra en minúscula. Para que esos dos entren hay que agregar «warden» y «director» a `TRATAMIENTOS_BASE`, o a los roles del perfil. Decide Omar.
+4. **Recheck en HEAD.** Corrí `recheck.py` con el código exacto de `b24c505`: worktree con `data/` enlazado y `config` leído del repo, sin copiarlo porque tiene una clave. Dio **idéntico** al `recheck_despues.json` commiteado. `RECHECK_f21.md` ya correspondía al commit, y lo regeneré igual (solo cambió el título).
+
+Tests: 14 nuevos en `test_module_f21.py` (38 en total):
+- (b) con perfil evalúa y sin perfil no, más `nota_b` y `cargar_perfil`;
+- el rol que decide en cualquier parte;
+- los criterios de forma, incluido el sufijo;
+- `add_quote_authors`.
+
+Suite amplia: **738 verdes + las 5 previas**. US$ 0.00 (`cost_history` 486).
+
+### 2. Cifras F21 (`b24c505`) → F21b (`RECHECK_f21b.md`)
+
+Mismos archivos de disco en las dos corridas (`recheck.py`): perfil → `set_vocabulario`; sobre una copia del pool, `add_quote_authors`, `canonical_names`, `presence_v3`, `person_stats`, cifras canónicas, `verify_pool` (con los txt ya bajados) y `person_stats` → compuerta; ficha (`ficha_caso.check`), columna (`m01a_columna.chequeo`), escaleta (`m01a_escaleta.bloqueantes`) y guion (`guion_v4.bloqueantes` + `metricas`). Kyshtym: pool de F20; ficha, columna y escaleta (crudo del pase 2) de F18 contra el pool de F18; **Kyshtym no tiene guion** (F18 paró en la escaleta y F19 en el research). Orleans no tiene columna. Costo: US$ 0.00 (`data/cost_history.json` con 486 registros antes y después).
+
+### Orleans (`ba6c3cac-f7r3`)
+
+| medida | antes | después | Δ |
+|---|---|---|---|
+| compuerta | verde | verde | = |
+| métrica: datos | 558 | 558 | = |
+| métrica: citas_verificadas | 162 | 162 | = |
+| métrica: elegibles_humano | 33 | 33 | = |
+| métrica: eventos_con_fecha | 127 | 127 | = |
+| personajes en el pool | 70 | 70 | = |
+| citas verificadas (verify_pool) | 162 | 162 | = |
+| citas verificadas parcial | 25 | 25 | = |
+| citas sin verificar | 0 | 0 | = |
+| cifra canónica | 6,295 | 6,375; 6,295 | ≠ |
+| ficha: lo que sacaría el chequeo | 1 | 1 | = |
+| columna: problemas | — | — | = |
+| escaleta: bloqueantes | 0 | 0 | = |
+| guion: bloqueantes | 0 | 0 | = |
+| guion: palabras | 1443 | 1443 | = |
+| guion: citas | 7 | 7 | = |
+| guion: duras_v3 | 44 | 44 | = |
+| guion: humano_caps | [1] | [1] | = |
+
+**Elegibles:** 33 → 33. **Entran:** nadie. **Salen:** nadie.
+**Personajes nuevos en el pool:** ninguno. **Que ya no están:** ninguno.
+Log antes: ["  [R4] autores de cita sumados como personajes: ['Warden de Hunt Correctional Center']"] · después: ["  [R4] autores de cita sumados como personajes: ['Warden de Hunt Correctional Center']", "  [R4] población: oficial 6,375 (F01) · variantes [('7,000', 'D152')]"]
+**ficha (igual antes y después):** ['[descartados] [descartados] [descartados] Personas descartadas del research sin pasa → no respaldado: sin ids']
+**Guion, bloqueante que aparece:** ninguno · **que desaparece:** ninguno.
+
+### Ycuá (`f8s1-ycua-bolanos`)
+
+| medida | antes | después | Δ |
+|---|---|---|---|
+| compuerta | verde | verde | = |
+| métrica: datos | 227 | 227 | = |
+| métrica: citas_verificadas | 53 | 53 | = |
+| métrica: elegibles_humano | 34 | 34 | = |
+| métrica: eventos_con_fecha | 62 | 62 | = |
+| personajes en el pool | 84 | 84 | = |
+| citas verificadas (verify_pool) | 53 | 53 | = |
+| citas verificadas parcial | 29 | 29 | = |
+| citas sin verificar | 0 | 0 | = |
+| cifra canónica | — | — | = |
+| ficha: lo que sacaría el chequeo | 0 | 0 | = |
+| columna: problemas | 0 | 0 | = |
+| escaleta: bloqueantes | 0 | 0 | = |
+| guion: bloqueantes | 0 | 0 | = |
+| guion: palabras | 1384 | 1384 | = |
+| guion: citas | 9 | 9 | = |
+| guion: duras_v3 | 40 | 40 | = |
+| guion: humano_caps | [1] | [1] | = |
+
+**Elegibles:** 34 → 34. **Entran:** nadie. **Salen:** nadie.
+**Personajes nuevos en el pool:** ninguno. **Que ya no están:** ninguno.
+**Guion, bloqueante que aparece:** ninguno · **que desaparece:** ninguno.
+
+### Kyshtym (`f18-kyshtym-mayak`)
+
+| medida | antes | después | Δ |
+|---|---|---|---|
+| compuerta | verde | verde | = |
+| métrica: datos | 208 | 208 | = |
+| métrica: citas_verificadas | 18 | 18 | = |
+| métrica: elegibles_humano | 9 | 8 | -1 |
+| métrica: eventos_con_fecha | 22 | 22 | = |
+| personajes en el pool | 16 | 15 | -1 |
+| citas verificadas (verify_pool) | 18 | 18 | = |
+| citas verificadas parcial | 6 | 6 | = |
+| citas sin verificar | 0 | 0 | = |
+| cifra canónica | — | — | = |
+| ficha: lo que sacaría el chequeo | 1 | 1 | = |
+| columna: problemas | 0 | 0 | = |
+| escaleta: bloqueantes | 7 | 7 | = |
+| guion: bloqueantes | — | — | = |
+
+**Elegibles:** 9 → 8. **Entran:** nadie. **Salen:** Толстиков, Бочкарева.
+**Personajes nuevos en el pool:** ninguno. **Que ya no están:** Толстиков, Бочкарева.
+Log antes: ["  [R4] autores de cita sumados como personajes: ['Андрей Талевлин', 'Толстиков, Бочкарева', 'В.Д. Камынин', 'V.M. Osetrov', 'V.I. Komarov', 'I.F. Serov', 'Любовь Ладейщикова', 'Мама de Надежда Кутепова']"] · después: ["  [R4] autores de cita sumados como personajes: ['Андрей Талевлин', 'В.Д. Камынин', 'V.M. Osetrov', 'V.I. Komarov', 'I.F. Serov', 'Любовь Ладейщикова', 'Мама de Надежда Кутепова']"]
+**ficha (igual antes y después):** ['[descartados] [descartados] [descartados] A. I. Burnazyan, M. A. Demyanovich, Diane  → no respaldado: sin ids']
+**escaleta (igual antes y después):** ['a_pantalla D04 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D80 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla Q12 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T20 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T32 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T34 también está en un beat: lo que va a pantalla no lo dice la voz', 'antagonista D50, D68 no es una persona del pool']
+
+Personajes de Kyshtym después (todos):
+
+| nombre | rol | testigo | antagonista | citas | datos | presente en el evento | elegible |
+|---|---|---|---|---|---|---|---|
+| Lyudmila Krestinina | Jefa del laboratorio de epidemiología del Centro Científico y Práctico de Medicina de Radiación de los Urales | False | False | 2 | 1 | False | **True** |
+| Andrei Vazhenin | Oncólogo jefe de la región de Chelyabinsk | False | False | 1 | 0 | False | **True** |
+| Zhores Medvedev | Genetista soviético exiliado | False | False | 2 | 11 | True | **True** |
+| Lev Tumerman | Científico soviético | True | False | 2 | 3 | False | **True** |
+| Igor Vasil'evich Kurchatov | Padre de la ciencia atómica en la Unión Soviética | True | True | 0 | 3 | False | **False** |
+| N. V. Timofeyev-Resovskiy | Científico que realizó investigaciones radioecológicas | True | False | 0 | 0 | False | **False** |
+| Josef Stalin | Líder de la URSS | False | True | 0 | 1 | False | **False** |
+| periódico Komsomolskaya Pravda | — | False | False | 1 | 0 | False | **True** |
+| Андрей Талевлин | Abogado de la organización "Pravoznaniye" de Cheliábinsk | False | False | 1 | 0 | False | **False** |
+| В.Д. Камынин | Investigador | False | False | 1 | 2 | False | **True** |
+| V.M. Osetrov | Maquinista de la estación de bombeo | True | False | 1 | 0 | False | **False** |
+| V.I. Komarov | Técnico | True | False | 1 | 0 | False | **False** |
+| I.F. Serov | Teniente coronel retirado | True | False | 1 | 1 | True | **False** |
+| Любовь Ладейщикова | Residente de la aldea de Mitino | True | False | 1 | 0 | True | **True** |
+| Мама de Надежда Кутепова | Practicante en clínica para enfermos por radiación | True | False | 1 | 0 | True | **True** |
+
+
+### 3. Lo que sigue raro
+- **Orleans:** «Warden de Hunt Correctional Center» sigue como persona y elegible (punto 3).
+- **Kyshtym:** siguen como elegibles «periódico Komsomolskaya Pravda», que ya era personaje desde F20 y `person_stats` no exige que sea persona, y «Мама de Надежда Кутепова», porque «Мама» no es cargo. Osetrov, Komarov y Serov siguen con citas parciales por transliteración.
+
+### 4. Veredicto del revisor-handoff sobre F21b (íntegro)
+
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Perfil cargado en el camino del guion antes de los bloqueantes; `_perfil.json` canónico; sin perfil dice «(b) sin perfil: no evaluado» | OK | `fase1_5.py` `cargar_perfil` (llamada desde `_topic_v3`), `guion_v4.nota_b`, `run_guion_v4` guarda `nota_b` y la imprime. Orleans: `_perfil.json` y `_perfil_f20.json` idénticos (`cmp`). Ycuá: `_perfil.json` idéntico a `_perfil_f20.json`, con `_perfil_pre_f20.json` presente. Orleans no tenía perfil previo, así que no hay respaldo, y el reporte lo dice. Test `test_f21b_bloqueante_b_con_y_sin_perfil`. |
+| 2 | `_official_says`: un rol de `roles_antagonista` vale en cualquier parte del dato; Orleans vuelve a 6,375 (F01) | OK | `research_v3.py` `_official_says`. El log de Orleans dice «oficial 6,375 (F01)» y lo corrí yo: sale igual. Test `test_f21b_rol_que_decide_en_cualquier_parte`. |
+| 3a | Coma, « y » o « and » no es persona; `add_quote_authors` los salta | OK | `nombres.py` `es_persona`. En Kyshtym «Толстиков, Бочкарева» sale de los personajes (elegibles 9 → 8). Tests `test_f21b_criterios_de_forma` y `test_f21b_add_quote_authors_los_salta`. |
+| 3b | Tratamiento o cargo + partícula es un cargo; el pedido cita «Warden de Hunt…» y «Director of…» | PARCIAL | La regla de forma está en `nombres.py`. «Warden de Hunt Correctional Center» sigue como persona elegible: lo muestra el log de Orleans y el reporte lo admite (§3 y «Lo que sigue raro»). «Director of Corrections» ya salía por otra regla. |
+| 4 | Re-correr `recheck` «después» en HEAD, regenerar `RECHECK_f21.md` y anexar la sección F21b con el diff de cifras | OK | `recheck_f21.json` es idéntico a `recheck_despues.json` (`cmp`). `RECHECK_f21.md` solo cambió el título. `F21_REPORT.md` trae la sección F21b con tablas antes/después de las tres corridas. |
+| 5 | Cero API y cero prompts | OK | El reporte dice US$ 0.00 (`cost_history` 486 antes y después). Esa cifra no la verifiqué. Mi `recheck.py revisor` corrió sin API. |
+
+Lo que corrí yo:
+- Tests: `pytest` de f21, f20, f7 y f11 dio 97 passed. No verifiqué la cifra «738 verdes + 5 previas» del reporte.
+- Recheck: `python -I recheck.py revisor` dio un JSON idéntico a `recheck_f21b.json`. Borré `recheck_revisor.json` después.
+
+Sobre tus tres preguntas:
+- Punto 2: está bien explicado y no hacía falta parar. 6,375 volvió como oficial, que era la condición del pedido. El grupo trae solo 7,000 porque el perfil de Orleans no tiene `nombres_lugar` y `subject_re` da `None`. Esa causa es coherente con el código, pero no la reconstruí línea por línea. El reporte la declara y no toca el perfil.
+- Punto 3: la excepción del sufijo (Jr., III…) es una reinterpretación razonable. Sin ella, «Leroy P. Gardner, III» y «Ronnie Lee Morgan, Jr.» dejaban de ser personas, cosa que el pedido no quería. Con «Warden de Hunt…» el pedido sí queda sin cumplir: lo nombra como ejemplo, el resultado en Orleans es el contrario y la causa es que «warden» no es tratamiento. Se hizo bien en dejarlo a decisión de Omar y en decirlo claro, pero no se cumplió. Por eso el veredicto es CON OBSERVACIONES y no CUMPLE.
+- Punto 4: el método del worktree no es reproducible desde el repo, pero el resultado se sostiene. El `recheck` de `b24c505` da lo mismo que `recheck_despues.json`, y el reporte no afirma más que eso. Sin el worktree borrado no puedo verificar cómo se corrió, solo el resultado.
+
+Fuera de alcance:
+- `diag_234_cap4.py`, `gfx_profiles/lexico_propuestas.json` y `gfx_profiles/misterio.json` aparecen modificados contra `b24c505`. Ya figuraban modificados en el `git status` inicial y no tienen relación con F21b. Hay que excluirlos del commit.
+- `recheck_f21.json` (copia de `despues`), `RECHECK_f21b.md` y `recheck_f21b.json` son entregables propios de F21b.
+- Los cambios en `recheck.py` y `recheck_md.py` (perfil canónico, argumentos de la CLI) están dentro del punto 4.
+
+Riesgos que el contrato no cubre:
+- Orleans queda con «Warden de Hunt Correctional Center» como elegible, y con 7,000 como única variante porque falta `nombres_lugar` en su perfil. `data/` está ignorado, así que los perfiles `_perfil.json` no quedan en el commit.
+- Kyshtym sigue con «periódico Komsomolskaya Pravda» y «Мама de Надежда Кутепова» como elegibles (reporte §3).

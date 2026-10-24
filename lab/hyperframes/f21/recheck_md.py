@@ -1,5 +1,6 @@
 """F21 §2 — RECHECK_f21.md a partir de recheck_antes.json (código de 08d63d9) y recheck_despues.json (F21).
-Uso: python -I lab/hyperframes/f21/recheck_md.py
+Uso: python -I lab/hyperframes/f21/recheck_md.py [antes despues RECHECK_f21.md]
+F21b: `python -I lab/hyperframes/f21/recheck_md.py f21 f21b RECHECK_f21b.md` compara b24c505 con F21b.
 """
 from __future__ import annotations
 
@@ -24,8 +25,11 @@ def _d(a, b) -> str:
 
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
-    A, B = _j(LAB / "recheck_antes.json"), _j(LAB / "recheck_despues.json")
-    L = ["# RECHECK F21 — antes (código de `08d63d9`) | después (F21), sin API", "",
+    a_lab, b_lab, out = (sys.argv[1:4] + ["antes", "despues", "RECHECK_f21.md"][len(sys.argv[1:4]):])
+    A, B = _j(LAB / f"recheck_{a_lab}.json"), _j(LAB / f"recheck_{b_lab}.json")
+    titulo = {("antes", "despues"): "antes (código de `08d63d9`) | después (F21, `b24c505`)",
+              ("f21", "f21b"): "F21 (`b24c505`) | F21b"}.get((a_lab, b_lab), f"{a_lab} | {b_lab}")
+    L = [f"# RECHECK — {titulo}, sin API", "",
          "Mismos archivos de disco en las dos corridas (`recheck.py`): perfil → `set_vocabulario`; sobre una copia del pool,"
          " `add_quote_authors`, `canonical_names`, `presence_v3`, `person_stats`, cifras canónicas, `verify_pool` (con los"
          " txt ya bajados) y `person_stats` → compuerta; ficha (`ficha_caso.check`), columna (`m01a_columna.chequeo`),"
@@ -93,7 +97,7 @@ def main() -> None:
                   f"| {p.get('n_datos')} | {p.get('presente_en_evento')} | **{p.get('elegible_humano')}** |"
                   for p in pk.values()]
             L.append("")
-    (LAB / "RECHECK_f21.md").write_text("\n".join(L), encoding="utf-8")
+    (LAB / out).write_text("\n".join(L), encoding="utf-8")
     print("\n".join(L))
 
 

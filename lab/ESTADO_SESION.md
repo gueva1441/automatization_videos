@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-24 (F21: nombres.py + fuera el molde de Orleans + jueces con la traducción; recheck sin API: Orleans/Ycuá sin empeorar, Kyshtym 4 → 9 elegibles; US$ 0.00 → PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-24 (F21b: perfil en el guion, rol que decide en cualquier parte del dato, coma/y y cargo+partícula; Orleans vuelve a 6,375 F01; US$ 0.00 → PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,17 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F21b — Perfil en el guion, atribución oficial, criterios de forma — HECHO, **PARADA** (pendiente de Omar: ¿«warden»/«director» como cargos?)
+- Sobre `b24c505`, cero API (US$ 0.00) y cero prompts. Sección «F21b» al final de `lab/hyperframes/f21/F21_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Comparación de cifras en `RECHECK_f21b.md`.
+- **Perfil en el guion:** `fase1_5.cargar_perfil` (desde `_topic_v3`, escaleta y guion v4) carga `_steps/<id>/_perfil.json` en `set_vocabulario`. Sin perfil, `guion_v4.nota_b()` = «(b) sin perfil: no evaluado» (queda en `01b_guionista_v4.json` y se imprime). Perfil canónico: en Orleans e Ycuá, `_perfil.json` = `_perfil_f20.json`; el viejo de Ycuá quedó como `_perfil_pre_f20.json`; Orleans no tenía.
+- **`_official_says`:** el rol que decide cuenta en cualquier parte del dato. **Orleans vuelve a 6,375 (F01) como oficial**, pero el grupo trae solo la variante 7,000, porque el perfil de Orleans no tiene `nombres_lugar` y entonces no hay sujeto. Además sigue el grupo 6,295 de F21.
+- **`es_persona`:**
+  - con coma, « y » o « and » no es persona, salvo la coma antes de un sufijo (Jr., III);
+  - un tratamiento seguido de partícula es un cargo;
+  - **«Warden de Hunt…» sigue como persona, porque «warden» no es tratamiento** (F20 lo sacó); decide Omar.
+- Recheck F21 → F21b: Orleans y Ycuá sin cambios; Kyshtym 9 → 8 elegibles (sale «Толстиков, Бочкарева»). `RECHECK_f21.md` verificado contra `b24c505` (idéntico; solo cambió el título).
+- Tests: `test_module_f21.py` 38 (+14). Suite amplia 738 verdes + las 5 previas.
 
 ## F21 — Familias A + B + F de la auditoría (nombres, molde de Orleans, jueces con la traducción) — HECHO, **PARADA** (el analista revisa el diff `git diff 08d63d9..HEAD -- researcher_steps script_engine`, lee `RECHECK_f21.md` y escribe F22)
 - Handoff `lab/hyperframes/f21/HANDOFF_F21_nombres_y_borrados.md` (md5 19fcbb90…); auditoría `AUDITORIA_fase1_supuestos.md`. Reporte `lab/hyperframes/f21/F21_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `RECHECK_f21.md` (antes con el código de 08d63d9 | después, sin API: `recheck.py`, `recheck_md.py`). `_transfer_tmp/` borrado. **US$ 0.00, cero prompts tocados (md5 de los 4 iguales).**

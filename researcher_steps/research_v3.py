@@ -1712,9 +1712,11 @@ def subject_re_del_perfil(perfil: dict | None) -> str | None:
 
 
 def _official_says() -> re.Pattern:
+    # F21b: un rol de `roles_antagonista` cuenta como atribución oficial en cualquier parte del dato (como «sheriff»
+    # antes de F21: «del sheriff», «el sheriff tenía…»), no solo después de «según»
     roles = "|".join(re.escape(r) for r in sorted(_VOC["roles_antagonista"], key=len, reverse=True))
-    seg = rf"|seg[uú]n (?:el |la |las |los )?(?:{roles})" if roles else ""
-    return re.compile(rf"(?:{_OFFICIAL_BASE}{seg})", re.I)
+    rol = rf"|(?<![^\W\d_])(?:{roles})(?![^\W\d_])" if roles else ""
+    return re.compile(rf"(?:{_OFFICIAL_BASE}{rol})", re.I)
 
 
 def _other_place() -> re.Pattern | None:

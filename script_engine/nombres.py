@@ -116,6 +116,14 @@ def es_persona(name, mononimo_ok: bool = False) -> bool:
     p = partes(name)
     if not p or ws & _ORG or ws & _grupos or _GRUPO.search(str(name or "")):
         return False
+    # F21b, criterios de forma: con coma, « y » o « and » son dos personas («Толстиков, Бочкарева»); un tratamiento o
+    # cargo seguido de partícula es un cargo, no una persona («Sheriff de Orleans Parish», «Captain of the Guard»)
+    sin_sufijo = re.sub(r",\s*(?:jr|sr|ii|iii|iv)\.?\s*$", "", str(name or ""), flags=re.I)   # «Morgan, Jr.» es uno
+    if re.search(r",|\s(?:y|and)\s", sin_sufijo):
+        return False
+    if any(norm(w) in _tratamientos and k + 1 < len(raw) and norm(raw[k + 1]) in PARTICULAS | {"of"}
+           for k, w in enumerate(raw)):
+        return False
     # una palabra en minúscula que no es partícula ni tratamiento es una descripción, no un nombre («un preso de…»)
     if any(w[:1].islower() and norm(w) not in PARTICULAS | _tratamientos for w in raw):
         return False

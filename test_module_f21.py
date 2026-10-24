@@ -184,3 +184,55 @@ def test_md5_de_los_cuatro_prompts():
     assert m(mc.SYSTEM) == "1408569c5c9de22ec406a10ba0cd9b13"
     assert m(me.SYSTEM_V2) == "49ed74d941def064cdda077212629ff1"
     assert m(g4.system()) == "cdce609abea95ee36d0eb4f44d74dda8"
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F21b
+# ═══════════════════════════════════════════════════════════════
+
+def test_f21b_bloqueante_b_con_y_sin_perfil(tmp_path, monkeypatch):
+    import fase1_5 as f15
+    from script_engine import guion_v4 as g4
+    from test_module_f11 import TOPIC, _esc_ok, _parrafos
+    esc = _esc_ok()
+    ps = _parrafos(esc)
+    ps[3]["texto"] += " La sobreviviente Daniel Areco miró la puerta."          # Areco es guardia de seguridad
+    (tmp_path / "t").mkdir()
+    (tmp_path / "t" / "_perfil.json").write_text(json.dumps(
+        {"roles_testigo": ["sobreviviente"], "roles_antagonista": ["guardia"]}), encoding="utf-8")
+    monkeypatch.setattr(f15, "STEPS_DIR", tmp_path)
+    assert f15.cargar_perfil("t") is True and g4.nota_b() is None
+    assert any(x["codigo"] == "b" for x in g4.bloqueantes(TOPIC, esc, ps, largo="objetivo"))
+    assert f15.cargar_perfil("sin-perfil") is False
+    assert g4.nota_b() == "(b) sin perfil: no evaluado"
+    assert not any(x["codigo"] == "b" for x in g4.bloqueantes(TOPIC, esc, ps, largo="objetivo"))
+
+
+def test_f21b_rol_que_decide_en_cualquier_parte():
+    r3.set_vocabulario({"roles_antagonista": ["sheriff", "ministerio"]})
+    says = r3._official_says()
+    assert says.search("El sheriff tenía 6375 presos.") and says.search("Según el ministerio, 10.000 evacuados.")
+    assert says.search("Los registros oficiales dan 6375.") and not says.search("La prensa estimó 7,000.")
+    assert not says.search("El sheriffazo")                                     # palabra entera
+
+
+@pytest.mark.parametrize("nombre, es", [
+    ("Толстиков, Бочкарева", False), ("Ana Paz y Juan Gil", False), ("Ann Lee and Bob Ray", False),
+    ("Sheriff de Orleans Parish", False), ("Captain of the Guard", False), ("Director of Corrections", False),
+    ("Juan de la Cruz", True), ("Deputy Foster", True), ("María Berzabé Meza Vda. de Brizuela", True),
+    ("Leroy P. Gardner, III", True), ("Ronnie Lee Morgan, Jr.", True),            # la coma antes del sufijo
+])
+def test_f21b_criterios_de_forma(nombre, es):
+    assert nm.es_persona(nombre) is es
+
+
+def test_f21b_add_quote_authors_los_salta():
+    pool = {"personajes": [], "citas": [
+        {"id": "Q01", "autor": "Толстиков, Бочкарева", "doc_id": "F01", "cita_literal": "x", "offset": 0, "docs": ["F01"],
+         "n_fuentes": 1, "evidencia": []},
+        {"id": "Q02", "autor": "Sheriff de Orleans Parish", "doc_id": "F01", "cita_literal": "x", "offset": 0,
+         "docs": ["F01"], "n_fuentes": 1, "evidencia": []},
+        {"id": "Q03", "autor": "Любовь Ладейщикова", "doc_id": "F01", "cita_literal": "x", "offset": 0, "docs": ["F01"],
+         "n_fuentes": 1, "evidencia": []}]}
+    r3.add_quote_authors(pool, [])
+    assert [p["nombre"] for p in pool["personajes"]] == ["Любовь Ладейщикова"]

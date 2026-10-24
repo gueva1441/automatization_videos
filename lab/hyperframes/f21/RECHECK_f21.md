@@ -1,4 +1,4 @@
-# RECHECK F21 — antes (código de `08d63d9`) | después (F21), sin API
+# RECHECK — antes (código de `08d63d9`) | después (F21, `b24c505`), sin API
 
 Mismos archivos de disco en las dos corridas (`recheck.py`): perfil → `set_vocabulario`; sobre una copia del pool, `add_quote_authors`, `canonical_names`, `presence_v3`, `person_stats`, cifras canónicas, `verify_pool` (con los txt ya bajados) y `person_stats` → compuerta; ficha (`ficha_caso.check`), columna (`m01a_columna.chequeo`), escaleta (`m01a_escaleta.bloqueantes`) y guion (`guion_v4.bloqueantes` + `metricas`). Kyshtym: pool de F20; ficha, columna y escaleta (crudo del pase 2) de F18 contra el pool de F18; **Kyshtym no tiene guion** (F18 paró en la escaleta y F19 en el research). Orleans no tiene columna. Costo: US$ 0.00 (`data/cost_history.json` con 486 registros antes y después).
 

@@ -601,6 +601,14 @@ def unverified_named(esc: dict, pool: dict, parrafos: list[dict]) -> list[dict]:
     return out
 
 
+def nota_b() -> str | None:
+    """F21b: el bloqueante (b) (rol de quien habla) usa los roles del perfil del caso; sin perfil cargado no evalúa
+    nada y el reporte lo dice."""
+    from researcher_steps.research_v3 import vocabulario
+    v = vocabulario()
+    return None if v.get("roles_testigo") or v.get("roles_antagonista") else "(b) sin perfil: no evaluado"
+
+
 def pool_con_traducciones(pool: dict, ficha: dict | None) -> dict:
     """F21 (F): copia del pool donde cada cita Q## que la ficha trae con `traduccion` lleva ese texto en `texto` (y el
     original en `texto_original`). Los jueces comparan contra lo que la voz dice. Sin ficha, el pool tal cual."""
