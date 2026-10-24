@@ -56,9 +56,10 @@ def test_reglas_duras_y_blandas_y_puntaje():
     r = mn.cap_review(GOOD, cap=2, pool=POOL, skeleton=SKEL, previous=[], declared=["D01", "D02", "D03"], facts=[])
     assert r["hard"] == [] and r["parts"]["datos"] == 3 and r["parts"]["cliffhanger"] is True
     assert r["score"] == 3 * 3 + 2 - (1 if r["parts"]["adj_fuera"] else 0)
-    bad = GOOD.replace("Esa noche", "Bajo un manto de sombras, el monstruo despertó. Esa noche")
+    # F21: «manto de» y «el monstruo» salieron de la lista (de caso); quedan los clichés genéricos
+    bad = GOOD.replace("Esa noche", "Bajo un velo de misterio, una trampa brutal despertó. Esa noche")
     rb = mn.cap_review(bad, cap=2, pool=POOL, skeleton=SKEL, previous=[], declared=["D01", "D02", "D03"], facts=[])
-    assert any("relleno prohibido: manto de, el monstruo" in h for h in rb["hard"]) and rb["score"] <= r["score"] - 4
+    assert any("relleno prohibido: velo de misterio, trampa brutal" in h for h in rb["hard"]) and rb["score"] <= r["score"] - 4
     adj = GOOD.replace("húmedo, sucio y oscuro, el aire pesado", "húmedo, sucio, oscuro, frío, denso, pesado, terrible, sombrío, gélido, macabro y siniestro")
     ra = mn.cap_review(adj * 1, cap=2, pool=POOL, skeleton=SKEL, previous=[], declared=["D01", "D02", "D03"], facts=[])
     assert not ra["hard"] and any("adjetivos/100" in x for x in ra["soft"])             # adjetivos: blanda
@@ -96,7 +97,8 @@ def test_mejor_de_3_no_toma_el_ultimo_si_es_peor(monkeypatch):
 
 def test_prompt_prioridad_y_relleno_nuevo():
     assert "Si no podés cumplir todo, sacrificá la ventana de adjetivos, nunca los datos ni los nombres." in nb.F5_RULES
-    for f in ("manto de", "el monstruo", "infierno flotante", "velo de misterio", "ecos de", "alfombra de la negación",
-              "sentencia de abandono", "trampa brutal"):
+    for f in ("velo de misterio", "alfombra de la negación", "sentencia de abandono", "trampa brutal"):
         assert f in mn.FORBIDDEN_FILLER and f in nb.F5_RULES
+    for f in ("manto de", "el monstruo", "infierno flotante", "ecos de"):    # F21: borrados de la lista (de caso)
+        assert f not in mn.FORBIDDEN_FILLER
     assert (nb.POOL_NARRATOR, nb.POOL_BEST_OF) == ("pro", 3)

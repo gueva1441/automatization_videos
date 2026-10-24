@@ -55,9 +55,8 @@ def spoken_date(iso: str | None) -> str | None:
 
 
 def _surname(name: str) -> str:
-    ws = [w for w in re.findall(r"[A-Za-zÁÉÍÓÚÑáéíóúñ]+", name) if w[:1].isupper() and len(w) > 2
-          and w.lower() not in {"jr", "sr", "sheriff"}]
-    return ws[-1] if ws else name
+    from script_engine import nombres
+    return nombres.apellido(name)                                       # F21: alias
 
 
 _NUM_UNIT = re.compile(r"\$?\d[\d.,]*\d%?|\$?\d%?")
@@ -156,7 +155,7 @@ _FUNC = {"de", "del", "la", "las", "el", "los", "un", "una", "y", "en", "a", "al
 
 
 def _content(s: str) -> set[str]:
-    return {w[:6] for w in re.findall(r"[a-zñ]{5,}", norm(s)) if w not in _FUNC and w not in MESES}
+    return {w[:6] for w in re.findall(r"[^\W\d_]{5,}", norm(s)) if w not in _FUNC and w not in MESES}   # F21: cualquier alfabeto
 
 
 def _sentences(text: str) -> list[str]:
@@ -309,17 +308,27 @@ def same_fact(a: dict[str, Any], b: dict[str, Any]) -> bool:
     return bool(da and da == db and ca and cb and len(ca & cb) / min(len(ca), len(cb)) >= 0.5)
 
 
-_COMMON_CAPS = {"arrestado", "arrestada", "arrestados", "turista", "turistas", "recluso", "reclusa", "reclusos",
-                "demandante", "sheriff", "alcaide", "huracán", "huracan", "adjunto", "teniente"}
+def _role_words(pool: dict[str, Any] | None) -> set[str]:
+    """F21: las palabras de rol del pool: las que van en minúscula en el `rol` de cada personaje (con la primera letra
+    bajada: «Arrestado por intoxicación» → arrestado, por, intoxicación; «recluso de Templeman III» → recluso, de)."""
+    out: set[str] = set()
+    for p in (pool or {}).get("personajes") or []:
+        r = str(p.get("rol") or "")
+        r = r[:1].lower() + r[1:]
+        out |= {norm(w) for w in re.findall(r"[^\W\d_]+", r) if w.islower()}
+    return out
 
 
-def fix_glued_caps(text: str) -> str:
+def fix_glued_caps(text: str, pool: dict[str, Any] | None = None) -> str:
     """F5b N5: mayúsculas pegadas del pool a mitad de oración («…de Raphael Schwarz, Arrestado por…» → «…, arrestado
-    por…»; «el Sheriff Gusman» → «el sheriff Gusman»). Solo sustantivos/participios comunes conocidos, nunca un
-    nombre propio ni el arranque de una oración o de una cita."""
+    por…»; «el Sheriff Gusman» → «el sheriff Gusman»). F21: solo una palabra de rol del pool (`_role_words`) o un
+    tratamiento de `nombres`; nunca un nombre propio ni el arranque de una oración o de una cita."""
+    from script_engine import nombres
+    comunes = _role_words(pool) | nombres.tratamientos()
+
     def _fix(m: re.Match) -> str:
         w = m.group(2)
-        return m.group(1) + (w.lower() if norm(w) in {norm(x) for x in _COMMON_CAPS} else w)
+        return m.group(1) + (w.lower() if norm(w) in comunes else w)
     return re.sub(r"((?<![.!?¿¡:\"«“])(?<![.!?¿¡:\"«“]\s)(?<=[\w,;]\s))([A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)", _fix, text)
 
 

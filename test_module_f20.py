@@ -89,9 +89,9 @@ def test_run_seed_completa_el_perfil_despues_de_r1(tmp_path, monkeypatch):
 # ═══════════════════════════════════════════════════════════════
 
 def test_listas_sin_terminos_de_tema():
-    pat = r3._NOT_PERSON.pattern
-    assert not [t for t in TEMA if t in pat.split("|") or rf"|{t}|" in pat or rf"({t}|" in pat or rf"|{t})" in pat]
-    assert not set(TEMA) & r3._TITLES
+    from script_engine import nombres                            # F21: tratamientos y grupos viven en nombres.py
+    assert not set(TEMA) & (nombres.GRUPOS_BASE - {"guardias", "guards", "deputies"})   # formas de grupo genéricas
+    assert not set(TEMA) & r3._TITLES and not hasattr(r3, "_NOT_PERSON")
     assert not r3.is_named_person("Oficiales en Conchetta") and r3.is_named_person("Keanna Herbert")
     r3.set_vocabulario(VOC_ORLEANS)                              # los roles del caso se suman en tiempo de ejecución
     assert {"sheriff", "deputy", "guardias"} <= r3._TITLES

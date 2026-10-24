@@ -73,8 +73,12 @@ def test_n5_mayusculas_pegadas():
     assert ep.fix_caps("Institución: Prisión Parroquial de Orleans") == "Institución: Prisión Parroquial de Orleans"
     assert ep.fix_caps("Evento principal: Huracán Katrina.") == "Evento principal: huracán Katrina."
     assert ep.fix_caps("El Sheriff Gusman reabrió el edificio") == "El sheriff Gusman reabrió el edificio"
-    assert ev.fix_glued_caps("Casos como el de Raphael Schwarz, Arrestado por intoxicación.") == \
+    # F21: solo palabras de rol del pool (o tratamientos), no la lista fija de Orleans
+    pool = {"personajes": [{"nombre": "Raphael Schwarz", "rol": "Arrestado por intoxicación pública"}]}
+    assert ev.fix_glued_caps("Casos como el de Raphael Schwarz, Arrestado por intoxicación.", pool) == \
         "Casos como el de Raphael Schwarz, arrestado por intoxicación."
+    assert ev.fix_glued_caps("Casos como el de Raphael Schwarz, Arrestado por intoxicación.") == \
+        "Casos como el de Raphael Schwarz, Arrestado por intoxicación."      # sin pool: no hay roles que bajar
     assert ev.fix_glued_caps('Arrestado el lunes. Dijo: "Turistas de Ohio".') == 'Arrestado el lunes. Dijo: "Turistas de Ohio".'
 
 
@@ -248,7 +252,10 @@ def test_narrador_declara_ids_y_corrige_mayusculas(monkeypatch):
         json.dumps(response_schema) and {"narration": good, "datos_usados": ["[D01]"]}))
     declared: dict = {}
     out = nb._call_with_length_retry("P", role="development", cap_number=2, max_attempts=3,
-                                     f5={"pool": POOL, "skeleton": sk, "previous": []}, violations={}, declared=declared)
+                                     f5={"pool": {**POOL, "personajes": [*(POOL.get("personajes") or []),
+                                                                        {"id": "P99", "nombre": "Ana Paz",
+                                                                         "rol": "recluso arrestado"}]},
+                                         "skeleton": sk, "previous": []}, violations={}, declared=declared)
     assert declared == {2: ["D01"]} and ", arrestado el lunes" in out
     assert "datos_usados" in nb._narration_schema(with_ids=True)["required"]
     assert nb._narration_schema() == {"type": "OBJECT", "properties": {"narration": {"type": "STRING"}},

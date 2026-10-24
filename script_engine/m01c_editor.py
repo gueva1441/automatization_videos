@@ -164,7 +164,7 @@ def edit(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[..., di
                 "revision_antes": before_rv, "revision_despues": before_rv, "aceptados": 0}
     cur_rv = before_rv
     for k, (orig, e) in enumerate(zip(parrafos, edited)):
-        new_t = ev.fix_glued_caps(str(e.get("texto") or "").strip())
+        new_t = ev.fix_glued_caps(str(e.get("texto") or "").strip(), topic.get("evidence_pool"))
         if not new_t or new_t == orig["texto"]:
             continue
         rec = {"parrafo": k, "beat": orig["beat"], "antes": orig["texto"], "despues": new_t}

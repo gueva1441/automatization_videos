@@ -34,6 +34,8 @@ from pathlib import Path
 from typing import Any, Callable
 from urllib.parse import urlparse
 
+from script_engine import nombres
+
 PROMPT_VERSION_R1 = "f7a-1"
 TIPOS_FUENTE = ("informe_oficial", "fallo_judicial", "prensa_epoca", "prensa_posterior", "documental", "libro",
                 "testimonio", "academico", "foia")
@@ -215,7 +217,7 @@ def _site(u: str) -> str:
 
 def _path_tokens(u: str) -> set[str]:
     path = norm_url(u)[len(domain(u)):]
-    return {t for t in re.findall(r"[a-z0-9]+", path.lower()) if len(t) >= 3 and t not in _PATH_STOP}
+    return {t for t in re.findall(r"\w+", path.lower()) if len(t) >= 3 and t not in _PATH_STOP}   # F21: cualquier alfabeto
 
 
 def url_similarity(a: str, b: str) -> float:
@@ -332,8 +334,7 @@ Respondé SOLO un JSON, sin markdown:
 
 
 def _words(s: str) -> set[str]:
-    return {w for w in re.findall(r"[a-z0-9]+", _ascii(s).lower()) if len(w) >= 4} - {"orleans", "parish", "prison",
-                                                                                         "katrina", "hurricane"}
+    return {w for w in re.findall(r"\w+", _ascii(s).lower()) if len(w) >= 4}      # F21: sin palabras de Orleans
 
 
 def pista_covered(pista: str, f: dict) -> bool:
@@ -436,7 +437,8 @@ def slugify(f: dict) -> str:
     base = f"{domain(f['url']).split('.')[-2] if '.' in domain(f['url']) else domain(f['url'])}_{f.get('anio') or ''}_"
     words = re.findall(r"[a-z0-9]+", _ascii(f.get("titulo") or "").lower())
     s = base + "_".join(words[:5])
-    return re.sub(r"_+", "_", s).strip("_")[:60]
+    s = re.sub(r"_+", "_", s).strip("_")[:60]
+    return f"{s}-{f['id']}" if f.get("id") else s   # F21: dos títulos rusos del mismo sitio y año daban el mismo slug
 
 
 def _ascii(s: str) -> str:
@@ -1129,10 +1131,10 @@ def validate_doc_items(raw: dict, doc: dict, dt: DocText, log: list[str]) -> dic
                         "texto_es": es, "presente_en": [_str(it["lugar"])] if _str(it.get("lugar")) else []}
             else:
                 n = _str(it["nombre"])
-                if not is_named_person(n):
+                if not nombres.es_persona(n, mononimo_ok=bool(_str(it.get("rol")))):   # F21: nombres.py
                     _drop(kind, it, "no es una persona con nombre propio")
                     continue
-                if n.split()[-1].strip(".,").lower() not in dt.text.lower():
+                if not any(nombres.menciona(dt.text, x) for x in nombres.partes(n)):
                     _drop(kind, it, "el apellido no está en el documento")
                     continue
                 fp = [x for x in (it.get("fechas_presente") or []) if re.match(r"^\d{4}-\d{2}-\d{2}$", str(x))]
@@ -1223,17 +1225,13 @@ def _nums(t: str) -> frozenset[str]:
     return frozenset(re.sub(r"[,.](?=\d{3}\b)", "", x) for x in re.findall(r"\d[\d,.]*\d|\d", t or ""))
 
 
-# F20: base genérica (grados, tratamientos, sufijos); los roles del caso se suman desde el perfil (`set_vocabulario`)
-_TITLES_BASE = {"sheriff", "deputy", "alguacil", "sgt", "sergeant", "lieutenant", "lt", "captain", "capt", "capitan",
-                "colonel", "col", "officer", "ranking", "chief", "jefe", "mr", "mrs", "ms", "dr", "secretary",
-                "secretario", "teniente", "sargento", "oficial", "jr", "sr", "iii", "ii"}
-_TITLES = set(_TITLES_BASE)
-# descripciones de grupo o de cargo, no personas: «Oficiales en Conchetta», «National Guard Officers», «Criminal Justice
-# Working Group». F20: solo palabras gramaticales y de grupo; los roles del caso vienen del perfil.
-_NOT_PERSON_BASE = r"del?|en|at|of|the|según|segun|group|officers|oficiales"
-_NOT_PERSON = re.compile(rf"\b({_NOT_PERSON_BASE})\b", re.I)
+# F21: tratamientos y formas de grupo viven en `nombres` (TRATAMIENTOS_BASE, _GRUPO, GRUPOS_BASE); los roles del
+# caso se suman desde el perfil (`set_vocabulario`). Alias:
+_TITLES_BASE = nombres.TRATAMIENTOS_BASE                  # F21: alias
+_TITLES = nombres.tratamientos()                          # F21: alias (se actualiza en set_vocabulario)
 _COUNT_BASE = ("personas", "víctimas", "victimas")
-_VOC: dict[str, list[str]] = {"roles_testigo": [], "roles_antagonista": [], "sustantivos_conteo": []}
+_VOC: dict[str, list[str]] = {"roles_testigo": [], "roles_antagonista": [], "sustantivos_conteo": [],
+                              "lugares_excluidos": []}
 
 
 def _count_re(nouns: list[str]) -> re.Pattern:
@@ -1242,45 +1240,38 @@ def _count_re(nouns: list[str]) -> re.Pattern:
                       rf"({'|'.join(re.escape(n) for n in ns)})\b", re.I)
 
 
+def vocabulario() -> dict[str, list[str]]:
+    """F21: el vocabulario del caso en uso (lo lee `guion_v3_reglas.role_class`)."""
+    return {k: list(v) for k, v in _VOC.items()}
+
+
 def set_vocabulario(perfil: dict | None) -> None:
     """F20: el vocabulario del caso, del perfil del seed: `roles_testigo` y `roles_antagonista` se suman a los cargos
     (`_TITLES`, `_NOT_PERSON`) y `sustantivos_conteo` arma el conteo (`count_value`, más «personas» y «víctimas»).
     Sin perfil (o sin esos campos), solo la base genérica."""
-    global _TITLES, _NOT_PERSON, _COUNT_OF
+    global _TITLES, _COUNT_OF
     perfil = perfil or {}
     for k in _VOC:
-        _VOC[k] = _formas(perfil.get(k))
+        _VOC[k] = _formas(perfil.get(k)) if k != "lugares_excluidos" else [str(x) for x in perfil.get(k) or []]
     roles = _VOC["roles_testigo"] + _VOC["roles_antagonista"]
-    _TITLES = _TITLES_BASE | {_ascii(w).lower() for r in roles for w in re.findall(r"\w+", r) if len(w) >= 3}
-    # a `_NOT_PERSON`, solo las formas de grupo (plural: «guardias», «deputies»), como en la lista vieja; en singular
-    # un rol es un cargo delante del nombre («Deputy Foster» → Foster) y va solo a `_TITLES`
-    grupo = [r for r in roles if re.search(r"(s|es)$", r, re.I) or " " in r]
-    extra = "|".join(re.escape(r) for r in sorted(set(grupo), key=len, reverse=True))
-    _NOT_PERSON = re.compile(rf"\b({_NOT_PERSON_BASE}{'|' + extra if extra else ''})\b", re.I)
+    nombres.set_tratamientos(roles)                 # F21: los roles enteros (una palabra = un cargo delante del nombre)
+    _TITLES = nombres.tratamientos()
+    # a los grupos, solo las formas de grupo (plural: «guardias», «deputies»); en singular un rol es un cargo delante
+    # del nombre («Deputy Foster» → Foster) y va solo a los tratamientos
+    nombres.set_grupos([r for r in roles if re.search(r"(s|es)$", r, re.I) and " " not in r])
     _COUNT_OF = _count_re(_VOC["sustantivos_conteo"])
 
 
 def person_key(name: str) -> tuple[str, str]:
-    """(nombre, apellido) sin cargos ni tratamientos: «Sgt. Bell» y «Sergeant Bell» → ("", "bell")."""
-    ws = [_ascii(w).lower() for w in re.findall(r"[A-Za-zÁÉÍÓÚÑáéíóúñ]+", name) if w[:1].isupper()]
-    ws = [w for w in ws if w not in _TITLES and len(w) >= 2]
-    if not ws:
-        return ("", "")
-    return (ws[0] if len(ws) > 1 else "", ws[-1])
+    return nombres.clave(name)                                                  # F21: alias
 
 
 def is_named_person(name: str) -> bool:
-    """Persona con nombre propio (no un cargo ni un grupo): evidence_pool.is_person y sin palabras de grupo/cargo, o un
-    cargo + apellido («Deputy Foster»)."""
-    from researcher_steps.evidence_pool import is_person
-    return bool(is_person(name) and not _NOT_PERSON.search(name) and person_key(name)[1])
+    return nombres.es_persona(name)                                             # F21: alias
 
 
 def same_person(a: str, b: str) -> bool:
-    """Mismo apellido y nombre compatible: igual, o uno de los dos sin nombre de pila, o las 3 primeras letras iguales
-    («Marlin» / «Martin»: errata del documento)."""
-    (fa, la), (fb, lb) = person_key(a), person_key(b)
-    return bool(la) and la == lb and (not fa or not fb or fa[:3] == fb[:3])
+    return nombres.misma(a, b)                                                  # F21: alias
 
 
 def same_fact(kind: str, a: dict, b: dict) -> bool:
@@ -1452,7 +1443,8 @@ def canonical_names(pool: dict[str, Any], texts: dict[str, "DocText"]) -> None:
     blob = "\n".join(t.text for t in texts.values())
     for p in pool["personajes"]:
         vs = list(dict.fromkeys([p["nombre"]] + (p.get("variantes_nombre") or [])))
-        full = [re.sub(rf"^(?:(?:{'|'.join(_TITLES)})\.?\s+)+", "", v, flags=re.I) for v in vs if person_key(v)[0]]
+        tit = "|".join(re.escape(t) for t in sorted(nombres.tratamientos(), key=len, reverse=True))
+        full = [re.sub(rf"^(?:(?:{tit})\.?\s+)+", "", v, flags=re.I) for v in vs if person_key(v)[0]]
         # con nombre y apellido si alguna variante lo tiene («Marlin N. Gusman», no «Gusman»); si no, tal cual
         best = max(full or vs, key=lambda v: (blob.count(v), len(v)))
         if best != p["nombre"]:
@@ -1555,6 +1547,9 @@ def verify_pool(pool: dict[str, Any], texts: dict[str, DocText], docs: list[dict
                                       "motivo": f"cita_literal en {it['doc_id']}"}
                 continue
             sur = person_key(it.get("autor") or "")[1] if is_named_person(it.get("autor") or "") else ""
+            # F21: el apellido o cualquier parte del nombre cerca (como en R3: «Mariana Aquino de Chamorro» puede ser
+            # «Aquino» en el documento)
+            partes_autor = nombres.partes(it.get("autor") or "") if sur else []
             best: dict[str, Any] | None = None
             for did in it.get("docs") or [it["doc_id"]]:
                 dt = texts.get(did)
@@ -1562,8 +1557,10 @@ def verify_pool(pool: dict[str, Any], texts: dict[str, DocText], docs: list[dict
                     continue
                 k = dt.locate(it["texto_original"])
                 if k is not None:
-                    near = _ascii(dt.text[max(0, k - AUTHOR_WINDOW):k + len(it["texto_original"]) + AUTHOR_WINDOW]).lower()
-                    cand = {"documento": did, "offset": k, "autor_cerca": not sur or sur in near, "run": 999}
+                    near = dt.text[max(0, k - AUTHOR_WINDOW):k + len(it["texto_original"]) + AUTHOR_WINDOW]
+                    cand = {"documento": did, "offset": k,
+                            "autor_cerca": not sur or any(nombres.menciona(near, x) for x in partes_autor),
+                            "run": 999}
                 else:
                     run = dt.longest_run(it["texto_original"], PARTIAL_WORDS)
                     if not run:
@@ -1615,7 +1612,7 @@ def build_pool(per_doc: dict[str, dict], docs: list[dict], texts: dict[str, DocT
     presence_v3(pool, texts, log)                         # F7c: por párrafo (antes: evidence_pool.presence)
     person_stats(pool, event_year)
     canonical_v3(pool, docs, log)
-    pop = population_canon(pool, docs, subject_re or SUBJECT_RE_DEFAULT, log)   # F7c: la población con todas sus variantes, primero
+    pop = population_canon(pool, docs, subject_re, log)   # F7c: la población, primero (F21: sujeto del perfil)
     if pop:
         pool["cifras_canonicas"] = [pop] + [g for g in pool["cifras_canonicas"]
                                             if g["oficial"] not in {v["id"] for v in pop["variantes"]} | {pop["oficial"]}]
@@ -1662,22 +1659,11 @@ PRESENCE_WINDOW = 500
 
 
 def name_terms(p: dict, people: list[dict]) -> list[str]:
-    """Cómo se busca a una persona en un texto (sin tildes, minúsculas): sus nombres completos (nombre + apellido, de
-    todas sus variantes) y el apellido solo si ninguna otra persona del pool lo comparte (Tyrone y Duane Lewis no)."""
-    out = []
-    for v in [p["nombre"]] + list(p.get("variantes_nombre") or []):
-        f, last = person_key(v)
-        if f and last:
-            out.append(f"{f} {last}")
-    sur = person_key(p["nombre"])[1]
-    if sur and sum(1 for q in people if person_key(q["nombre"])[1] == sur) == 1:
-        out.append(sur)
-    return list(dict.fromkeys(out))
+    return nombres.terminos(p, people)                                          # F21: alias
 
 
-def _names_in(terms: list[str], text: str) -> bool:
-    t = " " + re.sub(r"[^a-z0-9ñ]+", " ", _ascii(str(text or "")).lower()) + " "
-    return any(f" {x} " in t for x in terms)
+def _names_in(terms: list[str], text: str | None) -> bool:
+    return any(nombres.menciona(text, x) for x in terms)                        # F21: alias
 
 
 def presence_v3(pool: dict[str, Any], texts: dict[str, "DocText"], log: list[str] | None = None) -> None:
@@ -1691,12 +1677,8 @@ def presence_v3(pool: dict[str, Any], texts: dict[str, "DocText"], log: list[str
         terms = name_terms(p, people)
         pos: dict[str, list[int]] = {}
         for did, dt in texts.items():
-            low = _ascii(dt.text).lower()                 # _ascii conserva el largo (una letra por letra)
-            hits = []
-            for x in terms:
-                pat = r"\b" + r"[ .]+".join(re.escape(w) for w in x.split()) + r"\b"
-                hits += [m.start() for m in re.finditer(pat, low)]
-            pos[did] = sorted(hits)
+            low = nombres.plegar(dt.text)                 # F21: el mismo largo, cualquier alfabeto
+            pos[did] = sorted(k for x in terms for k in nombres.posiciones(low, x))
         ids = []
         for c in crono:
             refs = c.get("evidencia") or [{"doc_id": c.get("doc_id"), "offset": c.get("offset"),
@@ -1715,19 +1697,35 @@ def presence_v3(pool: dict[str, Any], texts: dict[str, "DocText"], log: list[str
                    f"({sum(1 for p in people if p['presente_en'])} personas con alguno)")
 
 
-SUBJECT_RE_DEFAULT = (r"\b(OPP|Prisi[oó]n Parroquial de Orleans|Orleans Parish Prison|c[aá]rcel de (?:Nueva )?Orleans|"
-                      r"complejo carcelario)\b")
-_OTHER_PLACE = re.compile(r"\b(Hunt|Angola|Jena|Elayn|Rapides|Templeman (?:I|II|III|IV|V)\b|Conchetta|paso elevado|"
-                          r"overpass)", re.I)
-# la cifra se ATRIBUYE a una fuente oficial («según el sheriff», «el conteo oficial de 6375»), no solo la nombra («el
-# sheriff tenía 3 botes para casi 7000 presos»)
-_OFFICIAL_SAYS = re.compile(r"seg[uú]n (?:el |la |las |los )?(?:sheriff|alguacil|estad[ií]sticas|registros|cifras? "
-                            r"oficial)|conteo oficial|cifra oficial|estad[ií]sticas del (?:sheriff|alguacil)|"
-                            r"oficialmente|registros oficiales", re.I)
+# F21: sin el molde de Orleans. El sujeto sale del perfil (los nombres del lugar, `subject_re_del_perfil`); lo que es
+# «otro lugar» solo si el perfil trae `lugares_excluidos`; la atribución oficial es genérica más «según <rol que decide>»
+# del perfil.
+_OFFICIAL_BASE = r"oficial(?:es)?|official|registros?|records?|autoridad(?:es)?"
+
+
+def subject_re_del_perfil(perfil: dict | None) -> str | None:
+    """El sujeto del video para la cifra de población: los nombres del lugar y los locales del perfil (el `place_re`)."""
+    perfil = perfil or {}
+    names = [str(n).strip() for n in perfil.get("nombres_lugar") or [] if len(str(n).strip()) >= 3]
+    locales = [str(n).strip() for n in perfil.get("nombres_locales") or [] if len(str(n).strip()) >= 3]
+    return place_regex(names, locales) if names or locales else None
+
+
+def _official_says() -> re.Pattern:
+    roles = "|".join(re.escape(r) for r in sorted(_VOC["roles_antagonista"], key=len, reverse=True))
+    seg = rf"|seg[uú]n (?:el |la |las |los )?(?:{roles})" if roles else ""
+    return re.compile(rf"(?:{_OFFICIAL_BASE}{seg})", re.I)
+
+
+def _other_place() -> re.Pattern | None:
+    xs = _VOC.get("lugares_excluidos") or []
+    return re.compile("|".join(re.escape(x) for x in xs), re.I) if xs else None
+
+
 POP_BAND = (0.6, 1.4)                    # el conteo total: dentro de 0.6–1.4 × la mediana (fuera los subconjuntos)
 
 
-def population_canon(pool: dict[str, Any], docs: list[dict], subject_re: str = SUBJECT_RE_DEFAULT,
+def population_canon(pool: dict[str, Any], docs: list[dict], subject_re: str | None = None,
                      log: list[str] | None = None) -> dict[str, Any] | None:
     """La cifra de POBLACIÓN del lugar del video con TODAS sus variantes y su fuente (6,295 / 6,375 / 6,500 / 8,000…):
     datos con un conteo ≥ 1000 de personas (`count_value`) que nombran al sujeto (`subject_re`), no hablan de otro
@@ -1736,16 +1734,17 @@ def population_canon(pool: dict[str, Any], docs: list[dict], subject_re: str = S
     primero la que se atribuye al sheriff o a registros oficiales; si no hay, `oficial: None` y `sin_oficial: true`
     (la voz dice «según <fuente>»). Devuelve el grupo (o None) para ponerlo primero en `cifras_canonicas`."""
     meta = {d["id"]: d for d in docs}
+    says, other = _official_says(), _other_place()
     rows = []
     for d in pool.get("datos") or []:
         cv = count_value(d["texto"])
-        about = re.search(subject_re, d["texto"], re.I) or _OFFICIAL_SAYS.search(d["texto"])   # «del sheriff»
-        if not cv or cv[1] < 1000 or not about or _OTHER_PLACE.search(d["texto"]):
+        about = (subject_re and re.search(subject_re, d["texto"], re.I)) or says.search(d["texto"])
+        if not cv or cv[1] < 1000 or not about or (other and other.search(d["texto"])):
             continue
         m = meta.get(d["doc_id"]) or {}
         rows.append({"id": d["id"], "valor": fmt_count(cv[1]), "n": cv[1], "doc_id": d["doc_id"],
                      "fuente": f"{m.get('titulo') or d['doc_id']} ({m.get('anio') or 's/f'})", "tipo_doc": m.get("tipo"),
-                     "texto": d["texto"], "atribuida_oficial": bool(_OFFICIAL_SAYS.search(d["texto"]))})
+                     "texto": d["texto"], "atribuida_oficial": bool(says.search(d["texto"]))})
     if rows:
         ns = sorted(r["n"] for r in rows)
         med = ns[len(ns) // 2]
@@ -2097,7 +2096,8 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
             log.append(f"  [R3] {d['id']}: extracción fallida en {len(fail)} parte(s): el pool sigue sin ellas")
     if any(d.get("extraccion_fallida") for d in docs):
         (src / "manifest.json").write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
-    pool = build_pool(per_doc, docs, texts, event_year=year, geocode_cache=DATA_DIR / "geocode_cache.json", log=log)
+    pool = build_pool(per_doc, docs, texts, event_year=year, geocode_cache=DATA_DIR / "geocode_cache.json", log=log,
+                      subject_re=subject_re_del_perfil(prof))
     (steps_dir / "00_pool_v3.json").write_text(json.dumps(pool, ensure_ascii=False, indent=1), encoding="utf-8")
     g = None
     if gate:

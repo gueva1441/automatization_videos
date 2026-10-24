@@ -452,8 +452,9 @@ def problems(section: str, item: dict, its: dict, gone: set[str] | None = None) 
         nom = ev.norm(item.get("nombre") or "")
         if not nom or not any(nom in g or g in nom for g in gone or set()):
             out.append(f"«{item.get('nombre')}» no está entre los descartados del pool")
-        sur = nom.split()[-1] if nom else ""
-        if sur and sur not in ev.norm(source_text(ids, its)):
+        from script_engine import nombres
+        sur = nombres.apellido(item.get("nombre") or "")               # F21: nombres.py
+        if sur and not nombres.menciona(source_text(ids, its), sur):
             out.append(f"sus ids no nombran a «{item.get('nombre')}»")
         return out + unsupported(f"{item.get('nombre')} {item.get('rol')}", source_text(ids, its))
     if section == "cifras":

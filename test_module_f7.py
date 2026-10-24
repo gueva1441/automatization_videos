@@ -13,10 +13,13 @@ from researcher_steps import research_v3 as r3
 PLACE = r"Orleans Parish|\bOPP\b|Katrina"
 # F20: el vocabulario de la cárcel ya no está en el código: viene del perfil del caso. Estos tests son de Orleans.
 VOC_ORLEANS = {"roles_testigo": ["preso", "presos", "recluso", "reclusos", "guardia", "guardias", "deputy", "deputies",
-                                 "inmate", "inmates"],
+                                 "inmate", "inmates", "abogado"],
                "roles_antagonista": ["sheriff", "warden", "alguacil"],
                "sustantivos_conteo": ["presos", "presas", "reclusos", "reclusas", "prisioneros", "prisioneras",
-                                      "internos", "detenidos", "evacuados", "individuos"]}
+                                      "internos", "detenidos", "evacuados", "individuos"],
+               "lugares_excluidos": ["Hunt", "Angola", "Templeman", "paso elevado"]}
+# F21: el sujeto del video (antes `SUBJECT_RE_DEFAULT`, Orleans para todos) sale del perfil del caso
+SUBJECT_ORLEANS = r"\b(OPP|Prisi[oó]n Parroquial de Orleans|Orleans Parish Prison|c[aá]rcel de (?:Nueva )?Orleans)\b"
 
 
 @pytest.fixture
@@ -85,7 +88,8 @@ def test_r1_discover_drops_memory_answers(tmp_path):
 
 def test_pista_covered():
     f = {"titulo": "Abandoned & Abused: Orleans Parish Prisoners in the Wake of Hurricane Katrina"}
-    assert r3.pista_covered("ACLU National Prison Project, «Abandoned & Abused» (2006, PDF completo)", f)
+    # F21: `_words` ya no resta orleans/parish/prison/katrina/hurricane: la pista nombra el título entero
+    assert r3.pista_covered("ACLU, «Abandoned & Abused: Orleans Parish Prisoners after Hurricane Katrina» (2006)", f)
     assert not r3.pista_covered("Toledo Blade, «Arrested on misdemeanors, left to die in flooded jail»", f)
 
 
@@ -453,13 +457,13 @@ def test_population_canon_lists_all_variants_with_source(voc_orleans):
         {"id": "D03", "doc_id": "F10", "texto": "La cárcel de Nueva Orleans tenía 6,500 presos."},
         {"id": "D04", "doc_id": "F01", "texto": "En Hunt, 5,000 presos de la OPP esperaron en un patio."},     # otro lugar
         {"id": "D05", "doc_id": "F10", "texto": "6.375 personas estaban detenidas en la OPP."}]}
-    g = r3.population_canon(pool, docs)
+    g = r3.population_canon(pool, docs, SUBJECT_ORLEANS)
     assert g["oficial"] == "D01" and g["valor"] == "6,375" and not g["sin_oficial"]
     assert {v["valor"] for v in g["variantes"]} == {"6,295", "6,500", "6,375"}
     assert next(v for v in g["variantes"] if v["id"] == "D03")["estatus"] == "según The Lens (2025)"
     assert next(v for v in g["variantes"] if v["id"] == "D05")["estatus"] == "oficial (mismo valor)"
     docs2 = [{**d, "tipo": "prensa_posterior"} for d in docs]
-    g2 = r3.population_canon(copy.deepcopy(pool), docs2)
+    g2 = r3.population_canon(copy.deepcopy(pool), docs2, SUBJECT_ORLEANS)
     assert g2["sin_oficial"] and g2["oficial"] is None
     assert all(v["estatus"].startswith("según ") for v in g2["variantes"])
 
@@ -592,12 +596,17 @@ POOL_C3 = {
 
 def test_rule1_role_of_speaker():
     from script_engine.guion_v3_reglas import role_problems, role_class
-    assert role_class("Alguacil en el edificio HOD") == "guardia" and role_class("Preso") == "preso"
+    # F21: las clases salen del perfil del caso (testigo / antagonista); sin perfil, ninguna
+    assert role_class("Preso") is None and role_problems("La reclusa Rhonda Ducre lo resumió.", POOL_C3) == []
+    r3.set_vocabulario({"roles_testigo": ["preso", "presos", "reclusa", "recluso"],
+                        "roles_antagonista": ["alguacil", "guardia", "sheriff"]})
+    assert role_class("Alguacil en el edificio HOD") == "antagonista" and role_class("Preso") == "testigo"
     p = role_problems("La reclusa Rhonda Ducre lo resumió. Un guardia lo describió: «Hombre, ese lugar olía a muerte».", POOL_C3)
     assert any("Rhonda Ducre" in x for x in p) and any("Q01" in x for x in p)
     assert role_problems("La guardia Rhonda Ducre lo resumió. Un preso lo describió: «Hombre, ese lugar olía a muerte».",
                          POOL_C3) == []
     assert any("Rhonda Ducre, una reclusa" in x for x in role_problems("Rhonda Ducre, una reclusa, lo vio.", POOL_C3))
+    r3.set_vocabulario(None)
 
 
 def test_rule2_paragraph_without_id_is_filler():

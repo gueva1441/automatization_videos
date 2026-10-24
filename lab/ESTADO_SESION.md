@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-24 (F20 parte 1: el research se adapta al tema; Kyshtym ROJO → VERDE con 4 elegibles, Orleans e Ycuá verde y verde; US$ 1.013 → PARADA antes de la parte 2) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-24 (F21: nombres.py + fuera el molde de Orleans + jueces con la traducción; recheck sin API: Orleans/Ycuá sin empeorar, Kyshtym 4 → 9 elegibles; US$ 0.00 → PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,25 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F21 — Familias A + B + F de la auditoría (nombres, molde de Orleans, jueces con la traducción) — HECHO, **PARADA** (el analista revisa el diff `git diff 08d63d9..HEAD -- researcher_steps script_engine`, lee `RECHECK_f21.md` y escribe F22)
+- Handoff `lab/hyperframes/f21/HANDOFF_F21_nombres_y_borrados.md` (md5 19fcbb90…); auditoría `AUDITORIA_fase1_supuestos.md`. Reporte `lab/hyperframes/f21/F21_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `RECHECK_f21.md` (antes con el código de 08d63d9 | después, sin API: `recheck.py`, `recheck_md.py`). `_transfer_tmp/` borrado. **US$ 0.00, cero prompts tocados (md5 de los 4 iguales).**
+- Código:
+  - `script_engine/nombres.py`: única fuente sobre nombres (cualquier alfabeto, iniciales, partículas, mononimio con rol, MAYÚSCULAS). Las 13 funciones viejas quedan como alias (`# F21: alias`). Lecturas declaradas: los artículos no son parte del nombre; un cargo cuenta solo justo delante del nombre; en `verify_pool`, el autor cerca de la cita con el apellido o cualquier parte del nombre.
+  - Borrados (B):
+    - `SUBJECT_RE_DEFAULT`, `_OTHER_PLACE` y `_OFFICIAL_SAYS` (el sujeto sale del perfil), las stopwords de Orleans y `_NOT_PERSON`;
+    - preso/guardia en `role_class` (ahora testigo/antagonista del perfil; sin perfil, (b) no evalúa);
+    - `JUDGMENTS` de caso, `photo_problems` sin cámara ni imagen, `_COMMON_CAPS` (`fix_glued_caps(pool=)`) y 4 rellenos de `FORBIDDEN_FILLER`;
+    - `ADMIN_TERMS` v1 pasa a aviso; `INSTITUTION` sale de la ficha y pasa a métrica; `verify_quotes` sin el tema escrito.
+  - F: `guion_v4.pool_con_traducciones` al entrar a `bloqueantes()`.
+  - Tests `test_module_f21.py` (24) + 6 tests viejos adaptados (f7, f11, f5b, f5c, f6b, f20). Suite amplia 724 verdes + las 5 previas.
+- Recheck:
+  - **Orleans y Ycuá:** verde/verde, elegibles 32 → 33 y 32 → 34 (no sale nadie), guion y escaleta con 0 bloqueantes antes y después. Citas verificadas: Orleans igual (162), Ycuá 52 → 53.
+  - **Kyshtym:** elegibles 4 → 9. Osetrov, Komarov, Serov y Ladeishchikova entran como personas, pero **solo Ladeishchikova es elegible**: los otros tres tienen citas parciales por transliteración (Osetrov ↔ Осетров).
+  - Entraron como elegibles algunos que no son personas: Komsomolskaya Pravda, «Мама de Надежда Кутепова», «Толстиков, Бочкарева» y, en Orleans, «Warden de Hunt Correctional Center».
+  - Kyshtym no tiene guion, así que lo de las «citas falsas» se probó con tests.
+- Queda para F23: `evidence_pool._content_set` y `person_acts` (regex latinas que deciden), transliteración y comentarios J.
+- Sin merge.
 
 ## F20 (parte 1 de 3) — El research se adapta al tema — HECHO, **PARADA** (el analista valida antes de la parte 2: que Orleans e Ycuá no empeoraron, que los elegibles de Kyshtym son los que la historia necesita y que las listas carcelarias ya no están en el código)
 - Handoff `lab/hyperframes/f20/HANDOFF_F20_research_por_tema.md`; `f20.b64` es la misma copia en gzip + base64 y no se commitea. Reporte `lab/hyperframes/f20/F20_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Runner `f20_corridas.py` (`recalculo`, `research`, `vocab_kyshtym`).

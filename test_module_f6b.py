@@ -115,8 +115,8 @@ def test_rubrica_de_preguntas():
 def test_pregunta_mala_en_el_ultimo_intento_queda_marcada():
     e = good()
     e["beats"][2]["pregunta_pantalla"] = "¿Qué pasó con los generadores?"
-    _, hard, _, _ = me.validate(e, POOL)
-    assert any("generadores" in h for h in hard)
+    _, hard, _, warn = me.validate(e, POOL)
+    assert not any("generadores" in h for h in hard) and any("generadores" in w for w in warn)   # F21: métrica
     esc, hard, _, warn = me.validate(e, POOL, final=True)
     assert hard == [] and esc["beats"][2]["pregunta_valida"] is False and any("generadores" in w for w in warn)
 

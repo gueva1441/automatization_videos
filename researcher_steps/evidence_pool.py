@@ -94,11 +94,10 @@ _QUOTES = str.maketrans({"“": '"', "”": '"', "«": '"', "»": '"', "‘": "'
 
 
 def norm(s: str) -> str:
-    """Minúsculas, comillas unificadas, sin tildes, espacios colapsados, sin puntuación final."""
-    s = str(s or "").translate(_QUOTES).lower()
-    s = "".join(c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn")
-    s = re.sub(r"\s+", " ", s).strip()
-    return s.strip(" .,;:")
+    """Minúsculas, comillas unificadas, sin tildes (solo en letras latinas: й, ё intactas), espacios colapsados, sin
+    puntuación final."""
+    from script_engine.nombres import norm as _norm
+    return _norm(s)                                                     # F21: alias
 
 
 def literal_in(fragment: str, block: str) -> bool:
@@ -151,21 +150,14 @@ def resolve_source(item_text: str, claimed: str | None, block: str) -> str | Non
     return None
 
 
-_ORG_WORDS = {"union", "unión", "watch", "departamento", "cuerpo", "oficina", "agencia", "society", "asociacion",
-              "asociación", "aclu", "fema", "comite", "comité", "tribunal", "corte", "jurado", "gobierno", "project"}
-
-
 def is_person(name: str) -> bool:
-    """Persona con nombre propio: ≥ 2 palabras con mayúscula, no una sigla ni una organización."""
-    ws = [w for w in re.findall(r"[A-Za-zÁÉÍÓÚÑáéíóúñ.]+", name) if len(w.strip(".")) >= 2]
-    caps = [w for w in ws if w[:1].isupper() and not w.isupper()]
-    return len(caps) >= 2 and not ({norm(w) for w in ws} & _ORG_WORDS)
+    from script_engine import nombres
+    return nombres.es_persona(name)                                     # F21: alias
 
 
 def _person_key(name: str) -> tuple[str, str]:
-    ws = [norm(w) for w in re.findall(r"[A-Za-zÁÉÍÓÚÑáéíóúñ]+", name) if len(w) >= 2 and w[:1].isupper()]
-    ws = [w for w in ws if w not in {"jr", "sr", "sheriff", "teniente", "general", "alcaide", "capitan"}]
-    return (ws[0], ws[-1]) if ws else ("", "")
+    from script_engine import nombres
+    return nombres.clave(name)                                          # F21: alias
 
 
 def _content_set(s: str) -> set[str]:

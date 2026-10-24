@@ -259,14 +259,15 @@ RULES = rules_text(CAP_WORDS, MIN_BEATS, MAX_BEATS, MIN_BEATS_DEV_CAP)
 def own_ids(pool: dict, persona: dict) -> list[str]:
     """Datos que valen para poner a la persona EN ESCENA: los que la nombran (o son su cita); con verificación en el
     pool, sus citas cuentan solo si están verificadas."""
+    from script_engine import nombres
     its = ev.items(pool)
-    sur = ev.norm(persona["nombre"]).split()[-1]
+    sur = nombres.apellido(persona["nombre"])                          # F21: nombres.py
     vp = any(q.get("verificacion") for q in pool.get("citas") or [])
     out = []
     for i, it in its.items():
         if it["_kind"] not in ("datos", "cronologia", "citas"):
             continue
-        if sur not in ev.norm(ev.text_of(it) + " " + str(it.get("autor") or "")):
+        if not nombres.menciona(ev.text_of(it) + " " + str(it.get("autor") or ""), sur):
             continue
         if vp and it["_kind"] == "citas" and (it.get("verificacion") or {}).get("estado") != "verificada":
             continue
@@ -638,8 +639,9 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
     hcaps = sorted({b["cap"] for b in beats if b.get("humano_en_escena")})
     need = MIN_HUMAN_CAPS
     if not hum.get("colectivo") and pers.get(str(hum.get("id") or "").upper()):
+        from script_engine import nombres
         hp = pers[str(hum["id"]).upper()]
-        sur = ev.norm(hp["nombre"]).split()[-1]
+        sur = nombres.apellido(hp["nombre"])                           # F21: nombres.py
 
         verified_pool = any(q.get("verificacion") for q in pool.get("citas") or [])
 
@@ -647,7 +649,7 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
             it = its.get(i)
             if not it or it["_kind"] not in ("datos", "cronologia", "citas"):
                 return False
-            if not sur in ev.norm(ev.text_of(it) + " " + str(it.get("autor") or "")):
+            if not nombres.menciona(ev.text_of(it) + " " + str(it.get("autor") or ""), sur):
                 return False
             # con verificación en el pool, una cita suya cuenta solo si está verificada
             return not (verified_pool and it["_kind"] == "citas" and
@@ -766,7 +768,9 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
         # F6b-4: «nombra algo ya conocido» es heurística (raíces de palabras: «¿Por qué se negó a moverlos?» no pasa y
         # es buena) → aviso. El resto de la rúbrica es objetivo → duro (en el último intento, marcada). La del cap 7
         # es obligatoria (sin respaldo de gfx_question): siempre dura.
-        soft = [q for q in qbad if re.fullmatch(r".*: no nombra nada que el espectador ya conozca \(.*\)", q)]
+        # F21: «término administrativo» también es aviso (métrica), como en la escaleta v2
+        soft = [q for q in qbad if re.fullmatch(r".*: (?:no nombra nada que el espectador ya conozca \(.*\)|término "
+                                                r"administrativo \[.*\])", q)]
         warn.extend(soft)
         objective = [q for q in qbad if q not in soft]
         cap7 = [q for q in objective if q.startswith("pregunta de pantalla del cap 7")]
@@ -1262,12 +1266,13 @@ def metricas_escaleta(esc: dict, pool: dict, ficha: dict | None, otros: list[str
     hist = (ficha or {}).get("historia") or {}
     otros = list(otros or [])
     bids = {b["n"]: {b["dato_central"], *(b.get("datos_apoyo") or [])} for b in beats}
-    sur = ev.norm(hum.get("nombre") or "").split()[-1] if hum.get("nombre") else ""
+    from script_engine import nombres
+    sur = nombres.apellido(hum.get("nombre") or "")                    # F21: nombres.py
     hcaps = sorted({b["cap"] for b in beats if b.get("humano_en_escena")})
 
     def _sin_verificar_suya(i: str) -> bool:
         it = its.get(i) or {}
-        return it.get("_kind") == "citas" and bool(sur) and sur in ev.norm(it.get("autor") or "") and \
+        return it.get("_kind") == "citas" and bool(sur) and nombres.menciona(it.get("autor") or "", sur) and \
             (it.get("verificacion") or {}).get("estado") not in (None, "verificada")
     try:
         pb = int(pk.get("beat"))

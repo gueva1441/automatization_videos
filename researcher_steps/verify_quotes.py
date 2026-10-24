@@ -31,13 +31,13 @@ from urllib.parse import urlparse
 PROMPT_VERSION = "f6b3-1"
 
 
-def build_prompt(q: dict[str, Any]) -> str:
+def build_prompt(q: dict[str, Any], tema: str = "") -> str:
     return f"""Buscá con Google la fuente ORIGINAL de esta cita textual. Está traducida al español; el original
 probablemente está en inglés.
 
 CITA: «{q['texto']}»
 ATRIBUIDA A: {q.get('autor')}{' (' + q['rol'] + ')' if q.get('rol') else ''}
-TEMA: la Prisión Parroquial de Orleans (Orleans Parish Prison) durante el huracán Katrina, 2005.
+TEMA: {tema or "(el del video)"}
 
 Respondé SOLO un JSON, sin markdown:
 {{"encontrada": true/false, "cita_original": "el texto tal como aparece en la fuente (o vacío)",
@@ -101,7 +101,8 @@ def judge(raw: dict[str, Any], chunks: list[dict[str, str]]) -> dict[str, Any]:
 
 def _named(autor: str) -> bool:
     """¿La cita tiene un autor con nombre propio («Vincent Norman»), no un anónimo («un preso de…»)?"""
-    return bool(re.match(r"^[A-ZÁÉÍÓÚÑ][\wáéíóúñ“”\"'.]+\s+[A-ZÁÉÍÓÚÑ“\"]", autor.strip()))
+    from script_engine import nombres
+    return nombres.es_persona(autor)                                    # F21: alias
 
 
 def resolve_redirect(url: str, timeout: float = 10.0) -> str | None:
@@ -241,7 +242,7 @@ def verify_testimonios(pool: dict[str, Any], *, cache: Path | None = None,
                        search: Callable[[str], tuple[str, list[dict[str, str]]]] | None = None,
                        log: list[str] | None = None,
                        resolve: Callable[[str], str | None] | None = resolve_redirect,
-                       retry_model: str | None = None) -> dict[str, int]:
+                       retry_model: str | None = None, tema: str = "") -> dict[str, int]:
     """In place sobre el pool. Devuelve {"verificada": n, "sin_verificar": m}. `retry_model` (p. ej. Pro): segundo
     intento solo para las citas CON NOMBRE que quedaron sin verificar (las anónimas no se nombran igual)."""
     log = log if log is not None else []
@@ -253,7 +254,7 @@ def verify_testimonios(pool: dict[str, Any], *, cache: Path | None = None,
             continue
         key = f"{PROMPT_VERSION}|{q['texto']}|{q.get('autor')}"
         if key not in store:
-            text, chunks = search(build_prompt(q))
+            text, chunks = search(build_prompt(q, tema))
             store[key] = {"text": text, "chunks": chunks}
             if cache:
                 cache.parent.mkdir(parents=True, exist_ok=True)
@@ -263,7 +264,7 @@ def verify_testimonios(pool: dict[str, Any], *, cache: Path | None = None,
         if v["estado"] != "verificada" and retry_model and named:
             k2 = f"{key}|{retry_model}"
             if k2 not in store:
-                store[k2] = dict(zip(("text", "chunks"), search(build_prompt(q), retry_model)))
+                store[k2] = dict(zip(("text", "chunks"), search(build_prompt(q, tema), retry_model)))
                 if cache:
                     cache.write_text(json.dumps(store, ensure_ascii=False, indent=1), encoding="utf-8")
             v2 = judge(_parse(store[k2]["text"]), store[k2]["chunks"])

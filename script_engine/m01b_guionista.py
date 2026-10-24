@@ -37,8 +37,17 @@ SHORT_WORDS = 6
 LONG_WORDS = 30
 WORDS_TOL = 0.15
 MIN_HUMAN_CAPS = 3
-INSTITUTION = re.compile(r"\b(prisi[oó]n|c[aá]rcel de|parish|opp|departamento|aclu|human rights|sheriff|"
-                         r"cuerpo de ingenieros|jurado|tribunal|gobierno|fema|alcald[ií]a)\b", re.I)
+def institution_re(ficha: dict | None = None) -> re.Pattern:
+    """F21: las instituciones del caso, no las de Orleans: las «personas» de la ficha que no son personas (organizaciones)
+    más las palabras de organización de `nombres`; sin ficha, solo esas palabras. Es métrica."""
+    from script_engine import nombres
+    xs = [str(p.get("nombre") or "") for p in (ficha or {}).get("personas") or []
+          if p.get("nombre") and not nombres.es_persona(p["nombre"])]
+    alts = sorted({re.escape(x) for x in xs if len(x) >= 3} | set(nombres._ORG), key=len, reverse=True)
+    return re.compile(r"(?<![^\W\d_])(?:" + "|".join(alts) + r")(?![^\W\d_])", re.I)
+
+
+INSTITUTION = institution_re()                                          # F21: sin ficha, solo `nombres._ORG`
 
 SYSTEM = ("Sos el guionista de un canal de documentales de misterio en YouTube. Escribís para que el espectador se quede "
           "al segundo siguiente: imágenes concretas, frases cortas antes del golpe, un humano con nombre. Tenés la "
@@ -232,7 +241,7 @@ def _beat_cap(esc: dict) -> dict[int, int]:
     return {b["n"]: b["cap"] for b in esc["beats"]}
 
 
-def normalize(raw: dict, esc: dict) -> list[dict]:
+def normalize(raw: dict, esc: dict, pool: dict | None = None) -> list[dict]:
     bc = _beat_cap(esc)
     out = []
     for p in (raw or {}).get("parrafos") or []:
@@ -240,7 +249,7 @@ def normalize(raw: dict, esc: dict) -> list[dict]:
             b = int(p.get("beat"))
         except (TypeError, ValueError):
             continue
-        t = ev.fix_glued_caps(str(p.get("texto") or "").strip())
+        t = ev.fix_glued_caps(str(p.get("texto") or "").strip(), pool)
         if not t or b not in bc:
             continue
         out.append({"beat": b, "cap": bc[b], "texto": t,
@@ -266,7 +275,8 @@ def wc(s: str) -> int:
 
 
 def _surname(name: str) -> str:
-    return ev.norm(name).split()[-1] if name else ""
+    from script_engine import nombres
+    return nombres.apellido(name)                                       # F21: alias
 
 
 def _verified_antagonist(esc: dict, pool: dict, sur: str) -> bool:
@@ -280,7 +290,7 @@ def _verified_antagonist(esc: dict, pool: dict, sur: str) -> bool:
                for k in ("datos", "cronologia") for it in pool.get(k) or [])
 
 
-def review(topic: dict, esc: dict, parrafos: list[dict]) -> dict[str, Any]:
+def review(topic: dict, esc: dict, parrafos: list[dict], ficha: dict | None = None) -> dict[str, Any]:
     """{"hard": [...], "soft": [...], "score": int, "por_cap": {n: {...}}} de la narración completa."""
     from script_engine.m01a_escaleta import count_variants, has_figure
     from script_engine.m01b_narrator import NarrationValidationError, _validate_narration
@@ -334,8 +344,10 @@ def review(topic: dict, esc: dict, parrafos: list[dict]) -> dict[str, Any]:
     # gancho
     ss = sentences(caps[0]["narration"]) if caps and caps[0]["narration"] else []
     if ss:
-        if has_figure(ss[0]) or INSTITUTION.search(ss[0]):
+        if has_figure(ss[0]):
             hard.append(f"gancho: la primera frase no lleva año, cifra ni institución: «{ss[0]}»")
+        elif institution_re(ficha).search(ss[0]):           # F21: la institución es métrica
+            soft.append(f"gancho: la primera frase no lleva institución: «{ss[0]}»")
         if len(ss) > 1 and has_figure(ss[1]):
             hard.append(f"gancho: la segunda frase (la promesa) no lleva cifras: «{ss[1]}»")
     # ritmo
@@ -419,7 +431,7 @@ def write(topic: dict, esc: dict, *, call: Callable[..., dict] | None = None, n:
     for k in range(1, n + 1):
         raw = call(build_prompt(topic, esc, feedback), system_instruction=SYSTEM, response_schema=SCHEMA,
                    description=f"m01b_guionista intento {k}")
-        ps = normalize(raw, esc)
+        ps = normalize(raw, esc, topic.get("evidence_pool"))
         rv = review(topic, esc, ps)
         cands.append({"k": k, "parrafos": ps, "revision": rv})
         log.append(f"  [guionista] intento {k}: {len(rv['hard'])} duras · {len(rv['soft'])} blandas · puntaje {rv['score']}")

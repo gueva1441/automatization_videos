@@ -891,7 +891,7 @@ def _best_of_n(prompt: str, role: str, cap_number: int, f5: dict, *, n: int = PO
     last_err: NarrationValidationError | None = None
     for k in range(1, n + 1):
         raw = _call_narrator(attempt_prompt, model, cap_number)
-        narr = ev.fix_glued_caps((raw.get("narration") or "").strip())
+        narr = ev.fix_glued_caps((raw.get("narration") or "").strip(), f5["pool"])
         ids_raw = [str(x).strip() for x in raw.get("datos_usados") or [] if str(x).strip()]
         ids = ev.resolve_declared(ids_raw, f5["pool"], f5.get("facts"), narr)
         c = {"k": k, "narration": narr, "ids": ids, "base_ok": True, "review": None}
@@ -986,7 +986,7 @@ def _call_with_length_retry(prompt: str, role: str, cap_number: int,
         narr = (raw.get("narration") or "").strip()
         if f5:
             # F5b N5: mayúsculas pegadas del pool («…Schwarz, Arrestado por…»); N2: ids que declara el narrador
-            narr = ev.fix_glued_caps(narr)
+            narr = ev.fix_glued_caps(narr, f5["pool"])
             ids_raw = [str(x).strip() for x in raw.get("datos_usados") or [] if str(x).strip()]
             ids = ev.resolve_declared(ids_raw, f5["pool"], f5.get("facts"), narr)   # «F05», «[D07]», texto → ids
             f5 = {**f5, "declared": ids}

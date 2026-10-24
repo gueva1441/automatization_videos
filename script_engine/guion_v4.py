@@ -287,12 +287,14 @@ SCHEMA: dict[str, Any] = {
 # ═══════════════════════════════════════════════════════════════
 
 def _surname(name: str) -> str:
-    return ev.norm(name).split()[-1] if name else ""
+    from script_engine import nombres
+    return nombres.apellido(name)                                       # F21: alias
 
 
 def _is_human(author: str, esc: dict) -> bool:
+    from script_engine import nombres
     hum = (esc.get("humano") or {}).get("nombre") or ""
-    return bool(hum and author) and _surname(author) == _surname(hum)
+    return bool(hum and author) and nombres.misma(author, hum)          # F21: nombres.py
 
 
 def screen_ids(esc: dict) -> set[str]:
@@ -545,7 +547,7 @@ def write(topic: dict, esc: dict, *, call: Callable[..., dict] | None = None,
         call = call_for(None)
     raw = call(prompt(topic, esc, largo, ficha, version), system_instruction=system(version), response_schema=SCHEMA,
                description="guion_v4 guionista")
-    ps = with_ids(mg.normalize(raw, esc), topic["evidence_pool"], esc)
+    ps = with_ids(mg.normalize(raw, esc, topic["evidence_pool"]), topic["evidence_pool"], esc)
     log.append(f"  [guionista v4] {len(ps)} párrafos · {sum(mg.wc(p['texto']) for p in ps)} palabras")
     out = {"parrafos": ps, "prompt_version": prompt_version(largo, version)}
     if ficha:
@@ -574,27 +576,41 @@ def _b(code: str, p: dict | None, frase: str, motivo: str, cap: int | None = Non
 def unverified_named(esc: dict, pool: dict, parrafos: list[dict]) -> list[dict]:
     """(e) El bloque de m01b_guionista.review «citas sin verificar: sin el nombre de quien la dijo», por párrafo,
     salvo cuando el autor es el humano de la escaleta (§1.1: no se le pide decirlo sin nombre)."""
-    from researcher_steps.verify_quotes import _named
+    from script_engine import nombres
     out = []
     for q in pool.get("citas") or []:
         v = q.get("verificacion") or {}
         if not v or v.get("estado") == "verificada":
             continue
-        if not _named(q.get("autor") or "") or _is_human(q.get("autor") or "", esc):
+        if not nombres.es_persona(q.get("autor") or "") or _is_human(q.get("autor") or "", esc):
             continue
         sur = mg._surname(q.get("autor") or "")
         if v.get("estado") == "verificada_parcial" and mg._verified_antagonist(esc, pool, sur):
             continue
         for p in parrafos:
             nf = ev.norm(p["texto"])
-            k = nf.find(ev.norm(q["texto"])[:40])
-            if k < 0 and q.get("fragmento"):
-                k = nf.find(ev.norm(q["fragmento"])[:40])
+            k = -1
+            for t in (q.get("texto"), q.get("texto_original"), q.get("fragmento")):   # F21: también el original
+                if k < 0 and t:
+                    k = nf.find(ev.norm(t)[:40])
             if k < 0:
                 continue
-            if sur and len(sur) > 3 and re.search(rf"\b{re.escape(sur)}\b", nf[max(0, k - 200):k + len(q["texto"]) + 200]):
+            if sur and nombres.menciona(nf[max(0, k - 200):k + len(q["texto"]) + 200], sur):   # F21: sin len > 3
                 out.append(_b("e", p, _sentence_with(p["texto"], sur),
                               f"{q['id']} está SIN VERIFICAR y va con el nombre de {q.get('autor')}"))
+    return out
+
+
+def pool_con_traducciones(pool: dict, ficha: dict | None) -> dict:
+    """F21 (F): copia del pool donde cada cita Q## que la ficha trae con `traduccion` lleva ese texto en `texto` (y el
+    original en `texto_original`). Los jueces comparan contra lo que la voz dice. Sin ficha, el pool tal cual."""
+    tr = {i: c["traduccion"] for c in (ficha or {}).get("citas") or [] if c.get("traduccion")
+          for i in c.get("ids") or [] if str(i).startswith("Q")}
+    if not tr:
+        return pool
+    out = dict(pool)
+    out["citas"] = [({**q, "texto": tr[q["id"]], "texto_original": q.get("texto_original") or q.get("texto")}
+                     if q.get("id") in tr else q) for q in pool.get("citas") or []]
     return out
 
 
@@ -621,6 +637,7 @@ def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "abie
     from script_engine.m05_narrative import contamination, false_quotes, invented_numbers
     from script_engine.video_length import get as _len
     pool = topic["evidence_pool"]
+    pool_j = pool_con_traducciones(pool, ficha)              # F21 (F): los jueces leen lo que dice la voz
     facts = topic.get("verified_facts") or []
     pool_d = pool_sin_rescatados(pool, ficha)                # F15 §1.4: (d) mira la ficha
     out: list[dict] = []
@@ -628,14 +645,14 @@ def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "abie
         t = p["texto"]
         for x in invented_numbers(t, pool, facts):
             out.append(_b("a", p, _sentence_with(t, x), f"cifra que no está en el research: {x}"))
-        for x in false_quotes(t, pool):
+        for x in false_quotes(t, pool_j):
             out.append(_b("a", p, _sentence_with(t, x[:40]), f"entre comillas, pero no es una cita del pool: «{x}…»"))
-        for x in role_problems(t, pool):
+        for x in role_problems(t, pool_j):
             name = x.split("»")[0].split()[-1] if "»" in x else ""
             out.append(_b("b", p, _sentence_with(t, name), f"rol: {x}"))
         for x in contamination(t, pool_d, facts):
             out.append(_b("d", p, t, f"fuera del caso (descartado en el pool): {x[:80]}"))
-    out += unverified_named(esc, pool, parrafos)
+    out += unverified_named(esc, pool_j, parrafos)
     # (c) estructura
     written = {p["beat"] for p in parrafos}
     for b in esc["beats"]:
@@ -768,7 +785,7 @@ def editor_pass(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[
     cur = len(bloqueantes(topic, esc, out, largo, ficha))
     estado = []
     for k, (orig, e) in enumerate(zip(parrafos, edited)):
-        new_t = ev.fix_glued_caps(str(e.get("texto") or "").strip())
+        new_t = ev.fix_glued_caps(str(e.get("texto") or "").strip(), topic.get("evidence_pool"))
         if not new_t or new_t == orig["texto"]:
             continue
         rec = {"parrafo": k, "beat": orig["beat"], "antes": orig["texto"], "despues": new_t,

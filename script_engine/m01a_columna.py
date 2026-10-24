@@ -160,8 +160,8 @@ def leer_ids(raw: dict) -> dict:
 
 
 def _tokens(s: str) -> list[str]:
-    s = re.sub(r"\([^)]*\)", " ", str(s or ""))
-    return re.findall(r"[a-z0-9ñ]+", ev.norm(s))
+    from script_engine import nombres
+    return nombres.partes(s)                                            # F21: alias
 
 
 def personas_ficha(ficha: dict) -> list[dict]:

@@ -71,25 +71,11 @@ def hook_problems(cap1: str, later_quotes: list[str], pool: dict[str, Any] | Non
 # interpretación o juicio del narrador; cada patrón vale si su raíz (2.º elemento) ya está en el pool (lo dice un
 # documento) y es dura si no
 JUDGMENTS: list[tuple[str, str]] = [
+    # F21: solo los estructurales (intención atribuida); los patrones de Orleans/Ycuá («como animales», «el sistema
+    # los abandonó», «fue una masacre», «esperar un milagro», «castig…»…) se borraron
     (r"\bdeliberad[oa]s?\b|\bdeliberadamente\b", "deliberad"),
     (r"\ba prop[oó]sito\b|\bintencional(?:mente)?\b", "a proposito"),
-    (r"\bno (?:eran|fueron|los consideraban?) (?:considerados |tratados como )?(?:seres )?humanos\b", "humanos"),
-    (r"\bdeshumaniz\w*|\binhuman\w*", "humaniz"),
-    (r"\b(?:colapso|derrumbe) (?:moral|de la humanidad|de la humanidad b[aá]sica)\b|\bhumanidad b[aá]sica\b",
-     "humanidad"),
-    (r"\bcastig\w*", "castig"),
-    (r"\bcrueldad\b|\bcrueles?\b|\bs[aá]dic\w*", "cruel"),
-    (r"\bvenganza\b|\bdesprecio\b|\bindiferencia\b", "indiferencia"),
-    (r"\bcomo (?:si fueran )?animales\b", "animales"),
-    (r"\bnadie (?:les|le) importaba\b|\bno les importaba\b|\bno les import[oó]\b", "importaba"),
     (r"\bsab[ií]an (?:lo que|que)\b", "sabian"),
-    (r"\bel sistema (?:los|las|la|lo) (?:abandon[oó]|olvid[oó]|trag[oó])\b", "el sistema"),
-    (r"\bcaos (?:deliberado|calculado|organizado)\b", "caos"),
-    (r"\bmonstruos[oa]s?\b|\bdiab[oó]lic\w*|\binfiern\w*", "infiern"),
-    # F10 (notas del analista sobre Ycuá)
-    (r"\bfue una masacre\b", "masacre"),
-    (r"\bpeligro que nadie ve[ií]a\b", "nadie veia"),
-    (r"\besperar? un milagro\b|\besperaban un milagro\b", "milagro"),
 ]
 
 
@@ -278,50 +264,77 @@ def sentences_of(text: str) -> list[str]:
 
 # ── 1. rol de quien habla ─────────────────────────────────────────────────────
 
-_ROLE_PRESO = re.compile(r"\b(reclus[oa]s?|pres[oa]s?|prisioner[oa]s?|intern[oa]s?|detenid[oa]s?|condenad[oa]s?|"
-                         r"inmates?|prisoners?|sobrevivientes?)\b", re.I)
-_ROLE_GUARDIA = re.compile(r"\b(guardias?|oficial(?:es)?|alguacil(?:es)?|ayudantes?|carceler[oa]s?|celador(?:es|as)?|"
-                           r"sargentos?|sgt|capit[aá]n|teniente|deput(?:y|ies)|vigilantes?|custodios?)\b", re.I)
+# F21: sin la dicotomía preso/guardia de Orleans. Las clases son las del perfil del caso: `roles_testigo` y
+# `roles_antagonista` (`research_v3.vocabulario()`, las mismas que lee el research). Sin perfil, ninguna: (b) no
+# evalúa nada.
+def _roles() -> dict[str, list[str]]:
+    from researcher_steps.research_v3 import vocabulario
+    from script_engine import nombres
+    v = vocabulario()
+    return {k: sorted({nombres.norm(r) for r in v.get(f"roles_{k}") or [] if nombres.norm(r)}, key=len, reverse=True)
+            for k in ("testigo", "antagonista")}
+
+
+def _alt(words: list[str]) -> str:
+    return "|".join(re.escape(w) for w in words)
 
 
 def role_class(text: str | None) -> str | None:
-    """«preso» o «guardia» según el rol escrito (pool o narración); None si no es ninguno (abogada, alcalde)."""
-    t = str(text or "")
-    g, p = _ROLE_GUARDIA.search(t), _ROLE_PRESO.search(t)
-    if g and p:                                     # «oficial que custodiaba presos»: manda la primera palabra de rol
-        return "guardia" if g.start() < p.start() else "preso"
-    return "guardia" if g else "preso" if p else None
+    """«testigo» o «antagonista» según el rol escrito (pool o narración), con las palabras del perfil del caso; None si
+    no es ninguno o si no hay perfil."""
+    from script_engine import nombres
+    r = _roles()
+    t = nombres.norm(text)
+    found = []
+    for k in ("testigo", "antagonista"):
+        if r[k]:
+            m = re.search(rf"(?<![^\W\d_])(?:{_alt(r[k])})(?![^\W\d_])", t)
+            if m:
+                found.append((m.start(), k))
+    return min(found)[1] if found else None            # las dos: manda la primera palabra de rol
 
 
-_ROLE_BEFORE = re.compile(r"\b(?:el|la|los|las|un|una)\s+((?:\w+\s+){0,1}?(?:" + _ROLE_PRESO.pattern[3:-3] + "|"
-                          + _ROLE_GUARDIA.pattern[3:-3] + r"))(?:\s+del?\s+\w+)?\s*$", re.I)
+def _role_before() -> re.Pattern | None:
+    r = _roles()
+    words = r["testigo"] + r["antagonista"]
+    if not words:
+        return None
+    return re.compile(r"\b(?:el|la|los|las|un|una)\s+((?:\w+\s+){0,1}?(?:" + _alt(words) + r"))(?:\s+del?\s+\w+)?\s*$",
+                      re.I)
 
 
-_ROLE_AFTER = re.compile(r"\s*,\s*(?:el|la|un|una)\s+((?:\w+\s+){0,1}?(?:" + _ROLE_PRESO.pattern[3:-3] + "|"
-                         + _ROLE_GUARDIA.pattern[3:-3] + r"))\b", re.I)
+def _role_after() -> re.Pattern | None:
+    r = _roles()
+    words = r["testigo"] + r["antagonista"]
+    if not words:
+        return None
+    return re.compile(r"\s*,\s*(?:el|la|un|una)\s+((?:\w+\s+){0,1}?(?:" + _alt(words) + r"))(?![^\W\d_])", re.I)
 
 
 def role_problems(text: str, pool: dict[str, Any]) -> list[str]:
     """El rol con que la narración presenta a quien habla tiene que ser su rol en el pool (preso / guardia):
     «la reclusa Rhonda Ducre» (es guardia), «un guardia lo describió: «…»» (la cita es de un preso)."""
+    from script_engine import nombres
     out = []
     people = pool.get("personajes") or []
+    before_re, after_re = _role_before(), _role_after()
+    if before_re is None:                               # sin perfil del caso: (b) no evalúa nada
+        return []
+    low = nombres.norm(text)
     for p in people:
         want = role_class(p.get("rol"))
         if not want:
             continue
-        from researcher_steps.research_v3 import name_terms
-        terms = name_terms(p, people)
-        low = ev.norm(text)
+        terms = nombres.terminos(p, people)
         for t in terms:
-            for m in re.finditer(rf"\b{re.escape(t)}\b", low):
+            for m in re.finditer(rf"(?<![^\W\d_]){re.escape(t)}(?![^\W\d_])", low):
                 before = low[max(0, m.start() - 45):m.start()]
-                rm = _ROLE_BEFORE.search(before)
+                rm = before_re.search(before)
                 got = role_class(rm.group(1)) if rm else None
                 if got and got != want:
                     out.append(f"«{rm.group(0).strip()} {p['nombre']}»: en el pool es {p.get('rol')} ({want})")
                 after = low[m.end():m.end() + 40]                 # en aposición: «Brady Richard, un preso,»
-                am = _ROLE_AFTER.match(after)
+                am = after_re.match(after)
                 got = role_class(am.group(1)) if am else None
                 if got and got != want:
                     out.append(f"«{p['nombre']}{am.group(0).rstrip()}»: en el pool es {p.get('rol')} ({want})")
@@ -334,13 +347,13 @@ def role_problems(text: str, pool: dict[str, Any]) -> list[str]:
                                                    or nq in ev.norm(c.get("fragmento") or ""))), None)
             if not src:
                 continue
-            per = next((x for x in people if (src.get("autor") or "") and ev.norm(x["nombre"]).split()[-1:]
-                        == ev.norm(src.get("autor") or "").split()[-1:]), None)
+            per = next((x for x in people if (src.get("autor") or "") and nombres.misma(x["nombre"], src.get("autor"))),
+                       None)
             want = role_class(src.get("rol")) or role_class(src.get("autor")) or role_class((per or {}).get("rol"))
             intro = s.split("«")[0].split("“")[0]
             got = role_class(intro)
-            if want and got and got != want and not any(ev.norm(w) in ev.norm(intro) for w in
-                                                         (src.get("autor") or "").split()[-1:]):
+            sur = nombres.apellido(src.get("autor") or "")
+            if want and got and got != want and not (sur and nombres.menciona(intro, sur)):
                 out.append(f"«{intro.strip()[:60]}» presenta la cita {src['id']} con otro rol: en el pool es de "
                            f"{src.get('autor')} ({src.get('rol') or want})")
     return list(dict.fromkeys(out))
@@ -397,8 +410,9 @@ def antagonist_problems(caps: list[dict], esc: dict, pool: dict[str, Any]) -> li
 
 # ── 4. sin fotos en ningún cap ────────────────────────────────────────────────
 
-_PHOTO_ANY = re.compile(r"\b(fotos?|fotograf\w*|fot[oó]graf[oa]s?|im[aá]gen(?:es)?|c[aá]maras?|retrat\w+|"
-                        r"instant[aá]neas?)\b", re.I)
+# F21: solo la foto; «cámara», «imagen», «retrato», «instantánea» pueden ser hechos («la cámara de reacción», «la imagen
+# satelital»)
+_PHOTO_ANY = re.compile(r"\b(fotos?|fotograf\w*|fot[oó]graf[oa]s?)\b", re.I)
 
 
 def photo_problems(caps: list[dict]) -> list[str]:

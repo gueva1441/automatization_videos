@@ -39,9 +39,9 @@ FILLER_RUN_MAX = 2                     # oraciones seguidas que califican sin da
 
 FORBIDDEN_FILLER = ("imaginen", "una eternidad de", "cámara de tortura", "coloso de", "manto oscuro",
                     "infierno personal", "eco fantasmal", "sombra inalcanzable", "tragedia íntima",
-                    # F5c (analista): el relleno que apareció en las v2 de F5b
-                    "manto de", "el monstruo", "infierno flotante", "velo de misterio", "ecos de",
-                    "alfombra de la negación", "sentencia de abandono", "trampa brutal")
+                    # F5c (analista): el relleno que apareció en las v2 de F5b. F21: fuera «manto de», «el
+                    # monstruo», «infierno flotante» y «ecos de» (de caso: «manto de nieve», «ecos de radio»)
+                    "velo de misterio", "alfombra de la negación", "sentencia de abandono", "trampa brutal")
 _REPEAT_TIPOS = {"cifra", "magnitud", "fecha", "contradiccion"}
 _STOP = {"de", "del", "la", "las", "el", "los", "un", "una", "unos", "unas", "y", "o", "e", "en", "a", "al", "que",
          "por", "con", "para", "sin", "se", "su", "sus", "lo", "le", "les", "es", "fue", "era", "como", "más", "muy",
@@ -151,8 +151,9 @@ def silent_names(text: str, pool: dict[str, Any] | None) -> list[str]:
     out = []
     for d in (pool or {}).get("_descartados") or []:
         if d.get("kind") == "personajes":
-            sur = ev._surname(d["texto"])
-            if sur and re.search(rf"\b{re.escape(ev.norm(sur))}\b", ev.norm(text)):
+            from script_engine import nombres
+            sur = nombres.apellido(d["texto"])                         # F21: nombres.py
+            if sur and nombres.menciona(text, sur):
                 out.append(d["texto"])
     return out
 
@@ -209,18 +210,20 @@ def closing_hits_cliffhanger(text: str, it: dict[str, Any] | None) -> list[str]:
 
 
 def names_with_role(text: str, person: dict[str, Any]) -> tuple[bool, bool]:
-    """(nombrado por nombre y apellido, con cargo cerca de la 1.ª mención)."""
-    ws = [w for w in re.findall(r"[A-Za-zÁÉÍÓÚÑáéíóúñ]+", person["nombre"]) if len(w) > 1 and w[:1].isupper()
-          and w.lower() not in {"jr", "sr"}]
-    if not ws:
+    """(nombrado por nombre y apellido, con cargo cerca de la 1.ª mención). F21: nombre y apellido de `nombres.clave`
+    (cualquier alfabeto, sin cargos ni partículas)."""
+    from script_engine import nombres
+    first, last = nombres.clave(person["nombre"])
+    if not last:
         return False, False
-    first, last = ws[0], ws[-1]
-    t = ev.norm(text)
-    m = re.search(rf"\b{re.escape(ev.norm(first))}\b(?:\s+\w\.?)?\s+{re.escape(ev.norm(last))}\b", t)
-    if not m:
+    t = nombres.norm(text)
+    w = r"(?<![^\W\d_])"
+    pat = (rf"{w}{re.escape(first)}(?![^\W\d_])(?:\s+\w+\.?)?\s+" if first else w) + rf"{re.escape(last)}(?![^\W\d_])"
+    m = re.search(pat, t)
+    if not m or not first:
         return False, False
-    role_words = [w for w in re.findall(r"[a-záéíóúñ]{4,}", ev.norm(person.get("rol") or ""))
-                  if w not in _STOP][:3]
+    role_words = [x for x in re.findall(r"[^\W\d_]{4,}", nombres.norm(person.get("rol") or ""))
+                  if x not in _STOP][:3]
     ctx = t[max(0, m.start() - 70):m.end() + 70]
     return True, (not role_words) or any(w in ctx for w in role_words)
 

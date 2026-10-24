@@ -158,7 +158,12 @@ def test_bloqueantes_a_b_d_e():
     ps[4]["texto"] += " En Rosario el fuego dejó 194 muertos."                                   # d (y a)
     ps[5]["texto"] += " Nelson Astigarraga contó: «Cerraron las puertas para que nadie saliera sin pagar»."  # e
     ps[6]["texto"] += " Liz Torres lo contó: «Era como estar dentro de un horno, con las cenizas»."  # humano: no es e
-    bl = g4.bloqueantes(TOPIC, esc, ps, largo="objetivo")       # F15: el default es abierto
+    from researcher_steps import research_v3 as r3            # F21: (b) usa los roles del perfil del caso
+    r3.set_vocabulario({"roles_testigo": ["sobreviviente", "cliente"], "roles_antagonista": ["guardia", "dueño"]})
+    try:
+        bl = g4.bloqueantes(TOPIC, esc, ps, largo="objetivo")   # F15: el default es abierto
+    finally:
+        r3.set_vocabulario(None)
     by = {(x["codigo"], x["beat"]) for x in bl}
     assert ("a", 2) in by and ("a", 3) in by and ("b", 4) in by and ("d", 5) in by and ("e", 6) in by
     assert not any(x["beat"] == 7 for x in bl)
