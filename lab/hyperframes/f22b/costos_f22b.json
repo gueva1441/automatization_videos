@@ -1,0 +1,100 @@
+{
+ "etapas": [
+  {
+   "corrida": "prueba_llave",
+   "modelo": "claude-opus-5-5",
+   "usd": 0.000148,
+   "segundos": 0,
+   "llamadas": [
+    {
+     "servicio": "Anthropic claude-opus-5-5",
+     "desc": "prueba 10 tokens",
+     "in": 17,
+     "out": 4,
+     "usd": 0.000148
+    }
+   ]
+  },
+  {
+   "corrida": "sol52a",
+   "modelo": "gpt-6.1-sol",
+   "usd": 0.0968,
+   "segundos": 154.2,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 6165,
+     "out": 1785,
+     "thinking": 6657,
+     "usd": 0.0968
+    }
+   ]
+  },
+  {
+   "corrida": "sol52b",
+   "modelo": "gpt-6.1-sol",
+   "usd": 0.1372,
+   "segundos": 209.8,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 6165,
+     "out": 1736,
+     "thinking": 10753,
+     "usd": 0.1372
+    }
+   ]
+  },
+  {
+   "corrida": "sol51",
+   "modelo": "gpt-6.1-sol",
+   "usd": 0.1209,
+   "segundos": 204.3,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 6084,
+     "out": 1659,
+     "thinking": 9218,
+     "usd": 0.1209
+    }
+   ]
+  },
+  {
+   "corrida": "opus52a",
+   "modelo": "claude-opus-5-5",
+   "usd": 0.3261,
+   "segundos": 140.0,
+   "llamadas": [
+    {
+     "servicio": "Anthropic claude-opus-5-5",
+     "desc": "guion_v4 guionista",
+     "in": 10562,
+     "out": 14191,
+     "thinking": 0,
+     "usd": 0.3261
+    }
+   ]
+  },
+  {
+   "corrida": "opus52b",
+   "modelo": "claude-opus-5-5",
+   "usd": 0.3086,
+   "segundos": 132.1,
+   "llamadas": [
+    {
+     "servicio": "Anthropic claude-opus-5-5",
+     "desc": "guion_v4 guionista",
+     "in": 10562,
+     "out": 13318,
+     "thinking": 0,
+     "usd": 0.3086
+    }
+   ]
+  }
+ ],
+ "usd_total": 0.9897
+}

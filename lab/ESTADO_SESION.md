@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-24 (F22: ejemplos de un caso inventado en los 4 prompts, antagonista persona/institución/ninguno, nombre en documento; Ycuá 0 bloqueantes pero 838 palabras; Kyshtym llega a guion con 1 bloqueante → PARADA; US$ 1.467) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-24 (F22b: (a) acepta las cifras que recibió el guionista; claude_helpers + --modelo claude-opus-5-5; 5 guiones de Ycuá sobre la escaleta de F22, todos 0 bloqueantes; US$ 0.990) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,13 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F22b — Corrector de cifras «recibidas», Claude Opus 5.5 en el guion v4, cinco guiones de Ycuá — HECHO, **PARADA**
+- Sobre `ed55399`. Reporte `lab/hyperframes/f22b/F22b_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), tabla `tabla_f22b.md`, runner `f22b_corridas.py`, prueba de la llave `prueba_llave.py`.
+- (a): `invented_numbers(recibido=)` + `guion_v4.datos_recibidos` (líneas con [id] del bloque <escaleta>, sin ids) → el «1982» de Kyshtym F22 ya no es bloqueante (su guion de F22 pasa con 0).
+- `claude_helpers.py` (Messages API por HTTP, `anthropic-version` 2026-10-21, llave de `.env` ANTHROPIC_API_KEY, nunca impresa; PRICES Opus 5.5 4/20, Sonnet 5.5 2/10); `--modelo claude-opus-5-5` (effort high) en `fase1_5` y `guion_v4.call_for`. Prueba de 10 tokens: HTTP 200.
+- Corridas (misma escaleta de F22, solo guion, 0 bloqueantes todas): Sol v5.2 939 / 846 palabras; Sol v5.1 (`f15b-1`, el pedido decía `f15-1`, que es el v5) 803; Opus 5.5 v5.2 1,144 / 1,159. **La caída de largo de F22 viene de la escaleta, no del v5.2.** Cero Cardal. US$ 0.9897 de 4.00.
+- Tests `test_module_f22b.py` (8); suite amplia 803 verdes + las 5 previas. Sin merge.
 
 ## F22 — Familias C + E (ejemplos de Puerto Cardal, antagonista de tres tipos) y nombre en documento — HECHO, **PARADA** (el analista revisa el diff de prompts y lee las dos cadenas)
 - Sobre `8be0ea9`. Handoff `lab/hyperframes/f22/HANDOFF_F22_ejemplos_y_antagonista.md` (md5 2685deec…, con sus 5 archivos verificados). Reporte `lab/hyperframes/f22/F22_REPORT.md` (diff línea a línea de los 4 prompts; revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f22.html` (teléfono OK). Runner `f22_corridas.py`, página `f22_compara.py`, diff `f22_diffs.py`, `cero_cardal.py`. `_transfer_tmp/` borrado.

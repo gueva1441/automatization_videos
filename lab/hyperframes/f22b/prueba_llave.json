@@ -1,0 +1,11 @@
+{
+ "http": 200,
+ "modelo": "claude-opus-5-5",
+ "stop_reason": "end_turn",
+ "texto": "ok",
+ "usage": {
+  "input_tokens": 17,
+  "output_tokens": 4
+ },
+ "usd": 0.000148
+}

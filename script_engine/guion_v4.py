@@ -47,9 +47,12 @@ PROMPT_VERSION_ABIERTO = "f13-1"     # F13: f11c-1 con largo abierto (sin cifras
 LARGOS = ("objetivo", "abierto")     # F13 §1: `objetivo` = lo de F11c (byte-idéntico); `abierto` = sin largo
 CAP_TOL = 0.25                       # (c) cap fuera de ±25 % de su objetivo
 REGEN_GUARD = ("cifras", "nombres", "citas")   # F11b §1.2: la regeneración de un cap corto permite prosa y adjetivos
-MODELOS = ("gemini-pro", "gpt-6.1-sol", "gpt-6-astra", "gemini-4-argon")   # F11b §1.3 / F11c §1.2: `--modelo`
+MODELOS = ("gemini-pro", "gpt-6.1-sol", "gpt-6-astra", "gemini-4-argon",   # F11b §1.3 / F11c §1.2: `--modelo`
+           "claude-opus-5-5")                                               # F22b: Opus 5.5 (claude_helpers)
 GEMINI_PROPIOS = ("gemini-4-argon",)  # F11c §1.2: modelo propio del guionista (gemini_model_research no cambia)
-ESFUERZO = {"gpt-6.1-sol": "high"}   # F11b §2: Sol en esfuerzo high; Astra, el de la API por defecto
+CLAUDE = ("claude-opus-5-5",)         # F22b: Messages API de Anthropic
+# F11b §2: Sol en esfuerzo high; Astra, el de la API por defecto. F22b: Opus 5.5 en high, como Sol (su defecto es medium)
+ESFUERZO = {"gpt-6.1-sol": "high", "claude-opus-5-5": "high"}
 DEFAULT_MODELO = "gpt-6.1-sol"       # F12 §1 (decisión de Omar): sin `--modelo`, el guion v4 es Sol en esfuerzo high
 DIAS = ("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo")
 
@@ -625,6 +628,9 @@ def call_for(modelo: str | None) -> Callable[..., dict]:
     if modelo in GEMINI_PROPIOS:
         import gemini_helpers
         return gemini_helpers.make_call(modelo)
+    if modelo in CLAUDE:                             # F22b
+        import claude_helpers
+        return claude_helpers.make_call(modelo, ESFUERZO.get(modelo))
     import gpt_helpers
     return gpt_helpers.make_call(modelo, ESFUERZO.get(modelo))
 
@@ -726,11 +732,24 @@ def pool_sin_rescatados(pool: dict, ficha: dict | None) -> dict:
     return {**pool, "_descartados": [d for d in pool.get("_descartados") or [] if not rescued(d)]}
 
 
+_ID_DATO = re.compile(r"\[[DTQPL]\d+\]")
+
+
+def datos_recibidos(esc: dict, pool: dict, ficha: dict | None = None, largo: str = "abierto",
+                    version: str = PROMPT_VERSION) -> str:
+    """F22b: las líneas de datos del bloque <escaleta> que recibió el guionista (las que llevan un «[id]»: texto de la
+    ficha o del pool, marcas VERSIÓN DE / PANTALLA, fuente), sin los ids. Los números de estructura («BEAT 5»,
+    «intensidad 4») no entran."""
+    sec = escaleta_section_v5(esc, pool, ficha) if version in VERSIONES_V5 else escaleta_section(esc, pool, largo, ficha)
+    return "\n".join(_ID_DATO.sub(" ", ln) for ln in sec.splitlines() if _ID_DATO.search(ln))
+
+
 def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "abierto",
-                ficha: dict | None = None) -> list[dict]:
+                ficha: dict | None = None, version: str = PROMPT_VERSION) -> list[dict]:
     """[{codigo, cap, beat, frase, motivo}] — lo único que frena. Lista vacía = pasa.
     F13: con `largo="abierto"` no se evalúa el cap fuera de ±25 % de su objetivo (quedan beat faltante, cap vacío y
-    el tope `max_words`)."""
+    el tope `max_words`).
+    F22b: (a) acepta las cifras de las líneas de datos que recibió el guionista (`datos_recibidos`, según `version`)."""
     from script_engine.guion_v3_reglas import role_problems
     from script_engine.m05_narrative import contamination, false_quotes, invented_numbers
     from script_engine.video_length import get as _len
@@ -738,10 +757,11 @@ def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "abie
     pool_j = pool_con_traducciones(pool, ficha)              # F21 (F): los jueces leen lo que dice la voz
     facts = topic.get("verified_facts") or []
     pool_d = pool_sin_rescatados(pool, ficha)                # F15 §1.4: (d) mira la ficha
+    recibido = datos_recibidos(esc, pool, ficha, largo, version)
     out: list[dict] = []
     for p in parrafos:
         t = p["texto"]
-        for x in invented_numbers(t, pool, facts):
+        for x in invented_numbers(t, pool, facts, recibido):
             out.append(_b("a", p, _sentence_with(t, x), f"cifra que no está en el research: {x}"))
         for x in false_quotes(t, pool_j):
             out.append(_b("a", p, _sentence_with(t, x[:40]), f"entre comillas, pero no es una cita del pool: «{x}…»"))

@@ -1,0 +1,666 @@
+{
+ "sol52a": {
+  "modelo": "gpt-6.1-sol · v5.2",
+  "palabras": 939,
+  "minutos": 7.6,
+  "bloqueantes": 0,
+  "bloqueantes_lista": [],
+  "citas": 7,
+  "personas": [
+   "Alfredo Vallovera",
+   "Antonio Morínigo",
+   "Beatriz González",
+   "Benedicto Pérez",
+   "Daniel Areco",
+   "Digna Felicia Cáceres",
+   "Juan Pío Helvidio Paiva Escobar",
+   "Liz Torres",
+   "Luis Escobar Faella",
+   "Nelson Astigarraga",
+   "Tatiana Gabaglio",
+   "Víctor Daniel Paiva",
+   "Víctor Galeano"
+  ],
+  "cierre": "pregunta",
+  "usd": 0.0968,
+  "por_cap": {
+   "1": {
+    "palabras": 90,
+    "personas": [
+     "Liz Torres"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "2": {
+    "palabras": 99,
+    "personas": [
+     "Alfredo Vallovera",
+     "Benedicto Pérez"
+    ],
+    "citas": 0,
+    "bloqueantes": 0
+   },
+   "3": {
+    "palabras": 119,
+    "personas": [
+     "Beatriz González"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "4": {
+    "palabras": 109,
+    "personas": [
+     "Digna Felicia Cáceres",
+     "Víctor Galeano"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "5": {
+    "palabras": 109,
+    "personas": [
+     "Tatiana Gabaglio"
+    ],
+    "citas": 2,
+    "bloqueantes": 0
+   },
+   "6": {
+    "palabras": 158,
+    "personas": [
+     "Nelson Astigarraga"
+    ],
+    "citas": 0,
+    "bloqueantes": 0
+   },
+   "7": {
+    "palabras": 255,
+    "personas": [
+     "Antonio Morínigo",
+     "Daniel Areco",
+     "Juan Pío Helvidio Paiva Escobar",
+     "Luis Escobar Faella",
+     "Víctor Daniel Paiva",
+     "Víctor Galeano"
+    ],
+    "citas": 2,
+    "bloqueantes": 0
+   }
+  }
+ },
+ "sol52b": {
+  "modelo": "gpt-6.1-sol · v5.2",
+  "palabras": 846,
+  "minutos": 6.9,
+  "bloqueantes": 0,
+  "bloqueantes_lista": [],
+  "citas": 7,
+  "personas": [
+   "Alfredo Vallovera",
+   "Antonio Morínigo",
+   "Beatriz González",
+   "Benedicto Pérez",
+   "Digna Felicia Cáceres",
+   "Juan Pío Helvidio Paiva Escobar",
+   "Liz Torres",
+   "Luis Escobar Faella",
+   "Nelson Astigarraga",
+   "Tatiana Gabaglio",
+   "Víctor Galeano"
+  ],
+  "cierre": "pregunta",
+  "usd": 0.1372,
+  "por_cap": {
+   "1": {
+    "palabras": 84,
+    "personas": [
+     "Liz Torres"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "2": {
+    "palabras": 92,
+    "personas": [
+     "Alfredo Vallovera",
+     "Benedicto Pérez"
+    ],
+    "citas": 0,
+    "bloqueantes": 0
+   },
+   "3": {
+    "palabras": 119,
+    "personas": [
+     "Beatriz González"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "4": {
+    "palabras": 106,
+    "personas": [
+     "Digna Felicia Cáceres",
+     "Víctor Galeano"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "5": {
+    "palabras": 107,
+    "personas": [
+     "Tatiana Gabaglio"
+    ],
+    "citas": 2,
+    "bloqueantes": 0
+   },
+   "6": {
+    "palabras": 143,
+    "personas": [
+     "Nelson Astigarraga"
+    ],
+    "citas": 0,
+    "bloqueantes": 0
+   },
+   "7": {
+    "palabras": 195,
+    "personas": [
+     "Antonio Morínigo",
+     "Juan Pío Helvidio Paiva Escobar",
+     "Luis Escobar Faella"
+    ],
+    "citas": 2,
+    "bloqueantes": 0
+   }
+  }
+ },
+ "sol51": {
+  "modelo": "gpt-6.1-sol · v5.1",
+  "palabras": 803,
+  "minutos": 6.5,
+  "bloqueantes": 0,
+  "bloqueantes_lista": [],
+  "citas": 7,
+  "personas": [
+   "Alfredo Vallovera",
+   "Antonio Morínigo",
+   "Beatriz González",
+   "Benedicto Pérez",
+   "Daniel Areco",
+   "Digna Felicia Cáceres",
+   "Juan Pío Helvidio Paiva Escobar",
+   "Liz Torres",
+   "Luis Escobar Faella",
+   "Nelson Astigarraga",
+   "Tatiana Gabaglio",
+   "Víctor Daniel Paiva",
+   "Víctor Galeano"
+  ],
+  "cierre": "pregunta",
+  "usd": 0.1209,
+  "por_cap": {
+   "1": {
+    "palabras": 79,
+    "personas": [
+     "Liz Torres"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "2": {
+    "palabras": 91,
+    "personas": [
+     "Alfredo Vallovera",
+     "Benedicto Pérez"
+    ],
+    "citas": 0,
+    "bloqueantes": 0
+   },
+   "3": {
+    "palabras": 108,
+    "personas": [
+     "Beatriz González"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "4": {
+    "palabras": 102,
+    "personas": [
+     "Digna Felicia Cáceres",
+     "Víctor Galeano"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "5": {
+    "palabras": 85,
+    "personas": [
+     "Tatiana Gabaglio"
+    ],
+    "citas": 2,
+    "bloqueantes": 0
+   },
+   "6": {
+    "palabras": 130,
+    "personas": [
+     "Nelson Astigarraga"
+    ],
+    "citas": 0,
+    "bloqueantes": 0
+   },
+   "7": {
+    "palabras": 208,
+    "personas": [
+     "Antonio Morínigo",
+     "Daniel Areco",
+     "Juan Pío Helvidio Paiva Escobar",
+     "Luis Escobar Faella",
+     "Víctor Daniel Paiva"
+    ],
+    "citas": 2,
+    "bloqueantes": 0
+   }
+  }
+ },
+ "opus52a": {
+  "modelo": "claude-opus-5-5 · v5.2",
+  "palabras": 1144,
+  "minutos": 9.3,
+  "bloqueantes": 0,
+  "bloqueantes_lista": [],
+  "citas": 9,
+  "personas": [
+   "Alfredo Vallovera",
+   "Antonio Morínigo",
+   "Beatriz González",
+   "Benedicto Pérez",
+   "Daniel Areco",
+   "Digna Felicia Cáceres",
+   "Juan Pío Helvidio Paiva Escobar",
+   "Liz Torres",
+   "Luis Escobar Faella",
+   "Nelson Astigarraga",
+   "Tatiana Gabaglio",
+   "Víctor Daniel Paiva",
+   "Víctor Galeano"
+  ],
+  "cierre": "pregunta",
+  "usd": 0.3261,
+  "por_cap": {
+   "1": {
+    "palabras": 130,
+    "personas": [
+     "Liz Torres"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "2": {
+    "palabras": 126,
+    "personas": [
+     "Alfredo Vallovera",
+     "Benedicto Pérez",
+     "Liz Torres"
+    ],
+    "citas": 0,
+    "bloqueantes": 0
+   },
+   "3": {
+    "palabras": 145,
+    "personas": [
+     "Beatriz González"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "4": {
+    "palabras": 146,
+    "personas": [
+     "Digna Felicia Cáceres",
+     "Víctor Galeano"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "5": {
+    "palabras": 106,
+    "personas": [
+     "Liz Torres",
+     "Tatiana Gabaglio"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "6": {
+    "palabras": 215,
+    "personas": [
+     "Alfredo Vallovera",
+     "Digna Felicia Cáceres",
+     "Liz Torres",
+     "Nelson Astigarraga",
+     "Tatiana Gabaglio"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "7": {
+    "palabras": 276,
+    "personas": [
+     "Antonio Morínigo",
+     "Daniel Areco",
+     "Digna Felicia Cáceres",
+     "Juan Pío Helvidio Paiva Escobar",
+     "Liz Torres",
+     "Luis Escobar Faella",
+     "Tatiana Gabaglio",
+     "Víctor Daniel Paiva",
+     "Víctor Galeano"
+    ],
+    "citas": 4,
+    "bloqueantes": 0
+   }
+  }
+ },
+ "opus52b": {
+  "modelo": "claude-opus-5-5 · v5.2",
+  "palabras": 1159,
+  "minutos": 9.4,
+  "bloqueantes": 0,
+  "bloqueantes_lista": [],
+  "citas": 8,
+  "personas": [
+   "Alfredo Vallovera",
+   "Antonio Morínigo",
+   "Beatriz González",
+   "Benedicto Pérez",
+   "Daniel Areco",
+   "Digna Felicia Cáceres",
+   "Juan Pío Helvidio Paiva Escobar",
+   "Liz Torres",
+   "Luis Escobar Faella",
+   "Nelson Astigarraga",
+   "Tatiana Gabaglio",
+   "Víctor Daniel Paiva",
+   "Víctor Galeano"
+  ],
+  "cierre": "pregunta",
+  "usd": 0.3086,
+  "por_cap": {
+   "1": {
+    "palabras": 136,
+    "personas": [
+     "Liz Torres"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "2": {
+    "palabras": 131,
+    "personas": [
+     "Alfredo Vallovera",
+     "Benedicto Pérez",
+     "Liz Torres"
+    ],
+    "citas": 0,
+    "bloqueantes": 0
+   },
+   "3": {
+    "palabras": 145,
+    "personas": [
+     "Beatriz González"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "4": {
+    "palabras": 136,
+    "personas": [
+     "Digna Felicia Cáceres",
+     "Víctor Galeano"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "5": {
+    "palabras": 171,
+    "personas": [
+     "Tatiana Gabaglio"
+    ],
+    "citas": 2,
+    "bloqueantes": 0
+   },
+   "6": {
+    "palabras": 164,
+    "personas": [
+     "Digna Felicia Cáceres",
+     "Nelson Astigarraga",
+     "Tatiana Gabaglio"
+    ],
+    "citas": 0,
+    "bloqueantes": 0
+   },
+   "7": {
+    "palabras": 276,
+    "personas": [
+     "Antonio Morínigo",
+     "Daniel Areco",
+     "Digna Felicia Cáceres",
+     "Juan Pío Helvidio Paiva Escobar",
+     "Liz Torres",
+     "Luis Escobar Faella",
+     "Tatiana Gabaglio",
+     "Víctor Daniel Paiva",
+     "Víctor Galeano"
+    ],
+    "citas": 3,
+    "bloqueantes": 0
+   }
+  }
+ },
+ "F22 (ref.)": {
+  "modelo": "gpt-6.1-sol · v5.2",
+  "palabras": 838,
+  "minutos": 6.8,
+  "bloqueantes": 0,
+  "bloqueantes_lista": [],
+  "citas": 7,
+  "personas": [
+   "Alfredo Vallovera",
+   "Antonio Morínigo",
+   "Beatriz González",
+   "Benedicto Pérez",
+   "Daniel Areco",
+   "Digna Felicia Cáceres",
+   "Juan Pío Helvidio Paiva Escobar",
+   "Liz Torres",
+   "Luis Escobar Faella",
+   "Nelson Astigarraga",
+   "Tatiana Gabaglio",
+   "Víctor Daniel Paiva",
+   "Víctor Galeano"
+  ],
+  "cierre": "pregunta",
+  "usd": null,
+  "por_cap": {
+   "1": {
+    "palabras": 82,
+    "personas": [
+     "Liz Torres"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "2": {
+    "palabras": 88,
+    "personas": [
+     "Alfredo Vallovera",
+     "Benedicto Pérez"
+    ],
+    "citas": 0,
+    "bloqueantes": 0
+   },
+   "3": {
+    "palabras": 112,
+    "personas": [
+     "Beatriz González"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "4": {
+    "palabras": 102,
+    "personas": [
+     "Digna Felicia Cáceres",
+     "Víctor Galeano"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "5": {
+    "palabras": 107,
+    "personas": [
+     "Tatiana Gabaglio"
+    ],
+    "citas": 2,
+    "bloqueantes": 0
+   },
+   "6": {
+    "palabras": 143,
+    "personas": [
+     "Nelson Astigarraga"
+    ],
+    "citas": 0,
+    "bloqueantes": 0
+   },
+   "7": {
+    "palabras": 204,
+    "personas": [
+     "Antonio Morínigo",
+     "Daniel Areco",
+     "Juan Pío Helvidio Paiva Escobar",
+     "Luis Escobar Faella",
+     "Víctor Daniel Paiva"
+    ],
+    "citas": 2,
+    "bloqueantes": 0
+   }
+  }
+ },
+ "F16 (ref.)": {
+  "modelo": "gpt-6.1-sol · v5.1 · escaleta F16",
+  "palabras": 1384,
+  "minutos": 11.3,
+  "bloqueantes": 0,
+  "bloqueantes_lista": [],
+  "citas": 9,
+  "personas": [
+   "Alejandro Nissen",
+   "Alfredo Vallovera",
+   "Beatriz González",
+   "Benedicto Pérez",
+   "Blas Cristaldo",
+   "Carlos Halke",
+   "Cristian Sosa",
+   "Daniel Areco",
+   "Digna Felicia Cáceres",
+   "Edgar Sánchez",
+   "Enrique Riera",
+   "Ismael Alcaraz",
+   "Juan Pío Helvidio Paiva Escobar",
+   "Liz Torres",
+   "Luis Escobar Faella",
+   "Martín Burt",
+   "María Estela Morínigo Giménez de Palacios",
+   "Nelson Astigarraga",
+   "Rubén Urbieta",
+   "Tatiana Gabaglio",
+   "Teresa Sosa",
+   "Teresa Urbieta",
+   "Víctor Galeano",
+   "Ángela Pujol"
+  ],
+  "cierre": "cita",
+  "usd": null,
+  "por_cap": {
+   "1": {
+    "palabras": 94,
+    "personas": [
+     "Liz Torres"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "2": {
+    "palabras": 129,
+    "personas": [
+     "Alfredo Vallovera",
+     "Blas Cristaldo",
+     "Teresa Urbieta",
+     "Ángela Pujol"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "3": {
+    "palabras": 295,
+    "personas": [
+     "Beatriz González",
+     "Benedicto Pérez",
+     "Carlos Halke",
+     "Cristian Sosa",
+     "Enrique Riera",
+     "Martín Burt",
+     "Víctor Galeano"
+    ],
+    "citas": 2,
+    "bloqueantes": 0
+   },
+   "4": {
+    "palabras": 177,
+    "personas": [
+     "Alejandro Nissen",
+     "Digna Felicia Cáceres",
+     "Tatiana Gabaglio",
+     "Víctor Galeano"
+    ],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "5": {
+    "palabras": 46,
+    "personas": [],
+    "citas": 1,
+    "bloqueantes": 0
+   },
+   "6": {
+    "palabras": 340,
+    "personas": [
+     "Cristian Sosa",
+     "Juan Pío Helvidio Paiva Escobar",
+     "Luis Escobar Faella",
+     "Nelson Astigarraga",
+     "Rubén Urbieta",
+     "Víctor Galeano"
+    ],
+    "citas": 0,
+    "bloqueantes": 0
+   },
+   "7": {
+    "palabras": 303,
+    "personas": [
+     "Daniel Areco",
+     "Digna Felicia Cáceres",
+     "Edgar Sánchez",
+     "Ismael Alcaraz",
+     "Juan Pío Helvidio Paiva Escobar",
+     "Luis Escobar Faella",
+     "María Estela Morínigo Giménez de Palacios",
+     "Teresa Sosa"
+    ],
+    "citas": 3,
+    "bloqueantes": 0
+   }
+  }
+ }
+}

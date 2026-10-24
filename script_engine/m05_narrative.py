@@ -380,11 +380,14 @@ def _sources_text(pool: dict[str, Any] | None, facts: list[Any] | None) -> str:
     return " ".join(parts)
 
 
-def invented_numbers(text: str, pool: dict[str, Any] | None, facts: list[Any] | None = None) -> list[str]:
+def invented_numbers(text: str, pool: dict[str, Any] | None, facts: list[Any] | None = None,
+                     recibido: str | None = None) -> list[str]:
     """F5c (dura): cifras en dígitos de la narración que no están en ninguna fuente (pool o verified_facts). Las
     fechas ISO del pool aportan su año y su día («2005-08-29» → 2005, 29). Las cifras dichas en palabras no se
-    controlan acá (las cuenta el juez cuando son de un dato)."""
-    src = _sources_text(pool, facts)
+    controlan acá (las cuenta el juez cuando son de un dato).
+    F22b: `recibido` = las líneas de datos que el guionista recibió (texto, marcas VERSIÓN DE / PANTALLA, fuente): una
+    cifra que está ahí no es inventada."""
+    src = _sources_text(pool, facts) + ("\n" + recibido if recibido else "")
     ok = {_num_key(t) for t in _NUM_TOK.findall(src)}
     ok |= {str(int(x)) for d in re.findall(r"\d{4}-(\d{2})-(\d{2})", src) for x in d}
     out = []
