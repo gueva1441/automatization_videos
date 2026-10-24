@@ -1,0 +1,34 @@
+{
+ "roles_testigo": [
+  "preso",
+  "prisionero",
+  "recluso",
+  "testigo",
+  "demandante",
+  "superviviente",
+  "periodista",
+  "abogado"
+ ],
+ "roles_antagonista": [
+  "sheriff",
+  "administración penitenciaria",
+  "autoridades locales",
+  "departamento de justicia",
+  "estado",
+  "gobierno de la ciudad",
+  "oficiales de la prisión",
+  "condado de Orleans"
+ ],
+ "sustantivos_conteo": [
+  "presos",
+  "reclusos",
+  "prisioneros",
+  "víctimas",
+  "testimonios",
+  "demandantes",
+  "supervivientes",
+  "afectados",
+  "evacuados"
+ ],
+ "_f20": "vocabulario del caso, sin research (F20 §2.1)"
+}

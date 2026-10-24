@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-24 (F19 Kyshtym con cirílico: pool 175 → 302, pero compuerta ROJA por 0 humanos elegibles → PARADA en el research, sin guion; US$ 0.932) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-24 (F20 parte 1: el research se adapta al tema; Kyshtym ROJO → VERDE con 4 elegibles, Orleans e Ycuá verde y verde; US$ 1.013 → PARADA antes de la parte 2) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,27 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F20 (parte 1 de 3) — El research se adapta al tema — HECHO, **PARADA** (el analista valida antes de la parte 2: que Orleans e Ycuá no empeoraron, que los elegibles de Kyshtym son los que la historia necesita y que las listas carcelarias ya no están en el código)
+- Handoff `lab/hyperframes/f20/HANDOFF_F20_research_por_tema.md`; `f20.b64` es la misma copia en gzip + base64 y no se commitea. Reporte `lab/hyperframes/f20/F20_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Runner `f20_corridas.py` (`recalculo`, `research`, `vocab_kyshtym`).
+- Código (solo `research_v3.py`):
+  - `seed_vocabulario` (1 Flash después de R1; esquema `{es, otras}` + `_formas` como lectura de formato) → `roles_testigo`, `roles_antagonista` y `sustantivos_conteo` en `_perfil.json`. `set_vocabulario` los aplica:
+    - R3 con los roles del perfil;
+    - `_TITLES` y `_NOT_PERSON` sin términos de tema (sheriff, deputy y alguacil siguen como cargos: declarado; el revisor lo marca como reinterpretación);
+    - conteo con los sustantivos del perfil, más «personas» y «víctimas».
+  - `download_sources`: 10 descargas por idioma (`fuente_idioma`).
+  - `person_stats`: elegible = no antagonista, sin un rol de `roles_antagonista` (el rol empieza con él), y cita propia verificada o ≥ 3 ítems; `presente_en_evento` queda informativo.
+  - Tests `test_module_f20.py` (8) y 4 tests de `test_module_f7.py` adaptados (fixture con el vocabulario de Orleans; Duncan pasa a elegible). Suite amplia 700 verdes + las 5 previas.
+- Resultado:
+  - **Orleans** verde → verde, elegibles 12 → 32 (no sale nadie; entran funcionarios como Blanco y Stalder); canónica 6,375 (se pierde la variante 6,500).
+  - **Ycuá** verde → verde, 15 → 32, sin canónica.
+  - **Kyshtym ROJO → VERDE** (208 / 20 / **4 elegibles**: Krestinina, Vazhenin, Medvedev, Tumerman / 22). Los testigos de la explosión (Osetrov, Komarov, Serov) y las voces en cirílico tienen citas verificadas, pero no son personajes: `evidence_pool.is_person` rechaza iniciales y cirílico. Queda para la parte 2.
+  - **US$ 1.013** (research Kyshtym 0.963 de 3.50).
+- Disco:
+  - Orleans e Ycuá: solo archivos `_f20` nuevos;
+  - Kyshtym: pool, perfil y fuentes de F20 (F19 en `00_pool_v3_f19.json` y `_f19/`; intento 1 respaldado);
+  - **el topic de Kyshtym en `topics_db` tiene el pool de F20** (respaldo `topics_db.pre_f20.json`).
+- Sin merge. **No seguir a ficha ni guion.**
 
 ## F19 — Kyshtym otra vez: cirílico en el research — HECHO, **PARADA en el research** (compuerta ROJA: 0 humanos elegibles; no corrió ficha, columna, escaleta ni guion)
 - Handoff `lab/hyperframes/f19/HANDOFF_F19_kyshtym_cirilico.md`. Reporte `lab/hyperframes/f19/F19_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f19.html` (embudo F18 | F19 por idioma; teléfono OK a 375 px). Runner `f19_corridas.py`, página `f19_compara.py`.

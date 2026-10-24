@@ -1,0 +1,43 @@
+{
+ "etapas": [
+  {
+   "etapa": "perfil orleans",
+   "usd": 0.0078,
+   "segundos": 13.5,
+   "llamadas": 1
+  },
+  {
+   "etapa": "perfil ycua",
+   "usd": 0.0144,
+   "segundos": 25.8,
+   "llamadas": 1
+  },
+  {
+   "etapa": "perfil orleans",
+   "usd": 0.0051,
+   "segundos": 9.0,
+   "llamadas": 1
+  },
+  {
+   "etapa": "perfil ycua",
+   "usd": 0.0095,
+   "segundos": 16.0,
+   "llamadas": 1
+  },
+  {
+   "etapa": "research kyshtym",
+   "usd": 0.9632,
+   "segundos": 830.6,
+   "llamadas": 17,
+   "color": "verde",
+   "error": null
+  },
+  {
+   "etapa": "perfil kyshtym (vocabulario, 2.º)",
+   "usd": 0.0125,
+   "segundos": 20.0,
+   "llamadas": 1
+  }
+ ],
+ "usd_total": 1.0125
+}

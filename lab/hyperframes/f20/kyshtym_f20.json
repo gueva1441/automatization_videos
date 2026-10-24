@@ -1,0 +1,504 @@
+{
+ "antes_f19": {
+  "color": "rojo",
+  "metricas": {
+   "datos": 174,
+   "citas_verificadas": 18,
+   "elegibles_humano": 0,
+   "eventos_con_fecha": 20
+  },
+  "motivos": [
+   "sin humano que seguir (pocos testigos elegibles)"
+  ],
+  "elegibles": [],
+  "canonicas": []
+ },
+ "despues": {
+  "color": "verde",
+  "metricas": {
+   "datos": 208,
+   "citas_verificadas": 20,
+   "elegibles_humano": 4,
+   "eventos_con_fecha": 22
+  },
+  "motivos": [],
+  "elegibles": [
+   "Lyudmila Krestinina",
+   "Andrei Vazhenin",
+   "Zhores Medvedev",
+   "Lev Tumerman"
+  ],
+  "canonicas": []
+ },
+ "error": null,
+ "personajes": [
+  {
+   "id": "P01",
+   "nombre": "Lyudmila Krestinina",
+   "rol": "Jefa del laboratorio de epidemiología del Centro Científico y Práctico de Medicina de Radiación de los Urales",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 2,
+   "n_datos": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true,
+   "docs": [
+    "F04"
+   ]
+  },
+  {
+   "id": "P02",
+   "nombre": "Andrei Vazhenin",
+   "rol": "Oncólogo jefe de la región de Chelyabinsk",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "n_datos": 0,
+   "presente_en_evento": false,
+   "elegible_humano": true,
+   "docs": [
+    "F04"
+   ]
+  },
+  {
+   "id": "P03",
+   "nombre": "Zhores Medvedev",
+   "rol": "Genetista soviético exiliado",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 2,
+   "n_datos": 11,
+   "presente_en_evento": true,
+   "elegible_humano": true,
+   "docs": [
+    "F11",
+    "F13",
+    "F18"
+   ]
+  },
+  {
+   "id": "P04",
+   "nombre": "Lev Tumerman",
+   "rol": "Científico soviético",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 2,
+   "n_datos": 3,
+   "presente_en_evento": false,
+   "elegible_humano": true,
+   "docs": [
+    "F11"
+   ]
+  },
+  {
+   "id": "P06",
+   "nombre": "Igor Vasil'evich Kurchatov",
+   "rol": "Padre de la ciencia atómica en la Unión Soviética",
+   "testigo": true,
+   "antagonista": true,
+   "n_citas": 0,
+   "n_datos": 3,
+   "presente_en_evento": false,
+   "elegible_humano": false,
+   "docs": [
+    "F11"
+   ]
+  },
+  {
+   "id": "P07",
+   "nombre": "N. V. Timofeyev-Resovskiy",
+   "rol": "Científico que realizó investigaciones radioecológicas",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "n_datos": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false,
+   "docs": [
+    "F11"
+   ]
+  },
+  {
+   "id": "P08",
+   "nombre": "Josef Stalin",
+   "rol": "Líder de la URSS",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "n_datos": 1,
+   "presente_en_evento": false,
+   "elegible_humano": false,
+   "docs": [
+    "F18"
+   ]
+  },
+  {
+   "id": "P09",
+   "nombre": "periódico Komsomolskaya Pravda",
+   "rol": null,
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "n_datos": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false,
+   "docs": [
+    "F13"
+   ]
+  }
+ ],
+ "citas": [
+  {
+   "id": "Q01",
+   "autor": "Lyudmila Krestinina",
+   "texto": "el riesgo de desarrollar cáncer en el área donde se propaga la nube radiactiva y en las orillas del río Techa es un 2,5% mayor que para las personas que no han estado expuestas a radiación adicional.",
+   "idioma": "en",
+   "doc_id": "F04",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q02",
+   "autor": "Lyudmila Krestinina",
+   "texto": "el 92% de la dosis fue recibida por las personas durante los dos primeros años, y ahora la mayoría de los territorios de la huella de radiación de los Urales Orientales son seguros e incluso están abiertos a la actividad económica.",
+   "idioma": "en",
+   "doc_id": "F04",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q03",
+   "autor": "Andrei Vazhenin",
+   "texto": "el cáncer es provocado no tanto por la radiación como por el tabaquismo y el alcohol, así como por la industria pesada de la región.",
+   "idioma": "en",
+   "doc_id": "F04",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q04",
+   "autor": "Андрей Талевлин",
+   "texto": "La población de aquellos pueblos y aldeas donde el reasentamiento se llevó a cabo parcialmente no recibe ayuda social. En la región de Cheliábinsk, estos son los pueblos de Brodokalmak y Nizhnepetropavlovskoye. La aldea de Russkaya Techa, ubicada entre ellos, quedó completamente privada de apoyo estatal. Parte de sus habitantes abandonaron la aldea, otros continúan viviendo en el territorio contaminado. Ninguno de ellos ha sido reconocido como víctima.",
+   "idioma": "?",
+   "doc_id": "F15",
+   "testimonio": false,
+   "verificada": false
+  },
+  {
+   "id": "Q05",
+   "autor": "Толстиков, Бочкарева",
+   "texto": "Como resultado de la liquidación de sus consecuencias, se adquirió por primera vez experiencia de tal magnitud.",
+   "idioma": "en",
+   "doc_id": "F03",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q06",
+   "autor": "В.Д. Камынин",
+   "texto": "incluso en nuestro tiempo, se mantiene el secreto de Estado sobre estos documentos, lo que dificulta su uso.",
+   "idioma": "en",
+   "doc_id": "F03",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q07",
+   "autor": "El exjefe médico del hospital de Kyshtym",
+   "texto": "consideraba que era un feto humano con una grave anomalía de desarrollo",
+   "idioma": "en",
+   "doc_id": "F10",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q08",
+   "autor": "Zhores Medvedev",
+   "texto": "la explosión arrojó polvo y materiales radiactivos a lo alto del cielo, ... Fuertes vientos soplaron las nubes radiactivas a cientos de millas de distancia. . . . Decenas de miles de personas se vieron afectadas, cientos murieron, aunque las cifras reales nunca se han hecho públicas.",
+   "idioma": "en",
+   "doc_id": "F11",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q09",
+   "autor": "Lev Tumerman",
+   "texto": "A unos 100 kilómetros de Sverdlovsk, una señal de tráfico advertía a los conductores que no se detuvieran durante los siguientes 20 o 30 kilómetros y que condujeran a máxima velocidad. A ambos lados de la carretera, hasta donde alcanzaba la vista, la tierra estaba 'muerta': ni pueblos, ni ciudades, solo las chimeneas de las casas destruidas, ni campos de cultivo o pastos, ni rebaños, ni gente... nada.",
+   "idioma": "en",
+   "doc_id": "F11",
+   "testimonio": true,
+   "verificada": false
+  },
+  {
+   "id": "Q10",
+   "autor": "Lev Tumerman",
+   "texto": "Lo que me dijeron muchas personas en Sverdlovsk y Belpyarsk fue que la lluvia radioactiva fue consecuencia de una gran explosión nuclear en una planta nuclear militar cerca de Kyshtym. Dijeron que muchas (quizás cientos) de personas murieron o resultaron heridas.",
+   "idioma": "en",
+   "doc_id": "F11",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q11",
+   "autor": "anuncios en la radio y periódicos",
+   "texto": "acusando a EE.UU. de transmitir veneno por el aire que era transportado por la lluvia que caía sobre todo el Óblast de Chelyabinsk, causando quemaduras a la gente y destruyendo árboles y vegetación.",
+   "idioma": "en",
+   "doc_id": "F11",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q12",
+   "autor": "Una antigua residente del Óblast de Chelyabinsk",
+   "texto": "Podíamos ver cómo se les desprendía la piel de la cara, las manos y otras partes expuestas del cuerpo. Estas víctimas de la explosión fueron traídas a este hospital durante la noche. Era una visión horrible.",
+   "idioma": "en",
+   "doc_id": "F11",
+   "testimonio": true,
+   "verificada": true
+  },
+  {
+   "id": "Q13",
+   "autor": "Guinness Book of World Records",
+   "texto": "Accidente con residuos nucleares: escape de residuos de plutonio. Kyshtym, URSS, aproximadamente en diciembre de 1957. Número de muertos: muchos, pero no revelado.",
+   "idioma": "?",
+   "doc_id": "F13",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q14",
+   "autor": "Zhores Medvedev",
+   "texto": "durante el accidente de 'Kyshtym' debió haber cientos de muertos",
+   "idioma": "?",
+   "doc_id": "F13",
+   "testimonio": false,
+   "verificada": false
+  },
+  {
+   "id": "Q15",
+   "autor": "periódico Komsomolskaya Pravda",
+   "texto": "El horror más global ocurrió en 1957, cuando cerca de Kyshtym explotó una planta secreta de producción de armas atómicas, matando a más gente que Chernóbil.",
+   "idioma": "?",
+   "doc_id": "F13",
+   "testimonio": false,
+   "verificada": false
+  },
+  {
+   "id": "Q16",
+   "autor": "V.M. Osetrov",
+   "texto": "estando junto al panel de instrumentos y sintiendo una fuerte sacudida de la tierra, escuchó un estruendo, y fue arrojado hacia afuera con las puertas.",
+   "idioma": "?",
+   "doc_id": "F13",
+   "testimonio": true,
+   "verificada": true
+  },
+  {
+   "id": "Q17",
+   "autor": "V.I. Komarov",
+   "texto": "después de la explosión fue lanzado por los aires y arrojado al suelo. Al levantarse y salir a la calle, vio que en el lugar donde se elevaba la colina del complejo S-3, había una alta columna de polvo blanco, detrás de la cual no se veía nada.",
+   "idioma": "?",
+   "doc_id": "F13",
+   "testimonio": true,
+   "verificada": true
+  },
+  {
+   "id": "Q18",
+   "autor": "I.F. Serov",
+   "texto": "En ese momento, en la zona de la planta 25, donde se encontraba el almacén de residuos radiactivos, se levantó una enorme columna de polvo marrón, que se dirigía hacia la ubicación del regimiento.",
+   "idioma": "?",
+   "doc_id": "F13",
+   "testimonio": true,
+   "verificada": true
+  },
+  {
+   "id": "Q19",
+   "autor": "Любовь Ладейщикова",
+   "texto": "los niños estaban muy contentos con lo que le pasaba al río: peces muertos flotaban panza arriba. Los atrapaban y los asaban con gusto en la orilla.",
+   "idioma": "?",
+   "doc_id": "F16",
+   "testimonio": true,
+   "verificada": true
+  },
+  {
+   "id": "Q20",
+   "autor": "Мама de Надежда Кутепова",
+   "texto": "el pescado que traían de la región de Chelyabinsk, cuando lo ponían sobre papel de rayos X, instantáneamente daba una imagen igual a una radiografía.",
+   "idioma": "?",
+   "doc_id": "F16",
+   "testimonio": true,
+   "verificada": true
+  },
+  {
+   "id": "Q21",
+   "autor": "médicos",
+   "texto": "Está todo claro, tu madre fue liquidadora",
+   "idioma": "?",
+   "doc_id": "F16",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q22",
+   "autor": "abogados de Rosatom",
+   "texto": "¿cómo se puede separar a la madre y al feto si son un todo único, y el feto se ve más afectado por factores nocivos? Fueron inflexibles: el individuo no existía, por lo tanto, no tiene derecho a ningún beneficio.",
+   "idioma": "?",
+   "doc_id": "F16",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q23",
+   "autor": "Jueza",
+   "texto": "Nadia, no queremos ni un solo precedente para que en la región las viudas de los liquidadores de 'Mayak' reciban algo de dinero",
+   "idioma": "?",
+   "doc_id": "F16",
+   "testimonio": false,
+   "verificada": true
+  },
+  {
+   "id": "Q24",
+   "autor": "Greenpeace 2007a",
+   "texto": "La planta nuclear de Mayak en los Urales del Sur fue uno de los secretos oscuros de la guerra fría. Era el principal complejo nuclear de la Unión Soviética, un enorme conjunto de reactores de producción de plutonio, instalaciones de producción de combustible y edificios de reprocesamiento y almacenamiento de residuos. En 1957 explotó un tanque de almacenamiento con residuos líquidos altamente radiactivos. Más de la mitad de la cantidad de residuos radiactivos liberados por el accidente de Chernóbil fue lanzada a la atmósfera. Unos pocos aldeanos fueron evacuados, pero la mayoría no. 217 ciudades y pueblos y al menos 272.000 personas quedaron expuestas a niveles crónicos de radiación. La pluma tenía 50 kilómetros de ancho y 1.000 kilómetros de largo. Pero la explosión no fue el único incidente de contaminación. Entre 1948 y 1956 se vertieron residuos radiactivos directamente en el río Techa, la fuente de agua potable para muchos pueblos. Expuso a 124.000 personas a niveles medios y altos de radiación. También se vertieron residuos nucleares en los lagos de Siberia Occidental, donde las tormentas arrastraron polvo nuclear por una vasta zona alrededor del lago.",
+   "idioma": "en",
+   "doc_id": "F19",
+   "testimonio": false,
+   "verificada": true
+  }
+ ],
+ "intento1": {
+  "despues": {
+   "color": "verde",
+   "metricas": {
+    "datos": 208,
+    "citas_verificadas": 20,
+    "elegibles_humano": 4,
+    "eventos_con_fecha": 22
+   },
+   "motivos": [],
+   "elegibles": [
+    "Lyudmila Krestinina",
+    "Andrei Vazhenin",
+    "Zhores Medvedev",
+    "Lev Tumerman"
+   ],
+   "canonicas": []
+  },
+  "personajes": [
+   {
+    "id": "P01",
+    "nombre": "Lyudmila Krestinina",
+    "rol": "Jefa del laboratorio de epidemiología del Centro Científico y Práctico de Medicina de Radiación de los Urales",
+    "testigo": false,
+    "antagonista": false,
+    "n_citas": 2,
+    "n_datos": 1,
+    "presente_en_evento": false,
+    "elegible_humano": true,
+    "docs": [
+     "F04"
+    ]
+   },
+   {
+    "id": "P02",
+    "nombre": "Andrei Vazhenin",
+    "rol": "Oncólogo jefe de la región de Chelyabinsk",
+    "testigo": false,
+    "antagonista": false,
+    "n_citas": 1,
+    "n_datos": 0,
+    "presente_en_evento": false,
+    "elegible_humano": true,
+    "docs": [
+     "F04"
+    ]
+   },
+   {
+    "id": "P03",
+    "nombre": "Zhores Medvedev",
+    "rol": "Genetista soviético exiliado",
+    "testigo": false,
+    "antagonista": false,
+    "n_citas": 2,
+    "n_datos": 11,
+    "presente_en_evento": true,
+    "elegible_humano": true,
+    "docs": [
+     "F11",
+     "F13",
+     "F18"
+    ]
+   },
+   {
+    "id": "P04",
+    "nombre": "Lev Tumerman",
+    "rol": "Científico soviético",
+    "testigo": true,
+    "antagonista": false,
+    "n_citas": 2,
+    "n_datos": 3,
+    "presente_en_evento": false,
+    "elegible_humano": true,
+    "docs": [
+     "F11"
+    ]
+   },
+   {
+    "id": "P06",
+    "nombre": "Igor Vasil'evich Kurchatov",
+    "rol": "Padre de la ciencia atómica en la Unión Soviética",
+    "testigo": true,
+    "antagonista": true,
+    "n_citas": 0,
+    "n_datos": 3,
+    "presente_en_evento": false,
+    "elegible_humano": false,
+    "docs": [
+     "F11"
+    ]
+   },
+   {
+    "id": "P07",
+    "nombre": "N. V. Timofeyev-Resovskiy",
+    "rol": "Científico que realizó investigaciones radioecológicas",
+    "testigo": true,
+    "antagonista": false,
+    "n_citas": 0,
+    "n_datos": 0,
+    "presente_en_evento": false,
+    "elegible_humano": false,
+    "docs": [
+     "F11"
+    ]
+   },
+   {
+    "id": "P08",
+    "nombre": "Josef Stalin",
+    "rol": "Líder de la URSS",
+    "testigo": false,
+    "antagonista": true,
+    "n_citas": 0,
+    "n_datos": 1,
+    "presente_en_evento": false,
+    "elegible_humano": false,
+    "docs": [
+     "F18"
+    ]
+   },
+   {
+    "id": "P09",
+    "nombre": "periódico Komsomolskaya Pravda",
+    "rol": null,
+    "testigo": false,
+    "antagonista": false,
+    "n_citas": 1,
+    "n_datos": 0,
+    "presente_en_evento": false,
+    "elegible_humano": false,
+    "docs": [
+     "F13"
+    ]
+   }
+  ]
+ },
+ "log_vocab": []
+}

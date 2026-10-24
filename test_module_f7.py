@@ -6,9 +6,24 @@ from __future__ import annotations
 import copy
 import json
 
+import pytest
+
 from researcher_steps import research_v3 as r3
 
 PLACE = r"Orleans Parish|\bOPP\b|Katrina"
+# F20: el vocabulario de la cárcel ya no está en el código: viene del perfil del caso. Estos tests son de Orleans.
+VOC_ORLEANS = {"roles_testigo": ["preso", "presos", "recluso", "reclusos", "guardia", "guardias", "deputy", "deputies",
+                                 "inmate", "inmates"],
+               "roles_antagonista": ["sheriff", "warden", "alguacil"],
+               "sustantivos_conteo": ["presos", "presas", "reclusos", "reclusas", "prisioneros", "prisioneras",
+                                      "internos", "detenidos", "evacuados", "individuos"]}
+
+
+@pytest.fixture
+def voc_orleans():
+    r3.set_vocabulario(VOC_ORLEANS)
+    yield
+    r3.set_vocabulario(None)
 
 
 # ── R1: fuentes ───────────────────────────────────────────────────────────────
@@ -284,7 +299,7 @@ def test_contamination_by_item_date():
     assert r3.doc_contamination({"nombra_evento": True, "anio": 2031}, 2005) is None   # F8b: el año del documento ya no cuenta
 
 
-def test_canonical_prefers_official():
+def test_canonical_prefers_official(voc_orleans):
     pool = r3.merge_docs(_per_doc(), DOCS, event_year=2005)
     r3.canonical_v3(pool, DOCS, [])
     c = pool["cifras_canonicas"]
@@ -363,7 +378,7 @@ def test_chronology_date_must_match_literal_year():
     assert "no coincide con el año" in part["_descartados"][0]["motivo"]
 
 
-def test_people_names_and_eligibility():
+def test_people_names_and_eligibility(voc_orleans):
     assert r3.same_person("Sgt. Bell", "Sergeant Bell") and r3.same_person("Marlin N. Gusman", "Sheriff Martin Gusman")
     assert not r3.same_person("Christina Foster", "Mike Foster")
     assert r3.is_named_person("Deputy Foster") and r3.is_named_person("Keanna Herbert")
@@ -378,13 +393,15 @@ def test_people_names_and_eligibility():
                 {"nombre": "Shawn Duncan", "testigo": True, "fechas_presente": [], "presente_en": ["T01"]}]}
     pool["datos"] += [{"texto": f"Gusman ordenó {i}"} for i in range(3)] + [{"texto": f"Duncan {i}"} for i in range(3)]
     r3.person_stats(pool, 2005)
-    assert [p["elegible_humano"] for p in pool["personajes"]] == [True, False, False]
+    # F20: la presencia en el año ya no excluye (Duncan, muerto en 2001, es elegible y queda presente_en_evento False)
+    assert [p["elegible_humano"] for p in pool["personajes"]] == [True, False, True]
+    assert [p["presente_en_evento"] for p in pool["personajes"]] == [True, False, False]
     p = {"personajes": [{"nombre": "Sheriff Gusman", "variantes_nombre": ["Marlin N. Gusman", "Gusman"]}]}
     r3.canonical_names(p, {"a": r3.DocText("a", "Marlin N. Gusman said. Gusman left. Gusman. Marlin N. Gusman")})
     assert p["personajes"][0]["nombre"] == "Marlin N. Gusman"
 
 
-def test_count_value_takes_the_number_next_to_the_noun():
+def test_count_value_takes_the_number_next_to_the_noun(voc_orleans):
     assert r3.count_value("La cárcel tenía 6,375 presos el 29 de agosto de 2005.") == ("6,375", 6375)
     assert r3.count_value("En junio había 6,295 reclusos; el promedio fue 5,919 reclusos.") is None   # dos: rango
     assert r3.count_value("En 1974 había 800 presos; en 2004, 6,500 presos.") == ("6,500", 6500)   # < 1000 no cuenta
@@ -426,7 +443,7 @@ def test_presence_by_paragraph_never_by_date_range():
     assert pool2["personajes"][0]["presente_en"] == ["T01"]
 
 
-def test_population_canon_lists_all_variants_with_source():
+def test_population_canon_lists_all_variants_with_source(voc_orleans):
     docs = [{"id": "F01", "titulo": "ACLU", "tipo": "informe_oficial", "anio": 2006, "prioridad": 1, "url": "u"},
             {"id": "F08", "titulo": "Vera", "tipo": "informe_oficial", "anio": 2015, "prioridad": 1, "url": "v"},
             {"id": "F10", "titulo": "The Lens", "tipo": "prensa_posterior", "anio": 2025, "prioridad": 2, "url": "w"}]

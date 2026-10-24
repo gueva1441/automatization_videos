@@ -1,0 +1,33 @@
+{
+ "roles_testigo": [
+  "preso / presos (en) prisoner / prisoners",
+  "recluso / reclusos (en) inmate / inmates",
+  "víctima / víctimas (en) victim / victims",
+  "testigo / testigos (en) witness / witnesses",
+  "detenido / detenidos (en) detainee / detainees",
+  "demandante / demandantes (en) plaintiff / plaintiffs",
+  "periodista / periodistas (en) journalist / journalists",
+  "personal / personal (en) staff / staff"
+ ],
+ "roles_antagonista": [
+  "alguacil / alguaciles (en) sheriff / sheriffs",
+  "departamento de justicia / departamentos de justicia (en) Department of Justice / Departments of Justice",
+  "administración / administraciones (en) administration / administrations",
+  "sistema de justicia / sistemas de justicia (en) justice system / justice systems",
+  "guardia de prisión / guardias de prisión (en) prison guard / prison guards",
+  "estado / estados (en) state / states",
+  "ciudad / ciudades (en) city / cities",
+  "juez / jueces (en) judge / judges"
+ ],
+ "sustantivos_conteo": [
+  "testimonio / testimonios (en) testimony / testimonies",
+  "recluso / reclusos (en) inmate / inmates",
+  "prisionero / prisioneros (en) prisoner / prisoners",
+  "preso / presos (en) prisoner / prisoners",
+  "víctima / víctimas (en) victim / victims",
+  "demandante / demandantes (en) plaintiff / plaintiffs",
+  "superviviente / supervivientes (en) survivor / survivors",
+  "persona / personas (en) person / people"
+ ],
+ "_f20": "vocabulario del caso, sin research (F20 §2.1)"
+}

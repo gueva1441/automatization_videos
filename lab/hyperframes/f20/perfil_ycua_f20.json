@@ -1,0 +1,49 @@
+{
+ "anio_evento": 2004,
+ "lugar_principal": "Asunción",
+ "idioma_local": "español (Asunción, Paraguay)",
+ "nombres_lugar": [
+  "Incendio del supermercado Ycuá Bolaños",
+  "Tragedia de Ycuá Bolaños",
+  "Ycuá Bolaños fire",
+  "Ycuá Bolaños"
+ ],
+ "place_re": "\\bIncendio\\ del\\ supermercado\\ Ycuá\\ Bolaños\\b|\\bTragedia\\ de\\ Ycuá\\ Bolaños\\b|\\bYcuá\\ Bolaños\\ fire\\b|\\bYcuá\\ Bolaños\\b",
+ "roles_testigo": [
+  "sobreviviente",
+  "sobrevivientes",
+  "survivor",
+  "oikovéva",
+  "familiar",
+  "relatives",
+  "trabajador",
+  "rescuer",
+  "cliente",
+  "witness"
+ ],
+ "roles_antagonista": [
+  "dueño",
+  "dueños",
+  "owner",
+  "jára",
+  "gerente",
+  "manager",
+  "juez",
+  "fiscal",
+  "prosecutor",
+  "Corte Suprema"
+ ],
+ "sustantivos_conteo": [
+  "víctima",
+  "víctimas",
+  "victim",
+  "ohasa'asýva",
+  "muertos",
+  "fallecidos",
+  "dead",
+  "omanóva",
+  "heridos",
+  "personas"
+ ],
+ "_f20": "vocabulario del caso, sin research (F20 §2.1)"
+}

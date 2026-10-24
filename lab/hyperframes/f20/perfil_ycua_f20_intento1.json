@@ -1,0 +1,39 @@
+{
+ "anio_evento": 2004,
+ "lugar_principal": "Asunción",
+ "idioma_local": "español (Asunción, Paraguay)",
+ "nombres_lugar": [
+  "Incendio del supermercado Ycuá Bolaños",
+  "Tragedia de Ycuá Bolaños",
+  "Ycuá Bolaños fire",
+  "Ycuá Bolaños"
+ ],
+ "place_re": "\\bIncendio\\ del\\ supermercado\\ Ycuá\\ Bolaños\\b|\\bTragedia\\ de\\ Ycuá\\ Bolaños\\b|\\bYcuá\\ Bolaños\\ fire\\b|\\bYcuá\\ Bolaños\\b",
+ "roles_testigo": [
+  "sobreviviente / sobrevivientes (es); survivor / survivors (en); oikovéva / oikovéva kuéra (gn)",
+  "familiar / familiares (es); relative / relatives (en); hogagua / hogagua kuéra (gn)",
+  "trabajador / trabajadores (es); worker / workers (en); tembiapohára / tembiapohára kuéra (gn)",
+  "rescatista / rescatistas (es); rescuer / rescuers (en); jepe'ahára / jepe'ahára kuéra (gn)",
+  "testigo / testigos (es); witness / witnesses (en); ohecháva / ohecháva kuéra (gn)",
+  "comprador / compradores (es); shopper / shoppers (en); ojoguarã / ojoguarã kuéra (gn)",
+  "vecino / vecinos (es); neighbor / neighbors (en); tapicha ag̃ua / tapicha ag̃ua kuéra (gn)"
+ ],
+ "roles_antagonista": [
+  "dueño / dueños (es); owner / owners (en); jára / jára kuéra (gn)",
+  "gerente / gerentes (es); manager / managers (en); ruvicha / ruvicha kuéra (gn)",
+  "acusado / acusados (es); accused / defendants (en); oñe'ẽngarekoitéva / oñe'ẽngarekoitéva kuéra (gn)",
+  "juez / jueces (es); judge / judges (en); hue / hue kuéra (gn)",
+  "fiscal / fiscales (es); prosecutor / prosecutors (en); moañetehára / moañetehára kuéra (gn)",
+  "Corte Suprema de Justicia (es); Supreme Court of Justice (en); Tekojoja Renda Guasu (gn)"
+ ],
+ "sustantivos_conteo": [
+  "víctima / víctimas (es); victim / victims (en); tapicha ohasáva asy / tapicha ohasáva asy kuéra (gn)",
+  "fallecido / fallecidos (es); deceased person / deceased people (en); omanóva / omanóva kuéra (gn)",
+  "muerto / muertos (es); dead person / dead people (en); omanóva / omanóva kuéra (gn)",
+  "herido / heridos (es); injured person / injured people (en); tapicha oñembyaíva / tapicha oñembyaíva kuéra (gn)",
+  "sobreviviente / sobrevivientes (es); survivor / survivors (en); oikovéva / oikovéva kuéra (gn)",
+  "afectado / afectados (es); affected person / affected people (en); tapicha ojeguerohorýva / tapicha ojeguerohorýva kuéra (gn)",
+  "damnificado / damnificados (es); aggrieved person / aggrieved people (en); tapicha ohasáva asy / tapicha ohasáva asy kuéra (gn)"
+ ],
+ "_f20": "vocabulario del caso, sin research (F20 §2.1)"
+}

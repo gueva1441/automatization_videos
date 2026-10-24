@@ -38,7 +38,7 @@ PROMPT_VERSION_R1 = "f7a-1"
 TIPOS_FUENTE = ("informe_oficial", "fallo_judicial", "prensa_epoca", "prensa_posterior", "documental", "libro",
                 "testimonio", "academico", "foia")
 MIN_FUENTES, MAX_FUENTES = 8, 20
-MAX_DESCARGAS_OK = 10
+MAX_DESCARGAS_OK = 10                    # F20: por idioma del research (10 por cada uno), no en total
 MAX_DOC_CHARS = 300_000
 MIN_DOC_CHARS = 3_000                    # menos que esto: página vacía, paywall, resumen o portada de un libro
 NO_TEXT_SITES = ("youtube.com", "youtu.be", "vimeo.com", "amazon.com", "books.google.com")  # sin texto que leer
@@ -578,6 +578,18 @@ def cap_text(text: str, limit: int = MAX_DOC_CHARS) -> tuple[str, str | None]:
     return text.rstrip(), "; ".join(motivo)
 
 
+def fuente_idioma(f: dict) -> str:
+    """F20: el idioma de una fuente para el cupo de descargas. Un título en otro alfabeto (cirílico, griego, árabe…)
+    manda sobre el `idioma` que dio R1 (en F18/F19 marcaba «en» o «?» a fuentes rusas); si no, el de R1."""
+    import unicodedata
+    letras = [c for c in str(f.get("titulo") or "") if c.isalpha()]
+    otros = [unicodedata.name(c, "?").split()[0] for c in letras if not unicodedata.name(c, "LATIN").startswith("LATIN")]
+    if letras and len(otros) > len(letras) / 2:
+        return {"CYRILLIC": "ru", "GREEK": "el", "ARABIC": "ar", "HEBREW": "he"}.get(max(set(otros), key=otros.count),
+                                                                                    otros[0].lower())
+    return (str(f.get("idioma") or "?").strip().lower()[:2]) or "?"
+
+
 def names_event(text: str, place_re: str, titulo: str = "") -> bool:
     """¿El documento nombra el lugar o el evento en su título o en sus primeros EVENT_CHECK_CHARS caracteres?"""
     return bool(re.search(place_re, titulo or "", re.I) or re.search(place_re, text[:EVENT_CHECK_CHARS], re.I))
@@ -635,8 +647,10 @@ def linked_pdf(html: bytes, page_url: str) -> str | None:
 def download_sources(fuentes: list[dict], dest: Path, *, place_re: str, get: Callable[[str], tuple] | None = None,
                      local: dict[str, Path] | None = None, max_ok: int = MAX_DESCARGAS_OK, wayback: bool = True,
                      log: list[str] | None = None) -> dict[str, Any]:
-    """R2: baja por prioridad hasta `max_ok` documentos OK. `local` = {url_normalizada: archivo ya bajado} (no se
-    vuelve a pedir). Deja dest/<slug>.<ext>, dest/<slug>.txt y dest/manifest.json; devuelve el manifest."""
+    """R2: baja por prioridad hasta `max_ok` documentos OK POR IDIOMA (F20: con dos idiomas, las fuentes de uno no
+    desplazan a las del otro; dentro de cada idioma, el orden de prioridad de siempre). `local` = {url_normalizada:
+    archivo ya bajado} (no se vuelve a pedir). Deja dest/<slug>.<ext>, dest/<slug>.txt y dest/manifest.json; devuelve
+    el manifest."""
     log = log if log is not None else []
     get = get or _http_get
     dest.mkdir(parents=True, exist_ok=True)
@@ -647,10 +661,12 @@ def download_sources(fuentes: list[dict], dest: Path, *, place_re: str, get: Cal
             prev = {d["url"]: d for d in json.loads(man_path.read_text(encoding="utf-8"))["documentos"]}
         except (OSError, ValueError, KeyError):
             prev = {}
-    docs, n_ok = [], 0
+    docs, n_ok = [], {}
     for f in sorted(fuentes, key=lambda f: (f["prioridad"], f["id"])):
-        if n_ok >= max_ok:
-            docs.append({**_meta(f), "ok": False, "estado": "no_intentada", "motivo": f"ya hay {max_ok} documentos"})
+        lg = fuente_idioma(f)
+        if n_ok.get(lg, 0) >= max_ok:
+            docs.append({**_meta(f), "ok": False, "estado": "no_intentada",
+                         "motivo": f"ya hay {max_ok} documentos en {lg}"})
             continue
         p = prev.get(f["url"])
         if any(_site(f["url"]) == s or domain(f["url"]).endswith(s) for s in NO_TEXT_SITES):
@@ -669,11 +685,12 @@ def download_sources(fuentes: list[dict], dest: Path, *, place_re: str, get: Cal
             d.update({"ok": False, "estado": "duplicado", "motivo": f"mismo documento que {twin['id']}"})
             log.append(f"  [R2] {f['id']}: duplicado de {twin['id']}")
         docs.append(d)
-        n_ok += int(bool(d["ok"] and d.get("nombra_evento")))   # uno que no nombra el evento no ocupa cupo
+        n_ok[lg] = n_ok.get(lg, 0) + int(bool(d["ok"] and d.get("nombra_evento")))   # sin el evento no ocupa cupo
     man = {"generado": date.today().isoformat(), "place_re": place_re, "max_doc_chars": MAX_DOC_CHARS,
            "documentos": docs}
     man_path.write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
-    log.append(f"  [R2] {n_ok} documentos OK de {sum(1 for d in docs if d['estado'] != 'no_intentada')} intentados")
+    log.append(f"  [R2] {sum(n_ok.values())} documentos OK ({n_ok}) de "
+               f"{sum(1 for d in docs if d['estado'] != 'no_intentada')} intentados")
     return man
 
 
@@ -966,6 +983,12 @@ R3_SCHEMA: dict[str, Any] = {
 }
 
 
+def _roles(seed: dict, campo: str) -> str:
+    """F20: los roles del perfil del caso para el prompt de R3 (antes, una lista fija de la cárcel de Orleans)."""
+    xs = [str(x) for x in seed.get(campo) or [] if str(x).strip()]
+    return ", ".join(xs) if xs else "según el caso"
+
+
 def build_extraction_prompt(seed: dict, doc: dict, chunk: str, part: tuple[int, int]) -> str:
     parte = f" (parte {part[0]} de {part[1]})" if part[1] > 1 else ""
     return f"""TEMA DEL VIDEO: "{seed['seed_title']}"
@@ -986,11 +1009,11 @@ REGLAS:
 6. Citas: palabras que alguien dijo o escribió, entre comillas o en declaración atribuida. `texto_original` exacto;
    `texto_es` traducción natural y fiel (igual al original si ya está en español). `autor`: el nombre como lo da el
    texto; si es anónimo, la descripción que da el texto («un preso de Templeman III»). NUNCA inventes un nombre.
-   `testigo` = true si quien habla estuvo en el lugar de los hechos (preso, guardia, familiar, rescatista, vecino);
-   false para funcionarios, abogados o expertos que hablan desde afuera. `lugar`: dónde estaba quien habla.
+   `testigo` = true si quien habla estuvo en el lugar de los hechos o los vivió ({_roles(seed, "roles_testigo")});
+   false para quien habla desde afuera. `lugar`: dónde estaba quien habla.
 7. Personajes: personas con nombre propio que hacen algo o declaran en el texto (no organizaciones). `testigo` como en
    6; `fechas_presente`: los días AAAA-MM-DD en que el texto la ubica en el lugar; `antagonista` = true si el texto le
-   atribuye decisiones que causaron el daño.
+   atribuye decisiones que causaron el daño ({_roles(seed, "roles_antagonista")}).
 
 TEXTO:
 <<<
@@ -1200,13 +1223,41 @@ def _nums(t: str) -> frozenset[str]:
     return frozenset(re.sub(r"[,.](?=\d{3}\b)", "", x) for x in re.findall(r"\d[\d,.]*\d|\d", t or ""))
 
 
-_TITLES = {"sheriff", "deputy", "sgt", "sergeant", "lieutenant", "lt", "captain", "capt", "capitan", "colonel", "col",
-           "officer", "ranking", "warden", "chief", "jefe", "mr", "mrs", "ms", "dr", "secretary", "secretario",
-           "alguacil", "teniente", "sargento", "oficial", "jr", "sr", "iii", "ii"}
-# descripciones de grupo o de cargo, no personas: «Abogado del Sheriff», «Oficiales en Conchetta», «National Guard
-# Officers», «Criminal Justice Working Group»
-_NOT_PERSON = re.compile(r"\b(del?|en|at|of|the|según|segun|group|officers|oficiales|guardias|guards|deputies|"
-                         r"abogado|abogada|attorney|warden|inmate|recluso|reclusa|preso|presa)\b", re.I)
+# F20: base genérica (grados, tratamientos, sufijos); los roles del caso se suman desde el perfil (`set_vocabulario`)
+_TITLES_BASE = {"sheriff", "deputy", "alguacil", "sgt", "sergeant", "lieutenant", "lt", "captain", "capt", "capitan",
+                "colonel", "col", "officer", "ranking", "chief", "jefe", "mr", "mrs", "ms", "dr", "secretary",
+                "secretario", "teniente", "sargento", "oficial", "jr", "sr", "iii", "ii"}
+_TITLES = set(_TITLES_BASE)
+# descripciones de grupo o de cargo, no personas: «Oficiales en Conchetta», «National Guard Officers», «Criminal Justice
+# Working Group». F20: solo palabras gramaticales y de grupo; los roles del caso vienen del perfil.
+_NOT_PERSON_BASE = r"del?|en|at|of|the|según|segun|group|officers|oficiales"
+_NOT_PERSON = re.compile(rf"\b({_NOT_PERSON_BASE})\b", re.I)
+_COUNT_BASE = ("personas", "víctimas", "victimas")
+_VOC: dict[str, list[str]] = {"roles_testigo": [], "roles_antagonista": [], "sustantivos_conteo": []}
+
+
+def _count_re(nouns: list[str]) -> re.Pattern:
+    ns = sorted({n.strip().lower() for n in [*nouns, *_COUNT_BASE] if n and n.strip()}, key=len, reverse=True)
+    return re.compile(r"(?<![\d,.])(\d{1,3}(?:[,.]\d{3})+|\d{4,})\s+(?:[a-záéíóúñ]+\s+){0,2}?"
+                      rf"({'|'.join(re.escape(n) for n in ns)})\b", re.I)
+
+
+def set_vocabulario(perfil: dict | None) -> None:
+    """F20: el vocabulario del caso, del perfil del seed: `roles_testigo` y `roles_antagonista` se suman a los cargos
+    (`_TITLES`, `_NOT_PERSON`) y `sustantivos_conteo` arma el conteo (`count_value`, más «personas» y «víctimas»).
+    Sin perfil (o sin esos campos), solo la base genérica."""
+    global _TITLES, _NOT_PERSON, _COUNT_OF
+    perfil = perfil or {}
+    for k in _VOC:
+        _VOC[k] = _formas(perfil.get(k))
+    roles = _VOC["roles_testigo"] + _VOC["roles_antagonista"]
+    _TITLES = _TITLES_BASE | {_ascii(w).lower() for r in roles for w in re.findall(r"\w+", r) if len(w) >= 3}
+    # a `_NOT_PERSON`, solo las formas de grupo (plural: «guardias», «deputies»), como en la lista vieja; en singular
+    # un rol es un cargo delante del nombre («Deputy Foster» → Foster) y va solo a `_TITLES`
+    grupo = [r for r in roles if re.search(r"(s|es)$", r, re.I) or " " in r]
+    extra = "|".join(re.escape(r) for r in sorted(set(grupo), key=len, reverse=True))
+    _NOT_PERSON = re.compile(rf"\b({_NOT_PERSON_BASE}{'|' + extra if extra else ''})\b", re.I)
+    _COUNT_OF = _count_re(_VOC["sustantivos_conteo"])
 
 
 def person_key(name: str) -> tuple[str, str]:
@@ -1368,9 +1419,10 @@ def add_quote_authors(pool: dict[str, Any], log: list[str]) -> None:
 
 
 def person_stats(pool: dict[str, Any], event_year: int | None = None) -> None:
-    """`n_citas` (citas suyas), `n_datos` (datos y eventos que lo nombran) y `elegible_humano` (testigo, no antagonista,
-    con ≥ 3 citas o ≥ 3 datos propios y, si se da `event_year`, con alguna fecha de presencia en ese año: un preso
-    muerto años antes, que el informe cuenta como antecedente, no es el humano del evento)."""
+    """`n_citas` (citas suyas), `n_datos` (datos y eventos que lo nombran) y `elegible_humano`.
+    F20: elegible = no antagonista (ni con un rol de `roles_antagonista` del perfil) y (una cita propia verificada, o
+    nombrado en ≥ 3 ítems: citas + datos + eventos). La presencia en el año del evento ya no excluye: queda como dato
+    informativo en `presente_en_evento` (un evento del año que lo nombra, o su testimonio verificado)."""
     crono = {c["id"]: str(c["fecha"]) for c in pool.get("cronologia") or []}
     people = pool["personajes"]
     for p in people:
@@ -1381,10 +1433,17 @@ def person_stats(pool: dict[str, Any], event_year: int | None = None) -> None:
         days = [crono.get(i, "") for i in p.get("presente_en") or []]       # F7c: presencia real, nunca rangos
         said = any(q.get("testimonio") and (q.get("verificacion") or {}).get("estado") == "verificada"
                    and same_person(q.get("autor") or "", p["nombre"]) for q in pool["citas"])
+        own_verified = any((q.get("verificacion") or {}).get("estado") == "verificada"
+                           and same_person(q.get("autor") or "", p["nombre"]) for q in pool["citas"])
         # presencia real: un evento del año que lo nombra (o en su párrafo), o su propio testimonio verificado
-        in_event = event_year is None or said or any(str(d).startswith(str(event_year)) for d in days)
-        p["elegible_humano"] = bool(p.get("testigo") and not p.get("antagonista") and in_event
-                                    and (p["n_citas"] >= 3 or p["n_datos"] >= 3))
+        p["presente_en_evento"] = bool(event_year is None or said or any(str(d).startswith(str(event_year))
+                                                                         for d in days))
+        # su rol ES uno de los que deciden: el rol empieza con él («Sheriff de Orleans», «Dueño del supermercado»), no
+        # solo lo nombra («Oficial del sheriff», «Hijo del dueño»)
+        rol = re.sub(r"^(el|la|los|las|the|ex|former)\s+", "", str(p.get("rol") or "").strip(), flags=re.I)
+        rol_ant = any(re.match(rf"{re.escape(r)}\b", rol, re.I) for r in _VOC["roles_antagonista"])
+        p["elegible_humano"] = bool(not p.get("antagonista") and not rol_ant
+                                    and (own_verified or p["n_citas"] + p["n_datos"] >= 3))
 
 
 def canonical_names(pool: dict[str, Any], texts: dict[str, "DocText"]) -> None:
@@ -1401,9 +1460,7 @@ def canonical_names(pool: dict[str, Any], texts: dict[str, "DocText"]) -> None:
             p["nombre"] = best
 
 
-_COUNT_OF = re.compile(r"(?<![\d,.])(\d{1,3}(?:[,.]\d{3})+|\d{4,})\s+(?:[a-záéíóúñ]+\s+){0,2}?"
-                       r"(reclusos|reclusas|presos|presas|prisioneros|prisioneras|internos|detenidos|personas|"
-                       r"evacuados|individuos)\b", re.I)
+_COUNT_OF = _count_re([])                # F20: los sustantivos del caso los pone `set_vocabulario` (perfil)
 
 
 CANON_TOPIC = 0.35
@@ -1416,8 +1473,9 @@ def fmt_count(n: int) -> str:
 
 
 def count_value(texto: str) -> tuple[str, int] | None:
-    """La cifra de un CONTEO de personas presas: el número pegado (≤ 2 palabras) al sustantivo («6,375 presos», «8,000
-    reclusos más»), no cualquier número del texto (un año, una capacidad, otra cifra). None si no hay; si el texto trae
+    """La cifra de un CONTEO de personas: el número pegado (≤ 2 palabras) a un sustantivo de conteo del caso
+    (`sustantivos_conteo` del perfil, más «personas» y «víctimas»: «6,375 presos», «8,000 reclusos más»), no cualquier
+    número del texto (un año, una capacidad, otra cifra). None si no hay; si el texto trae
     dos conteos distintos, None (es un rango o una comparación, no una cifra canónica)."""
     ms = {m.group(1): int(re.sub(r"[,.]", "", m.group(1))) for m in _COUNT_OF.finditer(texto or "")}
     if len(set(ms.values())) != 1:
@@ -1891,6 +1949,56 @@ PROFILE_SCHEMA: dict[str, Any] = {"type": "OBJECT", "properties": {
     "required": ["anio_evento", "nombres_lugar", "idioma_local"]}
 
 
+# cada término: la forma en español y, aparte, sus formas en los otros idiomas (el modelo, con una lista de strings,
+# pegaba las formas en un solo elemento: «testigo witness очевидец»)
+_TERMINO = {"type": "OBJECT", "properties": {"es": {"type": "STRING"},
+                                             "otras": {"type": "ARRAY", "items": {"type": "STRING"}}},
+            "required": ["es", "otras"]}
+VOCAB_SCHEMA: dict[str, Any] = {"type": "OBJECT", "properties": {
+    "roles_testigo": {"type": "ARRAY", "items": _TERMINO},
+    "roles_antagonista": {"type": "ARRAY", "items": _TERMINO},
+    "sustantivos_conteo": {"type": "ARRAY", "items": _TERMINO}},
+    "required": ["roles_testigo", "roles_antagonista", "sustantivos_conteo"]}
+
+
+def seed_vocabulario(seed: dict, fuentes: list[dict] | None = None, *, idiomas: str = "",
+                     call: Callable[..., dict] | None = None) -> dict[str, list[str]]:
+    """F20: el vocabulario del caso para el perfil, a partir del seed y de la primera pasada de fuentes (R1): quiénes lo
+    vivieron (`roles_testigo`), quién decide (`roles_antagonista`) y con qué se cuentan las víctimas
+    (`sustantivos_conteo`). Cada uno con 4–10 palabras en español más sus formas en los idiomas del research. 1 Flash."""
+    if call is None:
+        from gemini_helpers import call_flash_json as call
+    fs = "\n".join(f"- {f.get('titulo')} ({f.get('idioma') or '?'}): {f.get('por_que') or ''}" for f in (fuentes or [])[:25])
+    raw = call(f"""TEMA: "{seed['seed_title']}"
+IDIOMAS DEL RESEARCH: español, inglés{', ' + idiomas if idiomas else ''}
+FUENTES ENCONTRADAS:
+{fs or '- (ninguna)'}
+
+Con el tema y las fuentes, describí el caso con tres listas de palabras, cada una de 4 a 10, en español y además sus
+formas en los otros idiomas del research (singular y plural cuando cambian). Cada término va con su forma en
+español en «es» y sus formas en los otros idiomas, una por elemento, en «otras»:
+- roles_testigo: quiénes estuvieron ahí o lo vivieron, en las palabras del caso (por ejemplo, en una cárcel: preso,
+  guardia, oficial).
+- roles_antagonista: quién decide lo que causó el daño (un cargo o una institución: sheriff, el ministerio, el dueño).
+- sustantivos_conteo: con qué sustantivos se cuentan las víctimas en las fuentes (muertos, heridos, evacuados…).""",
+               response_schema=VOCAB_SCHEMA, description="research v3 vocabulario del caso") or {}
+    return {k: _formas([f for t in raw.get(k) or [] for f in ([t.get("es"), *(t.get("otras") or [])]
+                                                             if isinstance(t, dict) else [t])])
+            for k in VOCAB_SCHEMA["required"]}
+
+
+def _formas(xs: Any) -> list[str]:
+    """Lectura del formato (no un chequeo): el modelo a veces junta formas en un elemento («preso / presos (en) prisoner
+    / prisoners»). Una forma por elemento: se corta en «/», «;» y «,» y en las marcas de idioma «(en)», que se sacan."""
+    out: list[str] = []
+    for x in xs or []:
+        for f in re.split(r"[/;,]", re.sub(r"\((?:[a-z]{2,3})\)", "/", str(x))):
+            f = re.sub(r"\s+", " ", f).strip()
+            if len(f) >= 3 and f not in out:
+                out.append(f)
+    return out
+
+
 def place_regex(names: list[str], locales: list[str] | None = None, fallback: str = "") -> str:
     """`place_re`: los nombres latinos con el patrón de siempre (`\\b…\\b`) y, F19, las formas en el alfabeto local con
     límites de letra por lookaround (en cirílico `\\b` falla en algunos límites). Sin locales, el mismo de antes."""
@@ -1965,6 +2073,11 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
           "nombres_lugar": prof.get("nombres_lugar") or []}                                       # F8b: R1 alternativo
     r1 = discover_sources(s2, cache=steps_dir / "_r1_cache.json", log=log)
     (steps_dir / "fuentes.json").write_text(json.dumps(r1, ensure_ascii=False, indent=1), encoding="utf-8")
+    if "roles_testigo" not in prof:                 # F20: el vocabulario del caso, con el seed y las fuentes de R1
+        prof.update(seed_vocabulario(seed, r1.get("fuentes"), idiomas=s2.get("lugar_idioma") or ""))
+        pf.write_text(json.dumps(prof, ensure_ascii=False, indent=1), encoding="utf-8")
+    set_vocabulario(prof)
+    s2.update({k: prof.get(k) or [] for k in ("roles_testigo", "roles_antagonista")})
     src = steps_dir / "fuentes"
     man = download_sources(r1["fuentes"], src, place_re=prof["place_re"], log=log)
     refine_fichas(man, src, seed, log=log)
@@ -1976,7 +2089,7 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
         texts[d["id"]] = DocText(d["id"], (src / d["txt"]).read_text(encoding="utf-8"))
         if doc_contamination(d, year):
             continue
-        per_doc[d["id"]] = extract_document(seed, d, texts[d["id"]].text, cache_dir=steps_dir / "_r3_cache", log=log,
+        per_doc[d["id"]] = extract_document(s2, d, texts[d["id"]].text, cache_dir=steps_dir / "_r3_cache", log=log,
                                             place_re=prof["place_re"])
         fail = per_doc[d["id"]].pop("_extraccion_fallida", None)
         if fail:                                         # F8b: el pool sigue; el documento queda marcado

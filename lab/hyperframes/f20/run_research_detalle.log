@@ -1,0 +1,46 @@
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: 13 fichas del modelo, 3 URLs en el grounding
+  [R1] foco 2: 16 fichas del modelo, 13 URLs en el grounding
+  [R1] foco 3: 10 fichas del modelo, 7 URLs en el grounding
+  [R1] foco 4: 12 fichas del modelo, 10 URLs en el grounding
+  [R1] focos con grounding: 3 por Pro, 1 por Flash, 0 sin grounding (de 4)
+  [R1] 29 URLs reales: 18 con ficha del modelo, 16 con ficha de Flash, 1 fuera (no relevantes o listados) · 33 fichas del modelo sin URL del grounding
+  [R2] F06 biblioatom_1990: FALLÓ — API: RuntimeError: HTTP 429 de la API de disponibilidad
+  [R2] F07 stanford_1981_ussr_nuclear_accident_near_kyshtym: FALLÓ — API: RuntimeError: HTTP 429 de la API de disponibilidad
+  [R2] F12 gw2ru_2022_the_kyshtym_accident_a_radiation: FALLÓ — API: RuntimeError: HTTP 429 de la API de disponibilidad
+  [R2] F14 ab-dpo_2024_29_1957: FALLÓ — API: RuntimeError: HTTP 429 de la API de disponibilidad
+  [R2] F18 icheme_analisis_del_desastre_de_kyshtym: OK (original) 15328 caracteres
+  [R2] F19 stormsmith_2019_reporte_sobre_mayak_julio_2019: OK (original) 3271 caracteres
+  [R2] 12 documentos OK ({'ru': 8, 'en': 4}) de 20 intentados
+  [R2] ficha F02: academico 2016 «КЫШТЫМСКАЯ ЯДЕРНАЯ КАТАСТРОФА 1957 ГОДА: ИСТОРИЧЕСКИЙ ОПЫТ Л»
+  [R2] ficha F03: academico 2023 «Создание базы данных репозитория архивных документов по проб»
+  [R2] ficha F04: informe_oficial 2023 «Kyshtym nuclear disaster, Russian Federation»
+  [R2] ficha F05: academico 2018 «CIA Debriefed Soviet H-Bomb Eye-Witness in 1957»
+  [R2] ficha F08: prensa_posterior 2001 «Chelyabinsk court to examine Mayak plant»
+  [R2] ficha F09: prensa_posterior 2011 «Anonymous Letter Prompts New Investigation of Nuclear Plant»
+  [R2] ficha F10: prensa_posterior 2026 «Кыштымская авария 1957 года: как взрыв на «Маяке» десятилети»
+  [R2] ficha F11: academico 1982 «An Analysis of the Alleged Kyshtym Disaster»
+  [R2] ficha F13: academico 2018 «КЫШТЫМСКАЯ РАДИАЦИОННАЯ АВАРИЯ 1957 ГОДА: ПЕРВЫЕ ОЦЕНКИ РАДИ»
+  [R2] ficha F15: informe_oficial 2008 «В министерстве социального развития Российской Федерации по »
+  [R2] ficha F16: prensa_posterior None «Ядовитое облако пришло с «Маяка»»
+  [R2] ficha F17: academico 2019 «Авария 1957 года: радиационная обстановка и дозы облучения у»
+  [R2] ficha F18: academico 2023 «The 1957 Kyshtym disaster»
+  [R2] ficha F19: academico 2019 «Nuclear disaster at Mayak in 1957»
+  [R2] ficha F20: informe_oficial None «Авария на «Маяке». Как это было»
+  [R3] F02: 26 ítems con cita literal, 7 descartados
+  [R3] F03: 26 ítems con cita literal, 9 descartados
+  [R3] F04: 61 ítems con cita literal, 2 descartados
+  [R3] F10: 18 ítems con cita literal, 9 descartados
+  [R3] F11: 55 ítems con cita literal, 8 descartados
+  [R3] F13: 49 ítems con cita literal, 22 descartados
+  [R3] F15: 31 ítems con cita literal, 8 descartados
+  [R3] F16: 45 ítems con cita literal, 10 descartados
+  [R3] F17: 15 ítems con cita literal, 11 descartados
+  [R3] F18: 47 ítems con cita literal, 6 descartados
+  [R3] F19: 19 ítems con cita literal, 3 descartados
+  [R3] F20: 25 ítems con cita literal, 6 descartados
+  [R4] merge: datos 208 · cronologia 61 · lugares 50 · citas 24 · personajes 8 · 19 ítems con ≥ 2 documentos · 132 descartados
+  [R4] autores de cita sumados como personajes: ['periódico Komsomolskaya Pravda']
+  [4a·pool] personajes sin acción, fuera: ['Henry D. Smyth']
+  [R4] presencia por párrafo: 9 vínculos persona-evento (3 personas con alguno)
+  [R5] citas: {'verificada': 20, 'verificada_parcial': 4, 'sin_verificar': 0}
