@@ -1,0 +1,56 @@
+{
+ "seed_id": "b6b84f96-03b7-40cd-8173-414d60514c76",
+ "seed_title": "Desastre nuclear Kyshtym Mayak",
+ "discovery_mode": "spy_arbitrage",
+ "root_niche": "abandonados",
+ "tags": [
+  "abandonados",
+  "ruinas",
+  "pueblos fantasma",
+  "misterio"
+ ],
+ "evidence": {
+  "en_viral": {
+   "original_title": "Kyshtym Mayak: The 2nd Worst Nuclear Disaster in Soviet History",
+   "views": 943512,
+   "video_id": "WQQGTr3odFc",
+   "query": "Project Aurora abandoned facility mystery",
+   "query_kind": "dinamica",
+   "en_age_months": 60,
+   "channel_median": 7850.0,
+   "outlier_ratio": 120.19261146496815,
+   "passed_reason": "outlier"
+  },
+  "es_gap": {
+   "saturation": 0.0,
+   "label": "VACIO",
+   "heaviest": null,
+   "ontopic_count": 0,
+   "anchors_used": [
+    "Desastre nuclear Kyshtym Mayak"
+   ],
+   "source": "scrapetube+juez",
+   "variants_grouped": 1,
+   "worst_variant_label": "VACIO",
+   "worst_variant_saturation": 0.0
+  }
+ },
+ "created_at": "2026-08-21T01:15:08.624501",
+ "remeasure": {
+  "es_query": "Desastre nuclear Kyshtym Mayak",
+  "entity": "Desastre nuclear Kyshtym Mayak",
+  "already_es": true
+ },
+ "judge": {
+  "verdict": "oro",
+  "risk": "ninguno",
+  "reason": "El tema es muy específico, muestra demanda sostenida real con vistas altas y edad del viral, y el nicho en español está completamente libre de competencia.",
+  "cohort": "2/3",
+  "votes": [
+   "dudoso",
+   "oro",
+   "oro"
+  ]
+ },
+ "idioma_local": "ruso (Ozyorsk / Kyshtym, óblast de Cheliábinsk, Rusia); también español"
+}

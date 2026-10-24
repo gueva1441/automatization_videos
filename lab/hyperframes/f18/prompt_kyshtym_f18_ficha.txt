@@ -1,0 +1,443 @@
+===== SISTEMA (md5 2e151732da47e09acf0cb48eb7089fcb) =====
+<rol>Sos el documentalista de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que el guionista escriba, depurás el research de un caso real y armás su ficha: la única fuente de la escaleta y del guion. Lo que no está en la ficha no existe para ellos.</rol>
+<tarea>
+Leés el pool de research completo (cada ítem con su id, y cada evidencia con su documento y su posición) y devolvés la ficha del caso:
+- personas: un nombre canónico por persona, su rol, las variantes del nombre que encontraste y sus ids. Si dos fuentes dan nombres distintos para la misma persona, no elegís: la persona va también a contradicciones.
+- cronologia: los eventos del día en orden, con la fecha y la hora tal como están en el pool, y sus ids.
+- historia: antes de listar hechos, decidís qué historia hay en este caso. Devolvés:
+  - humanos_candidatos (2 a 4): personas con arco, es decir, que entran en el caso en un estado, les pasa algo y salen en otro. Para cada una: nombre canónico, rol, en una oración qué le pasa (entra → sufre → sale), qué ids la sostienen y cuántas citas verificadas tiene. Una persona sin cita verificada puede ser candidata, pero lo decís.
+  - giros (3 a 6): los momentos en que la historia cambia de dirección (una orden, una puerta que no abre, una cifra que aparece, una negación oficial). Cada uno con sus ids y en qué orden pasan.
+  - pico: el peor momento, el que todo lo anterior prepara. Uno solo, con sus ids y por qué es el pico.
+  - pregunta_final: la pregunta que el caso deja abierta y que ningún documento cierra, con los ids que la sostienen.
+- escenas (8 a 15): momentos concretos que se pueden ver. Cada escena en una o dos oraciones: dónde, quién, qué está pasando, y lo que un testigo o documento dice que se veía, se oía, se olía o se tocaba. Solo con lo que los ids permiten. Una escena sin ningún detalle sensorial en los datos no es escena: es hecho, y va a hechos.
+- hechos (60 a 80) con un campo nivel: 1 = sostiene la historia (sin él no se entiende el caso; entre 12 y 20), 2 = apoyo (da contexto o escala). Además, cada hecho lleva el campo sirve_para: gancho, contexto, escalada, giro, pico, consecuencia o cierre.
+
+Ejemplo de humano candidato (de otro caso; copiá la forma, no el contenido):
+{"nombre": "Pearl Cornelia Bland", "rol": "detenida por una deuda de 398 dólares", "arco": "entra presa por multas, queda encerrada cuando llega el huracán, es agredida en Conchetta sin que los oficiales intervengan, y sale en junio del año siguiente por una orden de liberación", "ids": ["D301", "Q88", "D512"], "citas_verificadas": 1}
+
+Ejemplo de giro:
+{"orden": 2, "que_cambia": "El sheriff rechaza la ayuda del Departamento de Correcciones para evacuar: la prisión no se vacía", "ids": ["D35", "Q08"]}
+
+Ejemplo de escena:
+{"donde": "Celdas de Templeman III, 30 de agosto", "quien": "presos encerrados", "que_pasa": "el agua de la inundación entra y sube hasta el pecho", "sentidos": "olor a aguas residuales y combustible diésel; oscuridad total; gritos entre pabellones", "ids": ["T93", "D414", "D09", "D545"]}
+
+Ejemplo de hecho nivel 1:
+{"texto": "La lista de evacuados no incluye a 517 reclusos.", "nivel": 1, "sirve_para": "consecuencia", "ids": ["D185"]}
+- hechos: entre 60 y 80 hechos útiles para contar la historia, cada uno en una oración limpia, con sus ids de origen. Sin interpretación.
+- cifras: una cifra por conteo (muertos, heridos, huérfanos, personas adentro…), con su fuente y las otras versiones. Cada cifra con su unidad (personas, °C, años, guaraníes…): nunca un número sin qué cuenta.
+- citas: las mejores 15 a 25, con autor, rol, estado de verificación y el texto. Si hay un error evidente de transcripción, lo corregís en «texto» y dejás el texto del pool en «original»; si no corregís nada, «original» va vacío.
+- cronologia: si la hora o la fecha no coincide en 2 o más fuentes, «aproximada» va en true.
+- decisiones, versiones y contradicciones: cada conflicto entre fuentes lo resolvés con estos criterios, que valen para cualquier caso:
+  1. Error de extracción (lo que dice el ítem del pool no coincide con lo que dice su pasaje): gana el pasaje.
+  2. Variantes de un nombre: gana la forma del documento oficial o judicial; si no hay, la que más fuentes repiten.
+  3. Conteos (muertos, heridos, personas): gana la cifra oficial; si no hay, la que más fuentes repiten. Las otras van en otras_versiones (el guion podrá decir «otras fuentes hablan de…»).
+  4. Hechos disputados (quién dio una orden, cómo estaban las puertas): no se resuelven. Van a «versiones», cada versión con su fuente, para que el guion las cuente como versiones.
+  5. Horas y fechas: gana la que coincide en 2 o más fuentes; si ninguna coincide, se marca aproximada.
+  Lo que resolvés con los criterios 1, 2, 3 o 5 va a «decisiones»: el tema, el número de criterio, la decisión en una oración, los ids que la sostienen y las otras versiones (cada una con su doc_id y su offset). Lo del criterio 4 va a «versiones». Lo que no cae en ningún criterio va a «contradicciones», con las versiones lado a lado, y no se resuelve. En las tres secciones, cada versión lleva su doc_id y su offset tal como están en la evidencia.
+- personas_descartadas: personas que el research descartó (están en <descartados_del_research>) pero que la historia necesita, con su rol, el motivo por el que hacen falta y los ids del pool que las nombran.
+- descartados: lo que dejás afuera por dudoso o fuera del caso, con el motivo en una línea.
+En el pool, una evidencia que ya apareció en otro ítem va como «(= arriba)»: es el mismo pasaje del mismo documento.
+Cada cifra, hora, fecha y cita que escribas tiene que estar en el texto de los ids que citás. No agregás nada que no esté en el pool.
+</tarea>
+
+===== USUARIO (md5 56ca1c891021bfb0a501c9df8348fe21) =====
+<caso>Kyshtym Mayak: El Desastre Nuclear Abandonado De La URSS</caso>
+
+<pool>
+<personajes n="9">
+[P03] Zhores Medvedev · Genetista soviético exiliado que denunció el desastre
+    F05@3464: «in 1976 Zhores Medvedev, an exiled Soviet geneticist, brought the "incident" to the atten¬ tion of the scientific community by claiming that buried nuclear waste material near Kyshtym exploded,»
+    F09@2140: «...it was not until Zhores Medvedev, a Soviet dissident, in his book The Nuclear Disaster in the Urals (1979)2, provided the West with the first details of the disaster.»
+    F13@11380: «in 1976, that Soviet dissident Zhores Medvedev made the nature and extent of the disaster known to the world.»
+    F14@7784: «the full scope of the radioactive contamination was only discovered in 1976 when a Soviet dissident, Zhores Medvedev, published a paper in the journal New Scientist that exposed the disaster.»
+[P04] Lev Tumerman · Científico soviético que fue testigo del área contaminada
+    F05@5666: «Medvedev's allegations of a vast contaminated area were cor¬ roborated by an account of Lev Tumerman, a Soviet scientist who in 1960 traveled along the Chelyabinsk-Sverdlovsk highway, which trav¬ erses the alleged contaminated area.»
+    F13@11619: «the core of his story was soon confirmed by Professor Lev Tumerman, the former head of the Biophysics Laboratory at the Engelhardt Institute of Molecular Biology in Moscow.»
+[P06] Leslie R. Groves · Jefe del Proyecto Manhattan en tiempos de guerra
+    F05@9070: «In an October 22, 1949, New York Times article, Lieut. Gen. Leslie R. Groves, wartime head of the Manhattan Project, said that in 1942 he told Gen. George C. Marshall,»
+[P07] Igor Vasil'evich Kurchatov · Padre de la ciencia atómica en la Unión Soviética y director del proyecto de producción de plutonio.
+    F05@10109: «Academician Igor Vasil'evich Kurchatov has rightfully been called the father of atomic science in the Soviet Union. ... The construction of the first Soviet uranium-graphite reactor, F-l, as well as the construction of the first industrial uranium reactor for the production of plutonium were both di»
+[P09] Lyudmila Krestinina · Jefa del laboratorio epidemiológico del Centro Científico y Práctico de Medicina de Radiación de los Urales
+    F02@4288: «The head of the laboratory, Candidate of Medical Sciences Lyudmila Krestinina, told RT that the risk of developing cancer in the area where the radioactive cloud is spreading and on the banks of the Techa River is 2.5% higher»
+[P10] Andrei Vazhenin · Oncólogo jefe de la región de Chelyabinsk
+    F02@4783: «However, the chief oncologist of the Chelyabinsk region, Andrei Vazhenin, claims that cancer is provoked not so much by radiation as by smoking and alcohol, as well as the heavy industry of the region.»
+[P11] Josef Stalin · Líder de la URSS que aceleró el programa nuclear soviético.
+    F09@3036: «The USSR leader, Josef Stalin, realised that the USSR’s nuclear program lagged significantly behind that of the US and needed to be accelerated.»
+[P13] Lieut. Gen. Leslie R. Groves · jefe del Proyecto Manhattan en tiempos de guerra
+    F05@9345: «"The Russians (sic) did it in a shorter time, because they got information from us." Perhaps Soviet agents in this country were able to piece together scraps of information gathered in con¬ versations with American physicists from facilities identified in the Smyth report.»
+[P14] Berlingske Tidende · periódico danés
+    F05@50743: «Berlingske Tidende, Denmark's biggest newspaper, said today the recent Soviet nuclear tests had to be broken off because of a 'catastrophic accident.'»
+</personajes>
+<cronologia n="34">
+[T01] Comienza la construcción de la instalación nuclear de Mayak. · fecha 1945 · hora None · lugar Unión Soviética
+    F14@1700: «The Mayak Nuclear Facility was built between 1945 and 1948. However, as Soviet engineers possessed only limited knowledge about the dangers of weapons-grade nuclear material, a number of safety measures were overlooked.»
+[T02] Se extrajeron por primera vez en la URSS dos porciones de plutonio-239, de 6 y 17 microgramos, a partir de uranio irradiado en el reactor F-1. · fecha 1947 · hora None · lugar None
+    F05@18569: «In 1947 from two samples of uranium irradiated by the F-l [two Soviet scientists] for the first time in the USSR extracted by two distinct methods two portions of plutonium-239, weighing 6 and 17 micrograms,»
+[T03] Se detonó la primera arma nuclear soviética. · fecha 1949 · hora None · lugar None
+    F05@24361: «History recorded the success of the Soviet plutonium pro¬ duction facility with the detonation of the first Soviet nuclear weapon in late 1949.»
+    F09@3618: «Almost immediately the plant was producing plutonium, and the first nuclear weapon was detonated in 1949.»
+[T04] Comenzaron los vertidos programados y de emergencia de residuos industriales radiactivos líquidos de nivel medio y bajo en masas de agua abiertas. · fecha 1949 · hora None · lugar None
+    F02@9725: «Since 1949, scheduled and emergency discharges of medium- and low-level technological liquid radioactive industrial waste have been carried out into open water bodies.»
+[T05] Se puso en marcha una planta radioquímica para la separación y el procesamiento de plutonio en Mayak. · fecha 1949-01 · hora None · lugar Mayak
+    F02@10021: «January A radiochemical plant for the separation and processing of plutonium was launched.»
+[T06] Se puso en marcha una planta químico-metalúrgica para la producción de cargas nucleares. · fecha 1949-02 · hora None · lugar Mayak
+    F02@10112: «In February, a chemical and metallurgical plant for the production of nuclear charges was launched.»
+[T07] El agua del lago artificial utilizado para refrigeración en Kyshtym se había vuelto peligrosamente radiactiva. · fecha 1953 · hora None · lugar None
+    F05@14045: «And by 1953, the water in this artificial lake had become dangerously radioactive. A small stream called the River Tech flowed out of the artificial lake in a north¬ easterly direction.»
+[T08] Según rumores, apareció enfermedad por radiación entre la gente y el ganado en el valle del río Techa. · fecha 1953 · hora None · lugar Valle del río Techa
+    F05@25771: «In 1953 or 1954, according to rumor, radiation sickness appeared among the people and cattle, and pos¬ sibly among the people and cattle of other settlements further downstream.»
+[T09] Se añadió una instalación de almacenamiento para residuos nucleares líquidos altamente activos en Mayak. · fecha 1953 · hora None · lugar Mayak
+    F09@4742: «By 1953, a storage facility for the highly active liquid nuclear waste was added.»
+    F14@2814: «In 1953, an underground waste storage facility was built to prevent further contamination. The facility was equipped with steel tanks buried underground and cooling systems designed to combat the heat produced by radioactive waste.»
+[T10] Se reconoció que el agua del río Techa, que fluye desde el lago Kyzyltash, se había vuelto altamente radiactiva. · fecha 1954 · hora None · lugar Río Techa
+    F05@24733: «a s early as 1954 . . . the water of the Techa River, running from Lake Kyzyltash and Lake Ulagach and emptying into the Iset River at Dalmatovo, had become highly radioactive.»
+[T11] Zhores Medvedev alegó que una erupción de residuos nucleares enterrados cerca de Kyshtym causó una zona contaminada. · fecha 1957 · hora None · lugar cerca de Kyshtym
+    F05@5197: «He further alleged that in the 1957-58 time frame, a volcano-like eruption of nuclear waste that had been buried in the vicinity of Kyshtym was the cause of the contaminated zone.»
+[T12] Durante las siguientes 10-11 horas, la nube radiactiva se desplazó hacia el noreste a una distancia de 300-350 km. · fecha 1957-09-29 · hora None · lugar None
+    F09@7140: «Over the next 10-11 hours the radioactive cloud drifted northeast to a distance of 300-350 km, causing widespread contamination.»
+[T13] Ocurrió el desastre nuclear de Kyshtym. · fecha 1957-09-29 · hora 11:22 · lugar None
+    F13@99: «Date | 29 September 1957. Time | 11:22 UTC»
+    F14@3235: «On September 29, 1957, a huge explosion occurred at the Mayak nuclear facility, releasing massive amounts of radioactive material into the surrounding area.»
+[T14] Se produjo una explosión en uno de los contenedores de almacenamiento de residuos radiactivos de alta actividad. · fecha 1957-09-29 · hora 16:22 · lugar Mayak
+    F02@9012: «September 29 At 16:22 local time, an explosion occurred in one of the containers for storing high-level radioactive waste.»
+    F09@6095: «On 29 September 1957 the tank exploded with the force of approximately 70-100 tonnes of TNT3.»
+[T15] Explotó un tanque de almacenamiento de residuos de alto nivel en la planta de Mayak porque su sistema de enfriamiento falló. · fecha 1957-09-29 · hora 16:22 · lugar Mayak
+    F13@4274: «On 29 September 1957, Sunday, 4:22 pm, an explosion occurred within stainless steel containers located in a concrete canyon 8.2 m (27 feet) deep used to store high-level waste.»
+[T16] Las masas de aire se desplazaron desde la planta química en dirección a la aldea de Bagaryak y la ciudad de Kamensk-Uralsky. · fecha 1957-09-29 · hora 19:20 · lugar Mayak
+    F02@9203: «19 hours 20 minutes. Air masses from the chemical plant area moved in the direction of the village of Bagaryak and the city of Kamensk-Uralsky, Sverdlovsk region.»
+[T17] Se observó un extraño resplandor rosa y azul claro en el cielo. · fecha 1957-09-29 · hora 23:00 · lugar None
+    F02@9448: «At about 11 p.m., a strange glow was noticed in the sky. The main colors of this glow were pink and light blue.»
+[T18] 22 horas después de la explosión, la nube radiactiva llegó al territorio de la región de Tyumen. · fecha 1957-09-30 · hora None · lugar región de Tyumen
+    F02@9366: «22 hours later, the radioactive cloud reached the territory of the Tyumen region.»
+[T19] Se aprobó un programa de actividades de emergencia para mitigar las consecuencias de la explosión. · fecha 1957-10-02 · hora None · lugar None
+    F09@10488: «A program of emergency activities to mitigate the consequences of the explosion was approved on 2 October 1957.»
+[T20] Una semana después de la explosión, comenzó la evacuación de 10.000 personas locales. · fecha 1957-10-06 · hora None · lugar None
+    F09@7828: «It was not until a week after the explosion that evacuation of 10,000 local people began.»
+[T21] Comenzó una operación para evacuar a unas 10.000 personas de la zona afectada, sin explicar los motivos. · fecha 1957-10-06 · hora None · lugar None
+    F13@9041: «A week later, on 6 October 1957, an operation for evacuating around 10,000 people from the affected area started, still without giving an explanation of the reasons for evacuation.»
+[T22] Comenzaron a aparecer en la prensa occidental informes vagos de un accidente catastrófico. · fecha 1958 · hora None · lugar None
+    F09@2011: «Vague reports of a catastrophic accident involving massive radioactive fallout began to appear in the western press in 1958...»
+[T23] A principios de 1958, se estableció una zona de protección sanitaria (SPZ) de 700 km2 con un régimen restrictivo. · fecha 1958 · hora None · lugar None
+    F09@11894: «In early 1958, a sanitary protection zone (SPZ) was established with a restrictive regime (residence and economic activities were prohibited). The area of the SPZ was 700 km2.»
+[T24] Un periódico de Copenhague informó de un "accidente catastrófico" relacionado con las pruebas de armas nucleares soviéticas. · fecha 1958-04 · hora None · lugar None
+    F05@3031: «In April 1958, a Copenhagen newspaper reported a "catastrophic accident" involving Soviet nuclear weapons tests and linked it to the Soviet unilateral suspension of nuclear weapons tests in March 1958.»
+[T25] Comenzaron a aparecer en la prensa occidental informes vagos de un accidente catastrófico en la Unión Soviética. · fecha 1958-04 · hora None · lugar None
+    F13@11067: «Vague reports of a "catastrophic accident" causing "a radioactive fallout over the Soviet and many neighboring states" began appearing in the Western press between 13 and 14 April 1958»
+[T26] Se formó una zona sanitaria en el territorio del accidente con prohibición de la actividad económica. · fecha 1959 · hora None · lugar None
+    F02@8910: «After the accident, a sanitary zone was formed on its territory with a ban on economic activity.»
+[T27] Un periódico vienés informó con más detalle sobre la explosión. · fecha 1959 · hora None · lugar None
+    F14@7686: «it wasn’t until 1959 that a Viennese newspaper reported on the explosion in more detail.»
+[T28] El gobierno de Estados Unidos tuvo conocimiento de la ocurrencia del desastre de Kyshtym. · fecha 1959 · hora None · lugar None
+    F14@8799: «According to recently declassified CIA documents, the United States government was aware that the Kyshtym disaster had occurred since 1959.»
+[T29] El periódico vienés Die Presse publicó los primeros detalles sobre el accidente. · fecha 1959-03-18 · hora None · lugar Viena
+    F13@11257: «the first details emerged in the Viennese paper Die Presse on 18 March 1959.»
+[T30] Lev Tumerman viajó por la carretera Chelyabinsk-Sverdlovsk y observó una zona "muerta". · fecha 1960 · hora None · lugar carretera Chelyabinsk-Sverdlovsk
+    F05@5755: «Lev Tumerman, a Soviet scientist who in 1960 traveled along the Chelyabinsk-Sverdlovsk highway, which trav¬ erses the alleged contaminated area.»
+[T31] Según un testigo en un hospital de Chelyabinsk, se informó de una "explosión terrible" en algún lugar del Oblast de Chelyabinsk. · fecha 1960-04 · hora None · lugar Oblast de Chelyabinsk
+    F05@41478: «she was advised that sometime in April 1960 a terrific explosion (vzriv) occurred somewhere in the Chelyabinsk Oblast.»
+[T32] El territorio del accidente se convirtió en la Reserva Natural de los Urales Orientales. · fecha 1968 · hora None · lugar None
+    F02@8643: «The territory where the accident occurred turned into the East Ural Nature Reserve.»
+    F14@5791: «the Soviet Union created the East Ural Nature Reserve in 1968, effectively shutting off the region from the rest of the world.»
+[T33] Se detectaron emisiones a la atmósfera de gases y aerosoles con yodo-131 y argón-41 en un radio de hasta 70 km desde Mayak PA. · fecha 1973 · hora None · lugar Mayak PA
+    F02@8239: «Due to the imperfection of air purification technology, there were also emissions into the atmosphere of gases and aerosols containing iodine-131 and radioactive isotopes of inert gases (in particular argon-41), which were detected within a radius of up to 70 km from the Mayak PA.»
+[T34] El disidente soviético Zhores Medvedev dio a conocer al mundo la naturaleza y el alcance del desastre. · fecha 1976 · hora None · lugar None
+    F13@11342: «But it was only eighteen years later, in 1976, that Soviet dissident Zhores Medvedev made the nature and extent of the disaster known to the world.»
+    F14@7784: (= arriba)
+</cronologia>
+<datos n="97">
+[D01] Zhores Medvedev afirmó que un área contaminada de probablemente más de 1000 millas cuadradas existe al este de Kyshtym. · tipo magnitud · valor más de 1000 millas cuadradas · fecha None
+    F05@992: «He has argued that a vast contami¬ nated area exists east of the city of Kyshtym in the southern Ural Mountains. ... probably more than a thousand square miles in size.»
+[D02] La ciudad de Kyshtym está ubicada en las coordenadas 55°42'N 60°34'E. · tipo lugar · valor 55°42'N 60°34'E · fecha None
+    F05@1649: «The city of Kyshtym (55°42'N 60°34'E) is located on the east side of the Ural Mountains on the railroad linking the industrial cities of Chelyabinsk and Sverdlovsk (Pig. 1 ) .»
+[D03] El Complejo Kyshtym se encuentra a aproximadamente 15 km al este de la ciudad de Kyshtym. · tipo magnitud · valor 15 km · fecha None
+    F05@2032: «The Kyshtym Complex lies approximately 15 km east of the city of Kyshtym on the south shore of Lake Kyzyltash.»
+[D04] Lev Tumerman vio una señal de tráfico que advertía a los conductores no detenerse durante los siguientes 20 o 30 kilómetros. · tipo magnitud · valor 20 o 30 kilómetros · fecha None
+    F05@6131: «a high¬ way sign warned drivers not to stop for the next 20 or 30 kilometres and to drive through at maximum speed.»
+[D05] Tumerman estimó que el área donde estaba prohibida la actividad humana normal era de no menos de 100 a 150 km². · tipo magnitud · valor 100 a 150 km² · fecha None
+    F05@6541: «What I saw personally, was a large area in the vicinity of Sverdlovsk (no less than 100 to 150 sq. km and probably much more), in which any normal human activity was forbidden,»
+[D06] El primer reactor de producción de plutonio en Kyshtym era conocido como Unidad 0. · tipo nombre · valor Unidad 0 · fecha None
+    F05@12419: «The first plutonium production reactor built at the Kyshtym Complex was known as Unit 0 to the Soviets. ... This reactor was called Unit 0 (Zero, or Nulevoy O b ' y e k t )»
+[D07] Se cavó un gran lago artificial en la parte noreste de la Zona Industrial del Complejo Kyshtym antes de agosto de 1950. · tipo lugar · valor lago artificial · fecha None
+    F05@13648: «Additional information indicates that prior to August 1950, a large artificial lake was dug in the northeastern part of the Industrial Zone of the Kyshtym Complex.»
+[D08] El flujo promedio del río Columbia en el sitio de Hanford es de 121,000 pies³/s. · tipo magnitud · valor 121,000 pies³/s · fecha None
+    F05@17241: «Further, whereas the average flow of the Columbia River at the Hanford site is 121,000 cu ft/s, with an average monthly minimum of 40,000 in February and a maximum of 334,000 in June,»
+[D09] El caudal del río Techa se estima entre 95 y 130 pies³/s anualmente. · tipo magnitud · valor None · fecha None
+    F05@17425: «the flow rate of the Techa River has been estimated from the drainage area and climatological data in the region to range an¬ nually from 95 to 130 cu ft/s.»
+[D10] La chimenea de la planta de enriquecimiento de Kyshtym medía 150 m de altura. · tipo magnitud · valor 150 m · fecha None
+    F05@20087: «The smokestack of the Kyshtym enrichment plant was reported to be 150 m high, 12 m in diameter at the base, and 4 m in diam¬ eter at its top.»
+[D11] En un radio de 15-20 km de la chimenea, la hierba y los árboles amarillearon y murieron. · tipo magnitud · valor 15-20 km · fecha None
+    F05@20539: «For a distance of 15-20 km from the stack, the grasses and trees yellowed and died.»
+[D12] La humedad relativa en el área de Kyshtym varía del 63% en mayo al 82% en noviembre. · tipo magnitud · valor None · fecha None
+    F05@20719: «in the Kyshtym area the relative humidity is high throughout the year, ranging from 63% in May to as high as 82% in November.»
+[D13] Se postula la existencia de un lecho de lago seco a 5-6 km al sureste del complejo, utilizado para la eliminación de residuos líquidos radiactivos. · tipo lugar · valor lecho de lago seco · fecha None
+    F05@23678: «A dry lake bed exists 5-6 km southeast of the complex, and we postulate that radioactive liquid waste was disposed of in this region.»
+[D14] En el área de Kyshtym, a finales de febrero y principios de marzo, hay ráfagas de viento de hasta 100 km/h que duran unas 2 horas. · tipo magnitud · valor 100 km/h · fecha None
+    F05@37006: «a study of local weather trends in the Kyshtym area has led to some interesting observations—one of which indicates that during late February and early March there are sudden gusts of wind (up to 100 km per hour) that last about 2 hours,»
+[D15] Según un testigo, la zona secreta de la explosión estaba a unos 50 o 60 kilómetros de Chelyabinsk. · tipo magnitud · valor None · fecha None
+    F05@41614: «no one knew where this blast occurred but there was talk that there was a 'secret zone approximately 50 to 60 kilometers from Chelyabinsk and where this explosion occurred.»
+[D16] Prisioneros voluntarios cubrieron la superficie del área contaminada con más de 1 m de tierra. · tipo magnitud · valor más de 1 m · fecha None
+    F05@44361: «Information indicates that they used volunteer prisoners, to dump truckloads of sand on top of the contaminated soil. The surface of the contam¬ inated area was covered with more than 1 m of soil.»
+[D17] A las tropas se les dijo que la contaminación fue causada por la explosión de un reactor en 1956. · tipo fecha · valor 1956 · fecha None
+    F05@46247: «they were told that the site was radioactively contaminated and that the cause of this contamination was a reactor explosion that occurred in 1956.»
+[D18] La excavación para uno de los reactores de Kyshtym pudo haber sido de más de 50 m de lado por 50 m de profundidad. · tipo magnitud · valor None · fecha None
+    F05@50097: «It has been reported that the excavation for one of the Kyshtym reactors may have been in excess of 50 m square by 50 m deep.»
+[D19] El accidente de Kyshtym, la primera emergencia por radiación de origen humano en la URSS, ocurrió en la planta química Mayak. · tipo nombre · valor accidente de Kyshtym · fecha None
+    F02@154: «The Kyshtym accident (or Kyshtym catastrophe) is the first radiation emergency of a man-made nature in the USSR, which arose at the Mayak chemical plant, located in the closed city of Chelyabinsk-40 (now Ozersk).»
+[D20] El accidente de Kyshtym está clasificado como de nivel 6 en una escala de 7, superado solo por los de Chernóbil y Fukushima-1. · tipo magnitud · valor 6 · fecha None
+    F02@367: «The accident is classified as severe in terms of consequences, according to the modern international classification it belongs to level 6 out of 7 possible, second only to the accidents at the Chornobyl Nuclear Power Plant and Fukushima-1, which occurred much later.»
+[D21] El accidente fue llamado “Kyshtym” por la ciudad más cercana a Ozersk que aparecía en los mapas públicos, ya que Ozersk era secreta. · tipo nombre · valor Kyshtym · fecha None
+    F02@755: «the accident was called “Kyshtym” after the city of Kyshtym, closest to Ozersk, which was indicated on the maps.»
+[D22] Entre 1948 y 2000 ocurrieron en la planta Mayak unos 40 accidentes de diversa gravedad. · tipo cifra · valor 40 · fecha 1948-2000
+    F02@907: «From 1948 to 2000, about 40 accidents of varying severity occurred at the plant.»
+[D23] En 1967, el viento arrastró limo radiactivo del poco profundo lago Karachay. · tipo fecha · valor 1967 · fecha 1967
+    F02@988: «After the release into the Tech and the explosion, the accident of 1967 remains noticeable, when the wind carried radioactive silt from the shallowed Lake Karachay.»
+[D24] Entre 1948 y 1998, medio millón de personas fueron expuestas a la radiación debido al trabajo de la planta. · tipo cifra · valor None · fecha 1948-1998
+    F02@1153: «Between 1948 and 1998, half a million people were exposed to radioactive radiation due to the work of the plant.»
+[D25] 4.000 personas murieron de enfermedad aguda por radiación. · tipo cifra · valor None · fecha None
+    F02@1341: «and 4 thousand people died from acute radiation sickness.»
+[D26] Los médicos enmascaraban la enfermedad por radiación con el diagnóstico de “síndrome nevrálgico”. · tipo nombre · valor None · fecha None
+    F02@1399: «We also note that doctors masked radiation sickness with the diagnosis of “Neuralgic syndrome”.»
+[D27] Actualmente, Mayak produce plutonio apto para armas y reprocesa combustible radiactivo gastado. · tipo nombre · valor plutonio apto para armas · fecha None
+    F02@1495: «Currently, Mayak produces weapons-grade plutonium and also stores and reprocesses spent radioactive fuel from nuclear power plants.»
+[D28] La planta Mayak es el principal proveedor de cesio-137 del mundo. · tipo nombre · valor cesio-137 · fecha None
+    F02@1678: «For example, it is the main supplier of cesium-137 in the world.»
+[D29] El lecho del río Techa contiene lodos radiactivos, principalmente estroncio-90 y cesio-137. · tipo magnitud · valor None · fecha None
+    F02@1803: «there is radioactive sludge at the bottom of the river, containing mainly strontium-90 and cesium-137.»
+[D30] Se necesitarán 300 años para que el río Techa se limpie de forma natural. · tipo magnitud · valor 300 años · fecha None
+    F02@1906: «It will take 300 years for the river to naturally cleanse itself.»
+[D31] En algunos puntos del río Techa, el fondo radiactivo supera en miles de veces la media rusa. · tipo magnitud · valor None · fecha None
+    F02@2127: «In some places of the river, an excess of the average Russian background is now recorded thousands of times and an excess of the maximum permissible concentration by 3 or more times.»
+[D32] La cantidad de radionucleidos acumulada en el lago Karachay equivale a 6 Chernóbiles. · tipo magnitud · valor 6 · fecha None
+    F02@2375: «The amount of radionuclides accumulated by it is equivalent to 6 Chernobyls.»
+[D33] La composición de radionucleidos en el lago Karachay es 60% de cesio-137 y 40% de estroncio-90. · tipo magnitud · valor None · fecha None
+    F02@2452: «The composition of radionuclides in the lake is 60% cesium-137 and 40% strontium-90.»
+[D34] Debajo del lago Karachay se formó una lente de agua contaminada de 10 kilómetros cuadrados de superficie total. · tipo magnitud · valor 10 kilómetros cuadrados · fecha None
+    F02@2778: «Another problem of Karachay was the polluted water lens forming under the lake. Its width is about 100 meters and its total area is 10 square kilometers.»
+[D35] Se cree que 5 millones de m3 de agua contaminada del lago Karachay pasaron a las aguas subterráneas. · tipo magnitud · valor None · fecha None
+    F02@2932: «It is believed that 5 million m3 of contaminated water entered the groundwater.»
+[D36] La lente de agua contaminada bajo el lago Karachay se mueve hacia los ríos a una velocidad de aproximadamente 100 metros por año. · tipo magnitud · valor 100 metros por año · fecha None
+    F02@3012: «The lens moves towards the rivers at a speed of approximately 100 meters per year.»
+[D37] Tras el accidente fueron reasentadas más de 4.500 personas de las aldeas de Russkaya Karabolka, Yugo-Konevo y Alabuga, entre otras. · tipo cifra · valor None · fecha None
+    F02@3250: «Immediately after the accident, residents of villages that fell into the zone of intense pollution were resettled - more than 4,500 people from the villages of Russkaya Karabolka, Yugo-Konevo, Alabuga and others.»
+[D38] En total se liquidaron 23 aldeas en las que vivían 12.700 personas. · tipo cifra · valor 23 · fecha None
+    F02@3463: «In total, 23 villages were liquidated, in which 12.7 thousand people lived.»
+[D39] La ciudad de Ozyorsk no fue reasentada porque el viento no llevó la contaminación radiactiva hacia allí. · tipo lugar · valor Ozyorsk · fecha None
+    F02@3539: «Ozyorsk itself was not resettled, since thanks to the wind rose, the city and the nearest settlements - Kyshtym and Kasli - did not receive radioactive contamination.»
+[D40] El texto afirma que ninguna persona murió como resultado del accidente de 1957, y que ningún liquidador sufrió enfermedad por radiación aguda o crónica. · tipo contradiccion · valor None · fecha None
+    F02@4021: «No people died as a result of the accident. [...] None of the liquidators suffered acute or chronic radiation sickness.»
+[D41] Según datos oficiales del Instituto de Biofísica de los Urales del Sur, 5 personas fueron enviadas a hospitales tras la explosión. · tipo cifra · valor 5 · fecha None
+    F02@4985: «According to official data from the South Ural Institute of Biophysics, 5 people were sent to hospitals after this explosion.»
+[D42] El gobierno soviético reconoció públicamente el desastre de Kyshtym solo unos años después de que ocurriera. · tipo fecha · valor None · fecha None
+    F02@6824: «The Soviet government publicly acknowledged the disaster only a few years later, and information about its consequences was strictly controlled.»
+[D43] El desastre de Kyshtym fue un accidente de contaminación radiactiva que ocurrió el 29 de septiembre de 1957 en Mayak, Unión Soviética. · tipo fecha · valor 29 de septiembre de 1957 · fecha 1957-09-29
+    F09@151: «The Kyshtym disaster was a radioactive contamination accident that occurred on 29 September 1957 at Mayak, a plutonium production site for nuclear weapons and nuclear fuel reprocessing plant in the Soviet Union.»
+[D44] El material radiactivo liberado afectó un área de alrededor de 20.000 km², hogar de aproximadamente 270.000 personas. · tipo magnitud · valor 20.000 km² · fecha None
+    F09@363: «Large quantities of radioactive material were released affecting an area of around 20,000 km², home to approximately 270,000 people.»
+[D45] En términos de cantidad de radioactividad liberada, solo los desastres de Chernobyl y Fukushima fueron de mayor magnitud. · tipo cita · valor None · fecha None
+    F09@496: «In terms of quantity of radioactivity released, only the Chernobyl and Fukushima disasters were greater in magnitude.»
+[D46] El evento fue clasificado como nivel 6, un accidente grave, en la Escala Internacional de Sucesos Nucleares. · tipo cifra · valor 6 · fecha None
+    F09@1625: «On the International Nuclear Event Scalea, it would be classed as level 6 – a serious accident (Chernobyl and Fukushima both being classed as 7 – the highest level on the scale).»
+    F13@1413: «It is the only disaster classified as Level 6 on the International Nuclear Event Scale (INES).»
+[D47] Alrededor de 40.000 reclusos del GULAG o prisioneros de guerra del Eje fueron forzados a construir la planta Mayak. · tipo cifra · valor 40.000 · fecha None
+    F09@3365: «Around 40,000 inmates from GULAG, or Axis prisoner of war camps were forced into carrying out its construction.»
+[D48] El agua contaminada de los reactores se descargaba inicialmente sin tratamiento en el lago Kyzaltash y el río Techa. · tipo lugar · valor río Techa · fecha None
+    F09@4313: «The highly contaminated water was initially discharged without any treatment back into Lake Kyzaltash and the Techa river, in which children played and was also the main source of drinking water for about 20 villages.»
+[D49] El lago Karachay se convirtió en 'el lugar más contaminado de la tierra' tras ser utilizado para verter residuos. · tipo lugar · valor lago Karachay · fecha None
+    F09@4531: «The practice of discharging the waste into the Techa river, and Lake Kyzaltash was eventually stopped, and instead dumped into Lake Karachay, soon making it ‘the most contaminated spot on earth’.»
+[D50] Un sistema de enfriamiento en uno de los tanques, que contenía 70-80 toneladas de residuos radiactivos, falló y no fue reparado. · tipo magnitud · valor 70-80 toneladas · fecha None
+    F09@5740: «A cooling system on one of the tanks, which contained 70-80 tonnes of highly radioactive waste had failed, and had been left unrepaired for a considerable period of time.»
+    F13@4560: «The explosion was caused because the cooling system in one of the tanks at Mayak, containing about 70–80 tons of liquid radioactive waste, failed and was not repaired.»
+[D51] Durante el fallo, la temperatura del tanque subió a alrededor de 350ºC, causando la evaporación del agua. · tipo magnitud · valor 350ºC · fecha None
+    F09@5911: «During this period the temperature of the tank had risen to around 350ºC causing the water in the tank to evaporate, leaving behind a radioactive mix of ammonium nitrate and acetates.»
+[D52] El tanque explotó con la fuerza de aproximadamente 70-100 toneladas de TNT. · tipo magnitud · valor 70-100 toneladas de TNT · fecha None
+    F09@6095: (= arriba)
+[D53] La tapa de concreto del tanque, de aproximadamente 160 toneladas, fue arrancada por la explosión. · tipo magnitud · valor 160 toneladas · fecha None
+    F09@6189: «The lid of the tank, approximately 160 tonnes of concrete, was blown free.»
+[D54] Se estima que se liberaron aproximadamente 20 MCi (800 PBq) de radioactividad en la región. · tipo magnitud · valor 20 MCi (800 PBq) · fecha None
+    F09@6786: «It has been estimated that approximately 20 MCi (800 PBq) of radioactivity was released across the region. Most of this contamination (about 90%) settled out near the site of the accident»
+[D55] Una pluma que contenía 2 MCi (80 PBq) de radionúclidos se extendió por cientos de kilómetros. · tipo magnitud · valor 2 MCi (80 PBq) · fecha None
+    F09@7027: «but a plume containing 2 MCi (80 PBq) of radionuclides spread out over hundreds of kilometres.»
+[D56] La contaminación consistía predominantemente en cesio 137 y estroncio 90. · tipo nombre · valor cesio 137 y estroncio 90 · fecha None
+    F09@7269: «The contamination, consisting predominately of caesium 137 and strontium 90, was spread over an area of 800-20,000 km² depending on what contamination level is considered significant.»
+[D57] Un área de aproximadamente 1000 km² se conoció como la Traza Radiactiva de los Urales Orientales (EURT). · tipo nombre · valor Traza Radiactiva de los Urales Orientales (EURT) · fecha None
+    F09@7572: «This delineated an area of approximately 1000 km that became known as the East Urals Radioactive Trace (EURT).»
+[D58] Las evacuaciones, llevadas a cabo sin dar ninguna razón, se extendieron por un período de casi dos años. · tipo magnitud · valor casi dos años · fecha None
+    F09@7918: «Even then, no reason for the evacuations was given. The evacuations were carried out over a period of nearly two years.»
+[D59] En las áreas con contaminación superior a 5x10² Ci/km², la muerte de la vegetación fue evidente y los efectos se mantuvieron hasta 3-4 años. · tipo magnitud · valor 3-4 años · fecha None
+    F09@10292: «In areas with contamination greater than 5x10²Cikm-², death of vegetation was evident and such effects were sustained for up to 3-4 years after the accident.»
+[D60] Los residentes de tres asentamientos cercanos al sitio (1100 personas) fueron evacuados entre 7 y 14 días después del accidente. · tipo cifra · valor 1100 · fecha None
+    F09@10984: «The residents of three settlements located in closest proximity to the site of the explosion (1100 persons), were evacuated within 7–14 days after the accident, essentially because of high levels of external exposure.»
+[D61] En total, 22 asentamientos con una población de más de 10.000 personas fueron reubicados. · tipo cifra · valor 22 · fecha None
+    F09@12833: «In total, 22 settlements with a population over 10 000 people were relocated as a result of emergency and scheduled activities.»
+    F13@1765: «At least 22 villages were exposed to radiation from the Kyshtym disaster, with a total population of around 10,000 people evacuated. Some were evacuated after a week»
+[D62] Entre 270.000 y más de 500.000 personas fueron afectadas por el accidente. · tipo cifra · valor None · fecha None
+    F13@248: «Casualties | 270,000-500,000+ affected. 10,000–12,000 evacuated. At least 200 people died of radiation sickness, unknown estimated future death toll from radiation induced illness.[1][2] 66 diagnosed cases of chronic radiation syndrome»
+[D63] Entre 10.000 y 12.000 personas fueron evacuadas a causa del desastre. · tipo cifra · valor None · fecha None
+    F13@248: (= arriba)
+[D64] Al menos 200 personas murieron por enfermedad por radiación. · tipo cifra · valor 200 · fecha None
+    F13@313: «At least 200 people died of radiation sickness, unknown estimated future death toll from radiation induced illness.[1][2] 66 diagnosed cases of chronic radiation syndrome[3]»
+[D65] Se diagnosticaron 66 casos de síndrome de radiación crónico. · tipo cifra · valor 66 · fecha None
+    F13@313: (= arriba)
+    F14@8634: «Moreover, the column of radioactive debris is said to have caused chronic radiation syndrome in approximately 66 individuals who were present at the Mayak facility.»
+[D66] El desastre es también conocido como desastre de Mayak o desastre de Ozyorsk. · tipo nombre · valor None · fecha None
+    F13@489: «The Kyshtym disaster (Russian: Кыштымская авария), sometimes referred to as the Mayak disaster or Ozyorsk disaster in newer sources, was a radioactive contamination accident that occurred on 29 September 1957 at Mayak»
+[D67] La explosión contaminó miles de kilómetros cuadrados de tierra, ahora conocidos como la Traza Radiactiva de los Urales Orientales (EURT). · tipo nombre · valor None · fecha None
+    F13@880: «An improperly stored underground tank of high-level liquid nuclear waste exploded, contaminating thousands of square kilometers of land, now known as the Eastern Ural Radioactive Trace (EURT).»
+[D68] El desastre fue encubierto y su alcance total fue desconocido fuera y dentro de la Unión Soviética durante casi dos décadas. · tipo magnitud · valor casi dos décadas · fecha None
+    F13@1076: «The matter was covered up, and few either inside or outside the Soviet Union were aware of the full scope of the disaster for nearly two decades.»
+[D69] El desastre de Kyshtym es el segundo peor incidente nuclear por radioactividad liberada, después del de Chernobyl. · tipo magnitud · valor None · fecha None
+    F13@1228: «The disaster is the second worst nuclear incident by radioactivity released, after the Chernobyl disaster, and was regarded as the worst nuclear disaster in history until Chernobyl.»
+[D70] El desastre esparció partículas calientes sobre más de 52.000 kilómetros cuadrados, donde vivían al menos 270.000 personas. · tipo magnitud · valor None · fecha None
+    F13@2005: «The disaster spread hot particles over more than 52,000 square kilometres (20,000 sq mi), where at least 270,000 people lived.»
+[D71] La planta de Mayak se construyó apresuradamente entre 1945 y 1948. · tipo fecha · valor None · fecha None
+    F13@2549: «The Mayak plant was built in haste between 1945 and 1948. Gaps in physicists’ knowledge about nuclear physics at the time made it difficult to judge the safety of many decisions.»
+    F14@1700: (= arriba)
+[D72] Inicialmente, Mayak vertía residuos radiactivos de alto nivel en un río cercano que desembocaba en el río Ob y luego en el Océano Ártico. · tipo lugar · valor río Ob · fecha None
+    F13@2819: «Initially, Mayak dumped high-level radioactive waste into a nearby river, which flowed to the river Ob, flowing farther downstream to the Arctic Ocean.»
+[D73] Se añadió una instalación de almacenamiento de residuos nucleares líquidos alrededor de 1953. · tipo fecha · valor 1953 · fecha None
+    F13@3347: «A storage facility for liquid nuclear waste was added around 1953. It consisted of steel tanks mounted in a concrete base, 8.2 meters (27 ft) underground.»
+[D74] El sistema de almacenamiento consistía en tanques de acero montados en una base de hormigón, a 8.2 metros bajo tierra. · tipo magnitud · valor None · fecha None
+    F13@3414: «It consisted of steel tanks mounted in a concrete base, 8.2 meters (27 ft) underground. Because of the high level of radioactivity, the waste was heating itself through decay heat»
+[D75] La explosión levantó una losa de hormigón de 160 toneladas. · tipo magnitud · valor None · fecha None
+    F13@4969: «The explosion lifted a concrete slab weighing 160 tons, and a brick wall was destroyed in a building located 200 meters (660 ft) from the explosion site.»
+[D76] Una décima parte de las sustancias radiactivas fue lanzada al aire. · tipo magnitud · valor None · fecha None
+    F13@5123: «A tenth of the radioactive substances were lifted into the air. After the explosion, a column of smoke and dust rose to a kilometre high»
+[D77] Se estima que el desastre liberó 20 MCi (740 PBq) de radiactividad. · tipo magnitud · valor 20 MCi (740 PBq) · fecha None
+    F13@7034: «The disaster is estimated to have released 20 MCi (740 PBq) of radioactivity. Most of this contamination settled out near the site of the accident and contributed to the pollution of the Techa River»
+[D78] En las 10 a 11 horas siguientes, la nube radiactiva se movió hacia el noreste, alcanzando 300-350 km desde el accidente. · tipo magnitud · valor None · fecha None
+    F13@7555: «In the next ten to eleven hours, the radioactive cloud moved towards the north-east, reaching 300–350 km (190–220 mi) from the accident.»
+[D79] La lluvia radiactiva contaminó un área de entre 800 y 20.000 km², principalmente con cesio-137 y estroncio-90. · tipo magnitud · valor None · fecha None
+    F13@7692: «The fallout of the cloud resulted in long-term contamination of an area of 800–20,000 km2 (300–8,000 sq mi), depending on what contamination level is considered significant, primarily with caesium-137 and strontium-90.»
+[D80] La CIA supo del accidente de Mayak de 1957 desde 1959, pero lo mantuvo en secreto. · tipo fecha · valor 1959 · fecha 1959
+    F13@12675: «the CIA had known of the 1957 Mayak accident since 1959, but kept it secret to prevent adverse consequences for the fledgling American nuclear industry.»
+[D81] En 1968, el gobierno soviético creó la Reserva Natural de los Urales Orientales para disfrazar el área de la EURT. · tipo fecha · valor 1968 · fecha 1968
+    F13@13019: «The Soviet government in 1968 disguised the EURT area by creating the East Ural Nature Reserve, which prohibited any unauthorised access to the affected area.»
+    F14@5791: (= arriba)
+[D82] El desastre de Kyshtym es uno de los incidentes nucleares más graves del mundo, con una liberación de material nuclear de nivel seis. · tipo magnitud · valor nivel seis · fecha None
+    F14@0: «The Kyshtym disaster was one of the world’s most serious nuclear incidents. ... Soviet citizens were unaware that a level six release of nuclear material had occurred across a vast area of their country.»
+[D83] El desastre de Kyshtym es el único incidente que ha recibido la clasificación de nivel seis en la Escala Internacional de Eventos Nucleares. · tipo cifra · valor único · fecha None
+    F14@1037: «the Kyshtym disaster was designated as a level six event on the International Nuclear Event Scale and remains the only incident to be given this ranking.»
+[D84] El desastre es el tercero más grave de la historia, después de Chernóbil y Fukushima Daiichi, que son incidentes de nivel siete. · tipo magnitud · valor tercero más grave · fecha None
+    F14@1191: «The disaster is the third most serious to occur in history, with the Chernobyl nuclear catastrophe and the Fukushima Daiichi meltdown being the only two level seven incidents on the INES scale.»
+[D85] Los seis reactores de la instalación de Mayak utilizaban un sistema de refrigeración de ciclo abierto que contaminaba el lago Kyzyltash. · tipo cifra · valor None · fecha None
+    F14@2348: «Moreover, the six reactors that produced the plutonium at the Mayak facility used an open-cycle cooling system that took in water from Lake Kyzyltash and released the contaminated water straight back into the same lake.»
+[D86] El lago Karachay se convirtió en uno de los lugares más contaminados de la Tierra debido a la intensa concentración de residuos nucleares. · tipo lugar · valor Lago Karachay · fecha None
+    F14@2681: «Over many years, the lake became one of the most heavily polluted places on Earth due to the intense concentration of nuclear waste.»
+[D87] La explosión química tuvo una potencia equivalente a setenta toneladas de TNT. · tipo magnitud · valor setenta toneladas de TNT · fecha None
+    F14@3392: «The explosion was caused by a failure in the cooling system of the nuclear waste tank storage area, which resulted in a chemical explosion equal in size to seventy tons of TNT.»
+[D88] La explosión lanzó una columna de polvo radiactivo que dispersó lluvia radiactiva sobre miles de millas cuadradas. · tipo magnitud · valor miles de millas cuadradas · fecha None
+    F14@3569: «The blaze sent a column of radioactive dust into the atmosphere that dispersed fallout across thousands of square miles, an area now known as the Eastern Ural Radioactive Trace region.»
+[D89] La explosión destruyó uno de los catorce tanques de almacenamiento subterráneo en la instalación de Mayak. · tipo cifra · valor None · fecha None
+    F14@3754: «The explosion destroyed one of the fourteen underground storage tanks at the Mayak facility. This spread radiation over an area that was home to over a quarter of a million people.»
+[D90] La nube radiactiva resultó en la contaminación a largo plazo de casi ocho mil millas cuadradas. · tipo magnitud · valor ocho mil millas cuadradas · fecha None
+    F14@4354: «The radioactive cloud that was released in the explosion resulted in the long-term contamination of almost eight thousand square miles, an area more than ten times the size of the Chernobyl exclusion zone.»
+[D91] El área contaminada es más de diez veces el tamaño de la zona de exclusión de Chernóbil. · tipo magnitud · valor más de diez veces · fecha None
+    F14@4454: «almost eight thousand square miles, an area more than ten times the size of the Chernobyl exclusion zone.»
+[D92] Se encontraron isótopos radiactivos peligrosos como el cesio-137 y el estroncio-90 en fuentes de agua, bosques e instalaciones agrícolas. · tipo nombre · valor None · fecha None
+    F14@4560: «Highly dangerous radioactive isotopes such as cesium-137 and strontium-90 were found in water sources, forests, and agricultural facilities.»
+[D93] Tras el desastre fueron evacuadas unas 22 aldeas con una población total de diez mil personas. · tipo cifra · valor None · fecha None
+    F14@5084: «Some 22 villages with a combined population of ten thousand people were evacuated in the aftermath, although the process of moving those affected took almost two years in some instances.»
+[D94] El proceso de evacuación de los afectados tardó casi dos años en algunos casos. · tipo magnitud · valor casi dos años · fecha None
+    F14@5193: «the process of moving those affected took almost two years in some instances. Most residents were not adequately informed about the reason behind their displacement and were simply ordered to move elsewhere.»
+[D95] El lago Karachay ha acumulado aproximadamente la misma cantidad de material radiactivo que se liberó durante el desastre de Chernóbil. · tipo magnitud · valor None · fecha None
+    F14@6760: «Since the inception of the Mayak facility, the lake has accumulated roughly the same amount of radioactive material that was released during the Chernobyl nuclear disaster.»
+[D96] Algunos estudios han estimado que casi cien muertes por cáncer entre los residentes del río Techa podrían estar relacionadas con la lluvia radiactiva del desastre de Kyshtym. · tipo cifra · valor None · fecha None
+    F14@8449: «Some studies have estimated that nearly one hundred cancer-related deaths that occurred among the residents along River Techa may have been linked to fallout from the Kyshtym disaster.»
+[D97] El gobierno de Estados Unidos era consciente de que el desastre de Kyshtym había ocurrido desde 1959. · tipo fecha · valor 1959 · fecha None
+    F14@8799: (= arriba)
+</datos>
+<citas n="14">
+[Q01] CITA «la explosión arrojó polvo y materiales radiactivos a lo alto del cielo, ... fuertes vientos llevaron las nubes radiactivas a cientos de millas de distancia. . . . Decenas de miles de personas se vieron afectadas, cientos murieron, aunque las cifras reales nunca se han hecho públicas.» — Zhores Medvedev (genetista soviético exiliado) · verificada · fecha None
+    F05@5380: «By his account, "the explosion poured radioactive dust and materials high up into the sky," and "strong winds blew the radioactive clouds hundreds of miles away. . . . Tens of thousands of people were affected, hundreds dying, though the real figures have never been made public."»
+[Q02] CITA «A unos 100 kilómetros de Sverdlovsk, una señal de tráfico advertía a los conductores que no se detuvieran durante los siguientes 20 o 30 kilómetros y que condujeran a máxima velocidad. A ambos lados de la carretera, hasta donde alcanzaba la vista, la tierra estaba 'muerta': sin pueblos, sin ciudades, solo las chimeneas de las casas destruidas, sin campos de cultivo ni pastos, sin rebaños, sin gente... nada.» — Lev Tumerman (científico soviético que emigró a Israel) · verificada_parcial · fecha 1960
+    F05@6016: «He stated in letters to the Jerusalem Post, and to The London Times that: "About 100 kilometres from Sverdlovsk, a high¬ way sign warned drivers not to stop for the next 20 or 30 kilometres and to drive through at maximum speed.»
+[Q03] CITA «Lo que vi personalmente fue una gran área en las cercanías de Sverdlovsk (no menos de 100 a 150 km cuadrados y probablemente mucho más), en la que toda actividad humana normal estaba prohibida, la gente fue evacuada y las aldeas arrasadas, evidentemente para evitar que los habitantes regresaran, no había agricultura ni ganadería, la pesca y la caza estaban prohibidas, ...» — Lev Tumerman (científico soviético que emigró a Israel) · verificada · fecha None
+    F05@6453: «In personal correspondence with the authors of this report, Tumerman further stated: "What I saw personally, was a large area in the vicinity of Sverdlovsk (no less than 100 to 150 sq. km and probably much more), in which any normal human activity was forbidden,»
+[Q04] CITA «la lluvia radiactiva fue consecuencia de una gran explosión nuclear en una planta nuclear militar cerca de Kyshtym. Dijeron que muchas (quizás cientos) de personas murieron o resultaron heridas.» — mucha gente en Sverdlovsk y Belpyarsk (población local) · verificada · fecha None
+    F05@7060: «What i was told by many people in Sverdlovsk and Belpyarsk, was that the fallout was a con¬ sequence of a major nuclear explosion on a military nuclear plant near Kyshtym.»
+[Q05] CITA «Los rusos (sic) lo hicieron en menos tiempo, porque obtuvieron información de nosotros.» — Lieut. Gen. Leslie R. Groves (jefe del Proyecto Manhattan en tiempos de guerra) · verificada · fecha 1942
+    F05@9345: (= arriba)
+[Q06] CITA «En un lugar pintoresco lejos de Moscú, avanzaba el trabajo en una ciudad y su equipamiento industrial y plantas químicas.» — I. N. Golovin (biógrafo soviético de Kurchatov) · verificada · fecha None
+    F05@10861: «First, Golovin states: "In a scenic spot far from Moscow work was progressing on a city and its industrial equip¬ ment and chemical plants.»
+[Q07] CITA «todas las hojas de los árboles en y alrededor de Yemanzhelinskaya y áreas circundantes estaban completamente cubiertas con una fina capa de polvo rojo, muy rápidamente todas las hojas de los álamos se volvieron de un marrón extremadamente brillante, se enroscaron y cayeron.» — Una ex residente del Oblast de Chelyabinsk (testigo) · verificada · fecha 1960
+    F05@40182: «I told her that all the leaves on the trees in and around Yemanzhelinskaya and surrounding areas were completely covered with a fine layer of red dust, very quickly all the leaves on the pop¬ lar trees became extremely shiny brown, curled up and fell off.»
+[Q08] CITA «las recientes pruebas nucleares soviéticas tuvieron que ser interrumpidas debido a un 'accidente catastrófico'.» — Berlingske Tidende (periódico danés) · verificada · fecha 1958-04-13
+    F05@50743: (= arriba)
+[Q09] CITA «el riesgo de desarrollar cáncer en la zona por donde se extendió la nube radiactiva y en las orillas del río Techa es un 2,5% mayor que para las personas que no han estado expuestas a radiación adicional.» — Lyudmila Krestinina (Jefa del laboratorio epidemiológico del Centro Científico y Práctico de Medicina de Radiación de los Urales) · verificada · fecha None
+    F02@4288: «The head of the laboratory, Candidate of Medical Sciences Lyudmila Krestinina, told RT that the risk of developing cancer in the area where the radioactive cloud is spreading and on the banks of the Techa River is 2.5% higher than for people who have not been exposed to additional radiation.»
+[Q10] CITA «el 92% de la dosis fue recibida por las personas durante los dos primeros años, y ahora la mayoría de los territorios de la huella de radiación de los Urales Orientales son seguros e incluso están abiertos a la actividad económica.» — Lyudmila Krestinina (Jefa del laboratorio epidemiológico del Centro Científico y Práctico de Medicina de Radiación de los Urales) · verificada · fecha None
+    F02@4581: «She also noted that 92% of the dose was received by people during the first two years, and now most of the territories of the East Ural radiation footprint are safe and even open for economic activity.»
+[Q11] CITA «el cáncer es provocado no tanto por la radiación como por el tabaquismo y el alcohol, así como por la industria pesada de la región.» — Andrei Vazhenin (Oncólogo jefe de la región de Chelyabinsk) · verificada · fecha None
+    F02@4783: (= arriba)
+[Q12] CITA «Investigando las causas del accidente en el lugar, la comisión cree que los principales culpables de este incidente son el jefe de la planta radioquímica y el ingeniero jefe de esta planta, quienes cometieron una grave violación de las regulaciones tecnológicas para la operación del almacenamiento de soluciones radiactivas» — E.P. Slavsky (Ministro de Industria) · verificada · fecha None
+    F13@9956: «In a memo addressed to the Central Committee of the CPSU, Industry Minister E.P. Slavsky wrote: "Investigating the causes of the accident on the spot, the commission believes that the main culprits of this incident are the head of the radiochemical plant and the chief engineer of this plant»
+[Q13] CITA «simplemente estar de pie en la orilla del lago es suficiente para administrar una dosis letal de radiación» — Algunos científicos nucleares (Científicos nucleares) · verificada · fecha None
+    F14@6933: «According to some nuclear scientists, simply standing at the shore of the lake is enough to deliver a lethal dose of radiation.»
+[Q14] CITA «el artículo como imposible, ya que una fuga tan grande de radiación seguramente habría sido detectada por Occidente» — Figuras clave en el organismo regulador nuclear internacional (Reguladores nucleares) · verificada · fecha None
+    F14@7976: «Key figures in the international nuclear regulatory body dismissed the paper as impossible as such a large leak of radiation would have surely been detected by the West.»
+</citas>
+<lugares n="21">
+[L01] Kyshtym · Ciudad cercana a la primera instalación de producción de plutonio soviética.
+    F05@1649: (= arriba)
+    F02@755: (= arriba)
+    F09@1431: «...the disaster was named after Kyshtym, the nearest known town.»
+    F13@2223: «the disaster was named after Kyshtym, the nearest known town.»
+    F14@456: «The Kyshtym disaster, which has also been referred to as the Mayak or Ozyorsk nuclear incident, is considered by many to be one of the most serious nuclear incidents in history.»
+[L02] Kyshtym Complex · Primera instalación de producción de plutonio soviética.
+    F05@2032: (= arriba)
+[L03] Lake Kyzyltash · Lago en cuya orilla sur se encuentra el Complejo Kyshtym.
+    F05@2032: (= arriba)
+[L04] Hanford, Washington · Ubicación del complejo de producción de plutonio de EE. UU., usado como análogo para el complejo de Kyshtym.
+    F05@9619: «It seems reasonable that parallels may be drawn between the US plutonium production complex at Hanford, Washington, and the Kyshtym Complex, Chelyabinsk Province,»
+[L05] Techa River Valley · Área poblada por los Bashkir que sufrió contaminación hídrica y por aerosoles.
+    F05@17880: «Thus, the entrance of radioactively contaminated effluent into the Techa River, at least as early as 1953, establishes a chronic, waterborne source of radioactive contamination in the Techa River Valley»
+    F02@1743: «Now the Techa is contaminated, you can’t drink from it, and there is radioactive sludge at the bottom of the river, containing mainly strontium-90 and cesium-137.»
+[L06] Yemanzhelinskaya · Lugar donde un testigo observó polvo rojo cubriendo y matando las hojas de los árboles.
+    F05@40182: «I told her that all the leaves on the trees in and around Yemanzhelinskaya and surrounding areas were completely covered with a fine layer of red dust,»
+[L07] Mayak chemical plant · Lugar del desastre nuclear de Kyshtym.
+    F02@203: «the first radiation emergency of a man-made nature in the USSR, which arose at the Mayak chemical plant, located in the closed city of Chelyabinsk-40 (now Ozersk).»
+[L08] Lake Karachay · Lago utilizado como vertedero de residuos radiactivos, convirtiéndose en uno de los lugares más contaminados del mundo.
+    F02@2310: «Another site where radioactive waste is dumped is Lake Karachay. The amount of radionuclides accumulated by it is equivalent to 6 Chernobyls.»
+[L09] Russkaya Karabolka · Una de las aldeas cuyos residentes fueron reasentados tras el accidente.
+    F02@3282: «residents of villages that fell into the zone of intense pollution were resettled - more than 4,500 people from the villages of Russkaya Karabolka, Yugo-Konevo, Alabuga and others.»
+[L10] Yugo-Konevo · Una de las aldeas cuyos residentes fueron reasentados tras el accidente.
+    F02@3282: (= arriba)
+[L11] Alabuga · Una de las aldeas cuyos residentes fueron reasentados tras el accidente.
+    F02@3282: (= arriba)
+[L12] Kasli · Asentamiento cercano que no recibió contaminación radiactiva gracias a la dirección del viento.
+    F02@3604: «the city and the nearest settlements - Kyshtym and Kasli - did not receive radioactive contamination.»
+[L13] Ural Scientific and Practical Center for Radiation Medicine · Centro donde se estudia el efecto de la radiación crónica en la salud de la población de los Urales del Sur.
+    F02@4065: «The effect of chronic radiation on the health of the people of the Southern Urals and their descendants is being studied by the epidemiological laboratory of the Ural Scientific and Practical Center for Radiation Medicine.»
+[L14] Russian Fissile Materials Storage Facility (RFMS) · Nuevo propósito de la empresa Mayak desde 2003 para procesar y almacenar residuos radiactivos.
+    F02@8096: «The enterprise has been repurposed as the Russian Fissile Materials Storage Facility (RFMS) for processing and storing radioactive waste.»
+[L15] East Ural Nature Reserve · Reserva natural creada en el territorio donde ocurrió el accidente.
+    F02@8643: (= arriba)
+    F13@13019: (= arriba)
+[L16] Mayak · Sitio de producción de plutonio y planta de reprocesamiento de combustible nuclear donde ocurrió el desastre.
+    F09@218: «...occurred on 29 September 1957 at Mayak, a plutonium production site for nuclear weapons and nuclear fuel reprocessing plant in the Soviet Union.»
+    F13@698: «at Mayak, a plutonium reprocessing production plant for nuclear weapons located in the closed city of Chelyabinsk-40 (now Ozyorsk) in Chelyabinsk Oblast, Russia in the Soviet Union.»
+[L17] Ozyorsk · Ciudad cerrada (antes Chelyabinsk-40) construida alrededor de la planta de Mayak donde ocurrió el evento.
+    F09@1209: «The event occurred in the town of Ozyorsk, Chelyabinsk Oblast (see Figure 1), a closed city built around the Mayak plant.»
+    F13@781: «the closed city of Chelyabinsk-40 (now Ozyorsk) in Chelyabinsk Oblast, Russia in the Soviet Union.»
+[L18] Chelyabinsk-40 · Ciudad cerrada donde se ubicaba la planta de Mayak. Actualmente Ozyorsk.
+    F13@781: «the closed city of Chelyabinsk-40 (now Ozyorsk) in Chelyabinsk Oblast, Russia in the Soviet Union. An improperly stored underground tank of high-level liquid nuclear waste exploded»
+[L19] Eastern Ural Radioactive Trace (EURT) · Área de tierra contaminada por la explosión.
+    F13@963: «contaminating thousands of square kilometers of land, now known as the Eastern Ural Radioactive Trace (EURT).»
+[L20] Mayak Nuclear Facility · Sitio de producción de plutonio donde ocurrió el desastre.
+    F14@76: «The accident occurred in 1957 at a secret Soviet facility in the Urals that produced weapons-grade nuclear material.»
+[L21] Eastern Ural Radioactive Trace region · Área de miles de millas cuadradas afectada por la lluvia radiactiva de la explosión.
+    F14@3569: (= arriba)
+</lugares>
+<descartados_del_research n="8">
+  A. I. Burnazyan (F05): cita_literal no está en el documento
+  E.P. Slavsky (F13): no es una persona con nombre propio
+  M. A. Demyanovich (F13): no es una persona con nombre propio
+  Diane M. Soran (F05): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Danny B. Stillman (F05): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Henry D. Smyth (F05): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  N. V. Timofeyev-Resovskiy (F05): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Mikhail Gorbachev (F14): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+</descartados_del_research>
+</pool>
+
+<tarea>Con el pool de arriba, armá la ficha del caso: personas, personas_descartadas, cronologia, historia, escenas (8–15), hechos (60–80, con nivel y sirve_para), cifras (con unidad), citas (15–25), decisiones (con su criterio), versiones, contradicciones (las que ningún criterio resuelve) y descartados. Devolvé el JSON del esquema.</tarea>

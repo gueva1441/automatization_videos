@@ -1,0 +1,303 @@
+===== SISTEMA (md5 49ed74d941def064cdda077212629ff1) =====
+<rol>
+Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que nadie escriba una línea, vos decidís la historia: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea, y con qué se queda al final. Trabajás solo con la ficha del caso que te dan: no inventás nombres, cifras, fechas ni citas. Lo que no está en la ficha no pasó.
+</rol>
+
+<que_es_una_escaleta>
+Siete capítulos, de 7 a 14 beats. Cada beat es un momento de la historia: tiene un dato central, hasta seis apoyos, una imagen que se puede ver (o oír, u oler), lo que el espectador se pregunta en ese punto, y la frase con la que el capítulo deja la puerta abierta al siguiente. El guionista va a escribir exactamente lo que vos decidas. Si la escaleta es plana, el guion va a ser plano.
+</que_es_una_escaleta>
+
+<oficio>
+1. El humano primero. La ficha trae candidatos con arco. Elegí al que tenga más momentos concretos (entra, sufre, sale) y más citas verificadas. Tiene que aparecer en el gancho, en el pico y en el cierre; si en el medio desaparece dos caps, el espectador lo olvida.
+2. El gancho es el peor momento, ya en curso. Tomá la escena más fuerte de la ficha y ponela en el beat 1, marcado como flash-forward. Sin contexto, sin año, sin cifras: lo que se ve. La promesa es una frase que dice qué va a entender el espectador si se queda.
+3. Del gancho se vuelve atrás. El cap 2 es la vida antes: quién era esta gente, qué hacía ahí. Es el único cap tranquilo y por eso es el más importante para que duela lo que viene.
+4. Cada cap avanza y deja algo abierto. La frase de cierre de un cap nombra lo que viene o lo deja incompleto. Nunca resume.
+5. El pico es uno solo, y es el que la ficha marcó salvo que tengas una razón mejor (decila). Antes del pico, un cap que aprieta; después del pico, un respiro: los cuerpos, la morgue, el silencio.
+6. Los giros de la ficha son los puntos donde la historia cambia de dirección. Cada giro tiene su beat. Si un giro no entra, decí cuál y por qué.
+7. Las escenas de la ficha son tus imágenes. El beat 1 y el pico toman su imagen de una escena; los demás, cuando haya una. Una imagen es algo para ver, oír, oler o tocar: «manos contra un vidrio ahumado», no «la desesperación de la gente».
+8. Las versiones en disputa (quién dio la orden, cómo estaban las puertas) son material, no problema: dales su beat. El contraste entre la pericia y los testigos es casi siempre el mejor cap 6.
+9. El cierre vuelve al humano con una cita suya o una pregunta que nadie respondió. Nunca una moraleja, nunca «hoy».
+10. Lo que va a pantalla (cifras oficiales, documentos) no lo dice la voz. Marcalo en `a_pantalla`. Las cifras que sí dice la voz, una vez cada una.
+11. Un dato vive en un solo beat. Si lo necesitás en dos, elegí dónde pega más.
+12. Las citas sin verificar van sin nombre, pero no excluyen a nadie: el humano puede estar en escena con una cita suya sin verificar; el guionista sabrá no ponerle el nombre a esa frase.
+</oficio>
+
+<ejemplo>
+De otro caso (una cárcel durante un huracán). Copiá la forma, no el contenido.
+
+humano: Renard Reed, oficial del sheriff. Por qué: entra de servicio la noche de la tormenta, ve a sus compañeros irse, ve los disparos desde el techo, y es el único que años después dice en voz alta lo que vio. 3 citas verificadas.
+promesa_gancho: «Miles de hombres quedaron encerrados cuando la ciudad se vació. Esta es la historia de quién decidió dejarlos.»
+pico: beat 5 (los francotiradores). Por qué: es el momento en que el encierro se vuelve cacería; todo lo anterior lo prepara.
+
+beat 1 · cap 1 · gancho · flash-forward · intensidad 4 · escena E3
+  imagen: el sabor del agua del inodoro en la boca, una celda a oscuras
+  dato central: Q184 (Burton: «tuvimos que beber agua del inodoro»)
+  el espectador se pregunta: ¿cómo se llega a eso?
+  cierre: Días antes de la sed, llegó la tormenta. Y con ella, una decisión.
+beat 2 · cap 2 · planteo · intensidad 1
+  imagen: un televisor con el mapa del huracán, todavía con señal
+  dato central: T55 (28 de agosto, evacuación obligatoria) · apoyos: D30 (la excepción: los presos), Q08 (Gusman: «donde pertenecen»), Q24 (Reed: los oficiales renuncian)
+  humano en escena: sí
+  el espectador se pregunta: ¿quién abre las puertas si los guardias se van?
+  cierre: Cuando la luz se fue, los guardias también empezaron a irse.
+…
+beat 5 · cap 5 · pico · intensidad 5 · escena E9
+  imagen: un fogonazo en el techo del edificio HOD, visto desde una ventana rota
+  dato central: Q14 (Richard: francotiradores) · apoyos: Q47 (Reed: «parecía que estaban abatiendo a la gente»), Q146 («están tratando de escapar»)
+  humano en escena: sí
+  el espectador se pregunta: ¿escapar o sobrevivir?
+  cierre: Después de los disparos, quedaba la espera. Sobre un puente.
+beat 6 · cap 6 · respiro · intensidad 2 …
+beat 8 · cap 7 · cierre · intensidad 3
+  dato central: D185 (517 ausentes de la lista) · apoyos: Q60 (Reyes: «todavía hay presos muertos ahí dentro»), Q50 (Reed: «son seres humanos»)
+  cierre: la cita de Reed.
+a_pantalla: D192 (la cifra oficial), D189 (la condena económica).
+</ejemplo>
+
+<errores>
+- Elegir un humano distinto cada vez que se corre. Si la ficha lo propone y tiene arco, es él.
+- Poner el gancho tranquilo para que la curva «suba». El gancho es el peor momento; la curva empieza alta, baja en el cap 2 y vuelve a subir. Eso es un flash-forward, no un error.
+- Ignorar las escenas de la ficha y escribir imágenes abstractas («la tensión en el aire»).
+- Repartir el material parejo para llenar siete caps. Un cap puede tener dos beats densos y otro uno solo.
+- Convertir «el espectador se pregunta» en una pregunta retórica para el guion. Es una nota para vos y para el guionista, no una frase del video.
+</errores>
+
+===== USUARIO, intento 1 (md5 4b2200978299419666d2de00e99261ed) =====
+<caso>
+TÍTULO: Kyshtym Mayak: El Desastre Nuclear Abandonado De La URSS
+ÁNGULO: El desastre de Kyshtym está clasificado en nivel 6, superado solo por Chernóbil y Fukushima-1. El genetista Zhores Medvedev lo reveló en 1976, mientras Lev Tumerman fue testigo de aldeas arrasadas.
+MISTERIO: ¿Cómo un desastre nuclear de nivel 6 permaneció oculto al mundo por casi 20 años?
+REVELACIÓN: La explosión del tanque de 160 toneladas en Mayak fue encubierta por la URSS, silenciada incluso por la CIA desde 1959.
+</caso>
+
+<columna>
+HUMANO: Lev Tumerman: Entra como viajero, encuentra un territorio donde está prohibido detenerse y termina aportando un testimonio que corrobora la denuncia pública. Tiene la escena física más concreta: abrimos con él en la carretera, sin inventarle una presencia durante la explosión. [P04, T30, D04, D05, Q02, Q03]
+PICO: cap 5, El tanque revienta, levanta su cubierta de hormigón y expulsa una columna de humo y polvo: la avería de un depósito se convierte en contaminación sobre territorio habitado. Las 160 toneladas corresponden a la cubierta, no al tanque. [T14, D53, D75, D76, D78, D44]
+
+CAP 1 · QUÉ PASA: Lev Tumerman atraviesa una carretera del territorio contaminado. Un cartel ordena no detenerse y conducir a máxima velocidad. Está cruzando una zona donde se prohíbe la actividad humana normal. PERSONAS: Lev Tumerman. TERMINA: Antes de esa prohibición, había una planta y aldeas que vivían del río. [P04, T30, D04, D05, Q02, Q03, D48]
+CAP 2 · QUÉ PASA: Antes del viaje de Tumerman, Mayak funciona dentro de una ciudad cerrada para abastecer al programa nuclear soviético. Las aldeas dependen del Techa para beber y los niños juegan en sus aguas. Los reactores devuelven agua contaminada sin tratamiento al lago y al río. PERSONAS: Lev Tumerman. TERMINA: Pero el agua abierta no será el único destino de los residuos. [D19, D71, T03, D48, T09]
+CAP 3 · QUÉ PASA: La reconstrucción del territorio que encontrará Tumerman nos lleva al almacenamiento incorporado en 1953. Los residuos líquidos de alta actividad se guardan en tanques de acero sobre hormigón, a 8,2 metros bajo tierra. Generan su propio calor y necesitan refrigeración. PERSONAS: Lev Tumerman. TERMINA: La refrigeración de uno de esos tanques falla. [T09, D73, D74, D50]
+CAP 4 · QUÉ PASA: La refrigeración queda sin reparar. El tanque contiene entre 70 y 80 toneladas de residuos y su temperatura alcanza unos 350 °C. El agua se evapora y deja una mezcla radiactiva de nitrato de amonio y acetatos. PERSONAS: —. TERMINA: Lo siguiente que cede es el tanque. [D50, D51, T14]
+CAP 5 · QUÉ PASA: El 29 de septiembre de 1957 revienta el tanque: es una explosión química, no una detonación nuclear. Levanta una cubierta de hormigón de unas 160 toneladas y destruye una pared de ladrillos a 200 metros. Una columna de humo y polvo asciende un kilómetro; las fuentes estiman una liberación de 20 MCi. Durante las siguientes 10–11 horas, la nube avanza 300–350 kilómetros hacia el noreste, fuera de Mayak y sobre territorio habitado. PERSONAS: —. TERMINA: La nube avanza. [T14, D87, D53, D75, D76, D54, D77, T12, D78, D44]
+CAP 6 · QUÉ PASA: La evacuación comienza una semana después, sin explicar sus motivos a los vecinos, y se prolonga casi dos años. A pantalla: alrededor de 10.000 reubicados y 22 asentamientos, cifras coincidentes pero no un balance oficial; el dato oficial de cinco enviados a hospitales tampoco cuenta muertos. Tumerman cruza el área restringida en 1960; en 1968 se crea una reserva que mantiene prohibido el acceso no autorizado. PERSONAS: Lev Tumerman. TERMINA: Un genetista exiliado va a hacer público el alcance del desastre. [T20, T21, D58, D94, D61, D93, D41, T30, D05, T32, D81, P03, T34]
+CAP 7 · QUÉ PASA: Medvedev publica la denuncia en 1976 y Tumerman aporta corroboración frente a quienes objetan que Occidente habría detectado semejante liberación. Dos fuentes sitúan el conocimiento estadounidense en 1959; solo una atribuye el silencio de la CIA a proteger la industria nuclear estadounidense. Slavsky comunica que una comisión responsabiliza al jefe de la planta radioquímica y a su ingeniero jefe; la ficha no aporta una sentencia judicial. Volvemos a Tumerman: su testimonio acredita las restricciones, pero no permite establecer un balance de víctimas exclusivo de la explosión. PERSONAS: Zhores Medvedev, Lev Tumerman, E.P. Slavsky. TERMINA: ¿Cuál fue el balance humano atribuible específicamente a la explosión, separado de la contaminación previa y posterior de Mayak? [P03, T34, P04, Q14, D04, D05, D80, D97, Q12, D65, D96, D24]
+
+AFUERA: Groves, Marshall, Stalin, Kurchatov y Golovin; la carrera nuclear y los trabajadores forzados que construyeron Mayak. (Abren otra historia y desplazan el recorrido de Tumerman; alcanza con establecer la función de la planta.); Krestinina, Vazhenin y sus declaraciones sobre cáncer; los 66 diagnósticos y la estimación de casi cien muertes. (Exigen distinguir poblaciones, exposiciones y grados de certeza; no sirven como balance exclusivo de esta explosión.); La dispersión del limo de Karachay en 1967 y los demás accidentes de Mayak. (Son episodios distintos: sumarlos al pico falsearía la atribución de sus consecuencias.); El resplandor rosa y azul y la vegetación amarilleada alrededor de la chimenea. (El primero aparta del hilo humano; la segunda no puede atribuirse exclusivamente a la explosión.); Las aldeas arrasadas y las chimeneas atribuidas al recorrido de Tumerman. (El fragmento disponible verifica el cartel y las restricciones, no esas imágenes.); Los primeros informes occidentales de 1958–1959 y el libro de Medvedev de 1979. (La denuncia de 1976 concentra el giro público sin abrir una cronología paralela de publicaciones.); Las superficies de contaminación, las equivalencias discrepantes en becquereles y la comparación con otros desastres. (Agregan escalas y umbrales que distraen del paso decisivo: del tanque averiado al territorio habitado.)
+</columna>
+
+<ficha>
+historia:
+  humanos candidatos:
+    [P03, P04, T34, Q01, Q14] Zhores Medvedev — Genetista exiliado que convierte un accidente oculto en una denuncia pública. · arco: Entra como científico soviético exiliado, denuncia una explosión y una extensa contaminación que reciben objeciones, y termina con el núcleo de su relato corroborado por el testimonio de Tumerman. · citas verificadas: 1
+    [P04, T30, D04, D05, Q02, Q03] Lev Tumerman — Científico que pasa de viajero por un área restringida a testigo de la contaminación. · arco: Entra en la carretera como viajero, encuentra una señal que impide detenerse y un territorio donde se prohíbe la actividad normal, y sale convertido en testigo que aporta cartas y correspondencia para corroborar la denuncia. · citas verificadas: 2
+  giros:
+    1. Los residuos dejan de depender únicamente de los vertidos abiertos y pasan también a almacenarse bajo tierra, donde su propio calor exige refrigeración. [T09, D73, D74]
+    2. Falla la refrigeración de un tanque y no se repara: el almacenamiento se convierte en un sistema que acumula calor. [D50, D51]
+    3. El tanque explota y la contaminación sale de la instalación en una nube que avanza hacia el noreste. [T14, D53, D76, D78]
+    4. La respuesta deja de ser solo técnica y pasa a desplazar poblaciones, pero la evacuación comienza una semana después y no explica sus motivos. [T19, T20, T21, D58]
+    5. La creación de una reserva mantiene restringido el acceso al territorio afectado. [D81, T32]
+    6. Medvedev expone públicamente el alcance del desastre y el testimonio de Tumerman aporta una corroboración frente a las objeciones. [P03, P04, T34, Q14]
+  pico: El tanque revienta, levanta su cubierta de hormigón y produce una columna de humo y polvo que dispersa contaminación fuera de Mayak. — Es el momento en que el fallo de refrigeración deja de afectar a un depósito y se transforma en una contaminación regional sobre un territorio habitado; no hace falta fijar un número de muertos para establecer su gravedad. [D50, D51, D53, D76, D44, D78]
+  pregunta final: ¿Cuál fue el balance humano atribuible específicamente a la explosión, separado de la contaminación previa y posterior de Mayak, si el pool combina negaciones, estimaciones de muertes y diagnósticos sin un balance común verificable? [D40, D64, D65, D96, D24, D25, Q01]
+
+escenas:
+  E1. Lago Kyzaltash y río Techa, antes de la explosión · Niños que utilizan el río y la instalación que descarga agua — El agua contaminada procedente de los reactores vuelve sin tratamiento al lago y al río donde juegan niños. · sentidos: El documento permite mostrar niños jugando en el agua y el vertido; no describe un color, olor o señal visible de la radiactividad. [D48]
+  E2. Almacenamiento subterráneo de Mayak · Los depósitos de residuos; el pasaje no identifica personas presentes — Los residuos líquidos se guardan en tanques de acero montados sobre una base de hormigón bajo tierra. · sentidos: Acero, hormigón y una profundidad de 8,2 metros son los detalles físicos documentados; no hay descripción de iluminación, ruido o presencia de operarios. [D73, D74]
+  E3. Depósito de residuos de Mayak y edificio cercano · El tanque que explota y las estructuras alcanzadas — La explosión levanta una losa de hormigón y destruye una pared de ladrillos en un edificio próximo. · sentidos: Una losa de 160 toneladas desplazada y una pared destruida a 200 metros del punto de explosión; el pasaje no transcribe el sonido. [D53, D75]
+  E4. Sobre la instalación de Mayak, inmediatamente después de la explosión · La columna de material expulsado — Una columna de humo y polvo asciende después de la explosión. · sentidos: Humo y polvo que alcanzan un kilómetro de altura; no se documentan aquí su color ni su olor. [D76]
+  E5. Cielo observado tras la explosión · Observadores no identificados por el documento — Alrededor de las 23:00 se advierte un resplandor extraño. · sentidos: Los colores descritos son rosa y azul claro; no se atribuye una explicación física al resplandor. [T17]
+  E6. Entorno de la chimenea del complejo de Kyshtym, sin fecha precisada · La vegetación del entorno industrial — La hierba y los árboles amarillean y mueren en el área próxima a la chimenea. · sentidos: Amarilleamiento de hierba y árboles en un radio de 15–20 km; el pasaje no permite atribuir esta escena exclusivamente a la explosión. [D11]
+  E7. Sectores de mayor contaminación después del accidente · La vegetación de las zonas contaminadas — La muerte de la vegetación se hace evidente y sus efectos persisten. · sentidos: Vegetación muerta visible en áreas por encima del umbral de contaminación indicado; no se agregan especies ni colores. [D59]
+  E8. Carretera Chelyabinsk-Sverdlovsk, durante el viaje de Tumerman · Lev Tumerman y los conductores a quienes se dirige la señal — Tumerman encuentra un cartel que ordena atravesar el tramo sin detenerse y a máxima velocidad. · sentidos: La señal escrita prohíbe parar durante los siguientes 20 o 30 kilómetros; el fragmento disponible no verifica las chimeneas ni las casas destruidas de la cita extensa del pool. [T30, D04, Q02]
+  E9. Lago Karachay, en el episodio de 1967 · El viento y el limo del lago poco profundo — El viento arrastra limo radiactivo del lago. · sentidos: Material del lecho desplazado por el viento; el documento no proporciona color, olor ni condiciones meteorológicas adicionales. [D23]
+
+personas:
+  [P03, T11, T34, Q01] Zhores Medvedev — Genetista soviético exiliado que denunció el desastre y difundió su alcance.
+  [P04, T30, D04, D05, Q02, Q03] Lev Tumerman — Científico soviético que recorrió el área restringida y aportó su testimonio para corroborar la denuncia.
+  [P06, P13, Q05] Leslie R. Groves — Jefe del Proyecto Manhattan durante la guerra, mencionado como contexto de la carrera nuclear.
+  [P06] George C. Marshall — General mencionado como interlocutor de Groves en un relato sobre el programa nuclear estadounidense.
+  [P07, Q06] Igor Vasil'evich Kurchatov — Director de la construcción de reactores del programa soviético de producción de plutonio.
+  [Q06] I. N. Golovin — Biógrafo de Kurchatov citado sobre la construcción de la ciudad y sus instalaciones industriales.
+  [P11] Josef Stalin — Dirigente soviético que impulsó la aceleración del programa nuclear.
+  [P09, Q09, Q10] Lyudmila Krestinina — Jefa del laboratorio epidemiológico del Centro Científico y Práctico de Medicina de Radiación de los Urales.
+  [P10, Q11] Andrei Vazhenin — Oncólogo jefe de la región de Chelyabinsk que relativiza el peso de la radiación frente a otros factores de cáncer.
+  [Q12] E.P. Slavsky — Ministro de Industria que transmitió al Comité Central la atribución de responsabilidades realizada por una comisión.
+
+personas descartadas que la historia necesita:
+  [Q12] E.P. Slavsky — Ministro de Industria y autor del memorando citado al Comité Central. · Hace falta para atribuir la acusación de la comisión sin convertirla en una conclusión del narrador; las iniciales no impiden identificar a una persona y Q12 sí le atribuye una acción.
+
+cronologia:
+  [T01, D71] 1945–1948 — Se construye apresuradamente la instalación de Mayak.
+  [T03] 1949 — Se detona la primera arma nuclear soviética.
+  [T04] 1949 — Comienzan los vertidos programados y de emergencia de residuos radiactivos líquidos en masas de agua abiertas; el pool no permite ordenarlos respecto de la detonación dentro de ese año.
+  [T09, D73] 1953 — Se incorpora una instalación de almacenamiento de residuos nucleares líquidos de alta actividad.
+  [T07] 1953 — Según F05, el agua del lago artificial utilizado para refrigeración ya se había vuelto peligrosamente radiactiva.
+  [T10] 1954 — F05 sitúa ya en este año la alta radiactividad del agua del Techa.
+  [T13, T14, T15, D43] 29 de septiembre de 1957 16:22, hora local — Explota un contenedor de residuos de alta actividad en Mayak; F13 también publica una hora de 11:22 UTC.
+  [T12, D78, D43] Después de la explosión del 29 de septiembre de 1957 Durante las siguientes 10–11 horas — La nube se desplaza hacia el noreste y alcanza una distancia de 300–350 km; este intervalo se superpone con los registros horarios siguientes.
+  [T16, D43] 29 de septiembre de 1957 19:20 — Las masas de aire procedentes de la planta se desplazan hacia Bagaryak y Kamensk-Uralsky.
+  [T17, D43] 29 de septiembre de 1957 Alrededor de las 23:00 (aproximada) — Se observa un resplandor extraño de colores rosa y azul claro.
+  [T18, D43] Después de la explosión del 29 de septiembre de 1957 22 horas después — La nube alcanza el territorio de la región de Tyumen; se conserva el tiempo relativo porque el pasaje no da una fecha de calendario.
+  [T19] 2 de octubre de 1957 — Se aprueba un programa de actividades de emergencia para mitigar las consecuencias.
+  [T20, T21, D58] 6 de octubre de 1957 — Comienza la operación de evacuación, una semana después de la explosión, sin explicar sus motivos a los afectados.
+  [D60] Después del accidente Entre 7 y 14 días después — Son evacuados los residentes de los asentamientos más próximos, un grupo de 1100 personas.
+  [T23] Principios de 1958 (aproximada) — Se establece una zona de protección sanitaria de 700 km² que prohíbe la residencia y la actividad económica.
+  [T24, T25, Q08] 13–14 de abril de 1958 (aproximada) — Aparecen en la prensa occidental informes vagos sobre un accidente catastrófico; el informe de Copenhague lo vincula con pruebas nucleares.
+  [T27, T29] 18 de marzo de 1959 — Die Presse publica detalles sobre el accidente.
+  [T28, D80, D97] 1959 — Según F13 y F14, las autoridades estadounidenses ya conocen la existencia del accidente.
+  [T30, P04, D04] 1960 — Lev Tumerman recorre la carretera Chelyabinsk-Sverdlovsk y observa restricciones al tránsito por el área.
+  [D23] 1967 — El viento dispersa limo radiactivo del lago Karachay, un episodio distinto de la explosión.
+  [T32, D81] 1968 — Se crea la Reserva Natural de los Urales Orientales y se restringe el acceso no autorizado.
+  [P03, T34] 1976 — Zhores Medvedev divulga la naturaleza y el alcance del desastre y publica un artículo en New Scientist.
+  [P03] 1979 — F09 identifica el libro de Medvedev The Nuclear Disaster in the Urals como una publicación que aportó detalles a Occidente.
+
+hechos nivel 1:
+  [D43, T14] El desastre ocurrió el 29 de septiembre de 1957 en Mayak. (gancho)
+  [D19, L16, L17, L18] Mayak estaba en la ciudad cerrada de Chelyabinsk-40, actualmente Ozyorsk. (contexto)
+  [D48] El agua contaminada de los reactores se descargaba inicialmente sin tratamiento en el lago Kyzaltash y el río Techa, donde jugaban niños. (contexto)
+  [T09, D73] En 1953 se incorporó una instalación de almacenamiento de residuos líquidos de alta actividad. (contexto)
+  [D50] La refrigeración de un tanque con 70–80 toneladas de residuos falló y permaneció sin reparar. (escalada)
+  [D51] La temperatura del tanque subió a unos 350 °C y el agua se evaporó. (escalada)
+  [D52, D87] La explosión química tuvo una fuerza estimada de 70–100 toneladas de TNT. (pico)
+  [D54, D77] F09 y F13 estiman una liberación de 20 MCi de radiactividad. (pico)
+  [T12, D78] Durante las siguientes 10–11 horas, la nube avanzó hacia el noreste y alcanzó 300–350 km desde el accidente. (escalada)
+  [D56, D79] F09 y F13 sitúan la superficie contaminada entre 800 y 20.000 km² según el umbral considerado significativo. (consecuencia)
+  [T20, T21] La operación de evacuación comenzó el 6 de octubre de 1957, una semana después de la explosión. (giro)
+  [T21, D58, D94] Los evacuados no recibieron una explicación de los motivos del desplazamiento. (consecuencia)
+  [D58, D94] Las evacuaciones se extendieron durante casi dos años. (consecuencia)
+  [D80, D97] Según F13 y F14, las autoridades estadounidenses conocían el accidente desde 1959. (giro)
+  [P03, T34] Medvedev divulgó el alcance del desastre en 1976 mediante un artículo en New Scientist. (giro)
+
+hechos nivel 2:
+  [D21, L01] El accidente recibió el nombre de Kyshtym porque esa ciudad cercana figuraba en los mapas públicos. (contexto)
+  [D71] La planta se construyó apresuradamente entre 1945 y 1948. (contexto)
+  [P11] Stalin consideraba necesario acelerar el programa nuclear soviético frente al estadounidense. (contexto)
+  [D47] Alrededor de 40.000 reclusos del GULAG o prisioneros de guerra del Eje fueron obligados a construir Mayak. (contexto)
+  [T03] La primera arma nuclear soviética fue detonada en 1949. (contexto)
+  [D85] Los seis reactores de Mayak utilizaban refrigeración de ciclo abierto que devolvía agua contaminada al lago Kyzyltash. (contexto)
+  [D48] El Techa era la principal fuente de agua potable para unas 20 aldeas. (contexto)
+  [T04] Los vertidos programados y de emergencia de residuos radiactivos líquidos en aguas abiertas comenzaron en 1949. (contexto)
+  [T07] F05 afirma que en 1953 el agua de un lago artificial de refrigeración ya era peligrosamente radiactiva. (escalada)
+  [T10] F05 sitúa ya en 1954 la alta radiactividad del agua del río Techa. (escalada)
+  [D49] Los vertidos al Techa y al lago Kyzaltash se interrumpieron y los residuos pasaron a descargarse en el lago Karachay. (contexto)
+  [D74] El almacenamiento consistía en tanques de acero sobre una base de hormigón a 8,2 metros bajo tierra. (contexto)
+  [D74] Los residuos almacenados generaban calor por desintegración radiactiva. (escalada)
+  [D51] La evaporación dejó una mezcla radiactiva de nitrato de amonio y acetatos. (escalada)
+  [D89] F14 identifica el tanque destruido como uno de los catorce depósitos subterráneos de la instalación. (pico)
+  [D53, D75] La explosión levantó una cubierta de hormigón de unas 160 toneladas. (pico)
+  [D75] Una pared de ladrillos fue destruida en un edificio situado a 200 metros del punto de explosión. (pico)
+  [D76] Después de la explosión se elevó una columna de humo y polvo de un kilómetro de altura. (pico)
+  [D54] Según F09, aproximadamente el 90 % de la contaminación se depositó cerca del lugar del accidente. (consecuencia)
+  [D55] Una pluma con 2 MCi de radionúclidos se extendió a cientos de kilómetros. (escalada)
+  [T16] A las 19:20 las masas de aire procedentes de la planta se desplazaban hacia Bagaryak y Kamensk-Uralsky. (escalada)
+  [T17] Alrededor de las 23:00 se observó un resplandor rosa y azul claro. (gancho)
+  [T18] La nube llegó al territorio de la región de Tyumen 22 horas después de la explosión. (escalada)
+  [D56, D79] La contaminación de larga duración incluía principalmente cesio-137 y estroncio-90. (consecuencia)
+  [D44, D70] Las fuentes sitúan en aproximadamente 270.000 personas la población del territorio alcanzado. (consecuencia)
+  [D67, L19] El territorio contaminado pasó a conocerse como la Traza Radiactiva de los Urales Orientales. (consecuencia)
+  [T19] El programa de actividades de emergencia fue aprobado el 2 de octubre de 1957. (giro)
+  [D60] Los 1100 habitantes de los tres asentamientos más próximos fueron evacuados entre 7 y 14 días después del accidente. (consecuencia)
+  [D61, D93] La cifra más repetida es de 22 asentamientos reubicados. (consecuencia)
+  [T20, T21, D61, D93] Las fuentes más coincidentes sitúan la población evacuada alrededor de las 10.000 personas. (consecuencia)
+  [D39] F02 afirma que Ozyorsk no fue reasentada porque la dirección del viento evitó la contaminación de la ciudad. (consecuencia)
+  [T23] A principios de 1958 se estableció una zona de protección sanitaria de 700 km². (consecuencia)
+  [T23] En la zona de protección sanitaria quedaron prohibidas la residencia y las actividades económicas. (consecuencia)
+  [D59] En los sectores con contaminación superior a 5 × 10² Ci/km² se observó muerte de vegetación con efectos persistentes durante 3–4 años. (consecuencia)
+  [T24, T25] Los informes occidentales vagos sobre un accidente catastrófico aparecieron en abril de 1958. (giro)
+  [T29] Die Presse publicó detalles sobre el accidente el 18 de marzo de 1959. (giro)
+  [D80] F13 atribuye el silencio de la CIA al propósito de evitar consecuencias adversas para la industria nuclear estadounidense. (giro)
+  [P04, T30] Lev Tumerman recorrió en 1960 la carretera Chelyabinsk-Sverdlovsk que atravesaba el área señalada como contaminada. (giro)
+  [D04, Q02] Tumerman describió una señal que prohibía detenerse durante los siguientes 20 o 30 kilómetros y ordenaba conducir a máxima velocidad. (gancho)
+  [D05, Q03] Tumerman estimó en no menos de 100–150 km² el área donde había visto prohibida la actividad humana normal. (consecuencia)
+  [T32, D81] La Reserva Natural de los Urales Orientales fue creada en 1968. (giro)
+  [D81] La reserva prohibía el acceso no autorizado al área afectada. (consecuencia)
+  [Q14] F14 afirma que figuras del organismo regulador nuclear internacional desestimaron el artículo porque una liberación tan grande habría sido detectada en Occidente. (giro)
+  [P03] F09 menciona el libro de Medvedev The Nuclear Disaster in the Urals, publicado en 1979. (cierre)
+  [D68] F13 describe un encubrimiento que mantuvo el alcance completo del desastre fuera del conocimiento de gran parte del público durante casi dos décadas. (cierre)
+  [Q12] En el memorando citado, Slavsky comunica que la comisión consideraba principales culpables al jefe de la planta radioquímica y a su ingeniero jefe. (consecuencia)
+  [D41] F02 atribuye al Instituto de Biofísica de los Urales del Sur el dato oficial de cinco personas enviadas a hospitales tras la explosión. (consecuencia)
+  [D65] F13 y F14 mencionan 66 casos de síndrome de radiación crónico. (consecuencia)
+  [Q09] Krestinina afirma que el riesgo de desarrollar cáncer en el área de la nube y las orillas del Techa es un 2,5 % mayor que entre personas sin exposición adicional. (consecuencia)
+  [Q10] Krestinina afirma que el 92 % de la dosis fue recibido durante los primeros dos años. (consecuencia)
+  [Q11] Vazhenin atribuye el cáncer regional más al tabaco, al alcohol y a la industria pesada que a la radiación. (cierre)
+  [D29, L05] F02 describe lodos del Techa que contienen principalmente estroncio-90 y cesio-137. (cierre)
+  [D23] En 1967 el viento dispersó limo radiactivo del lago Karachay. (consecuencia)
+  [D24] F02 atribuye al conjunto de la actividad de Mayak la exposición de medio millón de personas entre 1948 y 1998. (contexto)
+  [D20, D46] El desastre está clasificado como nivel 6 en la escala INES de 7 niveles. (cierre)
+  [D22] F02 registra unos 40 accidentes de distinta gravedad en Mayak entre 1948 y 2000. (contexto)
+  [D92] F14 describe presencia de cesio-137 y estroncio-90 en fuentes de agua, bosques e instalaciones agrícolas. (consecuencia)
+  [D96] F14 recoge estimaciones de casi cien muertes por cáncer entre residentes del Techa que podrían estar relacionadas con la lluvia radiactiva del desastre. (cierre)
+
+cifras:
+  [D47] Trabajadores forzados en la construcción: Alrededor de 40.000 personas · F09, reclusos del GULAG o prisioneros de guerra del Eje.
+  [D85] Reactores con refrigeración de ciclo abierto: 6 reactores · F14.
+  [D48] Aldeas que obtenían principalmente agua potable del Techa: Unas 20 aldeas · F09.
+  [D73, D74] Profundidad del almacenamiento: 8,2 metros bajo tierra · F13.
+  [D50] Residuos en el tanque cuya refrigeración falló: 70–80 toneladas de residuos · F09 y F13.
+  [D51] Temperatura alcanzada por el tanque: Alrededor de 350 °C · F09.
+  [D52] Potencia equivalente de la explosión: Aproximadamente 70–100 toneladas de TNT · F09; F14 publica el extremo inferior. · otras versiones: 70 toneladas de TNT [D87]
+  [D89] Tanques subterráneos de la instalación: 14 tanques · F14.
+  [D89] Tanques destruidos en la explosión: 1 tanque · F14.
+  [D53, D75] Masa de la cubierta de hormigón levantada: Aproximadamente 160 toneladas · F09 y F13.
+  [D75] Distancia del edificio cuya pared de ladrillos fue destruida: 200 metros desde la explosión · F13.
+  [D54, D77] Actividad total liberada expresada en curies: Aproximadamente 20 MCi · F09 y F13 coinciden en esta expresión.
+  [D54, D77] Actividad total liberada expresada en becquereles: Sin resolver PBq · Las equivalencias publicadas por F09 y F13 discrepan. · otras versiones: 800 PBq [D54]; 740 PBq [D77]
+  [D54] Contaminación depositada cerca del accidente: Aproximadamente 90 % de la contaminación · F09.
+  [D55] Actividad de la pluma que se dispersó a gran distancia: 2 MCi · F09, que también publica 80 PBq como equivalencia.
+  [T12, D78] Tiempo de avance inicial de la nube: 10–11 horas · F09 y F13.
+  [T12, D78] Distancia alcanzada en el avance inicial: 300–350 kilómetros desde el accidente · F09 y F13.
+  [T18] Tiempo hasta la llegada de la nube a la región de Tyumen: 22 horas después de la explosión · F02.
+  [D56, D79] Superficie con contaminación de larga duración, dependiente del umbral: 800–20.000 km² · F09 y F13 explicitan la dependencia del umbral. · otras versiones: Alrededor de 20.000 km² [D44]; Casi 8000 millas cuadradas [D90]
+  [D70] Superficie sobre la que F13 afirma que se dispersaron partículas calientes: Más de 52.000 km² · F13; no se equipara automáticamente con el área definida por un umbral de contaminación.
+  [D44, D70] Población del territorio alcanzado: Aproximadamente 270.000 personas residentes · F09 y F13; residencia no equivale a enfermedad diagnosticada. · otras versiones: Más de un cuarto de millón personas residentes [D89]
+  [D62] Personas que el resumen de F13 presenta como afectadas: 270.000–500.000 o más personas afectadas · F13; no define aquí el criterio de afectación.
+  [T20, T21, D61, D93] Población evacuada o reubicada: Alrededor de 10.000 personas · Cifra más repetida entre F09, F13 y F14; no se identifica un balance oficial. · otras versiones: Más de 10.000 personas [D61]; 10.000–12.000 personas [D63]
+  [D61, D93] Asentamientos reubicados: 22 asentamientos · F09 y F14 coinciden en la reubicación; F13 menciona al menos esa cantidad de aldeas expuestas. · otras versiones: 23 aldeas liquidadas [D38]
+  [D38] Población de las aldeas que F02 describe como liquidadas: 12.700 personas residentes · F02; no se convierte sin más en un total de evacuados.
+  [D37] Reasentados de las aldeas enumeradas por F02: Más de 4500 personas · F02 menciona Russkaya Karabolka, Yugo-Konevo, Alabuga y otras aldeas.
+  [D60] Asentamientos próximos comprendidos en la primera evacuación descrita por F09: 3 asentamientos · F09.
+  [D60] Población de esos asentamientos próximos: 1100 personas · F09.
+  [D60] Demora de evacuación de esos asentamientos próximos: 7–14 días después del accidente · F09.
+  [D58, D94] Duración del proceso de evacuación: Casi 2 años · F09 y F14.
+  [T23] Superficie de la zona de protección sanitaria: 700 km² · F09.
+  [D59] Umbral de contaminación asociado con muerte evidente de vegetación: Más de 5 × 10² Ci/km² · F09.
+  [D59] Persistencia de efectos sobre la vegetación: Hasta 3–4 años después del accidente · F09.
+  [D04, Q02] Tramo donde Tumerman vio prohibido detenerse: 20 o 30 kilómetros · Testimonio de Tumerman reproducido en F05.
+  [D05, Q03] Área de actividad normal prohibida estimada por Tumerman: No menos de 100–150 km² · Estimación testimonial de Tumerman, no delimitación oficial.
+  [D11] Distancia de vegetación amarilleada y muerta respecto de la chimenea: 15–20 kilómetros · F05; sin fecha ni atribución exclusiva a la explosión.
+  [D41] Personas enviadas a hospitales tras la explosión: 5 personas · Dato oficial del Instituto de Biofísica de los Urales del Sur según F02; no es un balance de mortalidad.
+  [D65] Casos de síndrome de radiación crónico: 66 personas diagnosticadas · F13 y F14; F14 las sitúa en la instalación.
+  [D96] Muertes por cáncer potencialmente relacionadas con la lluvia radiactiva: Casi 100 personas fallecidas por cáncer · F14 alude a algunos estudios y expresa una vinculación posible, no un balance confirmado.
+  [Q09] Exceso de riesgo de cáncer declarado por Krestinina: 2,5 % de incremento del riesgo · Declaración de Krestinina en F02; no se transforma en puntos porcentuales.
+  [Q10] Dosis recibida durante los primeros años según Krestinina: 92 % de la dosis durante los primeros 2 años · Declaración de Krestinina en F02.
+  [D22] Accidentes de distinta gravedad entre 1948 y 2000: Unos 40 accidentes · F02.
+  [D20, D46, D83] Clasificación del desastre: 6 nivel INES · F02, F09, F13 y F14.
+
+citas:
+  [Q06] I. N. Golovin (Biógrafo de Kurchatov) · VERIFICADA · «En un lugar pintoresco lejos de Moscú, avanzaba el trabajo en una ciudad y su equipamiento industrial y plantas químicas.»
+  [Q08] Berlingske Tidende (Periódico danés) · VERIFICADA · «Las recientes pruebas nucleares soviéticas tuvieron que ser interrumpidas debido a un 'accidente catastrófico'.»
+  [Q09] Lyudmila Krestinina (Jefa de laboratorio epidemiológico) · VERIFICADA · «El riesgo de desarrollar cáncer en la zona por donde se extendió la nube radiactiva y en las orillas del río Techa es un 2,5% mayor que para las personas que no han estado expuestas a radiación adicional.»
+  [Q10] Lyudmila Krestinina (Jefa de laboratorio epidemiológico) · VERIFICADA · «El 92% de la dosis fue recibida por las personas durante los dos primeros años, y ahora la mayoría de los territorios de la huella de radiación de los Urales Orientales son seguros e incluso están abiertos a la actividad económica.»
+  [Q11] Andrei Vazhenin (Oncólogo jefe regional) · VERIFICADA · «El cáncer es provocado no tanto por la radiación como por el tabaquismo y el alcohol, así como por la industria pesada de la región.»
+
+versiones en disputa:
+  Naturaleza de la explosión
+    - La explicación técnica describe un fallo de refrigeración de residuos almacenados seguido por una explosión química. [D87] (fuente: F14)
+    - F09 describe refrigeración sin reparar, evaporación y residuos de nitrato de amonio y acetatos antes de la explosión del tanque. [D51] (fuente: F09)
+    - Tumerman transmite que habitantes locales le hablaron de una gran explosión nuclear en una planta militar; es un relato indirecto, no una identificación técnica. [Q04] (fuente: F05)
+    - Un relato sobre lo comunicado a tropas atribuye la contaminación a una explosión de reactor ocurrida en 1956. [D17] (fuente: F05)
+  Énfasis causal sobre el cáncer regional
+    - Krestinina afirma un riesgo de cáncer un 2,5 % mayor en el área de la nube y las orillas del Techa frente a personas sin exposición adicional. [Q09, P09] (fuente: F02)
+    - Vazhenin sostiene que pesan más el tabaco, el alcohol y la industria pesada que la radiación; el pool no permite convertir este énfasis en refutación del dato anterior. [Q11, P10] (fuente: F02)
+    - F14 recoge estudios no identificados en el pasaje que relacionan de manera posible casi cien muertes por cáncer del Techa con la lluvia radiactiva. [D96] (fuente: F14)
+  Conocimiento estadounidense y motivo atribuido al silencio
+    - F13 afirma que la CIA conocía el accidente desde 1959 y lo mantuvo secreto para evitar daños a la industria nuclear estadounidense. [D80] (fuente: F13)
+    - F14 también sitúa el conocimiento estadounidense en 1959, pero el fragmento disponible no atribuye un motivo al silencio. [T28, D97] (fuente: F14)
+  Reserva natural y propósito de ocultamiento
+    - F13 atribuye la creación de la reserva al propósito de disfrazar el área de la EURT y señala la prohibición del acceso no autorizado. [D81] (fuente: F13)
+    - F14 confirma la creación en 1968 y el cierre del área al exterior, sin aportar en este pasaje una orden que establezca ese propósito. [T32, D81, L15] (fuente: F14)
+</ficha>
+
+<tarea>
+La columna de arriba ya decidió la historia: humano, pico, qué pasa en cada cap y qué queda afuera. No la cambies. Convertila en beats: a cada cap dale sus beats con dato central, apoyos, imagen (de las escenas de la ficha), lo que el espectador se pregunta y el cierre que dice la columna. Las personas de cada cap son las que la columna nombra.
+</tarea>

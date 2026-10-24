@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-23 (F16: escaleta v2 con Sol; Ycuá y Orleans completos, unos 11.5 min cada uno → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-24 (F17 cerrado en PARADA 1, `f263d23`; F18 Kyshtym/Mayak: research amarillo, ficha y columna OK, escaleta en PARADA, sin guion; US$ 1.739) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,25 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F18 — Kyshtym / Mayak (cadena completa en un tema de Omar, nocturna) — HECHO, **PARADA** (la escaleta no salió: no hay guion; el analista lee ficha y columna y decide)
+- Handoff `lab/hyperframes/f18/HANDOFF_F18_kyshtym_nocturno.md`. Reporte `lab/hyperframes/f18/F18_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f18.html` (embudo, columna, PARADA de la escaleta; teléfono OK a 375 px). Runner `f18_corridas.py` (topes por paso + freno antes de cada llamada de Sol), página `f18_compara.py` (sin API).
+- Topic `f18-kyshtym-mayak` creado por el camino normal (`research_topics` long con el id fijo, como F10): seed b6b84f96 tal cual + `idioma_local` ruso/español. Está en `data/topics_db.json` (respaldo `topics_db.pre_f18.json`); la semilla salió del inbox y pasó al archivo. Título 4c: «Kyshtym Mayak: El Desastre Nuclear Abandonado De La URSS».
+- **Estado exacto:**
+  - research v3 + 4a–4e: US$ 0.965, compuerta 🟡 **AMARILLO** (97 datos, 13 citas verificadas, 1 elegible humano, 11 eventos);
+  - ficha v2: US$ 0.322, 5 citas de 18 (las traducciones no pasan el chequeo), 2 candidatos (Medvedev, Tumerman);
+  - columna: US$ 0.073, 1 intento; humano **Lev Tumerman**, pico en el cap 5 (la explosión del tanque), **3 personas con nombre**;
+  - **escaleta v2: PARADA.** En el pase 1, la regeneración quedó solo con «antagonista None»: en este caso no hay una persona que decida, decide el Estado. El pase 2 lo decidí yo (precedente F15); el revisor lo marca como desvío no previsto. Dio 8 bloqueantes y el freno cortó la regeneración.
+  - Sin guion. **Total US$ 1.739 de 5.00.**
+- **Roturas del tema nuevo (anotadas, sin reglas nuevas, sin tocar código):**
+  - (1) las 5 fuentes rusas bajaron (113 k caracteres) pero aportaron 0 ítems: `place_re` de `seed_profile` no tiene cirílico. El pool es 100 % de 5 fuentes en inglés;
+  - (2) citas traducidas al español frente al chequeo de Levenshtein de la ficha;
+  - (3) el bloqueante «antagonista es persona» frente a un antagonista institucional;
+  - (4) los 7–8 beats de la compuerta amarilla frente al «de 7 a 14» del sistema v2.
+- Tests: no hay código nuevo fuera de `lab/`; la suite amplia sigue en 677 verdes + las 5 previas. Sin merge.
+- **Para Omar al despertar:** no hay guion para puntuar. Para decidir:
+  - si se arregla la búsqueda en cirílico (`research_v3`, prohibido en esta tanda) y se rehace el research;
+  - qué hacer con el antagonista institucional y con el rango de beats en amarillo.
 
 ## F17 — Columna vertebral (ficha → columna → escaleta → guion) — **CERRADO en PARADA 1** (2026-10-24: Omar cambió de tema → F18 Kyshtym/Mayak; **Ycuá queda en PARADA 1 para siempre**: no se regenera su columna ni se corre nada más de Ycuá; Orleans tampoco). Reporte corto `lab/hyperframes/f17/F17_REPORT.md` (dos veredictos del revisor íntegros: CUMPLE CON OBSERVACIONES)
 - Handoff `lab/hyperframes/f17/HANDOFF_F17_columna_vertebral.md`; prompt `PROMPT_COLUMNA_v1.md` (sistema md5 1408569c…, extraído anclando en «## SISTEMA», LF). Runner `lab/hyperframes/f17/f17_corridas.py` (tope US$ 2.00, `costos_f17.json`).

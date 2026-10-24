@@ -1,0 +1,29 @@
+[02:50:03] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-research
+[03:09:52] INFO     | viral_pipeline | [topic_researcher] \u2713 \u2713 [DEEP] Kyshtym Mayak: El Desastre Nuclear Abandonado De La URSS � research_summary=3481 chars � sources=6 � facts=10
+[03:09:53] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-research � Costo total: $0.9652
+
+  🔬 Investigando 1 seed(s) en modo LONG...
+     (4 angle queries Pro en paralelo + 4 sub-pasos Flash por seed)
+
+  [1/1] Desastre nuclear Kyshtym Mayak
+       → 4a: extrayendo facts + sources...
+       → 4b: extrayendo canonical...
+       → 4c: extrayendo meta narrativa...
+       → 4d: extrayendo research_summary...
+       → 4e: extrayendo visual canon...
+     ✓ Título: Kyshtym Mayak: El Desastre Nuclear Abandonado De La URSS
+     🪝 Hook:  El 29 de septiembre de 1957, explotó un secreto de 160 toneladas.
+     📎 Fuentes: 6  ·  Datos: 10
+     📜 research_summary: 3481 chars
+
+────────────────────────────────────────────────────────────
+  ✅ 1 topic(s) investigado(s)
+     - spy_arbitrage: 1
+
+  📥 Bandeja: 26 seed(s) pendiente(s)
+
+  ➡  Siguiente paso: topic_validator
+
+  [research] US$ 0.9652 · 1189 s · tanda US$ 0.9652
+[research] topic f18-kyshtym-mayak · «Kyshtym Mayak: El Desastre Nuclear Abandonado De La URSS» · compuerta amarillo
+tanda US$ 0.9652

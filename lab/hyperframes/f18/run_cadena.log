@@ -1,0 +1,38 @@
+[ficha] prompt 66,624 car · max_completion_tokens 55,558
+[03:10:14] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f18-ficha
+[03:18:42] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f18-ficha � Costo total: $0.3224
+  [ficha] US$ 0.3224 · 508 s · tanda US$ 1.2876
+[ficha] crudo {'humanos_candidatos': 2, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 9, 'contradicciones': 7, 'decisiones': 12, 'versiones': 4, 'personas': 10, 'personas_descartadas': 1, 'cifras': 47, 'cronologia': 23, 'hechos': 73, 'citas': 18, 'descartados': 26}
+[ficha] final {'humanos_candidatos': 2, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 9, 'contradicciones': 7, 'decisiones': 11, 'versiones': 4, 'personas': 10, 'personas_descartadas': 1, 'cifras': 43, 'cronologia': 23, 'hechos': 73, 'citas': 5, 'descartados': 44} · sacados 19
+  sacado [decisiones] [decisiones] Fecha de la explosión y conjetura inicial de Medvedev → no respaldado: cifra 1958; cifra 1958
+  sacado [cifras] [cifras] Altura de la columna de humo y polvo → no respaldado: cifra 1
+  sacado [cifras] [cifras] Muertes por enfermedad por radiación atribuidas específicamente al accidente → no respaldado: cifra 0
+  sacado [cifras] [cifras] Exposición por el conjunto de la actividad de Mayak entre 1948 y 1998 → no respaldado: cifra 1998500.000
+  sacado [cifras] [cifras] Equivalencia de la acumulación del lago Karachay con Chernóbil → no respaldado: cifra 1
+  sacado [citas] [citas] La explosión arrojó polvo y materiales radiactivos a lo alto del cielo, y fuertes  → no respaldado: el texto de la cita no está en sus ids
+  sacado [citas] [citas] A unos 100 kilómetros de Sverdlovsk, una señal de tráfico advertía a los conductor → no respaldado: cita corregida a 226 caracteres de su original (máximo 3)
+  sacado [citas] [citas] Lo que vi personalmente fue una gran área en las cercanías de Sverdlovsk, no menos → no respaldado: cita corregida a 192 caracteres de su original (máximo 3)
+  sacado [citas] [citas] Lo que me dijeron muchas personas en Sverdlovsk y Belpyarsk fue que la lluvia radi → no respaldado: cita corregida a 150 caracteres de su original (máximo 3)
+  sacado [citas] [citas] Investigando las causas del accidente en el lugar, la comisión cree que los princi → no respaldado: cita corregida a 136 caracteres de su original (máximo 3)
+  sacado [citas] [citas] Un sistema de refrigeración de uno de los tanques, que contenía entre 70 y 80 tone → no respaldado: el texto de la cita no está en sus ids
+  sacado [citas] [citas] Durante este período, la temperatura del tanque había subido a unos 350 °C, hacien → no respaldado: el texto de la cita no está en sus ids
+  sacado [citas] [citas] La tapa del tanque, de aproximadamente 160 toneladas de hormigón, salió despedida. → no respaldado: el texto de la cita no está en sus ids
+  sacado [citas] [citas] Incluso entonces, no se dio ninguna razón para las evacuaciones. Las evacuaciones  → no respaldado: el texto de la cita no está en sus ids
+  sacado [citas] [citas] El asunto fue encubierto, y pocos dentro o fuera de la Unión Soviética conocieron  → no respaldado: el texto de la cita no está en sus ids
+  sacado [citas] [citas] Una décima parte de las sustancias radiactivas fue levantada al aire. Después de l → no respaldado: el texto de la cita no está en sus ids
+  sacado [citas] [citas] Alrededor de las once de la noche se observó un extraño resplandor en el cielo. Lo → no respaldado: el texto de la cita no está en sus ids
+  sacado [citas] [citas] Figuras clave del organismo regulador nuclear internacional desestimaron el artícu → no respaldado: cita corregida a 99 caracteres de su original (máximo 3)
+  sacado [descartados] [descartados] A. I. Burnazyan, M. A. Demyanovich, Diane M. Soran, Danny B. Stillman, Henry → no respaldado: sin ids
+[03:18:42] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f18-columna
+[03:20:32] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f18-columna � Costo total: $0.0725
+  [columna] US$ 0.0725 · 110 s · tanda US$ 1.3601
+  [columna] intento 1: 0 problema(s) []
+[columna] humano Lev Tumerman · pico cap 5 · personas con nombre 3 · afuera 7
+[03:20:32] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f18-escaleta
+[03:27:40] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f18-escaleta � Costo total: $0.2328
+  [escaleta] US$ 0.2328 · 428 s · tanda US$ 1.5929
+  [escaleta] compuerta del pool: amarillo {'datos': 97, 'citas_verificadas': 13, 'elegibles_humano': 1, 'eventos_con_fecha': 11} · ['pocas fuentes bajadas (pocos datos leídos de documentos)', 'sin humano que seguir (pocos testigos elegibles)']
+  [escaleta v2] intento 1: 8 bloqueante(s) ['14 beats (tienen que ser 7–8)', 'beat 14: dato_central «P04 Y LÍMITE DEL CONJUNTO DOCUMENTAL: EL TESTIMONIO DE TUMERMAN SIRVE PARA CORROBORAR LAS RESTRICCIONES, PERO NO PERMITE ESTABLECER UN BALANCE HUMANO EXCLUSIVO DE LA EXPLOSIÓN.» no existe en el pool (o no es D/T/Q)', 'antagonista D68 no es una persona del pool', 'a_pantalla T20 también está en un beat: lo que va a pantalla no lo dice la voz'] · 59 reparación(es) · 14 a métricas
+  [escaleta v2] intento 2: 1 bloqueante(s) ['antagonista None no es una persona del pool'] · 38 reparación(es) · 15 a métricas
+PARADA (escaleta): escaleta: EscaletaValidationError: escaleta v2 rechazada después de 2 intento(s) (PARADA): ['antagonista None no es una persona del pool']
+tanda US$ 1.5929

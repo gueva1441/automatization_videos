@@ -1,0 +1,358 @@
+[
+ {
+  "humano": {
+   "id": "P04",
+   "nombre": "Lev Tumerman",
+   "rol": "Científico y viajero que se convierte en testigo de las restricciones del territorio contaminado.",
+   "por_que": "La columna ya lo eligió y la ficha sostiene su recorrido: encuentra una prohibición concreta en la carretera y después aporta corroboración a la denuncia pública. Su testimonio permite entrar al desastre desde una experiencia física sin inventarle presencia durante la explosión.",
+   "colectivo": false,
+   "fuente": "P04, T30, D04, D05, Q02, Q03"
+  },
+  "antagonista": {
+   "id": "D50, D68",
+   "por_que": "La avería que permanece sin reparar y el encubrimiento del alcance del desastre. No se convierte la atribución administrativa de responsabilidades en una culpabilidad judicial."
+  },
+  "promesa_gancho": "Esta es la historia de cómo una avería contaminó un territorio habitado y de quiénes conocían el desastre mientras su alcance seguía oculto.",
+  "pico": {
+   "beat": 6,
+   "id": "T14, D53, D75, D76",
+   "por_que": "Se conserva el pico de la columna: el tanque revienta, desplaza su cubierta y expulsa material radiactivo. Es la ruptura física que permite que una avería de almacenamiento alcance un territorio habitado. Las 160 toneladas corresponden a la cubierta, no al tanque."
+  },
+  "cierre_humano": "Volvemos al territorio que describió Tumerman y al límite de su testimonio: acredita restricciones, no un balance de víctimas. Cerramos con la pregunta: ¿Cuál fue el balance humano atribuible específicamente a la explosión, separado de la contaminación previa y posterior de Mayak?",
+  "beats": [
+   {
+    "n": 1,
+    "cap": 1,
+    "funcion": "gancho",
+    "emocion": "Alarma ante una prohibición incomprensible.",
+    "intensidad": 4,
+    "dato_central": "D04, Q02: Tumerman encuentra una señal que prohíbe detenerse y exige atravesar el tramo a máxima velocidad. Las instrucciones se presentan visualmente en paráfrasis, sin cifras y sin repetirlas en voz.",
+    "datos_apoyo": [
+     "P04: El viajero del gancho es Lev Tumerman; todavía no explicar su profesión, la fecha ni el motivo de las restricciones."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E8: la carretera y el cartel que impide parar. Mostrar únicamente las instrucciones documentadas mediante una paráfrasis visual identificada; no reconstruir un texto literal ni añadir casas destruidas, chimeneas, olores o síntomas.",
+    "pregunta_abierta": "¿Qué ocurrió en este territorio para que detenerse esté prohibido?",
+    "pregunta_pantalla": "",
+    "cierre": "Antes de esa prohibición, había una planta y aldeas que vivían del río.",
+    "palabras_objetivo": 100,
+    "flash_forward": true,
+    "contador": false,
+    "escena_idx": 8
+   },
+   {
+    "n": 2,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "Familiaridad con una vida cotidiana que todavía no conoce la ruptura.",
+    "intensidad": 1,
+    "dato_central": "D48: El Techa abastece de agua potable a las aldeas y los niños juegan en sus aguas; los reactores devuelven agua contaminada sin tratamiento al lago Kyzaltash y al río. Concentrar aquí todos los usos del agua y los vertidos iniciales, sin cuantificar aldeas.",
+    "datos_apoyo": [
+     "D19: Mayak funciona dentro de la ciudad cerrada de Chelyabinsk-40.",
+     "D71: La instalación se construye apresuradamente entre 1945 y 1948.",
+     "T03: La primera arma nuclear soviética se detona en 1949; establecer únicamente la función de Mayak dentro del programa nuclear.",
+     "P04: El capítulo reconstruye lo que existía antes del viaje de Tumerman; no lo sitúa entre los vecinos ni junto a los reactores."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E1: niños jugando en el agua y la descarga de la instalación. El trayecto de Tumerman sirve de enlace de montaje hacia esta reconstrucción anterior. No colorear el agua ni darle un olor que delate la radiactividad.",
+    "pregunta_abierta": "¿Qué ocurre cuando el mismo río sostiene la vida de las aldeas y recibe los residuos de la instalación?",
+    "pregunta_pantalla": "",
+    "cierre": "Pero el agua abierta no será el único destino de los residuos.",
+    "palabras_objetivo": 210,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 3,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "Inquietud ante una seguridad que depende de seguir funcionando.",
+    "intensidad": 2,
+    "dato_central": "T09, D73: En 1953 se incorpora el almacenamiento subterráneo de residuos líquidos de alta actividad. Es el giro del vertido abierto al almacenamiento que también necesita control continuo.",
+    "datos_apoyo": [
+     "D74: Los residuos se guardan en tanques de acero sobre una base de hormigón, a 8,2 metros bajo tierra.",
+     "D74: La desintegración radiactiva genera calor dentro de los depósitos; por eso necesitan refrigeración.",
+     "P04: Mantener a Tumerman como referencia del recorrido que se está explicando, no como testigo de la construcción ni del funcionamiento del almacenamiento."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E2: corte esquemático del terreno, acero y hormigón bajo la superficie. La carretera del recorrido funciona como enlace hacia el subsuelo; no mostrar operarios, iluminación interior ni sonidos de maquinaria no documentados.",
+    "pregunta_abierta": "¿Qué mantiene estable un depósito cuyos residuos producen su propio calor?",
+    "pregunta_pantalla": "",
+    "cierre": "La refrigeración de uno de esos tanques falla.",
+    "palabras_objetivo": 170,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 2
+   },
+   {
+    "n": 4,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "Desprotección: la avería no encuentra una respuesta.",
+    "intensidad": 3,
+    "dato_central": "D50: La refrigeración averiada permanece sin reparar. El giro no es volver a anunciar el fallo, sino establecer que el depósito continúa acumulando calor.",
+    "datos_apoyo": [
+     "D50: El tanque contiene entre 70 y 80 toneladas de residuos; decir este rango una sola vez."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E2: mantener el corte del depósito de acero sobre hormigón. Una animación técnica puede señalar la pérdida de refrigeración, identificada como esquema; sin operarios que ignoren alarmas ni instrumentos inventados.",
+    "pregunta_abierta": "¿Qué pasa con los residuos cuando la refrigeración deja de funcionar y nadie la repara?",
+    "pregunta_pantalla": "",
+    "cierre": "El calor sigue acumulándose dentro del depósito.",
+    "palabras_objetivo": 110,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 2
+   },
+   {
+    "n": 5,
+    "cap": 4,
+    "funcion": "escalada",
+    "emocion": "Asfixia técnica, sin salida visible.",
+    "intensidad": 4,
+    "dato_central": "D51: La temperatura alcanza unos 350 °C y el agua se evapora.",
+    "datos_apoyo": [
+     "D51: La evaporación deja una mezcla radiactiva de nitrato de amonio y acetatos."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Sobre la estructura de E2, una animación explicativa distingue la desaparición del agua y los residuos que quedan. No presentarla como una observación filmada del interior ni añadir colores, burbujeo o sonidos.",
+    "pregunta_abierta": "¿Qué puede contener ahora esa mezcla dentro del tanque?",
+    "pregunta_pantalla": "",
+    "cierre": "Lo siguiente que cede es el tanque.",
+    "palabras_objetivo": 130,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 2
+   },
+   {
+    "n": 6,
+    "cap": 5,
+    "funcion": "pico",
+    "emocion": "Ruptura y espanto físico.",
+    "intensidad": 5,
+    "dato_central": "T14: El 29 de septiembre de 1957 revienta el tanque de residuos de Mayak.",
+    "datos_apoyo": [
+     "D87: Es una explosión química, no una detonación nuclear; no añadir equivalencias en TNT.",
+     "D53, D75: La explosión levanta una cubierta de hormigón de unas 160 toneladas; la masa corresponde a la cubierta.",
+     "D75: Destruye una pared de ladrillos de un edificio situado a 200 metros.",
+     "D76: Una columna de humo y polvo asciende un kilómetro.",
+     "D54, D77: Dos fuentes estiman una liberación de 20 MCi; conservar la condición de estimación y no convertirla a becquereles."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E3 y E4: la cubierta desplazada, la pared de ladrillos destruida y la columna de humo y polvo. Un enlace breve con la carretera de Tumerman mantiene el hilo humano, pero la reconstrucción de la explosión no contiene personas: él no estuvo allí como testigo. No inventar un sonido documental, color del humo ni olor.",
+    "pregunta_abierta": "¿Dónde terminará el material que acaba de salir del depósito?",
+    "pregunta_pantalla": "",
+    "cierre": "El material expulsado empieza a desplazarse fuera de Mayak.",
+    "palabras_objetivo": 210,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 3
+   },
+   {
+    "n": 7,
+    "cap": 5,
+    "funcion": "giro",
+    "emocion": "Amenaza que se extiende más allá de la instalación.",
+    "intensidad": 4,
+    "dato_central": "T12, D78: Durante las siguientes 10–11 horas, la nube avanza hacia el noreste y alcanza una distancia de 300–350 kilómetros. Este es el giro del accidente dentro de Mayak a la contaminación sobre territorio habitado.",
+    "datos_apoyo": [
+     "D44, D70: Las fuentes sitúan aproximadamente 270.000 residentes en el territorio alcanzado; residencia no equivale a enfermedad, diagnóstico ni muerte."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "De la columna de E4 a un mapa esquemático con una dirección de avance hacia el noreste. No dibujar una frontera precisa de contaminación ni colorear toda la región como si tuviera una exposición uniforme.",
+    "pregunta_abierta": "¿Cuándo sabrán los habitantes que deben abandonar sus aldeas?",
+    "pregunta_pantalla": "",
+    "cierre": "La nube avanza. La evacuación vendrá después.",
+    "palabras_objetivo": 130,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 4
+   },
+   {
+    "n": 8,
+    "cap": 6,
+    "funcion": "respiro",
+    "emocion": "Desamparo y silencio después de la ruptura.",
+    "intensidad": 2,
+    "dato_central": "T20, T21: La evacuación comienza el 6 de octubre de 1957, una semana después de la explosión. El cambio de dirección es humano: la respuesta pasa a desplazar poblaciones.",
+    "datos_apoyo": [
+     "D58, D94: No se explican los motivos a los vecinos.",
+     "D58, D94: El proceso se prolonga casi dos años.",
+     "T20, T21, D61, D93: Sólo a pantalla, alrededor de 10.000 reubicados y 22 asentamientos; son cifras coincidentes entre fuentes, no un balance oficial.",
+     "D41: Sólo a pantalla, el dato oficial de cinco personas enviadas a hospitales, atribuido al Instituto de Biofísica de los Urales del Sur según F02; no es un recuento de muertos."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Bajar el montaje a placas fijas con las cifras de reubicación y hospitalización, separadas entre sí. No hay una escena documentada de cuerpos, morgue o despedidas: no recrearlas. El silencio es una decisión de montaje, no un sonido atribuido a los hechos.",
+    "pregunta_abierta": "¿Qué podían comprender los vecinos de un desplazamiento cuyos motivos no les explicaban?",
+    "pregunta_pantalla": "",
+    "cierre": "Después de los desplazamientos, Tumerman atravesará aquel territorio.",
+    "palabras_objetivo": 170,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 9,
+    "cap": 6,
+    "funcion": "revelacion",
+    "emocion": "Extrañeza ante lo que se puede observar y lo que sólo circula como relato.",
+    "intensidad": 2,
+    "dato_central": "T30: El viaje de Tumerman por la carretera Chelyabinsk-Sverdlovsk ocurre en 1960. Resolver aquí la ubicación temporal del flash-forward, sin volver a leer la señal.",
+    "datos_apoyo": [
+     "Q04: Circula un relato indirecto de una gran explosión nuclear en una planta militar; no tratarlo como identificación técnica ni convertirlo en cita literal atribuida.",
+     "D17: Otro relato sobre lo comunicado a tropas habla de una explosión de reactor en 1956; conservarlo como versión transmitida, no como cronología alternativa demostrada.",
+     "El contraste remite a la reconstrucción técnica ya establecida, sin repetir su explicación ni sus cifras: observar restricciones no permite identificar por sí solo el mecanismo del accidente."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E8: volver a la carretera, ahora situada temporalmente. Mantener el cartel sin releerlo. Separar gráficamente los relatos indirectos de la reconstrucción técnica, sin fabricar entrevistas, grabaciones ni testigos adicionales.",
+    "pregunta_abierta": "¿Qué acredita lo que Tumerman vio, y qué no puede demostrar lo que le contaron?",
+    "pregunta_pantalla": "",
+    "cierre": "La restricción no terminará con el paso de aquel viajero.",
+    "palabras_objetivo": 150,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 8
+   },
+   {
+    "n": 10,
+    "cap": 6,
+    "funcion": "giro",
+    "emocion": "Clausura persistente.",
+    "intensidad": 2,
+    "dato_central": "T32, D81: En 1968 se crea la Reserva Natural de los Urales Orientales y se mantiene prohibido el acceso no autorizado al área afectada.",
+    "datos_apoyo": [
+     "D81: F13 atribuye a la reserva el propósito de disfrazar el territorio contaminado.",
+     "T32, D81: F14 confirma la creación y el cierre al exterior, pero el fragmento no aporta una orden que establezca ese propósito. No presentar la intención de ocultamiento como una conclusión documental común."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Placa gráfica con el nombre de la reserva y su fecha de creación. No inventar una entrada, una alambrada, guardias ni un cartel de la reserva. La voz distingue la restricción comprobada del propósito atribuido por una sola fuente.",
+    "pregunta_abierta": "¿Cómo se conocerá el alcance de lo ocurrido dentro de un territorio que sigue cerrado?",
+    "pregunta_pantalla": "",
+    "cierre": "Un genetista exiliado va a hacer público el alcance del desastre.",
+    "palabras_objetivo": 130,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 11,
+    "cap": 7,
+    "funcion": "giro",
+    "emocion": "La denuncia encuentra resistencia y después una corroboración concreta.",
+    "intensidad": 3,
+    "dato_central": "P03, T34: Zhores Medvedev hace público el alcance del desastre mediante un artículo en New Scientist en 1976. Reservar la publicación y el año para pantalla; la voz desarrolla la denuncia.",
+    "datos_apoyo": [
+     "Q14: F14 recoge la objeción de figuras del organismo regulador nuclear internacional: una liberación semejante habría sido detectada en Occidente. Presentarla como objeción atribuida, no como prueba de que el accidente fuera imposible.",
+     "P04: Tumerman aporta su testimonio y correspondencia como corroboración. No ampliar lo que vio ni convertirlo en testigo de la explosión."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una placa identifica la publicación de Medvedev, sin inventar título, portada ni facsímil. El montaje vuelve al recorrido de Tumerman para vincular la denuncia con su testimonio, sin repetir el contenido del cartel.",
+    "pregunta_abierta": "¿La falta de reconocimiento público significa que Occidente no sabía nada?",
+    "pregunta_pantalla": "",
+    "cierre": "La objeción supone que fuera de la URSS nadie lo sabía. Las fuentes dicen otra cosa.",
+    "palabras_objetivo": 180,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 8
+   },
+   {
+    "n": 12,
+    "cap": 7,
+    "funcion": "revelacion",
+    "emocion": "Desconfianza: conocer no equivale a hacer público.",
+    "intensidad": 4,
+    "dato_central": "D80, D97: F13 y F14 sitúan el conocimiento estadounidense del accidente en 1959. La fecha aparece sólo a pantalla.",
+    "datos_apoyo": [
+     "D80: Sólo F13 atribuye el silencio de la CIA a evitar consecuencias adversas para la industria nuclear estadounidense.",
+     "D97: F14 coincide en el conocimiento estadounidense, pero el fragmento no establece ese motivo.",
+     "D68: F13 describe un encubrimiento que mantiene el alcance completo fuera del conocimiento de gran parte del público durante casi dos décadas; no afirmar que nadie supo nada durante todo ese tiempo."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Placa con la fecha de conocimiento estadounidense y dos referencias de fuente. No mostrar supuestos documentos desclasificados, sellos o expedientes de la CIA que la ficha no aporta. La distinción entre coincidencia y motivo atribuido la hace la voz.",
+    "pregunta_abierta": "¿Qué responsabilidades quedaron reconocidas detrás del silencio?",
+    "pregunta_pantalla": "",
+    "cierre": "Dentro del sistema soviético, una comisión sí señaló responsables.",
+    "palabras_objetivo": 170,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 13,
+    "cap": 7,
+    "funcion": "consecuencia",
+    "emocion": "Una respuesta administrativa que no cierra el caso.",
+    "intensidad": 3,
+    "dato_central": "Q12: E.P. Slavsky comunica al Comité Central que una comisión considera principales culpables al jefe de la planta radioquímica y a su ingeniero jefe. La atribución completa va a pantalla, como paráfrasis identificada del memorando.",
+    "datos_apoyo": [
+     "La ficha no aporta una sentencia judicial. La voz explica ese límite sin repetir el contenido del memorando ni presentar la acusación de la comisión como una condena."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Placa documental con el nombre de Slavsky y la atribución de la comisión, señalada como paráfrasis. No fabricar una página del memorando, una firma, un sello ni un fallo judicial.",
+    "pregunta_abierta": "¿Se puede establecer el daño humano exclusivo de la explosión con lo que ha quedado documentado?",
+    "pregunta_pantalla": "",
+    "cierre": "Queda una pregunta que ni esa atribución de responsabilidades ni el testimonio del viajero resuelven.",
+    "palabras_objetivo": 100,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 14,
+    "cap": 7,
+    "funcion": "cierre",
+    "emocion": "Ausencia de una respuesta que el testigo no puede proporcionar.",
+    "intensidad": 2,
+    "dato_central": "D05, Q03: Tumerman describe un territorio donde había visto prohibida la actividad humana normal. Usar esta observación en paráfrasis, sin convertir su estimación territorial en una delimitación oficial.",
+    "datos_apoyo": [
+     "Historia, pregunta final: El testimonio acredita restricciones, pero no permite establecer un balance humano exclusivo de la explosión.",
+     "Mantener separadas la contaminación anterior, la explosión y la actividad posterior de Mayak. No introducir diagnósticos, estimaciones de muertes ni cifras acumuladas excluidas por la columna."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E8: regreso final a la carretera del viaje de Tumerman. No releer la señal ni añadir aldeas arrasadas. Cerrar sobre ese trayecto documentado, sin imágenes de víctimas que la ficha no identifica.",
+    "pregunta_abierta": "¿Cuál fue el balance humano atribuible específicamente a la explosión, separado de la contaminación previa y posterior de Mayak?",
+    "pregunta_pantalla": "",
+    "cierre": "¿Cuál fue el balance humano atribuible específicamente a la explosión, separado de la contaminación previa y posterior de Mayak?",
+    "palabras_objetivo": 130,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 8
+   }
+  ],
+  "a_pantalla": [
+   {
+    "id": "D04, Q02",
+    "cap": 1,
+    "por_que": "Mostrar en paráfrasis visual las órdenes de no detenerse y atravesar el tramo a máxima velocidad. Identificarla como reconstrucción del contenido testimoniado, no como transcripción literal. Sin distancia, fecha ni repetición en voz."
+   },
+   {
+    "id": "T20, T21, D61, D93",
+    "cap": 6,
+    "por_que": "Alrededor de 10.000 reubicados y 22 asentamientos. Rotular como cifras coincidentes entre fuentes, no como balance oficial. La voz no pronuncia estos totales."
+   },
+   {
+    "id": "D41",
+    "cap": 6,
+    "por_que": "Cinco personas enviadas a hospitales: dato oficial atribuido al Instituto de Biofísica de los Urales del Sur según F02. Añadir en la misma placa que no es un balance de mortalidad. No locutar la cifra."
+   },
+   {
+    "id": "T32",
+    "cap": 6,
+    "por_que": "Fecha de creación de la reserva: 1968. El año queda sólo en pantalla; la voz desarrolla el cierre al acceso y los límites de la atribución de propósito."
+   },
+   {
+    "id": "P03, T34",
+    "cap": 7,
+    "por_que": "New Scientist · 1976. Identificación de la publicación, sin título ni facsímil inventados. La voz no repite el nombre de la revista ni el año."
+   },
+   {
+    "id": "D80, D97",
+    "cap": 7,
+    "por_que": "1959 como fecha en que ambas fuentes sitúan el conocimiento estadounidense. Mostrar el año sin locutarlo; la voz diferencia ese conocimiento del motivo que sólo F13 atribuye al silencio de la CIA."
+   },
+   {
+    "id": "Q12",
+    "cap": 7,
+    "por_que": "Paráfrasis identificada del memorando: Slavsky comunica que la comisión responsabiliza al jefe de la planta radioquímica y a su ingeniero jefe. Sin falsa transcripción, facsímil ni sentencia. La voz sólo aclara que la ficha no aporta una condena judicial."
+   }
+  ],
+  "justificacion_humano": "Se conserva a Tumerman y los siete capítulos de la columna. En los capítulos anteriores a su viaje, su presencia funciona como hilo de reconstrucción, no como participación histórica. En el pico reaparece mediante un enlace de montaje con su carretera, nunca dentro de Mayak durante la explosión. No se reconstruyen citas textuales que el material disponible no transcribe. Los seis giros tienen beat propio: almacenamiento subterráneo, beat 3; avería sin reparar, beat 4; contaminación fuera de Mayak, beat 7; evacuación, beat 8; reserva y restricción persistente, beat 10; denuncia y corroboración, beat 11. No se omite ninguno. Se mantienen afuera los personajes, episodios y balances excluidos por la columna."
+ }
+]

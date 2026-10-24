@@ -1,0 +1,608 @@
+{
+ "generado": "2026-10-24",
+ "place_re": "\\bKyshtym\\ disaster\\b|\\bMayak\\ Production\\ Association\\b|\\bOzyorsk\\b|\\bChelyabinsk\\-40\\b|\\bKyshtymskaya\\ katastrofa\\b",
+ "max_doc_chars": 300000,
+ "documentos": [
+  {
+   "id": "F01",
+   "slug": "gwu_2018_cia_debriefed_soviet_h_bomb",
+   "url": "https://nsarchive.gwu.edu/briefing-book/nuclear-vault/2018-04-06/cia-debriefed-soviet-h-bomb-eye-witness-1957",
+   "titulo": "CIA Debriefed Soviet H-Bomb Eye-Witness in 1957",
+   "tipo": "academico",
+   "anio": 2018,
+   "prioridad": 1,
+   "por_que": "Contiene información de entrevistas de inteligencia de EE. UU. y el Reino Unido con 'testigos oculares' y 'científicos y técnicos alemanes y austriacos retornados', directamente relevante para testimonios y documentos desclasificados.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://nsarchive.gwu.edu/briefing-book/nuclear-vault/2018-04-06/cia-debriefed-soviet-h-bomb-eye-witness-1957",
+     "status": 200,
+     "bytes": 87235
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://nsarchive.gwu.edu/briefing-book/nuclear-vault/2018-04-06/cia-debriefed-soviet-h-bomb-eye-witness-1957",
+   "archivo": "gwu_2018_cia_debriefed_soviet_h_bomb.html",
+   "txt": "gwu_2018_cia_debriefed_soviet_h_bomb.txt",
+   "bytes": 87235,
+   "caracteres": 25766,
+   "caracteres_total": 25766,
+   "recorte": null,
+   "sha1": "ccaf12b9d5c23980c0138155af78cc15b2acf07c",
+   "idioma": "en",
+   "nombra_evento": false,
+   "ficha_busqueda": {
+    "titulo": "CIA Debriefed Soviet H-Bomb Eye-Witness in 1957 | National Security Archive",
+    "tipo": "foia",
+    "anio": 2018
+   },
+   "autor": "William Burr"
+  },
+  {
+   "id": "F02",
+   "slug": "ecohubmap_2023_kyshtym_nuclear_disaster_russian_federation",
+   "url": "https://www.ecohubmap.com/hot-spot/kyshtym-nuclear-disaster-russian-federation/5l0fbklmhcl0vs",
+   "titulo": "Kyshtym nuclear disaster, Russian Federation",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "prioridad": 1,
+   "por_que": "Proporciona la hora exacta de la explosión ('16:22 local time') y menciona el 'brillo extraño' notado en el cielo a las '11 p.m.', con colores específicos, lo que es relevante para 'horas' y 'testigos'.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.ecohubmap.com/hot-spot/kyshtym-nuclear-disaster-russian-federation/5l0fbklmhcl0vs",
+     "status": 200,
+     "bytes": 82903
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.ecohubmap.com/hot-spot/kyshtym-nuclear-disaster-russian-federation/5l0fbklmhcl0vs",
+   "archivo": "ecohubmap_2023_kyshtym_nuclear_disaster_russian_federation.html",
+   "txt": "ecohubmap_2023_kyshtym_nuclear_disaster_russian_federation.txt",
+   "bytes": 82903,
+   "caracteres": 10346,
+   "caracteres_total": 10346,
+   "recorte": null,
+   "sha1": "3c2676fe11ccfdb8fe9e2d78be99cde66f02182a",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Kyshtym nuclear disaster, Russian Federation - EcoHubMap",
+    "tipo": "academico",
+    "anio": 2023
+   },
+   "autor": null
+  },
+  {
+   "id": "F03",
+   "slug": "wikipedia_2023_kyshtym_disaster_wikipedia",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9A%D1%8B%D1%88%D1%82%D1%8B%D0%BC%D1%81%D0%BA%D0%B0%D1%8F_%D0%B0%D0%B2%D0%B0%D1%80%D0%B8%D1%8F",
+   "titulo": "Кыштымская авария",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "prioridad": 2,
+   "por_que": "Visión general completa del desastre de Kyshtym, incluyendo sus causas (fallos en el sistema de enfriamiento), el encubrimiento y la desclasificación de documentos, citando el acceso a través de la FOIA.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://ru.wikipedia.org/wiki/%D0%9A%D1%8B%D1%88%D1%82%D1%8B%D0%BC%D1%81%D0%BA%D0%B0%D1%8F_%D0%B0%D0%B2%D0%B0%D1%80%D0%B8%D1%8F",
+     "status": 200,
+     "bytes": 526992
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://ru.wikipedia.org/wiki/%D0%9A%D1%8B%D1%88%D1%82%D1%8B%D0%BC%D1%81%D0%BA%D0%B0%D1%8F_%D0%B0%D0%B2%D0%B0%D1%80%D0%B8%D1%8F",
+   "archivo": "wikipedia_2023_kyshtym_disaster_wikipedia.html",
+   "txt": "wikipedia_2023_kyshtym_disaster_wikipedia.txt",
+   "bytes": 526992,
+   "caracteres": 59482,
+   "caracteres_total": 59482,
+   "recorte": null,
+   "sha1": "fd4b967c9792c34cbaed3eb61830d037655b9c22",
+   "idioma": "?",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Kyshtym disaster - Wikipedia",
+    "tipo": "academico",
+    "anio": 2023
+   },
+   "autor": null
+  },
+  {
+   "id": "F04",
+   "slug": "life_2026_1957_life_ru",
+   "url": "https://life.ru/p/kyshtymskaya-avariya-1957-goda-kak-vzryv-na-mayake-desyatiletiyami-ostavalsya",
+   "titulo": "Кыштымская авария 1957 года: как взрыв на «Маяке» десятилетиями оставался засекреченным",
+   "tipo": "prensa_posterior",
+   "anio": 2026,
+   "prioridad": 2,
+   "por_que": "Explica cómo los residentes se enteraron a través de rumores y acciones de las autoridades debido al secretismo, relevante para la falta de 'prensa de la época' oficial pero la existencia de conciencia local.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://life.ru/p/kyshtymskaya-avariya-1957-goda-kak-vzryv-na-mayake-desyatiletiyami-ostavalsya",
+     "status": 200,
+     "bytes": 396499
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://life.ru/p/kyshtymskaya-avariya-1957-goda-kak-vzryv-na-mayake-desyatiletiyami-ostavalsya",
+   "archivo": "life_2026_1957_life_ru.html",
+   "txt": "life_2026_1957_life_ru.txt",
+   "bytes": 396499,
+   "caracteres": 5929,
+   "caracteres_total": 5929,
+   "recorte": null,
+   "sha1": "ee5a7c60f55a91adb6a34df81856bff2592fe5f5",
+   "idioma": "en",
+   "nombra_evento": false,
+   "ficha_busqueda": {
+    "titulo": "Кыштымская авария 1957 года: как взрыв на «Маяке» десятилетиями оставался засекреченным - Life.ru",
+    "tipo": "prensa_posterior",
+    "anio": 2026
+   },
+   "autor": null
+  },
+  {
+   "id": "F05",
+   "slug": "stanford_2017_the_kyshtym_disaster_large_stanford",
+   "url": "http://large.stanford.edu/courses/2017/ph241/buttinger1/",
+   "titulo": "An Analysis of the Alleged Kyshtym Disaster",
+   "tipo": "informe_oficial",
+   "anio": 1982,
+   "prioridad": 2,
+   "por_que": "Menciona informes tempranos y vagos en periódicos occidentales de 1958 y 1959, demostrando la cobertura de prensa internacional inicial, aunque poco detallada.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "http://large.stanford.edu/courses/2017/ph241/buttinger1/",
+     "status": 200,
+     "bytes": 6743,
+     "nota": "portada corta con PDF enlazado: http://large.stanford.edu/courses/2017/ph241/buttinger1/docs/LA9217MS.pdf"
+    },
+    {
+     "via": "pdf_enlazado",
+     "url": "http://large.stanford.edu/courses/2017/ph241/buttinger1/docs/LA9217MS.pdf",
+     "status": 200,
+     "bytes": 713099
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "pdf_enlazado",
+   "url_descarga": "http://large.stanford.edu/courses/2017/ph241/buttinger1/docs/LA9217MS.pdf",
+   "archivo": "stanford_2017_the_kyshtym_disaster_large_stanford.pdf",
+   "txt": "stanford_2017_the_kyshtym_disaster_large_stanford.txt",
+   "bytes": 713099,
+   "caracteres": 52769,
+   "caracteres_total": 52769,
+   "recorte": null,
+   "sha1": "efbf518b0e3b9a24566647ad7382ce04cdbc7caa",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "The Kyshtym Disaster - Large.stanford.edu",
+    "tipo": "academico",
+    "anio": 2017
+   },
+   "autor": "Diane M. Soran and Danny B. Stillman"
+  },
+  {
+   "id": "F06",
+   "slug": "gw2ru_2022_the_kyshtym_accident_a_radiation",
+   "url": "https://www.gw2ru.com/history/3317-kyshtym-accident-radiation-disaster",
+   "titulo": "The Kyshtym accident: A radiation disaster that was covered up for 30 years - GW2RU",
+   "tipo": "prensa_posterior",
+   "anio": 2022,
+   "prioridad": 2,
+   "por_que": "Reporta que 'muchas personas en el área escucharon la explosión, pero le dieron poca importancia', un 'testimonio' indirecto sobre la reacción inicial de la población.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.gw2ru.com/history/3317-kyshtym-accident-radiation-disaster",
+     "status": 200,
+     "bytes": 114561,
+     "error": "texto de 2679 caracteres (< 3000: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "url": "http://web.archive.org/web/20250420230005id_/https://www.gw2ru.com/history/3317-kyshtym-accident-radiation-disaster",
+     "status": 429,
+     "bytes": 620
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "HTTP 429"
+  },
+  {
+   "id": "F07",
+   "slug": "cyberleninka_2018_1957",
+   "url": "https://cyberleninka.ru/article/n/kyshtymskaya-radiatsionnaya-avariya-1957-goda-pervye-otsenki-radiatsionnoy-obstanovki-posle-vzryva",
+   "titulo": "КЫШТЫМСКАЯ РАДИАЦИОННАЯ АВАРИЯ 1957 ГОДА: ПЕРВЫЕ ОЦЕНКИ РАДИАЦИОННОЙ ОБСТАНОВКИ ПОСЛЕ ВЗРЫВА",
+   "tipo": "academico",
+   "anio": 2018,
+   "prioridad": 2,
+   "por_que": "Artículo académico en ruso que analiza las primeras evaluaciones de la situación radiológica inmediatamente después de la explosión.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://cyberleninka.ru/article/n/kyshtymskaya-radiatsionnaya-avariya-1957-goda-pervye-otsenki-radiatsionnoy-obstanovki-posle-vzryva",
+     "status": 200,
+     "bytes": 108967
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://cyberleninka.ru/article/n/kyshtymskaya-radiatsionnaya-avariya-1957-goda-pervye-otsenki-radiatsionnoy-obstanovki-posle-vzryva",
+   "archivo": "cyberleninka_2018_1957.html",
+   "txt": "cyberleninka_2018_1957.txt",
+   "bytes": 108967,
+   "caracteres": 31215,
+   "caracteres_total": 31215,
+   "recorte": null,
+   "sha1": "f5285d7d4b3cfd8205f403bb44db3c4bb1773cc0",
+   "idioma": "?",
+   "nombra_evento": false,
+   "ficha_busqueda": {
+    "titulo": "Кыштымская радиационная авария 1957 года: первые оценки радиационной обстановки после взрыва",
+    "tipo": "academico",
+    "anio": 2018
+   },
+   "autor": "В.С. Толстиков, В.Н. Кузнецов"
+  },
+  {
+   "id": "F08",
+   "slug": "gov_2023",
+   "url": "https://74.mchs.gov.ru/glavnoe-upravlenie/sily-i-sredstva/specialnye-upravleniya-fps/specialnoe-upravlenie-fps-1-mchs-rossii/novosti/avariya-na-mayake-kak-eto-bylo",
+   "titulo": "Авария на «Маяке». Как это было",
+   "tipo": "informe_oficial",
+   "anio": 2023,
+   "prioridad": 2,
+   "por_que": "Artículo retrospectivo de un organismo oficial ruso sobre el accidente de Mayak, publicado en su sección de noticias.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://74.mchs.gov.ru/glavnoe-upravlenie/sily-i-sredstva/specialnye-upravleniya-fps/specialnoe-upravlenie-fps-1-mchs-rossii/novosti/avariya-na-mayake-kak-eto-bylo",
+     "status": 200,
+     "bytes": 105750
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://74.mchs.gov.ru/glavnoe-upravlenie/sily-i-sredstva/specialnye-upravleniya-fps/specialnoe-upravlenie-fps-1-mchs-rossii/novosti/avariya-na-mayake-kak-eto-bylo",
+   "archivo": "gov_2023.html",
+   "txt": "gov_2023.txt",
+   "bytes": 105750,
+   "caracteres": 9312,
+   "caracteres_total": 9312,
+   "recorte": null,
+   "sha1": "66b7cbe57edf5ee18420cff1f180a0aa916c461a",
+   "idioma": "?",
+   "nombra_evento": false,
+   "ficha_busqueda": {
+    "titulo": "Авария на «Маяке»: как это было",
+    "tipo": "informe_oficial",
+    "anio": 2023
+   },
+   "autor": "Главное управление МЧС России по Челябинской области"
+  },
+  {
+   "id": "F09",
+   "slug": "icheme",
+   "url": "https://www.icheme.org/media/19545/lpb289_pg18.pdf",
+   "titulo": "The 1957 Kyshtym disaster",
+   "tipo": "academico",
+   "anio": 2023,
+   "prioridad": 2,
+   "por_que": "Documento técnico o artículo en formato PDF de una institución de ingeniería química, probablemente relacionado con seguridad o prevención de accidentes nucleares.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.icheme.org/media/19545/lpb289_pg18.pdf",
+     "status": 200,
+     "bytes": 418973
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.icheme.org/media/19545/lpb289_pg18.pdf",
+   "archivo": "icheme.pdf",
+   "txt": "icheme.txt",
+   "bytes": 418973,
+   "caracteres": 15328,
+   "caracteres_total": 15328,
+   "recorte": null,
+   "sha1": "d99c7922f05dad6f5656155387064b23262c9ddc",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": "Faizan Naseer"
+  },
+  {
+   "id": "F10",
+   "slug": "zaryagazeta_2023",
+   "url": "https://zaryagazeta.ru/news/media/2023/9/29/tragediya-o-kotoroj-nikto-ne-znal/",
+   "titulo": "Трагедия, о которой никто не знал",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "prioridad": 2,
+   "por_que": "Artículo de periódico ruso de 2023 que rememora el desastre de Kyshtym, destacando su secretismo y la falta de información inicial.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://zaryagazeta.ru/news/media/2023/9/29/tragediya-o-kotoroj-nikto-ne-znal/",
+     "status": 200,
+     "bytes": 42737,
+     "error": "texto de 2498 caracteres (< 3000: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "error": "API: RuntimeError: HTTP 429 de la API de disponibilidad"
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "API: RuntimeError: HTTP 429 de la API de disponibilidad"
+  },
+  {
+   "id": "F11",
+   "slug": "youtube_2023_kyshtym_1957_the_cia_knew",
+   "url": "https://www.youtube.com/watch?v=lYt55g7pqkA",
+   "titulo": "Kyshtym 1957: The CIA Knew About the Soviet Nuclear Disaster",
+   "tipo": "documental",
+   "anio": 2023,
+   "prioridad": 3,
+   "por_que": "Corto documental que resume cómo la CIA supo del desastre y lo ocultó para proteger la industria nuclear estadounidense, basándose en archivos desclasificados.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F12",
+   "slug": "diletant",
+   "url": "https://diletant.media/articles/45263613/",
+   "titulo": "Взрыв «банки» отходов и распространение радиации",
+   "tipo": "prensa_posterior",
+   "anio": null,
+   "prioridad": 3,
+   "por_que": "Artículo de divulgación general sobre el desastre de Kyshtym de un medio de comunicación ruso.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://diletant.media/articles/45263613/",
+     "status": 200,
+     "bytes": 118012
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://diletant.media/articles/45263613/",
+   "archivo": "diletant.html",
+   "txt": "diletant.txt",
+   "bytes": 118012,
+   "caracteres": 7545,
+   "caracteres_total": 7545,
+   "recorte": null,
+   "sha1": "7cffdf83f2597e0907fe07c84014ad28701cb08c",
+   "idioma": "?",
+   "nombra_evento": false,
+   "ficha_busqueda": {
+    "titulo": "",
+    "tipo": "prensa_posterior",
+    "anio": null
+   },
+   "autor": null
+  },
+  {
+   "id": "F13",
+   "slug": "wikipedia_kyshtym_disaster",
+   "url": "https://en.wikipedia.org/wiki/Kyshtym_disaster",
+   "titulo": "Kyshtym disaster",
+   "tipo": "prensa_posterior",
+   "anio": null,
+   "prioridad": 3,
+   "por_que": "Artículo de enciclopedia que ofrece un resumen general y referencias del desastre de Kyshtym.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://en.wikipedia.org/wiki/Kyshtym_disaster",
+     "status": 200,
+     "bytes": 322851
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://en.wikipedia.org/wiki/Kyshtym_disaster",
+   "archivo": "wikipedia_kyshtym_disaster.html",
+   "txt": "wikipedia_kyshtym_disaster.txt",
+   "bytes": 322851,
+   "caracteres": 22332,
+   "caracteres_total": 22332,
+   "recorte": null,
+   "sha1": "600273f8f13e26877d42bc1593e7f5e7143f298a",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Kyshtym disaster",
+    "tipo": "prensa_posterior",
+    "anio": null
+   },
+   "autor": null
+  },
+  {
+   "id": "F14",
+   "slug": "thecollector_kyshtym_disaster_here_s_what",
+   "url": "https://www.thecollector.com/kyshtym-disaster-heres-what-happened/",
+   "titulo": "The Kyshtym Disaster: Overview of a Forgotten Nuclear Catastrophe",
+   "tipo": "prensa_posterior",
+   "anio": null,
+   "prioridad": 3,
+   "por_que": "Artículo de un sitio de divulgación histórica que explica los eventos del desastre de Kyshtym.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.thecollector.com/kyshtym-disaster-heres-what-happened/",
+     "status": 200,
+     "bytes": 212091
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.thecollector.com/kyshtym-disaster-heres-what-happened/",
+   "archivo": "thecollector_kyshtym_disaster_here_s_what.html",
+   "txt": "thecollector_kyshtym_disaster_here_s_what.txt",
+   "bytes": 212091,
+   "caracteres": 9261,
+   "caracteres_total": 9261,
+   "recorte": null,
+   "sha1": "9f1d9b4806b113654e98bf721b8e41720f81e180",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Kyshtym Disaster: Here's What Happened",
+    "tipo": "prensa_posterior",
+    "anio": null
+   },
+   "autor": null
+  },
+  {
+   "id": "F15",
+   "slug": "youtube",
+   "url": "https://www.youtube.com/shorts/kNBAM9scSJM?app=desktop",
+   "titulo": "",
+   "tipo": "documental",
+   "anio": null,
+   "prioridad": 3,
+   "por_que": "Video corto de YouTube posiblemente relacionado con el desastre de Kyshtym. Su contenido exacto y profundidad son desconocidos sin acceso directo.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F16",
+   "slug": "youtube",
+   "url": "https://www.youtube.com/watch?v=ODd0y1Ezdrw",
+   "titulo": "",
+   "tipo": "documental",
+   "anio": null,
+   "prioridad": 3,
+   "por_que": "Video de YouTube posiblemente relacionado con el desastre de Kyshtym. Su contenido exacto y profundidad son desconocidos sin acceso directo.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  }
+ ],
+ "_fichas": {
+  "hash": "ad407a659b6f6016",
+  "raw": {
+   "documentos": [
+    {
+     "id": "F01",
+     "titulo": "CIA Debriefed Soviet H-Bomb Eye-Witness in 1957",
+     "autor": "William Burr",
+     "tipo": "academico",
+     "anio": 2018
+    },
+    {
+     "id": "F02",
+     "titulo": "Kyshtym nuclear disaster, Russian Federation",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    },
+    {
+     "id": "F03",
+     "titulo": "Кыштымская авария",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    },
+    {
+     "id": "F04",
+     "titulo": "Кыштымская авария 1957 года: как взрыв на «Маяке» десятилетиями оставался засекреченным",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    },
+    {
+     "id": "F05",
+     "titulo": "An Analysis of the Alleged Kyshtym Disaster",
+     "autor": "Diane M. Soran and Danny B. Stillman",
+     "tipo": "informe_oficial",
+     "anio": 1982
+    },
+    {
+     "id": "F07",
+     "titulo": "КЫШТЫМСКАЯ РАДИАЦИОННАЯ АВАРИЯ 1957 ГОДА: ПЕРВЫЕ ОЦЕНКИ РАДИАЦИОННОЙ ОБСТАНОВКИ ПОСЛЕ ВЗРЫВА",
+     "autor": "В.С. Толстиков, В.Н. Кузнецов",
+     "tipo": "academico",
+     "anio": 2018
+    },
+    {
+     "id": "F08",
+     "titulo": "Авария на «Маяке». Как это было",
+     "autor": "Главное управление МЧС России по Челябинской области",
+     "tipo": "informe_oficial",
+     "anio": 0
+    },
+    {
+     "id": "F09",
+     "titulo": "The 1957 Kyshtym disaster",
+     "autor": "Faizan Naseer",
+     "tipo": "academico",
+     "anio": 2023
+    },
+    {
+     "id": "F12",
+     "titulo": "Взрыв «банки» отходов и распространение радиации",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    },
+    {
+     "id": "F13",
+     "titulo": "Kyshtym disaster",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    },
+    {
+     "id": "F14",
+     "titulo": "The Kyshtym Disaster: Overview of a Forgotten Nuclear Catastrophe",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,2848 @@
+{
+ "personas": [
+  {
+   "nombre": "Zhores Medvedev",
+   "rol": "Genetista soviético exiliado que denunció el desastre y difundió su alcance.",
+   "variantes": [
+    "Zhores Medvedev"
+   ],
+   "ids": [
+    "P03",
+    "T11",
+    "T34",
+    "Q01"
+   ]
+  },
+  {
+   "nombre": "Lev Tumerman",
+   "rol": "Científico soviético que recorrió el área restringida y aportó su testimonio para corroborar la denuncia.",
+   "variantes": [
+    "Lev Tumerman",
+    "Professor Lev Tumerman"
+   ],
+   "ids": [
+    "P04",
+    "T30",
+    "D04",
+    "D05",
+    "Q02",
+    "Q03"
+   ]
+  },
+  {
+   "nombre": "Leslie R. Groves",
+   "rol": "Jefe del Proyecto Manhattan durante la guerra, mencionado como contexto de la carrera nuclear.",
+   "variantes": [
+    "Leslie R. Groves",
+    "Lieut. Gen. Leslie R. Groves"
+   ],
+   "ids": [
+    "P06",
+    "P13",
+    "Q05"
+   ]
+  },
+  {
+   "nombre": "George C. Marshall",
+   "rol": "General mencionado como interlocutor de Groves en un relato sobre el programa nuclear estadounidense.",
+   "variantes": [
+    "Gen. George C. Marshall"
+   ],
+   "ids": [
+    "P06"
+   ]
+  },
+  {
+   "nombre": "Igor Vasil'evich Kurchatov",
+   "rol": "Director de la construcción de reactores del programa soviético de producción de plutonio.",
+   "variantes": [
+    "Igor Vasil'evich Kurchatov",
+    "Kurchatov"
+   ],
+   "ids": [
+    "P07",
+    "Q06"
+   ]
+  },
+  {
+   "nombre": "I. N. Golovin",
+   "rol": "Biógrafo de Kurchatov citado sobre la construcción de la ciudad y sus instalaciones industriales.",
+   "variantes": [
+    "I. N. Golovin",
+    "Golovin"
+   ],
+   "ids": [
+    "Q06"
+   ]
+  },
+  {
+   "nombre": "Josef Stalin",
+   "rol": "Dirigente soviético que impulsó la aceleración del programa nuclear.",
+   "variantes": [
+    "Josef Stalin"
+   ],
+   "ids": [
+    "P11"
+   ]
+  },
+  {
+   "nombre": "Lyudmila Krestinina",
+   "rol": "Jefa del laboratorio epidemiológico del Centro Científico y Práctico de Medicina de Radiación de los Urales.",
+   "variantes": [
+    "Lyudmila Krestinina"
+   ],
+   "ids": [
+    "P09",
+    "Q09",
+    "Q10"
+   ]
+  },
+  {
+   "nombre": "Andrei Vazhenin",
+   "rol": "Oncólogo jefe de la región de Chelyabinsk que relativiza el peso de la radiación frente a otros factores de cáncer.",
+   "variantes": [
+    "Andrei Vazhenin"
+   ],
+   "ids": [
+    "P10",
+    "Q11"
+   ]
+  },
+  {
+   "nombre": "E.P. Slavsky",
+   "rol": "Ministro de Industria que transmitió al Comité Central la atribución de responsabilidades realizada por una comisión.",
+   "variantes": [
+    "E.P. Slavsky"
+   ],
+   "ids": [
+    "Q12"
+   ]
+  }
+ ],
+ "cronologia": [
+  {
+   "fecha": "1945–1948",
+   "hora": "",
+   "evento": "Se construye apresuradamente la instalación de Mayak.",
+   "aproximada": false,
+   "ids": [
+    "T01",
+    "D71"
+   ]
+  },
+  {
+   "fecha": "1949",
+   "hora": "",
+   "evento": "Se detona la primera arma nuclear soviética.",
+   "aproximada": false,
+   "ids": [
+    "T03"
+   ]
+  },
+  {
+   "fecha": "1949",
+   "hora": "",
+   "evento": "Comienzan los vertidos programados y de emergencia de residuos radiactivos líquidos en masas de agua abiertas; el pool no permite ordenarlos respecto de la detonación dentro de ese año.",
+   "aproximada": false,
+   "ids": [
+    "T04"
+   ]
+  },
+  {
+   "fecha": "1953",
+   "hora": "",
+   "evento": "Se incorpora una instalación de almacenamiento de residuos nucleares líquidos de alta actividad.",
+   "aproximada": false,
+   "ids": [
+    "T09",
+    "D73"
+   ]
+  },
+  {
+   "fecha": "1953",
+   "hora": "",
+   "evento": "Según F05, el agua del lago artificial utilizado para refrigeración ya se había vuelto peligrosamente radiactiva.",
+   "aproximada": false,
+   "ids": [
+    "T07"
+   ]
+  },
+  {
+   "fecha": "1954",
+   "hora": "",
+   "evento": "F05 sitúa ya en este año la alta radiactividad del agua del Techa.",
+   "aproximada": false,
+   "ids": [
+    "T10"
+   ]
+  },
+  {
+   "fecha": "29 de septiembre de 1957",
+   "hora": "16:22, hora local",
+   "evento": "Explota un contenedor de residuos de alta actividad en Mayak; F13 también publica una hora de 11:22 UTC.",
+   "aproximada": false,
+   "ids": [
+    "T13",
+    "T14",
+    "T15",
+    "D43"
+   ]
+  },
+  {
+   "fecha": "Después de la explosión del 29 de septiembre de 1957",
+   "hora": "Durante las siguientes 10–11 horas",
+   "evento": "La nube se desplaza hacia el noreste y alcanza una distancia de 300–350 km; este intervalo se superpone con los registros horarios siguientes.",
+   "aproximada": false,
+   "ids": [
+    "T12",
+    "D78",
+    "D43"
+   ]
+  },
+  {
+   "fecha": "29 de septiembre de 1957",
+   "hora": "19:20",
+   "evento": "Las masas de aire procedentes de la planta se desplazan hacia Bagaryak y Kamensk-Uralsky.",
+   "aproximada": false,
+   "ids": [
+    "T16",
+    "D43"
+   ]
+  },
+  {
+   "fecha": "29 de septiembre de 1957",
+   "hora": "Alrededor de las 23:00",
+   "evento": "Se observa un resplandor extraño de colores rosa y azul claro.",
+   "aproximada": true,
+   "ids": [
+    "T17",
+    "D43"
+   ]
+  },
+  {
+   "fecha": "Después de la explosión del 29 de septiembre de 1957",
+   "hora": "22 horas después",
+   "evento": "La nube alcanza el territorio de la región de Tyumen; se conserva el tiempo relativo porque el pasaje no da una fecha de calendario.",
+   "aproximada": false,
+   "ids": [
+    "T18",
+    "D43"
+   ]
+  },
+  {
+   "fecha": "2 de octubre de 1957",
+   "hora": "",
+   "evento": "Se aprueba un programa de actividades de emergencia para mitigar las consecuencias.",
+   "aproximada": false,
+   "ids": [
+    "T19"
+   ]
+  },
+  {
+   "fecha": "6 de octubre de 1957",
+   "hora": "",
+   "evento": "Comienza la operación de evacuación, una semana después de la explosión, sin explicar sus motivos a los afectados.",
+   "aproximada": false,
+   "ids": [
+    "T20",
+    "T21",
+    "D58"
+   ]
+  },
+  {
+   "fecha": "Después del accidente",
+   "hora": "Entre 7 y 14 días después",
+   "evento": "Son evacuados los residentes de los asentamientos más próximos, un grupo de 1100 personas.",
+   "aproximada": false,
+   "ids": [
+    "D60"
+   ]
+  },
+  {
+   "fecha": "Principios de 1958",
+   "hora": "",
+   "evento": "Se establece una zona de protección sanitaria de 700 km² que prohíbe la residencia y la actividad económica.",
+   "aproximada": true,
+   "ids": [
+    "T23"
+   ]
+  },
+  {
+   "fecha": "13–14 de abril de 1958",
+   "hora": "",
+   "evento": "Aparecen en la prensa occidental informes vagos sobre un accidente catastrófico; el informe de Copenhague lo vincula con pruebas nucleares.",
+   "aproximada": true,
+   "ids": [
+    "T24",
+    "T25",
+    "Q08"
+   ]
+  },
+  {
+   "fecha": "18 de marzo de 1959",
+   "hora": "",
+   "evento": "Die Presse publica detalles sobre el accidente.",
+   "aproximada": false,
+   "ids": [
+    "T27",
+    "T29"
+   ]
+  },
+  {
+   "fecha": "1959",
+   "hora": "",
+   "evento": "Según F13 y F14, las autoridades estadounidenses ya conocen la existencia del accidente.",
+   "aproximada": false,
+   "ids": [
+    "T28",
+    "D80",
+    "D97"
+   ]
+  },
+  {
+   "fecha": "1960",
+   "hora": "",
+   "evento": "Lev Tumerman recorre la carretera Chelyabinsk-Sverdlovsk y observa restricciones al tránsito por el área.",
+   "aproximada": false,
+   "ids": [
+    "T30",
+    "P04",
+    "D04"
+   ]
+  },
+  {
+   "fecha": "1967",
+   "hora": "",
+   "evento": "El viento dispersa limo radiactivo del lago Karachay, un episodio distinto de la explosión.",
+   "aproximada": false,
+   "ids": [
+    "D23"
+   ]
+  },
+  {
+   "fecha": "1968",
+   "hora": "",
+   "evento": "Se crea la Reserva Natural de los Urales Orientales y se restringe el acceso no autorizado.",
+   "aproximada": false,
+   "ids": [
+    "T32",
+    "D81"
+   ]
+  },
+  {
+   "fecha": "1976",
+   "hora": "",
+   "evento": "Zhores Medvedev divulga la naturaleza y el alcance del desastre y publica un artículo en New Scientist.",
+   "aproximada": false,
+   "ids": [
+    "P03",
+    "T34"
+   ]
+  },
+  {
+   "fecha": "1979",
+   "hora": "",
+   "evento": "F09 identifica el libro de Medvedev The Nuclear Disaster in the Urals como una publicación que aportó detalles a Occidente.",
+   "aproximada": false,
+   "ids": [
+    "P03"
+   ]
+  }
+ ],
+ "historia": {
+  "humanos_candidatos": [
+   {
+    "nombre": "Zhores Medvedev",
+    "rol": "Genetista exiliado que convierte un accidente oculto en una denuncia pública.",
+    "arco": "Entra como científico soviético exiliado, denuncia una explosión y una extensa contaminación que reciben objeciones, y termina con el núcleo de su relato corroborado por el testimonio de Tumerman.",
+    "ids": [
+     "P03",
+     "P04",
+     "T34",
+     "Q01",
+     "Q14"
+    ],
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Lev Tumerman",
+    "rol": "Científico que pasa de viajero por un área restringida a testigo de la contaminación.",
+    "arco": "Entra en la carretera como viajero, encuentra una señal que impide detenerse y un territorio donde se prohíbe la actividad normal, y sale convertido en testigo que aporta cartas y correspondencia para corroborar la denuncia.",
+    "ids": [
+     "P04",
+     "T30",
+     "D04",
+     "D05",
+     "Q02",
+     "Q03"
+    ],
+    "citas_verificadas": 2
+   }
+  ],
+  "giros": [
+   {
+    "orden": 1,
+    "que_cambia": "Los residuos dejan de depender únicamente de los vertidos abiertos y pasan también a almacenarse bajo tierra, donde su propio calor exige refrigeración.",
+    "ids": [
+     "T09",
+     "D73",
+     "D74"
+    ]
+   },
+   {
+    "orden": 2,
+    "que_cambia": "Falla la refrigeración de un tanque y no se repara: el almacenamiento se convierte en un sistema que acumula calor.",
+    "ids": [
+     "D50",
+     "D51"
+    ]
+   },
+   {
+    "orden": 3,
+    "que_cambia": "El tanque explota y la contaminación sale de la instalación en una nube que avanza hacia el noreste.",
+    "ids": [
+     "T14",
+     "D53",
+     "D76",
+     "D78"
+    ]
+   },
+   {
+    "orden": 4,
+    "que_cambia": "La respuesta deja de ser solo técnica y pasa a desplazar poblaciones, pero la evacuación comienza una semana después y no explica sus motivos.",
+    "ids": [
+     "T19",
+     "T20",
+     "T21",
+     "D58"
+    ]
+   },
+   {
+    "orden": 5,
+    "que_cambia": "La creación de una reserva mantiene restringido el acceso al territorio afectado.",
+    "ids": [
+     "D81",
+     "T32"
+    ]
+   },
+   {
+    "orden": 6,
+    "que_cambia": "Medvedev expone públicamente el alcance del desastre y el testimonio de Tumerman aporta una corroboración frente a las objeciones.",
+    "ids": [
+     "P03",
+     "P04",
+     "T34",
+     "Q14"
+    ]
+   }
+  ],
+  "pico": {
+   "que": "El tanque revienta, levanta su cubierta de hormigón y produce una columna de humo y polvo que dispersa contaminación fuera de Mayak.",
+   "por_que": "Es el momento en que el fallo de refrigeración deja de afectar a un depósito y se transforma en una contaminación regional sobre un territorio habitado; no hace falta fijar un número de muertos para establecer su gravedad.",
+   "ids": [
+    "D50",
+    "D51",
+    "D53",
+    "D76",
+    "D44",
+    "D78"
+   ]
+  },
+  "pregunta_final": {
+   "pregunta": "¿Cuál fue el balance humano atribuible específicamente a la explosión, separado de la contaminación previa y posterior de Mayak, si el pool combina negaciones, estimaciones de muertes y diagnósticos sin un balance común verificable?",
+   "ids": [
+    "D40",
+    "D64",
+    "D65",
+    "D96",
+    "D24",
+    "D25",
+    "Q01"
+   ]
+  }
+ },
+ "escenas": [
+  {
+   "donde": "Lago Kyzaltash y río Techa, antes de la explosión",
+   "quien": "Niños que utilizan el río y la instalación que descarga agua",
+   "que_pasa": "El agua contaminada procedente de los reactores vuelve sin tratamiento al lago y al río donde juegan niños.",
+   "sentidos": "El documento permite mostrar niños jugando en el agua y el vertido; no describe un color, olor o señal visible de la radiactividad.",
+   "ids": [
+    "D48"
+   ]
+  },
+  {
+   "donde": "Almacenamiento subterráneo de Mayak",
+   "quien": "Los depósitos de residuos; el pasaje no identifica personas presentes",
+   "que_pasa": "Los residuos líquidos se guardan en tanques de acero montados sobre una base de hormigón bajo tierra.",
+   "sentidos": "Acero, hormigón y una profundidad de 8,2 metros son los detalles físicos documentados; no hay descripción de iluminación, ruido o presencia de operarios.",
+   "ids": [
+    "D73",
+    "D74"
+   ]
+  },
+  {
+   "donde": "Depósito de residuos de Mayak y edificio cercano",
+   "quien": "El tanque que explota y las estructuras alcanzadas",
+   "que_pasa": "La explosión levanta una losa de hormigón y destruye una pared de ladrillos en un edificio próximo.",
+   "sentidos": "Una losa de 160 toneladas desplazada y una pared destruida a 200 metros del punto de explosión; el pasaje no transcribe el sonido.",
+   "ids": [
+    "D53",
+    "D75"
+   ]
+  },
+  {
+   "donde": "Sobre la instalación de Mayak, inmediatamente después de la explosión",
+   "quien": "La columna de material expulsado",
+   "que_pasa": "Una columna de humo y polvo asciende después de la explosión.",
+   "sentidos": "Humo y polvo que alcanzan un kilómetro de altura; no se documentan aquí su color ni su olor.",
+   "ids": [
+    "D76"
+   ]
+  },
+  {
+   "donde": "Cielo observado tras la explosión",
+   "quien": "Observadores no identificados por el documento",
+   "que_pasa": "Alrededor de las 23:00 se advierte un resplandor extraño.",
+   "sentidos": "Los colores descritos son rosa y azul claro; no se atribuye una explicación física al resplandor.",
+   "ids": [
+    "T17"
+   ]
+  },
+  {
+   "donde": "Entorno de la chimenea del complejo de Kyshtym, sin fecha precisada",
+   "quien": "La vegetación del entorno industrial",
+   "que_pasa": "La hierba y los árboles amarillean y mueren en el área próxima a la chimenea.",
+   "sentidos": "Amarilleamiento de hierba y árboles en un radio de 15–20 km; el pasaje no permite atribuir esta escena exclusivamente a la explosión.",
+   "ids": [
+    "D11"
+   ]
+  },
+  {
+   "donde": "Sectores de mayor contaminación después del accidente",
+   "quien": "La vegetación de las zonas contaminadas",
+   "que_pasa": "La muerte de la vegetación se hace evidente y sus efectos persisten.",
+   "sentidos": "Vegetación muerta visible en áreas por encima del umbral de contaminación indicado; no se agregan especies ni colores.",
+   "ids": [
+    "D59"
+   ]
+  },
+  {
+   "donde": "Carretera Chelyabinsk-Sverdlovsk, durante el viaje de Tumerman",
+   "quien": "Lev Tumerman y los conductores a quienes se dirige la señal",
+   "que_pasa": "Tumerman encuentra un cartel que ordena atravesar el tramo sin detenerse y a máxima velocidad.",
+   "sentidos": "La señal escrita prohíbe parar durante los siguientes 20 o 30 kilómetros; el fragmento disponible no verifica las chimeneas ni las casas destruidas de la cita extensa del pool.",
+   "ids": [
+    "T30",
+    "D04",
+    "Q02"
+   ]
+  },
+  {
+   "donde": "Lago Karachay, en el episodio de 1967",
+   "quien": "El viento y el limo del lago poco profundo",
+   "que_pasa": "El viento arrastra limo radiactivo del lago.",
+   "sentidos": "Material del lecho desplazado por el viento; el documento no proporciona color, olor ni condiciones meteorológicas adicionales.",
+   "ids": [
+    "D23"
+   ]
+  }
+ ],
+ "hechos": [
+  {
+   "texto": "El desastre ocurrió el 29 de septiembre de 1957 en Mayak.",
+   "nivel": 1,
+   "sirve_para": "gancho",
+   "ids": [
+    "D43",
+    "T14"
+   ]
+  },
+  {
+   "texto": "Mayak estaba en la ciudad cerrada de Chelyabinsk-40, actualmente Ozyorsk.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "D19",
+    "L16",
+    "L17",
+    "L18"
+   ]
+  },
+  {
+   "texto": "El accidente recibió el nombre de Kyshtym porque esa ciudad cercana figuraba en los mapas públicos.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D21",
+    "L01"
+   ]
+  },
+  {
+   "texto": "La planta se construyó apresuradamente entre 1945 y 1948.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D71"
+   ]
+  },
+  {
+   "texto": "Stalin consideraba necesario acelerar el programa nuclear soviético frente al estadounidense.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "P11"
+   ]
+  },
+  {
+   "texto": "Alrededor de 40.000 reclusos del GULAG o prisioneros de guerra del Eje fueron obligados a construir Mayak.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D47"
+   ]
+  },
+  {
+   "texto": "La primera arma nuclear soviética fue detonada en 1949.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T03"
+   ]
+  },
+  {
+   "texto": "Los seis reactores de Mayak utilizaban refrigeración de ciclo abierto que devolvía agua contaminada al lago Kyzyltash.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D85"
+   ]
+  },
+  {
+   "texto": "El agua contaminada de los reactores se descargaba inicialmente sin tratamiento en el lago Kyzaltash y el río Techa, donde jugaban niños.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "D48"
+   ]
+  },
+  {
+   "texto": "El Techa era la principal fuente de agua potable para unas 20 aldeas.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D48"
+   ]
+  },
+  {
+   "texto": "Los vertidos programados y de emergencia de residuos radiactivos líquidos en aguas abiertas comenzaron en 1949.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T04"
+   ]
+  },
+  {
+   "texto": "F05 afirma que en 1953 el agua de un lago artificial de refrigeración ya era peligrosamente radiactiva.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T07"
+   ]
+  },
+  {
+   "texto": "F05 sitúa ya en 1954 la alta radiactividad del agua del río Techa.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T10"
+   ]
+  },
+  {
+   "texto": "Los vertidos al Techa y al lago Kyzaltash se interrumpieron y los residuos pasaron a descargarse en el lago Karachay.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D49"
+   ]
+  },
+  {
+   "texto": "En 1953 se incorporó una instalación de almacenamiento de residuos líquidos de alta actividad.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "T09",
+    "D73"
+   ]
+  },
+  {
+   "texto": "El almacenamiento consistía en tanques de acero sobre una base de hormigón a 8,2 metros bajo tierra.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D74"
+   ]
+  },
+  {
+   "texto": "Los residuos almacenados generaban calor por desintegración radiactiva.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D74"
+   ]
+  },
+  {
+   "texto": "La refrigeración de un tanque con 70–80 toneladas de residuos falló y permaneció sin reparar.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D50"
+   ]
+  },
+  {
+   "texto": "La temperatura del tanque subió a unos 350 °C y el agua se evaporó.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D51"
+   ]
+  },
+  {
+   "texto": "La evaporación dejó una mezcla radiactiva de nitrato de amonio y acetatos.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D51"
+   ]
+  },
+  {
+   "texto": "La explosión química tuvo una fuerza estimada de 70–100 toneladas de TNT.",
+   "nivel": 1,
+   "sirve_para": "pico",
+   "ids": [
+    "D52",
+    "D87"
+   ]
+  },
+  {
+   "texto": "F14 identifica el tanque destruido como uno de los catorce depósitos subterráneos de la instalación.",
+   "nivel": 2,
+   "sirve_para": "pico",
+   "ids": [
+    "D89"
+   ]
+  },
+  {
+   "texto": "La explosión levantó una cubierta de hormigón de unas 160 toneladas.",
+   "nivel": 2,
+   "sirve_para": "pico",
+   "ids": [
+    "D53",
+    "D75"
+   ]
+  },
+  {
+   "texto": "Una pared de ladrillos fue destruida en un edificio situado a 200 metros del punto de explosión.",
+   "nivel": 2,
+   "sirve_para": "pico",
+   "ids": [
+    "D75"
+   ]
+  },
+  {
+   "texto": "Después de la explosión se elevó una columna de humo y polvo de un kilómetro de altura.",
+   "nivel": 2,
+   "sirve_para": "pico",
+   "ids": [
+    "D76"
+   ]
+  },
+  {
+   "texto": "F09 y F13 estiman una liberación de 20 MCi de radiactividad.",
+   "nivel": 1,
+   "sirve_para": "pico",
+   "ids": [
+    "D54",
+    "D77"
+   ]
+  },
+  {
+   "texto": "Según F09, aproximadamente el 90 % de la contaminación se depositó cerca del lugar del accidente.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D54"
+   ]
+  },
+  {
+   "texto": "Una pluma con 2 MCi de radionúclidos se extendió a cientos de kilómetros.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D55"
+   ]
+  },
+  {
+   "texto": "Durante las siguientes 10–11 horas, la nube avanzó hacia el noreste y alcanzó 300–350 km desde el accidente.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "T12",
+    "D78"
+   ]
+  },
+  {
+   "texto": "A las 19:20 las masas de aire procedentes de la planta se desplazaban hacia Bagaryak y Kamensk-Uralsky.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T16"
+   ]
+  },
+  {
+   "texto": "Alrededor de las 23:00 se observó un resplandor rosa y azul claro.",
+   "nivel": 2,
+   "sirve_para": "gancho",
+   "ids": [
+    "T17"
+   ]
+  },
+  {
+   "texto": "La nube llegó al territorio de la región de Tyumen 22 horas después de la explosión.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T18"
+   ]
+  },
+  {
+   "texto": "La contaminación de larga duración incluía principalmente cesio-137 y estroncio-90.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D56",
+    "D79"
+   ]
+  },
+  {
+   "texto": "F09 y F13 sitúan la superficie contaminada entre 800 y 20.000 km² según el umbral considerado significativo.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D56",
+    "D79"
+   ]
+  },
+  {
+   "texto": "Las fuentes sitúan en aproximadamente 270.000 personas la población del territorio alcanzado.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D44",
+    "D70"
+   ]
+  },
+  {
+   "texto": "El territorio contaminado pasó a conocerse como la Traza Radiactiva de los Urales Orientales.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D67",
+    "L19"
+   ]
+  },
+  {
+   "texto": "El programa de actividades de emergencia fue aprobado el 2 de octubre de 1957.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "T19"
+   ]
+  },
+  {
+   "texto": "La operación de evacuación comenzó el 6 de octubre de 1957, una semana después de la explosión.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T20",
+    "T21"
+   ]
+  },
+  {
+   "texto": "Los evacuados no recibieron una explicación de los motivos del desplazamiento.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T21",
+    "D58",
+    "D94"
+   ]
+  },
+  {
+   "texto": "Los 1100 habitantes de los tres asentamientos más próximos fueron evacuados entre 7 y 14 días después del accidente.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D60"
+   ]
+  },
+  {
+   "texto": "Las evacuaciones se extendieron durante casi dos años.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D58",
+    "D94"
+   ]
+  },
+  {
+   "texto": "La cifra más repetida es de 22 asentamientos reubicados.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D61",
+    "D93"
+   ]
+  },
+  {
+   "texto": "Las fuentes más coincidentes sitúan la población evacuada alrededor de las 10.000 personas.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T20",
+    "T21",
+    "D61",
+    "D93"
+   ]
+  },
+  {
+   "texto": "F02 afirma que Ozyorsk no fue reasentada porque la dirección del viento evitó la contaminación de la ciudad.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D39"
+   ]
+  },
+  {
+   "texto": "A principios de 1958 se estableció una zona de protección sanitaria de 700 km².",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T23"
+   ]
+  },
+  {
+   "texto": "En la zona de protección sanitaria quedaron prohibidas la residencia y las actividades económicas.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T23"
+   ]
+  },
+  {
+   "texto": "En los sectores con contaminación superior a 5 × 10² Ci/km² se observó muerte de vegetación con efectos persistentes durante 3–4 años.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D59"
+   ]
+  },
+  {
+   "texto": "Los informes occidentales vagos sobre un accidente catastrófico aparecieron en abril de 1958.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "T24",
+    "T25"
+   ]
+  },
+  {
+   "texto": "Die Presse publicó detalles sobre el accidente el 18 de marzo de 1959.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "T29"
+   ]
+  },
+  {
+   "texto": "Según F13 y F14, las autoridades estadounidenses conocían el accidente desde 1959.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "D80",
+    "D97"
+   ]
+  },
+  {
+   "texto": "F13 atribuye el silencio de la CIA al propósito de evitar consecuencias adversas para la industria nuclear estadounidense.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "D80"
+   ]
+  },
+  {
+   "texto": "Lev Tumerman recorrió en 1960 la carretera Chelyabinsk-Sverdlovsk que atravesaba el área señalada como contaminada.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "P04",
+    "T30"
+   ]
+  },
+  {
+   "texto": "Tumerman describió una señal que prohibía detenerse durante los siguientes 20 o 30 kilómetros y ordenaba conducir a máxima velocidad.",
+   "nivel": 2,
+   "sirve_para": "gancho",
+   "ids": [
+    "D04",
+    "Q02"
+   ]
+  },
+  {
+   "texto": "Tumerman estimó en no menos de 100–150 km² el área donde había visto prohibida la actividad humana normal.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D05",
+    "Q03"
+   ]
+  },
+  {
+   "texto": "La Reserva Natural de los Urales Orientales fue creada en 1968.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "T32",
+    "D81"
+   ]
+  },
+  {
+   "texto": "La reserva prohibía el acceso no autorizado al área afectada.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D81"
+   ]
+  },
+  {
+   "texto": "Medvedev divulgó el alcance del desastre en 1976 mediante un artículo en New Scientist.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "P03",
+    "T34"
+   ]
+  },
+  {
+   "texto": "F14 afirma que figuras del organismo regulador nuclear internacional desestimaron el artículo porque una liberación tan grande habría sido detectada en Occidente.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "Q14"
+   ]
+  },
+  {
+   "texto": "F09 menciona el libro de Medvedev The Nuclear Disaster in the Urals, publicado en 1979.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "P03"
+   ]
+  },
+  {
+   "texto": "F13 describe un encubrimiento que mantuvo el alcance completo del desastre fuera del conocimiento de gran parte del público durante casi dos décadas.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D68"
+   ]
+  },
+  {
+   "texto": "En el memorando citado, Slavsky comunica que la comisión consideraba principales culpables al jefe de la planta radioquímica y a su ingeniero jefe.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "Q12"
+   ]
+  },
+  {
+   "texto": "F02 atribuye al Instituto de Biofísica de los Urales del Sur el dato oficial de cinco personas enviadas a hospitales tras la explosión.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D41"
+   ]
+  },
+  {
+   "texto": "F13 y F14 mencionan 66 casos de síndrome de radiación crónico.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D65"
+   ]
+  },
+  {
+   "texto": "Krestinina afirma que el riesgo de desarrollar cáncer en el área de la nube y las orillas del Techa es un 2,5 % mayor que entre personas sin exposición adicional.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "Q09"
+   ]
+  },
+  {
+   "texto": "Krestinina afirma que el 92 % de la dosis fue recibido durante los primeros dos años.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "Q10"
+   ]
+  },
+  {
+   "texto": "Vazhenin atribuye el cáncer regional más al tabaco, al alcohol y a la industria pesada que a la radiación.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "Q11"
+   ]
+  },
+  {
+   "texto": "F02 describe lodos del Techa que contienen principalmente estroncio-90 y cesio-137.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D29",
+    "L05"
+   ]
+  },
+  {
+   "texto": "En 1967 el viento dispersó limo radiactivo del lago Karachay.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D23"
+   ]
+  },
+  {
+   "texto": "F02 atribuye al conjunto de la actividad de Mayak la exposición de medio millón de personas entre 1948 y 1998.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D24"
+   ]
+  },
+  {
+   "texto": "El desastre está clasificado como nivel 6 en la escala INES de 7 niveles.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D20",
+    "D46"
+   ]
+  },
+  {
+   "texto": "F02 registra unos 40 accidentes de distinta gravedad en Mayak entre 1948 y 2000.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D22"
+   ]
+  },
+  {
+   "texto": "F14 describe presencia de cesio-137 y estroncio-90 en fuentes de agua, bosques e instalaciones agrícolas.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D92"
+   ]
+  },
+  {
+   "texto": "F14 recoge estimaciones de casi cien muertes por cáncer entre residentes del Techa que podrían estar relacionadas con la lluvia radiactiva del desastre.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D96"
+   ]
+  }
+ ],
+ "cifras": [
+  {
+   "que": "Trabajadores forzados en la construcción",
+   "valor": "Alrededor de 40.000",
+   "unidad": "personas",
+   "fuente": "F09, reclusos del GULAG o prisioneros de guerra del Eje.",
+   "ids": [
+    "D47"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Reactores con refrigeración de ciclo abierto",
+   "valor": "6",
+   "unidad": "reactores",
+   "fuente": "F14.",
+   "ids": [
+    "D85"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Aldeas que obtenían principalmente agua potable del Techa",
+   "valor": "Unas 20",
+   "unidad": "aldeas",
+   "fuente": "F09.",
+   "ids": [
+    "D48"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Profundidad del almacenamiento",
+   "valor": "8,2",
+   "unidad": "metros bajo tierra",
+   "fuente": "F13.",
+   "ids": [
+    "D73",
+    "D74"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Residuos en el tanque cuya refrigeración falló",
+   "valor": "70–80",
+   "unidad": "toneladas de residuos",
+   "fuente": "F09 y F13.",
+   "ids": [
+    "D50"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Temperatura alcanzada por el tanque",
+   "valor": "Alrededor de 350",
+   "unidad": "°C",
+   "fuente": "F09.",
+   "ids": [
+    "D51"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Potencia equivalente de la explosión",
+   "valor": "Aproximadamente 70–100",
+   "unidad": "toneladas de TNT",
+   "fuente": "F09; F14 publica el extremo inferior.",
+   "ids": [
+    "D52"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "70",
+     "unidad": "toneladas de TNT",
+     "fuente": "F14.",
+     "ids": [
+      "D87"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Tanques subterráneos de la instalación",
+   "valor": "14",
+   "unidad": "tanques",
+   "fuente": "F14.",
+   "ids": [
+    "D89"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Tanques destruidos en la explosión",
+   "valor": "1",
+   "unidad": "tanque",
+   "fuente": "F14.",
+   "ids": [
+    "D89"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Masa de la cubierta de hormigón levantada",
+   "valor": "Aproximadamente 160",
+   "unidad": "toneladas",
+   "fuente": "F09 y F13.",
+   "ids": [
+    "D53",
+    "D75"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Distancia del edificio cuya pared de ladrillos fue destruida",
+   "valor": "200",
+   "unidad": "metros desde la explosión",
+   "fuente": "F13.",
+   "ids": [
+    "D75"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Altura de la columna de humo y polvo",
+   "valor": "1",
+   "unidad": "kilómetro",
+   "fuente": "F13.",
+   "ids": [
+    "D76"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Actividad total liberada expresada en curies",
+   "valor": "Aproximadamente 20",
+   "unidad": "MCi",
+   "fuente": "F09 y F13 coinciden en esta expresión.",
+   "ids": [
+    "D54",
+    "D77"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Actividad total liberada expresada en becquereles",
+   "valor": "Sin resolver",
+   "unidad": "PBq",
+   "fuente": "Las equivalencias publicadas por F09 y F13 discrepan.",
+   "ids": [
+    "D54",
+    "D77"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "800",
+     "unidad": "PBq",
+     "fuente": "F09.",
+     "ids": [
+      "D54"
+     ]
+    },
+    {
+     "valor": "740",
+     "unidad": "PBq",
+     "fuente": "F13.",
+     "ids": [
+      "D77"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Contaminación depositada cerca del accidente",
+   "valor": "Aproximadamente 90",
+   "unidad": "% de la contaminación",
+   "fuente": "F09.",
+   "ids": [
+    "D54"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Actividad de la pluma que se dispersó a gran distancia",
+   "valor": "2",
+   "unidad": "MCi",
+   "fuente": "F09, que también publica 80 PBq como equivalencia.",
+   "ids": [
+    "D55"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Tiempo de avance inicial de la nube",
+   "valor": "10–11",
+   "unidad": "horas",
+   "fuente": "F09 y F13.",
+   "ids": [
+    "T12",
+    "D78"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Distancia alcanzada en el avance inicial",
+   "valor": "300–350",
+   "unidad": "kilómetros desde el accidente",
+   "fuente": "F09 y F13.",
+   "ids": [
+    "T12",
+    "D78"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Tiempo hasta la llegada de la nube a la región de Tyumen",
+   "valor": "22",
+   "unidad": "horas después de la explosión",
+   "fuente": "F02.",
+   "ids": [
+    "T18"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Superficie con contaminación de larga duración, dependiente del umbral",
+   "valor": "800–20.000",
+   "unidad": "km²",
+   "fuente": "F09 y F13 explicitan la dependencia del umbral.",
+   "ids": [
+    "D56",
+    "D79"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Alrededor de 20.000",
+     "unidad": "km²",
+     "fuente": "Resumen de F09, sin explicitar el umbral.",
+     "ids": [
+      "D44"
+     ]
+    },
+    {
+     "valor": "Casi 8000",
+     "unidad": "millas cuadradas",
+     "fuente": "F14; se conserva la unidad original y no se calcula una conversión.",
+     "ids": [
+      "D90"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Superficie sobre la que F13 afirma que se dispersaron partículas calientes",
+   "valor": "Más de 52.000",
+   "unidad": "km²",
+   "fuente": "F13; no se equipara automáticamente con el área definida por un umbral de contaminación.",
+   "ids": [
+    "D70"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Población del territorio alcanzado",
+   "valor": "Aproximadamente 270.000",
+   "unidad": "personas residentes",
+   "fuente": "F09 y F13; residencia no equivale a enfermedad diagnosticada.",
+   "ids": [
+    "D44",
+    "D70"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Más de un cuarto de millón",
+     "unidad": "personas residentes",
+     "fuente": "F14.",
+     "ids": [
+      "D89"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Personas que el resumen de F13 presenta como afectadas",
+   "valor": "270.000–500.000 o más",
+   "unidad": "personas afectadas",
+   "fuente": "F13; no define aquí el criterio de afectación.",
+   "ids": [
+    "D62"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Población evacuada o reubicada",
+   "valor": "Alrededor de 10.000",
+   "unidad": "personas",
+   "fuente": "Cifra más repetida entre F09, F13 y F14; no se identifica un balance oficial.",
+   "ids": [
+    "T20",
+    "T21",
+    "D61",
+    "D93"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Más de 10.000",
+     "unidad": "personas",
+     "fuente": "Balance de asentamientos reubicados de F09.",
+     "ids": [
+      "D61"
+     ]
+    },
+    {
+     "valor": "10.000–12.000",
+     "unidad": "personas",
+     "fuente": "Resumen de F13.",
+     "ids": [
+      "D63"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Asentamientos reubicados",
+   "valor": "22",
+   "unidad": "asentamientos",
+   "fuente": "F09 y F14 coinciden en la reubicación; F13 menciona al menos esa cantidad de aldeas expuestas.",
+   "ids": [
+    "D61",
+    "D93"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "23",
+     "unidad": "aldeas liquidadas",
+     "fuente": "F02, con una formulación distinta de la operación.",
+     "ids": [
+      "D38"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Población de las aldeas que F02 describe como liquidadas",
+   "valor": "12.700",
+   "unidad": "personas residentes",
+   "fuente": "F02; no se convierte sin más en un total de evacuados.",
+   "ids": [
+    "D38"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Reasentados de las aldeas enumeradas por F02",
+   "valor": "Más de 4500",
+   "unidad": "personas",
+   "fuente": "F02 menciona Russkaya Karabolka, Yugo-Konevo, Alabuga y otras aldeas.",
+   "ids": [
+    "D37"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Asentamientos próximos comprendidos en la primera evacuación descrita por F09",
+   "valor": "3",
+   "unidad": "asentamientos",
+   "fuente": "F09.",
+   "ids": [
+    "D60"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Población de esos asentamientos próximos",
+   "valor": "1100",
+   "unidad": "personas",
+   "fuente": "F09.",
+   "ids": [
+    "D60"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Demora de evacuación de esos asentamientos próximos",
+   "valor": "7–14",
+   "unidad": "días después del accidente",
+   "fuente": "F09.",
+   "ids": [
+    "D60"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Duración del proceso de evacuación",
+   "valor": "Casi 2",
+   "unidad": "años",
+   "fuente": "F09 y F14.",
+   "ids": [
+    "D58",
+    "D94"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Superficie de la zona de protección sanitaria",
+   "valor": "700",
+   "unidad": "km²",
+   "fuente": "F09.",
+   "ids": [
+    "T23"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Umbral de contaminación asociado con muerte evidente de vegetación",
+   "valor": "Más de 5 × 10²",
+   "unidad": "Ci/km²",
+   "fuente": "F09.",
+   "ids": [
+    "D59"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Persistencia de efectos sobre la vegetación",
+   "valor": "Hasta 3–4",
+   "unidad": "años después del accidente",
+   "fuente": "F09.",
+   "ids": [
+    "D59"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Tramo donde Tumerman vio prohibido detenerse",
+   "valor": "20 o 30",
+   "unidad": "kilómetros",
+   "fuente": "Testimonio de Tumerman reproducido en F05.",
+   "ids": [
+    "D04",
+    "Q02"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Área de actividad normal prohibida estimada por Tumerman",
+   "valor": "No menos de 100–150",
+   "unidad": "km²",
+   "fuente": "Estimación testimonial de Tumerman, no delimitación oficial.",
+   "ids": [
+    "D05",
+    "Q03"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Distancia de vegetación amarilleada y muerta respecto de la chimenea",
+   "valor": "15–20",
+   "unidad": "kilómetros",
+   "fuente": "F05; sin fecha ni atribución exclusiva a la explosión.",
+   "ids": [
+    "D11"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personas enviadas a hospitales tras la explosión",
+   "valor": "5",
+   "unidad": "personas",
+   "fuente": "Dato oficial del Instituto de Biofísica de los Urales del Sur según F02; no es un balance de mortalidad.",
+   "ids": [
+    "D41"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Casos de síndrome de radiación crónico",
+   "valor": "66",
+   "unidad": "personas diagnosticadas",
+   "fuente": "F13 y F14; F14 las sitúa en la instalación.",
+   "ids": [
+    "D65"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Muertes por enfermedad por radiación atribuidas específicamente al accidente",
+   "valor": "No establecido",
+   "unidad": "personas fallecidas",
+   "fuente": "No hay una cifra oficial identificada ni una cifra exacta repetida que permita elegir.",
+   "ids": [
+    "D40",
+    "D64",
+    "Q01"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "0",
+     "unidad": "personas fallecidas",
+     "fuente": "Afirmación de F02, sin identificación de un balance oficial en el pasaje.",
+     "ids": [
+      "D40"
+     ]
+    },
+    {
+     "valor": "Al menos 200",
+     "unidad": "personas fallecidas por enfermedad por radiación",
+     "fuente": "F13.",
+     "ids": [
+      "D64"
+     ]
+    },
+    {
+     "valor": "Cientos",
+     "unidad": "personas fallecidas",
+     "fuente": "Estimación de Medvedev reproducida en F05.",
+     "ids": [
+      "Q01"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Muertes por cáncer potencialmente relacionadas con la lluvia radiactiva",
+   "valor": "Casi 100",
+   "unidad": "personas fallecidas por cáncer",
+   "fuente": "F14 alude a algunos estudios y expresa una vinculación posible, no un balance confirmado.",
+   "ids": [
+    "D96"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Exceso de riesgo de cáncer declarado por Krestinina",
+   "valor": "2,5",
+   "unidad": "% de incremento del riesgo",
+   "fuente": "Declaración de Krestinina en F02; no se transforma en puntos porcentuales.",
+   "ids": [
+    "Q09"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Dosis recibida durante los primeros años según Krestinina",
+   "valor": "92",
+   "unidad": "% de la dosis durante los primeros 2 años",
+   "fuente": "Declaración de Krestinina en F02.",
+   "ids": [
+    "Q10"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Exposición por el conjunto de la actividad de Mayak entre 1948 y 1998",
+   "valor": "500.000",
+   "unidad": "personas expuestas",
+   "fuente": "F02; no es una cifra exclusiva del accidente.",
+   "ids": [
+    "D24"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Accidentes de distinta gravedad entre 1948 y 2000",
+   "valor": "Unos 40",
+   "unidad": "accidentes",
+   "fuente": "F02.",
+   "ids": [
+    "D22"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Clasificación del desastre",
+   "valor": "6",
+   "unidad": "nivel INES",
+   "fuente": "F02, F09, F13 y F14.",
+   "ids": [
+    "D20",
+    "D46",
+    "D83"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Equivalencia de la acumulación del lago Karachay con Chernóbil",
+   "valor": "Sin resolver",
+   "unidad": "equivalentes de Chernóbil, con métrica no definida",
+   "fuente": "F02 y F14 utilizan comparaciones incompatibles sin una base común verificable.",
+   "ids": [
+    "D32",
+    "D95"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "6",
+     "unidad": "equivalentes de Chernóbil",
+     "fuente": "F02, cantidad de radionucleidos acumulados.",
+     "ids": [
+      "D32"
+     ]
+    },
+    {
+     "valor": "Aproximadamente 1",
+     "unidad": "equivalente de Chernóbil",
+     "fuente": "F14, cantidad de material radiactivo acumulado frente al liberado.",
+     "ids": [
+      "D95"
+     ]
+    }
+   ]
+  }
+ ],
+ "citas": [
+  {
+   "autor": "Zhores Medvedev",
+   "rol": "Genetista soviético exiliado",
+   "verificacion": "Verificada en el pasaje como declaración atribuida; sus estimaciones no son un balance oficial.",
+   "texto": "La explosión arrojó polvo y materiales radiactivos a lo alto del cielo, y fuertes vientos llevaron las nubes radiactivas a cientos de millas de distancia. Decenas de miles de personas se vieron afectadas, cientos murieron, aunque las cifras reales nunca se han hecho públicas.",
+   "original": "",
+   "ids": [
+    "Q01"
+   ]
+  },
+  {
+   "autor": "Lev Tumerman",
+   "rol": "Científico y testigo del área restringida",
+   "verificacion": "Verificada únicamente en el fragmento conservado; se elimina la continuación no respaldada por la evidencia aportada.",
+   "texto": "A unos 100 kilómetros de Sverdlovsk, una señal de tráfico advertía a los conductores que no se detuvieran durante los siguientes 20 o 30 kilómetros y que condujeran a máxima velocidad.",
+   "original": "A unos 100 kilómetros de Sverdlovsk, una señal de tráfico advertía a los conductores que no se detuvieran durante los siguientes 20 o 30 kilómetros y que condujeran a máxima velocidad. A ambos lados de la carretera, hasta donde alcanzaba la vista, la tierra estaba 'muerta': sin pueblos, sin ciudades, solo las chimeneas de las casas destruidas, sin campos de cultivo ni pastos, sin rebaños, sin gente... nada.",
+   "ids": [
+    "Q02",
+    "D04"
+   ]
+  },
+  {
+   "autor": "Lev Tumerman",
+   "rol": "Científico y testigo del área restringida",
+   "verificacion": "Verificada en el fragmento de correspondencia disponible; la etiqueta del pool no verifica la continuación omitida.",
+   "texto": "Lo que vi personalmente fue una gran área en las cercanías de Sverdlovsk, no menos de 100 a 150 kilómetros cuadrados y probablemente mucho más, en la que toda actividad humana normal estaba prohibida.",
+   "original": "Lo que vi personalmente fue una gran área en las cercanías de Sverdlovsk (no menos de 100 a 150 km cuadrados y probablemente mucho más), en la que toda actividad humana normal estaba prohibida, la gente fue evacuada y las aldeas arrasadas, evidentemente para evitar que los habitantes regresaran, no había agricultura ni ganadería, la pesca y la caza estaban prohibidas, ...",
+   "ids": [
+    "Q03",
+    "D05"
+   ]
+  },
+  {
+   "autor": "Habitantes de Sverdlovsk y Belpyarsk, según Lev Tumerman",
+   "rol": "Informantes locales reproducidos por un testigo",
+   "verificacion": "Verificada como testimonio indirecto; no verifica una explosión nuclear ni la continuación sobre víctimas.",
+   "texto": "Lo que me dijeron muchas personas en Sverdlovsk y Belpyarsk fue que la lluvia radiactiva era consecuencia de una gran explosión nuclear en una planta nuclear militar cerca de Kyshtym.",
+   "original": "la lluvia radiactiva fue consecuencia de una gran explosión nuclear en una planta nuclear militar cerca de Kyshtym. Dijeron que muchas (quizás cientos) de personas murieron o resultaron heridas.",
+   "ids": [
+    "Q04"
+   ]
+  },
+  {
+   "autor": "I. N. Golovin",
+   "rol": "Biógrafo de Kurchatov",
+   "verificacion": "Verificada como cita atribuida en F05.",
+   "texto": "En un lugar pintoresco lejos de Moscú, avanzaba el trabajo en una ciudad y su equipamiento industrial y plantas químicas.",
+   "original": "",
+   "ids": [
+    "Q06"
+   ]
+  },
+  {
+   "autor": "Berlingske Tidende",
+   "rol": "Periódico danés",
+   "verificacion": "Verificada como afirmación periodística, no como explicación comprobada del accidente.",
+   "texto": "Las recientes pruebas nucleares soviéticas tuvieron que ser interrumpidas debido a un 'accidente catastrófico'.",
+   "original": "",
+   "ids": [
+    "Q08"
+   ]
+  },
+  {
+   "autor": "Lyudmila Krestinina",
+   "rol": "Jefa de laboratorio epidemiológico",
+   "verificacion": "Verificada como declaración atribuida por F02; no se aporta el estudio subyacente.",
+   "texto": "El riesgo de desarrollar cáncer en la zona por donde se extendió la nube radiactiva y en las orillas del río Techa es un 2,5% mayor que para las personas que no han estado expuestas a radiación adicional.",
+   "original": "",
+   "ids": [
+    "Q09"
+   ]
+  },
+  {
+   "autor": "Lyudmila Krestinina",
+   "rol": "Jefa de laboratorio epidemiológico",
+   "verificacion": "Verificada como declaración atribuida por F02; el término temporal 'ahora' corresponde al documento, sin fecha identificada en el pool.",
+   "texto": "El 92% de la dosis fue recibida por las personas durante los dos primeros años, y ahora la mayoría de los territorios de la huella de radiación de los Urales Orientales son seguros e incluso están abiertos a la actividad económica.",
+   "original": "",
+   "ids": [
+    "Q10"
+   ]
+  },
+  {
+   "autor": "Andrei Vazhenin",
+   "rol": "Oncólogo jefe regional",
+   "verificacion": "Verificada como opinión atribuida por F02, no como refutación de todos los efectos de la radiación.",
+   "texto": "El cáncer es provocado no tanto por la radiación como por el tabaquismo y el alcohol, así como por la industria pesada de la región.",
+   "original": "",
+   "ids": [
+    "Q11"
+   ]
+  },
+  {
+   "autor": "E.P. Slavsky",
+   "rol": "Ministro de Industria",
+   "verificacion": "Verificada en el fragmento de memorando reproducido; la continuación sobre infracciones reglamentarias no aparece en la evidencia aportada.",
+   "texto": "Investigando las causas del accidente en el lugar, la comisión cree que los principales culpables de este incidente son el jefe de la planta radioquímica y el ingeniero jefe de esta planta.",
+   "original": "Investigando las causas del accidente en el lugar, la comisión cree que los principales culpables de este incidente son el jefe de la planta radioquímica y el ingeniero jefe de esta planta, quienes cometieron una grave violación de las regulaciones tecnológicas para la operación del almacenamiento de soluciones radiactivas",
+   "ids": [
+    "Q12"
+   ]
+  },
+  {
+   "autor": "F09",
+   "rol": "Documento del pool; descripción técnica, no testimonio personal",
+   "verificacion": "Pasaje verificado; traducción al español.",
+   "texto": "Un sistema de refrigeración de uno de los tanques, que contenía entre 70 y 80 toneladas de residuos altamente radiactivos, había fallado y había permanecido sin reparar durante un período considerable.",
+   "original": "",
+   "ids": [
+    "D50"
+   ]
+  },
+  {
+   "autor": "F09",
+   "rol": "Documento del pool; descripción técnica",
+   "verificacion": "Pasaje verificado; traducción al español.",
+   "texto": "Durante este período, la temperatura del tanque había subido a unos 350 °C, haciendo que el agua del tanque se evaporara y dejando una mezcla radiactiva de nitrato de amonio y acetatos.",
+   "original": "",
+   "ids": [
+    "D51"
+   ]
+  },
+  {
+   "autor": "F09",
+   "rol": "Documento del pool; descripción de la explosión",
+   "verificacion": "Pasaje verificado; traducción al español.",
+   "texto": "La tapa del tanque, de aproximadamente 160 toneladas de hormigón, salió despedida.",
+   "original": "",
+   "ids": [
+    "D53"
+   ]
+  },
+  {
+   "autor": "F09",
+   "rol": "Documento del pool; descripción de la evacuación",
+   "verificacion": "Pasaje verificado; traducción al español.",
+   "texto": "Incluso entonces, no se dio ninguna razón para las evacuaciones. Las evacuaciones se llevaron a cabo durante un período de casi dos años.",
+   "original": "",
+   "ids": [
+    "D58"
+   ]
+  },
+  {
+   "autor": "F13",
+   "rol": "Documento del pool; descripción del encubrimiento",
+   "verificacion": "Pasaje verificado; traducción al español.",
+   "texto": "El asunto fue encubierto, y pocos dentro o fuera de la Unión Soviética conocieron el alcance completo del desastre durante casi dos décadas.",
+   "original": "",
+   "ids": [
+    "D68"
+   ]
+  },
+  {
+   "autor": "F13",
+   "rol": "Documento del pool; descripción de la columna",
+   "verificacion": "Pasaje verificado; traducción al español.",
+   "texto": "Una décima parte de las sustancias radiactivas fue levantada al aire. Después de la explosión, una columna de humo y polvo se elevó hasta un kilómetro de altura.",
+   "original": "",
+   "ids": [
+    "D76"
+   ]
+  },
+  {
+   "autor": "F02",
+   "rol": "Documento del pool; registro de una observación sin testigo identificado",
+   "verificacion": "Pasaje verificado; traducción al español.",
+   "texto": "Alrededor de las once de la noche se observó un extraño resplandor en el cielo. Los colores principales de este resplandor eran rosa y azul claro.",
+   "original": "",
+   "ids": [
+    "T17"
+   ]
+  },
+  {
+   "autor": "F14",
+   "rol": "Documento que refiere la reacción de figuras del organismo regulador nuclear internacional",
+   "verificacion": "Verificada como redacción del documento, no como cita literal pronunciada por reguladores identificados.",
+   "texto": "Figuras clave del organismo regulador nuclear internacional desestimaron el artículo como imposible, pues una fuga de radiación tan grande seguramente habría sido detectada por Occidente.",
+   "original": "el artículo como imposible, ya que una fuga tan grande de radiación seguramente habría sido detectada por Occidente",
+   "ids": [
+    "Q14"
+   ]
+  }
+ ],
+ "decisiones": [
+  {
+   "tema": "Duplicación de Leslie R. Groves",
+   "criterio": 2,
+   "decision": "P06 y P13 se unifican como Leslie R. Groves porque el título militar no identifica a una persona distinta.",
+   "ids": [
+    "P06",
+    "P13",
+    "Q05"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "La presentación incluye el título Lieut. Gen. antes del mismo nombre.",
+     "doc_id": "F05",
+     "offset": 9070,
+     "ids": [
+      "P06"
+     ]
+    },
+    {
+     "dice": "La declaración vuelve a atribuirse a Groves bajo el título militar en el ítem del pool.",
+     "doc_id": "F05",
+     "offset": 9345,
+     "ids": [
+      "P13",
+      "Q05"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha de la explosión y conjetura inicial de Medvedev",
+   "criterio": 5,
+   "decision": "Se adopta el 29 de septiembre de 1957 por la coincidencia entre documentos y no el intervalo preliminar 1957–1958 de la alegación histórica.",
+   "ids": [
+    "T13",
+    "T14",
+    "T15",
+    "D43"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "La alegación histórica de Medvedev situaba el episodio en el intervalo 1957–1958.",
+     "doc_id": "F05",
+     "offset": 5197,
+     "ids": [
+      "T11"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Hora de la explosión y referencias horarias",
+   "criterio": 5,
+   "decision": "Se utiliza 16:22 hora local, coincidente con 4:22 pm en F13, y se conserva 11:22 UTC como referencia distinta sin convertir husos ni tratarla automáticamente como discrepancia.",
+   "ids": [
+    "T14",
+    "T15",
+    "T13"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "16:22 local time.",
+     "doc_id": "F02",
+     "offset": 9012,
+     "ids": [
+      "T14"
+     ]
+    },
+    {
+     "dice": "4:22 pm.",
+     "doc_id": "F13",
+     "offset": 4274,
+     "ids": [
+      "T15"
+     ]
+    },
+    {
+     "dice": "11:22 UTC.",
+     "doc_id": "F13",
+     "offset": 99,
+     "ids": [
+      "T13"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Inicio de la evacuación",
+   "criterio": 5,
+   "decision": "Se adopta el inicio una semana después, el 6 de octubre de 1957, por la coincidencia de F09 y F13, sin fechar de manera independiente el grupo parcial citado por F02.",
+   "ids": [
+    "T20",
+    "T21"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "F02 describe como inmediato el reasentamiento de más de 4500 habitantes de varias aldeas, sin dar una fecha de calendario.",
+     "doc_id": "F02",
+     "offset": 3250,
+     "ids": [
+      "D37"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Cantidad de asentamientos reubicados",
+   "criterio": 3,
+   "decision": "Se adopta 22 como cifra más repetida de asentamientos reubicados, sin presentarla como un total oficial.",
+   "ids": [
+    "D61",
+    "D93"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "F02 habla de 23 aldeas liquidadas.",
+     "doc_id": "F02",
+     "offset": 3463,
+     "ids": [
+      "D38"
+     ]
+    },
+    {
+     "dice": "F13 habla de al menos 22 aldeas expuestas, formulación que no es idéntica a aldeas reubicadas.",
+     "doc_id": "F13",
+     "offset": 1765,
+     "ids": [
+      "D61"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Cantidad total de evacuados",
+   "criterio": 3,
+   "decision": "Se utiliza alrededor de 10.000 personas por ser la magnitud más repetida, conservando los rangos y sin convertir la población de aldeas liquidadas en un balance de evacuación.",
+   "ids": [
+    "T20",
+    "T21",
+    "D61",
+    "D93"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "F13 publica entre 10.000 y 12.000 evacuados.",
+     "doc_id": "F13",
+     "offset": 248,
+     "ids": [
+      "D63"
+     ]
+    },
+    {
+     "dice": "F09 publica más de 10.000 habitantes en los asentamientos reubicados.",
+     "doc_id": "F09",
+     "offset": 12833,
+     "ids": [
+      "D61"
+     ]
+    },
+    {
+     "dice": "F02 publica 12.700 habitantes de las aldeas liquidadas, sin identificar aquí ese número como un balance total de evacuados.",
+     "doc_id": "F02",
+     "offset": 3463,
+     "ids": [
+      "D38"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Población del territorio alcanzado frente a personas afectadas",
+   "criterio": 3,
+   "decision": "Se usa aproximadamente 270.000 como población residente por coincidencia entre F09 y F13, manteniendo aparte el rango de personas afectadas que no define el mismo indicador.",
+   "ids": [
+    "D44",
+    "D70"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "F14 describe un territorio habitado por más de un cuarto de millón de personas.",
+     "doc_id": "F14",
+     "offset": 3754,
+     "ids": [
+      "D89"
+     ]
+    },
+    {
+     "dice": "El resumen de F13 habla de 270.000 a más de 500.000 personas afectadas, sin definir aquí afectación.",
+     "doc_id": "F13",
+     "offset": 248,
+     "ids": [
+      "D62"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Divulgación de Medvedev y libro posterior",
+   "criterio": 5,
+   "decision": "Se fija la divulgación en 1976 por coincidencia entre F05, F13 y F14, y se conserva 1979 como fecha del libro sin usarla para desplazar la revelación anterior.",
+   "ids": [
+    "P03",
+    "T34"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "F09 presenta el libro de 1979 como la aportación de los primeros detalles a Occidente.",
+     "doc_id": "F09",
+     "offset": 2140,
+     "ids": [
+      "P03"
+     ]
+    },
+    {
+     "dice": "F05 sitúa en 1976 la denuncia ante la comunidad científica.",
+     "doc_id": "F05",
+     "offset": 3464,
+     "ids": [
+      "P03"
+     ]
+    },
+    {
+     "dice": "F14 sitúa en 1976 el artículo de New Scientist.",
+     "doc_id": "F14",
+     "offset": 7784,
+     "ids": [
+      "P03",
+      "T34"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Continuaciones no verificadas de las citas",
+   "criterio": 1,
+   "decision": "En Q02, Q03, Q04 y Q12 se conserva únicamente el texto respaldado por el pasaje y se deja la cita extensa del pool en original.",
+   "ids": [
+    "Q02",
+    "Q03",
+    "Q04",
+    "Q12"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El pasaje de Q02 verifica la señal de tráfico, pero no la continuación sobre chimeneas, casas destruidas y ausencia de habitantes.",
+     "doc_id": "F05",
+     "offset": 6016,
+     "ids": [
+      "Q02"
+     ]
+    },
+    {
+     "dice": "El pasaje de Q03 termina en la prohibición de actividad humana normal y no verifica la continuación sobre aldeas arrasadas, agricultura, pesca y caza.",
+     "doc_id": "F05",
+     "offset": 6453,
+     "ids": [
+      "Q03"
+     ]
+    },
+    {
+     "dice": "El pasaje de Q04 no incluye la oración sobre posibles cientos de muertos o heridos.",
+     "doc_id": "F05",
+     "offset": 7060,
+     "ids": [
+      "Q04"
+     ]
+    },
+    {
+     "dice": "El pasaje de Q12 identifica a los responsables señalados por la comisión, pero no incluye la continuación sobre infracciones de reglamentos.",
+     "doc_id": "F13",
+     "offset": 9956,
+     "ids": [
+      "Q12"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Superficie atribuida a la EURT en D57",
+   "criterio": 1,
+   "decision": "Se descarta la superficie de 1000 km² de D57 porque el pasaje dice 1000 km y no proporciona una unidad de área válida.",
+   "ids": [
+    "D57"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El ítem convierte en km² el texto del pasaje, que literalmente presenta aproximadamente 1000 km.",
+     "doc_id": "F09",
+     "offset": 7572,
+     "ids": [
+      "D57"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Años agregados por la extracción sin respaldo en los pasajes",
+   "criterio": 1,
+   "decision": "No se utilizan los años asignados a T05, T06, T26, T33 y L14 cuando la evidencia citada no los contiene.",
+   "ids": [
+    "T05",
+    "T06",
+    "T26",
+    "T33",
+    "L14"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T05 asigna enero de 1949, pero el pasaje solo dice January.",
+     "doc_id": "F02",
+     "offset": 10021,
+     "ids": [
+      "T05"
+     ]
+    },
+    {
+     "dice": "T06 asigna febrero de 1949, pero el pasaje solo dice In February.",
+     "doc_id": "F02",
+     "offset": 10112,
+     "ids": [
+      "T06"
+     ]
+    },
+    {
+     "dice": "T26 asigna 1959, pero el pasaje solo sitúa la zona sanitaria después del accidente.",
+     "doc_id": "F02",
+     "offset": 8910,
+     "ids": [
+      "T26"
+     ]
+    },
+    {
+     "dice": "T33 asigna 1973, pero el pasaje sobre emisiones no contiene ese año.",
+     "doc_id": "F02",
+     "offset": 8239,
+     "ids": [
+      "T33"
+     ]
+    },
+    {
+     "dice": "L14 asigna una reconversión desde 2003, pero el pasaje no contiene ese año.",
+     "doc_id": "F02",
+     "offset": 8096,
+     "ids": [
+      "L14"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha exacta de la noticia de Berlingske Tidende",
+   "criterio": 1,
+   "decision": "No se atribuye a Q08 una fecha exacta de publicación porque su pasaje solo dice hoy; se conserva abril de 1958 y el intervalo de aparición de informes occidentales respaldado por otros ítems.",
+   "ids": [
+    "Q08",
+    "T24",
+    "T25"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El ítem Q08 asigna el 13 de abril de 1958, pero el pasaje no expresa esa fecha.",
+     "doc_id": "F05",
+     "offset": 50743,
+     "ids": [
+      "Q08"
+     ]
+    },
+    {
+     "dice": "F13 sitúa la aparición de informes occidentales entre el 13 y el 14 de abril de 1958 sin identificar aquí la fecha particular de esta noticia danesa.",
+     "doc_id": "F13",
+     "offset": 11067,
+     "ids": [
+      "T25"
+     ]
+    }
+   ]
+  }
+ ],
+ "versiones": [
+  {
+   "tema": "Naturaleza de la explosión",
+   "versiones": [
+    {
+     "dice": "La explicación técnica describe un fallo de refrigeración de residuos almacenados seguido por una explosión química.",
+     "doc_id": "F14",
+     "offset": 3392,
+     "ids": [
+      "D87"
+     ]
+    },
+    {
+     "dice": "F09 describe refrigeración sin reparar, evaporación y residuos de nitrato de amonio y acetatos antes de la explosión del tanque.",
+     "doc_id": "F09",
+     "offset": 5911,
+     "ids": [
+      "D51"
+     ]
+    },
+    {
+     "dice": "Tumerman transmite que habitantes locales le hablaron de una gran explosión nuclear en una planta militar; es un relato indirecto, no una identificación técnica.",
+     "doc_id": "F05",
+     "offset": 7060,
+     "ids": [
+      "Q04"
+     ]
+    },
+    {
+     "dice": "Un relato sobre lo comunicado a tropas atribuye la contaminación a una explosión de reactor ocurrida en 1956.",
+     "doc_id": "F05",
+     "offset": 46247,
+     "ids": [
+      "D17"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Énfasis causal sobre el cáncer regional",
+   "versiones": [
+    {
+     "dice": "Krestinina afirma un riesgo de cáncer un 2,5 % mayor en el área de la nube y las orillas del Techa frente a personas sin exposición adicional.",
+     "doc_id": "F02",
+     "offset": 4288,
+     "ids": [
+      "Q09",
+      "P09"
+     ]
+    },
+    {
+     "dice": "Vazhenin sostiene que pesan más el tabaco, el alcohol y la industria pesada que la radiación; el pool no permite convertir este énfasis en refutación del dato anterior.",
+     "doc_id": "F02",
+     "offset": 4783,
+     "ids": [
+      "Q11",
+      "P10"
+     ]
+    },
+    {
+     "dice": "F14 recoge estudios no identificados en el pasaje que relacionan de manera posible casi cien muertes por cáncer del Techa con la lluvia radiactiva.",
+     "doc_id": "F14",
+     "offset": 8449,
+     "ids": [
+      "D96"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Conocimiento estadounidense y motivo atribuido al silencio",
+   "versiones": [
+    {
+     "dice": "F13 afirma que la CIA conocía el accidente desde 1959 y lo mantuvo secreto para evitar daños a la industria nuclear estadounidense.",
+     "doc_id": "F13",
+     "offset": 12675,
+     "ids": [
+      "D80"
+     ]
+    },
+    {
+     "dice": "F14 también sitúa el conocimiento estadounidense en 1959, pero el fragmento disponible no atribuye un motivo al silencio.",
+     "doc_id": "F14",
+     "offset": 8799,
+     "ids": [
+      "T28",
+      "D97"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Reserva natural y propósito de ocultamiento",
+   "versiones": [
+    {
+     "dice": "F13 atribuye la creación de la reserva al propósito de disfrazar el área de la EURT y señala la prohibición del acceso no autorizado.",
+     "doc_id": "F13",
+     "offset": 13019,
+     "ids": [
+      "D81"
+     ]
+    },
+    {
+     "dice": "F14 confirma la creación en 1968 y el cierre del área al exterior, sin aportar en este pasaje una orden que establezca ese propósito.",
+     "doc_id": "F14",
+     "offset": 5791,
+     "ids": [
+      "T32",
+      "D81",
+      "L15"
+     ]
+    }
+   ]
+  }
+ ],
+ "contradicciones": [
+  {
+   "tema": "Balance de muertes atribuibles al accidente sin cifra oficial ni coincidencia exacta que permita elegir",
+   "versiones": [
+    {
+     "dice": "F02 afirma que no murió ninguna persona como resultado del accidente.",
+     "doc_id": "F02",
+     "offset": 4021,
+     "ids": [
+      "D40"
+     ]
+    },
+    {
+     "dice": "F13 afirma al menos 200 muertes por enfermedad por radiación.",
+     "doc_id": "F13",
+     "offset": 313,
+     "ids": [
+      "D64"
+     ]
+    },
+    {
+     "dice": "Medvedev habla de cientos de muertos y advierte que las cifras reales nunca se hicieron públicas.",
+     "doc_id": "F05",
+     "offset": 5380,
+     "ids": [
+      "Q01"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Equivalencia en becquereles de la actividad total liberada",
+   "versiones": [
+    {
+     "dice": "F09 publica 20 MCi junto a 800 PBq.",
+     "doc_id": "F09",
+     "offset": 6786,
+     "ids": [
+      "D54"
+     ]
+    },
+    {
+     "dice": "F13 publica 20 MCi junto a 740 PBq.",
+     "doc_id": "F13",
+     "offset": 7034,
+     "ids": [
+      "D77"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Posición por cantidad de radiactividad liberada",
+   "versiones": [
+    {
+     "dice": "F13 presenta Kyshtym como el segundo peor incidente por radiactividad liberada, después de Chernóbil.",
+     "doc_id": "F13",
+     "offset": 1228,
+     "ids": [
+      "D69"
+     ]
+    },
+    {
+     "dice": "F09 afirma que tanto Chernóbil como Fukushima lo superaron por cantidad de radiactividad liberada.",
+     "doc_id": "F09",
+     "offset": 496,
+     "ids": [
+      "D45"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Comparación de la acumulación del lago Karachay con Chernóbil",
+   "versiones": [
+    {
+     "dice": "F02 equipara los radionucleidos acumulados a seis Chernóbiles, sin definir una base de comparación.",
+     "doc_id": "F02",
+     "offset": 2375,
+     "ids": [
+      "D32"
+     ]
+    },
+    {
+     "dice": "F14 habla de una cantidad de material radiactivo aproximadamente igual a la liberada en Chernóbil, también sin una métrica común explícita.",
+     "doc_id": "F14",
+     "offset": 6760,
+     "ids": [
+      "D95"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Relación entre distintas superficies publicadas sin umbral común",
+   "versiones": [
+    {
+     "dice": "F09 presenta alrededor de 20.000 km² de área afectada.",
+     "doc_id": "F09",
+     "offset": 363,
+     "ids": [
+      "D44"
+     ]
+    },
+    {
+     "dice": "F09 da un intervalo de 800–20.000 km² según el umbral significativo de contaminación.",
+     "doc_id": "F09",
+     "offset": 7269,
+     "ids": [
+      "D56"
+     ]
+    },
+    {
+     "dice": "F13 habla de partículas calientes sobre más de 52.000 km², sin establecer en el pasaje cómo se relaciona esa huella con el intervalo de contaminación.",
+     "doc_id": "F13",
+     "offset": 2005,
+     "ids": [
+      "D70"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Alcance del reconocimiento y del secreto, con hitos no equivalentes",
+   "versiones": [
+    {
+     "dice": "F02 afirma que el gobierno soviético reconoció públicamente el desastre unos años después, pero no identifica fecha ni acto de reconocimiento.",
+     "doc_id": "F02",
+     "offset": 6824,
+     "ids": [
+      "D42"
+     ]
+    },
+    {
+     "dice": "F13 afirma que el alcance completo permaneció desconocido para gran parte del público durante casi dos décadas; el pool no permite identificar este hito con el reconocimiento gubernamental.",
+     "doc_id": "F13",
+     "offset": 1076,
+     "ids": [
+      "D68"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Descripción de la actividad posterior de Mayak sin fechas comparables",
+   "versiones": [
+    {
+     "dice": "F02 afirma que actualmente Mayak produce plutonio apto para armas y almacena y reprocesa combustible gastado.",
+     "doc_id": "F02",
+     "offset": 1495,
+     "ids": [
+      "D27"
+     ]
+    },
+    {
+     "dice": "F02 también afirma que la empresa fue reconvertida en RFMS para procesar y almacenar residuos, sin fechar la reconversión ni aclarar qué actividades continuaron.",
+     "doc_id": "F02",
+     "offset": 8096,
+     "ids": [
+      "L14"
+     ]
+    }
+   ]
+  }
+ ],
+ "personas_descartadas": [
+  {
+   "nombre": "E.P. Slavsky",
+   "rol": "Ministro de Industria y autor del memorando citado al Comité Central.",
+   "motivo": "Hace falta para atribuir la acusación de la comisión sin convertirla en una conclusión del narrador; las iniciales no impiden identificar a una persona y Q12 sí le atribuye una acción.",
+   "ids": [
+    "Q12"
+   ]
+  }
+ ],
+ "descartados": [
+  {
+   "que": "Berlingske Tidende como personaje humano",
+   "motivo": "Es un periódico y se conserva como fuente de una versión periodística, no como persona.",
+   "ids": [
+    "P14",
+    "Q08"
+   ]
+  },
+  {
+   "que": "Continuación visual de Q02 sobre chimeneas, viviendas destruidas y territorio sin habitantes",
+   "motivo": "El pasaje aportado solo verifica el cartel de la carretera.",
+   "ids": [
+    "Q02"
+   ]
+  },
+  {
+   "que": "Continuación de Q03 sobre aldeas arrasadas, evacuación y prohibiciones de pesca y caza",
+   "motivo": "La evidencia disponible termina en la prohibición de actividad humana normal.",
+   "ids": [
+    "Q03"
+   ]
+  },
+  {
+   "que": "Continuación de Q04 sobre posibles cientos de muertos o heridos",
+   "motivo": "Esa oración no aparece en el pasaje aportado.",
+   "ids": [
+    "Q04"
+   ]
+  },
+  {
+   "que": "Continuación de Q12 sobre violación de regulaciones tecnológicas",
+   "motivo": "El fragmento reproducido no alcanza esa parte de la acusación.",
+   "ids": [
+    "Q12"
+   ]
+  },
+  {
+   "que": "Polvo rojo y hojas de álamo en Yemanzhelinskaya como escena de la explosión",
+   "motivo": "El testimonio es utilizable como observación separada, pero el pool no demuestra su vínculo con la explosión de Kyshtym.",
+   "ids": [
+    "Q07",
+    "L06"
+   ]
+  },
+  {
+   "que": "Explosión relatada en un hospital como si fuera la de Kyshtym",
+   "motivo": "El pasaje la sitúa en abril de 1960 y no permite identificarla con el accidente principal.",
+   "ids": [
+    "T31",
+    "D15"
+   ]
+  },
+  {
+   "que": "Rumores de enfermedad entre personas y ganado",
+   "motivo": "El propio pasaje los presenta como rumor y oscila entre 1953 y 1954.",
+   "ids": [
+    "T08"
+   ]
+  },
+  {
+   "que": "4000 muertes por enfermedad aguda como balance del accidente",
+   "motivo": "El pasaje no delimita su período ni atribuye de manera verificable ese total a la explosión; no se mezcla con los balances del accidente.",
+   "ids": [
+    "D25",
+    "D24",
+    "D40"
+   ]
+  },
+  {
+   "que": "Negación de enfermedad entre liquidadores como refutación automática de los diagnósticos",
+   "motivo": "Los liquidadores de D40 y las personas presentes en la instalación de D65 no están identificados como la misma cohorte.",
+   "ids": [
+    "D40",
+    "D65"
+   ]
+  },
+  {
+   "que": "Medio millón de expuestos como cifra exclusiva de la explosión",
+   "motivo": "D24 corresponde al conjunto de la actividad de Mayak entre 1948 y 1998.",
+   "ids": [
+    "D24",
+    "D62"
+   ]
+  },
+  {
+   "que": "Superficie de 1000 km² atribuida a D57",
+   "motivo": "La unidad de área no está en el pasaje y no se corrige una posible errata del documento por conjetura.",
+   "ids": [
+    "D57"
+   ]
+  },
+  {
+   "que": "Fechas de T05, T06, T26, T33 y L14 agregadas por la extracción",
+   "motivo": "Los años asignados no figuran en los pasajes; no se incorporan a la cronología.",
+   "ids": [
+    "T05",
+    "T06",
+    "T26",
+    "T33",
+    "L14"
+   ]
+  },
+  {
+   "que": "Fecha de Q05 y conversación de Groves como cita central",
+   "motivo": "La evidencia distingue un artículo de 1949 de algo dicho en 1942 y el contenido es contexto estadounidense lateral al caso.",
+   "ids": [
+    "P06",
+    "P13",
+    "Q05"
+   ]
+  },
+  {
+   "que": "Dosis letal por permanecer en la orilla del lago",
+   "motivo": "La afirmación no identifica científicos, duración de exposición ni condiciones y no permite formular una escena dosimétrica comprobable.",
+   "ids": [
+    "Q13"
+   ]
+  },
+  {
+   "que": "Lecho seco utilizado para residuos",
+   "motivo": "El documento lo presenta expresamente como una postulación.",
+   "ids": [
+    "D13"
+   ]
+  },
+  {
+   "que": "Prisioneros voluntarios y cobertura del suelo con tierra",
+   "motivo": "El pasaje usa una atribución informativa sin identificar testigo, fecha o corroboración de la operación.",
+   "ids": [
+    "D16"
+   ]
+  },
+  {
+   "que": "Diagnóstico de síndrome nevrálgico como prueba de encubrimiento médico",
+   "motivo": "El pasaje afirma la práctica sin aportar un médico, una historia clínica o un episodio identificable.",
+   "ids": [
+    "D26"
+   ]
+  },
+  {
+   "que": "Rankings absolutos y comparación de tamaño con la zona de exclusión de Chernóbil",
+   "motivo": "Los rankings por liberación son contradictorios y la comparación territorial no define una base común.",
+   "ids": [
+    "D45",
+    "D69",
+    "D84",
+    "D91"
+   ]
+  },
+  {
+   "que": "Superlativos sobre Karachay como el lugar más contaminado",
+   "motivo": "No aportan un criterio comparable y no sustituyen una medida documentada.",
+   "ids": [
+    "D49",
+    "D86"
+   ]
+  },
+  {
+   "que": "Estimación preliminar del área contaminada de Medvedev como superficie consolidada",
+   "motivo": "Es una estimación histórica sin umbral comparable con las superficies posteriores.",
+   "ids": [
+    "D01"
+   ]
+  },
+  {
+   "que": "Coordenadas, analogía con Hanford y datos hidráulicos, climáticos o constructivos periféricos",
+   "motivo": "No son necesarios para explicar el fallo, la dispersión, la evacuación o el secreto.",
+   "ids": [
+    "D02",
+    "D03",
+    "D06",
+    "D07",
+    "D08",
+    "D09",
+    "D10",
+    "D12",
+    "D14",
+    "D18",
+    "L04"
+   ]
+  },
+  {
+   "que": "Extracción inicial de pequeñas porciones de plutonio",
+   "motivo": "Es un antecedente técnico lateral que no modifica la cadena del accidente.",
+   "ids": [
+    "T02"
+   ]
+  },
+  {
+   "que": "Producción comercial de cesio y detalles hidrogeológicos de Karachay",
+   "motivo": "Abren líneas ajenas al episodio sin fechas o métodos suficientes para integrarlas a su cadena causal.",
+   "ids": [
+    "D28",
+    "D30",
+    "D31",
+    "D33",
+    "D34",
+    "D35",
+    "D36"
+   ]
+  },
+  {
+   "que": "Ruta completa del vertido hasta el océano",
+   "motivo": "No es necesaria para la historia centrada en Mayak, el Techa y la dispersión de la explosión.",
+   "ids": [
+    "D72"
+   ]
+  },
+  {
+   "que": "A. I. Burnazyan, M. A. Demyanovich, Diane M. Soran, Danny B. Stillman, Henry D. Smyth, N. V. Timofeyev-Resovskiy y Mikhail Gorbachev",
+   "motivo": "La lista de descartados no aporta pasajes con acciones utilizables ni otros ids del pool que permitan recuperarlos para esta historia.",
+   "ids": []
+  }
+ ]
+}

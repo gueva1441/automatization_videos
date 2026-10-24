@@ -1,0 +1,368 @@
+{
+ "etapas": [
+  {
+   "etapa": "research",
+   "usd": 0.9652,
+   "segundos": 1189.4,
+   "llamadas": [
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "research v3 perfil del seed",
+     "in": 92,
+     "out": 74,
+     "thinking": 981,
+     "usd": 0.0027
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 364,
+     "out": 1939,
+     "thinking": 698,
+     "usd": 0.0268
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 401,
+     "out": 1838,
+     "thinking": 852,
+     "usd": 0.0274
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 401,
+     "out": 2261,
+     "thinking": 345,
+     "usd": 0.0266
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 401,
+     "out": 2169,
+     "thinking": 942,
+     "usd": 0.0316
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 descubrimiento (Flash)",
+     "in": 235,
+     "out": 2009,
+     "thinking": 5636,
+     "usd": 0.0192
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 355,
+     "out": 1963,
+     "thinking": 726,
+     "usd": 0.0273
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 392,
+     "out": 2247,
+     "thinking": 2378,
+     "usd": 0.0467
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 392,
+     "out": 2271,
+     "thinking": 933,
+     "usd": 0.0325
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 392,
+     "out": 2311,
+     "thinking": 345,
+     "usd": 0.0271
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 descubrimiento (Flash)",
+     "in": 226,
+     "out": 2138,
+     "thinking": 5542,
+     "usd": 0.0193
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 354,
+     "out": 2148,
+     "thinking": 1282,
+     "usd": 0.0347
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 391,
+     "out": 2324,
+     "thinking": 1649,
+     "usd": 0.0402
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 391,
+     "out": 2282,
+     "thinking": 1276,
+     "usd": 0.0361
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 391,
+     "out": 2285,
+     "thinking": 2033,
+     "usd": 0.0437
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 descubrimiento (Flash)",
+     "in": 225,
+     "out": 2985,
+     "thinking": 5035,
+     "usd": 0.0201
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 352,
+     "out": 1976,
+     "thinking": 745,
+     "usd": 0.0277
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 fichas del grounding",
+     "in": 2415,
+     "out": 1159,
+     "thinking": 3213,
+     "usd": 0.0117
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R2 fichas desde el texto",
+     "in": 7901,
+     "out": 486,
+     "thinking": 3414,
+     "usd": 0.0121
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F02 1/1",
+     "in": 2862,
+     "out": 5828,
+     "thinking": 1892,
+     "usd": 0.0808
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F03 1/1",
+     "in": 731,
+     "out": 25,
+     "thinking": 636,
+     "usd": 0.0075
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F05 1/1",
+     "in": 12657,
+     "out": 6949,
+     "thinking": 1559,
+     "usd": 0.1009
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F09 1/1",
+     "in": 4031,
+     "out": 4001,
+     "thinking": 1595,
+     "usd": 0.061
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F13 1/1",
+     "in": 7183,
+     "out": 4894,
+     "thinking": 1301,
+     "usd": 0.0709
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F14 1/1",
+     "in": 2455,
+     "out": 4203,
+     "thinking": 1348,
+     "usd": 0.0586
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "call_flash_json",
+     "in": 8821,
+     "out": 726,
+     "thinking": 3547,
+     "usd": 0.0133
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "call_flash_json",
+     "in": 2197,
+     "out": 49,
+     "thinking": 2424,
+     "usd": 0.0068
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "call_flash_json",
+     "in": 1862,
+     "out": 216,
+     "thinking": 1744,
+     "usd": 0.0055
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "call_flash_json",
+     "in": 9425,
+     "out": 935,
+     "thinking": 8926,
+     "usd": 0.0275
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "call_flash_json",
+     "in": 7568,
+     "out": 1559,
+     "thinking": 5139,
+     "usd": 0.019
+    }
+   ],
+   "topics": [
+    "f18-kyshtym-mayak"
+   ],
+   "color": "amarillo",
+   "metricas": {
+    "datos": 97,
+    "citas_verificadas": 13,
+    "elegibles_humano": 1,
+    "eventos_con_fecha": 11
+   },
+   "motivos": [
+    "pocas fuentes bajadas (pocos datos leídos de documentos)",
+    "sin humano que seguir (pocos testigos elegibles)"
+   ],
+   "error": null
+  },
+  {
+   "etapa": "ficha",
+   "usd": 0.3224,
+   "segundos": 507.8,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "ficha_caso",
+     "in": 18344,
+     "out": 21398,
+     "thinking": 7177,
+     "usd": 0.3224
+    }
+   ],
+   "max_completion_tokens": 55558,
+   "prompt_md5": {
+    "sistema": "2e151732da47e09acf0cb48eb7089fcb",
+    "usuario": "56ca1c891021bfb0a501c9df8348fe21"
+   }
+  },
+  {
+   "etapa": "columna",
+   "usd": 0.0725,
+   "segundos": 109.9,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_columna intento 1",
+     "in": 9482,
+     "out": 1820,
+     "thinking": 3533,
+     "usd": 0.0725
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "1408569c5c9de22ec406a10ba0cd9b13",
+    "usuario": "c4c3f80f60a3291b8506e791eff7deeb"
+   },
+   "error": null,
+   "log": [
+    "  [columna] intento 1: 0 problema(s) []"
+   ]
+  },
+  {
+   "etapa": "escaleta",
+   "usd": 0.2328,
+   "segundos": 428.0,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 11319,
+     "out": 5682,
+     "thinking": 5120,
+     "usd": 0.1307
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 11575,
+     "out": 3800,
+     "thinking": 4095,
+     "usd": 0.1021
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "49ed74d941def064cdda077212629ff1",
+    "usuario": "4b2200978299419666d2de00e99261ed"
+   },
+   "error": "EscaletaValidationError: escaleta v2 rechazada después de 2 intento(s) (PARADA): ['antagonista None no es una persona del pool']",
+   "log": [
+    "  [escaleta] compuerta del pool: amarillo {'datos': 97, 'citas_verificadas': 13, 'elegibles_humano': 1, 'eventos_con_fecha': 11} · ['pocas fuentes bajadas (pocos datos leídos de documentos)', 'sin humano que seguir (pocos testigos elegibles)']",
+    "  [escaleta v2] intento 1: 8 bloqueante(s) ['14 beats (tienen que ser 7–8)', 'beat 14: dato_central «P04 Y LÍMITE DEL CONJUNTO DOCUMENTAL: EL TESTIMONIO DE TUMERMAN SIRVE PARA CORROBORAR LAS RESTRICCIONES, PERO NO PERMITE ESTABLECER UN BALANCE HUMANO EXCLUSIVO DE LA EXPLOSIÓN.» no existe en el pool (o no es D/T/Q)', 'antagonista D68 no es una persona del pool', 'a_pantalla T20 también está en un beat: lo que va a pantalla no lo dice la voz'] · 59 reparación(es) · 14 a métricas",
+    "  [escaleta v2] intento 2: 1 bloqueante(s) ['antagonista None no es una persona del pool'] · 38 reparación(es) · 15 a métricas"
+   ]
+  },
+  {
+   "etapa": "escaleta",
+   "usd": 0.1456,
+   "segundos": 267.3,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 11319,
+     "out": 5900,
+     "thinking": 6396,
+     "usd": 0.1456
+    }
+   ],
+   "pase": 2,
+   "prompt_md5_intento1": {
+    "sistema": "49ed74d941def064cdda077212629ff1",
+    "usuario": "4b2200978299419666d2de00e99261ed"
+   },
+   "error": "Parada: tope de costo antes de «m01a_escaleta v2 intento 2»: paso 0.378 + peor caso 0.267 > 0.60 (o total 2.005 > 5.00)",
+   "log": [
+    "  [escaleta] compuerta del pool: amarillo {'datos': 97, 'citas_verificadas': 13, 'elegibles_humano': 1, 'eventos_con_fecha': 11} · ['pocas fuentes bajadas (pocos datos leídos de documentos)', 'sin humano que seguir (pocos testigos elegibles)']",
+    "  [escaleta v2] intento 1: 8 bloqueante(s) ['14 beats (tienen que ser 7–8)', 'antagonista D50, D68 no es una persona del pool', 'a_pantalla D04 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T20 también está en un beat: lo que va a pantalla no lo dice la voz'] · 56 reparación(es) · 14 a métricas"
+   ]
+  }
+ ],
+ "usd_total": 1.7385
+}

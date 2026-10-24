@@ -1,0 +1,13 @@
+{
+ "anio_evento": 1957,
+ "lugar_principal": "Mayak Production Association",
+ "idioma_local": "ruso (Kyshtym, Rusia)",
+ "nombres_lugar": [
+  "Kyshtym disaster",
+  "Mayak Production Association",
+  "Ozyorsk",
+  "Chelyabinsk-40",
+  "Kyshtymskaya katastrofa"
+ ],
+ "place_re": "\\bKyshtym\\ disaster\\b|\\bMayak\\ Production\\ Association\\b|\\bOzyorsk\\b|\\bChelyabinsk\\-40\\b|\\bKyshtymskaya\\ katastrofa\\b"
+}

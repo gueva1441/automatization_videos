@@ -1,0 +1,7 @@
+[03:28:35] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f18-escaleta
+[03:33:02] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f18-escaleta � Costo total: $0.1456
+  [escaleta] US$ 0.1456 · 267 s · tanda US$ 1.7385
+  [escaleta] compuerta del pool: amarillo {'datos': 97, 'citas_verificadas': 13, 'elegibles_humano': 1, 'eventos_con_fecha': 11} · ['pocas fuentes bajadas (pocos datos leídos de documentos)', 'sin humano que seguir (pocos testigos elegibles)']
+  [escaleta v2] intento 1: 8 bloqueante(s) ['14 beats (tienen que ser 7–8)', 'antagonista D50, D68 no es una persona del pool', 'a_pantalla D04 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T20 también está en un beat: lo que va a pantalla no lo dice la voz'] · 56 reparación(es) · 14 a métricas
+PARADA (escaleta): escaleta: Parada: tope de costo antes de «m01a_escaleta v2 intento 2»: paso 0.378 + peor caso 0.267 > 0.60 (o total 2.005 > 5.00)
+tanda US$ 1.7385
