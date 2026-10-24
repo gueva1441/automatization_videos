@@ -813,7 +813,7 @@ def caps_view(esc: dict) -> dict:
     return {"chapters": chs}
 
 
-def apply_pool_plan(esc: dict, pool: dict) -> None:
+def apply_pool_plan(esc: dict, pool: dict, instrucciones: bool = True) -> None:
     """In place: cifras canónicas y reservados para pantalla (m01a_skeleton.finalize_pool_plan) sobre los caps; las
     variantes que la canónica saca de un cap salen de sus beats (la oficial entra como apoyo del primer beat)."""
     sk = caps_view(esc)
@@ -835,7 +835,8 @@ def apply_pool_plan(esc: dict, pool: dict) -> None:
         if extra and bs:
             bs[0]["datos_apoyo"] = bs[0]["datos_apoyo"] + extra
     _screen_by_date(esc, sk, pool)
-    esc["instrucciones_guionista"] = writer_instructions(esc, pool)
+    if instrucciones:                                # F16 §1.4: con ficha v2 no se generan (el guion v5 no las lee)
+        esc["instrucciones_guionista"] = writer_instructions(esc, pool)
     esc["caps"] = [{k: ch[k] for k in ("chapter_number", "role", "render_engine", "duration_seconds",
                                       "narrative_intent", "evidence_ids", "cliffhanger")}
                    | {"pantalla_ids": ch.get("pantalla_ids") or [],
@@ -1011,7 +1012,9 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
                       log: list[str] | None = None, persist: bool = True, ficha: dict | None | str = "auto") -> dict:
     """Escaleta del topic (Pro, hasta `attempts` con feedback). EscaletaValidationError si ninguna pasa.
     F14: `ficha="auto"` lee `_steps/<topic>/ficha_caso.json` si existe (la escaleta lee la ficha, no el digest, y los
-    apoyos van de 0 a 6); sin ficha, todo como siempre."""
+    apoyos van de 0 a 6); sin ficha, todo como siempre.
+    F16: con ficha v2 (con `historia`), `generate_escaleta_v2`: prompt del analista, Sol high, 13 bloqueantes y una sola
+    regeneración (`attempts` no aplica)."""
     log = log if log is not None else []
     topic_id = topic.get("id") or topic.get("topic_id")
     if not topic_id:
@@ -1025,6 +1028,9 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
     if ficha == "auto":
         from researcher_steps.ficha_caso import load as _load_ficha
         ficha = _load_ficha(topic_id, STEPS_DIR)
+    if ficha and "historia" in ficha:                # F16: con ficha v2, la escaleta v2 (Sol, 13 bloqueantes)
+        return generate_escaleta_v2(topic, pool, ficha, call=call, log=log, persist=persist, gate=gate,
+                                    topic_id=topic_id)
     max_ap = MAX_APOYOS_FICHA if ficha else MAX_APOYOS
     if call is None:
         from gemini_helpers import call_pro_json as call
@@ -1058,6 +1064,336 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
         (STEPS_DIR / topic_id / "01a_escaleta_rechazada.json").write_text(json.dumps(fail, ensure_ascii=False, indent=2),
                                                                           encoding="utf-8")
     raise EscaletaValidationError(f"escaleta rechazada después de {attempts} intentos: {intentos[-1]['problemas']}")
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F16: escaleta v2 (con ficha v2): prompt del analista, Sol high, 13 bloqueantes, el resto a métricas
+# ═══════════════════════════════════════════════════════════════
+
+PROMPT_VERSION_V2 = "f16-1"
+REGENERACIONES_V2 = 1               # F16 §1.3: si fallan los bloqueantes, UNA regeneración; si vuelve a fallar, PARADA
+
+# F16 §1.1: el bloque SISTEMA de lab/hyperframes/f16/PROMPT_ESCALETA_v2.md, literal (test byte-idéntico contra el .md).
+SYSTEM_V2 = """<rol>
+Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que nadie escriba una línea, vos decidís la historia: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea, y con qué se queda al final. Trabajás solo con la ficha del caso que te dan: no inventás nombres, cifras, fechas ni citas. Lo que no está en la ficha no pasó.
+</rol>
+
+<que_es_una_escaleta>
+Siete capítulos, de 7 a 14 beats. Cada beat es un momento de la historia: tiene un dato central, hasta seis apoyos, una imagen que se puede ver (o oír, u oler), lo que el espectador se pregunta en ese punto, y la frase con la que el capítulo deja la puerta abierta al siguiente. El guionista va a escribir exactamente lo que vos decidas. Si la escaleta es plana, el guion va a ser plano.
+</que_es_una_escaleta>
+
+<oficio>
+1. El humano primero. La ficha trae candidatos con arco. Elegí al que tenga más momentos concretos (entra, sufre, sale) y más citas verificadas. Tiene que aparecer en el gancho, en el pico y en el cierre; si en el medio desaparece dos caps, el espectador lo olvida.
+2. El gancho es el peor momento, ya en curso. Tomá la escena más fuerte de la ficha y ponela en el beat 1, marcado como flash-forward. Sin contexto, sin año, sin cifras: lo que se ve. La promesa es una frase que dice qué va a entender el espectador si se queda.
+3. Del gancho se vuelve atrás. El cap 2 es la vida antes: quién era esta gente, qué hacía ahí. Es el único cap tranquilo y por eso es el más importante para que duela lo que viene.
+4. Cada cap avanza y deja algo abierto. La frase de cierre de un cap nombra lo que viene o lo deja incompleto. Nunca resume.
+5. El pico es uno solo, y es el que la ficha marcó salvo que tengas una razón mejor (decila). Antes del pico, un cap que aprieta; después del pico, un respiro: los cuerpos, la morgue, el silencio.
+6. Los giros de la ficha son los puntos donde la historia cambia de dirección. Cada giro tiene su beat. Si un giro no entra, decí cuál y por qué.
+7. Las escenas de la ficha son tus imágenes. El beat 1 y el pico toman su imagen de una escena; los demás, cuando haya una. Una imagen es algo para ver, oír, oler o tocar: «manos contra un vidrio ahumado», no «la desesperación de la gente».
+8. Las versiones en disputa (quién dio la orden, cómo estaban las puertas) son material, no problema: dales su beat. El contraste entre la pericia y los testigos es casi siempre el mejor cap 6.
+9. El cierre vuelve al humano con una cita suya o una pregunta que nadie respondió. Nunca una moraleja, nunca «hoy».
+10. Lo que va a pantalla (cifras oficiales, documentos) no lo dice la voz. Marcalo en `a_pantalla`. Las cifras que sí dice la voz, una vez cada una.
+11. Un dato vive en un solo beat. Si lo necesitás en dos, elegí dónde pega más.
+12. Las citas sin verificar van sin nombre, pero no excluyen a nadie: el humano puede estar en escena con una cita suya sin verificar; el guionista sabrá no ponerle el nombre a esa frase.
+</oficio>
+
+<ejemplo>
+De otro caso (una cárcel durante un huracán). Copiá la forma, no el contenido.
+
+humano: Renard Reed, oficial del sheriff. Por qué: entra de servicio la noche de la tormenta, ve a sus compañeros irse, ve los disparos desde el techo, y es el único que años después dice en voz alta lo que vio. 3 citas verificadas.
+promesa_gancho: «Miles de hombres quedaron encerrados cuando la ciudad se vació. Esta es la historia de quién decidió dejarlos.»
+pico: beat 5 (los francotiradores). Por qué: es el momento en que el encierro se vuelve cacería; todo lo anterior lo prepara.
+
+beat 1 · cap 1 · gancho · flash-forward · intensidad 4 · escena E3
+  imagen: el sabor del agua del inodoro en la boca, una celda a oscuras
+  dato central: Q184 (Burton: «tuvimos que beber agua del inodoro»)
+  el espectador se pregunta: ¿cómo se llega a eso?
+  cierre: Días antes de la sed, llegó la tormenta. Y con ella, una decisión.
+beat 2 · cap 2 · planteo · intensidad 1
+  imagen: un televisor con el mapa del huracán, todavía con señal
+  dato central: T55 (28 de agosto, evacuación obligatoria) · apoyos: D30 (la excepción: los presos), Q08 (Gusman: «donde pertenecen»), Q24 (Reed: los oficiales renuncian)
+  humano en escena: sí
+  el espectador se pregunta: ¿quién abre las puertas si los guardias se van?
+  cierre: Cuando la luz se fue, los guardias también empezaron a irse.
+…
+beat 5 · cap 5 · pico · intensidad 5 · escena E9
+  imagen: un fogonazo en el techo del edificio HOD, visto desde una ventana rota
+  dato central: Q14 (Richard: francotiradores) · apoyos: Q47 (Reed: «parecía que estaban abatiendo a la gente»), Q146 («están tratando de escapar»)
+  humano en escena: sí
+  el espectador se pregunta: ¿escapar o sobrevivir?
+  cierre: Después de los disparos, quedaba la espera. Sobre un puente.
+beat 6 · cap 6 · respiro · intensidad 2 …
+beat 8 · cap 7 · cierre · intensidad 3
+  dato central: D185 (517 ausentes de la lista) · apoyos: Q60 (Reyes: «todavía hay presos muertos ahí dentro»), Q50 (Reed: «son seres humanos»)
+  cierre: la cita de Reed.
+a_pantalla: D192 (la cifra oficial), D189 (la condena económica).
+</ejemplo>
+
+<errores>
+- Elegir un humano distinto cada vez que se corre. Si la ficha lo propone y tiene arco, es él.
+- Poner el gancho tranquilo para que la curva «suba». El gancho es el peor momento; la curva empieza alta, baja en el cap 2 y vuelve a subir. Eso es un flash-forward, no un error.
+- Ignorar las escenas de la ficha y escribir imágenes abstractas («la tensión en el aire»).
+- Repartir el material parejo para llenar siete caps. Un cap puede tener dos beats densos y otro uno solo.
+- Convertir «el espectador se pregunta» en una pregunta retórica para el guion. Es una nota para vos y para el guionista, no una frase del video.
+</errores>"""
+
+# F16 §1.1: el cierre del mensaje de usuario del mismo archivo, literal.
+TAREA_V2 = """<tarea>
+Con la ficha de arriba, armá la escaleta de este caso en el JSON del esquema: humano, antagonista, promesa del gancho, pico, cierre humano, beats por cap y a_pantalla. Pensá primero a quién seguimos y dónde golpea; después repartí los beats en los siete caps.
+</tarea>"""
+
+# F16 §1.3: los 13 bloqueantes del archivo son chequeos que `validate` ya tiene; se usan tal cual: `bloqueantes` corre
+# `validate` y se queda con estos mensajes duros; los demás duros van a métricas. De los 13:
+#   · 9 rechazan con su mensaje de siempre (abajo: beats, caps, gancho, dato central, pico ×2, humano, antagonista,
+#     a_pantalla repetido);
+#   · 2 rechazan y además reparan como siempre: «un id en un solo beat» (dato central repetido → rechazo; apoyo
+#     repetido → sale) y «otra cifra del mismo conteo» (dato central → rechazo; apoyo → sale);
+#   · 2 eran y siguen siendo solo reparaciones: el nombre exacto del humano y la cita sin verificar fuera de a_pantalla.
+# Más la precondición de siempre (cap/intensidad numéricos): sin ella `validate` corta antes de los demás chequeos.
+BLOQUEANTES_V2 = (
+    ("beats entre 7 y 14", r"^\d+ beats \(tienen que ser "),
+    ("caps 1–7 en orden con al menos un beat", r"^caps de los beats "),
+    ("cap/intensidad numéricos (precondición de los demás)", r"^beat \d+: cap/intensidad/palabras no numéricos"),
+    ("el beat 1 es el gancho del cap 1", r"^el beat 1 tiene que ser la función «gancho»"),
+    ("dato_central existe", r"^beat \d+: dato_central «.*» no existe en el pool"),
+    ("un id en un solo beat", r"^beat \d+: dato_central \S+ ya está en el beat "),
+    ("el pico es un beat", r"^pico\.beat .* no es un beat"),
+    ("el pico no es el último beat", r"^el pico no puede ser el último beat"),
+    ("humano es una persona de la ficha", r"^humano (\S+ no es una persona del pool|colectivo sin fuente|colectivo con algo)"),
+    ("antagonista es persona de la ficha", r"^antagonista .* no es una persona del pool"),
+    ("a_pantalla no repite un id de un beat", r"^a_pantalla \S+ también está en un beat"),
+    ("otra cifra del mismo conteo fuera", r"^beat \d+: \S+ es otra cifra del conteo "),
+)
+
+
+def bloqueante_de(msg: str) -> str | None:
+    """El bloqueante (de los 13) al que corresponde un problema duro de `validate`, o None (→ métrica)."""
+    return next((name for name, pat in BLOQUEANTES_V2 if re.search(pat, msg)), None)
+
+
+def bloqueantes(raw: dict, pool: dict, ficha: dict | None, *, context: str = "", largo: dict | None = None
+                ) -> tuple[dict, list[str], list[str], list[str]]:
+    """F16 §1.3: (escaleta reparada, bloqueantes, reparaciones, lo demás que `validate` marcaba como duro o aviso). Solo
+    los 13 rechazan; el resto se muestra en `metricas_escaleta`."""
+    esc, hard, rep, warn = validate(raw, pool, final=True, context=context, largo=largo, max_apoyos=MAX_APOYOS_FICHA)
+    bloq = [h for h in hard if bloqueante_de(h)]
+    return esc, bloq, rep, [h for h in hard if not bloqueante_de(h)] + warn
+
+
+_ID_DTQ = re.compile(r"\b[DTQ]\d{1,4}\b")
+_ID_P = re.compile(r"\bP\d{1,4}\b")
+
+
+def ids_v2(raw: dict) -> tuple[dict, list[str]]:
+    """F16 (decisión de Omar, después de la primera corrida): el modelo escribe el id con una explicación
+    («Q19: Liz siente…», «T03, D135: antes del incendio…»), como en el ejemplo del prompt. Se lee el id: el primero D/T/Q
+    del dato central, todos los D/T/Q de cada apoyo, el de a_pantalla y el del pico, y el P del humano y del antagonista.
+    Es leer el formato de la salida (como pasar a mayúsculas en `validate`), no un chequeo: no rechaza nada."""
+    esc = copy.deepcopy(raw or {})
+    rep: list[str] = []
+
+    def first(v: Any, rx: re.Pattern) -> str:
+        t = str(v or "").strip()
+        m = rx.search(t.upper())
+        if m and m.group(0) != t.upper():
+            rep.append(f"id leído de «{t[:60]}» → {m.group(0)}")
+        return m.group(0) if m else t
+    for b in esc.get("beats") or []:
+        if not isinstance(b, dict):
+            continue
+        b["dato_central"] = first(b.get("dato_central"), _ID_DTQ)
+        out = []
+        for x in b.get("datos_apoyo") or []:
+            found = _ID_DTQ.findall(str(x or "").upper())
+            if found and (len(found) > 1 or found[0] != str(x).strip().upper()):
+                rep.append(f"apoyo «{str(x)[:60]}» → {', '.join(found)}")
+            out += found or [x]
+        b["datos_apoyo"] = list(dict.fromkeys(out))
+    for x in esc.get("a_pantalla") or []:
+        if isinstance(x, dict):
+            x["id"] = first(x.get("id"), _ID_DTQ)
+    for k, rx in (("pico", _ID_DTQ), ("humano", _ID_P), ("antagonista", _ID_P)):
+        if isinstance(esc.get(k), dict) and esc[k].get("id"):
+            esc[k]["id"] = first(esc[k]["id"], rx)
+    return esc, rep
+
+
+def _ids_of(x: dict | None) -> set[str]:
+    return set((x or {}).get("ids") or [])
+
+
+def metricas_escaleta(esc: dict, pool: dict, ficha: dict | None, otros: list[str] | None = None) -> dict[str, Any]:
+    """F16 §1.3: lo que se calcula y se muestra (no rechaza)."""
+    its = ev.items(pool)
+    beats = esc.get("beats") or []
+    hum = esc.get("humano") or {}
+    pk = esc.get("pico") or {}
+    hist = (ficha or {}).get("historia") or {}
+    otros = list(otros or [])
+    bids = {b["n"]: {b["dato_central"], *(b.get("datos_apoyo") or [])} for b in beats}
+    sur = ev.norm(hum.get("nombre") or "").split()[-1] if hum.get("nombre") else ""
+    hcaps = sorted({b["cap"] for b in beats if b.get("humano_en_escena")})
+
+    def _sin_verificar_suya(i: str) -> bool:
+        it = its.get(i) or {}
+        return it.get("_kind") == "citas" and bool(sur) and sur in ev.norm(it.get("autor") or "") and \
+            (it.get("verificacion") or {}).get("estado") not in (None, "verificada")
+    try:
+        pb = int(pk.get("beat"))
+    except (TypeError, ValueError):
+        pb = 0
+    idx = {b["n"]: b.get("escena_idx") for b in beats}
+    giros = []
+    for g in sorted(hist.get("giros") or [], key=lambda x: x.get("orden") or 0):
+        n = next((b for b, ids in bids.items() if ids & _ids_of(g)), None)
+        giros.append({"orden": g.get("orden"), "que_cambia": g.get("que_cambia"), "beat": n})
+    cands = hist.get("humanos_candidatos") or []
+    words: dict[int, int] = {}
+    for b in beats:
+        words[b["cap"]] = words.get(b["cap"], 0) + int(b.get("palabras_objetivo") or 0)
+
+    def _msgs(pat: str) -> list[str]:
+        return [m for m in otros if re.search(pat, m)]
+    return {
+        "curva_intensidad": [b.get("intensidad") for b in beats],
+        "flash_forward_beat1": bool(beats and beats[0].get("flash_forward")),
+        "curva_problemas": _msgs(r"intensidad|flash-forward|respiro|el beat del pico"),
+        "humano_en_escena_caps": hcaps, "humano_entra_cap": hcaps[0] if hcaps else None,
+        "humano_con_cita_sin_verificar_en_escena": [b["n"] for b in beats if b.get("humano_en_escena")
+                                                    and any(_sin_verificar_suya(i) for i in bids[b["n"]])],
+        "humano_en_escena_problemas": _msgs(r"en escena|el humano está en escena|el humano entra"),
+        "promesa_con_cifras": has_figure(str(esc.get("promesa_gancho") or "")),
+        "imagen_gancho_con_cifras": bool(beats) and has_figure(beats[0].get("imagen_sensorial") or ""),
+        "imagenes_abstractas": _msgs(r"es una idea, no algo|imagen sensorial vacía"),
+        "escenas_usadas": sorted({x for x in idx.values() if x}), "escena_gancho": idx.get(1), "escena_pico": idx.get(pb),
+        "giros": giros, "giros_con_beat": sum(1 for g in giros if g["beat"]), "giros_total": len(giros),
+        "humano_en_candidatos": any(hum.get("id") in _ids_of(c) or (sur and sur in ev.norm(c.get("nombre") or ""))
+                                    for c in cands) if cands else None,
+        "pico_es_el_de_la_ficha": bool(hist.get("pico")) and bool(bids.get(pb, set()) & _ids_of(hist.get("pico"))),
+        "palabras_objetivo_por_cap": words,
+        "cifra_en_pantalla_repetida": _msgs(r"se ve en pantalla dos veces"),
+        "ultima_frase_repite_cita": _msgs(r"la última frase repite textual"),
+        "ultima_frase_sin_humano": _msgs(r"la última frase del video .* no nombra"),
+        "preguntas_pantalla": _msgs(r"^pregunta de pantalla"),
+        "preguntas_abiertas": [b.get("pregunta_abierta") for b in beats],
+        "otros": [m for m in otros if not re.search(
+            r"intensidad|flash-forward|respiro|el beat del pico|en escena|el humano entra|es una idea|imagen sensorial "
+            r"vacía|se ve en pantalla dos veces|la última frase|^pregunta de pantalla", m)],
+    }
+
+
+def ficha_section_v2(ficha: dict, pool: dict) -> str:
+    """F16 §1.1: la ficha para la escaleta v2, con la forma del archivo del analista: historia y escenas primero."""
+    its = ev.items(pool)
+
+    def ids(x: dict | None) -> str:
+        return "[" + ", ".join((x or {}).get("ids") or []) + "]"
+    h = ficha.get("historia") or {}
+    L = ["historia:", "  humanos candidatos:"]
+    L += [f"    {ids(x)} {x.get('nombre')} — {x.get('rol')} · arco: {x.get('arco')} · citas verificadas: "
+          f"{x.get('citas_verificadas')}" for x in h.get("humanos_candidatos") or []]
+    L.append("  giros:")
+    L += [f"    {x.get('orden')}. {x.get('que_cambia')} {ids(x)}"
+          for x in sorted(h.get("giros") or [], key=lambda g: g.get("orden") or 0)]
+    if h.get("pico"):
+        L.append(f"  pico: {h['pico'].get('que')} — {h['pico'].get('por_que')} {ids(h['pico'])}")
+    if h.get("pregunta_final"):
+        L.append(f"  pregunta final: {h['pregunta_final'].get('pregunta')} {ids(h['pregunta_final'])}")
+    L += ["", "escenas:"]
+    L += [f"  E{k}. {x.get('donde')} · {x.get('quien')} — {x.get('que_pasa')} · sentidos: {x.get('sentidos')} {ids(x)}"
+          for k, x in enumerate(ficha.get("escenas") or [], 1)]
+    L += ["", "personas:"]
+    L += [f"  {ids(x)} {x.get('nombre')} — {x.get('rol')}" for x in ficha.get("personas") or []]
+    L += ["", "personas descartadas que la historia necesita:"]
+    L += [f"  {ids(x)} {x.get('nombre')} — {x.get('rol')} · {x.get('motivo')}" for x in ficha.get("personas_descartadas") or []]
+    L += ["", "cronologia:"]
+    for x in ficha.get("cronologia") or []:
+        hh = x.get("hora") if x.get("hora") and str(x.get("hora")).lower() not in ("null", "none") else ""
+        L.append(f"  {ids(x)} {x.get('fecha')}{' ' + hh if hh else ''}{' (aproximada)' if x.get('aproximada') else ''}"
+                 f" — {x.get('evento')}")
+    for nivel in (1, 2):
+        L += ["", f"hechos nivel {nivel}:"]
+        L += [f"  {ids(x)} {x.get('texto')}" + (f" ({x.get('sirve_para')})" if x.get("sirve_para") else "")
+              for x in ficha.get("hechos") or [] if (x.get("nivel") or 2) == nivel]
+    L += ["", "cifras:"]
+    for x in ficha.get("cifras") or []:
+        otras = "; ".join(f"{v.get('valor')} {v.get('unidad')} {ids(v)}" for v in x.get("otras_versiones") or [])
+        L.append(f"  {ids(x)} {x.get('que')}: {x.get('valor')} {x.get('unidad')} · {x.get('fuente')}"
+                 + (f" · otras versiones: {otras}" if otras else ""))
+    L += ["", "citas:"]
+    for x in ficha.get("citas") or []:
+        q = next((its[i] for i in x.get("ids") or [] if i in its and its[i]["_kind"] == "citas"), None)
+        v = (q or {}).get("verificacion") or {}
+        est = "VERIFICADA" if v.get("estado") == "verificada" else ("SIN VERIFICAR" if v else "—")
+        L.append(f"  {ids(x)} {x.get('autor')} ({x.get('rol')}) · {est} · «{x.get('texto')}»")
+    L += ["", "versiones en disputa:"]
+    for x in ficha.get("versiones") or []:
+        L.append(f"  {x.get('tema')}")
+        L += [f"    - {v.get('dice')} {ids(v)} (fuente: {v.get('doc_id')})" for v in x.get("versiones") or []]
+    return "\n".join(L)
+
+
+def build_prompt_v2(topic: dict, pool: dict, ficha: dict, feedback: list[str] | None = None) -> str:
+    """F16 §1.1: <caso> (título, ángulo, misterio, revelación) · <ficha> · <tarea> literal. Sin notas, sin FEWSHOT,
+    sin reglas. Con `feedback` (la única regeneración), los bloqueantes van antes de la tarea."""
+    fb = ""
+    if feedback:
+        fb = ("<rechazo>\nTu escaleta anterior no pasó estos controles. Corregilos sin cambiar lo demás:\n"
+              + "\n".join(f"- {x}" for x in feedback) + "\n</rechazo>\n\n")
+    return f"""<caso>
+TÍTULO: {topic.get("video_title") or "(sin título)"}
+ÁNGULO: {topic.get("angle") or "-"}
+MISTERIO: {topic.get("mystery") or "-"}
+REVELACIÓN: {topic.get("reveal") or "-"}
+</caso>
+
+<ficha>
+{ficha_section_v2(ficha, pool)}
+</ficha>
+
+{fb}{TAREA_V2}"""
+
+
+def generate_escaleta_v2(topic: dict, pool: dict, ficha: dict, *, call: Callable[..., dict] | None, log: list[str],
+                         persist: bool, gate: dict | None, topic_id: str) -> dict:
+    """F16: UNA llamada (Sol high por `guion_v4.call_for`) → 13 bloqueantes → si fallan, UNA regeneración con ellos
+    como feedback → si vuelven a fallar, EscaletaValidationError (PARADA). Sin `instrucciones_guionista`."""
+    if call is None:
+        from script_engine.guion_v4 import call_for
+        call = call_for(None)
+    feedback: list[str] = []
+    intentos = []
+    for k in range(1, REGENERACIONES_V2 + 2):
+        raw = call(build_prompt_v2(topic, pool, ficha, feedback), system_instruction=SYSTEM_V2,
+                   response_schema=SCHEMA_FICHA, description=f"m01a_escaleta v2 intento {k}")
+        raw, rep_ids = ids_v2(raw)
+        esc, bloq, rep, otros = bloqueantes(raw, pool, ficha, context=str(topic.get("video_title") or ""),
+                                            largo=topic.get("_largo"))
+        rep = rep_ids + rep
+        intentos.append({"intento": k, "bloqueantes": bloq, "reparaciones": rep, "no_bloqueantes": otros})
+        log.append(f"  [escaleta v2] intento {k}: {len(bloq)} bloqueante(s) {bloq[:4]} · {len(rep)} reparación(es) · "
+                   f"{len(otros)} a métricas")
+        if not bloq:
+            esc.update({"topic_id": topic_id, "prompt_version": PROMPT_VERSION_V2, "_reparaciones": rep, "_avisos": [],
+                        "_intentos": intentos,
+                        "ficha": {"prompt_version": ficha.get("prompt_version"), "pool_md5": ficha.get("pool_md5")}})
+            ficha_notes(esc, ficha)
+            if gate:
+                esc["pool_gate"] = {g: gate[g] for g in ("color", "metricas", "motivos", "target_words")}
+            apply_pool_plan(esc, pool, instrucciones=False)
+            esc["_metricas"] = metricas_escaleta(esc, pool, ficha, otros)
+            if persist:
+                _persist(topic_id, esc)
+            return esc
+        feedback = bloq
+    fail = {"topic_id": topic_id, "prompt_version": PROMPT_VERSION_V2, "_intentos": intentos, "ultima": raw}
+    if persist:
+        (STEPS_DIR / topic_id).mkdir(parents=True, exist_ok=True)
+        (STEPS_DIR / topic_id / "01a_escaleta_rechazada.json").write_text(json.dumps(fail, ensure_ascii=False, indent=2),
+                                                                          encoding="utf-8")
+    raise EscaletaValidationError(f"escaleta v2 rechazada después de {len(intentos)} intento(s) (PARADA): "
+                                  f"{intentos[-1]['bloqueantes']}")
+
 
 
 def _frozen_is_escaleta(topic: dict) -> bool:

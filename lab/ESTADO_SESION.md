@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-23 (F15b: guionista v5.1; Orleans OK, la escaleta de Ycuá no salió → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-23 (F16: escaleta v2 con Sol; Ycuá y Orleans completos, unos 11.5 min cada uno → PARADA, sin producción) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -10,7 +10,22 @@
 - Candados vigentes:
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
-  - F15b: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 628 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+  - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F16 — Escaleta v2 (13 bloqueantes, Sol) · Ycuá y Orleans completos — HECHO, **PARADA** (el analista revisa el diff y lee escaletas y guiones; si Ycuá da ≥ 8, lo que sigue es producción)
+- Handoff `lab/hyperframes/f16/HANDOFF_F16_escaleta_v2.md`; prompt `PROMPT_ESCALETA_v2.md` (md5 8d573288…). Reporte `F16_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f16.html` (teléfono OK).
+- Código (`m01a_escaleta`):
+  - `SYSTEM_V2` y `TAREA_V2`, literales (md5 del sistema 49ed74d9…); `build_prompt_v2` (caso · ficha con historia y escenas primero · tarea); `generate_escaleta_v2` con Sol high (`guion_v4.call_for`), `SCHEMA_FICHA` y una sola regeneración; si vuelve a fallar, PARADA.
+  - `bloqueantes()` = los 13 mensajes de `validate`, tal cual (`BLOQUEANTES_V2`); el resto va a `metricas_escaleta()`.
+  - `apply_pool_plan(instrucciones=False)` con ficha.
+  - `ids_v2`: lee el id del texto («Q19: …» → Q19). Lo eligió Omar después de que el primer pase terminara en PARADA en los dos temas, porque el ejemplo del prompt induce ese formato.
+  - **Sin ficha, todo byte-idéntico** (md5 de HEAD).
+- Tests: `test_module_f16.py` (22); suite amplia 650 verdes + las 5 previas.
+- Resultado:
+  - Las dos escaletas pasaron en la regeneración: humano candidato (**Liz Torres**; en Orleans, **Joyce Gilson**), el pico de la ficha, gancho y pico con escena (flash-forward), 8 escenas y 6 de 6 giros.
+  - **Guion v5.1: Ycuá 1,384 palabras (11.3 min), Orleans 1,443 (11.7 min), 0 bloqueantes.**
+  - Tanda **US$ 1.359** de 2.00.
+- Escaletas nuevas: `01a_escaleta_f16.json` (no se pisó ninguna). Sin merge. **No seguir a producción sin el OK.**
 
 ## F15b — v5.1: la escena merece un párrafo (Ycuá y Orleans) — HECHO, **PARADA** (la escaleta nueva de Ycuá no salió; el analista revisa el diff y lee los guiones)
 - Handoff `lab/hyperframes/f15b/HANDOFF_F15b_escena_por_parrafo.md`; prompt `lab/hyperframes/f15/PROMPT_GUIONISTA_v5_1.md` (md5 6dcc4294…). Reporte `F15b_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES; la escaleta de Ycuá en PARADA) y `compara_f15b.html` (teléfono OK).

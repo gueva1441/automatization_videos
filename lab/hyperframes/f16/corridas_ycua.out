@@ -1,0 +1,12 @@
+[22:52:08] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f16-escaleta
+[23:00:01] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f16-escaleta � Costo total: $0.2980
+  [ycua escaleta] US$ 0.2980 · 473 s · tanda US$ 1.2217
+  [escaleta] compuerta del pool: verde {'datos': 227, 'citas_verificadas': 52, 'elegibles_humano': 15, 'eventos_con_fecha': 62}
+  [escaleta v2] intento 1: 11 bloqueante(s) ['beat 2: dato_central «P13 / P80 E HISTORIA DEL CANDIDATO: LIZ VA AL SUPERMERCADO CON SU ESPOSO, ALFREDO VALLOVERA. PRESENTARLOS COMO UNA PAREJA QUE ENTRA, NO TODAVÍA COMO SOBREVIVIENTES.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D42 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D53 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D95 también está en un beat: lo que va a pantalla no lo dice la voz'] · 64 reparación(es) · 14 a métricas
+  [escaleta v2] intento 2: 0 bloqueante(s) [] · 70 reparación(es) · 13 a métricas
+[ycua escaleta] 14 beats · humano Liz Torres (candidato True) · pico beat 8 (el de la ficha True) · curva [4, 1, 1, 3, 4, 4, 4, 5, 2, 2, 3, 3, 3, 3] · ff True · escenas [2, 3, 5, 7, 8, 9, 10, 12] (gancho 8, pico 8) · giros 6/6
+[23:00:01] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f16-guion
+[23:04:29] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f16-guion � Costo total: $0.1374
+  [ycua guion] US$ 0.1374 · 268 s · tanda US$ 1.3591
+[ycua guion] 1384 palabras ≈ 11.3 min · bloqueantes 0 · párrafos 25 · por cap [94, 129, 295, 177, 46, 340, 303]
+tanda US$ 1.3591

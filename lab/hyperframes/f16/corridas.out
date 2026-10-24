@@ -1,0 +1,17 @@
+[22:39:11] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f16-escaleta
+[22:39:11] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f16-escaleta � Costo total: $0.0000
+  [ycua escaleta] US$ 0.0000 · 0 s · tanda US$ 0.5046
+  [escaleta] compuerta del pool: verde {'datos': 227, 'citas_verificadas': 52, 'elegibles_humano': 15, 'eventos_con_fecha': 62}
+PARADA (ycua escaleta): escaleta de ycua: Parada: tope de costo: US$ 0.505 + peor caso 0.337 + reserva 1.30 > 2.00 antes de «m01a_escaleta v2 intento 1»
+[22:39:11] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3-f16-escaleta
+[22:47:42] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3-f16-escaleta � Costo total: $0.3015
+  [orl escaleta] US$ 0.3015 · 512 s · tanda US$ 0.8061
+  [escaleta] compuerta del pool: verde {'datos': 558, 'citas_verificadas': 162, 'elegibles_humano': 12, 'eventos_con_fecha': 127}
+  [escaleta v2] intento 1: 17 bloqueante(s) ['beat 2: dato_central «P22 — JOYCE ES UNA DE LAS MUJERES ALOJADAS EN TEMPLEMAN IV Y COMPAÑERA DE IRIS. PRESENTARLA DESDE ESE VÍNCULO, SIN INVENTAR SU CAUSA DE DETENCIÓN, SU OFICIO NI SU VIDA FAMILIAR.» no existe en el pool (o no es D/T/Q)', 'beat 14: dato_central «P22 / ARCO CONSIGNADO EN HISTORIA.HUMANOS CANDIDATOS — JOYCE PERDIÓ DE VISTA A IRIS DURANTE LA EVACUACIÓN Y VOLVIÓ A ENCONTRARLA EN ANGOLA. RESERVAR AMBOS EXTREMOS DE ESA SEPARACIÓN PARA ESTE CIERRE.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D13 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D52 también está en un beat: lo que va a pantalla no lo dice la voz'] · 67 reparación(es) · 18 a métricas
+  [escaleta v2] intento 2: 0 bloqueante(s) [] · 73 reparación(es) · 18 a métricas
+[orl escaleta] 14 beats · humano Joyce Gilson (candidato True) · pico beat 10 (el de la ficha True) · curva [4, 1, 2, 3, 3, 4, 4, 4, 4, 5, 2, 3, 3, 3] · ff True · escenas [1, 3, 6, 8, 9, 11, 12, 15] (gancho 9, pico 9) · giros 6/6
+[22:47:44] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: ba6c3cac-f7r3-f16-guion
+[22:51:31] INFO     | viral_pipeline | [cost_tracker] Video ba6c3cac-f7r3-f16-guion � Costo total: $0.1176
+  [orl guion] US$ 0.1176 · 228 s · tanda US$ 0.9237
+[orl guion] 1443 palabras ≈ 11.7 min · bloqueantes 0 · párrafos 30 · por cap [92, 117, 373, 375, 61, 183, 242]
+tanda US$ 0.9237

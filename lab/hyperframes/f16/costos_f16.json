@@ -1,0 +1,165 @@
+{
+ "etapas": [
+  {
+   "tema": "ycua",
+   "etapa": "escaleta",
+   "usd": 0.2535,
+   "segundos": 393.3,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 16127,
+     "out": 5993,
+     "thinking": 3817,
+     "usd": 0.1304
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 17316,
+     "out": 5267,
+     "thinking": 3584,
+     "usd": 0.1231
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "49ed74d941def064cdda077212629ff1",
+    "usuario": "2d77969a706f3cdc1a2b71581ba044b2"
+   },
+   "error": "EscaletaValidationError: escaleta v2 rechazada después de 2 intento(s) (PARADA): ['a_pantalla D25 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D30 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D31 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T65 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D215 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D186 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D193 también está en un beat: lo que va a pantalla no lo dice la voz']"
+  },
+  {
+   "tema": "orl",
+   "etapa": "escaleta",
+   "usd": 0.2511,
+   "segundos": 392.3,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 14304,
+     "out": 6253,
+     "thinking": 5285,
+     "usd": 0.144
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 15347,
+     "out": 4932,
+     "thinking": 2711,
+     "usd": 0.1071
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "49ed74d941def064cdda077212629ff1",
+    "usuario": "d748efd2f49d60319fce7ff67eeb06bb"
+   },
+   "error": "EscaletaValidationError: escaleta v2 rechazada después de 2 intento(s) (PARADA): ['a_pantalla D45 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D132 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D152 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D218 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D185 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D191 también está en un beat: lo que va a pantalla no lo dice la voz']"
+  },
+  {
+   "tema": "ycua",
+   "etapa": "escaleta",
+   "usd": 0.0,
+   "segundos": 0.0,
+   "llamadas": [],
+   "prompt_md5_intento1": {
+    "sistema": "49ed74d941def064cdda077212629ff1",
+    "usuario": "2d77969a706f3cdc1a2b71581ba044b2"
+   },
+   "error": "Parada: tope de costo: US$ 0.505 + peor caso 0.337 + reserva 1.30 > 2.00 antes de «m01a_escaleta v2 intento 1»"
+  },
+  {
+   "tema": "orl",
+   "etapa": "escaleta",
+   "usd": 0.3015,
+   "segundos": 511.6,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 14304,
+     "out": 6850,
+     "thinking": 6658,
+     "usd": 0.1637
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 14873,
+     "out": 6198,
+     "thinking": 4608,
+     "usd": 0.1378
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "49ed74d941def064cdda077212629ff1",
+    "usuario": "d748efd2f49d60319fce7ff67eeb06bb"
+   },
+   "error": null
+  },
+  {
+   "tema": "orl",
+   "etapa": "guion",
+   "usd": 0.1176,
+   "segundos": 227.5,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 7476,
+     "out": 2588,
+     "thinking": 7678,
+     "usd": 0.1176
+    }
+   ]
+  },
+  {
+   "tema": "ycua",
+   "etapa": "escaleta",
+   "usd": 0.298,
+   "segundos": 472.9,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 16127,
+     "out": 6237,
+     "thinking": 5632,
+     "usd": 0.1509
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 16474,
+     "out": 6284,
+     "thinking": 5122,
+     "usd": 0.147
+    }
+   ],
+   "prompt_md5_intento1": {
+    "sistema": "49ed74d941def064cdda077212629ff1",
+    "usuario": "2d77969a706f3cdc1a2b71581ba044b2"
+   },
+   "error": null
+  },
+  {
+   "tema": "ycua",
+   "etapa": "guion",
+   "usd": 0.1374,
+   "segundos": 268.0,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "guion_v4 guionista",
+     "in": 7043,
+     "out": 2487,
+     "thinking": 9846,
+     "usd": 0.1374
+    }
+   ]
+  }
+ ],
+ "usd_total": 1.3591
+}

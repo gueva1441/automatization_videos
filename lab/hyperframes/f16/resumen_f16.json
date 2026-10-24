@@ -1,0 +1,969 @@
+[
+ {
+  "tema": "ycua",
+  "clave": "f15b",
+  "nombre": "F15b · escaleta F15 (Pro) + v5.1 (sustituto)",
+  "usd": null,
+  "escaleta": {
+   "bloqueantes": [],
+   "beats": 13,
+   "beats_por_cap": [
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "humano": "Liz Torres",
+   "pico": {
+    "beat": 8,
+    "id": "Q20",
+    "por_que": "Es el momento en que la huida se detiene y el peligro se vuelve inescapable. La protagonista cree que va a morir, rodeada por los gritos que se apagan. Es el clímax del horror."
+   },
+   "prompt_version": "f6b-4",
+   "intentos": 2,
+   "metricas": {
+    "curva_intensidad": [
+     5,
+     2,
+     3,
+     3,
+     4,
+     4,
+     5,
+     5,
+     1,
+     3,
+     3,
+     2,
+     2
+    ],
+    "flash_forward_beat1": true,
+    "curva_problemas": [],
+    "humano_en_escena_caps": [
+     1,
+     2,
+     5,
+     7
+    ],
+    "humano_entra_cap": 1,
+    "humano_con_cita_sin_verificar_en_escena": [
+     8
+    ],
+    "humano_en_escena_problemas": [],
+    "promesa_con_cifras": false,
+    "imagen_gancho_con_cifras": false,
+    "imagenes_abstractas": [],
+    "escenas_usadas": [],
+    "escena_gancho": null,
+    "escena_pico": null,
+    "giros": [
+     {
+      "orden": 1,
+      "que_cambia": "La jornada de compras se convierte en una huida cuando los testigos oyen una explosión y ven humo o llamas sobre el patio de comidas.",
+      "beat": 3
+     },
+     {
+      "orden": 2,
+      "que_cambia": "La salida deja de ser una salida para quienes declaran haber encontrado cerrados el blíndex o el portón hacia Artigas; el estado de esos accesos será disputado por la pericia y la defensa.",
+      "beat": 5
+     },
+     {
+      "orden": 3,
+      "que_cambia": "Un boquete en la pared aparece como vía de supervivencia para personas que no habían podido salir por los accesos previstos.",
+      "beat": 9
+     },
+     {
+      "orden": 4,
+      "que_cambia": "La búsqueda de familiares vivos se convierte en identificación y retiro de cuerpos para Blas Cristaldo.",
+      "beat": 10
+     },
+     {
+      "orden": 5,
+      "que_cambia": "La lectura judicial de una pericia introduce una versión incompatible con los testimonios de cierre: los accesos de hierro de la rampa habrían estado abiertos.",
+      "beat": 11
+     },
+     {
+      "orden": 6,
+      "que_cambia": "La condena indemnizatoria reseñada en F10 llega con el principal demandado ya fallecido y con dudas de su abogado sobre la existencia de bienes para cobrar.",
+      "beat": 13
+     }
+    ],
+    "giros_con_beat": 6,
+    "giros_total": 6,
+    "humano_en_candidatos": true,
+    "pico_es_el_de_la_ficha": true,
+    "palabras_objetivo_por_cap": {
+     "1": 110,
+     "2": 250,
+     "3": 250,
+     "4": 250,
+     "5": 250,
+     "6": 250,
+     "7": 140
+    },
+    "cifra_en_pantalla_repetida": [],
+    "ultima_frase_repite_cita": [],
+    "ultima_frase_sin_humano": [],
+    "preguntas_pantalla": [
+     "pregunta de pantalla del cap 2 «¿Por qué sonaban las alarmas?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+    ],
+    "preguntas_abiertas": [
+     "¿Cómo llegó a ese punto?",
+     "¿Qué estaba mal en ese lugar aparentemente normal?",
+     "¿De dónde viene ese ruido?",
+     "¿Lograrán salir todos a tiempo?",
+     "¿Por qué estaba cerrada esa puerta?",
+     "¿Estaban todas las puertas cerradas?",
+     "¿Es verdad que ordenó cerrarlas para que no robaran?",
+     "¿Cómo se puede sobrevivir a eso?",
+     "¿Cuántos lograron salir por ahí?",
+     "¿Quiénes eran los responsables?",
+     "¿Le creerían a los peritos o a las víctimas?",
+     "¿Es esto justicia?",
+     "¿Recibirán alguna vez una reparación completa?"
+    ],
+    "otros": []
+   }
+  },
+  "guion": {
+   "palabras": 858,
+   "minutos": 7.0,
+   "palabras_por_cap": {
+    "1": [
+     87,
+     110
+    ],
+    "2": [
+     188,
+     250
+    ],
+    "3": [
+     110,
+     250
+    ],
+    "4": [
+     83,
+     250
+    ],
+    "5": [
+     155,
+     250
+    ],
+    "6": [
+     106,
+     250
+    ],
+    "7": [
+     129,
+     140
+    ]
+   },
+   "parrafos": 20,
+   "frases_por_parrafo": 4.0,
+   "de_una_frase": 3,
+   "por_cap": {
+    "1": {
+     "parrafos": 2,
+     "frases_por_parrafo": 3.5,
+     "de_una_frase": 0
+    },
+    "2": {
+     "parrafos": 3,
+     "frases_por_parrafo": 4.7,
+     "de_una_frase": 0
+    },
+    "3": {
+     "parrafos": 3,
+     "frases_por_parrafo": 3.7,
+     "de_una_frase": 1
+    },
+    "4": {
+     "parrafos": 3,
+     "frases_por_parrafo": 2.7,
+     "de_una_frase": 1
+    },
+    "5": {
+     "parrafos": 4,
+     "frases_por_parrafo": 4.2,
+     "de_una_frase": 1
+    },
+    "6": {
+     "parrafos": 2,
+     "frases_por_parrafo": 5.0,
+     "de_una_frase": 0
+    },
+    "7": {
+     "parrafos": 3,
+     "frases_por_parrafo": 4.3,
+     "de_una_frase": 0
+    }
+   },
+   "bloqueantes": [],
+   "duras_v3": 32,
+   "citas": 9,
+   "preguntas": 0,
+   "frases_analista": {
+    "los datos": 0,
+    "el testimonio": 0,
+    "la frase señala": 0,
+    "no permiten explicar": 0
+   },
+   "humano_caps": [
+    1
+   ],
+   "cierre": "cita",
+   "embudo": {
+    "pool": 509,
+    "seleccion": 319,
+    "escaleta": 46,
+    "guion": 11
+   }
+  }
+ },
+ {
+  "tema": "ycua",
+  "clave": "f16",
+  "nombre": "F16 · escaleta v2 (Sol) + v5.1",
+  "usd": 0.6889,
+  "escaleta": {
+   "bloqueantes": [],
+   "beats": 14,
+   "beats_por_cap": [
+    1,
+    2,
+    2,
+    2,
+    1,
+    3,
+    3
+   ],
+   "humano": "Liz Torres",
+   "pico": {
+    "beat": 8,
+    "id": "Q20",
+    "por_que": "Se conserva el pico marcado por la ficha: el encierro deja de ser una dificultad para escapar y se convierte en la experiencia de escuchar cómo desaparecen las voces. El gancho anticipa la inmovilización; este beat completa su dimensión sensorial. La cita se presenta sin nombre porque no está verificada."
+   },
+   "prompt_version": "f16-1",
+   "intentos": 2,
+   "metricas": {
+    "curva_intensidad": [
+     4,
+     1,
+     1,
+     3,
+     4,
+     4,
+     4,
+     5,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3
+    ],
+    "flash_forward_beat1": true,
+    "curva_problemas": [
+     "falta un beat de intensidad 1 (respiro) después del pico"
+    ],
+    "humano_en_escena_caps": [
+     1,
+     2,
+     3,
+     5,
+     6,
+     7
+    ],
+    "humano_entra_cap": 1,
+    "humano_con_cita_sin_verificar_en_escena": [
+     8
+    ],
+    "humano_en_escena_problemas": [
+     "beat 2: Liz Torres en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q08']); datos suyos que valen: ['D210', 'D212', 'D213', 'Q12', 'Q13', 'Q14', 'Q19', 'Q77']",
+     "beat 8: Liz Torres en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q20']); datos suyos que valen: ['D210', 'D212', 'D213', 'Q12', 'Q13', 'Q14', 'Q19', 'Q77']"
+    ],
+    "promesa_con_cifras": false,
+    "imagen_gancho_con_cifras": false,
+    "imagenes_abstractas": [],
+    "escenas_usadas": [
+     2,
+     3,
+     5,
+     7,
+     8,
+     9,
+     10,
+     12
+    ],
+    "escena_gancho": 8,
+    "escena_pico": 8,
+    "giros": [
+     {
+      "orden": 1,
+      "que_cambia": "La jornada de compras se convierte en una huida cuando los testigos oyen una explosión y ven humo o llamas sobre el patio de comidas.",
+      "beat": 5
+     },
+     {
+      "orden": 2,
+      "que_cambia": "La salida deja de ser una salida para quienes declaran haber encontrado cerrados el blíndex o el portón hacia Artigas; el estado de esos accesos será disputado por la pericia y la defensa.",
+      "beat": 6
+     },
+     {
+      "orden": 3,
+      "que_cambia": "Un boquete en la pared aparece como vía de supervivencia para personas que no habían podido salir por los accesos previstos.",
+      "beat": 9
+     },
+     {
+      "orden": 4,
+      "que_cambia": "La búsqueda de familiares vivos se convierte en identificación y retiro de cuerpos para Blas Cristaldo.",
+      "beat": 10
+     },
+     {
+      "orden": 5,
+      "que_cambia": "La lectura judicial de una pericia introduce una versión incompatible con los testimonios de cierre: los accesos de hierro de la rampa habrían estado abiertos.",
+      "beat": 11
+     },
+     {
+      "orden": 6,
+      "que_cambia": "La condena indemnizatoria reseñada en F10 llega con el principal demandado ya fallecido y con dudas de su abogado sobre la existencia de bienes para cobrar.",
+      "beat": 14
+     }
+    ],
+    "giros_con_beat": 6,
+    "giros_total": 6,
+    "humano_en_candidatos": true,
+    "pico_es_el_de_la_ficha": true,
+    "palabras_objetivo_por_cap": {
+     "1": 100,
+     "2": 250,
+     "3": 250,
+     "4": 250,
+     "5": 250,
+     "6": 250,
+     "7": 141
+    },
+    "cifra_en_pantalla_repetida": [],
+    "ultima_frase_repite_cita": [
+     "la última frase repite textual la cita Q77: decila con otras palabras"
+    ],
+    "ultima_frase_sin_humano": [
+     "la última frase del video (cierre del beat 14) no nombra al humano ni a un testigo verificado (Tatiana Gabaglio, Ángela Pujol, Beatriz González, Juan Pío Paiva, Liz Torres, Benedicto Pérez, Luis Escobar Faella, Víctor Galeano, Amada Correa, Mario Eduardo Chamorro, Daniel Paiva, Lili Cristaldo, Verónica Becker, Antonio Morínigo, Cristian Sosa, Julia López, Angélica Roa, Tania Campos, Rubén Valdez, Nelson Jara, Carlos Halke, Escobar Faella, Fiscal Edgar Sánchez): «Liz: «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida».»"
+    ],
+    "preguntas_pantalla": [
+     "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+     "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+     "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+     "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+     "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+     "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+     "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+    ],
+    "preguntas_abiertas": [
+     "¿Qué detuvo a todas esas personas cuando intentaban salir?",
+     "¿Quién podía reconocer un peligro en una salida para comprar comida?",
+     "¿Qué familias estaban empezando ese domingo sin saber que iban a quedar separadas?",
+     "¿Cuánto del peligro estaba oculto por encima del salón?",
+     "¿Hacia dónde corre una multitud cuando deja de ver?",
+     "¿Qué significaba encontrar cerrado un acceso en medio de esa huida?",
+     "¿Cómo puede salir alguien que ya no puede moverse?",
+     "¿Quedaba alguien capaz de llegar hasta ellos?",
+     "¿A quiénes estaban consiguiendo sacar con vida?",
+     "¿Qué explicación iban a recibir quienes estaban retirando a sus familiares?",
+     "¿Cómo se explica la distancia entre lo que encontraron los testigos y lo que describió la pericia?",
+     "¿Qué resolvió la justicia sin que todas las versiones llegaran a coincidir?",
+     "¿La condena penal se convirtió también en reparación para los sobrevivientes?",
+     "¿Podrán los sobrevivientes y familiares convertir las sentencias en una reparación económica efectiva si no se sabe qué bienes quedan para cobrar?"
+    ],
+    "otros": [
+     "caps de desarrollo con menos de 2 beats: [5] (beats por cap: [1, 2, 2, 2, 1, 3, 3])"
+    ]
+   }
+  },
+  "guion": {
+   "palabras": 1384,
+   "minutos": 11.3,
+   "palabras_por_cap": {
+    "1": [
+     94,
+     100
+    ],
+    "2": [
+     129,
+     250
+    ],
+    "3": [
+     295,
+     250
+    ],
+    "4": [
+     177,
+     250
+    ],
+    "5": [
+     46,
+     250
+    ],
+    "6": [
+     340,
+     250
+    ],
+    "7": [
+     303,
+     141
+    ]
+   },
+   "parrafos": 25,
+   "frases_por_parrafo": 4.0,
+   "de_una_frase": 2,
+   "por_cap": {
+    "1": {
+     "parrafos": 2,
+     "frases_por_parrafo": 3.5,
+     "de_una_frase": 0
+    },
+    "2": {
+     "parrafos": 2,
+     "frases_por_parrafo": 4.5,
+     "de_una_frase": 0
+    },
+    "3": {
+     "parrafos": 5,
+     "frases_por_parrafo": 4.4,
+     "de_una_frase": 0
+    },
+    "4": {
+     "parrafos": 3,
+     "frases_por_parrafo": 4.7,
+     "de_una_frase": 0
+    },
+    "5": {
+     "parrafos": 2,
+     "frases_por_parrafo": 3.0,
+     "de_una_frase": 1
+    },
+    "6": {
+     "parrafos": 5,
+     "frases_por_parrafo": 4.8,
+     "de_una_frase": 0
+    },
+    "7": {
+     "parrafos": 6,
+     "frases_por_parrafo": 3.2,
+     "de_una_frase": 1
+    }
+   },
+   "bloqueantes": [],
+   "duras_v3": 40,
+   "citas": 9,
+   "preguntas": 0,
+   "frases_analista": {
+    "los datos": 0,
+    "el testimonio": 0,
+    "la frase señala": 0,
+    "no permiten explicar": 0
+   },
+   "humano_caps": [
+    1
+   ],
+   "cierre": "cita",
+   "embudo": {
+    "pool": 509,
+    "seleccion": 319,
+    "escaleta": 63,
+    "guion": 12
+   }
+  }
+ },
+ {
+  "tema": "orleans",
+  "clave": "f15b",
+  "nombre": "F15b · escaleta F15b (Pro) + v5.1",
+  "usd": 0.3692,
+  "escaleta": {
+   "bloqueantes": [],
+   "beats": 13,
+   "beats_por_cap": [
+    1,
+    2,
+    2,
+    2,
+    3,
+    2,
+    1
+   ],
+   "humano": "Edward “Edgar” Burton",
+   "pico": {
+    "beat": 8,
+    "id": "D155",
+    "por_que": "Es el momento de mayor vulnerabilidad y humanidad. La supervivencia de una mujer enferma depende enteramente de la solidaridad de otras presas, en medio del caos y el abandono institucional. Es el punto donde el colapso sistémico se convierte en una lucha física por cada respiro."
+   },
+   "prompt_version": "f6b-4",
+   "intentos": 2,
+   "metricas": {
+    "curva_intensidad": [
+     3,
+     2,
+     3,
+     3,
+     4,
+     4,
+     4,
+     5,
+     1,
+     2,
+     3,
+     4,
+     2
+    ],
+    "flash_forward_beat1": true,
+    "curva_problemas": [],
+    "humano_en_escena_caps": [
+     2,
+     3,
+     4
+    ],
+    "humano_entra_cap": 2,
+    "humano_con_cita_sin_verificar_en_escena": [
+     7
+    ],
+    "humano_en_escena_problemas": [],
+    "promesa_con_cifras": false,
+    "imagen_gancho_con_cifras": false,
+    "imagenes_abstractas": [],
+    "escenas_usadas": [
+     9,
+     11
+    ],
+    "escena_gancho": null,
+    "escena_pico": 9,
+    "giros": [
+     {
+      "orden": 1,
+      "que_cambia": "La evacuación obligatoria de la ciudad excluye a los presos y, según el informe de la ACLU, Gusman rechaza la ayuda ofrecida para sacarlos antes de la tormenta.",
+      "beat": 2
+     },
+     {
+      "orden": 2,
+      "que_cambia": "OPP no se vacía: recibe presos adultos y menores de otras instalaciones y aloja a hombres de St. Bernard Parish en un gimnasio de la planta baja.",
+      "beat": 3
+     },
+     {
+      "orden": 3,
+      "que_cambia": "El agua entra, fallan los generadores y numerosos oficiales abandonan sus puestos, mientras quedan personas encerradas.",
+      "beat": 4
+     },
+     {
+      "orden": 4,
+      "que_cambia": "Cerca de la medianoche posterior al impacto, la oficina del sheriff solicita finalmente ayuda al DOC para evacuar.",
+      "beat": null
+     },
+     {
+      "orden": 5,
+      "que_cambia": "Salir del pabellón no significa salir del peligro: Central Lock-Up se convierte en una espera dentro del agua y otras reclusas deben sostener a Iris Hardeman.",
+      "beat": 8
+     },
+     {
+      "orden": 6,
+      "que_cambia": "La evacuación termina en dispersión: en Hunt se mezclan categorías de detenidos y continúan las denuncias de violencia, mientras una lista de evacuados deja personas sin contabilizar.",
+      "beat": 10
+     }
+    ],
+    "giros_con_beat": 5,
+    "giros_total": 6,
+    "humano_en_candidatos": true,
+    "pico_es_el_de_la_ficha": true,
+    "palabras_objetivo_por_cap": {
+     "1": 110,
+     "2": 250,
+     "3": 250,
+     "4": 250,
+     "5": 250,
+     "6": 250,
+     "7": 140
+    },
+    "cifra_en_pantalla_repetida": [],
+    "ultima_frase_repite_cita": [],
+    "ultima_frase_sin_humano": [],
+    "preguntas_pantalla": [
+     "pregunta de pantalla del cap 3 «¿Quién apagó las luces?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+     "pregunta de pantalla del cap 5 «¿Adónde los llevaron a todos?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+     "pregunta de pantalla del cap 6 «¿Dónde están los quinientos?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)"
+    ],
+    "preguntas_abiertas": [
+     "¿Quién tomó la decisión de dejarlos atrapados?",
+     "Si otras prisiones estaban siendo evacuadas, ¿por qué esta no?",
+     "¿Qué podría salir mal si se quedan?",
+     "Si el agua está entrando, ¿dónde están los guardias?",
+     "Están a oscuras, en el agua, ¿alguien va a abrir las celdas?",
+     "¿Cómo van a sobrevivir si ni siquiera pueden respirar?",
+     "¿Es posible que la situación sea aún peor en otras partes de la prisión?",
+     "Si logran salir de ahí, ¿estarán a salvo?",
+     "¿Por qué los tratan como animales después de lo que vivieron?",
+     "Si no hay registros, ¿cómo van a encontrar a sus familias? ¿Cómo van a demostrar quiénes son?",
+     "Si nadie murió, ¿qué vieron los testigos que sí estuvieron ahí?",
+     "Si no están en la lista y no están muertos según la versión oficial, ¿dónde están?",
+     "¿Se hará justicia alguna vez por los que no pueden contar su historia?"
+    ],
+    "otros": []
+   }
+  },
+  "guion": {
+   "palabras": 867,
+   "minutos": 7.0,
+   "palabras_por_cap": {
+    "1": [
+     65,
+     110
+    ],
+    "2": [
+     111,
+     250
+    ],
+    "3": [
+     145,
+     250
+    ],
+    "4": [
+     143,
+     250
+    ],
+    "5": [
+     213,
+     250
+    ],
+    "6": [
+     119,
+     250
+    ],
+    "7": [
+     71,
+     140
+    ]
+   },
+   "parrafos": 19,
+   "frases_por_parrafo": 3.9,
+   "de_una_frase": 3,
+   "por_cap": {
+    "1": {
+     "parrafos": 2,
+     "frases_por_parrafo": 3.5,
+     "de_una_frase": 0
+    },
+    "2": {
+     "parrafos": 2,
+     "frases_por_parrafo": 5.5,
+     "de_una_frase": 0
+    },
+    "3": {
+     "parrafos": 2,
+     "frases_por_parrafo": 5.5,
+     "de_una_frase": 0
+    },
+    "4": {
+     "parrafos": 3,
+     "frases_por_parrafo": 3.7,
+     "de_una_frase": 1
+    },
+    "5": {
+     "parrafos": 5,
+     "frases_por_parrafo": 3.8,
+     "de_una_frase": 1
+    },
+    "6": {
+     "parrafos": 3,
+     "frases_por_parrafo": 3.0,
+     "de_una_frase": 1
+    },
+    "7": {
+     "parrafos": 2,
+     "frases_por_parrafo": 3.5,
+     "de_una_frase": 0
+    }
+   },
+   "bloqueantes": [],
+   "duras_v3": 31,
+   "citas": 6,
+   "preguntas": 0,
+   "frases_analista": {
+    "los datos": 0,
+    "el testimonio": 0,
+    "la frase señala": 0,
+    "no permiten explicar": 0
+   },
+   "humano_caps": [
+    1,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "cierre": "cita",
+   "embudo": {
+    "pool": 1033,
+    "seleccion": 366,
+    "escaleta": 51,
+    "guion": 10
+   }
+  }
+ },
+ {
+  "tema": "orleans",
+  "clave": "f16",
+  "nombre": "F16 · escaleta v2 (Sol) + v5.1",
+  "usd": 0.6702,
+  "escaleta": {
+   "bloqueantes": [],
+   "beats": 14,
+   "beats_por_cap": [
+    1,
+    1,
+    3,
+    4,
+    1,
+    2,
+    2
+   ],
+   "humano": "Joyce Gilson",
+   "pico": {
+    "beat": 10,
+    "id": "D155",
+    "por_que": "Se conserva el pico de la ficha: las reclusas se turnan para mantener a Iris sobre el agua. Las decisiones institucionales terminan concentradas en un cuerpo que depende físicamente de sus compañeras."
+   },
+   "prompt_version": "f16-1",
+   "intentos": 2,
+   "metricas": {
+    "curva_intensidad": [
+     4,
+     1,
+     2,
+     3,
+     3,
+     4,
+     4,
+     4,
+     4,
+     5,
+     2,
+     3,
+     3,
+     3
+    ],
+    "flash_forward_beat1": true,
+    "curva_problemas": [
+     "falta un beat de intensidad 1 (respiro) después del pico"
+    ],
+    "humano_en_escena_caps": [
+     1,
+     2,
+     4,
+     5,
+     6,
+     7
+    ],
+    "humano_entra_cap": 1,
+    "humano_con_cita_sin_verificar_en_escena": [],
+    "humano_en_escena_problemas": [
+     "beat 1: Joyce Gilson en escena sin un dato suyo verificado (ninguna cita ni mención en ['D76']); datos suyos que valen: ['D140', 'T41', 'T79']",
+     "beat 6: Joyce Gilson en escena sin un dato suyo verificado (ninguna cita ni mención en ['D143', 'D74', 'D141']); datos suyos que valen: ['D140', 'T41', 'T79']",
+     "beat 9: Joyce Gilson en escena sin un dato suyo verificado (ninguna cita ni mención en ['D144', 'D146', 'D151', 'D157', 'D158']); datos suyos que valen: ['D140', 'T41', 'T79']",
+     "beat 10: Joyce Gilson en escena sin un dato suyo verificado (ninguna cita ni mención en ['D155', 'D78']); datos suyos que valen: ['D140', 'T41', 'T79']",
+     "beat 11: Joyce Gilson en escena sin un dato suyo verificado (ninguna cita ni mención en ['D147', 'D207']); datos suyos que valen: ['D140', 'T41', 'T79']",
+     "beat 12: Joyce Gilson en escena sin un dato suyo verificado (ninguna cita ni mención en ['D196', 'D186', 'T74', 'T91', 'T106', 'D148', 'D60']); datos suyos que valen: ['D140', 'T41', 'T79']",
+     "beat 14: Joyce Gilson en escena sin un dato suyo verificado (ninguna cita ni mención en ['T110', 'D163', 'Q60', 'D228', 'D371', 'Q185']); datos suyos que valen: ['D140', 'T41', 'T79']"
+    ],
+    "promesa_con_cifras": false,
+    "imagen_gancho_con_cifras": true,
+    "imagenes_abstractas": [],
+    "escenas_usadas": [
+     1,
+     3,
+     6,
+     8,
+     9,
+     11,
+     12,
+     15
+    ],
+    "escena_gancho": 9,
+    "escena_pico": 9,
+    "giros": [
+     {
+      "orden": 1,
+      "que_cambia": "La evacuación obligatoria de la ciudad excluye a los presos y, según el informe de la ACLU, Gusman rechaza la ayuda ofrecida para sacarlos antes de la tormenta.",
+      "beat": 3
+     },
+     {
+      "orden": 2,
+      "que_cambia": "OPP no se vacía: recibe presos adultos y menores de otras instalaciones y aloja a hombres de St. Bernard Parish en un gimnasio de la planta baja.",
+      "beat": 4
+     },
+     {
+      "orden": 3,
+      "que_cambia": "El agua entra, fallan los generadores y numerosos oficiales abandonan sus puestos, mientras quedan personas encerradas.",
+      "beat": 5
+     },
+     {
+      "orden": 4,
+      "que_cambia": "Cerca de la medianoche posterior al impacto, la oficina del sheriff solicita finalmente ayuda al DOC para evacuar.",
+      "beat": 7
+     },
+     {
+      "orden": 5,
+      "que_cambia": "Salir del pabellón no significa salir del peligro: Central Lock-Up se convierte en una espera dentro del agua y otras reclusas deben sostener a Iris Hardeman.",
+      "beat": 9
+     },
+     {
+      "orden": 6,
+      "que_cambia": "La evacuación termina en dispersión: en Hunt se mezclan categorías de detenidos y continúan las denuncias de violencia, mientras una lista de evacuados deja personas sin contabilizar.",
+      "beat": 13
+     }
+    ],
+    "giros_con_beat": 6,
+    "giros_total": 6,
+    "humano_en_candidatos": true,
+    "pico_es_el_de_la_ficha": true,
+    "palabras_objetivo_por_cap": {
+     "1": 110,
+     "2": 230,
+     "3": 250,
+     "4": 250,
+     "5": 250,
+     "6": 250,
+     "7": 140
+    },
+    "cifra_en_pantalla_repetida": [],
+    "ultima_frase_repite_cita": [],
+    "ultima_frase_sin_humano": [
+     "la última frase del video (cierre del beat 14) no nombra al humano ni a un testigo verificado (Brady Richard, Oliver Thomas, Marlin Gusman, Christina Foster, Rhonda Ducre, Luis Reyes, Renard Reed, Gedra Payne Robinson, Albert G. Couvillion, Keanna Herbert, Pearl Cornelia Bland, Ronnie Lee Morgan, Jr., Mary Gehman, David Fernandez, Dan Bright, Arnie Fielkow, Andy Kopplin, Sergeant Bell, Chief Rudy, Ranking Officer Watson, Edward “Edgar” Burton, Big Whappy, Phyllis Mann, Denise Lewis Henry, Richard Stalder, Capitán Jenkins): «Joyce volvió a encontrar a Iris en Angola. ¿Qué ocurrió con cada persona que no figuraba en la lista de evacuados?»"
+    ],
+    "preguntas_pantalla": [
+     "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+     "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+     "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+     "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+     "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+     "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+     "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+    ],
+    "preguntas_abiertas": [
+     "¿Cómo llegaron hasta una espera en la que ni siquiera pueden permanecer de pie?",
+     "¿Qué protección iban a recibir quienes no podían decidir marcharse?",
+     "Si existía una oportunidad de salir antes, ¿qué estaban preparando para quienes iban a quedarse?",
+     "¿Quién respondería por quienes acababan de ser llevados hacia la zona amenazada?",
+     "¿Quién iba a abrir las celdas si fallaban los sistemas y faltaban oficiales?",
+     "¿Cuánto espacio quedaba antes de que también desapareciera ese refugio?",
+     "¿Quién puso realmente en marcha el pedido y cuánto podía resolver la ayuda que llegaba?",
+     "¿Una abertura significaba rescate, fuga o exposición a nuevos peligros?",
+     "¿Qué habían ganado al salir del dormitorio si todavía debían esperar dentro del agua?",
+     "¿Podían seguir sosteniéndola hasta que llegara el bote?",
+     "¿Qué significaba estar evacuada si todavía no podía moverse libremente?",
+     "¿Qué parte de la versión oficial podía describir realmente lo vivido dentro de cada edificio?",
+     "Si las instituciones no podían identificar a todos los trasladados, ¿cómo podía reconstruirse la evacuación completa?",
+     "¿Qué ocurrió con cada persona ausente de la lista y cómo podría establecerse si hubo muertes dentro de OPP?"
+    ],
+    "otros": [
+     "caps de desarrollo con menos de 2 beats: [2, 5] (beats por cap: [1, 1, 3, 4, 1, 2, 2])",
+     "la imagen sensorial del gancho no lleva cifras"
+    ]
+   }
+  },
+  "guion": {
+   "palabras": 1443,
+   "minutos": 11.7,
+   "palabras_por_cap": {
+    "1": [
+     92,
+     110
+    ],
+    "2": [
+     117,
+     230
+    ],
+    "3": [
+     373,
+     250
+    ],
+    "4": [
+     375,
+     250
+    ],
+    "5": [
+     61,
+     250
+    ],
+    "6": [
+     183,
+     250
+    ],
+    "7": [
+     242,
+     140
+    ]
+   },
+   "parrafos": 30,
+   "frases_por_parrafo": 3.8,
+   "de_una_frase": 1,
+   "por_cap": {
+    "1": {
+     "parrafos": 2,
+     "frases_por_parrafo": 4.0,
+     "de_una_frase": 0
+    },
+    "2": {
+     "parrafos": 2,
+     "frases_por_parrafo": 4.0,
+     "de_una_frase": 0
+    },
+    "3": {
+     "parrafos": 7,
+     "frases_por_parrafo": 4.3,
+     "de_una_frase": 0
+    },
+    "4": {
+     "parrafos": 8,
+     "frases_por_parrafo": 3.6,
+     "de_una_frase": 0
+    },
+    "5": {
+     "parrafos": 3,
+     "frases_por_parrafo": 2.3,
+     "de_una_frase": 1
+    },
+    "6": {
+     "parrafos": 3,
+     "frases_por_parrafo": 4.7,
+     "de_una_frase": 0
+    },
+    "7": {
+     "parrafos": 5,
+     "frases_por_parrafo": 3.6,
+     "de_una_frase": 0
+    }
+   },
+   "bloqueantes": [],
+   "duras_v3": 44,
+   "citas": 7,
+   "preguntas": 1,
+   "frases_analista": {
+    "los datos": 0,
+    "el testimonio": 0,
+    "la frase señala": 0,
+    "no permiten explicar": 0
+   },
+   "humano_caps": [
+    1
+   ],
+   "cierre": "pregunta",
+   "embudo": {
+    "pool": 1033,
+    "seleccion": 366,
+    "escaleta": 71,
+    "guion": 10
+   }
+  }
+ }
+]
