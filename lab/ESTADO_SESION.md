@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-24 (F21b: perfil en el guion, rol que decide en cualquier parte del dato, coma/y y cargo+partícula; Orleans vuelve a 6,375 F01; US$ 0.00 → PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-24 (F21c: cargos genéricos en nombres, perfil de Orleans con seed_profile (6 de 7 variantes), elegible exige es_persona; US$ 0.0021 → PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,17 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F21c — Cargos genéricos, perfil de Orleans, elegible = persona — HECHO, **PARADA**
+- Sobre `fd54356`. Sección «F21c» al final de `lab/hyperframes/f21/F21_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `RECHECK_f21c.md` (F21b → F21c).
+- **`nombres.TRATAMIENTOS_BASE`** suma 17 cargos genéricos (warden, director, alcaide, ministro, general, doctor, ingeniero, presidente, gerente…). «Warden de Hunt…» y «Director of…» dejan de ser personas. Efectos: «General Motors» pasa a persona, y en Ycuá entra «Ingeniero Cristaldo», duplicado de Blas Cristaldo.
+- **Perfil de Orleans** con `seed_profile` (1 Flash, US$ 0.0021): `nombres_lugar` en inglés; respaldo `_perfil_f21b.json`; detalle en `f21c_perfil_orleans.json`. La población vuelve con 6,375 (F01) oficial y **6 de 7 variantes**: falta D533 («complejo carcelario», que no está en los nombres del perfil).
+- **Komsomolskaya Pravda:**
+  - camino de entrada: `add_quote_authors` en el research de F20, con la regla vieja (autor «periódico Komsomolskaya Pravda», Q15) → quedó guardado como P09;
+  - después, `verify_pool` lo verificaba sin apellido y `person_stats` lo marcaba elegible;
+  - arreglo: `person_stats` exige `es_persona` (con mononimio).
+- Recheck F21b → F21c: Orleans 33 → 32 (sale Warden); Ycuá 34 → 35 (entra Ingeniero Cristaldo); Kyshtym 8 → 7 (sale Komsomolskaya). Bloqueantes iguales.
+- Tests `test_module_f21.py` 43; suite 743 verdes + las 5 previas. US$ 0.0021.
 
 ## F21b — Perfil en el guion, atribución oficial, criterios de forma — HECHO, **PARADA** (pendiente de Omar: ¿«warden»/«director» como cargos?)
 - Sobre `b24c505`, cero API (US$ 0.00) y cero prompts. Sección «F21b» al final de `lab/hyperframes/f21/F21_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Comparación de cifras en `RECHECK_f21b.md`.

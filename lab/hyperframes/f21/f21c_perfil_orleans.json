@@ -1,0 +1,64 @@
+{
+ "usd": 0.0021,
+ "segundos": 4.3,
+ "seed": {
+  "seed_title": "La Prisión Parroquial de Orleans durante el huracán Katrina: los presos abandonados en sus celdas (Nueva Orleans, 29 de agosto de 2005)",
+  "idioma_local": "inglés (Nueva Orleans, EE. UU.)"
+ },
+ "perfil": {
+  "anio_evento": 2005,
+  "lugar_principal": "Orleans Parish Prison",
+  "idioma_local": "inglés (Nueva Orleans, EE. UU.)",
+  "nombres_lugar": [
+   "Orleans Parish Prison",
+   "OPP",
+   "Hurricane Katrina",
+   "Katrina",
+   "New Orleans Parish Prison",
+   "The Abandoned Prisoners of OPP"
+  ],
+  "nombres_locales": [
+   "Orleans Parish Prison",
+   "OPP",
+   "Hurricane Katrina",
+   "Katrina",
+   "New Orleans",
+   "Orleans Parish Prison during Katrina",
+   "New Orleans Parish Prison",
+   "Abandoned Prisoners at OPP"
+  ],
+  "place_re": "\\bOrleans\\ Parish\\ Prison\\b|\\bOPP\\b|\\bHurricane\\ Katrina\\b|\\bKatrina\\b|\\bNew\\ Orleans\\ Parish\\ Prison\\b|\\bThe\\ Abandoned\\ Prisoners\\ of\\ OPP\\b|(?<!\\w)New\\ Orleans(?!\\w)|(?<!\\w)Orleans\\ Parish\\ Prison\\ during\\ Katrina(?!\\w)|(?<!\\w)Abandoned\\ Prisoners\\ at\\ OPP(?!\\w)",
+  "roles_testigo": [
+   "preso",
+   "prisionero",
+   "recluso",
+   "testigo",
+   "demandante",
+   "superviviente",
+   "periodista",
+   "abogado"
+  ],
+  "roles_antagonista": [
+   "sheriff",
+   "administración penitenciaria",
+   "autoridades locales",
+   "departamento de justicia",
+   "estado",
+   "gobierno de la ciudad",
+   "oficiales de la prisión",
+   "condado de Orleans"
+  ],
+  "sustantivos_conteo": [
+   "presos",
+   "reclusos",
+   "prisioneros",
+   "víctimas",
+   "testimonios",
+   "demandantes",
+   "supervivientes",
+   "afectados",
+   "evacuados"
+  ],
+  "_f21c": "nombres_lugar/nombres_locales/place_re de seed_profile (Flash); vocabulario de F20"
+ }
+}

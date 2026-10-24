@@ -20,7 +20,11 @@ ARTICULOS = {"un", "una", "unos", "unas", "a", "an", "the"}
 TRATAMIENTOS_BASE = {"mr", "mrs", "ms", "dr", "sra", "srta", "don", "dona",
                      "sheriff", "deputy", "alguacil", "sgt", "sergeant", "lieutenant", "lt", "captain", "capt",
                      "capitan", "colonel", "col", "officer", "oficial", "chief", "jefe", "teniente", "sargento",
-                     "secretary", "secretario", "ranking"} | SUFIJOS   # = el _TITLES_BASE de F20; los roles del perfil se suman
+                     "secretary", "secretario", "ranking",
+                     # F21c: cargos genéricos (no de tema)
+                     "warden", "director", "directora", "alcaide", "ministro", "ministra", "comandante", "general",
+                     "doctor", "doctora", "profesor", "profesora", "ingeniero", "ingeniera", "presidente", "presidenta",
+                     "gerente"} | SUFIJOS   # = el _TITLES_BASE de F20 + F21c; los roles del perfil se suman
 _tratamientos = set(TRATAMIENTOS_BASE)
 
 # = evidence_pool._QUOTES (con «´») + «„»

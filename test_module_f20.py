@@ -22,7 +22,8 @@ VOC_KYSHTYM = {"roles_testigo": ["operario", "liquidador", "evacuado", "médico"
                "sustantivos_conteo": ["muertos", "evacuados", "irradiados", "hospitalizados", "погибших", "эвакуированных"]}
 # los términos de tema que el handoff saca (§1.2); «sheriff», «deputy» y «alguacil» quedan como cargos delante de un
 # nombre (como «captain»), no como palabras que hacen de un nombre un no-persona
-TEMA = ("inmate", "recluso", "reclusa", "preso", "presa", "warden", "deputies", "guardias", "guards", "abogado",
+# F21c (Omar): «warden» vuelve como cargo genérico (con director, alcaide, ministro…): sale de esta lista
+TEMA = ("inmate", "recluso", "reclusa", "preso", "presa", "deputies", "guardias", "guards", "abogado",
         "abogada", "attorney")
 
 

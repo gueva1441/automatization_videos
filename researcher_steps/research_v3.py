@@ -1433,7 +1433,10 @@ def person_stats(pool: dict[str, Any], event_year: int | None = None) -> None:
         # solo lo nombra («Oficial del sheriff», «Hijo del dueño»)
         rol = re.sub(r"^(el|la|los|las|the|ex|former)\s+", "", str(p.get("rol") or "").strip(), flags=re.I)
         rol_ant = any(re.match(rf"{re.escape(r)}\b", rol, re.I) for r in _VOC["roles_antagonista"])
+        # F21c: el humano es una persona (`nombres.es_persona`; mononimio aceptado, como en R3). Un autor que entró al pool
+        # antes de F21 («periódico Komsomolskaya Pravda», por `add_quote_authors` con la regla vieja) no es elegible
         p["elegible_humano"] = bool(not p.get("antagonista") and not rol_ant
+                                    and nombres.es_persona(p.get("nombre") or "", mononimo_ok=True)
                                     and (own_verified or p["n_citas"] + p["n_datos"] >= 3))
 
 

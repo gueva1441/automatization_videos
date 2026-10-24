@@ -442,3 +442,183 @@ Fuera de alcance:
 Riesgos que el contrato no cubre:
 - Orleans queda con «Warden de Hunt Correctional Center» como elegible, y con 7,000 como única variante porque falta `nombres_lugar` en su perfil. `data/` está ignorado, así que los perfiles `_perfil.json` no quedan en el commit.
 - Kyshtym sigue con «periódico Komsomolskaya Pravda» y «Мама de Надежда Кутепова» como elegibles (reporte §3).
+
+---
+
+## F21c — cargos genéricos, perfil de Orleans, el elegible que no era persona (sobre `fd54356`)
+
+### 1. Qué se hizo
+1. **`nombres.TRATAMIENTOS_BASE`** suma cargos genéricos: warden, director, directora, alcaide, ministro, ministra, comandante, general, doctor, doctora, profesor, profesora, ingeniero, ingeniera, presidente, presidenta y gerente.
+   - «Warden de Hunt Correctional Center» y «Director of Corrections» dejan de ser personas: cargo + partícula, el criterio de F21b.
+   - «el director Ivanov» sigue siendo persona, con clave `("", "ivanov")`.
+   - Efecto lateral: «General Motors» pasa a leerse como cargo + nombre (persona). Lo anoto.
+   - Adapté `test_module_f20.py`: en F20 «warden» estaba entre los términos de tema, y ahora es cargo genérico.
+2. **Perfil de Orleans.**
+   - `lab/hyperframes/f21/f21c_perfil_orleans.py` corrió `research_v3.seed_profile` (1 Flash, **US$ 0.0021** de un tope de 0.10) con el mismo título de semilla que usó F20.
+   - Se le sumó el vocabulario de F20. Respaldo: `_steps/ba6c3cac-f7r3/_perfil_f21b.json`. Resultado: `f21c_perfil_orleans.json`.
+   - `nombres_lugar`: Orleans Parish Prison, OPP, Hurricane Katrina, Katrina, New Orleans Parish Prison, The Abandoned Prisoners of OPP.
+   - **La población vuelve con 6 de las 7 variantes de antes de F21:** oficial 6,375 (F01), variantes 5,919, 6,000 ×2, 6,295, 7,000 y 8,000.
+   - **Falta D533** («6.375 personas estaban detenidas en el complejo carcelario de 12 edificios de la ciudad…»). Ese dato no nombra ninguno de los nombres del perfil y no tiene atribución oficial. El `SUBJECT_RE` viejo de Orleans lo agarraba porque tenía «complejo carcelario» escrito a mano. No lo agregué.
+   - El grupo aparte de 6,295 que traía F21b ahora es una variante del 6,375.
+3. **El camino de «periódico Komsomolskaya Pravda».**
+   - **Entrada:** `research_v3.add_quote_authors`, en el research de F20 (`lab/hyperframes/f20/run_research_detalle.log:43`), lo sumó como personaje P09 (`desde_cita: Q15`, documento F13). El autor llega con el texto exacto **«periódico Komsomolskaya Pravda»**. La regla de antes de F21 (`evidence_pool.is_person`: dos palabras con mayúscula) lo aceptaba.
+   - Desde F21, `add_quote_authors` lo rechaza (`es_persona` → False, por la palabra en minúscula), pero el personaje ya estaba guardado en el pool de disco.
+   - **Elegible:** en el recheck, `verify_pool` no le pide apellido porque el autor no es persona, así que Q15 pasa a verificada. Después, `research_v3.person_stats` lo marcaba elegible por «cita propia verificada», sin preguntar si era persona.
+   - **Arreglo en ese camino:** `person_stats` exige `nombres.es_persona(nombre, mononimo_ok=True)` para ser elegible. El mononimio se acepta como en R3. Sin listas nuevas.
+
+Tests: `test_module_f21.py` 43 (+5: cargos genéricos y «elegible tiene que ser persona»). Suite amplia: **743 verdes + las 5 previas**. Costo: **US$ 0.0021** (`cost_history`: 486 → 487, la llamada del perfil de Orleans).
+
+### 2. Cifras F21b → F21c (`RECHECK_f21c.md`)
+
+Mismos archivos de disco en las dos corridas (`recheck.py`): perfil → `set_vocabulario`; sobre una copia del pool, `add_quote_authors`, `canonical_names`, `presence_v3`, `person_stats`, cifras canónicas, `verify_pool` (con los txt ya bajados) y `person_stats` → compuerta; ficha (`ficha_caso.check`), columna (`m01a_columna.chequeo`), escaleta (`m01a_escaleta.bloqueantes`) y guion (`guion_v4.bloqueantes` + `metricas`). Kyshtym: pool de F20; ficha, columna y escaleta (crudo del pase 2) de F18 contra el pool de F18; **Kyshtym no tiene guion** (F18 paró en la escaleta y F19 en el research). Orleans no tiene columna. Costo: US$ 0.00 (`data/cost_history.json` con 486 registros antes y después).
+
+### Orleans (`ba6c3cac-f7r3`)
+
+| medida | antes | después | Δ |
+|---|---|---|---|
+| compuerta | verde | verde | = |
+| métrica: datos | 558 | 558 | = |
+| métrica: citas_verificadas | 162 | 162 | = |
+| métrica: elegibles_humano | 33 | 32 | -1 |
+| métrica: eventos_con_fecha | 127 | 127 | = |
+| personajes en el pool | 70 | 69 | -1 |
+| citas verificadas (verify_pool) | 162 | 162 | = |
+| citas verificadas parcial | 25 | 25 | = |
+| citas sin verificar | 0 | 0 | = |
+| cifra canónica | 6,375; 6,295 | 6,375 | ≠ |
+| ficha: lo que sacaría el chequeo | 1 | 1 | = |
+| columna: problemas | — | — | = |
+| escaleta: bloqueantes | 0 | 0 | = |
+| guion: bloqueantes | 0 | 0 | = |
+| guion: palabras | 1443 | 1443 | = |
+| guion: citas | 7 | 7 | = |
+| guion: duras_v3 | 44 | 44 | = |
+| guion: humano_caps | [1] | [1] | = |
+
+**Elegibles:** 33 → 32. **Entran:** nadie. **Salen:** Warden de Hunt Correctional Center.
+**Personajes nuevos en el pool:** ninguno. **Que ya no están:** Warden de Hunt Correctional Center.
+Log antes: ["  [R4] autores de cita sumados como personajes: ['Warden de Hunt Correctional Center']", "  [R4] población: oficial 6,375 (F01) · variantes [('7,000', 'D152')]"] · después: ["  [R4] población: oficial 6,375 (F01) · variantes [('5,919', 'D214'), ('6,000', 'D198'), ('6,000', 'D87'), ('6,295', 'D213'), ('7,000', 'D152'), ('8,000', 'D219')]"]
+**ficha (igual antes y después):** ['[descartados] [descartados] [descartados] Personas descartadas del research sin pasa → no respaldado: sin ids']
+**Guion, bloqueante que aparece:** ninguno · **que desaparece:** ninguno.
+
+### Ycuá (`f8s1-ycua-bolanos`)
+
+| medida | antes | después | Δ |
+|---|---|---|---|
+| compuerta | verde | verde | = |
+| métrica: datos | 227 | 227 | = |
+| métrica: citas_verificadas | 53 | 53 | = |
+| métrica: elegibles_humano | 34 | 35 | +1 |
+| métrica: eventos_con_fecha | 62 | 62 | = |
+| personajes en el pool | 84 | 84 | = |
+| citas verificadas (verify_pool) | 53 | 53 | = |
+| citas verificadas parcial | 29 | 29 | = |
+| citas sin verificar | 0 | 0 | = |
+| cifra canónica | — | — | = |
+| ficha: lo que sacaría el chequeo | 0 | 0 | = |
+| columna: problemas | 0 | 0 | = |
+| escaleta: bloqueantes | 0 | 0 | = |
+| guion: bloqueantes | 0 | 0 | = |
+| guion: palabras | 1384 | 1384 | = |
+| guion: citas | 9 | 9 | = |
+| guion: duras_v3 | 40 | 40 | = |
+| guion: humano_caps | [1] | [1] | = |
+
+**Elegibles:** 34 → 35. **Entran:** Ingeniero Cristaldo. **Salen:** nadie.
+**Personajes nuevos en el pool:** ninguno. **Que ya no están:** ninguno.
+**Guion, bloqueante que aparece:** ninguno · **que desaparece:** ninguno.
+
+### Kyshtym (`f18-kyshtym-mayak`)
+
+| medida | antes | después | Δ |
+|---|---|---|---|
+| compuerta | verde | verde | = |
+| métrica: datos | 208 | 208 | = |
+| métrica: citas_verificadas | 18 | 18 | = |
+| métrica: elegibles_humano | 8 | 7 | -1 |
+| métrica: eventos_con_fecha | 22 | 22 | = |
+| personajes en el pool | 15 | 15 | = |
+| citas verificadas (verify_pool) | 18 | 18 | = |
+| citas verificadas parcial | 6 | 6 | = |
+| citas sin verificar | 0 | 0 | = |
+| cifra canónica | — | — | = |
+| ficha: lo que sacaría el chequeo | 1 | 1 | = |
+| columna: problemas | 0 | 0 | = |
+| escaleta: bloqueantes | 7 | 7 | = |
+| guion: bloqueantes | — | — | = |
+
+**Elegibles:** 8 → 7. **Entran:** nadie. **Salen:** periódico Komsomolskaya Pravda.
+**Personajes nuevos en el pool:** ninguno. **Que ya no están:** ninguno.
+**ficha (igual antes y después):** ['[descartados] [descartados] [descartados] A. I. Burnazyan, M. A. Demyanovich, Diane  → no respaldado: sin ids']
+**escaleta (igual antes y después):** ['a_pantalla D04 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D80 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla Q12 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T20 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T32 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T34 también está en un beat: lo que va a pantalla no lo dice la voz', 'antagonista D50, D68 no es una persona del pool']
+
+Personajes de Kyshtym después (todos):
+
+| nombre | rol | testigo | antagonista | citas | datos | presente en el evento | elegible |
+|---|---|---|---|---|---|---|---|
+| Lyudmila Krestinina | Jefa del laboratorio de epidemiología del Centro Científico y Práctico de Medicina de Radiación de los Urales | False | False | 2 | 1 | False | **True** |
+| Andrei Vazhenin | Oncólogo jefe de la región de Chelyabinsk | False | False | 1 | 0 | False | **True** |
+| Zhores Medvedev | Genetista soviético exiliado | False | False | 2 | 11 | True | **True** |
+| Lev Tumerman | Científico soviético | True | False | 2 | 3 | False | **True** |
+| Igor Vasil'evich Kurchatov | Padre de la ciencia atómica en la Unión Soviética | True | True | 0 | 3 | False | **False** |
+| N. V. Timofeyev-Resovskiy | Científico que realizó investigaciones radioecológicas | True | False | 0 | 0 | False | **False** |
+| Josef Stalin | Líder de la URSS | False | True | 0 | 1 | False | **False** |
+| periódico Komsomolskaya Pravda | — | False | False | 1 | 0 | False | **False** |
+| Андрей Талевлин | Abogado de la organización "Pravoznaniye" de Cheliábinsk | False | False | 1 | 0 | False | **False** |
+| В.Д. Камынин | Investigador | False | False | 1 | 2 | False | **True** |
+| V.M. Osetrov | Maquinista de la estación de bombeo | True | False | 1 | 0 | False | **False** |
+| V.I. Komarov | Técnico | True | False | 1 | 0 | False | **False** |
+| I.F. Serov | Teniente coronel retirado | True | False | 1 | 1 | True | **False** |
+| Любовь Ладейщикова | Residente de la aldea de Mitino | True | False | 1 | 0 | True | **True** |
+| Мама de Надежда Кутепова | Practicante en clínica para enfermos por radiación | True | False | 1 | 0 | True | **True** |
+
+
+### 3. Lo que sigue
+- **Ycuá:** entra como elegible «Ingeniero Cristaldo», un personaje aparte del pool. Casi seguro es **Blas Cristaldo** (rol «Ingeniero, miembro del Colectivo…»), que ya era elegible.
+  - Antes, «Ingeniero» se leía como nombre de pila («ingeniero cristaldo») y no se emparejaba con nadie.
+  - Ahora es un cargo: la clave queda `("", "cristaldo")` y suma las 5 citas que llevan el apellido Cristaldo. Es un duplicado del mismo humano, no una persona nueva.
+  - Fusionarlos es trabajo de `canonical_names` y de la fusión de R4, que en este recheck no reagrupa personajes ya guardados.
+- **Kyshtym:** sigue elegible «Мама de Надежда Кутепова», porque «Мама» no es cargo y la frase pasa como nombre. Osetrov, Komarov y Serov siguen con citas parciales por transliteración.
+
+### 4. Veredicto del revisor-handoff sobre F21c (íntegro)
+
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | TRATAMIENTOS_BASE suma los 17 cargos genéricos | OK | script_engine/nombres.py:20-27 (lista idéntica a la pedida) |
+| 1b | Test: Warden de Hunt CC y Director of Corrections no son persona; «el director Ivanov» → ("", "ivanov") | OK | test_module_f21.py test_f21c_cargos_genericos; 43 passed |
+| 2 | Perfil Orleans regenerado con seed_profile (Flash, tope 0.10), sin nombres a mano | OK | f21c_perfil_orleans.json: usd 0.0021, nombres_lugar vienen del modelo; f21c_perfil_orleans.py:2-3,18 |
+| 2b | Respaldo _perfil_f21b.json | OK | existe en data/scripts/_steps/ba6c3cac-f7r3/ (627 B) junto a _perfil.json nuevo (1505 B) |
+| 2c | population_canon vuelve a traer las variantes (eran 7) | PARCIAL | RECHECK: oficial 6,375 + 6 variantes (5,919; 6,000×2; 6,295; 7,000; 8,000). Falta D533 |
+| 3 | Camino de Komsomolskaya Pravda identificado y arreglado con es_persona, sin listas | OK | ver abajo |
+| 4 | Recheck «después» → RECHECK_f21c.md; sección F21c en F21_REPORT.md; suite verde | OK | los dos existen. Yo corrí pytest f21+f20+f7: 92 passed. Corrí `recheck.py revisor`: Orleans 32 / Ycuá 35 / Kyshtym 7 elegibles, igual que las tablas del reporte (borré recheck_revisor.json) |
+| 5 | Costo | OK | 0.0021 declarado y consistente con el json. No pude verificar cost_history 486→487 (data/ ignorado, no lo abrí) |
+| 6 | Commit y PARADA | NO VERIFICABLE | sin commit todavía, como anunciaste. La §4 del reporte dice «(se pega abajo)» y está vacía: se llena con este veredicto |
+
+Punto 2 (D533): bien explicado, no debía parar. El reporte dice la causa: el dato dice «complejo carcelario», que no está en los nombres que produjo el modelo. También dice que el SUBJECT_RE viejo lo agarraba por una frase escrita a mano, y que no la agregó. Es lo que pedía la regla «sin nombres a mano». Pérdida real y declarada: Orleans queda con 6 de 7 variantes. Observación menor: seed_profile también regeneró nombres_locales y place_re (8 locales, incluido «New Orleans»), cambio que el reporte no destaca. El recheck no muestra efecto: el pool de Orleans da 558 datos antes y después.
+
+Punto 3: el camino declarado se sostiene, con una reserva sobre «ESE camino».
+- Log `run_research_detalle.log:43`: «[R4] autores de cita sumados como personajes: ['periódico Komsomolskaya Pravda']». Coincide con el reporte.
+- Pool Kyshtym: P09 «periódico Komsomolskaya Pravda», desde_cita Q15. Coincide.
+- El arreglo está en research_v3.py:1436-1439 (`person_stats` exige `nombres.es_persona(..., mononimo_ok=True)`), no en add_quote_authors ni en verify_pool. El reporte explica por qué: add_quote_authors ya rechaza este autor desde F21b (test_f21b_add_quote_authors_los_salta), y lo que quedó fue un personaje guardado de antes. Arreglar el punto donde se decide «elegible» es razonable.
+- Reserva: el nodo elegible_humano ahora filtra por es_persona en todos los pools, no solo en este caso. Eso se declara parcialmente. Efecto medido: Kyshtym sale Komsomolskaya (8→7), Orleans sale Warden (33→32). Sin listas nuevas.
+
+Efectos laterales declarados y verificados en el recheck:
+- «General Motors» queda como persona (cargo + nombre). Está declarado en el reporte; no tiene test.
+- Ycuá: entra «Ingeniero Cristaldo» (34→35), duplicado de Blas Cristaldo. Está declarado y es un empeoramiento leve en la cuenta de elegibles. El reporte lo deja como trabajo pendiente de canonical_names, sin arreglarlo.
+- test_module_f20.py: se saca «warden» de TEMA. Es adaptación mínima justificada en un comentario («F21c (Omar)»).
+
+Observaciones al reporte:
+- «743 verdes + las 5 previas» no lo pude reproducir: solo corrí 92 tests. NO VERIFICABLE.
+- Los 5 tests nuevos coinciden con el diff: 4 parametrizados más 1.
+- El guion queda en 0 bloqueantes y 1443 palabras en Orleans. Es lo que muestra el recheck que corrí.
+
+Fuera de alcance: en `git diff fd54356` aparecen diag_234_cap4.py, gfx_profiles/misterio.json y gfx_profiles/lexico_propuestas.json (+240 líneas). No tienen relación con F21c y ya estaban modificados antes de F21c (figuran en el status inicial). Tendrías que dejarlos fuera del commit, o confirmar que son tuyos. Todo lo demás (nombres.py, research_v3.py, test_f20, test_f21, F21_REPORT, los 4 archivos nuevos en lab/hyperframes/f21/) está dentro del alcance. El CLAUDE.md sin trackear no es de F21c.
+
+Riesgos que el contrato no cubre:
+- El filtro de es_persona en person_stats ahora decide la elegibilidad de todos los personajes. Con pools viejos, nombres de una palabra o de alfabetos raros pueden salir sin que nadie lo vea (Kyshtym conserva «Мама de Надежда Кутепова» como elegible).
+- Los cargos genéricos pueden comerse nombres reales («General Motors», «Presidente X» sin apellido). Ycuá ya duplicó un personaje.
+- El nuevo _perfil.json de Orleans vive en data/ (ignorado). Si se pierde, F21c no se reproduce, salvo desde f21c_perfil_orleans.json.
+
+**Nota de CC después del veredicto:** la suite amplia (743 verdes + las 5 previas) la corrí en esta sesión después del último cambio; `data/cost_history.json` tiene 487 registros (486 + la llamada del perfil de Orleans). El perfil nuevo de Orleans también trae `nombres_locales`/`place_re` (en inglés: el idioma local del caso es inglés); quedan en `f21c_perfil_orleans.json`.

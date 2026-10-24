@@ -236,3 +236,27 @@ def test_f21b_add_quote_authors_los_salta():
          "n_fuentes": 1, "evidencia": []}]}
     r3.add_quote_authors(pool, [])
     assert [p["nombre"] for p in pool["personajes"]] == ["Любовь Ладейщикова"]
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F21c
+# ═══════════════════════════════════════════════════════════════
+
+@pytest.mark.parametrize("nombre, es, cl", [
+    ("Warden de Hunt Correctional Center", False, None), ("Director of Corrections", False, None),
+    ("el director Ivanov", True, ("", "ivanov")), ("la ministra Ana Paz", True, ("ana", "paz")),
+])
+def test_f21c_cargos_genericos(nombre, es, cl):
+    assert nm.es_persona(nombre) is es
+    if cl:
+        assert nm.clave(nombre) == cl
+
+
+def test_f21c_elegible_tiene_que_ser_persona():
+    pool = {"cronologia": [], "datos": [],
+            "citas": [{"autor": "periódico Komsomolskaya Pravda", "texto": "x", "verificacion": {"estado": "verificada"}},
+                      {"autor": "Rasputin", "texto": "y", "verificacion": {"estado": "verificada"}}],
+            "personajes": [{"nombre": "periódico Komsomolskaya Pravda", "presente_en": []},
+                           {"nombre": "Rasputin", "rol": "monje", "presente_en": []}]}
+    r3.person_stats(pool, 1957)
+    assert [p["elegible_humano"] for p in pool["personajes"]] == [False, True]
