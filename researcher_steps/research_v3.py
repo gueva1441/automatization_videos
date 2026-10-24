@@ -1886,24 +1886,38 @@ def add_fragments(pool: dict[str, Any]) -> None:
 
 PROFILE_SCHEMA: dict[str, Any] = {"type": "OBJECT", "properties": {
     "anio_evento": {"type": "INTEGER"}, "lugar_principal": {"type": "STRING"},
-    "nombres_lugar": {"type": "ARRAY", "items": {"type": "STRING"}}, "idioma_local": {"type": "STRING"}},
+    "nombres_lugar": {"type": "ARRAY", "items": {"type": "STRING"}}, "idioma_local": {"type": "STRING"},
+    "nombres_locales": {"type": "ARRAY", "items": {"type": "STRING"}}},
     "required": ["anio_evento", "nombres_lugar", "idioma_local"]}
+
+
+def place_regex(names: list[str], locales: list[str] | None = None, fallback: str = "") -> str:
+    """`place_re`: los nombres latinos con el patrón de siempre (`\\b…\\b`) y, F19, las formas en el alfabeto local con
+    límites de letra por lookaround (en cirílico `\\b` falla en algunos límites). Sin locales, el mismo de antes."""
+    parts = [rf"\b{re.escape(n)}\b" for n in names]
+    parts += [rf"(?<!\w){re.escape(n)}(?!\w)" for n in locales or [] if n not in names]
+    return "|".join(parts) or re.escape(fallback)
 
 
 def seed_profile(seed: dict, *, call: Callable[..., dict] | None = None) -> dict[str, Any]:
     """Año del evento y nombres del lugar/evento (en inglés y en el idioma local) para la contaminación y el «nombra el
-    evento» de R2 (1 Flash, sin búsqueda). `place_re` = esos nombres como alternativa."""
+    evento» de R2 (1 Flash, sin búsqueda). `place_re` = esos nombres como alternativa.
+    F19: `nombres_locales` = las formas del lugar y del evento en el alfabeto del idioma local (cirílico para Kyshtym);
+    entran en `place_re` además de los latinos."""
     if call is None:
         from gemini_helpers import call_flash_json as call
     raw = call(f"""TEMA: "{seed['seed_title']}"
 Devolvé el año en que ocurrió el evento central, el lugar principal y de 3 a 6 nombres con los que un documento en
 inglés o en el idioma del lugar nombraría el lugar o el evento (nombre oficial, sigla, nombre corto, nombre del evento),
-y el idioma local («inglés (Nueva Orleans, EE. UU.)»).""", response_schema=PROFILE_SCHEMA,
-               description="research v3 perfil del seed") or {}
+y el idioma local («inglés (Nueva Orleans, EE. UU.)»).
+En `nombres_locales`, de 3 a 8 formas del lugar y del evento escritas en el alfabeto del idioma local, tal como las
+escribe un documento en ese idioma (nombre oficial, sigla, nombre corto, nombre del evento).""",
+               response_schema=PROFILE_SCHEMA, description="research v3 perfil del seed") or {}
     names = [str(n).strip() for n in raw.get("nombres_lugar") or [] if len(str(n).strip()) >= 3]
+    locales = [str(n).strip() for n in raw.get("nombres_locales") or [] if len(str(n).strip()) >= 3]
     return {"anio_evento": int(raw.get("anio_evento") or 0), "lugar_principal": raw.get("lugar_principal") or "",
-            "idioma_local": raw.get("idioma_local") or "", "nombres_lugar": names,
-            "place_re": "|".join(rf"\b{re.escape(n)}\b" for n in names) or re.escape(seed["seed_title"][:30])}
+            "idioma_local": raw.get("idioma_local") or "", "nombres_lugar": names, "nombres_locales": locales,
+            "place_re": place_regex(names, locales, seed["seed_title"][:30])}
 
 
 def pool_to_blocks(pool: dict[str, Any]) -> dict[str, str]:

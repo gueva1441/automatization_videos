@@ -1,0 +1,739 @@
+{
+ "generado": "2026-10-24",
+ "place_re": "\\bKyshtym\\ Disaster\\b|\\bMayak\\ Disaster\\b|\\bKyshtym\\ Accident\\b|\\bUrals\\ Nuclear\\ Waste\\ Accident\\b|\\bMayak\\ Production\\ Association\\b|\\bPA\\ Mayak\\b|(?<!\\w)Кыштымская\\ авария(?!\\w)|(?<!\\w)Маяк(?!\\w)|(?<!\\w)ПО\\ «Маяк»(?!\\w)|(?<!\\w)Производственное\\ объединение\\ «Маяк»(?!\\w)|(?<!\\w)Озёрск(?!\\w)|(?<!\\w)Челябинск\\-40(?!\\w)|(?<!\\w)Катастрофа\\ на\\ ПО\\ «Маяк»(?!\\w)",
+ "max_doc_chars": 300000,
+ "documentos": [
+  {
+   "id": "F01",
+   "slug": "cyberleninka_2016_1957",
+   "url": "https://cyberleninka.ru/article/n/kyshtymskaya-yadernaya-katastrofa-1957-goda-istoricheskiy-opyt-likvidatsii-posledstviy-krupnomasshtabnyh-radiatsionnyh-avariy",
+   "titulo": "КЫШТЫМСКАЯ ЯДЕРНАЯ КАТАСТРОФА 1957 ГОДА: ИСТОРИЧЕСКИЙ ОПЫТ ЛИКВИДАЦИИ ПОСЛЕДСТВИЙ КРУПНОМАСШТАБНЫХ РАДИАЦИОННЫХ АВАРИЙ",
+   "tipo": "academico",
+   "anio": 2017,
+   "prioridad": 1,
+   "por_que": "Artículo académico ruso que analiza la experiencia histórica de la liquidación de las consecuencias del desastre, basado en documentos de archivo.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://cyberleninka.ru/article/n/kyshtymskaya-yadernaya-katastrofa-1957-goda-istoricheskiy-opyt-likvidatsii-posledstviy-krupnomasshtabnyh-radiatsionnyh-avariy",
+     "status": 200,
+     "bytes": 94832
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://cyberleninka.ru/article/n/kyshtymskaya-yadernaya-katastrofa-1957-goda-istoricheskiy-opyt-likvidatsii-posledstviy-krupnomasshtabnyh-radiatsionnyh-avariy",
+   "archivo": "cyberleninka_2016_1957.html",
+   "txt": "cyberleninka_2016_1957.txt",
+   "bytes": 94832,
+   "caracteres": 22291,
+   "caracteres_total": 22291,
+   "recorte": null,
+   "sha1": "638528ce9332b97abd86acd5232ded2efad4dddd",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Кыштымская ядерная катастрофа 1957 года: исторический опыт ликвидации последствий крупномасштабных радиационных аварий",
+    "tipo": "academico",
+    "anio": 2016
+   },
+   "autor": "В.С. Толстиков, И.А. Бочкарева"
+  },
+  {
+   "id": "F02",
+   "slug": "cyberleninka_2019_1957",
+   "url": "https://cyberleninka.ru/article/n/sozdanie-bazy-dannyh-repozitoriya-arhivnyh-dokumentov-po-problemam-preodoleniya-posledstviy-radiatsionnoy-avarii-na-himkombinate",
+   "titulo": "Создание базы данных репозитория архивных документов по проблемам преодоления последствий радиационной аварии на химкомбинате «Маяк» в 1957 г.",
+   "tipo": "academico",
+   "anio": 2023,
+   "prioridad": 1,
+   "por_que": "Describe la creación de una base de datos de documentos de archivo de los archivos estatales de los Urales sobre las consecuencias del accidente.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://cyberleninka.ru/article/n/sozdanie-bazy-dannyh-repozitoriya-arhivnyh-dokumentov-po-problemam-preodoleniya-posledstviy-radiatsionnoy-avarii-na-himkombinate",
+     "status": 200,
+     "bytes": 136646
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://cyberleninka.ru/article/n/sozdanie-bazy-dannyh-repozitoriya-arhivnyh-dokumentov-po-problemam-preodoleniya-posledstviy-radiatsionnoy-avarii-na-himkombinate",
+   "archivo": "cyberleninka_2019_1957.html",
+   "txt": "cyberleninka_2019_1957.txt",
+   "bytes": 136646,
+   "caracteres": 40186,
+   "caracteres_total": 40186,
+   "recorte": null,
+   "sha1": "0e12b810d9b18906d1d3b76e3a7efdd6f0e447f6",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "СОЗДАНИЕ БАЗЫ ДАННЫХ РЕПОЗИТОРИЯ АРХИВНЫХ ДОКУМЕНТОВ ПО ПРОБЛЕМАМ ПРЕОДОЛЕНИЯ ПОСЛЕДСТВИЙ РАДИАЦИОННОЙ АВАРИИ НА ХИМКОМБИНАТЕ \"МАЯК\" В 1957 Г.",
+    "tipo": "academico",
+    "anio": 2019
+   },
+   "autor": "Олег Н. Апанасюк, Анатолий М. Скоробогатов, Татьяна А. Буланцева"
+  },
+  {
+   "id": "F03",
+   "slug": "ecohubmap_2023_kyshtym_nuclear_disaster_russian_federation",
+   "url": "https://www.ecohubmap.com/hot-spot/kyshtym-nuclear-disaster-russian-federation/5l0fbklmhcl0vs",
+   "titulo": "Kyshtym nuclear disaster, Russian Federation",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "prioridad": 1,
+   "por_que": "Proporciona la hora exacta de la explosión ('16:22 local time') y menciona el 'brillo extraño' notado en el cielo a las '11 p.m.', con colores específicos, lo que es relevante para 'horas' y 'testigos'.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.ecohubmap.com/hot-spot/kyshtym-nuclear-disaster-russian-federation/5l0fbklmhcl0vs",
+     "status": 200,
+     "bytes": 83563
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.ecohubmap.com/hot-spot/kyshtym-nuclear-disaster-russian-federation/5l0fbklmhcl0vs",
+   "archivo": "ecohubmap_2023_kyshtym_nuclear_disaster_russian_federation.html",
+   "txt": "ecohubmap_2023_kyshtym_nuclear_disaster_russian_federation.txt",
+   "bytes": 83563,
+   "caracteres": 10346,
+   "caracteres_total": 10346,
+   "recorte": null,
+   "sha1": "85bad8bd5e8f7b464bc8d92a63dd752c76520629",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Kyshtym nuclear disaster, Russian Federation - EcoHubMap",
+    "tipo": "academico",
+    "anio": 2023
+   },
+   "autor": "Ecohubmap"
+  },
+  {
+   "id": "F04",
+   "slug": "gwu_2018_cia_debriefed_soviet_h_bomb",
+   "url": "https://nsarchive.gwu.edu/briefing-book/nuclear-vault/2018-04-06/cia-debriefed-soviet-h-bomb-eye-witness-1957",
+   "titulo": "CIA Debriefed Soviet H-Bomb Eye-Witness in 1957",
+   "tipo": "academico",
+   "anio": 2018,
+   "prioridad": 1,
+   "por_que": "Contiene documentos desclasificados de la CIA que demuestran que la agencia conocía el desastre desde 1959, pero lo mantuvo en secreto.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://nsarchive.gwu.edu/briefing-book/nuclear-vault/2018-04-06/cia-debriefed-soviet-h-bomb-eye-witness-1957",
+     "status": 200,
+     "bytes": 87235
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://nsarchive.gwu.edu/briefing-book/nuclear-vault/2018-04-06/cia-debriefed-soviet-h-bomb-eye-witness-1957",
+   "archivo": "gwu_2018_cia_debriefed_soviet_h_bomb.html",
+   "txt": "gwu_2018_cia_debriefed_soviet_h_bomb.txt",
+   "bytes": 87235,
+   "caracteres": 25766,
+   "caracteres_total": 25766,
+   "recorte": null,
+   "sha1": "ccaf12b9d5c23980c0138155af78cc15b2acf07c",
+   "idioma": "en",
+   "nombra_evento": false,
+   "ficha_busqueda": {
+    "titulo": "CIA Debriefed Soviet H-Bomb Eye-Witness in 1957",
+    "tipo": "foia",
+    "anio": 2018
+   },
+   "autor": "William Burr"
+  },
+  {
+   "id": "F05",
+   "slug": "stanford_1981_ussr_nuclear_accident_near_kyshtym",
+   "url": "http://large.stanford.edu/courses/2015/ph241/chang2/docs/sw-81-10102.pdf",
+   "titulo": "USSR: NUCLEAR ACCIDENT NEAR KYSHTYM IN 1957-58 (NW 81-10102)",
+   "tipo": "informe_oficial",
+   "anio": 1981,
+   "prioridad": 1,
+   "por_que": "Un informe de inteligencia de EE. UU. (Los Alamos National Laboratory) sobre el accidente, basado en la literatura radioecológica soviética.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "http://large.stanford.edu/courses/2015/ph241/chang2/docs/sw-81-10102.pdf",
+     "status": 200,
+     "bytes": 831499,
+     "error": "texto de 0 caracteres (< 3000: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "error": "API: RuntimeError: HTTP 429 de la API de disponibilidad"
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "API: RuntimeError: HTTP 429 de la API de disponibilidad"
+  },
+  {
+   "id": "F06",
+   "slug": "radhyg_articulo_en_radiation_hygiene_journal",
+   "url": "https://www.radhyg.ru/jour/article/view/627",
+   "titulo": "Авария 1957 года: радиационная обстановка и дозы облучения участников ликвидации аварии на территории промышленной площадки ПО «Маяк»",
+   "tipo": "academico",
+   "anio": 2019,
+   "prioridad": 1,
+   "por_que": "Artículo científico de una revista especializada en higiene radiológica, probablemente conteniendo investigación o análisis sobre el accidente.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.radhyg.ru/jour/article/view/627",
+     "status": 200,
+     "bytes": 101235
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.radhyg.ru/jour/article/view/627",
+   "archivo": "radhyg_articulo_en_radiation_hygiene_journal.html",
+   "txt": "radhyg_articulo_en_radiation_hygiene_journal.txt",
+   "bytes": 101235,
+   "caracteres": 7465,
+   "caracteres_total": 7465,
+   "recorte": null,
+   "sha1": "e6ad395821113bbe245e02dbaaa3baeb74795566",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Artículo en Radiation Hygiene Journal",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": "Е. К. Василенко, Е. Е. Аладова, М. В. Горелов, В. А. Князев, Д. Н. Колупаев, С. А. Романов"
+  },
+  {
+   "id": "F07",
+   "slug": "gov",
+   "url": "https://74.mchs.gov.ru/glavnoe-upravlenie/sily-i-sredstva/specialnye-upravleniya-fps/specialnoe-upravlenie-fps-1-mchs-rossii/novosti/avariya-na-mayake-kak-eto-bylo",
+   "titulo": "Авария на «Маяке». Как это было",
+   "tipo": "informe_oficial",
+   "anio": null,
+   "prioridad": 1,
+   "por_que": "Artículo de noticias o retrospectiva del Ministerio de Situaciones de Emergencia de Rusia sobre el accidente de Mayak.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://74.mchs.gov.ru/glavnoe-upravlenie/sily-i-sredstva/specialnye-upravleniya-fps/specialnoe-upravlenie-fps-1-mchs-rossii/novosti/avariya-na-mayake-kak-eto-bylo",
+     "status": 200,
+     "bytes": 105750
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://74.mchs.gov.ru/glavnoe-upravlenie/sily-i-sredstva/specialnye-upravleniya-fps/specialnoe-upravlenie-fps-1-mchs-rossii/novosti/avariya-na-mayake-kak-eto-bylo",
+   "archivo": "gov.html",
+   "txt": "gov.txt",
+   "bytes": 105750,
+   "caracteres": 9312,
+   "caracteres_total": 9312,
+   "recorte": null,
+   "sha1": "d6a3e344ae47277edc5d1ea7d3d158cf091c07fb",
+   "idioma": "?",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Авария на Маяке: как это было",
+    "tipo": "informe_oficial",
+    "anio": null
+   },
+   "autor": "Главное управление МЧС России по Челябинской области"
+  },
+  {
+   "id": "F08",
+   "slug": "zaryagazeta_2023",
+   "url": "https://zaryagazeta.ru/news/media/2023/9/29/tragediya-o-kotoroj-nikto-ne-znal/",
+   "titulo": "Трагедия, о которой никто не знал",
+   "tipo": "testimonio",
+   "anio": 2023,
+   "prioridad": 1,
+   "por_que": "Contiene el testimonio de Alexander Ivanovich Lobachev, un testigo y participante de la авария.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://zaryagazeta.ru/news/media/2023/9/29/tragediya-o-kotoroj-nikto-ne-znal/",
+     "status": 200,
+     "bytes": 42737,
+     "error": "texto de 2498 caracteres (< 3000: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "error": "API: RuntimeError: HTTP 429 de la API de disponibilidad"
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "API: RuntimeError: HTTP 429 de la API de disponibilidad"
+  },
+  {
+   "id": "F09",
+   "slug": "bellona_2001_chelyabinsk_court_to_examine_mayak",
+   "url": "https://bellona.org/news/nuclear-issues/radwaste-storage-at-nuclear-fuel-cycle-plants-in-russia/2001-01-chelyabinsk-court-to-examine-mayak-plant",
+   "titulo": "Chelyabinsk court to examine Mayak plant",
+   "tipo": "informe_oficial",
+   "anio": 2001,
+   "prioridad": 2,
+   "por_que": "Informe de una ONG sobre un caso judicial de 2000-2001 contra Mayak por vertidos radiactivos ilegales, mostrando problemas legales continuos.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://bellona.org/news/nuclear-issues/radwaste-storage-at-nuclear-fuel-cycle-plants-in-russia/2001-01-chelyabinsk-court-to-examine-mayak-plant",
+     "status": 200,
+     "bytes": 61372
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://bellona.org/news/nuclear-issues/radwaste-storage-at-nuclear-fuel-cycle-plants-in-russia/2001-01-chelyabinsk-court-to-examine-mayak-plant",
+   "archivo": "bellona_2001_chelyabinsk_court_to_examine_mayak.html",
+   "txt": "bellona_2001_chelyabinsk_court_to_examine_mayak.txt",
+   "bytes": 61372,
+   "caracteres": 4159,
+   "caracteres_total": 4159,
+   "recorte": null,
+   "sha1": "d9d40b7ec959a7b716c8ae7954bd0c84f373039e",
+   "idioma": "en",
+   "nombra_evento": false,
+   "ficha_busqueda": {
+    "titulo": "Chelyabinsk court to examine Mayak plant",
+    "tipo": "prensa_posterior",
+    "anio": 2001
+   },
+   "autor": "Edward Meilakh"
+  },
+  {
+   "id": "F10",
+   "slug": "themoscowtimes_2011_anonymous_letter_prompts_new_investigati",
+   "url": "https://www.themoscowtimes.com/archive/anonymous-letter-prompts-new-investigation-of-nuclear-plant",
+   "titulo": "Anonymous Letter Prompts New Investigation of Nuclear Plant",
+   "tipo": "prensa_posterior",
+   "anio": 2011,
+   "prioridad": 2,
+   "por_que": "Noticia sobre la reapertura de una investigación penal sobre negligencia en Mayak, desencadenada por una carta anónima de los trabajadores.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.themoscowtimes.com/archive/anonymous-letter-prompts-new-investigation-of-nuclear-plant",
+     "status": 200,
+     "bytes": 53360
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.themoscowtimes.com/archive/anonymous-letter-prompts-new-investigation-of-nuclear-plant",
+   "archivo": "themoscowtimes_2011_anonymous_letter_prompts_new_investigati.html",
+   "txt": "themoscowtimes_2011_anonymous_letter_prompts_new_investigati.txt",
+   "bytes": 53360,
+   "caracteres": 9013,
+   "caracteres_total": 9013,
+   "recorte": null,
+   "sha1": "a7a1bc8122303abd9be36f202d82f2f2db42c336",
+   "idioma": "en",
+   "nombra_evento": false,
+   "ficha_busqueda": {
+    "titulo": "Anonymous Letter Prompts New Investigation of Nuclear Plant",
+    "tipo": "prensa_posterior",
+    "anio": 2011
+   },
+   "autor": "The Moscow Times"
+  },
+  {
+   "id": "F11",
+   "slug": "life_2026_1957_life_ru",
+   "url": "https://life.ru/p/kyshtymskaya-avariya-1957-goda-kak-vzryv-na-mayake-desyatiletiyami-ostavalsya",
+   "titulo": "Кыштымская авария 1957 года: как взрыв на «Маяке» десятилетиями оставался засекреченным",
+   "tipo": "prensa_posterior",
+   "anio": 2026,
+   "prioridad": 2,
+   "por_que": "Explica cómo los residentes se enteraron a través de rumores y acciones de las autoridades debido al secretismo, relevante para la falta de 'prensa de la época' oficial pero la existencia de conciencia local.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://life.ru/p/kyshtymskaya-avariya-1957-goda-kak-vzryv-na-mayake-desyatiletiyami-ostavalsya",
+     "status": 200,
+     "bytes": 393396
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://life.ru/p/kyshtymskaya-avariya-1957-goda-kak-vzryv-na-mayake-desyatiletiyami-ostavalsya",
+   "archivo": "life_2026_1957_life_ru.html",
+   "txt": "life_2026_1957_life_ru.txt",
+   "bytes": 393396,
+   "caracteres": 5929,
+   "caracteres_total": 5929,
+   "recorte": null,
+   "sha1": "f0d5b7c21b310ba7d5cf3f24a0de72db95129248",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Кыштымская авария 1957 года: как взрыв на «Маяке» десятилетиями оставался засекреченным - Life.ru",
+    "tipo": "prensa_posterior",
+    "anio": 2026
+   },
+   "autor": "Life.ru"
+  },
+  {
+   "id": "F12",
+   "slug": "stanford_2017_the_kyshtym_disaster_large_stanford",
+   "url": "http://large.stanford.edu/courses/2017/ph241/buttinger1/",
+   "titulo": "An Analysis of the Alleged Kyshtym Disaster",
+   "tipo": "academico",
+   "anio": 1982,
+   "prioridad": 2,
+   "por_que": "Menciona informes tempranos y vagos en periódicos occidentales de 1958 y 1959, demostrando la cobertura de prensa internacional inicial, aunque poco detallada.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "http://large.stanford.edu/courses/2017/ph241/buttinger1/",
+     "status": 200,
+     "bytes": 6743,
+     "nota": "portada corta con PDF enlazado: http://large.stanford.edu/courses/2017/ph241/buttinger1/docs/LA9217MS.pdf"
+    },
+    {
+     "via": "pdf_enlazado",
+     "url": "http://large.stanford.edu/courses/2017/ph241/buttinger1/docs/LA9217MS.pdf",
+     "status": 200,
+     "bytes": 713099
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "pdf_enlazado",
+   "url_descarga": "http://large.stanford.edu/courses/2017/ph241/buttinger1/docs/LA9217MS.pdf",
+   "archivo": "stanford_2017_the_kyshtym_disaster_large_stanford.pdf",
+   "txt": "stanford_2017_the_kyshtym_disaster_large_stanford.txt",
+   "bytes": 713099,
+   "caracteres": 52769,
+   "caracteres_total": 52769,
+   "recorte": null,
+   "sha1": "efbf518b0e3b9a24566647ad7382ce04cdbc7caa",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "The Kyshtym Disaster - Large.stanford.edu",
+    "tipo": "academico",
+    "anio": 2017
+   },
+   "autor": "Diane M. Soran, Danny B. Stillman"
+  },
+  {
+   "id": "F13",
+   "slug": "gw2ru_2022_the_kyshtym_accident_a_radiation",
+   "url": "https://www.gw2ru.com/history/3317-kyshtym-accident-radiation-disaster",
+   "titulo": "The Kyshtym accident: A radiation disaster that was covered up for 30 years - GW2RU",
+   "tipo": "prensa_posterior",
+   "anio": 2022,
+   "prioridad": 2,
+   "por_que": "Reporta que 'muchas personas en el área escucharon la explosión, pero le dieron poca importancia', un 'testimonio' indirecto sobre la reacción inicial de la población.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.gw2ru.com/history/3317-kyshtym-accident-radiation-disaster",
+     "status": 200,
+     "bytes": 114561,
+     "error": "texto de 2679 caracteres (< 3000: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "error": "API: RuntimeError: HTTP 429 de la API de disponibilidad"
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "API: RuntimeError: HTTP 429 de la API de disponibilidad"
+  },
+  {
+   "id": "F14",
+   "slug": "cyberleninka_2018_1957",
+   "url": "https://cyberleninka.ru/article/n/kyshtymskaya-radiatsionnaya-avariya-1957-goda-pervye-otsenki-radiatsionnoy-obstanovki-posle-vzryva",
+   "titulo": "КЫШТЫМСКАЯ РАДИАЦИОННАЯ АВАРИЯ 1957 ГОДА: ПЕРВЫЕ ОЦЕНКИ РАДИАЦИОННОЙ ОБСТАНОВКИ ПОСЛЕ ВЗРЫВА",
+   "tipo": "academico",
+   "anio": 2018,
+   "prioridad": 2,
+   "por_que": "Artículo académico en ruso que analiza las primeras evaluaciones de la situación radiológica inmediatamente después de la explosión.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://cyberleninka.ru/article/n/kyshtymskaya-radiatsionnaya-avariya-1957-goda-pervye-otsenki-radiatsionnoy-obstanovki-posle-vzryva",
+     "status": 200,
+     "bytes": 108967
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://cyberleninka.ru/article/n/kyshtymskaya-radiatsionnaya-avariya-1957-goda-pervye-otsenki-radiatsionnoy-obstanovki-posle-vzryva",
+   "archivo": "cyberleninka_2018_1957.html",
+   "txt": "cyberleninka_2018_1957.txt",
+   "bytes": 108967,
+   "caracteres": 31215,
+   "caracteres_total": 31215,
+   "recorte": null,
+   "sha1": "cf8ade0bba5b46cc553d054d5d692043a87e5732",
+   "idioma": "?",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Кыштымская радиационная авария 1957 года: первые оценки радиационной обстановки после взрыва",
+    "tipo": "academico",
+    "anio": 2018
+   },
+   "autor": "В.С. Толстиков, В.Н. Кузнецов"
+  },
+  {
+   "id": "F15",
+   "slug": "bellona_2008",
+   "url": "https://ru.bellona.org/2008/06/16/novyj-zakon-dlya-postradavshih-v-rezul/",
+   "titulo": "Новый закон для пострадавших в результате аварии на «Маяке»",
+   "tipo": "informe_oficial",
+   "anio": 2008,
+   "prioridad": 2,
+   "por_que": "Artículo de Bellona, una ONG ambiental, sobre una nueva ley para las víctimas del accidente de Mayak.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://ru.bellona.org/2008/06/16/novyj-zakon-dlya-postradavshih-v-rezul/",
+     "status": 200,
+     "bytes": 88663
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://ru.bellona.org/2008/06/16/novyj-zakon-dlya-postradavshih-v-rezul/",
+   "archivo": "bellona_2008.html",
+   "txt": "bellona_2008.txt",
+   "bytes": 88663,
+   "caracteres": 7670,
+   "caracteres_total": 7670,
+   "recorte": null,
+   "sha1": "6a69f3a5a94fc7a86690751d2466e19289e42135",
+   "idioma": "?",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Новый закон для пострадавших в результате аварии на ПО \"Маяк\"",
+    "tipo": "informe_oficial",
+    "anio": 2008
+   },
+   "autor": "Bellona"
+  },
+  {
+   "id": "F16",
+   "slug": "argumentua",
+   "url": "https://argumentua.com/stati/yadovitoe-oblako-prishlo-s-mayaka",
+   "titulo": "Ядовитое облако пришло с «Маяка»",
+   "tipo": "prensa_posterior",
+   "anio": 2020,
+   "prioridad": 2,
+   "por_que": "Artículo periodístico que discute el desastre de Mayak.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://argumentua.com/stati/yadovitoe-oblako-prishlo-s-mayaka",
+     "status": 200,
+     "bytes": 80936
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://argumentua.com/stati/yadovitoe-oblako-prishlo-s-mayaka",
+   "archivo": "argumentua.html",
+   "txt": "argumentua.txt",
+   "bytes": 80936,
+   "caracteres": 17514,
+   "caracteres_total": 17514,
+   "recorte": null,
+   "sha1": "1d9f3308b81d5517643072b54d2b852a301817f1",
+   "idioma": "?",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Ядовитое облако пришло с Маяка",
+    "tipo": "prensa_posterior",
+    "anio": null
+   },
+   "autor": "Надежда Кутепова"
+  },
+  {
+   "id": "F17",
+   "slug": "icheme_documento_tecnico_de_icheme_sobre",
+   "url": "https://www.icheme.org/media/19545/lpb289_pg18.pdf",
+   "titulo": "Documento técnico de IChemE sobre Mayak",
+   "tipo": "academico",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Documento técnico de la Institución de Ingenieros Químicos (IChemE), probablemente analizando aspectos de seguridad o ingeniería del desastre.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F18",
+   "slug": "stormsmith_2019_informe_de_stormsmith_engineering_sobre",
+   "url": "https://www.stormsmith.nl/Resources/m13mayak20190713F.pdf",
+   "titulo": "Informe de Stormsmith Engineering sobre Mayak (2019)",
+   "tipo": "academico",
+   "anio": 2019,
+   "prioridad": 2,
+   "por_que": "Documento técnico o análisis de Stormsmith Engineering sobre el desastre de Mayak, con fecha de 2019.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F19",
+   "slug": "diletant_articulo_sobre_el_desastre_de",
+   "url": "https://diletant.media/articles/45263613/",
+   "titulo": "Artículo sobre el desastre de Kyshtym en Diletant Media",
+   "tipo": "prensa_posterior",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Artículo de una revista histórica rusa sobre el desastre de Kyshtym.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  },
+  {
+   "id": "F20",
+   "slug": "thecollector_the_kyshtym_disaster_here_s",
+   "url": "https://www.thecollector.com/kyshtym-disaster-heres-what-happened/",
+   "titulo": "The Kyshtym Disaster: Here's What Happened",
+   "tipo": "prensa_posterior",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Artículo de historia popular que describe el desastre de Kyshtym.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos"
+  }
+ ],
+ "_fichas": {
+  "hash": "a4461bf57759539d",
+  "raw": {
+   "documentos": [
+    {
+     "id": "F01",
+     "titulo": "КЫШТЫМСКАЯ ЯДЕРНАЯ КАТАСТРОФА 1957 ГОДА: ИСТОРИЧЕСКИЙ ОПЫТ ЛИКВИДАЦИИ ПОСЛЕДСТВИЙ КРУПНОМАСШТАБНЫХ РАДИАЦИОННЫХ АВАРИЙ",
+     "autor": "В.С. Толстиков, И.А. Бочкарева",
+     "tipo": "academico",
+     "anio": 2017
+    },
+    {
+     "id": "F02",
+     "titulo": "Создание базы данных репозитория архивных документов по проблемам преодоления последствий радиационной аварии на химкомбинате «Маяк» в 1957 г.",
+     "autor": "Олег Н. Апанасюк, Анатолий М. Скоробогатов, Татьяна А. Буланцева",
+     "tipo": "academico",
+     "anio": 2023
+    },
+    {
+     "id": "F03",
+     "titulo": "Kyshtym nuclear disaster, Russian Federation",
+     "autor": "Ecohubmap",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    },
+    {
+     "id": "F04",
+     "titulo": "CIA Debriefed Soviet H-Bomb Eye-Witness in 1957",
+     "autor": "William Burr",
+     "tipo": "academico",
+     "anio": 2018
+    },
+    {
+     "id": "F06",
+     "titulo": "Авария 1957 года: радиационная обстановка и дозы облучения участников ликвидации аварии на территории промышленной площадки ПО «Маяк»",
+     "autor": "Е. К. Василенко, Е. Е. Аладова, М. В. Горелов, В. А. Князев, Д. Н. Колупаев, С. А. Романов",
+     "tipo": "academico",
+     "anio": 2019
+    },
+    {
+     "id": "F07",
+     "titulo": "Авария на «Маяке». Как это было",
+     "autor": "Главное управление МЧС России по Челябинской области",
+     "tipo": "informe_oficial",
+     "anio": 0
+    },
+    {
+     "id": "F09",
+     "titulo": "Chelyabinsk court to examine Mayak plant",
+     "autor": "Edward Meilakh",
+     "tipo": "informe_oficial",
+     "anio": 2001
+    },
+    {
+     "id": "F10",
+     "titulo": "Anonymous Letter Prompts New Investigation of Nuclear Plant",
+     "autor": "The Moscow Times",
+     "tipo": "prensa_posterior",
+     "anio": 2011
+    },
+    {
+     "id": "F11",
+     "titulo": "Кыштымская авария 1957 года: как взрыв на «Маяке» десятилетиями оставался засекреченным",
+     "autor": "Life.ru",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    },
+    {
+     "id": "F12",
+     "titulo": "An Analysis of the Alleged Kyshtym Disaster",
+     "autor": "Diane M. Soran, Danny B. Stillman",
+     "tipo": "academico",
+     "anio": 1982
+    },
+    {
+     "id": "F14",
+     "titulo": "КЫШТЫМСКАЯ РАДИАЦИОННАЯ АВАРИЯ 1957 ГОДА: ПЕРВЫЕ ОЦЕНКИ РАДИАЦИОННОЙ ОБСТАНОВКИ ПОСЛЕ ВЗРЫВА",
+     "autor": "В.С. Толстиков, В.Н. Кузнецов",
+     "tipo": "academico",
+     "anio": 2018
+    },
+    {
+     "id": "F15",
+     "titulo": "Новый закон для пострадавших в результате аварии на «Маяке»",
+     "autor": "Bellona",
+     "tipo": "informe_oficial",
+     "anio": 2008
+    },
+    {
+     "id": "F16",
+     "titulo": "Ядовитое облако пришло с «Маяка»",
+     "autor": "Надежда Кутепова",
+     "tipo": "prensa_posterior",
+     "anio": 2020
+    }
+   ]
+  }
+ }
+}

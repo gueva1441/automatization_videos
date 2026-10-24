@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-24 (F17 cerrado en PARADA 1, `f263d23`; F18 Kyshtym/Mayak: research amarillo, ficha y columna OK, escaleta en PARADA, sin guion; US$ 1.739) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-24 (F19 Kyshtym con cirílico: pool 175 → 302, pero compuerta ROJA por 0 humanos elegibles → PARADA en el research, sin guion; US$ 0.932) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,26 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F19 — Kyshtym otra vez: cirílico en el research — HECHO, **PARADA en el research** (compuerta ROJA: 0 humanos elegibles; no corrió ficha, columna, escaleta ni guion)
+- Handoff `lab/hyperframes/f19/HANDOFF_F19_kyshtym_cirilico.md`. Reporte `lab/hyperframes/f19/F19_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f19.html` (embudo F18 | F19 por idioma; teléfono OK a 375 px). Runner `f19_corridas.py`, página `f19_compara.py`.
+- Código (§1, sin chequeos nuevos):
+  - `research_v3.seed_profile` pide `nombres_locales`; `place_regex` = latinos con `\b` como antes + locales con lookarounds. Sin locales, el `place_re` de siempre. El perfil sigue en Flash: el handoff decía «Pro», pero también «el mismo paso».
+  - `m01a_escaleta`: antagonista `tipo` persona o institución (`institucion_de_la_ficha`: persona de la ficha o ≥ 2 hechos; el artículo inicial no cuenta). Sin ficha, nada cambia.
+  - `build_prompt_v2(beats=)`: «Esta escaleta lleva entre N y M beats» solo cuando hay compuerta.
+  - `ficha_caso`: citas con `traduccion` (en el esquema) e `id_texts` usa la traducción.
+  - Tests `test_module_f19.py` (15); suite amplia 692 verdes + las 5 previas.
+- Corrida:
+  - research rehecho sobre el mismo topic. Con el cirílico, **8 documentos rusos aportan 239 ítems (0 en F18)** y el pool pasa de 175 a 302 ítems;
+  - **ROJO por elegibles_humano 0**: Tumerman bajó a 1 cita y 2 datos, porque en.wikipedia no salió en el R1 nuevo (el perfil nuevo cambió las consultas: 20 fuentes) y el tope de 10 descargas se llenó con rusos. Hubo 3 HTTP 429;
+  - sin reintento (no es una causa de descarga demostrable). **US$ 0.932 de 5.00.**
+- Disco:
+  - en `_steps/f18-kyshtym-mayak/`, el pool, el perfil y `fuentes/` son los de F19 (rojo); lo de F18 está en `00_pool_v3_f18.json` y `_f18/`;
+  - **el topic de `topics_db` sigue con el pool de F18** (respaldo `topics_db.pre_f19.json`).
+- **Para Omar:** no hay guion. Opciones (no ejecutadas):
+  - (a) reintentar el research una vez, con en.wikipedia y las 429;
+  - (b) humano colectivo frente a la compuerta;
+  - (c) tope de descargas para temas bilingües.
 
 ## F18 — Kyshtym / Mayak (cadena completa en un tema de Omar, nocturna) — HECHO, **PARADA** (la escaleta no salió: no hay guion; el analista lee ficha y columna y decide)
 - Handoff `lab/hyperframes/f18/HANDOFF_F18_kyshtym_nocturno.md`. Reporte `lab/hyperframes/f18/F18_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES) y `compara_f18.html` (embudo, columna, PARADA de la escaleta; teléfono OK a 375 px). Runner `f18_corridas.py` (topes por paso + freno antes de cada llamada de Sol), página `f18_compara.py` (sin API).

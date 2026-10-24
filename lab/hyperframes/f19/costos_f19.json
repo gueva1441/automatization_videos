@@ -1,0 +1,166 @@
+{
+ "etapas": [
+  {
+   "etapa": "research",
+   "usd": 0.9315,
+   "segundos": 960.4,
+   "llamadas": [
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "research v3 perfil del seed",
+     "in": 147,
+     "out": 130,
+     "thinking": 620,
+     "usd": 0.0019
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 364,
+     "out": 2134,
+     "thinking": 769,
+     "usd": 0.0295
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 401,
+     "out": 2192,
+     "thinking": 264,
+     "usd": 0.0251
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 401,
+     "out": 2073,
+     "thinking": 308,
+     "usd": 0.0243
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 401,
+     "out": 2362,
+     "thinking": 272,
+     "usd": 0.0268
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 descubrimiento (Flash)",
+     "in": 236,
+     "out": 3332,
+     "thinking": 7600,
+     "usd": 0.0274
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 355,
+     "out": 2648,
+     "thinking": 502,
+     "usd": 0.0319
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 fichas del grounding",
+     "in": 3479,
+     "out": 1650,
+     "thinking": 4780,
+     "usd": 0.0171
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R2 fichas desde el texto",
+     "in": 9598,
+     "out": 1062,
+     "thinking": 5109,
+     "usd": 0.0183
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F01 1/1",
+     "in": 7130,
+     "out": 4722,
+     "thinking": 1491,
+     "usd": 0.071
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F02 1/1",
+     "in": 15852,
+     "out": 3298,
+     "thinking": 1448,
+     "usd": 0.0673
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F03 1/1",
+     "in": 2862,
+     "out": 5661,
+     "thinking": 1566,
+     "usd": 0.0758
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F06 1/1",
+     "in": 3665,
+     "out": 2536,
+     "thinking": 1633,
+     "usd": 0.0463
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F07 1/1",
+     "in": 3479,
+     "out": 2891,
+     "thinking": 1438,
+     "usd": 0.0476
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F11 1/1",
+     "in": 2311,
+     "out": 3330,
+     "thinking": 1602,
+     "usd": 0.0522
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F12 1/1",
+     "in": 12655,
+     "out": 6525,
+     "thinking": 1295,
+     "usd": 0.094
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F14 1/1",
+     "in": 10782,
+     "out": 9383,
+     "thinking": 1543,
+     "usd": 0.1227
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F15 1/1",
+     "in": 2590,
+     "out": 4452,
+     "thinking": 1396,
+     "usd": 0.0617
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F16 1/1",
+     "in": 5412,
+     "out": 6817,
+     "thinking": 1540,
+     "usd": 0.0903
+    }
+   ],
+   "color": "rojo",
+   "error": "rojo: sin humano que seguir (pocos testigos elegibles)"
+  }
+ ],
+ "usd_total": 0.9315
+}

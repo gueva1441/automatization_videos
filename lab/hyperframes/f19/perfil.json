@@ -1,0 +1,23 @@
+{
+ "anio_evento": 1957,
+ "lugar_principal": "Mayak Production Association",
+ "idioma_local": "ruso (Ozyorsk, Unión Soviética)",
+ "nombres_lugar": [
+  "Kyshtym Disaster",
+  "Mayak Disaster",
+  "Kyshtym Accident",
+  "Urals Nuclear Waste Accident",
+  "Mayak Production Association",
+  "PA Mayak"
+ ],
+ "nombres_locales": [
+  "Кыштымская авария",
+  "Маяк",
+  "ПО «Маяк»",
+  "Производственное объединение «Маяк»",
+  "Озёрск",
+  "Челябинск-40",
+  "Катастрофа на ПО «Маяк»"
+ ],
+ "place_re": "\\bKyshtym\\ Disaster\\b|\\bMayak\\ Disaster\\b|\\bKyshtym\\ Accident\\b|\\bUrals\\ Nuclear\\ Waste\\ Accident\\b|\\bMayak\\ Production\\ Association\\b|\\bPA\\ Mayak\\b|(?<!\\w)Кыштымская\\ авария(?!\\w)|(?<!\\w)Маяк(?!\\w)|(?<!\\w)ПО\\ «Маяк»(?!\\w)|(?<!\\w)Производственное\\ объединение\\ «Маяк»(?!\\w)|(?<!\\w)Озёрск(?!\\w)|(?<!\\w)Челябинск\\-40(?!\\w)|(?<!\\w)Катастрофа\\ на\\ ПО\\ «Маяк»(?!\\w)"
+}

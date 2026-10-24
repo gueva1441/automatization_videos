@@ -1,0 +1,55 @@
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: Pro sin grounding tras 3 reintentos → Flash con búsqueda
+  [R1] foco 1: 12 fichas del modelo, 0 URLs en el grounding
+  [R1] foco 2: 16 fichas del modelo, 13 URLs en el grounding
+  [R1] foco 3: 10 fichas del modelo, 7 URLs en el grounding
+  [R1] foco 4: 12 fichas del modelo, 10 URLs en el grounding
+  [R1] focos con grounding: 2 por Pro, 1 por Flash, 1 sin grounding (de 4)
+  [R1] 27 URLs reales: 15 con ficha del modelo, 15 con ficha de Flash, 1 fuera (no relevantes o listados) · 35 fichas del modelo sin URL del grounding
+  [R2] F01 cyberleninka_2016_1957: OK (original) 22291 caracteres
+  [R2] F02 cyberleninka_2019_1957: OK (original) 40186 caracteres
+  [R2] F03 ecohubmap_2023_kyshtym_nuclear_disaster_russian_federation: OK (original) 10346 caracteres
+  [R2] F04 gwu_2018_cia_debriefed_soviet_h_bomb: OK (original) 25766 caracteres · NO nombra el evento
+  [R2] F05 stanford_1981_ussr_nuclear_accident_near_kyshtym: FALLÓ — API: RuntimeError: HTTP 429 de la API de disponibilidad
+  [R2] F06 radhyg_articulo_en_radiation_hygiene_journal: OK (original) 7465 caracteres
+  [R2] F07 gov: OK (original) 9312 caracteres
+  [R2] F08 zaryagazeta_2023: FALLÓ — API: RuntimeError: HTTP 429 de la API de disponibilidad
+  [R2] F09 bellona_2001_chelyabinsk_court_to_examine_mayak: OK (original) 4159 caracteres · NO nombra el evento
+  [R2] F10 themoscowtimes_2011_anonymous_letter_prompts_new_investigati: OK (original) 9013 caracteres · NO nombra el evento
+  [R2] F11 life_2026_1957_life_ru: OK (original) 5929 caracteres
+  [R2] F12 stanford_2017_the_kyshtym_disaster_large_stanford: OK (pdf_enlazado) 52769 caracteres
+  [R2] F13 gw2ru_2022_the_kyshtym_accident_a_radiation: FALLÓ — API: RuntimeError: HTTP 429 de la API de disponibilidad
+  [R2] F14 cyberleninka_2018_1957: OK (original) 31215 caracteres
+  [R2] F15 bellona_2008: OK (original) 7670 caracteres
+  [R2] F16 argumentua: OK (original) 17514 caracteres
+  [R2] 10 documentos OK de 16 intentados
+  [R2] ficha F01: academico 2017 «КЫШТЫМСКАЯ ЯДЕРНАЯ КАТАСТРОФА 1957 ГОДА: ИСТОРИЧЕСКИЙ ОПЫТ Л»
+  [R2] ficha F02: academico 2023 «Создание базы данных репозитория архивных документов по проб»
+  [R2] ficha F03: prensa_posterior 2023 «Kyshtym nuclear disaster, Russian Federation»
+  [R2] ficha F04: academico 2018 «CIA Debriefed Soviet H-Bomb Eye-Witness in 1957»
+  [R2] ficha F06: academico 2019 «Авария 1957 года: радиационная обстановка и дозы облучения у»
+  [R2] ficha F07: informe_oficial None «Авария на «Маяке». Как это было»
+  [R2] ficha F09: informe_oficial 2001 «Chelyabinsk court to examine Mayak plant»
+  [R2] ficha F10: prensa_posterior 2011 «Anonymous Letter Prompts New Investigation of Nuclear Plant»
+  [R2] ficha F11: prensa_posterior 2026 «Кыштымская авария 1957 года: как взрыв на «Маяке» десятилети»
+  [R2] ficha F12: academico 1982 «An Analysis of the Alleged Kyshtym Disaster»
+  [R2] ficha F14: academico 2018 «КЫШТЫМСКАЯ РАДИАЦИОННАЯ АВАРИЯ 1957 ГОДА: ПЕРВЫЕ ОЦЕНКИ РАДИ»
+  [R2] ficha F15: informe_oficial 2008 «Новый закон для пострадавших в результате аварии на «Маяке»»
+  [R2] ficha F16: prensa_posterior 2020 «Ядовитое облако пришло с «Маяка»»
+  [R3] F01: 25 ítems con cita literal, 10 descartados
+  [R3] F02: 25 ítems con cita literal, 4 descartados
+  [R3] F03: 50 ítems con cita literal, 6 descartados
+  [R3] F06: 16 ítems con cita literal, 4 descartados
+  [R3] F07: 29 ítems con cita literal, 1 descartados
+  [R3] F11: 29 ítems con cita literal, 4 descartados
+  [R3] F12: 43 ítems con cita literal, 7 descartados
+  [R3] F14: 52 ítems con cita literal, 15 descartados
+  [R3] F15: 31 ítems con cita literal, 7 descartados
+  [R3] F16: 50 ítems con cita literal, 8 descartados
+  [R4] merge: datos 174 · cronologia 55 · lugares 46 · citas 20 · personajes 7 · 15 ítems con ≥ 2 documentos · 89 descartados
+  [R4] autores de cita sumados como personajes: ['Berlingske Tidende']
+  [4a·pool] personajes sin acción, fuera: ['Lieut. Gen. Leslie R. Groves']
+  [R4] presencia por párrafo: 9 vínculos persona-evento (4 personas con alguno)
+  [R5] citas: {'verificada': 18, 'verificada_parcial': 2, 'sin_verificar': 0}

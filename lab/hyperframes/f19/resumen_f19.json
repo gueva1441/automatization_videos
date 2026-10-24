@@ -1,0 +1,297 @@
+{
+ "escaleta_intentos": [],
+ "embudo": {
+  "documentos propuestos (R1)": {
+   "f18": 16,
+   "f19": 20
+  },
+  "documentos bajados": {
+   "f18": 11,
+   "f19": 13
+  },
+  "documentos que nombran el evento": {
+   "f18": 6,
+   "f19": 10
+  },
+  "ítems del pool": {
+   "f18": 175,
+   "f19": 302
+  },
+  "citas del pool (verificadas)": {
+   "f18": "14 (13)",
+   "f19": "20 (18)"
+  },
+  "personajes del pool": {
+   "f18": 9,
+   "f19": 7
+  },
+  "→ ficha (ids)": {
+   "f18": 106,
+   "f19": 0
+  },
+  "→ ficha: citas": {
+   "f18": 5,
+   "f19": 0
+  },
+  "→ columna (ids)": {
+   "f18": 43,
+   "f19": 0
+  },
+  "→ escaleta (ids)": {
+   "f18": 0,
+   "f19": 0
+  },
+  "→ guion (ids)": {
+   "f18": 0,
+   "f19": 0
+  },
+  "[?] propuestos · bajados · nombran el evento · aportan · ítems": {
+   "f18": "2 · 0 · 0 · 0 · 0",
+   "f19": "0 · 0 · 0 · 0 · 0"
+  },
+  "[en] propuestos · bajados · nombran el evento · aportan · ítems": {
+   "f18": "8 · 6 · 5 · 5 · 199",
+   "f19": "11 · 5 · 2 · 2 · 88"
+  },
+  "[ru] propuestos · bajados · nombran el evento · aportan · ítems": {
+   "f18": "6 · 5 · 1 · 0 · 0",
+   "f19": "9 · 8 · 8 · 8 · 239"
+  }
+ },
+ "idiomas": {
+  "f18": {
+   "en": {
+    "propuestos": 8,
+    "bajados": 6,
+    "nombran_evento": 5,
+    "aportan": 5,
+    "items": 199
+   },
+   "ru": {
+    "propuestos": 6,
+    "bajados": 5,
+    "nombran_evento": 1,
+    "aportan": 0,
+    "items": 0
+   },
+   "?": {
+    "propuestos": 2,
+    "bajados": 0,
+    "nombran_evento": 0,
+    "aportan": 0,
+    "items": 0
+   }
+  },
+  "f19": {
+   "ru": {
+    "propuestos": 9,
+    "bajados": 8,
+    "nombran_evento": 8,
+    "aportan": 8,
+    "items": 239
+   },
+   "en": {
+    "propuestos": 11,
+    "bajados": 5,
+    "nombran_evento": 2,
+    "aportan": 2,
+    "items": 88
+   }
+  }
+ },
+ "compuerta": {
+  "color": "rojo",
+  "metricas": {
+   "datos": 174,
+   "citas_verificadas": 18,
+   "elegibles_humano": 0,
+   "eventos_con_fecha": 20
+  },
+  "umbrales": {
+   "datos": 150,
+   "citas_verificadas": 8,
+   "elegibles_humano": 2,
+   "eventos_con_fecha": 10
+  },
+  "faltan": [
+   {
+    "metrica": "elegibles_humano",
+    "valor": 0,
+    "umbral": 2,
+    "motivo": "sin humano que seguir (pocos testigos elegibles)",
+    "rojo": true
+   }
+  ],
+  "motivos": [
+   "sin humano que seguir (pocos testigos elegibles)"
+  ],
+  "target_words": 1500,
+  "max_beats": null
+ },
+ "costos": {
+  "etapas": [
+   {
+    "etapa": "research",
+    "usd": 0.9315,
+    "segundos": 960.4,
+    "llamadas": [
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "research v3 perfil del seed",
+      "in": 147,
+      "out": 130,
+      "thinking": 620,
+      "usd": 0.0019
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 364,
+      "out": 2134,
+      "thinking": 769,
+      "usd": 0.0295
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 401,
+      "out": 2192,
+      "thinking": 264,
+      "usd": 0.0251
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 401,
+      "out": 2073,
+      "thinking": 308,
+      "usd": 0.0243
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 401,
+      "out": 2362,
+      "thinking": 272,
+      "usd": 0.0268
+     },
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "R1 descubrimiento (Flash)",
+      "in": 236,
+      "out": 3332,
+      "thinking": 7600,
+      "usd": 0.0274
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 355,
+      "out": 2648,
+      "thinking": 502,
+      "usd": 0.0319
+     },
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "R1 fichas del grounding",
+      "in": 3479,
+      "out": 1650,
+      "thinking": 4780,
+      "usd": 0.0171
+     },
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "R2 fichas desde el texto",
+      "in": 9598,
+      "out": 1062,
+      "thinking": 5109,
+      "usd": 0.0183
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F01 1/1",
+      "in": 7130,
+      "out": 4722,
+      "thinking": 1491,
+      "usd": 0.071
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F02 1/1",
+      "in": 15852,
+      "out": 3298,
+      "thinking": 1448,
+      "usd": 0.0673
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F03 1/1",
+      "in": 2862,
+      "out": 5661,
+      "thinking": 1566,
+      "usd": 0.0758
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F06 1/1",
+      "in": 3665,
+      "out": 2536,
+      "thinking": 1633,
+      "usd": 0.0463
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F07 1/1",
+      "in": 3479,
+      "out": 2891,
+      "thinking": 1438,
+      "usd": 0.0476
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F11 1/1",
+      "in": 2311,
+      "out": 3330,
+      "thinking": 1602,
+      "usd": 0.0522
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F12 1/1",
+      "in": 12655,
+      "out": 6525,
+      "thinking": 1295,
+      "usd": 0.094
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F14 1/1",
+      "in": 10782,
+      "out": 9383,
+      "thinking": 1543,
+      "usd": 0.1227
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F15 1/1",
+      "in": 2590,
+      "out": 4452,
+      "thinking": 1396,
+      "usd": 0.0617
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F16 1/1",
+      "in": 5412,
+      "out": 6817,
+      "thinking": 1540,
+      "usd": 0.0903
+     }
+    ],
+    "color": "rojo",
+    "error": "rojo: sin humano que seguir (pocos testigos elegibles)"
+   }
+  ],
+  "usd_total": 0.9315
+ }
+}

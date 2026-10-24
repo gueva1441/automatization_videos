@@ -91,7 +91,11 @@ SCHEMA: dict[str, Any] = {
             "required": ["que", "valor", "unidad", "fuente", "ids", "otras_versiones"]}},
         "citas": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
             "autor": {"type": "STRING"}, "rol": {"type": "STRING"}, "verificacion": {"type": "STRING"},
-            "texto": {"type": "STRING"}, "original": {"type": "STRING"}, "ids": _IDS},
+            "texto": {"type": "STRING", "description": "la cita en el idioma de su documento, sin traducir"},
+            "original": {"type": "STRING"},
+            "traduccion": {"type": "STRING", "description": "la cita en español si «texto» no está en español; si ya "
+                                                            "está en español, vacío"},
+            "ids": _IDS},
             "required": ["autor", "rol", "verificacion", "texto", "original", "ids"]}},
         "contradicciones": {"type": "ARRAY", "items": {"type": "OBJECT", "properties": {
             "tema": {"type": "STRING"},
@@ -623,6 +627,7 @@ def markdown(ficha: dict, meta: dict) -> str:
     L += ["", "## Citas", ""]
     for x in ficha["citas"]:
         fix = f" <sub>(original: «{x.get('original')}»)</sub>" if x.get("original") and x["original"] != x.get("texto") else ""
+        fix += f" <sub>(traducción: «{x['traduccion']}»)</sub>" if x.get("traduccion") else ""
         L.append(f"- «{x.get('texto')}» — **{x.get('autor')}**, {x.get('rol')} · {x.get('verificacion')}{fix}{_ids(x)}")
     L += ["", "## Descartados", ""]
     L += [f"- {x.get('que')} — {x.get('motivo')}{_ids(x)}" for x in ficha["descartados"]]
@@ -648,8 +653,9 @@ def id_texts(ficha: dict | None) -> dict[str, str]:
     def put(ids, text):
         for i in ids or []:
             out.setdefault(i, text)
-    for c in ficha.get("citas") or []:
-        put([i for i in c.get("ids") or [] if i.startswith("Q")], f"«{c.get('texto')}» — {c.get('autor')}")
+    for c in ficha.get("citas") or []:                   # F19: con traducción, el guion usa la traducción
+        put([i for i in c.get("ids") or [] if i.startswith("Q")],
+            f"«{c.get('traduccion') or c.get('texto')}» — {c.get('autor')}")
     for c in ficha.get("cronologia") or []:
         h = c.get("hora") if c.get("hora") and str(c.get("hora")).lower() not in ("null", "none", "") else ""
         put([i for i in c.get("ids") or [] if i.startswith("T")],

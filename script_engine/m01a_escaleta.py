@@ -181,6 +181,10 @@ beats:
 SCHEMA_FICHA: dict[str, Any] = copy.deepcopy(SCHEMA)
 SCHEMA_FICHA["properties"]["beats"]["items"]["properties"]["escena_idx"] = _I
 SCHEMA_FICHA["properties"]["justificacion_humano"] = _S
+# F19 §1.2: con ficha, el antagonista puede ser una persona (P## del pool, como siempre) o una institución de la ficha.
+SCHEMA_FICHA["properties"]["antagonista"] = {"type": "OBJECT", "properties": {
+    "tipo": {"type": "STRING", "enum": ["persona", "institucion"]}, "id": _S, "nombre": _S, "por_que": _S},
+    "required": ["tipo", "id", "nombre"]}
 
 MAX_APOYOS = 3                      # datos_apoyo por beat (sin ficha, como siempre)
 MAX_APOYOS_FICHA = 6                # F14 §1.2: con la ficha, 0–6 (deja pasar material; no es una regla nueva)
@@ -520,10 +524,11 @@ def _beat_known(beats: list[dict], upto_cap: int, pool: dict, esc: dict, context
 
 
 def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
-             solo_apoyo: list[str] | tuple[str, ...] = (), largo: dict | None = None, max_apoyos: int = MAX_APOYOS
-             ) -> tuple[dict, list[str], list[str], list[str]]:
+             solo_apoyo: list[str] | tuple[str, ...] = (), largo: dict | None = None, max_apoyos: int = MAX_APOYOS,
+             institucion_ok: Callable[[str], bool] | None = None) -> tuple[dict, list[str], list[str], list[str]]:
     """(escaleta reparada, problemas duros, reparaciones, avisos). Problemas duros → reintento. `context` = lo que el
-    espectador sabe antes del primer segundo (el título del video)."""
+    espectador sabe antes del primer segundo (el título del video).
+    F19: `institucion_ok` (solo con ficha) = el antagonista `tipo: "institucion"` existe si su nombre está en la ficha."""
     esc = copy.deepcopy(raw or {})
     its = ev.items(pool)
     hard, rep, warn = [], [], []
@@ -661,7 +666,11 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
     elif hcaps and hcaps[0] > 2:
         hard.append(f"el humano entra recién en el cap {hcaps[0]}: tiene que entrar antes del cap 3")
     ant = pers.get(str((esc.get("antagonista") or {}).get("id") or "").upper())
-    if not ant:
+    ag = esc.get("antagonista") or {}
+    if institucion_ok and ag.get("tipo") == "institucion":
+        if not institucion_ok(str(ag.get("nombre") or "")):
+            hard.append(f"antagonista «{ag.get('nombre')}» no es una persona del pool ni una institución de la ficha")
+    elif not ant:
         hard.append(f"antagonista {(esc.get('antagonista') or {}).get('id')} no es una persona del pool")
     # gancho
     if has_figure(str(esc.get("promesa_gancho") or "")):
@@ -1177,11 +1186,25 @@ def bloqueante_de(msg: str) -> str | None:
     return next((name for name, pat in BLOQUEANTES_V2 if re.search(pat, msg)), None)
 
 
+def institucion_de_la_ficha(nombre: str, ficha: dict) -> bool:
+    """F19 §1.2: una institución existe en la ficha si su nombre aparece literal como persona de la ficha (nombre o
+    variante) o en el texto de 2 o más hechos. Es el «existe en la ficha» de siempre, con dos fuentes posibles. El
+    artículo de adelante no cuenta («el Ministerio…» está en «al Ministerio…»): es leer el nombre, no un chequeo."""
+    n = re.sub(r"^(el|la|los|las) ", "", ev.norm(nombre))
+    if len(n) < 3:
+        return False
+    if any(n == ev.norm(x) for p in ficha.get("personas") or [] for x in [p.get("nombre"), *(p.get("variantes") or [])]
+           if x):
+        return True
+    return sum(1 for h in ficha.get("hechos") or [] if n in ev.norm(h.get("texto") or "")) >= 2
+
+
 def bloqueantes(raw: dict, pool: dict, ficha: dict | None, *, context: str = "", largo: dict | None = None
                 ) -> tuple[dict, list[str], list[str], list[str]]:
     """F16 §1.3: (escaleta reparada, bloqueantes, reparaciones, lo demás que `validate` marcaba como duro o aviso). Solo
     los 13 rechazan; el resto se muestra en `metricas_escaleta`."""
-    esc, hard, rep, warn = validate(raw, pool, final=True, context=context, largo=largo, max_apoyos=MAX_APOYOS_FICHA)
+    esc, hard, rep, warn = validate(raw, pool, final=True, context=context, largo=largo, max_apoyos=MAX_APOYOS_FICHA,
+                                    institucion_ok=(lambda n: institucion_de_la_ficha(n, ficha)) if ficha else None)
     bloq = [h for h in hard if bloqueante_de(h)]
     return esc, bloq, rep, [h for h in hard if not bloqueante_de(h)] + warn
 
@@ -1219,6 +1242,8 @@ def ids_v2(raw: dict) -> tuple[dict, list[str]]:
         if isinstance(x, dict):
             x["id"] = first(x.get("id"), _ID_DTQ)
     for k, rx in (("pico", _ID_DTQ), ("humano", _ID_P), ("antagonista", _ID_P)):
+        if k == "antagonista" and (esc.get(k) or {}).get("tipo") == "institucion":
+            continue                                 # F19: una institución no lleva P##
         if isinstance(esc.get(k), dict) and esc[k].get("id"):
             esc[k]["id"] = first(esc[k]["id"], rx)
     return esc, rep
@@ -1331,7 +1356,8 @@ def ficha_section_v2(ficha: dict, pool: dict) -> str:
         q = next((its[i] for i in x.get("ids") or [] if i in its and its[i]["_kind"] == "citas"), None)
         v = (q or {}).get("verificacion") or {}
         est = "VERIFICADA" if v.get("estado") == "verificada" else ("SIN VERIFICAR" if v else "—")
-        L.append(f"  {ids(x)} {x.get('autor')} ({x.get('rol')}) · {est} · «{x.get('texto')}»")
+        L.append(f"  {ids(x)} {x.get('autor')} ({x.get('rol')}) · {est} · «{x.get('texto')}»"
+                 + (f" (traducción: «{x['traduccion']}»)" if x.get("traduccion") else ""))   # F19: solo si hay
     L += ["", "versiones en disputa:"]
     for x in ficha.get("versiones") or []:
         L.append(f"  {x.get('tema')}")
@@ -1340,11 +1366,12 @@ def ficha_section_v2(ficha: dict, pool: dict) -> str:
 
 
 def build_prompt_v2(topic: dict, pool: dict, ficha: dict, feedback: list[str] | None = None,
-                    columna: dict | None = None) -> str:
+                    columna: dict | None = None, beats: tuple[int, int] | None = None) -> str:
     """F16 §1.1: <caso> (título, ángulo, misterio, revelación) · <ficha> · <tarea> literal. Sin notas, sin FEWSHOT,
     sin reglas. Con `feedback` (la única regeneración), los bloqueantes van antes de la tarea.
     F17 §1.2: con `columna`, la columna va antes de la ficha y la tarea es la de «CÓMO SE USA LA COLUMNA»; sin columna,
-    byte-idéntico a F16."""
+    byte-idéntico a F16.
+    F19 §1.3: con `beats` (el rango del perfil de la compuerta), antes de la tarea va la línea que dice ese rango."""
     fb = ""
     if feedback:
         fb = ("<rechazo>\nTu escaleta anterior no pasó estos controles. Corregilos sin cambiar lo demás:\n"
@@ -1353,6 +1380,7 @@ def build_prompt_v2(topic: dict, pool: dict, ficha: dict, feedback: list[str] | 
     if columna:
         from script_engine.m01a_columna import section as columna_section
         col = f"<columna>\n{columna_section(columna)}\n</columna>\n\n"
+    rango = f"Esta escaleta lleva entre {beats[0]} y {beats[1]} beats\n\n" if beats else ""
     return f"""<caso>
 TÍTULO: {topic.get("video_title") or "(sin título)"}
 ÁNGULO: {topic.get("angle") or "-"}
@@ -1364,7 +1392,7 @@ REVELACIÓN: {topic.get("reveal") or "-"}
 {ficha_section_v2(ficha, pool)}
 </ficha>
 
-{fb}{TAREA_COLUMNA if columna else TAREA_V2}"""
+{fb}{rango}{TAREA_COLUMNA if columna else TAREA_V2}"""
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -1443,8 +1471,11 @@ def generate_escaleta_v2(topic: dict, pool: dict, ficha: dict, *, call: Callable
     feedback: list[str] = []
     intentos = []
     version = PROMPT_VERSION_COLUMNA if columna else PROMPT_VERSION_V2
+    _, min_b, max_b, _ = _profile(topic)
+    beats = (min_b, max_b) if gate else None         # F19 §1.3: el rango que `validate` ya exige, dicho en el usuario
     for k in range(1, REGENERACIONES_V2 + 2):
-        raw = call(build_prompt_v2(topic, pool, ficha, feedback, columna=columna), system_instruction=SYSTEM_V2,
+        raw = call(build_prompt_v2(topic, pool, ficha, feedback, columna=columna, beats=beats),
+                   system_instruction=SYSTEM_V2,
                    response_schema=SCHEMA_FICHA, description=f"m01a_escaleta v2 intento {k}")
         raw, rep_ids = ids_v2(raw)
         esc, bloq, rep, otros = bloqueantes(raw, pool, ficha, context=str(topic.get("video_title") or ""),
@@ -1542,7 +1573,8 @@ def to_markdown(esc: dict, pool: dict) -> str:
     pers = {p["id"]: p for p in pool.get("personajes") or []}
     lines = ["# Escaleta — " + str(esc.get("topic_id")), "",
              f"**Humano que seguimos:** {h.get('nombre')} ({h.get('rol')}, {h.get('id')}) — {h.get('por_que')}",
-             f"**Antagonista:** {pers.get(a.get('id'), {}).get('nombre', a.get('id'))} — {a.get('por_que') or ''}",
+             f"**Antagonista:** {pers.get(a.get('id'), {}).get('nombre') or a.get('nombre') or a.get('id')}"
+             f"{' (institución)' if a.get('tipo') == 'institucion' else ''} — {a.get('por_que') or ''}",
              f"**Promesa del gancho:** {esc.get('promesa_gancho')}",
              f"**Pico:** beat {(esc.get('pico') or {}).get('beat')} · {_t((esc.get('pico') or {}).get('id', ''))} — "
              f"{(esc.get('pico') or {}).get('por_que')}",

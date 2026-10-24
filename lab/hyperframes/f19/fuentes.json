@@ -1,0 +1,779 @@
+{
+ "fuentes": [
+  {
+   "url": "https://cyberleninka.ru/article/n/kyshtymskaya-yadernaya-katastrofa-1957-goda-istoricheskiy-opyt-likvidatsii-posledstviy-krupnomasshtabnyh-radiatsionnyh-avariy",
+   "titulo": "Кыштымская ядерная катастрофа 1957 года: исторический опыт ликвидации последствий крупномасштабных радиационных аварий",
+   "tipo": "academico",
+   "anio": 2016,
+   "idioma": "ru",
+   "por_que": "Artículo académico ruso que analiza la experiencia histórica de la liquidación de las consecuencias del desastre, basado en documentos de archivo.",
+   "prioridad": 1,
+   "url_modelo": "https://cyberleninka.ru/article/n/kyshtymskaya-yadernaya-katastrofa-1957-goda-istoricheskiy-opyt-likvidatsii-posledstviy-krupnomasshtabnyh-radiatsionnyh-avariy",
+   "match": "exacta",
+   "grounding_title": "cyberleninka.ru",
+   "id": "F01",
+   "slug": "cyberleninka_2016_1957"
+  },
+  {
+   "url": "https://cyberleninka.ru/article/n/sozdanie-bazy-dannyh-repozitoriya-arhivnyh-dokumentov-po-problemam-preodoleniya-posledstviy-radiatsionnoy-avarii-na-himkombinate",
+   "titulo": "СОЗДАНИЕ БАЗЫ ДАННЫХ РЕПОЗИТОРИЯ АРХИВНЫХ ДОКУМЕНТОВ ПО ПРОБЛЕМАМ ПРЕОДОЛЕНИЯ ПОСЛЕДСТВИЙ РАДИАЦИОННОЙ АВАРИИ НА ХИМКОМБИНАТЕ \"МАЯК\" В 1957 Г.",
+   "tipo": "academico",
+   "anio": 2019,
+   "idioma": "ru",
+   "por_que": "Describe la creación de una base de datos de documentos de archivo de los archivos estatales de los Urales sobre las consecuencias del accidente.",
+   "prioridad": 1,
+   "url_modelo": "https://cyberleninka.ru/article/n/sozdanie-bazy-dannyh-repozitoriya-arhivnyh-dokumentov-po-problemam-preodoleniya-posledstviy-radiatsionnoy-avarii-na-himkombinate-mayak-v",
+   "match": "exacta",
+   "grounding_title": "cyberleninka.ru",
+   "id": "F02",
+   "slug": "cyberleninka_2019_1957"
+  },
+  {
+   "url": "https://www.ecohubmap.com/hot-spot/kyshtym-nuclear-disaster-russian-federation/5l0fbklmhcl0vs",
+   "titulo": "Kyshtym nuclear disaster, Russian Federation - EcoHubMap",
+   "tipo": "academico",
+   "anio": 2023,
+   "idioma": "en",
+   "por_que": "Proporciona la hora exacta de la explosión ('16:22 local time') y menciona el 'brillo extraño' notado en el cielo a las '11 p.m.', con colores específicos, lo que es relevante para 'horas' y 'testigos'.",
+   "prioridad": 1,
+   "url_modelo": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFGpHU0UDRpUfn-IkN30iu_npNKURJjkyRmQUTNM3BSOyP0E0GJGf0p27_M5GuDYGovjf0VYJo2SAWmdBOeo4k_OMDJtaZV2xwenTQiZ7Z0ke5o1WWz2vZVYUKypg0fGvoW81QX1x4G-h7mDkf9W_YJdXZg9DObazrudj7Aa9dUpw2pHyfO8Q9Ks2Ts90VzWH0ByNwvDiP6-w==",
+   "match": "exacta",
+   "grounding_title": "ecohubmap.com",
+   "id": "F03",
+   "slug": "ecohubmap_2023_kyshtym_nuclear_disaster_russian_federation"
+  },
+  {
+   "url": "https://nsarchive.gwu.edu/briefing-book/nuclear-vault/2018-04-06/cia-debriefed-soviet-h-bomb-eye-witness-1957",
+   "titulo": "CIA Debriefed Soviet H-Bomb Eye-Witness in 1957",
+   "tipo": "foia",
+   "anio": 2018,
+   "idioma": "en",
+   "por_que": "Contiene documentos desclasificados de la CIA que demuestran que la agencia conocía el desastre desde 1959, pero lo mantuvo en secreto.",
+   "prioridad": 1,
+   "url_modelo": "https://nsarchive.gwu.edu/briefing-book/russia-programs/2018-04-06/cia-debriefed-soviet-h-bomb-eye-witness-1957",
+   "match": "similar 0.83",
+   "grounding_title": "gwu.edu",
+   "id": "F04",
+   "slug": "gwu_2018_cia_debriefed_soviet_h_bomb"
+  },
+  {
+   "url": "http://large.stanford.edu/courses/2015/ph241/chang2/docs/sw-81-10102.pdf",
+   "titulo": "USSR: NUCLEAR ACCIDENT NEAR KYSHTYM IN 1957-58 (NW 81-10102)",
+   "tipo": "informe_oficial",
+   "anio": 1981,
+   "idioma": "en",
+   "por_que": "Un informe de inteligencia de EE. UU. (Los Alamos National Laboratory) sobre el accidente, basado en la literatura radioecológica soviética.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "stanford.edu",
+   "id": "F05",
+   "slug": "stanford_1981_ussr_nuclear_accident_near_kyshtym"
+  },
+  {
+   "url": "https://www.radhyg.ru/jour/article/view/627",
+   "titulo": "Artículo en Radiation Hygiene Journal",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "ru",
+   "por_que": "Artículo científico de una revista especializada en higiene radiológica, probablemente conteniendo investigación o análisis sobre el accidente.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "radhyg.ru",
+   "id": "F06",
+   "slug": "radhyg_articulo_en_radiation_hygiene_journal"
+  },
+  {
+   "url": "https://74.mchs.gov.ru/glavnoe-upravlenie/sily-i-sredstva/specialnye-upravleniya-fps/specialnoe-upravlenie-fps-1-mchs-rossii/novosti/avariya-na-mayake-kak-eto-bylo",
+   "titulo": "Авария на Маяке: как это было",
+   "tipo": "informe_oficial",
+   "anio": null,
+   "idioma": "ru",
+   "por_que": "Artículo de noticias o retrospectiva del Ministerio de Situaciones de Emergencia de Rusia sobre el accidente de Mayak.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "mchs.gov.ru",
+   "id": "F07",
+   "slug": "gov"
+  },
+  {
+   "url": "https://zaryagazeta.ru/news/media/2023/9/29/tragediya-o-kotoroj-nikto-ne-znal/",
+   "titulo": "Трагедия, о которой никто не знал",
+   "tipo": "testimonio",
+   "anio": 2023,
+   "idioma": "ru",
+   "por_que": "Contiene el testimonio de Alexander Ivanovich Lobachev, un testigo y participante de la авария.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "zaryagazeta.ru",
+   "id": "F08",
+   "slug": "zaryagazeta_2023"
+  },
+  {
+   "url": "https://bellona.org/news/nuclear-issues/radwaste-storage-at-nuclear-fuel-cycle-plants-in-russia/2001-01-chelyabinsk-court-to-examine-mayak-plant",
+   "titulo": "Chelyabinsk court to examine Mayak plant",
+   "tipo": "prensa_posterior",
+   "anio": 2001,
+   "idioma": "en",
+   "por_que": "Informe de una ONG sobre un caso judicial de 2000-2001 contra Mayak por vertidos radiactivos ilegales, mostrando problemas legales continuos.",
+   "prioridad": 2,
+   "url_modelo": "https://www.bellona.org/story/2001/01/15/chelyabinsk-court-to-examine-mayak-plant",
+   "match": "exacta",
+   "grounding_title": "bellona.org",
+   "id": "F09",
+   "slug": "bellona_2001_chelyabinsk_court_to_examine_mayak"
+  },
+  {
+   "url": "https://www.themoscowtimes.com/archive/anonymous-letter-prompts-new-investigation-of-nuclear-plant",
+   "titulo": "Anonymous Letter Prompts New Investigation of Nuclear Plant",
+   "tipo": "prensa_posterior",
+   "anio": 2011,
+   "idioma": "en",
+   "por_que": "Noticia sobre la reapertura de una investigación penal sobre negligencia en Mayak, desencadenada por una carta anónima de los trabajadores.",
+   "prioridad": 2,
+   "url_modelo": "https://www.themoscowtimes.com/2011/04/11/anonymous-letter-prompts-new-investigation-of-nuclear-plant-a5899",
+   "match": "similar 0.88",
+   "grounding_title": "themoscowtimes.com",
+   "id": "F10",
+   "slug": "themoscowtimes_2011_anonymous_letter_prompts_new_investigati"
+  },
+  {
+   "url": "https://life.ru/p/kyshtymskaya-avariya-1957-goda-kak-vzryv-na-mayake-desyatiletiyami-ostavalsya",
+   "titulo": "Кыштымская авария 1957 года: как взрыв на «Маяке» десятилетиями оставался засекреченным - Life.ru",
+   "tipo": "prensa_posterior",
+   "anio": 2026,
+   "idioma": "ru",
+   "por_que": "Explica cómo los residentes se enteraron a través de rumores y acciones de las autoridades debido al secretismo, relevante para la falta de 'prensa de la época' oficial pero la existencia de conciencia local.",
+   "prioridad": 2,
+   "url_modelo": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEUGJhrooHjUtvPMHiZxg2rBGEbHgiBVuYNLiSHnANEgqL3DTcyKlgUc0aRNV1Utwfuy4jQsHOUOjfbn7pC3CRJSwtjWTSC5igOYFzUmV4HuRdrKlnnR43ODaGtNc9mFOPW3QW77hCNbt9GR1ztAU-MdqHR1mp_KTLip72l7l3Acl_wGaQ8QSr8BLw0_2nqaVpNONkNuPdv50gI",
+   "match": "exacta",
+   "grounding_title": "life.ru",
+   "id": "F11",
+   "slug": "life_2026_1957_life_ru"
+  },
+  {
+   "url": "http://large.stanford.edu/courses/2017/ph241/buttinger1/",
+   "titulo": "The Kyshtym Disaster - Large.stanford.edu",
+   "tipo": "academico",
+   "anio": 2017,
+   "idioma": "en",
+   "por_que": "Menciona informes tempranos y vagos en periódicos occidentales de 1958 y 1959, demostrando la cobertura de prensa internacional inicial, aunque poco detallada.",
+   "prioridad": 2,
+   "url_modelo": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2iPqPlaQ2GB5_q2jBT8Y0T_JETmdcwwrWnOVHPk9NKB0k_u-cOQnAgw69XUtm_zBxVArB0jwVb_4SQHfeO_BRHLjkCaqcjXDyM-JvVe83zs0fX_TtU3fk-yb6FJ__LoVVqPEKsIyKGxelE8UHruAvv4NK",
+   "match": "exacta",
+   "grounding_title": "stanford.edu",
+   "id": "F12",
+   "slug": "stanford_2017_the_kyshtym_disaster_large_stanford"
+  },
+  {
+   "url": "https://www.gw2ru.com/history/3317-kyshtym-accident-radiation-disaster",
+   "titulo": "The Kyshtym accident: A radiation disaster that was covered up for 30 years - GW2RU",
+   "tipo": "prensa_posterior",
+   "anio": 2022,
+   "idioma": "en",
+   "por_que": "Reporta que 'muchas personas en el área escucharon la explosión, pero le dieron poca importancia', un 'testimonio' indirecto sobre la reacción inicial de la población.",
+   "prioridad": 2,
+   "url_modelo": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6Nf6YHrrdCWwXll6CIECJlFH3cbgFUMmfkmfKamjCw5sDG9aic6H-U2Jc0QuScfWchmrBOlX-83TsSsAaQcBDBuVir_73quRVGTllWEv9ZvaOOJvwVf10pcHJQDDIIqS5H7jnkt_jKUuKCGBTJVmg7Jalh1MJweCP6J9nPbpNPbo=",
+   "match": "exacta",
+   "grounding_title": "gw2ru.com",
+   "id": "F13",
+   "slug": "gw2ru_2022_the_kyshtym_accident_a_radiation"
+  },
+  {
+   "url": "https://cyberleninka.ru/article/n/kyshtymskaya-radiatsionnaya-avariya-1957-goda-pervye-otsenki-radiatsionnoy-obstanovki-posle-vzryva",
+   "titulo": "Кыштымская радиационная авария 1957 года: первые оценки радиационной обстановки после взрыва",
+   "tipo": "academico",
+   "anio": 2018,
+   "idioma": "ru",
+   "por_que": "Artículo académico en ruso que analiza las primeras evaluaciones de la situación radiológica inmediatamente después de la explosión.",
+   "prioridad": 2,
+   "url_modelo": "https://cyberleninka.ru/article/n/kyshtymskaya-radiatsionnaya-avariya-1957-goda-pervye-otsenki-radiatsionnoy-obstanovki-posle-vzryva",
+   "match": "exacta",
+   "grounding_title": "cyberleninka.ru",
+   "id": "F14",
+   "slug": "cyberleninka_2018_1957"
+  },
+  {
+   "url": "https://ru.bellona.org/2008/06/16/novyj-zakon-dlya-postradavshih-v-rezul/",
+   "titulo": "Новый закон для пострадавших в результате аварии на ПО \"Маяк\"",
+   "tipo": "informe_oficial",
+   "anio": 2008,
+   "idioma": "ru",
+   "por_que": "Artículo de Bellona, una ONG ambiental, sobre una nueva ley para las víctimas del accidente de Mayak.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "bellona.org",
+   "id": "F15",
+   "slug": "bellona_2008"
+  },
+  {
+   "url": "https://argumentua.com/stati/yadovitoe-oblako-prishlo-s-mayaka",
+   "titulo": "Ядовитое облако пришло с Маяка",
+   "tipo": "prensa_posterior",
+   "anio": null,
+   "idioma": "ru",
+   "por_que": "Artículo periodístico que discute el desastre de Mayak.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "argumentua.com",
+   "id": "F16",
+   "slug": "argumentua"
+  },
+  {
+   "url": "https://www.icheme.org/media/19545/lpb289_pg18.pdf",
+   "titulo": "Documento técnico de IChemE sobre Mayak",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Documento técnico de la Institución de Ingenieros Químicos (IChemE), probablemente analizando aspectos de seguridad o ingeniería del desastre.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "icheme.org",
+   "id": "F17",
+   "slug": "icheme_documento_tecnico_de_icheme_sobre"
+  },
+  {
+   "url": "https://www.stormsmith.nl/Resources/m13mayak20190713F.pdf",
+   "titulo": "Informe de Stormsmith Engineering sobre Mayak (2019)",
+   "tipo": "academico",
+   "anio": 2019,
+   "idioma": "en",
+   "por_que": "Documento técnico o análisis de Stormsmith Engineering sobre el desastre de Mayak, con fecha de 2019.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "stormsmith.nl",
+   "id": "F18",
+   "slug": "stormsmith_2019_informe_de_stormsmith_engineering_sobre"
+  },
+  {
+   "url": "https://diletant.media/articles/45263613/",
+   "titulo": "Artículo sobre el desastre de Kyshtym en Diletant Media",
+   "tipo": "prensa_posterior",
+   "anio": null,
+   "idioma": "ru",
+   "por_que": "Artículo de una revista histórica rusa sobre el desastre de Kyshtym.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "diletant.media",
+   "id": "F19",
+   "slug": "diletant_articulo_sobre_el_desastre_de"
+  },
+  {
+   "url": "https://www.thecollector.com/kyshtym-disaster-heres-what-happened/",
+   "titulo": "The Kyshtym Disaster: Here's What Happened",
+   "tipo": "prensa_posterior",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Artículo de historia popular que describe el desastre de Kyshtym.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "thecollector.com",
+   "id": "F20",
+   "slug": "thecollector_the_kyshtym_disaster_here_s"
+  }
+ ],
+ "_descartadas": [
+  {
+   "url": "https://www.foia.cia.gov/document/publication-kyshtym-nuclear-accident",
+   "titulo": "PUBLICATION ON KYSHTYM NUCLEAR ACCIDENT | CIA FOIA (foia.cia.gov)",
+   "tipo": "foia",
+   "anio": 1978,
+   "idioma": "en",
+   "por_que": "Documentos desclasificados de la CIA que discuten el accidente de Kyshtym y la información disponible en ese momento.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGpJGwtzT2X-Sejku5vx98U747i3PefZvHMJT_XtwOOTJE87DBFhtdo_jy9fNMrVOX5rKk-ypyYCZUMK1oBX7SvFa21103mZ8F8JDw61Qhhg5RtWYufZLb9rzYVm2-goY2U3RLdyTsrzp_iPpDX3NXFjtws1AgY4P7suuohfZcaUcRkK9FQjZ87Q==",
+   "titulo": "Трагедия, о которой никто не знал - Районные новости - Заря.ру",
+   "tipo": "testimonio",
+   "anio": 2023,
+   "idioma": "ru",
+   "por_que": "Contiene el testimonio de Alexander Ivanovich Lobachev, un testigo y participante de la авария.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG79RWNxvhNX_9l58wYcezgYxdgItQStDf9AT296UJGgWSL0z-7jZXd17y80JNQiORvqB4PaYsADYyXM9i19GPQ6d6EFxfKwz-51wmrsuXSp2TAUPkvTeG-nJu4Wbn2Rn1kMuhkWmh7hUFG1J2MPQa5uhUGKGfG2rAaLXWVo84CaYjgq28kZpXkjhy8n2CTUaDVQ1C33AQSrVmFt18RWWXfj-uqz08ulD0J1A==",
+   "titulo": "Забытая катастрофа: Кыштымская авария и ее последствия - 1obl.ru",
+   "tipo": "testimonio",
+   "anio": 2020,
+   "idioma": "ru",
+   "por_que": "Incluye el testimonio de Elizaveta Vorobyeva (Kuznetsova), historiadora local, sobre el impacto en su familia y la comunidad.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGFbVfS2dbHqhq9qWFZlTij-FxaGIfv2J2SjjYps9dmF1rbl84pzoY5ZF1pz3b_WQ7O8gnCPKCM_y_j-ihGUZAwhGVaYIdBFc1DIm4ctjpdau8Hoh7IIC-M-FUgk2GAcl2J0_24Hj0Xz4sl5Fef2KC9v38AYiPFn8jDVkl8oI-sSlN2jCvY_WbR-s60p-CeurM3TUHWhrLj1w0ezVmXkp5F7g==",
+   "titulo": "Curious if anyone can give me more information on Kyshtym disaster. The Soviets first nuclear disaster. : r/chernobyl - Reddit",
+   "tipo": "testimonio",
+   "anio": 2025,
+   "idioma": "en",
+   "por_que": "Contiene un testimonio directo de un ex-jefe de servicio químico de una unidad militar cercana al reactor.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHGz6ej1aeIPVhddcd5Tkl4Naff4o0BuTPhPXDM72hL6OZAY2OpGbEnd390ncd4bfgwhxQT7B3Kt6XS92O60ire_nhgMYRVGI-rE_zfVjnAUaV5f9l-dIeUEWtIBv1OCfQSg7bu6d0Pq48xk5vf77SnqG60m0SczB2S_A9X",
+   "titulo": "Первая ядерная катастрофа СССР",
+   "tipo": "testimonio",
+   "anio": 2025,
+   "idioma": "ru",
+   "por_que": "Incluye el recuerdo de Eduard Lyubchansky, un médico que trabajaba en la zona en 1957.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF5a_SgwuEryaroSJjNj3u3pXm2vCCRDX_r8hHQaecNnUp8YIANpEKwk6i-ar3GOHWVBlH8M-Yzo_T5sm8dAMeJQZGRlqnnnSG0KLLkThjxSYxVGH1HvmfoOIdnqNxq3_Gb17qrCBr5D84OKRaQpkp5ABM=",
+   "titulo": "INFCIRC/368 - Report on Radiological Accident in the Southern Urals on 29 September 1957",
+   "tipo": "informe_oficial",
+   "anio": 1989,
+   "idioma": "en",
+   "por_que": "Informe oficial de la OIEA sobre el accidente, basado en información soviética.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEUuYGempH_Y9ABE0LJ3Yc99QlIUblH4aP2K-HJKIseNygqdS2Q7RTEFED1PPiP_U4PpvZIMscK0WTbN3w5ESQBQSwWVJR-ijGJdCX3p3EQATNcIeRh95IobLVQrlJWudelcUyab3S1qkUo5dkAcmgYQZlubvQQlyzQs_EOPv5OSJ_Oc_GhoYTg8UBxAwvlYxuvqrRiZ2pANZwEDASNUU3pYlmaDzJ8ffE1nnoi-P3fq5aydylm0LqHvpX-wPLCzV0wBxtZPTM=",
+   "titulo": "SOVIETS TELL ABOUT NUCLEAR PLANT DISASTER - The Washington Post",
+   "tipo": "prensa_epoca",
+   "anio": 1989,
+   "idioma": "en",
+   "por_que": "Artículo de prensa contemporáneo a la revelación oficial, citando a funcionarios soviéticos y mencionando el testimonio de Alexei E. Spirin.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhNMLEWREkX8lo0PwB8CER6O8t9JZg6jDfieuNiO7osO44DYO0MrjMy30g9pEhf7tPQodrJ9UyTK6PH6HUXvmQ8kGcbzXZj-1Kbp65TtgKTxN7-ogcsBwyuHZQG7Bju57iNb6zfF6H4h68lScsqYStxu5as5Dqc3Aixhg1nRFLjuinxOuz1tm6ugXufRiMhm9ekkkbbgdGyNTyUJ3PveFWtUGk-oOdSIPLzUI=",
+   "titulo": "Bellona publishes new report on the Mayak Production Association",
+   "tipo": "prensa_posterior",
+   "anio": 2019,
+   "idioma": "en",
+   "por_que": "Informe de una ONG (Bellona) que discute el complejo de Mayak y su historia, incluyendo información sobre la contaminación y la gestión de residuos.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHFqJWrKR8PYfxduJlDnLCQnbflss_TuTtnfTIwsD7-Kv_Mu3D8ujUG9aJsFVq_NuBDFqJp2eSqtzQr0NYWZXMFH3GJ_jCj2ibCgW4N3kWiu2EAHylLL4LlMSLK2d0Aoh1b7yERLr2ul7Z-UH2Zk5_lWp8Wj23hZFNRA4YGlVHM6h9veA==",
+   "titulo": "USSR: NUCLEAR ACCIDENT NEAR KYSHTYM IN 1957-58 (NW 81-10102)",
+   "tipo": "informe_oficial",
+   "anio": 1981,
+   "idioma": "en",
+   "por_que": "Un informe de inteligencia de EE. UU. (Los Alamos National Laboratory) sobre el accidente, basado en la literatura radioecológica soviética.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE3zm5xvqZ8KNOiJcUrls5XdE3NT2joU9GzdZ9mzf5VD2mJFV_fy64lc1IQeYtKEAJLUZom8q5ICcC3DvS0UY8sQaP0x4-kBtloE3kR4anXuD-Ny_YXjZbybDGy_46X0WDRyFzNulA5CWRZsjCH6jWE6_QqMjeBWBqImawoy5vXM3pgjSTQKA==",
+   "titulo": "Mayak Nuclear Disaster of 1957 | PDF - Scribd",
+   "tipo": "prensa_posterior",
+   "anio": 2007,
+   "idioma": "en",
+   "por_que": "Documento que discute el desastre, haciendo referencia a informes detallados de Greenpeace Rusia sobre la tragedia de Mayak.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFV_esIyOl7sYzWiHPA8LjY-vzu-mq2zt82O9OdC8CySuvGRulPmZCVJxLdXqhdr62IMCCDQIe0orDsHfdmzoPJjw60EdAdQBxseroj2539xiXBaXmM8IFHea8VX4z0RL9thsOfJdvLim28OVbiw6baVF61lcB9wm-aMX1SjA==",
+   "titulo": "The Nuclear Disaster in the Urals | work by Medvedev | Britannica",
+   "tipo": "academico",
+   "anio": 1979,
+   "idioma": "en",
+   "por_que": "Referencia clave al libro de Zhores Medvedev, la primera fuente importante de información pública sobre el desastre, destacando su impacto en la revelación de la verdad.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXEerF5H4aeV61acVwfL8sSkIkkCZIChEADi6vPFzk7Osa2obENa2uCMwPCytQK_QhhGeFxRZuRWPp527BoVZ3bhxRf2uW6KJOB6DkkR10ESymH9i-MDxK-ZutdAqKOUMafgiJTBpa1heyLoHuxP8=",
+   "titulo": "The Kyshtym Explosion - Seventeen Moments in Soviet History",
+   "tipo": "academico",
+   "anio": 2017,
+   "idioma": "en",
+   "por_que": "Artículo académico que incluye descripciones detalladas de las experiencias de los aldeanos y los 'liquidadores' en el área afectada, acercándose a la historia oral.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.cia.gov/readingroom/docs/CIA-RDP81B00878R001100040005-0.pdf",
+   "titulo": "USSR: NUCLEAR ACCIDENT NEAR KYSHTYM IN 1957-58",
+   "tipo": "informe_oficial",
+   "anio": 1981,
+   "idioma": "en",
+   "por_que": "Informe desclasificado de la CIA que evalúa la inteligencia sobre el accidente, reconociendo un problema de contaminación significativo.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.cia.gov/readingroom/document/cia-rdp80b01554r003400090031-6",
+   "titulo": "PUBLICATION ON KYSHTYM NUCLEAR ACCIDENT",
+   "tipo": "foia",
+   "anio": 1978,
+   "idioma": "en",
+   "por_que": "Memorando interno de la CIA discutiendo la posibilidad de publicar una versión no clasificada del accidente, lo que demuestra el secreto inicial.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.ilpp.ru/case/delo-postradavshih-ot-radiacii/",
+   "titulo": "Дело пострадавших от радиации",
+   "tipo": "fallo_judicial",
+   "anio": 2020,
+   "idioma": "ru",
+   "por_que": "Detalla un caso ante el Tribunal Constitucional ruso sobre los derechos a las prestaciones sociales de una persona afectada por la radiación que no fue evacuada oficialmente.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://bellona.ru/2008/06/16/mayak_law/",
+   "titulo": "Новый закон для пострадавших в результате аварии на ядерном комбинате «Маяк»",
+   "tipo": "prensa_posterior",
+   "anio": 2008,
+   "idioma": "ru",
+   "por_que": "Artículo sobre el desarrollo de una nueva ley para las víctimas de Mayak, en respuesta a cientos de demandas por compensaciones.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.environmentandsociety.org/arcadia/nuclear-disaster-kyshtym-1957-and-politics-cold-war",
+   "titulo": "The Nuclear Disaster of Kyshtym 1957 and the Politics of the Cold War",
+   "tipo": "academico",
+   "anio": 2012,
+   "idioma": "en",
+   "por_que": "Análisis histórico que explica cómo la CIA ayudó a mantener el secreto del desastre para no perjudicar a la industria nuclear estadounidense.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.osti.gov/servlets/purl/5753041",
+   "titulo": "Analysis of the alleged Kyshtym disaster",
+   "tipo": "informe_oficial",
+   "anio": 1982,
+   "idioma": "en",
+   "por_que": "Informe técnico que, aunque discrepa de la causa del accidente, confirma la existencia de una vasta zona contaminada, basándose en su propio análisis.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://svpressa.ru/accidents/article/159781/",
+   "titulo": "Ядовитое облако пришло с «Маяка»",
+   "tipo": "prensa_posterior",
+   "anio": 2020,
+   "idioma": "ru",
+   "por_que": "Artículo de prensa que incluye testimonios sobre las dificultades legales para obtener indemnizaciones, mencionando un tribunal que denegó una reclamación.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.biblioatom.ru/directors/avariya-1957-goda/",
+   "titulo": "Авария 1957 года",
+   "tipo": "academico",
+   "anio": 2007,
+   "idioma": "ru",
+   "por_que": "Análisis detallado de la situación radiológica y las dosis de exposición de los liquidadores en el emplazamiento industrial de Mayak, basado en documentos de archivo y registros dosimétricos.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.icmm.co.uk/wp-content/uploads/2017/08/254-The-1957-Kyshtym-disaster.pdf",
+   "titulo": "The 1957 Kyshtym disaster",
+   "tipo": "academico",
+   "anio": 2017,
+   "idioma": "en",
+   "por_que": "Artículo que resume el evento, sus causas y consecuencias, destacando el secretismo soviético hasta 1989 y la revelación por Zhores Medvedev.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://archive.is/20121225091730/http://www.dims.net/MAYAK/mayak_e.htm",
+   "titulo": "The Mayak nuclear disaster",
+   "tipo": "prensa_posterior",
+   "anio": 2007,
+   "idioma": "en",
+   "por_que": "Informe de Greenpeace con detalles sobre el complejo de Mayak, el desastre de 1957 y la contaminación continua de la región.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEk_C0UHMQXIBRkWTmaLgf37SVjspZc-ueC5rjeTG2euGxl4OucYxwI08h2i7plMAp2wcORNmnZ6ZVYYfQKsJLdjO6Vqd5dnYJZVpnzmUH6ViiACrxxJiNwKdyTwLi-jz8SQa4osC_lhGnwETOZA00VtpYYdxnZ5fPNRfajGe52PW5f4gXDSgYg5qJDrhb0s8t6gG3lbzKsktaVE_o=",
+   "titulo": "The Nuclear Disaster of Kyshtym 1957 and the Politics of the Cold War",
+   "tipo": "academico",
+   "anio": 2010,
+   "idioma": "en",
+   "por_que": "Menciona la especulación de la prensa regional sobre auroras boreales en los días posteriores al evento (6 de octubre de 1957), lo que indica prensa de la época, aunque desinformada.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGItT1xR0l8v3PQOAOiNY97bJA8kuFdIJsPdjg2K-OrjmCTLLANYgzyC8r9WYbAIV8nDp3C9Kd-kKu6PZPq3TQcd-W4Nk4Z9kUn44i8rNcHHnDkWvBqF48u1TzFNiVC6VnrRMMPy_5zk6yCVRAlXr3Qewuf_oVzOhTvEZcK19rdnmwzO59CkiWByJOKfWpr0hMIAAqwRfNn2BNu-pVVUSwCnMzTcdX3tc0KQ0QZfa5EMTRzbQqE80fz24=",
+   "titulo": "Кыштымская авария - Википедия",
+   "tipo": "academico",
+   "anio": 2026,
+   "idioma": "ru",
+   "por_que": "Contiene una sección de 'Хроника образования ВУРС' (Crónica de la formación de la EURT) con fechas y horas específicas del evento y las primeras evaluaciones, relevante para 'horas'.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH0AMy-Mh1Z7qSAwGnAMpSiUbT3xw-rwb0JaXyjCd_E5tAlOTHXEOJLpHtYBdShxBTgKhz-bZKseyvooTrqLzeeA2OllFBSCTv2ETc6tE2DfJDUG3EP4Gjw9snAwvJxuLopwpuUTBDRGwyf38URR-u4ul0LTlXQhExtJcp1pdb30J2fggihj3B6lTD19UdAmX9exSPlr7J1pNB_rF91__W031NA8Xd98PO1PyjKT6RGtev1MeRzooQpFoAv_gXlI-qe5R9J7Jkz6ZcYjVmJFVGSBpWacZO5MtEXvjKwqtaXA",
+   "titulo": "Авария на «Маяке». Как это было - Новости - Главное управление МЧС России по Челябинской области",
+   "tipo": "prensa_posterior",
+   "anio": 2016,
+   "idioma": "ru",
+   "por_que": "Describe la respuesta inmediata de los bomberos y sus síntomas (debilidad, náuseas), ofreciendo un 'testimonio' indirecto de los primeros días.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHdDBujhCtcS9jvvXkDH7FMo_jl1_tvdZzpflDKvGfHYSSy63c0EyWE49iiAK0vU9dMZme9093C1TIJgiYCHb66SKaYkiFkrzmWdceL4jxm8NPYN2dyOLgdpC_wx3cTCJjYZU0zQ",
+   "titulo": "Взрыв на «Маяке»: первая ядерная катастрофа в СССР - Дилетант",
+   "tipo": "prensa_posterior",
+   "anio": 2019,
+   "idioma": "ru",
+   "por_que": "Menciona que la gente escuchó una explosión pero la atribuyó a trabajos de voladura, un 'testimonio' indirecto de la percepción pública inicial.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEqzaiUpflpnmfR16Nh4th0OeQsX46br3dx82BSw9o266hfDX0BR0lczXimHUsnHVh9S7mrWNeVZFvSippPucSZfIBMeUCsJUox8SNL65JPTpOirYOM2oAX2Fqempfxra1VXwB6v_CfF6GENCXNzete_ZMwBtK8UgIJvYGld25os-5C6iklOkEDwEvbeAA=",
+   "titulo": "I'm sure everything is fine! : r/HistoryMemes - Reddit",
+   "tipo": "prensa_posterior",
+   "anio": 2026,
+   "idioma": "en",
+   "por_que": "Confirma el 'brillo extraño' en el cielo y el artículo del periódico 'Chelyabinsk Worker' que lo atribuyó a auroras boreales, vinculando 'testimonio' con 'prensa de la época' (indirectamente).",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQERJp4iUyLWvK_7M4UaObhtfE0fTK_jVWUEWsGZhovozEmyffjw8C3KXDxf6F_a8co1Y8yJpYzJ0g9FG0hnMpGmKBvwq7qvdKkjALYTBZ0YKGfvC8eTVN3Qbe5DcbKA6GcU3NbFgvINoA==",
+   "titulo": "радиационная авария 1957 года на южном урале: правда и домыслы - libozersk.ru",
+   "tipo": "academico",
+   "anio": 2007,
+   "idioma": "ru",
+   "por_que": "Detalla el primer informe sobre el accidente en la prensa occidental por el periódico danés 'Berlingske Tidende' en abril de 1958, aunque impreciso.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.cia.gov/readingroom/docs/CIA-RDP05T00644R000100060008-0.pdf",
+   "titulo": "THE KYSHTYM NUCLEAR ACCIDENT - CIA FOIA",
+   "tipo": "foia",
+   "anio": 1978,
+   "idioma": "en",
+   "por_que": "Memorando interno de la CIA que recomienda no publicar una versión desclasificada del accidente para evitar interferir en el debate sobre la energía nuclear en EE.UU.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.cia.gov/readingroom/docs/CIA-RDP80B01554R003400090031-6.pdf",
+   "titulo": "PUBLICATION ON KYSHTYM NUCLEAR ACCIDENT - CIA FOIA",
+   "tipo": "foia",
+   "anio": 1978,
+   "idioma": "en",
+   "por_que": "Documento de la CIA que sugiere la publicación de una versión no clasificada del accidente nuclear de Kyshtym para contrarrestar historias erróneas.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.osti.gov/servlets/purl/5352296",
+   "titulo": "Analysis of the alleged Kyshtym disaster",
+   "tipo": "informe_oficial",
+   "anio": 1982,
+   "idioma": "en",
+   "por_que": "Informe técnico del gobierno de EE.UU. que analiza las afirmaciones de Zhores Medvedev y concluye que la contaminación existía pero no fue causada por un único accidente de residuos nucleares.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.icheme.org/media/13295/the-1957-kyshtym-disaster.pdf",
+   "titulo": "The 1957 Kyshtym disaster",
+   "tipo": "academico",
+   "anio": 2017,
+   "idioma": "en",
+   "por_que": "Documento que describe el evento, sus causas y consecuencias, incluyendo los efectos ambientales y en la población, y las lecciones aprendidas en planificación de emergencias.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://libozersk.ru/pbd/mayak/zagadki_mayaka/avaria_1957.html",
+   "titulo": "Авария 1957 года - Загадки 'Маяка'",
+   "tipo": "prensa_posterior",
+   "anio": 2019,
+   "idioma": "ru",
+   "por_que": "Artículo de una biblioteca de Ozyorsk que comenta documentos desclasificados del archivo regional sobre la construcción de la planta y el desastre.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://zaryainfo.ru/2023/09/29/tragedija-o-kotoroj-nikto-ne-znal/",
+   "titulo": "Трагедия, о которой никто не знал",
+   "tipo": "testimonio",
+   "anio": 2023,
+   "idioma": "ru",
+   "por_que": "Entrevista a un militar que fue testigo presencial de la explosión y participó en las primeras labores de respuesta, ofreciendo un testimonio directo del suceso.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.environmentandsociety.org/arcadia/nuclear-disaster-kyshtym-1957-and-politics-cold-war",
+   "titulo": "The Nuclear Disaster of Kyshtym 1957 and the Politics of the Cold War",
+   "tipo": "academico",
+   "anio": 2012,
+   "idioma": "en",
+   "por_que": "Artículo que contextualiza el desastre en la Guerra Fría, explicando el secretismo tanto soviético como de la CIA.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  }
+ ],
+ "_grounding": [
+  {
+   "title": "stanford.edu",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH18X0blys3OWcAJ8HkEGBM_aNfjxbfOh_mLGKNJjaqjmgKf7Enk2huO4iEVufnwAdMC7x3bGDCyy7dYYTQZQAfSrBo0Vy-DGcjqkuFkew0AFxXkHkIkicmgK6UKvl85XK7NvFkHCqD4S16CdOAX5JaQ652N8yd-4R-Qd5gisoU3Yc7",
+   "url": "http://large.stanford.edu/courses/2015/ph241/chang2/docs/sw-81-10102.pdf"
+  },
+  {
+   "title": "cia.gov",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFCtxCG7qFxuRHdRTIGVjdHv-IQ8Y64DPJwhTaQTX_IyN1g_R7h_K_ZCYffGFqzMly0MJgNhTMws4X0NmffygGYbtLESi2zKtmMYoER1mld1_OViVNFFjHiS4BdcsaUb79X4bRAX2eKKMZ1X6EXwt1qKyOHe4hG_s0ntfkqxYSMbe4=",
+   "url": "https://www.cia.gov/system-maintenance/"
+  },
+  {
+   "title": "cyberleninka.ru",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF9ZKAN39KOlmARpk4hlFA65It0_nNdnrEH25gN8xxDt271UO_DSg3n9My3rZpoxfMVzNzwal8g_atXrNPnucckbkNYeXpCAsrO8QCy0LqWlDPL05HUxBeniAhjB8quOp8VnrPPO7Ap4yXr_12gTSUBsogXtnAcNEqru4pabuVV8CufKiq6Ziy_qwr2lEtgEq1mdQqj8fxkrzFp9dFAaJsJpxIGiVqX73nIASAAJYvqfX7rLWp2Ik8bcbTUGUIdH9hSzNzlI-IJ5iC6n25EgIdvDydOFrCtoqD5lg==",
+   "url": "https://cyberleninka.ru/article/n/kyshtymskaya-yadernaya-katastrofa-1957-goda-istoricheskiy-opyt-likvidatsii-posledstviy-krupnomasshtabnyh-radiatsionnyh-avariy"
+  },
+  {
+   "title": "cyberleninka.ru",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFW1gJ_5jbjDia8It4ZAM7TiPCwx1QaRDe6Q5jXKvlTBavgs5fvgvisBr02kbhDkFjLmsOxbZJr5M1H7ZVXQwWy0RI8Hf5mijH0b4w-QJzC7nzavnkzS2HeBkb9-LTFNH98GBmP99ErBY4e9mlIg1tKSw5z9mLyDVwFOJmcNYQApAhPLuW0DciPaXyemjGRXMiC5In2Wr5_TJHWB_KcPDmojckNEWnpw9jXlaUKU5ORLLFG_1-uf3pf2LcksjKAJXKfa-mwflNGkMAEgeGVca54KT5ZG-ZU9TTBjDImPA==",
+   "url": "https://cyberleninka.ru/article/n/sozdanie-bazy-dannyh-repozitoriya-arhivnyh-dokumentov-po-problemam-preodoleniya-posledstviy-radiatsionnoy-avarii-na-himkombinate"
+  },
+  {
+   "title": "bellona.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHAbgZ9FHu56ZUP47JLR9cCsn1INYoZLx8Bjh1hEnLoBC_3o-2TaYD-b-FfwsPxRcjqFx2EOQnxaTK76buePDXwSJcnzAvtLKIm-JZXgRy2RXVe_cN9CqmtTOOMB3ujcY6X1EoP8gl8FcViaJZErhKWBFhyXYY9LtfhCJsLwj_WXpv80T6nHNxAQnYdRED9pzJbN7oIOlP2Jq_Cy8PfYBpO-FoP4B4uurEOdBeP6GE9Hw5OxRP6eC7b-6loOiM3HU3RSPCp6HuODLy4kQ==",
+   "url": "https://bellona.org/news/nuclear-issues/radwaste-storage-at-nuclear-fuel-cycle-plants-in-russia/2001-01-chelyabinsk-court-to-examine-mayak-plant"
+  },
+  {
+   "title": "themoscowtimes.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrXS_qrMO37eB-c2v69R4chORlHA0JiCdLijzaaTXk92Ph8z0tIGaQO66KXoKZ5hkMNWrN-cO-zc_5oOwrT3n4ItGong3pGa98BkDfGBQ78Y0epVZuu_faZpr9KltiHmlruKxRg0mUHvii640xqj4AyTrtwGimoVTJwsWnByMilkBXlFOzR9AIKI1uvpqkmov0ttRpju3Wk8aTnxc=",
+   "url": "https://www.themoscowtimes.com/archive/anonymous-letter-prompts-new-investigation-of-nuclear-plant"
+  },
+  {
+   "title": "bellona.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6hZeQ8LvWkbaERMCE46XMX1O4FdErFniQGTJFKJvE1inx0aYbm2IIs8tvRmL_jPv164RAoY0c0WqLrG8wQlkv6hpw5uoBghSZbO0_6ydFhbULbEcGc-2NHODweL0bkMMCoAE0XpEGobL29eVfYz4LdUirlgYQyqgifdCsll3BafhiLA==",
+   "url": "https://ru.bellona.org/2008/06/16/novyj-zakon-dlya-postradavshih-v-rezul/"
+  },
+  {
+   "title": "argumentua.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEZ3HMxmnv0j0ij4ZjCUxe9PGF3sjXqwP-piccvfM88iVegcyyT4c_bsqG05o87fhr_B0eLssc5FcVGqk49m9164YBMJDso0SafVwqr6WYOq92H5IcpLZTX5zZkYV3pnituqB2tyMdG0sKvFia6y25p3Ako8cfFCa0=",
+   "url": "https://argumentua.com/stati/yadovitoe-oblako-prishlo-s-mayaka"
+  },
+  {
+   "title": "radhyg.ru",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEtwRyCHYSk51YvUNLhrFSXu3BHshqMR2M6YFD6KKU8XWzoLLtCyz3I9IdQ7wtgX-rktE9-CLXbSFdGSSNiUEMvA4HuQ8yZQpDQ2IAviVIbkUPCr8_H5zydKcX4U8OZOA3so6C_Cg==",
+   "url": "https://www.radhyg.ru/jour/article/view/627"
+  },
+  {
+   "title": "icheme.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHzJMGQ8Gt4WkXDPaT1gAmlkHWWyOxT9CF0cywA0ZmZvlDgPsmCFLd-HggLBx25dz7GxJWBNaPYYVShVSV1-AO7lGeiSahT77lnwBc2Xzp00cKf2dXhfpg85PBZ6SGNQRNBNNtzavzdTeChW-U=",
+   "url": "https://www.icheme.org/media/19545/lpb289_pg18.pdf"
+  },
+  {
+   "title": "gwu.edu",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXd2XmbhGMmgWqteOREL41GL81gjxScvRkmKY_svaB6BbFanvUlNO4f4toOjad_3NToVdS85jfn8B7qJfr7SRpQBQDll8YQf_6LGa32bCMoMwp1n9Jn49EWd9cIndj9z3W7C4C-lqhF4sJSVORMlwbliHA1ZvTxMVQU-RbT3343DC8HkT68KyO6j6PLVNH4ouWBPFk7rktQTPmhXitFtLNXwDcpzQy1A==",
+   "url": "https://nsarchive.gwu.edu/briefing-book/nuclear-vault/2018-04-06/cia-debriefed-soviet-h-bomb-eye-witness-1957"
+  },
+  {
+   "title": "stormsmith.nl",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMVmWrfTXknFoNJVrCJT6SIzD42H-UKB3RHrnJPY9vZXLyr1g010FWxRYP8T80tPFE1Y8hqnb9GwHiuyJ2GPENZ-x46s4bjDVDy3wRiMmBPjZq06HN5tkkKRUIidgUyg-9sTTHpwO0nmuAhNXCE6DG8XRS",
+   "url": "https://www.stormsmith.nl/Resources/m13mayak20190713F.pdf"
+  },
+  {
+   "title": "youtube.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH-UO89Bymzh8_psFDYX2v--ElYLPv-QdWSOqc94xDxMrGkhT49nHETb89QjVTaTi--WPzVbhk0KPjsQC_AZFxzAY-5J7lyvqdeCXINyytkHgy-UfUYL02ZWcexHY2dy74sKfs4wQ==",
+   "url": "https://www.youtube.com/watch?v=j45g9oCLjtk"
+  },
+  {
+   "title": "wikipedia.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGItT1xR0l8v3PQOAOiNY97bJA8kuFdIJsPdjg2K-OrjmCTLLANYgzyC8r9WYbAIV8nDp3C9Kd-kKu6PZPq3TQcd-W4Nk4Z9kUn44i8rNcHHnDkWvBqF48u1TzFNiVC6VnrRMMPy_5zk6yCVRAlXr3Qewuf_oVzOhTvEZcK19rdxmwzO59CkiWByJOKfWpr0hMIAAqwRfNn2BNu-pVVUSwCnMzTcdX3tc0KQ0QZfa5EMTRzbQqE80fz24=",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9A%D1%8B%D1%88%D1%82%D1%8B%D0%BC%D1%81%D0%BA%D0%B0%D1%8F_%D0%B0%D0%B2%D0%B0%D1%80%D0%B8%D1%8F"
+  },
+  {
+   "title": "mchs.gov.ru",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH0AMy-Mh1Z7qSAwGnAMpSiUbT3xw-rwb0JaXyjCd_E5tAlOTHXEOJLpHtYBdShxBTgKhz-bZKseyvooTrqLzeeA2OllFBSCTv2ETc6tE2DfJDUG3EP4Gjw9snAwvJxuLopwpuUTBDRGwyf38URR-u4ul0LTlXQhExtJcp1pdb30J2fggihj3B6lTD19UdAmX9exSPlr7J1pNB_rF91__W031NA8Xd98PO1PyjKT6RGtev1MeRzooQpFoAv_gXlI-qe5R9J7Jkz6ZcYjVmJFVGSBpWacZO5MtEXvjKwqtaX",
+   "url": "https://74.mchs.gov.ru/glavnoe-upravlenie/sily-i-sredstva/specialnye-upravleniya-fps/specialnoe-upravlenie-fps-1-mchs-rossii/novosti/avariya-na-mayake-kak-eto-bylo"
+  },
+  {
+   "title": "life.ru",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEUGJhrooHjUtvPMHiZxg2rBGEbHgiBVuYNLiSHnANEgqL3DTcyKlgUc0aRNV1Utwfuy4jQsHOUOjfbn7pC3CRJSwtjWTSC5igOYFzUmV4HuRdrKlnnR43ODaGtNc9mFOPW3QW77hCNbt9GR1ztAU-MdqHR1mp_KTLip72l7l3Acl_wGaQ8QSr8BLw0_2nqaVpNONkNuPdv50gI",
+   "url": "https://life.ru/p/kyshtymskaya-avariya-1957-goda-kak-vzryv-na-mayake-desyatiletiyami-ostavalsya"
+  },
+  {
+   "title": "diletant.media",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHdDBujhCtcS9jvvXkDH7FMo_jl1_tvdZzpflDKvGfHYSSy63c0EyWE49iiAK0vU9dMZme9093C1TIJgiYCHb66SKaYkiFkrzmWdceL4jxm8NPY2dyOLgdpC_wx3cTCJjYZU0zQ",
+   "url": "https://diletant.media/articles/45263613/"
+  },
+  {
+   "title": "ecohubmap.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFGpHU0UDRpUfn-IkN30iu_npNKURJjkyRmQUTNM3BSOyP0E0GJGf0p27_M5GuDYGovjf0VYJo2SAWmdBOeo4k_OMDJtaZV2xwenTQiZ7Z0ke5o1WWz2vZVYUKypg0fGvoW81QX1x4G-h7mDkf9W_YJdXZg9DObazrudj7Aa9dUpw2pHyfO8Q9Ks2Ts90VzWH0ByNwvDiP6-w==",
+   "url": "https://www.ecohubmap.com/hot-spot/kyshtym-nuclear-disaster-russian-federation/5l0fbklmhcl0vs"
+  },
+  {
+   "title": "stanford.edu",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF2iPqPlaQ2GB5_q2jBT8Y0T_JETmdcwwrWnOVHPk9NKB0k_u-cOQnAgw69XUtm_zBxVArB0jwVb_4SQHfeO_BRHLjkCaqcjXDyM-JvVe83zs0fX_TtU3fk-yb6FJ__LoVVqPEKsIyKGxelE8UHruAvv4NK",
+   "url": "http://large.stanford.edu/courses/2017/ph241/buttinger1/"
+  },
+  {
+   "title": "gw2ru.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF6Nf6YHrrdCWwXll6CIECJlFH3cbgFUMmfkmfKamjCw5sDG9aic6H-U2Jc0QuScfWchmrBOlX-83TsSsAaQcBDBuVir_73quRVGTllWEv9ZvaOOJvwVf10pcHJQDDIIqS5H7jnkt_jKUuKCGBTJVmg7Jalh1MJweCP6J9nPbpNPbo=",
+   "url": "https://www.gw2ru.com/history/3317-kyshtym-accident-radiation-disaster"
+  },
+  {
+   "title": "wikipedia.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFzu5i1JMJ_gXR7lYukYXc_h8RqFPOeznN7gSKlvaWcYQA8COOzRYT4rVapkoXYerPpm29fu8sEx_xIL3yiX4X0ahikv22O10DGTBq4qmFYR3FsV1a0AYGe8DSzJ-naXl2vb8nI6FiW898=",
+   "url": "https://en.wikipedia.org/wiki/Kyshtym_disaster"
+  },
+  {
+   "title": "thecollector.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFo9e576cpgiBxTBwRQQqFVNfdj7KeN9n_ZXbpluAm8xV74mznOWUvKeiy0eF2QNt5KTvu2QQFzi3ymOixvBRYtQiBJM9ZCmlfIyZRJNK6385Yr8eIPlvWHklNrFu_jshSdqrvWXh8yM3qyMa0ZmgyVSocRM3OlsiVzI8Nh3w==",
+   "url": "https://www.thecollector.com/kyshtym-disaster-heres-what-happened/"
+  },
+  {
+   "title": "cyberleninka.ru",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEzV6stsUJcAADfuCmeNB3m-S5XSMLLb6bIvzxp4SchV2MqltXqsz7I5UbruBaMuLiQ3s61h1ttK39GYXEMbWZiHChB3WM1Bgd3YsWwMvrp3idwLbNqcSFQibgw7BvP9FB2GxnTqf1JEcbO4OiMQyMRBzhOqSN4TlHQJltW8uy05xuoJQ7BTljiNt7cV2cBlOOXiDWr3uovsfwxwcKL7Ct9qZdL247xwTOR-68AT5R9QAQibMW0-iqMRyxUWAxu_6I=",
+   "url": "https://cyberleninka.ru/article/n/kyshtymskaya-radiatsionnaya-avariya-1957-goda-pervye-otsenki-radiatsionnoy-obstanovki-posle-vzryva"
+  },
+  {
+   "title": "youtube.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE0iflxfPlJWe4RrBRTYMawccN2QkmDEuaRZIm_UOkYyP-T1j6Nz1yGiDdXYZPT4NDxtDOanUKF6MLR8hhn1nPTGpcq2wqmOJw3FKo5bl6g0CWXpBi08BA1gtZW50sDbkG5zNM=",
+   "url": "https://www.youtube.com/shorts/kNBAM9scSJM?app=desktop"
+  },
+  {
+   "title": "zaryagazeta.ru",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHND-vrjtfQcBELttMQopIse8LEyJLB3AXJi70Huf39Wsd2R7suQrKyNrMi57KlCRMq3ANwnUrgPG4ARxIZ_rPXyD52dmi_2WC1lYcwsiZeubN9mhTcMaLppC7VaTxk0hWrQByMBsMHvVheTfVIVjJWSYGZ7nT7RQ5GNWvUu8XEE1UhsFd_e6PbtQ==",
+   "url": "https://zaryagazeta.ru/news/media/2023/9/29/tragediya-o-kotoroj-nikto-ne-znal/"
+  },
+  {
+   "title": "youtube.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEzGQ56o_QXBXVI8yTBUVTXbHchCueWLPEfiLoszGECFudNvVk_X08i_2RYhhrMP0gjedV_h_cQPkWE5-tF1kFF7TKYPCfqYGnDaPSuKlKsjikE3dJXYnks7YCX_ahupvgSqbjNi6s=",
+   "url": "https://www.youtube.com/watch?v=lYt55g7pqkA"
+  },
+  {
+   "title": "youtube.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF1ozM-pQQ-BPdg5y1Z_bag5gubWT-lqog3L16xwiSnAbsrQo7vunyDibpyrmHAOo8uXKjMByz1Vcj1xZ1yXeIsOecC1Y74grqjZIw7GFngWjLCjqjVWSjFl3zCBCKC6DiAwYKctMg=",
+   "url": "https://www.youtube.com/watch?v=ODd0y1Ezdrw"
+  }
+ ],
+ "prompt_version": "f7a-1",
+ "_focos_grounding": {
+  "pro": 2,
+  "flash": 1,
+  "sin": 1
+ }
+}
