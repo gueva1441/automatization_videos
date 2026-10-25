@@ -216,14 +216,26 @@ def _step_cost(topic_id: str, label: str, fn):
         f.write_text(json.dumps(costs, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
-def run_escaleta_v3(topic_id: str, sin_columna: bool = False) -> dict:
+def run_escaleta_v3(topic_id: str, columna: bool = False) -> dict:
     """m01a v3: compuerta del pool (rojo → PoolGateRed, sin gastar) + escaleta (Pro, con reintentos).
-    F17: con ficha v2, m01a = columna → escaleta (`sin_columna=True` reproduce F16: escaleta sin columna)."""
+    F17: con ficha v2, m01a era columna → escaleta. F22d (decisión del analista): la columna ya no alimenta a la
+    escaleta (la escaleta va siempre sin columna); con `columna=True` (`--columna`) se genera además la columna como
+    página de lectura (`_steps/<id>/COLUMNA_<id>.md` + `01a_columna.json`), después de la escaleta y sin pasarla."""
     from script_engine import m01a_escaleta as me
     topic = _topic_v3(topic_id)
     log: list[str] = []
-    columna = None if sin_columna else "generar"
-    esc = _step_cost(topic_id, "escaleta", lambda: me.generate_escaleta(topic, log=log, columna=columna))
+    esc = _step_cost(topic_id, "escaleta", lambda: me.generate_escaleta(topic, log=log, columna=None))
+    if columna:
+        from researcher_steps.ficha_caso import load as load_ficha
+        from script_engine import m01a_columna as mc
+        ficha = load_ficha(topic_id, STEPS_DIR)
+        if ficha and "historia" in ficha:
+            col = _step_cost(topic_id, "columna", lambda: mc.generate_columna(topic, topic["evidence_pool"], ficha,
+                                                                               log=log))
+            (STEPS_DIR / topic_id / f"COLUMNA_{topic_id}.md").write_text(
+                mc.to_markdown(col, topic.get("video_title") or topic_id), encoding="utf-8")
+        else:
+            log.append("  [columna] sin ficha v2: no se genera")
     print("\n".join(log[-8:]))
     return esc
 
@@ -266,7 +278,7 @@ def run_guion_v4(topic_id: str, modelo: str | None = None) -> dict:
     esc = _load_step_output(topic_id, "01a_escaleta.json")
     log: list[str] = []
     d = STEPS_DIR / topic_id
-    call = g4.call_for(modelo)
+    call = g4.call_for(modelo or g4.DEFAULT_MODELO_GUION)  # F22d: sin --modelo, el guion es Opus 5.5
     from researcher_steps.ficha_caso import load as load_ficha
     ficha = load_ficha(topic_id, STEPS_DIR)                  # F14: si hay ficha, el texto de los ids sale de ella
     g = _step_cost(topic_id, "guionista_v4", lambda: g4.write(topic, esc, call=call, log=log, ficha=ficha))
@@ -298,7 +310,7 @@ def process_topic(
     v3: bool = False,
     guion: str | None = None,
     modelo: str | None = None,
-    sin_columna: bool = False,
+    columna: bool = False,
 ) -> dict:
     """Corre la cadena m01a → m03 + assemble para 1 topic, reanudando desde from_step.
 
@@ -337,7 +349,7 @@ def process_topic(
         # m01a — skeleton
         if from_step in ("m01a",) and use_v3:
             print(f"  [01a v3] Compuerta del pool + escaleta...")
-            run_escaleta_v3(topic_id, sin_columna=True) if sin_columna else run_escaleta_v3(topic_id)
+            run_escaleta_v3(topic_id, columna=columna)
             skeleton = None
             result["steps_completed"].append("m01a")
             if stop_after_step == "m01a":
@@ -677,7 +689,11 @@ def main():
                         help="F11b: con --guion v4, el modelo de toda la cadena v4 (guionista + reparación); el juez "
                              "es el de siempre")
     parser.add_argument("--sin-columna", dest="sin_columna", action="store_true",
-                        help="F17: con ficha v2, la escaleta sin la columna vertebral (reproduce F16)")
+                        help="F17; F22d: es el camino por defecto (la escaleta va siempre sin columna); se acepta y no "
+                             "cambia nada")
+    parser.add_argument("--columna", action="store_true",
+                        help="F22d: además de la escaleta (sin columna), genera la columna vertebral como página de "
+                             "lectura COLUMNA_<id>.md; no se le pasa a la escaleta")
     parser.add_argument("--batch", action="store_true",
                         help="Modo batch desatendido: desactiva los gates del medio "
                              "(normalizer_gate + music_gate). Equivale a "
@@ -728,7 +744,7 @@ def main():
             v3=args.v3,
             guion=args.guion,
             modelo=args.modelo,
-            sin_columna=args.sin_columna,
+            columna=args.columna,
         ))
         
     # Resumen final

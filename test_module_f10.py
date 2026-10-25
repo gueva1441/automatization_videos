@@ -142,7 +142,7 @@ def test_sin_flag_corre_el_camino_viejo(monkeypatch):
     called = []
     monkeypatch.setattr(f15, "_load_topic_by_id", lambda tid: {"id": tid})
     monkeypatch.setattr(f15, "generate_skeleton", lambda t: called.append("m01a_skeleton") or {"chapters": []})
-    monkeypatch.setattr(f15, "run_escaleta_v3", lambda tid: called.append("escaleta"))
+    monkeypatch.setattr(f15, "run_escaleta_v3", lambda tid, **kw: called.append("escaleta"))   # F22d: + columna=
     r = f15.process_topic("t", from_step="m01a", stop_after_step="m01a")
     assert r["status"] == "PASS" and called == ["m01a_skeleton"]
     called.clear()

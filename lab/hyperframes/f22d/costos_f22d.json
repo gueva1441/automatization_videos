@@ -1,0 +1,53 @@
+{
+ "etapas": [
+  {
+   "tag": "K",
+   "paso": "escaleta",
+   "modelo": "gpt-6.1-sol",
+   "usd": 0.297,
+   "segundos": 419.9,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 14479,
+     "out": 6488,
+     "thinking": 6085,
+     "usd": 0.1547
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 14896,
+     "out": 6198,
+     "thinking": 5058,
+     "usd": 0.1424
+    }
+   ],
+   "error": null,
+   "log": [
+    "  [escaleta] compuerta del pool: verde {'datos': 208, 'citas_verificadas': 18, 'elegibles_humano': 7, 'eventos_con_fecha': 22}",
+    "  [escaleta v2] intento 1: 15 bloqueante(s) ['beat 6: dato_central «E2: DURANTE UN PARTIDO DE FÚTBOL, UN TRABAJADOR ADVIERTE HUMO AMARILLO EN DIRECCIÓN AL ALMACENAMIENTO QUE F16 DENOMINA S-30.» no existe en el pool (o no es D/T/Q)', 'humano D163 no es una persona del pool', 'a_pantalla T04 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T25 también está en un beat: lo que va a pantalla no lo dice la voz'] · 60 reparación(es) · 12 a métricas",
+    "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 52 reparación(es) · 15 a métricas"
+   ]
+  },
+  {
+   "tag": "K",
+   "paso": "guion",
+   "modelo": "claude-opus-5-5",
+   "usd": 0.4766,
+   "segundos": 203.0,
+   "llamadas": [
+    {
+     "servicio": "Anthropic claude-opus-5-5",
+     "desc": "guion_v4 guionista",
+     "in": 11655,
+     "out": 21497,
+     "thinking": 0,
+     "usd": 0.4766
+    }
+   ]
+  }
+ ],
+ "usd_total": 0.7736
+}

@@ -1,0 +1,12 @@
+[21:03:02] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f22d-escaleta
+[21:10:02] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f22d-escaleta � Costo total: $0.2970
+  [K escaleta] US$ 0.2970 · 420 s · tanda US$ 0.2970
+  [escaleta] compuerta del pool: verde {'datos': 208, 'citas_verificadas': 18, 'elegibles_humano': 7, 'eventos_con_fecha': 22}
+  [escaleta v2] intento 1: 15 bloqueante(s) ['beat 6: dato_central «E2: DURANTE UN PARTIDO DE FÚTBOL, UN TRABAJADOR ADVIERTE HUMO AMARILLO EN DIRECCIÓN AL ALMACENAMIENTO QUE F16 DENOMINA S-30.» no existe en el pool (o no es D/T/Q)', 'humano D163 no es una persona del pool', 'a_pantalla T04 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T25 también está en un beat: lo que va a pantalla no lo dice la voz'] · 60 reparación(es) · 12 a métricas
+  [escaleta v2] intento 2: 0 bloqueante(s) [] · 52 reparación(es) · 15 a métricas
+[escaleta] 14 beats · f22-1 · sin columna
+[21:10:02] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f22d-guion
+[21:13:25] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f22d-guion � Costo total: $0.4766
+  [K guion] US$ 0.4766 · 203 s · tanda US$ 0.7736
+[guion] 1695 palabras ≈ 13.8 min · bloqueantes 0 · citas 9
+tanda US$ 0.7736

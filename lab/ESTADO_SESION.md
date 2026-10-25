@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-24 (F22c: con columna la escaleta sale con ~40 % menos ids y la mitad de apoyos; guion Opus 1,332 vs ~1,600 palabras sin columna; PARADA por tope US$ 2.81, faltan B2 y K) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-24 (F22d: escaleta sin columna por defecto y guion v4 con Opus 5.5 por defecto; Kyshtym 1,695 palabras, 0 bloqueantes; US$ 0.774) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,12 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F22d — Sin columna y Opus por defecto · Kyshtym — HECHO, **PARADA**
+- Sobre `ee54850`. Reporte `lab/hyperframes/f22d/F22d_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), runner `f22d_corridas.py`.
+- **Decisión del analista, en código (prompts sin cambios):** `fase1_5` corre la escaleta siempre sin columna; `--columna` genera la columna solo como `COLUMNA_<id>.md` de lectura; `--sin-columna` queda como no-op. `guion_v4.DEFAULT_MODELO_GUION = claude-opus-5-5` (effort high, max_tokens 32 000) para `write`/`reparar`/`run_guion_v4`; `call_for(None)` (escaleta, columna) sigue en Sol.
+- Kyshtym desde la ficha de F22: escaleta sin columna (Sol; humano Kutepova, antagonista institución Mayak, 44 ids) → guion Opus 1,695 palabras ≈ 13.8 min, 0 bloqueantes, 9 citas. US$ 0.7736 de 1.50.
+- Tests `test_module_f22d.py` (3) + f10/f12/f17 adaptados; suite amplia 806 verdes + las 5 previas. Sin merge.
 
 ## F22c — ¿Escaleta con columna más floja? — HECHO PARCIAL, **PARADA por tope** (faltan B2 y K)
 - Sobre `cd5fde5`, sin cambios de código fuera de lab. Reporte `lab/hyperframes/f22c/F22c_REPORT.md` (revisor íntegro: NO CUMPLE — entrega parcial declarada, faltan B2 y K), tabla `tabla_f22c.md`, runner `f22c_corridas.py`.

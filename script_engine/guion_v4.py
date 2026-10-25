@@ -53,7 +53,10 @@ GEMINI_PROPIOS = ("gemini-4-argon",)  # F11c §1.2: modelo propio del guionista 
 CLAUDE = ("claude-opus-5-5",)         # F22b: Messages API de Anthropic
 # F11b §2: Sol en esfuerzo high; Astra, el de la API por defecto. F22b: Opus 5.5 en high, como Sol (su defecto es medium)
 ESFUERZO = {"gpt-6.1-sol": "high", "claude-opus-5-5": "high"}
-DEFAULT_MODELO = "gpt-6.1-sol"       # F12 §1 (decisión de Omar): sin `--modelo`, el guion v4 es Sol en esfuerzo high
+DEFAULT_MODELO = "gpt-6.1-sol"       # F12 §1 (decisión de Omar): el modelo de `call_for(None)` (escaleta, columna)
+# F22d (decisión del analista): el guion v4 (guionista + reparación) es Opus 5.5 en esfuerzo high (max_tokens 32 000,
+# claude_helpers.MAX_TOKENS); escaleta y columna siguen en DEFAULT_MODELO
+DEFAULT_MODELO_GUION = "claude-opus-5-5"
 DIAS = ("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo")
 
 OFICIO = [
@@ -640,7 +643,7 @@ def write(topic: dict, esc: dict, *, call: Callable[..., dict] | None = None,
           version: str = PROMPT_VERSION) -> dict[str, Any]:
     log = log if log is not None else []
     if call is None:
-        call = call_for(None)
+        call = call_for(DEFAULT_MODELO_GUION)            # F22d: el guion, con su modelo por defecto
     raw = call(prompt(topic, esc, largo, ficha, version), system_instruction=system(version), response_schema=SCHEMA,
                description="guion_v4 guionista")
     ps = with_ids(mg.normalize(raw, esc, topic["evidence_pool"]), topic["evidence_pool"], esc)
@@ -932,7 +935,7 @@ def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[...,
     from script_engine import m01d_particion as md
     log = log if log is not None else []
     if call is None:
-        call = call_for(None)
+        call = call_for(DEFAULT_MODELO_GUION)            # F22d: el guion, con su modelo por defecto
     pool = topic["evidence_pool"]
     ps = with_ids(parrafos, pool, esc)
     bl0 = bloqueantes(topic, esc, ps, largo, ficha)

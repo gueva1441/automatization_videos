@@ -268,15 +268,22 @@ def test_sin_columna_la_escaleta_es_f16(monkeypatch, tmp_path):
 #  fase1_5 --sin-columna (§1.4) · cost_history (§3)
 # ═══════════════════════════════════════════════════════════════
 
-@pytest.mark.parametrize("sin, esperado", [(False, "generar"), (True, None)])
-def test_fase1_5_sin_columna(monkeypatch, sin, esperado):
+@pytest.mark.parametrize("columna", [False, True])
+def test_fase1_5_sin_columna(monkeypatch, tmp_path, columna):
+    # F22d (decisión del analista): la escaleta va siempre sin columna; `columna=True` genera la columna aparte, solo
+    # como página de lectura
     import fase1_5 as f15
     seen = {}
-    monkeypatch.setattr(f15, "_topic_v3", lambda tid: {"id": tid})
+    monkeypatch.setattr(f15, "_topic_v3", lambda tid: {"id": tid, "evidence_pool": POOL})
     monkeypatch.setattr(f15, "_step_cost", lambda tid, label, fn: fn())
+    monkeypatch.setattr(f15, "STEPS_DIR", tmp_path)
     monkeypatch.setattr(me, "generate_escaleta", lambda topic, **kw: seen.update(kw) or {"ok": 1})
-    f15.run_escaleta_v3("t-f17", sin_columna=sin)
-    assert seen["columna"] == esperado
+    monkeypatch.setattr("researcher_steps.ficha_caso.load", lambda tid, d=None: FICHA)
+    monkeypatch.setattr(mc, "generate_columna", lambda *a, **k: seen.setdefault("col", col_buena()))
+    (tmp_path / "t-f17").mkdir()
+    f15.run_escaleta_v3("t-f17", columna=columna)
+    assert seen["columna"] is None
+    assert ("col" in seen) is columna and (tmp_path / "t-f17" / "COLUMNA_t-f17.md").exists() is columna
 
 
 def test_fase1_5_flag_sin_columna():
@@ -284,8 +291,8 @@ def test_fase1_5_flag_sin_columna():
 
     import fase1_5 as f15
     src = inspect.getsource(f15.main)
-    assert '"--sin-columna"' in src and "sin_columna=args.sin_columna" in src
-    assert "sin_columna" in inspect.signature(f15.process_topic).parameters
+    assert '"--sin-columna"' in src and '"--columna"' in src and "columna=args.columna" in src   # F22d
+    assert "columna" in inspect.signature(f15.process_topic).parameters
 
 
 def test_cost_tracker_no_escribe_el_historial_bajo_pytest(tmp_path, monkeypatch):
