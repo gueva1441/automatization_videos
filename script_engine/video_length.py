@@ -9,7 +9,7 @@ from __future__ import annotations
 
 DEFAULTS = {
     "target_words": 1500,          # largo objetivo del guion v3
-    "max_words": 1700,             # tope duro (≈ 13 min)
+    "max_words": 2200,             # F25c: 1700 → 2200 (≈ 18 min); ya no frena el guion v4 (métrica de largo)
     "hook_words": 110,             # cap 1
     "dev_words": 250,              # caps 2–6, cada uno (§9.1; el §8 decía 240 y sumaba 1,440)
     "outro_words": 140,            # cap 7 (§9.1; antes 130)

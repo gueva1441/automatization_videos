@@ -1,0 +1,81 @@
+{
+ "tag": "vE2",
+ "tema": "vajont",
+ "modelo": "claude-fable-5-1",
+ "effort": "medium",
+ "prompt_version": "f25-1",
+ "prompt_md5": {
+  "sistema": "9325ad3890ebfe241953d86759e20296",
+  "usuario_intento1": "8ad8a2383fdf6283b4f26df0d230677e"
+ },
+ "metricas": {
+  "beats": 13,
+  "beats_por_cap": [
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2
+  ],
+  "ids": 76,
+  "apoyos_por_beat": 4.85,
+  "promesa": "Una niña siente que su cama empieza a correr en la oscuridad; a dos kilómetros de ahí, la presa que todos creyeron caída sigue en pie.",
+  "humano": "Micaela Coletti",
+  "antagonista": {
+   "tipo": "persona",
+   "id": "P16",
+   "nombre": "Alberico Biadene",
+   "por_que": "Director del Servicio de Construcciones Hidráulicas de SADE: las mediciones del nueve de octubre llegan a su escritorio y él las escribe en una carta a Pancini (T61, Q51), pero esa preocupación no se convierte en una alarma general para Longarone (D111). La casación lo condena por inundación agravada por la previsión del evento (T102, D35). Es quien sabía y quien firmó."
+  },
+  "intentos": [
+   {
+    "intento": 1,
+    "bloqueantes": [
+     "antagonista «Società Adriatica di Elettricità (SADE)» no es una persona del pool ni una institución de la ficha",
+     "a_pantalla D104 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla Q50 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D192 también está en un beat: lo que va a pantalla no lo dice la voz"
+    ]
+   },
+   {
+    "intento": 2,
+    "bloqueantes": []
+   }
+  ],
+  "pasada1_beats_por_cap": [
+   1,
+   1,
+   2,
+   2,
+   2,
+   2,
+   2
+  ],
+  "pasada1_caps_fuera_1_3": [],
+  "pasada1_bloqueantes": [
+   "beat 1: dato_central «Q51 — BIADENE, POSDATA MANUSCRITA DE LA MAÑANA DEL 9 DE OCTUBRE: «ME LLAMA AHORA EL TOPÓGRAFO ROSSI: LAS MEDICIONES DE ESTA MAÑANA RESULTAN TODAVÍA MAYORES QUE LAS DE AYER, ¡ALCANZANDO UN AUMENTO DEL 50%!! (ES DECIR, DE 20 A 30 CENTÍMETROS). SE OBSERVA TAMBIÉN ALGUNA PEQUEÑA CAÍDA DE PIEDRAS EN EL BORDE OESTE DEL DESLIZAMIENTO, HACIA LA PRESA.»» no existe en el pool (o no es D/T/Q)",
+   "beat 2: dato_central «T04 / D117 — EL CONSEJO SUPERIOR DE OBRAS PÚBLICAS APRUEBA EL PROYECTO EN 1943; A LA SESIÓN ASISTEN TRECE DE LOS TREINTA Y CUATRO REPRESENTANTES» no existe en el pool (o no es D/T/Q)",
+   "beat 3: dato_central «T16 / E1 — MARZO DE 1959: UN DESPRENDIMIENTO CAE AL EMBALSE DE PONTESEI Y LA OLA MATA AL VIGILANTE ARCANGELO TIZIANI» no existe en el pool (o no es D/T/Q)",
+   "beat 4: dato_central «T36 / D223 — 4 DE NOVIEMBRE DE 1960: DURANTE LAS PRUEBAS, UNA MASA DE ROCA SE DESPRENDE DEL TOC Y CAE AL LAGO ARTIFICIAL; SU VOLUMEN Y LA ALTURA DE LA OLA TIENEN VERSIONES INCOMPATIBLES» no existe en el pool (o no es D/T/Q)",
+   "beat 5: dato_central «D104 / D106 — EL INFORME DEL LABORATORIO DE LA UNIVERSIDAD DE PADUA ADVIERTE DAÑOS SI EL AGUA SUPERA LOS SETECIENTOS METROS SOBRE EL NIVEL DEL MAR; SEGÚN F15, SADE OBTIENE PERMISO MINISTERIAL PARA LLEGAR A SETECIENTOS QUINCE» no existe en el pool (o no es D/T/Q)",
+   "beat 6: dato_central «T50 — MAYO DE 1963: SEGÚN F12, SADE ELEVA EL NIVEL DEL AGUA A SETECIENTOS VEINTE METROS PARA ENTREGAR LA PRESA COMO FUNCIONAL Y CERRAR LA OPERACIÓN CON ENEL» no existe en el pool (o no es D/T/Q)",
+   "beat 7: dato_central «D226 / T55 / E4 — DESDE EL 2 DE OCTUBRE DE 1963 SE MULTIPLICAN LOS AVISOS DE SACUDIDAS, ESTRUENDOS, GRIETAS QUE SE ABREN Y MOVIMIENTOS SUPERFICIALES EN EL TOC» no existe en el pool (o no es D/T/Q)",
+   "beat 8: dato_central «T61 — LA MAÑANA DEL 9 DE OCTUBRE DE 1963 BIADENE ESCRIBE A PANCINI, DE VACACIONES, PARA PEDIRLE QUE REGRESE» no existe en el pool (o no es D/T/Q)",
+   "beat 9: dato_central «T57 / T58 / D55 — LA NOCHE DEL 9 DE OCTUBRE DE 1963 LA LADERA DEL TOC SE DESPLOMA EN EL EMBALSE; EL IMPACTO LEVANTA UNA OLA QUE REBASA LA PRESA Y ENTRA EN EL VALLE» no existe en el pool (o no es D/T/Q)",
+   "beat 10: dato_central «E11 / Q25 — LONGARONE CONVERTIDA EN UNA EXPLANADA DE FANGO Y PIEDRAS; UN SOBREVIVIENTE: «CONOCÍA LONGARONE EN CADA RINCÓN, AHORA NO SÉ DÓNDE ESTOY»» no existe en el pool (o no es D/T/Q)",
+   "beat 11: dato_central «E13 / Q13 / Q14 — 12 DE OCTUBRE DE 1963: LEONE Y ZACCAGNINI VISITAN LA ZONA; LA GENTE GRITA «PRESIDENTE, VOGLIAMO GIUSTIZIA» Y LEONE RESPONDE «E GIUSTIZIA AVRETE»» no existe en el pool (o no es D/T/Q)",
+   "beat 12: dato_central «T102 / T103 / D35 — MARZO DE 1971: LA CORTE DE CASACIÓN RECONOCE LA CULPABILIDAD DE BIADENE Y SENSIDONI POR INUNDACIÓN AGRAVADA POR LA PREVISIÓN DEL ACONTECIMIENTO» no existe en el pool (o no es D/T/Q)",
+   "antagonista «Società Adriatica di Elettricità (SADE)» no es una persona del pool ni una institución de la ficha"
+  ],
+  "cierre_humano": "Coletti, ya presidenta del comité de sobrevivientes, frente a una condena que nombra el delito pero no reconstruye quién decidió, aquella noche, que Longarone no debía saber."
+ },
+ "usd": 3.5323,
+ "segundos": 387.3,
+ "log": [
+  "  [escaleta] compuerta del pool: verde {'datos': 245, 'citas_verificadas': 45, 'elegibles_humano': 23, 'eventos_con_fecha': 78, 'personas_con_nombre': 52}",
+  "  [escaleta v2] intento 1: 4 bloqueante(s) ['antagonista «Società Adriatica di Elettricità (SADE)» no es una persona del pool ni una institución de la ficha', 'a_pantalla D104 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla Q50 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D192 también está en un beat: lo que va a pantalla no lo dice la voz'] · 86 reparación(es) · 15 a métricas",
+  "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 87 reparación(es) · 10 a métricas"
+ ]
+}

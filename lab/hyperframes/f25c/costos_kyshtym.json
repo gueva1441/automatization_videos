@@ -1,0 +1,97 @@
+{
+ "llamadas": [
+  {
+   "tag": "kE2",
+   "etapa": "escaleta",
+   "desc": "m01a_escaleta v2 intento 1",
+   "modelo": "claude-fable-5-1",
+   "effort": "medium",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 24530,
+   "out": 9657,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.7282,
+   "segundos": 124.9
+  },
+  {
+   "tag": "kE1",
+   "etapa": "escaleta",
+   "desc": "m01a_escaleta v2 intento 1",
+   "modelo": "claude-fable-5-1",
+   "effort": "medium",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 24530,
+   "out": 14452,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.9679,
+   "segundos": 182.0
+  },
+  {
+   "tag": "kE2",
+   "etapa": "escaleta",
+   "desc": "m01a_escaleta v2 intento 2",
+   "modelo": "claude-fable-5-1",
+   "effort": "medium",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 24779,
+   "out": 8613,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.6784,
+   "segundos": 108.9
+  },
+  {
+   "tag": "kE1",
+   "etapa": "escaleta",
+   "desc": "m01a_escaleta v2 intento 2",
+   "modelo": "claude-fable-5-1",
+   "effort": "medium",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 24630,
+   "out": 13017,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.8972,
+   "segundos": 169.4
+  },
+  {
+   "tag": "gkE2",
+   "etapa": "guion",
+   "desc": "guion_v4 guionista",
+   "modelo": "claude-fable-5-1",
+   "effort": "high",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 13691,
+   "out": 23578,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.3158,
+   "segundos": 261.8
+  }
+ ],
+ "usd": 4.5875,
+ "etapas": {
+  "escaleta": {
+   "inicio": 1792915464.5,
+   "fin": 1792915816.0,
+   "pared_s": 351.4
+  },
+  "guion": {
+   "inicio": 1792915824.4,
+   "fin": 1792916102.3,
+   "pared_s": 277.9
+  }
+ }
+}

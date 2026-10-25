@@ -1,0 +1,19 @@
+{
+ "tag": "kE1",
+ "tema": "kyshtym",
+ "modelo": "claude-fable-5-1",
+ "effort": "medium",
+ "prompt_version": "f25-1",
+ "prompt_md5": {
+  "sistema": "9325ad3890ebfe241953d86759e20296",
+  "usuario_intento1": "3633feafce6acd722ed38afc09bfae60"
+ },
+ "error": "EscaletaValidationError: escaleta v2 rechazada después de 2 intento(s) (PARADA): ['a_pantalla D37 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D43 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D45 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D39 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D09 también está en un beat: lo que va a pantalla no lo dice la voz']",
+ "log": [
+  "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}",
+  "  [escaleta v2] intento 1: 1 bloqueante(s) ['antagonista «Mayak (complejo nuclear de Cheliábinsk-40)» no es una persona del pool ni una institución de la ficha'] · 79 reparación(es) · 11 a métricas",
+  "  [escaleta v2] intento 2: 5 bloqueante(s) ['a_pantalla D37 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D43 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D45 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D39 también está en un beat: lo que va a pantalla no lo dice la voz'] · 96 reparación(es) · 16 a métricas"
+ ],
+ "usd": 1.8651,
+ "segundos": 351.4
+}

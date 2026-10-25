@@ -527,7 +527,7 @@ def test_length_params_from_config():
     from script_engine.m01a_skeleton import CHAPTER_SCHEMA
     from script_engine.m03_visual import _calculate_flux_extras_count, _calculate_image_count
     assert [vl.get(k) for k in ("target_words", "max_words", "dev_cap_seconds", "max_images_per_video")] == \
-        [1500, 1700, 105, 90]
+        [1500, 2200, 105, 90]                                              # F25c: tope 1700 → 2200
     assert me.CAP_WORDS == {1: 110, 2: 250, 3: 250, 4: 250, 5: 250, 6: 250, 7: 140}      # §9.1: 1,500
     assert [c["duration_seconds"] for c in CHAPTER_SCHEMA] == [45, 105, 105, 105, 105, 105, 45]
     dev = sum(_calculate_image_count(400, n) for n in range(2, 7))          # caps larguísimos: manda el tope

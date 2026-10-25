@@ -12,6 +12,11 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
 
+## F25c — Escaleta con Fable por defecto (f25-1), guion v5.4, largo 2200 · Kyshtym y Vajont — HECHO, **PARADA**
+- Sobre `187166a`. Reporte `lab/hyperframes/f25c/F25c_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Claude US$ 11.43 de 14, pared 1,388 s.
+- Producción: `m01a_escaleta.DEFAULT_MODELO_ESCALETA = claude-fable-5-1` (`call_escaleta`, medium; Sol con `modelo=` / `fase1_5 --modelo-escaleta`); escaleta f25-1 (`9325ad38…`; la f24-1 queda `SYSTEM_V2_F24_1`); guion v5.4 `f25-1` (`2f66c1e0…`; el v5.3 con `system("f23-1")`); `video_length.max_words` 2200 y el bloqueante (c) del tope pasa a `metricas["largo"]`. **`config.py` local también en 2200 (no se commitea): en otra máquina hay que cambiarlo.** Suite 868 verdes + 5 previas.
+- Corrida: 1 de 2 escaletas por tema (kE1 y vE1 rechazadas por `a_pantalla` repetido / antagonista con paréntesis). gkE2 2,006 palabras, 1 bloqueante (Q20 sin verificar con nombre); gvE2 2,355, 0 bloqueantes, 18 citas. La promesa pasa literal al gancho; la de Kyshtym sigue adelantando.
+
 ## F25b — ficha_caso con --modelo; Opus 5.5 ×2 contra Sol ×2 (Kyshtym, pool F23) — HECHO, **PARADA**
 - Sobre `b2db299`. Reporte `lab/hyperframes/f25b/F25b_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Claude US$ 2.57 de 6, OpenAI US$ 0.65 de 1, pared 474 s.
 - `ficha_caso`: `call_for(modelo, crudo=, post=)`, `run(modelo=)`, `esfuerzo_de`, CLI `python -m researcher_steps.ficha_caso <topic> --modelo …`; Claude por claude_helpers (stream, 100k, medium, sin esquema), respuesta cruda en `_steps/<topic>/ficha_respuesta_cruda.json`. Prompt y chequeo sin tocar. Suite 863 verdes + 5 previas.

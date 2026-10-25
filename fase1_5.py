@@ -216,7 +216,7 @@ def _step_cost(topic_id: str, label: str, fn):
         f.write_text(json.dumps(costs, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
-def run_escaleta_v3(topic_id: str, columna: bool = False) -> dict:
+def run_escaleta_v3(topic_id: str, columna: bool = False, modelo: str | None = None) -> dict:
     """m01a v3: compuerta del pool (rojo → PoolGateRed, sin gastar) + escaleta (Pro, con reintentos).
     F17: con ficha v2, m01a era columna → escaleta. F22d (decisión del analista): la columna ya no alimenta a la
     escaleta (la escaleta va siempre sin columna); con `columna=True` (`--columna`) se genera además la columna como
@@ -224,7 +224,7 @@ def run_escaleta_v3(topic_id: str, columna: bool = False) -> dict:
     from script_engine import m01a_escaleta as me
     topic = _topic_v3(topic_id)
     log: list[str] = []
-    esc = _step_cost(topic_id, "escaleta", lambda: me.generate_escaleta(topic, log=log, columna=None))
+    esc = _step_cost(topic_id, "escaleta", lambda: me.generate_escaleta(topic, log=log, columna=None, modelo=modelo))
     if columna:
         from researcher_steps.ficha_caso import load as load_ficha
         from script_engine import m01a_columna as mc
@@ -311,6 +311,7 @@ def process_topic(
     guion: str | None = None,
     modelo: str | None = None,
     columna: bool = False,
+    modelo_escaleta: str | None = None,
 ) -> dict:
     """Corre la cadena m01a → m03 + assemble para 1 topic, reanudando desde from_step.
 
@@ -349,7 +350,7 @@ def process_topic(
         # m01a — skeleton
         if from_step in ("m01a",) and use_v3:
             print(f"  [01a v3] Compuerta del pool + escaleta...")
-            run_escaleta_v3(topic_id, columna=columna)
+            run_escaleta_v3(topic_id, columna=columna, modelo=modelo_escaleta)
             skeleton = None
             result["steps_completed"].append("m01a")
             if stop_after_step == "m01a":
@@ -688,6 +689,9 @@ def main():
                                              "claude-opus-5-5", "claude-fable-5-1"), default=None,
                         help="F11b: con --guion v4, el modelo de toda la cadena v4 (guionista + reparación); el juez "
                              "es el de siempre")
+    parser.add_argument("--modelo-escaleta", dest="modelo_escaleta", choices=("claude-fable-5-1", "claude-opus-5-5",
+                                                                           "gpt-6.1-sol"), default=None,
+                        help="F25c: el modelo de la escaleta v2 (con ficha); por defecto claude-fable-5-1")
     parser.add_argument("--sin-columna", dest="sin_columna", action="store_true",
                         help="F17; F22d: es el camino por defecto (la escaleta va siempre sin columna); se acepta y no "
                              "cambia nada")
@@ -745,6 +749,7 @@ def main():
             guion=args.guion,
             modelo=args.modelo,
             columna=args.columna,
+            modelo_escaleta=args.modelo_escaleta,
         ))
         
     # Resumen final

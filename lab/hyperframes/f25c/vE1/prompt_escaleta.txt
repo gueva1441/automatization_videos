@@ -1,0 +1,404 @@
+===== SISTEMA (md5 9325ad3890ebfe241953d86759e20296) =====
+<rol>
+Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que nadie escriba una línea, vos decidís la historia: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea, y con qué se queda al final. Trabajás solo con la ficha del caso que te dan: no inventás nombres, cifras, fechas ni citas. Lo que no está en la ficha no pasó.
+</rol>
+
+<que_es_una_escaleta>
+Siete capítulos, de 7 a 14 beats. Cada beat es un momento de la historia: tiene un dato central, hasta seis apoyos, una imagen que se puede ver (o oír, u oler), lo que el espectador se pregunta en ese punto, y la frase con la que el capítulo deja la puerta abierta al siguiente. El guionista va a escribir exactamente lo que vos decidas. Si la escaleta es plana, el guion va a ser plano.
+
+El antagonista es quien decide: una persona de la ficha, o una institución que la ficha nombra (un ministerio, una empresa, una dirección). Si en este caso no hay a quién atribuirle la decisión, lo decís («ninguno») y por qué.
+</que_es_una_escaleta>
+
+<oficio>
+1. El humano primero. La ficha trae candidatos con arco. Elegí al que tenga más momentos concretos (entra, sufre, sale) y más citas verificadas. Tiene que aparecer en el gancho, en el pico y en el cierre; si en el medio desaparece dos caps, el espectador lo olvida.
+2. El gancho es el peor momento, ya en curso. Tomá la escena más fuerte de la ficha y ponela en el beat 1, marcado como flash-forward. Sin contexto, sin año, sin cifras: lo que se ve. La promesa es una sola oración que deja una imagen sin cerrar o una pregunta que el espectador no puede responder todavía. No cuenta lo que va a pasar, no enumera lo que viene, no nombra juicios, comisiones ni consecuencias.
+3. Del gancho se vuelve atrás. El cap 2 es la vida antes: quién era esta gente, qué hacía ahí. Es el único cap tranquilo y por eso es el más importante para que duela lo que viene.
+4. Cada cap avanza y deja algo abierto. La frase de cierre de un cap nombra lo que viene o lo deja incompleto. Nunca resume.
+5. El pico es uno solo, y es el que la ficha marcó salvo que tengas una razón mejor (decila). Antes del pico, un cap que aprieta; después del pico, un respiro: lo que queda cuando pasa lo peor, el recuento, el silencio.
+6. Los giros de la ficha son los puntos donde la historia cambia de dirección. Cada giro tiene su beat. Si un giro no entra, decí cuál y por qué.
+7. Las escenas de la ficha son tus imágenes. El beat 1 y el pico toman su imagen de una escena; los demás, cuando haya una. Una imagen es algo para ver, oír, oler o tocar: «manos contra un vidrio ahumado», no «la desesperación de la gente».
+8. Las versiones en disputa (quién dio la orden, si un aviso llegó a tiempo) son material, no problema: dales su beat. El contraste entre la versión oficial y lo que cuentan los testigos suele ser el mejor cap 6.
+9. El cierre vuelve al humano con una cita suya o una pregunta que nadie respondió. Nunca una moraleja, nunca «hoy».
+10. Lo que va a pantalla (cifras oficiales, documentos) no lo dice la voz. Marcalo en `a_pantalla`. Las cifras que sí dice la voz, una vez cada una.
+11. Un dato vive en un solo beat. Si lo necesitás en dos, elegí dónde pega más.
+12. Las citas sin verificar van sin nombre, pero no excluyen a nadie: el humano puede estar en escena con una cita suya sin verificar; el guionista sabrá no ponerle el nombre a esa frase.
+</oficio>
+
+<ejemplo>
+De un caso que no es el tuyo (una estación de radio y faro en una isla, mil novecientos sesenta y ocho). Copiá la forma, no el contenido. Los ids van como Q##, D##, T##, E#: ## es el número que tenga el id en TU ficha; ninguno de estos existe en tus datos.
+
+humano: Elvira Soto, telegrafista de la estación. Por qué: manda los telegramas pidiendo el barco, recibe las respuestas sin firma, sostiene la radio con las baterías del faro la noche del pico, y años después es la única que guardó el registro. 3 citas verificadas.
+antagonista: institución · la Dirección de Faros y Balizas. Por qué: los telegramas de «mantener servicio» salen de ahí y nadie los firma.
+promesa_gancho: «Once personas esperaron veintitrés días un barco que no llegó. Esta es la historia de quién decidió que no llegara.»
+pico: beat 5 (la noche del generador). Por qué: es el momento en que esperar deja de ser una decisión de la Dirección y pasa a ser una de ellos; todo lo anterior lo prepara.
+
+beat 1 · cap 1 · gancho · flash-forward · intensidad 4 · escena E#
+  imagen: una mujer transmite en morse a la luz de una vela; olor a querosén
+  dato central: Q## (Soto: «transmitía con las baterías del faro»)
+  el espectador se pregunta: ¿por qué sigue transmitiendo?
+  cierre: Tres semanas antes de la vela, llegó un telegrama. Y con él, una orden.
+beat 2 · cap 2 · planteo · intensidad 1
+  imagen: el libro de telegramas abierto, la letra de Elvira
+  dato central: T## (el primer telegrama de la Dirección: mantener servicio) · apoyos: D## (once personas en la estación, tres familias), Q## (Bascuñán: «el faro no se apaga»), D## (la fecha prevista del Alborada)
+  humano en escena: sí
+  el espectador se pregunta: ¿quién manda cuando el que manda está a tres días de barco?
+  cierre: El Alborada tenía que llegar el lunes. No llegó el lunes.
+…
+beat 5 · cap 5 · pico · intensidad 5 · escena E#
+  imagen: el generador que tose dos veces y se apaga; una silla rota contra el piso
+  dato central: Q## (Soto: la noche que se apagó el generador) · apoyos: D## (Bascuñán ordena quemar los muebles), T## (la muerte del niño esa noche)
+  humano en escena: sí
+  el espectador se pregunta: ¿cuánto dura una batería?
+  cierre: A la mañana, el faro seguía encendido. Adentro, eran uno menos.
+beat 6 · cap 6 · respiro · intensidad 2 …
+beat 8 · cap 7 · cierre · intensidad 3
+  dato central: D## (la comisión: dos muertos; las familias: tres) · apoyos: Q## (Marín: «el capitán leyó el papel y dio la vuelta»), Q## (Soto: «nadie me dijo que los leyeran»)
+  cierre: la cita de Soto.
+a_pantalla: D## (el recuento oficial), D## (el informe de la comisión, fecha y folio).
+</ejemplo>
+
+<errores>
+- Elegir un humano distinto cada vez que se corre. Si la ficha lo propone y tiene arco, es él.
+- Poner el gancho tranquilo para que la curva «suba». El gancho es el peor momento; la curva empieza alta, baja en el cap 2 y vuelve a subir. Eso es un flash-forward, no un error.
+- Ignorar las escenas de la ficha y escribir imágenes abstractas («la tensión en el aire»).
+- Meter seis beats en un cap y uno en los demás. Cada cap lleva entre uno y tres beats; el material que no cabe se deja afuera, no se apila.
+- Convertir «el espectador se pregunta» en una pregunta retórica para el guion. Es una nota para vos y para el guionista, no una frase del video.
+</errores>
+
+===== USUARIO, intento 1 (md5 8ad8a2383fdf6283b4f26df0d230677e) =====
+<caso>
+TÍTULO: La represa de Vajont: la ola que borró Longarone y los ingenieros que sabían (Italia, 9 de octubre de 1963)
+ÁNGULO: -
+MISTERIO: -
+REVELACIÓN: -
+</caso>
+
+<ficha>
+historia:
+  humanos candidatos:
+    [P03, T18, T33, T39, D71] Tina Merlin — La periodista que documenta el peligro antes de la catástrofe. · arco: Entra como reportera local que denuncia el riesgo, es procesada junto con su periódico y sale absuelta, mientras continúa publicando advertencias que anteceden al desastre; no tiene una cita propia verificada en el pool. · citas verificadas: 0
+    [P49, Q49, D132] Micaela Coletti — Sobreviviente y posterior presidenta del comité de sobrevivientes. · arco: Entra como una niña en su cama, la ola la arrastra lejos de su casa y sale como sobreviviente que relata la experiencia y representa al comité de sobrevivientes. · citas verificadas: 1
+    [P16, T61, Q51, D35, T102] Alberico Biadene — Director técnico que deja constancia de su preocupación y termina condenado. · arco: Entra como director del servicio hidráulico de SADE, recibe mediciones agravadas y reclama el regreso de Pancini la mañana del desastre, y sale condenado en casación. · citas verificadas: 1
+    [P06, Q06, D17, D10] Giovanni De Lorenzi — Sobreviviente evacuado y posterior director de la Fundación Vajont. · arco: Entra como habitante de una aldea afectada, ve llegar el rescate y recuerda su evacuación en helicóptero, y sale como sobreviviente dedicado a la memoria; su testimonio está marcado como parcialmente verificado, no como plenamente verificado. · citas verificadas: 0
+  giros:
+    1. El episodio mortal de Pontesei convierte el desprendimiento sobre un embalse en un antecedente cercano, mientras los estudios identifican una masa inestable en el Toc. [T15, T16, D119, D154]
+    2. Una frana cae efectivamente al lago durante las pruebas, pero la denuncia periodística también termina en un proceso contra Merlin y L'Unità. [T36, T33, D223]
+    3. El informe de Padua advierte sobre el límite del agua y, según F15, SADE obtiene permiso para superarlo. [D104, D106]
+    4. La instalación pasa al ámbito estatal y se completa el traspaso a ENEL mientras continúa la prueba de llenado. [T42, T44, T52]
+    5. La mañana del desastre la preocupación queda escrita en la carta de Biadene, pero las evacuaciones parciales no se convierten en una alarma general para las poblaciones expuestas. [T61, Q51, T54, D111]
+    6. Tras las interpretaciones de fatalidad y una primera pericia favorable a la imprevisibilidad, el proceso penal termina reconociendo responsabilidad por inundación agravada. [D62, D136, P31, T102, T103]
+  pico: La ola rebasa la presa y destruye Longarone y otras comunidades mientras la estructura permanece en pie. — Es el punto en que las advertencias, las mediciones y las decisiones de llenado desembocan en la muerte de los habitantes; la supervivencia de la presa impide confundir el desastre con el simple colapso de un muro. [T57, T58, D124, D128, D131, D198]
+  pregunta final: ¿Quién tomó —o dejó sin tomar— la decisión operativa de alertar a Longarone aquella noche y por qué la preocupación documentada no se convirtió en una evacuación general? El pool registra condenas, pero no reconstruye por completo esa cadena de decisiones. [Q51, T54, D227, D111, D35]
+
+escenas:
+  E1. Embalse de Pontesei, en el episodio anterior al desastre del Vajont. · Arcangelo Tiziani, vigilante de los movimientos de la montaña. — Un desprendimiento golpea el agua y la ola mata al vigilante. · sentidos: Rocas entrando en el embalse y una ola que las fuentes describen con veinte metros de altura. [T16, T17, D94]
+  E2. Ladera del monte Toc, durante el episodio descrito en 1960. · Observadores no individualizados por el pasaje de F09. — Después de un pequeño desmoronamiento queda abierta una fisura al costado de la montaña. · sentidos: Una abertura visible de más de un metro de ancho y casi dos kilómetros de largo. [D49, T23]
+  E3. Lago artificial del Vajont, durante las pruebas. · El pasaje no individualiza a los presentes. — Una masa de roca se desprende del Toc y cae al agua. · sentidos: La caída de roca y el levantamiento de una ola; las fuentes no coinciden en sus dimensiones. [T36, D155, D223]
+  E4. Monte Toc, desde comienzos de octubre. · Habitantes y observadores que comunicaron las señales, sin identificación individual en F04. — Se suceden avisos de movimientos del terreno mientras se cierran caminos y se desalojan viviendas. · sentidos: Sacudidas, estruendos, grietas que se abren y desplazamientos superficiales. [T55, D226, D227]
+  E5. Lugar no especificado de la comunicación de Biadene a Pancini, la mañana del desastre. · Alberico Biadene y el topógrafo Rossi; Pancini como destinatario de la carta. — Biadene añade a la carta la información que acaba de recibir por teléfono sobre mediciones mayores que las anteriores. · sentidos: El documento consigna pequeñas caídas de piedras en el borde occidental de la frana, hacia la presa. [T61, Q51]
+  E6. Casso, junto a la ventana del párroco. · Carlo Onorini. — Onorini oye la avalancha y abre la ventana mientras el ruido aumenta. · sentidos: Un ruido que crece extraordinariamente y un resplandor visto al mismo tiempo. [Q15]
+  E7. Localización no precisada en el testimonio de Benito Castellano. · Benito Castellano. — Tras aplacarse el viento, Castellano percibe sacudidas y después un estruendo prolongado. · sentidos: Un ruido comparado con un trueno de verano multiplicado cien veces, un resplandor y otro sonido semejante al paso de reactores. [P29, Q16]
+  E8. Bar Faè. · Germano Accamillesi y otras personas presentes. — Se apaga la iluminación del televisor y comienzan fuertes sacudidas, seguidas por el apagón de la iluminación del local. · sentidos: La pantalla que pierde la luz y el suelo que se sacude. [Q17]
+  E9. Entrada del lugar donde se encontraba el médico en Longarone. · Gianfranco Trevisano. — Antes del apagón, una corriente abre de golpe el portoncito de entrada y Trevisano piensa que ha cedido el dique. · sentidos: El portoncito abierto de par en par y el ruido del aire que irrumpe. [Q19]
+  E10. La cama de Micaela Coletti y el recorrido al que la arrastra la ola. · Micaela Coletti. — Coletti siente que la cama toma velocidad y es arrastrada lejos de su casa. · sentidos: Una fuerza en la espalda que la dobla y aplasta; la sensación de ensancharse y encogerse y de tener los ojos convertidos en estrellas. [P49, Q49, D132]
+  E11. Longarone, tras el paso de la avalancha de agua. · La comunidad destruida y los sobrevivientes. — El centro habitado queda convertido en una explanada y un sobreviviente expresa que ya no sabe orientarse en el pueblo que conocía. · sentidos: Fango y piedras donde estaba el centro urbano; pérdida del reconocimiento visual del lugar. [D45, Q25]
+  E12. Aldea de Giovanni De Lorenzi, no nombrada en el pasaje. · Giovanni De Lorenzi, habitantes y rescatistas estadounidenses. — De Lorenzi recuerda que el primer rescatista que vio llegó en un helicóptero y que la población fue evacuada. · sentidos: La llegada visible de un rescatista en un helicóptero del Ejército estadounidense. [Q06, D17]
+  E13. Los lugares de la tragedia visitados por el presidente del Consejo. · Pobladores, Giovanni Leone y Benigno Zaccagnini. — La gente reclama justicia ante Leone y este responde con una promesa. · sentidos: El grito «Presidente, vogliamo giustizia» y la respuesta «E giustizia avrete». [T76, Q13, Q14]
+
+personas:
+  [P03, T18, T33, T39, D71, D224] Tina Merlin — Periodista de L'Unità que denunció el peligro y fue procesada y absuelta.
+  [P08, D147, D153, D159] Carlo Semenza — Ingeniero proyectista de la presa y padre de Edoardo Semenza.
+  [P36, D48, T27, Q37] Giorgio Dal Piaz — Geólogo asesor de SADE; minimizó los riesgos señalados por Edoardo Semenza.
+  [P35, D47, D95, D153, D157] Leopold Müller / Leopold Muller — Geólogo austriaco consultado por SADE; el pool no permite dirimir la grafía del apellido ni unificar todas las versiones sobre su diagnóstico.
+  [P46, T19, D153, D154] Edoardo Semenza — Geólogo, hijo del proyectista; identificó la posibilidad de reactivación de un antiguo deslizamiento.
+  [P45] Pietro Caloi — Geofísico al que F15 atribuye la defensa de la estabilidad de la base de la montaña.
+  [P41, D89, D90] Giuseppe Volpi — Propietario y dirigente de SADE según las fuentes del pool.
+  [P42, D72] Sr. Cini — Dirigente de SADE y copropietario de Il Gazzettino según F12; el pool no proporciona su nombre completo.
+  [P44, T16, D94] Arcangelo Tiziani — Vigilante de los movimientos de la montaña muerto en el episodio de Pontesei.
+  [P16, T61, Q51, D35] Alberico Biadene — Director del Servicio de Construcciones Hidráulicas de SADE; autor de la carta de preocupación y condenado en casación.
+  [P18, T61, T89, D32] Mario Pancini — Director de los trabajos o jefe de obra; destinatario de la carta de Biadene, acusado y muerto por suicidio antes del juicio según varias fuentes.
+  [P17, T95, T98, D35] Francesco Sensidoni — Jefe del Servicio de Presas y miembro de la Comisión de Recepción; condenado en apelación y casación.
+  [P22, T93, T94] Curzio Batini — Presidente de la IV Sección del Consejo Superior de Obras Públicas; condenado en primera instancia y apartado de la apelación por enfermedad.
+  [P24, T93, P23] Almo Violin — Ingeniero jefe del Genio Civil de Belluno; condenado en primera instancia y absuelto en apelación.
+  [P23] Pietro Frosini — Acusado; absuelto por insuficiencia de pruebas según F03.
+  [P19] Francesco Penta — Geólogo asesor de SADE y acusado; murió antes del juicio.
+  [P20] Luigi Greco — Acusado que murió antes del juicio.
+  [P25] Roberto Marin — Acusado absuelto.
+  [P26] Augusto Ghetti — Acusado absuelto por no haber cometido el hecho según F03.
+  [P27] Dino Tonini — Acusado finalmente absuelto por no haber cometido el hecho.
+  [P31, T86, T87] Mario Fabbri — Juez instructor de Belluno; ordenó una nueva pericia y condujo la instrucción penal.
+  [T85] Fabio Mandarino — Fiscal de Belluno que abrió el expediente judicial.
+  [P21, D33, Q56] Sandro Canestrini — Abogado de la parte civil.
+  [P28, Q15] Carlo Onorini — Párroco de Casso y testigo del ruido y el resplandor de la catástrofe.
+  [P29, Q16] Benito Castellano — Sobreviviente que describió los temblores, el estruendo y un resplandor.
+  [P30, Q17] Germano Accamillesi — Sobreviviente que estaba en el bar Faè cuando se apagó el televisor y comenzaron las sacudidas.
+  [P32, Q19] Gianfranco Trevisano — Médico de Longarone y testigo de la irrupción de aire antes del apagón.
+  [P48, Q48] Mauro Corona — Escritor que vivía cerca de la presa y recordó el ruido del derrumbe.
+  [P49, Q49, D132] Micaela Coletti — Sobreviviente arrastrada desde su cama; posteriormente presidenta del comité de sobrevivientes del Vajont.
+  [P50] Giuseppe Sacchet — Sobreviviente encontrado sobre un colchón bajo los escombros y lejos de su casa.
+  [P06, Q06, D17] Giovanni De Lorenzi — Sobreviviente evacuado y director de la Fundación Vajont en la fuente que recoge su testimonio.
+  [P11, Q09] Parise Ferdinando — Soldado italiano retirado que participó en el rescate.
+  [P13, T76, Q14] Giovanni Leone — Presidente del Consejo de Ministros que visitó la zona y prometió justicia.
+  [T76, P13] Benigno Zaccagnini — Ministro de Obras Públicas que acompañó a Leone en su visita.
+  [D50] Guglielmo Celso — Alcalde de Longarone y secretario de la Federación Socialista de Belluno; murió en el desastre.
+  [P39, D51] Terenzio Arduini — Vicealcalde sobreviviente que pasó a liderar la comunidad pese a sus pérdidas familiares.
+  [P33, Q20, Q21] Dino Buzzati — Escritor del Corriere della Sera que presentó la catástrofe mediante la imagen de una piedra y un vaso.
+  [P33] Indro Montanelli — Periodista al que F02 atribuye la defensa de la interpretación del desastre como casualidad.
+  [P37, Q22] Giorgio Bocca — Escritor de Il Giorno que sostuvo que no había culpables.
+  [P40, Q23] Aniello Coppola — Periodista de L'Unità que reclamó investigación y responsabilidades.
+  [P58, T82, T84] Rubinacci — Senador democristiano y presidente de una comisión de investigación según F04; relator del informe final mencionado en F31.
+  [P01, Q01] Roberto Padrin — Alcalde de Longarone y presidente de la Provincia de Belluno y de la Fundación Vajont en la fuente sobre el archivo.
+  [D88, D151, D173, T50] Società Adriatica di Elettricità — Empresa privada promotora y constructora de la instalación; responsable de decisiones de proyecto y llenado.
+  [D105, D174, T52, D138, D139] ENEL — Entidad eléctrica estatal que recibió la propiedad de la instalación y participó en los resarcimientos.
+  [T14, T75, Q24] Ministerio de Obras Públicas — Autoridad estatal vinculada a la autorización, supervisión e investigación del proyecto.
+  [T04, D117, D240] Consejo Superior de Obras Públicas — Organismo que aprobó el proyecto.
+  [P16, Q51] Servicio de Construcciones Hidráulicas de SADE — Dirección encabezada por Biadene que intervenía en la gestión de los trabajos.
+  [P17, T95] Servicio de Presas — Servicio encabezado por Sensidoni.
+  [P17, T95] Comisión de Recepción de la presa — Órgano de control del que formaba parte Sensidoni.
+  [P61, D103, D104] Laboratorio de la Universidad de Padua — Institución que realizó el modelo hidráulico y cuyo informe advertía sobre el nivel del embalse.
+  [Q50, T54, D227] Administración del municipio de Erto y Casso — Autoridad local que comunicó su preocupación por la seguridad de la población.
+  [Q45] Ministerio no identificado en F15 — Autor institucional al que F15 atribuye una respuesta tranquilizadora; el pasaje citado no permite identificarlo con mayor precisión.
+  [Q12, T75, T77] Comisión de investigación nombrada por el Ministerio de Obras Públicas — Órgano técnico-administrativo de investigación del desastre y autor del informe citado sobre el derrumbe.
+  [T90, T92] Tribunal de L'Aquila — Tribunal que celebró el juicio de primera instancia.
+  [T95, T97, T98] Corte de Apelaciones de L'Aquila — Tribunal de segunda instancia.
+  [T102, T103, T105] Corte de Casación — Tribunal que resolvió la fase penal final.
+  [T109, D245] Tribunal Civil y Penal de Belluno — Tribunal que condenó a Montedison a indemnizar al municipio de Longarone.
+  [T107, T109, D138, D234] Montedison — Empresa que adquirió SADE y fue condenada al resarcimiento de daños.
+  [D71, D52, Q23, Q29] L'Unità — Periódico que publicó las denuncias de Merlin y reclamó responsabilidades tras el desastre.
+  [D72] Il Gazzettino — Periódico parcialmente propiedad de SADE, FIAT y los dirigentes Volpi y Cini según F12.
+  [D10, P06, P01] Fundación Vajont — Institución de memoria que financió el trabajo de acceso al archivo procesal.
+  [D05, D75] Archivo de Estado de Belluno — Institución que custodia el archivo procesal trasladado desde L'Aquila.
+  [D75] Archivo de Estado de L'Aquila — Institución a la que pertenecen los documentos procesales según F14.
+  [D04, T118] UNESCO — Organismo que incorporó el archivo procesal al Registro de la Memoria del Mundo.
+  [D18, D19] SETAF-AF — Fuerza estadounidense que participó en el rescate con helicópteros, personal sanitario y hospitales móviles.
+  [D18] 110.ª Compañía de Aviación del Ejército de Estados Unidos — Unidad a la que pertenecían los helicópteros enviados al rescate.
+
+personas descartadas que la historia necesita:
+  [P03, T18, T33, T39, D71] Tina Merlin — Periodista denunciante. · Es indispensable para el arco de advertencia y silenciamiento; que F09 no contenga una cita literal suya no elimina las acciones documentadas en otras fuentes.
+  [T85] Fabio Mandarino — Fiscal de Belluno. · Permite nombrar a quien abrió el expediente y no presentar la investigación judicial como una acción sin autor.
+  [D50, D51] Guglielmo Celso — Alcalde de Longarone muerto en el desastre. · Da identidad a la pérdida de la autoridad local y permite distinguirla del liderazgo sobreviviente de Arduini.
+  [P13, T76] Benigno Zaccagnini — Ministro de Obras Públicas. · Es un actor de la visita oficial y permite identificar la presencia ministerial en la escena del reclamo de justicia.
+  [P33] Indro Montanelli — Periodista. · Permite atribuir por nombre una de las interpretaciones públicas que defendían la casualidad y cuestionaban la previsibilidad.
+
+cronologia:
+  [T01, T03, T04] 1943 — Se aprueba el proyecto y comienza la adquisición de terrenos de Erto y Casso.
+  [T05, D47] década de 1950 — F09 sitúa en esta década la detección por Müller de un gran desmoronamiento en el Toc.
+  [T12, T13, T11, T06] 1957-07 (aproximada) — Fecha de inicio de construcción adoptada por coincidencia de fuentes, con versiones alternativas que sitúan el comienzo en enero o en el año anterior.
+  [T14] 1958 — La Secretaría de Obras Públicas nombra una comisión de exámenes periciales.
+  [T21, T15, T16, T17] 1959-03 — F05 fecha en este mes el desprendimiento de Pontesei; otras fuentes documentan que el episodio mató a un trabajador.
+  [T18, T37] 1959 (aproximada) — F02 sitúa aquí una denuncia de Tina Merlin sobre el peligro de desprendimiento; F04 ofrece otra fecha para el primer artículo.
+  [T19] 1959–1960 — Edoardo Semenza realiza estudios después de que Muller señalara una masa inestable en Pian di Toc.
+  [T26, D129, D147, D53, D156] 1960 (aproximada) — La construcción se da por terminada en varias fuentes, aunque otras describen duraciones o estados de obra incompatibles.
+  [T27] 1960 — Dal Piaz minimiza en su informe los riesgos identificados por Edoardo Semenza.
+  [T29] 1960-02 — Comienza el llenado del embalse según F20.
+  [T30] 1960-06 — F12 registra un primer llenado seguido por un pequeño desprendimiento.
+  [T31] 1960-09 — F01 y F31 sitúan la inauguración de la presa en este mes.
+  [T35, T36, D155, D223] 1960-11-04 — Durante las pruebas cae una masa de roca al lago; su magnitud y la altura de la ola tienen versiones incompatibles.
+  [T33] 1960-11 — F15 sitúa el juicio contra Tina Merlin y L'Unità, absueltos tras seis horas.
+  [T36, T37] cuatro días después de la frana de 1960-11-04 (aproximada) — F04 sitúa aquí el que denomina primer artículo de denuncia de Merlin.
+  [T38, D159] 1961 — Muere Carlo Semenza según F05.
+  [T39, D102] 1961-02 — Tina Merlin publica una nueva advertencia sobre la amenaza a Erto.
+  [T41, D120] 1962 — Se establece que el agua no debe superar la cota indicada como límite de seguridad.
+  [T43, D68] 1962-11 — El desplazamiento de la ladera supera el umbral registrado por F12.
+  [T44, T42] 1962-12 — Se aprueba la ley de creación de ENEL; otras fuentes describen la presa como estatal desde finales de ese año.
+  [T49] 1963-03 — F12 registra la detención del movimiento tras bajar el nivel del agua.
+  [T50] 1963-05 — Según F12, SADE eleva el nivel para entregar la presa como funcional y cerrar la operación con ENEL.
+  [T51, D160] 1963-06 — F05 registra una nueva aceleración de la ladera durante el llenado.
+  [T52] 1963-07 — F15 sitúa la culminación del cambio de propiedad a ENEL mientras continúa la prueba de llenado.
+  [T53, D162] 1963-09-26 — F05 afirma que el embalse fue devuelto al nivel de seguridad.
+  [T54] 1963-10 — Se evacuan casas de la ladera y el alcalde de Erto prohíbe el acceso al embalse.
+  [T55, D226] 1963-10-02 — Se multiplican las noticias de temblores, estruendos, grietas y movimientos superficiales.
+  [T61, Q51, D135] 1963-10-09 mañana — Biadene pide a Pancini que regrese de vacaciones y consigna el aumento de los movimientos comunicado por Rossi.
+  [T64] 1963-10-09 seis de la tarde — F15 describe el cierre de la jornada, quedando un aparejador y su equipo en la central.
+  [T66, T67, T68, T69, T73, Q15] 1963-10-09 22:39 (aproximada) — El Toc se desploma en el embalse; se adopta la hora ampliamente coincidente, conservando una hora alternativa y testimonios aproximados.
+  [T72, D124] 1963-10-09 22:43 — F20 sitúa la llegada del agua a Longarone aproximadamente cuatro minutos después del desprendimiento.
+  [T75] 1963-10-11 — Se nombra la comisión técnico-administrativa de investigación.
+  [T74, Q20, Q22, Q23] 1963-10-11 — Los artículos analizados por F09 enfrentan interpretaciones de fatalidad y responsabilidad.
+  [T76, Q13, Q14] 1963-10-12 — Leone y Zaccagnini visitan la zona; los pobladores reclaman justicia.
+  [T77] 1963-10-14 — Se instala la comisión de investigación.
+  [T79, D230] 1963-10-18 — Se aprueba el decreto de medidas económicas para los afectados.
+  [T80, D231] 1963-10-31 — Se aprueban medidas de seguridad y asistencia urgente.
+  [T82] 1964-06 — F04 sitúa el inicio de los trabajos de la comisión presidida por Rubinacci.
+  [T84] 1965-07-15 — Se presenta el informe final cuyo relator es Rubinacci.
+  [T85, T86, T87] 1968-02-20 (aproximada) — Se deposita la resolución de remisión a juicio; F02 sitúa el cierre de la instrucción al día siguiente.
+  [P18, T89] 1968-11-28 — Pancini muere por suicidio según F01 y F31.
+  [T90, T92, T88] 1968-11-29 (aproximada) — Fecha de comienzo del juicio adoptada frente a la fecha alternativa de F02.
+  [T92, T93] 1969-12-17 — Biadene, Batini y Violin son condenados en primera instancia.
+  [T96, T94] 1970-07-26 — F31 sitúa el inicio de la apelación; F03 lo ubica de forma más amplia en verano.
+  [T97, T98, T95] 1970-10-03 (aproximada) — La apelación condena a Biadene y Sensidoni; F02 ofrece una fecha incompatible para esa sentencia.
+  [T102, T103, T104, T105] 1971-03 (aproximada) — La casación reconoce la culpabilidad de Biadene y Sensidoni; varias fuentes sitúan el proceso entre el quince y el veinticinco, mientras F03 fecha la sentencia el quince.
+  [T106, D233] 1980 — La reconstrucción alcanza la terminación de la iglesia de Longarone diseñada por Michelucci.
+  [T109, D245] 1997-02-15 — El Tribunal de Belluno condena a Montedison a indemnizar al municipio de Longarone.
+  [T110, D140, D234] 2000 — Se completa la liquidación final de daños según las fuentes citadas.
+  [T115, D05, D06] 2010 — El archivo procesal llega al Archivo de Estado de Belluno tras el terremoto de L'Aquila.
+  [T117, T118, D04] 2023-05-18 — F19 sitúa el reconocimiento del archivo por el programa Memoria del Mundo; F14 informa sobre su incorporación en una noticia posterior.
+
+hechos nivel 1:
+  [D24] El torrente Vajont desemboca en el Piave frente a Longarone y Castellavazzo. (contexto)
+  [D66, D151, D173] SADE era una empresa privada promotora de la instalación hidroeléctrica. (contexto)
+  [D154] Edoardo Semenza planteó que un antiguo deslizamiento podía reactivarse con el llenado del embalse. (escalada)
+  [T27] Dal Piaz minimizó en su informe de 1960 los riesgos identificados por Edoardo Semenza. (escalada)
+  [T18] F02 documenta una denuncia de Tina Merlin sobre el peligro de desprendimiento en 1959. (escalada)
+  [T36, D223] Durante las pruebas del cuatro de noviembre de 1960 una frana cayó al lago artificial. (giro)
+  [D104] El informe de Padua advertía de daños si el agua superaba los setecientos metros sobre el nivel del mar. (escalada)
+  [D106] Según F15, SADE obtuvo permiso ministerial para llegar a setecientos quince metros pese a la recomendación del informe. (giro)
+  [D226] Desde el dos de octubre de 1963 se multiplicaron los avisos de sacudidas, estruendos, grietas y movimientos superficiales. (escalada)
+  [T61] La mañana del desastre Biadene escribió a Pancini para pedirle que regresara de vacaciones. (giro)
+  [Q51, D135] Biadene consignó que las mediciones comunicadas por Rossi habían aumentado un cincuenta por ciento, de veinte a treinta centímetros. (escalada)
+  [D111] F01 y F31 señalan que aquella noche no se dio la alarma para activar la evacuación masiva de las poblaciones expuestas. (escalada)
+  [T57, T68] La noche del nueve de octubre de 1963 la ladera del Toc se desplomó en el embalse. (pico)
+  [D55, T58] El impacto de la roca produjo una ola que rebasó la presa y entró en el valle. (pico)
+  [D124, D83, T72] Varias fuentes sitúan la llegada del agua a Longarone unos cuatro minutos después del desprendimiento. (pico)
+  [D131, D198, D25] La presa permaneció en pie después de la catástrofe. (gancho)
+  [D03, D73, D128] F19, F14 y F02 coinciden en un recuento de mil novecientas diez personas muertas. (consecuencia)
+  [T102, T103, D35] La casación reconoció la culpabilidad de Biadene y Sensidoni por inundación agravada. (cierre)
+
+hechos nivel 2:
+  [T04] El Consejo Superior de Obras Públicas aprobó el proyecto en 1943. (contexto)
+  [D117, D240] F01 y F31 indican que a la sesión de aprobación asistieron trece de los treinta y cuatro representantes. (contexto)
+  [T03] La adquisición de terrenos comenzó en 1943 y los posteriores expropios encontraron oposición de parte de la población. (contexto)
+  [P08, D147] Carlo Semenza fue el ingeniero proyectista de la presa. (contexto)
+  [P36] Giorgio Dal Piaz actuó como consultor geológico de SADE. (contexto)
+  [T12, T13] F01, F31 y F20 sitúan el inicio de las obras en julio de 1957. (contexto)
+  [T11, D237] Las obras dieron trabajo a unos cuatrocientos operarios según F01 y F31. (contexto)
+  [D129, D147] F02 y F05 dan por terminada la construcción en 1960. (contexto)
+  [D164] La presa es una estructura de arco delgado y doble curvatura. (contexto)
+  [T19, P35] Muller había señalado una masa inestable en la zona de Pian di Toc. (escalada)
+  [T15, T16, T17] El desprendimiento de Pontesei de 1959 mató a un trabajador según varias fuentes. (escalada)
+  [D119] Tras el episodio de Pontesei, SADE encargó nuevas pericias que identificaron una paleofrana en el Toc. (escalada)
+  [T33] F15 sitúa en noviembre de 1960 el juicio contra Merlin y L'Unità y afirma que fueron absueltos tras seis horas. (giro)
+  [T39, D102] En febrero de 1961 Merlin publicó una advertencia sobre una masa de cincuenta millones de metros cúbicos que amenazaba a Erto. (escalada)
+  [D49] Los habitantes observaron una larga fisura en la montaña después de un desmoronamiento en 1960. (escalada)
+  [D59] Las mediciones anteriores al colapso mostraban que el terreno estaba en movimiento. (escalada)
+  [D101] F15 describe un proyecto de galería subacuática para mantener comunicadas las partes del lago si una frana lo dividía. (escalada)
+  [D103] F15 señala que el modelo hidráulico de Padua empleó grava para representar las rocas compactas. (escalada)
+  [D105] La ley que instituyó ENEL se aprobó en diciembre de 1962. (contexto)
+  [T52] F15 sitúa en julio de 1963 la culminación del cambio de propiedad a ENEL mientras seguía la prueba de llenado. (giro)
+  [T50] F12 atribuye a la necesidad de cerrar la operación con ENEL la elevación del agua a setecientos veinte metros en mayo de 1963. (escalada)
+  [D68] F12 registra que en noviembre de 1962 el desplazamiento de la ladera superó un centímetro y medio por día. (escalada)
+  [T49] F12 afirma que el movimiento se detuvo en marzo de 1963 después de bajar el agua a seiscientos cincuenta metros. (escalada)
+  [D160] F05 registra un desplazamiento de medio centímetro por día cuando el agua alcanzó los setecientos metros en junio de 1963. (escalada)
+  [D162] F05 afirma que el embalse volvió al nivel de seguridad el veintiséis de septiembre de 1963. (escalada)
+  [D227, T54] Las autoridades cerraron algunos caminos y desalojaron algunas viviendas de Erto y Casso. (escalada)
+  [D132] Micaela Coletti fue arrastrada al menos cuatrocientos metros desde su casa. (pico)
+  [D17, Q06] Giovanni De Lorenzi atribuye a los helicópteros la evacuación de las cuatrocientas ochenta y seis personas de su aldea. (consecuencia)
+  [D18] SETAF envió seis helicópteros con suministros y personal sanitario. (consecuencia)
+  [D19] La fuerza estadounidense instaló hospitales móviles y aportó equipos durante el rescate. (consecuencia)
+  [D229] F04 señala que no se creó un organismo central para informar oficialmente sobre el avance del rescate. (consecuencia)
+  [D62] F12 describe una interpretación de la prensa nacional basada en la imprevisibilidad de la naturaleza. (giro)
+  [D71] Según F12, L'Unità fue el único periódico nacional que siguió mediante Merlin los acontecimientos anteriores al desastre. (contexto)
+  [D72] Il Gazzettino pertenecía parcialmente a SADE, FIAT, Volpi y Cini según F12. (contexto)
+  [T76, Q13, Q14] Durante su visita a la zona, Leone prometió justicia ante el reclamo de los pobladores. (consecuencia)
+  [T75] El Ministerio de Obras Públicas nombró una comisión de investigación el once de octubre de 1963. (consecuencia)
+  [D136] F02 afirma que una primera comisión de expertos concluyó, tras dieciocho meses, que el desastre era imprevisible. (giro)
+  [P31] Mario Fabbri encargó una nueva pericia integrada en gran parte por expertos extranjeros. (giro)
+  [D31, T85] La resolución de remisión a juicio alcanzó a once personas. (consecuencia)
+  [D32] Solo ocho acusados llegaron al banquillo porque Penta y Greco habían muerto y Pancini se había suicidado. (consecuencia)
+  [P18, T89] F01 y F31 fechan el suicidio de Pancini el veintiocho de noviembre de 1968. (consecuencia)
+  [T92] La primera sentencia condenó a Biadene, Batini y Violin a seis años, con dos condonados. (consecuencia)
+  [T95, T97, T98, P23, P25, P26] La apelación condenó a Biadene y Sensidoni y absolvió a los demás acusados según las fuentes citadas. (consecuencia)
+  [D139] ENEL ofreció diez mil millones de liras con la condición de que los sobrevivientes renunciaran a constituirse en parte civil. (consecuencia)
+  [D140] F02 afirma que casi todos aceptaron la oferta y sitúa la última transacción en el año 2000. (consecuencia)
+  [T109, D245] El Tribunal de Belluno condenó a Montedison a pagar al municipio de Longarone cincuenta y cinco mil seiscientos cuarenta y cinco millones setecientas cincuenta y ocho mil quinientas liras. (consecuencia)
+  [D234] La liquidación final de los daños repartió cargas entre Montedison y el Estado y llegó al año 2000. (cierre)
+  [D233] La reconstrucción de Longarone se prolongó hasta la terminación de la iglesia diseñada por Michelucci en 1980. (consecuencia)
+  [D05, D06] El archivo procesal fue trasladado a Belluno en 2010 tras el terremoto de L'Aquila. (cierre)
+  [D10] La Fundación Vajont asumió los gastos del trabajo de acceso al fondo procesal realizado en el Archivo de Estado de Belluno. (cierre)
+  [D04, T118] El archivo procesal fue incorporado al Registro de la Memoria del Mundo de UNESCO. (cierre)
+
+cifras:
+  [D03, D73, D128] Muertes totales del desastre: 1.910 personas fallecidas · Recuento exacto coincidente en F19, F14 y F02; referencia de trabajo, no padrón judicial reproducido. · otras versiones: 1.917 personas fallecidas [D30]; 1.920 personas fallecidas [D108, D235]; 2.000 personas fallecidas [D38, D202]; casi 2.000 personas fallecidas [D16, D146, D210]; más de 2.000 personas fallecidas [D64]; 2.600 personas fallecidas [D193]
+  [D17, Q06] Habitantes evacuados de la aldea de De Lorenzi: 486 personas evacuadas · Testimonio de De Lorenzi recogido por F06.
+  [D18] Helicópteros enviados por la fuerza estadounidense: 6 helicópteros despachados · F06; es el total enviado, no necesariamente el observado en una aldea.
+  [Q06] Helicópteros a los que De Lorenzi atribuye la evacuación de su aldea: 3 helicópteros · Testimonio recogido por F06.
+  [D192] Personal técnico muerto en el centro de control del estribo izquierdo: 20 personas fallecidas · F20; subconjunto, no adicional al total de muertos.
+  [D195] Muertes atribuidas a Longarone por F20: 1.269 personas fallecidas · F20; alcance territorial no aclarado en el pasaje.
+  [D195] Población de referencia de Longarone en F20: 1.328 habitantes · F20; no se homologa con la población aproximada de F09. · otras versiones: cerca de 2.000 habitantes [D41]
+  [D196] Muertes en Erto y Casso: 158 personas fallecidas · F20; subconjunto del total.
+  [D216] Víctimas encontradas según F04: 1.500 personas fallecidas cuyos restos fueron encontrados · F04.
+  [T11, D237, D92] Operarios de la construcción: unos 400 trabajadores · F01, F31 y F15.
+  [D97] Muertes durante la construcción: 10 obreros fallecidos · F15; recuento separado del desastre final.
+  [D31, T86] Personas alcanzadas por la remisión a juicio: 11 acusados · F03 y listado reproducido en F01 y F31.
+  [D32] Acusados presentes en el banquillo: 8 acusados · F03.
+  [D01, D42, D209, D214] Volumen de la frana final: No unificado metros cúbicos de roca · Magnitud disputada; no se resuelve mediante la regla de conteos de personas. · otras versiones: 270 millones metros cúbicos de roca [D01, D121, D143]; 260 millones metros cúbicos de roca y tierra [D42, D209]; más de 250 metros cúbicos de tierra y roca [D214]
+  [D223, D155, D243, D134] Volumen de roca desprendido durante las pruebas: No unificado metros cúbicos de roca · F04 y F05 frente a F01 y F31; F02 añade una unidad distinta. · otras versiones: 700.000 metros cúbicos de roca [D223, D155]; 800.000 metros cúbicos de roca [T34, D243]; 700.000 metros cuadrados de desprendimiento [D134]
+  [D28] Volumen de agua desplazada por la frana final: 50 millones metros cúbicos de agua · F03, F01 y F31.
+  [D27, D122, D79] Velocidad de la frana final: No unificada kilómetros por hora · Versiones incompatibles del pool. · otras versiones: 50 kilómetros por hora [D27, Q12]; 100 kilómetros por hora [D122, D143, D43]; 600 kilómetros por hora [D79]
+  [D133, D148, D114, D118, D165] Altura de la presa: No unificada metros de altura · Magnitudes incompatibles o redondeadas que el pool no permite homogeneizar. · otras versiones: 261 metros de altura [D133, D221]; 261,6 metros de altura [D148]; 262 metros de altura [D114, D238]; 266 metros de altura del proyecto ampliado [D118, D241]; 860 pies de altura [D165]
+  [D26, D40, D118, D149, D172, D180] Capacidad del embalse: No unificada metros cúbicos de agua · Las fuentes mezclan capacidades de proyecto y referencias no homologadas; no equivalen al agua almacenada el día del desastre. · otras versiones: 150 millones metros cúbicos de agua [D26]; 115 millones metros cúbicos de agua de capacidad [D118]; 170 millones metros cúbicos de agua de capacidad máxima [D149]; 58 millones metros cúbicos de agua de retención máxima [D40]; 138.000 acres-pie de capacidad de diseño [D172]; 122.000 acres-pie de capacidad [D180]
+  [D144] Agua almacenada al producirse el desprendimiento: 115 millones metros cúbicos de agua · F05; se conserva como versión de esta fuente, sin equipararla a la capacidad. · otras versiones: 93.000 acres-pie de agua almacenada [D187]
+  [D80, D123, D145, D215] Altura atribuida a la ola en el entorno del embalse: No unificada metros de altura de ola · Referencias de medida no completamente homologadas. · otras versiones: unos 200 metros de altura de ola [D215]; 250 metros de altura de ola [D80, D145]; más de 250 metros de altura de las olas [D123]
+  [D86] Altura del agua en Longarone: 70 metros de altura · F15, al referirse al centro de Longarone. · otras versiones: más de 230 pies de altura [D191]
+  [D124, D83, T72] Tiempo de llegada del agua a Longarone: unos 4 minutos después del desprendimiento · F01, F31 y F20. · otras versiones: poco más de 4 minutos después del desprendimiento [D83]
+  [D120, D104] Límite recomendado para el agua: 700 metros sobre el nivel del mar · F01, F31 y el informe de Padua descrito por F15.
+  [D106] Cota autorizada según F15: 715 metros sobre el nivel del mar · F15.
+  [Q51, D135] Aumento consignado en la carta de Biadene: 50 por ciento de incremento de las mediciones · Carta citada por F02; el pasaje no explicita una tasa temporal para esos centímetros.
+  [Q51] Medición anterior mencionada por Biadene: 20 centímetros de desplazamiento · Carta citada por F02; no se añade «por día».
+  [Q51] Nueva medición mencionada por Biadene: 30 centímetros de desplazamiento · Carta citada por F02; no se añade «por día».
+  [D132] Distancia mínima a la que fue arrastrada Coletti: 400 metros desde su casa · F02.
+  [D139] Oferta indemnizatoria de ENEL: 10.000 millones liras de la época · F02; condicionada a renunciar a constituirse en parte civil.
+  [T109, D245] Indemnización al municipio de Longarone: 55.645.758.500 liras · Condena del Tribunal de Belluno reproducida por F01 y F31.
+
+citas:
+  [Q06] Giovanni De Lorenzi (Sobreviviente y director de la Fundación Vajont.) · SIN VERIFICAR · «The first rescuer I saw came in a U.S. Army helicopter. Those three helicopters evacuated all 486 people from my village. Even if it was a tragic day, I remember it with joy because those U.S. helicopters saved us.» (traducción: «El primer rescatista que vi llegó en un helicóptero del Ejército de Estados Unidos. Esos tres helicópteros evacuaron a las 486 personas de mi pueblo. Aunque fue un día trágico, lo recuerdo con alegría porque esos helicópteros estadounidenses nos salvaron.»)
+  [Q12] Comisión de investigación nombrada por el Ministerio de Obras Públicas (Informe oficial citado por las fuentes.) · VERIFICADA · «Alle ore 22,39 del 9 ottobre 1963 il movimento franoso delle pendici del Toc, già in atto, assumeva un andamento percipite, irruento, irresistibile.» (traducción: «A las 22:39 del 9 de octubre de 1963, el movimiento de deslizamiento de las laderas del Toc, ya en curso, adquiría un ritmo precipitado, impetuoso, irresistible.»)
+  [Q13] Pobladores (Personas que reclamaron justicia durante la visita de Leone.) · VERIFICADA · «Presidente, vogliamo giustizia» (traducción: «Presidente, queremos justicia.»)
+  [Q14] Giovanni Leone (Presidente del Consejo de Ministros.) · VERIFICADA · «E giustizia avrete» (traducción: «Y justicia tendréis.»)
+  [Q15] Carlo Onorini (Párroco de Casso.) · VERIFICADA · «Yo, aquella noche, a eso de las diez y media, escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor.»
+  [Q16] Benito Castellano (Sobreviviente.) · VERIFICADA · «Oí un ruido indefinible muy fuerte, como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos [...] Un estruendo acompañado por un resplandor, e inmediatamente después un ruido similar al que se oye cuando pasa una formación de reactores»
+  [Q17] Germano Accamillesi (Sobreviviente presente en el bar Faè.) · VERIFICADA · «Mientras estábamos en el bar Faè nos dimos cuenta que de repente se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas y luego se apagaba también la iluminación»
+  [Q19] Gianfranco Trevisano (Médico de Longarone.) · VERIFICADA · «Antes de que se fuera la luz, se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire, acompañada del ruido del aire que irrumpía [...] Inmediatamente pensé que había cedido el dique.»
+  [Q20] Dino Buzzati (Escritor del Corriere della Sera.) · VERIFICADA · «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel. Eso es todo. Sólo que el vaso tenía una altura de cientos de metros y la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse.»
+  [Q22] Giorgio Bocca (Escritor de Il Giorno.) · VERIFICADA · «Podrá tal vez parecer cruel lo que voy a decir, pero esta desgracia tan "limpia", tan ineluctable, tan absoluta, lleva más a la melancolía que al dolor. No había nada que hacer, no hay remordimientos, no hay culpables.»
+  [Q23] Aniello Coppola (Periodista de L'Unità.) · VERIFICADA · «es el intento de anular a priori cualquier investigación, de absolver, aun antes de indagar, cualquier responsabilidad. Frente a este intento, decimos: NO. Hay que hacer un proceso. Hay que encontrar a los responsables. Y deben pagar.»
+  [Q24] Ministro de Obras Públicas (Autoridad gubernamental citada por F12.) · VERIFICADA · «fatality cannot justify these tragedies and government has the compulsory role to bring out all details» (traducción: «La fatalidad no puede justificar estas tragedias y el gobierno tiene la obligación de sacar a la luz todos los detalles.»)
+  [Q25] Sobreviviente no identificado (Habitante que ya no reconoce Longarone.) · VERIFICADA · «I knew Longarone in every corner, now I don’t know where I am» (traducción: «Conocía Longarone en cada rincón, ahora no sé dónde estoy.»)
+  [Q28] Sobreviviente no identificado (Habitante que recuerda la espera temerosa del desastre.) · VERIFICADA · «We were waiting for the dam to fall...» (traducción: «Estábamos esperando que la presa se cayera...»)
+  [Q29] L'Unità (Periódico denunciante.) · VERIFICADA · «The Vajont catastrophe is the tragic end of a brutal misuse of land, water and of the local population» (traducción: «La catástrofe de Vajont es el final trágico de un abuso brutal de la tierra, el agua y la población local.»)
+  [Q37] Giorgio Dal Piaz (Geólogo asesor.) · VERIFICADA · «Si el proyecto original me parecía osado, ahora lo considero una completa locura»
+  [Q44] Laboratorio de la Universidad de Padua (Atribución colectiva de F15; no se identifica al hablante.) · VERIFICADA · «Nos han dicho que lo hagamos así»
+  [Q45] Ministerio no identificado en el pasaje (Emisor institucional al que F15 atribuye la respuesta.) · VERIFICADA · «No se preocupe, todo está bajo control»
+  [Q46] Habitantes de Erto y Longarone (Atribución colectiva de F15.) · VERIFICADA · «Si no avisan, será que no es grave»
+  [Q48] Mauro Corona (Escritor y testigo que vivía cerca de la presa.) · VERIFICADA · «come di un milione di camion che rovesciano un milione di cassoni di ghiaia» (traducción: «Como un millón de camiones volcando un millón de cajas de grava.»)
+  [Q49] Micaela Coletti (Sobreviviente.) · VERIFICADA · «La sensazione che il letto prendesse velocità, una forza spaventosa che mi prendeva alla schiena, mi piegava in due, mi schiacciava; la sensazione di essere di gomma, di allargarmi e poi restringermi, gli occhi diventati due stelle;» (traducción: «La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba; la sensación de ser de goma, de ensancharme y luego encogerme, los ojos convertidos en dos estrellas;»)
+  [Q50] Administración del municipio de Erto y Casso (Autoridad local que escribió a SADE.) · VERIFICADA · «Le popolazioni di Erto e Casso stanno vivendo in continua apprensione e in continuo allarme» (traducción: «Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma.»)
+  [Q51] Alberico Biadene (Director del Servicio de Construcciones Hidráulicas de SADE.) · VERIFICADA · «P.S. Mi telefona ora il geom. Rossi che le misure di questa mattina mostrano essere ancora maggiori di quelle di ieri, raggiungendo una maggiorazione del 50%!! (cioè da 20 a 30 centimetri). Si nota anche qualche piccola caduta di sassi al bordo ovest (verso la diga) della frana.» (traducción: «P.D. Me llama ahora el topógrafo Rossi: las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!! (es decir, de 20 a 30 centímetros). Se observa también alguna pequeña caída de piedras en el borde oeste del deslizamiento, hacia la presa.»)
+  [Q53] Residentes (Habitantes que desconfiaban de la estabilidad del Toc.) · VERIFICADA · «the mountain that walks» (traducción: «La montaña que camina.»)
+  [Q56] Sandro Canestrini (Abogado de la parte civil.) · SIN VERIFICAR · «il Vajont non è la tragica eccezione al sistema, ma la conferma di esso: in questa vicenda veramente non è accaduto nulla di eccezionale. Solo, come spesso succede, c’era un rischio, prevedibile e previsto» (traducción: «Vajont no es la trágica excepción al sistema, sino su confirmación: en este suceso realmente no ha ocurrido nada excepcional. Solo, como sucede a menudo, había un riesgo, previsible y previsto.»)
+
+versiones en disputa:
+  Daños del episodio de Pontesei
+    - El desprendimiento mató a un hombre que trabajaba allí. [T15, D67] (fuente: F12)
+    - La ola mató al vigilante Arcangelo Tiziani. [T16, D94] (fuente: F15)
+    - La frana ocurrió «sin provocar daños»; no se convierte esa frase en un recuento de cero muertos. [T21, D152] (fuente: F05)
+  Diagnóstico de Müller y relación con la hipótesis de una paleofrana
+    - Edoardo Semenza llegó a las mismas conclusiones que Müller. [P46] (fuente: F15)
+    - Muller no creía en una paleofrana ni en una capa de arcilla capaz de provocar el deslizamiento. [D157] (fuente: F05)
+    - Edoardo planteó que una paleofrana podía reactivarse por el llenado. [D154] (fuente: F05)
+  Relación corporativa entre SADE y ENEL
+    - SADE se transformó en el organismo estatal ENEL. [D53] (fuente: F09)
+    - ENEL compró la instalación a SADE mediante una operación cuyo contrato exigía una central plenamente funcional. [T46] (fuente: F15)
+    - La propiedad de la presa había sido transferida a ENEL. [D174] (fuente: F07)
+    - ENEL controlaba SADE al producirse el accidente y Montedison adquirió después la sociedad. [D138] (fuente: F02)
+  Estado material de la obra durante la frana de las pruebas
+    - Durante ese episodio la presa estaba completada en dos tercios. [D156] (fuente: F05)
+    - La presa había sido inaugurada en septiembre de 1960. [T31] (fuente: F01)
+    - La construcción había terminado en 1960. [D129] (fuente: F02)
+  Fatalidad frente a responsabilidad evitable
+    - La primera comisión de expertos favoreció la imprevisibilidad del desastre. [D136] (fuente: F02)
+    - No había nada que hacer, remordimientos ni culpables: posición de Bocca, no hecho establecido. [Q22] (fuente: F09)
+    - Coppola reclamó un proceso para encontrar a los responsables y hacerlos pagar. [Q23] (fuente: F09)
+    - La casación reconoció inundación agravada por la previsión del acontecimiento. [T102] (fuente: F31)
+  Alcance jurídico de la condena final
+    - Biadene y Sensidoni fueron reconocidos culpables de un solo delito, inundación agravada. [T103, D35] (fuente: F03)
+    - El único desastre fue la inundación agravada por la previsión del evento. [T102] (fuente: F31)
+    - El cierre del proceso incluyó numerosas condenas por desastre e inundación, homicidio y lesiones culposas múltiples. [D46] (fuente: F09)
+  Afirmación absoluta sobre la ausencia de sobrevivientes
+    - Al describir la movilización sanitaria, F04 afirma que en realidad no había sobrevivientes. [D228] (fuente: F04)
+    - F02 identifica sobrevivientes concretos, entre ellos Coletti. [P49] (fuente: F02)
+    - F06 identifica a De Lorenzi como sobreviviente y recoge el relato de una evacuación. [Q06] (fuente: F06)
+</ficha>
+
+<tarea>
+Con la ficha de arriba, armá la escaleta de este caso en el JSON del esquema: humano, antagonista, promesa del gancho, pico, cierre humano, beats por cap y a_pantalla. Pensá primero a quién seguimos y dónde golpea; después repartí los beats en los siete caps.
+</tarea>

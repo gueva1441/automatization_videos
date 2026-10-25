@@ -1,0 +1,742 @@
+[
+ {
+  "humano": {
+   "id": "P16",
+   "nombre": "Alberico Biadene",
+   "rol": "Director del Servicio de Construcciones Hidráulicas de SADE; el ingeniero que midió la montaña, escribió su preocupación la mañana del desastre y terminó condenado en casación",
+   "por_que": "Es el único candidato con momentos concretos en los siete capítulos: entra como director de SADE cuando la presa se levanta, recibe las mediciones de la ladera en 1962 y 1963 mientras el agua sube y baja, escribe la carta a Pancini la mañana del 9 de octubre con la posdata de las piedras hacia la presa, no da la alarma, y sale condenado en apelación y casación por inundación agravada por la previsión del acontecimiento. Tiene una cita verificada (Q51) que además es un documento con hora: se puede abrir y cerrar el video con ella. Coletti tiene la escena más fuerte pero desaparece de la historia entre 1943 y la noche del 9; Merlin no tiene cita verificada. Biadene no es un héroe: es el hombre que sabía. Eso es lo que el título promete.",
+   "colectivo": false,
+   "fuente": "T61, Q51, D35, T102"
+  },
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "D88",
+   "nombre": "Società Adriatica di Elettricità (SADE)",
+   "por_que": "Las decisiones que empujan la historia son corporativas y nadie las firma con nombre propio: SADE encarga las pericias y luego las minimiza vía Dal Piaz, obtiene permiso para pasar de 700 a 715 metros contra el informe de Padua (D106), sube el agua a 720 en mayo de 1963 para entregar la central como funcional y cerrar con ENEL (T50), es copropietaria del diario que no publica lo que publica L'Unità (D72), y la noche del 9 de octubre no da la alarma general (D111). Biadene es su director y su cara, pero el motivo de las decisiones es la empresa."
+  },
+  "promesa_gancho": "Un ingeniero agrega a mano una posdata a una carta ya terminada, con dos signos de exclamación detrás de una cifra que acaba de oír por teléfono. Lo que no escribió en esa carta es lo que esta historia tiene que averiguar.",
+  "pico": {
+   "beat": 9,
+   "id": "T57",
+   "por_que": "Es el pico que marcó la ficha y no hay razón mejor: la ladera del Toc cae al embalse a las 22:39, la ola rebasa una presa que no se rompe y en cuatro minutos borra Longarone. Todo lo anterior (Pontesei, la fisura, Padua, los 715, los 720, la posdata) desemboca acá, y el hecho de que la presa quede en pie es lo que impide leer el desastre como un muro que falló: falló una decisión."
+  },
+  "cierre_humano": "Volver a Biadene, pero no a su cita (ya usada en el gancho): a lo que la casación dijo de él, previsión del acontecimiento, y a lo que ningún folio dice: quién tenía que levantar el teléfono aquella tarde para llamar a Longarone. El video termina con esa pregunta, sin responderla, mientras se ven las piedras que él anotó cayendo hacia la presa.",
+  "beats": [
+   {
+    "n": 1,
+    "cap": 1,
+    "funcion": "gancho",
+    "emocion": "inquietud contenida",
+    "intensidad": 4,
+    "dato_central": "Q51 — Biadene, posdata manuscrita de la mañana del 9 de octubre: «Me llama ahora el topógrafo Rossi: las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!! (es decir, de 20 a 30 centímetros). Se observa también alguna pequeña caída de piedras en el borde oeste del deslizamiento, hacia la presa.»",
+    "datos_apoyo": [
+     "E5 — Biadene añade a la carta a Pancini la información recibida por teléfono",
+     "D135 — el aumento consignado: de veinte a treinta centímetros, sin tasa temporal explícita en el pasaje"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una carta mecanografiada ya firmada; debajo, a mano, una posdata que se agrega apurada. Dos signos de exclamación después de un porcentaje. Un teléfono que acaba de colgarse. Afuera, piedras pequeñas rodando por una ladera hacia un muro de hormigón.",
+    "pregunta_abierta": "¿Por qué un hombre que escribe dos signos de exclamación en una carta interna no está gritando?",
+    "pregunta_pantalla": "¿Qué sabía el hombre que escribió esto?",
+    "cierre": "Veinte años antes de esa posdata, en una sala de Roma, trece hombres levantaron la mano.",
+    "palabras_objetivo": 220,
+    "flash_forward": true,
+    "contador": false,
+    "escena_idx": 5
+   },
+   {
+    "n": 2,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "calma que incomoda",
+    "intensidad": 1,
+    "dato_central": "T04 / D117 — El Consejo Superior de Obras Públicas aprueba el proyecto en 1943; a la sesión asisten trece de los treinta y cuatro representantes",
+    "datos_apoyo": [
+     "T03 — la adquisición de terrenos de Erto y Casso comienza en 1943 y los expropios encuentran oposición",
+     "D66 — SADE, empresa privada promotora; Giuseppe Volpi, propietario y dirigente (P41)",
+     "P08 / D164 — Carlo Semenza, ingeniero proyectista; una presa de arco delgado y doble curvatura; Dal Piaz sobre el proyecto: «Si el proyecto original me parecía osado, ahora lo considero una completa locura» (Q37)",
+     "T12 / T11 / D97 — las obras empiezan en julio de 1957 con unos cuatrocientos operarios; diez obreros mueren durante la construcción",
+     "D24 — el torrente Vajont desemboca en el Piave justo frente a Longarone y Castellavazzo",
+     "P16 — Biadene dirige el Servicio de Construcciones Hidráulicas de SADE; los residentes llaman al Toc «la montaña que camina» (Q53)"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Un torrente angosto cayendo al Piave y, en la otra orilla, los techos de Longarone. Arriba, en la garganta, una lámina de hormigón curvada como una vela. Cuatrocientos hombres y el polvo de la obra.",
+    "pregunta_abierta": "¿Quién manda sobre una montaña que la gente del valle ya sabe que se mueve?",
+    "pregunta_pantalla": "¿Quién puso nombre primero a la montaña: los vecinos o los ingenieros?",
+    "cierre": "La gente del valle tenía un nombre para el Toc. Los ingenieros todavía no. Se lo iba a dar un embalse vecino, una mañana de marzo.",
+    "palabras_objetivo": 300,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 0
+   },
+   {
+    "n": 3,
+    "cap": 3,
+    "funcion": "escalada",
+    "emocion": "alarma técnica",
+    "intensidad": 3,
+    "dato_central": "T16 / E1 — Marzo de 1959: un desprendimiento cae al embalse de Pontesei y la ola mata al vigilante Arcangelo Tiziani",
+    "datos_apoyo": [
+     "D94 / T15 / T21 — versión en disputa: F12 dice que murió un trabajador, F15 nombra a Tiziani, F05 dice que ocurrió «sin provocar daños»",
+     "D119 — tras Pontesei, SADE encarga nuevas pericias que identifican una paleofrana en el Toc",
+     "T19 / P35 — Müller ya había señalado una masa inestable en Pian di Toc; la ficha no permite unificar su diagnóstico sobre la paleofrana (D157)",
+     "D154 — Edoardo Semenza, hijo del proyectista, plantea que el antiguo deslizamiento puede reactivarse con el llenado",
+     "T27 — Dal Piaz, geólogo asesor de SADE, minimiza en su informe de 1960 los riesgos identificados por Edoardo",
+     "T18 — F02 documenta una denuncia de Tina Merlin en L'Unità sobre el peligro de desprendimiento en 1959"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Rocas entrando al agua quieta de un embalse y una pared de agua de veinte metros levantándose contra la orilla donde está parado un hombre solo. Después, el silencio del agua volviendo a su nivel.",
+    "pregunta_abierta": "Si ya pasó una vez, al lado, ¿qué hace falta para que lo tomen en serio?",
+    "pregunta_pantalla": "¿Cuántas veces tiene que avisar una montaña?",
+    "cierre": "El hijo del proyectista dijo que la montaña podía volver a caminar. El asesor de la empresa dijo que no. Y la empresa empezó a llenar.",
+    "palabras_objetivo": 260,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 4,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "indignación",
+    "intensidad": 3,
+    "dato_central": "T36 / D223 — 4 de noviembre de 1960: durante las pruebas, una masa de roca se desprende del Toc y cae al lago artificial; su volumen y la altura de la ola tienen versiones incompatibles",
+    "datos_apoyo": [
+     "T29 / T30 — el llenado empieza en febrero de 1960; en junio, un primer llenado seguido de un pequeño desprendimiento",
+     "D49 / E2 — después del desmoronamiento queda abierta una fisura de más de un metro de ancho y casi dos kilómetros de largo",
+     "D156 / T31 — versión en disputa: la presa estaba completada en dos tercios según F05; inaugurada en septiembre de 1960 según F01",
+     "T37 / T33 — cuatro días después, el artículo de Merlin; en noviembre de 1960, juicio contra Merlin y L'Unità: absueltos tras seis horas",
+     "D71 / D72 — L'Unità es el único diario nacional que sigue el caso; Il Gazzettino pertenece en parte a SADE, FIAT, Volpi y Cini",
+     "T39 / D102 — febrero de 1961: Merlin publica que una masa de cincuenta millones de metros cúbicos amenaza Erto"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Una grieta que se puede caminar de punta a punta durante media hora, abierta como una boca al costado de la montaña. Una periodista sentada en un banquillo de acusada por haberla descrito.",
+    "pregunta_abierta": "¿Cómo se procesa a quien describe una grieta que cualquiera puede ir a ver?",
+    "pregunta_pantalla": "¿A quién se juzgó primero: a la montaña o a la periodista?",
+    "cierre": "SADE no respondió a la periodista. Encargó una maqueta.",
+    "palabras_objetivo": 280,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 3
+   },
+   {
+    "n": 5,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "frialdad administrativa",
+    "intensidad": 3,
+    "dato_central": "D104 / D106 — El informe del Laboratorio de la Universidad de Padua advierte daños si el agua supera los setecientos metros sobre el nivel del mar; según F15, SADE obtiene permiso ministerial para llegar a setecientos quince",
+    "datos_apoyo": [
+     "D103 / Q44 — el modelo hidráulico usa grava para representar las rocas compactas; del laboratorio: «Nos han dicho que lo hagamos así»",
+     "D101 — F15 describe un proyecto de galería subacuática para mantener comunicadas las dos mitades del lago si una frana lo divide",
+     "T41 / D120 — en 1962 se establece la cota de setecientos metros como límite de seguridad",
+     "D68 / T43 — noviembre de 1962: el desplazamiento de la ladera supera un centímetro y medio por día"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una maqueta con agua de verdad y grava donde debería haber roca; alguien vuelca piedritas y mide la ola con una regla. En otra oficina, un número tachado y otro escrito al lado: setecientos, setecientos quince.",
+    "pregunta_abierta": "Si el informe dice setecientos, ¿quién decide que sean setecientos quince, y para qué sirven entonces los informes?",
+    "pregunta_pantalla": "¿Para qué se encarga un informe que no se va a cumplir?",
+    "cierre": "SADE ya tenía el permiso para subir el agua. Lo que no tenía todavía era un comprador. Y el comprador quería una central que funcionara.",
+    "palabras_objetivo": 260,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 0
+   },
+   {
+    "n": 6,
+    "cap": 4,
+    "funcion": "escalada",
+    "emocion": "codicia medida en centímetros",
+    "intensidad": 4,
+    "dato_central": "T50 — Mayo de 1963: según F12, SADE eleva el nivel del agua a setecientos veinte metros para entregar la presa como funcional y cerrar la operación con ENEL",
+    "datos_apoyo": [
+     "D105 / T44 — la ley que crea ENEL se aprueba en diciembre de 1962; la relación SADE-ENEL tiene versiones en disputa (D53, T46, D174, D138)",
+     "T49 — marzo de 1963: el movimiento de la ladera se detiene después de bajar el agua a seiscientos cincuenta metros",
+     "D160 / T51 — junio de 1963: con el agua en setecientos metros, medio centímetro de desplazamiento por día",
+     "T52 — julio de 1963: se completa el traspaso a ENEL mientras continúa la prueba de llenado",
+     "D162 / T53 — 26 de septiembre de 1963: el embalse vuelve al nivel de seguridad",
+     "D59 — las mediciones anteriores al colapso mostraban que el terreno estaba en movimiento"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "La marca del agua subiendo y bajando sobre la roca como una respiración: baja y la montaña se queda quieta, sube y la montaña vuelve a moverse. Sobre un escritorio, las planillas de medición que llegan al director con el movimiento anotado en centímetros por día.",
+    "pregunta_abierta": "Si bajar el agua detiene la montaña y subirla la despierta, ¿qué están probando exactamente?",
+    "pregunta_pantalla": "¿Qué pesa más: medio centímetro por día o una firma de traspaso?",
+    "cierre": "El veintiséis de septiembre el agua volvió a la cota segura. La montaña no volvió.",
+    "palabras_objetivo": 280,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 0
+   },
+   {
+    "n": 7,
+    "cap": 5,
+    "funcion": "escalada",
+    "emocion": "miedo que no encuentra a quién hablarle",
+    "intensidad": 4,
+    "dato_central": "D226 / T55 / E4 — Desde el 2 de octubre de 1963 se multiplican los avisos de sacudidas, estruendos, grietas que se abren y movimientos superficiales en el Toc",
+    "datos_apoyo": [
+     "Q50 — la administración de Erto y Casso escribe a SADE: «Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma»",
+     "T54 / D227 — se cierran algunos caminos, se desalojan algunas viviendas de la ladera y el alcalde de Erto prohíbe el acceso al embalse",
+     "Q45 — respuesta institucional citada por F15, de un ministerio que el pasaje no identifica: «No se preocupe, todo está bajo control»",
+     "Q46 — habitantes de Erto y Longarone: «Si no avisan, será que no es grave»",
+     "Q28 — un sobreviviente no identificado: «Estábamos esperando que la presa se cayera...»"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Vajillas que tiemblan en alacenas; una grieta nueva atravesando un sendero que ayer no la tenía; un cartel de prohibido el paso sobre un camino al lago. Gente mirando la montaña desde la puerta de su casa, esperando que alguien diga algo.",
+    "pregunta_abierta": "Si desalojan algunas casas, ¿por qué no todas? ¿Quién decide hasta dónde llega el miedo oficial?",
+    "pregunta_pantalla": "Si cierran el camino, ¿por qué no cierran el pueblo?",
+    "cierre": "El nueve de octubre a la mañana, el director del servicio hidráulico de SADE se sentó a escribir una carta. Ya la conocemos.",
+    "palabras_objetivo": 270,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 4
+   },
+   {
+    "n": 8,
+    "cap": 5,
+    "funcion": "giro",
+    "emocion": "angustia",
+    "intensidad": 4,
+    "dato_central": "T61 — La mañana del 9 de octubre de 1963 Biadene escribe a Pancini, de vacaciones, para pedirle que regrese",
+    "datos_apoyo": [
+     "E5 — la carta se completa con la llamada del topógrafo Rossi; las mediciones de la mañana son mayores que las de ayer (la posdata del gancho, ahora con contexto)",
+     "T64 — a las seis de la tarde cierra la jornada; quedan en la central un aparejador y su equipo",
+     "D111 — F01 y F31: aquella noche no se da la alarma para activar la evacuación masiva de las poblaciones expuestas",
+     "P18 — Pancini, director de los trabajos y destinatario de la carta",
+     "D192 — anticipo en pantalla: veinte técnicos en el centro de control del estribo izquierdo"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "La misma carta del principio, pero ahora en una oficina con ventanas al lago: el teléfono, la mano que escribe la posdata, el sobre que se cierra. Después, un pasillo que se apaga a las seis de la tarde y las luces de la central encendidas sobre el agua oscura.",
+    "pregunta_abierta": "Entre la posdata de la mañana y las seis de la tarde hay un día entero de oficina. ¿Qué hizo cada uno de los que leyó esa carta?",
+    "pregunta_pantalla": "¿Qué se hace con una carta así entre las nueve de la mañana y las seis de la tarde?",
+    "cierre": "A las seis de la tarde cerró la jornada. Faltaban cuatro horas y treinta y nueve minutos.",
+    "palabras_objetivo": 260,
+    "flash_forward": false,
+    "contador": true,
+    "escena_idx": 5
+   },
+   {
+    "n": 9,
+    "cap": 6,
+    "funcion": "pico",
+    "emocion": "terror",
+    "intensidad": 5,
+    "dato_central": "T57 / T58 / D55 — La noche del 9 de octubre de 1963 la ladera del Toc se desploma en el embalse; el impacto levanta una ola que rebasa la presa y entra en el valle",
+    "datos_apoyo": [
+     "Q15 / E6 — Onorini, párroco de Casso: «a eso de las diez y media, escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor»",
+     "Q17 / E8 — Accamillesi en el bar Faè: se apaga la luz del televisor, treinta a cincuenta segundos después las sacudidas, luego se apaga el local; Castellano (Q16): un trueno de verano multiplicado cien veces",
+     "Q19 / E9 — Trevisano, médico de Longarone: el portoncito se abre de par en par por una corriente de aire; «Inmediatamente pensé que había cedido el dique»",
+     "Q49 / E10 — Coletti, desde su cama: «La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba; (…) los ojos convertidos en dos estrellas»",
+     "D124 / T72 / D86 — el agua llega a Longarone unos cuatro minutos después del desprendimiento; en el centro del pueblo alcanza setenta metros de altura",
+     "D131 / D198 — la presa permanece en pie"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una pantalla de televisor que se apaga en un bar. Un portón que se abre solo con un golpe de aire. Una ventana abierta sobre un ruido que crece y un resplandor sin fuego. Una cama que toma velocidad en la oscuridad. Y al final, cuando todo pasa, un muro de hormigón intacto con el valle vacío debajo. Biadene está en escena por su carta: las piedras que anotó esa mañana ya no están.",
+    "pregunta_abierta": "¿Cuánto duran cuatro minutos cuando el agua ya salió de la montaña y nadie te lo dijo?",
+    "pregunta_pantalla": "Si la presa no cayó, ¿qué fue lo que cayó?",
+    "cierre": "Cuando amaneció, la presa seguía ahí. Longarone, no.",
+    "palabras_objetivo": 380,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 10
+   },
+   {
+    "n": 10,
+    "cap": 6,
+    "funcion": "respiro",
+    "emocion": "vacío",
+    "intensidad": 2,
+    "dato_central": "E11 / Q25 — Longarone convertida en una explanada de fango y piedras; un sobreviviente: «Conocía Longarone en cada rincón, ahora no sé dónde estoy»",
+    "datos_apoyo": [
+     "D132 — Micaela Coletti es encontrada al menos cuatrocientos metros de su casa; Giuseppe Sacchet (P50), sobre un colchón bajo los escombros",
+     "D50 / D51 — el alcalde Guglielmo Celso muere en el desastre; el vicealcalde Terenzio Arduini, con sus propias pérdidas, pasa a liderar lo que queda",
+     "E12 / Q06 — De Lorenzi (cita sin verificar, sin nombre en voz): el primer rescatista que vio llegó en un helicóptero del Ejército de Estados Unidos; tres helicópteros evacuaron a las cuatrocientas ochenta y seis personas de su aldea",
+     "D18 / D19 — SETAF envía seis helicópteros, personal sanitario y hospitales móviles",
+     "D229 / D228 — no se crea un organismo central que informe sobre el rescate; una fuente llega a afirmar que no había sobrevivientes, mientras otras los nombran uno por uno"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Barro liso donde había calles. Un colchón en medio de las piedras. El batir de un helicóptero que baja sobre una aldea de montaña y gente que levanta los brazos. Nadie sabe dónde estaba la plaza.",
+    "pregunta_abierta": "¿Cómo se cuenta a los muertos de un pueblo del que no queda el plano?",
+    "pregunta_pantalla": "¿Cómo se cuentan los muertos cuando no queda el pueblo?",
+    "cierre": "Tres días después, entre el barro, llegó un coche oficial. La gente ya sabía qué quería gritarle.",
+    "palabras_objetivo": 240,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 11
+   },
+   {
+    "n": 11,
+    "cap": 7,
+    "funcion": "revelacion",
+    "emocion": "rabia",
+    "intensidad": 3,
+    "dato_central": "E13 / Q13 / Q14 — 12 de octubre de 1963: Leone y Zaccagnini visitan la zona; la gente grita «Presidente, vogliamo giustizia» y Leone responde «E giustizia avrete»",
+    "datos_apoyo": [
+     "Q22 / D62 — Bocca en Il Giorno: «esta desgracia tan limpia, tan ineluctable (…) No había nada que hacer, no hay remordimientos, no hay culpables»; Montanelli (P33) defiende la casualidad",
+     "Q20 — Buzzati en el Corriere: «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel. (…) abajo, en el mantel, había miles de seres humanos que no podían defenderse»",
+     "Q23 / Q29 — Coppola en L'Unità: «Hay que hacer un proceso. Hay que encontrar a los responsables. Y deben pagar»; Zaccagnini, ministro de Obras Públicas (Q24): la fatalidad no puede justificar estas tragedias",
+     "T75 / D136 — el Ministerio nombra una comisión el 11 de octubre; una primera comisión de expertos concluye, tras dieciocho meses, que el desastre era imprevisible",
+     "P31 / T85 — el fiscal Mandarino abre el expediente; el juez Fabbri ordena una nueva pericia con expertos en gran parte extranjeros"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Un presidente con los zapatos en el barro y una multitud que grita una sola frase. Dos páginas de diario abiertas una al lado de la otra: en una, una piedra en un vaso; en la otra, la palabra culpables en mayúsculas.",
+    "pregunta_abierta": "Si la primera comisión dice imprevisible, ¿cómo se explica la carta de la mañana?",
+    "pregunta_pantalla": "¿Fatalidad o previsión? Dos palabras, diez años de proceso.",
+    "cierre": "La segunda pericia llegó a otra palabra. Y la palabra tenía un nombre delante.",
+    "palabras_objetivo": 280,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 13
+   },
+   {
+    "n": 12,
+    "cap": 7,
+    "funcion": "cierre",
+    "emocion": "pregunta sin dueño",
+    "intensidad": 3,
+    "dato_central": "T102 / T103 / D35 — Marzo de 1971: la Corte de Casación reconoce la culpabilidad de Biadene y Sensidoni por inundación agravada por la previsión del acontecimiento",
+    "datos_apoyo": [
+     "D32 / P18 / T89 — de once remitidos a juicio llegan ocho al banquillo: Penta y Greco han muerto; Pancini, destinatario de la carta, se suicida el 28 de noviembre de 1968, la víspera del juicio",
+     "T92 — 17 de diciembre de 1969, L'Aquila: Biadene, Batini y Violin condenados a seis años, dos condonados; la apelación de 1970 condena a Biadene y Sensidoni y absuelve a los demás (T97)",
+     "D46 — versión en disputa sobre el alcance: un solo delito según F03 y F31; numerosas condenas por homicidio y lesiones culposas según F09",
+     "D139 / D140 — ENEL ofrece diez mil millones de liras a cambio de renunciar a la parte civil; casi todos aceptan",
+     "Q56 — cita sin verificar, sin nombre en voz: «no ha ocurrido nada excepcional. Solo, como sucede a menudo, había un riesgo, previsible y previsto»",
+     "D111 / Q51 — la pregunta que ningún fallo responde: quién tenía que dar la alarma a Longarone la tarde del 9 de octubre y por qué la preocupación escrita no se convirtió en una evacuación"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una sala de tribunal con ocho sillas y tres vacías. Un hombre mayor escuchando leer la palabra previsión. Y otra vez, en silencio, las piedras pequeñas rodando por el borde oeste del deslizamiento, hacia la presa.",
+    "pregunta_abierta": "La casación dijo que lo sabían. Lo que no dijo es por qué saberlo no alcanzó para levantar un teléfono.",
+    "pregunta_pantalla": "¿Quién tenía que llamar a Longarone?",
+    "cierre": "La casación lo llamó previsión. En ningún folio dice quién tenía que levantar el teléfono aquella tarde para llamar a Longarone.",
+    "palabras_objetivo": 300,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 0
+   }
+  ],
+  "a_pantalla": [
+   {
+    "id": "D117",
+    "cap": 2,
+    "por_que": "Acta de aprobación de 1943: trece de treinta y cuatro representantes; la voz dice que levantaron la mano, la cifra va escrita"
+   },
+   {
+    "id": "D223",
+    "cap": 3,
+    "por_que": "Volumen de la frana de las pruebas de 1960, no unificado (700.000 / 800.000 m³); se muestra la disputa, no se lee"
+   },
+   {
+    "id": "D104",
+    "cap": 4,
+    "por_que": "Informe de Padua: límite de setecientos metros; se ve el documento mientras la voz habla de la grava"
+   },
+   {
+    "id": "Q50",
+    "cap": 5,
+    "por_que": "La carta de la administración de Erto y Casso a SADE, en italiano, como documento con fecha"
+   },
+   {
+    "id": "Q12",
+    "cap": 6,
+    "por_que": "Informe de la comisión ministerial con la hora exacta, 22:39, y la frase «ya en curso»; la voz trabaja con los testigos, la hora oficial va a pantalla"
+   },
+   {
+    "id": "D128",
+    "cap": 6,
+    "por_que": "Recuento de mil novecientas diez muertes con sus variantes (1.917, 1.920, cerca de 2.000); la voz no dice ninguna cifra total"
+   },
+   {
+    "id": "D192",
+    "cap": 6,
+    "por_que": "Veinte técnicos muertos en el centro de control del estribo izquierdo; subconjunto que no se suma en voz"
+   },
+   {
+    "id": "D196",
+    "cap": 6,
+    "por_que": "Ciento cincuenta y ocho muertos en Erto y Casso según F20; subconjunto"
+   },
+   {
+    "id": "T84",
+    "cap": 7,
+    "por_que": "Informe final de la comisión parlamentaria, relator Rubinacci, 15 de julio de 1965"
+   },
+   {
+    "id": "D31",
+    "cap": 7,
+    "por_que": "Listado de los once remitidos a juicio; la voz solo dice cuántos faltan en el banquillo"
+   },
+   {
+    "id": "T109",
+    "cap": 7,
+    "por_que": "Sentencia del Tribunal de Belluno, 15 de febrero de 1997: 55.645.758.500 liras contra Montedison; cifra imposible de decir en voz"
+   },
+   {
+    "id": "D04",
+    "cap": 7,
+    "por_que": "Archivo procesal trasladado a Belluno en 2010 e inscrito en el Registro de la Memoria del Mundo de UNESCO en 2023; cierre documental sin que la voz diga «hoy»"
+   }
+  ],
+  "justificacion_humano": "Se eligió a Biadene sobre Coletti y Merlin. Coletti tiene la escena más fuerte (E10) y una cita verificada, pero no existe en la ficha antes de la noche del 9 de octubre: seguirla obliga a tres capítulos sin ella. Merlin tiene arco pero cero citas verificadas y su línea termina en 1961. Biadene aparece en los siete capítulos con momentos concretos documentados (director de SADE, receptor de las mediciones, autor de la carta con hora, acusado, condenado en tres instancias) y su única cita es el documento más fuerte del caso, que funciona como gancho y como eco en el cierre. El costo es que no está físicamente en el pico; se resuelve con los testigos verificados (Onorini, Trevisano, Coletti) como ojos de la noche y con la carta de la mañana como su presencia. Todos los giros de la ficha tienen beat: 1 en el beat 3, 2 en el 4, 3 en el 5, 4 en el 6, 5 en el 8, 6 en los beats 11 y 12."
+ },
+ {
+  "humano": {
+   "id": "P49",
+   "nombre": "Micaela Coletti",
+   "rol": "Niña de Longarone arrastrada desde su cama por la ola; después, presidenta del comité de sobrevivientes del Vajont.",
+   "por_que": "Es la única del pool que entra, sufre y sale con momentos concretos: la cama que toma velocidad (Q49), los cuatrocientos metros (D132) y el comité que preside (P49). Tiene una cita verificada y una escena propia (E10) que sirve de gancho y de pico. En los caps del medio es la habitante de Longarone que duerme bajo una montaña que otros miden.",
+   "colectivo": false,
+   "fuente": "F02"
+  },
+  "antagonista": {
+   "tipo": "persona",
+   "id": "P16",
+   "nombre": "Alberico Biadene",
+   "por_que": "Director del Servicio de Construcciones Hidráulicas de SADE: las mediciones del nueve de octubre llegan a su escritorio y él las escribe en una carta a Pancini (T61, Q51), pero esa preocupación no se convierte en una alarma general para Longarone (D111). La casación lo condena por inundación agravada por la previsión del evento (T102, D35). Es quien sabía y quien firmó."
+  },
+  "promesa_gancho": "Una niña siente que su cama empieza a correr en la oscuridad; a dos kilómetros de ahí, la presa que todos creyeron caída sigue en pie.",
+  "pico": {
+   "beat": 10,
+   "id": "T57",
+   "por_que": "Es el que marca la ficha: el Toc entra al embalse a las 22:39, la ola rebasa la presa y cuatro minutos después borra Longarone con la estructura intacta. Todo lo anterior —Pontesei, Padua, la carta de la mañana— desemboca en la cama de Micaela."
+  },
+  "cierre_humano": "Coletti, ya presidenta del comité de sobrevivientes, frente a una condena que nombra el delito pero no reconstruye quién decidió, aquella noche, que Longarone no debía saber.",
+  "beats": [
+   {
+    "n": 1,
+    "cap": 1,
+    "funcion": "gancho",
+    "emocion": "terror sin nombre",
+    "intensidad": 4,
+    "dato_central": "Q49 (Coletti: la cama toma velocidad, una fuerza en la espalda, los ojos convertidos en estrellas)",
+    "datos_apoyo": [
+     "Q19 (Trevisano: el portoncito se abre de par en par; piensa que cedió el dique)",
+     "D131 (la presa permaneció en pie)"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una cama que acelera en la oscuridad; una fuerza que dobla una espalda de niña; un portoncito que se abre solo con un ruido de aire antes de que se vaya la luz.",
+    "pregunta_abierta": "¿Qué puede mover una cama con una niña adentro si la presa no cayó?",
+    "pregunta_pantalla": "¿Qué llegó a Longarone si la presa sigue en pie?",
+    "cierre": "El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.",
+    "palabras_objetivo": 180,
+    "flash_forward": true,
+    "contador": false,
+    "escena_idx": 10
+   },
+   {
+    "n": 2,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "calma de valle",
+    "intensidad": 1,
+    "dato_central": "D24 (el torrente Vajont desemboca en el Piave frente a Longarone y Castellavazzo)",
+    "datos_apoyo": [
+     "T04 (el Consejo Superior de Obras Públicas aprueba el proyecto en 1943)",
+     "T03 (la adquisición de terrenos empieza en 1943; los expropios encuentran oposición en la población)",
+     "D147 (Carlo Semenza, ingeniero proyectista)",
+     "T12 (las obras empiezan en julio de 1957)",
+     "D237 (unos cuatrocientos operarios)",
+     "D164 (presa de arco delgado y doble curvatura)"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Un pueblo de fondo de valle con el Piave pasando por delante; arriba, en una garganta lateral, hombres colgados de andamios levantan una pared curva que tapa el cielo.",
+    "pregunta_abierta": "¿Qué significa vivir debajo de una obra que se aprobó cuando vos ni habías nacido?",
+    "pregunta_pantalla": "¿Quién vivía abajo?",
+    "cierre": "Longarone no estaba sobre el embalse. Estaba delante de él. Y la montaña que lo cerraba tenía un apodo.",
+    "palabras_objetivo": 220,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 3,
+    "cap": 2,
+    "funcion": "escalada",
+    "emocion": "inquietud antigua",
+    "intensidad": 2,
+    "dato_central": "Q53 (los residentes la llamaban «la montaña que camina»)",
+    "datos_apoyo": [
+     "T05 (Müller detecta en los años cincuenta un gran desmoronamiento en el Toc)",
+     "D154 (Edoardo Semenza plantea que un antiguo deslizamiento puede reactivarse con el llenado)",
+     "D157 (versión en disputa: Müller no creía en una paleofrana ni en una capa de arcilla)",
+     "P46 (otra versión: Edoardo llegó a las mismas conclusiones que Müller)"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Un geólogo joven, hijo del hombre que diseñó la presa, caminando la ladera del Toc con un martillo en la mano, buscando la cicatriz de un deslizamiento viejo.",
+    "pregunta_abierta": "¿Qué pasa cuando el que encuentra el peligro es el hijo del que hizo la obra?",
+    "pregunta_pantalla": "¿Por qué le decían «la montaña que camina»?",
+    "cierre": "En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.",
+    "palabras_objetivo": 200,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 4,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "advertencia con muerto",
+    "intensidad": 3,
+    "dato_central": "T16 (Pontesei: un desprendimiento golpea el embalse y la ola mata al vigilante Arcangelo Tiziani)",
+    "datos_apoyo": [
+     "D94 (ola de veinte metros según las fuentes)",
+     "T15 (versión F12: mató a un hombre que trabajaba allí)",
+     "T21 (versión F05: la frana ocurrió «sin provocar daños»)",
+     "D119 (tras Pontesei, SADE encarga pericias que identifican una paleofrana en el Toc)",
+     "T27 (Dal Piaz minimiza en 1960 los riesgos señalados por Edoardo Semenza)",
+     "Q37 (Dal Piaz: «si el proyecto original me parecía osado, ahora lo considero una completa locura»)"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Rocas entrando al agua de Pontesei y una pared de agua de veinte metros levantándose sobre el hombre cuyo trabajo era vigilar la montaña.",
+    "pregunta_abierta": "Si ya hubo un muerto por una ola en un embalse, ¿qué más hacía falta ver?",
+    "pregunta_pantalla": "¿Cuántas veces avisa una montaña?",
+    "cierre": "El informe oficial dijo que no era grave. Una periodista de provincia escribió lo contrario.",
+    "palabras_objetivo": 230,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 5,
+    "cap": 3,
+    "funcion": "escalada",
+    "emocion": "grieta",
+    "intensidad": 3,
+    "dato_central": "T18 (Tina Merlin denuncia en L'Unità el peligro de desprendimiento en 1959)",
+    "datos_apoyo": [
+     "D71 (L'Unità fue el único diario nacional que siguió el caso antes del desastre)",
+     "D72 (Il Gazzettino pertenecía parcialmente a SADE, FIAT, Volpi y Cini)",
+     "T29 (el llenado del embalse empieza en febrero de 1960)",
+     "D49 (tras un desmoronamiento en 1960 los habitantes ven una larga fisura en la montaña)",
+     "T23 (abertura de más de un metro de ancho y casi dos kilómetros de largo)"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Una abertura de más de un metro de ancho corriendo casi dos kilómetros por la ladera, como una costura abierta; abajo, el agua sube día a día.",
+    "pregunta_abierta": "¿Quién lee a una periodista de L'Unità cuando el diario local es de la empresa?",
+    "pregunta_pantalla": "¿Quién leía las advertencias?",
+    "cierre": "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.",
+    "palabras_objetivo": 200,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 2
+   },
+   {
+    "n": 6,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "castigo al mensajero",
+    "intensidad": 3,
+    "dato_central": "T36 (el cuatro de noviembre de 1960 una masa de roca cae del Toc al lago durante las pruebas)",
+    "datos_apoyo": [
+     "D223 (setecientos mil metros cúbicos según F04 y F05; otras fuentes dan otra cifra)",
+     "D156 (versión: la presa estaba completada en dos tercios; otras la dan inaugurada en septiembre)",
+     "T33 (noviembre de 1960: juicio contra Merlin y L'Unità, absueltos tras seis horas)",
+     "T37 (cuatro días después de la frana, el artículo que F04 llama primera denuncia)",
+     "T39 (febrero de 1961: Merlin advierte sobre una masa de cincuenta millones de metros cúbicos que amenaza a Erto)"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Roca cayendo al lago nuevo y el agua levantándose; cuatro días después, una máquina de escribir; semanas después, una sala de tribunal y una periodista en el banquillo.",
+    "pregunta_abierta": "¿Por qué el proceso es contra la que avisa y no contra la montaña que ya cayó una vez?",
+    "pregunta_pantalla": "¿A quién se juzga cuando la montaña cae?",
+    "cierre": "Absuelta en seis horas. La empresa, mientras tanto, mandó construir una maqueta.",
+    "palabras_objetivo": 220,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 3
+   },
+   {
+    "n": 7,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "frialdad contractual",
+    "intensidad": 4,
+    "dato_central": "D106 (según F15, SADE obtiene permiso ministerial para llegar a setecientos quince metros pese a la recomendación del informe)",
+    "datos_apoyo": [
+     "D104 (el informe de Padua advierte de daños si el agua supera los setecientos metros)",
+     "D103 (el modelo de Padua usó grava para representar la roca compacta)",
+     "Q44 (el laboratorio: «nos han dicho que lo hagamos así»)",
+     "T50 (mayo de 1963: F12 atribuye a la necesidad de cerrar la operación con ENEL la subida a setecientos veinte metros)",
+     "T52 (julio de 1963: se completa el traspaso a ENEL mientras sigue la prueba de llenado)",
+     "D68 (noviembre de 1962: el desplazamiento supera un centímetro y medio por día; en marzo de 1963 se detiene al bajar el agua)"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Una maqueta del valle en un galpón de Padua, con grava donde debía ir roca, y una ola de laboratorio pasando por encima de una presa de juguete.",
+    "pregunta_abierta": "¿Para qué se pide un modelo si la cota se decide antes del resultado?",
+    "pregunta_pantalla": "¿Quién fijó la cota?",
+    "cierre": "La presa cambió de dueño con el agua todavía subiendo. La montaña no se enteró del contrato.",
+    "palabras_objetivo": 240,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 8,
+    "cap": 5,
+    "funcion": "escalada",
+    "emocion": "espera con miedo",
+    "intensidad": 4,
+    "dato_central": "D226 (desde el dos de octubre de 1963 se multiplican los avisos de sacudidas, estruendos, grietas y movimientos superficiales)",
+    "datos_apoyo": [
+     "D162 (F05: el veintiséis de septiembre el embalse vuelve al nivel de seguridad)",
+     "D160 (junio de 1963: medio centímetro por día con el agua a setecientos metros)",
+     "D227 (las autoridades cierran caminos y desalojan algunas viviendas de Erto y Casso)",
+     "Q46 (habitantes de Erto y Longarone: «si no avisan, será que no es grave»)",
+     "Q28 (un sobreviviente: «estábamos esperando que la presa se cayera»)",
+     "Q45 (respuesta ministerial atribuida por F15: «no se preocupe, todo está bajo control»)"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Estruendos que bajan de la ladera de noche; grietas nuevas en la tierra de Erto; caminos cerrados con barreras; en Longarone, abajo, las ventanas encendidas como cualquier noche.",
+    "pregunta_abierta": "Si evacúan casas en Erto, ¿por qué nadie evacúa el pueblo que está delante de la presa?",
+    "pregunta_pantalla": "¿Quién estaba avisado y quién no?",
+    "cierre": "El nueve de octubre a la mañana, el director técnico de la empresa se sentó a escribir una carta.",
+    "palabras_objetivo": 230,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 4
+   },
+   {
+    "n": 9,
+    "cap": 5,
+    "funcion": "giro",
+    "emocion": "preocupación escrita, decisión ausente",
+    "intensidad": 4,
+    "dato_central": "T61 (la mañana del desastre Biadene escribe a Pancini pidiéndole que vuelva de vacaciones)",
+    "datos_apoyo": [
+     "Q51 (la posdata: Rossi llama; las mediciones aumentaron un cincuenta por ciento, de veinte a treinta centímetros; pequeñas caídas de piedras en el borde oeste, hacia la presa)",
+     "T64 (seis de la tarde: cierre de la jornada; queda un aparejador con su equipo en la central)",
+     "D111 (aquella noche no se da la alarma para la evacuación masiva de las poblaciones expuestas)"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una carta ya firmada a la que se agrega una posdata con dos signos de exclamación; un teléfono colgado; piedras chicas rodando hacia el lado de la presa.",
+    "pregunta_abierta": "¿Qué hace un hombre después de escribir dos signos de exclamación en una carta?",
+    "pregunta_pantalla": "¿Qué pasó entre la carta y la noche?",
+    "cierre": "A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.",
+    "palabras_objetivo": 230,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 5
+   },
+   {
+    "n": 10,
+    "cap": 6,
+    "funcion": "pico",
+    "emocion": "la ola",
+    "intensidad": 5,
+    "dato_central": "T57 (la noche del nueve de octubre de 1963 la ladera del Toc se desploma en el embalse; la comisión fija las 22:39: «un ritmo precipitado, impetuoso, irresistible» — Q12)",
+    "datos_apoyo": [
+     "Q15 (Onorini: abre la ventana, el ruido aumenta de forma extraordinaria, un resplandor)",
+     "Q16 (Castellano: un trueno de verano multiplicado cien veces, tres o cuatro minutos, luego un ruido como de reactores)",
+     "Q17 (Accamillesi: en el bar Faè se apaga el televisor, sacudidas, luego la luz)",
+     "T58 (el impacto produce una ola que rebasa la presa y entra en el valle)",
+     "D124 (el agua llega a Longarone unos cuatro minutos después del desprendimiento)",
+     "D132 (Coletti es arrastrada al menos cuatrocientos metros desde su casa)"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una ventana que se abre a un rugido que crece y un resplandor; una pantalla de televisor que se apaga en un bar; cuatro minutos; una niña que aparece a cuatrocientos metros de donde estaba su cama.",
+    "pregunta_abierta": "¿Cuánto duran cuatro minutos cuando nadie te dijo que corrieras?",
+    "pregunta_pantalla": "¿Cuánto duran cuatro minutos?",
+    "cierre": "Cuando amaneció, la presa seguía ahí. Longarone, no.",
+    "palabras_objetivo": 300,
+    "flash_forward": false,
+    "contador": true,
+    "escena_idx": 10
+   },
+   {
+    "n": 11,
+    "cap": 6,
+    "funcion": "respiro",
+    "emocion": "vacío",
+    "intensidad": 2,
+    "dato_central": "Q25 (un sobreviviente: «conocía Longarone en cada rincón, ahora no sé dónde estoy»)",
+    "datos_apoyo": [
+     "D45 (el centro habitado convertido en una explanada de fango y piedras)",
+     "Q06 (sin verificar: el primer rescatista llegó en un helicóptero del Ejército de Estados Unidos; tres helicópteros evacuaron a las cuatrocientas ochenta y seis personas de su aldea)",
+     "D18 (SETAF envía seis helicópteros con suministros y personal sanitario)",
+     "D229 (no se crea un organismo central para informar oficialmente sobre el rescate)",
+     "D50 (el alcalde Guglielmo Celso muere en el desastre; el vicealcalde Arduini, con pérdidas propias, pasa a liderar)"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Fango y piedras donde había calles; un hombre parado en el medio sin saber hacia dónde mirar; el ruido de rotores bajando sobre una aldea.",
+    "pregunta_abierta": "¿Cómo se cuenta a los muertos de un pueblo que ya no tiene esquinas?",
+    "pregunta_pantalla": "¿Dónde estaba el centro?",
+    "cierre": "Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle.",
+    "palabras_objetivo": 200,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 11
+   },
+   {
+    "n": 12,
+    "cap": 7,
+    "funcion": "revelacion",
+    "emocion": "rabia contra fatalidad",
+    "intensidad": 3,
+    "dato_central": "Q13 (los pobladores a Leone: «Presidente, vogliamo giustizia») y Q14 (Leone: «E giustizia avrete»)",
+    "datos_apoyo": [
+     "Q20 (Buzzati: una piedra en un vaso lleno de agua; abajo, en el mantel, miles de seres humanos)",
+     "Q22 (Bocca: una desgracia tan «limpia», no hay culpables)",
+     "Q23 (Coppola en L'Unità: hay que hacer un proceso; deben pagar)",
+     "D136 (una primera comisión concluye tras dieciocho meses que el desastre era imprevisible)",
+     "P31 (el juez Fabbri ordena una nueva pericia con expertos en gran parte extranjeros)",
+     "T85 (el fiscal Mandarino abre el expediente)"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Un presidente con abrigo oscuro entre escombros y un grito que le sale de la gente; en los kioscos, dos diarios con dos verdades distintas sobre la misma noche.",
+    "pregunta_abierta": "¿Se puede llamar fatalidad a algo que tenía fisura, maqueta y carta?",
+    "pregunta_pantalla": "¿Fatalidad o decisión?",
+    "cierre": "El juez no aceptó la palabra imprevisible. Pidió otra pericia, y después, nombres.",
+    "palabras_objetivo": 230,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 13
+   },
+   {
+    "n": 13,
+    "cap": 7,
+    "funcion": "cierre",
+    "emocion": "justicia incompleta",
+    "intensidad": 3,
+    "dato_central": "T102 (la casación reconoce la culpabilidad de Biadene y Sensidoni por inundación agravada por la previsión del evento — D35)",
+    "datos_apoyo": [
+     "D32 (solo ocho de once llegan al banquillo: Penta y Greco muertos, Pancini suicidado el veintiocho de noviembre de 1968 — T89)",
+     "T92 (primera sentencia: Biadene, Batini y Violin a seis años, dos condonados)",
+     "D139 (ENEL ofrece diez mil millones de liras a cambio de renunciar a ser parte civil; casi todos aceptan — D140)",
+     "Q56 (sin verificar: «había un riesgo, previsible y previsto»)",
+     "D04 (el archivo procesal entra en el Registro de la Memoria del Mundo de UNESCO)",
+     "P49 (Coletti preside el comité de sobrevivientes)"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Cajas de un archivo trasladado de un tribunal a otro; una mujer que de niña viajó cuatrocientos metros sobre una cama, sentada ahora frente a una mesa con un cartel de comité.",
+    "pregunta_abierta": "¿Quién tomó —o dejó sin tomar— la decisión de avisar a Longarone aquella noche, y por qué la preocupación escrita a la mañana no se convirtió en una evacuación?",
+    "pregunta_pantalla": "¿Quién decidió que Longarone no supiera?",
+    "cierre": "La sentencia dice inundación agravada por la previsión del evento. No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Micaela siguiera durmiendo.",
+    "palabras_objetivo": 260,
+    "flash_forward": false,
+    "contador": false
+   }
+  ],
+  "a_pantalla": [
+   {
+    "id": "D128",
+    "cap": 6,
+    "por_que": "Recuento oficial de mil novecientas diez muertes: va escrito, con sus versiones alternativas, no en la voz."
+   },
+   {
+    "id": "D192",
+    "cap": 6,
+    "por_que": "Veinte técnicos muertos en el centro de control del estribo izquierdo: subconjunto del total, se muestra junto al recuento."
+   },
+   {
+    "id": "Q50",
+    "cap": 5,
+    "por_que": "Carta del municipio de Erto y Casso a SADE: documento que se lee en pantalla sobre la escena de los avisos de octubre."
+   },
+   {
+    "id": "D117",
+    "cap": 2,
+    "por_que": "Trece de treinta y cuatro representantes en la sesión de aprobación de 1943: dato de acta, va como rótulo."
+   },
+   {
+    "id": "D245",
+    "cap": 7,
+    "por_que": "Condena a Montedison de 1997: cifra de liras en fallo, ilegible en voz."
+   }
+  ],
+  "justificacion_humano": "Coletti es la única persona del pool con un recorrido físico completo y una cita verificada propia: la cama, los cuatrocientos metros, el comité. Biadene tiene más presencia en los caps del medio pero su lugar es el de quien decide, no el de quien la sufre; por eso va como antagonista. Merlin es indispensable para el arco de advertencia y entra en los caps 3 y 4, pero sin cita verificada no puede sostener gancho y cierre."
+ }
+]

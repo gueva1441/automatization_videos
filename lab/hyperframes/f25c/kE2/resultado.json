@@ -1,0 +1,78 @@
+{
+ "tag": "kE2",
+ "tema": "kyshtym",
+ "modelo": "claude-fable-5-1",
+ "effort": "medium",
+ "prompt_version": "f25-1",
+ "prompt_md5": {
+  "sistema": "9325ad3890ebfe241953d86759e20296",
+  "usuario_intento1": "3633feafce6acd722ed38afc09bfae60"
+ },
+ "metricas": {
+  "beats": 13,
+  "beats_por_cap": [
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2
+  ],
+  "ids": 69,
+  "apoyos_por_beat": 4.31,
+  "promesa": "Un edificio tiembla en medio de una película, y durante diecinueve años nadie en el mundo va a saber por qué.",
+  "humano": "Anatoly Vasilievich Dubrovsky",
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "T04",
+   "nombre": "Gobierno de la URSS",
+   "por_que": "Es quien decide en cada punto de la historia: ordena construir la planta en 1945, sostiene los vertidos al Techa, deja que el periódico explique el cielo como aurora boreal, demora la decisión de desalojo hasta que la dosis ya está recibida, niega la información de Medvedev en los setenta y recién confirma la explosión en julio de 1989. La comisión de Slavsky y el ministerio son sus instrumentos; la decisión de callar es del Estado.",
+   "variantes": [
+    "Правительство СССР",
+    "Soviet government"
+   ]
+  },
+  "intentos": [
+   {
+    "intento": 1,
+    "bloqueantes": [
+     "beat 2: dato_central «L09» no existe en el pool (o no es D/T/Q)",
+     "antagonista «Ministerio soviético de Construcción de Maquinaria Mediana (comisión de Slavsky)» no es una persona del pool ni una institución de la ficha",
+     "a_pantalla D45 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D152 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D109 también está en un beat: lo que va a pantalla no lo dice la voz"
+    ]
+   },
+   {
+    "intento": 2,
+    "bloqueantes": []
+   }
+  ],
+  "pasada1_beats_por_cap": [
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2
+  ],
+  "pasada1_caps_fuera_1_3": [],
+  "pasada1_bloqueantes": [
+   "beat 2: dato_central «L09» no existe en el pool (o no es D/T/Q)",
+   "antagonista «Ministerio soviético de Construcción de Maquinaria Mediana (comisión de Slavsky)» no es una persona del pool ni una institución de la ficha",
+   "a_pantalla D45 también está en un beat: lo que va a pantalla no lo dice la voz",
+   "a_pantalla D152 también está en un beat: lo que va a pantalla no lo dice la voz",
+   "a_pantalla D109 también está en un beat: lo que va a pantalla no lo dice la voz"
+  ],
+  "cierre_humano": "Dubrovsky terminó con cinco normas diarias de irradiación declaradas por otros y sin un fotocasete que dijera cuánto recibió él. Cerramos con la pregunta que la ficha deja sin balance: si el seguimiento oficial no registró enfermedad, y otras fuentes cuentan diagnósticos, muertes y juicios, ¿cuántos quedaron como él, con la dosis puesta y el papel sin firmar?"
+ },
+ "usd": 1.4066,
+ "segundos": 234.4,
+ "log": [
+  "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}",
+  "  [escaleta v2] intento 1: 5 bloqueante(s) ['beat 2: dato_central «L09» no existe en el pool (o no es D/T/Q)', 'antagonista «Ministerio soviético de Construcción de Maquinaria Mediana (comisión de Slavsky)» no es una persona del pool ni una institución de la ficha', 'a_pantalla D45 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D152 también está en un beat: lo que va a pantalla no lo dice la voz'] · 20 reparación(es) · 13 a métricas",
+  "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 11 reparación(es) · 9 a métricas"
+ ]
+}

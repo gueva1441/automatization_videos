@@ -1049,10 +1049,22 @@ def is_v3(topic: dict) -> bool:
     return bool(topic.get("evidence_pool")) and (os.environ.get("GUION_V3") == "1" or topic.get("guion_version") == 3)
 
 
+def call_escaleta(modelo: str | None = None) -> Callable[..., dict]:
+    """F25c: el `call` de la escaleta v2. Sin modelo, DEFAULT_MODELO_ESCALETA (Fable 5.1); un claude-* va por
+    claude_helpers con el effort de la escaleta (ESFUERZO_POR_ETAPA); otro modelo, por `guion_v4.call_for` (Sol high)."""
+    modelo = modelo or DEFAULT_MODELO_ESCALETA
+    if modelo.startswith("claude"):
+        import claude_helpers
+        return claude_helpers.make_call(modelo, claude_helpers.ESFUERZO_POR_ETAPA["escaleta"])
+    from script_engine.guion_v4 import call_for
+    return call_for(modelo)
+
+
 def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, attempts: int = MAX_ATTEMPTS,
                       log: list[str] | None = None, persist: bool = True, ficha: dict | None | str = "auto",
-                      columna: dict | None | str = None) -> dict:
+                      columna: dict | None | str = None, modelo: str | None = None) -> dict:
     """Escaleta del topic (Pro, hasta `attempts` con feedback). EscaletaValidationError si ninguna pasa.
+    F25c: con ficha (v2), sin `call` va `call_escaleta(modelo)` (Fable 5.1 por defecto; Sol con modelo="gpt-6.1-sol").
     F14: `ficha="auto"` lee `_steps/<topic>/ficha_caso.json` si existe (la escaleta lee la ficha, no el digest, y los
     apoyos van de 0 a 6); sin ficha, todo como siempre.
     F16: con ficha v2 (con `historia`), `generate_escaleta_v2`: prompt del analista, Sol high, 13 bloqueantes y una sola
@@ -1077,7 +1089,7 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
             from script_engine.m01a_columna import generate_columna
             columna = generate_columna(topic, pool, ficha, call=call, log=log, persist=persist)
         return generate_escaleta_v2(topic, pool, ficha, call=call, log=log, persist=persist, gate=gate,
-                                    topic_id=topic_id, columna=columna or None)
+                                    topic_id=topic_id, columna=columna or None, modelo=modelo)
     max_ap = MAX_APOYOS_FICHA if ficha else MAX_APOYOS
     if call is None:
         from gemini_helpers import call_pro_json as call
@@ -1117,16 +1129,87 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
 #  F16: escaleta v2 (con ficha v2): prompt del analista, Sol high, 13 bloqueantes, el resto a métricas
 # ═══════════════════════════════════════════════════════════════
 
-PROMPT_VERSION_V2 = "f24-1"         # F24 §B.2: f22-2 + en <errores>, entre uno y tres beats por cap
+PROMPT_VERSION_V2 = "f25-1"         # F25c: f24-1 + la promesa en una sola oración (<oficio> §2)
+PROMPT_VERSION_V2_F24_1 = "f24-1"   # F24 §B.2: f22-2 + en <errores>, entre uno y tres beats por cap: SYSTEM_V2_F24_1
+# F25c (decisión del analista): la escaleta v2 (con ficha) va por defecto con Fable 5.1 por claude_helpers (streaming,
+# max_tokens 100 000, effort de la escaleta: medium); Sol (o cualquier otro) con `modelo=` / `--modelo-escaleta`
+DEFAULT_MODELO_ESCALETA = "claude-fable-5-1"
 PROMPT_VERSION_V2_F22_2 = "f22-2"   # F22e: v2.1 + la promesa es una imagen o una pregunta (§2): SYSTEM_V2_F22_2
 PROMPT_VERSION_V2_F22 = "f22-1"     # F22: escaleta v2.1 (ejemplo del caso inventado, antagonista de tres tipos)
 PROMPT_VERSION_V2_F16 = "f16-1"     # la v2 de F16: SYSTEM_V2_F16_1, byte-idéntico
 REGENERACIONES_V2 = 1               # F16 §1.3: si fallan los bloqueantes, UNA regeneración; si vuelve a fallar, PARADA
 MAX_BEATS_POR_CAP = 3               # F24 §B.1: cada cap entre 1 y 3 beats (bloqueante de estructura)
 
-# F24 §B.2: el bloque SISTEMA de lab/hyperframes/f24/PROMPT_ESCALETA_v2_1_f24.md, literal (test byte-idéntico
-# contra el .md, extraído anclando en «## SISTEMA»): la de F22e (f22-2) con una línea de <errores> cambiada.
+# F25c: el bloque SISTEMA de lab/hyperframes/f25c/PROMPT_ESCALETA_f25_1.md, literal (test byte-idéntico contra el
+# .md, extraído anclando en «## SISTEMA»): la f24-1 con las dos oraciones de la promesa (<oficio> §2) en una.
 SYSTEM_V2 = """<rol>
+Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que nadie escriba una línea, vos decidís la historia: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea, y con qué se queda al final. Trabajás solo con la ficha del caso que te dan: no inventás nombres, cifras, fechas ni citas. Lo que no está en la ficha no pasó.
+</rol>
+
+<que_es_una_escaleta>
+Siete capítulos, de 7 a 14 beats. Cada beat es un momento de la historia: tiene un dato central, hasta seis apoyos, una imagen que se puede ver (o oír, u oler), lo que el espectador se pregunta en ese punto, y la frase con la que el capítulo deja la puerta abierta al siguiente. El guionista va a escribir exactamente lo que vos decidas. Si la escaleta es plana, el guion va a ser plano.
+
+El antagonista es quien decide: una persona de la ficha, o una institución que la ficha nombra (un ministerio, una empresa, una dirección). Si en este caso no hay a quién atribuirle la decisión, lo decís («ninguno») y por qué.
+</que_es_una_escaleta>
+
+<oficio>
+1. El humano primero. La ficha trae candidatos con arco. Elegí al que tenga más momentos concretos (entra, sufre, sale) y más citas verificadas. Tiene que aparecer en el gancho, en el pico y en el cierre; si en el medio desaparece dos caps, el espectador lo olvida.
+2. El gancho es el peor momento, ya en curso. Tomá la escena más fuerte de la ficha y ponela en el beat 1, marcado como flash-forward. Sin contexto, sin año, sin cifras: lo que se ve. La promesa es una sola oración que deja una imagen sin cerrar o una pregunta que el espectador no puede responder todavía. No cuenta lo que va a pasar, no enumera lo que viene, no nombra juicios, comisiones ni consecuencias.
+3. Del gancho se vuelve atrás. El cap 2 es la vida antes: quién era esta gente, qué hacía ahí. Es el único cap tranquilo y por eso es el más importante para que duela lo que viene.
+4. Cada cap avanza y deja algo abierto. La frase de cierre de un cap nombra lo que viene o lo deja incompleto. Nunca resume.
+5. El pico es uno solo, y es el que la ficha marcó salvo que tengas una razón mejor (decila). Antes del pico, un cap que aprieta; después del pico, un respiro: lo que queda cuando pasa lo peor, el recuento, el silencio.
+6. Los giros de la ficha son los puntos donde la historia cambia de dirección. Cada giro tiene su beat. Si un giro no entra, decí cuál y por qué.
+7. Las escenas de la ficha son tus imágenes. El beat 1 y el pico toman su imagen de una escena; los demás, cuando haya una. Una imagen es algo para ver, oír, oler o tocar: «manos contra un vidrio ahumado», no «la desesperación de la gente».
+8. Las versiones en disputa (quién dio la orden, si un aviso llegó a tiempo) son material, no problema: dales su beat. El contraste entre la versión oficial y lo que cuentan los testigos suele ser el mejor cap 6.
+9. El cierre vuelve al humano con una cita suya o una pregunta que nadie respondió. Nunca una moraleja, nunca «hoy».
+10. Lo que va a pantalla (cifras oficiales, documentos) no lo dice la voz. Marcalo en `a_pantalla`. Las cifras que sí dice la voz, una vez cada una.
+11. Un dato vive en un solo beat. Si lo necesitás en dos, elegí dónde pega más.
+12. Las citas sin verificar van sin nombre, pero no excluyen a nadie: el humano puede estar en escena con una cita suya sin verificar; el guionista sabrá no ponerle el nombre a esa frase.
+</oficio>
+
+<ejemplo>
+De un caso que no es el tuyo (una estación de radio y faro en una isla, mil novecientos sesenta y ocho). Copiá la forma, no el contenido. Los ids van como Q##, D##, T##, E#: ## es el número que tenga el id en TU ficha; ninguno de estos existe en tus datos.
+
+humano: Elvira Soto, telegrafista de la estación. Por qué: manda los telegramas pidiendo el barco, recibe las respuestas sin firma, sostiene la radio con las baterías del faro la noche del pico, y años después es la única que guardó el registro. 3 citas verificadas.
+antagonista: institución · la Dirección de Faros y Balizas. Por qué: los telegramas de «mantener servicio» salen de ahí y nadie los firma.
+promesa_gancho: «Once personas esperaron veintitrés días un barco que no llegó. Esta es la historia de quién decidió que no llegara.»
+pico: beat 5 (la noche del generador). Por qué: es el momento en que esperar deja de ser una decisión de la Dirección y pasa a ser una de ellos; todo lo anterior lo prepara.
+
+beat 1 · cap 1 · gancho · flash-forward · intensidad 4 · escena E#
+  imagen: una mujer transmite en morse a la luz de una vela; olor a querosén
+  dato central: Q## (Soto: «transmitía con las baterías del faro»)
+  el espectador se pregunta: ¿por qué sigue transmitiendo?
+  cierre: Tres semanas antes de la vela, llegó un telegrama. Y con él, una orden.
+beat 2 · cap 2 · planteo · intensidad 1
+  imagen: el libro de telegramas abierto, la letra de Elvira
+  dato central: T## (el primer telegrama de la Dirección: mantener servicio) · apoyos: D## (once personas en la estación, tres familias), Q## (Bascuñán: «el faro no se apaga»), D## (la fecha prevista del Alborada)
+  humano en escena: sí
+  el espectador se pregunta: ¿quién manda cuando el que manda está a tres días de barco?
+  cierre: El Alborada tenía que llegar el lunes. No llegó el lunes.
+…
+beat 5 · cap 5 · pico · intensidad 5 · escena E#
+  imagen: el generador que tose dos veces y se apaga; una silla rota contra el piso
+  dato central: Q## (Soto: la noche que se apagó el generador) · apoyos: D## (Bascuñán ordena quemar los muebles), T## (la muerte del niño esa noche)
+  humano en escena: sí
+  el espectador se pregunta: ¿cuánto dura una batería?
+  cierre: A la mañana, el faro seguía encendido. Adentro, eran uno menos.
+beat 6 · cap 6 · respiro · intensidad 2 …
+beat 8 · cap 7 · cierre · intensidad 3
+  dato central: D## (la comisión: dos muertos; las familias: tres) · apoyos: Q## (Marín: «el capitán leyó el papel y dio la vuelta»), Q## (Soto: «nadie me dijo que los leyeran»)
+  cierre: la cita de Soto.
+a_pantalla: D## (el recuento oficial), D## (el informe de la comisión, fecha y folio).
+</ejemplo>
+
+<errores>
+- Elegir un humano distinto cada vez que se corre. Si la ficha lo propone y tiene arco, es él.
+- Poner el gancho tranquilo para que la curva «suba». El gancho es el peor momento; la curva empieza alta, baja en el cap 2 y vuelve a subir. Eso es un flash-forward, no un error.
+- Ignorar las escenas de la ficha y escribir imágenes abstractas («la tensión en el aire»).
+- Meter seis beats en un cap y uno en los demás. Cada cap lleva entre uno y tres beats; el material que no cabe se deja afuera, no se apila.
+- Convertir «el espectador se pregunta» en una pregunta retórica para el guion. Es una nota para vos y para el guionista, no una frase del video.
+</errores>"""
+
+# F25c: la f24-1 de F24, byte-idéntica.
+SYSTEM_V2_F24_1 = """<rol>
 Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que nadie escriba una línea, vos decidís la historia: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea, y con qué se queda al final. Trabajás solo con la ficha del caso que te dan: no inventás nombres, cifras, fechas ni citas. Lo que no está en la ficha no pasó.
 </rol>
 
@@ -1655,7 +1738,7 @@ REVELACIÓN: {topic.get("reveal") or "-"}
 #  F17: la escaleta v2 lee la columna (solo con ficha y columna; sin columna, F16 byte-idéntica)
 # ═══════════════════════════════════════════════════════════════
 
-PROMPT_VERSION_COLUMNA = "f24-1"    # F22: con columna, también la v2.1 (F22e: f22-2; F24: f24-1)
+PROMPT_VERSION_COLUMNA = "f25-1"    # F22: con columna, también la v2.1 (F22e: f22-2; F24: f24-1; F25c: f25-1)
 PROMPT_VERSION_COLUMNA_F17 = "f17-1"
 
 # F17 §1.2: el texto de «CÓMO SE USA LA COLUMNA» de lab/hyperframes/f17/PROMPT_COLUMNA_v1.md, literal (test contra el .md).
@@ -1727,14 +1810,14 @@ def metricas_columna(esc: dict, pool: dict, ficha: dict, columna: dict) -> dict[
 
 
 def generate_escaleta_v2(topic: dict, pool: dict, ficha: dict, *, call: Callable[..., dict] | None, log: list[str],
-                         persist: bool, gate: dict | None, topic_id: str, columna: dict | None = None) -> dict:
-    """F16: UNA llamada (Sol high por `guion_v4.call_for`) → 13 bloqueantes → si fallan, UNA regeneración con ellos
+                         persist: bool, gate: dict | None, topic_id: str, columna: dict | None = None,
+                         modelo: str | None = None) -> dict:
+    """F16: UNA llamada (F25c: sin `call`, `call_escaleta(modelo)`: Fable por defecto) → 13 bloqueantes → si fallan, UNA regeneración con ellos
     como feedback → si vuelven a fallar, EscaletaValidationError (PARADA). Sin `instrucciones_guionista`.
     F17: con `columna`, el prompt la lleva antes de la ficha, `prompt_version` f17-1 y tres métricas más; los
     bloqueantes son los mismos 13."""
     if call is None:
-        from script_engine.guion_v4 import call_for
-        call = call_for(None)
+        call = call_escaleta(modelo)                 # F25c: Fable por defecto
     feedback: list[str] = []
     intentos = []
     version = PROMPT_VERSION_COLUMNA if columna else PROMPT_VERSION_V2

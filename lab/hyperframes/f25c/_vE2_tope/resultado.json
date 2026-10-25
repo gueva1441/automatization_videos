@@ -1,0 +1,18 @@
+{
+ "tag": "vE2",
+ "tema": "vajont",
+ "modelo": "claude-fable-5-1",
+ "effort": "medium",
+ "prompt_version": "f25-1",
+ "prompt_md5": {
+  "sistema": "9325ad3890ebfe241953d86759e20296",
+  "usuario_intento1": "8ad8a2383fdf6283b4f26df0d230677e"
+ },
+ "error": "Parada: tope (vE2, m01a_escaleta v2 intento 2): gastado 2.824 + reservado 2.215 + peor caso 2.216 > 7.00",
+ "log": [
+  "  [escaleta] compuerta del pool: verde {'datos': 245, 'citas_verificadas': 45, 'elegibles_humano': 23, 'eventos_con_fecha': 78, 'personas_con_nombre': 52}",
+  "  [escaleta v2] intento 1: 6 bloqueante(s) ['antagonista «Società Adriatica di Elettricità (SADE)» no es una persona del pool ni una institución de la ficha', 'a_pantalla Q51 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D117 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D03 también está en un beat: lo que va a pantalla no lo dice la voz'] · 96 reparación(es) · 9 a métricas"
+ ],
+ "usd": 1.5446,
+ "segundos": 326.0
+}

@@ -1,0 +1,113 @@
+{
+ "llamadas": [
+  {
+   "tag": "vE1",
+   "etapa": "escaleta",
+   "desc": "m01a_escaleta v2 intento 1",
+   "modelo": "claude-fable-5-1",
+   "effort": "medium",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 24982,
+   "out": 20584,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.279,
+   "segundos": 245.7
+  },
+  {
+   "tag": "vE2",
+   "etapa": "escaleta",
+   "desc": "m01a_escaleta v2 intento 1",
+   "modelo": "claude-fable-5-1",
+   "effort": "medium",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 24982,
+   "out": 25895,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.5446,
+   "segundos": 326.0
+  },
+  {
+   "tag": "vE1",
+   "etapa": "escaleta",
+   "desc": "m01a_escaleta v2 intento 2",
+   "modelo": "claude-fable-5-1",
+   "effort": "medium",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 25177,
+   "out": 8709,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.6872,
+   "segundos": 111.9
+  },
+  {
+   "tag": "vE2",
+   "etapa": "escaleta",
+   "desc": "m01a_escaleta v2 intento 1",
+   "modelo": "claude-fable-5-1",
+   "effort": "medium",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 24982,
+   "out": 17829,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.1413,
+   "segundos": 241.1
+  },
+  {
+   "tag": "vE2",
+   "etapa": "escaleta",
+   "desc": "m01a_escaleta v2 intento 2",
+   "modelo": "claude-fable-5-1",
+   "effort": "medium",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 25182,
+   "out": 11892,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.8464,
+   "segundos": 144.9
+  },
+  {
+   "tag": "gvE2",
+   "etapa": "guion",
+   "desc": "guion_v4 guionista",
+   "modelo": "claude-fable-5-1",
+   "effort": "high",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 13720,
+   "out": 24156,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.345,
+   "segundos": 290.0
+  }
+ ],
+ "usd": 6.8435,
+ "etapas": {
+  "escaleta": {
+   "inicio": 1792916144.5,
+   "fin": 1792916531.7,
+   "pared_s": 387.3
+  },
+  "guion": {
+   "inicio": 1792916566.0,
+   "fin": 1792916921.0,
+   "pared_s": 355.0
+  }
+ }
+}

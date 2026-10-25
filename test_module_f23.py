@@ -327,9 +327,11 @@ def test_colas_de_notas_en_varios_idiomas():
 # ═══════════════════════════════════════════════════════════════
 
 def test_prompts_f23_literales():
-    assert g4.system() == g4.SYSTEM_V5_3 == _sistema("PROMPT_GUIONISTA_v5_3.md") and g4.PROMPT_VERSION == "f23-1"
+    # F25c: el guion de hoy es el v5.4 (test_module_f25c); el v5.3 queda con su versión
+    assert g4.system("f23-1") == g4.SYSTEM_V5_3 == _sistema("PROMPT_GUIONISTA_v5_3.md") and \
+        g4.PROMPT_VERSION_V5_3 == "f23-1"
     assert fc.system() == fc.SYSTEM_F23_1 == _sistema("PROMPT_FICHA_v2_2.md") and fc.PROMPT_VERSION == "f23-1"
-    assert [_md5(g4.system()), _md5(fc.system())] == ["8ca9aa494e3a0b9b4a99f60e6006c5f8",
+    assert [_md5(g4.system("f23-1")), _md5(fc.system())] == ["8ca9aa494e3a0b9b4a99f60e6006c5f8",
                                                       "070b75dff58aecfa407fac3d62020ce4"]
     assert [_md5(me.SYSTEM_V2_F22_2), _md5(mc.SYSTEM)] == ["22cfd68b7cee4734e95bb3ee27bb96b2", "f294cf6b1220983903ce339f5b21cb27"]
     assert _md5(g4.system("f22-1")) == "743e4f0a7ff9e58d86762bbd43679952"
@@ -338,7 +340,8 @@ def test_prompts_f23_literales():
 
 def test_diff_de_los_prompts_es_solo_lo_dicho():
     import difflib
-    d = [x for x in difflib.unified_diff(g4.system("f22-1").split("\n"), g4.system().split("\n"), n=0, lineterm="")
+    d = [x for x in difflib.unified_diff(g4.system("f22-1").split("\n"), g4.system("f23-1").split("\n"), n=0,
+                                         lineterm="")
          if x[:1] in "+-" and x[:3] not in ("+++", "---")]
     assert len(d) == 2 and d[0].startswith("-Las fechas: la fecha completa una vez") and \
         d[1].startswith("+Las fechas: cada fecha nueva se dice completa la primera vez")

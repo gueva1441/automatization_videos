@@ -1,0 +1,797 @@
+{
+ "humano": {
+  "id": "P22",
+  "nombre": "Anatoly Vasilievich Dubrovsky",
+  "rol": "Electricista de Mayak convertido en liquidador sin dosímetro",
+  "por_que": "Es el único candidato con una secuencia completa de momentos concretos: está en el club cuando el edificio tiembla (E1), arranca arbustos con palas y una máscara que no le tocó (E4), pide que paren la manguera cuando el chorro le golpea el pecho (E5) y sale con una exposición de cinco normas diarias y un reconocimiento como liquidador demorado porque nunca le dieron fotocasete. Tiene dos citas verificadas y una sin verificar que sirve para el gancho sin nombrarlo. Kuleshov tiene buenas imágenes pero una sola cita y ningún destino; Galina solo aparece en el final.",
+  "colectivo": false,
+  "fuente": "F09"
+ },
+ "antagonista": {
+  "tipo": "institucion",
+  "id": "T04",
+  "nombre": "Gobierno de la URSS",
+  "por_que": "Es quien decide en cada punto de la historia: ordena construir la planta en 1945, sostiene los vertidos al Techa, deja que el periódico explique el cielo como aurora boreal, demora la decisión de desalojo hasta que la dosis ya está recibida, niega la información de Medvedev en los setenta y recién confirma la explosión en julio de 1989. La comisión de Slavsky y el ministerio son sus instrumentos; la decisión de callar es del Estado.",
+  "variantes": [
+   "Правительство СССР",
+   "Soviet government"
+  ]
+ },
+ "promesa_gancho": "Un edificio tiembla en medio de una película, y durante diecinueve años nadie en el mundo va a saber por qué.",
+ "pico": {
+  "beat": 8,
+  "id": "D44",
+  "por_que": "Mantengo el pico que marca la ficha: cuando se decide desalojar los primeros pueblos, sus 1.383 habitantes ya cargan 52 rem; la protección llega después del daño. Lo anclo en el cuerpo de Dubrovsky: el chorro de agua fría que le golpea el pecho descontaminado es la misma idea en una sola persona, la dosis ya está adentro cuando alguien decide lavarla. Así el humano está en escena en el pico sin desplazar el dato."
+ },
+ "cierre_humano": "Dubrovsky terminó con cinco normas diarias de irradiación declaradas por otros y sin un fotocasete que dijera cuánto recibió él. Cerramos con la pregunta que la ficha deja sin balance: si el seguimiento oficial no registró enfermedad, y otras fuentes cuentan diagnósticos, muertes y juicios, ¿cuántos quedaron como él, con la dosis puesta y el papel sin firmar?",
+ "beats": [
+  {
+   "n": 1,
+   "cap": 1,
+   "funcion": "gancho",
+   "emocion": "desconcierto",
+   "intensidad": 4,
+   "dato_central": "Q16",
+   "datos_apoyo": [],
+   "humano_en_escena": true,
+   "imagen_sensorial": "La sala oscura del club Derevyashka, la película en la pantalla, un estruendo que entra por las paredes y el piso que empieza a vibrar bajo las sillas",
+   "pregunta_abierta": "¿Qué puede hacer temblar un edificio entero en medio de una tarde de domingo?",
+   "pregunta_pantalla": "¿Qué estalló?",
+   "cierre": "Para saber qué hizo temblar ese club, hay que volver doce años atrás, a un papel firmado en Moscú.",
+   "palabras_objetivo": 110,
+   "flash_forward": true,
+   "contador": false,
+   "escena_idx": 1,
+   "pregunta_valida": true
+  },
+  {
+   "n": 2,
+   "cap": 2,
+   "funcion": "planteo",
+   "emocion": "calma inquietante",
+   "intensidad": 1,
+   "dato_central": "T04",
+   "datos_apoyo": [
+    "T03",
+    "T07",
+    "T09",
+    "T10",
+    "D140",
+    "D21"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Una ciudad con calles, escuelas y un club de cine que no figura en ningún mapa; el único nombre cercano que existe en el papel es Kyshtym",
+   "pregunta_abierta": "¿Cómo se vive en una ciudad que oficialmente no existe?",
+   "pregunta_pantalla": "",
+   "cierre": "La ciudad no estaba en los mapas. El río que pasaba al lado, sí.",
+   "palabras_objetivo": 131,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 3,
+   "cap": 2,
+   "funcion": "escalada",
+   "emocion": "malestar",
+   "intensidad": 2,
+   "dato_central": "D55",
+   "datos_apoyo": [
+    "T11",
+    "D62",
+    "D56",
+    "Q07"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Mujeres sacando agua del Techa con baldes; aguas abajo, los lodos de la crecida de primavera depositándose en la llanura",
+   "pregunta_abierta": "Si ya estaban envenenando el río, ¿qué guardaban en los tanques?",
+   "pregunta_pantalla": "¿Por qué siguieron bebiendo?",
+   "cierre": "Pero el río era el residuo que corría. El que se quedaba quieto estaba en un tanque, y el tanque se estaba calentando.",
+   "palabras_objetivo": 119,
+   "flash_forward": false,
+   "contador": false,
+   "pregunta_valida": true
+  },
+  {
+   "n": 4,
+   "cap": 3,
+   "funcion": "escalada",
+   "emocion": "tensión",
+   "intensidad": 3,
+   "dato_central": "T19",
+   "datos_apoyo": [
+    "D26",
+    "D27",
+    "D141",
+    "D35",
+    "D36"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Un cilindro de acero inoxidable enterrado dentro de una camisa de hormigón; dentro, una masa de sales que ya nadie describe igual: unos dicen líquida, otros seca",
+   "pregunta_abierta": "¿Qué pasa cuando un tanque de residuos deja de enfriarse?",
+   "pregunta_pantalla": "",
+   "cierre": "El 29 de septiembre de 1957, a las cuatro y veintidós de la tarde, dejó de importar qué había adentro.",
+   "palabras_objetivo": 116,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 5,
+   "cap": 3,
+   "funcion": "giro",
+   "emocion": "estupor",
+   "intensidad": 4,
+   "dato_central": "T20",
+   "datos_apoyo": [
+    "D120",
+    "D119",
+    "D30",
+    "T21",
+    "D33",
+    "D115"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Un cráter de diez metros de hondo y veinte de ancho donde estaba el tanque; a las siete y veinte de la tarde, una masa de aire se desplaza hacia Bagaryak y Kamensk-Uralsky",
+   "pregunta_abierta": "Si no fue una explosión atómica, ¿qué está viajando en ese aire?",
+   "pregunta_pantalla": "¿Hacia dónde sopló el viento?",
+   "cierre": "A la mañana siguiente, Dubrovsky se levantó y fue a trabajar. La ciudad estaba siendo lavada.",
+   "palabras_objetivo": 134,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 7,
+   "pregunta_valida": false
+  },
+  {
+   "n": 6,
+   "cap": 4,
+   "funcion": "escalada",
+   "emocion": "extrañeza",
+   "intensidad": 3,
+   "dato_central": "D118",
+   "datos_apoyo": [
+    "T24",
+    "D128",
+    "Q19",
+    "T27"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Camiones lavando carreteras, cuadrillas levantando asfalto nuevo, dosímetros colocados a la vista en las plazas; en un galpón, Kuleshov forra con planchas de plomo el suelo y las paredes de la cabina de un tractor que avanzará a dos kilómetros por hora",
+   "pregunta_abierta": "Si hay que blindar un tractor con plomo para acercarse, ¿con qué van a mandar a los hombres?",
+   "pregunta_pantalla": "",
+   "cierre": "Al grupo de Dubrovsky no le dieron plomo. Le dieron palas.",
+   "palabras_objetivo": 125,
+   "flash_forward": false,
+   "contador": true,
+   "escena_idx": 3
+  },
+  {
+   "n": 7,
+   "cap": 4,
+   "funcion": "escalada",
+   "emocion": "indefensión",
+   "intensidad": 4,
+   "dato_central": "Q17",
+   "datos_apoyo": [
+    "D123",
+    "D124"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Seis hombres con monos de goma junto a una fuente pequeña, cuatro máscaras antigás y dos respiradores de tela para repartir; palas, palancas y picos arrancando arbustos de raíz",
+   "pregunta_abierta": "¿Quién se quedó sin máscara, y cuánto está respirando?",
+   "pregunta_pantalla": "¿Qué les dijeron que no hicieran?",
+   "cierre": "Veinte o treinta minutos después llegó un camión de bomberos. Dubrovsky fue el último en pasar por la manguera.",
+   "palabras_objetivo": 125,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 4,
+   "pregunta_valida": true
+  },
+  {
+   "n": 8,
+   "cap": 5,
+   "funcion": "pico",
+   "emocion": "dolor",
+   "intensidad": 5,
+   "dato_central": "D44",
+   "datos_apoyo": [
+    "D43",
+    "D48",
+    "Q18"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Un chorro de agua fría a presión que golpea la espalda, después el pecho; un hombre que pide que paren. En los pueblos a sotavento, nadie todavía ha tocado la puerta de nadie",
+   "pregunta_abierta": "¿De qué sirve lavar lo que ya está adentro?",
+   "pregunta_pantalla": "",
+   "cierre": "Cuando alguien decidió sacarlos, los chicos de dos a siete años ya habían recibido la dosis más alta de todos.",
+   "palabras_objetivo": 141,
+   "flash_forward": false,
+   "contador": true,
+   "escena_idx": 5
+  },
+  {
+   "n": 9,
+   "cap": 5,
+   "funcion": "respiro",
+   "emocion": "desgaste",
+   "intensidad": 2,
+   "dato_central": "T34",
+   "datos_apoyo": [
+    "Q20",
+    "T36",
+    "D127",
+    "D134"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Instalaciones inundadas, oscuridad, tablones sobre el agua; una cabeza que no se limpia con champú ni con productos químicos. El verano siguiente, un tractor de plomo corta la tierra donde los electricistas arrancaron arbustos y la reemplaza con suelo nuevo",
+   "pregunta_abierta": "Si la tierra se lleva en camiones, ¿qué se hace con los hombres?",
+   "pregunta_pantalla": "¿Y la peluquera?",
+   "cierre": "El domingo siguiente, los habitantes de Cheliábinsk miraron el cielo. El periódico ya tenía una explicación.",
+   "palabras_objetivo": 109,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 8,
+   "pregunta_valida": false
+  },
+  {
+   "n": 10,
+   "cap": 6,
+   "funcion": "giro",
+   "emocion": "indignación contenida",
+   "intensidad": 4,
+   "dato_central": "Q02",
+   "datos_apoyo": [
+    "T29",
+    "T28",
+    "Q24",
+    "D121",
+    "T31"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Un cielo nocturno de luz roja intensa que por momentos pasa a rosa pálido y azul claro; una columna de periódico que lo llama aurora boreal mientras una comisión llegada de Moscú busca culpables en dos oficinas distintas",
+   "pregunta_abierta": "Si la comisión señala al jefe de la planta y al ingeniero, ¿por qué cae el director?",
+   "pregunta_pantalla": "",
+   "cierre": "Mientras el periódico explicaba el cielo, los pueblos de abajo empezaban a desaparecer. Cuánto tardaron, depende de a quién se le pregunte.",
+   "palabras_objetivo": 125,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 2
+  },
+  {
+   "n": 11,
+   "cap": 6,
+   "funcion": "revelacion",
+   "emocion": "pérdida",
+   "intensidad": 4,
+   "dato_central": "D116",
+   "datos_apoyo": [
+    "D42",
+    "Q23",
+    "D77",
+    "D46",
+    "Q21"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Casas niveladas hasta el suelo, pertenencias ardiendo en pilas, ganado sacrificado; chicos de internado recogiendo una cosecha que nadie debía recoger",
+   "pregunta_abierta": "¿Catorce días o medio año? ¿Y qué pasó en ese medio año con las casas que seguían en pie?",
+   "pregunta_pantalla": "¿Qué quemaron?",
+   "cierre": "En la ciudad no se hablaba de eso. Afuera de la Unión Soviética, tampoco: pasaron diecinueve años hasta que alguien escribió la palabra.",
+   "palabras_objetivo": 125,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 9,
+   "pregunta_valida": true
+  },
+  {
+   "n": 12,
+   "cap": 7,
+   "funcion": "revelacion",
+   "emocion": "vértigo",
+   "intensidad": 3,
+   "dato_central": "D51",
+   "datos_apoyo": [
+    "T43",
+    "D50",
+    "T38",
+    "D52",
+    "Q03",
+    "D72"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Una página breve de New Scientist en 1976; trece años después, un académico frente al Soviet Supremo diciendo que en tres años de seguimiento no registraron ninguna forma de enfermedad por radiación",
+   "pregunta_abierta": "Si no hubo enfermedad, ¿de qué murieron los doscientos que otra fuente cuenta?",
+   "pregunta_pantalla": "",
+   "cierre": "Los que quedaron no pidieron explicaciones. Pidieron que les pagaran lo que decía el papel.",
+   "palabras_objetivo": 69,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 13,
+   "cap": 7,
+   "funcion": "cierre",
+   "emocion": "amargura",
+   "intensidad": 3,
+   "dato_central": "D126",
+   "datos_apoyo": [
+    "Q14",
+    "D103",
+    "D16",
+    "D09",
+    "D93",
+    "Q13"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Dosímetros personales en vitrinas de un antiguo sanatorio junto al lago, mapas en los que Ozersk sigue sin figurar; una mujer evacuada que celebra una sentencia sin saber si va a cobrarla; seis electricistas sin fotocasete esperando una lista",
+   "pregunta_abierta": "¿Cuántos recibieron la dosis sin que nadie la midiera, y cuántos siguen sin figurar en ningún papel?",
+   "pregunta_pantalla": "¿Quién los contó?",
+   "cierre": "A Dubrovsky le declararon cinco normas diarias de irradiación. Nunca tuvo un fotocasete. ¿Cuántos más, como él, cargan una dosis que nadie midió y un nombre que nadie puso en la lista?",
+   "palabras_objetivo": 71,
+   "flash_forward": false,
+   "contador": true,
+   "escena_idx": 11,
+   "pregunta_valida": true
+  }
+ ],
+ "a_pantalla": [
+  {
+   "id": "D37",
+   "cap": 3,
+   "por_que": "Superficie y población contaminada (23.000 km², 270.000 habitantes, 217 localidades): cifra de tabla, con versiones rivales, va en pantalla."
+  },
+  {
+   "id": "D31",
+   "cap": 3,
+   "por_que": "Liberación estimada de 20 millones de curios, coincidente en tres fuentes: rótulo sobre la imagen del cráter."
+  },
+  {
+   "id": "D45",
+   "cap": 6,
+   "por_que": "Total de reasentados por etapas (12.763) y sus versiones rivales: solo en tabla, con nota de que no hay balance oficial."
+  },
+  {
+   "id": "D39",
+   "cap": 5,
+   "por_que": "1.007 militares expuestos, 12 hospitalizados, 63 en observación: cifras oficiales de F05 como rótulo junto al pico."
+  },
+  {
+   "id": "D152",
+   "cap": 7,
+   "por_que": "66 casos de síndrome de radiación crónico frente a la declaración de Buldakov: el contraste se ve, no se dice."
+  },
+  {
+   "id": "D109",
+   "cap": 7,
+   "por_que": "Los 60.000 rublos de la sentencia de Galina Chanova, marcados como obligación de pago y no cobro: documento judicial."
+  }
+ ],
+ "justificacion_humano": "Dubrovsky abre en el club que tiembla, está en el cap 2 como habitante de la ciudad sin mapa, reaparece en el cap 4 con las palas y las máscaras repartidas, sostiene el pico con su cuerpo bajo la manguera, sigue en el respiro con su tierra siendo reemplazada y cierra con las cinco normas declaradas y el fotocasete que nunca tuvo. Solo falta en los caps 3 y 6, donde la historia es del tanque y del Estado; nunca dos caps seguidos.",
+ "topic_id": "f18-kyshtym-mayak",
+ "prompt_version": "f25-1",
+ "_reparaciones": [
+  "a_pantalla D20: cap 3 inválido o lleno → fuera",
+  "a_pantalla D108: cap 7 inválido o lleno → fuera",
+  "a_pantalla D104: cap 7 inválido o lleno → fuera",
+  "beat 11: apoyo ['D117'] es otra cifra del conteo 12.763 → fuera",
+  "cap 1: palabras 180 → 110 (objetivo 110)",
+  "cap 2: palabras 420 → 250 (objetivo 250)",
+  "cap 3: palabras 430 → 250 (objetivo 250)",
+  "cap 4: palabras 440 → 250 (objetivo 250)",
+  "cap 5: palabras 460 → 250 (objetivo 250)",
+  "cap 6: palabras 480 → 250 (objetivo 250)",
+  "cap 7: palabras 470 → 140 (objetivo 140)"
+ ],
+ "_avisos": [],
+ "_intentos": [
+  {
+   "intento": 1,
+   "bloqueantes": [
+    "beat 2: dato_central «L09» no existe en el pool (o no es D/T/Q)",
+    "antagonista «Ministerio soviético de Construcción de Maquinaria Mediana (comisión de Slavsky)» no es una persona del pool ni una institución de la ficha",
+    "a_pantalla D45 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D152 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D109 también está en un beat: lo que va a pantalla no lo dice la voz"
+   ],
+   "reparaciones": [
+    "beat 1: apoyo E1 no existe en el pool → fuera",
+    "beat 1: apoyo P22 no existe en el pool → fuera",
+    "beat 5: apoyo E3 no existe en el pool → fuera",
+    "beat 5: apoyo E6 no existe en el pool → fuera",
+    "beat 5: apoyo E7 no existe en el pool → fuera",
+    "beat 6: apoyo E4 no existe en el pool → fuera",
+    "beat 7: apoyo E2 no existe en el pool → fuera",
+    "beat 8: apoyo E5 no existe en el pool → fuera",
+    "beat 9: apoyo E9 no existe en el pool → fuera",
+    "beat 10: apoyo E8 no existe en el pool → fuera",
+    "beat 13: apoyo E11 no existe en el pool → fuera",
+    "a_pantalla D41: cap 5 inválido o lleno → fuera",
+    "beat 9: apoyo ['D117'] es otra cifra del conteo 12.763 → fuera",
+    "cap 1: palabras 220 → 110 (objetivo 110)",
+    "cap 2: palabras 540 → 250 (objetivo 250)",
+    "cap 3: palabras 580 → 250 (objetivo 250)",
+    "cap 4: palabras 540 → 250 (objetivo 250)",
+    "cap 5: palabras 580 → 250 (objetivo 250)",
+    "cap 6: palabras 600 → 250 (objetivo 250)",
+    "cap 7: palabras 500 → 140 (objetivo 140)"
+   ],
+   "no_bloqueantes": [
+    "la intensidad baja antes del pico en los beats [5, 7] ([4, 1, 2, 4, 3, 4, 3, 5, 2, 3, 4, 3, 3]): cada cap peor que el anterior",
+    "falta un beat de intensidad 1 (respiro) después del pico",
+    "beat 1: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q16']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "beat 2: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['L09', 'D21', 'D140', 'T04', 'T03', 'T07', 'T09']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "beat 13: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['D126', 'D91', 'D93', 'Q13']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "la promesa del gancho no lleva cifras ni años (tampoco en letras: «seis mil»; «miles» sí)",
+    "la última frase del video (cierre del beat 13) no nombra al humano ni a un testigo verificado (Arkady Aleksandrovich Kazutov, L. A. Buldakov, Vladimir Slivyak, Lidia Popova, Anna Ilyina, Sergey Mitrokhin, Galina Chanova, Alexey Babin, Yefim Slavsky, Anatoly Vasilievich Dubrovsky, Mikhail Kuleshov, Lyudmila Smirnova, Periódico 'Chelyabinsky Rabochy', V. I. Shevchenko, Chelyabinsky Rabochy): «Seis electricistas arrancaron arbustos sin dosímetro. Uno trabajó sin pétalo y pidió que pararan el agua. ¿Cuánto recibió ese pecho? Nadie lo midió. Y en los registros, lo que nadie midió no pasó.»",
+    "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 4 «¿Aurora boreal en los Urales del Sur?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+    "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 6 «¿Ninguna enfermedad?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)"
+   ]
+  },
+  {
+   "intento": 2,
+   "bloqueantes": [],
+   "reparaciones": [
+    "a_pantalla D20: cap 3 inválido o lleno → fuera",
+    "a_pantalla D108: cap 7 inválido o lleno → fuera",
+    "a_pantalla D104: cap 7 inválido o lleno → fuera",
+    "beat 11: apoyo ['D117'] es otra cifra del conteo 12.763 → fuera",
+    "cap 1: palabras 180 → 110 (objetivo 110)",
+    "cap 2: palabras 420 → 250 (objetivo 250)",
+    "cap 3: palabras 430 → 250 (objetivo 250)",
+    "cap 4: palabras 440 → 250 (objetivo 250)",
+    "cap 5: palabras 460 → 250 (objetivo 250)",
+    "cap 6: palabras 480 → 250 (objetivo 250)",
+    "cap 7: palabras 470 → 140 (objetivo 140)"
+   ],
+   "no_bloqueantes": [
+    "la intensidad baja antes del pico en los beats [6] ([4, 1, 2, 3, 4, 3, 4, 5, 2, 4, 4, 3, 3]): cada cap peor que el anterior",
+    "falta un beat de intensidad 1 (respiro) después del pico",
+    "beat 1: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q16']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "beat 2: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['T04', 'T03', 'T07', 'T09', 'T10', 'D140', 'D21']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "beat 9: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['T34', 'Q20', 'T36', 'D127', 'D134']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "beat 13: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['D126', 'Q14', 'D103', 'D16', 'D09', 'D93', 'Q13']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "pregunta de pantalla del cap 2 «¿Por qué siguieron bebiendo?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+    "pregunta de pantalla del cap 3 «¿Hacia dónde sopló el viento?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+    "pregunta de pantalla del cap 5 «¿Y la peluquera?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)"
+   ]
+  }
+ ],
+ "ficha": {
+  "prompt_version": "f23-1",
+  "pool_md5": "28981c701dc5fa67a5d82fc50ebca099"
+ },
+ "pool_gate": {
+  "color": "verde",
+  "metricas": {
+   "datos": 154,
+   "citas_verificadas": 21,
+   "elegibles_humano": 16,
+   "eventos_con_fecha": 56,
+   "personas_con_nombre": 23
+  },
+  "motivos": [],
+  "target_words": 1500
+ },
+ "_pantalla_por_fecha": [
+  "T14 (None) → cap 3 lleno: fuera",
+  "T22 (1957-09-29) → cap 3 lleno: fuera",
+  "D82 (None) → cap 5 lleno: fuera",
+  "D117 (None) → cap 6 lleno: fuera",
+  "T53 (None) → cap 7 lleno: fuera",
+  "T50 (None) → cap 7 lleno: fuera"
+ ],
+ "caps": [
+  {
+   "chapter_number": 1,
+   "role": "hook",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "hook",
+   "evidence_ids": [
+    "Q16"
+   ],
+   "cliffhanger": "T04",
+   "pantalla_ids": [],
+   "palabras_objetivo": 110
+  },
+  {
+   "chapter_number": 2,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "T04",
+    "T03",
+    "T07",
+    "T09",
+    "T10",
+    "D140",
+    "D21",
+    "D55",
+    "T11",
+    "D62",
+    "D56",
+    "Q07"
+   ],
+   "cliffhanger": "T19",
+   "pantalla_ids": [
+    "T06",
+    "T08"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 3,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "T19",
+    "D26",
+    "D27",
+    "D141",
+    "D35",
+    "D36",
+    "T20",
+    "D120",
+    "D119",
+    "D30",
+    "T21",
+    "D33",
+    "D115"
+   ],
+   "cliffhanger": "D118",
+   "pantalla_ids": [
+    "D37",
+    "D31"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 4,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "D118",
+    "T24",
+    "D128",
+    "Q19",
+    "T27",
+    "Q17",
+    "D123",
+    "D124"
+   ],
+   "cliffhanger": "D44",
+   "pantalla_ids": [
+    "T45",
+    "T02"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 5,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "shock",
+   "evidence_ids": [
+    "D44",
+    "D43",
+    "D48",
+    "Q18",
+    "T34",
+    "Q20",
+    "T36",
+    "D127",
+    "D134"
+   ],
+   "cliffhanger": "Q02",
+   "pantalla_ids": [
+    "D39",
+    "D61"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 6,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "Q02",
+    "T29",
+    "T28",
+    "Q24",
+    "D121",
+    "T31",
+    "D116",
+    "D42",
+    "Q23",
+    "D77",
+    "D46",
+    "Q21"
+   ],
+   "cliffhanger": "D51",
+   "pantalla_ids": [
+    "D45",
+    "T18"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 7,
+   "role": "reveal_outro",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "outro",
+   "evidence_ids": [
+    "D51",
+    "T43",
+    "D50",
+    "T38",
+    "D52",
+    "Q03",
+    "D72",
+    "D126",
+    "Q14",
+    "D103",
+    "D16",
+    "D09",
+    "D93",
+    "Q13"
+   ],
+   "cliffhanger": "",
+   "pantalla_ids": [
+    "D152",
+    "D109"
+   ],
+   "palabras_objetivo": 140
+  }
+ ],
+ "_pool_plan": {
+  "cifras_canonicas": [],
+  "pantalla": [
+   "cap 2: pantalla ['T06', 'T08']",
+   "cap 3: pantalla ['T14', 'T22']",
+   "cap 4: pantalla ['T45', 'T02']",
+   "cap 5: pantalla ['D61', 'D82']",
+   "cap 6: pantalla ['T18', 'D117']",
+   "cap 7: pantalla ['T53', 'T50']"
+  ]
+ },
+ "_metricas": {
+  "curva_intensidad": [
+   4,
+   1,
+   2,
+   3,
+   4,
+   3,
+   4,
+   5,
+   2,
+   4,
+   4,
+   3,
+   3
+  ],
+  "flash_forward_beat1": true,
+  "curva_problemas": [
+   "la intensidad baja antes del pico en los beats [6] ([4, 1, 2, 3, 4, 3, 4, 5, 2, 4, 4, 3, 3]): cada cap peor que el anterior",
+   "falta un beat de intensidad 1 (respiro) después del pico"
+  ],
+  "humano_en_escena_caps": [
+   1,
+   2,
+   4,
+   5,
+   7
+  ],
+  "humano_entra_cap": 1,
+  "humano_con_cita_sin_verificar_en_escena": [
+   1
+  ],
+  "humano_en_escena_problemas": [
+   "beat 1: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q16']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+   "beat 2: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['T04', 'T03', 'T07', 'T09', 'T10', 'D140', 'D21']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+   "beat 9: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['T34', 'Q20', 'T36', 'D127', 'D134']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+   "beat 13: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['D126', 'Q14', 'D103', 'D16', 'D09', 'D93', 'Q13']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']"
+  ],
+  "promesa_con_cifras": false,
+  "imagen_gancho_con_cifras": false,
+  "imagenes_abstractas": [],
+  "escenas_usadas": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   7,
+   8,
+   9,
+   11
+  ],
+  "escena_gancho": 1,
+  "escena_pico": 5,
+  "giros": [
+   {
+    "orden": 1,
+    "que_cambia": "El problema deja de ser el vertido habitual de residuos: una alteración de la refrigeración del tanque desemboca en una explosión térmica que dispersa material radiactivo.",
+    "beat": 3
+   },
+   {
+    "orden": 2,
+    "que_cambia": "La población y los trabajadores pasan a convivir con medidas de descontaminación y exposición, mientras Dubrovsky recibe tareas sin instrucciones sobre cómo comportarse.",
+    "beat": 6
+   },
+   {
+    "orden": 3,
+    "que_cambia": "El resplandor obtiene una explicación pública como aurora boreal, mientras los documentos sitúan las decisiones y operaciones de evacuación días después de la explosión.",
+    "beat": 8
+   },
+   {
+    "orden": 4,
+    "que_cambia": "La emergencia se convierte en desaparición de pueblos: se reasientan localidades y se destruyen construcciones y bienes, aunque las fuentes discrepan sobre los plazos.",
+    "beat": 11
+   },
+   {
+    "orden": 5,
+    "que_cambia": "La divulgación de Medvedev y el posterior reconocimiento soviético rompen el silencio, pero Buldakov declara que el seguimiento descrito no había registrado enfermedad por radiación.",
+    "beat": 12
+   },
+   {
+    "orden": 6,
+    "que_cambia": "El conflicto continúa en los tribunales: Galina obtiene una sentencia por compensaciones y la fiscalía promueve demandas de indexación.",
+    "beat": 13
+   }
+  ],
+  "giros_con_beat": 6,
+  "giros_total": 6,
+  "humano_en_candidatos": true,
+  "pico_es_el_de_la_ficha": true,
+  "palabras_objetivo_por_cap": {
+   "1": 110,
+   "2": 250,
+   "3": 250,
+   "4": 250,
+   "5": 250,
+   "6": 250,
+   "7": 140
+  },
+  "antagonista_tipo": "institucion",
+  "antagonista_caps": [
+   2
+  ],
+  "cifra_en_pantalla_repetida": [],
+  "ultima_frase_repite_cita": [],
+  "ultima_frase_sin_humano": [],
+  "preguntas_pantalla": [
+   "pregunta de pantalla del cap 2 «¿Por qué siguieron bebiendo?»: no nombra nada que el espectador ya conozca (persona, grupo, lugar u objeto de este cap o anteriores)",
+   "pregunta de pantalla del cap 3 «¿Hacia dónde sopló el viento?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)",
+   "pregunta de pantalla del cap 5 «¿Y la peluquera?»: tiene que preguntar por culpa, consecuencia o destino (¿Quién…? ¿Por qué…? ¿Dónde…? ¿Cuántos…?)"
+  ],
+  "preguntas_abiertas": [
+   "¿Qué puede hacer temblar un edificio entero en medio de una tarde de domingo?",
+   "¿Cómo se vive en una ciudad que oficialmente no existe?",
+   "Si ya estaban envenenando el río, ¿qué guardaban en los tanques?",
+   "¿Qué pasa cuando un tanque de residuos deja de enfriarse?",
+   "Si no fue una explosión atómica, ¿qué está viajando en ese aire?",
+   "Si hay que blindar un tractor con plomo para acercarse, ¿con qué van a mandar a los hombres?",
+   "¿Quién se quedó sin máscara, y cuánto está respirando?",
+   "¿De qué sirve lavar lo que ya está adentro?",
+   "Si la tierra se lleva en camiones, ¿qué se hace con los hombres?",
+   "Si la comisión señala al jefe de la planta y al ingeniero, ¿por qué cae el director?",
+   "¿Catorce días o medio año? ¿Y qué pasó en ese medio año con las casas que seguían en pie?",
+   "Si no hubo enfermedad, ¿de qué murieron los doscientos que otra fuente cuenta?",
+   "¿Cuántos recibieron la dosis sin que nadie la midiera, y cuántos siguen sin figurar en ningún papel?"
+  ],
+  "otros": []
+ },
+ "_modelo": "claude-fable-5-1"
+}

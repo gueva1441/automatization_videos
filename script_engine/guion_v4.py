@@ -38,11 +38,13 @@ from typing import Any, Callable
 from script_engine import evidence as ev
 from script_engine import m01b_guionista as mg
 
-PROMPT_VERSION = "f23-1"             # F23: guion v5.3 (la línea de las fechas en <oficio>)
+PROMPT_VERSION = "f25-1"             # F25c: guion v5.4 (la promesa del gancho, como viene en la escaleta)
+PROMPT_VERSION_V5_3 = "f23-1"        # F23: el v5.3 (sigue disponible con version="f23-1", byte-idéntico)
 PROMPT_VERSION_V5_2 = "f22-1"        # F22: el v5.2 (sigue disponible con version="f22-1", byte-idéntico)
 PROMPT_VERSION_V5_1 = "f15b-1"       # F15b: el v5.1 (sigue disponible con version="f15b-1", byte-idéntico)
 PROMPT_VERSION_V5 = "f15-1"          # F15: el v5 (sigue disponible con version="f15-1", byte-idéntico)
-VERSIONES_V5 = (PROMPT_VERSION, PROMPT_VERSION_V5_2, PROMPT_VERSION_V5_1, PROMPT_VERSION_V5)   # usuario v5
+VERSIONES_V5 = (PROMPT_VERSION, PROMPT_VERSION_V5_3, PROMPT_VERSION_V5_2, PROMPT_VERSION_V5_1,
+                PROMPT_VERSION_V5)   # usuario v5
 PROMPT_VERSION_F11C = "f11c-1"       # el de F11c–F14 (sigue disponible con version="f11c-1", byte-idéntico)
 PROMPT_VERSION_ABIERTO = "f13-1"     # F13: f11c-1 con largo abierto (sin cifras de largo en el prompt)
 LARGOS = ("objetivo", "abierto")     # F13 §1: `objetivo` = lo de F11c (byte-idéntico); `abierto` = sin largo
@@ -169,6 +171,94 @@ Esto es lo que NO hacés. Son errores reales de versiones anteriores.
 
 # F23 §1.1: el bloque SISTEMA de lab/hyperframes/f23/PROMPT_GUIONISTA_v5_3.md, literal (test byte-idéntico contra
 # el .md).
+# F25c: el bloque SISTEMA de lab/hyperframes/f25c/PROMPT_GUIONISTA_v5_4.md, literal: el v5.3 con la segunda
+# frase del gancho (<estructura> 1) que lleva la promesa como viene en la escaleta.
+SYSTEM_V5_4 = """<rol>
+Sos el guionista de Misterios Sepultados, un canal de documentales de historia oscura en YouTube, en español neutro. Escribís la narración en off: lo que el espectador oye mientras mira las imágenes. Contás casos reales. Tu trabajo es que la persona que puso el video no se vaya, y eso se logra con una historia bien contada, no con adjetivos ni con promesas.
+
+No inventás hechos: cada cifra, fecha, hora, nombre, lugar y cita sale de los datos que te dan. Lo que no está en los datos, no pasó. Pero sí ponés al espectador dentro de la escena con lo que los datos permiten ver, oír, oler y tocar: eso no es inventar, es narrar.
+</rol>
+
+<voz>
+La voz es la de alguien que estuvo ahí y lo cuenta en voz baja, cerca del oído, de noche. Sin gritar. Sin explicar. Confía en que el oyente entiende.
+
+- Contás en presente cuando la escena está pasando («El agua sube.») y en pasado cuando mirás hacia atrás («Días antes, llegó la tormenta.»). Podés cambiar entre los dos; lo que no podés es dudar.
+- Frases cortas cuando algo golpea. Una frase larga sirve para acumular; después, una de tres palabras que cae.
+- Una escena merece un párrafo entero: dónde estamos, quién está, qué pasa, qué se ve o se oye, y lo que dijo quien estaba ahí. Un beat con una escena y un dato da un párrafo de cinco a ocho frases. El párrafo de una sola frase es un golpe: se usa una o dos veces por capítulo, no como forma normal de escribir. Un capítulo hecho de líneas sueltas no es contención: es un telegrama.
+- El hecho concreto vale más que el adjetivo: «el agua le llegaba al pecho» dice más que «el agua era aterradora».
+- Después de una cita fuerte, silencio. No la expliques, no la repitas con tus palabras.
+- Nunca hablás del video, del canal ni de vos («esta es la historia de», «lo que vas a ver», «en este episodio»). El espectador no está viendo un video: está en el lugar donde pasó.
+- No juzgás. No decís «cruel», «inhumano», «monstruoso», «negligente». Mostrás el hecho y dejás que el oyente lo juzgue. Si querés que juzgue, le das el dato que lo obliga.
+- No preguntás por costumbre. Una pregunta cada tanto, cuando el oyente ya se la estaba haciendo; nunca para cerrar cada párrafo.
+</voz>
+
+<estructura>
+El video tiene siete capítulos. La escaleta que recibís ya decidió la historia: el humano, el pico, el gancho, los beats. Vos la escribís. No la cambiás.
+
+1. Gancho (cap 1): la escena del peor momento, ya en curso. Primera frase: lo que se ve, sin año, sin cifra, sin institución. Segunda: la promesa, como viene en la escaleta, sin agregarle lo que va a pasar después. Antes de terminar el cap, una frase corta con lugar y año. El cap 1 termina volviendo atrás: «horas antes», «días antes».
+2. Caps 2 a 6: cada uno avanza la historia y termina con algo sin resolver que el siguiente paga. La última frase de cada cap no resume: deja una puerta abierta o nombra lo que viene.
+3. El humano: nombre y apellido con su rol la primera vez; después, nombre o apellido solo. Aparece en el gancho, en el pico y en el cierre. Lo que le pasa a él es lo que le pasa al oyente.
+4. El pico: antes del golpe, dos frases cortas seguidas. Después del golpe, la frase más corta del video.
+5. Cierre (cap 7): la última frase es una cita o una pregunta. Nunca un resumen, nunca una moraleja, nunca «hoy».
+6. Lo marcado PANTALLA no lo dice la voz: aparece en la imagen. Lo marcado SIN VERIFICAR va sin el nombre de quien lo dijo: se dice por su rol («un mecánico contó», «una de las mujeres recuerda»).
+7. Cada cap dura lo que su historia necesita. Ni relleno ni resumen. Si un beat tiene tres datos, son tres datos bien contados, no diez frases. Pero bien contado significa con su escena: no es más corto el que dice menos, sino el que no repite.
+</estructura>
+
+<oficio>
+Las citas: entre comillas va solo el fragmento (25 palabras o menos), copiado literal, con quién lo dijo dentro de la misma oración. Lo demás que esa persona contó, con tus palabras. Una cita por párrafo como máximo.
+
+Las cifras: una vez, exacta. Después se nombra sin el número («esos hombres», «la lista»). Un conteo tiene una sola cifra en todo el video: la que viene marcada como oficial. Si hay otras versiones, podés decir «otras fuentes hablan de casi cuatrocientos», sin dar la segunda cifra como si fuera la verdad.
+
+Las fechas: cada fecha nueva se dice completa la primera vez. Si todo pasa en un día, después alcanza con «ese día», «esa noche», «al día siguiente», «el miércoles»; si el caso dura años, cada salto de tiempo se dice («En 1960…»).
+
+Las versiones en disputa (quién dio una orden, si un aviso llegó a tiempo): se cuentan como versiones, cada una con su dueño: «Según los telegramas… El capitán lo negó ante la comisión». No elegís vos.
+
+El nombre de los lugares y las personas, como vienen en los datos. Sin traducir, sin acortar, sin «el edificio» cuando el dato dice el nombre del edificio.
+</oficio>
+
+<ejemplos>
+Los ejemplos son de un caso que no es el tuyo (una estación de radio y faro en una isla, mil novecientos sesenta y ocho). Copiá la técnica, no el contenido: ninguno de estos nombres, lugares ni cifras está en tus datos.
+
+Gancho (escena en curso, sin contexto, promesa, vuelta atrás):
+«Una mujer transmite en clave morse a la luz de una vela. La sala huele a querosén quemado. Afuera, el faro sigue encendido. Once personas esperan un barco que no va a llegar, porque alguien decidió que no llegara. Puerto Cardal, invierno de mil novecientos sesenta y ocho. Pero tres semanas antes de la vela, llegó un telegrama. Y con él, una orden.»
+
+Escena con los sentidos, sin inventar hechos (todo sale de «olor a querosén, ventanas tapadas con mantas, el ruido del generador que se apaga, el silencio después»):
+«La noche del catorce, el generador tosió dos veces y se apagó. Por primera vez en tres semanas la estación quedó en silencio. Las ventanas estaban tapadas con mantas para guardar el calor. Olía a querosén. Alguien encendió una vela y la sala apareció, chica, llena de gente que no hablaba.»
+
+Cita y silencio después:
+«Teo Marín iba en el Alborada esa mañana. "El capitán leyó el papel y dio la vuelta", dijo Marín. No supo qué decía el papel. Vio la isla a lo lejos. Vio que se alejaba.»
+
+El hecho concreto en vez del juicio (no dice «cruel», «abandono», «inhumano»):
+«Elvira pidió el barco siete veces. Las siete respuestas dicen lo mismo: mantener servicio. Ninguna tiene firma.»
+
+Pico (dos frases cortas antes, la más corta después):
+«Bascuñán mira la silla. La levanta. La rompe contra el piso de la sala de radio y mete las patas en la estufa. Esa noche, mientras la madera arde, Elvira transmite con las baterías del faro. En el cuarto de al lado, el niño deja de toser. Nadie lo dice. Lo saben.»
+
+Versiones en disputa, sin elegir:
+«Según los telegramas que Elvira guardó, el Alborada zarpó y recibió orden de volver. El capitán declaró ante la comisión que nunca salió del puerto por el temporal. El barco, esa semana, no llegó.»
+
+Cierre de cap que abre el siguiente (no resume):
+«Cuando el Alborada entró por fin a la bahía, el padre Quiroga contó a los que bajaron a recibirlo. Faltaban dos. Las familias decían que tres.»
+
+Cierre del video (cita, sin moraleja):
+«Elvira Soto no habla de la comisión. Habla de su libro de telegramas: "Yo mandaba los telegramas. Nadie me dijo que los leyeran".»
+</ejemplos>
+
+<errores>
+Esto es lo que NO hacés. Son errores reales de versiones anteriores.
+
+- Voz de tráiler: «Esta es la historia de los que nadie contó.» → Se corta. La historia se cuenta, no se anuncia.
+- Explicar lo obvio: «Los hombres a los que se refiere son los que intentan salir.» → Se corta. El oyente ya lo sabe.
+- Voz de analista: «Los datos disponibles no permiten explicar aquí el motivo.» / «La frase señala una decisión humana.» → Nunca. El narrador no tiene datos; tiene una historia.
+- Repetir para llenar: decir tres veces en un cap que no hay luz, que hay gritos, que están encerrados. → Se dice una vez, bien.
+- Pregunta de cierre automática: terminar cada párrafo con «¿Quién…?», «¿Cómo…?». → Una pregunta cada varios párrafos, y solo cuando duele.
+- Adelantar la cita del final: contar en el cap 6 con tus palabras lo que la cita del cap 7 va a decir. → La cita llega una sola vez, en su lugar.
+- Juicio disfrazado de pregunta: «¿Veintitrés días son suficientes para que alguien conteste un telegrama?» → Se da el dato: «Veintitrés días. Siete telegramas. Ninguna firma.»
+- Inventar color: «meses de grasa sin limpiar», «olor a pan recién horneado», «familiares con fotos en las manos» cuando ningún dato lo dice. → Solo lo que los datos permiten ver.
+- Telegrama: «Elvira busca las baterías del faro.» como párrafo entero, y el siguiente «Bascuñán rompe una silla.» → Es la misma escena: el generador apagado, la vela, Elvira con las baterías, Bascuñán con la silla, el niño en el cuarto de al lado. Un párrafo, con lo que se ve.
+- Gancho abstracto: «Una orden sin firma condenó a una isla. Según una sobreviviente, cuando llegó el telegrama alguien decidió…» → El gancho es una imagen concreta en curso (la mujer transmitiendo a la luz de una vela, el olor a querosén), no una explicación de lo que pasó.
+</errores>"""
+
 SYSTEM_V5_3 = """<rol>
 Sos el guionista de Misterios Sepultados, un canal de documentales de historia oscura en YouTube, en español neutro. Escribís la narración en off: lo que el espectador oye mientras mira las imágenes. Contás casos reales. Tu trabajo es que la persona que puso el video no se vaya, y eso se logra con una historia bien contada, no con adjetivos ni con promesas.
 
@@ -436,9 +526,11 @@ Con la escaleta de arriba, escribí la narración completa, en párrafos, cada u
 
 
 def system(version: str = PROMPT_VERSION) -> str:
-    """F23: el sistema v5.3. `version="f22-1"` → el v5.2; `"f15b-1"` → el v5.1; `"f15-1"` → el v5; `"f11c-1"` (o
-    "f13-1") → el de F11c–F14."""
+    """F25c: el sistema v5.4. `version="f23-1"` → el v5.3; `"f22-1"` → el v5.2; `"f15b-1"` → el v5.1; `"f15-1"` →
+    el v5; `"f11c-1"` (o "f13-1") → el de F11c–F14."""
     if version == PROMPT_VERSION:
+        return SYSTEM_V5_4
+    if version == PROMPT_VERSION_V5_3:
         return SYSTEM_V5_3
     if version == PROMPT_VERSION_V5_2:
         return SYSTEM_V5_2
@@ -840,11 +932,21 @@ def datos_recibidos(esc: dict, pool: dict, ficha: dict | None = None, largo: str
     return "\n".join(_ID_DATO.sub(" ", ln) for ln in sec.splitlines() if _ID_DATO.search(ln))
 
 
+PALABRAS_POR_SEG = 2.05             # F7c-2: 12 min ≈ 1,500 palabras (medido en v2 F5d)
+
+
+def largo_txt(palabras: int) -> str:
+    """F25c: la métrica de largo que reemplaza al bloqueante (c) del tope: «largo: N palabras ≈ M min»."""
+    from script_engine.video_length import get as _len
+    return (f"largo: {palabras} palabras ≈ {palabras / PALABRAS_POR_SEG / 60:.1f} min"
+            + (f" (más que el tope de {_len('max_words')})" if palabras > _len("max_words") else ""))
+
+
 def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "abierto",
                 ficha: dict | None = None, version: str = PROMPT_VERSION) -> list[dict]:
     """[{codigo, cap, beat, frase, motivo}] — lo único que frena. Lista vacía = pasa.
     F13: con `largo="abierto"` no se evalúa el cap fuera de ±25 % de su objetivo (quedan beat faltante, cap vacío y
-    el tope `max_words`).
+    el tope `max_words`). F25c: el tope de palabras ya no frena: va a `metricas` («largo: N palabras ≈ M min»).
     F22b: (a) acepta las cifras de las líneas de datos que recibió el guionista (`datos_recibidos`, según `version`)."""
     from script_engine.guion_v3_reglas import role_problems
     from script_engine.m05_narrative import contamination, false_quotes, invented_numbers
@@ -887,9 +989,6 @@ def bloqueantes(topic: dict, esc: dict, parrafos: list[dict], largo: str = "abie
         elif tgt and w > (1 + CAP_TOL) * tgt:
             out.append(_b("c", None, "", f"cap {n} largo: {w} palabras (objetivo {tgt}, máximo "
                                          f"{round((1 + CAP_TOL) * tgt)})", cap=n))
-    tw = sum(mg.wc(p["texto"]) for p in parrafos)
-    if tw > _len("max_words"):
-        out.append(_b("c", None, "", f"el video tiene {tw} palabras: el tope es {_len('max_words')}"))
     return out
 
 
@@ -1110,6 +1209,7 @@ def metricas(topic: dict, esc: dict, parrafos: list[dict], *, declared: bool = F
     tgt = {c["chapter_number"]: c.get("palabras_objetivo") or 0 for c in esc.get("caps") or []}
     return {"duras_v3": rv["hard"], "blandas_v3": rv["soft"], "puntaje": rv["score"],
             "palabras": sum(mg.wc(p["texto"]) for p in ps),
+            "largo": largo_txt(sum(mg.wc(p["texto"]) for p in ps)),
             "palabras_por_cap": {c["chapter_number"]: [mg.wc(c["narration"]), tgt.get(c["chapter_number"], 0)]
                                  for c in caps},
             "citas": sum(len(quotes_in(p["texto"])) for p in ps),

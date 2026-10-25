@@ -1,0 +1,6 @@
+  [vE1] m01a_escaleta v2 intento 1: in 24982 · out 20584 · end_turn · US$ 1.2790 · 245.7 s
+  [vE2] m01a_escaleta v2 intento 1: in 24982 · out 25895 · end_turn · US$ 1.5446 · 326.0 s
+[vE2] ERROR Parada: tope (vE2, m01a_escaleta v2 intento 2): gastado 2.824 + reservado 2.215 + peor caso 2.216 > 7.00 · US$ 1.5446 · 326.0 s
+  [vE1] m01a_escaleta v2 intento 2: in 25177 · out 8709 · end_turn · US$ 0.6872 · 111.9 s
+[vE1] ERROR EscaletaValidationError: escaleta v2 rechazada después de 2 intento(s) (PARADA): ['a_pantalla T92 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D106 también está en un  · US$ 1.9662 · 357.7 s
+[vajont escaleta] US$ 3.5108 · pared 357.7 s

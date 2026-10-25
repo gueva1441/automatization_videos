@@ -207,7 +207,8 @@ def test_escaleta_v2_usa_sol_high(monkeypatch, tmp_path):
     monkeypatch.setattr(gpt_helpers, "make_call", fake_make_call)
     monkeypatch.setattr(me, "STEPS_DIR", tmp_path)
     monkeypatch.setattr(me, "pool_gate_profile", lambda *a, **k: None)
-    me.generate_escaleta(TOPIC, persist=False, ficha=FICHA)
+    # F25c: la escaleta v2 va con Fable por defecto (test_module_f25c); Sol sigue con modelo="gpt-6.1-sol"
+    me.generate_escaleta(TOPIC, persist=False, ficha=FICHA, modelo="gpt-6.1-sol")
     assert seen["m"] == ("gpt-6.1-sol", "high")
 
 
