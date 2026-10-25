@@ -11,13 +11,15 @@ import claude_helpers as ch
 from script_engine import guion_v4 as g4
 
 
-def test_modelo_del_guion_por_defecto_es_opus():
-    assert g4.DEFAULT_MODELO_GUION == "claude-opus-5-5" and g4.DEFAULT_MODELO == "gpt-6.1-sol"
+def test_modelo_del_guion_por_defecto():
+    # F22e: el modelo por defecto del guion pasa a Fable 5.1; Opus 5.5 y Sol siguen con --modelo
+    assert g4.DEFAULT_MODELO_GUION == "claude-fable-5-1" and g4.DEFAULT_MODELO == "gpt-6.1-sol"
     c = g4.call_for(g4.DEFAULT_MODELO_GUION)
-    assert (c.model, c.reasoning_effort) == ("claude-opus-5-5", "high") and ch.MAX_TOKENS == 32000
+    assert (c.model, c.reasoning_effort) == ("claude-fable-5-1", "high") and ch.MAX_TOKENS == 32000
+    assert g4.call_for("claude-opus-5-5").model == "claude-opus-5-5" and g4.call_for("gpt-6.1-sol").model == "gpt-6.1-sol"
 
 
-def test_run_guion_v4_sin_modelo_usa_opus(monkeypatch):
+def test_run_guion_v4_sin_modelo_usa_el_del_guion(monkeypatch):
     import fase1_5 as f15
     seen = {}
 
@@ -30,7 +32,8 @@ def test_run_guion_v4_sin_modelo_usa_opus(monkeypatch):
     monkeypatch.setattr(f15, "_topic_v3", lambda tid: {"id": tid, "evidence_pool": {}})
     monkeypatch.setattr(f15, "_load_step_output", lambda tid, name: {})
     monkeypatch.setattr(g4, "call_for", fake_call_for)
-    for modelo, esperado in ((None, "claude-opus-5-5"), ("gpt-6.1-sol", "gpt-6.1-sol")):
+    for modelo, esperado in ((None, "claude-fable-5-1"), ("gpt-6.1-sol", "gpt-6.1-sol"),
+                             ("claude-opus-5-5", "claude-opus-5-5")):
         try:
             f15.run_guion_v4("t", modelo=modelo)
         except Corte:
@@ -46,5 +49,5 @@ def test_prompts_sin_cambios():
     def m(s: str) -> str:
         return hashlib.md5(s.encode("utf-8")).hexdigest()
     assert [m(fc.system()), m(mc.SYSTEM), m(me.SYSTEM_V2), m(g4.system())] == [
-        "7d3599dc6e4123a3bb883fc15a541e71", "f294cf6b1220983903ce339f5b21cb27", "7ea18a6aa1ca91c5ad0dfb7cc9b239a8",
-        "743e4f0a7ff9e58d86762bbd43679952"]
+        "7d3599dc6e4123a3bb883fc15a541e71", "f294cf6b1220983903ce339f5b21cb27", "22cfd68b7cee4734e95bb3ee27bb96b2",
+        "743e4f0a7ff9e58d86762bbd43679952"]                                     # F22e: escaleta 22cfd68b

@@ -278,7 +278,7 @@ def run_guion_v4(topic_id: str, modelo: str | None = None) -> dict:
     esc = _load_step_output(topic_id, "01a_escaleta.json")
     log: list[str] = []
     d = STEPS_DIR / topic_id
-    call = g4.call_for(modelo or g4.DEFAULT_MODELO_GUION)  # F22d: sin --modelo, el guion es Opus 5.5
+    call = g4.call_for(modelo or g4.DEFAULT_MODELO_GUION)  # F22d/F22e: sin --modelo, el del guion (Fable 5.1)
     from researcher_steps.ficha_caso import load as load_ficha
     ficha = load_ficha(topic_id, STEPS_DIR)                  # F14: si hay ficha, el texto de los ids sale de ella
     g = _step_cost(topic_id, "guionista_v4", lambda: g4.write(topic, esc, call=call, log=log, ficha=ficha))

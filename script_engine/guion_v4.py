@@ -55,9 +55,10 @@ CLAUDE = ("claude-opus-5-5", "claude-fable-5-1")   # F22b / F22d: Messages API d
 # F22d: Fable 5.1 también en high
 ESFUERZO = {"gpt-6.1-sol": "high", "claude-opus-5-5": "high", "claude-fable-5-1": "high"}
 DEFAULT_MODELO = "gpt-6.1-sol"       # F12 §1 (decisión de Omar): el modelo de `call_for(None)` (escaleta, columna)
-# F22d (decisión del analista): el guion v4 (guionista + reparación) es Opus 5.5 en esfuerzo high (max_tokens 32 000,
-# claude_helpers.MAX_TOKENS); escaleta y columna siguen en DEFAULT_MODELO
-DEFAULT_MODELO_GUION = "claude-opus-5-5"
+# F22d (decisión del analista): el guion v4 (guionista + reparación) tiene su propio modelo por defecto, en esfuerzo
+# high (max_tokens 32 000, claude_helpers.MAX_TOKENS); escaleta y columna siguen en DEFAULT_MODELO. F22e: Fable 5.1
+# (Opus 5.5 y Sol siguen con --modelo)
+DEFAULT_MODELO_GUION = "claude-fable-5-1"   # F22e (decisión del analista; F22d: claude-opus-5-5)
 DIAS = ("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo")
 
 OFICIO = [

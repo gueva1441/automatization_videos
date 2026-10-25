@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-24 (F22d: escaleta sin columna por defecto y guion v4 con Opus 5.5 por defecto; Kyshtym 1,695 palabras, 0 bloqueantes; US$ 0.774) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-24 (F22e: Fable 5.1 por defecto en el guion v4; escaleta v2.1 f22-2 con la promesa «imagen o pregunta»; cero corridas) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,12 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F22e — Fable 5.1 por defecto en el guion · promesa en la escaleta — HECHO, **PARADA**
+- Sobre `f56c018`, cero corridas. Reporte `lab/hyperframes/f22e/F22e_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES).
+- `guion_v4.DEFAULT_MODELO_GUION = claude-fable-5-1` (effort high, max_tokens 32 000); Opus 5.5 y Sol con `--modelo`; escaleta y columna siguen en Sol.
+- Escaleta v2.1 `f22-2`: en `<oficio>` §2, «Es una imagen o una pregunta, nunca un resumen de lo que va a pasar ni una lista de lo que viene.» Archivo y `SYSTEM_V2` iguales (md5 `22cfd68b…`); la de F22 queda como `SYSTEM_V2_F22_1` (`7ea18a6a…`).
+- Tests f12/f17/f22/f22d adaptados; suite amplia 806 verdes + las 5 previas. Sin merge.
 
 ## F22d — Sin columna y Opus por defecto · Kyshtym — HECHO, **PARADA**
 - Sobre `ee54850`. Reporte `lab/hyperframes/f22d/F22d_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), runner `f22d_corridas.py`.

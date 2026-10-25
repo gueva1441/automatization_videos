@@ -38,7 +38,8 @@ HANDOFF_MD5 = {"HANDOFF_F22_ejemplos_y_antagonista.md": "2685deecf8e8516d6cc8ee2
                "CASO_EJEMPLO_cardal.md": "7068cef5063db1de5a015c50891204e4",
                "PROMPT_FICHA_v2_1.md": "168358d182f9831dedc1bd21ba910540",
                "PROMPT_COLUMNA_v1_1.md": "af1d5f4150b4f4fc54a0c603e7f65cbb",
-               "PROMPT_ESCALETA_v2_1.md": "601aa76a77ce2c1dd9bd861a3bba6a02",
+               # F22e: el archivo suma una oración en <oficio> §2 (antes 601aa76a77ce2c1dd9bd861a3bba6a02)
+               "PROMPT_ESCALETA_v2_1.md": "dc08061c557951c0daa21d6e81cfa793",
                "PROMPT_GUIONISTA_v5_2.md": "9d80720a0d6770c7cb4220f2ba0f4217"}
 
 # la institución que decide en el fixture (inventada: no es de ningún tema)
@@ -78,12 +79,13 @@ def test_los_cuatro_sistemas_byte_identicos_al_handoff():
     assert me.SYSTEM_V2 == _sistema("PROMPT_ESCALETA_v2_1.md")
     assert g4.system() == g4.SYSTEM_V5_2 == _sistema("PROMPT_GUIONISTA_v5_2.md")
     assert [_md5(x) for x in (fc.system(), mc.SYSTEM, me.SYSTEM_V2, g4.system())] == [
-        "7d3599dc6e4123a3bb883fc15a541e71", "f294cf6b1220983903ce339f5b21cb27", "7ea18a6aa1ca91c5ad0dfb7cc9b239a8",
-        "743e4f0a7ff9e58d86762bbd43679952"]
+        "7d3599dc6e4123a3bb883fc15a541e71", "f294cf6b1220983903ce339f5b21cb27", "22cfd68b7cee4734e95bb3ee27bb96b2",
+        "743e4f0a7ff9e58d86762bbd43679952"]                                     # F22e: escaleta 22cfd68b
+    assert _md5(me.SYSTEM_V2_F22_1) == "7ea18a6aa1ca91c5ad0dfb7cc9b239a8"     # la v2.1 de F22, con su versión
     for s in (fc.system(), mc.SYSTEM, me.SYSTEM_V2, g4.system()):
         assert "## SISTEMA" not in s and "Para CC" not in s and s.startswith("<rol>")
-    assert (fc.PROMPT_VERSION, mc.PROMPT_VERSION, me.PROMPT_VERSION_V2, me.PROMPT_VERSION_COLUMNA, g4.PROMPT_VERSION) \
-        == ("f22-1",) * 5
+    assert (fc.PROMPT_VERSION, mc.PROMPT_VERSION, g4.PROMPT_VERSION) == ("f22-1",) * 3
+    assert (me.PROMPT_VERSION_V2, me.PROMPT_VERSION_COLUMNA, me.PROMPT_VERSION_V2_F22) == ("f22-2", "f22-2", "f22-1")
 
 
 def test_tarea_de_la_columna_literal_y_las_otras_sin_cambios():
@@ -292,7 +294,7 @@ def test_generar_escaleta_con_institucion_copia_variantes_y_mide(monkeypatch, tm
     col["antagonista"] = {"tipo": "institucion", "nombre": "el Ministerio de Obras", "por_que": "x", "ids": ["T01"]}
     esc = me.generate_escaleta(TOPIC, call=lambda *a, **k: copy.deepcopy(e), persist=False, ficha=_ficha_inst(),
                                columna=col)
-    assert esc["prompt_version"] == "f22-1"
+    assert esc["prompt_version"] == me.PROMPT_VERSION_COLUMNA
     assert esc["antagonista"]["variantes"] == ["el Ministerio", "MinObras"]
     m = esc["_metricas"]
     assert m["antagonista_tipo"] == "institucion" and m["antagonista_caps"] == [2, 6]

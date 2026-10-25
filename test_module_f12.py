@@ -143,8 +143,8 @@ def test_v4_por_defecto_es_sol_high():
 
 
 def test_v4_write_sin_call_usa_sol(monkeypatch):
-    # F22d (decisión del analista): sin `call`, el guion v4 es Opus 5.5 high; `call_for(None)` (escaleta, columna)
-    # sigue siendo Sol high
+    # F22d (decisión del analista): sin `call`, el guion v4 usa su modelo por defecto (F22e: Fable 5.1 high);
+    # `call_for(None)` (escaleta, columna) sigue siendo Sol high
     import claude_helpers
     from test_module_f11 import TOPIC, _esc_ok, _parrafos
     esc = _esc_ok()
@@ -155,5 +155,5 @@ def test_v4_write_sin_call_usa_sol(monkeypatch):
         return lambda prompt, **kw: {"parrafos": [{"beat": p["beat"], "texto": p["texto"]} for p in _parrafos(esc)]}
     monkeypatch.setattr(claude_helpers, "make_call", fake_make_call)
     g4.write(TOPIC, esc)
-    assert seen["m"] == ("claude-opus-5-5", "high")
+    assert seen["m"] == ("claude-fable-5-1", "high")
     assert g4.call_for(None).model == "gpt-6.1-sol"
