@@ -17,6 +17,7 @@
 - **Decisión del analista, en código (prompts sin cambios):** `fase1_5` corre la escaleta siempre sin columna; `--columna` genera la columna solo como `COLUMNA_<id>.md` de lectura; `--sin-columna` queda como no-op. `guion_v4.DEFAULT_MODELO_GUION = claude-opus-5-5` (effort high, max_tokens 32 000) para `write`/`reparar`/`run_guion_v4`; `call_for(None)` (escaleta, columna) sigue en Sol.
 - Kyshtym desde la ficha de F22: escaleta sin columna (Sol; humano Kutepova, antagonista institución Mayak, 44 ids) → guion Opus 1,695 palabras ≈ 13.8 min, 0 bloqueantes, 9 citas. US$ 0.7736 de 1.50.
 - Tests `test_module_f22d.py` (3) + f10/f12/f17 adaptados; suite amplia 806 verdes + las 5 previas. Sin merge.
+- **Adenda Fable 5.1** (pedido de Omar): `claude-fable-5-1` en PRICES (10/50) y en la cadena; guion v5.2 sobre la misma escaleta: 1,579 palabras ≈ 12.8 min, 0 bloqueantes, 10 citas, US$ 0.947. Tanda F22d US$ 1.721 de 3.00.
 
 ## F22c — ¿Escaleta con columna más floja? — HECHO PARCIAL, **PARADA por tope** (faltan B2 y K)
 - Sobre `cd5fde5`, sin cambios de código fuera de lab. Reporte `lab/hyperframes/f22c/F22c_REPORT.md` (revisor íntegro: NO CUMPLE — entrega parcial declarada, faltan B2 y K), tabla `tabla_f22c.md`, runner `f22c_corridas.py`.

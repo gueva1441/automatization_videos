@@ -1,0 +1,418 @@
+{
+ "tema": "kyshtym",
+ "modelo": "claude-fable-5-1",
+ "esfuerzo": "high",
+ "version": "f22-1",
+ "max_tokens": 32000,
+ "prompt_md5": {
+  "sistema": "743e4f0a7ff9e58d86762bbd43679952",
+  "usuario": "3a353e7e15204f17949a2f0248e04e2f"
+ },
+ "nota_b": null,
+ "prompt_version": "f22-1",
+ "parrafos": [
+  {
+   "beat": 1,
+   "cap": 1,
+   "texto": "Un hombre está de pie junto al panel de instrumentos cuando el suelo empieza a sacudirse. Lo que va a salir de ese edificio cubrirá un territorio entero, durante años nadie lo explicará en voz alta, y cuando por fin se explique tampoco alcanzará para que reconozcan a quienes entraron a limpiarlo. La sacudida es fuerte. Después viene el estruendo. Uno de los trabajadores contó que \"oyó un estruendo y fue arrojado afuera junto con las puertas\". Las puertas, él, todo hacia el mismo lado. Mayak, región de Cheliábinsk, mil novecientos cincuenta y siete. Ese estruendo va a seguir sonando mucho después, en una sala de tribunales.",
+   "ids_usados": []
+  },
+  {
+   "beat": 2,
+   "cap": 1,
+   "texto": "Nadezhda Kutepova es nieta de una de las personas que construyeron este lugar e hija de uno de los hombres que fueron a limpiarlo, y pasó años defendiendo a los afectados. Acompañó a las viudas de los liquidadores de Mayak hasta los juzgados. De una de esas veces guarda una frase. \"Nadia, no queremos ni un solo precedente para que en la región las viudas de los liquidadores de Mayak reciban siquiera algo de dinero\", le dijo una jueza, según Kutepova. Para entender qué le estaban negando, hay que volver atrás. Nueve años antes del estruendo, una ingeniera llegó a un lugar que no figuraba en ningún mapa.",
+   "ids_usados": []
+  },
+  {
+   "beat": 3,
+   "cap": 2,
+   "texto": "Mil novecientos cuarenta y ocho. La ingeniera Nadezhda Ivanovna Kozlova llega para construir Mayak. Es la abuela de Kutepova. Stalin le había encargado a Kurchatov la creación de armas nucleares, y Mayak es una de las piezas de ese encargo. La ciudad cerrada donde se levanta el complejo no aparece en los mapas públicos; cuando años después haya que ponerle nombre a lo que pase aquí, se usará el de la ciudad vecina que sí aparece: Kyshtym. Kozlova trabaja en un punto que el resto del país no puede señalar con el dedo. Dentro del recinto, el complejo. Fuera del recinto, el río también formaba parte de esa vida.",
+   "ids_usados": [
+    "D02"
+   ]
+  },
+  {
+   "beat": 4,
+   "cap": 3,
+   "texto": "El río es el Techa. Entre mil novecientos cuarenta y nueve y mil novecientos cincuenta y seis, Mayak vierte en él residuos radiactivos. Río abajo, la gente sigue viviendo en la orilla, lavando, pescando, mirando el agua. Lyubov Ladeyshchikova lo recuerda desde la infancia: \"Los niños estaban muy contentos con lo que ocurría en el río: los peces muertos flotaban con el vientre hacia arriba\". Peces panza arriba. Y los chicos, festejando.",
+   "ids_usados": []
+  },
+  {
+   "beat": 4,
+   "cap": 3,
+   "texto": "La madre de Kutepova guardaba otro recuerdo, de otro momento y de otro lugar. Era sobre el pescado que llegaba de esa región. \"El pescado que traían de la región de Cheliábinsk, al colocarlo sobre papel radiográfico, producía de inmediato una imagen como una radiografía\", le contó a su hija. El pescado se retrataba solo. El problema no era solo lo que flotaba. También era dónde guardar lo que no se podía ver.",
+   "ids_usados": []
+  },
+  {
+   "beat": 5,
+   "cap": 3,
+   "texto": "En mil novecientos cincuenta y uno se decide dejar de verter al Techa los residuos de alta actividad. Van a ir bajo tierra. Para mil novecientos cincuenta y tres existe un almacenamiento de residuos líquidos de alta actividad: tanques de acero inoxidable sobre una base de hormigón. Visto en corte, parece resuelto: el acero contiene, el hormigón sostiene, la tierra tapa. Pero los residuos no se apagan al enterrarlos. Siguen produciendo calor, y ese calor tiene que ir a alguna parte. Enterrarlos no resolvía la pregunta decisiva: qué mantenía fríos esos residuos.",
+   "ids_usados": [
+    "T10"
+   ]
+  },
+  {
+   "beat": 6,
+   "cap": 4,
+   "texto": "La respuesta era agua. Agua que circula alrededor de los tanques y se lleva el calor. En marzo de mil novecientos cincuenta y siete se detectan las primeras deficiencias del almacén. No reciben atención. En uno de esos tanques hay entre setenta y ochenta toneladas de residuo radiactivo líquido, y ese residuo sigue generando calor por sí mismo, día y noche, mientras la refrigeración falla y el nivel del agua baja. Sin agua que se lo lleve, el calor se queda adentro. El tanque llega a unos trescientos cincuenta grados. Durante meses, lo que pasa ahí abajo cabe en un informe que nadie atiende. La siguiente señal ya no va a salir de un informe.",
+   "ids_usados": [
+    "D156",
+    "D180"
+   ]
+  },
+  {
+   "beat": 7,
+   "cap": 4,
+   "texto": "Veintinueve de septiembre. A la una y cuarenta de la tarde, la brigada del complejo S-3 empieza su turno como cualquier otro. Afuera hay un partido en curso. En algún momento de la tarde, por encima del complejo, aparece humo amarillo. Los que juegan lo miran. Son las cuatro y veintidós, aunque otra versión dice las cuatro y veinte. El humo viene del almacenamiento. Lo que sigue ya no puede repararse.",
+   "ids_usados": []
+  },
+  {
+   "beat": 8,
+   "cap": 5,
+   "texto": "El tanque ya no se enfría. Adentro, el calor sigue. El contenido recalentado reacciona, una reacción química, dirá después una de las explicaciones, y lo que tiene encima es una losa de hormigón de ciento sesenta toneladas. La losa sale despedida. Dentro del edificio, un hombre es levantado del piso y lanzado contra el suelo. Cae. Se incorpora, sale a la calle y mira hacia el cerro: contó que \"vio que donde se elevaba la colina del complejo S-3 había una alta columna de polvo blanco, detrás de la cual no se veía nada\".",
+   "ids_usados": [
+    "D127"
+   ]
+  },
+  {
+   "beat": 8,
+   "cap": 5,
+   "texto": "La columna se va con el viento. La nube cubre instalaciones de Mayak, una estación de bomberos, unidades militares y un campo de prisioneros, y no se detiene en la cerca. El rastro se alarga unos trescientos kilómetros; otras fuentes hablan de más. Al día siguiente empiezan a movilizar hombres para entrar a limpiar. Entre ellos está Lev Nikolaevich Gaev, el padre de Nadezhda Kutepova. Lo siguiente no será una explicación. Será agua sobre el pavimento.",
+   "ids_usados": [
+    "D84"
+   ]
+  },
+  {
+   "beat": 9,
+   "cap": 5,
+   "texto": "Las mangueras. Las dotaciones lavan las carreteras, la explanada y los vehículos con chorros de espuma y agua. La espuma corre por el pavimento, pasa entre las ruedas de los camiones y se va por donde puede. Los bomberos llevan lo de siempre: el mono de lona, el casco, los guantes. Los primeros días no hay mascarillas. Lavan lo que se ve. Lo que no se ve ya salió del recinto. Después de las mangueras, la orden llegará a una cosecha.",
+   "ids_usados": []
+  },
+  {
+   "beat": 10,
+   "cap": 6,
+   "texto": "Al día siguiente de la explosión, en Karabolka, los escolares reciben una orden: la cosecha que habían recogido hay que volver a enterrarla. Lo que salió de la tierra vuelve a la tierra, con los mismos chicos que la juntaron. No hay anuncio que les diga por qué. Las autoridades no hablan del accidente en público durante los primeros días ni las primeras semanas. Ese mismo día empieza una evacuación desde la zona contaminada hacia la ciudad, por carreteras lavadas de manera incompleta. Los camiones pasan por donde el agua no llegó. Las aldeas no son el único lugar donde los relatos dejan de coincidir.",
+   "ids_usados": []
+  },
+  {
+   "beat": 11,
+   "cap": 6,
+   "texto": "Dentro del recinto, los soldados-bomberos terminan el lavado. Cuando llega la comida, muchos no la tocan. Sienten debilidad, náuseas, y la rechazan. Durante esos trabajos no se hizo un control dosimétrico adecuado: nadie midió cuánto recibió cada uno. Los síntomas quedaron en el documento. La cifra de cada hombre, no. Fuera del recinto, alguien iba a intentar explicar lo que esos recuentos no cerraban.",
+   "ids_usados": []
+  },
+  {
+   "beat": 12,
+   "cap": 6,
+   "texto": "En mil novecientos sesenta, Lev Tumerman recorre la carretera entre Cheliábinsk y Sverdlovsk. De ese tramo queda un relato: a unos cien kilómetros de Sverdlovsk, una señal advierte a los conductores que no se detengan durante los siguientes veinte o treinta kilómetros y que los atraviesen a máxima velocidad. \"A ambos lados de la carretera, hasta donde alcanzaba la vista, la tierra estaba «muerta»\", dice ese relato.",
+   "ids_usados": [
+    "T52",
+    "Q09"
+   ]
+  },
+  {
+   "beat": 12,
+   "cap": 6,
+   "texto": "Tumerman preguntó. \"La lluvia radiactiva era consecuencia de una gran explosión nuclear en una planta nuclear militar cerca de Kyshtym\", le dijeron muchas personas en Sverdlovsk y Belpyarsk, según él mismo contó. Para ellos había sido una explosión nuclear. Era lo que se contaba de una ciudad a otra, sin que nadie lo dijera en público.",
+   "ids_usados": []
+  },
+  {
+   "beat": 12,
+   "cap": 6,
+   "texto": "Después, Zhores Medvedev pone el caso por escrito. Fuertes vientos llevaron las nubes radiactivas a cientos de millas, escribe, y sigue: \"Decenas de miles de personas resultaron afectadas y cientos murieron, aunque las cifras reales nunca se han hecho públicas\". En mil novecientos ochenta y dos, un informe responde. Sus autores están en completo desacuerdo con que la causa fuera un accidente de desechos nucleares, y proponen otra cosa: una explosión química de nitrato de amonio y hexano, no una explosión nuclear, como mecanismo de dispersión de los contaminantes. Testigos que hablan de una explosión nuclear, un científico que habla de muertos sin cifra, un informe que habla de química. Que el accidente entrara en la discusión no decidía quién podía reclamar por él.",
+   "ids_usados": [
+    "D96",
+    "D116"
+   ]
+  },
+  {
+   "beat": 13,
+   "cap": 7,
+   "texto": "Nadezhda Kutepova fundó Planeta de las Esperanzas después de una conferencia ecológica. Desde ahí acompaña los reclamos: viudas, liquidadores, gente de las aldeas. Pero la ayuda tiene bordes. Uno de los que trabajaron con esos reclamos lo resume así: \"La población de los pueblos y aldeas donde el reasentamiento se realizó parcialmente no recibe ayuda social\". Si la aldea se vació entera, hay reclamo. Si se vació a medias, no. Y los documentos que podrían probar una exposición siguen bajo secreto de Estado; Kamynin señala que ese secreto dificulta usarlos. En uno de esos reclamos, el límite se trazó dentro de una madre.",
+   "ids_usados": []
+  },
+  {
+   "beat": 14,
+   "cap": 7,
+   "texto": "La ley distingue entre la mujer expuesta y el hijo que llevaba adentro cuando la expusieron. Kutepova no acepta la distinción: \"¿Cómo se puede separar a la madre y al feto si forman un todo y los factores nocivos afectan con mayor intensidad al feto?\". ¿Cuántas personas afectadas por Mayak quedaron fuera del reconocimiento y de la reparación estatal?",
+   "ids_usados": []
+  }
+ ],
+ "bloqueantes": [],
+ "metricas": {
+  "duras_v3": [
+   "cap 1: 215 palabras: el máximo del cap es 126 (objetivo 110)",
+   "cap 1: usaste 0 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [Q16] «estando junto al panel de instrumentos y sintiendo una fuerte sacudida de la tierra, escuchó un estruendo, y fue arrojado hacia afuera con las puertas. / estando junto al panel de instrumentos y sintiendo una fuerte sacudida de la tierra, escuchó un estruendo, y fue arrojado hacia afuera con las puertas.»; [Q23] «Nadia, no queremos ni un solo precedente para que en la región las viudas de los liquidadores de 'Mayak' reciban algo de dinero / Nadia, no queremos ni un solo precedente para que en la región las viudas de los liquidadores de 'Mayak' reciban algo de dinero»",
+   "cap 1: comillas solo para las citas del pool (la frase del research va sin comillas): «oyó un estruendo y fue arrojado afuera junto con las puertas…»; «Nadia, no queremos ni un solo precedente para que en la regi…»",
+   "cap 1: el cierre tiene que anticipar el dato concreto del cap 2: «Nadezhda Ivanovna Kozlova, abuela de Nadezhda Kutepova, llegó para construir la planta May» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 2: 109 palabras: el mínimo del cap es 196 (objetivo 230); contá más hechos del beat con escenas, no adjetivos",
+   "cap 2: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T04] «1948»; [D147] «Stalin encargó a Kurchatov la creación de armas nu»",
+   "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «los niños estaban muy contentos con lo que le pasaba al río: peces muertos flotaban panza » (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 3: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q19] «los niños estaban muy contentos con lo que le pasaba al río: peces muertos flotaban panza arriba. / los niños estaban muy contentos con lo que le pasaba al río: peces muertos flotaban panza arriba. Los atrapaban y los asaban con gusto en la orilla.»; [D70] «Entre 1949 y 1956, la planta Mayak realizó vertido»; [Q20] «el pescado que traían de la región de Chelyabinsk, cuando lo ponían sobre papel de rayos X, instantáneamente daba una imagen igual a una radiografía. / el pescado que traían de la región de Chelyabinsk, cuando lo ponían sobre papel de rayos X, instantáneamente daba una imagen igual a una radiografía.»; [D179] «La instalación de almacenamiento subterránea para »",
+   "cap 3: comillas solo para las citas del pool (la frase del research va sin comillas): «Los niños estaban muy contentos con lo que ocurría en el río…»; «El pescado que traían de la región de Cheliábinsk, al coloca…»",
+   "cap 4: 187 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 4: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D125] «70 / 80»; [T25] «29 de septiembre»; [T23] «29 de septiembre»",
+   "cap 4: fechas: contaste [T25] sin su fecha (29 de septiembre): «En uno de esos tanques hay entre setenta y ochenta toneladas de residu…» | contaste [T23] sin su fecha (29 de septiembre): «A la una y cuarenta de la tarde, la brigada del complejo S-3 empieza s…»",
+   "cap 4: el cierre tiene que anticipar el dato concreto del cap 5: «La losa de hormigón que cubría el cañón pesaba 160 toneladas y fue arrojada a 25 metros de» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 5: usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D83] «Debido a una falla en el sistema de refrigeración,»; [Q17] «después de la explosión fue lanzado por los aires y arrojado al suelo. / después de la explosión fue lanzado por los aires y arrojado al suelo. Al levantarse y salir a la calle, vio que en el lugar donde se elevaba la colina del complejo S-3, había una alta columna de polvo blanco, detrás de la cual no se veía nada.»; [D39] «La nube radiactiva cubrió las instalaciones de May»; [T31] «30 de septiembre»; [D44] «Los bomberos limpiaron las carreteras con chorros »; [D51] «Los bomberos trabajaron con monos de lona, cascos »",
+   "cap 5: comillas solo para las citas del pool (la frase del research va sin comillas): «vio que donde se elevaba la colina del complejo S-3 había un…»",
+   "cap 6: 417 palabras: el máximo del cap es 286 (objetivo 249)",
+   "cap 6: cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «una explosion nuclear» ×3",
+   "cap 6: comillas solo para las citas del pool (la frase del research va sin comillas): «A ambos lados de la carretera, hasta donde alcanzaba la vist…»; «, dice ese relato.\n\nTumerman preguntó.…»; «, le dijeron muchas personas en Sverdlovsk y Belpyarsk, segú…»",
+   "cap 6: fechas: contaste [T32] sin su fecha (30 de septiembre): «Al día siguiente de la explosión, en Karabolka, los escolares reciben …» | contaste [T30] sin su fecha (30 de septiembre): «Ese mismo día empieza una evacuación desde la zona contaminada hacia l…»",
+   "cap 6: el cierre tiene que anticipar el dato concreto del cap 7: «La población de aquellos pueblos y aldeas donde el reasentamiento se llevó a cabo parcialm» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 7: 162 palabras: el máximo del cap es 161 (objetivo 140)",
+   "cap 7: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q04] «La población de aquellos pueblos y aldeas donde el reasentamiento se llevó a cabo parcialmente no recibe ayuda social. / La población de aquellos pueblos y aldeas donde el reasentamiento se llevó a cabo parcialmente no recibe ayuda social. En la región de Cheliábinsk, estos son los pueblos de Brodokalmak y Nizhnepetropavlovskoye. La aldea de Russkaya Techa, ubicada entre ellos, quedó completamente privada de apoyo estatal. Parte de sus habitantes abandonaron la aldea, otros continúan viviendo en el territorio contaminado. Ninguno de ellos ha sido reconocido como víctima.»; [D163] «La organización pública 'Planeta de las Esperanzas»; [D79] «Según V.D. Kamynin, incluso en la actualidad se ma»; [Q22] «¿cómo se puede separar a la madre y al feto si son un todo único, y el feto se ve más afectado por factores nocivos? / ¿cómo se puede separar a la madre y al feto si son un todo único, y el feto se ve más afectado por factores nocivos? Fueron inflexibles: el individuo no existía, por lo tanto, no tiene derecho a ningún beneficio.»",
+   "cap 7: comillas solo para las citas del pool (la frase del research va sin comillas): «La población de los pueblos y aldeas donde el reasentamiento…»; «¿Cómo se puede separar a la madre y al feto si forman un tod…»",
+   "beat 1: 1 frase(s) de más de 30 palabras (36)",
+   "beat 2: ninguna frase de 6 palabras o menos",
+   "beat 2: 1 frase(s) de más de 30 palabras (31)",
+   "beat 3: 1 frase(s) de más de 30 palabras (37)",
+   "beat 6: 1 frase(s) de más de 30 palabras (37)",
+   "beat 8: 1 frase(s) de más de 30 palabras (39)",
+   "beat 10: ninguna frase de 6 palabras o menos",
+   "beat 12: 3 frase(s) de más de 30 palabras (40)",
+   "beat 14: ninguna frase de 6 palabras o menos",
+   "gancho: falta el ancla de lugar y fecha (una frase corta con el lugar y el año: «Mayak Production Association, 1957.») antes de la segunda cita",
+   "cap 4: voz de tráiler (el narrador habla del video): «Lo que sigue»",
+   "cap 3: repite frases de caps anteriores («mil novecientos cincuenta»; «mil novecientos cuarenta»; «novecientos cincuenta y»; «novecientos cuarenta y»): decilo de otra forma o no lo repitas",
+   "cap 4: repite frases de caps anteriores («cincuenta y siete»; «mil novecientos cincuenta»; «novecientos cincuenta y»): decilo de otra forma o no lo repitas",
+   "cap 6: repite frases de caps anteriores («dentro del recinto»; «fuera del recinto»; «los primeros dias»): decilo de otra forma o no lo repitas",
+   "beat 1 (párrafo 1): 8 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 2 (párrafo 2): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 4 (párrafo 4): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 4 (párrafo 5): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 7 (párrafo 8): 8 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 9 (párrafo 11): 8 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 10 (párrafo 12): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 11 (párrafo 13): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 12 (párrafo 15): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 13 (párrafo 17): 8 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 14 (párrafo 18): 3 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)"
+  ],
+  "blandas_v3": [
+   "cap 1: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D43] «1000»; [D64] «40 / 100 / 1000»; [D140] «2,5 / 3 / 1.000 / 5.000»; [D196] «1.000»; [D203] «50 / 1.000»",
+   "cap 1: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 1: 0.47 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 2: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D43] «1000»; [D64] «40 / 100 / 1000»; [D140] «2,5 / 3 / 1.000 / 5.000»; [D196] «1.000»; [D203] «50 / 1.000»",
+   "cap 2: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 2: 0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 3: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D43] «1000»; [D64] «40 / 100 / 1000»; [D138] «seis»; [D140] «2,5 / 3 / 1.000 / 5.000»; [D196] «1.000»; [D203] «50 / 1.000»",
+   "cap 3: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 3: 1.69 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 4: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D09] «3»; [D42] «10 / 300»; [D43] «1000»; [D62] «200 / 300»; [D64] «40 / 100 / 1000»; [D84] «300»; [D134] «3 / 4 horas»; [D140] «2,5 / 3 / 1.000 / 5.000»",
+   "cap 4: densidad 1.07 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 4: 1.07 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 5: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D09] «3»; [D42] «10 / 300»; [D62] «200 / 300»; [D134] «3 / 4 horas»; [D140] «2,5 / 3 / 1.000 / 5.000»; [D182] «160»",
+   "cap 5: densidad 0.79 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 5: 1.98 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 6: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D43] «1000»; [D64] «40 / 100 / 1000»; [D75] «7.500 / 20»; [D101] «100 / 150»; [D111] «15 / 20»; [D140] «2,5 / 3 / 1.000 / 5.000»; [D166] «10.500 / 25 / 30»; [D167] «100»",
+   "cap 6: la cita «A unos 100 kilómetros de Sverdlovsk, una…» va entre comillas y con su autor (Lev Tumerman) al lado",
+   "cap 6: densidad 0.24 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 6: 1.68 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 7: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 7: 0.62 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "beat 1: 107 palabras (objetivo 49 ±15 %)",
+   "beat 2: 108 palabras (objetivo 61 ±15 %)",
+   "beat 3: 109 palabras (objetivo 230 ±15 %)",
+   "beat 5: 92 palabras (objetivo 112 ±15 %)",
+   "beat 6: 115 palabras (objetivo 145 ±15 %)",
+   "beat 7: 72 palabras (objetivo 105 ±15 %)",
+   "beat 10: 105 palabras (objetivo 77 ±15 %)",
+   "beat 12: 247 palabras (objetivo 102 ±15 %)",
+   "beat 13: 103 palabras (objetivo 74 ±15 %)",
+   "párrafo 3: eco después de la cita: «Peces panza arriba.»: cortalo, que la cita quede sola"
+  ],
+  "puntaje": 24,
+  "palabras": 1579,
+  "palabras_por_cap": {
+   "1": [
+    215,
+    110
+   ],
+   "2": [
+    109,
+    230
+   ],
+   "3": [
+    237,
+    250
+   ],
+   "4": [
+    187,
+    250
+   ],
+   "5": [
+    252,
+    250
+   ],
+   "6": [
+    417,
+    249
+   ],
+   "7": [
+    162,
+    140
+   ]
+  },
+  "citas": 10,
+  "humano_caps": [
+   1,
+   2,
+   3,
+   5,
+   7
+  ],
+  "cierre": "pregunta",
+  "ecos": [
+   "párrafo 3: eco después de la cita: «Peces panza arriba.»: cortalo, que la cita quede sola"
+  ],
+  "antagonista_tipo": "institucion",
+  "antagonista_caps": [
+   1,
+   2,
+   3,
+   5,
+   7
+  ],
+  "por_cap": {
+   "1": {
+    "palabras": 215,
+    "duras": [
+     "215 palabras: el máximo del cap es 126 (objetivo 110)",
+     "usaste 0 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [Q16] «estando junto al panel de instrumentos y sintiendo una fuerte sacudida de la tierra, escuchó un estruendo, y fue arrojado hacia afuera con las puertas. / estando junto al panel de instrumentos y sintiendo una fuerte sacudida de la tierra, escuchó un estruendo, y fue arrojado hacia afuera con las puertas.»; [Q23] «Nadia, no queremos ni un solo precedente para que en la región las viudas de los liquidadores de 'Mayak' reciban algo de dinero / Nadia, no queremos ni un solo precedente para que en la región las viudas de los liquidadores de 'Mayak' reciban algo de dinero»",
+     "comillas solo para las citas del pool (la frase del research va sin comillas): «oyó un estruendo y fue arrojado afuera junto con las puertas…»; «Nadia, no queremos ni un solo precedente para que en la regi…»",
+     "el cierre tiene que anticipar el dato concreto del cap 2: «Nadezhda Ivanovna Kozlova, abuela de Nadezhda Kutepova, llegó para construir la planta May» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D43] «1000»; [D64] «40 / 100 / 1000»; [D140] «2,5 / 3 / 1.000 / 5.000»; [D196] «1.000»; [D203] «50 / 1.000»",
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "0.47 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": -1,
+    "objetivo": 110
+   },
+   "2": {
+    "palabras": 109,
+    "duras": [
+     "109 palabras: el mínimo del cap es 196 (objetivo 230); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T04] «1948»; [D147] «Stalin encargó a Kurchatov la creación de armas nu»",
+     "el cierre tiene que anticipar el dato concreto del cap 3: «los niños estaban muy contentos con lo que le pasaba al río: peces muertos flotaban panza » (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D43] «1000»; [D64] «40 / 100 / 1000»; [D140] «2,5 / 3 / 1.000 / 5.000»; [D196] «1.000»; [D203] «50 / 1.000»",
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 2,
+    "objetivo": 230
+   },
+   "3": {
+    "palabras": 237,
+    "duras": [
+     "usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q19] «los niños estaban muy contentos con lo que le pasaba al río: peces muertos flotaban panza arriba. / los niños estaban muy contentos con lo que le pasaba al río: peces muertos flotaban panza arriba. Los atrapaban y los asaban con gusto en la orilla.»; [D70] «Entre 1949 y 1956, la planta Mayak realizó vertido»; [Q20] «el pescado que traían de la región de Chelyabinsk, cuando lo ponían sobre papel de rayos X, instantáneamente daba una imagen igual a una radiografía. / el pescado que traían de la región de Chelyabinsk, cuando lo ponían sobre papel de rayos X, instantáneamente daba una imagen igual a una radiografía.»; [D179] «La instalación de almacenamiento subterránea para »",
+     "comillas solo para las citas del pool (la frase del research va sin comillas): «Los niños estaban muy contentos con lo que ocurría en el río…»; «El pescado que traían de la región de Cheliábinsk, al coloca…»"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D43] «1000»; [D64] «40 / 100 / 1000»; [D138] «seis»; [D140] «2,5 / 3 / 1.000 / 5.000»; [D196] «1.000»; [D203] «50 / 1.000»",
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "1.69 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 4,
+    "objetivo": 250
+   },
+   "4": {
+    "palabras": 187,
+    "duras": [
+     "187 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D125] «70 / 80»; [T25] «29 de septiembre»; [T23] «29 de septiembre»",
+     "fechas: contaste [T25] sin su fecha (29 de septiembre): «En uno de esos tanques hay entre setenta y ochenta toneladas de residu…» | contaste [T23] sin su fecha (29 de septiembre): «A la una y cuarenta de la tarde, la brigada del complejo S-3 empieza s…»",
+     "el cierre tiene que anticipar el dato concreto del cap 5: «La losa de hormigón que cubría el cañón pesaba 160 toneladas y fue arrojada a 25 metros de» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D09] «3»; [D42] «10 / 300»; [D43] «1000»; [D62] «200 / 300»; [D64] «40 / 100 / 1000»; [D84] «300»; [D134] «3 / 4 horas»; [D140] «2,5 / 3 / 1.000 / 5.000»",
+     "densidad 1.07 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "1.07 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 5,
+    "objetivo": 250
+   },
+   "5": {
+    "palabras": 252,
+    "duras": [
+     "usaste 2 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D83] «Debido a una falla en el sistema de refrigeración,»; [Q17] «después de la explosión fue lanzado por los aires y arrojado al suelo. / después de la explosión fue lanzado por los aires y arrojado al suelo. Al levantarse y salir a la calle, vio que en el lugar donde se elevaba la colina del complejo S-3, había una alta columna de polvo blanco, detrás de la cual no se veía nada.»; [D39] «La nube radiactiva cubrió las instalaciones de May»; [T31] «30 de septiembre»; [D44] «Los bomberos limpiaron las carreteras con chorros »; [D51] «Los bomberos trabajaron con monos de lona, cascos »",
+     "comillas solo para las citas del pool (la frase del research va sin comillas): «vio que donde se elevaba la colina del complejo S-3 había un…»"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D09] «3»; [D42] «10 / 300»; [D62] «200 / 300»; [D134] «3 / 4 horas»; [D140] «2,5 / 3 / 1.000 / 5.000»; [D182] «160»",
+     "densidad 0.79 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "1.98 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 7,
+    "objetivo": 250
+   },
+   "6": {
+    "palabras": 417,
+    "duras": [
+     "417 palabras: el máximo del cap es 286 (objetivo 249)",
+     "cada dato se dice UNA vez por cap; después parafraseá sin la cifra («ese lunes», «esa noche», «el agua»): «una explosion nuclear» ×3",
+     "comillas solo para las citas del pool (la frase del research va sin comillas): «A ambos lados de la carretera, hasta donde alcanzaba la vist…»; «, dice ese relato.\n\nTumerman preguntó.…»; «, le dijeron muchas personas en Sverdlovsk y Belpyarsk, segú…»",
+     "fechas: contaste [T32] sin su fecha (30 de septiembre): «Al día siguiente de la explosión, en Karabolka, los escolares reciben …» | contaste [T30] sin su fecha (30 de septiembre): «Ese mismo día empieza una evacuación desde la zona contaminada hacia l…»",
+     "el cierre tiene que anticipar el dato concreto del cap 7: «La población de aquellos pueblos y aldeas donde el reasentamiento se llevó a cabo parcialm» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D43] «1000»; [D64] «40 / 100 / 1000»; [D75] «7.500 / 20»; [D101] «100 / 150»; [D111] «15 / 20»; [D140] «2,5 / 3 / 1.000 / 5.000»; [D166] «10.500 / 25 / 30»; [D167] «100»",
+     "la cita «A unos 100 kilómetros de Sverdlovsk, una…» va entre comillas y con su autor (Lev Tumerman) al lado",
+     "densidad 0.24 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "1.68 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 8,
+    "objetivo": 249
+   },
+   "7": {
+    "palabras": 162,
+    "duras": [
+     "162 palabras: el máximo del cap es 161 (objetivo 140)",
+     "usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q04] «La población de aquellos pueblos y aldeas donde el reasentamiento se llevó a cabo parcialmente no recibe ayuda social. / La población de aquellos pueblos y aldeas donde el reasentamiento se llevó a cabo parcialmente no recibe ayuda social. En la región de Cheliábinsk, estos son los pueblos de Brodokalmak y Nizhnepetropavlovskoye. La aldea de Russkaya Techa, ubicada entre ellos, quedó completamente privada de apoyo estatal. Parte de sus habitantes abandonaron la aldea, otros continúan viviendo en el territorio contaminado. Ninguno de ellos ha sido reconocido como víctima.»; [D163] «La organización pública 'Planeta de las Esperanzas»; [D79] «Según V.D. Kamynin, incluso en la actualidad se ma»; [Q22] «¿cómo se puede separar a la madre y al feto si son un todo único, y el feto se ve más afectado por factores nocivos? / ¿cómo se puede separar a la madre y al feto si son un todo único, y el feto se ve más afectado por factores nocivos? Fueron inflexibles: el individuo no existía, por lo tanto, no tiene derecho a ningún beneficio.»",
+     "comillas solo para las citas del pool (la frase del research va sin comillas): «La población de los pueblos y aldeas donde el reasentamiento…»; «¿Cómo se puede separar a la madre y al feto si forman un tod…»"
+    ],
+    "blandas": [
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "0.62 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": -1,
+    "objetivo": 140
+   }
+  },
+  "ids_por_parrafo": {
+   "antes": 4.17,
+   "despues": 0.56
+  }
+ },
+ "repeticion_por_cap": {
+  "1": 1.1,
+  "2": 0.0,
+  "3": 1.0,
+  "4": 0.0,
+  "5": 0.0,
+  "6": 0.0,
+  "7": 0.0
+ },
+ "minutos": 12.8,
+ "costo": {
+  "tag": "K",
+  "paso": "guion_fable",
+  "modelo": "claude-fable-5-1",
+  "usd": 0.9474,
+  "segundos": 195.9,
+  "llamadas": [
+   {
+    "servicio": "Anthropic claude-fable-5-1",
+    "desc": "guion_v4 guionista",
+    "in": 11655,
+    "out": 16616,
+    "thinking": 0,
+    "usd": 0.9474
+   }
+  ]
+ }
+}

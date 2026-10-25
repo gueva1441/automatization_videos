@@ -48,11 +48,12 @@ LARGOS = ("objetivo", "abierto")     # F13 §1: `objetivo` = lo de F11c (byte-id
 CAP_TOL = 0.25                       # (c) cap fuera de ±25 % de su objetivo
 REGEN_GUARD = ("cifras", "nombres", "citas")   # F11b §1.2: la regeneración de un cap corto permite prosa y adjetivos
 MODELOS = ("gemini-pro", "gpt-6.1-sol", "gpt-6-astra", "gemini-4-argon",   # F11b §1.3 / F11c §1.2: `--modelo`
-           "claude-opus-5-5")                                               # F22b: Opus 5.5 (claude_helpers)
+           "claude-opus-5-5", "claude-fable-5-1")                           # F22b: Opus 5.5 · F22d: Fable 5.1
 GEMINI_PROPIOS = ("gemini-4-argon",)  # F11c §1.2: modelo propio del guionista (gemini_model_research no cambia)
-CLAUDE = ("claude-opus-5-5",)         # F22b: Messages API de Anthropic
-# F11b §2: Sol en esfuerzo high; Astra, el de la API por defecto. F22b: Opus 5.5 en high, como Sol (su defecto es medium)
-ESFUERZO = {"gpt-6.1-sol": "high", "claude-opus-5-5": "high"}
+CLAUDE = ("claude-opus-5-5", "claude-fable-5-1")   # F22b / F22d: Messages API de Anthropic
+# F11b §2: Sol en esfuerzo high; Astra, el de la API por defecto. F22b: Opus 5.5 en high, como Sol (su defecto es medium).
+# F22d: Fable 5.1 también en high
+ESFUERZO = {"gpt-6.1-sol": "high", "claude-opus-5-5": "high", "claude-fable-5-1": "high"}
 DEFAULT_MODELO = "gpt-6.1-sol"       # F12 §1 (decisión de Omar): el modelo de `call_for(None)` (escaleta, columna)
 # F22d (decisión del analista): el guion v4 (guionista + reparación) es Opus 5.5 en esfuerzo high (max_tokens 32 000,
 # claude_helpers.MAX_TOKENS); escaleta y columna siguen en DEFAULT_MODELO

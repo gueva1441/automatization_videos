@@ -21,8 +21,9 @@ from error_handler import PipelineStage
 
 URL = "https://api.anthropic.com/v1/messages"
 API_VERSION = "2026-10-21"
-# Fuente: tabla pública de precios de Anthropic (US$ por millón in / out): Opus 5.5 4 / 20, Sonnet 5.5 2 / 10.
-PRICES = {"claude-opus-5-5": (4.0, 20.0), "claude-sonnet-5-5": (2.0, 10.0)}
+# Fuente: tabla pública de precios de Anthropic (US$ por millón in / out): Opus 5.5 4 / 20, Sonnet 5.5 2 / 10;
+# F22d: Fable 5.1 10 / 50.
+PRICES = {"claude-opus-5-5": (4.0, 20.0), "claude-sonnet-5-5": (2.0, 10.0), "claude-fable-5-1": (10.0, 50.0)}
 MAX_ATTEMPTS = 3
 TIMEOUT_S = 600
 MAX_TOKENS = 32000

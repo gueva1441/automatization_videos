@@ -88,3 +88,37 @@ Riesgos que el contrato no cubre:
 - Con Opus 5.5 por defecto, el costo y el límite de salida de 32 000 tokens quedan sin tope en las corridas normales. El tope de 1.50 solo vive en el runner del laboratorio.
 - La ruta `--columna` solo está probada con tests con mocks, no con una corrida real.
 - El efecto de quitar la columna no se aísla del efecto de cambiar el modelo del guion, porque la corrida varía las dos cosas contra F22.
+
+---
+
+## 5. Adenda: segundo guion con Claude Fable 5.1 (pedido posterior de Omar)
+- **Código:** `claude_helpers.PRICES["claude-fable-5-1"] = (10, 50)` US$ por millón (tabla pública); `guion_v4.MODELOS`/`CLAUDE` + `claude-fable-5-1` con `ESFUERZO` high; `fase1_5 --modelo` lo acepta. El modelo por defecto del guion sigue siendo Opus 5.5. Prompts sin cambios.
+- **Corrida:** sobre la **misma escaleta** de F22d (`escaleta_kyshtym_f22d.json`, no se regeneró), mismo prompt v5.2 (sistema md5 `743e4f0a…`), effort high, max_tokens 32,000, una sola llamada sin reparación (como el de Opus). Sin `thinking` en el cuerpo (Fable 5.1 piensa siempre) y **sin `fallbacks`** del servidor (en una comparación de modelos, una negativa no debe re-correr en otro modelo; no hubo negativa).
+- **Resultado:** **1,579 palabras ≈ 12.8 min, 0 bloqueantes, 10 citas, 9 personas con nombre** (las mismas que Opus salvo Gaev en el cap 6; «Planeta de las Esperanzas» cuenta en las dos). Cero Cardal. US$ 0.9474 (11,655 in · 16,616 out).
+- **Tope total de la tanda subido a US$ 3.00** (pedido): escaleta 0.297 + Opus 0.4766 + Fable 0.9474 = **US$ 1.721**. Archivos: `NARRACION_kyshtym_f22d_fable.md`, `guion_kyshtym_f22d_fable.json`, `prompt_kyshtym_f22d_guion_fable.txt`, `run_fable.log`; `f22d_corridas.py fable` corre solo este paso; `f22d_tabla.py` suma la fila.
+
+#### Guion
+
+| guion | modelo | palabras | min | bloqueantes | citas | personas con nombre | cierre |
+|---|---|---|---|---|---|---|---|
+| F22d (sin columna, guion Opus) | claude-opus-5-5 | 1695 | 13.8 | 0 | 9 | 9 | pregunta |
+| F22d (sin columna, guion Fable) | claude-fable-5-1 | 1579 | 12.8 | 0 | 10 | 9 | pregunta |
+| F22 (con columna, guion Sol; ref.) | gpt-6.1-sol | 1003 | 8.2 | 0 | 6 | 6 | pregunta |
+
+#### Por cap (palabras · citas · bloqueantes · personas con nombre)
+
+| cap | F22d (sin columna, guion Opus) | F22d (sin columna, guion Fable) | F22 (con columna, guion Sol; ref.) |
+|---|---|---|---|
+| 1 | 241 pal · 2 citas · 0 bl · Nadezhda Kutepova | 215 pal · 2 citas · 0 bl · Nadezhda Kutepova | 87 pal · 0 citas · 0 bl · V. I. Komarov |
+| 2 | 174 pal · 0 citas · 0 bl · Josef Stalin, Nadezhda Ivanovna Kozlova | 109 pal · 0 citas · 0 bl · Josef Stalin, Nadezhda Ivanovna Kozlova | 75 pal · 0 citas · 0 bl · V. I. Komarov |
+| 3 | 241 pal · 2 citas · 0 bl · Lyubov Ladeyshchikova | 237 pal · 2 citas · 0 bl · Lyubov Ladeyshchikova | 143 pal · 1 citas · 0 bl · Lyubov Ladeyshchikova, V. I. Komarov |
+| 4 | 166 pal · 0 citas · 0 bl · — | 186 pal · 0 citas · 0 bl · — | 113 pal · 0 citas · 0 bl · — |
+| 5 | 279 pal · 1 citas · 0 bl · Lev Nikolaevich Gaev | 251 pal · 1 citas · 0 bl · Lev Nikolaevich Gaev, Nadezhda Kutepova | 149 pal · 2 citas · 0 bl · V. I. Komarov |
+| 6 | 404 pal · 2 citas · 0 bl · Lev Nikolaevich Gaev, Lev Tumerman, Zhores Medvedev | 416 pal · 3 citas · 0 bl · Lev Tumerman, Zhores Medvedev | 129 pal · 0 citas · 0 bl · — |
+| 7 | 188 pal · 2 citas · 0 bl · Nadezhda Kutepova, Planeta de las Esperanzas, V. D. Kamynin | 162 pal · 2 citas · 0 bl · Nadezhda Kutepova, Planeta de las Esperanzas, V. D. Kamynin | 295 pal · 3 citas · 1 bl · Lev Tumerman, Nadezhda Kutepova, Planeta de las Esperanzas, V. I. Komarov, Zhores Medvedev |
+
+Costo F22d: escaleta US$ 0.297 · guion US$ 0.4766 · guion_fable US$ 0.9474 · total US$ 1.721 de 3.00 (1.50 en la primera corrida).
+
+## 6. Veredicto del revisor-handoff sobre la adenda (íntegro)
+
+REVISOR_PENDIENTE

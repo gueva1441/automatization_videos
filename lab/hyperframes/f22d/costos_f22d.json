@@ -47,7 +47,24 @@
      "usd": 0.4766
     }
    ]
+  },
+  {
+   "tag": "K",
+   "paso": "guion_fable",
+   "modelo": "claude-fable-5-1",
+   "usd": 0.9474,
+   "segundos": 195.9,
+   "llamadas": [
+    {
+     "servicio": "Anthropic claude-fable-5-1",
+     "desc": "guion_v4 guionista",
+     "in": 11655,
+     "out": 16616,
+     "thinking": 0,
+     "usd": 0.9474
+    }
+   ]
   }
  ],
- "usd_total": 0.7736
+ "usd_total": 1.721
 }

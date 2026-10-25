@@ -685,7 +685,7 @@ def main():
                         help="F11: con --v3, el guionista v4 (una llamada → reparación de una ronda); también corre "
                              "si el topic tiene guion_version == 4")
     parser.add_argument("--modelo", choices=("gemini-pro", "gpt-6.1-sol", "gpt-6-astra", "gemini-4-argon",
-                                             "claude-opus-5-5"), default=None,
+                                             "claude-opus-5-5", "claude-fable-5-1"), default=None,
                         help="F11b: con --guion v4, el modelo de toda la cadena v4 (guionista + reparación); el juez "
                              "es el de siempre")
     parser.add_argument("--sin-columna", dest="sin_columna", action="store_true",

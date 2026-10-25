@@ -7,7 +7,10 @@ Tope US$ 1.50 (costos_f22d.json): antes de cada llamada, lo gastado + el peor ca
 de salida) no puede pasarlo; una facturación por llamada. Escaleta con sus 13 bloqueantes y una regeneración; guion
 sin reparación (como F16–F22c). La escaleta no se guarda en `_steps`. Cada paso se saltea si su salida ya existe.
 Salidas: ESCALETA_kyshtym.md, escaleta_kyshtym_f22d.json, NARRACION_kyshtym_f22d.md, guion_kyshtym_f22d.json.
-Uso: python -I lab/hyperframes/f22d/f22d_corridas.py
+Además (pedido de Omar): un segundo guion sobre la MISMA escaleta con claude-fable-5-1 (mismo prompt v5.2, effort
+high, max_tokens 32 000) → NARRACION_kyshtym_f22d_fable.md, guion_kyshtym_f22d_fable.json. Tope total de la tanda
+(Opus + Fable + escaleta): US$ 3.00.
+Uso: python -I lab/hyperframes/f22d/f22d_corridas.py [opus fable]   (sin argumentos: escaleta + opus)
 """
 from __future__ import annotations
 
@@ -23,7 +26,9 @@ F22 = LAB.parent / "f22"
 sys.path[:0] = [str(LAB), str(ROOT), str(F22), str(LAB.parent / "f22b"), str(LAB.parent / "f22c"), str(LAB.parent / "f13")]
 import f22c_corridas as f22c  # noqa: E402
 
-f22c.TOPE = 1.50                                   # make_call y _add_cost leen estos globales al llamar
+f22c.TOPE = 3.00                                   # make_call y _add_cost leen estos globales al llamar
+#                                                    (1.50 en la primera corrida; 3.00 total con Fable)
+f22c.MAX_OUT["claude-fable-5-1"] = 32000
 f22c.COSTOS = LAB / "costos_f22d.json"
 TEMA = "kyshtym"
 
@@ -71,27 +76,29 @@ def escaleta() -> dict | None:
     return esc
 
 
-def guion(esc: dict) -> None:
+def guion(esc: dict, modelo: str | None = None, sufijo: str = "") -> None:
+    """Guion v5.2 sobre `esc` con `modelo` (por defecto, `guion_v4.DEFAULT_MODELO_GUION`); `sufijo` («_fable») va en
+    los nombres de salida."""
     import f22_corridas as f22
     from cost_tracker import cost_tracker
     from f13_corridas import PALABRAS_POR_SEG, repeticion_interna
     from f22b_corridas import narracion as narracion_md
     from script_engine import guion_v4 as g4
     from script_engine import m01b_guionista as mg
-    out = LAB / "guion_kyshtym_f22d.json"
+    out = LAB / f"guion_kyshtym_f22d{sufijo}.json"
     if out.exists():
         print("[guion] ya existe: se saltea", flush=True)
         return
-    modelo, version = g4.DEFAULT_MODELO_GUION, g4.PROMPT_VERSION
+    modelo, version = modelo or g4.DEFAULT_MODELO_GUION, g4.PROMPT_VERSION
     ficha, topic = f22._ficha(TEMA), f22._topic(TEMA)
     sis, usr = g4.system(version), g4.prompt(topic, esc, ficha=ficha, version=version)
-    (LAB / "prompt_kyshtym_f22d_guion.txt").write_text(
+    (LAB / f"prompt_kyshtym_f22d_guion{sufijo}.txt").write_text(
         f"===== SISTEMA (md5 {f22c._md5(sis)}) =====\n{sis}\n\n===== USUARIO (md5 {f22c._md5(usr)}) =====\n{usr}\n",
         encoding="utf-8")
     res: dict = {"tema": TEMA, "modelo": modelo, "esfuerzo": g4.ESFUERZO.get(modelo), "version": version,
                  "max_tokens": f22c.MAX_OUT[modelo],
                  "prompt_md5": {"sistema": f22c._md5(sis), "usuario": f22c._md5(usr)}, "nota_b": g4.nota_b()}
-    cost_tracker.start_video("f18-kyshtym-mayak-f22d-guion")
+    cost_tracker.start_video(f"f18-kyshtym-mayak-f22d-guion{sufijo}")
     t0 = time.time()
     try:
         g = g4.write(topic, esc, call=f22c.make_call(modelo), ficha=ficha, version=version)
@@ -106,14 +113,14 @@ def guion(esc: dict) -> None:
         res["traceback"] = traceback.format_exc()[-2000:]
     finally:
         rep = cost_tracker.end_video()
-    res["costo"] = f22c._add_cost("K", "guion", modelo, rep, t0)
+    res["costo"] = f22c._add_cost("K", f"guion{sufijo}", modelo, rep, t0)
     f22c._write(out, res)
     if res.get("parrafos"):
-        (LAB / "NARRACION_kyshtym_f22d.md").write_text(
+        (LAB / f"NARRACION_kyshtym_f22d{sufijo}.md").write_text(
             narracion_md("K", esc, res, ficha, topic, modelo=modelo, version=version, tema="Kyshtym", fase="F22d",
                          escaleta_txt="Escaleta v2.1 sin columna (Sol, F22d)"), encoding="utf-8")
     m = res.get("metricas") or {}
-    print("[guion] " + (f"ERROR {res['error']} · " if res.get("error") else "")
+    print(f"[guion{sufijo}] " + (f"ERROR {res['error']} · " if res.get("error") else "")
           + (f"{m['palabras']} palabras ≈ {res['minutos']} min · bloqueantes {len(res['bloqueantes'])} · citas "
              f"{m['citas']}" if m else ""), flush=True)
 
@@ -121,9 +128,13 @@ def guion(esc: dict) -> None:
 def main() -> None:
     sys.stdout.reconfigure(encoding="utf-8")
     try:
+        pedidos = [a for a in sys.argv[1:] if a in ("opus", "fable")] or ["opus"]
         esc = escaleta()
         if esc is not None:
-            guion(esc)
+            if "opus" in pedidos:
+                guion(esc)
+            if "fable" in pedidos:
+                guion(esc, "claude-fable-5-1", "_fable")
     except f22c.Parada as x:
         print(f"PARADA: {x}", flush=True)
     print(f"tanda US$ {f22c._gastado():.4f}", flush=True)

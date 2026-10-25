@@ -26,7 +26,10 @@ def main() -> None:
     from script_engine import guion_v4 as g4
     pool, ficha = _j(STEPS / "00_pool_v3.json"), _j(STEPS / "ficha_caso.json")
     filas = [("F22d (sin columna, guion Opus)", _j(LAB / "escaleta_kyshtym_f22d.json"), _j(LAB / "guion_kyshtym_f22d.json")),
+             ("F22d (sin columna, guion Fable)", _j(LAB / "escaleta_kyshtym_f22d.json"),
+              _j(LAB / "guion_kyshtym_f22d_fable.json")),
              ("F22 (con columna, guion Sol; ref.)", _j(F22 / "escaleta_kyshtym_f22.json"), _j(F22 / "guion_kyshtym_f22.json"))]
+    filas = [f for f in filas if f[2] and f[2].get("parrafos")]
     L = ["| escaleta | beats | beats por cap | ids totales | a_pantalla | apoyos/beat | palabras de imagen (total · por beat) "
          "| intentos (bloqueantes) | humano | antagonista |", "|---|---|---|---|---|---|---|---|---|---|"]
     T = ["| escaleta | promesa_gancho | cierre_humano |", "|---|---|---|"]
@@ -58,7 +61,7 @@ def main() -> None:
                    + ["", "#### Guion", ""] + G + ["", "#### Por cap (palabras · citas · bloqueantes · personas con nombre)",
                                                    ""] + P
                    + ["", "Costo F22d: " + " · ".join(f"{x['paso']} US$ {x['usd']}" for x in c.get("etapas") or [])
-                      + f" · total US$ {c.get('usd_total')} de 1.50."]) + "\n"
+                      + f" · total US$ {c.get('usd_total')} de 3.00 (1.50 en la primera corrida)."]) + "\n"
     (LAB / "tabla_f22d.md").write_text(md, encoding="utf-8")
     print(md)
 
