@@ -1,0 +1,62 @@
+{
+  "etapas": {
+    "preparar": {
+      "por_servicio": {
+        "Gemini 2.5 Flash": 0.0683
+      },
+      "usd": 0.0683
+    },
+    "particion": {
+      "por_servicio": {
+        "Gemini 2.5 Flash": 0.0056
+      },
+      "usd": 0.0056
+    },
+    "audio": {
+      "por_servicio": {
+        "ElevenLabs": 0.414,
+        "Gemini 2.5 Flash": 0.0183
+      },
+      "usd": 0.4323
+    },
+    "m03_intento1": {
+      "por_servicio": {
+        "Gemini 2.5 Flash": 0.3629,
+        "Gemini 2.5 Pro": 0.815
+      },
+      "usd": 1.1779,
+      "nota": "falló (AttributeError); corregido a mano: el tracker del proceso acumulaba el audio",
+      "plan_imagenes": {
+        "segundos_por_imagen": 10.75,
+        "por_cap": {
+          "1": 9,
+          "2": 13,
+          "3": 13,
+          "4": 11,
+          "5": 15,
+          "6": 16,
+          "7": 15
+        },
+        "total": 92,
+        "duraciones": {
+          "1": 94.8,
+          "2": 130.0,
+          "3": 126.4,
+          "4": 118.72,
+          "5": 166.0,
+          "6": 164.72,
+          "7": 180.16
+        }
+      }
+    },
+    "m03_intento2": {
+      "por_servicio": {
+        "Gemini 2.5 Flash": 0.2559,
+        "Gemini 2.5 Pro": 0.8892
+      },
+      "usd": 1.1451
+    }
+  },
+  "usd": 2.8292,
+  "gemini_usd": 2.4152
+}

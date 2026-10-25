@@ -1,0 +1,67 @@
+{
+  "notas": [
+    "cap 1: 1325 caracteres > 986 y no se pudo mover ni acortar (aviso)",
+    "cap 5: 2246 caracteres > 2242 y no se pudo mover ni acortar (aviso)",
+    "cap 6: 2345 caracteres > 2242 y no se pudo mover ni acortar (aviso)",
+    "cap 7: 2414 caracteres > 1255 y no se pudo mover ni acortar (aviso)"
+  ],
+  "log": [
+    "  [01d] cap 1: 1325 caracteres > 986 y no se pudo mover ni acortar (aviso)",
+    "  [01d] cap 5: 2246 caracteres > 2242 y no se pudo mover ni acortar (aviso)",
+    "  [01d] cap 6: 2345 caracteres > 2242 y no se pudo mover ni acortar (aviso)",
+    "  [01d] cap 7: 2414 caracteres > 1255 y no se pudo mover ni acortar (aviso)"
+  ],
+  "caps": [
+    {
+      "cap": 1,
+      "intent": null,
+      "titulo": null,
+      "palabras": 253
+    },
+    {
+      "cap": 2,
+      "intent": null,
+      "titulo": null,
+      "palabras": 327
+    },
+    {
+      "cap": 3,
+      "intent": null,
+      "titulo": null,
+      "palabras": 281
+    },
+    {
+      "cap": 4,
+      "intent": null,
+      "titulo": null,
+      "palabras": 282
+    },
+    {
+      "cap": 5,
+      "intent": null,
+      "titulo": null,
+      "palabras": 391
+    },
+    {
+      "cap": 6,
+      "intent": null,
+      "titulo": null,
+      "palabras": 406
+    },
+    {
+      "cap": 7,
+      "intent": null,
+      "titulo": null,
+      "palabras": 411
+    }
+  ],
+  "palabras_guion_por_cap": {
+    "1": 253,
+    "2": 327,
+    "3": 281,
+    "4": 282,
+    "5": 391,
+    "6": 406,
+    "7": 411
+  }
+}

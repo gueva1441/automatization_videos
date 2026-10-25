@@ -1,0 +1,50 @@
+Traceback (most recent call last):
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f26\b\f26b_produccion.py", line 261, in guion
+    f15.assign_visual_prompts(topic, skeleton, narration, sync_map=sm)
+  File "C:\CLAUDE_PROJECTS\automatization_videos\script_engine\m03_visual.py", line 2704, in assign_visual_prompts
+    _cap_results[_cfuts[_cf]] = _cf.result()   # re-lanza excepción del cap
+                                ^^^^^^^^^^^^
+  File "C:\Users\Canada\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Canada\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\Canada\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\script_engine\m03_visual.py", line 2630, in _process_one_cap
+    cap_out = _render_prompts_seedream_veo(topic, sch, narration_text, plan, veo_position, cap_n)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\script_engine\m03_visual.py", line 2408, in _render_prompts_seedream_veo
+    seed_out = _render_prompts_seedream(topic, cap_data, narration, synth_plan, cap_number)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\script_engine\m03_visual.py", line 1045, in _render_prompts_seedream
+    _f.result()   # re-lanza la 1ª excepción (falla el cap, como la versión secuencial)
+    ^^^^^^^^^^^
+  File "C:\Users\Canada\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Canada\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "C:\Users\Canada\AppData\Local\Programs\Python\Python311\Lib\concurrent\futures\thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\script_engine\m03_visual.py", line 1030, in _fluidify_one
+    it["prompt"] = _fluidify_with_leakage_guard(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\script_engine\m03_visual.py", line 767, in _fluidify_with_leakage_guard
+    prose = _fluidify_item(it, locked, profile, f"cap {cap_number} img #{i}",
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\script_engine\m03_visual.py", line 712, in _fluidify_item
+    out = call_flash_json(user, system_instruction=FLUIDIFICADOR_SYSTEM,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\gemini_helpers.py", line 158, in call_flash_json
+    return _parse_with_retry(_get_text)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\gemini_helpers.py", line 107, in _parse_with_retry
+    return _try_json_parse(raw)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\gemini_helpers.py", line 46, in _try_json_parse
+    text = raw_text.strip()
+           ^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'strip'

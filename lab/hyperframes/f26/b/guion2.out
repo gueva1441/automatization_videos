@@ -1,0 +1,37 @@
+  [03] cap 1 (veo, pos=start) → 1 clip Veo 8s + 8 Flux extras (audio 94.8s, veo_zone≈111 chars), slots Pro + weave Flash...
+  [03] cap 2 (flux) → 13 imgs (audio 130.0s ÷ 10.75s target, role=development), slots Pro + weave Flash...
+  [03] cap 3 (flux) → 13 imgs (audio 126.4s ÷ 10.75s target, role=development), slots Pro + weave Flash...
+  [03] cap 4 (flux) → 11 imgs (audio 118.7s ÷ 10.75s target, role=development), slots Pro + weave Flash...
+  [03] cap 5 (flux) → 15 imgs (audio 166.0s ÷ 10.75s target, role=development), slots Pro + weave Flash...
+  [03] cap 6 (flux) → 16 imgs (audio 164.7s ÷ 10.75s target, role=development), slots Pro + weave Flash...
+  [03] cap 7 (veo, pos=end) → 1 clip Veo 8s + 14 Flux extras (audio 180.2s, veo_zone≈107 chars), slots Pro + weave Flash...
+  [03] cap 4: validación falló intento 1/3: cap 4 (plan flux) anchor 10: el narration_anchor NO es substring exacto.
+  ANCHOR QUE ENVIASTE (parafraseado, INVÁLIDO):...
+  [03] cap 7: validación falló intento 1/3: cap 7 (plan veo) supp 5: el narration_anchor NO es substring exacto.
+  ANCHOR QUE ENVIASTE (parafraseado, INVÁLIDO):
+   ...
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+  [03] cap 6: validación falló intento 1/3: cap 6 (plan flux) anchor 7: el narration_anchor NO es substring exacto.
+  ANCHOR QUE ENVIASTE (parafraseado, INVÁLIDO):
+...
+  ⚠ [m03] cap 1 img #2: FIT — 2 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 22 (+length), 3,40 (+length)
+  ⚠ [m03] cap 1 img #9: FIT — 1 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 2 (+length)
+  ⚠ [m03] cap 2 img #4: FIT — 2 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 22 (+length), 3,40 (+length)
+  ⚠ [m03] cap 2 img #5: reglas F8 DEGRADADAS ([('menor en daño', 'A wide shot depicts Italian villagers of Longarone in the 1950s, strolling throu')]) → frase sacada (run sigue).
+  [03] cap 2 (flux) ✓ 13 imgs validadas
+  ⚠ [m03] cap 3 img #11: FIT — 2 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 22 (+length), 3,40 (+length)
+  [03] cap 4 (flux) ✓ 11 imgs validadas
+  ⚠ [m03] cap 7 img #5: FIT — 4 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 22 (+length), 3,40 (+length), 250 (+length), 2 (+length)
+  ⚠ [m03] cap 5 img #6: FIT — 2 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 22 (+length), 3,40 (+length)
+  [03] cap 3 (flux) ✓ 13 imgs validadas
+  ⚠ [m03] cap 7 img #1: reglas F8 DEGRADADAS ([('menor en daño', "A medium shot depicts an empty child's bed with a simple wooden frame, sitting c")]) → frase sacada (run sigue).
+  [03] cap 5 (flux) ✓ 15 imgs validadas
+  [03] cap 7 (veo)  ✓ Veo prompt + 14 supplementals
+  ⚠ [m03] cap 6 img #3: FIT — 3 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 262 (+length), 22 (+length), 3,40 (+length)
+  ⚠ [m03] cap 6 img #16: reglas F8 DEGRADADAS ([('menor en daño', 'A medium shot captures a line of weary Italian villagers, including children and')]) → frase sacada (run sigue).
+  ⚠ [m03] cap 6 img #10: reglas F8 DEGRADADAS ([('menor en daño', 'A medium shot of a young Italian girl, her clothes and hair soaked and matted wi')]) → frase sacada (run sigue).
+  ⚠ [m03] cap 6 img #9: reglas F8 DEGRADADAS ([('menor en daño', "A medium shot depicts a simple child's wooden bed being lifted and tossed violen")]) → frase sacada (run sigue).
+  [03] cap 6 (flux) ✓ 16 imgs validadas
+[2026-10-25 05:14:59] F26 §B Vajont · etapa guion
+guion: plan de imágenes 92 ({1: 9, 2: 13, 3: 13, 4: 11, 5: 15, 6: 16, 7: 15}) a 10.75 s por imagen; duraciones {1: 95, 2: 130, 3: 126, 4: 119, 5: 166, 6: 165, 7: 180} = 16.3 min
+PARADA: m03 (2.º intento): AttributeError: 'NoneType' object has no attribute 'strip' (traceback en m03_traceback.txt)
