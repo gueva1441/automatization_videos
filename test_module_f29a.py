@@ -149,3 +149,29 @@ def test_critico_parejo(tmp_path):
     assert plan["quote_card"] is None                                                        # la cita perdió la reserva
     assert {r["texto"]: r["pasa"] for r in rows} == {"recorte reservado": False, "reservado que estorba": True,
                                                       "una cita que estorba": False}
+
+
+def test_pico_sin_pico_de_gfx_peak_sale_de_la_escaleta(tmp_path):
+    carga, pool = _datos()
+    for cap in (2, 4):                                  # en F27, gfx_peak no encontró pico en estos dos caps
+        real, _ = _real(cap, carga, pool, tmp_path)
+        plan = {"pico": None, "callouts": [], "archive_clippings": []}
+        assert gr.garantizar_pico(plan, real, pool, []) in gr.GRANDES
+        top = max(real["beats"], key=lambda b: (b["intensidad"], b["n"]))
+        assert plan["pico"]["fuente"].startswith(f"escaleta (beat {top['n']}") and plan["callouts"][0]["pico"]
+
+
+def test_pico_no_repite_un_item_ya_puesto(tmp_path):
+    carga, pool = _datos()
+    real, _ = _real(6, carga, pool, tmp_path)
+    pico = next(b for b in real["beats"] if b["funcion"] == "pico")
+    t = pico["t1"] - 4
+    # un recorte que arranca 3 s después de la frase del pico es el bloque del pico: no se agrega nada
+    plan = {"pico": {"t": t, "word": "x", "block": None}, "callouts": [],
+            "archive_clippings": [{"headline": "h", "start": t + 3, "duration": 5.0, "pool_id": "T58"}]}
+    assert gr.garantizar_pico(plan, real, pool, []) == "archive_clippings" and plan["callouts"] == []
+    # el mismo ítem puesto lejos del pico: el rótulo del pico usa OTRO candidato del beat
+    plan = {"pico": {"t": t, "word": "x", "block": None}, "callouts": [],
+            "archive_clippings": [{"headline": "h", "start": pico["t0"] + 5, "duration": 5.0, "pool_id": "T58"}]}
+    gr.garantizar_pico(plan, real, pool, [])
+    assert plan["callouts"] and plan["callouts"][0]["pool_id"] != "T58"

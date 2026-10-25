@@ -1,0 +1,1161 @@
+{
+ "F27": {
+  "caps": [
+   {
+    "cap": "ch01",
+    "bloques": [
+     {
+      "t": 9.8,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "oscuridad",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 63.5,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "ruido",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     }
+    ],
+    "n": 2,
+    "sellos": 2,
+    "pico": {
+     "t": 34.54,
+     "word": "sensación",
+     "block": null,
+     "con_bloque": false
+    },
+    "pregunta": "¿Qué ocultó el dique a Longarone?",
+    "pregunta_fuente": "generada",
+    "critico": [
+     [
+      "sello",
+      "oscuridad",
+      "suma",
+      true
+     ],
+     [
+      "sello",
+      "ruido",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": false,
+    "t_gfx_s": null
+   },
+   {
+    "cap": "ch02",
+    "bloques": [
+     {
+      "t": 16.6,
+      "tipo": "recorte",
+      "dur": 6.0,
+      "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto",
+      "beat": null,
+      "pool_id": "D117",
+      "pico": false
+     }
+    ],
+    "n": 1,
+    "sellos": 0,
+    "pico": {
+     "t": null,
+     "word": null,
+     "block": null,
+     "con_bloque": false
+    },
+    "pregunta": "¿Qué pasó en otro embalse?",
+    "pregunta_fuente": "generada",
+    "critico": [
+     [
+      "zoom",
+      "pueblo",
+      "repite",
+      false
+     ],
+     [
+      "recorte",
+      "El Consejo Superior de Obras Públicas aprobó el proyecto",
+      "suma",
+      true
+     ],
+     [
+      "dato",
+      "cerca de 400 operarios",
+      "repite",
+      false
+     ]
+    ],
+    "spoiler": false,
+    "t_gfx_s": null
+   },
+   {
+    "cap": "ch03",
+    "bloques": [
+     {
+      "t": 3.2,
+      "tipo": "nivel de agua",
+      "dur": 4.5,
+      "texto": "266",
+      "beat": null,
+      "pool_id": "D118",
+      "pico": false
+     },
+     {
+      "t": 17.2,
+      "tipo": "recorte",
+      "dur": 6.0,
+      "texto": "Un deslizamiento de 3 millones de metros cúbicos cayó en el lago",
+      "beat": null,
+      "pool_id": "T15",
+      "pico": false
+     },
+     {
+      "t": 34.6,
+      "tipo": "cita",
+      "dur": 4.9,
+      "texto": "Si el proyecto original me parecía osado, ahora lo considero una completa locura",
+      "beat": null,
+      "pool_id": "Q37",
+      "pico": false
+     },
+     {
+      "t": 48.2,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "ola",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 50.8,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "muerto",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 52.5,
+      "tipo": "zoom",
+      "dur": 0.0,
+      "texto": "mano",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 66.0,
+      "tipo": "recorte",
+      "dur": 6.0,
+      "texto": "Se realizó un primer llenado del embalse",
+      "beat": null,
+      "pool_id": "T30",
+      "pico": false
+     }
+    ],
+    "n": 7,
+    "sellos": 2,
+    "pico": {
+     "t": 97.66,
+     "word": "agua",
+     "block": null,
+     "con_bloque": false
+    },
+    "pregunta": "¿Cómo reaccionó el lago?",
+    "pregunta_fuente": "generada",
+    "critico": [
+     [
+      "nivel_agua",
+      "266",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "Un deslizamiento de 3 millones de metros cúbicos cayó en el lago",
+      "suma",
+      true
+     ],
+     [
+      "cita",
+      "Si el proyecto original me parecía osado, ahora lo considero una completa locura",
+      "repite",
+      true
+     ],
+     [
+      "sello",
+      "ola",
+      "suma",
+      true
+     ],
+     [
+      "icono",
+      "muerto",
+      "suma",
+      true
+     ],
+     [
+      "zoom",
+      "mano",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "Se realizó un primer llenado del embalse",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": false,
+    "t_gfx_s": null
+   },
+   {
+    "cap": "ch04",
+    "bloques": [
+     {
+      "t": 3.0,
+      "tipo": "recorte",
+      "dur": 6.0,
+      "texto": "Una primera frana de 700.000 metros cúbicos se vierte",
+      "beat": null,
+      "pool_id": "T36",
+      "pico": false
+     },
+     {
+      "t": 28.5,
+      "tipo": "recorte",
+      "dur": 6.0,
+      "texto": "los deslizamientos recurrentes hacen probable un desastre",
+      "beat": null,
+      "pool_id": "T28",
+      "pico": false
+     },
+     {
+      "t": 70.3,
+      "tipo": "cita",
+      "dur": 4.0,
+      "texto": "Nos han dicho que lo hagamos así",
+      "beat": null,
+      "pool_id": "Q44",
+      "pico": false
+     },
+     {
+      "t": 82.7,
+      "tipo": "rótulo",
+      "dur": 2.5,
+      "texto": "el embalse hasta 715 metros",
+      "beat": null,
+      "pool_id": "D106",
+      "pico": false
+     }
+    ],
+    "n": 4,
+    "sellos": 0,
+    "pico": {
+     "t": null,
+     "word": null,
+     "block": null,
+     "con_bloque": false
+    },
+    "pregunta": "¿Cómo reaccionaron ante las señales de peligro?",
+    "pregunta_fuente": "generada",
+    "critico": [
+     [
+      "recorte",
+      "Una primera frana de 700.000 metros cúbicos se vierte",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "los deslizamientos recurrentes hacen probable un desastre",
+      "suma",
+      true
+     ],
+     [
+      "cita",
+      "Nos han dicho que lo hagamos así",
+      "suma",
+      true
+     ],
+     [
+      "dato",
+      "el embalse hasta 715 metros",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": false,
+    "t_gfx_s": null
+   },
+   {
+    "cap": "ch05",
+    "bloques": [
+     {
+      "t": 3.8,
+      "tipo": "rótulo",
+      "dur": 2.5,
+      "texto": "los 700 m de altura",
+      "beat": null,
+      "pool_id": "D160",
+      "pico": false
+     },
+     {
+      "t": 9.8,
+      "tipo": "recorte",
+      "dur": 6.0,
+      "texto": "Las poblaciones de Erto y Casso están viviendo en continua aprensión",
+      "beat": null,
+      "pool_id": "Q50",
+      "pico": false
+     },
+     {
+      "t": 20.0,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "estruendos",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 45.3,
+      "tipo": "cita",
+      "dur": 4.0,
+      "texto": "Si no avisan, será que no es grave",
+      "beat": null,
+      "pool_id": "Q46",
+      "pico": false
+     },
+     {
+      "t": 57.0,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "grietas",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 148.2,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "alarma",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 151.0,
+      "tipo": "recorte",
+      "dur": 6.0,
+      "texto": "El jefe de obras cierra la jornada laboral",
+      "beat": null,
+      "pool_id": "T64",
+      "pico": false
+     }
+    ],
+    "n": 7,
+    "sellos": 3,
+    "pico": {
+     "t": 162.76,
+     "word": "párroco",
+     "block": null,
+     "con_bloque": false
+    },
+    "pregunta": "¿Qué se desprendió de la montaña?",
+    "pregunta_fuente": "generada",
+    "critico": [
+     [
+      "dato",
+      "los 700 m de altura",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "Las poblaciones de Erto y Casso están viviendo en continua aprensión",
+      "suma",
+      true
+     ],
+     [
+      "sello",
+      "estruendos",
+      "suma",
+      true
+     ],
+     [
+      "cita",
+      "Si no avisan, será que no es grave",
+      "repite",
+      true
+     ],
+     [
+      "sello",
+      "grietas",
+      "suma",
+      true
+     ],
+     [
+      "sello",
+      "alarma",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "El jefe de obras cierra la jornada laboral",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": false,
+    "t_gfx_s": null
+   },
+   {
+    "cap": "ch06",
+    "bloques": [
+     {
+      "t": 6.0,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "avalancha",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 16.5,
+      "tipo": "recorte",
+      "dur": 6.0,
+      "texto": "En el desastre murieron 1.910 personas",
+      "beat": null,
+      "pool_id": "D128",
+      "pico": false
+     },
+     {
+      "t": 37.7,
+      "tipo": "recorte",
+      "dur": 6.0,
+      "texto": "Oí un ruido indefinible muy fuerte",
+      "beat": null,
+      "pool_id": "Q16",
+      "pico": false
+     },
+     {
+      "t": 44.2,
+      "tipo": "rótulo",
+      "dur": 2.5,
+      "texto": "Longarone después de 4 minutos",
+      "beat": null,
+      "pool_id": "D124",
+      "pico": false
+     },
+     {
+      "t": 65.4,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "sacudidas",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 111.4,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "fango",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 117.1,
+      "tipo": "cita",
+      "dur": 4.0,
+      "texto": "Conocía Longarone en cada rincón, ahora no sé dónde estoy",
+      "beat": null,
+      "pool_id": "Q25",
+      "pico": false
+     },
+     {
+      "t": 124.3,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "muertos",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 137.7,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "fuerza",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     }
+    ],
+    "n": 9,
+    "sellos": 5,
+    "pico": {
+     "t": 105.24,
+     "word": "amaneció",
+     "block": null,
+     "con_bloque": false
+    },
+    "pregunta": "¿Qué ocultaban esos días?",
+    "pregunta_fuente": "generada",
+    "critico": [
+     [
+      "sello",
+      "avalancha",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "En el desastre murieron 1.910 personas",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "Oí un ruido indefinible muy fuerte",
+      "suma",
+      true
+     ],
+     [
+      "dato",
+      "Longarone después de 4 minutos",
+      "suma",
+      true
+     ],
+     [
+      "sello",
+      "sacudidas",
+      "suma",
+      true
+     ],
+     [
+      "sello",
+      "fango",
+      "suma",
+      true
+     ],
+     [
+      "cita",
+      "Conocía Longarone en cada rincón, ahora no sé dónde estoy",
+      "repite",
+      true
+     ],
+     [
+      "icono",
+      "muertos",
+      "suma",
+      true
+     ],
+     [
+      "sello",
+      "fuerza",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": true,
+    "t_gfx_s": null
+   },
+   {
+    "cap": "ch07",
+    "bloques": [
+     {
+      "t": 8.5,
+      "tipo": "recorte",
+      "dur": 6.0,
+      "texto": "el Tribunal de Belluno condenó a Montedison a pagar",
+      "beat": null,
+      "pool_id": "D245",
+      "pico": false
+     },
+     {
+      "t": 35.8,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "montaña",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 38.7,
+      "tipo": "recorte",
+      "dur": 6.0,
+      "texto": "La presa de Vajont tenía 262 metros de altura",
+      "beat": null,
+      "pool_id": "D114",
+      "pico": false
+     },
+     {
+      "t": 109.7,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "vida",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 161.5,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "inundación",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     }
+    ],
+    "n": 5,
+    "sellos": 3,
+    "pico": {
+     "t": 35.78,
+     "word": "montaña",
+     "block": "archive_clippings",
+     "con_bloque": true
+    },
+    "pregunta": null,
+    "pregunta_fuente": null,
+    "critico": [
+     [
+      "recorte",
+      "el Tribunal de Belluno condenó a Montedison a pagar",
+      "suma",
+      true
+     ],
+     [
+      "zoom",
+      "vaso agua",
+      "repite",
+      false
+     ],
+     [
+      "sello",
+      "montaña",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "La presa de Vajont tenía 262 metros de altura",
+      "suma",
+      true
+     ],
+     [
+      "sello",
+      "vida",
+      "suma",
+      true
+     ],
+     [
+      "icono",
+      "inundación",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": true,
+    "t_gfx_s": null
+   }
+  ],
+  "bloques": 35,
+  "sellos": 15,
+  "pico_con_bloque": 1,
+  "spoilers": 2
+ },
+ "F29": {
+  "caps": [
+   {
+    "cap": "ch01",
+    "bloques": [
+     {
+      "t": 37.4,
+      "tipo": "rótulo",
+      "dur": 8.0,
+      "texto": "Antes de que se fuera la luz, se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire, acompañada del ruido del aire que irrumpía [...] Inmediatamente pensé que había cedido el dique.",
+      "beat": 1,
+      "pool_id": "Q19",
+      "pico": true,
+      "ventana": "0–94",
+      "ya_dicho": false
+     },
+     {
+      "t": 37.4,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "fuerza",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     }
+    ],
+    "n": 2,
+    "sellos": 1,
+    "pico": {
+     "t": 37.44,
+     "word": "fuerza",
+     "block": "callouts",
+     "con_bloque": true
+    },
+    "pregunta": "El dique no cedió esa noche. Lo que llegó a la cama de Micaela vino por encima de él.",
+    "pregunta_fuente": "escaleta (cierre del último beat)",
+    "critico": [
+     [
+      "sello",
+      "fuerza",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": false,
+    "t_gfx_s": null
+   },
+   {
+    "cap": "ch02",
+    "bloques": [
+     {
+      "t": 15.9,
+      "tipo": "recorte",
+      "dur": 4.0,
+      "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto",
+      "beat": 2,
+      "pool_id": "D117",
+      "pico": false,
+      "ventana": "0–65",
+      "ya_dicho": false
+     },
+     {
+      "t": 128.2,
+      "tipo": "rótulo",
+      "dur": 2.5,
+      "texto": "la montaña que camina",
+      "beat": 3,
+      "pool_id": "Q53",
+      "pico": true,
+      "ventana": "66–130",
+      "ya_dicho": true
+     },
+     {
+      "t": 128.2,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "montaña",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     }
+    ],
+    "n": 3,
+    "sellos": 1,
+    "pico": {
+     "t": 128.16,
+     "word": "montaña",
+     "block": "callouts",
+     "con_bloque": true
+    },
+    "pregunta": "En marzo del cincuenta y nueve, en otro embalse de la misma empresa, una montaña caminó primero.",
+    "pregunta_fuente": "escaleta (cierre del último beat)",
+    "critico": [
+     [
+      "recorte",
+      "El Consejo Superior de Obras Públicas aprobó el proyecto",
+      "suma",
+      true
+     ],
+     [
+      "sello",
+      "montaña",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": false,
+    "t_gfx_s": null
+   },
+   {
+    "cap": "ch03",
+    "bloques": [
+     {
+      "t": 3.2,
+      "tipo": "nivel de agua",
+      "dur": 4.5,
+      "texto": "266",
+      "beat": null,
+      "pool_id": "D118",
+      "pico": false
+     },
+     {
+      "t": 23.5,
+      "tipo": "recorte",
+      "dur": 5.0,
+      "texto": "Un deslizamiento de 3 millones de metros cúbicos cayó en el lago",
+      "beat": 4,
+      "pool_id": "T15",
+      "pico": false,
+      "ventana": "0–61",
+      "ya_dicho": false
+     },
+     {
+      "t": 97.7,
+      "tipo": "rótulo",
+      "dur": 4.0,
+      "texto": "La periodista Tina Merlin denuncia el peligro del desprendimiento",
+      "beat": 5,
+      "pool_id": "T18",
+      "pico": true,
+      "ventana": "62–124",
+      "ya_dicho": true
+     },
+     {
+      "t": 113.9,
+      "tipo": "recorte",
+      "dur": 3.7,
+      "texto": "Ocurrió un pequeño desmoronamiento en el monte Toc",
+      "beat": 5,
+      "pool_id": "T23",
+      "pico": false,
+      "ventana": "62–124",
+      "ya_dicho": false
+     }
+    ],
+    "n": 4,
+    "sellos": 0,
+    "pico": {
+     "t": 97.66,
+     "word": "agua",
+     "block": "callouts",
+     "con_bloque": true
+    },
+    "pregunta": "El cuatro de noviembre, durante las pruebas, el agua tuvo su primera respuesta.",
+    "pregunta_fuente": "escaleta (cierre del último beat)",
+    "critico": [
+     [
+      "nivel_agua",
+      "266",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "Un deslizamiento de 3 millones de metros cúbicos cayó en el lago",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "Ocurrió un pequeño desmoronamiento en el monte Toc",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": false,
+    "t_gfx_s": null
+   },
+   {
+    "cap": "ch04",
+    "bloques": [
+     {
+      "t": 25.7,
+      "tipo": "recorte",
+      "dur": 4.7,
+      "texto": "el periódico l'Unità por difundir supuestas noticias falsas sobre la presa",
+      "beat": 6,
+      "pool_id": "T33",
+      "pico": false,
+      "ventana": "0–51",
+      "ya_dicho": false
+     },
+     {
+      "t": 64.2,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "montaña",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 75.4,
+      "tipo": "recorte",
+      "dur": 4.3,
+      "texto": "15 metros por encima de la cota de seguridad recomendada",
+      "beat": 7,
+      "pool_id": "D106",
+      "pico": false,
+      "ventana": "52–116",
+      "ya_dicho": false
+     },
+     {
+      "t": 113.3,
+      "tipo": "rótulo",
+      "dur": 5.0,
+      "texto": "Se completa el cambio de propiedad de la central hidroeléctrica del Vajont",
+      "beat": 7,
+      "pool_id": "T52",
+      "pico": true,
+      "ventana": "52–116",
+      "ya_dicho": false
+     }
+    ],
+    "n": 4,
+    "sellos": 1,
+    "pico": {
+     "t": 113.26,
+     "word": "montaña",
+     "block": "callouts",
+     "con_bloque": true
+    },
+    "pregunta": "La presa cambió de dueño con el agua todavía subiendo. La montaña no se enteró del contrato.",
+    "pregunta_fuente": "escaleta (cierre del último beat)",
+    "critico": [
+     [
+      "recorte",
+      "el periódico l'Unità por difundir supuestas noticias falsas sobre la presa",
+      "suma",
+      true
+     ],
+     [
+      "zoom",
+      "rostro mujer",
+      "estorba",
+      false
+     ],
+     [
+      "sello",
+      "montaña",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "15 metros por encima de la cota de seguridad recomendada",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": false,
+    "t_gfx_s": null
+   },
+   {
+    "cap": "ch05",
+    "bloques": [
+     {
+      "t": 9.1,
+      "tipo": "recorte",
+      "dur": 4.7,
+      "texto": "Las poblaciones de Erto y Casso están viviendo en continua aprensión",
+      "beat": 8,
+      "pool_id": "Q50",
+      "pico": false,
+      "ventana": "0–90",
+      "ya_dicho": false
+     },
+     {
+      "t": 151.0,
+      "tipo": "recorte",
+      "dur": 3.7,
+      "texto": "El jefe de obras cierra la jornada laboral",
+      "beat": 9,
+      "pool_id": "T64",
+      "pico": false,
+      "ventana": "91–166",
+      "ya_dicho": false
+     },
+     {
+      "t": 162.8,
+      "tipo": "rótulo",
+      "dur": 3.3,
+      "texto": "El director Alberico Biadene envía una carta",
+      "beat": 9,
+      "pool_id": "T61",
+      "pico": true,
+      "ventana": "91–166",
+      "ya_dicho": false
+     }
+    ],
+    "n": 3,
+    "sellos": 0,
+    "pico": {
+     "t": 162.76,
+     "word": "párroco",
+     "block": "callouts",
+     "con_bloque": true
+    },
+    "pregunta": "A las diez y media de la noche, el párroco de Casso escuchó algo y abrió la ventana.",
+    "pregunta_fuente": "escaleta (cierre del último beat)",
+    "critico": [
+     [
+      "recorte",
+      "Las poblaciones de Erto y Casso están viviendo en continua aprensión",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "El jefe de obras cierra la jornada laboral",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": false,
+    "t_gfx_s": null
+   },
+   {
+    "cap": "ch06",
+    "bloques": [
+     {
+      "t": 29.1,
+      "tipo": "recorte",
+      "dur": 5.0,
+      "texto": "Una ola enorme pasó por encima de la presa y devastó Longarone",
+      "beat": 10,
+      "pool_id": "T58",
+      "pico": false,
+      "ventana": "0–109",
+      "ya_dicho": false
+     },
+     {
+      "t": 105.2,
+      "tipo": "rótulo",
+      "dur": 6.3,
+      "texto": "Una sección masiva del Monte Toc se desprendió y se estrelló contra el embalse de Vajont.",
+      "beat": 10,
+      "pool_id": "T57",
+      "pico": true,
+      "ventana": "0–109",
+      "ya_dicho": false
+     },
+     {
+      "t": 114.2,
+      "tipo": "recorte",
+      "dur": 3.0,
+      "texto": "En el desastre murieron 1.910 personas",
+      "beat": 11,
+      "pool_id": "D128",
+      "pico": false,
+      "ventana": "110–164",
+      "ya_dicho": false
+     }
+    ],
+    "n": 3,
+    "sellos": 0,
+    "pico": {
+     "t": 105.24,
+     "word": "amaneció",
+     "block": "callouts",
+     "con_bloque": true
+    },
+    "pregunta": "Tres días después llegó el presidente del Consejo. La gente ya sabía qué pedirle.",
+    "pregunta_fuente": "escaleta (cierre del último beat)",
+    "critico": [
+     [
+      "recorte",
+      "Una ola enorme pasó por encima de la presa y devastó Longarone",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "En el desastre murieron 1.910 personas",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": false,
+    "t_gfx_s": null
+   },
+   {
+    "cap": "ch07",
+    "bloques": [
+     {
+      "t": 35.8,
+      "tipo": "rótulo",
+      "dur": 2.5,
+      "texto": "queremos justicia",
+      "beat": 12,
+      "pool_id": "Q13",
+      "pico": true,
+      "ventana": "0–98",
+      "ya_dicho": true
+     },
+     {
+      "t": 35.8,
+      "tipo": "sello",
+      "dur": 2.5,
+      "texto": "montaña",
+      "beat": null,
+      "pool_id": null,
+      "pico": false
+     },
+     {
+      "t": 121.9,
+      "tipo": "recorte",
+      "dur": 4.0,
+      "texto": "el Tribunal de Belluno condenó a Montedison a pagar",
+      "beat": 13,
+      "pool_id": "D245",
+      "pico": false,
+      "ventana": "99–178",
+      "ya_dicho": false
+     }
+    ],
+    "n": 3,
+    "sellos": 1,
+    "pico": {
+     "t": 35.78,
+     "word": "montaña",
+     "block": "callouts",
+     "con_bloque": true
+    },
+    "pregunta": "La sentencia dice inundación agravada por la previsión del evento. No dice quién, entre la posdata de la mañana y las diez y treinta y nueve de la noche, decidió que Micaela siguiera durmiendo.",
+    "pregunta_fuente": "escaleta (cierre del último beat)",
+    "critico": [
+     [
+      "zoom",
+      "vaso agua",
+      "repite",
+      false
+     ],
+     [
+      "sello",
+      "montaña",
+      "suma",
+      true
+     ],
+     [
+      "recorte",
+      "el Tribunal de Belluno condenó a Montedison a pagar",
+      "suma",
+      true
+     ]
+    ],
+    "spoiler": false,
+    "t_gfx_s": null
+   }
+  ],
+  "bloques": 22,
+  "sellos": 4,
+  "pico_con_bloque": 7,
+  "spoilers": 0
+ }
+}

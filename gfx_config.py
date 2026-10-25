@@ -45,7 +45,8 @@ class GfxRenderSettings:
     quality: str = "looks"                   # draft | looks. F2 §0b: draft (JPEG q80 + CRF 28) ablanda la imagen
     debug_quality: str = "draft"             # solo con --gfx-debug (iteración rápida)
     workers: int = 5                         # sin shaders (D5) → 5 workers (lab v1)
-    timeout_sec: int = 900                   # por cap; excedido → fallback a base_clip
+    timeout_sec: int = 1500                  # por cap; excedido → fallback a base_clip (F29: 900 → 1500; con caps de
+                                             # ~3 min el render en fila ya tardaba 956–983 s y caía a base_clip)
     player_ready_timeout_ms: int = 240_000   # lab v2: 45 s default no alcanza a 1440p
     protocol_timeout_ms: int = 600_000
     hyperframes_version: str = "0.8.172"     # versión validada en F0/LAB v1/LAB v2

@@ -1,0 +1,82 @@
+[
+ {
+  "cap": "ch01",
+  "t": 0.05,
+  "bloque": "title_card",
+  "archivo": "golpe_grave.wav",
+  "gain_db": -18.0,
+  "lufs_con_sfx": -22.3,
+  "lufs_voz_sola": -22.3,
+  "dif": 0.0
+ },
+ {
+  "cap": "ch01",
+  "t": 37.41,
+  "bloque": "data_callout",
+  "archivo": "tic.wav",
+  "gain_db": -18.0,
+  "lufs_con_sfx": -26.8,
+  "lufs_voz_sola": -27.0,
+  "dif": 0.2
+ },
+ {
+  "cap": "ch02",
+  "t": 15.9,
+  "bloque": "archive_clipping",
+  "archivo": "papel.wav",
+  "gain_db": -18.0,
+  "lufs_con_sfx": -22.0,
+  "lufs_voz_sola": -22.1,
+  "dif": 0.1
+ },
+ {
+  "cap": "ch02",
+  "t": 123.77,
+  "bloque": "data_callout",
+  "archivo": "tic.wav",
+  "gain_db": -18.0,
+  "lufs_con_sfx": -26.1,
+  "lufs_voz_sola": -26.3,
+  "dif": 0.2
+ },
+ {
+  "cap": "ch05",
+  "t": 0.16,
+  "bloque": "title_card",
+  "archivo": "golpe_grave.wav",
+  "gain_db": -18.0,
+  "lufs_con_sfx": -22.5,
+  "lufs_voz_sola": -22.5,
+  "dif": 0.0
+ },
+ {
+  "cap": "ch05",
+  "t": 9.08,
+  "bloque": "archive_clipping",
+  "archivo": "papel.wav",
+  "gain_db": -18.0,
+  "lufs_con_sfx": -22.6,
+  "lufs_voz_sola": -22.6,
+  "dif": 0.0
+ },
+ {
+  "cap": "ch07",
+  "t": 0.14,
+  "bloque": "title_card",
+  "archivo": "golpe_grave.wav",
+  "gain_db": -18.0,
+  "lufs_con_sfx": -24.1,
+  "lufs_voz_sola": -24.1,
+  "dif": 0.0
+ },
+ {
+  "cap": "ch07",
+  "t": 35.75,
+  "bloque": "data_callout",
+  "archivo": "tic.wav",
+  "gain_db": -18.0,
+  "lufs_con_sfx": -27.8,
+  "lufs_voz_sola": -27.9,
+  "dif": 0.1
+ }
+]

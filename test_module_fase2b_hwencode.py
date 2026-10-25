@@ -22,7 +22,7 @@ def test_hw_encode_usa_nvenc(monkeypatch):
 def test_no_comparte_la_lista(monkeypatch):
     monkeypatch.setattr(fase2b, "_HW_ENCODE", True)
     fase2b._venc().append("x")
-    assert fase2b.NVENC_ARGS[-1] == "19"
+    assert fase2b.NVENC_ARGS[-1] == "23"                 # F29: cq 19 → 23
 
 
 if __name__ == "__main__":

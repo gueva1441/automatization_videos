@@ -318,14 +318,20 @@ def finalizar(plan: dict[str, Any], real: dict[str, Any], log: list[str]) -> lis
     return filas
 
 
+PICO_DESPUES_S = 5.0          # un bloque grande que arranca hasta 5 s después de la frase del pico es el bloque del pico
+
+
 def _hay_grande_en_pico(plan: dict, t: float) -> str | None:
+    def cerca(b: dict) -> bool:
+        a = float(b["start"])
+        return a - 2.0 <= t <= a + float(b.get("duration", 3)) + 0.5 or t <= a <= t + PICO_DESPUES_S
     for k in ("water_level", "evidence_zoom", "quote_card"):
         b = plan.get(k)
-        if b and "start" in b and float(b["start"]) - 2.0 <= t <= float(b["start"]) + float(b.get("duration", 3)) + 0.5:
+        if b and "start" in b and cerca(b):
             return k
     for k in ("archive_clippings", "callouts"):
         for b in plan.get(k) or []:
-            if float(b["start"]) - 2.0 <= t <= float(b["start"]) + float(b.get("duration", 3)) + 0.5:
+            if cerca(b):
                 return k
     return None
 
@@ -336,7 +342,13 @@ def garantizar_pico(plan: dict[str, Any], real: dict[str, Any], pool: dict | Non
     primero, después uno que la voz no dijo; si no hay, el dato central del beat). Devuelve el bloque del pico."""
     pk = plan.get("pico")
     if not pk or pk.get("t") is None:
-        return None
+        # gfx_peak no encontró pico (sin cifra de agua ni palabra de carga): el pico es el beat más intenso del cap
+        top = max(real["beats"], key=lambda b: (b["intensidad"], b["n"])) if real.get("beats") else None
+        if top is None:
+            return None
+        pk = plan["pico"] = {**(pk or {}), "t": round(top["t0"] + 0.5, 3), "word": None, "block": None,
+                             "fuente": f"escaleta (beat {top['n']}, intensidad {top['intensidad']})"}
+        log.append(f"  realizador: sin pico de gfx_peak → beat {top['n']} de la escaleta @ {pk['t']:.1f}s")
     t = float(pk["t"])
     ya = _hay_grande_en_pico(plan, t)
     if ya:
@@ -344,9 +356,11 @@ def garantizar_pico(plan: dict[str, Any], real: dict[str, Any], pool: dict | Non
         return ya
     bt = _beat_en(real, t)
     its = ev.items(pool) if pool else {}
-    cs = [c for c in real["candidatos"] if bt and c["beat"] == bt["n"]]
+    puestos = {b.get("pool_id") for k in ("archive_clippings", "callouts") for b in plan.get(k) or []}
+    puestos |= {(plan.get("quote_card") or {}).get("pool_id")}
+    cs = [c for c in real["candidatos"] if bt and c["beat"] == bt["n"] and c["id"] not in puestos]   # nunca dos veces
     orden = [c for c in cs if c["obligatorio"]] + [c for c in cs if not c["obligatorio"] and not c["ya_dicho"]]
-    if not orden and bt:
+    if not orden and bt and bt["dato_central"] not in puestos:
         orden = [{"id": bt["dato_central"], "beat": bt["n"], "obligatorio": False}]
     for c in orden:
         it = its.get(c["id"])

@@ -2318,7 +2318,7 @@ GFX_PARALELO: int = 1              # F28 §C.2 DESCARTADO: segmentos con --gfx d
                                    # la RAM libre bajó a 1.4 GB y 4 de 7 caps cayeron a base_clip por el timeout de 900 s;
                                    # con 2 el gfx de cada cap tardó 1.4–1.6× más. 1 = en fila, como antes de F28
 _VISUAL_LOCK = threading.Lock()   # F28 §C.2: el visual base (DepthFlow en GPU) va de a un cap
-NVENC_ARGS: list[str] = ["-c:v", "h264_nvenc", "-preset", "p5", "-cq", "19"]
+NVENC_ARGS: list[str] = ["-c:v", "h264_nvenc", "-preset", "p5", "-cq", "23"]   # F29: cq 19 → 23 (peso del mp4: F28 C 1.6 GB)
 
 
 def _venc() -> list[str]:
