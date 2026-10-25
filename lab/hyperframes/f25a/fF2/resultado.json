@@ -1,0 +1,16 @@
+{
+ "tag": "fF2",
+ "modelo": "claude-fable-5-1",
+ "prompt_md5": {
+  "sistema": "070b75dff58aecfa407fac3d62020ce4",
+  "usuario": "a9909b1b66af93f27d6dcb04812d6827"
+ },
+ "error": "Parada: tope claude antes de «ficha_caso» (fF2): gastado 13.570 + reservado 0.000 + peor caso 3.368 > 15.00",
+ "traceback": "Traceback (most recent call last):\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab/hyperframes/f25a\\f25a_corridas.py\", line 187, in una_ficha\n    raw = fc.build(pool, titulo, call=llm_call(tag, \"ficha\", modelo, log)) or {}\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\researcher_steps\\ficha_caso.py\", line 641, in build\n    return call(prompt(pool, title), system_instruction=system(), response_schema=SCHEMA,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab/hyperframes/f25a\\f25a_corridas.py\", line 100, in _call\n    raise Parada(f\"tope {prov} antes de «{description}» ({tag}): gastado {gastado:.3f} + reservado \"\nf25a_corridas.Parada: tope claude antes de «ficha_caso» (fF2): gastado 13.570 + reservado 0.000 + peor caso 3.368 > 15.00\n",
+ "usd": 1.9942,
+ "segundos": 0.0,
+ "cortada": [
+  "ficha_caso"
+ ],
+ "log": []
+}

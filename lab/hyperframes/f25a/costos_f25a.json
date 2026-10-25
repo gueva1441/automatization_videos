@@ -1,0 +1,221 @@
+{
+ "llamadas": [
+  {
+   "tag": "fS1",
+   "etapa": "ficha",
+   "modelo": "gpt-6.1-sol",
+   "proveedor": "openai",
+   "desc": "ficha_caso",
+   "in": 27398,
+   "out": 32875,
+   "stop": "stop",
+   "cortada": false,
+   "usd": 0.3835,
+   "segundos": 383.2
+  },
+  {
+   "tag": "fS2",
+   "etapa": "ficha",
+   "modelo": "gpt-6.1-sol",
+   "proveedor": "openai",
+   "desc": "ficha_caso",
+   "in": 27398,
+   "out": 34708,
+   "stop": "stop",
+   "cortada": false,
+   "usd": 0.4019,
+   "segundos": 400.4
+  },
+  {
+   "tag": "eS2",
+   "etapa": "escaleta",
+   "modelo": "gpt-6.1-sol",
+   "proveedor": "openai",
+   "desc": "m01a_escaleta v2 intento 1",
+   "in": 15140,
+   "out": 11605,
+   "stop": "stop",
+   "cortada": false,
+   "usd": 0.1463,
+   "segundos": 221.3
+  },
+  {
+   "tag": "eS1",
+   "etapa": "escaleta",
+   "modelo": "gpt-6.1-sol",
+   "proveedor": "openai",
+   "desc": "m01a_escaleta v2 intento 1",
+   "in": 15140,
+   "out": 13032,
+   "stop": "stop",
+   "cortada": false,
+   "usd": 0.1606,
+   "segundos": 252.7
+  },
+  {
+   "tag": "eS2",
+   "etapa": "escaleta",
+   "modelo": "gpt-6.1-sol",
+   "proveedor": "openai",
+   "desc": "m01a_escaleta v2 intento 2",
+   "in": 15711,
+   "out": 11156,
+   "stop": "stop",
+   "cortada": false,
+   "usd": 0.143,
+   "segundos": 204.3
+  },
+  {
+   "tag": "eS1",
+   "etapa": "escaleta",
+   "modelo": "gpt-6.1-sol",
+   "proveedor": "openai",
+   "desc": "m01a_escaleta v2 intento 2",
+   "in": 15877,
+   "out": 10374,
+   "stop": "stop",
+   "cortada": false,
+   "usd": 0.1355,
+   "segundos": 177.8
+  },
+  {
+   "tag": "gS1",
+   "etapa": "guion",
+   "modelo": "claude-fable-5-1",
+   "proveedor": "claude",
+   "desc": "guion_v4 guionista",
+   "in": 11696,
+   "out": 16760,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.955,
+   "segundos": 189.2
+  },
+  {
+   "tag": "fF2",
+   "etapa": "ficha",
+   "modelo": "claude-fable-5-1",
+   "proveedor": "claude",
+   "desc": "ficha_caso",
+   "in": 39424,
+   "out": 32000,
+   "stop": "max_tokens",
+   "cortada": true,
+   "usd": 1.9942,
+   "segundos": 355.7
+  },
+  {
+   "tag": "fF1",
+   "etapa": "ficha",
+   "modelo": "claude-fable-5-1",
+   "proveedor": "claude",
+   "desc": "ficha_caso",
+   "in": 39424,
+   "out": 32000,
+   "stop": "max_tokens",
+   "cortada": true,
+   "usd": 1.9942,
+   "segundos": 371.5
+  },
+  {
+   "tag": "eF1",
+   "etapa": "escaleta",
+   "modelo": "claude-fable-5-1",
+   "proveedor": "claude",
+   "desc": "m01a_escaleta v2 intento 1",
+   "in": 24510,
+   "out": 20100,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.2501,
+   "segundos": 251.4
+  },
+  {
+   "tag": "eF2",
+   "etapa": "escaleta",
+   "modelo": "claude-fable-5-1",
+   "proveedor": "claude",
+   "desc": "m01a_escaleta v2 intento 1",
+   "in": 24510,
+   "out": 24777,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.484,
+   "segundos": 296.6
+  },
+  {
+   "tag": "eF1",
+   "etapa": "escaleta",
+   "modelo": "claude-fable-5-1",
+   "proveedor": "claude",
+   "desc": "m01a_escaleta v2 intento 2",
+   "in": 25085,
+   "out": 12704,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.8861,
+   "segundos": 161.6
+  },
+  {
+   "tag": "eF2",
+   "etapa": "escaleta",
+   "modelo": "claude-fable-5-1",
+   "proveedor": "claude",
+   "desc": "m01a_escaleta v2 intento 2",
+   "in": 24890,
+   "out": 21436,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.3207,
+   "segundos": 253.8
+  },
+  {
+   "tag": "gF2",
+   "etapa": "guion",
+   "modelo": "claude-fable-5-1",
+   "proveedor": "claude",
+   "desc": "guion_v4 guionista",
+   "in": 14615,
+   "out": 16796,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.9859,
+   "segundos": 179.2
+  },
+  {
+   "tag": "fF1",
+   "etapa": "ficha",
+   "modelo": "claude-fable-5-1",
+   "proveedor": "claude",
+   "desc": "ficha_caso",
+   "in": 39424,
+   "out": 46119,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 2.7002,
+   "segundos": 483.4
+  }
+ ],
+ "etapas": {
+  "1": {
+   "pared_s": 371.5,
+   "mejor_sol": "fS2",
+   "mejor_fable": null
+  },
+  "2": {
+   "pared_s": 551.1
+  },
+  "3": {
+   "pared_s": 196.3
+  },
+  "1b": {
+   "pared_s": 483.5,
+   "nota": "fF1, fF2 rehechas con la regla de Omar (100k streaming, medium, sin esquema), en serie por el tope"
+  }
+ },
+ "usd": {
+  "claude": 13.5704,
+  "openai": 1.3708
+ },
+ "pared_total_s": 2637.4
+}

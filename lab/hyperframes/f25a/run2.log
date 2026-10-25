@@ -1,0 +1,6 @@
+[claude] ficha_caso: JSON inválido (Expecting value; stop_reason max_tokens) (intento 1/3) — re-llamando
+[fF2] ERROR Parada: fF2: la llamada ya facturó una vez (cortada por max_tokens o JSON roto): no se reintenta, se anota · US$ 1.9942 · 355.7 s
+[claude] ficha_caso: JSON inválido (Expecting value; stop_reason max_tokens) (intento 1/3) — re-llamando
+[fF1] ERROR Parada: fF1: la llamada ya facturó una vez (cortada por max_tokens o JSON roto): no se reintenta, se anota · US$ 1.9942 · 371.5 s
+[etapa 1] {'pared_s': 371.5, 'mejor_sol': 'fS2', 'mejor_fable': None}
+tanda: Claude US$ 4.9434 · OpenAI US$ 1.3708 · pared 1406.5 s

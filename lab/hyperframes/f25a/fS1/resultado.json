@@ -1,0 +1,45 @@
+{
+ "tag": "fS1",
+ "modelo": "gpt-6.1-sol",
+ "prompt_md5": {
+  "sistema": "070b75dff58aecfa407fac3d62020ce4",
+  "usuario": "a9909b1b66af93f27d6dcb04812d6827"
+ },
+ "metricas": {
+  "problemas_chequeo": 11,
+  "conteos": {
+   "humanos_candidatos": 3,
+   "giros": 6,
+   "pico": 1,
+   "pregunta_final": 1,
+   "escenas": 12,
+   "contradicciones": 6,
+   "decisiones": 14,
+   "versiones": 5,
+   "personas": 43,
+   "personas_descartadas": 2,
+   "cifras": 49,
+   "cronologia": 46,
+   "hechos": 70,
+   "citas": 20,
+   "descartados": 30
+  },
+  "hechos_nivel_1": 18,
+  "hechos_nivel_2": 52,
+  "citas": 20,
+  "citas_verificadas": 17,
+  "escenas": 12,
+  "humanos_candidatos": [
+   "Anatoly Vasilievich Dubrovsky",
+   "Mikhail Kuleshov",
+   "Galina Chanova"
+  ],
+  "personas": 43
+ },
+ "usd": 0.3835,
+ "segundos": 383.3,
+ "cortada": [],
+ "log": [
+  "  [fS1] ficha_caso: in 27398 · out 32875 · stop stop · US$ 0.3835 · 383.2 s"
+ ]
+}

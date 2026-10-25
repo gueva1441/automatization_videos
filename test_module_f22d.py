@@ -15,7 +15,7 @@ def test_modelo_del_guion_por_defecto():
     # F22e: el modelo por defecto del guion pasa a Fable 5.1; Opus 5.5 y Sol siguen con --modelo
     assert g4.DEFAULT_MODELO_GUION == "claude-fable-5-1" and g4.DEFAULT_MODELO == "gpt-6.1-sol"
     c = g4.call_for(g4.DEFAULT_MODELO_GUION)
-    assert (c.model, c.reasoning_effort) == ("claude-fable-5-1", "high") and ch.MAX_TOKENS == 32000
+    assert (c.model, c.reasoning_effort) == ("claude-fable-5-1", "high") and ch.MAX_TOKENS == 100_000   # F25a: 100k
     assert g4.call_for("claude-opus-5-5").model == "claude-opus-5-5" and g4.call_for("gpt-6.1-sol").model == "gpt-6.1-sol"
 
 

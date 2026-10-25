@@ -1,0 +1,14 @@
+{
+ "tag": "fF2",
+ "modelo": "claude-fable-5-1",
+ "prompt_md5": {
+  "sistema": "070b75dff58aecfa407fac3d62020ce4",
+  "usuario": "a9909b1b66af93f27d6dcb04812d6827"
+ },
+ "error": "ClaudeError: claude-fable-5-1: HTTP 400: {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"The compiled grammar is too large, which would cause performance issues. Simplify your tool schemas or reduce the number of strict tools.\"},\"request_id\":\"req_011CgNUJRYAWnyyFepnrPXW5\"}",
+ "traceback": ", titulo, call=llm_call(tag, \"ficha\", modelo, log)) or {}\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\researcher_steps\\ficha_caso.py\", line 641, in build\n    return call(prompt(pool, title), system_instruction=system(), response_schema=SCHEMA,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f25a\\f25a_corridas.py\", line 117, in _call\n    return hx.make_call(modelo, \"high\", post=post)(prompt, system_instruction=system_instruction,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\claude_helpers.py\", line 144, in _call\n    return call_json(prompt, model=model, system_instruction=system_instruction, response_schema=response_schema,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\claude_helpers.py\", line 121, in call_json\n    raise ClaudeError(f\"{model}: HTTP {e.code}: {msg}\") from None\nclaude_helpers.ClaudeError: claude-fable-5-1: HTTP 400: {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"The compiled grammar is too large, which would cause performance issues. Simplify your tool schemas or reduce the number of strict tools.\"},\"request_id\":\"req_011CgNUJRYAWnyyFepnrPXW5\"}\n",
+ "usd": 0,
+ "segundos": 0.5,
+ "cortada": [],
+ "log": []
+}

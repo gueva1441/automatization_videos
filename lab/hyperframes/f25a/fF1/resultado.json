@@ -1,0 +1,18 @@
+{
+ "tag": "fF1",
+ "modelo": "claude-fable-5-1",
+ "prompt_md5": {
+  "sistema": "070b75dff58aecfa407fac3d62020ce4",
+  "usuario": "a9909b1b66af93f27d6dcb04812d6827"
+ },
+ "error": "Parada: fF1: la llamada ya facturó una vez (cortada por max_tokens o JSON roto): no se reintenta, se anota",
+ "traceback": "25a_corridas.py\", line 187, in una_ficha\n    raw = fc.build(pool, titulo, call=llm_call(tag, \"ficha\", modelo, log)) or {}\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\researcher_steps\\ficha_caso.py\", line 641, in build\n    return call(prompt(pool, title), system_instruction=system(), response_schema=SCHEMA,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab/hyperframes/f25a\\f25a_corridas.py\", line 125, in _call\n    return hx.make_call(modelo, ESFUERZO[modelo][etapa], post=post)(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\claude_helpers.py\", line 211, in _call\n    return call_json(prompt, model=model, system_instruction=system_instruction, response_schema=response_schema,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\claude_helpers.py\", line 175, in call_json\n    r = post(body)\n        ^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab/hyperframes/f25a\\f25a_corridas.py\", line 108, in post\n    raise Parada(f\"{tag}: la llamada ya facturó una vez (cortada por max_tokens o JSON roto): no se \"\nf25a_corridas.Parada: fF1: la llamada ya facturó una vez (cortada por max_tokens o JSON roto): no se reintenta, se anota\n",
+ "usd": 4.6944,
+ "segundos": 483.4,
+ "cortada": [
+  "ficha_caso"
+ ],
+ "log": [
+  "  [fF1] ficha_caso: in 39424 · out 46119 · stop end_turn · US$ 2.7002 · 483.4 s"
+ ]
+}

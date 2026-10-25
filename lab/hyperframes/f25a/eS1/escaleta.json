@@ -1,0 +1,928 @@
+{
+ "humano": {
+  "id": "P22",
+  "nombre": "Anatoly Vasilievich Dubrovsky",
+  "rol": "Electricista convertido en liquidador",
+  "por_que": "Tiene el recorrido más concreto: una película interrumpida por la explosión, trabajo entre arbustos contaminados sin instrucciones suficientes, una descontaminación dolorosa y un reconocimiento demorado por la falta de dosímetro. Sus dos citas verificadas permiten sostener la historia desde su experiencia.",
+  "colectivo": false,
+  "fuente": "P22, Q16, Q17, Q18, D123, D124, D126"
+ },
+ "antagonista": {
+  "tipo": "institucion",
+  "id": "T04",
+  "nombre": "Gobierno de la URSS",
+  "por_que": "La ficha documenta sus decisiones de construir la planta y establecer una zona de protección sanitaria, y recoge la negativa de las autoridades soviéticas ante la divulgación de Medvedev. El antagonismo es institucional: no se adjudican a un ministro concreto la demora de las evacuaciones ni la explicación periodística del resplandor.",
+  "variantes": [
+   "Правительство СССР",
+   "Soviet government"
+  ]
+ },
+ "promesa_gancho": "¿Cómo se vuelve invisible el daño que un hombre puede sentir en el pecho?",
+ "pico": {
+  "beat": 7,
+  "id": "D44",
+  "por_que": "Se conserva el pico señalado por la ficha: cuando se decide el primer desalojo documentado, la exposición ya fue recibida. La demora deja de ser un plazo administrativo y se convierte en daño humano. Dubrovsky permanece en el montaje mediante su exposición documentada, sin confundir su dosis con la de los habitantes."
+ },
+ "cierre_humano": "Volver a Dubrovsky y al dispositivo que no recibió. Terminar con una pregunta, no con un balance inventado: «¿Cuál fue el costo sanitario completo del desastre, y cuántos afectados quedaron sin reconocimiento o reparación después de una exposición que ni siquiera pudieron registrar?»",
+ "beats": [
+  {
+   "n": 1,
+   "cap": 1,
+   "funcion": "gancho",
+   "emocion": "Dolor e indefensión",
+   "intensidad": 4,
+   "dato_central": "Q18",
+   "datos_apoyo": [],
+   "humano_en_escena": true,
+   "imagen_sensorial": "El chorro de la manguera golpea su pecho. Agua fría, presión y dolor. Entrar directamente en ese momento, sin fecha, cantidades ni explicación previa.",
+   "pregunta_abierta": "¿Qué le ocurrió para que una operación destinada a limpiarlo termine haciéndole pedir que paren?",
+   "pregunta_pantalla": "",
+   "cierre": "Antes de la manguera, Dubrovsky estaba mirando una película.",
+   "palabras_objetivo": 110,
+   "flash_forward": true,
+   "contador": false,
+   "escena_idx": 5,
+   "pregunta_valida": false
+  },
+  {
+   "n": 2,
+   "cap": 2,
+   "funcion": "planteo",
+   "emocion": "Cercanía y normalidad",
+   "intensidad": 1,
+   "dato_central": "T03",
+   "datos_apoyo": [
+    "T04",
+    "T09",
+    "Q16",
+    "D21"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Dubrovsky y sus compañeros mirando la película en el club. Mantener este fragmento antes del estruendo, sin añadir diálogos, música ni detalles de la proyección que la ficha no proporciona.",
+   "pregunta_abierta": "¿Cómo era vivir y trabajar en un lugar que ni siquiera aparecía en los mapas?",
+   "pregunta_pantalla": "",
+   "cierre": "El problema no estaba en la sala del club. Estaba en la refrigeración de un tanque.",
+   "palabras_objetivo": 240,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 1,
+   "pregunta_valida": false
+  },
+  {
+   "n": 3,
+   "cap": 3,
+   "funcion": "giro",
+   "emocion": "Alarma y pérdida de control",
+   "intensidad": 3,
+   "dato_central": "D119",
+   "datos_apoyo": [
+    "D55",
+    "T20",
+    "D120",
+    "D35",
+    "D36",
+    "D26"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "La sección de un cilindro de acero dentro del hormigón. Usar un esquema del contenedor, no una recreación de la chispa o de una mezcla química como si estuvieran demostradas.",
+   "pregunta_abierta": "¿Qué puede afirmarse sobre la causa cuando las fuentes no resuelven el mecanismo exacto?",
+   "pregunta_pantalla": "",
+   "cierre": "A la mañana siguiente, el accidente ya estaba en las calles.",
+   "palabras_objetivo": 134,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 4,
+   "cap": 3,
+   "funcion": "giro",
+   "emocion": "Desprotección",
+   "intensidad": 3,
+   "dato_central": "Q17",
+   "datos_apoyo": [
+    "D118",
+    "D123"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Monos de goma, máscaras antigás, respiradores tipo pétalo y herramientas: palas, palancas y picos alrededor de una pequeña fuente.",
+   "pregunta_abierta": "¿Qué puede evitar un trabajador si nadie le explica el peligro ni cómo actuar?",
+   "pregunta_pantalla": "",
+   "cierre": "Mientras ellos arrancaban arbustos, el resplandor del cielo encontró otra explicación.",
+   "palabras_objetivo": 116,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 4,
+   "pregunta_valida": false
+  },
+  {
+   "n": 5,
+   "cap": 4,
+   "funcion": "giro",
+   "emocion": "Extrañeza y sospecha",
+   "intensidad": 4,
+   "dato_central": "Q02",
+   "datos_apoyo": [
+    "Q22",
+    "T29",
+    "D73"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "El cielo descrito por el periódico: rojo intenso, momentos de rosa pálido y azul claro. No presentar el color como una medición de la radiactividad.",
+   "pregunta_abierta": "¿Qué podían comprender los habitantes si el cielo recibía una explicación natural y los traslados no venían acompañados de motivos?",
+   "pregunta_pantalla": "",
+   "cierre": "Dentro del complejo, en cambio, una comisión ya buscaba responsables.",
+   "palabras_objetivo": 144,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 2
+  },
+  {
+   "n": 6,
+   "cap": 4,
+   "funcion": "revelacion",
+   "emocion": "Desconfianza",
+   "intensidad": 4,
+   "dato_central": "D121",
+   "datos_apoyo": [
+    "T28"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "El memorando de Slavsky aparece en pantalla. Dejar leer la atribución de responsabilidades sin que la voz repita su contenido ni equipare cargos distintos.",
+   "pregunta_abierta": "¿Por qué el relato sobre el director y el memorando señalan responsabilidades formuladas de manera diferente?",
+   "pregunta_pantalla": "",
+   "cierre": "Fuera de los despachos, lo decisivo ya no era a quién culpar. Era cuándo sacar a la gente.",
+   "palabras_objetivo": 106,
+   "flash_forward": false,
+   "contador": false,
+   "pregunta_valida": false
+  },
+  {
+   "n": 7,
+   "cap": 5,
+   "funcion": "pico",
+   "emocion": "Horror ante lo irreversible",
+   "intensidad": 5,
+   "dato_central": "D44",
+   "datos_apoyo": [
+    "D124"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Las construcciones arrasadas de E9 anticipan el resultado material de los desalojos. Intercalar a Dubrovsky en el lugar de trabajo de E4 para mantener su cuerpo dentro del relato. No fingir que presenció las evacuaciones ni que las imágenes corresponden al instante exacto de la decisión.",
+   "pregunta_abierta": "¿Qué protección puede ofrecer una orden de salida cuando la exposición ya ocurrió?",
+   "pregunta_pantalla": "",
+   "cierre": "El verano siguiente, todavía quedaba el suelo.",
+   "palabras_objetivo": 270,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 9,
+   "pregunta_valida": false
+  },
+  {
+   "n": 8,
+   "cap": 6,
+   "funcion": "respiro",
+   "emocion": "Vacío y persistencia",
+   "intensidad": 2,
+   "dato_central": "D127",
+   "datos_apoyo": [],
+   "humano_en_escena": false,
+   "imagen_sensorial": "El tractor completamente protegido con plomo, la tierra retirada y el suelo de reemplazo. El lugar del trabajo de Dubrovsky permanece; no se afirma que él estuviera presente durante esta operación.",
+   "pregunta_abierta": "¿Qué quedó en los cuerpos de quienes trabajaron allí antes de que retiraran la tierra?",
+   "pregunta_pantalla": "",
+   "cierre": "En los pueblos, no se retiró solamente el suelo.",
+   "palabras_objetivo": 50,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 10
+  },
+  {
+   "n": 9,
+   "cap": 6,
+   "funcion": "giro",
+   "emocion": "Desarraigo",
+   "intensidad": 3,
+   "dato_central": "D42",
+   "datos_apoyo": [
+    "D116",
+    "D136"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Edificios nivelados y bienes quemados. No añadir olores, voces de despedida ni escenas domésticas que no constan.",
+   "pregunta_abierta": "¿Cuánto duró realmente la desaparición de los pueblos, si las fuentes no describen el mismo calendario?",
+   "pregunta_pantalla": "",
+   "cierre": "Los pueblos podían desaparecer del terreno. La noticia no desapareció del todo.",
+   "palabras_objetivo": 78,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 9
+  },
+  {
+   "n": 10,
+   "cap": 6,
+   "funcion": "giro",
+   "emocion": "Revelación incompleta",
+   "intensidad": 3,
+   "dato_central": "D133",
+   "datos_apoyo": [
+    "D50",
+    "T38",
+    "D152",
+    "D72",
+    "D93"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Los dosímetros personales y los mapas sin Ozersk de la exposición. Sobre esa memoria material, introducir las piezas documentales reservadas a pantalla; no añadir el sonido de un contador.",
+   "pregunta_abierta": "¿Cómo conciliar una declaración de ausencia de enfermedad con diagnósticos y muertes comunicados para poblaciones y períodos que no están homologados?",
+   "pregunta_pantalla": "",
+   "cierre": "El reconocimiento público no terminó el conflicto. Una evacuada tuvo que llevarlo ante un tribunal.",
+   "palabras_objetivo": 122,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 11,
+   "pregunta_valida": false
+  },
+  {
+   "n": 11,
+   "cap": 7,
+   "funcion": "giro",
+   "emocion": "Alivio limitado",
+   "intensidad": 3,
+   "dato_central": "Q14",
+   "datos_apoyo": [
+    "D102",
+    "D103",
+    "D108",
+    "D16",
+    "D11"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "La cantidad ordenada por el tribunal aparece en pantalla. La voz de Galina, mediante su cita verificada, aporta el alivio; la imagen no representa un recibo ni acredita que cobrara.",
+   "pregunta_abierta": "¿Qué diferencia hay entre obtener una sentencia y recibir efectivamente la reparación?",
+   "pregunta_pantalla": "",
+   "cierre": "Otra evacuada no reclamaba una cantidad. Reclamaba vivienda.",
+   "palabras_objetivo": 62,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 12,
+   "cap": 7,
+   "funcion": "consecuencia",
+   "emocion": "Agotamiento administrativo",
+   "intensidad": 2,
+   "dato_central": "D02",
+   "datos_apoyo": [
+    "D06"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Las iniciales N.N.D. en el expediente y, exclusivamente en pantalla, la descripción de su vivienda y las referencias temporales utilizadas en el procedimiento. No recrear el interior del apartamento.",
+   "pregunta_abierta": "¿Cómo operaron las fechas de corte en su reclamación, si los pasajes disponibles recogen referencias jurídicas distintas?",
+   "pregunta_pantalla": "",
+   "cierre": "En el caso de Dubrovsky, la demora había empezado con un aparato que nunca le entregaron.",
+   "palabras_objetivo": 38,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 13,
+   "cap": 7,
+   "funcion": "cierre",
+   "emocion": "Incertidumbre íntima",
+   "intensidad": 3,
+   "dato_central": "D126",
+   "datos_apoyo": [],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Volver a Dubrovsky. Un plano de un fotocasete identificado como el dispositivo que faltó, sin presentarlo como un objeto suyo conservado ni recrear una entrega inexistente.",
+   "pregunta_abierta": "¿Cuál fue el costo sanitario total y cuántas personas quedaron sin reconocimiento o reparación, si no existe en la ficha un balance que concilie las evidencias?",
+   "pregunta_pantalla": "",
+   "cierre": "¿Cuál fue el costo sanitario completo del desastre, y cuántos afectados quedaron sin reconocimiento o reparación después de una exposición que ni siquiera pudieron registrar?",
+   "palabras_objetivo": 40,
+   "flash_forward": false,
+   "contador": false,
+   "pregunta_valida": false
+  }
+ ],
+ "a_pantalla": [
+  {
+   "id": "D20",
+   "cap": 3,
+   "por_que": "Beat 3: clasificación INES, nivel 6 de 7. Se muestra y no se lee en voz."
+  },
+  {
+   "id": "D37",
+   "cap": 4,
+   "por_que": "Beat 5: dimensionar la zona descrita por F05 mediante superficie, población y localidades. Identificar la fuente y no presentar sus límites como una delimitación única homologada."
+  },
+  {
+   "id": "Q24",
+   "cap": 4,
+   "por_que": "Beat 6: mostrar el fragmento del memorando que señala al jefe de la planta radioquímica y a su ingeniero jefe. No leerlo ni identificar esos cargos con el director del complejo."
+  },
+  {
+   "id": "D43",
+   "cap": 5,
+   "por_que": "Beat 7: decisión de desalojo entre siete y diez días después y población de 1.383 habitantes, según F05. La voz se reserva para la dosis ya recibida."
+  },
+  {
+   "id": "D48",
+   "cap": 5,
+   "por_que": "Beat 7: dato separado sobre la máxima dosis efectiva atribuida a niños de dos a siete años. Mantener la unidad de un sievert y su período de desalojo; no convertirla ni equipararla a la dosis equivalente narrada."
+  },
+  {
+   "id": "D45",
+   "cap": 6,
+   "por_que": "Beat 9: total por etapas de 12.763 reasentados según F05. Rotularlo como un total de esa fuente, no como un balance oficial consolidado."
+  },
+  {
+   "id": "D51",
+   "cap": 6,
+   "por_que": "Beat 10: publicación de Medvedev en New Scientist en 1976. Mostrar la referencia y la fecha sin repetirlas en voz."
+  },
+  {
+   "id": "D109",
+   "cap": 7,
+   "por_que": "Beat 11: aproximadamente 60.000 rublos adicionales ordenados a favor de Galina. Rotular «obligación de pago», no «cantidad cobrada»."
+  },
+  {
+   "id": "D09",
+   "cap": 7,
+   "por_que": "Beat 11: las 86 demandas promovidas por la fiscalía. La voz no enumera su cantidad."
+  }
+ ],
+ "justificacion_humano": "Dubrovsky sostiene el gancho, reaparece en la vida anterior y en el trabajo contaminado, permanece en el pico mediante su exposición documentada y cierra con el reconocimiento demorado. Kuleshov ofrece escenas potentes, pero su destino posterior no está cerrado; Galina aporta una consecuencia judicial verificable, no reemplaza al protagonista. Los seis giros tienen lugar propio: beats 3, 4, 5, 9, 10 y 11. Las disputas sobre mecanismo, responsabilidades, reasentamientos, salud y fechas judiciales se distribuyen sin resolverlas artificialmente. No se incorporan la intervención de la CIA, el tanque de 160 toneladas ni el testimonio de Tumerman: esas afirmaciones del planteamiento no tienen respaldo desarrollado en la ficha.",
+ "topic_id": "f18-kyshtym-mayak",
+ "prompt_version": "f24-1",
+ "_reparaciones": [
+  "id leído de «Q18: Dubrovsky soporta el lavado de la espalda, pero pide qu» → Q18",
+  "id leído de «T03: Mayak fue construido apresuradamente para el programa n» → T03",
+  "apoyo «T04: El Gobierno soviético aprobó construir la planta para p» → T04",
+  "apoyo «T09: La actividad del complejo incluía la separación y el pr» → T09",
+  "apoyo «Q16: Utilizar únicamente la situación anterior al estruendo:» → Q16",
+  "apoyo «D21: La ciudad cerrada no figuraba en los mapas; el nombre c» → D21",
+  "id leído de «D119: La comisión atribuyó el accidente a una alteración del» → D119",
+  "apoyo «D55: Antes de la explosión, Mayak ya vertía residuos radiact» → D55",
+  "apoyo «T20: Situar la explosión del tanque del complejo S-3 y dar a» → T20",
+  "apoyo «D120: Fue una explosión térmica, no una detonación atómica n» → D120",
+  "apoyo «D35: Una versión propone la ignición de una mezcla de sales » → D35",
+  "apoyo «D36: Otra versión propone la adición errónea de una solución» → D36",
+  "apoyo «D26: Los contenedores eran cilindros de acero inoxidable den» → D26",
+  "id leído de «Q17: A Dubrovsky y sus compañeros les ordenan arrancar arbus» → Q17",
+  "apoyo «D118: Al día siguiente se lavaban carreteras, se sustituía e» → D118",
+  "apoyo «D123: El grupo recibió monos de goma y protección respirator» → D123",
+  "id leído de «Q02: Chelyabinsky Rabochy presentó el resplandor observado p» → Q02",
+  "apoyo «Q22: La descripción del cielo pasa del rojo intenso al rosa » → Q22",
+  "apoyo «T29: Situar la publicación de la explicación periodística de» → T29",
+  "apoyo «D73: Otra fuente describe el inicio de evacuaciones sin expl» → D73",
+  "id leído de «D121: Las fuentes señalan que el director Mikhail Demyanovic» → D121",
+  "apoyo «T28: Una comisión ministerial encabezada por Yefim Slavsky l» → T28",
+  "id leído de «D44: Según F05, cuando se decidió desalojar las primeras loc» → D44",
+  "apoyo «D124: En una exposición distinta, F09 atribuye al trabajo de» → D124",
+  "id leído de «D127: En el verano siguiente, un tractor protegido con plomo» → D127",
+  "id leído de «D42: F05 documenta el desalojo y enterramiento de localidade» → D42",
+  "apoyo «D116: F09 ofrece una ejecución mucho más rápida: aldeas liqu» → D116",
+  "apoyo «D136: Un comentario alojado en F09 cuestiona esa rapidez y h» → D136",
+  "apoyo «D117: F09 describe la destrucción de pertenencias y ganado.» → D117",
+  "id leído de «D133: Medvedev informó a periodistas extranjeros y las autor» → D133",
+  "apoyo «D50: Ya habían aparecido noticias occidentales en abril de 1» → D50",
+  "apoyo «T38: Die Presse publicó detalles en marzo de 1959; distingui» → T38",
+  "apoyo «D152: F10 comunica 66 diagnósticos de síndrome de radiación » → D152",
+  "apoyo «D72: F06 comunica alrededor de 200 muertes posteriores, sin » → D72",
+  "apoyo «D93: La exposición de Otdelnov permite volver materialmente » → D93",
+  "id leído de «Q14: Galina Chanova agradece la decisión judicial y explica » → Q14",
+  "apoyo «D102: Galina había sido evacuada del territorio contaminado.» → D102",
+  "apoyo «D103: Comenzó a recibir compensaciones en 1997.» → D103",
+  "apoyo «D108: Sus abogados calcularon una insuficiencia acumulada de» → D108",
+  "apoyo «D16: En el procedimiento descrito por F01, la compensación m» → D16",
+  "apoyo «D11: F01 informa de que casi todas las demandas promovidas p» → D11",
+  "id leído de «D02: N.N.D., evacuada de Kurmanovo, reaparece en un expedien» → D02",
+  "apoyo «D06: Disponía de un certificado que reconocía su condición d» → D06",
+  "id leído de «D126: Los electricistas no recibieron fotocasetes dosimétric» → D126",
+  "a_pantalla D52: cap 6 inválido o lleno → fuera",
+  "a_pantalla Q03: cap 6 inválido o lleno → fuera",
+  "a_pantalla D10: cap 7 inválido o lleno → fuera",
+  "a_pantalla D03: cap 7 inválido o lleno → fuera",
+  "a_pantalla T54: cap 7 inválido o lleno → fuera",
+  "a_pantalla D07: cap 7 inválido o lleno → fuera",
+  "a_pantalla T56: cap 7 inválido o lleno → fuera",
+  "beat 9: apoyo ['D117'] es otra cifra del conteo 12.763 → fuera",
+  "cap 1: palabras 130 → 110 (objetivo 110)",
+  "cap 3: palabras 560 → 250 (objetivo 250)",
+  "cap 4: palabras 400 → 250 (objetivo 250)",
+  "cap 6: palabras 800 → 250 (objetivo 250)",
+  "cap 7: palabras 660 → 140 (objetivo 140)"
+ ],
+ "_avisos": [],
+ "_intentos": [
+  {
+   "intento": 1,
+   "bloqueantes": [
+    "beat 2: dato_central «P22: DUBROVSKY ERA ELECTRICISTA; SE LO PRESENTA PRIMERO POR SU OFICIO, NO POR SU CONDICIÓN POSTERIOR DE LIQUIDADOR.» no existe en el pool (o no es D/T/Q)",
+    "a_pantalla T04 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T03 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T20 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D20 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T29 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla Q02 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T28 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla Q24 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D37 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D43 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D48 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D42 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D116 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D136 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D50 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T38 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D51 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D52 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla Q03 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D103 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D109 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D09 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D16 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D03 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T54 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D07 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T56 también está en un beat: lo que va a pantalla no lo dice la voz"
+   ],
+   "reparaciones": [
+    "id leído de «Q18: fragmento verificado en el que Dubrovsky cuenta que el » → Q18",
+    "apoyo «T04: el Gobierno soviético aprobó la construcción de la plan» → T04",
+    "apoyo «T03: el complejo fue construido apresuradamente.» → T03",
+    "apoyo «D21, D140: Cheliábinsk-40 no figuraba en los mapas; el desas» → D21, D140",
+    "apoyo «D26: los residuos se almacenaban en cilindros de acero inoxi» → D26",
+    "id leído de «D55: antes de la explosión, Mayak ya vertía residuos líquido» → D55",
+    "apoyo «T11: miles de personas continuaron tomando agua del río dura» → T11",
+    "apoyo «D56: también comenzaron vertidos de residuos de alta activid» → D56",
+    "apoyo «D62: se prohibió utilizar el agua del Techa para beber.» → D62",
+    "id leído de «D119: la comisión de Slavsky atribuyó el accidente a una alt» → D119",
+    "apoyo «T20: identificación y momento de la explosión, reservados a » → T20",
+    "apoyo «D120: la explosión fue térmica, no una detonación atómica ni» → D120",
+    "apoyo «D35: F05 recoge una explicación por ignición de una mezcla d» → D35",
+    "apoyo «D36: F05 también presenta una versión de mezcla química intr» → D36",
+    "apoyo «Q16: estruendo y vibración del club donde Dubrovsky veía una» → Q16",
+    "apoyo «D20, D74, D137: clasificación INES, solo a pantalla.» → D20, D74, D137",
+    "id leído de «Q17: Dubrovsky debe arrancar arbustos junto a una fuente sin» → Q17",
+    "apoyo «T24, D118: al acudir al trabajo encuentra carreteras lavadas» → T24, D118",
+    "apoyo «D123: el grupo recibe monos de goma y protección respiratori» → D123",
+    "id leído de «Q02: Chelyabinsky Rabochy presenta el resplandor observado p» → Q02",
+    "apoyo «T29, D132: fecha y procedencia de la publicación.» → T29, D132",
+    "apoyo «Q22: descripción reproducida del resplandor rojo intenso, po» → Q22",
+    "id leído de «Q24: el memorando de Slavsky señala como principales culpabl» → Q24",
+    "apoyo «T28: llegada de la comisión ministerial encabezada por Slavs» → T28",
+    "apoyo «P21, D121: otras fuentes presentan al director Mikhail Demya» → D121",
+    "apoyo «D134: F09 informa de restricciones a las vacaciones de los t» → D134",
+    "apoyo «D37, D71, D113: extensión y población de la zona contaminada» → D37, D71, D113",
+    "id leído de «D44: según F05, los habitantes de las primeras localidades i» → D44",
+    "apoyo «D43: F05 sitúa esa decisión entre siete y diez días después » → D43",
+    "apoyo «D48: F05 identifica a niños pequeños entre quienes alcanzaro» → D48, D44",
+    "apoyo «D124: F09 atribuye al grupo de Dubrovsky una exposición de c» → D124",
+    "apoyo «D128: Kuleshov revistió con plomo el suelo y las paredes de » → D128",
+    "id leído de «D42: la emergencia se convierte en desaparición material de » → D42",
+    "apoyo «D116: F09 presenta una ejecución mucho más rápida que el int» → D116",
+    "apoyo «D117: F09 describe construcciones arrasadas y quema de perte» → D117",
+    "apoyo «D136, Q23: un comentario de Dmitry cuestiona la rapidez y ha» → D136, Q23",
+    "id leído de «D127, T36: el verano siguiente, un tractor protegido con plo» → D127",
+    "id leído de «D51: el informe de Medvedev en New Scientist da difusión int» → D51",
+    "apoyo «D50, T35: ya existían noticias occidentales vagas desde abri» → D50, T35",
+    "apoyo «T38: Die Presse había publicado detalles en marzo de 1959.» → T38",
+    "apoyo «D52, D135: posterior confirmación pública de la explosión en» → D52, D135",
+    "apoyo «Q03: Buldakov declara que no se había registrado enfermedad » → Q03",
+    "apoyo «D152: F10 comunica diagnósticos de síndrome de radiación cró» → D152",
+    "apoyo «D72: F06 comunica muertes posteriores sin aportar aquí un re» → D72",
+    "id leído de «D109: Galina Chanova obtiene una sentencia que obliga al Est» → D109",
+    "apoyo «D102: Galina había sido evacuada del territorio contaminado.» → D102",
+    "apoyo «D103: comenzó a recibir compensaciones por daños a su salud.» → D103",
+    "apoyo «Q14: su cita verificada atribuye el resultado al trabajo de » → Q14",
+    "apoyo «D09: la fiscalía de Kalininsky presenta demandas para actual» → D09",
+    "apoyo «D11: F01 informa de que casi todas esas demandas habían sido» → D11",
+    "apoyo «D16: F01 sitúa años de falta de indexación de la compensació» → D16",
+    "id leído de «D07: el expediente de vivienda de N.N.D. recoge una denegaci» → D07",
+    "apoyo «D02, D03: la evacuada de Kurmanovo vivía con su familia en u» → D02, D03",
+    "apoyo «T54: fecha de solicitud y referencia a haberla presentado de» → T54",
+    "apoyo «T55: resolución de primera instancia posteriormente recurrid» → T55",
+    "apoyo «T56: examen del recurso por el tribunal regional.» → T56",
+    "id leído de «D126: los electricistas del grupo de Dubrovsky no recibieron» → D126",
+    "beat 2: apoyo L09, L10: MAYAK PRODUCÍA Y PROCESABA PLUTONIO PARA ARMAS EN LA CIUDAD CERRADA DE CHELIÁBINSK-40. no existe en el pool → fuera",
+    "beat 9: apoyo ['D117'] es otra cifra del conteo 12.763 → fuera",
+    "cap 1: palabras 90 → 110 (objetivo 110)",
+    "cap 2: palabras 165 → 250 (objetivo 250)",
+    "cap 3: palabras 510 → 249 (objetivo 250)",
+    "cap 4: palabras 335 → 250 (objetivo 250)",
+    "cap 5: palabras 210 → 250 (objetivo 250)",
+    "cap 6: palabras 550 → 249 (objetivo 250)",
+    "cap 7: palabras 435 → 140 (objetivo 140)"
+   ],
+   "no_bloqueantes": [
+    "caps de desarrollo con menos de 2 beats: [2, 5] (beats por cap: [1, 1, 3, 2, 1, 3, 3])",
+    "falta un beat de intensidad 1 (respiro) después del pico",
+    "beat 2: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['P22: DUBROVSKY ERA ELECTRICISTA; SE LO PRESENTA PRIMERO POR SU OFICIO, NO POR SU CONDICIÓN POSTERIOR DE LIQUIDADOR.', 'T04', 'T03', 'D21', 'D140', 'D26']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "beat 4: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['D119', 'T20', 'D120', 'D35', 'D36', 'Q16', 'D20']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "beat 8: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['D44', 'D43', 'D48', 'D44', 'D124', 'D128']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "beat 10: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['D127']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "beat 14: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['D126']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "la imagen sensorial del gancho no lleva cifras",
+    "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+   ]
+  },
+  {
+   "intento": 2,
+   "bloqueantes": [],
+   "reparaciones": [
+    "id leído de «Q18: Dubrovsky soporta el lavado de la espalda, pero pide qu» → Q18",
+    "id leído de «T03: Mayak fue construido apresuradamente para el programa n» → T03",
+    "apoyo «T04: El Gobierno soviético aprobó construir la planta para p» → T04",
+    "apoyo «T09: La actividad del complejo incluía la separación y el pr» → T09",
+    "apoyo «Q16: Utilizar únicamente la situación anterior al estruendo:» → Q16",
+    "apoyo «D21: La ciudad cerrada no figuraba en los mapas; el nombre c» → D21",
+    "id leído de «D119: La comisión atribuyó el accidente a una alteración del» → D119",
+    "apoyo «D55: Antes de la explosión, Mayak ya vertía residuos radiact» → D55",
+    "apoyo «T20: Situar la explosión del tanque del complejo S-3 y dar a» → T20",
+    "apoyo «D120: Fue una explosión térmica, no una detonación atómica n» → D120",
+    "apoyo «D35: Una versión propone la ignición de una mezcla de sales » → D35",
+    "apoyo «D36: Otra versión propone la adición errónea de una solución» → D36",
+    "apoyo «D26: Los contenedores eran cilindros de acero inoxidable den» → D26",
+    "id leído de «Q17: A Dubrovsky y sus compañeros les ordenan arrancar arbus» → Q17",
+    "apoyo «D118: Al día siguiente se lavaban carreteras, se sustituía e» → D118",
+    "apoyo «D123: El grupo recibió monos de goma y protección respirator» → D123",
+    "id leído de «Q02: Chelyabinsky Rabochy presentó el resplandor observado p» → Q02",
+    "apoyo «Q22: La descripción del cielo pasa del rojo intenso al rosa » → Q22",
+    "apoyo «T29: Situar la publicación de la explicación periodística de» → T29",
+    "apoyo «D73: Otra fuente describe el inicio de evacuaciones sin expl» → D73",
+    "id leído de «D121: Las fuentes señalan que el director Mikhail Demyanovic» → D121",
+    "apoyo «T28: Una comisión ministerial encabezada por Yefim Slavsky l» → T28",
+    "id leído de «D44: Según F05, cuando se decidió desalojar las primeras loc» → D44",
+    "apoyo «D124: En una exposición distinta, F09 atribuye al trabajo de» → D124",
+    "id leído de «D127: En el verano siguiente, un tractor protegido con plomo» → D127",
+    "id leído de «D42: F05 documenta el desalojo y enterramiento de localidade» → D42",
+    "apoyo «D116: F09 ofrece una ejecución mucho más rápida: aldeas liqu» → D116",
+    "apoyo «D136: Un comentario alojado en F09 cuestiona esa rapidez y h» → D136",
+    "apoyo «D117: F09 describe la destrucción de pertenencias y ganado.» → D117",
+    "id leído de «D133: Medvedev informó a periodistas extranjeros y las autor» → D133",
+    "apoyo «D50: Ya habían aparecido noticias occidentales en abril de 1» → D50",
+    "apoyo «T38: Die Presse publicó detalles en marzo de 1959; distingui» → T38",
+    "apoyo «D152: F10 comunica 66 diagnósticos de síndrome de radiación » → D152",
+    "apoyo «D72: F06 comunica alrededor de 200 muertes posteriores, sin » → D72",
+    "apoyo «D93: La exposición de Otdelnov permite volver materialmente » → D93",
+    "id leído de «Q14: Galina Chanova agradece la decisión judicial y explica » → Q14",
+    "apoyo «D102: Galina había sido evacuada del territorio contaminado.» → D102",
+    "apoyo «D103: Comenzó a recibir compensaciones en 1997.» → D103",
+    "apoyo «D108: Sus abogados calcularon una insuficiencia acumulada de» → D108",
+    "apoyo «D16: En el procedimiento descrito por F01, la compensación m» → D16",
+    "apoyo «D11: F01 informa de que casi todas las demandas promovidas p» → D11",
+    "id leído de «D02: N.N.D., evacuada de Kurmanovo, reaparece en un expedien» → D02",
+    "apoyo «D06: Disponía de un certificado que reconocía su condición d» → D06",
+    "id leído de «D126: Los electricistas no recibieron fotocasetes dosimétric» → D126",
+    "a_pantalla D52: cap 6 inválido o lleno → fuera",
+    "a_pantalla Q03: cap 6 inválido o lleno → fuera",
+    "a_pantalla D10: cap 7 inválido o lleno → fuera",
+    "a_pantalla D03: cap 7 inválido o lleno → fuera",
+    "a_pantalla T54: cap 7 inválido o lleno → fuera",
+    "a_pantalla D07: cap 7 inválido o lleno → fuera",
+    "a_pantalla T56: cap 7 inválido o lleno → fuera",
+    "beat 9: apoyo ['D117'] es otra cifra del conteo 12.763 → fuera",
+    "cap 1: palabras 130 → 110 (objetivo 110)",
+    "cap 3: palabras 560 → 250 (objetivo 250)",
+    "cap 4: palabras 400 → 250 (objetivo 250)",
+    "cap 6: palabras 800 → 250 (objetivo 250)",
+    "cap 7: palabras 660 → 140 (objetivo 140)"
+   ],
+   "no_bloqueantes": [
+    "caps de desarrollo con menos de 2 beats: [2, 5] (beats por cap: [1, 1, 2, 2, 1, 3, 3])",
+    "falta un beat de intensidad 1 (respiro) después del pico",
+    "beat 2: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['T03', 'T04', 'T09', 'Q16', 'D21']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "beat 7: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['D44', 'D124']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "beat 13: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['D126']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+    "la última frase del video (cierre del beat 13) no nombra al humano ni a un testigo verificado (Arkady Aleksandrovich Kazutov, L. A. Buldakov, Vladimir Slivyak, Lidia Popova, Anna Ilyina, Sergey Mitrokhin, Galina Chanova, Alexey Babin, Yefim Slavsky, Anatoly Vasilievich Dubrovsky, Mikhail Kuleshov, Lyudmila Smirnova, Periódico 'Chelyabinsky Rabochy', V. I. Shevchenko, Chelyabinsky Rabochy): «¿Cuál fue el costo sanitario completo del desastre, y cuántos afectados quedaron sin reconocimiento o reparación después de una exposición que ni siquiera pudieron registrar?»",
+    "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+   ]
+  }
+ ],
+ "ficha": {
+  "prompt_version": "f23-1",
+  "pool_md5": "28981c701dc5fa67a5d82fc50ebca099"
+ },
+ "pool_gate": {
+  "color": "verde",
+  "metricas": {
+   "datos": 154,
+   "citas_verificadas": 21,
+   "elegibles_humano": 16,
+   "eventos_con_fecha": 56,
+   "personas_con_nombre": 23
+  },
+  "motivos": [],
+  "target_words": 1500
+ },
+ "_pantalla_por_fecha": [
+  "T14 (None) → cap 3 lleno: fuera",
+  "T23 (1957-09-29) → cap 4 lleno: fuera",
+  "D76 (None) → cap 4 lleno: fuera",
+  "T43 (None) → cap 6 lleno: fuera",
+  "T36 (None) → cap 6 lleno: fuera",
+  "T53 (None) → cap 7 lleno: fuera"
+ ],
+ "caps": [
+  {
+   "chapter_number": 1,
+   "role": "hook",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "hook",
+   "evidence_ids": [
+    "Q18"
+   ],
+   "cliffhanger": "T03",
+   "pantalla_ids": [],
+   "palabras_objetivo": 110
+  },
+  {
+   "chapter_number": 2,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "setup",
+   "evidence_ids": [
+    "T03",
+    "T04",
+    "T09",
+    "Q16",
+    "D21"
+   ],
+   "cliffhanger": "D119",
+   "pantalla_ids": [
+    "T06",
+    "T46"
+   ],
+   "palabras_objetivo": 240
+  },
+  {
+   "chapter_number": 3,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "D119",
+    "D55",
+    "T20",
+    "D120",
+    "D35",
+    "D36",
+    "D26",
+    "Q17",
+    "D118",
+    "D123"
+   ],
+   "cliffhanger": "Q02",
+   "pantalla_ids": [
+    "D20",
+    "D141"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 4,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "Q02",
+    "Q22",
+    "T29",
+    "D73",
+    "D121",
+    "T28"
+   ],
+   "cliffhanger": "D44",
+   "pantalla_ids": [
+    "D37",
+    "Q24"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 5,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "shock",
+   "evidence_ids": [
+    "D44",
+    "D124"
+   ],
+   "cliffhanger": "D127",
+   "pantalla_ids": [
+    "D43",
+    "D48"
+   ],
+   "palabras_objetivo": 270
+  },
+  {
+   "chapter_number": 6,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "D127",
+    "D42",
+    "D116",
+    "D136",
+    "D133",
+    "D50",
+    "T38",
+    "D152",
+    "D72",
+    "D93"
+   ],
+   "cliffhanger": "Q14",
+   "pantalla_ids": [
+    "D45",
+    "D51"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 7,
+   "role": "reveal_outro",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "outro",
+   "evidence_ids": [
+    "Q14",
+    "D102",
+    "D103",
+    "D108",
+    "D16",
+    "D11",
+    "D02",
+    "D06",
+    "D126"
+   ],
+   "cliffhanger": "",
+   "pantalla_ids": [
+    "D109",
+    "D09"
+   ],
+   "palabras_objetivo": 140
+  }
+ ],
+ "_pool_plan": {
+  "cifras_canonicas": [],
+  "pantalla": [
+   "cap 2: pantalla ['T06', 'T46']",
+   "cap 3: pantalla ['D141', 'T14']",
+   "cap 4: pantalla ['T23', 'D76']",
+   "cap 6: pantalla ['T43', 'T36']",
+   "cap 7: pantalla ['D09', 'T53']"
+  ]
+ },
+ "_metricas": {
+  "curva_intensidad": [
+   4,
+   1,
+   3,
+   3,
+   4,
+   4,
+   5,
+   2,
+   3,
+   3,
+   3,
+   2,
+   3
+  ],
+  "flash_forward_beat1": true,
+  "curva_problemas": [
+   "falta un beat de intensidad 1 (respiro) después del pico"
+  ],
+  "humano_en_escena_caps": [
+   1,
+   2,
+   3,
+   5,
+   7
+  ],
+  "humano_entra_cap": 1,
+  "humano_con_cita_sin_verificar_en_escena": [
+   2
+  ],
+  "humano_en_escena_problemas": [
+   "beat 2: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['T03', 'T04', 'T09', 'Q16', 'D21']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+   "beat 7: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['D44', 'D124']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']",
+   "beat 13: Anatoly Vasilievich Dubrovsky en escena sin un dato suyo verificado (ninguna cita ni mención en ['D126']); datos suyos que valen: ['D123', 'T24', 'Q17', 'Q18']"
+  ],
+  "promesa_con_cifras": false,
+  "imagen_gancho_con_cifras": false,
+  "imagenes_abstractas": [],
+  "escenas_usadas": [
+   1,
+   2,
+   4,
+   5,
+   9,
+   10,
+   11
+  ],
+  "escena_gancho": 5,
+  "escena_pico": 9,
+  "giros": [
+   {
+    "orden": 1,
+    "que_cambia": "El problema deja de ser el vertido habitual de residuos: una alteración de la refrigeración del tanque desemboca en una explosión térmica que dispersa material radiactivo.",
+    "beat": 3
+   },
+   {
+    "orden": 2,
+    "que_cambia": "La población y los trabajadores pasan a convivir con medidas de descontaminación y exposición, mientras Dubrovsky recibe tareas sin instrucciones sobre cómo comportarse.",
+    "beat": 1
+   },
+   {
+    "orden": 3,
+    "que_cambia": "El resplandor obtiene una explicación pública como aurora boreal, mientras los documentos sitúan las decisiones y operaciones de evacuación días después de la explosión.",
+    "beat": 5
+   },
+   {
+    "orden": 4,
+    "que_cambia": "La emergencia se convierte en desaparición de pueblos: se reasientan localidades y se destruyen construcciones y bienes, aunque las fuentes discrepan sobre los plazos.",
+    "beat": 9
+   },
+   {
+    "orden": 5,
+    "que_cambia": "La divulgación de Medvedev y el posterior reconocimiento soviético rompen el silencio, pero Buldakov declara que el seguimiento descrito no había registrado enfermedad por radiación.",
+    "beat": null
+   },
+   {
+    "orden": 6,
+    "que_cambia": "El conflicto continúa en los tribunales: Galina obtiene una sentencia por compensaciones y la fiscalía promueve demandas de indexación.",
+    "beat": 11
+   }
+  ],
+  "giros_con_beat": 5,
+  "giros_total": 6,
+  "humano_en_candidatos": true,
+  "pico_es_el_de_la_ficha": true,
+  "palabras_objetivo_por_cap": {
+   "1": 110,
+   "2": 240,
+   "3": 250,
+   "4": 250,
+   "5": 270,
+   "6": 250,
+   "7": 140
+  },
+  "antagonista_tipo": "institucion",
+  "antagonista_caps": [
+   2
+  ],
+  "cifra_en_pantalla_repetida": [],
+  "ultima_frase_repite_cita": [],
+  "ultima_frase_sin_humano": [
+   "la última frase del video (cierre del beat 13) no nombra al humano ni a un testigo verificado (Arkady Aleksandrovich Kazutov, L. A. Buldakov, Vladimir Slivyak, Lidia Popova, Anna Ilyina, Sergey Mitrokhin, Galina Chanova, Alexey Babin, Yefim Slavsky, Anatoly Vasilievich Dubrovsky, Mikhail Kuleshov, Lyudmila Smirnova, Periódico 'Chelyabinsky Rabochy', V. I. Shevchenko, Chelyabinsky Rabochy): «¿Cuál fue el costo sanitario completo del desastre, y cuántos afectados quedaron sin reconocimiento o reparación después de una exposición que ni siquiera pudieron registrar?»"
+  ],
+  "preguntas_pantalla": [
+   "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+  ],
+  "preguntas_abiertas": [
+   "¿Qué le ocurrió para que una operación destinada a limpiarlo termine haciéndole pedir que paren?",
+   "¿Cómo era vivir y trabajar en un lugar que ni siquiera aparecía en los mapas?",
+   "¿Qué puede afirmarse sobre la causa cuando las fuentes no resuelven el mecanismo exacto?",
+   "¿Qué puede evitar un trabajador si nadie le explica el peligro ni cómo actuar?",
+   "¿Qué podían comprender los habitantes si el cielo recibía una explicación natural y los traslados no venían acompañados de motivos?",
+   "¿Por qué el relato sobre el director y el memorando señalan responsabilidades formuladas de manera diferente?",
+   "¿Qué protección puede ofrecer una orden de salida cuando la exposición ya ocurrió?",
+   "¿Qué quedó en los cuerpos de quienes trabajaron allí antes de que retiraran la tierra?",
+   "¿Cuánto duró realmente la desaparición de los pueblos, si las fuentes no describen el mismo calendario?",
+   "¿Cómo conciliar una declaración de ausencia de enfermedad con diagnósticos y muertes comunicados para poblaciones y períodos que no están homologados?",
+   "¿Qué diferencia hay entre obtener una sentencia y recibir efectivamente la reparación?",
+   "¿Cómo operaron las fechas de corte en su reclamación, si los pasajes disponibles recogen referencias jurídicas distintas?",
+   "¿Cuál fue el costo sanitario total y cuántas personas quedaron sin reconocimiento o reparación, si no existe en la ficha un balance que concilie las evidencias?"
+  ],
+  "otros": [
+   "caps de desarrollo con menos de 2 beats: [2, 5] (beats por cap: [1, 1, 2, 2, 1, 3, 3])"
+  ]
+ },
+ "_modelo": "gpt-6.1-sol",
+ "_ficha": "fS2"
+}

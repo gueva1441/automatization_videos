@@ -1,0 +1,876 @@
+[
+ {
+  "humano": {
+   "id": "P22",
+   "nombre": "Anatoly Vasilievich Dubrovsky",
+   "rol": "Electricista de Mayak convertido en liquidador",
+   "por_que": "Es el único candidato con tres momentos concretos y filmables en la ficha: oye el estruendo en el club Derevyashka (E1), arranca arbustos junto a la fuente con cuatro máscaras para seis hombres y sin instrucciones (E4), y pide que paren la manguera de agua fría porque le duele el pecho (E5). Sale con una exposición declarada de cinco normas diarias y sin fotocasete, es decir sin medida de lo que recibió, y con el reconocimiento de liquidador demorado por eso. Tiene dos citas verificadas (Q17, Q18) y una sin verificar (Q16) que el guionista puede usar sin nombre. Cabe en el gancho, en el pico y en el cierre.",
+   "colectivo": false,
+   "fuente": "F09"
+  },
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "T28",
+   "nombre": "Ministerio soviético de Construcción de Maquinaria Mediana",
+   "por_que": "Es el dueño de Mayak y el único actor de la ficha que toma decisiones con fecha: envía la comisión de Slavsky el 2 de octubre (T28), y su memorando reparte la culpa entre el jefe de la planta radioquímica y su ingeniero jefe (Q24) mientras la fuente F09 señala al director Demyanovich (D121). Es también la estructura bajo la cual los liquidadores firman compromisos de confidencialidad y no toman vacaciones durante un año y medio (D134), y en cuya órbita la ciudad no habla (Q21). La explicación de la aurora boreal la publica un periódico (Q02); la ficha no la atribuye al ministerio, y el guion debe respetar eso: la decisión documentada es la de callar y repartir culpas puertas adentro, no la de redactar la nota.  "
+  },
+  "promesa_gancho": "Un electricista bajo un chorro de agua fría pide a gritos que paren porque le duele el pecho. Esta es la historia del cielo que, esa misma semana, un periódico llamó aurora boreal.",
+  "pico": {
+   "beat": 8,
+   "id": "D44",
+   "por_que": "Es el pico que marcó la ficha y no hay razón mejor: cuando entre siete y diez días después de la explosión alguien decide desalojar las primeras localidades, sus 1.383 habitantes ya llevan encima 52 rem, y los niños de dos a siete años la dosis efectiva más alta de todo el episodio. Es el momento en que la demora deja de ser un papel y se vuelve cuerpo. Dubrovsky está en escena con la misma lógica: seis hombres arrancando arbustos junto a una fuente, con cuatro máscaras y sin instrucciones, recibiendo cinco normas diarias de irradiación mientras del otro lado del alambrado nadie ha dado todavía una orden."
+  },
+  "cierre_humano": "Los seis electricistas de Dubrovsky nunca recibieron fotocasete: la dosis que le golpeó el pecho aquella tarde no la midió nadie, y por eso tardaron en anotarlo como liquidador. El caso termina sin balance: una declaración oficial de que no hubo enfermedad por radiación, sesenta y seis diagnósticos, unas doscientas muertes contadas por otros, y tribunales que siguen discutiendo cuánto se le debe a quién. ¿Cuántos quedaron fuera de todas las listas?",
+  "beats": [
+   {
+    "n": 1,
+    "cap": 1,
+    "funcion": "gancho",
+    "emocion": "dolor físico, desconcierto",
+    "intensidad": 4,
+    "dato_central": "Q18 — Dubrovsky: a los veinte o treinta minutos llega un camión de bomberos y los lavan con agua fría a presión; él es el último; soporta la espalda, pero cuando el chorro le golpea el pecho pide que lo detengan; había trabajado sin el pétalo.",
+    "datos_apoyo": [
+     "E5 — lugar de descontaminación del grupo de electricistas: agua fría, presión intensa de la manguera, dolor en el pecho",
+     "P22 — electricista, no bombero ni soldado: un trabajador cualquiera del complejo"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Un hombre con mono de goma de pie bajo el chorro de una manguera de bomberos; el agua fría le rebota en la espalda, lo giran, el chorro le da en el pecho y él levanta las manos para que paren. Ruido de agua contra goma.",
+    "pregunta_abierta": "¿Qué tiene este hombre encima para que lo laven así, y por qué le duele tanto?",
+    "pregunta_pantalla": "¿Qué le estaban lavando?",
+    "cierre": "Veinte minutos antes del agua, a este hombre le habían dado una pala. Y a la ciudad donde vivía, años antes, le habían quitado el nombre.",
+    "palabras_objetivo": 230,
+    "flash_forward": true,
+    "contador": false,
+    "escena_idx": 5
+   },
+   {
+    "n": 2,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "calma, extrañeza",
+    "intensidad": 1,
+    "dato_central": "D21, D140 — el desastre se llama Kyshtym porque Cheliábinsk-40 no aparecía en los mapas y Kyshtym era la localidad conocida más cercana.",
+    "datos_apoyo": [
+     "L09, L10 — Mayak: planta de reprocesamiento de plutonio para armas en la ciudad cerrada de Cheliábinsk-40",
+     "T04 — 9 de abril de 1945: el Gobierno soviético aprueba construir la planta n.º 817 para producir la bomba atómica",
+     "T03 — construida apresuradamente entre 1945 y 1948",
+     "T07 — junio de 1948: el reactor industrial A-1 alcanza su potencia de diseño",
+     "T09, T10 — enero y febrero de 1949: entran en funcionamiento la planta radioquímica y la químico-metalúrgica",
+     "T05, T15, D95 — 1947–1955: funciona el Laboratorio B, con especialistas reclutados sobre todo entre prisioneros de guerra y reclusos"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Un mapa de la región de Cheliábinsk sobre una mesa: lagos, bosque, el nombre Kyshtym. Donde debería estar la ciudad, papel en blanco. Al lado, la fecha de abril de 1945 en un documento.",
+    "pregunta_abierta": "¿Qué clase de lugar es uno que no figura en el mapa de su propio país?",
+    "pregunta_pantalla": "¿Dónde queda una ciudad que no está en el mapa?",
+    "cierre": "La ciudad no estaba en el mapa. El río que pasaba por ella, sí.",
+    "palabras_objetivo": 260,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 3,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "inquietud lenta",
+    "intensidad": 2,
+    "dato_central": "T19 — entre el 9 de marzo y el 10 de abril de 1957 el tanque n.º 14 recibe 256 metros cúbicos de residuos.",
+    "datos_apoyo": [
+     "D55 — 1949–1956: vertidos de grandes cantidades de residuos líquidos de alta y media actividad al río Techa",
+     "T11 — miles de personas siguen tomando agua del Techa mientras Mayak vierte",
+     "D62 — 1953: se prohíbe beber agua del Techa",
+     "D56 — después de noviembre de 1951 empiezan los vertidos de alta actividad al lago Karachay",
+     "D26, D27 — contenedores: cilindros de acero inoxidable dentro de una envoltura de hormigón; el n.º 14, de 300 metros cúbicos, con unas 70 a 80 toneladas de residuos (F05 los describe secos, F10 líquidos)",
+     "Q07 — Popova: «fue sencillamente un crimen ecológico»; P22 — Dubrovsky trabaja en ese complejo como electricista"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Un cilindro de acero metido en hormigón, bajo tierra; arriba, una pequeña fuente ornamental con arbustos. Una mujer sacando agua del Techa con un balde.",
+    "pregunta_abierta": "¿Cuánto se puede guardar en un tanque antes de que el tanque deje de guardar?",
+    "pregunta_pantalla": "¿Qué había dentro del tanque 14?",
+    "cierre": "El tanque se terminó de llenar en abril. Un domingo de septiembre, a las cuatro y veinte de la tarde, en un club donde pasaban una película, el edificio empezó a temblar.",
+    "palabras_objetivo": 300,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 4,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "estupor",
+    "intensidad": 4,
+    "dato_central": "T20 — el 29 de septiembre de 1957, a las 16:22 hora local, explota el tanque n.º 14 del complejo S-3.",
+    "datos_apoyo": [
+     "E1, Q16 (sin verificar, sin nombre) — en el club Derevyashka están viendo una película cuando oyen un fuerte estruendo y el edificio empieza a temblar",
+     "D120 — explosión térmica, no atómica: no se inició una reacción en cadena",
+     "D119 — el informe de la comisión de Slavsky la atribuye a una alteración del régimen de refrigeración del tanque",
+     "D30 — queda un cráter de unos 10 metros de profundidad y 20 de diámetro",
+     "D31, D122, D146 — unos 20 millones de curios liberados; D33, D115 — cerca del 90 por ciento cae en la zona industrial",
+     "T21, T25 — a las 19:20 las masas de aire van hacia Bagaryak y Kamensk-Uralsky; a las tres de la mañana termina de formarse la traza"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una sala a oscuras con un proyector encendido; el estruendo llega de afuera y las sillas vibran contra el piso. Luego, un agujero de veinte metros donde había hormigón.",
+    "pregunta_abierta": "Si no fue una bomba, ¿qué fue lo que salió del agujero y hacia dónde fue?",
+    "pregunta_pantalla": "¿Qué explotó a las 16:22?",
+    "cierre": "La película se cortó. A la mañana siguiente, Dubrovsky fue a trabajar como cualquier lunes. La ciudad no era la misma ciudad.",
+    "palabras_objetivo": 320,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 5,
+    "cap": 3,
+    "funcion": "escalada",
+    "emocion": "sospecha, desprotección",
+    "intensidad": 3,
+    "dato_central": "D123, D126 — al grupo de seis electricistas de Dubrovsky le entregan monos de goma, cuatro máscaras antigás y dos respiradores tipo pétalo: seis hombres, cuatro máscaras.",
+    "datos_apoyo": [
+     "T24, D118, E3 — 30 de septiembre: se lavan carreteras, se cambia el asfalto y se colocan dosímetros en lugares públicos de Cheliábinsk-40",
+     "P23 — Kuleshov se entera del accidente al llegar al trabajo",
+     "D128, E6 — Kuleshov recubre con plomo el suelo y las paredes de la cabina de un tractor S-80",
+     "T27 — la brigada de Kuleshov empieza la liquidación en octubre, de las 19:00 a la 01:00"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Camiones cisterna lavando una avenida al amanecer; hombres levantando asfalto; un aparato con aguja instalado en una esquina. En un taller, un hombre atornilla planchas de plomo dentro de una cabina de tractor.",
+    "pregunta_abierta": "Si lavan las calles y blindan tractores, ¿por qué a los electricistas les dan una pala?",
+    "pregunta_pantalla": "Seis hombres. Cuatro máscaras.",
+    "cierre": "A Kuleshov le dieron plomo. Al grupo de Dubrovsky, palas. El tractor salió al día siguiente.",
+    "palabras_objetivo": 280,
+    "flash_forward": false,
+    "contador": true,
+    "escena_idx": 3
+   },
+   {
+    "n": 6,
+    "cap": 4,
+    "funcion": "escalada",
+    "emocion": "lentitud opresiva",
+    "intensidad": 3,
+    "dato_central": "Q19, D129, E7 — Kuleshov: al día siguiente el S-80 cubierto de plomo va a reconocer el foco; desde el edificio de la gran chimenea hasta el foco hay unos quinientos metros, y el tractor avanza a dos kilómetros por hora.",
+    "datos_apoyo": [
+     "E7 — el explorador sale de la cabina para medir y vuelve a entrar",
+     "T28 — 2 de octubre: llega desde Moscú la comisión ministerial encabezada por Slavsky",
+     "T31 — 11 de octubre: comisión técnica especial de once integrantes para establecer las causas",
+     "Q24 — memorando de Slavsky: los principales culpables son el jefe de la planta radioquímica y su ingeniero jefe; D121 — F09 y F10 dicen que el destituido fue el director Demyanovich",
+     "D134 — los trabajadores no toman vacaciones durante alrededor de un año y medio; los liquidadores firman compromisos de confidencialidad",
+     "Q21 — Smirnova: «en la ciudad no se hablaba de aquel accidente»"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Un tractor forrado de plomo arrastrándose por un campo a paso de hombre, la chimenea atrás; se abre la puerta de la cabina, un hombre baja con un aparato, lo levanta, vuelve a subir. Sello de un papel firmado.",
+    "pregunta_abierta": "Si la comisión ya sabe qué pasó y quién tiene la culpa, ¿quién le avisa a la gente de afuera?",
+    "pregunta_pantalla": "¿Quién firmó el silencio?",
+    "cierre": "Puertas adentro ya había culpables y papeles firmados. Puertas afuera, el domingo siguiente, el cielo se puso rojo.",
+    "palabras_objetivo": 300,
+    "flash_forward": false,
+    "contador": true,
+    "escena_idx": 7
+   },
+   {
+    "n": 7,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "indignación contenida",
+    "intensidad": 4,
+    "dato_central": "T29, Q02, D132, E2 — 6 de octubre de 1957: Chelyabinsky Rabochy publica que «muchos habitantes de Cheliábinsk observaron un resplandor especial en el cielo estrellado» con «todas las características de una aurora boreal».",
+    "datos_apoyo": [
+     "E2, Q22 — la luz descrita: roja intensa, que pasa por momentos a rosa pálido y azul claro",
+     "T30, T26, D73 — F10 sitúa ese mismo 6 de octubre el inicio de la evacuación, sin explicar motivos; F06 habla de evacuados diez días después del accidente",
+     "D37, D71, D113 — 23.000 kilómetros cuadrados y unos 270.000 habitantes en 217 localidades de Cheliábinsk, Sverdlovsk y Tiumén"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Gente parada en la calle mirando hacia arriba; el cielo sobre los tejados pasa de rojo a rosa a un azul lavado. A la mañana, el diario doblado sobre una mesa con la palabra aurora.",
+    "pregunta_abierta": "Si el periódico sabe que hubo luz en el cielo, ¿qué sabe de lo que cayó debajo?",
+    "pregunta_pantalla": "¿Una aurora boreal en los Urales?",
+    "cierre": "Una aurora boreal. En los pueblos debajo de esa luz, nadie había recibido todavía una orden de irse.",
+    "palabras_objetivo": 280,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 2
+   },
+   {
+    "n": 8,
+    "cap": 5,
+    "funcion": "pico",
+    "emocion": "impotencia",
+    "intensidad": 5,
+    "dato_central": "D44 — cuando se decide desalojar las primeras localidades, sus habitantes ya han recibido una dosis equivalente de 52 rem.",
+    "datos_apoyo": [
+     "D43 — la decisión llega entre siete y diez días después de la explosión y abarca 1.383 personas",
+     "D48 — la máxima dosis efectiva, un sievert, la reciben niños de dos a siete años desalojados en los primeros siete a catorce días",
+     "Q17, E4 — Dubrovsky: palas, palancas y picos para arrancar los arbustos junto a la pequeña fuente; ninguna instrucción, nadie explica cómo comportarse; solo que no se quiten las máscaras ni los pétalos",
+     "D124 — los electricistas reciben junto a la fuente cinco normas diarias de irradiación",
+     "D123 — con monos de goma, máscaras antigás y respiradores desiguales: protección que no alcanza para todos"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Seis hombres con monos de goma clavando picos en la tierra alrededor de una fuente seca; dos tienen la cara descubierta. Raíces arrancadas en una pila. Lejos, una aldea con las chimeneas humeando como cualquier día.",
+    "pregunta_abierta": "¿Cuánto llevan ya encima cuando por fin alguien decide moverlos?",
+    "pregunta_pantalla": "Diez días. 52 rem.",
+    "cierre": "Cuando los camiones llegaron a los pueblos, lo que no cabía en ellos se quemó. Y a los electricistas, cuando terminaron con los arbustos, los esperaba un camión de bomberos.",
+    "palabras_objetivo": 330,
+    "flash_forward": false,
+    "contador": true,
+    "escena_idx": 4
+   },
+   {
+    "n": 9,
+    "cap": 5,
+    "funcion": "respiro",
+    "emocion": "cansancio, silencio",
+    "intensidad": 2,
+    "dato_central": "T36, D127, E10 — en el verano de 1958 un tractor protegido con plomo retira la tierra del lugar donde los electricistas habían arrancado arbustos y la reemplaza por suelo limpio.",
+    "datos_apoyo": [
+     "T34, E8 — 1958: empieza la restauración; Kuleshov recuerda instalaciones inundadas, tablones, oscuridad",
+     "Q20 (sin verificar, sin nombre), E8 — Mikhalsky se ensucia la cabeza caminando a oscuras; champús y productos químicos no la limpian; una peluquera se niega a cortarle el pelo",
+     "D38, D75 — 106.000 hectáreas agrícolas y forestales retiradas de uso",
+     "D39, D40, D41 — 1.007 militares de tropas internas expuestos; doce hospitalizados por más de 50 roentgens; 63 bajo observación constante"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Un tractor forrado de plomo cortando una capa de tierra negra y dejándola en un volquete; detrás, tierra nueva, más clara. Un hombre de rodillas en un lavabo, con la cabeza bajo el grifo, y botellas de champú vacías.",
+    "pregunta_abierta": "¿Cuánto hay que arrancar para que un lugar vuelva a ser un lugar?",
+    "pregunta_pantalla": "¿Se puede lavar la tierra?",
+    "cierre": "Cambiaron la tierra junto a la fuente. A los pueblos no les cambiaron nada: los borraron.",
+    "palabras_objetivo": 240,
+    "flash_forward": false,
+    "contador": true,
+    "escena_idx": 10
+   },
+   {
+    "n": 10,
+    "cap": 6,
+    "funcion": "consecuencia",
+    "emocion": "pérdida, rabia",
+    "intensidad": 3,
+    "dato_central": "D42, D116 — F05 documenta el desalojo y enterramiento de 23 localidades entre 1957 y 1960; F09 dice que una semana después de la explosión 23 aldeas fueron liquidadas en catorce días.",
+    "datos_apoyo": [
+     "E9, D117 — construcciones arrasadas; se queman pertenencias y ganado de los reasentados",
+     "Q23, D136 — Dmitry, hijo de un residente de Yugo-Konyovo: «una mentira descarada», los traslados forzosos se prolongaron medio año, hubo saqueos y robos",
+     "D45 — 12.763 personas reasentadas por etapas según F05; otras fuentes hablan de unas 10.000 o 12.000",
+     "D77 — niños de internados llevados a recoger cosechas y demoler construcciones en territorio contaminado",
+     "D46, D47 — finales de 1959: zona de protección sanitaria de unos 700 kilómetros cuadrados; 1968: sobre ella se crea la Reserva de los Urales Orientales",
+     "T39, T40, T41, D80 — primavera de 1967: el viento levanta polvo radiactivo de las orillas secas del Karachay"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Una topadora empujando una pared de troncos; en un patio arde una pila de ropa y muebles; un corral vacío. Más tarde, un cartel de reserva natural clavado donde hubo una calle.",
+    "pregunta_abierta": "¿Dos semanas o medio año? ¿Quién estuvo ahí para contar los días?",
+    "pregunta_pantalla": "23 aldeas. ¿Cuánto tardaron en desaparecer?",
+    "cierre": "Donde hubo veintitrés pueblos pusieron un cartel de reserva. El primero que dijo afuera lo que había pasado adentro lo dijo en inglés.",
+    "palabras_objetivo": 320,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 9
+   },
+   {
+    "n": 11,
+    "cap": 6,
+    "funcion": "revelacion",
+    "emocion": "incredulidad",
+    "intensidad": 3,
+    "dato_central": "Q03 — 18 de julio de 1989, ante el Soviet Supremo, Buldakov declara que en el seguimiento de tres años que describe no registraron ninguna forma de enfermedad por radiación.",
+    "datos_apoyo": [
+     "D50, T35, T38 — Berlingske Tidende publica el 13 de abril de 1958; Die Presse da detalles el 18 de marzo de 1959",
+     "D51, T43, T44 — 1976: Medvedev publica un breve informe en New Scientist; las autoridades soviéticas niegan la información",
+     "D52, D135, T46 — julio de 1989: la URSS confirma públicamente la explosión y empieza a desclasificar documentos",
+     "D152 — F10: 66 casos diagnosticados de síndrome de radiación crónico en el área más próxima",
+     "D72 — F06: alrededor de 200 muertes después del accidente, sin balance oficial ni período de seguimiento",
+     "D144 — F10: sin víctimas inmediatas de la explosión; eso no es una cifra de muertes posteriores"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Un recorte de New Scientist de 1976 sobre un escritorio; trece años después, un micrófono en una sala con bancas de madera y un hombre leyendo una frase de un papel: ninguna forma de enfermedad.",
+    "pregunta_abierta": "Sesenta y seis diagnósticos y doscientas muertes contadas por otros: ¿de qué seguimiento habla el que dice que no hubo ninguna?",
+    "pregunta_pantalla": "«Ninguna forma de enfermedad por radiación.»",
+    "cierre": "El Estado reconoció la explosión en 1989. Lo que no reconoció fue cuánto le debía a cada uno, y eso se empezó a discutir en un juzgado de barrio.",
+    "palabras_objetivo": 320,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 12,
+    "cap": 7,
+    "funcion": "consecuencia",
+    "emocion": "tenacidad, desgaste",
+    "intensidad": 2,
+    "dato_central": "D102, D103, D109 — Galina Chanova, evacuada del territorio contaminado, cobra compensaciones desde 1997 y obtiene una sentencia del tribunal de Kalininsky que obliga al Estado a pagarle unos 60.000 rublos adicionales.",
+    "datos_apoyo": [
+     "D108 — sus abogados calculan unos 150.000 rublos de pagos insuficientes; D104, D106 — la compensación alimentaria pasa de 167 rublos mensuales en 1997 a 287 en 2007",
+     "Q14 — Chanova: «estoy muy contenta incluso con esta decisión del tribunal; si no fuera por los abogados de Sociedad Civil, difícilmente el tribunal se habría puesto de mi lado»",
+     "D09, D10, D11, D16 — la fiscalía de Kalininsky presenta 86 demandas por cerca de un millón de rublos; la compensación no se indexaba desde 2001",
+     "D02, D03, T54, T56 — N.N.D., evacuada de Kurmanovo, cinco personas en 36,3 metros cuadrados, pide vivienda en mayo de 2011; el tribunal regional revisa su caso en noviembre",
+     "D68 — 1993: las autoridades regionales deciden evacuar Muslyumovo; no se ejecuta por problemas económicos"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Una mujer mayor con una carpeta de papeles en un pasillo de juzgado; un recibo con una cifra en rublos; un apartamento de una habitación con cinco camas.",
+    "pregunta_abierta": "Si el Estado reconoce la deuda de a sesenta mil rublos y de a una demanda por vez, ¿cuánto es la deuda entera?",
+    "pregunta_pantalla": "¿Cuánto vale 52 rem en rublos?",
+    "cierre": "A Galina le dieron un papel con una cifra. A Dubrovsky, durante años, ni siquiera eso: no había con qué medirle lo que había recibido.",
+    "palabras_objetivo": 280,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 13,
+    "cap": 7,
+    "funcion": "cierre",
+    "emocion": "vacío, pregunta sin respuesta",
+    "intensidad": 3,
+    "dato_central": "D126 — los seis electricistas no recibieron los fotocasetes, los dispositivos dosimétricos, y no fueron incorporados de inmediato a la lista de liquidadores.",
+    "datos_apoyo": [
+     "D124 — lo único que consta de su dosis es la estimación de cinco normas diarias junto a la fuente; la norma no está cuantificada en el pasaje",
+     "E11, D91, D93 — en el edificio del Laboratorio B, en Sokol, una exposición reúne dosímetros personales y mapas en los que no figura Ozersk",
+     "Q13 (sin verificar, sin nombre) — «sonar», en el lenguaje de los trabajadores atómicos, es la señal con que el contador avisa de un fondo elevado",
+     "Pregunta final de la ficha — ninguna fuente concilia la declaración de ausencia de enfermedad, los 66 diagnósticos, las 200 muertes y los litigios: no hay balance",
+     "T01 — el edificio donde se exhibe fue un sanatorio diseñado por Georgy Golubev en los años treinta"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una vitrina con dosímetros personales, cada uno con una aguja detenida. Al lado, un mapa de la región sin la ciudad. Ninguno de esos aparatos estuvo colgado del pecho de Dubrovsky cuando el agua le dio ahí.",
+    "pregunta_abierta": "Si nadie midió lo que recibió, ¿en qué lista entra, y cuántos más hay que no entraron en ninguna?",
+    "pregunta_pantalla": "¿Cuántos no tuvieron fotocasete?",
+    "cierre": "Seis hombres, cuatro máscaras, ningún fotocasete. La cifra que hubiera marcado el fotocasete de Dubrovsky no existe en ningún archivo. Tampoco existe la que sume a todos los demás.",
+    "palabras_objetivo": 260,
+    "flash_forward": false,
+    "contador": true,
+    "escena_idx": 11
+   }
+  ],
+  "a_pantalla": [
+   {
+    "id": "D20",
+    "cap": 1,
+    "por_que": "Nivel 6 de 7 en la escala INES: título del caso, mejor como rótulo que como frase de voz."
+   },
+   {
+    "id": "T04",
+    "cap": 2,
+    "por_que": "Fecha y número de la planta: 9 de abril de 1945, planta n.º 817."
+   },
+   {
+    "id": "D59",
+    "cap": 2,
+    "por_que": "76 millones de metros cúbicos vertidos al Techa según F06; cifra de una sola fuente, va a pantalla."
+   },
+   {
+    "id": "D61",
+    "cap": 2,
+    "por_que": "28.000 personas con dosis significativas por el Techa, según F06."
+   },
+   {
+    "id": "T19",
+    "cap": 2,
+    "por_que": "256 metros cúbicos entre el 9 de marzo y el 10 de abril de 1957: dato de registro."
+   },
+   {
+    "id": "D29",
+    "cap": 3,
+    "por_que": "Potencia de la explosión sin estimación única (25–29, 8–170, 70–100 toneladas de TNT): se muestran las versiones, la voz no elige."
+   },
+   {
+    "id": "D31",
+    "cap": 3,
+    "por_que": "20 millones de curios, coincidente en tres fuentes; la voz lo dice una vez, el rótulo lo fija."
+   },
+   {
+    "id": "D30",
+    "cap": 3,
+    "por_que": "Cráter de 10 por 20 metros."
+   },
+   {
+    "id": "T28",
+    "cap": 4,
+    "por_que": "2 de octubre de 1957: llegada de la comisión de Slavsky; fecha de documento."
+   },
+   {
+    "id": "T31",
+    "cap": 4,
+    "por_que": "11 de octubre de 1957: comisión técnica de once integrantes."
+   },
+   {
+    "id": "D37",
+    "cap": 4,
+    "por_que": "23.000 km², 270.000 habitantes, 217 localidades: tres cifras juntas, mejor en pantalla que en voz."
+   },
+   {
+    "id": "D43",
+    "cap": 5,
+    "por_que": "1.383 personas en la primera decisión de desalojo."
+   },
+   {
+    "id": "D44",
+    "cap": 5,
+    "por_que": "52 rem: la voz lo dice una vez; el rótulo lo deja fijo durante el pico."
+   },
+   {
+    "id": "D39",
+    "cap": 5,
+    "por_que": "1.007 militares expuestos, 12 hospitalizados, 63 en observación: recuento oficial de F05."
+   },
+   {
+    "id": "D38",
+    "cap": 5,
+    "por_que": "106.000 hectáreas retiradas de uso."
+   },
+   {
+    "id": "D45",
+    "cap": 6,
+    "por_que": "12.763 reasentados según F05 frente a 10.000 y 12.000 de otras fuentes: se muestran las versiones."
+   },
+   {
+    "id": "D46",
+    "cap": 6,
+    "por_que": "700 km² de zona de protección sanitaria, finales de 1959."
+   },
+   {
+    "id": "D152",
+    "cap": 6,
+    "por_que": "66 casos de síndrome de radiación crónico según F10, junto a la frase de Buldakov."
+   },
+   {
+    "id": "D72",
+    "cap": 6,
+    "por_que": "Alrededor de 200 muertes según F06, sin balance oficial: se rotula con la fuente."
+   },
+   {
+    "id": "D104",
+    "cap": 7,
+    "por_que": "167 rublos mensuales en 1997, 287 en 2007."
+   },
+   {
+    "id": "D109",
+    "cap": 7,
+    "por_que": "Unos 60.000 rublos ordenados por el tribunal; obligación de pago, no cobro."
+   },
+   {
+    "id": "D09",
+    "cap": 7,
+    "por_que": "86 demandas de la fiscalía de Kalininsky por cerca de un millón de rublos."
+   },
+   {
+    "id": "D03",
+    "cap": 7,
+    "por_que": "Cinco personas en 36,3 metros cuadrados: dato del expediente de N.N.D."
+   }
+  ],
+  "justificacion_humano": "La ficha propone tres candidatos. Chanova tiene una cita verificada y una acción judicial, pero ninguna escena: no se la puede ver. Kuleshov tiene dos escenas (la cabina de plomo, el tractor a dos kilómetros por hora) y una cita verificada, pero su arco se corta en 1958 y la ficha no cierra su destino. Dubrovsky es el único que entra (el club, el estruendo), sufre (los arbustos sin instrucciones, el agua fría en el pecho) y sale (sin fotocasete, con el reconocimiento demorado), con dos citas verificadas y una sin verificar que el guionista usa sin nombre. Está en el gancho (beat 1), en el pico (beat 8) y en el cierre (beat 13), y reaparece en los beats 3, 4 y 5; se ausenta en los caps 4 y 6, que no son consecutivos. Kuleshov y Chanova no se pierden: sostienen los beats 5, 6, 9 y 12 como testigos de la liquidación y del litigio, sin competir por el centro."
+ },
+ {
+  "humano": {
+   "id": "P22",
+   "nombre": "Anatoly Vasilievich Dubrovsky",
+   "rol": "Electricista de Mayak convertido en liquidador",
+   "por_que": "Es el único candidato con tres momentos concretos y propios: oye el estruendo en el club viendo una película (E1), arranca arbustos junto a la fuente sin instrucciones y con cuatro máscaras para seis hombres (E4), y pide que paren la manguera de agua fría que le golpea el pecho (E5). Sale sin fotocasete, con cinco normas diarias de irradiación encima y un reconocimiento como liquidador demorado. Dos citas verificadas (Q17, Q18) y una sin verificar (Q16) que puede usarse sin nombre.",
+   "colectivo": false,
+   "fuente": "F09"
+  },
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "T28",
+   "nombre": "Ministerio soviético de Construcción de Maquinaria Mediana (comisión de Slavsky)",
+   "por_que": "Su comisión llega desde Moscú el 2 de octubre, cuatro días después de la explosión; su memorando reparte culpas administrativas entre el jefe de la planta radioquímica y su ingeniero jefe; y entre su llegada y la decisión de desalojar las primeras aldeas pasan días en los que 1.383 personas reciben 52 rem. Es quien sabía y decidía mientras el periódico local hablaba de aurora boreal."
+  },
+  "promesa_gancho": "El agua fría le golpea el pecho y él pide que paren. Nadie va a decirle nunca cuánto llevaba encima.",
+  "pico": {
+   "beat": 8,
+   "id": "D44",
+   "por_que": "Es el que marcó la ficha: el momento en que la demora deja de ser una decisión administrativa y se convierte en dosis ya recibida, con niños de dos a siete años entre los más expuestos. Lo cruzo con Dubrovsky arrancando arbustos sin instrucciones el mismo tramo de días, para que el espectador vea la exposición desde adentro y desde afuera a la vez."
+  },
+  "cierre_humano": "Dubrovsky, treinta años después: sin fotocasete, sin dosímetro, sin lugar en la lista de liquidadores. La pregunta que ninguna fuente responde: cuánto recibió.",
+  "beats": [
+   {
+    "n": 1,
+    "cap": 1,
+    "funcion": "gancho",
+    "emocion": "dolor físico, desconcierto",
+    "intensidad": 4,
+    "dato_central": "Q18",
+    "datos_apoyo": [],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Un camión de bomberos, una manguera a presión, agua fría contra la espalda de un hombre en mono de goma; cuando el chorro pasa al pecho, el hombre grita que paren. Es el último de la fila.",
+    "pregunta_abierta": "¿Qué le están lavando y por qué duele tanto?",
+    "pregunta_pantalla": "¿Por qué lo lavan con agua fría?",
+    "cierre": "Veinte minutos antes, ese hombre había estado arrancando arbustos. Para entender por qué dolía, hay que volver a una ciudad que no aparecía en los mapas.",
+    "palabras_objetivo": 280,
+    "flash_forward": true,
+    "contador": false,
+    "escena_idx": 5
+   },
+   {
+    "n": 2,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "rutina, orgullo secreto",
+    "intensidad": 1,
+    "dato_central": "L09",
+    "datos_apoyo": [
+     "D21",
+     "T03",
+     "T07",
+     "D26",
+     "P22"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una ciudad cerrada entre lagos: cilindros de acero inoxidable dentro de hormigón, un reactor que llegó a potencia en junio del 48, un club llamado Derevyashka donde los electricistas ven películas por la tarde.",
+    "pregunta_abierta": "¿Qué significa vivir en una ciudad que no existe en el mapa?",
+    "pregunta_pantalla": "¿Dónde queda Cheliábinsk-40?",
+    "cierre": "La planta producía plutonio. Y producía algo más, que había que poner en algún lado.",
+    "palabras_objetivo": 380,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 3,
+    "cap": 2,
+    "funcion": "escalada",
+    "emocion": "inquietud sorda",
+    "intensidad": 2,
+    "dato_central": "D55",
+    "datos_apoyo": [
+     "T11",
+     "D62",
+     "Q07",
+     "D56"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Un río, el Techa, del que la gente sigue sacando agua con baldes mientras aguas arriba la planta vierte; lodos de crecida en primavera; un lago, Karachay, que recibe lo que no cabe.",
+    "pregunta_abierta": "Si el vertido era la rutina, ¿qué era lo anormal?",
+    "pregunta_pantalla": "¿Quién bebía del Techa?",
+    "cierre": "Hasta 1957 el problema era lo que salía de la planta a propósito. El 29 de septiembre, un tanque dejó de enfriarse.",
+    "palabras_objetivo": 300,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 4,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "sobresalto",
+    "intensidad": 4,
+    "dato_central": "T20",
+    "datos_apoyo": [
+     "Q16",
+     "D120",
+     "D119",
+     "D33",
+     "T21"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una sala oscura, una película en pantalla, un estruendo seco y el edificio entero vibrando bajo los pies de los electricistas. Afuera, a las siete y veinte de la tarde, el aire se mueve hacia Bagaryak.",
+    "pregunta_abierta": "¿Fue una bomba? ¿Qué explotó?",
+    "pregunta_pantalla": "¿Qué tembló a las 16:22?",
+    "cierre": "No fue atómica, dirían después los expertos. Fue térmica. Para los que estaban en el club, la diferencia llegó al día siguiente, al ir a trabajar.",
+    "palabras_objetivo": 380,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 5,
+    "cap": 3,
+    "funcion": "escalada",
+    "emocion": "extrañeza, obediencia",
+    "intensidad": 3,
+    "dato_central": "D118",
+    "datos_apoyo": [
+     "T24",
+     "D128",
+     "Q19",
+     "T27"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Calles lavadas con manguera, asfalto arrancado y vuelto a poner, aparatos con aguja instalados a la vista en plazas. En un taller, un ajustador clava planchas de plomo en el suelo y las paredes de la cabina de un tractor S-80 que avanzará a dos kilómetros por hora.",
+    "pregunta_abierta": "¿Por qué lavan las calles y nadie dice de qué?",
+    "pregunta_pantalla": "¿Para qué se blinda un tractor con plomo?",
+    "cierre": "A los seis electricistas les dieron monos de goma. Y cuatro máscaras.",
+    "palabras_objetivo": 340,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 3
+   },
+   {
+    "n": 6,
+    "cap": 4,
+    "funcion": "escalada",
+    "emocion": "desamparo",
+    "intensidad": 3,
+    "dato_central": "D123",
+    "datos_apoyo": [
+     "D77",
+     "D134"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Seis hombres, cuatro máscaras antigás, dos respiradores de tela tipo pétalo. Alguien se queda sin nada. En el campo, chicos de internado recogen cosechas y tiran abajo construcciones con las manos.",
+    "pregunta_abierta": "¿Quién decide que cuatro máscaras alcanzan para seis?",
+    "pregunta_pantalla": "¿Cuántas máscaras para seis hombres?",
+    "cierre": "Firmaron un compromiso de silencio. No hacía falta: en la ciudad, de todos modos, nadie hablaba.",
+    "palabras_objetivo": 300,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 4
+   },
+   {
+    "n": 7,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "indignación contenida",
+    "intensidad": 4,
+    "dato_central": "Q02",
+    "datos_apoyo": [
+     "T29",
+     "T28",
+     "Q24",
+     "D121",
+     "T30"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Un cielo rojo intenso que vira a rosa pálido y azul claro sobre Cheliábinsk; una página de periódico que lo llama aurora boreal. En el complejo, desde hace cuatro días, una comisión de Moscú redacta quiénes son los culpables.",
+    "pregunta_abierta": "¿Quién escribió la palabra aurora y quién ya sabía?",
+    "pregunta_pantalla": "¿Aurora boreal en los Urales?",
+    "cierre": "El memorando de Slavsky ya tenía nombres de culpables. Lo que todavía no tenía era una orden de sacar a la gente de las aldeas.",
+    "palabras_objetivo": 360,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 2
+   },
+   {
+    "n": 8,
+    "cap": 5,
+    "funcion": "pico",
+    "emocion": "horror lento",
+    "intensidad": 5,
+    "dato_central": "D44",
+    "datos_apoyo": [
+     "D43",
+     "D48",
+     "Q17",
+     "D124"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Junto a una fuente pequeña, hombres en mono de goma clavan picos y palancas en la tierra para sacar arbustos de raíz; les han dicho solo una cosa: no se quiten las máscaras. A kilómetros, en aldeas que todavía nadie ha desalojado, los chicos de dos a siete años juegan afuera.",
+    "pregunta_abierta": "¿Cuánto recibe un cuerpo en siete días de espera?",
+    "pregunta_pantalla": "Siete días. ¿Cuánto es 52 rem?",
+    "cierre": "Cuando por fin llegó la orden de desalojar, la dosis ya estaba dentro de ellos. Lo que quedaba era limpiar lo que se pudiera.",
+    "palabras_objetivo": 420,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 4
+   },
+   {
+    "n": 9,
+    "cap": 5,
+    "funcion": "respiro",
+    "emocion": "cansancio, resignación",
+    "intensidad": 2,
+    "dato_central": "T36",
+    "datos_apoyo": [
+     "D127",
+     "T32",
+     "T34",
+     "Q20"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Verano de 1958: un tractor forrado de plomo corta la tierra junto a la fuente donde los electricistas arrancaron arbustos, la carga y deja suelo nuevo. En instalaciones inundadas, un hombre camina a oscuras por tablones, se mancha la cabeza, y ni los champús ni los productos químicos la limpian; ni la peluquera quiere tocarlo.",
+    "pregunta_abierta": "¿Qué se puede limpiar y qué no?",
+    "pregunta_pantalla": "¿Se puede lavar la radiación?",
+    "cierre": "La tierra de la fuente se la llevó un tractor. La de las aldeas, no: a las aldeas las enterraron.",
+    "palabras_objetivo": 300,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 10
+   },
+   {
+    "n": 10,
+    "cap": 6,
+    "funcion": "consecuencia",
+    "emocion": "pérdida",
+    "intensidad": 3,
+    "dato_central": "D42",
+    "datos_apoyo": [
+     "D116",
+     "Q23",
+     "D117",
+     "D45",
+     "D46"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Casas niveladas hasta el suelo, pertenencias ardiendo en montones, ganado sacrificado. Una fuente dice que todo duró catorce días; un hijo de un vecino de Yugo-Konyovo dice que se prolongó medio año y que mientras tanto hubo saqueo.",
+    "pregunta_abierta": "¿Catorce días o medio año? ¿Quién cuenta la verdad?",
+    "pregunta_pantalla": "¿Cuánto tardaron en sacarlos?",
+    "cierre": "Veintitrés aldeas dejaron de existir sin que ningún periódico del país lo dijera. Alguien, desde afuera, iba a decirlo.",
+    "palabras_objetivo": 340,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 9
+   },
+   {
+    "n": 11,
+    "cap": 6,
+    "funcion": "revelacion",
+    "emocion": "rabia fría",
+    "intensidad": 4,
+    "dato_central": "D51",
+    "datos_apoyo": [
+     "T43",
+     "D50",
+     "Q21",
+     "D52",
+     "Q03",
+     "D152"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Una revista británica, 1976, una nota breve firmada por un científico exiliado; una negación soviética. Trece años después, un académico habla ante el Soviet Supremo y dice que en tres años de seguimiento no registraron ninguna enfermedad por radiación. Otra fuente cuenta sesenta y seis diagnósticos.",
+    "pregunta_abierta": "¿Cómo se contaron cero enfermos donde hubo sesenta y seis diagnósticos?",
+    "pregunta_pantalla": "¿Ninguna enfermedad por radiación?",
+    "cierre": "Ninguna enfermedad, dijo Buldakov. Galina Chanova, evacuada, iba a pedirle a un tribunal que hiciera otra cuenta.",
+    "palabras_objetivo": 380,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 12,
+    "cap": 7,
+    "funcion": "consecuencia",
+    "emocion": "agotamiento, alivio mínimo",
+    "intensidad": 3,
+    "dato_central": "D109",
+    "datos_apoyo": [
+     "D102",
+     "D103",
+     "Q14",
+     "D108",
+     "D16",
+     "D68"
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Una sentencia con sello del tribunal de Kalininsky; una mujer que dice estar contenta incluso con eso. En Muslyumovo, una decisión de evacuar de 1993 que sigue en un papel porque no hubo dinero.",
+    "pregunta_abierta": "¿Qué repara una sentencia cuarenta años después?",
+    "pregunta_pantalla": "¿Cuánto vale una evacuación?",
+    "cierre": "A Galina le reconocieron una deuda. A Anatoly Dubrovsky no le reconocieron ni la dosis.",
+    "palabras_objetivo": 320,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 13,
+    "cap": 7,
+    "funcion": "cierre",
+    "emocion": "silencio",
+    "intensidad": 3,
+    "dato_central": "D126",
+    "datos_apoyo": [
+     "Q13",
+     "D91",
+     "D93"
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una vitrina con dosímetros personales recogidos del lugar de la catástrofe, un mapa en el que Ozersk no figura. Ningún contador suena. Dubrovsky nunca tuvo uno de esos aparatos: a los seis electricistas no les dieron fotocasete.",
+    "pregunta_abierta": "¿Cuánto recibió el hombre que pidió que pararan la manguera?",
+    "pregunta_pantalla": "¿Cuánto recibió?",
+    "cierre": "Trabajó sin el pétalo. No tuvo dosímetro. No estuvo en la lista. Cuánto llevaba encima cuando pidió que pararan, no lo midió nadie.",
+    "palabras_objetivo": 280,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 11
+   }
+  ],
+  "a_pantalla": [
+   {
+    "id": "T04",
+    "cap": 2,
+    "por_que": "Fecha de aprobación gubernamental de la planta n.º 817: documento, va en rótulo."
+   },
+   {
+    "id": "T19",
+    "cap": 3,
+    "por_que": "Volumen cargado en el tanque n.º 14 con fechas: cifra técnica de expediente."
+   },
+   {
+    "id": "D27",
+    "cap": 3,
+    "por_que": "Capacidad del contenedor y masa de residuos, con discrepancia de estado físico entre fuentes."
+   },
+   {
+    "id": "D29",
+    "cap": 3,
+    "por_que": "Potencia de la explosión en TNT: rango disputado, mejor en pantalla con las variantes."
+   },
+   {
+    "id": "D30",
+    "cap": 3,
+    "por_que": "Dimensiones del cráter: cifra de informe."
+   },
+   {
+    "id": "D31",
+    "cap": 3,
+    "por_que": "Veinte millones de curios: cifra oficial coincidente en tres fuentes."
+   },
+   {
+    "id": "D20",
+    "cap": 3,
+    "por_que": "Nivel 6 de 7 en la escala INES: clasificación institucional."
+   },
+   {
+    "id": "T31",
+    "cap": 4,
+    "por_que": "Creación de la comisión técnica especial de once integrantes, 11 de octubre de 1957: fecha de documento."
+   },
+   {
+    "id": "D37",
+    "cap": 5,
+    "por_que": "23.000 km², 270.000 habitantes, 217 localidades: cifras oficiales de superficie y población."
+   },
+   {
+    "id": "D39",
+    "cap": 5,
+    "por_que": "1.007 militares de tropas internas expuestos: registro de F05."
+   },
+   {
+    "id": "D40",
+    "cap": 5,
+    "por_que": "12 militares hospitalizados con más de 50 roentgens."
+   },
+   {
+    "id": "D41",
+    "cap": 5,
+    "por_que": "63 militares bajo observación médica constante."
+   },
+   {
+    "id": "D38",
+    "cap": 6,
+    "por_que": "106.000 hectáreas retiradas de uso: cifra administrativa."
+   },
+   {
+    "id": "D59",
+    "cap": 2,
+    "por_que": "76 millones de m³ vertidos al Techa: cifra acumulada de F06."
+   },
+   {
+    "id": "D61",
+    "cap": 2,
+    "por_que": "28.000 personas con dosis significativas por el Techa: balance de F06."
+   },
+   {
+    "id": "D72",
+    "cap": 6,
+    "por_que": "Alrededor de 200 muertes según F06, sin balance oficial: va en pantalla con su fuente para contrastar con Q03 sin que la voz lo afirme."
+   },
+   {
+    "id": "D104",
+    "cap": 7,
+    "por_que": "167 rublos mensuales en 1997: cifra de compensación, en rótulo."
+   },
+   {
+    "id": "D106",
+    "cap": 7,
+    "por_que": "287 rublos mensuales en 2007: actualización, en el mismo rótulo."
+   },
+   {
+    "id": "D09",
+    "cap": 7,
+    "por_que": "86 demandas de la fiscalía de Kalininsky: cifra oficial."
+   },
+   {
+    "id": "D10",
+    "cap": 7,
+    "por_que": "Un millón de rublos reclamados en conjunto: cifra oficial."
+   }
+  ],
+  "justificacion_humano": "Dubrovsky es el único que tiene los tres momentos que exige la estructura: un gancho físico (la manguera en el pecho, E5), un lugar en el pico (arrancando arbustos sin instrucciones mientras las aldeas acumulan 52 rem) y un cierre que es la pregunta final del caso en escala de un solo cuerpo (sin fotocasete, sin lista, sin dosis). Kuleshov tiene buenas imágenes (el plomo, el tractor a dos kilómetros por hora) pero su destino no cierra; Galina Chanova entra tarde y solo sirve para el último capítulo. Los dos acompañan sin competir."
+ }
+]

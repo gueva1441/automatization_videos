@@ -1,0 +1,91 @@
+{
+ "tag": "eF2",
+ "modelo": "claude-fable-5-1",
+ "ficha": "fS2",
+ "prompt_md5": {
+  "sistema": "006a195f0ce4be014df34d71644aedb1",
+  "usuario_intento1": "3633feafce6acd722ed38afc09bfae60"
+ },
+ "metricas": {
+  "beats": 14,
+  "beats_por_cap": [
+   1,
+   2,
+   2,
+   2,
+   2,
+   3,
+   2
+  ],
+  "ids": 81,
+  "apoyos_por_beat": 4.79,
+  "promesa": "Un hombre pide que apaguen una manguera de bomberos porque el agua fría le duele en el pecho. Lo que le estaban sacando del cuerpo, el mundo tardó casi veinte años en saber que existía.",
+  "humano": "Anatoly Vasilievich Dubrovsky",
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "T28",
+   "nombre": "Ministerio soviético de Construcción de Maquinaria Mediana",
+   "por_que": "Es el órgano que crea y envía la comisión de Slavsky que llega el 2 de octubre, cuatro días después de la explosión; en ese intervalo y los días siguientes se deciden los desalojos cuando los habitantes ya llevan 52 rem, el periódico explica la luz como aurora y los electricistas trabajan sin dosímetro. El memorando de Slavsky reparte culpas hacia abajo (jefe de la planta radioquímica e ingeniero jefe) y nadie en la ficha asume la decisión de callar durante casi veinte años.",
+   "variantes": [
+    "Министерство среднего машиностроения"
+   ]
+  },
+  "intentos": [
+   {
+    "intento": 1,
+    "bloqueantes": [
+     "antagonista «Mayak (complejo nuclear de Cheliábinsk-40)» no es una persona del pool ni una institución de la ficha",
+     "a_pantalla D37 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla T19 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D43 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D39 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D45 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D104 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D09 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D20 también está en un beat: lo que va a pantalla no lo dice la voz"
+    ]
+   },
+   {
+    "intento": 2,
+    "bloqueantes": []
+   }
+  ],
+  "pasada1_beats_por_cap": [
+   1,
+   2,
+   2,
+   2,
+   1,
+   3,
+   2
+  ],
+  "pasada1_caps_fuera_1_3": [],
+  "pasada1_bloqueantes": [
+   "beat 1: dato_central «Q18 (DUBROVSKY: A LOS VEINTE O TREINTA MINUTOS LLEGA UN CAMIÓN DE BOMBEROS Y LOS LAVAN CON AGUA FRÍA A PRESIÓN; ÉL ES EL ÚLTIMO; AGUANTA LA ESPALDA, PERO CUANDO EL CHORRO LE GOLPEA EL PECHO PIDE QUE PAREN; HABÍA TRABAJADO SIN EL PÉTALO)» no existe en el pool (o no es D/T/Q)",
+   "beat 2: dato_central «D21, D140 (EL DESASTRE SE LLAMARÁ KYSHTYM PORQUE CHELIÁBINSK-40 NO FIGURABA EN LOS MAPAS Y KYSHTYM ERA LA LOCALIDAD CONOCIDA MÁS CERCANA)» no existe en el pool (o no es D/T/Q)",
+   "beat 3: dato_central «D55 (F06: ENTRE 1949 Y 1956 SE VIERTEN GRANDES CANTIDADES DE RESIDUOS LÍQUIDOS DE ALTA Y MEDIA ACTIVIDAD AL RÍO TECHA)» no existe en el pool (o no es D/T/Q)",
+   "beat 4: dato_central «T20 (29 DE SEPTIEMBRE DE 1957, 16:22 HORA LOCAL: EXPLOTA EL TANQUE N.º 14 DEL COMPLEJO S-3)» no existe en el pool (o no es D/T/Q)",
+   "beat 5: dato_central «D31, D122, D146 (UNOS 20 MILLONES DE CURIOS LIBERADOS, SEGÚN F05, F09 Y F10)» no existe en el pool (o no es D/T/Q)",
+   "beat 6: dato_central «D118 (30 DE SEPTIEMBRE: SE LAVAN CARRETERAS, SE CAMBIA EL ASFALTO Y SE INSTALAN DOSÍMETROS EN ESPACIOS PÚBLICOS DE CHELIÁBINSK-40)» no existe en el pool (o no es D/T/Q)",
+   "beat 7: dato_central «T29, Q02, D132 (6 DE OCTUBRE DE 1957: CHELYABINSKY RABOCHY PUBLICA QUE EL RESPLANDOR DEL DOMINGO TENÍA «TODAS LAS CARACTERÍSTICAS DE UNA AURORA BOREAL»)» no existe en el pool (o no es D/T/Q)",
+   "beat 8: dato_central «Q17 (DUBROVSKY: PALAS, PALANCAS Y PICOS PARA ARRANCAR LOS ARBUSTOS JUNTO A LA PEQUEÑA FUENTE; NINGUNA INSTRUCCIÓN, NADIE LES EXPLICA CÓMO COMPORTARSE; SOLO QUE NO SE QUITEN LAS MÁSCARAS ANTIGÁS NI LOS PÉTALOS)» no existe en el pool (o no es D/T/Q)",
+   "beat 9: dato_central «Q20, T34 (KULESHOV: EN LA RESTAURACIÓN DE 1958, MIKHALSKY CAMINA A OSCURAS POR TABLONES Y SE ENSUCIA LA CABEZA; CHAMPÚS Y PRODUCTOS QUÍMICOS NO LA LIMPIAN; «INCLUSO LA PELUQUERA SE NEGÓ A CORTARLE EL PELO»)» no existe en el pool (o no es D/T/Q)",
+   "beat 10: dato_central «D42, D116 (F05: 23 LOCALIDADES DESALOJADAS Y ENTERRADAS ENTRE 1957 Y 1960; F09: 23 ALDEAS LIQUIDADAS EN CATORCE DÍAS, UNA SEMANA DESPUÉS DE LA EXPLOSIÓN)» no existe en el pool (o no es D/T/Q)",
+   "beat 11: dato_central «D51, T44 (1976: ZHORES MEDVEDEV PUBLICA UN BREVE INFORME EN NEW SCIENTIST Y LE DA DIFUSIÓN INTERNACIONAL A LA NATURALEZA Y EL ALCANCE DEL DESASTRE)» no existe en el pool (o no es D/T/Q)",
+   "beat 12: dato_central «D102, D103, D109 (GALINA CHANOVA, EVACUADA DEL TERRITORIO CONTAMINADO, COBRA COMPENSACIONES POR DAÑO A SU SALUD DESDE 1997 Y OBTIENE UNA SENTENCIA DEL TRIBUNAL DE KALININSKY QUE OBLIGA AL ESTADO A PAGARLE UNOS 60.000 RUBLOS ADICIONALES)» no existe en el pool (o no es D/T/Q)",
+   "beat 13: dato_central «D126 (LOS SEIS ELECTRICISTAS DEL GRUPO DE DUBROVSKY NO RECIBIERON LOS FOTOCASETES DOSIMÉTRICOS Y NO FUERON INCORPORADOS DE INMEDIATO A LA LISTA DE LIQUIDADORES; DUBROVSKY SALE CON EXPOSICIÓN DECLARADA Y RECONOCIMIENTO DEMORADO)» no existe en el pool (o no es D/T/Q)",
+   "antagonista «Mayak (complejo nuclear de Cheliábinsk-40)» no es una persona del pool ni una institución de la ficha"
+  ],
+  "cierre_humano": "Vuelve a Dubrovsky con el dato que cierra su arco: a los seis electricistas no les dieron fotocasetes y no los incorporaron de inmediato a la lista de liquidadores. Nadie midió lo que recibió junto a la fuente. La pregunta que nadie respondió es cuántos como él quedaron fuera de todas las cuentas, no de las que se discuten (Buldakov, los 66 casos, los 200 muertos) sino de las que nunca se hicieron."
+ },
+ "usd": 2.8047,
+ "segundos": 551.0,
+ "cortada": [],
+ "log": [
+  "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}",
+  "  [eF2] m01a_escaleta v2 intento 1: in 24510 · out 24777 · stop end_turn · US$ 1.4840 · 296.6 s",
+  "  [escaleta v2] intento 1: 9 bloqueante(s) ['antagonista «Mayak (complejo nuclear de Cheliábinsk-40)» no es una persona del pool ni una institución de la ficha', 'a_pantalla D37 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T19 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D43 también está en un beat: lo que va a pantalla no lo dice la voz'] · 96 reparación(es) · 10 a métricas",
+  "  [eF2] m01a_escaleta v2 intento 2: in 24890 · out 21436 · stop end_turn · US$ 1.3207 · 253.8 s",
+  "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 90 reparación(es) · 10 a métricas"
+ ]
+}

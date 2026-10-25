@@ -1,0 +1,63 @@
+{
+ "tag": "eF1",
+ "modelo": "claude-fable-5-1",
+ "ficha": "fS2",
+ "prompt_md5": {
+  "sistema": "006a195f0ce4be014df34d71644aedb1",
+  "usuario_intento1": "3633feafce6acd722ed38afc09bfae60"
+ },
+ "error": "EscaletaValidationError: escaleta v2 rechazada después de 2 intento(s) (PARADA): ['beat 2: dato_central «L09» no existe en el pool (o no es D/T/Q)', 'antagonista «Ministerio soviético de Construcción de Maquinaria Mediana (comisión de Slavsky)» no es una persona del pool ni una institución de la ficha']",
+ "metricas_pasada1": {
+  "beats": 0,
+  "beats_por_cap": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "ids": 0,
+  "apoyos_por_beat": 0.0,
+  "promesa": null,
+  "humano": null,
+  "antagonista": null,
+  "intentos": [],
+  "pasada1_beats_por_cap": [
+   1,
+   2,
+   2,
+   2,
+   2,
+   2,
+   2
+  ],
+  "pasada1_caps_fuera_1_3": [],
+  "pasada1_bloqueantes": [
+   "beat 1: dato_central «Q18 — DUBROVSKY: A LOS VEINTE O TREINTA MINUTOS LLEGA UN CAMIÓN DE BOMBEROS Y LOS LAVAN CON AGUA FRÍA A PRESIÓN; ÉL ES EL ÚLTIMO; SOPORTA LA ESPALDA, PERO CUANDO EL CHORRO LE GOLPEA EL PECHO PIDE QUE LO DETENGAN; HABÍA TRABAJADO SIN EL PÉTALO.» no existe en el pool (o no es D/T/Q)",
+   "beat 2: dato_central «D21, D140 — EL DESASTRE SE LLAMA KYSHTYM PORQUE CHELIÁBINSK-40 NO APARECÍA EN LOS MAPAS Y KYSHTYM ERA LA LOCALIDAD CONOCIDA MÁS CERCANA.» no existe en el pool (o no es D/T/Q)",
+   "beat 3: dato_central «T19 — ENTRE EL 9 DE MARZO Y EL 10 DE ABRIL DE 1957 EL TANQUE N.º 14 RECIBE 256 METROS CÚBICOS DE RESIDUOS.» no existe en el pool (o no es D/T/Q)",
+   "beat 4: dato_central «T20 — EL 29 DE SEPTIEMBRE DE 1957, A LAS 16:22 HORA LOCAL, EXPLOTA EL TANQUE N.º 14 DEL COMPLEJO S-3.» no existe en el pool (o no es D/T/Q)",
+   "beat 5: dato_central «D123, D126 — AL GRUPO DE SEIS ELECTRICISTAS DE DUBROVSKY LE ENTREGAN MONOS DE GOMA, CUATRO MÁSCARAS ANTIGÁS Y DOS RESPIRADORES TIPO PÉTALO: SEIS HOMBRES, CUATRO MÁSCARAS.» no existe en el pool (o no es D/T/Q)",
+   "beat 6: dato_central «Q19, D129, E7 — KULESHOV: AL DÍA SIGUIENTE EL S-80 CUBIERTO DE PLOMO VA A RECONOCER EL FOCO; DESDE EL EDIFICIO DE LA GRAN CHIMENEA HASTA EL FOCO HAY UNOS QUINIENTOS METROS, Y EL TRACTOR AVANZA A DOS KILÓMETROS POR HORA.» no existe en el pool (o no es D/T/Q)",
+   "beat 7: dato_central «T29, Q02, D132, E2 — 6 DE OCTUBRE DE 1957: CHELYABINSKY RABOCHY PUBLICA QUE «MUCHOS HABITANTES DE CHELIÁBINSK OBSERVARON UN RESPLANDOR ESPECIAL EN EL CIELO ESTRELLADO» CON «TODAS LAS CARACTERÍSTICAS DE UNA AURORA BOREAL».» no existe en el pool (o no es D/T/Q)",
+   "beat 8: dato_central «D44 — CUANDO SE DECIDE DESALOJAR LAS PRIMERAS LOCALIDADES, SUS HABITANTES YA HAN RECIBIDO UNA DOSIS EQUIVALENTE DE 52 REM.» no existe en el pool (o no es D/T/Q)",
+   "beat 9: dato_central «T36, D127, E10 — EN EL VERANO DE 1958 UN TRACTOR PROTEGIDO CON PLOMO RETIRA LA TIERRA DEL LUGAR DONDE LOS ELECTRICISTAS HABÍAN ARRANCADO ARBUSTOS Y LA REEMPLAZA POR SUELO LIMPIO.» no existe en el pool (o no es D/T/Q)",
+   "beat 10: dato_central «D42, D116 — F05 DOCUMENTA EL DESALOJO Y ENTERRAMIENTO DE 23 LOCALIDADES ENTRE 1957 Y 1960; F09 DICE QUE UNA SEMANA DESPUÉS DE LA EXPLOSIÓN 23 ALDEAS FUERON LIQUIDADAS EN CATORCE DÍAS.» no existe en el pool (o no es D/T/Q)",
+   "beat 11: dato_central «Q03 — 18 DE JULIO DE 1989, ANTE EL SOVIET SUPREMO, BULDAKOV DECLARA QUE EN EL SEGUIMIENTO DE TRES AÑOS QUE DESCRIBE NO REGISTRARON NINGUNA FORMA DE ENFERMEDAD POR RADIACIÓN.» no existe en el pool (o no es D/T/Q)",
+   "beat 12: dato_central «D102, D103, D109 — GALINA CHANOVA, EVACUADA DEL TERRITORIO CONTAMINADO, COBRA COMPENSACIONES DESDE 1997 Y OBTIENE UNA SENTENCIA DEL TRIBUNAL DE KALININSKY QUE OBLIGA AL ESTADO A PAGARLE UNOS 60.000 RUBLOS ADICIONALES.» no existe en el pool (o no es D/T/Q)",
+   "beat 13: dato_central «D126 — LOS SEIS ELECTRICISTAS NO RECIBIERON LOS FOTOCASETES, LOS DISPOSITIVOS DOSIMÉTRICOS, Y NO FUERON INCORPORADOS DE INMEDIATO A LA LISTA DE LIQUIDADORES.» no existe en el pool (o no es D/T/Q)"
+  ]
+ },
+ "usd": 2.1362,
+ "segundos": 413.1,
+ "cortada": [],
+ "log": [
+  "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}",
+  "  [eF1] m01a_escaleta v2 intento 1: in 24510 · out 20100 · stop end_turn · US$ 1.2501 · 251.4 s",
+  "  [escaleta v2] intento 1: 15 bloqueante(s) ['a_pantalla T04 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T19 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D31 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D30 también está en un beat: lo que va a pantalla no lo dice la voz'] · 87 reparación(es) · 9 a métricas",
+  "  [eF1] m01a_escaleta v2 intento 2: in 25085 · out 12704 · stop end_turn · US$ 0.8861 · 161.6 s",
+  "  [escaleta v2] intento 2: 2 bloqueante(s) ['beat 2: dato_central «L09» no existe en el pool (o no es D/T/Q)', 'antagonista «Ministerio soviético de Construcción de Maquinaria Mediana (comisión de Slavsky)» no es una persona del pool ni una institución de la ficha'] · 18 reparación(es) · 10 a métricas"
+ ]
+}

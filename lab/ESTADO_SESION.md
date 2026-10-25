@@ -12,6 +12,11 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
 
+## F25a — Modelo de la ficha y de la escaleta (Kyshtym, pool F23, en paralelo) — HECHO, **PARADA**
+- Sobre `b27f54c`. Reporte `lab/hyperframes/f25a/F25a_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Claude US$ 13.57 de 15, OpenAI US$ 1.37 de 4, pared 2,637 s (suma de 4 corridas).
+- Ficha: Sol fS1/fS2 OK (9–11 problemas); Fable ninguna (HTTP 400 por el esquema; 2 cortadas en 32k; fF1 con 100k terminó en 46k tokens pero el JSON no se leyó; fF2 frenada por el tope). Escaleta (las 4 sobre fS2): Sol eS1 OK (1·1·2·2·1·3·3), eS2 rechazada; Fable eF2 OK (81 ids, 4.8 apoyos/beat), eF1 rechazada. Guiones Fable: gS1 1,499 palabras 0 bloqueantes; gF2 2,047 (bloqueante de tope). Decisión: Sol en ficha y escaleta.
+- Regla de Omar en `claude_helpers.py`: max_tokens 100 000 con streaming (`leer_stream`), `ESFUERZO_POR_ETAPA` (guion high; ficha y escaleta medium), `SALIDA_GRANDE` sin esquema + `json_del_texto`. Suite 860 verdes + 5 previas.
+
 ## F24 — Fuentes que se acumulan, beats repartidos, dos temas nuevos — HECHO, **PARADA** (el analista lee los dos guiones y la tabla de la fase 1 y le da a Omar la nota 1–10)
 - C (sin tocar producción, `f24_corridas.py`): **Pennhurst** `4ac37187-pennhurst` (1908–1987 prolongado; verde 236/37/25/108/40; humano Terri Lee Halderman; guion Fable 1,435 palabras, 0 bloqueantes, 2 citas) y **Vajont** `f8s3-vajont` (1963 puntual; verde 245/45/23/78/52; humano Micaela Coletti; 1,755 palabras, 1 bloqueante por el tope de 1700 — la reparación no entró en el tope de 1.20). Escaletas con 1–3 beats por cap desde la 1.ª pasada. Tanda US$ 8.27 de 14.00. Reporte `lab/hyperframes/f24/F24_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), `compara_f24.html`.
 - D (pedido de Omar): R3 con claude-sonnet-5-5 sobre los 8 docs de Kyshtym F23 → 167/59/12/34/24 ítems, 30 citas verificadas (Gemini 21), 44 descartados (67), US$ 0.97 (Gemini 0.59), 434 s; nombres rusos en transcripción española y duplicados sin unir. `lab/hyperframes/f24/d_r3_sonnet/`.

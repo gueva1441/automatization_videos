@@ -7,6 +7,11 @@
 # errores muestran el código HTTP y el cuerpo de la respuesta, nunca el pedido ni los headers.
 # Costo: usage × PRICES (US$ por millón de tokens de entrada / salida; el razonamiento factura como salida y ya viene
 # dentro de `output_tokens`) → cost_tracker, como cualquier llamada de Gemini o GPT.
+#
+# F25a (regla de Omar, docs oficiales de thinking: los tokens de razonamiento cuentan dentro de `max_tokens`, tope
+# 128k): toda llamada va con max_tokens 100 000 y en STREAMING (la API lo exige por encima de 21 333); effort `high`
+# solo en el guion y `medium` en ficha y escaleta (ESFUERZO_POR_ETAPA, lo usa quien arma el `call`); sin esquema
+# forzado cuando la salida pasa de ~20k tokens (SALIDA_GRANDE: JSON libre + el chequeo nuestro de cada paso).
 
 import json
 import os
@@ -25,8 +30,12 @@ API_VERSION = "2026-10-21"
 # F22d: Fable 5.1 10 / 50.
 PRICES = {"claude-opus-5-5": (4.0, 20.0), "claude-sonnet-5-5": (2.0, 10.0), "claude-fable-5-1": (10.0, 50.0)}
 MAX_ATTEMPTS = 3
-TIMEOUT_S = 600
-MAX_TOKENS = 32000
+TIMEOUT_S = 600                       # por lectura del stream (socket), no por la llamada entera
+MAX_TOKENS = 100_000                  # F25a: razonamiento + salida; con streaming (> 21 333 lo exige la API)
+ESFUERZO_POR_ETAPA = {"guion": "high", "ficha": "medium", "escaleta": "medium"}
+# descripciones de llamadas cuya salida pasa de ~20k tokens: van sin `output_config.format` (la gramática del esquema
+# de la ficha es demasiado grande para la API: «The compiled grammar is too large», HTTP 400)
+SALIDA_GRANDE = ("ficha_caso",)
 
 
 class ClaudeError(RuntimeError):
@@ -60,12 +69,70 @@ def json_schema(s: Any) -> Any:
     return s
 
 
+def leer_stream(lineas) -> dict:
+    """F25a: los eventos SSE de una respuesta en streaming → el mismo dict que devuelve la API sin streaming
+    (`model`, `content` con los bloques de texto, `stop_reason`, `stop_details`, `usage`). Un evento `error` →
+    ClaudeError (los sobrecargados/limitados, como HTTP 529/429, para que `call_json` reintente)."""
+    msg: dict[str, Any] = {"content": [], "usage": {}}
+    bloques: dict[int, dict] = {}
+    evento = None
+    for raw in lineas:
+        linea = raw.decode("utf-8") if isinstance(raw, bytes) else raw
+        linea = linea.rstrip("\r\n")
+        if linea.startswith("event:"):
+            evento = linea[6:].strip()
+            continue
+        if not linea.startswith("data:"):
+            continue
+        d = json.loads(linea[5:].strip() or "{}")
+        t = d.get("type") or evento
+        if t == "message_start":
+            m = d.get("message") or {}
+            msg.update({k: v for k, v in m.items() if k not in ("content", "usage")})
+            msg["usage"].update(m.get("usage") or {})
+        elif t == "content_block_start":
+            bloques[d["index"]] = dict(d.get("content_block") or {})
+            if bloques[d["index"]].get("type") == "text":
+                bloques[d["index"]].setdefault("text", "")
+        elif t == "content_block_delta":
+            delta, b = d.get("delta") or {}, bloques.setdefault(d["index"], {"type": "text", "text": ""})
+            if delta.get("type") == "text_delta":
+                b["text"] = (b.get("text") or "") + delta.get("text", "")
+        elif t == "message_delta":
+            delta = d.get("delta") or {}
+            for k in ("stop_reason", "stop_sequence", "stop_details"):
+                if k in delta:
+                    msg[k] = delta[k]
+            msg["usage"].update(d.get("usage") or {})
+        elif t == "error":
+            err = d.get("error") or {}
+            raise _StreamError(err.get("type") or "error", str(err.get("message") or err)[:300])
+        elif t == "message_stop":
+            break
+    msg["content"] = [bloques[i] for i in sorted(bloques)]
+    return msg
+
+
+class _StreamError(ClaudeError):
+    def __init__(self, tipo: str, mensaje: str):
+        super().__init__(f"stream {tipo}: {mensaje}")
+        self.tipo = tipo
+
+
 def _post(body: dict) -> dict:
-    req = urllib.request.Request(URL, data=json.dumps(body).encode("utf-8"),
+    """F25a: siempre en streaming (max_tokens > 21 333 lo exige); devuelve el mensaje armado (`leer_stream`)."""
+    req = urllib.request.Request(URL, data=json.dumps({**body, "stream": True}).encode("utf-8"),
                                  headers={"x-api-key": _api_key(), "anthropic-version": API_VERSION,
-                                          "content-type": "application/json"})
+                                          "content-type": "application/json", "accept": "text/event-stream"})
     with urllib.request.urlopen(req, timeout=TIMEOUT_S) as r:
-        return json.load(r)
+        return leer_stream(r)
+
+
+def json_del_texto(txt: str) -> str:
+    """F25a: sin esquema forzado, el modelo puede envolver el JSON en ```json … ``` o en una línea de texto: se toma del
+    primer «{» al último «}» (si no hay, el texto tal cual, y `json.loads` dice por qué no es JSON)."""
+    i, j = txt.find("{"), txt.rfind("}")
+    return txt[i:j + 1] if 0 <= i < j else txt
 
 
 def _base(model: str) -> str:
@@ -92,7 +159,8 @@ def call_json(prompt: str, *, model: str, system_instruction: str | None = None,
               effort: str | None = None, description: str | None = None,
               post: Callable[[dict], dict] | None = None, max_tokens: int | None = None) -> dict:
     """Una llamada a la Messages API con salida JSON. `response_schema` (estilo Gemini) va como
-    `output_config.format` (json_schema); sin esquema no se agrega formato y se parsea el texto. `effort` va en `output_config.effort` (Opus 5.5 tiene por defecto `medium`). Thinking: el adaptativo por
+    `output_config.format` (json_schema), salvo las descripciones de SALIDA_GRANDE (F25a); sin esquema no se agrega
+    formato y se parsea el texto. `effort` va en `output_config.effort` (Opus 5.5 tiene por defecto `medium`). Thinking: el adaptativo por
     defecto del modelo (no se manda `thinking`). Reintenta 429/5xx/529/timeout y JSON roto (generación fresca) hasta
     MAX_ATTEMPTS; otro 4xx o `stop_reason: refusal` → ClaudeError en el acto."""
     post = post or _post
@@ -103,7 +171,7 @@ def call_json(prompt: str, *, model: str, system_instruction: str | None = None,
     oc: dict[str, Any] = {}
     if effort:
         oc["effort"] = effort
-    if response_schema is not None:
+    if response_schema is not None and (description or "") not in SALIDA_GRANDE:     # F25a: salida grande, sin esquema
         oc["format"] = {"type": "json_schema", "schema": json_schema(response_schema)}
     if oc:
         body["output_config"] = oc
@@ -119,6 +187,12 @@ def call_json(prompt: str, *, model: str, system_instruction: str | None = None,
                 time.sleep(2 ** attempt)
                 continue
             raise ClaudeError(f"{model}: HTTP {e.code}: {msg}") from None
+        except _StreamError as e:                         # F25a: error a mitad del stream
+            if e.tipo in ("overloaded_error", "rate_limit_error", "api_error"):
+                last = str(e)
+                time.sleep(2 ** attempt)
+                continue
+            raise ClaudeError(f"{model}: {e}") from None
         except (urllib.error.URLError, TimeoutError) as e:
             last = f"{type(e).__name__}"
             time.sleep(2 ** attempt)
@@ -128,7 +202,7 @@ def call_json(prompt: str, *, model: str, system_instruction: str | None = None,
             raise ClaudeError(f"{model}: {desc}: el modelo se negó ({r.get('stop_details')})")
         txt = "".join(b.get("text") or "" for b in r.get("content") or [] if b.get("type") == "text")
         try:
-            return json.loads(txt)
+            return json.loads(txt if oc.get("format") else json_del_texto(txt))
         except json.JSONDecodeError as e:
             last = f"JSON inválido ({e.msg}; stop_reason {r.get('stop_reason')})"
             print(f"[claude] {desc}: {last} (intento {attempt}/{MAX_ATTEMPTS}) — re-llamando")

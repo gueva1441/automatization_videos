@@ -1,0 +1,9 @@
+[fF1] ERROR ClaudeError: claude-fable-5-1: HTTP 400: {"type":"error","error":{"type":"invalid_request_error","message":"The compiled grammar is too large, which w · US$ 0 · 0.5 s
+[fF2] ERROR ClaudeError: claude-fable-5-1: HTTP 400: {"type":"error","error":{"type":"invalid_request_error","message":"The compiled grammar is too large, which w · US$ 0 · 0.5 s
+[fS1] {'problemas_chequeo': 11, 'conteos': {'humanos_candidatos': 3, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 12, 'contradicciones': 6, 'decisiones': 14, 'versiones': 5, 'personas': 43, 'personas_descartadas': 2, 'cifras': 49, 'cronologia': 46, 'hechos': 70, 'citas': 20, 'descartados': 30}, 'hechos_nivel_1': 18, 'hechos_nivel_2': 52, 'citas': 20, 'citas_verificadas': 0, 'escenas': 12, 'humanos_candidatos': ['Anatoly Vasilievich Dubrovsky', 'Mikhail Kuleshov', 'Galina Chanova'], 'personas': 43} · US$ 0.3835 · 383.3 s
+[fS2] {'problemas_chequeo': 9, 'conteos': {'humanos_candidatos': 3, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 11, 'contradicciones': 8, 'decisiones': 19, 'versiones': 5, 'personas': 47, 'personas_descartadas': 2, 'cifras': 43, 'cronologia': 47, 'hechos': 68, 'citas': 16, 'descartados': 24}, 'hechos_nivel_1': 19, 'hechos_nivel_2': 49, 'citas': 16, 'citas_verificadas': 0, 'escenas': 11, 'humanos_candidatos': ['Anatoly Vasilievich Dubrovsky', 'Mikhail Kuleshov', 'Galina Chanova'], 'personas': 47} · US$ 0.4019 · 400.6 s
+[etapa 1] {'pared_s': 400.6, 'mejor_sol': 'fS2', 'mejor_fable': None}
+[eS2] ERROR EscaletaValidationError: escaleta v2 rechazada después de 2 intento(s) (PARADA): ['beat 9: D117 es otra cifra del conteo 12.763 [D45]: un hecho, una c · US$ 0.2893 · 425.6 s
+[eS1] beats [1, 1, 2, 2, 1, 3, 3] · intentos [28, 0] · US$ 0.2961 · 430.9 s
+[gS1] 1499 palabras · bloqueantes 0 · citas 5 · por cap {1: 146, 2: 195, 3: 310, 4: 174, 5: 97, 6: 304, 7: 266} · US$ 0.955 · 196.8 s
+tanda: Claude US$ 0.9550 · OpenAI US$ 1.3708 · pared 1035.0 s

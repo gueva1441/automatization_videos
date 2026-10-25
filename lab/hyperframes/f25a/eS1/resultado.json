@@ -1,0 +1,111 @@
+{
+ "tag": "eS1",
+ "modelo": "gpt-6.1-sol",
+ "ficha": "fS2",
+ "prompt_md5": {
+  "sistema": "006a195f0ce4be014df34d71644aedb1",
+  "usuario_intento1": "3633feafce6acd722ed38afc09bfae60"
+ },
+ "metricas": {
+  "beats": 13,
+  "beats_por_cap": [
+   1,
+   1,
+   2,
+   2,
+   1,
+   3,
+   3
+  ],
+  "ids": 43,
+  "apoyos_por_beat": 2.31,
+  "promesa": "¿Cómo se vuelve invisible el daño que un hombre puede sentir en el pecho?",
+  "humano": "Anatoly Vasilievich Dubrovsky",
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "T04",
+   "nombre": "Gobierno de la URSS",
+   "por_que": "La ficha documenta sus decisiones de construir la planta y establecer una zona de protección sanitaria, y recoge la negativa de las autoridades soviéticas ante la divulgación de Medvedev. El antagonismo es institucional: no se adjudican a un ministro concreto la demora de las evacuaciones ni la explicación periodística del resplandor.",
+   "variantes": [
+    "Правительство СССР",
+    "Soviet government"
+   ]
+  },
+  "intentos": [
+   {
+    "intento": 1,
+    "bloqueantes": [
+     "beat 2: dato_central «P22: DUBROVSKY ERA ELECTRICISTA; SE LO PRESENTA PRIMERO POR SU OFICIO, NO POR SU CONDICIÓN POSTERIOR DE LIQUIDADOR.» no existe en el pool (o no es D/T/Q)",
+     "a_pantalla T04 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla T03 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla T20 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D20 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla T29 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla Q02 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla T28 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla Q24 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D37 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D43 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D48 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D42 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D116 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D136 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D50 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla T38 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D51 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D52 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla Q03 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D103 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D109 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D09 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D16 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D03 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla T54 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla D07 también está en un beat: lo que va a pantalla no lo dice la voz",
+     "a_pantalla T56 también está en un beat: lo que va a pantalla no lo dice la voz"
+    ]
+   },
+   {
+    "intento": 2,
+    "bloqueantes": []
+   }
+  ],
+  "pasada1_beats_por_cap": [
+   1,
+   1,
+   3,
+   2,
+   1,
+   3,
+   3
+  ],
+  "pasada1_caps_fuera_1_3": [],
+  "pasada1_bloqueantes": [
+   "beat 1: dato_central «Q18: FRAGMENTO VERIFICADO EN EL QUE DUBROVSKY CUENTA QUE EL AGUA FRÍA A PRESIÓN LE GOLPEABA EL PECHO CON TANTO DOLOR QUE PIDIÓ DETENER EL LAVADO.» no existe en el pool (o no es D/T/Q)",
+   "beat 2: dato_central «P22: DUBROVSKY ERA ELECTRICISTA; SE LO PRESENTA PRIMERO POR SU OFICIO, NO POR SU CONDICIÓN POSTERIOR DE LIQUIDADOR.» no existe en el pool (o no es D/T/Q)",
+   "beat 3: dato_central «D55: ANTES DE LA EXPLOSIÓN, MAYAK YA VERTÍA RESIDUOS LÍQUIDOS DE ALTA Y MEDIA ACTIVIDAD AL RÍO TECHA.» no existe en el pool (o no es D/T/Q)",
+   "beat 4: dato_central «D119: LA COMISIÓN DE SLAVSKY ATRIBUYÓ EL ACCIDENTE A UNA ALTERACIÓN DEL RÉGIMEN DE REFRIGERACIÓN DEL TANQUE.» no existe en el pool (o no es D/T/Q)",
+   "beat 5: dato_central «Q17: DUBROVSKY DEBE ARRANCAR ARBUSTOS JUNTO A UNA FUENTE SIN INSTRUCCIONES SOBRE CÓMO COMPORTARSE; LA ÚNICA CONSIGNA RELATADA ES NO QUITARSE LA PROTECCIÓN RESPIRATORIA.» no existe en el pool (o no es D/T/Q)",
+   "beat 6: dato_central «Q02: CHELYABINSKY RABOCHY PRESENTA EL RESPLANDOR OBSERVADO POR LOS HABITANTES COMO UNA AURORA BOREAL.» no existe en el pool (o no es D/T/Q)",
+   "beat 7: dato_central «Q24: EL MEMORANDO DE SLAVSKY SEÑALA COMO PRINCIPALES CULPABLES AL JEFE DE LA PLANTA RADIOQUÍMICA Y A SU INGENIERO JEFE.» no existe en el pool (o no es D/T/Q)",
+   "beat 8: dato_central «D44: SEGÚN F05, LOS HABITANTES DE LAS PRIMERAS LOCALIDADES INDICADAS YA HABÍAN RECIBIDO UNA DOSIS EQUIVALENTE DE 52 REM CUANDO SE DECIDIÓ DESALOJARLOS. LA CIFRA SE DICE UNA SOLA VEZ.» no existe en el pool (o no es D/T/Q)",
+   "beat 9: dato_central «D42: LA EMERGENCIA SE CONVIERTE EN DESAPARICIÓN MATERIAL DE LOCALIDADES DESALOJADAS Y ENTERRADAS.» no existe en el pool (o no es D/T/Q)",
+   "beat 10: dato_central «D127, T36: EL VERANO SIGUIENTE, UN TRACTOR PROTEGIDO CON PLOMO RETIRÓ SUELO CONTAMINADO DEL LUGAR DONDE HABÍAN TRABAJADO LOS ELECTRICISTAS Y SE LLEVÓ TIERRA LIMPIA PARA SUSTITUIRLO.» no existe en el pool (o no es D/T/Q)",
+   "beat 11: dato_central «D51: EL INFORME DE MEDVEDEV EN NEW SCIENTIST DA DIFUSIÓN INTERNACIONAL A LA NATURALEZA Y AL ALCANCE DEL DESASTRE.» no existe en el pool (o no es D/T/Q)",
+   "beat 12: dato_central «D109: GALINA CHANOVA OBTIENE UNA SENTENCIA QUE OBLIGA AL ESTADO A PAGAR UNA CANTIDAD ADICIONAL POR SUS COMPENSACIONES; LA FICHA NO ACREDITA EL COBRO.» no existe en el pool (o no es D/T/Q)",
+   "beat 13: dato_central «D07: EL EXPEDIENTE DE VIVIENDA DE N.N.D. RECOGE UNA DENEGACIÓN VINCULADA A LA FECHA DE PRESENTACIÓN, PERO SUS PASAJES CITAN REFERENCIAS JURÍDICAS DISTINTAS QUE NO PUEDEN EQUIPARARSE SIN EL RAZONAMIENTO COMPLETO.» no existe en el pool (o no es D/T/Q)",
+   "beat 14: dato_central «D126: LOS ELECTRICISTAS DEL GRUPO DE DUBROVSKY NO RECIBIERON LOS DISPOSITIVOS DOSIMÉTRICOS LLAMADOS FOTOCASETES Y NO FUERON INCORPORADOS DE INMEDIATO A LA LISTA DE LIQUIDADORES.» no existe en el pool (o no es D/T/Q)"
+  ],
+  "cierre_humano": "Volver a Dubrovsky y al dispositivo que no recibió. Terminar con una pregunta, no con un balance inventado: «¿Cuál fue el costo sanitario completo del desastre, y cuántos afectados quedaron sin reconocimiento o reparación después de una exposición que ni siquiera pudieron registrar?»"
+ },
+ "usd": 0.2961,
+ "segundos": 430.9,
+ "cortada": [],
+ "log": [
+  "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}",
+  "  [eS1] m01a_escaleta v2 intento 1: in 15140 · out 13032 · stop stop · US$ 0.1606 · 252.7 s",
+  "  [escaleta v2] intento 1: 28 bloqueante(s) ['beat 2: dato_central «P22: DUBROVSKY ERA ELECTRICISTA; SE LO PRESENTA PRIMERO POR SU OFICIO, NO POR SU CONDICIÓN POSTERIOR DE LIQUIDADOR.» no existe en el pool (o no es D/T/Q)', 'a_pantalla T04 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T03 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T20 también está en un beat: lo que va a pantalla no lo dice la voz'] · 66 reparación(es) · 15 a métricas",
+  "  [eS1] m01a_escaleta v2 intento 2: in 15877 · out 10374 · stop stop · US$ 0.1355 · 177.8 s",
+  "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 57 reparación(es) · 13 a métricas"
+ ]
+}
