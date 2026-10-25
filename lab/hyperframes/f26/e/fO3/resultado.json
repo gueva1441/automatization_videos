@@ -1,0 +1,82 @@
+{
+ "tag": "fO3",
+ "modelo": "claude-opus-5-5",
+ "esfuerzo": "medium",
+ "prompt_md5": {
+  "sistema": "070b75dff58aecfa407fac3d62020ce4",
+  "usuario": "f781b58a37ea4559ec9a730da2bd3605"
+ },
+ "parrafo": "Forma del JSON: un objeto con estas claves y, adentro, exactamente estos nombres de campo (ni otros nombres ni campos anidados nuevos; los ids van siempre en un campo `ids` que es una lista de ids del pool): personas: [{nombre, rol, variantes: [], ids: []}]; cronologia: [{fecha, hora, evento, aproximada, ids: []}]; historia: {humanos_candidatos: [{nombre, rol, arco, ids: [], citas_verificadas}], giros: [{orden, que_cambia, ids: []}], pico: {que, por_que, ids: []}, pregunta_final: {pregunta, ids: []}}; escenas: [{donde, quien, que_pasa, sentidos, ids: []}]; hechos: [{texto, nivel, sirve_para, ids: []}]; cifras: [{que, valor, unidad, fuente, ids: [], otras_versiones: [{valor, unidad, fuente, ids: []}]}]; citas: [{autor, rol, verificacion, texto, original, traduccion, ids: []}]; contradicciones: [{tema, versiones: [{dice, doc_id, offset, ids: []}]}]; decisiones: [{tema, criterio, decision, ids: [], otras_versiones: [{dice, doc_id, offset, ids: []}]}]; versiones: [{tema, versiones: [{dice, doc_id, offset, ids: []}]}]; personas_descartadas: [{nombre, rol, motivo, ids: []}]; descartados: [{que, motivo, ids: []}].",
+ "metricas": {
+  "problemas_chequeo": 16,
+  "conteos": {
+   "humanos_candidatos": 4,
+   "giros": 6,
+   "pico": 1,
+   "pregunta_final": 1,
+   "escenas": 10,
+   "contradicciones": 7,
+   "decisiones": 9,
+   "versiones": 3,
+   "personas": 36,
+   "personas_descartadas": 1,
+   "cifras": 29,
+   "cronologia": 45,
+   "hechos": 61,
+   "citas": 13,
+   "descartados": 26
+  },
+  "hechos_nivel_1": 19,
+  "hechos_nivel_2": 42,
+  "citas": 13,
+  "citas_verificadas": 13,
+  "escenas": 10,
+  "humanos_candidatos": [
+   "Anatoly Vasilievich Dubrovsky",
+   "Mikhail Kuleshov",
+   "Galina Chanova",
+   "Lyudmila Smirnova"
+  ],
+  "personas": 36,
+  "arcos": [
+   {
+    "nombre": "Anatoly Vasilievich Dubrovsky",
+    "arco": "entra como electricista que el domingo mira una película en el club y siente temblar el edificio; al día siguiente arranca arbustos junto a la fuente sin instrucciones y sin «pétalo», recibe cinco normas diarias de radiación y lo lavan con una manguera de bomberos; sale fuera de la lista de liquidadores porque no le dieron fotocasete",
+    "citas_verificadas": 2
+   },
+   {
+    "nombre": "Mikhail Kuleshov",
+    "arco": "entra al enterarse de la explosión al llegar al segundo turno; emploma el tractor S-80 y el tanque T-34 que van al epicentro, trabaja de 19:00 a 01:00 en locales inundados; sale como testigo del compañero cuya cabeza contaminada no pudieron lavar",
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Galina Chanova",
+    "arco": "entra evacuada de su tierra justo después del accidente; recién en 1997 empieza a cobrar 167 rublos al mes, que en 2007 son 287; sale ganando un juicio que le reconoce unos 60.000 rublos de los 150.000 que reclamaba",
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Lyudmila Smirnova",
+    "arco": "entra nacida en 1961 en la ciudad cerrada; crece en un lugar donde del accidente no se habla y con un padre que no le cuenta nada ni a la familia; sale sin él, que se consumió por la radiación en unas dos semanas",
+    "citas_verificadas": 1
+   }
+  ]
+ },
+ "usd": 1.0641,
+ "segundos": 357.5,
+ "cortada": false,
+ "llamadas": [
+  {
+   "tag": "fO3",
+   "modelo": "claude-opus-5-5",
+   "max_tokens": 100000,
+   "effort": "medium",
+   "esquema": false,
+   "in": 39967,
+   "out": 45212,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.0641,
+   "segundos": 357.3
+  }
+ ]
+}

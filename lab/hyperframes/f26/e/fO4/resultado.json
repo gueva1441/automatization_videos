@@ -1,0 +1,76 @@
+{
+ "tag": "fO4",
+ "modelo": "claude-opus-5-5",
+ "esfuerzo": "medium",
+ "prompt_md5": {
+  "sistema": "070b75dff58aecfa407fac3d62020ce4",
+  "usuario": "f781b58a37ea4559ec9a730da2bd3605"
+ },
+ "parrafo": "Forma del JSON: un objeto con estas claves y, adentro, exactamente estos nombres de campo (ni otros nombres ni campos anidados nuevos; los ids van siempre en un campo `ids` que es una lista de ids del pool): personas: [{nombre, rol, variantes: [], ids: []}]; cronologia: [{fecha, hora, evento, aproximada, ids: []}]; historia: {humanos_candidatos: [{nombre, rol, arco, ids: [], citas_verificadas}], giros: [{orden, que_cambia, ids: []}], pico: {que, por_que, ids: []}, pregunta_final: {pregunta, ids: []}}; escenas: [{donde, quien, que_pasa, sentidos, ids: []}]; hechos: [{texto, nivel, sirve_para, ids: []}]; cifras: [{que, valor, unidad, fuente, ids: [], otras_versiones: [{valor, unidad, fuente, ids: []}]}]; citas: [{autor, rol, verificacion, texto, original, traduccion, ids: []}]; contradicciones: [{tema, versiones: [{dice, doc_id, offset, ids: []}]}]; decisiones: [{tema, criterio, decision, ids: [], otras_versiones: [{dice, doc_id, offset, ids: []}]}]; versiones: [{tema, versiones: [{dice, doc_id, offset, ids: []}]}]; personas_descartadas: [{nombre, rol, motivo, ids: []}]; descartados: [{que, motivo, ids: []}].",
+ "metricas": {
+  "problemas_chequeo": 17,
+  "conteos": {
+   "humanos_candidatos": 3,
+   "giros": 6,
+   "pico": 1,
+   "pregunta_final": 1,
+   "escenas": 10,
+   "contradicciones": 7,
+   "decisiones": 8,
+   "versiones": 2,
+   "personas": 39,
+   "personas_descartadas": 2,
+   "cifras": 46,
+   "cronologia": 45,
+   "hechos": 64,
+   "citas": 15,
+   "descartados": 24
+  },
+  "hechos_nivel_1": 20,
+  "hechos_nivel_2": 44,
+  "citas": 15,
+  "citas_verificadas": 15,
+  "escenas": 10,
+  "humanos_candidatos": [
+   "Anatoly Vasilievich Dubrovsky",
+   "Mikhail Kuleshov",
+   "Galina Chanova"
+  ],
+  "personas": 39,
+  "arcos": [
+   {
+    "nombre": "Anatoly Vasilievich Dubrovsky",
+    "arco": "El domingo de la explosión está viendo una película en el club «Derevyashka» y siente temblar el edificio. Al día siguiente lo mandan sin instrucciones a arrancar arbustos junto al «fontanchik», con traje de goma y sin «pétalo», y recibe cinco normas diarias de radiación y un chorro de agua fría que le duele en el pecho. Sale sin entrar de inmediato en la lista de liquidadores, porque no le dieron fotocasete (2 citas verificadas más 1 parcial).",
+    "citas_verificadas": 2
+   },
+   {
+    "nombre": "Mikhail Kuleshov",
+    "arco": "Se entera de la explosión al llegar al segundo turno. Forra de plomo la cabina de un tractor S-80 y después un tanque T-34 para llegar al epicentro, trabaja de 19:00 a 1:00 en octubre y en 1958 en salas inundadas. Sale habiendo visto a un compañero al que ni la peluquera quiso cortarle el pelo contaminado (1 cita verificada más 1 parcial).",
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Galina Chanova",
+    "arco": "Es evacuada del territorio contaminado justo después del accidente y recién en 1997 empieza a cobrar 167 rublos al mes para alimentos. Los abogados calculan que el Estado le dejó de pagar unos 150.000 rublos y sale con una sentencia de unos 60.000, «muy contenta incluso con esta decisión».",
+    "citas_verificadas": 1
+   }
+  ]
+ },
+ "usd": 1.2521,
+ "segundos": 436.9,
+ "cortada": false,
+ "llamadas": [
+  {
+   "tag": "fO4",
+   "modelo": "claude-opus-5-5",
+   "max_tokens": 100000,
+   "effort": "medium",
+   "esquema": false,
+   "in": 39967,
+   "out": 54611,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.2521,
+   "segundos": 436.8
+  }
+ ]
+}

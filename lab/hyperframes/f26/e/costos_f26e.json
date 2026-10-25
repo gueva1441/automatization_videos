@@ -1,0 +1,32 @@
+{
+ "llamadas": [
+  {
+   "tag": "fO3",
+   "modelo": "claude-opus-5-5",
+   "max_tokens": 100000,
+   "effort": "medium",
+   "esquema": false,
+   "in": 39967,
+   "out": 45212,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.0641,
+   "segundos": 357.3
+  },
+  {
+   "tag": "fO4",
+   "modelo": "claude-opus-5-5",
+   "max_tokens": 100000,
+   "effort": "medium",
+   "esquema": false,
+   "in": 39967,
+   "out": 54611,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.2521,
+   "segundos": 436.8
+  }
+ ],
+ "usd": 2.3162,
+ "pared_s": 794.4
+}
