@@ -1,0 +1,225 @@
+{
+  "track_id": "consequences_f28_b",
+  "mp3_filename": "consequences_f28_b.mp3",
+  "intent_origin": "consequences",
+  "fits_intents": [
+    "consequences",
+    "resolution"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "paleta": "f28",
+  "origen": "_paleta_f28/consequences_04",
+  "loop_crossfade_s": 3.0,
+  "music_volume": 0.214,
+  "music_volume_floor": 0.128,
+  "calibracion": {
+    "metodo": "F28: nivel efectivo igual al de la curated del intent (LUFS + 20·log10 volumen)",
+    "curated": "consequences_curated",
+    "I_pista": -14.0,
+    "objetivo_efectivo": -27.38
+  },
+  "recorte": {
+    "inicio_s": 4.5,
+    "fin_s": 11.5,
+    "duracion_original_s": 180.04,
+    "duracion_s": 164.04
+  },
+  "plan": {
+    "positive_global_styles": [
+      "D minor",
+      "slow tempo",
+      "somber",
+      "mournful",
+      "grave",
+      "ambient",
+      "atmospheric",
+      "cinematic underscore",
+      "instrumental",
+      "drones",
+      "sustained strings",
+      "deep resonance",
+      "reverberant piano"
+    ],
+    "negative_global_styles": [
+      "vocals",
+      "lyrics",
+      "singing",
+      "choir",
+      "spoken word",
+      "drums",
+      "percussion",
+      "drum beat",
+      "rhythm patterns",
+      "kick drum",
+      "snare",
+      "hi-hat",
+      "melody hooks",
+      "memorable melodies",
+      "vocal-like leads",
+      "pop structure",
+      "EDM",
+      "synthwave",
+      "dubstep",
+      "trap",
+      "verse chorus structure",
+      "electric guitar",
+      "distortion",
+      "harsh synths",
+      "intro fade-in",
+      "outro fade-out",
+      "abrupt ending",
+      "sudden silence",
+      "build-up drops",
+      "upbeat",
+      "happy",
+      "energetic dance",
+      "playful"
+    ],
+    "sections": [
+      {
+        "section_name": "Despair's Echo",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "sustained cello drones",
+          "deep contrabass pads",
+          "sparse distant piano chords",
+          "heavy atmosphere",
+          "mournful string layers",
+          "reverberant",
+          "moderate density"
+        ],
+        "negative_local_styles": [
+          "active piano",
+          "fast arpeggios",
+          "prominent melody",
+          "fade-in"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Lingering Void",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "minimal instrumentation",
+          "long silent pauses",
+          "very distant single piano notes",
+          "faint cello texture",
+          "ethereal emptiness",
+          "sparse soundscape",
+          "deep reverb",
+          "low density"
+        ],
+        "negative_local_styles": [
+          "string ensembles",
+          "dense texture",
+          "active elements",
+          "continuous sound"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Weight of Regret",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "denser sustained string arrangement",
+          "low cello and viola pads",
+          "subtle deep bass drones",
+          "slow-moving harmony",
+          "reflective atmosphere",
+          "sense of heavy consequence",
+          "moderate to high density"
+        ],
+        "negative_local_styles": [
+          "light textures",
+          "sharp attacks",
+          "quick changes",
+          "melodic phrases"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Mournful Horizon",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "sustained cello drones",
+          "deep contrabass pads",
+          "sparse distant piano chords",
+          "heavy atmosphere",
+          "mournful string layers",
+          "reverberant",
+          "moderate density"
+        ],
+        "negative_local_styles": [
+          "abrupt ending",
+          "fade out",
+          "new melodic themes",
+          "sudden changes",
+          "fade-out"
+        ],
+        "lines": []
+      }
+    ]
+  },
+  "song_metadata": {
+    "title": null,
+    "description": null,
+    "genres": [],
+    "languages": [],
+    "is_explicit": null
+  },
+  "medidas": {
+    "duracion_s": 180.04,
+    "I_lufs": -13.9,
+    "LRA_lu": 7.4,
+    "pico_dbtp": -1.4,
+    "pulso": 0.032,
+    "pulso_lento": 0.174,
+    "entropia_notas": 1.907,
+    "dominancia": 0.511,
+    "cambios_dominante": 0.303,
+    "melodia": false,
+    "tonalidad": "D minor",
+    "tonalidad_r": 0.664,
+    "tonalidad_2": "A# major",
+    "tonalidad_ok": true,
+    "banda_voz": 0.001,
+    "centroide_hz": 145.3,
+    "costura_corr": 0.429,
+    "rms_inicio_db": -32.76,
+    "rms_final_db": -46.9,
+    "fade": true,
+    "fade_in_s": 4,
+    "fade_out_s": 11,
+    "huecos_s": 0,
+    "poda": [
+      "fade en la costura (-32.76 / -46.9 dB)"
+    ],
+    "mas_parecida": "consequences_03"
+  },
+  "nota_gemini": 9,
+  "escucha_gemini": {
+    "descripcion": "Una pieza ambiental y lenta que se construye sobre pads de sintetizador graves y sostenidos. Se agregan capas de texturas etéreas, corales sintéticos y algunas notas agudas de piano o campanas distantes, creando una atmósfera solemne y misteriosa.",
+    "instrumentos": [
+      "Sintetizador",
+      "Pad",
+      "Coro sintético",
+      "Piano"
+    ],
+    "tiene_melodia": false,
+    "tiene_pulso": false,
+    "suena_a_trailer": false,
+    "compite_con_voz": false,
+    "nota_canal": 9,
+    "mejor_intent": "setup"
+  },
+  "elevenlabs_metadata": {
+    "description": "Una pieza ambiental y lenta que se construye sobre pads de sintetizador graves y sostenidos. Se agregan capas de texturas etéreas, corales sintéticos y algunas notas agudas de piano o campanas distantes, creando una atmósfera solemne y misteriosa.",
+    "genres": [],
+    "title": "consequences_f28_b"
+  },
+  "topic_source": "F28 paleta del canal",
+  "times_used": 0,
+  "last_used_at": null
+}

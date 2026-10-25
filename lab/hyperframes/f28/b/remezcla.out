@@ -1,0 +1,60 @@
+[15:00:11] INFO     | viral_pipeline | [audio_generator] [m07] library tiene 12 tracks acumulados.
+[15:00:20] INFO     | viral_pipeline | [audio_generator] [m07] matcher hook: winner=hook_f28_a score=90 reasoning="El track hook_f28_a, con sus drones de cuerdas graves y notas largas y sostenidas, crea una atm�sfera oscura de misterio..."
+[15:00:26] INFO     | viral_pipeline | [audio_generator] [m07] matcher rising_tension: winner=rising_tension_f28_a score=85 reasoning="El track complementa el intent narrativo con su car�cter grave y paciente, creando una sensaci�n de misterio y espacio q..."
+[15:00:32] INFO     | viral_pipeline | [audio_generator] [m07] matcher rising_tension: winner=rising_tension_f28_b score=92 reasoning="El track 'rising_tension_f28_b' con sus capas de cuerdas graves sostenidas y un sonido denso, lento y sombr�o, acompa�a ..."
+[15:00:38] INFO     | viral_pipeline | [audio_generator] [m07] matcher rising_tension: winner=rising_tension_f28_a score=90 reasoning="La pista tiene un car�cter grave y paciente, que complementa la descripci�n detallada y ominosa del anchor. Sus drones d..."
+[15:00:44] INFO     | viral_pipeline | [audio_generator] [m07] matcher rising_tension: winner=rising_tension_f28_b score=93 reasoning="El track 'rising_tension_f28_b' con sus capas de cuerdas graves sostenidas y su sonido denso, lento y sombr�o, acompa�a ..."
+[15:00:54] INFO     | viral_pipeline | [audio_generator] [m07] matcher shock: winner=shock_f28_a score=68 reasoning="La pista, con sus capas de cuerdas graves sostenidas y su atm�sfera oscura y solemne, encaja con el peso y la gravedad d..."
+[15:01:00] INFO     | viral_pipeline | [audio_generator] [m07] matcher outro: winner=outro_f28_b score=92 reasoning="La pista, construida sobre drones de cuerdas graves como cellos y contrabajos, captura perfectamente la solemnidad y el ..."
+[15:01:00] INFO     | viral_pipeline | [audio_generator] \u2713 [m07] music_map persistido: C:\CLAUDE_PROJECTS\automatization_videos\output\audio\f8s3-vajont\music_map.json
+
+━━━ [m07] ch01 (intent=hook) ━━━
+[m07] candidatos en library para hook: 2
+[m07] DECISION: REUSE hook_f28_a (score=90)
+
+━━━ [m07] ch02 (intent=rising_tension) ━━━
+[m07] candidatos en library para rising_tension: 2
+[m07] DECISION: REUSE rising_tension_f28_a (score=85)
+
+━━━ [m07] ch03 (intent=rising_tension) ━━━
+[m07] candidatos en library para rising_tension: 2
+[m07] DECISION: REUSE rising_tension_f28_b (score=92)
+
+━━━ [m07] ch04 (intent=rising_tension) ━━━
+[m07] candidatos en library para rising_tension: 2
+[m07] DECISION: REUSE rising_tension_f28_a (score=90)
+
+━━━ [m07] ch05 (intent=rising_tension) ━━━
+[m07] candidatos en library para rising_tension: 2
+[m07] DECISION: REUSE rising_tension_f28_b (score=93)
+
+━━━ [m07] ch06 (intent=shock) ━━━
+[m07] candidatos en library para shock: 2
+[m07] DECISION: REUSE shock_f28_a (score=68)
+
+━━━ [m07] ch07 (intent=outro) ━━━
+[m07] candidatos en library para outro: 2
+[m07] DECISION: REUSE outro_f28_b (score=92)
+     [ch01] reused → hook_f28_a.mp3 (loop a 94.8s)
+     [ch02] reused → rising_tension_f28_a.mp3 (loop a 130.0s)
+     [ch03] reused → rising_tension_f28_b.mp3 (loop a 126.4s)
+     [ch04] reused → rising_tension_f28_a.mp3 (loop a 118.7s)
+     [ch05] reused → rising_tension_f28_b.mp3 (loop a 166.0s)
+     [ch06] reused → shock_f28_a.mp3 (loop a 164.7s)
+     [ch07] reused → outro_f28_b.mp3 (loop a 180.2s)
+     [ch01] reused → hook_f28_a.mp3 (loop a 94.8s)
+     [ch02] reused → rising_tension_f28_a.mp3 (loop a 130.0s)
+     [ch03] reused → rising_tension_f28_b.mp3 (loop a 126.4s)
+     [ch04] reused → rising_tension_f28_a.mp3 (loop a 118.7s)
+     [ch05] reused → rising_tension_f28_b.mp3 (loop a 166.0s)
+     [ch06] reused → shock_f28_a.mp3 (loop a 164.7s)
+     [ch07] reused → outro_f28_b.mp3 (loop a 180.2s)
+     mixing params: vol=0.26, floor=0.16, thr=0.03, ratio=5.0, atk=80.0ms, rel=200.0ms, init_silence=2.5s (F2b: audio solo + remux)
+[ch01] hook            hook_f28_a             sin  -24.4 · con  -24.7 (-0.30 LU) · F27  -24.6 · sube,silencio,silencio
+[ch02] rising_tension  rising_tension_f28_a   sin  -25.3 · con  -25.1 (+0.20 LU) · F27  -24.9 · silencio,silencio
+[ch03] rising_tension  rising_tension_f28_b   sin  -24.6 · con  -24.7 (-0.10 LU) · F27  -24.4 · fondo
+[ch04] rising_tension  rising_tension_f28_a   sin  -25.2 · con  -24.6 (+0.60 LU) · F27  -24.8 · silencio,sube
+[ch05] rising_tension  rising_tension_f28_b   sin  -25.7 · con  -24.9 (+0.80 LU) · F27  -25.4 · sube,silencio,silencio,sube
+[ch06] shock           shock_f28_a            sin  -24.2 · con  -24.5 (-0.30 LU) · F27  -24.5 · golpe,silencio,silencio
+[ch07] outro           outro_f28_b            sin  -24.8 · con  -24.8 (+0.00 LU) · F27  -24.9 · silencio,silencio
+total: v2 {'I': -24.7, 'LRA': 4.4} · sin música {'I': -24.9, 'LRA': 5.5} · F27 {'I': -24.8, 'LRA': 5.1} · Δ 0.2 LU · mezcla 37 s · 1009.1 s de video

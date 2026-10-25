@@ -1259,6 +1259,37 @@ def _resolve_music_track_path(track_info: dict[str, Any]) -> Path | None:
     return mp3_abs
 
 
+def _track_meta(track_path: Path | None) -> dict[str, Any]:
+    """F28 §B.1: el .json de la pista en audio_library (vacío si no hay o no se lee)."""
+    if track_path is None:
+        return {}
+    j = Path(track_path).with_suffix(".json")
+    try:
+        return json.loads(j.read_text(encoding="utf-8")) if j.exists() else {}
+    except (OSError, ValueError):
+        return {}
+
+
+def _mapa_intensidad(video_id: str, plans: list[Any], extra_sec: dict[str, float] | None) -> dict[str, Any] | None:
+    """F28 §B.2: el mapa de intensidad por cap (script_engine/music_intensity) si el topic tiene escaleta, narración
+    y pool en _steps; lo deja en output/audio/<id>/intensity_map.json. Sin esos archivos → None (sin envolvente)."""
+    from config import DATA_DIR
+    from script_engine import music_intensity as mi
+    steps = DATA_DIR / "scripts" / "_steps"
+    sd = steps / video_id
+    if not all((sd / n).exists() for n in ("01a_escaleta.json", "01b_narracion_v3.json", "00_pool_v3.json")):
+        return None
+    dur = {p.chapter_id: p.audio_duration + (extra_sec or {}).get(p.chapter_id, 0.0) for p in plans}
+    try:
+        mapa = mi.mapa_del_topic(video_id, steps, OUTPUT_DIR / "audio" / video_id, dur)
+    except Exception as e:  # noqa: BLE001 — sin mapa, la música sale plana como antes
+        print(f"     ⚠ mapa de intensidad: {type(e).__name__}: {str(e)[:200]} → sin envolvente")
+        return None
+    (OUTPUT_DIR / "audio" / video_id / "intensity_map.json").write_text(
+        json.dumps(mapa, ensure_ascii=False, indent=1), encoding="utf-8")
+    return mapa
+
+
 def _gfx_pauses(plans: list[Any], work_dir: Path) -> dict[str, float]:
     """F3: {cap: segundos de pausa de cierre} que apply_gfx dejó en work_dir/gfx_pause_<cap>.json (solo --gfx)."""
     out: dict[str, float] = {}
@@ -1279,9 +1310,15 @@ def _build_music_piece_for_chapter(
     output_path: Path,
     sample_rate: int = 44100,
     piece_volume: float = 1.0,
+    loop_crossfade_sec: float | None = None,
+    envolvente: list[dict[str, Any]] | None = None,
 ) -> Path:
     """
     Genera 1 piece WAV del largo exacto del cap.
+
+    F28 §B: `loop_crossfade_sec` (de la pista: `loop_crossfade_s` en su json) → si el cap dura más que la pista, el
+    empalme del loop va con acrossfade de esos segundos en vez de -stream_loop seco. `envolvente` = tramos del mapa
+    de intensidad del cap (music_intensity), aplicados sobre la pieza. Sin los dos, la ruta de siempre.
 
     Si track_path is None → silencio puro del largo del cap.
     Si track_path existe → loop+trim del mp3 al largo del cap.
@@ -1305,6 +1342,23 @@ def _build_music_piece_for_chapter(
             "-c:a", "pcm_s16le",
             str(output_path),
         ]
+    elif loop_crossfade_sec and _get_duration(track_path) < cap_duration_sec:
+        # F28 §B.1: loop con acrossfade (copias de la pista encadenadas) y trim al largo del cap
+        xf = float(loop_crossfade_sec)
+        td = _get_duration(track_path)
+        n = max(2, int(-(-(cap_duration_sec - xf) // max(1.0, td - xf))))
+        cmd = [FFMPEG, "-y"]
+        for _ in range(n):
+            cmd += ["-i", str(track_path)]
+        parts, prev = [], "0:a"
+        for i in range(1, n):
+            out = f"l{i}" if i < n - 1 else "lp"
+            parts.append(f"[{prev}][{i}:a]acrossfade=d={xf}:c1=tri:c2=tri[{out}]")
+            prev = out
+        vol = f",volume={piece_volume}" if piece_volume != 1.0 else ""
+        parts.append(f"[lp]aresample={sample_rate}{vol}[o]")
+        cmd += ["-filter_complex", ";".join(parts), "-map", "[o]", "-t", f"{cap_duration_sec:.3f}",
+                "-ac", "2", "-c:a", "pcm_s16le", str(output_path)]
     else:
         # Loop+trim del mp3 al largo del cap
         # -stream_loop -1 hace loop infinito del input; -t corta a cap_duration_sec
@@ -1331,6 +1385,9 @@ def _build_music_piece_for_chapter(
             f"FFmpeg piece falló para {output_path.name}: "
             f"{result.stderr[-300:]}"
         )
+    if envolvente and track_path is not None:                 # F28 §B.2
+        from script_engine.music_intensity import aplicar_a_wav
+        aplicar_a_wav(output_path, envolvente)
 
     return output_path
 
@@ -1343,6 +1400,7 @@ def _build_continuous_music_track(
     piece_volumes: dict[str, float] | None = None,
     output_filename: str | None = None,
     extra_sec: dict[str, float] | None = None,
+    intensidad: dict[str, Any] | None = None,
 ) -> Path:
     """
     Construye un único WAV continuo del largo total del video, con
@@ -1402,6 +1460,8 @@ def _build_continuous_music_track(
             cap_duration_sec=plan.audio_duration + (extra_sec or {}).get(ch_id, 0.0),
             output_path=piece_path,
             piece_volume=piece_volumes.get(ch_id, 1.0),  # chat 39: volumen por-cap
+            loop_crossfade_sec=_track_meta(track_path).get("loop_crossfade_s"),   # F28 §B.1
+            envolvente=(intensidad or {}).get(ch_id),                            # F28 §B.2
         )
         piece_paths.append(piece_path)
 
@@ -2663,6 +2723,10 @@ def _assemble_one_video(
         pauses = _gfx_pauses(plans, work_dir) if gfx else None    # F3: la pausa de la pregunta alarga el cap
         if pauses:
             print(f"     pausas de cierre (gfx): {pauses}")
+        intensidad = _mapa_intensidad(video_id, plans, pauses)            # F28 §B.2
+        if intensidad:
+            print(f"     mapa de intensidad: " + " · ".join(
+                f"{c} " + ",".join(t['nivel'] for t in v if t['nivel'] != 'fondo') for c, v in intensidad.items()))
         music_ducked_path = _build_continuous_music_track(
             plans=plans,
             music_map=music_map,
@@ -2671,6 +2735,7 @@ def _assemble_one_video(
             piece_volumes=ducked_by_cap,
             output_filename="_music_continuous_ducked.wav",
             extra_sec=pauses,
+            intensidad=intensidad,
         )
         music_floor_path = _build_continuous_music_track(
             plans=plans,
@@ -2680,6 +2745,7 @@ def _assemble_one_video(
             piece_volumes=floor_by_cap,
             output_filename="_music_continuous_floor.wav",
             extra_sec=pauses,
+            intensidad=intensidad,
         )
 
         # Mezclar con sidechain (paso B). Output: filename canónico final_path.

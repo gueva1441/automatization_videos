@@ -1,0 +1,219 @@
+{
+  "track_id": "rising_tension_f28_a",
+  "mp3_filename": "rising_tension_f28_a.mp3",
+  "intent_origin": "rising_tension",
+  "fits_intents": [
+    "rising_tension"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "paleta": "f28",
+  "origen": "_paleta_f28/rising_tension_04",
+  "loop_crossfade_s": 3.0,
+  "music_volume": 0.096,
+  "music_volume_floor": 0.062,
+  "calibracion": {
+    "metodo": "F28: nivel efectivo igual al de la curated del intent (LUFS + 20·log10 volumen)",
+    "curated": "rising_tension_curated",
+    "I_pista": -12.0,
+    "objetivo_efectivo": -32.38
+  },
+  "recorte": {
+    "inicio_s": 8.5,
+    "fin_s": 8.5,
+    "duracion_original_s": 180.04,
+    "duracion_s": 163.04
+  },
+  "plan": {
+    "positive_global_styles": [
+      "D minor",
+      "55-65 BPM feel",
+      "dark ambient",
+      "drone music",
+      "minimalist",
+      "sustained strings",
+      "low frequency",
+      "reverberant piano",
+      "atmospheric",
+      "somber"
+    ],
+    "negative_global_styles": [
+      "vocals",
+      "lyrics",
+      "singing",
+      "choir",
+      "spoken word",
+      "drums",
+      "percussion",
+      "drum beat",
+      "rhythm patterns",
+      "kick drum",
+      "snare",
+      "hi-hat",
+      "melody hooks",
+      "memorable melodies",
+      "vocal-like leads",
+      "pop structure",
+      "EDM",
+      "synthwave",
+      "dubstep",
+      "trap",
+      "verse chorus structure",
+      "electric guitar",
+      "distortion",
+      "harsh synths",
+      "intro fade-in",
+      "outro fade-out",
+      "abrupt ending",
+      "sudden silence",
+      "build-up drops",
+      "upbeat",
+      "happy",
+      "energetic dance",
+      "playful"
+    ],
+    "sections": [
+      {
+        "section_name": "Foundational Drone",
+        "duration_ms": 40000,
+        "positive_local_styles": [
+          "low cello drone",
+          "contrabass pads",
+          "sparse distant piano chords",
+          "initial sustained string layers",
+          "subtle ambient texture",
+          "deep resonance"
+        ],
+        "negative_local_styles": [
+          "prominent melody",
+          "rhythmic elements",
+          "high pitch",
+          "dynamic variations",
+          "fade-in"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Layered Unease",
+        "duration_ms": 50000,
+        "positive_local_styles": [
+          "gradual addition of string layers",
+          "slowly increasing density",
+          "sustained viola and violin pads",
+          "subtle harmonic shifts",
+          "deepening atmosphere",
+          "expanding textural richness"
+        ],
+        "negative_local_styles": [
+          "abrupt changes",
+          "fast progression",
+          "sharp attacks",
+          "percussive elements"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Thickened Atmosphere",
+        "duration_ms": 50000,
+        "positive_local_styles": [
+          "dense sustained string orchestra",
+          "complex string voicings",
+          "rich low-end texture",
+          "sub-bass presence",
+          "deeply unsettling pads",
+          "minimal movement",
+          "peak textural density"
+        ],
+        "negative_local_styles": [
+          "climactic build-up",
+          "resolution",
+          "melodic focus",
+          "rhythmic drive",
+          "high energy"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Lingering Reverie",
+        "duration_ms": 40000,
+        "positive_local_styles": [
+          "low cello drone",
+          "contrabass pads",
+          "sparse distant piano chords",
+          "initial sustained string layers",
+          "subtle ambient texture",
+          "deep resonance"
+        ],
+        "negative_local_styles": [
+          "abrupt ending",
+          "new thematic material",
+          "increased complexity",
+          "strong dynamics",
+          "fade-out"
+        ],
+        "lines": []
+      }
+    ]
+  },
+  "song_metadata": {
+    "title": null,
+    "description": null,
+    "genres": [],
+    "languages": [],
+    "is_explicit": null
+  },
+  "medidas": {
+    "duracion_s": 180.04,
+    "I_lufs": -11.8,
+    "LRA_lu": 4.9,
+    "pico_dbtp": -1.3,
+    "pulso": 0.073,
+    "pulso_lento": 0.068,
+    "entropia_notas": 2.126,
+    "dominancia": 0.409,
+    "cambios_dominante": 0.371,
+    "melodia": false,
+    "tonalidad": "D major",
+    "tonalidad_r": 0.739,
+    "tonalidad_2": "A major",
+    "tonalidad_ok": false,
+    "banda_voz": 0.0007,
+    "centroide_hz": 147.0,
+    "costura_corr": 0.719,
+    "rms_inicio_db": -55.5,
+    "rms_final_db": -58.44,
+    "fade": true,
+    "fade_in_s": 8,
+    "fade_out_s": 8,
+    "huecos_s": 0,
+    "poda": [
+      "tonalidad D major",
+      "fade en la costura (-55.5 / -58.44 dB)"
+    ],
+    "mas_parecida": "rising_tension_03"
+  },
+  "nota_gemini": 10,
+  "escucha_gemini": {
+    "descripcion": "Una pista ambiental y atmosférica con un carácter grave y paciente. Se basa en drones de cuerdas bajas y pads de sintetizador que evolucionan lentamente, creando una sensación de misterio y espacio.",
+    "instrumentos": [
+      "Sintetizador",
+      "Cello",
+      "Contrabajo"
+    ],
+    "tiene_melodia": false,
+    "tiene_pulso": false,
+    "suena_a_trailer": false,
+    "compite_con_voz": false,
+    "nota_canal": 10,
+    "mejor_intent": "setup"
+  },
+  "elevenlabs_metadata": {
+    "description": "Una pista ambiental y atmosférica con un carácter grave y paciente. Se basa en drones de cuerdas bajas y pads de sintetizador que evolucionan lentamente, creando una sensación de misterio y espacio.",
+    "genres": [],
+    "title": "rising_tension_f28_a"
+  },
+  "topic_source": "F28 paleta del canal",
+  "times_used": 0,
+  "last_used_at": null
+}

@@ -1,0 +1,227 @@
+{
+  "track_id": "setup_f28_a",
+  "mp3_filename": "setup_f28_a.mp3",
+  "intent_origin": "setup",
+  "fits_intents": [
+    "setup"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "paleta": "f28",
+  "origen": "_paleta_f28/setup_03",
+  "loop_crossfade_s": 3.0,
+  "music_volume": 0.222,
+  "music_volume_floor": 0.18,
+  "calibracion": {
+    "metodo": "F28: nivel efectivo igual al de la curated del intent (LUFS + 20·log10 volumen)",
+    "curated": "setup_curated",
+    "I_pista": -13.0,
+    "objetivo_efectivo": -26.06
+  },
+  "recorte": {
+    "inicio_s": 5.5,
+    "fin_s": 6.5,
+    "duracion_original_s": 180.04,
+    "duracion_s": 168.04
+  },
+  "plan": {
+    "positive_global_styles": [
+      "D minor",
+      "slow tempo",
+      "dark ambient",
+      "drone",
+      "spacious",
+      "reverberant",
+      "minimalist",
+      "sub-bass",
+      "patient",
+      "understated",
+      "lo-fi atmosphere",
+      "grave",
+      "quiet",
+      "cello drone",
+      "double bass drone",
+      "distant piano",
+      "sustained strings",
+      "seamlessly looping"
+    ],
+    "negative_global_styles": [
+      "vocals",
+      "lyrics",
+      "singing",
+      "choir",
+      "spoken word",
+      "drums",
+      "percussion",
+      "drum beat",
+      "rhythm patterns",
+      "kick drum",
+      "snare",
+      "hi-hat",
+      "melody hooks",
+      "memorable melodies",
+      "vocal-like leads",
+      "pop structure",
+      "EDM",
+      "synthwave",
+      "dubstep",
+      "trap",
+      "verse chorus structure",
+      "electric guitar",
+      "distortion",
+      "harsh synths",
+      "intro fade-in",
+      "outro fade-out",
+      "abrupt ending",
+      "sudden silence",
+      "build-up drops",
+      "upbeat",
+      "happy",
+      "energetic dance",
+      "playful"
+    ],
+    "sections": [
+      {
+        "section_name": "Quiet Dawn",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "low drone",
+          "distant piano notes",
+          "reverberant space",
+          "sparse",
+          "calm",
+          "D minor",
+          "sub-bass",
+          "quiet life before"
+        ],
+        "negative_local_styles": [
+          "melodic piano",
+          "fast arpeggios",
+          "complex harmony",
+          "tension building",
+          "fade-in"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Deepening Reflection",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "sustaining cello drones",
+          "deeper sub-bass",
+          "sparse, melancholic piano chords",
+          "expansiveness",
+          "undercurrent of stillness",
+          "calm spacious atmosphere"
+        ],
+        "negative_local_styles": [
+          "rhythmic elements",
+          "bright tones",
+          "active melodic lines",
+          "dramatic elements"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Subtle Undulation",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "sustained double bass pads",
+          "subtle shifting harmonic drones",
+          "very distant, resonant piano textures",
+          "a sense of quiet anticipation",
+          "gentle ebb and flow"
+        ],
+        "negative_local_styles": [
+          "any sense of build-up",
+          "foreboding elements",
+          "sharp attacks",
+          "overt emotionality"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Lingering Calm",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "low drone",
+          "distant piano notes",
+          "reverberant space",
+          "sparse",
+          "calm",
+          "D minor",
+          "sub-bass",
+          "quiet life before"
+        ],
+        "negative_local_styles": [
+          "new elements",
+          "increased intensity",
+          "fade out",
+          "tension building",
+          "fade-out"
+        ],
+        "lines": []
+      }
+    ]
+  },
+  "song_metadata": {
+    "title": null,
+    "description": null,
+    "genres": [],
+    "languages": [],
+    "is_explicit": null
+  },
+  "medidas": {
+    "duracion_s": 180.04,
+    "I_lufs": -12.8,
+    "LRA_lu": 3.0,
+    "pico_dbtp": -1.4,
+    "pulso": 0.077,
+    "pulso_lento": 0.053,
+    "entropia_notas": 1.94,
+    "dominancia": 0.462,
+    "cambios_dominante": 0.079,
+    "melodia": false,
+    "tonalidad": "D minor",
+    "tonalidad_r": 0.63,
+    "tonalidad_2": "D major",
+    "tonalidad_ok": true,
+    "banda_voz": 0.0001,
+    "centroide_hz": 116.6,
+    "costura_corr": 0.77,
+    "rms_inicio_db": -44.91,
+    "rms_final_db": -58.78,
+    "fade": true,
+    "fade_in_s": 5,
+    "fade_out_s": 6,
+    "huecos_s": 0,
+    "poda": [
+      "fade en la costura (-44.91 / -58.78 dB)"
+    ],
+    "mas_parecida": "setup_05"
+  },
+  "nota_gemini": 10,
+  "escucha_gemini": {
+    "descripcion": "Una pista ambiental y muy espaciosa construida sobre drones graves y pads etéreos que evolucionan lentamente. El ambiente es misterioso, quieto y contemplativo, creando una sensación de inmensidad y soledad.",
+    "instrumentos": [
+      "Sintetizador",
+      "Pad",
+      "Drones"
+    ],
+    "tiene_melodia": false,
+    "tiene_pulso": false,
+    "suena_a_trailer": false,
+    "compite_con_voz": false,
+    "nota_canal": 10,
+    "mejor_intent": "setup"
+  },
+  "elevenlabs_metadata": {
+    "description": "Una pista ambiental y muy espaciosa construida sobre drones graves y pads etéreos que evolucionan lentamente. El ambiente es misterioso, quieto y contemplativo, creando una sensación de inmensidad y soledad.",
+    "genres": [],
+    "title": "setup_f28_a"
+  },
+  "topic_source": "F28 paleta del canal",
+  "times_used": 0,
+  "last_used_at": null
+}

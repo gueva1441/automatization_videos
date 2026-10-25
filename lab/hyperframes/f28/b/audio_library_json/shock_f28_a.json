@@ -1,0 +1,212 @@
+{
+  "track_id": "shock_f28_a",
+  "mp3_filename": "shock_f28_a.mp3",
+  "intent_origin": "shock",
+  "fits_intents": [
+    "shock"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "paleta": "f28",
+  "origen": "_paleta_f28/shock_03",
+  "loop_crossfade_s": 3.0,
+  "music_volume": 0.069,
+  "music_volume_floor": 0.026,
+  "calibracion": {
+    "metodo": "F28: nivel efectivo igual al de la curated del intent (LUFS + 20·log10 volumen)",
+    "curated": "shock_curated",
+    "I_pista": -12.5,
+    "objetivo_efectivo": -35.74
+  },
+  "recorte": {
+    "inicio_s": 2.5,
+    "fin_s": 7.5,
+    "duracion_original_s": 180.04,
+    "duracion_s": 170.04
+  },
+  "plan": {
+    "positive_global_styles": [
+      "D minor",
+      "slow tempo",
+      "dark ambient",
+      "drone music",
+      "deep bass",
+      "sustained strings",
+      "reverberant piano",
+      "heavy atmosphere",
+      "dissonant"
+    ],
+    "negative_global_styles": [
+      "vocals",
+      "lyrics",
+      "singing",
+      "choir",
+      "spoken word",
+      "drums",
+      "percussion",
+      "drum beat",
+      "rhythm patterns",
+      "kick drum",
+      "snare",
+      "hi-hat",
+      "melody hooks",
+      "memorable melodies",
+      "vocal-like leads",
+      "pop structure",
+      "EDM",
+      "synthwave",
+      "dubstep",
+      "trap",
+      "verse chorus structure",
+      "electric guitar",
+      "distortion",
+      "harsh synths",
+      "intro fade-in",
+      "outro fade-out",
+      "abrupt ending",
+      "sudden silence",
+      "build-up drops",
+      "upbeat",
+      "happy",
+      "energetic dance",
+      "playful"
+    ],
+    "sections": [
+      {
+        "section_name": "Opening Weight",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "deep sub-bass drone",
+          "sustained low strings",
+          "dissonant harmony",
+          "heavy atmosphere",
+          "cello and double bass texture"
+        ],
+        "negative_local_styles": [
+          "light",
+          "airy",
+          "rhythmic",
+          "fade-in"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Dissonant Murmur",
+        "duration_ms": 40000,
+        "positive_local_styles": [
+          "building sustained dissonance",
+          "layered low strings",
+          "subtle shifting harmonies",
+          "distant piano chords with heavy reverb",
+          "dense texture"
+        ],
+        "negative_local_styles": [
+          "clear melody",
+          "bright tones",
+          "percussive elements",
+          "sparse instrumentation"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Crushing Pressure",
+        "duration_ms": 50000,
+        "positive_local_styles": [
+          "maximum density",
+          "intense sustained dissonance",
+          "overlapping low frequency drones",
+          "darkest textural layer",
+          "sub-bass saturation",
+          "heavy harmonic clashes"
+        ],
+        "negative_local_styles": [
+          "resolution",
+          "melodic movement",
+          "dynamic changes",
+          "silence"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Returning Abyss",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "deep sub-bass drone",
+          "sustained low strings",
+          "dissonant harmony",
+          "heavy atmosphere",
+          "cello and double bass texture"
+        ],
+        "negative_local_styles": [
+          "abrupt changes",
+          "crescendo",
+          "resolution",
+          "sudden impacts",
+          "fade-out"
+        ],
+        "lines": []
+      }
+    ]
+  },
+  "song_metadata": {
+    "title": null,
+    "description": null,
+    "genres": [],
+    "languages": [],
+    "is_explicit": null
+  },
+  "medidas": {
+    "duracion_s": 180.04,
+    "I_lufs": -12.3,
+    "LRA_lu": 2.1,
+    "pico_dbtp": -1.4,
+    "pulso": 0.083,
+    "pulso_lento": 0.042,
+    "entropia_notas": 2.297,
+    "dominancia": 0.4,
+    "cambios_dominante": 0.337,
+    "melodia": false,
+    "tonalidad": "D minor",
+    "tonalidad_r": 0.768,
+    "tonalidad_2": "D major",
+    "tonalidad_ok": true,
+    "banda_voz": 0.0064,
+    "centroide_hz": 177.9,
+    "costura_corr": 0.413,
+    "rms_inicio_db": -10.85,
+    "rms_final_db": -54.07,
+    "fade": true,
+    "fade_in_s": 2,
+    "fade_out_s": 7,
+    "huecos_s": 0,
+    "poda": [
+      "fade en la costura (-10.85 / -54.07 dB)"
+    ],
+    "mas_parecida": "shock_02"
+  },
+  "nota_gemini": 10,
+  "escucha_gemini": {
+    "descripcion": "Una pista de drone ambiental, oscura y solemne. Está construida sobre capas de cuerdas graves muy sostenidas que se mueven lentamente, creando una atmósfera de misterio y quietud.",
+    "instrumentos": [
+      "Cuerdas graves",
+      "Cello",
+      "Contrabajo",
+      "Sintetizador de pad"
+    ],
+    "tiene_melodia": false,
+    "tiene_pulso": false,
+    "suena_a_trailer": false,
+    "compite_con_voz": false,
+    "nota_canal": 10,
+    "mejor_intent": "setup"
+  },
+  "elevenlabs_metadata": {
+    "description": "Una pista de drone ambiental, oscura y solemne. Está construida sobre capas de cuerdas graves muy sostenidas que se mueven lentamente, creando una atmósfera de misterio y quietud.",
+    "genres": [],
+    "title": "shock_f28_a"
+  },
+  "topic_source": "F28 paleta del canal",
+  "times_used": 0,
+  "last_used_at": null
+}

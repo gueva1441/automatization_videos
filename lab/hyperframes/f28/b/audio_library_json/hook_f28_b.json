@@ -1,0 +1,195 @@
+{
+  "track_id": "hook_f28_b",
+  "mp3_filename": "hook_f28_b.mp3",
+  "intent_origin": "hook",
+  "fits_intents": [
+    "hook"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "paleta": "f28",
+  "origen": "_paleta_f28/hook_05",
+  "loop_crossfade_s": 3.0,
+  "music_volume": 0.056,
+  "music_volume_floor": 0.036,
+  "calibracion": {
+    "metodo": "F28: nivel efectivo igual al de la curated del intent (LUFS + 20·log10 volumen)",
+    "curated": "hook_curated",
+    "I_pista": -12.0,
+    "objetivo_efectivo": -37.07
+  },
+  "recorte": {
+    "inicio_s": 5.5,
+    "fin_s": 10.5,
+    "duracion_original_s": 180.04,
+    "duracion_s": 164.04
+  },
+  "plan": {
+    "positive_global_styles": [
+      "D minor",
+      "slow tempo, 55-65 BPM feel",
+      "dark, deep, grave, quiet, patient",
+      "cello drones, double bass drones, sub-bass",
+      "distant reverberant piano",
+      "sustained strings, no tremolo",
+      "atmospheric, unsettling, sense of dread",
+      "no memorable melody, no discernible pulse, no drums, no vocals, no trailer risers",
+      "tension from density and silence",
+      "seamlessly looping background music"
+    ],
+    "negative_global_styles": [
+      "vocals",
+      "lyrics",
+      "singing",
+      "choir",
+      "spoken word",
+      "drums",
+      "percussion",
+      "drum beat",
+      "rhythm patterns",
+      "kick drum",
+      "snare",
+      "hi-hat",
+      "melody hooks",
+      "memorable melodies",
+      "vocal-like leads",
+      "pop structure",
+      "EDM",
+      "synthwave",
+      "dubstep",
+      "trap",
+      "verse chorus structure",
+      "electric guitar",
+      "distortion",
+      "harsh synths",
+      "intro fade-in",
+      "outro fade-out",
+      "abrupt ending",
+      "sudden silence",
+      "build-up drops",
+      "upbeat",
+      "happy",
+      "energetic dance",
+      "playful"
+    ],
+    "sections": [
+      {
+        "section_name": "Opening Drone",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "immediate dark atmosphere",
+          "dense low-end foundation",
+          "sustained cello and double bass drones",
+          "prominent sub-bass",
+          "undercurrent of unease"
+        ],
+        "negative_local_styles": [
+          "fade-in"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Deep Reverie",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "maintained dark atmosphere",
+          "sparse sustained string pads",
+          "long decaying notes from distant piano with heavy reverberation",
+          "deep, static texture",
+          "slight variations in drone textures"
+        ],
+        "negative_local_styles": [],
+        "lines": []
+      },
+      {
+        "section_name": "Subtle Underscore",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "slightly reduced density",
+          "more exposed individual sustained notes from cello or double bass",
+          "very sparse and distant piano accents",
+          "long pauses for subtle tension",
+          "minimalist sonic landscape"
+        ],
+        "negative_local_styles": [],
+        "lines": []
+      },
+      {
+        "section_name": "Return to Drone",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "immediate dark atmosphere",
+          "dense low-end foundation",
+          "sustained cello and double bass drones",
+          "prominent sub-bass",
+          "undercurrent of unease"
+        ],
+        "negative_local_styles": [
+          "fade-out"
+        ],
+        "lines": []
+      }
+    ]
+  },
+  "song_metadata": {
+    "title": null,
+    "description": null,
+    "genres": [],
+    "languages": [],
+    "is_explicit": null
+  },
+  "medidas": {
+    "duracion_s": 180.04,
+    "I_lufs": -11.8,
+    "LRA_lu": 5.1,
+    "pico_dbtp": -1.5,
+    "pulso": 0.079,
+    "pulso_lento": 0.05,
+    "entropia_notas": 1.594,
+    "dominancia": 0.572,
+    "cambios_dominante": 0.0,
+    "melodia": false,
+    "tonalidad": "D minor",
+    "tonalidad_r": 0.609,
+    "tonalidad_2": "D major",
+    "tonalidad_ok": true,
+    "banda_voz": 0.0003,
+    "centroide_hz": 107.0,
+    "costura_corr": 0.761,
+    "rms_inicio_db": -34.08,
+    "rms_final_db": -62.97,
+    "fade": true,
+    "fade_in_s": 5,
+    "fade_out_s": 10,
+    "huecos_s": 0,
+    "poda": [
+      "fade en la costura (-34.08 / -62.97 dB)"
+    ],
+    "mas_parecida": "hook_03"
+  },
+  "nota_gemini": 10,
+  "escucha_gemini": {
+    "descripcion": "Es una pista de ambiente oscuro y paciente, construida sobre drones de cuerdas graves y pads de sintetizador. La tensión crece muy lentamente a través de la adición de capas sonoras, creando una atmósfera de misterio e introspección.",
+    "instrumentos": [
+      "Cello",
+      "Contrabajo",
+      "Sintetizador",
+      "Cuerdas"
+    ],
+    "tiene_melodia": false,
+    "tiene_pulso": false,
+    "suena_a_trailer": false,
+    "compite_con_voz": false,
+    "nota_canal": 10,
+    "mejor_intent": "setup"
+  },
+  "elevenlabs_metadata": {
+    "description": "Es una pista de ambiente oscuro y paciente, construida sobre drones de cuerdas graves y pads de sintetizador. La tensión crece muy lentamente a través de la adición de capas sonoras, creando una atmósfera de misterio e introspección.",
+    "genres": [],
+    "title": "hook_f28_b"
+  },
+  "topic_source": "F28 paleta del canal",
+  "times_used": 0,
+  "last_used_at": null
+}

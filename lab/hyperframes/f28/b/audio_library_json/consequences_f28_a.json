@@ -1,0 +1,212 @@
+{
+  "track_id": "consequences_f28_a",
+  "mp3_filename": "consequences_f28_a.mp3",
+  "intent_origin": "consequences",
+  "fits_intents": [
+    "consequences",
+    "resolution"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "paleta": "f28",
+  "origen": "_paleta_f28/consequences_03",
+  "loop_crossfade_s": 3.0,
+  "music_volume": 0.202,
+  "music_volume_floor": 0.121,
+  "calibracion": {
+    "metodo": "F28: nivel efectivo igual al de la curated del intent (LUFS + 20·log10 volumen)",
+    "curated": "consequences_curated",
+    "I_pista": -13.5,
+    "objetivo_efectivo": -27.38
+  },
+  "recorte": {
+    "inicio_s": 3.5,
+    "fin_s": 9.5,
+    "duracion_original_s": 180.04,
+    "duracion_s": 167.04
+  },
+  "plan": {
+    "positive_global_styles": [
+      "D minor",
+      "slow tempo",
+      "55-65 BPM feel",
+      "dark ambient",
+      "mournful",
+      "meditative",
+      "somber"
+    ],
+    "negative_global_styles": [
+      "vocals",
+      "lyrics",
+      "singing",
+      "choir",
+      "spoken word",
+      "drums",
+      "percussion",
+      "drum beat",
+      "rhythm patterns",
+      "kick drum",
+      "snare",
+      "hi-hat",
+      "melody hooks",
+      "memorable melodies",
+      "vocal-like leads",
+      "pop structure",
+      "EDM",
+      "synthwave",
+      "dubstep",
+      "trap",
+      "verse chorus structure",
+      "electric guitar",
+      "distortion",
+      "harsh synths",
+      "intro fade-in",
+      "outro fade-out",
+      "abrupt ending",
+      "sudden silence",
+      "build-up drops",
+      "upbeat",
+      "happy",
+      "energetic dance",
+      "playful"
+    ],
+    "sections": [
+      {
+        "section_name": "Grave Drone Establishment",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "deep cello drones",
+          "sustained low strings",
+          "sparse distant piano chords",
+          "reverberant",
+          "grave and patient"
+        ],
+        "negative_local_styles": [
+          "fast piano arpeggios",
+          "complex melody",
+          "sudden changes",
+          "high registers",
+          "fade-in"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Mournful Reflection",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "slow sustained cello",
+          "double bass foundation",
+          "more frequent, but still sparse, distant piano",
+          "deep resonance",
+          "gradual increase in subtle string layers",
+          "sense of consequences"
+        ],
+        "negative_local_styles": [
+          "active rhythm",
+          "high strings",
+          "brass",
+          "percussion"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Echoes of Loss",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "minimal instrumentation",
+          "very sparse, long-decaying piano notes",
+          "fading cello sustains",
+          "profound emptiness",
+          "silence as a texture",
+          "isolated sounds"
+        ],
+        "negative_local_styles": [
+          "dense string arrangements",
+          "continuous sound",
+          "any rhythm",
+          "full chords"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Return to Somber Ground",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "deep cello drones",
+          "sustained low strings",
+          "sparse distant piano chords",
+          "reverberant",
+          "grave and patient"
+        ],
+        "negative_local_styles": [
+          "fade out",
+          "abrupt ending",
+          "new melodic elements",
+          "high registers",
+          "fade-out"
+        ],
+        "lines": []
+      }
+    ]
+  },
+  "song_metadata": {
+    "title": null,
+    "description": null,
+    "genres": [],
+    "languages": [],
+    "is_explicit": null
+  },
+  "medidas": {
+    "duracion_s": 180.04,
+    "I_lufs": -13.3,
+    "LRA_lu": 9.7,
+    "pico_dbtp": -1.5,
+    "pulso": 0.154,
+    "pulso_lento": 0.082,
+    "entropia_notas": 0.808,
+    "dominancia": 0.814,
+    "cambios_dominante": 0.281,
+    "melodia": false,
+    "tonalidad": "D major",
+    "tonalidad_r": 0.833,
+    "tonalidad_2": "D minor",
+    "tonalidad_ok": false,
+    "banda_voz": 0.0038,
+    "centroide_hz": 242.3,
+    "costura_corr": 0.749,
+    "rms_inicio_db": -28.12,
+    "rms_final_db": -51.43,
+    "fade": true,
+    "fade_in_s": 3,
+    "fade_out_s": 9,
+    "huecos_s": 0,
+    "poda": [
+      "tonalidad D major",
+      "fade en la costura (-28.12 / -51.43 dB)"
+    ],
+    "mas_parecida": "consequences_04"
+  },
+  "nota_gemini": 10,
+  "escucha_gemini": {
+    "descripcion": "Una atmósfera grave y paciente creada por capas de cuerdas sostenidas con mucha reverberación. La pieza es estática y ambiental, con una textura que se va densificando lentamente sin generar grandes cambios de dinámica.",
+    "instrumentos": [
+      "Cuerdas",
+      "Sintetizador"
+    ],
+    "tiene_melodia": false,
+    "tiene_pulso": false,
+    "suena_a_trailer": false,
+    "compite_con_voz": false,
+    "nota_canal": 10,
+    "mejor_intent": "setup"
+  },
+  "elevenlabs_metadata": {
+    "description": "Una atmósfera grave y paciente creada por capas de cuerdas sostenidas con mucha reverberación. La pieza es estática y ambiental, con una textura que se va densificando lentamente sin generar grandes cambios de dinámica.",
+    "genres": [],
+    "title": "consequences_f28_a"
+  },
+  "topic_source": "F28 paleta del canal",
+  "times_used": 0,
+  "last_used_at": null
+}

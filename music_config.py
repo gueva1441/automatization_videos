@@ -41,7 +41,7 @@ MUSIC_MODEL_ID = "music_v1"
 # Duración fija para todos los tracks de la library. Camino A: 60s.
 # Cada cap del video va a loopear este track tantas veces como necesite.
 # Min 3000ms, max 600000ms según docs.
-MUSIC_LENGTH_MS = 60000
+MUSIC_LENGTH_MS = 180000      # F28 §B.1: la paleta del canal son pistas de ~150–175 s (recortadas de 180 s); solo informa
 
 # Threshold del matcher LLM (chat 25). Si match_score >= este valor, reusa el
 # track de la library en vez de generar nuevo. 80 es conservador inicial; bajar

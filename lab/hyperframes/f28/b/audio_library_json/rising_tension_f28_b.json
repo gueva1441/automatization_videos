@@ -1,0 +1,207 @@
+{
+  "track_id": "rising_tension_f28_b",
+  "mp3_filename": "rising_tension_f28_b.mp3",
+  "intent_origin": "rising_tension",
+  "fits_intents": [
+    "rising_tension"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "paleta": "f28",
+  "origen": "_paleta_f28/rising_tension_05",
+  "loop_crossfade_s": 3.0,
+  "music_volume": 0.115,
+  "music_volume_floor": 0.074,
+  "calibracion": {
+    "metodo": "F28: nivel efectivo igual al de la curated del intent (LUFS + 20·log10 volumen)",
+    "curated": "rising_tension_curated",
+    "I_pista": -13.6,
+    "objetivo_efectivo": -32.38
+  },
+  "recorte": {
+    "inicio_s": 9.5,
+    "fin_s": 13.5,
+    "duracion_original_s": 179.98,
+    "duracion_s": 156.98
+  },
+  "plan": {
+    "positive_global_styles": [
+      "D minor",
+      "slow tempo",
+      "dark ambient",
+      "drone music",
+      "sustained strings",
+      "cinematic underscore",
+      "documentary score",
+      "somber",
+      "brooding",
+      "mysterious",
+      "patient",
+      "sub-bass",
+      "cello",
+      "double bass",
+      "distant piano",
+      "reverberant",
+      "55-65 BPM feel"
+    ],
+    "negative_global_styles": [
+      "vocals",
+      "lyrics",
+      "singing",
+      "choir",
+      "spoken word",
+      "drums",
+      "percussion",
+      "drum beat",
+      "rhythm patterns",
+      "kick drum",
+      "snare",
+      "hi-hat",
+      "melody hooks",
+      "memorable melodies",
+      "vocal-like leads",
+      "pop structure",
+      "EDM",
+      "synthwave",
+      "dubstep",
+      "trap",
+      "verse chorus structure",
+      "electric guitar",
+      "distortion",
+      "harsh synths",
+      "intro fade-in",
+      "outro fade-out",
+      "abrupt ending",
+      "sudden silence",
+      "build-up drops",
+      "upbeat",
+      "happy",
+      "energetic dance",
+      "playful"
+    ],
+    "sections": [
+      {
+        "section_name": "Thickening Atmosphere",
+        "duration_ms": 64286,
+        "positive_local_styles": [
+          "gradually increasing string layers",
+          "sustained string pads",
+          "slightly richer harmonic textures",
+          "growing density",
+          "subtle evolving texture",
+          "deepening unease"
+        ],
+        "negative_local_styles": [
+          "abrupt changes",
+          "melodic focus",
+          "rhythmic pulse",
+          "shrill frequencies",
+          "fade-in"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Peak Density of Unease",
+        "duration_ms": 64286,
+        "positive_local_styles": [
+          "dense sustained string chords",
+          "prominent sub-bass drone",
+          "layered drones",
+          "thick, heavy atmosphere",
+          "sustained profound unease",
+          "maximum density without climax",
+          "deep resonance"
+        ],
+        "negative_local_styles": [
+          "percussive elements",
+          "fast arpeggios",
+          "dynamic swells",
+          "sudden shifts",
+          "melodic counterpoint"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Return to Looping Density",
+        "duration_ms": 51428,
+        "positive_local_styles": [
+          "gradually increasing string layers",
+          "sustained string pads",
+          "slightly richer harmonic textures",
+          "growing density",
+          "subtle evolving texture",
+          "deepening unease"
+        ],
+        "negative_local_styles": [
+          "abrupt decay",
+          "new melodic lines",
+          "increasing intensity",
+          "dynamic drop-offs",
+          "fade-out"
+        ],
+        "lines": []
+      }
+    ]
+  },
+  "song_metadata": {
+    "title": null,
+    "description": null,
+    "genres": [],
+    "languages": [],
+    "is_explicit": null
+  },
+  "medidas": {
+    "duracion_s": 179.98,
+    "I_lufs": -13.4,
+    "LRA_lu": 7.3,
+    "pico_dbtp": -1.4,
+    "pulso": 0.078,
+    "pulso_lento": 0.066,
+    "entropia_notas": 1.7,
+    "dominancia": 0.516,
+    "cambios_dominante": 0.449,
+    "melodia": false,
+    "tonalidad": "D major",
+    "tonalidad_r": 0.763,
+    "tonalidad_2": "D minor",
+    "tonalidad_ok": false,
+    "banda_voz": 0.0052,
+    "centroide_hz": 173.5,
+    "costura_corr": 0.745,
+    "rms_inicio_db": -40.02,
+    "rms_final_db": -59.09,
+    "fade": true,
+    "fade_in_s": 9,
+    "fade_out_s": 13,
+    "huecos_s": 0,
+    "poda": [
+      "tonalidad D major",
+      "fade en la costura (-40.02 / -59.09 dB)"
+    ],
+    "mas_parecida": "rising_tension_04"
+  },
+  "nota_gemini": 10,
+  "escucha_gemini": {
+    "descripcion": "Una pieza ambiental y atmosférica construida sobre capas de cuerdas graves sostenidas. El sonido es denso, lento y sombrío, creando una sensación de vastedad y misterio. La música evoluciona gradualmente a través de cambios armónicos lentos sin un ritmo o melodía definidos.",
+    "instrumentos": [
+      "Cello",
+      "Contrabajo",
+      "Orquesta de cuerdas"
+    ],
+    "tiene_melodia": false,
+    "tiene_pulso": false,
+    "suena_a_trailer": false,
+    "compite_con_voz": false,
+    "nota_canal": 10,
+    "mejor_intent": "setup"
+  },
+  "elevenlabs_metadata": {
+    "description": "Una pieza ambiental y atmosférica construida sobre capas de cuerdas graves sostenidas. El sonido es denso, lento y sombrío, creando una sensación de vastedad y misterio. La música evoluciona gradualmente a través de cambios armónicos lentos sin un ritmo o melodía definidos.",
+    "genres": [],
+    "title": "rising_tension_f28_b"
+  },
+  "topic_source": "F28 paleta del canal",
+  "times_used": 0,
+  "last_used_at": null
+}

@@ -1,0 +1,190 @@
+{
+  "track_id": "outro_f28_b",
+  "mp3_filename": "outro_f28_b.mp3",
+  "intent_origin": "outro",
+  "fits_intents": [
+    "outro"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "paleta": "f28",
+  "origen": "_paleta_f28/outro_02",
+  "loop_crossfade_s": 3.0,
+  "music_volume": 0.05,
+  "music_volume_floor": 0.037,
+  "calibracion": {
+    "metodo": "F28: nivel efectivo igual al de la curated del intent (LUFS + 20·log10 volumen)",
+    "curated": "outro_curated",
+    "I_pista": -15.2,
+    "objetivo_efectivo": -41.16
+  },
+  "recorte": {
+    "inicio_s": 2.5,
+    "fin_s": 8.5,
+    "duracion_original_s": 180.04,
+    "duracion_s": 169.04
+  },
+  "plan": {
+    "positive_global_styles": [
+      "D minor",
+      "slow tempo, 55-65 BPM feel",
+      "dark ambient drone",
+      "minimalist sustained strings",
+      "deep cello and double bass drones",
+      "distant piano with heavy reverberation",
+      "sub-bass texture",
+      "quiet, patient atmosphere",
+      "suspended, unresolved harmony",
+      "no discernible melody or pulse",
+      "seamless looping"
+    ],
+    "negative_global_styles": [
+      "vocals",
+      "lyrics",
+      "singing",
+      "choir",
+      "spoken word",
+      "drums",
+      "percussion",
+      "drum beat",
+      "rhythm patterns",
+      "kick drum",
+      "snare",
+      "hi-hat",
+      "melody hooks",
+      "memorable melodies",
+      "vocal-like leads",
+      "pop structure",
+      "EDM",
+      "synthwave",
+      "dubstep",
+      "trap",
+      "verse chorus structure",
+      "electric guitar",
+      "distortion",
+      "harsh synths",
+      "intro fade-in",
+      "outro fade-out",
+      "abrupt ending",
+      "sudden silence",
+      "build-up drops",
+      "upbeat",
+      "happy",
+      "energetic dance",
+      "playful"
+    ],
+    "sections": [
+      {
+        "section_name": "Opening Veil",
+        "duration_ms": 60000,
+        "positive_local_styles": [
+          "sparse D minor drone",
+          "sustained low strings",
+          "sub-bass layer",
+          "occasional distant piano chords",
+          "static and contemplative"
+        ],
+        "negative_local_styles": [
+          "harmonic progression",
+          "dynamic shifts",
+          "melodic activity",
+          "fade-in"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Weight of Time",
+        "duration_ms": 60000,
+        "positive_local_styles": [
+          "subtle harmonic movement within D minor suspension",
+          "increased string density",
+          "more active, yet slow, distant piano arpeggios with reverb",
+          "slightly more tension through layered drones"
+        ],
+        "negative_local_styles": [
+          "fast tempo",
+          "melodic development",
+          "rhythmic emphasis"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Echoes Undone",
+        "duration_ms": 60000,
+        "positive_local_styles": [
+          "sparse D minor drone",
+          "sustained low strings",
+          "sub-bass layer",
+          "occasional distant piano chords",
+          "static and contemplative"
+        ],
+        "negative_local_styles": [
+          "harmonic resolution",
+          "new themes",
+          "energetic elements",
+          "fade-out"
+        ],
+        "lines": []
+      }
+    ]
+  },
+  "song_metadata": {
+    "title": null,
+    "description": null,
+    "genres": [],
+    "languages": [],
+    "is_explicit": null
+  },
+  "medidas": {
+    "duracion_s": 180.04,
+    "I_lufs": -15.0,
+    "LRA_lu": 3.6,
+    "pico_dbtp": -1.4,
+    "pulso": 0.085,
+    "pulso_lento": 0.037,
+    "entropia_notas": 1.628,
+    "dominancia": 0.555,
+    "cambios_dominante": 0.09,
+    "melodia": false,
+    "tonalidad": "D major",
+    "tonalidad_r": 0.64,
+    "tonalidad_2": "D minor",
+    "tonalidad_ok": false,
+    "banda_voz": 0.0004,
+    "centroide_hz": 82.7,
+    "costura_corr": 0.704,
+    "rms_inicio_db": -9.29,
+    "rms_final_db": -45.14,
+    "fade": true,
+    "fade_in_s": 2,
+    "fade_out_s": 8,
+    "huecos_s": 0,
+    "poda": [
+      "tonalidad D major",
+      "fade en la costura (-9.29 / -45.14 dB)"
+    ],
+    "mas_parecida": "outro_03"
+  },
+  "nota_gemini": 10,
+  "escucha_gemini": {
+    "descripcion": "Una pieza atmosférica y lenta construida sobre drones de cuerdas graves, como cellos y contrabajos. A lo largo de la pista se añaden capas de cuerdas más agudas que mantienen notas largas, creando una sensación de misterio, solemnidad y espacio.",
+    "instrumentos": [
+      "Cuerdas (cello, contrabajo, violín)"
+    ],
+    "tiene_melodia": false,
+    "tiene_pulso": false,
+    "suena_a_trailer": false,
+    "compite_con_voz": false,
+    "nota_canal": 10,
+    "mejor_intent": "setup"
+  },
+  "elevenlabs_metadata": {
+    "description": "Una pieza atmosférica y lenta construida sobre drones de cuerdas graves, como cellos y contrabajos. A lo largo de la pista se añaden capas de cuerdas más agudas que mantienen notas largas, creando una sensación de misterio, solemnidad y espacio.",
+    "genres": [],
+    "title": "outro_f28_b"
+  },
+  "topic_source": "F28 paleta del canal",
+  "times_used": 0,
+  "last_used_at": null
+}

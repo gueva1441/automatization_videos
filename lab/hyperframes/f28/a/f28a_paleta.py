@@ -285,7 +285,13 @@ def medir(p: Path) -> dict:
     n = mel.shape[1]
     dct = np.cos(np.pi / n * (np.arange(n) + 0.5)[None, :] * np.arange(13)[:, None])
     out["_mfcc"] = (mel @ dct.T).mean(axis=0).round(4).tolist()
-    # poda (se marca, no se borra)
+    out["poda"] = poda(out)
+    return out
+
+
+def poda(m: dict) -> list[str]:
+    """Las reglas de poda del handoff (§A.2) sobre las medidas de una pista: motivos (vacío = pasa). Marca, no borra."""
+    out = m
     motivos = []
     if out["pulso"] > 0.35:
         motivos.append(f"pulso {out['pulso']}")
@@ -297,8 +303,7 @@ def medir(p: Path) -> dict:
         motivos.append(f"banda-voz {out['banda_voz']}")
     if out["fade"]:
         motivos.append(f"fade en la costura ({out['rms_inicio_db']} / {out['rms_final_db']} dB)")
-    out["poda"] = motivos
-    return out
+    return motivos
 
 
 def medidas() -> None:

@@ -310,6 +310,7 @@ def _match_intent_to_track(
     anchor: str,
     profile: str,
     candidates: list[dict[str, Any]],
+    umbral: int = MATCH_SCORE_THRESHOLD,
 ) -> dict[str, Any] | None:
     """Matcher LLM con red de seguridad.
 
@@ -441,8 +442,8 @@ def _match_intent_to_track(
         f"score={score} reasoning=\"{reasoning_excerpt}\"",
     )
 
-    # Threshold check final
-    if score < MATCH_SCORE_THRESHOLD:
+    # Threshold check final (F28: con la paleta, umbral 0: se elige entre las dos, no se genera)
+    if score < umbral:
         error_handler.log_info(
             PipelineStage.AUDIO,
             f"[m07] matcher {intent}: score {score} < threshold "
@@ -1097,7 +1098,16 @@ def generate_music_map(
 
         # Paso 2: matcher LLM (si hay candidatos)
         match_result = None
-        if candidates:
+        paleta = [c for c in candidates if c.get("paleta")]
+        if paleta:
+            # F28 §B.1: el intent tiene pistas de la paleta del canal → el matcher elige entre ellas (sin umbral) y
+            # nunca se genera música por video. Si el matcher no contesta bien, la «a».
+            paleta.sort(key=lambda c: c["track_id"])
+            match_result = _match_intent_to_track(intent=intent, anchor=anchor, profile=profile, candidates=paleta,
+                                                  umbral=0) or {
+                "winner": paleta[0]["track_id"], "match_score": None,
+                "reasoning": "F28: paleta del canal; el matcher no eligió → la pista «a»"}
+        elif candidates:
             match_result = _match_intent_to_track(
                 intent=intent,
                 anchor=anchor,

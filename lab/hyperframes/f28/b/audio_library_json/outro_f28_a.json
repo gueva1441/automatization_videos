@@ -1,0 +1,222 @@
+{
+  "track_id": "outro_f28_a",
+  "mp3_filename": "outro_f28_a.mp3",
+  "intent_origin": "outro",
+  "fits_intents": [
+    "outro"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "paleta": "f28",
+  "origen": "_paleta_f28/outro_01",
+  "loop_crossfade_s": 3.0,
+  "music_volume": 0.038,
+  "music_volume_floor": 0.028,
+  "calibracion": {
+    "metodo": "F28: nivel efectivo igual al de la curated del intent (LUFS + 20·log10 volumen)",
+    "curated": "outro_curated",
+    "I_pista": -12.8,
+    "objetivo_efectivo": -41.16
+  },
+  "recorte": {
+    "inicio_s": 3.5,
+    "fin_s": 14.5,
+    "duracion_original_s": 180.04,
+    "duracion_s": 162.04
+  },
+  "plan": {
+    "positive_global_styles": [
+      "D minor",
+      "slow tempo",
+      "ambient",
+      "drone music",
+      "dark academia",
+      "understated",
+      "somber",
+      "brooding",
+      "mysterious",
+      "meditative",
+      "reverberant",
+      "sustained textures",
+      "sub-bass",
+      "patient",
+      "quiet dynamics",
+      "unresolved harmony"
+    ],
+    "negative_global_styles": [
+      "vocals",
+      "lyrics",
+      "singing",
+      "choir",
+      "spoken word",
+      "drums",
+      "percussion",
+      "drum beat",
+      "rhythm patterns",
+      "kick drum",
+      "snare",
+      "hi-hat",
+      "melody hooks",
+      "memorable melodies",
+      "vocal-like leads",
+      "pop structure",
+      "EDM",
+      "synthwave",
+      "dubstep",
+      "trap",
+      "verse chorus structure",
+      "electric guitar",
+      "distortion",
+      "harsh synths",
+      "intro fade-in",
+      "outro fade-out",
+      "abrupt ending",
+      "sudden silence",
+      "build-up drops",
+      "upbeat",
+      "happy",
+      "energetic dance",
+      "playful"
+    ],
+    "sections": [
+      {
+        "section_name": "Suspended Introduction",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "deep cello drones",
+          "sub-bass hum",
+          "sustained orchestral strings (non-tremolo)",
+          "distant reverberant piano chords",
+          "sparse texture",
+          "static harmony",
+          "quiet sustained chord"
+        ],
+        "negative_local_styles": [
+          "melodic phrases",
+          "percussion",
+          "rhythmic elements",
+          "dynamic swells",
+          "fade-in"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Deepening Contemplation",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "layered sustained strings",
+          "slightly increased drone density",
+          "pizzicato double bass (very sparse, textural)",
+          "glimmering piano harmonics",
+          "slowly evolving atmosphere"
+        ],
+        "negative_local_styles": [
+          "strong pulse",
+          "melodic development",
+          "overt drama"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Echoing Emptiness",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "diminishing density",
+          "long-sustaining low strings",
+          "isolated, decaying piano notes",
+          "expansive reverberation",
+          "minimalist texture",
+          "sense of space"
+        ],
+        "negative_local_styles": [
+          "clutter",
+          "activity",
+          "buildup",
+          "leading tones"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Unresolved Outro Loop",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "deep cello drones",
+          "sub-bass hum",
+          "sustained orchestral strings (non-tremolo)",
+          "distant reverberant piano chords",
+          "sparse texture",
+          "static harmony",
+          "quiet sustained chord"
+        ],
+        "negative_local_styles": [
+          "melodic resolution",
+          "dynamic change",
+          "fade out",
+          "new elements",
+          "fade-out"
+        ],
+        "lines": []
+      }
+    ]
+  },
+  "song_metadata": {
+    "title": null,
+    "description": null,
+    "genres": [],
+    "languages": [],
+    "is_explicit": null
+  },
+  "medidas": {
+    "duracion_s": 180.04,
+    "I_lufs": -12.6,
+    "LRA_lu": 3.9,
+    "pico_dbtp": -1.4,
+    "pulso": 0.076,
+    "pulso_lento": 0.078,
+    "entropia_notas": 1.933,
+    "dominancia": 0.451,
+    "cambios_dominante": 0.281,
+    "melodia": false,
+    "tonalidad": "D minor",
+    "tonalidad_r": 0.775,
+    "tonalidad_2": "D major",
+    "tonalidad_ok": true,
+    "banda_voz": 0.0015,
+    "centroide_hz": 175.4,
+    "costura_corr": 0.171,
+    "rms_inicio_db": -26.7,
+    "rms_final_db": -74.62,
+    "fade": true,
+    "fade_in_s": 3,
+    "fade_out_s": 14,
+    "huecos_s": 0,
+    "poda": [
+      "fade en la costura (-26.7 / -74.62 dB)"
+    ],
+    "mas_parecida": "outro_05"
+  },
+  "nota_gemini": 10,
+  "escucha_gemini": {
+    "descripcion": "Una pista ambiental y atmosférica construida con capas de sintetizadores y cuerdas sostenidas. La música es lenta, grave y expansiva, creando una sensación de misterio y soledad. La tensión aumenta gradualmente a través de la adición de texturas, no de volumen o ritmo.",
+    "instrumentos": [
+      "Sintetizadores",
+      "Cuerdas",
+      "Drones"
+    ],
+    "tiene_melodia": false,
+    "tiene_pulso": false,
+    "suena_a_trailer": false,
+    "compite_con_voz": false,
+    "nota_canal": 10,
+    "mejor_intent": "setup"
+  },
+  "elevenlabs_metadata": {
+    "description": "Una pista ambiental y atmosférica construida con capas de sintetizadores y cuerdas sostenidas. La música es lenta, grave y expansiva, creando una sensación de misterio y soledad. La tensión aumenta gradualmente a través de la adición de texturas, no de volumen o ritmo.",
+    "genres": [],
+    "title": "outro_f28_a"
+  },
+  "topic_source": "F28 paleta del canal",
+  "times_used": 0,
+  "last_used_at": null
+}

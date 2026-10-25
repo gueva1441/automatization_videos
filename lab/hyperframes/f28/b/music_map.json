@@ -1,0 +1,57 @@
+{
+  "video_id": "f8s3-vajont",
+  "profile": "MISTERIO_ABISAL",
+  "generated_at": "2026-10-25T15:01:00.337749",
+  "total_chapters": 7,
+  "tracks_by_chapter": {
+    "ch01": {
+      "track_id": "hook_f28_a",
+      "mp3_path": "audio_library/hook_f28_a.mp3",
+      "match_source": "reused",
+      "match_score": 90,
+      "reasoning": "El track hook_f28_a, con sus drones de cuerdas graves y notas largas y sostenidas, crea una atmósfera oscura de misterio y tensión latente que acompaña perfectamente la sensación de la cama moviéndose y la inminente amenaza de la presa. Su quietud inicial contrasta con la acción descrita, elevando el gancho narrativo."
+    },
+    "ch02": {
+      "track_id": "rising_tension_f28_a",
+      "mp3_path": "audio_library/rising_tension_f28_a.mp3",
+      "match_source": "reused",
+      "match_score": 85,
+      "reasoning": "El track complementa el intent narrativo con su carácter grave y paciente, creando una sensación de misterio y espacio que acompaña perfectamente la descripción geográfica del valle y el río en el anchor, con sus drones de cuerdas bajas y pads de sintetizador que evolucionan lentamente."
+    },
+    "ch03": {
+      "track_id": "rising_tension_f28_b",
+      "mp3_path": "audio_library/rising_tension_f28_b.mp3",
+      "match_source": "reused",
+      "match_score": 92,
+      "reasoning": "El track 'rising_tension_f28_b' con sus capas de cuerdas graves sostenidas y un sonido denso, lento y sombrío, acompaña perfectamente la gravedad del accidente del embalse y la muerte del trabajador. La sensación de vastedad y misterio complementa la escala del evento y la necesidad de nuevas pericias."
+    },
+    "ch04": {
+      "track_id": "rising_tension_f28_a",
+      "mp3_path": "audio_library/rising_tension_f28_a.mp3",
+      "match_source": "reused",
+      "match_score": 90,
+      "reasoning": "La pista tiene un carácter grave y paciente, que complementa la descripción detallada y ominosa del anchor. Sus drones de cuerdas bajas y pads de sintetizador evolucionan lentamente, creando una sensación de misterio y espacio que se alinea perfectamente con la preparación de un evento dramático."
+    },
+    "ch05": {
+      "track_id": "rising_tension_f28_b",
+      "mp3_path": "audio_library/rising_tension_f28_b.mp3",
+      "match_source": "reused",
+      "match_score": 93,
+      "reasoning": "El track 'rising_tension_f28_b' con sus capas de cuerdas graves sostenidas y su sonido denso, lento y sombrío, acompaña perfectamente la sensación de amenaza creciente y el movimiento inexorable descrito en el ancla narrativa. Su evolución gradual a través de cambios armónicos lentos sin un ritmo definido refleja la tensión sutil pero constante de la ladera moviéndose medio centímetro por día."
+    },
+    "ch06": {
+      "track_id": "shock_f28_a",
+      "mp3_path": "audio_library/shock_f28_a.mp3",
+      "match_source": "reused",
+      "match_score": 68,
+      "reasoning": "La pista, con sus capas de cuerdas graves sostenidas y su atmósfera oscura y solemne, encaja con el peso y la gravedad del inminente shock narrado. Aunque se mueve lentamente, su cualidad de 'misterio' y el tono grave ofrecen un fondo adecuado para el impacto emocional de la avalancha."
+    },
+    "ch07": {
+      "track_id": "outro_f28_b",
+      "mp3_path": "audio_library/outro_f28_b.mp3",
+      "match_source": "reused",
+      "match_score": 92,
+      "reasoning": "La pista, construida sobre drones de cuerdas graves como cellos y contrabajos, captura perfectamente la solemnidad y el peso emocional del presidente caminando entre escombros y el grito de justicia de los pobladores. El mood de solemnidad y misterio se alinea con la gravedad del momento narrativo."
+    }
+  }
+}

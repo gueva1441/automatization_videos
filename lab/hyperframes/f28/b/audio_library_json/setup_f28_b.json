@@ -1,0 +1,174 @@
+{
+  "track_id": "setup_f28_b",
+  "mp3_filename": "setup_f28_b.mp3",
+  "intent_origin": "setup",
+  "fits_intents": [
+    "setup"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "paleta": "f28",
+  "origen": "_paleta_f28/outro_03",
+  "loop_crossfade_s": 3.0,
+  "music_volume": 0.225,
+  "music_volume_floor": 0.182,
+  "calibracion": {
+    "metodo": "F28: nivel efectivo igual al de la curated del intent (LUFS + 20·log10 volumen)",
+    "curated": "setup_curated",
+    "I_pista": -13.1,
+    "objetivo_efectivo": -26.06
+  },
+  "recorte": {
+    "inicio_s": 5.5,
+    "fin_s": 8.5,
+    "duracion_original_s": 180.04,
+    "duracion_s": 166.04
+  },
+  "plan": {
+    "positive_global_styles": [
+      "D minor",
+      "slow, 55-65 BPM feel, no discernible rhythm, no pulse",
+      "grave, quiet, patient",
+      "drones, sustained strings, cello, double bass, distant piano with deep reverberation, sub-bass",
+      "dark ambient, atmospheric, underscore, unsettling, mysterious, suspended",
+      "loopable, seamless transition, consistent background texture"
+    ],
+    "negative_global_styles": [
+      "vocals",
+      "lyrics",
+      "singing",
+      "choir",
+      "spoken word",
+      "drums",
+      "percussion",
+      "drum beat",
+      "rhythm patterns",
+      "kick drum",
+      "snare",
+      "hi-hat",
+      "melody hooks",
+      "memorable melodies",
+      "vocal-like leads",
+      "pop structure",
+      "EDM",
+      "synthwave",
+      "dubstep",
+      "trap",
+      "verse chorus structure",
+      "electric guitar",
+      "distortion",
+      "harsh synths",
+      "intro fade-in",
+      "outro fade-out",
+      "abrupt ending",
+      "sudden silence",
+      "build-up drops",
+      "upbeat",
+      "happy",
+      "energetic dance",
+      "playful"
+    ],
+    "sections": [
+      {
+        "section_name": "Opening Suspension",
+        "duration_ms": 40000,
+        "positive_local_styles": [
+          "low density, quiet sustained D minor chord, deep cello drones, subtle sub-bass hum, distant piano textures, open and unresolved harmony"
+        ],
+        "negative_local_styles": [
+          "fade-in"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Deepening Mystery",
+        "duration_ms": 50000,
+        "positive_local_styles": [
+          "gradual increase in density, added sustained double bass, expanded string layers, more complex drone texture, maintaining quiet and patient feel, subtle harmonic shifts around D minor"
+        ],
+        "negative_local_styles": [],
+        "lines": []
+      },
+      {
+        "section_name": "Core Unresolution",
+        "duration_ms": 50000,
+        "positive_local_styles": [
+          "moderate density, sustained unresolved chord, pervasive sub-bass, layered dark strings, atmospheric piano pads, static and tense without climax"
+        ],
+        "negative_local_styles": [],
+        "lines": []
+      },
+      {
+        "section_name": "Lingering Question",
+        "duration_ms": 40000,
+        "positive_local_styles": [
+          "low density, quiet sustained D minor chord, deep cello drones, subtle sub-bass hum, distant piano textures, open and unresolved harmony"
+        ],
+        "negative_local_styles": [
+          "fade-out"
+        ],
+        "lines": []
+      }
+    ]
+  },
+  "song_metadata": {
+    "title": null,
+    "description": null,
+    "genres": [],
+    "languages": [],
+    "is_explicit": null
+  },
+  "medidas": {
+    "duracion_s": 180.04,
+    "I_lufs": -13.0,
+    "LRA_lu": 6.1,
+    "pico_dbtp": -0.5,
+    "pulso": 0.086,
+    "pulso_lento": 0.057,
+    "entropia_notas": 1.877,
+    "dominancia": 0.468,
+    "cambios_dominante": 0.292,
+    "melodia": false,
+    "tonalidad": "D major",
+    "tonalidad_r": 0.657,
+    "tonalidad_2": "D minor",
+    "tonalidad_ok": false,
+    "banda_voz": 0.001,
+    "centroide_hz": 126.8,
+    "costura_corr": 0.654,
+    "rms_inicio_db": -28.59,
+    "rms_final_db": -63.0,
+    "fade": true,
+    "fade_in_s": 5,
+    "fade_out_s": 8,
+    "huecos_s": 0,
+    "poda": [
+      "tonalidad D major",
+      "fade en la costura (-28.59 / -63.0 dB)"
+    ],
+    "mas_parecida": "outro_05"
+  },
+  "nota_gemini": 10,
+  "escucha_gemini": {
+    "descripcion": "Una cama musical atmosférica y lenta, compuesta por capas de pads y cuerdas sintetizadas sostenidas. La pieza evoluciona gradualmente, creando un ambiente solemne, misterioso y ligeramente melancólico.",
+    "instrumentos": [
+      "Sintetizadores",
+      "Pads"
+    ],
+    "tiene_melodia": false,
+    "tiene_pulso": false,
+    "suena_a_trailer": false,
+    "compite_con_voz": false,
+    "nota_canal": 10,
+    "mejor_intent": "setup"
+  },
+  "elevenlabs_metadata": {
+    "description": "Una cama musical atmosférica y lenta, compuesta por capas de pads y cuerdas sintetizadas sostenidas. La pieza evoluciona gradualmente, creando un ambiente solemne, misterioso y ligeramente melancólico.",
+    "genres": [],
+    "title": "setup_f28_b"
+  },
+  "topic_source": "F28 paleta del canal",
+  "times_used": 0,
+  "last_used_at": null
+}

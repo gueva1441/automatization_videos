@@ -1,0 +1,240 @@
+{
+  "track_id": "hook_f28_a",
+  "mp3_filename": "hook_f28_a.mp3",
+  "intent_origin": "hook",
+  "fits_intents": [
+    "hook"
+  ],
+  "compatible_profiles": [
+    "MISTERIO_ABISAL"
+  ],
+  "paleta": "f28",
+  "origen": "_paleta_f28/hook_03",
+  "loop_crossfade_s": 3.0,
+  "music_volume": 0.053,
+  "music_volume_floor": 0.034,
+  "calibracion": {
+    "metodo": "F28: nivel efectivo igual al de la curated del intent (LUFS + 20·log10 volumen)",
+    "curated": "hook_curated",
+    "I_pista": -11.5,
+    "objetivo_efectivo": -37.07
+  },
+  "recorte": {
+    "inicio_s": 1.5,
+    "fin_s": 9.5,
+    "duracion_original_s": 180.04,
+    "duracion_s": 169.04
+  },
+  "plan": {
+    "positive_global_styles": [
+      "D minor",
+      "slow tempo",
+      "somber",
+      "dark ambient",
+      "drone music",
+      "atmospheric",
+      "low frequency",
+      "reverberant",
+      "sustained strings",
+      "cello and double bass focus",
+      "sub-bass",
+      "distant piano",
+      "pensive",
+      "grave",
+      "quiet",
+      "patient",
+      "minimalist"
+    ],
+    "negative_global_styles": [
+      "vocals",
+      "lyrics",
+      "singing",
+      "choir",
+      "spoken word",
+      "drums",
+      "percussion",
+      "drum beat",
+      "rhythm patterns",
+      "kick drum",
+      "snare",
+      "hi-hat",
+      "melody hooks",
+      "memorable melodies",
+      "vocal-like leads",
+      "pop structure",
+      "EDM",
+      "synthwave",
+      "dubstep",
+      "trap",
+      "verse chorus structure",
+      "electric guitar",
+      "distortion",
+      "harsh synths",
+      "intro fade-in",
+      "outro fade-out",
+      "abrupt ending",
+      "sudden silence",
+      "build-up drops",
+      "upbeat",
+      "happy",
+      "energetic dance",
+      "playful"
+    ],
+    "sections": [
+      {
+        "section_name": "Opening Drone",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "deep cello drone",
+          "double bass sustained",
+          "sub-bass layer",
+          "low strings texture",
+          "ominous",
+          "unsettling",
+          "minimal harmonic movement",
+          "heavy and static"
+        ],
+        "negative_local_styles": [
+          "melody",
+          "rhythm",
+          "high register instruments",
+          "dynamic swell",
+          "percussion",
+          "piano",
+          "fade-in"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Subtle Unrest",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "distant piano chords",
+          "eerie atmosphere",
+          "expansive reverberation",
+          "sparse string layers",
+          "subtle tension",
+          "cold",
+          "empty spaces",
+          "ghostly echoes"
+        ],
+        "negative_local_styles": [
+          "percussive piano",
+          "fast arpeggios",
+          "warm tones",
+          "melodic cello lines",
+          "drums",
+          "bright elements"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Deep Reflection",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "sustained string pads",
+          "slightly increased harmonic density",
+          "contemplative mood",
+          "somber textures",
+          "brooding",
+          "vast soundscape",
+          "slow harmonic shifts"
+        ],
+        "negative_local_styles": [
+          "intrusive elements",
+          "sharp attacks",
+          "bright timbres",
+          "fast string passages",
+          "prominent solos",
+          "rhythmic pulse"
+        ],
+        "lines": []
+      },
+      {
+        "section_name": "Return to Drone",
+        "duration_ms": 45000,
+        "positive_local_styles": [
+          "deep cello drone",
+          "double bass sustained",
+          "sub-bass layer",
+          "low strings texture",
+          "ominous",
+          "unsettling",
+          "minimal harmonic movement",
+          "heavy and static"
+        ],
+        "negative_local_styles": [
+          "melody",
+          "rhythm",
+          "high register instruments",
+          "dynamic swell",
+          "fade out",
+          "percussion",
+          "piano",
+          "fade-out"
+        ],
+        "lines": []
+      }
+    ]
+  },
+  "song_metadata": {
+    "title": null,
+    "description": null,
+    "genres": [],
+    "languages": [],
+    "is_explicit": null
+  },
+  "medidas": {
+    "duracion_s": 180.04,
+    "I_lufs": -11.2,
+    "LRA_lu": 3.2,
+    "pico_dbtp": -1.5,
+    "pulso": 0.066,
+    "pulso_lento": 0.052,
+    "entropia_notas": 1.515,
+    "dominancia": 0.586,
+    "cambios_dominante": 0.337,
+    "melodia": false,
+    "tonalidad": "D minor",
+    "tonalidad_r": 0.561,
+    "tonalidad_2": "A major",
+    "tonalidad_ok": true,
+    "banda_voz": 0.0003,
+    "centroide_hz": 93.5,
+    "costura_corr": 0.593,
+    "rms_inicio_db": -8.78,
+    "rms_final_db": -56.67,
+    "fade": true,
+    "fade_in_s": 1,
+    "fade_out_s": 9,
+    "huecos_s": 0,
+    "poda": [
+      "fade en la costura (-8.78 / -56.67 dB)"
+    ],
+    "mas_parecida": "hook_04"
+  },
+  "nota_gemini": 10,
+  "escucha_gemini": {
+    "descripcion": "Una pieza atmosférica y oscura construida sobre drones de cuerdas graves, como cellos y contrabajos. Las notas largas y sostenidas crean una sensación de misterio, quietud y tensión latente, ideal como fondo para una narración.",
+    "instrumentos": [
+      "Cuerdas graves",
+      "Cello",
+      "Contrabajo",
+      "Sintetizador"
+    ],
+    "tiene_melodia": false,
+    "tiene_pulso": false,
+    "suena_a_trailer": false,
+    "compite_con_voz": false,
+    "nota_canal": 10,
+    "mejor_intent": "setup"
+  },
+  "elevenlabs_metadata": {
+    "description": "Una pieza atmosférica y oscura construida sobre drones de cuerdas graves, como cellos y contrabajos. Las notas largas y sostenidas crean una sensación de misterio, quietud y tensión latente, ideal como fondo para una narración.",
+    "genres": [],
+    "title": "hook_f28_a"
+  },
+  "topic_source": "F28 paleta del canal",
+  "times_used": 0,
+  "last_used_at": null
+}
