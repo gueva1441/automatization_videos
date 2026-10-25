@@ -1,0 +1,61 @@
+{
+ "tag": "kE2",
+ "tema": "kyshtym",
+ "modelo": "claude-fable-5-1",
+ "effort": "medium",
+ "prompt_version": "f26-1",
+ "prompt_md5": {
+  "sistema": "2e67791cedbfa7492f8b6de1268b7b30",
+  "usuario_intento1": "3633feafce6acd722ed38afc09bfae60"
+ },
+ "metricas": {
+  "beats": 14,
+  "beats_por_cap": [
+   1,
+   2,
+   3,
+   2,
+   2,
+   2,
+   2
+  ],
+  "ids": 71,
+  "apoyos_por_beat": 4.07,
+  "promesa": "Un electricista siente temblar el cine y sale a la calle; lo que cayó del cielo esa tarde no tiene nombre, y la ciudad donde cayó no está en ningún mapa.",
+  "humano": "Anatoly Vasilievich Dubrovsky",
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "T04",
+   "nombre": "Gobierno de la URSS",
+   "por_que": "Las decisiones que arman la historia no tienen firma de persona: ordenar la planta en 1945, dejar que los pueblos reciban 52 rem antes de decidir el desalojo, explicar el cielo como aurora, establecer la zona de protección y confirmar la explosión recién en 1989. Slavsky y Demyanovich reparten culpas entre sí, pero el silencio de casi veinte años es del Estado.",
+   "variantes": [
+    "Правительство СССР",
+    "Soviet government"
+   ]
+  },
+  "intentos": [
+   {
+    "intento": 1,
+    "bloqueantes": []
+   }
+  ],
+  "pasada1_beats_por_cap": [
+   1,
+   2,
+   3,
+   2,
+   2,
+   2,
+   2
+  ],
+  "pasada1_caps_fuera_1_3": [],
+  "pasada1_bloqueantes": [],
+  "cierre_humano": "Dubrovsky sale de la historia sin fotocasete y sin figurar en la lista: una exposición que él declara y que ningún papel registra. El cierre deja la pregunta que la ficha no cierra: cuántos como él recibieron la dosis y nunca el reconocimiento, entre una declaración que dice que nadie enfermó, 66 diagnósticos, 200 muertes contadas por otros y juicios que todavía se pelean por rublos sin indexar."
+ },
+ "usd": 0.857,
+ "segundos": 159.2,
+ "log": [
+  "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}",
+  "  [escaleta v2] intento 1: 0 bloqueante(s) [] · 16 reparación(es) · 15 a métricas"
+ ]
+}

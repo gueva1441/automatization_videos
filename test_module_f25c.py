@@ -35,10 +35,11 @@ def _dif(a: str, b: str) -> list[tuple[str, str]]:
 
 
 def test_escaleta_f25_1_literal_y_un_solo_cambio():
-    assert me.SYSTEM_V2 == _sistema("PROMPT_ESCALETA_f25_1.md") and me.PROMPT_VERSION_V2 == "f25-1"
-    assert _md5(me.SYSTEM_V2) == "9325ad3890ebfe241953d86759e20296"
+    # F26: la escaleta de hoy es la f26-1 (test_module_f26); la f25-1 queda con su versión
+    assert me.SYSTEM_V2_F25_1 == _sistema("PROMPT_ESCALETA_f25_1.md") and me.PROMPT_VERSION_V2_F25_1 == "f25-1"
+    assert _md5(me.SYSTEM_V2_F25_1) == "9325ad3890ebfe241953d86759e20296"
     assert _md5(me.SYSTEM_V2_F24_1) == "006a195f0ce4be014df34d71644aedb1"
-    (viejo, nuevo), = _dif(me.SYSTEM_V2_F24_1, me.SYSTEM_V2)
+    (viejo, nuevo), = _dif(me.SYSTEM_V2_F24_1, me.SYSTEM_V2_F25_1)
     va = ("La promesa es una frase que dice qué va a entender el espectador si se queda. Es una imagen o una pregunta, "
           "nunca un resumen de lo que va a pasar ni una lista de lo que viene.")
     nu = ("La promesa es una sola oración que deja una imagen sin cerrar o una pregunta que el espectador no puede "

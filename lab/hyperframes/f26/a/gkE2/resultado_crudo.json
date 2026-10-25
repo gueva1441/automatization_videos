@@ -1,0 +1,234 @@
+{
+ "tag": "gkE2",
+ "tema": "kyshtym",
+ "escaleta": "kE2",
+ "modelo": "claude-fable-5-1",
+ "effort": "high",
+ "version": "f25-1",
+ "prompt_md5": {
+  "sistema": "2f66c1e07e4d6c31178091371821c0c9",
+  "usuario": "4c26709cf238c2c513c3f9b4afe4a374"
+ },
+ "nota_b": null,
+ "promesa_escaleta": "Un electricista siente temblar el cine y sale a la calle; lo que cayó del cielo esa tarde no tiene nombre, y la ciudad donde cayó no está en ningún mapa.",
+ "parrafos_crudo": [
+  {
+   "beat": 1,
+   "cap": 1,
+   "texto": "Una película corre en la pantalla del club Derevyashka y la sala está a oscuras. Un estruendo seco, y las paredes empiezan a vibrar bajo las butacas. Un electricista siente temblar el cine y sale a la calle; lo que cayó del cielo esa tarde no tiene nombre, y la ciudad donde cayó no está en ningún mapa. «Y en un momento oímos un fuerte estruendo; incluso el edificio comenzó a temblar», contó uno de los que estaban sentados en esa sala. Nadie entra a decirles qué fue. Anatoly Vasilievich Dubrovsky, electricista de Mayak, es uno de los que salen a la calle a mirar. Cheliábinsk-40, Urales del Sur, 1957. Pero para entender ese estruendo hay que volver a una ciudad que no existe en los mapas, y a un decreto firmado doce años antes.",
+   "ids_usados": []
+  },
+  {
+   "beat": 2,
+   "cap": 2,
+   "texto": "Un dedo busca Cheliábinsk-40 en un mapa de los Urales y no la encuentra. Encuentra Kyshtym, la localidad conocida más cercana, y por eso el desastre lleva ese nombre y no el de la ciudad donde pasó. El 9 de abril de 1945 el gobierno soviético aprobó construir la planta número 817 en la región de Cheliábinsk, para producir la bomba atómica. Mayak se levantó a las apuradas, entre 1945 y 1948. En junio de 1948 el reactor industrial A-1 alcanzó su potencia de diseño. En enero de 1949 entró en funcionamiento la planta radioquímica de separación y procesamiento de plutonio. La ciudad tenía plutonio, reactores y gente. Lo que no tenía era dónde poner lo que sobraba.",
+   "ids_usados": [
+    "T03",
+    "T04",
+    "T07",
+    "T09"
+   ]
+  },
+  {
+   "beat": 3,
+   "cap": 2,
+   "texto": "El río Techa, en primavera. En la orilla, gente llena baldes para llevar a la casa. Entre 1949 y 1956 Mayak vertió al Techa grandes cantidades de residuos líquidos de alta y media actividad, y miles de personas siguieron tomando esa agua. Beber del río se prohibió en 1953, cuatro años después del primer vertido. Desde noviembre de 1951, los residuos de alta actividad empezaron a ir también al lago Karachay. Y el resto, a los tanques: cilindros de acero inoxidable encerrados en una envoltura de hormigón. En el tanque 14 cargaron 256 metros cúbicos de residuos; cabían 300. El 29 de septiembre de 1957, a las cuatro y veintidós de la tarde, el tanque 14 dejó de aguantar.",
+   "ids_usados": [
+    "D27",
+    "D56"
+   ]
+  },
+  {
+   "beat": 4,
+   "cap": 3,
+   "texto": "Explotó el tanque número 14 del complejo S-3. Las cuatro y veintidós, hora local, según los registros; una crónica posterior sitúa el estruendo a las cuatro y media. Donde estaba el tanque quedó un cráter de unos diez metros de profundidad y veinte de diámetro. La comisión de Slavsky lo atribuyó después a una alteración del régimen de refrigeración del tanque. Los expertos determinaron que la explosión fue térmica, no atómica: no hubo reacción en cadena. Lo que salió volando fueron unos veinte millones de curios de radiactividad. A las siete y veinte de la tarde, las masas de aire que salían del complejo se desplazaban hacia Bagaryak y Kamensk-Uralsky. Nueve de cada diez partes cayeron dentro del complejo. La décima iba en el viento, y al día siguiente la ciudad empezó a lavarse las calles.",
+   "ids_usados": [
+    "D30",
+    "D31"
+   ]
+  },
+  {
+   "beat": 5,
+   "cap": 3,
+   "texto": "El 30 de septiembre Dubrovsky fue a trabajar como cualquier lunes. En la ciudad había mangueras sobre el asfalto, cuadrillas lavando las carreteras, otras levantando el pavimento para poner asfalto nuevo, y dosímetros que se atornillaban en lugares públicos. A las tres de la mañana de ese día la traza radiactiva había terminado de formarse; lo que vino después fue migración. Mikhail Kuleshov, que iba a encabezar una de las brigadas de liquidación, forraba mientras tanto con planchas de plomo el suelo y las paredes de la cabina de un tractor S-80. «Ya al día siguiente, el S-80, completamente recubierto de plomo, fue a reconocer el foco de la explosión», contó Kuleshov. Desde el edificio de la gran chimenea hasta el foco había unos quinientos metros. El tractor los hizo a dos kilómetros por hora. En octubre, su brigada empezó los trabajos de liquidación en turnos de siete de la tarde a una de la mañana. A Dubrovsky no le dieron plomo. Le dieron una pala y una fuente.",
+   "ids_usados": [
+    "D128",
+    "T24"
+   ]
+  },
+  {
+   "beat": 6,
+   "cap": 3,
+   "texto": "Seis electricistas con monos de goma, junto a una fuentecita dentro del complejo. Para los seis hay cuatro máscaras antigás y dos pétalos. Palas, palancas, picos. La tarea es arrancar los arbustos que crecen alrededor de la fuente, con raíz y todo. «No recibimos ninguna instrucción y nadie nos explicó cómo comportarnos», contó Dubrovsky. Lo único que les dijeron fue que no se quitaran las máscaras ni los pétalos. Cuatro máscaras. Dos pétalos. Seis hombres clavando el pico en la raíz. Mientras ellos arrancaban arbustos, a cien kilómetros la gente miraba el cielo. Y el diario les explicó lo que estaban viendo.",
+   "ids_usados": []
+  },
+  {
+   "beat": 7,
+   "cap": 4,
+   "texto": "Sobre Cheliábinsk, una luz roja intensa que por momentos vira a rosa pálido y a azul claro. El 6 de octubre de 1957, Chelyabinsky Rabochy publicó una nota sobre lo que muchos habían visto el domingo anterior: «Ese resplandor, bastante raro en nuestras latitudes, tenía todas las características de una aurora boreal», decía el diario. Para ese 6 de octubre, la comisión ministerial encabezada por Slavsky llevaba cuatro días en Mayak: había llegado desde Moscú el 2. Y ese mismo día, según una de las fuentes, empezó la evacuación; otra la ubica diez días después del accidente. Bajo esa aurora había unas 270.000 personas. A las primeras 1.383 las iban a mover recién cuando ya fuera tarde.",
+   "ids_usados": [
+    "D37",
+    "D43",
+    "D48",
+    "T29"
+   ]
+  },
+  {
+   "beat": 8,
+   "cap": 4,
+   "texto": "A los veinte o treinta minutos de terminar con los arbustos, llegó un camión de bomberos. Agua fría, a presión, de una manguera. Los lavan uno por uno. Dubrovsky es el último. Aguanta la espalda. Él lo contó así: «cuando el chorro empezó a golpearme el pecho dolía tanto que pedí que lo detuvieran. Yo había trabajado sin el «pétalo»». Esa jornada, los seis recibieron cinco veces la norma diaria de irradiación.",
+   "ids_usados": [
+    "D48",
+    "D124"
+   ]
+  },
+  {
+   "beat": 8,
+   "cap": 4,
+   "texto": "En los pueblos de la traza, la decisión de desalojar llega entre siete y diez días después. Para entonces, esas personas, las primeras de la lista, ya tienen 52 rem en el cuerpo. Los chicos de dos a siete años, la dosis más alta: hasta un sievert. Tarde. Cinco veces la norma diaria en seis electricistas; cincuenta y dos rem en los primeros desalojados. Después de eso, los pueblos dejaron de existir.",
+   "ids_usados": [
+    "D43",
+    "D44",
+    "D48",
+    "D124"
+   ]
+  },
+  {
+   "beat": 9,
+   "cap": 5,
+   "texto": "Casas niveladas a ras del suelo. Pertenencias ardiendo en pilas. Ganado sacrificado. Según los documentos desclasificados, entre 1957 y 1960 se desalojaron y enterraron 23 localidades. Una crónica posterior dice que esos pueblos se reasentaron en catorce días. Dmitry, hijo de un vecino de Yugo-Konyovo, leyó eso y respondió: «no comenzaron a trasladar por la fuerza a la gente de inmediato; todo se prolongó durante medio año». En ese medio año, cuenta, hubo saqueos y robos, y quemaban y destruían lo que la gente dejaba. Chicos de internados fueron llevados a los territorios contaminados a levantar la cosecha y a demoler construcciones. Catorce días, medio año o tres años: nadie se pone de acuerdo en cuánto tiempo vivió la gente entre sus casas y la orden de irse. Veintitrés pueblos enterrados. En el complejo, en cambio, había que quedarse: la restauración recién empezaba.",
+   "ids_usados": [
+    "D42",
+    "D116",
+    "D136"
+   ]
+  },
+  {
+   "beat": 10,
+   "cap": 5,
+   "texto": "Verano de 1958. Un tractor forrado de plomo corta la tierra del lugar donde Dubrovsky y los suyos arrancaron arbustos a pico, se lleva el suelo y deja tierra limpia en su lugar. Un año antes, para esa misma tierra, hubo palas. Kuleshov recuerda instalaciones inundadas, tablones para caminar a oscuras, champú y productos químicos que no limpiaban nada. «Incluso la peluquera se negó a cortarle el pelo», recuerda uno de los que trabajaron ahí sobre un compañero.",
+   "ids_usados": []
+  },
+  {
+   "beat": 10,
+   "cap": 5,
+   "texto": "La comisión ya había dado su veredicto: «los principales culpables de este incidente son el jefe de la planta radioquímica y el ingeniero jefe de esa planta», escribió Yefim Slavsky. El director, Mikhail Demyanovich, fue responsabilizado y destituido. Slavsky culpó al jefe de la planta radioquímica; Demyanovich se quedó con la culpa y perdió el cargo. A Dubrovsky nadie le dio un papel. Y en la ciudad, de eso no se hablaba.",
+   "ids_usados": [
+    "D121"
+   ]
+  },
+  {
+   "beat": 11,
+   "cap": 6,
+   "texto": "Los liquidadores firmaron compromisos de confidencialidad. Los trabajadores de Mayak pasaron alrededor de un año y medio sin vacaciones. «En la ciudad no se hablaba de aquel accidente, como tampoco se acostumbraba hablar de muchos otros incidentes que ocurrían entonces», recuerda Lyudmila Smirnova. Afuera sí se hablaba. El 13 de abril de 1958 la prensa occidental publicó las primeras noticias del accidente; el 18 de marzo de 1959, Die Presse, en Viena, dio detalles. En 1976 Medvedev publicó un breve informe en New Scientist y les contó a periodistas extranjeros; las autoridades soviéticas negaron la información. Casi veinte años impreso en Copenhague y en Viena, negado en Moscú. En julio de 1989 el estado por fin lo dijo en voz alta. Y lo que dijo sobre los enfermos fue peor que el silencio.",
+   "ids_usados": [
+    "D50",
+    "D134",
+    "T38"
+   ]
+  },
+  {
+   "beat": 12,
+   "cap": 6,
+   "texto": "La sala del Soviet Supremo, 18 de julio de 1989. Buldakov declara que durante los tres años de seguimiento que describe no registraron ninguna forma de enfermedad por radiación. Ese mes la URSS confirmó públicamente la explosión y empezó a desclasificar documentos. Ninguna forma de enfermedad. Otras fuentes cuentan de otra manera: 66 diagnósticos de síndrome de radiación crónico. Alrededor de 200 muertes posteriores al accidente, sin balance oficial ni período de seguimiento. En lo único que todos coinciden es en que la explosión no mató a nadie en el momento. Sin un balance que concilie esas cifras, la pelea pasó a los tribunales. Y la primera en ganar una fue una evacuada.",
+   "ids_usados": [
+    "D52",
+    "D72",
+    "D152",
+    "T46"
+   ]
+  },
+  {
+   "beat": 13,
+   "cap": 7,
+   "texto": "Galina Chanova fue evacuada del territorio contaminado. Empezó a cobrar compensaciones en 1997: 167 rublos por mes. Diez años después, 287. Desde 2001 esa cifra no se había indexado. Un tribunal del distrito de Kalininsky le reconoció una deuda de unos 60.000 rublos que el estado había dejado de pagarle. «Estoy muy contenta incluso con esta decisión del tribunal», dijo Chanova. Fueron los abogados de Sociedad Civil los que calcularon cuánto se le debía y redactaron la demanda. No hay constancia de que haya cobrado. En Muslyumovo, la evacuación se decidió en 1993 y nunca se ejecutó por falta de dinero. Galina al menos tenía un expediente que decía que había estado ahí. Dubrovsky ni eso.",
+   "ids_usados": [
+    "D104",
+    "D109",
+    "Q14"
+   ]
+  },
+  {
+   "beat": 14,
+   "cap": 7,
+   "texto": "En una vitrina de la exposición de Pavel Otdelnov hay dosímetros personales encontrados en el lugar, y mapas donde Ozersk no figura. La palabra, explica el autor de la exposición, es «sonar», que «en el lenguaje de los trabajadores atómicos, significa la señal acústica con que un contador Geiger avisa de un fondo de radiación elevado». Dubrovsky nunca tuvo uno de esos dosímetros. Trabajó junto a la fuente sin fotocasete, y por eso su dosis no está en ningún papel. Seis electricistas en esa cuadrilla, ninguno en la lista de liquidadores. Lo que recibieron lo declaró él; nadie lo midió. ¿Cuántos más hubo como ellos?",
+   "ids_usados": []
+  }
+ ],
+ "bloqueantes_crudo": [
+  {
+   "codigo": "e",
+   "cap": 5,
+   "beat": 10,
+   "frase": "Kuleshov recuerda instalaciones inundadas, tablones para caminar a oscuras, champú y productos químicos que no limpiaban nada.",
+   "motivo": "Q20 está SIN VERIFICAR y va con el nombre de Mikhail Kuleshov"
+  }
+ ],
+ "metricas_crudo": {
+  "palabras": 1811,
+  "minutos": 14.7,
+  "citas": 11,
+  "duras_v3": 40,
+  "palabras_por_cap": {
+   "1": 135,
+   "2": 237,
+   "3": 407,
+   "4": 261,
+   "5": 293,
+   "6": 246,
+   "7": 221
+  },
+  "personas_por_cap": {
+   "1": [
+    "Anatoly Vasilievich Dubrovsky"
+   ],
+   "2": [],
+   "3": [
+    "Anatoly Vasilievich Dubrovsky",
+    "Mikhail Kuleshov",
+    "Yefim Slavsky"
+   ],
+   "4": [
+    "Anatoly Vasilievich Dubrovsky",
+    "Chelyabinsky Rabochy",
+    "Yefim Slavsky"
+   ],
+   "5": [
+    "Anatoly Vasilievich Dubrovsky",
+    "Mikhail Demyanovich",
+    "Mikhail Kuleshov",
+    "Yefim Slavsky"
+   ],
+   "6": [
+    "L. A. Buldakov",
+    "Lyudmila Smirnova",
+    "Soviet Supremo de la URSS",
+    "Zhores Medvedev"
+   ],
+   "7": [
+    "Anatoly Vasilievich Dubrovsky",
+    "Galina Chanova",
+    "Pavel Otdelnov",
+    "Sociedad Civil"
+   ]
+  },
+  "citas_por_cap": {
+   "1": 1,
+   "2": 0,
+   "3": 2,
+   "4": 2,
+   "5": 3,
+   "6": 1,
+   "7": 2
+  },
+  "fechas_literales_por_cap": {
+   "1": 0,
+   "2": 2,
+   "3": 1,
+   "4": 2,
+   "5": 0,
+   "6": 3,
+   "7": 0
+  }
+ }
+}

@@ -1,0 +1,129 @@
+{
+ "llamadas": [
+  {
+   "tag": "kE2",
+   "etapa": "escaleta",
+   "desc": "m01a_escaleta v2 intento 1",
+   "modelo": "claude-fable-5-1",
+   "effort": "medium",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 24679,
+   "out": 12204,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.857,
+   "segundos": 158.6
+  },
+  {
+   "tag": "kE1",
+   "etapa": "escaleta",
+   "desc": "m01a_escaleta v2 intento 1",
+   "modelo": "claude-fable-5-1",
+   "effort": "medium",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 24679,
+   "out": 13725,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.933,
+   "segundos": 177.8
+  },
+  {
+   "tag": "kE1",
+   "etapa": "escaleta",
+   "desc": "m01a_escaleta v2 intento 2",
+   "modelo": "claude-fable-5-1",
+   "effort": "medium",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 24762,
+   "out": 12625,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.8789,
+   "segundos": 158.1
+  },
+  {
+   "tag": "gkE2",
+   "etapa": "guion",
+   "desc": "guion_v4 guionista",
+   "modelo": "claude-fable-5-1",
+   "effort": "high",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 14525,
+   "out": 16760,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.9833,
+   "segundos": 178.2
+  },
+  {
+   "tag": "gkE2",
+   "etapa": "reparacion",
+   "desc": "guion_v4 editar frase",
+   "modelo": "claude-fable-5-1",
+   "effort": "high",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 604,
+   "out": 488,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.0304,
+   "segundos": 8.2
+  },
+  {
+   "tag": "gkE1",
+   "etapa": "guion",
+   "desc": "guion_v4 guionista",
+   "modelo": "claude-fable-5-1",
+   "effort": "high",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 13570,
+   "out": 23010,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.2862,
+   "segundos": 254.1
+  },
+  {
+   "tag": "gkE2",
+   "etapa": "reparacion",
+   "desc": "guion_v4 editor",
+   "modelo": "claude-fable-5-1",
+   "effort": "high",
+   "max_tokens": 100000,
+   "stream": true,
+   "esquema": true,
+   "in": 6510,
+   "out": 12461,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 0.6882,
+   "segundos": 134.8
+  }
+ ],
+ "usd": 5.657,
+ "etapas": {
+  "escaleta": {
+   "inicio": 1792918349.0,
+   "fin": 1792918685.6,
+   "pared_s": 336.6
+  },
+  "guion": {
+   "inicio": 1792918720.4,
+   "fin": 1792919073.4,
+   "pared_s": 353.0
+  }
+ }
+}

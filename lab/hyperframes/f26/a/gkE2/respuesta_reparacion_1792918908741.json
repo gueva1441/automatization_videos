@@ -1,0 +1,38 @@
+{
+ "content": [
+  {
+   "type": "thinking",
+   "thinking": "",
+   "signature": ""
+  },
+  {
+   "type": "text",
+   "text": "{\"texto\": \"Verano de 1958. Un tractor forrado de plomo corta la tierra del lugar donde Dubrovsky y los suyos arrancaron arbustos a pico, se lleva el suelo y deja tierra limpia en su lugar. Un año antes, para esa misma tierra, hubo palas. «Incluso la peluquera se negó a cortarle el pelo», recuerda uno de los que trabajaron ahí sobre un compañero.\"}"
+  }
+ ],
+ "usage": {
+  "input_tokens": 604,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "cache_creation": {
+   "ephemeral_5m_input_tokens": 0,
+   "ephemeral_1h_input_tokens": 0
+  },
+  "output_tokens": 488,
+  "service_tier": "standard",
+  "inference_geo": "global",
+  "speed": "standard",
+  "output_tokens_details": {
+   "thinking_tokens": 330
+  }
+ },
+ "model": "claude-fable-5-1",
+ "id": "msg_011CgNgcV1RWtquDkCNmh8Q6",
+ "type": "message",
+ "role": "assistant",
+ "container": null,
+ "stop_reason": "end_turn",
+ "stop_sequence": null,
+ "stop_details": null,
+ "diagnostics": null
+}

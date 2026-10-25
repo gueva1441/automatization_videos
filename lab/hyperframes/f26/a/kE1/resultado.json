@@ -1,0 +1,66 @@
+{
+ "tag": "kE1",
+ "tema": "kyshtym",
+ "modelo": "claude-fable-5-1",
+ "effort": "medium",
+ "prompt_version": "f26-1",
+ "prompt_md5": {
+  "sistema": "2e67791cedbfa7492f8b6de1268b7b30",
+  "usuario_intento1": "3633feafce6acd722ed38afc09bfae60"
+ },
+ "metricas": {
+  "beats": 14,
+  "beats_por_cap": [
+   1,
+   2,
+   2,
+   2,
+   1,
+   3,
+   3
+  ],
+  "ids": 66,
+  "apoyos_por_beat": 3.71,
+  "promesa": "La película sigue proyectándose mientras el edificio tiembla, y nadie en la sala tiene una palabra para lo que acaba de oír.",
+  "humano": "Anatoly Vasilievich Dubrovsky",
+  "antagonista": {
+   "tipo": "persona",
+   "id": "P20",
+   "nombre": "Yefim Slavsky",
+   "por_que": "Es el ministro que llega desde Moscú el 2 de octubre al frente de la comisión, firma el memorando que reparte culpas entre el jefe de la planta radioquímica y su ingeniero jefe, y bajo cuya comisión se toman las decisiones de los días siguientes: el desalojo de los primeros pueblos entre siete y diez días después, cuando sus habitantes ya tienen 52 rem encima. Es la única persona de la ficha con una decisión firmada."
+  },
+  "intentos": [
+   {
+    "intento": 1,
+    "bloqueantes": [
+     "beat 2: dato_central «L09» no existe en el pool (o no es D/T/Q)"
+    ]
+   },
+   {
+    "intento": 2,
+    "bloqueantes": []
+   }
+  ],
+  "pasada1_beats_por_cap": [
+   1,
+   2,
+   2,
+   1,
+   2,
+   3,
+   3
+  ],
+  "pasada1_caps_fuera_1_3": [],
+  "pasada1_bloqueantes": [
+   "beat 2: dato_central «L09» no existe en el pool (o no es D/T/Q)"
+  ],
+  "cierre_humano": "Volvemos a Dubrovsky sin cita nueva: los seis electricistas nunca recibieron fotocasetes y no fueron incorporados de inmediato a la lista de liquidadores. Cerramos con la pregunta que nadie de la ficha responde: cuántos rem recibió un hombre que trabajó sin pétalo y sin dosímetro, y cuántos como él quedaron fuera del recuento que Buldakov dijo haber hecho."
+ },
+ "usd": 1.8119,
+ "segundos": 336.6,
+ "log": [
+  "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}",
+  "  [escaleta v2] intento 1: 1 bloqueante(s) ['beat 2: dato_central «L09» no existe en el pool (o no es D/T/Q)'] · 10 reparación(es) · 8 a métricas",
+  "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 77 reparación(es) · 7 a métricas"
+ ]
+}
