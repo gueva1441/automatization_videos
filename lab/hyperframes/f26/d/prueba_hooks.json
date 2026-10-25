@@ -1,0 +1,222 @@
+[
+ {
+  "hook": "guard_git.py",
+  "caso": "git add .env",
+  "esperado": "bloquea",
+  "rc": 2,
+  "bloquea": true,
+  "ok": true,
+  "salida": "guard_git: `git add` incluye archivos que no se commitean: .env",
+  "s": 0.1
+ },
+ {
+  "hook": "guard_git.py",
+  "caso": "git add config.py (en una cadena con cd &&)",
+  "esperado": "bloquea",
+  "rc": 2,
+  "bloquea": true,
+  "ok": true,
+  "salida": "guard_git: `git add` incluye archivos que no se commitean: config.py",
+  "s": 0.1
+ },
+ {
+  "hook": "guard_git.py",
+  "caso": "git add -A (trae lab/_gpt_probe_analista/)",
+  "esperado": "bloquea",
+  "rc": 2,
+  "bloquea": true,
+  "ok": true,
+  "salida": "guard_git: `git add` incluye archivos que no se commitean: .env, config.py, lab/_gpt_probe_analista/x.json, llave.txt",
+  "s": 0.1
+ },
+ {
+  "hook": "guard_git.py",
+  "caso": "git add llave.txt (con una llave adentro)",
+  "esperado": "bloquea",
+  "rc": 2,
+  "bloquea": true,
+  "ok": true,
+  "salida": "guard_git: `git add` incluye archivos que no se commitean: llave.txt",
+  "s": 0.1
+ },
+ {
+  "hook": "guard_git.py",
+  "caso": "git add b.py",
+  "esperado": "pasa",
+  "rc": 0,
+  "bloquea": false,
+  "ok": true,
+  "salida": "",
+  "s": 0.1
+ },
+ {
+  "hook": "guard_git.py",
+  "caso": "git commit con llave.txt en el índice",
+  "esperado": "bloquea",
+  "rc": 2,
+  "bloquea": true,
+  "ok": true,
+  "salida": "guard_git: el commit incluye archivos que no se commitean: llave.txt",
+  "s": 0.1
+ },
+ {
+  "hook": "guard_git.py",
+  "caso": "git commit con b.py en el índice",
+  "esperado": "pasa",
+  "rc": 0,
+  "bloquea": false,
+  "ok": true,
+  "salida": "",
+  "s": 0.1
+ },
+ {
+  "hook": "guard_git.py",
+  "caso": "git push origin main",
+  "esperado": "bloquea",
+  "rc": 2,
+  "bloquea": true,
+  "ok": true,
+  "salida": "guard_git: `git push` hacia main est� bloqueado (sin OK expl�cito de Omar no se toca main)",
+  "s": 0.1
+ },
+ {
+  "hook": "guard_git.py",
+  "caso": "git push origin rama:main",
+  "esperado": "bloquea",
+  "rc": 2,
+  "bloquea": true,
+  "ok": true,
+  "salida": "guard_git: `git push` hacia main est� bloqueado (sin OK expl�cito de Omar no se toca main)",
+  "s": 0.1
+ },
+ {
+  "hook": "guard_git.py",
+  "caso": "git push origin rama",
+  "esperado": "pasa",
+  "rc": 0,
+  "bloquea": false,
+  "ok": true,
+  "salida": "",
+  "s": 0.1
+ },
+ {
+  "hook": "guard_git.py",
+  "caso": "git checkout main && git merge rama",
+  "esperado": "bloquea",
+  "rc": 2,
+  "bloquea": true,
+  "ok": true,
+  "salida": "guard_git: `git merge` sobre main est� bloqueado (nada se mergea sin OK de Omar)",
+  "s": 0.1
+ },
+ {
+  "hook": "guard_git.py",
+  "caso": "git merge main (estando en rama)",
+  "esperado": "pasa",
+  "rc": 0,
+  "bloquea": false,
+  "ok": true,
+  "salida": "",
+  "s": 0.1
+ },
+ {
+  "hook": "suite_rapida.py",
+  "caso": "git commit con un test rojo (HOOK_SUITE_RAPIDA)",
+  "esperado": "bloquea",
+  "rc": 2,
+  "bloquea": true,
+  "ok": true,
+  "salida": "67yuz1\\test_roto.py:2: AssertionError\r\n=========================== short test summary info ===========================\r\nFAILED ..\\..\\Users\\Canada\\AppData\\Local\\Temp\\tmpoi67yuz1\\test_roto.py::test_rojo\r\n!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!\r\n1 failed in 0.09s",
+  "s": 0.6
+ },
+ {
+  "hook": "suite_rapida.py",
+  "caso": "git commit con la suite rápida de verdad",
+  "esperado": "pasa",
+  "rc": 0,
+  "bloquea": false,
+  "ok": true,
+  "salida": "",
+  "s": 3.9
+ },
+ {
+  "hook": "suite_rapida.py",
+  "caso": "git status (no es commit: no corre nada)",
+  "esperado": "pasa",
+  "rc": 0,
+  "bloquea": false,
+  "ok": true,
+  "salida": "",
+  "s": 0.1
+ },
+ {
+  "hook": "tope_tanda.py",
+  "caso": "python fase2a.py con 3.50 gastados de 3.00",
+  "esperado": "bloquea",
+  "rc": 2,
+  "bloquea": true,
+  "ok": true,
+  "salida": "tope_tanda: la tanda ya gast� US$ 3.50 (cost_history desde 2026-10-25 00:00) y el tope es US$ 3.00 (lab/TOPE_TANDA.json): fase2a.py no arranca",
+  "s": 0.1
+ },
+ {
+  "hook": "tope_tanda.py",
+  "caso": "python -I fase1_5.py con 3.50 de 3.00",
+  "esperado": "bloquea",
+  "rc": 2,
+  "bloquea": true,
+  "ok": true,
+  "salida": "tope_tanda: la tanda ya gast� US$ 3.50 (cost_history desde 2026-10-25 00:00) y el tope es US$ 3.00 (lab/TOPE_TANDA.json): fase1_5.py no arranca",
+  "s": 0.1
+ },
+ {
+  "hook": "tope_tanda.py",
+  "caso": "python fase2a.py con 3.50 gastados de 10.00",
+  "esperado": "pasa",
+  "rc": 0,
+  "bloquea": false,
+  "ok": true,
+  "salida": "",
+  "s": 0.1
+ },
+ {
+  "hook": "tope_tanda.py",
+  "caso": "python fase2b.py (no lo mira)",
+  "esperado": "pasa",
+  "rc": 0,
+  "bloquea": false,
+  "ok": true,
+  "salida": "",
+  "s": 0.1
+ },
+ {
+  "hook": "md5_prompt.py",
+  "caso": "Edit PROMPT_ESCALETA_f26_1.md",
+  "esperado": "avisa",
+  "rc": 0,
+  "bloquea": false,
+  "ok": true,
+  "salida": "120) � bloque SISTEMA 2e67791cedbfa7492f8b6de1268b7b30 (antes: 2e67791cedbfa7492f8b6de1268b7b30)\", \"hookSpecificOutput\": {\"hookEventName\": \"PostToolUse\", \"additionalContext\": \"md5_prompt: PROMPT_ESCALETA_f26_1.md: archivo 1aa22901d617916d3d9c5b5c1d7f1120 (antes, en HEAD: 1aa22901d617916d3d9c5b5c1d7f1120) � bloque SISTEMA 2e67791cedbfa7492f8b6de1268b7b30 (antes: 2e67791cedbfa7492f8b6de1268b7b30)\"}}",
+  "s": 0.1
+ },
+ {
+  "hook": "md5_prompt.py",
+  "caso": "Edit m01a_escaleta.py",
+  "esperado": "avisa",
+  "rc": 0,
+  "bloquea": false,
+  "ok": true,
+  "salida": "{\"systemMessage\": \"md5_prompt: m01a_escaleta.py: archivo 27f3d45d71807038cc14ae7b8e43f52a (antes, en HEAD: 27f3d45d71807038cc14ae7b8e43f52a)\", \"hookSpecificOutput\": {\"hookEventName\": \"PostToolUse\", \"additionalContext\": \"md5_prompt: m01a_escaleta.py: archivo 27f3d45d71807038cc14ae7b8e43f52a (antes, en HEAD: 27f3d45d71807038cc14ae7b8e43f52a)\"}}",
+  "s": 0.1
+ },
+ {
+  "hook": "md5_prompt.py",
+  "caso": "Edit video_length.py",
+  "esperado": "nada",
+  "rc": 0,
+  "bloquea": false,
+  "ok": true,
+  "salida": "",
+  "s": 0.1
+ }
+]
