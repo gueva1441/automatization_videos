@@ -1,0 +1,82 @@
+{
+ "tag": "fO2",
+ "modelo": "claude-opus-5-5",
+ "esfuerzo": "medium",
+ "prompt_md5": {
+  "sistema": "070b75dff58aecfa407fac3d62020ce4",
+  "usuario": "a9909b1b66af93f27d6dcb04812d6827"
+ },
+ "metricas": {
+  "problemas_chequeo": 71,
+  "conteos": {
+   "humanos_candidatos": 4,
+   "giros": 6,
+   "pico": 1,
+   "pregunta_final": 1,
+   "escenas": 10,
+   "contradicciones": 0,
+   "decisiones": 0,
+   "versiones": 0,
+   "personas": 38,
+   "personas_descartadas": 2,
+   "cifras": 0,
+   "cronologia": 47,
+   "hechos": 56,
+   "citas": 18,
+   "descartados": 71
+  },
+  "hechos_nivel_1": 20,
+  "hechos_nivel_2": 36,
+  "citas": 18,
+  "citas_verificadas": 17,
+  "escenas": 10,
+  "humanos_candidatos": [
+   "Anatoly Vasilievich Dubrovsky",
+   "Mikhail Kuleshov",
+   "Galina Chanova",
+   "Lyudmila Smirnova"
+  ],
+  "personas": 38,
+  "arcos": [
+   {
+    "nombre": "Anatoly Vasilievich Dubrovsky",
+    "arco": "entra mirando una película en el club «Derevyashka» cuando el edificio tiembla; al día siguiente lo mandan sin instrucciones a arrancar arbustos junto a la fuente, trabaja sin «pétalo» y recibe cinco normas diarias de radiación y un chorro de manguera que le duele en el pecho; sale sin fotocasete y por eso no entra de inmediato en la lista de liquidadores",
+    "citas_verificadas": 2
+   },
+   {
+    "nombre": "Mikhail Kuleshov",
+    "arco": "entra enterándose de la explosión al llegar al segundo turno; forra de plomo un tractor S-80 y un tanque T-34 para llegar al epicentro y trabaja de 19:00 a 1:00 desde octubre; sale en 1958 restaurando una planta inundada donde un compañero no puede lavarse la cabeza contaminada (1 cita verificada y 1 parcial)",
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Galina Chanova",
+    "arco": "entra evacuada de la zona contaminada justo después del accidente; recién en 1997 cobra compensaciones de 167 rublos al mes, que no se indexan; sale con un fallo que reconoce la deuda del Estado y le da unos 60.000 rublos, de los unos 150.000 que calcularon sus abogados",
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Lyudmila Smirnova",
+    "arco": "entra naciendo en 1961 en la ciudad cerrada, hija de un liquidador que no le habló del accidente ni a su familia; pierde a su padre, que «se quemó» por la radiación en dos semanas; sale diciendo que de esos incidentes no se habla ni ahora",
+    "citas_verificadas": 1
+   }
+  ]
+ },
+ "usd": 1.2128,
+ "segundos": 421.9,
+ "cortada": false,
+ "llamadas": [
+  {
+   "tag": "fO2",
+   "modelo": "claude-opus-5-5",
+   "proveedor": "claude",
+   "max_tokens": 100000,
+   "effort": "medium",
+   "esquema": false,
+   "in": 39424,
+   "out": 52753,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.2128,
+   "segundos": 421.7
+  }
+ ]
+}

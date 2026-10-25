@@ -1,0 +1,82 @@
+{
+ "tag": "fO1",
+ "modelo": "claude-opus-5-5",
+ "esfuerzo": "medium",
+ "prompt_md5": {
+  "sistema": "070b75dff58aecfa407fac3d62020ce4",
+  "usuario": "a9909b1b66af93f27d6dcb04812d6827"
+ },
+ "metricas": {
+  "problemas_chequeo": 58,
+  "conteos": {
+   "humanos_candidatos": 4,
+   "giros": 6,
+   "pico": 1,
+   "pregunta_final": 1,
+   "escenas": 11,
+   "contradicciones": 7,
+   "decisiones": 7,
+   "versiones": 4,
+   "personas": 43,
+   "personas_descartadas": 2,
+   "cifras": 0,
+   "cronologia": 49,
+   "hechos": 70,
+   "citas": 14,
+   "descartados": 71
+  },
+  "hechos_nivel_1": 20,
+  "hechos_nivel_2": 50,
+  "citas": 14,
+  "citas_verificadas": 14,
+  "escenas": 11,
+  "humanos_candidatos": [
+   "Anatoly Vasilievich Dubrovsky",
+   "Mikhail Kuleshov",
+   "Galina Chanova",
+   "Lyudmila Smirnova"
+  ],
+  "personas": 43,
+  "arcos": [
+   {
+    "nombre": "Anatoly Vasilievich Dubrovsky",
+    "arco": "entra mirando una película en el club la tarde en que tiembla el edificio; al día siguiente va a trabajar como siempre y lo mandan sin instrucciones, con un mono de goma y sin su «pétalo», a arrancar arbustos junto a la fuente, donde recibe cinco normas diarias; sale lavado a manguerazos, con dolor en el pecho, y sin fotocasete, por lo que no entra enseguida en la lista de liquidadores",
+    "citas_verificadas": 2
+   },
+   {
+    "nombre": "Mikhail Kuleshov",
+    "arco": "entra enterándose de la explosión por sus jefes al llegar al segundo turno; forra de plomo un tractor S-80 y un tanque T-34 para llegar al foco, trabaja de noche desde octubre y en 1958 en salas inundadas; sale contando cómo a un compañero no le pudieron lavar la cabeza contaminada",
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Galina Chanova",
+    "arco": "entra evacuada de la zona contaminada justo después del accidente; espera hasta 1997 para cobrar 167 rublos al mes, que en 2007 son 287; sale cincuenta años después con un tribunal que le reconoce unos 60.000 rublos de los 150.000 que, según sus abogados, el Estado le debía, y se dice «muy contenta incluso con esta decisión»",
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Lyudmila Smirnova",
+    "arco": "entra naciendo en 1961 en la ciudad cerrada; su padre Faik, liquidador, se quema por la radiación en dos semanas sin haber contado nada ni a su familia; sale diciendo que de aquel accidente no se hablaba en la ciudad y que tampoco se habla ahora",
+    "citas_verificadas": 1
+   }
+  ]
+ },
+ "usd": 1.3559,
+ "segundos": 473.5,
+ "cortada": false,
+ "llamadas": [
+  {
+   "tag": "fO1",
+   "modelo": "claude-opus-5-5",
+   "proveedor": "claude",
+   "max_tokens": 100000,
+   "effort": "medium",
+   "esquema": false,
+   "in": 39424,
+   "out": 59909,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.3559,
+   "segundos": 473.3
+  }
+ ]
+}

@@ -1,0 +1,82 @@
+{
+ "tag": "fS1",
+ "modelo": "gpt-6.1-sol",
+ "esfuerzo": "high",
+ "prompt_md5": {
+  "sistema": "070b75dff58aecfa407fac3d62020ce4",
+  "usuario": "a9909b1b66af93f27d6dcb04812d6827"
+ },
+ "metricas": {
+  "problemas_chequeo": 8,
+  "conteos": {
+   "humanos_candidatos": 4,
+   "giros": 6,
+   "pico": 1,
+   "pregunta_final": 1,
+   "escenas": 10,
+   "contradicciones": 7,
+   "decisiones": 12,
+   "versiones": 4,
+   "personas": 39,
+   "personas_descartadas": 1,
+   "cifras": 34,
+   "cronologia": 41,
+   "hechos": 69,
+   "citas": 18,
+   "descartados": 29
+  },
+  "hechos_nivel_1": 19,
+  "hechos_nivel_2": 50,
+  "citas": 18,
+  "citas_verificadas": 15,
+  "escenas": 10,
+  "humanos_candidatos": [
+   "Anatoly Vasilievich Dubrovsky",
+   "Mikhail Kuleshov",
+   "Galina Prokópyevna Chanova",
+   "Anna Ilyina"
+  ],
+  "personas": 39,
+  "arcos": [
+   {
+    "nombre": "Anatoly Vasilievich Dubrovsky",
+    "arco": "Entra como un espectador de cine que oye la explosión, pasa a arrancar arbustos sin instrucciones y relata un lavado doloroso con agua fría, y sale de esos trabajos con una exposición que no quedó registrada mediante los dispositivos que no les entregaron y con un reconocimiento como liquidador demorado.",
+    "citas_verificadas": 2
+   },
+   {
+    "nombre": "Mikhail Kuleshov",
+    "arco": "Entra como trabajador que se entera del accidente al llegar al turno, pasa a recubrir vehículos con plomo y trabajar en la recuperación del complejo inundado, y sale como testigo de la contaminación que no lograban quitar de la cabeza de un compañero.",
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Galina Prokópyevna Chanova",
+    "arco": "Entra como evacuada del territorio contaminado, empieza a recibir compensaciones en 1997 y reclama su actualización con ayuda de abogados, y sale con una resolución que reconoce una deuda estatal, aunque menor que la calculada por sus representantes.",
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Anna Ilyina",
+    "arco": "Entra como abogada de personas que atribuyen sus daños a la radiación, enfrenta la búsqueda de atención y reparación para Denis y Timur, y sale con una compensación obtenida para una familia y con el Estado reconocido como demandado en el otro caso, todavía sin desenlace sanitario documentado.",
+    "citas_verificadas": 2
+   }
+  ]
+ },
+ "usd": 0.3212,
+ "segundos": 366.4,
+ "cortada": false,
+ "llamadas": [
+  {
+   "tag": "fS1",
+   "modelo": "gpt-6.1-sol",
+   "proveedor": "openai",
+   "max_tokens": 40000,
+   "effort": "high",
+   "esquema": true,
+   "in": 27398,
+   "out": 26639,
+   "stop": "stop",
+   "cortada": false,
+   "usd": 0.3212,
+   "segundos": 366.3
+  }
+ ]
+}

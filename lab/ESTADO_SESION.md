@@ -12,6 +12,11 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
 
+## F25b — ficha_caso con --modelo; Opus 5.5 ×2 contra Sol ×2 (Kyshtym, pool F23) — HECHO, **PARADA**
+- Sobre `b2db299`. Reporte `lab/hyperframes/f25b/F25b_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Claude US$ 2.57 de 6, OpenAI US$ 0.65 de 1, pared 474 s.
+- `ficha_caso`: `call_for(modelo, crudo=, post=)`, `run(modelo=)`, `esfuerzo_de`, CLI `python -m researcher_steps.ficha_caso <topic> --modelo …`; Claude por claude_helpers (stream, 100k, medium, sin esquema), respuesta cruda en `_steps/<topic>/ficha_respuesta_cruda.json`. Prompt y chequeo sin tocar. Suite 863 verdes + 5 previas.
+- Resultado: Opus termina (53–60k tokens, US$ 1.2–1.4) con arcos más concretos, pero el chequeo le saca 58/71 ítems y le deja 0 cifras: sin esquema usa otros nombres de campo (`fuente.ids`, `que_cuenta`, `id`). Sol: 8/18 problemas, US$ 0.32. La ficha sigue en Sol hasta normalizar campos o dar la forma en el pedido.
+
 ## F25a — Modelo de la ficha y de la escaleta (Kyshtym, pool F23, en paralelo) — HECHO, **PARADA**
 - Sobre `b27f54c`. Reporte `lab/hyperframes/f25a/F25a_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Claude US$ 13.57 de 15, OpenAI US$ 1.37 de 4, pared 2,637 s (suma de 4 corridas).
 - Ficha: Sol fS1/fS2 OK (9–11 problemas); Fable ninguna (HTTP 400 por el esquema; 2 cortadas en 32k; fF1 con 100k terminó en 46k tokens pero el JSON no se leyó; fF2 frenada por el tope). Escaleta (las 4 sobre fS2): Sol eS1 OK (1·1·2·2·1·3·3), eS2 rechazada; Fable eF2 OK (81 ids, 4.8 apoyos/beat), eF1 rechazada. Guiones Fable: gS1 1,499 palabras 0 bloqueantes; gF2 2,047 (bloqueante de tope). Decisión: Sol en ficha y escaleta.

@@ -1,0 +1,65 @@
+{
+ "llamadas": [
+  {
+   "tag": "fS2",
+   "modelo": "gpt-6.1-sol",
+   "proveedor": "openai",
+   "max_tokens": 40000,
+   "effort": "high",
+   "esquema": true,
+   "in": 27398,
+   "out": 27312,
+   "stop": "stop",
+   "cortada": false,
+   "usd": 0.3279,
+   "segundos": 361.1
+  },
+  {
+   "tag": "fS1",
+   "modelo": "gpt-6.1-sol",
+   "proveedor": "openai",
+   "max_tokens": 40000,
+   "effort": "high",
+   "esquema": true,
+   "in": 27398,
+   "out": 26639,
+   "stop": "stop",
+   "cortada": false,
+   "usd": 0.3212,
+   "segundos": 366.3
+  },
+  {
+   "tag": "fO2",
+   "modelo": "claude-opus-5-5",
+   "proveedor": "claude",
+   "max_tokens": 100000,
+   "effort": "medium",
+   "esquema": false,
+   "in": 39424,
+   "out": 52753,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.2128,
+   "segundos": 421.7
+  },
+  {
+   "tag": "fO1",
+   "modelo": "claude-opus-5-5",
+   "proveedor": "claude",
+   "max_tokens": 100000,
+   "effort": "medium",
+   "esquema": false,
+   "in": 39424,
+   "out": 59909,
+   "stop": "end_turn",
+   "cortada": false,
+   "usd": 1.3559,
+   "segundos": 473.3
+  }
+ ],
+ "usd": {
+  "claude": 2.5687,
+  "openai": 0.6491
+ },
+ "pared_s": 473.5
+}

@@ -18,6 +18,10 @@ F14 (HANDOFF_F14 §1.1): la ficha resuelve las contradicciones con 5 criterios g
     que la historia necesita, con el motivo y los ids que las nombran.
     `id_texts(ficha)`: el texto limpio de cada id (cita corregida, cifra con unidad, hecho), para la escaleta y el guion.
 
+F25b: `run(modelo=…)` / `python -m researcher_steps.ficha_caso <topic> --modelo claude-opus-5-5`: un modelo de Claude va
+por claude_helpers (streaming, max_tokens 100 000, effort medium, sin esquema forzado) y la respuesta cruda queda en
+`_steps/<topic>/ficha_respuesta_cruda.json`. Sin modelo, todo igual (gpt-6.1-sol high).
+
 Chequeo determinista después de la llamada (control de la ficha, no una regla del guion; sin reintento):
     1. todo ítem cita ids que existen en el pool;
     2. toda cifra, hora y fecha del ítem aparece en el texto de esos ids (texto, cita literal y evidencias);
@@ -769,28 +773,58 @@ def id_texts(ficha: dict | None) -> dict[str, str]:
     return out
 
 
+def esfuerzo_de(modelo: str | None) -> str:
+    """F25b: Sol en `ESFUERZO`; Claude en el de la ficha de claude_helpers (medium)."""
+    if modelo and modelo.startswith("claude"):
+        import claude_helpers
+        return claude_helpers.ESFUERZO_POR_ETAPA["ficha"]
+    return ESFUERZO
+
+
+def call_for(modelo: str | None = None, *, crudo: Path | None = None,
+             post: Callable[[dict], dict] | None = None) -> Callable[..., dict]:
+    """F25b: el `call` de la ficha. Sin modelo, gpt-6.1-sol high; un modelo de Claude va por claude_helpers con su regla
+    (streaming, max_tokens 100 000, effort medium, sin esquema forzado: `ficha_caso` está en SALIDA_GRANDE y el JSON se
+    saca del texto). `crudo`: cada respuesta de la API, tal cual, se guarda ahí (que no se pierda una salida que no se
+    pudo leer). `post` (tests, frenos de costo) reemplaza el envío."""
+    modelo = modelo or MODELO
+    if modelo.startswith("claude"):
+        import claude_helpers as hx
+    else:
+        import gpt_helpers as hx
+    envio = post or hx._post
+
+    def _post(body: dict) -> dict:
+        r = envio(body)
+        if crudo is not None:
+            crudo.parent.mkdir(parents=True, exist_ok=True)
+            crudo.write_text(json.dumps(r, ensure_ascii=False, indent=1), encoding="utf-8")
+        return r
+    return hx.make_call(modelo, esfuerzo_de(modelo), post=_post)
+
+
 def run(topic_id: str, *, steps_dir: Path, title: str, tag: str, out_dirs: list[Path] = (),
-        call: Callable[..., dict] | None = None) -> dict:
+        call: Callable[..., dict] | None = None, modelo: str | None = None) -> dict:
     """Lee el pool, hace UNA llamada, chequea y escribe ficha_caso.json + FICHA_<tag>.md en `_steps/<topic>/` y en
-    cada `out_dirs`. `call` por defecto: gpt-6.1-sol high."""
+    cada `out_dirs`. `call` por defecto: `call_for(modelo)` (sin modelo, gpt-6.1-sol high), con la respuesta cruda en
+    `_steps/<topic>/ficha_respuesta_cruda.json`."""
     raw_pool = (steps_dir / topic_id / "00_pool_v3.json").read_bytes()
     pool = json.loads(raw_pool.decode("utf-8"))
     if call is None:
-        import gpt_helpers
-        call = gpt_helpers.make_call(MODELO, ESFUERZO)
+        call = call_for(modelo, crudo=steps_dir / topic_id / "ficha_respuesta_cruda.json")
     raw = build(pool, title, call=call) or {}
-    return save(topic_id, raw, raw_pool, steps_dir=steps_dir, title=title, tag=tag, out_dirs=out_dirs)
+    return save(topic_id, raw, raw_pool, steps_dir=steps_dir, title=title, tag=tag, out_dirs=out_dirs, modelo=modelo)
 
 
 def save(topic_id: str, raw: dict, raw_pool: bytes, *, steps_dir: Path, title: str, tag: str,
-         out_dirs: list[Path] = (), usd: float | None = None) -> dict:
+         out_dirs: list[Path] = (), usd: float | None = None, modelo: str | None = None) -> dict:
     """Chequeo determinista sobre la salida del modelo (`raw`) y escritura de ficha_caso.json + FICHA_<tag>.md.
     Re-aplicable sobre un crudo guardado, sin otra llamada."""
     pool = json.loads(raw_pool.decode("utf-8"))
     ficha, sacados = check(raw, pool)
     from cost_tracker import cost_tracker
     cv = cost_tracker.current_video
-    meta = {"topic": topic_id, "titulo": title, "modelo": MODELO, "esfuerzo": ESFUERZO,
+    meta = {"topic": topic_id, "titulo": title, "modelo": modelo or MODELO, "esfuerzo": esfuerzo_de(modelo),
             "prompt_version": PROMPT_VERSION, "pool_md5": hashlib.md5(raw_pool).hexdigest(),
             "conteos_crudo": counts(raw), "conteos": counts(ficha), "sacados": len(sacados),
             "usd": usd if usd is not None else (round(cv.total_cost, 4) if cv else 0.0)}
@@ -801,3 +835,28 @@ def save(topic_id: str, raw: dict, raw_pool: bytes, *, steps_dir: Path, title: s
         (d / "ficha_caso.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
         (d / f"FICHA_{tag}.md").write_text(md, encoding="utf-8")
     return {"ficha": ficha, "meta": meta, "sacados": sacados, "crudo": raw}
+
+
+def main(argv: list[str] | None = None) -> None:
+    """F25b: python -m researcher_steps.ficha_caso <topic_id> [--modelo claude-opus-5-5] [--title …] [--tag …]"""
+    import argparse
+    import sys
+    from script_engine.m01a_skeleton import STEPS_DIR
+    ap = argparse.ArgumentParser(description="ficha del caso (ficha_caso.json + FICHA_<tag>.md en _steps/<topic>/)")
+    ap.add_argument("topic_id")
+    ap.add_argument("--modelo", default=None, help=f"por defecto {MODELO}; un claude-* va por claude_helpers")
+    ap.add_argument("--title", default=None, help="por defecto el video_title de topics_db")
+    ap.add_argument("--tag", default=None)
+    a = ap.parse_args(argv)
+    sys.stdout.reconfigure(encoding="utf-8")
+    title = a.title
+    if title is None:
+        import fase1_5
+        title = fase1_5._load_topic_by_id(a.topic_id).get("video_title") or a.topic_id
+    res = run(a.topic_id, steps_dir=STEPS_DIR, title=title, tag=a.tag or a.topic_id, modelo=a.modelo)
+    print(f"ficha {res['meta']['modelo']} ({res['meta']['esfuerzo']}): {res['meta']['conteos']} · sacados "
+          f"{res['meta']['sacados']}")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,82 @@
+{
+ "tag": "fS2",
+ "modelo": "gpt-6.1-sol",
+ "esfuerzo": "high",
+ "prompt_md5": {
+  "sistema": "070b75dff58aecfa407fac3d62020ce4",
+  "usuario": "a9909b1b66af93f27d6dcb04812d6827"
+ },
+ "metricas": {
+  "problemas_chequeo": 18,
+  "conteos": {
+   "humanos_candidatos": 4,
+   "giros": 6,
+   "pico": 1,
+   "pregunta_final": 1,
+   "escenas": 11,
+   "contradicciones": 7,
+   "decisiones": 17,
+   "versiones": 8,
+   "personas": 45,
+   "personas_descartadas": 1,
+   "cifras": 47,
+   "cronologia": 40,
+   "hechos": 70,
+   "citas": 18,
+   "descartados": 38
+  },
+  "hechos_nivel_1": 16,
+  "hechos_nivel_2": 54,
+  "citas": 18,
+  "citas_verificadas": 16,
+  "escenas": 11,
+  "humanos_candidatos": [
+   "Anatoly Vasilievich Dubrovsky",
+   "Mikhail Kuleshov",
+   "Galina Chanova",
+   "N.N.D."
+  ],
+  "personas": 45,
+  "arcos": [
+   {
+    "nombre": "Anatoly Vasilievich Dubrovsky",
+    "arco": "Entra como trabajador que oye la explosión mientras mira una película, es enviado a arrancar arbustos sin instrucciones suficientes y termina sometido a un lavado doloroso y con un reconocimiento demorado como liquidador por no haber recibido un dispositivo de registro.",
+    "citas_verificadas": 2
+   },
+   {
+    "nombre": "Mikhail Kuleshov",
+    "arco": "Entra como ajustador que conoce el accidente al llegar a su turno, pasa a proteger vehículos con plomo y trabajar en la liquidación, y sale de esa fase participando en una restauración entre locales inundados y contaminación difícil de retirar.",
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Galina Chanova",
+    "arco": "Entra como evacuada del territorio contaminado, empieza a cobrar compensaciones mucho después y recurre a abogados por los pagos pendientes, y obtiene una resolución que reconoce una deuda estatal aunque concede menos de lo reclamado.",
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "N.N.D.",
+    "arco": "Entra como evacuada reconocida mediante un certificado, vive con su familia por debajo de la norma local de superficie y solicita ayuda habitacional, y su reclamación llega a revisión judicial después de una denegación por la fecha de solicitud; no tiene citas verificadas y el extracto no permite cerrar el resultado final.",
+    "citas_verificadas": 0
+   }
+  ]
+ },
+ "usd": 0.3279,
+ "segundos": 361.2,
+ "cortada": false,
+ "llamadas": [
+  {
+   "tag": "fS2",
+   "modelo": "gpt-6.1-sol",
+   "proveedor": "openai",
+   "max_tokens": 40000,
+   "effort": "high",
+   "esquema": true,
+   "in": 27398,
+   "out": 27312,
+   "stop": "stop",
+   "cortada": false,
+   "usd": 0.3279,
+   "segundos": 361.1
+  }
+ ]
+}
