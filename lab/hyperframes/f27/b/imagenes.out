@@ -1,0 +1,153 @@
+[11:10:05] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s3-vajont
+[11:10:05] INFO     | viral_pipeline | [image_generator] \U0001f3ed [f8s3-vajont] Asset Manager (Flux+Veo) � 7 cap�tulos | Vision Guardrail ACTIVO | Flux Pro=fal-ai/flux-2-pro | Ultra=fal-ai/flux-2-pro
+[11:10:05] INFO     | viral_pipeline | [image_generator] \u2500\u2500\u2500\u2500 [ch01] engine=veo \u2500\u2500\u2500\u2500
+[11:10:05] INFO     | viral_pipeline | [image_generator] [ch01] Imagen base clip 1 []...
+[11:10:05] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] \u2192 ch01_img_01.png
+[11:10:44] INFO     | viral_pipeline | [video_generator] [ch01] Veo clip 1...
+[11:12:27] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] \u2192 ch01_supp_01.png
+[11:13:06] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] \u2192 ch01_supp_02.png
+[11:13:51] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] \u2192 ch01_supp_03.png
+[11:14:28] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] \u2192 ch01_supp_04.png
+[11:14:58] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] \u2192 ch01_supp_05.png
+[11:15:31] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] \u2192 ch01_supp_06.png
+[11:16:19] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] \u2192 ch01_supp_07.png
+[11:16:54] INFO     | viral_pipeline | [image_generator] Flux-ULTRA [validator OFF] \u2192 ch01_supp_08.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] \u2500\u2500\u2500\u2500 [ch02] engine=flux \u2500\u2500\u2500\u2500
+[11:17:32] INFO     | viral_pipeline | [image_generator] [ch02] Flux-PRO []: 13 a generar, 0 skip
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=223191003 \u2192 ch02_img_01.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch02_img_02.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch02_img_03.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch02_img_04.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch02_img_05.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch02_img_06.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=223191003 \u2192 ch02_img_07.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=388012568 \u2192 ch02_img_08.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch02_img_09.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch02_img_10.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch02_img_11.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch02_img_12.png
+[11:17:32] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=388012568 \u2192 ch02_img_13.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] \u2500\u2500\u2500\u2500 [ch03] engine=flux \u2500\u2500\u2500\u2500
+[11:18:27] INFO     | viral_pipeline | [image_generator] [ch03] Flux-PRO []: 13 a generar, 0 skip
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=223191003 \u2192 ch03_img_01.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch03_img_02.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch03_img_03.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch03_img_04.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch03_img_05.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch03_img_06.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch03_img_07.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=388012568 \u2192 ch03_img_08.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch03_img_09.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch03_img_10.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch03_img_11.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] [/edit] seedream anclando 1 foto(s) madre \u2192 ch03_img_11.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=388012568 \u2192 ch03_img_12.png
+[11:18:27] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=388012568 \u2192 ch03_img_13.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] \u2500\u2500\u2500\u2500 [ch04] engine=flux \u2500\u2500\u2500\u2500
+[11:19:14] INFO     | viral_pipeline | [image_generator] [ch04] Flux-PRO []: 11 a generar, 0 skip
+[11:19:14] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=223191003 \u2192 ch04_img_01.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] [/edit] seedream anclando 1 foto(s) madre \u2192 ch04_img_01.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=388012568 \u2192 ch04_img_02.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=388012568 \u2192 ch04_img_03.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch04_img_04.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch04_img_05.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch04_img_06.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch04_img_07.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch04_img_08.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=388012568 \u2192 ch04_img_09.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch04_img_10.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch04_img_11.png
+[11:19:14] INFO     | viral_pipeline | [image_generator] [/edit] seedream anclando 1 foto(s) madre \u2192 ch04_img_10.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] \u2500\u2500\u2500\u2500 [ch05] engine=flux \u2500\u2500\u2500\u2500
+[11:20:08] INFO     | viral_pipeline | [image_generator] [ch05] Flux-PRO []: 15 a generar, 0 skip
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch05_img_01.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch05_img_02.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch05_img_03.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=223191003 \u2192 ch05_img_04.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=223191003 \u2192 ch05_img_05.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch05_img_06.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch05_img_07.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] [/edit] seedream anclando 1 foto(s) madre \u2192 ch05_img_07.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch05_img_08.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] [/edit] seedream anclando 1 foto(s) madre \u2192 ch05_img_08.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch05_img_09.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch05_img_10.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=388012568 \u2192 ch05_img_11.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch05_img_12.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch05_img_13.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=388012568 \u2192 ch05_img_14.png
+[11:20:08] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch05_img_15.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] \u2500\u2500\u2500\u2500 [ch06] engine=flux \u2500\u2500\u2500\u2500
+[11:21:25] INFO     | viral_pipeline | [image_generator] [ch06] Flux-PRO []: 16 a generar, 0 skip
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch06_img_01.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=388012568 \u2192 ch06_img_02.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=388012568 \u2192 ch06_img_03.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch06_img_04.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] [/edit] seedream anclando 1 foto(s) madre \u2192 ch06_img_04.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch06_img_05.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=223191003 \u2192 ch06_img_06.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch06_img_07.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch06_img_08.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=223191003 \u2192 ch06_img_09.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2535211806 \u2192 ch06_img_10.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch06_img_11.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=923110818 \u2192 ch06_img_12.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch06_img_13.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch06_img_14.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch06_img_15.png
+[11:21:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] seed=2043146417 \u2192 ch06_img_16.png
+[11:22:19] INFO     | viral_pipeline | [image_generator] \u2500\u2500\u2500\u2500 [ch07] engine=veo \u2500\u2500\u2500\u2500
+[11:22:19] INFO     | viral_pipeline | [image_generator] [ch07] Imagen base clip 1 []...
+[11:22:19] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_img_01.png
+[11:22:52] INFO     | viral_pipeline | [video_generator] [ch07] Veo clip 1...
+[11:24:41] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_01.png
+[11:25:48] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_02.png
+[11:26:26] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_03.png
+[11:26:59] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_04.png
+[11:27:39] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_05.png
+[11:28:12] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_06.png
+[11:28:46] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_07.png
+[11:29:25] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_08.png
+[11:30:03] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_09.png
+[11:30:36] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_10.png
+[11:31:02] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_11.png
+[11:31:42] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_12.png
+[11:32:22] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_13.png
+[11:32:57] INFO     | viral_pipeline | [image_generator] Flux-PRO [validator OFF] \u2192 ch07_supp_14.png
+[11:34:18] INFO     | viral_pipeline | [image_generator] [f8s3-vajont] grade de post: 90 imagen(es) \u2192 *_graded.png
+[11:34:18] INFO     | viral_pipeline | [image_generator] \u2713 \u2705 [f8s3-vajont] Manifest: 68 imgs Flux | Veo ok=2 | kenburns=0 | technical_fallback=0 | failed=0
+
+════════════════════════════════════════════════════════════
+  🎬 FASE 2A — Generación de Assets
+  📂 Scripts encontrados: 1
+  ▶️  A procesar ahora: 1
+════════════════════════════════════════════════════════════
+
+  [1/1] f8s3-vajont
+     🎙️  Audio (LONG): cargando sync_map de fase1_5...
+     ✓ sync_map: sync_map.json
+     [foto_madre] skip subject:subject (ya existe)
+     [foto_madre] skip prop:Vajont Dam (ya existe)
+     🎨 Assets...
+     ✓ manifest: assets_manifest.json
+     ✅ OK
+
+════════════════════════════════════════════════════════════
+  📊 RESUMEN FASE 2A
+  ✅ OK:       1
+  ❌ Fallidos: 0
+════════════════════════════════════════════════════════════
+
+
+==================================================
+  💰 REPORTE DE COSTOS — SESIÓN
+==================================================
+  Videos generados:    0
+  Costo videos:        $0.0000 USD
+  Costo total:         $0.0000 USD
+--------------------------------------------------
+  Desglose por servicio:
+==================================================
+
+[2026-10-25 11:10:03] F27 §B Vajont · etapa imagenes
+imagenes: fase2a rc=0 · 92 imágenes pedidas al motor (tope 100; 0 cortadas por el tope) · 24.2 min

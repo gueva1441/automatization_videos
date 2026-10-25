@@ -1,0 +1,111 @@
+  [03] cap 1 (veo, pos=start) → 1 clip Veo 8s + 8 Flux extras (audio 94.8s, veo_zone≈111 chars), slots Pro + weave Flash...
+  [03] cap 2 (flux) → 13 imgs (audio 130.0s ÷ 10.75s target, role=development), slots Pro + weave Flash...
+  [03] cap 3 (flux) → 13 imgs (audio 126.4s ÷ 10.75s target, role=development), slots Pro + weave Flash...
+  [03] cap 4 (flux) → 11 imgs (audio 118.7s ÷ 10.75s target, role=development), slots Pro + weave Flash...
+  [03] cap 5 (flux) → 15 imgs (audio 166.0s ÷ 10.75s target, role=development), slots Pro + weave Flash...
+  [03] cap 6 (flux) → 16 imgs (audio 164.7s ÷ 10.75s target, role=development), slots Pro + weave Flash...
+  [03] cap 7 (veo, pos=end) → 1 clip Veo 8s + 14 Flux extras (audio 180.2s, veo_zone≈107 chars), slots Pro + weave Flash...
+  [03] cap 4: validación falló intento 1/3: cap 4 (plan flux) anchor 7: el narration_anchor NO es substring exacto.
+  ANCHOR QUE ENVIASTE (parafraseado, INVÁLIDO):
+...
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+  [03] cap 3: validación falló intento 1/3: cap 3 (plan flux) anchor 1: el narration_anchor NO es substring exacto.
+  ANCHOR QUE ENVIASTE (parafraseado, INVÁLIDO):
+...
+  [03] cap 5: validación falló intento 1/3: cap 5 (plan flux) anchor 3: el narration_anchor NO es substring exacto.
+  ANCHOR QUE ENVIASTE (parafraseado, INVÁLIDO):
+...
+  [03] cap 6: validación falló intento 1/3: cap 6 (plan flux) anchor 4: el narration_anchor NO es substring exacto.
+  ANCHOR QUE ENVIASTE (parafraseado, INVÁLIDO):
+...
+  ⚠ [m03] cap 1 img #2: FIT — 2 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 22 (+length), 3,40 (+length)
+  ⚠ [m03] cap 1 img #9: FIT — 1 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 2 (+length)
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 1/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 1/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 1/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 2/3) char 0: respuesta vacía — re-llamando
+  ⚠ [m03] cap 1 img #6: reglas F8 DEGRADADAS ([('menor en daño', 'A close shot of the face of a young Italian girl in the darkness, her eyes are w')]) → frase sacada (run sigue).
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 2/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 2/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+  ⚠ [m03] cap 1 img #4: el fluidificador no devolvió texto (intento 1/3): Gemini devolvió JSON inválido en char 0 (line 1 col 1): respuesta vacía (finish_reason=PROHIBITED_CONTENT). | Dump completo: C:\CLAUDE_PROJECTS\automatization_videos\data\_debug\json_invalid_20261025_
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+  ⚠ [m03] cap 1 img #5: el fluidificador no devolvió texto (intento 1/3): Gemini devolvió JSON inválido en char 0 (line 1 col 1): respuesta vacía (finish_reason=PROHIBITED_CONTENT). | Dump completo: C:\CLAUDE_PROJECTS\automatization_videos\data\_debug\json_invalid_20261025_
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+  ⚠ [m03] cap 1 img #3: el fluidificador no devolvió texto (intento 1/3): Gemini devolvió JSON inválido en char 0 (line 1 col 1): respuesta vacía (finish_reason=PROHIBITED_CONTENT). | Dump completo: C:\CLAUDE_PROJECTS\automatization_videos\data\_debug\json_invalid_20261025_
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 1/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 1/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 1/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 2/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 2/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 2/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+  ⚠ [m03] cap 1 img #4: el fluidificador no devolvió texto (intento 2/3): Gemini devolvió JSON inválido en char 0 (line 1 col 1): respuesta vacía (finish_reason=PROHIBITED_CONTENT). | Dump completo: C:\CLAUDE_PROJECTS\automatization_videos\data\_debug\json_invalid_20261025_
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+  ⚠ [m03] cap 1 img #5: el fluidificador no devolvió texto (intento 2/3): Gemini devolvió JSON inválido en char 0 (line 1 col 1): respuesta vacía (finish_reason=PROHIBITED_CONTENT). | Dump completo: C:\CLAUDE_PROJECTS\automatization_videos\data\_debug\json_invalid_20261025_
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+  ⚠ [m03] cap 1 img #3: el fluidificador no devolvió texto (intento 2/3): Gemini devolvió JSON inválido en char 0 (line 1 col 1): respuesta vacía (finish_reason=PROHIBITED_CONTENT). | Dump completo: C:\CLAUDE_PROJECTS\automatization_videos\data\_debug\json_invalid_20261025_
+  ⚠ [m03] cap 4 img #1: FIT — 2 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 22 (+length), 3,40 (+length)
+  ⚠ [m03] cap 4 img #10: FIT — 2 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 22 (+length), 3,40 (+length)
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 1/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 1/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 1/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 2/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 2/3) char 0: respuesta vacía — re-llamando
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 2/3) char 0: respuesta vacía — re-llamando
+  [03] cap 4 (flux) ✓ 11 imgs validadas
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+  ⚠ [m03] cap 1 img #4: el fluidificador no devolvió texto (intento 3/3): Gemini devolvió JSON inválido en char 0 (line 1 col 1): respuesta vacía (finish_reason=PROHIBITED_CONTENT). | Dump completo: C:\CLAUDE_PROJECTS\automatization_videos\data\_debug\json_invalid_20261025_
+  ⚠ [m03] cap 1 img #4: fluidificador SIN RESPUESTA en 3 intentos — la imagen sigue con los slots sin tejer (backstop, run sigue).
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+  ⚠ [m03] cap 1 img #5: el fluidificador no devolvió texto (intento 3/3): Gemini devolvió JSON inválido en char 0 (line 1 col 1): respuesta vacía (finish_reason=PROHIBITED_CONTENT). | Dump completo: C:\CLAUDE_PROJECTS\automatization_videos\data\_debug\json_invalid_20261025_
+  ⚠ [m03] cap 1 img #5: fluidificador SIN RESPUESTA en 3 intentos — la imagen sigue con los slots sin tejer (backstop, run sigue).
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+  ⚠ [m03] cap 1 img #3: el fluidificador no devolvió texto (intento 3/3): Gemini devolvió JSON inválido en char 0 (line 1 col 1): respuesta vacía (finish_reason=PROHIBITED_CONTENT). | Dump completo: C:\CLAUDE_PROJECTS\automatization_videos\data\_debug\json_invalid_20261025_
+  ⚠ [m03] cap 1 img #3: fluidificador SIN RESPUESTA en 3 intentos — la imagen sigue con los slots sin tejer (backstop, run sigue).
+[gemini] respuesta vacía (finish_reason=PROHIBITED_CONTENT) en m03:fluidificador
+[gemini] JSON inválido (intento 1/3) char 0: respuesta vacía — re-llamando
+  [03] cap 1 (veo)  ✓ Veo prompt + 8 supplementals
+  ⚠ [m03] cap 3 img #13: Guarda 1 DEGRADADA tras 3 intentos — cifras no embebidas: ['2 (+length unit EN)']; unidades ES residuales: -. Prosa aceptada SIN esas cifras (run sigue).
+  [03] cap 3 (flux) ✓ 13 imgs validadas
+  ⚠ [m03] cap 7 img #5: FIT — 3 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 22 (+length), 3,40 (+length), 250 (+length)
+  ⚠ [m03] cap 7 img #12: reglas F8 DEGRADADAS ([('manos/cara', 'close shot of a hand')]) → frase sacada (run sigue).
+  ⚠ [m03] cap 2 img #5: FIT — 2 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 22 (+length), 3,40 (+length)
+  ⚠ [m03] cap 2 img #7: reglas F8 DEGRADADAS ([('menor en daño', 'A wide shot captures the residents of Longarone, Italian families and workers in')]) → frase sacada (run sigue).
+  [03] cap 2 (flux) ✓ 13 imgs validadas
+  [03] cap 7 (veo)  ✓ Veo prompt + 14 supplementals
+  ⚠ [m03] cap 5 img #7: FIT — 2 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 22 (+length), 3,40 (+length)
+  ⚠ [m03] cap 5 img #8: FIT — 2 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 22 (+length), 3,40 (+length)
+  [03] cap 5 (flux) ✓ 15 imgs validadas
+  [03] cap 6: validación falló intento 2/3: cap 6 (plan flux) anchor 6: el narration_anchor NO es substring exacto.
+  ANCHOR QUE ENVIASTE (parafraseado, INVÁLIDO):
+...
+  ⚠ [m03] cap 6 img #4: FIT — 3 medida(s) sobrante(s) soltada(s) antes de lockear (máx 1/imagen): 262 (+length), 22 (+length), 3,40 (+length)
+  ⚠ [m03] cap 6 img #11: reglas F8 DEGRADADAS ([('menor en daño', 'A medium shot captures a young Italian girl, her clothes and hair soaked and mat')]) → frase sacada (run sigue).
+  ⚠ [m03] cap 6 img #12: reglas F8 DEGRADADAS ([('menor en daño', "A close shot of a single, small child's leather shoe resting half-buried in an e")]) → frase sacada (run sigue).
+  ⚠ [m03] cap 6 img #2: Guarda 1 DEGRADADA tras 3 intentos — cifras no embebidas: ['2 (+length unit EN)']; unidades ES residuales: -. Prosa aceptada SIN esas cifras (run sigue).
+  [03] cap 6 (flux) ✓ 16 imgs validadas
+     [foto_madre] ✓ subject:subject → subject.png  (openai/gpt-image-2)
+     [foto_madre] ✓ prop:Vajont Dam → vajont_dam.png  (openai/gpt-image-2)
+[2026-10-25 10:57:19] F27 §B Vajont · etapa guion
+guion: voz y música de F26 reusadas; plan de imágenes 92 ({1: 9, 2: 13, 3: 13, 4: 11, 5: 15, 6: 16, 7: 15}) a 10.75 s
+guion: m03 intento 1 OK en 551 s
+guion: paso0 + assemble → C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\f8s3-vajont.json

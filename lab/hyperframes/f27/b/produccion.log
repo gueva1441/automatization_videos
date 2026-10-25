@@ -1,0 +1,9 @@
+[2026-10-25 10:57:19] F27 §B Vajont · etapa guion
+guion: voz y música de F26 reusadas; plan de imágenes 92 ({1: 9, 2: 13, 3: 13, 4: 11, 5: 15, 6: 16, 7: 15}) a 10.75 s
+guion: m03 intento 1 OK en 551 s
+guion: paso0 + assemble → C:\CLAUDE_PROJECTS\automatization_videos\data\scripts\f8s3-vajont.json
+[2026-10-25 11:10:03] F27 §B Vajont · etapa imagenes
+imagenes: fase2a rc=0 · 92 imágenes pedidas al motor (tope 100; 0 cortadas por el tope) · 24.2 min
+[2026-10-25 11:34:54] F27 §B Vajont · etapa render
+render: RAM libre 19.2 GB · Firefox cerrado
+fase2b: rc=0 en 128.4 min (fase2b.py f8s3-vajont --keep-segments --gfx --gfx-sparse --gfx-quality looks)

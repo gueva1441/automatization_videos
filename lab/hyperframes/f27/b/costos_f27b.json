@@ -1,0 +1,61 @@
+{
+  "etapas": {
+    "m03_intento1": {
+      "por_servicio": {
+        "Gemini 2.5 Flash": 0.3667,
+        "Gemini 2.5 Pro": 1.0368
+      },
+      "usd": 1.4035,
+      "plan_imagenes": {
+        "segundos_por_imagen": 10.75,
+        "por_cap": {
+          "1": 9,
+          "2": 13,
+          "3": 13,
+          "4": 11,
+          "5": 15,
+          "6": 16,
+          "7": 15
+        },
+        "total": 92,
+        "duraciones": {
+          "1": 94.8,
+          "2": 130.0,
+          "3": 126.4,
+          "4": 118.72,
+          "5": 166.0,
+          "6": 164.72,
+          "7": 180.16
+        }
+      },
+      "s": 551
+    },
+    "paso0_assemble": {
+      "por_servicio": {},
+      "usd": 0,
+      "nota": "foto madre con openai/gpt-image-2 ×2 (sujeto + presa): ese gasto no pasa por el cost_tracker (seam conocido), no medido"
+    },
+    "imagenes": {
+      "por_servicio": {
+        "fal.ai Seedream 5.0 Lite (t2i)": 3.01,
+        "fal.ai (Veo 3.1 Lite)": 0.48,
+        "fal.ai Seedream 5.0 Lite (edit)": 0.21
+      },
+      "usd": 3.7,
+      "imagenes_pedidas": 92,
+      "cortadas_por_tope": 0,
+      "s": 1454
+    },
+    "render": {
+      "por_servicio": {
+        "Gemini 2.5 Flash": 0.2048,
+        "Gemini Vision": 0.0147
+      },
+      "usd": 0.2195,
+      "s": 7704,
+      "nota": "fase2b en subproceso: su cost_tracker lo escribió en data/cost_history.json (video f8s3-vajont, 2026-10-25T11:34:56); copiado acá"
+    }
+  },
+  "usd": 5.323,
+  "gemini_usd": 1.623
+}
