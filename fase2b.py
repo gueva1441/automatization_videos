@@ -33,6 +33,7 @@ import json
 import shutil
 import subprocess
 import sys
+import threading
 import time
 from collections import Counter
 from dataclasses import dataclass
@@ -701,7 +702,7 @@ def _build_flux_visual(
 
     # Paralelización: 3 subprocess concurrentes (3080 Ti soporta holgado)
     from concurrent.futures import ThreadPoolExecutor, as_completed
-    max_workers = min(4, n)  # no más workers que imágenes
+    max_workers = min(CLIP_WORKERS, n)  # no más workers que imágenes (F28 §C.3: 4 → 6)
     with ThreadPoolExecutor(max_workers=max_workers) as pool:
         futures = {
             pool.submit(_process_one, i, img): i
@@ -820,39 +821,10 @@ def _concat_visual_clips(
     return output_path
 
 
-def _build_chapter_segment(
-    plan: ChapterPlan, segment_path: Path, work_dir: Path,
-    *, hook_text: str | None, no_subs: bool, video_width: int,
-    video_height: int, fps: int,
-    flow_spec: FlowSpec | None = None,
-    reuse_visuals: bool = False,
-    per_image_specs: list[FlowSpec] | None = None,
-    gfx_enabled: bool = False,
-    gfx_quality: str = "looks",
-    video_id: str = "",
-    gfx_debug: bool = False,
-    sfx_enabled: bool = False,
-    gfx_sparse: bool = False,
-    safe_scenes: dict[int, dict[str, Any]] | None = None,
-) -> Path:
-    """
-    Genera UN segmento MP4 completo de un capítulo (visual + audio + subs).
-    Aplica loop fix (-stream_loop) si audio > clip; padding si clip > audio.
-    Si engine='flux' y hay flow_spec, usa DepthFlow 2.5D guiado.
-
-    reuse_visuals: si True y el clip visual base (flux_visual / hybrid_visual)
-    ya existe en work_dir, NO se regenera (se reutiliza el DepthFlow/parallax ya
-    horneado). Usado para re-quemar subtítulos sin re-correr DepthFlow.
-
-    gfx_enabled (F1, --gfx): aplica la capa gráfica HyperFrames sobre base_clip ANTES
-    de quemar subs + pegar audio (DOC_MAESTRO D2). Cualquier error → base_clip intacto.
-    """
-    assert FFMPEG is not None
-    is_first = plan.is_first
-    apply_hook = is_first and bool(hook_text)
-    pre_pad = HOOK_DURATION if apply_hook else 0.0
-
-    # ─── Visual base (clip MP4 sin audio) ───
+def _visual_base(plan: Any, work_dir: Path, video_width: int, video_height: int, fps: int,
+                 flow_spec: FlowSpec | None, reuse_visuals: bool, per_image_specs: list[FlowSpec] | None) -> Path:
+    """F28 §C.2: el visual base de un cap (clip MP4 sin audio), sacado tal cual de _build_chapter_segment para poder
+    serializarlo con _VISUAL_LOCK cuando los caps van en paralelo."""
     if plan.engine == "veo":
         veo_clip = plan.asset_paths[0]
 
@@ -947,6 +919,49 @@ def _build_chapter_segment(
             )
     else:
         raise ValueError(f"engine desconocido: {plan.engine}")
+    return base_clip
+
+
+def _build_chapter_segment(
+    plan: ChapterPlan, segment_path: Path, work_dir: Path,
+    *, hook_text: str | None, no_subs: bool, video_width: int,
+    video_height: int, fps: int,
+    flow_spec: FlowSpec | None = None,
+    reuse_visuals: bool = False,
+    per_image_specs: list[FlowSpec] | None = None,
+    gfx_enabled: bool = False,
+    gfx_quality: str = "looks",
+    video_id: str = "",
+    gfx_debug: bool = False,
+    sfx_enabled: bool = False,
+    gfx_sparse: bool = False,
+    safe_scenes: dict[int, dict[str, Any]] | None = None,
+) -> Path:
+    """
+    Genera UN segmento MP4 completo de un capítulo (visual + audio + subs).
+    Aplica loop fix (-stream_loop) si audio > clip; padding si clip > audio.
+    Si engine='flux' y hay flow_spec, usa DepthFlow 2.5D guiado.
+
+    reuse_visuals: si True y el clip visual base (flux_visual / hybrid_visual)
+    ya existe en work_dir, NO se regenera (se reutiliza el DepthFlow/parallax ya
+    horneado). Usado para re-quemar subtítulos sin re-correr DepthFlow.
+
+    gfx_enabled (F1, --gfx): aplica la capa gráfica HyperFrames sobre base_clip ANTES
+    de quemar subs + pegar audio (DOC_MAESTRO D2). Cualquier error → base_clip intacto.
+    """
+    assert FFMPEG is not None
+    is_first = plan.is_first
+    apply_hook = is_first and bool(hook_text)
+    pre_pad = HOOK_DURATION if apply_hook else 0.0
+
+    # ─── Visual base (clip MP4 sin audio) ───
+    # F28 §C.2: con caps en paralelo, el visual base (DepthFlow, ya paralelo por dentro) va de a uno
+    _VISUAL_LOCK.acquire()
+    try:
+        base_clip = _visual_base(plan, work_dir, video_width, video_height, fps, flow_spec, reuse_visuals,
+                                 per_image_specs)
+    finally:
+        _VISUAL_LOCK.release()
 
     # ─── F1: capa gráfica HyperFrames (--gfx). Fallback interno a base_clip ───
     if gfx_enabled:
@@ -2294,9 +2309,15 @@ def _route_safe(plans: list[Any], video_id: str, specs_by_cap: dict[str, list[An
     return out, counts
 
 
-# F2 §3.3: encoder de video de los pases de fase2b (segmento + mezcla de música). Default libx264 (sin flag el
-# comando queda idéntico); --hw-encode → NVENC (PSNR 48.7 dB vs libx264 crf 18 en ch02, ~8× más rápido).
-_HW_ENCODE: bool = False
+# F2 §3.3: encoder de video de los pases de fase2b (segmento + mezcla de música). NVENC: PSNR 48.7 dB vs libx264
+# crf 18 en ch02, ~8× más rápido. F28 §C.1: NVENC por defecto; --sw-encode vuelve a libx264 (el candado md5 de ch02
+# sin gfx se mide con --sw-encode).
+_HW_ENCODE: bool = True
+CLIP_WORKERS: int = 6              # F28 §C.3: clips animados (DepthFlow/parallax) en paralelo dentro de un cap (antes 4)
+GFX_PARALELO: int = 1              # F28 §C.2 DESCARTADO: segmentos con --gfx de a N caps a la vez. Con 3 (Vajont, 16 min)
+                                   # la RAM libre bajó a 1.4 GB y 4 de 7 caps cayeron a base_clip por el timeout de 900 s;
+                                   # con 2 el gfx de cada cap tardó 1.4–1.6× más. 1 = en fila, como antes de F28
+_VISUAL_LOCK = threading.Lock()   # F28 §C.2: el visual base (DepthFlow en GPU) va de a un cap
 NVENC_ARGS: list[str] = ["-c:v", "h264_nvenc", "-preset", "p5", "-cq", "19"]
 
 
@@ -2417,6 +2438,87 @@ def _resolve_gfx_quality(explicit: str | None, debug: bool) -> str:
     if explicit:
         return explicit
     return gfx_render.debug_quality if debug else gfx_render.quality
+
+
+def _segmentos_en_paralelo(plans: list[Any], *, work_dir: Path, manifest: dict, manifest_path: Path,
+                           seg_flags: dict, reassemble: bool, flow_specs: dict, per_image_by_cap: dict,
+                           reuse_visuals: bool, reuse_caps: set, promotions: dict, hook: str | None, no_subs: bool,
+                           gfx: bool, gfx_quality: str, video_id: str, sfx: bool, gfx_sparse: bool,
+                           safe_router: bool, safe_by_cap: dict, gfx_debug: bool) -> tuple[list[Path], list[str], int]:
+    """F28 §C.2: lo mismo que el loop de segmentos de render_video, de a GFX_PARALELO caps a la vez (el visual base va
+    de a uno por _VISUAL_LOCK; lo que corre a la vez es la capa gfx y el encode). Un cap que falla por memoria se
+    reintenta de a 2 (de a 1 si ya iban de a 2); un cap que perdió la capa gfx en paralelo (apply_gfx cae a base_clip sin avisar: no
+    queda chNN_gfx.mp4, p. ej. por el timeout de 900 s) se rehace solo, en fila; cualquier otro error termina como
+    siempre (rc 2). Devuelve (segmentos en orden, caps reusados, rc)."""
+    import threading
+    from concurrent.futures import ThreadPoolExecutor
+    lock = threading.Lock()
+    res: dict[int, Path] = {}
+    reused: list[str] = []
+    errores: dict[int, str] = {}
+
+    def uno(i: int, plan: Any) -> None:
+        seg_path = work_dir / f"seg_{i:02d}_{plan.chapter_id}.mp4"
+        cap_specs = flow_specs.get(plan.chapter_id)
+        seg_hash = _segment_hash(plan, work_dir, seg_flags)
+        if reassemble and seg_path.exists() and manifest.get(plan.chapter_id) == seg_hash:
+            print(f"     ♻  {plan.chapter_id}: segmento sin cambios ({seg_hash}) → reuso {seg_path.name}")
+            with lock:
+                res[i] = seg_path
+                reused.append(plan.chapter_id)
+            return
+        if reassemble:
+            (work_dir / f"{plan.chapter_id}_gfx.mp4").unlink(missing_ok=True)
+        print(f"\n  🔧 [{i}/{len(plans)}] {plan.chapter_id} ({plan.engine}) — en paralelo")
+        t0 = time.time()
+        _build_chapter_segment(
+            plan=plan, segment_path=seg_path, work_dir=work_dir, hook_text=hook, no_subs=no_subs,
+            video_width=pipeline.video_width, video_height=pipeline.video_height, fps=pipeline.fps,
+            flow_spec=cap_specs[0] if cap_specs else None,
+            reuse_visuals=reuse_visuals or (plan.chapter_id in reuse_caps),
+            per_image_specs=per_image_by_cap.get(plan.chapter_id),
+            gfx_enabled=gfx, gfx_quality=gfx_quality, video_id=video_id, sfx_enabled=gfx and sfx,
+            gfx_sparse=gfx and gfx_sparse, safe_scenes=safe_by_cap.get(plan.chapter_id, {}) if safe_router else None,
+            gfx_debug=gfx_debug)
+        print(f"     ✓ {seg_path.name} — {_get_duration(seg_path):.1f}s ({time.time() - t0:.0f}s)")
+        with lock:
+            res[i] = seg_path
+            manifest[plan.chapter_id] = _segment_hash(plan, work_dir, seg_flags)
+            manifest_path.write_text(json.dumps(manifest, indent=1), encoding="utf-8")
+        from script_engine.gfx_review import write_review
+        write_review(plan.chapter_id, seg_path, work_dir)
+
+    def correr(items: list[tuple[int, Any]], n: int) -> None:
+        def seguro(a: tuple[int, Any]) -> None:
+            try:
+                uno(*a)
+            except Exception as e:  # noqa: BLE001
+                with lock:
+                    errores[a[0]] = f"{type(e).__name__}: {e}"
+                print(f"     ❌ {a[1].chapter_id}: {type(e).__name__}: {e}")
+        with ThreadPoolExecutor(max_workers=n) as ex:
+            list(ex.map(seguro, items))
+
+    todos = list(enumerate(plans, start=1))
+    correr(todos, GFX_PARALELO)
+    mem = [i for i, e in errores.items() if "memory" in e.lower() or "memoria" in e.lower()]
+    if mem:
+        n_mem = 2 if GFX_PARALELO > 2 else 1
+        print(f"  ⚠ {len(mem)} cap(s) cayeron por memoria → reintento de a {n_mem}")
+        for i in mem:
+            errores.pop(i)
+        correr([t for t in todos if t[0] in mem], n_mem)
+    if errores:
+        return [], reused, 2
+    sin_gfx = [t for t in todos if gfx and t[1].chapter_id not in reused
+               and not (work_dir / f"{t[1].chapter_id}_gfx.mp4").exists()]
+    if sin_gfx:
+        print(f"  ⚠ {len(sin_gfx)} cap(s) sin capa gfx en paralelo ({', '.join(t[1].chapter_id for t in sin_gfx)}) "
+              f"→ se rehacen de a uno")
+        correr(sin_gfx, 1)
+        if errores:
+            return [], reused, 2
+    return [res[i] for i, _ in todos], reused, 0
 
 
 def _assemble_one_video(
@@ -2591,7 +2693,19 @@ def _assemble_one_video(
         from script_engine.gfx_layer import prefetch_plans
         _pre = prefetch_plans([p for p in plans if not only_cap or p.chapter_id == only_cap], video_id, work_dir)
         print(f"  🎨 gfx_director prefetch: " + ", ".join(f"{c} {t:.0f}s" for c, t in _pre.items()))
-    for i, plan in enumerate(plans, start=1):
+    paralelo = gfx and not only_cap and GFX_PARALELO > 1                # F28 §C.2 (apagado: GFX_PARALELO = 1)
+    if paralelo:
+        segments, reused_caps, rc = _segmentos_en_paralelo(
+            plans, work_dir=work_dir, manifest=manifest, manifest_path=manifest_path, seg_flags=seg_flags,
+            reassemble=reassemble, flow_specs=flow_specs, per_image_by_cap=per_image_by_cap,
+            reuse_visuals=reuse_visuals, reuse_caps=reuse_caps, promotions=promotions, hook=hook, no_subs=no_subs,
+            gfx=gfx, gfx_quality=gfx_quality, video_id=video_id, sfx=sfx, gfx_sparse=gfx_sparse,
+            safe_router=safe_router, safe_by_cap=safe_by_cap if gfx and safe_router else {}, gfx_debug=gfx_debug)
+        if rc:
+            if started_tracker:
+                cost_tracker.end_video()
+            return rc, None
+    for i, plan in enumerate(plans if not paralelo else [], start=1):
         if only_cap and plan.chapter_id != only_cap:
             continue
         seg_path = (work_dir / f"{plan.chapter_id}_segment_only.mp4" if only_cap
@@ -2827,6 +2941,8 @@ def main() -> int:
                         help="F2 §3.4: reusa los seg_NN_chXX.mp4 cuyos insumos no cambiaron (huella en "
                              "_fase2b_work/segments_manifest.json); re-hace solo los caps cambiados + concat + música. "
                              "Implica --keep-segments.")
+    parser.add_argument("--sw-encode", action="store_true",
+                        help="F28: libx264 en vez de NVENC (desde F28 NVENC es el default)")
     parser.add_argument("--hw-encode", action="store_true",
                         help="F2 §3.3: NVENC (h264_nvenc p5 cq19) en el pase de segmento y en la mezcla de música. "
                              "Default off (libx264). El concat con transiciones (transition_applier) no cambia.")
@@ -2851,7 +2967,7 @@ def main() -> int:
                         help="Reprocesa aunque el topic ya esté en 'video_generated'.")
     args = parser.parse_args()
     global _HW_ENCODE, _LEGACY_CONCAT
-    _HW_ENCODE = bool(args.hw_encode)    # F2 §3.3
+    _HW_ENCODE = not args.sw_encode      # F28 §C.1: NVENC por defecto (--hw-encode queda aceptado, no cambia nada)
     _LEGACY_CONCAT = bool(args.legacy_concat)   # F2b §4
 
     if FFMPEG is None or FFPROBE is None:

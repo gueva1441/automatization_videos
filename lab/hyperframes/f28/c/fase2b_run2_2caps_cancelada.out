@@ -1,0 +1,145 @@
+[16:16:17] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s3-vajont-f28c
+[16:16:17] INFO     | viral_pipeline | [video_assembler] [flow_director] Eligiendo movimientos para 90 escenas
+[16:18:22] INFO     | viral_pipeline | [video_assembler] ✓ [flow_director] ch01=vertical, ch02=orbital, ch03=vertical, ch04=orbital, ch05=orbital, ch06=horizontal, ch07=orbital, ch08=vertical, ch09=vertical, ch10=orbital, ch11=vertical, ch12=orbital, ch13=orbital, ch14=vertical, ch15=horizontal, ch16=vertical, ch17=orbital, ch18=vertical, ch19=orbital, ch20=horizontal, ch21=vertical, ch22=orbital, ch23=vertical, ch24=orbital, ch25=orbital, ch26=vertical, ch27=orbital, ch28=vertical, ch29=vertical, ch30=orbital, ch31=horizontal, ch32=vertical, ch33=horizontal, ch34=vertical, ch35=orbital, ch36=vertical, ch37=vertical, ch38=orbital, ch39=orbital, ch40=horizontal, ch41=orbital, ch42=horizontal, ch43=orbital, ch44=vertical, ch45=orbital, ch46=orbital, ch47=vertical, ch48=orbital, ch49=horizontal, ch50=horizontal, ch51=orbital, ch52=horizontal, ch53=vertical, ch54=horizontal, ch55=orbital, ch56=vertical, ch57=orbital, ch58=orbital, ch59=vertical, ch60=orbital, ch61=orbital, ch62=vertical, ch63=horizontal, ch64=vertical, ch65=orbital, ch66=horizontal, ch67=orbital, ch68=horizontal, ch69=vertical, ch70=horizontal, ch71=orbital, ch72=orbital, ch73=horizontal, ch74=horizontal, ch75=vertical, ch76=horizontal, ch77=horizontal, ch78=orbital, ch79=orbital, ch80=vertical, ch81=horizontal, ch82=orbital, ch83=horizontal, ch84=orbital, ch85=vertical, ch86=horizontal, ch87=orbital, ch88=orbital, ch89=horizontal, ch90=orbital
+[16:19:50] WARNING  | viral_pipeline | [video_assembler] ⚠ [flux_visual] anchor matching falló — fallback uniforme
+[16:19:50] INFO     | viral_pipeline | [video_assembler] [flux_visual] durations: 10.85s, 10.85s, 10.85s, 10.85s, 10.85s, 10.85s, 10.85s, 10.85s
+[16:19:50] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=0.90, s=0.00, dof=False, tiling=None) sobre ch01_supp_01_graded.png
+[16:19:50] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=1.00, s=0.00, dof=True, tiling=None) sobre ch01_supp_04_graded.png
+[16:19:50] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.00, dof=True, tiling=None) sobre ch01_supp_02_graded.png
+[16:19:50] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.90, s=0.40, dof=True, tiling=None) sobre ch01_supp_05_graded.png
+[16:19:50] INFO     | viral_pipeline | [video_assembler] [depthflow] horizontal (i=0.90, s=0.00, dof=False, tiling=None) sobre ch01_supp_06_graded.png
+[16:19:50] INFO     | viral_pipeline | [video_assembler] [depthflow] zoom_in (i=1.00, s=0.00, dof=True, tiling=None) sobre ch01_supp_03_graded.png
+[16:20:26] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:20:26] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:20:26] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:20:26] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:20:26] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:20:26] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:20:26] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:20:26] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:20:28] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:20:28] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:20:52] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:20:52] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:20:52] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.90, s=0.00, dof=True, tiling=None) sobre ch01_supp_07_graded.png
+[16:20:53] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=1.00, s=0.00, dof=False, tiling=None) sobre ch01_supp_08_graded.png
+[16:21:11] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:21:11] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:21:11] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:21:11] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:22:11] INFO     | viral_pipeline | [video_assembler] [flux_visual] durations: 16.12s, 5.44s, 7.32s, 6.26s, 9.54s, 8.38s, 9.44s, 13.92s, 7.02s, 12.74s, 12.34s, 12.04s, 9.36s
+[16:22:11] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=0.85, s=0.00, dof=False, tiling=None) sobre ch02_img_01_graded.png
+[16:22:11] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=0.85, s=0.40, dof=True, tiling=None) sobre ch02_img_03_graded.png
+[16:22:11] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.00, dof=True, tiling=None) sobre ch02_img_02_graded.png
+[16:22:11] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.40, dof=True, tiling=None) sobre ch02_img_04_graded.png
+[16:22:11] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=0.90, s=0.00, dof=False, tiling=None) sobre ch02_img_06_graded.png
+[16:22:11] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.00, dof=True, tiling=None) sobre ch02_img_05_graded.png
+[16:22:57] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:22:57] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:22:59] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:22:59] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:22:59] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:22:59] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:22:59] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:22:59] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:23:01] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:23:01] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:23:02] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:23:02] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:23:11] INFO     | viral_pipeline | [video_assembler] [depthflow] horizontal (i=0.85, s=0.00, dof=False, tiling=None) sobre ch02_img_07_graded.png
+[16:23:17] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=0.85, s=0.00, dof=False, tiling=None) sobre ch02_img_08_graded.png
+[16:23:21] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.40, dof=True, tiling=None) sobre ch02_img_09_graded.png
+[16:23:23] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=0.85, s=0.40, dof=False, tiling=None) sobre ch02_img_10_graded.png
+[16:23:29] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.40, dof=True, tiling=None) sobre ch02_img_11_graded.png
+[16:23:37] INFO     | viral_pipeline | [video_assembler] [depthflow] horizontal (i=0.85, s=0.40, dof=True, tiling=None) sobre ch02_img_12_graded.png
+[16:24:10] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:24:10] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:24:12] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:24:12] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:24:12] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:24:12] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:24:16] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:24:16] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:24:33] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:24:33] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:24:38] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=1.00, s=0.00, dof=False, tiling=None) sobre ch02_img_13_graded.png
+[16:24:49] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:24:49] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:25:10] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:25:10] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:32:40] INFO     | viral_pipeline | [video_assembler] ✓ [gfx] ch01 OK en 629s (disperso)
+[16:32:59] INFO     | viral_pipeline | [video_assembler] [flux_visual] durations: 3.02s, 7.66s, 14.30s, 6.06s, 11.38s, 12.84s, 6.54s, 12.70s, 8.34s, 10.86s, 7.44s, 11.52s, 13.66s
+[16:32:59] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=1.00, s=0.00, dof=False, tiling=None) sobre ch03_img_02_graded.png
+[16:32:59] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.00, dof=False, tiling=None) sobre ch03_img_01_graded.png
+[16:32:59] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.40, dof=True, tiling=None) sobre ch03_img_03_graded.png
+[16:32:59] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.00, dof=True, tiling=None) sobre ch03_img_04_graded.png
+[16:32:59] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.00, dof=True, tiling=None) sobre ch03_img_06_graded.png
+[16:32:59] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=0.85, s=0.40, dof=True, tiling=None) sobre ch03_img_05_graded.png
+[16:33:52] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:33:52] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:33:53] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:33:53] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:33:53] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:33:53] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:33:53] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:33:53] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:33:53] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:33:53] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:33:55] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:33:55] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:34:04] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=0.85, s=0.40, dof=False, tiling=None) sobre ch03_img_07_graded.png
+[16:34:14] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=0.90, s=0.00, dof=False, tiling=None) sobre ch03_img_08_graded.png
+[16:34:25] INFO     | viral_pipeline | [video_assembler] [depthflow] zoom_in (i=0.85, s=0.00, dof=True, tiling=None) sobre ch03_img_09_graded.png
+[16:34:26] INFO     | viral_pipeline | [video_assembler] [depthflow] horizontal (i=0.85, s=0.00, dof=False, tiling=None) sobre ch03_img_10_graded.png
+[16:34:30] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=0.90, s=0.00, dof=False, tiling=None) sobre ch03_img_11_graded.png
+[16:34:30] INFO     | viral_pipeline | [video_assembler] [depthflow] horizontal (i=0.90, s=0.00, dof=False, tiling=None) sobre ch03_img_12_graded.png
+[16:34:48] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:34:48] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:35:02] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:35:02] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:35:12] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=1.00, s=0.00, dof=False, tiling=None) sobre ch03_img_13_graded.png
+[16:35:26] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:35:26] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:35:30] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:35:30] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:35:34] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:35:34] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:35:35] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:35:35] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:36:06] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:36:06] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:41:55] INFO     | viral_pipeline | [video_assembler] ✓ [gfx] ch02 OK en 999s (disperso)
+[16:42:30] INFO     | viral_pipeline | [video_assembler] [flux_visual] durations: 7.62s, 8.38s, 8.96s, 9.54s, 13.44s, 14.26s, 12.96s, 9.76s, 7.34s, 10.84s, 15.56s
+[16:42:30] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.00, dof=False, tiling=None) sobre ch04_img_01_graded.png
+[16:42:30] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=1.00, s=0.00, dof=False, tiling=None) sobre ch04_img_03_graded.png
+[16:42:30] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=1.00, s=0.00, dof=False, tiling=None) sobre ch04_img_02_graded.png
+[16:42:30] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.40, dof=True, tiling=None) sobre ch04_img_04_graded.png
+[16:42:31] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.00, dof=True, tiling=None) sobre ch04_img_05_graded.png
+[16:42:31] INFO     | viral_pipeline | [video_assembler] [depthflow] horizontal (i=0.85, s=0.00, dof=False, tiling=None) sobre ch04_img_06_graded.png
+[16:43:25] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:43:25] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:43:25] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:43:25] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:43:28] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:43:28] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:43:28] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:43:28] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:43:31] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:43:31] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:43:34] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:43:34] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:43:52] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.00, dof=True, tiling=None) sobre ch04_img_07_graded.png
+[16:43:56] INFO     | viral_pipeline | [video_assembler] [depthflow] horizontal (i=0.85, s=0.00, dof=True, tiling=None) sobre ch04_img_08_graded.png
+[16:44:00] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.00, dof=True, tiling=None) sobre ch04_img_09_graded.png
+[16:44:06] INFO     | viral_pipeline | [video_assembler] [depthflow] vertical (i=0.90, s=0.00, dof=False, tiling=None) sobre ch04_img_10_graded.png
+[16:44:07] INFO     | viral_pipeline | [video_assembler] [depthflow] orbital (i=0.85, s=0.00, dof=True, tiling=None) sobre ch04_img_11_graded.png
+[16:44:48] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:44:48] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:44:52] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:44:52] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:44:53] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:44:53] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:44:53] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:44:53] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda
+[16:44:55] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] torch=2.5.1+cu121 cuda_available=True device=NVIDIA GeForce RTX 3080 Ti Laptop GPU
+[16:44:55] INFO     | viral_pipeline | [video_assembler] [depthflow-runner] estimator.device=cuda

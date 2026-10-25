@@ -1,0 +1,70 @@
+{
+ "F27": {
+  "crashes_depthflow": 1,
+  "gfx_cayo_a_base_clip": [],
+  "total_min": 128.3,
+  "flow_director_s": 103,
+  "gfx_s": {
+   "ch01": 384,
+   "ch02": 735,
+   "ch03": 792,
+   "ch04": 714,
+   "ch05": 956,
+   "ch06": 983,
+   "ch07": 678
+  },
+  "visual_base_s": {
+   "ch01": 85,
+   "ch02": 176,
+   "ch03": 182,
+   "ch04": 155,
+   "ch05": 192,
+   "ch06": 194,
+   "ch07": 182
+  },
+  "musica": "⏱ música: 27s (audio solo + remux)"
+ },
+ "F28c 3 caps (corrida 1)": {
+  "crashes_depthflow": 0,
+  "gfx_cayo_a_base_clip": [
+   "ch02",
+   "ch04",
+   "ch05",
+   "ch06"
+  ],
+  "total_min": 69.6,
+  "flow_director_s": 137,
+  "gfx_s": {
+   "ch01": 840,
+   "ch03": 1358,
+   "ch07": 1047
+  },
+  "visual_base_s": {
+   "ch01": 95,
+   "ch03": 159,
+   "ch02": 186,
+   "ch04": 127,
+   "ch05": 229,
+   "ch06": 183,
+   "ch07": 152
+  },
+  "musica": "⏱ música: 30s (audio solo + remux)"
+ },
+ "F28c 2 caps (corrida 2, cancelada)": {
+  "crashes_depthflow": 0,
+  "gfx_cayo_a_base_clip": [],
+  "total_min": 28.6,
+  "flow_director_s": 125,
+  "gfx_s": {
+   "ch01": 629,
+   "ch02": 999
+  },
+  "visual_base_s": {
+   "ch01": 93,
+   "ch02": 177,
+   "ch03": 163,
+   "ch04": 127
+  },
+  "musica": null
+ }
+}
