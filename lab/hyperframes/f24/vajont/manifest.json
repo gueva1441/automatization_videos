@@ -1,0 +1,1169 @@
+{
+ "generado": "2026-10-25",
+ "place_re": "\\bVajont\\ Dam\\ disaster\\b|\\bLongarone\\ disaster\\b|\\bVajont\\ Dam\\b|\\bLongarone\\b|(?<!\\w)Disastro\\ del\\ Vajont(?!\\w)|(?<!\\w)Tragedia\\ del\\ Vajont(?!\\w)|(?<!\\w)Diga\\ del\\ Vajont(?!\\w)|(?<!\\w)Monte\\ Toc(?!\\w)",
+ "max_doc_chars": 300000,
+ "documentos": [
+  {
+   "id": "F01",
+   "slug": "certifico_2018_9_ottobre_1963_63_anni-F01",
+   "url": "https://www.certifico.com/index.php?option=com_content&view=article&id=6979&catid=274",
+   "titulo": "Tragedia della diga del Vajont: 9 ottobre 1963",
+   "tipo": "prensa_posterior",
+   "anio": 2018,
+   "prioridad": 2,
+   "por_que": "Artículo profesional o técnico que aborda aspectos de seguridad, causas o responsabilidades legales del desastre.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.certifico.com/index.php?option=com_content&view=article&id=6979&catid=274",
+     "status": 200,
+     "bytes": 247636
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.certifico.com/index.php?option=com_content&view=article&id=6979&catid=274",
+   "archivo": "certifico_analisis_tecnico_legal_del_desastre.html",
+   "txt": "certifico_analisis_tecnico_legal_del_desastre.txt",
+   "bytes": 247636,
+   "caracteres": 14462,
+   "caracteres_total": 14462,
+   "recorte": null,
+   "sha1": "ebeb4518e1c7f99958668e2da5499be4b78cfcfb",
+   "idioma": "it",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Análisis técnico-legal del desastre de Vajont (Certifico.com)",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": null
+  },
+  {
+   "id": "F02",
+   "slug": "ilpost_2023_il_disastro_del_vajont_non-F02",
+   "url": "https://www.ilpost.it/2023/10/09/disastro-vajont/",
+   "titulo": "Il disastro del Vajont non fu una calamità naturale",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "prioridad": 2,
+   "por_que": "Artículo de aniversario que resume de forma exhaustiva las causas, el proceso judicial y las conclusiones de las comisiones de investigación, citando directamente los hallazgos.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.ilpost.it/2023/10/09/disastro-vajont/",
+     "status": 200,
+     "bytes": 155800
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.ilpost.it/2023/10/09/disastro-vajont/",
+   "archivo": "ilpost_2023_il_disastro_del_vajont_non.html",
+   "txt": "ilpost_2023_il_disastro_del_vajont_non.txt",
+   "bytes": 155800,
+   "caracteres": 12129,
+   "caracteres_total": 12129,
+   "recorte": null,
+   "sha1": "741660f67bcfd02680311adaa81304353c5e7411",
+   "idioma": "it",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Il disastro del Vajont non fu una calamità naturale",
+    "tipo": "prensa_posterior",
+    "anio": 2023
+   },
+   "autor": null
+  },
+  {
+   "id": "F03",
+   "slug": "canestrinilex_1971_vajont_desastre_culposo_con_prevision-F03",
+   "url": "https://canestrinilex.com/risorse/vajont-fu-disastro-colposo-con-previsione-dellevento-cass-1971",
+   "titulo": "Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971)",
+   "tipo": "prensa_posterior",
+   "anio": 2003,
+   "prioridad": 1,
+   "por_que": "Análisis o reproducción del fallo de la Corte de Casación de 1971 que estableció la naturaleza culposa del desastre de Vajont.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://canestrinilex.com/risorse/vajont-fu-disastro-colposo-con-previsione-dellevento-cass-1971",
+     "status": 200,
+     "bytes": 20082
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://canestrinilex.com/risorse/vajont-fu-disastro-colposo-con-previsione-dellevento-cass-1971",
+   "archivo": "canestrinilex_1971_vajont_fu_disastro_colposo_con.html",
+   "txt": "canestrinilex_1971_vajont_fu_disastro_colposo_con.txt",
+   "bytes": 20082,
+   "caracteres": 6565,
+   "caracteres_total": 6565,
+   "recorte": null,
+   "sha1": "d1624ca90101d2541e44eaa13c726a52cac2a43a",
+   "idioma": "it",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Vajont, fu disastro colposo con previsione dell'evento (Cass., 1971)",
+    "tipo": "fallo_judicial",
+    "anio": 1971
+   },
+   "autor": null
+  },
+  {
+   "id": "F04",
+   "slug": "storiaefuturo_2014_una_lezione_dai_disastri_il-F04",
+   "url": "https://storiaefuturo.eu/una-lezione-dai-disastri-il-vajont-e-lalluvione-di-firenze/",
+   "titulo": "Una lezione dai disastri: il Vajont e l'alluvione di Firenze",
+   "tipo": "academico",
+   "anio": 2014,
+   "prioridad": 3,
+   "por_que": "Análisis académico que contextualiza el desastre del Vajont en la historia de la gestión de riesgos en Italia y cita los documentos de la comisión parlamentaria.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://storiaefuturo.eu/una-lezione-dai-disastri-il-vajont-e-lalluvione-di-firenze/",
+     "status": 200,
+     "bytes": 359859
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://storiaefuturo.eu/una-lezione-dai-disastri-il-vajont-e-lalluvione-di-firenze/",
+   "archivo": "storiaefuturo_2014_una_lezione_dai_disastri_il.html",
+   "txt": "storiaefuturo_2014_una_lezione_dai_disastri_il.txt",
+   "bytes": 359859,
+   "caracteres": 36760,
+   "caracteres_total": 36760,
+   "recorte": null,
+   "sha1": "1c558215c84c239463465132249caea397500e5f",
+   "idioma": "it",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Una lezione dai disastri? Il Vajont e l'alluvione di Firenze",
+    "tipo": "academico",
+    "anio": 2014
+   },
+   "autor": "Gianni Silei"
+  },
+  {
+   "id": "F05",
+   "slug": "geopop_2021_tragedia_del_vajont_analisi_geologica-F05",
+   "url": "https://www.geopop.it/tragedia-del-vajont-analisi-geologica-di-una-frana-annunciata/",
+   "titulo": "Tragedia del Vajont: analisi geologica di una frana annunciata",
+   "tipo": "prensa_posterior",
+   "anio": 2021,
+   "prioridad": 2,
+   "por_que": "Ofrece un análisis geológico detallado y accesible que explica científicamente las causas del deslizamiento, citando a la ONU que lo calificó como un desastre evitable.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.geopop.it/tragedia-del-vajont-analisi-geologica-di-una-frana-annunciata/",
+     "status": 200,
+     "bytes": 302042
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.geopop.it/tragedia-del-vajont-analisi-geologica-di-una-frana-annunciata/",
+   "archivo": "geopop_2021_il_disastro_del_vajont_analisi.html",
+   "txt": "geopop_2021_il_disastro_del_vajont_analisi.txt",
+   "bytes": 302042,
+   "caracteres": 8010,
+   "caracteres_total": 8010,
+   "recorte": null,
+   "sha1": "48334a30642046538cf3e85d82f6966a0d4277dc",
+   "idioma": "it",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Il disastro del Vajont: analisi geologica di una frana annunciata",
+    "tipo": "academico",
+    "anio": 2021
+   },
+   "autor": null
+  },
+  {
+   "id": "F06",
+   "slug": "dvidshub_2023_remembering_the_vajont_dam_disaster-F06",
+   "url": "https://www.dvidshub.net/news/455406/remembering-vajont-dam-disaster-60th-anniversary-observance",
+   "titulo": "Remembering Vajont Dam Disaster 60th Anniversary Observance",
+   "tipo": "informe_oficial",
+   "anio": 2023,
+   "prioridad": 3,
+   "por_que": "Recoge testimonios de supervivientes y rescatistas, incluyendo personal del ejército de EE.UU., ofreciendo una perspectiva humana y de la respuesta internacional.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.dvidshub.net/news/455406/remembering-vajont-dam-disaster-60th-anniversary-observance",
+     "status": 200,
+     "bytes": 70893
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.dvidshub.net/news/455406/remembering-vajont-dam-disaster-60th-anniversary-observance",
+   "archivo": "dvidshub_2023_recordando_el_desastre_de_la.html",
+   "txt": "dvidshub_2023_recordando_el_desastre_de_la.txt",
+   "bytes": 70893,
+   "caracteres": 4219,
+   "caracteres_total": 4219,
+   "recorte": null,
+   "sha1": "f33acacf709bc6befb7e557a415e48a138587703",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Recordando el desastre de la presa de Vajont: observancia del 60 aniversario",
+    "tipo": "prensa_posterior",
+    "anio": 2023
+   },
+   "autor": "U.S. Army Southern European Task Force, Africa (SETAF-AF)"
+  },
+  {
+   "id": "F07",
+   "slug": "damsafety_2019_dam_failure_case_study_vajont-F07",
+   "url": "https://damsafety.org/content/dam-failure-case-study-vajont-dam-italy-1963",
+   "titulo": "Dam Failure Case Study: Vajont Dam (Italy, 1963)",
+   "tipo": "academico",
+   "anio": 2019,
+   "prioridad": 2,
+   "por_que": "Análisis técnico y científico de las causas y consecuencias del desastre de Vajont desde la perspectiva de la seguridad de presas.",
+   "descargado": "2026-10-22",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://damsafety.org/content/dam-failure-case-study-vajont-dam-italy-1963",
+     "status": 200,
+     "bytes": 224724
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://damsafety.org/content/dam-failure-case-study-vajont-dam-italy-1963",
+   "archivo": "damsafety_dam_failure_case_study_vajont.html",
+   "txt": "damsafety_dam_failure_case_study_vajont.txt",
+   "bytes": 224724,
+   "caracteres": 3715,
+   "caracteres_total": 3715,
+   "recorte": null,
+   "sha1": "6a19cf026cff7f551f98d3b8e7dfb90ed58d06e9",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Dam Failure Case Study: Vajont Dam, Italy, 1963",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": "Lee Mauney"
+  },
+  {
+   "id": "F08",
+   "slug": "youtube_2023_testimony_of_giampaolo_pansa_excerpt-F08",
+   "url": "https://www.youtube.com/watch?v=x7kT_iAmFC0",
+   "titulo": "TESTIMONY OF GIAMPAOLO PANSA (excerpt) - 60th Anniversary of the Vajont Tragedy",
+   "tipo": "testimonio",
+   "anio": 2023,
+   "prioridad": 1,
+   "por_que": "Testimonio directo de un periodista de la época (Giampaolo Pansa de La Stampa) con descripciones de la situación y la reacción de la gente.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F09",
+   "slug": "org_2015_la_inundacion_del_vajont_representaciones-F09",
+   "url": "https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S1607-050X2005000300005",
+   "titulo": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano",
+   "tipo": "academico",
+   "anio": 2005,
+   "prioridad": 1,
+   "por_que": "Analiza la cobertura periodística de la época y reproduce titulares de periódicos contemporáneos, además de incluir un testimonio directo.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S1607-050X2005000300005",
+     "status": 200,
+     "bytes": 92322
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S1607-050X2005000300005",
+   "archivo": "org_2015_la_inundacion_del_vajont_representaciones-F09.html",
+   "txt": "org_2015_la_inundacion_del_vajont_representaciones-F09.txt",
+   "bytes": 92322,
+   "caracteres": 56471,
+   "caracteres_total": 56471,
+   "recorte": null,
+   "sha1": "2e612da3876e180cb950b9724829037a0bc93601",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "La inundación del Vajont: Representaciones periodísticas de un desastre italiano",
+    "tipo": "academico",
+    "anio": 2015
+   },
+   "autor": "Gianluca Ligi"
+  },
+  {
+   "id": "F10",
+   "slug": "unesco_1963_criminal_proceedings_of_the_vajont-F10",
+   "url": "https://www.unesco.org/en/memory-world/criminal-proceedings-vajont-dam-disaster",
+   "titulo": "Criminal Proceedings of the Vajont dam disaster - Memory of the World",
+   "tipo": "informe_oficial",
+   "anio": 1963,
+   "prioridad": 1,
+   "por_que": "Archivos de los procesos judiciales que contienen documentación, incluyendo testimonios y peritajes de la época del evento.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.unesco.org/en/memory-world/criminal-proceedings-vajont-dam-disaster",
+     "status": 200,
+     "bytes": 260761,
+     "nota": "portada corta con PDF enlazado: https://media.unesco.org/sites/default/files/webform/mow001/35_38%252B.pdf"
+    },
+    {
+     "via": "pdf_enlazado",
+     "url": "https://media.unesco.org/sites/default/files/webform/mow001/35_38%252B.pdf",
+     "status": 200,
+     "bytes": 3971401,
+     "error": "texto de 0 caracteres (< 800: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "url": "http://web.archive.org/web/20240701155442id_/https://www.unesco.org/en/memory-world/criminal-proceedings-vajont-dam-disaster",
+     "status": 429,
+     "bytes": 620
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "HTTP 429"
+  },
+  {
+   "id": "F11",
+   "slug": "google_2026_vajont_a_disaster_foretold_the-F11",
+   "url": "https://books.google.ca/books/about/Vajont.html?id=_2mX0gEACAAJ&redir_esc=y",
+   "titulo": "Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963 Tragedy",
+   "tipo": "libro",
+   "anio": 2026,
+   "prioridad": 1,
+   "por_que": "Libro que explora las decisiones humanas y las advertencias ignoradas antes del desastre de Vajont.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://books.google.ca/books/about/Vajont.html?id=_2mX0gEACAAJ&redir_esc=y",
+     "status": 200,
+     "bytes": 290483
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://books.google.ca/books/about/Vajont.html?id=_2mX0gEACAAJ&redir_esc=y",
+   "archivo": "google_2026_vajont_a_disaster_foretold_the-F11.html",
+   "txt": "google_2026_vajont_a_disaster_foretold_the-F11.txt",
+   "bytes": 290483,
+   "caracteres": 3498,
+   "caracteres_total": 3498,
+   "recorte": null,
+   "sha1": "ecd9f5fe87b3af59b52e10c9bcaf730237afd18a",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963 Tragedy",
+    "tipo": "libro",
+    "anio": 2026
+   },
+   "autor": null
+  },
+  {
+   "id": "F12",
+   "slug": "isig_2012_domination_of_or_adaptation_to-F12",
+   "url": "https://isig.it/wp-content/uploads/2012/10/Bianchizza-VAJONT.pdf",
+   "titulo": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT",
+   "tipo": "academico",
+   "anio": 2013,
+   "prioridad": 1,
+   "por_que": "Artículo académico que analiza la percepción del riesgo y las lecciones del desastre de Vajont.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://isig.it/wp-content/uploads/2012/10/Bianchizza-VAJONT.pdf",
+     "status": 200,
+     "bytes": 950621
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://isig.it/wp-content/uploads/2012/10/Bianchizza-VAJONT.pdf",
+   "archivo": "isig_2012_domination_of_or_adaptation_to-F12.pdf",
+   "txt": "isig_2012_domination_of_or_adaptation_to-F12.txt",
+   "bytes": 950621,
+   "caracteres": 38967,
+   "caracteres_total": 38967,
+   "recorte": null,
+   "sha1": "f86d2b5f52d9b47a4edc09953fb42135363aa96a",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "domination of or adaptation to nature? a lesson we can still learn from the vajont",
+    "tipo": "academico",
+    "anio": 2012
+   },
+   "autor": "Chiara BIANCHIZZA & Simone FRIGERIO"
+  },
+  {
+   "id": "F13",
+   "slug": "icrea_2023_the_political_ecology_of_an-F13",
+   "url": "https://www.icrea.cat/impact/outreach/scientific-highlights/57/the-political-ecology-of-an-unnatural-disaster/",
+   "titulo": "The political ecology of an unnatural disaster",
+   "tipo": "academico",
+   "anio": 2023,
+   "prioridad": 1,
+   "por_que": "Página institucional que destaca la relevancia del libro de Marco Armiero sobre la ecología política del desastre, publicado en el 60 aniversario.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.icrea.cat/impact/outreach/scientific-highlights/57/the-political-ecology-of-an-unnatural-disaster/",
+     "status": 200,
+     "bytes": 112709,
+     "nota": "portada corta con PDF enlazado: https://www.icrea.cat/wp-content/uploads/2024/04/actionplan2023-2026_final.pdf"
+    },
+    {
+     "via": "pdf_enlazado",
+     "url": "https://www.icrea.cat/wp-content/uploads/2024/04/actionplan2023-2026_final.pdf",
+     "status": 200,
+     "bytes": 234392,
+     "error": "PDF enlazado que no nombra el evento en sus primeros 20000 caracteres: descartado"
+    },
+    {
+     "via": "wayback",
+     "url": "http://web.archive.org/web/20250111144239id_/https://www.icrea.cat/impact/outreach/scientific-highlights/57/the-political-ecology-of-an-unnatural-disaster/",
+     "status": 429,
+     "bytes": 620
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "HTTP 429"
+  },
+  {
+   "id": "F14",
+   "slug": "ilrestodelcarlino_2023_disastro_del_vajont_atti_del-F14",
+   "url": "https://www.ilrestodelcarlino.it/veneto/cronaca/disastro-vajont-registro-unesco-memoria-mondo-jbwfvbsl",
+   "titulo": "Disastro Vajont: l'Archivio del processo nel Registro Unesco Memoria del Mondo",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "prioridad": 1,
+   "por_que": "Noticia sobre la inclusión de los archivos del proceso judicial del Vajont en el Registro Memoria del Mundo de la UNESCO.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.ilrestodelcarlino.it/veneto/cronaca/disastro-vajont-registro-unesco-memoria-mondo-jbwfvbsl",
+     "status": 200,
+     "bytes": 305803
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.ilrestodelcarlino.it/veneto/cronaca/disastro-vajont-registro-unesco-memoria-mondo-jbwfvbsl",
+   "archivo": "ilrestodelcarlino_2023_disastro_del_vajont_atti_del-F14.html",
+   "txt": "ilrestodelcarlino_2023_disastro_del_vajont_atti_del-F14.txt",
+   "bytes": 305803,
+   "caracteres": 3796,
+   "caracteres_total": 3796,
+   "recorte": null,
+   "sha1": "887a8dc3aebcb1eea7e595734179cb226a755e06",
+   "idioma": "it",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Disastro del Vajont, atti del processo nel Registro Unesco Memoria del Mondo",
+    "tipo": "fallo_judicial",
+    "anio": 2023
+   },
+   "autor": null
+  },
+  {
+   "id": "F15",
+   "slug": "elsaltodiario_2022_vajont_la_construccion_de_una-F15",
+   "url": "https://www.elsaltodiario.com/italia/vajont-la-construccion-de-una-catastrofe-a-la-italiana",
+   "titulo": "Vajont, la construcción de una catástrofe a la italiana",
+   "tipo": "prensa_posterior",
+   "anio": 2022,
+   "prioridad": 1,
+   "por_que": "Artículo de prensa que analiza la construcción del desastre de Vajont y las advertencias ignoradas.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.elsaltodiario.com/italia/vajont-la-construccion-de-una-catastrofe-a-la-italiana",
+     "status": 200,
+     "bytes": 259519
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.elsaltodiario.com/italia/vajont-la-construccion-de-una-catastrofe-a-la-italiana",
+   "archivo": "elsaltodiario_2022_vajont_la_construccion_de_una-F15.html",
+   "txt": "elsaltodiario_2022_vajont_la_construccion_de_una-F15.txt",
+   "bytes": 259519,
+   "caracteres": 26315,
+   "caracteres_total": 26315,
+   "recorte": null,
+   "sha1": "395ae666e0f4ea23cc33ecf11e1e6296d4febb85",
+   "idioma": "es",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Vajont, la construcción de una catástrofe a la italiana",
+    "tipo": "prensa_posterior",
+    "anio": 2022
+   },
+   "autor": null
+  },
+  {
+   "id": "F16",
+   "slug": "senato_documento_oficial_del_senado_italiano-F16",
+   "url": "https://patrimonio.archivio.senato.it/attach///SR01/VAJONT_001SR_009UA_004DO_01.PDF",
+   "titulo": "Documento oficial del Senado italiano sobre Vajont",
+   "tipo": "informe_oficial",
+   "anio": null,
+   "prioridad": 1,
+   "por_que": "Documento oficial de archivo del Senado italiano sobre el desastre de Vajont, probablemente parte de una investigación o informe.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://patrimonio.archivio.senato.it/attach///SR01/VAJONT_001SR_009UA_004DO_01.PDF",
+     "status": 200,
+     "bytes": 820706,
+     "error": "texto de 0 caracteres (< 800: ¿paywall o portada?)"
+    },
+    {
+     "via": "wayback",
+     "error": "sin copia en la Wayback Machine"
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "sin copia en la Wayback Machine"
+  },
+  {
+   "id": "F17",
+   "slug": "archiui_comision_de_investigacion_sobre_la-F17",
+   "url": "https://archivioivsla.archiui.com/oggetti/56485-commissione-dinchiesta-sulla-sciagura-del-vajont-relazione-al-ministro-dei-lavori-pubblici",
+   "titulo": "Commissione d'inchiesta sulla sciagura del Vajont - Relazione al Ministro dei Lavori Pubblici",
+   "tipo": "informe_oficial",
+   "anio": 1964,
+   "prioridad": 1,
+   "por_que": "Informe oficial de la comisión de investigación sobre el desastre de Vajont dirigido al Ministro de Obras Públicas.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://archivioivsla.archiui.com/oggetti/56485-commissione-dinchiesta-sulla-sciagura-del-vajont-relazione-al-ministro-dei-lavori-pubblici",
+     "status": 200,
+     "bytes": 49226
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://archivioivsla.archiui.com/oggetti/56485-commissione-dinchiesta-sulla-sciagura-del-vajont-relazione-al-ministro-dei-lavori-pubblici",
+   "archivo": "archiui_comision_de_investigacion_sobre_la-F17.html",
+   "txt": "archiui_comision_de_investigacion_sobre_la-F17.txt",
+   "bytes": 49226,
+   "caracteres": 926,
+   "caracteres_total": 926,
+   "recorte": null,
+   "sha1": "7bb22bf89a92d97f0d52df04ebe513022389394c",
+   "idioma": "it",
+   "nombra_evento": false,
+   "ficha_busqueda": {
+    "titulo": "Comisión de Investigación sobre la Catástrofe de Vajont: Informe al Ministro de Obras Públicas",
+    "tipo": "informe_oficial",
+    "anio": null
+   },
+   "autor": "Commissione amministrativa d'inchiesta sulla sciagura del Vajont"
+  },
+  {
+   "id": "F18",
+   "slug": "youtube_2023_vajont_an_italian_disaster_historical-F18",
+   "url": "https://www.youtube.com/watch?v=nyn6cg3NQcQ",
+   "titulo": "Vajont, an Italian disaster | Historical Doc 1963 [Full 6P | 2023]",
+   "tipo": "documental",
+   "anio": 2023,
+   "prioridad": 1,
+   "por_que": "Recopilación de seis reportajes de la época, incluyendo uno de Sergio Zavoli tres días después del desastre, ofreciendo una perspectiva periodística inmediata y testimonios directos.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F19",
+   "slug": "dolomitiunesco_archivo_vajont_memoria_del_mundo-F19",
+   "url": "https://www.dolomitiunesco.info/attivita/archivio-vajont-memoria-del-mondo",
+   "titulo": "Archivio Vajont: memoria del mondo",
+   "tipo": "informe_oficial",
+   "anio": 2023,
+   "prioridad": 2,
+   "por_que": "Página informativa sobre el reconocimiento del archivo de Vajont como parte del programa Memoria del Mundo de la UNESCO, ofreciendo contexto histórico.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.dolomitiunesco.info/attivita/archivio-vajont-memoria-del-mondo",
+     "status": 200,
+     "bytes": 52634
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.dolomitiunesco.info/attivita/archivio-vajont-memoria-del-mondo",
+   "archivo": "dolomitiunesco_archivo_vajont_memoria_del_mundo-F19.html",
+   "txt": "dolomitiunesco_archivo_vajont_memoria_del_mundo-F19.txt",
+   "bytes": 52634,
+   "caracteres": 2737,
+   "caracteres_total": 2737,
+   "recorte": null,
+   "sha1": "117e64aa088e06b93b0a535e33b69d4952e3b434",
+   "idioma": "it",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Archivo Vajont: Memoria del Mundo (UNESCO)",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": "Dolomiti UNESCO"
+  },
+  {
+   "id": "F20",
+   "slug": "damfailures_vajont_informe_tecnico_de_asdso-F20",
+   "url": "https://damfailures.org/sites/default/files/wp-pdf/ASDSO-Vajont_Mauney_Graham.pdf",
+   "titulo": "A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam",
+   "tipo": "academico",
+   "anio": 2013,
+   "prioridad": 2,
+   "por_que": "Informe técnico o estudio académico sobre el desastre de la presa de Vajont de una organización especializada en fallos de presas.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://damfailures.org/sites/default/files/wp-pdf/ASDSO-Vajont_Mauney_Graham.pdf",
+     "status": 200,
+     "bytes": 5149158
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://damfailures.org/sites/default/files/wp-pdf/ASDSO-Vajont_Mauney_Graham.pdf",
+   "archivo": "damfailures_vajont_informe_tecnico_de_asdso-F20.pdf",
+   "txt": "damfailures_vajont_informe_tecnico_de_asdso-F20.txt",
+   "bytes": 5149158,
+   "caracteres": 7215,
+   "caracteres_total": 7215,
+   "recorte": null,
+   "sha1": "b00d211cdbed9fbc38a84e23f25cd50c2c74cf90",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Vajont: Informe técnico de ASDSO por Mauney y Graham",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": "Lee Mauney, Wayne Graham Bureau of Reclamation"
+  },
+  {
+   "id": "F21",
+   "slug": "abebooks_vajont_a_political_ecology_of-F21",
+   "url": "https://www.abebooks.com/Vajont-Political-Ecology-Unnatural-Disaster-History/32443148726/bd",
+   "titulo": "Vajont: The Political Ecology of an Unnatural Disaster (History for a Sustainable Future)",
+   "tipo": "libro",
+   "anio": 2026,
+   "prioridad": 2,
+   "por_que": "Un libro académico que analiza el desastre de Vajont desde la perspectiva de la ecología política e histórica.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.abebooks.com/Vajont-Political-Ecology-Unnatural-Disaster-History/32443148726/bd",
+     "status": 200,
+     "bytes": 306149
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.abebooks.com/Vajont-Political-Ecology-Unnatural-Disaster-History/32443148726/bd",
+   "archivo": "abebooks_vajont_a_political_ecology_of-F21.html",
+   "txt": "abebooks_vajont_a_political_ecology_of-F21.txt",
+   "bytes": 306149,
+   "caracteres": 3593,
+   "caracteres_total": 3593,
+   "recorte": null,
+   "sha1": "ed0401e4224de47a7a58d1309ccb5e867e11e09a",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Vajont: A Political Ecology of an Unnatural Disaster (A History)",
+    "tipo": "libro",
+    "anio": null
+   },
+   "autor": "Marco Armiero"
+  },
+  {
+   "id": "F22",
+   "slug": "penguinrandomhouse_vajont_por_marco_armiero-F22",
+   "url": "https://www.penguinrandomhouse.com/books/814339/vajont-by-marco-armiero/",
+   "titulo": "Vajont: The Political Ecology of an Unnatural Disaster (History for a Sustainable Future)",
+   "tipo": "libro",
+   "anio": 2026,
+   "prioridad": 2,
+   "por_que": "Un libro publicado por Penguin Random House sobre el desastre de Vajont.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.penguinrandomhouse.com/books/814339/vajont-by-marco-armiero/",
+     "status": 200,
+     "bytes": 238143
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.penguinrandomhouse.com/books/814339/vajont-by-marco-armiero/",
+   "archivo": "penguinrandomhouse_vajont_por_marco_armiero-F22.html",
+   "txt": "penguinrandomhouse_vajont_por_marco_armiero-F22.txt",
+   "bytes": 238143,
+   "caracteres": 1457,
+   "caracteres_total": 1457,
+   "recorte": null,
+   "sha1": "d111e6c10b857476d77ca84fb5cf29362a8fd1aa",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Vajont (por Marco Armiero)",
+    "tipo": "libro",
+    "anio": null
+   },
+   "autor": "Marco Armiero"
+  },
+  {
+   "id": "F23",
+   "slug": "ibs_vajont_historia_de_una_presa-F23",
+   "url": "https://www.ibs.it/vajont-storia-di-diga-libro-francesco-niccolini-duccio-boscoli/e/9788833140421",
+   "titulo": "Vajont. Storia di una diga",
+   "tipo": "libro",
+   "anio": 2020,
+   "prioridad": 2,
+   "por_que": "Un libro que narra la historia del desastre de la presa de Vajont.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.ibs.it/vajont-storia-di-diga-libro-francesco-niccolini-duccio-boscoli/e/9788833140421",
+     "status": 200,
+     "bytes": 595011
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.ibs.it/vajont-storia-di-diga-libro-francesco-niccolini-duccio-boscoli/e/9788833140421",
+   "archivo": "ibs_vajont_historia_de_una_presa-F23.html",
+   "txt": "ibs_vajont_historia_de_una_presa-F23.txt",
+   "bytes": 595011,
+   "caracteres": 4861,
+   "caracteres_total": 4861,
+   "recorte": null,
+   "sha1": "3640bdd78c2213e6929fb38347ffc113bbcfa113",
+   "idioma": "it",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Vajont: Historia de una presa (por Francesco Niccolini y Duccio Boscoli)",
+    "tipo": "libro",
+    "anio": null
+   },
+   "autor": "Francesco Niccolini, Duccio Boscoli"
+  },
+  {
+   "id": "F24",
+   "slug": "fondazionevajont_pagina_informativa_de_la_fundacion-F24",
+   "url": "https://fondazionevajont.org/?page_id=469",
+   "titulo": "Fondo Processuale",
+   "tipo": "informe_oficial",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Información histórica, análisis o recursos proporcionados por la Fundación Vajont, una fuente autorizada sobre el tema.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://fondazionevajont.org/?page_id=469",
+     "status": 200,
+     "bytes": 218891
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://fondazionevajont.org/?page_id=469",
+   "archivo": "fondazionevajont_pagina_informativa_de_la_fundacion-F24.html",
+   "txt": "fondazionevajont_pagina_informativa_de_la_fundacion-F24.txt",
+   "bytes": 218891,
+   "caracteres": 1095,
+   "caracteres_total": 1095,
+   "recorte": null,
+   "sha1": "a99bf77c34c4f0fbb5f3f55dc8f367c2b2305071",
+   "idioma": "it",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Página informativa de la Fundación Vajont",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": "Fondazione Vajont"
+  },
+  {
+   "id": "F25",
+   "slug": "youtube_documental_o_reportaje_sobre_el-F25",
+   "url": "https://www.youtube.com/watch?v=GHoJKfXU8Yo",
+   "titulo": "Documental o reportaje sobre el desastre de Vajont",
+   "tipo": "documental",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Contenido audiovisual que explora los eventos, causas o consecuencias del desastre, posiblemente incluyendo entrevistas.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F26",
+   "slug": "youtube_documental_o_reportaje_sobre_el-F26",
+   "url": "https://www.youtube.com/watch?v=-DhoFR0YLY4",
+   "titulo": "Documental o reportaje sobre el desastre de Vajont",
+   "tipo": "documental",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Contenido audiovisual que explora los eventos, causas o consecuencias del desastre, posiblemente incluyendo entrevistas.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F27",
+   "slug": "youtube_documental_o_reportaje_sobre_el-F27",
+   "url": "https://www.youtube.com/watch?v=1Aip1SLyrkE",
+   "titulo": "Documental o reportaje sobre el desastre de Vajont",
+   "tipo": "documental",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Contenido audiovisual que explora los eventos, causas o consecuencias del desastre, posiblemente incluyendo entrevistas.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F28",
+   "slug": "youtube_documental_o_reportaje_sobre_el-F28",
+   "url": "https://www.youtube.com/watch?v=sP2_mWgmffo",
+   "titulo": "Documental o reportaje sobre el desastre de Vajont",
+   "tipo": "documental",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Contenido audiovisual que explora los eventos, causas o consecuencias del desastre, posiblemente incluyendo entrevistas.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F29",
+   "slug": "youtube_documental_o_reportaje_sobre_el-F29",
+   "url": "https://www.youtube.com/watch?v=6Kbhq7Wq5gY",
+   "titulo": "Documental o reportaje sobre el desastre de Vajont",
+   "tipo": "documental",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Contenido audiovisual que explora los eventos, causas o consecuencias del desastre, posiblemente incluyendo entrevistas.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F30",
+   "slug": "youtube_documental_o_reportaje_sobre_el-F30",
+   "url": "https://www.youtube.com/watch?v=KxUU784lrDA",
+   "titulo": "Documental o reportaje sobre el desastre de Vajont",
+   "tipo": "documental",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Contenido audiovisual que explora los eventos, causas o consecuencias del desastre, posiblemente incluyendo entrevistas.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F31",
+   "slug": "certifico_2026_tragedia_della_diga_del_vajont-F31",
+   "url": "https://www.certifico.com/news/tragedia-della-diga-del-vajont-9-ottobre-1963",
+   "titulo": "Tragedia della diga del Vajont: 9 ottobre 1963",
+   "tipo": "prensa_posterior",
+   "anio": 2018,
+   "prioridad": 3,
+   "por_que": "Sintetiza de forma cronológica los distintos fallos judiciales y las sentencias sobre las indemnizaciones civiles, ofreciendo un resumen claro de las consecuencias legales a largo plazo.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.certifico.com/news/tragedia-della-diga-del-vajont-9-ottobre-1963",
+     "status": 200,
+     "bytes": 190577
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.certifico.com/news/tragedia-della-diga-del-vajont-9-ottobre-1963",
+   "archivo": "certifico_2026_tragedia_della_diga_del_vajont-F31.html",
+   "txt": "certifico_2026_tragedia_della_diga_del_vajont-F31.txt",
+   "bytes": 190577,
+   "caracteres": 14509,
+   "caracteres_total": 14509,
+   "recorte": null,
+   "sha1": "12773060545417be752b393316ee5b77ecdba3af",
+   "idioma": "it",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Tragedia della diga del Vajont: 9 ottobre 1963",
+    "tipo": "prensa_posterior",
+    "anio": 2026
+   },
+   "autor": null
+  },
+  {
+   "id": "F32",
+   "slug": "lospaziobianco_beccogiallo_el_desastre_de_vajont-F32",
+   "url": "https://www.lospaziobianco.it/beccogiallo-disastro-vajont/",
+   "titulo": "Beccogiallo: El desastre de Vajont (Graphic Novel)",
+   "tipo": "libro",
+   "anio": null,
+   "prioridad": 3,
+   "por_que": "Reseña o referencia a una novela gráfica (Beccogiallo) que narra el desastre de Vajont, una forma accesible de comprender el evento.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos en it"
+  },
+  {
+   "id": "F33",
+   "slug": "tv2000_2024_modello_di_organizzazione_gestione_e-F33",
+   "url": "https://www.tv2000.it/tgtg/2018/10/09/10-ottobre-1963-i-giornali-raccontando-la-tragedia-del-vajont/",
+   "titulo": "Modello di Organizzazione, Gestione e Controllo e Codice Etico",
+   "tipo": "informe_oficial",
+   "anio": 2024,
+   "prioridad": 3,
+   "por_que": "Reportaje televisivo que muestra y comenta las portadas y los artículos de los periódicos italianos del día después de la tragedia.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos en it"
+  },
+  {
+   "id": "F34",
+   "slug": "gov_noticia_del_archivo_estatal_de-F34",
+   "url": "https://archiviodistatolaquila.cultura.gov.it/archivio-notizie/notizia?tx_news_pi1%5Baction%5D=detail&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Bnews%5D=90&cHash=32e2b072d0f7700fcd1553887be1dd4d",
+   "titulo": "Noticia del archivo estatal de L'Aquila sobre el desastre de Vajont",
+   "tipo": "prensa_posterior",
+   "anio": null,
+   "prioridad": 3,
+   "por_que": "Artículo informativo del archivo estatal de L'Aquila que contextualiza o presenta documentos relacionados con el desastre de Vajont.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos en it"
+  },
+  {
+   "id": "F35",
+   "slug": "leoneg_pagina_dedicada_a_longarone_y-F35",
+   "url": "http://www.leoneg.it/vajont/longaro.html",
+   "titulo": "Página dedicada a Longarone y el desastre de Vajont",
+   "tipo": "academico",
+   "anio": null,
+   "prioridad": 3,
+   "por_que": "Información detallada sobre la localidad de Longarone, afectada por la ola del Vajont, y el impacto del desastre.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos en it"
+  }
+ ],
+ "_fichas": {
+  "hash": "2bcf9590294b0f19",
+  "raw": {
+   "documentos": [
+    {
+     "id": "F01",
+     "titulo": "Tragedia della diga del Vajont: 9 ottobre 1963",
+     "tipo": "prensa_posterior",
+     "anio": 2018
+    },
+    {
+     "id": "F02",
+     "titulo": "Il disastro del Vajont non fu una calamità naturale",
+     "tipo": "prensa_posterior",
+     "anio": 2023
+    },
+    {
+     "id": "F03",
+     "titulo": "Vajont: fu disastro colposo con previsione dell'evento (Cassazione 1971)",
+     "tipo": "prensa_posterior",
+     "anio": 2003
+    },
+    {
+     "id": "F04",
+     "titulo": "Una lezione dai disastri: il Vajont e l'alluvione di Firenze",
+     "autor": "Gianni Silei",
+     "tipo": "academico",
+     "anio": 0
+    },
+    {
+     "id": "F05",
+     "titulo": "Tragedia del Vajont: analisi geologica di una frana annunciata",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    },
+    {
+     "id": "F06",
+     "titulo": "Remembering Vajont Dam Disaster 60th Anniversary Observance",
+     "autor": "U.S. Army Southern European Task Force, Africa (SETAF-AF)",
+     "tipo": "informe_oficial",
+     "anio": 2023
+    },
+    {
+     "id": "F07",
+     "titulo": "Dam Failure Case Study: Vajont Dam (Italy, 1963)",
+     "autor": "Lee Mauney",
+     "tipo": "academico",
+     "anio": 2019
+    },
+    {
+     "id": "F09",
+     "titulo": "La inundación del Vajont. Representaciones periodísticas de un desastre italiano",
+     "autor": "Gianluca Ligi",
+     "tipo": "academico",
+     "anio": 2005
+    },
+    {
+     "id": "F11",
+     "titulo": "Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963 Tragedy",
+     "tipo": "libro",
+     "anio": 2026
+    },
+    {
+     "id": "F12",
+     "titulo": "DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL LEARN FROM THE VAJONT",
+     "autor": "Chiara BIANCHIZZA & Simone FRIGERIO",
+     "tipo": "academico",
+     "anio": 2013
+    },
+    {
+     "id": "F14",
+     "titulo": "Disastro Vajont: l'Archivio del processo nel Registro Unesco Memoria del Mondo",
+     "tipo": "prensa_posterior",
+     "anio": 2023
+    },
+    {
+     "id": "F15",
+     "titulo": "Vajont, la construcción de una catástrofe a la italiana",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    },
+    {
+     "id": "F17",
+     "titulo": "Commissione d'inchiesta sulla sciagura del Vajont - Relazione al Ministro dei Lavori Pubblici",
+     "autor": "Commissione amministrativa d'inchiesta sulla sciagura del Vajont",
+     "tipo": "informe_oficial",
+     "anio": 1964
+    },
+    {
+     "id": "F19",
+     "titulo": "Archivio Vajont: memoria del mondo",
+     "autor": "Dolomiti UNESCO",
+     "tipo": "informe_oficial",
+     "anio": 2023
+    },
+    {
+     "id": "F20",
+     "titulo": "A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam",
+     "autor": "Lee Mauney, Wayne Graham Bureau of Reclamation",
+     "tipo": "academico",
+     "anio": 2013
+    },
+    {
+     "id": "F21",
+     "titulo": "Vajont: The Political Ecology of an Unnatural Disaster (History for a Sustainable Future)",
+     "autor": "Marco Armiero",
+     "tipo": "libro",
+     "anio": 2026
+    },
+    {
+     "id": "F22",
+     "titulo": "Vajont: The Political Ecology of an Unnatural Disaster (History for a Sustainable Future)",
+     "autor": "Marco Armiero",
+     "tipo": "libro",
+     "anio": 2026
+    },
+    {
+     "id": "F23",
+     "titulo": "Vajont. Storia di una diga",
+     "autor": "Francesco Niccolini, Duccio Boscoli",
+     "tipo": "libro",
+     "anio": 2020
+    },
+    {
+     "id": "F24",
+     "titulo": "Fondo Processuale",
+     "autor": "Fondazione Vajont",
+     "tipo": "informe_oficial",
+     "anio": 0
+    },
+    {
+     "id": "F31",
+     "titulo": "Tragedia della diga del Vajont: 9 ottobre 1963",
+     "tipo": "prensa_posterior",
+     "anio": 2018
+    }
+   ]
+  }
+ }
+}

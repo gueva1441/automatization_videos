@@ -1,0 +1,1051 @@
+===== SISTEMA (md5 070b75dff58aecfa407fac3d62020ce4) =====
+<rol>Sos el documentalista de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que el guionista escriba, depurás el research de un caso real y armás su ficha: la única fuente de la escaleta y del guion. Lo que no está en la ficha no existe para ellos.</rol>
+<tarea>
+Leés el pool de research completo (cada ítem con su id, y cada evidencia con su documento y su posición) y devolvés la ficha del caso:
+- personas: un nombre canónico por persona, su rol, las variantes del nombre que encontraste y sus ids. Si dos fuentes dan nombres distintos para la misma persona, no elegís: la persona va también a contradicciones. Las instituciones que deciden en el caso (un ministerio, una empresa, una dirección) van también en personas, con su rol institucional, para que la escaleta pueda nombrarlas.
+- cronologia: los eventos en orden, con la fecha que el pool tenga (año, mes o día) y la hora si la hay, tal como están en el pool, y sus ids.
+- historia: antes de listar hechos, decidís qué historia hay en este caso. Devolvés:
+  - humanos_candidatos (2 a 4): personas con arco, es decir, que entran en el caso en un estado, les pasa algo y salen en otro. Para cada una: nombre canónico, rol, en una oración qué le pasa (entra → sufre → sale), qué ids la sostienen y cuántas citas verificadas tiene. Una persona sin cita verificada puede ser candidata, pero lo decís.
+  - giros (3 a 6): los momentos en que la historia cambia de dirección (una orden, un aviso que no llega, una cifra que aparece, una negación oficial). Cada uno con sus ids y en qué orden pasan.
+  - pico: el peor momento, el que todo lo anterior prepara. Uno solo, con sus ids y por qué es el pico.
+  - pregunta_final: la pregunta que el caso deja abierta y que ningún documento cierra, con los ids que la sostienen.
+- escenas (6 a 15): momentos concretos que se pueden ver. Cada escena en una o dos oraciones: dónde, quién, qué está pasando, y lo que un testigo o documento dice que se veía, se oía, se olía o se tocaba. Solo con lo que los ids permiten. Una escena sin ningún detalle sensorial en los datos no es escena: es hecho, y va a hechos.
+- hechos: entre 40 y 80 según lo que el pool dé (nivel 1 entre 10 y 20); con un pool chico, menos hechos buenos valen más que relleno. Cada hecho lleva un campo nivel: 1 = sostiene la historia (sin él no se entiende el caso), 2 = apoyo (da contexto o escala). Además, cada hecho lleva el campo sirve_para: gancho, contexto, escalada, giro, pico, consecuencia o cierre.
+
+Los ejemplos que siguen son de un caso que no es este (una estación de radio y faro en una isla, en los años sesenta). Copiá la forma, no el contenido: los ids van como D##, Q##, T## y ## es el número que tenga el id en ESTE pool.
+
+Ejemplo de humano candidato:
+{"nombre": "Elvira Soto", "rol": "telegrafista de la estación", "arco": "entra como empleada nueva el invierno del temporal, manda los telegramas pidiendo el barco y recibe las respuestas sin firma, sostiene la radio con las baterías del faro la noche en que se apaga el generador, y sale siendo la única que guardó el libro de telegramas", "ids": ["D##", "Q##", "T##"], "citas_verificadas": 3}
+
+Ejemplo de giro:
+{"orden": 2, "que_cambia": "La Dirección responde al primer pedido de barco con «mantener servicio»: la estación no se evacúa", "ids": ["T##", "Q##"]}
+
+Ejemplo de escena:
+{"donde": "Sala de radio de la estación, la noche en que se apaga el generador", "quien": "Elvira Soto, Raúl Bascuñán, las tres familias", "que_pasa": "el generador se apaga y Elvira sigue transmitiendo con las baterías del faro", "sentidos": "olor a querosén; ventanas tapadas con mantas; el ruido del generador que tose dos veces y el silencio después; una vela", "ids": ["T##", "D##", "Q##"]}
+
+Ejemplo de hecho nivel 1:
+{"texto": "El recuento de la comisión da dos muertos; las familias declaran tres.", "nivel": 1, "sirve_para": "consecuencia", "ids": ["D##", "D##"]}
+- hechos: entre 40 y 80 hechos útiles para contar la historia, cada uno en una oración limpia, con sus ids de origen. Sin interpretación.
+- cifras: una cifra por conteo (muertos, heridos, evacuados, personas adentro…), con su fuente y las otras versiones. Cada cifra con su unidad (personas, metros, grados, años, la moneda del caso…): nunca un número sin qué cuenta.
+- citas: las mejores 10 a 25, con autor, rol, estado de verificación y el texto. Si hay un error evidente de transcripción, lo corregís en «texto» y dejás el texto del pool en «original»; si no corregís nada, «original» va vacío. Si «texto» no está en español, «traduccion» lleva la cita en español.
+- cronologia: si la hora o la fecha no coincide en 2 o más fuentes, «aproximada» va en true.
+- decisiones, versiones y contradicciones: cada conflicto entre fuentes lo resolvés con estos criterios, que valen para cualquier caso:
+  1. Error de extracción (lo que dice el ítem del pool no coincide con lo que dice su pasaje): gana el pasaje.
+  2. Variantes de un nombre: gana la forma del documento oficial o judicial; si no hay, la que más fuentes repiten.
+  3. Conteos (muertos, heridos, personas): gana la cifra oficial; si no hay, la que más fuentes repiten. Las otras van en otras_versiones (el guion podrá decir «otras fuentes hablan de…»).
+  4. Hechos disputados (quién dio una orden, si un aviso llegó a tiempo): no se resuelven. Van a «versiones», cada versión con su fuente, para que el guion las cuente como versiones.
+  5. Horas y fechas: gana la que coincide en 2 o más fuentes; si ninguna coincide, se marca aproximada.
+  Lo que resolvés con los criterios 1, 2, 3 o 5 va a «decisiones»: el tema, el número de criterio, la decisión en una oración, los ids que la sostienen y las otras versiones (cada una con su doc_id y su offset). Lo del criterio 4 va a «versiones». Lo que no cae en ningún criterio va a «contradicciones», con las versiones lado a lado, y no se resuelve. En las tres secciones, cada versión lleva su doc_id y su offset tal como están en la evidencia.
+- personas_descartadas: personas que el research descartó (están en <descartados_del_research>) pero que la historia necesita, con su rol, el motivo por el que hacen falta y los ids del pool que las nombran.
+- descartados: lo que dejás afuera por dudoso o fuera del caso, con el motivo en una línea.
+En el pool, una evidencia que ya apareció en otro ítem va como «(= arriba)»: es el mismo pasaje del mismo documento.
+Cada cifra, hora, fecha y cita que escribas tiene que estar en el texto de los ids que citás. No agregás nada que no esté en el pool.
+</tarea>
+
+===== USUARIO (md5 eb0a41b589b3c0bb7f67313f61885db6) =====
+<caso>Horrores del Asilo Pennhurst</caso>
+
+<pool>
+<personajes n="40">
+[P01] Terri Lee Halderman · Residente de Pennhurst e iniciadora de la demanda. · variantes: Halderman
+    F05@8405: «This suit originally was brought in 1974 by respondent Terri Lee Halderman, a resident of Pennhurst, in the District Court for the Eastern District of Pennsylvania.»
+    F05@94309: «Terri Lee Halderman, for example, was learning to talk when she entered Pennhurst; after residing there she lost her verbal skills.»
+    F04@427: «Case name: Pennhurst State School and Hospital v. Halderman»
+    F02@23609: «the filing of the suit by David Ferleger on May 30, 1974 on behalf of Terri Lee Halderman for both injunctive relief and money damages.»
+    F12@9085: «Terri Lee Halderman, the original plaintiff in this action, was admitted to Pennhurst in 1966 when she was twelve years of age.»
+[P02] Justice Brennan · Juez de la Corte Suprema, autor de un voto disidente
+    F05@88162: «Justi ce Bren nan , dissenting. I fully agree with Justic e Stevens ’ dissent. Nevertheless, I write separately to explain that in view of my continued belief that the Eleventh Amendment “bars federal court suits against States only by citizens of other States,”...»
+[P03] Justice Stevens · Juez de la Corte Suprema, autor de un voto disidente · variantes: Stevens
+    F05@90149: «Justi ce Stevens , with whom Justi ce Bren nan , Jus tic e Mars hal l , and Justi ce Black mun join, dissenting. This case has illuminated the character of an institution.»
+    F05@178967: «PENNHURST STATE SCHOOL & HOSP. v. HALDERMAN 163 89 Stevens, J., dissenting»
+[P04] Justice Marshall · Juez de la Corte Suprema, se unió al voto disidente
+    F05@90149: «Justi ce Stevens , with whom Justi ce Bren nan , Jus tic e Mars hal l , and Justi ce Black mun join, dissenting.»
+[P06] Raymond J. Broderick · Juez del Tribunal de Distrito de los Estados Unidos · variantes: Raymond Broderick
+    F02@11413: «When United States District Court Judge Raymond Broderick issued his opinion in the Halderman v. Pennhurst State School and Hospital case in 1977, it was considered the most far-reaching legal event in the field of mental disabilities to date.»
+    F02@151100: «On March 17, 1978, Judge Raymond J. Broderick of the Federal court for the Eastern District of Pennsylvania ordered that all the people living at Pennhurst (among others) move to alternative CLAs.»
+    F10@1302: «After a thirty-two day trial, U.S. District Court Judge Raymond J. Broderick found that Pennhurst was overcrowded, understaffed, and lacked the programs needed for adequate habilitation.»
+[P07] David Ferleger · Abogado
+    F02@23609: (= arriba)
+    F10@805: «The plaintiffs, represented by prominent civil rights attorney David Ferleger, argued that the institutionalization of the residents violated their constitutional rights»
+[P10] Romeo · Residente de Pennhurst State Center con retraso profundo
+    F02@48064: «The suit, which was originally filed in the federal district court in 1976, involved a profoundly retarded resident of Pennhurst State Center.»
+    F02@68083: «Though Romeo differed in character from the Pennhurst suit, it offered the Supreme Court its first opportunity to define the Constitutional rights of institutionalized mentally retarded persons.»
+[P11] Joseph Schmidt · Persona con discapacidad mental
+    F02@49367: «Another significant case, In Re Joseph Schmidt, was decided by the Pennsylvania Supreme Court.»
+[P12] Helen O'Bannon · Secretaria del Departamento de Bienestar Público
+    F02@57941: «In August 1981. Judge Broderick found the the Department of Public Welfare and Secretary Helen O'Bannon in contempt and assessed a $10,00 per day fine»
+[P13] Juez Broderick · Juez federal que preside el caso Pennhurst.
+    F02@61173: «As part of their response to Judge Broderick's March 2, 1981 order, OMR staff proposed to establish a "special management unit" in the Southeast Region»
+[P14] Dr. Ziring · Consultor médico externo
+    F02@62204: «According to Pennhurst staff, the presence of Dr. Ziring increased the level of interest and knowledge among direct care staff regarding medication issues.»
+[P15] April Sauers · Demandante en un caso de arreglos de vida comunitaria.
+    F02@79840: «the Pennsylvania Commonwealth Court found that the state must pay 100% of the cost of community living arrangements for April Sauers.»
+[P16] Richard Thornburgh · Gobernador de Pensilvania
+    F02@93543: «In January, 1985, Governor Richard Thornburgh announced that the Pennhurst State Center facility would be converted into a state medical facility for veterans by 1986.»
+[P17] Robert · Residente de Pennhurst
+    F02@145476: «Robert was delivered prematurely, at 6 1/2 months, in 1961; he weighed just over 3 pounds, and spent two months in an incubator.»
+[P18] Steve · Ex-residente de Pennhurst, no ambulatorio
+    F02@194864: «Steve moved to the community after having lived at Pennhurst for 27 years. While Steve reported having been very happy at Pennhurst, he is even happier in his new group home.»
+[P19] Bruce · Ex-residente de Pennhurst
+    F02@196075: «Bruce would like to stay in his group home. He moved there about 6 months ago, after having lived at Pennhurst for 28 years.»
+[P20] Joan · Ex-residente de Pennhurst con síndrome de Down y ceguera legal
+    F02@231735: «Joan left Pennhurst in June 1980, after having lived there since May 1969. Joan has Down's Syndrome and is legally blind.»
+    F02@232908: «In December of 1982 a new project director took over Joan's program. When she assessed Joan's behavior problems, she made several changes»
+[P23] Susan · Ex-residente de Pennhurst
+    F02@268548: «Susan left Pennhurst in 1974, before the Pennhurst litigation began; therefore by current definition she is not a class member.»
+[P24] Judge Broderick · Juez que ordenó el cierre de Pennhurst
+    F02@270511: «When Judge Broderick ordered Pennhurst closed it was obvious that the decision would have an impact on the lives and attitudes of families, as well as on the people themselves.»
+[P26] James Conroy · Punto de contacto para el Estudio Longitudinal de Pennhurst
+    F08@3973: «For information about this option, contact Dr. James Conroy at jconroycoa@gmail.com to find out how to proceed.»
+    F10@5081: «Significant for the approval of this settlement was a detailed study by James Conroy, Director of Research of the Developmental Disabilities Center at Temple University»
+[P28] Bill Baldini · Periodista televisivo
+    F10@258: «a five-part television exposé by Bill Baldini called “Suffer the Little Children.”»
+    F11@823: «In 1968, WCAU 10 news reporter Bill Baldini documented the crowded conditions at Pennhurst in a five-night exposé that shocked and angered the public.»
+[P29] Residentes de Pennhurst · Demandantes y víctimas
+    F10@527: «On May 30, 1974 a class action lawsuit was filed in the U. S. District Court for the Eastern District of Pennsylvania on behalf of former and current residents of Pennhurst»
+[P30] Charles DiNolfi · Demandante y residente
+    F12@9729: «Plaintiff Charles DiNolfi was admitted to Pennhurst when he was nine years old; he is now forty-five and has resided at the institution continually except for short stays at White Haven State School and Hospital.»
+[P31] Dorothy Hunsicker · Hermana del residente Charles DiNolfi
+    F12@9966: «Dorothy Hunsicker, his sister, testified that whenever she or her family visited him, Mr. DiNolfi had some type of bandage on.»
+[P32] Robert Sobetsky · Demandante y residente
+    F12@10462: «Plaintiffs Robert and Theresa Sobetsky were admitted to Pennhurst on November 29, 1971.»
+[P33] Theresa Sobetsky · Demandante y residente
+    F12@10462: (= arriba)
+[P34] Robert Hight · Demandante y residente
+    F12@11238: «Plaintiff Robert Hight, born in 1965, was admitted to Pennhurst in September, 1974.»
+[P35] George Sorotos · Demandante y residente
+    F12@11938: «Plaintiff George Sorotos entered Pennhurst in 1970 at the age of seven.»
+[P36] Marion Caranfa · Antigua madre de acogida del residente George Sorotos
+    F12@12010: «In the seven years that George has been at Pennhurst, his former foster mother, Marion Caranfa, testified that in her weekly visits to Pennhurst there have been only four occasions when George was not injured.»
+[P37] Larry Taylor · Demandante y residente
+    F12@12807: «Plaintiffs Larry and Kenny Taylor entered Pennhurst on February 28, 1961.»
+[P38] Kenny Taylor · Demandante y residente
+    F12@12807: (= arriba)
+[P39] Nancy Beth Bowman · Demandante y residente
+    F12@13945: «Plaintiff Nancy Beth Bowman entered Pennhurst at the age of ten in 1961.»
+[P40] Linda Taub · Demandante y residente
+    F12@14677: «Plaintiff Linda Taub, who is blind in addition to being retarded, was admitted to Pennhurst in 1966 at the age of fifteen.»
+[P41] Roland Johnson · Ex-residente de Pennhurst y activista
+    F07@1897: «One voice among many who raised awareness about Pennhurst was former resident Roland Johnson who was a patient of the State School from 1958 to 1971.»
+[P43] The District Court · Tribunal de primera instancia
+    F05@92836: «“Conditions at Pennhurst are not only dangerous, with the residents often physically abused or drugged by staff members, but also inadequate for the ‘habilitation’ of the retarded. Indeed, the court found that the physical, intellectual, and emotional skills of some residents have deteriorated at Pe»
+[P44] David D. Gregory · Maestro Especial en el caso Wuori v. Zitnay
+    F02@98754: «The State's failure to comply with the Court's (consent] decree remains substantial . . . The State could have made much greater achievements if all State agencies bound by the decree had given their active, informed cooperation.»
+[P45] Eugene Bardach · Autor de The Implementation Game
+    F02@105293: «A not insignificant number of policies and programs originate in the desire to extirpate real or imagined evil. Such policies create implementation opportunities for activists whom many political interests will perceive as "hotheads," "extemists," or "zealots." A couterreformation then sets in.»
+[P46] Arnold Toynbee · Historiador
+    F08@1: «“History is something that happens to people”- Arnold Toynbee»
+[P47] Juez Thurgood Marshall · Juez
+    F12@2615: «Massive custodial institutions were built to warehouse the retarded for life. The aim was to halt reproduction of the retarded and nearly extinguish their race. - Justice Thurgood Marshall, 1985»
+[P48] Superintendente Youngberg · Superintendente
+    F12@6544: «There is not adequate space for (the residents. The living areas do) not provide privacy for those persons who can handle privacy. There does not seem to be adequate activity areas or program areas or even general activity areas within the general living area...»
+</personajes>
+<cronologia n="108">
+[T01] La legislatura del estado de Pensilvania aprueba la creación de Pennhurst State School and Hosptial. · fecha 1903 · hora None · lugar Pensilvania
+    F07@1055: «In 1903, an institution by the name of Pennhurst State School and Hosptial was given approval by the PA state legislature.»
+[T02] Se inauguró la Pennhurst State School and Hospital. · fecha 1908 · hora None · lugar None
+    F09@10: «The Pennhurst State School and Hospital was opened in 1908 as a new model of treating the mentally challenged.»
+[T03] Se inaugura la Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic. · fecha 1908 · hora None · lugar Spring City, Pennsylvania
+    F11@421: «First opened in 1908 as the Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic, Pennhurst quickly gained a reputation as a facility fraught with problems.»
+[T04] Se decide el caso Larson, que el tribunal actual reconoce como un punto de inflexión en la ley de inmunidad soberana. · fecha 1949 · hora None · lugar None
+    F05@63954: «Since Larson was decided in 1949,26 no opinion by any Member of this Court has cited the cases on which the dissent primarily relies for a proposition as broad as the language the dissent quotes.»
+[T05] Roland Johnson ingresa como paciente en Pennhurst State School. · fecha 1958 · hora None · lugar Pennhurst State School
+    F07@1975: «Roland Johnson who was a patient of the State School from 1958 to 1971.»
+[T06] Nace Robert, futuro residente de Pennhurst. · fecha 1961 · hora None · lugar None
+    F02@145476: (= arriba)
+[T07] Nancy Beth Bowman ingresó a Pennhurst a la edad de 10 años. · fecha 1961 · hora None · lugar Pennhurst
+    F12@13945: (= arriba)
+[T08] Larry y Kenny Taylor ingresaron a Pennhurst. · fecha 1961-02-28 · hora None · lugar Pennhurst
+    F12@12807: (= arriba)
+[T09] Se promulga la Ley de Salud Mental y Retraso Mental de Pennsylvania (MH/MR Act). · fecha 1966 · hora None · lugar None
+    F05@9375: «and the Pennsylvania Mental Health and Mental Retardation Act of 1966 (MH/MR Act), Pa. Stat. Ann., Tit. 50, §§4101-4704 (Purdon 1969 and Supp. 1983-1984).»
+[T10] Terri Lee Halderman fue admitida en Pennhurst a la edad de 12 años. · fecha 1966 · hora None · lugar Pennhurst
+    F12@9085: (= arriba)
+    F12@14677: (= arriba)
+[T11] Campbell publica un artículo sobre análisis de "series de tiempo interrumpidas", método utilizado en el estudio longitudinal de Pennhurst. · fecha 1967 · hora None · lugar None
+    F02@175731: «The longitudinal approach is, in this case, really a family of analyses of the form called "interrupted time series" by Campbell (1967).»
+[T12] Se emite la exposición televisiva de Bill Baldini, "Suffer the Little Children", que saca a la luz las condiciones en Pennhurst. · fecha 1968 · hora None · lugar None
+    F10@208: «were brought to the public’s attention in 1968 in a five-part television exposé by Bill Baldini called “Suffer the Little Children.”»
+[T13] Los padres de Linda Taub la encontraron atada a una silla de ruedas con una camisa de fuerza. · fecha 1968 · hora None · lugar Pennhurst
+    F12@15063: «During one of their visits in 1968, Linda's parents found Linda, a person capable of walking, strapped to a wheelchair by a straightjacket.»
+[T14] El reportero de WCAU 10, Bill Baldini, documenta las condiciones de hacinamiento en Pennhurst en una exposición de cinco noches. · fecha 1968 · hora None · lugar Pennhurst
+    F11@823: (= arriba)
+[T15] George Sorotos ingresó a Pennhurst a la edad de 7 años. · fecha 1970 · hora None · lugar Pennhurst
+    F12@11938: (= arriba)
+[T16] Comienzan a tener lugar cambios en el cuidado y tratamiento de los residentes y en la conciencia pública. · fecha 1970 · hora None · lugar Pennhurst
+    F11@1457: «By the early 70s, changes were taking place not only in the care and treatment of the residents but in the public consciousness as well.»
+[T17] Roland Johnson deja de ser paciente en Pennhurst State School. · fecha 1971 · hora None · lugar Pennhurst State School
+    F07@1975: (= arriba)
+[T18] Robert y Theresa Sobetsky fueron admitidos en Pennhurst. · fecha 1971-11-29 · hora None · lugar Pennhurst
+    F12@10462: (= arriba)
+[T19] Se activa el caso Welsh en Minnesota, un litigio sobre los derechos de las personas con discapacidad intelectual. · fecha 1972 · hora None · lugar Minnesota
+    F02@139782: «In Minnesota, though the Welsh case has been active since 1972, it is only recently that the court appointed a monitor.»
+[T20] Terri Lee Halderman, una residente de Pennhurst, inicia una demanda en el Tribunal de Distrito para el Distrito Este de Pennsylvania. · fecha 1974 · hora None · lugar District Court for the Eastern District of Pennsylvania
+    F05@8405: (= arriba)
+[T21] Susan dejó Pennhurst. · fecha 1974 · hora None · lugar Pennhurst
+    F02@268548: (= arriba)
+[T22] Un individuo de 18 años pasó 6 días consecutivos en aislamiento por agredir a un residente con síndrome de Down. · fecha 1974 · hora None · lugar Pennhurst
+    F12@4864: «One eighteen year old individual spent six consecutive days in seclusion in 1974 for assaulting a Down's Syndrome resident.»
+[T23] Se presentó una demanda histórica contra Pennhurst. · fecha 1974 · hora None · lugar Pennhurst
+    F09@236: «Shockingly underfunded and at over twice its capacity of 1300 residents in 1974, a landmark lawsuit was brought against Pennhurst...»
+    F11@1594: «When a class-action lawsuit brought against Pennhurst and the State of Pennsylvania in 1974 thrust the institution into the national spotlight, it sparked a movement to end the forced institutionalization of those with developmental disabilities.»
+[T24] Un tribunal de EE. UU. exigió el cierre de Pennhurst y declaró el derecho de las personas con discapacidad mental a vivir en la comunidad. · fecha 1974 · hora None · lugar Estados Unidos
+    F09@317: «...a landmark lawsuit was brought against Pennhurst that resulted in the US court demanding its closure and declaring for the first time that "people with mental retardation have a right to live in the community."»
+[T25] David Ferleger presenta la demanda en nombre de Terri Lee Halderman por medidas cautelares y daños monetarios. · fecha 1974-05-30 · hora None · lugar None
+    F02@23609: (= arriba)
+[T26] Se presenta una demanda colectiva en nombre de los residentes actuales y anteriores de Pennhurst. · fecha 1974-05-30 · hora None · lugar U. S. District Court for the Eastern District of Pennsylvania
+    F10@527: (= arriba)
+[T27] Robert Hight fue admitido en Pennhurst. · fecha 1974-09 · hora None · lugar Pennhurst
+    F12@11238: (= arriba)
+[T28] Larry y Kenny Taylor fueron transferidos a Woodhaven. · fecha 1975 · hora None · lugar Pennhurst
+    F12@13472: «Larry and Kenny were transferred to Woodhaven in 1975 where Mrs. Taylor testified that Larry does not receive any psychotropic medication, and is able to walk independently.»
+[T29] Un individuo le arrancó de un mordisco tres cuartas partes del lóbulo y parte de la oreja externa a otro residente mientras dormía. · fecha 1975-01-08 · hora None · lugar Pennhurst
+    F12@7789: «For example, on January 8, 1975, one individual bit off three-quarters of the earlobe and part of the outer ear of another resident while the second resident was asleep.»
+[T30] Un residente fue violado por un miembro del personal. · fecha 1976 · hora None · lugar Pennhurst
+    F12@8341: «In 1976, one resident was raped by a staff person (Ruddick, N.T. 3-115 to 3-117);»
+[T31] Robert y Theresa Sobetsky comenzaron a residir en Woodhaven. · fecha 1976-01 · hora None · lugar Woodhaven
+    F12@11098: «Since January, 1976, they have been residing at Woodhaven, a Pennsylvania institution for the mentally retarded run by Temple University.»
+[T32] Una residente estuvo en sujeción física por 651 horas y 5 minutos. · fecha 1976-06 · hora None · lugar Pennhurst
+    F12@5054: «An extreme example is a female resident who, during the month of June 1976, was in a physical restraint for 651 hours 5 minutes;»
+[T33] Una residente estuvo en sujeción física por 720 horas. · fecha 1976-08 · hora None · lugar Pennhurst
+    F12@5183: «for the month of August, 1976, was in physical restraints for 720 hours;»
+[T34] Una residente estuvo en sujeción física por 674 horas y 20 minutos. · fecha 1976-09 · hora None · lugar Pennhurst
+    F12@5256: «during September, 1976, was in physical restraints for 674 hours 20 minutes;»
+[T35] Una residente estuvo en sujeción física por 647 horas y 5 minutos. · fecha 1976-10 · hora None · lugar Pennhurst
+    F12@5333: «and during the month of October, 1976, was in physical restraints for 647 hours 5 minutes.»
+[T36] El Tribunal de Distrito emite su decisión tras un largo juicio, detallando las condiciones en Pennhurst. · fecha 1977 · hora None · lugar None
+    F05@9579: «In 1977, following a lengthy trial, the District Court rendered its decision. Halderman v. Pennhurst State School and Hospital, 446 F. Supp. 1295.»
+    F05@90436: «In 1977, after three years of litigation, the District Court entered detailed findings of fact that abundantly support that conclusion.»
+[T37] El juez del Tribunal de Distrito de los Estados Unidos, Raymond Broderick, emite su opinión en el caso Halderman v. Pennhurst State School and Hospital. · fecha 1977 · hora None · lugar None
+    F02@11413: (= arriba)
+[T38] Se decide el caso Pennhurst, y el primer acuerdo de consentimiento no se consuma hasta 1981. · fecha 1977 · hora None · lugar None
+    F02@59133: «The final legal event during this phase was the consummation of the first consent agreement since the Pennhurst case was decided in 1977.»
+[T39] Una residente autodestructiva fue inscrita en terapia ocupacional a principios de 1977. · fecha 1977 · hora None · lugar Pennhurst
+    F12@5534: «She was not enrolled in occupational therapy until early 1977. Once initiated, her programming has apparently been quite successful, and she is now able to be out of restraints for as much as four hours per day.»
+[T40] Se reportaron 833 lesiones menores y 25 mayores en Pennhurst. · fecha 1977-01 · hora None · lugar Pennhurst
+    F12@8135: «Such resident abuse of residents continues. In January, 1977 alone, there were 833 minor and 25 major injuries reported.(Youngberg, Deposition at 83).»
+[T41] Se recopilaron datos de la Encuesta de Desarrollo del Comportamiento (BDS) en Pennhurst. · fecha 1978 · hora None · lugar None
+    F02@176280: «We collected BDS data (as previously displayed in Exhibit 4-1) in 1978, 1980, 1982, 1983, and 1984.»
+[T42] Todas las personas que vivían en Pennhurst en 1978 pasaron a formar parte del Estudio Longitudinal de Pennhurst. · fecha 1978 · hora None · lugar Pennhurst
+    F08@3478: «All people who lived at Pennhurst in 1978 became part of the Pennhurst Longitudinal Study.»
+[T43] Comenzó el seguimiento anual cara a cara de los residentes para el Estudio Longitudinal de Pennhurst. · fecha 1978 · hora None · lugar Pennhurst
+    F08@3569: «They were tracked and visited, face to face, every year from 1978 to 1992.»
+[T44] El juez Broderick emite una orden inicial que exige la provisión de servicios comunitarios para todos los residentes de Pennhurst y nombra un Special Master. · fecha 1978-03-17 · hora None · lugar None
+    F02@27458: «“Original Order” (March 17, 1978) Judge Broderick’s initial order included the following requirements: that suitable community services be provided for all Pennhurst residents and other class members; ... that a Special Master be appointed to supervise planning and implementation»
+[T45] El juez Raymond J. Broderick ordena que todas las personas que viven en Pennhurst (1154 en ese momento) se trasladen a viviendas comunitarias alternativas. · fecha 1978-03-17 · hora None · lugar Pennsylvania
+    F02@151100: (= arriba)
+[T46] Se contabilizaron 45 áreas de vivienda en Pennhurst. · fecha 1978-10 · hora None · lugar Pennhurst
+    F02@239834: «In October 1978 there were 45 living areas at Pennhurst.»
+[T47] El Tribunal de Apelaciones para el Tercer Circuito afirmó la mayor parte del fallo del Tribunal de Distrito. · fecha 1979 · hora None · lugar None
+    F05@11462: «The Court of Appeals for the Third Circuit affirmed most of the District Court’s judgment. Halderman v. Pennhurst State School and Hospital, 612 F. 2d 84 (1979) (en banc).»
+[T48] Planificadores federales deciden lanzar un estudio longitudinal de cinco años sobre el caso Pennhurst. · fecha 1979 · hora None · lugar None
+    F02@10282: «Federal planners, recognizing the significance for clients, families, communities, and states of Judge Broderick's and other similar actions, decided in 1979 to launch this five-year study.»
+[T49] El equipo del estudio comenzó a buscar trabajos previos sobre entrevistas a consumidores y a desarrollar un borrador de instrumento. · fecha 1979 · hora None · lugar None
+    F02@207238: «An extensive search for prior work in this area was initiated in 1979. The study team obtained copies of instruments used before, analyzed all available literature, and telephoned many of the researchers who had conducted such work. A draft instrument was developed from this groundwork in 1979.»
+[T50] El juez Broderick firma la orden para los niños en edad escolar, programando a Robert para ser uno de los primeros en mudarse de Pennhurst. · fecha 1979-06 · hora None · lugar None
+    F02@146420: «Since Robert was under 21 in June 1979 (when Judge Broderick signed the 'school-age children's order'), he was slated to be one of the early movers.»
+[T51] El proyecto contrató a Terry Perl y William Snauffer como consultores para reducir los estándares ACMRDD. · fecha 1979-08 · hora None · lugar None
+    F02@236778: «In August 1979 the project engaged Mr. Terry Perl, former head of the Survey Procedures Committee of ACMRDD, and Mr. William Snauffer, director of a corporation that employed experienced ACMRDD field surveyors, as consultants.»
+[T52] Se llevó a cabo un taller de capacitación para las evaluaciones de normalización y RMS en la institución. · fecha 1979-09 · hora None · lugar Pennhurst
+    F02@242904: «A training workshop was held in September 1979. ... The normalization and RMS assessments in the institution were performed by two-person teams in September 1979.»
+[T53] El Tribunal de Apelaciones de los Estados Unidos para el Tercer Circuito emite su opinión, eliminando la presunción de que Pennhurst cerraría y la prohibición de nuevas admisiones. · fecha 1979-12-13 · hora None · lugar None
+    F02@37580: «On December 13, 1979, the United States Court of Appeals for the Third Circuit issued its en banc opinion in the Pennhurst case. ... The three areas that were eliminated included: ... 2) the presumption that Pennhurst would eventually close; and 3) the portion of the decree banning all admissions to»
+[T54] Se inician negociaciones para llegar a un acuerdo, pero fracasan por desacuerdos sobre el papel final de Pennhurst y el calendario de reubicación. · fecha 1980 · hora None · lugar None
+    F02@38594: «Negotiations began early in 1980 and continued for several months. The major area of disagreement among the parties was the ultimate role of Pennhurst.»
+[T55] Se recopilaron datos de la Encuesta de Desarrollo del Comportamiento (BDS) y de los servicios prestados en Pennhurst. · fecha 1980 · hora None · lugar Pennhurst
+    F02@176280: (= arriba)
+    F02@245259: «In 1980, the Behavior Development Survey was collected for all 713 individuals who remained at Pennhurst»
+[T56] Algunos residentes se mudaron a Arreglos de Vida Comunitaria (CLA) a finales de 1980. · fecha 1980 · hora None · lugar None
+    F02@176440: «...these were people who were still at Pennhurst in September 1980, and went to CLAs in late 1980 or by the middle of 1981, so that we saw them in CLAs in 1982...»
+[T57] Familias de 126 residentes de Pennhurst percibían que sus parientes tenían serias necesidades médicas antes de su reubicación. · fecha 1980 · hora None · lugar None
+    F02@291886: «We obtained the families' perceptions of their relatives' medical needs from 126 of the 134 families in the pre-post study. In general, families perceived serious medical needs among their relatives in 1980, before relocation, and also after relocation.»
+[T58] El Tribunal de Distrito establece procedimientos detallados para determinar la ubicación residencial adecuada para cada paciente. · fecha 1980-04-24 · hora None · lugar None
+    F05@13116: «On remand the District Court established detailed procedures for determining the proper residential placement for each patient. ... See App. 123a-134a (Order of Apr. 24, 1980).»
+[T59] Se llevó a cabo la selección de sujetos para las entrevistas a consumidores de entre los residentes de Pennhurst provenientes del área de Filadelfia. · fecha 1980-05 · hora None · lugar Pennhurst
+    F02@203603: «Subject selection took place in Spring of 1980, after all design and instrument development was completed. [...] of the people still at Pennhurst, only the people who were originally from the greater Philadelphia area (the five southeastern counties of Pennsylvania) would be candidates.»
+[T60] Las familias de los residentes de Pennhurst fueron encuestadas por correo antes de que sus parientes abandonaran la institución. · fecha 1980-06 · hora None · lugar Pennhurst
+    F02@281386: «Families of Pennhurst residents were surveyed by mail in June 1980, before their relatives left the institution.»
+[T61] El juez emite una orden que obliga al Hearing Master a celebrar audiencias sobre voluntariedad para cada individuo que sale de Pennhurst. · fecha 1980-07-14 · hora None · lugar None
+    F02@67477: «The final legal event during this time period was the Judge's decision to vacate his order of July 14, 1980 which directed the Hearing Master to hold hearings on every individual being placed out of Pennhurst and to determine whether the placements were "voluntary."»
+[T62] La Corte Suprema escucha los argumentos orales en el caso Pennhurst. · fecha 1980-12-08 · hora None · lugar None
+    F02@47145: «On December 8, 1980, the Supreme Court heard arguments on the Pennhurst case.»
+[T63] La Corte Suprema revierte la sentencia del Tribunal de Apelaciones y devuelve el caso para que se determine si la orden de reparación podría basarse en la ley estatal, la Constitución o la Ley de Rehabilitación. · fecha 1981 · hora None · lugar None
+    F05@14451: «This Court reversed the judgment of the Court of Appeals, finding that 42 U. S. C. § 6010 did not create any substantive rights. Pennhurst State School and Hospital v. Halderman, 451 U. S. 1 (1981).»
+[T64] La Corte Suprema, tras 4 años más de litigio, ordenó al Tribunal de Apelaciones que decidiera si la ley de Pensilvania sustentaba la orden de reparación del Tribunal de Distrito. · fecha 1981 · hora None · lugar United States Court of Appeals for the Third Circuit
+    F05@90572: «In 1981, after four more years of litigation, this Court ordered the United States Court of Appeals for the Third Circuit to decide whether the law of Pennsylvania provides an independent and adequate ground which can support the District Court’s remedial order.»
+[T65] La Corte Suprema de Pensilvania emite su fallo en el caso In re Schmidt. · fecha 1981 · hora None · lugar Pennsylvania Supreme Court
+    F05@96774: «In a footnote we declined to consider the effect of the Pennsylvania Supreme Court’s then recent decision, In re Schmidt, 494 Pa. 86, 429 A. 2d 631 (1981), on the state-law issues in the case...»
+[T66] Se publica el fallo judicial del caso Pennhurst State School and Hospital v. Halderman. · fecha 1981 · hora None · lugar None
+    F04@137: «Pennhurst State School and Hospital v. Halderman, 451 U.S. 1 (1981) (No. 79-1404)
+- Publication date
+- 1981»
+[T67] Se realizó la primera entrevista posterior a la colocación en un Arreglo de Vida Comunitaria (CLA). · fecha 1981 · hora None · lugar None
+    F02@201776: «The first post-placement interview occurred in early 1981, the last in mid-1984.»
+[T68] Comienza la primera de cuatro oleadas de entrevistas telefónicas a familias de ex-residentes para la encuesta post-reubicación. · fecha 1981-01 · hora None · lugar None
+    F02@277289: «The telephone interviews were conducted between January 1981 and February.1984 in four waves. In the first wave, conducted in early 1981, the 22 families of people who had been in CLAs for six months or more were interviewed.»
+[T69] El juez Broderick firma una orden de implementación que establece un calendario de reubicación para los miembros de la clase de Pennhurst. · fecha 1981-03-02 · hora None · lugar None
+    F02@50289: «On March 2, 1981. Judge Broderick signed an implementation order setting a placement schedule for Pennhurst class members.»
+    F02@61173: (= arriba)
+[T70] Se emite el fallo en el caso Pennhurst State School and Hospital v. Halderman. · fecha 1981-04-20 · hora None · lugar None
+    F04@427: «Case name: Pennhurst State School and Hospital v. Halderman
+Opinion filed: 1981-04-20»
+[T71] La Corte Suprema de EE. UU. dictamina que la Sección 6010 de la Ley de Asistencia y Declaración de Derechos para Discapacidades del Desarrollo (DD Act) no crea ningún derecho sustantivo. · fecha 1981-04-20 · hora None · lugar None
+    F02@56308: «On April 20, 1981, the Supreme Court ruled, in a six to three decision, that Section 6010 of the Developmental Disabilities Assistance and Bill or Rights Act (DD Act) does not create any substantive rights»
+[T72] Pennsylvania promulga una ley de asignaciones que limita a $35,000 los fondos para los Masters designados por el tribunal. · fecha 1981-07-01 · hora None · lugar None
+    F05@15634: «On July 1, 1981, Pennsylvania enacted an appropriations bill providing that only $35,000 would be paid for the Masters’ expenses for the fiscal year July 1981 to June 1982.»
+[T73] Se informa que casi todos los programas residenciales y diurnos para los miembros de la clase de Pennhurst han sido desarrollados. · fecha 1981-07-31 · hora None · lugar None
+    F02@59938: «By July 31, 1981, almost all residential and day programs had been developed.»
+[T74] El juez Broderick declara en desacato al Departamento de Bienestar Público y a la secretaria Helen O'Bannon por no obedecer las órdenes de pago para la Oficina del Special Master. · fecha 1981-08 · hora None · lugar None
+    F02@57941: «In August 1981. Judge Broderick found the the Department of Public Welfare and Secretary Helen O'Bannon in contempt and assessed a $10,00 per day fine to run each day after September 2, 1981 that the payment orders were not obeyed.»
+[T75] Se presenta en la Asamblea General de Pensilvania el proyecto de ley House Bill 1824, que busca modificar la Ley de Salud Mental y Retraso Mental de 1966. · fecha 1981-09 · hora None · lugar General Assembly
+    F02@71572: «House Bill 1824, introduced in the General Assembly in September 1981, called for significant changes in the Mental Health and Mental Retardation Act of 1966.»
+[T76] Filadelfia se compromete a realizar las reubicaciones de residentes de Pennhurst requeridas por el tribunal. · fecha 1981-09-30 · hora None · lugar Philadelphia
+    F02@59418: «By signing the agreement, Philadelphia did not admit contempt of the March 2nd Order, but agreed to make its required placements by September 30, 1981.»
+[T77] El Tribunal de Apelaciones, en pleno y por unanimidad, concluyó que la ley de Pensilvania justificaba la reparación ordenada por el Tribunal de Distrito. · fecha 1982 · hora None · lugar United States Court of Appeals for the Third Circuit
+    F05@97147: «On remand, 673 F. 2d 647 (CA 1982) (en banc), the Court of Appeals, noting that this Court had remanded for reconsideration of the state-law issue, examined the impact of Schmidt.»
+[T78] El Senado de Pensilvania aprueba una resolución para investigar la gestión del sistema de retraso mental, estimulada por quejas de padres. · fecha 1982 · hora None · lugar Pennsylvania
+    F02@130961: «Late in 1982, the Pennsylvania Senate passed a resolution establishing a five member investigatory committee to review the operations of the Office of Mental Retardation.»
+[T79] El residente Robert se muda de Pennhurst a una casa grupal en la comunidad. · fecha 1982 · hora None · lugar None
+    F02@146569: «Because of parental objections, Robert did not move until the summer of 1982, and even then his parents were less than thrilled.»
+[T80] Se recopilaron datos de la Encuesta de Desarrollo del Comportamiento (BDS) para personas que se habían mudado a Arreglos de Vida Comunitaria (CLA). · fecha 1982 · hora None · lugar Arreglos de Vida Comunitaria (CLA)
+    F02@176280: (= arriba)
+[T81] A principios de enero, el juez Broderick liberó a la Secretaria y a la Mancomunidad de la responsabilidad de pagar las multas diarias de $10,000. · fecha 1982-01 · hora None · lugar None
+    F02@65930: «On the O'Bannon contempt issue, Judge Broderick relieved the Secretary and the Commonwealth of the responsibility to pay the $10,000 daily fines. By early January 1982, the fund had swelled to approximately $1,200,000.»
+[T82] Pennsylvania paga las multas por desacato impuestas por el Tribunal de Distrito y el desacato es purgado. · fecha 1982-01-08 · hora None · lugar None
+    F05@15947: «Pennsylvania paid the fines, and the contempt was purged on January 8, 1982. On appeal the Court of Appeals affirmed the contempt order.»
+[T83] Comenzó la recolección de datos en la comunidad para aproximadamente 200 personas que habían sido reubicadas desde Pennhurst. · fecha 1982-03 · hora None · lugar None
+    F02@244614: «In March 1982, data collection began in the community. As of that time, approximately 200 people had been relocated from Pennhurst to the community.»
+[T84] La Corte Suprema de EE. UU. concede por segunda vez el certiorari en el caso Pennhurst. · fecha 1982-06 · hora None · lugar None
+    F02@77144: «In June 1982, the Supreme Court once again granted certiorari in Pennhurst.»
+[T85] Fecha límite para que cinco condados demandados cumplan con las reubicaciones comunitarias. · fecha 1982-06-30 · hora None · lugar None
+    F02@81020: «It was evident during this most recent phase that the five county defendants had a sense of urgency in meeting the June 30 1982 deadline for community placements.»
+[T86] El juez Broderick ordena a la Maestra Especial que desarrolle un plan para reducir sus operaciones para fin de año. · fecha 1982-08-12 · hora None · lugar None
+    F02@78057: «on August 12, 1982, Judge Broderick issued an order requesting that the Special Master develop a plan for phase-down of her operations by the end of the calendar year.»
+[T87] La Oficina del Special Master es abolida. · fecha 1982-12 · hora None · lugar None
+    F05@20628: «The Office of the Special Master was abolished in December 1982. See App. 220a (Order of Aug. 12, 1982).»
+[T88] Una nueva directora de proyecto se hizo cargo del programa de Joan. · fecha 1982-12 · hora None · lugar None
+    F02@232908: «In December of 1982 a new project director took over Joan's program.»
+[T89] La Oficina del Maestro Especial (OSM) fue terminada oficialmente por el tribunal. · fecha 1982-12-31 · hora None · lugar None
+    F02@85768: «As of the end of December 1982, the Office of the Special Master was officially terminated by the court.»
+[T90] Algunos residentes de Pennhurst se mudaron a Arreglos de Vida Comunitaria (CLA). · fecha 1983 · hora None · lugar None
+    F02@176681: «For other people, who moved in 1983, the 1982 CLA data point did not exist; for them, there were just four observations.»
+[T91] Se retiró la Encuesta de Gestión de Residentes (RMS) del proceso de recopilación de datos de los CLA. · fecha 1983 · hora None · lugar None
+    F02@249260: «The Resident Management Survey was dropped in 1983, after the institution to community changes had been assessed.»
+[T92] El tribunal emite una orden que establece un cronograma de implementación para el período de 18 meses que finaliza el 30 de junio de 1984, requiriendo la provisión de arreglos de vida comunitaria para 143 residentes de Pennhurst y otros. · fecha 1983-01-14 · hora None · lugar None
+    F02@86539: «The January 14 order sets out an implementation schedule for the 18 month period ending on June 30, 1984. The order requires the counties and the Commonwealth to provide community living arrangements to 143 residents of Pennhurst»
+[T93] Joan recibió sus prótesis oculares. · fecha 1983-02 · hora None · lugar None
+    F02@233984: «In February 1983, after numerous fittings and close communication with one of the only occularists in the city, Joan received her prostheses.»
+[T94] El juez Broderick emite una orden 'consolidada' que abarca las disposiciones de todas las órdenes anteriores y refleja los cambios ocurridos. · fecha 1983-08 · hora None · lugar None
+    F02@89086: «In August 1983, Judge Broderick issued a "consolidated" order which encompasses -- where relevant -- the provisions of all previous orders, and adjusts provisions to reflect changes made over the past year»
+[T95] Los demandados de la Mancomunidad presentan un plan al Juez Broderick en el que se indica que el Pennhurst Center sería cerrado para 1986. · fecha 1983-11 · hora None · lugar None
+    F02@90171: «In November 1983, the Commonwealth defendants submitted a plan to Judge Broderick in response to the consolidated order. ...It was in this plan that state officials indicated that Pennhurst Center would be closed and that closure would be accomplished by 1986.»
+[T96] Finalizó la recopilación de datos para el estudio longitudinal. · fecha 1984 · hora None · lugar None
+    F02@176280: (= arriba)
+[T97] Se realizó la última entrevista posterior a la colocación en un Arreglo de Vida Comunitaria (CLA). · fecha 1984 · hora None · lugar None
+    F02@201776: (= arriba)
+[T98] Se realizaron nuevas entrevistas a las personas de la muestra que aún permanecían en Pennhurst. · fecha 1984 · hora None · lugar Pennhurst
+    F02@202346: «This presented an opportunity to reinterview the people who were still at Pennhurst in 1984 ("stayers") and to check for changes in their self-reported satisfaction and happiness.»
+[T99] La Corte Suprema de EE.UU. emite su decisión sobre el caso Pennhurst, sosteniendo que la Undécima Enmienda prohibía al Tribunal de Distrito ordenar a los funcionarios estatales conformar su conducta a la ley estatal. · fecha 1984-01-23 · hora None · lugar None
+    F05@195: «No. 81-2101. Argued February 22, 1983—Reargued October 3, 1983— Decided January 23, 1984»
+    F02@90643: «In its second opinion in the Pennhurst case, issued on January 23, 1984, the Supreme Court -- in a five-to-four decision held that the sovereign immunity principle of the Eleventh Amendment to the Constitution prohibits a federal district court from ordering Pennsylvania state officials to comply wi»
+[T100] Finaliza el período de entrevistas telefónicas para la encuesta post-reubicación a las familias. · fecha 1984-02 · hora None · lugar None
+    F02@277289: «The telephone interviews were conducted between January 1981 and February.1984 in four waves.»
+[T101] Se alcanza un acuerdo final que estipula que Pennhurst Center cerrará para el 1 de julio de 1986. · fecha 1984-07-12 · hora None · lugar None
+    F02@32440: «“Final Settlement in Halderman v. Pennhurst” (July 12, 1984) The following are the major points included in the agreement reached between the plaintiffs and the defendants: that Pennhurst Center will close by July 1, 1986»
+[T102] Los demandados de la Mancomunidad y los condados, junto con los demandantes, anuncian que han llegado a un acuerdo de consentimiento, 10 años después de que se presentara la demanda original. · fecha 1984-07-12 · hora None · lugar None
+    F02@91637: «On July 12, 1984, ten years after the original lawsuit was filed, the Commonwealth and county defendants and the plaintiffs announced that they had reached consensus on the terms of a consent agreement.»
+[T103] El juez Broderick celebra una audiencia pública sobre las disposiciones del acuerdo de consentimiento. · fecha 1984-09 · hora None · lugar None
+    F02@92489: «In September 1984, Judge Broderick held a public hearing on the provisions of the consent agreement in order to determine whether there were any objections.»
+[T104] Las partes en el litigio de Pennhurst firman un acuerdo de conciliación para proveer arreglos de vida comunitaria a los residentes restantes. · fecha 1985 · hora None · lugar None
+    F10@4894: «In 1985, while the appeal of those holdings was pending, the parties entered into a settlement agreement providing community living arrangements for the remaining residents of Pennhurst.»
+[T105] Se planea cerrar el Pennhurst Center. · fecha 1986 · hora None · lugar Pennhurst Center
+    F02@90385: «It was in this plan that state officials indicated that Pennhurst Center would be closed and that closure would be accomplished by 1986.»
+[T106] La institución Pennhurst cierra definitivamente. · fecha 1987 · hora None · lugar Pennhurst State School and Hospital
+    F10@6332: «Pennhurst finally closed in 1987.»
+    F11@1841: «Rocked by years of bad publicity, Pennhurst closed its doors in 1987.»
+[T107] El hospital Pennhurst es finalmente cerrado. · fecha 1987-12 · hora None · lugar Pennhurst State School and Hospital
+    F07@1635: «The hospital was finally closed in December 1987, after Halderman v. Pennhurst State School and Hospital was brought to the US Supreme Court»
+[T108] Finalizó el seguimiento anual cara a cara de los residentes para el Estudio Longitudinal de Pennhurst. · fecha 1992 · hora None · lugar Pennhurst
+    F08@3569: (= arriba)
+</cronologia>
+<datos n="236">
+[D01] Terri Lee Halderman, una residente de Pennhurst, inició una demanda colectiva. · tipo nombre · valor Terri Lee Halderman · fecha None
+    F05@285: «Respondent Halderman, a resident of petitioner Pennhurst State School and Hospital, a Pennsylvania institution for the care of the mentally retarded, brought a class action in Federal District Court against Pennhurst»
+[D02] La demanda alegaba que las condiciones en Pennhurst violaban derechos constitucionales y estatutarios federales, así como la Ley de Salud Mental y Retraso Mental de Pennsylvania de 1966. · tipo nombre · valor None · fecha None
+    F05@635: «It was alleged that conditions at Pennhurst violated various federal constitutional and statutory rights of the class members as well as their rights under the Pennsylvania Mental Health and Mental Retardation Act of 1966 (MH/MR Act).»
+    F05@94725: «The District Court held that these conditions violated each resident’s rights under the Due Process and Equal Protection Clauses of the Fourteenth Amendment, § 504 of the Rehabilitation Act of 1973, 87 Stat. 394, 29 U. S. C. § 794, and the Pennsylvania Mental Health and Mental Retardation Act of 196»
+    F10@1033: «as well as under federal civil rights laws and the Pennsylvania Mental Health and [MR] Act of 1966.»
+[D03] Un tribunal encontró que las habilidades físicas, intelectuales y emocionales de algunos residentes se habían deteriorado en Pennhurst. · tipo cita · valor None · fecha None
+    F05@10063: «Indeed, the court found that the physicial, intellectual, and emotional skills of some residents have deteriorated at Pennhurst.” 451 U. S., at 7 (footnote omitted).»
+[D04] El Tribunal de Distrito ordenó que se tomaran medidas inmediatas para sacar a los residentes con retraso de Pennhurst. · tipo cita · valor None · fecha None
+    F05@10905: «After concluding that the large size of Pennhurst prevented it from providing the necessary habilitation in the least restrictive environment, the court ordered that “immediate steps be taken to remove the retarded residents from Pennhurst.”»
+[D05] Se ordenó a los demandados proporcionar "arreglos de vida comunitarios adecuados" para los miembros de la clase. · tipo cita · valor None · fecha None
+    F05@11161: «Petitioners were ordered “to provide suitable community living arrangements” for the class members, id., at 1326, and the court appointed a Special Master»
+[D06] El Tribunal de Distrito nombró un Special Master para planificar, organizar, dirigir, supervisar y monitorear la implementación de las órdenes judiciales. · tipo nombre · valor Special Master · fecha None
+    F05@11279: «the court appointed a Special Master “with the power and duty to plan, organize, direct, supervise and monitor the implementation of this and any further Orders of the Court.”»
+[D07] El Tribunal de Apelaciones observó que algunos pacientes no podrían adaptarse a la vida fuera de una institución. · tipo cita · valor None · fecha None
+    F05@12614: «The court observed that some patients would be unable to adjust to life outside an institution, and it determined that none of the legal provisions relied on by respondents precluded institutionalization.»
+[D08] Se nombró a un Hearing Master para realizar audiencias sobre si los servicios de Pennhurst serían más beneficiosos para un residente que un arreglo de vida comunitario. · tipo nombre · valor Hearing Master · fecha None
+    F05@13512: «A second master, called the Hearing Master, is available to conduct hearings, upon request by the resident, his parents, or his advocate, on the question whether the services of Pennhurst would be more beneficial to the resident»
+[D09] El 1 de julio de 1981, Pennsylvania promulgó un proyecto de ley de asignaciones que proveía solo $35,000 para los gastos de los Masters. · tipo cifra · valor None · fecha 1981-07-01
+    F05@15634: (= arriba)
+[D10] El Tribunal de Distrito declaró en desacato al Departamento de Bienestar Público de Pennsylvania y a su Secretaria, e impuso una multa de $10,000 por día. · tipo cifra · valor None · fecha None
+    F05@15807: «The District Court held the Pennsylvania Department of Public Welfare and its Secretary in contempt, and imposed a fine of $10,000 per day.»
+[D11] La Oficina del Special Master fue abolida en diciembre de 1982. · tipo fecha · valor None · fecha 1982-12
+    F05@20628: «The Office of the Special Master was abolished in December 1982. See App. 220a (Order of Aug. 12, 1982). The Hearing Master remains in operation.»
+[D12] Los fondos para los programas de retraso mental del condado provienen casi en su totalidad del Estado de Pensilvania. · tipo cifra · valor casi en su totalidad · fecha None
+    F05@85613: «Moreover, funding for the county mental retardation programs comes almost entirely from the State, see Pa. Stat. Ann., Tit. 50, §§4507-4509 (Purdon 1969 and Supp. 1983-1984), and the costs of the Masters have been borne by the State...»
+[D13] En su disenso, el juez Stevens afirma que el fallo del tribunal repudia al menos 28 casos previos. · tipo cifra · valor 28 · fecha None
+    F05@91832: «Yet the Court repudiates at least 28 cases, spanning well over a century of this Court’s jurisprudence, proclaiming instead that federal courts have no power to enforce the will of the States by enjoining conduct because it violates state law.»
+[D14] El Tribunal de Distrito determinó que las condiciones en Pennhurst eran peligrosas, con residentes a menudo abusados físicamente o drogados por miembros del personal. · tipo cita · valor None · fecha None
+    F05@92836: «Conditions at Pennhurst are not only dangerous, with the residents often physically abused or drugged by staff members, but also inadequate for the ‘habilitation’ of the retarded.»
+    F04@2104: «"Conditions at Pennhurst are not only dangerous, with the residents often physically abused or drugged by staff members, but also inadequate for the `habilitation' of the retarded"»
+[D15] En Pennhurst eran comunes las enfermedades infecciosas y la atención médica mínimamente adecuada no estaba disponible. · tipo lugar · valor Pennhurst · fecha None
+    F05@93303: «Infectious diseases were common and minimally adequate health care was unavailable. Residents of Pennhurst were inadequately supervised, and as a consequence were often injured by other residents or as a result of self-abuse.»
+[D16] Los asaltos a los residentes por parte de miembros del personal, incluidos los asaltos sexuales, eran frecuentes en Pennhurst. · tipo lugar · valor Pennhurst · fecha None
+    F05@93529: «Assaults on residents by staff members, including sexual assaults, were frequent. Physical restraints were employed in lieu of adequate staffing, often causing injury to residents, and on one occasion leading to a death.»
+[D17] El uso de restricciones físicas en lugar de una dotación de personal adecuada a menudo causaba lesiones a los residentes y en una ocasión provocó una muerte. · tipo cifra · valor None · fecha None
+    F05@93611: «Physical restraints were employed in lieu of adequate staffing, often causing injury to residents, and on one occasion leading to a death.»
+[D18] Terri Lee Halderman estaba aprendiendo a hablar cuando ingresó a Pennhurst; después de residir allí perdió sus habilidades verbales. · tipo nombre · valor Terri Lee Halderman · fecha None
+    F05@94309: (= arriba)
+[D19] Los peticionarios han admitido que Pennhurst no proporciona ni siquiera una habilitación mínimamente adecuada para sus residentes. · tipo cita · valor None · fecha None
+    F05@94441: «At every stage of this litigation, petitioners have conceded that Pennhurst fails to provide even minimally adequate habilitation for its residents.»
+[D20] Las condiciones inseguras en Pennhurst llevaron a un comportamiento agresivo por parte de los residentes, que fue castigado con confinamiento solitario. · tipo lugar · valor Pennhurst · fecha None
+    F05@95970: «The unsafe conditions led to aggressive behavior on the part of residents which was punished by solitary confinement. There was often urine and excrement on the walls.»
+[D21] A menudo había orina y excrementos en las paredes de Pennhurst. · tipo lugar · valor Pennhurst · fecha None
+    F05@96088: «There was often urine and excrement on the walls.»
+[D22] Las leyes estatales no dieron a los peticionarios (funcionarios de Pennhurst) discreción para ignorar sus deberes con respecto a la institucionalización de personas con discapacidad intelectual. · tipo cita · valor None · fecha None
+    F05@119072: «The Court, however, does not dispute the Court of Appeals’ conclusion that these state statutes gave petitioners no discretion whatsoever to disregard their duties with respect to institutionalization of the retarded as they did.»
+[D23] Los funcionarios de Pennhurst actuaron fuera de su discreción legal. · tipo cita · valor None · fecha None
+    F05@119302: «Petitioners acted outside of their lawful discretion every bit as much as did the government officials in the cases I have discussed, which hold that when an official commits an act prohibited by law, he acts beyond his authority and is not protected by sovereign immunity.»
+[D24] El Tribunal de Distrito encontró que los peticionarios eran inmunes a la responsabilidad por daños porque actuaron de la más absoluta buena fe dentro de la esfera de sus responsabilidades oficiales. · tipo cita · valor None · fecha None
+    F05@119699: «The Court also relies heavily on the fact that the District Court found petitioners immune from damages liability because they “‘acted in the utmost good faith . . . within the sphere of their official responsibilities,’” ante, at 107 (emphasis in original) (quoting 446 F. Supp., at 1324).»
+[D25] Tanto el Tribunal de Distrito como el Tribunal de Apelaciones concluyeron que los funcionarios ingresaron residentes en Pennhurst sin ninguna consideración por las limitaciones legales sobre el confinamiento institucional. · tipo cita · valor None · fecha None
+    F05@161137: «Specifically, both courts concluded that petitioners placed residents in Pennhurst without any consideration at all of the limitations on institutional confinement that are found in state law...»
+[D26] Según las conclusiones no impugnadas del Tribunal de Distrito, Pennhurst no era seguro ni proporcionaba un cuidado razonable a sus residentes. · tipo cita · valor None · fecha None
+    F05@161916: «The uncontested findings of the District Court in this case establish that Pennhurst neither was safe nor was it providing reasonable care to its residents.»
+[D27] El Estado de Pennsylvania prohibió la conducta de los peticionarios en el caso Pennhurst. · tipo cita · valor None · fecha None
+    F05@180061: «One basic fact underlies this case: far from immunizing petitioners’ conduct, the State of Pennsylvania prohibited it. Respondents do not complain about the conduct of the State of Pennsylvania—it is Pennsylvania’s commands which they seek to enforce.»
+[D28] El juez Stevens afirma que el caso ha iluminado el carácter de una institución. · tipo cita · valor None · fecha None
+    F05@189396: «As I said at the outset, this case has illuminated the character of an institution. I respectfully dissent.»
+[D29] El caso se llama Pennhurst State School and Hospital v. Halderman. · tipo nombre · valor Pennhurst State School and Hospital v. Halderman · fecha None
+    F04@427: (= arriba)
+    F07@1685: «after Halderman v. Pennhurst State School and Hospital was brought to the US Supreme Court, which eventually lead to a settlement»
+[D30] Las condiciones en Pennhurst son inadecuadas para la 'habilitación' de las personas con discapacidad intelectual. · tipo cita · valor None · fecha None
+    F04@2104: (= arriba)
+[D31] El 17 de marzo de 1978, 1154 personas vivían en el Pennhurst Center. · tipo cifra · valor 1154 · fecha 1978-03-17
+    F02@9664: «This report is dedicated to the 1154 people who lived at Pennhurst Center on March 17, 1978.»
+[D32] Para 1985, el Pennhurst Longitudinal Study era una revisión de cinco años de los efectos de la desinstitucionalización ordenada por la corte de los residentes de Pennhurst. · tipo magnitud · valor None · fecha 1985-03-01
+    F02@9912: «The Pennhurst Longitudinal Study was a five-year, in-depth review of the effects of the court-ordered deinstitutionalization of Pennhurst residents.»
+[D33] En 1977, el juez Raymond Broderick dictaminó que Pennhurst State School and Hospital era incapaz de proporcionar cuidado y habilitación constitucionalmente apropiados. · tipo cita · valor None · fecha 1977
+    F02@11773: «Broderick ruled that Pennhurst State School and Hospital was incapable of providing constitutionally appropriate care and habilitation.»
+[D34] A los residentes de Pennhurst y a las personas en lista de espera se les debían proporcionar servicios en entornos menos restrictivos en la comunidad. · tipo nombre · valor Pennhurst · fecha None
+    F02@11947: «...the residents of Pennhurst, those on the waiting list to the institution, and any other mentally retarded person in the community "at risk" of institutionalization at Pennhurst should be provided services in less restrictive settings in the community.»
+[D35] La población de estudio de Pennhurst tenía una edad promedio de 39 años. · tipo cifra · valor 39 · fecha None
+    F02@15676: «Briefly, the study population had the following characteristics: Average age: 39 years»
+[D36] La población de estudio había estado institucionalizada un promedio de 24 años. · tipo cifra · valor 24 · fecha None
+    F02@15771: «Average years institutionalized: 24»
+    F02@180927: «These adaptive behavior findings, especially among people who had been institutionalized an average of 24 years, seemed to us to tell a very positive story about human potential that had laid dormant among these people with mental retardation.»
+[D37] El 86% de la población del estudio de Pennhurst tenía discapacidades severas o profundas. · tipo cifra · valor 86% · fecha None
+    F02@15811: «Level of disability: 86% severely or profoundly disabled»
+[D38] El 40% de la población de estudio de Pennhurst mostraba violencia física hacia otros. · tipo cifra · valor 40% · fecha None
+    F02@15872: «Other disabilities: 40% displayed physical violence toward others; slightly more than 50% non-verbal»
+[D39] Más del 50% de la población de estudio de Pennhurst era no verbal. · tipo cifra · valor None · fecha None
+    F02@15939: «slightly more than 50% non-verbal»
+[D40] El 64% de la población de estudio de Pennhurst eran hombres. · tipo cifra · valor 64% · fecha None
+    F02@15977: «Sex: 64% male»
+[D41] Los demandantes argumentaron que Pennhurst era incapaz de garantizar los derechos de las personas con retraso mental debido a sus condiciones deplorables. · tipo nombre · valor Pennhurst · fecha None
+    F02@24200: «Moreover, the plaintiffs maintained that Pennhurst was incapable of ensuring the rights of mentally retarded persons because of deplorable conditions.»
+[D42] El remedio legal buscado para Pennhurst era el cierre final de la instalación y el traslado de los residentes a servicios comunitarios menos restrictivos. · tipo nombre · valor Pennhurst · fecha None
+    F02@24351: «The remedy sought was the ultimate closure of the facility and the movement of residents to less restrictive community-based services.»
+[D43] La Orden de los Niños del 8 de junio de 1979 requería que todos los menores de 21 años fueran trasladados fuera de Pennhurst para septiembre de 1979. · tipo fecha · valor None · fecha 1979-06-08
+    F02@29764: «This order requires the following: that all children under the age of 21 years by moved out of Pennhurst into appropriate community living arrangements by September 1979»
+[D44] La Orden del Hearing Master del 24 de abril de 1980 designó un Hearing Master para realizar determinaciones individuales en casos de reubicación disputada fuera de Pennhurst. · tipo nombre · valor Hearing Master · fecha 1980-04-24
+    F02@30418: «This order... mandated the following: that a Hearing Master be appointed to conduct individual determinations in cases of contested placement out of Pennhurst, and in cases where institutional commitment is recommended;»
+[D45] Un acuerdo final del 12 de julio de 1984 estipuló que Pennhurst Center cerraría antes del 1 de julio de 1986. · tipo fecha · valor None · fecha 1984-07-12
+    F02@32612: «that Pennhurst Center will close by July 1, 1986 (possible extension to September 30, 1986)»
+[D46] En Pennhurst, el personal del programa de arreglos de vida comunitaria (CLA) rotaba en promedio cada seis meses. · tipo magnitud · valor seis meses · fecha None
+    F02@35951: «Turn-over in staff in the community living arrangement (CLA) program at an average rate of once every six-months -- a phenomenon that adds costs and creates instability in the minds of some observers;»
+[D47] En diciembre de 1979, el Tribunal de Apelaciones del Tercer Circuito eliminó el requisito de que se encontrara empleo alternativo para todos los empleados de Pennhurst. · tipo nombre · valor Pennhurst · fecha 1979-12-13
+    F02@37814: «The three areas that were eliminated included: 1) the requirement that alternative employment be found for all Pennhurst employees;»
+[D48] El grupo Parent-Staff Association, de padres y empleados de Pennhurst opuestos a la desinstitucionalización, recibió apoyo financiero de AFSCME. · tipo nombre · valor Parent-Staff Association · fecha None
+    F02@40861: «Moreover, the Parent-Staff Association was receiving (and continues to receive) financial support from the American Federation of State, County and Municipal Employees (AFSCME), a powerful union with similar interests in maintaining institutions.»
+[D49] El Pennhurst Implementation Team (PIT) preparó un estudio de personal que recomendaba la adición de 107 empleados de cuidado directo a un costo de 11 millones de dólares. · tipo cifra · valor 107 · fecha None
+    F02@43025: «One of the first tasks taken on by the PIT team was the preparation of a staffing study at Pennhurst Center that recommended the addition of 107 direct care staff at a cost of $11 million.»
+[D50] El abogado David Ferleger planteó serias dudas sobre muertes sospechosas en el Pennhurst State Center. · tipo lugar · valor Pennhurst State Center · fecha None
+    F02@44495: «David Ferleger, raised serious questions regarding suspicious deaths at Pennhurst State Center.»
+[D51] Romeo, un residente de Pennhurst con retraso profundo, sufrió más de 70 lesiones, autoinfligidas o por ataques de otros residentes. · tipo cifra · valor None · fecha None
+    F02@48207: «While confined at Pennhurst, Romeo was injured on over 70 occasions either by injuries that were self-inflicted or the result of attack by other residents.»
+[D52] Se otorgó un contrato de $800,000 a la Northeast Emergency Medical Association (NEEMA) para proporcionar atención médica a los residentes de Pennhurst. · tipo cifra · valor $800,000 · fecha None
+    F02@52504: «At Pennhurst, an $800,000 contract was awarded to the Northeast Emergency Medical Association (NEEMA) to provide medical care for residents.»
+[D53] Un juez emitió una orden para que la Mancomunidad y cuatro condados demostraran por qué no debían ser declarados en desacato civil por desobedecer su orden de implementación del 2 de marzo de 1981. · tipo fecha · valor None · fecha None
+    F02@58420: «the Judge issued an order to show cause why the Commonwealth and four counties (Chester County was in compliance) should not be held in civil contempt for failing to obey his March 2nd, 1981 "implementation order."»
+[D54] Para el 31 de julio de 1981, el OSM reportó que solo 15 de 90 personas habían sido reubicadas, mientras que el Commonwealth afirmó que habían sido 81. · tipo contradiccion · valor None · fecha 1981-07-31
+    F02@58795: «By July 31, 1981, OSM showed that of 90 persons slated for community residences, only 15 had been officially placed, while the Commonwealth's figures showed a total of 81 placed.»
+    F02@58795: (= arriba)
+[D55] Los demandados de Filadelfia acordaron pagar $15,000 en honorarios de abogados al consejo de los demandantes por los costos incurridos durante los procedimientos de desacato. · tipo cifra · valor None · fecha None
+    F02@59580: «the Philadelphia defendants agreed to pay $15,000 in attorney's fees to plaintiffs' counsel for costs incurred during the contempt proceedings and to provide a performance fund as an expression of "good faith."»
+[D56] Las dietas diarias para los programas de los miembros de la clase de Pennhurst oscilaban entre $70.00 y $100.00. · tipo magnitud · valor None · fecha None
+    F02@60270: «Many of the per diems, according to county staff, fell in the $70.00 to $100.00 range.»
+[D57] La legislatura recortó $8 millones en nuevos fondos para programas del presupuesto de 1981-82, lo que llevó al personal de OMR a ajustar sus compromisos de financiación. · tipo cifra · valor None · fecha None
+    F02@60741: «Since $8 million in new program funds were cut by the legislature, OMR staff had to adjust its funding commitments to the Southeast Region.»
+[D58] El personal de la OMR propuso establecer una 'unidad de gestión especial' con sede en Pennhurst para revisar todos los planes de habilitación para los miembros de la clase de Pennhurst. · tipo nombre · valor None · fecha None
+    F02@61241: «OMR staff proposed to establish a "special management unit" in the Southeast Region with responsibilities for reviewing all TIHPs and IHPs for Pennhurst class members. The unit, to be based at Pennhurst, would include two staff persons»
+[D59] El total de camas ICF/MR a convertir en todo el estado se redujo de 317 a 225, y las nuevas camas de 504 a 200. · tipo cifra · valor 225 · fecha None
+    F02@63503: «A total of 225 beds as opposed to 317 beds would be converted to ICF/MRs and 200 new ICF/MR beds instead of 504 beds would be developed statewide.»
+[D60] Para principios de enero de 1982, el fondo de multas diarias de $10,000 contra la Mancomunidad había alcanzado aproximadamente $1,200,000. · tipo magnitud · valor $1,200,000 · fecha 1982-01
+    F02@66076: «By early January 1982, the fund had swelled to approximately $1,200,000. The Judge agreed with the state that any further collection of fees would be inequitable»
+[D61] En diciembre de 1981, el estado informó un total de 20 sitios de ICF/MR, con 91 camas en la Región Sudeste que servirían a los miembros de la clase de Pennhurst. · tipo cifra · valor 91 · fecha 1981-12
+    F02@70933: «In its December 1981 ICF/MR status report, the state reported a total of 20 sites, with 91 beds in the Southeast Region that would serve Pennhurst class members.»
+[D62] La implementación de las reubicaciones fuera de la región se estancó porque el estado sostuvo que pondría en peligro los requisitos del Título XIX y los reembolsos federales. · tipo cita · valor None · fecha None
+    F02@71095: «The implementation of out-of-region placements was stalled because the state continued to maintain that placing Pennhurst residents in other parts of the Commonwealth would jeopardize Title XIX "run-down" requirements in state centers and, therefore, federal reimbursements.»
+[D63] En septiembre de 1981 se presentó el proyecto de ley House Bill 1824, que pretendía dejar claro que la Ley de 1966 no era un estatuto de derecho adquirido y que no había presunción a favor de los entornos menos restrictivos. · tipo nombre · valor House Bill 1824 · fecha 1981-09
+    F02@71572: «House Bill 1824, introduced in the General Assembly in September 1981, called for significant changes in the Mental Health and Mental Retardation Act of 1966. ...the legislation was intended to make it clear that the 1966 Act was not an entitlement statute»
+[D64] La Resolución del Senado 63 pedía una investigación de la Oficina de Retraso Mental, y en particular, de los programas comunitarios que financia y supervisa. · tipo nombre · valor None · fecha None
+    F02@72312: «pressure from a variety of disaffected groups including parents of institutionalized persons, providers and some county staff resulted in the passage of Senate Resolution 63 -- a measure calling for an investigation of the Office of Mental Retardation and, in particular, the community programs it fu»
+[D65] En el otoño de 1981, se contrató a un investigador para dirigir la investigación del Senado, un exfiscal de distrito sin experiencia en retraso mental. · tipo fecha · valor 1981 · fecha 1981
+    F02@72798: «In the Fall of 1981, an investigator was hired to staff the effort. The investigator, a former county district attorney with no background in mental retardation, spent several months conducting site visits»
+[D66] La Corte Suprema en el caso Romeo sostuvo que las personas con retraso mental detenidas involuntariamente tienen derechos constitucionalmente protegidos a condiciones de reclusión razonablemente seguras, libertad de restricciones corporales irrazonables y un entrenamiento mínimamente adecuado. · tipo cita · valor None · fecha None
+    F02@75933: «a majority of the Supreme Court found that involuntarily detained mentally retarded persons have the following constitutionally protected rights: reasonably safe conditions of confinement, freedom from unreasonable bodily restraints, and minimally adequate training as reasonably may be required by t»
+[D67] El 12 de agosto de 1982, el juez Broderick emitió una orden solicitando que la Maestra Especial desarrollara un plan para la reducción gradual de sus operaciones para fin de año. · tipo fecha · valor None · fecha 1982-08-12
+    F02@78057: (= arriba)
+[D68] El juez Broderick dio a la Mancomunidad hasta el 30 de septiembre de 1982 para cumplir con los requisitos de reubicación de 100 residentes fuera de la región. · tipo fecha · valor None · fecha 1982-09-30
+    F02@82524: «He gave the Commonwealth until September 30, 1982 to comply with placement requirements.»
+[D69] La Unidad de Gestión Especial (SMU) en la Región Sudeste se volvió operativa y asumió el monitoreo y las revisiones de IHP de la oficina del Maestro Especial. · tipo nombre · valor None · fecha None
+    F02@83156: «the Special Management Unit (SMU) in the Southeast Region became operational and took over monitoring and IHP reviews from the office of the Special Master.»
+[D70] La SMU acordó monitorear cada reubicación de Pennhurst una vez al año y monitorear las condiciones de cada miembro de la clase dentro de los 120 días posteriores a la reubicación fuera de Pennhurst. · tipo magnitud · valor 120 días · fecha None
+    F02@83313: «SMU staff agreed to monitor each Pennhurst placement once a year and to monitor the conditions of each class member within 120 days of placement out of Pennhurst.»
+[D71] Se propusieron topes por día para los ICF/MR de $87.70 para áreas urbanas y $77.27 para áreas no urbanas en junio de 1982. · tipo magnitud · valor $87.70 · fecha 1982-06
+    F02@84171: «Two proposed per them ceilings for ICF/MRs were issued in June 1982. The ceilings were $87.70 for urban areas and $77.27 for non-urban areas.»
+[D72] En su fallo del 23 de enero de 1984, la Corte Suprema sostuvo que la Enmienda Undécima prohíbe a un tribunal federal ordenar a funcionarios del estado de Pensilvania que cumplan con la ley estatal. · tipo cita · valor None · fecha 1984-01-23
+    F02@90643: (= arriba)
+[D73] En septiembre de 1984, la Parent Staff Association fue el único grupo que protestó contra el acuerdo de consentimiento, manteniendo que el Pennhurst State Center no debía cerrarse. · tipo nombre · valor Parent Staff Association · fecha 1984-09
+    F02@92646: «The only group that lodged a protest was the Parent Staff Association which continued to maintain that Pennhurst State Center should not be closed.»
+[D74] En enero de 1985, el Gobernador Richard Thornburgh anunció que las instalaciones del Pennhurst State Center se convertirían en una instalación médica estatal para veteranos para 1986. · tipo nombre · valor Richard Thornburgh · fecha 1985-01
+    F02@93543: (= arriba)
+[D75] Se realizó una comparación en profundidad del caso Pennhurst con los estados de Maine y Michigan. · tipo lugar · valor Maine y Michigan · fecha None
+    F02@117142: «In addition, two states were selected for in-depth comparisons -- Maine and Michigan.»
+[D76] En Pensilvania, el caso Pennhurst abarcó dos administraciones políticas, y ninguna mostró inclinación a llegar a un acuerdo. · tipo cifra · valor None · fecha None
+    F02@121821: «In Pennsylvania, the case now spans two political administrations, and neither showed any inclination to consent.»
+[D77] A finales de 1982, el Senado de Pensilvania estableció un comité de investigación de cinco miembros para revisar las operaciones de la Oficina de Retraso Mental. · tipo fecha · valor None · fecha 1982
+    F02@130961: (= arriba)
+[D78] El comité del Senado de Pensilvania recomendó formar un grupo de trabajo para diseñar cambios en la Ley de Salud Mental y Retraso Mental de 1966. · tipo nombre · valor None · fecha None
+    F02@131591: «The major recommendation by the Senate Committee was the formation of a Senate Task Force to design needed changes in the Mental Health and Mental Retardation Act of 1966.»
+[D79] En Michigan, los legisladores asignaron 3 millones de dólares en nuevos fondos para servicios comunitarios. · tipo magnitud · valor None · fecha None
+    F02@133238: «In Michigan, for example, legislators had appropriated $3 million in new funding to provide services to 'underserved' persons in the community.»
+[D80] La Oficina del Special Master en Pensilvania, encargada de la ejecución del decreto, tuvo un presupuesto de 900.000 dólares en su apogeo. · tipo magnitud · valor None · fecha None
+    F02@138387: «It was also a very large target given its $900,000 budget at the height of its powers.»
+[D81] Un residente llamado Robert, ciego desde los 6 meses, no fue entrenado para ir al baño hasta los 5 años. · tipo magnitud · valor 5 años · fecha None
+    F02@145605: «Due to retrolental fibroplasia at 6 months, Robert became blind. From that point on, Robert was developmentally delayed. He developed a seizure disorder and was not toilet trained until he was 5 years old.»
+[D82] Robert, un residente, se trasladó de Pennhurst a una casa comunitaria en el verano de 1982. · tipo fecha · valor None · fecha 1982
+    F02@146569: (= arriba)
+[D83] Hacia 1985, aproximadamente 100.000 personas todavía vivían en instituciones públicas para personas con discapacidad intelectual en Estados Unidos. · tipo cifra · valor None · fecha None
+    F02@150546: «Clearly, there has been a strong trend away from institutional care, but the figure also reveals that as of this writing about 100,000 people still live in public institutions.»
+[D84] El descenso de la población en instituciones de salud mental comenzó en 1955, mucho antes que en las de retraso mental. · tipo fecha · valor None · fecha 1955
+    F02@151729: «In the field of mental illness, the decline in institutional populations began in 1955 (long before it began in mental retardation).»
+[D85] La primera medicación que podía mejorar los efectos de muchas enfermedades mentales fue aprobada por la FDA en 1955. · tipo fecha · valor None · fecha 1955
+    F02@152737: «The first of these medications was approved for general use by the Food & Drug Administration in, not coincidentally, 1955.»
+[D86] Los 1154 residentes de Pennhurst en 1978 tenían edades entre 9 y 82 años, con un promedio de 39 años. · tipo magnitud · valor None · fecha None
+    F02@159780: «Their ages ranged from nine to 82 years with an average of 39, and they had lived at Pennhurst for an average of 24 years.»
+[D87] En 1978, los residentes de Pennhurst habían vivido en la institución un promedio de 24 años. · tipo magnitud · valor None · fecha None
+    F02@159780: (= arriba)
+[D88] De los residentes de Pennhurst en 1978, el 64% eran hombres. · tipo magnitud · valor 64% · fecha None
+    F02@159903: «Sixty-four per cent of the people were male.»
+[D89] En 1978, el 54% de los residentes de Pennhurst estaban clasificados como con retraso profundo y el 31% como con retraso severo. · tipo magnitud · valor 54% · fecha None
+    F02@160194: «In terms of level of functioning, 54% were labeled profoundly retarded, 31% severely, 11% moderately, and 4% mildly retarded.»
+[D90] En 1978, más del 50% de los residentes de Pennhurst eran total o casi no verbales. · tipo magnitud · valor 50% · fecha None
+    F02@160430: «Just over 50% were completely or nearly nonverbal, 47% were less than fully toilet trained, and 40% were reported to threaten or do physical violence toward others.»
+[D91] En 1978, el 40% de los residentes de Pennhurst amenazaban o ejercían violencia física hacia otros. · tipo magnitud · valor 40% · fecha None
+    F02@160430: (= arriba)
+[D92] Un estudio comparó a 191 residentes que se mudaron de Pennhurst con 191 que permanecieron en la institución. · tipo cifra · valor 191 · fecha None
+    F02@165931: «The matching process located excellent matches for 191 of the 340 movers.»
+[D93] En un período de cinco años, el grupo desinstitucionalizado mejoró su comportamiento adaptativo en más de 11 puntos, mientras que el grupo que permaneció en Pennhurst ganó menos de un punto. · tipo magnitud · valor 11 puntos · fecha None
+    F02@169103: «This analysis indicated that the deinstitutionalized group had improved in adaptive behavior by more than 11 points over a five year period, while the group which remained at Pennhurst gained less than one point.»
+[D94] En 1983, los residentes en la comunidad recibían en promedio 8.0 horas de servicio por día, en comparación con las 6.8 horas de quienes permanecían en Pennhurst. · tipo magnitud · valor 8.0 horas · fecha None
+    F02@170511: «On the average, the movers received 8.0 hours of service per day and the stayers received 6.8 hours of service per day.»
+[D95] Para mediados de 1984, de los 1154 residentes originales, 92 habían muerto (77 en Pennhurst y 15 en la comunidad). · tipo cifra · valor 92 · fecha None
+    F02@173372: «Ninety-two of the remaining 138 people (the original 1154 minus 474 minus 450) had died, 77 of them while still at Pennhurst and 15 in CLAs»
+[D96] En 1984, las personas trasladadas a Arreglos de Vida Comunitaria (CLA) eran en promedio dos años más jóvenes que la persona promedio que vivía en Pennhurst en 1978. · tipo magnitud · valor None · fecha 1984
+    F02@175051: «The statistically significant differences meant that the people placed in CLAs by 1984 were slightly higher in adaptive behavior, had slightly fewer maladaptive behaviors, were about two years younger and had spent three fewer years at Pennhurst...»
+    F02@175051: «The statistically significant differences meant that the people placed in CLAs by 1984 were... about two years younger and had spent three fewer years at Pennhurst, and were slightly less likely to have a visual impairment, than the average person who lived at Pennhurst in 1978.»
+[D97] En Pennhurst en 1980 se reportaron 139 horas de servicio por mes en el área de vivienda. · tipo magnitud · valor None · fecha 1980
+    F02@184534: «EXHIBIT 4-12. Hours of Service Per Month Reported at Pennhurst in 1980 and in CLAs in 1984 | | | | 1980 (PC) | 1984 (CLA) | | Services at Living Area | 139 | 95 |»
+[D98] En los Arreglos de Vida Comunitaria (CLA) en 1984 se reportaron 95 horas de servicio por mes en el área de vivienda. · tipo magnitud · valor None · fecha 1984
+    F02@184534: (= arriba)
+[D99] En Pennhurst en 1980, un grupo de 207 personas recibía un promedio de 2,1 medicamentos diarios. · tipo magnitud · valor None · fecha 1980
+    F02@185783: «At Pennhurst in 1980, these people had received an average of 2.1 medications each day; in 1984 in CLAs, they received an average of 1.7.»
+[D100] En Arreglos de Vida Comunitaria (CLA) en 1984, las mismas 207 personas que estaban en Pennhurst en 1980 recibían un promedio de 1,7 medicamentos diarios. · tipo magnitud · valor None · fecha 1984
+    F02@185783: «At Pennhurst in 1980, these people had received an average of 2.1 medications each day; in 1984 in CLAs, they received an average of 1.7. The decrease was significant (t=3.22, (206), p.001).»
+[D101] La persona promedio que dejó Pennhurst obtuvo 11 puntos más en una escala de comportamiento adaptativo de 128 puntos que cuando estaba en la institución. · tipo magnitud · valor 11 puntos · fecha None
+    F02@186190: «The average person is now about 11 points higher on our 128 point scale of adaptive behavior than s/he was while at Pennhurst.»
+[D102] Steve vivió en Pennhurst durante 27 años. · tipo magnitud · valor 27 años · fecha None
+    F02@194864: (= arriba)
+[D103] Bruce vivió en Pennhurst durante 28 años. · tipo magnitud · valor 28 años · fecha None
+    F02@196119: «He moved there about 6 months ago, after having lived at Pennhurst for 28 years.»
+[D104] La población de Pennhurst disminuyó de 1154 a 450 personas. · tipo cifra · valor 1154 a 450 · fecha None
+    F02@199265: «...the population of the facility dropped from 1154 to 450.»
+[D105] En mayo de 1980, había 713 candidatos para ser incluidos en las entrevistas a consumidores. · tipo cifra · valor 713 · fecha 1980-05
+    F02@204097: «Using this decision rule, there were 713 candidates for inclusion in the consumer interviews. These were all the people who lived at Pennhurst in May 1980, and who came from the Southeast Region of Pennsylvania.»
+[D106] De 713 candidatos para las entrevistas, se identificó a 287 personas con habilidades verbales moderadas o buenas. · tipo cifra · valor 287 · fecha None
+    F02@204309: «We then examined Behavior Development Survey data (collected at Pennhurst in 1978) to identify all the people who were reported to possess moderate or good verbal skills. There were 287 such individuals.»
+[D107] Se seleccionaron 143 candidatos para las entrevistas en el estudio. · tipo cifra · valor 143 · fecha None
+    F02@205482: «In all, then, we drew 143 candidates for interviews in this part of the study.»
+[D108] Para el verano de 1980, se había entrevistado a 56 personas que vivían en Pennhurst. · tipo cifra · valor 56 · fecha 1980
+    F02@205561: «By the completion of the baseline surveys, we had interviewed 56 people who lived at Pennhurst in the summer of 1980.»
+[D109] La tasa de aquiescencia (tendencia a decir "sí") en las entrevistas iniciales en Pennhurst fue del 14%. · tipo magnitud · valor 14% · fecha None
+    F02@212654: «First, our overall rate of acquiescence in the baseline interviews at Pennhurst was 35 occurrences out of 251 possible occurrences, or 14%.»
+[D110] La tasa de "nay-saying" (tendencia a decir "no") en las entrevistas iniciales en Pennhurst fue del 6%. · tipo magnitud · valor 6% · fecha None
+    F02@212870: «Second, our baseline rate of nay-saying was 6%, about the same as the Sigelman et al. rate of 4%.»
+[D111] De las 30 personas que se mudaron, el 40% expresó de manera fiable estar satisfecho viviendo en Pennhurst. · tipo magnitud · valor 40% · fecha None
+    F02@216475: «In the baseline, at Pennhurst, 12 people, or 40% of the sample, reliably expressed satisfaction with living there; conversely, one person (3%) was reliably dissatisfied.»
+[D112] Después de mudarse a Arreglos de Vida Comunitaria (CLA), el 73% de las 30 personas expresó de manera fiable estar satisfecho. · tipo magnitud · valor 73% · fecha None
+    F02@216645: «Later, in CLAs, 22 people, or 73% of the sample, reliably expressed satisfaction, and no one was consistently dissatisfied.»
+[D113] El deseo de mudarse entre los exresidentes disminuyó del 17% en Pennhurst al 7% después de la reubicación. · tipo magnitud · valor None · fecha None
+    F02@218203: «The second change was in Desire to Move, which decreased; at baseline 17% wanted to move and after relocation it was 7% (Wilcoxon T, p.01).»
+[D114] La población de Pennhurst disminuyó de aproximadamente 1000 a 450 personas entre 1980 y 1984. · tipo cifra · valor 1000 a 450 · fecha 1980-1984
+    F02@222496: «The population declined from about 1000 to about 450 in those years, some buildings had closed, some staff had been furloughed, and it had been announced by the Department of Public Welfare that Pennhurst definitely would close.»
+[D115] En diciembre de 1982, una nueva directora de proyecto se hizo cargo del programa de Joan. · tipo fecha · valor None · fecha 1982-12
+    F02@232908: (= arriba)
+[D116] Los padres de Joan, los Harris, estaban molestos por la regresión de su hija y contactaban al personal diariamente. · tipo nombre · valor Harris · fecha None
+    F02@233149: «Joan's parents were quite upset with the regression their daughter was experiencing, and contacted staff on a daily basis. The project director met with the Harris's»
+[D117] Una evaluación en el Wills Eye Hospital concluyó que los párpados de Joan habían crecido hacia adentro, causando irritación y dolor debido a la atrofia de sus ojos. · tipo lugar · valor Wills Eye Hospital · fecha None
+    F02@233703: «The evaluation concluded that, due to the atrophy of Joan's eyes and the muscles surrounding them, her upper and lower eyelids had grown inward, causing her irritation and pain.»
+[D118] En febrero de 1983, Joan recibió prótesis oculares. · tipo fecha · valor None · fecha 1983-02
+    F02@233984: (= arriba)
+[D119] Los estándares ACMRDD consistían en 807 ítems de Sí/No. · tipo cifra · valor 807 · fecha None
+    F02@236726: «The ACMRDD standards consisted of 807 Yes-No items.»
+[D120] En agosto de 1979, el proyecto contrató a los consultores Terry Perl y William Snauffer. · tipo nombre · valor None · fecha 1979-08
+    F02@236778: (= arriba)
+[D121] De los 807 estándares ACMRDD completos, se seleccionaron 323 como ítems centrales. · tipo cifra · valor 323 · fecha None
+    F02@237140: «From the full 807 standards, 323 were selected as core items representing physical and programmatic aspects of environments.»
+[D122] Finalmente, se seleccionaron 41 ítems para el entorno físico y 106 para la programación de los estándares ACMRDD. · tipo cifra · valor None · fecha None
+    F02@237458: «The consultants then selected 41 items concerning the physical environment and 106 for programming that were most readily applicable to both institutional and community programs.»
+[D123] En octubre de 1978, había 45 áreas de vivienda en Pennhurst. · tipo cifra · valor 45 · fecha 1978-10
+    F02@239834: (= arriba)
+[D124] Las 45 áreas de vivienda de Pennhurst se agruparon en 10 conglomerados para el estudio. · tipo cifra · valor 10 · fecha None
+    F02@240336: «When this analysis was performed, Pennhurst fell into 10 clusters of living areas. We then randomly selected one living area to represent each cluster.»
+[D125] Para 1980, los 713 individuos que permanecían en Pennhurst habían ganado un promedio de 1,24 puntos en comportamiento adaptativo desde 1978. · tipo cifra · valor None · fecha 1980
+    F02@245520: «Comparison of those BDS scores to the ones collected in 1978, revealed that people had gained an average of 1.24 points in adaptive behavior.»
+[D126] Las personas que se mudaron de Pennhurst a los CLAs experimentaron un gran aumento en el grado de normalización, de -232 a +172. · tipo magnitud · valor None · fecha None
+    F02@248152: «The people who had moved into CLAs had clearly experienced a large increase in the degree of normalization (from -232 to +172)»
+[D127] Los residentes que se mudaron de Pennhurst a CLAs mostraron un aumento en el grado de individualización, de 58 a 65. · tipo magnitud · valor None · fecha None
+    F02@248280: «and a significant increase in the degree of individualization (from 58 to 65), as measured by our short version of PASS-3 and by the RMS.»
+[D128] El análisis se basó en los datos de 320 personas que vivían en el mismo CLA en 1983 y 1984. · tipo cifra · valor 320 · fecha None
+    F02@252525: «There were 320 people in the study's data base who met these criteria.»
+[D129] Entre 1983 y 1984, 320 individuos en CLAs ganaron un promedio de 2,0 puntos en comportamiento adaptativo. · tipo cifra · valor None · fecha 1984
+    F02@252745: «The 320 individuals in the analyses had gained an average of 2.0 points between 1983 and 1984»
+[D130] Susan dejó Pennhurst en 1974, antes de que comenzara el litigio. · tipo fecha · valor 1974 · fecha 1974
+    F02@268548: (= arriba)
+[D131] La familia de Susan (tías y primos) sentía una gran culpa por su internación en Pennhurst. · tipo cita · valor None · fecha None
+    F02@269460: «it was quite clear that Susan's family (aunts and cousins) felt a great deal of guilt around her living at Pennhurst, yet they were unable to care for her themselves.»
+[D132] El juez Broderick ordenó el cierre de Pennhurst. · tipo nombre · valor None · fecha None
+    F02@270511: (= arriba)
+[D133] En mayo de 1980, 713 personas residían en Pennhurst provenientes de los cinco condados del sureste de Pensilvania. · tipo cifra · valor 713 · fecha 1980-05
+    F02@276331: «There were 713 people residing at Pennhurst in May 1980 who originally came from the five southeastern counties of Pennsylvania.»
+[D134] De 713 residentes en 1980, 630 tenían familiares conocidos. · tipo cifra · valor 630 · fecha 1980
+    F02@276460: «Of these residents, 630 had known relatives. Questionnaires were mailed to each of these 630 families for the Baseline Survey.»
+[D135] Se recibieron respuestas de 472 familias para la encuesta inicial, una tasa de respuesta del 75%. · tipo cifra · valor 472 · fecha None
+    F02@276587: «After two mailings and extensive telephone follow-up, responses were received from 472 families (75%).»
+[D136] En la encuesta inicial, el 72% de las familias de los residentes de Pennhurst en 1980 se habrían opuesto al traslado de sus parientes a la comunidad. · tipo cifra · valor 72% · fecha 1980
+    F02@283260: «Thus, 72% of the families of the people still living at Pennhurst in 1980 would have disagreed with any proposal for community placement of their relatives.»
+[D137] El 83% de las familias estaban satisfechas (54% muy, 29% algo) con los servicios que sus parientes recibían en Pennhurst. · tipo cifra · valor 83% · fecha None
+    F02@283681: «Very satisfied 54% Somewhat satisfied 29% Neutral 11% Somewhat dissatisfied 5% Very dissatisfied 2%»
+[D138] El 75% de las familias creían que sus parientes en Pennhurst no tenían potencial para un mayor desarrollo educativo o psicológico. · tipo cifra · valor 75% · fecha None
+    F02@284402: «An attitude that appeared to be related to feelings about community placement was that 75% of families believed, strongly or somewhat strongly, that their relatives had no potential for further educational or psychological development.»
+[D139] Solo el 19% de las familias estaban de acuerdo con la idea de la "desinstitucionalización". · tipo cifra · valor 19% · fecha None
+    F02@285266: «In fact, 32% agreed (strongly or somewhat) with "normalization," 36% agreed with "least restrictive alternative," and only 19% agreed with "deinstitutionalization."»
+    F02@293845: «before placement, only 19% agreed strongly with placement, and afterward, fully 66% strongly agreed.»
+[D140] Las familias percibían necesidades médicas mucho más intensas en sus parientes de Pennhurst que el personal que los atendía. · tipo contradiccion · valor None · fecha None
+    F02@287851: «The meaning of this table is simply that the families perceived much more intense medical needs among their relatives at Pennhurst than did the staff who were providing direct care.»
+[D141] Había 57 personas sobre las cuales la familia informó que no sobrevivirían sin atención médica las 24 horas, mientras que el personal informó que no tenían necesidades médicas graves. · tipo contradiccion · valor 57 · fecha None
+    F02@288135: «it represents the fact that there were 57 people about whom the family reported that the person would not survive without 24-hour medical care, but about whom staff reported that there were no serious medical needs.»
+[D142] En el grupo de estudio de 134 personas, el 86% estaba etiquetado como con retraso severo o profundo. · tipo cifra · valor 86% · fecha None
+    F02@288895: «In both groups, 86% of the people were labeled severely or profoundly retarded.»
+[D143] Tras el traslado a los CLAs, las 134 familias estaban tan satisfechas con los nuevos arreglos como lo habían estado con Pennhurst. · tipo cita · valor None · fecha None
+    F02@290852: «After movement of the 134 relatives to CLAs, their families gave an average response of 1.5, which indicated that they were just as satisfied with the CLAs as they had been with Pennhurst.»
+[D144] Inicialmente, el 42% de un grupo de 134 familias visitaba a sus parientes en Pennhurst al menos una vez al mes. · tipo cifra · valor 42% · fecha None
+    F02@291263: «Initially, 42% of the 134 reported visiting their relatives at least once a month (similar to the 472, at 44%).»
+[D145] Tras la reubicación de los residentes, el porcentaje de familias que los visitaban al menos una vez al mes aumentó al 52%. · tipo cifra · valor 52% · fecha None
+    F02@291375: «After relocation, the figure was 52%, and, though this change was statistically significant, the substantive change was very small.»
+[D146] Inicialmente, el 13% de las 134 familias informó que su pariente volvía a casa de visita al menos una vez al mes. · tipo cifra · valor 13% · fecha None
+    F02@291507: «Similarly, 13% of the 134 families reported that their relative came home for a visit at least once a month (much like the 472 at 11%)»
+[D147] Tras la reubicación de los parientes a un CLA, solo el 15% de las familias informó que volvían a casa de visita al menos una vez al mes. · tipo cifra · valor 15% · fecha None
+    F02@291643: «but this figure changed only 'to 15% after relocation of the relative to a CLA.»
+[D148] La frecuencia de visitas familiares a sus parientes no cambió significativamente después de la desinstitucionalización. · tipo cita · valor None · fecha None
+    F02@291723: «Thus we found no confirmation of the notion that visits to or from the family would become more frequent upon deinstitutionalization.»
+[D149] En 1980, antes de la reubicación, las familias percibían que sus parientes en Pennhurst tenían serias necesidades médicas. · tipo fecha · valor None · fecha 1980
+    F02@292010: «In general, families perceived serious medical needs among their relatives in 1980, before relocation, and also after relocation.»
+[D150] En una escala de 1 a 4 sobre las necesidades médicas de sus parientes, las familias promediaron una puntuación de 2.8 tanto antes como después de la reubicación. · tipo cifra · valor 2.8 · fecha None
+    F02@292267: «On a scale of I to 4, families averaged 2.8 both before and after relocation.»
+[D151] Antes de la reubicación, la puntuación promedio de 134 familias en una escala de actitud hacia la desinstitucionalización (de 1 a favor a 5 en contra) fue de 3.5. · tipo cifra · valor 3.5 · fecha None
+    F02@292575: «The average score of the 134 families before relocation was 3.5; the average score after relocation was 2.4.»
+[D152] Después de la reubicación de sus parientes, la puntuación promedio de las 134 familias en la escala de actitud hacia la desinstitucionalización bajó a 2.4. · tipo cifra · valor 2.4 · fecha None
+    F02@292575: (= arriba)
+[D153] Antes de la reubicación, el 55% de las familias se oponía firmemente al traslado de sus parientes a la comunidad. · tipo cifra · valor 55% · fecha None
+    F02@293604: «Before relocation, 55% of the families were strongly opposed to community placement, and afterward, only 4% were still strongly opposed (the bars at the extreme right of the figure).»
+[D154] Después de la reubicación, solo el 4% de las familias seguía oponiéndose firmemente al traslado a la comunidad. · tipo cifra · valor 4% · fecha None
+    F02@293604: (= arriba)
+[D155] Después de la reubicación, el 66% de las familias estaba firmemente de acuerdo con el traslado a la comunidad. · tipo cifra · valor 66% · fecha None
+    F02@293845: (= arriba)
+[D156] Antes de la reubicación, las familias tenían expectativas pesimistas sobre los cambios, con una puntuación media de 3.5 en una escala de 1 (mejor) a 5 (peor). · tipo cifra · valor 3.5 · fecha None
+    F02@295631: «The initial (expected) responses of the 134 families clustered about 3.5 at baseline, which meant they were basically pessimistic about expected changes.»
+[D157] El mayor cambio positivo reportado por las familias fue en la felicidad general de sus parientes, seguido por las relaciones de sus parientes con otras personas. · tipo cita · valor None · fecha None
+    F02@296314: «For example, the largest change reported by the families was in their relatives' general happiness, followed by changes in their relatives' relationships with other people and in the family respondents' own general happiness.»
+[D158] 20 familias que esperaban un gran cambio a peor en la felicidad de su pariente, en realidad observaron un gran cambio a mejor tras la reubicación. · tipo cifra · valor 20 · fecha None
+    F02@297925: «In fact, at the extreme lower left of the table, 20 families expected a large change for the worse, but actually saw a large change for the better.»
+[D159] Las familias pasaron de rechazar el modelo de desarrollo (la creencia de que todas las personas pueden crecer y aprender) a una postura neutral tras la reubicación. · tipo cita · valor None · fecha None
+    F02@299565: «The families initially tended toward rejection of the developmental model, and at post-test changed only to neutrality.»
+[D160] La institución Pennhurst State School and Hospital fue renombrada posteriormente como Pennhurst State Center. · tipo nombre · valor Pennhurst State Center · fecha None
+    F08@62: «Family genealogists regularly contact PMPA, looking for information about family members who may have been institutionalized at the Pennhurst State School and Hospital (later renamed the Pennhurst State Center).»
+[D161] Los registros individuales de los residentes se guardan en los Archivos del Estado de Pensilvania en Harrisburg. · tipo lugar · valor None · fecha None
+    F08@614: «Such records are kept in the Pennsylvania State Archives in Harrisburg, Pennsylvania, and some are kept at the White Haven State Center in White Haven, PA»
+[D162] Algunos registros de Pennhurst se guardan en el White Haven State Center en White Haven, PA. · tipo lugar · valor None · fecha None
+    F08@700: «and some are kept at the White Haven State Center in White Haven, PA, under an agreement between the state and Temple University.»
+[D163] El acceso a los registros médicos está restringido por la ley HIPAA (Health Insurance Portability and Accountability Act). · tipo nombre · valor HIPAA (Health Insurance Portability and Accountability Act) · fecha None
+    F08@906: «In accordance with HIPAA (Health Insurance Portability and Accountability Act) laws, access to these records is restricted.»
+[D164] Si un ex-residente ha fallecido hace menos de 50 años, pueden aplicarse restricciones de acceso a sus registros. · tipo magnitud · valor menos de 50 años · fecha None
+    F08@2795: «if a resident has been deceased less than 50 years, restrictions on access may apply.»
+    F08@2885: «If a former resident has been deceased for 50 or more years, all institutional records can be viewed if a family genealogist can present a copy of a death certificate»
+[D165] Los registros de residentes de 75 años o más también pueden ser consultados por genealogistas familiares. · tipo magnitud · valor 75 años o más · fecha None
+    F08@3111: «Resident records that are 75 years old or older can also be viewed by family genealogists and proof of death may not be required.»
+[D166] El Estudio Longitudinal de Pennhurst siguió a los residentes cara a cara cada año desde 1978 hasta 1992. · tipo magnitud · valor None · fecha None
+    F08@3569: (= arriba)
+[D167] El Dr. James Conroy puede ser contactado en jconroycoa@gmail.com para obtener información sobre el Estudio Longitudinal de Pennhurst. · tipo nombre · valor jconroycoa@gmail.com · fecha None
+    F08@3973: (= arriba)
+[D168] En 1968 se llamó la atención del público sobre las condiciones de vida abusivas e inhumanas en Pennhurst a través de una exposición televisiva en cinco partes de Bill Baldini llamada “Suffer the Little Children”. · tipo fecha · valor 1968 · fecha 1968
+    F10@49: «The abusive, inhumane living conditions of the residents with developmental disabilities at Pennhurst State School and Hospital, in Spring Hill, Pennsylvania, were brought to the public’s attention in 1968 in a five-part television exposé by Bill Baldini called “Suffer the Little Children.”»
+[D169] El 30 de mayo de 1974 se presentó una demanda colectiva en el Tribunal de Distrito de EE. UU. para el Distrito Este de Pensilvania. · tipo fecha · valor None · fecha 1974-05-30
+    F10@527: «On May 30, 1974 a class action lawsuit was filed in the U. S. District Court for the Eastern District of Pennsylvania on behalf of former and current residents of Pennhurst against the institution»
+[D170] La demanda de Pennhurst se basó en violaciones de derechos constitucionales bajo las Enmiendas Primera, Octava, Novena y Decimocuarta. · tipo nombre · valor Enmiendas Primera, Octava, Novena y Decimocuarta · fecha None
+    F10@805: «The plaintiffs, represented by prominent civil rights attorney David Ferleger, argued that the institutionalization of the residents violated their constitutional rights under the First, Eighth, Ninth and Fourteenth Amendments»
+[D171] El juicio sobre las condiciones de Pennhurst duró 32 días. · tipo magnitud · valor 32 días · fecha None
+    F10@1302: (= arriba)
+[D172] El juez Broderick encontró que en Pennhurst se usaban varias formas de restricción como salas de aislamiento, restricciones físicas y drogas psicotrópicas. · tipo nombre · valor salas de aislamiento, restricciones físicas y drogas psicotrópicas · fecha None
+    F10@1489: «He found that various unwarranted forms of restraints “were used as control measures in lieu of adequate staffing”1, including seclusion rooms, physical restraints, and psychotropic drugs.»
+[D173] El entorno físico de Pennhurst fue considerado "peligroso para los residentes, tanto física como psicológicamente". · tipo cita · valor None · fecha None
+    F10@1678: «The physical environment was found to be “hazardous to the residents, both physically and psychologically,”2 to the extent that it was “not only not conducive to learning new skills, but it is so poor that it contributes to losing skills already learned.”»
+    F12@6044: «The physical environment at Pennhurst is hazardous to the residents, both physically and psychologically. (Clements, N.T. 2-59).»
+[D174] Se encontró que los residentes de Pennhurst habían sido objeto de abuso tanto por parte de otros residentes como del personal. · tipo cita · valor None · fecha None
+    F10@1935: «Residents were found to have been subject to abuse by both other residents and staff.4»
+[D175] El litigio del caso Pennhurst, iniciado en 1974, se extendió por más de 10 años, requiriendo 2,192 asientos en el expediente y alrededor de 500 órdenes judiciales. · tipo cifra · valor 2,192 · fecha 1985
+    F10@4302: «anticipated that this civil action commenced on May 30, 1974 would be actively litigated for more than ten years, requiring 2,192 docket entries, about 500 Court orders, twenty-eight published opinions, and three arguments before the U.S. Supreme Court.”»
+[D176] En 1985, las partes llegaron a un acuerdo que proporcionaba arreglos de vida en comunidad para los residentes restantes de Pennhurst. · tipo fecha · valor 1985 · fecha 1985
+    F10@4894: (= arriba)
+[D177] Antes del traslado de los residentes de Pennhurst, más del 60% de las familias encuestadas se opusieron a la transferencia. · tipo cifra · valor 60% · fecha None
+    F10@5640: «Prior to the transfer of the residents from Pennhurst, over 60 percent of the families surveyed had opposed the transfer. … Six months later, the same families overwhelmingly approved of the decision»
+[D178] El asilo Pennhurst finalmente cerró en 1987. · tipo fecha · valor 1987 · fecha 1987
+    F10@6332: (= arriba)
+    F07@1635: (= arriba)
+[D179] Contrariamente al mito, Pennhurst no era un lugar donde gente malvada llevara a cabo planes intencionadamente malvados. · tipo cita · valor None · fecha None
+    F12@0: «Contrary to myth, Pennhurst was not a place where evil people wrought intentionally evil schemes.»
+[D180] El nombre original de Pennhurst era Institución del Este de Pensilvania para Débiles Mentales y Epilépticos. · tipo nombre · valor None · fecha None
+    F12@857: «Originally known as the Eastern Pennsylvania Institution for the Feeble Minded and Epileptic, Pennhurst was once seen as a model institution.»
+[D181] Desde el siglo XVIII, a las personas con enfermedades y discapacidades se las etiquetaba como "defectuosos". · tipo cita · valor None · fecha None
+    F12@1142: «Since the 18th century - a similarly self-proclaimed age of enlightenment - people with illness and disabilities were labeled "defectives."»
+[D182] Una miembro del personal de Pennhurst y otros se ofrecían como voluntarios los sábados y domingos para limpiar a los residentes. · tipo cita · valor None · fecha None
+    F12@1984: «One Pennhurst staff member recalls how she and others would volunteer their time on Saturdays and Sundays to clean the residents - many of whom could not toilet themselves - since the state budget did not allocate for housekeeping services on weekends.»
+[D183] En Pennhurst no hay psicólogos de servicio por la noche ni durante el fin de semana. · tipo cifra · valor None · fecha None
+    F12@4197: «No psychologists are on duty at Pennhurst at night or over the weekend, thus, if a resident has an emotional crisis, he or she may go without treatment until the next morning or until the weekend is over.»
+[D184] En Pennhurst se utilizan sujeciones como medida de control en lugar de tener personal adecuado. · tipo cita · valor None · fecha None
+    F12@4404: «At Pennhurst, restraints are used as control measures in lieu of adequate staffing. Restraints can be either physical or chemical.»
+[D185] Se han utilizado salas de aislamiento para castigar el comportamiento agresivo. · tipo cita · valor None · fecha None
+    F12@4802: «Seclusion rooms have been used to punish aggressive behavior. One eighteen year old individual spent six consecutive days in seclusion in 1974 for assaulting a Down's Syndrome resident.»
+[D186] Una residente extremadamente autodestructiva se cegó por completo a sí misma. · tipo cita · valor None · fecha None
+    F12@5457: «This resident was so extremely self-destructive she totally blinded herself. She was not enrolled in occupational therapy until early 1977.»
+[D187] Los fármacos psicotrópicos en Pennhurst se utilizan a menudo para el control y no para el tratamiento. · tipo cita · valor None · fecha None
+    F12@5889: «Psychotropic drugs at Pennhurst are often used for control and not for treatment, and the rate of drug use on some of the units is extraordinarily high.»
+[D188] A menudo hay excrementos y orina en los suelos de las salas. · tipo cita · valor None · fecha None
+    F12@6173: «There is often excrement and urine on ward floors (Roos, N.T. 1-158; Smith, Deposition at 41), and the living areas do not meet minimal professional standards for cleanliness.»
+[D189] Los brotes de lombrices intestinales y enfermedades infecciosas son comunes. · tipo cita · valor None · fecha None
+    F12@6380: «Outbreaks of pinworms and infectious disease are common (M. Conley, N.T. 16-193; Lowrie, N.T. 4-153; Hedson, Deposition at 122).»
+[D190] El ambiente en Pennhurst no solo no es propicio para aprender nuevas habilidades, sino que contribuye a perder las ya aprendidas. · tipo cita · valor None · fecha None
+    F12@6898: «The environment at Pennhurst is not only not conducive to learning new skills, but it is so poor that it contributes to losing skills already learned.»
+[D191] La mayoría de las áreas de aseo no tienen toallas, jabón ni papel higiénico. · tipo cita · valor None · fecha None
+    F12@7294: «Moreover, most toilet areas do not have towels, soap or toilet paper, and the bathroom facilities are often filthy and in a state of disrepair.»
+[D192] El nivel de ruido en las salas de día es a menudo tan alto que muchos residentes simplemente dejan de hablar. · tipo cita · valor None · fecha None
+    F12@7584: «Moreover, the noise level in the day rooms is often so high that many residents simply stop speaking. (Clements, N.T. 2-59).»
+[D193] Un residente empujó a otro al suelo, lo que resultó en la muerte del segundo. · tipo cita · valor None · fecha None
+    F12@7989: «About this same period, one resident pushed a second to the floor, resulting in the death of the second resident. (Barton, Deposition at 67, 68).»
+[D194] Terri Lee Halderman tenía una lista de más de 40 lesiones reportadas en sus registros médicos. · tipo cifra · valor 40 · fecha None
+    F12@9638: «Terri Lee Halderman's medical records contain a listing of over forty reported injuries.»
+[D195] Hace 26 años, mientras estaba en Pennhurst, Charles DiNolfi perdió un ojo. · tipo magnitud · valor 26 años · fecha None
+    F12@10099: «Twenty-six years ago, while at Pennhurst, Mr. DiNolfi lost an eye. A Pennhurst physician told Ms. Hunsicker that Mr. DiNolfi slipped while taking a shower, and hit the spigot with his eye.»
+[D196] Robert y Theresa Sobetsky fueron ubicados en salas extremadamente superpobladas donde las camas se colocaban en los pasillos. · tipo cita · valor None · fecha None
+    F12@10550: «They were placed on extremely overcrowded wards where beds were placed in the aisles. Robert was never assigned to a particular bed.»
+[D197] Aproximadamente 21 de las 45 unidades de vivienda en Pennhurst están cerradas con llave. · tipo cifra · valor 21 · fecha None
+    F12@15417: «Approximately 21 of the 45 living units at Pennhurst are locked (Matthews, Deposition at 34) to prevent individuals from leaving their living units.»
+[D198] La noción de voluntariedad en relación con la admisión y el derecho a abandonar Pennhurst es un concepto ilusorio. · tipo cita · valor None · fecha None
+    F12@16512: «Thus, the notion of voluntariness in connection with admission as well as in connection with the right to leave Pennhurst is an illusory concept.»
+[D199] File/Life es una exploración creativa de los archivos de Pennhurst dirigida por la comunidad. · tipo nombre · valor File/Life · fecha None
+    F03@19: «File/Life is a community-led creative exploration of the Pennhurst archives by seven archivists, all people with disabilities and/or family members, including two former Pennhurst residents.»
+[D200] Siete archivistas, todos personas con discapacidad y/o familiares, participaron en el proyecto File/Life. · tipo cifra · valor None · fecha None
+    F03@19: (= arriba)
+[D201] Dos de los archivistas comunitarios eran antiguos residentes de Pennhurst. · tipo cifra · valor None · fecha None
+    F03@19: (= arriba)
+[D202] Los archivos de Pennhurst contienen informes administrativos, testimonios judiciales, formularios de diagnóstico, registros médicos, notas de campo y correspondencia institucional. · tipo cita · valor None · fecha None
+    F03@371: «The material held in the Pennhurst archives includes administrative reports, court testimony, diagnostic forms, medical logs, field notes, and institutional correspondence.»
+[D203] Algunos archivos de Pennhurst incluyen documentos personales, como cartas de familiares. · tipo cita · valor None · fecha None
+    F03@544: «Some files include more personal documents, like letters from family members.»
+[D204] Los archivistas comunitarios de File/Life pasaron dos años aprendiendo, creando y compartiendo historias de los archivos de Pennhurst. · tipo magnitud · valor dos años · fecha None
+    F03@1094: «the File/Life community archivists spent two years learning, creating, and sharing stories from the Pennhurst files.»
+[D205] La legislatura del estado de Pensilvania aprobó una institución llamada Pennhurst State School and Hosptial en 1903. · tipo fecha · valor 1903 · fecha 1903
+    F07@1055: (= arriba)
+[D206] Pennhurst State School and Hospital operó durante casi 100 años. · tipo magnitud · valor casi 100 años · fecha None
+    F07@1178: «Over its nearly 100-year operation, it was marred by accounts of abuse, neglect and a lack of understanding and support for caring for those that were deemed disabled.»
+[D207] La historia de Pennhurst estuvo marcada por relatos de abuso, negligencia y falta de comprensión y apoyo. · tipo cita · valor None · fecha None
+    F07@1214: «it was marred by accounts of abuse, neglect and a lack of understanding and support for caring for those that were deemed disabled.»
+[D208] Niños que ya habían pasado la edad de caminar estaban atrapados en cunas en Pennhurst. · tipo cita · valor None · fecha None
+    F07@1346: «Children, past the age where they could have been walking, were trapped in cribs, nurses too overwhelmed and overburdened were unable to teach them.»
+[D209] Las enfermeras, abrumadas y sobrecargadas, no podían enseñar a los niños. · tipo cita · valor None · fecha None
+    F07@1428: «nurses too overwhelmed and overburdened were unable to teach them.»
+[D210] El hospital utilizaba a pacientes considerados 'de alto funcionamiento' para cuidar los terrenos e incluso a otros residentes con poca o ninguna paga. · tipo cita · valor None · fecha None
+    F07@1495: «Other patients deemed ‘high-functioning were utilized by the hospital to care for the grounds and even other tenants with little to no pay.»
+[D211] Un acuerdo judicial estipuló que los servicios que los ex pacientes podrían usar serían comunitarios. · tipo cita · valor None · fecha None
+    F07@1802: «a settlement that stipulated that services former patients could use would be community-based.»
+[D212] Roland Johnson fue paciente de Pennhurst State School desde 1958 hasta 1971. · tipo fecha · valor None · fecha None
+    F07@1959: «former resident Roland Johnson who was a patient of the State School from 1958 to 1971.»
+[D213] Johnson fue enviado a la institución debido a problemas de cuidado en casa y la narrativa de que las personas con discapacidad estarían mejor atendidas permanentemente en un hospital. · tipo cita · valor None · fecha None
+    F07@2047: «Johnson was sent to the institution after issues with care arose at home with his parents and siblings; that combined with the then current narrative that those with disabilities couldn’t live at home and would be better served at a hospital, permanently.»
+[D214] En su libro "Lost in a Desert World", Roland Johnson relata sus experiencias en el hospital. · tipo nombre · valor Lost in a Desert World · fecha None
+    F07@2303: «In Roland’s book “Lost in a Desert World” he accounts his experiences at the hospital.»
+[D215] El personal de Pennhurst enviaba a los pacientes que se portaban mal a una sala de castigo. · tipo cita · valor None · fecha None
+    F07@2390: «He mentions that the staff would send patients who were acting up to a punishment ward.»
+[D216] La sala de castigo estaba deteriorada, tenía agujeros en las paredes y en el suelo, y olía terriblemente mal. · tipo cita · valor None · fecha None
+    F07@2478: «The ward was run down and had holes in the wall and in the floor and smelled terrible.»
+[D217] El personal podía hacer poco o nada con respecto a las interacciones entre pacientes que dejaron a Roland con cicatrices de ciertas experiencias. · tipo cita · valor None · fecha None
+    F07@2565: «It is also mentioned that the staff could do little to nothing regarding patient interactions that left Roland scarred from certain experiences.»
+[D218] La Pennhurst State School and Hospital fue inaugurada en 1908 como un nuevo modelo de tratamiento para personas con discapacidad mental. · tipo fecha · valor 1908 · fecha 1908
+    F09@10: (= arriba)
+[D219] El propósito de la institución era segregar y esterilizar de la sociedad a aquellos considerados "defectuosos mentales" y "débiles mentales". · tipo cita · valor None · fecha None
+    F09@121: «Its dual purpose was to segregate and sterilize those deemed "mental defectives" and "feeble minded" from society.»
+[D220] En 1974, la institución superaba en más del doble su capacidad de 1300 residentes. · tipo magnitud · valor None · fecha 1974
+    F09@236: (= arriba)
+[D221] Un tribunal de EE. UU. declaró por primera vez que "las personas con retraso mental tienen derecho a vivir en la comunidad". · tipo cita · valor None · fecha None
+    F09@422: «...declaring for the first time that "people with mental retardation have a right to live in the community."»
+[D222] Algunos ex-residentes de la institución la ven como un lugar donde podían sobresalir y realizar sus sueños. · tipo cita · valor None · fecha None
+    F09@528: «While some former residents of the institution see it as a place where they could excel and realize dreams, many others have a radically different view...»
+[D223] Muchos otros ex-residentes consideran a Pennhurst un infierno en la tierra, donde las palizas, violaciones y enfermedades eran rampantes. · tipo cita · valor None · fecha None
+    F09@636: «...many others have a radically different view - that of a hell on earth, a place where beatings and rapes and disease were rampant...»
+[D224] En Pennhurst se negaban a los residentes hasta los derechos y necesidades humanas más básicas. · tipo cita · valor None · fecha None
+    F09@707: «...a place where beatings and rapes and disease were rampant, and where they were denied even the most basic human rights and needs.»
+[D225] El documental examina las actitudes de la sociedad hacia las personas con discapacidad mental desde principios de 1900 hasta la actualidad. · tipo fecha · valor principios de 1900 · fecha None
+    F09@1238: «...examining the attitudes of society towards the mentally challenged from the early 1900's to the present day.»
+[D226] El nombre original de Pennhurst, inaugurado en 1908, era Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic. · tipo nombre · valor Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic · fecha None
+    F11@421: (= arriba)
+[D227] Pennhurst tenía una reputación de estar plagado de problemas, incluyendo acusaciones de abuso, negligencia y hacinamiento. · tipo cita · valor None · fecha None
+    F11@519: «Pennhurst quickly gained a reputation as a facility fraught with problems. Allegations of abuse, neglect and overcrowding were compounded by a lack of state funds and inadequate staffing to care for the thousands of residents»
+[D228] Los problemas en Pennhurst se agravaron por la falta de fondos estatales y personal inadecuado. · tipo cita · valor None · fecha None
+    F11@594: «Allegations of abuse, neglect and overcrowding were compounded by a lack of state funds and inadequate staffing to care for the thousands of residents, many with profound and severe disabilities, who called Pennhurst their home.»
+[D229] Pennhurst albergaba a miles de residentes, muchos con discapacidades profundas y severas. · tipo cifra · valor miles · fecha None
+    F11@686: «inadequate staffing to care for the thousands of residents, many with profound and severe disabilities, who called Pennhurst their home.»
+[D230] La investigación periodística de Bill Baldini sobre Pennhurst se emitió durante 5 noches. · tipo magnitud · valor 5 noches · fecha None
+    F11@823: (= arriba)
+[D231] El estado de Pennsylvania asignó 21 millones de dólares a Pennhurst tras la exposición mediática. · tipo cifra · valor None · fecha 1968
+    F11@1217: «The state allocated $21 million for the deteriorating facility, resulting in the construction of the New Horizons building (now home to the SE PA Veterans Administration).»
+[D232] Con los fondos estatales se construyó el edificio New Horizons. · tipo nombre · valor None · fecha None
+    F11@1217: (= arriba)
+[D233] Actualmente, el edificio New Horizons alberga la SE PA Veterans Administration. · tipo nombre · valor SE PA Veterans Administration · fecha None
+    F11@1314: «the New Horizons building (now home to the SE PA Veterans Administration).»
+[D234] Una demanda colectiva contra Pennhurst y el Estado de Pennsylvania impulsó un movimiento para terminar con la institucionalización forzada de personas con discapacidades del desarrollo. · tipo cita · valor None · fecha None
+    F11@1599: «a class-action lawsuit brought against Pennhurst and the State of Pennsylvania in 1974 thrust the institution into the national spotlight, it sparked a movement to end the forced institutionalization of those with developmental disabilities.»
+[D235] Algunos residentes de Pennhurst fueron recluidos en "pabellones de castigo" donde se les obligaba a realizar los trabajos más serviles. · tipo cita · valor None · fecha None
+    F11@2402: «They will tell you stories about being put on “punishment wards” where they were locked down and forced to work at the most menial of jobs.»
+[D236] El campus inferior del complejo Pennhurst es actualmente de propiedad privada. · tipo cita · valor None · fecha None
+    F11@2983: «The lower campus of the Pennhurst complex is now privately owned.  Photos and video on this site were taken with the kind permission of Jim Barnes of Penn Organic.»
+</datos>
+<citas n="41">
+[Q01] CITA «Sostendría que los peticionarios no tienen derecho a invocar las protecciones de esa Enmienda en esta demanda ante un tribunal federal por parte de ciudadanos de Pensilvania.» — Justice Brennan (Juez de la Corte Suprema, en disenso) · verificada · fecha None
+    F05@88501: «...I would hold that petitioners are not entitled to invoke the protections of that Amendment in this federalcourt suit by citizens of Pennsylvania. See Employees v. Missouri Dept, of Public Health and Welfare, 411 U. S. 279, 298 (1973) (Bren nan , J., dissenting)...»
+[Q02] CITA «Este caso ha iluminado el carácter de una institución. El expediente demuestra que el Pennhurst State School and Hospital ha sido operado en violación de la ley estatal.» — Justice Stevens (Juez de la Corte Suprema, en disenso) · verificada · fecha None
+    F05@90263: «This case has illuminated the character of an institution. The record demonstrates that the Pennhurst State School and Hospital has been operated in violation of state law.»
+[Q03] CITA «En un fallo completamente sin precedentes, hoy el Tribunal concluye que la inmunidad soberana de Pensilvania impide que un tribunal federal prohíba la conducta que la propia Pensilvania ha prohibido. Ninguna visión racional de la inmunidad soberana de los Estados apoya este resultado.» — Justice Stevens (Juez de la Corte Suprema, en disenso) · verificada_parcial · fecha None
+    F05@91287: «In a completely unprecedented holding, today the Court concludes that Pennsylvania’s sovereign immunity prevents a federal court from enjoining the conduct that Pennsylvania itself has prohibited. No rational view of the sovereign immunity of the States supports this result.»
+[Q04] CITA «Las condiciones en Pennhurst no solo son peligrosas, con los residentes a menudo abusados físicamente o drogados por miembros del personal, sino también inadecuadas para la 'habilitación' de los retrasados. De hecho, el tribunal encontró que las habilidades físicas, intelectuales y emocionales de algunos residentes se han deteriorado en Pennhurst.» — The District Court (Tribunal de primera instancia) · verificada · fecha None
+    F05@92836: (= arriba)
+[Q05] CITA «el Estado estaba obligado a proporcionar cuidado a los retrasados mentales en el "entorno menos restrictivo".» — The Court of Appeals (Tribunal de apelaciones) · verificada · fecha None
+    F05@97328: «According to the Court of Appeals, which was unanimous on this point, the State Supreme Court had “spoken definitively” on the duties of the State under the MH/MR Act, holding that the State was required to provide care to the mentally retarded in the “least restrictive environment.”»
+[Q06] CITA «actuaron de la más absoluta buena fe . . . dentro de la esfera de sus responsabilidades oficiales» — District Court (Tribunal) · verificada · fecha None
+    F05@119699: (= arriba)
+[Q07] CITA «Como dije al principio, este caso ha iluminado el carácter de una institución. Con todo respeto, disiento.» — Justice Stevens (Juez, en disidencia) · verificada_parcial · fecha None
+    F05@189396: (= arriba)
+[Q08] CITA «Las condiciones en Pennhurst no solo son peligrosas, con los residentes a menudo abusados físicamente o drogados por miembros del personal, sino también inadecuadas para la 'habilitación' de los retrasados.» — Fallo judicial (None) · verificada · fecha None
+    F04@2104: (= arriba)
+[Q09] CITA «A menos que [el Tercer Circuito] sea revocado, la decisión dará a los tribunales federales carta blanca en la gestión de los programas estatales a pesar de la ausencia de cualquier interés federal.» — Demandados en el caso Pennhurst (None) · verificada · fecha None
+    F02@77408: «The nub of the defendants' position was summed up in the following quote from their brief: "Unless it [the Third Circuit] is reversed, the decision will give federal courts a free hand in the management of state programs despite the absence of any federal interest at all."»
+[Q10] CITA «Puede ser útil aclarar aquí la importancia del hecho de que los decretos fueron firmados con el consentimiento de las partes. El espíritu de buscar un acuerdo ha sido fundamental para el éxito del litigio hasta este punto.» — Monitor externo de la corte (None) · verificada · fecha None
+    F02@98135: «The spirit of seeking agreement has been fundamental to the success of the litigation to this point. Despite the far-reaching powers of the federal court, there can be no doubt that better and quicker results are achieved when all parties make an effort to cooperate and reach a common ground.»
+[Q11] CITA «El incumplimiento del Estado con el decreto [de consentimiento] de la Corte sigue siendo sustancial... El Estado podría haber logrado mucho más si todas las agencias estatales vinculadas por el decreto hubieran brindado su cooperación activa e informada.» — David D. Gregory (Maestro Especial en el caso Wuori v. Zitnay) · verificada · fecha None
+    F02@98754: (= arriba)
+[Q12] CITA «Un número no insignificante de políticas y programas se originan en el deseo de extirpar un mal real o imaginado. Tales políticas crean oportunidades de implementación para activistas que muchos intereses políticos percibirán como "exaltados", "extremistas" o "fanáticos". Entonces se produce una contrarreforma.» — Eugene Bardach (Autor de The Implementation Game) · verificada · fecha None
+    F02@105293: (= arriba)
+[Q13] CITA «... estas decisiones ahora interpretan la Ley para dar derecho a toda la población con retraso mental al tratamiento mencionado sin tener en cuenta la disponibilidad de fondos y servicios. La intervención de los tribunales ha creado costos legales y de personal adicionales; ha limitado las opciones disponibles para profesionales, padres y clientes con RM; ha dificultado la planificación regional y estatal; y ha fomentado una división entre los grupos de defensa de Pensilvania.» — Comité del Senado de Pensilvania (None) · verificada · fecha None
+    F02@132046: «In reviewing the actions of both the Third Circuit and the Pennsylvania Supreme Court, the Committee states: . . . these decisions now interpret the Act to entitle all of the MR population to the above-stated treatment without regard for the availability of funds and services exists.»
+[Q14] CITA «Utilización de medios que sean lo más normativos culturalmente posible para establecer y/o mantener comportamientos y características que sean lo más normativos culturalmente posible» — Wolfensberger (Teórico del principio de normalización) · verificada · fecha None
+    F02@154929: «In his original formulation, Wolfensberger (1972) defined normalization as: 'Utilization of means which are as culturally normative as possible in order to establish and/or maintain behaviors and characteristics which are as culturally normative as possible' (page 28).»
+[Q15] CITA «Desearía que la gente que vive conmigo fuera amable y buena conmigo como estas personas.» — Steve (Ex-residente de Pennhurst) · verificada · fecha None
+    F02@195921: «When asked what he would wish for if he had one wish, Steve responded, "I wish for people to live with me who are nice and kind to me like these people."»
+[Q16] CITA «Pennhurst estaba bien, crecí en ese lugar. Aquí tenemos diferentes horarios para levantarnos y acostarnos. Tenemos los sábados y domingos para nosotros. Esto es más un hogar; no hay una gran multitud, solo unas pocas personas.» — Bruce (Ex-residente de Pennhurst) · verificada · fecha None
+    F02@196384: «When asked how his group home differs from Pennhurst, Bruce said, "Pennhurst was alright, I grew up in that place. We have different hours of getting up and going to sleep here. We have Saturdays and Sundays to ourselves. This is more home; there is no big crowd, just a few people."»
+[Q17] CITA «Desearía ser millonario.» — Bruce (Ex-residente de Pennhurst) · verificada · fecha None
+    F02@196668: «When asked what he would wish for if he had one wish, Bruce replied, "I wish I was a millionaire."»
+[Q18] CITA «En este caso, el individuo es trasladado de una situación muy segura donde otra persona, el estado, es responsable de su seguridad y futuro. Los entornos alternativos son, por definición, menos restrictivos, y la familia se enfrenta a la creencia de que puede ocurrir un mayor riesgo de daño o abuso.» — Willer, et al. (Investigadores) · verificada · fecha 1979
+    F02@274492: «As Willer, et al. (1979) said: In this instance, the individual is moved from a very secure situation where someone else, the state, is responsible for his safety and future.»
+[Q19] CITA «La historia es algo que le sucede a la gente» — Arnold Toynbee (Historiador) · verificada · fecha None
+    F08@1: (= arriba)
+[Q20] CITA «fueron utilizadas como medidas de control en lugar de una dotación de personal adecuada» — Raymond J. Broderick (Juez de Tribunal de Distrito de EE. UU.) · verificada · fecha None
+    F10@1489: (= arriba)
+[Q21] CITA «peligroso para los residentes, tanto física como psicológicamente» — Raymond J. Broderick (Juez de Tribunal de Distrito de EE. UU.) · verificada · fecha None
+    F10@1678: (= arriba)
+[Q22] CITA «no solo no es propicio para aprender nuevas habilidades, sino que es tan deficiente que contribuye a la pérdida de habilidades ya aprendidas» — Raymond J. Broderick (Juez de Tribunal de Distrito de EE. UU.) · verificada · fecha None
+    F10@1787: «to the extent that it was “not only not conducive to learning new skills, but it is so poor that it contributes to losing skills already learned.”3»
+[Q23] CITA «Una vez admitidos en una instalación estatal, los residentes tienen el derecho constitucional a recibir una habilitación mínimamente adecuada en las condiciones menos restrictivas compatibles con el propósito de su internamiento.» — Raymond J. Broderick (Juez de Tribunal de Distrito de EE. UU.) · verificada · fecha None
+    F10@2387: «Judge Broderick held that “Once admitted to a state facility, the residents have a constitutional right to be provided with minimally adequate habilitation under the least restrictive conditions consistent with the purpose of the commitment.”5»
+[Q24] CITA «el confinamiento y aislamiento de personas con discapacidad en la institución llamada Pennhurst es una segregación en una instalación que claramente es separada y no igualitaria.» — Raymond J. Broderick (Juez de Tribunal de Distrito de EE. UU.) · verificada · fecha None
+    F10@3166: «He found that “the confinement and isolation of people with disabilities in the institution called Pennhurst is segregation in a facility that clearly is separate and not equal.”6»
+[Q25] CITA «Nadie... anticipó que esta acción civil iniciada el 30 de mayo de 1974 se litigaría activamente durante más de diez años, requiriendo 2,192 asientos en el expediente, unas 500 órdenes judiciales, veintiocho opiniones publicadas y tres argumentaciones ante la Corte Suprema de los Estados Unidos.» — Raymond J. Broderick (Juez de Tribunal de Distrito de EE. UU.) · verificada · fecha 1985
+    F10@4302: «“No one … anticipated that this civil action commenced on May 30, 1974 would be actively litigated for more than ten years, requiring 2,192 docket entries, about 500 Court orders, twenty-eight published opinions, and three arguments before the U.S. Supreme Court.”9»
+[Q26] CITA «Los ex residentes de Pennhurst mostraron un crecimiento en su desarrollo significativamente más rápido en la comunidad de lo que habían mostrado en Pennhurst. Recibieron más servicios y más tiempo de programa a un menor costo en dólares públicos.» — James Conroy (Director de Investigación del Developmental Disabilities Center en Temple University) · verificada · fecha None
+    F10@5411: «Dr. Conroy found that: “The former Pennhurst residents showed significantly faster development growth in the community than they had at Pennhurst. They received more services and more program time at less cost in public dollars.»
+[Q27] CITA «las familias generalmente percibieron que la felicidad de sus... parientes era mucho mayor en la [comunidad] que en Pennhurst.» — James Conroy (Director de Investigación del Developmental Disabilities Center en Temple University) · verificada_parcial · fecha None
+    F10@5842: «Measured by a variety of standards, the families generally perceived the happiness of their … relatives to be much greater in the [community] than at Pennhurst.”11»
+[Q28] CITA «Pennhurst fue un error desde el primer día, pero fue un error cometido por todos nosotros, siguiendo los dictados de las 'mejores mentes' de su tiempo.» — Un ex Asistente Especial del Superintendente de Pennhurst (Ex Asistente Especial del Superintendente de Pennhurst) · verificada · fecha None
+    F12@368: «As a former Special Assistant to Pennhurst's Superintendent has said, "Pennhurst was a mistake from day one, but it was a mistake made by all of us, following the dictates of the 'best minds' of its time."»
+[Q29] CITA «Se construyeron enormes instituciones de custodia para almacenar a los retrasados de por vida. El objetivo era detener la reproducción de los retrasados y casi extinguir su raza.» — Juez Thurgood Marshall (Juez) · verificada · fecha 1985
+    F12@2615: (= arriba)
+[Q30] CITA «No hay espacio adecuado para los residentes. Las áreas de vivienda no proporcionan privacidad para aquellas personas que pueden manejar la privacidad. No parece haber áreas de actividad o áreas de programa adecuadas o incluso áreas de actividad general...» — Superintendente Youngberg (Superintendente) · verificada · fecha None
+    F12@6544: (= arriba)
+[Q31] CITA «No dejaría a un perro en condiciones como esas.» — Sra. Hight (Madre de residente) · verificada_parcial · fecha None
+    F12@11779: «The Hights promptly removed Robert from the institution, Mrs. Hight commenting that she "wouldn't leave a dog in conditions like that." (N.T. 11-22, 11-23).»
+[Q32] CITA «Nancy Beth quedará marcada por el resto de su vida.» — Sra. Bowman (Madre de residente) · verificada · fecha None
+    F12@14524: «When asked about her present physical condition Nancy Beth's mother replied, "Nancy Beth will be scarred for the rest of her life." (Id., N.T. 13-94).»
+[Q33] CITA «¿Puede un archivo contener alguna vez una vida?» — archivistas comunitarios (Archivistas) · verificada · fecha None
+    F03@303: «In doing so, they ask the question: Can a file ever contain a life?»
+[Q34] CITA «el personal enviaba a los pacientes que se portaban mal a una sala de castigo.» — Roland Johnson (Ex-paciente de Pennhurst) · verificada · fecha None
+    F07@2303: «In Roland’s book “Lost in a Desert World” he accounts his experiences at the hospital. He mentions that the staff would send patients who were acting up to a punishment ward.»
+[Q35] CITA «La sala estaba deteriorada y tenía agujeros en la pared y en el suelo y olía terrible.» — Roland Johnson (Ex-paciente de Pennhurst) · verificada · fecha None
+    F07@2478: (= arriba)
+[Q36] CITA «el personal podía hacer poco o nada con respecto a las interacciones entre pacientes que dejaron a Roland con cicatrices de ciertas experiencias.» — Roland Johnson (Ex-paciente de Pennhurst) · verificada · fecha None
+    F07@2565: (= arriba)
+[Q37] CITA «las personas con retraso mental tienen derecho a vivir en la comunidad.» — Tribunal de EE. UU. (Entidad judicial) · verificada · fecha None
+    F09@422: (= arriba)
+[Q38] CITA «un lugar donde podían sobresalir y realizar sueños» — Algunos ex-residentes (Ex-residente) · verificada · fecha None
+    F09@528: (= arriba)
+[Q39] CITA «un infierno en la tierra, un lugar donde las palizas, las violaciones y las enfermedades eran rampantes, y donde se les negaban hasta los derechos y necesidades humanas más básicas.» — Muchos otros ex-residentes (Ex-residente) · verificada · fecha None
+    F09@636: «...many others have a radically different view - that of a hell on earth, a place where beatings and rapes and disease were rampant, and where they were denied even the most basic human rights and needs.»
+[Q40] CITA «Baldini culpó a la indiferencia de la sociedad, no al personal y a los administradores, por permitir que tales condiciones persistieran e instó a los espectadores a tomar la iniciativa contactando a sus legisladores estatales para exigir un cambio.» — Bill Baldini (Reportero de WCAU 10 news) · verificada · fecha None
+    F11@974: «Baldini blamed society’s indifference, not the staff and administrators, for allowing such conditions to persist and urged viewers to take the initiative by contacting their state legislators to demand change.»
+[Q41] CITA «Contarán historias sobre ser puestos en "pabellones de castigo" donde eran encerrados y forzados a trabajar en los trabajos más serviles.» — Residentes (Residente de Pennhurst) · verificada · fecha None
+    F11@2402: (= arriba)
+</citas>
+<lugares n="36">
+[L01] Pennhurst State School and Hospital · Institución de Pennsylvania para el cuidado de personas con retraso mental y centro del litigio.
+    F05@7971: «This litigation, here for the second time, concerns the conditions of care at petitioner Pennhurst State School and Hospital, a Pennsylvania institution for the care of the mentally retarded.»
+    F05@90322: «The record demonstrates that the Pennhurst State School and Hospital has been operated in violation of state law.»
+    F04@427: (= arriba)
+    F02@11413: (= arriba)
+    F08@118: «information about family members who may have been institutionalized at the Pennhurst State School and Hospital (later renamed the Pennhurst State Center).»
+    F10@49: «The abusive, inhumane living conditions of the residents with developmental disabilities at Pennhurst State School and Hospital, in Spring Hill, Pennsylvania»
+    F09@10: (= arriba)
+    F11@22: «The Pennhurst Project is a site dedicated to the stories and memories of the people who lived and worked at Pennhurst State School and Hospital in Spring City, Pennsylvania.»
+[L02] District Court for the Eastern District of Pennsylvania · Tribunal donde se presentó originalmente la demanda en 1974.
+    F05@8405: (= arriba)
+    F10@527: «On May 30, 1974 a class action lawsuit was filed in the U. S. District Court for the Eastern District of Pennsylvania»
+[L03] Court of Appeals for the Third Circuit · Tribunal que revisó las decisiones del Tribunal de Distrito.
+    F05@11462: (= arriba)
+    F05@90572: (= arriba)
+[L04] Pennsylvania · Estado responsable de la operación y financiación de Pennhurst.
+    F05@92464: «The conduct of petitioners that the Court attributes to the State of Pennsylvania in order to find it protected by the Eleventh Amendment is described in detail in the District Court’s findings.»
+    F05@180061: «One basic fact underlies this case: far from immunizing petitioners’ conduct, the State of Pennsylvania prohibited it.»
+    F02@120151: «Though Maine's system at the time of the suit was not fully developed, certainly the Michigan system could be seen as relatively complex and sophisticated.»
+    F02@188333: «To the extent that a community service system is similar to the Pennsylvania model, such generalization is warranted with moderate caution.»
+[L05] Pennsylvania Supreme Court · Máximo tribunal del estado de Pensilvania, cuyo fallo en el caso Schmidt fue considerado por el Tribunal de Apelaciones.
+    F05@96522: «Concluding that it was “unclear whether state law provides an independent and adequate ground which can support the court’s remedial order,” 451 U. S., at 31, we “remand[ed] the state-law issue for reconsideration in light of our decision here.”»
+[L06] Pennhurst · Institución estatal
+    F05@160954: «...petitioners were entitled to run Pennhurst. The District Court and the Court of Appeals have both found that petitioners operated Pennhurst in a way that the sovereign has forbidden.»
+    F04@1899: «right to treatment secured by state law may provide an independent and adequate ground to support lower court's order for community placement of residents of state institution for the mentally retarded»
+    F02@234409: «In this part of the Pennhurst Study, we address the question of whether people are "better off" in terms of the qualities of the places in which they live.»
+    F02@282941: «If your relative were to be selected for movement from Pennhurst to the community, how likely would you be to agree with this decision?»
+    F12@0: (= arriba)
+[L07] Pennhurst Center · Institución para personas con discapacidad mental
+    F02@9664: (= arriba)
+    F02@178497: «The subheading "PC" means that the data in those columns were collected at Pennhurst Center, and the "CLA" subheading means the data were from CLAs.»
+[L08] Chester County · Condado que estaba en cumplimiento con la orden de implementación del juez.
+    F02@58420: «the Judge issued an order to show cause why the Commonwealth and four counties (Chester County was in compliance) should not be held in civil contempt»
+[L09] Philadelphia · Ciudad y condado que firmó un acuerdo de consentimiento para resolver problemas de reubicación.
+    F02@59271: «The plaintiffs and the City and County of Philadelphia agreed to settle placement issues raised in the civil contempt proceedings described above.»
+    F02@203922: «...of the people still at Pennhurst, only the people who were originally from the greater Philadelphia area (the five southeastern counties of Pennsylvania) would be candidates.»
+[L10] Southeast Region · Región administrativa donde se implementaron las órdenes judiciales relacionadas con Pennhurst.
+    F02@60696: «the 1981-82 budget for the Southeast Region. Since $8 million in new program funds were cut by the legislature, OMR staff had to adjust its funding commitments to the Southeast Region.»
+[L11] Pennhurst State Center · Institución para personas con retraso mental objeto de la demanda.
+    F02@62049: «Developments at Pennhurst State Center continued to focus on medical services including the medication reviews conducted by an outside medical consultant.»
+    F02@116688: «In order to gather material for the analysis, several steps were taken. First, information was sought from the Commonwealth's Deputy Attorney General assigned to Pennhurst»
+    F08@118: (= arriba)
+[L12] Marcy State Center · Institución en el oeste de Pensilvania cuyo cierre estaba previsto para 1982.
+    F02@63803: «Other general system developments included a statement by OMR Deputy Secretary that Marcy State Center in Western Pennsylvania would be closed by 1982.»
+[L13] Maine · Estado utilizado para comparación en el estudio
+    F02@117142: (= arriba)
+[L14] Michigan · Estado utilizado para comparación en el estudio
+    F02@117142: (= arriba)
+[L15] Minnesota · Estado con litigios similares revisado en el estudio
+    F02@118373: «Finally, staff reviewed materials from the two comparison states and other states facing similar court mandates including Minnesota, Nebraska, New York, Massachusetts, and the District of Columbia.»
+[L16] Massachusetts · Estado con litigios similares revisado en el estudio
+    F02@118373: (= arriba)
+[L17] Community Living Arrangements (CLAs) · Viviendas comunitarias alternativas para los exresidentes de Pennhurst
+    F02@148346: «The places where people went in the Pennhurst case are called Community Living Arrangements (CLAS).»
+[L18] Wills Eye Hospital · Hospital oftalmológico
+    F02@233421: «When the project director suggested an evaluation at Wills Eye Hospital, Mr. and Mrs. Harris were hesitant»
+[L19] Maryland · Ubicación de una escuela residencial para una prueba piloto
+    F02@237265: «The core item checklist was pilot-tested at a residential school in Maryland.»
+[L20] South Carolina · Lugar de origen de la familia de Susan
+    F02@269290: «She has been visiting with her family in South Carolina at least 3-4 times a year over the past 10 years.»
+[L21] Pennsylvania State Archives · Repositorio de registros
+    F08@614: (= arriba)
+[L22] Harrisburg, Pennsylvania · Ubicación de los archivos estatales
+    F08@614: (= arriba)
+[L23] White Haven State Center · Repositorio de registros
+    F08@700: (= arriba)
+[L24] Syracuse University · Afiliación de Dee Katovitch
+    F08@4086: «[Many Thanks to Dee Katovitch, Syracuse University, for assembling these procedures.]»
+[L25] Spring Hill, Pennsylvania · Ubicación del Pennhurst State School and Hospital
+    F10@138: «at Pennhurst State School and Hospital, in Spring Hill, Pennsylvania, were brought to the public’s attention in 1968»
+[L26] U.S. Supreme Court · Tribunal donde se presentaron tres argumentos del caso
+    F10@4472: «twenty-eight published opinions, and three arguments before the U.S. Supreme Court.”9»
+[L27] Developmental Disabilities Center at Temple University · Centro de investigación donde trabajaba James Conroy
+    F10@5133: «a detailed study by James Conroy, Director of Research of the Developmental Disabilities Center at Temple University, systematically tracking and monitoring the progress of Pennhurst residents»
+[L28] Eastern Pennsylvania Institution for the Feeble Minded and Epileptic · Nombre original de Pennhurst
+    F12@857: (= arriba)
+[L29] White Haven State School and Hospital · Institución estatal
+    F12@9809: «he is now forty-five and has resided at the institution continually except for short stays at White Haven State School and Hospital.»
+[L30] Woodhaven · Institución de Pensilvania para personas con retraso mental
+    F12@11098: (= arriba)
+[L31] Pennhurst State School and Hosptial · Institución para personas con discapacidad
+    F07@1055: (= arriba)
+[L32] Punishment ward · Sala de castigo en Pennhurst
+    F07@2390: (= arriba)
+    F11@2352: «You will also hear from the residents themselves. They will tell you stories about being put on “punishment wards” where they were locked down and forced to work at the most menial of jobs.»
+[L33] Spring City, Pennsylvania · Ubicación de Pennhurst
+    F11@130: «Pennhurst State School and Hospital in Spring City, Pennsylvania.»
+[L34] Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic · Nombre original de Pennhurst
+    F11@421: «First opened in 1908 as the Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic»
+[L35] New Horizons building · Edificio construido en Pennhurst con fondos estatales
+    F11@1281: «resulting in the construction of the New Horizons building (now home to the SE PA Veterans Administration).»
+[L36] The lower campus of the Pennhurst complex · Parte del complejo que ahora es de propiedad privada
+    F11@2983: «The lower campus of the Pennhurst complex is now privately owned.»
+</lugares>
+<descartados_del_research n="12">
+  Peticionarios (F05): el apellido no está en el documento
+  M.H. (F02): no es una persona con nombre propio
+  Mr. y Mrs. Harris (F02): no es una persona con nombre propio
+  Superintendentes y funcionarios estatales de Pennhurst (F10): no es una persona con nombre propio
+  Justice Blackmun (F05): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Jennifer Howse (F02): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Michael Lottman (F02): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Terry Perl (F02): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  William Snauffer (F02): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Tyler Stump (F08): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Dee Katovitch (F08): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Jim Barnes (F11): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+</descartados_del_research>
+</pool>
+
+<tarea>Con el pool de arriba, armá la ficha del caso: personas, personas_descartadas, cronologia, historia, escenas (6–15), hechos (40–80, con nivel y sirve_para), cifras (con unidad), citas (10–25), decisiones (con su criterio), versiones, contradicciones (las que ningún criterio resuelve) y descartados. Devolvé el JSON del esquema.</tarea>

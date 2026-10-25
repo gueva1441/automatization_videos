@@ -1,0 +1,345 @@
+{
+ "pennhurst": {
+  "metricas": {
+   "palabras": 1435,
+   "minutos": 11.7,
+   "citas": 2,
+   "duras_v3": 43
+  },
+  "bloqueantes": [],
+  "reparacion": {
+   "bloqueantes_antes": [],
+   "bloqueantes_despues": [],
+   "parada": false,
+   "pasos": {
+    "regenerados": [],
+    "ediciones": [],
+    "fechas": [],
+    "editor": []
+   }
+  },
+  "promesa": "¿Quién podía obligar a Pennhurst a cuidar de Terri cuando ella había perdido las palabras?",
+  "humano": "Terri Lee Halderman",
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "L04",
+   "nombre": "Estado de Pensilvania",
+   "por_que": "Era responsable de la institución y debía financiar y ejecutar las medidas judiciales. Sus decisiones presupuestarias y los incumplimientos del Departamento de Bienestar Público permiten mostrar decisiones concretas, no una maldad institucional abstracta. No se atribuyen al Estado órdenes individuales de abuso que la ficha no identifica.",
+   "variantes": [
+    "Pennsylvania",
+    "State of Pennsylvania",
+    "Commonwealth",
+    "Commonwealth defendants"
+   ]
+  },
+  "trailer_gancho": [],
+  "por_cap": {
+   "1": {
+    "intent": "hook",
+    "titulo": "La oreja lesionada",
+    "beats": [
+     "gancho 4"
+    ],
+    "palabras": 122,
+    "palabras_particion": 122,
+    "personas": [
+     "Legislatura de Pensilvania",
+     "Terri Lee Halderman"
+    ],
+    "citas": 0,
+    "fechas": 0,
+    "fechas_letras": [
+     "Ocho de enero"
+    ]
+   },
+   "2": {
+    "intent": "setup",
+    "titulo": "El nombre de la institución",
+    "beats": [
+     "planteo 1"
+    ],
+    "palabras": 81,
+    "palabras_particion": 81,
+    "personas": [
+     "Terri Lee Halderman"
+    ],
+    "citas": 0,
+    "fechas": 0,
+    "fechas_letras": []
+   },
+   "3": {
+    "intent": "rising_tension",
+    "titulo": "Niños en cunas",
+    "beats": [
+     "giro 2",
+     "giro 3"
+    ],
+    "palabras": 186,
+    "palabras_particion": 186,
+    "personas": [
+     "Bill Baldini",
+     "David Ferleger",
+     "Legislatura de Pensilvania",
+     "Terri Lee Halderman"
+    ],
+    "citas": 0,
+    "fechas": 0,
+    "fechas_letras": [
+     "Treinta de mayo"
+    ]
+   },
+   "4": {
+    "intent": "rising_tension",
+    "titulo": "Camas en los pasillos",
+    "beats": [
+     "escalada 3",
+     "escalada 4"
+    ],
+    "palabras": 200,
+    "palabras_particion": 200,
+    "personas": [
+     "Theresa Sobetsky"
+    ],
+    "citas": 0,
+    "fechas": 0,
+    "fechas_letras": []
+   },
+   "5": {
+    "intent": "shock",
+    "titulo": "La camisa de fuerza",
+    "beats": [
+     "pico 5"
+    ],
+    "palabras": 158,
+    "palabras_particion": 158,
+    "personas": [
+     "Linda Taub",
+     "Raymond J. Broderick",
+     "Terri Lee Halderman"
+    ],
+    "citas": 1,
+    "fechas": 0,
+    "fechas_letras": []
+   },
+   "6": {
+    "intent": "rising_tension",
+    "titulo": "Las dos columnas",
+    "beats": [
+     "respiro 2",
+     "giro 3",
+     "revelacion 3"
+    ],
+    "palabras": 331,
+    "palabras_particion": 331,
+    "personas": [
+     "Hearing Master",
+     "Legislatura de Pensilvania",
+     "Raymond J. Broderick"
+    ],
+    "citas": 0,
+    "fechas": 0,
+    "fechas_letras": [
+     "Diecisiete de marzo",
+     "ocho de enero"
+    ]
+   },
+   "7": {
+    "intent": "outro",
+    "titulo": "El nombre a solas",
+    "beats": [
+     "giro 3",
+     "giro 2",
+     "cierre 3"
+    ],
+    "palabras": 356,
+    "palabras_particion": 300,
+    "personas": [
+     "Justice Stevens",
+     "Parent-Staff Association",
+     "Terri Lee Halderman"
+    ],
+    "citas": 1,
+    "fechas": 1,
+    "fechas_letras": [
+     "Veintitrés de enero",
+     "Doce de julio",
+     "treinta de septiembre"
+    ]
+   }
+  }
+ },
+ "vajont": {
+  "metricas": {
+   "palabras": 1755,
+   "minutos": 14.3,
+   "citas": 7,
+   "duras_v3": 37
+  },
+  "bloqueantes": [
+   {
+    "codigo": "c",
+    "cap": null,
+    "beat": null,
+    "frase": "",
+    "motivo": "el video tiene 1755 palabras: el tope es 1700"
+   }
+  ],
+  "reparacion": {
+   "error": "tope antes de «guion_v4 editor»: paso US$ 0.914 + peor caso 0.444 > 1.20 (o total 8.684 > 14.00)"
+  },
+  "promesa": "¿Cómo pudo el agua alcanzar la cama de una niña mientras la presa seguía en pie?",
+  "humano": "Micaela Coletti",
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "D151",
+   "nombre": "Società Adriatica di Elettricità",
+   "por_que": "La ficha le atribuye decisiones de proyecto y llenado frente a advertencias documentadas. La responsabilidad narrativa se delimita: la instalación pasa a ENEL antes del desastre y el pool no permite identificar por completo quién debía ordenar la alarma general aquella noche. No se atribuye esa omisión a una persona sin prueba.",
+   "variantes": [
+    "SADE",
+    "Sade",
+    "Sociedad Adriática de Electricidad",
+    "Società Adriatica di Elettricità di Venezia"
+   ]
+  },
+  "trailer_gancho": [],
+  "por_cap": {
+   "1": {
+    "intent": "hook",
+    "titulo": "La niña en el agua",
+    "beats": [
+     "gancho 4"
+    ],
+    "palabras": 106,
+    "palabras_particion": 106,
+    "personas": [
+     "Micaela Coletti"
+    ],
+    "citas": 0,
+    "fechas": 0,
+    "fechas_letras": [
+     "nueve de octubre"
+    ]
+   },
+   "2": {
+    "intent": "setup",
+    "titulo": "Frente a la desembocadura",
+    "beats": [
+     "planteo 1"
+    ],
+    "palabras": 134,
+    "palabras_particion": 134,
+    "personas": [
+     "Fundación Vajont"
+    ],
+    "citas": 0,
+    "fechas": 0,
+    "fechas_letras": []
+   },
+   "3": {
+    "intent": "rising_tension",
+    "titulo": "La grieta en la ladera",
+    "beats": [
+     "giro 2",
+     "escalada 3",
+     "giro 3"
+    ],
+    "palabras": 399,
+    "palabras_particion": 399,
+    "personas": [
+     "Edoardo Semenza",
+     "Fundación Vajont",
+     "Giorgio Dal Piaz",
+     "L'Unità",
+     "Tina Merlin"
+    ],
+    "citas": 0,
+    "fechas": 0,
+    "fechas_letras": [
+     "Cuatro de noviembre"
+    ]
+   },
+   "4": {
+    "intent": "rising_tension",
+    "titulo": "La carta y su posdata",
+    "beats": [
+     "giro 3",
+     "giro 3",
+     "giro 4"
+    ],
+    "palabras": 437,
+    "palabras_particion": 337,
+    "personas": [
+     "Alberico Biadene",
+     "Fundación Vajont",
+     "Laboratorio de la Universidad de Padua",
+     "Mario Pancini"
+    ],
+    "citas": 2,
+    "fechas": 0,
+    "fechas_letras": [
+     "veintiséis de septiembre",
+     "dos de octubre",
+     "nueve de octubre"
+    ]
+   },
+   "5": {
+    "intent": "shock",
+    "titulo": "El portoncito abierto",
+    "beats": [
+     "pico 5"
+    ],
+    "palabras": 195,
+    "palabras_particion": 295,
+    "personas": [
+     "Gianfranco Trevisano"
+    ],
+    "citas": 1,
+    "fechas": 0,
+    "fechas_letras": [
+     "nueve de octubre"
+    ]
+   },
+   "6": {
+    "intent": "resolution",
+    "titulo": "Fango y piedras",
+    "beats": [
+     "respiro 2",
+     "revelacion 3"
+    ],
+    "palabras": 179,
+    "palabras_particion": 179,
+    "personas": [
+     "Aniello Coppola",
+     "Giorgio Bocca"
+    ],
+    "citas": 3,
+    "fechas": 0,
+    "fechas_letras": []
+   },
+   "7": {
+    "intent": "outro",
+    "titulo": "La cama",
+    "beats": [
+     "giro 3",
+     "cierre 3"
+    ],
+    "palabras": 302,
+    "palabras_particion": 204,
+    "personas": [
+     "Alberico Biadene",
+     "Francesco Sensidoni",
+     "Fundación Vajont",
+     "Giorgio Bocca",
+     "Mario Pancini",
+     "Micaela Coletti"
+    ],
+    "citas": 1,
+    "fechas": 0,
+    "fechas_letras": [
+     "veinte de febrero",
+     "nueve de octubre"
+    ]
+   }
+  }
+ }
+}

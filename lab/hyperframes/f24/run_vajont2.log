@@ -1,0 +1,16 @@
+[01:28:45] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s3-vajont-f24-ficha
+[01:35:22] INFO     | viral_pipeline | [cost_tracker] Video f8s3-vajont-f24-ficha � Costo total: $0.4374
+  [vajont ficha] US$ 0.4374 · 397 s · tanda US$ 7.0465
+[vajont ficha] {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 13, 'contradicciones': 14, 'decisiones': 22, 'versiones': 7, 'personas': 66, 'personas_descartadas': 5, 'cifras': 31, 'cronologia': 51, 'hechos': 69, 'citas': 25, 'descartados': 30} · sacados 3
+[01:35:23] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s3-vajont-f24-escaleta
+[01:41:20] INFO     | viral_pipeline | [cost_tracker] Video f8s3-vajont-f24-escaleta � Costo total: $0.2794
+  [vajont escaleta] US$ 0.2794 · 357 s · tanda US$ 7.3259
+[vajont escaleta] 13 beats · por cap [1, 1, 3, 3, 1, 2, 2]
+[01:41:20] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s3-vajont-f24-guion
+[01:44:24] INFO     | viral_pipeline | [cost_tracker] Video f8s3-vajont-f24-guion � Costo total: $0.9138
+  [vajont guion] US$ 0.9138 · 184 s · tanda US$ 8.2397
+[01:44:24] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s3-vajont-f24-reparacion
+[01:44:29] INFO     | viral_pipeline | [cost_tracker] Video f8s3-vajont-f24-reparacion � Costo total: $0.0000
+  [vajont reparacion] US$ 0.0000 · 5 s · tanda US$ 8.2397
+PARADA (vajont guion): guion: KeyError: 'costo'
+tanda US$ 8.2397

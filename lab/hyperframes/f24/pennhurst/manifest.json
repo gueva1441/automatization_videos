@@ -1,0 +1,617 @@
+{
+ "generado": "2026-10-25",
+ "place_re": "\\bPennhurst\\ State\\ School\\ and\\ Hospital\\b|\\bPennhurst\\ Asylum\\b|\\bPennhurst\\b|\\bHalderman\\ v\\.\\ Pennhurst\\b|\\bPennhurst\\ Center\\b|(?<!\\w)Pennhurst\\ State\\ School(?!\\w)",
+ "max_doc_chars": 300000,
+ "documentos": [
+  {
+   "id": "F01",
+   "slug": "youtube_1968_suffer_the_little_children_1968-F01",
+   "url": "https://www.youtube.com/watch?v=kFOBVjJxAWA",
+   "titulo": "Suffer The Little Children (1968)",
+   "tipo": "documental",
+   "anio": 1968,
+   "prioridad": 1,
+   "por_que": "Es el documental de investigación original del reportero Bill Baldini que expuso por primera vez las condiciones deplorables de Pennhurst al público.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F02",
+   "slug": "hhs_1985_the_pennhurst_longitudinal_study_combined-F02",
+   "url": "https://aspe.hhs.gov/reports/pennhurst-longitudinal-study-combined-report-five-years-research-analysis-0",
+   "titulo": "Pennhurst Longitudinal Study: A Combined Report of Five Years of Research and Analysis",
+   "tipo": "informe_oficial",
+   "anio": 1985,
+   "prioridad": 1,
+   "por_que": "Informe gubernamental que analiza el impacto de la desinstitucionalización de los residentes de Pennhurst, proporcionando datos y análisis a largo plazo.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://aspe.hhs.gov/reports/pennhurst-longitudinal-study-combined-report-five-years-research-analysis-0",
+     "status": 200,
+     "bytes": 896948
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://aspe.hhs.gov/reports/pennhurst-longitudinal-study-combined-report-five-years-research-analysis-0",
+   "archivo": "hhs_1985_the_pennhurst_longitudinal_study_combined-F02.html",
+   "txt": "hhs_1985_the_pennhurst_longitudinal_study_combined-F02.txt",
+   "bytes": 896948,
+   "caracteres": 299814,
+   "caracteres_total": 696137,
+   "recorte": "fuera la cola desde «References» (199422 caracteres); cortado en el último párrafo antes de 300000 (196901 caracteres fuera)",
+   "sha1": "f417e16185cd85d91a8cc05f3a2d0fd71315007a",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "The Pennhurst Longitudinal Study: Combined Report of Five Years of Research and Analysis",
+    "tipo": "informe_oficial",
+    "anio": 1985
+   },
+   "autor": "James W. Conroy; Valerie J. Bradley"
+  },
+  {
+   "id": "F03",
+   "slug": "temple_2023_file_life_we_remember_stories-F03",
+   "url": "https://disabilities.temple.edu/programs-services/media-arts-culture/file-life-stories/about-file-life-stories",
+   "titulo": "What is File/Life? - About File/Life Stories",
+   "tipo": "academico",
+   "anio": 2023,
+   "prioridad": 1,
+   "por_que": "Proyecto de historia oral que se centra en las historias de vida de los residentes a través de la exploración de sus archivos personales, con la participación de ex-residentes.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://disabilities.temple.edu/programs-services/media-arts-culture/file-life-stories/about-file-life-stories",
+     "status": 200,
+     "bytes": 75361
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://disabilities.temple.edu/programs-services/media-arts-culture/file-life-stories/about-file-life-stories",
+   "archivo": "temple_2023_file_life_we_remember_stories-F03.html",
+   "txt": "temple_2023_file_life_we_remember_stories-F03.txt",
+   "bytes": 75361,
+   "caracteres": 2195,
+   "caracteres_total": 2195,
+   "recorte": null,
+   "sha1": "c6b1854697af83c95a7a1ad0d9350427ace215a0",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "File/Life: We Remember Stories of Pennhurst",
+    "tipo": "testimonio",
+    "anio": 2023
+   },
+   "autor": "Temple University"
+  },
+  {
+   "id": "F04",
+   "slug": "archive_documento_historico_sobre_pennhurst_en-F04",
+   "url": "https://archive.org/details/micro_IA40385006_2214",
+   "titulo": "Pennhurst State School and Hospital v. Halderman, 451 U.S. 1 (1981) (No. 79-1404)",
+   "tipo": "fallo_judicial",
+   "anio": 1981,
+   "prioridad": 1,
+   "por_que": "Potencialmente una fuente primaria o un informe detallado sobre el asilo.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://archive.org/details/micro_IA40385006_2214",
+     "status": 200,
+     "bytes": 742175
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://archive.org/details/micro_IA40385006_2214",
+   "archivo": "archive_documento_historico_sobre_pennhurst_en-F04.html",
+   "txt": "archive_documento_historico_sobre_pennhurst_en-F04.txt",
+   "bytes": 742175,
+   "caracteres": 15384,
+   "caracteres_total": 15384,
+   "recorte": null,
+   "sha1": "dd735f00a41d8eb849a92f5b718060d788b8f41f",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Documento histórico sobre Pennhurst en Internet Archive",
+    "tipo": "informe_oficial",
+    "anio": null
+   },
+   "autor": null
+  },
+  {
+   "id": "F05",
+   "slug": "govinfo_1984_pennhurst_state_school_hospital_v-F05",
+   "url": "https://www.govinfo.gov/app/details/USREPORTS-465/USREPORTS-465-89",
+   "titulo": "PENNHURST STATE SCHOOL & HOSP. v. HALDERMAN 89 - Syllabus",
+   "tipo": "fallo_judicial",
+   "anio": 1984,
+   "prioridad": 1,
+   "por_que": "Documento oficial de la Corte Suprema de EE. UU. sobre el caso Pennhurst, una fuente legal primaria.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.govinfo.gov/app/details/USREPORTS-465/USREPORTS-465-89",
+     "status": 200,
+     "bytes": 40033,
+     "nota": "portada corta con PDF enlazado: https://www.govinfo.gov/content/pkg/USREPORTS-465/pdf/USREPORTS-465-89.pdf"
+    },
+    {
+     "via": "pdf_enlazado",
+     "url": "https://www.govinfo.gov/content/pkg/USREPORTS-465/pdf/USREPORTS-465-89.pdf",
+     "status": 200,
+     "bytes": 5956983
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "pdf_enlazado",
+   "url_descarga": "https://www.govinfo.gov/content/pkg/USREPORTS-465/pdf/USREPORTS-465-89.pdf",
+   "archivo": "govinfo_1984_pennhurst_state_school_hospital_v-F05.pdf",
+   "txt": "govinfo_1984_pennhurst_state_school_hospital_v-F05.txt",
+   "bytes": 5956983,
+   "caracteres": 189504,
+   "caracteres_total": 189504,
+   "recorte": null,
+   "sha1": "5f6b8a384cc15de4324b25056634fa3611fb5d5c",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Pennhurst State School & Hospital v. Halderman, 465 U.S. 89 (1984)",
+    "tipo": "fallo_judicial",
+    "anio": 1984
+   },
+   "autor": null
+  },
+  {
+   "id": "F06",
+   "slug": "pubintlaw_acuerdo_de_conciliacion_del_caso-F06",
+   "url": "https://pubintlaw.org/wp-content/uploads/2012/04/Pennhurst_Settle.pdf",
+   "titulo": "Acuerdo de conciliación del caso Pennhurst (PDF)",
+   "tipo": "fallo_judicial",
+   "anio": null,
+   "prioridad": 1,
+   "por_que": "Documento legal primario del acuerdo final del caso Pennhurst.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://pubintlaw.org/wp-content/uploads/2012/04/Pennhurst_Settle.pdf",
+     "error": "ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))"
+    },
+    {
+     "via": "wayback",
+     "url": "http://web.archive.org/web/20200501002155id_/https://www.pubintlaw.org/wp-content/uploads/2012/04/Pennhurst_Settle.pdf",
+     "status": 200,
+     "bytes": 1334813,
+     "error": "texto de 0 caracteres (< 800: ¿paywall o portada?)"
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "texto de 0 caracteres (< 800: ¿paywall o portada?)"
+  },
+  {
+   "id": "F07",
+   "slug": "asdnext_2019_black_history_and_disability_roland-F07",
+   "url": "https://asdnext.org/blog/black-history-and-disability/",
+   "titulo": "Black History and Disability - Roland Johnson",
+   "tipo": "prensa_posterior",
+   "anio": 2019,
+   "prioridad": 2,
+   "por_que": "Se centra en la experiencia de un residente afroamericano, Roland Johnson, y su libro 'Lost in a Desert World', destacando la perspectiva de las minorías.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://asdnext.org/blog/black-history-and-disability/",
+     "status": 200,
+     "bytes": 35164
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://asdnext.org/blog/black-history-and-disability/",
+   "archivo": "asdnext_2019_black_history_and_disability_roland-F07.html",
+   "txt": "asdnext_2019_black_history_and_disability_roland-F07.txt",
+   "bytes": 35164,
+   "caracteres": 4196,
+   "caracteres_total": 4196,
+   "recorte": null,
+   "sha1": "a83e46bd8d60b4f85d4cbb0a238708f246834442",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Black History and Disability - Roland Johnson",
+    "tipo": "testimonio",
+    "anio": 2019
+   },
+   "autor": "Ziggy"
+  },
+  {
+   "id": "F08",
+   "slug": "preservepennhurst_informacion_historica_sobre_pennhurst_pagi-F08",
+   "url": "http://www.preservepennhurst.org/default.aspx?pg=1611",
+   "titulo": "History is something that happens to people",
+   "tipo": "informe_oficial",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Contenido específico de un sitio web dedicado a preservar la historia de Pennhurst.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "http://www.preservepennhurst.org/default.aspx?pg=1611",
+     "status": 200,
+     "bytes": 31829
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "http://www.preservepennhurst.org/default.aspx?pg=1611",
+   "archivo": "preservepennhurst_informacion_historica_sobre_pennhurst_pagi-F08.html",
+   "txt": "preservepennhurst_informacion_historica_sobre_pennhurst_pagi-F08.txt",
+   "bytes": 31829,
+   "caracteres": 4170,
+   "caracteres_total": 4170,
+   "recorte": null,
+   "sha1": "04cd57c0919743c7c8517f850f6e1f67b4c19e6f",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Información histórica sobre Pennhurst (Página 1611)",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": "Preserve Pennhurst Memorial Alliance"
+  },
+  {
+   "id": "F09",
+   "slug": "apple_pennhurst_pelicula_documental_en_apple-F09",
+   "url": "https://tv.apple.com/us/movie/pennhurst/umc.cmc.5kv8b7ukl9izc7mx6e5u35k4w",
+   "titulo": "Pennhurst",
+   "tipo": "documental",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Documental sobre el tema de Pennhurst.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://tv.apple.com/us/movie/pennhurst/umc.cmc.5kv8b7ukl9izc7mx6e5u35k4w",
+     "status": 200,
+     "bytes": 332865
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://tv.apple.com/us/movie/pennhurst/umc.cmc.5kv8b7ukl9izc7mx6e5u35k4w",
+   "archivo": "apple_pennhurst_pelicula_documental_en_apple-F09.html",
+   "txt": "apple_pennhurst_pelicula_documental_en_apple-F09.txt",
+   "bytes": 332865,
+   "caracteres": 1346,
+   "caracteres_total": 1346,
+   "recorte": null,
+   "sha1": "ff1f3bcf64bce61a7036b042c9a13282aa5680f5",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Pennhurst (Película/Documental en Apple TV)",
+    "tipo": "documental",
+    "anio": null
+   },
+   "autor": null
+  },
+  {
+   "id": "F10",
+   "slug": "disabilityjustice_pennhurst_y_derechos_legales_basicos-F10",
+   "url": "https://disabilityjustice.org/basic-legal-rights/pennhurst/",
+   "titulo": "HALDERMAN V. PENNHURST STATE SCHOOL AND HOSPITAL",
+   "tipo": "informe_oficial",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Ofrece contexto sobre el caso Pennhurst en relación con los derechos de las personas con discapacidad.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://disabilityjustice.org/basic-legal-rights/pennhurst/",
+     "status": 200,
+     "bytes": 206138
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://disabilityjustice.org/basic-legal-rights/pennhurst/",
+   "archivo": "disabilityjustice_pennhurst_y_derechos_legales_basicos-F10.html",
+   "txt": "disabilityjustice_pennhurst_y_derechos_legales_basicos-F10.txt",
+   "bytes": 206138,
+   "caracteres": 6365,
+   "caracteres_total": 6365,
+   "recorte": null,
+   "sha1": "a3972fbf7111624d16ec56bac0e886ca845bfa17",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Pennhurst y Derechos Legales Básicos (Disability Justice)",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": "Disability Justice"
+  },
+  {
+   "id": "F11",
+   "slug": "pennhurstproject_pagina_de_bienvenida_de_the-F11",
+   "url": "http://pennhurstproject.com/Welcome.html",
+   "titulo": "the pennhurst project",
+   "tipo": "academico",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Introducción a un proyecto que recopila testimonios relacionados con Pennhurst.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "http://pennhurstproject.com/Welcome.html",
+     "status": 200,
+     "bytes": 14579
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "http://pennhurstproject.com/Welcome.html",
+   "archivo": "pennhurstproject_pagina_de_bienvenida_de_the-F11.html",
+   "txt": "pennhurstproject_pagina_de_bienvenida_de_the-F11.txt",
+   "bytes": 14579,
+   "caracteres": 3220,
+   "caracteres_total": 3220,
+   "recorte": null,
+   "sha1": "5ca38ee254f51cd8646fbe9f5be19f579fdfe94f",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Página de bienvenida de The Pennhurst Project",
+    "tipo": "testimonio",
+    "anio": null
+   },
+   "autor": null
+  },
+  {
+   "id": "F12",
+   "slug": "preservepennhurst_informacion_historica_sobre_pennhurst_pagi-F12",
+   "url": "http://www.preservepennhurst.org/default.aspx?pg=36",
+   "titulo": "Contrary to myth, Pennhurst was not a place where evil people wrought intentionally evil schemes.",
+   "tipo": "informe_oficial",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Contenido específico de un sitio web dedicado a preservar la historia de Pennhurst.",
+   "descargado": "2026-10-25",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "http://www.preservepennhurst.org/default.aspx?pg=36",
+     "status": 200,
+     "bytes": 47840
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "http://www.preservepennhurst.org/default.aspx?pg=36",
+   "archivo": "preservepennhurst_informacion_historica_sobre_pennhurst_pagi-F12.html",
+   "txt": "preservepennhurst_informacion_historica_sobre_pennhurst_pagi-F12.txt",
+   "bytes": 47840,
+   "caracteres": 17238,
+   "caracteres_total": 17238,
+   "recorte": null,
+   "sha1": "57bb5ccbb78a0f428073e12eea8300cafbca8ff2",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Información histórica sobre Pennhurst (Página 36)",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": "Preserve Pennhurst Memorial Alliance"
+  },
+  {
+   "id": "F13",
+   "slug": "oyez_1981_caso_pennhurst_state_school_and-F13",
+   "url": "https://www.oyez.org/cases/1980/79-1404",
+   "titulo": "Caso Pennhurst State School and Hospital v. Halderman (Oyez, 1981)",
+   "tipo": "academico",
+   "anio": 1981,
+   "prioridad": 2,
+   "por_que": "Análisis y recursos sobre una decisión clave de la Corte Suprema relacionada con Pennhurst.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos en en"
+  },
+  {
+   "id": "F14",
+   "slug": "preservepennhurst_informacion_historica_sobre_pennhurst_pagi-F14",
+   "url": "http://www.preservepennhurst.org/default.aspx?pg=35",
+   "titulo": "Información histórica sobre Pennhurst (Página 35)",
+   "tipo": "academico",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Contenido específico de un sitio web dedicado a preservar la historia de Pennhurst.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos en en"
+  },
+  {
+   "id": "F15",
+   "slug": "mn_historia_del_caso_pennhurst_mn-F15",
+   "url": "https://mn.gov/mnddc/parallels2/one/sidebar/040a.html",
+   "titulo": "Historia del caso Pennhurst (MN Disability Council)",
+   "tipo": "academico",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Contribución de un consejo de discapacidad sobre la historia y el impacto del caso Pennhurst.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos en en"
+  },
+  {
+   "id": "F16",
+   "slug": "californialawreview_las_doctrinas_pennhurst_y_la-F16",
+   "url": "https://www.californialawreview.org/print/the-pennhurst-doctrines-and-the-lost-disability-history-of-the-new-federalism",
+   "titulo": "Las Doctrinas Pennhurst y la historia perdida de la discapacidad (California Law Review)",
+   "tipo": "academico",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Artículo de revisión de derecho que explora las implicaciones legales e históricas del caso Pennhurst.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos en en"
+  },
+  {
+   "id": "F17",
+   "slug": "cornell_1981_pennhurst_state_school_and_hospital-F17",
+   "url": "https://www.law.cornell.edu/supremecourt/text/451/1",
+   "titulo": "Pennhurst State School and Hospital v. Halderman (1981) - Cornell Law School",
+   "tipo": "fallo_judicial",
+   "anio": 1981,
+   "prioridad": 3,
+   "por_que": "Texto completo del fallo de la Corte Suprema de 1981, proporcionando una fuente primaria legal alternativa para el mismo documento.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos en en"
+  },
+  {
+   "id": "F18",
+   "slug": "preservepennhurst_1954_pennhurst_state_school_brochure-F18",
+   "url": "http://www.preservepennhurst.org/Uploads/PPHUploads/PdfUpload/Pennhurst1950-compressed.pdf",
+   "titulo": "Pennhurst State School Brochure",
+   "tipo": "informe_oficial",
+   "anio": 1954,
+   "prioridad": 3,
+   "por_que": "Folleto oficial de la institución de los años 50 que presenta la visión idealizada del centro, contrastando fuertemente con la realidad documentada posteriormente.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos en en"
+  },
+  {
+   "id": "F19",
+   "slug": "billypenn_2023_the_real_life_horror_story-F19",
+   "url": "https://billypenn.com/2023/07/14/pennhurst-asylum-history-disability-law-pennsylvania/",
+   "titulo": "The real-life horror story of Pennhurst, an asylum so terrible it forced changes in disability law",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "prioridad": 3,
+   "por_que": "Artículo de prensa local posterior que resume la historia completa, desde el documental de Baldini hasta el cierre y el legado, conectando los eventos históricos con su impacto actual.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos en en"
+  },
+  {
+   "id": "F20",
+   "slug": "3da_2024_analisis_de_pennhurst_v_halderman-F20",
+   "url": "https://www.3da.org/post/pennhurst-v-halderman-1981",
+   "titulo": "Análisis de Pennhurst v. Halderman (1981) por 3da.org",
+   "tipo": "academico",
+   "anio": 2024,
+   "prioridad": 3,
+   "por_que": "Un análisis académico del caso judicial clave de Pennhurst.",
+   "ok": false,
+   "estado": "no_intentada",
+   "motivo": "ya hay 10 documentos en en"
+  }
+ ],
+ "_fichas": {
+  "hash": "aea592d3107f311d",
+  "raw": {
+   "documentos": [
+    {
+     "id": "F02",
+     "titulo": "Pennhurst Longitudinal Study: A Combined Report of Five Years of Research and Analysis",
+     "autor": "James W. Conroy; Valerie J. Bradley",
+     "tipo": "informe_oficial",
+     "anio": 0
+    },
+    {
+     "id": "F03",
+     "titulo": "What is File/Life? - About File/Life Stories",
+     "autor": "Temple University",
+     "tipo": "academico",
+     "anio": 0
+    },
+    {
+     "id": "F04",
+     "titulo": "Pennhurst State School and Hospital v. Halderman, 451 U.S. 1 (1981) (No. 79-1404)",
+     "autor": "",
+     "tipo": "fallo_judicial",
+     "anio": 1981
+    },
+    {
+     "id": "F05",
+     "titulo": "PENNHURST STATE SCHOOL & HOSP. v. HALDERMAN 89 - Syllabus",
+     "autor": "",
+     "tipo": "fallo_judicial",
+     "anio": 1984
+    },
+    {
+     "id": "F07",
+     "titulo": "Black History and Disability - Roland Johnson",
+     "autor": "Ziggy",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    },
+    {
+     "id": "F08",
+     "titulo": "History is something that happens to people",
+     "autor": "Preserve Pennhurst Memorial Alliance",
+     "tipo": "informe_oficial",
+     "anio": 0
+    },
+    {
+     "id": "F09",
+     "titulo": "Pennhurst",
+     "autor": "",
+     "tipo": "documental",
+     "anio": 0
+    },
+    {
+     "id": "F10",
+     "titulo": "HALDERMAN V. PENNHURST STATE SCHOOL AND HOSPITAL",
+     "autor": "Disability Justice",
+     "tipo": "informe_oficial",
+     "anio": 0
+    },
+    {
+     "id": "F11",
+     "titulo": "the pennhurst project",
+     "autor": "",
+     "tipo": "academico",
+     "anio": 0
+    },
+    {
+     "id": "F12",
+     "titulo": "Contrary to myth, Pennhurst was not a place where evil people wrought intentionally evil schemes.",
+     "autor": "Preserve Pennhurst Memorial Alliance",
+     "tipo": "informe_oficial",
+     "anio": 0
+    }
+   ]
+  }
+ }
+}

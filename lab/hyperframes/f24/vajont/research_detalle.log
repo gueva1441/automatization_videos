@@ -1,0 +1,85 @@
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: Pro sin grounding tras 3 reintentos → Flash con búsqueda
+  [R1] foco 1: 10 fichas del modelo, 0 URLs en el grounding
+  [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 2: 12 fichas del modelo, 9 URLs en el grounding
+  [R1] foco 3: sin grounding (de memoria) → reintento
+  [R1] foco 3: sin grounding (de memoria) → reintento
+  [R1] foco 3: sin grounding (de memoria) → reintento
+  [R1] foco 3: Pro sin grounding tras 3 reintentos → Flash con búsqueda
+  [R1] foco 3: 10 fichas del modelo, 0 URLs en el grounding
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: Pro sin grounding tras 3 reintentos → Flash con búsqueda
+  [R1] foco 4: 11 fichas del modelo, 12 URLs en el grounding
+  [R1] focos con grounding: 1 por Pro, 1 por Flash, 2 sin grounding (de 4)
+  [R1] 21 URLs reales: 12 con ficha del modelo, 9 con ficha de Flash, 2 fuera (no relevantes o listados) · 31 fichas del modelo sin URL del grounding
+  [R1] candidatos: 19 de R1 + 16 del registro de fuentes (19 en el registro)
+  [R2] F09 org_2015_la_inundacion_del_vajont_representaciones-F09: OK (original) 56471 caracteres
+  [R2] F10 unesco_1963_criminal_proceedings_of_the_vajont-F10: FALLÓ — HTTP 429
+  [R2] F11 google_2026_vajont_a_disaster_foretold_the-F11: OK (original) 3498 caracteres
+  [R2] F12 isig_2012_domination_of_or_adaptation_to-F12: OK (original) 38967 caracteres
+  [R2] F13 icrea_2023_the_political_ecology_of_an-F13: PDF enlazado descartado (no nombra el evento): https://www.icrea.cat/wp-content/uploads/2024/04/actionplan2023-2026_final.pdf
+  [R2] F13 icrea_2023_the_political_ecology_of_an-F13: FALLÓ — HTTP 429
+  [R2] F14 ilrestodelcarlino_2023_disastro_del_vajont_atti_del-F14: OK (original) 3796 caracteres
+  [R2] F15 elsaltodiario_2022_vajont_la_construccion_de_una-F15: OK (original) 26315 caracteres
+  [R2] F16 senato_documento_oficial_del_senado_italiano-F16: FALLÓ — sin copia en la Wayback Machine
+  [R2] F17 archiui_comision_de_investigacion_sobre_la-F17: OK (original) 926 caracteres · NO nombra el evento
+  [R2] F19 dolomitiunesco_archivo_vajont_memoria_del_mundo-F19: OK (original) 2737 caracteres
+  [R2] F20 damfailures_vajont_informe_tecnico_de_asdso-F20: OK (original) 7215 caracteres
+  [R2] F21 abebooks_vajont_a_political_ecology_of-F21: OK (original) 3593 caracteres
+  [R2] F22 penguinrandomhouse_vajont_por_marco_armiero-F22: OK (original) 1457 caracteres
+  [R2] F23 ibs_vajont_historia_de_una_presa-F23: OK (original) 4861 caracteres
+  [R2] F24 fondazionevajont_pagina_informativa_de_la_fundacion-F24: OK (original) 1095 caracteres
+  [R2] F31 certifico_2026_tragedia_della_diga_del_vajont-F31: OK (original) 14509 caracteres
+  [R2] 19 documentos OK ({'it': 10, 'en': 7, 'es': 2, 'in': 0}) de 31 intentados
+  [R2] ficha F01: prensa_posterior 2018 «Tragedia della diga del Vajont: 9 ottobre 1963»
+  [R2] ficha F02: prensa_posterior 2023 «Il disastro del Vajont non fu una calamità naturale»
+  [R2] ficha F03: prensa_posterior 2003 «Vajont: fu disastro colposo con previsione dell'evento (Cass»
+  [R2] ficha F04: academico 2014 «Una lezione dai disastri: il Vajont e l'alluvione di Firenze»
+  [R2] ficha F05: prensa_posterior 2021 «Tragedia del Vajont: analisi geologica di una frana annuncia»
+  [R2] ficha F06: informe_oficial 2023 «Remembering Vajont Dam Disaster 60th Anniversary Observance»
+  [R2] ficha F07: academico 2019 «Dam Failure Case Study: Vajont Dam (Italy, 1963)»
+  [R2] ficha F09: academico 2005 «La inundación del Vajont. Representaciones periodísticas de »
+  [R2] ficha F11: libro 2026 «Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and th»
+  [R2] ficha F12: academico 2013 «DOMINATION OF OR ADAPTATION TO NATURE? A LESSON WE CAN STILL»
+  [R2] ficha F14: prensa_posterior 2023 «Disastro Vajont: l'Archivio del processo nel Registro Unesco»
+  [R2] ficha F15: prensa_posterior 2022 «Vajont, la construcción de una catástrofe a la italiana»
+  [R2] ficha F17: informe_oficial 1964 «Commissione d'inchiesta sulla sciagura del Vajont - Relazion»
+  [R2] ficha F19: informe_oficial 2023 «Archivio Vajont: memoria del mondo»
+  [R2] ficha F20: academico 2013 «A Tragedy in the Italian Alps (50th Anniversary) Vajont Dam»
+  [R2] ficha F21: libro 2026 «Vajont: The Political Ecology of an Unnatural Disaster (Hist»
+  [R2] ficha F22: libro 2026 «Vajont: The Political Ecology of an Unnatural Disaster (Hist»
+  [R2] ficha F23: libro 2020 «Vajont. Storia di una diga»
+  [R2] ficha F24: informe_oficial None «Fondo Processuale»
+  [R2] ficha F31: prensa_posterior 2018 «Tragedia della diga del Vajont: 9 ottobre 1963»
+  [R3] F01: 55 ítems con cita literal, 2 descartados
+  [R3] F02: 60 ítems con cita literal, 3 descartados
+  [R3] F03: 49 ítems con cita literal, 1 descartados
+  [R3] F04: 59 ítems con cita literal, 4 descartados
+  [R3] F05: 46 ítems con cita literal, 0 descartados
+  [R3] F06: 33 ítems con cita literal, 0 descartados
+  [R3] F07: 16 ítems con cita literal, 0 descartados
+  [R3] F09: 57 ítems con cita literal, 1 descartados
+  [R3] F11: 13 ítems con cita literal, 3 descartados
+  [R3] F12: 36 ítems con cita literal, 6 descartados
+  [R3] F14: 25 ítems con cita literal, 0 descartados
+  [R3] F15: 78 ítems con cita literal, 2 descartados
+  [R3] F19: 26 ítems con cita literal, 1 descartados
+  [R3] F20: 52 ítems con cita literal, 2 descartados
+  [R3] F21: 9 ítems con cita literal, 5 descartados
+  [R3] F22: 9 ítems con cita literal, 6 descartados
+  [R3] F23: 14 ítems con cita literal, 0 descartados
+  [R3] F24: 13 ítems con cita literal, 1 descartados
+  [R3] F31: 73 ítems con cita literal, 0 descartados
+  [R4] merge: datos 245 · cronologia 120 · lugares 46 · citas 57 · personajes 58 · 89 ítems con ≥ 2 documentos · 49 descartados
+  [R4] autores de cita sumados como personajes: ["L'Unità", 'Habitantes de Erto-Casso', 'Laboratorio de la Universidad de Padua', 'Daniele Ceschin']
+  [4a·pool] personajes sin acción, fuera: ['Pierluigi De Cesero', 'Benigno Zaccagnini', 'Fabio Mandarino', 'Guglielmo Celso', 'Indro Montanelli', 'Arcangelo Mandarino', 'Lee Mauney', 'Francesco Cocco Ortu', 'Mario Alicata', 'Giuseppe Saragat']
+  [R4] presencia por párrafo: 290 vínculos persona-evento (33 personas con alguno)
+  [R4] cifras canónicas: [('1,910', 'F19', ['1,920'])]
+  [R5] citas: {'verificada': 45, 'verificada_parcial': 12, 'sin_verificar': 0}

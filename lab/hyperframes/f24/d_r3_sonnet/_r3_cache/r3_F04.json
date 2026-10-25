@@ -1,0 +1,106 @@
+{
+ "f7b-1|dcf3e83857b17266": {
+  "datos": [
+   {
+    "texto": "La demandante Н.Н.Д. afirma que figura entre los ciudadanos afectados por la radiación a causa del accidente en la asociación de producción Mayak.",
+    "tipo": "cita",
+    "valor": "Н.Н.Д.",
+    "cita_literal": "В обоснование требований указала, что относится к числу граждан, пострадавших от радиационного воздействия вследствие аварии на ПО \"Маяк\"."
+   },
+   {
+    "texto": "Н.Н.Д. es una evacuada de la localidad de Kurmanovo, contaminada a causa del accidente de 1957 en la asociación de producción Mayak.",
+    "tipo": "nombre",
+    "valor": "Курманово",
+    "cita_literal": "Является эвакуированной из населенного пункта Курманово, подвергнувшегося загрязнению вследствие аварии в 1957 году на производственном объединении \"Маяк\"."
+   },
+   {
+    "texto": "El accidente en la asociación de producción Mayak ocurrió en 1957.",
+    "tipo": "fecha",
+    "valor": "1957",
+    "cita_literal": "Является эвакуированной из населенного пункта Курманово, подвергнувшегося загрязнению вследствие аварии в 1957 году на производственном объединении \"Маяк\"."
+   },
+   {
+    "texto": "Los materiales del caso confirman que Н.Н.Д. fue evacuada de una localidad contaminada por el accidente de 1957 en Mayak y por vertidos de residuos radiactivos al río Techa.",
+    "tipo": "lugar",
+    "valor": "río Techa",
+    "cita_literal": "Н.Н.Д. является эвакуированной из населенного пункта, подвергнувшегося загрязнению вследствие аварии в 1957 году на производственном объединении \"Маяк\", сбросов радиоактивных отходов в реку Теча"
+   },
+   {
+    "texto": "La ley federal N 175-FZ del 26.11.1998 se refiere a la protección social de los ciudadanos expuestos a la radiación por el accidente de 1957 en Mayak y por los vertidos de residuos radiactivos al río Techa.",
+    "tipo": "nombre",
+    "valor": "N 175-FZ",
+    "cita_literal": "Федерального закона от 26.11.1998 г. N 175-ФЗ \"О социальной защите граждан Российской Федерации, подвергшихся воздействию радиации вследствие аварии в 1957 году на производственном объединении \"Маяк\" и сбросов радиоактивных отходов в Реку Теча\""
+   },
+   {
+    "texto": "La ley N 175-FZ garantiza medidas de apoyo social a los ciudadanos evacuados (reasentados) o que se fueron voluntariamente de localidades contaminadas por el accidente de 1957 en Mayak y los vertidos al río Techa.",
+    "tipo": "cita",
+    "valor": "N 175-FZ",
+    "cita_literal": "гражданам, эвакуированным (переселенным), а также добровольно уехавшим из населенных пунктов, подвергшихся радиоактивному Загрязнению вследствие аварии в 1957 году на производственном объединении \"Маяк\" и сбросов радиоактивных отходов в реку Теча, гарантируются меры социальной поддержки"
+   },
+   {
+    "texto": "A Н.Н.Д. se le entregó el 22 de septiembre de 1994 el certificado serie У N 004286 como evacuada de la localidad contaminada.",
+    "tipo": "cifra",
+    "valor": "У N 004286",
+    "fecha": "1994-09-22",
+    "cita_literal": "22 сентября 1994 года ей выдано удостоверение серии У N 004286."
+   }
+  ],
+  "cronologia": [
+   {
+    "fecha": "1957",
+    "evento": "Ocurre el accidente en la asociación de producción Mayak, que contaminó la localidad de Kurmanovo, de la que fue evacuada Н.Н.Д.",
+    "lugar": "Mayak",
+    "cita_literal": "Является эвакуированной из населенного пункта Курманово, подвергнувшегося загрязнению вследствие аварии в 1957 году на производственном объединении \"Маяк\"."
+   },
+   {
+    "fecha": "1994-09-22",
+    "evento": "A Н.Н.Д., evacuada de la localidad contaminada por el accidente en Mayak, se le entrega el certificado serie У N 004286.",
+    "cita_literal": "22 сентября 1994 года ей выдано удостоверение серии У N 004286."
+   },
+   {
+    "fecha": "1998-11-26",
+    "evento": "Se fecha la ley federal N 175-FZ sobre la protección social de los ciudadanos expuestos a la radiación por el accidente de 1957 en Mayak y los vertidos al río Techa.",
+    "cita_literal": "Федерального закона от 26.11.1998 г. N 175-ФЗ \"О социальной защите граждан Российской Федерации, подвергшихся воздействию радиации вследствие аварии в 1957 году на производственном объединении \"Маяк\""
+   }
+  ],
+  "lugares": [
+   {
+    "nombre": "Курманово",
+    "rol": "Localidad contaminada por el accidente de 1957 en Mayak, de la que fue evacuada Н.Н.Д.",
+    "cita_literal": "Является эвакуированной из населенного пункта Курманово, подвергнувшегося загрязнению вследствие аварии в 1957 году на производственном объединении \"Маяк\"."
+   },
+   {
+    "nombre": "производственное объединение \"Маяк\"",
+    "rol": "Lugar del accidente de 1957",
+    "cita_literal": "Является эвакуированной из населенного пункта Курманово, подвергнувшегося загрязнению вследствие аварии в 1957 году на производственном объединении \"Маяк\"."
+   },
+   {
+    "nombre": "река Теча",
+    "rol": "Río al que se hicieron vertidos de residuos radiactivos",
+    "cita_literal": "Н.Н.Д. является эвакуированной из населенного пункта, подвергнувшегося загрязнению вследствие аварии в 1957 году на производственном объединении \"Маяк\", сбросов радиоактивных отходов в реку Теча"
+   }
+  ],
+  "citas": [
+   {
+    "autor": "Н.Н.Д.",
+    "autor_en_documento": "Н.Н.Д.",
+    "rol": "demandante, evacuada de Kurmanovo",
+    "testigo": true,
+    "texto_original": "относится к числу граждан, пострадавших от радиационного воздействия вследствие аварии на ПО \"Маяк\"",
+    "texto_es": "se cuenta entre los ciudadanos afectados por la exposición a la radiación a causa del accidente en la asociación de producción Mayak",
+    "cita_literal": "В обоснование требований указала, что относится к числу граждан, пострадавших от радиационного воздействия вследствие аварии на ПО \"Маяк\"."
+   }
+  ],
+  "personajes": [
+   {
+    "nombre": "Н.Н.Д.",
+    "nombre_en_documento": "Н.Н.Д.",
+    "rol": "Demandante, evacuada de la localidad de Kurmanovo contaminada por el accidente de 1957 en Mayak",
+    "antagonista": false,
+    "testigo": true,
+    "lugar": "Курманово",
+    "cita_literal": "Является эвакуированной из населенного пункта Курманово, подвергнувшегося загрязнению вследствие аварии в 1957 году на производственном объединении \"Маяк\"."
+   }
+  ]
+ }
+}

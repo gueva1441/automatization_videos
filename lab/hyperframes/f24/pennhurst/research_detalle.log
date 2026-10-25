@@ -1,0 +1,59 @@
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: 14 fichas del modelo, 9 URLs en el grounding
+  [R1] foco 2: 14 fichas del modelo, 14 URLs en el grounding
+  [R1] foco 3: sin grounding (de memoria) → reintento
+  [R1] foco 3: sin grounding (de memoria) → reintento
+  [R1] foco 3: 12 fichas del modelo, 2 URLs en el grounding
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: Pro sin grounding tras 3 reintentos → Flash con búsqueda
+  [R1] foco 4: 9 fichas del modelo, 0 URLs en el grounding
+  [R1] focos con grounding: 3 por Pro, 0 por Flash, 1 sin grounding (de 4)
+  [R1] 21 URLs reales: 11 con ficha del modelo, 13 con ficha de Flash, 0 fuera (no relevantes o listados) · 38 fichas del modelo sin URL del grounding
+  [R1] candidatos: 20 de R1 + 0 del registro de fuentes (0 en el registro)
+  [R2] F02 hhs_1985_the_pennhurst_longitudinal_study_combined-F02: OK (original) 299814 caracteres · recorte: fuera la cola desde «References» (199422 caracteres); cortado en el último párrafo antes de 300000 (196901 caracteres fuera)
+  [R2] F03 temple_2023_file_life_we_remember_stories-F03: OK (original) 2195 caracteres
+  [R2] F04 archive_documento_historico_sobre_pennhurst_en-F04: OK (original) 15384 caracteres
+  [R2] F05 govinfo_1984_pennhurst_state_school_hospital_v-F05: OK (pdf_enlazado) 189504 caracteres
+  [R2] F06 pubintlaw_acuerdo_de_conciliacion_del_caso-F06: FALLÓ — texto de 0 caracteres (< 800: ¿paywall o portada?)
+  [R2] F07 asdnext_2019_black_history_and_disability_roland-F07: OK (original) 4196 caracteres
+  [R2] F08 preservepennhurst_informacion_historica_sobre_pennhurst_pagi-F08: OK (original) 4170 caracteres
+  [R2] F09 apple_pennhurst_pelicula_documental_en_apple-F09: OK (original) 1346 caracteres
+  [R2] F10 disabilityjustice_pennhurst_y_derechos_legales_basicos-F10: OK (original) 6365 caracteres
+  [R2] F11 pennhurstproject_pagina_de_bienvenida_de_the-F11: OK (original) 3220 caracteres
+  [R2] F12 preservepennhurst_informacion_historica_sobre_pennhurst_pagi-F12: OK (original) 17238 caracteres
+  [R2] 10 documentos OK ({'en': 10}) de 12 intentados
+  [R2] ficha F02: informe_oficial 1985 «Pennhurst Longitudinal Study: A Combined Report of Five Year»
+  [R2] ficha F03: academico 2023 «What is File/Life? - About File/Life Stories»
+  [R2] ficha F04: fallo_judicial 1981 «Pennhurst State School and Hospital v. Halderman, 451 U.S. 1»
+  [R2] ficha F05: fallo_judicial 1984 «PENNHURST STATE SCHOOL & HOSP. v. HALDERMAN 89 - Syllabus»
+  [R2] ficha F07: prensa_posterior 2019 «Black History and Disability - Roland Johnson»
+  [R2] ficha F08: informe_oficial None «History is something that happens to people»
+  [R2] ficha F09: documental None «Pennhurst»
+  [R2] ficha F10: informe_oficial None «HALDERMAN V. PENNHURST STATE SCHOOL AND HOSPITAL»
+  [R2] ficha F11: academico None «the pennhurst project»
+  [R2] ficha F12: informe_oficial None «Contrary to myth, Pennhurst was not a place where evil peopl»
+  [R3] F02: 44 ítems con cita literal, 1 descartados
+  [R3] F02: 54 ítems con cita literal, 1 descartados
+  [R3] F02: 38 ítems con cita literal, 2 descartados
+  [R3] F02: 42 ítems con cita literal, 5 descartados
+  [R3] F02: 52 ítems con cita literal, 3 descartados
+  [R3] F02: 18 ítems con cita literal, 1 descartados
+  [R3] F03: 7 ítems con cita literal, 2 descartados
+  [R3] F04: 9 ítems con cita literal, 0 descartados
+  [R3] F05: 26 ítems con cita literal, 1 descartados
+  [R3] F05: 29 ítems con cita literal, 3 descartados
+  [R3] F05: 7 ítems con cita literal, 2 descartados
+  [R3] F05: 5 ítems con cita literal, 2 descartados
+  [R3] F07: 25 ítems con cita literal, 0 descartados
+  [R3] F08: 22 ítems con cita literal, 0 descartados
+  [R3] F09: 15 ítems con cita literal, 0 descartados
+  [R3] F10: 34 ítems con cita literal, 1 descartados
+  [R3] F11: 26 ítems con cita literal, 0 descartados
+  [R3] F12: 62 ítems con cita literal, 0 descartados
+  [R4] merge: datos 236 · cronologia 108 · lugares 36 · citas 41 · personajes 42 · 19 ítems con ≥ 2 documentos · 25 descartados
+  [R4] autores de cita sumados como personajes: ['The District Court', 'David D. Gregory', 'Eugene Bardach', 'Arnold Toynbee', 'Juez Thurgood Marshall', 'Superintendente Youngberg']
+  [4a·pool] personajes sin acción, fuera: ['Justice Blackmun', 'Jennifer Howse', 'Michael Lottman', 'Terry Perl', 'William Snauffer', 'Tyler Stump', 'Dee Katovitch', 'Jim Barnes']
+  [R4] presencia por párrafo: 290 vínculos persona-evento (31 personas con alguno)
+  [R5] citas: {'verificada': 37, 'verificada_parcial': 4, 'sin_verificar': 0}

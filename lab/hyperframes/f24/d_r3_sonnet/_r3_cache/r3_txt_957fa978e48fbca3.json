@@ -1,0 +1,120 @@
+{
+ "f7b-1|1/1|957fa978e48fbca3": {
+  "datos": [
+   {
+    "texto": "La fiscalía del distrito Kalininski de la región de Cheliábinsk presentó 86 demandas ante los tribunales de la región en defensa de los afectados por la contaminación radiactiva tras el accidente en PO Mayak.",
+    "tipo": "cifra",
+    "valor": "86 demandas",
+    "cita_literal": "предъявила в суды области 86 исков на общую сумму около одного миллиона рублей."
+   },
+   {
+    "texto": "Las 86 demandas suman alrededor de un millón de rublos.",
+    "tipo": "magnitud",
+    "valor": "un millón de rublos",
+    "cita_literal": "предъявила в суды области 86 исков на общую сумму около одного миллиона рублей."
+   },
+   {
+    "texto": "El accidente en la asociación de producción Mayak ocurrió en 1957.",
+    "tipo": "fecha",
+    "valor": "1957",
+    "cita_literal": "после аварии на предприятии \"Производственное объединение \"Маяк\" в 1957 году"
+   },
+   {
+    "texto": "En el distrito Kalininski viven 115 personas afectadas por la irradiación.",
+    "tipo": "cifra",
+    "valor": "115 personas",
+    "cita_literal": "Всего на территории Калининского района проживает 115 человек, пострадавших от облучения."
+   },
+   {
+    "texto": "La mayoría de los 115 afectados que viven en el distrito Kalininski son jubilados e inválidos.",
+    "tipo": "cifra",
+    "valor": "115",
+    "cita_literal": "В большинстве своем это пенсионеры и инвалиды."
+   },
+   {
+    "texto": "La ley federal establece una compensación mensual en dinero de 100 rublos para quienes recibieron una dosis efectiva acumulada de irradiación superior a 7 bers.",
+    "tipo": "magnitud",
+    "valor": "7 bers",
+    "cita_literal": "получившим накопленную эффективную дозу облучения свыше 7 бэр, установлена ежемесячная денежная компенсация в размере 100 рублей."
+   },
+   {
+    "texto": "La compensación mensual establecida por la ley es de 100 rublos.",
+    "tipo": "cifra",
+    "valor": "100 rublos",
+    "cita_literal": "установлена ежемесячная денежная компенсация в размере 100 рублей."
+   },
+   {
+    "texto": "Desde 2001 el monto de la compensación no se indexó.",
+    "tipo": "fecha",
+    "valor": "2001",
+    "cita_literal": "Однако с 2001 года размер компенсации не индексировался."
+   },
+   {
+    "texto": "La ley federal citada trata de la protección social de los ciudadanos expuestos a la radiación por el accidente en PO Mayak y por los vertidos de residuos radiactivos al río Techa.",
+    "tipo": "nombre",
+    "valor": "río Techa",
+    "cita_literal": "подвергшихся воздействию радиации вследствие аварии на ПО \"Маяк\" и сбросов радиоактивных отходов в реку Теча"
+   },
+   {
+    "texto": "El complejo nuclear Mayak fue construido con fines de defensa en los Urales del Sur.",
+    "tipo": "lugar",
+    "valor": "Urales del Sur",
+    "cita_literal": "на ядерном комбинате \"Маяк\", построенном в оборонных целях на Южном Урале"
+   },
+   {
+    "texto": "Según el texto, el accidente de 1957 en Mayak fue una de las mayores catástrofes tecnógenas de la historia de la URSS.",
+    "tipo": "magnitud",
+    "valor": "una de las mayores catástrofes tecnógenas",
+    "cita_literal": "произошла одна из крупнейших техногенных катастроф в истории СССР"
+   },
+   {
+    "texto": "La catástrofe de 1957 en Mayak afectó a cientos de miles de personas.",
+    "tipo": "cifra",
+    "valor": "cientos de miles de personas",
+    "cita_literal": "от которой пострадали сотни тысяч людей."
+   }
+  ],
+  "cronologia": [
+   {
+    "fecha": "1957",
+    "evento": "Ocurre un accidente en el complejo nuclear Mayak, en los Urales del Sur, una de las mayores catástrofes tecnógenas de la historia de la URSS.",
+    "lugar": "Mayak, Urales del Sur",
+    "cita_literal": "В 1957 году на ядерном комбинате \"Маяк\", построенном в оборонных целях на Южном Урале, произошла одна из крупнейших техногенных катастроф в истории СССР"
+   },
+   {
+    "fecha": "2001",
+    "evento": "Desde este año el monto de la compensación mensual por el accidente no se indexó.",
+    "cita_literal": "Однако с 2001 года размер компенсации не индексировался."
+   },
+   {
+    "fecha": "2008",
+    "evento": "Este año la fiscalía organizó el trabajo de presentar demandas de indexación de la compensación mensual a los afectados por el accidente en Mayak.",
+    "cita_literal": "В этом году сотрудниками ведомства была организована работа по предъявлению в суд исков об индексации"
+   }
+  ],
+  "lugares": [
+   {
+    "nombre": "Mayak (Производственное объединение «Маяк»)",
+    "rol": "Empresa donde ocurrió el accidente de 1957",
+    "cita_literal": "после аварии на предприятии \"Производственное объединение \"Маяк\" в 1957 году"
+   },
+   {
+    "nombre": "Distrito Kalininski, región de Cheliábinsk",
+    "rol": "Lugar donde viven 115 afectados y cuya fiscalía presentó las demandas",
+    "cita_literal": "Всего на территории Калининского района проживает 115 человек, пострадавших от облучения."
+   },
+   {
+    "nombre": "Urales del Sur",
+    "rol": "Región donde fue construido el complejo nuclear Mayak",
+    "cita_literal": "на ядерном комбинате \"Маяк\", построенном в оборонных целях на Южном Урале"
+   },
+   {
+    "nombre": "Río Techa",
+    "rol": "Río al que se vertieron residuos radiactivos",
+    "cita_literal": "сбросов радиоактивных отходов в реку Теча"
+   }
+  ],
+  "citas": [],
+  "personajes": []
+ }
+}

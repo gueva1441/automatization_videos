@@ -1,0 +1,715 @@
+{
+ "error": null,
+ "gate": {
+  "color": "verde",
+  "metricas": {
+   "datos": 245,
+   "citas_verificadas": 45,
+   "elegibles_humano": 23,
+   "eventos_con_fecha": 78,
+   "personas_con_nombre": 52
+  },
+  "motivos": []
+ },
+ "personajes": [
+  {
+   "id": "P01",
+   "nombre": "Roberto Padrin",
+   "nombre_en_documento": "Roberto Padrin",
+   "rol": "Alcalde de Longarone, Presidente de la Provincia de Belluno y de la Fundación Vajont.",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P02",
+   "nombre": "Irma Visalli",
+   "nombre_en_documento": "Irma Visalli",
+   "rol": "Presidenta del Comité Científico de la Fundación Vajont.",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P03",
+   "nombre": "Tina Merlin",
+   "nombre_en_documento": "Tina Merlin",
+   "rol": "Nombre de la asociación que colaboró en el reconocimiento del archivo.",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P04",
+   "nombre": "Antonio Tarasco",
+   "nombre_en_documento": "Antonio Tarasco",
+   "rol": "Direttore generale Archivi",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P06",
+   "nombre": "Giovanni De Lorenzi",
+   "nombre_en_documento": "Giovanni De Lorenzi",
+   "rol": "Exdirector de la Fundación Vajont",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P07",
+   "nombre": "Mauro Carazzai",
+   "nombre_en_documento": "Mauro Carazzai",
+   "rol": "Director de la Fundación Vajont",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P08",
+   "nombre": "Carlo Semenza",
+   "nombre_en_documento": "CARLO SEMENZA",
+   "rol": "Autor de apuntes en el archivo procesal",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P09",
+   "nombre": "Todd R. Wasmund",
+   "nombre_en_documento": "Maj. Gen. Todd R. Wasmund",
+   "rol": "General al mando de SETAF-AF",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 3,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P10",
+   "nombre": "Emilie Anderson",
+   "nombre_en_documento": "Capt. Emilie Anderson",
+   "rol": "Oficial de operaciones del Batallón del Cuartel General (HHBn), SETAF-AF",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P11",
+   "nombre": "Parise Ferdinando",
+   "nombre_en_documento": "Parise Ferdinando",
+   "rol": "Soldado retirado del ejército italiano que ayudó en las labores de rescate",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P12",
+   "nombre": "Sergio Mattarella",
+   "nombre_en_documento": "Italian President Sergio Mattarella",
+   "rol": "Presidente de la República Italiana",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P13",
+   "nombre": "Giovanni Leone",
+   "nombre_en_documento": "Giovanni Leone",
+   "rol": "Presidente del Consiglio",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P16",
+   "nombre": "Alberico Biadene",
+   "nombre_en_documento": "Alberico Biadene",
+   "rol": "Acusado y condenado",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P17",
+   "nombre": "Francesco Sensidoni",
+   "nombre_en_documento": "Francesco Sensidoni",
+   "rol": "Acusado y condenado",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P18",
+   "nombre": "Mario Pancini",
+   "nombre_en_documento": "Mario Pancini",
+   "rol": "Acusado que se suicidó antes del juicio",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P19",
+   "nombre": "Francesco Penta",
+   "nombre_en_documento": "Francesco Penta",
+   "rol": "Acusado que murió antes del juicio",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P20",
+   "nombre": "Luigi Greco",
+   "nombre_en_documento": "Luigi Greco",
+   "rol": "Acusado que murió antes del juicio",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P21",
+   "nombre": "Sandro Canestrini",
+   "nombre_en_documento": "Sandro Canestrini",
+   "rol": "Abogado de la parte civil",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P22",
+   "nombre": "Curzio Batini",
+   "nombre_en_documento": "Curzio Batini",
+   "rol": "Acusado condenado en primera instancia",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P23",
+   "nombre": "Pietro Frosini",
+   "nombre_en_documento": "Pietro Frosini",
+   "rol": "Acusado absuelto",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P24",
+   "nombre": "Almo Violin",
+   "nombre_en_documento": "Almo Violin",
+   "rol": "Acusado absuelto",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P25",
+   "nombre": "Roberto Marin",
+   "nombre_en_documento": "Roberto Marin",
+   "rol": "Acusado absuelto",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P26",
+   "nombre": "Augusto Ghetti",
+   "nombre_en_documento": "Augusto Ghetti",
+   "rol": "Acusado absuelto",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P27",
+   "nombre": "Dino Tonini",
+   "nombre_en_documento": "Dino Tonini",
+   "rol": "Acusado absuelto",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P28",
+   "nombre": "Carlo Onorini",
+   "nombre_en_documento": "Don Carlo Onorini",
+   "rol": "Párroco de Casso",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P29",
+   "nombre": "Benito Castellano",
+   "nombre_en_documento": "Benito Castellano",
+   "rol": "Sobreviviente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P30",
+   "nombre": "Germano Accamillesi",
+   "nombre_en_documento": "Germano Accamillesi",
+   "rol": "Sobreviviente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P31",
+   "nombre": "Mario Fabbri",
+   "nombre_en_documento": "Mario Fabbri",
+   "rol": "Juez de instrucción",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P32",
+   "nombre": "Gianfranco Trevisano",
+   "nombre_en_documento": "Doctor Gianfranco Trevisano",
+   "rol": "Médico de Longarone",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P33",
+   "nombre": "Dino Buzzati",
+   "nombre_en_documento": "Dino Buzzati",
+   "rol": "Escritor del Corriere della Sera",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 2,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P34",
+   "nombre": "Gildo Sperti",
+   "nombre_en_documento": "Gildo Sperti",
+   "rol": "Ingeniero de la SADE",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P35",
+   "nombre": "Leopold Muller",
+   "nombre_en_documento": "Leopold Müller",
+   "rol": "Geólogo austriaco",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P36",
+   "nombre": "Giorgio Dal Piaz",
+   "nombre_en_documento": "Giorgio Dal Piaz",
+   "rol": "Geólogo italiano asesor de la SADE",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P37",
+   "nombre": "Giorgio Bocca",
+   "nombre_en_documento": "Giorgio Bocca",
+   "rol": "Escritor e intelectual en Il Giorno",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P39",
+   "nombre": "Terenzio Arduini",
+   "nombre_en_documento": "Terenzio Arduini",
+   "rol": "Vicealcalde de Longarone",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P40",
+   "nombre": "Aniello Coppola",
+   "nombre_en_documento": "Aniello Coppola",
+   "rol": "Periodista de L'Unità",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P41",
+   "nombre": "Giuseppe Volpi",
+   "nombre_en_documento": "Mr Volpi",
+   "rol": "Director de SADE",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P42",
+   "nombre": "Sr. Cini",
+   "nombre_en_documento": "Mr Cini",
+   "rol": "Director de SADE",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P43",
+   "nombre": "Audrey Azoulay",
+   "nombre_en_documento": "Audrey Azoulay",
+   "rol": "Directora General de la Unesco",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P44",
+   "nombre": "Arcangelo Tiziani",
+   "nombre_en_documento": "Arcangelo Tiziani",
+   "rol": "Vigilante de la montaña en Pontesei",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P45",
+   "nombre": "Pietro Caloi",
+   "nombre_en_documento": "Pietro Caloi",
+   "rol": "Geofísico",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P46",
+   "nombre": "Edoardo Semenza",
+   "nombre_en_documento": "Edoardo Semenza",
+   "rol": "Geólogo, hijo del ingeniero jefe",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P47",
+   "nombre": "Vannia Gava",
+   "nombre_en_documento": "Vannia Gava",
+   "rol": "Subsecretaria del Ministerio de Medio Ambiente",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P48",
+   "nombre": "Mauro Corona",
+   "nombre_en_documento": "Mauro Corona",
+   "rol": "escritor",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P49",
+   "nombre": "Micaela Coletti",
+   "nombre_en_documento": "Micaela Coletti",
+   "rol": "presidente del comitato sopravvissuti del Vajont",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P50",
+   "nombre": "Giuseppe Sacchet",
+   "nombre_en_documento": "Giuseppe Sacchet",
+   "rol": "sobreviviente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P54",
+   "nombre": "Marco Armiero",
+   "nombre_en_documento": "Marco Armiero",
+   "rol": "Autor del libro 'Vajont: The Political Ecology of an Unnatural Disaster'",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P58",
+   "nombre": "Rubinacci",
+   "nombre_en_documento": "Rubinacci",
+   "rol": "Senador democristiano, presidente de la Comisión de investigación",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P59",
+   "nombre": "L'Unità",
+   "nombre_en_documento": null,
+   "rol": "Periódico",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 2,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P60",
+   "nombre": "Habitantes de Erto-Casso",
+   "nombre_en_documento": null,
+   "rol": "Habitante",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P61",
+   "nombre": "Laboratorio de la Universidad de Padua",
+   "nombre_en_documento": null,
+   "rol": null,
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P62",
+   "nombre": "Daniele Ceschin",
+   "nombre_en_documento": null,
+   "rol": "Historiador (citado en el texto)",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  }
+ ],
+ "citas": {
+  "verificada": 45,
+  "verificada_parcial": 12,
+  "sin_verificar": 0
+ },
+ "docs": [
+  {
+   "id": "F01",
+   "url": "https://www.certifico.com/index.php?option=com_content&view=article&id=6979&catid=274",
+   "idioma": "it",
+   "caracteres": 14462
+  },
+  {
+   "id": "F02",
+   "url": "https://www.ilpost.it/2023/10/09/disastro-vajont/",
+   "idioma": "it",
+   "caracteres": 12129
+  },
+  {
+   "id": "F03",
+   "url": "https://canestrinilex.com/risorse/vajont-fu-disastro-colposo-con-previsione-dellevento-cass-1971",
+   "idioma": "it",
+   "caracteres": 6565
+  },
+  {
+   "id": "F04",
+   "url": "https://storiaefuturo.eu/una-lezione-dai-disastri-il-vajont-e-lalluvione-di-firenze/",
+   "idioma": "it",
+   "caracteres": 36760
+  },
+  {
+   "id": "F05",
+   "url": "https://www.geopop.it/tragedia-del-vajont-analisi-geologica-di-una-frana-annunciata/",
+   "idioma": "it",
+   "caracteres": 8010
+  },
+  {
+   "id": "F06",
+   "url": "https://www.dvidshub.net/news/455406/remembering-vajont-dam-disaster-60th-anniversary-observance",
+   "idioma": "en",
+   "caracteres": 4219
+  },
+  {
+   "id": "F07",
+   "url": "https://damsafety.org/content/dam-failure-case-study-vajont-dam-italy-1963",
+   "idioma": "en",
+   "caracteres": 3715
+  },
+  {
+   "id": "F09",
+   "url": "https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S1607-050X2005000300005",
+   "idioma": "es",
+   "caracteres": 56471
+  },
+  {
+   "id": "F11",
+   "url": "https://books.google.ca/books/about/Vajont.html?id=_2mX0gEACAAJ&redir_esc=y",
+   "idioma": "en",
+   "caracteres": 3498
+  },
+  {
+   "id": "F12",
+   "url": "https://isig.it/wp-content/uploads/2012/10/Bianchizza-VAJONT.pdf",
+   "idioma": "en",
+   "caracteres": 38967
+  },
+  {
+   "id": "F14",
+   "url": "https://www.ilrestodelcarlino.it/veneto/cronaca/disastro-vajont-registro-unesco-memoria-mondo-jbwfvbsl",
+   "idioma": "it",
+   "caracteres": 3796
+  },
+  {
+   "id": "F15",
+   "url": "https://www.elsaltodiario.com/italia/vajont-la-construccion-de-una-catastrofe-a-la-italiana",
+   "idioma": "es",
+   "caracteres": 26315
+  },
+  {
+   "id": "F17",
+   "url": "https://archivioivsla.archiui.com/oggetti/56485-commissione-dinchiesta-sulla-sciagura-del-vajont-relazione-al-ministro-dei-lavori-pubblici",
+   "idioma": "it",
+   "caracteres": 926
+  },
+  {
+   "id": "F19",
+   "url": "https://www.dolomitiunesco.info/attivita/archivio-vajont-memoria-del-mondo",
+   "idioma": "it",
+   "caracteres": 2737
+  },
+  {
+   "id": "F20",
+   "url": "https://damfailures.org/sites/default/files/wp-pdf/ASDSO-Vajont_Mauney_Graham.pdf",
+   "idioma": "en",
+   "caracteres": 7215
+  },
+  {
+   "id": "F21",
+   "url": "https://www.abebooks.com/Vajont-Political-Ecology-Unnatural-Disaster-History/32443148726/bd",
+   "idioma": "en",
+   "caracteres": 3593
+  },
+  {
+   "id": "F22",
+   "url": "https://www.penguinrandomhouse.com/books/814339/vajont-by-marco-armiero/",
+   "idioma": "en",
+   "caracteres": 1457
+  },
+  {
+   "id": "F23",
+   "url": "https://www.ibs.it/vajont-storia-di-diga-libro-francesco-niccolini-duccio-boscoli/e/9788833140421",
+   "idioma": "it",
+   "caracteres": 4861
+  },
+  {
+   "id": "F24",
+   "url": "https://fondazionevajont.org/?page_id=469",
+   "idioma": "it",
+   "caracteres": 1095
+  },
+  {
+   "id": "F31",
+   "url": "https://www.certifico.com/news/tragedia-della-diga-del-vajont-9-ottobre-1963",
+   "idioma": "it",
+   "caracteres": 14509
+  }
+ ]
+}

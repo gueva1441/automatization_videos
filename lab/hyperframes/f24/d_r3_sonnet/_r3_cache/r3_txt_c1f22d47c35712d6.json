@@ -1,0 +1,591 @@
+{
+ "f7b-1|1/1|c1f22d47c35712d6": {
+  "datos": [
+   {
+    "texto": "La avería de Kyshtym ocurrió el 29 de septiembre de 1957 en el combinado químico Mayak, en la ciudad cerrada de Cheliábinsk-40 (hoy Ozyorsk).",
+    "tipo": "fecha",
+    "valor": "29 de septiembre de 1957",
+    "fecha": "1957-09-29",
+    "cita_literal": "произошедшая 29 сентября 1957 года на химкомбинате «Маяк» в закрытом городе Челябинск-40 (ныне Озёрск)"
+   },
+   {
+    "texto": "La avería recibió el nombre de «Kyshtym» por la ciudad de Kyshtym, la más cercana a Ozyorsk y la que figuraba en los mapas.",
+    "tipo": "nombre",
+    "valor": "Кыштымская авария",
+    "cita_literal": "поэтому авария и получила название «кыштымской» по ближайшему к Озёрску городу Кыштым, обозначенному на картах"
+   },
+   {
+    "texto": "La explosión se debió a una violación del régimen de refrigeración del tanque de almacenamiento de residuos radiactivos.",
+    "tipo": "nombre",
+    "valor": "нарушение режима охлаждения",
+    "cita_literal": "Взрыв стал следствием нарушения режима охлаждения ёмкости хранения радиоактивных отходов"
+   },
+   {
+    "texto": "Según la clasificación internacional del OIEA, la avería corresponde al nivel 6 de 7 posibles.",
+    "tipo": "magnitud",
+    "valor": "6-му уровню из 7",
+    "cita_literal": "по современной международной классификации радиационных инцидентов и аварий МАГАТЭ соответствует 6-му уровню из 7 возможных"
+   },
+   {
+    "texto": "El tanque que explotó tenía 300 m3 de volumen y contenía unas 70-80 toneladas de residuos altamente radiactivos ya secos.",
+    "tipo": "magnitud",
+    "valor": "70—80 тонн",
+    "cita_literal": "произошёл взрыв ёмкости объёмом 300 м3, где содержалось около 70—80 тонн к тому времени высохших высокорадиоактивных отходов"
+   },
+   {
+    "texto": "El llenado del bidón n.º 14 con residuos radiactivos se hizo del 9 de marzo al 10 de abril de 1957, con 256 m3 vertidos.",
+    "tipo": "magnitud",
+    "valor": "256 м3",
+    "fecha": "1957-03-09",
+    "cita_literal": "Заполнение банки № 14 отходами радиоактивного производства происходило с 9 марта по 10 апреля 1957 года, было залито 256 м3"
+   },
+   {
+    "texto": "Según otra fuente, había 20 tanques de acero inoxidable de 6 m de altura, 8 m de diámetro exterior y paredes de 13 mm, con capacidad de 300 m3 cada uno.",
+    "tipo": "magnitud",
+    "valor": "20 ёмкостей",
+    "cita_literal": "высотой 6 метров, наружным диаметром 8 метров и толщиной стенок 13 мм; всего ёмкостей было 20, рассчитаны они были на 300 м3 содержимого каждая"
+   },
+   {
+    "texto": "Otra descripción del complejo habla de cañones de hormigón para tanques de acero inoxidable de 250 m3 cada uno, frente a los 300 m3 citados en otras partes del documento.",
+    "tipo": "contradiccion",
+    "valor": "250 м3",
+    "cita_literal": "заглублённое бетонное сооружение с ячейками — каньонами для ёмкостей из нержавеющей стали объёмом 250 м3 каждая"
+   },
+   {
+    "texto": "La comisión del Ministerio de Construcción de Maquinaria Media estimó la potencia de la explosión en 25-29 t de TNT; estimaciones actuales dan de 8 a 170 t.",
+    "tipo": "magnitud",
+    "valor": "25—29 т",
+    "cita_literal": "мощность взрыва составила 25—29 т в тротиловом эквиваленте (ТНТ), современные оценки на основе анализа степени разрушения на ближней территории площадки дают от 8 до 170 т"
+   },
+   {
+    "texto": "La versión oficial estima la potencia de la explosión en 70-100 toneladas de trinitrotolueno según el cráter y los daños, cifra distinta de la estimada por la comisión.",
+    "tipo": "contradiccion",
+    "valor": "70—100 тонн",
+    "cita_literal": "мощность произошедшего взрыва оценивается по воронке и разрушениям в 70—100 тонн тринитротолуола"
+   },
+   {
+    "texto": "La explosión destruyó por completo el tanque n.º 14 y dejó un cráter de unos 10 m de profundidad y unos 20 m de diámetro; las chapas del tanque salieron despedidas hasta 150 m.",
+    "tipo": "magnitud",
+    "valor": "10 м de profundidad y 20 м de diámetro",
+    "cita_literal": "Взрывом была полностью разрушена ёмкость № 14, на её месте образовалась воронка глубиной около 10 м и диаметром около 20 м, листы корпуса ёмкости разлетелись на расстояние до 150 м."
+   },
+   {
+    "texto": "Hasta 1 km de distancia quedó completamente destruido el acristalamiento de los edificios.",
+    "tipo": "magnitud",
+    "valor": "1 км",
+    "cita_literal": "На расстоянии до 1 км было полностью разрушено остекление зданий."
+   },
+   {
+    "texto": "La tapa de hormigón fue lanzada a más de 20 m sin daños apreciables.",
+    "tipo": "magnitud",
+    "valor": "20 м",
+    "cita_literal": "Бетонная крышка была отброшена на расстояние более 20 м (без заметных её повреждений)"
+   },
+   {
+    "texto": "A la atmósfera se lanzaron unos 20 millones de curios de sustancias radiactivas desde el tanque destruido.",
+    "tipo": "magnitud",
+    "valor": "20 млн кюри",
+    "cita_literal": "В атмосферу из разрушенной ёмкости было выброшено около 20 млн кюри радиоактивных веществ"
+   },
+   {
+    "texto": "Según estimaciones actuales, la altura de ascenso de los productos de la explosión pudo alcanzar 1100 m.",
+    "tipo": "magnitud",
+    "valor": "1100 м",
+    "cita_literal": "по современным оценкам высота подъёма продуктов взрыва могла достигнуть 1100 м"
+   },
+   {
+    "texto": "Cerca del 90 % de la emisión se depositó en el recinto industrial y el resto en la zona adyacente de las regiones de Cheliábinsk, Sverdlovsk y Tiumén.",
+    "tipo": "magnitud",
+    "valor": "90 %",
+    "cita_literal": "Около 90 % выброса осели на промышленной площадке, остальное — в прилегающем районе на территории Челябинской, Свердловской и Тюменской областей"
+   },
+   {
+    "texto": "La zona de contaminación radiactiva tenía 20-40 km de ancho y hasta 300 km de longitud.",
+    "tipo": "magnitud",
+    "valor": "20—40 км × 300 км",
+    "cita_literal": "радиоактивному заражению подверглась довольно узкая зона шириной 20—40 км и протяжённостью до 300 км"
+   },
+   {
+    "texto": "La zona contaminada abarcó 23 000 km² con 270 000 habitantes en 217 localidades de tres regiones.",
+    "tipo": "cifra",
+    "valor": "23 000 км²; 270 000 человек; 217 населённых пунктов",
+    "cita_literal": "и далее территория площадью 23 000 км² с населением 270 000 человек в 217 населённых пунктах трёх областей: Челябинской, Свердловской и Тюменской"
+   },
+   {
+    "texto": "En el territorio con contaminación superior a 2 Ci/km² vivían más de 10 000 personas, y con más de 100 Ci/km² unas 2100; en toda la zona de la huella vivían unas 270 000.",
+    "tipo": "cifra",
+    "valor": "270 000 человек",
+    "cita_literal": "На территории с плотностью радиоактивного загрязнения свыше 2 Ки/км² проживало более 10 000 человек, с плотностью свыше 100 Ки/км² — около 2100 человек, всего в зоне ВУРС проживало около 270 000 человек."
+   },
+   {
+    "texto": "Las primeras mediciones dieron una tasa de dosis de hasta 300 µR/s en Satlykovo (18 km), hasta 170 µR/s en Galikaevo (23 km) y hasta 6 µR/s en Yugo-Konyovo (55 km).",
+    "tipo": "magnitud",
+    "valor": "300 мкР/с",
+    "cita_literal": "мощность экспозиционной дозы в Сатлыково (18 км) составила до 300 мкР/с, в Галикаево (23 км) — до 170 мкР/с, в Юго-Конёво (55 км) — до 6 мкР/с"
+   },
+   {
+    "texto": "El territorio oficialmente considerado contaminado (2 Ci/km² por estroncio-90) era de 1000 km², una zona de 105 km de largo y 4-6 km de ancho.",
+    "tipo": "magnitud",
+    "valor": "1000 км²",
+    "cita_literal": "была принята с уровнем 2 Ки/км² по стронцию-90 и составляла 1000 км², представляя собой зону длиной 105 км при ширине 4—6 км"
+   },
+   {
+    "texto": "1007 militares de las tropas internas del MVD de la URSS que custodiaban instalaciones atómicas estuvieron expuestos a la radiación.",
+    "tipo": "cifra",
+    "valor": "1007 человек",
+    "cita_literal": "При аварии подверглось воздействию радиации 1007 человек личного состава внутренних войск МВД СССР, осуществлявших охрану объектов атомной промышленности"
+   },
+   {
+    "texto": "12 militares con más de 50 roentgen fueron hospitalizados y 63 con 10 a 50 roentgen quedaron bajo vigilancia médica permanente.",
+    "tipo": "cifra",
+    "valor": "12 y 63 militares",
+    "cita_literal": "из них 12 военнослужащих, получивших облучение свыше 50 рентген, были госпитализированы, а 63 военнослужащих, получивших облучение от 10 до 50 рентген, помещены под постоянное медицинское наблюдение"
+   },
+   {
+    "texto": "Según el cuadro inicial, en los primeros 2 años se reasentaron 24 localidades con 12 763 habitantes.",
+    "tipo": "cifra",
+    "valor": "24 населённых пункта; 12 763 человека",
+    "cita_literal": "В первые 2 года после аварии было отселено 24 населённых пункта с общей численностью проживавших — 12 763 человека"
+   },
+   {
+    "texto": "El texto también indica que se reasentó por etapas a 12 763 personas de 23 localidades, distinto de las 24 del cuadro inicial.",
+    "tipo": "contradiccion",
+    "valor": "23 населённых пункта",
+    "cita_literal": "Всего таким образом поэтапно было отселено 12 763 человека из 23 населённых пунктов."
+   },
+   {
+    "texto": "Entre 7 y 10 días tras la explosión se decidió evacuar a 1383 habitantes de Berdenish, Satlykova, Galikaeva y Russkaya Karabolka, en un radio de hasta 22 km.",
+    "tipo": "cifra",
+    "valor": "1383 человека",
+    "cita_literal": "Через 7-10 суток после взрыва было принято решение об отселении жителей населённых пунктов в радиусе до 22 км: Бердениш, Сатлыкова, Галикаева, Русская Караболка с общим числом жителей 1383 человека"
+   },
+   {
+    "texto": "Los evacuados tardíamente ya habían recibido una dosis equivalente de 52 rem.",
+    "tipo": "magnitud",
+    "valor": "52 бэр",
+    "cita_literal": "К тому времени эти жители уже получили эквивалентную дозу облучения в 52 бэр."
+   },
+   {
+    "texto": "Se retiraron de circulación 106 000 hectáreas de terrenos agrícolas (54 % de ellos) y forestales.",
+    "tipo": "cifra",
+    "valor": "106 000 гектаров",
+    "cita_literal": "Были исключены из оборота 106 000 гектаров сельскохозяйственных (54 % из них) и лесных угодий."
+   },
+   {
+    "texto": "Se excavaron y enterraron 300 000 m3 de la capa superior del suelo.",
+    "tipo": "cifra",
+    "valor": "300 000 м3",
+    "cita_literal": "были проведены выемка и захоронение 300 000 м3 верхнего слоя грунта"
+   },
+   {
+    "texto": "Se retiraron y enterraron 1308 toneladas de grano, 104 de carne, 240 de patatas y 66,6 de leche.",
+    "tipo": "cifra",
+    "valor": "1308 тонн зерна",
+    "cita_literal": "Было изъято и захоронено 1308 тонн зерна, 104 тонны мяса, 240 тонн картофеля, 66,6 тонн молока"
+   },
+   {
+    "texto": "Al final de 1959 se creó una zona sanitaria de protección de unos 700 km², delimitada por la isolínea de 4 Ci/km² de estroncio-90.",
+    "tipo": "magnitud",
+    "valor": "700 км²",
+    "fecha": "1959",
+    "cita_literal": "В конце 1959 года на территории, ограниченной изолинией с уровнем первоначального заражения в 4 Ки/км² по стронцию-90 (около 700 км²) была создана санитарно-защитная зона"
+   },
+   {
+    "texto": "Se retiraron de la pesca lagos con una superficie total de 3800 ha.",
+    "tipo": "magnitud",
+    "valor": "3800 га",
+    "cita_literal": "Были выведены из рыбопользования (в том числе из промышленной заготовки и переработки) и озёра с общей площадью 3800 га"
+   },
+   {
+    "texto": "Hacia 1982 se había reincorporado a la actividad económica cerca del 85 % del territorio antes expropiado.",
+    "tipo": "cifra",
+    "valor": "85 %",
+    "fecha": "1982",
+    "cita_literal": "К 1982 году было включено в хозяйственный оборот около 85 % ранее отчуждённой территории."
+   },
+   {
+    "texto": "El daño económico en la zona de la huella (solo región de Cheliábinsk) se estima en más de 8,2 mil millones de rublos de 1991, unos 3 mil millones por pérdida de salud.",
+    "tipo": "cifra",
+    "valor": "8,2 млрд рублей",
+    "cita_literal": "ориентировочно составляет более 8,2 млрд рублей (по состоянию и в ценах 1991 г.), из них ущерб от потери здоровья населением около 3 млрд руб."
+   },
+   {
+    "texto": "Se formó una cohorte de 30 417 personas expuestas por la avería en la zona de la huella para su seguimiento médico.",
+    "tipo": "cifra",
+    "valor": "30 417 человек",
+    "cita_literal": "в зоне ВУРС была выделена расширенная группа лиц (когорта) в количестве 30 417 человек"
+   },
+   {
+    "texto": "La incidencia de cáncer en la aldea no reasentada de Tatárskaya Karabolka es de cinco a seis veces superior a la media del país.",
+    "tipo": "magnitud",
+    "valor": "5-6 veces",
+    "cita_literal": "Заболеваемость раком в неотселённой деревне Татарская Караболка в пять-шесть раз выше, чем в среднем по стране"
+   },
+   {
+    "texto": "La comisión técnica especial creada el 11 de octubre de 1957 estaba formada por 11 personas, en su mayoría científicos y especialistas del sector atómico.",
+    "tipo": "cifra",
+    "valor": "11 человек",
+    "fecha": "1957-10-11",
+    "cita_literal": "11 октября 1957 года была создана специальная техническая комиссия по установлению причин взрыва. В её состав вошли 11 человек, в основном учёные, специалисты атомной отрасли"
+   },
+   {
+    "texto": "Una versión alternativa dice que en el tanque evaporador con solución caliente de nitrato de plutonio se añadió por error solución de oxalato de plutonio.",
+    "tipo": "nombre",
+    "valor": "оксалат плутония",
+    "cita_literal": "в бак-испаритель с горячим раствором нитрата плутония по ошибке добавили раствор оксалата плутония"
+   },
+   {
+    "texto": "En 1956, en uno de los contenedores los tubos de refrigeración empezaron a gotear y fueron desconectados.",
+    "tipo": "fecha",
+    "valor": "1956",
+    "fecha": "1956",
+    "cita_literal": "В 1956 году в одном из контейнеров охлаждающие трубки стали подтекать и были отключены."
+   },
+   {
+    "texto": "En 1968 se creó la reserva estatal de los Urales Orientales en el lugar de la zona sanitaria de protección.",
+    "tipo": "fecha",
+    "valor": "1968",
+    "fecha": "1968",
+    "cita_literal": "С 1968 года на месте санитарно-защитной зоны образован Восточно-Уральский государственный заповедник."
+   }
+  ],
+  "cronologia": [
+   {
+    "fecha": "1945-04-09",
+    "evento": "El Gobierno de la URSS adoptó la resolución de construir la planta n.º 817 para producir la bomba atómica en la región de Cheliábinsk.",
+    "lugar": "región de Cheliábinsk",
+    "cita_literal": "9 апреля 1945 года Правительством СССР было принято постановление о строительстве завода № 817 для производства атомной бомбы в Челябинской области"
+   },
+   {
+    "fecha": "1948-06",
+    "evento": "El reactor industrial «A-1» alcanzó su potencia de diseño.",
+    "cita_literal": "В июне 1948 года первый в Евразии промышленный ядерный реактор «А-1» достиг проектной мощности."
+   },
+   {
+    "fecha": "1949-01",
+    "evento": "Se puso en marcha la planta radioquímica de separación y procesamiento de plutonio.",
+    "cita_literal": "В январе 1949 года запущен радиохимический завод по выделению и переработке плутония."
+   },
+   {
+    "fecha": "1949",
+    "evento": "En 1949-1951 se vertieron residuos líquidos al río Techa, que quedó significativamente contaminado.",
+    "lugar": "río Techa",
+    "cita_literal": "Так, в 1949—1951 годах сбросы производились в реку Теча, значительно её радиоактивно загрязнив."
+   },
+   {
+    "fecha": "1957-03-09",
+    "evento": "Comenzó el llenado del bidón n.º 14 con residuos radiactivos, que duró hasta el 10 de abril de 1957.",
+    "cita_literal": "Заполнение банки № 14 отходами радиоактивного производства происходило с 9 марта по 10 апреля 1957 года, было залито 256 м3"
+   },
+   {
+    "fecha": "1957-09-29",
+    "hora": "16:22",
+    "evento": "Explotó el bidón n.º 14 del complejo «S-3» a la hora local.",
+    "lugar": "Cheliábinsk-40",
+    "cita_literal": "29 сентября 1957 года (воскресенье), 16:22 по местному времени. Произошёл взрыв банки № 14 комплекса «С-3»."
+   },
+   {
+    "fecha": "1957-09-29",
+    "hora": "19:20",
+    "evento": "Las masas de aire de la zona del combinado se desplazaron hacia la aldea de Bagariak y la ciudad de Kamensk-Uralski, en la región de Sverdlovsk.",
+    "lugar": "región de Sverdlovsk",
+    "cita_literal": "19:20. Воздушные массы из района химкомбината двигались в направлении села Багаряк и города Каменск-Уральский Свердловской области."
+   },
+   {
+    "fecha": "1957-09-29",
+    "hora": "22:00",
+    "evento": "La nube radiactiva alcanzó el territorio de la región de Tiumén a las 22:00 o a las 00:00 del 30 de septiembre.",
+    "lugar": "región de Tiumén",
+    "cita_literal": "22:00 или 00:00 30 сентября. Радиоактивное облако достигло территории Тюменской области."
+   },
+   {
+    "fecha": "1957-09-29",
+    "hora": "23:00",
+    "evento": "Hacia las 23:00 se observó en el cielo un resplandor extraño, de colores principalmente rosa y azul claro.",
+    "cita_literal": "Около 23:00 было замечено[откуда?] странное свечение в небе; основными цветами этого свечения были розовый и светло-голубой."
+   },
+   {
+    "fecha": "1957-09-30",
+    "hora": "03:00",
+    "evento": "Quedó completamente terminado el proceso de formación de la huella radiactiva, sin contar la migración posterior.",
+    "cita_literal": "30 сентября, 03:00. Полностью завершён процесс формирования радиоактивного следа (без учёта последующей миграции)."
+   },
+   {
+    "fecha": "1957-09-30",
+    "hora": "04:00",
+    "evento": "En el recinto industrial se hizo la primera estimación aproximada del nivel de contaminación radiactiva.",
+    "lugar": "recinto industrial del combinado",
+    "cita_literal": "В 4 часа утра 30 сентября 1957 года на промышленной площадке была произведена первая грубая оценка уровня радиационного заражения."
+   },
+   {
+    "fecha": "1957-10-02",
+    "evento": "Llegó de Moscú la comisión del Ministerio de Construcción de Maquinaria Media, encabezada por el ministro E. P. Slavski.",
+    "lugar": "Cheliábinsk-40",
+    "cita_literal": "2 октября 1957 года, на третий день после аварии, из Москвы прибыла комиссия, созданная Министерством среднего машиностроения, во главе с министром Е. П. Славским."
+   },
+   {
+    "fecha": "1957-10-06",
+    "evento": "El diario «Cheliabinski rabochi» publicó una nota sobre el resplandor en el cielo como aurora polar.",
+    "lugar": "Cheliábinsk",
+    "cita_literal": "6 октября 1957 года в газете «Челябинский рабочий» появилась следующая заметка"
+   },
+   {
+    "fecha": "1957-10-11",
+    "evento": "Se creó la comisión técnica especial para establecer las causas de la explosión.",
+    "cita_literal": "11 октября 1957 года была создана специальная техническая комиссия по установлению причин взрыва."
+   },
+   {
+    "fecha": "1957-11",
+    "evento": "La comisión gubernamental formada en noviembre de 1957 constató que Yugo-Konyovo, Alabuga y el poblado de la mina de wolframio de Konyovo estaban en zona de contaminación intensa a fecha 3 de febrero de 1958.",
+    "cita_literal": "правительственная комиссия, образованная в ноябре 1957 года, провела обследования и установила, что к 3 февраля 1958 года населённые пункты Юго-Конёво, Алабуга и посёлок Конёвского вольфрамового рудника находятся в районе интенсивного загрязнения"
+   },
+   {
+    "fecha": "1958-04-13",
+    "evento": "El diario danés «Berlingske Tidende» informó por primera vez sobre una avería en la URSS.",
+    "lugar": "Copenhague",
+    "cita_literal": "Впервые об аварии в СССР сообщила 13 апреля 1958 года копенгагенская газета «Берлингске Туденде[англ.]»."
+   },
+   {
+    "fecha": "1958-05",
+    "evento": "Se creó la estación experimental biogeocenológica en el poblado de Metlino, a 12 km de Cheliábinsk-40, para estudiar la producción agrícola en la zona de la huella.",
+    "lugar": "Metlino",
+    "cita_literal": "В мае 1958 года в 12 км от Челябинска-40 для изучения сельскохозяйственного производства на территории ВУРСа (в посёлке Метлино) была создана Опытная научно-исследовательская биогеоценологическая станция"
+   },
+   {
+    "fecha": "1959",
+    "evento": "A finales de 1959 se creó una zona sanitaria de protección con prohibición de acceso y de cualquier actividad económica.",
+    "cita_literal": "В конце 1959 года на территории, ограниченной изолинией с уровнем первоначального заражения в 4 Ки/км² по стронцию-90 (около 700 км²) была создана санитарно-защитная зона"
+   },
+   {
+    "fecha": "1967-04",
+    "evento": "El viento dispersó polvo con estroncio-90, cesio-137 y cerio-144 desde las orillas expuestas del lago Karachái y contaminó de nuevo la parte inicial de la huella.",
+    "lugar": "lago Karachái",
+    "cita_literal": "В апреле 1967 года в результате разноса ветром пыли, содержащей стронций-90, цезий-137, церий-144, с оголившихся береговых участков озера Карачай была дополнительно заражена начальная часть ВУРС"
+   },
+   {
+    "fecha": "1968",
+    "evento": "Se creó la reserva de los Urales Orientales en el territorio de la zona sanitaria.",
+    "cita_literal": "В 1968 году на этой территории создан Восточно-Уральский заповедник."
+   },
+   {
+    "fecha": "1976",
+    "evento": "El biólogo Zhores Medvédev publicó el primer breve informe sobre la avería en los Urales en la revista inglesa «New Scientist».",
+    "cita_literal": "Спустя 20 лет в 1976 году учёный-биолог Жорес Медведев сделал первое краткое сообщение об аварии на Урале в английском журнале «New Scientist»"
+   },
+   {
+    "fecha": "1989-07",
+    "evento": "En la URSS se confirmó por primera vez el hecho de la explosión en Mayak, en una sesión del Sóviet Supremo.",
+    "cita_literal": "В Советском Союзе факт взрыва на химкомбинате «Маяк» впервые подтвердили в июле 1989 года на сессии Верховного Совета СССР."
+   }
+  ],
+  "lugares": [
+   {
+    "nombre": "Cheliábinsk-40 (hoy Ozyorsk)",
+    "rol": "ciudad cerrada donde está el combinado Mayak y donde ocurrió la explosión",
+    "cita_literal": "произошедшая 29 сентября 1957 года на химкомбинате «Маяк» в закрытом городе Челябинск-40 (ныне Озёрск)"
+   },
+   {
+    "nombre": "Cheliábinsk-40",
+    "rol": "no sufrió directamente la caída de radionúclidos por estar a barlovento",
+    "cita_literal": "Сам Челябинск-40 непосредственно от выпадения радионуклидов не пострадал (оказался с наветренной стороны)."
+   },
+   {
+    "nombre": "Kyshtym",
+    "rol": "ciudad que dio nombre a la avería, la más cercana a Ozyorsk que figuraba en los mapas",
+    "cita_literal": "поэтому авария и получила название «кыштымской» по ближайшему к Озёрску городу Кыштым, обозначенному на картах"
+   },
+   {
+    "nombre": "Satlykovo, Galikaevo y Yugo-Konyovo",
+    "rol": "localidades donde se midió la tasa de dosis a 18, 23 y 55 km",
+    "cita_literal": "мощность экспозиционной дозы в Сатлыково (18 км) составила до 300 мкР/с, в Галикаево (23 км) — до 170 мкР/с, в Юго-Конёво (55 км) — до 6 мкР/с"
+   },
+   {
+    "nombre": "Metlino",
+    "rol": "poblado donde se creó una estación experimental para estudiar la agricultura en la zona de la huella",
+    "cita_literal": "в 12 км от Челябинска-40 для изучения сельскохозяйственного производства на территории ВУРСа (в посёлке Метлино) была создана Опытная научно-исследовательская биогеоценологическая станция"
+   },
+   {
+    "nombre": "Lago Karachái",
+    "rol": "lago sin desagüe donde se vertieron residuos líquidos, posteriormente conservado por riesgo de contaminación",
+    "cita_literal": "в бессточное озеро Карачай, впоследствии законсервированное ввиду угрозы широкомасштабного радиационного загрязнения"
+   },
+   {
+    "nombre": "Río Techa",
+    "rol": "río contaminado por vertidos de residuos en 1949-1951",
+    "cita_literal": "Так, в 1949—1951 годах сбросы производились в реку Теча, значительно её радиоактивно загрязнив."
+   },
+   {
+    "nombre": "Tatárskaya Karabolka",
+    "rol": "aldea no reasentada con incidencia de cáncer superior a la media",
+    "cita_literal": "Заболеваемость раком в неотселённой деревне Татарская Караболка в пять-шесть раз выше, чем в среднем по стране"
+   },
+   {
+    "nombre": "Reserva de los Urales Orientales",
+    "rol": "reserva creada en 1968 en el territorio de la zona sanitaria de protección",
+    "cita_literal": "В 1968 году на этой территории создан Восточно-Уральский заповедник."
+   }
+  ],
+  "citas": [
+   {
+    "autor": "Vasili Andréyevich Saprykin",
+    "autor_en_documento": "Василий Андреевич",
+    "rol": "ingeniero jefe de la construcción de Mayak",
+    "testigo": false,
+    "lugar": "obra de los almacenes de combustible gastado",
+    "texto_original": "— Кто знает, какая сила нужна, чтобы разрушить это?",
+    "texto_es": "— ¿Quién sabe qué fuerza hace falta para destruir esto?",
+    "cita_literal": "— Кто знает, какая сила нужна, чтобы разрушить это?"
+   },
+   {
+    "autor": "A. A. Kazútov",
+    "autor_en_documento": "А. А. Казутов",
+    "rol": "mecánico jefe de la construcción de los tanques",
+    "testigo": false,
+    "lugar": "Mayak",
+    "texto_original": "Помню встречу, когда главный инженер Василий Сапрыкин приехал осмотреть хранилище.",
+    "texto_es": "Recuerdo una reunión en la que el ingeniero jefe Vasili Saprykin vino a inspeccionar el almacén.",
+    "cita_literal": "Помню встречу, когда главный инженер Василий Сапрыкин приехал осмотреть хранилище."
+   },
+   {
+    "autor": "L. A. Buldakov",
+    "autor_en_documento": "Л. А. Булдаков",
+    "rol": "subdirector del Instituto de Biofísica, académico de la Academia de Ciencias de la URSS",
+    "testigo": false,
+    "fecha": "1989-07-18",
+    "texto_original": "В течение трёх лет постоянно, систематически мы следили за здоровьем людей. Не удалось, к счастью, зафиксировать ни одной формы лучевой болезни",
+    "texto_es": "Durante tres años seguimos constante y sistemáticamente la salud de las personas. Por suerte, no se logró registrar ninguna forma de enfermedad por radiación.",
+    "cita_literal": "В течение трёх лет постоянно, систематически мы следили за здоровьем людей. Не удалось, к счастью, зафиксировать ни одной формы лучевой болезни"
+   },
+   {
+    "autor": "V. I. Shevchenko",
+    "autor_en_documento": "В. И. Шевченко",
+    "rol": "miembro de la Cámara Pública, liquidador de 1957 y veterano de Mayak y Minatom",
+    "testigo": true,
+    "texto_original": "Позднее, непонятно почему, авария была растиражирована в СМИ как «Кыштымская авария». В Кыштыме по этому случаю даже недавно был установлен обелиск, хотя этот город к данному событию не имеет никакого отношения.",
+    "texto_es": "Más tarde, sin que se sepa por qué, la avería fue difundida en los medios como «avería de Kyshtym». En Kyshtym incluso se erigió hace poco un obelisco, aunque esa ciudad no tiene ninguna relación con el suceso.",
+    "cita_literal": "Позднее, непонятно почему, авария была растиражирована в СМИ как «Кыштымская авария». В Кыштыме по этому случаю даже недавно был установлен обелиск, хотя этот город к данному событию не имеет никакого отношения."
+   },
+   {
+    "autor": "Diario «Cheliabinski rabochi»",
+    "autor_en_documento": "Челябинский рабочий",
+    "rol": "periódico que publicó la nota del 6 de octubre de 1957",
+    "testigo": false,
+    "lugar": "Cheliábinsk",
+    "fecha": "1957-10-06",
+    "texto_original": "Это довольно редкое в наших широтах свечение имело все признаки полярного сияния.",
+    "texto_es": "Este resplandor, bastante raro en nuestras latitudes, tenía todos los rasgos de una aurora polar.",
+    "cita_literal": "Это довольно редкое в наших широтах свечение имело все признаки полярного сияния."
+   },
+   {
+    "autor": "Ralph Nader",
+    "autor_en_documento": "Ральфа Нейдера",
+    "rol": "fundador de «Critical Mass»",
+    "testigo": false,
+    "texto_original": "что, по словам основателя «Critical Mass» Ральфа Нейдера, было вызвано желанием предотвратить неблагоприятные последствия для американской атомной индустрии",
+    "texto_es": "que, según el fundador de «Critical Mass» Ralph Nader, se debió al deseo de evitar consecuencias desfavorables para la industria atómica estadounidense.",
+    "cita_literal": "что, по словам основателя «Critical Mass» Ральфа Нейдера, было вызвано желанием предотвратить неблагоприятные последствия для американской атомной индустрии"
+   },
+   {
+    "autor": "Representantes del gobierno de la región de Cheliábinsk",
+    "autor_en_documento": "Представители правительства Челябинской области",
+    "rol": "representantes del gobierno regional",
+    "testigo": false,
+    "lugar": "región de Cheliábinsk",
+    "fecha": "2011-07",
+    "texto_original": "избавляться от неактуального и не соответствующего действительности имиджа, навязанного радиофобами…",
+    "texto_es": "deshacerse de una imagen no actual y que no corresponde a la realidad, impuesta por los radiofobos…",
+    "cita_literal": "Представители правительства Челябинской области прокомментировали появление заказа необходимостью «избавляться от неактуального и не соответствующего действительности имиджа, навязанного радиофобами…»"
+   }
+  ],
+  "personajes": [
+   {
+    "nombre": "Arkadi Aleksándrovich Kazútov",
+    "nombre_en_documento": "Аркадия Александровича Казутова",
+    "rol": "mecánico jefe que dirigió la construcción de los tanques de residuos",
+    "antagonista": false,
+    "testigo": false,
+    "cita_literal": "Работы по строительству ёмкостей выполнялись под руководством главного механика Аркадия Александровича Казутова (1914—1994)"
+   },
+   {
+    "nombre": "V. A. Saprykin",
+    "nombre_en_documento": "В. А. Сапрыкин",
+    "rol": "ingeniero jefe de la construcción de Mayak en aquella época",
+    "antagonista": false,
+    "testigo": false,
+    "cita_literal": "главным инженером строительства «Маяка» в то время был В. А. Сапрыкин"
+   },
+   {
+    "nombre": "V. V. Fomin",
+    "nombre_en_documento": "В. В. Фомин",
+    "rol": "químico, presidente de la comisión técnica sobre las causas de la explosión",
+    "antagonista": false,
+    "testigo": false,
+    "fechas_presente": [
+     "1957-10-11"
+    ],
+    "cita_literal": "Председателем комиссии был назначен химик, будущий член-корреспондент АН СССР В. В. Фомин."
+   },
+   {
+    "nombre": "E. P. Slavski",
+    "nombre_en_documento": "Е. П. Славским",
+    "rol": "ministro al frente de la comisión enviada desde Moscú",
+    "antagonista": false,
+    "testigo": false,
+    "fechas_presente": [
+     "1957-10-02"
+    ],
+    "lugar": "Cheliábinsk-40",
+    "cita_literal": "из Москвы прибыла комиссия, созданная Министерством среднего машиностроения, во главе с министром Е. П. Славским."
+   },
+   {
+    "nombre": "Zhores Medvédev",
+    "nombre_en_documento": "Жорес Медведев",
+    "rol": "biólogo que hizo el primer informe sobre la avería en 1976",
+    "antagonista": false,
+    "testigo": false,
+    "fechas_presente": [
+     "1976"
+    ],
+    "cita_literal": "Спустя 20 лет в 1976 году учёный-биолог Жорес Медведев сделал первое краткое сообщение об аварии на Урале в английском журнале «New Scientist»"
+   },
+   {
+    "nombre": "B. V. Nikipélov",
+    "nombre_en_documento": "Б. В. Никипелова",
+    "rol": "primer viceministro de energía atómica e industria de la URSS, autor de un informe sobre la avería",
+    "antagonista": false,
+    "testigo": false,
+    "cita_literal": "с обобщённым докладом первого заместителя министра атомной энергетики и промышленности СССР Б. В. Никипелова"
+   },
+   {
+    "nombre": "L. A. Buldakov",
+    "nombre_en_documento": "Л. А. Булдаков",
+    "rol": "subdirector del Instituto de Biofísica y académico, declaró ante el Sóviet Supremo",
+    "antagonista": false,
+    "testigo": false,
+    "fechas_presente": [
+     "1989-07-18"
+    ],
+    "cita_literal": "заместитель директора Института биофизики академик АН СССР Л. А. Булдаков заявлял"
+   },
+   {
+    "nombre": "V. I. Shevchenko",
+    "nombre_en_documento": "В. И. Шевченко",
+    "rol": "liquidador de 1957 y veterano de Mayak",
+    "antagonista": false,
+    "testigo": true,
+    "fechas_presente": [
+     "1957"
+    ],
+    "cita_literal": "Член Общественной палаты ОГО, ликвидатор 1957 года, ветеран ПО «Маяк» и Минатома В. И. Шевченко"
+   },
+   {
+    "nombre": "Alekséi Navalni",
+    "nombre_en_documento": "Алексей Навальный",
+    "rol": "llamó la atención de los medios sobre la solicitud de cotizaciones de la administración de Cheliábinsk en 2011",
+    "antagonista": false,
+    "testigo": false,
+    "cita_literal": "К этому запросу котировок привлёк внимание СМИ Алексей Навальный"
+   }
+  ]
+ }
+}

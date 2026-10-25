@@ -34,7 +34,7 @@ KYS = "f18-kyshtym-mayak"
 COSTOS = LAB / "costos_f24.json"
 TOPE_TOTAL = 14.00
 TOPES = {"modelo": 2.00, "research": 3.50, "ficha": 0.60, "escaleta": 0.40, "guion": 1.20, "particion": 0.20}
-MAX_OUT = {("gpt-6.1-sol", "ficha"): 50000, ("gpt-6.1-sol", "escaleta"): 16000, ("claude-fable-5-1", "escaleta"): 16000,
+MAX_OUT = {("gpt-6.1-sol", "ficha"): 40000, ("gpt-6.1-sol", "escaleta"): 16000, ("claude-fable-5-1", "escaleta"): 16000,
            ("claude-fable-5-1", "guion"): 21000, ("claude-fable-5-1", "reparacion"): 8000,
            ("gpt-6.1-sol", "particion"): 4000}
 MARGEN_GEMINI = 0.05
@@ -513,6 +513,8 @@ def c_guion(tema: str) -> None:
     from script_engine import guion_v4 as g4
     tid, out = TEMAS[tema]["tid"], LAB / tema
     if (out / "guion.json").exists():
+        if not (out / f"NARRACION_{tema}_f24.md").exists():
+            _narracion(tema)
         return
     esc = _j(out / "escaleta.json")
     if not esc:
@@ -550,15 +552,27 @@ def c_guion(tema: str) -> None:
     res["metricas"] = guion_metricas(topic, esc, res["parrafos"], ficha)
     res["log"] = log
     _write(out / "guion.json", res)
-    import f22b_corridas
-    f22b_corridas.VERSION_NOMBRE.setdefault("f23-1", "v5.3")
+    _narracion(tema)
     m = res["metricas"]
-    (out / f"NARRACION_{tema}_f24.md").write_text(f22b_corridas.narracion(
-        tema[:1].upper(), esc, {**res, "minutos": m["minutos"], "metricas": g4.metricas(topic, esc, res["parrafos"])},
-        ficha, topic, modelo=modelo, version=g4.PROMPT_VERSION, tema=tema.capitalize(), fase="F24",
-        escaleta_txt=f"Escaleta f24-1 sin columna ({esc.get('_modelo')}), ficha v2.2"), encoding="utf-8")
     print(f"[{tema} guion] {m['palabras']} palabras ≈ {m['minutos']} min · bloqueantes {len(res['bloqueantes'])} · "
           f"citas {m['citas']} · por cap {m['palabras_por_cap']}", flush=True)
+
+
+def _narracion(tema: str) -> None:
+    """NARRACION_<tema>_f24.md con lo guardado en guion.json (sin API); el costo, el de guion + reparación."""
+    import f22b_corridas
+    from script_engine import guion_v4 as g4
+    f22b_corridas.VERSION_NOMBRE.setdefault("f23-1", "v5.3")
+    tid, out = TEMAS[tema]["tid"], LAB / tema
+    res, esc = _j(out / "guion.json"), _j(out / "escaleta.json")
+    ficha, topic = _ficha(tid), _topic(tid, _seed(tema)["seed_title"])
+    et = [x for x in _costos()["etapas"] if x["tema"] == tema and x["etapa"] in ("guion", "reparacion")]
+    costo = {"usd": round(sum(x["usd"] for x in et), 4), "segundos": round(sum(x["segundos"] for x in et), 1)}
+    (out / f"NARRACION_{tema}_f24.md").write_text(f22b_corridas.narracion(
+        tema[:1].upper(), esc, {**res, "costo": costo, "minutos": res["metricas"]["minutos"],
+                                "metricas": g4.metricas(topic, esc, res["parrafos"])},
+        ficha, topic, modelo=res["modelo"], version=res["version"], tema=tema.capitalize(), fase="F24",
+        escaleta_txt=f"Escaleta f24-1 sin columna ({esc.get('_modelo')}), ficha v2.2"), encoding="utf-8")
 
 
 def c_particion(tema: str) -> None:

@@ -1,0 +1,421 @@
+{
+ "f7b-1|1/1|d27a31a2e691e235": {
+  "datos": [
+   {
+    "texto": "El 29 de septiembre de 1957 ocurrió en la URSS el primer accidente nuclear.",
+    "tipo": "fecha",
+    "valor": "29 de septiembre de 1957",
+    "fecha": "1957-09-29",
+    "cita_literal": "29 сентября 1957 года в СССР произошла первая ядерная авария."
+   },
+   {
+    "texto": "La zona de contaminación tuvo una superficie total de 23 mil km² y una población de unas 270 mil personas.",
+    "tipo": "magnitud",
+    "valor": "23 mil km²",
+    "cita_literal": "Общая площадь заражения составила 23 тыс. кв. км с населением около 270 тыс. человек."
+   },
+   {
+    "texto": "La población en la zona contaminada era de unas 270 mil personas.",
+    "tipo": "cifra",
+    "valor": "270 mil personas",
+    "cita_literal": "Общая площадь заражения составила 23 тыс. кв. км с населением около 270 тыс. человек."
+   },
+   {
+    "texto": "El 90% de las sustancias radiactivas cayó en el territorio del combinado químico y el resto se dispersó más lejos; la propia Cheliábinsk-40 no resultó afectada.",
+    "tipo": "magnitud",
+    "valor": "90%",
+    "cita_literal": "Сам Челябинск-40 (ныне это Озерск — прим. ТАСС) не пострадал, 90% радиоактивных веществ выпало на территории химкомбината, остальная часть рассеялась дальше."
+   },
+   {
+    "texto": "En 14 días se liquidaron 23 aldeas y se reasentó a unas 12 mil personas, y se quemaron sus bienes y su ganado.",
+    "tipo": "cifra",
+    "valor": "23 aldeas; 12 mil personas",
+    "cita_literal": "Спустя неделю, в течение 14 дней, 23 деревни ликвидировали, все строения сровняли с землей, около 12 тыс. человек переселили на новые места, а их имущество и скот сожгли."
+   },
+   {
+    "texto": "La explosión retumbó a las cinco menos media de la tarde (16:30).",
+    "tipo": "fecha",
+    "valor": "16:30",
+    "fecha": "1957-09-29",
+    "cita_literal": "Взрыв прогремел в половине пятого вечера. Многие услышали тот громкий хлопок, но не придали ему значение."
+   },
+   {
+    "texto": "El 29 de septiembre de 1957 fue domingo y en la empresa trabajaban solo los turnos de guardia, por lo que se evitaron víctimas en el momento del accidente.",
+    "tipo": "fecha",
+    "valor": "domingo",
+    "fecha": "1957-09-29",
+    "cita_literal": "29 сентября 1957 года выпало на воскресенье, когда на предприятии работали только дежурные смены."
+   },
+   {
+    "texto": "Explotó la «banka», nombre que los obreros daban al contenedor de residuos radiactivos.",
+    "tipo": "nombre",
+    "valor": "banka",
+    "cita_literal": "На воздух взлетела \"банка\", так рабочие называли емкость с радиоактивными отходами."
+   },
+   {
+    "texto": "La nube radiactiva cubrió parte de las regiones de Cheliábinsk, Sverdlovsk y Tiumén.",
+    "tipo": "lugar",
+    "valor": "Cheliábinsk, Sverdlovsk y Tiumén",
+    "cita_literal": "В результате взрыва на \"Маяке\" радиационное облако накрыло часть Челябинской, Свердловской и Тюменской областей."
+   },
+   {
+    "texto": "Según el informe de la comisión de Efim Slavski, la causa fue la violación del régimen de enfriamiento de los depósitos del contenedor nº 14, que llevó a la desecación de la solución de sustancias radiactivas y nitratos.",
+    "tipo": "cita",
+    "valor": "contenedor nº 14",
+    "cita_literal": "причиной аварии стало нарушение режима охлаждения хранилищ банки №14. Это привело к усушке раствора радиоактивных веществ и нитратов"
+   },
+   {
+    "texto": "Según los expertos, la explosión no fue atómica sino térmica y por eso no se inició una reacción en cadena.",
+    "tipo": "magnitud",
+    "valor": "térmica",
+    "cita_literal": "Взрыв, как докажут потом эксперты, был не атомным, а тепловым, и поэтому не началась цепная реакция."
+   },
+   {
+    "texto": "Se declaró principal culpable del accidente al director del combinado Mayak, Mijaíl Demiánovich, que en el momento de la explosión estaba en Moscú.",
+    "tipo": "nombre",
+    "valor": "Mijaíl Demiánovich",
+    "cita_literal": "Главным виновником аварии объявили директора химкомбината \"Маяк\" Михаила Демьяновича, который в момент взрыва был в Москве."
+   },
+   {
+    "texto": "Demiánovich fue destituido y trasladado a otro puesto con una rebaja; no hubo más culpables.",
+    "tipo": "cita",
+    "valor": "",
+    "cita_literal": "Его сняли с должности и перевели на другое место работы с понижением. Больше виновных не было."
+   },
+   {
+    "texto": "Según estimaciones de especialistas, la emisión de sustancias radiactivas en Mayak en 1957 se estima en 20 millones de curies, y en Chernóbil en 50 millones de curies.",
+    "tipo": "magnitud",
+    "valor": "20 millones de curies",
+    "cita_literal": "По оценкам специалистов, выброс радиационных веществ на ядерном комбинате \"Маяк\" в 1957 году оценивается в 20 млн кюри, в Чернобыле — 50 млн кюри."
+   },
+   {
+    "texto": "Los electricistas recibieron cinco dosis diarias de irradiación durante su trabajo junto a la fuente.",
+    "tipo": "magnitud",
+    "valor": "5 dosis diarias",
+    "cita_literal": "За время работы у фонтана электрики получили пять дневных норм облучения."
+   },
+   {
+    "texto": "Para figurar en la lista de liquidadores había que recibir 100 microroentgen, según Dubrovski.",
+    "tipo": "magnitud",
+    "valor": "100 microroentgen",
+    "cita_literal": "По словам Дубровского, в то время, чтобы быть записанным в список ликвидаторов аварии, надо было получить 100 микрорентген."
+   },
+   {
+    "texto": "La distancia del edificio de la gran chimenea al foco de la explosión es de unos 500 metros y el tractor blindado con plomo avanzaba a 2 km/h.",
+    "tipo": "magnitud",
+    "valor": "500 metros; 2 km/h",
+    "cita_literal": "От здания с большой трубой до очага — около 500 метров, но скорость освинцованного трактора составляла 2 км в час."
+   },
+   {
+    "texto": "Un comentarista afirma que entre el contenedor nº 14 y el monumento junto a la Radiozavod hay 14,5 kilómetros.",
+    "tipo": "magnitud",
+    "valor": "14,5 km",
+    "cita_literal": "Между банкой №14 и памятникам около Радиозавода 14, 5 километров."
+   },
+   {
+    "texto": "El periódico local «Cheliábinski rabochi» publicó sobre la explosión el 6 de octubre de 1957, presentando la columna de polvo radiactivo como aurora boreal.",
+    "tipo": "fecha",
+    "valor": "6 de octubre de 1957",
+    "fecha": "1957-10-06",
+    "cita_literal": "Лишь спустя неделю после взрыва, 6 октября 1957 года, в местной газете \"Челябинский рабочий\" написали про взрыв."
+   },
+   {
+    "texto": "La URSS reconoció el hecho en 1989, en pleno apogeo de la perestroika.",
+    "tipo": "fecha",
+    "valor": "1989",
+    "fecha": "1989",
+    "cita_literal": "И только в 89 году, в самый разгар перестройки, СССР признал очевидный факт — 29 сентября 1957 года на химкомбинате \"Маяк\" прогремел взрыв."
+   },
+   {
+    "texto": "El artículo dice que los obreros del combinado no tuvieron vacaciones durante cerca de un año y medio.",
+    "tipo": "magnitud",
+    "valor": "cerca de 1,5 años",
+    "cita_literal": "город был закрытый, работников \"Маяка\" не отпускали в отпуск около полутора лет, а ликвидаторы подписывали бумаги о неразглашении."
+   },
+   {
+    "texto": "Un comentarista sostiene que, de los 20 millones de curies, 18 quedaron en el área industrial y 2 formaron la huella radiactiva.",
+    "tipo": "cifra",
+    "valor": "18 de 20 millones de curies",
+    "cita_literal": "Единственная правда из 20 млн. Кюри активности-18 остались на промплощадке,а 2 сформировали след."
+   },
+   {
+    "texto": "Un comentarista califica de falsa la versión del artículo sobre el reasentamiento en 14 días: según él, el reasentamiento forzoso no fue inmediato y se prolongó seis meses.",
+    "tipo": "contradiccion",
+    "valor": "6 meses",
+    "cita_literal": "Это ложь чистой воды, людей начали принудительно переселять далеко не сразу, всё это затянулось на полгода."
+   },
+   {
+    "texto": "Un comentarista afirma que el pueblo de Metlino fue desalojado ya en 1956, mientras el pie de foto del artículo lo sitúa como lugar de la zona de la huella radiactiva.",
+    "tipo": "contradiccion",
+    "valor": "1956",
+    "fecha": "1956",
+    "cita_literal": "На фото остатки села Метлино, которое было выселено уже 1956 году."
+   }
+  ],
+  "cronologia": [
+   {
+    "fecha": "1957-09-29",
+    "hora": "16:30",
+    "evento": "Explota el contenedor con residuos radiactivos en el combinado químico Mayak, región de Cheliábinsk.",
+    "lugar": "Mayak, región de Cheliábinsk",
+    "cita_literal": "Взрыв прогремел в половине пятого вечера. Многие услышали тот громкий хлопок, но не придали ему значение."
+   },
+   {
+    "fecha": "1957-09-29",
+    "evento": "Dubrovski ve una película en el club local «Derevyashka» y oye un fuerte estruendo que hace temblar el edificio.",
+    "lugar": "club «Derevyashka»",
+    "cita_literal": "И в какой-то момент мы услышали сильный грохот, даже здание начало трясти. Но мы не особо придали ему значение"
+   },
+   {
+    "fecha": "1957-09-30",
+    "evento": "Dubrovski va a trabajar; seis electricistas reciben equipo y son enviados a arrancar arbustos junto a la fuente.",
+    "lugar": "combinado Mayak",
+    "cita_literal": "Уже на следующий день, это был понедельник 30 сентября, Анатолий Васильевич как обычно отправился на работу."
+   },
+   {
+    "fecha": "1957-10-06",
+    "evento": "El periódico «Cheliábinski rabochi» publica sobre la explosión, presentando el polvo radiactivo como aurora boreal.",
+    "lugar": "Cheliábinsk",
+    "cita_literal": "Лишь спустя неделю после взрыва, 6 октября 1957 года, в местной газете \"Челябинский рабочий\" написали про взрыв."
+   },
+   {
+    "fecha": "1958",
+    "evento": "Se inician los trabajos de restauración del combinado.",
+    "lugar": "Mayak",
+    "cita_literal": "К восстановительным работам комбината приступили в 1958 году."
+   },
+   {
+    "fecha": "1958",
+    "evento": "En el verano de 1958 un tractor totalmente protegido con plomo retira la tierra contaminada y la sustituye por tierra limpia.",
+    "lugar": "Mayak",
+    "cita_literal": "Уже летом 58 года на том месте, где электрики выдергивали кустарник, работал трактор, но полностью защищенный свинцом."
+   },
+   {
+    "fecha": "1970",
+    "evento": "En los años 70 el físico nuclear disidente Zhores Medvédev habló ante periodistas extranjeros de la explosión en los Urales.",
+    "cita_literal": "В 70-е годы прошлого века он выступил перед иностранными журналистами и рассказал о взрыве на Урале."
+   },
+   {
+    "fecha": "1989",
+    "evento": "La URSS reconoce que el 29 de septiembre de 1957 hubo una explosión en el combinado Mayak.",
+    "cita_literal": "И только в 89 году, в самый разгар перестройки, СССР признал очевидный факт — 29 сентября 1957 года на химкомбинате \"Маяк\" прогремел взрыв."
+   }
+  ],
+  "lugares": [
+   {
+    "nombre": "Combinado químico Mayak, región de Cheliábinsk",
+    "rol": "lugar de la explosión",
+    "cita_literal": "Но мало кто знает о трагедии на химкомбинате \"Маяк\" в Челябинской области."
+   },
+   {
+    "nombre": "Cheliábinsk-40 (hoy Ozersk)",
+    "rol": "ciudad cerrada junto al combinado, no afectada según el artículo",
+    "cita_literal": "Сам Челябинск-40 (ныне это Озерск — прим. ТАСС) не пострадал, 90% радиоактивных веществ выпало на территории химкомбината, остальная часть рассеялась дальше."
+   },
+   {
+    "nombre": "Metlino",
+    "rol": "antiguo pueblo en la zona de la huella radiactiva",
+    "cita_literal": "В зоне радиоактивного следа на месте бывшего села Метлино"
+   },
+   {
+    "nombre": "Moscú",
+    "rol": "lugar donde estaba el director Demiánovich durante la explosión",
+    "cita_literal": "Главным виновником аварии объявили директора химкомбината \"Маяк\" Михаила Демьяновича, который в момент взрыва был в Москве."
+   }
+  ],
+  "citas": [
+   {
+    "autor": "Anatoli Vasílievich Dubrovski",
+    "autor_en_documento": "Анатолий Васильевич Дубровский",
+    "rol": "uno de los primeros liquidadores, electricista",
+    "testigo": true,
+    "lugar": "Cheliábinsk-40",
+    "fecha": "1957-09-29",
+    "texto_original": "И в какой-то момент мы услышали сильный грохот, даже здание начало трясти. Но мы не особо придали ему значение",
+    "texto_es": "Y en algún momento oímos un fuerte estruendo, incluso el edificio empezó a temblar. Pero no le dimos mucha importancia.",
+    "cita_literal": "И в какой-то момент мы услышали сильный грохот, даже здание начало трясти. Но мы не особо придали ему значение"
+   },
+   {
+    "autor": "Anatoli Vasílievich Dubrovski",
+    "autor_en_documento": "Анатолий Дубровский",
+    "rol": "uno de los primeros liquidadores, electricista",
+    "testigo": true,
+    "lugar": "combinado Mayak",
+    "fecha": "1957-09-30",
+    "texto_original": "Нам надо было прихватить инструменты — лопаты, ломы, кирки — и выкопать кустарники, которые росли вдоль фонтанчика. При этом никакого инструктажа, и как себя вести, никто нам не объяснил. Сказали лишь, чтоб противогазы и \"лепестки\" не снимали",
+    "texto_es": "Teníamos que coger herramientas —palas, barras, picos— y arrancar los arbustos que crecían junto a la fuente. Nadie nos dio instrucciones ni nos explicó cómo comportarnos. Solo nos dijeron que no nos quitáramos las máscaras antigás ni los respiradores «lepestki».",
+    "cita_literal": "Нам надо было прихватить инструменты — лопаты, ломы, кирки — и выкопать кустарники, которые росли вдоль фонтанчика. При этом никакого инструктажа, и как себя вести, никто нам не объяснил. Сказали лишь, чтоб противогазы и \"лепестки\" не снимали"
+   },
+   {
+    "autor": "Anatoli Vasílievich Dubrovski",
+    "autor_en_documento": "Дубровский",
+    "rol": "uno de los primeros liquidadores, electricista",
+    "testigo": true,
+    "lugar": "combinado Mayak",
+    "fecha": "1957-09-30",
+    "texto_original": "Через 20–30 минут к нам приехала пожарная машина и начала нас обмывать холодной водой из брандспойта, напор был очень сильный.",
+    "texto_es": "A los 20–30 minutos llegó un camión de bomberos y empezó a lavarnos con agua fría de la manguera; la presión era muy fuerte.",
+    "cita_literal": "Через 20–30 минут к нам приехала пожарная машина и начала нас обмывать холодной водой из брандспойта, напор был очень сильный."
+   },
+   {
+    "autor": "Mijaíl Kuléshov",
+    "autor_en_documento": "Кулешов",
+    "rol": "cerrajero de 6.ª categoría del departamento del mecánico jefe de la planta 25",
+    "testigo": true,
+    "lugar": "combinado Mayak",
+    "texto_original": "Уже на следующий день С-80 весь в свинце поехал на разведку в очаг взрыва. От здания с большой трубой до очага — около 500 метров, но скорость освинцованного трактора составляла 2 км в час.",
+    "texto_es": "Al día siguiente el S-80, todo cubierto de plomo, fue a explorar el foco de la explosión. Del edificio de la gran chimenea al foco hay unos 500 metros, pero la velocidad del tractor blindado era de 2 km/h.",
+    "cita_literal": "Уже на следующий день С-80 весь в свинце поехал на разведку в очаг взрыва. От здания с большой трубой до очага — около 500 метров, но скорость освинцованного трактора составляла 2 км в час."
+   },
+   {
+    "autor": "Mijaíl Kuléshov",
+    "autor_en_documento": "Кулешов",
+    "rol": "cerrajero de 6.ª categoría del departamento del mecánico jefe de la planta 25",
+    "testigo": true,
+    "lugar": "combinado Mayak",
+    "texto_original": "Наша бригада приступила к ликвидации в октябре. Работали с 19 часов до часу ночи. Мы должны были собрать \"плеть\" из труб и шлангов и перебросить ее к месту взрыва, где уже работали буровики",
+    "texto_es": "Nuestra brigada empezó la liquidación en octubre. Trabajábamos de 19 horas a la una de la madrugada. Debíamos armar un «látigo» de tubos y mangueras y llevarlo al lugar de la explosión, donde ya trabajaban los perforadores.",
+    "cita_literal": "Наша бригада приступила к ликвидации в октябре. Работали с 19 часов до часу ночи. Мы должны были собрать \"плеть\" из труб и шлангов и перебросить ее к месту взрыва, где уже работали буровики"
+   },
+   {
+    "autor": "Liudmila Smirnova",
+    "autor_en_documento": "Людмила Смирнова",
+    "rol": "hija de un liquidador, nacida en 1961 en Cheliábinsk-65",
+    "testigo": true,
+    "lugar": "Cheliábinsk-65 (Cheliábinsk-40)",
+    "texto_original": "О той аварии в городе не говорили, как не принято было говорить и о многих других инцидентах, случавшихся в то время там не только в городе, но и в других местах Советского Союза.",
+    "texto_es": "De aquel accidente no se hablaba en la ciudad, como tampoco se solía hablar de muchos otros incidentes ocurridos entonces no solo en la ciudad sino en otros lugares de la Unión Soviética.",
+    "cita_literal": "О той аварии в городе не говорили, как не принято было говорить и о многих других инцидентах, случавшихся в то время там не только в городе, но и в других местах Советского Союза."
+   },
+   {
+    "autor": "Liudmila Smirnova",
+    "autor_en_documento": "Людмила Смирнова",
+    "rol": "hija de un liquidador, nacida en 1961 en Cheliábinsk-65",
+    "testigo": true,
+    "lugar": "Cheliábinsk-65 (Cheliábinsk-40)",
+    "texto_original": "О том, что происходит и как это влияет на здоровье и экологию, я не думала. Это было мое детство, которое проходило там, и я считала это все нормой. Плюсом было то, что нас, детей, каждое лето отправляли на лечение на юг",
+    "texto_es": "No pensaba en lo que ocurría ni en cómo afectaba a la salud y al medio ambiente. Era mi infancia, transcurrió allí y yo lo consideraba todo normal. Lo positivo era que a los niños nos enviaban cada verano a tratamiento al sur.",
+    "cita_literal": "О том, что происходит и как это влияет на здоровье и экологию, я не думала. Это было мое детство, которое проходило там, и я считала это все нормой. Плюсом было то, что нас, детей, каждое лето отправляли на лечение на юг"
+   },
+   {
+    "autor": "comisión de Efim Slavski",
+    "autor_en_documento": "комиссии Ефима Славского",
+    "rol": "comisión que investigó las causas del accidente",
+    "testigo": false,
+    "fecha": "1957",
+    "texto_original": "причиной аварии стало нарушение режима охлаждения хранилищ банки №14. Это привело к усушке раствора радиоактивных веществ и нитратов",
+    "texto_es": "la causa del accidente fue la violación del régimen de enfriamiento de los depósitos del contenedor nº 14. Esto llevó a la desecación de la solución de sustancias radiactivas y nitratos.",
+    "cita_literal": "причиной аварии стало нарушение режима охлаждения хранилищ банки №14. Это привело к усушке раствора радиоактивных веществ и нитратов"
+   },
+   {
+    "autor": "periódico «Cheliábinski rabochi»",
+    "autor_en_documento": "Челябинский рабочий",
+    "rol": "periódico local",
+    "testigo": false,
+    "fecha": "1957-10-06",
+    "texto_original": "Многие челябинцы наблюдали особое свечение звездного неба. Это довольно редкое в наших широтах свечение имело все признаки полярного сияния.",
+    "texto_es": "Muchos habitantes de Cheliábinsk observaron un resplandor especial del cielo estrellado. Este resplandor, bastante raro en nuestras latitudes, tenía todos los rasgos de una aurora boreal.",
+    "cita_literal": "Многие челябинцы наблюдали особое свечение звездного неба. Это довольно редкое в наших широтах свечение имело все признаки полярного сияния."
+   },
+   {
+    "autor": "V. V. Ustiuzhanin",
+    "autor_en_documento": "В. В. Устюжанин",
+    "rol": "comentarista del artículo",
+    "testigo": false,
+    "fecha": "2018-09-30",
+    "texto_original": "Озерск был загрязнён самими работниками Маяка и теми, кто ликвидировал аварию. Всё отмыли, а что не отмыли, захоронили.",
+    "texto_es": "Ozersk fue contaminado por los propios trabajadores de Mayak y por quienes liquidaron el accidente. Todo se lavó y lo que no se lavó se enterró.",
+    "cita_literal": "Озерск был загрязнён самими работниками Маяка и теми, кто ликвидировал аварию. Всё отмыли, а что не отмыли, захоронили."
+   },
+   {
+    "autor": "Dmitri",
+    "autor_en_documento": "Дмитрий",
+    "rol": "comentarista del artículo, hijo de un habitante de Yugo-Konyovo",
+    "testigo": false,
+    "fecha": "2018-10-01",
+    "texto_original": "Это ложь чистой воды, людей начали принудительно переселять далеко не сразу, всё это затянулось на полгода.",
+    "texto_es": "Es una mentira pura: a la gente no se la empezó a reasentar a la fuerza de inmediato, todo se prolongó medio año.",
+    "cita_literal": "Это ложь чистой воды, людей начали принудительно переселять далеко не сразу, всё это затянулось на полгода."
+   }
+  ],
+  "personajes": [
+   {
+    "nombre": "Anatoli Vasílievich Dubrovski",
+    "nombre_en_documento": "Анатолий Васильевич Дубровский",
+    "rol": "uno de los primeros liquidadores, electricista que arrancó arbustos junto a la fuente",
+    "antagonista": false,
+    "testigo": true,
+    "fechas_presente": [
+     "1957-09-29",
+     "1957-09-30"
+    ],
+    "lugar": "Cheliábinsk-40",
+    "cita_literal": "рассказывает один из первых ликвидаторов, Анатолий Васильевич Дубровский."
+   },
+   {
+    "nombre": "Mijaíl Kuléshov",
+    "nombre_en_documento": "Михаил Кулешов",
+    "rol": "cerrajero que blindó con plomo el tractor S-80 y el tanque T-34 para la liquidación",
+    "antagonista": false,
+    "testigo": true,
+    "lugar": "combinado Mayak",
+    "cita_literal": "О взрыве на комбинате, слесарь 6-го разряда отдела главного механика завода 25 Михаил Кулешов узнал от руководства, когда приехал на работу во вторую смену."
+   },
+   {
+    "nombre": "Liudmila Smirnova",
+    "nombre_en_documento": "Людмила Смирнова",
+    "rol": "hija de un liquidador, nacida en 1961",
+    "antagonista": false,
+    "testigo": true,
+    "lugar": "Cheliábinsk-65",
+    "cita_literal": "Людмила Смирнова родилась уже после той аварии, в 1961 году, в Челябинск-65, это прежнее название Челябинска-40, и прожила там до своего 18-летия."
+   },
+   {
+    "nombre": "Faik",
+    "nombre_en_documento": "Фаик",
+    "rol": "padre de Liudmila Smirnova, ayudó a afrontar las consecuencias del accidente",
+    "antagonista": false,
+    "testigo": true,
+    "lugar": "Mayak",
+    "cita_literal": "О том, что происходило на комбинате, Фаик (так звали отца Людмилы Смирновой), не говорил даже семье."
+   },
+   {
+    "nombre": "Efim Slavski",
+    "nombre_en_documento": "Ефима Славского",
+    "rol": "entonces ministro de la Industria Media de la URSS, cuya comisión elaboró el informe sobre las causas",
+    "antagonista": false,
+    "testigo": false,
+    "cita_literal": "В докладе комиссии Ефима Славского, тогдашнего министра средней промышленности СССР, о причинах аварии 57 года, который долгое время был под грифом \"совершенно секретно\", сказано,"
+   },
+   {
+    "nombre": "Mijaíl Demiánovich",
+    "nombre_en_documento": "Михаила Демьяновича",
+    "rol": "director del combinado Mayak, declarado principal culpable del accidente",
+    "antagonista": true,
+    "testigo": false,
+    "fechas_presente": [
+     "1957-09-29"
+    ],
+    "lugar": "Moscú",
+    "cita_literal": "Главным виновником аварии объявили директора химкомбината \"Маяк\" Михаила Демьяновича, который в момент взрыва был в Москве."
+   },
+   {
+    "nombre": "Zhores Medvédev",
+    "nombre_en_documento": "Жорес Медведев",
+    "rol": "físico nuclear disidente, el primero que intentó contar lo ocurrido en Mayak",
+    "antagonista": false,
+    "testigo": false,
+    "cita_literal": "Первым, кто попытался рассказать о случившемся на \"Маяке\", был диссидент физик-ядерщик Жорес Медведев."
+   },
+   {
+    "nombre": "Mijalski",
+    "nombre_en_documento": "Михальский",
+    "rol": "trabajador que se contaminó la cabeza al caminar en la oscuridad sobre tablones",
+    "antagonista": false,
+    "testigo": true,
+    "lugar": "Mayak",
+    "cita_literal": "Однажды Михальский шел в темноте по доскам, которые мы проложили, испачкал себе голову."
+   }
+  ]
+ }
+}

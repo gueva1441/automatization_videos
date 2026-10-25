@@ -1,0 +1,3893 @@
+{
+ "topic": "4ac37187-pennhurst",
+ "titulo": "Horrores del Asilo Pennhurst",
+ "modelo": "gpt-6.1-sol",
+ "esfuerzo": "high",
+ "prompt_version": "f23-1",
+ "pool_md5": "8cb54828f5d27cd0f9a26dc654ef52fc",
+ "conteos_crudo": {
+  "humanos_candidatos": 4,
+  "giros": 6,
+  "pico": 1,
+  "pregunta_final": 1,
+  "escenas": 11,
+  "contradicciones": 4,
+  "decisiones": 13,
+  "versiones": 1,
+  "personas": 49,
+  "personas_descartadas": 4,
+  "cifras": 44,
+  "cronologia": 60,
+  "hechos": 73,
+  "citas": 20,
+  "descartados": 21
+ },
+ "conteos": {
+  "humanos_candidatos": 4,
+  "giros": 6,
+  "pico": 1,
+  "pregunta_final": 1,
+  "escenas": 11,
+  "contradicciones": 4,
+  "decisiones": 13,
+  "versiones": 1,
+  "personas": 49,
+  "personas_descartadas": 0,
+  "cifras": 33,
+  "cronologia": 59,
+  "hechos": 73,
+  "citas": 20,
+  "descartados": 37
+ },
+ "sacados": 17,
+ "usd": 0.4018,
+ "escenas": [
+  {
+   "donde": "Pennhurst, espacios de alojamiento infantil descritos sin fecha.",
+   "quien": "Niños residentes y enfermeras.",
+   "que_pasa": "El documento describe niños que habían superado la edad de caminar pero seguían en cunas, con enfermeras sobrecargadas que no podían enseñarles.",
+   "sentidos": "Niños dentro de cunas; no se aportan sonidos, olores ni características de las habitaciones.",
+   "ids": [
+    "D208",
+    "D209"
+   ]
+  },
+  {
+   "donde": "Pabellón de castigo de Pennhurst, según la reseña del relato de Roland Johnson.",
+   "quien": "Residentes enviados como castigo; Roland Johnson como fuente del relato reseñado.",
+   "que_pasa": "La reseña cuenta que el personal enviaba allí a pacientes que se portaban mal.",
+   "sentidos": "Pabellón deteriorado, agujeros en paredes y suelo y un olor descrito como terrible.",
+   "ids": [
+    "D214",
+    "D215",
+    "D216"
+   ]
+  },
+  {
+   "donde": "Salas de día de Pennhurst.",
+   "quien": "Residentes.",
+   "que_pasa": "El documento señala que el ruido llegaba a ser tan alto que muchos residentes dejaban de hablar.",
+   "sentidos": "Nivel de ruido muy elevado y residentes que dejan de hablar.",
+   "ids": [
+    "D192"
+   ]
+  },
+  {
+   "donde": "Salas donde fueron alojados Robert y Theresa Sobetsky.",
+   "quien": "Robert Sobetsky, Theresa Sobetsky y otros residentes.",
+   "que_pasa": "Los alojan en salas extremadamente hacinadas y Robert nunca recibe una cama particular asignada.",
+   "sentidos": "Camas colocadas en los pasillos de circulación.",
+   "ids": [
+    "D196"
+   ]
+  },
+  {
+   "donde": "Pennhurst, durante una visita de los padres de Linda Taub en 1968.",
+   "quien": "Linda Taub y sus padres.",
+   "que_pasa": "Sus padres encuentran a Linda, que podía caminar, sujeta a una silla de ruedas mediante una camisa de fuerza.",
+   "sentidos": "La silla de ruedas y la camisa de fuerza que la mantiene sujeta.",
+   "ids": [
+    "T13"
+   ]
+  },
+  {
+   "donde": "Salas y baños de Pennhurst descritos en el documento.",
+   "quien": "Residentes; el pasaje no individualiza a los presentes.",
+   "que_pasa": "El documento describe condiciones de higiene por debajo de los estándares profesionales mínimos.",
+   "sentidos": "Orina y excrementos en los suelos; baños sucios y deteriorados; falta de toallas, jabón y papel higiénico en la mayoría de las áreas de aseo.",
+   "ids": [
+    "D188",
+    "D191"
+   ]
+  },
+  {
+   "donde": "Pennhurst, durante las visitas familiares a Charles DiNolfi.",
+   "quien": "Charles DiNolfi, Dorothy Hunsicker y su familia.",
+   "que_pasa": "Dorothy declara que, cada vez que ella o su familia lo visitaban, Charles tenía algún tipo de vendaje.",
+   "sentidos": "Vendajes visibles en Charles durante las visitas.",
+   "ids": [
+    "P31"
+   ]
+  },
+  {
+   "donde": "Pennhurst, durante las visitas semanales a George Sorotos.",
+   "quien": "George Sorotos y Marion Caranfa.",
+   "que_pasa": "Marion declara que, durante los siete años de estancia de George, solo hubo cuatro visitas en las que no estaba lesionado.",
+   "sentidos": "Lesiones observadas durante las visitas; el pasaje no describe su aspecto concreto.",
+   "ids": [
+    "P36"
+   ]
+  },
+  {
+   "donde": "Pennhurst, el 8 de enero de 1975.",
+   "quien": "Dos residentes no identificados.",
+   "que_pasa": "Un residente muerde a otro mientras duerme y le arranca tres cuartas partes del lóbulo y parte de la oreja externa.",
+   "sentidos": "El residente agredido estaba dormido; la lesión afecta partes concretas de la oreja.",
+   "ids": [
+    "T29"
+   ]
+  },
+  {
+   "donde": "Evaluación oftalmológica de Joan vinculada al Wills Eye Hospital.",
+   "quien": "Joan.",
+   "que_pasa": "La evaluación atribuye su irritación y dolor a los párpados superiores e inferiores crecidos hacia adentro por la atrofia de sus ojos y músculos circundantes.",
+   "sentidos": "Párpados orientados hacia adentro, irritación y dolor documentados.",
+   "ids": [
+    "L18",
+    "D117"
+   ]
+  },
+  {
+   "donde": "Hogar grupal de Bruce, tal como lo describe en la entrevista.",
+   "quien": "Bruce y las pocas personas con las que convive.",
+   "que_pasa": "Bruce contrasta su nueva vida con Pennhurst y explica por qué siente el lugar más como un hogar.",
+   "sentidos": "Ausencia de una gran multitud; convivencia con pocas personas y horarios distintos para levantarse y acostarse.",
+   "ids": [
+    "Q16"
+   ]
+  }
+ ],
+ "contradicciones": [
+  {
+   "tema": "Localidad de Pennhurst: el pool no aporta un criterio para resolver el conflicto geográfico",
+   "versiones": [
+    {
+     "dice": "Pennhurst estaba en Spring Hill, Pennsylvania.",
+     "doc_id": "F10",
+     "offset": 138,
+     "ids": [
+      "L25",
+      "D168"
+     ]
+    },
+    {
+     "dice": "Pennhurst estaba en Spring City, Pennsylvania.",
+     "doc_id": "F11",
+     "offset": 130,
+     "ids": [
+      "L33"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Reubicaciones al 31 de julio de 1981: ambos recuentos son oficiales y la regla de prioridad no ofrece desempate",
+   "versiones": [
+    {
+     "dice": "La Oficina del Special Master registraba solo 15 personas oficialmente reubicadas de las 90 previstas.",
+     "doc_id": "F02",
+     "offset": 58795,
+     "ids": [
+      "D54"
+     ]
+    },
+    {
+     "dice": "El Commonwealth informaba un total de 81 personas reubicadas.",
+     "doc_id": "F02",
+     "offset": 58795,
+     "ids": [
+      "D54"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Inconsistencia interna del remanente utilizado en el pasaje de fallecimientos",
+   "versiones": [
+    {
+     "dice": "El pasaje denomina al grupo restante remaining 138 people y dice que 92 habían muerto.",
+     "doc_id": "F02",
+     "offset": 173372,
+     "ids": [
+      "D95"
+     ]
+    },
+    {
+     "dice": "El mismo pasaje define ese remanente mediante the original 1154 minus 474 minus 450, expresión que no concuerda con el remanente escrito.",
+     "doc_id": "F02",
+     "offset": 173372,
+     "ids": [
+      "D95"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Clasificación de discapacidad severa o profunda: el resumen y el desglose no coinciden exactamente y el pool no explica la diferencia",
+   "versiones": [
+    {
+     "dice": "El resumen caracteriza al 86 % de la población del estudio como severa o profundamente discapacitada.",
+     "doc_id": "F02",
+     "offset": 15811,
+     "ids": [
+      "D37"
+     ]
+    },
+    {
+     "dice": "El desglose asigna 54 % a discapacidad profunda y 31 % a discapacidad severa.",
+     "doc_id": "F02",
+     "offset": 160194,
+     "ids": [
+      "D89"
+     ]
+    }
+   ]
+  }
+ ],
+ "decisiones": [
+  {
+   "tema": "Nombre canónico de Broderick",
+   "criterio": 2,
+   "decision": "Se unifican las entradas del juez bajo Raymond J. Broderick, forma completa que el pool reproduce al identificar su actuación judicial.",
+   "ids": [
+    "P06",
+    "P13",
+    "P24",
+    "T45",
+    "D171"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Raymond Broderick, sin inicial intermedia.",
+     "doc_id": "F02",
+     "offset": 11413,
+     "ids": [
+      "P06",
+      "T37"
+     ]
+    },
+    {
+     "dice": "Judge Broderick, sin nombre de pila.",
+     "doc_id": "F02",
+     "offset": 61173,
+     "ids": [
+      "P13"
+     ]
+    },
+    {
+     "dice": "Judge Broderick, en otra entrada del research.",
+     "doc_id": "F02",
+     "offset": 270511,
+     "ids": [
+      "P24",
+      "D132"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Nombre canónico de Marshall",
+   "criterio": 2,
+   "decision": "Se usa Thurgood Marshall y se conserva Justice Marshall como forma abreviada, no como identidad distinta.",
+   "ids": [
+    "P04",
+    "P47",
+    "Q29"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Justice Marshall.",
+     "doc_id": "F05",
+     "offset": 90149,
+     "ids": [
+      "P03",
+      "P04"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Denominaciones de Pennhurst",
+   "criterio": 2,
+   "decision": "Se usa Pennhurst State School and Hospital como nombre canónico judicial, se conservan las denominaciones históricas y posteriores y se trata Hosptial como errata, no como otra institución.",
+   "ids": [
+    "D29",
+    "D160",
+    "D180",
+    "D226",
+    "L01",
+    "L31"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Pennhurst State School and Hosptial.",
+     "doc_id": "F07",
+     "offset": 1055,
+     "ids": [
+      "T01",
+      "L31"
+     ]
+    },
+    {
+     "dice": "Pennhurst State Center, nombre posterior.",
+     "doc_id": "F08",
+     "offset": 62,
+     "ids": [
+      "D160"
+     ]
+    },
+    {
+     "dice": "Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic, nombre original.",
+     "doc_id": "F11",
+     "offset": 421,
+     "ids": [
+      "T03",
+      "D226"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "T24 atribuye a 1974 una orden de cierre",
+   "criterio": 1,
+   "decision": "Se elimina la fecha de cierre atribuida por T24: su pasaje dice que la demanda produjo posteriormente una orden, no que esa orden se dictara en 1974.",
+   "ids": [
+    "T24",
+    "T25",
+    "T36",
+    "T44"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El ítem T24 fecha en 1974 una consecuencia judicial que el pasaje no fecha.",
+     "doc_id": "F09",
+     "offset": 317,
+     "ids": [
+      "T24"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Día de la orden para los niños",
+   "criterio": 1,
+   "decision": "Se conserva junio de 1979, sustentado por T50, y no se usa el día 8 asignado a D43 porque no aparece en su pasaje.",
+   "ids": [
+    "D43",
+    "T50"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El ítem D43 asigna 1979-06-08, pero el pasaje solo enuncia las exigencias y el plazo de septiembre de 1979.",
+     "doc_id": "F02",
+     "offset": 29764,
+     "ids": [
+      "D43"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Selección de sujetos para entrevistas",
+   "criterio": 1,
+   "decision": "Para la selección se usa primavera de 1980, como dice el pasaje, y no el mes de mayo asignado a T59; mayo sí aparece en otros pasajes sobre la población elegible.",
+   "ids": [
+    "T59",
+    "D105",
+    "D133"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T59 lleva 1980-05, pero la evidencia dice Spring of 1980.",
+     "doc_id": "F02",
+     "offset": 203603,
+     "ids": [
+      "T59"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Día de terminación de la Oficina del Special Master",
+   "criterio": 1,
+   "decision": "Se registra diciembre de 1982 y se aclara que fue al finalizar el mes, sin convertir la expresión del pasaje en un día numérico que allí no está escrito.",
+   "ids": [
+    "T87",
+    "T89",
+    "D11"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T89 asigna 1982-12-31, mientras su pasaje dice end of December 1982.",
+     "doc_id": "F02",
+     "offset": 85768,
+     "ids": [
+      "T89"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Monto de la multa diaria",
+   "criterio": 3,
+   "decision": "Se adopta la cifra judicial de 10000 dólares diarios, corroborada por otro pasaje de F02, y no la grafía defectuosa $10,00.",
+   "ids": [
+    "D10",
+    "T74",
+    "T81"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "$10,00 per day fine.",
+     "doc_id": "F02",
+     "offset": 57941,
+     "ids": [
+      "P12",
+      "T74"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha del acuerdo de conciliación",
+   "criterio": 5,
+   "decision": "La fecha se marca aproximada y se conservan ambas dataciones porque F02 y F10 no coinciden y el pool no aclara si describen distintas etapas de formalización.",
+   "ids": [
+    "T101",
+    "T102",
+    "D45",
+    "T104",
+    "D176"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Final Settlement in Halderman v. Pennhurst, July 12, 1984.",
+     "doc_id": "F02",
+     "offset": 32440,
+     "ids": [
+      "T101"
+     ]
+    },
+    {
+     "dice": "El consenso sobre los términos se anunció el 12 de julio de 1984.",
+     "doc_id": "F02",
+     "offset": 91637,
+     "ids": [
+      "T102"
+     ]
+    },
+    {
+     "dice": "Las partes llegaron a un acuerdo de conciliación en 1985.",
+     "doc_id": "F10",
+     "offset": 4894,
+     "ids": [
+      "T104",
+      "D176"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Año y precisión mensual del cierre",
+   "criterio": 5,
+   "decision": "Se adopta 1987 por coincidencia entre fuentes y se conserva diciembre como precisión aportada solo por F07, sin tratar la menor precisión de las otras fuentes como contradicción.",
+   "ids": [
+    "T106",
+    "T107",
+    "D178"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Cierre en diciembre de 1987.",
+     "doc_id": "F07",
+     "offset": 1635,
+     "ids": [
+      "T107"
+     ]
+    },
+    {
+     "dice": "Cierre en 1987, sin mes.",
+     "doc_id": "F10",
+     "offset": 6332,
+     "ids": [
+      "T106",
+      "D178"
+     ]
+    },
+    {
+     "dice": "Cierre en 1987, sin mes.",
+     "doc_id": "F11",
+     "offset": 1841,
+     "ids": [
+      "T106"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Paráfrasis presentadas como citas de Roland Johnson",
+   "criterio": 1,
+   "decision": "Q34, Q35 y Q36 se usan como información atribuida a una reseña de su libro y no como palabras textuales de Johnson, por lo que no se cuentan como citas directas verificadas del candidato.",
+   "ids": [
+    "Q34",
+    "Q35",
+    "Q36",
+    "D214",
+    "D215",
+    "D216",
+    "D217"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Q34 atribuye a Johnson una frase que el pasaje presenta mediante He mentions that.",
+     "doc_id": "F07",
+     "offset": 2303,
+     "ids": [
+      "Q34"
+     ]
+    },
+    {
+     "dice": "Q35 atribuye a Johnson una descripción escrita por la voz de la reseña.",
+     "doc_id": "F07",
+     "offset": 2478,
+     "ids": [
+      "Q35"
+     ]
+    },
+    {
+     "dice": "Q36 atribuye a Johnson una oración introducida como It is also mentioned.",
+     "doc_id": "F07",
+     "offset": 2565,
+     "ids": [
+      "Q36"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Narración secundaria presentada como declaraciones textuales",
+   "criterio": 1,
+   "decision": "Q38, Q39, Q40 y Q41 no se reproducen como testimonios directos de residentes o de Baldini porque los pasajes son narración de las respectivas fuentes.",
+   "ids": [
+    "Q38",
+    "Q39",
+    "Q40",
+    "Q41",
+    "D222",
+    "D223",
+    "D235"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Descripción de la fuente sobre cómo algunos exresidentes recuerdan Pennhurst.",
+     "doc_id": "F09",
+     "offset": 528,
+     "ids": [
+      "Q38"
+     ]
+    },
+    {
+     "dice": "Descripción de la fuente sobre la visión de otros exresidentes.",
+     "doc_id": "F09",
+     "offset": 636,
+     "ids": [
+      "Q39"
+     ]
+    },
+    {
+     "dice": "Resumen de lo que Baldini sostuvo, no transcripción de sus palabras.",
+     "doc_id": "F11",
+     "offset": 974,
+     "ids": [
+      "Q40"
+     ]
+    },
+    {
+     "dice": "Anuncio de las historias que contarán los residentes, no declaración individual transcrita.",
+     "doc_id": "F11",
+     "offset": 2402,
+     "ids": [
+      "Q41"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Transcripción de la declaración de Youngberg",
+   "criterio": 1,
+   "decision": "Se eliminan únicamente los paréntesis intrusivos de la primera parte de Q30 y se conserva la transcripción recibida en original.",
+   "ids": [
+    "Q30",
+    "P48"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "There is not adequate space for (the residents. The living areas do) not provide privacy...",
+     "doc_id": "F12",
+     "offset": 6544,
+     "ids": [
+      "Q30",
+      "P48"
+     ]
+    }
+   ]
+  }
+ ],
+ "versiones": [
+  {
+   "tema": "Necesidad de atención médica continua según las familias y el personal",
+   "versiones": [
+    {
+     "dice": "Las familias afirmaron que 57 personas no sobrevivirían sin atención médica durante las 24 horas.",
+     "doc_id": "F02",
+     "offset": 288135,
+     "ids": [
+      "D140",
+      "D141"
+     ]
+    },
+    {
+     "dice": "Para esas mismas 57 personas, el personal informó que no existían necesidades médicas graves.",
+     "doc_id": "F02",
+     "offset": 288135,
+     "ids": [
+      "D140",
+      "D141"
+     ]
+    }
+   ]
+  }
+ ],
+ "personas": [
+  {
+   "nombre": "Terri Lee Halderman",
+   "rol": "Residente y demandante original de la acción colectiva.",
+   "variantes": [
+    "Halderman",
+    "Terri Lee Halderman"
+   ],
+   "ids": [
+    "P01",
+    "D01",
+    "D18",
+    "D194",
+    "T10",
+    "T25"
+   ]
+  },
+  {
+   "nombre": "Raymond J. Broderick",
+   "rol": "Juez federal del Distrito Este de Pensilvania que dictó las órdenes de habilitación, traslado y supervisión.",
+   "variantes": [
+    "Raymond Broderick",
+    "Judge Broderick",
+    "Juez Broderick",
+    "Raymond J. Broderick"
+   ],
+   "ids": [
+    "P06",
+    "P13",
+    "P24",
+    "T36",
+    "T44",
+    "T69",
+    "Q23",
+    "Q25"
+   ]
+  },
+  {
+   "nombre": "David Ferleger",
+   "rol": "Abogado de los demandantes; presentó la demanda en nombre de Halderman.",
+   "variantes": [
+    "David Ferleger"
+   ],
+   "ids": [
+    "P07",
+    "T25",
+    "D50",
+    "D170"
+   ]
+  },
+  {
+   "nombre": "Justice Brennan",
+   "rol": "Juez de la Corte Suprema de Estados Unidos; escribió una disidencia y se sumó a la de Stevens.",
+   "variantes": [
+    "Justice Brennan",
+    "Brennan"
+   ],
+   "ids": [
+    "P02",
+    "P03",
+    "Q01"
+   ]
+  },
+  {
+   "nombre": "Justice Stevens",
+   "rol": "Juez de la Corte Suprema de Estados Unidos; autor de la disidencia que repasa las condiciones de Pennhurst.",
+   "variantes": [
+    "Justice Stevens",
+    "Stevens",
+    "Stevens, J."
+   ],
+   "ids": [
+    "P03",
+    "Q02",
+    "Q03",
+    "Q07",
+    "D24",
+    "D27"
+   ]
+  },
+  {
+   "nombre": "Thurgood Marshall",
+   "rol": "Juez de la Corte Suprema de Estados Unidos; se sumó a la disidencia de Stevens.",
+   "variantes": [
+    "Justice Marshall",
+    "Juez Thurgood Marshall",
+    "Justice Thurgood Marshall"
+   ],
+   "ids": [
+    "P04",
+    "P47",
+    "Q29"
+   ]
+  },
+  {
+   "nombre": "Justice Blackmun",
+   "rol": "Juez de la Corte Suprema de Estados Unidos que se sumó a la disidencia de Stevens.",
+   "variantes": [
+    "Justice Blackmun",
+    "Blackmun"
+   ],
+   "ids": [
+    "P03",
+    "P04"
+   ]
+  },
+  {
+   "nombre": "Helen O'Bannon",
+   "rol": "Secretaria del Departamento de Bienestar Público de Pensilvania, declarada en desacato.",
+   "variantes": [
+    "Helen O'Bannon",
+    "O'Bannon"
+   ],
+   "ids": [
+    "P12",
+    "T74",
+    "T81"
+   ]
+  },
+  {
+   "nombre": "Superintendente Youngberg",
+   "rol": "Superintendente que declaró sobre la falta de espacio y privacidad; su declaración también sustenta el registro de lesiones.",
+   "variantes": [
+    "Superintendente Youngberg",
+    "Youngberg"
+   ],
+   "ids": [
+    "P48",
+    "Q30",
+    "T40"
+   ]
+  },
+  {
+   "nombre": "Bill Baldini",
+   "rol": "Reportero de WCAU 10 responsable de la investigación televisiva sobre Pennhurst.",
+   "variantes": [
+    "Bill Baldini",
+    "Baldini"
+   ],
+   "ids": [
+    "P28",
+    "T12",
+    "T14",
+    "D168",
+    "Q40"
+   ]
+  },
+  {
+   "nombre": "James Conroy",
+   "rol": "Director de investigación del Developmental Disabilities Center de Temple University y responsable de un estudio sobre los resultados de los traslados.",
+   "variantes": [
+    "James Conroy",
+    "Dr. James Conroy",
+    "Dr. Conroy"
+   ],
+   "ids": [
+    "P26",
+    "Q26",
+    "Q27",
+    "L27"
+   ]
+  },
+  {
+   "nombre": "Richard Thornburgh",
+   "rol": "Gobernador de Pensilvania que anunció un proyecto de conversión de las instalaciones para atención de veteranos.",
+   "variantes": [
+    "Richard Thornburgh",
+    "Governor Richard Thornburgh"
+   ],
+   "ids": [
+    "P16",
+    "D74"
+   ]
+  },
+  {
+   "nombre": "Robert",
+   "rol": "Residente ciego cuya salida a una vivienda comunitaria se demoró por objeciones de sus padres; no se lo identifica con los otros Robert del pool.",
+   "variantes": [
+    "Robert"
+   ],
+   "ids": [
+    "P17",
+    "D81",
+    "D82",
+    "T50",
+    "T79"
+   ]
+  },
+  {
+   "nombre": "Steve",
+   "rol": "Exresidente entrevistado sobre su vida en un hogar grupal.",
+   "variantes": [
+    "Steve"
+   ],
+   "ids": [
+    "P18",
+    "D102",
+    "Q15"
+   ]
+  },
+  {
+   "nombre": "Bruce",
+   "rol": "Exresidente entrevistado que deseaba permanecer en su hogar grupal.",
+   "variantes": [
+    "Bruce"
+   ],
+   "ids": [
+    "P19",
+    "D103",
+    "Q16",
+    "Q17"
+   ]
+  },
+  {
+   "nombre": "Joan",
+   "rol": "Exresidente con síndrome de Down y ceguera legal cuyo programa comunitario incluyó una evaluación oftalmológica.",
+   "variantes": [
+    "Joan"
+   ],
+   "ids": [
+    "P20",
+    "D115",
+    "D116",
+    "D117",
+    "D118"
+   ]
+  },
+  {
+   "nombre": "Sr. Harris",
+   "rol": "Padre de Joan; participó en las gestiones sobre su regresión y evaluación médica.",
+   "variantes": [
+    "Mr. Harris",
+    "Mr. and Mrs. Harris",
+    "the Harris's"
+   ],
+   "ids": [
+    "D116",
+    "L18"
+   ]
+  },
+  {
+   "nombre": "Sra. Harris",
+   "rol": "Madre de Joan; participó en las gestiones sobre su regresión y evaluación médica.",
+   "variantes": [
+    "Mrs. Harris",
+    "Mr. and Mrs. Harris",
+    "the Harris's"
+   ],
+   "ids": [
+    "D116",
+    "L18"
+   ]
+  },
+  {
+   "nombre": "Charles DiNolfi",
+   "rol": "Demandante y residente que perdió un ojo durante su estancia en Pennhurst.",
+   "variantes": [
+    "Charles DiNolfi",
+    "Mr. DiNolfi"
+   ],
+   "ids": [
+    "P30",
+    "P31",
+    "D195"
+   ]
+  },
+  {
+   "nombre": "Dorothy Hunsicker",
+   "rol": "Hermana de Charles DiNolfi y testigo sobre las lesiones que observaba durante las visitas.",
+   "variantes": [
+    "Dorothy Hunsicker",
+    "Ms. Hunsicker"
+   ],
+   "ids": [
+    "P31",
+    "D195"
+   ]
+  },
+  {
+   "nombre": "Robert Sobetsky",
+   "rol": "Demandante y residente alojado en salas hacinadas; posteriormente pasó a Woodhaven.",
+   "variantes": [
+    "Robert Sobetsky",
+    "Robert"
+   ],
+   "ids": [
+    "P32",
+    "T18",
+    "T31",
+    "D196"
+   ]
+  },
+  {
+   "nombre": "Theresa Sobetsky",
+   "rol": "Demandante y residente alojada en salas hacinadas; posteriormente pasó a Woodhaven.",
+   "variantes": [
+    "Theresa Sobetsky",
+    "Theresa"
+   ],
+   "ids": [
+    "P33",
+    "T18",
+    "T31",
+    "D196"
+   ]
+  },
+  {
+   "nombre": "Robert Hight",
+   "rol": "Demandante admitido en Pennhurst y retirado por sus padres.",
+   "variantes": [
+    "Robert Hight",
+    "Robert"
+   ],
+   "ids": [
+    "P34",
+    "T27",
+    "Q31"
+   ]
+  },
+  {
+   "nombre": "Sra. Hight",
+   "rol": "Madre de Robert Hight y testigo de las condiciones que motivaron su retiro.",
+   "variantes": [
+    "Mrs. Hight",
+    "Sra. Hight"
+   ],
+   "ids": [
+    "Q31"
+   ]
+  },
+  {
+   "nombre": "George Sorotos",
+   "rol": "Demandante y residente cuyas lesiones fueron descritas por su antigua madre de acogida.",
+   "variantes": [
+    "George Sorotos",
+    "George"
+   ],
+   "ids": [
+    "P35",
+    "P36",
+    "T15"
+   ]
+  },
+  {
+   "nombre": "Marion Caranfa",
+   "rol": "Antigua madre de acogida de George Sorotos y testigo de sus lesiones.",
+   "variantes": [
+    "Marion Caranfa"
+   ],
+   "ids": [
+    "P36"
+   ]
+  },
+  {
+   "nombre": "Larry Taylor",
+   "rol": "Demandante trasladado de Pennhurst a Woodhaven.",
+   "variantes": [
+    "Larry Taylor",
+    "Larry"
+   ],
+   "ids": [
+    "P37",
+    "T08",
+    "T28"
+   ]
+  },
+  {
+   "nombre": "Kenny Taylor",
+   "rol": "Demandante trasladado de Pennhurst a Woodhaven.",
+   "variantes": [
+    "Kenny Taylor",
+    "Kenny"
+   ],
+   "ids": [
+    "P38",
+    "T08",
+    "T28"
+   ]
+  },
+  {
+   "nombre": "Sra. Taylor",
+   "rol": "Testigo sobre la medicación y la capacidad de caminar de Larry tras su traslado a Woodhaven.",
+   "variantes": [
+    "Mrs. Taylor"
+   ],
+   "ids": [
+    "T28"
+   ]
+  },
+  {
+   "nombre": "Nancy Beth Bowman",
+   "rol": "Demandante y residente cuya madre declaró sobre las secuelas físicas permanentes.",
+   "variantes": [
+    "Nancy Beth Bowman",
+    "Nancy Beth"
+   ],
+   "ids": [
+    "P39",
+    "T07",
+    "Q32"
+   ]
+  },
+  {
+   "nombre": "Sra. Bowman",
+   "rol": "Madre de Nancy Beth Bowman y testigo sobre sus secuelas.",
+   "variantes": [
+    "Nancy Beth's mother",
+    "Sra. Bowman"
+   ],
+   "ids": [
+    "Q32"
+   ]
+  },
+  {
+   "nombre": "Linda Taub",
+   "rol": "Demandante ciega a quien sus padres encontraron sujeta a una silla de ruedas pese a que podía caminar.",
+   "variantes": [
+    "Linda Taub",
+    "Linda"
+   ],
+   "ids": [
+    "P40",
+    "T13"
+   ]
+  },
+  {
+   "nombre": "Roland Johnson",
+   "rol": "Exresidente que dio a conocer sus experiencias y las relató en Lost in a Desert World.",
+   "variantes": [
+    "Roland Johnson",
+    "Roland",
+    "Johnson"
+   ],
+   "ids": [
+    "P41",
+    "D212",
+    "D213",
+    "D214",
+    "D215",
+    "D216",
+    "D217"
+   ]
+  },
+  {
+   "nombre": "Pennhurst State School and Hospital",
+   "rol": "Institución estatal demandada y escenario de los abusos y del proceso de desinstitucionalización.",
+   "variantes": [
+    "Pennhurst",
+    "Pennhurst Center",
+    "Pennhurst State Center",
+    "Pennhurst State School and Hosptial",
+    "Eastern Pennsylvania Institution for the Feeble Minded and Epileptic",
+    "Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic"
+   ],
+   "ids": [
+    "D29",
+    "D160",
+    "D180",
+    "D226",
+    "L01",
+    "L06",
+    "L07",
+    "L11",
+    "L31"
+   ]
+  },
+  {
+   "nombre": "Estado de Pensilvania",
+   "rol": "Responsable estatal de la institución y parte demandada que debía financiar y ejecutar las medidas.",
+   "variantes": [
+    "Pennsylvania",
+    "State of Pennsylvania",
+    "Commonwealth",
+    "Commonwealth defendants"
+   ],
+   "ids": [
+    "L04",
+    "D12",
+    "D53",
+    "T95",
+    "T102"
+   ]
+  },
+  {
+   "nombre": "Tribunal de Distrito de Estados Unidos para el Distrito Este de Pensilvania",
+   "rol": "Tribunal que recibió la demanda, estableció los hechos y dictó las medidas de reparación.",
+   "variantes": [
+    "District Court",
+    "The District Court",
+    "District Court for the Eastern District of Pennsylvania"
+   ],
+   "ids": [
+    "P43",
+    "L02",
+    "D04",
+    "D05",
+    "D06",
+    "D24",
+    "T36"
+   ]
+  },
+  {
+   "nombre": "Tribunal de Apelaciones de Estados Unidos para el Tercer Circuito",
+   "rol": "Tribunal que revisó las órdenes de reparación y sus fundamentos legales.",
+   "variantes": [
+    "Court of Appeals",
+    "Court of Appeals for the Third Circuit",
+    "Third Circuit",
+    "The Court of Appeals"
+   ],
+   "ids": [
+    "L03",
+    "T47",
+    "T53",
+    "T77",
+    "Q05"
+   ]
+  },
+  {
+   "nombre": "Corte Suprema de Estados Unidos",
+   "rol": "Tribunal que revisó el caso y limitó los fundamentos federales de la reparación.",
+   "variantes": [
+    "U.S. Supreme Court",
+    "Supreme Court",
+    "This Court"
+   ],
+   "ids": [
+    "L26",
+    "T63",
+    "T71",
+    "T99",
+    "D72"
+   ]
+  },
+  {
+   "nombre": "Corte Suprema de Pensilvania",
+   "rol": "Tribunal estatal cuya interpretación de la ley fue examinada en el litigio.",
+   "variantes": [
+    "Pennsylvania Supreme Court",
+    "State Supreme Court"
+   ],
+   "ids": [
+    "T65",
+    "Q05",
+    "L05"
+   ]
+  },
+  {
+   "nombre": "Departamento de Bienestar Público de Pensilvania",
+   "rol": "Organismo estatal demandado, declarado en desacato por los pagos de la supervisión judicial.",
+   "variantes": [
+    "Department of Public Welfare",
+    "Pennsylvania Department of Public Welfare"
+   ],
+   "ids": [
+    "P12",
+    "D10",
+    "T74",
+    "D114"
+   ]
+  },
+  {
+   "nombre": "Legislatura de Pensilvania",
+   "rol": "Poder estatal que aprobó la creación de la institución y decidió asignaciones presupuestarias.",
+   "variantes": [
+    "PA state legislature",
+    "legislature",
+    "General Assembly"
+   ],
+   "ids": [
+    "T01",
+    "T72",
+    "T75",
+    "D57"
+   ]
+  },
+  {
+   "nombre": "Oficina del Special Master",
+   "rol": "Órgano de supervisión judicial encargado de planificar y controlar la implementación de las órdenes.",
+   "variantes": [
+    "Special Master",
+    "Office of the Special Master",
+    "OSM",
+    "Maestro Especial",
+    "Maestra Especial"
+   ],
+   "ids": [
+    "D06",
+    "D11",
+    "D54",
+    "T44",
+    "T86",
+    "T89"
+   ]
+  },
+  {
+   "nombre": "Hearing Master",
+   "rol": "Auxiliar judicial encargado de audiencias y determinaciones individuales sobre los traslados disputados.",
+   "variantes": [
+    "Hearing Master",
+    "second master"
+   ],
+   "ids": [
+    "D08",
+    "D44",
+    "T61"
+   ]
+  },
+  {
+   "nombre": "Oficina de Retraso Mental de Pensilvania",
+   "rol": "Organismo estatal de planificación y gestión de servicios para los miembros de la clase.",
+   "variantes": [
+    "Office of Mental Retardation",
+    "OMR"
+   ],
+   "ids": [
+    "D58",
+    "D64",
+    "D77"
+   ]
+  },
+  {
+   "nombre": "Unidad de Gestión Especial de la Región Sudeste",
+   "rol": "Unidad que asumió tareas de monitoreo y revisión de planes de la Oficina del Special Master.",
+   "variantes": [
+    "Special Management Unit",
+    "SMU",
+    "special management unit"
+   ],
+   "ids": [
+    "D58",
+    "D69",
+    "D70"
+   ]
+  },
+  {
+   "nombre": "Ciudad y Condado de Filadelfia",
+   "rol": "Parte demandada responsable de reubicaciones que alcanzó un acuerdo durante los procedimientos de desacato.",
+   "variantes": [
+    "Philadelphia",
+    "City and County of Philadelphia",
+    "Philadelphia defendants"
+   ],
+   "ids": [
+    "L09",
+    "D55",
+    "T76"
+   ]
+  },
+  {
+   "nombre": "Parent-Staff Association",
+   "rol": "Asociación de padres y empleados opuesta al cierre de Pennhurst.",
+   "variantes": [
+    "Parent-Staff Association",
+    "Parent Staff Association"
+   ],
+   "ids": [
+    "D48",
+    "D73"
+   ]
+  },
+  {
+   "nombre": "American Federation of State, County and Municipal Employees",
+   "rol": "Sindicato que aportaba apoyo financiero a la Parent-Staff Association.",
+   "variantes": [
+    "AFSCME",
+    "American Federation of State, County and Municipal Employees"
+   ],
+   "ids": [
+    "D48"
+   ]
+  },
+  {
+   "nombre": "Funcionarios estatales demandados",
+   "rol": "Colectivo procesal de funcionarios cuya actuación, obligaciones e inmunidad se discutieron; el pool no identifica individualmente a todos.",
+   "variantes": [
+    "petitioners",
+    "Peticionarios",
+    "Demandados en el caso Pennhurst",
+    "Superintendentes y funcionarios estatales de Pennhurst"
+   ],
+   "ids": [
+    "D19",
+    "D23",
+    "D24",
+    "D25",
+    "Q09"
+   ]
+  }
+ ],
+ "personas_descartadas": [],
+ "cifras": [
+  {
+   "que": "Personas residentes el 17 de marzo de 1978",
+   "valor": "1154",
+   "unidad": "personas",
+   "fuente": "F02@9664, dedicatoria del estudio longitudinal.",
+   "ids": [
+    "D31"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Unidades de vivienda cerradas con llave",
+   "valor": "aproximadamente 21 de 45",
+   "unidad": "unidades de vivienda",
+   "fuente": "F12@15417, con referencia a la declaración de Matthews.",
+   "ids": [
+    "D197"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Asignación estatal para las instalaciones",
+   "valor": "21 millones",
+   "unidad": "dólares estadounidenses",
+   "fuente": "F11@1217.",
+   "ids": [
+    "D231"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Lesiones reportadas en los registros médicos de Halderman",
+   "valor": "más de 40",
+   "unidad": "lesiones",
+   "fuente": "F12@9638.",
+   "ids": [
+    "D194"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Aislamiento consecutivo del residente castigado en 1974",
+   "valor": "6",
+   "unidad": "días consecutivos",
+   "fuente": "F12@4864.",
+   "ids": [
+    "T22"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Lesiones mayores reportadas en enero de 1977",
+   "valor": "25",
+   "unidad": "lesiones mayores",
+   "fuente": "F12@8135, con referencia a la declaración de Youngberg.",
+   "ids": [
+    "T40"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Duración del juicio",
+   "valor": "32",
+   "unidad": "días de juicio",
+   "fuente": "F10@1302.",
+   "ids": [
+    "D171"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Edad media de la población del estudio",
+   "valor": "39",
+   "unidad": "años de edad",
+   "fuente": "F02@15676 y F02@159780.",
+   "ids": [
+    "D35",
+    "D86"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Tiempo medio de institucionalización de la población del estudio",
+   "valor": "24",
+   "unidad": "años de institucionalización",
+   "fuente": "F02@15771 y F02@159780.",
+   "ids": [
+    "D36",
+    "D87"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Reubicaciones realizadas para el 31 de julio de 1981",
+   "valor": "sin cifra única resuelta",
+   "unidad": "personas reubicadas",
+   "fuente": "F02@58795 reproduce dos recuentos oficiales incompatibles.",
+   "ids": [
+    "D54"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "15",
+     "unidad": "personas oficialmente reubicadas",
+     "fuente": "Oficina del Special Master, según F02@58795.",
+     "ids": [
+      "D54"
+     ]
+    },
+    {
+     "valor": "81",
+     "unidad": "personas reubicadas",
+     "fuente": "Commonwealth, según F02@58795.",
+     "ids": [
+      "D54"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Reubicaciones previstas en el recuento del 31 de julio de 1981",
+   "valor": "90",
+   "unidad": "personas",
+   "fuente": "F02@58795.",
+   "ids": [
+    "D54"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Fondos autorizados para los gastos de los auxiliares judiciales en el ejercicio de julio de 1981 a junio de 1982",
+   "valor": "35000",
+   "unidad": "dólares estadounidenses",
+   "fuente": "F05@15634.",
+   "ids": [
+    "D09",
+    "T72"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Multa diaria por desacato",
+   "valor": "10000",
+   "unidad": "dólares estadounidenses por día",
+   "fuente": "F05@15807, corroborado por F02@65930.",
+   "ids": [
+    "D10",
+    "T81"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "$10,00",
+     "unidad": "dólares por día, tal como aparece en el pasaje defectuoso",
+     "fuente": "F02@57941.",
+     "ids": [
+      "T74",
+      "P12"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Fondo acumulado de multas a comienzos de enero de 1982",
+   "valor": "aproximadamente 1200000",
+   "unidad": "dólares estadounidenses",
+   "fuente": "F02@66076.",
+   "ids": [
+    "D60"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personas trasladadas a la comunidad para marzo de 1982",
+   "valor": "aproximadamente 200",
+   "unidad": "personas",
+   "fuente": "F02@244614.",
+   "ids": [
+    "T83"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Residentes para quienes la orden de enero de 1983 exigía viviendas comunitarias",
+   "valor": "143",
+   "unidad": "residentes de Pennhurst",
+   "fuente": "F02@86539.",
+   "ids": [
+    "T92"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Fallecimientos informados en la cohorte original del estudio, no muertes atribuidas a abusos",
+   "valor": "92",
+   "unidad": "personas fallecidas",
+   "fuente": "F02@173372; el pasaje presenta además una inconsistencia en el cálculo de su remanente.",
+   "ids": [
+    "D95"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Fallecimientos de esa cohorte mientras las personas seguían en Pennhurst",
+   "valor": "77",
+   "unidad": "personas fallecidas",
+   "fuente": "F02@173372.",
+   "ids": [
+    "D95"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Fallecimientos de esa cohorte en viviendas comunitarias",
+   "valor": "15",
+   "unidad": "personas fallecidas",
+   "fuente": "F02@173372.",
+   "ids": [
+    "D95"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Mejora del grupo desinstitucionalizado en la comparación de cinco años",
+   "valor": "más de 11",
+   "unidad": "puntos de comportamiento adaptativo",
+   "fuente": "F02@169103.",
+   "ids": [
+    "D93"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Satisfacción expresada de manera fiable antes del traslado en la muestra entrevistada",
+   "valor": "40",
+   "unidad": "por ciento de la muestra",
+   "fuente": "F02@216475.",
+   "ids": [
+    "D111"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Satisfacción expresada de manera fiable después del traslado en la misma muestra",
+   "valor": "73",
+   "unidad": "por ciento de la muestra",
+   "fuente": "F02@216645.",
+   "ids": [
+    "D112"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Familias de residentes de 1980 que habrían rechazado una propuesta de traslado",
+   "valor": "72",
+   "unidad": "por ciento de las familias",
+   "fuente": "F02@283260.",
+   "ids": [
+    "D136"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Tamaño del grupo familiar seguido antes y después del traslado",
+   "valor": "134",
+   "unidad": "familias",
+   "fuente": "F02@292575.",
+   "ids": [
+    "D151"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Oposición firme al traslado antes de la reubicación en el grupo seguido",
+   "valor": "55",
+   "unidad": "por ciento de las familias",
+   "fuente": "F02@293604.",
+   "ids": [
+    "D153"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Oposición firme al traslado después de la reubicación en el grupo seguido",
+   "valor": "4",
+   "unidad": "por ciento de las familias",
+   "fuente": "F02@293604.",
+   "ids": [
+    "D154"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Apoyo firme al traslado después de la reubicación en el grupo seguido",
+   "valor": "66",
+   "unidad": "por ciento de las familias",
+   "fuente": "F02@293845.",
+   "ids": [
+    "D155"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Casos con desacuerdo entre familias y personal sobre necesidades médicas",
+   "valor": "57",
+   "unidad": "personas",
+   "fuente": "F02@288135.",
+   "ids": [
+    "D141"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Estancia de Steve en Pennhurst",
+   "valor": "27",
+   "unidad": "años",
+   "fuente": "F02@194864.",
+   "ids": [
+    "P18",
+    "D102"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Estancia de Bruce en Pennhurst",
+   "valor": "28",
+   "unidad": "años",
+   "fuente": "F02@196119.",
+   "ids": [
+    "D103"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Emisiones de la investigación de Baldini",
+   "valor": "5",
+   "unidad": "noches de emisión",
+   "fuente": "F11@823.",
+   "ids": [
+    "D230",
+    "T14"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Participantes comunitarios en File/Life",
+   "valor": "7",
+   "unidad": "archivistas",
+   "fuente": "F03@19.",
+   "ids": [
+    "D200"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Exresidentes entre los archivistas de File/Life",
+   "valor": "2",
+   "unidad": "personas",
+   "fuente": "F03@19.",
+   "ids": [
+    "D201"
+   ],
+   "otras_versiones": []
+  }
+ ],
+ "cronologia": [
+  {
+   "fecha": "1903",
+   "hora": "",
+   "evento": "La legislatura de Pensilvania aprueba la creación de la institución.",
+   "aproximada": false,
+   "ids": [
+    "T01",
+    "D205"
+   ]
+  },
+  {
+   "fecha": "1908",
+   "hora": "",
+   "evento": "Abre Pennhurst, originalmente denominada Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic.",
+   "aproximada": false,
+   "ids": [
+    "T02",
+    "T03",
+    "D226"
+   ]
+  },
+  {
+   "fecha": "1958",
+   "hora": "",
+   "evento": "Comienza la estancia de Roland Johnson en Pennhurst.",
+   "aproximada": false,
+   "ids": [
+    "T05",
+    "D212"
+   ]
+  },
+  {
+   "fecha": "1961",
+   "hora": "",
+   "evento": "Nancy Beth Bowman ingresa a Pennhurst a los diez años; el pool no permite ubicar este ingreso dentro del año.",
+   "aproximada": false,
+   "ids": [
+    "T07"
+   ]
+  },
+  {
+   "fecha": "1961-02-28",
+   "hora": "",
+   "evento": "Larry y Kenny Taylor ingresan a Pennhurst.",
+   "aproximada": false,
+   "ids": [
+    "T08"
+   ]
+  },
+  {
+   "fecha": "1966",
+   "hora": "",
+   "evento": "Terri Lee Halderman ingresa a Pennhurst a los doce años.",
+   "aproximada": false,
+   "ids": [
+    "T10",
+    "P01"
+   ]
+  },
+  {
+   "fecha": "1966",
+   "hora": "",
+   "evento": "Linda Taub ingresa a Pennhurst a los quince años.",
+   "aproximada": false,
+   "ids": [
+    "P40"
+   ]
+  },
+  {
+   "fecha": "1968",
+   "hora": "",
+   "evento": "Bill Baldini expone las condiciones de Pennhurst en Suffer the Little Children.",
+   "aproximada": false,
+   "ids": [
+    "T12",
+    "T14",
+    "D168"
+   ]
+  },
+  {
+   "fecha": "1968",
+   "hora": "",
+   "evento": "Los padres de Linda Taub la encuentran atada a una silla de ruedas mediante una camisa de fuerza.",
+   "aproximada": false,
+   "ids": [
+    "T13"
+   ]
+  },
+  {
+   "fecha": "1970",
+   "hora": "",
+   "evento": "George Sorotos ingresa a Pennhurst a los siete años.",
+   "aproximada": false,
+   "ids": [
+    "T15"
+   ]
+  },
+  {
+   "fecha": "1971",
+   "hora": "",
+   "evento": "Termina la estancia de Roland Johnson en Pennhurst.",
+   "aproximada": false,
+   "ids": [
+    "T17",
+    "D212"
+   ]
+  },
+  {
+   "fecha": "1971-11-29",
+   "hora": "",
+   "evento": "Robert y Theresa Sobetsky ingresan a Pennhurst.",
+   "aproximada": false,
+   "ids": [
+    "T18"
+   ]
+  },
+  {
+   "fecha": "1974",
+   "hora": "",
+   "evento": "Un residente de dieciocho años permanece seis días consecutivos en aislamiento como castigo por una agresión; no consta el mes.",
+   "aproximada": false,
+   "ids": [
+    "T22",
+    "D185"
+   ]
+  },
+  {
+   "fecha": "1974-05-30",
+   "hora": "",
+   "evento": "David Ferleger presenta la demanda en nombre de Terri Lee Halderman; la acción representa a residentes actuales y anteriores.",
+   "aproximada": false,
+   "ids": [
+    "T25",
+    "T26",
+    "D169"
+   ]
+  },
+  {
+   "fecha": "1974-09",
+   "hora": "",
+   "evento": "Robert Hight ingresa a Pennhurst.",
+   "aproximada": false,
+   "ids": [
+    "T27"
+   ]
+  },
+  {
+   "fecha": "1975",
+   "hora": "",
+   "evento": "Larry y Kenny Taylor son trasladados a Woodhaven; no consta el mes.",
+   "aproximada": false,
+   "ids": [
+    "T28"
+   ]
+  },
+  {
+   "fecha": "1975-01-08",
+   "hora": "",
+   "evento": "Un residente arranca de un mordisco parte de la oreja de otro mientras este duerme.",
+   "aproximada": false,
+   "ids": [
+    "T29"
+   ]
+  },
+  {
+   "fecha": "1976",
+   "hora": "",
+   "evento": "Un integrante del personal viola a un residente; no consta el mes.",
+   "aproximada": false,
+   "ids": [
+    "T30"
+   ]
+  },
+  {
+   "fecha": "1976-01",
+   "hora": "",
+   "evento": "Robert y Theresa Sobetsky comienzan a residir en Woodhaven.",
+   "aproximada": false,
+   "ids": [
+    "T31"
+   ]
+  },
+  {
+   "fecha": "1976-06",
+   "hora": "",
+   "evento": "Una residente acumula 651 horas y 5 minutos de sujeción física.",
+   "aproximada": false,
+   "ids": [
+    "T32"
+   ]
+  },
+  {
+   "fecha": "1976-08",
+   "hora": "",
+   "evento": "La misma residente acumula 720 horas de sujeción física.",
+   "aproximada": false,
+   "ids": [
+    "T33"
+   ]
+  },
+  {
+   "fecha": "1976-09",
+   "hora": "",
+   "evento": "La residente acumula 674 horas y 20 minutos de sujeción física.",
+   "aproximada": false,
+   "ids": [
+    "T34"
+   ]
+  },
+  {
+   "fecha": "1976-10",
+   "hora": "",
+   "evento": "La residente acumula 647 horas y 5 minutos de sujeción física.",
+   "aproximada": false,
+   "ids": [
+    "T35"
+   ]
+  },
+  {
+   "fecha": "1977",
+   "hora": "",
+   "evento": "A comienzos del año se inicia terapia ocupacional para la residente autolesiva que se había cegado; no consta el mes.",
+   "aproximada": false,
+   "ids": [
+    "T39",
+    "D186"
+   ]
+  },
+  {
+   "fecha": "1977-01",
+   "hora": "",
+   "evento": "Se reportan 833 lesiones menores y 25 mayores.",
+   "aproximada": false,
+   "ids": [
+    "T40"
+   ]
+  },
+  {
+   "fecha": "1977",
+   "hora": "",
+   "evento": "Después del juicio, el Tribunal de Distrito emite su decisión sobre las condiciones y la incapacidad de Pennhurst para proporcionar cuidados y habilitación apropiados.",
+   "aproximada": false,
+   "ids": [
+    "T36",
+    "T37",
+    "D33"
+   ]
+  },
+  {
+   "fecha": "1978",
+   "hora": "",
+   "evento": "Comienza el seguimiento anual cara a cara de quienes vivían en Pennhurst ese año.",
+   "aproximada": false,
+   "ids": [
+    "T42",
+    "T43"
+   ]
+  },
+  {
+   "fecha": "1978-03-17",
+   "hora": "",
+   "evento": "Broderick ordena proporcionar servicios comunitarios adecuados y designar un Special Master; la institución alberga a 1154 personas.",
+   "aproximada": false,
+   "ids": [
+    "T44",
+    "T45",
+    "D31"
+   ]
+  },
+  {
+   "fecha": "1978-10",
+   "hora": "",
+   "evento": "El estudio registra 45 áreas de vivienda en Pennhurst.",
+   "aproximada": false,
+   "ids": [
+    "T46",
+    "D123"
+   ]
+  },
+  {
+   "fecha": "1979-06",
+   "hora": "",
+   "evento": "Broderick firma la orden para los niños en edad escolar; Robert queda entre quienes debían salir primero.",
+   "aproximada": false,
+   "ids": [
+    "T50"
+   ]
+  },
+  {
+   "fecha": "1979-12-13",
+   "hora": "",
+   "evento": "El Tercer Circuito elimina, entre otras disposiciones, la presunción de cierre eventual y la prohibición de nuevas admisiones.",
+   "aproximada": false,
+   "ids": [
+    "T53",
+    "D47"
+   ]
+  },
+  {
+   "fecha": "1980",
+   "hora": "",
+   "evento": "A comienzos del año se abren negociaciones; el papel futuro de Pennhurst es el principal desacuerdo.",
+   "aproximada": false,
+   "ids": [
+    "T54"
+   ]
+  },
+  {
+   "fecha": "primavera de 1980",
+   "hora": "",
+   "evento": "Se seleccionan sujetos para las entrevistas a residentes procedentes de la región de Filadelfia.",
+   "aproximada": false,
+   "ids": [
+    "T59"
+   ]
+  },
+  {
+   "fecha": "1980-04-24",
+   "hora": "",
+   "evento": "Se establecen procedimientos individuales de ubicación residencial y la intervención de un Hearing Master.",
+   "aproximada": false,
+   "ids": [
+    "T58",
+    "D44"
+   ]
+  },
+  {
+   "fecha": "1980-06",
+   "hora": "",
+   "evento": "Las familias reciben una encuesta previa al traslado.",
+   "aproximada": false,
+   "ids": [
+    "T60"
+   ]
+  },
+  {
+   "fecha": "1980-07-14",
+   "hora": "",
+   "evento": "Una orden exige audiencias sobre la voluntariedad de cada salida.",
+   "aproximada": false,
+   "ids": [
+    "T61"
+   ]
+  },
+  {
+   "fecha": "1980-12-08",
+   "hora": "",
+   "evento": "La Corte Suprema escucha argumentos del caso.",
+   "aproximada": false,
+   "ids": [
+    "T62"
+   ]
+  },
+  {
+   "fecha": "1981-03-02",
+   "hora": "",
+   "evento": "Broderick fija un calendario de reubicaciones.",
+   "aproximada": false,
+   "ids": [
+    "T69"
+   ]
+  },
+  {
+   "fecha": "1981-04-20",
+   "hora": "",
+   "evento": "La Corte Suprema determina que la sección 6010 de la DD Act no crea derechos sustantivos.",
+   "aproximada": false,
+   "ids": [
+    "T70",
+    "T71"
+   ]
+  },
+  {
+   "fecha": "1981-07-01",
+   "hora": "",
+   "evento": "Pensilvania limita a 35000 dólares los gastos de los auxiliares judiciales para el ejercicio presupuestario indicado.",
+   "aproximada": false,
+   "ids": [
+    "T72",
+    "D09"
+   ]
+  },
+  {
+   "fecha": "1981-07-31",
+   "hora": "",
+   "evento": "La Oficina del Special Master informa 15 reubicaciones oficiales de 90 previstas, mientras el Estado informa 81.",
+   "aproximada": false,
+   "ids": [
+    "D54"
+   ]
+  },
+  {
+   "fecha": "1981-08",
+   "hora": "",
+   "evento": "Broderick declara en desacato al Departamento de Bienestar Público y a Helen O'Bannon por incumplir órdenes de pago.",
+   "aproximada": false,
+   "ids": [
+    "T74",
+    "D10"
+   ]
+  },
+  {
+   "fecha": "1982-01",
+   "hora": "",
+   "evento": "El fondo de multas alcanza aproximadamente 1200000 dólares y Broderick releva a la secretaria y al Estado de continuar pagando las multas diarias.",
+   "aproximada": false,
+   "ids": [
+    "T81",
+    "D60"
+   ]
+  },
+  {
+   "fecha": "1982-01-08",
+   "hora": "",
+   "evento": "Pensilvania paga las multas y queda purgado el desacato.",
+   "aproximada": false,
+   "ids": [
+    "T82"
+   ]
+  },
+  {
+   "fecha": "1982-03",
+   "hora": "",
+   "evento": "Comienza la recopilación de datos comunitarios; para entonces se habían trasladado aproximadamente 200 personas.",
+   "aproximada": false,
+   "ids": [
+    "T83"
+   ]
+  },
+  {
+   "fecha": "verano de 1982",
+   "hora": "",
+   "evento": "Robert se traslada a una vivienda comunitaria después de la demora por objeciones de sus padres.",
+   "aproximada": false,
+   "ids": [
+    "T79",
+    "D82"
+   ]
+  },
+  {
+   "fecha": "1982-08-12",
+   "hora": "",
+   "evento": "Broderick solicita un plan de reducción de las operaciones del Special Master.",
+   "aproximada": false,
+   "ids": [
+    "T86",
+    "D67"
+   ]
+  },
+  {
+   "fecha": "1982-12",
+   "hora": "",
+   "evento": "La Oficina del Special Master es terminada oficialmente al finalizar el mes; el pasaje no proporciona un día numérico.",
+   "aproximada": false,
+   "ids": [
+    "T87",
+    "T89",
+    "D11"
+   ]
+  },
+  {
+   "fecha": "1982-12",
+   "hora": "",
+   "evento": "Una nueva directora se hace cargo del programa de Joan.",
+   "aproximada": false,
+   "ids": [
+    "T88",
+    "D115"
+   ]
+  },
+  {
+   "fecha": "1983-01-14",
+   "hora": "",
+   "evento": "Una orden establece un calendario de implementación que incluye viviendas comunitarias para 143 residentes de Pennhurst.",
+   "aproximada": false,
+   "ids": [
+    "T92"
+   ]
+  },
+  {
+   "fecha": "1983-02",
+   "hora": "",
+   "evento": "Joan recibe sus prótesis oculares.",
+   "aproximada": false,
+   "ids": [
+    "T93",
+    "D118"
+   ]
+  },
+  {
+   "fecha": "1983-08",
+   "hora": "",
+   "evento": "Broderick dicta una orden consolidada que reúne y ajusta disposiciones anteriores.",
+   "aproximada": false,
+   "ids": [
+    "T94"
+   ]
+  },
+  {
+   "fecha": "1983-11",
+   "hora": "",
+   "evento": "Los demandados estatales presentan un plan que prevé cerrar Pennhurst para 1986.",
+   "aproximada": false,
+   "ids": [
+    "T95"
+   ]
+  },
+  {
+   "fecha": "1984-01-23",
+   "hora": "",
+   "evento": "La Corte Suprema determina que la inmunidad soberana impide al tribunal federal ordenar a funcionarios estatales cumplir la ley estatal.",
+   "aproximada": false,
+   "ids": [
+    "T99",
+    "D72"
+   ]
+  },
+  {
+   "fecha": "1984-07-12 / 1985",
+   "hora": "",
+   "evento": "F02 fecha el consenso y acuerdo final el 12 de julio de 1984, con cierre previsto para el 1 de julio de 1986 y posible extensión hasta el 30 de septiembre de 1986; F10 sitúa un acuerdo de conciliación en 1985, sin que el pool aclare si distingue etapas de formalización.",
+   "aproximada": true,
+   "ids": [
+    "T101",
+    "T102",
+    "D45",
+    "T104",
+    "D176"
+   ]
+  },
+  {
+   "fecha": "1984-09",
+   "hora": "",
+   "evento": "Broderick celebra una audiencia sobre el acuerdo; la Parent Staff Association protesta contra el cierre.",
+   "aproximada": false,
+   "ids": [
+    "T103",
+    "D73"
+   ]
+  },
+  {
+   "fecha": "1985-01",
+   "hora": "",
+   "evento": "Thornburgh anuncia que las instalaciones se convertirían en un centro médico estatal para veteranos para 1986.",
+   "aproximada": false,
+   "ids": [
+    "D74"
+   ]
+  },
+  {
+   "fecha": "1987",
+   "hora": "",
+   "evento": "Pennhurst cierra definitivamente; F07 precisa diciembre.",
+   "aproximada": false,
+   "ids": [
+    "T106",
+    "T107",
+    "D178"
+   ]
+  },
+  {
+   "fecha": "1992",
+   "hora": "",
+   "evento": "Finaliza el seguimiento anual cara a cara descrito por la fuente archivística.",
+   "aproximada": false,
+   "ids": [
+    "T108",
+    "D166"
+   ]
+  }
+ ],
+ "hechos": [
+  {
+   "texto": "La legislatura de Pensilvania aprobó la creación de la institución en 1903.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T01",
+    "D205"
+   ]
+  },
+  {
+   "texto": "Pennhurst abrió en 1908 con el nombre Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T03",
+    "D226"
+   ]
+  },
+  {
+   "texto": "Aproximadamente 21 de las 45 unidades de vivienda estaban cerradas con llave para impedir que los residentes salieran.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "D197"
+   ]
+  },
+  {
+   "texto": "El relato histórico de F11 vincula los problemas de Pennhurst con la falta de fondos estatales y de personal adecuado.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D227",
+    "D228"
+   ]
+  },
+  {
+   "texto": "F07 describe niños que habían superado la edad de caminar pero permanecían en cunas sin que las enfermeras sobrecargadas pudieran enseñarles.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D208",
+    "D209"
+   ]
+  },
+  {
+   "texto": "El hospital utilizaba a residentes considerados de alto funcionamiento para cuidar los terrenos y a otros residentes con poca o ninguna paga.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D210"
+   ]
+  },
+  {
+   "texto": "Bill Baldini hizo públicas las condiciones de Pennhurst en 1968 mediante la investigación televisiva Suffer the Little Children.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T12",
+    "T14",
+    "D168"
+   ]
+  },
+  {
+   "texto": "El Estado asignó 21 millones de dólares a las instalaciones y se construyó el edificio New Horizons.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D231",
+    "D232"
+   ]
+  },
+  {
+   "texto": "Terri Lee Halderman ingresó a Pennhurst en 1966 a los doce años.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "P01",
+    "T10"
+   ]
+  },
+  {
+   "texto": "Halderman estaba aprendiendo a hablar cuando ingresó y perdió sus habilidades verbales después de vivir en Pennhurst.",
+   "nivel": 1,
+   "sirve_para": "gancho",
+   "ids": [
+    "D18"
+   ]
+  },
+  {
+   "texto": "Los registros médicos de Halderman contenían más de cuarenta lesiones reportadas.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D194"
+   ]
+  },
+  {
+   "texto": "En 1968, los padres de Linda Taub la encontraron sujeta a una silla de ruedas mediante una camisa de fuerza pese a que podía caminar.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T13"
+   ]
+  },
+  {
+   "texto": "Robert y Theresa Sobetsky fueron alojados en salas con camas en los pasillos y Robert nunca tuvo una cama particular asignada.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D196"
+   ]
+  },
+  {
+   "texto": "Dorothy Hunsicker declaró que Charles DiNolfi llevaba algún vendaje cada vez que ella o su familia lo visitaban.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "P31"
+   ]
+  },
+  {
+   "texto": "Charles DiNolfi perdió un ojo durante su estancia y un médico de Pennhurst dijo a su hermana que se había golpeado contra el grifo al resbalar en la ducha.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D195"
+   ]
+  },
+  {
+   "texto": "Marion Caranfa declaró que, durante siete años de visitas semanales, solo encontró a George Sorotos sin lesiones en cuatro ocasiones.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "P36"
+   ]
+  },
+  {
+   "texto": "La madre de Nancy Beth Bowman declaró que su hija quedaría marcada por el resto de su vida.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "Q32"
+   ]
+  },
+  {
+   "texto": "En 1974, un residente de dieciocho años pasó seis días consecutivos en aislamiento como castigo por agredir a otro residente.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T22",
+    "D185"
+   ]
+  },
+  {
+   "texto": "No había psicólogos de servicio durante las noches ni los fines de semana y una crisis emocional podía quedar sin tratamiento hasta el siguiente turno disponible.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D183"
+   ]
+  },
+  {
+   "texto": "En Pennhurst se utilizaban sujeciones físicas o químicas como medidas de control en lugar de una dotación adecuada de personal.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D184",
+    "D172"
+   ]
+  },
+  {
+   "texto": "El documento describe el uso frecuente de psicofármacos para controlar a los residentes y no para tratarlos.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D187"
+   ]
+  },
+  {
+   "texto": "Una residente acumuló 651 horas y 5 minutos de sujeción física durante junio de 1976.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T32"
+   ]
+  },
+  {
+   "texto": "La misma residente acumuló 720 horas de sujeción física durante agosto de 1976.",
+   "nivel": 1,
+   "sirve_para": "pico",
+   "ids": [
+    "T33"
+   ]
+  },
+  {
+   "texto": "El registro de esa residente consigna 674 horas y 20 minutos de sujeción en septiembre de 1976 y 647 horas y 5 minutos en octubre de 1976.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T34",
+    "T35"
+   ]
+  },
+  {
+   "texto": "La residente se había cegado mediante autolesiones y no fue incorporada a terapia ocupacional hasta comienzos de 1977.",
+   "nivel": 1,
+   "sirve_para": "pico",
+   "ids": [
+    "D186",
+    "T39"
+   ]
+  },
+  {
+   "texto": "Tras comenzar el programa de terapia ocupacional, el documento señala que la residente podía permanecer hasta cuatro horas diarias sin sujeciones.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T39"
+   ]
+  },
+  {
+   "texto": "El documento describe orina y excrementos frecuentes en los suelos de las salas y condiciones de limpieza inferiores a los estándares profesionales mínimos.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D188"
+   ]
+  },
+  {
+   "texto": "La mayoría de las áreas de aseo carecía de toallas, jabón y papel higiénico.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D191"
+   ]
+  },
+  {
+   "texto": "El ruido de las salas de día podía ser tan elevado que muchos residentes dejaban de hablar.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D192"
+   ]
+  },
+  {
+   "texto": "Los brotes de lombrices intestinales y de enfermedades infecciosas eran comunes.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D189"
+   ]
+  },
+  {
+   "texto": "El 8 de enero de 1975, un residente arrancó de un mordisco tres cuartas partes del lóbulo y parte de la oreja externa de otro mientras dormía.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T29"
+   ]
+  },
+  {
+   "texto": "El documento registra la muerte de un residente después de que otro lo empujara al suelo.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D193"
+   ]
+  },
+  {
+   "texto": "En 1976, un integrante del personal violó a un residente.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T30"
+   ]
+  },
+  {
+   "texto": "La recapitulación judicial señala que las sujeciones físicas ocasionaban lesiones y que en una ocasión provocaron una muerte.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D16",
+    "D17"
+   ]
+  },
+  {
+   "texto": "Solo en enero de 1977 se reportaron 833 lesiones menores y 25 mayores.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "T40"
+   ]
+  },
+  {
+   "texto": "El 30 de mayo de 1974 se presentó una demanda colectiva en nombre de residentes actuales y anteriores de Pennhurst.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T25",
+    "T26",
+    "D169"
+   ]
+  },
+  {
+   "texto": "David Ferleger presentó la demanda en nombre de Halderman solicitando medidas judiciales y daños monetarios.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T25"
+   ]
+  },
+  {
+   "texto": "Los demandantes alegaron violaciones de derechos constitucionales, de leyes federales y de la ley de Pensilvania sobre salud mental y discapacidad intelectual.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D02",
+    "D170"
+   ]
+  },
+  {
+   "texto": "El juicio sobre las condiciones de Pennhurst duró treinta y dos días.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D171"
+   ]
+  },
+  {
+   "texto": "En 1977, Broderick determinó que Pennhurst era incapaz de proporcionar cuidados y habilitación constitucionalmente apropiados.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "D33",
+    "T36",
+    "T37"
+   ]
+  },
+  {
+   "texto": "La disidencia de Stevens afirma que los peticionarios habían admitido durante todo el litigio que Pennhurst no ofrecía ni siquiera una habilitación mínimamente adecuada.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "D19"
+   ]
+  },
+  {
+   "texto": "El Tribunal de Distrito consideró inmunes a los funcionarios frente a la responsabilidad por daños porque habían actuado de buena fe dentro de sus responsabilidades oficiales.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D24",
+    "Q06"
+   ]
+  },
+  {
+   "texto": "El 17 de marzo de 1978, Broderick ordenó servicios comunitarios adecuados y la supervisión de un Special Master.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T44",
+    "T45",
+    "D06"
+   ]
+  },
+  {
+   "texto": "El informe dedica el estudio a las 1154 personas que vivían en Pennhurst el 17 de marzo de 1978.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D31"
+   ]
+  },
+  {
+   "texto": "La población del estudio tenía una edad promedio de treinta y nueve años y había estado institucionalizada un promedio de veinticuatro años.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D35",
+    "D36",
+    "D86"
+   ]
+  },
+  {
+   "texto": "En diciembre de 1979, el Tercer Circuito eliminó la presunción de cierre eventual, la prohibición de nuevas admisiones y el requisito de empleo alternativo para todos los trabajadores.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "T53",
+    "D47"
+   ]
+  },
+  {
+   "texto": "La orden para los niños exigía que quienes tenían menos de veintiún años fueran trasladados a viviendas comunitarias adecuadas para septiembre de 1979.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D43"
+   ]
+  },
+  {
+   "texto": "La orden del 24 de abril de 1980 estableció determinaciones individuales mediante un Hearing Master para las reubicaciones disputadas.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D44",
+    "T58"
+   ]
+  },
+  {
+   "texto": "La fuente archivística indica que los residentes incluidos fueron visitados cara a cara cada año desde 1978 hasta 1992.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D166"
+   ]
+  },
+  {
+   "texto": "Para el 31 de julio de 1981, la Oficina del Special Master registraba 15 reubicaciones oficiales de 90 previstas y el Estado informaba 81.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "D54"
+   ]
+  },
+  {
+   "texto": "El 1 de julio de 1981, Pensilvania limitó a 35000 dólares los gastos de los auxiliares judiciales para el ejercicio de julio de 1981 a junio de 1982.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D09",
+    "T72"
+   ]
+  },
+  {
+   "texto": "En agosto de 1981, Broderick declaró en desacato al Departamento de Bienestar Público y a Helen O'Bannon e impuso una multa diaria de 10000 dólares.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T74",
+    "D10"
+   ]
+  },
+  {
+   "texto": "Pensilvania pagó las multas y el desacato quedó purgado el 8 de enero de 1982.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T82"
+   ]
+  },
+  {
+   "texto": "La Oficina del Special Master fue abolida en diciembre de 1982 y el Hearing Master continuó funcionando según la recapitulación judicial.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D11"
+   ]
+  },
+  {
+   "texto": "Robert no se trasladó a la comunidad hasta el verano de 1982 debido a las objeciones de sus padres.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T79",
+    "D82"
+   ]
+  },
+  {
+   "texto": "Joan dejó Pennhurst en junio de 1980 después de vivir allí desde mayo de 1969.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "P20"
+   ]
+  },
+  {
+   "texto": "Los padres de Joan estaban preocupados por su regresión y contactaban diariamente al personal.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D116"
+   ]
+  },
+  {
+   "texto": "La evaluación de Joan concluyó que la atrofia de sus ojos y músculos circundantes había hecho crecer sus párpados hacia adentro y le causaba dolor e irritación.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "D117"
+   ]
+  },
+  {
+   "texto": "Joan recibió prótesis oculares en febrero de 1983.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D118"
+   ]
+  },
+  {
+   "texto": "El 20 de abril de 1981, la Corte Suprema determinó que la sección 6010 de la DD Act no creaba derechos sustantivos.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "T70",
+    "T71"
+   ]
+  },
+  {
+   "texto": "El 23 de enero de 1984, la Corte Suprema determinó que la Undécima Enmienda impedía al tribunal federal ordenar a los funcionarios estatales cumplir la ley estatal.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T99",
+    "D72"
+   ]
+  },
+  {
+   "texto": "F02 registra un acuerdo anunciado el 12 de julio de 1984 que preveía cerrar Pennhurst para el 1 de julio de 1986, con posible extensión hasta el 30 de septiembre de 1986.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T101",
+    "T102",
+    "D45"
+   ]
+  },
+  {
+   "texto": "En la audiencia de septiembre de 1984, la Parent Staff Association fue el único grupo que protestó contra el acuerdo y sostuvo que Pennhurst no debía cerrar.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T103",
+    "D73"
+   ]
+  },
+  {
+   "texto": "Pennhurst cerró definitivamente en 1987 y F07 sitúa el cierre en diciembre.",
+   "nivel": 1,
+   "sirve_para": "cierre",
+   "ids": [
+    "T106",
+    "T107"
+   ]
+  },
+  {
+   "texto": "En una comparación de cinco años, el grupo trasladado mejoró más de once puntos en comportamiento adaptativo y el grupo que permaneció en Pennhurst ganó menos de un punto.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D93"
+   ]
+  },
+  {
+   "texto": "El estudio informa 92 fallecimientos en la cohorte original, 77 mientras las personas seguían en Pennhurst y 15 en viviendas comunitarias, sin atribuir en ese pasaje las causas de muerte.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D95"
+   ]
+  },
+  {
+   "texto": "En la muestra entrevistada, la satisfacción expresada de manera fiable pasó del 40 % en Pennhurst al 73 % después del traslado comunitario.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D111",
+    "D112"
+   ]
+  },
+  {
+   "texto": "En la encuesta inicial, el 72 % de las familias de quienes seguían en Pennhurst en 1980 habría rechazado una propuesta de traslado comunitario.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D136"
+   ]
+  },
+  {
+   "texto": "En el seguimiento de 134 familias, la oposición firme al traslado pasó del 55 % al 4 % y, después del traslado, el 66 % lo apoyaba firmemente.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D143",
+    "D151",
+    "D153",
+    "D154",
+    "D155"
+   ]
+  },
+  {
+   "texto": "Steve había vivido veintisiete años en Pennhurst y declaró estar aún más feliz en su hogar grupal.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "P18",
+    "D102"
+   ]
+  },
+  {
+   "texto": "Bruce había vivido veintiocho años en Pennhurst y quería quedarse en el hogar grupal al que se había trasladado.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "P19",
+    "D103",
+    "Q16"
+   ]
+  },
+  {
+   "texto": "Roland Johnson vivió en Pennhurst desde 1958 hasta 1971 y posteriormente relató sus experiencias en Lost in a Desert World.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D212",
+    "D214"
+   ]
+  },
+  {
+   "texto": "El proyecto File/Life reunió a siete archivistas comunitarios, incluidos dos exresidentes, para explorar creativamente los archivos de Pennhurst.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D199",
+    "D200",
+    "D201"
+   ]
+  }
+ ],
+ "citas": [
+  {
+   "autor": "Justice Stevens",
+   "rol": "Juez de la Corte Suprema, en disidencia.",
+   "verificacion": "verificada en el pasaje judicial",
+   "texto": "This case has illuminated the character of an institution. The record demonstrates that the Pennhurst State School and Hospital has been operated in violation of state law.",
+   "original": "",
+   "traduccion": "Este caso ha iluminado el carácter de una institución. El expediente demuestra que Pennhurst State School and Hospital ha funcionado en violación de la ley estatal.",
+   "ids": [
+    "Q02"
+   ]
+  },
+  {
+   "autor": "Justice Stevens",
+   "rol": "Juez de la Corte Suprema, en disidencia.",
+   "verificacion": "verificada_parcial en el pool; el texto reproducido está presente en el pasaje",
+   "texto": "In a completely unprecedented holding, today the Court concludes that Pennsylvania’s sovereign immunity prevents a federal court from enjoining the conduct that Pennsylvania itself has prohibited. No rational view of the sovereign immunity of the States supports this result.",
+   "original": "",
+   "traduccion": "En un fallo completamente sin precedentes, hoy el Tribunal concluye que la inmunidad soberana de Pensilvania impide que un tribunal federal prohíba la conducta que la propia Pensilvania ha prohibido. Ninguna visión racional de la inmunidad soberana de los estados respalda este resultado.",
+   "ids": [
+    "Q03"
+   ]
+  },
+  {
+   "autor": "Tribunal de Distrito",
+   "rol": "Tribunal de primera instancia; formulación reproducida en la disidencia de Stevens.",
+   "verificacion": "verificada como cita judicial anidada",
+   "texto": "acted in the utmost good faith . . . within the sphere of their official responsibilities",
+   "original": "",
+   "traduccion": "actuaron de la más absoluta buena fe... dentro del ámbito de sus responsabilidades oficiales",
+   "ids": [
+    "Q06",
+    "D24"
+   ]
+  },
+  {
+   "autor": "Funcionarios estatales demandados",
+   "rol": "Parte demandada; argumento de su escrito.",
+   "verificacion": "verificada como cita del escrito reproducida por F02",
+   "texto": "Unless it [the Third Circuit] is reversed, the decision will give federal courts a free hand in the management of state programs despite the absence of any federal interest at all.",
+   "original": "",
+   "traduccion": "A menos que se revoque [al Tercer Circuito], la decisión dará a los tribunales federales carta blanca para gestionar los programas estatales pese a la ausencia de cualquier interés federal.",
+   "ids": [
+    "Q09"
+   ]
+  },
+  {
+   "autor": "Steve",
+   "rol": "Exresidente entrevistado.",
+   "verificacion": "verificada como respuesta textual en F02",
+   "texto": "I wish for people to live with me who are nice and kind to me like these people.",
+   "original": "",
+   "traduccion": "Deseo vivir con personas que sean buenas y amables conmigo, como estas personas.",
+   "ids": [
+    "Q15"
+   ]
+  },
+  {
+   "autor": "Bruce",
+   "rol": "Exresidente entrevistado.",
+   "verificacion": "verificada como respuesta textual en F02",
+   "texto": "Pennhurst was alright, I grew up in that place. We have different hours of getting up and going to sleep here. We have Saturdays and Sundays to ourselves. This is more home; there is no big crowd, just a few people.",
+   "original": "",
+   "traduccion": "Pennhurst estaba bien, crecí en ese lugar. Aquí tenemos otros horarios para levantarnos y acostarnos. Tenemos los sábados y domingos para nosotros. Esto se parece más a un hogar; no hay una gran multitud, solo unas pocas personas.",
+   "ids": [
+    "Q16"
+   ]
+  },
+  {
+   "autor": "Bruce",
+   "rol": "Exresidente entrevistado.",
+   "verificacion": "verificada como respuesta textual en F02",
+   "texto": "I wish I was a millionaire.",
+   "original": "",
+   "traduccion": "Desearía ser millonario.",
+   "ids": [
+    "Q17"
+   ]
+  },
+  {
+   "autor": "Raymond J. Broderick",
+   "rol": "Juez del Tribunal de Distrito; formulación reproducida por F10.",
+   "verificacion": "verificada como fragmento de cita judicial en fuente secundaria",
+   "texto": "were used as control measures in lieu of adequate staffing",
+   "original": "",
+   "traduccion": "se utilizaban como medidas de control en lugar de una dotación adecuada de personal",
+   "ids": [
+    "Q20"
+   ]
+  },
+  {
+   "autor": "Raymond J. Broderick",
+   "rol": "Juez del Tribunal de Distrito; formulación reproducida por F10.",
+   "verificacion": "verificada como fragmento de cita judicial en fuente secundaria",
+   "texto": "hazardous to the residents, both physically and psychologically",
+   "original": "",
+   "traduccion": "peligroso para los residentes, tanto física como psicológicamente",
+   "ids": [
+    "Q21"
+   ]
+  },
+  {
+   "autor": "Raymond J. Broderick",
+   "rol": "Juez del Tribunal de Distrito; formulación reproducida por F10.",
+   "verificacion": "verificada como fragmento de cita judicial en fuente secundaria",
+   "texto": "not only not conducive to learning new skills, but it is so poor that it contributes to losing skills already learned.",
+   "original": "",
+   "traduccion": "no solo no favorece el aprendizaje de nuevas habilidades, sino que es tan deficiente que contribuye a perder habilidades ya aprendidas.",
+   "ids": [
+    "Q22"
+   ]
+  },
+  {
+   "autor": "Raymond J. Broderick",
+   "rol": "Juez del Tribunal de Distrito.",
+   "verificacion": "verificada como cita judicial reproducida por F10",
+   "texto": "Once admitted to a state facility, the residents have a constitutional right to be provided with minimally adequate habilitation under the least restrictive conditions consistent with the purpose of the commitment.",
+   "original": "",
+   "traduccion": "Una vez admitidos en una institución estatal, los residentes tienen el derecho constitucional a recibir una habilitación mínimamente adecuada en las condiciones menos restrictivas compatibles con el propósito de su internamiento.",
+   "ids": [
+    "Q23"
+   ]
+  },
+  {
+   "autor": "Raymond J. Broderick",
+   "rol": "Juez del Tribunal de Distrito.",
+   "verificacion": "verificada como cita judicial reproducida por F10",
+   "texto": "the confinement and isolation of people with disabilities in the institution called Pennhurst is segregation in a facility that clearly is separate and not equal.",
+   "original": "",
+   "traduccion": "el confinamiento y aislamiento de personas con discapacidad en la institución llamada Pennhurst es segregación en una instalación que claramente es separada y no igualitaria.",
+   "ids": [
+    "Q24"
+   ]
+  },
+  {
+   "autor": "Raymond J. Broderick",
+   "rol": "Juez del Tribunal de Distrito.",
+   "verificacion": "verificada como cita reproducida por F10; conserva la omisión indicada por la fuente",
+   "texto": "No one … anticipated that this civil action commenced on May 30, 1974 would be actively litigated for more than ten years, requiring 2,192 docket entries, about 500 Court orders, twenty-eight published opinions, and three arguments before the U.S. Supreme Court.",
+   "original": "",
+   "traduccion": "Nadie… anticipó que esta acción civil iniciada el 30 de mayo de 1974 se litigaría activamente durante más de diez años y requeriría 2192 asientos en el expediente, unas 500 órdenes judiciales, veintiocho opiniones publicadas y tres exposiciones de argumentos ante la Corte Suprema de Estados Unidos.",
+   "ids": [
+    "Q25"
+   ]
+  },
+  {
+   "autor": "James Conroy",
+   "rol": "Director de investigación del Developmental Disabilities Center de Temple University.",
+   "verificacion": "verificada como cita reproducida por F10",
+   "texto": "The former Pennhurst residents showed significantly faster development growth in the community than they had at Pennhurst. They received more services and more program time at less cost in public dollars.",
+   "original": "",
+   "traduccion": "Los exresidentes de Pennhurst mostraron un crecimiento de su desarrollo significativamente más rápido en la comunidad que en Pennhurst. Recibieron más servicios y más tiempo de programa a un menor costo en fondos públicos.",
+   "ids": [
+    "Q26"
+   ]
+  },
+  {
+   "autor": "James Conroy",
+   "rol": "Director de investigación del Developmental Disabilities Center de Temple University.",
+   "verificacion": "verificada_parcial; conserva la omisión y la interpolación presentes en F10",
+   "texto": "Measured by a variety of standards, the families generally perceived the happiness of their … relatives to be much greater in the [community] than at Pennhurst.",
+   "original": "",
+   "traduccion": "Medida con distintos criterios, las familias generalmente percibieron que la felicidad de sus… parientes era mucho mayor en la [comunidad] que en Pennhurst.",
+   "ids": [
+    "Q27"
+   ]
+  },
+  {
+   "autor": "Exasistente especial del superintendente de Pennhurst no identificado",
+   "rol": "Antiguo funcionario de la institución.",
+   "verificacion": "verificada como cita en F12; autor sin nombre propio",
+   "texto": "Pennhurst was a mistake from day one, but it was a mistake made by all of us, following the dictates of the 'best minds' of its time.",
+   "original": "",
+   "traduccion": "Pennhurst fue un error desde el primer día, pero fue un error cometido por todos nosotros, siguiendo los dictados de las «mejores mentes» de su tiempo.",
+   "ids": [
+    "Q28"
+   ]
+  },
+  {
+   "autor": "Superintendente Youngberg",
+   "rol": "Superintendente de Pennhurst.",
+   "verificacion": "verificada en el pool; corregidos paréntesis intrusivos de transcripción",
+   "texto": "There is not adequate space for the residents. The living areas do not provide privacy for those persons who can handle privacy. There does not seem to be adequate activity areas or program areas or even general activity areas within the general living area...",
+   "original": "There is not adequate space for (the residents. The living areas do) not provide privacy for those persons who can handle privacy. There does not seem to be adequate activity areas or program areas or even general activity areas within the general living area...",
+   "traduccion": "No hay espacio adecuado para los residentes. Las áreas de vivienda no ofrecen privacidad a quienes pueden manejarla. No parece haber áreas adecuadas para actividades o programas, ni siquiera áreas de actividad general dentro del espacio de vivienda...",
+   "ids": [
+    "Q30",
+    "P48"
+   ]
+  },
+  {
+   "autor": "Sra. Hight",
+   "rol": "Madre de Robert Hight.",
+   "verificacion": "verificada_parcial; fragmento textual presente en F12",
+   "texto": "wouldn't leave a dog in conditions like that.",
+   "original": "",
+   "traduccion": "no dejaría a un perro en condiciones como esas.",
+   "ids": [
+    "Q31"
+   ]
+  },
+  {
+   "autor": "Sra. Bowman",
+   "rol": "Madre de Nancy Beth Bowman.",
+   "verificacion": "verificada como declaración textual reproducida por F12",
+   "texto": "Nancy Beth will be scarred for the rest of her life.",
+   "original": "",
+   "traduccion": "Nancy Beth quedará marcada por el resto de su vida.",
+   "ids": [
+    "Q32"
+   ]
+  },
+  {
+   "autor": "Archivistas comunitarios de File/Life",
+   "rol": "Participantes del proyecto de exploración de los archivos.",
+   "verificacion": "verificada como pregunta reproducida por F03",
+   "texto": "Can a file ever contain a life?",
+   "original": "",
+   "traduccion": "¿Puede un expediente contener alguna vez una vida?",
+   "ids": [
+    "Q33"
+   ]
+  }
+ ],
+ "descartados": [
+  {
+   "que": "[personas_descartadas] Sr. Harris",
+   "motivo": "no respaldado: «Sr. Harris» no está entre los descartados del pool",
+   "ids": [
+    "D116",
+    "L18"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Sra. Harris",
+   "motivo": "no respaldado: «Sra. Harris» no está entre los descartados del pool",
+   "ids": [
+    "D116",
+    "L18"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Justice Blackmun",
+   "motivo": "no respaldado: sus ids no nombran a «Justice Blackmun»",
+   "ids": [
+    "P03",
+    "P04"
+   ]
+  },
+  {
+   "que": "[personas_descartadas] Funcionarios estatales demandados",
+   "motivo": "no respaldado: «Funcionarios estatales demandados» no está entre los descartados del pool",
+   "ids": [
+    "D19",
+    "D23",
+    "D24",
+    "D25",
+    "Q09"
+   ]
+  },
+  {
+   "que": "[cifras] Sujeción física de una residente en junio de 1976",
+   "motivo": "no respaldado: cifra 1976651",
+   "ids": [
+    "T32"
+   ]
+  },
+  {
+   "que": "[cifras] Sujeción física de la misma residente en agosto de 1976",
+   "motivo": "no respaldado: cifra 1976720",
+   "ids": [
+    "T33"
+   ]
+  },
+  {
+   "que": "[cifras] Sujeción física de la misma residente en septiembre de 1976",
+   "motivo": "no respaldado: cifra 1976674",
+   "ids": [
+    "T34"
+   ]
+  },
+  {
+   "que": "[cifras] Sujeción física de la misma residente en octubre de 1976",
+   "motivo": "no respaldado: cifra 1976647",
+   "ids": [
+    "T35"
+   ]
+  },
+  {
+   "que": "[cifras] Tiempo diario que la residente podía pasar sin sujeciones tras comenzar terapia",
+   "motivo": "no respaldado: cifra 4",
+   "ids": [
+    "T39"
+   ]
+  },
+  {
+   "que": "[cifras] Lesiones menores reportadas en enero de 1977",
+   "motivo": "no respaldado: cifra 1977833",
+   "ids": [
+    "T40"
+   ]
+  },
+  {
+   "que": "[cifras] Muerte atribuida al empleo de sujeciones en la recapitulación judicial, no total de muertes de Pennhurst",
+   "motivo": "no respaldado: cifra 1",
+   "ids": [
+    "D17"
+   ]
+  },
+  {
+   "que": "[cifras] Muerte descrita después del empujón de un residente a otro, sin información para sumarla a otros registros",
+   "motivo": "no respaldado: cifra 1",
+   "ids": [
+    "D193"
+   ]
+  },
+  {
+   "que": "[cifras] Mejora del grupo que permaneció en Pennhurst en la misma comparación",
+   "motivo": "no respaldado: cifra 1",
+   "ids": [
+    "D93"
+   ]
+  },
+  {
+   "que": "[cifras] Visitas en que Marion Caranfa encontró a George sin lesiones durante el período declarado",
+   "motivo": "no respaldado: cifra 4",
+   "ids": [
+    "P36"
+   ]
+  },
+  {
+   "que": "[cifras] Período de visitas semanales descrito por Marion Caranfa",
+   "motivo": "no respaldado: cifra 7",
+   "ids": [
+    "P36"
+   ]
+  },
+  {
+   "que": "[cronologia] Joan deja Pennhurst, donde vivía desde mayo de 1969.",
+   "motivo": "no respaldado: fecha 1980-06",
+   "ids": [
+    "P20"
+   ]
+  },
+  {
+   "que": "Esterilización como práctica demostrada de Pennhurst.",
+   "motivo": "D219 la afirma como propósito en una fuente promocional, pero el pool no aporta procedimientos, víctimas ni documentación que permitan presentarla como práctica comprobada.",
+   "ids": [
+    "D219"
+   ]
+  },
+  {
+   "que": "Capacidad de 1300 residentes y ocupación superior al doble en 1974 como cifras rectoras.",
+   "motivo": "Proceden de un único resumen sin registro de población que las sostenga; no se usan para sustituir los recuentos documentados de otros momentos.",
+   "ids": [
+    "D220",
+    "T23"
+   ]
+  },
+  {
+   "que": "Duración de casi cien años de funcionamiento.",
+   "motivo": "La formulación no encaja con las fechas de apertura y cierre aportadas por el propio pool; se conservan las fechas, no esa magnitud.",
+   "ids": [
+    "D206",
+    "T02",
+    "T106"
+   ]
+  },
+  {
+   "que": "Declaración de un derecho comunitario por primera vez como conclusión jurídica definitiva.",
+   "motivo": "La frase promocional no identifica con precisión el fallo y simplifica una trayectoria de apelaciones y fundamentos revisados.",
+   "ids": [
+    "D221",
+    "Q37",
+    "T63",
+    "T99"
+   ]
+  },
+  {
+   "que": "Versión completa de Q04 como una sola cita respaldada por su evidencia.",
+   "motivo": "El pasaje mostrado en Q04 solo contiene la primera parte; el deterioro de habilidades tiene apoyo separado en D03 y no debe añadirse como continuación verificada del mismo extracto.",
+   "ids": [
+    "Q04",
+    "D03",
+    "D14"
+   ]
+  },
+  {
+   "que": "Extensiones de Q10, Q13 y Q18 que no aparecen en sus respectivos pasajes.",
+   "motivo": "Los textos de los ítems incluyen oraciones ausentes de la evidencia mostrada; no se reproducen esas versiones extensas.",
+   "ids": [
+    "Q10",
+    "Q13",
+    "Q18"
+   ]
+  },
+  {
+   "que": "Q34 a Q36 y Q38 a Q41 como citas directas de testigos.",
+   "motivo": "Son paráfrasis o narración secundaria; los hechos pertinentes se conservan con esa atribución, no como palabras textuales.",
+   "ids": [
+    "Q34",
+    "Q35",
+    "Q36",
+    "Q38",
+    "Q39",
+    "Q40",
+    "Q41"
+   ]
+  },
+  {
+   "que": "Fecha de mediados de 1984 y causas de muerte añadidas al recuento de D95.",
+   "motivo": "El pasaje reproducido no fecha el corte ni atribuye causas; sus fallecimientos no equivalen a un total de víctimas mortales del abuso.",
+   "ids": [
+    "D95"
+   ]
+  },
+  {
+   "que": "Fecha exacta de publicación asignada a D32 y año asignado a la comparación de servicios de D94.",
+   "motivo": "Esas precisiones temporales no aparecen en los pasajes reproducidos.",
+   "ids": [
+    "D32",
+    "D94"
+   ]
+  },
+  {
+   "que": "Tamaño de muestra de 207 personas en las comparaciones de medicación.",
+   "motivo": "La cifra aparece en el resumen de los ítems, pero no expresamente en sus pasajes; no se reconstruye a partir de la estadística.",
+   "ids": [
+    "D99",
+    "D100"
+   ]
+  },
+  {
+   "que": "Los dos porcentajes del 19 % agrupados en D139 como si midieran lo mismo.",
+   "motivo": "Un pasaje mide acuerdo con el término desinstitucionalización y el otro acuerdo firme con una colocación; no son versiones intercambiables de un conteo.",
+   "ids": [
+    "D139"
+   ]
+  },
+  {
+   "que": "Youngberg v. Romeo, In re Joseph Schmidt, April Sauers y litigios de otros estados como subtramas.",
+   "motivo": "Son contexto jurídico comparativo; se evita convertirlos en parte de la demanda de Halderman o atribuir sus hechos a ella.",
+   "ids": [
+    "P10",
+    "P11",
+    "P15",
+    "D51",
+    "D66",
+    "D75",
+    "T19",
+    "T65"
+   ]
+  },
+  {
+   "que": "David D. Gregory, Eugene Bardach, Arnold Toynbee y sus citas generales o sobre otros litigios.",
+   "motivo": "No intervienen en los acontecimientos centrales de Pennhurst y sus formulaciones no añaden evidencia del caso.",
+   "ids": [
+    "P44",
+    "P45",
+    "P46",
+    "Q11",
+    "Q12",
+    "Q19"
+   ]
+  },
+  {
+   "que": "Terry Perl y William Snauffer como personajes de la historia.",
+   "motivo": "El pool sí documenta su contratación como consultores, pero su intervención corresponde al diseño metodológico y no es necesaria para el arco del caso.",
+   "ids": [
+    "T51",
+    "D120",
+    "D121",
+    "D122"
+   ]
+  },
+  {
+   "que": "Detalles técnicos de instrumentos, conglomerados y selección estadística.",
+   "motivo": "Se conservan los resultados pertinentes y sus límites, no un desarrollo metodológico que desplazaría la historia humana y judicial.",
+   "ids": [
+    "T11",
+    "T49",
+    "T52",
+    "D109",
+    "D110",
+    "D119",
+    "D124",
+    "D128"
+   ]
+  },
+  {
+   "que": "Susan como candidata central.",
+   "motivo": "Salió antes del litigio y el pool no ofrece un arco individual suficientemente desarrollado para desplazar a los candidatos seleccionados.",
+   "ids": [
+    "P23",
+    "D130",
+    "D131"
+   ]
+  },
+  {
+   "que": "Dr. Ziring como personaje central.",
+   "motivo": "Su intervención sobre medicación está documentada, pero no presenta un arco ni una decisión indispensable para esta ficha narrativa.",
+   "ids": [
+    "P14",
+    "L11"
+   ]
+  },
+  {
+   "que": "Dirección de correo personal de James Conroy y procedimientos de acceso a expedientes.",
+   "motivo": "Son información de contacto y gestión archivística, no acontecimientos del caso.",
+   "ids": [
+    "D161",
+    "D162",
+    "D163",
+    "D164",
+    "D165",
+    "D167"
+   ]
+  },
+  {
+   "que": "Dee Katovitch y Jim Barnes como personajes narrativos.",
+   "motivo": "Sus menciones corresponden a agradecimientos y permisos posteriores, sin actuación en los hechos centrales.",
+   "ids": [
+    "L24",
+    "D236"
+   ]
+  },
+  {
+   "que": "[descartados] M.H., Jennifer Howse, Michael Lottman y Tyler Stump.",
+   "motivo": "no respaldado: sin ids",
+   "ids": []
+  },
+  {
+   "que": "Valoraciones generales sobre gente malvada o ausencia de intenciones malvadas.",
+   "motivo": "Son interpretaciones editoriales de F12 y no hallazgos sobre la intención individual de todos los responsables.",
+   "ids": [
+    "D179"
+   ]
+  }
+ ],
+ "historia": {
+  "humanos_candidatos": [
+   {
+    "nombre": "Terri Lee Halderman",
+    "rol": "Residente y demandante original; sin cita directa verificada en el pool.",
+    "arco": "Ingresa mientras aprende a hablar → pierde sus habilidades verbales y acumula lesiones registradas → pasa a ser la demandante que da nombre al litigio, sin que el pool documente su destino personal final.",
+    "ids": [
+     "P01",
+     "T10",
+     "D18",
+     "D194",
+     "T25"
+    ],
+    "citas_verificadas": 0
+   },
+   {
+    "nombre": "Roland Johnson",
+    "rol": "Exresidente y narrador posterior de la experiencia institucional; los pasajes ofrecidos son paráfrasis, no citas directas verificadas de su libro.",
+    "arco": "Ingresa por problemas de cuidado en casa y la promesa de atención permanente → atraviesa experiencias que la reseña describe como traumáticas → sale de Pennhurst y contribuye a dar a conocer lo vivido mediante su relato.",
+    "ids": [
+     "P41",
+     "D212",
+     "D213",
+     "D214",
+     "D215",
+     "D216",
+     "D217"
+    ],
+    "citas_verificadas": 0
+   },
+   {
+    "nombre": "Steve",
+    "rol": "Exresidente entrevistado tras el traslado comunitario.",
+    "arco": "Entra en el seguimiento después de una larga vida en Pennhurst que recuerda como feliz → se muda a un hogar grupal → se declara aún más feliz y pide seguir viviendo con personas amables.",
+    "ids": [
+     "P18",
+     "D102",
+     "Q15"
+    ],
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Bruce",
+    "rol": "Exresidente entrevistado sobre la diferencia entre la institución y su nuevo hogar.",
+    "arco": "Crece en Pennhurst → se traslada a un hogar grupal con menos gente y otros horarios → quiere quedarse porque lo siente más como un hogar.",
+    "ids": [
+     "P19",
+     "D103",
+     "Q16",
+     "Q17"
+    ],
+    "citas_verificadas": 2
+   }
+  ],
+  "giros": [
+   {
+    "orden": 1,
+    "que_cambia": "La investigación televisiva de Baldini convierte las condiciones internas en un asunto público.",
+    "ids": [
+     "T12",
+     "T14",
+     "D168"
+    ]
+   },
+   {
+    "orden": 2,
+    "que_cambia": "La demanda de Halderman lleva el reclamo desde la denuncia pública hasta una acción judicial que busca medidas de reparación y daños monetarios.",
+    "ids": [
+     "T25",
+     "T26",
+     "D02"
+    ]
+   },
+   {
+    "orden": 3,
+    "que_cambia": "Los hallazgos del Tribunal de Distrito establecen que Pennhurst no proporciona cuidados y habilitación apropiados.",
+    "ids": [
+     "T36",
+     "D33",
+     "D14",
+     "D26"
+    ]
+   },
+   {
+    "orden": 4,
+    "que_cambia": "La orden de Broderick transforma el diagnóstico institucional en un mandato de servicios comunitarios y supervisión judicial.",
+    "ids": [
+     "T44",
+     "T45",
+     "D05",
+     "D06"
+    ]
+   },
+   {
+    "orden": 5,
+    "que_cambia": "La Corte Suprema limita la intervención del tribunal federal basada en la ley estatal, pese a los hallazgos sobre las condiciones de la institución.",
+    "ids": [
+     "T99",
+     "D72",
+     "Q02",
+     "Q03"
+    ]
+   },
+   {
+    "orden": 6,
+    "que_cambia": "Las partes anuncian un consenso para el cierre y la atención comunitaria, aunque las fuentes no coinciden en la fecha de formalización del acuerdo.",
+    "ids": [
+     "T101",
+     "T102",
+     "D45",
+     "T104"
+    ]
+   }
+  ],
+  "pico": {
+   "que": "El registro de una residente sometida a 720 horas de sujeción física durante agosto de 1976.",
+   "por_que": "Es el extremo documentado del control que sustituye al cuidado: el mismo relato describe autolesiones que la dejaron ciega y una terapia ocupacional que solo comenzó después, sin precisar cuándo ocurrió la pérdida de visión.",
+   "ids": [
+    "T33",
+    "D184",
+    "D186",
+    "T39"
+   ]
+  },
+  "pregunta_final": {
+   "pregunta": "¿Qué responsabilidades individuales llegaron a establecerse por los abusos y las muertes documentadas, más allá de las órdenes de traslado y del cierre de Pennhurst?",
+   "ids": [
+    "D16",
+    "D17",
+    "D24",
+    "D50",
+    "D193",
+    "T106"
+   ]
+  }
+ },
+ "chequeo": {
+  "sacados": [
+   {
+    "que": "[personas_descartadas] Sr. Harris",
+    "motivo": "no respaldado: «Sr. Harris» no está entre los descartados del pool",
+    "ids": [
+     "D116",
+     "L18"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Sr. Harris",
+     "rol": "Padre de Joan.",
+     "motivo": "Hace falta para explicar la preocupación familiar por la regresión de Joan y la gestión de su evaluación médica, aunque el pool no dé su nombre de pila.",
+     "ids": [
+      "D116",
+      "L18"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Sra. Harris",
+    "motivo": "no respaldado: «Sra. Harris» no está entre los descartados del pool",
+    "ids": [
+     "D116",
+     "L18"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Sra. Harris",
+     "rol": "Madre de Joan.",
+     "motivo": "Hace falta para contar la intervención de la familia en el seguimiento de Joan; carecer de nombre de pila no elimina su actuación documentada.",
+     "ids": [
+      "D116",
+      "L18"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Justice Blackmun",
+    "motivo": "no respaldado: sus ids no nombran a «Justice Blackmun»",
+    "ids": [
+     "P03",
+     "P04"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Justice Blackmun",
+     "rol": "Juez de la Corte Suprema de Estados Unidos.",
+     "motivo": "La evidencia sí le atribuye una acción: sumarse a la disidencia de Stevens.",
+     "ids": [
+      "P03",
+      "P04"
+     ]
+    }
+   },
+   {
+    "que": "[personas_descartadas] Funcionarios estatales demandados",
+    "motivo": "no respaldado: «Funcionarios estatales demandados» no está entre los descartados del pool",
+    "ids": [
+     "D19",
+     "D23",
+     "D24",
+     "D25",
+     "Q09"
+    ],
+    "seccion": "personas_descartadas",
+    "item": {
+     "nombre": "Funcionarios estatales demandados",
+     "rol": "Peticionarios y responsables institucionales cuya actuación e inmunidad se discutieron.",
+     "motivo": "El conflicto sobre los deberes, el cumplimiento y la responsabilidad no puede contarse sin identificar a este colectivo procesal, aunque no todos tengan nombre propio.",
+     "ids": [
+      "D19",
+      "D23",
+      "D24",
+      "D25",
+      "Q09"
+     ]
+    }
+   },
+   {
+    "que": "[cifras] Sujeción física de una residente en junio de 1976",
+    "motivo": "no respaldado: cifra 1976651",
+    "ids": [
+     "T32"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Sujeción física de una residente en junio de 1976",
+     "valor": "651 horas y 5 minutos",
+     "unidad": "tiempo de sujeción física",
+     "fuente": "F12@5054.",
+     "ids": [
+      "T32"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Sujeción física de la misma residente en agosto de 1976",
+    "motivo": "no respaldado: cifra 1976720",
+    "ids": [
+     "T33"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Sujeción física de la misma residente en agosto de 1976",
+     "valor": "720",
+     "unidad": "horas de sujeción física",
+     "fuente": "F12@5183.",
+     "ids": [
+      "T33"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Sujeción física de la misma residente en septiembre de 1976",
+    "motivo": "no respaldado: cifra 1976674",
+    "ids": [
+     "T34"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Sujeción física de la misma residente en septiembre de 1976",
+     "valor": "674 horas y 20 minutos",
+     "unidad": "tiempo de sujeción física",
+     "fuente": "F12@5256.",
+     "ids": [
+      "T34"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Sujeción física de la misma residente en octubre de 1976",
+    "motivo": "no respaldado: cifra 1976647",
+    "ids": [
+     "T35"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Sujeción física de la misma residente en octubre de 1976",
+     "valor": "647 horas y 5 minutos",
+     "unidad": "tiempo de sujeción física",
+     "fuente": "F12@5333.",
+     "ids": [
+      "T35"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Tiempo diario que la residente podía pasar sin sujeciones tras comenzar terapia",
+    "motivo": "no respaldado: cifra 4",
+    "ids": [
+     "T39"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Tiempo diario que la residente podía pasar sin sujeciones tras comenzar terapia",
+     "valor": "hasta 4",
+     "unidad": "horas por día",
+     "fuente": "F12@5534.",
+     "ids": [
+      "T39"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Lesiones menores reportadas en enero de 1977",
+    "motivo": "no respaldado: cifra 1977833",
+    "ids": [
+     "T40"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Lesiones menores reportadas en enero de 1977",
+     "valor": "833",
+     "unidad": "lesiones menores",
+     "fuente": "F12@8135, con referencia a la declaración de Youngberg.",
+     "ids": [
+      "T40"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Muerte atribuida al empleo de sujeciones en la recapitulación judicial, no total de muertes de Pennhurst",
+    "motivo": "no respaldado: cifra 1",
+    "ids": [
+     "D17"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Muerte atribuida al empleo de sujeciones en la recapitulación judicial, no total de muertes de Pennhurst",
+     "valor": "1",
+     "unidad": "persona fallecida",
+     "fuente": "F05@93611.",
+     "ids": [
+      "D17"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Muerte descrita después del empujón de un residente a otro, sin información para sumarla a otros registros",
+    "motivo": "no respaldado: cifra 1",
+    "ids": [
+     "D193"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Muerte descrita después del empujón de un residente a otro, sin información para sumarla a otros registros",
+     "valor": "1",
+     "unidad": "persona fallecida",
+     "fuente": "F12@7989.",
+     "ids": [
+      "D193"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Mejora del grupo que permaneció en Pennhurst en la misma comparación",
+    "motivo": "no respaldado: cifra 1",
+    "ids": [
+     "D93"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Mejora del grupo que permaneció en Pennhurst en la misma comparación",
+     "valor": "menos de 1",
+     "unidad": "punto de comportamiento adaptativo",
+     "fuente": "F02@169103.",
+     "ids": [
+      "D93"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Visitas en que Marion Caranfa encontró a George sin lesiones durante el período declarado",
+    "motivo": "no respaldado: cifra 4",
+    "ids": [
+     "P36"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Visitas en que Marion Caranfa encontró a George sin lesiones durante el período declarado",
+     "valor": "4",
+     "unidad": "ocasiones",
+     "fuente": "F12@12010.",
+     "ids": [
+      "P36"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Período de visitas semanales descrito por Marion Caranfa",
+    "motivo": "no respaldado: cifra 7",
+    "ids": [
+     "P36"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Período de visitas semanales descrito por Marion Caranfa",
+     "valor": "7",
+     "unidad": "años",
+     "fuente": "F12@12010.",
+     "ids": [
+      "P36"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cronologia] Joan deja Pennhurst, donde vivía desde mayo de 1969.",
+    "motivo": "no respaldado: fecha 1980-06",
+    "ids": [
+     "P20"
+    ],
+    "seccion": "cronologia",
+    "item": {
+     "fecha": "1980-06",
+     "hora": "",
+     "evento": "Joan deja Pennhurst, donde vivía desde mayo de 1969.",
+     "aproximada": false,
+     "ids": [
+      "P20"
+     ]
+    }
+   },
+   {
+    "que": "[descartados] M.H., Jennifer Howse, Michael Lottman y Tyler Stump.",
+    "motivo": "no respaldado: sin ids",
+    "ids": [],
+    "seccion": "descartados",
+    "item": {
+     "que": "M.H., Jennifer Howse, Michael Lottman y Tyler Stump.",
+     "motivo": "Solo figuran en la lista de descartados y no hay ítems de evidencia del pool que permitan recuperarlos responsablemente.",
+     "ids": []
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,779 @@
+{
+ "fuentes": [
+  {
+   "url": "https://www.youtube.com/watch?v=kFOBVjJxAWA",
+   "titulo": "Suffer The Little Children (1968)",
+   "tipo": "documental",
+   "anio": 1968,
+   "idioma": "en",
+   "por_que": "Es el documental de investigación original del reportero Bill Baldini que expuso por primera vez las condiciones deplorables de Pennhurst al público.",
+   "prioridad": 1,
+   "url_modelo": "https://www.youtube.com/watch?v=S9e4s-SgS4c",
+   "match": "similar 0.50",
+   "grounding_title": "youtube.com",
+   "id": "F01",
+   "slug": "youtube_1968_suffer_the_little_children_1968-F01"
+  },
+  {
+   "url": "https://aspe.hhs.gov/reports/pennhurst-longitudinal-study-combined-report-five-years-research-analysis-0",
+   "titulo": "The Pennhurst Longitudinal Study: Combined Report of Five Years of Research and Analysis",
+   "tipo": "informe_oficial",
+   "anio": 1985,
+   "idioma": "en",
+   "por_que": "Informe gubernamental que analiza el impacto de la desinstitucionalización de los residentes de Pennhurst, proporcionando datos y análisis a largo plazo.",
+   "prioridad": 1,
+   "url_modelo": "https://aspe.hhs.gov/reports/pennhurst-longitudinal-study-combined-report-five-years-research-analysis",
+   "match": "exacta",
+   "grounding_title": "hhs.gov",
+   "id": "F02",
+   "slug": "hhs_1985_the_pennhurst_longitudinal_study_combined-F02"
+  },
+  {
+   "url": "https://disabilities.temple.edu/programs-services/media-arts-culture/file-life-stories/about-file-life-stories",
+   "titulo": "File/Life: We Remember Stories of Pennhurst",
+   "tipo": "testimonio",
+   "anio": 2023,
+   "idioma": "en",
+   "por_que": "Proyecto de historia oral que se centra en las historias de vida de los residentes a través de la exploración de sus archivos personales, con la participación de ex-residentes.",
+   "prioridad": 1,
+   "url_modelo": "https://disabilities.temple.edu/programs-services/media-arts-culture/file-life-stories/",
+   "match": "exacta",
+   "grounding_title": "temple.edu",
+   "id": "F03",
+   "slug": "temple_2023_file_life_we_remember_stories-F03"
+  },
+  {
+   "url": "https://archive.org/details/micro_IA40385006_2214",
+   "titulo": "Documento histórico sobre Pennhurst en Internet Archive",
+   "tipo": "informe_oficial",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Potencialmente una fuente primaria o un informe detallado sobre el asilo.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "archive.org",
+   "id": "F04",
+   "slug": "archive_documento_historico_sobre_pennhurst_en-F04"
+  },
+  {
+   "url": "https://www.govinfo.gov/app/details/USREPORTS-465/USREPORTS-465-89",
+   "titulo": "Pennhurst State School & Hospital v. Halderman, 465 U.S. 89 (1984)",
+   "tipo": "fallo_judicial",
+   "anio": 1984,
+   "idioma": "en",
+   "por_que": "Documento oficial de la Corte Suprema de EE. UU. sobre el caso Pennhurst, una fuente legal primaria.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "govinfo.gov",
+   "id": "F05",
+   "slug": "govinfo_1984_pennhurst_state_school_hospital_v-F05"
+  },
+  {
+   "url": "https://pubintlaw.org/wp-content/uploads/2012/04/Pennhurst_Settle.pdf",
+   "titulo": "Acuerdo de conciliación del caso Pennhurst (PDF)",
+   "tipo": "fallo_judicial",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Documento legal primario del acuerdo final del caso Pennhurst.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "pubintlaw.org",
+   "id": "F06",
+   "slug": "pubintlaw_acuerdo_de_conciliacion_del_caso-F06"
+  },
+  {
+   "url": "https://asdnext.org/blog/black-history-and-disability/",
+   "titulo": "Black History and Disability - Roland Johnson",
+   "tipo": "testimonio",
+   "anio": 2019,
+   "idioma": "en",
+   "por_que": "Se centra en la experiencia de un residente afroamericano, Roland Johnson, y su libro 'Lost in a Desert World', destacando la perspectiva de las minorías.",
+   "prioridad": 2,
+   "url_modelo": "https://asdnext.org/black-history-and-disability-roland-johnson/",
+   "match": "similar 0.75",
+   "grounding_title": "asdnext.org",
+   "id": "F07",
+   "slug": "asdnext_2019_black_history_and_disability_roland-F07"
+  },
+  {
+   "url": "http://www.preservepennhurst.org/default.aspx?pg=1611",
+   "titulo": "Información histórica sobre Pennhurst (Página 1611)",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Contenido específico de un sitio web dedicado a preservar la historia de Pennhurst.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "preservepennhurst.org",
+   "id": "F08",
+   "slug": "preservepennhurst_informacion_historica_sobre_pennhurst_pagi-F08"
+  },
+  {
+   "url": "https://tv.apple.com/us/movie/pennhurst/umc.cmc.5kv8b7ukl9izc7mx6e5u35k4w",
+   "titulo": "Pennhurst (Película/Documental en Apple TV)",
+   "tipo": "documental",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Documental sobre el tema de Pennhurst.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "apple.com",
+   "id": "F09",
+   "slug": "apple_pennhurst_pelicula_documental_en_apple-F09"
+  },
+  {
+   "url": "https://disabilityjustice.org/basic-legal-rights/pennhurst/",
+   "titulo": "Pennhurst y Derechos Legales Básicos (Disability Justice)",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Ofrece contexto sobre el caso Pennhurst en relación con los derechos de las personas con discapacidad.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "disabilityjustice.org",
+   "id": "F10",
+   "slug": "disabilityjustice_pennhurst_y_derechos_legales_basicos-F10"
+  },
+  {
+   "url": "http://pennhurstproject.com/Welcome.html",
+   "titulo": "Página de bienvenida de The Pennhurst Project",
+   "tipo": "testimonio",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Introducción a un proyecto que recopila testimonios relacionados con Pennhurst.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "pennhurstproject.com",
+   "id": "F11",
+   "slug": "pennhurstproject_pagina_de_bienvenida_de_the-F11"
+  },
+  {
+   "url": "http://www.preservepennhurst.org/default.aspx?pg=36",
+   "titulo": "Información histórica sobre Pennhurst (Página 36)",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Contenido específico de un sitio web dedicado a preservar la historia de Pennhurst.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "preservepennhurst.org",
+   "id": "F12",
+   "slug": "preservepennhurst_informacion_historica_sobre_pennhurst_pagi-F12"
+  },
+  {
+   "url": "https://www.oyez.org/cases/1980/79-1404",
+   "titulo": "Caso Pennhurst State School and Hospital v. Halderman (Oyez, 1981)",
+   "tipo": "academico",
+   "anio": 1981,
+   "idioma": "en",
+   "por_que": "Análisis y recursos sobre una decisión clave de la Corte Suprema relacionada con Pennhurst.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "oyez.org",
+   "id": "F13",
+   "slug": "oyez_1981_caso_pennhurst_state_school_and-F13"
+  },
+  {
+   "url": "http://www.preservepennhurst.org/default.aspx?pg=35",
+   "titulo": "Información histórica sobre Pennhurst (Página 35)",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Contenido específico de un sitio web dedicado a preservar la historia de Pennhurst.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "preservepennhurst.org",
+   "id": "F14",
+   "slug": "preservepennhurst_informacion_historica_sobre_pennhurst_pagi-F14"
+  },
+  {
+   "url": "https://mn.gov/mnddc/parallels2/one/sidebar/040a.html",
+   "titulo": "Historia del caso Pennhurst (MN Disability Council)",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Contribución de un consejo de discapacidad sobre la historia y el impacto del caso Pennhurst.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "mn.gov",
+   "id": "F15",
+   "slug": "mn_historia_del_caso_pennhurst_mn-F15"
+  },
+  {
+   "url": "https://www.californialawreview.org/print/the-pennhurst-doctrines-and-the-lost-disability-history-of-the-new-federalism",
+   "titulo": "Las Doctrinas Pennhurst y la historia perdida de la discapacidad (California Law Review)",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Artículo de revisión de derecho que explora las implicaciones legales e históricas del caso Pennhurst.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "californialawreview.org",
+   "id": "F16",
+   "slug": "californialawreview_las_doctrinas_pennhurst_y_la-F16"
+  },
+  {
+   "url": "https://www.law.cornell.edu/supremecourt/text/451/1",
+   "titulo": "Pennhurst State School and Hospital v. Halderman (1981) - Cornell Law School",
+   "tipo": "fallo_judicial",
+   "anio": 1981,
+   "idioma": "en",
+   "por_que": "Texto completo del fallo de la Corte Suprema de 1981, proporcionando una fuente primaria legal alternativa para el mismo documento.",
+   "prioridad": 3,
+   "url_modelo": "https://www.law.cornell.edu/supremecourt/text/451/1",
+   "match": "exacta",
+   "grounding_title": "cornell.edu",
+   "id": "F17",
+   "slug": "cornell_1981_pennhurst_state_school_and_hospital-F17"
+  },
+  {
+   "url": "http://www.preservepennhurst.org/Uploads/PPHUploads/PdfUpload/Pennhurst1950-compressed.pdf",
+   "titulo": "Pennhurst State School Brochure",
+   "tipo": "informe_oficial",
+   "anio": 1954,
+   "idioma": "en",
+   "por_que": "Folleto oficial de la institución de los años 50 que presenta la visión idealizada del centro, contrastando fuertemente con la realidad documentada posteriormente.",
+   "prioridad": 3,
+   "url_modelo": "http://www.preservepennhurst.org/Uploads/PPHUploads/PdfUpload/PH_1954_brochure.pdf",
+   "match": "similar 0.75",
+   "grounding_title": "preservepennhurst.org",
+   "id": "F18",
+   "slug": "preservepennhurst_1954_pennhurst_state_school_brochure-F18"
+  },
+  {
+   "url": "https://billypenn.com/2023/07/14/pennhurst-asylum-history-disability-law-pennsylvania/",
+   "titulo": "The real-life horror story of Pennhurst, an asylum so terrible it forced changes in disability law",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "idioma": "en",
+   "por_que": "Artículo de prensa local posterior que resume la historia completa, desde el documental de Baldini hasta el cierre y el legado, conectando los eventos históricos con su impacto actual.",
+   "prioridad": 3,
+   "url_modelo": "https://billypenn.com/2023/07/14/pennhurst-asylum-pennsylvania-history-disability-law-halderman/",
+   "match": "exacta",
+   "grounding_title": "billypenn.com",
+   "id": "F19",
+   "slug": "billypenn_2023_the_real_life_horror_story-F19"
+  },
+  {
+   "url": "https://www.3da.org/post/pennhurst-v-halderman-1981",
+   "titulo": "Análisis de Pennhurst v. Halderman (1981) por 3da.org",
+   "tipo": "academico",
+   "anio": 2024,
+   "idioma": "en",
+   "por_que": "Un análisis académico del caso judicial clave de Pennhurst.",
+   "prioridad": 3,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "3da.org",
+   "id": "F20",
+   "slug": "3da_2024_analisis_de_pennhurst_v_halderman-F20"
+  }
+ ],
+ "_descartadas": [
+  {
+   "url": "https://www.disabilityjustice.org/halderman-v-pennhurst-state-school-and-hospital/",
+   "titulo": "Halderman v. Pennhurst State School and Hospital",
+   "tipo": "fallo_judicial",
+   "anio": 1974,
+   "idioma": "en",
+   "por_que": "Resume el fallo judicial que llevó al cierre de Pennhurst, detallando las violaciones de derechos constitucionales y las condiciones inhumanas.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.disability-memorials.org/share-your-pennhurst-memories",
+   "titulo": "Share your Pennhurst Memories",
+   "tipo": "testimonio",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Recopilación de testimonios directos de personas que vivieron o trabajaron en Pennhurst, ofreciendo relatos personales de los abusos y la vida en la institución.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.disabilitymuseum.org/dhm/lib/detail.html?id=2333",
+   "titulo": "Lost In A Desert World",
+   "tipo": "testimonio",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Testimonio en primera persona de Roland Johnson, un ex-residente que se convirtió en un líder del movimiento de autogestión de personas con discapacidad.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.thepennhurstproject.com/",
+   "titulo": "The Pennhurst Project",
+   "tipo": "testimonio",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Proyecto dedicado a archivar las narrativas en primera persona del personal, administradores y residentes para documentar sus experiencias directas.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://justice.touro.edu/wp-content/uploads/2021/01/01-Halderman-v.-Pennhurst-State-School-Hospital-446-F.-Supp.-1295-E.D.-Pa.-1977.pdf",
+   "titulo": "Halderman v. Pennhurst State School & Hospital, 446 F. Supp. 1295 (E.D. Pa. 1977)",
+   "tipo": "fallo_judicial",
+   "anio": 1977,
+   "idioma": "en",
+   "por_que": "Texto completo de una de las decisiones judiciales clave, con hallazgos de hecho detallados sobre las condiciones y abusos en la institución.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.inquirer.com/news/pennhurst-asylum-disability-archives-temple-20230414.html",
+   "titulo": "Uncovering the forgotten lives lost at Pennhurst State School and Hospital",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "idioma": "en",
+   "por_que": "Artículo de prensa que narra la historia de un residente a través de la investigación de archivos, humanizando las estadísticas con un relato personal detallado.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.preservepennhurst.org/about-pennhurst-state-school-and-hospital",
+   "titulo": "About Pennhurst State School and Hospital",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Contiene extractos de los hallazgos de hecho del caso judicial Halderman v. Pennhurst, detallando abusos y negligencia específicos.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.3da.org.uk/pennhurst-v-halderman-1981/",
+   "titulo": "Pennhurst v. Halderman (1981)",
+   "tipo": "academico",
+   "anio": 2024,
+   "idioma": "en",
+   "por_que": "Análisis del caso judicial que detalla los derechos constitucionales violados, como el derecho a la habilitación y a no sufrir daños.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://mn.gov/mnddc/parallels/seven/7d/1.html",
+   "titulo": "The Threads that Came Together in the Pennhurst Case",
+   "tipo": "testimonio",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Basado en entrevistas con figuras clave del caso, ofrece una perspectiva interna sobre los eventos que llevaron al cierre de Pennhurst.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://law.justia.com/cases/federal/district-courts/FSupp/446/1295/2336338/",
+   "titulo": "Halderman v. Pennhurst State School & Hospital, 446 F. Supp. 1295 (E.D. Pa. 1977)",
+   "tipo": "fallo_judicial",
+   "anio": 1977,
+   "idioma": "en",
+   "por_que": "Fallo inicial y fundamental del Juez Broderick que detalla las condiciones inconstitucionales de Pennhurst y establece el derecho a la habilitación en un entorno menos restrictivo.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.preservepennhurst.org/default.aspx?pg=43",
+   "titulo": "About Pennhurst State School and Hospital (Excerpts from Halderman vs. Pennhurst)",
+   "tipo": "testimonio",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Presenta extractos directos de la sección de hechos del fallo judicial, citando testimonios específicos de abuso y negligencia.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://supreme.justia.com/cases/federal/us/465/89/",
+   "titulo": "Pennhurst State School & Hosp. v. Halderman, 465 U.S. 89 (1984)",
+   "tipo": "fallo_judicial",
+   "anio": 1984,
+   "idioma": "en",
+   "por_que": "Decisión de la Corte Suprema que aborda la Undécima Enmienda y limita la capacidad de los tribunales federales para ordenar a los funcionarios estatales que cumplan con la ley estatal.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://supreme.justia.com/cases/federal/us/451/1/",
+   "titulo": "Pennhurst State School and Hospital v. Halderman, 451 U.S. 1 (1981)",
+   "tipo": "fallo_judicial",
+   "anio": 1981,
+   "idioma": "en",
+   "por_que": "Fallo anterior de la Corte Suprema sobre el mismo caso, que interpreta la Ley de Asistencia a Personas con Discapacidades del Desarrollo (Developmentally Disabled Assistance and Bill of Rights Act).",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://disabilityjustice.org/halderman-v-pennhurst-state-school-and-hospital/",
+   "titulo": "Halderman v. Pennhurst State School and Hospital - Disability Justice",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Resumen detallado del caso judicial, que sintetiza los hallazgos del tribunal sobre el abuso, la negligencia y las violaciones de los derechos constitucionales.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.preservepennhurst.org/default.aspx?pg=45",
+   "titulo": "Share your Pennhurst Memories",
+   "tipo": "testimonio",
+   "anio": 2024,
+   "idioma": "en",
+   "por_que": "Colección de testimonios directos y personales de familiares y personas relacionadas con residentes de Pennhurst, ofreciendo relatos de primera mano.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://mn.gov/mnddc/parallels/seven/7d/1.html",
+   "titulo": "The Threads that Came Together in the Pennhurst Case",
+   "tipo": "prensa_posterior",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Relato basado en entrevistas con figuras clave del caso, que narra la historia detrás de la demanda y el rol del periodismo de investigación.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.pilcop.org/wp-content/uploads/2015/07/Pennhurst-Final-Settlement.pdf",
+   "titulo": "Pennhurst Final Settlement Agreement",
+   "tipo": "fallo_judicial",
+   "anio": 1985,
+   "idioma": "en",
+   "por_que": "Documento PDF del acuerdo final que ordenó el cierre de Pennhurst y estableció las obligaciones del estado para con los residentes.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.preservepennhurst.org/default.aspx?pg=130",
+   "titulo": "Research About People Who Lived at Pennhurst",
+   "tipo": "foia",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Explica cómo acceder a los registros de los residentes en los Archivos del Estado de Pensilvania, detallando el proceso bajo las leyes de privacidad.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://thepennhurstproject.com/",
+   "titulo": "The Pennhurst Project",
+   "tipo": "testimonio",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Proyecto dedicado a archivar narrativas en primera persona de personal y residentes, buscando documentar diferentes perspectivas de la vida en la institución.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://law.justia.com/cases/federal/district-courts/FSupp/446/1295/1454273/",
+   "titulo": "Halderman v. Pennhurst State School & Hospital, 446 F. Supp. 1295 (E.D. Pa. 1977)",
+   "tipo": "fallo_judicial",
+   "anio": 1977,
+   "idioma": "en",
+   "por_que": "Texto completo del fallo judicial inicial del Juez Broderick, que detalla las condiciones inhumanas en Pennhurst y establece el derecho constitucional a la habilitación en el entorno menos restrictivo. Es el documento legal primario y más importante.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.preservepennhurst.org/default.aspx?pg=26",
+   "titulo": "Suffer The Little Children",
+   "tipo": "documental",
+   "anio": 1968,
+   "idioma": "en",
+   "por_que": "Página que aloja el documental de televisión de Bill Baldini, la investigación periodística original que expuso los horrores de Pennhurst al público por primera vez con imágenes y testimonios directos de la época.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://disabilities.temple.edu/visionary-voices/bill-baldini/ch-2/",
+   "titulo": "Visionary Voices: Bill Baldini Ch 2 | Exposing Pennhurst",
+   "tipo": "testimonio",
+   "anio": 2017,
+   "idioma": "en",
+   "por_que": "Transcripción de una entrevista en profundidad con el periodista Bill Baldini, donde relata en primera persona cómo fue la investigación, qué vio y el impacto de su documental. Ofrece un testimonio directo del autor de la denuncia original.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.clearinghouse.net/case.php?id=8569",
+   "titulo": "Halderman v. Pennhurst State School & Hospital",
+   "tipo": "fallo_judicial",
+   "anio": 2024,
+   "idioma": "en",
+   "por_que": "Proporciona un resumen detallado y una cronología de todo el litigio, desde 1974 hasta las decisiones posteriores, enlazando a los documentos judiciales clave. Es un excelente índice para entender la batalla legal completa.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://mn.gov/mnddc/parallels/four/4d/5.html",
+   "titulo": "The Threads that Came Together in the Pennhurst Case",
+   "tipo": "academico",
+   "anio": 2006,
+   "idioma": "en",
+   "por_que": "Artículo basado en entrevistas con figuras clave del caso judicial, que narra la confluencia de factores (prensa, activismo, política) que llevaron al cierre de Pennhurst. Aporta el contexto y las voces de los protagonistas del cambio.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://thepennhurstproject.com/",
+   "titulo": "The Pennhurst Project",
+   "tipo": "testimonio",
+   "anio": 2023,
+   "idioma": "en",
+   "por_que": "Proyecto de historia oral dedicado a recopilar y archivar narrativas en primera persona de ex-residentes y personal de Pennhurst, ofreciendo testimonios directos y personales que no se encuentran en documentos oficiales.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.publicinterestlaw.org/wp-content/uploads/2021/08/Pennhurst-Final-Settlement.pdf",
+   "titulo": "Pennhurst Final Settlement Agreement",
+   "tipo": "fallo_judicial",
+   "anio": 1985,
+   "idioma": "en",
+   "por_que": "PDF del acuerdo final de 1985 que selló el destino de Pennhurst, detallando los términos para la reubicación de los residentes en la comunidad. Es el documento legal que concluye el caso.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://journals.ucpress.edu/view/journals/tph/46/1/tph.2024.46.1.133.xml",
+   "titulo": "File/Life: We Remember Stories of Pennhurst. Institute on Disabilities, Temple University",
+   "tipo": "academico",
+   "anio": 2024,
+   "idioma": "en",
+   "por_que": "Reseña académica del proyecto 'File/Life', que describe cómo se utilizaron fuentes primarias de los archivos para construir las narrativas de los residentes, ofreciendo una visión sobre la metodología de la historia oral en este contexto.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.preservepennhurst.org/default.aspx?pg=19",
+   "titulo": "About Pennhurst State School and Hospital",
+   "tipo": "informe_oficial",
+   "anio": 2024,
+   "idioma": "en",
+   "por_que": "Contiene extractos directos de la sección de hechos del fallo judicial de Halderman, citando ejemplos específicos de abuso, negligencia y condiciones peligrosas con fechas y detalles.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://repository.upenn.edu/cgi/viewcontent.cgi?article=1130&context=jlasc",
+   "titulo": "The Pennhurst Doctrines and the Lost Disability History of the “New Federalism”",
+   "tipo": "academico",
+   "anio": 2022,
+   "idioma": "en",
+   "por_que": "Artículo académico en formato PDF que analiza en profundidad el litigio de Pennhurst y su impacto en la ley de discapacidad y el federalismo, citando extensamente los documentos judiciales y el contexto histórico.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFxV4jtUiWfxoPmvkXTNxPmCK4jeeA1xlVvMDo2howOTVoPcN7CcZgB3ftW6BLHJwPLnlAMfW9Y9LRDxn2NBqaEx0ZmnuNHbW-rotNNy447rA4iJLOf3Ay0XWMwCK5q6aMc31BXlbC-5FEz7nt0y45JM1abKqbJk9Gg",
+   "titulo": "The History of Pennhurst: From State School to Disability Rights Landmark - VISTA.Today",
+   "tipo": "prensa_posterior",
+   "anio": 2026,
+   "idioma": "en",
+   "por_que": "Article reviewing the history of Pennhurst, including the Baldini documentary and the Halderman lawsuit.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhgAIkaXGq-dEFBbZNkKoT3nJ9gH26lk3bGpXLwW18ZZVwFBDd5EYp8verCt0m7jcHKAkFs9ckPQFCdE2Y4rRAhwTdF7QPd8Xj3FIneVO1UyYczms_Pi2HQmFSYCDkBogV6cE4c0-r0_DK3HXz6dxmQw85ddN9DG-uNsuaH1DEUVkO9V1eJpf8zUjwWizBGvPSIBmiZ0eRRHGTrH1qG2MDvole",
+   "titulo": "The Pennhurst Longitudinal Study: Combined Report of Five Years of Research and Analysis - HHS ASPE",
+   "tipo": "academico",
+   "anio": 1985,
+   "idioma": "en",
+   "por_que": "Academic report on the Pennhurst Longitudinal Study, detailing the impact of deinstitutionalization following the Halderman v. Pennhurst case.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEHkZNZMm6C3rXq3SvoUL7-gnMBzMTXYcc5rImGQJuZq2rxYLAiSE8sZHm-trmm3Tek9W0w1fmtc1QM73l5hfb8XhoTC6dZdT1MooQTE2i9WjbmRYeazznO6y4VbvdVPHvZYGwFiGk2jCLMXPqMpAkOtVvJCic3DA1r67FgDLRW5TCRnJuiM-tVUgCHy8uau1KQNglBCGLwGk0DebMjfS8M5C_JQNgPq7IJFKNv3Zt5EhDCTQpuyoGr9aIFuiPSwzIdJHrO4rgY4rLOPQ==",
+   "titulo": "“The Shame of Pennsylvania”: Public Memory, Local News, and Institutionalization's Contested Past - ResearchGate",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Academic paper analyzing news coverage of 'Pennhurst Asylum' in 2010-2011, focusing on public memory.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEMAUvwzBpdK66rvw7r3BPGS1c8TCzo01re_UMFoaFqZOszFdrU9IRQFYInSPnYVv9o4GHqkaCWCQpPv-zV3eEknga2vWKO8LIU6kiynPHV02Zy6J17dTZyY5qZX2rbL8s7OpigxE0xjrGkdmCAYLV2UVYu8DGN-TfNdTxXAxLqsfGddplbyv0a68M8SrCbIPx0auCHKuTZtHbezmFr9I0YBbTABG5s-UFwUbCquzh7OA==",
+   "titulo": "Uncovering the forgotten lives lost at Pennhurst State School and Hospital - The Philadelphia Inquirer",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "idioma": "en",
+   "por_que": "Article from The Philadelphia Inquirer discussing the history of Pennhurst and a project centering individual voices.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHejaKFew8aKO3h2Da4IPvtte_sPftjH3sv9min-vqoSOd75pZ772zQpncE-RR-G1yukHkhooL3quA_oWmh_IVrYlnppgV7St9kOOIKPzQyoz_CvUz4Y1xpoQ0STFW2UyVZeoz5THeCS-N_Q45yZc80AtSP9npqv0nQ0te-UCKJz2d_yH2BFPWkdiOUcgjVsXTg",
+   "titulo": "Temple University's Intellectual Disability Collections",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Describes Temple University's collections related to intellectual disability history, including materials on Halderman v. Pennhurst and Baldini's documentary.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG97i2K5D4WOr-jHoklOlpm7KOLP9WD3xMZEDiR7XBwKol_MTBs_yJeibOktQnTy5OzrEo4I7FJp1PeUc92uHO0EarzU3jp3Tq21mX_R8be8owgi8_LAJMMxlfb0WkkdGek0TLTTx38UlslV9-K3V4cGwT6Ffs-kcGWmiq_Z-x42XDHGUG5j7nIZuJGRLu61B8ppcr5g==",
+   "titulo": "Perspectives on the 25th Anniversary of the ADA - Minnesota.gov",
+   "tipo": "libro",
+   "anio": 2015,
+   "idioma": "en",
+   "por_que": "Book containing transcripts and perspectives on disability rights, referencing Halderman v. Pennhurst.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGOe-SWqvPdV6QTKGRzcnqVoL418fSNYnxk4VK4zLK4O3Unxk0hZO5UZsR6o8x9wmiharL1GbCkkK7dYIW30q0nbdSqGlFG51sJK0MvYu1mD3oZWJyOnb4nqQzSjcYkXFyaj22oeqZAGQkwJM7lEceczl_C5IRY",
+   "titulo": "La revolución inacabada - Plough Publishing",
+   "tipo": "prensa_posterior",
+   "anio": 2022,
+   "idioma": "es",
+   "por_que": "Article in Spanish discussing the history of Pennhurst and its later use as a haunted house.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEYOGy5wJUT5zv1wmJFzrtiNB4H1--AXf6H2oK2d4TWrxFH_7DpPX43dO0kMdul3HvK_yXUyoRr6483LBG4gSwSuxvs3_R7BE713LYXOvBBm76GLgnCHC04AFbTpFcO2Im2SfaV3Vwvbkapb6lxJdnfZXjowB2y3hofxnR4Mg3I47HiiRnzTQ8HVL3mUgo5l30E_5x5kCM7keLIUdQ==",
+   "titulo": "Taylor-Bogdan-intr-Met-Cuali-1 - eugeniawagner",
+   "tipo": "libro",
+   "anio": null,
+   "idioma": "es",
+   "por_que": "Excerpt in Spanish from an academic text discussing the Halderman v. Pennhurst case.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGdhmeZTe1Y9J7zSa03xwV0vqAZRZ0P78bACDoODkxLzK-_efm0C9k9req2P7QIg2yopLbUGlrkdpCNm8WqH400mnJIsw8jAEGhPJBaBQCKALkQU95LfqXOK2m6feMihNlNDnODQnklTLY1OxmMUa0L_03hMgBpz6SSkbiNVQ==",
+   "titulo": "Introducción a los métodos cualitativos de investigación - iessb",
+   "tipo": "libro",
+   "anio": null,
+   "idioma": "es",
+   "por_que": "Excerpt in Spanish from an academic text discussing the Halderman v. Pennhurst case and institutionalization.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  }
+ ],
+ "_grounding": [
+  {
+   "title": "Current time information in Philadelphia, PA, US.",
+   "uri": "https://www.google.com/search?q=time+in+Philadelphia,+PA,+US",
+   "url": "https://www.google.com/search?q=time+in+Philadelphia,+PA,+US"
+  },
+  {
+   "title": "preservepennhurst.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF032RD-w_I3Cx2Ec-a1PXoynYlLp95-5HzHlphuE17kaloYHd1huJGbZ25__djnFXYtZqFOckbQRlft_EMZlp5XHZ8crs_hUBmXNYAPPY96fRdkIB1TaRoT3qQ6nMEzn4tF0Wpgk_fyRMQJ7nXYFhD",
+   "url": "http://www.preservepennhurst.org/default.aspx?pg=1611"
+  },
+  {
+   "title": "archive.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHrS0DiA7LDOXLfJNc8L9yVoYyX8pjl1xQ0sWCj6mRzv32kjhlCH7z49lUXtpHPI-bITB0qslG_5ajth_g-S7g0XThebvRE5ZrzhkYpj-ipx8RfFDPL3Y6r7W2TXjFkaW_c4dBQCu4Av3szAVU=",
+   "url": "https://archive.org/details/micro_IA40385006_2214"
+  },
+  {
+   "title": "apple.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFQ1CnbgPOv_XwTWp3_XMHDm3bdvJni3rOci-z_majtEODpcHGyHwlvoKVHJSfFBLQNk3e5td8vnuz6WoRYA4srC_lQwWZb4Dn961FIMFDwosvCeCpJTiYHNhyTitaxO4gpErNzZK3Uocs1s2vA4VsRBI-V6dc_iOyWCuVPmLOSy04E82o=",
+   "url": "https://tv.apple.com/us/movie/pennhurst/umc.cmc.5kv8b7ukl9izc7mx6e5u35k4w"
+  },
+  {
+   "title": "3da.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGXKB2FE_wyCjTuNqe8Frwaq3kNAb0-DsbnZoeiGCHZoDSuMpUGvSmCdLP99wkUG-bzUO2yl_vynjQBie96LOvew84RKg78MuBHs53Vio1EbB_KsXgdNN8lptZS984BDHwdRGU79nYAhDbG8huC4w==",
+   "url": "https://www.3da.org/post/pennhurst-v-halderman-1981"
+  },
+  {
+   "title": "disabilityjustice.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFT_kRdV_5m6_115VljouVTbm5NE7dYb44MzKbyJBnh5xyEh3BSWkR2CmgJ08WM25elWe8w2uKfQT2HeQKQrLo1yavpmmYwzy95vlKgNnBFo5Iji7YCftFNwDDV2QkcCmLjbCfYBypJ4bZ3OmGFOWGzpfPZyu04",
+   "url": "https://disabilityjustice.org/basic-legal-rights/pennhurst/"
+  },
+  {
+   "title": "pennhurstproject.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFe2_epvVt90ghQQwRhN5_fbACATtVqpyvFlxtTM-dlcqI___xbhFeQ-hGcYoKggd-cF-6OH59zRf968C_M1zcmsRdONEMTyZakPQHWbVGdLQNLMFMPsN0-PESS1psnjsTKXc0=",
+   "url": "http://pennhurstproject.com/Welcome.html"
+  },
+  {
+   "title": "asdnext.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHwx4Wp8a3UG0y0JR2Kr3xsnvK_uABC_-MEKYluUQ2D0bHp36nYul1N6tjKKUTrdPaNAhQnypf1Y4uK7PwoebG8PGmqSWv_p5xnByo3FQji6M34dQ0eXpD79V-vGPeFuvNfPUP30DekAG4E5Y7S1Ot6ug==",
+   "url": "https://asdnext.org/blog/black-history-and-disability/"
+  },
+  {
+   "title": "temple.edu",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEWLaizkmnDjyOJgAyvyVEmIWYFuFxJwE_NtgJ-9zHLcPbMaMiVuRw17_0S08HINECRKGihIcIIxax80aWnW87jd2qX-QtxfIxFC5Nqb2d-pYT_xfYfFIJnRkHmTq1TPOB7w-R2R9oCzMB8HuPVTptYtYDQ1QR-UjgrzwAICq5pKM3hp8u9oFVkn8Uqz8uW9mDk3vKlIwJJRxVpYJ32g_tGoGiGF_nxcK6r",
+   "url": "https://disabilities.temple.edu/programs-services/media-arts-culture/file-life-stories/about-file-life-stories"
+  },
+  {
+   "title": "hhs.gov",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFtopExx9XTh94CN7wwzJ__hxe_W1QRa6vR9fvqVEffmN0Yd46ppWWvtKxmWaryQGiFdY1s1dnR5r_IL-LpGz4W8S6NiyRG_UzG0X50MkZHExnLfHFEC1zh_cXKeBBbG9SiFfn--6Lk274PGyHFPwrrxh92J4OwFgCt9npm1J2u1qcmxouiEcaAamm_k_vDBcmFO1PHdMHZ-JBMK4Ysg9zVunFj",
+   "url": "https://aspe.hhs.gov/reports/pennhurst-longitudinal-study-combined-report-five-years-research-analysis-0"
+  },
+  {
+   "title": "preservepennhurst.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEOlbUclyBDC366heyGFhX8yONfVasv-Kq5PsV97PweruaO8O5aRBZCN9bKYToyAB7-FACKGMyN05-uK-t1pR6i8vjNL_VX2MBUGSeNyVxwOKL4dXkHYgcsZU8n7waCEM65XhxH4ESfCIuUpQXXMg==",
+   "url": "http://www.preservepennhurst.org/default.aspx?pg=36"
+  },
+  {
+   "title": "govinfo.gov",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHJkYuQBvXeGZjjcGh3qYpLoBk0ViSJdv5jkmmx0V3RbniUYcmTkmcj_M5GQMQlEw93JkEkru9ImUjnryG5tTo5EqVw08VmcpNlKLrbXKBjklxr_Y-0S2APJ3dVSwOxrLDh02eN21ItnmvImYYCz2MrcyBpBB34KaoNOIxQuQ==",
+   "url": "https://www.govinfo.gov/app/details/USREPORTS-465/USREPORTS-465-89"
+  },
+  {
+   "title": "oyez.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEEa1djAyOqwgw_6MRhy_eU2sWxgZ2c9LWzaSuGfBhzeNMrL0FjrebJZoxGWkfVbpQENjHPwZ4qPPyQQG6KMESTjQux9cFZh5Uv4XjJrCj95P8PuP6Aa57XDzkGfazYkTbTgw==",
+   "url": "https://www.oyez.org/cases/1980/79-1404"
+  },
+  {
+   "title": "youtube.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHGqAhWGBGa0BqxjRGK0eY8R-BzDSkkhxDMJwSLYJrG05hB-gi9YTH63wfcZAYvcZmIb7s92GvkmVCyOlvoY7jFn0RtgLldPNh89VcmhUuEBrZENyK43SdM2TKHLMED0zL9LKAwDxs=",
+   "url": "https://www.youtube.com/watch?v=kFOBVjJxAWA"
+  },
+  {
+   "title": "preservepennhurst.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEborF8SIM-cOOPvwrf9TRKkNGZbGgRjzK9U7DTSt9G0npvbO6WygwKxdacGqHLacnnKVhATPwlRn1pDp3Ts8aHeLiXLN9GE-3NyVC1M_5zR6m8FVKPwAW__ZsmOYOx8DfZDUXubUtm5FasxKxvfQ==",
+   "url": "http://www.preservepennhurst.org/default.aspx?pg=35"
+  },
+  {
+   "title": "mn.gov",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFt1v3z_Gocq-HAYdidS2Bo3w9-Wx5QdcaZ125iWAcvDcXi5cd6v2y5j1FqglHJJfhDRIIF1-OR3Pn4ihDVWbe1Q5spolUnMIGnr6Nkvc5uU3ATvrFXYXwGGL5legupxaGHt8kPv6ES6xrjeRBLqkIt",
+   "url": "https://mn.gov/mnddc/parallels2/one/sidebar/040a.html"
+  },
+  {
+   "title": "cornell.edu",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHTvX8tER8n306L8O2Kk0oKmRnkXdTC1wWaTaz6nL7NMdzwQCRFU5VTGQKjUqKK95_Dn_hvK09Gf8d6nO__rRDJhSfrrURXzPNMpvsfEj59bMfWtN3C1pWcLs5zl7WDN7IqnjHHTCTF28QIqNIqPQ==",
+   "url": "https://www.law.cornell.edu/supremecourt/text/451/1"
+  },
+  {
+   "title": "pubintlaw.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE01YZGZcCJkVHL3rL91vjUx6CWwcykTSUFJFqfxWENSJ2ElH3jkS55zuzZG8o0WO4uiv5r8butkt92MNzSPPc4ZqRszkPkhQD8TlAnUiyN8rSkyoEdeyLy5Llq-gEa3MyfbclHkB3ul24AZDYHsvLxb62DZj3Sf4dpHRG6ggj_LQ==",
+   "url": "https://pubintlaw.org/wp-content/uploads/2012/04/Pennhurst_Settle.pdf"
+  },
+  {
+   "title": "preservepennhurst.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFJZtuUzPfREDrpkNeSJVbKEYHOwwSge9-Qus7nvVKfsYF0_JsH9y9NEJ8HiEl3Td_4R_fSm7GYRo6jSPtqdrBnjFa7VK4dApnhOPr43NdErDMxbQbSNeKiqHX4dZ_3YQnWle4YsLqLrjBDw2fPUddVPFCyk27MJjkNryPdsYg-AWgOTYK-pNmn-lVf3H96qDYSPH-7IA==",
+   "url": "http://www.preservepennhurst.org/Uploads/PPHUploads/PdfUpload/Pennhurst1950-compressed.pdf"
+  },
+  {
+   "title": "billypenn.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHWfgawWFYZYgh7jHCGQHFgV8nMyDqFF727TPMD3TJHEiwvYEU8LO3xhyNshUHT9rKLkUjUXOoKCpSpkHVW9dzRxarcS77ylPfGY9IKt96Y6Uydy1V36AB9UmXKhLP2255fptNkYfH2tiAcyRhzZM6pdc6L9xv9FVPsNfQ2xH_XdBrnUM5C2y5mvMwM_U8cNZL7",
+   "url": "https://billypenn.com/2023/07/14/pennhurst-asylum-history-disability-law-pennsylvania/"
+  },
+  {
+   "title": "californialawreview.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFywAEyIbcxxUR1GcpCPKN9UhiQfJkQOqkXUyUCgXGXd0V5rxUfrQ0zsAu9l63l_IzTclbTlBH686m6AhEtCWgWmTIzKEBXeE0zkPomIS3hVcM_LqlrmmSWVeyFWGBvQXTt0MrDZ1F8YrYNbLNLVsvRnHW-v0Jr-ZSrAjzr1RR-FmY8aFUeA9UT_nQP4P0bzv8HL6pgyX1rBmI2pmU1k0ItIT3ZesXxhwyLfQSmo7RlG2vw",
+   "url": "https://www.californialawreview.org/print/the-pennhurst-doctrines-and-the-lost-disability-history-of-the-new-federalism"
+  }
+ ],
+ "prompt_version": "f7a-1",
+ "_focos_grounding": {
+  "pro": 3,
+  "flash": 0,
+  "sin": 1
+ }
+}

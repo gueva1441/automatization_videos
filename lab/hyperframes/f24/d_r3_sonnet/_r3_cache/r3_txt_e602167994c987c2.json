@@ -1,0 +1,400 @@
+{
+ "f7b-1|1/1|e602167994c987c2": {
+  "datos": [
+   {
+    "texto": "El accidente de radiocontaminación ocurrió el 29 de septiembre de 1957 en Mayak, una planta de reprocesamiento de plutonio para armas nucleares.",
+    "tipo": "fecha",
+    "valor": "29 de septiembre de 1957",
+    "fecha": "1957-09-29",
+    "cita_literal": "was a radioactive contamination accident that occurred on 29 September 1957 at Mayak, a plutonium reprocessing production plant for nuclear weapons"
+   },
+   {
+    "texto": "Un tanque subterráneo de residuos nucleares líquidos de alta actividad, mal almacenado, explotó y contaminó miles de kilómetros cuadrados de tierra, conocidos como la Huella Radiactiva de los Urales Orientales (EURT).",
+    "tipo": "nombre",
+    "valor": "Eastern Ural Radioactive Trace (EURT)",
+    "cita_literal": "An improperly stored underground tank of high-level liquid nuclear waste exploded, contaminating thousands of square kilometers of land, now known as the Eastern Ural Radioactive Trace (EURT).[4]"
+   },
+   {
+    "texto": "El desastre es el único clasificado como Nivel 6 en la Escala Internacional de Sucesos Nucleares (INES).",
+    "tipo": "cifra",
+    "valor": "Nivel 6",
+    "cita_literal": "It is the only disaster classified as Level 6 on the International Nuclear Event Scale (INES).[8]"
+   },
+   {
+    "texto": "El desastre es el segundo peor incidente nuclear por radiactividad liberada, después del desastre de Chernóbil.",
+    "tipo": "cifra",
+    "valor": "segundo peor",
+    "cita_literal": "The disaster is the second worst nuclear incident by radioactivity released, after the Chernobyl disaster"
+   },
+   {
+    "texto": "Al menos 22 aldeas estuvieron expuestas a la radiación, con una población total de alrededor de 10.000 personas evacuadas.",
+    "tipo": "cifra",
+    "valor": "22 aldeas",
+    "cita_literal": "At least 22 villages were exposed to radiation from the Kyshtym disaster, with a total population of around 10,000 people evacuated."
+   },
+   {
+    "texto": "Algunas aldeas fueron evacuadas tras una semana, pero en otros sitios las evacuaciones tardaron casi dos años.",
+    "tipo": "magnitud",
+    "valor": "casi dos años",
+    "cita_literal": "Some were evacuated after a week, but it took almost two years for evacuations to occur at other sites.[9]"
+   },
+   {
+    "texto": "El desastre esparció partículas calientes sobre más de 52.000 kilómetros cuadrados, donde vivían al menos 270.000 personas.",
+    "tipo": "magnitud",
+    "valor": "52.000 km2",
+    "cita_literal": "The disaster spread hot particles over more than 52,000 square kilometres (20,000 sq mi), where at least 270,000 people lived.[10]"
+   },
+   {
+    "texto": "La lluvia radiactiva produjo una contaminación duradera de entre 800 y 20.000 km2, según el nivel de contaminación que se considere significativo, principalmente con cesio-137 y estroncio-90.",
+    "tipo": "magnitud",
+    "valor": "800–20.000 km2",
+    "cita_literal": "The fallout of the cloud resulted in long-term contamination of an area of 800–20,000 km2 (300–8,000 sq mi), depending on what contamination level is considered significant, primarily with caesium-137 and strontium-90.[14]"
+   },
+   {
+    "texto": "El texto da dos extensiones distintas del área contaminada: más de 52.000 km2 en la introducción y entre 800 y 20.000 km2 en la sección de contaminación.",
+    "tipo": "contradiccion",
+    "valor": "52.000 km2 vs 800–20.000 km2",
+    "cita_literal": "The disaster spread hot particles over more than 52,000 square kilometres (20,000 sq mi), where at least 270,000 people lived.[10]"
+   },
+   {
+    "texto": "Unas 270.000 personas habitaban el área expuesta a la contaminación radiactiva, llamada Huella Radiactiva de los Urales Orientales.",
+    "tipo": "cifra",
+    "valor": "270.000 personas",
+    "cita_literal": "The land area thus exposed to radioactive contamination was termed the \"East Ural Radioactive Trace\" (EURT). About 270,000 people inhabited this area."
+   },
+   {
+    "texto": "El desastre recibió el nombre de Kyshtym, la ciudad conocida más cercana, porque Chelyabinsk-40 no figuraba en los mapas.",
+    "tipo": "nombre",
+    "valor": "Kyshtym",
+    "cita_literal": "Since Chelyabinsk-40 (later renamed Chelyabinsk-65 until 1994) was not marked on maps, the disaster was named after Kyshtym, the nearest known town."
+   },
+   {
+    "texto": "La planta Mayak fue construida a toda prisa entre 1945 y 1948.",
+    "tipo": "fecha",
+    "valor": "1945–1948",
+    "cita_literal": "The Mayak plant was built in haste between 1945 and 1948."
+   },
+   {
+    "texto": "Las instalaciones de almacenamiento de residuos líquidos consistían en tanques de acero montados sobre una base de hormigón a 8,2 metros bajo tierra.",
+    "tipo": "magnitud",
+    "valor": "8,2 m",
+    "cita_literal": "It consisted of steel tanks mounted in a concrete base, 8.2 meters (27 ft) underground."
+   },
+   {
+    "texto": "La explosión destruyó por completo uno de los 14 contenedores que había en el cañón.",
+    "tipo": "cifra",
+    "valor": "14 contenedores",
+    "cita_literal": "The explosion completely destroyed one of the containers, out of 14 total containers (\"cans\") in the canyon."
+   },
+   {
+    "texto": "El sistema de refrigeración de un tanque de Mayak, que contenía unas 70–80 toneladas de residuos radiactivos líquidos, falló y no fue reparado.",
+    "tipo": "magnitud",
+    "valor": "70–80 toneladas",
+    "cita_literal": "The explosion was caused because the cooling system in one of the tanks at Mayak, containing about 70–80 tons of liquid radioactive waste, failed and was not repaired."
+   },
+   {
+    "texto": "Se estimó que la explosión tuvo una fuerza de al menos 70 toneladas de TNT.",
+    "tipo": "magnitud",
+    "valor": "70 toneladas de TNT",
+    "cita_literal": "The explosion was estimated to have had a force of at least 70 tons of TNT.[17]"
+   },
+   {
+    "texto": "La explosión levantó una losa de hormigón de 160 toneladas y destruyó un muro de ladrillo en un edificio situado a 200 metros del sitio.",
+    "tipo": "magnitud",
+    "valor": "160 toneladas",
+    "cita_literal": "The explosion lifted a concrete slab weighing 160 tons, and a brick wall was destroyed in a building located 200 meters (660 ft) from the explosion site."
+   },
+   {
+    "texto": "Una décima parte de las sustancias radiactivas fue lanzada al aire.",
+    "tipo": "magnitud",
+    "valor": "una décima parte",
+    "cita_literal": "A tenth of the radioactive substances were lifted into the air."
+   },
+   {
+    "texto": "Tras la explosión, una columna de humo y polvo se elevó a un kilómetro de altura y el polvo se asentó sobre edificios y personas.",
+    "tipo": "magnitud",
+    "valor": "1 km",
+    "cita_literal": "After the explosion, a column of smoke and dust rose to a kilometre high; the dust flickered with an orange-red light and settled on buildings and people."
+   },
+   {
+    "texto": "No hubo víctimas inmediatas reportadas como resultado de la explosión.",
+    "tipo": "cifra",
+    "valor": "0 víctimas inmediatas",
+    "cita_literal": "There were no immediate reported casualties as a result of the explosion.[18]"
+   },
+   {
+    "texto": "Tras la explosión, los dosimetristas notaron un fuerte aumento de la radiación de fondo.",
+    "tipo": "magnitud",
+    "valor": "aumento brusco de radiación de fondo",
+    "cita_literal": "After the blast at the facilities of the chemical plant, dosimetrists noted a sharp increase in the background radiation."
+   },
+   {
+    "texto": "Se estima que el desastre liberó 20 MCi (740 PBq) de radiactividad.",
+    "tipo": "magnitud",
+    "valor": "20 MCi (740 PBq)",
+    "cita_literal": "The disaster is estimated to have released 20 MCi (740 PBq) of radioactivity."
+   },
+   {
+    "texto": "Una pluma con 2 MCi (74 PBq) de radionúclidos se extendió por cientos de kilómetros.",
+    "tipo": "magnitud",
+    "valor": "2 MCi (74 PBq)",
+    "cita_literal": "but a plume containing 2 MCi (74 PBq) of radionuclides spread out over hundreds of kilometers.[22]"
+   },
+   {
+    "texto": "En las diez a once horas siguientes la nube radiactiva se movió hacia el noreste y alcanzó 300–350 km del accidente.",
+    "tipo": "magnitud",
+    "valor": "300–350 km",
+    "cita_literal": "In the next ten to eleven hours, the radioactive cloud moved towards the north-east, reaching 300–350 km (190–220 mi) from the accident."
+   },
+   {
+    "texto": "El río Techa había recibido antes 2,75 MCi (102 PBq) de residuos vertidos deliberadamente y el lago Karachay había recibido 120 MCi (4.400 PBq).",
+    "tipo": "magnitud",
+    "valor": "2,75 MCi y 120 MCi",
+    "cita_literal": "Previously contaminated areas within the affected area include the Techa river, which had previously received 2.75 MCi (102 PBq) of deliberately dumped waste, and Lake Karachay, which had received 120 MCi (4,400 PBq).[14]"
+   },
+   {
+    "texto": "En el lago Karachay se vertieron unos 4,4 exabecquerelios de residuos líquidos de alta actividad en un lago poco profundo de 45 hectáreas.",
+    "tipo": "magnitud",
+    "valor": "4,4 exabecquerelios",
+    "cita_literal": "where roughly 4.4 exabecquerels of high-level liquid waste (75–90% of the total radioactivity released by Chernobyl) was dumped and concentrated in the shallow 45-hectare (0.45 km2; 110-acre) lake[23] over several decades."
+   },
+   {
+    "texto": "El 6 de octubre de 1957 comenzó una operación para evacuar a unas 10.000 personas del área afectada, sin dar explicación de los motivos.",
+    "tipo": "fecha",
+    "valor": "6 de octubre de 1957",
+    "fecha": "1957-10-06",
+    "cita_literal": "A week later, on 6 October 1957, an operation for evacuating around 10,000 people from the affected area started, still without giving an explanation of the reasons for evacuation."
+   },
+   {
+    "texto": "El alcance y la naturaleza del desastre fueron encubiertos tanto internamente como en el extranjero.",
+    "tipo": "cita",
+    "cita_literal": "The scope and nature of the disaster were covered up both internally and abroad.[18]"
+   },
+   {
+    "texto": "Durante casi dos décadas pocas personas dentro o fuera de la Unión Soviética conocieron el alcance total del desastre.",
+    "tipo": "magnitud",
+    "valor": "casi dos décadas",
+    "cita_literal": "The matter was covered up, and few either inside or outside the Soviet Union were aware of the full scope of the disaster for nearly two decades.[5][6]"
+   },
+   {
+    "texto": "En 1982 Los Alamos publicó un informe que investigaba las afirmaciones de que la liberación fue causada por una prueba de armas fallida.",
+    "tipo": "fecha",
+    "valor": "1982",
+    "fecha": "1982",
+    "cita_literal": "Even as late as 1982, Los Alamos published a report investigating claims that the release was actually caused by a weapons test gone awry.[21]"
+   },
+   {
+    "texto": "El suelo contaminado fue excavado y almacenado en recintos cercados llamados \"cementerios de la tierra\".",
+    "tipo": "nombre",
+    "valor": "graveyards of the earth",
+    "cita_literal": "contaminated soil was excavated and stockpiled in fenced enclosures that were called \"graveyards of the earth\".[24]"
+   },
+   {
+    "texto": "Estudios epidemiológicos recientes sugieren que entre 49 y 55 muertes por cáncer entre los residentes ribereños pueden asociarse a la exposición a la radiación.",
+    "tipo": "cifra",
+    "valor": "49 a 55 muertes por cáncer",
+    "cita_literal": "Recent epidemiological studies suggest that around 49 to 55 cancer deaths among riverside residents can be associated with radiation exposure.[27]"
+   },
+   {
+    "texto": "El área más cercana al accidente produjo 66 casos diagnosticados de síndrome de radiación crónica.",
+    "tipo": "cifra",
+    "valor": "66 casos",
+    "cita_literal": "The area closest to the accident produced 66 diagnosed cases of chronic radiation syndrome, providing the bulk of the data about this condition.[3]"
+   },
+   {
+    "texto": "Según Gyorgy, la CIA conocía el accidente de Mayak de 1957 desde 1959 pero lo mantuvo en secreto.",
+    "tipo": "fecha",
+    "valor": "1959",
+    "fecha": "1959",
+    "cita_literal": "the CIA had known of the 1957 Mayak accident since 1959, but kept it secret to prevent adverse consequences for the fledgling American nuclear industry.[18]"
+   },
+   {
+    "texto": "Desde 1989 el gobierno soviético desclasificó gradualmente documentos sobre el incidente de Mayak.",
+    "tipo": "fecha",
+    "valor": "1989",
+    "fecha": "1989",
+    "cita_literal": "Starting in 1989, several years after the Chernobyl disaster, the Soviet government gradually declassified documents pertaining to the incident at Mayak."
+   },
+   {
+    "texto": "En 1968 el gobierno soviético disfrazó el área EURT creando la Reserva Natural de los Urales Orientales, que prohibía el acceso no autorizado.",
+    "tipo": "fecha",
+    "valor": "1968",
+    "fecha": "1968",
+    "cita_literal": "The Soviet government in 1968 disguised the EURT area by creating the East Ural Nature Reserve, which prohibited any unauthorised access to the affected area."
+   },
+   {
+    "texto": "La dosis efectiva comprometida en Ozyorsk es ahora de unos 0,1 mSv al año, frente a un fondo natural de unos 2 mSv al año.",
+    "tipo": "magnitud",
+    "valor": "0,1 mSv al año",
+    "cita_literal": "The committed effective dose of radiation in Ozyorsk is now about 0.1 mSv a year,[32], which is harmless compared to a natural radiation background of about 2 mSv a year,[33]"
+   }
+  ],
+  "cronologia": [
+   {
+    "fecha": "1945",
+    "evento": "Comienza la construcción apresurada de la planta Mayak, que se extiende hasta 1948.",
+    "cita_literal": "The Mayak plant was built in haste between 1945 and 1948."
+   },
+   {
+    "fecha": "1953",
+    "evento": "Se añade en Mayak una instalación de almacenamiento de residuos nucleares líquidos.",
+    "lugar": "Mayak",
+    "cita_literal": "A storage facility for liquid nuclear waste was added around 1953."
+   },
+   {
+    "fecha": "1957-09-29",
+    "hora": "16:22",
+    "evento": "Explota un contenedor de residuos de alta actividad en un cañón de hormigón de 8,2 m de profundidad en Mayak.",
+    "lugar": "Mayak, Chelyabinsk-40",
+    "cita_literal": "On 29 September 1957, Sunday, 4:22 pm, an explosion occurred within stainless steel containers located in a concrete canyon 8.2 m (27 feet) deep used to store high-level waste."
+   },
+   {
+    "fecha": "1957-10-06",
+    "evento": "Comienza la evacuación de unas 10.000 personas del área afectada, sin explicar los motivos.",
+    "cita_literal": "A week later, on 6 October 1957, an operation for evacuating around 10,000 people from the affected area started, still without giving an explanation of the reasons for evacuation."
+   },
+   {
+    "fecha": "1958-04-13",
+    "evento": "Entre el 13 y el 14 de abril de 1958 aparecen en la prensa occidental informes vagos de un \"accidente catastrófico\".",
+    "cita_literal": "Vague reports of a \"catastrophic accident\" causing \"a radioactive fallout over the Soviet and many neighboring states\" began appearing in the Western press between 13 and 14 April 1958"
+   },
+   {
+    "fecha": "1959-03-18",
+    "evento": "El periódico vienés Die Presse publica los primeros detalles del accidente.",
+    "lugar": "Viena",
+    "cita_literal": "the first details emerged in the Viennese paper Die Presse on 18 March 1959."
+   },
+   {
+    "fecha": "1968",
+    "evento": "El gobierno soviético crea la Reserva Natural de los Urales Orientales sobre el área EURT.",
+    "cita_literal": "The Soviet government in 1968 disguised the EURT area by creating the East Ural Nature Reserve, which prohibited any unauthorised access to the affected area."
+   },
+   {
+    "fecha": "1976",
+    "evento": "El disidente soviético Zhores Medvedev da a conocer al mundo la naturaleza y el alcance del desastre.",
+    "cita_literal": "But it was only eighteen years later, in 1976, that Soviet dissident Zhores Medvedev made the nature and extent of the disaster known to the world."
+   },
+   {
+    "fecha": "1982",
+    "evento": "Los Alamos publica un informe sobre las afirmaciones de que la liberación fue causada por una prueba de armas fallida.",
+    "cita_literal": "Even as late as 1982, Los Alamos published a report investigating claims that the release was actually caused by a weapons test gone awry.[21]"
+   },
+   {
+    "fecha": "1989",
+    "evento": "El gobierno soviético comienza a desclasificar gradualmente documentos sobre el incidente de Mayak.",
+    "cita_literal": "Starting in 1989, several years after the Chernobyl disaster, the Soviet government gradually declassified documents pertaining to the incident at Mayak."
+   },
+   {
+    "fecha": "2007",
+    "evento": "Se instala en Kyshtym un monumento a los liquidadores de las consecuencias del desastre, por iniciativa de la organización pública \"Kyshtym-57\".",
+    "lugar": "Kyshtym",
+    "cita_literal": "Monument dedicated to the liquidators of the consequences of the Kyshtym disaster, installed on the initiative of the public organisation “Kyshtym-57”. 2007. Kyshtym[35]."
+   }
+  ],
+  "lugares": [
+   {
+    "nombre": "Mayak",
+    "rol": "Planta de reprocesamiento de plutonio para armas nucleares donde ocurrió la explosión.",
+    "cita_literal": "was a radioactive contamination accident that occurred on 29 September 1957 at Mayak, a plutonium reprocessing production plant for nuclear weapons"
+   },
+   {
+    "nombre": "Chelyabinsk-40 (hoy Ozyorsk)",
+    "rol": "Ciudad cerrada donde se ubica la planta Mayak, en el óblast de Cheliábinsk.",
+    "cita_literal": "located in the closed city of Chelyabinsk-40 (now Ozyorsk) in Chelyabinsk Oblast, Russia in the Soviet Union."
+   },
+   {
+    "nombre": "Kyshtym",
+    "rol": "Ciudad conocida más cercana, que dio nombre al desastre.",
+    "cita_literal": "the disaster was named after Kyshtym, the nearest known town."
+   },
+   {
+    "nombre": "Río Techa",
+    "rol": "Río en el que se vertió gran parte de los residuos y que quedó severamente contaminado.",
+    "cita_literal": "Before the 1957 accident, much of the waste was dumped into the Techa River, which severely contaminated it"
+   },
+   {
+    "nombre": "Lago Karachay",
+    "rol": "Lago cercano a la planta usado para almacenamiento al aire libre de residuos de alta actividad.",
+    "cita_literal": "Lake Karachay was used for open-air storage, keeping the contamination a slight distance from the reactors"
+   },
+   {
+    "nombre": "Lago Kyzyltash",
+    "rol": "Lago donde estaban los seis reactores, que descargaban agua contaminada directamente en él.",
+    "cita_literal": "All six reactors were on Lake Kyzyltash and used an open-cycle cooling system, discharging contaminated water directly back into the lake.[11]"
+   },
+   {
+    "nombre": "Muslyumovo",
+    "rol": "Aldea ribereña del Techa cuyos residentes dependían del río para beber, lavarse y bañarse.",
+    "cita_literal": "the residents of dozens of riverside villages such as Muslyumovo, who relied on the river as their sole source of drinking, washing, and bathing water."
+   },
+   {
+    "nombre": "Calle Shkolnaya",
+    "rol": "Calle de Ozyorsk donde vivía la dirección de la planta, entre las más contaminadas.",
+    "cita_literal": "and Shkolnaya Street, where the management of the plant lived."
+   },
+   {
+    "nombre": "Huella Radiactiva de los Urales Orientales (EURT)",
+    "rol": "Área de tierra expuesta a la contaminación radiactiva tras el desastre.",
+    "cita_literal": "The land area thus exposed to radioactive contamination was termed the \"East Ural Radioactive Trace\" (EURT)."
+   }
+  ],
+  "citas": [
+   {
+    "autor": "E.P. Slavsky",
+    "autor_en_documento": "E.P. Slavsky",
+    "rol": "Ministro de Industria, en un memorando al Comité Central del PCUS",
+    "testigo": false,
+    "fecha": "1957",
+    "texto_original": "Investigating the causes of the accident on the spot, the commission believes that the main culprits of this incident are the head of the radiochemical plant and the chief engineer of this plant, who committed a gross violation of the technological regulations for the operation of storage of radioactive solutions",
+    "texto_es": "Al investigar en el lugar las causas del accidente, la comisión considera que los principales culpables de este incidente son el jefe de la planta radioquímica y el ingeniero jefe de esta planta, quienes cometieron una grave violación de las normas tecnológicas para el funcionamiento del almacenamiento de soluciones radiactivas.",
+    "cita_literal": "the commission believes that the main culprits of this incident are the head of the radiochemical plant and the chief engineer of this plant"
+   }
+  ],
+  "personajes": [
+   {
+    "nombre": "E.P. Slavsky",
+    "nombre_en_documento": "E.P. Slavsky",
+    "rol": "Ministro de Industria que escribió un memorando al Comité Central del PCUS sobre los culpables del accidente y firmó la orden del Ministerio de Construcción de Maquinaria Media.",
+    "antagonista": false,
+    "testigo": false,
+    "cita_literal": "In the order for the Ministry of Medium Machine Building, signed by E.P. Slavsky, it was noted that the reason for the explosion was insufficient cooling of the container"
+   },
+   {
+    "nombre": "M. A. Demyanovich",
+    "nombre_en_documento": "M. A. Demyanovich",
+    "rol": "Director de la planta, asumió toda la culpa del accidente y fue relevado de su cargo.",
+    "antagonista": true,
+    "testigo": false,
+    "cita_literal": "The director of the plant M. A. Demyanovich took all the blame for the accident, for which he was relieved of his duties as director."
+   },
+   {
+    "nombre": "Zhores Medvedev",
+    "nombre_en_documento": "Zhores Medvedev",
+    "rol": "Disidente soviético que en 1976 dio a conocer al mundo la naturaleza y el alcance del desastre.",
+    "antagonista": false,
+    "testigo": false,
+    "fechas_presente": [
+     "1976"
+    ],
+    "cita_literal": "that Soviet dissident Zhores Medvedev made the nature and extent of the disaster known to the world."
+   },
+   {
+    "nombre": "Lev Tumerman",
+    "nombre_en_documento": "Lev Tumerman",
+    "rol": "Profesor, antiguo jefe del Laboratorio de Biofísica del Instituto Engelhardt en Moscú, confirmó el núcleo de la historia de Medvedev.",
+    "antagonista": false,
+    "testigo": false,
+    "lugar": "Moscú",
+    "cita_literal": "the core of his story was soon confirmed by Professor Lev Tumerman, the former head of the Biophysics Laboratory at the Engelhardt Institute of Molecular Biology in Moscow.[26]"
+   },
+   {
+    "nombre": "Gyorgy",
+    "nombre_en_documento": "Gyorgy",
+    "rol": "Autor que obtuvo archivos de la CIA mediante la Ley de Libertad de Información y afirmó que la CIA conocía el accidente desde 1959.",
+    "antagonista": false,
+    "testigo": false,
+    "cita_literal": "According to Gyorgy,[29] who invoked the Freedom of Information Act to gain access to the relevant Central Intelligence Agency (CIA) files"
+   }
+  ]
+ }
+}

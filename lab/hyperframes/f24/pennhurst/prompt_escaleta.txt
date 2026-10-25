@@ -1,0 +1,362 @@
+===== SISTEMA (md5 006a195f0ce4be014df34d71644aedb1) =====
+<rol>
+Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que nadie escriba una línea, vos decidís la historia: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea, y con qué se queda al final. Trabajás solo con la ficha del caso que te dan: no inventás nombres, cifras, fechas ni citas. Lo que no está en la ficha no pasó.
+</rol>
+
+<que_es_una_escaleta>
+Siete capítulos, de 7 a 14 beats. Cada beat es un momento de la historia: tiene un dato central, hasta seis apoyos, una imagen que se puede ver (o oír, u oler), lo que el espectador se pregunta en ese punto, y la frase con la que el capítulo deja la puerta abierta al siguiente. El guionista va a escribir exactamente lo que vos decidas. Si la escaleta es plana, el guion va a ser plano.
+
+El antagonista es quien decide: una persona de la ficha, o una institución que la ficha nombra (un ministerio, una empresa, una dirección). Si en este caso no hay a quién atribuirle la decisión, lo decís («ninguno») y por qué.
+</que_es_una_escaleta>
+
+<oficio>
+1. El humano primero. La ficha trae candidatos con arco. Elegí al que tenga más momentos concretos (entra, sufre, sale) y más citas verificadas. Tiene que aparecer en el gancho, en el pico y en el cierre; si en el medio desaparece dos caps, el espectador lo olvida.
+2. El gancho es el peor momento, ya en curso. Tomá la escena más fuerte de la ficha y ponela en el beat 1, marcado como flash-forward. Sin contexto, sin año, sin cifras: lo que se ve. La promesa es una frase que dice qué va a entender el espectador si se queda. Es una imagen o una pregunta, nunca un resumen de lo que va a pasar ni una lista de lo que viene.
+3. Del gancho se vuelve atrás. El cap 2 es la vida antes: quién era esta gente, qué hacía ahí. Es el único cap tranquilo y por eso es el más importante para que duela lo que viene.
+4. Cada cap avanza y deja algo abierto. La frase de cierre de un cap nombra lo que viene o lo deja incompleto. Nunca resume.
+5. El pico es uno solo, y es el que la ficha marcó salvo que tengas una razón mejor (decila). Antes del pico, un cap que aprieta; después del pico, un respiro: lo que queda cuando pasa lo peor, el recuento, el silencio.
+6. Los giros de la ficha son los puntos donde la historia cambia de dirección. Cada giro tiene su beat. Si un giro no entra, decí cuál y por qué.
+7. Las escenas de la ficha son tus imágenes. El beat 1 y el pico toman su imagen de una escena; los demás, cuando haya una. Una imagen es algo para ver, oír, oler o tocar: «manos contra un vidrio ahumado», no «la desesperación de la gente».
+8. Las versiones en disputa (quién dio la orden, si un aviso llegó a tiempo) son material, no problema: dales su beat. El contraste entre la versión oficial y lo que cuentan los testigos suele ser el mejor cap 6.
+9. El cierre vuelve al humano con una cita suya o una pregunta que nadie respondió. Nunca una moraleja, nunca «hoy».
+10. Lo que va a pantalla (cifras oficiales, documentos) no lo dice la voz. Marcalo en `a_pantalla`. Las cifras que sí dice la voz, una vez cada una.
+11. Un dato vive en un solo beat. Si lo necesitás en dos, elegí dónde pega más.
+12. Las citas sin verificar van sin nombre, pero no excluyen a nadie: el humano puede estar en escena con una cita suya sin verificar; el guionista sabrá no ponerle el nombre a esa frase.
+</oficio>
+
+<ejemplo>
+De un caso que no es el tuyo (una estación de radio y faro en una isla, mil novecientos sesenta y ocho). Copiá la forma, no el contenido. Los ids van como Q##, D##, T##, E#: ## es el número que tenga el id en TU ficha; ninguno de estos existe en tus datos.
+
+humano: Elvira Soto, telegrafista de la estación. Por qué: manda los telegramas pidiendo el barco, recibe las respuestas sin firma, sostiene la radio con las baterías del faro la noche del pico, y años después es la única que guardó el registro. 3 citas verificadas.
+antagonista: institución · la Dirección de Faros y Balizas. Por qué: los telegramas de «mantener servicio» salen de ahí y nadie los firma.
+promesa_gancho: «Once personas esperaron veintitrés días un barco que no llegó. Esta es la historia de quién decidió que no llegara.»
+pico: beat 5 (la noche del generador). Por qué: es el momento en que esperar deja de ser una decisión de la Dirección y pasa a ser una de ellos; todo lo anterior lo prepara.
+
+beat 1 · cap 1 · gancho · flash-forward · intensidad 4 · escena E#
+  imagen: una mujer transmite en morse a la luz de una vela; olor a querosén
+  dato central: Q## (Soto: «transmitía con las baterías del faro»)
+  el espectador se pregunta: ¿por qué sigue transmitiendo?
+  cierre: Tres semanas antes de la vela, llegó un telegrama. Y con él, una orden.
+beat 2 · cap 2 · planteo · intensidad 1
+  imagen: el libro de telegramas abierto, la letra de Elvira
+  dato central: T## (el primer telegrama de la Dirección: mantener servicio) · apoyos: D## (once personas en la estación, tres familias), Q## (Bascuñán: «el faro no se apaga»), D## (la fecha prevista del Alborada)
+  humano en escena: sí
+  el espectador se pregunta: ¿quién manda cuando el que manda está a tres días de barco?
+  cierre: El Alborada tenía que llegar el lunes. No llegó el lunes.
+…
+beat 5 · cap 5 · pico · intensidad 5 · escena E#
+  imagen: el generador que tose dos veces y se apaga; una silla rota contra el piso
+  dato central: Q## (Soto: la noche que se apagó el generador) · apoyos: D## (Bascuñán ordena quemar los muebles), T## (la muerte del niño esa noche)
+  humano en escena: sí
+  el espectador se pregunta: ¿cuánto dura una batería?
+  cierre: A la mañana, el faro seguía encendido. Adentro, eran uno menos.
+beat 6 · cap 6 · respiro · intensidad 2 …
+beat 8 · cap 7 · cierre · intensidad 3
+  dato central: D## (la comisión: dos muertos; las familias: tres) · apoyos: Q## (Marín: «el capitán leyó el papel y dio la vuelta»), Q## (Soto: «nadie me dijo que los leyeran»)
+  cierre: la cita de Soto.
+a_pantalla: D## (el recuento oficial), D## (el informe de la comisión, fecha y folio).
+</ejemplo>
+
+<errores>
+- Elegir un humano distinto cada vez que se corre. Si la ficha lo propone y tiene arco, es él.
+- Poner el gancho tranquilo para que la curva «suba». El gancho es el peor momento; la curva empieza alta, baja en el cap 2 y vuelve a subir. Eso es un flash-forward, no un error.
+- Ignorar las escenas de la ficha y escribir imágenes abstractas («la tensión en el aire»).
+- Meter seis beats en un cap y uno en los demás. Cada cap lleva entre uno y tres beats; el material que no cabe se deja afuera, no se apila.
+- Convertir «el espectador se pregunta» en una pregunta retórica para el guion. Es una nota para vos y para el guionista, no una frase del video.
+</errores>
+
+===== USUARIO, intento 1 (md5 1c450be52133356caacc21678745bba9) =====
+<caso>
+TÍTULO: Horrores del Asilo Pennhurst
+ÁNGULO: -
+MISTERIO: -
+REVELACIÓN: -
+</caso>
+
+<ficha>
+historia:
+  humanos candidatos:
+    [P01, T10, D18, D194, T25] Terri Lee Halderman — Residente y demandante original; sin cita directa verificada en el pool. · arco: Ingresa mientras aprende a hablar → pierde sus habilidades verbales y acumula lesiones registradas → pasa a ser la demandante que da nombre al litigio, sin que el pool documente su destino personal final. · citas verificadas: 0
+    [P41, D212, D213, D214, D215, D216, D217] Roland Johnson — Exresidente y narrador posterior de la experiencia institucional; los pasajes ofrecidos son paráfrasis, no citas directas verificadas de su libro. · arco: Ingresa por problemas de cuidado en casa y la promesa de atención permanente → atraviesa experiencias que la reseña describe como traumáticas → sale de Pennhurst y contribuye a dar a conocer lo vivido mediante su relato. · citas verificadas: 0
+    [P18, D102, Q15] Steve — Exresidente entrevistado tras el traslado comunitario. · arco: Entra en el seguimiento después de una larga vida en Pennhurst que recuerda como feliz → se muda a un hogar grupal → se declara aún más feliz y pide seguir viviendo con personas amables. · citas verificadas: 1
+    [P19, D103, Q16, Q17] Bruce — Exresidente entrevistado sobre la diferencia entre la institución y su nuevo hogar. · arco: Crece en Pennhurst → se traslada a un hogar grupal con menos gente y otros horarios → quiere quedarse porque lo siente más como un hogar. · citas verificadas: 2
+  giros:
+    1. La investigación televisiva de Baldini convierte las condiciones internas en un asunto público. [T12, T14, D168]
+    2. La demanda de Halderman lleva el reclamo desde la denuncia pública hasta una acción judicial que busca medidas de reparación y daños monetarios. [T25, T26, D02]
+    3. Los hallazgos del Tribunal de Distrito establecen que Pennhurst no proporciona cuidados y habilitación apropiados. [T36, D33, D14, D26]
+    4. La orden de Broderick transforma el diagnóstico institucional en un mandato de servicios comunitarios y supervisión judicial. [T44, T45, D05, D06]
+    5. La Corte Suprema limita la intervención del tribunal federal basada en la ley estatal, pese a los hallazgos sobre las condiciones de la institución. [T99, D72, Q02, Q03]
+    6. Las partes anuncian un consenso para el cierre y la atención comunitaria, aunque las fuentes no coinciden en la fecha de formalización del acuerdo. [T101, T102, D45, T104]
+  pico: El registro de una residente sometida a 720 horas de sujeción física durante agosto de 1976. — Es el extremo documentado del control que sustituye al cuidado: el mismo relato describe autolesiones que la dejaron ciega y una terapia ocupacional que solo comenzó después, sin precisar cuándo ocurrió la pérdida de visión. [T33, D184, D186, T39]
+  pregunta final: ¿Qué responsabilidades individuales llegaron a establecerse por los abusos y las muertes documentadas, más allá de las órdenes de traslado y del cierre de Pennhurst? [D16, D17, D24, D50, D193, T106]
+
+escenas:
+  E1. Pennhurst, espacios de alojamiento infantil descritos sin fecha. · Niños residentes y enfermeras. — El documento describe niños que habían superado la edad de caminar pero seguían en cunas, con enfermeras sobrecargadas que no podían enseñarles. · sentidos: Niños dentro de cunas; no se aportan sonidos, olores ni características de las habitaciones. [D208, D209]
+  E2. Pabellón de castigo de Pennhurst, según la reseña del relato de Roland Johnson. · Residentes enviados como castigo; Roland Johnson como fuente del relato reseñado. — La reseña cuenta que el personal enviaba allí a pacientes que se portaban mal. · sentidos: Pabellón deteriorado, agujeros en paredes y suelo y un olor descrito como terrible. [D214, D215, D216]
+  E3. Salas de día de Pennhurst. · Residentes. — El documento señala que el ruido llegaba a ser tan alto que muchos residentes dejaban de hablar. · sentidos: Nivel de ruido muy elevado y residentes que dejan de hablar. [D192]
+  E4. Salas donde fueron alojados Robert y Theresa Sobetsky. · Robert Sobetsky, Theresa Sobetsky y otros residentes. — Los alojan en salas extremadamente hacinadas y Robert nunca recibe una cama particular asignada. · sentidos: Camas colocadas en los pasillos de circulación. [D196]
+  E5. Pennhurst, durante una visita de los padres de Linda Taub en 1968. · Linda Taub y sus padres. — Sus padres encuentran a Linda, que podía caminar, sujeta a una silla de ruedas mediante una camisa de fuerza. · sentidos: La silla de ruedas y la camisa de fuerza que la mantiene sujeta. [T13]
+  E6. Salas y baños de Pennhurst descritos en el documento. · Residentes; el pasaje no individualiza a los presentes. — El documento describe condiciones de higiene por debajo de los estándares profesionales mínimos. · sentidos: Orina y excrementos en los suelos; baños sucios y deteriorados; falta de toallas, jabón y papel higiénico en la mayoría de las áreas de aseo. [D188, D191]
+  E7. Pennhurst, durante las visitas familiares a Charles DiNolfi. · Charles DiNolfi, Dorothy Hunsicker y su familia. — Dorothy declara que, cada vez que ella o su familia lo visitaban, Charles tenía algún tipo de vendaje. · sentidos: Vendajes visibles en Charles durante las visitas. [P31]
+  E8. Pennhurst, durante las visitas semanales a George Sorotos. · George Sorotos y Marion Caranfa. — Marion declara que, durante los siete años de estancia de George, solo hubo cuatro visitas en las que no estaba lesionado. · sentidos: Lesiones observadas durante las visitas; el pasaje no describe su aspecto concreto. [P36]
+  E9. Pennhurst, el 8 de enero de 1975. · Dos residentes no identificados. — Un residente muerde a otro mientras duerme y le arranca tres cuartas partes del lóbulo y parte de la oreja externa. · sentidos: El residente agredido estaba dormido; la lesión afecta partes concretas de la oreja. [T29]
+  E10. Evaluación oftalmológica de Joan vinculada al Wills Eye Hospital. · Joan. — La evaluación atribuye su irritación y dolor a los párpados superiores e inferiores crecidos hacia adentro por la atrofia de sus ojos y músculos circundantes. · sentidos: Párpados orientados hacia adentro, irritación y dolor documentados. [L18, D117]
+  E11. Hogar grupal de Bruce, tal como lo describe en la entrevista. · Bruce y las pocas personas con las que convive. — Bruce contrasta su nueva vida con Pennhurst y explica por qué siente el lugar más como un hogar. · sentidos: Ausencia de una gran multitud; convivencia con pocas personas y horarios distintos para levantarse y acostarse. [Q16]
+
+personas:
+  [P01, D01, D18, D194, T10, T25] Terri Lee Halderman — Residente y demandante original de la acción colectiva.
+  [P06, P13, P24, T36, T44, T69, Q23, Q25] Raymond J. Broderick — Juez federal del Distrito Este de Pensilvania que dictó las órdenes de habilitación, traslado y supervisión.
+  [P07, T25, D50, D170] David Ferleger — Abogado de los demandantes; presentó la demanda en nombre de Halderman.
+  [P02, P03, Q01] Justice Brennan — Juez de la Corte Suprema de Estados Unidos; escribió una disidencia y se sumó a la de Stevens.
+  [P03, Q02, Q03, Q07, D24, D27] Justice Stevens — Juez de la Corte Suprema de Estados Unidos; autor de la disidencia que repasa las condiciones de Pennhurst.
+  [P04, P47, Q29] Thurgood Marshall — Juez de la Corte Suprema de Estados Unidos; se sumó a la disidencia de Stevens.
+  [P03, P04] Justice Blackmun — Juez de la Corte Suprema de Estados Unidos que se sumó a la disidencia de Stevens.
+  [P12, T74, T81] Helen O'Bannon — Secretaria del Departamento de Bienestar Público de Pensilvania, declarada en desacato.
+  [P48, Q30, T40] Superintendente Youngberg — Superintendente que declaró sobre la falta de espacio y privacidad; su declaración también sustenta el registro de lesiones.
+  [P28, T12, T14, D168, Q40] Bill Baldini — Reportero de WCAU 10 responsable de la investigación televisiva sobre Pennhurst.
+  [P26, Q26, Q27, L27] James Conroy — Director de investigación del Developmental Disabilities Center de Temple University y responsable de un estudio sobre los resultados de los traslados.
+  [P16, D74] Richard Thornburgh — Gobernador de Pensilvania que anunció un proyecto de conversión de las instalaciones para atención de veteranos.
+  [P17, D81, D82, T50, T79] Robert — Residente ciego cuya salida a una vivienda comunitaria se demoró por objeciones de sus padres; no se lo identifica con los otros Robert del pool.
+  [P18, D102, Q15] Steve — Exresidente entrevistado sobre su vida en un hogar grupal.
+  [P19, D103, Q16, Q17] Bruce — Exresidente entrevistado que deseaba permanecer en su hogar grupal.
+  [P20, D115, D116, D117, D118] Joan — Exresidente con síndrome de Down y ceguera legal cuyo programa comunitario incluyó una evaluación oftalmológica.
+  [D116, L18] Sr. Harris — Padre de Joan; participó en las gestiones sobre su regresión y evaluación médica.
+  [D116, L18] Sra. Harris — Madre de Joan; participó en las gestiones sobre su regresión y evaluación médica.
+  [P30, P31, D195] Charles DiNolfi — Demandante y residente que perdió un ojo durante su estancia en Pennhurst.
+  [P31, D195] Dorothy Hunsicker — Hermana de Charles DiNolfi y testigo sobre las lesiones que observaba durante las visitas.
+  [P32, T18, T31, D196] Robert Sobetsky — Demandante y residente alojado en salas hacinadas; posteriormente pasó a Woodhaven.
+  [P33, T18, T31, D196] Theresa Sobetsky — Demandante y residente alojada en salas hacinadas; posteriormente pasó a Woodhaven.
+  [P34, T27, Q31] Robert Hight — Demandante admitido en Pennhurst y retirado por sus padres.
+  [Q31] Sra. Hight — Madre de Robert Hight y testigo de las condiciones que motivaron su retiro.
+  [P35, P36, T15] George Sorotos — Demandante y residente cuyas lesiones fueron descritas por su antigua madre de acogida.
+  [P36] Marion Caranfa — Antigua madre de acogida de George Sorotos y testigo de sus lesiones.
+  [P37, T08, T28] Larry Taylor — Demandante trasladado de Pennhurst a Woodhaven.
+  [P38, T08, T28] Kenny Taylor — Demandante trasladado de Pennhurst a Woodhaven.
+  [T28] Sra. Taylor — Testigo sobre la medicación y la capacidad de caminar de Larry tras su traslado a Woodhaven.
+  [P39, T07, Q32] Nancy Beth Bowman — Demandante y residente cuya madre declaró sobre las secuelas físicas permanentes.
+  [Q32] Sra. Bowman — Madre de Nancy Beth Bowman y testigo sobre sus secuelas.
+  [P40, T13] Linda Taub — Demandante ciega a quien sus padres encontraron sujeta a una silla de ruedas pese a que podía caminar.
+  [P41, D212, D213, D214, D215, D216, D217] Roland Johnson — Exresidente que dio a conocer sus experiencias y las relató en Lost in a Desert World.
+  [D29, D160, D180, D226, L01, L06, L07, L11, L31] Pennhurst State School and Hospital — Institución estatal demandada y escenario de los abusos y del proceso de desinstitucionalización.
+  [L04, D12, D53, T95, T102] Estado de Pensilvania — Responsable estatal de la institución y parte demandada que debía financiar y ejecutar las medidas.
+  [P43, L02, D04, D05, D06, D24, T36] Tribunal de Distrito de Estados Unidos para el Distrito Este de Pensilvania — Tribunal que recibió la demanda, estableció los hechos y dictó las medidas de reparación.
+  [L03, T47, T53, T77, Q05] Tribunal de Apelaciones de Estados Unidos para el Tercer Circuito — Tribunal que revisó las órdenes de reparación y sus fundamentos legales.
+  [L26, T63, T71, T99, D72] Corte Suprema de Estados Unidos — Tribunal que revisó el caso y limitó los fundamentos federales de la reparación.
+  [T65, Q05, L05] Corte Suprema de Pensilvania — Tribunal estatal cuya interpretación de la ley fue examinada en el litigio.
+  [P12, D10, T74, D114] Departamento de Bienestar Público de Pensilvania — Organismo estatal demandado, declarado en desacato por los pagos de la supervisión judicial.
+  [T01, T72, T75, D57] Legislatura de Pensilvania — Poder estatal que aprobó la creación de la institución y decidió asignaciones presupuestarias.
+  [D06, D11, D54, T44, T86, T89] Oficina del Special Master — Órgano de supervisión judicial encargado de planificar y controlar la implementación de las órdenes.
+  [D08, D44, T61] Hearing Master — Auxiliar judicial encargado de audiencias y determinaciones individuales sobre los traslados disputados.
+  [D58, D64, D77] Oficina de Retraso Mental de Pensilvania — Organismo estatal de planificación y gestión de servicios para los miembros de la clase.
+  [D58, D69, D70] Unidad de Gestión Especial de la Región Sudeste — Unidad que asumió tareas de monitoreo y revisión de planes de la Oficina del Special Master.
+  [L09, D55, T76] Ciudad y Condado de Filadelfia — Parte demandada responsable de reubicaciones que alcanzó un acuerdo durante los procedimientos de desacato.
+  [D48, D73] Parent-Staff Association — Asociación de padres y empleados opuesta al cierre de Pennhurst.
+  [D48] American Federation of State, County and Municipal Employees — Sindicato que aportaba apoyo financiero a la Parent-Staff Association.
+  [D19, D23, D24, D25, Q09] Funcionarios estatales demandados — Colectivo procesal de funcionarios cuya actuación, obligaciones e inmunidad se discutieron; el pool no identifica individualmente a todos.
+
+personas descartadas que la historia necesita:
+
+cronologia:
+  [T01, D205] 1903 — La legislatura de Pensilvania aprueba la creación de la institución.
+  [T02, T03, D226] 1908 — Abre Pennhurst, originalmente denominada Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic.
+  [T05, D212] 1958 — Comienza la estancia de Roland Johnson en Pennhurst.
+  [T07] 1961 — Nancy Beth Bowman ingresa a Pennhurst a los diez años; el pool no permite ubicar este ingreso dentro del año.
+  [T08] 1961-02-28 — Larry y Kenny Taylor ingresan a Pennhurst.
+  [T10, P01] 1966 — Terri Lee Halderman ingresa a Pennhurst a los doce años.
+  [P40] 1966 — Linda Taub ingresa a Pennhurst a los quince años.
+  [T12, T14, D168] 1968 — Bill Baldini expone las condiciones de Pennhurst en Suffer the Little Children.
+  [T13] 1968 — Los padres de Linda Taub la encuentran atada a una silla de ruedas mediante una camisa de fuerza.
+  [T15] 1970 — George Sorotos ingresa a Pennhurst a los siete años.
+  [T17, D212] 1971 — Termina la estancia de Roland Johnson en Pennhurst.
+  [T18] 1971-11-29 — Robert y Theresa Sobetsky ingresan a Pennhurst.
+  [T22, D185] 1974 — Un residente de dieciocho años permanece seis días consecutivos en aislamiento como castigo por una agresión; no consta el mes.
+  [T25, T26, D169] 1974-05-30 — David Ferleger presenta la demanda en nombre de Terri Lee Halderman; la acción representa a residentes actuales y anteriores.
+  [T27] 1974-09 — Robert Hight ingresa a Pennhurst.
+  [T28] 1975 — Larry y Kenny Taylor son trasladados a Woodhaven; no consta el mes.
+  [T29] 1975-01-08 — Un residente arranca de un mordisco parte de la oreja de otro mientras este duerme.
+  [T30] 1976 — Un integrante del personal viola a un residente; no consta el mes.
+  [T31] 1976-01 — Robert y Theresa Sobetsky comienzan a residir en Woodhaven.
+  [T32] 1976-06 — Una residente acumula 651 horas y 5 minutos de sujeción física.
+  [T33] 1976-08 — La misma residente acumula 720 horas de sujeción física.
+  [T34] 1976-09 — La residente acumula 674 horas y 20 minutos de sujeción física.
+  [T35] 1976-10 — La residente acumula 647 horas y 5 minutos de sujeción física.
+  [T39, D186] 1977 — A comienzos del año se inicia terapia ocupacional para la residente autolesiva que se había cegado; no consta el mes.
+  [T40] 1977-01 — Se reportan 833 lesiones menores y 25 mayores.
+  [T36, T37, D33] 1977 — Después del juicio, el Tribunal de Distrito emite su decisión sobre las condiciones y la incapacidad de Pennhurst para proporcionar cuidados y habilitación apropiados.
+  [T42, T43] 1978 — Comienza el seguimiento anual cara a cara de quienes vivían en Pennhurst ese año.
+  [T44, T45, D31] 1978-03-17 — Broderick ordena proporcionar servicios comunitarios adecuados y designar un Special Master; la institución alberga a 1154 personas.
+  [T46, D123] 1978-10 — El estudio registra 45 áreas de vivienda en Pennhurst.
+  [T50] 1979-06 — Broderick firma la orden para los niños en edad escolar; Robert queda entre quienes debían salir primero.
+  [T53, D47] 1979-12-13 — El Tercer Circuito elimina, entre otras disposiciones, la presunción de cierre eventual y la prohibición de nuevas admisiones.
+  [T54] 1980 — A comienzos del año se abren negociaciones; el papel futuro de Pennhurst es el principal desacuerdo.
+  [T59] primavera de 1980 — Se seleccionan sujetos para las entrevistas a residentes procedentes de la región de Filadelfia.
+  [T58, D44] 1980-04-24 — Se establecen procedimientos individuales de ubicación residencial y la intervención de un Hearing Master.
+  [T60] 1980-06 — Las familias reciben una encuesta previa al traslado.
+  [T61] 1980-07-14 — Una orden exige audiencias sobre la voluntariedad de cada salida.
+  [T62] 1980-12-08 — La Corte Suprema escucha argumentos del caso.
+  [T69] 1981-03-02 — Broderick fija un calendario de reubicaciones.
+  [T70, T71] 1981-04-20 — La Corte Suprema determina que la sección 6010 de la DD Act no crea derechos sustantivos.
+  [T72, D09] 1981-07-01 — Pensilvania limita a 35000 dólares los gastos de los auxiliares judiciales para el ejercicio presupuestario indicado.
+  [D54] 1981-07-31 — La Oficina del Special Master informa 15 reubicaciones oficiales de 90 previstas, mientras el Estado informa 81.
+  [T74, D10] 1981-08 — Broderick declara en desacato al Departamento de Bienestar Público y a Helen O'Bannon por incumplir órdenes de pago.
+  [T81, D60] 1982-01 — El fondo de multas alcanza aproximadamente 1200000 dólares y Broderick releva a la secretaria y al Estado de continuar pagando las multas diarias.
+  [T82] 1982-01-08 — Pensilvania paga las multas y queda purgado el desacato.
+  [T83] 1982-03 — Comienza la recopilación de datos comunitarios; para entonces se habían trasladado aproximadamente 200 personas.
+  [T79, D82] verano de 1982 — Robert se traslada a una vivienda comunitaria después de la demora por objeciones de sus padres.
+  [T86, D67] 1982-08-12 — Broderick solicita un plan de reducción de las operaciones del Special Master.
+  [T87, T89, D11] 1982-12 — La Oficina del Special Master es terminada oficialmente al finalizar el mes; el pasaje no proporciona un día numérico.
+  [T88, D115] 1982-12 — Una nueva directora se hace cargo del programa de Joan.
+  [T92] 1983-01-14 — Una orden establece un calendario de implementación que incluye viviendas comunitarias para 143 residentes de Pennhurst.
+  [T93, D118] 1983-02 — Joan recibe sus prótesis oculares.
+  [T94] 1983-08 — Broderick dicta una orden consolidada que reúne y ajusta disposiciones anteriores.
+  [T95] 1983-11 — Los demandados estatales presentan un plan que prevé cerrar Pennhurst para 1986.
+  [T99, D72] 1984-01-23 — La Corte Suprema determina que la inmunidad soberana impide al tribunal federal ordenar a funcionarios estatales cumplir la ley estatal.
+  [T101, T102, D45, T104, D176] 1984-07-12 / 1985 (aproximada) — F02 fecha el consenso y acuerdo final el 12 de julio de 1984, con cierre previsto para el 1 de julio de 1986 y posible extensión hasta el 30 de septiembre de 1986; F10 sitúa un acuerdo de conciliación en 1985, sin que el pool aclare si distingue etapas de formalización.
+  [T103, D73] 1984-09 — Broderick celebra una audiencia sobre el acuerdo; la Parent Staff Association protesta contra el cierre.
+  [D74] 1985-01 — Thornburgh anuncia que las instalaciones se convertirían en un centro médico estatal para veteranos para 1986.
+  [T106, T107, D178] 1987 — Pennhurst cierra definitivamente; F07 precisa diciembre.
+  [T108, D166] 1992 — Finaliza el seguimiento anual cara a cara descrito por la fuente archivística.
+
+hechos nivel 1:
+  [D197] Aproximadamente 21 de las 45 unidades de vivienda estaban cerradas con llave para impedir que los residentes salieran. (contexto)
+  [T12, T14, D168] Bill Baldini hizo públicas las condiciones de Pennhurst en 1968 mediante la investigación televisiva Suffer the Little Children. (giro)
+  [P01, T10] Terri Lee Halderman ingresó a Pennhurst en 1966 a los doce años. (contexto)
+  [D18] Halderman estaba aprendiendo a hablar cuando ingresó y perdió sus habilidades verbales después de vivir en Pennhurst. (gancho)
+  [D184, D172] En Pennhurst se utilizaban sujeciones físicas o químicas como medidas de control en lugar de una dotación adecuada de personal. (escalada)
+  [T33] La misma residente acumuló 720 horas de sujeción física durante agosto de 1976. (pico)
+  [D186, T39] La residente se había cegado mediante autolesiones y no fue incorporada a terapia ocupacional hasta comienzos de 1977. (pico)
+  [T40] Solo en enero de 1977 se reportaron 833 lesiones menores y 25 mayores. (escalada)
+  [T25, T26, D169] El 30 de mayo de 1974 se presentó una demanda colectiva en nombre de residentes actuales y anteriores de Pennhurst. (giro)
+  [D33, T36, T37] En 1977, Broderick determinó que Pennhurst era incapaz de proporcionar cuidados y habilitación constitucionalmente apropiados. (giro)
+  [D24, Q06] El Tribunal de Distrito consideró inmunes a los funcionarios frente a la responsabilidad por daños porque habían actuado de buena fe dentro de sus responsabilidades oficiales. (consecuencia)
+  [T44, T45, D06] El 17 de marzo de 1978, Broderick ordenó servicios comunitarios adecuados y la supervisión de un Special Master. (giro)
+  [T99, D72] El 23 de enero de 1984, la Corte Suprema determinó que la Undécima Enmienda impedía al tribunal federal ordenar a los funcionarios estatales cumplir la ley estatal. (giro)
+  [T101, T102, D45] F02 registra un acuerdo anunciado el 12 de julio de 1984 que preveía cerrar Pennhurst para el 1 de julio de 1986, con posible extensión hasta el 30 de septiembre de 1986. (consecuencia)
+  [T106, T107] Pennhurst cerró definitivamente en 1987 y F07 sitúa el cierre en diciembre. (cierre)
+  [D93] En una comparación de cinco años, el grupo trasladado mejoró más de once puntos en comportamiento adaptativo y el grupo que permaneció en Pennhurst ganó menos de un punto. (consecuencia)
+
+hechos nivel 2:
+  [T01, D205] La legislatura de Pensilvania aprobó la creación de la institución en 1903. (contexto)
+  [T03, D226] Pennhurst abrió en 1908 con el nombre Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic. (contexto)
+  [D227, D228] El relato histórico de F11 vincula los problemas de Pennhurst con la falta de fondos estatales y de personal adecuado. (contexto)
+  [D208, D209] F07 describe niños que habían superado la edad de caminar pero permanecían en cunas sin que las enfermeras sobrecargadas pudieran enseñarles. (escalada)
+  [D210] El hospital utilizaba a residentes considerados de alto funcionamiento para cuidar los terrenos y a otros residentes con poca o ninguna paga. (contexto)
+  [D231, D232] El Estado asignó 21 millones de dólares a las instalaciones y se construyó el edificio New Horizons. (consecuencia)
+  [D194] Los registros médicos de Halderman contenían más de cuarenta lesiones reportadas. (escalada)
+  [T13] En 1968, los padres de Linda Taub la encontraron sujeta a una silla de ruedas mediante una camisa de fuerza pese a que podía caminar. (escalada)
+  [D196] Robert y Theresa Sobetsky fueron alojados en salas con camas en los pasillos y Robert nunca tuvo una cama particular asignada. (escalada)
+  [P31] Dorothy Hunsicker declaró que Charles DiNolfi llevaba algún vendaje cada vez que ella o su familia lo visitaban. (escalada)
+  [D195] Charles DiNolfi perdió un ojo durante su estancia y un médico de Pennhurst dijo a su hermana que se había golpeado contra el grifo al resbalar en la ducha. (escalada)
+  [P36] Marion Caranfa declaró que, durante siete años de visitas semanales, solo encontró a George Sorotos sin lesiones en cuatro ocasiones. (escalada)
+  [Q32] La madre de Nancy Beth Bowman declaró que su hija quedaría marcada por el resto de su vida. (consecuencia)
+  [T22, D185] En 1974, un residente de dieciocho años pasó seis días consecutivos en aislamiento como castigo por agredir a otro residente. (escalada)
+  [D183] No había psicólogos de servicio durante las noches ni los fines de semana y una crisis emocional podía quedar sin tratamiento hasta el siguiente turno disponible. (contexto)
+  [D187] El documento describe el uso frecuente de psicofármacos para controlar a los residentes y no para tratarlos. (escalada)
+  [T32] Una residente acumuló 651 horas y 5 minutos de sujeción física durante junio de 1976. (escalada)
+  [T34, T35] El registro de esa residente consigna 674 horas y 20 minutos de sujeción en septiembre de 1976 y 647 horas y 5 minutos en octubre de 1976. (escalada)
+  [T39] Tras comenzar el programa de terapia ocupacional, el documento señala que la residente podía permanecer hasta cuatro horas diarias sin sujeciones. (consecuencia)
+  [D188] El documento describe orina y excrementos frecuentes en los suelos de las salas y condiciones de limpieza inferiores a los estándares profesionales mínimos. (escalada)
+  [D191] La mayoría de las áreas de aseo carecía de toallas, jabón y papel higiénico. (escalada)
+  [D192] El ruido de las salas de día podía ser tan elevado que muchos residentes dejaban de hablar. (escalada)
+  [D189] Los brotes de lombrices intestinales y de enfermedades infecciosas eran comunes. (escalada)
+  [T29] El 8 de enero de 1975, un residente arrancó de un mordisco tres cuartas partes del lóbulo y parte de la oreja externa de otro mientras dormía. (escalada)
+  [D193] El documento registra la muerte de un residente después de que otro lo empujara al suelo. (escalada)
+  [T30] En 1976, un integrante del personal violó a un residente. (escalada)
+  [D16, D17] La recapitulación judicial señala que las sujeciones físicas ocasionaban lesiones y que en una ocasión provocaron una muerte. (escalada)
+  [T25] David Ferleger presentó la demanda en nombre de Halderman solicitando medidas judiciales y daños monetarios. (contexto)
+  [D02, D170] Los demandantes alegaron violaciones de derechos constitucionales, de leyes federales y de la ley de Pensilvania sobre salud mental y discapacidad intelectual. (contexto)
+  [D171] El juicio sobre las condiciones de Pennhurst duró treinta y dos días. (contexto)
+  [D19] La disidencia de Stevens afirma que los peticionarios habían admitido durante todo el litigio que Pennhurst no ofrecía ni siquiera una habilitación mínimamente adecuada. (giro)
+  [D31] El informe dedica el estudio a las 1154 personas que vivían en Pennhurst el 17 de marzo de 1978. (contexto)
+  [D35, D36, D86] La población del estudio tenía una edad promedio de treinta y nueve años y había estado institucionalizada un promedio de veinticuatro años. (contexto)
+  [T53, D47] En diciembre de 1979, el Tercer Circuito eliminó la presunción de cierre eventual, la prohibición de nuevas admisiones y el requisito de empleo alternativo para todos los trabajadores. (giro)
+  [D43] La orden para los niños exigía que quienes tenían menos de veintiún años fueran trasladados a viviendas comunitarias adecuadas para septiembre de 1979. (consecuencia)
+  [D44, T58] La orden del 24 de abril de 1980 estableció determinaciones individuales mediante un Hearing Master para las reubicaciones disputadas. (consecuencia)
+  [D166] La fuente archivística indica que los residentes incluidos fueron visitados cara a cara cada año desde 1978 hasta 1992. (contexto)
+  [D54] Para el 31 de julio de 1981, la Oficina del Special Master registraba 15 reubicaciones oficiales de 90 previstas y el Estado informaba 81. (giro)
+  [D09, T72] El 1 de julio de 1981, Pensilvania limitó a 35000 dólares los gastos de los auxiliares judiciales para el ejercicio de julio de 1981 a junio de 1982. (escalada)
+  [T74, D10] En agosto de 1981, Broderick declaró en desacato al Departamento de Bienestar Público y a Helen O'Bannon e impuso una multa diaria de 10000 dólares. (escalada)
+  [T82] Pensilvania pagó las multas y el desacato quedó purgado el 8 de enero de 1982. (consecuencia)
+  [D11] La Oficina del Special Master fue abolida en diciembre de 1982 y el Hearing Master continuó funcionando según la recapitulación judicial. (consecuencia)
+  [T79, D82] Robert no se trasladó a la comunidad hasta el verano de 1982 debido a las objeciones de sus padres. (consecuencia)
+  [P20] Joan dejó Pennhurst en junio de 1980 después de vivir allí desde mayo de 1969. (consecuencia)
+  [D116] Los padres de Joan estaban preocupados por su regresión y contactaban diariamente al personal. (consecuencia)
+  [D117] La evaluación de Joan concluyó que la atrofia de sus ojos y músculos circundantes había hecho crecer sus párpados hacia adentro y le causaba dolor e irritación. (giro)
+  [D118] Joan recibió prótesis oculares en febrero de 1983. (consecuencia)
+  [T70, T71] El 20 de abril de 1981, la Corte Suprema determinó que la sección 6010 de la DD Act no creaba derechos sustantivos. (giro)
+  [T103, D73] En la audiencia de septiembre de 1984, la Parent Staff Association fue el único grupo que protestó contra el acuerdo y sostuvo que Pennhurst no debía cerrar. (consecuencia)
+  [D95] El estudio informa 92 fallecimientos en la cohorte original, 77 mientras las personas seguían en Pennhurst y 15 en viviendas comunitarias, sin atribuir en ese pasaje las causas de muerte. (consecuencia)
+  [D111, D112] En la muestra entrevistada, la satisfacción expresada de manera fiable pasó del 40 % en Pennhurst al 73 % después del traslado comunitario. (consecuencia)
+  [D136] En la encuesta inicial, el 72 % de las familias de quienes seguían en Pennhurst en 1980 habría rechazado una propuesta de traslado comunitario. (contexto)
+  [D143, D151, D153, D154, D155] En el seguimiento de 134 familias, la oposición firme al traslado pasó del 55 % al 4 % y, después del traslado, el 66 % lo apoyaba firmemente. (consecuencia)
+  [P18, D102] Steve había vivido veintisiete años en Pennhurst y declaró estar aún más feliz en su hogar grupal. (cierre)
+  [P19, D103, Q16] Bruce había vivido veintiocho años en Pennhurst y quería quedarse en el hogar grupal al que se había trasladado. (cierre)
+  [D212, D214] Roland Johnson vivió en Pennhurst desde 1958 hasta 1971 y posteriormente relató sus experiencias en Lost in a Desert World. (cierre)
+  [D199, D200, D201] El proyecto File/Life reunió a siete archivistas comunitarios, incluidos dos exresidentes, para explorar creativamente los archivos de Pennhurst. (cierre)
+
+cifras:
+  [D31] Personas residentes el 17 de marzo de 1978: 1154 personas · F02@9664, dedicatoria del estudio longitudinal.
+  [D197] Unidades de vivienda cerradas con llave: aproximadamente 21 de 45 unidades de vivienda · F12@15417, con referencia a la declaración de Matthews.
+  [D231] Asignación estatal para las instalaciones: 21 millones dólares estadounidenses · F11@1217.
+  [D194] Lesiones reportadas en los registros médicos de Halderman: más de 40 lesiones · F12@9638.
+  [T22] Aislamiento consecutivo del residente castigado en 1974: 6 días consecutivos · F12@4864.
+  [T40] Lesiones mayores reportadas en enero de 1977: 25 lesiones mayores · F12@8135, con referencia a la declaración de Youngberg.
+  [D171] Duración del juicio: 32 días de juicio · F10@1302.
+  [D35, D86] Edad media de la población del estudio: 39 años de edad · F02@15676 y F02@159780.
+  [D36, D87] Tiempo medio de institucionalización de la población del estudio: 24 años de institucionalización · F02@15771 y F02@159780.
+  [D54] Reubicaciones realizadas para el 31 de julio de 1981: sin cifra única resuelta personas reubicadas · F02@58795 reproduce dos recuentos oficiales incompatibles. · otras versiones: 15 personas oficialmente reubicadas [D54]; 81 personas reubicadas [D54]
+  [D54] Reubicaciones previstas en el recuento del 31 de julio de 1981: 90 personas · F02@58795.
+  [D09, T72] Fondos autorizados para los gastos de los auxiliares judiciales en el ejercicio de julio de 1981 a junio de 1982: 35000 dólares estadounidenses · F05@15634.
+  [D10, T81] Multa diaria por desacato: 10000 dólares estadounidenses por día · F05@15807, corroborado por F02@65930. · otras versiones: $10,00 dólares por día, tal como aparece en el pasaje defectuoso [T74, P12]
+  [D60] Fondo acumulado de multas a comienzos de enero de 1982: aproximadamente 1200000 dólares estadounidenses · F02@66076.
+  [T83] Personas trasladadas a la comunidad para marzo de 1982: aproximadamente 200 personas · F02@244614.
+  [T92] Residentes para quienes la orden de enero de 1983 exigía viviendas comunitarias: 143 residentes de Pennhurst · F02@86539.
+  [D95] Fallecimientos informados en la cohorte original del estudio, no muertes atribuidas a abusos: 92 personas fallecidas · F02@173372; el pasaje presenta además una inconsistencia en el cálculo de su remanente.
+  [D95] Fallecimientos de esa cohorte mientras las personas seguían en Pennhurst: 77 personas fallecidas · F02@173372.
+  [D95] Fallecimientos de esa cohorte en viviendas comunitarias: 15 personas fallecidas · F02@173372.
+  [D93] Mejora del grupo desinstitucionalizado en la comparación de cinco años: más de 11 puntos de comportamiento adaptativo · F02@169103.
+  [D111] Satisfacción expresada de manera fiable antes del traslado en la muestra entrevistada: 40 por ciento de la muestra · F02@216475.
+  [D112] Satisfacción expresada de manera fiable después del traslado en la misma muestra: 73 por ciento de la muestra · F02@216645.
+  [D136] Familias de residentes de 1980 que habrían rechazado una propuesta de traslado: 72 por ciento de las familias · F02@283260.
+  [D151] Tamaño del grupo familiar seguido antes y después del traslado: 134 familias · F02@292575.
+  [D153] Oposición firme al traslado antes de la reubicación en el grupo seguido: 55 por ciento de las familias · F02@293604.
+  [D154] Oposición firme al traslado después de la reubicación en el grupo seguido: 4 por ciento de las familias · F02@293604.
+  [D155] Apoyo firme al traslado después de la reubicación en el grupo seguido: 66 por ciento de las familias · F02@293845.
+  [D141] Casos con desacuerdo entre familias y personal sobre necesidades médicas: 57 personas · F02@288135.
+  [P18, D102] Estancia de Steve en Pennhurst: 27 años · F02@194864.
+  [D103] Estancia de Bruce en Pennhurst: 28 años · F02@196119.
+  [D230, T14] Emisiones de la investigación de Baldini: 5 noches de emisión · F11@823.
+  [D200] Participantes comunitarios en File/Life: 7 archivistas · F03@19.
+  [D201] Exresidentes entre los archivistas de File/Life: 2 personas · F03@19.
+
+citas:
+  [Q02] Justice Stevens (Juez de la Corte Suprema, en disidencia.) · VERIFICADA · «This case has illuminated the character of an institution. The record demonstrates that the Pennhurst State School and Hospital has been operated in violation of state law.» (traducción: «Este caso ha iluminado el carácter de una institución. El expediente demuestra que Pennhurst State School and Hospital ha funcionado en violación de la ley estatal.»)
+  [Q03] Justice Stevens (Juez de la Corte Suprema, en disidencia.) · SIN VERIFICAR · «In a completely unprecedented holding, today the Court concludes that Pennsylvania’s sovereign immunity prevents a federal court from enjoining the conduct that Pennsylvania itself has prohibited. No rational view of the sovereign immunity of the States supports this result.» (traducción: «En un fallo completamente sin precedentes, hoy el Tribunal concluye que la inmunidad soberana de Pensilvania impide que un tribunal federal prohíba la conducta que la propia Pensilvania ha prohibido. Ninguna visión racional de la inmunidad soberana de los estados respalda este resultado.»)
+  [Q06, D24] Tribunal de Distrito (Tribunal de primera instancia; formulación reproducida en la disidencia de Stevens.) · VERIFICADA · «acted in the utmost good faith . . . within the sphere of their official responsibilities» (traducción: «actuaron de la más absoluta buena fe... dentro del ámbito de sus responsabilidades oficiales»)
+  [Q09] Funcionarios estatales demandados (Parte demandada; argumento de su escrito.) · VERIFICADA · «Unless it [the Third Circuit] is reversed, the decision will give federal courts a free hand in the management of state programs despite the absence of any federal interest at all.» (traducción: «A menos que se revoque [al Tercer Circuito], la decisión dará a los tribunales federales carta blanca para gestionar los programas estatales pese a la ausencia de cualquier interés federal.»)
+  [Q15] Steve (Exresidente entrevistado.) · VERIFICADA · «I wish for people to live with me who are nice and kind to me like these people.» (traducción: «Deseo vivir con personas que sean buenas y amables conmigo, como estas personas.»)
+  [Q16] Bruce (Exresidente entrevistado.) · VERIFICADA · «Pennhurst was alright, I grew up in that place. We have different hours of getting up and going to sleep here. We have Saturdays and Sundays to ourselves. This is more home; there is no big crowd, just a few people.» (traducción: «Pennhurst estaba bien, crecí en ese lugar. Aquí tenemos otros horarios para levantarnos y acostarnos. Tenemos los sábados y domingos para nosotros. Esto se parece más a un hogar; no hay una gran multitud, solo unas pocas personas.»)
+  [Q17] Bruce (Exresidente entrevistado.) · VERIFICADA · «I wish I was a millionaire.» (traducción: «Desearía ser millonario.»)
+  [Q20] Raymond J. Broderick (Juez del Tribunal de Distrito; formulación reproducida por F10.) · VERIFICADA · «were used as control measures in lieu of adequate staffing» (traducción: «se utilizaban como medidas de control en lugar de una dotación adecuada de personal»)
+  [Q21] Raymond J. Broderick (Juez del Tribunal de Distrito; formulación reproducida por F10.) · VERIFICADA · «hazardous to the residents, both physically and psychologically» (traducción: «peligroso para los residentes, tanto física como psicológicamente»)
+  [Q22] Raymond J. Broderick (Juez del Tribunal de Distrito; formulación reproducida por F10.) · VERIFICADA · «not only not conducive to learning new skills, but it is so poor that it contributes to losing skills already learned.» (traducción: «no solo no favorece el aprendizaje de nuevas habilidades, sino que es tan deficiente que contribuye a perder habilidades ya aprendidas.»)
+  [Q23] Raymond J. Broderick (Juez del Tribunal de Distrito.) · VERIFICADA · «Once admitted to a state facility, the residents have a constitutional right to be provided with minimally adequate habilitation under the least restrictive conditions consistent with the purpose of the commitment.» (traducción: «Una vez admitidos en una institución estatal, los residentes tienen el derecho constitucional a recibir una habilitación mínimamente adecuada en las condiciones menos restrictivas compatibles con el propósito de su internamiento.»)
+  [Q24] Raymond J. Broderick (Juez del Tribunal de Distrito.) · VERIFICADA · «the confinement and isolation of people with disabilities in the institution called Pennhurst is segregation in a facility that clearly is separate and not equal.» (traducción: «el confinamiento y aislamiento de personas con discapacidad en la institución llamada Pennhurst es segregación en una instalación que claramente es separada y no igualitaria.»)
+  [Q25] Raymond J. Broderick (Juez del Tribunal de Distrito.) · VERIFICADA · «No one … anticipated that this civil action commenced on May 30, 1974 would be actively litigated for more than ten years, requiring 2,192 docket entries, about 500 Court orders, twenty-eight published opinions, and three arguments before the U.S. Supreme Court.» (traducción: «Nadie… anticipó que esta acción civil iniciada el 30 de mayo de 1974 se litigaría activamente durante más de diez años y requeriría 2192 asientos en el expediente, unas 500 órdenes judiciales, veintiocho opiniones publicadas y tres exposiciones de argumentos ante la Corte Suprema de Estados Unidos.»)
+  [Q26] James Conroy (Director de investigación del Developmental Disabilities Center de Temple University.) · VERIFICADA · «The former Pennhurst residents showed significantly faster development growth in the community than they had at Pennhurst. They received more services and more program time at less cost in public dollars.» (traducción: «Los exresidentes de Pennhurst mostraron un crecimiento de su desarrollo significativamente más rápido en la comunidad que en Pennhurst. Recibieron más servicios y más tiempo de programa a un menor costo en fondos públicos.»)
+  [Q27] James Conroy (Director de investigación del Developmental Disabilities Center de Temple University.) · SIN VERIFICAR · «Measured by a variety of standards, the families generally perceived the happiness of their … relatives to be much greater in the [community] than at Pennhurst.» (traducción: «Medida con distintos criterios, las familias generalmente percibieron que la felicidad de sus… parientes era mucho mayor en la [comunidad] que en Pennhurst.»)
+  [Q28] Exasistente especial del superintendente de Pennhurst no identificado (Antiguo funcionario de la institución.) · VERIFICADA · «Pennhurst was a mistake from day one, but it was a mistake made by all of us, following the dictates of the 'best minds' of its time.» (traducción: «Pennhurst fue un error desde el primer día, pero fue un error cometido por todos nosotros, siguiendo los dictados de las «mejores mentes» de su tiempo.»)
+  [Q30, P48] Superintendente Youngberg (Superintendente de Pennhurst.) · VERIFICADA · «There is not adequate space for the residents. The living areas do not provide privacy for those persons who can handle privacy. There does not seem to be adequate activity areas or program areas or even general activity areas within the general living area...» (traducción: «No hay espacio adecuado para los residentes. Las áreas de vivienda no ofrecen privacidad a quienes pueden manejarla. No parece haber áreas adecuadas para actividades o programas, ni siquiera áreas de actividad general dentro del espacio de vivienda...»)
+  [Q31] Sra. Hight (Madre de Robert Hight.) · SIN VERIFICAR · «wouldn't leave a dog in conditions like that.» (traducción: «no dejaría a un perro en condiciones como esas.»)
+  [Q32] Sra. Bowman (Madre de Nancy Beth Bowman.) · VERIFICADA · «Nancy Beth will be scarred for the rest of her life.» (traducción: «Nancy Beth quedará marcada por el resto de su vida.»)
+  [Q33] Archivistas comunitarios de File/Life (Participantes del proyecto de exploración de los archivos.) · VERIFICADA · «Can a file ever contain a life?» (traducción: «¿Puede un expediente contener alguna vez una vida?»)
+
+versiones en disputa:
+  Necesidad de atención médica continua según las familias y el personal
+    - Las familias afirmaron que 57 personas no sobrevivirían sin atención médica durante las 24 horas. [D140, D141] (fuente: F02)
+    - Para esas mismas 57 personas, el personal informó que no existían necesidades médicas graves. [D140, D141] (fuente: F02)
+</ficha>
+
+<tarea>
+Con la ficha de arriba, armá la escaleta de este caso en el JSON del esquema: humano, antagonista, promesa del gancho, pico, cierre humano, beats por cap y a_pantalla. Pensá primero a quién seguimos y dónde golpea; después repartí los beats en los siete caps.
+</tarea>

@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f24\f24_corridas.py", line 355, in _paso
+    fn()
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f24\f24_corridas.py", line 595, in <lambda>
+    _paso(tema, paso, lambda: fns[paso](tema))
+                              ^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f24\f24_corridas.py", line 556, in c_guion
+    (out / f"NARRACION_{tema}_f24.md").write_text(f22b_corridas.narracion(
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f22b\f22b_corridas.py", line 179, in narracion
+    f"md5 `{res['prompt_md5']['usuario'][:8]}` · US$ {res['costo']['usd']:.4f} · {res['costo']['segundos']:.0f} s", "",
+                                                      ~~~^^^^^^^^^
+KeyError: 'costo'

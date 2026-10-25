@@ -1,0 +1,150 @@
+{
+ "f7b-1|a6d631fa4d6a5080": {
+  "datos": [
+   {
+    "texto": "Galina Chanova fue evacuada de la zona contaminada inmediatamente después del accidente en Mayak.",
+    "tipo": "cifra",
+    "cita_literal": "Галина Прокопьевна была эвакуирована с зараженной территории сразу после аварии на «Маяке»."
+   },
+   {
+    "texto": "Galina Chanova empezó a recibir compensaciones por el daño a su salud recién en 1997.",
+    "tipo": "fecha",
+    "valor": "1997",
+    "cita_literal": "Только в 1997 году она начала получать компенсации за причиненный ее здоровью вред."
+   },
+   {
+    "texto": "A Galina Chanova le corresponden dos tipos de pagos: uno mensual para comprar alimentos y uno anual para recuperación de la salud.",
+    "tipo": "cifra",
+    "valor": "2",
+    "cita_literal": "Ей положены два вида выплат: ежемесячная на приобретение продовольственных товаров и ежегодная на оздоровление."
+   },
+   {
+    "texto": "En 1997 la compensación para alimentos era de 167 rublos al mes.",
+    "tipo": "magnitud",
+    "valor": "167 rublos al mes",
+    "cita_literal": "В 1997 году компенсация на продукты питания составляла 167 рублей в месяц, а на оздоровление давали 83,5 рубля в год."
+   },
+   {
+    "texto": "En 1997 la compensación para recuperación de la salud era de 83,5 rublos al año.",
+    "tipo": "magnitud",
+    "valor": "83,5 rublos al año",
+    "cita_literal": "В 1997 году компенсация на продукты питания составляла 167 рублей в месяц, а на оздоровление давали 83,5 рубля в год."
+   },
+   {
+    "texto": "Hacia 2007 la compensación para alimentos subió a 287 rublos mensuales.",
+    "tipo": "magnitud",
+    "valor": "287 rublos al mes",
+    "cita_literal": "К 2007 эти цифры немного возросли: на питание стали давать 287 рублей ежемесячно, а на поправку здоровья 131 рубль 30 копеек в год."
+   },
+   {
+    "texto": "Hacia 2007 la compensación para recuperación de la salud subió a 131 rublos con 30 kopeks al año.",
+    "tipo": "magnitud",
+    "valor": "131 rublos 30 kopeks al año",
+    "cita_literal": "К 2007 эти цифры немного возросли: на питание стали давать 287 рублей ежемесячно, а на поправку здоровья 131 рубль 30 копеек в год."
+   },
+   {
+    "texto": "El Estado considera admisible reparar la salud dañada por la radiación en promedio con 100 rublos al año.",
+    "tipo": "magnitud",
+    "valor": "100 rublos al año",
+    "cita_literal": "Государство считает допустимым поправлять подорванное радиацией здоровье в среднем на 100 рублей в год."
+   },
+   {
+    "texto": "Según los juristas de «Sociedad Civil», teniendo en cuenta el aumento de precios en 10 años, el Estado no pagó a Galina Chanova unos 150 mil rublos.",
+    "tipo": "magnitud",
+    "valor": "150 mil rublos",
+    "cita_literal": "По их мнению, с учетом роста цен за 10 лет государство не доплатило Галине Прокопьевне около 150 тысяч рублей."
+   },
+   {
+    "texto": "Por decisión del tribunal, a Galina Chanova se le debe pagar del tesoro unos 60 mil rublos, tres veces menos que lo reclamado.",
+    "tipo": "magnitud",
+    "valor": "60 mil rublos",
+    "cita_literal": "задолженность государства была оценена в три раза ниже. По решению суда Галине Прокопьевне из казны обязаны выплатить около 60 тысяч рублей."
+   },
+   {
+    "texto": "Los juristas calcularon una deuda de unos 150 mil rublos, pero el tribunal la fijó en unos 60 mil rublos, tres veces menos.",
+    "tipo": "contradiccion",
+    "cita_literal": "Правда, у судей в руках, наверное, были другие калькуляторы: задолженность государства была оценена в три раза ниже."
+   },
+   {
+    "texto": "En dos meses de trabajo de las oficinas de atención de «Sociedad Civil» se presentaron más de 400 demandas en interés de los afectados por Mayak.",
+    "tipo": "cifra",
+    "valor": "más de 400",
+    "cita_literal": "За два месяца работы специализированных приемных «Гражданского общества» таких исков подано более четырехсот."
+   },
+   {
+    "texto": "El tribunal del distrito Kalininski reconoció la deuda del Estado con Galina Chanova, afectada por el accidente en la PO «Mayak».",
+    "tipo": "lugar",
+    "valor": "суд Калининского района",
+    "cita_literal": "На минувшей неделе суд Калининского района признал долг государства перед Галиной Чановой пострадавшей от аварии на ПО «Маяк»."
+   }
+  ],
+  "cronologia": [
+   {
+    "fecha": "1997",
+    "evento": "Galina Chanova comenzó a recibir compensaciones por el daño a su salud; la de alimentos era de 167 rublos al mes y la de recuperación de 83,5 rublos al año.",
+    "cita_literal": "Только в 1997 году она начала получать компенсации за причиненный ее здоровью вред."
+   },
+   {
+    "fecha": "2007",
+    "evento": "Las compensaciones subieron a 287 rublos mensuales para alimentos y 131 rublos con 30 kopeks anuales para recuperación de la salud.",
+    "cita_literal": "К 2007 эти цифры немного возросли: на питание стали давать 287 рублей ежемесячно, а на поправку здоровья 131 рубль 30 копеек в год."
+   }
+  ],
+  "lugares": [
+   {
+    "nombre": "ПО «Маяк»",
+    "rol": "sitio del accidente cuyas víctimas reclaman compensaciones",
+    "cita_literal": "На минувшей неделе суд Калининского района признал долг государства перед Галиной Чановой пострадавшей от аварии на ПО «Маяк»."
+   },
+   {
+    "nombre": "Калининский район",
+    "rol": "distrito cuyo tribunal reconoció la deuda del Estado con una afectada por el accidente",
+    "cita_literal": "На минувшей неделе суд Калининского района признал долг государства перед Галиной Чановой пострадавшей от аварии на ПО «Маяк»."
+   }
+  ],
+  "citas": [
+   {
+    "autor": "Galina Chanova",
+    "autor_en_documento": "Галина Чанова",
+    "rol": "afectada por el accidente en Mayak, demandante",
+    "testigo": true,
+    "fecha": "",
+    "texto_original": "Я очень рада и такому решению суда. Если бы не юристы «Гражданского общества», которые подсчитали, сколько мне не доплатило государство и грамотно составили исковое заявление, то суд вряд ли бы был на моей стороне.",
+    "texto_es": "Estoy muy contenta con esta decisión del tribunal. Si no fuera por los juristas de «Sociedad Civil», que calcularon cuánto no me pagó el Estado y redactaron correctamente la demanda, es poco probable que el tribunal hubiera estado de mi lado.",
+    "cita_literal": "Я очень рада и такому решению суда. Если бы не юристы «Гражданского общества», которые подсчитали, сколько мне не доплатило государство и грамотно составили исковое заявление, то суд вряд ли бы был на моей стороне."
+   },
+   {
+    "autor": "Alexéi Babin",
+    "autor_en_documento": "Алексей Бабин",
+    "rol": "jurista, responsable de esta línea de trabajo de «Sociedad Civil»",
+    "testigo": false,
+    "fecha": "",
+    "texto_original": "Чиновники соцзащиты могут обжаловать это решение в течение 10 дней после его изготовления.",
+    "texto_es": "Los funcionarios de protección social pueden apelar esta decisión dentro de los 10 días posteriores a su elaboración.",
+    "cita_literal": "Чиновники соцзащиты могут обжаловать это решение в течение 10 дней после его изготовления."
+   }
+  ],
+  "personajes": [
+   {
+    "nombre": "Galina Chanova",
+    "nombre_en_documento": "Галина Чанова",
+    "rol": "evacuada de la zona contaminada tras el accidente en Mayak; ganó una demanda contra el Estado por compensaciones",
+    "antagonista": false,
+    "testigo": true,
+    "fechas_presente": [],
+    "lugar": "",
+    "cita_literal": "Галина Прокопьевна была эвакуирована с зараженной территории сразу после аварии на «Маяке»."
+   },
+   {
+    "nombre": "Alexéi Babin",
+    "nombre_en_documento": "Алексей Бабин",
+    "rol": "jurista, responsable de la línea de «Sociedad Civil» que atiende a los afectados de Mayak",
+    "antagonista": false,
+    "testigo": false,
+    "fechas_presente": [],
+    "lugar": "",
+    "cita_literal": "Первое судебное решение мы попросили прокомментировать руководителя данного направления «Гражданского общества» юриста Алексея Бабина"
+   }
+  ]
+ }
+}

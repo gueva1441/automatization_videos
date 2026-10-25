@@ -1,0 +1,190 @@
+{
+ "modelo": "claude-sonnet-5-5",
+ "esfuerzo": "high",
+ "max_tokens": 32000,
+ "docs": [
+  "F01",
+  "F04",
+  "F05",
+  "F06",
+  "F07",
+  "F08",
+  "F09",
+  "F10"
+ ],
+ "error": null,
+ "usd_r3": 0.9712,
+ "segundos_r3": 433.5,
+ "segundos_por_doc": {
+  "F01": 17.7,
+  "F04": 27.1,
+  "F05": 117.5,
+  "F06": 64.9,
+  "F07": 38.2,
+  "F08": 25.3,
+  "F09": 78.0,
+  "F10": 64.9
+ },
+ "llamadas": [
+  {
+   "desc": "R3 F01 1/1",
+   "in": 3300,
+   "out": 1993,
+   "usd": 0.0265
+  },
+  {
+   "desc": "R3 F04 1/1",
+   "in": 10858,
+   "out": 4776,
+   "usd": 0.0695
+  },
+  {
+   "desc": "R3 F05 1/1",
+   "in": 28936,
+   "out": 22418,
+   "usd": 0.2821
+  },
+  {
+   "desc": "R3 F06 1/1",
+   "in": 9872,
+   "out": 12280,
+   "usd": 0.1425
+  },
+  {
+   "desc": "R3 F07 1/1",
+   "in": 7044,
+   "out": 6658,
+   "usd": 0.0807
+  },
+  {
+   "desc": "R3 F08 1/1",
+   "in": 3809,
+   "out": 4507,
+   "usd": 0.0527
+  },
+  {
+   "desc": "R3 F09 1/1",
+   "in": 12005,
+   "out": 14564,
+   "usd": 0.1696
+  },
+  {
+   "desc": "R3 F10 1/1",
+   "in": 11877,
+   "out": 12386,
+   "usd": 0.1476
+  }
+ ],
+ "sonnet": {
+  "items": {
+   "datos": 167,
+   "cronologia": 59,
+   "lugares": 12,
+   "citas": 34,
+   "personajes": 24
+  },
+  "personajes_es_persona": 21,
+  "personajes_nombres": [
+   "Alexéi Babin",
+   "Anatoli Vasílievich Dubrovski",
+   "Anna Ilyina",
+   "Arkadi Aleksándrovich Kazútov",
+   "Denis",
+   "E.P. Slavsky",
+   "Efim Slavski",
+   "Faik",
+   "Galina Chanova",
+   "L. A. Buldakov",
+   "Lidia Popova",
+   "Liudmila Smirnova",
+   "M. A. Demyanovich",
+   "Mijalski",
+   "Mijaíl Demiánovich",
+   "Mijaíl Kuléshov",
+   "Pável Otdélnov",
+   "Ralph Nader",
+   "Serguéi Mitrojin",
+   "V. A. Saprykin",
+   "V. I. Shevchenko",
+   "V. V. Ustiuzhanin",
+   "Vladímir Slivyak",
+   "Zhores Medvedev"
+  ],
+  "elegibles_humano": 17,
+  "citas_estado": {
+   "verificada": 30,
+   "verificada_parcial": 4
+  },
+  "descartados": 44,
+  "descartados_por_motivo": {
+   "el nombre del lugar no está en el documento": 31,
+   "el research no le atribuye ninguna acción (un": 9,
+   "el apellido no está en el documento": 2,
+   "no es una persona con nombre propio": 1,
+   "fecha 1989 no coincide con el año de la cita ": 1
+  },
+  "compuerta": {
+   "color": "verde",
+   "metricas": {
+    "datos": 167,
+    "citas_verificadas": 30,
+    "elegibles_humano": 17,
+    "eventos_con_fecha": 59,
+    "personas_con_nombre": 24
+   }
+  }
+ },
+ "gemini_f23": {
+  "items": {
+   "datos": 154,
+   "cronologia": 56,
+   "lugares": 14,
+   "citas": 24,
+   "personajes": 23
+  },
+  "personajes_es_persona": 20,
+  "personajes_nombres": [
+   "Alexey Babin",
+   "Anatoly Vasilievich Dubrovsky",
+   "Anna Ilyina",
+   "Arkady Aleksandrovich Kazutov",
+   "Chelyabinsky Rabochy",
+   "Denis",
+   "Faik Smirnov",
+   "Galina Chanova",
+   "L. A. Buldakov",
+   "Lidia Popova",
+   "Lyudmila Smirnova",
+   "Mikhail Demyanovich",
+   "Mikhail Kuleshov",
+   "Pavel Otdelnov",
+   "Periódico 'Chelyabinsky Rabochy'",
+   "Sergey Mitrokhin",
+   "Timur",
+   "V. A. Saprykin",
+   "V. I. Shevchenko",
+   "Vladimir Slivyak",
+   "Vyatkin",
+   "Yefim Slavsky",
+   "Zhores Medvedev"
+  ],
+  "elegibles_humano": 16,
+  "citas_estado": {
+   "verificada": 21,
+   "verificada_parcial": 3
+  },
+  "descartados": 67,
+  "descartados_por_motivo": {
+   "el nombre del lugar no está en el documento": 52,
+   "el research no le atribuye ninguna acción (un": 6,
+   "cita_literal no está en el documento": 4,
+   "el apellido no está en el documento": 2,
+   "no es una persona con nombre propio": 1,
+   "fecha 2008 no coincide con el año de la cita ": 1,
+   "fecha 1989 no coincide con el año de la cita ": 1
+  },
+  "compuerta": null,
+  "usd_r3": 0.5923,
+  "llamadas_r3": 8
+ }
+}

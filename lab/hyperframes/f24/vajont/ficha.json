@@ -1,0 +1,4794 @@
+{
+ "topic": "f8s3-vajont",
+ "titulo": "La represa de Vajont: la ola que borró Longarone y los ingenieros que sabían (Italia, 9 de octubre de 1963)",
+ "modelo": "gpt-6.1-sol",
+ "esfuerzo": "high",
+ "prompt_version": "f23-1",
+ "pool_md5": "e3f6863957cc728ac278517806f3c359",
+ "conteos_crudo": {
+  "humanos_candidatos": 4,
+  "giros": 6,
+  "pico": 1,
+  "pregunta_final": 1,
+  "escenas": 13,
+  "contradicciones": 14,
+  "decisiones": 22,
+  "versiones": 7,
+  "personas": 66,
+  "personas_descartadas": 5,
+  "cifras": 33,
+  "cronologia": 51,
+  "hechos": 69,
+  "citas": 25,
+  "descartados": 28
+ },
+ "conteos": {
+  "humanos_candidatos": 4,
+  "giros": 6,
+  "pico": 1,
+  "pregunta_final": 1,
+  "escenas": 13,
+  "contradicciones": 14,
+  "decisiones": 22,
+  "versiones": 7,
+  "personas": 66,
+  "personas_descartadas": 5,
+  "cifras": 31,
+  "cronologia": 51,
+  "hechos": 69,
+  "citas": 25,
+  "descartados": 30
+ },
+ "sacados": 3,
+ "usd": 0.4374,
+ "escenas": [
+  {
+   "donde": "Embalse de Pontesei, en el episodio anterior al desastre del Vajont.",
+   "quien": "Arcangelo Tiziani, vigilante de los movimientos de la montaña.",
+   "que_pasa": "Un desprendimiento golpea el agua y la ola mata al vigilante.",
+   "sentidos": "Rocas entrando en el embalse y una ola que las fuentes describen con veinte metros de altura.",
+   "ids": [
+    "T16",
+    "T17",
+    "D94"
+   ]
+  },
+  {
+   "donde": "Ladera del monte Toc, durante el episodio descrito en 1960.",
+   "quien": "Observadores no individualizados por el pasaje de F09.",
+   "que_pasa": "Después de un pequeño desmoronamiento queda abierta una fisura al costado de la montaña.",
+   "sentidos": "Una abertura visible de más de un metro de ancho y casi dos kilómetros de largo.",
+   "ids": [
+    "D49",
+    "T23"
+   ]
+  },
+  {
+   "donde": "Lago artificial del Vajont, durante las pruebas.",
+   "quien": "El pasaje no individualiza a los presentes.",
+   "que_pasa": "Una masa de roca se desprende del Toc y cae al agua.",
+   "sentidos": "La caída de roca y el levantamiento de una ola; las fuentes no coinciden en sus dimensiones.",
+   "ids": [
+    "T36",
+    "D155",
+    "D223"
+   ]
+  },
+  {
+   "donde": "Monte Toc, desde comienzos de octubre.",
+   "quien": "Habitantes y observadores que comunicaron las señales, sin identificación individual en F04.",
+   "que_pasa": "Se suceden avisos de movimientos del terreno mientras se cierran caminos y se desalojan viviendas.",
+   "sentidos": "Sacudidas, estruendos, grietas que se abren y desplazamientos superficiales.",
+   "ids": [
+    "T55",
+    "D226",
+    "D227"
+   ]
+  },
+  {
+   "donde": "Lugar no especificado de la comunicación de Biadene a Pancini, la mañana del desastre.",
+   "quien": "Alberico Biadene y el topógrafo Rossi; Pancini como destinatario de la carta.",
+   "que_pasa": "Biadene añade a la carta la información que acaba de recibir por teléfono sobre mediciones mayores que las anteriores.",
+   "sentidos": "El documento consigna pequeñas caídas de piedras en el borde occidental de la frana, hacia la presa.",
+   "ids": [
+    "T61",
+    "Q51"
+   ]
+  },
+  {
+   "donde": "Casso, junto a la ventana del párroco.",
+   "quien": "Carlo Onorini.",
+   "que_pasa": "Onorini oye la avalancha y abre la ventana mientras el ruido aumenta.",
+   "sentidos": "Un ruido que crece extraordinariamente y un resplandor visto al mismo tiempo.",
+   "ids": [
+    "Q15"
+   ]
+  },
+  {
+   "donde": "Localización no precisada en el testimonio de Benito Castellano.",
+   "quien": "Benito Castellano.",
+   "que_pasa": "Tras aplacarse el viento, Castellano percibe sacudidas y después un estruendo prolongado.",
+   "sentidos": "Un ruido comparado con un trueno de verano multiplicado cien veces, un resplandor y otro sonido semejante al paso de reactores.",
+   "ids": [
+    "P29",
+    "Q16"
+   ]
+  },
+  {
+   "donde": "Bar Faè.",
+   "quien": "Germano Accamillesi y otras personas presentes.",
+   "que_pasa": "Se apaga la iluminación del televisor y comienzan fuertes sacudidas, seguidas por el apagón de la iluminación del local.",
+   "sentidos": "La pantalla que pierde la luz y el suelo que se sacude.",
+   "ids": [
+    "Q17"
+   ]
+  },
+  {
+   "donde": "Entrada del lugar donde se encontraba el médico en Longarone.",
+   "quien": "Gianfranco Trevisano.",
+   "que_pasa": "Antes del apagón, una corriente abre de golpe el portoncito de entrada y Trevisano piensa que ha cedido el dique.",
+   "sentidos": "El portoncito abierto de par en par y el ruido del aire que irrumpe.",
+   "ids": [
+    "Q19"
+   ]
+  },
+  {
+   "donde": "La cama de Micaela Coletti y el recorrido al que la arrastra la ola.",
+   "quien": "Micaela Coletti.",
+   "que_pasa": "Coletti siente que la cama toma velocidad y es arrastrada lejos de su casa.",
+   "sentidos": "Una fuerza en la espalda que la dobla y aplasta; la sensación de ensancharse y encogerse y de tener los ojos convertidos en estrellas.",
+   "ids": [
+    "P49",
+    "Q49",
+    "D132"
+   ]
+  },
+  {
+   "donde": "Longarone, tras el paso de la avalancha de agua.",
+   "quien": "La comunidad destruida y los sobrevivientes.",
+   "que_pasa": "El centro habitado queda convertido en una explanada y un sobreviviente expresa que ya no sabe orientarse en el pueblo que conocía.",
+   "sentidos": "Fango y piedras donde estaba el centro urbano; pérdida del reconocimiento visual del lugar.",
+   "ids": [
+    "D45",
+    "Q25"
+   ]
+  },
+  {
+   "donde": "Aldea de Giovanni De Lorenzi, no nombrada en el pasaje.",
+   "quien": "Giovanni De Lorenzi, habitantes y rescatistas estadounidenses.",
+   "que_pasa": "De Lorenzi recuerda que el primer rescatista que vio llegó en un helicóptero y que la población fue evacuada.",
+   "sentidos": "La llegada visible de un rescatista en un helicóptero del Ejército estadounidense.",
+   "ids": [
+    "Q06",
+    "D17"
+   ]
+  },
+  {
+   "donde": "Los lugares de la tragedia visitados por el presidente del Consejo.",
+   "quien": "Pobladores, Giovanni Leone y Benigno Zaccagnini.",
+   "que_pasa": "La gente reclama justicia ante Leone y este responde con una promesa.",
+   "sentidos": "El grito «Presidente, vogliamo giustizia» y la respuesta «E giustizia avrete».",
+   "ids": [
+    "T76",
+    "Q13",
+    "Q14"
+   ]
+  }
+ ],
+ "contradicciones": [
+  {
+   "tema": "Grafía del apellido de Leopold Müller / Muller",
+   "versiones": [
+    {
+     "dice": "Leopold Müller; esta grafía también aparece en F15.",
+     "doc_id": "F09",
+     "offset": 23610,
+     "ids": [
+      "P35"
+     ]
+    },
+    {
+     "dice": "Leopold Müller.",
+     "doc_id": "F15",
+     "offset": 9990,
+     "ids": [
+      "P35"
+     ]
+    },
+    {
+     "dice": "Leopold Muller; esta grafía también aparece en F05.",
+     "doc_id": "F02",
+     "offset": 5915,
+     "ids": [
+      "P35"
+     ]
+    },
+    {
+     "dice": "Leopold Muller.",
+     "doc_id": "F05",
+     "offset": 4143,
+     "ids": [
+      "P35"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Volumen de la frana final; las magnitudes no se resuelven con la regla de conteos de víctimas",
+   "versiones": [
+    {
+     "dice": "270 millones de metros cúbicos.",
+     "doc_id": "F19",
+     "offset": 0,
+     "ids": [
+      "D01"
+     ]
+    },
+    {
+     "dice": "270 millones de metros cúbicos.",
+     "doc_id": "F02",
+     "offset": 1490,
+     "ids": [
+      "D121"
+     ]
+    },
+    {
+     "dice": "260 millones de metros cúbicos.",
+     "doc_id": "F09",
+     "offset": 10956,
+     "ids": [
+      "D42"
+     ]
+    },
+    {
+     "dice": "260 millones de metros cúbicos.",
+     "doc_id": "F15",
+     "offset": 153,
+     "ids": [
+      "D42"
+     ]
+    },
+    {
+     "dice": "260 millones de metros cúbicos.",
+     "doc_id": "F23",
+     "offset": 1604,
+     "ids": [
+      "D209"
+     ]
+    },
+    {
+     "dice": "Hasta 300 millones de «m», con unidad cúbica ausente en el pasaje.",
+     "doc_id": "F20",
+     "offset": 3519,
+     "ids": [
+      "D185"
+     ]
+    },
+    {
+     "dice": "Más de 250 metros cúbicos, literal aparentemente defectuoso que no se corrige añadiendo «millones».",
+     "doc_id": "F04",
+     "offset": 4216,
+     "ids": [
+      "D214"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Volumen o superficie de la frana de las pruebas",
+   "versiones": [
+    {
+     "dice": "700.000 metros cúbicos.",
+     "doc_id": "F04",
+     "offset": 7462,
+     "ids": [
+      "D223"
+     ]
+    },
+    {
+     "dice": "700.000 metros cúbicos.",
+     "doc_id": "F05",
+     "offset": 4766,
+     "ids": [
+      "D155"
+     ]
+    },
+    {
+     "dice": "800.000 metros cúbicos.",
+     "doc_id": "F01",
+     "offset": 7351,
+     "ids": [
+      "T34"
+     ]
+    },
+    {
+     "dice": "800.000 metros cúbicos.",
+     "doc_id": "F31",
+     "offset": 7429,
+     "ids": [
+      "D243"
+     ]
+    },
+    {
+     "dice": "700.000 metros cuadrados.",
+     "doc_id": "F02",
+     "offset": 6822,
+     "ids": [
+      "D134"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Altura de la ola producida por la frana de las pruebas",
+   "versiones": [
+    {
+     "dice": "Una ola de diez metros.",
+     "doc_id": "F02",
+     "offset": 6822,
+     "ids": [
+      "D134"
+     ]
+    },
+    {
+     "dice": "Una ola de dos metros.",
+     "doc_id": "F05",
+     "offset": 4766,
+     "ids": [
+      "D155"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Velocidad de la frana final",
+   "versiones": [
+    {
+     "dice": "Cincuenta kilómetros por hora en la descripción atribuida al informe de investigación.",
+     "doc_id": "F03",
+     "offset": 1104,
+     "ids": [
+      "D27",
+      "Q12"
+     ]
+    },
+    {
+     "dice": "Cien kilómetros por hora.",
+     "doc_id": "F01",
+     "offset": 8278,
+     "ids": [
+      "D122"
+     ]
+    },
+    {
+     "dice": "Cien kilómetros por hora.",
+     "doc_id": "F05",
+     "offset": 750,
+     "ids": [
+      "D143"
+     ]
+    },
+    {
+     "dice": "Aceleración hasta seiscientos kilómetros por hora.",
+     "doc_id": "F15",
+     "offset": 669,
+     "ids": [
+      "D79"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Duración de la entrada de la masa en el embalse",
+   "versiones": [
+    {
+     "dice": "Menos de cuarenta y cinco segundos.",
+     "doc_id": "F20",
+     "offset": 3586,
+     "ids": [
+      "D186"
+     ]
+    },
+    {
+     "dice": "Aproximadamente un minuto.",
+     "doc_id": "F01",
+     "offset": 8208,
+     "ids": [
+      "D121"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Altura de la presa; el pool no permite separar de forma completa redondeos, dimensiones finales y proyectos",
+   "versiones": [
+    {
+     "dice": "261 metros como altura alcanzada.",
+     "doc_id": "F02",
+     "offset": 4707,
+     "ids": [
+      "D133"
+     ]
+    },
+    {
+     "dice": "261,6 metros.",
+     "doc_id": "F05",
+     "offset": 2648,
+     "ids": [
+      "D148"
+     ]
+    },
+    {
+     "dice": "262 metros.",
+     "doc_id": "F01",
+     "offset": 4828,
+     "ids": [
+      "D114"
+     ]
+    },
+    {
+     "dice": "266 metros en el proyecto ampliado.",
+     "doc_id": "F01",
+     "offset": 6434,
+     "ids": [
+      "D118"
+     ]
+    },
+    {
+     "dice": "860 pies.",
+     "doc_id": "F07",
+     "offset": 2170,
+     "ids": [
+      "D165"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Capacidades del embalse no homologadas",
+   "versiones": [
+    {
+     "dice": "150 millones de metros cúbicos.",
+     "doc_id": "F03",
+     "offset": 530,
+     "ids": [
+      "D26"
+     ]
+    },
+    {
+     "dice": "58 millones de metros cúbicos de retención máxima.",
+     "doc_id": "F09",
+     "offset": 9925,
+     "ids": [
+      "D40"
+     ]
+    },
+    {
+     "dice": "115 millones de metros cúbicos en el proyecto ampliado.",
+     "doc_id": "F01",
+     "offset": 6434,
+     "ids": [
+      "D118"
+     ]
+    },
+    {
+     "dice": "170 millones de metros cúbicos de capacidad nunca alcanzada.",
+     "doc_id": "F05",
+     "offset": 2758,
+     "ids": [
+      "D149"
+     ]
+    },
+    {
+     "dice": "138.000 acres-pie de capacidad de diseño.",
+     "doc_id": "F07",
+     "offset": 2482,
+     "ids": [
+      "D172"
+     ]
+    },
+    {
+     "dice": "122.000 acres-pie de capacidad.",
+     "doc_id": "F20",
+     "offset": 2000,
+     "ids": [
+      "D180"
+     ]
+    },
+    {
+     "dice": "Más de 160 metros cúbicos, literal aparentemente defectuoso que no se completa.",
+     "doc_id": "F04",
+     "offset": 7088,
+     "ids": [
+      "D221"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Alturas de la ola final y referencias de medición no homologadas",
+   "versiones": [
+    {
+     "dice": "Elevación de unos doscientos metros.",
+     "doc_id": "F04",
+     "offset": 4463,
+     "ids": [
+      "D215"
+     ]
+    },
+    {
+     "dice": "Ola de doscientos cincuenta metros.",
+     "doc_id": "F05",
+     "offset": 968,
+     "ids": [
+      "D145"
+     ]
+    },
+    {
+     "dice": "Olas de más de doscientos cincuenta metros.",
+     "doc_id": "F01",
+     "offset": 8470,
+     "ids": [
+      "D123"
+     ]
+    },
+    {
+     "dice": "Elevación de doscientos sesenta metros sobre Erto, con referencia espacial distinta.",
+     "doc_id": "F09",
+     "offset": 11370,
+     "ids": [
+      "D44"
+     ]
+    },
+    {
+     "dice": "Superación de la barrera en doscientos cincuenta metros, no simplemente altura de ola.",
+     "doc_id": "F14",
+     "offset": 3224,
+     "ids": [
+      "D39"
+     ]
+    },
+    {
+     "dice": "Paso sobre los estribos a más de trescientos pies sobre la cresta, con otra referencia y unidad.",
+     "doc_id": "F20",
+     "offset": 3892,
+     "ids": [
+      "D190"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Direcciones u olas en que se dividió el agua",
+   "versiones": [
+    {
+     "dice": "Dos olas gigantescas; la segunda cruza hacia Longarone.",
+     "doc_id": "F01",
+     "offset": 8470,
+     "ids": [
+      "D123",
+      "D124"
+     ]
+    },
+    {
+     "dice": "Una ola que se ramifica en tres direcciones y una tercera onda hacia Longarone.",
+     "doc_id": "F05",
+     "offset": 968,
+     "ids": [
+      "D145",
+      "D146"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Porcentaje de mortalidad de Longarone en F20",
+   "versiones": [
+    {
+     "dice": "Tasa de mortalidad del 94 por ciento.",
+     "doc_id": "F20",
+     "offset": 4530,
+     "ids": [
+      "D195"
+     ]
+    },
+    {
+     "dice": "El mismo pasaje ofrece 1.269 fallecidos entre 1.328 personas, relación no consistente con el porcentaje escrito; no se añade un porcentaje recalculado.",
+     "doc_id": "F20",
+     "offset": 4530,
+     "ids": [
+      "D195"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Cantidad cualitativa de heridos",
+   "versiones": [
+    {
+     "dice": "Muchos heridos.",
+     "doc_id": "F20",
+     "offset": 4394,
+     "ids": [
+      "D193"
+     ]
+    },
+    {
+     "dice": "Poquísimos heridos.",
+     "doc_id": "F23",
+     "offset": 1988,
+     "ids": [
+      "D210"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Margen temporal antes de la prescripción",
+   "versiones": [
+    {
+     "dice": "Faltaban catorce días.",
+     "doc_id": "F02",
+     "offset": 11432,
+     "ids": [
+      "T105"
+     ]
+    },
+    {
+     "dice": "La sentencia se leyó dos semanas antes.",
+     "doc_id": "F03",
+     "offset": 5688,
+     "ids": [
+      "D36"
+     ]
+    },
+    {
+     "dice": "La sentencia llegó quince días antes.",
+     "doc_id": "F03",
+     "offset": 6414,
+     "ids": [
+      "D37"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Artículo sobre la amenaza a Erto y su relación con el proceso a L'Unità",
+   "versiones": [
+    {
+     "dice": "El juicio comenzó en noviembre de 1960.",
+     "doc_id": "F15",
+     "offset": 15894,
+     "ids": [
+      "T33"
+     ]
+    },
+    {
+     "dice": "El artículo sobre la amenaza a Erto se publica en febrero en la secuencia fechada en 1961 por el pool.",
+     "doc_id": "F15",
+     "offset": 17064,
+     "ids": [
+      "T39"
+     ]
+    },
+    {
+     "dice": "El título sobre esa amenaza habría puesto a L'Unità bajo proceso dos años antes de la catástrofe.",
+     "doc_id": "F09",
+     "offset": 43349,
+     "ids": [
+      "D52"
+     ]
+    }
+   ]
+  }
+ ],
+ "decisiones": [
+  {
+   "tema": "Identidad y rol de Tina Merlin",
+   "criterio": 1,
+   "decision": "Se identifica a Merlin como periodista; la asociación que lleva su nombre es una entidad distinta y no una variante personal.",
+   "ids": [
+    "P03",
+    "D71",
+    "T18"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado de P03 la presenta como nombre de una asociación, mientras este pasaje solo menciona a la Associazione Tina Merlin.",
+     "doc_id": "F19",
+     "offset": 2541,
+     "ids": [
+      "P03"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha de la detección geológica atribuida a Müller",
+   "criterio": 1,
+   "decision": "Se conserva «década de 1950», no el año puntual que encabeza el ítem.",
+   "ids": [
+    "T05",
+    "D47"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T05 y D47 normalizan como 1950 un pasaje que dice «en la década de 1950».",
+     "doc_id": "F09",
+     "offset": 23526,
+     "ids": [
+      "T05",
+      "D47"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Período de los estudios de Edoardo Semenza",
+   "criterio": 1,
+   "decision": "Se conserva el intervalo 1959–1960 que expresa el pasaje, no solo el año inicial extraído.",
+   "ids": [
+    "T19",
+    "P46"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T19 fecha el evento en 1959, pero el pasaje dice «Tra il 1959 e il 1960».",
+     "doc_id": "F02",
+     "offset": 5798,
+     "ids": [
+      "T19",
+      "P46"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Inicio de construcción",
+   "criterio": 5,
+   "decision": "Se adopta julio de 1957 por la coincidencia de F01, F31 y F20 y se marca aproximada por las fechas alternativas, sin convertir la decisión de construir en el comienzo material de las obras.",
+   "ids": [
+    "T12",
+    "T13"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Apertura de los campamentos de obra en enero de 1957.",
+     "doc_id": "F01",
+     "offset": 5914,
+     "ids": [
+      "T11"
+     ]
+    },
+    {
+     "dice": "Apertura de los campamentos de obra en enero de 1957.",
+     "doc_id": "F31",
+     "offset": 5961,
+     "ids": [
+      "T11"
+     ]
+    },
+    {
+     "dice": "Obras abiertas en 1956.",
+     "doc_id": "F15",
+     "offset": 6830,
+     "ids": [
+      "T06",
+      "D92"
+     ]
+    },
+    {
+     "dice": "Construcción realizada entre 1956 y 1960.",
+     "doc_id": "F05",
+     "offset": 2548,
+     "ids": [
+      "D147"
+     ]
+    },
+    {
+     "dice": "Trabajo extendido de 1956 a 1963.",
+     "doc_id": "F09",
+     "offset": 53156,
+     "ids": [
+      "D53"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Terminación de la construcción",
+   "criterio": 5,
+   "decision": "Se usa 1960, coincidente en varias fuentes, y se marca aproximada por las duraciones incompatibles.",
+   "ids": [
+    "D129",
+    "D147",
+    "T31"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Los trabajos comenzaron en 1957 y terminaron dos años después.",
+     "doc_id": "F04",
+     "offset": 7299,
+     "ids": [
+      "T10"
+     ]
+    },
+    {
+     "dice": "La construcción requirió casi siete años de trabajo, de 1956 a 1963.",
+     "doc_id": "F09",
+     "offset": 53156,
+     "ids": [
+      "D53"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Primera denuncia de Tina Merlin",
+   "criterio": 5,
+   "decision": "No se fija una fecha única de primera denuncia: se conservan como aproximadas la referencia de 1959 y la de F04 posterior a la frana de 1960.",
+   "ids": [
+    "T18",
+    "T37",
+    "D224"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Merlin ya había denunciado el peligro en 1959.",
+     "doc_id": "F02",
+     "offset": 3668,
+     "ids": [
+      "T18"
+     ]
+    },
+    {
+     "dice": "Cuatro días después de la frana publicó el primer artículo de denuncia.",
+     "doc_id": "F04",
+     "offset": 7674,
+     "ids": [
+      "T37",
+      "D224"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Año de muerte de Carlo Semenza",
+   "criterio": 1,
+   "decision": "Se conserva 1961, explícito en F05; el pasaje de F15 no permite sostener por sí mismo la fecha 1962 extraída para ambas muertes.",
+   "ids": [
+    "D159",
+    "T38",
+    "T40"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T40 asigna 1962, pero su evidencia solo dice que Carlo Semenza y Dal Piaz murieron «durante el invierno», sin año explícito.",
+     "doc_id": "F15",
+     "offset": 18655,
+     "ids": [
+      "T40"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Hora de la frana final",
+   "criterio": 5,
+   "decision": "Se adopta 22:39 por la coincidencia de múltiples fuentes y del fragmento atribuido al informe de investigación, con aproximada en true por la hora alternativa de F04.",
+   "ids": [
+    "Q12",
+    "T66",
+    "T67",
+    "T68",
+    "T69"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Frana a las 22:45.",
+     "doc_id": "F04",
+     "offset": 4176,
+     "ids": [
+      "T73"
+     ]
+    },
+    {
+     "dice": "Poco después de las diez y media, sin minuto exacto.",
+     "doc_id": "F23",
+     "offset": 1544,
+     "ids": [
+      "T66"
+     ]
+    },
+    {
+     "dice": "El testigo recuerda «a eso de las diez y media»; no es una medición horaria exacta.",
+     "doc_id": "F09",
+     "offset": 12046,
+     "ids": [
+      "Q15"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Hora exacta extraída para T65",
+   "criterio": 1,
+   "decision": "No se acepta la hora exacta 22:30: el pasaje de T65 no la contiene y la otra evidencia de F23 solo ofrece una referencia aproximada.",
+   "ids": [
+    "T65",
+    "T66"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T65 agrega 22:30 a un pasaje que solo enumera localidades arrasadas.",
+     "doc_id": "F23",
+     "offset": 1761,
+     "ids": [
+      "T65"
+     ]
+    },
+    {
+     "dice": "El pasaje horario de F23 dice «Poco dopo le dieci e mezzo di sera».",
+     "doc_id": "F23",
+     "offset": 1544,
+     "ids": [
+      "T66"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Volumen atribuido a F23 dentro de T66",
+   "criterio": 1,
+   "decision": "F23 se registra como fuente de 260 millones de metros cúbicos, no de los 270 millones del encabezado compuesto de T66.",
+   "ids": [
+    "T66",
+    "D209"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado de T66 dice 270 millones, pero esta evidencia dice 260 millones.",
+     "doc_id": "F23",
+     "offset": 1544,
+     "ids": [
+      "T66"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Unidad del volumen atribuido a F20",
+   "criterio": 1,
+   "decision": "No se reproduce como volumen cúbico la cifra extraída en D185 porque el pasaje suministrado solo conserva «m», sin exponente.",
+   "ids": [
+    "D185",
+    "T71"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "D185 expande como metros cúbicos «up to 300 million m of earth and debris».",
+     "doc_id": "F20",
+     "offset": 3519,
+     "ids": [
+      "D185",
+      "T71"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Recuento total de muertos",
+   "criterio": 3,
+   "decision": "Se usa 1.910 como recuento exacto de referencia coincidente en F19, F14 y F02, sin presentarlo como un padrón oficial reproducido y conservando recuentos distintos y redondeos.",
+   "ids": [
+    "D03",
+    "D73",
+    "D128"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "1.917 muertos confirmados.",
+     "doc_id": "F03",
+     "offset": 2217,
+     "ids": [
+      "D30"
+     ]
+    },
+    {
+     "dice": "1.920 víctimas.",
+     "doc_id": "F01",
+     "offset": 122,
+     "ids": [
+      "D108"
+     ]
+    },
+    {
+     "dice": "1.920 víctimas.",
+     "doc_id": "F31",
+     "offset": 169,
+     "ids": [
+      "D235"
+     ]
+    },
+    {
+     "dice": "2.000 personas muertas.",
+     "doc_id": "F09",
+     "offset": 493,
+     "ids": [
+      "D38"
+     ]
+    },
+    {
+     "dice": "2.000 personas muertas.",
+     "doc_id": "F21",
+     "offset": 966,
+     "ids": [
+      "D202"
+     ]
+    },
+    {
+     "dice": "2.000 personas muertas.",
+     "doc_id": "F22",
+     "offset": 280,
+     "ids": [
+      "D202"
+     ]
+    },
+    {
+     "dice": "Casi 2.000 vidas.",
+     "doc_id": "F06",
+     "offset": 793,
+     "ids": [
+      "D16"
+     ]
+    },
+    {
+     "dice": "Más de 2.000 víctimas.",
+     "doc_id": "F12",
+     "offset": 5251,
+     "ids": [
+      "D64"
+     ]
+    },
+    {
+     "dice": "2.600 muertes totales.",
+     "doc_id": "F20",
+     "offset": 4394,
+     "ids": [
+      "D193"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Redondeos tratados como cifras exactas en D38",
+   "criterio": 1,
+   "decision": "Los pasajes que dicen «casi», «nearly» o «circa» no se presentan como una confirmación exacta de 2.000 muertos.",
+   "ids": [
+    "D38"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "«Nearly two thousand», no exactamente dos mil.",
+     "doc_id": "F11",
+     "offset": 706,
+     "ids": [
+      "D38"
+     ]
+    },
+    {
+     "dice": "«casi dos mil personas», no exactamente dos mil.",
+     "doc_id": "F15",
+     "offset": 25794,
+     "ids": [
+      "D38"
+     ]
+    },
+    {
+     "dice": "«circa 2.000», no exactamente dos mil.",
+     "doc_id": "F04",
+     "offset": 4962,
+     "ids": [
+      "D38"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Nombramiento de la comisión de investigación",
+   "criterio": 1,
+   "decision": "Se conserva el once de octubre, corroborado por F04, y no la fórmula relativa «tres días después» de F01 y F31.",
+   "ids": [
+    "T75"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "«Tre giorni dopo il disastro, l'11 ottobre», formulación relativa inconsistente con la fecha del desastre.",
+     "doc_id": "F01",
+     "offset": 8918,
+     "ids": [
+      "T75"
+     ]
+    },
+    {
+     "dice": "Repite «Tre giorni dopo il disastro, l'11 ottobre».",
+     "doc_id": "F31",
+     "offset": 8965,
+     "ids": [
+      "T75"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Remisión a juicio y cierre de instrucción",
+   "criterio": 5,
+   "decision": "Se adopta el veinte de febrero de 1968 por coincidencia de F03, F01 y F31, con aproximada en true y conservando que F02 fecha el cierre al día siguiente.",
+   "ids": [
+    "T85",
+    "T86"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Cierre de instrucción y solicitud de remisión el veintiuno de febrero de 1968.",
+     "doc_id": "F02",
+     "offset": 10252,
+     "ids": [
+      "T87"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Comienzo del juicio",
+   "criterio": 5,
+   "decision": "Se adopta el veintinueve de noviembre de 1968, coincidente con F03 y la secuencia de F01 y F31, y se marca aproximada.",
+   "ids": [
+    "T90",
+    "P18",
+    "T92"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El proceso comenzó el veinticinco de noviembre de 1968.",
+     "doc_id": "F02",
+     "offset": 10413,
+     "ids": [
+      "T88"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha de la sentencia de apelación",
+   "criterio": 5,
+   "decision": "Se adopta el tres de octubre de 1970 por coincidencia de F03 y F31 y se marca aproximada.",
+   "ids": [
+    "T97",
+    "T98"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "La condena en apelación se fecha el veinte de julio de 1970.",
+     "doc_id": "F02",
+     "offset": 11039,
+     "ids": [
+      "T95"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha final de casación extraída de un intervalo",
+   "criterio": 1,
+   "decision": "T104 y T105 no permiten fijar la sentencia el veinticinco de marzo: sus pasajes describen un intervalo del proceso, no una fecha exacta de fallo.",
+   "ids": [
+    "T102",
+    "T104",
+    "T105"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El ítem asigna el veinticinco de marzo, pero el pasaje dice «Tra il 15 e il 25 marzo del 1971».",
+     "doc_id": "F01",
+     "offset": 10926,
+     "ids": [
+      "T104"
+     ]
+    },
+    {
+     "dice": "El ítem asigna el veinticinco de marzo, pero el pasaje dice «Tra il 15 e il 25 marzo 1971».",
+     "doc_id": "F02",
+     "offset": 11432,
+     "ids": [
+      "T105"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Precisión cronológica de la casación",
+   "criterio": 5,
+   "decision": "Se usa marzo de 1971 como fecha común y se conserva como aproximada la precisión diaria, dado que solo F03 fecha explícitamente la sentencia el quince.",
+   "ids": [
+    "T101",
+    "T102",
+    "T103",
+    "T105"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Sentencia fechada el quince de marzo de 1971.",
+     "doc_id": "F03",
+     "offset": 5483,
+     "ids": [
+      "T103"
+     ]
+    },
+    {
+     "dice": "Proceso situado entre el quince y el veinticinco de marzo.",
+     "doc_id": "F31",
+     "offset": 10973,
+     "ids": [
+      "T102"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Cantidad de condenados finales",
+   "criterio": 3,
+   "decision": "Se registran los dos condenados identificados de forma coincidente, Biadene y Sensidoni, sin convertir la expresión «numerosas condenas» en un recuento adicional.",
+   "ids": [
+    "D35",
+    "T102",
+    "T104"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "F09 habla de «numerosas condenas», sin enumerarlas en el pasaje.",
+     "doc_id": "F09",
+     "offset": 23006,
+     "ids": [
+      "D46"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha del reconocimiento de UNESCO",
+   "criterio": 1,
+   "decision": "Se conserva el dieciocho de mayo indicado por F19; el cuatro de junio de F14 es la fecha de la noticia y no una fecha explícita de inscripción.",
+   "ids": [
+    "T117",
+    "T118",
+    "D04"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "T118 toma como fecha de inscripción el encabezado «Belluno, 4 giugno 2023», seguido del anuncio de que el archivo ya había ingresado.",
+     "doc_id": "F14",
+     "offset": 0,
+     "ids": [
+      "T118"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Citas más largas que su evidencia visible",
+   "criterio": 1,
+   "decision": "Se reproducen solo los fragmentos completos visibles y no se completan los finales truncados de la carta de Biadene ni de la comunicación municipal.",
+   "ids": [
+    "Q50",
+    "Q51"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Q50 ofrece una traducción más larga que el pasaje suministrado, que termina durante la exposición sobre la seguridad de vidas y bienes.",
+     "doc_id": "F02",
+     "offset": 7114,
+     "ids": [
+      "Q50"
+     ]
+    },
+    {
+     "dice": "Q51 completa en español una invocación final que el pasaje deja en «Che Iddio ce la mand».",
+     "doc_id": "F02",
+     "offset": 8817,
+     "ids": [
+      "Q51"
+     ]
+    }
+   ]
+  }
+ ],
+ "versiones": [
+  {
+   "tema": "Daños del episodio de Pontesei",
+   "versiones": [
+    {
+     "dice": "El desprendimiento mató a un hombre que trabajaba allí.",
+     "doc_id": "F12",
+     "offset": 7173,
+     "ids": [
+      "T15",
+      "D67"
+     ]
+    },
+    {
+     "dice": "La ola mató al vigilante Arcangelo Tiziani.",
+     "doc_id": "F15",
+     "offset": 9102,
+     "ids": [
+      "T16",
+      "D94"
+     ]
+    },
+    {
+     "dice": "La frana ocurrió «sin provocar daños»; no se convierte esa frase en un recuento de cero muertos.",
+     "doc_id": "F05",
+     "offset": 3905,
+     "ids": [
+      "T21",
+      "D152"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Diagnóstico de Müller y relación con la hipótesis de una paleofrana",
+   "versiones": [
+    {
+     "dice": "Edoardo Semenza llegó a las mismas conclusiones que Müller.",
+     "doc_id": "F15",
+     "offset": 11613,
+     "ids": [
+      "P46"
+     ]
+    },
+    {
+     "dice": "Muller no creía en una paleofrana ni en una capa de arcilla capaz de provocar el deslizamiento.",
+     "doc_id": "F05",
+     "offset": 5357,
+     "ids": [
+      "D157"
+     ]
+    },
+    {
+     "dice": "Edoardo planteó que una paleofrana podía reactivarse por el llenado.",
+     "doc_id": "F05",
+     "offset": 4423,
+     "ids": [
+      "D154"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Relación corporativa entre SADE y ENEL",
+   "versiones": [
+    {
+     "dice": "SADE se transformó en el organismo estatal ENEL.",
+     "doc_id": "F09",
+     "offset": 53156,
+     "ids": [
+      "D53"
+     ]
+    },
+    {
+     "dice": "ENEL compró la instalación a SADE mediante una operación cuyo contrato exigía una central plenamente funcional.",
+     "doc_id": "F15",
+     "offset": 21871,
+     "ids": [
+      "T46"
+     ]
+    },
+    {
+     "dice": "La propiedad de la presa había sido transferida a ENEL.",
+     "doc_id": "F07",
+     "offset": 2710,
+     "ids": [
+      "D174"
+     ]
+    },
+    {
+     "dice": "ENEL controlaba SADE al producirse el accidente y Montedison adquirió después la sociedad.",
+     "doc_id": "F02",
+     "offset": 11744,
+     "ids": [
+      "D138"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Estado material de la obra durante la frana de las pruebas",
+   "versiones": [
+    {
+     "dice": "Durante ese episodio la presa estaba completada en dos tercios.",
+     "doc_id": "F05",
+     "offset": 4924,
+     "ids": [
+      "D156"
+     ]
+    },
+    {
+     "dice": "La presa había sido inaugurada en septiembre de 1960.",
+     "doc_id": "F01",
+     "offset": 4600,
+     "ids": [
+      "T31"
+     ]
+    },
+    {
+     "dice": "La construcción había terminado en 1960.",
+     "doc_id": "F02",
+     "offset": 1134,
+     "ids": [
+      "D129"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fatalidad frente a responsabilidad evitable",
+   "versiones": [
+    {
+     "dice": "La primera comisión de expertos favoreció la imprevisibilidad del desastre.",
+     "doc_id": "F02",
+     "offset": 9718,
+     "ids": [
+      "D136"
+     ]
+    },
+    {
+     "dice": "No había nada que hacer, remordimientos ni culpables: posición de Bocca, no hecho establecido.",
+     "doc_id": "F09",
+     "offset": 33210,
+     "ids": [
+      "Q22"
+     ]
+    },
+    {
+     "dice": "Coppola reclamó un proceso para encontrar a los responsables y hacerlos pagar.",
+     "doc_id": "F09",
+     "offset": 44716,
+     "ids": [
+      "Q23"
+     ]
+    },
+    {
+     "dice": "La casación reconoció inundación agravada por la previsión del acontecimiento.",
+     "doc_id": "F31",
+     "offset": 10973,
+     "ids": [
+      "T102"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Alcance jurídico de la condena final",
+   "versiones": [
+    {
+     "dice": "Biadene y Sensidoni fueron reconocidos culpables de un solo delito, inundación agravada.",
+     "doc_id": "F03",
+     "offset": 5483,
+     "ids": [
+      "T103",
+      "D35"
+     ]
+    },
+    {
+     "dice": "El único desastre fue la inundación agravada por la previsión del evento.",
+     "doc_id": "F31",
+     "offset": 10973,
+     "ids": [
+      "T102"
+     ]
+    },
+    {
+     "dice": "El cierre del proceso incluyó numerosas condenas por desastre e inundación, homicidio y lesiones culposas múltiples.",
+     "doc_id": "F09",
+     "offset": 23006,
+     "ids": [
+      "D46"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Afirmación absoluta sobre la ausencia de sobrevivientes",
+   "versiones": [
+    {
+     "dice": "Al describir la movilización sanitaria, F04 afirma que en realidad no había sobrevivientes.",
+     "doc_id": "F04",
+     "offset": 11780,
+     "ids": [
+      "D228"
+     ]
+    },
+    {
+     "dice": "F02 identifica sobrevivientes concretos, entre ellos Coletti.",
+     "doc_id": "F02",
+     "offset": 2045,
+     "ids": [
+      "P49"
+     ]
+    },
+    {
+     "dice": "F06 identifica a De Lorenzi como sobreviviente y recoge el relato de una evacuación.",
+     "doc_id": "F06",
+     "offset": 937,
+     "ids": [
+      "Q06"
+     ]
+    }
+   ]
+  }
+ ],
+ "personas": [
+  {
+   "nombre": "Tina Merlin",
+   "rol": "Periodista de L'Unità que denunció el peligro y fue procesada y absuelta.",
+   "variantes": [],
+   "ids": [
+    "P03",
+    "T18",
+    "T33",
+    "T39",
+    "D71",
+    "D224"
+   ]
+  },
+  {
+   "nombre": "Carlo Semenza",
+   "rol": "Ingeniero proyectista de la presa y padre de Edoardo Semenza.",
+   "variantes": [
+    "ing. Carlo Semenza"
+   ],
+   "ids": [
+    "P08",
+    "D147",
+    "D153",
+    "D159"
+   ]
+  },
+  {
+   "nombre": "Giorgio Dal Piaz",
+   "rol": "Geólogo asesor de SADE; minimizó los riesgos señalados por Edoardo Semenza.",
+   "variantes": [
+    "Dal Piaz"
+   ],
+   "ids": [
+    "P36",
+    "D48",
+    "T27",
+    "Q37"
+   ]
+  },
+  {
+   "nombre": "Leopold Müller / Leopold Muller",
+   "rol": "Geólogo austriaco consultado por SADE; el pool no permite dirimir la grafía del apellido ni unificar todas las versiones sobre su diagnóstico.",
+   "variantes": [
+    "Leopold Müller",
+    "Leopold Muller"
+   ],
+   "ids": [
+    "P35",
+    "D47",
+    "D95",
+    "D153",
+    "D157"
+   ]
+  },
+  {
+   "nombre": "Edoardo Semenza",
+   "rol": "Geólogo, hijo del proyectista; identificó la posibilidad de reactivación de un antiguo deslizamiento.",
+   "variantes": [],
+   "ids": [
+    "P46",
+    "T19",
+    "D153",
+    "D154"
+   ]
+  },
+  {
+   "nombre": "Pietro Caloi",
+   "rol": "Geofísico al que F15 atribuye la defensa de la estabilidad de la base de la montaña.",
+   "variantes": [],
+   "ids": [
+    "P45"
+   ]
+  },
+  {
+   "nombre": "Giuseppe Volpi",
+   "rol": "Propietario y dirigente de SADE según las fuentes del pool.",
+   "variantes": [
+    "Sr. Volpi",
+    "Mr Volpi",
+    "conde de Misurata"
+   ],
+   "ids": [
+    "P41",
+    "D89",
+    "D90"
+   ]
+  },
+  {
+   "nombre": "Sr. Cini",
+   "rol": "Dirigente de SADE y copropietario de Il Gazzettino según F12; el pool no proporciona su nombre completo.",
+   "variantes": [
+    "Mr Cini"
+   ],
+   "ids": [
+    "P42",
+    "D72"
+   ]
+  },
+  {
+   "nombre": "Arcangelo Tiziani",
+   "rol": "Vigilante de los movimientos de la montaña muerto en el episodio de Pontesei.",
+   "variantes": [],
+   "ids": [
+    "P44",
+    "T16",
+    "D94"
+   ]
+  },
+  {
+   "nombre": "Alberico Biadene",
+   "rol": "Director del Servicio de Construcciones Hidráulicas de SADE; autor de la carta de preocupación y condenado en casación.",
+   "variantes": [
+    "Biadene"
+   ],
+   "ids": [
+    "P16",
+    "T61",
+    "Q51",
+    "D35"
+   ]
+  },
+  {
+   "nombre": "Mario Pancini",
+   "rol": "Director de los trabajos o jefe de obra; destinatario de la carta de Biadene, acusado y muerto por suicidio antes del juicio según varias fuentes.",
+   "variantes": [
+    "Pancini"
+   ],
+   "ids": [
+    "P18",
+    "T61",
+    "T89",
+    "D32"
+   ]
+  },
+  {
+   "nombre": "Francesco Sensidoni",
+   "rol": "Jefe del Servicio de Presas y miembro de la Comisión de Recepción; condenado en apelación y casación.",
+   "variantes": [
+    "Sensidoni"
+   ],
+   "ids": [
+    "P17",
+    "T95",
+    "T98",
+    "D35"
+   ]
+  },
+  {
+   "nombre": "Curzio Batini",
+   "rol": "Presidente de la IV Sección del Consejo Superior de Obras Públicas; condenado en primera instancia y apartado de la apelación por enfermedad.",
+   "variantes": [
+    "Batini"
+   ],
+   "ids": [
+    "P22",
+    "T93",
+    "T94"
+   ]
+  },
+  {
+   "nombre": "Almo Violin",
+   "rol": "Ingeniero jefe del Genio Civil de Belluno; condenado en primera instancia y absuelto en apelación.",
+   "variantes": [
+    "Violin"
+   ],
+   "ids": [
+    "P24",
+    "T93",
+    "P23"
+   ]
+  },
+  {
+   "nombre": "Pietro Frosini",
+   "rol": "Acusado; absuelto por insuficiencia de pruebas según F03.",
+   "variantes": [
+    "Frosini"
+   ],
+   "ids": [
+    "P23"
+   ]
+  },
+  {
+   "nombre": "Francesco Penta",
+   "rol": "Geólogo asesor de SADE y acusado; murió antes del juicio.",
+   "variantes": [
+    "Penta",
+    "profesor Penta"
+   ],
+   "ids": [
+    "P19"
+   ]
+  },
+  {
+   "nombre": "Luigi Greco",
+   "rol": "Acusado que murió antes del juicio.",
+   "variantes": [
+    "Greco"
+   ],
+   "ids": [
+    "P20"
+   ]
+  },
+  {
+   "nombre": "Roberto Marin",
+   "rol": "Acusado absuelto.",
+   "variantes": [
+    "Marin"
+   ],
+   "ids": [
+    "P25"
+   ]
+  },
+  {
+   "nombre": "Augusto Ghetti",
+   "rol": "Acusado absuelto por no haber cometido el hecho según F03.",
+   "variantes": [
+    "Ghetti"
+   ],
+   "ids": [
+    "P26"
+   ]
+  },
+  {
+   "nombre": "Dino Tonini",
+   "rol": "Acusado finalmente absuelto por no haber cometido el hecho.",
+   "variantes": [
+    "Tonini"
+   ],
+   "ids": [
+    "P27"
+   ]
+  },
+  {
+   "nombre": "Mario Fabbri",
+   "rol": "Juez instructor de Belluno; ordenó una nueva pericia y condujo la instrucción penal.",
+   "variantes": [],
+   "ids": [
+    "P31",
+    "T86",
+    "T87"
+   ]
+  },
+  {
+   "nombre": "Fabio Mandarino",
+   "rol": "Fiscal de Belluno que abrió el expediente judicial.",
+   "variantes": [],
+   "ids": [
+    "T85"
+   ]
+  },
+  {
+   "nombre": "Sandro Canestrini",
+   "rol": "Abogado de la parte civil.",
+   "variantes": [],
+   "ids": [
+    "P21",
+    "D33",
+    "Q56"
+   ]
+  },
+  {
+   "nombre": "Carlo Onorini",
+   "rol": "Párroco de Casso y testigo del ruido y el resplandor de la catástrofe.",
+   "variantes": [
+    "Don Carlo Onorini"
+   ],
+   "ids": [
+    "P28",
+    "Q15"
+   ]
+  },
+  {
+   "nombre": "Benito Castellano",
+   "rol": "Sobreviviente que describió los temblores, el estruendo y un resplandor.",
+   "variantes": [],
+   "ids": [
+    "P29",
+    "Q16"
+   ]
+  },
+  {
+   "nombre": "Germano Accamillesi",
+   "rol": "Sobreviviente que estaba en el bar Faè cuando se apagó el televisor y comenzaron las sacudidas.",
+   "variantes": [],
+   "ids": [
+    "P30",
+    "Q17"
+   ]
+  },
+  {
+   "nombre": "Gianfranco Trevisano",
+   "rol": "Médico de Longarone y testigo de la irrupción de aire antes del apagón.",
+   "variantes": [
+    "Doctor Gianfranco Trevisano"
+   ],
+   "ids": [
+    "P32",
+    "Q19"
+   ]
+  },
+  {
+   "nombre": "Mauro Corona",
+   "rol": "Escritor que vivía cerca de la presa y recordó el ruido del derrumbe.",
+   "variantes": [],
+   "ids": [
+    "P48",
+    "Q48"
+   ]
+  },
+  {
+   "nombre": "Micaela Coletti",
+   "rol": "Sobreviviente arrastrada desde su cama; posteriormente presidenta del comité de sobrevivientes del Vajont.",
+   "variantes": [],
+   "ids": [
+    "P49",
+    "Q49",
+    "D132"
+   ]
+  },
+  {
+   "nombre": "Giuseppe Sacchet",
+   "rol": "Sobreviviente encontrado sobre un colchón bajo los escombros y lejos de su casa.",
+   "variantes": [],
+   "ids": [
+    "P50"
+   ]
+  },
+  {
+   "nombre": "Giovanni De Lorenzi",
+   "rol": "Sobreviviente evacuado y director de la Fundación Vajont en la fuente que recoge su testimonio.",
+   "variantes": [],
+   "ids": [
+    "P06",
+    "Q06",
+    "D17"
+   ]
+  },
+  {
+   "nombre": "Parise Ferdinando",
+   "rol": "Soldado italiano retirado que participó en el rescate.",
+   "variantes": [],
+   "ids": [
+    "P11",
+    "Q09"
+   ]
+  },
+  {
+   "nombre": "Giovanni Leone",
+   "rol": "Presidente del Consejo de Ministros que visitó la zona y prometió justicia.",
+   "variantes": [],
+   "ids": [
+    "P13",
+    "T76",
+    "Q14"
+   ]
+  },
+  {
+   "nombre": "Benigno Zaccagnini",
+   "rol": "Ministro de Obras Públicas que acompañó a Leone en su visita.",
+   "variantes": [],
+   "ids": [
+    "T76",
+    "P13"
+   ]
+  },
+  {
+   "nombre": "Guglielmo Celso",
+   "rol": "Alcalde de Longarone y secretario de la Federación Socialista de Belluno; murió en el desastre.",
+   "variantes": [],
+   "ids": [
+    "D50"
+   ]
+  },
+  {
+   "nombre": "Terenzio Arduini",
+   "rol": "Vicealcalde sobreviviente que pasó a liderar la comunidad pese a sus pérdidas familiares.",
+   "variantes": [],
+   "ids": [
+    "P39",
+    "D51"
+   ]
+  },
+  {
+   "nombre": "Dino Buzzati",
+   "rol": "Escritor del Corriere della Sera que presentó la catástrofe mediante la imagen de una piedra y un vaso.",
+   "variantes": [],
+   "ids": [
+    "P33",
+    "Q20",
+    "Q21"
+   ]
+  },
+  {
+   "nombre": "Indro Montanelli",
+   "rol": "Periodista al que F02 atribuye la defensa de la interpretación del desastre como casualidad.",
+   "variantes": [],
+   "ids": [
+    "P33"
+   ]
+  },
+  {
+   "nombre": "Giorgio Bocca",
+   "rol": "Escritor de Il Giorno que sostuvo que no había culpables.",
+   "variantes": [],
+   "ids": [
+    "P37",
+    "Q22"
+   ]
+  },
+  {
+   "nombre": "Aniello Coppola",
+   "rol": "Periodista de L'Unità que reclamó investigación y responsabilidades.",
+   "variantes": [],
+   "ids": [
+    "P40",
+    "Q23"
+   ]
+  },
+  {
+   "nombre": "Rubinacci",
+   "rol": "Senador democristiano y presidente de una comisión de investigación según F04; relator del informe final mencionado en F31.",
+   "variantes": [],
+   "ids": [
+    "P58",
+    "T82",
+    "T84"
+   ]
+  },
+  {
+   "nombre": "Roberto Padrin",
+   "rol": "Alcalde de Longarone y presidente de la Provincia de Belluno y de la Fundación Vajont en la fuente sobre el archivo.",
+   "variantes": [],
+   "ids": [
+    "P01",
+    "Q01"
+   ]
+  },
+  {
+   "nombre": "Società Adriatica di Elettricità",
+   "rol": "Empresa privada promotora y constructora de la instalación; responsable de decisiones de proyecto y llenado.",
+   "variantes": [
+    "SADE",
+    "Sade",
+    "Sociedad Adriática de Electricidad",
+    "Società Adriatica di Elettricità di Venezia"
+   ],
+   "ids": [
+    "D88",
+    "D151",
+    "D173",
+    "T50"
+   ]
+  },
+  {
+   "nombre": "ENEL",
+   "rol": "Entidad eléctrica estatal que recibió la propiedad de la instalación y participó en los resarcimientos.",
+   "variantes": [
+    "Ente Nacional para la Energía Eléctrica",
+    "Enel"
+   ],
+   "ids": [
+    "D105",
+    "D174",
+    "T52",
+    "D138",
+    "D139"
+   ]
+  },
+  {
+   "nombre": "Ministerio de Obras Públicas",
+   "rol": "Autoridad estatal vinculada a la autorización, supervisión e investigación del proyecto.",
+   "variantes": [
+    "Ministero dei Lavori pubblici",
+    "Ministro dei Lavori Pubblici",
+    "Secretaría de Obras Públicas"
+   ],
+   "ids": [
+    "T14",
+    "T75",
+    "Q24"
+   ]
+  },
+  {
+   "nombre": "Consejo Superior de Obras Públicas",
+   "rol": "Organismo que aprobó el proyecto.",
+   "variantes": [
+    "Consiglio superiore dei lavori pubblici",
+    "Consiglio superiore dei Lavori pubblici"
+   ],
+   "ids": [
+    "T04",
+    "D117",
+    "D240"
+   ]
+  },
+  {
+   "nombre": "Servicio de Construcciones Hidráulicas de SADE",
+   "rol": "Dirección encabezada por Biadene que intervenía en la gestión de los trabajos.",
+   "variantes": [
+    "Servizio costruzioni idrauliche della SADE"
+   ],
+   "ids": [
+    "P16",
+    "Q51"
+   ]
+  },
+  {
+   "nombre": "Servicio de Presas",
+   "rol": "Servicio encabezado por Sensidoni.",
+   "variantes": [
+    "Servizio dighe"
+   ],
+   "ids": [
+    "P17",
+    "T95"
+   ]
+  },
+  {
+   "nombre": "Comisión de Recepción de la presa",
+   "rol": "Órgano de control del que formaba parte Sensidoni.",
+   "variantes": [
+    "Commissione di collaudo"
+   ],
+   "ids": [
+    "P17",
+    "T95"
+   ]
+  },
+  {
+   "nombre": "Laboratorio de la Universidad de Padua",
+   "rol": "Institución que realizó el modelo hidráulico y cuyo informe advertía sobre el nivel del embalse.",
+   "variantes": [
+    "Laboratorio de la Universidad de Padua"
+   ],
+   "ids": [
+    "P61",
+    "D103",
+    "D104"
+   ]
+  },
+  {
+   "nombre": "Administración del municipio de Erto y Casso",
+   "rol": "Autoridad local que comunicó su preocupación por la seguridad de la población.",
+   "variantes": [
+    "Amministrazione del comune di Erto e Casso",
+    "Administración del comune di Erto e Casso"
+   ],
+   "ids": [
+    "Q50",
+    "T54",
+    "D227"
+   ]
+  },
+  {
+   "nombre": "Ministerio no identificado en F15",
+   "rol": "Autor institucional al que F15 atribuye una respuesta tranquilizadora; el pasaje citado no permite identificarlo con mayor precisión.",
+   "variantes": [
+    "Ministerio"
+   ],
+   "ids": [
+    "Q45"
+   ]
+  },
+  {
+   "nombre": "Comisión de investigación nombrada por el Ministerio de Obras Públicas",
+   "rol": "Órgano técnico-administrativo de investigación del desastre y autor del informe citado sobre el derrumbe.",
+   "variantes": [
+    "Commissione di inchiesta",
+    "Commissione d’inchiesta tecnico-amministrativa"
+   ],
+   "ids": [
+    "Q12",
+    "T75",
+    "T77"
+   ]
+  },
+  {
+   "nombre": "Tribunal de L'Aquila",
+   "rol": "Tribunal que celebró el juicio de primera instancia.",
+   "variantes": [
+    "Tribunale de L'Aquila"
+   ],
+   "ids": [
+    "T90",
+    "T92"
+   ]
+  },
+  {
+   "nombre": "Corte de Apelaciones de L'Aquila",
+   "rol": "Tribunal de segunda instancia.",
+   "variantes": [
+    "Corte d’Appello dell’Aquila"
+   ],
+   "ids": [
+    "T95",
+    "T97",
+    "T98"
+   ]
+  },
+  {
+   "nombre": "Corte de Casación",
+   "rol": "Tribunal que resolvió la fase penal final.",
+   "variantes": [
+    "Corte di Cassazione",
+    "Cassazione",
+    "tribunal supremo de casación"
+   ],
+   "ids": [
+    "T102",
+    "T103",
+    "T105"
+   ]
+  },
+  {
+   "nombre": "Tribunal Civil y Penal de Belluno",
+   "rol": "Tribunal que condenó a Montedison a indemnizar al municipio de Longarone.",
+   "variantes": [
+    "Tribunale Civile e Penale di Belluno"
+   ],
+   "ids": [
+    "T109",
+    "D245"
+   ]
+  },
+  {
+   "nombre": "Montedison",
+   "rol": "Empresa que adquirió SADE y fue condenada al resarcimiento de daños.",
+   "variantes": [],
+   "ids": [
+    "T107",
+    "T109",
+    "D138",
+    "D234"
+   ]
+  },
+  {
+   "nombre": "L'Unità",
+   "rol": "Periódico que publicó las denuncias de Merlin y reclamó responsabilidades tras el desastre.",
+   "variantes": [
+    "L’Unità",
+    "l'Unità",
+    "Unità"
+   ],
+   "ids": [
+    "D71",
+    "D52",
+    "Q23",
+    "Q29"
+   ]
+  },
+  {
+   "nombre": "Il Gazzettino",
+   "rol": "Periódico parcialmente propiedad de SADE, FIAT y los dirigentes Volpi y Cini según F12.",
+   "variantes": [],
+   "ids": [
+    "D72"
+   ]
+  },
+  {
+   "nombre": "Fundación Vajont",
+   "rol": "Institución de memoria que financió el trabajo de acceso al archivo procesal.",
+   "variantes": [
+    "Fondazione Vajont",
+    "Vajont Foundation"
+   ],
+   "ids": [
+    "D10",
+    "P06",
+    "P01"
+   ]
+  },
+  {
+   "nombre": "Archivo de Estado de Belluno",
+   "rol": "Institución que custodia el archivo procesal trasladado desde L'Aquila.",
+   "variantes": [
+    "Archivio di Stato di Belluno"
+   ],
+   "ids": [
+    "D05",
+    "D75"
+   ]
+  },
+  {
+   "nombre": "Archivo de Estado de L'Aquila",
+   "rol": "Institución a la que pertenecen los documentos procesales según F14.",
+   "variantes": [
+    "Archivio di Stato dell'Aquila"
+   ],
+   "ids": [
+    "D75"
+   ]
+  },
+  {
+   "nombre": "UNESCO",
+   "rol": "Organismo que incorporó el archivo procesal al Registro de la Memoria del Mundo.",
+   "variantes": [
+    "Unesco"
+   ],
+   "ids": [
+    "D04",
+    "T118"
+   ]
+  },
+  {
+   "nombre": "SETAF-AF",
+   "rol": "Fuerza estadounidense que participó en el rescate con helicópteros, personal sanitario y hospitales móviles.",
+   "variantes": [
+    "Southern European Task Force",
+    "U.S. Army Southern European Task Force, Africa"
+   ],
+   "ids": [
+    "D18",
+    "D19"
+   ]
+  },
+  {
+   "nombre": "110.ª Compañía de Aviación del Ejército de Estados Unidos",
+   "rol": "Unidad a la que pertenecían los helicópteros enviados al rescate.",
+   "variantes": [
+    "U.S. Army 110th Aviation Company"
+   ],
+   "ids": [
+    "D18"
+   ]
+  }
+ ],
+ "personas_descartadas": [
+  {
+   "nombre": "Tina Merlin",
+   "rol": "Periodista denunciante.",
+   "motivo": "Es indispensable para el arco de advertencia y silenciamiento; que F09 no contenga una cita literal suya no elimina las acciones documentadas en otras fuentes.",
+   "ids": [
+    "P03",
+    "T18",
+    "T33",
+    "T39",
+    "D71"
+   ]
+  },
+  {
+   "nombre": "Fabio Mandarino",
+   "rol": "Fiscal de Belluno.",
+   "motivo": "Permite nombrar a quien abrió el expediente y no presentar la investigación judicial como una acción sin autor.",
+   "ids": [
+    "T85"
+   ]
+  },
+  {
+   "nombre": "Guglielmo Celso",
+   "rol": "Alcalde de Longarone muerto en el desastre.",
+   "motivo": "Da identidad a la pérdida de la autoridad local y permite distinguirla del liderazgo sobreviviente de Arduini.",
+   "ids": [
+    "D50",
+    "D51"
+   ]
+  },
+  {
+   "nombre": "Benigno Zaccagnini",
+   "rol": "Ministro de Obras Públicas.",
+   "motivo": "Es un actor de la visita oficial y permite identificar la presencia ministerial en la escena del reclamo de justicia.",
+   "ids": [
+    "P13",
+    "T76"
+   ]
+  },
+  {
+   "nombre": "Indro Montanelli",
+   "rol": "Periodista.",
+   "motivo": "Permite atribuir por nombre una de las interpretaciones públicas que defendían la casualidad y cuestionaban la previsibilidad.",
+   "ids": [
+    "P33"
+   ]
+  }
+ ],
+ "cifras": [
+  {
+   "que": "Muertes totales del desastre",
+   "valor": "1.910",
+   "unidad": "personas fallecidas",
+   "fuente": "Recuento exacto coincidente en F19, F14 y F02; referencia de trabajo, no padrón judicial reproducido.",
+   "ids": [
+    "D03",
+    "D73",
+    "D128"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "1.917",
+     "unidad": "personas fallecidas",
+     "fuente": "F03, que las llama muertes confirmadas.",
+     "ids": [
+      "D30"
+     ]
+    },
+    {
+     "valor": "1.920",
+     "unidad": "personas fallecidas",
+     "fuente": "Encabezados de F01 y F31.",
+     "ids": [
+      "D108",
+      "D235"
+     ]
+    },
+    {
+     "valor": "2.000",
+     "unidad": "personas fallecidas",
+     "fuente": "F09, F21 y F22.",
+     "ids": [
+      "D38",
+      "D202"
+     ]
+    },
+    {
+     "valor": "casi 2.000",
+     "unidad": "personas fallecidas",
+     "fuente": "F06, F05 y F23, entre otras fuentes.",
+     "ids": [
+      "D16",
+      "D146",
+      "D210"
+     ]
+    },
+    {
+     "valor": "más de 2.000",
+     "unidad": "personas fallecidas",
+     "fuente": "F12.",
+     "ids": [
+      "D64"
+     ]
+    },
+    {
+     "valor": "2.600",
+     "unidad": "personas fallecidas",
+     "fuente": "F20.",
+     "ids": [
+      "D193"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Habitantes evacuados de la aldea de De Lorenzi",
+   "valor": "486",
+   "unidad": "personas evacuadas",
+   "fuente": "Testimonio de De Lorenzi recogido por F06.",
+   "ids": [
+    "D17",
+    "Q06"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Helicópteros enviados por la fuerza estadounidense",
+   "valor": "6",
+   "unidad": "helicópteros despachados",
+   "fuente": "F06; es el total enviado, no necesariamente el observado en una aldea.",
+   "ids": [
+    "D18"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Helicópteros a los que De Lorenzi atribuye la evacuación de su aldea",
+   "valor": "3",
+   "unidad": "helicópteros",
+   "fuente": "Testimonio recogido por F06.",
+   "ids": [
+    "Q06"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personal técnico muerto en el centro de control del estribo izquierdo",
+   "valor": "20",
+   "unidad": "personas fallecidas",
+   "fuente": "F20; subconjunto, no adicional al total de muertos.",
+   "ids": [
+    "D192"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Muertes atribuidas a Longarone por F20",
+   "valor": "1.269",
+   "unidad": "personas fallecidas",
+   "fuente": "F20; alcance territorial no aclarado en el pasaje.",
+   "ids": [
+    "D195"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Población de referencia de Longarone en F20",
+   "valor": "1.328",
+   "unidad": "habitantes",
+   "fuente": "F20; no se homologa con la población aproximada de F09.",
+   "ids": [
+    "D195"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "cerca de 2.000",
+     "unidad": "habitantes",
+     "fuente": "F09.",
+     "ids": [
+      "D41"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Muertes en Erto y Casso",
+   "valor": "158",
+   "unidad": "personas fallecidas",
+   "fuente": "F20; subconjunto del total.",
+   "ids": [
+    "D196"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Víctimas encontradas según F04",
+   "valor": "1.500",
+   "unidad": "personas fallecidas cuyos restos fueron encontrados",
+   "fuente": "F04.",
+   "ids": [
+    "D216"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Operarios de la construcción",
+   "valor": "unos 400",
+   "unidad": "trabajadores",
+   "fuente": "F01, F31 y F15.",
+   "ids": [
+    "T11",
+    "D237",
+    "D92"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Muertes durante la construcción",
+   "valor": "10",
+   "unidad": "obreros fallecidos",
+   "fuente": "F15; recuento separado del desastre final.",
+   "ids": [
+    "D97"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personas alcanzadas por la remisión a juicio",
+   "valor": "11",
+   "unidad": "acusados",
+   "fuente": "F03 y listado reproducido en F01 y F31.",
+   "ids": [
+    "D31",
+    "T86"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Acusados presentes en el banquillo",
+   "valor": "8",
+   "unidad": "acusados",
+   "fuente": "F03.",
+   "ids": [
+    "D32"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Volumen de la frana final",
+   "valor": "No unificado",
+   "unidad": "metros cúbicos de roca",
+   "fuente": "Magnitud disputada; no se resuelve mediante la regla de conteos de personas.",
+   "ids": [
+    "D01",
+    "D42",
+    "D209",
+    "D214"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "270 millones",
+     "unidad": "metros cúbicos de roca",
+     "fuente": "F19, F02, F01, F31 y F05.",
+     "ids": [
+      "D01",
+      "D121",
+      "D143"
+     ]
+    },
+    {
+     "valor": "260 millones",
+     "unidad": "metros cúbicos de roca y tierra",
+     "fuente": "F09, F15 y F23.",
+     "ids": [
+      "D42",
+      "D209"
+     ]
+    },
+    {
+     "valor": "más de 250",
+     "unidad": "metros cúbicos de tierra y roca",
+     "fuente": "Literal de F04, aparentemente defectuoso; no utilizable sin cotejo.",
+     "ids": [
+      "D214"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Volumen de roca desprendido durante las pruebas",
+   "valor": "No unificado",
+   "unidad": "metros cúbicos de roca",
+   "fuente": "F04 y F05 frente a F01 y F31; F02 añade una unidad distinta.",
+   "ids": [
+    "D223",
+    "D155",
+    "D243",
+    "D134"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "700.000",
+     "unidad": "metros cúbicos de roca",
+     "fuente": "F04 y F05.",
+     "ids": [
+      "D223",
+      "D155"
+     ]
+    },
+    {
+     "valor": "800.000",
+     "unidad": "metros cúbicos de roca",
+     "fuente": "F01 y F31.",
+     "ids": [
+      "T34",
+      "D243"
+     ]
+    },
+    {
+     "valor": "700.000",
+     "unidad": "metros cuadrados de desprendimiento",
+     "fuente": "Literal de F02; no se transforma en volumen.",
+     "ids": [
+      "D134"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Volumen de agua desplazada por la frana final",
+   "valor": "50 millones",
+   "unidad": "metros cúbicos de agua",
+   "fuente": "F03, F01 y F31.",
+   "ids": [
+    "D28"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Velocidad de la frana final",
+   "valor": "No unificada",
+   "unidad": "kilómetros por hora",
+   "fuente": "Versiones incompatibles del pool.",
+   "ids": [
+    "D27",
+    "D122",
+    "D79"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "50",
+     "unidad": "kilómetros por hora",
+     "fuente": "F03, F01 y F31, en la descripción atribuida al informe de investigación.",
+     "ids": [
+      "D27",
+      "Q12"
+     ]
+    },
+    {
+     "valor": "100",
+     "unidad": "kilómetros por hora",
+     "fuente": "F01, F31 y F05; F09 también menciona esta velocidad.",
+     "ids": [
+      "D122",
+      "D143",
+      "D43"
+     ]
+    },
+    {
+     "valor": "600",
+     "unidad": "kilómetros por hora",
+     "fuente": "F15.",
+     "ids": [
+      "D79"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Altura de la presa",
+   "valor": "No unificada",
+   "unidad": "metros de altura",
+   "fuente": "Magnitudes incompatibles o redondeadas que el pool no permite homogeneizar.",
+   "ids": [
+    "D133",
+    "D148",
+    "D114",
+    "D118",
+    "D165"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "261",
+     "unidad": "metros de altura",
+     "fuente": "F02 y F04.",
+     "ids": [
+      "D133",
+      "D221"
+     ]
+    },
+    {
+     "valor": "261,6",
+     "unidad": "metros de altura",
+     "fuente": "F05.",
+     "ids": [
+      "D148"
+     ]
+    },
+    {
+     "valor": "262",
+     "unidad": "metros de altura",
+     "fuente": "F01 y F31.",
+     "ids": [
+      "D114",
+      "D238"
+     ]
+    },
+    {
+     "valor": "266",
+     "unidad": "metros de altura del proyecto ampliado",
+     "fuente": "F01 y F31.",
+     "ids": [
+      "D118",
+      "D241"
+     ]
+    },
+    {
+     "valor": "860",
+     "unidad": "pies de altura",
+     "fuente": "F07 y F20; se conserva sin conversión añadida.",
+     "ids": [
+      "D165"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Capacidad del embalse",
+   "valor": "No unificada",
+   "unidad": "metros cúbicos de agua",
+   "fuente": "Las fuentes mezclan capacidades de proyecto y referencias no homologadas; no equivalen al agua almacenada el día del desastre.",
+   "ids": [
+    "D26",
+    "D40",
+    "D118",
+    "D149",
+    "D172",
+    "D180"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "150 millones",
+     "unidad": "metros cúbicos de agua",
+     "fuente": "F03, F01, F02 y F31.",
+     "ids": [
+      "D26"
+     ]
+    },
+    {
+     "valor": "115 millones",
+     "unidad": "metros cúbicos de agua de capacidad",
+     "fuente": "F01 y F31.",
+     "ids": [
+      "D118"
+     ]
+    },
+    {
+     "valor": "170 millones",
+     "unidad": "metros cúbicos de agua de capacidad máxima",
+     "fuente": "F05, que señala que nunca se alcanzaron.",
+     "ids": [
+      "D149"
+     ]
+    },
+    {
+     "valor": "58 millones",
+     "unidad": "metros cúbicos de agua de retención máxima",
+     "fuente": "F09.",
+     "ids": [
+      "D40"
+     ]
+    },
+    {
+     "valor": "138.000",
+     "unidad": "acres-pie de capacidad de diseño",
+     "fuente": "F07.",
+     "ids": [
+      "D172"
+     ]
+    },
+    {
+     "valor": "122.000",
+     "unidad": "acres-pie de capacidad",
+     "fuente": "F20.",
+     "ids": [
+      "D180"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Agua almacenada al producirse el desprendimiento",
+   "valor": "115 millones",
+   "unidad": "metros cúbicos de agua",
+   "fuente": "F05; se conserva como versión de esta fuente, sin equipararla a la capacidad.",
+   "ids": [
+    "D144"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "93.000",
+     "unidad": "acres-pie de agua almacenada",
+     "fuente": "F20; no se introduce una conversión externa.",
+     "ids": [
+      "D187"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Altura atribuida a la ola en el entorno del embalse",
+   "valor": "No unificada",
+   "unidad": "metros de altura de ola",
+   "fuente": "Referencias de medida no completamente homologadas.",
+   "ids": [
+    "D80",
+    "D123",
+    "D145",
+    "D215"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "unos 200",
+     "unidad": "metros de altura de ola",
+     "fuente": "F04.",
+     "ids": [
+      "D215"
+     ]
+    },
+    {
+     "valor": "250",
+     "unidad": "metros de altura de ola",
+     "fuente": "F15 y F05.",
+     "ids": [
+      "D80",
+      "D145"
+     ]
+    },
+    {
+     "valor": "más de 250",
+     "unidad": "metros de altura de las olas",
+     "fuente": "F01 y F31.",
+     "ids": [
+      "D123"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Altura del agua en Longarone",
+   "valor": "70",
+   "unidad": "metros de altura",
+   "fuente": "F15, al referirse al centro de Longarone.",
+   "ids": [
+    "D86"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "más de 230",
+     "unidad": "pies de altura",
+     "fuente": "F20; se conserva la unidad original sin tratarla como una discrepancia demostrada.",
+     "ids": [
+      "D191"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Tiempo de llegada del agua a Longarone",
+   "valor": "unos 4",
+   "unidad": "minutos después del desprendimiento",
+   "fuente": "F01, F31 y F20.",
+   "ids": [
+    "D124",
+    "D83",
+    "T72"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "poco más de 4",
+     "unidad": "minutos después del desprendimiento",
+     "fuente": "F15.",
+     "ids": [
+      "D83"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Límite recomendado para el agua",
+   "valor": "700",
+   "unidad": "metros sobre el nivel del mar",
+   "fuente": "F01, F31 y el informe de Padua descrito por F15.",
+   "ids": [
+    "D120",
+    "D104"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Cota autorizada según F15",
+   "valor": "715",
+   "unidad": "metros sobre el nivel del mar",
+   "fuente": "F15.",
+   "ids": [
+    "D106"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Aumento consignado en la carta de Biadene",
+   "valor": "50",
+   "unidad": "por ciento de incremento de las mediciones",
+   "fuente": "Carta citada por F02; el pasaje no explicita una tasa temporal para esos centímetros.",
+   "ids": [
+    "Q51",
+    "D135"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Medición anterior mencionada por Biadene",
+   "valor": "20",
+   "unidad": "centímetros de desplazamiento",
+   "fuente": "Carta citada por F02; no se añade «por día».",
+   "ids": [
+    "Q51"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Nueva medición mencionada por Biadene",
+   "valor": "30",
+   "unidad": "centímetros de desplazamiento",
+   "fuente": "Carta citada por F02; no se añade «por día».",
+   "ids": [
+    "Q51"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Distancia mínima a la que fue arrastrada Coletti",
+   "valor": "400",
+   "unidad": "metros desde su casa",
+   "fuente": "F02.",
+   "ids": [
+    "D132"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Oferta indemnizatoria de ENEL",
+   "valor": "10.000 millones",
+   "unidad": "liras de la época",
+   "fuente": "F02; condicionada a renunciar a constituirse en parte civil.",
+   "ids": [
+    "D139"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Indemnización al municipio de Longarone",
+   "valor": "55.645.758.500",
+   "unidad": "liras",
+   "fuente": "Condena del Tribunal de Belluno reproducida por F01 y F31.",
+   "ids": [
+    "T109",
+    "D245"
+   ],
+   "otras_versiones": []
+  }
+ ],
+ "cronologia": [
+  {
+   "fecha": "1943",
+   "hora": "",
+   "evento": "Se aprueba el proyecto y comienza la adquisición de terrenos de Erto y Casso.",
+   "aproximada": false,
+   "ids": [
+    "T01",
+    "T03",
+    "T04"
+   ]
+  },
+  {
+   "fecha": "década de 1950",
+   "hora": "",
+   "evento": "F09 sitúa en esta década la detección por Müller de un gran desmoronamiento en el Toc.",
+   "aproximada": false,
+   "ids": [
+    "T05",
+    "D47"
+   ]
+  },
+  {
+   "fecha": "1957-07",
+   "hora": "",
+   "evento": "Fecha de inicio de construcción adoptada por coincidencia de fuentes, con versiones alternativas que sitúan el comienzo en enero o en el año anterior.",
+   "aproximada": true,
+   "ids": [
+    "T12",
+    "T13",
+    "T11",
+    "T06"
+   ]
+  },
+  {
+   "fecha": "1958",
+   "hora": "",
+   "evento": "La Secretaría de Obras Públicas nombra una comisión de exámenes periciales.",
+   "aproximada": false,
+   "ids": [
+    "T14"
+   ]
+  },
+  {
+   "fecha": "1959-03",
+   "hora": "",
+   "evento": "F05 fecha en este mes el desprendimiento de Pontesei; otras fuentes documentan que el episodio mató a un trabajador.",
+   "aproximada": false,
+   "ids": [
+    "T21",
+    "T15",
+    "T16",
+    "T17"
+   ]
+  },
+  {
+   "fecha": "1959",
+   "hora": "",
+   "evento": "F02 sitúa aquí una denuncia de Tina Merlin sobre el peligro de desprendimiento; F04 ofrece otra fecha para el primer artículo.",
+   "aproximada": true,
+   "ids": [
+    "T18",
+    "T37"
+   ]
+  },
+  {
+   "fecha": "1959–1960",
+   "hora": "",
+   "evento": "Edoardo Semenza realiza estudios después de que Muller señalara una masa inestable en Pian di Toc.",
+   "aproximada": false,
+   "ids": [
+    "T19"
+   ]
+  },
+  {
+   "fecha": "1960",
+   "hora": "",
+   "evento": "La construcción se da por terminada en varias fuentes, aunque otras describen duraciones o estados de obra incompatibles.",
+   "aproximada": true,
+   "ids": [
+    "T26",
+    "D129",
+    "D147",
+    "D53",
+    "D156"
+   ]
+  },
+  {
+   "fecha": "1960",
+   "hora": "",
+   "evento": "Dal Piaz minimiza en su informe los riesgos identificados por Edoardo Semenza.",
+   "aproximada": false,
+   "ids": [
+    "T27"
+   ]
+  },
+  {
+   "fecha": "1960-02",
+   "hora": "",
+   "evento": "Comienza el llenado del embalse según F20.",
+   "aproximada": false,
+   "ids": [
+    "T29"
+   ]
+  },
+  {
+   "fecha": "1960-06",
+   "hora": "",
+   "evento": "F12 registra un primer llenado seguido por un pequeño desprendimiento.",
+   "aproximada": false,
+   "ids": [
+    "T30"
+   ]
+  },
+  {
+   "fecha": "1960-09",
+   "hora": "",
+   "evento": "F01 y F31 sitúan la inauguración de la presa en este mes.",
+   "aproximada": false,
+   "ids": [
+    "T31"
+   ]
+  },
+  {
+   "fecha": "1960-11-04",
+   "hora": "",
+   "evento": "Durante las pruebas cae una masa de roca al lago; su magnitud y la altura de la ola tienen versiones incompatibles.",
+   "aproximada": false,
+   "ids": [
+    "T35",
+    "T36",
+    "D155",
+    "D223"
+   ]
+  },
+  {
+   "fecha": "1960-11",
+   "hora": "",
+   "evento": "F15 sitúa el juicio contra Tina Merlin y L'Unità, absueltos tras seis horas.",
+   "aproximada": false,
+   "ids": [
+    "T33"
+   ]
+  },
+  {
+   "fecha": "cuatro días después de la frana de 1960-11-04",
+   "hora": "",
+   "evento": "F04 sitúa aquí el que denomina primer artículo de denuncia de Merlin.",
+   "aproximada": true,
+   "ids": [
+    "T36",
+    "T37"
+   ]
+  },
+  {
+   "fecha": "1961",
+   "hora": "",
+   "evento": "Muere Carlo Semenza según F05.",
+   "aproximada": false,
+   "ids": [
+    "T38",
+    "D159"
+   ]
+  },
+  {
+   "fecha": "1961-02",
+   "hora": "",
+   "evento": "Tina Merlin publica una nueva advertencia sobre la amenaza a Erto.",
+   "aproximada": false,
+   "ids": [
+    "T39",
+    "D102"
+   ]
+  },
+  {
+   "fecha": "1962",
+   "hora": "",
+   "evento": "Se establece que el agua no debe superar la cota indicada como límite de seguridad.",
+   "aproximada": false,
+   "ids": [
+    "T41",
+    "D120"
+   ]
+  },
+  {
+   "fecha": "1962-11",
+   "hora": "",
+   "evento": "El desplazamiento de la ladera supera el umbral registrado por F12.",
+   "aproximada": false,
+   "ids": [
+    "T43",
+    "D68"
+   ]
+  },
+  {
+   "fecha": "1962-12",
+   "hora": "",
+   "evento": "Se aprueba la ley de creación de ENEL; otras fuentes describen la presa como estatal desde finales de ese año.",
+   "aproximada": false,
+   "ids": [
+    "T44",
+    "T42"
+   ]
+  },
+  {
+   "fecha": "1963-03",
+   "hora": "",
+   "evento": "F12 registra la detención del movimiento tras bajar el nivel del agua.",
+   "aproximada": false,
+   "ids": [
+    "T49"
+   ]
+  },
+  {
+   "fecha": "1963-05",
+   "hora": "",
+   "evento": "Según F12, SADE eleva el nivel para entregar la presa como funcional y cerrar la operación con ENEL.",
+   "aproximada": false,
+   "ids": [
+    "T50"
+   ]
+  },
+  {
+   "fecha": "1963-06",
+   "hora": "",
+   "evento": "F05 registra una nueva aceleración de la ladera durante el llenado.",
+   "aproximada": false,
+   "ids": [
+    "T51",
+    "D160"
+   ]
+  },
+  {
+   "fecha": "1963-07",
+   "hora": "",
+   "evento": "F15 sitúa la culminación del cambio de propiedad a ENEL mientras continúa la prueba de llenado.",
+   "aproximada": false,
+   "ids": [
+    "T52"
+   ]
+  },
+  {
+   "fecha": "1963-09-26",
+   "hora": "",
+   "evento": "F05 afirma que el embalse fue devuelto al nivel de seguridad.",
+   "aproximada": false,
+   "ids": [
+    "T53",
+    "D162"
+   ]
+  },
+  {
+   "fecha": "1963-10",
+   "hora": "",
+   "evento": "Se evacuan casas de la ladera y el alcalde de Erto prohíbe el acceso al embalse.",
+   "aproximada": false,
+   "ids": [
+    "T54"
+   ]
+  },
+  {
+   "fecha": "1963-10-02",
+   "hora": "",
+   "evento": "Se multiplican las noticias de temblores, estruendos, grietas y movimientos superficiales.",
+   "aproximada": false,
+   "ids": [
+    "T55",
+    "D226"
+   ]
+  },
+  {
+   "fecha": "1963-10-09",
+   "hora": "mañana",
+   "evento": "Biadene pide a Pancini que regrese de vacaciones y consigna el aumento de los movimientos comunicado por Rossi.",
+   "aproximada": false,
+   "ids": [
+    "T61",
+    "Q51",
+    "D135"
+   ]
+  },
+  {
+   "fecha": "1963-10-09",
+   "hora": "seis de la tarde",
+   "evento": "F15 describe el cierre de la jornada, quedando un aparejador y su equipo en la central.",
+   "aproximada": false,
+   "ids": [
+    "T64"
+   ]
+  },
+  {
+   "fecha": "1963-10-09",
+   "hora": "22:39",
+   "evento": "El Toc se desploma en el embalse; se adopta la hora ampliamente coincidente, conservando una hora alternativa y testimonios aproximados.",
+   "aproximada": true,
+   "ids": [
+    "T66",
+    "T67",
+    "T68",
+    "T69",
+    "T73",
+    "Q15"
+   ]
+  },
+  {
+   "fecha": "1963-10-09",
+   "hora": "22:43",
+   "evento": "F20 sitúa la llegada del agua a Longarone aproximadamente cuatro minutos después del desprendimiento.",
+   "aproximada": false,
+   "ids": [
+    "T72",
+    "D124"
+   ]
+  },
+  {
+   "fecha": "1963-10-11",
+   "hora": "",
+   "evento": "Se nombra la comisión técnico-administrativa de investigación.",
+   "aproximada": false,
+   "ids": [
+    "T75"
+   ]
+  },
+  {
+   "fecha": "1963-10-11",
+   "hora": "",
+   "evento": "Los artículos analizados por F09 enfrentan interpretaciones de fatalidad y responsabilidad.",
+   "aproximada": false,
+   "ids": [
+    "T74",
+    "Q20",
+    "Q22",
+    "Q23"
+   ]
+  },
+  {
+   "fecha": "1963-10-12",
+   "hora": "",
+   "evento": "Leone y Zaccagnini visitan la zona; los pobladores reclaman justicia.",
+   "aproximada": false,
+   "ids": [
+    "T76",
+    "Q13",
+    "Q14"
+   ]
+  },
+  {
+   "fecha": "1963-10-14",
+   "hora": "",
+   "evento": "Se instala la comisión de investigación.",
+   "aproximada": false,
+   "ids": [
+    "T77"
+   ]
+  },
+  {
+   "fecha": "1963-10-18",
+   "hora": "",
+   "evento": "Se aprueba el decreto de medidas económicas para los afectados.",
+   "aproximada": false,
+   "ids": [
+    "T79",
+    "D230"
+   ]
+  },
+  {
+   "fecha": "1963-10-31",
+   "hora": "",
+   "evento": "Se aprueban medidas de seguridad y asistencia urgente.",
+   "aproximada": false,
+   "ids": [
+    "T80",
+    "D231"
+   ]
+  },
+  {
+   "fecha": "1964-06",
+   "hora": "",
+   "evento": "F04 sitúa el inicio de los trabajos de la comisión presidida por Rubinacci.",
+   "aproximada": false,
+   "ids": [
+    "T82"
+   ]
+  },
+  {
+   "fecha": "1965-07-15",
+   "hora": "",
+   "evento": "Se presenta el informe final cuyo relator es Rubinacci.",
+   "aproximada": false,
+   "ids": [
+    "T84"
+   ]
+  },
+  {
+   "fecha": "1968-02-20",
+   "hora": "",
+   "evento": "Se deposita la resolución de remisión a juicio; F02 sitúa el cierre de la instrucción al día siguiente.",
+   "aproximada": true,
+   "ids": [
+    "T85",
+    "T86",
+    "T87"
+   ]
+  },
+  {
+   "fecha": "1968-11-28",
+   "hora": "",
+   "evento": "Pancini muere por suicidio según F01 y F31.",
+   "aproximada": false,
+   "ids": [
+    "P18",
+    "T89"
+   ]
+  },
+  {
+   "fecha": "1968-11-29",
+   "hora": "",
+   "evento": "Fecha de comienzo del juicio adoptada frente a la fecha alternativa de F02.",
+   "aproximada": true,
+   "ids": [
+    "T90",
+    "T92",
+    "T88"
+   ]
+  },
+  {
+   "fecha": "1969-12-17",
+   "hora": "",
+   "evento": "Biadene, Batini y Violin son condenados en primera instancia.",
+   "aproximada": false,
+   "ids": [
+    "T92",
+    "T93"
+   ]
+  },
+  {
+   "fecha": "1970-07-26",
+   "hora": "",
+   "evento": "F31 sitúa el inicio de la apelación; F03 lo ubica de forma más amplia en verano.",
+   "aproximada": false,
+   "ids": [
+    "T96",
+    "T94"
+   ]
+  },
+  {
+   "fecha": "1970-10-03",
+   "hora": "",
+   "evento": "La apelación condena a Biadene y Sensidoni; F02 ofrece una fecha incompatible para esa sentencia.",
+   "aproximada": true,
+   "ids": [
+    "T97",
+    "T98",
+    "T95"
+   ]
+  },
+  {
+   "fecha": "1971-03",
+   "hora": "",
+   "evento": "La casación reconoce la culpabilidad de Biadene y Sensidoni; varias fuentes sitúan el proceso entre el quince y el veinticinco, mientras F03 fecha la sentencia el quince.",
+   "aproximada": true,
+   "ids": [
+    "T102",
+    "T103",
+    "T104",
+    "T105"
+   ]
+  },
+  {
+   "fecha": "1980",
+   "hora": "",
+   "evento": "La reconstrucción alcanza la terminación de la iglesia de Longarone diseñada por Michelucci.",
+   "aproximada": false,
+   "ids": [
+    "T106",
+    "D233"
+   ]
+  },
+  {
+   "fecha": "1997-02-15",
+   "hora": "",
+   "evento": "El Tribunal de Belluno condena a Montedison a indemnizar al municipio de Longarone.",
+   "aproximada": false,
+   "ids": [
+    "T109",
+    "D245"
+   ]
+  },
+  {
+   "fecha": "2000",
+   "hora": "",
+   "evento": "Se completa la liquidación final de daños según las fuentes citadas.",
+   "aproximada": false,
+   "ids": [
+    "T110",
+    "D140",
+    "D234"
+   ]
+  },
+  {
+   "fecha": "2010",
+   "hora": "",
+   "evento": "El archivo procesal llega al Archivo de Estado de Belluno tras el terremoto de L'Aquila.",
+   "aproximada": false,
+   "ids": [
+    "T115",
+    "D05",
+    "D06"
+   ]
+  },
+  {
+   "fecha": "2023-05-18",
+   "hora": "",
+   "evento": "F19 sitúa el reconocimiento del archivo por el programa Memoria del Mundo; F14 informa sobre su incorporación en una noticia posterior.",
+   "aproximada": false,
+   "ids": [
+    "T117",
+    "T118",
+    "D04"
+   ]
+  }
+ ],
+ "hechos": [
+  {
+   "texto": "El torrente Vajont desemboca en el Piave frente a Longarone y Castellavazzo.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "D24"
+   ]
+  },
+  {
+   "texto": "SADE era una empresa privada promotora de la instalación hidroeléctrica.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "D66",
+    "D151",
+    "D173"
+   ]
+  },
+  {
+   "texto": "El Consejo Superior de Obras Públicas aprobó el proyecto en 1943.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T04"
+   ]
+  },
+  {
+   "texto": "F01 y F31 indican que a la sesión de aprobación asistieron trece de los treinta y cuatro representantes.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D117",
+    "D240"
+   ]
+  },
+  {
+   "texto": "La adquisición de terrenos comenzó en 1943 y los posteriores expropios encontraron oposición de parte de la población.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T03"
+   ]
+  },
+  {
+   "texto": "Carlo Semenza fue el ingeniero proyectista de la presa.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "P08",
+    "D147"
+   ]
+  },
+  {
+   "texto": "Giorgio Dal Piaz actuó como consultor geológico de SADE.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "P36"
+   ]
+  },
+  {
+   "texto": "F01, F31 y F20 sitúan el inicio de las obras en julio de 1957.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T12",
+    "T13"
+   ]
+  },
+  {
+   "texto": "Las obras dieron trabajo a unos cuatrocientos operarios según F01 y F31.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T11",
+    "D237"
+   ]
+  },
+  {
+   "texto": "F02 y F05 dan por terminada la construcción en 1960.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D129",
+    "D147"
+   ]
+  },
+  {
+   "texto": "La presa es una estructura de arco delgado y doble curvatura.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D164"
+   ]
+  },
+  {
+   "texto": "Edoardo Semenza planteó que un antiguo deslizamiento podía reactivarse con el llenado del embalse.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D154"
+   ]
+  },
+  {
+   "texto": "Muller había señalado una masa inestable en la zona de Pian di Toc.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T19",
+    "P35"
+   ]
+  },
+  {
+   "texto": "Dal Piaz minimizó en su informe de 1960 los riesgos identificados por Edoardo Semenza.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "T27"
+   ]
+  },
+  {
+   "texto": "El desprendimiento de Pontesei de 1959 mató a un trabajador según varias fuentes.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T15",
+    "T16",
+    "T17"
+   ]
+  },
+  {
+   "texto": "Tras el episodio de Pontesei, SADE encargó nuevas pericias que identificaron una paleofrana en el Toc.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D119"
+   ]
+  },
+  {
+   "texto": "F02 documenta una denuncia de Tina Merlin sobre el peligro de desprendimiento en 1959.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "T18"
+   ]
+  },
+  {
+   "texto": "F15 sitúa en noviembre de 1960 el juicio contra Merlin y L'Unità y afirma que fueron absueltos tras seis horas.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "T33"
+   ]
+  },
+  {
+   "texto": "En febrero de 1961 Merlin publicó una advertencia sobre una masa de cincuenta millones de metros cúbicos que amenazaba a Erto.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T39",
+    "D102"
+   ]
+  },
+  {
+   "texto": "Durante las pruebas del cuatro de noviembre de 1960 una frana cayó al lago artificial.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T36",
+    "D223"
+   ]
+  },
+  {
+   "texto": "Los habitantes observaron una larga fisura en la montaña después de un desmoronamiento en 1960.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D49"
+   ]
+  },
+  {
+   "texto": "Las mediciones anteriores al colapso mostraban que el terreno estaba en movimiento.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D59"
+   ]
+  },
+  {
+   "texto": "F15 describe un proyecto de galería subacuática para mantener comunicadas las partes del lago si una frana lo dividía.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D101"
+   ]
+  },
+  {
+   "texto": "F15 señala que el modelo hidráulico de Padua empleó grava para representar las rocas compactas.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D103"
+   ]
+  },
+  {
+   "texto": "El informe de Padua advertía de daños si el agua superaba los setecientos metros sobre el nivel del mar.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D104"
+   ]
+  },
+  {
+   "texto": "Según F15, SADE obtuvo permiso ministerial para llegar a setecientos quince metros pese a la recomendación del informe.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "D106"
+   ]
+  },
+  {
+   "texto": "La ley que instituyó ENEL se aprobó en diciembre de 1962.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D105"
+   ]
+  },
+  {
+   "texto": "F15 sitúa en julio de 1963 la culminación del cambio de propiedad a ENEL mientras seguía la prueba de llenado.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "T52"
+   ]
+  },
+  {
+   "texto": "F12 atribuye a la necesidad de cerrar la operación con ENEL la elevación del agua a setecientos veinte metros en mayo de 1963.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T50"
+   ]
+  },
+  {
+   "texto": "F12 registra que en noviembre de 1962 el desplazamiento de la ladera superó un centímetro y medio por día.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D68"
+   ]
+  },
+  {
+   "texto": "F12 afirma que el movimiento se detuvo en marzo de 1963 después de bajar el agua a seiscientos cincuenta metros.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T49"
+   ]
+  },
+  {
+   "texto": "F05 registra un desplazamiento de medio centímetro por día cuando el agua alcanzó los setecientos metros en junio de 1963.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D160"
+   ]
+  },
+  {
+   "texto": "F05 afirma que el embalse volvió al nivel de seguridad el veintiséis de septiembre de 1963.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D162"
+   ]
+  },
+  {
+   "texto": "Desde el dos de octubre de 1963 se multiplicaron los avisos de sacudidas, estruendos, grietas y movimientos superficiales.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D226"
+   ]
+  },
+  {
+   "texto": "Las autoridades cerraron algunos caminos y desalojaron algunas viviendas de Erto y Casso.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D227",
+    "T54"
+   ]
+  },
+  {
+   "texto": "La mañana del desastre Biadene escribió a Pancini para pedirle que regresara de vacaciones.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T61"
+   ]
+  },
+  {
+   "texto": "Biadene consignó que las mediciones comunicadas por Rossi habían aumentado un cincuenta por ciento, de veinte a treinta centímetros.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "Q51",
+    "D135"
+   ]
+  },
+  {
+   "texto": "F01 y F31 señalan que aquella noche no se dio la alarma para activar la evacuación masiva de las poblaciones expuestas.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D111"
+   ]
+  },
+  {
+   "texto": "La noche del nueve de octubre de 1963 la ladera del Toc se desplomó en el embalse.",
+   "nivel": 1,
+   "sirve_para": "pico",
+   "ids": [
+    "T57",
+    "T68"
+   ]
+  },
+  {
+   "texto": "El impacto de la roca produjo una ola que rebasó la presa y entró en el valle.",
+   "nivel": 1,
+   "sirve_para": "pico",
+   "ids": [
+    "D55",
+    "T58"
+   ]
+  },
+  {
+   "texto": "Varias fuentes sitúan la llegada del agua a Longarone unos cuatro minutos después del desprendimiento.",
+   "nivel": 1,
+   "sirve_para": "pico",
+   "ids": [
+    "D124",
+    "D83",
+    "T72"
+   ]
+  },
+  {
+   "texto": "La presa permaneció en pie después de la catástrofe.",
+   "nivel": 1,
+   "sirve_para": "gancho",
+   "ids": [
+    "D131",
+    "D198",
+    "D25"
+   ]
+  },
+  {
+   "texto": "F19, F14 y F02 coinciden en un recuento de mil novecientas diez personas muertas.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D03",
+    "D73",
+    "D128"
+   ]
+  },
+  {
+   "texto": "Micaela Coletti fue arrastrada al menos cuatrocientos metros desde su casa.",
+   "nivel": 2,
+   "sirve_para": "pico",
+   "ids": [
+    "D132"
+   ]
+  },
+  {
+   "texto": "Giovanni De Lorenzi atribuye a los helicópteros la evacuación de las cuatrocientas ochenta y seis personas de su aldea.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D17",
+    "Q06"
+   ]
+  },
+  {
+   "texto": "SETAF envió seis helicópteros con suministros y personal sanitario.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D18"
+   ]
+  },
+  {
+   "texto": "La fuerza estadounidense instaló hospitales móviles y aportó equipos durante el rescate.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D19"
+   ]
+  },
+  {
+   "texto": "F04 señala que no se creó un organismo central para informar oficialmente sobre el avance del rescate.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D229"
+   ]
+  },
+  {
+   "texto": "F12 describe una interpretación de la prensa nacional basada en la imprevisibilidad de la naturaleza.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "D62"
+   ]
+  },
+  {
+   "texto": "Según F12, L'Unità fue el único periódico nacional que siguió mediante Merlin los acontecimientos anteriores al desastre.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D71"
+   ]
+  },
+  {
+   "texto": "Il Gazzettino pertenecía parcialmente a SADE, FIAT, Volpi y Cini según F12.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D72"
+   ]
+  },
+  {
+   "texto": "Durante su visita a la zona, Leone prometió justicia ante el reclamo de los pobladores.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T76",
+    "Q13",
+    "Q14"
+   ]
+  },
+  {
+   "texto": "El Ministerio de Obras Públicas nombró una comisión de investigación el once de octubre de 1963.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T75"
+   ]
+  },
+  {
+   "texto": "F02 afirma que una primera comisión de expertos concluyó, tras dieciocho meses, que el desastre era imprevisible.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "D136"
+   ]
+  },
+  {
+   "texto": "Mario Fabbri encargó una nueva pericia integrada en gran parte por expertos extranjeros.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "P31"
+   ]
+  },
+  {
+   "texto": "La resolución de remisión a juicio alcanzó a once personas.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D31",
+    "T85"
+   ]
+  },
+  {
+   "texto": "Solo ocho acusados llegaron al banquillo porque Penta y Greco habían muerto y Pancini se había suicidado.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D32"
+   ]
+  },
+  {
+   "texto": "F01 y F31 fechan el suicidio de Pancini el veintiocho de noviembre de 1968.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "P18",
+    "T89"
+   ]
+  },
+  {
+   "texto": "La primera sentencia condenó a Biadene, Batini y Violin a seis años, con dos condonados.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T92"
+   ]
+  },
+  {
+   "texto": "La apelación condenó a Biadene y Sensidoni y absolvió a los demás acusados según las fuentes citadas.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T95",
+    "T97",
+    "T98",
+    "P23",
+    "P25",
+    "P26"
+   ]
+  },
+  {
+   "texto": "La casación reconoció la culpabilidad de Biadene y Sensidoni por inundación agravada.",
+   "nivel": 1,
+   "sirve_para": "cierre",
+   "ids": [
+    "T102",
+    "T103",
+    "D35"
+   ]
+  },
+  {
+   "texto": "ENEL ofreció diez mil millones de liras con la condición de que los sobrevivientes renunciaran a constituirse en parte civil.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D139"
+   ]
+  },
+  {
+   "texto": "F02 afirma que casi todos aceptaron la oferta y sitúa la última transacción en el año 2000.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D140"
+   ]
+  },
+  {
+   "texto": "El Tribunal de Belluno condenó a Montedison a pagar al municipio de Longarone cincuenta y cinco mil seiscientos cuarenta y cinco millones setecientas cincuenta y ocho mil quinientas liras.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T109",
+    "D245"
+   ]
+  },
+  {
+   "texto": "La liquidación final de los daños repartió cargas entre Montedison y el Estado y llegó al año 2000.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D234"
+   ]
+  },
+  {
+   "texto": "La reconstrucción de Longarone se prolongó hasta la terminación de la iglesia diseñada por Michelucci en 1980.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D233"
+   ]
+  },
+  {
+   "texto": "El archivo procesal fue trasladado a Belluno en 2010 tras el terremoto de L'Aquila.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D05",
+    "D06"
+   ]
+  },
+  {
+   "texto": "La Fundación Vajont asumió los gastos del trabajo de acceso al fondo procesal realizado en el Archivo de Estado de Belluno.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D10"
+   ]
+  },
+  {
+   "texto": "El archivo procesal fue incorporado al Registro de la Memoria del Mundo de UNESCO.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D04",
+    "T118"
+   ]
+  }
+ ],
+ "citas": [
+  {
+   "autor": "Giovanni De Lorenzi",
+   "rol": "Sobreviviente y director de la Fundación Vajont.",
+   "verificacion": "verificada_parcial en el pool; el pasaje suministrado contiene este texto.",
+   "texto": "The first rescuer I saw came in a U.S. Army helicopter. Those three helicopters evacuated all 486 people from my village. Even if it was a tragic day, I remember it with joy because those U.S. helicopters saved us.",
+   "original": "",
+   "traduccion": "El primer rescatista que vi llegó en un helicóptero del Ejército de Estados Unidos. Esos tres helicópteros evacuaron a las 486 personas de mi pueblo. Aunque fue un día trágico, lo recuerdo con alegría porque esos helicópteros estadounidenses nos salvaron.",
+   "ids": [
+    "Q06"
+   ]
+  },
+  {
+   "autor": "Comisión de investigación nombrada por el Ministerio de Obras Públicas",
+   "rol": "Informe oficial citado por las fuentes.",
+   "verificacion": "verificada; se reproduce solo el fragmento visible del pasaje.",
+   "texto": "Alle ore 22,39 del 9 ottobre 1963 il movimento franoso delle pendici del Toc, già in atto, assumeva un andamento percipite, irruento, irresistibile.",
+   "original": "",
+   "traduccion": "A las 22:39 del 9 de octubre de 1963, el movimiento de deslizamiento de las laderas del Toc, ya en curso, adquiría un ritmo precipitado, impetuoso, irresistible.",
+   "ids": [
+    "Q12"
+   ]
+  },
+  {
+   "autor": "Pobladores",
+   "rol": "Personas que reclamaron justicia durante la visita de Leone.",
+   "verificacion": "verificada",
+   "texto": "Presidente, vogliamo giustizia",
+   "original": "",
+   "traduccion": "Presidente, queremos justicia.",
+   "ids": [
+    "Q13"
+   ]
+  },
+  {
+   "autor": "Giovanni Leone",
+   "rol": "Presidente del Consejo de Ministros.",
+   "verificacion": "verificada",
+   "texto": "E giustizia avrete",
+   "original": "",
+   "traduccion": "Y justicia tendréis.",
+   "ids": [
+    "Q14"
+   ]
+  },
+  {
+   "autor": "Carlo Onorini",
+   "rol": "Párroco de Casso.",
+   "verificacion": "verificada; testimonio en español tal como aparece en F09.",
+   "texto": "Yo, aquella noche, a eso de las diez y media, escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor.",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q15"
+   ]
+  },
+  {
+   "autor": "Benito Castellano",
+   "rol": "Sobreviviente.",
+   "verificacion": "verificada",
+   "texto": "Oí un ruido indefinible muy fuerte, como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos [...] Un estruendo acompañado por un resplandor, e inmediatamente después un ruido similar al que se oye cuando pasa una formación de reactores",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q16"
+   ]
+  },
+  {
+   "autor": "Germano Accamillesi",
+   "rol": "Sobreviviente presente en el bar Faè.",
+   "verificacion": "verificada",
+   "texto": "Mientras estábamos en el bar Faè nos dimos cuenta que de repente se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas y luego se apagaba también la iluminación",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q17"
+   ]
+  },
+  {
+   "autor": "Gianfranco Trevisano",
+   "rol": "Médico de Longarone.",
+   "verificacion": "verificada",
+   "texto": "Antes de que se fuera la luz, se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire, acompañada del ruido del aire que irrumpía [...] Inmediatamente pensé que había cedido el dique.",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q19"
+   ]
+  },
+  {
+   "autor": "Dino Buzzati",
+   "rol": "Escritor del Corriere della Sera.",
+   "verificacion": "verificada; interpretación periodística, no conclusión pericial.",
+   "texto": "Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel. Eso es todo. Sólo que el vaso tenía una altura de cientos de metros y la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse.",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q20"
+   ]
+  },
+  {
+   "autor": "Giorgio Bocca",
+   "rol": "Escritor de Il Giorno.",
+   "verificacion": "verificada; versión periodística sobre la ausencia de culpables.",
+   "texto": "Podrá tal vez parecer cruel lo que voy a decir, pero esta desgracia tan \"limpia\", tan ineluctable, tan absoluta, lleva más a la melancolía que al dolor. No había nada que hacer, no hay remordimientos, no hay culpables.",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q22"
+   ]
+  },
+  {
+   "autor": "Aniello Coppola",
+   "rol": "Periodista de L'Unità.",
+   "verificacion": "verificada",
+   "texto": "es el intento de anular a priori cualquier investigación, de absolver, aun antes de indagar, cualquier responsabilidad. Frente a este intento, decimos: NO. Hay que hacer un proceso. Hay que encontrar a los responsables. Y deben pagar.",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q23"
+   ]
+  },
+  {
+   "autor": "Ministro de Obras Públicas",
+   "rol": "Autoridad gubernamental citada por F12.",
+   "verificacion": "verificada en el pool como cita reproducida por F12.",
+   "texto": "fatality cannot justify these tragedies and government has the compulsory role to bring out all details",
+   "original": "",
+   "traduccion": "La fatalidad no puede justificar estas tragedias y el gobierno tiene la obligación de sacar a la luz todos los detalles.",
+   "ids": [
+    "Q24"
+   ]
+  },
+  {
+   "autor": "Sobreviviente no identificado",
+   "rol": "Habitante que ya no reconoce Longarone.",
+   "verificacion": "verificada en el pool; identidad no proporcionada.",
+   "texto": "I knew Longarone in every corner, now I don’t know where I am",
+   "original": "",
+   "traduccion": "Conocía Longarone en cada rincón, ahora no sé dónde estoy.",
+   "ids": [
+    "Q25"
+   ]
+  },
+  {
+   "autor": "Sobreviviente no identificado",
+   "rol": "Habitante que recuerda la espera temerosa del desastre.",
+   "verificacion": "verificada en el pool; no se identifica con el autor de otros testimonios anónimos.",
+   "texto": "We were waiting for the dam to fall...",
+   "original": "",
+   "traduccion": "Estábamos esperando que la presa se cayera...",
+   "ids": [
+    "Q28"
+   ]
+  },
+  {
+   "autor": "L'Unità",
+   "rol": "Periódico denunciante.",
+   "verificacion": "verificada; acusación editorial, no formulación de la sentencia.",
+   "texto": "The Vajont catastrophe is the tragic end of a brutal misuse of land, water and of the local population",
+   "original": "",
+   "traduccion": "La catástrofe de Vajont es el final trágico de un abuso brutal de la tierra, el agua y la población local.",
+   "ids": [
+    "Q29"
+   ]
+  },
+  {
+   "autor": "Giorgio Dal Piaz",
+   "rol": "Geólogo asesor.",
+   "verificacion": "verificada en el pool; F15 la reproduce en español.",
+   "texto": "Si el proyecto original me parecía osado, ahora lo considero una completa locura",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q37"
+   ]
+  },
+  {
+   "autor": "Laboratorio de la Universidad de Padua",
+   "rol": "Atribución colectiva de F15; no se identifica al hablante.",
+   "verificacion": "verificada en el pool; no identifica quién impartió la instrucción.",
+   "texto": "Nos han dicho que lo hagamos así",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q44"
+   ]
+  },
+  {
+   "autor": "Ministerio no identificado en el pasaje",
+   "rol": "Emisor institucional al que F15 atribuye la respuesta.",
+   "verificacion": "verificada en el pool; atribución institucional imprecisa.",
+   "texto": "No se preocupe, todo está bajo control",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q45"
+   ]
+  },
+  {
+   "autor": "Habitantes de Erto y Longarone",
+   "rol": "Atribución colectiva de F15.",
+   "verificacion": "verificada en el pool; sin hablante individualizado.",
+   "texto": "Si no avisan, será que no es grave",
+   "original": "",
+   "traduccion": "",
+   "ids": [
+    "Q46"
+   ]
+  },
+  {
+   "autor": "Mauro Corona",
+   "rol": "Escritor y testigo que vivía cerca de la presa.",
+   "verificacion": "verificada",
+   "texto": "come di un milione di camion che rovesciano un milione di cassoni di ghiaia",
+   "original": "",
+   "traduccion": "Como un millón de camiones volcando un millón de cajas de grava.",
+   "ids": [
+    "Q48"
+   ]
+  },
+  {
+   "autor": "Micaela Coletti",
+   "rol": "Sobreviviente.",
+   "verificacion": "verificada",
+   "texto": "La sensazione che il letto prendesse velocità, una forza spaventosa che mi prendeva alla schiena, mi piegava in due, mi schiacciava; la sensazione di essere di gomma, di allargarmi e poi restringermi, gli occhi diventati due stelle;",
+   "original": "",
+   "traduccion": "La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda, me doblaba en dos, me aplastaba; la sensación de ser de goma, de ensancharme y luego encogerme, los ojos convertidos en dos estrellas;",
+   "ids": [
+    "Q49"
+   ]
+  },
+  {
+   "autor": "Administración del municipio de Erto y Casso",
+   "rol": "Autoridad local que escribió a SADE.",
+   "verificacion": "verificada; extracto limitado a las palabras visibles en el pasaje.",
+   "texto": "Le popolazioni di Erto e Casso stanno vivendo in continua apprensione e in continuo allarme",
+   "original": "",
+   "traduccion": "Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma.",
+   "ids": [
+    "Q50"
+   ]
+  },
+  {
+   "autor": "Alberico Biadene",
+   "rol": "Director del Servicio de Construcciones Hidráulicas de SADE.",
+   "verificacion": "verificada; se omite la última frase porque la evidencia está truncada.",
+   "texto": "P.S. Mi telefona ora il geom. Rossi che le misure di questa mattina mostrano essere ancora maggiori di quelle di ieri, raggiungendo una maggiorazione del 50%!! (cioè da 20 a 30 centimetri). Si nota anche qualche piccola caduta di sassi al bordo ovest (verso la diga) della frana.",
+   "original": "",
+   "traduccion": "P.D. Me llama ahora el topógrafo Rossi: las mediciones de esta mañana resultan todavía mayores que las de ayer, ¡alcanzando un aumento del 50%!! (es decir, de 20 a 30 centímetros). Se observa también alguna pequeña caída de piedras en el borde oeste del deslizamiento, hacia la presa.",
+   "ids": [
+    "Q51"
+   ]
+  },
+  {
+   "autor": "Residentes",
+   "rol": "Habitantes que desconfiaban de la estabilidad del Toc.",
+   "verificacion": "verificada; apodo citado por F20.",
+   "texto": "the mountain that walks",
+   "original": "",
+   "traduccion": "La montaña que camina.",
+   "ids": [
+    "Q53"
+   ]
+  },
+  {
+   "autor": "Sandro Canestrini",
+   "rol": "Abogado de la parte civil.",
+   "verificacion": "verificada_parcial en el pool; formulación del alegato reproducida por F04.",
+   "texto": "il Vajont non è la tragica eccezione al sistema, ma la conferma di esso: in questa vicenda veramente non è accaduto nulla di eccezionale. Solo, come spesso succede, c’era un rischio, prevedibile e previsto",
+   "original": "",
+   "traduccion": "Vajont no es la trágica excepción al sistema, sino su confirmación: en este suceso realmente no ha ocurrido nada excepcional. Solo, como sucede a menudo, había un riesgo, previsible y previsto.",
+   "ids": [
+    "Q56"
+   ]
+  }
+ ],
+ "descartados": [
+  {
+   "que": "[cifras] Muertes en el episodio de Pontesei",
+   "motivo": "no respaldado: cifra 1",
+   "ids": [
+    "T15",
+    "T16",
+    "T17"
+   ]
+  },
+  {
+   "que": "[cifras] Condenados identificados en casación",
+   "motivo": "no respaldado: cifra 2",
+   "ids": [
+    "D35",
+    "T102",
+    "T104"
+   ]
+  },
+  {
+   "que": "Convertir el título «los ingenieros que sabían» en una afirmación de conocimiento idéntico de todos los técnicos.",
+   "motivo": "El pool acredita advertencias y conocimiento de movimientos en actores concretos, pero no permite atribuir a todos el mismo diagnóstico ni una intención común.",
+   "ids": [
+    "D154",
+    "D157",
+    "Q51",
+    "D182"
+   ]
+  },
+  {
+   "que": "Presentar la tragedia como derrumbe de la presa.",
+   "motivo": "La estructura permaneció en pie; el desastre fue provocado por la frana y el agua desplazada.",
+   "ids": [
+    "D25",
+    "D131",
+    "D198"
+   ]
+  },
+  {
+   "que": "Usar como comprobadas las magnitudes literales defectuosas de F04.",
+   "motivo": "Los pasajes hablan de volúmenes incompatibles con el resto del pool, pero no autorizan a añadir silenciosamente la palabra «millones».",
+   "ids": [
+    "D214",
+    "D221"
+   ]
+  },
+  {
+   "que": "Dar por verificados trescientos millones de metros cúbicos a partir de F20.",
+   "motivo": "La evidencia suministrada pierde el exponente de la unidad y no permite reconstruirlo como cita numérica segura.",
+   "ids": [
+    "D185"
+   ]
+  },
+  {
+   "que": "Usar una velocidad única y no atribuida para el derrumbe.",
+   "motivo": "Las fuentes discrepan y las reglas no autorizan resolver por mayoría una magnitud física.",
+   "ids": [
+    "D27",
+    "D79",
+    "D122"
+   ]
+  },
+  {
+   "que": "Usar el porcentaje de mortalidad de Longarone como dato cerrado.",
+   "motivo": "El porcentaje y la relación de personas del mismo pasaje son internamente incompatibles.",
+   "ids": [
+    "D195"
+   ]
+  },
+  {
+   "que": "Comparación de la presión del aire con bombas de Hiroshima.",
+   "motivo": "Es una equivalencia aislada sin método ni respaldo adicional en el pool y no hace falta para describir la irrupción del aire.",
+   "ids": [
+    "D84",
+    "Q19"
+   ]
+  },
+  {
+   "que": "Equivalencia entre escalas Mercalli y Richter.",
+   "motivo": "F15 ofrece una equivalencia directa que el pool no permite verificar; no se usa para medir las sacudidas.",
+   "ids": [
+    "D107"
+   ]
+  },
+  {
+   "que": "Nombre de la competición y de los equipos del partido televisado.",
+   "motivo": "La identificación procede de una sola reconstrucción y no es necesaria: el testigo verifica el televisor, el apagón y las sacudidas, no ese partido.",
+   "ids": [
+    "D81",
+    "Q17"
+   ]
+  },
+  {
+   "que": "Afirmar de manera absoluta que no hubo sobrevivientes.",
+   "motivo": "La frase de F04 contradice los sobrevivientes identificados; no se usa fuera de la discusión de versiones.",
+   "ids": [
+    "D228",
+    "P49",
+    "P50",
+    "Q06"
+   ]
+  },
+  {
+   "que": "Asignar a Biadene las frases del «supervisor» o la orden de borrar registros.",
+   "motivo": "F15 no nombra al sucesor de Semenza en los pasajes aportados y no permite identificarlo por inferencia.",
+   "ids": [
+    "Q41",
+    "Q43"
+   ]
+  },
+  {
+   "que": "Asignar a Pancini la frase «Yo solo era el ejecutor».",
+   "motivo": "La atribución del pasaje es a un jefe de obras sin nombre.",
+   "ids": [
+    "Q42"
+   ]
+  },
+  {
+   "que": "Identificar al emisor ministerial concreto de la tranquilidad transmitida a la población.",
+   "motivo": "El pasaje de la respuesta no proporciona una identificación institucional más precisa.",
+   "ids": [
+    "Q45"
+   ]
+  },
+  {
+   "que": "Completar la invocación final de la carta de Biadene.",
+   "motivo": "La evidencia está truncada y no respalda toda la traducción ofrecida por el ítem.",
+   "ids": [
+    "Q51"
+   ]
+  },
+  {
+   "que": "Usar como citas íntegras los desarrollos ausentes de evidencias truncadas.",
+   "motivo": "Las etiquetas de verificación del research no sustituyen palabras que no aparecen en los pasajes suministrados.",
+   "ids": [
+    "Q01",
+    "Q02",
+    "Q04",
+    "Q08",
+    "Q09",
+    "Q10",
+    "Q47",
+    "Q50",
+    "Q57"
+   ]
+  },
+  {
+   "que": "Presentar Q31 como declaración literal de un habitante identificado.",
+   "motivo": "El pasaje es discurso indirecto sobre una respuesta colectiva.",
+   "ids": [
+    "Q31"
+   ]
+  },
+  {
+   "que": "Presentar Q52 como cita textual de un artículo de periódico.",
+   "motivo": "La evidencia resume lo publicado, pero no reproduce esas palabras entrecomilladas.",
+   "ids": [
+    "Q52"
+   ]
+  },
+  {
+   "que": "Presentar Q54 como palabras literales pronunciadas por Marco Armiero.",
+   "motivo": "El pasaje es una descripción editorial del argumento del libro, no una cita directa del autor.",
+   "ids": [
+    "Q54",
+    "D205"
+   ]
+  },
+  {
+   "que": "Tratar «genocidio» o «asesinato» como calificación judicial firme.",
+   "motivo": "Son formulaciones editoriales o acusatorias y no corresponden a la calificación penal final reproducida.",
+   "ids": [
+    "D211",
+    "D212",
+    "Q30",
+    "D35"
+   ]
+  },
+  {
+   "que": "Malpasset y las opiniones de ingenieros italianos sobre ese desastre.",
+   "motivo": "Es contexto de otro caso; no se necesita para sostener la secuencia documental del Vajont.",
+   "ids": [
+    "T22",
+    "D99",
+    "Q38",
+    "Q39"
+   ]
+  },
+  {
+   "que": "Objetivos energéticos, subsidios y aspiración de conseguir Asuán.",
+   "motivo": "Son apoyos económicos de fuente aislada que se dejan fuera de la línea principal para no desplazar la cadena local de advertencias y decisiones.",
+   "ids": [
+    "D90",
+    "D91",
+    "D98"
+   ]
+  },
+  {
+   "que": "Clasificaciones superlativas y rankings de desastres atribuidos a la ONU.",
+   "motivo": "El pool no aporta el documento de clasificación y mezcla formulaciones distintas; no se usan como ranking comprobado.",
+   "ids": [
+    "D08",
+    "D22",
+    "D76",
+    "D142"
+   ]
+  },
+  {
+   "que": "Usar la etimología de Toc como prueba geológica.",
+   "motivo": "Las explicaciones lingüísticas no sustituyen las mediciones ni las pericias.",
+   "ids": [
+    "D65",
+    "D217"
+   ]
+  },
+  {
+   "que": "Fusionar a Arcangelo Tiziani con Arcangelo Mandarino.",
+   "motivo": "El nombre descartado por el research no cuenta con un pasaje que permita identificarlo o vincularlo con el vigilante.",
+   "ids": [
+    "P44",
+    "T16"
+   ]
+  },
+  {
+   "que": "[descartados] Lee Mauney y otros nombres descartados sin acción necesaria en la ficha.",
+   "motivo": "no respaldado: sin ids",
+   "ids": []
+  },
+  {
+   "que": "Pierluigi De Cesero y los promotores individuales de las propuestas parlamentarias.",
+   "motivo": "La ficha conserva las instituciones y la secuencia de investigación sin necesitar estos papeles secundarios.",
+   "ids": [
+    "P01",
+    "T78"
+   ]
+  },
+  {
+   "que": "Portavoces contemporáneos y detalles de ceremonias conmemorativas no usados.",
+   "motivo": "Sus intervenciones son posteriores y no resultan necesarias para el arco de advertencias, desastre y responsabilidades.",
+   "ids": [
+    "P02",
+    "P04",
+    "P07",
+    "P09",
+    "P10",
+    "P12",
+    "P43",
+    "P47",
+    "T119",
+    "T120"
+   ]
+  },
+  {
+   "que": "Gildo Sperti, Daniele Ceschin y la discusión editorial contemporánea no incorporada.",
+   "motivo": "Son referencias de contexto o interpretación que no añaden una acción indispensable a la historia seleccionada.",
+   "ids": [
+    "P34",
+    "P54",
+    "P62"
+   ]
+  }
+ ],
+ "historia": {
+  "humanos_candidatos": [
+   {
+    "nombre": "Tina Merlin",
+    "rol": "La periodista que documenta el peligro antes de la catástrofe.",
+    "arco": "Entra como reportera local que denuncia el riesgo, es procesada junto con su periódico y sale absuelta, mientras continúa publicando advertencias que anteceden al desastre; no tiene una cita propia verificada en el pool.",
+    "ids": [
+     "P03",
+     "T18",
+     "T33",
+     "T39",
+     "D71"
+    ],
+    "citas_verificadas": 0
+   },
+   {
+    "nombre": "Micaela Coletti",
+    "rol": "Sobreviviente y posterior presidenta del comité de sobrevivientes.",
+    "arco": "Entra como una niña en su cama, la ola la arrastra lejos de su casa y sale como sobreviviente que relata la experiencia y representa al comité de sobrevivientes.",
+    "ids": [
+     "P49",
+     "Q49",
+     "D132"
+    ],
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Alberico Biadene",
+    "rol": "Director técnico que deja constancia de su preocupación y termina condenado.",
+    "arco": "Entra como director del servicio hidráulico de SADE, recibe mediciones agravadas y reclama el regreso de Pancini la mañana del desastre, y sale condenado en casación.",
+    "ids": [
+     "P16",
+     "T61",
+     "Q51",
+     "D35",
+     "T102"
+    ],
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Giovanni De Lorenzi",
+    "rol": "Sobreviviente evacuado y posterior director de la Fundación Vajont.",
+    "arco": "Entra como habitante de una aldea afectada, ve llegar el rescate y recuerda su evacuación en helicóptero, y sale como sobreviviente dedicado a la memoria; su testimonio está marcado como parcialmente verificado, no como plenamente verificado.",
+    "ids": [
+     "P06",
+     "Q06",
+     "D17",
+     "D10"
+    ],
+    "citas_verificadas": 0
+   }
+  ],
+  "giros": [
+   {
+    "orden": 1,
+    "que_cambia": "El episodio mortal de Pontesei convierte el desprendimiento sobre un embalse en un antecedente cercano, mientras los estudios identifican una masa inestable en el Toc.",
+    "ids": [
+     "T15",
+     "T16",
+     "D119",
+     "D154"
+    ]
+   },
+   {
+    "orden": 2,
+    "que_cambia": "Una frana cae efectivamente al lago durante las pruebas, pero la denuncia periodística también termina en un proceso contra Merlin y L'Unità.",
+    "ids": [
+     "T36",
+     "T33",
+     "D223"
+    ]
+   },
+   {
+    "orden": 3,
+    "que_cambia": "El informe de Padua advierte sobre el límite del agua y, según F15, SADE obtiene permiso para superarlo.",
+    "ids": [
+     "D104",
+     "D106"
+    ]
+   },
+   {
+    "orden": 4,
+    "que_cambia": "La instalación pasa al ámbito estatal y se completa el traspaso a ENEL mientras continúa la prueba de llenado.",
+    "ids": [
+     "T42",
+     "T44",
+     "T52"
+    ]
+   },
+   {
+    "orden": 5,
+    "que_cambia": "La mañana del desastre la preocupación queda escrita en la carta de Biadene, pero las evacuaciones parciales no se convierten en una alarma general para las poblaciones expuestas.",
+    "ids": [
+     "T61",
+     "Q51",
+     "T54",
+     "D111"
+    ]
+   },
+   {
+    "orden": 6,
+    "que_cambia": "Tras las interpretaciones de fatalidad y una primera pericia favorable a la imprevisibilidad, el proceso penal termina reconociendo responsabilidad por inundación agravada.",
+    "ids": [
+     "D62",
+     "D136",
+     "P31",
+     "T102",
+     "T103"
+    ]
+   }
+  ],
+  "pico": {
+   "que": "La ola rebasa la presa y destruye Longarone y otras comunidades mientras la estructura permanece en pie.",
+   "por_que": "Es el punto en que las advertencias, las mediciones y las decisiones de llenado desembocan en la muerte de los habitantes; la supervivencia de la presa impide confundir el desastre con el simple colapso de un muro.",
+   "ids": [
+    "T57",
+    "T58",
+    "D124",
+    "D128",
+    "D131",
+    "D198"
+   ]
+  },
+  "pregunta_final": {
+   "pregunta": "¿Quién tomó —o dejó sin tomar— la decisión operativa de alertar a Longarone aquella noche y por qué la preocupación documentada no se convirtió en una evacuación general? El pool registra condenas, pero no reconstruye por completo esa cadena de decisiones.",
+   "ids": [
+    "Q51",
+    "T54",
+    "D227",
+    "D111",
+    "D35"
+   ]
+  }
+ },
+ "chequeo": {
+  "sacados": [
+   {
+    "que": "[cifras] Muertes en el episodio de Pontesei",
+    "motivo": "no respaldado: cifra 1",
+    "ids": [
+     "T15",
+     "T16",
+     "T17"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Muertes en el episodio de Pontesei",
+     "valor": "1",
+     "unidad": "trabajador fallecido",
+     "fuente": "F12 y fuentes que describen la muerte del vigilante u operario.",
+     "ids": [
+      "T15",
+      "T16",
+      "T17"
+     ],
+     "otras_versiones": []
+    }
+   },
+   {
+    "que": "[cifras] Condenados identificados en casación",
+    "motivo": "no respaldado: cifra 2",
+    "ids": [
+     "D35",
+     "T102",
+     "T104"
+    ],
+    "seccion": "cifras",
+    "item": {
+     "que": "Condenados identificados en casación",
+     "valor": "2",
+     "unidad": "personas condenadas",
+     "fuente": "F03, F01 y F31 identifican a Biadene y Sensidoni.",
+     "ids": [
+      "D35",
+      "T102",
+      "T104"
+     ],
+     "otras_versiones": [
+      {
+       "valor": "numerosas, sin número",
+       "unidad": "condenas",
+       "fuente": "Formulación de F09, no un recuento nominal.",
+       "ids": [
+        "D46"
+       ]
+      }
+     ]
+    }
+   },
+   {
+    "que": "[descartados] Lee Mauney y otros nombres descartados sin acción necesaria en la ficha.",
+    "motivo": "no respaldado: sin ids",
+    "ids": [],
+    "seccion": "descartados",
+    "item": {
+     "que": "Lee Mauney y otros nombres descartados sin acción necesaria en la ficha.",
+     "motivo": "No tienen en el pool una actuación documentada que haga falta para contar este caso.",
+     "ids": []
+    }
+   }
+  ]
+ }
+}

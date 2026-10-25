@@ -1,0 +1,8 @@
+[00:19:08] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 4ac37187-pennhurst-f24-research
+[00:39:42] INFO     | viral_pipeline | [cost_tracker] Video 4ac37187-pennhurst-f24-research � Costo total: $1.3712
+  [pennhurst research] US$ 1.3712 · 1235 s · tanda US$ 3.0280
+[pennhurst research] compuerta verde {'datos': 236, 'citas_verificadas': 37, 'elegibles_humano': 25, 'eventos_con_fecha': 108, 'personas_con_nombre': 40}
+[00:39:42] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: 4ac37187-pennhurst-f24-ficha
+[00:39:42] INFO     | viral_pipeline | [cost_tracker] Video 4ac37187-pennhurst-f24-ficha � Costo total: $0.0000
+PARADA (pennhurst ficha): tope antes de «ficha_caso»: paso US$ 0.000 + peor caso 0.604 > 0.60 (o total 3.632 > 14.00)
+tanda US$ 3.0280

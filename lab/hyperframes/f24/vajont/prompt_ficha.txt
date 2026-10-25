@@ -1,0 +1,1302 @@
+===== SISTEMA (md5 070b75dff58aecfa407fac3d62020ce4) =====
+<rol>Sos el documentalista de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que el guionista escriba, depurás el research de un caso real y armás su ficha: la única fuente de la escaleta y del guion. Lo que no está en la ficha no existe para ellos.</rol>
+<tarea>
+Leés el pool de research completo (cada ítem con su id, y cada evidencia con su documento y su posición) y devolvés la ficha del caso:
+- personas: un nombre canónico por persona, su rol, las variantes del nombre que encontraste y sus ids. Si dos fuentes dan nombres distintos para la misma persona, no elegís: la persona va también a contradicciones. Las instituciones que deciden en el caso (un ministerio, una empresa, una dirección) van también en personas, con su rol institucional, para que la escaleta pueda nombrarlas.
+- cronologia: los eventos en orden, con la fecha que el pool tenga (año, mes o día) y la hora si la hay, tal como están en el pool, y sus ids.
+- historia: antes de listar hechos, decidís qué historia hay en este caso. Devolvés:
+  - humanos_candidatos (2 a 4): personas con arco, es decir, que entran en el caso en un estado, les pasa algo y salen en otro. Para cada una: nombre canónico, rol, en una oración qué le pasa (entra → sufre → sale), qué ids la sostienen y cuántas citas verificadas tiene. Una persona sin cita verificada puede ser candidata, pero lo decís.
+  - giros (3 a 6): los momentos en que la historia cambia de dirección (una orden, un aviso que no llega, una cifra que aparece, una negación oficial). Cada uno con sus ids y en qué orden pasan.
+  - pico: el peor momento, el que todo lo anterior prepara. Uno solo, con sus ids y por qué es el pico.
+  - pregunta_final: la pregunta que el caso deja abierta y que ningún documento cierra, con los ids que la sostienen.
+- escenas (6 a 15): momentos concretos que se pueden ver. Cada escena en una o dos oraciones: dónde, quién, qué está pasando, y lo que un testigo o documento dice que se veía, se oía, se olía o se tocaba. Solo con lo que los ids permiten. Una escena sin ningún detalle sensorial en los datos no es escena: es hecho, y va a hechos.
+- hechos: entre 40 y 80 según lo que el pool dé (nivel 1 entre 10 y 20); con un pool chico, menos hechos buenos valen más que relleno. Cada hecho lleva un campo nivel: 1 = sostiene la historia (sin él no se entiende el caso), 2 = apoyo (da contexto o escala). Además, cada hecho lleva el campo sirve_para: gancho, contexto, escalada, giro, pico, consecuencia o cierre.
+
+Los ejemplos que siguen son de un caso que no es este (una estación de radio y faro en una isla, en los años sesenta). Copiá la forma, no el contenido: los ids van como D##, Q##, T## y ## es el número que tenga el id en ESTE pool.
+
+Ejemplo de humano candidato:
+{"nombre": "Elvira Soto", "rol": "telegrafista de la estación", "arco": "entra como empleada nueva el invierno del temporal, manda los telegramas pidiendo el barco y recibe las respuestas sin firma, sostiene la radio con las baterías del faro la noche en que se apaga el generador, y sale siendo la única que guardó el libro de telegramas", "ids": ["D##", "Q##", "T##"], "citas_verificadas": 3}
+
+Ejemplo de giro:
+{"orden": 2, "que_cambia": "La Dirección responde al primer pedido de barco con «mantener servicio»: la estación no se evacúa", "ids": ["T##", "Q##"]}
+
+Ejemplo de escena:
+{"donde": "Sala de radio de la estación, la noche en que se apaga el generador", "quien": "Elvira Soto, Raúl Bascuñán, las tres familias", "que_pasa": "el generador se apaga y Elvira sigue transmitiendo con las baterías del faro", "sentidos": "olor a querosén; ventanas tapadas con mantas; el ruido del generador que tose dos veces y el silencio después; una vela", "ids": ["T##", "D##", "Q##"]}
+
+Ejemplo de hecho nivel 1:
+{"texto": "El recuento de la comisión da dos muertos; las familias declaran tres.", "nivel": 1, "sirve_para": "consecuencia", "ids": ["D##", "D##"]}
+- hechos: entre 40 y 80 hechos útiles para contar la historia, cada uno en una oración limpia, con sus ids de origen. Sin interpretación.
+- cifras: una cifra por conteo (muertos, heridos, evacuados, personas adentro…), con su fuente y las otras versiones. Cada cifra con su unidad (personas, metros, grados, años, la moneda del caso…): nunca un número sin qué cuenta.
+- citas: las mejores 10 a 25, con autor, rol, estado de verificación y el texto. Si hay un error evidente de transcripción, lo corregís en «texto» y dejás el texto del pool en «original»; si no corregís nada, «original» va vacío. Si «texto» no está en español, «traduccion» lleva la cita en español.
+- cronologia: si la hora o la fecha no coincide en 2 o más fuentes, «aproximada» va en true.
+- decisiones, versiones y contradicciones: cada conflicto entre fuentes lo resolvés con estos criterios, que valen para cualquier caso:
+  1. Error de extracción (lo que dice el ítem del pool no coincide con lo que dice su pasaje): gana el pasaje.
+  2. Variantes de un nombre: gana la forma del documento oficial o judicial; si no hay, la que más fuentes repiten.
+  3. Conteos (muertos, heridos, personas): gana la cifra oficial; si no hay, la que más fuentes repiten. Las otras van en otras_versiones (el guion podrá decir «otras fuentes hablan de…»).
+  4. Hechos disputados (quién dio una orden, si un aviso llegó a tiempo): no se resuelven. Van a «versiones», cada versión con su fuente, para que el guion las cuente como versiones.
+  5. Horas y fechas: gana la que coincide en 2 o más fuentes; si ninguna coincide, se marca aproximada.
+  Lo que resolvés con los criterios 1, 2, 3 o 5 va a «decisiones»: el tema, el número de criterio, la decisión en una oración, los ids que la sostienen y las otras versiones (cada una con su doc_id y su offset). Lo del criterio 4 va a «versiones». Lo que no cae en ningún criterio va a «contradicciones», con las versiones lado a lado, y no se resuelve. En las tres secciones, cada versión lleva su doc_id y su offset tal como están en la evidencia.
+- personas_descartadas: personas que el research descartó (están en <descartados_del_research>) pero que la historia necesita, con su rol, el motivo por el que hacen falta y los ids del pool que las nombran.
+- descartados: lo que dejás afuera por dudoso o fuera del caso, con el motivo en una línea.
+En el pool, una evidencia que ya apareció en otro ítem va como «(= arriba)»: es el mismo pasaje del mismo documento.
+Cada cifra, hora, fecha y cita que escribas tiene que estar en el texto de los ids que citás. No agregás nada que no esté en el pool.
+</tarea>
+
+===== USUARIO (md5 4ecb5b996034faf3dc670eeced006c43) =====
+<caso>La represa de Vajont: la ola que borró Longarone y los ingenieros que sabían (Italia, 9 de octubre de 1963)</caso>
+
+<pool>
+<personajes n="52">
+[P01] Roberto Padrin · Alcalde de Longarone, Presidente de la Provincia de Belluno y de la Fundación Vajont.
+    F19@1376: ««È un risultato straordinario per la memoria e per le comunità del Vajont», commenta Roberto Padrin, Sindaco di Longarone, Presidente della Provincia di Belluno e della Fondazione Vajont.»
+    F24@530: «dato dai propri Presidenti, Sindaci di Longarone, Pierluigi De Cesero e Roberto Padrin»
+[P02] Irma Visalli · Presidenta del Comité Científico de la Fundación Vajont.
+    F19@2456: «conclude Irma Visalli, presidente del Comitato Scientifico della Fondazione Vajont e promotrice di un percorso di riconoscimento»
+[P03] Tina Merlin · Nombre de la asociación que colaboró en el reconocimiento del archivo.
+    F19@2541: «promotrice di un percorso di riconoscimento a cui hanno collaborato l’Associazione Tina Merlin, la Vajont, il Comune di Longarone»
+    F12@19150: «only one national newspaper, L’Unità, through its journalist Tina Merlin, followed the events that led to the collapse of Mount Toc and to the disaster that followed. Merlin also reported news about residents’ protests»
+    F15@9419: «El único artículo que denuncia lo que está ocurriendo lleva la firma de Tina Merlin, joven reportera local de l'Unità, el periódico fundado por Antonio Gramsci y ligado históricamente al Partido Comunista Italiano.»
+    F02@3668: «Già nel 1959 la giornalista Tina Merlin, sull’Unità, aveva denunciato il pericolo della frana.»
+    F04@7674: «Quattro giorni dopo la frana, la giornalista Tina Merlin sull’“Unità” pubblicò il primo articolo di denuncia.»
+[P04] Antonio Tarasco · Direttore generale Archivi
+    F24@319: «ha commentato il Direttore generale Archivi, Antonio Tarasco.»
+[P06] Giovanni De Lorenzi · Exdirector de la Fundación Vajont
+    F24@618: «con l’impegno gestionale ed operativo dell’allora Direttore Giovanni De Lorenzi, sostenendone interamente tutte le spese»
+    F06@937: «“The first rescuer I saw came in a U.S. Army helicopter,” said Giovanni De Lorenzi, Vajont Foundation Director and disaster survivor.»
+[P07] Mauro Carazzai · Director de la Fundación Vajont
+    F24@885: «ha evidenziato il Direttore della Fondazione Vajont Mauro Carazzai.»
+[P08] Carlo Semenza · Autor de apuntes en el archivo procesal
+    F24@1052: «Appunti CARLO SEMENZA»
+    F15@4120: «En 1929, el joven ingeniero Carlo Semenza y el geólogo Giorgio Dal Piaz se dirigen por primera vez al valle del Vajont»
+    F01@6434: «La diga sarebbe diventata la più alta del mondo (266 metri di altezza, 723 sopra il livello del mare), in grado di contenere 115 milioni di metri cubici di acqua, su progetto dell’ing. Carlo Semenza.»
+    F02@4513: «Nel primo progetto del 1929, realizzato dall’ingegner Carlo Semenza, si prevedeva una diga alta 130 metri, un bacino idroelettrico in grado di contenere circa 34 milioni di metri cubi di acqua.»
+    F05@2548: «La diga del Vajont, progettata dall’ingegnere Carlo Semenza, venne costruita tra il 1956 e il 1960.»
+    F31@6481: «La diga sarebbe diventata la più alta del mondo (266 metri di altezza, 723 sopra il livello del mare), in grado di contenere 115 milioni di metri cubici di acqua, su progetto dell’ing. Carlo Semenza.»
+[P09] Todd R. Wasmund · General al mando de SETAF-AF
+    F06@453: «“Vajont is part of our shared history with our Italian hosts,” said SETAF-AF commanding general Maj. Gen. Todd R. Wasmund.»
+[P10] Emilie Anderson · Oficial de operaciones del Batallón del Cuartel General (HHBn), SETAF-AF
+    F06@2132: «said Capt. Emilie Anderson, the Headquarters and Headquarters Battalion (HHBn) operations officer, SETAF-AF, who attended the ceremony.»
+[P11] Parise Ferdinando · Soldado retirado del ejército italiano que ayudó en las labores de rescate
+    F06@2614: «“The American Soldiers arrived when we arrived, working day and night without stopping, always with those three helicopters in the sky,” said Parise Ferdinando, a retired Italian Army Soldier who aided in the rescue efforts.»
+[P12] Sergio Mattarella · Presidente de la República Italiana
+    F06@2952: «On October 9th, SETAF-AF attended the official 60th anniversary ceremony at the Vajont Dam with Italian President Sergio Mattarella.»
+[P13] Giovanni Leone · Presidente del Consiglio
+    F03@3122: «Tre giorni dopo la strage, il presidente del Consiglio (Giovanni Leone, accompagnato dal ministro dei Lavori pubblici Benigno Zaccagnini, visita i luoghi della tragedia.»
+[P16] Alberico Biadene · Acusado y condenado
+    F03@3661: «Alberico Biadene, Mario Pancini, Pietro Frosini, Francesco Sensidoni, Curzio Batini, Francesco Penta, Luigi Greco, Almo Violin, Dino Tonini, Roberto Marin e Augusto Ghetti.»
+    F01@9334: «Il 20 di febbraio 1968 il Giudice istruttore di Belluno, Mario Fabbri, deposita la sentenza del procedimento penale contro Alberico Biadene, Mario Pancini, Pietro Frosini, Francesco Sensidoni»
+    F02@8487: «La mattina dell’incidente Alberico Biadene, direttore del Servizio costruzioni idrauliche della SADE, inviò una lettera al capocantiere Mario Pancini, chiedendogli di rientrare dalle ferie.»
+    F31@9381: «Il 20 di febbraio 1968 il Giudice istruttore di Belluno, Mario Fabbri, deposita la sentenza del procedimento penale contro Alberico Biadene»
+[P17] Francesco Sensidoni · Acusado y condenado
+    F03@3661: (= arriba)
+    F01@9334: (= arriba)
+    F02@11061: «la Corte d’Appello dell’Aquila condannò Biadene a 6 anni, Francesco Sensidoni, capo del Servizio dighe e membro della Commissione di collaudo, a 4 anni e 6 mesi e assolse gli altri imputati.»
+    F31@9381: «Il 20 di febbraio 1968 il Giudice istruttore di Belluno, Mario Fabbri, deposita la sentenza del procedimento penale contro Alberico Biadene, Mario Pancini, Pietro Frosini, Francesco Sensidoni»
+[P18] Mario Pancini · Acusado que se suicidó antes del juicio
+    F03@3931: «Ma sul banco degli imputati siedono solo 8 persone: Penta e Greco nel frattempo sono morti, Pancini si è tolto la vita il giorno prima.»
+    F01@9405: «deposita la sentenza del procedimento penale contro Alberico Biadene, Mario Pancini, Pietro Frosini, Francesco Sensidoni... Due di questi, Penta e Greco, nel frattempo muoiono, mentre Pancini si toglie la vita il 28 novembre di quell'anno.»
+    F02@10822: «Pancini, il direttore dei lavori della diga, si era ucciso alla vigilia dell’inizio del processo.»
+    F31@9730: «mentre Pancini si toglie la vita il 28 novembre di quell'anno.»
+[P19] Francesco Penta · Acusado que murió antes del juicio · variantes: Penta
+    F03@3931: (= arriba)
+    F09@24408: «El profesor Penta, geólogo del grupo, asesoraba desde hace varios años a la misma SADE.»
+    F31@9677: «Due di questi, Penta e Greco, nel frattempo muoiono»
+[P20] Luigi Greco · Acusado que murió antes del juicio
+    F03@3931: (= arriba)
+    F31@9677: (= arriba)
+[P21] Sandro Canestrini · Abogado de la parte civil
+    F03@4181: «Figure meschine e autentiche gemme di civiltà come l'arringa dell'avvocato di parte civile, Sandro Canestrini.»
+    F04@8977: «Andarono certamente in questa direzione le durissime parole che l’avvocato Sandro Canestrini usò in occasione del processo volto ad accertare le responsabilità del disastro, celebratosi all’Aquila nel 1969»
+[P22] Curzio Batini · Acusado condenado en primera instancia
+    F03@4632: «Biadene, Batini e Violin sono condannati a 6 anni, di cui 2 condonati, per omicidio colposo.»
+    F01@9417: «sentenza del procedimento penale contro Alberico Biadene, Mario Pancini, Pietro Frosini, Francesco Sensidoni, Curzio Batini, Francesco Penta, Luigi Greco, Almo Violin, Dino Tonini, Roberto Marin e Augusto Ghetti.»
+    F02@10588: «Il 17 dicembre del 1969 la Corte condannò a 6 anni i tre principali imputati: Biadene, Curzio Batini (presidente della IV Sezione del Consiglio superiore dei Lavori pubblici), Almo Violin (ingegnere capo del Genio civile di Belluno).»
+    F31@9452: «deposita la sentenza del procedimento penale contro Alberico Biadene, Mario Pancini, Pietro Frosini, Francesco Sensidoni, Curzio Batini»
+[P23] Pietro Frosini · Acusado absuelto
+    F03@5321: «Frosini e Violin vengono assolti per insufficienza di prove, Marin e Tonini assolti perché il fatto non costituisce reato, Ghetti per non aver commesso il fatto.»
+    F01@9334: (= arriba)
+    F31@9381: «Il 20 di febbraio 1968 il Giudice istruttore di Belluno, Mario Fabbri, deposita la sentenza del procedimento penale contro Alberico Biadene, Mario Pancini, Pietro Frosini»
+[P24] Almo Violin · Acusado absuelto
+    F03@5321: (= arriba)
+    F02@10588: (= arriba)
+    F31@9381: «Il 20 di febbraio 1968 il Giudice istruttore di Belluno, Mario Fabbri, deposita la sentenza del procedimento penale contro Alberico Biadene... Luigi Greco, Almo Violin»
+[P25] Roberto Marin · Acusado absuelto
+    F03@5321: (= arriba)
+    F31@9381: «Il 20 di febbraio 1968 il Giudice istruttore di Belluno, Mario Fabbri, deposita la sentenza del procedimento penale contro... Dino Tonini, Roberto Marin»
+[P26] Augusto Ghetti · Acusado absuelto
+    F03@5321: (= arriba)
+    F31@9381: «Il 20 di febbraio 1968 il Giudice istruttore di Belluno, Mario Fabbri, deposita la sentenza del procedimento penale contro... Roberto Marin e Augusto Ghetti.»
+[P27] Dino Tonini · Acusado absuelto
+    F03@6323: «Tonini viene assolto per non aver commesso il fatto; gli altri verdetti restano invariati.»
+    F01@11275: «Tonini viene assolto per non aver commesso il fatto; gli altri verdetti restano invariati.»
+    F31@9381: «Il 20 di febbraio 1968 il Giudice istruttore di Belluno, Mario Fabbri, deposita la sentenza del procedimento penale contro... Almo Violin, Dino Tonini»
+[P28] Carlo Onorini · Párroco de Casso · variantes: Don Carlo Onorini
+    F09@12046: «Don Carlo Onorini (párroco de Casso). Soy casi un testigo ocular [...] en este sentido.Yo, aquella noche, a eso de las diez y media, escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria»
+[P29] Benito Castellano · Sobreviviente
+    F09@12849: «Benito Castellano. Se había aplacado el viento y persistían violentas sacudidas de la tierra. Oí un ruido indefinible muy fuerte, como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos»
+[P30] Germano Accamillesi · Sobreviviente
+    F09@14077: «Germano Accamillesi. Mientras estábamos en el bar Faè nos dimos cuenta que de repente se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas»
+[P31] Mario Fabbri · Juez de instrucción
+    F09@14635: «Tribunale di Belluno, Sentenza del giudice istruttore Mario Fabbri, núm. 85/64 G.I., 20 de febrero de 1968, pp. 256-260.»
+    F01@9334: (= arriba)
+    F02@9866: «Questa versione, tuttavia, non convinse il giudice istruttore Mario Fabbri, che nominò un’altra commissione di periti formata in larga parte di esperti stranieri.»
+    F31@9381: «Il 20 di febbraio 1968 il Giudice istruttore di Belluno, Mario Fabbri, deposita la sentenza del procedimento penale»
+[P32] Gianfranco Trevisano · Médico de Longarone
+    F09@15345: «Doctor Gianfranco Trevisano (médico de Longarone). Antes de que se fuera la luz, se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire, acompañada del ruido del aire que irrumpía»
+[P33] Dino Buzzati · Escritor del Corriere della Sera
+    F09@20178: «a la izquierda uno de Dino Buzzati, escritor originario de Belluno, quien desde hacía veinte años era una de las firmas más prestigiosas del Corriere, con un título descarnado y perentorio: "Naturaleza cruel"»
+    F02@3763: «Tra gli altri, lo scrittore Dino Buzzati e il giornalista Indro Montanelli sostenevano invece che il disastro fosse una casualità, e accusarono i teorici della “prevedibilità” di combattere una battaglia politica»
+[P34] Gildo Sperti · Ingeniero de la SADE
+    F09@21561: «Recuerdo que mientras lo construían, el ingeniero Gildo Sperti, de la SADE, me llevó a la cercana Central de Soverzene, donde había un gran modelo de latón de la barrera en construcción.»
+[P35] Leopold Muller · Geólogo austriaco · variantes: Leopold Müller
+    F09@23610: «la pericia del geólogo austriaco Leopold Müller detectó un desmoronamiento del cerro Toc, con un frente de dos kilómetros y un desarrollo vertical de 600 metros en forma de "m".»
+    F15@9990: «La SADE hace llamar a Leopold Müller, pope de la geología austriaca y europea, fundador de la Escuela de Salzburgo.»
+    F02@5915: «un geologo austriaco, Leopold Muller, aveva segnalato una massa instabile nella zona del Pian di Toc.»
+    F05@4143: «Il geologo Leopold Muller (amico fidato di Carlo Semenza che gli aveva affidato il sopralluogo della zona prima di avviare i lavori) volle vederci chiaro»
+[P36] Giorgio Dal Piaz · Geólogo italiano asesor de la SADE
+    F09@23788: «Al término de una larga disputa científica con el geólogo italiano Giorgio Dal Piaz, que anteriormente había asesorado a la SADE, la sociedad encargada de la construcción de la presa, se decretó que el desmoronamiento no era peligroso»
+    F15@2555: «El geólogo Giorgio Dal Piaz catedrático de la prestigiosa Universidad de Padua da su opinión sobre la ampliación de la presa»
+    F02@5013: «Il geologo Giorgio Dal Piaz ebbe un ruolo centrale nella serie di negligenze che portarono al disastro. Dal Piaz aveva un curriculum di prestigio, viene considerato uno dei “padri” della geologia italiana, e per questo fu scelto dalla SADE come consulente geologico»
+[P37] Giorgio Bocca · Escritor e intelectual en Il Giorno
+    F09@33132: «otro importante escritor e intelectual italiano, Giorgio Bocca, anota: Podrá tal vez parecer cruel lo que voy a decir, pero esta desgracia tan "limpia", tan ineluctable, tan absoluta, lleva más a la melancolía que al dolor.»
+[P39] Terenzio Arduini · Vicealcalde de Longarone
+    F09@41779: «el otro es Terenzio Arduini, vicealcalde y nuevo líder de la comunidad a pesar de sus trágicas pérdidas familiares, el sobreviviente llamado a resistir y a proseguir hacia adelante.»
+[P40] Aniello Coppola · Periodista de L'Unità
+    F09@42585: «Aniello Coppola firma el primero de una serie de artículos de fondo ("Tragedia con un nombre"), que lo llevarán a asumir en cierta forma el papel de coordinador e intérprete general de los acontecimientos en el diario del PCI»
+[P41] Giuseppe Volpi · Director de SADE · variantes: Sr. Volpi
+    F12@20227: «Il Gazzettino was owned partly by SADE, partly by FIAT, partly by Mr Volpi and partly by Mr Cini, the two heads of SADE.»
+    F15@4506: «Su propietario es Giuseppe Volpi, conde de Misurata, capitalista old style y protagonista de la política mussoliniana.»
+[P42] Sr. Cini · Director de SADE
+    F12@20227: (= arriba)
+[P43] Audrey Azoulay · Directora General de la Unesco
+    F14@1921: «Annunciando le nuove iscrizioni proposte da 56 diversi Paesi, la Direttrice generale dell'Unesco, Audrey Azoulay, ha dichiarato" Il patrimonio documentario è la memoria comune dell'umanità.»
+[P44] Arcangelo Tiziani · Vigilante de la montaña en Pontesei
+    F15@9222: «la cual acaba con la vida de Arcangelo Tiziani, contratado para vigilar los movimientos de la montaña.»
+[P45] Pietro Caloi · Geofísico
+    F15@10474: «La constructora acaba llamando a Pietro Caloi, geofísico, que se une a la oposición contra Müller, alegando que la base de la montaña es de roca compacta y que, por tanto, no hay peligro alguno.»
+[P46] Edoardo Semenza · Geólogo, hijo del ingeniero jefe
+    F15@11613: «Tras realizar un estudio de campo, Edoardo Semenza, geólogo e hijo del ingeniero jefe del proyecto, llega a las mismas conclusiones que Müller.»
+    F02@5798: «Tra il 1959 e il 1960 Edoardo Semenza, figlio del progettista della diga, effettuò alcuni rilievi geologici dopo che un geologo austriaco, Leopold Muller, aveva segnalato una massa instabile nella zona del Pian di Toc.»
+    F05@4299: «delegò i sopralluoghi al figlio di Carlo Semenza, Edoardo Semenza, che si era appena abilitato alla professione di geologo.»
+[P47] Vannia Gava · Subsecretaria del Ministerio de Medio Ambiente
+    F01@880: «Al servizio del mio Paese nelle politiche ambientali cerco ogni giorno di non dimenticare mai il Vajont. Lo ha dichiarato Vannia Gava, Sottosegretario al Ministero dell’Ambiente.»
+    F31@1032: «Lo ha dichiarato Vannia Gava, Sottosegretario al Ministero dell’Ambiente.»
+[P48] Mauro Corona · escritor
+    F02@1784: «ha raccontato al Corriere della Sera lo scrittore Mauro Corona che all’epoca aveva 13 anni e viveva vicino alla diga.»
+[P49] Micaela Coletti · presidente del comitato sopravvissuti del Vajont
+    F02@2045: «Micaela Coletti, presidente del comitato sopravvissuti del Vajont, ricorda un rumore sordo pochi istanti prima che l’onda la travolgesse. Era nel suo letto, aveva 12 anni.»
+[P50] Giuseppe Sacchet · sobreviviente
+    F02@2788: «Anche un altro sopravvissuto, Giuseppe Sacchet, tredicenne, fu ritrovato su un materasso sotto le macerie lontano da casa sua.»
+[P54] Marco Armiero · Autor del libro 'Vajont: The Political Ecology of an Unnatural Disaster'
+    F21@1529: «But in Vajont, Marco Armiero takes a different path to reveal the political implications of this disaster, which was anything but natural.»
+    F22@843: «But in Vajont, Marco Armiero takes a different path to reveal the political implications of this disaster, which was anything but natural.»
+[P58] Rubinacci · Senador democristiano, presidente de la Comisión de investigación
+    F04@13829: «Affidata alla presidenza del senatore democristiano Rubinacci, la Commissione, nominata dal ministero per i Lavori pubblici, lavorò dal giugno del 1964 al luglio 1965 (Lucidi 2003).»
+    F31@392: «- Relazione finale presentata il 15 luglio 1965 (relatore Rubinacci)»
+[P59] L'Unità · Periódico
+    F12@27876: «"The Vajont catastrophe is the tragic end of a brutal misuse of land, water and of the local population". It is a public accusation against public interest, economic power and a global corruption of the entire socio-political system.»
+[P60] Habitantes de Erto-Casso · Habitante
+    F12@29926: «some of the inhabitants of Erto-Casso replied that they had imagined and hoped that experts and politicians, that had reassured them for years about the safety of the dam, had known more than what they did»
+[P61] Laboratorio de la Universidad de Padua · None
+    F15@20064: «Pero hay un pequeño problema: el modelo ha sido realizado utilizando grava para simular las rocas compactas en caída desde la montaña. «Nos han dicho que lo hagamos así».»
+[P62] Daniele Ceschin · Historiador (citado en el texto)
+    F04@5328: «“Se il Vajont ha insegnato qualcosa” – è stato scritto – “è stata la possibilità di escludere la fatalità e di introdurre il concetto di colpa, scoprirne la valenza” (Ceschin 2009, 41).»
+</personajes>
+<cronologia n="120">
+[T01] La empresa SADE obtuvo un permiso del gobierno para construir la represa. · fecha 1943 · hora None · lugar None
+    F12@6664: «SADE (Società Adriatica di Elettricità, a private electricity company with strong support at national level) managed to get from the government in mid-world war II (1943...)»
+[T02] El proyecto "Gran Vajont" es oficialmente aprobado por el Estado italiano, pocos días después de la firma del armisticio. · fecha 1943 · hora None · lugar None
+    F15@6221: «En 1943, pocos días después de la firma del armisticio entre Italia y los ejércitos aliados, en un periodo en que el Estado italiano apenas si existe, el conde de Misurata consigue que su proyecto más ambicioso sea oficialmente aprobado.»
+[T03] Comienza la adquisición de terrenos en los municipios de Erto y Casso. · fecha 1943 · hora None · lugar Erto y Casso
+    F01@4313: «Nel 1943 inizia l’acquisizione dei terreni dei comuni di Erto e di Casso, e negli anni successivi viene portato a termine l’esproprio dei terreni privati, nonostante l’opposizione di una parte della popolazione»
+    F31@4360: «Nel 1943 inizia l’acquisizione dei terreni dei comuni di Erto e di Casso, e negli anni successivi viene portato a termine l’esproprio dei terreni privati»
+[T04] El Consejo Superior de Obras Públicas aprobó el proyecto de la presa del Vajont. · fecha 1943 · hora None · lugar None
+    F01@5573: «Il progetto sarà approvato nel 1943, in piena Seconda Guerra Mondiale, dal Consiglio superiore dei lavori pubblici, attraverso un procedimento irregolare»
+    F31@5620: «Il progetto sarà approvato nel 1943, in piena Seconda Guerra Mondiale, dal Consiglio superiore dei lavori pubblici, attraverso un procedimento irregolare»
+[T05] Durante la década de 1950, el geólogo Leopold Müller detectó un desmoronamiento en el cerro Toc. · fecha 1950 · hora None · lugar Monte Toc
+    F09@23526: «en la década de 1950, con bastante antelación con respecto a la fecha del desastre, la pericia del geólogo austriaco Leopold Müller detectó un desmoronamiento del cerro Toc»
+[T06] Comienza la construcción del dique del Vajont por la empresa SADE. · fecha 1956 · hora None · lugar Valle del Vajont
+    F09@53156: «La construcción de este dique (que en su época era el más alto del mundo) fue realizada por una compañía privada, la SADE [...] y requirió casi siete años de trabajo (de 1956 a 1963).»
+    F15@6830: «En 1956, la SADE abre las faraónicas obras: 400 obreros en un territorio de 2000 habitantes. El trabajo para todos, en un valle de grandes dificultades económicas, genera una cierta euforia.»
+    F05@2548: (= arriba)
+    F04@6898: «La decisione di costruire la diga fu presa nel 1956 per iniziativa della SADE, la Società Adriatica di Elettricità di Venezia.»
+[T07] Los municipios de Erto y Casso fueron notificados del inicio de la construcción de la represa. · fecha 1957 · hora None · lugar Erto y Casso
+    F12@6028: «In 1957 the municipalities of Erto and Casso, on the edges of the Vajont torrent, were notified of the beginning of the construction.»
+[T08] La SADE presenta una variación del proyecto que incrementa en más de 60 metros la altura de la presa. · fecha 1957 · hora None · lugar None
+    F15@7259: «Al año siguiente, la SADE presenta una variación del proyecto que incrementa en más de 60 metros la altura de la presa, convirtiéndola así en la mayor del mundo.»
+[T09] Comienzan las obras de construcción del embalse artificial. · fecha 1957 · hora None · lugar Valle del Vajont
+    F05@3839: «Ma quando nel 1957 partirono i lavori nessuno lo aveva calcolato.»
+[T10] Comienzan los trabajos de construcción de la presa del Vajont. · fecha 1957 · hora None · lugar None
+    F04@7299: «concesse le autorizzazioni del caso i lavori iniziarono nel 1957 e si conclusero due anni dopo.»
+[T11] Se abren las obras de construcción de la presa, empleando a unas 400 personas. · fecha 1957-01 · hora None · lugar None
+    F01@5914: «I cantieri verranno aperti, con ampi contributi pubblici, soltanto nel gennaio del 1957, sulla scia del ‘miracolo economico’ dando lavoro a circa 400 persone.»
+    F31@5961: «I cantieri verranno aperti, con ampi contributi pubblici, soltanto nel gennaio del 1957, sulla scia del ‘miracolo economico’ dando lavoro a circa 400 persone.»
+[T12] Comienzan las obras de construcción de la presa con unos 400 obreros. · fecha 1957-07 · hora None · lugar None
+    F01@4600: «Nel luglio del 1957 iniziano i lavori, con circa 400 operai, e la diga viene inaugurata nel settembre del 1960.»
+    F20@2382: «Construction began in July 1957»
+[T13] Comienzan los trabajos de construcción de la represa del Vajont. · fecha 1957-07 · hora None · lugar None
+    F31@4647: «Nel luglio del 1957 iniziano i lavori, con circa 400 operai, e la diga viene inaugurata nel settembre del 1960.»
+[T14] La Secretaría de Obras Públicas nombró una comisión de exámenes periciales para la presa del Vajont. · fecha 1958 · hora None · lugar None
+    F09@24323: «En 1958 la Secretaría de Obras Públicas nombró a la comisión de exámenes periciales.»
+[T15] Un deslizamiento de 3 millones de metros cúbicos cayó en el lago de la cercana represa de Pontesei, matando a un hombre. · fecha 1959 · hora None · lugar Lago de la represa de Pontesei
+    F12@7173: «In 1959 a 3 million cubic meters landslide slipped into the nearby Pontesei dam lake killing a man at work.»
+[T16] Se produce un desprendimiento en el embalse de Pontesei que genera una ola de 20 metros y mata a Arcangelo Tiziani. · fecha 1959 · hora None · lugar embalse de Pontesei
+    F15@9102: «Cuando finalmente se produce el desprendimiento, el embate de las rocas contra el agua genera una ola de veinte metros, la cual acaba con la vida de Arcangelo Tiziani, contratado para vigilar los movimientos de la montaña.»
+[T17] Un deslizamiento de tierra en la presa de Pontesei causó una ola de 20 metros que mató a un trabajador de SADE. · fecha 1959 · hora None · lugar diga di Pontesei
+    F01@6725: «Nel 1959, a pochi chilometri di distanza, una frana precipitava nel lago artificiale di un’altra diga progettata da Semenza, la diga di Pontesei, causando un’onda di 20 metri che costerà la vita all’operaio della Sade»
+[T18] La periodista Tina Merlin denuncia el peligro del desprendimiento en el periódico l'Unità. · fecha 1959 · hora None · lugar None
+    F02@3668: (= arriba)
+[T19] Edoardo Semenza realiza estudios geológicos tras la alerta del geólogo Leopold Muller sobre una masa inestable en el Pian di Toc. · fecha 1959 · hora None · lugar Pian di Toc
+    F02@5798: (= arriba)
+[T20] Un desprendimiento de tierra en el lago artificial de la represa de Pontesei provoca una ola que mata a un operario. · fecha 1959 · hora None · lugar diga di Pontesei
+    F31@6772: «Nel 1959, a pochi chilometri di distanza, una frana precipitava nel lago artificiale di un’altra diga progettata da Semenza, la diga di Pontesei, causando un’onda di 20 metri che costerà la vita all’operaio della Sade»
+[T21] Un deslizamiento de 3 millones de m³ de roca ocurre en el embalse de Pontesei, generando una primera alarma. · fecha 1959-03 · hora None · lugar Bacino di Pontesei
+    F05@3905: «Nel marzo del 1959 avvenne un primo episodio strano nella zona: 3 milioni di m³ di roccia franarono nel bacino di Pontesei, uno dei bacini del sistema del Grande Vajont, senza provocare danni, ma accendendo il primo campanello d’allarme.»
+[T22] Se derrumba la presa de Malpasset en la Costa Azul francesa, causando 400 muertos. · fecha 1959-12-02 · hora None · lugar Costa Azul francesa
+    F15@12944: «El 2 de diciembre de 1959, en la Costa Azul francesa se derrumba la recientemente construida presa de Malpasset. Cuatrocientos muertos.»
+[T23] Ocurrió un pequeño desmoronamiento en el monte Toc que abrió una fisura de casi 2 km de largo. · fecha 1960 · hora None · lugar Monte Toc
+    F09@25521: «como consecuencia de un pequeño desmoronamiento en 1960, vieron abrirse una fisura de más de un metro de ancho y de casi dos kilómetros de largo al costado de la montaña.»
+[T24] SADE inicia un plan de pruebas de llenado del embalse, alcanzando los 640 metros de altura y apareciendo síntomas de inestabilidad. · fecha 1960 · hora None · lugar embalse del Vajont
+    F15@14159: «Pero cuando llegan a los 640 metros aparecen los mismos síntomas que habían aparecido a Pontesei el año anterior: ruidos dentro de la montaña, manchas amarillentas, etc.»
+[T25] Se produce un pequeño derrumbamiento en el monte Toc que deja a la vista una porción de tierra en movimiento en forma de M. · fecha 1960 · hora None · lugar monte Toc
+    F15@14329: «En otoño se produce un derrumbamiento. No se trata del que provocará el desastre definitivo, este corrimiento de tierra es ínfimo respecto al de tres años después. Pero ha dejado a la vista la porción de tierra en movimiento que Müller había detectado»
+[T26] Finaliza la construcción de la represa. · fecha 1960 · hora None · lugar None
+    F02@1134: «Durante la costruzione della diga, terminata nel 1960, furono ignorati o minimizzati allarmi, analisi scientifiche ed evidenze sui rischi di frane, oltre alle proteste della popolazione locale.»
+    F05@2548: (= arriba)
+[T27] El geólogo Giorgio Dal Piaz minimiza en su informe los riesgos identificados por Edoardo Semenza. · fecha 1960 · hora None · lugar None
+    F02@6452: «Nella sua relazione del 1960 Dal Piaz minimizzò i rischi individuati da Edoardo Semenza.»
+[T28] Un periódico local publica un artículo sugiriendo que los deslizamientos recurrentes hacen probable un desastre. · fecha 1960 · hora None · lugar None
+    F20@2456: «A local newspaper published article suggesting recurrent landslides make a disaster likely.»
+[T29] Comienza el llenado del embalse de Vajont. · fecha 1960-02 · hora None · lugar None
+    F20@2414: «Reservoir began filling in February 1960.»
+[T30] Se realizó un primer llenado del embalse, seguido de un pequeño desprendimiento de rocas. · fecha 1960-06 · hora None · lugar Embalse de Vajont
+    F12@7929: «A first filling of reservoir was accomplished in June 1960 followed by a small rock slide»
+[T31] Se inaugura la presa de Vajont. · fecha 1960-09 · hora None · lugar None
+    F01@4600: (= arriba)
+    F31@4647: (= arriba)
+[T32] Un enorme bloque de roca se derrumbó en el lago del embalse. · fecha 1960-11 · hora None · lugar Embalse de Vajont
+    F12@8019: «and in November 1960 a huge rock block collapsed into the lake.»
+[T33] Comienza el juicio contra la periodista Tina Merlin y el periódico l'Unità por difundir supuestas noticias falsas sobre la presa. · fecha 1960-11 · hora None · lugar None
+    F15@15894: «En noviembre empieza el juicio contra Tina Merlin y l'Unità por haber difundido supuestas noticias falsas. A las seis horas son absueltos.»
+[T34] Un deslizamiento de 800.000 metros cúbicos de roca cae desde el monte Toc al lago artificial. · fecha 1960-11 · hora None · lugar Monte Toc
+    F01@7351: «A conferma di queste scoperte, nel novembre del 1960 una frana di 800.000 metri cubici di roccia precipita dal monte nel lago artificiale.»
+    F31@7398: «A conferma di queste scoperte, nel novembre del 1960 una frana di 800.000 metri cubici di roccia precipita dal monte nel lago artificiale.»
+[T35] Un desprendimiento de 700.000 metros cuadrados se desprende del monte Toc, causando una ola de 10 metros. · fecha 1960-11-04 · hora None · lugar Monte Toc
+    F02@6822: «il 4 novembre 1960 una frana di 700mila metri quadrati si staccò dalla parte sinistra del monte Toc e sollevò un’onda di 10 metri. Era un avvertimento molto chiaro.»
+    F05@4766: «Il 4 novembre del 1960 ci fu un secondo campanello d’allarme, il più forte: 700.000 m³ di roccia si staccarono dal monte Toc provocando un’onda alta 2 metri.»
+[T36] Una primera frana de 700.000 metros cúbicos se vierte en el lago artificial durante las pruebas. · fecha 1960-11-04 · hora None · lugar None
+    F04@7462: «Il 4 novembre 1960, mentre erano in corso dei collaudi, si verificò una prima frana: circa 700.000 metri cubi si riversarono nel lago artificiale»
+[T37] La periodista Tina Merlin publica en "l'Unità" el primer artículo denunciando la situación de la presa del Vajont. · fecha 1960-11-08 · hora None · lugar None
+    F04@7674: (= arriba)
+[T38] Muere el ingeniero Carlo Semenza. · fecha 1961 · hora None · lugar None
+    F05@6541: «nel 1961 Carlo Semenza, l’unico che aveva la capacità di gestire la situazione, morì e Leopold Muller di conseguenza venne rimpiazzato.»
+[T39] Tina Merlin publica un nuevo artículo alertando de un derrumbamiento de 50 millones de metros cúbicos de roca que amenaza Erto. · fecha 1961-02 · hora None · lugar Erto
+    F15@17064: «En febrero, Tina Merlin contraataca con un nuevo artículo: «Un derrumbamiento de 50 millones de metros cúbicos de roca amenaza la vida y los bienes de los habitantes de Erto».»
+[T40] Mueren Carlo Semenza y Giorgio Dal Piaz sin ver concluido el proyecto. · fecha 1962 · hora None · lugar None
+    F15@18655: «Durante el invierno, mueren Carlo Semenza y Giorgio Dal Piaz sin llegar a ver concluido el proyecto de una vida.»
+[T41] Se establece que la reserva de agua no debe superar el nivel de 700 metros sobre el nivel del mar. · fecha 1962 · hora None · lugar None
+    F01@7535: «nel 1962 viene stabilito che la riserva d’acqua si trova in un’area a rischio, e che non dovrà superare il livello di 700 metri sopra il livello del mare.»
+    F31@7582: «nel 1962 viene stabilito che la riserva d’acqua si trova in un’area a rischio, e che non dovrà superare il livello di 700 metri sopra il livello del mare.»
+[T42] A finales de 1962, la presa de Vajont pasó a ser propiedad estatal tras la creación de ENEL. · fecha 1962 · hora None · lugar None
+    F01@7739: «Alla fine del 1962, in seguito alla legge del governo Fanfani che stabilisce la nazionalizzazione dell’industria elettrica italiana, nasce l’ENEL: la diga del Vajont è ormai di proprietà statale.»
+    F31@7786: «Alla fine del 1962, in seguito alla legge del governo Fanfani che stabilisce la nazionalizzazione dell’industria elettrica italiana, nasce l’ENEL: la diga del Vajont è ormai di proprietà statale.»
+[T43] Los movimientos de la ladera superaron los 1,5 cm por día. · fecha 1962-11 · hora None · lugar Ladera del Monte Toc
+    F12@8819: «the displacement passed the threshold of 1.5 cm per day, especially in November 1962.»
+[T44] Se aprueba la ley que instituye el Ente Nacional para la Energía Eléctrica (ENEL). · fecha 1962-12 · hora None · lugar Italia
+    F15@21395: «En diciembre de 1962 se aprueba la ley que instituye el Ente Nacional para la Energía Eléctrica (ENEL). La compra forzosa de la presa del Vajont por parte del Estado es ya un hecho»
+[T45] Comienzan los procesos penales sobre la catástrofe. · fecha 1963 · hora None · lugar None
+    F14@2563: «Oltre alle carte dei processi penali, che hanno avuto luogo tra il 1963 e il 1971, per un totale di 250 fascicoli giudiziari»
+[T46] El Estado italiano, a través de la ENEL, firma el contrato de compra de la central del Vajont con la SADE. · fecha 1963 · hora None · lugar None
+    F15@21871: «En el contrato que el Estado firmará con la SADE en 1963 se dice que la ENEL se apropiará de la central «plenamente funcional».»
+[T47] Ocurre un incidente en la represa de Vajont. · fecha 1963 · hora None · lugar Italy
+    F07@0: «Dam Failure Case Study: Vajont Dam (Italy, 1963)»
+[T48] La propiedad de la represa es transferida a ENEL. · fecha 1963 · hora None · lugar Italy
+    F07@2710: «At the time of the incident, ownership had been transferred to ENEL, the national agency of electricity.»
+[T49] El movimiento de la ladera se detuvo al disminuir el nivel del agua a 650 metros. · fecha 1963-03 · hora None · lugar Embalse de Vajont
+    F12@8905: «The movement stopped only in March 1963, with a water level decreased to 650 m (Müller, 1964).»
+[T50] La empresa SADE aumentó el nivel del agua del embalse a 720 metros para cerrar la venta de la presa a ENEL. · fecha 1963-05 · hora None · lugar Embalse de Vajont
+    F12@9159: «in May 1963 the company increased the level of water of the reservoir to 720 m, so to deliver the dam as perfectly functional and thus close the transaction with ENEL»
+[T51] El nivel del embalse alcanza los 700 m de altura, y el deslizamiento se acelera a 0,5 cm por día. · fecha 1963-06 · hora None · lugar Embalse del Vajont
+    F05@6825: «ma nel giugno del 1963 il livello di piena del bacino raggiunse i 700m di altezza riportando la frana a uno scivolamento di 0,5 cm al giorno.»
+[T52] Se completa el cambio de propiedad de la central hidroeléctrica del Vajont a la ENEL. · fecha 1963-07 · hora None · lugar None
+    F15@23562: «En julio se completa el cambio de propiedad de la central hidroeléctrica del Vajont. La prueba de llenado está aún en curso, para finales de agosto faltan solo tres metros.»
+[T53] El nivel del embalse es reducido a la cota de seguridad, pero ya es demasiado tarde. · fecha 1963-09-26 · hora None · lugar Embalse del Vajont
+    F05@7218: «Solo il 26 settembre del 1963 il bacino venne riportato al livello di sicurezza, ma era ormai troppo tardi.»
+[T54] Se evacuaron las casas en la ladera deslizante y el alcalde de Erto prohibió el acceso al embalse mientras se intentaba bajar el nivel del agua. · fecha 1963-10 · hora None · lugar Erto
+    F12@9502: «In October the houses were evacuated on the sliding slope and the mayor of Erto forbade access on reservoir, where the water level was being decreased at great speed to avoid the worst.»
+[T55] Comienzan a multiplicarse las señales de peligro como temblores, estruendos y grietas en la montaña. · fecha 1963-10-02 · hora None · lugar None
+    F04@8366: «A partire dal 2 ottobre i segnali di pericolo si moltiplicarono: scosse, boati, aperture di crepe nella montagna, spostamenti superficiali del terreno furono segnalati a più riprese.»
+[T56] Una ola gigante supera la represa y en los siguientes cuatro minutos una avalancha de agua destruye Longarone. · fecha 1963-10-09 · hora None · lugar Longarone
+    F09@11536: «supera el límite de la represa para desbordarse y derramarse más allá del dique en la estrecha cañada del Piave. En los cuatro minutos siguientes una catastrófica avalancha de agua se abatió sobre el centro habitado de Longarone»
+[T57] Una sección masiva del Monte Toc se desprendió y se estrelló contra el embalse de Vajont. · fecha 1963-10-09 · hora None · lugar norte de Italia
+    F11@379: «On the night of October 9, 1963, a massive section of Monte Toc broke loose and crashed into the Vajont reservoir in northern Italy.»
+[T58] Una ola enorme pasó por encima de la presa y devastó Longarone y las comunidades cercanas en minutos. · fecha 1963-10-09 · hora None · lugar Valle del Vajont
+    F11@575: «sending an enormous wave over the dam and into the valley below. Within minutes, Longarone and nearby communities were devastated.»
+[T59] Durante la noche, el Monte Toc se derrumbó en el embalse, causando la catástrofe. · fecha 1963-10-09 · hora None · lugar Embalse de Vajont
+    F12@9688: «It was too late, and the night of the 9th of October 1963 the catastrophe stroke.»
+[T60] Un trozo de montaña se desprendió, cayó en una represa y una ola gigantesca arrasó varios municipios, matando a 1.910 personas. · fecha 1963-10-09 · hora None · lugar Vajont
+    F14@3149: «Il 9 ottobre 1963 un pezzo di montagna si staccò precipitando in una diga: un'onda gigantesca, che superò di 250 metri lo sbarramento artificiale, invase le sponde dell’invaso e quindi i paesi a valle»
+[T61] El director Alberico Biadene envía una carta al jefe de obras Mario Pancini expresando su preocupación por los movimientos en el Monte Toc. · fecha 1963-10-09 · hora None · lugar None
+    F02@8487: (= arriba)
+[T62] 2000 personas murieron en un desastre causado por un deslizamiento de tierra masivo. · fecha 1963-10-09 · hora None · lugar montañas de Belluno
+    F21@966: «On October 9, 1963, 2,000 people perished in the Belluno mountains, not far from Venice, engulfed by a wave of water and mud unleashed by a massive landslide»
+[T63] Un enorme corrimiento de tierras se estrelló contra la cuenca al pie del Monte Toc, desatando una ola de agua y lodo que mató a 2000 personas. · fecha 1963-10-09 · hora None · lugar montañas de Belluno
+    F22@280: «On October 9, 1963, 2,000 people perished in the Belluno mountains, not far from Venice, engulfed by a wave of water and mud unleashed by a massive landslide that crashed into the basin at the foot of Mount Toc.»
+[T64] El jefe de obras cierra la jornada laboral, dejando en la central a un aparejador y su equipo. · fecha 1963-10-09 · hora 18:00 · lugar central hidroeléctrica del Vajont
+    F15@25344: «A las seis de la tarde, el jefe de obras cierra la jornada, dejando en la central únicamente a un aparejador junto con su equipo de operarios.»
+[T65] Una ola gigantesca sobrepasa la represa y arrasa los pueblos de Erto, Frassen, San Martino, Col di Spesse, Patata, Il Cristo, Casso, Pineda, Longarone, Codissago, Castellavazzo, Villanuova, Pirago, Faè y Rivalta. · fecha 1963-10-09 · hora 22:30 · lugar diga del Vajont
+    F23@1761: «...provocando un'onda gigantesca che scavalca la struttura e travolge i paesi di Erto, Frassen, San Martino, Col di Spesse, Patata, Il Cristo, Casso, Pineda, Longarone, Codissago, Castellavazzo, Villanuova, Pirago, Faè e Rivalta.»
+[T66] 270 millones de metros cúbicos de roca se desprendieron de las laderas del Monte Toc, levantando una ola que causó 1910 víctimas. · fecha 1963-10-09 · hora 22:39 · lugar diga del Vajont
+    F19@94: «270 milioni di metri cubi di roccia che alle 22.39 del 9 ottobre 1963 si staccarono dalle pendici del Monte Toc, sollevando l’onda che si portò via 1910 vittime.»
+    F23@1544: «9 ottobre 1963, confine tra Veneto e Friuli-Venezia Giulia. Poco dopo le dieci e mezzo di sera 260 milioni di metri cubi di roccia si staccano dal Monte Toc e precipitano nel bacino artificiale della diga del Vajont...»
+[T67] Un desprendimiento de tierra catastrófico cae en el embalse de Vajont, provocando un megatsunami que inunda el valle del Piave y se cobra casi 2000 vidas. · fecha 1963-10-09 · hora 22:39 · lugar Vajont Reservoir
+    F06@690: «On October 9th, 1963, at 10:39 pm, a catastrophic landslide fell into the Vajont Reservoir, triggering a mega-tsunami that flooded the Piave Valley below, claiming nearly 2,000 lives, leveling entire villages, and forever altering the landscape.»
+[T68] Un deslizamiento de tierra desde las laderas del Monte Toc cae en el lago artificial de la represa del Vajont, provocando una ola que destruye los pueblos cercanos. · fecha 1963-10-09 · hora 22:39 · lugar frontera entre las provincias de Belluno y Udine
+    F03@313: «Nella tarda sera del 9 ottobre 1963, alle 22.39, sulla linea di confine tra le provincie di Belluno e di Udine (...) il disastro si è scatenato improvviso»
+    F09@10837: «A las 22:39 horas el versante del monte Toc se derrumba y cae en la represa artificial creada por el gigantesco dique.»
+    F02@219: «Alle 22:39 del 9 ottobre 1963, sessant’anni fa, un’enorme frana si staccò dal versante settentrionale del monte Toc, sulle alpi bellunesi, al confine tra il Friuli Venezia Giulia e il Veneto.»
+    F31@8211: «La sera del 9 ottobre del 1963, alle 22:39, un enorme blocco di terra di 400 metri cade dal Monte Toc, provocando una frana di 270 milioni di metri cubi di roccia»
+[T69] Un enorme deslizamiento de tierra del monte Toc cae en el embalse, provocando una ola gigante que destruye Longarone y otros pueblos, causando casi 2.000 muertes. · fecha 1963-10-09 · hora 22:39 · lugar Vajont
+    F15@3806: «Son las diez y treinta y nueve de la noche del 9 de octubre de 1963. El punto final de una catástrofe construida»
+    F05@750: «Alle ore 22:39 di quella tragica notte 270 milioni di m³ di roccia si staccarono dal versante nord del monte Toc, precipitando alla velocità di 100 km/h nel bacino sottostante»
+[T70] Un enorme bloque de tierra de 400 metros cae del Monte Toc, provocando un deslizamiento de 270 millones de metros cúbicos de roca en el lago. · fecha 1963-10-09 · hora 22:39 · lugar Monte Toc
+    F01@8164: «La sera del 9 ottobre del 1963, alle 22:39, un enorme blocco di terra di 400 metri cade dal Monte Toc, provocando una frana di 270 milioni di metri cubi di roccia»
+[T71] Una masa de tierra y escombros se desliza en el embalse de Vajont en menos de 45 segundos. · fecha 1963-10-09 · hora 22:39 · lugar Embalse de Vajont
+    F20@3519: «Enormous mass estimated at up to 300 million m of earth and debris Slid into the Vajont reservoir in less than 45 seconds»
+[T72] Una ola de más de 230 pies de altura llega a la ciudad de Longarone, aproximadamente 4 minutos después del deslizamiento. · fecha 1963-10-09 · hora 22:43 · lugar Longarone
+    F20@4038: «The water arrived in Longarone at 10:43 pm, (~4 minutes after the landslide) The wave was over 230 feet high»
+[T73] Un frente de derrumbe de 2 km² se precipita en el embalse hidroeléctrico, causando una ola gigante. · fecha 1963-10-09 · hora 22:45 · lugar Vajont
+    F04@4176: «La sera del 9 ottobre 1963, alle 22,45, un fronte franoso dalla superficie di 2 chilometri quadrati e dall’impressionante volume di oltre 250 metri cubi di terra e roccia si staccò dalla montagna sovrastante»
+[T74] Se publican los titulares de los principales diarios nacionales analizados en el artículo, como el del Corriere della Sera. · fecha 1963-10-11 · hora None · lugar None
+    F09@17939: «presentaré los titulares de los diarios publicados el viernes 11 de octubre de 1963 en secuencia y en confrontación»
+[T75] El Ministro de Obras Públicas nombra la Comisión de investigación sobre el desastre. · fecha 1963-10-11 · hora None · lugar None
+    F01@8918: «Tre giorni dopo il disastro, l'11 ottobre, il Ministro dei Lavori Pubblici, in accordo con il Presidente del Consiglio, nomina la Commissione di inchiesta sulla sciagura, che si insedia il 14 ottobre.»
+    F04@13378: «già l’11 ottobre il ministero dei Lavori pubblici nominò una Commissione d’inchiesta tecnico-amministrativa.»
+    F31@8965: «Tre giorni dopo il disastro, l'11 ottobre, il Ministro dei Lavori Pubblici, in accordo con il Presidente del Consiglio, nomina la Commissione di inchiesta sulla sciagura»
+[T76] El presidente del Consejo, Giovanni Leone, junto al ministro de Obras Públicas, Benigno Zaccagnini, visitan los lugares de la tragedia. · fecha 1963-10-12 · hora None · lugar Longarone
+    F03@3122: (= arriba)
+[T77] Se instala la Comisión de investigación sobre el desastre. · fecha 1963-10-14 · hora None · lugar None
+    F31@9008: «il Ministro dei Lavori Pubblici, in accordo con il Presidente del Consiglio, nomina la Commissione di inchiesta sulla sciagura, che si insedia il 14 ottobre.»
+[T78] Se presentan tres propuestas para la institución de una comisión bicameral de investigación sobre el desastre. · fecha 1963-10-16 · hora None · lugar None
+    F04@13487: «Pochi giorni più tardi, il 16 ottobre, sulla spinta emotiva degli eventi e dietro le crescenti pressioni dell’opinione pubblica, vennero presentate tre proposte (Francesco Cocco Ortu per i liberali, Mario Alicata per i comunisti, Giuseppe Saragat per il Psdi) con le quali si chiedeva l’istituzione d»
+[T79] Se aprueba el decreto ley n. 1358 con medidas económicas para los afectados. · fecha 1963-10-18 · hora None · lugar None
+    F04@14011: «Il 18 ottobre 1963 venne quindi approvato il decreto legge n. 1358 (poi convertito in legge il6 novembre successivo)»
+[T80] Se aprueba el decreto ley n. 1408 con normas para asegurar intervenciones indispensables en las zonas afectadas. · fecha 1963-10-31 · hora None · lugar None
+    F04@14327: «Il 31 ottobre 1963 fu poi la volta del decreto legge n. 1408, contenente “norme per assicurare gli interventi indispensabili per la sicurezza nelle zone colpite dalla sciagura”»
+[T81] Se aprueba la ley n. 357, que integra y modifica las disposiciones de la ley anterior para la reconstrucción. · fecha 1964-05-31 · hora None · lugar None
+    F04@15145: «Il 31 maggio 1964, la legge n. 357 integrò e in parte modificò le disposizioni del testo di legge varato nel novembre dell’anno prima»
+[T82] La comisión de investigación del Ministerio de Obras Públicas, presidida por Rubinacci, comienza sus trabajos. · fecha 1964-06 · hora None · lugar None
+    F04@13829: «Affidata alla presidenza del senatore democristiano Rubinacci, la Commissione, nominata dal ministero per i Lavori pubblici, lavorò dal giugno del 1964 al luglio 1965»
+[T83] La comisión de investigación del Ministerio de Obras Públicas concluye sus trabajos. · fecha 1965-07 · hora None · lugar None
+    F04@13829: (= arriba)
+[T84] El relator Rubinacci presenta la relación final de la comisión de investigación. · fecha 1965-07-15 · hora None · lugar None
+    F31@380: «Allegati:
+- Relazione finale presentata il 15 luglio 1965 (relatore Rubinacci)»
+[T85] Se presenta la sentencia de remisión a juicio contra 11 personas por el desastre del Vajont. · fecha 1968-02-20 · hora None · lugar None
+    F03@3488: «Il procuratore di Belluno Fabio Mandarino apre un fascicolo che porterà il 20 febbraio del 1968 al deposito della sentenza di rinvio a giudizio nei confronti di 11 persone»
+[T86] El juez de instrucción Mario Fabbri emite su sentencia sobre el caso Vajont. · fecha 1968-02-20 · hora None · lugar None
+    F09@14635: (= arriba)
+    F01@9334: «Il 20 di febbraio 1968 il Giudice istruttore di Belluno, Mario Fabbri, deposita la sentenza del procedimento penale contro Alberico Biadene, Mario Pancini, Pietro Frosini, Francesco Sensidoni, Curzio Batini, Francesco Penta, Luigi Greco, Almo Violin, Dino Tonini, Roberto Marin e Augusto Ghetti.»
+    F31@9381: «Il 20 di febbraio 1968 il Giudice istruttore di Belluno, Mario Fabbri, deposita la sentenza del procedimento penale contro Alberico Biadene, Mario Pancini, Pietro Frosini, Francesco Sensidoni, Curzio Batini, Francesco Penta, Luigi Greco, Almo Violin, Dino Tonini, Roberto Marin e Augusto Ghetti.»
+[T87] El juez instructor Mario Fabbri cierra la investigación solicitando el enjuiciamiento de directivos de SADE, ENEL y funcionarios estatales. · fecha 1968-02-21 · hora None · lugar None
+    F02@10252: «L’istruttoria di Mario Fabbri si chiuse il 21 febbraio del 1968 con la richiesta di rinvio a giudizio di vertici della SADE, dell’ENEL e funzionari dello Stato.»
+[T88] Comienza el juicio en L'Aquila. · fecha 1968-11-25 · hora None · lugar L'Aquila
+    F02@10413: «Il 25 novembre 1968 iniziò il processo all’Aquila, dove era stato spostato con sentenza della Corte di Cassazione su richiesta degli imputati, per ragioni di ordine pubblico.»
+[T89] Mario Pancini, uno de los acusados por el desastre, se suicida. · fecha 1968-11-28 · hora None · lugar None
+    F31@9677: «Due di questi, Penta e Greco, nel frattempo muoiono, mentre Pancini si toglie la vita il 28 novembre di quell'anno.»
+[T90] Comienza el juicio contra 8 de los acusados por el desastre del Vajont. · fecha 1968-11-29 · hora None · lugar Tribunale de L'Aquila
+    F03@3834: «Il processo viene fissato davanti al Tribunale de L'Aquila per il 29 novembre dello stesso anno. Ma sul banco degli imputati siedono solo 8 persone»
+[T91] Se celebra en L'Aquila el juicio para determinar las responsabilidades del desastre. · fecha 1969 · hora None · lugar L'Aquila
+    F04@9041: «l’avvocato Sandro Canestrini usò in occasione del processo volto ad accertare le responsabilità del disastro, celebratosi all’Aquila nel 1969»
+[T92] El tribunal de primera instancia pronuncia la sentencia, condenando a Biadene, Batini y Violin a 6 años por homicidio culposo. · fecha 1969-12-17 · hora None · lugar L'Aquila
+    F03@4400: «Il 17 dicembre del 1969, i giudici pronunciano la sentenza: (...) Biadene, Batini e Violin sono condannati a 6 anni, di cui 2 condonati, per omicidio colposo.»
+    F01@9746: «Il giorno dopo inizia il Processo di Primo Grado, che si tiene a L'Aquila, e che si conclude il 17 dicembre del 1969. [...] Biadene, Batini e Violin vengono condannati a sei anni, di cui due condonati, di reclusione per omicidio colposo»
+    F31@9793: «Il giorno dopo inizia il Processo di Primo Grado, che si tiene a L'Aquila, e che si conclude il 17 dicembre del 1969.»
+[T93] La Corte condena a 6 años a Alberico Biadene, Curzio Batini y Almo Violin, y absuelve a los demás imputados. · fecha 1969-12-17 · hora None · lugar None
+    F02@10588: (= arriba)
+[T94] Comienza el juicio de segunda instancia (apelación) en L'Aquila. · fecha 1970 · hora None · lugar L'Aquila
+    F03@4923: «Il giudizio di secondo grado inizia sempre a L'Aquila nell'estate del 1970, con lo stralcio della posizione di Batini, gravemente malato.»
+[T95] La Corte de Apelaciones de L'Aquila condena a Alberico Biadene a 6 años y a Francesco Sensidoni a 4 años y 6 meses, reconociendo la previsibilidad del evento. · fecha 1970-07-20 · hora None · lugar L'Aquila
+    F02@11039: «Il 20 luglio del 1970 la Corte d’Appello dell’Aquila condannò Biadene a 6 anni, Francesco Sensidoni, capo del Servizio dighe e membro della Commissione di collaudo, a 4 anni e 6 mesi e assolse gli altri imputati.»
+[T96] Comienza el juicio de apelación en L'Aquila. · fecha 1970-07-26 · hora None · lugar L'Aquila
+    F31@10418: «Il 26 luglio 1970 inizia all'Aquila il Processo d'Appello, con lo stralcio della posizione di Batini, gravemente ammalato di esaurimento nervoso.»
+[T97] Se emite la sentencia de apelación: biadene y Sensidoni son declarados culpables; Frosini, Violin, Marin, Tonini y Ghetti son absueltos. · fecha 1970-10-03 · hora None · lugar L'Aquila
+    F03@5061: «La sentenza il 3 ottobre: Biadene e Sensidoni sono riconosciuti colpevoli di non aver previsto la frana, del disastro che ne seguì, degli omicidi colposi»
+[T98] La sentencia de apelación reconoce la culpabilidad de Biadene y Sensidoni, condenándolos a seis y cuatro años y medio de prisión respectivamente. · fecha 1970-10-03 · hora None · lugar None
+    F31@10564: «Il 3 ottobre la sentenza riconosce la totale colpevolezza di Biadene e Sensidoni, che vengono riconosciuti colpevoli di frana, inondazione e degli omicidi. Essi vengono condannati a sei e a quattro anni e mezzo»
+[T99] Finalizan los procesos penales sobre la catástrofe. · fecha 1971 · hora None · lugar None
+    F14@2563: (= arriba)
+[T100] La Corte de Casación emite su sentencia sobre el caso Vajont. · fecha 1971 · hora None · lugar None
+    F04@16435: «l’accertamento delle responsabilità (che fu incentrata anche sui lavori della Commissione d’inchiesta nominata dall’Enel e di ulteriori perizie che culminò con la sentenza del 1969 e con il giudizio della Cassazione del 1971)»
+[T101] El tribunal supremo de casación en Roma emite su veredicto final, con numerosas condenas por el desastre del Vajont. · fecha 1971-03 · hora None · lugar Roma
+    F09@23028: «en marzo de 1971 llega a término el juicio del tribunal supremo de casación en Roma, con numerosas condenas por desastre e inundación»
+[T102] Se celebra el juicio de casación en Roma, donde Biadene y Sensidoni son reconocidos culpables de inundación agravada. · fecha 1971-03 · hora None · lugar Roma
+    F31@10973: «Tra il 15 e il 25 marzo del 1971 si svolge, a Roma, il Processo di Cassazione, nel quale Biadene e Sensidoni vengono riconosciuti colpevoli di un unico disastro: inondazione aggravata dalla previsione dell'evento»
+[T103] La Corte de Casación emite la sentencia final, reconociendo a Biadene y Sensidoni culpables de inundación agravada. · fecha 1971-03-15 · hora None · lugar None
+    F03@5483: «La pietra tombale sulle responsabilità la mette la Cassazione il 15 marzo del 1971 con la sentenza qui allegata: Biadene e Sensidoni vengono riconosciuti colpevoli di un solo reato: inondazione aggravata.»
+[T104] El Proceso de Casación en Roma reconoce a Biadene y Sensidoni culpables de inundación agravada. · fecha 1971-03-25 · hora None · lugar Roma
+    F01@10926: «Tra il 15 e il 25 marzo del 1971 si svolge, a Roma, il Processo di Cassazione, nel quale Biadene e Sensidoni vengono riconosciuti colpevoli di un unico disastro: inondazione aggravata dalla previsione dell'evento»
+[T105] La Corte de Casación confirma las condenas con una ligera reducción de las penas, 14 días antes de que los delitos prescribieran. · fecha 1971-03-25 · hora None · lugar None
+    F02@11432: «Tra il 15 e il 25 marzo 1971, infine, la Corte di Cassazione confermò le condanne, con una leggera riduzione delle pene. Mancavano 14 giorni alla prescrizione dei reati.»
+[T106] Finalizan en Longarone las obras de construcción de la iglesia diseñada por Michelucci, marcando un hito en la reconstrucción. · fecha 1980 · hora None · lugar Longarone
+    F04@16242: «le lunghe fasi della ricostruzione vera e propria (destinata a protrarsi fino al 1980 anno in cui a Longarone furono ultimati i lavori di costruzione della chiesa progettata da Michelucci)»
+[T107] Montedison (que había adquirido la Sade) es condenada por el desastre del Vajont. · fecha 1997 · hora None · lugar None
+    F04@16663: «quella del conseguente risarcimento dei danni (destinata anch’essa a protrarsi fino al 1997, anno della condanna nei confronti della Montedison – che aveva rilevato la Sade – cui seguì la definitiva liquidazione»
+[T108] Concluyen otros segmentos del proceso judicial del Vajont con fuertes condenas de tipo administrativo. · fecha 1997-02 · hora None · lugar None
+    F09@23249: «Otros segmentos del proceso, con fuertes condenas de tipo administrativo, prosiguieron hasta febrero de 1997.»
+[T109] El Tribunal Civil y Penal de Belluno condena a Montedison a indemnizar al municipio de Longarone con 55.645.758.500 liras. · fecha 1997-02-15 · hora None · lugar Belluno
+    F01@12240: «il 15 febbraio 1997 il Tribunale Civile e Penale di Belluno condanna la Montedison a risarcire i danni subiti dal comune di Longarone per un ammontare di lire 55.645.758.500»
+    F31@12280: «Infine il 15 febbraio 1997 il Tribunale Civile e Penale di Belluno condanna la Montedison a risarcire i danni subiti dal comune di Longarone»
+[T110] Se llega a la liquidación definitiva de los daños, con un reparto de los costes entre Montedison y el Estado. · fecha 2000 · hora None · lugar None
+    F04@16838: «cui seguì la definitiva liquidazione, con una ripartizione degli oneri tra la Montedison stessa e lo Stato, giunta addirittura nel 2000»
+[T111] El periódico Il Messaggero Veneto publica un artículo titulado "Disastro del Vajont, la giustizia negata" en el 40º aniversario de la tragedia. · fecha 2003-10-05 · hora None · lugar None
+    F03@5846: «(da Il Messaggero veneto, 5 ottobre 2003, Disastro del Vajont, la giustizia negata)»
+[T112] Las Naciones Unidas definen el desastre del Vajont como un caso ejemplar de desastre evitable causado por el fracaso de ingenieros y geólogos. · fecha 2008 · hora None · lugar None
+    F05@172: «le Nazioni Unite, nel corso di una conferenza sulla comprensione delle Scienze della Terra tenutasi nel 2008, lo definirono come: Un caso esemplare di disastro evitabile causato dal fallimento di ingegneri e geologi»
+[T113] La Asamblea General de las Naciones Unidas calificó el caso Vajont como un desastre evitable. · fecha 2008-02 · hora None · lugar None
+    F14@3510: «Nel febbraio 2008, Anno internazionale del pianeta Terra, l'Assemblea generale delle Nazioni Unite, parlò del Vajont come un caso esemplare di "disastro evitabile"»
+[T114] Ocurrió un terremoto en L'Aquila, lo que posteriormente motivó el traslado del archivo del Proceso Vajont. · fecha 2009 · hora None · lugar L'Aquila
+    F19@623: «il trasferimento dalla sede processuale dell’Aquila in seguito al terremoto del 2009.»
+[T115] El Archivo del Proceso Vajont fue trasladado desde L'Aquila al Archivo de Estado de Belluno. · fecha 2010 · hora None · lugar Archivio di Stato di Belluno
+    F19@533: «l’Archivio del Processo Vajont, dal 2010 custodito nell’Archivio di Stato di Belluno dopo il trasferimento dalla sede processuale dell’Aquila»
+    F19@1735: «già nel 2010, quando l’archivio arrivò dall’Aquila, era iniziato il processo di digitalizzazione che aveva l’intento di lasciare una testimonianza perenne, a disposizione di tutti.»
+[T116] Se presentó una candidatura para la inscripción del Archivo del Proceso Vajont en el registro de la UNESCO. · fecha 2016 · hora None · lugar None
+    F19@1564: «La candidatura era già stata avanzata nel 2016, ma abbiamo insistito, convinti che questo materiale meritasse un riconoscimento.»
+[T117] El Archivo del Proceso Vajont fue inscrito en el Registro Internacional del Programa UNESCO «Memory of the World». · fecha 2023-05-18 · hora None · lugar None
+    F19@445: «l’iscrizione nel Registro Internazionale del Programma UNESCO «Memory of the World», dell’Archivio del Processo Vajont... Un riconoscimento arrivato il 18 maggio scorso, a pochi mesi dal sessantesimo anniversario del disastro.»
+[T118] El Archivo del proceso del desastre de la represa del Vajont es inscrito en el Registro de la Memoria del Mundo de la Unesco. · fecha 2023-06-04 · hora None · lugar Belluno
+    F14@0: «Belluno, 4 giugno 2023 – L'Archivio del processo per il disastro della diga del Vajont (...) è entrato a far parte del Registro della Memoria del Mondo dell'Unesco.»
+[T119] La SETAF-AF participó en una ceremonia de nombramiento de una calle para los rescatistas de Vajont, desvelando seis placas. · fecha 2023-10-08 · hora None · lugar Longarone, Italy
+    F06@1654: «On October 8th, SETAF-AF participated in a street naming ceremony for the Vajont rescuers, unveiling six 2.5-meter plaques with historical photos of the first responders.»
+[T120] La SETAF-AF asistió a la ceremonia oficial del 60.º aniversario en la presa de Vajont con el presidente italiano Sergio Mattarella. · fecha 2023-10-09 · hora None · lugar Vajont Dam
+    F06@2952: (= arriba)
+</cronologia>
+<datos n="245">
+[D01] Un volumen de 270 millones de metros cúbicos de roca se desprendió de las laderas del Monte Toc el 9 de octubre de 1963. · tipo magnitud · valor 270 millones de metros cúbicos · fecha 1963-10-09
+    F19@0: «Due riconoscimenti UNESCO si incontrano simbolicamente sulla diga del Vajont, al cospetto dei 270 milioni di metri cubi di roccia che alle 22.39 del 9 ottobre 1963 si staccarono dalle pendici del Monte Toc»
+[D02] El desprendimiento de rocas en la presa de Vajont ocurrió a las 22:39. · tipo magnitud · valor 22:39 · fecha 1963-10-09
+    F19@92: «i 270 milioni di metri cubi di roccia che alle 22.39 del 9 ottobre 1963 si staccarono dalle pendici del Monte Toc, sollevando l’onda che si portò via 1910 vittime.»
+[D03] La ola causada por el deslizamiento en Vajont provocó 1910 víctimas. · tipo cifra · valor 1910 · fecha 1963-10-09
+    F19@207: «sollevando l’onda che si portò via 1910 vittime.»
+[D04] El Archivo del Proceso Vajont fue inscrito en el Registro Internacional del Programa UNESCO «Memory of the World» el 18 de mayo. · tipo fecha · valor 18 de mayo · fecha 2023-05-18
+    F19@445: (= arriba)
+[D05] El Archivo del Proceso Vajont fue trasladado desde L'Aquila al Archivo de Estado de Belluno en 2010. · tipo fecha · valor 2010 · fecha 2010
+    F19@533: (= arriba)
+    F19@1735: (= arriba)
+[D06] El traslado del archivo desde L'Aquila fue consecuencia del terremoto de 2009. · tipo fecha · valor 2009 · fecha 2009
+    F19@623: (= arriba)
+[D07] Una candidatura para el reconocimiento del archivo ya había sido presentada en 2016. · tipo fecha · valor 2016 · fecha 2016
+    F19@1564: (= arriba)
+[D08] El desastre de Vajont es considerado el desastre natural más grave causado por el hombre. · tipo cita · valor None · fecha None
+    F19@2219: «Dall’altro lato sono anche il luogo in cui è avvenuto il più grave disastro naturale causato dall’uomo.»
+[D09] Se completó la inventariación, digitalización y metadatado de los documentos procesales que testimonian la tragedia de Vajont. · tipo nombre · valor None · fecha None
+    F24@18: «Concluso il lavoro di inventariazione, digitalizzazione e metadatazione di tutti gli atti processuali che testimoniano la tragedia del Vajont.»
+[D10] La Fundación Vajont cubrió todos los gastos de la actividad realizada en el Archivo de Estado de Belluno para permitir la lectura del 'Fondo Vajont'. · tipo nombre · valor Fondo Vajont · fecha None
+    F24@699: «sostenendone interamente tutte le spese per l’attività realizzata presso l’Archivio di Stato di Belluno, al fine di permetterne la tanto attesa “lettura processuale” del “Fondo Vajont”»
+[D11] El archivo incluye apuntes de Carlo Semenza. · tipo nombre · valor CARLO SEMENZA · fecha None
+    F24@1052: (= arriba)
+[D12] La Fuerza de Tarea del Sur de Europa del Ejército de EE.UU. en África (SETAF-AF) participó en los actos del 60.º aniversario del desastre de la presa de Vajont en Longarone el 8 de octubre de 2023. · tipo fecha · valor None · fecha 2023-10-08
+    F06@78: «U.S. Army Southern European Task Force, Africa (SETAF-AF) participated in the 60th Anniversary of the Vajont Dam disaster observances in Longarone, Italy, on October 8th, 2023, and the Vajont Dam on October 9th, 2023.»
+[D13] La Fuerza de Tarea del Sur de Europa del Ejército de EE.UU. en África (SETAF-AF) participó en los actos del 60.º aniversario en la presa de Vajont el 9 de octubre de 2023. · tipo fecha · valor None · fecha 2023-10-09
+    F06@78: (= arriba)
+[D14] El 9 de octubre de 1963 a las 22:39, un desprendimiento de tierra catastrófico cayó en el embalse de Vajont. · tipo fecha · valor None · fecha 1963-10-09
+    F06@690: (= arriba)
+    F03@313: (= arriba)
+[D15] El desprendimiento desencadenó un megatsunami que inundó el valle del Piave. · tipo lugar · valor None · fecha None
+    F06@725: «a catastrophic landslide fell into the Vajont Reservoir, triggering a mega-tsunami that flooded the Piave Valley below, claiming nearly 2,000 lives, leveling entire villages, and forever altering the landscape.»
+[D16] La catástrofe se cobró casi 2000 vidas. · tipo cifra · valor casi 2000 · fecha None
+    F06@793: «a mega-tsunami that flooded the Piave Valley below, claiming nearly 2,000 lives, leveling entire villages, and forever altering the landscape.»
+[D17] 486 personas fueron evacuadas de la aldea del superviviente Giovanni De Lorenzi. · tipo cifra · valor 486 · fecha None
+    F06@1071: «“Those three helicopters evacuated all 486 people from my village. Even if it was a tragic day, I remember it with joy because those U.S. helicopters saved us.”»
+[D18] SETAF-AF, entonces Southern European Task Force, despachó 6 helicópteros de la 110.ª Compañía de Aviación del Ejército de EE.UU. · tipo cifra · valor 6 · fecha None
+    F06@1231: «SETAF-AF, then Southern European Task Force, dispatched six U.S. Army 110th Aviation Company helicopters, the first aircraft on the scene, with medical supplies and Army Medical Corps personnel to assist with rescue efforts.»
+[D19] SETAF-AF estableció hospitales móviles y donó otros equipos durante la operación de rescate. · tipo magnitud · valor None · fecha None
+    F06@1456: «SETAF-AF also established mobile hospitals and donated other equipment throughout the operation.»
+[D20] El 8 de octubre, se inauguraron 6 placas de 2,5 metros con fotos históricas de los socorristas. · tipo cifra · valor 6 · fecha None
+    F06@1654: (= arriba)
+[D21] El nombre de la calle inaugurada es Viale Soccorritori Del Vajont. · tipo nombre · valor Viale Soccorritori Del Vajont · fecha None
+    F06@1825: «The street’s name, Viale Soccorritori Del Vajont, honors the Italian and U.S. first responders, and one plaque showcases a picture of a the U.S. helicopters landing in the valley.»
+[D22] Las Naciones Unidas han clasificado el suceso como uno de los desastres medioambientales más graves causados por el hombre en la historia. · tipo cita · valor uno de los desastres medioambientales más graves causados por el hombre · fecha None
+    F06@3086: «“The United Nations has classified this event as one of the most serious man-made environmental disasters in history,” said President of the Italian Republic Sergio Mattarella.»
+[D23] El 9 de octubre ha sido designado por el Parlamento como el 'Día Nacional en memoria de las víctimas de desastres medioambientales e industriales provocados por el hombre'. · tipo fecha · valor 9 de octubre · fecha None
+    F06@3263: «For this reason, 9 October has been designated by Parliament as ‘National Day in memory of the victims of man-made environmental and industrial disasters.’”»
+[D24] El torrente Vajont fluye en el valle de Erto y Casso para desembocar en el Piave, frente a Longarone y Castellavazzo, en la provincia de Belluno, Italia. · tipo lugar · valor Vajont · fecha None
+    F03@1: «Vajont è il nome del torrente che scorre nella valle di Erto e Casso per confluire nel Piave, davanti a Longarone e a Castellavazzo, in provincia di Belluno (Italia).»
+    F01@1059: «Vajont è il nome del torrente che scorre nella valle di Erto e Casso per confluire nel Piave, davanti a Longarone e a Castellavazzo, in provincia di Belluno (Italia).»
+[D25] La represa del Vajont era una de las más altas del mundo. · tipo magnitud · valor una de las más altas del mundo · fecha None
+    F03@426: «là dove si ergeva e si erge una delle più alte dighe del mondo a sbarrare la strada al torrente Vajont, formando un bacino artificiale»
+    F14@25: «L'Archivio del processo per il disastro della diga del Vajont (...) è entrato a far parte del Registro della Memoria del Mondo dell'Unesco.»
+    F01@1484: «là dove si ergeva e si erge una delle più alte dighe del mondo a sbarrare la strada al torrente Vajont, formando un bacino artificiale di 150 milioni di metri cubi d'acqua»
+    F20@1319: «Vajont Dam did not fail and remains one of the highest dams in the world»
+    F20@1551: «The fatality rate is among the highest recorded dam failure or dam incident»
+[D26] El embalse artificial de la represa del Vajont tenía una capacidad de 150 millones de metros cúbicos de agua. · tipo magnitud · valor None · fecha None
+    F03@530: «formando un bacino artificiale di 150 milioni di metri cubi d'acqua - il disastro si è scatenato improvviso, cogliendo di sorpresa i centri abitati»
+    F01@1588: «formando un bacino artificiale di 150 milioni di metri cubi d'acqua - il disastro si è scatenato improvviso, cogliendo di sorpresa i centri abitati a monte e a valle della diga»
+    F02@4842: «A ogni piccolo innalzamento della diga corrispondeva un aumento delle capacità idrica del bacino che passò da 34 milioni di metri cubi a 150 milioni negli anni Cinquanta.»
+    F31@1635: «formando un bacino artificiale di 150 milioni di metri cubi d'acqua - il disastro si è scatenato improvviso, cogliendo di sorpresa i centri abitati a monte e a valle della diga»
+    F31@4175: «deve essere costruito un enorme lago artificiale, nel quale stoccare circa 150 milioni di metri cubi d’acqua. In pochi anni il progetto è pronto, ma scoppia la seconda guerra mondiale.»
+[D27] El deslizamiento de tierra del Monte Toc avanzó a una velocidad de 50 km/h. · tipo magnitud · valor 50 km/h · fecha None
+    F03@1104: «con andamento di 50 Km all'ora la frana avanzava, raggiungeva la sponda destra della diga, urtava contro questa e vi scorreva sopra.»
+    F01@2102: «L'acqua del lago artificiale subiva una formidabile spinta: con andamento di 50 Km all'ora la frana avanzava, raggiungeva la sponda destra della diga, urtava contro questa e vi scorreva sopra.»
+    F31@2149: «L'acqua del lago artificiale subiva una formidabile spinta: con andamento di 50 Km all'ora la frana avanzava, raggiungeva la sponda destra della diga, urtava contro questa e vi scorreva sopra.»
+[D28] La masa del deslizamiento desplazó un volumen de 50 millones de metros cúbicos de agua. · tipo magnitud · valor None · fecha None
+    F03@1237: «La tremenda pressione della massa spostava un volume di 50 milioni di metri cubi d'acqua.»
+    F01@2295: «La tremenda pressione della massa spostava un volume di 50 milioni di metri cubi d'acqua.»
+    F04@4435: «L’impatto fu tale da creare un’onda dalle dimensioni gigantesche fatta di 50 milioni di metri cubi di acqua mista a detriti che si sollevò in altezza per circa duecento metri»
+    F31@2342: «La tremenda pressione della massa spostava un volume di 50 milioni di metri cubi d'acqua.»
+[D29] Se cometieron tres errores humanos fundamentales: construir la presa en un valle geológicamente inadecuado, elevar el nivel del agua por encima de los márgenes de seguridad y no dar la alarma para la evacuación. · tipo cifra · valor None · fecha None
+    F03@1327: «Sono stati commessi tre fondamentali errori umani che hanno portato alla strage: l'aver costruito la diga in  una valle non idonea sotto il profilo geologico; l'aver innalzato la quota del lago artificiale oltre i margini di sicurezza; il non aver dato l'allarme la sera del 9 ottobre»
+[D30] El número de muertos confirmados en la tragedia del Vajont fue de 1917. · tipo cifra · valor 1917 · fecha None
+    F03@2217: «Con un finale tragicomico: il conto dei morti accertati arriva a 1917, quello della condanna per quello scempio si ferma a due per 'inondazione aggravata dalla previsione dell'evento".»
+[D31] El 20 de febrero de 1968 se presentó la sentencia de procesamiento contra 11 personas. · tipo cifra · valor 11 · fecha 1968-02-20
+    F03@3488: (= arriba)
+[D32] Solo 8 de los acusados se sentaron en el banquillo, ya que dos habían muerto y uno se suicidó. · tipo cifra · valor 8 · fecha None
+    F03@3931: (= arriba)
+[D33] El alegato del abogado de la parte civil, Sandro Canestrini, duró 16 horas. · tipo magnitud · valor 16 horas · fecha None
+    F03@4181: «Figure meschine e autentiche gemme di civiltà come l'arringa dell'avvocato di parte civile, Sandro Canestrini. Parla per 16 ore, il suo intervento diventerà un libro»
+[D34] El fiscal había pedido 21 años para todos los imputados, excepto para Almo Violin, para quien pidió 9 años. · tipo cifra · valor 21 · fecha None
+    F03@4460: «il pm aveva chiesto 21 anni per tutti gli imputati (tranne che per Violin: 9) per disastro colposo aggravato e omicidio colposo plurimo.»
+    F31@9911: «L'accusa chiede 21 anni per tutti gli imputati (eccetto Violin, per il quale ne vengono richiesti 9) per disastro colposo di frana e disastro colposo d'inondazione»
+[D35] Alberico Biadene y Francesco Sensidoni fueron declarados culpables de inundación agravada. · tipo nombre · valor Alberico Biadene · fecha None
+    F03@5483: (= arriba)
+[D36] La sentencia de la Corte de Casación se emitió dos semanas antes de que prescribiera el delito. · tipo magnitud · valor dos semanas · fecha None
+    F03@5688: «I giudici leggono la sentenza solo due settimane prima della data in cui sarebbe scattata la prescrizione. Ma questa sarebbe stata una beffa troppo grande."»
+[D37] La sentencia de la Corte Suprema de Casación ocurrió 15 días antes del vencimiento del plazo de prescripción de siete años y medio. · tipo magnitud · valor 15 días · fecha None
+    F03@6414: «La sentenza avvenne quindici giorni prima della scadenza dei sette anni e mezzo dell'avvenimento, giorno nel quale sarebbe intervenuta la prescrizione.»
+[D38] En el desastre del Vajont murieron 2000 personas. · tipo cifra · valor 2000 · fecha None
+    F09@493: «Han pasado veinte años y aún se siguen debatiendo varios aspectos del desastre del "Vajont", el mayor desastre "no natural" sucedido en Italia, en el que murieron 2 000 personas.»
+    F11@706: «Nearly two thousand people lost their lives. Yet the dam itself remained standing.»
+    F15@25794: «Quedan pocos minutos para que el reloj marque las 22:39, un territorio quede devastado y casi dos mil personas pierdan la vida.»
+    F23@1988: «I morti sono quasi duemila, pochissimi i feriti. Questo libro è la ricostruzione di una delle tragedie più annunciate e denunciate della storia italiana: il genocidio di un'intera comunità...»
+    F04@4962: «Le vittime furono circa 2.000 di cui solo 1.500 ritrovate, irriconoscibili, dopo l’opera di scavo dei soccorritori.»
+[D39] La represa del Vajont, construida por la SADE (Sociedad Adriática de Electricidad), tenía una altura superior a los 250 metros. · tipo magnitud · valor None · fecha None
+    F09@9707: «fue construido por la SADE (Sociedad Adriática de Electricidad) un enorme dique de contención, de doble arco, con fines hidroeléctricos, con una altura imponente (superior a los 250 metros)»
+    F14@3224: «un'onda gigantesca, che superò di 250 metri lo sbarramento artificiale, invase le sponde dell’invaso e quindi i paesi a valle»
+[D40] La capacidad máxima de retención de agua de la represa era de 58 millones de metros cúbicos, con una cota máxima a 722.50 metros. · tipo magnitud · valor 58 millones de metros cúbicos · fecha None
+    F09@9925: «con capacidad para retener un máximo de 58 millones de metros cúbicos de agua y con cota de máxima retención ubicada a 722.50 metros.»
+[D41] El pueblo de Longarone, con cerca de 2000 habitantes, era conocido como la "pequeña Milán" o la "capital del helado". · tipo nombre · valor pequeña Milán · fecha None
+    F09@10446: «Longarone (con cerca de 2 000 habitantes) era llamada la "pequeña Milán" o la "capital del helado".»
+[D42] 260 millones de metros cúbicos de roca del monte Toc cayeron en la represa. · tipo magnitud · valor 260 millones de metros cúbicos · fecha None
+    F09@10956: «Doscientos sesenta millones de metros cúbicos de roca; la cuesta de la montaña con los bosques, los pantanos, los campos cultivados, los potreros, los valles y las colinas;»
+    F15@153: «La mole de 260 millones de metros cúbicos de tierra y roca, que desde hacía años se deslizaba centímetro a centímetro, queda suspendida en el aire.»
+[D43] La velocidad del derrumbe se aceleró de 60 cm por hora a 100 km por hora en menos de un minuto. · tipo magnitud · valor None · fecha None
+    F09@11276: «acelerando su velocidad de 60 cm a 100 km por hora en menos de un minuto.»
+[D44] Una ola de 50 millones de metros cúbicos de agua se levantó a una altura de 260 metros sobre el pueblo de Erto. · tipo magnitud · valor 50 millones de metros cúbicos · fecha None
+    F09@11370: «una inmensa onda de 50 millones de metros cúbicos de agua se levanta a una altura de 260 metros sobre el pueblito de Erto, casi hasta tocar el campanario de Casso»
+[D45] En cuatro minutos, una avalancha de agua destruyó Longarone, causando la muerte de 2000 personas. · tipo cifra · valor 2000 · fecha None
+    F09@11649: «En los cuatro minutos siguientes una catastrófica avalancha de agua se abatió sobre el centro habitado de Longarone, ubicado bajo la represa, reduciéndolo a una explanada de fango y piedras y causando la muerte de dos mil personas.»
+[D46] El juicio del tribunal supremo de casación en Roma concluyó en marzo de 1971 con condenas por desastre e inundación, homicidio y lesiones culposas múltiples. · tipo fecha · valor Marzo de 1971 · fecha 1971-03
+    F09@23006: «despues de ocho años, en marzo de 1971 llega a término el juicio del tribunal supremo de casación en Roma, con numerosas condenas por desastre e inundación, con el agravante de la previsión del evento, homicidio y lesiones culposas múltiples.»
+    F04@16435: (= arriba)
+[D47] En la década de 1950, el geólogo austriaco Leopold Müller detectó un desmoronamiento en el cerro Toc de 2 km de frente y 600 m de desarrollo vertical. · tipo nombre · valor Leopold Müller · fecha 1950
+    F09@23526: «en la década de 1950, con bastante antelación con respecto a la fecha del desastre, la pericia del geólogo austriaco Leopold Müller detectó un desmoronamiento del cerro Toc, con un frente de dos kilómetros y un desarrollo vertical de 600 metros en forma de "m".»
+[D48] El geólogo italiano Giorgio Dal Piaz, asesor de la SADE, disputó los hallazgos de Müller, decretando que el desmoronamiento no era peligroso. · tipo nombre · valor Giorgio Dal Piaz · fecha None
+    F09@23788: (= arriba)
+[D49] En 1960, un pequeño desmoronamiento provocó una fisura de más de 1 metro de ancho y casi 2 kilómetros de largo en la montaña. · tipo magnitud · valor None · fecha 1960
+    F09@25521: (= arriba)
+[D50] Guglielmo Celso era el alcalde socialista de Longarone y murió en el desastre. · tipo nombre · valor Guglielmo Celso · fecha None
+    F09@41669: «Uno, el muerto, es Guglielmo Celso, alcalde de Longarone y secretario de la Federación Socialista de Belluno;»
+[D51] Terenzio Arduini era el vicealcalde, sobrevivió al desastre y se convirtió en el nuevo líder de la comunidad. · tipo nombre · valor Terenzio Arduini · fecha None
+    F09@41779: (= arriba)
+[D52] El periódico L'Unità había sido procesado por denunciar el peligro del Vajont dos años antes de la catástrofe. · tipo cita · valor None · fecha None
+    F09@43349: «se reproduce uno de los títulos que dos años antes habían puesto a L'Unità bajo proceso: "Una enorme masa de 50 millones de metros cúbicos / amenaza la vida y los haberes de los habitantes de Erto".»
+[D53] La construcción del dique del Vajont requirió casi siete años de trabajo, de 1956 a 1963. · tipo fecha · valor None · fecha None
+    F09@53156: «La construcción de este dique (que en su época era el más alto del mundo) fue realizada por una compañía privada, la SADE, que luego se transformó en el organismo de Estado para la energía eléctrica (ENEL) y requirió casi siete años de trabajo (de 1956 a 1963).»
+[D54] El 9 de octubre de 1963, una sección masiva del Monte Toc se desprendió y se estrelló contra el embalse de Vajont en el norte de Italia. · tipo fecha · valor 9 de octubre de 1963 · fecha 1963-10-09
+    F11@379: (= arriba)
+[D55] Cientos de millones de metros cúbicos de roca golpearon el agua, enviando una enorme ola sobre la presa. · tipo magnitud · valor Cientos de millones de metros cúbicos · fecha None
+    F11@512: «Hundreds of millions of cubic metres of rock struck the water, sending an enormous wave over the dam and into the valley below.»
+[D56] En cuestión de minutos, Longarone y las comunidades cercanas quedaron devastadas. · tipo magnitud · valor minutos · fecha None
+    F11@640: «Within minutes, Longarone and nearby communities were devastated. Nearly two thousand people lost their lives.»
+[D57] El desastre de la presa de Vajont es una de las tragedias más inquietantes de la Europa del siglo XX. · tipo nombre · valor desastre de la presa de Vajont · fecha None
+    F11@789: «VAJONT: A DISASTER FORETOLD tells the gripping true story of the Vajont Dam disaster, one of the most haunting tragedies of twentieth-century Europe.»
+[D58] El desprendimiento de tierra del Monte Toc fue una masa gigantesca de roca inestable que había mostrado signos de movimiento mucho antes del colapso final. · tipo magnitud · valor masa gigantesca · fecha None
+    F11@1154: «At the center of the story is the Monte Toc landslide, a gigantic mass of unstable rock that had shown signs of movement long before the final collapse.»
+[D59] Antes del colapso, aparecieron grietas en la montaña, ocurrieron desprendimientos más pequeños y las mediciones mostraban que el terreno se estaba moviendo. · tipo cita · valor None · fecha None
+    F11@1307: «Cracks appeared across the mountain. Smaller slides occurred. Measurements showed that the ground was moving. Experts debated what the mountain might do.»
+[D60] El resultado del fallo de la ladera se conoció en todo el mundo como el desastre de Longarone. · tipo nombre · valor desastre de Longarone · fecha None
+    F11@1500: «When the slope finally failed, the result became known around the world as the Longarone disaster, a tragedy that transformed an ambitious hydroelectric project into an unforgettable Italy dam disaster.»
+[D61] Factores que contribuyeron a las condiciones en el Monte Toc incluyeron la presión del agua, capas de roca débiles, una antigua superficie de deslizamiento y cambios en los niveles del embalse. · tipo cita · valor None · fecha None
+    F11@2861: «It explains how water pressure, weak rock layers, an ancient sliding surface, and changes in reservoir levels contributed to conditions on Monte Toc.»
+[D62] La prensa nacional, tras la tragedia, habló de la "imprevisibilidad de la naturaleza". · tipo cita · valor None · fecha None
+    F12@1240: «The national press after the tragedy talked instead about "nature’s unpredictability".»
+[D63] La catástrofe de la represa de Vajont, que dejó una fuerte marca en la historia de las comunidades y en la opinión pública nacional, ocurrió el 9 de octubre de 1963. · tipo fecha · valor None · fecha 1963-10-09
+    F12@2220: «the disaster that took place on the 9th of October 1963, just to mention few of the domains of research that have focused on the Vajont.»
+[D64] El desastre causó más de 2000 víctimas y arrasó por completo pueblos y comunidades. · tipo cifra · valor None · fecha None
+    F12@5251: «causing more than 2000 victims and completely washing away villages, communities and a way of life.»
+    F21@1668: «Viewed from the cemetery where its 2,000 victims lie, the disaster’s true cause becomes evident: It was not humanity that was responsible»
+    F22@982: «Viewed from the cemetery where its 2,000 victims lie, the disaster’s true cause becomes evident: It was not humanity that was responsible, but a specific way of organizing and subordinating both human and nonhuman nature»
+[D65] El nombre del monte que se derrumbó, 'Toc', significa 'pedazo' y 'podrido' en los dialectos locales. · tipo cita · valor Toc · fecha None
+    F12@6377: «‘Toc’ in both dialects spoken in the valley means both ‘piece’ and ‘rotten’, evident symbol of the oral traditional knowledge that tagged all the relevant geomorphology with evocative names»
+[D66] SADE obtuvo el permiso de construcción del gobierno en 1943, durante la Segunda Guerra Mundial, con pocos miembros de la comisión nacional presentes en el Parlamento. · tipo cita · valor None · fecha 1943
+    F12@6664: «SADE (Società Adriatica di Elettricità, a private electricity company with strong support at national level) managed to get from the government in mid-world war II (1943, with only few national commission members present in Parliament to approve the project)»
+[D67] En 1959, un deslizamiento de 3 millones de metros cúbicos de tierra cayó en el lago de la cercana represa de Pontesei, matando a un trabajador. · tipo magnitud · valor 3 millones de metros cúbicos · fecha 1959
+    F12@7173: (= arriba)
+[D68] En noviembre de 1962, el desplazamiento de la ladera superó el umbral de 1,5 cm por día. · tipo magnitud · valor None · fecha 1962-11
+    F12@8819: (= arriba)
+[D69] Tras el desastre, SADE ya no era propietaria de la represa, que había pasado a ser propiedad del Estado a través de ENEL, la compañía eléctrica estatal. · tipo nombre · valor ENEL · fecha None
+    F12@9242: «to deliver the dam as perfectly functional and thus close the transaction with ENEL (the state controlled electricity company).»
+[D70] SADE desestimó las preocupaciones sobre la inestabilidad geológica con comentarios sarcásticos sobre el enfoque supersticioso de los ignorantes hombres de la montaña. · tipo cita · valor None · fecha None
+    F12@16511: «On the one hand, concerns about geological instability were met by SADE with sarcastic remarks on the superstitious approach to nature of ignorant mountain men.»
+[D71] L'Unità, el periódico del Partido Comunista Italiano (PCI), fue el único medio nacional que siguió los eventos antes del desastre a través de su periodista Tina Merlin. · tipo nombre · valor L'Unità · fecha None
+    F12@19122: «During the dam construction only one national newspaper, L’Unità, through its journalist Tina Merlin, followed the events that led to the collapse of Mount Toc and to the disaster that followed.»
+[D72] Il Gazzettino, uno de los principales periódicos del noreste de Italia, era propiedad en parte de SADE y de sus dos directores, el Sr. Volpi y el Sr. Cini. · tipo nombre · valor Il Gazzettino · fecha None
+    F12@20150: «One of the main Italian newspapers, "the newspaper" for north-eastern Italy, Il Gazzettino was owned partly by SADE, partly by FIAT, partly by Mr Volpi and partly by Mr Cini, the two heads of SADE.»
+[D73] El desastre de Vajont causó la muerte de 1.910 personas el 9 de octubre de 1963. · tipo cifra · valor 1.910 · fecha 1963-10-09
+    F14@199: «la frana e all'alluvione che il 9 ottobre 1963 provocò la distruzione di interi paesi e la morte di 1.910 persone, è entrato a far parte del Registro della Memoria del Mondo dell'Unesco.»
+[D74] El registro Memory of the World de la Unesco contiene un total de 494 colecciones. · tipo cifra · valor 494 · fecha None
+    F14@386: «L'Archivio è stato incluso nelle 64 collezioni documentarie appena iscritte nel registro Memory of the World, che contiene un totale di 494 collezioni.»
+[D75] Los documentos del proceso sobre la tragedia del Vajont pertenecen al Archivo Estatal de L'Aquila. · tipo lugar · valor None · fecha None
+    F14@2278: «I documenti del processo sulla tragedia del Vajont (...) appartengono all'Archivio di Stato dell'Aquila, ma sono temporaneamente conservati presso l'Archivio di Stato di Belluno.»
+[D76] La ONU clasificó la tragedia del Vajont como el primero de 10 desastres causados por errores humanos y científicos en los últimos 50 años. · tipo cita · valor None · fecha None
+    F14@2278: «I documenti del processo sulla tragedia del Vajont, classificata dall'Onu come il primo di 10 disastri causati da errori umani e scientifici negli ultimi 50 anni, appartengono all'Archivio di Stato dell'Aquila»
+[D77] Los procesos penales sobre el desastre de Vajont tuvieron lugar entre 1963 y 1971. · tipo fecha · valor None · fecha None
+    F14@2563: (= arriba)
+[D78] El archivo del proceso incluye 250 expedientes judiciales. · tipo cifra · valor 250 · fecha None
+    F14@2646: «per un totale di 250 fascicoli giudiziari (compresi quelli anteriori al 1900) vi è vario materiale allegato agli atti del processo»
+[D79] La masa desprendida aceleró de 0 a 600 kilómetros por hora en pocos segundos. · tipo magnitud · valor None · fecha None
+    F15@669: «En pocos segundos la mole acelera de cero a seiscientos kilómetros por hora. El ruido es atronador. La mole desintegra todo lo que encuentra a su paso.»
+[D80] La ola que se alzó desde el embalse tuvo una altura de 250 metros. · tipo magnitud · valor None · fecha None
+    F15@860: «Los números parecen la única forma de transmitir la magnitud del desastre. Una ola de doscientos cincuenta metros de altura se alza desde el embalse.»
+[D81] La gente de Longarone veía un partido de Champions entre el Ranger Glasgow y el Real Madrid cuando se fue la luz. · tipo nombre · valor Ranger Glasgow y el Real Madrid · fecha None
+    F15@1718: «Se va la luz, vuelan imprecaciones en el bar donde se veía animadamente el partido de Champions entre el Ranger Glasgow y el Real Madrid.»
+[D82] A Longarone la llamaban "La pequeña Milán". · tipo nombre · valor La pequeña Milán · fecha None
+    F15@1856: «Era una de esas noches en que la gente de las aldeas cercanas acudía en masa a Longarone. «La pequeña Milán», la llamaban.»
+[D83] El muro de agua tardó poco más de 4 minutos en alcanzar Longarone. · tipo magnitud · valor None · fecha None
+    F15@2233: «En poco más de cuatro minutos, el muro de agua alcanzará Longarone. Cuatro minutos en los que decidir qué hacer, si correr hacia las zonas altas sin mirar atrás o avisar a tu madre que duerme»
+    F31@8764: «La seconda, la più terribile, scavalca la diga per finire nella valle del Piave, verso ovest: coglierà in pieno la cittadina di Longarone dopo 4 minuti.»
+[D84] La presión de la ola de aire comprimido fue comparable a la producida por dos bombas de Hiroshima. · tipo magnitud · valor dos bombas de Hiroshima · fecha None
+    F15@2860: «Instantes antes de que llegue el muro de agua, su homólogo de aire comprimido, cuya presión es comparable a la producida por dos bombas de Hiroshima, arrasa, devasta.»
+[D85] Se acumularon más de 1.000 ataúdes vacíos en los días siguientes al desastre. · tipo cifra · valor None · fecha None
+    F15@3105: «Los días siguientes, se acumularán más de mil ataúdes vacíos, con amigos y familiares que se pelearán por tener algo que meter dentro.»
+[D86] El muro de agua que llegó al centro de Longarone tenía una altura de 70 metros. · tipo magnitud · valor None · fecha None
+    F15@3274: «Lo que no ha conseguido el viento lo hace el muro de agua, que cuando llega al centro de Longarone tiene aún una altura de setenta metros y corre aún a setenta kilómetros por hora.»
+[D87] Al llegar a Longarone, el muro de agua todavía corría a 70 kilómetros por hora. · tipo magnitud · valor None · fecha None
+    F15@3333: «que cuando llega al centro de Longarone tiene aún una altura de setenta metros y corre aún a setenta kilómetros por hora.»
+[D88] La empresa que pretendía construir la central hidroeléctrica era la Sociedad Adriática De Electricidad (SADE). · tipo nombre · valor Sociedad Adriática De Electricidad (SADE) · fecha None
+    F15@4310: «En este enclave fronterizo entre las regiones nororientales de Véneto y Friuli, la Sociedad Adriática De Electricidad (SADE), una empresa veneciana, pretende construir una central hidroeléctrica.»
+[D89] Giuseppe Volpi, propietario de SADE, fue el creador de la Mostra del Cinema de Venecia. · tipo nombre · valor Mostra del Cinema de Venecia · fecha None
+    F15@4625: «Fue el creador de la Mostra del Cinema de Venecia, presidente de la potente patronal industrial italiana y gobernador de una de las colonias italianas en Libia, entre otras cosas.»
+[D90] Giuseppe Volpi consiguió que el Estado italiano financiara el 50% de cualquier proyecto de energía hidroeléctrica. · tipo magnitud · valor None · fecha None
+    F15@4952: «Desde ese cargo, favorecerá la aprobación de una ley para que el Estado italiano financie al cincuenta por ciento cualquier proyecto relacionado con la energía hidroeléctrica.»
+[D91] El objetivo de las centrales del río Piave era cubrir el 15% del consumo de toda Italia. · tipo magnitud · valor 15% · fecha None
+    F15@5538: «El objetivo es cubrir el 15% de las necesidades de consumo de toda Italia, pero existe un gran obstáculo: la volatilidad del cauce del Piave, un río que se hiela en invierno y se seca en verano.»
+[D92] En las obras de la presa del Vajont trabajaron 400 obreros en un territorio de 2.000 habitantes. · tipo cifra · valor 400 · fecha 1956
+    F15@6830: (= arriba)
+[D93] SADE presentó una variación del proyecto que incrementaba la altura de la presa en más de 60 metros. · tipo magnitud · valor más de 60 metros · fecha 1957
+    F15@7259: (= arriba)
+[D94] En el desprendimiento del embalse de Pontesei se generó una ola de 20 metros. · tipo magnitud · valor None · fecha 1959
+    F15@9102: «Cuando finalmente se produce el desprendimiento, el embate de las rocas contra el agua genera una ola de veinte metros, la cual acaba con la vida de Arcangelo Tiziani»
+[D95] Leopold Müller encontró una porción de tierra en deslizamiento con un frente de 2 kilómetros y formada por cerca de 200 millones de metros cúbicos de roca. · tipo magnitud · valor 2 kilómetros · fecha 1959
+    F15@10106: «Como asesor técnico de la SADE, realiza varios sondeos, encontrando una porción de tierra en deslizamiento con un frente de dos kilómetros y formada por cerca de 200 millones de metros cúbicos de roca.»
+[D96] La construcción de la presa del Vajont tardó menos de dos años. · tipo magnitud · valor menos de dos años · fecha None
+    F15@11178: «La gigantesca bóveda de hormigón ha sido construida en menos de dos años. Diez obreros han perdido la vida durante este periodo.»
+[D97] 10 obreros perdieron la vida durante la construcción de la presa. · tipo cifra · valor None · fecha None
+    F15@11178: (= arriba)
+[D98] El proyecto de la diga del Vajont era considerado un pasaporte para ganar el encargo de construir la presa de Asuán en Egipto. · tipo nombre · valor presa de Asuán · fecha None
+    F15@12727: «además de un pasaporte para ganar el encargo de construir la presa de Asuán en Egipto (que se convertiría en la mayor del momento).»
+[D99] En el derrumbe de la presa de Malpasset en Francia murieron 400 personas. · tipo cifra · valor None · fecha 1959-12-02
+    F15@12944: (= arriba)
+[D100] SADE obtuvo autorización para llenar el lago hasta los 660 metros sobre el nivel del mar. · tipo magnitud · valor 660 metros · fecha 1960
+    F15@13916: «Consigue obtener una primera autorización ministerial para llenar el lago hasta los 660 metros sobre el nivel del mar (esto es, doscientos metros por encima del punto más bajo de la presa), sin tener que vaciarlo ni tan siquiera parcialmente.»
+[D101] La SADE planeaba construir una galería subacuática que funcionara como bypass para unir las dos partes del lago tras el deslizamiento. · tipo nombre · valor bypass · fecha None
+    F15@15376: «El único inconveniente es que el lago que alimenta la instalación hidroeléctrica quedaría dividido en dos, pero esto puede evitarse construyendo una enorme galería subacuática que funcione como bypass.»
+[D102] Tina Merlin publicó un artículo afirmando que un derrumbamiento de 50 millones de metros cúbicos de roca amenazaba a los habitantes de Erto. · tipo magnitud · valor 50 millones de metros cúbicos · fecha 1961-02
+    F15@17064: (= arriba)
+[D103] Un modelo hidráulico del laboratorio de la Universidad de Padua subestimó los daños al usar grava para simular las rocas compactas. · tipo contradiccion · valor grava · fecha None
+    F15@20064: (= arriba)
+[D104] El informe de la Universidad de Padua advertía de daños si se superaba el nivel de 700 metros sobre el nivel del mar. · tipo magnitud · valor 700 metros · fecha None
+    F15@20361: «de haberse llenado el embalse por encima de los 700 metros sobre el nivel del mar (rozando su capacidad máxima), el agua acumulada podría generar olas que llegarían a dañar no solo los pueblos cercanos al lago»
+[D105] El ENEL (Ente Nacional para la Energía Eléctrica) fue creado por ley en diciembre de 1962. · tipo nombre · valor None · fecha 1962-12
+    F15@21395: (= arriba)
+[D106] La SADE obtuvo autorización para llenar el embalse hasta 715 metros, 15 metros por encima de la cota de seguridad recomendada. · tipo magnitud · valor 715 metros · fecha None
+    F15@22384: «Aún teniendo a disposición el informe de la Universidad de Padua que aconseja vivamente no superar la cuota de 700 metros por encima del nivel del mar, la SADE pide la autorización al ministerio —y la obtiene— para llegar a los 715 metros.»
+[D107] Se produjo una sacudida de tierra de séptimo grado en la escala Mercalli. · tipo magnitud · valor séptimo grado en la escala Mercalli · fecha 1963-08
+    F15@23738: «Se produce entonces una fortísima sacudida de tierra, de séptimo grado en la escala Mercalli (correspondiente a un nivel 6-7 en la escala Richter).»
+[D108] Murieron 1920 personas en la tragedia de la presa de Vajont. · tipo cifra · valor 1920 · fecha 1963-10-09
+    F01@122: «9 ottobre 1963: 63 anni dalla tragedia della diga del Vajont: 1920 le vittime»
+[D109] Un error humano que condujo a la masacre fue haber construido la presa en un valle geológicamente inadecuado. · tipo cifra · valor None · fecha None
+    F01@2466: «l'aver costruito la diga in una valle non idonea sotto il profilo geologico; l'aver innalzato la quota del lago artificiale oltre i margini di sicurezza»
+[D110] Un error humano que condujo a la masacre fue haber elevado el nivel del lago artificial por encima de los márgenes de seguridad. · tipo cifra · valor None · fecha None
+    F01@2543: «l'aver innalzato la quota del lago artificiale oltre i margini di sicurezza; il non aver dato l'allarme la sera del 9 ottobre per attivare l'evacuazione in massa delle popolazioni residenti»
+    F31@2590: «l'aver innalzato la quota del lago artificiale oltre i margini di sicurezza; il non aver dato l'allarme la sera del 9 ottobre per attivare l'evacuazione in massa delle popolazioni»
+[D111] Un error humano que condujo a la masacre fue no haber dado la alarma la noche del 9 de octubre para evacuar a las poblaciones en riesgo. · tipo cifra · valor None · fecha None
+    F01@2620: «il non aver dato l'allarme la sera del 9 ottobre per attivare l'evacuazione in massa delle popolazioni residenti nelle zone a rischio di inondazione.»
+    F31@2667: «il non aver dato l'allarme la sera del 9 ottobre per attivare l'evacuazione in massa delle popolazioni residenti nelle zone a rischio di inondazione.»
+[D112] La responsabilidad del desastre se atribuyó a algunos directivos del sector eléctrico que, por intereses privados, construyeron la presa en una zona de alto riesgo. · tipo cifra · valor None · fecha None
+    F01@3041: «si individuerà la responsabilità del disastro in alcuni dirigenti del settore elettrico: nonostante il disastro fosse prevedibile, a causa di interessi privati, la gigantesca diga era stata costruita»
+[D113] El arroyo Vajont ha excavado una garganta entre el monte Toc y el monte Salta. · tipo lugar · valor None · fecha None
+    F01@3443: «questo corso d’acqua ha scavato una suggestiva gola stretta e profonda, la gola del Vajont, situata tra due montagne, il monte Toc ed il monte Salta.»
+[D114] La presa de Vajont tenía 262 metros de altura, 190 de ancho, 22 metros de espesor en la base y 3,40 metros en la cima. · tipo magnitud · valor None · fecha None
+    F01@4828: «Alta 262 metri, larga 190, spessa 22 metri alla base e solo 3,40 metri alla sua sommità, e vengono usati 353.000 metri cubi di calcestruzzo.»
+[D115] Se utilizaron 353.000 metros cúbicos de hormigón para construir la presa. · tipo magnitud · valor None · fecha None
+    F01@4899: «alla sua sommità, e vengono usati 353.000 metri cubi di calcestruzzo. Ma se la diga viene costruita seguendo le tecniche più innovative, non vengono tuttavia condotti sufficienti studi sulla stabilità del versante settentrionale del Monte Toc.»
+    F31@4964: «e vengono usati 353.000 metri cubi di calcestruzzo. Ma se la diga viene costruita seguendo le tecniche più innovative, non vengono tuttavia condotti sufficienti studi sulla stabilità del versante settentrionale del Monte Toc.»
+[D116] No se realizaron suficientes estudios sobre la estabilidad de la ladera norte del Monte Toc. · tipo cifra · valor None · fecha None
+    F01@5036: «non vengono tuttavia condotti sufficienti studi sulla stabilità del versante settentrionale del Monte Toc. L’instabilità di questo versante è ben nota, ed addirittura vengono effettuate opere accessorie nell’ipotesi che una frana possa cadere»
+[D117] El Consejo Superior de Obras Públicas aprobó el proyecto de la presa mediante un procedimiento irregular, con solo 13 de 34 representantes presentes. · tipo cifra · valor None · fecha None
+    F01@5689: «attraverso un procedimento irregolare (soltanto 13 rappresentanti su 34 saranno presenti alla seduta), reso possibile dal periodo turbolento che l’Italia stava attraversando.»
+[D118] El proyecto de la presa se amplió, convirtiéndola en la más alta del mundo con 266 metros de altura y una capacidad de 115 millones de metros cúbicos de agua. · tipo magnitud · valor None · fecha None
+    F01@6434: «La diga sarebbe diventata la più alta del mondo (266 metri di altezza, 723 sopra il livello del mare), in grado di contenere 115 milioni di metri cubici di acqua»
+[D119] La empresa SADE descubrió la presencia de un paleodeslizamiento en el monte Toc. · tipo cifra · valor None · fecha None
+    F01@7184: «Parallelamente la Sade, allarmata dall’incidente presso la diga di Pontesei, commissionava nuove perizie, che stabilirono la presenza di una paleofrana sul monte Toc.»
+[D120] En 1962, se estableció que el embalse no debía superar el nivel de 700 metros sobre el nivel del mar. · tipo magnitud · valor None · fecha 1962
+    F01@7535: (= arriba)
+    F31@7582: (= arriba)
+[D121] El deslizamiento del Monte Toc consistió en 270 millones de metros cúbicos de roca. · tipo magnitud · valor None · fecha 1963-10-09
+    F01@8208: «un enorme blocco di terra di 400 metri cade dal Monte Toc, provocando una frana di 270 milioni di metri cubi di roccia, che in circa un minuto scivola nel lago artificiale»
+    F02@1490: «La frana che cadde quella sera aveva un volume di 270 milioni di metri cubi. I primi detriti impiegarono circa 20 secondi a raggiungere l’acqua.»
+    F31@8314: «provocando una frana di 270 milioni di metri cubi di roccia, che in circa un minuto scivola nel lago artificiale ad una velocità di 100 km/h.»
+[D122] El deslizamiento cayó en el lago a una velocidad de 100 km/h. · tipo magnitud · valor 100 km/h · fecha 1963-10-09
+    F01@8278: «una frana di 270 milioni di metri cubi di roccia, che in circa un minuto scivola nel lago artificiale ad una velocità di 100 km/h.»
+    F31@8375: «che in circa un minuto scivola nel lago artificiale ad una velocità di 100 km/h.»
+[D123] El deslizamiento provocó dos olas gigantescas de más de 250 metros de altura. · tipo magnitud · valor None · fecha 1963-10-09
+    F01@8470: «La massa di terra precipitata nel lago è superiore all’estensione del lago stesso, e provoca due gigantesche onde, alte più di 250 metri.»
+    F31@8517: «La massa di terra precipitata nel lago è superiore all’estensione del lago stesso, e provoca due gigantesche onde, alte più di 250 metri.»
+[D124] La segunda ola, tras superar la presa, golpeó la ciudad de Longarone después de 4 minutos. · tipo magnitud · valor None · fecha 1963-10-09
+    F01@8717: «La seconda, la più terribile, scavalca la diga per finire nella valle del Piave, verso ovest: coglierà in pieno la cittadina di Longarone dopo 4 minuti.»
+[D125] Casi 2.000 personas murieron en el desastre de Vajont hace 60 años. · tipo cifra · valor None · fecha 1963-10-09
+    F02@52: «Una serie di negligenze fece sottovalutare il rischio della frana e dell'enorme inondazione che 60 anni fa uccise quasi 2mila persone»
+[D126] La represa de Vajont medía más de 260 metros de altura. · tipo magnitud · valor 260 metros · fecha None
+    F02@411: «Precipitò a gran velocità nel lago artificiale creato dall’imponente diga del Vajont, alta più di 260 metri e chiamata così dal nome del torrente in cui si trovava.»
+[D127] El pueblo de Longarone fue completamente destruido en 4 minutos. · tipo magnitud · valor 4 minutos · fecha None
+    F02@757: «Una delle due onde scavalcò la diga a ovest e si riversò sulla valle del Piave, soprattutto sul paese di Longarone, che in 4 minuti venne completamente distrutto.»
+[D128] En el desastre murieron 1.910 personas. · tipo cifra · valor 1.910 · fecha None
+    F02@920: «Fu uno dei più grandi disastri della storia d’Italia: morirono 1.910 persone.»
+[D129] La construcción de la represa finalizó en 1960. · tipo fecha · valor 1960 · fecha 1960
+    F02@1134: (= arriba)
+[D130] Los primeros detritos tardaron aproximadamente 20 segundos en alcanzar el agua. · tipo magnitud · valor 20 segundos · fecha None
+    F02@1490: (= arriba)
+[D131] La masa de agua cayó al valle tras un salto de más de 260 metros. · tipo magnitud · valor 260 metros · fecha None
+    F02@1902: «L’enorme massa d’acqua cadde nella valle dopo un salto di più di 260 metri, lasciando integra la diga. Venne preceduta da un vento fortissimo.»
+[D132] Micaela Coletti, sobreviviente, fue arrastrada por al menos 400 metros lejos de su casa. · tipo magnitud · valor 400 metros · fecha None
+    F02@2678: «Malgrado si sentisse immobilizzata nel suo letto, Coletti fu trascinata per almeno 400 metri lontano da casa.»
+[D133] La altura final de la represa alcanzó los 261 metros. · tipo magnitud · valor 261 metros · fecha None
+    F02@4707: «La diga continuò a crescere negli anni Trenta, con uno nuovo progetto nel 1937, negli anni Quaranta e Cinquanta arrivando a 261 metri.»
+[D134] El 4 de noviembre de 1960 hubo un desprendimiento de 700.000 metros cuadrados que levantó una ola de 10 metros. · tipo magnitud · valor 700.000 metros cuadrados · fecha 1960-11-04
+    F02@6822: (= arriba)
+[D135] El día del accidente, el movimiento de la ladera aumentó un 50%, pasando de 20 a 30 centímetros. · tipo magnitud · valor 50% · fecha 1963-10-09
+    F02@8857: «le misure di questa mattina mostrano essere ancora maggiori di quelle di ieri, raggiungendo una maggiorazione del 50%!! (cioè da 20 a 30 centimetri).»
+[D136] La primera comisión de expertos trabajó durante 18 meses para concluir que el desastre era imprevisible. · tipo magnitud · valor 18 meses · fecha None
+    F02@9718: «Dopo 18 mesi di lavoro la commissione di esperti si pronunciò a favore dell’imprevedibilità del disastro, assolvendo di fatto tutti i responsabili.»
+[D137] La Corte condenó a 6 años a los tres principales imputados en diciembre de 1969. · tipo magnitud · valor 6 años · fecha 1969-12-17
+    F02@10588: (= arriba)
+[D138] ENEL y Montedison fueron condenadas a pagar indemnizaciones. · tipo nombre · valor ENEL · fecha None
+    F02@11744: «ENEL, che all’epoca dell’incidente controllava la SADE, e Montedison, che nel frattempo aveva acquisito la società, furono condannate al risarcimento dei danni.»
+[D139] ENEL ofreció 10.000 millones de liras de la época para indemnizaciones. · tipo cifra · valor None · fecha None
+    F02@11905: «ENEL mise a disposizione 10 miliardi dell’epoca (sarebbero 105 milioni di euro, oggi), ma con la condizione che i superstiti rinunciassero a costituirsi parte civile.»
+[D140] La última transacción de indemnización se realizó en el año 2000. · tipo fecha · valor 2000 · fecha 2000
+    F02@12072: «Quasi tutti accettarono. L’ultima transazione è del 2000.»
+[D141] El 9 de octubre de 1963 ocurrió el desastre de Vajont en el valle del mismo nombre, en la frontera entre Friuli Venezia Giulia y Veneto. · tipo fecha · valor None · fecha 1963-10-09
+    F05@0: «Il tragico disastro del Vajont, avvenuto la sera del 9 ottobre 1963 nell'omonima valle al confine tra il Friuli Venezia Giulia e il Veneto, fu un evento così eclatante che le Nazioni Unite»
+[D142] En una conferencia en 2008, las Naciones Unidas definieron el desastre de Vajont como un caso ejemplar de desastre evitable. · tipo cita · valor None · fecha 2008
+    F05@172: (= arriba)
+[D143] A las 22:39 de esa noche, 270 millones de m³ de roca se desprendieron de la ladera norte del monte Toc a una velocidad de 100 km/h. · tipo magnitud · valor 270 millones de m³ · fecha 1963-10-09
+    F05@750: (= arriba)
+[D144] La roca cayó en el embalse, que contenía 115 millones de m³ de agua. · tipo magnitud · valor 115 millones de m³ · fecha 1963-10-09
+    F05@864: «precipitando alla velocità di 100 km/h nel bacino sottostante che conteneva 115 milioni di m³ di acqua.»
+    F31@6584: «in grado di contenere 115 milioni di metri cubici di acqua, su progetto dell’ing. Carlo Semenza.»
+[D145] El derrumbe generó una ola de 250 metros de altura que se dividió en tres direcciones. · tipo magnitud · valor 250 metros · fecha None
+    F05@968: «L’enorme forza della frana generò un’onda alta 250 metri che si diramò in tre direzioni: verso Casso (che subì i danni minori) ed Erto (la più danneggiata tra le due).»
+[D146] La tercera ola, cargada con 50 millones de m³ de agua y escombros, arrasó Longarone y otras fracciones en el Valle del Piave, causando casi 2000 muertes. · tipo cifra · valor casi 2000 · fecha None
+    F05@1136: «La terza onda carica di 50 milioni di m³ d'acqua e detriti, rase al suolo Longarone e altre frazioni minori nella Valle del Piave provocando quasi 2.000 morti.»
+[D147] La presa de Vajont fue construida entre 1956 y 1960. · tipo fecha · valor None · fecha None
+    F05@2548: (= arriba)
+[D148] La presa medía 261,6 m de altura y 190 m de longitud, siendo la más alta del mundo en su tipo (de doble arco). · tipo magnitud · valor 261,6 m · fecha None
+    F05@2648: «Con le sue misure di 261,6m di altezza e 190 m in lunghezza, era la diga (a doppio arco) più alta del mondo e il suo bacino artificiale poteva contenere fino a 170 milioni di m³ di acqua»
+[D149] El embalse artificial podía contener hasta 170 millones de m³ de agua, una capacidad que nunca fue alcanzada. · tipo magnitud · valor 170 millones de m³ · fecha None
+    F05@2758: «il suo bacino artificiale poteva contenere fino a 170 milioni di m³ di acqua (mai raggiunti).»
+[D150] La presa formaba parte del megaproyecto "Grande Vajont", un sistema de 6 cuencas hidroeléctricas. · tipo nombre · valor Grande Vajont · fecha None
+    F05@2852: «La diga del Vajont rientrava nel mega-progetto del “Grande Vajont”, un sistema di 6 bacini idroelettrici artificiali necessaria a soddisfare tutta la richiesta di energia elettrica nel periodo del boom economico.»
+[D151] La Società Adriatica di Elettricità (SADE) fue la impulsora de la construcción de la presa. · tipo nombre · valor Società Adriatica di Elettricità · fecha None
+    F05@3065: «A volere questa mega struttura fu la Società Adriatica di Elettricità, conosciuta come SADE.»
+[D152] En marzo de 1959, 3 millones de m³ de roca se deslizaron en el embalse de Pontesei, uno de los del sistema Grande Vajont. · tipo magnitud · valor 3 millones de m³ · fecha 1959-03
+    F05@3905: «Nel marzo del 1959 avvenne un primo episodio strano nella zona: 3 milioni di m³ di roccia franarono nel bacino di Pontesei, uno dei bacini del sistema del Grande Vajont, senza provocare danni»
+[D153] El geólogo Leopold Muller delegó las inspecciones a Edoardo Semenza, hijo del ingeniero jefe. · tipo nombre · valor Edoardo Semenza · fecha None
+    F05@4143: «Il geologo Leopold Muller (amico fidato di Carlo Semenza che gli aveva affidato il sopralluogo della zona prima di avviare i lavori) volle vederci chiaro e delegò i sopralluoghi al figlio di Carlo Semenza, Edoardo Semenza»
+[D154] Edoardo Semenza planteó la hipótesis de la presencia de un antiguo deslizamiento (paleofrana) que podría reactivarse al llenar el embalse. · tipo cita · valor None · fecha None
+    F05@4423: «Quello che ipotizzò Edoardo Semenza fu una verità sconcertante che avrebbe potuto (anzi, col senno di poi avrebbe dovuto) cambiare tutti i piani: ovvero la presenza di una paleofrana che si sarebbe potuta staccare se sollecitata dal riempimento del bacino.»
+[D155] El 4 de noviembre de 1960, 700.000 m³ de roca se desprendieron del monte Toc, provocando una ola de 2 metros. · tipo magnitud · valor 700.000 m³ · fecha 1960-11-04
+    F05@4766: (= arriba)
+[D156] Durante el deslizamiento de 1960, el embalse estaba lleno hasta una cota de 650 m sobre el nivel del mar. · tipo magnitud · valor None · fecha 1960-11-04
+    F05@4924: «La diga era stata completata per 2/3 e il bacino era stato riempito fino a 650m (s.l.m).»
+[D157] Leopold Muller no creía en la hipótesis de un antiguo deslizamiento ni en la existencia de una capa de arcilla que pudiera causarlo. · tipo cita · valor None · fecha None
+    F05@5357: «Leopold Muller però non credeva nell’ipotesi di una paleofrana e all’esistenza di uno strato di argilla che avrebbe potuto causare lo scivolamento di una grossa massa rocciosa.»
+[D158] Al bajar el nivel del agua, el movimiento del deslizamiento se redujo de 3 cm por día a solo 1 mm por día. · tipo magnitud · valor None · fecha None
+    F05@6049: «Quando vennero aperti i portelloni di scolo della diga, in effetti, la frana rallentò e venne constatato che da un movimento di 3 cm al giorno, si passò a uno scivolamento di solo 1 mm.»
+[D159] El ingeniero Carlo Semenza murió en 1961. · tipo fecha · valor 1961 · fecha 1961
+    F05@6541: (= arriba)
+[D160] En junio de 1963, el nivel del embalse alcanzó los 700 m de altura, y el deslizamiento se aceleró a 0,5 cm por día. · tipo magnitud · valor None · fecha 1963-06
+    F05@6825: (= arriba)
+[D161] Cuando el agua del embalse alcanzó los 710 m, el desprendimiento rocoso llegó a 2 cm por día. · tipo magnitud · valor None · fecha None
+    F05@7084: «il livello del bacino venne abbassato con ritardo quando l’acqua arrivò fino a 710m e il distacco roccioso raggiunse i 2cm al giorno.»
+[D162] El 26 de septiembre de 1963, el embalse fue llevado al nivel de seguridad, pero ya era demasiado tarde. · tipo fecha · valor None · fecha 1963-09-26
+    F05@7218: (= arriba)
+[D163] En el momento del desastre del 9 de octubre, el nivel del agua en el embalse alcanzaba los 650 m de altura. · tipo magnitud · valor 650 m · fecha 1963-10-09
+    F05@7333: «il 9 ottobre i 270 milioni di m3 di roccia si staccarono dal monte Toc (misura che nessuno era riuscita a prevedere prima dell’evento), il bacino era all’inizio dello svaso e l’acqua raggiungeva i 650m di altezza.»
+[D164] La represa de Vajont es del tipo de arco delgado de doble curvatura. · tipo nombre · valor None · fecha None
+    F07@2170: «Vajont Dam is a double-curved, thin-arch dam, and at 860 feet high, it remains one of the tallest dams in the world.»
+    F20@2246: «860 feet high Double-curved, thin-arch dam»
+[D165] La represa de Vajont tiene 860 pies de altura. · tipo magnitud · valor None · fecha None
+    F07@2170: (= arriba)
+    F20@2246: (= arriba)
+[D166] La represa mide 11 pies de ancho en la cresta. · tipo magnitud · valor None · fecha None
+    F07@2287: «The dam is 11 feet wide at the crest, 73 feet wide at the base, with a crest length of 623 feet.»
+[D167] La represa mide 73 pies de ancho en la base. · tipo magnitud · valor None · fecha None
+    F07@2287: (= arriba)
+[D168] La longitud de la cresta de la represa es de 623 pies. · tipo magnitud · valor None · fecha None
+    F07@2287: (= arriba)
+[D169] La represa tiene 16 compuertas en su cresta. · tipo cifra · valor 16 · fecha None
+    F07@2384: «There are 16 gates on the crest with an underground powerhouse and three outlets in the abutment.»
+[D170] La represa cuenta con una central eléctrica subterránea. · tipo lugar · valor None · fecha None
+    F07@2384: (= arriba)
+[D171] Hay tres desagües en el estribo de la represa. · tipo cifra · valor None · fecha None
+    F07@2384: (= arriba)
+[D172] La capacidad del embalse fue diseñada para 138.000 acres-pie. · tipo magnitud · valor None · fecha None
+    F07@2482: «The reservoir capacity was designed for 138,000 acre-feet. Vajont was part of an extensive network of dams, powerhouses and tunnels constructed for hydro-electric power generation»
+[D173] La represa de Vajont fue construida por la Società Adriatica di Elettricità (SADE) para la generación de energía hidroeléctrica. · tipo nombre · valor Società Adriatica di Elettricità (SADE) · fecha None
+    F07@2541: «Vajont was part of an extensive network of dams, powerhouses and tunnels constructed for hydro-electric power generation by the Società Adriatica di Elettricità (SADE).»
+    F20@2289: «Constructed for hydro-electric power generation»
+[D174] Al momento del incidente en la represa de Vajont, la propiedad había sido transferida a ENEL, la agencia nacional de electricidad. · tipo nombre · valor ENEL · fecha 1963
+    F07@2710: (= arriba)
+[D175] El nombre 'Vajont Dam' se utiliza por coherencia con la toponimia italiana actual. · tipo nombre · valor Vajont Dam · fecha None
+    F20@1086: «‘Vajont’ Dam or ‘Vaiont’ Dam? For consistency, ‘Vajont Dam’ is used according to current Italian toponymy.»
+[D176] El deslizamiento de tierra y la ola resultante en 1963 no tuvieron precedentes en su escala. · tipo magnitud · valor None · fecha None
+    F20@1395: «The scale of the 1963 landslide and resultant flood wave are unprecedented»
+[D177] La inundación resultante del deslizamiento llegó a Longarone casi de inmediato. · tipo magnitud · valor None · fecha None
+    F20@1473: «Resultant flooding from the landslide reached Longarone almost immediately»
+[D178] La represa de Vajont está sobre el río Vajont, un afluente del río Piave. · tipo lugar · valor río Vajont · fecha None
+    F20@1746: «Vajont Dam is on the Vajont River, a tributary of the Piave River, just upstream of Longarone, in northeast Italy.»
+[D179] Longarone está aproximadamente a 62 millas al norte de Venecia, Italia. · tipo magnitud · valor 62 millas · fecha None
+    F20@1861: «Longarone is approximately 62 miles north of Venice, Italy.»
+[D180] La capacidad del embalse de Vajont era de 122.000 acre-pies. · tipo magnitud · valor None · fecha None
+    F20@2000: «Reservoir capacity 122,000 acre-feet»
+[D181] El Monte Toc se eleva 3.900 pies por encima del nivel del embalse de Vajont. · tipo magnitud · valor None · fecha None
+    F20@2038: «Mount Toc towers over the Vajont Reservoir at 3,900 feet above reservoir level.»
+[D182] Los funcionarios subestimaron groseramente el tamaño del deslizamiento resultante. · tipo cita · valor None · fecha None
+    F20@2969: «Officials thought the reservoir was drawn down enough to not cause harm, but they grossly underestimated the resultant size of the landslide.»
+[D183] El evento de Vajont es considerado el deslizamiento de rocas más desastroso ocurrido en Europa. · tipo magnitud · valor None · fecha None
+    F20@3358: «Vajont is considered the most disastrous rockslide ever to occur in Europe.»
+[D184] El deslizamiento creó fuertes temblores de tierra, registrados hasta en Viena y Bruselas. · tipo magnitud · valor None · fecha None
+    F20@3434: «The event created strong earth tremors, recorded as far away as Vienna and Brussels.»
+[D185] Se estima que una masa de hasta 300 millones de metros cúbicos de tierra y escombros se deslizó en el embalse. · tipo magnitud · valor None · fecha None
+    F20@3519: «Enormous mass estimated at up to 300 million m of earth and debris Slid into the Vajont reservoir»
+[D186] El deslizamiento de tierra cayó en el embalse de Vajont en menos de 45 segundos. · tipo magnitud · valor menos de 45 segundos · fecha None
+    F20@3586: «Slid into the Vajont reservoir in less than 45 seconds»
+[D187] El volumen del embalse en el momento del deslizamiento era de 93.000 acre-pies. · tipo magnitud · valor None · fecha None
+    F20@3669: «Reservoir volume 93,000 acre-feet at time of slide»
+[D188] El volumen del deslizamiento fue aproximadamente el doble del volumen de agua embalsada. · tipo magnitud · valor None · fecha None
+    F20@3720: «The volume of the slide was about twice the volume of water impounded behind Vajont Dam.»
+[D189] Una corriente ascendente de aire, rocas y agua trepó la pared del cañón unos 850 pies por encima del embalse. · tipo magnitud · valor None · fecha None
+    F20@3809: «Updraft of air rocks and water climbed canyon wall ~ 850 feet above the reservoir.»
+[D190] Olas de agua pasaron sobre los estribos a más de 300 pies por encima de la cresta de la presa. · tipo magnitud · valor más de 300 pies · fecha None
+    F20@3892: «Waves of water over abutments > 300 feet above dam crest.»
+[D191] La ola que llegó a Longarone tenía más de 230 pies de altura. · tipo magnitud · valor más de 230 pies · fecha None
+    F20@4115: «The wave was over 230 feet high»
+[D192] En el centro de control en el estribo izquierdo de la presa había 20 técnicos que perecieron. · tipo cifra · valor 20 · fecha None
+    F20@4280: «with 20 technical personnel in the control center on the left abutment, all of which perished.»
+[D193] El desastre causó un total de 2.600 muertes y muchos heridos. · tipo cifra · valor None · fecha None
+    F20@4394: «2,600 total fatalities and many injured.»
+[D194] Cinco pueblos aguas abajo fueron destruidos: longarone, Pirago, Rivalta, Villanova y Fae. · tipo cifra · valor None · fecha None
+    F20@4435: «Five downstream towns were destroyed including Longarone, Pirago, Rivalta, Villanova, and Fae.»
+[D195] La tasa de mortalidad en Longarone fue del 94%, con 1.269 de 1.328 habitantes fallecidos. · tipo cifra · valor 94% · fecha None
+    F20@4530: «Fatality rate of 94% in Longarone (1,269 of 1,328)»
+[D196] Hubo 158 muertes en Erto y Casso. · tipo cifra · valor 158 · fecha None
+    F20@4582: «158 fatalities at Erto and Casso»
+[D197] El deslizamiento fue más de 400 veces mayor que uno anterior ocurrido tres años antes. · tipo magnitud · valor más de 400 veces · fecha None
+    F20@4837: «Landslide was over 400 times larger than the previous landslide, three years prior»
+[D198] La represa de Vajont sufrió pocos daños a pesar de estar sujeta a una fuerza estimada en 4 millones de toneladas. · tipo magnitud · valor 4 millones de toneladas · fecha None
+    F20@5571: «the Vajont Dam structure had little damage, even though subjected to a force estimated at 4 million tons from the combined slide and overtopping wave»
+[D199] El gobierno italiano nombró una junta técnica para revisar las circunstancias y establecer responsabilidades. · tipo cita · valor None · fecha None
+    F20@5879: «The Italian Government appointed technical board to review the circumstances leading up to the slide and establish responsibility for actions.»
+[D200] Once ingenieros italianos fueron acusados de homicidio por no tomar medidas para minimizar los riesgos. · tipo cifra · valor None · fecha None
+    F20@6111: «Eleven Italian engineers were later charged with manslaughter for not taking action to minimize risks.»
+[D201] El desastre de la represa de Vajont ocurrió en Italia en 1963. · tipo fecha · valor 1963 · fecha None
+    F21@814: «The sobering political implications of a disaster—the Vajont landslide in Italy in 1963—and how it speaks directly to our present environmental crisis.»
+    F22@128: «The sobering political implications of a disaster—the Vajont landslide in Italy in 1963—and how it speaks directly to our present environmental crisis.»
+    F04@3026: «Il primo, per quanto provocato da una frana, può essere tuttavia considerato un disastro di origine antropica, cioè direttamente legato all’azione umana (nella fattispecie alla scelta di costruire una diga in una zona geologicamente instabile)»
+[D202] 2000 personas murieron el 9 de octubre de 1963 en las montañas de Belluno. · tipo cifra · valor 2000 · fecha 1963-10-09
+    F21@966: (= arriba)
+    F22@280: (= arriba)
+[D203] El desastre fue provocado por una ola de agua y lodo desatada por un deslizamiento de tierra masivo. · tipo cita · valor None · fecha None
+    F21@1055: «engulfed by a wave of water and mud unleashed by a massive landslide that crashed into the basin at the foot of Mount Toc.»
+[D204] El deslizamiento de tierra que causó el desastre provino del Monte Toc. · tipo nombre · valor Monte Toc · fecha None
+    F21@1104: «a massive landslide that crashed into the basin at the foot of Mount Toc.»
+[D205] El autor del libro sobre el desastre es Marco Armiero. · tipo nombre · valor Marco Armiero · fecha None
+    F21@1529: (= arriba)
+[D206] La causa del desastre fue una forma específica de organizar la naturaleza al servicio del beneficio de unos pocos, no la humanidad en general. · tipo cita · valor None · fecha None
+    F21@1765: «It was not humanity that was responsible, but a specific way of organizing and subordinating both human and nonhuman nature in the service of profit for the very few.»
+    F22@1079: «It was not humanity that was responsible, but a specific way of organizing and subordinating both human and nonhuman nature in the service of profit for the very few.»
+[D207] El desastre fue causado por una ola de agua y lodo desatada por un enorme corrimiento de tierras que se estrelló contra la cuenca al pie del Monte Toc. · tipo cita · valor None · fecha None
+    F22@369: «engulfed by a wave of water and mud unleashed by a massive landslide that crashed into the basin at the foot of Mount Toc.»
+[D208] El nombre del evento es el desastre de la represa de Vajont. · tipo nombre · valor None · fecha None
+    F22@492: «Science, power, and memory are entangled in the vortex of the Vajont Dam disaster—a stark reminder that these domains are inherently political, even when they are presented as natural.»
+[D209] Un desprendimiento de 260 millones de metros cúbicos de roca se desprendió del Monte Toc el 9 de octubre de 1963. · tipo magnitud · valor 260 millones de metros cúbicos · fecha 1963-10-09
+    F23@1604: «Poco dopo le dieci e mezzo di sera 260 milioni di metri cubi di roccia si staccano dal Monte Toc e precipitano nel bacino artificiale della diga del Vajont, provocando un'onda gigantesca che scavalca la struttura e travolge i paesi...»
+[D210] Hubo muy pocos heridos en la catástrofe. · tipo cifra · valor None · fecha 1963-10-09
+    F23@1988: «I morti sono quasi duemila, pochissimi i feriti. Questo libro è la ricostruzione di una delle tragedie più annunciate e denunciate della storia italiana...»
+[D211] La tragedia es descrita como el genocidio de toda una comunidad. · tipo cita · valor None · fecha None
+    F23@2037: «Questo libro è la ricostruzione di una delle tragedie più annunciate e denunciate della storia italiana: il genocidio di un'intera comunità, provocato dalla mano criminale di una classe industriale senza scrupoli...»
+[D212] La tragedia fue provocada por una clase industrial sin escrúpulos y un Estado incapaz de defender a sus ciudadanos. · tipo cita · valor None · fecha None
+    F23@2142: «...il genocidio di un'intera comunità, provocato dalla mano criminale di una classe industriale senza scrupoli e da uno Stato incapace di difendere il territorio e i suoi cittadini.»
+[D213] Un frente de derrumbe de 2 kilómetros cuadrados se desprendió de la montaña. · tipo magnitud · valor None · fecha 1963-10-09
+    F04@4216: «un fronte franoso dalla superficie di 2 chilometri quadrati e dall’impressionante volume di oltre 250 metri cubi di terra e roccia si staccò dalla montagna sovrastante precipitando nel sottostante bacino idroelettrico.»
+[D214] El volumen del derrumbe fue de más de 250 metros cúbicos de tierra y roca. · tipo magnitud · valor None · fecha 1963-10-09
+    F04@4216: «un fronte franoso dalla superficie di 2 chilometri quadrati e dall’impressionante volume di oltre 250 metri cubi di terra e roccia si staccò dalla montagna sovrastante»
+[D215] La ola se elevó unos 200 metros de altura. · tipo magnitud · valor None · fecha 1963-10-09
+    F04@4463: «un’onda dalle dimensioni gigantesche fatta di 50 milioni di metri cubi di acqua mista a detriti che si sollevò in altezza per circa duecento metri»
+[D216] Solo 1500 de las víctimas fueron encontradas y eran irreconocibles. · tipo cifra · valor 1500 · fecha 1963-10-09
+    F04@4962: (= arriba)
+[D217] El nombre del monte del que se desprendió el alud es Toc, que en friulano significa "podrido". · tipo nombre · valor Toc · fecha None
+    F04@6037: «il monte dal quale la frana si staccò si chiama Toc, che è una contrazione del friulano patòc, che significa “marcio”»
+[D218] El desastre del Vajont fue la primera y más grave catástrofe de la Italia de la segunda posguerra. · tipo cita · valor None · fecha None
+    F04@6157: «Il Vajont fu un evento dirompente non solo per la portata delle sue conseguenze (si trattò della prima e più grave catastrofe dell’Italia del secondo dopoguerra)»
+[D219] Desde el principio, el desastre fue presentado con la expresión "catástrofe anunciada". · tipo cita · valor None · fecha None
+    F04@6447: «Fin da subito essa fu presentata ricorrendo ad una espressione che poi sarebbe divenuta familiare all’opinione pubblica: quella di “catastrofe annunciata”.»
+[D220] La decisión de construir la presa fue tomada en 1956 por la SADE (Società Adriatica di Elettricità di Venezia). · tipo nombre · valor SADE · fecha 1956
+    F04@6898: (= arriba)
+[D221] La presa de Vajont tendría 261 metros de altura y una capacidad de embalse de más de 160 metros cúbicos. · tipo magnitud · valor None · fecha None
+    F04@7088: «con i suoi 261 metri di altezza e una capacità d’invaso di oltre 160 metri cubi, quella del Vajont sarebbe stata la diga più grande del mondo.»
+[D222] La presa de Vajont estaba proyectada para ser la más grande del mundo. · tipo cita · valor None · fecha None
+    F04@7088: (= arriba)
+[D223] Un primer derrumbe de 700.000 metros cúbicos ocurrió el 4 de noviembre de 1960 durante unas pruebas. · tipo magnitud · valor None · fecha 1960-11-04
+    F04@7462: «Il 4 novembre 1960, mentre erano in corso dei collaudi, si verificò una prima frana: circa 700.000 metri cubi si riversarono nel lago artificiale anticipando, almeno nella dinamica, la tragedia di tre anni dopo.»
+[D224] La periodista Tina Merlin publicó el primer artículo de denuncia en el periódico "l'Unità" cuatro días después del primer derrumbe. · tipo nombre · valor Tina Merlin · fecha 1960-11-08
+    F04@7674: (= arriba)
+[D225] La campaña de denuncia fue considerada instrumental para la lucha política y calificada de alarmismo inútil y exageraciones. · tipo cita · valor None · fecha None
+    F04@7784: «Giungendo dal principale giornale di opposizione, questa campagna di denuncia, venne considerata come strumentale alla lotta politica in atto (...) e da più parti si parlò di inutili allarmismi e di esagerazioni.»
+[D226] A partir del 2 de octubre de 1963 se multiplicaron las señales de peligro como temblores, estruendos y grietas en la montaña. · tipo fecha · valor None · fecha 1963-10-02
+    F04@8366: (= arriba)
+[D227] Como respuesta a las señales de peligro, se decidió cerrar algunas carreteras y desalojar algunas viviendas en Erto y Casso. · tipo cita · valor None · fecha None
+    F04@8549: «Di fronte a tutto questo si decise allora di chiudere alcune strade e di sgomberare alcune abitazioni di Erto e Casso.»
+[D228] En Belluno se prepararon 1000 camas para refugiados y se movilizaron más de 100 donantes de sangre, sin tener en cuenta que no había supervivientes. · tipo cifra · valor 1000 · fecha None
+    F04@11780: «A Belluno si giunse ad approntare 1.000 posti letto per i profughi, fu costruito un ospedale da campo e si mobilitarono oltre 100 donatori di sangue senza tenere conto del fatto che in realtà non c’erano sopravvissuti.»
+[D229] No se creó ningún organismo central para proporcionar información oficial sobre el progreso de las operaciones de rescate. · tipo cita · valor None · fecha None
+    F04@12562: «Non venne approntato alcun organismo centrale per fornire informazioni precise e ufficiali sull’andamento delle operazioni di soccorso.»
+[D230] El 18 de octubre de 1963 se aprobó un decreto ley que suspendía el vencimiento de títulos de crédito emitidos antes del 10 de octubre. · tipo fecha · valor None · fecha 1963-10-18
+    F04@14011: «Il 18 ottobre 1963 venne quindi approvato il decreto legge n. 1358 (poi convertito in legge il6 novembre successivo) con il quale si sanciva la sospensione fino al 10 aprile 1964 del termine di scadenza “dei vaglia cambiari, delle cambiali e di ogni altro titolo avente forza esecutiva”»
+[D231] El 31 de octubre de 1963, un decreto ley asignó 7 mil millones de liras para intervenciones de seguridad y asistencia urgente. · tipo magnitud · valor None · fecha 1963-10-31
+    F04@14327: «Il 31 ottobre 1963 fu poi la volta del decreto legge n. 1408, contenente “norme per assicurare gli interventi indispensabili per la sicurezza nelle zone colpite dalla sciagura” pari a 7 miliardi di lire»
+[D232] La ley del 4 de noviembre de 1963 autorizó una asignación inicial de 10 mil millones de liras para diversas intervenciones. · tipo magnitud · valor None · fecha 1963-11-04
+    F04@14648: «Il 4 novembre fu quindi la volta della legge n. 1457 recante “Provvidenze a favore delle zone devastate”. Con questa legge venne autorizzato un primo stanziamento di 10 miliardi di lire da utilizzare per gli interventi»
+[D233] La reconstrucción de Longarone finalizó en 1980 con la finalización de la iglesia diseñada por Michelucci. · tipo fecha · valor None · fecha 1980
+    F04@16219: «ad essi fecero seguito le lunghe fasi della ricostruzione vera e propria (destinata a protrarsi fino al 1980 anno in cui a Longarone furono ultimati i lavori di costruzione della chiesa progettata da Michelucci)»
+[D234] El resarcimiento final de los daños se completó en el año 2000, con un reparto de costes entre Montedison y el Estado. · tipo fecha · valor None · fecha 2000
+    F04@16848: «la definitiva liquidazione, con una ripartizione degli oneri tra la Montedison stessa e lo Stato, giunta addirittura nel 2000»
+[D235] El desastre de la represa de Vajont causó 1920 víctimas. · tipo cifra · valor 1920 · fecha 1963-10-09
+    F31@169: «9 ottobre 1963: 63 anni dalla tragedia della diga del Vajont: 1920 le vittime»
+[D236] Uno de los errores humanos fue construir la represa en un valle no idóneo geológicamente. · tipo cita · valor None · fecha None
+    F31@2432: «Sono stati commessi tre fondamentali errori umani che hanno portato alla strage: l'aver costruito la diga in una valle non idonea sotto il profilo geologico»
+[D237] En la construcción de la represa trabajaron cerca de 400 operarios. · tipo cifra · valor 400 · fecha None
+    F31@4647: (= arriba)
+[D238] La represa del Vajont medía 262 metros de alto y 190 metros de ancho. · tipo magnitud · valor None · fecha None
+    F31@4875: «Alta 262 metri, larga 190, spessa 22 metri alla base e solo 3,40 metri alla sua sommità, e vengono usati 353.000 metri cubi di calcestruzzo.»
+[D239] La represa tenía un espesor de 22 metros en la base y 3,40 metros en la cima. · tipo magnitud · valor None · fecha None
+    F31@4902: «spessa 22 metri alla base e solo 3,40 metri alla sua sommità, e vengono usati 353.000 metri cubi di calcestruzzo.»
+[D240] A la sesión de aprobación del proyecto en 1943 asistieron solo 13 de los 34 representantes del Consejo Superior de Obras Públicas. · tipo cifra · valor 13 · fecha None
+    F31@5620: «Il progetto sarà approvato nel 1943, in piena Seconda Guerra Mondiale, dal Consiglio superiore dei lavori pubblici, attraverso un procedimento irregolare (soltanto 13 rappresentanti su 34 saranno presenti alla seduta)»
+[D241] El proyecto ampliado de la represa preveía una altura de 266 metros y una cota de 723 metros sobre el nivel del mar. · tipo magnitud · valor None · fecha None
+    F31@6481: (= arriba)
+[D242] Una ola de 20 metros en la represa de Pontesei costó la vida a un operario de la Sade. · tipo magnitud · valor None · fecha 1959
+    F31@6814: «una frana precipitava nel lago artificiale di un’altra diga progettata da Semenza, la diga di Pontesei, causando un’onda di 20 metri che costerà la vita all’operaio della Sade incaricato della sorveglianza»
+[D243] En noviembre de 1960, un desprendimiento de 800.000 metros cúbicos de roca cayó desde el Monte Toc al lago artificial. · tipo magnitud · valor None · fecha 1960-11
+    F31@7429: «nel novembre del 1960 una frana di 800.000 metri cubici di roccia precipita dal monte nel lago artificiale.»
+[D244] En el desastre del 9 de octubre, un bloque de tierra de 400 metros cayó del Monte Toc. · tipo magnitud · valor None · fecha 1963-10-09
+    F31@8211: (= arriba)
+[D245] En 1997, el Tribunal de Belluno condenó a Montedison a pagar al municipio de Longarone 55.645.758.500 liras por daños y perjuicios. · tipo cifra · valor 55.645.758.500 · fecha 1997-02-15
+    F31@12347: «condanna la Montedison a risarcire i danni subiti dal comune di Longarone per un ammontare di lire 55.645.758.500, comprensive dei danni patrimoniali, extra-patrimoniali e morali»
+</datos>
+<citas n="57">
+[Q01] CITA «Es un resultado extraordinario para la memoria y para las comunidades del Vajont. La candidatura ya había sido presentada en 2016, pero insistimos, convencidos de que este material merecía un reconocimiento... Hoy este resultado es un gran regalo a las comunidades del Vajont, que desde siempre piden un reconocimiento de su dolor.» — Roberto Padrin (Alcalde de Longarone, Presidente de la Provincia de Belluno y de la Fundación Vajont.) · verificada_parcial · fecha None
+    F19@1376: ««È un risultato straordinario per la memoria e per le comunità del Vajont», commenta Roberto Padrin, Sindaco di Longarone, Presidente della Provincia di Belluno e della Fondazione Vajont. «La candidatura era già stata avanzata nel 2016, ma abbiamo insistito, convinti che questo materiale meritasse u»
+[Q02] CITA «Los Dolomitas son el único Patrimonio Mundial reconocido tanto por la extraordinaria belleza paisajística como por la evolución geológica y geomorfológica. Por otro lado, son también el lugar donde ocurrió el desastre natural más grave causado por el hombre. Son dos caras de la misma moneda: un territorio bellísimo y frágil del que tenemos la responsabilidad ante la humanidad.» — Irma Visalli (Presidenta del Comité Científico de la Fundación Vajont.) · verificada · fecha None
+    F19@2064: ««Le Dolomiti sono l’unico Patrimonio Mondiale riconosciuto sia per la straordinaria bellezza paesaggistica che per l’evoluzione geologica e geomorfologica. Dall’altro lato sono anche il luogo in cui è avvenuto il più grave disastro naturale causato dall’uomo.»
+[Q03] CITA «Ha sido un esfuerzo notable por parte de los Archivos y del Instituto Central de Archivos que permite a cualquiera consultar esos documentos incluso a distancia» — Antonio Tarasco (Direttore generale Archivi) · verificada · fecha None
+    F24@161: «È stato un impegno notevole da parte degli Archivi e dell’Istituto centrale degli Archivi che consente a chiunque di consultare quegli atti anche da remoto”, ha commentato il Direttore generale Archivi, Antonio Tarasco.»
+[Q04] CITA «La Fundación Vajont, además, ha querido firmemente alcanzar el objetivo de poder ofrecer a todos la oportunidad de acceder a los expedientes procesales (...) asumiendo íntegramente todos los gastos de la actividad realizada en el Archivo Estatal de Belluno, para permitir la tan esperada 'lectura procesal' del 'Fondo Vajont'» — Mauro Carazzai (Direttore della Fondazione Vajont) · verificada · fecha None
+    F24@381: «La Fondazione Vajont, altresì, ha voluto fortemente realizzare l’obiettivo di poter offrire a tutti l’opportunità di accedere agli atti processuali, dato dai propri Presidenti... ha evidenziato il Direttore della Fondazione Vajont Mauro Carazzai.»
+[Q05] CITA «Vajont forma parte de nuestra historia compartida con nuestros anfitriones italianos. Es una parte fundamental del legado que se deja a los estadounidenses que tienen la suerte de estar destinados aquí, en el Véneto.» — Todd R. Wasmund (General al mando de SETAF-AF) · verificada_parcial · fecha None
+    F06@453: «“Vajont is part of our shared history with our Italian hosts,” said SETAF-AF commanding general Maj. Gen. Todd R. Wasmund. “It’s a critical part of the legacy left for those Americans fortunate enough to be stationed here in the Veneto.”»
+[Q06] CITA «El primer rescatista que vi llegó en un helicóptero del Ejército de Estados Unidos. Esos tres helicópteros evacuaron a las 486 personas de mi pueblo. Aunque fue un día trágico, lo recuerdo con alegría porque esos helicópteros estadounidenses nos salvaron.» — Giovanni De Lorenzi (Director de la Fundación Vajont y superviviente del desastre) · verificada_parcial · fecha None
+    F06@937: «“The first rescuer I saw came in a U.S. Army helicopter,” said Giovanni De Lorenzi, Vajont Foundation Director and disaster survivor. “Those three helicopters evacuated all 486 people from my village. Even if it was a tragic day, I remember it with joy because those U.S. helicopters saved us.”»
+[Q07] CITA «Al igual que hace 60 años, SETAF-AF sigue preparada como fuerza de respuesta a crisis.» — Todd R. Wasmund (General al mando de SETAF-AF) · verificada · fecha None
+    F06@1554: «“Just as we did 60 years ago, SETAF-AF still stands ready as a crisis-response force,” said Wasmund.»
+[Q08] CITA «Es importante que SETAF-AF esté presente y conecte con nuestro país anfitrión de forma profunda como en el 60º Aniversario de Vajont. Algunos de los socorristas italianos no habían hablado con un militar estadounidense desde la catástrofe, por lo que escuchar sus historias y ser un recordatorio del vínculo que forjaron con los soldados estadounidenses durante una época tan oscura fue una lección de humildad.» — Emilie Anderson (Oficial de operaciones del Batallón del Cuartel General (HHBn), SETAF-AF) · verificada_parcial · fecha None
+    F06@2006: «“It’s important for SETAF-AF to be present and connect with our host nation in deep ways like at the Vajont 60th Anniversary,” said Capt. Emilie Anderson, the Headquarters and Headquarters Battalion (HHBn) operations officer, SETAF-AF, who attended the ceremony.»
+[Q09] CITA «Los soldados americanos llegaron cuando llegamos nosotros, trabajando día y noche sin parar, siempre con esos tres helicópteros en el cielo. Incluso donaron luces para facilitar las operaciones 24 horas. Eso cambió realmente nuestra opinión sobre el Ejército de EE.UU.» — Parise Ferdinando (Soldado retirado del Ejército italiano que ayudó en las labores de rescate) · verificada_parcial · fecha None
+    F06@2614: «“The American Soldiers arrived when we arrived, working day and night without stopping, always with those three helicopters in the sky,” said Parise Ferdinando, a retired Italian Army Soldier who aided in the rescue efforts. “They even donated lights to facilitate 24-hour operations. That really cha»
+[Q10] CITA «Las Naciones Unidas han clasificado este suceso como uno de los desastres medioambientales más graves de la historia provocados por el hombre. Por esta razón, el 9 de octubre ha sido designado por el Parlamento como 'Día Nacional en memoria de las víctimas de desastres medioambientales e industriales provocados por el hombre'.» — Sergio Mattarella (Presidente de la República Italiana) · verificada_parcial · fecha None
+    F06@3086: «“The United Nations has classified this event as one of the most serious man-made environmental disasters in history,” said President of the Italian Republic Sergio Mattarella. “For this reason, 9 October has been designated by Parliament as ‘National Day in memory of the victims of man-made environ»
+[Q11] CITA «El heroísmo demostrado por los socorristas italianos y los soldados de la Fuerza de Tarea del Sur de Europa del Ejército de EE.UU. pervive como un ejemplo perdurable de los lazos entre nuestros países.» — Todd R. Wasmund (General al mando de SETAF-AF) · verificada · fecha None
+    F06@3664: «"The heroism displayed by Italian first responders and Soldiers from U.S. Army Southern European Task Force lives as an enduring example of the bonds between our countries,” said Wasmund.»
+[Q12] CITA «A las 22:39 del 9 de octubre de 1963, el movimiento de deslizamiento de las laderas del Toc, ya en curso, tomó un ritmo precipitado, impetuoso, irresistible. El agua del lago artificial sufrió un empuje formidable: a una velocidad de 50 km por hora el desprendimiento avanzaba, alcanzaba la orilla derecha de la presa, chocaba contra ella y la sobrepasaba.» — Relazione della Commissione di inchiesta nominata dal Ministro dei Lavori Pubblici (Informe de investigación) · verificada · fecha None
+    F03@773: «La catastrofe è così descritta dalla Relazione della Commissione di inchiesta nominata dal Ministro dei Lavori Pubblici: "Alle ore 22,39 del 9 ottobre 1963 il movimento franoso delle pendici del Toc, già in atto, assumeva un andamento percipite, irruento, irresistibile.»
+    F01@1831: «La catastrofe è così descritta dalla Relazione della Commissione di inchiesta nominata dal Ministro dei Lavori Pubblici: "Alle ore 22,39 del 9 ottobre 1963 il movimento franoso delle pendici del Toc, già in atto, assumeva un andamento percipite, irruento, irresistibile.»
+    F31@1878: «La catastrofe è così descritta dalla Relazione della Commissione di inchiesta nominata dal Ministro dei Lavori Pubblici: "Alle ore 22,39 del 9 ottobre 1963 il movimento franoso delle pendici del Toc, già in atto, assumeva un andamento percipite, irruento, irresistibile.»
+[Q13] CITA «Presidente, queremos justicia» — La gente (Sobrevivientes / Pobladores) · verificada · fecha 1963-10-12
+    F03@3122: «Tre giorni dopo la strage, il presidente del Consiglio (...) visita i luoghi della tragedia. «Presidente, vogliamo giustizia», grida la gente.»
+[Q14] CITA «Y justicia tendréis» — Giovanni Leone (Presidente del Consiglio) · verificada · fecha 1963-10-12
+    F03@3342: «Il futuro capo dello Stato è avvocato e ama le frasi importanti. «E giustizia avrete», declama. Promessa mai mantenuta.»
+[Q15] CITA «Yo, aquella noche, a eso de las diez y media, escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor.» — Don Carlo Onorini (párroco de Casso) · verificada · fecha 1963-10-09
+    F09@12046: «Don Carlo Onorini (párroco de Casso). Soy casi un testigo ocular [...] en este sentido.Yo, aquella noche, a eso de las diez y media, escucho el ruido de la avalancha, abro la ventana y este ruido aumentaba en forma extraordinaria, al mismo tiempo vi un resplandor.»
+[Q16] CITA «Oí un ruido indefinible muy fuerte, como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos [...] Un estruendo acompañado por un resplandor, e inmediatamente después un ruido similar al que se oye cuando pasa una formación de reactores» — Benito Castellano (Sobreviviente) · verificada · fecha 1963-10-09
+    F09@12943: «Oí un ruido indefinible muy fuerte, como de un trueno de verano multiplicado cien veces, muy lóbrego, que duró tres o cuatro minutos [...] Un estruendo acompañado por un resplandor, e inmediatamente después un ruido similar al que se oye cuando pasa una formación de reactores [...]»
+[Q17] CITA «Mientras estábamos en el bar Faè nos dimos cuenta que de repente se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas y luego se apagaba también la iluminación» — Germano Accamillesi (Sobreviviente) · verificada · fecha 1963-10-09
+    F09@14098: «Mientras estábamos en el bar Faè nos dimos cuenta que de repente se interrumpió la iluminación del televisor y casi al mismo tiempo (treinta-cincuenta segundos) se empezaron a sentir fuertes sacudidas telúricas y luego se apagaba también la iluminación»
+[Q18] CITA «Explotó el dique.» — Uno de los cuatro espectadores (Sobreviviente) · verificada · fecha 1963-10-09
+    F09@14983: «Uno de los cuatro espectadores yo, Antonio Stragà, Alessandro Bellencin y Mauro Naldo gritó: "Explotó el dique."»
+[Q19] CITA «Antes de que se fuera la luz, se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire, acompañada del ruido del aire que irrumpía [...] Inmediatamente pensé que había cedido el dique.» — Gianfranco Trevisano (médico de Longarone) · verificada · fecha 1963-10-09
+    F09@15396: «Antes de que se fuera la luz, se abrió de improviso, de par en par, el portoncito de la entrada, a causa de una corriente de aire, acompañada del ruido del aire que irrumpía [...] Inmediatamente pensé que había cedido el dique.»
+[Q20] CITA «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel. Eso es todo. Sólo que el vaso tenía una altura de cientos de metros y la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse.» — Dino Buzzati (Escritor del Corriere della Sera) · verificada · fecha 1963-10-11
+    F09@20985: «Una piedra ha caído en un vaso lleno de agua, y el agua se ha derramado sobre el mantel. Eso es todo. Sólo que el vaso tenía una altura de cientos de metros y la piedra era grande como una montaña y abajo, en el mantel, había miles de seres humanos que no podían defenderse.»
+[Q21] CITA «No es que se haya roto el vaso, y no se puede, como en el caso de Gleno, llamar bestia a quien lo ha construido. El vaso estaba hecho a la perfección, era testimonio de la tenacidad, del talento y del coraje humanos. El dique del Vajont era una obra maestra, incluso desde un punto de vista estético.» — Dino Buzzati (Escritor del Corriere della Sera) · verificada_parcial · fecha 1963-10-11
+    F09@21260: «No es que se haya roto el vaso, y no se puede, como en el caso de Gleno, llamar bestia a quien lo ha construido. El vaso estaba hecho a la perfección, era testimonio de la tenacidad, del talento y del coraje humanos. El dique del Vajont era una obra maestra, incluso desde un punto de vista estético.»
+[Q22] CITA «Podrá tal vez parecer cruel lo que voy a decir, pero esta desgracia tan "limpia", tan ineluctable, tan absoluta, lleva más a la melancolía que al dolor. No había nada que hacer, no hay remordimientos, no hay culpables.» — Giorgio Bocca (Escritor e intelectual italiano en Il Giorno) · verificada · fecha 1963-10-11
+    F09@33210: «Podrá tal vez parecer cruel lo que voy a decir, pero esta desgracia tan "limpia", tan ineluctable, tan absoluta, lleva más a la melancolía que al dolor. No había nada que hacer, no hay remordimientos, no hay culpables.»
+[Q23] CITA «es el intento de anular a priori cualquier investigación, de absolver, aun antes de indagar, cualquier responsabilidad. Frente a este intento, decimos: NO. Hay que hacer un proceso. Hay que encontrar a los responsables. Y deben pagar.» — Aniello Coppola (Periodista de L'Unità) · verificada · fecha 1963-10-11
+    F09@44716: «es el intento de anular a priori cualquier investigación, de absolver, aun antes de indagar, cualquier responsabilidad. Frente a este intento, decimos: NO. Hay que hacer un proceso. Hay que encontrar a los responsables. Y deben pagar.»
+[Q24] CITA «la fatalidad no puede justificar estas tragedias y el gobierno tiene el rol obligatorio de sacar a la luz todos los detalles» — Ministro de Obras Públicas (Funcionario del gobierno) · verificada · fecha None
+    F12@25180: «the call of the Minister of Public Works that "fatality cannot justify these tragedies and government has the compulsory role to bring out all details" seemed to get lost in the populist propaganda»
+[Q25] CITA «Conocía Longarone en cada rincón, ahora no sé dónde estoy» — Un superviviente (Superviviente) · verificada · fecha None
+    F12@26557: «Survivors lost identity of their past and sentences like: "I knew Longarone in every corner, now I don’t know where I am" were quoted.»
+[Q26] CITA «Faltan el alcalde, las monjas de las guarderías, el farmacéutico y los policías» — Técnico municipal (Empleado municipal) · verificada · fecha None
+    F12@26723: «"The Major, nuns of nursery schools, the pharmacist and police cops are missing" said a municipal technician, but similar lists became heavy loads for all families.»
+[Q27] CITA «Nadie llora aquí en Longarone» — Un superviviente (Superviviente) · verificada · fecha None
+    F12@26888: «"Nobody cries here in Longarone", "this man has been working for six hours with his pick to find his wife and son" convey a frightful feeling of impotence.»
+[Q28] CITA «Estábamos esperando que la presa se cayera...» — Un superviviente (Superviviente) · verificada · fecha None
+    F12@27043: «A feeling to be “over the boundary” grew between local people, as testified by fear and bad sensations recorded after the catastrophe. “We were waiting for the dam to fall...".»
+[Q29] CITA «La catástrofe de Vajont es el final trágico de un abuso brutal de la tierra, el agua y la población local» — L'Unità (Periódico) · verificada · fecha None
+    F12@27876: (= arriba)
+[Q30] CITA «¡Fue un asesinato!, y las víctimas reclaman justicia» — L'Unità (Periódico) · verificada_parcial · fecha None
+    F12@28110: «"It was a murder!, and the victims claim justice". This voice remained isolated as those of the survivors to the catastrophe.»
+[Q31] CITA «habían imaginado y esperado que los expertos y políticos, que los habían tranquilizado durante años sobre la seguridad de la presa, supieran más que ellos» — Habitantes de Erto-Casso (Habitante) · verificada · fecha None
+    F12@29926: (= arriba)
+[Q32] CITA «El patrimonio documental es la memoria común de la humanidad. Debe ser protegido para la investigación y compartido con el mayor número de personas posible. Es una parte fundamental de nuestra historia colectiva» — Audrey Azoulay (Directora General de la Unesco) · verificada · fecha None
+    F14@1983: «la Direttrice generale dell'Unesco, Audrey Azoulay, ha dichiarato" Il patrimonio documentario è la memoria comune dell'umanità. Deve essere protetto per la ricerca e condiviso con quante più persone possibile. È una parte fondamentale della nostra storia collettiva".»
+[Q33] CITA «desastre evitable" causado por el “fracaso de ingenieros y geólogos en comprender la naturaleza del problema que estaban tratando de afrontar» — Asamblea General de las Naciones Unidas (Organismo internacional) · verificada · fecha 2008-02
+    F14@3568: «l'Assemblea generale delle Nazioni Unite, parlò del Vajont come un caso esemplare di "disastro evitabile" causato dal “fallimento di ingegneri e geologi nel comprendere la natura del problema che stavano cercando di affrontare”.»
+    F05@282: «lo definirono come: Un caso esemplare di disastro evitabile causato dal fallimento di ingegneri e geologi nel comprendere la natura del problema che stavano cercando di affrontare.»
+[Q34] CITA «Menuda tormenta se está preparando» — Alguien en Longarone (None) · verificada · fecha None
+    F15@1947: ««La pequeña Milán», la llamaban. Empieza a soplar el viento. «Menuda tormenta se está preparando». Pero no es un viento normal, demasiado húmedo, con demasiado polvo.»
+[Q35] CITA «¡La presa! ¡LA PRESA!» — Alguien en Longarone (None) · verificada · fecha None
+    F15@2142: «Es continuo y acelera cada vez más. Alguien se habrá dado cuenta. «¡La presa! ¡LA PRESA!». En poco más de cuatro minutos, el muro de agua alcanzará Longarone.»
+[Q36] CITA «Obras de interés general» — Representantes de SADE (None) · verificada · fecha None
+    F15@7152: «A quienes se niegan, se les obliga a una venta forzosa. Todo legal. «Obras de interés general», les dicen.»
+[Q37] CITA «Si el proyecto original me parecía osado, ahora lo considero una completa locura» — Giorgio Dal Piaz (Geólogo) · verificada · fecha None
+    F15@7682: «Le da su opinión sobre la ampliación de la presa: «Si el proyecto original me parecía osado, ahora lo considero una completa locura».»
+[Q38] CITA «Los franceses no han puesto suficientes cimientos» — Círculos de ingenieros italianos (None) · verificada · fecha None
+    F15@13081: ««Los franceses no han puesto suficientes cimientos» o «Han construido un gigante con los pies de barro» son las frases que, con un cierto tono de superioridad, se oyen en los círculos de ingenieros italianos.»
+[Q39] CITA «Han construido un gigante con los pies de barro» — Círculos de ingenieros italianos (None) · verificada · fecha None
+    F15@13132: «o «Han construido un gigante con los pies de barro» son las frases que, con un cierto tono de superioridad, se oyen en los círculos de ingenieros italianos.»
+[Q40] CITA «Es difícil luchar contra la SADE» — Representante provincial (None) · verificada · fecha None
+    F15@16542: «El alarmado representante provincial viaja a Roma para intentar frenar el proyecto. Vuelve derrotado. «Es difícil luchar contra la SADE».»
+[Q41] CITA «Yo solo era el supervisor» — Ingeniero jefe (sucesor de Semenza) (Supervisor de obras) · verificada · fecha None
+    F15@18874: «Más tarde declarará: «Yo solo era el supervisor». Y su jefe de obras: «Yo solo era el ejecutor». Aromas de Nuremberg.»
+[Q42] CITA «Yo solo era el ejecutor» — Jefe de obras (Jefe de obras) · verificada · fecha None
+    F15@18924: «Y su jefe de obras: «Yo solo era el ejecutor». Aromas de Nuremberg.»
+[Q43] CITA «Son sacudidas menores, no hace falta informar al ministerio» — Ingeniero jefe (sucesor de Semenza) (Supervisor de obras) · verificada · fecha None
+    F15@19172: «Da la orden de borrar los registros. «Son sacudidas menores, no hace falta informar al ministerio». Cada semana que pasa, aumenta la magnitud de las sacudidas.»
+[Q44] CITA «Nos han dicho que lo hagamos así» — Laboratorio de la Universidad de Padua (None) · verificada · fecha None
+    F15@20064: (= arriba)
+[Q45] CITA «No se preocupe, todo está bajo control» — Ministerio (None) · verificada · fecha None
+    F15@24077: «La respuesta tardará varios días en llegar, a menos de un mes del desastre final: «No se preocupe, todo está bajo control».»
+[Q46] CITA «Si no avisan, será que no es grave» — Habitantes de Erto y Longarone (None) · verificada · fecha None
+    F15@25107: «Sus habitantes saben que está ocurriendo algo, pero están tranquilos. «Si no avisan, será que no es grave».»
+[Q47] CITA «La superficialidad en la evaluación de riesgos ya no debe existir, la negligencia y la inercia deben combatirse. Al servicio de mi país en las políticas ambientales, intento cada día no olvidar nunca el Vajont.» — Vannia Gava (Subsecretaria del Ministerio de Medio Ambiente) · verificada · fecha None
+    F01@770: «La superficialità nella valutazione dei rischi non deve più esistere, l’incuria e l’inerzia vanno combattute. Al servizio del mio Paese nelle politiche ambientali cerco ogni giorno di non dimenticare mai il Vajont. Lo ha dichiarato Vannia Gava, Sottosegretario al Ministero dell’Ambiente.»
+    F31@699: «La natura esige rispetto, la montagna vuole essere amata e le comunità che la vivono devono essere sicure e protette. La superficialità nella valutazione dei rischi non deve più esistere, l’incuria e l’inerzia vanno combattute. Al servizio del mio Paese nelle politiche ambientali cerco ogni giorno d»
+[Q48] CITA «como un millón de camiones volcando un millón de cajas de grava» — Mauro Corona (escritor) · verificada · fecha 1963-10-09
+    F02@1689: «ci fu un rumore «come di un milione di camion che rovesciano un milione di cassoni di ghiaia», ha raccontato al Corriere della Sera lo scrittore Mauro Corona che all’epoca aveva 13 anni e viveva vicino alla diga.»
+[Q49] CITA «La sensación de que la cama cogía velocidad, una fuerza espantosa que me cogía por la espalda, me doblaba en dos, me aplastaba; la sensación de ser de goma, de ensancharme y luego encogerme, los ojos convertidos en dos estrellas;» — Micaela Coletti (presidente del comitato sopravvissuti del Vajont) · verificada · fecha 1963-10-09
+    F02@2217: «La sensazione che il letto prendesse velocità, una forza spaventosa che mi prendeva alla schiena, mi piegava in due, mi schiacciava; la sensazione di essere di gomma, di allargarmi e poi restringermi, gli occhi diventati due stelle;»
+[Q50] CITA «Las poblaciones de Erto y Casso están viviendo en continua aprensión y en continua alarma; considerando también el hecho de que otros minimizan estas cosas, pero que también para la gente de Erto implican la seguridad de la vida y de los bienes, esta administración vuelve a manifestar sus preocupaciones por la seguridad de la población y del país.» — Administración del comune di Erto e Casso (autoridad local) · verificada · fecha None
+    F02@7114: «Le popolazioni di Erto e Casso stanno vivendo in continua apprensione e in continuo allarme; considerato anche il fatto che altri queste cose minimizzano, ma che anche per la gente di Erto comportano la sicurezza della vita e degli averi»
+[Q51] CITA «P.D. Me llama ahora el topógrafo Rossi que las mediciones de esta mañana muestran ser aún mayores que las de ayer, ¡alcanzando un aumento del 50%!! (es decir, de 20 a 30 centímetros). Se nota también alguna pequeña caída de piedras en el borde oeste (hacia la presa) del derrumbe. Que Dios nos ayude.» — Alberico Biadene (direttore del Servizio costruzioni idrauliche della SADE) · verificada · fecha 1963-10-09
+    F02@8817: «P.S. Mi telefona ora il geom. Rossi che le misure di questa mattina mostrano essere ancora maggiori di quelle di ieri, raggiungendo una maggiorazione del 50%!! (cioè da 20 a 30 centimetri). Si nota anche qualche piccola caduta di sassi al bordo ovest (verso la diga) della frana. Che Iddio ce la mand»
+[Q52] CITA «los deslizamientos recurrentes hacen probable un desastre» — un periódico local (None) · verificada · fecha None
+    F20@2456: (= arriba)
+[Q53] CITA «la montaña que camina» — residentes (residentes) · verificada · fecha None
+    F20@2675: «they continued to distrust the stability of Mount Toc, even nicknaming it, “the mountain that walks.”»
+[Q54] CITA «el desastre de Vajont habla directamente de nuestra actual situación planetaria, así como de nuestra noción ilusoria de que podemos resolverla mediante soluciones tecnológicas y una ciencia neutral.» — Marco Armiero (Autor del libro) · verificada_parcial · fecha None
+    F22@1246: «In this book, the author argues that the Vajont disaster speaks directly to our current planetary predicament—as well as our deluded notion that we can solve it through technological fixes and neutral science.»
+[Q55] CITA «Si Vajont ha enseñado algo ha sido la posibilidad de excluir la fatalidad y de introducir el concepto de culpa, descubrir su valor» — Daniele Ceschin (Historiador (citado en el texto)) · verificada_parcial · fecha None
+    F04@5328: (= arriba)
+[Q56] CITA «Vajont no es la trágica excepción al sistema, sino su confirmación: en este suceso realmente no ha ocurrido nada excepcional. Solo, como a menudo sucede, había un riesgo, previsible y previsto» — Sandro Canestrini (Abogado) · verificada_parcial · fecha 1969
+    F04@9185: «“il Vajont” – disse – “non è la tragica eccezione al sistema, ma la conferma di esso: in questa vicenda veramente non è accaduto nulla di eccezionale. Solo, come spesso succede, c’era un rischio, prevedibile e previsto”.»
+[Q57] CITA «el Estado apareció como un simulacro de poder, una fábrica automática de autorizaciones, de permisos, de consentimientos, de concesiones; pareció un mosaico descompuesto de poderes, uno disociado o limitado o disputado por el otro, que en vano intentó oponerse, es más, que ni siquiera intentó oponerse al bloque de poder, este sí compacto y decidido en la consecución de sus propios objetivos, representado por el concesionario» — Socialistas (documento de minoría de la Comisión parlamentaria de investigación) (Miembros de la comisión parlamentaria de investigación) · verificada_parcial · fecha None
+    F04@9687: «“lo Stato” – si legge in un documento di minoranza che fu presentato dai socialisti alla Commissione parlamentare d’Inchiesta che venne immediatamente nominata – “è apparso un simulacro di potere, una fabbrica automatica di autorizzazioni, di permessi, di assentimenti, di concessioni»
+</citas>
+<lugares n="46">
+[L01] diga del Vajont · Lugar del desprendimiento de rocas y la ola.
+    F19@0: (= arriba)
+    F23@1675: «...si staccano dal Monte Toc e precipitano nel bacino artificiale della diga del Vajont, provocando un'onda gigantesca che scavalca la struttura e travolge i paesi...»
+[L02] Monte Toc · Montaña de la que se desprendió la roca.
+    F19@92: «i 270 milioni di metri cubi di roccia che alle 22.39 del 9 ottobre 1963 si staccarono dalle pendici del Monte Toc»
+    F03@168: «La storia di queste comunità venne sconvolta dalla costruzione della diga del Vajont, che determinò la frana del monte Toc nel lago artificiale.»
+    F09@10837: (= arriba)
+    F11@412: «a massive section of Monte Toc broke loose and crashed into the Vajont reservoir in northern Italy.»
+    F15@67: «El último fragmento de terreno que sostenía la ladera norte del monte Toc se desgaja. La mole de 260 millones de metros cúbicos de tierra y roca»
+    F01@1226: «La storia di queste comunità venne sconvolta dalla costruzione della diga del Vajont, che determinò la frana del monte Toc nel lago artificiale.»
+    F02@219: (= arriba)
+    F05@789: «270 milioni di m³ di roccia si staccarono dal versante nord del monte Toc, precipitando alla velocità di 100 km/h nel bacino sottostante»
+    F23@1604: «Poco dopo le dieci e mezzo di sera 260 milioni di metri cubi di roccia si staccano dal Monte Toc e precipitano nel bacino artificiale della diga del Vajont...»
+    F31@1273: «La storia di queste comunità venne sconvolta dalla costruzione della diga del Vajont, che determinò la frana del monte Toc nel lago artificiale.»
+[L03] valle del Vajont · Valle afectado por el desastre.
+    F19@267: «il riconoscimento delle Dolomiti, che lambisce la valle del Vajont e ne conferma la centralità per comprendere la responsabilità dell’uomo nella tutela dell’ambiente.»
+    F09@9586: «En el valle del Vajont, a poco más de un kilómetro de la desembocadura del Piave y a pocos miles de metros de Longarone, fue construido por la SADE (Sociedad Adriática de Electricidad) un enorme dique de contención»
+    F05@0: «Il tragico disastro del Vajont, avvenuto la sera del 9 ottobre 1963 nell'omonima valle al confine tra il Friuli Venezia Giulia e il Veneto»
+[L04] Archivio di Stato di Belluno · Institución que custodia el Archivo del Proceso Vajont desde 2010.
+    F19@533: (= arriba)
+[L05] Longarone · Municipio mencionado a través de su alcalde.
+    F19@1376: (= arriba)
+    F24@530: «dato dai propri Presidenti, Sindaci di Longarone, Pierluigi De Cesero e Roberto Padrin, con l’impegno gestionale ed operativo dell’allora Direttore Giovanni De Lorenzi»
+    F03@1: «Vajont è il nome del torrente che scorre nella valle di Erto e Casso per confluire nel Piave, davanti a Longarone e a Castellavazzo»
+    F09@9336: «El pueblo Longarone (en la provincia de Belluno, Veneto) se levantaba en la ribera derecha del río Piave, a una altura de 430 a 500 metros»
+    F11@640: (= arriba)
+    F12@4247: «Longarone was hit more severely that those two villages in the valley by the collapse of the Toc into the reservoir.»
+    F14@3407: «Il più colpito fu Longarone, ma vittime si registrarono anche a Codissago, Castellavazzo, Erto, Casso.»
+    F15@1558: «se alza la segunda ola, que apunta hacia Longarone, el primer pueblo del valle ulterior. Sus habitantes oyen el estruendo.»
+    F01@8717: (= arriba)
+    F02@757: (= arriba)
+    F05@1136: «La terza onda carica di 50 milioni di m³ d'acqua e detriti, rase al suolo Longarone e altre frazioni minori nella Valle del Piave»
+    F20@1746: (= arriba)
+    F23@1819: «...travolge i paesi di Erto, Frassen, San Martino, Col di Spesse, Patata, Il Cristo, Casso, Pineda, Longarone, Codissago, Castellavazzo, Villanuova, Pirago, Faè e Rivalta.»
+    F04@4754: «Le piccole località di Erto, Casso e soprattutto Longarone – che fu letteralmente spazzato via – furono travolte.»
+    F31@8764: (= arriba)
+[L06] Dolomiti · Región montañosa donde ocurrió el desastre, reconocida como Patrimonio Mundial.
+    F19@2064: (= arriba)
+[L07] Vajont · Lugar de la tragedia
+    F24@18: (= arriba)
+    F03@1: «Vajont è il nome del torrente che scorre nella valle di Erto e Casso per confluire nel Piave»
+    F15@3772: «Solo la presa ha quedado intacta. Son las diez y treinta y nueve de la noche del 9 de octubre de 1963.»
+    F01@1059: (= arriba)
+    F04@2884: «Il disastro del Vajont del 1963 e l’alluvione di Firenze del 1966 rappresentano a loro modo due esempi a loro modo paradigmatici di disastri.»
+    F31@1106: «Vajont è il nome del torrente che scorre nella valle di Erto e Casso per confluire nel Piave, davanti a Longarone e a Castellavazzo, in provincia di Belluno (Italia).»
+[L08] Longarone, Italy · Lugar de la catástrofe y de las conmemoraciones del 60.º aniversario.
+    F06@78: «U.S. Army Southern European Task Force, Africa (SETAF-AF) participated in the 60th Anniversary of the Vajont Dam disaster observances in Longarone, Italy, on October 8th, 2023»
+[L09] Vajont Dam · Presa donde ocurrió el desastre y lugar de la ceremonia del 60.º aniversario.
+    F06@78: (= arriba)
+    F07@2170: (= arriba)
+    F20@1746: (= arriba)
+[L10] Veneto · Región donde están destinados los estadounidenses.
+    F06@576: «“It’s a critical part of the legacy left for those Americans fortunate enough to be stationed here in the Veneto.”»
+    F05@68: «nell'omonima valle al confine tra il Friuli Venezia Giulia e il Veneto, fu un evento così eclatante»
+    F23@1544: «9 ottobre 1963, confine tra Veneto e Friuli-Venezia Giulia. Poco dopo le dieci e mezzo di sera 260 milioni di metri cubi di roccia si staccano dal Monte Toc...»
+[L11] Vajont Reservoir · Embalse donde cayó el desprendimiento de tierra.
+    F06@690: «On October 9th, 1963, at 10:39 pm, a catastrophic landslide fell into the Vajont Reservoir, triggering a mega-tsunami that flooded the Piave Valley below»
+[L12] Piave Valley · Valle inundado por el megatsunami.
+    F06@793: (= arriba)
+[L13] Viale Soccorritori Del Vajont · Calle nombrada en honor a los socorristas italianos y estadounidenses.
+    F06@1825: (= arriba)
+[L14] Castellavazzo · Localidad situada frente a la confluencia del Vajont con el Piave.
+    F03@1: (= arriba)
+    F14@3407: (= arriba)
+    F01@1059: «Vajont è il nome del torrente che scorre nella valle di Erto e Casso per confluire nel Piave, davanti a Longarone e a Castellavazzo»
+    F31@1106: (= arriba)
+[L15] Provincia di Belluno · Provincia italiana donde se ubica la presa del Vajont.
+    F03@1: (= arriba)
+[L16] Lido di Venezia · Lugar mencionado como ejemplo de distracción de los responsables en lugar de supervisar la presa.
+    F03@2555: «Di serate mondane al Lido di Venezia invece di sopralluoghi sulla diga che già scricchiolava.»
+[L17] L'Aquila · Ciudad donde se celebraron los juicios de primera y segunda instancia.
+    F03@3834: «Il processo viene fissato davanti al Tribunale de L'Aquila per il 29 novembre dello stesso anno.»
+    F14@2278: (= arriba)
+    F31@9793: (= arriba)
+[L18] Río Piave · Río en cuyo valle se encontraba Longarone
+    F09@9336: «El pueblo Longarone (en la provincia de Belluno, Veneto) se levantaba en la ribera derecha del río Piave»
+    F15@5418: «llegan a construirse hasta siete centrales a lo largo del río Piave, uno de los más importantes del noreste del país.»
+[L19] Belluno · Provincia donde ocurrió el desastre
+    F09@9336: (= arriba)
+    F14@2278: (= arriba)
+    F04@11780: (= arriba)
+    F31@1106: (= arriba)
+[L20] Erto · Pueblo afectado por la ola
+    F09@11370: «una inmensa onda de 50 millones de metros cúbicos de agua se levanta a una altura de 260 metros sobre el pueblito de Erto»
+    F12@4145: «the social destructive dimension of the dam construction for the local communities of Erto and Casso.»
+    F14@3407: (= arriba)
+    F15@6645: «La SADE regresa al valle, esta vez para comprar al municipio de Erto el terreno necesario para dar inicio a la ejecución del proyecto.»
+    F05@1057: «verso Casso (che subì i danni minori) ed Erto (la più danneggiata tra le due).»
+    F20@4582: (= arriba)
+    F23@1819: (= arriba)
+    F04@4754: (= arriba)
+[L21] Casso · Pueblo afectado por la ola
+    F09@11493: «casi hasta tocar el campanario de Casso, y supera el límite de la represa para desbordarse y derramarse más allá del dique»
+    F12@4145: (= arriba)
+    F14@3407: (= arriba)
+    F15@1164: «La primera mitad alcanza y supera el punto más alto de la ladera donde se encuentra la pequeña aldea de Casso, sobre cuyos tejados caen auténticas bombas de agua.»
+    F05@1002: «un’onda alta 250 metri che si diramò in tre direzioni: verso Casso (che subì i danni minori) ed Erto»
+    F20@4582: (= arriba)
+    F23@1819: (= arriba)
+    F04@4754: (= arriba)
+[L22] Codissago · Lugar donde se registraron víctimas del desastre.
+    F14@3407: (= arriba)
+[L23] Universidad de Padua · Universidad donde era catedrático el geólogo Giorgio Dal Piaz y donde se realizó un modelo hidráulico de la presa.
+    F15@2555: (= arriba)
+[L24] embalse de Pontesei · Embalse construido por el equipo de Carlo Semenza donde un desprendimiento previo en 1959 causó una muerte.
+    F15@8567: «En el embalse de Pontesei, uno de los que el prestigioso equipo de Carlo Semenza ha construido para alimentar al lago del Vajont —un gigante en comparación—, aparecen síntomas preocupantes»
+[L25] Escuela de Salzburgo · Institución de geología fundada por Leopold Müller.
+    F15@9990: (= arriba)
+[L26] Erto e Casso · Comunidades en el valle del Vajont afectadas por la construcción de la presa.
+    F01@1059: (= arriba)
+    F02@6987: «In una lettera inviata alla SADE, l’amministrazione del comune di Erto e Casso descriveva un certo allarme tra la popolazione.»
+    F31@1106: (= arriba)
+[L27] Monte Salta · Montaña en cuyas laderas se encuentran las comunidades de Erto y Casso.
+    F01@3593: «Sulle pendici del monte Salta sorgono alcune piccole comunità montane, racchiuse nel comune di Erto e Casso, mentre all’incontro della gola del Vajont con la valle del Piave»
+    F31@3640: «Sulle pendici del monte Salta sorgono alcune piccole comunità montane, racchiuse nel comune di Erto e Casso»
+[L28] Valle del Piave · Valle sobre la que se vertió una de las olas que superó la represa.
+    F02@757: (= arriba)
+    F05@1196: «rase al suolo Longarone e altre frazioni minori nella Valle del Piave provocando quasi 2.000 morti.»
+[L29] Pian di Toc · Zona donde el geólogo Leopold Muller había señalado una masa inestable.
+    F02@5915: (= arriba)
+[L30] Friuli Venezia Giulia · Región donde se ubica el valle del Vajont
+    F05@68: (= arriba)
+[L31] Bacino di Pontesei · Embalse del sistema "Grande Vajont" donde ocurrió un deslizamiento previo
+    F05@3969: «3 milioni di m³ di roccia franarono nel bacino di Pontesei, uno dei bacini del sistema del Grande Vajont»
+[L32] Italy · País donde se ubica la represa
+    F07@0: (= arriba)
+[L33] Vajont River · Río donde se ubica la represa
+    F20@1746: «Vajont Dam is on the Vajont River, a tributary of the Piave River»
+[L34] Piave River · Río principal del que el Vajont es afluente
+    F20@1746: (= arriba)
+[L35] Venice · Ciudad de referencia para la ubicación
+    F20@1861: (= arriba)
+[L36] Mount Toc · Montaña de la que se desprendió el deslizamiento de tierra
+    F20@2038: (= arriba)
+[L37] Vienna · Lugar lejano donde se registraron los temblores
+    F20@3434: (= arriba)
+[L38] Brussels · Lugar lejano donde se registraron los temblores
+    F20@3434: (= arriba)
+[L39] Pirago · Pueblo destruido
+    F20@4435: (= arriba)
+[L40] Rivalta · Pueblo destruido
+    F20@4435: (= arriba)
+[L41] Villanova · Pueblo destruido
+    F20@4435: (= arriba)
+[L42] Fae · Pueblo destruido
+    F20@4435: (= arriba)
+[L43] Friuli-Venezia Giulia · Lugar del desastre
+    F23@1544: (= arriba)
+[L44] Venezia · Sede de la empresa SADE
+    F04@6898: (= arriba)
+[L45] Piave · Río en el que desemboca el torrente Vajont
+    F31@1106: (= arriba)
+[L46] Roma · Ciudad donde se celebró el juicio de casación
+    F31@10973: «Tra il 15 e il 25 marzo del 1971 si svolge, a Roma, il Processo di Cassazione, nel quale Biadene e Sensidoni vengono riconosciuti colpevoli di un unico disastro»
+</lugares>
+<descartados_del_research n="13">
+  Tina Merlin (F09): cita_literal no está en el documento
+  Once ingenieros italianos (F20): no es una persona con nombre propio
+  personal técnico (F20): no es una persona con nombre propio
+  Pierluigi De Cesero (F24): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Benigno Zaccagnini (F03): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Fabio Mandarino (F03): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Guglielmo Celso (F09): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Indro Montanelli (F02): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Arcangelo Mandarino (F02): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Lee Mauney (F07): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Francesco Cocco Ortu (F04): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Mario Alicata (F04): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Giuseppe Saragat (F04): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+</descartados_del_research>
+</pool>
+
+<tarea>Con el pool de arriba, armá la ficha del caso: personas, personas_descartadas, cronologia, historia, escenas (6–15), hechos (40–80, con nivel y sirve_para), cifras (con unidad), citas (10–25), decisiones (con su criterio), versiones, contradicciones (las que ningún criterio resuelve) y descartados. Devolvé el JSON del esquema.</tarea>

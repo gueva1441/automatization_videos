@@ -1,0 +1,695 @@
+{
+ "fuentes": [
+  {
+   "url": "https://www.youtube.com/watch?v=x7kT_iAmFC0",
+   "titulo": "TESTIMONY OF GIAMPAOLO PANSA (excerpt) - 60th Anniversary of the Vajont Tragedy",
+   "tipo": "testimonio",
+   "anio": 2023,
+   "idioma": "itali",
+   "por_que": "Testimonio directo de un periodista de la época (Giampaolo Pansa de La Stampa) con descripciones de la situación y la reacción de la gente.",
+   "prioridad": 1,
+   "url_modelo": "https://www.youtube.com/watch?v=0Lz8w0M0nC8",
+   "match": "similar 0.50",
+   "grounding_title": "youtube.com",
+   "id": "F01",
+   "slug": "youtube_2023_testimony_of_giampaolo_pansa_excerpt-F01"
+  },
+  {
+   "url": "https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S1607-050X2005000300005",
+   "titulo": "La inundación del Vajont: Representaciones periodísticas de un desastre italiano",
+   "tipo": "academico",
+   "anio": 2015,
+   "idioma": "españ",
+   "por_que": "Analiza la cobertura periodística de la época y reproduce titulares de periódicos contemporáneos, además de incluir un testimonio directo.",
+   "prioridad": 1,
+   "url_modelo": "http://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S1607-050X2015000100007",
+   "match": "similar 0.83",
+   "grounding_title": "scielo.org.mx",
+   "id": "F02",
+   "slug": "org_2015_la_inundacion_del_vajont_representaciones-F02"
+  },
+  {
+   "url": "https://www.unesco.org/en/memory-world/criminal-proceedings-vajont-dam-disaster",
+   "titulo": "Criminal Proceedings of the Vajont dam disaster - Memory of the World",
+   "tipo": "informe_oficial",
+   "anio": 1963,
+   "idioma": "inglé",
+   "por_que": "Archivos de los procesos judiciales que contienen documentación, incluyendo testimonios y peritajes de la época del evento.",
+   "prioridad": 1,
+   "url_modelo": "https://www.unesco.org/en/memory-world/criminal-proceedings-vajont-dam-disaster",
+   "match": "exacta",
+   "grounding_title": "unesco.org",
+   "id": "F03",
+   "slug": "unesco_1963_criminal_proceedings_of_the_vajont-F03"
+  },
+  {
+   "url": "https://books.google.ca/books/about/Vajont.html?id=_2mX0gEACAAJ&redir_esc=y",
+   "titulo": "Vajont: A DISASTER FORETOLD: The Landslide, the Wave, and the Human Decisions Behind Italy's 1963 Tragedy",
+   "tipo": "libro",
+   "anio": 2026,
+   "idioma": "en",
+   "por_que": "Libro que explora las decisiones humanas y las advertencias ignoradas antes del desastre de Vajont.",
+   "prioridad": 1,
+   "url_modelo": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFK4yg3DTotJI7KFr9dcLJAAtFFOcWabiYxbqzNPQaIGJ7lh2AtylArud2dRaheydJwEc2p2v-YUuldREXRniZattLGTNrCsYY9hcgm1LDrxX1czc-bOs8NfYeARjM-dHpFPT1Xg8TrxuiOJcM6GTn2r0v3aM56ojTYf3M=",
+   "match": "exacta",
+   "grounding_title": "google.com",
+   "id": "F04",
+   "slug": "google_2026_vajont_a_disaster_foretold_the-F04"
+  },
+  {
+   "url": "https://isig.it/wp-content/uploads/2012/10/Bianchizza-VAJONT.pdf",
+   "titulo": "domination of or adaptation to nature? a lesson we can still learn from the vajont",
+   "tipo": "academico",
+   "anio": 2012,
+   "idioma": "en",
+   "por_que": "Artículo académico que analiza la percepción del riesgo y las lecciones del desastre de Vajont.",
+   "prioridad": 1,
+   "url_modelo": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWdupIJbLAmoTyX_tZdGu6DCYPhXK6ADC4MYSgBaLg_azYw3tWOsOEFguxrFiGvSpcye6a8zACuaTIzoxYFKwiw5DfLvhyX81XlCc9kQt7VH5VxyaeUq8LNPQMDZlqQ-kKQy-qom7yVIk_RMRmh1Zhh2mM8KMnHTAa1FY=",
+   "match": "exacta",
+   "grounding_title": "isig.it",
+   "id": "F05",
+   "slug": "isig_2012_domination_of_or_adaptation_to-F05"
+  },
+  {
+   "url": "https://www.icrea.cat/impact/outreach/scientific-highlights/57/the-political-ecology-of-an-unnatural-disaster/",
+   "titulo": "The political ecology of an unnatural disaster",
+   "tipo": "academico",
+   "anio": 2023,
+   "idioma": "en",
+   "por_que": "Página institucional que destaca la relevancia del libro de Marco Armiero sobre la ecología política del desastre, publicado en el 60 aniversario.",
+   "prioridad": 1,
+   "url_modelo": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6QViARwzxGUmhlzN4i8WY_XjrxUH9fqaMnMfeSpdVYycYSuuwNGSicuHhxj_o9S8cr5jy6ZquV2Frv5P91t4XIIW_TX6uzJkzbWRoqrBizrlpRqyt9O6i0zRTRfDVnc_EUVRPgNjDeqtrfgqJ8lEGactIh5iMixqNmPLBWsGXvSvPWuBSH9PzDePZKRv3E1IT_vxHkZ55W1G5N-onSe4Bhx0I8l2Hde22",
+   "match": "exacta",
+   "grounding_title": "icrea.cat",
+   "id": "F06",
+   "slug": "icrea_2023_the_political_ecology_of_an-F06"
+  },
+  {
+   "url": "https://www.ilrestodelcarlino.it/veneto/cronaca/disastro-vajont-registro-unesco-memoria-mondo-jbwfvbsl",
+   "titulo": "Disastro del Vajont, atti del processo nel Registro Unesco Memoria del Mondo",
+   "tipo": "fallo_judicial",
+   "anio": 2023,
+   "idioma": "it",
+   "por_que": "Noticia sobre la inclusión de los archivos del proceso judicial del Vajont en el Registro Memoria del Mundo de la UNESCO.",
+   "prioridad": 1,
+   "url_modelo": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHVgB0Scp6CcqcTgtM0dwaEIIBvPsS3Pl9H7xmYebpQUP2d3Nj12djLosAzm6FtZFKqRFg5LY0wTBg-0yT1uZ5KshX0cwahuYcbIjeeqsxeBTgOzNNgJ19VslcaEHiKKiUwL8LLHfi7ZATj2I0Jxjrz9B15pqdJ-2Gg_mLV7l4log17WBWBw6ZznqOtjc_TMw-uJkrob8f_HIxBaKIrs23J8w==",
+   "match": "exacta",
+   "grounding_title": "ilrestodelcarlino.it",
+   "id": "F07",
+   "slug": "ilrestodelcarlino_2023_disastro_del_vajont_atti_del-F07"
+  },
+  {
+   "url": "https://www.elsaltodiario.com/italia/vajont-la-construccion-de-una-catastrofe-a-la-italiana",
+   "titulo": "Vajont, la construcción de una catástrofe a la italiana",
+   "tipo": "prensa_posterior",
+   "anio": 2022,
+   "idioma": "es",
+   "por_que": "Artículo de prensa que analiza la construcción del desastre de Vajont y las advertencias ignoradas.",
+   "prioridad": 1,
+   "url_modelo": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGqFLL5YpVT868qge-SjW_GQl5AJtF4168nzgftSI1NV_SxjXs6G6ZcCYQFyds5xS0YMAntTfU_ussTuvVNWTlkRMgU8S3yZDukSpR0_TKO1AY4Q2Ni8yw0L01cl0W9DhoFkvu24UCfHIWvq3eu1tSk4J1tFA101gm2bhJaBTVmhvV2KEohPiKKtV91CXtAt5e86vjkt-o=",
+   "match": "exacta",
+   "grounding_title": "elsaltodiario.com",
+   "id": "F08",
+   "slug": "elsaltodiario_2022_vajont_la_construccion_de_una-F08"
+  },
+  {
+   "url": "https://patrimonio.archivio.senato.it/attach///SR01/VAJONT_001SR_009UA_004DO_01.PDF",
+   "titulo": "Documento oficial del Senado italiano sobre Vajont",
+   "tipo": "informe_oficial",
+   "anio": null,
+   "idioma": "it",
+   "por_que": "Documento oficial de archivo del Senado italiano sobre el desastre de Vajont, probablemente parte de una investigación o informe.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "senato.it",
+   "id": "F09",
+   "slug": "senato_documento_oficial_del_senado_italiano-F09"
+  },
+  {
+   "url": "https://canestrinilex.com/risorse/vajont-fu-disastro-colposo-con-previsione-dellevento-cass-1971",
+   "titulo": "Vajont: Desastre culposo con previsión del evento (Corte de Casación, 1971)",
+   "tipo": "fallo_judicial",
+   "anio": 1971,
+   "idioma": "it",
+   "por_que": "Análisis o reproducción del fallo de la Corte de Casación de 1971 que estableció la naturaleza culposa del desastre de Vajont.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "canestrinilex.com",
+   "id": "F10",
+   "slug": "canestrinilex_1971_vajont_desastre_culposo_con_prevision-F10"
+  },
+  {
+   "url": "https://archivioivsla.archiui.com/oggetti/56485-commissione-dinchiesta-sulla-sciagura-del-vajont-relazione-al-ministro-dei-lavori-pubblici",
+   "titulo": "Comisión de Investigación sobre la Catástrofe de Vajont: Informe al Ministro de Obras Públicas",
+   "tipo": "informe_oficial",
+   "anio": null,
+   "idioma": "it",
+   "por_que": "Informe oficial de la comisión de investigación sobre el desastre de Vajont dirigido al Ministro de Obras Públicas.",
+   "prioridad": 1,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "archiui.com",
+   "id": "F11",
+   "slug": "archiui_comision_de_investigacion_sobre_la-F11"
+  },
+  {
+   "url": "https://www.dolomitiunesco.info/attivita/archivio-vajont-memoria-del-mondo",
+   "titulo": "Archivo Vajont: Memoria del Mundo (UNESCO)",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "it",
+   "por_que": "Página informativa sobre el reconocimiento del archivo de Vajont como parte del programa Memoria del Mundo de la UNESCO, ofreciendo contexto histórico.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "dolomitiunesco.info",
+   "id": "F12",
+   "slug": "dolomitiunesco_archivo_vajont_memoria_del_mundo-F12"
+  },
+  {
+   "url": "https://damfailures.org/sites/default/files/wp-pdf/ASDSO-Vajont_Mauney_Graham.pdf",
+   "titulo": "Vajont: Informe técnico de ASDSO por Mauney y Graham",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Informe técnico o estudio académico sobre el desastre de la presa de Vajont de una organización especializada en fallos de presas.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "damfailures.org",
+   "id": "F13",
+   "slug": "damfailures_vajont_informe_tecnico_de_asdso-F13"
+  },
+  {
+   "url": "https://www.abebooks.com/Vajont-Political-Ecology-Unnatural-Disaster-History/32443148726/bd",
+   "titulo": "Vajont: A Political Ecology of an Unnatural Disaster (A History)",
+   "tipo": "libro",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Un libro académico que analiza el desastre de Vajont desde la perspectiva de la ecología política e histórica.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "abebooks.com",
+   "id": "F14",
+   "slug": "abebooks_vajont_a_political_ecology_of-F14"
+  },
+  {
+   "url": "https://www.penguinrandomhouse.com/books/814339/vajont-by-marco-armiero/",
+   "titulo": "Vajont (por Marco Armiero)",
+   "tipo": "libro",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Un libro publicado por Penguin Random House sobre el desastre de Vajont.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "penguinrandomhouse.com",
+   "id": "F15",
+   "slug": "penguinrandomhouse_vajont_por_marco_armiero-F15"
+  },
+  {
+   "url": "https://www.ibs.it/vajont-storia-di-diga-libro-francesco-niccolini-duccio-boscoli/e/9788833140421",
+   "titulo": "Vajont: Historia de una presa (por Francesco Niccolini y Duccio Boscoli)",
+   "tipo": "libro",
+   "anio": null,
+   "idioma": "it",
+   "por_que": "Un libro que narra la historia del desastre de la presa de Vajont.",
+   "prioridad": 2,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "ibs.it",
+   "id": "F16",
+   "slug": "ibs_vajont_historia_de_una_presa-F16"
+  },
+  {
+   "url": "https://www.dvidshub.net/news/455406/remembering-vajont-dam-disaster-60th-anniversary-observance",
+   "titulo": "Remembering the Vajont Dam Disaster: 60th Anniversary Observance",
+   "tipo": "testimonio",
+   "anio": 2023,
+   "idioma": "en",
+   "por_que": "Recoge testimonios de supervivientes y rescatistas, incluyendo personal del ejército de EE.UU., ofreciendo una perspectiva humana y de la respuesta internacional.",
+   "prioridad": 3,
+   "url_modelo": "https://www.dvidshub.net/news/455328/remembering-vajont-dam-disaster-60th-anniversary-observance",
+   "match": "similar 0.88",
+   "grounding_title": "dvidshub.net",
+   "id": "F17",
+   "slug": "dvidshub_2023_remembering_the_vajont_dam_disaster-F17"
+  },
+  {
+   "url": "https://www.certifico.com/news/tragedia-della-diga-del-vajont-9-ottobre-1963",
+   "titulo": "Tragedia della diga del Vajont: 9 ottobre 1963",
+   "tipo": "prensa_posterior",
+   "anio": 2026,
+   "idioma": "it",
+   "por_que": "Sintetiza de forma cronológica los distintos fallos judiciales y las sentencias sobre las indemnizaciones civiles, ofreciendo un resumen claro de las consecuencias legales a largo plazo.",
+   "prioridad": 3,
+   "url_modelo": "https://www.certifico.com/area-riservata/strumenti-di-calcolo/news/10173-tragedia-della-diga-del-vajont-9-ottobre-1963",
+   "match": "exacta",
+   "grounding_title": "certifico.com",
+   "id": "F18",
+   "slug": "certifico_2026_tragedia_della_diga_del_vajont-F18"
+  },
+  {
+   "url": "https://www.lospaziobianco.it/beccogiallo-disastro-vajont/",
+   "titulo": "Beccogiallo: El desastre de Vajont (Graphic Novel)",
+   "tipo": "libro",
+   "anio": null,
+   "idioma": "it",
+   "por_que": "Reseña o referencia a una novela gráfica (Beccogiallo) que narra el desastre de Vajont, una forma accesible de comprender el evento.",
+   "prioridad": 3,
+   "url_modelo": null,
+   "match": "ficha_flash",
+   "grounding_title": "lospaziobianco.it",
+   "id": "F19",
+   "slug": "lospaziobianco_beccogiallo_el_desastre_de_vajont-F19"
+  }
+ ],
+ "_descartadas": [
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFMXmgwrx97unp0EVu_l0zUCWdwwJACAr1WdYi6vBHOhHnjZf9NZE86e73co0t-7LWaFptrhEwrPFk7Df7YxRquiFbND56K7ONQ2GeR-TYXvPDtuOWaeSOCYpvrpfpKLoFtHhLJ6Ip7HnRMv9WSNyv0ollQ7-I6quUtZ52YpbYW5k5HCC8DTduvyg==",
+   "titulo": "Criminal Proceedings of the Vajont dam disaster - Memory of the World - UNESCO",
+   "tipo": "informe_oficial",
+   "anio": 1971,
+   "idioma": "en",
+   "por_que": "Contiene registros de los procesos penales y documentación compleja sobre la responsabilidad humana en el desastre.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHPsSUGZthSgCflzFQaT-Vh0OH6JFLLn0PtUl8twtuIC6ZygfpNLXOkm0AcWiEgQyHMwCsNlhZMP-6az9UEyiCBMGxwPQYmQ_Uv-FErQHBItHlJWht1wVGlILV2uLpoUqU5rFstU4sr8S3oIZWo0qGuNHRVZZvpySeaM3lhHP-6TniJ0P9GeDp5EtKhaMw==",
+   "titulo": "La inundación del Vajont: Representaciones periodísticas de un desastre italiano",
+   "tipo": "academico",
+   "anio": 2011,
+   "idioma": "es",
+   "por_que": "Incluye testimonios directos de sobrevivientes como Don Carlo Onorini y referencias a sentencias judiciales.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHNSNkRRCgfx1GgDPZtc01HpYqBMDE01q1HPxANe0smx_C_KccmSNSjTseiA46Y0VbxsaWqbHy6g6tuIhoOKHg_uOblAn_jVKHFPfaYP7H98etIzU7sfXL4r2-ClogTyRm4yW3_780HCJGvVtmR",
+   "titulo": "Sopravvissuti alla tragedia del Vajont",
+   "tipo": "testimonio",
+   "anio": 2001,
+   "idioma": "it",
+   "por_que": "Ofrece testimonios directos y detallados de los sobrevivientes Micaela Coletti y Gino Mazzorana.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHk0WcIlVX3asao69vWhUZjghiY5lWSfZwKZIbGv6scK-mpPCQqTheNNCKTkH3QmxEFKtbzJOfAPMll1vRDRXVgluUOFoSrF26043ArHu9EMaFH869sH2URUdtDW3zYJEeuO5YZCbk0RXkypCqe_q7orKTvY4p8ZMr3u53uL2J380n3DPcjRJ9nvq7Ff9WG9qE=",
+   "titulo": "Remembering the Vajont Dam disaster 60 years later | Article - Army.mil",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "idioma": "en",
+   "por_que": "Contiene testimonios y citas directas de sobrevivientes (Giovanni De Lorenzi) y socorristas (Parise Ferdinando).",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFjLIEavgx8ITdRaGf326WiXcAVtnLiiJapuysoWK1NBLf0lmxXaY-rT5hg0mFNGVyB5yOmJJWcfHFgZs6MW3bmEymJlPfDD1442f0uVtNfJsrAO1alq0MPyO2_HFsKy93kc2K7SzFgwitEIR3Fb6gGD-amgmKyovJUWyo9gTcj1eIZWsobAZbETyVP",
+   "titulo": "VAJONT DAM - ASDSO Dam Failures and Lessons Learned",
+   "tipo": "academico",
+   "anio": 2010,
+   "idioma": "en",
+   "por_que": "Menciona informes del comité técnico del gobierno italiano y los procesos judiciales que llevaron a condenas por homicidio involuntario.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHwOkqJ2x3PXH5_EBiJL6W20z05HX3qH2jlJdZtWjr9SYcIAN4hCQqbm92MaSHmAw0A8tpvC3Hh0V8nodqJnbSSUaVD-NzdgotwCh6n48cPH0IKDEFlE4YV1cSim1E=",
+   "titulo": "Il disastro del Vajont – 1963 - Fondazione Stava 1985 onlus",
+   "tipo": "informe_oficial",
+   "anio": 1971,
+   "idioma": "it",
+   "por_que": "Detalla el proceso judicial que se celebró entre 1968 y 1971, con el reconocimiento de responsabilidad penal.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG61YJFWoIB5Wvgmh4LcLdww4PsfEbq7ZYbXYm9ry0awKr3ZU_6Kdf5hYnBQa0klPfpNrBSp4-uhYc2Tjp8WrQwEDkfv6Asx_cmiWJvVMLQ3aySwNnEx94CUkZqxn9TgGI24K5KJw==",
+   "titulo": "\"Il dovere del ricordo\": la lezione del Vajont sessant'anni dopo il disastro - YouTube",
+   "tipo": "documental",
+   "anio": 2024,
+   "idioma": "it",
+   "por_que": "Documental que incluye 'parole di sopravvissuti' (palabras de sobrevivientes) y análisis de expertos.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQElR9epyzXhbSOP3FsuydWd6e63BPyZJS9Kbqw115IvRgWqMU_oqCLkrnJ-0wekgbycnQVmbzBhskXKqw1Wq11IWHIG-SFzn0XoeSQcSyhuzebpiH0Ml-9gwKZPn-eMTxHT3KuoRw==",
+   "titulo": "\"VAJONT, PER NON DIMENTICARE\": testimonianza di Silvio Caratozzolo a 60 anni dalla Tragedia - YouTube",
+   "tipo": "testimonio",
+   "anio": 2023,
+   "idioma": "it",
+   "por_que": "Testimonio directo de Silvio Caratozzolo, socorrista en la tragedia del Vajont.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFY268Pw1mdRyAQC5PvGZSKi7SIFQjUP7vDrbpEqxvEslLyscdGdqvAFLOk7N2gf8xRiwNyYROkEcoIcGs6w4OtBAMx6Yybn0NVmcWYepXzci7sYZNZICLP-V2gphvlD7KEknKc_Q==",
+   "titulo": "La testimonianza di Nereo, soccorritore al Vajont - YouTube",
+   "tipo": "testimonio",
+   "anio": 2019,
+   "idioma": "it",
+   "por_que": "Testimonio directo de Nereo, uno de los socorristas que actuaron en el desastre.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFMY4B0dTHbW78ciJFtMUsChkm96e802nOzR7YB9zxlbtleoZkjjLpLAIAe4U0CC_Q6w6axVKuNjImHYZhKP-JhrhjgCxrK6zScbsamzyR51L2jbAh6RHVwIFh0A6tZAA0H1R4PUnNAy6FQRtsPMOBCQAF5snJsdgqj9m-hyJrhch2yVZV3cyOukeWo8MZcvn14TGoAZfvbXVaFLcdbpeVPELySM5evZVHs7DVzWZSKSuC47gMAavKFDn8paDFx4B700zDlsCipi8-7yK5hiKY=",
+   "titulo": "Uno de los peores desastres por negligencia humana: el día que una megaola arrasó varios pueblos en Italia - La Nación",
+   "tipo": "prensa_posterior",
+   "anio": 2022,
+   "idioma": "es",
+   "por_que": "Presenta el relato de dos sobrevivientes del desastre con citas directas.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.senato.it/application/xmanager/projects/leg18/file/repository/commissione_inchiesta_vajont_inventario_e_documenti.pdf",
+   "titulo": "Commissione parlamentare d'Inchiesta sul disastro del Vajont: inventario e documenti",
+   "tipo": "informe_oficial",
+   "anio": 1965,
+   "idioma": "it",
+   "por_que": "Contiene el inventario de los documentos de la Comisión Parlamentaria de Investigación, un documento primario para entender el alcance de la investigación oficial.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.archiviostoricofotografico.senato.it/file/materiale/Archivio_storico/Commissione_parlamentare_d_inchiesta_sul_disastro_del_Vajont/Allegati_alla_relazione_finale/Allegati_alla_relazione_finale.pdf",
+   "titulo": "Relazione sugli accertamenti e sulle conclusioni della Commissione parlamentare di inchiesta sul disastro del Vajont",
+   "tipo": "informe_oficial",
+   "anio": 1965,
+   "idioma": "it",
+   "por_que": "Es el texto completo de la relación final de la comisión parlamentaria de investigación, fundamental para conocer las conclusiones oficiales sobre las causas y responsabilidades.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.canestrinilex.it/wp-content/uploads/2019/08/Vajont-Cassazione-1971.pdf",
+   "titulo": "Vajont, fu disastro colposo con previsione dell'evento (Cass., 1971)",
+   "tipo": "fallo_judicial",
+   "anio": 1971,
+   "idioma": "it",
+   "por_que": "Ofrece el texto de la sentencia de la Corte de Casación que estableció la culpa y la previsibilidad del desastre, un documento judicial clave.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://patrimonioculturale.ivsla.it/index.php/scheda/Ghetti-Augusto/38749-Commissione-d-inchiesta-sulla-sciagura-del-Vajont---Relazione-al-Ministro-dei-Lavori-Pubblici",
+   "titulo": "Commissione d'inchiesta sulla sciagura del Vajont - Relazione al Ministro dei Lavori Pubblici",
+   "tipo": "informe_oficial",
+   "anio": 1964,
+   "idioma": "it",
+   "por_que": "Texto completo de la relación de la Comisión Administrativa de Investigación al Ministro de Obras Públicas, un informe gubernamental primario e inmediato al desastre.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.archiviodistatobelluno.it/wp-content/uploads/2016/06/Le-carte-del-Vajont_mostra.pdf",
+   "titulo": "Le carte del Vajont. Dalla diga al processo",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "it",
+   "por_que": "Catálogo de una exposición de documentos del Archivo de Estado de Belluno, que describe la correspondencia, informes y peritajes sobre los peligros identificados antes de la catástrofe.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.disaster-law.ifrc.org/content/biadene-et-al-v-prosecutor",
+   "titulo": "Biadene et al v Prosecutor - Disaster Law - IFRC",
+   "tipo": "fallo_judicial",
+   "anio": 1971,
+   "idioma": "en",
+   "por_que": "Resume en inglés las decisiones judiciales clave, desde el juicio inicial hasta la sentencia de la Corte Suprema, útil para una comprensión rápida del proceso legal.",
+   "prioridad": 2,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.cultura.gov.it/comunicato/vajont-terminata-digitalizzazione-gli-atti-processuali-resteranno-allarchivio-di-stato-di-belluno",
+   "titulo": "Vajont, terminata digitalizzazione. Gli atti processuali resteranno all'Archivio di Stato di Belluno",
+   "tipo": "informe_oficial",
+   "anio": 2024,
+   "idioma": "it",
+   "por_que": "Anuncio oficial del Ministerio de Cultura sobre la digitalización y custodia permanente de los 5205 documentos procesales en el Archivo de Estado de Belluno.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.redalyc.org/pdf/122/12218882008.pdf",
+   "titulo": "La inundación del Vajont: Representaciones periodísticas de un desastre italiano",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "es",
+   "por_que": "Analiza la cobertura periodística de la época y cita testimonios directos extraídos de los expedientes judiciales, ofreciendo una perspectiva en español.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://damfailures.org/wp-content/uploads/2019/07/Vajont-Dam-PPT.pdf",
+   "titulo": "VAJONT DAM - ASDSO Dam Failures and Lessons Learned",
+   "tipo": "academico",
+   "anio": null,
+   "idioma": "en",
+   "por_que": "Presentación técnica que resume la cronología, las causas y las lecciones aprendidas desde una perspectiva de la ingeniería y la seguridad de presas.",
+   "prioridad": 3,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://impronteneltempo.it/1963-la-tragedia-del-vajont/",
+   "titulo": "1963 - La tragedia del Vajont",
+   "tipo": "prensa_epoca",
+   "anio": 1963,
+   "idioma": "itali",
+   "por_que": "Contiene citas directas de prensa de la época (Corriere della Sera, 1963) y relatos que simulan testimonios directos de lo sucedido, incluyendo la hora.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.raiplay.it/video/2016/10/Sopravvissuti-alla-tragedia-del-Vajont-96350e41-0f49-436f-b472-35804561a0f9.html",
+   "titulo": "Sopravvissuti alla tragedia del Vajont",
+   "tipo": "testimonio",
+   "anio": 2001,
+   "idioma": "itali",
+   "por_que": "Contiene testimonios directos de sobrevivientes (Micaela Coletti y Gino Mazzorana) con detalles de lo vivido la noche del desastre.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.myitalianbazaar.com/it/riviste-e-giornali-depoca/9272-domenica-del-corriere-22-ottobre-1963-la-tragedia-del-vajont.html",
+   "titulo": "DOMENICA DEL CORRIERE 22 ottobre 1963 La Tragedia del Vajont",
+   "tipo": "prensa_epoca",
+   "anio": 1963,
+   "idioma": "itali",
+   "por_que": "Es una revista original de la época del evento, que cubre la tragedia del Vajont.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.ebay.it/itm/364506509012",
+   "titulo": "La Domenica del Corriere 17 Novembre 1963 Disastro del Vajont Natta Nobel Verne",
+   "tipo": "prensa_epoca",
+   "anio": 1963,
+   "idioma": "itali",
+   "por_que": "Es una revista original de la época del evento, con testimonios de periodistas.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://corrierealpi.gelocal.it/belluno/cronaca/2013/05/28/news/vajont-il-disastro-raccontato-dalle-prime-pagine-1.7163004",
+   "titulo": "Vajont, il disastro raccontato dalle prime pagine - Corriere delle Alpi",
+   "tipo": "prensa_posterior",
+   "anio": 2013,
+   "idioma": "itali",
+   "por_que": "Describe una exposición de primeras páginas de periódicos italianos de la época (1963), mencionando agencias y periodistas clave.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://damsafety.org/sites/default/files/files/Vajont%20Dam%20Failure_0.pdf",
+   "titulo": "VAJONT DAM - ASDSO Dam Failures and Lessons Learned",
+   "tipo": "academico",
+   "anio": 2010,
+   "idioma": "inglé",
+   "por_que": "Menciona la publicación de artículos en periódicos locales de la época y las acciones legales subsiguientes, además de incluir una línea de tiempo y descripciones de testigos.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://www.tv2000.it/blog/2018/10/09/10-ottobre-1963-i-giornali-raccontando-la-tragedia-del-vajont/",
+   "titulo": "10 ottobre 1963: i giornali raccontando la tragedia del Vajont - TGTG - Tv2000",
+   "tipo": "prensa_posterior",
+   "anio": 2018,
+   "idioma": "itali",
+   "por_que": "Describe cómo los periódicos de la época narraron la tragedia del Vajont, incluyendo el momento exacto del evento.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGT1kQsCr5i_75htBtSvXR_KR16u2BwAZJBEoNUSCdeKNpaTef2hMIsK8eYcWtpe1X_Nrtz3KMT9N925zBbr1muCQNttRby2VjS_TYx74CsSo-OYK_fcOv30DB1ayBn_p8Fwma4BJm0O_i3WsLvWT22e0wPDC3LaTYNJE9INj_vKkTl9u7HT_zK243xBvLodc7O9zObJg==",
+   "titulo": "Vajont: The Political Ecology of an Unnatural Disaster",
+   "tipo": "libro",
+   "anio": 2026,
+   "idioma": "en",
+   "por_que": "Libro académico que analiza las implicaciones políticas y ecológicas del desastre de Vajont.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGDhPkf49NNwYy7aFP_GdJj7MWuOP_Vv9FZ8uUeqhed-pWjPSD0OQlk3F3WyHkpLRlyhUbyz4XtsD6kNw1VkRg8rhclmmc3wX8ZVUWA6ZhTamSw9DdDgiLtVd3KAyn",
+   "titulo": "Long-term intergenerational transmission of memories of the Vajont disaster",
+   "tipo": "academico",
+   "anio": 2022,
+   "idioma": "en",
+   "por_que": "Artículo académico sobre las consecuencias psicológicas y la transmisión intergeneracional de la memoria del desastre de Vajont.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGQcd0dKEXG2WghsKUKjpEeFvrtJg01veUzKK38ZJ2MaBjS14NOwrjzVMnQUWXPBKur_W8hosCOHQp_soDWujFy6zdrMPahSHCGrkQMoxfJ0FpSURnXhV2tUONbbUWrOZ0oGrISvpNckMmAm2XQ5K1_akQyqEGprXpEhXrKjm-WI9pD2VboJgstpHDcNUwa-7b2urICvMYK6Fs=",
+   "titulo": "Padrin: “Disastro del Vajont, l'uomo ha messo il profitto davanti a tutto”",
+   "tipo": "prensa_posterior",
+   "anio": 2023,
+   "idioma": "it",
+   "por_que": "Artículo de prensa del 60 aniversario del desastre, con entrevista al alcalde de Longarone sobre la responsabilidad humana.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFgTMR0wNJJK85e548sOlRrRzZrVrMZpyxoruS9Csa_KaEMPU0KKKQzRj3YvwEzUJqj65NVgdPA29F68NsZ1Doj7UQF0Wg8w1RX9HosKhHbQRQEkHKwwGzWv5ucSuH9T8i3mmFNm-ZPsqOolux5Ohtw_B_eIqLVewAfQAJ54gOeqektNN7tafx0ojB_ixd1uayi_BW3K3CaZZPAmuc=",
+   "titulo": "Vajont. Storia di una diga",
+   "tipo": "libro",
+   "anio": 2018,
+   "idioma": "it",
+   "por_que": "Novela gráfica que narra la historia de la presa de Vajont y el desastre.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  },
+  {
+   "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH1wETdtTwIxtlUSmuv4MlZ3ORTORC3rnpI0at2KMBgZu_3ik8oWRut2nOp1LmKrhSpAyQfcL2uYRhYau-_nM1OgJ41qNfrwIbMPaMlcnQSVwkjRakUuqLKvbTUPWSGUVSjHEG8T8_QqW88aXwGrWfx9BhO7tjD41jFW4rK45uXAkkW7bzAR13Di1vPvpGFFT6IH2g_mLV7l4log17WBWBw6ZznqOtjc_TMw-uJkrob8f_HIxBaKIrs23J8w==",
+   "titulo": "El desastre de la presa de Vajont: revelando la ciencia, el poder y la justicia narrativa bajo las aguas",
+   "tipo": "academico",
+   "anio": 2023,
+   "idioma": "es",
+   "por_que": "Resumen de una conferencia académica sobre la ciencia, el poder y la justicia narrativa en el desastre del Vajont.",
+   "prioridad": 1,
+   "motivo": "ninguna URL del grounding se le parece"
+  }
+ ],
+ "_grounding": [
+  {
+   "title": "senato.it",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1nepRDXvtt3RaOCiJSX6u8DPyAKO3Cl2o_7ET4uTvE1MGmTecKkpDSnt-439UvGVIIqmdxXZjGkyooQQ3jQecGxo4MJnoZzDbh-_07DRbksujT-VvD4iIufIAGPNxqBCJDeFbPxa5jNeAEReAzzorzckTYZUK-q24VRYz0bNTHq2A96qeLRBpI02pJt_o",
+   "url": "https://patrimonio.archivio.senato.it/attach///SR01/VAJONT_001SR_009UA_004DO_01.PDF"
+  },
+  {
+   "title": "canestrinilex.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGvUzAGVMP9t0TzWZhHhBmaPEsu8B_kz1aBJ98olrhasTRUAy6IRfieWkjGsIHx6Ac-gOkY1rtoliLtsJdPz2oAkkPtfH5zBx00vR5YzXM73RetBuhKjJ1IDXipbJps6GsOxsk4_Ieaw82vsHor2iUnS5G8frfA6oVIUvyhcT3g_x76ph0OSyGrTeFYPZmGzdN1Z3OGMqg4ouMUuA==",
+   "url": "https://canestrinilex.com/risorse/vajont-fu-disastro-colposo-con-previsione-dellevento-cass-1971"
+  },
+  {
+   "title": "archiui.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGy08hwqwfyIClNGCdGQbzPbRkyA3uFMmg9Lxl4ZXVk7D_LRdWaQOEjuRok7MQEferRDqruacoZHgR3eO2fj0_TJNZMVJNmajGMHOGYRMC5BgwiFy7hSkbujZp0VSFjqanSZ4ToT8VaUeqSxgqcaIZWyvHP5dBcTtbhXZtjfabm2OoOo7LeSIX2bJ_EjqyURpJGOQKEGqpVA0Zc8sDhHtgi_BBQUpjFPPBtxsbL6y9oF87CzJMaonCfq47H1HCdmmNqtG9dag8=",
+   "url": "https://archivioivsla.archiui.com/oggetti/56485-commissione-dinchiesta-sulla-sciagura-del-vajont-relazione-al-ministro-dei-lavori-pubblici"
+  },
+  {
+   "title": "unesco.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGVRUzOLbBDnUWQNJ-dYLNc2-tiFiYRhWdpTZciqqdI5UhxNs_nQGK_FePnRvnwU-tjMZqFKk6ilDCWBfaFYSA-7kVdpx_6uYaDYCuUJDYh-HUjYqnO4Ry7gEkryGWFabL26g19LvvyQeKgzPN0ojfXu3YbgtpBZxQ87OsYZZ98dVApdzGCa-a-Id4=",
+   "url": "https://www.unesco.org/en/memory-world/criminal-proceedings-vajont-dam-disaster"
+  },
+  {
+   "title": "dolomitiunesco.info",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEdBHeJ79yTU6rkpW8clP3cvti9tMT91hvOMUUsUWEuTVRPzp2UC32Alf6hpG1dc7g4yRr_4dxmJdG3VIsZs0wjC6mXUkzCbILr0XiR7cUynTe4Id0Obcm_sPESPXSEEL9_aMqlpuuxl0_Fym93sdWWt3tlOz9ZGIYNBPf6YEadHmSwKx7t",
+   "url": "https://www.dolomitiunesco.info/attivita/archivio-vajont-memoria-del-mondo"
+  },
+  {
+   "title": "dvidshub.net",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEDuARjh5SuNUu9-XMM2iFQP633zh4AP7KkCf6h-t_Jc9iraVW8IwtXeneZNMTbVtRgwmaGcC4-Apcty2XtQ1Z4xS5amUW8YfPfZiDCFjIH9ode_M9-ndKjHhn2KPuwt7o5gWL0y5u4SKYrS-ZfdGLDPO_0dIl-MyEaOC7Mf1IvZ4mJDkpI7jdycp5ZEXhoSUgM8PjEXEhJVkb3Mw==",
+   "url": "https://www.dvidshub.net/news/455406/remembering-vajont-dam-disaster-60th-anniversary-observance"
+  },
+  {
+   "title": "scielo.org.mx",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF9m55vyVbcXkOWsEAiUbWeMml0toAvGEA_lVH01LYyM2zqlSAoW-APMO5vkYuoGZPUAH1lBosZTFrG_BqJBSQUMA4iYubp9CuqhMJnbWXe4hejvBt88qKfuMgH_1XHZHze2cg1fhCkF1kDt_r79fXx3jwhLKII1bUdTpG51RCdc8k224R8NwCBtMBhJ_qr",
+   "url": "https://www.scielo.org.mx/scielo.php?script=sci_arttext&pid=S1607-050X2005000300005"
+  },
+  {
+   "title": "damfailures.org",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFfjSMN0XMkQldlll7C54UH3kDARr6GQWa-r8xKy_NjZSMh7hYPfuolW9DMbhzcHT8Xcsq2jvGMZ3JU_lwCwHF8atCoSfaMXrU7Wm8hTcDSaaT8klW9dL2y3KKRKo-VssEm37QpoRsi8aK7bLitaWfBmX0lx2eSokI99zDtuDxlQ3yYhrM7X75dpG4Ing==",
+   "url": "https://damfailures.org/sites/default/files/wp-pdf/ASDSO-Vajont_Mauney_Graham.pdf"
+  },
+  {
+   "title": "certifico.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFcFen30gsb8FKl3RbZyB2qbbGb0JkSKRZamypRhEbQwDwiy2CcBVoVPHU4VqmwfFmxCqPWpDLfo8cCyWzI9asK2lBmKJZxXw2_PfkrGM6KmQB_s0xFdhaSc7mnB43JG-B3r1Ox8Ump-gUrwNSrrH6t9tEdg8D9k8tRCx343WL4w7PKtsdZOYY=",
+   "url": "https://www.certifico.com/news/tragedia-della-diga-del-vajont-9-ottobre-1963"
+  },
+  {
+   "title": "abebooks.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHCkU-UIFOjAa5N9xBg3xdWclrbFQC0uWNGqWbhE2qKKwFKgMeVpa2FRBxNi9bHa9olKz2ekVd_uoGEdeNQ4-9E7d4YJe7JR6TwcB0uoIoLgcCCaZOZccQo-Ke-34bJVBTdYCfdbGMbLa_CatzQoBfIBZXsgBMHVe6HG9boP1yOlPVYevSyjrVH19s8HpC3UY5iuER20LA=",
+   "url": "https://www.abebooks.com/Vajont-Political-Ecology-Unnatural-Disaster-History/32443148726/bd"
+  },
+  {
+   "title": "penguinrandomhouse.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFwvEOtaMBhnpa1bAF5eZs40oSjjDdlKXzUi46myu1HtTjbc6Gn-lgw5cgXkiPN0XEDa53LZysTAVnYpssShZ79DpmDKitPoixq2px9KGfIPDKIERYDwsqnrIIAL93q2ZxWwOVWal3BtDEQWvIKMHS19HfBz7wGlEejg3KM8agfkRwiiw==",
+   "url": "https://www.penguinrandomhouse.com/books/814339/vajont-by-marco-armiero/"
+  },
+  {
+   "title": "google.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFK4yg3DTotJI7KFr9dcLJAAtFFOcWabiYxbqzNPQaIGJ7lh2AtylArud2dRaheydJwEc2p2v-YUuldREXRniZattLGTNrCsYY9hcgm1LDrxX1czc-bOs8NfYeARjM-dHpFPT1Xg8TrxuiOJcM6GTn2r0v3aM56ojTYf3M=",
+   "url": "https://books.google.ca/books/about/Vajont.html?id=_2mX0gEACAAJ&redir_esc=y"
+  },
+  {
+   "title": "nih.gov",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGDhPkf49NNwYy7aFP_GdJj7MWuOP_Vv9FZ8uUeqhed-pWjPSD0OQlk3F3WyHkpLRlyhUbyz4XtsD6kNw1VkRg8rhclmmc3wX8ZVUbg0_0VzJUWA6ZhTamSw9DdGgiLtVd3KAyn",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/31697107/"
+  },
+  {
+   "title": "youtube.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGMg1I-JGtf-Cmuakv_GCtd2s2KuAZx1oAGks2ndEUIDQkftG6aLxUkzeUmkXf4kBPC-3d42y4968a9RvLGdEooXm2Xs5_2Y3acmsDRRAODyp-zvugC2q6R2G2CHpaijHTIMiUFZzA=",
+   "url": "https://www.youtube.com/watch?v=x7kT_iAmFC0"
+  },
+  {
+   "title": "interris.it",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGQcd0dKEXG2WghsKUKjpEeFvrtJg01veUzKK38ZJ2MaBjS14NOwrjzVMnQUWXPBKur_W8hosCOHQp_soDWujFy6zdrMPahSHCGrkQMoxfJ0FpSURnXhV2tUONbbUWrOZ0oGrISvpNckMmAm2XQ5K1_akQyqEGprLpEhXrKjm-WI9pD2VboJgstpHDcNUwa-7b2urICtMYK6Fs=",
+   "url": "https://www.interris.it/copertina/padrin-disastro-vajont-uomo-ha-messo-profitto-davanti-tutto/"
+  },
+  {
+   "title": "ibs.it",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFgTMR0wNJJK85e548sOlRrRzZrVrMZpyxoruS9Csa_KaEMPU0KKKQzRj3YvwEzUJqj65NVgdPA29F68NsZ1Doj7UQF0Wg8w1RX9HosKhHbQRQEkHKwwGzWv5ucSuH9T8i3mmFNm-ZPsqOolux5Ohtw_B_eIqLVewAfQAJ54gOeqektNN9tafx0ojB_ixd1uayi_BW3K3CaZZPAmuc=",
+   "url": "https://www.ibs.it/vajont-storia-di-diga-libro-francesco-niccolini-duccio-boscoli/e/9788833140421"
+  },
+  {
+   "title": "lospaziobianco.it",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH6FO8sX0UufhtHSYWQRXAlo_Gsg6FvPDCoP_KMFgNgwB7kaBKNF2Pem9WTHi_EzSxws1M7ihOUTcBjJH-YXyfD-xbAocT4BiPs-10Ms28wJKe0qEd-GFJdihq0OsY6-48HbX1mKQ4yES4eGxR0oth7CQpRGJc=",
+   "url": "https://www.lospaziobianco.it/beccogiallo-disastro-vajont/"
+  },
+  {
+   "title": "isig.it",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWdupIJbLAmoTyX_tZdGu6DCYPhXK6ADC4MYSgBaLg_azYw3tWOsOEFguxrFiGvSpcye6a8zACuaTIzoxYFKwiw5DfLvhyX81XlCc9kQt7VH5VxyaeUq8LNPQMDZlqQ-kKQy-qom7yVIk_RMRmh1Zhh2mM8KMnHTAa1FY=",
+   "url": "https://isig.it/wp-content/uploads/2012/10/Bianchizza-VAJONT.pdf"
+  },
+  {
+   "title": "icrea.cat",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG6QViARwzxGUmhlzN4i8WY_XjrxUH9fqaMnMfeSpdVYycYSuuwNGSicuHhxj_o9S8cr5jy6ZquV2Frv5P91t4XIIW_TX6uzJkzbWRoqrBizrlpRqyt9O6i0zRTRfDVnc_EUVRPgNjDeqtrfgqJ8lEGactIh5iMixqNmPLBWsGXvSvPWuBSH9PzDePZKRv3E1IT_vxHkZ55W1G5N-onSe4Bhx0I8l2Hde22",
+   "url": "https://www.icrea.cat/impact/outreach/scientific-highlights/57/the-political-ecology-of-an-unnatural-disaster/"
+  },
+  {
+   "title": "ilrestodelcarlino.it",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHVgB0Scp6CcqcTgtM0dwaEIIBvPsS3Pl9H7xmYebpQUP2d3Nj12djLosAzm6FtZFKqRFg5LY0wTBg-0yT1uZ5KshX0cwahuYcbIjeeqsxeBTgOzNNgJ19VslcaEHiKKiUwL8LLHfi7ZATj2I0Jxjrz9B15pqdJ-2Gg_mLV7l4log17WBWBw6ZznqOtjc_TMw-uJkrob8f_HIxBaKIrs23J8w==",
+   "url": "https://www.ilrestodelcarlino.it/veneto/cronaca/disastro-vajont-registro-unesco-memoria-mondo-jbwfvbsl"
+  },
+  {
+   "title": "elsaltodiario.com",
+   "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGqFLL5YpVT868qge-SjW_GQl5AJtF4168nzgftSI1NV_SxjXs6G6ZcCYQFyds5xS0YMAntTfU_ussTuvVNWTlkRMgU8S3yZDukSpR0_TKO1AY4Q2Ni8yw0L01cl0W9DhoFkvu24UCfHIWvq3eu1tSk4J1tFA101gm2bhJaBTVmhvV2KEohPiKKtV91CXtAt5e86vjkt-o=",
+   "url": "https://www.elsaltodiario.com/italia/vajont-la-construccion-de-una-catastrofe-a-la-italiana"
+  }
+ ],
+ "prompt_version": "f7a-1",
+ "_focos_grounding": {
+  "pro": 1,
+  "flash": 1,
+  "sin": 2
+ }
+}

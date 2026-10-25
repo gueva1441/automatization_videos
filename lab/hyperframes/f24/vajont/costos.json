@@ -1,0 +1,453 @@
+{
+ "etapas": [
+  {
+   "tema": "vajont",
+   "etapa": "research",
+   "usd": 1.7913,
+   "segundos": 1894.7,
+   "llamadas": [
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "research v3 perfil del seed",
+     "in": 264,
+     "out": 118,
+     "thinking": 671,
+     "usd": 0.0021
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 373,
+     "out": 1957,
+     "thinking": 415,
+     "usd": 0.0242
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 410,
+     "out": 2335,
+     "thinking": 284,
+     "usd": 0.0267
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 410,
+     "out": 1912,
+     "thinking": 303,
+     "usd": 0.0227
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 410,
+     "out": 404,
+     "thinking": 701,
+     "usd": 0.0116
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 descubrimiento (Flash)",
+     "in": 197,
+     "out": 2697,
+     "thinking": 2809,
+     "usd": 0.0138
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 371,
+     "out": 2138,
+     "thinking": 785,
+     "usd": 0.0297
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 408,
+     "out": 1989,
+     "thinking": 597,
+     "usd": 0.0264
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 408,
+     "out": 2087,
+     "thinking": 1610,
+     "usd": 0.0375
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 408,
+     "out": 2081,
+     "thinking": 305,
+     "usd": 0.0244
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 359,
+     "out": 2552,
+     "thinking": 1407,
+     "usd": 0.04
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 396,
+     "out": 1798,
+     "thinking": 506,
+     "usd": 0.0235
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 396,
+     "out": 2091,
+     "thinking": 565,
+     "usd": 0.0271
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 396,
+     "out": 1898,
+     "thinking": 478,
+     "usd": 0.0243
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 descubrimiento (Flash)",
+     "in": 183,
+     "out": 1711,
+     "thinking": 8557,
+     "usd": 0.0257
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 361,
+     "out": 2079,
+     "thinking": 315,
+     "usd": 0.0244
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 398,
+     "out": 2115,
+     "thinking": 313,
+     "usd": 0.0248
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 398,
+     "out": 1992,
+     "thinking": 483,
+     "usd": 0.0252
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 398,
+     "out": 473,
+     "thinking": 741,
+     "usd": 0.0126
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 descubrimiento (Flash)",
+     "in": 185,
+     "out": 3045,
+     "thinking": 12106,
+     "usd": 0.0379
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 fichas del grounding",
+     "in": 3264,
+     "out": 1664,
+     "thinking": 4029,
+     "usd": 0.0152
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "research v3 vocabulario del caso",
+     "in": 1160,
+     "out": 835,
+     "thinking": 3294,
+     "usd": 0.0107
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R2 fichas desde el texto",
+     "in": 12395,
+     "out": 903,
+     "thinking": 5688,
+     "usd": 0.0202
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F01 1/1",
+     "in": 5156,
+     "out": 7047,
+     "thinking": 1432,
+     "usd": 0.0912
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F02 1/1",
+     "in": 4069,
+     "out": 7969,
+     "thinking": 1501,
+     "usd": 0.0998
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F03 1/1",
+     "in": 2796,
+     "out": 5853,
+     "thinking": 1660,
+     "usd": 0.0786
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F04 1/1",
+     "in": 10189,
+     "out": 7430,
+     "thinking": 1408,
+     "usd": 0.1011
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F05 1/1",
+     "in": 3049,
+     "out": 5305,
+     "thinking": 1457,
+     "usd": 0.0714
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F06 1/1",
+     "in": 2009,
+     "out": 4932,
+     "thinking": 1443,
+     "usd": 0.0663
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F07 1/1",
+     "in": 1859,
+     "out": 1288,
+     "thinking": 1438,
+     "usd": 0.0296
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F09 1/1",
+     "in": 13961,
+     "out": 8038,
+     "thinking": 1489,
+     "usd": 0.1127
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F11 1/1",
+     "in": 1650,
+     "out": 1447,
+     "thinking": 1349,
+     "usd": 0.03
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F12 1/1",
+     "in": 9794,
+     "out": 4571,
+     "thinking": 1506,
+     "usd": 0.073
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F14 1/1",
+     "in": 1943,
+     "out": 2784,
+     "thinking": 1518,
+     "usd": 0.0454
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F15 1/1",
+     "in": 7169,
+     "out": 8733,
+     "thinking": 1298,
+     "usd": 0.1093
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F19 1/1",
+     "in": 1621,
+     "out": 3332,
+     "thinking": 1312,
+     "usd": 0.0485
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F20 1/1",
+     "in": 2627,
+     "out": 4088,
+     "thinking": 1377,
+     "usd": 0.0579
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F21 1/1",
+     "in": 1871,
+     "out": 1231,
+     "thinking": 1483,
+     "usd": 0.0295
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F22 1/1",
+     "in": 1284,
+     "out": 1495,
+     "thinking": 1612,
+     "usd": 0.0327
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F23 1/1",
+     "in": 2030,
+     "out": 1591,
+     "thinking": 1690,
+     "usd": 0.0353
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F24 1/1",
+     "in": 1225,
+     "out": 1609,
+     "thinking": 1966,
+     "usd": 0.0373
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F31 1/1",
+     "in": 5173,
+     "out": 8849,
+     "thinking": 1612,
+     "usd": 0.1111
+    }
+   ],
+   "color": "verde",
+   "error": null
+  },
+  {
+   "tema": "vajont",
+   "etapa": "ficha",
+   "usd": 0.4374,
+   "segundos": 397.0,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "ficha_caso",
+     "in": 52646,
+     "out": 25523,
+     "thinking": 7687,
+     "usd": 0.4374
+    }
+   ],
+   "prompt_md5": {
+    "sistema": "070b75dff58aecfa407fac3d62020ce4",
+    "usuario": "4ecb5b996034faf3dc670eeced006c43"
+   }
+  },
+  {
+   "tema": "vajont",
+   "etapa": "escaleta",
+   "usd": 0.2794,
+   "segundos": 357.3,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 15486,
+     "out": 5997,
+     "thinking": 5120,
+     "usd": 0.1421
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 15892,
+     "out": 4918,
+     "thinking": 5631,
+     "usd": 0.1373
+    }
+   ],
+   "modelo": "gpt-6.1-sol",
+   "log": [
+    "  [escaleta] compuerta del pool: verde {'datos': 245, 'citas_verificadas': 45, 'elegibles_humano': 23, 'eventos_con_fecha': 78, 'personas_con_nombre': 52}",
+    "  [escaleta v2] intento 1: 12 bloqueante(s) ['beat 2: dato_central «P49: ANTES DE SER UNA SOBREVIVIENTE, MICAELA ERA UNA NIÑA EN SU CASA. NO AGREGAR EDAD EXACTA, FAMILIARES, ESCUELA NI RUTINAS.» no existe en el pool (o no es D/T/Q)', 'beat 13: dato_central «P49: MICAELA COLETTI SOBREVIVIÓ Y POSTERIORMENTE PRESIDIÓ EL COMITÉ DE SOBREVIVIENTES DEL VAJONT.» no existe en el pool (o no es D/T/Q)', 'antagonista «Società Adriatica di Elettricità — SADE» no es una persona del pool ni una institución de la ficha', 'a_pantalla D104 también está en un beat: lo que va a pantalla no lo dice la voz'] · 67 reparación(es) · 15 a métricas",
+    "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 46 reparación(es) · 15 a métricas"
+   ]
+  },
+  {
+   "tema": "vajont",
+   "etapa": "guion",
+   "usd": 0.9138,
+   "segundos": 183.8,
+   "llamadas": [
+    {
+     "servicio": "Anthropic claude-fable-5-1",
+     "desc": "guion_v4 guionista",
+     "in": 11164,
+     "out": 16044,
+     "thinking": 0,
+     "usd": 0.9138
+    }
+   ],
+   "modelo": "claude-fable-5-1"
+  },
+  {
+   "tema": "vajont",
+   "etapa": "reparacion",
+   "usd": 0.0,
+   "segundos": 5.2,
+   "llamadas": []
+  },
+  {
+   "tema": "vajont",
+   "etapa": "particion",
+   "usd": 0.0237,
+   "segundos": 30.4,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01d_particion: acortar",
+     "in": 313,
+     "out": 95,
+     "thinking": 1203,
+     "usd": 0.0136
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01d_particion: títulos",
+     "in": 820,
+     "out": 86,
+     "thinking": 758,
+     "usd": 0.0101
+    }
+   ],
+   "log": [
+    "  [01d] cap 4: 2418 caracteres > 2242 → el último párrafo (beat 8) pasa al cap 5",
+    "  [01d] cap 7: 1762 caracteres > 1255 → el editor acortó el último párrafo (813 → 263)"
+   ]
+  }
+ ],
+ "usd_total": 3.4456
+}

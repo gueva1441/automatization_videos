@@ -1,0 +1,523 @@
+{
+ "error": null,
+ "gate": {
+  "color": "verde",
+  "metricas": {
+   "datos": 236,
+   "citas_verificadas": 37,
+   "elegibles_humano": 25,
+   "eventos_con_fecha": 108,
+   "personas_con_nombre": 40
+  },
+  "motivos": []
+ },
+ "personajes": [
+  {
+   "id": "P01",
+   "nombre": "Terri Lee Halderman",
+   "nombre_en_documento": "Terri Lee Halderman",
+   "rol": "Residente de Pennhurst e iniciadora de la demanda.",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P02",
+   "nombre": "Justice Brennan",
+   "nombre_en_documento": "Justi ce Bren nan",
+   "rol": "Juez de la Corte Suprema, autor de un voto disidente",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P03",
+   "nombre": "Justice Stevens",
+   "nombre_en_documento": "Justi ce Stevens",
+   "rol": "Juez de la Corte Suprema, autor de un voto disidente",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 3,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P04",
+   "nombre": "Justice Marshall",
+   "nombre_en_documento": "Justic e Mars hall",
+   "rol": "Juez de la Corte Suprema, se unió al voto disidente",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P06",
+   "nombre": "Raymond J. Broderick",
+   "nombre_en_documento": "Judge Raymond Broderick",
+   "rol": "Juez del Tribunal de Distrito de los Estados Unidos",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 6,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P07",
+   "nombre": "David Ferleger",
+   "nombre_en_documento": "",
+   "rol": "Abogado",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P10",
+   "nombre": "Romeo",
+   "nombre_en_documento": "",
+   "rol": "Residente de Pennhurst State Center con retraso profundo",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P11",
+   "nombre": "Joseph Schmidt",
+   "nombre_en_documento": "",
+   "rol": "Persona con discapacidad mental",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P12",
+   "nombre": "Helen O'Bannon",
+   "nombre_en_documento": "",
+   "rol": "Secretaria del Departamento de Bienestar Público",
+   "testigo": false,
+   "antagonista": true,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P13",
+   "nombre": "Juez Broderick",
+   "nombre_en_documento": "Judge Broderick",
+   "rol": "Juez federal que preside el caso Pennhurst.",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P14",
+   "nombre": "Dr. Ziring",
+   "nombre_en_documento": "Dr. Ziring",
+   "rol": "Consultor médico externo",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P15",
+   "nombre": "April Sauers",
+   "nombre_en_documento": "April Sauers",
+   "rol": "Demandante en un caso de arreglos de vida comunitaria.",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P16",
+   "nombre": "Richard Thornburgh",
+   "nombre_en_documento": "Governor Richard Thornburgh",
+   "rol": "Gobernador de Pensilvania",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": false,
+   "elegible_humano": false
+  },
+  {
+   "id": "P17",
+   "nombre": "Robert",
+   "nombre_en_documento": "",
+   "rol": "Residente de Pennhurst",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P18",
+   "nombre": "Steve",
+   "nombre_en_documento": "Steve",
+   "rol": "Ex-residente de Pennhurst, no ambulatorio",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P19",
+   "nombre": "Bruce",
+   "nombre_en_documento": "Bruce",
+   "rol": "Ex-residente de Pennhurst",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 2,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P20",
+   "nombre": "Joan",
+   "nombre_en_documento": "Joan",
+   "rol": "Ex-residente de Pennhurst con síndrome de Down y ceguera legal",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P23",
+   "nombre": "Susan",
+   "nombre_en_documento": "",
+   "rol": "Ex-residente de Pennhurst",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P24",
+   "nombre": "Judge Broderick",
+   "nombre_en_documento": "Judge Broderick",
+   "rol": "Juez que ordenó el cierre de Pennhurst",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P26",
+   "nombre": "James Conroy",
+   "nombre_en_documento": "Dr. James Conroy",
+   "rol": "Punto de contacto para el Estudio Longitudinal de Pennhurst",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 2,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P28",
+   "nombre": "Bill Baldini",
+   "nombre_en_documento": "Bill Baldini",
+   "rol": "Periodista televisivo",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P29",
+   "nombre": "Residentes de Pennhurst",
+   "nombre_en_documento": "residents",
+   "rol": "Demandantes y víctimas",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P30",
+   "nombre": "Charles DiNolfi",
+   "nombre_en_documento": "Charles DiNolfi",
+   "rol": "Demandante y residente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P31",
+   "nombre": "Dorothy Hunsicker",
+   "nombre_en_documento": "",
+   "rol": "Hermana del residente Charles DiNolfi",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P32",
+   "nombre": "Robert Sobetsky",
+   "nombre_en_documento": "Robert Sobetsky",
+   "rol": "Demandante y residente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P33",
+   "nombre": "Theresa Sobetsky",
+   "nombre_en_documento": "Theresa Sobetsky",
+   "rol": "Demandante y residente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P34",
+   "nombre": "Robert Hight",
+   "nombre_en_documento": "Robert Hight",
+   "rol": "Demandante y residente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P35",
+   "nombre": "George Sorotos",
+   "nombre_en_documento": "George Sorotos",
+   "rol": "Demandante y residente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P36",
+   "nombre": "Marion Caranfa",
+   "nombre_en_documento": "",
+   "rol": "Antigua madre de acogida del residente George Sorotos",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P37",
+   "nombre": "Larry Taylor",
+   "nombre_en_documento": "Larry Taylor",
+   "rol": "Demandante y residente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P38",
+   "nombre": "Kenny Taylor",
+   "nombre_en_documento": "Kenny Taylor",
+   "rol": "Demandante y residente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P39",
+   "nombre": "Nancy Beth Bowman",
+   "nombre_en_documento": "Nancy Beth Bowman",
+   "rol": "Demandante y residente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P40",
+   "nombre": "Linda Taub",
+   "nombre_en_documento": "Linda Taub",
+   "rol": "Demandante y residente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 0,
+   "presente_en_evento": true,
+   "elegible_humano": false
+  },
+  {
+   "id": "P41",
+   "nombre": "Roland Johnson",
+   "nombre_en_documento": "Roland Johnson",
+   "rol": "Ex-residente de Pennhurst y activista",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 3,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P43",
+   "nombre": "The District Court",
+   "nombre_en_documento": null,
+   "rol": "Tribunal de primera instancia",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 2,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  },
+  {
+   "id": "P44",
+   "nombre": "David D. Gregory",
+   "nombre_en_documento": null,
+   "rol": "Maestro Especial en el caso Wuori v. Zitnay",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P45",
+   "nombre": "Eugene Bardach",
+   "nombre_en_documento": null,
+   "rol": "Autor de The Implementation Game",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P46",
+   "nombre": "Arnold Toynbee",
+   "nombre_en_documento": null,
+   "rol": "Historiador",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P47",
+   "nombre": "Juez Thurgood Marshall",
+   "nombre_en_documento": null,
+   "rol": "Juez",
+   "testigo": false,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": false,
+   "elegible_humano": true
+  },
+  {
+   "id": "P48",
+   "nombre": "Superintendente Youngberg",
+   "nombre_en_documento": null,
+   "rol": "Superintendente",
+   "testigo": true,
+   "antagonista": false,
+   "n_citas": 1,
+   "presente_en_evento": true,
+   "elegible_humano": true
+  }
+ ],
+ "citas": {
+  "verificada": 37,
+  "verificada_parcial": 4,
+  "sin_verificar": 0
+ },
+ "docs": [
+  {
+   "id": "F02",
+   "url": "https://aspe.hhs.gov/reports/pennhurst-longitudinal-study-combined-report-five-years-research-analysis-0",
+   "idioma": "en",
+   "caracteres": 299814
+  },
+  {
+   "id": "F03",
+   "url": "https://disabilities.temple.edu/programs-services/media-arts-culture/file-life-stories/about-file-life-stories",
+   "idioma": "en",
+   "caracteres": 2195
+  },
+  {
+   "id": "F04",
+   "url": "https://archive.org/details/micro_IA40385006_2214",
+   "idioma": "en",
+   "caracteres": 15384
+  },
+  {
+   "id": "F05",
+   "url": "https://www.govinfo.gov/app/details/USREPORTS-465/USREPORTS-465-89",
+   "idioma": "en",
+   "caracteres": 189504
+  },
+  {
+   "id": "F07",
+   "url": "https://asdnext.org/blog/black-history-and-disability/",
+   "idioma": "en",
+   "caracteres": 4196
+  },
+  {
+   "id": "F08",
+   "url": "http://www.preservepennhurst.org/default.aspx?pg=1611",
+   "idioma": "en",
+   "caracteres": 4170
+  },
+  {
+   "id": "F09",
+   "url": "https://tv.apple.com/us/movie/pennhurst/umc.cmc.5kv8b7ukl9izc7mx6e5u35k4w",
+   "idioma": "en",
+   "caracteres": 1346
+  },
+  {
+   "id": "F10",
+   "url": "https://disabilityjustice.org/basic-legal-rights/pennhurst/",
+   "idioma": "en",
+   "caracteres": 6365
+  },
+  {
+   "id": "F11",
+   "url": "http://pennhurstproject.com/Welcome.html",
+   "idioma": "en",
+   "caracteres": 3220
+  },
+  {
+   "id": "F12",
+   "url": "http://www.preservepennhurst.org/default.aspx?pg=36",
+   "idioma": "en",
+   "caracteres": 17238
+  }
+ ]
+}

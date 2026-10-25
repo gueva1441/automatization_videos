@@ -1,0 +1,694 @@
+[
+ {
+  "humano": {
+   "id": "P01",
+   "nombre": "Terri Lee Halderman",
+   "rol": "Residente y demandante original de la acción colectiva",
+   "por_que": "Su arco conecta el ingreso, la pérdida de habilidades, las lesiones registradas y la demanda. Permite atravesar la institución y el litigio sin cambiar de protagonista. No tiene citas directas verificadas y la ficha no documenta su destino personal final: ese límite debe permanecer abierto.",
+   "colectivo": false,
+   "fuente": "P01, T10, D18, D194, T25"
+  },
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "L04",
+   "nombre": "Estado de Pensilvania",
+   "por_que": "Era responsable de financiar la institución y ejecutar las reparaciones. La ficha documenta decisiones presupuestarias que limitaron la supervisión y el incumplimiento de pagos por parte de su Departamento de Bienestar Público. No permite atribuirle una orden individual para cada abuso."
+  },
+  "promesa_gancho": "¿Quién podía detener el daño que quedaba escrito en el expediente de Terri?",
+  "pico": {
+   "beat": 7,
+   "id": "T33",
+   "por_que": "Se conserva el pico marcado por la ficha: las 720 horas de sujeción física registradas durante agosto de 1976. Es la expresión más extrema del control que sustituía al cuidado. La residente no está identificada: no es lícito presentarla como Terri ni como Linda Taub."
+  },
+  "cierre_humano": "¿Qué responsabilidad individual llegó a establecerse por lo que le ocurrió a Terri Lee Halderman y por las muertes documentadas en Pennhurst?",
+  "beats": [
+   {
+    "n": 1,
+    "cap": 1,
+    "funcion": "gancho",
+    "emocion": "Impotencia ante un cuerpo inmovilizado",
+    "intensidad": 4,
+    "dato_central": "D194: los registros médicos de Terri contienen lesiones reportadas. El gancho presenta su existencia, sin cuantificarlas.",
+    "datos_apoyo": [
+     "T13 / E5: Linda Taub aparece sujeta a una silla de ruedas mediante una camisa de fuerza, aunque podía caminar."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Flash-forward: una camisa de fuerza mantiene a Linda en una silla de ruedas. Corte a una cartela editorial con el nombre de Terri y la referencia a sus lesiones registradas. Son dos personas distintas: no presentar la imagen de Linda como una reconstrucción de Terri. Sin años, edades ni cifras.",
+    "pregunta_abierta": "¿Cómo llegó el cuidado a parecerse a esto y quién podía intervenir?",
+    "pregunta_pantalla": "",
+    "cierre": "Para encontrar a Terri antes del expediente, hay que volver al ingreso.",
+    "palabras_objetivo": 90,
+    "flash_forward": true,
+    "contador": false,
+    "escena_idx": 5
+   },
+   {
+    "n": 2,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "Cercanía con una infancia todavía no reducida al caso judicial",
+    "intensidad": 1,
+    "dato_central": "P01 / T10: Terri ingresa a Pennhurst en 1966, a los doce años. La voz puede decir su edad una sola vez; el año queda en pantalla.",
+    "datos_apoyo": [
+     "T03 / D226: la institución había abierto en 1908 con el nombre Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El nombre completo de Terri ocupa la pantalla antes de que aparezca cualquier número de expediente. Después, el nombre original de la institución, conservando las palabras School y Hospital en su denominación posterior. Gráficos editoriales, no documentos de ingreso fabricados. No reconstruir una despedida familiar ni una llegada que la ficha no describe.",
+    "pregunta_abierta": "¿Qué podía aprender y conservar una niña dentro de una institución presentada como escuela y hospital?",
+    "pregunta_pantalla": "",
+    "cierre": "Después, una cámara mostró lo que el nombre de la institución no decía.",
+    "palabras_objetivo": 150,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 3,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "Exposición de algo que había permanecido dentro",
+    "intensidad": 3,
+    "dato_central": "T12 / T14 / D168: la investigación televisiva de Bill Baldini, Suffer the Little Children, convierte las condiciones de Pennhurst en un asunto público.",
+    "datos_apoyo": [
+     "P28: Baldini era reportero de WCAU 10."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "El título Suffer the Little Children sobre una pantalla de televisión. No atribuir al reportaje imágenes concretas que la ficha no identifica como parte de su emisión.",
+    "pregunta_abierta": "¿Hacer visible una institución alcanza para cambiar lo que sucede dentro?",
+    "pregunta_pantalla": "",
+    "cierre": "El siguiente rastro está en una habilidad que Terri perdió.",
+    "palabras_objetivo": 130,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 4,
+    "cap": 3,
+    "funcion": "escalada",
+    "emocion": "Pérdida de una posibilidad personal",
+    "intensidad": 3,
+    "dato_central": "D18: Terri estaba aprendiendo a hablar cuando ingresó y perdió sus habilidades verbales después de vivir en Pennhurst. La ficha no permite fechar ese retroceso con mayor precisión.",
+    "datos_apoyo": [
+     "D192 / E3: el ruido de las salas de día podía ser tan elevado que muchos residentes dejaban de hablar."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El ruido elevado de las salas de día de E3, seguido por el nombre de Terri aislado en el gráfico editorial. No situarla físicamente en esa sala ni afirmar que el ruido fue la causa específica de su pérdida verbal.",
+    "pregunta_abierta": "¿Cómo reclama una persona cuando la propia institución contribuye a que pierda herramientas para expresarse?",
+    "pregunta_pantalla": "",
+    "cierre": "Alguien iba a poner ese nombre en una demanda.",
+    "palabras_objetivo": 170,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 3
+   },
+   {
+    "n": 5,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "Primera posibilidad de intervención",
+    "intensidad": 3,
+    "dato_central": "T25 / T26 / D169: David Ferleger presenta la demanda colectiva en nombre de Terri y de residentes actuales y anteriores. La acción busca medidas judiciales y daños monetarios.",
+    "datos_apoyo": [
+     "D02 / D170: los demandantes alegan violaciones de derechos constitucionales, leyes federales y legislación de Pensilvania."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El nombre de Terri pasa de la presentación biográfica a una cabecera editorial del litigio. La fecha de presentación aparece aparte, sin lectura de la voz. No inventar firmas, sellos ni páginas de la demanda.",
+    "pregunta_abierta": "¿Qué puede ordenar un tribunal y quién deberá responder por el daño?",
+    "pregunta_pantalla": "",
+    "cierre": "El tribunal tendría que decidir si aquello era atención o una forma de control.",
+    "palabras_objetivo": 170,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 6,
+    "cap": 4,
+    "funcion": "escalada",
+    "emocion": "Asfixia institucional",
+    "intensidad": 4,
+    "dato_central": "D184 / D172 / Q20: las sujeciones físicas o químicas se utilizaban como medidas de control en lugar de una dotación adecuada de personal. Q20 puede oírse con atribución a Broderick.",
+    "datos_apoyo": [
+     "D208 / D209 / E1: niños que habían superado la edad de caminar seguían en cunas; las enfermeras sobrecargadas no podían enseñarles.",
+     "D183: no había psicólogos de servicio durante las noches ni los fines de semana.",
+     "D16 / D17: la recapitulación judicial registra lesiones ocasionadas por las sujeciones y una muerte provocada por ellas."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Niños dentro de cunas en E1. No agregar llantos, olores o características del cuarto. La imagen se sostiene mientras la voz explica el mecanismo: restringir cuerpos en lugar de disponer del personal necesario.",
+    "pregunta_abierta": "¿Hasta dónde podía prolongarse una medida de control cuando faltaba el cuidado que debía reemplazarla?",
+    "pregunta_pantalla": "",
+    "cierre": "En el registro de otra residente, el control se medía en horas.",
+    "palabras_objetivo": 220,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 7,
+    "cap": 5,
+    "funcion": "pico",
+    "emocion": "Horror ante la duración documentada",
+    "intensidad": 5,
+    "dato_central": "T33: una residente no identificada acumula 720 horas de sujeción física durante agosto de 1976. Cifra y fecha exclusivamente en pantalla; no convertirlas en un cronómetro reconstruido.",
+    "datos_apoyo": [
+     "D186: esa residente se había cegado mediante autolesiones y no fue incorporada a terapia ocupacional hasta comienzos de 1977. La ficha no precisa cuándo perdió la visión ni permite atribuirla a un episodio concreto de sujeción.",
+     "D188 / E6: orina y excrementos frecuentes en los suelos y limpieza por debajo de los estándares profesionales mínimos.",
+     "D191 / E6: baños deteriorados y falta de toallas, jabón y papel higiénico en la mayoría de las áreas de aseo."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Los suelos y baños descritos en E6; corte seco a una gráfica editorial del registro mensual de sujeción. La cabecera del caso conserva el nombre de Terri, pero el registro lleva un rótulo inequívoco: otra residente, no identificada. No ubicar a ninguna de ellas en el baño mostrado ni fabricar una escena de autolesión.",
+    "pregunta_abierta": "¿Qué cambia cuando, después de restringir a una persona, finalmente se intenta trabajar con ella?",
+    "pregunta_pantalla": "",
+    "cierre": "Después aparece una medida distinta: el tiempo que pudo pasar sin sujeciones.",
+    "palabras_objetivo": 230,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 6
+   },
+   {
+    "n": 8,
+    "cap": 6,
+    "funcion": "respiro",
+    "emocion": "Alivio limitado y reconocimiento del daño",
+    "intensidad": 2,
+    "dato_central": "D33 / T36 / T37: tras el juicio, Broderick determina que Pennhurst es incapaz de proporcionar cuidados y habilitación constitucionalmente apropiados. Es el giro que convierte las condiciones denunciadas en hallazgos judiciales.",
+    "datos_apoyo": [
+     "T39: después de comenzar la terapia ocupacional, la residente del pico podía permanecer hasta cuatro horas diarias sin sujeciones. La duración se muestra, no se lee."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "La gráfica deja de acumular tiempo de sujeción y presenta, estática, la posibilidad documentada de tiempo sin ella. Después vuelve la cabecera del caso Halderman. Sin nuevas imágenes de lesiones, sin una recuperación corporal recreada y sin atribuir ese resultado a Terri.",
+    "pregunta_abierta": "Si la institución no podía ofrecer el cuidado adecuado, ¿había que repararla por dentro o prestar ese cuidado fuera?",
+    "pregunta_pantalla": "",
+    "cierre": "La decisión que venía no se limitaba a cambiar lo que pasaba dentro.",
+    "palabras_objetivo": 160,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 9,
+    "cap": 6,
+    "funcion": "giro",
+    "emocion": "Esperanza atravesada por resistencia administrativa",
+    "intensidad": 2,
+    "dato_central": "T44 / T45 / D06: Broderick ordena servicios comunitarios adecuados y la supervisión de un Special Master. El diagnóstico institucional se convierte en un mandato de actuación fuera de Pennhurst.",
+    "datos_apoyo": [
+     "D09 / T72: Pensilvania limita los gastos de los auxiliares judiciales; el importe y el ejercicio presupuestario quedan exclusivamente en pantalla.",
+     "T74 / D10: el Departamento de Bienestar Público y Helen O'Bannon son declarados en desacato por incumplir órdenes de pago.",
+     "T82: Pensilvania paga las multas y el desacato queda purgado; no dejar la sanción presentada como indefinida."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Un esquema editorial del caso que lleva el nombre de Terri conecta la orden, la supervisión y la ejecución estatal. El límite presupuestario aparece como una tarjeta separada. No presentar el esquema como un documento histórico original.",
+    "pregunta_abierta": "¿Quién garantiza una salida cuando la institución que debe ejecutarla también controla sus recursos?",
+    "pregunta_pantalla": "",
+    "cierre": "Pero una orden de salida no respondía al temor de todas las familias.",
+    "palabras_objetivo": 220,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 10,
+    "cap": 6,
+    "funcion": "revelacion",
+    "emocion": "Incertidumbre frente a versiones incompatibles",
+    "intensidad": 3,
+    "dato_central": "D140 / D141: para las mismas 57 personas, las familias afirmaban que no sobrevivirían sin atención médica permanente y el personal informaba que no existían necesidades médicas graves. La ficha no resuelve la discrepancia.",
+    "datos_apoyo": [
+     "Q16 / E11: Bruce describe su hogar grupal como un lugar con pocas personas y horarios distintos. Puede oírse su cita verificada: «Esto se parece más a un hogar; no hay una gran multitud, solo unas pocas personas»."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Las dos evaluaciones enfrentadas mediante un gráfico editorial; el tamaño del grupo queda en pantalla. Después, la convivencia con pocas personas de E11 y la voz de Bruce. No identificar a Bruce como integrante de ese grupo ni usar su experiencia para resolver las evaluaciones médicas de otros.",
+    "pregunta_abierta": "¿Cómo se decide una salida cuando familiares y personal describen necesidades tan diferentes?",
+    "pregunta_pantalla": "",
+    "cierre": "Y aún quedaba por decidir si un tribunal federal podía exigir que Pensilvania cumpliera su propia ley.",
+    "palabras_objetivo": 210,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 11
+   },
+   {
+    "n": 11,
+    "cap": 7,
+    "funcion": "giro",
+    "emocion": "Frustración ante un límite jurídico",
+    "intensidad": 3,
+    "dato_central": "T99 / D72: la Corte Suprema determina que la inmunidad soberana impide al tribunal federal ordenar a funcionarios estatales cumplir la ley estatal. El fallo limita ese fundamento de intervención; no declara adecuadas las condiciones de Pennhurst.",
+    "datos_apoyo": [
+     "Q02: Stevens afirma en su disidencia verificada que el expediente demuestra que Pennhurst funcionó en violación de la ley estatal.",
+     "Q09: los funcionarios demandados argumentan que la decisión recurrida daría a los tribunales federales carta blanca sobre programas estatales sin interés federal."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El nombre de Halderman permanece en la cabecera editorial mientras se distinguen visualmente dos cuestiones: las condiciones acreditadas y la autoridad del tribunal para ordenar una reparación. Las citas de Q02 y Q09 se oyen con atribución, sin duplicarlas como texto en pantalla.",
+    "pregunta_abierta": "¿Cómo se alcanza una solución cuando un límite de jurisdicción no elimina el daño acreditado?",
+    "pregunta_pantalla": "",
+    "cierre": "La siguiente decisión tendría que ser un acuerdo entre las partes.",
+    "palabras_objetivo": 220,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 12,
+    "cap": 7,
+    "funcion": "giro",
+    "emocion": "Alivio incompleto",
+    "intensidad": 2,
+    "dato_central": "T101 / T102 / D45 / T104: las partes alcanzan un consenso para el cierre y la atención comunitaria. F02 fecha el anuncio y acuerdo final el 12 de julio de 1984; F10 sitúa una conciliación en 1985. No unificar las fechas ni afirmar que corresponden a etapas distintas sin documentación.",
+    "datos_apoyo": [
+     "D45: F02 establece un cierre previsto para el 1 de julio de 1986, con posible extensión hasta el 30 de septiembre de 1986.",
+     "T103 / D73: en la audiencia sobre el acuerdo, la Parent Staff Association es el único grupo que protesta y sostiene que Pennhurst no debe cerrar."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Dos tarjetas editoriales conservan separadas las fechas atribuidas por F02 y F10. Debajo aparece el calendario de cierre previsto, identificado como previsión y no como fecha efectiva. No recrear una firma del acuerdo ni una protesta callejera.",
+    "pregunta_abierta": "¿Cerrar la institución respondía también a la pregunta de quién debía hacerse responsable?",
+    "pregunta_pantalla": "",
+    "cierre": "Quedaba por responder algo que un calendario de cierre no resolvía: la responsabilidad individual.",
+    "palabras_objetivo": 180,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 13,
+    "cap": 7,
+    "funcion": "cierre",
+    "emocion": "Ausencia de una respuesta personal completa",
+    "intensidad": 3,
+    "dato_central": "D24 / Q06: el Tribunal de Distrito había considerado inmunes a los funcionarios frente a daños monetarios porque actuaron de buena fe dentro de sus responsabilidades oficiales. Presentarlo como una determinación de aquel tribunal, no como una absolución penal ni como prueba de que nunca existieron investigaciones.",
+    "datos_apoyo": [
+     "T106 / T107 / D178: Pennhurst cierra definitivamente en 1987; F07 precisa diciembre. La fecha queda exclusivamente en pantalla.",
+     "P01: la ficha no documenta el destino personal final de Terri. No asignarle un traslado, una recuperación o una muerte."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "La fecha del cierre desaparece. Queda el nombre completo de Terri Lee Halderman, sin añadirle un destino biográfico. La voz puede citar Q06: «actuaron de la más absoluta buena fe... dentro del ámbito de sus responsabilidades oficiales». Después, una pausa antes de la pregunta final.",
+    "pregunta_abierta": "¿Qué responsabilidades individuales llegaron a establecerse, más allá de las órdenes de traslado y del cierre?",
+    "pregunta_pantalla": "",
+    "cierre": "¿Qué responsabilidad individual llegó a establecerse por lo que le ocurrió a Terri Lee Halderman y por las muertes documentadas en Pennhurst?",
+    "palabras_objetivo": 170,
+    "flash_forward": false,
+    "contador": false
+   }
+  ],
+  "a_pantalla": [
+   {
+    "id": "D194",
+    "cap": 1,
+    "por_que": "Cartela editorial con el nombre de Terri y la referencia cualitativa a lesiones registradas. No mostrar ni leer el recuento durante el gancho. La voz no repite esa cartela."
+   },
+   {
+    "id": "T10",
+    "cap": 2,
+    "por_que": "Año de ingreso: 1966. La voz no lo lee; puede decir la edad una sola vez."
+   },
+   {
+    "id": "T03 / D226",
+    "cap": 2,
+    "por_que": "Apertura en 1908 y denominación original de la institución. Información gráfica, no lectura de la voz."
+   },
+   {
+    "id": "T12 / T14",
+    "cap": 3,
+    "por_que": "Año de la investigación televisiva: 1968. La voz explica su efecto público sin leer el año."
+   },
+   {
+    "id": "T25 / T26",
+    "cap": 3,
+    "por_que": "Fecha de presentación de la demanda: 30 de mayo de 1974. No duplicarla en locución."
+   },
+   {
+    "id": "T33",
+    "cap": 5,
+    "por_que": "Dato estático: 720 horas de sujeción física, agosto de 1976. Solo en pantalla, con identificación de residente no individualizada. No extrapolar una distribución diaria."
+   },
+   {
+    "id": "D186",
+    "cap": 5,
+    "por_que": "Mostrar únicamente la referencia temporal del inicio de terapia ocupacional: comienzos de 1977. No asignar una fecha a la pérdida de visión."
+   },
+   {
+    "id": "T39",
+    "cap": 6,
+    "por_que": "Hasta cuatro horas diarias sin sujeciones después del inicio del programa. La voz no convierte el dato en recuperación completa ni lo atribuye a Terri."
+   },
+   {
+    "id": "T36 / T37",
+    "cap": 6,
+    "por_que": "Año de los hallazgos del Tribunal de Distrito: 1977. El contenido de la determinación se narra; el año no se lee."
+   },
+   {
+    "id": "T44 / T45",
+    "cap": 6,
+    "por_que": "Fecha de la orden de servicios comunitarios y supervisión: 17 de marzo de 1978. Reservar la fecha al gráfico."
+   },
+   {
+    "id": "D09 / T72",
+    "cap": 6,
+    "por_que": "Tarjeta autónoma: límite de 35000 dólares para gastos de auxiliares judiciales en el ejercicio de julio de 1981 a junio de 1982. La voz no lee ni reformula el dato presupuestario."
+   },
+   {
+    "id": "D141",
+    "cap": 6,
+    "por_que": "Mostrar que las versiones enfrentadas se refieren a las mismas 57 personas. La voz expone el desacuerdo sin repetir el tamaño del grupo."
+   },
+   {
+    "id": "T99",
+    "cap": 7,
+    "por_que": "Fecha del fallo de la Corte Suprema: 23 de enero de 1984. La voz explica el alcance jurídico sin leer la fecha."
+   },
+   {
+    "id": "T101 / T102 / T104",
+    "cap": 7,
+    "por_que": "Fechas separadas y atribuidas: F02, 12 de julio de 1984; F10, 1985 aproximadamente. Advertir gráficamente que la ficha no aclara si son etapas de formalización distintas. No leer las fechas."
+   },
+   {
+    "id": "D45",
+    "cap": 7,
+    "por_que": "Calendario previsto según F02: 1 de julio de 1986, con posible extensión hasta el 30 de septiembre de 1986. Identificarlo como previsión, no cierre efectivo."
+   },
+   {
+    "id": "T106 / T107",
+    "cap": 7,
+    "por_que": "Cierre definitivo: diciembre de 1987 según F07. La voz no lee la fecha."
+   }
+  ],
+  "justificacion_humano": "Terri ofrece el vínculo más concreto entre deterioro personal y acción judicial. Bruce aporta citas verificadas valiosas, pero su material se concentra en el traslado y no permite atribuirle los abusos del pico; se utiliza como contrapunto, no como sustituto. Roland ya había salido antes del episodio de sujeción elegido. Terri aparece en el gancho, en el pico y en el cierre mediante su nombre y su expediente, distinguiendo siempre su experiencia de la de otras residentes. Esa presencia documental no equivale a situarla físicamente en escenas no acreditadas. Los seis giros tienen beat propio: 3, 5, 8, 9, 11 y 12. No se omite ninguno. Los gráficos propuestos son editoriales: no autorizan a fabricar documentos, testimonios, imágenes de archivo ni desenlaces personales."
+ },
+ {
+  "humano": {
+   "id": "P01",
+   "nombre": "Terri Lee Halderman",
+   "rol": "Residente y demandante original de la acción colectiva",
+   "por_que": "Su recorrido conecta el ingreso, la pérdida de habilidades verbales, las lesiones registradas y la demanda. Permite seguir el mismo daño desde la institución hasta los tribunales. Aparece en el gancho, en el pico mediante su expediente y en el cierre. No se le atribuyen palabras ni un destino posterior que la ficha no documenta.",
+   "colectivo": false,
+   "fuente": "P01, T10, D18, D194, T25. Citas directas verificadas: ninguna."
+  },
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "L04",
+   "nombre": "Estado de Pensilvania",
+   "por_que": "Era responsable de la institución y debía financiar y ejecutar las medidas judiciales. Sus decisiones presupuestarias y los incumplimientos del Departamento de Bienestar Público permiten mostrar decisiones concretas, no una maldad institucional abstracta. No se atribuyen al Estado órdenes individuales de abuso que la ficha no identifica."
+  },
+  "promesa_gancho": "¿Quién podía obligar a Pennhurst a cuidar de Terri cuando ella había perdido las palabras?",
+  "pico": {
+   "beat": 7,
+   "id": "T33",
+   "por_que": "Se conserva el pico señalado por la ficha: el registro extremo de sujeción física. Su cifra y su fecha aparecen exclusivamente en pantalla. El mordisco del gancho anticipa el peligro, pero no desplaza este único pico: el momento en que el control queda documentado como sustituto del cuidado."
+  },
+  "cierre_humano": "¿Quién respondió, individualmente, por lo que le pasó a Terri Lee Halderman?",
+  "beats": [
+   {
+    "n": 1,
+    "cap": 1,
+    "funcion": "gancho",
+    "emocion": "Vulnerabilidad inmediata",
+    "intensidad": 4,
+    "dato_central": "T29: un residente muerde a otro mientras duerme y le arranca parte de la oreja. Presentar únicamente la acción documentada, sin fecha ni cantidades.",
+    "datos_apoyo": [
+     "D18: Terri estaba aprendiendo a hablar cuando ingresó y perdió sus habilidades verbales después de vivir en Pennhurst. Introducirla por esa pérdida, sin explicar todavía el ingreso."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E9: un residente dormido y la lesión en la oreja. No añadir gritos, sangre ni movimientos no descritos. El nombre de Terri entra como un caso separado: nunca identificarla con ninguno de los residentes de esta agresión.",
+    "pregunta_abierta": "¿Qué clase de cuidado deja a una persona expuesta mientras duerme, y qué le ocurrió allí a Terri?",
+    "pregunta_pantalla": "",
+    "cierre": "Antes de perder las palabras, Terri había cruzado una puerta de entrada.",
+    "palabras_objetivo": 95,
+    "flash_forward": true,
+    "contador": false,
+    "escena_idx": 9
+   },
+   {
+    "n": 2,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "Cercanía sin amenaza inmediata",
+    "intensidad": 1,
+    "dato_central": "T10: Terri ingresa en 1966, a los doce años. Volver atrás y presentar a la niña antes de convertir su nombre en el de un litigio.",
+    "datos_apoyo": [
+     "T03: Pennhurst había abierto en 1908 como Eastern Pennsylvania Institution for the Feeble-Minded and Epileptic."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Composición gráfica del nombre de Terri y del nombre original de la institución. No recrear una despedida familiar, un viaje ni una habitación de ingreso: la ficha no los describe.",
+    "pregunta_abierta": "¿Qué podía ofrecerle aquella institución a una niña que llegaba para recibir cuidados?",
+    "pregunta_pantalla": "",
+    "cierre": "La siguiente mirada sobre Pennhurst vendría de una cámara de televisión.",
+    "palabras_objetivo": 150,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 3,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "Descubrimiento",
+    "intensidad": 2,
+    "dato_central": "T12, T14, D168: la investigación de Bill Baldini, Suffer the Little Children, convierte las condiciones internas en un asunto público. Primer giro.",
+    "datos_apoyo": [
+     "D208, D209: niños que habían superado la edad de caminar permanecían en cunas; las enfermeras sobrecargadas no podían enseñarles."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E1: niños dentro de cunas. Utilizar esta descripción como imagen documental de las condiciones, sin afirmar que corresponda a una toma específica del reportaje de Baldini.",
+    "pregunta_abierta": "¿Bastaba con que el exterior pudiera verlo para que algo cambiara dentro?",
+    "pregunta_pantalla": "",
+    "cierre": "La exposición pública abrió una pregunta que una demanda iba a convertir en una exigencia.",
+    "palabras_objetivo": 180,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 4,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "Una posibilidad de intervención",
+    "intensidad": 3,
+    "dato_central": "T25, T26: David Ferleger presenta la acción colectiva en nombre de Terri, reclamando medidas judiciales y daños monetarios. Segundo giro.",
+    "datos_apoyo": [
+     "D02, D170: los demandantes alegan violaciones constitucionales, federales y de la legislación de Pensilvania."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El nombre de Terri pasa a encabezar una composición gráfica del reclamo. No mostrarla declarando ni entrando a una sala judicial: esas acciones no están documentadas.",
+    "pregunta_abierta": "¿Podía una demanda conseguir lo que la denuncia pública no había resuelto?",
+    "pregunta_pantalla": "",
+    "cierre": "Para ordenar una reparación, el tribunal tendría que entrar en lo que Pennhurst llamaba cuidado.",
+    "palabras_objetivo": 175,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 5,
+    "cap": 4,
+    "funcion": "escalada",
+    "emocion": "Encierro",
+    "intensidad": 3,
+    "dato_central": "D196: Robert y Theresa Sobetsky fueron alojados en salas con camas en los pasillos; Robert nunca tuvo una cama particular asignada.",
+    "datos_apoyo": [
+     "D183: no había psicólogos de servicio durante las noches ni los fines de semana; una crisis podía quedar sin tratamiento hasta el siguiente turno disponible.",
+     "D187: los psicofármacos se utilizaban frecuentemente para controlar a los residentes, no para tratarlos."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E4: camas ocupando los pasillos de circulación. Mantener la imagen en el espacio que debería permitir pasar y está convertido en alojamiento.",
+    "pregunta_abierta": "¿Qué ocurría con una crisis cuando no había espacio propio ni atención disponible?",
+    "pregunta_pantalla": "",
+    "cierre": "La falta de una cama era visible. Las consecuencias del control quedaban anotadas en otros registros.",
+    "palabras_objetivo": 180,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 4
+   },
+   {
+    "n": 6,
+    "cap": 4,
+    "funcion": "escalada",
+    "emocion": "Peligro acumulado",
+    "intensidad": 4,
+    "dato_central": "D16, D17: la recapitulación judicial registra lesiones causadas por las sujeciones físicas y una muerte provocada por ellas.",
+    "datos_apoyo": [
+     "D188: orina y excrementos frecuentes en los suelos, con limpieza inferior a los estándares profesionales mínimos.",
+     "D191: la mayoría de las áreas de aseo carecía de toallas, jabón y papel higiénico.",
+     "D193: el documento registra también la muerte de un residente después de que otro lo empujara al suelo; distinguirla de la muerte asociada a las sujeciones."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E6: suelos con orina y excrementos; baños sucios y deteriorados. El recuento de lesiones aparece en pantalla, sin lectura de la voz.",
+    "pregunta_abierta": "¿Hasta dónde podía llegar una medida presentada como control?",
+    "pregunta_pantalla": "",
+    "cierre": "Un registro permite medir cuánto tiempo podía ocupar ese control en la vida de una residente.",
+    "palabras_objetivo": 185,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 6
+   },
+   {
+    "n": 7,
+    "cap": 5,
+    "funcion": "pico",
+    "emocion": "Asfixia",
+    "intensidad": 5,
+    "dato_central": "Q20: Broderick establece que las sujeciones se utilizaban «como medidas de control en lugar de una dotación adecuada de personal». La frase interpreta el registro extremo mostrado exclusivamente en pantalla; la voz no lee sus cifras.",
+    "datos_apoyo": [
+     "T13: los padres de Linda Taub la encontraron sujeta a una silla de ruedas mediante una camisa de fuerza, pese a que podía caminar.",
+     "D186: el relato de la residente del registro documenta que se cegó mediante autolesiones. No fechar la pérdida de visión ni atribuirla a las sujeciones."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E5: la silla de ruedas y la camisa de fuerza de Linda. Identificarla como un caso distinto, no como la residente anónima del registro. Montaje con el registro de sujeción y, por separado, las lesiones documentadas de Terri. Nunca fusionar a las tres personas.",
+    "pregunta_abierta": "¿Qué quedaba del cuidado cuando la respuesta consistía en mantener sujeto un cuerpo?",
+    "pregunta_pantalla": "",
+    "cierre": "La siguiente respuesta no vendría de una sujeción. Vendría de una sentencia.",
+    "palabras_objetivo": 225,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 5
+   },
+   {
+    "n": 8,
+    "cap": 6,
+    "funcion": "respiro",
+    "emocion": "Silencio y constatación",
+    "intensidad": 2,
+    "dato_central": "T36, D33: el Tribunal de Distrito determina que Pennhurst es incapaz de proporcionar cuidados y habilitación constitucionalmente apropiados. Tercer giro, presentado sin otro ascenso de intensidad.",
+    "datos_apoyo": [],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Tras el pico, sostener el dato documental de la terapia ocupacional que aparece en pantalla. No representar una recuperación de la visión ni una liberación definitiva. Dejar un silencio antes de comunicar el hallazgo judicial.",
+    "pregunta_abierta": "Si el tribunal reconocía la incapacidad de Pennhurst, ¿qué debía ocurrir con quienes seguían allí?",
+    "pregunta_pantalla": "",
+    "cierre": "Reconocer el daño todavía no decía dónde iban a vivir los residentes.",
+    "palabras_objetivo": 155,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 9,
+    "cap": 6,
+    "funcion": "giro",
+    "emocion": "Esperanza obstaculizada",
+    "intensidad": 3,
+    "dato_central": "T44, T45, D06: Broderick ordena servicios comunitarios adecuados y la supervisión de un Special Master. Cuarto giro: del diagnóstico a una obligación ejecutable.",
+    "datos_apoyo": [
+     "D10: el Departamento de Bienestar Público y Helen O'Bannon son declarados en desacato por incumplir las órdenes de pago. La cuantía de la multa se omite.",
+     "T82: el Estado paga las multas y el desacato queda purgado."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "En pantalla, el límite presupuestario y los recuentos incompatibles de reubicaciones. La voz explica la resistencia a ejecutar las órdenes, pero no lee cantidades ni convierte ninguno de los recuentos en cifra definitiva.",
+    "pregunta_abierta": "¿Quién controlaba una salida si el Estado debía financiarla y los registros de cumplimiento no coincidían?",
+    "pregunta_pantalla": "",
+    "cierre": "Fuera del tribunal había otra discusión: algunas familias temían que salir pusiera en riesgo la vida de sus parientes.",
+    "palabras_objetivo": 225,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 10,
+    "cap": 6,
+    "funcion": "revelacion",
+    "emocion": "Incertidumbre legítima",
+    "intensidad": 3,
+    "dato_central": "D140, D141: para las mismas personas, las familias afirmaban que era indispensable una atención médica permanente y el personal informaba que no existían necesidades médicas graves. Exponer ambas versiones sin resolverlas artificialmente y sin leer el tamaño del grupo.",
+    "datos_apoyo": [],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Dos columnas gráficas claramente atribuidas: «familias» y «personal». Enfrentar las afirmaciones sobre las mismas personas, sin inventar una conversación entre ambas partes.",
+    "pregunta_abierta": "¿Cómo se decidía una salida cuando quienes debían proteger a la misma persona describían riesgos tan distintos?",
+    "pregunta_pantalla": "",
+    "cierre": "Mientras se discutía cómo salir, la Corte Suprema iba a decidir hasta dónde podía ordenar el tribunal federal.",
+    "palabras_objetivo": 175,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 11,
+    "cap": 7,
+    "funcion": "giro",
+    "emocion": "Frustración",
+    "intensidad": 3,
+    "dato_central": "T99, D72: la Corte Suprema determina que la inmunidad soberana impide al tribunal federal ordenar a funcionarios estatales cumplir la ley estatal. Quinto giro. Aclarar que este límite jurisdiccional no equivale a desmentir los hallazgos sobre Pennhurst.",
+    "datos_apoyo": [
+     "Q09: los funcionarios demandados argumentaban que la decisión inferior daría a los tribunales federales carta blanca para gestionar programas estatales.",
+     "Q02: Stevens sostiene en su disidencia que el expediente demuestra que Pennhurst había funcionado en violación de la ley estatal."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Composición tipográfica del argumento de los funcionarios frente a la afirmación de Stevens. La voz parafrasea el contraste; no recita texto simultáneamente visible.",
+    "pregunta_abierta": "¿Cómo podía quedar limitado el remedio judicial sin que desapareciera el daño reconocido?",
+    "pregunta_pantalla": "",
+    "cierre": "El tribunal federal encontraba un límite. Quedaba la posibilidad de un acuerdo.",
+    "palabras_objetivo": 205,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 12,
+    "cap": 7,
+    "funcion": "giro",
+    "emocion": "Resolución incompleta",
+    "intensidad": 2,
+    "dato_central": "D45: las partes alcanzan un consenso para el cierre y la atención comunitaria. Sexto giro. Advertir que las fuentes no coinciden en la formalización; sus fechas se presentan únicamente en pantalla, sin decidir si corresponden a etapas distintas.",
+    "datos_apoyo": [
+     "D73: la Parent-Staff Association protesta contra el acuerdo y sostiene que Pennhurst no debe cerrar.",
+     "T106, T107: Pennhurst cierra definitivamente en 1987; una fuente precisa diciembre."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Cronología gráfica con las dos dataciones del acuerdo, separadas y atribuidas a sus fuentes. No inventar una ceremonia de cierre, una evacuación final ni un último residente.",
+    "pregunta_abierta": "¿Qué resolvía el cierre y qué parte del reclamo de Terri seguía siendo una pregunta distinta?",
+    "pregunta_pantalla": "",
+    "cierre": "Queda por abrir la parte del expediente que habla de responsabilidad individual.",
+    "palabras_objetivo": 205,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 13,
+    "cap": 7,
+    "funcion": "cierre",
+    "emocion": "Ausencia de una respuesta personal",
+    "intensidad": 3,
+    "dato_central": "D24: el Tribunal de Distrito había considerado inmunes a los funcionarios frente a la responsabilidad por daños porque actuaron de buena fe dentro de sus responsabilidades oficiales. Distinguir esta decisión de los procedimientos de desacato y de cualquier responsabilidad penal que el pool no permite establecer.",
+    "datos_apoyo": [
+     "Q06: la formulación verificada fue que actuaron «de la más absoluta buena fe... dentro del ámbito de sus responsabilidades oficiales»."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El nombre completo de Terri queda solo en pantalla. No sustituir la ausencia de información sobre su destino por imágenes de una vida comunitaria atribuida a ella.",
+    "pregunta_abierta": "¿Qué responsabilidades individuales llegaron a establecerse por los abusos y las muertes, más allá de los traslados y del cierre?",
+    "pregunta_pantalla": "",
+    "cierre": "¿Quién respondió, individualmente, por lo que le pasó a Terri Lee Halderman?",
+    "palabras_objetivo": 145,
+    "flash_forward": false,
+    "contador": false
+   }
+  ],
+  "a_pantalla": [
+   {
+    "id": "T40",
+    "cap": 4,
+    "por_que": "Beat 6. Recuento de enero de 1977: 833 lesiones menores y 25 mayores. Es una cifra oficial presentada visualmente; la voz no la lee."
+   },
+   {
+    "id": "T33",
+    "cap": 5,
+    "por_que": "Beat 7. Centro documental del pico: 720 horas de sujeción física durante agosto de 1976. Mostrar una sola vez y dejar tiempo de lectura. No atribuir el registro a Terri ni a Linda."
+   },
+   {
+    "id": "D194",
+    "cap": 5,
+    "por_que": "Beat 7. Más de cuarenta lesiones reportadas en los registros médicos de Terri. Presentarlas separadas del registro anónimo de sujeción; la voz no repite el recuento."
+   },
+   {
+    "id": "T39",
+    "cap": 6,
+    "por_que": "Beat 8. Inicio de terapia ocupacional a comienzos de 1977 y posibilidad posterior de permanecer hasta cuatro horas diarias sin sujeciones. Solo pantalla. No fechar con este dato la pérdida de visión ni sugerir que fue revertida."
+   },
+   {
+    "id": "D09",
+    "cap": 6,
+    "por_que": "Beat 9. Límite estatal de 35000 dólares para gastos de auxiliares judiciales durante el ejercicio indicado. Mostrar la asignación y su período sin lectura de la voz."
+   },
+   {
+    "id": "D54",
+    "cap": 6,
+    "por_que": "Beat 9. Al 31 de julio de 1981: 15 reubicaciones oficiales según el Special Master frente a 81 según el Estado, sobre 90 previstas. Mantener las atribuciones; no fabricar una cifra única resuelta. La voz no lee los números."
+   },
+   {
+    "id": "T101",
+    "cap": 7,
+    "por_que": "Beat 12. F02 fecha el consenso y acuerdo final el 12 de julio de 1984. Presentar esta datación como versión de esa fuente, sin recitarla."
+   },
+   {
+    "id": "T104",
+    "cap": 7,
+    "por_que": "Beat 12. F10 sitúa un acuerdo de conciliación aproximadamente en 1985. Mostrarlo junto a la datación de F02 y aclarar que el pool no permite determinar si corresponden a distintas etapas de formalización."
+   }
+  ],
+  "justificacion_humano": "Terri ofrece el vínculo más directo entre una transformación personal documentada y la acción que modifica el destino institucional. Bruce tiene más citas verificadas, pero el pool concentra sus momentos concretos en la comparación posterior al traslado; Roland tiene entrada y salida, pero termina su estancia antes del pico escogido. Seguir a Terri permite que la falta de un desenlace personal sea parte del cierre, no un vacío rellenado. Su presencia en el pico es documental: sus lesiones no se confunden con la sujeción y la ceguera de otra residente. Los seis giros tienen beats propios y ninguno se omite. Los identificadores de a_pantalla no se utilizan como datos narrados dentro de los beats."
+ }
+]

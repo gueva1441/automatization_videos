@@ -1,0 +1,26 @@
+{
+ "research": {
+  "estado": "solo",
+  "motivo": ""
+ },
+ "ficha": {
+  "estado": "reintento",
+  "motivo": "la 1.ª vuelta paró antes de llamar por el freno del runner (peor caso con 50 000 tokens > 0.60); con 40 000 corrió"
+ },
+ "escaleta": {
+  "estado": "solo",
+  "motivo": ""
+ },
+ "guion": {
+  "estado": "paró",
+  "motivo": "1 bloqueante (1755 palabras > 1700); la reparación no entró en el tope de 1.20 (0.914 + peor caso 0.444)"
+ },
+ "particion": {
+  "estado": "solo",
+  "motivo": ""
+ },
+ "compuerta": {
+  "estado": "solo",
+  "motivo": "verde"
+ }
+}

@@ -101,7 +101,831 @@
    "usd": 0.0,
    "segundos": 0.2,
    "llamadas": []
+  },
+  {
+   "tema": "pennhurst",
+   "etapa": "research",
+   "usd": 1.3712,
+   "segundos": 1234.6,
+   "llamadas": [
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "research v3 perfil del seed",
+     "in": 238,
+     "out": 145,
+     "thinking": 1254,
+     "usd": 0.0036
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 345,
+     "out": 1722,
+     "thinking": 3034,
+     "usd": 0.048
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 382,
+     "out": 2877,
+     "thinking": 238,
+     "usd": 0.0316
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 343,
+     "out": 2065,
+     "thinking": 687,
+     "usd": 0.0279
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 331,
+     "out": 1863,
+     "thinking": 680,
+     "usd": 0.0258
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 368,
+     "out": 1843,
+     "thinking": 626,
+     "usd": 0.0251
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 368,
+     "out": 1988,
+     "thinking": 539,
+     "usd": 0.0257
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 333,
+     "out": 1820,
+     "thinking": 1010,
+     "usd": 0.0287
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 370,
+     "out": 1693,
+     "thinking": 727,
+     "usd": 0.0247
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 370,
+     "out": 1526,
+     "thinking": 595,
+     "usd": 0.0217
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 370,
+     "out": 1873,
+     "thinking": 271,
+     "usd": 0.0219
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 descubrimiento (Flash)",
+     "in": 196,
+     "out": 2717,
+     "thinking": 7427,
+     "usd": 0.0254
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 fichas del grounding",
+     "in": 2507,
+     "out": 1257,
+     "thinking": 6000,
+     "usd": 0.0189
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "research v3 vocabulario del caso",
+     "in": 1071,
+     "out": 622,
+     "thinking": 1593,
+     "usd": 0.0059
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R2 fichas desde el texto",
+     "in": 5580,
+     "out": 408,
+     "thinking": 2082,
+     "usd": 0.0079
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F02 1/6",
+     "in": 13849,
+     "out": 4855,
+     "thinking": 1586,
+     "usd": 0.0817
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F02 2/6",
+     "in": 12239,
+     "out": 6901,
+     "thinking": 1806,
+     "usd": 0.1024
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F02 3/6",
+     "in": 13411,
+     "out": 4253,
+     "thinking": 1525,
+     "usd": 0.0745
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F02 4/6",
+     "in": 16064,
+     "out": 5593,
+     "thinking": 1561,
+     "usd": 0.0916
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F02 5/6",
+     "in": 13577,
+     "out": 5598,
+     "thinking": 1483,
+     "usd": 0.0878
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F02 6/6",
+     "in": 3186,
+     "out": 1928,
+     "thinking": 1558,
+     "usd": 0.0388
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F03 1/1",
+     "in": 1304,
+     "out": 830,
+     "thinking": 1115,
+     "usd": 0.0211
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F04 1/1",
+     "in": 5504,
+     "out": 858,
+     "thinking": 1429,
+     "usd": 0.0297
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F05 1/4",
+     "in": 15504,
+     "out": 3151,
+     "thinking": 1516,
+     "usd": 0.066
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F05 2/4",
+     "in": 15343,
+     "out": 3943,
+     "thinking": 1300,
+     "usd": 0.0716
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F05 3/4",
+     "in": 15126,
+     "out": 1037,
+     "thinking": 1004,
+     "usd": 0.0393
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F05 4/4",
+     "in": 5245,
+     "out": 606,
+     "thinking": 1223,
+     "usd": 0.0248
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F07 1/1",
+     "in": 1705,
+     "out": 2528,
+     "thinking": 1489,
+     "usd": 0.0423
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F08 1/1",
+     "in": 1714,
+     "out": 1958,
+     "thinking": 1247,
+     "usd": 0.0342
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F09 1/1",
+     "in": 1152,
+     "out": 1548,
+     "thinking": 1750,
+     "usd": 0.0344
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F10 1/1",
+     "in": 2140,
+     "out": 4505,
+     "thinking": 1468,
+     "usd": 0.0624
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F11 1/1",
+     "in": 1518,
+     "out": 2538,
+     "thinking": 1190,
+     "usd": 0.0392
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F12 1/1",
+     "in": 5181,
+     "out": 6393,
+     "thinking": 1591,
+     "usd": 0.0863
+    }
+   ],
+   "color": "verde",
+   "error": null
+  },
+  {
+   "tema": "vajont",
+   "etapa": "research",
+   "usd": 1.7913,
+   "segundos": 1894.7,
+   "llamadas": [
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "research v3 perfil del seed",
+     "in": 264,
+     "out": 118,
+     "thinking": 671,
+     "usd": 0.0021
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 373,
+     "out": 1957,
+     "thinking": 415,
+     "usd": 0.0242
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 410,
+     "out": 2335,
+     "thinking": 284,
+     "usd": 0.0267
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 410,
+     "out": 1912,
+     "thinking": 303,
+     "usd": 0.0227
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 410,
+     "out": 404,
+     "thinking": 701,
+     "usd": 0.0116
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 descubrimiento (Flash)",
+     "in": 197,
+     "out": 2697,
+     "thinking": 2809,
+     "usd": 0.0138
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 371,
+     "out": 2138,
+     "thinking": 785,
+     "usd": 0.0297
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 408,
+     "out": 1989,
+     "thinking": 597,
+     "usd": 0.0264
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 408,
+     "out": 2087,
+     "thinking": 1610,
+     "usd": 0.0375
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 408,
+     "out": 2081,
+     "thinking": 305,
+     "usd": 0.0244
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 359,
+     "out": 2552,
+     "thinking": 1407,
+     "usd": 0.04
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 396,
+     "out": 1798,
+     "thinking": 506,
+     "usd": 0.0235
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 396,
+     "out": 2091,
+     "thinking": 565,
+     "usd": 0.0271
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 396,
+     "out": 1898,
+     "thinking": 478,
+     "usd": 0.0243
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 descubrimiento (Flash)",
+     "in": 183,
+     "out": 1711,
+     "thinking": 8557,
+     "usd": 0.0257
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 361,
+     "out": 2079,
+     "thinking": 315,
+     "usd": 0.0244
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 398,
+     "out": 2115,
+     "thinking": 313,
+     "usd": 0.0248
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 398,
+     "out": 1992,
+     "thinking": 483,
+     "usd": 0.0252
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R1 descubrimiento",
+     "in": 398,
+     "out": 473,
+     "thinking": 741,
+     "usd": 0.0126
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 descubrimiento (Flash)",
+     "in": 185,
+     "out": 3045,
+     "thinking": 12106,
+     "usd": 0.0379
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R1 fichas del grounding",
+     "in": 3264,
+     "out": 1664,
+     "thinking": 4029,
+     "usd": 0.0152
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "research v3 vocabulario del caso",
+     "in": 1160,
+     "out": 835,
+     "thinking": 3294,
+     "usd": 0.0107
+    },
+    {
+     "servicio": "Gemini 2.5 Flash",
+     "desc": "R2 fichas desde el texto",
+     "in": 12395,
+     "out": 903,
+     "thinking": 5688,
+     "usd": 0.0202
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F01 1/1",
+     "in": 5156,
+     "out": 7047,
+     "thinking": 1432,
+     "usd": 0.0912
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F02 1/1",
+     "in": 4069,
+     "out": 7969,
+     "thinking": 1501,
+     "usd": 0.0998
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F03 1/1",
+     "in": 2796,
+     "out": 5853,
+     "thinking": 1660,
+     "usd": 0.0786
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F04 1/1",
+     "in": 10189,
+     "out": 7430,
+     "thinking": 1408,
+     "usd": 0.1011
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F05 1/1",
+     "in": 3049,
+     "out": 5305,
+     "thinking": 1457,
+     "usd": 0.0714
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F06 1/1",
+     "in": 2009,
+     "out": 4932,
+     "thinking": 1443,
+     "usd": 0.0663
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F07 1/1",
+     "in": 1859,
+     "out": 1288,
+     "thinking": 1438,
+     "usd": 0.0296
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F09 1/1",
+     "in": 13961,
+     "out": 8038,
+     "thinking": 1489,
+     "usd": 0.1127
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F11 1/1",
+     "in": 1650,
+     "out": 1447,
+     "thinking": 1349,
+     "usd": 0.03
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F12 1/1",
+     "in": 9794,
+     "out": 4571,
+     "thinking": 1506,
+     "usd": 0.073
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F14 1/1",
+     "in": 1943,
+     "out": 2784,
+     "thinking": 1518,
+     "usd": 0.0454
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F15 1/1",
+     "in": 7169,
+     "out": 8733,
+     "thinking": 1298,
+     "usd": 0.1093
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F19 1/1",
+     "in": 1621,
+     "out": 3332,
+     "thinking": 1312,
+     "usd": 0.0485
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F20 1/1",
+     "in": 2627,
+     "out": 4088,
+     "thinking": 1377,
+     "usd": 0.0579
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F21 1/1",
+     "in": 1871,
+     "out": 1231,
+     "thinking": 1483,
+     "usd": 0.0295
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F22 1/1",
+     "in": 1284,
+     "out": 1495,
+     "thinking": 1612,
+     "usd": 0.0327
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F23 1/1",
+     "in": 2030,
+     "out": 1591,
+     "thinking": 1690,
+     "usd": 0.0353
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F24 1/1",
+     "in": 1225,
+     "out": 1609,
+     "thinking": 1966,
+     "usd": 0.0373
+    },
+    {
+     "servicio": "Gemini 2.5 Pro",
+     "desc": "R3 F31 1/1",
+     "in": 5173,
+     "out": 8849,
+     "thinking": 1612,
+     "usd": 0.1111
+    }
+   ],
+   "color": "verde",
+   "error": null
+  },
+  {
+   "tema": "pennhurst",
+   "etapa": "ficha",
+   "usd": 0.4018,
+   "segundos": 336.2,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "ficha_caso",
+     "in": 39897,
+     "out": 25583,
+     "thinking": 6621,
+     "usd": 0.4018
+    }
+   ],
+   "prompt_md5": {
+    "sistema": "070b75dff58aecfa407fac3d62020ce4",
+    "usuario": "eb0a41b589b3c0bb7f67313f61885db6"
+   }
+  },
+  {
+   "tema": "pennhurst",
+   "etapa": "escaleta",
+   "usd": 0.309,
+   "segundos": 441.7,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 13682,
+     "out": 5909,
+     "thinking": 8264,
+     "usd": 0.1691
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 14043,
+     "out": 5043,
+     "thinking": 6143,
+     "usd": 0.1399
+    }
+   ],
+   "modelo": "gpt-6.1-sol",
+   "log": [
+    "  [escaleta] compuerta del pool: verde {'datos': 236, 'citas_verificadas': 37, 'elegibles_humano': 25, 'eventos_con_fecha': 108, 'personas_con_nombre': 40}",
+    "  [escaleta v2] intento 1: 14 bloqueante(s) ['a_pantalla D194 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T10 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T03 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T12 también está en un beat: lo que va a pantalla no lo dice la voz'] · 48 reparación(es) · 16 a métricas",
+    "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 38 reparación(es) · 13 a métricas"
+   ]
+  },
+  {
+   "tema": "pennhurst",
+   "etapa": "guion",
+   "usd": 1.079,
+   "segundos": 224.7,
+   "llamadas": [
+    {
+     "servicio": "Anthropic claude-fable-5-1",
+     "desc": "guion_v4 guionista",
+     "in": 10707,
+     "out": 19438,
+     "thinking": 0,
+     "usd": 1.079
+    }
+   ],
+   "modelo": "claude-fable-5-1"
+  },
+  {
+   "tema": "pennhurst",
+   "etapa": "reparacion",
+   "usd": 0.0,
+   "segundos": 3.7,
+   "llamadas": []
+  },
+  {
+   "tema": "vajont",
+   "etapa": "ficha",
+   "usd": 0.4374,
+   "segundos": 397.0,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "ficha_caso",
+     "in": 52646,
+     "out": 25523,
+     "thinking": 7687,
+     "usd": 0.4374
+    }
+   ],
+   "prompt_md5": {
+    "sistema": "070b75dff58aecfa407fac3d62020ce4",
+    "usuario": "4ecb5b996034faf3dc670eeced006c43"
+   }
+  },
+  {
+   "tema": "vajont",
+   "etapa": "escaleta",
+   "usd": 0.2794,
+   "segundos": 357.3,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 15486,
+     "out": 5997,
+     "thinking": 5120,
+     "usd": 0.1421
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 15892,
+     "out": 4918,
+     "thinking": 5631,
+     "usd": 0.1373
+    }
+   ],
+   "modelo": "gpt-6.1-sol",
+   "log": [
+    "  [escaleta] compuerta del pool: verde {'datos': 245, 'citas_verificadas': 45, 'elegibles_humano': 23, 'eventos_con_fecha': 78, 'personas_con_nombre': 52}",
+    "  [escaleta v2] intento 1: 12 bloqueante(s) ['beat 2: dato_central «P49: ANTES DE SER UNA SOBREVIVIENTE, MICAELA ERA UNA NIÑA EN SU CASA. NO AGREGAR EDAD EXACTA, FAMILIARES, ESCUELA NI RUTINAS.» no existe en el pool (o no es D/T/Q)', 'beat 13: dato_central «P49: MICAELA COLETTI SOBREVIVIÓ Y POSTERIORMENTE PRESIDIÓ EL COMITÉ DE SOBREVIVIENTES DEL VAJONT.» no existe en el pool (o no es D/T/Q)', 'antagonista «Società Adriatica di Elettricità — SADE» no es una persona del pool ni una institución de la ficha', 'a_pantalla D104 también está en un beat: lo que va a pantalla no lo dice la voz'] · 67 reparación(es) · 15 a métricas",
+    "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 46 reparación(es) · 15 a métricas"
+   ]
+  },
+  {
+   "tema": "vajont",
+   "etapa": "guion",
+   "usd": 0.9138,
+   "segundos": 183.8,
+   "llamadas": [
+    {
+     "servicio": "Anthropic claude-fable-5-1",
+     "desc": "guion_v4 guionista",
+     "in": 11164,
+     "out": 16044,
+     "thinking": 0,
+     "usd": 0.9138
+    }
+   ],
+   "modelo": "claude-fable-5-1"
+  },
+  {
+   "tema": "vajont",
+   "etapa": "reparacion",
+   "usd": 0.0,
+   "segundos": 5.2,
+   "llamadas": []
+  },
+  {
+   "tema": "pennhurst",
+   "etapa": "particion",
+   "usd": 0.0099,
+   "segundos": 16.0,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01d_particion: acortar",
+     "in": 233,
+     "out": 63,
+     "thinking": 338,
+     "usd": 0.0045
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01d_particion: títulos",
+     "in": 700,
+     "out": 58,
+     "thinking": 347,
+     "usd": 0.0054
+    }
+   ],
+   "log": [
+    "  [01d] cap 7: 2184 caracteres > 1255 → el editor acortó el último párrafo (567 → 211)",
+    "  [01d] cap 2: 512 caracteres < 637 (corto; aviso, no se inventa texto)"
+   ]
+  },
+  {
+   "tema": "vajont",
+   "etapa": "particion",
+   "usd": 0.0237,
+   "segundos": 30.4,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01d_particion: acortar",
+     "in": 313,
+     "out": 95,
+     "thinking": 1203,
+     "usd": 0.0136
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01d_particion: títulos",
+     "in": 820,
+     "out": 86,
+     "thinking": 758,
+     "usd": 0.0101
+    }
+   ],
+   "log": [
+    "  [01d] cap 4: 2418 caracteres > 2242 → el último párrafo (beat 8) pasa al cap 5",
+    "  [01d] cap 7: 1762 caracteres > 1255 → el editor acortó el último párrafo (813 → 263)"
+   ]
   }
  ],
- "usd_total": 1.6568
+ "usd_total": 8.2733
 }

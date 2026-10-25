@@ -1,0 +1,670 @@
+[
+ {
+  "humano": {
+   "id": "P49",
+   "nombre": "Micaela Coletti",
+   "rol": "Niña arrastrada desde su cama, sobreviviente y posterior presidenta del comité de sobrevivientes.",
+   "por_que": "Tiene una entrada concreta, una experiencia física verificable y una salida documentada: la cama, el arrastre y la representación de los sobrevivientes. Su testimonio permite que el desastre tenga un cuerpo, no solamente una escala.",
+   "colectivo": false,
+   "fuente": "P49, Q49 y D132. Q49 está verificada."
+  },
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "D151",
+   "nombre": "Società Adriatica di Elettricità — SADE",
+   "por_que": "Es la promotora privada y responsable de decisiones de proyecto y llenado. Según F15, obtuvo autorización para superar la recomendación de Padua; F12 vincula otra elevación del agua con la entrega de la instalación a ENEL. El traspaso estatal debe quedar explícito: elegir a SADE como antagonista no permite atribuirle, sin pruebas, toda decisión operativa de la noche del desastre."
+  },
+  "promesa_gancho": "¿Cómo pudo llegar el agua hasta la cama de Micaela si el peligro ya estaba escrito?",
+  "pico": {
+   "beat": 9,
+   "id": "T57, T58, D124, D131, Q49, D132",
+   "por_que": "Se conserva el pico señalado por la ficha: la montaña entra en el embalse, el agua rebasa la presa y alcanza a los habitantes mientras el muro permanece en pie. El fragmento inicial del testimonio de Coletti abre el documental; su experiencia corporal completa golpea aquí."
+  },
+  "cierre_humano": "Volver a Micaela como presidenta del comité de sobrevivientes y terminar con la pregunta que estas fuentes no resuelven: ¿quién debía convertir la preocupación documentada en una orden de evacuar Longarone antes de que el agua alcanzara su cama?",
+  "beats": [
+   {
+    "n": 1,
+    "cap": 1,
+    "funcion": "gancho",
+    "emocion": "Desorientación física.",
+    "intensidad": 4,
+    "dato_central": "Q49, primer fragmento exclusivamente: «La sensación de que la cama tomaba velocidad, una fuerza espantosa que me agarraba por la espalda». Reservar el resto del testimonio para el pico.",
+    "datos_apoyo": [],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E10: la cama de Micaela toma velocidad; una fuerza la agarra por la espalda. Sin fecha, cifras, explicación hidráulica ni acciones añadidas.",
+    "pregunta_abierta": "¿Qué puede mover una cama y arrastrar a quien está acostada en ella?",
+    "pregunta_pantalla": "",
+    "cierre": "Antes de que esa cama se moviera, Longarone era un lugar donde vivir.",
+    "palabras_objetivo": 100,
+    "flash_forward": true,
+    "contador": false,
+    "escena_idx": 10
+   },
+   {
+    "n": 2,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "Cercanía y normalidad, sin fabricar una vida idílica.",
+    "intensidad": 1,
+    "dato_central": "P49: antes de ser una sobreviviente, Micaela era una niña en su casa. No agregar edad exacta, familiares, escuela ni rutinas.",
+    "datos_apoyo": [
+     "D24: el Vajont desemboca en el Piave frente a Longarone y Castellavazzo.",
+     "D66: SADE promovía una instalación hidroeléctrica privada.",
+     "T03: la adquisición de terrenos y los posteriores expropios afectaron a la población de Erto y Casso; hubo oposición.",
+     "T11: las obras también proporcionaron trabajo local. Omitir la cantidad de operarios.",
+     "D164: la presa era una estructura de arco delgado y doble curvatura."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El cauce que desemboca frente a los pueblos y la curva de hormigón en el valle. Micaela entra por su condición documentada de niña y habitante, no mediante una jornada doméstica inventada.",
+    "pregunta_abierta": "¿Cómo convivían las casas, el trabajo y aquella nueva instalación?",
+    "pregunta_pantalla": "",
+    "cierre": "La primera ola mortal de esta historia golpeó otro embalse.",
+    "palabras_objetivo": 190,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 3,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "La amenaza adquiere un antecedente.",
+    "intensidad": 2,
+    "dato_central": "T16: en Pontesei, una ola provocada por un desprendimiento mató al vigilante Arcangelo Tiziani. Giro 1.",
+    "datos_apoyo": [
+     "D119: después de Pontesei, SADE encargó nuevas pericias que identificaron una paleofrana en el Toc.",
+     "D154: Edoardo Semenza planteó que el llenado podía reactivar un antiguo deslizamiento.",
+     "T27: Dal Piaz minimizó los riesgos identificados por Edoardo.",
+     "T21: F05 describe Pontesei como un episodio «sin provocar daños»; exponer el contraste sin convertir esa frase en un recuento de cero muertos.",
+     "D157: F05 sostiene que Müller no compartía la hipótesis de una paleofrana.",
+     "P46: F15 presenta a Edoardo llegando a las mismas conclusiones que Müller. No unificar ambos relatos como si coincidieran."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E1: rocas entrando en el embalse y el agua levantándose sobre el lugar donde vigilaba Tiziani. No usar una altura numérica para la ola.",
+    "pregunta_abierta": "¿Qué cambia cuando el mecanismo temido ya ha matado cerca de allí?",
+    "pregunta_pantalla": "",
+    "cierre": "En el Vajont, la roca tampoco iba a quedarse dentro de un informe.",
+    "palabras_objetivo": 290,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 4,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "Indignación: el peligro se manifiesta y la denunciante termina procesada.",
+    "intensidad": 3,
+    "dato_central": "T36: durante las pruebas, una frana cayó efectivamente al lago artificial. Giro 2: la amenaza deja de ser solamente una hipótesis mientras la denuncia periodística también llega a juicio.",
+    "datos_apoyo": [
+     "T18: Tina Merlin había denunciado el peligro de desprendimiento. No fijar aquí una fecha indiscutida para su primer artículo.",
+     "T33: Merlin y L'Unità fueron procesados y absueltos, según F15. No presentar una orden de SADE detrás del proceso: la ficha no la establece.",
+     "T39: Merlin continuó publicando advertencias después de la absolución.",
+     "D49: los habitantes habían observado una larga fisura después de un desmoronamiento.",
+     "D71: según F12, L'Unità fue el único periódico nacional que siguió mediante Merlin los acontecimientos anteriores al desastre."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E3: una masa de roca cae al agua y levanta una ola. Como antecedente visual, la abertura visible de E2. No fijar dimensiones del desprendimiento ni un estado de terminación de la obra que las fuentes disputan.",
+    "pregunta_abierta": "¿Qué efecto tenía demostrar el peligro si denunciarlo también podía llevar ante un tribunal?",
+    "pregunta_pantalla": "",
+    "cierre": "La siguiente advertencia ya no salía de un diario: salía de un laboratorio.",
+    "palabras_objetivo": 300,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 3
+   },
+   {
+    "n": 5,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "Inquietud ante una decisión concreta.",
+    "intensidad": 3,
+    "dato_central": "D106: según F15, SADE obtuvo permiso ministerial para superar el límite recomendado por el informe de Padua. Giro 3. La voz explica la contradicción; no pronuncia las cotas.",
+    "datos_apoyo": [
+     "D104: el informe advertía de daños por encima de la cota recomendada. Límite numérico exclusivamente a pantalla.",
+     "D103: según F15, el modelo hidráulico empleó grava para representar las rocas compactas. Mostrar la diferencia material sin afirmar por cuenta propia cuánto alteró el resultado."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Grava frente a roca compacta como comparación material; dos líneas horizontales identifican la recomendación y la autorización. Es una visualización explicativa, no una recreación de una reunión.",
+    "pregunta_abierta": "¿Qué valor conservaba una recomendación si se autorizaba ir más allá?",
+    "pregunta_pantalla": "",
+    "cierre": "Después del límite escrito, llegó el cambio de dueño.",
+    "palabras_objetivo": 210,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 6,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "La responsabilidad se vuelve más difícil de seguir.",
+    "intensidad": 3,
+    "dato_central": "T52: F15 sitúa la culminación del traspaso a ENEL mientras continuaba la prueba de llenado. Giro 4.",
+    "datos_apoyo": [
+     "D105: la creación de ENEL había establecido el nuevo ámbito estatal.",
+     "T49: según F12, el movimiento de la ladera se detuvo después de una bajada del agua.",
+     "T50: F12 atribuye una posterior elevación del nivel a la necesidad de entregar la instalación como funcional y cerrar la operación con ENEL. Presentarlo como atribución de esa fuente.",
+     "D53: F09 describe la relación como una transformación de SADE en ENEL.",
+     "T46: F15 la describe como una compra de la instalación.",
+     "D138: F02 habla de control de SADE por ENEL. Explicitar las diferencias y sostener únicamente el núcleo común del traspaso, sin fabricar una equivalencia societaria."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Una línea del nivel del agua baja y vuelve a subir; a su lado aparecen los nombres SADE y ENEL. Rótulos editoriales identificados como explicación, no como un contrato reconstruido.",
+    "pregunta_abierta": "¿Quién heredaba las decisiones y las advertencias cuando cambiaba la titularidad?",
+    "pregunta_pantalla": "",
+    "cierre": "Fuera de los despachos, los avisos ya venían de la ladera.",
+    "palabras_objetivo": 240,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 7,
+    "cap": 4,
+    "funcion": "escalada",
+    "emocion": "Espera y dependencia de una señal ajena.",
+    "intensidad": 4,
+    "dato_central": "D226: se multiplicaron los avisos de sacudidas, estruendos, grietas y movimientos superficiales.",
+    "datos_apoyo": [
+     "T54: se cerraron accesos y se desalojaron algunas viviendas de Erto y Casso. No confundir esas medidas parciales con una evacuación de Longarone.",
+     "Q50: la administración de Erto y Casso comunicó que la población vivía en continua aprensión y alarma.",
+     "Q46: «Si no avisan, será que no es grave». Es una atribución colectiva a habitantes de Erto y Longarone, nunca una frase de Micaela."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E4: grietas, sacudidas y caminos cerrados. Breve retorno editorial al encuadre de la cama del gancho, detenido y sin repetir el arrastre ni añadir acciones: Micaela vuelve a ser la referencia humana frente a las señales de la ladera. No afirmar qué sabía ella.",
+    "pregunta_abierta": "¿Cómo podían interpretar los habitantes la gravedad si las restricciones eran parciales y esperaban un aviso?",
+    "pregunta_pantalla": "",
+    "cierre": "A la mañana del desastre, esa preocupación entró en una carta.",
+    "palabras_objetivo": 200,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 4
+   },
+   {
+    "n": 8,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "Urgencia sin respuesta general.",
+    "intensidad": 4,
+    "dato_central": "T61: Biadene pidió a Pancini que regresara de vacaciones la mañana del desastre. Giro 5: la preocupación quedó escrita, pero no se convirtió en una alarma general para las poblaciones expuestas.",
+    "datos_apoyo": [
+     "Q51: la posdata incorporó las mediciones agravadas comunicadas por Rossi y las pequeñas caídas de piedras hacia la presa. Documento y cantidades exclusivamente a pantalla; no añadir una tasa «por día».",
+     "D111: F01 y F31 señalan que aquella noche no se dio la alarma para activar una evacuación masiva. No identificar al responsable operativo de esa omisión: estas fuentes no completan la cadena."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E5: la posdata de la carta, los signos de exclamación y la mención de piedras que caen en el borde occidental. No inventar una llamada escuchada ni una conversación entre los ingenieros.",
+    "pregunta_abierta": "¿Dónde se interrumpió el paso entre conocer el aumento del peligro y ordenar que la población saliera?",
+    "pregunta_pantalla": "",
+    "cierre": "La siguiente señal no iba a estar escrita.",
+    "palabras_objetivo": 220,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 5
+   },
+   {
+    "n": 9,
+    "cap": 5,
+    "funcion": "pico",
+    "emocion": "Violencia física e impotencia.",
+    "intensidad": 5,
+    "dato_central": "T58: el impacto del desprendimiento produjo una ola que rebasó la presa y entró en el valle.",
+    "datos_apoyo": [
+     "T57: la ladera del Toc se desplomó en el embalse.",
+     "D124: el agua llegó a Longarone unos cuatro minutos después. La voz dice esta duración una sola vez; no convertirla en un cronómetro exacto.",
+     "Q49, continuación no utilizada en el gancho: «me doblaba en dos, me aplastaba; la sensación de ser de goma, de ensancharme y luego encogerme, los ojos convertidos en dos estrellas».",
+     "D132: Coletti fue arrastrada al menos cuatrocientos metros desde su casa. La voz dice esta distancia una sola vez.",
+     "D131: la presa permaneció en pie. Revelarlo después de atravesar la experiencia de Micaela, no como explicación previa que enfríe el golpe."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E10: la espalda doblada, el cuerpo aplastado, la sensación de ensancharse y encogerse. El montaje pasa del desprendimiento y el agua al cuerpo de Micaela; termina en la estructura que sigue en pie. No usar alturas, velocidades ni volúmenes disputados.",
+    "pregunta_abierta": "¿Qué queda de una población cuando el muro resiste, pero el agua pasa por encima?",
+    "pregunta_pantalla": "",
+    "cierre": "Después del agua, alguien intenta reconocer su pueblo.",
+    "palabras_objetivo": 320,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 10
+   },
+   {
+    "n": 10,
+    "cap": 6,
+    "funcion": "respiro",
+    "emocion": "Desorientación, pérdida y silencio.",
+    "intensidad": 2,
+    "dato_central": "D45: el centro de Longarone quedó convertido en una explanada de fango y piedras.",
+    "datos_apoyo": [
+     "Q25: un sobreviviente no identificado dice: «Conocía Longarone en cada rincón, ahora no sé dónde estoy».",
+     "D128: recuento de 1.910 personas muertas, coincidente en F19, F14 y F02. Exclusivamente a pantalla; no presentarlo como un padrón judicial reproducido.",
+     "T76: Leone y Zaccagnini visitaron los lugares de la tragedia.",
+     "Q13: los pobladores reclamaron: «Presidente, queremos justicia».",
+     "Q14: Leone respondió: «Y justicia tendréis»."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E11: fango y piedras donde estaba el centro urbano; la voz del sobreviviente que no consigue orientarse. Después del silencio, E13 aporta el grito de los pobladores y la respuesta de Leone. No situar a Micaela entre quienes recibieron la visita.",
+    "pregunta_abierta": "¿Qué significaba prometer justicia sobre un pueblo que ya no podía reconocerse?",
+    "pregunta_pantalla": "",
+    "cierre": "A la promesa de justicia le salió al cruce una palabra: imprevisible.",
+    "palabras_objetivo": 240,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 11
+   },
+   {
+    "n": 11,
+    "cap": 6,
+    "funcion": "revelacion",
+    "emocion": "Incomodidad ante la disputa por explicar lo ocurrido.",
+    "intensidad": 2,
+    "dato_central": "D136: según F02, una primera comisión de expertos concluyó que el desastre era imprevisible. Primera mitad del giro 6.",
+    "datos_apoyo": [
+     "D62: F12 describe una interpretación de la prensa nacional basada en la imprevisibilidad de la naturaleza.",
+     "Q22: Bocca sostuvo que no había nada que hacer ni culpables. Es su posición, no una conclusión del documental. Fragmento exclusivamente a pantalla.",
+     "Q23: Coppola reclamó investigar y encontrar responsables. Fragmento exclusivamente a pantalla.",
+     "T75: el Ministerio de Obras Públicas había nombrado una comisión técnico-administrativa de investigación. No identificar automáticamente esa comisión con la primera pericia mencionada por F02."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Dos placas enfrentan las frases verificadas «no hay culpables» y «Hay que hacer un proceso». Luego, el rótulo «imprevisible», identificado como conclusión atribuida por F02 a una primera comisión de expertos, no como una verdad narratorial.",
+    "pregunta_abierta": "¿Podía llamarse imprevisible a un desastre precedido por desprendimientos, informes y mediciones?",
+    "pregunta_pantalla": "",
+    "cierre": "Para Mario Fabbri, faltaba otra pericia.",
+    "palabras_objetivo": 220,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 12,
+    "cap": 7,
+    "funcion": "giro",
+    "emocion": "Reconocimiento de responsabilidad, sin cierre total.",
+    "intensidad": 3,
+    "dato_central": "T102 y T103: la casación reconoció la culpabilidad de Biadene y Sensidoni por inundación agravada. Segunda mitad del giro 6.",
+    "datos_apoyo": [
+     "T85: el fiscal Fabio Mandarino abrió el expediente judicial.",
+     "P31: el juez Mario Fabbri ordenó una nueva pericia, integrada en gran parte por expertos extranjeros.",
+     "D35: el alcance final consignado por F03 es un solo delito, inundación agravada; nombres y resultado jurídico a pantalla, sin lectura duplicada.",
+     "D46: F09 ofrece una formulación más amplia de las condenas. Exponer la discrepancia de alcance y adoptar la formulación final de casación respaldada por T102, T103 y D35; no acumular delitos de distintas fases."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Los nombres de Biadene y Sensidoni junto al resultado de casación, en una placa documental. La voz reconstruye el paso de la primera interpretación de imprevisibilidad a la nueva pericia y al reconocimiento de responsabilidad, sin inventar gestos en el tribunal.",
+    "pregunta_abierta": "¿Hasta dónde llega una condena si todavía no puede reconstruirse por completo quién debía activar la alarma?",
+    "pregunta_pantalla": "",
+    "cierre": "Todavía queda una pregunta que estas fuentes no cierran.",
+    "palabras_objetivo": 280,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 13,
+    "cap": 7,
+    "funcion": "cierre",
+    "emocion": "Persistencia de una ausencia.",
+    "intensidad": 2,
+    "dato_central": "P49: Micaela Coletti sobrevivió y posteriormente presidió el comité de sobrevivientes del Vajont.",
+    "datos_apoyo": [],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El nombre de Micaela Coletti permanece junto a su función en el comité. Sin repetir el arrastre, sin inventar una visita a las ruinas y sin atribuirle la pregunta del narrador.",
+    "pregunta_abierta": "¿Quién tomó —o dejó sin tomar— la decisión operativa de alertar a Longarone, y por qué la preocupación escrita no se convirtió en una evacuación general?",
+    "pregunta_pantalla": "",
+    "cierre": "¿Quién debía convertir aquella preocupación escrita en una orden de evacuar Longarone antes de que el agua alcanzara la cama de Micaela?",
+    "palabras_objetivo": 100,
+    "flash_forward": false,
+    "contador": false
+   }
+  ],
+  "a_pantalla": [
+   {
+    "id": "D104",
+    "cap": 3,
+    "por_que": "Mostrar «Límite recomendado: 700 metros sobre el nivel del mar», como contenido del informe de Padua descrito por F15. La voz no lee la cota ni reproduce el documento."
+   },
+   {
+    "id": "D106",
+    "cap": 3,
+    "por_que": "Contraponer «Autorización: 715 metros sobre el nivel del mar — según F15». Mantener visible la atribución; la voz no pronuncia la cantidad ni presenta un permiso cuyo facsímil no está aportado."
+   },
+   {
+    "id": "Q51",
+    "cap": 4,
+    "por_que": "Mostrar la posdata verificada de Biadene: aumento del 50 %, de 20 a 30 centímetros, y referencia a pequeñas caídas de piedras. No añadir «por día». La voz relata el pedido de regreso de Pancini, pero no lee la posdata ni sus cifras."
+   },
+   {
+    "id": "D128",
+    "cap": 6,
+    "por_que": "Placa de recuento: «1.910 personas muertas. Recuento coincidente en F19, F14 y F02». No rotularlo como padrón judicial ni sumarle subconjuntos territoriales. La voz deja espacio al testimonio de desorientación."
+   },
+   {
+    "id": "Q22",
+    "cap": 6,
+    "por_que": "Fragmento verificado de Bocca: «no hay remordimientos, no hay culpables». Identificar autor y posición periodística. La voz no lo lee."
+   },
+   {
+    "id": "Q23",
+    "cap": 6,
+    "por_que": "Fragmento verificado de Coppola: «Hay que hacer un proceso. Hay que encontrar a los responsables». Contraste con Bocca, sin lectura duplicada."
+   },
+   {
+    "id": "D136",
+    "cap": 6,
+    "por_que": "Rótulo «imprevisible», expresamente presentado como conclusión de una primera comisión de expertos según F02. No fabricar una cita literal ni un facsímil del informe."
+   },
+   {
+    "id": "D35",
+    "cap": 7,
+    "por_que": "Placa con Biadene, Sensidoni y el resultado final: culpabilidad por un solo delito, inundación agravada. Apoyar la formulación con T102 y T103. La voz explica el cambio respecto de la imprevisibilidad, sin volver a leer nombres y fallo."
+   }
+  ],
+  "justificacion_humano": "Coletti concentra el arco corporal más concreto y una cita verificada. Merlin conserva un beat indispensable de denuncia, proceso y continuidad, pero no sustituye a la protagonista. Biadene permite seguir una decisión documentada sin convertir al ingeniero condenado en el centro emocional de la destrucción. Micaela aparece en el gancho, en la vida anterior, mediante un retorno visual explícitamente editorial en el capítulo que aprieta, en el pico y en el cierre. Q49 se divide en fragmentos no superpuestos: aceleración y fuerza inicial en el gancho; aplastamiento y deformación percibida en el pico. No se inventa qué sabía Micaela, cómo pasó las horas anteriores ni cómo fue rescatada. Entran los seis giros de la ficha; el sexto se desarrolla entre la disputa del capítulo 6 y la resolución penal del capítulo 7."
+ },
+ {
+  "humano": {
+   "id": "P49",
+   "nombre": "Micaela Coletti",
+   "rol": "Niña arrastrada desde su casa, sobreviviente y posterior presidenta del comité de sobrevivientes del Vajont.",
+   "por_que": "Tiene el arco físico más concreto: está en su cama, la ola la arrastra y sobrevive para contarlo. Su testimonio permite entrar en la catástrofe desde un cuerpo, no desde una obra de ingeniería. Aparece en el gancho, en la vida anterior, antes del impacto, en el pico y en el cierre.",
+   "colectivo": false,
+   "fuente": "P49, Q49 y D132. Q49 está verificada."
+  },
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "D151",
+   "nombre": "Società Adriatica di Elettricità",
+   "por_que": "La ficha le atribuye decisiones de proyecto y llenado frente a advertencias documentadas. La responsabilidad narrativa se delimita: la instalación pasa a ENEL antes del desastre y el pool no permite identificar por completo quién debía ordenar la alarma general aquella noche. No se atribuye esa omisión a una persona sin prueba."
+  },
+  "promesa_gancho": "¿Cómo pudo el agua alcanzar la cama de una niña mientras la presa seguía en pie?",
+  "pico": {
+   "beat": 9,
+   "id": "T58",
+   "por_que": "Se conserva el pico de la ficha: la ola rebasa la presa y destruye las comunidades del valle, pero el muro permanece en pie. Aquí se resuelve el movimiento anticipado en el gancho y se entiende qué alcanzó a Micaela."
+  },
+  "cierre_humano": "Volver al testimonio de Micaela y cerrar con la pregunta que el expediente no termina de responder: ¿quién debía dar la orden de avisar a Longarone y por qué la preocupación escrita no se convirtió en una evacuación general?",
+  "beats": [
+   {
+    "n": 1,
+    "cap": 1,
+    "funcion": "gancho",
+    "emocion": "Desamparo físico",
+    "intensidad": 4,
+    "dato_central": "D132: Micaela Coletti es arrastrada lejos de su casa. En este adelanto se omite la distancia.",
+    "datos_apoyo": [],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Una niña arrastrada por el agua, separada de su casa. Tomar únicamente el recorrido documentado en E10: sin inventar obstáculos, heridas, acompañantes ni rescate.",
+    "pregunta_abierta": "¿Qué fuerza ha llegado hasta una niña dentro de su casa?",
+    "pregunta_pantalla": "",
+    "cierre": "Antes de que el agua llegara hasta Micaela, había un pueblo al otro lado de la garganta.",
+    "palabras_objetivo": 100,
+    "flash_forward": true,
+    "contador": false,
+    "escena_idx": 10
+   },
+   {
+    "n": 2,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "Normalidad y pertenencia",
+    "intensidad": 1,
+    "dato_central": "D24: El torrente Vajont desemboca en el Piave frente a Longarone y Castellavazzo.",
+    "datos_apoyo": [
+     "D66: SADE era la empresa privada promotora de la instalación hidroeléctrica.",
+     "D164: La presa era una estructura de arco delgado y doble curvatura."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Un mapa recorre el torrente hasta el Piave y sitúa Longarone frente a su desembocadura. Del paisaje se pasa a la escala de una casa y una cama: Micaela todavía es una niña, no una sobreviviente. No agregar edad exacta, familiares, escuela ni rutinas.",
+    "pregunta_abierta": "¿Qué relación podía tener esa vida doméstica con la montaña situada detrás de la presa?",
+    "pregunta_pantalla": "",
+    "cierre": "En otro embalse cercano, una montaña ya había golpeado el agua.",
+    "palabras_objetivo": 180,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 3,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "La amenaza adquiere un antecedente",
+    "intensidad": 2,
+    "dato_central": "T16: En Pontesei, un desprendimiento sobre el embalse provoca una ola que mata al vigilante Arcangelo Tiziani.",
+    "datos_apoyo": [
+     "D119: Después de Pontesei, SADE encarga nuevas pericias que identifican una paleofrana en el Toc.",
+     "D154: Edoardo Semenza plantea que un antiguo deslizamiento podía reactivarse con el llenado.",
+     "T27: Dal Piaz minimiza en su informe los riesgos identificados por Edoardo Semenza."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Rocas entrando en el embalse de Pontesei y una ola avanzando hacia el lugar de vigilancia. No dar una altura ni reconstruir los últimos movimientos de Tiziani.",
+    "pregunta_abierta": "Si ese mecanismo ya había matado, ¿qué significaba encontrar una antigua masa deslizada en el Toc?",
+    "pregunta_pantalla": "",
+    "cierre": "En el Toc, la advertencia también iba a quedar a la vista.",
+    "palabras_objetivo": 230,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 4,
+    "cap": 3,
+    "funcion": "escalada",
+    "emocion": "Inquietud visible",
+    "intensidad": 3,
+    "dato_central": "D49: Después de un desmoronamiento, los habitantes observan una larga fisura en la montaña.",
+    "datos_apoyo": [
+     "T18: F02 documenta una denuncia de Tina Merlin sobre el peligro de desprendimiento anterior a la catástrofe.",
+     "D71: Según F12, L'Unità fue el único periódico nacional que siguió mediante Merlin los acontecimientos anteriores al desastre."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "La abertura en la ladera del Toc. Seguir visualmente la grieta sin asignarle dimensiones que no se desarrollarán. Introducir a Merlin por su acción documentada de publicar, sin inventarle una visita a esa fisura.",
+    "pregunta_abierta": "¿Qué ocurre cuando el peligro deja de ser solamente un diagnóstico técnico y alguien lo publica?",
+    "pregunta_pantalla": "",
+    "cierre": "Durante las pruebas, una parte de la montaña cayó al lago. La denuncia también llegó a un tribunal.",
+    "palabras_objetivo": 180,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 2
+   },
+   {
+    "n": 5,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "Indignación",
+    "intensidad": 3,
+    "dato_central": "T36: Durante las pruebas del embalse, una frana cae efectivamente al lago artificial.",
+    "datos_apoyo": [
+     "T33: F15 sitúa el proceso contra Tina Merlin y L'Unità y registra su absolución.",
+     "T39: Merlin publica después una nueva advertencia sobre la amenaza a Erto."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "La masa de roca golpea el agua y levanta una ola. No elegir entre las magnitudes incompatibles de las fuentes. El proceso contra Merlin se cuenta como acción judicial, sin fabricar una escena de audiencia.",
+    "pregunta_abierta": "Después de una caída real al embalse, ¿qué margen de seguridad podían garantizar las pruebas?",
+    "pregunta_pantalla": "",
+    "cierre": "La respuesta se buscó en un modelo del lago. Ese modelo produjo un límite.",
+    "palabras_objetivo": 220,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 3
+   },
+   {
+    "n": 6,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "Desconfianza técnica",
+    "intensidad": 3,
+    "dato_central": "D103: Según F15, el modelo hidráulico de Padua empleó grava para representar las rocas compactas.",
+    "datos_apoyo": [],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Una representación didáctica del modelo distingue la grava de la masa rocosa que pretendía representar, sin simular una reproducción exacta del ensayo. Después, dos cotas aparecen únicamente en el inserto documental.",
+    "pregunta_abierta": "¿Cómo se pasa de un límite recomendado a una autorización para superarlo?",
+    "pregunta_pantalla": "",
+    "cierre": "Mientras seguían las pruebas, la instalación estaba cambiando de dueño.",
+    "palabras_objetivo": 180,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 7,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "La operación continúa",
+    "intensidad": 3,
+    "dato_central": "T52: F15 sitúa la culminación del traspaso de la instalación a ENEL mientras continúa la prueba de llenado.",
+    "datos_apoyo": [
+     "D105: La ley que instituyó ENEL se aprobó antes de culminar el cambio de propiedad.",
+     "T50: F12 atribuye una elevación del nivel del agua a la necesidad de entregar la presa como funcional y cerrar la operación con ENEL.",
+     "D162: F05 afirma que el embalse volvió al nivel de seguridad antes del desastre."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Sobre el mismo esquema de la instalación cambia la titularidad, de SADE a ENEL, mientras una línea representa las variaciones del agua. No presentar a ambas entidades como una sola empresa ni inventar un contrato visible.",
+    "pregunta_abierta": "¿Qué cambia en la seguridad cuando cambia la propiedad, pero las pruebas siguen?",
+    "pregunta_pantalla": "",
+    "cierre": "Después llegaron los estruendos, los caminos cerrados y una carta escrita la mañana del desastre.",
+    "palabras_objetivo": 220,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 8,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "Asfixia y espera",
+    "intensidad": 4,
+    "dato_central": "T61: La mañana del desastre, Biadene escribe a Pancini para pedirle que regrese de vacaciones.",
+    "datos_apoyo": [
+     "D226: Se habían multiplicado los avisos de sacudidas, estruendos, grietas y movimientos superficiales.",
+     "T54: Se desalojaron algunas viviendas de la ladera y se restringió el acceso al embalse.",
+     "D111: F01 y F31 señalan que no se dio la alarma para activar una evacuación masiva de las poblaciones expuestas.",
+     "Q46: La ficha recoge entre habitantes de Erto y Longarone la frase «Si no avisan, será que no es grave».",
+     "Q50: La administración de Erto y Casso había comunicado a SADE la continua aprensión y alarma de la población."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "La carta de Biadene y su posdata. Intercalar las grietas y los caminos cerrados de E4. Volver brevemente a Micaela en su casa como contrapunto, sin atribuirle conocimiento de la carta, de las mediciones ni de los avisos.",
+    "pregunta_abierta": "¿Dónde se interrumpe el paso entre reconocer el peligro y avisar a quienes están expuestos?",
+    "pregunta_pantalla": "",
+    "cierre": "La carta quedó escrita. En Longarone, una corriente de aire abrió de golpe un portoncito.",
+    "palabras_objetivo": 290,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 5
+   },
+   {
+    "n": 9,
+    "cap": 5,
+    "funcion": "pico",
+    "emocion": "Terror y ruptura",
+    "intensidad": 5,
+    "dato_central": "T58: El impacto de la roca produce una ola que rebasa la presa y entra en el valle.",
+    "datos_apoyo": [
+     "T57: La ladera del Toc se desploma en el embalse.",
+     "D124: Varias fuentes sitúan la llegada del agua a Longarone unos cuatro minutos después del desprendimiento.",
+     "Q19: Trevisano ve abrirse el portoncito por una corriente de aire y piensa que ha cedido el dique.",
+     "D131: La presa permanece en pie después de la catástrofe."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El portoncito abierto de par en par y el ruido del aire que irrumpe, tomados de E9. Después, la ola por encima de la presa y el regreso a Micaela en el instante anticipado por el gancho. No repetir la explicación de su desplazamiento ni inventar su recorrido.",
+    "pregunta_abierta": "Si el muro no cayó, ¿qué fue lo que destruyó el pueblo?",
+    "pregunta_pantalla": "",
+    "cierre": "El agua pasó. Los que quedaron ya no reconocían el lugar.",
+    "palabras_objetivo": 280,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 9
+   },
+   {
+    "n": 10,
+    "cap": 6,
+    "funcion": "respiro",
+    "emocion": "Extrañamiento y silencio",
+    "intensidad": 2,
+    "dato_central": "Q25: Un sobreviviente dice: «Conocía Longarone en cada rincón, ahora no sé dónde estoy».",
+    "datos_apoyo": [
+     "D19: La fuerza estadounidense instaló hospitales móviles y aportó equipos durante el rescate."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Fango y piedras donde estaba el centro habitado. Mantener la mirada en la pérdida de referencias de E11 antes de introducir el trabajo de asistencia. No usar D45 ni añadir otro recuento de víctimas.",
+    "pregunta_abierta": "¿Cómo se reconoce una pérdida cuando ya no se reconoce el propio pueblo?",
+    "pregunta_pantalla": "",
+    "cierre": "Entre los restos empezó otra disputa: si aquello había sido inevitable.",
+    "palabras_objetivo": 170,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 11
+   },
+   {
+    "n": 11,
+    "cap": 6,
+    "funcion": "revelacion",
+    "emocion": "Rabia contenida",
+    "intensidad": 3,
+    "dato_central": "D62: F12 describe una interpretación de la prensa nacional basada en la imprevisibilidad de la naturaleza.",
+    "datos_apoyo": [
+     "Q22: Bocca sostiene que no había nada que hacer ni culpables. Presentarlo como su posición, no como un hecho establecido.",
+     "Q23: Coppola rechaza la absolución previa a cualquier investigación y reclama un proceso para encontrar responsables."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Sobre las imágenes del pueblo destruido se escuchan, atribuidas y sucesivas, las posiciones incompatibles de Bocca y Coppola. No mostrar simultáneamente los textos de las citas ni añadir titulares no incluidos en la ficha.",
+    "pregunta_abierta": "¿Quién puede declarar inevitable un desastre antes de investigar las decisiones que lo precedieron?",
+    "pregunta_pantalla": "",
+    "cierre": "La primera pericia favoreció la imprevisibilidad. El proceso no terminó ahí.",
+    "palabras_objetivo": 220,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 12,
+    "cap": 7,
+    "funcion": "giro",
+    "emocion": "Responsabilidad reconocida, respuesta incompleta",
+    "intensidad": 3,
+    "dato_central": "T102: La casación reconoce la responsabilidad de Biadene y Sensidoni por inundación agravada por la previsión del acontecimiento.",
+    "datos_apoyo": [
+     "D136: Según F02, una primera comisión de expertos había concluido que el desastre era imprevisible.",
+     "T85: Fabio Mandarino es el fiscal de Belluno que abre el expediente judicial.",
+     "T86: Mario Fabbri conduce la instrucción penal que desemboca en la remisión a juicio."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Un esquema sobrio del recorrido judicial: la primera conclusión de imprevisibilidad frente al resultado de casación. No fabricar sellos, firmas, folios ni una lectura de sentencia.",
+    "pregunta_abierta": "¿Reconocer responsabilidad penal permite reconstruir quién debía ordenar la alarma aquella noche?",
+    "pregunta_pantalla": "",
+    "cierre": "La condena nombró responsables. Micaela dejó un testimonio de lo que significó estar al otro lado de aquellas decisiones.",
+    "palabras_objetivo": 230,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 13,
+    "cap": 7,
+    "funcion": "cierre",
+    "emocion": "Intimidad y pregunta pendiente",
+    "intensidad": 3,
+    "dato_central": "Q49: Micaela describe la fuerza que la agarraba por la espalda, la doblaba y aplastaba; recuerda la sensación de ensancharse y encogerse y «los ojos convertidos en dos estrellas».",
+    "datos_apoyo": [],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Volver a la cama de E10, sin repetir su aceleración ni reconstruir otra vez la ola. La imagen queda subordinada a las sensaciones corporales del testimonio verificado de Micaela. Identificarla desde su rol documentado de sobreviviente y posterior presidenta del comité, sin inventar una entrevista o un acto público.",
+    "pregunta_abierta": "¿Quién debía dar la orden de avisar a Longarone y por qué la preocupación documentada no se convirtió en una evacuación general?",
+    "pregunta_pantalla": "",
+    "cierre": "¿Quién debía dar la orden de avisar a Longarone y por qué la preocupación escrita no se convirtió en una evacuación general?",
+    "palabras_objetivo": 140,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 10
+   }
+  ],
+  "a_pantalla": [
+   {
+    "id": "D104",
+    "cap": 4,
+    "por_que": "Beat 6, giro 3: mostrar exclusivamente en pantalla que el informe de Padua advertía de daños por encima de 700 metros sobre el nivel del mar. La voz no lee ni repite ese límite."
+   },
+   {
+    "id": "D106",
+    "cap": 4,
+    "por_que": "Beat 6, giro 3: contraponer al límite la autorización para alcanzar 715 metros, con atribución explícita «Según F15». No identificar el ministerio con mayor precisión de la que permite el pasaje. La voz no repite la autorización ni la cifra."
+   },
+   {
+    "id": "Q51",
+    "cap": 4,
+    "por_que": "Beat 8: mostrar la posdata de Biadene y su traducción, con el aumento del 50 %, de 20 a 30 centímetros. No agregar «por día». Si no se dispone del original, presentarlo como transcripción de la cita, nunca como facsímil fabricado. No leerlo en voz."
+   },
+   {
+    "id": "D128",
+    "cap": 6,
+    "por_que": "Beat 10: mostrar una sola vez «1.910 personas muertas», identificado como el recuento coincidente de F19, F14 y F02, no como un padrón judicial reproducido. Sin lectura en voz, cifras alternativas ni subtotales."
+   }
+  ],
+  "justificacion_humano": "Micaela concentra entrada, sufrimiento y supervivencia, además de una cita verificada. Merlin sostiene el arco de advertencia y silenciamiento sin desplazarla como protagonista. Biadene conserva sus acciones y su responsabilidad judicial sin convertirse en el centro emocional. No hay dos capítulos consecutivos sin Micaela: aparece en los capítulos 1, 2, 4, 5 y 7. Los seis giros están distribuidos en los beats 3, 5, 6, 7, 8 y 12; el tercero se completa mediante información exclusiva de pantalla. El gancho anticipa el desplazamiento, el pico explica el mecanismo y el cierre reserva las palabras verificadas de la sobreviviente."
+ }
+]

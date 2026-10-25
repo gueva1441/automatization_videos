@@ -1,0 +1,11 @@
+[01:47:24] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f24-d-r3-sonnet
+  [R3 sonnet] F01: 17.7 s · US$ 0.0265
+  [R3 sonnet] F04: 27.1 s · US$ 0.0960
+  [R3 sonnet] F05: 117.5 s · US$ 0.3781
+  [R3 sonnet] F06: 64.9 s · US$ 0.5206
+  [R3 sonnet] F07: 38.2 s · US$ 0.6013
+  [R3 sonnet] F08: 25.3 s · US$ 0.6540
+  [R3 sonnet] F09: 78.0 s · US$ 0.8236
+  [R3 sonnet] F10: 64.9 s · US$ 0.9712
+[01:54:37] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f24-d-r3-sonnet � Costo total: $0.9712
+{"error": null, "usd_r3": 0.9712, "segundos_r3": 433.5}

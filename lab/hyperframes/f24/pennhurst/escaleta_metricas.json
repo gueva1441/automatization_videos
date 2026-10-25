@@ -1,0 +1,78 @@
+{
+ "beats": 13,
+ "beats_por_cap": [
+  1,
+  1,
+  2,
+  2,
+  1,
+  3,
+  3
+ ],
+ "ids": 34,
+ "apoyos_por_beat": 1.62,
+ "promesa": "¿Quién podía obligar a Pennhurst a cuidar de Terri cuando ella había perdido las palabras?",
+ "humano": "Terri Lee Halderman",
+ "antagonista": {
+  "tipo": "institucion",
+  "id": "L04",
+  "nombre": "Estado de Pensilvania",
+  "por_que": "Era responsable de la institución y debía financiar y ejecutar las medidas judiciales. Sus decisiones presupuestarias y los incumplimientos del Departamento de Bienestar Público permiten mostrar decisiones concretas, no una maldad institucional abstracta. No se atribuyen al Estado órdenes individuales de abuso que la ficha no identifica.",
+  "variantes": [
+   "Pennsylvania",
+   "State of Pennsylvania",
+   "Commonwealth",
+   "Commonwealth defendants"
+  ]
+ },
+ "intentos": [
+  {
+   "intento": 1,
+   "bloqueantes": [
+    "a_pantalla D194 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T10 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T03 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T12 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T25 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T33 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D186 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T39 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T44 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D09 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T99 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T101 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D45 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T106 también está en un beat: lo que va a pantalla no lo dice la voz"
+   ]
+  },
+  {
+   "intento": 2,
+   "bloqueantes": []
+  }
+ ],
+ "pasada1_beats_por_cap": [
+  1,
+  1,
+  3,
+  1,
+  1,
+  3,
+  3
+ ],
+ "pasada1_caps_fuera_1_3": [],
+ "pasada1_bloqueantes": [
+  "beat 1: dato_central «D194: LOS REGISTROS MÉDICOS DE TERRI CONTIENEN LESIONES REPORTADAS. EL GANCHO PRESENTA SU EXISTENCIA, SIN CUANTIFICARLAS.» no existe en el pool (o no es D/T/Q)",
+  "beat 2: dato_central «P01 / T10: TERRI INGRESA A PENNHURST EN 1966, A LOS DOCE AÑOS. LA VOZ PUEDE DECIR SU EDAD UNA SOLA VEZ; EL AÑO QUEDA EN PANTALLA.» no existe en el pool (o no es D/T/Q)",
+  "beat 3: dato_central «T12 / T14 / D168: LA INVESTIGACIÓN TELEVISIVA DE BILL BALDINI, SUFFER THE LITTLE CHILDREN, CONVIERTE LAS CONDICIONES DE PENNHURST EN UN ASUNTO PÚBLICO.» no existe en el pool (o no es D/T/Q)",
+  "beat 4: dato_central «D18: TERRI ESTABA APRENDIENDO A HABLAR CUANDO INGRESÓ Y PERDIÓ SUS HABILIDADES VERBALES DESPUÉS DE VIVIR EN PENNHURST. LA FICHA NO PERMITE FECHAR ESE RETROCESO CON MAYOR PRECISIÓN.» no existe en el pool (o no es D/T/Q)",
+  "beat 5: dato_central «T25 / T26 / D169: DAVID FERLEGER PRESENTA LA DEMANDA COLECTIVA EN NOMBRE DE TERRI Y DE RESIDENTES ACTUALES Y ANTERIORES. LA ACCIÓN BUSCA MEDIDAS JUDICIALES Y DAÑOS MONETARIOS.» no existe en el pool (o no es D/T/Q)",
+  "beat 6: dato_central «D184 / D172 / Q20: LAS SUJECIONES FÍSICAS O QUÍMICAS SE UTILIZABAN COMO MEDIDAS DE CONTROL EN LUGAR DE UNA DOTACIÓN ADECUADA DE PERSONAL. Q20 PUEDE OÍRSE CON ATRIBUCIÓN A BRODERICK.» no existe en el pool (o no es D/T/Q)",
+  "beat 7: dato_central «T33: UNA RESIDENTE NO IDENTIFICADA ACUMULA 720 HORAS DE SUJECIÓN FÍSICA DURANTE AGOSTO DE 1976. CIFRA Y FECHA EXCLUSIVAMENTE EN PANTALLA; NO CONVERTIRLAS EN UN CRONÓMETRO RECONSTRUIDO.» no existe en el pool (o no es D/T/Q)",
+  "beat 8: dato_central «D33 / T36 / T37: TRAS EL JUICIO, BRODERICK DETERMINA QUE PENNHURST ES INCAPAZ DE PROPORCIONAR CUIDADOS Y HABILITACIÓN CONSTITUCIONALMENTE APROPIADOS. ES EL GIRO QUE CONVIERTE LAS CONDICIONES DENUNCIADAS EN HALLAZGOS JUDICIALES.» no existe en el pool (o no es D/T/Q)",
+  "beat 9: dato_central «T44 / T45 / D06: BRODERICK ORDENA SERVICIOS COMUNITARIOS ADECUADOS Y LA SUPERVISIÓN DE UN SPECIAL MASTER. EL DIAGNÓSTICO INSTITUCIONAL SE CONVIERTE EN UN MANDATO DE ACTUACIÓN FUERA DE PENNHURST.» no existe en el pool (o no es D/T/Q)",
+  "beat 10: dato_central «D140 / D141: PARA LAS MISMAS 57 PERSONAS, LAS FAMILIAS AFIRMABAN QUE NO SOBREVIVIRÍAN SIN ATENCIÓN MÉDICA PERMANENTE Y EL PERSONAL INFORMABA QUE NO EXISTÍAN NECESIDADES MÉDICAS GRAVES. LA FICHA NO RESUELVE LA DISCREPANCIA.» no existe en el pool (o no es D/T/Q)",
+  "beat 11: dato_central «T99 / D72: LA CORTE SUPREMA DETERMINA QUE LA INMUNIDAD SOBERANA IMPIDE AL TRIBUNAL FEDERAL ORDENAR A FUNCIONARIOS ESTATALES CUMPLIR LA LEY ESTATAL. EL FALLO LIMITA ESE FUNDAMENTO DE INTERVENCIÓN; NO DECLARA ADECUADAS LAS CONDICIONES DE PENNHURST.» no existe en el pool (o no es D/T/Q)",
+  "beat 12: dato_central «T101 / T102 / D45 / T104: LAS PARTES ALCANZAN UN CONSENSO PARA EL CIERRE Y LA ATENCIÓN COMUNITARIA. F02 FECHA EL ANUNCIO Y ACUERDO FINAL EL 12 DE JULIO DE 1984; F10 SITÚA UNA CONCILIACIÓN EN 1985. NO UNIFICAR LAS FECHAS NI AFIRMAR QUE CORRESPONDEN A ETAPAS DISTINTAS SIN DOCUMENTACIÓN.» no existe en el pool (o no es D/T/Q)",
+  "beat 13: dato_central «D24 / Q06: EL TRIBUNAL DE DISTRITO HABÍA CONSIDERADO INMUNES A LOS FUNCIONARIOS FRENTE A DAÑOS MONETARIOS PORQUE ACTUARON DE BUENA FE DENTRO DE SUS RESPONSABILIDADES OFICIALES. PRESENTARLO COMO UNA DETERMINACIÓN DE AQUEL TRIBUNAL, NO COMO UNA ABSOLUCIÓN PENAL NI COMO PRUEBA DE QUE NUNCA EXISTIERON INVESTIGACIONES.» no existe en el pool (o no es D/T/Q)"
+ ]
+}

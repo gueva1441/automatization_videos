@@ -1,0 +1,831 @@
+{
+ "humano": {
+  "id": "P01",
+  "nombre": "Terri Lee Halderman",
+  "rol": "Residente y demandante original de la acción colectiva",
+  "por_que": "Su recorrido conecta el ingreso, la pérdida de habilidades verbales, las lesiones registradas y la demanda. Permite seguir el mismo daño desde la institución hasta los tribunales. Aparece en el gancho, en el pico mediante su expediente y en el cierre. No se le atribuyen palabras ni un destino posterior que la ficha no documenta.",
+  "colectivo": false,
+  "fuente": "P01, T10, D18, D194, T25. Citas directas verificadas: ninguna."
+ },
+ "antagonista": {
+  "tipo": "institucion",
+  "id": "L04",
+  "nombre": "Estado de Pensilvania",
+  "por_que": "Era responsable de la institución y debía financiar y ejecutar las medidas judiciales. Sus decisiones presupuestarias y los incumplimientos del Departamento de Bienestar Público permiten mostrar decisiones concretas, no una maldad institucional abstracta. No se atribuyen al Estado órdenes individuales de abuso que la ficha no identifica.",
+  "variantes": [
+   "Pennsylvania",
+   "State of Pennsylvania",
+   "Commonwealth",
+   "Commonwealth defendants"
+  ]
+ },
+ "promesa_gancho": "¿Quién podía obligar a Pennhurst a cuidar de Terri cuando ella había perdido las palabras?",
+ "pico": {
+  "beat": 7,
+  "id": "Q20",
+  "por_que": "Se conserva el pico señalado por la ficha: el registro extremo de sujeción física. Su cifra y su fecha aparecen exclusivamente en pantalla. El mordisco del gancho anticipa el peligro, pero no desplaza este único pico: el momento en que el control queda documentado como sustituto del cuidado."
+ },
+ "cierre_humano": "¿Quién respondió, individualmente, por lo que le pasó a Terri Lee Halderman?",
+ "beats": [
+  {
+   "n": 1,
+   "cap": 1,
+   "funcion": "gancho",
+   "emocion": "Vulnerabilidad inmediata",
+   "intensidad": 4,
+   "dato_central": "T29",
+   "datos_apoyo": [
+    "D18"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "E9: un residente dormido y la lesión en la oreja. No añadir gritos, sangre ni movimientos no descritos. El nombre de Terri entra como un caso separado: nunca identificarla con ninguno de los residentes de esta agresión.",
+   "pregunta_abierta": "¿Qué clase de cuidado deja a una persona expuesta mientras duerme, y qué le ocurrió allí a Terri?",
+   "pregunta_pantalla": "",
+   "cierre": "Antes de perder las palabras, Terri había cruzado una puerta de entrada.",
+   "palabras_objetivo": 95,
+   "flash_forward": true,
+   "contador": false,
+   "escena_idx": 9,
+   "pregunta_valida": false
+  },
+  {
+   "n": 2,
+   "cap": 2,
+   "funcion": "planteo",
+   "emocion": "Cercanía sin amenaza inmediata",
+   "intensidad": 1,
+   "dato_central": "T10",
+   "datos_apoyo": [
+    "T03"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Composición gráfica del nombre de Terri y del nombre original de la institución. No recrear una despedida familiar, un viaje ni una habitación de ingreso: la ficha no los describe.",
+   "pregunta_abierta": "¿Qué podía ofrecerle aquella institución a una niña que llegaba para recibir cuidados?",
+   "pregunta_pantalla": "",
+   "cierre": "La siguiente mirada sobre Pennhurst vendría de una cámara de televisión.",
+   "palabras_objetivo": 250,
+   "flash_forward": false,
+   "contador": false,
+   "pregunta_valida": false
+  },
+  {
+   "n": 3,
+   "cap": 3,
+   "funcion": "giro",
+   "emocion": "Descubrimiento",
+   "intensidad": 2,
+   "dato_central": "T12",
+   "datos_apoyo": [
+    "D208",
+    "D209"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E1: niños dentro de cunas. Utilizar esta descripción como imagen documental de las condiciones, sin afirmar que corresponda a una toma específica del reportaje de Baldini.",
+   "pregunta_abierta": "¿Bastaba con que el exterior pudiera verlo para que algo cambiara dentro?",
+   "pregunta_pantalla": "",
+   "cierre": "La exposición pública abrió una pregunta que una demanda iba a convertir en una exigencia.",
+   "palabras_objetivo": 127,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 1
+  },
+  {
+   "n": 4,
+   "cap": 3,
+   "funcion": "giro",
+   "emocion": "Una posibilidad de intervención",
+   "intensidad": 3,
+   "dato_central": "T25",
+   "datos_apoyo": [
+    "D02",
+    "D170"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "El nombre de Terri pasa a encabezar una composición gráfica del reclamo. No mostrarla declarando ni entrando a una sala judicial: esas acciones no están documentadas.",
+   "pregunta_abierta": "¿Podía una demanda conseguir lo que la denuncia pública no había resuelto?",
+   "pregunta_pantalla": "",
+   "cierre": "Para ordenar una reparación, el tribunal tendría que entrar en lo que Pennhurst llamaba cuidado.",
+   "palabras_objetivo": 123,
+   "flash_forward": false,
+   "contador": false,
+   "pregunta_valida": false
+  },
+  {
+   "n": 5,
+   "cap": 4,
+   "funcion": "escalada",
+   "emocion": "Encierro",
+   "intensidad": 3,
+   "dato_central": "D196",
+   "datos_apoyo": [
+    "D183",
+    "D187"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E4: camas ocupando los pasillos de circulación. Mantener la imagen en el espacio que debería permitir pasar y está convertido en alojamiento.",
+   "pregunta_abierta": "¿Qué ocurría con una crisis cuando no había espacio propio ni atención disponible?",
+   "pregunta_pantalla": "",
+   "cierre": "La falta de una cama era visible. Las consecuencias del control quedaban anotadas en otros registros.",
+   "palabras_objetivo": 123,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 4
+  },
+  {
+   "n": 6,
+   "cap": 4,
+   "funcion": "escalada",
+   "emocion": "Peligro acumulado",
+   "intensidad": 4,
+   "dato_central": "D16",
+   "datos_apoyo": [
+    "D188",
+    "D191",
+    "D193"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E6: suelos con orina y excrementos; baños sucios y deteriorados. El recuento de lesiones aparece en pantalla, sin lectura de la voz.",
+   "pregunta_abierta": "¿Hasta dónde podía llegar una medida presentada como control?",
+   "pregunta_pantalla": "",
+   "cierre": "Un registro permite medir cuánto tiempo podía ocupar ese control en la vida de una residente.",
+   "palabras_objetivo": 127,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 6,
+   "pregunta_valida": false
+  },
+  {
+   "n": 7,
+   "cap": 5,
+   "funcion": "pico",
+   "emocion": "Asfixia",
+   "intensidad": 5,
+   "dato_central": "Q20",
+   "datos_apoyo": [
+    "T13",
+    "D186"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "E5: la silla de ruedas y la camisa de fuerza de Linda. Identificarla como un caso distinto, no como la residente anónima del registro. Montaje con el registro de sujeción y, por separado, las lesiones documentadas de Terri. Nunca fusionar a las tres personas.",
+   "pregunta_abierta": "¿Qué quedaba del cuidado cuando la respuesta consistía en mantener sujeto un cuerpo?",
+   "pregunta_pantalla": "",
+   "cierre": "La siguiente respuesta no vendría de una sujeción. Vendría de una sentencia.",
+   "palabras_objetivo": 225,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 5,
+   "pregunta_valida": false
+  },
+  {
+   "n": 8,
+   "cap": 6,
+   "funcion": "respiro",
+   "emocion": "Silencio y constatación",
+   "intensidad": 2,
+   "dato_central": "T36",
+   "datos_apoyo": [],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Tras el pico, sostener el dato documental de la terapia ocupacional que aparece en pantalla. No representar una recuperación de la visión ni una liberación definitiva. Dejar un silencio antes de comunicar el hallazgo judicial.",
+   "pregunta_abierta": "Si el tribunal reconocía la incapacidad de Pennhurst, ¿qué debía ocurrir con quienes seguían allí?",
+   "pregunta_pantalla": "",
+   "cierre": "Reconocer el daño todavía no decía dónde iban a vivir los residentes.",
+   "palabras_objetivo": 70,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 9,
+   "cap": 6,
+   "funcion": "giro",
+   "emocion": "Esperanza obstaculizada",
+   "intensidad": 3,
+   "dato_central": "T44",
+   "datos_apoyo": [
+    "D10",
+    "T82"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "En pantalla, el límite presupuestario y los recuentos incompatibles de reubicaciones. La voz explica la resistencia a ejecutar las órdenes, pero no lee cantidades ni convierte ninguno de los recuentos en cifra definitiva.",
+   "pregunta_abierta": "¿Quién controlaba una salida si el Estado debía financiarla y los registros de cumplimiento no coincidían?",
+   "pregunta_pantalla": "",
+   "cierre": "Fuera del tribunal había otra discusión: algunas familias temían que salir pusiera en riesgo la vida de sus parientes.",
+   "palabras_objetivo": 101,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 10,
+   "cap": 6,
+   "funcion": "revelacion",
+   "emocion": "Incertidumbre legítima",
+   "intensidad": 3,
+   "dato_central": "D140",
+   "datos_apoyo": [],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Dos columnas gráficas claramente atribuidas: «familias» y «personal». Enfrentar las afirmaciones sobre las mismas personas, sin inventar una conversación entre ambas partes.",
+   "pregunta_abierta": "¿Cómo se decidía una salida cuando quienes debían proteger a la misma persona describían riesgos tan distintos?",
+   "pregunta_pantalla": "",
+   "cierre": "Mientras se discutía cómo salir, la Corte Suprema iba a decidir hasta dónde podía ordenar el tribunal federal.",
+   "palabras_objetivo": 79,
+   "flash_forward": false,
+   "contador": false,
+   "pregunta_valida": false
+  },
+  {
+   "n": 11,
+   "cap": 7,
+   "funcion": "giro",
+   "emocion": "Frustración",
+   "intensidad": 3,
+   "dato_central": "T99",
+   "datos_apoyo": [
+    "Q09",
+    "Q02"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Composición tipográfica del argumento de los funcionarios frente a la afirmación de Stevens. La voz parafrasea el contraste; no recita texto simultáneamente visible.",
+   "pregunta_abierta": "¿Cómo podía quedar limitado el remedio judicial sin que desapareciera el daño reconocido?",
+   "pregunta_pantalla": "",
+   "cierre": "El tribunal federal encontraba un límite. Quedaba la posibilidad de un acuerdo.",
+   "palabras_objetivo": 52,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 12,
+   "cap": 7,
+   "funcion": "giro",
+   "emocion": "Resolución incompleta",
+   "intensidad": 2,
+   "dato_central": "D45",
+   "datos_apoyo": [
+    "D73",
+    "T106",
+    "T107"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Cronología gráfica con las dos dataciones del acuerdo, separadas y atribuidas a sus fuentes. No inventar una ceremonia de cierre, una evacuación final ni un último residente.",
+   "pregunta_abierta": "¿Qué resolvía el cierre y qué parte del reclamo de Terri seguía siendo una pregunta distinta?",
+   "pregunta_pantalla": "",
+   "cierre": "Queda por abrir la parte del expediente que habla de responsabilidad individual.",
+   "palabras_objetivo": 52,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 13,
+   "cap": 7,
+   "funcion": "cierre",
+   "emocion": "Ausencia de una respuesta personal",
+   "intensidad": 3,
+   "dato_central": "D24",
+   "datos_apoyo": [
+    "Q06"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "El nombre completo de Terri queda solo en pantalla. No sustituir la ausencia de información sobre su destino por imágenes de una vida comunitaria atribuida a ella.",
+   "pregunta_abierta": "¿Qué responsabilidades individuales llegaron a establecerse por los abusos y las muertes, más allá de los traslados y del cierre?",
+   "pregunta_pantalla": "",
+   "cierre": "¿Quién respondió, individualmente, por lo que le pasó a Terri Lee Halderman?",
+   "palabras_objetivo": 37,
+   "flash_forward": false,
+   "contador": false,
+   "pregunta_valida": false
+  }
+ ],
+ "a_pantalla": [
+  {
+   "id": "T40",
+   "cap": 4,
+   "por_que": "Beat 6. Recuento de enero de 1977: 833 lesiones menores y 25 mayores. Es una cifra oficial presentada visualmente; la voz no la lee."
+  },
+  {
+   "id": "T33",
+   "cap": 5,
+   "por_que": "Beat 7. Centro documental del pico: 720 horas de sujeción física durante agosto de 1976. Mostrar una sola vez y dejar tiempo de lectura. No atribuir el registro a Terri ni a Linda."
+  },
+  {
+   "id": "D194",
+   "cap": 5,
+   "por_que": "Beat 7. Más de cuarenta lesiones reportadas en los registros médicos de Terri. Presentarlas separadas del registro anónimo de sujeción; la voz no repite el recuento."
+  },
+  {
+   "id": "T39",
+   "cap": 6,
+   "por_que": "Beat 8. Inicio de terapia ocupacional a comienzos de 1977 y posibilidad posterior de permanecer hasta cuatro horas diarias sin sujeciones. Solo pantalla. No fechar con este dato la pérdida de visión ni sugerir que fue revertida."
+  },
+  {
+   "id": "D09",
+   "cap": 6,
+   "por_que": "Beat 9. Límite estatal de 35000 dólares para gastos de auxiliares judiciales durante el ejercicio indicado. Mostrar la asignación y su período sin lectura de la voz."
+  },
+  {
+   "id": "T101",
+   "cap": 7,
+   "por_que": "Beat 12. F02 fecha el consenso y acuerdo final el 12 de julio de 1984. Presentar esta datación como versión de esa fuente, sin recitarla."
+  },
+  {
+   "id": "T104",
+   "cap": 7,
+   "por_que": "Beat 12. F10 sitúa un acuerdo de conciliación aproximadamente en 1985. Mostrarlo junto a la datación de F02 y aclarar que el pool no permite determinar si corresponden a distintas etapas de formalización."
+  }
+ ],
+ "justificacion_humano": "Terri ofrece el vínculo más directo entre una transformación personal documentada y la acción que modifica el destino institucional. Bruce tiene más citas verificadas, pero el pool concentra sus momentos concretos en la comparación posterior al traslado; Roland tiene entrada y salida, pero termina su estancia antes del pico escogido. Seguir a Terri permite que la falta de un desenlace personal sea parte del cierre, no un vacío rellenado. Su presencia en el pico es documental: sus lesiones no se confunden con la sujeción y la ceguera de otra residente. Los seis giros tienen beats propios y ninguno se omite. Los identificadores de a_pantalla no se utilizan como datos narrados dentro de los beats.",
+ "topic_id": "4ac37187-pennhurst",
+ "prompt_version": "f24-1",
+ "_reparaciones": [
+  "id leído de «T29: un residente muerde a otro mientras duerme y le arranca» → T29",
+  "apoyo «D18: Terri estaba aprendiendo a hablar cuando ingresó y perd» → D18",
+  "id leído de «T10: Terri ingresa en 1966, a los doce años. Volver atrás y » → T10",
+  "apoyo «T03: Pennhurst había abierto en 1908 como Eastern Pennsylvan» → T03",
+  "id leído de «T12, T14, D168: la investigación de Bill Baldini, Suffer the» → T12",
+  "apoyo «D208, D209: niños que habían superado la edad de caminar per» → D208, D209",
+  "id leído de «T25, T26: David Ferleger presenta la acción colectiva en nom» → T25",
+  "apoyo «D02, D170: los demandantes alegan violaciones constitucional» → D02, D170",
+  "id leído de «D196: Robert y Theresa Sobetsky fueron alojados en salas con» → D196",
+  "apoyo «D183: no había psicólogos de servicio durante las noches ni » → D183",
+  "apoyo «D187: los psicofármacos se utilizaban frecuentemente para co» → D187",
+  "id leído de «D16, D17: la recapitulación judicial registra lesiones causa» → D16",
+  "apoyo «D188: orina y excrementos frecuentes en los suelos, con limp» → D188",
+  "apoyo «D191: la mayoría de las áreas de aseo carecía de toallas, ja» → D191",
+  "apoyo «D193: el documento registra también la muerte de un resident» → D193",
+  "id leído de «Q20: Broderick establece que las sujeciones se utilizaban «c» → Q20",
+  "apoyo «T13: los padres de Linda Taub la encontraron sujeta a una si» → T13",
+  "apoyo «D186: el relato de la residente del registro documenta que s» → D186",
+  "id leído de «T36, D33: el Tribunal de Distrito determina que Pennhurst es» → T36",
+  "id leído de «T44, T45, D06: Broderick ordena servicios comunitarios adecu» → T44",
+  "apoyo «D10: el Departamento de Bienestar Público y Helen O'Bannon s» → D10",
+  "apoyo «T82: el Estado paga las multas y el desacato queda purgado.» → T82",
+  "id leído de «D140, D141: para las mismas personas, las familias afirmaban» → D140",
+  "id leído de «T99, D72: la Corte Suprema determina que la inmunidad sobera» → T99",
+  "apoyo «Q09: los funcionarios demandados argumentaban que la decisió» → Q09",
+  "apoyo «Q02: Stevens sostiene en su disidencia que el expediente dem» → Q02",
+  "id leído de «D45: las partes alcanzan un consenso para el cierre y la ate» → D45",
+  "apoyo «D73: la Parent-Staff Association protesta contra el acuerdo » → D73",
+  "apoyo «T106, T107: Pennhurst cierra definitivamente en 1987; una fu» → T106, T107",
+  "id leído de «D24: el Tribunal de Distrito había considerado inmunes a los» → D24",
+  "apoyo «Q06: la formulación verificada fue que actuaron «de la más a» → Q06",
+  "pico.id T33 → Q20 (el dato central del beat 7)",
+  "a_pantalla D54: cap 6 inválido o lleno → fuera",
+  "cap 2: palabras 150 → 250 (objetivo 250)",
+  "cap 3: palabras 355 → 250 (objetivo 250)",
+  "cap 4: palabras 365 → 250 (objetivo 250)",
+  "cap 6: palabras 555 → 250 (objetivo 250)",
+  "cap 7: palabras 555 → 141 (objetivo 140)"
+ ],
+ "_avisos": [],
+ "_intentos": [
+  {
+   "intento": 1,
+   "bloqueantes": [
+    "a_pantalla D194 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T10 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T03 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T12 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T25 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T33 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D186 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T39 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T44 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D09 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T99 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T101 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D45 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T106 también está en un beat: lo que va a pantalla no lo dice la voz"
+   ],
+   "reparaciones": [
+    "id leído de «D194: los registros médicos de Terri contienen lesiones repo» → D194",
+    "apoyo «T13 / E5: Linda Taub aparece sujeta a una silla de ruedas me» → T13",
+    "id leído de «P01 / T10: Terri ingresa a Pennhurst en 1966, a los doce año» → T10",
+    "apoyo «T03 / D226: la institución había abierto en 1908 con el nomb» → T03, D226",
+    "id leído de «T12 / T14 / D168: la investigación televisiva de Bill Baldin» → T12",
+    "id leído de «D18: Terri estaba aprendiendo a hablar cuando ingresó y perd» → D18",
+    "apoyo «D192 / E3: el ruido de las salas de día podía ser tan elevad» → D192",
+    "id leído de «T25 / T26 / D169: David Ferleger presenta la demanda colecti» → T25",
+    "apoyo «D02 / D170: los demandantes alegan violaciones de derechos c» → D02, D170",
+    "id leído de «D184 / D172 / Q20: las sujeciones físicas o químicas se util» → D184",
+    "apoyo «D208 / D209 / E1: niños que habían superado la edad de camin» → D208, D209",
+    "apoyo «D183: no había psicólogos de servicio durante las noches ni » → D183",
+    "apoyo «D16 / D17: la recapitulación judicial registra lesiones ocas» → D16, D17",
+    "id leído de «T33: una residente no identificada acumula 720 horas de suje» → T33",
+    "apoyo «D186: esa residente se había cegado mediante autolesiones y » → D186",
+    "apoyo «D188 / E6: orina y excrementos frecuentes en los suelos y li» → D188",
+    "apoyo «D191 / E6: baños deteriorados y falta de toallas, jabón y pa» → D191",
+    "id leído de «D33 / T36 / T37: tras el juicio, Broderick determina que Pen» → D33",
+    "apoyo «T39: después de comenzar la terapia ocupacional, la resident» → T39",
+    "id leído de «T44 / T45 / D06: Broderick ordena servicios comunitarios ade» → T44",
+    "apoyo «D09 / T72: Pensilvania limita los gastos de los auxiliares j» → D09, T72",
+    "apoyo «T74 / D10: el Departamento de Bienestar Público y Helen O'Ba» → T74, D10",
+    "apoyo «T82: Pensilvania paga las multas y el desacato queda purgado» → T82",
+    "id leído de «D140 / D141: para las mismas 57 personas, las familias afirm» → D140",
+    "apoyo «Q16 / E11: Bruce describe su hogar grupal como un lugar con » → Q16",
+    "id leído de «T99 / D72: la Corte Suprema determina que la inmunidad sober» → T99",
+    "apoyo «Q02: Stevens afirma en su disidencia verificada que el exped» → Q02",
+    "apoyo «Q09: los funcionarios demandados argumentan que la decisión » → Q09",
+    "id leído de «T101 / T102 / D45 / T104: las partes alcanzan un consenso pa» → T101",
+    "apoyo «D45: F02 establece un cierre previsto para el 1 de julio de » → D45",
+    "apoyo «T103 / D73: en la audiencia sobre el acuerdo, la Parent Staf» → T103, D73",
+    "id leído de «D24 / Q06: el Tribunal de Distrito había considerado inmunes» → D24",
+    "apoyo «T106 / T107 / D178: Pennhurst cierra definitivamente en 1987» → T106, T107, D178",
+    "id leído de «T03 / D226» → T03",
+    "id leído de «T12 / T14» → T12",
+    "id leído de «T25 / T26» → T25",
+    "id leído de «T36 / T37» → T36",
+    "id leído de «T44 / T45» → T44",
+    "id leído de «D09 / T72» → D09",
+    "id leído de «T101 / T102 / T104» → T101",
+    "id leído de «T106 / T107» → T106",
+    "beat 3: apoyo P28: BALDINI ERA REPORTERO DE WCAU 10. no existe en el pool → fuera",
+    "beat 13: apoyo P01: LA FICHA NO DOCUMENTA EL DESTINO PERSONAL FINAL DE TERRI. NO ASIGNARLE UN TRASLADO, UNA RECUPERACIÓN O UNA MUERTE. no existe en el pool → fuera",
+    "cap 1: palabras 90 → 110 (objetivo 110)",
+    "cap 2: palabras 150 → 250 (objetivo 250)",
+    "cap 3: palabras 470 → 249 (objetivo 250)",
+    "cap 6: palabras 590 → 250 (objetivo 250)",
+    "cap 7: palabras 570 → 140 (objetivo 140)"
+   ],
+   "no_bloqueantes": [
+    "caps de desarrollo con menos de 2 beats: [2, 4, 5] (beats por cap: [1, 1, 3, 1, 1, 3, 3])",
+    "falta un beat de intensidad 1 (respiro) después del pico",
+    "beat 7: Terri Lee Halderman en escena sin un dato suyo verificado (ninguna cita ni mención en ['T33', 'D186', 'D188', 'D191']); datos suyos que valen: ['D01', 'D18', 'D29', 'D194', 'T10', 'T20', 'T25', 'T37', 'T66', 'T70']",
+    "beat 8: Terri Lee Halderman en escena sin un dato suyo verificado (ninguna cita ni mención en ['D33', 'T39']); datos suyos que valen: ['D01', 'D18', 'D29', 'D194', 'T10', 'T20', 'T25', 'T37', 'T66', 'T70']",
+    "beat 9: Terri Lee Halderman en escena sin un dato suyo verificado (ninguna cita ni mención en ['T44', 'D09', 'T72', 'T74', 'D10', 'T82']); datos suyos que valen: ['D01', 'D18', 'D29', 'D194', 'T10', 'T20', 'T25', 'T37', 'T66', 'T70']",
+    "beat 11: Terri Lee Halderman en escena sin un dato suyo verificado (ninguna cita ni mención en ['T99', 'Q02', 'Q09']); datos suyos que valen: ['D01', 'D18', 'D29', 'D194', 'T10', 'T20', 'T25', 'T37', 'T66', 'T70']",
+    "beat 13: Terri Lee Halderman en escena sin un dato suyo verificado (ninguna cita ni mención en ['D24', 'T106', 'T107', 'D178']); datos suyos que valen: ['D01', 'D18', 'D29', 'D194', 'T10', 'T20', 'T25', 'T37', 'T66', 'T70']",
+    "la imagen sensorial del gancho no lleva cifras",
+    "la última frase del video (cierre del beat 13) no nombra al humano ni a un testigo verificado (Justice Brennan, Justice Stevens, Raymond J. Broderick, Steve, Bruce, James Conroy, Bill Baldini, Nancy Beth Bowman, Roland Johnson, The District Court, David D. Gregory, Eugene Bardach, Arnold Toynbee, Juez Thurgood Marshall, Superintendente Youngberg): «¿Qué responsabilidad individual llegó a establecerse por lo que le ocurrió a Terri Lee Halderman y por las muertes documentadas en Pennhurst?»",
+    "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+   ]
+  },
+  {
+   "intento": 2,
+   "bloqueantes": [],
+   "reparaciones": [
+    "id leído de «T29: un residente muerde a otro mientras duerme y le arranca» → T29",
+    "apoyo «D18: Terri estaba aprendiendo a hablar cuando ingresó y perd» → D18",
+    "id leído de «T10: Terri ingresa en 1966, a los doce años. Volver atrás y » → T10",
+    "apoyo «T03: Pennhurst había abierto en 1908 como Eastern Pennsylvan» → T03",
+    "id leído de «T12, T14, D168: la investigación de Bill Baldini, Suffer the» → T12",
+    "apoyo «D208, D209: niños que habían superado la edad de caminar per» → D208, D209",
+    "id leído de «T25, T26: David Ferleger presenta la acción colectiva en nom» → T25",
+    "apoyo «D02, D170: los demandantes alegan violaciones constitucional» → D02, D170",
+    "id leído de «D196: Robert y Theresa Sobetsky fueron alojados en salas con» → D196",
+    "apoyo «D183: no había psicólogos de servicio durante las noches ni » → D183",
+    "apoyo «D187: los psicofármacos se utilizaban frecuentemente para co» → D187",
+    "id leído de «D16, D17: la recapitulación judicial registra lesiones causa» → D16",
+    "apoyo «D188: orina y excrementos frecuentes en los suelos, con limp» → D188",
+    "apoyo «D191: la mayoría de las áreas de aseo carecía de toallas, ja» → D191",
+    "apoyo «D193: el documento registra también la muerte de un resident» → D193",
+    "id leído de «Q20: Broderick establece que las sujeciones se utilizaban «c» → Q20",
+    "apoyo «T13: los padres de Linda Taub la encontraron sujeta a una si» → T13",
+    "apoyo «D186: el relato de la residente del registro documenta que s» → D186",
+    "id leído de «T36, D33: el Tribunal de Distrito determina que Pennhurst es» → T36",
+    "id leído de «T44, T45, D06: Broderick ordena servicios comunitarios adecu» → T44",
+    "apoyo «D10: el Departamento de Bienestar Público y Helen O'Bannon s» → D10",
+    "apoyo «T82: el Estado paga las multas y el desacato queda purgado.» → T82",
+    "id leído de «D140, D141: para las mismas personas, las familias afirmaban» → D140",
+    "id leído de «T99, D72: la Corte Suprema determina que la inmunidad sobera» → T99",
+    "apoyo «Q09: los funcionarios demandados argumentaban que la decisió» → Q09",
+    "apoyo «Q02: Stevens sostiene en su disidencia que el expediente dem» → Q02",
+    "id leído de «D45: las partes alcanzan un consenso para el cierre y la ate» → D45",
+    "apoyo «D73: la Parent-Staff Association protesta contra el acuerdo » → D73",
+    "apoyo «T106, T107: Pennhurst cierra definitivamente en 1987; una fu» → T106, T107",
+    "id leído de «D24: el Tribunal de Distrito había considerado inmunes a los» → D24",
+    "apoyo «Q06: la formulación verificada fue que actuaron «de la más a» → Q06",
+    "pico.id T33 → Q20 (el dato central del beat 7)",
+    "a_pantalla D54: cap 6 inválido o lleno → fuera",
+    "cap 2: palabras 150 → 250 (objetivo 250)",
+    "cap 3: palabras 355 → 250 (objetivo 250)",
+    "cap 4: palabras 365 → 250 (objetivo 250)",
+    "cap 6: palabras 555 → 250 (objetivo 250)",
+    "cap 7: palabras 555 → 141 (objetivo 140)"
+   ],
+   "no_bloqueantes": [
+    "caps de desarrollo con menos de 2 beats: [2, 5] (beats por cap: [1, 1, 2, 2, 1, 3, 3])",
+    "falta un beat de intensidad 1 (respiro) después del pico",
+    "beat 7: Terri Lee Halderman en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q20', 'T13', 'D186']); datos suyos que valen: ['D01', 'D18', 'D29', 'D194', 'T10', 'T20', 'T25', 'T37', 'T66', 'T70']",
+    "beat 13: Terri Lee Halderman en escena sin un dato suyo verificado (ninguna cita ni mención en ['D24', 'Q06']); datos suyos que valen: ['D01', 'D18', 'D29', 'D194', 'T10', 'T20', 'T25', 'T37', 'T66', 'T70']",
+    "la imagen sensorial del gancho no lleva cifras",
+    "la última frase del video (cierre del beat 13) no nombra al humano ni a un testigo verificado (Justice Brennan, Justice Stevens, Raymond J. Broderick, Steve, Bruce, James Conroy, Bill Baldini, Nancy Beth Bowman, Roland Johnson, The District Court, David D. Gregory, Eugene Bardach, Arnold Toynbee, Juez Thurgood Marshall, Superintendente Youngberg): «¿Quién respondió, individualmente, por lo que le pasó a Terri Lee Halderman?»",
+    "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+   ]
+  }
+ ],
+ "ficha": {
+  "prompt_version": "f23-1",
+  "pool_md5": "8cb54828f5d27cd0f9a26dc654ef52fc"
+ },
+ "pool_gate": {
+  "color": "verde",
+  "metricas": {
+   "datos": 236,
+   "citas_verificadas": 37,
+   "elegibles_humano": 25,
+   "eventos_con_fecha": 108,
+   "personas_con_nombre": 40
+  },
+  "motivos": [],
+  "target_words": 1500
+ },
+ "_pantalla_por_fecha": [
+  "T18 cuenta lo mismo que T27, ya en pantalla: fuera",
+  "T74 (None) → cap 6 lleno: fuera",
+  "T58 (1980-04-24) → cap 7 lleno: fuera",
+  "T53 (1979-12-13) → cap 7 lleno: fuera",
+  "D206 (None) → cap 7 lleno: fuera"
+ ],
+ "caps": [
+  {
+   "chapter_number": 1,
+   "role": "hook",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "hook",
+   "evidence_ids": [
+    "T29",
+    "D18"
+   ],
+   "cliffhanger": "T10",
+   "pantalla_ids": [
+    "D195",
+    "D127"
+   ],
+   "palabras_objetivo": 95
+  },
+  {
+   "chapter_number": 2,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "setup",
+   "evidence_ids": [
+    "T10",
+    "T03"
+   ],
+   "cliffhanger": "T12",
+   "pantalla_ids": [
+    "T27"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 3,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "T12",
+    "D208",
+    "D209",
+    "T25",
+    "D02",
+    "D170"
+   ],
+   "cliffhanger": "D196",
+   "pantalla_ids": [
+    "D231",
+    "Q37"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 4,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "D196",
+    "D183",
+    "D187",
+    "D16",
+    "D188",
+    "D191",
+    "D193"
+   ],
+   "cliffhanger": "Q20",
+   "pantalla_ids": [
+    "T40",
+    "D61"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 5,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "shock",
+   "evidence_ids": [
+    "Q20",
+    "T13",
+    "D186"
+   ],
+   "cliffhanger": "T36",
+   "pantalla_ids": [
+    "T33",
+    "D194"
+   ],
+   "palabras_objetivo": 225
+  },
+  {
+   "chapter_number": 6,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "T36",
+    "T44",
+    "D10",
+    "T82",
+    "D140"
+   ],
+   "cliffhanger": "T99",
+   "pantalla_ids": [
+    "T39",
+    "D09"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 7,
+   "role": "reveal_outro",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "outro",
+   "evidence_ids": [
+    "T99",
+    "Q09",
+    "Q02",
+    "D45",
+    "D73",
+    "T106",
+    "T107",
+    "D24",
+    "Q06"
+   ],
+   "cliffhanger": "",
+   "pantalla_ids": [
+    "T101",
+    "T104"
+   ],
+   "palabras_objetivo": 141
+  }
+ ],
+ "_pool_plan": {
+  "cifras_canonicas": [],
+  "pantalla": [
+   "cap 1: pantalla ['D195', 'D127']",
+   "cap 2: pantalla ['T27']",
+   "cap 3: pantalla ['D231', 'Q37']",
+   "cap 4: pantalla ['T18', 'D61']",
+   "cap 5: pantalla ['T39']",
+   "cap 6: pantalla ['T74', 'T58']",
+   "cap 7: pantalla ['T53', 'D206']"
+  ]
+ },
+ "_metricas": {
+  "curva_intensidad": [
+   4,
+   1,
+   2,
+   3,
+   3,
+   4,
+   5,
+   2,
+   3,
+   3,
+   3,
+   2,
+   3
+  ],
+  "flash_forward_beat1": true,
+  "curva_problemas": [
+   "falta un beat de intensidad 1 (respiro) después del pico"
+  ],
+  "humano_en_escena_caps": [
+   1,
+   2,
+   3,
+   5,
+   7
+  ],
+  "humano_entra_cap": 1,
+  "humano_con_cita_sin_verificar_en_escena": [],
+  "humano_en_escena_problemas": [
+   "beat 7: Terri Lee Halderman en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q20', 'T13', 'D186']); datos suyos que valen: ['D01', 'D18', 'D29', 'D194', 'T10', 'T20', 'T25', 'T37', 'T66', 'T70']",
+   "beat 13: Terri Lee Halderman en escena sin un dato suyo verificado (ninguna cita ni mención en ['D24', 'Q06']); datos suyos que valen: ['D01', 'D18', 'D29', 'D194', 'T10', 'T20', 'T25', 'T37', 'T66', 'T70']"
+  ],
+  "promesa_con_cifras": false,
+  "imagen_gancho_con_cifras": true,
+  "imagenes_abstractas": [],
+  "escenas_usadas": [
+   1,
+   4,
+   5,
+   6,
+   9
+  ],
+  "escena_gancho": 9,
+  "escena_pico": 5,
+  "giros": [
+   {
+    "orden": 1,
+    "que_cambia": "La investigación televisiva de Baldini convierte las condiciones internas en un asunto público.",
+    "beat": 3
+   },
+   {
+    "orden": 2,
+    "que_cambia": "La demanda de Halderman lleva el reclamo desde la denuncia pública hasta una acción judicial que busca medidas de reparación y daños monetarios.",
+    "beat": 4
+   },
+   {
+    "orden": 3,
+    "que_cambia": "Los hallazgos del Tribunal de Distrito establecen que Pennhurst no proporciona cuidados y habilitación apropiados.",
+    "beat": 8
+   },
+   {
+    "orden": 4,
+    "que_cambia": "La orden de Broderick transforma el diagnóstico institucional en un mandato de servicios comunitarios y supervisión judicial.",
+    "beat": 9
+   },
+   {
+    "orden": 5,
+    "que_cambia": "La Corte Suprema limita la intervención del tribunal federal basada en la ley estatal, pese a los hallazgos sobre las condiciones de la institución.",
+    "beat": 11
+   },
+   {
+    "orden": 6,
+    "que_cambia": "Las partes anuncian un consenso para el cierre y la atención comunitaria, aunque las fuentes no coinciden en la fecha de formalización del acuerdo.",
+    "beat": 12
+   }
+  ],
+  "giros_con_beat": 6,
+  "giros_total": 6,
+  "humano_en_candidatos": true,
+  "pico_es_el_de_la_ficha": true,
+  "palabras_objetivo_por_cap": {
+   "1": 95,
+   "2": 250,
+   "3": 250,
+   "4": 250,
+   "5": 225,
+   "6": 250,
+   "7": 141
+  },
+  "antagonista_tipo": "institucion",
+  "antagonista_caps": [
+   2,
+   3,
+   6
+  ],
+  "cifra_en_pantalla_repetida": [],
+  "ultima_frase_repite_cita": [],
+  "ultima_frase_sin_humano": [
+   "la última frase del video (cierre del beat 13) no nombra al humano ni a un testigo verificado (Justice Brennan, Justice Stevens, Raymond J. Broderick, Steve, Bruce, James Conroy, Bill Baldini, Nancy Beth Bowman, Roland Johnson, The District Court, David D. Gregory, Eugene Bardach, Arnold Toynbee, Juez Thurgood Marshall, Superintendente Youngberg): «¿Quién respondió, individualmente, por lo que le pasó a Terri Lee Halderman?»"
+  ],
+  "preguntas_pantalla": [
+   "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+  ],
+  "preguntas_abiertas": [
+   "¿Qué clase de cuidado deja a una persona expuesta mientras duerme, y qué le ocurrió allí a Terri?",
+   "¿Qué podía ofrecerle aquella institución a una niña que llegaba para recibir cuidados?",
+   "¿Bastaba con que el exterior pudiera verlo para que algo cambiara dentro?",
+   "¿Podía una demanda conseguir lo que la denuncia pública no había resuelto?",
+   "¿Qué ocurría con una crisis cuando no había espacio propio ni atención disponible?",
+   "¿Hasta dónde podía llegar una medida presentada como control?",
+   "¿Qué quedaba del cuidado cuando la respuesta consistía en mantener sujeto un cuerpo?",
+   "Si el tribunal reconocía la incapacidad de Pennhurst, ¿qué debía ocurrir con quienes seguían allí?",
+   "¿Quién controlaba una salida si el Estado debía financiarla y los registros de cumplimiento no coincidían?",
+   "¿Cómo se decidía una salida cuando quienes debían proteger a la misma persona describían riesgos tan distintos?",
+   "¿Cómo podía quedar limitado el remedio judicial sin que desapareciera el daño reconocido?",
+   "¿Qué resolvía el cierre y qué parte del reclamo de Terri seguía siendo una pregunta distinta?",
+   "¿Qué responsabilidades individuales llegaron a establecerse por los abusos y las muertes, más allá de los traslados y del cierre?"
+  ],
+  "otros": [
+   "caps de desarrollo con menos de 2 beats: [2, 5] (beats por cap: [1, 1, 2, 2, 1, 3, 3])",
+   "la imagen sensorial del gancho no lleva cifras"
+  ]
+ },
+ "_modelo": "gpt-6.1-sol"
+}

@@ -1,0 +1,77 @@
+{
+ "beats": 13,
+ "beats_por_cap": [
+  1,
+  1,
+  3,
+  3,
+  1,
+  2,
+  2
+ ],
+ "ids": 40,
+ "apoyos_por_beat": 2.08,
+ "promesa": "¿Cómo pudo el agua alcanzar la cama de una niña mientras la presa seguía en pie?",
+ "humano": "Micaela Coletti",
+ "antagonista": {
+  "tipo": "institucion",
+  "id": "D151",
+  "nombre": "Società Adriatica di Elettricità",
+  "por_que": "La ficha le atribuye decisiones de proyecto y llenado frente a advertencias documentadas. La responsabilidad narrativa se delimita: la instalación pasa a ENEL antes del desastre y el pool no permite identificar por completo quién debía ordenar la alarma general aquella noche. No se atribuye esa omisión a una persona sin prueba.",
+  "variantes": [
+   "SADE",
+   "Sade",
+   "Sociedad Adriática de Electricidad",
+   "Società Adriatica di Elettricità di Venezia"
+  ]
+ },
+ "intentos": [
+  {
+   "intento": 1,
+   "bloqueantes": [
+    "beat 2: dato_central «P49: ANTES DE SER UNA SOBREVIVIENTE, MICAELA ERA UNA NIÑA EN SU CASA. NO AGREGAR EDAD EXACTA, FAMILIARES, ESCUELA NI RUTINAS.» no existe en el pool (o no es D/T/Q)",
+    "beat 13: dato_central «P49: MICAELA COLETTI SOBREVIVIÓ Y POSTERIORMENTE PRESIDIÓ EL COMITÉ DE SOBREVIVIENTES DEL VAJONT.» no existe en el pool (o no es D/T/Q)",
+    "antagonista «Società Adriatica di Elettricità — SADE» no es una persona del pool ni una institución de la ficha",
+    "a_pantalla D104 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D106 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla Q51 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D128 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla Q22 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla Q23 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D136 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D35 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "beat 10: D45 es otra cifra del conteo 1910 [D03]: un hecho, una cifra (la precisa)"
+   ]
+  },
+  {
+   "intento": 2,
+   "bloqueantes": []
+  }
+ ],
+ "pasada1_beats_por_cap": [
+  1,
+  1,
+  3,
+  3,
+  1,
+  2,
+  2
+ ],
+ "pasada1_caps_fuera_1_3": [],
+ "pasada1_bloqueantes": [
+  "beat 1: dato_central «Q49, PRIMER FRAGMENTO EXCLUSIVAMENTE: «LA SENSACIÓN DE QUE LA CAMA TOMABA VELOCIDAD, UNA FUERZA ESPANTOSA QUE ME AGARRABA POR LA ESPALDA». RESERVAR EL RESTO DEL TESTIMONIO PARA EL PICO.» no existe en el pool (o no es D/T/Q)",
+  "beat 2: dato_central «P49: ANTES DE SER UNA SOBREVIVIENTE, MICAELA ERA UNA NIÑA EN SU CASA. NO AGREGAR EDAD EXACTA, FAMILIARES, ESCUELA NI RUTINAS.» no existe en el pool (o no es D/T/Q)",
+  "beat 3: dato_central «T16: EN PONTESEI, UNA OLA PROVOCADA POR UN DESPRENDIMIENTO MATÓ AL VIGILANTE ARCANGELO TIZIANI. GIRO 1.» no existe en el pool (o no es D/T/Q)",
+  "beat 4: dato_central «T36: DURANTE LAS PRUEBAS, UNA FRANA CAYÓ EFECTIVAMENTE AL LAGO ARTIFICIAL. GIRO 2: LA AMENAZA DEJA DE SER SOLAMENTE UNA HIPÓTESIS MIENTRAS LA DENUNCIA PERIODÍSTICA TAMBIÉN LLEGA A JUICIO.» no existe en el pool (o no es D/T/Q)",
+  "beat 5: dato_central «D106: SEGÚN F15, SADE OBTUVO PERMISO MINISTERIAL PARA SUPERAR EL LÍMITE RECOMENDADO POR EL INFORME DE PADUA. GIRO 3. LA VOZ EXPLICA LA CONTRADICCIÓN; NO PRONUNCIA LAS COTAS.» no existe en el pool (o no es D/T/Q)",
+  "beat 6: dato_central «T52: F15 SITÚA LA CULMINACIÓN DEL TRASPASO A ENEL MIENTRAS CONTINUABA LA PRUEBA DE LLENADO. GIRO 4.» no existe en el pool (o no es D/T/Q)",
+  "beat 7: dato_central «D226: SE MULTIPLICARON LOS AVISOS DE SACUDIDAS, ESTRUENDOS, GRIETAS Y MOVIMIENTOS SUPERFICIALES.» no existe en el pool (o no es D/T/Q)",
+  "beat 8: dato_central «T61: BIADENE PIDIÓ A PANCINI QUE REGRESARA DE VACACIONES LA MAÑANA DEL DESASTRE. GIRO 5: LA PREOCUPACIÓN QUEDÓ ESCRITA, PERO NO SE CONVIRTIÓ EN UNA ALARMA GENERAL PARA LAS POBLACIONES EXPUESTAS.» no existe en el pool (o no es D/T/Q)",
+  "beat 9: dato_central «T58: EL IMPACTO DEL DESPRENDIMIENTO PRODUJO UNA OLA QUE REBASÓ LA PRESA Y ENTRÓ EN EL VALLE.» no existe en el pool (o no es D/T/Q)",
+  "beat 10: dato_central «D45: EL CENTRO DE LONGARONE QUEDÓ CONVERTIDO EN UNA EXPLANADA DE FANGO Y PIEDRAS.» no existe en el pool (o no es D/T/Q)",
+  "beat 11: dato_central «D136: SEGÚN F02, UNA PRIMERA COMISIÓN DE EXPERTOS CONCLUYÓ QUE EL DESASTRE ERA IMPREVISIBLE. PRIMERA MITAD DEL GIRO 6.» no existe en el pool (o no es D/T/Q)",
+  "beat 12: dato_central «T102 Y T103: LA CASACIÓN RECONOCIÓ LA CULPABILIDAD DE BIADENE Y SENSIDONI POR INUNDACIÓN AGRAVADA. SEGUNDA MITAD DEL GIRO 6.» no existe en el pool (o no es D/T/Q)",
+  "beat 13: dato_central «P49: MICAELA COLETTI SOBREVIVIÓ Y POSTERIORMENTE PRESIDIÓ EL COMITÉ DE SOBREVIVIENTES DEL VAJONT.» no existe en el pool (o no es D/T/Q)",
+  "antagonista «Società Adriatica di Elettricità — SADE» no es una persona del pool ni una institución de la ficha"
+ ]
+}
