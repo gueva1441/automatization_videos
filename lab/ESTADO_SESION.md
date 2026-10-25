@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-24 (F23: tiempo del caso, umbrales a métrica, intent desde la escaleta, idiomas del caso; Kyshtym desde la semilla hasta el guion, US$ 2.75) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-25 (F26 nocturno: A, C, D, E hechas; B en PARADA en m03; reporte con el veredicto del revisor) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,14 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F26 — Nocturno: escaleta f26-1, primer video (Vajont), workers, hooks, ficha de Opus con forma — HECHO salvo B (**PARADA en m03**), **PARADA final**
+- Sobre `c80e601`. Handoff `lab/hyperframes/f26/HANDOFF_F26_nocturno.md`. Reporte `lab/hyperframes/f26/F26_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Total US$ 10.80: Claude 7.97 (A 5.66 de 8, E 2.32 de 4), Gemini 2.42 de 5, ElevenLabs 0.41, imágenes 0.
+- **A** (`16900bd`): escaleta f26-1 (bloque `2e67791c…`; f25-1 = `SYSTEM_V2_F25_1`). Kyshtym fS2: kE1 pasa en la 2.ª pasada, kE2 en la 1.ª; ninguna promesa adelanta; antagonistas sin paréntesis; sin `a_pantalla` repetido. gkE1 2,168 palabras 0 bloqueantes; gkE2: la reparación (e) corre sola pero BORRA la oración (no deja el rol) y el editor m01c (corre porque el crudo tenía bloqueante) recorta 98 palabras y se lleva la promesa del gancho → para el analista.
+- **B** (`e24c57b`): PARADA en m03 (falló dos veces). Hecho: topic `f8s3-vajont` en `data/topics_db.json` (respaldo `topics_db.pre_f26.json`; 4a–4e; título «Vajont: la montaña que caminaba»), pasos viejos en `_steps/f8s3-vajont/_pre_f26/`, partición sin recorte (ningún párrafo movido), voz v4 MS Narrador **980.8 s = 16.3 min** (`output/audio/f8s3-vajont/`), música fija a los `*_curated`, plan de 92 imágenes a 10.75 s. Falla: el cap 1 (gancho, la niña en la cama) → Gemini Flash devuelve respuesta sin texto y `gemini_helpers._try_json_parse` hace `None.strip()` (`b/m03_traceback.txt`). Sin imágenes, sin render, sin video. Para seguir: decidir el arreglo (None como fallo de parseo en `_try_json_parse`, o nota de gancho) y `python -I lab/hyperframes/f26/b/f26b_produccion.py --etapa guion` (reusa voz y música) → `imagenes` → `render` (Firefox cerrado, RAM > 14 GB).
+- **C** (`16def01`): R2/R3 con hilos (`research_v3.WORKERS = 8`, `topic_researcher --workers N`), mismo manifest/pool que en fila; `cost_tracker` con lock; `fase1_5 --temas a,b,c` (un proceso por tema, implica --batch). R3 latencia simulada 16.7 → 2.8 s. Suite amplia **877 verdes + 5 previas**.
+- **D** (`40a434d`): hooks en `.claude/settings.json` + `.claude/hooks/` (guard_git, suite_rapida, md5_prompt, tope_tanda), prueba 22/22, README. **Activos**: todo `git commit` corre la suite rápida; `git add`/`commit` de `.env`, `config.py`, `lab/_gpt_probe_analista/` o una llave queda bloqueado.
+- **E** (`c343954`): Opus 5.5 con los nombres de campo en el pedido → 16/17 problemas (sin forma: 58/71; Sol fS2: 18), cifras 29/46; cuesta 3–4× Sol. No cambia producción.
 
 ## F25c — Escaleta con Fable por defecto (f25-1), guion v5.4, largo 2200 · Kyshtym y Vajont — HECHO, **PARADA**
 - Sobre `187166a`. Reporte `lab/hyperframes/f25c/F25c_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Claude US$ 11.43 de 14, pared 1,388 s.
