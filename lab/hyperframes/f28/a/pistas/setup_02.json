@@ -1,0 +1,297 @@
+{
+ "id": "setup_02",
+ "intent": "setup",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow",
+   "ambient underscore",
+   "deep drone",
+   "reverberant",
+   "patient",
+   "dark atmosphere",
+   "55-65 BPM feel",
+   "cello and double bass",
+   "sustained strings",
+   "distant piano",
+   "sub-bass"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Quiet Unveiling",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "soft sub-bass drone",
+     "sparse cello sustain",
+     "distant reverberant piano notes",
+     "minimal density",
+     "spacious ambience",
+     "calm and patient"
+    ],
+    "negative_local_styles": [
+     "any pulse",
+     "melodic phrases",
+     "complex harmonies",
+     "fast arpeggios",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Presence",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "expanding cello and double bass drones",
+     "slightly increased density",
+     "very sparse piano notes with long decay",
+     "subtle low string pad",
+     "dark and atmospheric",
+     "deep and quiet"
+    ],
+    "negative_local_styles": [
+     "rising dynamics",
+     "identifiable rhythm",
+     "sharp attacks",
+     "percussive elements"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Subtle Weight",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "fuller low string sustained chords",
+     "deeper sub-bass presence",
+     "isolated, extremely sparse piano notes",
+     "richer reverberant ambience",
+     "quiet tension through density",
+     "thick but soft texture"
+    ],
+    "negative_local_styles": [
+     "any melodic development",
+     "quick changes",
+     "percussive elements",
+     "fast arpeggios",
+     "volume peaks"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Calm",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "soft sub-bass drone",
+     "sparse cello sustain",
+     "distant reverberant piano notes",
+     "minimal density",
+     "spacious ambience",
+     "calm and patient"
+    ],
+    "negative_local_styles": [
+     "complex harmonies",
+     "pronounced shifts",
+     "any rhythmic elements",
+     "bright timbres",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:35:26 GMT",
+  "server": "uvicorn",
+  "song-id": "jcUxrK3049J7PYqxlZ9c",
+  "Content-Length": "2883188",
+  "content-type": "multipart/mixed; boundary=----boundaryc728168e85a74abc8f15bfd8f277ecd5",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "b63eac1d60593b71f9a15191492e2156",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow",
+   "ambient underscore",
+   "deep drone",
+   "reverberant",
+   "patient",
+   "dark atmosphere",
+   "55-65 BPM feel",
+   "cello and double bass",
+   "sustained strings",
+   "distant piano",
+   "sub-bass"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Quiet Unveiling",
+    "positive_local_styles": [
+     "soft sub-bass drone",
+     "sparse cello sustain",
+     "distant reverberant piano notes",
+     "minimal density",
+     "spacious ambience",
+     "calm and patient"
+    ],
+    "negative_local_styles": [
+     "any pulse",
+     "melodic phrases",
+     "complex harmonies",
+     "fast arpeggios",
+     "fade-in"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Presence",
+    "positive_local_styles": [
+     "expanding cello and double bass drones",
+     "slightly increased density",
+     "very sparse piano notes with long decay",
+     "subtle low string pad",
+     "dark and atmospheric",
+     "deep and quiet"
+    ],
+    "negative_local_styles": [
+     "rising dynamics",
+     "identifiable rhythm",
+     "sharp attacks",
+     "percussive elements"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Subtle Weight",
+    "positive_local_styles": [
+     "fuller low string sustained chords",
+     "deeper sub-bass presence",
+     "isolated, extremely sparse piano notes",
+     "richer reverberant ambience",
+     "quiet tension through density",
+     "thick but soft texture"
+    ],
+    "negative_local_styles": [
+     "any melodic development",
+     "quick changes",
+     "percussive elements",
+     "fast arpeggios",
+     "volume peaks"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Calm",
+    "positive_local_styles": [
+     "soft sub-bass drone",
+     "sparse cello sustain",
+     "distant reverberant piano notes",
+     "minimal density",
+     "spacious ambience",
+     "calm and patient"
+    ],
+    "negative_local_styles": [
+     "complex harmonies",
+     "pronounced shifts",
+     "any rhythmic elements",
+     "bright timbres",
+     "fade-out"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 30.5
+}

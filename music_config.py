@@ -245,3 +245,32 @@ def validate_music_config() -> None:
             f"NEGATIVE_GLOBAL_STYLES debe tener al menos 5 items "
             f"(actual: {len(NEGATIVE_GLOBAL_STYLES)})"
         )
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F28 §A — el sonido del canal (HANDOFF_F28, literal) y la paleta
+# ═══════════════════════════════════════════════════════════════
+
+SONIDO_DEL_CANAL = (
+    "Misterios Sepultados suena **grave, quieto y paciente**. Un fondo que está debajo de la voz y nunca compite con "
+    "ella: drones de cello y contrabajo, sub-grave, piano lejano con mucha reverberación, cuerdas sostenidas sin "
+    "tremolo. **Sin melodía que se recuerde, sin pulso, sin batería, sin voces, sin subidas de tráiler.** Todo en "
+    "**Re menor** (o Fa mayor / La menor, sus relativas), 55–65 BPM de sensación aunque no haya ritmo. La tensión se "
+    "construye con densidad y con silencio, no con volumen. Una pista buena se puede escuchar diez veces seguidas sin "
+    "notar dónde empieza o termina. Referencia de sensación, no de copia: el fondo de los documentales de historia "
+    "oscura con narrador único."
+)
+
+# Lo que cada intent pide dentro de ese sonido (inglés: ElevenLabs Music lee inglés). Sin golpes ni subidas.
+PALETA_INTENTS: dict[str, str] = {
+    "hook": "the dark atmosphere is fully present from the very first second: low cello and double bass drone, "
+            "sub-bass, a sense that something is already wrong; no build-up",
+    "setup": "calm and spacious: the quiet life before; distant reverberant piano notes far apart over a soft low drone",
+    "rising_tension": "unease that thickens: sustained string layers slowly add density over the low drone, without "
+                      "tremolo and without a crescendo to a climax",
+    "shock": "heavy and dense: dissonant sustained low strings and sub-bass weight, the darkest density of the palette, "
+             "with no hits and no impacts",
+    "consequences": "grave and mournful: slow sustained cello, sparse distant piano, emptiness after the loss",
+    "outro": "suspended and unresolved: a quiet sustained chord that hangs like an open question, never resolving",
+}
+PALETA_TONALIDAD = "D minor"

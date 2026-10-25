@@ -1,0 +1,21 @@
+{
+ "id": "setup_03",
+ "texto": "{\n  \"descripcion\": \"Una pista ambiental y muy espaciosa construida sobre drones graves y pads etéreos que evolucionan lentamente. El ambiente es misterioso, quieto y contemplativo, creando una sensación de inmensidad y soledad.\",\n  \"instrumentos\": [\n    \"Sintetizador\",\n    \"Pad\",\n    \"Drones\"\n  ],\n  \"tiene_melodia\": false,\n  \"tiene_pulso\": false,\n  \"suena_a_trailer\": false,\n  \"compite_con_voz\": false,\n  \"nota_canal\": 10,\n  \"mejor_intent\": \"setup\"\n}",
+ "finish_reason": "finish_reason=STOP",
+ "usage": "cache_tokens_details=None cached_content_token_count=None candidates_token_count=149 candidates_tokens_details=None prompt_token_count=6126 prompt_tokens_details=[ModalityTokenCount(\n  modality=<MediaModality.TEXT: 'TEXT'>,\n  token_count=364\n), ModalityTokenCount(\n  modality=<MediaModality.AUDIO: 'AUDIO'>,\n  token_count=5762\n)] thoughts_token_count=983 tool_use_prompt_token_count=None tool_use_prompt_tokens_details=None total_token_count=7258 traffic_type=None",
+ "segundos": 14.3,
+ "json": {
+  "descripcion": "Una pista ambiental y muy espaciosa construida sobre drones graves y pads etéreos que evolucionan lentamente. El ambiente es misterioso, quieto y contemplativo, creando una sensación de inmensidad y soledad.",
+  "instrumentos": [
+   "Sintetizador",
+   "Pad",
+   "Drones"
+  ],
+  "tiene_melodia": false,
+  "tiene_pulso": false,
+  "suena_a_trailer": false,
+  "compite_con_voz": false,
+  "nota_canal": 10,
+  "mejor_intent": "setup"
+ }
+}

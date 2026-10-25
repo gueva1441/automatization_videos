@@ -1,0 +1,146 @@
+{
+ "id": "hook_04",
+ "intent": "hook",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "grave",
+   "quiet",
+   "patient",
+   "dark ambient",
+   "drone music",
+   "sustained strings",
+   "sub-bass",
+   "distant piano with heavy reverb",
+   "deep resonance",
+   "minimalist",
+   "eerie"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Ominous Opening Drone",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep drones",
+     "low cello",
+     "double bass",
+     "sub-bass hum",
+     "heavy atmosphere",
+     "dense texture",
+     "eerie",
+     "dark ambient pad"
+    ],
+    "negative_local_styles": [
+     "sparse",
+     "light",
+     "high-pitched",
+     "transparent",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Subtle Unease",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "sustained string pads",
+     "distant piano chords with heavy reverb",
+     "subtle tension",
+     "deep resonance",
+     "slow movement",
+     "gently layered"
+    ],
+    "negative_local_styles": [
+     "bright",
+     "clear piano",
+     "fast",
+     "sparse"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deep Immersion",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "layered drones",
+     "complex dark harmony",
+     "sub-bass swells",
+     "cello swells",
+     "heavy and oppressive atmosphere",
+     "very dense"
+    ],
+    "negative_local_styles": [
+     "light",
+     "airy",
+     "sparse",
+     "rhythmic",
+     "simple harmony"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Seamless Loop Back",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep drones",
+     "low cello",
+     "double bass",
+     "sub-bass hum",
+     "heavy atmosphere",
+     "dense texture",
+     "eerie",
+     "dark ambient pad"
+    ],
+    "negative_local_styles": [
+     "sparse",
+     "light",
+     "high-pitched",
+     "transparent",
+     "abrupt ending",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "error": "MusicDirectorError: ElevenLabs Music HTTP 429: {\"detail\":{\"type\":\"rate_limit_error\",\"code\":\"concurrent_limit_exceeded\",\"message\":\"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user does not overwhelm our systems and affect other users negatively. Please upgrade your subscription or contact sales if you want to increase this li",
+ "traceback": "Traceback (most recent call last):\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f28\\a\\f28a_paleta.py\", line 122, in una_pista\n    mp3, meta, hdr = m7.generar_con_plan(plan)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\script_engine\\m07_music_director.py\", line 1247, in generar_con_plan\n    raise MusicDirectorError(f\"ElevenLabs Music HTTP {resp.status_code}: {resp.text[:400]}\")\nscript_engine.m07_music_director.MusicDirectorError: ElevenLabs Music HTTP 429: {\"detail\":{\"type\":\"rate_limit_error\",\"code\":\"concurrent_limit_exceeded\",\"message\":\"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user does not overwhelm our systems and affect other users negatively. Please upgrade your subscription or contact sales if you want to increase this li\n",
+ "segundos": 9.6
+}

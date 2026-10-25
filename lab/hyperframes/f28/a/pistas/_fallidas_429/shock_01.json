@@ -1,0 +1,134 @@
+{
+ "id": "shock_01",
+ "intent": "shock",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "dark ambient",
+   "drone music",
+   "heavy and dense texture",
+   "sub-bass emphasis",
+   "sustained low strings",
+   "dissonant harmonies",
+   "orchestral background",
+   "deep resonance",
+   "looping instrumental",
+   "cinematic underscore"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Descent",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep sub-bass drone",
+     "sustained cello and contrabass",
+     "static dissonant harmonies",
+     "low register strings",
+     "heavy textural density"
+    ],
+    "negative_local_styles": [
+     "sparse texture",
+     "higher register instruments",
+     "rhythmic pulse",
+     "prominent arpeggios",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Weight of History",
+    "duration_ms": 40000,
+    "positive_local_styles": [
+     "increased string layer density",
+     "subtle shifts in dissonant clusters",
+     "distant and heavily reverberated piano chords",
+     "evolving low-end rumble"
+    ],
+    "negative_local_styles": [
+     "clear melodic lines",
+     "percussive elements",
+     "sudden volume changes",
+     "active movement"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Revelation",
+    "duration_ms": 50000,
+    "positive_local_styles": [
+     "maximum orchestral density",
+     "intense sustained dissonance",
+     "oppressive sub-bass weight",
+     "slow and unsettling harmonic movement",
+     "deep and wide soundstage"
+    ],
+    "negative_local_styles": [
+     "moments of lightness",
+     "discernible rhythm",
+     "fast tempo",
+     "resolution of dissonance"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Echoes",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep sub-bass drone",
+     "sustained cello and contrabass",
+     "static dissonant harmonies",
+     "low register strings",
+     "heavy textural density"
+    ],
+    "negative_local_styles": [
+     "rising tension",
+     "abrupt ending",
+     "distinct melody",
+     "dynamic variations",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "error": "MusicDirectorError: ElevenLabs Music HTTP 429: {\"detail\":{\"type\":\"rate_limit_error\",\"code\":\"concurrent_limit_exceeded\",\"message\":\"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user does not overwhelm our systems and affect other users negatively. Please upgrade your subscription or contact sales if you want to increase this li",
+ "traceback": "Traceback (most recent call last):\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f28\\a\\f28a_paleta.py\", line 122, in una_pista\n    mp3, meta, hdr = m7.generar_con_plan(plan)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\script_engine\\m07_music_director.py\", line 1247, in generar_con_plan\n    raise MusicDirectorError(f\"ElevenLabs Music HTTP {resp.status_code}: {resp.text[:400]}\")\nscript_engine.m07_music_director.MusicDirectorError: ElevenLabs Music HTTP 429: {\"detail\":{\"type\":\"rate_limit_error\",\"code\":\"concurrent_limit_exceeded\",\"message\":\"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user does not overwhelm our systems and affect other users negatively. Please upgrade your subscription or contact sales if you want to increase this li\n",
+ "segundos": 14.3
+}

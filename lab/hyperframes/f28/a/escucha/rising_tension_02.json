@@ -1,0 +1,20 @@
+{
+ "id": "rising_tension_02",
+ "texto": "{\n  \"descripcion\": \"Pista atmosférica y melancólica con un piano espaciado y reverberante sobre un colchón de sintetizadores graves y sostenidos. El ambiente es introspectivo, misterioso y paciente, con una melodía simple que se va desarrollando lentamente.\",\n  \"instrumentos\": [\n    \"piano\",\n    \"sintetizador\"\n  ],\n  \"tiene_melodia\": true,\n  \"tiene_pulso\": false,\n  \"suena_a_trailer\": false,\n  \"compite_con_voz\": true,\n  \"nota_canal\": 6,\n  \"mejor_intent\": \"setup\"\n}",
+ "finish_reason": "finish_reason=STOP",
+ "usage": "cache_tokens_details=None cached_content_token_count=None candidates_token_count=148 candidates_tokens_details=None prompt_token_count=6126 prompt_tokens_details=[ModalityTokenCount(\n  modality=<MediaModality.TEXT: 'TEXT'>,\n  token_count=364\n), ModalityTokenCount(\n  modality=<MediaModality.AUDIO: 'AUDIO'>,\n  token_count=5762\n)] thoughts_token_count=1207 tool_use_prompt_token_count=None tool_use_prompt_tokens_details=None total_token_count=7481 traffic_type=None",
+ "segundos": 15.8,
+ "json": {
+  "descripcion": "Pista atmosférica y melancólica con un piano espaciado y reverberante sobre un colchón de sintetizadores graves y sostenidos. El ambiente es introspectivo, misterioso y paciente, con una melodía simple que se va desarrollando lentamente.",
+  "instrumentos": [
+   "piano",
+   "sintetizador"
+  ],
+  "tiene_melodia": true,
+  "tiene_pulso": false,
+  "suena_a_trailer": false,
+  "compite_con_voz": true,
+  "nota_canal": 6,
+  "mejor_intent": "setup"
+ }
+}

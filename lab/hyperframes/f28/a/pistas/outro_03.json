@@ -1,0 +1,207 @@
+{
+ "id": "outro_03",
+ "intent": "outro",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow, 55-65 BPM feel, no discernible rhythm, no pulse",
+   "grave, quiet, patient",
+   "drones, sustained strings, cello, double bass, distant piano with deep reverberation, sub-bass",
+   "dark ambient, atmospheric, underscore, unsettling, mysterious, suspended",
+   "loopable, seamless transition, consistent background texture"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Suspension",
+    "duration_ms": 40000,
+    "positive_local_styles": [
+     "low density, quiet sustained D minor chord, deep cello drones, subtle sub-bass hum, distant piano textures, open and unresolved harmony"
+    ],
+    "negative_local_styles": [
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Mystery",
+    "duration_ms": 50000,
+    "positive_local_styles": [
+     "gradual increase in density, added sustained double bass, expanded string layers, more complex drone texture, maintaining quiet and patient feel, subtle harmonic shifts around D minor"
+    ],
+    "negative_local_styles": [],
+    "lines": []
+   },
+   {
+    "section_name": "Core Unresolution",
+    "duration_ms": 50000,
+    "positive_local_styles": [
+     "moderate density, sustained unresolved chord, pervasive sub-bass, layered dark strings, atmospheric piano pads, static and tense without climax"
+    ],
+    "negative_local_styles": [],
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Question",
+    "duration_ms": 40000,
+    "positive_local_styles": [
+     "low density, quiet sustained D minor chord, deep cello drones, subtle sub-bass hum, distant piano textures, open and unresolved harmony"
+    ],
+    "negative_local_styles": [
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:33:39 GMT",
+  "server": "uvicorn",
+  "song-id": "mwDs63XsiSs2udmQpu1Z",
+  "Content-Length": "2882990",
+  "content-type": "multipart/mixed; boundary=----boundary60f92653f6084bdcbb2f425dcc307cd4",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "3bd37f53834250fd296e8b2dbd912e40",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow, 55-65 BPM feel, no discernible rhythm, no pulse",
+   "grave, quiet, patient",
+   "drones, sustained strings, cello, double bass, distant piano with deep reverberation, sub-bass",
+   "dark ambient, atmospheric, underscore, unsettling, mysterious, suspended",
+   "loopable, seamless transition, consistent background texture"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Suspension",
+    "positive_local_styles": [
+     "low density, quiet sustained D minor chord, deep cello drones, subtle sub-bass hum, distant piano textures, open and unresolved harmony"
+    ],
+    "negative_local_styles": [
+     "fade-in"
+    ],
+    "duration_ms": 40000,
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Mystery",
+    "positive_local_styles": [
+     "gradual increase in density, added sustained double bass, expanded string layers, more complex drone texture, maintaining quiet and patient feel, subtle harmonic shifts around D minor"
+    ],
+    "negative_local_styles": [],
+    "duration_ms": 50000,
+    "lines": []
+   },
+   {
+    "section_name": "Core Unresolution",
+    "positive_local_styles": [
+     "moderate density, sustained unresolved chord, pervasive sub-bass, layered dark strings, atmospheric piano pads, static and tense without climax"
+    ],
+    "negative_local_styles": [],
+    "duration_ms": 50000,
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Question",
+    "positive_local_styles": [
+     "low density, quiet sustained D minor chord, deep cello drones, subtle sub-bass hum, distant piano textures, open and unresolved harmony"
+    ],
+    "negative_local_styles": [
+     "fade-out"
+    ],
+    "duration_ms": 40000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 32.4
+}

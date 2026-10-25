@@ -1,0 +1,315 @@
+{
+ "id": "hook_04",
+ "intent": "hook",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "dark ambient",
+   "deep drones",
+   "atmospheric",
+   "understated",
+   "somber",
+   "orchestral textures",
+   "low frequency emphasis",
+   "heavy reverberation",
+   "patient",
+   "quiet background"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Ominous Opening Drone",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep cello drones",
+     "double bass sustained notes",
+     "sub-bass layer",
+     "distant piano textures",
+     "heavy reverb",
+     "minimalist",
+     "dense low end",
+     "static harmony",
+     "dark atmosphere"
+    ],
+    "negative_local_styles": [
+     "rhythmic activity",
+     "melodic phrases",
+     "high register instruments",
+     "percussion",
+     "build up",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Unsettled Textures",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "sustained string pads",
+     "low brass swells",
+     "reverberant piano chords",
+     "subtle metallic sheen",
+     "evolving drones",
+     "sparse textures",
+     "gentle dissonances"
+    ],
+    "negative_local_styles": [
+     "strong pulse",
+     "melodic leads",
+     "fast arpeggios",
+     "prominent solo instruments"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Unease",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "thicker string harmony",
+     "more prominent sub-bass movement",
+     "distorted low frequency effects",
+     "isolated low woodwind whispers",
+     "dense atmospheric layers",
+     "slow harmonic shifts",
+     "darker timbres"
+    ],
+    "negative_local_styles": [
+     "rhythmic drive",
+     "fast tempo elements",
+     "bright instrumentation",
+     "clear melody"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Returning Drone",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep cello drones",
+     "double bass sustained notes",
+     "sub-bass layer",
+     "distant piano textures",
+     "heavy reverb",
+     "minimalist",
+     "dense low end",
+     "static harmony",
+     "dark atmosphere"
+    ],
+    "negative_local_styles": [
+     "rhythmic activity",
+     "melodic phrases",
+     "high register instruments",
+     "percussion",
+     "build up",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:34:56 GMT",
+  "server": "uvicorn",
+  "song-id": "WJDStop78sDZxcEKdk3s",
+  "Content-Length": "2883265",
+  "content-type": "multipart/mixed; boundary=----boundarye4e12c0937634d84839fbe262ef45c4b",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "e75244fc2dff127e16ca08e4fd7db041",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "dark ambient",
+   "deep drones",
+   "atmospheric",
+   "understated",
+   "somber",
+   "orchestral textures",
+   "low frequency emphasis",
+   "heavy reverberation",
+   "patient",
+   "quiet background"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Ominous Opening Drone",
+    "positive_local_styles": [
+     "deep cello drones",
+     "double bass sustained notes",
+     "sub-bass layer",
+     "distant piano textures",
+     "heavy reverb",
+     "minimalist",
+     "dense low end",
+     "static harmony",
+     "dark atmosphere"
+    ],
+    "negative_local_styles": [
+     "rhythmic activity",
+     "melodic phrases",
+     "high register instruments",
+     "percussion",
+     "build up",
+     "fade-in"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Unsettled Textures",
+    "positive_local_styles": [
+     "sustained string pads",
+     "low brass swells",
+     "reverberant piano chords",
+     "subtle metallic sheen",
+     "evolving drones",
+     "sparse textures",
+     "gentle dissonances"
+    ],
+    "negative_local_styles": [
+     "strong pulse",
+     "melodic leads",
+     "fast arpeggios",
+     "prominent solo instruments"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Unease",
+    "positive_local_styles": [
+     "thicker string harmony",
+     "more prominent sub-bass movement",
+     "distorted low frequency effects",
+     "isolated low woodwind whispers",
+     "dense atmospheric layers",
+     "slow harmonic shifts",
+     "darker timbres"
+    ],
+    "negative_local_styles": [
+     "rhythmic drive",
+     "fast tempo elements",
+     "bright instrumentation",
+     "clear melody"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Returning Drone",
+    "positive_local_styles": [
+     "deep cello drones",
+     "double bass sustained notes",
+     "sub-bass layer",
+     "distant piano textures",
+     "heavy reverb",
+     "minimalist",
+     "dense low end",
+     "static harmony",
+     "dark atmosphere"
+    ],
+    "negative_local_styles": [
+     "rhythmic activity",
+     "melodic phrases",
+     "high register instruments",
+     "percussion",
+     "build up",
+     "fade-out"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 29.2
+}

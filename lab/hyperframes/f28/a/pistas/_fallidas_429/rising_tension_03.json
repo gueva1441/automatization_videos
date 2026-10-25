@@ -1,0 +1,149 @@
+{
+ "id": "rising_tension_03",
+ "intent": "rising_tension",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "55-65 BPM feel",
+   "dark history documentary",
+   "ambient",
+   "atmospheric",
+   "deep",
+   "still",
+   "patient",
+   "unease",
+   "subtle tension",
+   "loopable"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Foundational Drone",
+    "duration_ms": 40000,
+    "positive_local_styles": [
+     "sub-bass drone",
+     "cello sustained",
+     "contrabass sustained",
+     "distant piano chords",
+     "sparse",
+     "minimal",
+     "reverberant",
+     "calm before the storm"
+    ],
+    "negative_local_styles": [
+     "mid-range strings",
+     "high-range strings",
+     "dense",
+     "articulated notes",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Lower Strings Ascending",
+    "duration_ms": 50000,
+    "positive_local_styles": [
+     "sustained lower strings",
+     "cello section pads",
+     "contrabass section pads",
+     "viola sustained layers",
+     "thickening texture",
+     "low drone base",
+     "building unease"
+    ],
+    "negative_local_styles": [
+     "high-range strings",
+     "bright",
+     "shrill",
+     "percussion",
+     "melody"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Mid-High String Envelopment",
+    "duration_ms": 50000,
+    "positive_local_styles": [
+     "full string section sustained",
+     "dense string layers",
+     "violin pads",
+     "viola pads",
+     "cello pads",
+     "contrabass rumble",
+     "complex harmony (d minor)",
+     "maximal density without climax"
+    ],
+    "negative_local_styles": [
+     "sparse",
+     "single instrument focus",
+     "bright melody",
+     "tension drop",
+     "fast movement"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Subtle Regression",
+    "duration_ms": 40000,
+    "positive_local_styles": [
+     "sub-bass drone",
+     "cello sustained",
+     "contrabass sustained",
+     "distant piano chords",
+     "sparse",
+     "minimal",
+     "reverberant",
+     "calm before the storm"
+    ],
+    "negative_local_styles": [
+     "full string section",
+     "dense layers",
+     "abrupt ending",
+     "tension spikes",
+     "new melodic elements",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "error": "MusicDirectorError: ElevenLabs Music HTTP 429: {\"detail\":{\"type\":\"rate_limit_error\",\"code\":\"concurrent_limit_exceeded\",\"message\":\"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user does not overwhelm our systems and affect other users negatively. Please upgrade your subscription or contact sales if you want to increase this li",
+ "traceback": "Traceback (most recent call last):\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f28\\a\\f28a_paleta.py\", line 122, in una_pista\n    mp3, meta, hdr = m7.generar_con_plan(plan)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\script_engine\\m07_music_director.py\", line 1247, in generar_con_plan\n    raise MusicDirectorError(f\"ElevenLabs Music HTTP {resp.status_code}: {resp.text[:400]}\")\nscript_engine.m07_music_director.MusicDirectorError: ElevenLabs Music HTTP 429: {\"detail\":{\"type\":\"rate_limit_error\",\"code\":\"concurrent_limit_exceeded\",\"message\":\"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user does not overwhelm our systems and affect other users negatively. Please upgrade your subscription or contact sales if you want to increase this li\n",
+ "segundos": 20.2
+}

@@ -1,0 +1,22 @@
+{
+ "id": "hook_03",
+ "texto": "{\n  \"descripcion\": \"Una pieza atmosférica y oscura construida sobre drones de cuerdas graves, como cellos y contrabajos. Las notas largas y sostenidas crean una sensación de misterio, quietud y tensión latente, ideal como fondo para una narración.\",\n  \"instrumentos\": [\n    \"Cuerdas graves\",\n    \"Cello\",\n    \"Contrabajo\",\n    \"Sintetizador\"\n  ],\n  \"tiene_melodia\": false,\n  \"tiene_pulso\": false,\n  \"suena_a_trailer\": false,\n  \"compite_con_voz\": false,\n  \"nota_canal\": 10,\n  \"mejor_intent\": \"setup\"\n}",
+ "finish_reason": "finish_reason=STOP",
+ "usage": "cache_tokens_details=None cached_content_token_count=None candidates_token_count=164 candidates_tokens_details=None prompt_token_count=6126 prompt_tokens_details=[ModalityTokenCount(\n  modality=<MediaModality.TEXT: 'TEXT'>,\n  token_count=364\n), ModalityTokenCount(\n  modality=<MediaModality.AUDIO: 'AUDIO'>,\n  token_count=5762\n)] thoughts_token_count=1170 tool_use_prompt_token_count=None tool_use_prompt_tokens_details=None total_token_count=7460 traffic_type=None",
+ "segundos": 16.6,
+ "json": {
+  "descripcion": "Una pieza atmosférica y oscura construida sobre drones de cuerdas graves, como cellos y contrabajos. Las notas largas y sostenidas crean una sensación de misterio, quietud y tensión latente, ideal como fondo para una narración.",
+  "instrumentos": [
+   "Cuerdas graves",
+   "Cello",
+   "Contrabajo",
+   "Sintetizador"
+  ],
+  "tiene_melodia": false,
+  "tiene_pulso": false,
+  "suena_a_trailer": false,
+  "compite_con_voz": false,
+  "nota_canal": 10,
+  "mejor_intent": "setup"
+ }
+}

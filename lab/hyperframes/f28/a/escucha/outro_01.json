@@ -1,0 +1,21 @@
+{
+ "id": "outro_01",
+ "texto": "{\n  \"descripcion\": \"Una pista ambiental y atmosférica construida con capas de sintetizadores y cuerdas sostenidas. La música es lenta, grave y expansiva, creando una sensación de misterio y soledad. La tensión aumenta gradualmente a través de la adición de texturas, no de volumen o ritmo.\",\n  \"instrumentos\": [\n    \"Sintetizadores\",\n    \"Cuerdas\",\n    \"Drones\"\n  ],\n  \"tiene_melodia\": false,\n  \"tiene_pulso\": false,\n  \"suena_a_trailer\": false,\n  \"compite_con_voz\": false,\n  \"nota_canal\": 10,\n  \"mejor_intent\": \"setup\"\n}",
+ "finish_reason": "finish_reason=STOP",
+ "usage": "cache_tokens_details=None cached_content_token_count=None candidates_token_count=165 candidates_tokens_details=None prompt_token_count=6126 prompt_tokens_details=[ModalityTokenCount(\n  modality=<MediaModality.TEXT: 'TEXT'>,\n  token_count=364\n), ModalityTokenCount(\n  modality=<MediaModality.AUDIO: 'AUDIO'>,\n  token_count=5762\n)] thoughts_token_count=849 tool_use_prompt_token_count=None tool_use_prompt_tokens_details=None total_token_count=7140 traffic_type=None",
+ "segundos": 13.3,
+ "json": {
+  "descripcion": "Una pista ambiental y atmosférica construida con capas de sintetizadores y cuerdas sostenidas. La música es lenta, grave y expansiva, creando una sensación de misterio y soledad. La tensión aumenta gradualmente a través de la adición de texturas, no de volumen o ritmo.",
+  "instrumentos": [
+   "Sintetizadores",
+   "Cuerdas",
+   "Drones"
+  ],
+  "tiene_melodia": false,
+  "tiene_pulso": false,
+  "suena_a_trailer": false,
+  "compite_con_voz": false,
+  "nota_canal": 10,
+  "mejor_intent": "setup"
+ }
+}

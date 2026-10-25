@@ -1,0 +1,133 @@
+{
+ "id": "hook_02",
+ "intent": "hook",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "55-65 BPM feel",
+   "dark ambient",
+   "drone music",
+   "deep resonance",
+   "cello ensemble",
+   "double bass ensemble",
+   "sub-bass",
+   "distant piano",
+   "reverberant strings",
+   "sustained string pads",
+   "eerie atmosphere",
+   "mysterious",
+   "somber",
+   "gravitas",
+   "non-intrusive background",
+   "static",
+   "patient"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Grave Drone",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep sub-bass drone",
+     "low cello drone",
+     "double bass sustained notes",
+     "sparse string pads",
+     "heavy atmosphere",
+     "eerie",
+     "minimalist",
+     "initial density"
+    ],
+    "negative_local_styles": [
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Contemplation",
+    "duration_ms": 48000,
+    "positive_local_styles": [
+     "distant piano chords with long decay",
+     "heavy reverb",
+     "sustained string harmonies",
+     "developing drone layers",
+     "contemplative",
+     "subtle shifts in texture",
+     "slightly increased density"
+    ],
+    "negative_local_styles": [],
+    "lines": []
+   },
+   {
+    "section_name": "Sparse Reflection",
+    "duration_ms": 42000,
+    "positive_local_styles": [
+     "sparse piano notes with very long decay",
+     "single sustained cello line",
+     "minimalist texture",
+     "sense of vast space",
+     "quiet tension",
+     "reduced density"
+    ],
+    "negative_local_styles": [],
+    "lines": []
+   },
+   {
+    "section_name": "Returning Cycle Drone",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep sub-bass drone",
+     "low cello drone",
+     "double bass sustained notes",
+     "sparse string pads",
+     "heavy atmosphere",
+     "eerie",
+     "minimalist",
+     "initial density"
+    ],
+    "negative_local_styles": [
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "error": "MusicDirectorError: ElevenLabs Music HTTP 429: {\"detail\":{\"type\":\"rate_limit_error\",\"code\":\"concurrent_limit_exceeded\",\"message\":\"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user does not overwhelm our systems and affect other users negatively. Please upgrade your subscription or contact sales if you want to increase this li",
+ "traceback": "Traceback (most recent call last):\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f28\\a\\f28a_paleta.py\", line 122, in una_pista\n    mp3, meta, hdr = m7.generar_con_plan(plan)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\script_engine\\m07_music_director.py\", line 1247, in generar_con_plan\n    raise MusicDirectorError(f\"ElevenLabs Music HTTP {resp.status_code}: {resp.text[:400]}\")\nscript_engine.m07_music_director.MusicDirectorError: ElevenLabs Music HTTP 429: {\"detail\":{\"type\":\"rate_limit_error\",\"code\":\"concurrent_limit_exceeded\",\"message\":\"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user does not overwhelm our systems and affect other users negatively. Please upgrade your subscription or contact sales if you want to increase this li\n",
+ "segundos": 15.0
+}

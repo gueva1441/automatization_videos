@@ -1,0 +1,337 @@
+{
+ "id": "hook_03",
+ "intent": "hook",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "somber",
+   "dark ambient",
+   "drone music",
+   "atmospheric",
+   "low frequency",
+   "reverberant",
+   "sustained strings",
+   "cello and double bass focus",
+   "sub-bass",
+   "distant piano",
+   "pensive",
+   "grave",
+   "quiet",
+   "patient",
+   "minimalist"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Drone",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep cello drone",
+     "double bass sustained",
+     "sub-bass layer",
+     "low strings texture",
+     "ominous",
+     "unsettling",
+     "minimal harmonic movement",
+     "heavy and static"
+    ],
+    "negative_local_styles": [
+     "melody",
+     "rhythm",
+     "high register instruments",
+     "dynamic swell",
+     "percussion",
+     "piano",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Subtle Unrest",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "distant piano chords",
+     "eerie atmosphere",
+     "expansive reverberation",
+     "sparse string layers",
+     "subtle tension",
+     "cold",
+     "empty spaces",
+     "ghostly echoes"
+    ],
+    "negative_local_styles": [
+     "percussive piano",
+     "fast arpeggios",
+     "warm tones",
+     "melodic cello lines",
+     "drums",
+     "bright elements"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deep Reflection",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "sustained string pads",
+     "slightly increased harmonic density",
+     "contemplative mood",
+     "somber textures",
+     "brooding",
+     "vast soundscape",
+     "slow harmonic shifts"
+    ],
+    "negative_local_styles": [
+     "intrusive elements",
+     "sharp attacks",
+     "bright timbres",
+     "fast string passages",
+     "prominent solos",
+     "rhythmic pulse"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Return to Drone",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep cello drone",
+     "double bass sustained",
+     "sub-bass layer",
+     "low strings texture",
+     "ominous",
+     "unsettling",
+     "minimal harmonic movement",
+     "heavy and static"
+    ],
+    "negative_local_styles": [
+     "melody",
+     "rhythm",
+     "high register instruments",
+     "dynamic swell",
+     "fade out",
+     "percussion",
+     "piano",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:29:55 GMT",
+  "server": "uvicorn",
+  "song-id": "7gVItbuWr5yNSHrYt3xP",
+  "Content-Length": "2883262",
+  "content-type": "multipart/mixed; boundary=----boundary6d8c914760a649cc86c354aa7c01d6dc",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "9dfd097b95e7af83017378a58be2dd3a",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "somber",
+   "dark ambient",
+   "drone music",
+   "atmospheric",
+   "low frequency",
+   "reverberant",
+   "sustained strings",
+   "cello and double bass focus",
+   "sub-bass",
+   "distant piano",
+   "pensive",
+   "grave",
+   "quiet",
+   "patient",
+   "minimalist"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Drone",
+    "positive_local_styles": [
+     "deep cello drone",
+     "double bass sustained",
+     "sub-bass layer",
+     "low strings texture",
+     "ominous",
+     "unsettling",
+     "minimal harmonic movement",
+     "heavy and static"
+    ],
+    "negative_local_styles": [
+     "melody",
+     "rhythm",
+     "high register instruments",
+     "dynamic swell",
+     "percussion",
+     "piano",
+     "fade-in"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Subtle Unrest",
+    "positive_local_styles": [
+     "distant piano chords",
+     "eerie atmosphere",
+     "expansive reverberation",
+     "sparse string layers",
+     "subtle tension",
+     "cold",
+     "empty spaces",
+     "ghostly echoes"
+    ],
+    "negative_local_styles": [
+     "percussive piano",
+     "fast arpeggios",
+     "warm tones",
+     "melodic cello lines",
+     "drums",
+     "bright elements"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Deep Reflection",
+    "positive_local_styles": [
+     "sustained string pads",
+     "slightly increased harmonic density",
+     "contemplative mood",
+     "somber textures",
+     "brooding",
+     "vast soundscape",
+     "slow harmonic shifts"
+    ],
+    "negative_local_styles": [
+     "intrusive elements",
+     "sharp attacks",
+     "bright timbres",
+     "fast string passages",
+     "prominent solos",
+     "rhythmic pulse"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Return to Drone",
+    "positive_local_styles": [
+     "deep cello drone",
+     "double bass sustained",
+     "sub-bass layer",
+     "low strings texture",
+     "ominous",
+     "unsettling",
+     "minimal harmonic movement",
+     "heavy and static"
+    ],
+    "negative_local_styles": [
+     "melody",
+     "rhythm",
+     "high register instruments",
+     "dynamic swell",
+     "fade out",
+     "percussion",
+     "piano",
+     "fade-out"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 30.3
+}

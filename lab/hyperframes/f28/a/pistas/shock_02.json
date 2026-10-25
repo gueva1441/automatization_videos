@@ -1,0 +1,301 @@
+{
+ "id": "shock_02",
+ "intent": "shock",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "drone",
+   "dark atmosphere",
+   "low frequency",
+   "sustained strings",
+   "sub-bass",
+   "reverberant piano",
+   "heavy",
+   "dense",
+   "dissonant",
+   "quiet",
+   "patient"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Deep Overture",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "sustained low strings",
+     "sub-bass drone",
+     "dissonant harmony",
+     "heavy density",
+     "deep reverberation",
+     "cello drones",
+     "contrabass sustain"
+    ],
+    "negative_local_styles": [
+     "light texture",
+     "melodic movement",
+     "sparse arrangement",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Crushing Weight",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "thick string layers",
+     "sustained sub-bass",
+     "slow harmonic shifts",
+     "oppressive atmosphere",
+     "dissonant textures",
+     "dense soundscape",
+     "unrelenting"
+    ],
+    "negative_local_styles": [
+     "sparse sections",
+     "clear melody",
+     "rhythmic pulse",
+     "dynamic swells"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Submerged Echoes",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "low piano chords with heavy reverb",
+     "dissonant clusters",
+     "subtle textural changes",
+     "deep cello drones",
+     "contrabass sustain",
+     "unwavering density"
+    ],
+    "negative_local_styles": [
+     "melodic phrases",
+     "percussive elements",
+     "fast changes",
+     "shrill frequencies"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Abyss",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "sustained low strings",
+     "sub-bass drone",
+     "dissonant harmony",
+     "heavy density",
+     "deep reverberation",
+     "cello drones",
+     "contrabass sustain"
+    ],
+    "negative_local_styles": [
+     "light texture",
+     "melodic movement",
+     "sparse arrangement",
+     "fade out",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:32:00 GMT",
+  "server": "uvicorn",
+  "song-id": "6kOPRlCdLbt0nPc8UrFD",
+  "Content-Length": "2883030",
+  "content-type": "multipart/mixed; boundary=----boundary3b57bf32bb844141ae7a17526868db43",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "0694dfd5f441ed98961e2684e09633f1",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "drone",
+   "dark atmosphere",
+   "low frequency",
+   "sustained strings",
+   "sub-bass",
+   "reverberant piano",
+   "heavy",
+   "dense",
+   "dissonant",
+   "quiet",
+   "patient"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Deep Overture",
+    "positive_local_styles": [
+     "sustained low strings",
+     "sub-bass drone",
+     "dissonant harmony",
+     "heavy density",
+     "deep reverberation",
+     "cello drones",
+     "contrabass sustain"
+    ],
+    "negative_local_styles": [
+     "light texture",
+     "melodic movement",
+     "sparse arrangement",
+     "fade-in"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Crushing Weight",
+    "positive_local_styles": [
+     "thick string layers",
+     "sustained sub-bass",
+     "slow harmonic shifts",
+     "oppressive atmosphere",
+     "dissonant textures",
+     "dense soundscape",
+     "unrelenting"
+    ],
+    "negative_local_styles": [
+     "sparse sections",
+     "clear melody",
+     "rhythmic pulse",
+     "dynamic swells"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Submerged Echoes",
+    "positive_local_styles": [
+     "low piano chords with heavy reverb",
+     "dissonant clusters",
+     "subtle textural changes",
+     "deep cello drones",
+     "contrabass sustain",
+     "unwavering density"
+    ],
+    "negative_local_styles": [
+     "melodic phrases",
+     "percussive elements",
+     "fast changes",
+     "shrill frequencies"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Abyss",
+    "positive_local_styles": [
+     "sustained low strings",
+     "sub-bass drone",
+     "dissonant harmony",
+     "heavy density",
+     "deep reverberation",
+     "cello drones",
+     "contrabass sustain"
+    ],
+    "negative_local_styles": [
+     "light texture",
+     "melodic movement",
+     "sparse arrangement",
+     "fade out",
+     "fade-out"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 28.9
+}

@@ -1,0 +1,175 @@
+[14:29:32] [_prueba_hook] 180.0 s · US$ 0.450 · 28.9 s de pared · cabeceras de costo {}
+[14:29:32] prueba: 180.04 s → US$ 0.4501 · 30 pistas ≈ US$ 13.5 (tope 25 → 30 pistas)
+[14:29:32] [prueba] 30 s · ElevenLabs US$ 0.4501 · Gemini US$ 0.0066
+[14:29:58] [hook_02] ERROR MusicDirectorError: ElevenLabs Music HTTP 429: {"detail":{"type":"rate_limit_error","code":"concurrent_limit_exceeded","message":"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user 
+[14:30:08] [hook_04] ERROR MusicDirectorError: ElevenLabs Music HTTP 429: {"detail":{"type":"rate_limit_error","code":"concurrent_limit_exceeded","message":"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user 
+[14:30:13] [hook_03] 180.0 s · US$ 0.450 · 30.3 s de pared · cabeceras de costo {}
+[14:30:17] [hook_01] 180.0 s · US$ 0.450 · 34.0 s de pared · cabeceras de costo {}
+[14:30:30] [setup_02] ERROR MusicDirectorError: ElevenLabs Music HTTP 429: {"detail":{"type":"rate_limit_error","code":"concurrent_limit_exceeded","message":"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user 
+[14:30:38] [hook_05] 180.0 s · US$ 0.450 · 29.9 s de pared · cabeceras de costo {}
+[14:30:47] [setup_01] 180.0 s · US$ 0.450 · 33.4 s de pared · cabeceras de costo {}
+[14:30:59] [setup_05] ERROR MusicDirectorError: ElevenLabs Music HTTP 429: {"detail":{"type":"rate_limit_error","code":"concurrent_limit_exceeded","message":"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user 
+[14:31:01] [setup_03] 180.0 s · US$ 0.450 · 30.7 s de pared · cabeceras de costo {}
+[14:31:07] [setup_04] 180.0 s · US$ 0.450 · 29.7 s de pared · cabeceras de costo {}
+[14:31:28] [rising_tension_03] ERROR MusicDirectorError: ElevenLabs Music HTTP 429: {"detail":{"type":"rate_limit_error","code":"concurrent_limit_exceeded","message":"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user 
+[14:31:31] [rising_tension_02] 180.0 s · US$ 0.450 · 30.3 s de pared · cabeceras de costo {}
+[14:31:35] [rising_tension_01] 180.0 s · US$ 0.450 · 35.1 s de pared · cabeceras de costo {}
+[14:31:49] [shock_01] ERROR MusicDirectorError: ElevenLabs Music HTTP 429: {"detail":{"type":"rate_limit_error","code":"concurrent_limit_exceeded","message":"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user 
+[14:31:57] [rising_tension_04] 180.0 s · US$ 0.450 · 29.5 s de pared · cabeceras de costo {}
+[14:31:59] [rising_tension_05] 180.0 s · US$ 0.450 · 27.3 s de pared · cabeceras de costo {}
+[14:32:10] [shock_04] ERROR MusicDirectorError: ElevenLabs Music HTTP 429: {"detail":{"type":"rate_limit_error","code":"concurrent_limit_exceeded","message":"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user 
+[14:32:18] [shock_02] 180.0 s · US$ 0.450 · 28.9 s de pared · cabeceras de costo {}
+[14:32:26] [shock_03] 180.0 s · US$ 0.450 · 28.8 s de pared · cabeceras de costo {}
+[14:32:36] [consequences_01] ERROR MusicDirectorError: ElevenLabs Music HTTP 429: {"detail":{"type":"rate_limit_error","code":"system_busy","message":"The system is experiencing heavy traffic. Please try again.","status":"system_busy","request_id":"6eb10d13dc711a50c4dae5d9a77a508a","docs_url":"https://elevenlabs.io/docs/eleven-api/re
+[14:32:45] [shock_05] 180.0 s · US$ 0.450 · 34.5 s de pared · cabeceras de costo {}
+[14:32:54] [consequences_02] 180.0 s · US$ 0.450 · 28.0 s de pared · cabeceras de costo {}
+[14:33:03] [consequences_03] 180.0 s · US$ 0.450 · 27.4 s de pared · cabeceras de costo {}
+[14:33:18] [consequences_04] 180.0 s · US$ 0.450 · 33.0 s de pared · cabeceras de costo {}
+[14:33:24] [consequences_05] 180.0 s · US$ 0.450 · 30.1 s de pared · cabeceras de costo {}
+[14:33:36] [outro_01] 180.0 s · US$ 0.450 · 32.4 s de pared · cabeceras de costo {}
+[14:33:46] [outro_02] 180.0 s · US$ 0.450 · 28.0 s de pared · cabeceras de costo {}
+[14:33:56] [outro_03] 180.0 s · US$ 0.450 · 32.4 s de pared · cabeceras de costo {}
+[14:34:06] [outro_04] 180.0 s · US$ 0.450 · 29.7 s de pared · cabeceras de costo {}
+[14:34:16] [outro_05] 180.0 s · US$ 0.450 · 30.2 s de pared · cabeceras de costo {}
+[14:34:16] [generar] 274 s · ElevenLabs US$ 10.3522 · Gemini US$ 0.223
+[14:35:13] [hook_04] 180.0 s · US$ 0.450 · 29.2 s de pared · cabeceras de costo {}
+[14:35:14] [hook_02] 180.0 s · US$ 0.450 · 29.9 s de pared · cabeceras de costo {}
+[14:35:44] [setup_02] 180.0 s · US$ 0.450 · 30.5 s de pared · cabeceras de costo {}
+[14:35:45] [setup_05] 180.0 s · US$ 0.450 · 30.8 s de pared · cabeceras de costo {}
+[14:36:12] [rising_tension_03] 180.0 s · US$ 0.450 · 27.6 s de pared · cabeceras de costo {}
+[14:36:12] [shock_01] 180.0 s · US$ 0.450 · 27.2 s de pared · cabeceras de costo {}
+[14:36:40] [consequences_01] 180.0 s · US$ 0.450 · 27.6 s de pared · cabeceras de costo {}
+[14:36:40] [shock_04] 180.0 s · US$ 0.450 · 28.4 s de pared · cabeceras de costo {}
+[14:36:40] [generar] 117 s · ElevenLabs US$ 13.953 · Gemini US$ 0.0611
+[14:37:03] [medidas] _prueba_hook: D minor · pulso 0.082 · LRA 2.7 · voz 0.0009 · poda ['fade en la costura (-30.23 / -77.17 dB)']
+[14:37:05] [medidas] consequences_01: A minor · pulso 0.106 · LRA 2.7 · voz 0.004 · poda ['fade en la costura (-6.49 / -50.67 dB)']
+[14:37:06] [medidas] consequences_02: D minor · pulso 0.382 · LRA 8.8 · voz 0.0029 · poda ['pulso 0.382', 'fade en la costura (-16.87 / -59.25 dB)']
+[14:37:07] [medidas] consequences_03: D major · pulso 0.154 · LRA 9.7 · voz 0.0038 · poda ['tonalidad D major', 'fade en la costura (-28.12 / -51.43 dB)']
+[14:37:09] [medidas] consequences_04: D minor · pulso 0.032 · LRA 7.4 · voz 0.001 · poda ['fade en la costura (-32.76 / -46.9 dB)']
+[14:37:10] [medidas] consequences_05: F major · pulso 0.32 · LRA 6.3 · voz 0.0003 · poda ['fade en la costura (-3.01 / -74.89 dB)']
+[14:37:12] [medidas] hook_01: D minor · pulso 0.085 · LRA 2.3 · voz 0.0013 · poda ['fade en la costura (-11.47 / -17.82 dB)']
+[14:37:13] [medidas] hook_02: D minor · pulso 0.155 · LRA 5.3 · voz 0.0 · poda ['fade en la costura (-78.52 / -69.39 dB)']
+[14:37:15] [medidas] hook_03: D minor · pulso 0.066 · LRA 3.2 · voz 0.0003 · poda ['fade en la costura (-8.78 / -56.67 dB)']
+[14:37:16] [medidas] hook_04: D minor · pulso 0.05 · LRA 9.5 · voz 0.0007 · poda ['fade en la costura (-49.05 / -50.06 dB)']
+[14:37:18] [medidas] hook_05: D minor · pulso 0.079 · LRA 5.1 · voz 0.0003 · poda ['fade en la costura (-34.08 / -62.97 dB)']
+[14:37:19] [medidas] outro_01: D minor · pulso 0.076 · LRA 3.9 · voz 0.0015 · poda ['fade en la costura (-26.7 / -74.62 dB)']
+[14:37:20] [medidas] outro_02: D major · pulso 0.085 · LRA 3.6 · voz 0.0004 · poda ['tonalidad D major', 'fade en la costura (-9.29 / -45.14 dB)']
+[14:37:22] [medidas] outro_03: D major · pulso 0.086 · LRA 6.1 · voz 0.001 · poda ['tonalidad D major', 'fade en la costura (-28.59 / -63.0 dB)']
+[14:37:23] [medidas] outro_04: A major · pulso 0.089 · LRA 5.6 · voz 0.0041 · poda ['tonalidad A major', 'fade en la costura (-41.24 / -67.31 dB)']
+[14:37:25] [medidas] outro_05: A major · pulso 0.032 · LRA 4.4 · voz 0.0007 · poda ['tonalidad A major', 'fade en la costura (-47.02 / -63.7 dB)']
+[14:37:26] [medidas] rising_tension_01: A major · pulso 0.026 · LRA 4.4 · voz 0.0002 · poda ['tonalidad A major', 'fade en la costura (-39.61 / -63.43 dB)']
+[14:37:28] [medidas] rising_tension_02: D major · pulso 0.291 · LRA 4.3 · voz 0.0002 · poda ['tonalidad D major', 'fade en la costura (-47.81 / -80.06 dB)']
+[14:37:29] [medidas] rising_tension_03: D minor · pulso 0.06 · LRA 3.1 · voz 0.0002 · poda ['fade en la costura (-22.94 / -54.14 dB)']
+[14:37:30] [medidas] rising_tension_04: D major · pulso 0.073 · LRA 4.9 · voz 0.0007 · poda ['tonalidad D major', 'fade en la costura (-55.5 / -58.44 dB)']
+[14:37:32] [medidas] rising_tension_05: D major · pulso 0.078 · LRA 7.3 · voz 0.0052 · poda ['tonalidad D major', 'fade en la costura (-40.02 / -59.09 dB)']
+[14:37:33] [medidas] setup_01: D major · pulso 0.171 · LRA 4.8 · voz 0.003 · poda ['tonalidad D major', 'fade en la costura (-32.47 / -28.88 dB)']
+[14:37:35] [medidas] setup_02: D major · pulso 0.114 · LRA 5.6 · voz 0.0017 · poda ['tonalidad D major', 'fade en la costura (-54.04 / -59.94 dB)']
+[14:37:36] [medidas] setup_03: D minor · pulso 0.077 · LRA 3.0 · voz 0.0001 · poda ['fade en la costura (-44.91 / -58.78 dB)']
+[14:37:38] [medidas] setup_04: D minor · pulso 0.012 · LRA 8.7 · voz 0.0035 · poda ['fade en la costura (-45.56 / -43.26 dB)']
+[14:37:39] [medidas] setup_05: A# major · pulso 0.078 · LRA 8.5 · voz 0.0002 · poda ['tonalidad A# major', 'fade en la costura (-45.47 / -53.2 dB)']
+[14:37:41] [medidas] shock_01: A minor · pulso 0.075 · LRA 2.0 · voz 0.0 · poda ['fade en la costura (-9.5 / -38.61 dB)']
+[14:37:42] [medidas] shock_02: D major · pulso 0.043 · LRA 3.4 · voz 0.0021 · poda ['tonalidad D major', 'fade en la costura (-11.14 / -64.93 dB)']
+[14:37:44] [medidas] shock_03: D minor · pulso 0.083 · LRA 2.1 · voz 0.0064 · poda ['fade en la costura (-10.85 / -54.07 dB)']
+[14:37:45] [medidas] shock_04: D major · pulso 0.064 · LRA 7.7 · voz 0.0001 · poda ['tonalidad D major', 'fade en la costura (-4.41 / -74.63 dB)']
+[14:37:47] [medidas] shock_05: A major · pulso 0.094 · LRA 4.1 · voz 0.0054 · poda ['tonalidad A major', 'fade en la costura (-7.39 / -74.24 dB)']
+[14:37:47] medidas: quedan por intent {'hook': 0, 'setup': 0, 'rising_tension': 0, 'shock': 0, 'consequences': 0, 'outro': 0}
+[14:37:47] [medidas] 45 s · ElevenLabs US$ 13.953 · Gemini US$ 0.2775
+[14:38:15] [medidas] _prueba_hook: D minor · pulso 0.082 · LRA 2.7 · voz 0.0009 · poda ['fade en la costura (-30.23 / -77.17 dB)']
+[14:38:16] [medidas] consequences_01: A minor · pulso 0.106 · LRA 2.7 · voz 0.004 · poda ['fade en la costura (-6.49 / -50.67 dB)']
+[14:38:18] [medidas] consequences_02: D minor · pulso 0.382 · LRA 8.8 · voz 0.0029 · poda ['pulso 0.382', 'fade en la costura (-16.87 / -59.25 dB)']
+[14:38:19] [medidas] consequences_03: D major · pulso 0.154 · LRA 9.7 · voz 0.0038 · poda ['tonalidad D major', 'fade en la costura (-28.12 / -51.43 dB)']
+[14:38:20] [medidas] consequences_04: D minor · pulso 0.032 · LRA 7.4 · voz 0.001 · poda ['fade en la costura (-32.76 / -46.9 dB)']
+[14:38:22] [medidas] consequences_05: F major · pulso 0.32 · LRA 6.3 · voz 0.0003 · poda ['fade en la costura (-3.01 / -74.89 dB)']
+[14:38:23] [medidas] hook_01: D minor · pulso 0.085 · LRA 2.3 · voz 0.0013 · poda ['fade en la costura (-11.47 / -17.82 dB)']
+[14:38:25] [medidas] hook_02: D minor · pulso 0.155 · LRA 5.3 · voz 0.0 · poda ['fade en la costura (-78.52 / -69.39 dB)']
+[14:38:26] [medidas] hook_03: D minor · pulso 0.066 · LRA 3.2 · voz 0.0003 · poda ['fade en la costura (-8.78 / -56.67 dB)']
+[14:38:27] [medidas] hook_04: D minor · pulso 0.05 · LRA 9.5 · voz 0.0007 · poda ['fade en la costura (-49.05 / -50.06 dB)']
+[14:38:29] [medidas] hook_05: D minor · pulso 0.079 · LRA 5.1 · voz 0.0003 · poda ['fade en la costura (-34.08 / -62.97 dB)']
+[14:38:30] [medidas] outro_01: D minor · pulso 0.076 · LRA 3.9 · voz 0.0015 · poda ['fade en la costura (-26.7 / -74.62 dB)']
+[14:38:32] [medidas] outro_02: D major · pulso 0.085 · LRA 3.6 · voz 0.0004 · poda ['tonalidad D major', 'fade en la costura (-9.29 / -45.14 dB)']
+[14:38:33] [medidas] outro_03: D major · pulso 0.086 · LRA 6.1 · voz 0.001 · poda ['tonalidad D major', 'fade en la costura (-28.59 / -63.0 dB)']
+[14:38:35] [medidas] outro_04: A major · pulso 0.089 · LRA 5.6 · voz 0.0041 · poda ['tonalidad A major', 'fade en la costura (-41.24 / -67.31 dB)']
+[14:38:36] [medidas] outro_05: A major · pulso 0.032 · LRA 4.4 · voz 0.0007 · poda ['tonalidad A major', 'fade en la costura (-47.02 / -63.7 dB)']
+[14:38:37] [medidas] rising_tension_01: A major · pulso 0.026 · LRA 4.4 · voz 0.0002 · poda ['tonalidad A major', 'fade en la costura (-39.61 / -63.43 dB)']
+[14:38:39] [medidas] rising_tension_02: D major · pulso 0.291 · LRA 4.3 · voz 0.0002 · poda ['tonalidad D major', 'fade en la costura (-47.81 / -80.06 dB)']
+[14:38:40] [medidas] rising_tension_03: D minor · pulso 0.06 · LRA 3.1 · voz 0.0002 · poda ['fade en la costura (-22.94 / -54.14 dB)']
+[14:38:42] [medidas] rising_tension_04: D major · pulso 0.073 · LRA 4.9 · voz 0.0007 · poda ['tonalidad D major', 'fade en la costura (-55.5 / -58.44 dB)']
+[14:38:43] [medidas] rising_tension_05: D major · pulso 0.078 · LRA 7.3 · voz 0.0052 · poda ['tonalidad D major', 'fade en la costura (-40.02 / -59.09 dB)']
+[14:38:44] [medidas] setup_01: D major · pulso 0.171 · LRA 4.8 · voz 0.003 · poda ['tonalidad D major', 'fade en la costura (-32.47 / -28.88 dB)']
+[14:38:46] [medidas] setup_02: D major · pulso 0.114 · LRA 5.6 · voz 0.0017 · poda ['tonalidad D major', 'fade en la costura (-54.04 / -59.94 dB)']
+[14:38:47] [medidas] setup_03: D minor · pulso 0.077 · LRA 3.0 · voz 0.0001 · poda ['fade en la costura (-44.91 / -58.78 dB)']
+[14:38:49] [medidas] setup_04: D minor · pulso 0.012 · LRA 8.7 · voz 0.0035 · poda ['fade en la costura (-45.56 / -43.26 dB)']
+[14:38:50] [medidas] setup_05: A# major · pulso 0.078 · LRA 8.5 · voz 0.0002 · poda ['tonalidad A# major', 'fade en la costura (-45.47 / -53.2 dB)']
+[14:38:52] [medidas] shock_01: A minor · pulso 0.075 · LRA 2.0 · voz 0.0 · poda ['fade en la costura (-9.5 / -38.61 dB)']
+[14:38:53] [medidas] shock_02: D major · pulso 0.043 · LRA 3.4 · voz 0.0021 · poda ['tonalidad D major', 'fade en la costura (-11.14 / -64.93 dB)']
+[14:38:54] [medidas] shock_03: D minor · pulso 0.083 · LRA 2.1 · voz 0.0064 · poda ['fade en la costura (-10.85 / -54.07 dB)']
+[14:38:56] [medidas] shock_04: D major · pulso 0.064 · LRA 7.7 · voz 0.0001 · poda ['tonalidad D major', 'fade en la costura (-4.41 / -74.63 dB)']
+[14:38:57] [medidas] shock_05: A major · pulso 0.094 · LRA 4.1 · voz 0.0054 · poda ['tonalidad A major', 'fade en la costura (-7.39 / -74.24 dB)']
+[14:38:57] medidas: quedan por intent {'hook': 0, 'setup': 0, 'rising_tension': 0, 'shock': 0, 'consequences': 0, 'outro': 0}
+[14:38:57] [medidas] 44 s · ElevenLabs US$ 13.953 · Gemini US$ 0.2775
+[14:39:19] [escucha] consequences_01: nota 9 · setup · melodía False · pulso False · tráiler False
+[14:39:19] [escucha] consequences_03: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:39:19] [escucha] consequences_04: nota 9 · setup · melodía False · pulso False · tráiler False
+[14:39:21] [escucha] consequences_02: nota 7 · setup · melodía True · pulso False · tráiler False
+[14:39:25] hoja: C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f28\PALETA_espectros.jpg (30 espectros, 6 filas × 5)
+[14:39:25] [hoja] 18 s · ElevenLabs US$ 13.953 · Gemini US$ 0.2775
+[14:39:33] [escucha] hook_02: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:39:35] [escucha] hook_01: nota 6 · setup · melodía True · pulso False · tráiler False
+[14:39:36] [escucha] consequences_05: nota 3 · setup · melodía True · pulso False · tráiler False
+[14:39:37] [escucha] hook_03: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:39:44] [medidas] _prueba_hook: D minor · pulso 0.082 · LRA 2.7 · voz 0.0009 · poda ['fade en la costura (-30.23 / -77.17 dB)']
+[14:39:45] [medidas] consequences_01: A minor · pulso 0.106 · LRA 2.7 · voz 0.004 · poda ['fade en la costura (-6.49 / -50.67 dB)']
+[14:39:47] [medidas] consequences_02: D minor · pulso 0.382 · LRA 8.8 · voz 0.0029 · poda ['pulso 0.382', 'fade en la costura (-16.87 / -59.25 dB)']
+[14:39:48] [medidas] consequences_03: D major · pulso 0.154 · LRA 9.7 · voz 0.0038 · poda ['tonalidad D major', 'fade en la costura (-28.12 / -51.43 dB)']
+[14:39:48] [escucha] hook_04: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:39:50] [escucha] outro_01: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:39:50] [medidas] consequences_04: D minor · pulso 0.032 · LRA 7.4 · voz 0.001 · poda ['fade en la costura (-32.76 / -46.9 dB)']
+[14:39:50] [escucha] hook_05: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:39:51] [medidas] consequences_05: F major · pulso 0.32 · LRA 6.3 · voz 0.0003 · poda ['fade en la costura (-3.01 / -74.89 dB)']
+[14:39:51] [escucha] outro_02: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:39:53] [medidas] hook_01: D minor · pulso 0.085 · LRA 2.3 · voz 0.0013 · poda ['fade en la costura (-11.47 / -17.82 dB)']
+[14:39:54] [medidas] hook_02: D minor · pulso 0.155 · LRA 5.3 · voz 0.0 · poda ['fade en la costura (-78.52 / -69.39 dB)']
+[14:39:56] [medidas] hook_03: D minor · pulso 0.066 · LRA 3.2 · voz 0.0003 · poda ['fade en la costura (-8.78 / -56.67 dB)']
+[14:39:57] [medidas] hook_04: D minor · pulso 0.05 · LRA 9.5 · voz 0.0007 · poda ['fade en la costura (-49.05 / -50.06 dB)']
+[14:39:58] [medidas] hook_05: D minor · pulso 0.079 · LRA 5.1 · voz 0.0003 · poda ['fade en la costura (-34.08 / -62.97 dB)']
+[14:40:00] [medidas] outro_01: D minor · pulso 0.076 · LRA 3.9 · voz 0.0015 · poda ['fade en la costura (-26.7 / -74.62 dB)']
+[14:40:01] [medidas] outro_02: D major · pulso 0.085 · LRA 3.6 · voz 0.0004 · poda ['tonalidad D major', 'fade en la costura (-9.29 / -45.14 dB)']
+[14:40:02] [escucha] outro_05: nota 5 · consequences · melodía True · pulso False · tráiler False
+[14:40:03] [medidas] outro_03: D major · pulso 0.086 · LRA 6.1 · voz 0.001 · poda ['tonalidad D major', 'fade en la costura (-28.59 / -63.0 dB)']
+[14:40:03] [escucha] outro_03: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:40:04] [medidas] outro_04: A major · pulso 0.089 · LRA 5.6 · voz 0.0041 · poda ['tonalidad A major', 'fade en la costura (-41.24 / -67.31 dB)']
+[14:40:06] [escucha] rising_tension_01: nota 3 · setup · melodía True · pulso False · tráiler False
+[14:40:06] [escucha] outro_04: nota 7 · setup · melodía True · pulso False · tráiler False
+[14:40:06] [medidas] outro_05: A major · pulso 0.032 · LRA 4.4 · voz 0.0007 · poda ['tonalidad A major', 'fade en la costura (-47.02 / -63.7 dB)']
+[14:40:07] [medidas] rising_tension_01: A major · pulso 0.026 · LRA 4.4 · voz 0.0002 · poda ['tonalidad A major', 'fade en la costura (-39.61 / -63.43 dB)']
+[14:40:09] [medidas] rising_tension_02: D major · pulso 0.291 · LRA 4.3 · voz 0.0002 · poda ['tonalidad D major', 'fade en la costura (-47.81 / -80.06 dB)']
+[14:40:10] [medidas] rising_tension_03: D minor · pulso 0.06 · LRA 3.1 · voz 0.0002 · poda ['fade en la costura (-22.94 / -54.14 dB)']
+[14:40:12] [medidas] rising_tension_04: D major · pulso 0.073 · LRA 4.9 · voz 0.0007 · poda ['tonalidad D major', 'fade en la costura (-55.5 / -58.44 dB)']
+[14:40:13] [medidas] rising_tension_05: D major · pulso 0.078 · LRA 7.3 · voz 0.0052 · poda ['tonalidad D major', 'fade en la costura (-40.02 / -59.09 dB)']
+[14:40:15] [medidas] setup_01: D major · pulso 0.171 · LRA 4.8 · voz 0.003 · poda ['tonalidad D major', 'fade en la costura (-32.47 / -28.88 dB)']
+[14:40:16] [medidas] setup_02: D major · pulso 0.114 · LRA 5.6 · voz 0.0017 · poda ['tonalidad D major', 'fade en la costura (-54.04 / -59.94 dB)']
+[14:40:17] [escucha] rising_tension_03: nota 6 · setup · melodía True · pulso False · tráiler False
+[14:40:18] [medidas] setup_03: D minor · pulso 0.077 · LRA 3.0 · voz 0.0001 · poda ['fade en la costura (-44.91 / -58.78 dB)']
+[14:40:18] [escucha] rising_tension_02: nota 6 · setup · melodía True · pulso False · tráiler False
+[14:40:19] [medidas] setup_04: D minor · pulso 0.012 · LRA 8.7 · voz 0.0035 · poda ['fade en la costura (-45.56 / -43.26 dB)']
+[14:40:20] [medidas] setup_05: A# major · pulso 0.078 · LRA 8.5 · voz 0.0002 · poda ['tonalidad A# major', 'fade en la costura (-45.47 / -53.2 dB)']
+[14:40:21] [escucha] rising_tension_05: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:40:21] [escucha] rising_tension_04: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:40:22] [medidas] shock_01: A minor · pulso 0.075 · LRA 2.0 · voz 0.0 · poda ['fade en la costura (-9.5 / -38.61 dB)']
+[14:40:23] [medidas] shock_02: D major · pulso 0.043 · LRA 3.4 · voz 0.0021 · poda ['tonalidad D major', 'fade en la costura (-11.14 / -64.93 dB)']
+[14:40:25] [medidas] shock_03: D minor · pulso 0.083 · LRA 2.1 · voz 0.0064 · poda ['fade en la costura (-10.85 / -54.07 dB)']
+[14:40:26] [medidas] shock_04: D major · pulso 0.064 · LRA 7.7 · voz 0.0001 · poda ['tonalidad D major', 'fade en la costura (-4.41 / -74.63 dB)']
+[14:40:28] [medidas] shock_05: A major · pulso 0.094 · LRA 4.1 · voz 0.0054 · poda ['tonalidad A major', 'fade en la costura (-7.39 / -74.24 dB)']
+[14:40:28] medidas: quedan por intent {'hook': 0, 'setup': 0, 'rising_tension': 0, 'shock': 0, 'consequences': 0, 'outro': 0}
+[14:40:28] [medidas] 46 s · ElevenLabs US$ 13.953 · Gemini US$ 0.2775
+[14:40:32] [escucha] setup_01: nota 4 · setup · melodía True · pulso False · tráiler False
+[14:40:33] [escucha] setup_02: nota 6 · setup · melodía True · pulso False · tráiler False
+[14:40:35] [escucha] setup_03: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:40:38] [escucha] setup_04: nota 5 · setup · melodía True · pulso False · tráiler True
+[14:40:45] [escucha] shock_01: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:40:47] [escucha] setup_05: nota 9 · setup · melodía False · pulso False · tráiler False
+[14:40:49] [escucha] shock_02: nota 4 · rising_tension · melodía False · pulso False · tráiler True
+[14:40:55] [escucha] shock_03: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:40:58] [escucha] shock_04: nota 10 · setup · melodía False · pulso False · tráiler False
+[14:41:04] [escucha] shock_05: nota 6 · setup · melodía True · pulso False · tráiler False
+[14:41:04] [escucha] 121 s · ElevenLabs US$ 13.953 · Gemini US$ 0.8589

@@ -1,0 +1,168 @@
+{
+ "elevenlabs": [
+  {
+   "id": "_prueba_hook",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "hook_03",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "hook_01",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "hook_05",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "setup_01",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "setup_03",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "setup_04",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "rising_tension_02",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "rising_tension_01",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "rising_tension_04",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "rising_tension_05",
+   "segundos_audio": 179.98,
+   "usd": 0.45
+  },
+  {
+   "id": "shock_02",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "shock_03",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "shock_05",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "consequences_02",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "consequences_03",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "consequences_04",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "consequences_05",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "outro_01",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "outro_02",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "outro_03",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "outro_04",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "outro_05",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "hook_04",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "hook_02",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "setup_02",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "setup_05",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "rising_tension_03",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "shock_01",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "consequences_01",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  },
+  {
+   "id": "shock_04",
+   "segundos_audio": 180.04,
+   "usd": 0.4501
+  }
+ ],
+ "el_usd": 13.953,
+ "gemini": {
+  "prueba": 0.0066,
+  "generar_2": 0.0545,
+  "generar_1": 0.2164,
+  "escucha": 0.5814
+ },
+ "gemini_usd": 0.8589,
+ "nota": "generar_1 sale del log (US$ 0.223 de la corrida menos 0.0066 de la prueba): la 2.a corrida de generar (las 8 con 429) había pisado esa entrada"
+}

@@ -1,0 +1,241 @@
+{
+ "id": "outro_02",
+ "intent": "outro",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo, 55-65 BPM feel",
+   "dark ambient drone",
+   "minimalist sustained strings",
+   "deep cello and double bass drones",
+   "distant piano with heavy reverberation",
+   "sub-bass texture",
+   "quiet, patient atmosphere",
+   "suspended, unresolved harmony",
+   "no discernible melody or pulse",
+   "seamless looping"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Veil",
+    "duration_ms": 60000,
+    "positive_local_styles": [
+     "sparse D minor drone",
+     "sustained low strings",
+     "sub-bass layer",
+     "occasional distant piano chords",
+     "static and contemplative"
+    ],
+    "negative_local_styles": [
+     "harmonic progression",
+     "dynamic shifts",
+     "melodic activity",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Weight of Time",
+    "duration_ms": 60000,
+    "positive_local_styles": [
+     "subtle harmonic movement within D minor suspension",
+     "increased string density",
+     "more active, yet slow, distant piano arpeggios with reverb",
+     "slightly more tension through layered drones"
+    ],
+    "negative_local_styles": [
+     "fast tempo",
+     "melodic development",
+     "rhythmic emphasis"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Echoes Undone",
+    "duration_ms": 60000,
+    "positive_local_styles": [
+     "sparse D minor drone",
+     "sustained low strings",
+     "sub-bass layer",
+     "occasional distant piano chords",
+     "static and contemplative"
+    ],
+    "negative_local_styles": [
+     "harmonic resolution",
+     "new themes",
+     "energetic elements",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:33:29 GMT",
+  "server": "uvicorn",
+  "song-id": "4GFw6ZIYYrTQcUd1ngCC",
+  "Content-Length": "2882828",
+  "content-type": "multipart/mixed; boundary=----boundary966f2a768fde4e0fa11c8c84766f70e1",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "79234ead433dbbe473bc05f15c625c5b",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo, 55-65 BPM feel",
+   "dark ambient drone",
+   "minimalist sustained strings",
+   "deep cello and double bass drones",
+   "distant piano with heavy reverberation",
+   "sub-bass texture",
+   "quiet, patient atmosphere",
+   "suspended, unresolved harmony",
+   "no discernible melody or pulse",
+   "seamless looping"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Veil",
+    "positive_local_styles": [
+     "sparse D minor drone",
+     "sustained low strings",
+     "sub-bass layer",
+     "occasional distant piano chords",
+     "static and contemplative"
+    ],
+    "negative_local_styles": [
+     "harmonic progression",
+     "dynamic shifts",
+     "melodic activity",
+     "fade-in"
+    ],
+    "duration_ms": 60000,
+    "lines": []
+   },
+   {
+    "section_name": "Weight of Time",
+    "positive_local_styles": [
+     "subtle harmonic movement within D minor suspension",
+     "increased string density",
+     "more active, yet slow, distant piano arpeggios with reverb",
+     "slightly more tension through layered drones"
+    ],
+    "negative_local_styles": [
+     "fast tempo",
+     "melodic development",
+     "rhythmic emphasis"
+    ],
+    "duration_ms": 60000,
+    "lines": []
+   },
+   {
+    "section_name": "Echoes Undone",
+    "positive_local_styles": [
+     "sparse D minor drone",
+     "sustained low strings",
+     "sub-bass layer",
+     "occasional distant piano chords",
+     "static and contemplative"
+    ],
+    "negative_local_styles": [
+     "harmonic resolution",
+     "new themes",
+     "energetic elements",
+     "fade-out"
+    ],
+    "duration_ms": 60000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 28.0
+}

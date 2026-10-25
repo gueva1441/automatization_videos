@@ -1,0 +1,22 @@
+{
+ "id": "setup_04",
+ "texto": "{\n  \"descripcion\": \"Música atmosférica y lenta que comienza con pads profundos y un piano sencillo. Crece gradualmente con la adición de cuerdas sostenidas, construyendo una sensación de grandeza y emotividad expansiva.\",\n  \"instrumentos\": [\n    \"Piano\",\n    \"Cuerdas\",\n    \"Sintetizador\",\n    \"Pad\"\n  ],\n  \"tiene_melodia\": true,\n  \"tiene_pulso\": false,\n  \"suena_a_trailer\": true,\n  \"compite_con_voz\": true,\n  \"nota_canal\": 5,\n  \"mejor_intent\": \"setup\"\n}",
+ "finish_reason": "finish_reason=STOP",
+ "usage": "cache_tokens_details=None cached_content_token_count=None candidates_token_count=151 candidates_tokens_details=None prompt_token_count=6126 prompt_tokens_details=[ModalityTokenCount(\n  modality=<MediaModality.TEXT: 'TEXT'>,\n  token_count=364\n), ModalityTokenCount(\n  modality=<MediaModality.AUDIO: 'AUDIO'>,\n  token_count=5762\n)] thoughts_token_count=1139 tool_use_prompt_token_count=None tool_use_prompt_tokens_details=None total_token_count=7416 traffic_type=None",
+ "segundos": 16.9,
+ "json": {
+  "descripcion": "Música atmosférica y lenta que comienza con pads profundos y un piano sencillo. Crece gradualmente con la adición de cuerdas sostenidas, construyendo una sensación de grandeza y emotividad expansiva.",
+  "instrumentos": [
+   "Piano",
+   "Cuerdas",
+   "Sintetizador",
+   "Pad"
+  ],
+  "tiene_melodia": true,
+  "tiene_pulso": false,
+  "suena_a_trailer": true,
+  "compite_con_voz": true,
+  "nota_canal": 5,
+  "mejor_intent": "setup"
+ }
+}

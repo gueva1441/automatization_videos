@@ -1,0 +1,22 @@
+{
+ "id": "shock_05",
+ "texto": "{\n  \"descripcion\": \"Una pista atmosférica y grave con una base de drones de cuerdas bajas y sintetizadores. Sobre este colchón sonoro, se desarrolla una melodía de piano simple, melancólica y con mucha reverberación.\",\n  \"instrumentos\": [\n    \"Cello\",\n    \"Contrabajo\",\n    \"Piano\",\n    \"Sintetizador\"\n  ],\n  \"tiene_melodia\": true,\n  \"tiene_pulso\": false,\n  \"suena_a_trailer\": false,\n  \"compite_con_voz\": true,\n  \"nota_canal\": 6,\n  \"mejor_intent\": \"setup\"\n}",
+ "finish_reason": "finish_reason=STOP",
+ "usage": "cache_tokens_details=None cached_content_token_count=None candidates_token_count=153 candidates_tokens_details=None prompt_token_count=6126 prompt_tokens_details=[ModalityTokenCount(\n  modality=<MediaModality.TEXT: 'TEXT'>,\n  token_count=364\n), ModalityTokenCount(\n  modality=<MediaModality.AUDIO: 'AUDIO'>,\n  token_count=5762\n)] thoughts_token_count=1263 tool_use_prompt_token_count=None tool_use_prompt_tokens_details=None total_token_count=7542 traffic_type=None",
+ "segundos": 16.9,
+ "json": {
+  "descripcion": "Una pista atmosférica y grave con una base de drones de cuerdas bajas y sintetizadores. Sobre este colchón sonoro, se desarrolla una melodía de piano simple, melancólica y con mucha reverberación.",
+  "instrumentos": [
+   "Cello",
+   "Contrabajo",
+   "Piano",
+   "Sintetizador"
+  ],
+  "tiene_melodia": true,
+  "tiene_pulso": false,
+  "suena_a_trailer": false,
+  "compite_con_voz": true,
+  "nota_canal": 6,
+  "mejor_intent": "setup"
+ }
+}

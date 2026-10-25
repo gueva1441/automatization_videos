@@ -1,0 +1,23 @@
+{
+ "id": "shock_02",
+ "texto": "{\n  \"descripcion\": \"Una pieza de ambiente oscuro y tenso, construida sobre drones de cuerdas muy graves y sintetizadores. La música se desarrolla lentamente, añadiendo capas y creciendo en intensidad y densidad para crear una sensación de misterio y grandeza.\",\n  \"instrumentos\": [\n    \"Cuerdas graves\",\n    \"Contrabajo\",\n    \"Cello\",\n    \"Sintetizador\",\n    \"Sub-bass\"\n  ],\n  \"tiene_melodia\": false,\n  \"tiene_pulso\": false,\n  \"suena_a_trailer\": true,\n  \"compite_con_voz\": true,\n  \"nota_canal\": 4,\n  \"mejor_intent\": \"rising_tension\"\n}",
+ "finish_reason": "finish_reason=STOP",
+ "usage": "cache_tokens_details=None cached_content_token_count=None candidates_token_count=168 candidates_tokens_details=None prompt_token_count=6126 prompt_tokens_details=[ModalityTokenCount(\n  modality=<MediaModality.TEXT: 'TEXT'>,\n  token_count=364\n), ModalityTokenCount(\n  modality=<MediaModality.AUDIO: 'AUDIO'>,\n  token_count=5762\n)] thoughts_token_count=983 tool_use_prompt_token_count=None tool_use_prompt_tokens_details=None total_token_count=7277 traffic_type=None",
+ "segundos": 14.0,
+ "json": {
+  "descripcion": "Una pieza de ambiente oscuro y tenso, construida sobre drones de cuerdas muy graves y sintetizadores. La música se desarrolla lentamente, añadiendo capas y creciendo en intensidad y densidad para crear una sensación de misterio y grandeza.",
+  "instrumentos": [
+   "Cuerdas graves",
+   "Contrabajo",
+   "Cello",
+   "Sintetizador",
+   "Sub-bass"
+  ],
+  "tiene_melodia": false,
+  "tiene_pulso": false,
+  "suena_a_trailer": true,
+  "compite_con_voz": true,
+  "nota_canal": 4,
+  "mejor_intent": "rising_tension"
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "id": "consequences_02",
+ "texto": "{\n  \"descripcion\": \"Una pista atmosférica y lenta que comienza con un drone grave. Se suman cuerdas sostenidas y un piano con mucha reverberación que interpreta un motivo melódico simple y melancólico.\",\n  \"instrumentos\": [\n    \"Sintetizador\",\n    \"Cuerdas\",\n    \"Piano\"\n  ],\n  \"tiene_melodia\": true,\n  \"tiene_pulso\": false,\n  \"suena_a_trailer\": false,\n  \"compite_con_voz\": true,\n  \"nota_canal\": 7,\n  \"mejor_intent\": \"setup\"\n}",
+ "finish_reason": "finish_reason=STOP",
+ "usage": "cache_tokens_details=None cached_content_token_count=None candidates_token_count=142 candidates_tokens_details=None prompt_token_count=6126 prompt_tokens_details=[ModalityTokenCount(\n  modality=<MediaModality.TEXT: 'TEXT'>,\n  token_count=364\n), ModalityTokenCount(\n  modality=<MediaModality.AUDIO: 'AUDIO'>,\n  token_count=5762\n)] thoughts_token_count=1093 tool_use_prompt_token_count=None tool_use_prompt_tokens_details=None total_token_count=7361 traffic_type=None",
+ "segundos": 15.9,
+ "json": {
+  "descripcion": "Una pista atmosférica y lenta que comienza con un drone grave. Se suman cuerdas sostenidas y un piano con mucha reverberación que interpreta un motivo melódico simple y melancólico.",
+  "instrumentos": [
+   "Sintetizador",
+   "Cuerdas",
+   "Piano"
+  ],
+  "tiene_melodia": true,
+  "tiene_pulso": false,
+  "suena_a_trailer": false,
+  "compite_con_voz": true,
+  "nota_canal": 7,
+  "mejor_intent": "setup"
+ }
+}

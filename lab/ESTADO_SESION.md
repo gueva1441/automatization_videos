@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-25 (F27: A y B hechas — el video de Vajont está en disco, sin publicar; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-25 (F28 parte A: 30 pistas de la paleta medidas y escuchadas; PARADA: el analista elige las 12) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,12 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F28 — Paleta musical (parte A) — HECHO, **PARADA** (el analista elige las 12, 2 por intent; B y C van con un prompt nuevo)
+- Sobre `4e18e8a`. Handoff `lab/hyperframes/f28/HANDOFF_F28_paleta_musical.md`. Reporte `lab/hyperframes/f28/F28A_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), hoja `PALETA_espectros.jpg`, medidas `PALETA_medidas.json`, tabla `a/TABLA_PALETA.md`.
+- Código: `m07.plan_composicion` / `fijar_plan` / `generar_con_plan` (composition_plan, endpoint detailed; reglas fijas: D minor, NEGATIVE_GLOBAL_STYLES, sin fade, última = primera, 3–5 secciones); `music_config.SONIDO_DEL_CANAL` (literal), `PALETA_INTENTS`. Suite 893 verdes + 5 previas.
+- 30 pistas de 180 s (+1 de prueba) en `audio_library/_paleta_f28/` (fuera de git; no pasaron a la librería). ElevenLabs US$ 13.95 (precio publicado US$ 0.15/min: la llave no tiene `user_read` y la respuesta no trae costo — **Omar confirma en el panel**); el plan admite **2 pedidos a la vez** (8 cayeron con 429 con 3). Gemini US$ 0.86 de 3.
+- Hallazgos: con las reglas literales no queda ninguna (las 30 entran/salen con fade de 0–10 / 4–18 s pese al plan: recortable); sin esa regla: hook 5 · setup 2 · rising 1 · shock 2 · consequences 3 · outro 1. Tonalidad: 10 «D major» (ambigüedad de Krumhansl en drones). Gemini: 14 notas 10 (drone puro), 12 con melodía; pone «setup» en 28 de 30.
 
 ## F27 — Que salga Vajont + tres cortes en la reparación — HECHO, **PARADA** (Omar mira el video)
 - Sobre `26c0065`. Handoff `lab/hyperframes/f27/HANDOFF_F27_vajont_sale.md`. Reporte `lab/hyperframes/f27/F27_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES).

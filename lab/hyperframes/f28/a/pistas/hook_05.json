@@ -1,0 +1,247 @@
+{
+ "id": "hook_05",
+ "intent": "hook",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo, 55-65 BPM feel",
+   "dark, deep, grave, quiet, patient",
+   "cello drones, double bass drones, sub-bass",
+   "distant reverberant piano",
+   "sustained strings, no tremolo",
+   "atmospheric, unsettling, sense of dread",
+   "no memorable melody, no discernible pulse, no drums, no vocals, no trailer risers",
+   "tension from density and silence",
+   "seamlessly looping background music"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Drone",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "immediate dark atmosphere",
+     "dense low-end foundation",
+     "sustained cello and double bass drones",
+     "prominent sub-bass",
+     "undercurrent of unease"
+    ],
+    "negative_local_styles": [
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deep Reverie",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "maintained dark atmosphere",
+     "sparse sustained string pads",
+     "long decaying notes from distant piano with heavy reverberation",
+     "deep, static texture",
+     "slight variations in drone textures"
+    ],
+    "negative_local_styles": [],
+    "lines": []
+   },
+   {
+    "section_name": "Subtle Underscore",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "slightly reduced density",
+     "more exposed individual sustained notes from cello or double bass",
+     "very sparse and distant piano accents",
+     "long pauses for subtle tension",
+     "minimalist sonic landscape"
+    ],
+    "negative_local_styles": [],
+    "lines": []
+   },
+   {
+    "section_name": "Return to Drone",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "immediate dark atmosphere",
+     "dense low-end foundation",
+     "sustained cello and double bass drones",
+     "prominent sub-bass",
+     "undercurrent of unease"
+    ],
+    "negative_local_styles": [
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:30:19 GMT",
+  "server": "uvicorn",
+  "song-id": "VV7qzwTWGzrzqmQL4Sh0",
+  "Content-Length": "2883091",
+  "content-type": "multipart/mixed; boundary=----boundarycca435d73c3f4d25bc9a83488f515654",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "d734662e56e91ac38337814b14274864",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo, 55-65 BPM feel",
+   "dark, deep, grave, quiet, patient",
+   "cello drones, double bass drones, sub-bass",
+   "distant reverberant piano",
+   "sustained strings, no tremolo",
+   "atmospheric, unsettling, sense of dread",
+   "no memorable melody, no discernible pulse, no drums, no vocals, no trailer risers",
+   "tension from density and silence",
+   "seamlessly looping background music"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Drone",
+    "positive_local_styles": [
+     "immediate dark atmosphere",
+     "dense low-end foundation",
+     "sustained cello and double bass drones",
+     "prominent sub-bass",
+     "undercurrent of unease"
+    ],
+    "negative_local_styles": [
+     "fade-in"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Deep Reverie",
+    "positive_local_styles": [
+     "maintained dark atmosphere",
+     "sparse sustained string pads",
+     "long decaying notes from distant piano with heavy reverberation",
+     "deep, static texture",
+     "slight variations in drone textures"
+    ],
+    "negative_local_styles": [],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Subtle Underscore",
+    "positive_local_styles": [
+     "slightly reduced density",
+     "more exposed individual sustained notes from cello or double bass",
+     "very sparse and distant piano accents",
+     "long pauses for subtle tension",
+     "minimalist sonic landscape"
+    ],
+    "negative_local_styles": [],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Return to Drone",
+    "positive_local_styles": [
+     "immediate dark atmosphere",
+     "dense low-end foundation",
+     "sustained cello and double bass drones",
+     "prominent sub-bass",
+     "undercurrent of unease"
+    ],
+    "negative_local_styles": [
+     "fade-out"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 29.9
+}

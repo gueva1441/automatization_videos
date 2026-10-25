@@ -1,0 +1,21 @@
+{
+ "id": "setup_02",
+ "texto": "{\n  \"descripcion\": \"Una pieza atmosférica que comienza con un drone grave y se desarrolla con la entrada de cuerdas sostenidas y pads. La música es lenta, sombría y emotiva, creando una sensación de misterio y melancolía. Las texturas evolucionan gradualmente sin cambios bruscos.\",\n  \"instrumentos\": [\n    \"cuerdas sintetizadas\",\n    \"pads\",\n    \"drones\"\n  ],\n  \"tiene_melodia\": true,\n  \"tiene_pulso\": false,\n  \"suena_a_trailer\": false,\n  \"compite_con_voz\": true,\n  \"nota_canal\": 6,\n  \"mejor_intent\": \"setup\"\n}",
+ "finish_reason": "finish_reason=STOP",
+ "usage": "cache_tokens_details=None cached_content_token_count=None candidates_token_count=163 candidates_tokens_details=None prompt_token_count=6126 prompt_tokens_details=[ModalityTokenCount(\n  modality=<MediaModality.TEXT: 'TEXT'>,\n  token_count=364\n), ModalityTokenCount(\n  modality=<MediaModality.AUDIO: 'AUDIO'>,\n  token_count=5762\n)] thoughts_token_count=879 tool_use_prompt_token_count=None tool_use_prompt_tokens_details=None total_token_count=7168 traffic_type=None",
+ "segundos": 15.4,
+ "json": {
+  "descripcion": "Una pieza atmosférica que comienza con un drone grave y se desarrolla con la entrada de cuerdas sostenidas y pads. La música es lenta, sombría y emotiva, creando una sensación de misterio y melancolía. Las texturas evolucionan gradualmente sin cambios bruscos.",
+  "instrumentos": [
+   "cuerdas sintetizadas",
+   "pads",
+   "drones"
+  ],
+  "tiene_melodia": true,
+  "tiene_pulso": false,
+  "suena_a_trailer": false,
+  "compite_con_voz": true,
+  "nota_canal": 6,
+  "mejor_intent": "setup"
+ }
+}

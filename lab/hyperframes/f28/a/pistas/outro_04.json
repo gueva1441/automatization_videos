@@ -1,0 +1,263 @@
+{
+ "id": "outro_04",
+ "intent": "outro",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "ambient background music",
+   "deep orchestral drones",
+   "cello and double bass focus",
+   "sustained strings without tremolo",
+   "distant reverberant piano",
+   "unresolved harmony",
+   "meditative atmosphere",
+   "subtle tension",
+   "minimalist orchestration",
+   "55-65 BPM feel"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Drone",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep sustained D minor chord",
+     "cello and double bass drones",
+     "sub-bass hum",
+     "gentle string pads",
+     "distant piano texture",
+     "sparse and open",
+     "quiet but present"
+    ],
+    "negative_local_styles": [
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Atmosphere",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "lower register exploration",
+     "increased sub-bass presence",
+     "slightly denser string layering",
+     "more pronounced reverberation on piano echoes",
+     "sense of gradual descent",
+     "darker harmonic shading"
+    ],
+    "negative_local_styles": [],
+    "lines": []
+   },
+   {
+    "section_name": "Sustained Suspension",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "focused on suspended D minor chord",
+     "minimal movement, long sustains",
+     "airy string textures above the drones",
+     "delicate piano arpeggios with vast reverb",
+     "unresolved harmonic tension",
+     "hanging question feel"
+    ],
+    "negative_local_styles": [],
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Echo",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep sustained D minor chord",
+     "cello and double bass drones",
+     "sub-bass hum",
+     "gentle string pads",
+     "distant piano texture",
+     "sparse and open",
+     "quiet but present"
+    ],
+    "negative_local_styles": [
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:33:47 GMT",
+  "server": "uvicorn",
+  "song-id": "mCDeQoNP6yJ7pbAzBs2o",
+  "Content-Length": "2883052",
+  "content-type": "multipart/mixed; boundary=----boundary103e06c43e6547de8798df5e998b7c62",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "d9d1e1f69cdf02ea7b95fffdefc38de0",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "ambient background music",
+   "deep orchestral drones",
+   "cello and double bass focus",
+   "sustained strings without tremolo",
+   "distant reverberant piano",
+   "unresolved harmony",
+   "meditative atmosphere",
+   "subtle tension",
+   "minimalist orchestration",
+   "55-65 BPM feel"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Drone",
+    "positive_local_styles": [
+     "deep sustained D minor chord",
+     "cello and double bass drones",
+     "sub-bass hum",
+     "gentle string pads",
+     "distant piano texture",
+     "sparse and open",
+     "quiet but present"
+    ],
+    "negative_local_styles": [
+     "fade-in"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Atmosphere",
+    "positive_local_styles": [
+     "lower register exploration",
+     "increased sub-bass presence",
+     "slightly denser string layering",
+     "more pronounced reverberation on piano echoes",
+     "sense of gradual descent",
+     "darker harmonic shading"
+    ],
+    "negative_local_styles": [],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Sustained Suspension",
+    "positive_local_styles": [
+     "focused on suspended D minor chord",
+     "minimal movement, long sustains",
+     "airy string textures above the drones",
+     "delicate piano arpeggios with vast reverb",
+     "unresolved harmonic tension",
+     "hanging question feel"
+    ],
+    "negative_local_styles": [],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Echo",
+    "positive_local_styles": [
+     "deep sustained D minor chord",
+     "cello and double bass drones",
+     "sub-bass hum",
+     "gentle string pads",
+     "distant piano texture",
+     "sparse and open",
+     "quiet but present"
+    ],
+    "negative_local_styles": [
+     "fade-out"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 29.7
+}

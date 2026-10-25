@@ -1,0 +1,313 @@
+{
+ "id": "setup_03",
+ "intent": "setup",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "dark ambient",
+   "drone",
+   "spacious",
+   "reverberant",
+   "minimalist",
+   "sub-bass",
+   "patient",
+   "understated",
+   "lo-fi atmosphere",
+   "grave",
+   "quiet",
+   "cello drone",
+   "double bass drone",
+   "distant piano",
+   "sustained strings",
+   "seamlessly looping"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Quiet Dawn",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "low drone",
+     "distant piano notes",
+     "reverberant space",
+     "sparse",
+     "calm",
+     "D minor",
+     "sub-bass",
+     "quiet life before"
+    ],
+    "negative_local_styles": [
+     "melodic piano",
+     "fast arpeggios",
+     "complex harmony",
+     "tension building",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Reflection",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "sustaining cello drones",
+     "deeper sub-bass",
+     "sparse, melancholic piano chords",
+     "expansiveness",
+     "undercurrent of stillness",
+     "calm spacious atmosphere"
+    ],
+    "negative_local_styles": [
+     "rhythmic elements",
+     "bright tones",
+     "active melodic lines",
+     "dramatic elements"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Subtle Undulation",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "sustained double bass pads",
+     "subtle shifting harmonic drones",
+     "very distant, resonant piano textures",
+     "a sense of quiet anticipation",
+     "gentle ebb and flow"
+    ],
+    "negative_local_styles": [
+     "any sense of build-up",
+     "foreboding elements",
+     "sharp attacks",
+     "overt emotionality"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Calm",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "low drone",
+     "distant piano notes",
+     "reverberant space",
+     "sparse",
+     "calm",
+     "D minor",
+     "sub-bass",
+     "quiet life before"
+    ],
+    "negative_local_styles": [
+     "new elements",
+     "increased intensity",
+     "fade out",
+     "tension building",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:30:43 GMT",
+  "server": "uvicorn",
+  "song-id": "6gkKH9XzaGA6t5S7JiKR",
+  "Content-Length": "2883118",
+  "content-type": "multipart/mixed; boundary=----boundarya2b824ea249a4bd7985f6c375ac1e19a",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "dd369fe5571d53e93fb9d8f2296eeeed",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "dark ambient",
+   "drone",
+   "spacious",
+   "reverberant",
+   "minimalist",
+   "sub-bass",
+   "patient",
+   "understated",
+   "lo-fi atmosphere",
+   "grave",
+   "quiet",
+   "cello drone",
+   "double bass drone",
+   "distant piano",
+   "sustained strings",
+   "seamlessly looping"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Quiet Dawn",
+    "positive_local_styles": [
+     "low drone",
+     "distant piano notes",
+     "reverberant space",
+     "sparse",
+     "calm",
+     "D minor",
+     "sub-bass",
+     "quiet life before"
+    ],
+    "negative_local_styles": [
+     "melodic piano",
+     "fast arpeggios",
+     "complex harmony",
+     "tension building",
+     "fade-in"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Reflection",
+    "positive_local_styles": [
+     "sustaining cello drones",
+     "deeper sub-bass",
+     "sparse, melancholic piano chords",
+     "expansiveness",
+     "undercurrent of stillness",
+     "calm spacious atmosphere"
+    ],
+    "negative_local_styles": [
+     "rhythmic elements",
+     "bright tones",
+     "active melodic lines",
+     "dramatic elements"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Subtle Undulation",
+    "positive_local_styles": [
+     "sustained double bass pads",
+     "subtle shifting harmonic drones",
+     "very distant, resonant piano textures",
+     "a sense of quiet anticipation",
+     "gentle ebb and flow"
+    ],
+    "negative_local_styles": [
+     "any sense of build-up",
+     "foreboding elements",
+     "sharp attacks",
+     "overt emotionality"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Calm",
+    "positive_local_styles": [
+     "low drone",
+     "distant piano notes",
+     "reverberant space",
+     "sparse",
+     "calm",
+     "D minor",
+     "sub-bass",
+     "quiet life before"
+    ],
+    "negative_local_styles": [
+     "new elements",
+     "increased intensity",
+     "fade out",
+     "tension building",
+     "fade-out"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 30.7
+}

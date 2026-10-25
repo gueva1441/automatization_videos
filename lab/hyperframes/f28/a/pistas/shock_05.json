@@ -1,0 +1,295 @@
+{
+ "id": "shock_05",
+ "intent": "shock",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "55-65 BPM feel",
+   "dark ambient",
+   "drone music",
+   "atmospheric",
+   "eerie",
+   "somber",
+   "subterranean",
+   "deep sound design",
+   "sustained low strings",
+   "cello drones",
+   "double bass drones",
+   "sub-bass foundation",
+   "reverberant distant piano texture",
+   "dissonant harmonies",
+   "heavy density",
+   "loopable background music",
+   "patient and still",
+   "darkest density of palette"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Foundational Density",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep drones",
+     "heavy sub-bass presence",
+     "sustained low strings",
+     "mildly dissonant pads",
+     "dense foundational texture"
+    ],
+    "negative_local_styles": [
+     "light textures",
+     "sparse instrumentation",
+     "overt melodic content",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Intensifying Dissonance",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "increasing dissonance",
+     "thickening string clusters",
+     "eerie sustained harmonies",
+     "deep sub-bass resonance",
+     "gradually building density"
+    ],
+    "negative_local_styles": [
+     "consonant harmonies",
+     "rhythmic elements",
+     "brightness"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Peak Heavy Density",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "maximum density",
+     "thickest string drones",
+     "deepest sub-bass resonance",
+     "unsettling dissonant textures",
+     "palpable weight and pressure"
+    ],
+    "negative_local_styles": [
+     "abrupt changes",
+     "resolution of dissonance",
+     "moments of lightness"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Returning Foundation",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep drones",
+     "heavy sub-bass presence",
+     "sustained low strings",
+     "mildly dissonant pads",
+     "dense foundational texture"
+    ],
+    "negative_local_styles": [
+     "new elements",
+     "increased complexity",
+     "percussive sounds",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:32:23 GMT",
+  "server": "uvicorn",
+  "song-id": "erEFAAJpw9fmvmhrnfrV",
+  "Content-Length": "2883185",
+  "content-type": "multipart/mixed; boundary=----boundary57f190266cd54007806e704fac15f92a",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "f0d46eaa1ebad0710ea8aad5506e4c63",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "55-65 BPM feel",
+   "dark ambient",
+   "drone music",
+   "atmospheric",
+   "eerie",
+   "somber",
+   "subterranean",
+   "deep sound design",
+   "sustained low strings",
+   "cello drones",
+   "double bass drones",
+   "sub-bass foundation",
+   "reverberant distant piano texture",
+   "dissonant harmonies",
+   "heavy density",
+   "loopable background music",
+   "patient and still",
+   "darkest density of palette"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Foundational Density",
+    "positive_local_styles": [
+     "deep drones",
+     "heavy sub-bass presence",
+     "sustained low strings",
+     "mildly dissonant pads",
+     "dense foundational texture"
+    ],
+    "negative_local_styles": [
+     "light textures",
+     "sparse instrumentation",
+     "overt melodic content",
+     "fade-in"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Intensifying Dissonance",
+    "positive_local_styles": [
+     "increasing dissonance",
+     "thickening string clusters",
+     "eerie sustained harmonies",
+     "deep sub-bass resonance",
+     "gradually building density"
+    ],
+    "negative_local_styles": [
+     "consonant harmonies",
+     "rhythmic elements",
+     "brightness"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Peak Heavy Density",
+    "positive_local_styles": [
+     "maximum density",
+     "thickest string drones",
+     "deepest sub-bass resonance",
+     "unsettling dissonant textures",
+     "palpable weight and pressure"
+    ],
+    "negative_local_styles": [
+     "abrupt changes",
+     "resolution of dissonance",
+     "moments of lightness"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Returning Foundation",
+    "positive_local_styles": [
+     "deep drones",
+     "heavy sub-bass presence",
+     "sustained low strings",
+     "mildly dissonant pads",
+     "dense foundational texture"
+    ],
+    "negative_local_styles": [
+     "new elements",
+     "increased complexity",
+     "percussive sounds",
+     "fade-out"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 34.5
+}

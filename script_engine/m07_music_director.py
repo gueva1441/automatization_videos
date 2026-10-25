@@ -36,6 +36,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -54,6 +55,9 @@ from music_config import (
     MUSIC_MODEL_ID,
     MUSIC_OUTPUT_FORMAT,
     MUSIC_REQUEST_TIMEOUT_SEC,
+    NEGATIVE_GLOBAL_STYLES,
+    PALETA_INTENTS,
+    PALETA_TONALIDAD,
     MusicConfigError,
     build_music_prompt,
     validate_music_config,
@@ -1156,3 +1160,90 @@ def generate_music_map(
 
     _persist_music_map(topic_id, music_map)
     return music_map
+
+
+# ═══════════════════════════════════════════════════════════════
+#  F28 §A — composition_plan (la función del test de Pripyat, para la paleta del canal)
+# ═══════════════════════════════════════════════════════════════
+
+PLAN_SECCIONES = (3, 5)
+_TONALIDAD_RE = re.compile(r"\b[A-G](?:\s?(?:#|b|sharp|flat))?\s+(?:minor|major)\b", re.I)
+
+PLAN_SYSTEM = """You are the music director of a dark history documentary channel. You write the composition_plan that
+ElevenLabs Music uses to generate ONE instrumental background track for the channel's music palette (not for a
+specific video: the track will be looped under a single narrator's voice).
+
+ELEVENLABS COMPOSITION PLAN CONTRACT:
+{"positive_global_styles": [string], "negative_global_styles": [string],
+ "sections": [{"section_name": string, "duration_ms": int, "positive_local_styles": [string],
+               "negative_local_styles": [string], "lines": []}]}
+- All style strings in English. lines is ALWAYS an empty list (instrumental). No artist names, no song titles.
+- Each section 3000 to 120000 ms. The durations MUST add up exactly to the target duration.
+
+FIXED RULES FOR THIS CHANNEL:
+- Between 3 and 5 sections.
+- Key: D minor (put "D minor" in positive_global_styles; never another key).
+- Slow: 55-65 BPM feel, even with no rhythm.
+- No fade-in and no fade-out: the track must loop. The first and the last section have the SAME density and the same
+  instruments, so the end flows into the beginning.
+- Tension comes from density and silence, never from volume, hits or trailer rises."""
+
+
+def plan_composicion(intent: str, descripcion_del_canal: str, largo_ms: int, *,
+                     call=None) -> dict[str, Any]:
+    """F28 §A: el composition_plan de una pista de la paleta. Lo escribe Gemini Flash (como el test de Pripyat) con el
+    sonido del canal; después se fijan las reglas sin depender del modelo: tonalidad Re menor en
+    positive_global_styles, NEGATIVE_GLOBAL_STYLES de music_config, sin fade-in/fade-out, la última sección con la
+    misma densidad que la primera, 3–5 secciones y duraciones que suman `largo_ms`."""
+    if intent not in PALETA_INTENTS:
+        raise MusicConfigError(f"intent sin paleta: {intent!r}")
+    call = call or call_flash_json
+    user = (f"TARGET TOTAL DURATION: {largo_ms} ms\n\nNARRATIVE INTENT: {intent} — {PALETA_INTENTS[intent]}\n\n"
+            f"THE CHANNEL SOUND (Spanish, the brief every track must fit):\n{descripcion_del_canal}\n\n"
+            "Respond with ONLY the JSON composition_plan.")
+    plan = call(user, system_instruction=PLAN_SYSTEM, description=f"m07:plan_composicion {intent}")
+    return fijar_plan(plan, largo_ms)
+
+
+def fijar_plan(plan: dict[str, Any], largo_ms: int) -> dict[str, Any]:
+    """Las reglas fijas del plan de la paleta (F28 §A.1), deterministas."""
+    secs = [s for s in (plan or {}).get("sections") or [] if isinstance(s, dict)]
+    if not PLAN_SECCIONES[0] <= len(secs) <= PLAN_SECCIONES[1]:
+        raise MusicDirectorError(f"composition_plan con {len(secs)} secciones (van {PLAN_SECCIONES[0]}–"
+                                 f"{PLAN_SECCIONES[1]})")
+    pos = [s for s in plan.get("positive_global_styles") or [] if not _TONALIDAD_RE.search(str(s))]
+    pos = [PALETA_TONALIDAD] + [s for s in pos if "fade" not in str(s).lower()]
+    out_secs = []
+    for s in secs:
+        out_secs.append({"section_name": str(s.get("section_name") or "section")[:100],
+                         "duration_ms": int(s.get("duration_ms") or 0),
+                         "positive_local_styles": [x for x in s.get("positive_local_styles") or []
+                                                   if "fade" not in str(x).lower()][:50],
+                         "negative_local_styles": list(s.get("negative_local_styles") or [])[:48],
+                         "lines": []})
+    out_secs[-1]["positive_local_styles"] = list(out_secs[0]["positive_local_styles"])   # misma densidad: loop
+    out_secs[0]["negative_local_styles"] += ["fade-in"]
+    out_secs[-1]["negative_local_styles"] += ["fade-out"]
+    # duraciones: proporcionales a lo que pidió el modelo, cada una en [3000, 120000], suma exacta
+    tot = sum(max(1, s["duration_ms"]) for s in out_secs)
+    durs = [max(3000, min(120_000, round(largo_ms * max(1, s["duration_ms"]) / tot))) for s in out_secs]
+    durs[-1] += largo_ms - sum(durs)
+    if not all(3000 <= d <= 120_000 for d in durs):
+        raise MusicDirectorError(f"composition_plan: duraciones imposibles para {largo_ms} ms: {durs}")
+    for s, d in zip(out_secs, durs):
+        s["duration_ms"] = d
+    return {"positive_global_styles": pos[:50], "negative_global_styles": list(NEGATIVE_GLOBAL_STYLES)[:50],
+            "sections": out_secs}
+
+
+def generar_con_plan(plan: dict[str, Any], *, post=None) -> tuple[bytes, dict[str, Any], dict[str, str]]:
+    """F28 §A: POST /v1/music/detailed con `composition_plan` (sin `prompt`: son excluyentes). Una sola llamada, sin
+    reintento (cada llamada factura). Devuelve (mp3, metadata, cabeceras de la respuesta)."""
+    post = post or requests.post
+    resp = post(MUSIC_API_URL, headers={"xi-api-key": api.elevenlabs_api_key, "Accept": "multipart/mixed"},
+                json={"composition_plan": plan, "model_id": MUSIC_MODEL_ID},
+                params={"output_format": MUSIC_OUTPUT_FORMAT}, timeout=max(MUSIC_REQUEST_TIMEOUT_SEC, 400))
+    if resp.status_code != 200:
+        raise MusicDirectorError(f"ElevenLabs Music HTTP {resp.status_code}: {resp.text[:400]}")
+    mp3, meta = _parse_multipart_response(resp.headers.get("Content-Type", ""), resp.content)
+    return mp3, meta, dict(resp.headers)

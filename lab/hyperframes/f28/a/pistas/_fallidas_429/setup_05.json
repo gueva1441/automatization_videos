@@ -1,0 +1,103 @@
+{
+ "id": "setup_05",
+ "intent": "setup",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "Slow tempo feel (55-65 BPM)",
+   "Deep, quiet, patient atmosphere",
+   "Ambient, dark history documentary background",
+   "Sustained low drones (cello, double bass, sub-bass)",
+   "Distant, highly reverberant piano notes",
+   "Long, sustained string pads (no tremolo)",
+   "Sparse textures, focus on resonance and decay"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Quiet Origins",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "Extremely sparse, vast empty spaces, singular distant piano notes, very long decay, soft low frequency hum, deep resonance, minimal instrumentation, open soundscape"
+    ],
+    "negative_local_styles": [
+     "Dense, complex harmonies, prominent strings, active movement",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Unfolding Shadows",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "Gradual introduction of sustained, quiet cello and double bass drones, subtle string pads, slightly increased density in the low end, widening of atmospheric sound, still very slow and patient"
+    ],
+    "negative_local_styles": [
+     "Abrupt dynamic changes, fast note progressions, high register dominance, percussive elements"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deep Contemplation",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "Layering of sustained low strings and drones, deeper sub-bass presence, contemplative and immersive texture, still very subdued and non-intrusive, a sense of quiet gravitas, maintained slow harmonic movement"
+    ],
+    "negative_local_styles": [
+     "Any form of crescendo, sharp attacks, melodic focus, bright tonality"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Echoes of Beginning",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "Extremely sparse, vast empty spaces, singular distant piano notes, very long decay, soft low frequency hum, deep resonance, minimal instrumentation, open soundscape"
+    ],
+    "negative_local_styles": [
+     "Any elements that would break the looping nature, increased density, new melodic ideas",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "error": "MusicDirectorError: ElevenLabs Music HTTP 429: {\"detail\":{\"type\":\"rate_limit_error\",\"code\":\"concurrent_limit_exceeded\",\"message\":\"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user does not overwhelm our systems and affect other users negatively. Please upgrade your subscription or contact sales if you want to increase this li",
+ "traceback": "Traceback (most recent call last):\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f28\\a\\f28a_paleta.py\", line 122, in una_pista\n    mp3, meta, hdr = m7.generar_con_plan(plan)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\script_engine\\m07_music_director.py\", line 1247, in generar_con_plan\n    raise MusicDirectorError(f\"ElevenLabs Music HTTP {resp.status_code}: {resp.text[:400]}\")\nscript_engine.m07_music_director.MusicDirectorError: ElevenLabs Music HTTP 429: {\"detail\":{\"type\":\"rate_limit_error\",\"code\":\"concurrent_limit_exceeded\",\"message\":\"Too many concurrent requests. Your current subscription is associated with a maximum of 2 concurrent requests (running in parallel). This is done such that a single user does not overwhelm our systems and affect other users negatively. Please upgrade your subscription or contact sales if you want to increase this li\n",
+ "segundos": 12.6
+}

@@ -1,0 +1,21 @@
+{
+ "id": "outro_04",
+ "texto": "{\n  \"descripcion\": \"Una pieza orquestal de cuerdas, lenta y sombría. Se construye sobre un drone grave de cellos y contrabajos, mientras las secciones superiores desarrollan melodías solemnes y emotivas que crecen en densidad.\",\n  \"instrumentos\": [\n    \"Orquesta de cuerdas\",\n    \"Cello\",\n    \"Contrabajo\"\n  ],\n  \"tiene_melodia\": true,\n  \"tiene_pulso\": false,\n  \"suena_a_trailer\": false,\n  \"compite_con_voz\": true,\n  \"nota_canal\": 7,\n  \"mejor_intent\": \"setup\"\n}",
+ "finish_reason": "finish_reason=STOP",
+ "usage": "cache_tokens_details=None cached_content_token_count=None candidates_token_count=152 candidates_tokens_details=None prompt_token_count=6126 prompt_tokens_details=[ModalityTokenCount(\n  modality=<MediaModality.TEXT: 'TEXT'>,\n  token_count=364\n), ModalityTokenCount(\n  modality=<MediaModality.AUDIO: 'AUDIO'>,\n  token_count=5762\n)] thoughts_token_count=1025 tool_use_prompt_token_count=None tool_use_prompt_tokens_details=None total_token_count=7303 traffic_type=None",
+ "segundos": 16.1,
+ "json": {
+  "descripcion": "Una pieza orquestal de cuerdas, lenta y sombría. Se construye sobre un drone grave de cellos y contrabajos, mientras las secciones superiores desarrollan melodías solemnes y emotivas que crecen en densidad.",
+  "instrumentos": [
+   "Orquesta de cuerdas",
+   "Cello",
+   "Contrabajo"
+  ],
+  "tiene_melodia": true,
+  "tiene_pulso": false,
+  "suena_a_trailer": false,
+  "compite_con_voz": true,
+  "nota_canal": 7,
+  "mejor_intent": "setup"
+ }
+}

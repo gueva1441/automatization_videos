@@ -1,0 +1,303 @@
+{
+ "id": "outro_01",
+ "intent": "outro",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "ambient",
+   "drone music",
+   "dark academia",
+   "understated",
+   "somber",
+   "brooding",
+   "mysterious",
+   "meditative",
+   "reverberant",
+   "sustained textures",
+   "sub-bass",
+   "patient",
+   "quiet dynamics",
+   "unresolved harmony"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Suspended Introduction",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep cello drones",
+     "sub-bass hum",
+     "sustained orchestral strings (non-tremolo)",
+     "distant reverberant piano chords",
+     "sparse texture",
+     "static harmony",
+     "quiet sustained chord"
+    ],
+    "negative_local_styles": [
+     "melodic phrases",
+     "percussion",
+     "rhythmic elements",
+     "dynamic swells",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Contemplation",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "layered sustained strings",
+     "slightly increased drone density",
+     "pizzicato double bass (very sparse, textural)",
+     "glimmering piano harmonics",
+     "slowly evolving atmosphere"
+    ],
+    "negative_local_styles": [
+     "strong pulse",
+     "melodic development",
+     "overt drama"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Echoing Emptiness",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "diminishing density",
+     "long-sustaining low strings",
+     "isolated, decaying piano notes",
+     "expansive reverberation",
+     "minimalist texture",
+     "sense of space"
+    ],
+    "negative_local_styles": [
+     "clutter",
+     "activity",
+     "buildup",
+     "leading tones"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Unresolved Outro Loop",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep cello drones",
+     "sub-bass hum",
+     "sustained orchestral strings (non-tremolo)",
+     "distant reverberant piano chords",
+     "sparse texture",
+     "static harmony",
+     "quiet sustained chord"
+    ],
+    "negative_local_styles": [
+     "melodic resolution",
+     "dynamic change",
+     "fade out",
+     "new elements",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:33:20 GMT",
+  "server": "uvicorn",
+  "song-id": "IHktX8VZk9nKyPH0KHnu",
+  "Content-Length": "2883179",
+  "content-type": "multipart/mixed; boundary=----boundaryd22e338235d646a8bc6cfce9a29a691a",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "467c79d19a662bfcb7c850a33f16b65e",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "ambient",
+   "drone music",
+   "dark academia",
+   "understated",
+   "somber",
+   "brooding",
+   "mysterious",
+   "meditative",
+   "reverberant",
+   "sustained textures",
+   "sub-bass",
+   "patient",
+   "quiet dynamics",
+   "unresolved harmony"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Suspended Introduction",
+    "positive_local_styles": [
+     "deep cello drones",
+     "sub-bass hum",
+     "sustained orchestral strings (non-tremolo)",
+     "distant reverberant piano chords",
+     "sparse texture",
+     "static harmony",
+     "quiet sustained chord"
+    ],
+    "negative_local_styles": [
+     "melodic phrases",
+     "percussion",
+     "rhythmic elements",
+     "dynamic swells",
+     "fade-in"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Contemplation",
+    "positive_local_styles": [
+     "layered sustained strings",
+     "slightly increased drone density",
+     "pizzicato double bass (very sparse, textural)",
+     "glimmering piano harmonics",
+     "slowly evolving atmosphere"
+    ],
+    "negative_local_styles": [
+     "strong pulse",
+     "melodic development",
+     "overt drama"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Echoing Emptiness",
+    "positive_local_styles": [
+     "diminishing density",
+     "long-sustaining low strings",
+     "isolated, decaying piano notes",
+     "expansive reverberation",
+     "minimalist texture",
+     "sense of space"
+    ],
+    "negative_local_styles": [
+     "clutter",
+     "activity",
+     "buildup",
+     "leading tones"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Unresolved Outro Loop",
+    "positive_local_styles": [
+     "deep cello drones",
+     "sub-bass hum",
+     "sustained orchestral strings (non-tremolo)",
+     "distant reverberant piano chords",
+     "sparse texture",
+     "static harmony",
+     "quiet sustained chord"
+    ],
+    "negative_local_styles": [
+     "melodic resolution",
+     "dynamic change",
+     "fade out",
+     "new elements",
+     "fade-out"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 32.4
+}

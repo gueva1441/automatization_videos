@@ -1,0 +1,311 @@
+{
+ "id": "hook_02",
+ "intent": "hook",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "60 BPM feel",
+   "dark ambient",
+   "drone music",
+   "atmospheric",
+   "minimalist",
+   "orchestral textures",
+   "deep bass",
+   "reverberant piano",
+   "background music",
+   "somber"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Drone Foundation",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep cello drones",
+     "double bass sustained notes",
+     "sub-bass layer",
+     "dark ambient pads",
+     "heavy reverb",
+     "still atmosphere",
+     "low register",
+     "grave and patient"
+    ],
+    "negative_local_styles": [
+     "rhythmic elements",
+     "melodic elements",
+     "high-pitched sounds",
+     "percussive",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Subtle Dissonant Undercurrent",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "low string sustained chords",
+     "distant piano textures",
+     "subtle dissonances",
+     "slow shifting harmonies",
+     "increased textural density",
+     "eerie atmosphere",
+     "heavy reverb",
+     "sparse, haunting piano notes"
+    ],
+    "negative_local_styles": [
+     "percussive",
+     "clear melodies",
+     "abrupt changes",
+     "high dynamics"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deep Contemplative Silence",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "sparse instrumentation",
+     "long pauses",
+     "minimalist textures",
+     "open space",
+     "focus on silence and decay",
+     "sub-bass only moments",
+     "very slow cello accents",
+     "extremely quiet"
+    ],
+    "negative_local_styles": [
+     "dense orchestration",
+     "complex harmonies",
+     "constant sound",
+     "volume swells"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Returning Core Drone Loop",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep cello drones",
+     "double bass sustained notes",
+     "sub-bass layer",
+     "dark ambient pads",
+     "heavy reverb",
+     "still atmosphere",
+     "low register",
+     "grave and patient"
+    ],
+    "negative_local_styles": [
+     "rhythmic elements",
+     "melodic elements",
+     "high-pitched sounds",
+     "percussive",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:34:56 GMT",
+  "server": "uvicorn",
+  "song-id": "8gBbdM9KHKKIVre3mty0",
+  "Content-Length": "2883229",
+  "content-type": "multipart/mixed; boundary=----boundarydf02536670c541f39e79d43172a8a97d",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "34b610fcd403c9865c52e4d04af105c7",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "60 BPM feel",
+   "dark ambient",
+   "drone music",
+   "atmospheric",
+   "minimalist",
+   "orchestral textures",
+   "deep bass",
+   "reverberant piano",
+   "background music",
+   "somber"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Opening Drone Foundation",
+    "positive_local_styles": [
+     "deep cello drones",
+     "double bass sustained notes",
+     "sub-bass layer",
+     "dark ambient pads",
+     "heavy reverb",
+     "still atmosphere",
+     "low register",
+     "grave and patient"
+    ],
+    "negative_local_styles": [
+     "rhythmic elements",
+     "melodic elements",
+     "high-pitched sounds",
+     "percussive",
+     "fade-in"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Subtle Dissonant Undercurrent",
+    "positive_local_styles": [
+     "low string sustained chords",
+     "distant piano textures",
+     "subtle dissonances",
+     "slow shifting harmonies",
+     "increased textural density",
+     "eerie atmosphere",
+     "heavy reverb",
+     "sparse, haunting piano notes"
+    ],
+    "negative_local_styles": [
+     "percussive",
+     "clear melodies",
+     "abrupt changes",
+     "high dynamics"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Deep Contemplative Silence",
+    "positive_local_styles": [
+     "sparse instrumentation",
+     "long pauses",
+     "minimalist textures",
+     "open space",
+     "focus on silence and decay",
+     "sub-bass only moments",
+     "very slow cello accents",
+     "extremely quiet"
+    ],
+    "negative_local_styles": [
+     "dense orchestration",
+     "complex harmonies",
+     "constant sound",
+     "volume swells"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Returning Core Drone Loop",
+    "positive_local_styles": [
+     "deep cello drones",
+     "double bass sustained notes",
+     "sub-bass layer",
+     "dark ambient pads",
+     "heavy reverb",
+     "still atmosphere",
+     "low register",
+     "grave and patient"
+    ],
+    "negative_local_styles": [
+     "rhythmic elements",
+     "melodic elements",
+     "high-pitched sounds",
+     "percussive",
+     "fade-out"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 29.9
+}

@@ -1,0 +1,305 @@
+{
+ "id": "setup_05",
+ "intent": "setup",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "somber",
+   "ambient",
+   "minimalist",
+   "reverberant",
+   "drone",
+   "calm",
+   "spacious",
+   "patient",
+   "understated",
+   "film score",
+   "55-65 BPM feel"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Quiet Dawn",
+    "duration_ms": 40000,
+    "positive_local_styles": [
+     "soft low drone",
+     "deep cello tones",
+     "distant reverberant piano",
+     "sparse texture",
+     "calm",
+     "spacious",
+     "subtle sub-bass"
+    ],
+    "negative_local_styles": [
+     "prominent melody",
+     "fast arpeggios",
+     "complex harmony",
+     "active rhythm",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Stillness",
+    "duration_ms": 50000,
+    "positive_local_styles": [
+     "gentle sub-bass layers",
+     "sustained low strings",
+     "more subtle piano chords",
+     "slightly increased density",
+     "meditative",
+     "evolving drone"
+    ],
+    "negative_local_styles": [
+     "percussive elements",
+     "bright tones",
+     "clear pulse",
+     "dynamic swells",
+     "sharp attacks"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Shadowy Contemplation",
+    "duration_ms": 50000,
+    "positive_local_styles": [
+     "deeper cello drones",
+     "layered sustained strings (violas, cellos)",
+     "very slow, widely spaced piano notes",
+     "a touch more melancholic",
+     "subtle textural shifts",
+     "thickening ambient layers"
+    ],
+    "negative_local_styles": [
+     "fast string movements",
+     "brass instruments",
+     "high-register melodies",
+     "rhythmic patterns",
+     "volume changes"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Fading Echoes",
+    "duration_ms": 40000,
+    "positive_local_styles": [
+     "soft low drone",
+     "deep cello tones",
+     "distant reverberant piano",
+     "sparse texture",
+     "calm",
+     "spacious",
+     "subtle sub-bass"
+    ],
+    "negative_local_styles": [
+     "building tension",
+     "new elements introduced",
+     "abrupt ending",
+     "rising intensity",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:35:28 GMT",
+  "server": "uvicorn",
+  "song-id": "ET3sYqXsNANV9tVAD7da",
+  "Content-Length": "2883092",
+  "content-type": "multipart/mixed; boundary=----boundary48f03180e0004c93bec77b17a16a1810",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "fe0282bf9ce0ff576bd08cabd4dbaa46",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "somber",
+   "ambient",
+   "minimalist",
+   "reverberant",
+   "drone",
+   "calm",
+   "spacious",
+   "patient",
+   "understated",
+   "film score",
+   "55-65 BPM feel"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Quiet Dawn",
+    "positive_local_styles": [
+     "soft low drone",
+     "deep cello tones",
+     "distant reverberant piano",
+     "sparse texture",
+     "calm",
+     "spacious",
+     "subtle sub-bass"
+    ],
+    "negative_local_styles": [
+     "prominent melody",
+     "fast arpeggios",
+     "complex harmony",
+     "active rhythm",
+     "fade-in"
+    ],
+    "duration_ms": 40000,
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Stillness",
+    "positive_local_styles": [
+     "gentle sub-bass layers",
+     "sustained low strings",
+     "more subtle piano chords",
+     "slightly increased density",
+     "meditative",
+     "evolving drone"
+    ],
+    "negative_local_styles": [
+     "percussive elements",
+     "bright tones",
+     "clear pulse",
+     "dynamic swells",
+     "sharp attacks"
+    ],
+    "duration_ms": 50000,
+    "lines": []
+   },
+   {
+    "section_name": "Shadowy Contemplation",
+    "positive_local_styles": [
+     "deeper cello drones",
+     "layered sustained strings (violas, cellos)",
+     "very slow, widely spaced piano notes",
+     "a touch more melancholic",
+     "subtle textural shifts",
+     "thickening ambient layers"
+    ],
+    "negative_local_styles": [
+     "fast string movements",
+     "brass instruments",
+     "high-register melodies",
+     "rhythmic patterns",
+     "volume changes"
+    ],
+    "duration_ms": 50000,
+    "lines": []
+   },
+   {
+    "section_name": "Fading Echoes",
+    "positive_local_styles": [
+     "soft low drone",
+     "deep cello tones",
+     "distant reverberant piano",
+     "sparse texture",
+     "calm",
+     "spacious",
+     "subtle sub-bass"
+    ],
+    "negative_local_styles": [
+     "building tension",
+     "new elements introduced",
+     "abrupt ending",
+     "rising intensity",
+     "fade-out"
+    ],
+    "duration_ms": 40000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 30.8
+}

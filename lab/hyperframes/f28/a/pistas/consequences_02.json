@@ -1,0 +1,299 @@
+{
+ "id": "consequences_02",
+ "intent": "consequences",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "55-65 BPM slow tempo feel",
+   "grave",
+   "quiet",
+   "patient",
+   "dark ambient",
+   "cinematic underscore",
+   "mournful",
+   "somber",
+   "sparse texture",
+   "deep drones",
+   "sustained strings",
+   "reverberant piano",
+   "sub-bass"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Grave Consequences",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep cello drones",
+     "sustained double bass",
+     "sparse distant piano chords",
+     "somber atmosphere",
+     "low density"
+    ],
+    "negative_local_styles": [
+     "mid-range frequencies",
+     "melodic elements",
+     "rhythmic pulses",
+     "prominent high end",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Mourning",
+    "duration_ms": 40000,
+    "positive_local_styles": [
+     "less dense",
+     "more distant piano",
+     "fading cello sustains",
+     "expansive reverb",
+     "sense of desolation",
+     "increased space"
+    ],
+    "negative_local_styles": [
+     "prominent bass",
+     "active textures",
+     "warm tones",
+     "any sense of hope"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Empty Aftermath",
+    "duration_ms": 50000,
+    "positive_local_styles": [
+     "extremely sparse piano notes",
+     "long silences",
+     "vast empty space",
+     "minimal instrumentation",
+     "ghostly reverberations",
+     "barely perceptible cello hum",
+     "cold atmosphere"
+    ],
+    "negative_local_styles": [
+     "any sustained elements",
+     "melodic lines",
+     "strong presence of instruments",
+     "mid-range content",
+     "complexity"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Weight",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "deep cello drones",
+     "sustained double bass",
+     "sparse distant piano chords",
+     "somber atmosphere",
+     "low density"
+    ],
+    "negative_local_styles": [
+     "sudden instrumentation changes",
+     "high frequencies",
+     "prominent melodies",
+     "dynamic swells",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:32:37 GMT",
+  "server": "uvicorn",
+  "song-id": "QqUY1596AT1GgmEfjpy0",
+  "Content-Length": "2883102",
+  "content-type": "multipart/mixed; boundary=----boundaryb00f8fdbfd634de896705e3df9d0052b",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "0872f5d379ba55460f3794b14b309992",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "55-65 BPM slow tempo feel",
+   "grave",
+   "quiet",
+   "patient",
+   "dark ambient",
+   "cinematic underscore",
+   "mournful",
+   "somber",
+   "sparse texture",
+   "deep drones",
+   "sustained strings",
+   "reverberant piano",
+   "sub-bass"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Grave Consequences",
+    "positive_local_styles": [
+     "deep cello drones",
+     "sustained double bass",
+     "sparse distant piano chords",
+     "somber atmosphere",
+     "low density"
+    ],
+    "negative_local_styles": [
+     "mid-range frequencies",
+     "melodic elements",
+     "rhythmic pulses",
+     "prominent high end",
+     "fade-in"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Mourning",
+    "positive_local_styles": [
+     "less dense",
+     "more distant piano",
+     "fading cello sustains",
+     "expansive reverb",
+     "sense of desolation",
+     "increased space"
+    ],
+    "negative_local_styles": [
+     "prominent bass",
+     "active textures",
+     "warm tones",
+     "any sense of hope"
+    ],
+    "duration_ms": 40000,
+    "lines": []
+   },
+   {
+    "section_name": "Empty Aftermath",
+    "positive_local_styles": [
+     "extremely sparse piano notes",
+     "long silences",
+     "vast empty space",
+     "minimal instrumentation",
+     "ghostly reverberations",
+     "barely perceptible cello hum",
+     "cold atmosphere"
+    ],
+    "negative_local_styles": [
+     "any sustained elements",
+     "melodic lines",
+     "strong presence of instruments",
+     "mid-range content",
+     "complexity"
+    ],
+    "duration_ms": 50000,
+    "lines": []
+   },
+   {
+    "section_name": "Lingering Weight",
+    "positive_local_styles": [
+     "deep cello drones",
+     "sustained double bass",
+     "sparse distant piano chords",
+     "somber atmosphere",
+     "low density"
+    ],
+    "negative_local_styles": [
+     "sudden instrumentation changes",
+     "high frequencies",
+     "prominent melodies",
+     "dynamic swells",
+     "fade-out"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 28.0
+}

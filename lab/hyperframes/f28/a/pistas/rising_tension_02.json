@@ -1,0 +1,297 @@
+{
+ "id": "rising_tension_02",
+ "intent": "rising_tension",
+ "largo_pedido_ms": 180000,
+ "plan": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "55-65 bpm feel",
+   "dark ambient",
+   "drone music",
+   "atmospheric",
+   "low frequency sounds",
+   "sustained strings",
+   "sub-bass",
+   "reverberant piano",
+   "cello",
+   "contrabass",
+   "grave",
+   "quiet",
+   "patient"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Quiet Unease Begins",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "low drone",
+     "cello drone",
+     "contrabass drone",
+     "distant piano chords",
+     "sparse texture",
+     "minimal density",
+     "deep reverberation"
+    ],
+    "negative_local_styles": [
+     "high density",
+     "active strings",
+     "prominent melody",
+     "fade-in"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Apprehension",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "slowly building density",
+     "added string layers",
+     "sustained viola pads",
+     "subtle textural changes",
+     "slightly increased harmonic complexity"
+    ],
+    "negative_local_styles": [
+     "sudden dynamic shifts",
+     "melodic prominence",
+     "light texture"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Thickening Atmosphere",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "maximum density without climax",
+     "multiple sustained string layers",
+     "richer harmonic texture",
+     "darker timbres",
+     "heavy atmosphere",
+     "sustained low frequencies"
+    ],
+    "negative_local_styles": [
+     "resolution",
+     "shrinking soundscape",
+     "percussive elements"
+    ],
+    "lines": []
+   },
+   {
+    "section_name": "Returning to Baseline Unease",
+    "duration_ms": 45000,
+    "positive_local_styles": [
+     "low drone",
+     "cello drone",
+     "contrabass drone",
+     "distant piano chords",
+     "sparse texture",
+     "minimal density",
+     "deep reverberation"
+    ],
+    "negative_local_styles": [
+     "high density",
+     "active strings",
+     "melodic elements",
+     "crescendo",
+     "fade-out"
+    ],
+    "lines": []
+   }
+  ]
+ },
+ "duracion_s": 180.04,
+ "usd": 0.4501,
+ "cabeceras": {
+  "date": "Sun, 25 Oct 2026 18:31:12 GMT",
+  "server": "uvicorn",
+  "song-id": "IheAxAIj68U6vkedTYJR",
+  "Content-Length": "2883056",
+  "content-type": "multipart/mixed; boundary=----boundary68f2aba074bf438e805179c4a627396e",
+  "vary": "Accept-Language",
+  "access-control-allow-origin": "*",
+  "access-control-allow-headers": "*",
+  "access-control-allow-methods": "POST, PATCH, OPTIONS, DELETE, GET, PUT",
+  "access-control-max-age": "600",
+  "Strict-Transport-Security": "max-age=1800;",
+  "x-trace-id": "e8f4b5094d4ee3254e63b45791d88df2",
+  "x-region": "us-central1",
+  "Via": "1.1 google",
+  "Alt-Svc": "h3=\":443\"; ma=2592000"
+ },
+ "creditos": {},
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "composition_plan_devuelto": {
+  "positive_global_styles": [
+   "D minor",
+   "slow tempo",
+   "55-65 bpm feel",
+   "dark ambient",
+   "drone music",
+   "atmospheric",
+   "low frequency sounds",
+   "sustained strings",
+   "sub-bass",
+   "reverberant piano",
+   "cello",
+   "contrabass",
+   "grave",
+   "quiet",
+   "patient"
+  ],
+  "negative_global_styles": [
+   "vocals",
+   "lyrics",
+   "singing",
+   "choir",
+   "spoken word",
+   "drums",
+   "percussion",
+   "drum beat",
+   "rhythm patterns",
+   "kick drum",
+   "snare",
+   "hi-hat",
+   "melody hooks",
+   "memorable melodies",
+   "vocal-like leads",
+   "pop structure",
+   "EDM",
+   "synthwave",
+   "dubstep",
+   "trap",
+   "verse chorus structure",
+   "electric guitar",
+   "distortion",
+   "harsh synths",
+   "intro fade-in",
+   "outro fade-out",
+   "abrupt ending",
+   "sudden silence",
+   "build-up drops",
+   "upbeat",
+   "happy",
+   "energetic dance",
+   "playful"
+  ],
+  "sections": [
+   {
+    "section_name": "Quiet Unease Begins",
+    "positive_local_styles": [
+     "low drone",
+     "cello drone",
+     "contrabass drone",
+     "distant piano chords",
+     "sparse texture",
+     "minimal density",
+     "deep reverberation"
+    ],
+    "negative_local_styles": [
+     "high density",
+     "active strings",
+     "prominent melody",
+     "fade-in"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Deepening Apprehension",
+    "positive_local_styles": [
+     "slowly building density",
+     "added string layers",
+     "sustained viola pads",
+     "subtle textural changes",
+     "slightly increased harmonic complexity"
+    ],
+    "negative_local_styles": [
+     "sudden dynamic shifts",
+     "melodic prominence",
+     "light texture"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Thickening Atmosphere",
+    "positive_local_styles": [
+     "maximum density without climax",
+     "multiple sustained string layers",
+     "richer harmonic texture",
+     "darker timbres",
+     "heavy atmosphere",
+     "sustained low frequencies"
+    ],
+    "negative_local_styles": [
+     "resolution",
+     "shrinking soundscape",
+     "percussive elements"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   },
+   {
+    "section_name": "Returning to Baseline Unease",
+    "positive_local_styles": [
+     "low drone",
+     "cello drone",
+     "contrabass drone",
+     "distant piano chords",
+     "sparse texture",
+     "minimal density",
+     "deep reverberation"
+    ],
+    "negative_local_styles": [
+     "high density",
+     "active strings",
+     "melodic elements",
+     "crescendo",
+     "fade-out"
+    ],
+    "duration_ms": 45000,
+    "lines": []
+   }
+  ]
+ },
+ "segundos": 30.3
+}

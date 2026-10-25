@@ -1,0 +1,20 @@
+{
+ "id": "rising_tension_03",
+ "texto": "{\n  \"descripcion\": \"Una pieza ambiental y atmosférica construida sobre un drone grave y pads de sintetizador. Entran y salen motivos melódicos simples y reverberantes que le dan un carácter reflexivo y aéreo.\",\n  \"instrumentos\": [\n    \"Sintetizadores\",\n    \"Pads\"\n  ],\n  \"tiene_melodia\": true,\n  \"tiene_pulso\": false,\n  \"suena_a_trailer\": false,\n  \"compite_con_voz\": true,\n  \"nota_canal\": 6,\n  \"mejor_intent\": \"setup\"\n}",
+ "finish_reason": "finish_reason=STOP",
+ "usage": "cache_tokens_details=None cached_content_token_count=None candidates_token_count=138 candidates_tokens_details=None prompt_token_count=6126 prompt_tokens_details=[ModalityTokenCount(\n  modality=<MediaModality.TEXT: 'TEXT'>,\n  token_count=364\n), ModalityTokenCount(\n  modality=<MediaModality.AUDIO: 'AUDIO'>,\n  token_count=5762\n)] thoughts_token_count=902 tool_use_prompt_token_count=None tool_use_prompt_tokens_details=None total_token_count=7166 traffic_type=None",
+ "segundos": 13.8,
+ "json": {
+  "descripcion": "Una pieza ambiental y atmosférica construida sobre un drone grave y pads de sintetizador. Entran y salen motivos melódicos simples y reverberantes que le dan un carácter reflexivo y aéreo.",
+  "instrumentos": [
+   "Sintetizadores",
+   "Pads"
+  ],
+  "tiene_melodia": true,
+  "tiene_pulso": false,
+  "suena_a_trailer": false,
+  "compite_con_voz": true,
+  "nota_canal": 6,
+  "mejor_intent": "setup"
+ }
+}
