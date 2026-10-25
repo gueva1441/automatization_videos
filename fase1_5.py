@@ -660,6 +660,45 @@ def _print_gemini_cost() -> None:
 #  MAIN
 # ═══════════════════════════════════════════════════════════════
 
+def temas_cmds(temas: list[str], argv: list[str]) -> list[list[str]]:
+    """F26 §C: un comando por tema: los mismos argumentos sin `--temas`/`--topic`, con `--topic <tema>` y `--batch`
+    (los gates interactivos no se pueden contestar desde varios procesos a la vez)."""
+    base, skip = [], False
+    for a in argv:
+        if skip:
+            skip = False
+            continue
+        if a in ("--temas", "--topic"):
+            skip = True
+            continue
+        if a.startswith(("--temas=", "--topic=")):
+            continue
+        base.append(a)
+    if "--batch" not in base:
+        base.append("--batch")
+    return [[sys.executable, str(Path(__file__).resolve()), *base, "--topic", t] for t in temas]
+
+
+def run_temas(temas: list[str], argv: list[str], popen=None) -> int:
+    """F26 §C: `--temas a,b,c`: lanza un proceso por tema a la vez (log en _steps/<tema>/fase1_5_temas.log) y
+    espera a todos. Devuelve 0 si todos terminaron bien."""
+    import subprocess
+    popen = popen or subprocess.Popen
+    procs = []
+    for t, cmd in zip(temas, temas_cmds(temas, argv)):
+        (STEPS_DIR / t).mkdir(parents=True, exist_ok=True)
+        fh = open(STEPS_DIR / t / "fase1_5_temas.log", "w", encoding="utf-8")
+        procs.append((t, popen(cmd, stdout=fh, stderr=subprocess.STDOUT), fh))
+        print(f"  [temas] {t}: pid {procs[-1][1].pid}")
+    malos = 0
+    for t, p, fh in procs:
+        rc = p.wait()
+        fh.close()
+        malos += int(rc != 0)
+        print(f"  [temas] {'✅' if rc == 0 else '❌'} {t} (exit {rc})")
+    return 0 if malos == 0 else 1
+
+
 def main():
     parser = argparse.ArgumentParser(description="fase1.5 — orchestrator m01a→m03→assemble")
     parser.add_argument("--topic", type=str, default=None,
@@ -702,7 +741,12 @@ def main():
                         help="Modo batch desatendido: desactiva los gates del medio "
                              "(normalizer_gate + music_gate). Equivale a "
                              "--no-gate --no-music-gate.")
+    parser.add_argument("--temas", type=str, default=None,
+                        help="F26 §C: varios topic_id separados por coma; cada uno corre en su propio proceso (el "
+                             "perfil del caso es un global de proceso) con los mismos argumentos y --batch")
     args = parser.parse_args()
+    if args.temas:
+        sys.exit(run_temas([t.strip() for t in args.temas.split(",") if t.strip()], sys.argv[1:]))
 
     # --batch desatiende los gates del medio de una (normalizer + music).
     gate_interactive = not (args.no_gate or args.batch)

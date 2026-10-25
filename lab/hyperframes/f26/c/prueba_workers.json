@@ -1,0 +1,68 @@
+{
+ "candidatos": 36,
+ "r2": {
+  "1": {
+   "pared_s": 14.3,
+   "ok": 20,
+   "pedidos": 4,
+   "estados": {
+    "error": 1,
+    "no_intentada": 12,
+    "ok": 20,
+    "sin_texto": 3
+   },
+   "log": [
+    "  [R2] F10 thecollector_kyshtym_disaster_here_s_what-F10: OK (original) 9261 caracteres",
+    "  [R2] F25 stanford_1981_ussr_nuclear_accident_near_kyshtym-F25: FALLÓ — HTTP 429",
+    "  [R2] F28 gw2ru_2022_the_kyshtym_accident_a_radiation-F28: OK (original) 1875 caracteres · NO nombra el evento",
+    "  [R2] 16 documentos OK ({'ru': 10, 'en': 6}) de 24 intentados"
+   ]
+  },
+  "8": {
+   "pared_s": 12.4,
+   "ok": 20,
+   "pedidos": 4,
+   "estados": {
+    "error": 1,
+    "no_intentada": 12,
+    "ok": 20,
+    "sin_texto": 3
+   },
+   "log": [
+    "  [R2] F10 thecollector_kyshtym_disaster_here_s_what-F10: OK (original) 9261 caracteres",
+    "  [R2] F25 stanford_1981_ussr_nuclear_accident_near_kyshtym-F25: FALLÓ — texto de 0 caracteres (< 800: ¿paywall o portada?)",
+    "  [R2] F28 gw2ru_2022_the_kyshtym_accident_a_radiation-F28: OK (original) 1875 caracteres · NO nombra el evento",
+    "  [R2] 16 documentos OK ({'ru': 10, 'en': 6}) de 24 intentados"
+   ]
+  }
+ },
+ "r3_cache": {
+  "1": {
+   "pared_s": 1.12,
+   "docs": 8,
+   "items": 288,
+   "fallidos": []
+  },
+  "8": {
+   "pared_s": 0.79,
+   "docs": 8,
+   "items": 288,
+   "fallidos": []
+  }
+ },
+ "r3_latencia": {
+  "1": {
+   "pared_s": 16.7,
+   "llamadas_simuladas": 8,
+   "mismo_resultado_que_cache": true
+  },
+  "8": {
+   "pared_s": 2.8,
+   "llamadas_simuladas": 8,
+   "mismo_resultado_que_cache": true
+  }
+ },
+ "lat_s": 2.0,
+ "manifest_igual_1_vs_8": false,
+ "r3_igual_1_vs_8": true
+}

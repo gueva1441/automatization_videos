@@ -1049,4 +1049,11 @@ def research_topics(
 # ═══════════════════════════════════════════════════════════════
 
 if __name__ == "__main__":
+    # F26 §C: `--workers N` = hilos de R2/R3 del research v3 (por defecto research_v3.WORKERS = 8; 1 = en fila)
+    import sys
+    if "--workers" in sys.argv:
+        _k = sys.argv.index("--workers")
+        from researcher_steps import research_v3 as _rv3
+        _rv3.WORKERS = int(sys.argv[_k + 1])
+        del sys.argv[_k:_k + 2]
     research_topics()

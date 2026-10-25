@@ -10,6 +10,7 @@ Rastreador de costos del pipeline.
 
 import json
 import os
+import threading
 from datetime import datetime
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
@@ -87,6 +88,8 @@ class CostTracker:
         self.session_videos: list[VideoCostReport] = []
         # ── v2: bucket de overhead de sesión (Fase 1, descubrimiento, research) ──
         self.session_overhead: list[CostEntry] = []
+        # F26 §C: R2/R3 anotan desde hilos; el lock hace que dos entradas no se pisen (append + total_cost)
+        self._lock = threading.RLock()
 
     def start_video(self, video_id: str) -> None:
         """Inicia el tracking de un nuevo video."""
@@ -327,13 +330,14 @@ class CostTracker:
             usage_ok=usage_ok,
         )
 
-        if self.current_video:
-            self.current_video.add(entry)
-        else:
-            # v2: en lugar de warnar y descartar, acumular como overhead de sesión.
-            # Útil para contabilizar Fase 1 (niche_discoverer, research, etc.)
-            # y tests aislados.
-            self.session_overhead.append(entry)
+        with self._lock:
+            if self.current_video:
+                self.current_video.add(entry)
+            else:
+                # v2: en lugar de warnar y descartar, acumular como overhead de sesión.
+                # Útil para contabilizar Fase 1 (niche_discoverer, research, etc.)
+                # y tests aislados.
+                self.session_overhead.append(entry)
 
     def _save_to_history(self, report: VideoCostReport) -> None:
         """Guarda el reporte al historial persistente. F17: bajo pytest no escribe (los tests no ensucian el historial)."""

@@ -27,8 +27,10 @@ import hashlib
 import json
 import os
 import re
+import threading
 import time
 import unicodedata
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date
 from pathlib import Path
 from typing import Any, Callable
@@ -41,6 +43,7 @@ TIPOS_FUENTE = ("informe_oficial", "fallo_judicial", "prensa_epoca", "prensa_pos
                 "testimonio", "academico", "foia")
 MIN_FUENTES, MAX_FUENTES = 8, 20
 MAX_DESCARGAS_OK = 10                    # F20: por idioma del research (10 por cada uno), no en total
+WORKERS = 8                              # F26 §C: hilos de R2 (descargas) y R3 (un documento por hilo); 1 = en fila
 MAX_DOC_CHARS = 300_000
 MIN_DOC_CHARS = 800                      # F23 (antes 3_000): menos que esto, página vacía o paywall (un decreto
                                          # o un recorte corto valen)
@@ -879,12 +882,16 @@ def linked_pdf(html: bytes, page_url: str) -> str | None:
 
 def download_sources(fuentes: list[dict], dest: Path, *, place_re: str, get: Callable[[str], tuple] | None = None,
                      local: dict[str, Path] | None = None, max_ok: int = MAX_DESCARGAS_OK, wayback: bool = True,
-                     log: list[str] | None = None, previos: dict[str, dict] | None = None) -> dict[str, Any]:
+                     log: list[str] | None = None, previos: dict[str, dict] | None = None,
+                     workers: int | None = None) -> dict[str, Any]:
     """R2: baja por prioridad hasta `max_ok` documentos OK POR IDIOMA (F20: con dos idiomas, las fuentes de uno no
     desplazan a las del otro; dentro de cada idioma, el orden de prioridad de siempre). `local` = {url_normalizada:
     archivo ya bajado} (no se vuelve a pedir). Deja dest/<slug>.<ext>, dest/<slug>.txt y dest/manifest.json; devuelve
     el manifest. F24 §A: `previos` = lo que el registro de fuentes ya tiene bajado ({url: entrada}; no se vuelve a
-    pedir) y el cupo de cada idioma va primero a las fuentes con más aporte en corridas anteriores (`_aporte`)."""
+    pedir) y el cupo de cada idioma va primero a las fuentes con más aporte en corridas anteriores (`_aporte`).
+    F26 §C: con `workers` > 1 (por defecto WORKERS) las descargas se adelantan en hilos por oleadas (`_prebajar`:
+    en cada idioma, las siguientes hasta llenar el cupo que falta) y después el recorrido en fila de siempre decide
+    con lo ya bajado: el manifest y el log salen iguales que en fila."""
     log = log if log is not None else []
     get = get or _http_get
     dest.mkdir(parents=True, exist_ok=True)
@@ -896,8 +903,12 @@ def download_sources(fuentes: list[dict], dest: Path, *, place_re: str, get: Cal
                          if d.get("ok") or d["url"] not in prev})
         except (OSError, ValueError, KeyError):
             pass
+    orden = sorted(fuentes, key=lambda f: (-(f.get("_aporte") or 0), f["prioridad"], f["id"]))
+    w = WORKERS if workers is None else workers
+    hechos = _prebajar(orden, dest, prev, max_ok=max_ok, workers=w, place_re=place_re, get=get, local=local or {},
+                       wayback=wayback) if w > 1 else {}
     docs, n_ok = [], {}
-    for f in sorted(fuentes, key=lambda f: (-(f.get("_aporte") or 0), f["prioridad"], f["id"])):
+    for f in orden:
         lg = fuente_idioma(f)
         if n_ok.get(lg, 0) >= max_ok:
             docs.append({**_meta(f), "ok": False, "estado": "no_intentada",
@@ -913,6 +924,9 @@ def download_sources(fuentes: list[dict], dest: Path, *, place_re: str, get: Cal
         elif p and p.get("ok"):                         # bajado antes, pero corto para el mínimo de ahora
             d = {**p, **_meta(f), "ok": False, "estado": "error",
                  "motivo": f"texto de {p.get('caracteres')} caracteres (< {MIN_DOC_CHARS}: resumen o portada)"}
+        elif f["id"] in hechos:                         # F26 §C: ya bajada en un hilo; su log, en su lugar
+            d, sub = hechos.pop(f["id"])
+            log.extend(sub)
         else:
             d = _fetch_one(f, dest, place_re=place_re, get=get, local=local or {}, wayback=wayback, log=log)
         twin = next((x for x in docs if d["ok"] and x.get("ok") and same_document(dest, x, d)), None)
@@ -927,6 +941,75 @@ def download_sources(fuentes: list[dict], dest: Path, *, place_re: str, get: Cal
     log.append(f"  [R2] {sum(n_ok.values())} documentos OK ({n_ok}) de "
                f"{sum(1 for d in docs if d['estado'] != 'no_intentada')} intentados")
     return man
+
+
+def _clase_r2(f: dict, prev: dict[str, dict], dest: Path) -> str:
+    """Qué hace el recorrido en fila de `download_sources` con esta fuente (sin contar el cupo): «sin_texto»,
+    «reuso» (ya bajada y con largo), «corta» (bajada pero corta: no se vuelve a pedir) o «bajar»."""
+    p = prev.get(f["url"])
+    if any(_site(f["url"]) == s or domain(f["url"]).endswith(s) for s in NO_TEXT_SITES):
+        return "sin_texto"
+    if p and p.get("ok") and (dest / p["txt"]).exists() and p.get("caracteres", 0) >= MIN_DOC_CHARS:
+        return "reuso"
+    return "corta" if p and p.get("ok") else "bajar"
+
+
+def _por_sitio(get: Callable) -> Callable:
+    """F26 §C: con hilos, un pedido a la vez por sitio (como en fila): las descargas en paralelo son a sitios
+    distintos, no ráfagas al mismo."""
+    locks: dict[str, threading.Lock] = {}
+    guard = threading.Lock()
+
+    def _get(url: str):
+        with guard:
+            lk = locks.setdefault(domain(url), threading.Lock())
+        with lk:
+            return get(url)
+    return _get
+
+
+def _prebajar(orden: list[dict], dest: Path, prev: dict[str, dict], *, max_ok: int, workers: int, place_re: str,
+              get: Callable, local: dict[str, Path], wayback: bool) -> dict[str, tuple[dict, list[str]]]:
+    """F26 §C: baja en hilos, por oleadas, lo que el recorrido en fila va a pedir. En cada oleada y en cada idioma,
+    las siguientes fuentes «bajar» hasta el cupo que falta (contando como OK las que todavía no se bajaron); cuando
+    vuelve la oleada, se recalcula con lo que de verdad dio. Devuelve {id: (resultado de _fetch_one, su log)}. Si el
+    recorrido en fila necesita alguna que no está (un duplicado entre idiomas), la baja él."""
+    get = _por_sitio(get)
+    hechos: dict[str, tuple[dict, list[str]]] = {}
+    por_lg: dict[str, list[dict]] = {}
+    for f in orden:
+        por_lg.setdefault(fuente_idioma(f), []).append(f)
+
+    def plan() -> list[dict]:
+        out = []
+        for lst in por_lg.values():
+            n = 0
+            for f in lst:
+                if n >= max_ok:
+                    break
+                c = _clase_r2(f, prev, dest)
+                if c == "reuso":
+                    n += int(bool(prev[f["url"]].get("nombra_evento")))
+                elif c == "bajar":
+                    if f["id"] in hechos:
+                        d = hechos[f["id"]][0]
+                        n += int(bool(d["ok"] and d.get("nombra_evento")))
+                    else:
+                        out.append(f)
+                        n += 1
+        return out
+
+    def uno(f: dict) -> tuple[str, tuple[dict, list[str]]]:
+        sub: list[str] = []
+        return f["id"], (_fetch_one(f, dest, place_re=place_re, get=get, local=local, wayback=wayback, log=sub), sub)
+
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        while True:
+            ola = plan()
+            if not ola:
+                break
+            hechos.update(ex.map(uno, ola))
+    return hechos
 
 
 def rebuild_texts(man: dict, dest: Path, place_re: str, ids: list[str] | None = None,
@@ -1467,6 +1550,78 @@ def extract_document(seed: dict, doc: dict, text: str, *, call: Callable[..., di
     if reusados:
         log.append(f"  [R3] {doc['id']}: {reusados} de {len(chunks)} trozo(s) del mismo texto ya extraídos (sin llamadas)")
     return merged
+
+
+RESERVA_OUT_R3 = 16_000                   # F26 §C: peor caso de salida por trozo para el tope (tokens, con thinking)
+
+
+def _gasto_tracker() -> float:
+    from cost_tracker import cost_tracker
+    with cost_tracker._lock:
+        return sum(e.total_cost for e in cost_tracker._all_entries())
+
+
+def extract_documents(seed: dict, docs: list[dict], texts: dict[str, "DocText"], *, event_year: int,
+                      cache_dir: Path | None, place_re: str | None, log: list[str] | None = None,
+                      workers: int | None = None, call: Callable[..., dict] | None = None,
+                      tope_usd: float | None = None) -> dict[str, dict[str, list[dict]]]:
+    """R3 de todos los documentos (sin los contaminados). F26 §C: un documento por hilo (`workers`, por defecto
+    WORKERS); los que tienen el mismo texto van juntos en el mismo hilo, en orden (la caché por texto de F24 sigue
+    sirviendo). Log y `_extraccion_fallida` se juntan en el orden de `docs`: el resultado es el mismo que en fila.
+    `tope_usd` (opcional): antes de cada documento se reserva su peor caso con lock contra lo que ya anotó el
+    cost_tracker (el de todos los hilos); si no entra, ese documento no se lee y se anota."""
+    log = log if log is not None else []
+    todo = [d for d in docs if not doc_contamination(d, event_year)]
+    grupos: dict[str, list[dict]] = {}
+    for d in todo:
+        grupos.setdefault(hashlib.sha1(texts[d["id"]].text.encode("utf-8")).hexdigest(), []).append(d)
+    logs: dict[str, list[str]] = {d["id"]: [] for d in todo}
+    out: dict[str, dict[str, list[dict]]] = {}
+    lock = threading.Lock()
+    reservado = {"usd": 0.0}
+    gasto0 = _gasto_tracker() if tope_usd is not None else 0.0
+
+    def peor(d: dict) -> float:
+        n = len(chunk_text(focus_text(texts[d["id"]].text, place_re)[0]))
+        return n * ((CHUNK_CHARS / 2.5) / 1e6 * 1.25 + RESERVA_OUT_R3 / 1e6 * 10.0)
+
+    def run(grupo: list[dict]) -> None:
+        for d in grupo:
+            w = 0.0
+            if tope_usd is not None:
+                w = peor(d)
+                with lock:
+                    gastado = _gasto_tracker() - gasto0
+                    if gastado + reservado["usd"] + w > tope_usd:
+                        logs[d["id"]].append(f"  [R3] {d['id']}: tope de US$ {tope_usd:.2f} (gastado {gastado:.3f} + "
+                                             f"reservado {reservado['usd']:.3f} + peor caso {w:.3f}): no se lee")
+                        out[d["id"]] = {**{k: [] for k in (*KINDS, "_descartados")},
+                                         "_extraccion_fallida": [{"parte": 0, "de": 0, "error": "tope de costo"}]}
+                        continue
+                    reservado["usd"] += w
+            try:
+                out[d["id"]] = extract_document(seed, d, texts[d["id"]].text, call=call, cache_dir=cache_dir,
+                                                log=logs[d["id"]], place_re=place_re)
+            finally:
+                if w:
+                    with lock:
+                        reservado["usd"] -= w
+    w = WORKERS if workers is None else workers
+    if w > 1 and len(grupos) > 1:
+        with ThreadPoolExecutor(max_workers=w) as ex:
+            list(ex.map(run, grupos.values()))
+    else:
+        for g in grupos.values():
+            run(g)
+    per_doc: dict[str, dict[str, list[dict]]] = {}
+    for d in todo:
+        log.extend(logs[d["id"]])
+        per_doc[d["id"]] = out[d["id"]]
+        fail = per_doc[d["id"]].pop("_extraccion_fallida", None)
+        if fail:                                         # F8b: el pool sigue; el documento queda marcado
+            d["extraccion_fallida"] = fail
+            log.append(f"  [R3] {d['id']}: extracción fallida en {len(fail)} parte(s): el pool sigue sin ellas")
+    return per_doc
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -2397,8 +2552,10 @@ def pool_to_blocks(pool: dict[str, Any]) -> dict[str, str]:
 
 
 def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | None = None,
-             gate: bool = True) -> tuple[dict[str, Any], dict[str, str], dict[str, Any] | None]:
+             gate: bool = True, workers: int | None = None
+             ) -> tuple[dict[str, Any], dict[str, str], dict[str, Any] | None]:
     """Research v3 de un seed: perfil → R1 → R2 (+ fichas) → R3 → R4/R5 → compuerta del pool (rojo → PoolGateRed).
+    F26 §C: R2 y R3 con `workers` hilos (por defecto WORKERS; 1 = en fila); R4/R5, igual que siempre.
     Deja en `steps_dir`: _perfil.json, fuentes.json (F24: el registro de fuentes del tema), fuentes_r1.json (lo
     que trajo R1 esta vez), fuentes/ (+ manifest), _r3_cache/, 00_pool_v3.json, POOL_GATE.md.
     Devuelve (pool, bloques angulares para 4a–4e, gate)."""
@@ -2426,7 +2583,7 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
     s2.update({k: prof.get(k) or [] for k in ("roles_testigo", "roles_antagonista")})
     src = steps_dir / "fuentes"
     man = download_sources(candidatos, src, place_re=prof["place_re"], log=log,
-                           previos=previos_del_registro(registro))
+                           previos=previos_del_registro(registro), workers=workers)
     refine_fichas(man, src, seed, log=log)
     (src / "manifest.json").write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
     docs = [d for d in man["documentos"] if d.get("ok")]
@@ -2437,14 +2594,8 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
     year = tiempo["anio_inicio"]
     for d in docs:
         texts[d["id"]] = DocText(d["id"], (src / d["txt"]).read_text(encoding="utf-8"))
-        if doc_contamination(d, year):
-            continue
-        per_doc[d["id"]] = extract_document(s2, d, texts[d["id"]].text, cache_dir=steps_dir / "_r3_cache", log=log,
-                                            place_re=prof["place_re"])
-        fail = per_doc[d["id"]].pop("_extraccion_fallida", None)
-        if fail:                                         # F8b: el pool sigue; el documento queda marcado
-            d["extraccion_fallida"] = fail
-            log.append(f"  [R3] {d['id']}: extracción fallida en {len(fail)} parte(s): el pool sigue sin ellas")
+    per_doc = extract_documents(s2, docs, texts, event_year=year, cache_dir=steps_dir / "_r3_cache",
+                                place_re=prof["place_re"], log=log, workers=workers)   # F26 §C: en hilos
     if any(d.get("extraccion_fallida") for d in docs):
         (src / "manifest.json").write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
     pool = build_pool(per_doc, docs, texts, event_year=year, anio_fin=tiempo["anio_fin"],

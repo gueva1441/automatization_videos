@@ -1,0 +1,3 @@
+[w=1] R2 14.3 s ({'error': 1, 'no_intentada': 12, 'ok': 20, 'sin_texto': 3}) · R3 caché 1.12 s (288 ítems) · R3 latencia 16.7 s (8 trozos × 2.0 s)
+[w=8] R2 12.4 s ({'error': 1, 'no_intentada': 12, 'ok': 20, 'sin_texto': 3}) · R3 caché 0.79 s (288 ítems) · R3 latencia 2.8 s (8 trozos × 2.0 s)
+manifest igual 1 vs 8: False · R3 igual: True
