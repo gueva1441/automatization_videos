@@ -1,0 +1,62 @@
+{
+ "tipeo": {
+  "lufs": -14.1,
+  "pico_db": -1.0
+ },
+ "sello": {
+  "lufs": -23.3,
+  "pico_db": -1.0
+ },
+ "papel": {
+  "lufs": -5.9,
+  "pico_db": -1.0
+ },
+ "golpe_grave": {
+  "lufs": -19.0,
+  "pico_db": -1.0
+ },
+ "whoosh": {
+  "lufs": -11.1,
+  "pico_db": -1.0
+ },
+ "click": {
+  "lufs": -15.0,
+  "pico_db": -1.0
+ },
+ "tic": {
+  "lufs": -14.6,
+  "pico_db": -1.0
+ },
+ "tic_sordo": {
+  "lufs": -15.8,
+  "pico_db": -1.0
+ },
+ "drone_subida": {
+  "lufs": -11.5,
+  "pico_db": -1.0
+ },
+ "latido": {
+  "lufs": -22.2,
+  "pico_db": -1.0
+ },
+ "brasa": {
+  "lufs": -21.0,
+  "pico_db": -1.0
+ },
+ "rumor": {
+  "lufs": -13.7,
+  "pico_db": -1.0
+ },
+ "zumbido": {
+  "lufs": -16.3,
+  "pico_db": -1.0
+ },
+ "viento": {
+  "lufs": -19.2,
+  "pico_db": -1.0
+ },
+ "vacio": {
+  "lufs": -15.5,
+  "pico_db": -1.0
+ }
+}
