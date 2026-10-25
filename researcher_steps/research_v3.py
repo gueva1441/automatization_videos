@@ -456,6 +456,183 @@ def _ascii(s: str) -> str:
 
 
 # ═══════════════════════════════════════════════════════════════
+#  F24 §A — registro de fuentes por tema (memoria entre corridas)
+# ═══════════════════════════════════════════════════════════════
+
+REGISTRO_FUENTES = "fuentes.json"        # la unión de todas las fuentes del tema (antes: la salida de R1 de esa corrida)
+R1_SALIDA = "fuentes_r1.json"            # la salida de R1 de la última corrida
+REGISTRO_VERSION = "f24-1"
+_DOC_REUSO = ("archivo", "txt", "caracteres", "caracteres_total", "recorte", "nombra_evento", "sha1", "bytes",
+              "url_descarga", "via", "autor", "idioma", "estado", "ok", "descargado", "titulo", "tipo", "anio")
+
+
+def aporte_por_doc(pool: dict[str, Any]) -> dict[str, dict[str, int]]:
+    """{doc_id: {datos, citas, personajes}}: cuántos ítems del pool salieron de cada documento."""
+    out: dict[str, dict[str, int]] = {}
+    for kind in ("datos", "citas", "personajes"):
+        for it in pool.get(kind) or []:
+            for did in set(it.get("docs") or [it.get("doc_id")]):
+                if did:
+                    out.setdefault(did, {"datos": 0, "citas": 0, "personajes": 0})[kind] += 1
+    return out
+
+
+def aporte_total(e: dict | None) -> int:
+    return sum((e or {}).get("aporte", {}).values()) if (e or {}).get("aporte") else 0
+
+
+def _entrada(f: dict, hoy: str) -> dict:
+    return {"url": f["url"], "titulo": f.get("titulo"), "tipo": f.get("tipo"), "idioma": f.get("idioma"),
+            "anio": f.get("anio"), "prioridad": f.get("prioridad"), "por_que": f.get("por_que"), "primera_vez": hoy,
+            "veces_vista": 0, "bajada_ok": False, "chars": 0, "aporte": None, "doc": None}
+
+
+def registro_desde_disco(steps_dir: Path) -> dict[str, Any]:
+    """El registro armado con lo que ya está en disco, sin llamar a nada: las salidas de R1 (`fuentes.json` viejos,
+    `_f*/fuentes.json`), los manifests (`fuentes/manifest.json`, `_f*/manifest.json`) y los pools
+    (`00_pool_v3*.json`, del más viejo al más nuevo: el aporte es el del último pool que extrajo el documento)."""
+    from datetime import datetime
+    reg: dict[str, dict] = {}
+    src = steps_dir / "fuentes"
+
+    def _f(path: Path) -> str:
+        return datetime.fromtimestamp(path.stat().st_mtime).date().isoformat()
+
+    def _j(path: Path):
+        try:
+            return json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return None
+    vistas: dict[str, set] = {}
+    r1s = [steps_dir / "fuentes.json", steps_dir / R1_SALIDA] + sorted(steps_dir.glob("_f*/fuentes.json"))
+    for path in [x for x in r1s if x.exists()]:
+        j = _j(path) or {}
+        if j.get("registro"):
+            continue
+        for f in j.get("fuentes") or []:
+            if f.get("url"):
+                k = norm_url(f["url"])
+                reg.setdefault(k, _entrada(f, _f(path)))
+                vistas.setdefault(k, set()).add(str(path))
+    mans = [src / "manifest.json"] + sorted(steps_dir.glob("_f*/manifest.json"))
+    for path in [x for x in mans if x.exists()]:
+        for d in (_j(path) or {}).get("documentos") or []:
+            if not d.get("url"):
+                continue
+            k = norm_url(d["url"])
+            e = reg.setdefault(k, _entrada(d, d.get("descargado") or _f(path)))
+            vistas.setdefault(k, set()).add(str(path))
+            if d.get("ok") and d.get("txt") and (src / d["txt"]).exists():
+                e.update(bajada_ok=True, chars=d.get("caracteres") or 0,
+                         doc={x: d.get(x) for x in _DOC_REUSO})
+    pools = sorted(steps_dir.glob("00_pool_v3*.json"), key=lambda x: x.stat().st_mtime)
+    for path in pools:
+        pool = _j(path) or {}
+        ap = aporte_por_doc(pool)
+        for d in (pool.get("_research_v3") or {}).get("documentos") or []:
+            if not d.get("url"):
+                continue
+            k = norm_url(d["url"])
+            e = reg.setdefault(k, _entrada(d, _f(path)))
+            vistas.setdefault(k, set()).add(str(path))
+            e["aporte"] = ap.get(d["id"], {"datos": 0, "citas": 0, "personajes": 0})
+            e["aporte_de"] = path.name
+            if d.get("txt") and (src / d["txt"]).exists():
+                e["bajada_ok"] = True
+                e["chars"] = d.get("caracteres") or e["chars"]
+                e["doc"] = {**(e.get("doc") or {}), **{x: d.get(x) for x in ("txt", "caracteres", "titulo", "tipo",
+                                                                                  "anio", "idioma") if d.get(x)},
+                            "ok": True}
+    for k, e in reg.items():
+        e["veces_vista"] = len(vistas.get(k) or ())
+    return {"registro": REGISTRO_VERSION, "fuentes": list(reg.values()), "origen": "disco"}
+
+
+def cargar_registro(steps_dir: Path) -> dict[str, Any]:
+    """F24 §A: el registro de fuentes del tema; si no hay (o `fuentes.json` es la salida de R1 de antes de F24), se
+    arma con lo que ya está en disco."""
+    p = steps_dir / REGISTRO_FUENTES
+    if p.exists():
+        try:
+            j = json.loads(p.read_text(encoding="utf-8"))
+        except ValueError:
+            j = {}
+        if j.get("registro"):
+            return j
+    return registro_desde_disco(steps_dir)
+
+
+def unir_fuentes(nuevas: list[dict], registro: dict[str, Any]) -> list[dict]:
+    """F24 §A: los candidatos de la corrida = lo que trajo R1 + todo lo del registro que R1 no trajo. Orden: aporte
+    de corridas anteriores (más ítems del pool, primero) y después el orden de R1 (prioridad). Ids y slugs nuevos;
+    `_aporte` lo usa el cupo de R2 y `_registro` dice que ya se conocía."""
+    reg = {norm_url(e["url"]): e for e in registro.get("fuentes") or [] if e.get("url")}
+    vistos, out = set(), []
+    for f in nuevas:
+        k = norm_url(f.get("url") or "")
+        vistos.add(k)
+        out.append({**f, "_aporte": aporte_total(reg.get(k)), "_registro": k in reg})
+    for k, e in reg.items():
+        if k in vistos:
+            continue
+        d = e.get("doc") or {}
+        out.append({"url": e["url"], "titulo": d.get("titulo") or e.get("titulo"), "tipo": d.get("tipo") or e.get("tipo"),
+                    "anio": d.get("anio") or e.get("anio"), "idioma": d.get("idioma") or e.get("idioma"),
+                    "prioridad": e.get("prioridad") or 3,
+                    "por_que": e.get("por_que") or "registro de fuentes (de una corrida anterior)",
+                    "_aporte": aporte_total(e), "_registro": True})
+    out.sort(key=lambda f: (-f["_aporte"], f.get("prioridad") or 3))
+    for i, f in enumerate(out, start=1):
+        f["id"] = f"F{i:02d}"
+        f["slug"] = slugify(f) if f.get("url") else f.get("slug")
+    return out
+
+
+def previos_del_registro(registro: dict[str, Any]) -> dict[str, dict]:
+    """{url: entrada de manifest} de lo que el registro ya tiene bajado (R2 no lo vuelve a pedir)."""
+    return {e["url"]: e["doc"] for e in registro.get("fuentes") or []
+            if e.get("bajada_ok") and e.get("doc") and e["doc"].get("txt")}
+
+
+def actualizar_registro(registro: dict[str, Any], candidatos: list[dict], r1: list[dict], man: dict,
+                        pool: dict[str, Any] | None, extraidos: set[str]) -> dict[str, Any]:
+    """Suma la corrida al registro: lo que R1 trajo (veces_vista + 1), lo que R2 bajó y el aporte de lo que R3
+    extrajo (por doc_id de esta corrida). In place + devuelve el registro."""
+    hoy = date.today().isoformat()
+    reg = {norm_url(e["url"]): e for e in registro.setdefault("fuentes", []) if e.get("url")}
+    for f in candidatos:
+        if not f.get("url"):
+            continue
+        k = norm_url(f["url"])
+        if k not in reg:
+            reg[k] = _entrada(f, hoy)
+            registro["fuentes"].append(reg[k])
+    for f in r1:
+        e = reg.get(norm_url(f.get("url") or ""))
+        if e is not None:
+            e["veces_vista"] = e.get("veces_vista", 0) + 1
+    ap = aporte_por_doc(pool or {})
+    for d in man.get("documentos") or []:
+        e = reg.get(norm_url(d.get("url") or ""))
+        if e is None or d.get("estado") == "no_intentada":
+            continue
+        e["ultima_vez"] = hoy
+        for x in ("titulo", "tipo", "anio", "idioma"):
+            if d.get(x):
+                e[x] = d[x]
+        if d.get("ok"):
+            e.update(bajada_ok=True, chars=d.get("caracteres") or 0, doc={x: d.get(x) for x in _DOC_REUSO})
+        elif not e.get("bajada_ok"):
+            e["motivo"] = d.get("motivo")
+        if d.get("id") in extraidos:
+            e["aporte"] = ap.get(d["id"], {"datos": 0, "citas": 0, "personajes": 0})
+            e["aporte_de"] = hoy
+    registro.update(registro=REGISTRO_VERSION, actualizado=hoy)
+    registro.pop("origen", None)
+    return registro
+
+
+# ═══════════════════════════════════════════════════════════════
 #  R2 — descarga y texto
 # ═══════════════════════════════════════════════════════════════
 
@@ -702,23 +879,25 @@ def linked_pdf(html: bytes, page_url: str) -> str | None:
 
 def download_sources(fuentes: list[dict], dest: Path, *, place_re: str, get: Callable[[str], tuple] | None = None,
                      local: dict[str, Path] | None = None, max_ok: int = MAX_DESCARGAS_OK, wayback: bool = True,
-                     log: list[str] | None = None) -> dict[str, Any]:
+                     log: list[str] | None = None, previos: dict[str, dict] | None = None) -> dict[str, Any]:
     """R2: baja por prioridad hasta `max_ok` documentos OK POR IDIOMA (F20: con dos idiomas, las fuentes de uno no
     desplazan a las del otro; dentro de cada idioma, el orden de prioridad de siempre). `local` = {url_normalizada:
     archivo ya bajado} (no se vuelve a pedir). Deja dest/<slug>.<ext>, dest/<slug>.txt y dest/manifest.json; devuelve
-    el manifest."""
+    el manifest. F24 §A: `previos` = lo que el registro de fuentes ya tiene bajado ({url: entrada}; no se vuelve a
+    pedir) y el cupo de cada idioma va primero a las fuentes con más aporte en corridas anteriores (`_aporte`)."""
     log = log if log is not None else []
     get = get or _http_get
     dest.mkdir(parents=True, exist_ok=True)
     man_path = dest / "manifest.json"
-    prev = {}
+    prev = dict(previos or {})
     if man_path.exists():
         try:
-            prev = {d["url"]: d for d in json.loads(man_path.read_text(encoding="utf-8"))["documentos"]}
+            prev.update({d["url"]: d for d in json.loads(man_path.read_text(encoding="utf-8"))["documentos"]
+                         if d.get("ok") or d["url"] not in prev})
         except (OSError, ValueError, KeyError):
-            prev = {}
+            pass
     docs, n_ok = [], {}
-    for f in sorted(fuentes, key=lambda f: (f["prioridad"], f["id"])):
+    for f in sorted(fuentes, key=lambda f: (-(f.get("_aporte") or 0), f["prioridad"], f["id"])):
         lg = fuente_idioma(f)
         if n_ok.get(lg, 0) >= max_ok:
             docs.append({**_meta(f), "ok": False, "estado": "no_intentada",
@@ -1246,9 +1425,17 @@ def extract_document(seed: dict, doc: dict, text: str, *, call: Callable[..., di
     cpath = cache_dir / f"r3_{doc['id']}.json" if cache_dir else None
     if cpath and cpath.exists():
         store = json.loads(cpath.read_text(encoding="utf-8"))
+    # F24 §A: caché por texto: el mismo txt (mismo trozo) no se vuelve a extraer aunque el documento tenga otro id
+    tpath = cache_dir / f"r3_txt_{hashlib.sha1(text.encode('utf-8')).hexdigest()[:16]}.json" if cache_dir else None
+    tstore: dict[str, Any] = json.loads(tpath.read_text(encoding="utf-8")) if tpath and tpath.exists() else {}
+    reusados = 0
     for i, (_, ch) in enumerate(chunks, start=1):
         prompt = build_extraction_prompt(seed, doc, ch, (i, len(chunks)))
         k = f"{PROMPT_VERSION_R3}|{hashlib.sha1(prompt.encode('utf-8')).hexdigest()[:16]}"
+        tk = f"{PROMPT_VERSION_R3}|{i}/{len(chunks)}|{hashlib.sha1(ch.encode('utf-8')).hexdigest()[:16]}"
+        if k not in store and tk in tstore:
+            store[k] = tstore[tk]
+            reusados += 1
         if k not in store:
             res, err = None, None
             for attempt in range(R3_RETRIES + 1):        # F8b: una caída de Pro no tira el documento
@@ -1270,9 +1457,15 @@ def extract_document(seed: dict, doc: dict, text: str, *, call: Callable[..., di
             if cpath:
                 cpath.parent.mkdir(parents=True, exist_ok=True)
                 cpath.write_text(json.dumps(store, ensure_ascii=False, indent=1), encoding="utf-8")
+        if tpath and tk not in tstore:
+            tstore[tk] = store[k]
+            tpath.parent.mkdir(parents=True, exist_ok=True)
+            tpath.write_text(json.dumps(tstore, ensure_ascii=False, indent=1), encoding="utf-8")
         part = validate_doc_items(store[k] or {}, doc, dt, log)
         for kk in merged:
             merged[kk] += part.get(kk) or []
+    if reusados:
+        log.append(f"  [R3] {doc['id']}: {reusados} de {len(chunks)} trozo(s) del mismo texto ya extraídos (sin llamadas)")
     return merged
 
 
@@ -2206,7 +2399,8 @@ def pool_to_blocks(pool: dict[str, Any]) -> dict[str, str]:
 def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | None = None,
              gate: bool = True) -> tuple[dict[str, Any], dict[str, str], dict[str, Any] | None]:
     """Research v3 de un seed: perfil → R1 → R2 (+ fichas) → R3 → R4/R5 → compuerta del pool (rojo → PoolGateRed).
-    Deja en `steps_dir`: _perfil.json, fuentes.json, fuentes/ (+ manifest), _r3_cache/, 00_pool_v3.json, POOL_GATE.md.
+    Deja en `steps_dir`: _perfil.json, fuentes.json (F24: el registro de fuentes del tema), fuentes_r1.json (lo
+    que trajo R1 esta vez), fuentes/ (+ manifest), _r3_cache/, 00_pool_v3.json, POOL_GATE.md.
     Devuelve (pool, bloques angulares para 4a–4e, gate)."""
     from config import DATA_DIR
     log = log if log is not None else []
@@ -2218,15 +2412,21 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
           "nombres_lugar": prof.get("nombres_lugar") or [],                                       # F8b: R1 alternativo
           "idiomas_research": prof.get("idiomas_research") or []}                                 # F23 §1.4
     set_idiomas(prof.get("idiomas_research"))
+    registro = cargar_registro(steps_dir)                # F24 §A: lo que el tema ya encontró no se vuelve a perder
     r1 = discover_sources(s2, cache=steps_dir / "_r1_cache.json", log=log)
-    (steps_dir / "fuentes.json").write_text(json.dumps(r1, ensure_ascii=False, indent=1), encoding="utf-8")
+    (steps_dir / R1_SALIDA).write_text(json.dumps(r1, ensure_ascii=False, indent=1), encoding="utf-8")
+    candidatos = unir_fuentes(r1["fuentes"], registro)
+    log.append(f"  [R1] candidatos: {len(r1['fuentes'])} de R1 + "
+               f"{sum(1 for f in candidatos if f['_registro'] and not any(norm_url(f['url']) == norm_url(x['url']) for x in r1['fuentes']))}"
+               f" del registro de fuentes ({len(registro.get('fuentes') or [])} en el registro)")
     if "roles_testigo" not in prof:                 # F20: el vocabulario del caso, con el seed y las fuentes de R1
         prof.update(seed_vocabulario(seed, r1.get("fuentes"), idiomas=s2.get("lugar_idioma") or ""))
         pf.write_text(json.dumps(prof, ensure_ascii=False, indent=1), encoding="utf-8")
     set_vocabulario(prof)
     s2.update({k: prof.get(k) or [] for k in ("roles_testigo", "roles_antagonista")})
     src = steps_dir / "fuentes"
-    man = download_sources(r1["fuentes"], src, place_re=prof["place_re"], log=log)
+    man = download_sources(candidatos, src, place_re=prof["place_re"], log=log,
+                           previos=previos_del_registro(registro))
     refine_fichas(man, src, seed, log=log)
     (src / "manifest.json").write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
     docs = [d for d in man["documentos"] if d.get("ok")]
@@ -2251,6 +2451,8 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
                       geocode_cache=DATA_DIR / "geocode_cache.json", log=log, subject_re=subject_re_del_perfil(prof))
     pool["_tiempo"] = tiempo                             # F23: lo lee la compuerta (eventos con fecha según el tipo)
     (steps_dir / "00_pool_v3.json").write_text(json.dumps(pool, ensure_ascii=False, indent=1), encoding="utf-8")
+    actualizar_registro(registro, candidatos, r1["fuentes"], man, pool, set(per_doc))
+    (steps_dir / REGISTRO_FUENTES).write_text(json.dumps(registro, ensure_ascii=False, indent=1), encoding="utf-8")
     g = None
     if gate:
         from researcher_steps import pool_gate as pg

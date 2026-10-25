@@ -1,0 +1,107 @@
+{
+ "etapas": [
+  {
+   "tema": "modelo",
+   "etapa": "escaleta F1",
+   "usd": 1.0549,
+   "segundos": 192.4,
+   "llamadas": [
+    {
+     "servicio": "Anthropic claude-fable-5-1",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 25491,
+     "out": 16000,
+     "thinking": 0,
+     "usd": 1.0549
+    }
+   ],
+   "modelo": "claude-fable-5-1",
+   "error": "Parada: la llamada ya facturó una vez (JSON roto o cortado): no hay reintento por el tope",
+   "log": [
+    "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}"
+   ]
+  },
+  {
+   "tema": "modelo",
+   "etapa": "escaleta S1",
+   "usd": 0.3144,
+   "segundos": 485.4,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 15660,
+     "out": 6038,
+     "thinking": 6018,
+     "usd": 0.1519
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 15983,
+     "out": 5906,
+     "thinking": 7146,
+     "usd": 0.1625
+    }
+   ],
+   "modelo": "gpt-6.1-sol",
+   "error": "EscaletaValidationError: escaleta v2 rechazada después de 2 intento(s) (PARADA): ['humano Q17 no es una persona del pool']",
+   "log": [
+    "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}",
+    "  [escaleta v2] intento 1: 11 bloqueante(s) ['beat 2: dato_central «P22: ANTES DE CONVERTIRSE EN LIQUIDADOR, ANATOLY VASILIEVICH DUBROVSKY ERA ELECTRICISTA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D20 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D143 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D152 también está en un beat: lo que va a pantalla no lo dice la voz'] · 65 reparación(es) · 16 a métricas",
+    "  [escaleta v2] intento 2: 1 bloqueante(s) ['humano Q17 no es una persona del pool'] · 64 reparación(es) · 9 a métricas"
+   ]
+  },
+  {
+   "tema": "modelo",
+   "etapa": "escaleta S2",
+   "usd": 0.2875,
+   "segundos": 425.3,
+   "llamadas": [
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 1",
+     "in": 15660,
+     "out": 6498,
+     "thinking": 4610,
+     "usd": 0.1424
+    },
+    {
+     "servicio": "OpenAI gpt-6.1-sol",
+     "desc": "m01a_escaleta v2 intento 2",
+     "in": 16162,
+     "out": 5642,
+     "thinking": 5632,
+     "usd": 0.1451
+    }
+   ],
+   "modelo": "gpt-6.1-sol",
+   "error": null,
+   "log": [
+    "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}",
+    "  [escaleta v2] intento 1: 19 bloqueante(s) ['beat 2: dato_central «P22: ANTES DE SER LIQUIDADOR, DUBROVSKY ERA ELECTRICISTA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla T04 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D62 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D27 también está en un beat: lo que va a pantalla no lo dice la voz'] · 70 reparación(es) · 13 a métricas",
+    "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 58 reparación(es) · 14 a métricas"
+   ]
+  },
+  {
+   "tema": "modelo",
+   "etapa": "escaleta F2",
+   "usd": 0.0,
+   "segundos": 0.0,
+   "llamadas": [],
+   "modelo": "claude-fable-5-1",
+   "error": "Parada: tope antes de «m01a_escaleta v2 intento 1»: paso US$ 1.657 + peor caso 0.984 > 2.00 (o total 2.641 > 14.00)",
+   "log": [
+    "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}"
+   ]
+  },
+  {
+   "tema": "modelo",
+   "etapa": "guion S2",
+   "usd": 0.0,
+   "segundos": 0.2,
+   "llamadas": []
+  }
+ ],
+ "usd_total": 1.6568
+}

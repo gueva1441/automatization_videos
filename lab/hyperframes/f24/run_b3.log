@@ -1,0 +1,9 @@
+[23:55:18] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f24-b3-F1-escaleta
+[23:58:31] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f24-b3-F1-escaleta � Costo total: $1.0549
+[claude] m01a_escaleta v2 intento 1: JSON inválido (Unterminated string starting at; stop_reason max_tokens) (intento 1/3) — re-llamando
+  [modelo escaleta F1] US$ 1.0549 · 192 s · tanda US$ 1.0549
+  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}
+PARADA (B.3 escaleta F1): Parada: la llamada ya facturó una vez (JSON roto o cortado): no hay reintento por el tope
+{"F1": {"pasada1": null, "final": null}, "S1": {"pasada1": null, "final": null}, "S2": {"pasada1": null, "final": null}, "F2": {"pasada1": null, "final": null}}
+B.3 US$ 1.0549 · prompt escaleta f24-1 006a195f0ce4be014df34d71644aedb1
+tanda US$ 1.0549

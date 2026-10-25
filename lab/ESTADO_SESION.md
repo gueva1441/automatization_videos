@@ -12,6 +12,12 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
 
+## F24 — Fuentes que se acumulan, beats repartidos, dos temas nuevos — EN CURSO (A+B commiteadas; PARADA corta antes de C)
+- Sobre `03370af`. Handoff `lab/hyperframes/f24/HANDOFF_F24_fuentes_beats_dos_temas.md` (md5 `7ccd8f35…`). Tope total US$ 14.00.
+- A: `research_v3` registro de fuentes por tema (`fuentes.json` = registro `f24-1`; la salida de R1 pasa a `fuentes_r1.json`), R1 unido (`unir_fuentes`, aporte primero), R2 reusa lo bajado (`previos`), R3 caché por texto (`r3_txt_<sha1>.json`). Kyshtym: registro armado de disco (36 fuentes, 23 bajadas, 21 con aporte; Osetrov entra reusado en el cupo ruso) — `lab/hyperframes/f24/registro_kyshtym.md`.
+- B: bloqueante «entre 1 y 3 beats por cap» (`MAX_BEATS_POR_CAP`); escaleta `f24-1` (md5 `006a195f…`; la f22-2 queda `SYSTEM_V2_F22_2`). B.3 (US$ 1.66): Fable cortado en max_tokens; S1 rechazada (humano = id de cita); S2 1·1·2·2·2·3·3 → **Sol para C** (`TABLA_B3.md`).
+- Suite amplia 855 verdes + las 5 previas.
+
 ## F23 — Familias D + G + H + I: el tiempo del caso, umbrales a métrica, intent desde la escaleta, idiomas — HECHO, **PARADA** (el analista lee el guion y el diff; si Kyshtym da ≥ 8, F24)
 - Sobre `2dcc428`. Reporte `lab/hyperframes/f23/F23_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), `compara_f23.html` (F22d | F23 por cap).
 - Perfil: `anio_inicio/anio_fin/tipo_evento/cobertura_ingles/idiomas_research`. Kyshtym: **1948–1967 prolongado**, [ruso, inglés, español]; Orleans 2005 puntual; Ycuá 2004 puntual (a esos dos solo se les sumaron los campos nuevos; respaldo `_perfil_f22.json`).

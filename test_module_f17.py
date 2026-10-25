@@ -177,7 +177,7 @@ def test_columna_usa_sol_high(monkeypatch, tmp_path):
 
 def test_tarea_columna_literal():
     assert me.TAREA_COLUMNA == "<tarea>\n" + _sistema_md()[2] + "\n</tarea>"
-    assert me.PROMPT_VERSION_COLUMNA_F17 == "f17-1" and me.PROMPT_VERSION_COLUMNA == "f22-2"   # F22e
+    assert me.PROMPT_VERSION_COLUMNA_F17 == "f17-1" and me.PROMPT_VERSION_COLUMNA == "f24-1"   # F22e; F24
 
 
 def test_escaleta_con_columna_antes_de_la_ficha():

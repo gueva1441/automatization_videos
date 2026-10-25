@@ -1,0 +1,52 @@
+{
+ "error": "EscaletaValidationError: escaleta v2 rechazada después de 2 intento(s) (PARADA): ['humano Q17 no es una persona del pool']",
+ "log": [
+  "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}",
+  "  [escaleta v2] intento 1: 11 bloqueante(s) ['beat 2: dato_central «P22: ANTES DE CONVERTIRSE EN LIQUIDADOR, ANATOLY VASILIEVICH DUBROVSKY ERA ELECTRICISTA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D20 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D143 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D152 también está en un beat: lo que va a pantalla no lo dice la voz'] · 65 reparación(es) · 16 a métricas",
+  "  [escaleta v2] intento 2: 1 bloqueante(s) ['humano Q17 no es una persona del pool'] · 64 reparación(es) · 9 a métricas"
+ ],
+ "metricas": {
+  "beats": 0,
+  "beats_por_cap": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "ids": 0,
+  "apoyos_por_beat": 0.0,
+  "promesa": null,
+  "humano": null,
+  "antagonista": null,
+  "intentos": [],
+  "pasada1_beats_por_cap": [
+   1,
+   1,
+   2,
+   2,
+   2,
+   3,
+   3
+  ],
+  "pasada1_caps_fuera_1_3": [],
+  "pasada1_bloqueantes": [
+   "beat 1: dato_central «Q16: UN HOMBRE Y SUS COMPAÑEROS OYEN UN FUERTE ESTRUENDO; EL EDIFICIO EMPIEZA A TEMBLAR. RESERVAR LA UBICACIÓN Y LA ACTIVIDAD QUE REALIZABAN PARA EL REGRESO CRONOLÓGICO AL ACCIDENTE. EL TESTIMONIO NO ESTÁ VERIFICADO: NO USAR UNA CITA LITERAL CON ATRIBUCIÓN NOMINAL.» no existe en el pool (o no es D/T/Q)",
+   "beat 2: dato_central «P22: ANTES DE CONVERTIRSE EN LIQUIDADOR, ANATOLY VASILIEVICH DUBROVSKY ERA ELECTRICISTA.» no existe en el pool (o no es D/T/Q)",
+   "beat 3: dato_central «D55: ANTES DE LA EXPLOSIÓN, MAYAK YA VERTÍA RESIDUOS RADIACTIVOS LÍQUIDOS EN EL RÍO TECHA. GIRO 1: LA CONTAMINACIÓN NO COMIENZA CON EL ACCIDENTE.» no existe en el pool (o no es D/T/Q)",
+   "beat 4: dato_central «D19, D119: LA ALTERACIÓN DEL RÉGIMEN DE REFRIGERACIÓN APARECE IDENTIFICADA COMO CAUSA DEL ACCIDENTE. SEPARAR ESTE ACUERDO DOCUMENTAL DE LAS DISCREPANCIAS SOBRE EL MECANISMO PRECISO.» no existe en el pool (o no es D/T/Q)",
+   "beat 5: dato_central «D30: LA EXPLOSIÓN DESTRUYE EL TANQUE N.º 14 Y DEJA UN CRÁTER. GIRO 2: EL PROBLEMA DEL ALMACENAMIENTO SE CONVIERTE EN CONTAMINACIÓN FUERA DEL RECINTO INDUSTRIAL.» no existe en el pool (o no es D/T/Q)",
+   "beat 6: dato_central «Q17: DUBROVSKY RECIBE LA TAREA DE ARRANCAR ARBUSTOS SIN INSTRUCCIONES DE TRABAJO, SALVO CONSERVAR LA PROTECCIÓN RESPIRATORIA. GIRO 3: EL ELECTRICISTA PASA A SER LIQUIDADOR.» no existe en el pool (o no es D/T/Q)",
+   "beat 7: dato_central «Q18: LA DESCONTAMINACIÓN DE DUBROVSKY CONSISTE EN UN LAVADO CON AGUA FRÍA A GRAN PRESIÓN; EL GOLPE EN EL PECHO LE DUELE TANTO QUE PIDE QUE PAREN.» no existe en el pool (o no es D/T/Q)",
+   "beat 8: dato_central «Q03: BULDAKOV DECLARÓ ANTE EL SÓVIET SUPREMO QUE NO HABÍAN REGISTRADO NINGUNA FORMA DE ENFERMEDAD POR RADIACIÓN DURANTE SU SEGUIMIENTO. CONTRASTAR EL ALCANCE DE ESA DECLARACIÓN, NO CONVERTIRLA EN UN BALANCE DE TODAS LAS VÍCTIMAS.» no existe en el pool (o no es D/T/Q)",
+   "beat 9: dato_central «Q02: EL PERIÓDICO LOCAL PRESENTA EL RESPLANDOR NOCTURNO COMO UNA AURORA POLAR. GIRO 4: LA EXPLICACIÓN PÚBLICA NO IDENTIFICA LA CATÁSTROFE MIENTRAS COMIENZA UNA EVACUACIÓN CUYO CALENDARIO ESTÁ DISCUTIDO.» no existe en el pool (o no es D/T/Q)",
+   "beat 10: dato_central «Q24: EL MEMORANDO ATRIBUIDO A SLAVSKY SEÑALA COMO PRINCIPALES CULPABLES AL JEFE Y AL INGENIERO JEFE DE LA PLANTA RADIOQUÍMICA. NO EQUIPARAR ESOS CARGOS AUTOMÁTICAMENTE CON LA DIRECCIÓN DE TODO MAYAK.» no existe en el pool (o no es D/T/Q)",
+   "beat 11: dato_central «D51: MEDVEDEV PUBLICA EN NEW SCIENTIST EN 1976 Y DA ALCANCE INTERNACIONAL AL DESASTRE. GIRO 5: EL ACCIDENTE ATRAVIESA EL SECRETO Y TERMINA SIENDO RECONOCIDO POR LA URSS.» no existe en el pool (o no es D/T/Q)",
+   "beat 12: dato_central «D108, D109: LOS ABOGADOS DE GALINA CHANOVA CALCULAN UNA DEUDA SUPERIOR A LA CANTIDAD FINALMENTE CONCEDIDA POR EL TRIBUNAL. GIRO 6: EL CONFLICTO PASA DEL RECONOCIMIENTO DEL ACCIDENTE A LA REPARACIÓN EFECTIVA.» no existe en el pool (o no es D/T/Q)",
+   "beat 13: dato_central «D07: N.N.D., EVACUADA DE KURMANOVO, ENCUENTRA UNA NEGATIVA ADMINISTRATIVA A SU SOLICITUD HABITACIONAL BASADA EN CUÁNDO LA PRESENTÓ.» no existe en el pool (o no es D/T/Q)",
+   "beat 14: dato_central «D126: LA FALTA DE DOSÍMETROS PERSONALES DEMORÓ LA INCLUSIÓN DE DUBROVSKY Y SUS COMPAÑEROS ELECTRICISTAS EN LA LISTA DE LIQUIDADORES. NO AFIRMAR QUE NUNCA FUERON RECONOCIDOS.» no existe en el pool (o no es D/T/Q)"
+  ]
+ }
+}

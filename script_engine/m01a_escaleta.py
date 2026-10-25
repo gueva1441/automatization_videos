@@ -527,10 +527,12 @@ def _beat_known(beats: list[dict], upto_cap: int, pool: dict, esc: dict, context
 
 def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
              solo_apoyo: list[str] | tuple[str, ...] = (), largo: dict | None = None, max_apoyos: int = MAX_APOYOS,
-             institucion_ok: Callable[[str], bool] | None = None) -> tuple[dict, list[str], list[str], list[str]]:
+             institucion_ok: Callable[[str], bool] | None = None,
+             max_por_cap: int | None = None) -> tuple[dict, list[str], list[str], list[str]]:
     """(escaleta reparada, problemas duros, reparaciones, avisos). Problemas duros → reintento. `context` = lo que el
     espectador sabe antes del primer segundo (el título del video).
-    F19: `institucion_ok` (solo con ficha) = el antagonista `tipo: "institucion"` existe si su nombre está en la ficha."""
+    F19: `institucion_ok` (solo con ficha) = el antagonista `tipo: "institucion"` existe si su nombre está en la ficha.
+    F24 §B.1: `max_por_cap` (la v2: MAX_BEATS_POR_CAP) = ningún cap con más beats que eso."""
     esc = copy.deepcopy(raw or {})
     its = ev.items(pool)
     hard, rep, warn = [], [], []
@@ -553,6 +555,9 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
     caps = [b["cap"] for b in beats]
     if caps != sorted(caps) or set(caps) != set(range(1, 8)):
         hard.append(f"caps de los beats {caps}: tienen que ir de 1 a 7, en orden, con al menos un beat cada uno")
+    if max_por_cap and any(caps.count(n) > max_por_cap for n in range(1, 8)):
+        hard.append(f"caps con más de {max_por_cap} beats: {[n for n in range(1, 8) if caps.count(n) > max_por_cap]} "
+                    f"(beats por cap: {[caps.count(n) for n in range(1, 8)]}; cada cap lleva entre 1 y {max_por_cap})")
     short = [n for n in range(2, 7) if 0 < caps.count(n) < min_dev]
     if short:                                        # F8 §2: ≥ 2 beats por cap de desarrollo (verde)
         hard.append(f"caps de desarrollo con menos de {min_dev} beats: {short} (beats por cap: "
@@ -1112,14 +1117,83 @@ def generate_escaleta(topic: dict, *, call: Callable[..., dict] | None = None, a
 #  F16: escaleta v2 (con ficha v2): prompt del analista, Sol high, 13 bloqueantes, el resto a métricas
 # ═══════════════════════════════════════════════════════════════
 
-PROMPT_VERSION_V2 = "f22-2"         # F22e: v2.1 + la promesa es una imagen o una pregunta (§2)
+PROMPT_VERSION_V2 = "f24-1"         # F24 §B.2: f22-2 + en <errores>, entre uno y tres beats por cap
+PROMPT_VERSION_V2_F22_2 = "f22-2"   # F22e: v2.1 + la promesa es una imagen o una pregunta (§2): SYSTEM_V2_F22_2
 PROMPT_VERSION_V2_F22 = "f22-1"     # F22: escaleta v2.1 (ejemplo del caso inventado, antagonista de tres tipos)
 PROMPT_VERSION_V2_F16 = "f16-1"     # la v2 de F16: SYSTEM_V2_F16_1, byte-idéntico
 REGENERACIONES_V2 = 1               # F16 §1.3: si fallan los bloqueantes, UNA regeneración; si vuelve a fallar, PARADA
+MAX_BEATS_POR_CAP = 3               # F24 §B.1: cada cap entre 1 y 3 beats (bloqueante de estructura)
 
-# F22e: el bloque SISTEMA de lab/hyperframes/f22/PROMPT_ESCALETA_v2_1.md, literal (test byte-idéntico contra el
-# .md, extraído anclando en «## SISTEMA»): la v2.1 de F22 + una oración en <oficio> §2 sobre la promesa.
+# F24 §B.2: el bloque SISTEMA de lab/hyperframes/f24/PROMPT_ESCALETA_v2_1_f24.md, literal (test byte-idéntico
+# contra el .md, extraído anclando en «## SISTEMA»): la de F22e (f22-2) con una línea de <errores> cambiada.
 SYSTEM_V2 = """<rol>
+Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que nadie escriba una línea, vos decidís la historia: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea, y con qué se queda al final. Trabajás solo con la ficha del caso que te dan: no inventás nombres, cifras, fechas ni citas. Lo que no está en la ficha no pasó.
+</rol>
+
+<que_es_una_escaleta>
+Siete capítulos, de 7 a 14 beats. Cada beat es un momento de la historia: tiene un dato central, hasta seis apoyos, una imagen que se puede ver (o oír, u oler), lo que el espectador se pregunta en ese punto, y la frase con la que el capítulo deja la puerta abierta al siguiente. El guionista va a escribir exactamente lo que vos decidas. Si la escaleta es plana, el guion va a ser plano.
+
+El antagonista es quien decide: una persona de la ficha, o una institución que la ficha nombra (un ministerio, una empresa, una dirección). Si en este caso no hay a quién atribuirle la decisión, lo decís («ninguno») y por qué.
+</que_es_una_escaleta>
+
+<oficio>
+1. El humano primero. La ficha trae candidatos con arco. Elegí al que tenga más momentos concretos (entra, sufre, sale) y más citas verificadas. Tiene que aparecer en el gancho, en el pico y en el cierre; si en el medio desaparece dos caps, el espectador lo olvida.
+2. El gancho es el peor momento, ya en curso. Tomá la escena más fuerte de la ficha y ponela en el beat 1, marcado como flash-forward. Sin contexto, sin año, sin cifras: lo que se ve. La promesa es una frase que dice qué va a entender el espectador si se queda. Es una imagen o una pregunta, nunca un resumen de lo que va a pasar ni una lista de lo que viene.
+3. Del gancho se vuelve atrás. El cap 2 es la vida antes: quién era esta gente, qué hacía ahí. Es el único cap tranquilo y por eso es el más importante para que duela lo que viene.
+4. Cada cap avanza y deja algo abierto. La frase de cierre de un cap nombra lo que viene o lo deja incompleto. Nunca resume.
+5. El pico es uno solo, y es el que la ficha marcó salvo que tengas una razón mejor (decila). Antes del pico, un cap que aprieta; después del pico, un respiro: lo que queda cuando pasa lo peor, el recuento, el silencio.
+6. Los giros de la ficha son los puntos donde la historia cambia de dirección. Cada giro tiene su beat. Si un giro no entra, decí cuál y por qué.
+7. Las escenas de la ficha son tus imágenes. El beat 1 y el pico toman su imagen de una escena; los demás, cuando haya una. Una imagen es algo para ver, oír, oler o tocar: «manos contra un vidrio ahumado», no «la desesperación de la gente».
+8. Las versiones en disputa (quién dio la orden, si un aviso llegó a tiempo) son material, no problema: dales su beat. El contraste entre la versión oficial y lo que cuentan los testigos suele ser el mejor cap 6.
+9. El cierre vuelve al humano con una cita suya o una pregunta que nadie respondió. Nunca una moraleja, nunca «hoy».
+10. Lo que va a pantalla (cifras oficiales, documentos) no lo dice la voz. Marcalo en `a_pantalla`. Las cifras que sí dice la voz, una vez cada una.
+11. Un dato vive en un solo beat. Si lo necesitás en dos, elegí dónde pega más.
+12. Las citas sin verificar van sin nombre, pero no excluyen a nadie: el humano puede estar en escena con una cita suya sin verificar; el guionista sabrá no ponerle el nombre a esa frase.
+</oficio>
+
+<ejemplo>
+De un caso que no es el tuyo (una estación de radio y faro en una isla, mil novecientos sesenta y ocho). Copiá la forma, no el contenido. Los ids van como Q##, D##, T##, E#: ## es el número que tenga el id en TU ficha; ninguno de estos existe en tus datos.
+
+humano: Elvira Soto, telegrafista de la estación. Por qué: manda los telegramas pidiendo el barco, recibe las respuestas sin firma, sostiene la radio con las baterías del faro la noche del pico, y años después es la única que guardó el registro. 3 citas verificadas.
+antagonista: institución · la Dirección de Faros y Balizas. Por qué: los telegramas de «mantener servicio» salen de ahí y nadie los firma.
+promesa_gancho: «Once personas esperaron veintitrés días un barco que no llegó. Esta es la historia de quién decidió que no llegara.»
+pico: beat 5 (la noche del generador). Por qué: es el momento en que esperar deja de ser una decisión de la Dirección y pasa a ser una de ellos; todo lo anterior lo prepara.
+
+beat 1 · cap 1 · gancho · flash-forward · intensidad 4 · escena E#
+  imagen: una mujer transmite en morse a la luz de una vela; olor a querosén
+  dato central: Q## (Soto: «transmitía con las baterías del faro»)
+  el espectador se pregunta: ¿por qué sigue transmitiendo?
+  cierre: Tres semanas antes de la vela, llegó un telegrama. Y con él, una orden.
+beat 2 · cap 2 · planteo · intensidad 1
+  imagen: el libro de telegramas abierto, la letra de Elvira
+  dato central: T## (el primer telegrama de la Dirección: mantener servicio) · apoyos: D## (once personas en la estación, tres familias), Q## (Bascuñán: «el faro no se apaga»), D## (la fecha prevista del Alborada)
+  humano en escena: sí
+  el espectador se pregunta: ¿quién manda cuando el que manda está a tres días de barco?
+  cierre: El Alborada tenía que llegar el lunes. No llegó el lunes.
+…
+beat 5 · cap 5 · pico · intensidad 5 · escena E#
+  imagen: el generador que tose dos veces y se apaga; una silla rota contra el piso
+  dato central: Q## (Soto: la noche que se apagó el generador) · apoyos: D## (Bascuñán ordena quemar los muebles), T## (la muerte del niño esa noche)
+  humano en escena: sí
+  el espectador se pregunta: ¿cuánto dura una batería?
+  cierre: A la mañana, el faro seguía encendido. Adentro, eran uno menos.
+beat 6 · cap 6 · respiro · intensidad 2 …
+beat 8 · cap 7 · cierre · intensidad 3
+  dato central: D## (la comisión: dos muertos; las familias: tres) · apoyos: Q## (Marín: «el capitán leyó el papel y dio la vuelta»), Q## (Soto: «nadie me dijo que los leyeran»)
+  cierre: la cita de Soto.
+a_pantalla: D## (el recuento oficial), D## (el informe de la comisión, fecha y folio).
+</ejemplo>
+
+<errores>
+- Elegir un humano distinto cada vez que se corre. Si la ficha lo propone y tiene arco, es él.
+- Poner el gancho tranquilo para que la curva «suba». El gancho es el peor momento; la curva empieza alta, baja en el cap 2 y vuelve a subir. Eso es un flash-forward, no un error.
+- Ignorar las escenas de la ficha y escribir imágenes abstractas («la tensión en el aire»).
+- Meter seis beats en un cap y uno en los demás. Cada cap lleva entre uno y tres beats; el material que no cabe se deja afuera, no se apila.
+- Convertir «el espectador se pregunta» en una pregunta retórica para el guion. Es una nota para vos y para el guionista, no una frase del video.
+</errores>"""
+
+# F24: la v2.1 de F22e (f22-2), byte-idéntica.
+SYSTEM_V2_F22_2 = """<rol>
 Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que nadie escriba una línea, vos decidís la historia: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea, y con qué se queda al final. Trabajás solo con la ficha del caso que te dan: no inventás nombres, cifras, fechas ni citas. Lo que no está en la ficha no pasó.
 </rol>
 
@@ -1322,7 +1396,8 @@ Con la ficha de arriba, armá la escaleta de este caso en el JSON del esquema: h
 </tarea>"""
 
 # F16 §1.3: los 13 bloqueantes del archivo son chequeos que `validate` ya tiene; se usan tal cual: `bloqueantes` corre
-# `validate` y se queda con estos mensajes duros; los demás duros van a métricas. De los 13:
+# `validate` y se queda con estos mensajes duros; los demás duros van a métricas. F24 §B.1: 14, con «entre 1 y 3
+# beats por cap» (estructura, como «al menos un beat»). De los 13 de F16:
 #   · 9 rechazan con su mensaje de siempre (abajo: beats, caps, gancho, dato central, pico ×2, humano, antagonista,
 #     a_pantalla repetido);
 #   · 2 rechazan y además reparan como siempre: «un id en un solo beat» (dato central repetido → rechazo; apoyo
@@ -1332,6 +1407,7 @@ Con la ficha de arriba, armá la escaleta de este caso en el JSON del esquema: h
 BLOQUEANTES_V2 = (
     ("beats entre 7 y 14", r"^\d+ beats \(tienen que ser "),
     ("caps 1–7 en orden con al menos un beat", r"^caps de los beats "),
+    ("entre 1 y 3 beats por cap", r"^caps con más de \d+ beats: "),
     ("cap/intensidad numéricos (precondición de los demás)", r"^beat \d+: cap/intensidad/palabras no numéricos"),
     ("el beat 1 es el gancho del cap 1", r"^el beat 1 tiene que ser la función «gancho»"),
     ("dato_central existe", r"^beat \d+: dato_central «.*» no existe en el pool"),
@@ -1346,7 +1422,7 @@ BLOQUEANTES_V2 = (
 
 
 def bloqueante_de(msg: str) -> str | None:
-    """El bloqueante (de los 13) al que corresponde un problema duro de `validate`, o None (→ métrica)."""
+    """El bloqueante (de los 14) al que corresponde un problema duro de `validate`, o None (→ métrica)."""
     return next((name for name, pat in BLOQUEANTES_V2 if re.search(pat, msg)), None)
 
 
@@ -1361,9 +1437,10 @@ def institucion_de_la_ficha(nombre: str, ficha: dict) -> bool:
 def bloqueantes(raw: dict, pool: dict, ficha: dict | None, *, context: str = "", largo: dict | None = None
                 ) -> tuple[dict, list[str], list[str], list[str]]:
     """F16 §1.3: (escaleta reparada, bloqueantes, reparaciones, lo demás que `validate` marcaba como duro o aviso). Solo
-    los 13 rechazan; el resto se muestra en `metricas_escaleta`."""
+    los 14 rechazan (F24: + entre 1 y 3 beats por cap); el resto se muestra en `metricas_escaleta`."""
     esc, hard, rep, warn = validate(raw, pool, final=True, context=context, largo=largo, max_apoyos=MAX_APOYOS_FICHA,
-                                    institucion_ok=(lambda n: institucion_de_la_ficha(n, ficha)) if ficha else None)
+                                    institucion_ok=(lambda n: institucion_de_la_ficha(n, ficha)) if ficha else None,
+                                    max_por_cap=MAX_BEATS_POR_CAP)
     bloq = [h for h in hard if bloqueante_de(h)]
     return esc, bloq, rep, [h for h in hard if not bloqueante_de(h)] + warn
 
@@ -1578,7 +1655,7 @@ REVELACIÓN: {topic.get("reveal") or "-"}
 #  F17: la escaleta v2 lee la columna (solo con ficha y columna; sin columna, F16 byte-idéntica)
 # ═══════════════════════════════════════════════════════════════
 
-PROMPT_VERSION_COLUMNA = "f22-2"    # F22: con columna, también la v2.1 (F22e: f22-2)
+PROMPT_VERSION_COLUMNA = "f24-1"    # F22: con columna, también la v2.1 (F22e: f22-2; F24: f24-1)
 PROMPT_VERSION_COLUMNA_F17 = "f17-1"
 
 # F17 §1.2: el texto de «CÓMO SE USA LA COLUMNA» de lab/hyperframes/f17/PROMPT_COLUMNA_v1.md, literal (test contra el .md).

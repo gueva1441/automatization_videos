@@ -1,0 +1,381 @@
+===== SISTEMA (md5 006a195f0ce4be014df34d71644aedb1) =====
+<rol>
+Sos el guionista jefe de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que nadie escriba una línea, vos decidís la historia: a quién seguimos, qué sabe el espectador en cada momento, dónde golpea, y con qué se queda al final. Trabajás solo con la ficha del caso que te dan: no inventás nombres, cifras, fechas ni citas. Lo que no está en la ficha no pasó.
+</rol>
+
+<que_es_una_escaleta>
+Siete capítulos, de 7 a 14 beats. Cada beat es un momento de la historia: tiene un dato central, hasta seis apoyos, una imagen que se puede ver (o oír, u oler), lo que el espectador se pregunta en ese punto, y la frase con la que el capítulo deja la puerta abierta al siguiente. El guionista va a escribir exactamente lo que vos decidas. Si la escaleta es plana, el guion va a ser plano.
+
+El antagonista es quien decide: una persona de la ficha, o una institución que la ficha nombra (un ministerio, una empresa, una dirección). Si en este caso no hay a quién atribuirle la decisión, lo decís («ninguno») y por qué.
+</que_es_una_escaleta>
+
+<oficio>
+1. El humano primero. La ficha trae candidatos con arco. Elegí al que tenga más momentos concretos (entra, sufre, sale) y más citas verificadas. Tiene que aparecer en el gancho, en el pico y en el cierre; si en el medio desaparece dos caps, el espectador lo olvida.
+2. El gancho es el peor momento, ya en curso. Tomá la escena más fuerte de la ficha y ponela en el beat 1, marcado como flash-forward. Sin contexto, sin año, sin cifras: lo que se ve. La promesa es una frase que dice qué va a entender el espectador si se queda. Es una imagen o una pregunta, nunca un resumen de lo que va a pasar ni una lista de lo que viene.
+3. Del gancho se vuelve atrás. El cap 2 es la vida antes: quién era esta gente, qué hacía ahí. Es el único cap tranquilo y por eso es el más importante para que duela lo que viene.
+4. Cada cap avanza y deja algo abierto. La frase de cierre de un cap nombra lo que viene o lo deja incompleto. Nunca resume.
+5. El pico es uno solo, y es el que la ficha marcó salvo que tengas una razón mejor (decila). Antes del pico, un cap que aprieta; después del pico, un respiro: lo que queda cuando pasa lo peor, el recuento, el silencio.
+6. Los giros de la ficha son los puntos donde la historia cambia de dirección. Cada giro tiene su beat. Si un giro no entra, decí cuál y por qué.
+7. Las escenas de la ficha son tus imágenes. El beat 1 y el pico toman su imagen de una escena; los demás, cuando haya una. Una imagen es algo para ver, oír, oler o tocar: «manos contra un vidrio ahumado», no «la desesperación de la gente».
+8. Las versiones en disputa (quién dio la orden, si un aviso llegó a tiempo) son material, no problema: dales su beat. El contraste entre la versión oficial y lo que cuentan los testigos suele ser el mejor cap 6.
+9. El cierre vuelve al humano con una cita suya o una pregunta que nadie respondió. Nunca una moraleja, nunca «hoy».
+10. Lo que va a pantalla (cifras oficiales, documentos) no lo dice la voz. Marcalo en `a_pantalla`. Las cifras que sí dice la voz, una vez cada una.
+11. Un dato vive en un solo beat. Si lo necesitás en dos, elegí dónde pega más.
+12. Las citas sin verificar van sin nombre, pero no excluyen a nadie: el humano puede estar en escena con una cita suya sin verificar; el guionista sabrá no ponerle el nombre a esa frase.
+</oficio>
+
+<ejemplo>
+De un caso que no es el tuyo (una estación de radio y faro en una isla, mil novecientos sesenta y ocho). Copiá la forma, no el contenido. Los ids van como Q##, D##, T##, E#: ## es el número que tenga el id en TU ficha; ninguno de estos existe en tus datos.
+
+humano: Elvira Soto, telegrafista de la estación. Por qué: manda los telegramas pidiendo el barco, recibe las respuestas sin firma, sostiene la radio con las baterías del faro la noche del pico, y años después es la única que guardó el registro. 3 citas verificadas.
+antagonista: institución · la Dirección de Faros y Balizas. Por qué: los telegramas de «mantener servicio» salen de ahí y nadie los firma.
+promesa_gancho: «Once personas esperaron veintitrés días un barco que no llegó. Esta es la historia de quién decidió que no llegara.»
+pico: beat 5 (la noche del generador). Por qué: es el momento en que esperar deja de ser una decisión de la Dirección y pasa a ser una de ellos; todo lo anterior lo prepara.
+
+beat 1 · cap 1 · gancho · flash-forward · intensidad 4 · escena E#
+  imagen: una mujer transmite en morse a la luz de una vela; olor a querosén
+  dato central: Q## (Soto: «transmitía con las baterías del faro»)
+  el espectador se pregunta: ¿por qué sigue transmitiendo?
+  cierre: Tres semanas antes de la vela, llegó un telegrama. Y con él, una orden.
+beat 2 · cap 2 · planteo · intensidad 1
+  imagen: el libro de telegramas abierto, la letra de Elvira
+  dato central: T## (el primer telegrama de la Dirección: mantener servicio) · apoyos: D## (once personas en la estación, tres familias), Q## (Bascuñán: «el faro no se apaga»), D## (la fecha prevista del Alborada)
+  humano en escena: sí
+  el espectador se pregunta: ¿quién manda cuando el que manda está a tres días de barco?
+  cierre: El Alborada tenía que llegar el lunes. No llegó el lunes.
+…
+beat 5 · cap 5 · pico · intensidad 5 · escena E#
+  imagen: el generador que tose dos veces y se apaga; una silla rota contra el piso
+  dato central: Q## (Soto: la noche que se apagó el generador) · apoyos: D## (Bascuñán ordena quemar los muebles), T## (la muerte del niño esa noche)
+  humano en escena: sí
+  el espectador se pregunta: ¿cuánto dura una batería?
+  cierre: A la mañana, el faro seguía encendido. Adentro, eran uno menos.
+beat 6 · cap 6 · respiro · intensidad 2 …
+beat 8 · cap 7 · cierre · intensidad 3
+  dato central: D## (la comisión: dos muertos; las familias: tres) · apoyos: Q## (Marín: «el capitán leyó el papel y dio la vuelta»), Q## (Soto: «nadie me dijo que los leyeran»)
+  cierre: la cita de Soto.
+a_pantalla: D## (el recuento oficial), D## (el informe de la comisión, fecha y folio).
+</ejemplo>
+
+<errores>
+- Elegir un humano distinto cada vez que se corre. Si la ficha lo propone y tiene arco, es él.
+- Poner el gancho tranquilo para que la curva «suba». El gancho es el peor momento; la curva empieza alta, baja en el cap 2 y vuelve a subir. Eso es un flash-forward, no un error.
+- Ignorar las escenas de la ficha y escribir imágenes abstractas («la tensión en el aire»).
+- Meter seis beats en un cap y uno en los demás. Cada cap lleva entre uno y tres beats; el material que no cabe se deja afuera, no se apila.
+- Convertir «el espectador se pregunta» en una pregunta retórica para el guion. Es una nota para vos y para el guionista, no una frase del video.
+</errores>
+
+===== USUARIO, intento 1 (md5 12c4dd52b3ba345a0453f7d0024692e4) =====
+<caso>
+TÍTULO: Kyshtym Mayak: El Desastre Nuclear Abandonado De La URSS
+ÁNGULO: El desastre de Kyshtym está clasificado en nivel 6, superado solo por Chernóbil y Fukushima-1. El genetista Zhores Medvedev lo reveló en 1976, mientras Lev Tumerman fue testigo de aldeas arrasadas.
+MISTERIO: ¿Cómo un desastre nuclear de nivel 6 permaneció oculto al mundo por casi 20 años?
+REVELACIÓN: La explosión del tanque de 160 toneladas en Mayak fue encubierta por la URSS, silenciada incluso por la CIA desde 1959.
+</caso>
+
+<ficha>
+historia:
+  humanos candidatos:
+    [Q16, Q17, Q18, D124, D126] Anatoly Vasilievich Dubrovsky — Electricista convertido en liquidador. · arco: Está viendo una película cuando oye la explosión → al volver al trabajo arranca arbustos sin instrucciones y soporta una descontaminación dolorosa → su incorporación al registro de liquidadores se demora porque no le habían entregado un dosímetro. · citas verificadas: 2
+    [P23, D128, D129, D130, T27, T34, Q19, Q20] Mikhail Kuleshov — Ajustador convertido en liquidador y testigo de los trabajos de restauración. · arco: Se entera del accidente al llegar a su turno → reviste vehículos con plomo y trabaja en la liquidación → participa después en la restauración de locales inundados y conserva el relato de compañeros contaminados. · citas verificadas: 1
+    [D102, D103, D108, D109, Q14] Galina Chanova — Evacuada y demandante por compensaciones. · arco: Es evacuada del territorio contaminado → comienza a cobrar compensaciones que sus abogados consideran insuficientemente actualizadas → obtiene una sentencia por una cantidad menor que la reclamada y expresa satisfacción con ese resultado. · citas verificadas: 1
+    [D02, D03, D06, D07, T54, T55, T56] N.N.D. — Evacuada de Kurmanovo y demandante anonimizada. · arco: Sale de un pueblo contaminado y recibe reconocimiento como afectada → vive con su familia en una vivienda insuficiente y encuentra una negativa administrativa → su reclamación llega a revisión judicial, sin que los pasajes aportados permitan fijar el desenlace definitivo; no tiene citas verificadas. · citas verificadas: 0
+  giros:
+    1. La producción secreta deja una contaminación anterior al accidente: se vierten residuos en el Techa mientras la población continúa utilizando su agua. [T04, D55, T11, D62]
+    2. Falla la refrigeración del almacenamiento y la explosión convierte los residuos concentrados en una contaminación que sale del recinto industrial. [D19, D119, T20, D31, D112]
+    3. Los trabajadores pasan a ser liquidadores: Dubrovsky recibe herramientas y protección, pero no instrucciones ni un dosímetro personal. [D123, Q17, D126]
+    4. La respuesta pública no identifica la catástrofe: el periódico explica el resplandor como una aurora mientras la evacuación comienza con un calendario discutido. [T29, Q02, T26, T30]
+    5. La existencia del desastre atraviesa el secreto: Medvedev publica en Occidente y la URSS termina confirmando la explosión. [D51, D52, D135]
+    6. El conflicto pasa de reconocer el accidente a reparar sus consecuencias: las víctimas reclaman actualizaciones monetarias y acceso a vivienda ante los tribunales. [D09, D16, D108, D109, D07, T56]
+  pico: La explosión del tanque n.º 14 y la liberación masiva de sustancias radiactivas. — Es el momento en que el fallo del almacenamiento destruye el contenedor y transforma un problema industrial localizado en una nube que alcanza territorios habitados; prepara la exposición de los liquidadores, los desalojos y las reclamaciones posteriores, sin que el pool permita establecer un balance mortal definitivo. [T20, D19, D30, D31, D112, D113, D72, D144]
+  pregunta final: ¿Qué reparación efectiva alcanzó finalmente a quienes fueron evacuados o siguieron viviendo en territorio contaminado, si las fuentes todavía describen compensaciones judicializadas, obstáculos de vivienda y una evacuación aprobada pero no ejecutada? [D68, D85, D16, D108, D109, D07, T56]
+
+escenas:
+  E1. Club local Derevyashka, durante la explosión. · Anatoly Dubrovsky y sus compañeros. — Están viendo una película cuando oyen un gran estruendo y el edificio empieza a temblar. · sentidos: El sonido del estallido y la vibración del edificio son los detalles que aporta el testigo; el pasaje no describe la película ni la reacción posterior. [Q16]
+  E2. Almacenamiento de residuos de Mayak. · El tanque n.º 14; no se identifica un observador presencial de esta imagen. — La explosión destruye el contenedor y levanta una losa de hormigón, según las descripciones documentales. · sentidos: Un cráter donde estaba el tanque y una losa de hormigón desplazada por la explosión. [D30, D143]
+  E3. Calles y lugares públicos de Cheliábinsk-40, al día siguiente. · Personal no identificado encargado de las medidas de seguridad. — Se lavan las carreteras, se cambia el asfalto y se colocan dosímetros en espacios públicos. · sentidos: Agua sobre las carreteras, pavimento intervenido y aparatos de medición instalados; no se añade una reacción de los vecinos. [D118]
+  E4. Junto a una pequeña fuente en la planta. · Dubrovsky y el grupo de electricistas. — Arrancan arbustos con palas, palanquetas y picos, después de recibir monos de goma y protección respiratoria. · sentidos: Los monos de goma, las máscaras antigás y los respiradores tipo pétalo; las herramientas y los arbustos junto a la fuente. [D123, Q17]
+  E5. Lugar de descontaminación del grupo de electricistas. · Dubrovsky, sus compañeros y personal llegado en un camión de bomberos. — Los lavan con una manguera; Dubrovsky, que había trabajado sin su respirador, pide que detengan el chorro cuando le golpea el pecho. · sentidos: Agua fría, presión muy fuerte y dolor en el pecho, descritos por Dubrovsky. [Q18]
+  E6. Trayecto hacia el foco de la explosión. · Kuleshov y el personal de reconocimiento. — Un tractor S-80 revestido de plomo avanza lentamente; el explorador sale de la cabina, mide y vuelve a entrar. · sentidos: Suelo y paredes de la cabina recubiertos de plomo, el edificio con una gran chimenea y el movimiento lento del tractor. [D128, Q19, D129]
+  E7. Locales de la planta durante la restauración. · Kuleshov y sus compañeros. — Trabajan en espacios inundados; Mikhalsky se ensucia la cabeza al caminar en la oscuridad por los tablones y no consiguen limpiársela. · sentidos: Agua en los locales, oscuridad, tablones, champús y productos químicos fuertes; la peluquera se niega a cortarle el pelo. [T34, Q20]
+  E8. Cielo de Cheliábinsk, descrito después en el periódico local. · Habitantes citados por Chelyabinsky Rabochy. — El periódico relata un resplandor nocturno y lo presenta como una aurora polar. · sentidos: Un brillo rojo intenso que pasa a rosa pálido y azul claro; se conserva como descripción publicada, no como explicación física verificada. [Q22, T29]
+  E9. Lugar donde habían trabajado los electricistas, en el verano siguiente. · Operador no identificado de un tractor protegido con plomo. — El tractor retira suelo contaminado y se aporta tierra limpia en su reemplazo. · sentidos: La protección de plomo de la máquina y la retirada y sustitución de capas de tierra. [T36]
+  E10. Lago Karachay, durante la primavera de 1967. · No se identifica un testigo individual. — Parte del fondo queda expuesta y los vientos dispersan polvo radiactivo hacia poblaciones de la región. · sentidos: Lecho seco al descubierto y polvo levantado por el viento, tal como describen los documentos. [T39, T40, D79, D80]
+  E11. Vivienda de N.N.D. en Cheliábinsk. · N.N.D. y su familia. — El expediente sitúa a toda la familia en un apartamento de una sola habitación y superficie insuficiente según la norma municipal. · sentidos: La única habitación y el espacio reducido son datos físicos del expediente; no se agregan muebles, sonidos ni condiciones de higiene. [D03, D08]
+  E12. Exposición Звенящий след, en Sokol. · Pavel Otdelnov como autor de la exposición. — Sus pinturas y objetos encontrados reconstruyen la historia del lugar en el antiguo edificio vinculado al Laboratorio B. · sentidos: Dosímetros personales y mapas sin Ozersk; el documento también indica que el edificio carece de calefacción. [D89, D91, D93, D99]
+
+personas:
+  [P01, D24, Q01] Arkady Aleksandrovich Kazutov — Mecánico jefe que dirigió la construcción de los contenedores de residuos.
+  [P02, D25] V. A. Saprykin — Ingeniero jefe de la construcción de Mayak.
+  [P04, D51, D133, T44] Zhores Medvedev — Científico y disidente que difundió el desastre en Occidente; las fuentes discrepan sobre su especialidad.
+  [P05, Q03] L. A. Buldakov — Vicedirector del Instituto de Biofísica y académico que declaró sobre el seguimiento sanitario ante el Sóviet Supremo.
+  [P06, Q06] Vladimir Slivyak — Copresidente de Ekozashchita y comentarista sobre las víctimas de Mayak.
+  [P07, Q07] Lidia Popova — Directora del centro de ecología nuclear y política energética de la Unión Socioecológica.
+  [P08, Q08, Q09, D83, D84] Anna Ilyina — Abogada y presidenta de Derecho a la Vida; representa a afectados en reclamaciones judiciales.
+  [P09, Q08, D83] Denis — Niño con una grave patología ósea cuya familia obtuvo una compensación judicial; el vínculo médico con la radiación aparece relatado por su abogada.
+  [P10, D84] Timur — Joven cuyo caso cuenta, según el pasaje, con una conclusión de una comisión experta sobre su enfermedad relacionada con la radiación.
+  [P12, D78] Vyatkin — Presidente del tribunal regional que formuló una protesta contra sentencias favorables a afectados.
+  [P13, Q11, Q12] Sergey Mitrokhin — Diputado de la Duma Estatal por Yabloko que reclama fondos para indemnizaciones.
+  [P14, D91, D93, Q13] Pavel Otdelnov — Artista de la exposición Звенящий след sobre las consecuencias sociales de Mayak.
+  [P18, D100, D102, D103, D108, D109, Q14] Galina Chanova — Evacuada de territorio contaminado y demandante por compensaciones insuficientemente actualizadas.
+  [P19, Q15] Alexey Babin — Abogado y responsable de un área de Sociedad Civil que comenta la sentencia de Galina Chanova.
+  [P20, T28, D119, Q24] Yefim Slavsky — Ministro soviético de Construcción de Maquinaria Mediana; encabezó la comisión llegada tras el accidente.
+  [P21, D121] Mikhail Demyanovich — Director de Mayak destituido tras ser responsabilizado por el accidente.
+  [P22, T24, D123, D124, D126, Q16, Q17, Q18] Anatoly Vasilievich Dubrovsky — Electricista y uno de los primeros liquidadores; testigo de la explosión y de la descontaminación posterior.
+  [P23, T27, T34, D128, D129, D130, Q19, Q20] Mikhail Kuleshov — Ajustador y liquidador que recubrió vehículos con plomo y participó en los trabajos posteriores.
+  [P24, P25, Q21] Lyudmila Smirnova — Hija de un liquidador; relata el silencio sobre el accidente en la ciudad y en su familia.
+  [P25] Faik — Padre de Lyudmila Smirnova y participante en la respuesta al accidente; el pasaje no proporciona su apellido.
+  [P28, Q04] V. I. Shevchenko — Liquidador, veterano de Mayak y Minatom y miembro de la Cámara Pública; cuestiona la denominación del accidente.
+  [D01, D02, D03, D06, D07, T49, T54, T55, T56] N.N.D. — Demandante anonimizada, evacuada de Kurmanovo, que reclama acceso a una solución habitacional.
+  [T01] Georgy Golubev — Arquitecto del edificio del lago Sungul que después albergó dependencias del Laboratorio B.
+  [Q10] Agrónomo no identificado — Responsable de una cosecha que, según el testimonio reproducido, confirmó la presencia de una niña en el territorio contaminado.
+  [Q10] Masha — Niña mencionada por el agrónomo al reconocer su presencia en el territorio contaminado.
+  [Q20] Mikhalsky — Trabajador cuya cabeza contaminada no pudieron limpiar durante las labores relatadas por Kuleshov.
+  [Q23, D136] Dmitry — Comentarista identificado así por el pool; cuestiona la rapidez del reasentamiento y se presenta como hijo de un residente de Yugo-Konyovo.
+  [P27, P29, T29, Q02, Q22] Chelyabinsky Rabochy — Periódico que publicó la explicación del resplandor como una aurora polar.
+  [T04, T37, T42, T46] Gobierno de la URSS — Ordenó la construcción de la planta y decidió establecer una zona de protección sanitaria.
+  [L03, L05, L09, T04, D19, D119] Mayak — Complejo industrial nuclear productor y procesador de plutonio, responsable del almacenamiento de residuos donde ocurrió la explosión.
+  [T28, P20] Ministerio de Construcción de Maquinaria Mediana de la URSS — Organismo que creó la comisión encabezada por Slavsky.
+  [T28, D119, Q24] Comisión encabezada por Slavsky — Investigó las causas del accidente y formuló atribuciones de responsabilidad.
+  [T31] Comisión técnica especial sobre la explosión — Órgano creado para determinar las causas de la explosión.
+  [D87, Q12] Minatom — Organismo nuclear ruso al que se atribuyen proyectos en la región y cuya autonomía cuestiona Mitrokhin.
+  [T48, D68] Autoridades de la región de Cheliábinsk — Decidieron evacuar Muslyumovo, medida que el pasaje afirma que no se ejecutó.
+  [L04, D09, D11, T53] Fiscalía del distrito Kalininsky de la región de Cheliábinsk — Presentó demandas de actualización de compensaciones en nombre de afectados.
+  [P18, D100, D109] Tribunal del distrito Kalininsky — Reconoció una deuda estatal con Galina Chanova.
+  [P19, D101, D108, Q14, Q15] Sociedad Civil — Organización cuyos abogados prepararon demandas de afectados y calcularon la reclamación de Galina Chanova.
+  [T55] Administración del distrito Traktorozavodsky de Cheliábinsk — Parte recurrente en el litigio habitacional de N.N.D.
+  [T55, D01] Tribunal del distrito Traktorozavodsky de Cheliábinsk — Dictó la resolución recurrida en el caso habitacional de N.N.D.
+  [T56, P12] Tribunal Regional de Cheliábinsk — Revisó el litigio de N.N.D.; otro pasaje atribuye a su presidente una protesta contra sentencias favorables a afectados.
+  [P12] Dirección regional de Protección Social — Presentó una queja contra sentencias favorables a afectados, según el testimonio del pool.
+  [D08] Duma municipal de Cheliábinsk — Estableció la norma municipal de superficie habitacional por persona.
+  [P10] Comisión Experta Interdepartamental — Emitió, según el pasaje sobre Timur, una conclusión sobre su enfermedad relacionada con la radiación.
+  [P13, Q11] Duma Estatal — Órgano al que Mitrokhin pide que el Gobierno presente modificaciones presupuestarias para indemnizar a las víctimas.
+
+personas descartadas que la historia necesita:
+  [D02, D03, D06, D07, T54, T55, T56] N.N.D. — Evacuada de Kurmanovo y demandante por vivienda. · Su anonimización no elimina su acción ni su arco: permite seguir una consecuencia habitacional documentada hasta la revisión judicial.
+  [T28, P20, D119, Q24] Yefim Slavsky / E. P. Slavsky — Ministro y responsable de la comisión llegada tras el accidente. · El descarte por ausencia del apellido es incorrecto: los pasajes lo nombran y documentan su intervención en la investigación.
+  [T01, T05, D93] Georgy Golubev — Arquitecto del antiguo sanatorio del lago Sungul. · El pasaje sí le atribuye una acción, proyectar el edificio que permite vincular el Laboratorio B con el espacio posterior de memoria.
+
+cronologia:
+  [T01] Década de 1930 — El edificio del lago Sungul fue un sanatorio para chekistas proyectado por Georgy Golubev.
+  [T02] Durante la guerra — El antiguo sanatorio fue convertido en hospital; el pasaje no da un año concreto.
+  [T04] 1945-04-09 — El Gobierno soviético aprobó la construcción de la planta n.º 817 para producir la bomba atómica en la región de Cheliábinsk.
+  [T03] 1945–1948 — Mayak fue construido apresuradamente.
+  [T05] 1947 — Comenzó a funcionar el Laboratorio B; sus especialistas se reclutaban principalmente entre prisioneros de guerra y reclusos.
+  [T07] 1948-06 — El reactor industrial A-1 alcanzó su potencia de diseño.
+  [T09] 1949-01 — Se puso en marcha la planta radioquímica de separación y procesamiento de plutonio.
+  [T10] 1949-02 — Comenzó a operar la planta químico-metalúrgica para producir la carga nuclear.
+  [T08, D22, D55] 1949–1956 — F06 sitúa en este período los vertidos de residuos líquidos de alta y media actividad en el Techa; F05 menciona vertidos en 1949–1951 sin establecer que fueran los únicos.
+  [T12, D56] Después de noviembre de 1951 — Comenzaron los vertidos de residuos líquidos de alta actividad en el lago Karachay.
+  [T13, D62] 1953 — Se prohibió utilizar el agua del Techa para beber.
+  [T14] Alrededor de 1953 (aproximada) — Se añadió una instalación de almacenamiento de residuos nucleares líquidos.
+  [T15] 1955 — Finalizó la actividad del Laboratorio B.
+  [T21] 1957-09-29 19:20 — Las masas de aire procedentes de la planta se desplazaban hacia Bagaryak y Kamensk-Uralsky.
+  [T23] 1957-09-29 Alrededor de las 23:00 (aproximada) — F05 refiere un resplandor rosado y azul claro, aunque el pasaje incluye una advertencia de falta de procedencia.
+  [T24, D118] 1957-09-30 — Dubrovsky acudió al trabajo al día siguiente del accidente; en la ciudad se lavaban carreteras, se cambiaba asfalto y se instalaban dosímetros.
+  [T25] 1957-09-30 03:00 — Según F05, quedó completada la formación inicial de la traza radiactiva, sin contar su migración posterior.
+  [T18, D77] 1957 — Según F06, niños de internados fueron llevados a zonas contaminadas para recoger cosechas y demoler construcciones; no se precisa el día.
+  [T28] 1957-10-02 — Llegó desde Moscú una comisión del Ministerio de Construcción de Maquinaria Mediana encabezada por Slavsky.
+  [T26, T30, D43] 1957-10 (aproximada) — Comenzó la evacuación: F10 fecha su inicio el 6 de octubre y F06 la sitúa diez días después del accidente.
+  [T29, Q02, D132] 1957-10-06 — Chelyabinsky Rabochy publicó la nota sobre una supuesta aurora polar en los Urales del Sur.
+  [T27] 1957-10 De 19:00 a 01:00 — La brigada de Kuleshov comenzó a participar en la liquidación.
+  [T31] 1957-10-11 — Se creó una comisión técnica especial para establecer las causas de la explosión.
+  [D42, D116, D136] 1957–1960 (aproximada) — F05 sitúa en este período el desalojo y enterramiento de los asentamientos afectados; otras fuentes describen plazos distintos.
+  [T32] Comienzos de 1958 — Se determinaron las dimensiones de una franja contaminada de 20–40 kilómetros de ancho y hasta 300 kilómetros de largo.
+  [T34] 1958 — Comenzaron los trabajos de restauración de la planta; Kuleshov describe los locales inundados.
+  [T33] 1958 — F06 informa de tierras fértiles que quedaron sin cultivar en la región de Cheliábinsk.
+  [D50, T35] 1958-04-13 — Berlingske Tidende informó sobre el accidente; F10 sitúa noticias vagas en la prensa occidental entre el 13 y el 14 de abril.
+  [T36, D127] Verano de 1958 — Un tractor protegido con plomo retiraba tierra del lugar donde antes habían arrancado arbustos los electricistas.
+  [T38] 1959-03-18 — Según F10, Die Presse publicó detalles del accidente.
+  [D46, T37] Finales de 1959 — Se creó una zona de protección sanitaria en parte del territorio contaminado.
+  [T39, T40, T41] 1967-04 — El viento dispersó polvo radiactivo desde sectores expuestos del lago Karachay; otras fuentes sitúan el episodio en la primavera de ese año.
+  [T42, D47] 1968 — Se estableció la Reserva de los Urales Orientales sobre la zona de protección sanitaria.
+  [T43, D133] Década de 1970 — F09 sitúa en esta década una intervención de Medvedev ante periodistas extranjeros, seguida de una negación soviética.
+  [D51, T44] 1976 — Medvedev publicó un informe sobre el accidente en New Scientist y difundió su alcance internacionalmente.
+  [D52, D135] 1989-07 — Según F05, el accidente fue confirmado por primera vez en la URSS durante una sesión del Sóviet Supremo.
+  [Q03] 1989-07-18 — Buldakov declaró ante el Sóviet Supremo que no habían registrado formas de enfermedad por radiación durante su seguimiento.
+  [T46] Desde 1989 — El Gobierno soviético comenzó a desclasificar gradualmente documentos sobre Mayak.
+  [T48, D68] 1993 — Las autoridades regionales decidieron evacuar Muslyumovo, pero, según F06, la decisión no se ejecutó por problemas económicos.
+  [T49, D06] 1994-09-22 — N.N.D. recibió un certificado de su condición de afectada.
+  [T50, D103] 1997 — Galina Chanova comenzó a percibir compensaciones por el daño a su salud.
+  [T51, D16] Desde 2001 — F01 señala que la cuantía de la compensación que describe no se había indexado.
+  [T52, D106, D107] 2007 — F08 informa de los importes que había alcanzado la compensación de Galina para alimentos y recuperación de la salud.
+  [T54] 2011-05-10 — N.N.D. solicitó ser reconocida como necesitada de mejores condiciones de vivienda.
+  [T55] 2011-09-28 — El Tribunal del distrito Traktorozavodsky dictó la resolución después recurrida en el caso de N.N.D.
+  [T56] 2011-11-24 — El Tribunal Regional de Cheliábinsk revisó el asunto en audiencia pública.
+
+hechos nivel 1:
+  [L09, L10] Mayak era una instalación de procesamiento de plutonio para armas nucleares situada en la ciudad cerrada de Cheliábinsk-40. (contexto)
+  [D22, D55, D149] Antes de la explosión ya se vertían residuos radiactivos líquidos en el río Techa. (contexto)
+  [D19, D119] La alteración del régimen de refrigeración del tanque aparece identificada como causa del accidente tanto en F05 como en el informe de comisión citado por F09. (giro)
+  [D120] F09 describe una explosión térmica y no atómica, sin inicio de una reacción en cadena. (contexto)
+  [D31, D122, D146] Las fuentes coinciden en una liberación estimada de unos 20 millones de curios de sustancias radiactivas. (pico)
+  [D70, D112] La nube radiactiva alcanzó partes de las regiones de Cheliábinsk, Sverdlovsk y Tiumén. (escalada)
+  [D37, D71, D113, D139] Las fuentes sitúan alrededor de 270.000 personas en el territorio alcanzado, sin que esa cifra sea un recuento de enfermos o muertos. (consecuencia)
+  [T29, D132, Q02] El 6 de octubre de 1957 el periódico local publicó una explicación del resplandor nocturno como aurora polar. (giro)
+  [Q17] Dubrovsky relata que les ordenaron arrancar arbustos sin instrucciones de trabajo, salvo no quitarse la protección respiratoria. (escalada)
+  [D126] La falta de dosímetros personales demoró la inclusión de los seis electricistas en la lista de liquidadores, según el relato de F09. (consecuencia)
+  [D77] F06 afirma que niños de internados fueron utilizados en 1957 para recoger cosechas contaminadas y demoler construcciones. (consecuencia)
+  [T26, T30, D42, D116, D136] Las fuentes no coinciden en el inicio de la evacuación ni en la duración total del reasentamiento. (giro)
+  [D42, D97, D116] El reasentamiento de 23 localidades es el recuento repetido por F05, F07 y F09. (consecuencia)
+  [D72] F06 habla de alrededor de 200 muertos después del accidente, pero el pool no aporta un balance oficial de mortalidad ni delimita el período de ese recuento. (consecuencia)
+  [D51] Medvedev publicó en New Scientist un informe sobre el accidente en 1976. (giro)
+  [D52] F05 fecha la primera confirmación soviética del accidente en julio de 1989. (cierre)
+  [D108, D109] Los abogados calcularon unos 150.000 rublos adeudados a Galina, mientras la sentencia ordenó pagar alrededor de 60.000 rublos. (consecuencia)
+  [D85] F06 afirma que unas 10.000 personas seguían viviendo en zona contaminada al momento de esa fuente, cuya fecha no consta en el pasaje. (cierre)
+
+hechos nivel 2:
+  [T04] El Gobierno soviético aprobó la construcción de la planta n.º 817 el 9 de abril de 1945. (contexto)
+  [T03] La planta fue construida apresuradamente entre 1945 y 1948. (contexto)
+  [T07] El reactor A-1 alcanzó su potencia de diseño en junio de 1948. (contexto)
+  [T09] La planta radioquímica de separación y procesamiento de plutonio comenzó a operar en enero de 1949. (contexto)
+  [T10] La planta químico-metalúrgica para producir la carga nuclear comenzó a operar en febrero de 1949. (contexto)
+  [T12, D56] Después de noviembre de 1951 comenzaron a verterse residuos líquidos de alta actividad en el lago Karachay. (escalada)
+  [D62] Desde 1953 estaba prohibido utilizar el agua del Techa como agua potable. (escalada)
+  [T11] F07 afirma que miles de personas continuaron tomando agua del Techa cuando Mayak vertía residuos de alta actividad en la década de 1950. (escalada)
+  [D59] F06 cifra en 76 millones de metros cúbicos los residuos radiactivos vertidos en el Techa. (contexto)
+  [D61] F06 atribuye dosis significativas de radiación a 28.000 personas por la contaminación del Techa. (consecuencia)
+  [D63] F06 informa de la evacuación de 7.500 personas de localidades situadas a lo largo del Techa. (consecuencia)
+  [D26] Los contenedores de residuos eran cilindros de acero inoxidable dentro de una envoltura de hormigón. (contexto)
+  [T19] Entre el 9 de marzo y el 10 de abril de 1957 se introdujeron 256 metros cúbicos de residuos en el tanque n.º 14. (escalada)
+  [D30] La explosión destruyó el tanque n.º 14 y dejó un cráter de unos 10 metros de profundidad y 20 metros de diámetro. (pico)
+  [D143] F10 afirma que la explosión levantó una losa de hormigón de 160 toneladas. (pico)
+  [D33, D115] Aproximadamente el 90 % de la emisión se depositó en el recinto industrial, según F05 y F09. (escalada)
+  [D37, D71, D113, D139] F05, F06 y F09 describen una superficie contaminada de 23.000 kilómetros cuadrados, mientras F10 habla de partículas calientes sobre más de 52.000 kilómetros cuadrados. (consecuencia)
+  [D118] Al día siguiente del accidente se lavaron carreteras, se cambió asfalto y se instalaron dosímetros en lugares públicos de Cheliábinsk-40. (escalada)
+  [D123] Al grupo de electricistas de Dubrovsky le entregaron monos de goma, cuatro máscaras antigás y dos respiradores tipo pétalo. (escalada)
+  [Q18] Dubrovsky recuerda una descontaminación con agua fría a presión que le produjo dolor en el pecho. (consecuencia)
+  [D124] F09 afirma que los electricistas recibieron cinco normas diarias de irradiación durante el trabajo junto a la fuente. (consecuencia)
+  [D128] Kuleshov recubrió con plomo el suelo y las paredes de la cabina de un tractor S-80. (escalada)
+  [Q19, D129] El reconocimiento con el tractor revestido de plomo se realizó a 2 kilómetros por hora e incluyó salidas de la cabina para medir la radiación. (escalada)
+  [D130] Los ajustadores protegieron después un tanque T-34 para dirigirse al taller donde había ocurrido la explosión. (escalada)
+  [T27] La brigada de Kuleshov comenzó la liquidación en octubre y trabajaba de 19:00 a 01:00. (escalada)
+  [T34] Los trabajos de restauración comenzaron en 1958 con los locales inundados, según Kuleshov. (consecuencia)
+  [Q20] Kuleshov relata que no consiguieron limpiar la cabeza contaminada de Mikhalsky ni con champús ni con productos químicos fuertes. (consecuencia)
+  [T28] El 2 de octubre de 1957 llegó una comisión ministerial encabezada por Slavsky. (giro)
+  [P21, D121] Mikhail Demyanovich fue responsabilizado y destituido como director de Mayak, según F09 y F10. (giro)
+  [T31] El 11 de octubre de 1957 se creó una comisión técnica de 11 integrantes para investigar la explosión. (consecuencia)
+  [D43, D44] F05 afirma que los residentes incluidos en la primera decisión de desalojo ya habían recibido una dosis equivalente de 52 rem. (consecuencia)
+  [D116, D117] F09 describe la destrucción de las construcciones y la quema de bienes y ganado de los asentamientos desalojados. (consecuencia)
+  [D39] F05 informa de 1.007 miembros de las tropas internas del Ministerio del Interior expuestos a la radiación. (consecuencia)
+  [D40] Doce militares expuestos a más de 50 roentgens fueron hospitalizados, según F05. (consecuencia)
+  [D41] Otros 63 militares expuestos a entre 10 y 50 roentgens quedaron bajo observación médica constante, según F05. (consecuencia)
+  [D48] F05 sitúa una dosis efectiva máxima de 1 sievert entre niños que tenían entre 2 y 7 años y fueron reasentados en los primeros 7–14 días. (consecuencia)
+  [Q03, D152] Buldakov declaró que no habían registrado formas de enfermedad por radiación, mientras F10 menciona 66 diagnósticos de síndrome de radiación crónico sin permitir equiparar las cohortes. (giro)
+  [D75, D38] F06 habla de 106.000 hectáreas fértiles sin cultivar en 1958, mientras F05 describe esa misma extensión como tierras agrícolas y forestales retiradas del uso. (consecuencia)
+  [D46] A finales de 1959 se creó una zona de protección sanitaria de unos 700 kilómetros cuadrados. (consecuencia)
+  [T39, T40, T41, D80] En la primavera de 1967 el viento volvió a dispersar contaminación desde sectores secos del lago Karachay. (escalada)
+  [D47, T42] La Reserva de los Urales Orientales se estableció en 1968 sobre el territorio de la zona de protección sanitaria. (consecuencia)
+  [D50, T38] La prensa de Copenhague informó del accidente en abril de 1958 y Die Presse publicó detalles en marzo de 1959. (giro)
+  [D134] F09 afirma que los trabajadores no pudieron salir de vacaciones durante aproximadamente un año y medio y que los liquidadores firmaron compromisos de confidencialidad. (consecuencia)
+  [D67] F06 afirma que los resultados de los exámenes forzados de sangre y médula ósea de habitantes de Muslyumovo permanecieron secretos hasta 1992. (consecuencia)
+  [D68] La evacuación de Muslyumovo aprobada en 1993 no se ejecutó por problemas económicos, según F06. (consecuencia)
+  [D103] Galina Chanova comenzó a cobrar compensaciones por el daño a su salud en 1997. (consecuencia)
+  [D104, D105] F08 sitúa las compensaciones de 1997 en 167 rublos mensuales para alimentos y 83,5 rublos anuales para recuperación de la salud. (consecuencia)
+  [D09, D10] La fiscalía presentó 86 demandas por un total aproximado de un millón de rublos en nombre de afectados. (consecuencia)
+  [D14, D15, D16] F01 describe una compensación mensual de 100 rublos para quienes superaban 7 rem de dosis efectiva acumulada y señala que su cuantía no se indexaba desde 2001. (consecuencia)
+  [D02, D03] N.N.D., evacuada de Kurmanovo, vivía con una familia de cinco personas en una vivienda de una habitación y 36,3 metros cuadrados. (consecuencia)
+  [D07] El expediente de N.N.D. recoge una negativa de inscripción habitacional basada en que presentó su solicitud después del 1 de marzo de 2005. (consecuencia)
+  [T56] El litigio habitacional de N.N.D. fue revisado por el Tribunal Regional de Cheliábinsk el 24 de noviembre de 2011. (cierre)
+  [D83] La familia de Denis recibió 50.000 rublos de compensación y, según el relato de su abogada, pudo comprar una vivienda de una habitación. (consecuencia)
+  [D84] En el caso de Timur se decidió reconocer al Estado como demandado adecuado. (consecuencia)
+  [D91] La exposición de Otdelnov reúne dosímetros personales y mapas en los que no figuraba Ozersk. (cierre)
+  [T01, T02, T05, D95] El edificio del lago Sungul fue sanatorio, hospital y alojamiento del Laboratorio B, que funcionó entre 1947 y 1955. (contexto)
+
+cifras:
+  [D20, D74, D137] Clasificación del accidente: 6 nivel INES, sobre 7 posibles · F05 y F06; F10 coincide en el nivel.
+  [D59] Residuos vertidos en el Techa: 76.000.000 metros cúbicos de residuos · F06.
+  [D61] Personas con dosis significativas por la contaminación del Techa: 28.000 personas · F06.
+  [D63] Evacuados por la contaminación del Techa: 7.500 personas · F06; no confundir con la evacuación posterior a la explosión.
+  [D27] Capacidad del tanque que explotó: 300 metros cúbicos · F05.
+  [D27] Masa de residuos en el tanque: 70–80 toneladas de residuos · F05; los describe secos al momento del accidente. · otras versiones: 70–80 toneladas de residuos líquidos [D141]
+  [D29, D35, D142] Potencia estimada de la explosión: Sin una estimación única adoptada toneladas equivalentes de TNT · Las magnitudes y sus métodos no quedan conciliados. · otras versiones: 25–29 toneladas equivalentes de TNT [D29]; 8–170 toneladas equivalentes de TNT [D29]; 70–100 toneladas equivalentes de TNT [D35]; Al menos 70 toneladas equivalentes de TNT [D142]; 75 toneladas de explosivos, sin precisar TNT en el pasaje [D69]
+  [D30] Profundidad del cráter: Alrededor de 10 metros · F05.
+  [D30] Diámetro del cráter: Alrededor de 20 metros · F05.
+  [D143] Masa de la losa levantada por la explosión: 160 toneladas de hormigón · F10.
+  [D31, D122, D146] Actividad radiactiva liberada: Alrededor de 20.000.000 curios · Coincidencia entre F05, F09 y F10.
+  [D33, D115] Emisión depositada en el recinto industrial: Alrededor de 90 por ciento de la emisión · F05 y F09.
+  [D147] Actividad de la pluma extendida a distancia: 2 megacurios · F10; es parte de la emisión total, no una estimación alternativa de ella.
+  [D32] Altura estimada de los productos de la explosión: Hasta 1.100 metros · Estimaciones modernas mencionadas por F05.
+  [D37, D71, D113] Superficie alcanzada por la contaminación: 23.000 kilómetros cuadrados · F05, F06 y F09; cifra descriptiva repetida, no conciliada con la de F10. · otras versiones: Más de 52.000 kilómetros cuadrados con dispersión de partículas calientes [D139]
+  [D37, D71, D113] Población del territorio alcanzado: Alrededor de 270.000 personas residentes · Coincidencia entre F05, F06 y F09; no equivale a diagnósticos. · otras versiones: Al menos 270.000 personas residentes [D139]
+  [D37] Localidades dentro del territorio descrito por F05: 217 localidades · F05; no es el número de localidades reasentadas.
+  [D73, D138, T30] Evacuados o reasentados por el accidente: Alrededor de 10.000 personas · Recuento aproximado repetido en F06 y F10; los cortes temporales no están homologados. · otras versiones: Más de 10.000 personas [D73]; Alrededor de 12.000 personas [D117]; 12.763 personas reasentadas por etapas [D45]
+  [D42, D97, D116] Localidades reasentadas: 23 localidades · Recuento repetido por F05, F07 y F09. · otras versiones: Al menos 22 aldeas expuestas a radiación [D138]
+  [D43] Habitantes incluidos en la primera decisión de desalojo descrita por F05: 1.383 personas · F05.
+  [D44] Dosis equivalente atribuida a esos habitantes: 52 rem · F05; el pasaje emplea бэр.
+  [D48] Máxima dosis efectiva descrita entre niños reasentados: 1 sievert · F05; niños de 2–7 años reasentados en los primeros 7–14 días.
+  [D39] Militares de tropas internas expuestos: 1.007 personas · F05.
+  [D40] Militares hospitalizados: 12 personas · F05; habían recibido más de 50 roentgens.
+  [D41] Militares bajo observación constante: 63 personas · F05; habían recibido entre 10 y 50 roentgens.
+  [D72] Muertes posteriores al accidente mencionadas por una fuente: Alrededor de 200 personas fallecidas · F06; sin período delimitado ni balance oficial aportado.
+  [D152] Diagnósticos de síndrome de radiación crónico: 66 casos diagnosticados · F10; no permite identificar la cohorte con la seguida por Buldakov.
+  [D123] Máscaras antigás entregadas al grupo: 4 máscaras antigás · F09.
+  [D123] Respiradores tipo pétalo entregados al grupo: 2 respiradores · F09.
+  [D124] Irradiación atribuida al trabajo de los electricistas junto a la fuente: 5 normas diarias de irradiación, sin conversión dosimétrica aportada · F09.
+  [Q19, D129] Velocidad del tractor protegido con plomo: 2 kilómetros por hora · F09.
+  [D38] Tierras retiradas del uso: 106.000 hectáreas · F05, que incluye tierras agrícolas y forestales. · otras versiones: 106.000 hectáreas de tierra fértil sin cultivar [D75]
+  [D46] Zona de protección sanitaria creada a finales de 1959: Alrededor de 700 kilómetros cuadrados · F05.
+  [D79] Lecho del Karachay expuesto en 1967: Alrededor de 5 hectáreas · F06.
+  [D80] Superficie contaminada por la dispersión desde Karachay en 1967: Más de 1.800 kilómetros cuadrados · F06; la cifra alternativa del encabezado T41 no aparece en su pasaje.
+  [D85] Personas que seguían viviendo en zona contaminada al momento de F06: Aproximadamente 10.000 personas · F06, sin fecha del documento disponible en el pasaje.
+  [D09] Demandas presentadas por la fiscalía: 86 demandas · F01.
+  [D09, D10] Importe conjunto reclamado por la fiscalía: Alrededor de 1.000.000 rublos · F01.
+  [D12] Afectados residentes en el distrito Kalininsky: 115 personas · F01.
+  [D14, D15] Compensación mensual descrita por F01: 100 rublos por mes · F01; para el supuesto legal de dosis acumulada superior a 7 rem.
+  [D105] Compensación para recuperación de la salud de Galina en 1997: 83,5 rublos por año · F08.
+  [D108] Deuda calculada por los abogados de Galina: Alrededor de 150.000 rublos reclamados · F08; no equivale a lo concedido por el tribunal.
+  [D109] Cantidad concedida judicialmente a Galina: Alrededor de 60.000 rublos · F08.
+  [D83] Compensación obtenida por la familia de Denis: 50.000 rublos · F06.
+  [D03] Integrantes de la familia de N.N.D.: 5 personas · Expediente judicial F04.
+  [D03] Superficie de la vivienda de N.N.D.: 36,3 metros cuadrados · Expediente judicial F04.
+  [D01] Superficie utilizada en el cálculo de la solución habitacional de N.N.D.: 90 metros cuadrados para la familia · F04; el fragmento no basta para reconstruir por sí solo el desenlace definitivo del litigio.
+  [D01] Norma de cálculo del subsidio habitacional citado: 18 metros cuadrados por integrante · F04.
+  [D08] Norma municipal de superficie para registro habitacional: 10 metros cuadrados de superficie total por persona · F04, que cita la decisión de la Duma municipal; no es la misma norma que la del subsidio.
+
+citas:
+  [Q02] Chelyabinsky Rabochy (Periódico local.) · VERIFICADA · «В прошлое воскресенье вечером… многие челябинцы наблюдали особое свечение звёздного неба. Это довольно редкое в наших широтах свечение имело все признаки полярного сияния.» (traducción: «El domingo pasado por la noche… muchos habitantes de Cheliábinsk observaron un resplandor especial en el cielo estrellado. Este resplandor, bastante raro en nuestras latitudes, tenía todas las características de una aurora polar.»)
+  [Q03] L. A. Buldakov (Vicedirector del Instituto de Biofísica, ante el Sóviet Supremo.) · VERIFICADA · «В течение трёх лет постоянно, систематически мы следили за здоровьем людей. Не удалось, к счастью, зафиксировать ни одной формы лучевой болезни» (traducción: «Durante tres años seguimos de manera constante y sistemática la salud de las personas. Afortunadamente, no conseguimos registrar ninguna forma de enfermedad por radiación.»)
+  [Q06] Vladimir Slivyak (Copresidente de Ekozashchita.) · VERIFICADA · «Там большое количество пострадавших, в основном - это следствие аварии 1957 года, когда взорвалась емкость с жидкими радиоактивными отходами, и в результате этого на достаточно большом расстоянии вокруг комбината была загрязнена территория.» (traducción: «Allí hay un gran número de afectados, principalmente a consecuencia del accidente de 1957, cuando explotó un contenedor con residuos radiactivos líquidos y quedó contaminado un territorio a una distancia considerable alrededor de la planta.»)
+  [Q07] Lidia Popova (Directora del centro de ecología nuclear y política energética de la Unión Socioecológica.) · VERIFICADA · «На самом деле это было просто экологическое преступление. Когда в Течу сливали высоко-активные отходы, загрязнили илы при разливах реки весной, а во время половодья загрязнили и пойму.» (traducción: «En realidad, fue simplemente un crimen ecológico. Al verter residuos de alta actividad en el Techa contaminaron los lodos durante los desbordamientos de primavera y, durante la crecida, también la llanura de inundación.»)
+  [Q10] Agrónomo no identificado (Responsable que reconoce la presencia de una niña en el territorio contaminado.) · VERIFICADA · «Да, вот эта Маша была на этой территории. Да, я был ответственным» (traducción: «Sí, esta Masha estuvo en ese territorio. Sí, yo era el responsable.»)
+  [Q11] Sergey Mitrokhin (Diputado de la Duma Estatal por Yabloko.) · VERIFICADA · «Правительство должно войти в Государственную Думу с предложениями по изменению государственного бюджета и выделению средств на эти цели - цели компенсации ущерба, нанесенного жертвам этой катастрофы.» (traducción: «El Gobierno debe presentar a la Duma Estatal propuestas para modificar el presupuesto y asignar fondos a la indemnización de los daños sufridos por las víctimas de esta catástrofe.»)
+  [Q13] Pavel Otdelnov (Artista, en el texto explicativo de su exposición.) · SIN VERIFICAR · «Слово „звенеть“ на языке атомщиков означает звуковой сигнал, которым счетчик Гейгера оповещает о повышенном радиационном фоне. След атомного ХХ века остается звенящим до сих пор.» (traducción: «La palabra «sonar», en el lenguaje de los trabajadores nucleares, significa la señal acústica con la que un contador Geiger avisa de un fondo de radiación elevado. La huella del siglo XX atómico sigue sonando hasta hoy.»)
+  [Q14] Galina Chanova (Evacuada y demandante.) · VERIFICADA · «Я очень рада и такому решению суда. Если бы не юристы «Гражданского общества», которые подсчитали, сколько мне не доплатило государство и грамотно составили исковое заявление, то суд вряд ли бы был на моей стороне.» (traducción: «Estoy muy contenta incluso con esta decisión del tribunal. Si no fuera por los abogados de Sociedad Civil, que calcularon cuánto había dejado de pagarme el Estado y redactaron correctamente la demanda, difícilmente el tribunal se habría puesto de mi lado.»)
+  [Q16] Anatoly Vasilievich Dubrovsky (Electricista y liquidador.) · SIN VERIFICAR · «И в какой-то момент мы услышали сильный грохот, даже здание начало трясти.» (traducción: «Y en un momento oímos un fuerte estruendo; incluso el edificio empezó a temblar.»)
+  [Q17] Anatoly Vasilievich Dubrovsky (Electricista y liquidador.) · VERIFICADA · «Нам надо было прихватить инструменты — лопаты, ломы, кирки — и выкопать кустарники, которые росли вдоль фонтанчика. При этом никакого инструктажа, и как себя вести, никто нам не объяснил. Сказали лишь, чтоб противогазы и "лепестки" не снимали» (traducción: «Teníamos que llevar herramientas —palas, palanquetas y picos— y arrancar los arbustos que crecían junto a la pequeña fuente. No nos dieron ninguna instrucción ni nos explicaron cómo comportarnos. Solo dijeron que no nos quitáramos las máscaras antigás ni los «pétalos».»)
+  [Q18] Anatoly Vasilievich Dubrovsky (Electricista y liquidador.) · VERIFICADA · «Через 20–30 минут к нам приехала пожарная машина и начала нас обмывать холодной водой из брандспойта, напор был очень сильный. Я мылся последним. Мытье со спины я еще вытерпел, а вот когда струя начала бить в грудь, было так больно, что я просил прекратить все. Я же работал без "лепестка"…» (traducción: «A los veinte o treinta minutos llegó un camión de bomberos y empezaron a lavarnos con agua fría de una manguera; la presión era muy fuerte. Yo fui el último. Aguanté el lavado de la espalda, pero cuando el chorro empezó a golpearme el pecho me dolió tanto que pedí que pararan. Había trabajado sin el «pétalo»…»)
+  [Q19, D129] Mikhail Kuleshov (Ajustador y liquidador.) · VERIFICADA · «Уже на следующий день С-80 весь в свинце поехал на разведку в очаг взрыва. От здания с большой трубой до очага — около 500 метров, но скорость освинцованного трактора составляла 2 км в час. Разведчик вышел из кабины, произвел замеры и обратно в кабину. На все это у нас ушло около двух часов» (traducción: «Ya al día siguiente el S-80, todo revestido de plomo, fue a reconocer el foco de la explosión. Desde el edificio con la gran chimenea hasta el foco había unos quinientos metros, pero el tractor revestido de plomo avanzaba a dos kilómetros por hora. El explorador salió de la cabina, tomó medidas y volvió a entrar. Todo aquello nos llevó unas dos horas.»)
+  [Q20] Mikhail Kuleshov (Ajustador y liquidador.) · SIN VERIFICAR · «Однажды Михальский шел в темноте по доскам, которые мы проложили, испачкал себе голову. Чем только мы не отмывали ее, и шампунями и сильными химикатами, но так и не отмыли. Даже парикмахер отказалась стричь его.» (traducción: «Una vez Mikhalsky caminaba en la oscuridad por los tablones que habíamos colocado y se ensució la cabeza. Intentamos limpiársela con todo, con champús y productos químicos fuertes, pero no lo conseguimos. Incluso la peluquera se negó a cortarle el pelo.»)
+  [Q21] Lyudmila Smirnova (Hija de un liquidador.) · VERIFICADA · «О той аварии в городе не говорили, как не принято было говорить и о многих других инцидентах, случавшихся в то время там не только в городе, но и в других местах Советского Союза. А различные происшествия были, хоть об этом не говорят и сейчас» (traducción: «En la ciudad no se hablaba de aquel accidente, como tampoco se acostumbraba hablar de muchos otros incidentes que ocurrían entonces allí y en otros lugares de la Unión Soviética. Y hubo distintos incidentes, aunque tampoco se hable de ellos ahora.»)
+  [Q23] Dmitry (Comentarista; según el pool, hijo de un residente de Yugo-Konyovo.) · VERIFICADA · «Это ложь чистой воды, людей начали принудительно переселять далеко не сразу, всё это затянулось на полгода. За это время было много случаев мародёрства и воровства. Имущество сжигали, уничтожали, скот резали.» (traducción: «Eso es una mentira descarada: el traslado forzoso de la gente no empezó de inmediato y todo se prolongó durante medio año. En ese tiempo hubo muchos casos de saqueo y robo. Quemaban y destruían las pertenencias y sacrificaban el ganado.»)
+  [Q24] E. P. Slavsky (Ministro, en un memorando citado por F10.) · VERIFICADA · «Investigating the causes of the accident on the spot, the commission believes that the main culprits of this incident are the head of the radiochemical plant and the chief engineer of this plant» (traducción: «Tras investigar las causas del accidente sobre el terreno, la comisión considera que los principales culpables de este incidente son el jefe de la planta radioquímica y el ingeniero jefe de esa planta.»)
+
+versiones en disputa:
+  Mecanismo preciso de la explosión y estado de los residuos.
+    - Atribuye el accidente a una alteración de la refrigeración del almacenamiento. [D19] (fuente: F05)
+    - Describe entre 70 y 80 toneladas de residuos ya secos. [D27] (fuente: F05)
+    - Describe la ignición y explosión de una mezcla de sales por una chispa accidental, sin aportar en este fragmento la composición detallada del encabezado. [D35] (fuente: F05)
+    - Presenta como alternativa la adición por error de oxalato de plutonio a una solución caliente de nitrato de plutonio. [D36] (fuente: F05)
+    - Describe un tanque con residuos líquidos cuyo sistema de refrigeración falló y no fue reparado. [D141] (fuente: F10)
+  Atribución de responsabilidad administrativa.
+    - Afirma que el director de Mayak, Mikhail Demyanovich, fue declarado principal culpable y destituido, aunque se encontraba en Moscú durante la explosión. [P21, D121] (fuente: F09)
+    - Afirma que Demyanovich asumió toda la culpa y fue relevado de la dirección. [P21] (fuente: F10)
+    - El memorando atribuido a Slavsky identifica como principales culpables al jefe y al ingeniero jefe de la planta radioquímica; el pasaje no permite equiparar automáticamente esos cargos con el director de todo Mayak. [Q24] (fuente: F10)
+  Duración y ejecución del reasentamiento.
+    - Sitúa el desalojo y enterramiento de localidades entre 1957 y 1960. [D42] (fuente: F05)
+    - Afirma que una semana después del accidente se liquidaron 23 aldeas en un plazo de catorce días. [D116] (fuente: F09)
+    - Un comentarista rechaza esa rapidez y dice que el proceso se prolongó durante medio año; su testimonio no se equipara a un registro administrativo. [D136, Q23] (fuente: F09)
+  Reconocimiento de enfermedad por radiación.
+    - Buldakov declara que no consiguieron registrar ninguna forma de enfermedad por radiación durante tres años de seguimiento. [Q03] (fuente: F05)
+    - Afirma que se diagnosticaron 66 casos de síndrome de radiación crónico en la zona más próxima al accidente; no identifica aquí a los pacientes ni el período de diagnóstico. [D152] (fuente: F10)
+  Mortalidad y alcance temporal de los recuentos.
+    - Afirma que murieron alrededor de 200 personas después del accidente, sin delimitar período ni presentar un balance oficial. [D72] (fuente: F06)
+    - Afirma que no se comunicaron víctimas inmediatas como resultado de la explosión; no equivale a afirmar que no hubo muertes posteriores. [D144] (fuente: F10)
+    - El relato sobre el padre de Lyudmila dice que murió por radiación en dos semanas, pero el fragmento no aporta fecha de muerte ni expediente médico. [P25] (fuente: F09)
+    - F09 afirma que no se consignaban las causas reales de muerte, pero el pasaje no aporta certificados individuales. [D131] (fuente: F09)
+</ficha>
+
+<tarea>
+Con la ficha de arriba, armá la escaleta de este caso en el JSON del esquema: humano, antagonista, promesa del gancho, pico, cierre humano, beats por cap y a_pantalla. Pensá primero a quién seguimos y dónde golpea; después repartí los beats en los siete caps.
+</tarea>

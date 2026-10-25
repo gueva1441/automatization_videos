@@ -1,0 +1,152 @@
+{
+ "F1": {
+  "modelo": "claude-fable-5-1",
+  "corrio": true,
+  "rechazada": true,
+  "escaleta": null
+ },
+ "S1": {
+  "modelo": "gpt-6.1-sol",
+  "corrio": true,
+  "rechazada": true,
+  "escaleta": {
+   "beats": 0,
+   "beats_por_cap": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "ids": 0,
+   "apoyos_por_beat": 0.0,
+   "promesa": null,
+   "humano": null,
+   "antagonista": null,
+   "intentos": [],
+   "pasada1_beats_por_cap": [
+    1,
+    1,
+    2,
+    2,
+    2,
+    3,
+    3
+   ],
+   "pasada1_caps_fuera_1_3": [],
+   "pasada1_bloqueantes": [
+    "beat 1: dato_central «Q16: UN HOMBRE Y SUS COMPAÑEROS OYEN UN FUERTE ESTRUENDO; EL EDIFICIO EMPIEZA A TEMBLAR. RESERVAR LA UBICACIÓN Y LA ACTIVIDAD QUE REALIZABAN PARA EL REGRESO CRONOLÓGICO AL ACCIDENTE. EL TESTIMONIO NO ESTÁ VERIFICADO: NO USAR UNA CITA LITERAL CON ATRIBUCIÓN NOMINAL.» no existe en el pool (o no es D/T/Q)",
+    "beat 2: dato_central «P22: ANTES DE CONVERTIRSE EN LIQUIDADOR, ANATOLY VASILIEVICH DUBROVSKY ERA ELECTRICISTA.» no existe en el pool (o no es D/T/Q)",
+    "beat 3: dato_central «D55: ANTES DE LA EXPLOSIÓN, MAYAK YA VERTÍA RESIDUOS RADIACTIVOS LÍQUIDOS EN EL RÍO TECHA. GIRO 1: LA CONTAMINACIÓN NO COMIENZA CON EL ACCIDENTE.» no existe en el pool (o no es D/T/Q)",
+    "beat 4: dato_central «D19, D119: LA ALTERACIÓN DEL RÉGIMEN DE REFRIGERACIÓN APARECE IDENTIFICADA COMO CAUSA DEL ACCIDENTE. SEPARAR ESTE ACUERDO DOCUMENTAL DE LAS DISCREPANCIAS SOBRE EL MECANISMO PRECISO.» no existe en el pool (o no es D/T/Q)",
+    "beat 5: dato_central «D30: LA EXPLOSIÓN DESTRUYE EL TANQUE N.º 14 Y DEJA UN CRÁTER. GIRO 2: EL PROBLEMA DEL ALMACENAMIENTO SE CONVIERTE EN CONTAMINACIÓN FUERA DEL RECINTO INDUSTRIAL.» no existe en el pool (o no es D/T/Q)",
+    "beat 6: dato_central «Q17: DUBROVSKY RECIBE LA TAREA DE ARRANCAR ARBUSTOS SIN INSTRUCCIONES DE TRABAJO, SALVO CONSERVAR LA PROTECCIÓN RESPIRATORIA. GIRO 3: EL ELECTRICISTA PASA A SER LIQUIDADOR.» no existe en el pool (o no es D/T/Q)",
+    "beat 7: dato_central «Q18: LA DESCONTAMINACIÓN DE DUBROVSKY CONSISTE EN UN LAVADO CON AGUA FRÍA A GRAN PRESIÓN; EL GOLPE EN EL PECHO LE DUELE TANTO QUE PIDE QUE PAREN.» no existe en el pool (o no es D/T/Q)",
+    "beat 8: dato_central «Q03: BULDAKOV DECLARÓ ANTE EL SÓVIET SUPREMO QUE NO HABÍAN REGISTRADO NINGUNA FORMA DE ENFERMEDAD POR RADIACIÓN DURANTE SU SEGUIMIENTO. CONTRASTAR EL ALCANCE DE ESA DECLARACIÓN, NO CONVERTIRLA EN UN BALANCE DE TODAS LAS VÍCTIMAS.» no existe en el pool (o no es D/T/Q)",
+    "beat 9: dato_central «Q02: EL PERIÓDICO LOCAL PRESENTA EL RESPLANDOR NOCTURNO COMO UNA AURORA POLAR. GIRO 4: LA EXPLICACIÓN PÚBLICA NO IDENTIFICA LA CATÁSTROFE MIENTRAS COMIENZA UNA EVACUACIÓN CUYO CALENDARIO ESTÁ DISCUTIDO.» no existe en el pool (o no es D/T/Q)",
+    "beat 10: dato_central «Q24: EL MEMORANDO ATRIBUIDO A SLAVSKY SEÑALA COMO PRINCIPALES CULPABLES AL JEFE Y AL INGENIERO JEFE DE LA PLANTA RADIOQUÍMICA. NO EQUIPARAR ESOS CARGOS AUTOMÁTICAMENTE CON LA DIRECCIÓN DE TODO MAYAK.» no existe en el pool (o no es D/T/Q)",
+    "beat 11: dato_central «D51: MEDVEDEV PUBLICA EN NEW SCIENTIST EN 1976 Y DA ALCANCE INTERNACIONAL AL DESASTRE. GIRO 5: EL ACCIDENTE ATRAVIESA EL SECRETO Y TERMINA SIENDO RECONOCIDO POR LA URSS.» no existe en el pool (o no es D/T/Q)",
+    "beat 12: dato_central «D108, D109: LOS ABOGADOS DE GALINA CHANOVA CALCULAN UNA DEUDA SUPERIOR A LA CANTIDAD FINALMENTE CONCEDIDA POR EL TRIBUNAL. GIRO 6: EL CONFLICTO PASA DEL RECONOCIMIENTO DEL ACCIDENTE A LA REPARACIÓN EFECTIVA.» no existe en el pool (o no es D/T/Q)",
+    "beat 13: dato_central «D07: N.N.D., EVACUADA DE KURMANOVO, ENCUENTRA UNA NEGATIVA ADMINISTRATIVA A SU SOLICITUD HABITACIONAL BASADA EN CUÁNDO LA PRESENTÓ.» no existe en el pool (o no es D/T/Q)",
+    "beat 14: dato_central «D126: LA FALTA DE DOSÍMETROS PERSONALES DEMORÓ LA INCLUSIÓN DE DUBROVSKY Y SUS COMPAÑEROS ELECTRICISTAS EN LA LISTA DE LIQUIDADORES. NO AFIRMAR QUE NUNCA FUERON RECONOCIDOS.» no existe en el pool (o no es D/T/Q)"
+   ]
+  }
+ },
+ "S2": {
+  "modelo": "gpt-6.1-sol",
+  "corrio": true,
+  "rechazada": false,
+  "escaleta": {
+   "beats": 14,
+   "beats_por_cap": [
+    1,
+    1,
+    2,
+    2,
+    2,
+    3,
+    3
+   ],
+   "ids": 44,
+   "apoyos_por_beat": 2.14,
+   "promesa": "¿Cómo se consigue ocultar una nube que ya salió de la fábrica?",
+   "humano": "Anatoly Vasilievich Dubrovsky",
+   "antagonista": {
+    "tipo": "institucion",
+    "id": "D19",
+    "nombre": "Mayak",
+    "por_que": "Es la institución responsable del almacenamiento accidentado y el ámbito donde los electricistas reciben tareas de liquidación sin instrucciones suficientes. La ficha permite atribuirle esas decisiones institucionales, pero no identificar a la persona que dio cada orden ni adjudicarle una orden concreta de encubrimiento internacional.",
+    "variantes": [
+     "Маяк",
+     "ПО «Маяк»",
+     "Производственное объединение «Маяк»",
+     "Planta n.º 817"
+    ]
+   },
+   "intentos": [
+    {
+     "intento": 1,
+     "bloqueantes": [
+      "beat 2: dato_central «P22: ANTES DE SER LIQUIDADOR, DUBROVSKY ERA ELECTRICISTA.» no existe en el pool (o no es D/T/Q)",
+      "a_pantalla T04 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla D62 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla D27 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla T20 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla D143 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla D31 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla D113 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla T28 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla Q24 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla T29 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla T26 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla D50 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla Q03 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla D152 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla D108 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla D03 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla D07 también está en un beat: lo que va a pantalla no lo dice la voz",
+      "a_pantalla D68 también está en un beat: lo que va a pantalla no lo dice la voz"
+     ]
+    },
+    {
+     "intento": 2,
+     "bloqueantes": []
+    }
+   ],
+   "pasada1_beats_por_cap": [
+    1,
+    1,
+    2,
+    1,
+    3,
+    3,
+    3
+   ],
+   "pasada1_caps_fuera_1_3": [],
+   "pasada1_bloqueantes": [
+    "beat 1: dato_central «Q18: EL CHORRO DE DESCONTAMINACIÓN GOLPEA EL PECHO DE DUBROVSKY CON TANTA FUERZA QUE PIDE QUE LO DETENGAN. USAR ÚNICAMENTE ESE INSTANTE; RESERVAR FUERA DEL GANCHO LAS EXPLICACIONES.» no existe en el pool (o no es D/T/Q)",
+    "beat 2: dato_central «P22: ANTES DE SER LIQUIDADOR, DUBROVSKY ERA ELECTRICISTA.» no existe en el pool (o no es D/T/Q)",
+    "beat 3: dato_central «D55: ANTES DE LA EXPLOSIÓN, MAYAK YA VERTÍA RESIDUOS RADIACTIVOS LÍQUIDOS EN EL TECHA. GIRO 1.» no existe en el pool (o no es D/T/Q)",
+    "beat 4: dato_central «D19, D119: LAS FUENTES COINCIDEN EN UNA ALTERACIÓN DEL RÉGIMEN DE REFRIGERACIÓN COMO CAUSA DEL ACCIDENTE.» no existe en el pool (o no es D/T/Q)",
+    "beat 5: dato_central «D30: LA EXPLOSIÓN DESTRUYE EL TANQUE Y DEJA UN CRÁTER. AQUÍ SE COMPLETA EL GIRO 2: LOS RESIDUOS ALMACENADOS SE CONVIERTEN EN CONTAMINACIÓN FUERA DEL RECINTO.» no existe en el pool (o no es D/T/Q)",
+    "beat 6: dato_central «D118: AL DÍA SIGUIENTE SE LAVAN CARRETERAS, SE CAMBIA ASFALTO Y SE COLOCAN DOSÍMETROS EN LUGARES PÚBLICOS DE CHELIÁBINSK-40.» no existe en el pool (o no es D/T/Q)",
+    "beat 7: dato_central «Q17: A DUBROVSKY Y AL GRUPO DE ELECTRICISTAS LES ENCARGAN ARRANCAR ARBUSTOS SIN EXPLICARLES CÓMO COMPORTARSE, SALVO QUE NO SE QUITEN LA PROTECCIÓN RESPIRATORIA. GIRO 3: LOS TRABAJADORES PASAN A SER LIQUIDADORES.» no existe en el pool (o no es D/T/Q)",
+    "beat 8: dato_central «Q24: EL MEMORANDO ATRIBUIDO A SLAVSKY SEÑALA COMO PRINCIPALES CULPABLES AL JEFE Y AL INGENIERO JEFE DE LA PLANTA RADIOQUÍMICA.» no existe en el pool (o no es D/T/Q)",
+    "beat 9: dato_central «Q02: CHELYABINSKY RABOCHY PRESENTA EL RESPLANDOR COMO UNA AURORA POLAR. GIRO 4: LA RESPUESTA PÚBLICA NO IDENTIFICA LA CATÁSTROFE MIENTRAS COMIENZA UNA EVACUACIÓN DE CALENDARIO DISCUTIDO.» no existe en el pool (o no es D/T/Q)",
+    "beat 10: dato_central «D51: MEDVEDEV PUBLICA SU INFORME EN NEW SCIENTIST Y DA ALCANCE INTERNACIONAL AL DESASTRE. GIRO 5.» no existe en el pool (o no es D/T/Q)",
+    "beat 11: dato_central «Q03: BULDAKOV DECLARA ANTE EL SÓVIET SUPREMO QUE NO HABÍAN REGISTRADO FORMAS DE ENFERMEDAD POR RADIACIÓN DURANTE SU SEGUIMIENTO.» no existe en el pool (o no es D/T/Q)",
+    "beat 12: dato_central «D108, D109: LOS ABOGADOS DE GALINA CHANOVA CALCULAN UNA DEUDA MAYOR QUE LA CANTIDAD QUE FINALMENTE ORDENA PAGAR EL TRIBUNAL. GIRO 6: EL CONFLICTO PASA DEL RECONOCIMIENTO A LA REPARACIÓN.» no existe en el pool (o no es D/T/Q)",
+    "beat 13: dato_central «D07: EL EXPEDIENTE DE N.N.D. RECOGE UNA NEGATIVA DE INSCRIPCIÓN HABITACIONAL BASADA EN LA FECHA EN QUE PRESENTÓ SU SOLICITUD.» no existe en el pool (o no es D/T/Q)",
+    "beat 14: dato_central «D126: LA AUSENCIA DE DOSÍMETROS PERSONALES DEMORÓ LA INCLUSIÓN DE DUBROVSKY Y LOS DEMÁS ELECTRICISTAS EN EL REGISTRO DE LIQUIDADORES. NO AFIRMAR QUE NUNCA FUERAN RECONOCIDOS.» no existe en el pool (o no es D/T/Q)"
+   ]
+  }
+ },
+ "F2": {
+  "modelo": "claude-fable-5-1",
+  "corrio": true,
+  "rechazada": true,
+  "escaleta": null
+ }
+}

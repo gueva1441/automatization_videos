@@ -1,0 +1,777 @@
+[
+ {
+  "humano": {
+   "id": "P22",
+   "nombre": "Anatoly Vasilievich Dubrovsky",
+   "rol": "Electricista convertido en liquidador",
+   "por_que": "Tiene el recorrido más concreto: presencia el estruendo, vuelve al trabajo, recibe herramientas sin instrucciones suficientes, atraviesa una descontaminación dolorosa y encuentra dificultades para obtener reconocimiento como liquidador. Sus dos citas verificadas permiten sostener la historia desde una experiencia física, no desde una explicación institucional.",
+   "colectivo": false,
+   "fuente": "P22, Q16, Q17, Q18, D123, D126"
+  },
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "L09",
+   "nombre": "Mayak",
+   "por_que": "Es la institución responsable del almacenamiento que explota y el ámbito donde los trabajadores reciben tareas de liquidación sin instrucciones suficientes ni dosímetros personales. Se dramatizan esas decisiones documentadas, sin inventar una orden individual de encubrimiento. Las responsabilidades administrativas atribuidas a distintos cargos se contrastan en un beat propio."
+  },
+  "promesa_gancho": "¿Cómo se borra del relato público una explosión que hizo temblar un edificio?",
+  "pico": {
+   "beat": 5,
+   "id": "D30",
+   "por_que": "Se conserva el pico señalado por la ficha: la destrucción del tanque convierte el fallo del almacenamiento en contaminación fuera de Mayak. Se ubica en el capítulo 4, después de un capítulo de presión técnica. Dubrovsky permanece presente mediante el montaje paralelo con su ubicación en el club, sin convertirlo en testigo visual del tanque."
+  },
+  "cierre_humano": "Volvemos a Dubrovsky y a la demora de su reconocimiento por no haber recibido un dosímetro. La ficha no permite establecer qué reparación obtuvo después. Cierre: «¿Qué reparación llegó finalmente a Anatoly?»",
+  "beats": [
+   {
+    "n": 1,
+    "cap": 1,
+    "funcion": "gancho",
+    "emocion": "Desconcierto físico",
+    "intensidad": 4,
+    "dato_central": "Q16: un hombre y sus compañeros oyen un fuerte estruendo; el edificio empieza a temblar. Reservar la ubicación y la actividad que realizaban para el regreso cronológico al accidente. El testimonio no está verificado: no usar una cita literal con atribución nominal.",
+    "datos_apoyo": [],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E1: el estruendo y la vibración del edificio alrededor de Dubrovsky y sus compañeros. Sin fecha, cifras, explicación industrial ni reacciones añadidas.",
+    "pregunta_abierta": "¿Qué acaba de golpear el edificio y qué relación tiene ese hombre con lo ocurrido?",
+    "pregunta_pantalla": "",
+    "cierre": "Antes de aquel ruido, había un turno de trabajo.",
+    "palabras_objetivo": 90,
+    "flash_forward": true,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 2,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "Cercanía y normalidad",
+    "intensidad": 1,
+    "dato_central": "P22: antes de convertirse en liquidador, Anatoly Vasilievich Dubrovsky era electricista.",
+    "datos_apoyo": [
+     "L09, L10: trabajaba en el entorno de Mayak, instalación de procesamiento de plutonio para armas nucleares situada en la ciudad cerrada de Cheliábinsk-40.",
+     "T04: el Gobierno soviético había aprobado la construcción de la planta para su programa de la bomba atómica."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Un plano de localización sitúa la ciudad cerrada y la planta. Dubrovsky se presenta por su oficio, sin inventarle vivienda, familia, rutinas domésticas ni opiniones sobre su trabajo.",
+    "pregunta_abierta": "¿Cómo termina un electricista haciendo un trabajo para el que nadie lo había preparado?",
+    "pregunta_pantalla": "",
+    "cierre": "El primer rastro no apareció en el cielo. Estaba en el río.",
+    "palabras_objetivo": 170,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 0
+   },
+   {
+    "n": 3,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "Inquietud",
+    "intensidad": 3,
+    "dato_central": "D55: antes de la explosión, Mayak ya vertía residuos radiactivos líquidos en el río Techa. Giro 1: la contaminación no comienza con el accidente.",
+    "datos_apoyo": [
+     "T11: una fuente afirma que miles de personas continuaron utilizando el agua del Techa mientras se realizaban los vertidos.",
+     "D62: desde 1953 estaba prohibido utilizar esa agua para beber.",
+     "T12, D56: también comenzaron los vertidos de residuos de alta actividad en el lago Karachay."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "El agua del Techa y un trazado documental que conecta la instalación con el río. No representar familias concretas bebiendo ni atribuir a Dubrovsky conocimiento de los vertidos.",
+    "pregunta_abierta": "Si los residuos ya alcanzaban el agua utilizada por la población, ¿qué protección ofrecía el almacenamiento dentro de la planta?",
+    "pregunta_pantalla": "",
+    "cierre": "",
+    "palabras_objetivo": 180,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 0
+   },
+   {
+    "n": 4,
+    "cap": 3,
+    "funcion": "escalada",
+    "emocion": "Amenaza contenida",
+    "intensidad": 4,
+    "dato_central": "D19, D119: la alteración del régimen de refrigeración aparece identificada como causa del accidente. Separar este acuerdo documental de las discrepancias sobre el mecanismo preciso.",
+    "datos_apoyo": [
+     "D26: los contenedores eran cilindros de acero inoxidable dentro de una envoltura de hormigón.",
+     "D27: una descripción presenta los residuos como secos.",
+     "D141: otra descripción los presenta como líquidos y sostiene que la refrigeración no fue reparada.",
+     "D35: una versión describe ignición de una mezcla de sales por una chispa accidental.",
+     "D36: otra propone una adición química errónea; presentarla como alternativa, no como explicación establecida."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Esquema del cilindro de acero dentro del hormigón. Las hipótesis se separan visualmente; no se muestra una chispa ni una maniobra química como si existiera una observación presencial.",
+    "pregunta_abierta": "¿Qué podía contener todavía ese tanque cuando había fallado su refrigeración?",
+    "pregunta_pantalla": "",
+    "cierre": "El contenedor seguía allí. Lo que no iba a quedarse dentro era su contenido.",
+    "palabras_objetivo": 220,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 0
+   },
+   {
+    "n": 5,
+    "cap": 4,
+    "funcion": "pico",
+    "emocion": "Ruptura",
+    "intensidad": 5,
+    "dato_central": "D30: la explosión destruye el tanque n.º 14 y deja un cráter. Giro 2: el problema del almacenamiento se convierte en contaminación fuera del recinto industrial.",
+    "datos_apoyo": [
+     "D143: la explosión levanta una losa de hormigón; su masa se reserva a pantalla y no se atribuye al tanque.",
+     "D31: liberación estimada de unos veinte millones de curios; esta magnitud se pronuncia una sola vez.",
+     "D112: la nube alcanza partes de las regiones de Cheliábinsk, Sverdlovsk y Tiumén.",
+     "D120: se trata de una explosión térmica, no de una reacción nuclear en cadena.",
+     "E1: revelar ahora que Dubrovsky estaba viendo una película con sus compañeros en el club Derevyashka; no repetir el estruendo ni la vibración del gancho.",
+     "D20: clasificación INES reservada exclusivamente a pantalla."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E2: el cráter y la losa desplazada, mediante reconstrucción documental identificada. Montaje paralelo con la proyección a la que asistía Dubrovsky en E1, sin inventar el contenido de la película ni su reacción. Nunca colocarlo ante el tanque.",
+    "pregunta_abierta": "¿Quién tendrá que acercarse a lo que acaba de salir del contenedor?",
+    "pregunta_pantalla": "",
+    "cierre": "",
+    "palabras_objetivo": 230,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 2
+   },
+   {
+    "n": 6,
+    "cap": 4,
+    "funcion": "giro",
+    "emocion": "Desprotección",
+    "intensidad": 4,
+    "dato_central": "Q17: Dubrovsky recibe la tarea de arrancar arbustos sin instrucciones de trabajo, salvo conservar la protección respiratoria. Giro 3: el electricista pasa a ser liquidador.",
+    "datos_apoyo": [
+     "T24: vuelve al trabajo al día siguiente del accidente.",
+     "D118: en Cheliábinsk-40 se lavan carreteras, se cambia el asfalto y se instalan dosímetros en lugares públicos.",
+     "D123: al grupo le entregan monos de goma, máscaras antigás y respiradores tipo pétalo; no enumerar cantidades."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E4: Dubrovsky y los electricistas con palas, palanquetas y picos junto a los arbustos de la pequeña fuente. Los monos de goma y la protección respiratoria contrastan con la ausencia de instrucciones que describe su cita verificada.",
+    "pregunta_abierta": "¿Cómo podían protegerse si nadie les había explicado cómo realizar la tarea?",
+    "pregunta_pantalla": "",
+    "cierre": "A esos hombres todavía había que lavarlos.",
+    "palabras_objetivo": 200,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 4
+   },
+   {
+    "n": 7,
+    "cap": 5,
+    "funcion": "respiro",
+    "emocion": "Dolor y vulnerabilidad",
+    "intensidad": 3,
+    "dato_central": "Q18: la descontaminación de Dubrovsky consiste en un lavado con agua fría a gran presión; el golpe en el pecho le duele tanto que pide que paren.",
+    "datos_apoyo": [
+     "Q18: en su testimonio verificado reconoce que había trabajado sin el respirador tipo pétalo. No transformar esa admisión en una explicación médica ni en una atribución de culpa."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "E5: la manguera del camión de bomberos, el agua fría y la presión sobre el pecho. Bajar el ritmo después de la destrucción: escuchar el testimonio sin añadir gritos, lesiones visibles ni efectos clínicos que la ficha no describe.",
+    "pregunta_abierta": "¿Qué podía saberse de lo que había recibido su cuerpo, más allá de lo que el agua conseguía quitar?",
+    "pregunta_pantalla": "",
+    "cierre": "",
+    "palabras_objetivo": 160,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 5
+   },
+   {
+    "n": 8,
+    "cap": 5,
+    "funcion": "consecuencia",
+    "emocion": "Incertidumbre",
+    "intensidad": 2,
+    "dato_central": "Q03: Buldakov declaró ante el Sóviet Supremo que no habían registrado ninguna forma de enfermedad por radiación durante su seguimiento. Contrastar el alcance de esa declaración, no convertirla en un balance de todas las víctimas.",
+    "datos_apoyo": [
+     "D152: otra fuente menciona diagnósticos de síndrome de radiación crónico, pero no permite identificar esa cohorte con la seguida por Buldakov.",
+     "D72: una fuente ofrece un recuento de muertes posteriores sin delimitar el período ni aportar un balance oficial.",
+     "D144: la afirmación de que no se comunicaron víctimas inmediatas no excluye muertes posteriores."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "La declaración de Buldakov se escucha sobre un fondo documental sobrio. Los recuentos aparecen separados, con sus límites escritos; no sumar categorías ni construir una cifra total.",
+    "pregunta_abierta": "¿Qué población observaba cada fuente y qué quedaba fuera de su recuento?",
+    "pregunta_pantalla": "",
+    "cierre": "Para entender ese contraste hay que volver a lo que se imprimió tras la explosión.",
+    "palabras_objetivo": 190,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 0
+   },
+   {
+    "n": 9,
+    "cap": 6,
+    "funcion": "giro",
+    "emocion": "Extrañamiento e indignación",
+    "intensidad": 3,
+    "dato_central": "Q02: el periódico local presenta el resplandor nocturno como una aurora polar. Giro 4: la explicación pública no identifica la catástrofe mientras comienza una evacuación cuyo calendario está discutido.",
+    "datos_apoyo": [
+     "T29: la nota se publica el 6 de octubre de 1957.",
+     "T26: una fuente sitúa ese día el comienzo de la evacuación.",
+     "T30: otra lo sitúa diez días después del accidente.",
+     "D116: una versión sostiene que las aldeas fueron liquidadas rápidamente.",
+     "Q23: un comentarista que se presenta como hijo de un residente rechaza esa rapidez y habla de un proceso prolongado; su testimonio no equivale a un registro administrativo.",
+     "D42: otra descripción extiende el desalojo y enterramiento de asentamientos entre 1957 y 1960."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E8: el brillo rojo que pasa a rosa pálido y azul claro, identificado expresamente como descripción publicada, no como explicación física verificada. Contrapunto con una cronología que mantiene separadas las versiones del reasentamiento.",
+    "pregunta_abierta": "¿Cómo se relacionaba esa explicación del cielo con las decisiones de sacar a la gente de sus pueblos?",
+    "pregunta_pantalla": "",
+    "cierre": "",
+    "palabras_objetivo": 250,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 8
+   },
+   {
+    "n": 10,
+    "cap": 6,
+    "funcion": "revelacion",
+    "emocion": "Desconfianza",
+    "intensidad": 3,
+    "dato_central": "Q24: el memorando atribuido a Slavsky señala como principales culpables al jefe y al ingeniero jefe de la planta radioquímica. No equiparar esos cargos automáticamente con la dirección de todo Mayak.",
+    "datos_apoyo": [
+     "T28: Slavsky encabeza la comisión ministerial llegada desde Moscú.",
+     "D121: otras fuentes presentan al director de Mayak, Mikhail Demyanovich, como responsabilizado y destituido.",
+     "D134: una fuente afirma que los liquidadores firmaron compromisos de confidencialidad y que se restringieron las vacaciones de los trabajadores.",
+     "Q21: Lyudmila Smirnova recuerda que en la ciudad no se hablaba del accidente; usar su cita como testimonio del silencio, no como prueba de quién ordenó imponerlo."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "En pantalla, los cargos que distingue el memorando y el nombre del director destituido en columnas separadas. La voz de Smirnova introduce el silencio de la ciudad sin inventar una orden escrita de censura.",
+    "pregunta_abierta": "¿Por qué las fuentes no señalan del mismo modo al responsable administrativo y qué podía contarse fuera de la planta?",
+    "pregunta_pantalla": "",
+    "cierre": "",
+    "palabras_objetivo": 190,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 0
+   },
+   {
+    "n": 11,
+    "cap": 6,
+    "funcion": "giro",
+    "emocion": "Apertura del secreto",
+    "intensidad": 3,
+    "dato_central": "D51: Medvedev publica en New Scientist en 1976 y da alcance internacional al desastre. Giro 5: el accidente atraviesa el secreto y termina siendo reconocido por la URSS.",
+    "datos_apoyo": [
+     "D50: ya habían aparecido noticias en la prensa de Copenhague en 1958; no afirmar que el mundo careció de toda información hasta Medvedev.",
+     "T38: Die Presse había publicado detalles en 1959.",
+     "D52: la primera confirmación soviética se sitúa en julio de 1989.",
+     "T46: desde ese período comienza la desclasificación gradual de documentos sobre Mayak."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Una secuencia de referencias documentales distingue noticias tempranas, publicación de Medvedev y confirmación soviética. No fabricar portadas ni fragmentos que el material no reproduce.",
+    "pregunta_abierta": "¿Qué cambiaba para los afectados cuando el Estado reconocía una explosión que llevaba décadas formando parte de sus vidas?",
+    "pregunta_pantalla": "",
+    "cierre": "La siguiente discusión no se daría ante un tanque, sino ante un tribunal.",
+    "palabras_objetivo": 210,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 0
+   },
+   {
+    "n": 12,
+    "cap": 7,
+    "funcion": "giro",
+    "emocion": "Alivio limitado",
+    "intensidad": 3,
+    "dato_central": "D108, D109: los abogados de Galina Chanova calculan una deuda superior a la cantidad finalmente concedida por el tribunal. Giro 6: el conflicto pasa del reconocimiento del accidente a la reparación efectiva.",
+    "datos_apoyo": [
+     "D103: Galina había comenzado a percibir compensaciones por el daño a su salud.",
+     "D09: la fiscalía también presentó reclamaciones de actualización en nombre de afectados; no convertir su total en el importe del caso de Galina.",
+     "D16: otra fuente describe compensaciones sin indexar desde 2001.",
+     "Q14: Galina dice estar contenta incluso con esa decisión y atribuye el resultado al trabajo de sus abogados. Conservar su satisfacción sin reinterpretarla como conformidad plena con el sistema."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Las cantidades reclamada y concedida aparecen enfrentadas en pantalla. La cita verificada de Galina se escucha sin volver a leer esos importes.",
+    "pregunta_abierta": "¿Qué parte de una reparación dependía de que alguien pudiera calcular la deuda y llevarla a juicio?",
+    "pregunta_pantalla": "",
+    "cierre": "",
+    "palabras_objetivo": 190,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 0
+   },
+   {
+    "n": 13,
+    "cap": 7,
+    "funcion": "consecuencia",
+    "emocion": "Encierro e irresolución",
+    "intensidad": 3,
+    "dato_central": "D07: N.N.D., evacuada de Kurmanovo, encuentra una negativa administrativa a su solicitud habitacional basada en cuándo la presentó.",
+    "datos_apoyo": [
+     "D02: su condición de evacuada vincula el expediente de vivienda con las consecuencias de la contaminación.",
+     "D03: su familia vive en un apartamento de una habitación y superficie insuficiente; los datos numéricos del expediente quedan a pantalla.",
+     "T56: el litigio llega a revisión del Tribunal Regional de Cheliábinsk; los fragmentos no permiten fijar su desenlace definitivo.",
+     "D68: una fuente también describe una evacuación aprobada para Muslyumovo que no llegó a ejecutarse por problemas económicos."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "E11: la única habitación y el espacio reducido que documenta el expediente. No añadir muebles, condiciones de higiene ni acciones de la familia.",
+    "pregunta_abierta": "¿Qué reparación efectiva hubo cuando el reconocimiento como afectada no resolvía dónde vivir?",
+    "pregunta_pantalla": "",
+    "cierre": "",
+    "palabras_objetivo": 180,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 11
+   },
+   {
+    "n": 14,
+    "cap": 7,
+    "funcion": "cierre",
+    "emocion": "Ausencia de respuesta",
+    "intensidad": 2,
+    "dato_central": "D126: la falta de dosímetros personales demoró la inclusión de Dubrovsky y sus compañeros electricistas en la lista de liquidadores. No afirmar que nunca fueron reconocidos.",
+    "datos_apoyo": [],
+    "humano_en_escena": true,
+    "imagen_sensorial": "La ausencia del dosímetro personal ocupa el cierre mediante un esquema sobrio, no un supuesto documento original. Se vuelve al nombre de Anatoly; no se repiten el estruendo, las herramientas ni la manguera.",
+    "pregunta_abierta": "¿Qué reparación obtuvo Dubrovsky después de superar aquella demora de reconocimiento?",
+    "pregunta_pantalla": "",
+    "cierre": "¿Qué reparación llegó finalmente a Anatoly?",
+    "palabras_objetivo": 110,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 0
+   }
+  ],
+  "a_pantalla": [
+   {
+    "id": "D20",
+    "cap": 4,
+    "por_que": "Clasificación INES: nivel 6 sobre 7. Solo a pantalla, después del gancho; la voz no lee la clasificación."
+   },
+   {
+    "id": "D143",
+    "cap": 4,
+    "por_que": "160 toneladas corresponde a la losa de hormigón, no al tanque. Mostrar la cifra con atribución a F10; no pronunciarla."
+   },
+   {
+    "id": "D152",
+    "cap": 5,
+    "por_que": "Mostrar los 66 diagnósticos atribuidos a F10 y advertir que no puede identificarse esa cohorte con la del seguimiento de Buldakov. La voz no lee la cifra."
+   },
+   {
+    "id": "D72",
+    "cap": 5,
+    "por_que": "Mostrar, atribuido a F06, el recuento aproximado de 200 muertes posteriores con la advertencia visible: período no delimitado y sin balance oficial aportado. No usarlo como saldo definitivo ni pronunciar la cifra."
+   },
+   {
+    "id": "T29",
+    "cap": 6,
+    "por_que": "Fecha de publicación de la explicación de la aurora: 6 de octubre de 1957. La voz puede citar Q02, pero no leer la fecha ni duplicar la cita completa en pantalla."
+   },
+   {
+    "id": "Q24",
+    "cap": 6,
+    "por_que": "Mostrar el extracto del memorando que distingue al jefe y al ingeniero jefe de la planta radioquímica. La voz explica el problema de equivalencia entre cargos sin leer el documento."
+   },
+   {
+    "id": "D108",
+    "cap": 7,
+    "por_que": "Cantidad calculada por los abogados de Galina: alrededor de 150.000 rublos. Etiquetar como reclamada, no concedida; la voz no lee el importe."
+   },
+   {
+    "id": "D109",
+    "cap": 7,
+    "por_que": "Cantidad concedida judicialmente a Galina: alrededor de 60.000 rublos. Mantenerla separada de la reclamación; la voz no lee el importe."
+   },
+   {
+    "id": "D03",
+    "cap": 7,
+    "por_que": "Datos del expediente de N.N.D.: cinco integrantes y 36,3 metros cuadrados. La voz no enumera esas cifras; se concentra en la consecuencia habitacional."
+   },
+   {
+    "id": "D07",
+    "cap": 7,
+    "por_que": "Mostrar la fecha de corte administrativa del 1 de marzo de 2005, sin leerla en voz ni presentarla como fecha de la evacuación."
+   },
+   {
+    "id": "T56",
+    "cap": 7,
+    "por_que": "Revisión judicial del 24 de noviembre de 2011, acompañada por la advertencia de que el fragmento no permite establecer el desenlace definitivo. No fabricar una sentencia final."
+   }
+  ],
+  "justificacion_humano": "Dubrovsky sostiene el gancho, el pico y el cierre. Su presencia en el pico se resuelve con información de E1 reservada para ese momento: la proyección en el club, no una visión inventada del tanque. Reaparece físicamente en la liquidación y la descontaminación; nunca desaparece durante dos capítulos consecutivos. Q16, sin verificar, no se convierte en una cita nominal; Q17 y Q18 sí permiten citas atribuidas. Los seis giros entran en beats propios: 3, 5, 6, 9, 11 y 12. Se conservan las disputas de mecanismo, responsabilidad, evacuación, enfermedad y mortalidad sin resolverlas artificialmente. La CIA y Lev Tumerman no se incorporan porque la ficha no aporta sustento para sus intervenciones. Tampoco se afirma un desconocimiento mundial absoluto hasta 1976: las noticias anteriores tienen su lugar."
+ },
+ {
+  "humano": {
+   "id": "Q17",
+   "nombre": "Anatoly Vasilievich Dubrovsky",
+   "rol": "Electricista convertido en liquidador.",
+   "por_que": "Tiene el arco más concreto: oye la explosión mientras mira una película, vuelve al trabajo, recibe herramientas sin instrucciones suficientes, arranca arbustos, soporta una descontaminación dolorosa y después encuentra dificultades para ser reconocido como liquidador. Permite contar el desastre desde un cuerpo y terminar en un problema de prueba y reparación.",
+   "colectivo": false,
+   "fuente": "Q17 y Q18: citas verificadas. D123, D124 y D126: trabajo, exposición y reconocimiento. Q16: testimonio sin verificar; su frase se utiliza sin atribución nominal."
+  },
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "D19",
+   "nombre": "Mayak",
+   "por_que": "Es la institución responsable de gestionar los residuos, de los vertidos previos y del almacenamiento cuya refrigeración falló. La ficha permite atribuirle decisiones operativas y una refrigeración que, según una versión, no fue reparada. No permite identificar quién ordenó cada medida de silencio ni atribuirle al complejo la explicación publicada por el periódico."
+  },
+  "promesa_gancho": "¿Cómo se oculta una catástrofe que hizo temblar el edificio donde un electricista miraba una película?",
+  "pico": {
+   "beat": 6,
+   "id": "D30",
+   "por_que": "Se conserva el pico señalado por la ficha: la explosión destruye el tanque y convierte el almacenamiento de residuos en contaminación fuera del recinto industrial. El gancho anticipa su experiencia humana; este beat revela qué ocurrió físicamente. La descontaminación posterior es una consecuencia dolorosa, no un segundo pico."
+  },
+  "cierre_humano": "¿Qué reparación efectiva recibió finalmente Anatoly Dubrovsky?",
+  "beats": [
+   {
+    "n": 1,
+    "cap": 1,
+    "funcion": "gancho",
+    "emocion": "Sobresalto",
+    "intensidad": 4,
+    "dato_central": "Q16: «Y en un momento oímos un fuerte estruendo; incluso el edificio empezó a temblar». Cita sin verificar: utilizar como voz testimonial sin nombre ni rótulo de autor.",
+    "datos_apoyo": [],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El estruendo y la vibración del edificio donde está Dubrovsky. Entrar directamente en la sacudida, sin fecha, cifras ni explicación del lugar. No inventar gritos, derrumbes o reacciones posteriores.",
+    "pregunta_abierta": "¿Qué acaba de pasar fuera de ese edificio?",
+    "pregunta_pantalla": "",
+    "cierre": "Antes del estruendo, Anatoly Dubrovsky era un electricista que había ido a ver una película.",
+    "palabras_objetivo": 85,
+    "flash_forward": true,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 2,
+    "cap": 2,
+    "funcion": "planteo",
+    "emocion": "Cercanía",
+    "intensidad": 1,
+    "dato_central": "T04: El Gobierno soviético aprobó la construcción de la planta destinada a producir la bomba atómica en la región de Cheliábinsk.",
+    "datos_apoyo": [
+     "T03: La construcción de Mayak se desarrolló apresuradamente entre 1945 y 1948.",
+     "T09: La planta radioquímica comenzó a separar y procesar plutonio en enero de 1949."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Dubrovsky y sus compañeros viendo una película en el club Derevyashka, antes de la interrupción del gancho. No identificar la película ni agregar conversaciones. Presentarlo por su oficio, sin inventarle familia, vivienda o una jornada laboral anterior.",
+    "pregunta_abierta": "¿Qué significaba trabajar allí antes de convertirse en liquidador?",
+    "pregunta_pantalla": "",
+    "cierre": "Para encontrar lo que quedaba después de aquella producción, hay que seguir el agua del Techa.",
+    "palabras_objetivo": 180,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 1
+   },
+   {
+    "n": 3,
+    "cap": 3,
+    "funcion": "giro",
+    "emocion": "Inquietud",
+    "intensidad": 2,
+    "dato_central": "D55: Antes de la explosión, Mayak ya vertía residuos radiactivos líquidos en el río Techa. Primer giro: la contaminación no empezó con el accidente.",
+    "datos_apoyo": [
+     "T11: La población continuaba utilizando el agua del río mientras se realizaban los vertidos.",
+     "D62: Desde 1953 estaba prohibido utilizar el agua del Techa para beber.",
+     "T12: Después de noviembre de 1951 comenzaron también los vertidos de residuos de alta actividad en el lago Karachay."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "El agua del Techa y el recorrido del río entre poblaciones. Diferenciar mediante cartografía el río y el lago; no representar residuos radiactivos como un líquido luminoso.",
+    "pregunta_abierta": "Si los residuos ya alcanzaban el agua que utilizaba la población, ¿qué se estaba acumulando dentro de la planta?",
+    "pregunta_pantalla": "",
+    "cierre": "Otra parte de los residuos no iba al río. Se guardaba en contenedores.",
+    "palabras_objetivo": 175,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 4,
+    "cap": 3,
+    "funcion": "escalada",
+    "emocion": "Vulnerabilidad",
+    "intensidad": 3,
+    "dato_central": "D26: Los contenedores eran cilindros de acero inoxidable alojados dentro de una envoltura de hormigón.",
+    "datos_apoyo": [
+     "T14: La instalación de almacenamiento de residuos líquidos se añadió alrededor de 1953.",
+     "T19: Entre marzo y abril de 1957 se introdujeron 256 metros cúbicos de residuos en el tanque n.º 14."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Un corte documental del cilindro de acero y su envoltura de hormigón. Intercalar brevemente a Dubrovsky en el espacio del gancho, sin repetir el estruendo: es un montaje de proximidad, no una afirmación de que estuviera dentro del almacén.",
+    "pregunta_abierta": "¿Qué necesitaba ese contenedor para seguir conteniendo los residuos?",
+    "pregunta_pantalla": "",
+    "cierre": "El acero y el hormigón no bastaban. El contenido necesitaba refrigeración.",
+    "palabras_objetivo": 120,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 5,
+    "cap": 4,
+    "funcion": "escalada",
+    "emocion": "Asfixia",
+    "intensidad": 4,
+    "dato_central": "D19: La alteración del régimen de refrigeración aparece identificada como causa del accidente.",
+    "datos_apoyo": [
+     "D141: F10 describe un sistema de refrigeración que falló y no fue reparado, con residuos líquidos en el tanque.",
+     "D27: F05 describe los residuos como secos al producirse el accidente; no conciliar artificialmente ambos estados.",
+     "D35: Una explicación propone la ignición de una mezcla de sales por una chispa accidental.",
+     "D36: Otra explicación propone la adición errónea de oxalato de plutonio a una solución caliente de nitrato de plutonio."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "El esquema del tanque y su circuito de refrigeración. Separar visualmente las explicaciones alternativas; no representar una chispa o una maniobra química como si existiera una observación presencial.",
+    "pregunta_abierta": "¿Qué puede afirmarse del fallo sin convertir una hipótesis en una escena probada?",
+    "pregunta_pantalla": "",
+    "cierre": "Las fuentes no reconstruyen igual el último desencadenante. El resultado fue un contenedor destruido.",
+    "palabras_objetivo": 190,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 6,
+    "cap": 5,
+    "funcion": "pico",
+    "emocion": "Ruptura",
+    "intensidad": 5,
+    "dato_central": "D30: La explosión destruye el tanque n.º 14 y deja un cráter. Segundo giro: los residuos dejan de estar contenidos.",
+    "datos_apoyo": [
+     "D120: Fue una explosión térmica, no una detonación atómica ni el inicio de una reacción en cadena.",
+     "D31: La liberación estimada fue de unos veinte millones de curios de sustancias radiactivas; decir esta cifra una sola vez.",
+     "D112: La nube alcanzó partes de las regiones de Cheliábinsk, Sverdlovsk y Tiumén."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El cráter donde estaba el tanque y la losa de hormigón desplazada, como reconstrucción documental, no como mirada de un testigo identificado. Contrapunto con Dubrovsky dentro del edificio del gancho, sin repetir su cita ni inventar qué hizo después.",
+    "pregunta_abierta": "¿Qué recibió la gente que estaba fuera del tanque, fuera de la planta y fuera de cualquier explicación?",
+    "pregunta_pantalla": "",
+    "cierre": "Para Dubrovsky, la siguiente orden no fue explicar la explosión. Fue volver al trabajo.",
+    "palabras_objetivo": 180,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 2
+   },
+   {
+    "n": 7,
+    "cap": 5,
+    "funcion": "giro",
+    "emocion": "Indefensión",
+    "intensidad": 4,
+    "dato_central": "Q17: Dubrovsky cuenta que debían arrancar arbustos junto a una pequeña fuente, sin instrucciones sobre cómo comportarse salvo no quitarse la protección respiratoria. Tercer giro: los trabajadores pasan a hacer la liquidación.",
+    "datos_apoyo": [
+     "T24: Dubrovsky acudió al trabajo al día siguiente del accidente.",
+     "D123: Al grupo de electricistas le entregaron monos de goma y protección respiratoria; no enumerar las cantidades."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "Monos de goma, máscaras y respiradores; palas, palanquetas y picos contra los arbustos que crecen junto a la fuente. La tarea se muestra exactamente hasta donde llega el relato.",
+    "pregunta_abierta": "¿Qué protección ofrece un equipo cuando nadie explica el trabajo que debe hacerse con él?",
+    "pregunta_pantalla": "",
+    "cierre": "Después de arrancar los arbustos, llegó un camión de bomberos.",
+    "palabras_objetivo": 190,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 4
+   },
+   {
+    "n": 8,
+    "cap": 5,
+    "funcion": "consecuencia",
+    "emocion": "Dolor",
+    "intensidad": 4,
+    "dato_central": "Q18: Dubrovsky recuerda que el agua fría a presión le golpeó el pecho con tanto dolor que pidió que detuvieran el lavado; reconoce que había trabajado sin el respirador tipo pétalo.",
+    "datos_apoyo": [
+     "D124: F09 atribuye al trabajo de los electricistas junto a la fuente cinco normas diarias de irradiación, sin aportar una conversión dosimétrica."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "El chorro frío de la manguera contra la espalda y después contra el pecho. Utilizar la cita verificada: «Me dolió tanto que pedí que pararan». No agregar lesiones ni diagnósticos.",
+    "pregunta_abierta": "¿Qué podía quitar aquel lavado y qué exposición ya se había producido?",
+    "pregunta_pantalla": "",
+    "cierre": "Fuera de aquel lavado, la limpieza también había comenzado en las calles.",
+    "palabras_objetivo": 140,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 5
+   },
+   {
+    "n": 9,
+    "cap": 6,
+    "funcion": "respiro",
+    "emocion": "Desolación",
+    "intensidad": 2,
+    "dato_central": "D118: Al día siguiente se lavaron carreteras, se cambió asfalto y se instalaron dosímetros en lugares públicos de Cheliábinsk-40.",
+    "datos_apoyo": [
+     "D144: Una fuente afirma que no se comunicaron víctimas inmediatas por la explosión; eso no demuestra que no hubiera muertes posteriores."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Agua sobre las carreteras, pavimento retirado y aparatos de medición en espacios públicos. Bajar el ritmo y dejar los recuentos exclusivamente en pantalla, con sus límites de interpretación.",
+    "pregunta_abierta": "¿Qué puede contarse con certeza cuando las cifras describen poblaciones, evacuaciones y muertes con criterios distintos?",
+    "pregunta_pantalla": "",
+    "cierre": "Había medidas contra la contaminación. La explicación que apareció en el periódico hablaba del cielo.",
+    "palabras_objetivo": 130,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 3
+   },
+   {
+    "n": 10,
+    "cap": 6,
+    "funcion": "revelacion",
+    "emocion": "Desconfianza",
+    "intensidad": 3,
+    "dato_central": "Q02: El periódico local presentó el resplandor como un fenómeno con todas las características de una aurora polar. Cuarto giro: la respuesta pública no identifica la catástrofe.",
+    "datos_apoyo": [
+     "D116: F09 presenta el reasentamiento como una operación rápida; reservar su recuento de localidades para pantalla.",
+     "Q23: Un comentarista identificado como Dmitry rechaza esa rapidez y sostiene que el traslado se prolongó durante medio año; no equipararlo a un registro administrativo.",
+     "D121: Las fuentes describen al director de Mayak, Mikhail Demyanovich, como responsabilizado y destituido; no equiparar automáticamente su cargo con los cargos señalados por la comisión.",
+     "Q03: Buldakov declaró que no habían conseguido registrar ninguna forma de enfermedad por radiación. Contrastar con el dato diagnóstico mostrado en pantalla sin afirmar que las cohortes sean las mismas."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "El rojo intenso que pasa a rosa pálido y azul claro, exclusivamente como descripción publicada del resplandor, no como explicación física verificada. Después, contraste entre el periódico, las cronologías de evacuación y las atribuciones de responsabilidad.",
+    "pregunta_abierta": "¿Qué parte del desastre se reconocía dentro de los documentos y qué podía conocer la población?",
+    "pregunta_pantalla": "",
+    "cierre": "La noticia atravesaría la frontera. No saldría como una confirmación soviética.",
+    "palabras_objetivo": 250,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 8
+   },
+   {
+    "n": 11,
+    "cap": 7,
+    "funcion": "giro",
+    "emocion": "Revelación incompleta",
+    "intensidad": 3,
+    "dato_central": "D51: En 1976, Zhores Medvedev publicó en New Scientist un informe que difundió internacionalmente el alcance del desastre. Quinto giro: la catástrofe atraviesa el secreto.",
+    "datos_apoyo": [
+     "D50: Ya habían aparecido noticias en la prensa de Copenhague en abril de 1958; no presentar la publicación de Medvedev como la primera noticia occidental.",
+     "T38: Die Presse publicó detalles en marzo de 1959.",
+     "D52: F05 fecha la primera confirmación soviética en julio de 1989.",
+     "D134: F09 describe restricciones a las vacaciones de los trabajadores y compromisos de confidencialidad firmados por liquidadores.",
+     "Q21: Lyudmila Smirnova recuerda: «En la ciudad no se hablaba de aquel accidente»."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "Las cabeceras de los periódicos y de New Scientist como recorrido material de una información que sale por etapas. La voz no lee documentos completos ni presenta el silencio como ausencia absoluta de noticias.",
+    "pregunta_abierta": "¿Qué cambia para un afectado cuando el accidente por fin se admite?",
+    "pregunta_pantalla": "",
+    "cierre": "Reconocer la explosión no fijaba cuánto debía pagarse por sus consecuencias.",
+    "palabras_objetivo": 250,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 12,
+    "cap": 7,
+    "funcion": "consecuencia",
+    "emocion": "Alivio limitado",
+    "intensidad": 2,
+    "dato_central": "Q14: Galina Chanova expresa satisfacción con la sentencia y atribuye a los abogados de Sociedad Civil el cálculo de lo que el Estado había dejado de pagarle. Sexto giro: el conflicto pasa del reconocimiento a la reparación.",
+    "datos_apoyo": [
+     "D102: Galina había sido evacuada de territorio contaminado.",
+     "D103: Comenzó a recibir compensaciones por el daño a su salud en 1997.",
+     "D16: Otro pasaje describe una compensación que no se indexaba desde 2001; no identificar automáticamente ese régimen con todas las prestaciones de Galina."
+    ],
+    "humano_en_escena": false,
+    "imagen_sensorial": "La reclamación y la sentencia de Galina, con los importes comparados solo en pantalla. Escuchar su frase verificada: «Estoy muy contenta incluso con esta decisión del tribunal». No convertir su satisfacción en prueba de una reparación completa.",
+    "pregunta_abierta": "¿Obtener una sentencia equivale a recibir todo lo reclamado?",
+    "pregunta_pantalla": "",
+    "cierre": "Otra evacuada llegó al tribunal por una necesidad distinta: una vivienda suficiente.",
+    "palabras_objetivo": 180,
+    "flash_forward": false,
+    "contador": false
+   },
+   {
+    "n": 13,
+    "cap": 7,
+    "funcion": "cierre",
+    "emocion": "Incertidumbre íntima",
+    "intensidad": 3,
+    "dato_central": "D126: La ausencia de dosímetros personales demoró la incorporación del grupo de electricistas de Dubrovsky a la lista de liquidadores.",
+    "datos_apoyo": [
+     "D02: N.N.D. había sido evacuada de Kurmanovo.",
+     "D06: Recibió un certificado de su condición de afectada.",
+     "T54: Solicitó ser reconocida como necesitada de mejores condiciones de vivienda.",
+     "D68: Según F06, la evacuación de Muslyumovo aprobada en 1993 no se ejecutó por problemas económicos."
+    ],
+    "humano_en_escena": true,
+    "imagen_sensorial": "La única habitación del expediente de N.N.D., cuya composición familiar y superficie se muestran sin leerlas en voz. No adjudicar esa vivienda a Dubrovsky. Cerrar visualmente con el electricista y la ausencia del dosímetro que debía haber registrado su exposición, sin fabricar un documento personal.",
+    "pregunta_abierta": "¿Qué reparación efectiva alcanzó a quienes trabajaron, fueron evacuados o permanecieron en territorio contaminado, y qué puede demostrarse específicamente sobre Dubrovsky?",
+    "pregunta_pantalla": "",
+    "cierre": "¿Qué reparación efectiva recibió finalmente Anatoly Dubrovsky?",
+    "palabras_objetivo": 210,
+    "flash_forward": false,
+    "contador": false,
+    "escena_idx": 11
+   }
+  ],
+  "a_pantalla": [
+   {
+    "id": "D20",
+    "cap": 5,
+    "por_que": "Clasificación INES: nivel 6 sobre 7. Exclusivamente visual; no se incorpora a la voz ni al gancho."
+   },
+   {
+    "id": "D143",
+    "cap": 5,
+    "por_que": "La masa de 160 toneladas corresponde a la losa de hormigón levantada, no al tanque. Mostrar la cifra atribuida a F10; la voz no la repite."
+   },
+   {
+    "id": "D37",
+    "cap": 6,
+    "por_que": "Mostrar únicamente la población aproximada del territorio alcanzado: 270.000 residentes. Aclarar que no es un recuento de enfermos ni de muertos."
+   },
+   {
+    "id": "D97",
+    "cap": 6,
+    "por_que": "Recuento de 23 localidades reasentadas. No confundir con todas las localidades del territorio contaminado."
+   },
+   {
+    "id": "D72",
+    "cap": 6,
+    "por_que": "F06 menciona alrededor de 200 muertes posteriores, sin período delimitado ni balance oficial aportado. Mostrar la atribución y la limitación juntas; no presentar la cifra como mortalidad definitiva."
+   },
+   {
+    "id": "T29",
+    "cap": 6,
+    "por_que": "Mostrar cabecera y fecha del periódico: 6 de octubre de 1957. La cita se escucha en voz; no duplicar en pantalla su texto."
+   },
+   {
+    "id": "T26",
+    "cap": 6,
+    "por_que": "Cronología de F10: inicio de la evacuación el 6 de octubre. La voz solo señala la discrepancia, sin leer las fechas."
+   },
+   {
+    "id": "T30",
+    "cap": 6,
+    "por_que": "Cronología de F06: inicio diez días después del accidente. Presentar junto a la otra versión, sin resolverla artificialmente."
+   },
+   {
+    "id": "D42",
+    "cap": 6,
+    "por_que": "Mostrar únicamente el período de desalojo y enterramiento descrito por F05: 1957–1960. No repetir aquí el número de localidades."
+   },
+   {
+    "id": "Q24",
+    "cap": 6,
+    "por_que": "Extracto del memorando atribuido a Slavsky que responsabiliza al jefe y al ingeniero jefe de la planta radioquímica. El texto no se lee en voz y no se equiparan esos cargos con la dirección de todo Mayak."
+   },
+   {
+    "id": "D152",
+    "cap": 6,
+    "por_que": "F10 menciona 66 diagnósticos de síndrome de radiación crónico. Advertir que no puede establecerse que correspondan a la cohorte del seguimiento citado por Buldakov."
+   },
+   {
+    "id": "D108",
+    "cap": 7,
+    "por_que": "Deuda calculada por los abogados de Galina: alrededor de 150.000 rublos. Identificar como cantidad reclamada, no concedida."
+   },
+   {
+    "id": "D109",
+    "cap": 7,
+    "por_que": "Cantidad concedida por la sentencia de Galina: alrededor de 60.000 rublos. Comparación exclusivamente visual con la reclamación."
+   },
+   {
+    "id": "D03",
+    "cap": 7,
+    "por_que": "Expediente de N.N.D.: familia de cinco personas en una vivienda de una habitación y 36,3 metros cuadrados. No leer estas cifras en voz."
+   },
+   {
+    "id": "D07",
+    "cap": 7,
+    "por_que": "La negativa de inscripción habitacional se basa en haber presentado la solicitud después del 1 de marzo de 2005. Mostrar el fundamento administrativo sin trasladarlo a la voz."
+   },
+   {
+    "id": "T56",
+    "cap": 7,
+    "por_que": "Revisión judicial del caso de N.N.D. el 24 de noviembre de 2011. Aclarar que los fragmentos disponibles no permiten fijar su desenlace definitivo."
+   }
+  ],
+  "justificacion_humano": "Dubrovsky permanece como eje: entra en el gancho, recibe un capítulo de vida anterior, reaparece visualmente durante la explicación del almacenamiento, está presente en el pico y protagoniza las tareas, la descontaminación y la pregunta final. Galina y N.N.D. amplían las consecuencias sin sustituirlo. Los seis giros tienen lugar propio: contaminación previa en el beat 3; salida de los residuos del almacenamiento en el 6; conversión de trabajadores en liquidadores en el 7; explicación pública y evacuación disputada en el 10; ruptura del secreto en el 11; reparación judicializada en el 12, prolongada por el cierre habitacional del 13. No se utiliza la afirmación sobre la CIA ni a Lev Tumerman porque la ficha no aporta hechos o escenas que los documenten. Tampoco se presenta 1976 como el final de un silencio occidental absoluto: las noticias anteriores forman parte de la revelación."
+ }
+]

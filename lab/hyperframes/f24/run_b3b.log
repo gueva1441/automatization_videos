@@ -1,0 +1,24 @@
+[23:58:56] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f24-b3-S1-escaleta
+[00:07:02] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f24-b3-S1-escaleta � Costo total: $0.3144
+  [modelo escaleta S1] US$ 0.3144 · 485 s · tanda US$ 1.3693
+  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}
+  [escaleta v2] intento 1: 11 bloqueante(s) ['beat 2: dato_central «P22: ANTES DE CONVERTIRSE EN LIQUIDADOR, ANATOLY VASILIEVICH DUBROVSKY ERA ELECTRICISTA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D20 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D143 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D152 también está en un beat: lo que va a pantalla no lo dice la voz'] · 65 reparación(es) · 16 a métricas
+  [escaleta v2] intento 2: 1 bloqueante(s) ['humano Q17 no es una persona del pool'] · 64 reparación(es) · 9 a métricas
+[00:07:02] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f24-b3-S2-escaleta
+[00:14:07] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f24-b3-S2-escaleta � Costo total: $0.2875
+  [modelo escaleta S2] US$ 0.2875 · 425 s · tanda US$ 1.6568
+  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}
+  [escaleta v2] intento 1: 19 bloqueante(s) ['beat 2: dato_central «P22: ANTES DE SER LIQUIDADOR, DUBROVSKY ERA ELECTRICISTA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla T04 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D62 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D27 también está en un beat: lo que va a pantalla no lo dice la voz'] · 70 reparación(es) · 13 a métricas
+  [escaleta v2] intento 2: 0 bloqueante(s) [] · 58 reparación(es) · 14 a métricas
+[00:14:07] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f24-b3-F2-escaleta
+[00:14:07] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f24-b3-F2-escaleta � Costo total: $0.0000
+  [modelo escaleta F2] US$ 0.0000 · 0 s · tanda US$ 1.6568
+  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}
+PARADA (B.3 escaleta F2): Parada: tope antes de «m01a_escaleta v2 intento 1»: paso US$ 1.657 + peor caso 0.984 > 2.00 (o total 2.641 > 14.00)
+[00:14:07] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f24-b3-S2-guion
+[00:14:07] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f24-b3-S2-guion � Costo total: $0.0000
+  [modelo guion S2] US$ 0.0000 · 0 s · tanda US$ 1.6568
+PARADA (B.3 guion S2): Parada: tope antes de «guion_v4 guionista»: paso US$ 1.657 + peor caso 1.136 > 2.00 (o total 2.793 > 14.00)
+{"F1": {"pasada1": null, "final": null}, "S1": {"pasada1": [1, 1, 2, 2, 2, 3, 3], "final": [0, 0, 0, 0, 0, 0, 0]}, "S2": {"pasada1": [1, 1, 2, 1, 3, 3, 3], "final": [1, 1, 2, 2, 2, 3, 3]}, "F2": {"pasada1": null, "final": null}}
+B.3 US$ 1.6568 · prompt escaleta f24-1 006a195f0ce4be014df34d71644aedb1
+tanda US$ 1.6568
