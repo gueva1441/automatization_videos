@@ -168,11 +168,14 @@ def vista(esc: dict, res: dict, ficha: dict, topic: dict) -> dict:
     return fc2.guion_view("ycua", res, esc, ficha, topic["evidence_pool"])
 
 
-def narracion(tag: str, esc: dict, res: dict, ficha: dict, topic: dict) -> str:
+def narracion(tag: str, esc: dict, res: dict, ficha: dict, topic: dict, *, modelo: str | None = None,
+              version: str | None = None, tema: str = "Ycuá", fase: str = "F22b",
+              escaleta_txt: str = "Misma escaleta de F22 (`escaleta_ycua_f22.json`)") -> str:
+    """F22c reusa la página con `modelo`, `version`, `tema`, `fase` y `escaleta_txt` (por defecto, lo de F22b)."""
     v = vista(esc, res, ficha, topic)
-    modelo, version = CORRIDAS[tag]
-    L = [f"# Narración Ycuá — F22b `{tag}` ({modelo} high, guion {VERSION_NOMBRE[version]} `{version}`)", "",
-         f"Misma escaleta de F22 (`escaleta_ycua_f22.json`) · sistema md5 `{res['prompt_md5']['sistema'][:8]}` · usuario "
+    modelo, version = (modelo, version) if modelo else CORRIDAS[tag]
+    L = [f"# Narración {tema} — {fase} `{tag}` ({modelo} high, guion {VERSION_NOMBRE[version]} `{version}`)", "",
+         f"{escaleta_txt} · sistema md5 `{res['prompt_md5']['sistema'][:8]}` · usuario "
          f"md5 `{res['prompt_md5']['usuario'][:8]}` · US$ {res['costo']['usd']:.4f} · {res['costo']['segundos']:.0f} s", "",
          f"**{v['palabras']} palabras ≈ {res['minutos']} min** · bloqueantes **{v['bloqueantes']}** · citas "
          f"{res['metricas']['citas']} · personas con nombre {len(v['personas_total'])} · cierre "

@@ -1,0 +1,934 @@
+{
+ "humano": {
+  "id": "P13",
+  "nombre": "Liz Torres",
+  "rol": "Sobreviviente y activista de organizaciones de víctimas.",
+  "por_que": "Entra con su esposo, queda inmovilizada entre personas, cree que no sobrevivirá y después participa en el reclamo de justicia. Su experiencia sostiene el gancho y el pico señalado por la ficha. El cierre revela qué significado les da a los cuerpos que quedaron sobre ella.",
+  "colectivo": false,
+  "fuente": "historia.humanos candidatos; P13, P80, Q12, Q19, Q77, Q78."
+ },
+ "antagonista": {
+  "tipo": "persona",
+  "id": "P06",
+  "nombre": "Juan Pío Helvidio Paiva Escobar",
+  "por_que": "Es el propietario y principal accionista, señalado por una sobreviviente como responsable de la orden de cierre y condenado en la causa principal. La escaleta distingue esa atribución, la negativa de los Paiva y el resultado judicial: no presenta como documentada una orden directa ni da por probado el motivo del cierre."
+ },
+ "promesa_gancho": "Vas a entender cómo una huida se convirtió en un encierro, qué se discutió sobre las puertas y qué quedó sin resolver después de las condenas.",
+ "pico": {
+  "beat": 7,
+  "id": "Q20",
+  "por_que": "Se conserva el pico de la ficha: Liz permanece atrapada mientras el calor y las cenizas ocupan el ambiente y los gritos se apagan. El gancho anticipa la avalancha; el pico desarrolla el tiempo inmóvil que viene después. Q20 se utiliza sin atribución nominal porque no está verificada."
+ },
+ "cierre_humano": "Volver a Liz con Q77: «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida». Después, dejar abierta la pregunta por la reparación efectiva, sin transformar su supervivencia en una moraleja.",
+ "beats": [
+  {
+   "n": 1,
+   "cap": 1,
+   "funcion": "gancho",
+   "emocion": "Asfixia y pérdida de control.",
+   "intensidad": 4,
+   "dato_central": "Q19",
+   "datos_apoyo": [],
+   "humano_en_escena": true,
+   "imagen_sensorial": "E8: cuerpos que empujan a Liz hacia adentro; ya no puede avanzar. Abrir sobre esa presión, sin fecha, cifras ni explicación del edificio.",
+   "pregunta_abierta": "¿Qué detuvo una huida que ya estaba en marcha?",
+   "pregunta_pantalla": "",
+   "cierre": "Para entender cómo llegó hasta ahí, hay que volver a la vida que había antes de esa huida.",
+   "palabras_objetivo": 110,
+   "flash_forward": true,
+   "contador": false,
+   "escena_idx": 8,
+   "pregunta_valida": false
+  },
+  {
+   "n": 2,
+   "cap": 2,
+   "funcion": "planteo",
+   "emocion": "Normalidad y cercanía.",
+   "intensidad": 1,
+   "dato_central": "T02",
+   "datos_apoyo": [
+    "D111",
+    "D210",
+    "D01",
+    "T14",
+    "T19"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "E3: el dinero del primer sueldo pasa de Mario a Mariana. Presentar también a Liz y Alfredo como la pareja que fue al supermercado, según el arco documentado, sin inventar conversaciones, compras ni recorridos. Estela sale mientras Blas se queda trabajando.",
+   "pregunta_abierta": "¿Qué podía hacer pensar a estas personas que no regresarían de una jornada corriente?",
+   "pregunta_pantalla": "",
+   "cierre": "Por encima de esas rutinas, el techo iba a convertirse en el recorrido del fuego.",
+   "palabras_objetivo": 240,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 3,
+   "pregunta_valida": false
+  },
+  {
+   "n": 3,
+   "cap": 3,
+   "funcion": "revelacion",
+   "emocion": "Inquietud ante un peligro que no se veía desde abajo.",
+   "intensidad": 2,
+   "dato_central": "D28",
+   "datos_apoyo": [
+    "D84",
+    "D85",
+    "Q12",
+    "Q82",
+    "D82"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Una ilustración en corte permite ver el zinc, el aislante y el cielorraso superpuestos. Liz reaparece como voz testimonial sobre los controles. El origen preciso del fuego se informa únicamente mediante la placa de D27.",
+   "pregunta_abierta": "¿Cuánto podía extenderse el fuego antes de que quienes estaban debajo comprendieran lo que ocurría?",
+   "pregunta_pantalla": "",
+   "cierre": "Abajo, un ruido va a hacer que las miradas se vuelvan hacia la parrilla.",
+   "palabras_objetivo": 147,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 4,
+   "cap": 3,
+   "funcion": "giro",
+   "emocion": "Sobresalto.",
+   "intensidad": 3,
+   "dato_central": "Q70",
+   "datos_apoyo": [
+    "Q17",
+    "Q10"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E5: llamas cayendo sobre los comensales. El sonido descrito por Galeano y la nube negra que recuerda Beatriz completan el cambio de una jornada de compras a una huida.",
+   "pregunta_abierta": "¿Hacia dónde se puede correr cuando el peligro cae desde arriba?",
+   "pregunta_pantalla": "",
+   "cierre": "La gente corre hacia los accesos por los que esperaba salir.",
+   "palabras_objetivo": 103,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 5,
+   "pregunta_valida": false
+  },
+  {
+   "n": 5,
+   "cap": 4,
+   "funcion": "giro",
+   "emocion": "Encierro.",
+   "intensidad": 4,
+   "dato_central": "Q18",
+   "datos_apoyo": [
+    "D106"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E7: el blíndex delante de Galeano, Santiago sostenido en sus brazos y el humo que sube desde el sector del estacionamiento. No asignar a Santiago un parentesco que la ficha no confirma.",
+   "pregunta_abierta": "¿Los accesos estaban cerrados, bloqueados o resultaban imposibles de atravesar en ese momento?",
+   "pregunta_pantalla": "",
+   "cierre": "El estacionamiento parece otra posibilidad. Falta llegar.",
+   "palabras_objetivo": 141,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 7
+  },
+  {
+   "n": 6,
+   "cap": 4,
+   "funcion": "escalada",
+   "emocion": "Agobio físico.",
+   "intensidad": 4,
+   "dato_central": "T09",
+   "datos_apoyo": [
+    "D105"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E11: el estruendo que Astigarraga compara con un avión por despegar y el techo que cae. En otra experiencia del mismo incendio, la bajada de Digna queda ocupada por escombros; no presentar ambos recuerdos como una secuencia horaria comprobada.",
+   "pregunta_abierta": "¿Qué posibilidad queda cuando tampoco se puede completar el recorrido hacia otra salida?",
+   "pregunta_pantalla": "",
+   "cierre": "En otro punto del salón, Liz ya no puede avanzar.",
+   "palabras_objetivo": 109,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 11,
+   "pregunta_valida": false
+  },
+  {
+   "n": 7,
+   "cap": 5,
+   "funcion": "pico",
+   "emocion": "Terror inmóvil.",
+   "intensidad": 5,
+   "dato_central": "Q20",
+   "datos_apoyo": [
+    "D03"
+   ],
+   "humano_en_escena": true,
+   "imagen_sensorial": "E8: Liz permanece inmovilizada entre personas; cenizas y voces cada vez más débiles. Suprimir música que compita con ese apagamiento. Un corte breve a E9 muestra el panel sobre la pierna de Tatiana, sin desplazar a Liz como centro del pico. No repetir aquí la avalancha ni la cita del gancho.",
+   "pregunta_abierta": "¿Queda alguien capaz de llegar hasta quienes ya no pueden moverse?",
+   "pregunta_pantalla": "",
+   "cierre": "Entre los escombros, alguien va a distinguir una claridad.",
+   "palabras_objetivo": 220,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 8,
+   "pregunta_valida": false
+  },
+  {
+   "n": 8,
+   "cap": 6,
+   "funcion": "respiro",
+   "emocion": "Alivio incompleto.",
+   "intensidad": 2,
+   "dato_central": "D107",
+   "datos_apoyo": [
+    "D147",
+    "D04",
+    "D05",
+    "D200"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E10: agua sobre Digna y una abertura clara en la pared. Dejar respirar esa imagen antes de pasar a los rescates y las consecuencias médicas. No inventar procedimientos hospitalarios ni una escena del despertar de Cristian.",
+   "pregunta_abierta": "¿Qué significa haber salido cuando las lesiones todavía pueden decidir el resto de la vida?",
+   "pregunta_pantalla": "",
+   "cierre": "Para Blas, todavía queda encontrar a Estela.",
+   "palabras_objetivo": 71,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 10
+  },
+  {
+   "n": 9,
+   "cap": 6,
+   "funcion": "consecuencia",
+   "emocion": "Duelo y silencio.",
+   "intensidad": 2,
+   "dato_central": "T25",
+   "datos_apoyo": [
+    "D141",
+    "T27",
+    "D110",
+    "Q24"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "E12: Blas, Mónica y el cuerpo encontrado en el estacionamiento abierto. Evitar el inventario de lesiones y pertenencias. El recuento aparece en placas separadas, sin lectura de cifras por la voz.",
+   "pregunta_abierta": "¿Cómo se reconstruye lo que pasó cuando las familias todavía están intentando encontrar a los suyos?",
+   "pregunta_pantalla": "",
+   "cierre": "Después vendrá una pericia que dirá algo distinto sobre aquellas puertas.",
+   "palabras_objetivo": 68,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 12
+  },
+  {
+   "n": 10,
+   "cap": 6,
+   "funcion": "giro",
+   "emocion": "Desconcierto y desconfianza.",
+   "intensidad": 3,
+   "dato_central": "D31",
+   "datos_apoyo": [
+    "D30",
+    "D25",
+    "Q64",
+    "D121",
+    "Q35",
+    "D61"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Comparación gráfica de los accesos mencionados: blíndex, rampa y dependencias internas, sin inventar una planta arquitectónica. Distinguir visualmente testimonio, conclusión pericial y argumento de defensa. La referencia a la lectura judicial queda exclusivamente en pantalla.",
+   "pregunta_abierta": "¿Cómo se resuelve judicialmente una contradicción entre lo que las personas encontraron al huir y lo que la pericia describió después?",
+   "pregunta_pantalla": "",
+   "cierre": "La próxima lectura no será una pericia. Será una sentencia.",
+   "palabras_objetivo": 111,
+   "flash_forward": false,
+   "contador": false,
+   "pregunta_valida": false
+  },
+  {
+   "n": 11,
+   "cap": 7,
+   "funcion": "revelacion",
+   "emocion": "Expectativa de justicia.",
+   "intensidad": 3,
+   "dato_central": "D215",
+   "datos_apoyo": [
+    "D214",
+    "T58"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "La lectura de sentencia que no pudo completarse, seguida por las placas del resultado judicial. No inventar gestos de acusados, familiares o jueces. La condena del propietario recibe el mayor peso visual.",
+   "pregunta_abierta": "¿Una condena penal devuelve algo material a quienes sobrevivieron o perdieron a su familia?",
+   "pregunta_pantalla": "",
+   "cierre": "Tatiana seguirá preguntando por algo que una pena de prisión no entrega.",
+   "palabras_objetivo": 40,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 12,
+   "cap": 7,
+   "funcion": "consecuencia",
+   "emocion": "Persistencia y deuda.",
+   "intensidad": 3,
+   "dato_central": "Q01",
+   "datos_apoyo": [
+    "D08"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Volver a Tatiana como testigo que habla por sí misma, no volver a representar el panel ni la amputación. Utilizar de Q01 el fragmento «nunca recibí indemnización real o reparación del daño», sin convertir otras afirmaciones de esa entrevista en una descripción del presente.",
+   "pregunta_abierta": "¿Qué distancia hay entre una responsabilidad reconocida y una reparación que efectivamente llega?",
+   "pregunta_pantalla": "",
+   "cierre": "Una familia llegará a obtener una condena económica. Falta saber si puede cobrarla.",
+   "palabras_objetivo": 38,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 13,
+   "cap": 7,
+   "funcion": "giro",
+   "emocion": "Incertidumbre material.",
+   "intensidad": 3,
+   "dato_central": "D193",
+   "datos_apoyo": [
+    "T75",
+    "Q68"
+   ],
+   "humano_en_escena": false,
+   "imagen_sensorial": "Una placa identifica al matrimonio beneficiario y el monto reconocido. Otra señala la incertidumbre sobre los bienes disponibles, sin ilustrarla con cuentas bancarias, propiedades o expedientes que la ficha no aporta.",
+   "pregunta_abierta": "¿Podrá cobrarse lo reconocido si no se sabe qué bienes de la sociedad quedan?",
+   "pregunta_pantalla": "",
+   "cierre": "Queda volver a Liz y a quienes hicieron posible que siguiera viva.",
+   "palabras_objetivo": 40,
+   "flash_forward": false,
+   "contador": false
+  },
+  {
+   "n": 14,
+   "cap": 7,
+   "funcion": "cierre",
+   "emocion": "Gratitud dolorosa y una deuda abierta.",
+   "intensidad": 3,
+   "dato_central": "Q77",
+   "datos_apoyo": [],
+   "humano_en_escena": true,
+   "imagen_sensorial": "Regresar a la imagen de Liz inmovilizada entre cuerpos, sin repetir el sonido de la avalancha ni reconstruir otra vez el pico. Lo que en el gancho parecía solamente una condena adquiere el significado que ella le da.",
+   "pregunta_abierta": "¿Llegará a sobrevivientes y familiares algo más que el reconocimiento judicial del daño?",
+   "pregunta_pantalla": "",
+   "cierre": "Liz: «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida». Dejar un silencio. ¿Llegará a quienes sobrevivieron algo más que una sentencia?",
+   "palabras_objetivo": 21,
+   "flash_forward": false,
+   "contador": false,
+   "escena_idx": 8,
+   "pregunta_valida": false
+  }
+ ],
+ "a_pantalla": [
+  {
+   "id": "D42",
+   "cap": 2,
+   "por_que": "Ubicar el regreso temporal: domingo 1 de agosto de 2004. La voz no lee la fecha ni fija una hora del estallido, porque las fuentes discrepan."
+  },
+  {
+   "id": "D27",
+   "cap": 3,
+   "por_que": "Placa atribuida a la pericia: inicio del fuego en desperdicios de cocción acumulados en el tramo en S de la chimenea. Este detalle no se repite en voz."
+  },
+  {
+   "id": "D89",
+   "cap": 3,
+   "por_que": "Mostrar que la reconstrucción técnica reproducida por F09 menciona una salida de emergencia clausurada. Identificarlo como una descripción distinta de la formulada por Nissen, no como una clasificación documental ya dirimida."
+  },
+  {
+   "id": "D192",
+   "cap": 6,
+   "por_que": "Mostrar 327 fallecidos: cifra presentada como oficial por F10, sin incluir desaparecidos. Aclarar que la referencia disponible es periodística y no un registro primario. No leerla en voz."
+  },
+  {
+   "id": "D14",
+   "cap": 6,
+   "por_que": "Contrastar la cifra de 400 fallecidos utilizada por otra fuente con el recuento presentado como oficial por F10. No adoptar 400 como un total indiscutido de personas atrapadas o muertas."
+  },
+  {
+   "id": "T65",
+   "cap": 7,
+   "por_que": "Mostrar la fecha de las condenas de la causa principal: 2 de febrero de 2008. No leerla en voz."
+  },
+  {
+   "id": "D19",
+   "cap": 7,
+   "por_que": "Mostrar la pena de Juan Pío Paiva: 12 años de prisión. Es la cifra judicial central de la revelación y no se repite en la narración."
+  }
+ ],
+ "justificacion_humano": "Liz tiene el arco que mejor coincide con la estructura exigida: entra acompañada, queda atrapada en la escena elegida como pico, sobrevive y participa en el reclamo. Tiene cuatro citas verificadas. Está en el gancho, en la vida anterior mediante su vínculo con Alfredo, en la reconstrucción de responsabilidades, en el pico y en el cierre; no desaparece durante dos capítulos consecutivos. Tatiana funciona como contrapunto de lesión y reparación, sin reemplazarla como protagonista. Se incorporan los seis giros de la ficha. El pico permanece donde fue señalado y Q20 se usa sin atribución nominal, mientras Q19 y Q77 sostienen con citas verificadas la apertura y el cierre.",
+ "topic_id": "f8s1-ycua-bolanos",
+ "prompt_version": "f22-1",
+ "_reparaciones": [
+  "id leído de «Q19: Liz siente una avalancha humana que la deja atrapada y » → Q19",
+  "id leído de «T02: el sábado anterior al incendio, Mario Eduardo Chamorro » → T02",
+  "apoyo «D111: Mario llevaba veintiocho días trabajando en el superme» → D111",
+  "apoyo «D210: Alfredo Vallovera es el esposo de Liz; utilizar aquí ú» → D210",
+  "apoyo «D01: Tatiana Gabaglio tenía siete años; la edad se dice sola» → D01",
+  "apoyo «T14: Blas Cristaldo permanece trabajando en su computadora e» → T14",
+  "apoyo «T19: Estela sale con Teresa Urbieta y sus hijas, que pasan a» → T19",
+  "id leído de «D28: según la pericia, las llamas se propagaron por el mater» → D28",
+  "apoyo «D84: el tinglado de zinc estaba recubierto con poliuretano.» → D84",
+  "apoyo «D85: sobre el cielorraso de yeso había una placa de isopor, » → D85",
+  "apoyo «Q12: Liz atribuye la habilitación provisoria a la administra» → Q12",
+  "apoyo «Q82: Carlos Halke reconoce que la aprobación municipal de pl» → Q82",
+  "apoyo «D82: Nissen sostiene que no había salidas de emergencia seña» → D82",
+  "id leído de «Q70: Cristian Sosa ve caer las llamas sobre las personas que» → Q70",
+  "apoyo «Q17: Víctor Galeano compara el ruido con agua arrojada sobre» → Q17",
+  "apoyo «Q10: Beatriz González oye una explosión, ve una nube de humo» → Q10",
+  "id leído de «Q18: Víctor Galeano declara que encuentra cerrado el blíndex» → Q18",
+  "apoyo «D106: Digna Cáceres declara que el portón hacia Artigas esta» → D106",
+  "id leído de «T09: Nelson Astigarraga recuerda un gran ruido y la caída de» → T09",
+  "apoyo «D105: Digna Cáceres queda trabada en la bajada al estacionam» → D105",
+  "id leído de «Q20: un testimonio describe el ambiente como un horno o tata» → Q20",
+  "apoyo «D03: un panel derretido del cielorraso cae sobre la pierna d» → D03",
+  "id leído de «D107: Digna recuerda despertar mojada y ver la claridad de u» → D107",
+  "apoyo «D147: Nelson Astigarraga relata que salió por el boquete abi» → D147",
+  "apoyo «D04: bomberos voluntarios rescatan a Tatiana.» → D04",
+  "apoyo «D05: debido a la gravedad de las quemaduras, los médicos le » → D05",
+  "apoyo «D200: Cristian Sosa permanece veintidós días en coma por que» → D200",
+  "id leído de «T25: al comenzar la búsqueda, Blas y sus acompañantes se ent» → T25",
+  "apoyo «D141: el equipo organizado por Mónica encuentra a Estela en » → D141",
+  "apoyo «T27: Blas retira el cuerpo de su esposa; reservar la hora, q» → T27",
+  "apoyo «D110: Mario Eduardo Chamorro, el empleado que entregó su pri» → D110",
+  "apoyo «Q24: Mariana expresa que su vida terminó con la muerte de su» → Q24",
+  "id leído de «D31: la pericia de Criminalística reseñada por F06 sostiene » → D31",
+  "apoyo «D30: la misma pericia describe los blíndex como pivotantes y» → D30",
+  "apoyo «D25: el resumen pericial limita las puertas cerradas a las d» → D25",
+  "apoyo «Q64: Escobar Faella transmite la negativa categórica de los » → Q64",
+  "apoyo «D121: un participante de una reunión relata que los fiscales» → D121",
+  "apoyo «Q35: testimonio sin verificar que atribuye la orden al propi» → Q35",
+  "apoyo «D61: F09 narra un supuesto cierre por temor al robo de merca» → D61",
+  "id leído de «D215: Juan Pío Paiva, Víctor Daniel Paiva y Daniel Areco res» → D215",
+  "apoyo «D214: la causa principal fue por homicidio doloso.» → D214",
+  "apoyo «T58: en el primer juicio, incidentes obligaron a suspender l» → T58",
+  "id leído de «Q01: Tatiana afirma que nunca recibió una indemnización real» → Q01",
+  "apoyo «D08: Tatiana cuenta que comenzó a estudiar Derecho en la Uni» → D08",
+  "id leído de «D193: la Sala Civil de la Corte reconoce una indemnización a» → D193",
+  "apoyo «T75: el principal demandado había muerto cuando la resolució» → T75",
+  "apoyo «Q68: Antonio Morínigo advierte sobre la incertidumbre de hac» → Q68",
+  "id leído de «Q77: Liz afirma que las personas que cayeron sobre su cuerpo» → Q77",
+  "a_pantalla D195: cap 6 inválido o lleno → fuera",
+  "a_pantalla D223: cap 6 inválido o lleno → fuera",
+  "a_pantalla D196: cap 6 inválido o lleno → fuera",
+  "a_pantalla D197: cap 6 inválido o lleno → fuera",
+  "a_pantalla T59: cap 6 inválido o lleno → fuera",
+  "a_pantalla D20: cap 7 inválido o lleno → fuera",
+  "a_pantalla D21: cap 7 inválido o lleno → fuera",
+  "a_pantalla D186: cap 7 inválido o lleno → fuera",
+  "cap 3: palabras 390 → 250 (objetivo 250)",
+  "cap 4: palabras 320 → 250 (objetivo 250)",
+  "cap 6: palabras 810 → 250 (objetivo 250)",
+  "cap 7: palabras 660 → 139 (objetivo 140)"
+ ],
+ "_avisos": [],
+ "_intentos": [
+  {
+   "intento": 1,
+   "bloqueantes": [
+    "beat 2: dato_central «P13, P80 E HISTORIA.HUMANOS CANDIDATOS: LIZ VA AL SUPERMERCADO CON SU ESPOSO, ALFREDO VALLOVERA. VOLVEMOS A LA JORNADA ANTERIOR A LA HUIDA, SIN INVENTAR COMPRAS, CONVERSACIONES NI RECORRIDOS DE LA PAREJA.» no existe en el pool (o no es D/T/Q)",
+    "a_pantalla D42 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D27 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D89 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D192 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T59 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla T65 también está en un beat: lo que va a pantalla no lo dice la voz",
+    "a_pantalla D186 también está en un beat: lo que va a pantalla no lo dice la voz"
+   ],
+   "reparaciones": [
+    "id leído de «Q19: una avalancha humana deja atrapada a Liz y ella cree qu» → Q19",
+    "apoyo «D53: el supermercado estaba en Artigas y Santísima Trinidad,» → D53",
+    "apoyo «D42: fecha y día del incendio, exclusivamente a pantalla.» → D42",
+    "apoyo «Q08: en otra casa, las hijas de Ángela Pujol salen tomadas d» → Q08",
+    "id leído de «T03, D135: antes del incendio, Blas Cristaldo, Estela y los » → T03",
+    "apoyo «T14: esa mañana Blas se queda trabajando en su computadora.» → T14",
+    "apoyo «T19: Teresa Urbieta y sus hijas pasan a buscar a Estela.» → T19",
+    "id leído de «D27: la pericia de Criminalística sitúa el inicio del fuego » → D27",
+    "apoyo «D28: propagación por el material aislante del techo, exclusi» → D28",
+    "apoyo «D84, D85: composición del techo y del cielorraso; incorporar» → D84, D85",
+    "apoyo «Q12: Liz atribuye a la administración de Burt la habilitació» → Q12",
+    "apoyo «Q82: Carlos Halke reconoce que se aprobaban planos sin reali» → Q82",
+    "id leído de «Q70: Cristian Sosa ve caer las llamas sobre las personas que» → Q70",
+    "apoyo «Q17, D45: Víctor Galeano compara el ruido con agua arrojada » → Q17, D45",
+    "apoyo «Q10: Beatriz González oye una explosión, ve humo negro, aban» → Q10",
+    "id leído de «Q18, D47: Galeano declara que encuentra cerrado el blíndex y» → Q18",
+    "apoyo «D106: Digna Cáceres declara que el portón hacia Artigas esta» → D106",
+    "apoyo «D75: la querella sostiene que un grupo consiguió vencer una » → D75",
+    "apoyo «D82: Nissen sostiene que no había salidas de emergencia seña» → D82",
+    "apoyo «D89: otra reconstrucción reproducida en F09 menciona una sal» → D89",
+    "apoyo «D95: Pérez describe puertas de emergencia de ancho insuficie» → D95",
+    "id leído de «D03: un panel derretido del cielorraso cae sobre la pierna d» → D03",
+    "apoyo «D01: Tatiana tenía siete años; decir esta edad una sola vez.» → D01",
+    "id leído de «Q20: el ambiente se describe como un horno con cenizas y gri» → Q20",
+    "id leído de «D107: Digna Cáceres recuerda despertar mojada y distinguir l» → D107",
+    "apoyo «D105: antes había quedado trabada en la bajada al estacionam» → D105",
+    "apoyo «D147: Nelson Astigarraga relata que utilizó el boquete debaj» → D147",
+    "id leído de «D210, P80: Liz y Alfredo pudieron ser rescatados. Este es el» → D210",
+    "apoyo «D04: bomberos voluntarios rescatan a Tatiana.» → D04",
+    "apoyo «D05: la gravedad de las quemaduras lleva a la amputación de » → D05",
+    "apoyo «D200: Cristian Sosa permanece veintidós días en coma por que» → D200",
+    "apoyo «D192 frente a D14, D38: mostrar por separado la cifra que F1» → D192, D14, D38",
+    "apoyo «D195, D223: las fuentes discrepan entre 244 y 500 heridos; e» → D195, D223",
+    "apoyo «D196, D197: huérfanos y desaparecidos cuantificados por F11,» → D196, D197",
+    "id leído de «D141: el equipo organizado por Mónica encuentra el cuerpo de» → D141",
+    "apoyo «T25, D137: al comenzar la búsqueda se enteran de la identifi» → T25, D137",
+    "apoyo «T27: Blas termina retirando el cuerpo de Estela. No usar Q49» → T27, Q49",
+    "id leído de «T59, D31: la lectura judicial de la pericia introduce la afi» → T59",
+    "apoyo «D30: el resumen pericial describe los blíndex como pivotante» → D30",
+    "apoyo «D25, D29: según ese resumen, los únicos cierres eran los acc» → D25, D29",
+    "apoyo «D109: una sobreviviente atribuye la orden a Pío Paiva, pero » → D109, Q35",
+    "apoyo «Q64: Escobar Faella transmite la negativa categórica de los » → Q64",
+    "apoyo «D121: un participante de una reunión afirma que los fiscales» → D121",
+    "apoyo «Q40, D145: la denuncia de Sánchez sobre presunta inducción p» → Q40, D145",
+    "id leído de «D19: Juan Pío Paiva recibe una condena de doce años de prisi» → D19",
+    "apoyo «T65: fecha de las condenas, exclusivamente a pantalla.» → T65",
+    "apoyo «D20: condena de Víctor Daniel Paiva, exclusivamente a pantal» → D20",
+    "apoyo «D21: condena de Daniel Areco, exclusivamente a pantalla.» → D21",
+    "apoyo «D214, D215: la causa principal fue por homicidio doloso. No » → D214, D215",
+    "apoyo «D08: Tatiana explica que empezó a estudiar Derecho por rabia» → D08",
+    "id leído de «D186, D193: la Sala Civil de la Corte condena a Paiva y a la» → D186",
+    "apoyo «D187: identificar a Felipe De Jesús Palacios Giménez y María» → D187",
+    "apoyo «T75, T76: F10 informa que el principal demandado ya había fa» → T75, T76",
+    "apoyo «Q01: Tatiana afirma, en una cita verificada, que nunca recib» → Q01",
+    "apoyo «Q77: regresar a Liz con su cita verificada sobre las persona» → Q77",
+    "id leído de «D27, D28, D84, D85» → D27",
+    "id leído de «D89, D95» → D89",
+    "id leído de «D192, D14, D38» → D192",
+    "id leído de «D195, D223» → D195",
+    "id leído de «D196, D197» → D196",
+    "id leído de «T59, D31, D30, D25, D29» → T59",
+    "id leído de «T65, D19, D20, D21, D214, D215» → T65",
+    "id leído de «D186, D193» → D186",
+    "beat 13: apoyo P01: POSTERIORMENTE EJERCE COMO ABOGADA; SU TRANSFORMACIÓN PERMITE PASAR DE LA PENA AL PROBLEMA DE LA REPARACIÓN. no existe en el pool → fuera",
+    "beat 14: apoyo P70: ANTONIO MORÍNIGO ADVIERTE QUE NO SABE SI EXISTEN BIENES DE LA SOCIEDAD CON LOS QUE HACER EFECTIVA LA INDEMNIZACIÓN. no existe en el pool → fuera",
+    "pico.id E8 → Q20 (el dato central del beat 8)",
+    "cap 1: palabras 80 → 110 (objetivo 110)",
+    "cap 2: palabras 360 → 250 (objetivo 250)",
+    "cap 3: palabras 410 → 250 (objetivo 250)",
+    "cap 4: palabras 400 → 250 (objetivo 250)",
+    "cap 5: palabras 340 → 250 (objetivo 250)",
+    "cap 6: palabras 780 → 250 (objetivo 250)",
+    "cap 7: palabras 500 → 140 (objetivo 140)"
+   ],
+   "no_bloqueantes": [
+    "falta un beat de intensidad 1 (respiro) después del pico",
+    "beat 2: Liz Torres en escena sin un dato suyo verificado (ninguna cita ni mención en ['P13, P80 E HISTORIA.HUMANOS CANDIDATOS: LIZ VA AL SUPERMERCADO CON SU ESPOSO, ALFREDO VALLOVERA. VOLVEMOS A LA JORNADA ANTERIOR A LA HUIDA, SIN INVENTAR COMPRAS, CONVERSACIONES NI RECORRIDOS DE LA PAREJA.', 'D53', 'D42', 'Q08']); datos suyos que valen: ['D210', 'D212', 'D213', 'Q12', 'Q13', 'Q14', 'Q19', 'Q77']",
+    "beat 8: Liz Torres en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q20']); datos suyos que valen: ['D210', 'D212', 'D213', 'Q12', 'Q13', 'Q14', 'Q19', 'Q77']",
+    "la imagen sensorial del gancho no lleva cifras",
+    "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+    "la última frase repite textual la cita Q77: decila con otras palabras",
+    "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+   ]
+  },
+  {
+   "intento": 2,
+   "bloqueantes": [],
+   "reparaciones": [
+    "id leído de «Q19: Liz siente una avalancha humana que la deja atrapada y » → Q19",
+    "id leído de «T02: el sábado anterior al incendio, Mario Eduardo Chamorro » → T02",
+    "apoyo «D111: Mario llevaba veintiocho días trabajando en el superme» → D111",
+    "apoyo «D210: Alfredo Vallovera es el esposo de Liz; utilizar aquí ú» → D210",
+    "apoyo «D01: Tatiana Gabaglio tenía siete años; la edad se dice sola» → D01",
+    "apoyo «T14: Blas Cristaldo permanece trabajando en su computadora e» → T14",
+    "apoyo «T19: Estela sale con Teresa Urbieta y sus hijas, que pasan a» → T19",
+    "id leído de «D28: según la pericia, las llamas se propagaron por el mater» → D28",
+    "apoyo «D84: el tinglado de zinc estaba recubierto con poliuretano.» → D84",
+    "apoyo «D85: sobre el cielorraso de yeso había una placa de isopor, » → D85",
+    "apoyo «Q12: Liz atribuye la habilitación provisoria a la administra» → Q12",
+    "apoyo «Q82: Carlos Halke reconoce que la aprobación municipal de pl» → Q82",
+    "apoyo «D82: Nissen sostiene que no había salidas de emergencia seña» → D82",
+    "id leído de «Q70: Cristian Sosa ve caer las llamas sobre las personas que» → Q70",
+    "apoyo «Q17: Víctor Galeano compara el ruido con agua arrojada sobre» → Q17",
+    "apoyo «Q10: Beatriz González oye una explosión, ve una nube de humo» → Q10",
+    "id leído de «Q18: Víctor Galeano declara que encuentra cerrado el blíndex» → Q18",
+    "apoyo «D106: Digna Cáceres declara que el portón hacia Artigas esta» → D106",
+    "id leído de «T09: Nelson Astigarraga recuerda un gran ruido y la caída de» → T09",
+    "apoyo «D105: Digna Cáceres queda trabada en la bajada al estacionam» → D105",
+    "id leído de «Q20: un testimonio describe el ambiente como un horno o tata» → Q20",
+    "apoyo «D03: un panel derretido del cielorraso cae sobre la pierna d» → D03",
+    "id leído de «D107: Digna recuerda despertar mojada y ver la claridad de u» → D107",
+    "apoyo «D147: Nelson Astigarraga relata que salió por el boquete abi» → D147",
+    "apoyo «D04: bomberos voluntarios rescatan a Tatiana.» → D04",
+    "apoyo «D05: debido a la gravedad de las quemaduras, los médicos le » → D05",
+    "apoyo «D200: Cristian Sosa permanece veintidós días en coma por que» → D200",
+    "id leído de «T25: al comenzar la búsqueda, Blas y sus acompañantes se ent» → T25",
+    "apoyo «D141: el equipo organizado por Mónica encuentra a Estela en » → D141",
+    "apoyo «T27: Blas retira el cuerpo de su esposa; reservar la hora, q» → T27",
+    "apoyo «D110: Mario Eduardo Chamorro, el empleado que entregó su pri» → D110",
+    "apoyo «Q24: Mariana expresa que su vida terminó con la muerte de su» → Q24",
+    "id leído de «D31: la pericia de Criminalística reseñada por F06 sostiene » → D31",
+    "apoyo «D30: la misma pericia describe los blíndex como pivotantes y» → D30",
+    "apoyo «D25: el resumen pericial limita las puertas cerradas a las d» → D25",
+    "apoyo «Q64: Escobar Faella transmite la negativa categórica de los » → Q64",
+    "apoyo «D121: un participante de una reunión relata que los fiscales» → D121",
+    "apoyo «Q35: testimonio sin verificar que atribuye la orden al propi» → Q35",
+    "apoyo «D61: F09 narra un supuesto cierre por temor al robo de merca» → D61",
+    "id leído de «D215: Juan Pío Paiva, Víctor Daniel Paiva y Daniel Areco res» → D215",
+    "apoyo «D214: la causa principal fue por homicidio doloso.» → D214",
+    "apoyo «T58: en el primer juicio, incidentes obligaron a suspender l» → T58",
+    "id leído de «Q01: Tatiana afirma que nunca recibió una indemnización real» → Q01",
+    "apoyo «D08: Tatiana cuenta que comenzó a estudiar Derecho en la Uni» → D08",
+    "id leído de «D193: la Sala Civil de la Corte reconoce una indemnización a» → D193",
+    "apoyo «T75: el principal demandado había muerto cuando la resolució» → T75",
+    "apoyo «Q68: Antonio Morínigo advierte sobre la incertidumbre de hac» → Q68",
+    "id leído de «Q77: Liz afirma que las personas que cayeron sobre su cuerpo» → Q77",
+    "a_pantalla D195: cap 6 inválido o lleno → fuera",
+    "a_pantalla D223: cap 6 inválido o lleno → fuera",
+    "a_pantalla D196: cap 6 inválido o lleno → fuera",
+    "a_pantalla D197: cap 6 inválido o lleno → fuera",
+    "a_pantalla T59: cap 6 inválido o lleno → fuera",
+    "a_pantalla D20: cap 7 inválido o lleno → fuera",
+    "a_pantalla D21: cap 7 inválido o lleno → fuera",
+    "a_pantalla D186: cap 7 inválido o lleno → fuera",
+    "cap 3: palabras 390 → 250 (objetivo 250)",
+    "cap 4: palabras 320 → 250 (objetivo 250)",
+    "cap 6: palabras 810 → 250 (objetivo 250)",
+    "cap 7: palabras 660 → 139 (objetivo 140)"
+   ],
+   "no_bloqueantes": [
+    "caps de desarrollo con menos de 2 beats: [2, 5] (beats por cap: [1, 1, 2, 2, 1, 3, 4])",
+    "falta un beat de intensidad 1 (respiro) después del pico",
+    "beat 7: Liz Torres en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q20', 'D03']); datos suyos que valen: ['D210', 'D212', 'D213', 'Q12', 'Q13', 'Q14', 'Q19', 'Q77']",
+    "la imagen sensorial del gancho no lleva cifras",
+    "la última frase del video (cierre del beat 14) no nombra al humano ni a un testigo verificado (Tatiana Gabaglio, Ángela Pujol, Beatriz González, Juan Pío Paiva, Liz Torres, Benedicto Pérez, Luis Escobar Faella, Víctor Galeano, Amada Correa, Mario Eduardo Chamorro, Daniel Paiva, Lili Cristaldo, Verónica Becker, Antonio Morínigo, Cristian Sosa, Julia López, Angélica Roa, Tania Campos, Rubén Valdez, Nelson Jara, Carlos Halke, Escobar Faella, Fiscal Edgar Sánchez): «Liz: «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida». Dejar un silencio. ¿Llegará a quienes sobrevivieron algo más que una sentencia?»",
+    "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+    "la última frase repite textual la cita Q77: decila con otras palabras",
+    "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+    "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+   ]
+  }
+ ],
+ "ficha": {
+  "prompt_version": "f15-1",
+  "pool_md5": "5f3c6d0bc31ebf868dd432b2c79fdcec"
+ },
+ "pool_gate": {
+  "color": "verde",
+  "metricas": {
+   "datos": 227,
+   "citas_verificadas": 52,
+   "elegibles_humano": 15,
+   "eventos_con_fecha": 62
+  },
+  "motivos": [],
+  "target_words": 1500
+ },
+ "_pantalla_por_fecha": [
+  "T17 (2004-08-01) → cap 3 lleno: fuera",
+  "D195 cuenta lo mismo que D42, ya en pantalla: fuera",
+  "D73 (None) → cap 3 lleno: fuera",
+  "T47 (2005-01-17) → cap 7 lleno: fuera",
+  "D135 (2004-07-31) del cap 6 al cap 2 (por fecha)",
+  "D179 (None) → cap 6 lleno: fuera",
+  "D222 cuenta lo mismo que T65, ya en pantalla: fuera",
+  "D221 (None) → cap 7 lleno: fuera"
+ ],
+ "caps": [
+  {
+   "chapter_number": 1,
+   "role": "hook",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "hook",
+   "evidence_ids": [
+    "Q19"
+   ],
+   "cliffhanger": "T02",
+   "pantalla_ids": [
+    "D181"
+   ],
+   "palabras_objetivo": 110
+  },
+  {
+   "chapter_number": 2,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "setup",
+   "evidence_ids": [
+    "T02",
+    "D111",
+    "D210",
+    "D01",
+    "T14",
+    "T19"
+   ],
+   "cliffhanger": "D28",
+   "pantalla_ids": [
+    "D42",
+    "D135"
+   ],
+   "palabras_objetivo": 240
+  },
+  {
+   "chapter_number": 3,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "rising_tension",
+   "evidence_ids": [
+    "D28",
+    "D84",
+    "D85",
+    "Q12",
+    "Q82",
+    "D82",
+    "Q70",
+    "Q17",
+    "Q10"
+   ],
+   "cliffhanger": "Q18",
+   "pantalla_ids": [
+    "D27",
+    "D89"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 4,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "shock",
+   "evidence_ids": [
+    "Q18",
+    "D106",
+    "T09",
+    "D105"
+   ],
+   "cliffhanger": "Q20",
+   "pantalla_ids": [
+    "D177"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 5,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "consequences",
+   "evidence_ids": [
+    "Q20",
+    "D03"
+   ],
+   "cliffhanger": "D107",
+   "pantalla_ids": [],
+   "palabras_objetivo": 220
+  },
+  {
+   "chapter_number": 6,
+   "role": "development",
+   "render_engine": "flux",
+   "duration_seconds": 105,
+   "narrative_intent": "resolution",
+   "evidence_ids": [
+    "D107",
+    "D147",
+    "D04",
+    "D05",
+    "D200",
+    "T25",
+    "D141",
+    "T27",
+    "D110",
+    "Q24",
+    "D31",
+    "D30",
+    "D25",
+    "Q64",
+    "D121",
+    "Q35",
+    "D61"
+   ],
+   "cliffhanger": "D215",
+   "pantalla_ids": [
+    "D192",
+    "D14"
+   ],
+   "palabras_objetivo": 250
+  },
+  {
+   "chapter_number": 7,
+   "role": "reveal_outro",
+   "render_engine": "veo",
+   "duration_seconds": 45,
+   "narrative_intent": "outro",
+   "evidence_ids": [
+    "D215",
+    "D214",
+    "T58",
+    "Q01",
+    "D08",
+    "D193",
+    "T75",
+    "Q68",
+    "Q77"
+   ],
+   "cliffhanger": "",
+   "pantalla_ids": [
+    "T65",
+    "D19"
+   ],
+   "palabras_objetivo": 139
+  }
+ ],
+ "_pool_plan": {
+  "cifras_canonicas": [],
+  "pantalla": [
+   "cap 1: pantalla ['D181']",
+   "cap 2: pantalla ['T17', 'D195']",
+   "cap 3: pantalla ['D73', 'T47']",
+   "cap 4: pantalla ['D177']",
+   "cap 6: pantalla ['D135', 'D179']",
+   "cap 7: pantalla ['D222', 'D221']"
+  ]
+ },
+ "_metricas": {
+  "curva_intensidad": [
+   4,
+   1,
+   2,
+   3,
+   4,
+   4,
+   5,
+   2,
+   2,
+   3,
+   3,
+   3,
+   3,
+   3
+  ],
+  "flash_forward_beat1": true,
+  "curva_problemas": [
+   "falta un beat de intensidad 1 (respiro) después del pico"
+  ],
+  "humano_en_escena_caps": [
+   1,
+   2,
+   3,
+   5,
+   7
+  ],
+  "humano_entra_cap": 1,
+  "humano_con_cita_sin_verificar_en_escena": [
+   7
+  ],
+  "humano_en_escena_problemas": [
+   "beat 7: Liz Torres en escena sin un dato suyo verificado (ninguna cita ni mención en ['Q20', 'D03']); datos suyos que valen: ['D210', 'D212', 'D213', 'Q12', 'Q13', 'Q14', 'Q19', 'Q77']"
+  ],
+  "promesa_con_cifras": false,
+  "imagen_gancho_con_cifras": true,
+  "imagenes_abstractas": [],
+  "escenas_usadas": [
+   3,
+   5,
+   7,
+   8,
+   10,
+   11,
+   12
+  ],
+  "escena_gancho": 8,
+  "escena_pico": 8,
+  "giros": [
+   {
+    "orden": 1,
+    "que_cambia": "La jornada de compras se convierte en una huida cuando los testigos oyen una explosión y ven humo o llamas sobre el patio de comidas.",
+    "beat": 4
+   },
+   {
+    "orden": 2,
+    "que_cambia": "La salida deja de ser una salida para quienes declaran haber encontrado cerrados el blíndex o el portón hacia Artigas; el estado de esos accesos será disputado por la pericia y la defensa.",
+    "beat": 5
+   },
+   {
+    "orden": 3,
+    "que_cambia": "Un boquete en la pared aparece como vía de supervivencia para personas que no habían podido salir por los accesos previstos.",
+    "beat": 8
+   },
+   {
+    "orden": 4,
+    "que_cambia": "La búsqueda de familiares vivos se convierte en identificación y retiro de cuerpos para Blas Cristaldo.",
+    "beat": 9
+   },
+   {
+    "orden": 5,
+    "que_cambia": "La lectura judicial de una pericia introduce una versión incompatible con los testimonios de cierre: los accesos de hierro de la rampa habrían estado abiertos.",
+    "beat": 10
+   },
+   {
+    "orden": 6,
+    "que_cambia": "La condena indemnizatoria reseñada en F10 llega con el principal demandado ya fallecido y con dudas de su abogado sobre la existencia de bienes para cobrar.",
+    "beat": 13
+   }
+  ],
+  "giros_con_beat": 6,
+  "giros_total": 6,
+  "humano_en_candidatos": true,
+  "pico_es_el_de_la_ficha": true,
+  "palabras_objetivo_por_cap": {
+   "1": 110,
+   "2": 240,
+   "3": 250,
+   "4": 250,
+   "5": 220,
+   "6": 250,
+   "7": 139
+  },
+  "antagonista_tipo": "persona",
+  "antagonista_caps": [
+   7
+  ],
+  "cifra_en_pantalla_repetida": [],
+  "ultima_frase_repite_cita": [
+   "la última frase repite textual la cita Q77: decila con otras palabras"
+  ],
+  "ultima_frase_sin_humano": [
+   "la última frase del video (cierre del beat 14) no nombra al humano ni a un testigo verificado (Tatiana Gabaglio, Ángela Pujol, Beatriz González, Juan Pío Paiva, Liz Torres, Benedicto Pérez, Luis Escobar Faella, Víctor Galeano, Amada Correa, Mario Eduardo Chamorro, Daniel Paiva, Lili Cristaldo, Verónica Becker, Antonio Morínigo, Cristian Sosa, Julia López, Angélica Roa, Tania Campos, Rubén Valdez, Nelson Jara, Carlos Halke, Escobar Faella, Fiscal Edgar Sánchez): «Liz: «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida». Dejar un silencio. ¿Llegará a quienes sobrevivieron algo más que una sentencia?»"
+  ],
+  "preguntas_pantalla": [
+   "pregunta de pantalla del cap 7 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 1 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 2 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 3 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 4 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 5 «»: falta la pregunta de pantalla",
+   "pregunta de pantalla del cap 6 «»: falta la pregunta de pantalla"
+  ],
+  "preguntas_abiertas": [
+   "¿Qué detuvo una huida que ya estaba en marcha?",
+   "¿Qué podía hacer pensar a estas personas que no regresarían de una jornada corriente?",
+   "¿Cuánto podía extenderse el fuego antes de que quienes estaban debajo comprendieran lo que ocurría?",
+   "¿Hacia dónde se puede correr cuando el peligro cae desde arriba?",
+   "¿Los accesos estaban cerrados, bloqueados o resultaban imposibles de atravesar en ese momento?",
+   "¿Qué posibilidad queda cuando tampoco se puede completar el recorrido hacia otra salida?",
+   "¿Queda alguien capaz de llegar hasta quienes ya no pueden moverse?",
+   "¿Qué significa haber salido cuando las lesiones todavía pueden decidir el resto de la vida?",
+   "¿Cómo se reconstruye lo que pasó cuando las familias todavía están intentando encontrar a los suyos?",
+   "¿Cómo se resuelve judicialmente una contradicción entre lo que las personas encontraron al huir y lo que la pericia describió después?",
+   "¿Una condena penal devuelve algo material a quienes sobrevivieron o perdieron a su familia?",
+   "¿Qué distancia hay entre una responsabilidad reconocida y una reparación que efectivamente llega?",
+   "¿Podrá cobrarse lo reconocido si no se sabe qué bienes de la sociedad quedan?",
+   "¿Llegará a sobrevivientes y familiares algo más que el reconocimiento judicial del daño?"
+  ],
+  "otros": [
+   "caps de desarrollo con menos de 2 beats: [2, 5] (beats por cap: [1, 1, 2, 2, 1, 3, 4])",
+   "la imagen sensorial del gancho no lleva cifras"
+  ]
+ }
+}

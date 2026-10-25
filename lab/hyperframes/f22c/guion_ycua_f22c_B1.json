@@ -1,0 +1,416 @@
+{
+ "tag": "B1",
+ "tema": "ycua",
+ "modelo": "claude-opus-5-5",
+ "esfuerzo": "high",
+ "version": "f22-1",
+ "max_tokens": 32000,
+ "prompt_md5": {
+  "sistema": "743e4f0a7ff9e58d86762bbd43679952",
+  "usuario": "7dd3bedb82d9c5643799b028711368d2"
+ },
+ "nota_b": null,
+ "prompt_version": "f22-1",
+ "parrafos": [
+  {
+   "beat": 1,
+   "cap": 1,
+   "texto": "Una mujer no puede moverse, porque encima de ella hay otros cuerpos. Lo que encontraron los que intentaron salir de ese lugar todavía se discute, y lo que se rompió ahí adentro todavía no se terminó de pagar. Abajo, el aire quema. Cae ceniza. Alrededor se oyen gritos, muchos, que de a poco van perdiendo fuerza, uno detrás de otro. Ella sigue despierta y lo escucha todo. Quien estuvo ahí debajo lo recuerda así: «Era como estar dentro de un horno, con las cenizas, era como un tatakua».",
+   "ids_usados": []
+  },
+  {
+   "beat": 1,
+   "cap": 1,
+   "texto": "Se llama Liz Torres. Muy cerca de donde está hubo puertas, y sobre esas puertas va a haber versiones que no coinciden: la de los que llegaron hasta ellas, la de los que lo negaron, la de los peritos. Asunción, dos mil cuatro. Pero antes de quedar debajo de esos cuerpos, Liz había entrado a ese lugar con su esposo.",
+   "ids_usados": []
+  },
+  {
+   "beat": 2,
+   "cap": 2,
+   "texto": "Ese lugar era el supermercado Ycuá Bolaños, en la esquina de Artigas y Santísima Trinidad, en Asunción. Era el domingo primero de agosto de dos mil cuatro. Liz había llegado con Alfredo Vallovera, su esposo, a hacer las compras. Había cajas, carritos, y un patio de comidas con sus mesas. Era una salida de domingo, de las que no se piensan dos veces. Pero en ese edificio, el personal ya había escuchado algo que no sabía cómo leer.",
+   "ids_usados": []
+  },
+  {
+   "beat": 3,
+   "cap": 2,
+   "texto": "Entre el techo y el cielorraso había alarmas. Según el perito Pérez, empleados le contaron que esas alarmas ya habían sonado antes, días o semanas antes de ese domingo. Sonaban arriba, en un espacio que desde el salón nadie veía. Y cuando sonaban, según lo que le dijeron, no sabían qué significaba ese sonido ni cómo tenían que actuar. Las alarmas habían avisado antes. Ese domingo, lo primero que alguien oyó fue otra cosa.",
+   "ids_usados": []
+  },
+  {
+   "beat": 4,
+   "cap": 3,
+   "texto": "Beatriz González estaba en una de las cajas. «Escuché una explosión y después ya vi que la nube de humo negro cubría todo», contó Beatriz. En ese momento dejó la caja, saltó por encima y corrió hacia el estacionamiento, buscando la salida. El humo negro ocupaba el camino que ella acababa de recorrer. No era fuego lo que la gente tenía delante. Era humo, y venía de más arriba, de un lugar que nadie en el salón podía ver.",
+   "ids_usados": [
+    "Q10"
+   ]
+  },
+  {
+   "beat": 5,
+   "cap": 3,
+   "texto": "La pericia de Criminalística lo ubicó después. En la parrilla había una chimenea, y esa chimenea tenía un tramo en forma de S. En esa curva se habían acumulado desperdicios de cocción. Ahí empezó el fuego. Desde la chimenea, las llamas encontraron el material aislante del techo y avanzaron por él, por encima del salón donde la gente hacía sus compras. Abajo, Liz seguía adentro, en el mismo lugar que todos: entre el humo y las salidas. Llegar a una puerta parecía la respuesta. Pero alcanzar una puerta no significa poder salir.",
+   "ids_usados": []
+  },
+  {
+   "beat": 6,
+   "cap": 4,
+   "texto": "Víctor Galeano iba hacia uno de los accesos junto a otras personas. «Cuando estábamos llegando a la puerta de blíndex, nos dimos cuenta de que eso estaba cerrado», contó Galeano. Del otro lado del vidrio estaba afuera. Según su relato, enseguida hubo un estruendo hacia el estacionamiento y el humo empezó a subir. Para él, ahí ya no había nada que hacer. Galeano cayó con Santiago en los brazos, sin soltarlo. Hacia la calle Artigas, otra sobreviviente vio a gente que también volvía sobre sus pasos.",
+   "ids_usados": []
+  },
+  {
+   "beat": 7,
+   "cap": 4,
+   "texto": "Esa sobreviviente es Digna Cáceres. Según declaró, el portón hacia Artigas estaba cerrado. La gente corría hacia él, llegaba, y regresaba. Los que todavía buscaban salir se encontraban de frente con los que ya volvían, en el mismo espacio, dentro del mismo humo. Liz estaba en medio de ese ir y venir, sin un lugar adonde correr que no estuviera ya lleno. Y entonces toda esa gente se movió de golpe, como una sola masa. La avalancha devuelve a Liz hacia adentro.",
+   "ids_usados": []
+  },
+  {
+   "beat": 8,
+   "cap": 5,
+   "texto": "La avalancha la alcanza y la derriba. Encima de ella cae una persona, y después otra, y otra más. No hay lugar para incorporarse ni para empujar. El peso llega de todos lados a la vez y Liz queda debajo, quieta. Cuando sintió la avalancha, contó Liz, pensó «acá nos morimos todos, no me voy a salvar». Se le pasó la vida entera por la cabeza.",
+   "ids_usados": []
+  },
+  {
+   "beat": 8,
+   "cap": 5,
+   "texto": "Y al final de esa vida estaban sus hijos. No puede moverse. No puede salir. «Que les dejaba a mis hijos adolescentes, tan jóvenes, solos», dijo Liz.",
+   "ids_usados": []
+  },
+  {
+   "beat": 8,
+   "cap": 5,
+   "texto": "Respira.",
+   "ids_usados": []
+  },
+  {
+   "beat": 8,
+   "cap": 5,
+   "texto": "Liz lo diría después con otras palabras. Los mismos cuerpos que la aplastaban fueron los que quedaron entre ella y el fuego. «Soy la vida de muchas personas que cayeron sobre mi cuerpo», dijo Liz Torres.",
+   "ids_usados": []
+  },
+  {
+   "beat": 9,
+   "cap": 5,
+   "texto": "En otro punto del local, una parte del techo también impedía que alguien se moviera. Tatiana Gabaglio tenía siete años. Un panel del cielorraso, derretido por el calor, cayó sobre su pierna. A su alrededor, la instalación ardía. Ella no podía sacar la pierna de debajo del panel, ni alejarse de lo que se quemaba encima. Atrapada.",
+   "ids_usados": [
+    "D01"
+   ]
+  },
+  {
+   "beat": 10,
+   "cap": 6,
+   "texto": "Los bomberos voluntarios llegaron hasta Tatiana y la rescataron. Salió con vida, pero las quemaduras en la pierna eran tan graves que los médicos tuvieron que amputársela. Liz y Alfredo también fueron rescatados. Antes de ir al supermercado, habían dejado a sus hijos, de catorce y doce años, haciendo una tarea. Debajo de los cuerpos, Liz había pensado que esos chicos se quedaban solos. Los dos salieron de ahí. Para otros, la salida no tuvo forma de puerta.",
+   "ids_usados": [
+    "D04"
+   ]
+  },
+  {
+   "beat": 11,
+   "cap": 6,
+   "texto": "Digna Cáceres recuerda haber despertado mojada, entre escombros. Recuerda una claridad. Venía de un boquete en la pared, hacia Artigas: una abertura que no era una puerta ni un portón, por donde entraba la luz de afuera. Nelson Astigarraga se salvó por otro agujero, uno que otras personas habían abierto en una pared, debajo de la escalera. Salió por ahí, descalzo. Afuera, otras familias todavía buscaban a quienes no habían salido.",
+   "ids_usados": []
+  },
+  {
+   "beat": 12,
+   "cap": 6,
+   "texto": "Mónica organizó un equipo para buscar a Estela. La encontraron en el estacionamiento abierto del supermercado. Ahí mismo, a las diez y media de la noche de ese domingo, Blas Cristaldo retiró su cuerpo. Después del rescate, una pericia iba a dar otra versión de aquellas puertas.",
+   "ids_usados": []
+  },
+  {
+   "beat": 13,
+   "cap": 7,
+   "texto": "Sobre las puertas hubo, desde el principio, más de una voz. Digna Cáceres atribuyó a Pío Paiva la orden de cerrarlas. Luis Escobar Faella contó que lo primero que les preguntó a los Paiva fue si de verdad habían dado esa orden. «Cuando me dicen categóricamente que no, que eso no es cierto, que no fue nunca ni política de la empresa ni nada», recordó Escobar Faella.",
+   "ids_usados": []
+  },
+  {
+   "beat": 13,
+   "cap": 7,
+   "texto": "Y estaban los peritos. Lo que describieron de los accesos no coincidía del todo con lo que contaron quienes llegaron hasta ellos. En el juicio oral, esos peritajes entraron de la forma más simple: se leyeron. Una declaración, una pericia leída, una sentencia: tres cosas distintas que hablan de las mismas puertas. Hubo condena para el dueño. Pero la condena penal dejó otra cuenta abierta: la reparación.",
+   "ids_usados": []
+  },
+  {
+   "beat": 14,
+   "cap": 7,
+   "texto": "Tatiana Gabaglio empezó a estudiar Derecho en la Universidad Nacional de Asunción. Dijo que lo hizo por rabia. Cuenta que, más allá de lo que recibió del Estado, nunca tuvo una indemnización real, una reparación del daño, y que lo que alguna vez le dieron no alcanza para alguien que quedó así de por vida. «Los culpables, bien gracias. Siguen afuera», dijo Tatiana.",
+   "ids_usados": []
+  },
+  {
+   "beat": 14,
+   "cap": 7,
+   "texto": "En la vía civil, una demanda terminó a favor de un matrimonio, los Palacios Morínigo. Pero Juan Pío Paiva, el principal demandado, murió. Antonio Morínigo habló de «una victoria pírrica»: con Paiva muerto, no sabe si todavía existen bienes de la sociedad Ycuá Bolaños V.",
+   "ids_usados": []
+  },
+  {
+   "beat": 14,
+   "cap": 7,
+   "texto": "Liz Torres tenía treinta y siete años cuando quedó debajo de esos cuerpos. Salió, y su voz quedó en las organizaciones de víctimas que siguen reclamando, por los que estuvieron adentro y por los que esperaron afuera. Las sentencias existen. El principal demandado ya no. ¿Podrán los sobrevivientes y las familias convertir esas sentencias en una reparación que se pueda cobrar, si nadie sabe siquiera si quedan bienes?",
+   "ids_usados": [
+    "D212"
+   ]
+  }
+ ],
+ "bloqueantes": [],
+ "metricas": {
+  "duras_v3": [
+   "cap 1: 148 palabras: el máximo del cap es 115 (objetivo 100)",
+   "cap 1: usaste 0 de los datos asignados (mínimo 1); faltan literales o sin declarar en datos_usados: [Q20] «Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. / Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...»",
+   "cap 1: el cierre tiene que anticipar el dato concreto del cap 2: «El supermercado estaba ubicado en la esquina de las avenidas Artigas y Santísima Trinidad.» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 2: 152 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 2: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D53] «El supermercado estaba ubicado en la esquina de la»; [D42] «1 de agosto»; [D96] «Días o semanas antes del incendio, las alarmas ubi»",
+   "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Escuché una explosión y después ya vi que la nube de humo negro cubría todo. En ese moment» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 3: 171 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 3: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D27] «El fuego se inició por la acumulación de grasa, ca»; [D28] «Las llamas del incendio se propagaron por el mater»",
+   "cap 3: el cierre tiene que anticipar el dato concreto del cap 4: «Viene Mary (esposa), le alcé a mi hijo Santiago y empezamos a correr. Justo en ese momento» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 4: 168 palabras: el mínimo del cap es 221 (objetivo 260); contá más hechos del beat con escenas, no adjetivos",
+   "cap 4: usaste 0 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [Q18] «Viene Mary (esposa), le alcé a mi hijo Santiago y empezamos a correr. / Viene Mary (esposa), le alcé a mi hijo Santiago y empezamos a correr. Justo en ese momento se fue la luz, ya no veíamos nada y fue un momento de terror porque la gente se nos apretujaba, giré como para agarrarle a mi señora, pero era otra persona... En ese momento se me perdió Mary. Cuando estábamos llegando a la puerta de blíndex, nos dimos cuenta de que eso estaba cerrado... Hubo un estruendo hacia el estacionamiento y sube el humo; entonces ahí no había nada que hacer. Me caí con Santiago en mis brazos»; [D106] «Avenida Artigas»",
+   "cap 5: 187 palabras: el mínimo del cap es 238 (objetivo 280); contá más hechos del beat con escenas, no adjetivos",
+   "cap 5: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q19] «El fuego avanzaba por el techo. / El fuego avanzaba por el techo. Lo que me dijo Alfredo (marido) es ‘corré’ y yo, como todos, corrí por nuestra vida hacia el único lugar donde sabíamos que había una puerta y personas que corrían en sentido contrario porque buscaban a sus familiares; mucha gente que nos cruzaba, que llamaba por sus nombres, seguro a sus hijos, a su familia... Me encontré con una pared humana difícil de pasar. Toda esa gente vino sobre mí de vuelta y quedamos atrapados. Cuando sentí la avalancha, dije acá nos morimos todos, no me voy a salvar, se me pasó toda la vida por la cabeza, que les dejaba a mis hijos adolescentes, tan jóvenes, solos»; [Q77] «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida / Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida»; [D03] «panel del cielorraso derretido»",
+   "cap 5: el cierre tiene que anticipar el dato concreto del cap 6: «Liz Torres y Alfredo Vallovera habían dejado a sus hijos de 14 y 12 años haciendo una tare» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 6: 196 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 6: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D210] «14 / 12 años»; [D05] «La pierna de Tatiana Gabaglio tuvo que ser amputad»; [D107] «La sobreviviente Digna Cáceres perdió el conocimie»; [D147] «Nelson Astigarraga se salvó del incendio al salir »; [D141] «El cuerpo de Estela, esposa de Blas Cristaldo, fue»; [T27] «1 de agosto»",
+   "cap 6: el cierre tiene que anticipar el dato concreto del cap 7: «Los peritajes del caso Ycuá Bolaños fueron introducidos al juicio oral mediante su lectura» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 7: 310 palabras: el máximo del cap es 161 (objetivo 140)",
+   "cap 7: usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T59] «2007»; [D109] «Digna Cáceres afirma que Pío Paiva, el jefe, mandó»; [Q64] «la primera consulta que yo le hago a los Paiva es si realmente ellos dieron la orden de cerrar las puertas. / la primera consulta que yo le hago a los Paiva es si realmente ellos dieron la orden de cerrar las puertas. Cuando me dicen categóricamente que no, que eso no es cierto, que no fue nunca ni política de la empresa ni nada»; [D08] «Derecho en la Universidad Nacional de Asunción (UNA)»; [Q01] «A más de lo que recibí del Estado, nunca recibí indemnización real o reparación del daño. / A más de lo que recibí del Estado, nunca recibí indemnización real o reparación del daño. Lo que alguna vez me dieron, particularmente como una persona para mí que de por vida quedé así, no alcanza. Los culpables, bien gracias. Siguen afuera.»; [T75] «25 de enero»",
+   "cap 7: fechas: contaste [T75] sin su fecha (25 de enero): «Pero Juan Pío Paiva, el principal demandado, murió.…» | contaste [T75] sin su fecha (25 de enero): «El principal demandado ya no.…»",
+   "beat 1: 1 frase(s) de más de 30 palabras (35)",
+   "beat 2: ninguna frase de 6 palabras o menos",
+   "beat 4: ninguna frase de 6 palabras o menos",
+   "beat 6: ninguna frase de 6 palabras o menos",
+   "beat 12: ninguna frase de 6 palabras o menos",
+   "beat 14: 1 frase(s) de más de 30 palabras (37)",
+   "antes del pico (beat 8): faltan dos frases cortas seguidas",
+   "Q20 está SIN VERIFICAR y va con el nombre de Liz Torres: decila sin el nombre",
+   "gancho: falta el ancla de lugar y fecha (una frase corta con el lugar y el año: «Asunción, 2004.») antes de la segunda cita",
+   "cap 5: repite frases de caps anteriores («no puede moverse»): decilo de otra forma o no lo repitas",
+   "beat 1 (párrafo 1): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 1 (párrafo 2): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 2 (párrafo 3): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 3 (párrafo 4): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 5 (párrafo 6): 8 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 6 (párrafo 7): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 7 (párrafo 8): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 8 (párrafo 9): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 8 (párrafo 10): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 8 (párrafo 12): 3 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 11 (párrafo 15): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 12 (párrafo 16): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 13 (párrafo 17): 4 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 13 (párrafo 18): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 14 (párrafo 19): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 14 (párrafo 20): 3 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)"
+  ],
+  "blandas_v3": [
+   "cap 1: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D154] «1»; [D219] «1 / 6»",
+   "cap 1: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 2: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D22] «2»; [D154] «1»; [D219] «1 / 6»",
+   "cap 2: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 2: 1.32 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 3: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D154] «1»; [D219] «1 / 6»",
+   "cap 3: la cita «Escuché una explosión y después ya vi qu…» va entre comillas y con su autor (Beatriz González) al lado",
+   "cap 3: densidad 0.58 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 4: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D154] «1»; [D219] «1 / 6»",
+   "cap 4: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 4: 0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 5: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D154] «1»; [D219] «1 / 6»",
+   "cap 5: densidad 0.53 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 5: 1.07 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 6: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D22] «2»; [D154] «1»; [D219] «1 / 6»",
+   "cap 6: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 6: 0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 7: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D149] «3»; [D154] «1»; [D219] «1 / 6»",
+   "cap 7: densidad 0.32 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 7: 0.65 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "beat 1: 148 palabras (objetivo 100 ±15 %)",
+   "beat 2: 78 palabras (objetivo 160 ±15 %)",
+   "beat 3: 74 palabras (objetivo 90 ±15 %)",
+   "beat 4: 79 palabras (objetivo 120 ±15 %)",
+   "beat 5: 92 palabras (objetivo 130 ±15 %)",
+   "beat 6: 86 palabras (objetivo 140 ±15 %)",
+   "beat 7: 82 palabras (objetivo 120 ±15 %)",
+   "beat 8: 130 palabras (objetivo 190 ±15 %)",
+   "beat 9: 57 palabras (objetivo 90 ±15 %)",
+   "beat 10: 78 palabras (objetivo 95 ±15 %)",
+   "beat 12: 47 palabras (objetivo 81 ±15 %)",
+   "beat 13: 134 palabras (objetivo 69 ±15 %)",
+   "beat 14: 176 palabras (objetivo 71 ±15 %)"
+  ],
+  "puntaje": 9,
+  "palabras": 1332,
+  "palabras_por_cap": {
+   "1": [
+    148,
+    100
+   ],
+   "2": [
+    152,
+    250
+   ],
+   "3": [
+    171,
+    250
+   ],
+   "4": [
+    168,
+    260
+   ],
+   "5": [
+    187,
+    280
+   ],
+   "6": [
+    196,
+    250
+   ],
+   "7": [
+    310,
+    140
+   ]
+  },
+  "citas": 8,
+  "humano_caps": [
+   1,
+   5,
+   7
+  ],
+  "cierre": "pregunta",
+  "ecos": [],
+  "antagonista_tipo": "persona",
+  "antagonista_caps": [
+   7
+  ],
+  "por_cap": {
+   "1": {
+    "palabras": 148,
+    "duras": [
+     "148 palabras: el máximo del cap es 115 (objetivo 100)",
+     "usaste 0 de los datos asignados (mínimo 1); faltan literales o sin declarar en datos_usados: [Q20] «Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. / Era como estar dentro de un horno, con las cenizas, era como un tatakua, el ambiente era muy caliente. Muchos gritos que luego se fueron apagando...»",
+     "el cierre tiene que anticipar el dato concreto del cap 2: «El supermercado estaba ubicado en la esquina de las avenidas Artigas y Santísima Trinidad.» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D154] «1»; [D219] «1 / 6»",
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
+    ],
+    "puntaje": 0,
+    "objetivo": 100
+   },
+   "2": {
+    "palabras": 152,
+    "duras": [
+     "152 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D53] «El supermercado estaba ubicado en la esquina de la»; [D42] «1 de agosto»; [D96] «Días o semanas antes del incendio, las alarmas ubi»",
+     "el cierre tiene que anticipar el dato concreto del cap 3: «Escuché una explosión y después ya vi que la nube de humo negro cubría todo. En ese moment» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D22] «2»; [D154] «1»; [D219] «1 / 6»",
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "1.32 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": -1,
+    "objetivo": 250
+   },
+   "3": {
+    "palabras": 171,
+    "duras": [
+     "171 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D27] «El fuego se inició por la acumulación de grasa, ca»; [D28] «Las llamas del incendio se propagaron por el mater»",
+     "el cierre tiene que anticipar el dato concreto del cap 4: «Viene Mary (esposa), le alcé a mi hijo Santiago y empezamos a correr. Justo en ese momento» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D154] «1»; [D219] «1 / 6»",
+     "la cita «Escuché una explosión y después ya vi qu…» va entre comillas y con su autor (Beatriz González) al lado",
+     "densidad 0.58 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
+    ],
+    "puntaje": 3,
+    "objetivo": 250
+   },
+   "4": {
+    "palabras": 168,
+    "duras": [
+     "168 palabras: el mínimo del cap es 221 (objetivo 260); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 0 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [Q18] «Viene Mary (esposa), le alcé a mi hijo Santiago y empezamos a correr. / Viene Mary (esposa), le alcé a mi hijo Santiago y empezamos a correr. Justo en ese momento se fue la luz, ya no veíamos nada y fue un momento de terror porque la gente se nos apretujaba, giré como para agarrarle a mi señora, pero era otra persona... En ese momento se me perdió Mary. Cuando estábamos llegando a la puerta de blíndex, nos dimos cuenta de que eso estaba cerrado... Hubo un estruendo hacia el estacionamiento y sube el humo; entonces ahí no había nada que hacer. Me caí con Santiago en mis brazos»; [D106] «Avenida Artigas»"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D154] «1»; [D219] «1 / 6»",
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 1,
+    "objetivo": 260
+   },
+   "5": {
+    "palabras": 187,
+    "duras": [
+     "187 palabras: el mínimo del cap es 238 (objetivo 280); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [Q19] «El fuego avanzaba por el techo. / El fuego avanzaba por el techo. Lo que me dijo Alfredo (marido) es ‘corré’ y yo, como todos, corrí por nuestra vida hacia el único lugar donde sabíamos que había una puerta y personas que corrían en sentido contrario porque buscaban a sus familiares; mucha gente que nos cruzaba, que llamaba por sus nombres, seguro a sus hijos, a su familia... Me encontré con una pared humana difícil de pasar. Toda esa gente vino sobre mí de vuelta y quedamos atrapados. Cuando sentí la avalancha, dije acá nos morimos todos, no me voy a salvar, se me pasó toda la vida por la cabeza, que les dejaba a mis hijos adolescentes, tan jóvenes, solos»; [Q77] «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida / Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida»; [D03] «panel del cielorraso derretido»",
+     "el cierre tiene que anticipar el dato concreto del cap 6: «Liz Torres y Alfredo Vallovera habían dejado a sus hijos de 14 y 12 años haciendo una tare» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D154] «1»; [D219] «1 / 6»",
+     "densidad 0.53 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "1.07 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 2,
+    "objetivo": 280
+   },
+   "6": {
+    "palabras": 196,
+    "duras": [
+     "196 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D210] «14 / 12 años»; [D05] «La pierna de Tatiana Gabaglio tuvo que ser amputad»; [D107] «La sobreviviente Digna Cáceres perdió el conocimie»; [D147] «Nelson Astigarraga se salvó del incendio al salir »; [D141] «El cuerpo de Estela, esposa de Blas Cristaldo, fue»; [T27] «1 de agosto»",
+     "el cierre tiene que anticipar el dato concreto del cap 7: «Los peritajes del caso Ycuá Bolaños fueron introducidos al juicio oral mediante su lectura» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D22] «2»; [D154] «1»; [D219] «1 / 6»",
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 2,
+    "objetivo": 250
+   },
+   "7": {
+    "palabras": 310,
+    "duras": [
+     "310 palabras: el máximo del cap es 161 (objetivo 140)",
+     "usaste 1 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [T59] «2007»; [D109] «Digna Cáceres afirma que Pío Paiva, el jefe, mandó»; [Q64] «la primera consulta que yo le hago a los Paiva es si realmente ellos dieron la orden de cerrar las puertas. / la primera consulta que yo le hago a los Paiva es si realmente ellos dieron la orden de cerrar las puertas. Cuando me dicen categóricamente que no, que eso no es cierto, que no fue nunca ni política de la empresa ni nada»; [D08] «Derecho en la Universidad Nacional de Asunción (UNA)»; [Q01] «A más de lo que recibí del Estado, nunca recibí indemnización real o reparación del daño. / A más de lo que recibí del Estado, nunca recibí indemnización real o reparación del daño. Lo que alguna vez me dieron, particularmente como una persona para mí que de por vida quedé así, no alcanza. Los culpables, bien gracias. Siguen afuera.»; [T75] «25 de enero»",
+     "fechas: contaste [T75] sin su fecha (25 de enero): «Pero Juan Pío Paiva, el principal demandado, murió.…» | contaste [T75] sin su fecha (25 de enero): «El principal demandado ya no.…»"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D149] «3»; [D154] «1»; [D219] «1 / 6»",
+     "densidad 0.32 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "0.65 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 2,
+    "objetivo": 140
+   }
+  },
+  "ids_por_parrafo": {
+   "antes": 1.9,
+   "despues": 0.19
+  }
+ },
+ "repeticion_por_cap": {
+  "1": 0.0,
+  "2": 0.0,
+  "3": 0.0,
+  "4": 0.0,
+  "5": 0.0,
+  "6": 0.0,
+  "7": 0.0
+ },
+ "minutos": 10.8,
+ "costo": {
+  "tag": "B1",
+  "paso": "guion",
+  "modelo": "claude-opus-5-5",
+  "usd": 0.3914,
+  "segundos": 169.5,
+  "llamadas": [
+   {
+    "servicio": "Anthropic claude-opus-5-5",
+    "desc": "guion_v4 guionista",
+    "in": 10649,
+    "out": 17439,
+    "thinking": 0,
+    "usd": 0.3914
+   }
+  ]
+ }
+}

@@ -1,0 +1,761 @@
+{
+ "escaletas": {
+  "A1": {
+   "columna": "sin columna",
+   "beats": 14,
+   "beats_por_cap": [
+    1,
+    2,
+    2,
+    2,
+    1,
+    3,
+    3
+   ],
+   "ids_totales": 54,
+   "a_pantalla": 7,
+   "apoyos_por_beat": [
+    0,
+    1,
+    5,
+    1,
+    4,
+    2,
+    1,
+    0,
+    5,
+    4,
+    6,
+    2,
+    1,
+    1
+   ],
+   "apoyos_promedio": 2.36,
+   "palabras_imagen": 400,
+   "palabras_imagen_promedio": 28.6,
+   "promesa_gancho": "Vas a entender cómo una compra terminó en encierro, por qué fue condenado el dueño y qué siguió faltando a quienes salieron con vida.",
+   "cierre_humano": "Volver a Liz con Q77: «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida». La posibilidad de cobrar las reparaciones queda abierta en el beat anterior; después de esta frase no hay moraleja ni explicación.",
+   "humano": "Liz Torres",
+   "pico_beat": 8,
+   "antagonista": {
+    "tipo": "persona",
+    "id": "P06",
+    "nombre": "Juan Pío Helvidio Paiva Escobar",
+    "por_que": "Propietario y principal accionista, señalado por sobrevivientes como responsable de la decisión de cierre y posteriormente condenado en la causa principal. La autoría concreta de la orden se presenta como una atribución disputada: no se inventa una escena de Paiva ordenándola ni se convierte el testimonio indirecto en constatación."
+   },
+   "intentos": [
+    16,
+    0
+   ]
+  },
+  "A2": {
+   "columna": "sin columna",
+   "beats": 14,
+   "beats_por_cap": [
+    1,
+    1,
+    2,
+    2,
+    1,
+    3,
+    4
+   ],
+   "ids_totales": 55,
+   "a_pantalla": 7,
+   "apoyos_por_beat": [
+    0,
+    5,
+    5,
+    2,
+    1,
+    1,
+    1,
+    4,
+    4,
+    6,
+    2,
+    1,
+    2,
+    0
+   ],
+   "apoyos_promedio": 2.43,
+   "palabras_imagen": 497,
+   "palabras_imagen_promedio": 35.5,
+   "promesa_gancho": "Vas a entender cómo una huida se convirtió en un encierro, qué se discutió sobre las puertas y qué quedó sin resolver después de las condenas.",
+   "cierre_humano": "Volver a Liz con Q77: «Soy la vida de muchas personas que cayeron sobre mi cuerpo, me salvaron la vida». Después, dejar abierta la pregunta por la reparación efectiva, sin transformar su supervivencia en una moraleja.",
+   "humano": "Liz Torres",
+   "pico_beat": 7,
+   "antagonista": {
+    "tipo": "persona",
+    "id": "P06",
+    "nombre": "Juan Pío Helvidio Paiva Escobar",
+    "por_que": "Es el propietario y principal accionista, señalado por una sobreviviente como responsable de la orden de cierre y condenado en la causa principal. La escaleta distingue esa atribución, la negativa de los Paiva y el resultado judicial: no presenta como documentada una orden directa ni da por probado el motivo del cierre."
+   },
+   "intentos": [
+    8,
+    0
+   ]
+  },
+  "B1": {
+   "columna": "con columna",
+   "beats": 14,
+   "beats_por_cap": [
+    1,
+    2,
+    2,
+    2,
+    2,
+    3,
+    2
+   ],
+   "ids_totales": 32,
+   "a_pantalla": 4,
+   "apoyos_por_beat": [
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    2,
+    1,
+    1,
+    2,
+    4
+   ],
+   "apoyos_promedio": 1.0,
+   "palabras_imagen": 441,
+   "palabras_imagen_promedio": 31.5,
+   "promesa_gancho": "Vas a entender qué encontraron quienes intentaron salir, por qué las versiones sobre las puertas se contradicen y qué quedó sin reparar después de las condenas.",
+   "cierre_humano": "Volver a Liz como sobreviviente que integra el reclamo organizado, sin atribuirle la demanda del matrimonio Palacios Morínigo. Cerrar con la pregunta pendiente sobre la posibilidad de cobrar las reparaciones.",
+   "humano": "Liz Torres",
+   "pico_beat": 8,
+   "antagonista": {
+    "tipo": "persona",
+    "id": "P06",
+    "nombre": "Juan Pío Paiva",
+    "por_que": "Era el propietario. Digna Cáceres le atribuye la orden de cerrar y fue condenado por homicidio doloso. La atribución testimonial, la negativa de la defensa y la condena se mantienen separadas: no se reconstruye una orden como si estuviera documentada directamente."
+   },
+   "intentos": [
+    14,
+    0
+   ]
+  },
+  "F22 (ref.)": {
+   "columna": "con columna",
+   "beats": 14,
+   "beats_por_cap": [
+    1,
+    2,
+    2,
+    2,
+    2,
+    3,
+    2
+   ],
+   "ids_totales": 31,
+   "a_pantalla": 4,
+   "apoyos_por_beat": [
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    2,
+    1,
+    0,
+    2,
+    4
+   ],
+   "apoyos_promedio": 0.93,
+   "palabras_imagen": 456,
+   "palabras_imagen_promedio": 32.6,
+   "promesa_gancho": "Vas a entender qué encontraron quienes intentaban salir, por qué la pericia discutió sus relatos y hasta dónde llegó la condena del dueño.",
+   "cierre_humano": "Volver a Liz como integrante de organizaciones de víctimas, sin adjudicarle la indemnización obtenida por otro matrimonio. Terminar con la pregunta: «¿Podrán los sobrevivientes y familiares convertir las sentencias en una reparación económica efectiva, si el principal demandado murió y ni su abogado sabe si quedan bienes de la sociedad para cobrar?»",
+   "humano": "Liz Torres",
+   "pico_beat": 9,
+   "antagonista": {
+    "tipo": "persona",
+    "id": "P06",
+    "nombre": "Juan Pío Paiva",
+    "por_que": "Es el propietario al que Digna Cáceres atribuye la orden de cerrar y que recibió una condena por homicidio doloso. La atribución testimonial, la negativa de la defensa y la resolución judicial se presentan por separado. No se reconstruye una orden de cierre como constatación independiente."
+   },
+   "intentos": [
+    8,
+    0
+   ]
+  },
+  "K": {
+   "columna": "Kyshtym F22",
+   "beats": 14,
+   "beats_por_cap": [
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    4
+   ],
+   "ids_totales": 35,
+   "a_pantalla": 3,
+   "apoyos_por_beat": [
+    0,
+    2,
+    1,
+    1,
+    2,
+    0,
+    2,
+    2,
+    1,
+    2,
+    0,
+    1,
+    2,
+    2
+   ],
+   "apoyos_promedio": 1.29,
+   "palabras_imagen": 427,
+   "palabras_imagen_promedio": 30.5,
+   "promesa_gancho": "Vas a entender qué salió de aquel almacenamiento, cómo quedó sin explicación pública y por qué reconocer a sus afectados terminó siendo otra disputa.",
+   "cierre_humano": "Volver al técnico del comienzo, sin repetir su testimonio ni atribuirle un destino posterior. Su experiencia no permite contar a todos los afectados. Cerrar con la pregunta pendiente: ¿Cuántas personas afectadas por Mayak quedaron fuera del reconocimiento y de la reparación estatal?",
+   "humano": "V.I. Komarov",
+   "pico_beat": 7,
+   "antagonista": {
+    "tipo": "ninguno",
+    "id": "",
+    "nombre": "ninguno",
+    "por_que": "La ficha describe deficiencias desatendidas y una refrigeración sin reparar, pero no identifica quién decidió ignorarlas. El silencio público inicial sí se atribuye, por separado, a las autoridades soviéticas."
+   },
+   "intentos": [
+    4,
+    0
+   ]
+  }
+ },
+ "guiones": {
+  "A1": {
+   "palabras": 1590,
+   "minutos": 12.9,
+   "bloqueantes": [],
+   "citas": 11,
+   "personas": [
+    "Alejandro Nissen",
+    "Alfredo Vallovera",
+    "Beatriz González",
+    "Benedicto Pérez",
+    "Blas Cristaldo",
+    "Carlos Halke",
+    "Cristian Sosa",
+    "Daniel Areco",
+    "Digna Felicia Cáceres",
+    "Edgar Sánchez",
+    "Enrique Riera",
+    "Ismael Alcaraz",
+    "Juan Pío Helvidio Paiva Escobar",
+    "Liz Torres",
+    "Luis Escobar Faella",
+    "Martín Burt",
+    "María Estela Morínigo Giménez de Palacios",
+    "Nelson Astigarraga",
+    "Rubén Urbieta",
+    "Tatiana Gabaglio",
+    "Teresa Sosa",
+    "Teresa Urbieta",
+    "Víctor Galeano",
+    "Ángela Pujol"
+   ],
+   "cierre": "cita",
+   "usd": 0.9234,
+   "por_cap": {
+    "1": {
+     "palabras": 160,
+     "personas": [
+      "Liz Torres"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "2": {
+     "palabras": 227,
+     "personas": [
+      "Alfredo Vallovera",
+      "Blas Cristaldo",
+      "Liz Torres",
+      "Teresa Urbieta",
+      "Ángela Pujol"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "3": {
+     "palabras": 279,
+     "personas": [
+      "Alejandro Nissen",
+      "Beatriz González",
+      "Benedicto Pérez",
+      "Carlos Halke",
+      "Cristian Sosa",
+      "Enrique Riera",
+      "Liz Torres",
+      "Martín Burt",
+      "Víctor Galeano"
+     ],
+     "citas": 3,
+     "bloqueantes": 0
+    },
+    "4": {
+     "palabras": 173,
+     "personas": [
+      "Digna Felicia Cáceres",
+      "Liz Torres",
+      "Tatiana Gabaglio",
+      "Víctor Galeano"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "5": {
+     "palabras": 95,
+     "personas": [],
+     "citas": 2,
+     "bloqueantes": 0
+    },
+    "6": {
+     "palabras": 433,
+     "personas": [
+      "Blas Cristaldo",
+      "Cristian Sosa",
+      "Digna Felicia Cáceres",
+      "Edgar Sánchez",
+      "Ismael Alcaraz",
+      "Juan Pío Helvidio Paiva Escobar",
+      "Luis Escobar Faella",
+      "Nelson Astigarraga",
+      "Rubén Urbieta",
+      "Teresa Sosa",
+      "Víctor Galeano"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "7": {
+     "palabras": 223,
+     "personas": [
+      "Daniel Areco",
+      "Juan Pío Helvidio Paiva Escobar",
+      "Liz Torres",
+      "María Estela Morínigo Giménez de Palacios",
+      "Tatiana Gabaglio"
+     ],
+     "citas": 2,
+     "bloqueantes": 0
+    }
+   }
+  },
+  "A2": {
+   "palabras": 1604,
+   "minutos": 13.0,
+   "bloqueantes": [],
+   "citas": 13,
+   "personas": [
+    "Alejandro Nissen",
+    "Alfredo Vallovera",
+    "Antonio Morínigo",
+    "Beatriz González",
+    "Blas Cristaldo",
+    "Carlos Halke",
+    "Cristian Sosa",
+    "Daniel Areco",
+    "Digna Felicia Cáceres",
+    "Edgar Sánchez",
+    "Enrique Riera",
+    "Ismael Alcaraz",
+    "Juan Pío Helvidio Paiva Escobar",
+    "Liz Torres",
+    "Luis Escobar Faella",
+    "Martín Burt",
+    "María Estela Morínigo Giménez de Palacios",
+    "Nelson Astigarraga",
+    "Rubén Urbieta",
+    "Tatiana Gabaglio",
+    "Teresa Sosa",
+    "Teresa Urbieta",
+    "Víctor Daniel Paiva",
+    "Víctor Galeano"
+   ],
+   "cierre": "pregunta",
+   "usd": 0.5033,
+   "por_cap": {
+    "1": {
+     "palabras": 150,
+     "personas": [
+      "Liz Torres"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "2": {
+     "palabras": 189,
+     "personas": [
+      "Alfredo Vallovera",
+      "Blas Cristaldo",
+      "Tatiana Gabaglio",
+      "Teresa Urbieta"
+     ],
+     "citas": 0,
+     "bloqueantes": 0
+    },
+    "3": {
+     "palabras": 318,
+     "personas": [
+      "Alejandro Nissen",
+      "Beatriz González",
+      "Carlos Halke",
+      "Cristian Sosa",
+      "Enrique Riera",
+      "Martín Burt",
+      "Víctor Galeano"
+     ],
+     "citas": 4,
+     "bloqueantes": 0
+    },
+    "4": {
+     "palabras": 155,
+     "personas": [
+      "Digna Felicia Cáceres",
+      "Nelson Astigarraga",
+      "Víctor Galeano"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "5": {
+     "palabras": 105,
+     "personas": [],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "6": {
+     "palabras": 440,
+     "personas": [
+      "Cristian Sosa",
+      "Edgar Sánchez",
+      "Ismael Alcaraz",
+      "Juan Pío Helvidio Paiva Escobar",
+      "Luis Escobar Faella",
+      "Nelson Astigarraga",
+      "Rubén Urbieta",
+      "Teresa Sosa",
+      "Víctor Galeano"
+     ],
+     "citas": 3,
+     "bloqueantes": 0
+    },
+    "7": {
+     "palabras": 247,
+     "personas": [
+      "Antonio Morínigo",
+      "Daniel Areco",
+      "Juan Pío Helvidio Paiva Escobar",
+      "María Estela Morínigo Giménez de Palacios",
+      "Víctor Daniel Paiva"
+     ],
+     "citas": 3,
+     "bloqueantes": 0
+    }
+   }
+  },
+  "B1": {
+   "palabras": 1332,
+   "minutos": 10.8,
+   "bloqueantes": [],
+   "citas": 8,
+   "personas": [
+    "Alfredo Vallovera",
+    "Antonio Morínigo",
+    "Beatriz González",
+    "Benedicto Pérez",
+    "Blas Cristaldo",
+    "Digna Felicia Cáceres",
+    "Juan Pío Helvidio Paiva Escobar",
+    "Liz Torres",
+    "Luis Escobar Faella",
+    "María Estela Morínigo Giménez de Palacios",
+    "Nelson Astigarraga",
+    "Tatiana Gabaglio",
+    "Víctor Galeano"
+   ],
+   "cierre": "pregunta",
+   "usd": 0.3914,
+   "por_cap": {
+    "1": {
+     "palabras": 148,
+     "personas": [
+      "Liz Torres"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "2": {
+     "palabras": 152,
+     "personas": [
+      "Alfredo Vallovera",
+      "Benedicto Pérez"
+     ],
+     "citas": 0,
+     "bloqueantes": 0
+    },
+    "3": {
+     "palabras": 171,
+     "personas": [
+      "Beatriz González"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "4": {
+     "palabras": 168,
+     "personas": [
+      "Digna Felicia Cáceres",
+      "Víctor Galeano"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "5": {
+     "palabras": 187,
+     "personas": [
+      "Liz Torres",
+      "Tatiana Gabaglio"
+     ],
+     "citas": 3,
+     "bloqueantes": 0
+    },
+    "6": {
+     "palabras": 196,
+     "personas": [
+      "Blas Cristaldo",
+      "Digna Felicia Cáceres",
+      "Nelson Astigarraga"
+     ],
+     "citas": 0,
+     "bloqueantes": 0
+    },
+    "7": {
+     "palabras": 310,
+     "personas": [
+      "Antonio Morínigo",
+      "Digna Felicia Cáceres",
+      "Juan Pío Helvidio Paiva Escobar",
+      "Liz Torres",
+      "Luis Escobar Faella",
+      "María Estela Morínigo Giménez de Palacios",
+      "Tatiana Gabaglio"
+     ],
+     "citas": 2,
+     "bloqueantes": 0
+    }
+   }
+  },
+  "opus52a F22b (ref.)": {
+   "palabras": 1144,
+   "minutos": 9.3,
+   "bloqueantes": [],
+   "citas": 9,
+   "personas": [
+    "Alfredo Vallovera",
+    "Antonio Morínigo",
+    "Beatriz González",
+    "Benedicto Pérez",
+    "Daniel Areco",
+    "Digna Felicia Cáceres",
+    "Juan Pío Helvidio Paiva Escobar",
+    "Liz Torres",
+    "Luis Escobar Faella",
+    "Nelson Astigarraga",
+    "Tatiana Gabaglio",
+    "Víctor Daniel Paiva",
+    "Víctor Galeano"
+   ],
+   "cierre": "pregunta",
+   "usd": 0.3261,
+   "por_cap": {
+    "1": {
+     "palabras": 130,
+     "personas": [
+      "Liz Torres"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "2": {
+     "palabras": 126,
+     "personas": [
+      "Alfredo Vallovera",
+      "Benedicto Pérez",
+      "Liz Torres"
+     ],
+     "citas": 0,
+     "bloqueantes": 0
+    },
+    "3": {
+     "palabras": 145,
+     "personas": [
+      "Beatriz González"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "4": {
+     "palabras": 146,
+     "personas": [
+      "Digna Felicia Cáceres",
+      "Víctor Galeano"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "5": {
+     "palabras": 106,
+     "personas": [
+      "Liz Torres",
+      "Tatiana Gabaglio"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "6": {
+     "palabras": 215,
+     "personas": [
+      "Alfredo Vallovera",
+      "Digna Felicia Cáceres",
+      "Liz Torres",
+      "Nelson Astigarraga",
+      "Tatiana Gabaglio"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "7": {
+     "palabras": 276,
+     "personas": [
+      "Antonio Morínigo",
+      "Daniel Areco",
+      "Digna Felicia Cáceres",
+      "Juan Pío Helvidio Paiva Escobar",
+      "Liz Torres",
+      "Luis Escobar Faella",
+      "Tatiana Gabaglio",
+      "Víctor Daniel Paiva",
+      "Víctor Galeano"
+     ],
+     "citas": 4,
+     "bloqueantes": 0
+    }
+   }
+  },
+  "opus52b F22b (ref.)": {
+   "palabras": 1159,
+   "minutos": 9.4,
+   "bloqueantes": [],
+   "citas": 8,
+   "personas": [
+    "Alfredo Vallovera",
+    "Antonio Morínigo",
+    "Beatriz González",
+    "Benedicto Pérez",
+    "Daniel Areco",
+    "Digna Felicia Cáceres",
+    "Juan Pío Helvidio Paiva Escobar",
+    "Liz Torres",
+    "Luis Escobar Faella",
+    "Nelson Astigarraga",
+    "Tatiana Gabaglio",
+    "Víctor Daniel Paiva",
+    "Víctor Galeano"
+   ],
+   "cierre": "pregunta",
+   "usd": 0.3086,
+   "por_cap": {
+    "1": {
+     "palabras": 136,
+     "personas": [
+      "Liz Torres"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "2": {
+     "palabras": 131,
+     "personas": [
+      "Alfredo Vallovera",
+      "Benedicto Pérez",
+      "Liz Torres"
+     ],
+     "citas": 0,
+     "bloqueantes": 0
+    },
+    "3": {
+     "palabras": 145,
+     "personas": [
+      "Beatriz González"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "4": {
+     "palabras": 136,
+     "personas": [
+      "Digna Felicia Cáceres",
+      "Víctor Galeano"
+     ],
+     "citas": 1,
+     "bloqueantes": 0
+    },
+    "5": {
+     "palabras": 171,
+     "personas": [
+      "Tatiana Gabaglio"
+     ],
+     "citas": 2,
+     "bloqueantes": 0
+    },
+    "6": {
+     "palabras": 164,
+     "personas": [
+      "Digna Felicia Cáceres",
+      "Nelson Astigarraga",
+      "Tatiana Gabaglio"
+     ],
+     "citas": 0,
+     "bloqueantes": 0
+    },
+    "7": {
+     "palabras": 276,
+     "personas": [
+      "Antonio Morínigo",
+      "Daniel Areco",
+      "Digna Felicia Cáceres",
+      "Juan Pío Helvidio Paiva Escobar",
+      "Liz Torres",
+      "Luis Escobar Faella",
+      "Tatiana Gabaglio",
+      "Víctor Daniel Paiva",
+      "Víctor Galeano"
+     ],
+     "citas": 3,
+     "bloqueantes": 0
+    }
+   }
+  }
+ }
+}

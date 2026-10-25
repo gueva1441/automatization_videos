@@ -1,0 +1,32 @@
+{
+ "tag": "A1",
+ "tema": "ycua",
+ "modelo": "claude-opus-5-5",
+ "esfuerzo": "high",
+ "version": "f22-1",
+ "max_tokens": 20000,
+ "prompt_md5": {
+  "sistema": "743e4f0a7ff9e58d86762bbd43679952",
+  "usuario": "6f9d0c5b3ad055a3682ff3e677b63426"
+ },
+ "nota_b": null,
+ "error": "Parada: la llamada ya facturó una vez (JSON roto o cortado): no hay reintento por el tope",
+ "traceback": "Traceback (most recent call last):\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f22c\\f22c_corridas.py\", line 186, in guion\n    g = g4.write(topic, esc, call=make_call(modelo), ficha=ficha, version=version)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\script_engine\\guion_v4.py\", line 644, in write\n    raw = call(prompt(topic, esc, largo, ficha, version), system_instruction=system(version), response_schema=SCHEMA,\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f22c\\f22c_corridas.py\", line 101, in _call\n    return hx.make_call(modelo, \"high\", post=post)(prompt, system_instruction=system_instruction,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\claude_helpers.py\", line 143, in _call\n    return call_json(prompt, model=model, system_instruction=system_instruction, response_schema=response_schema,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\claude_helpers.py\", line 113, in call_json\n    r = post(body)\n        ^^^^^^^^^^\n  File \"C:\\CLAUDE_PROJECTS\\automatization_videos\\lab\\hyperframes\\f22c\\f22c_corridas.py\", line 97, in post\n    raise Parada(\"la llamada ya facturó una vez (JSON roto o cortado): no hay reintento por el tope\")\nParada: la llamada ya facturó una vez (JSON roto o cortado): no hay reintento por el tope\n",
+ "costo": {
+  "tag": "A1",
+  "paso": "guion",
+  "modelo": "claude-opus-5-5",
+  "usd": 0.4483,
+  "segundos": 179.7,
+  "llamadas": [
+   {
+    "servicio": "Anthropic claude-opus-5-5",
+    "desc": "guion_v4 guionista",
+    "in": 12083,
+    "out": 20000,
+    "thinking": 0,
+    "usd": 0.4483
+   }
+  ]
+ }
+}

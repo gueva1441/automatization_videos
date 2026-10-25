@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-24 (F22b: (a) acepta las cifras que recibió el guionista; claude_helpers + --modelo claude-opus-5-5; 5 guiones de Ycuá sobre la escaleta de F22, todos 0 bloqueantes; US$ 0.990) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-24 (F22c: con columna la escaleta sale con ~40 % menos ids y la mitad de apoyos; guion Opus 1,332 vs ~1,600 palabras sin columna; PARADA por tope US$ 2.81, faltan B2 y K) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,11 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F22c — ¿Escaleta con columna más floja? — HECHO PARCIAL, **PARADA por tope** (faltan B2 y K)
+- Sobre `cd5fde5`, sin cambios de código fuera de lab. Reporte `lab/hyperframes/f22c/F22c_REPORT.md` (revisor íntegro: NO CUMPLE — entrega parcial declarada, faltan B2 y K), tabla `tabla_f22c.md`, runner `f22c_corridas.py`.
+- Ycuá, escaleta v2.1 Sol + guion Opus 5.5 v5.2: **sin columna** (A1, A2) 54–55 ids, 2.4 apoyos/beat, guion 1,590 / 1,604 palabras, 24 personas; **con columna** (B1; F22 de ref.) 31–32 ids, 1 apoyo/beat, guion 1,332 (F22b: 1,144 / 1,159), 13 personas. Todos 0 bloqueantes, cero Cardal.
+- Freno: Opus con 20 000 tokens de salida se cortó en A1 (US$ 0.448 perdidos, error mío) → B2 quedó en el intento 1 de la escaleta y K no corrió. US$ 2.8094 de 3.00. Sin merge.
 
 ## F22b — Corrector de cifras «recibidas», Claude Opus 5.5 en el guion v4, cinco guiones de Ycuá — HECHO, **PARADA**
 - Sobre `ed55399`. Reporte `lab/hyperframes/f22b/F22b_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), tabla `tabla_f22b.md`, runner `f22b_corridas.py`, prueba de la llave `prueba_llave.py`.

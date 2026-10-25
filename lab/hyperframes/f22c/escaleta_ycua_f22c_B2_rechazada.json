@@ -1,0 +1,7 @@
+{
+ "error": "Parada: tope antes de «m01a_escaleta v2 intento 2»: US$ 2.809 + peor caso 0.242 > 3.00",
+ "log": [
+  "  [escaleta] compuerta del pool: verde {'datos': 227, 'citas_verificadas': 52, 'elegibles_humano': 15, 'eventos_con_fecha': 62}",
+  "  [escaleta v2] intento 1: 12 bloqueante(s) ['beat 2: dato_central «P13, P80: LIZ ENTRA AL SUPERMERCADO CON SU ESPOSO, ALFREDO VALLOVERA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D42 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D192 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D196 también está en un beat: lo que va a pantalla no lo dice la voz'] · 41 reparación(es) · 17 a métricas"
+ ]
+}

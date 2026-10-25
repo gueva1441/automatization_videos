@@ -1,0 +1,34 @@
+[A1 escaleta] ya existe: se usa
+[20:03:47] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f22c-A1-guion
+[20:07:11] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f22c-A1-guion � Costo total: $0.4751
+  [A1 guion] US$ 0.4751 · 203 s · tanda US$ 1.2021
+[A1 guion] 1590 palabras ≈ 12.9 min · bloqueantes 0 · citas 11
+[20:07:11] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f22c-B1-escaleta
+[20:13:06] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f22c-B1-escaleta � Costo total: $0.2738
+  [B1 escaleta] US$ 0.2738 · 355 s · tanda US$ 1.4759
+  [escaleta] compuerta del pool: verde {'datos': 227, 'citas_verificadas': 52, 'elegibles_humano': 15, 'eventos_con_fecha': 62}
+  [escaleta v2] intento 1: 14 bloqueante(s) ['beat 2: dato_central «P13 — LIZ VA AL SUPERMERCADO CON SU ESPOSO; PRESENTARLA COMO UNA PERSONA CON UNA VIDA FAMILIAR FUERA DE ESE EDIFICIO.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D42 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D27 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D28 también está en un beat: lo que va a pantalla no lo dice la voz'] · 51 reparación(es) · 16 a métricas
+  [escaleta v2] intento 2: 0 bloqueante(s) [] · 36 reparación(es) · 14 a métricas
+[B1 escaleta] 14 beats · prompt f22-1 · columna sí
+[20:13:06] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f22c-B1-guion
+[20:15:56] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f22c-B1-guion � Costo total: $0.3914
+  [B1 guion] US$ 0.3914 · 170 s · tanda US$ 1.8673
+[B1 guion] 1332 palabras ≈ 10.8 min · bloqueantes 0 · citas 8
+[20:15:57] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f22c-A2-escaleta
+[20:22:51] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f22c-A2-escaleta � Costo total: $0.3052
+  [A2 escaleta] US$ 0.3052 · 414 s · tanda US$ 2.1725
+  [escaleta] compuerta del pool: verde {'datos': 227, 'citas_verificadas': 52, 'elegibles_humano': 15, 'eventos_con_fecha': 62}
+  [escaleta v2] intento 1: 8 bloqueante(s) ['beat 2: dato_central «P13, P80 E HISTORIA.HUMANOS CANDIDATOS: LIZ VA AL SUPERMERCADO CON SU ESPOSO, ALFREDO VALLOVERA. VOLVEMOS A LA JORNADA ANTERIOR A LA HUIDA, SIN INVENTAR COMPRAS, CONVERSACIONES NI RECORRIDOS DE LA PAREJA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D42 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D27 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D89 también está en un beat: lo que va a pantalla no lo dice la voz'] · 73 reparación(es) · 12 a métricas
+  [escaleta v2] intento 2: 0 bloqueante(s) [] · 60 reparación(es) · 13 a métricas
+[A2 escaleta] 14 beats · prompt f22-1 · columna no
+[20:22:51] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f22c-A2-guion
+[20:26:28] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f22c-A2-guion � Costo total: $0.5033
+  [A2 guion] US$ 0.5033 · 218 s · tanda US$ 2.6758
+[A2 guion] 1604 palabras ≈ 13.0 min · bloqueantes 0 · citas 13
+[20:26:29] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s1-ycua-bolanos-f22c-B2-escaleta
+[20:29:12] INFO     | viral_pipeline | [cost_tracker] Video f8s1-ycua-bolanos-f22c-B2-escaleta � Costo total: $0.1336
+  [B2 escaleta] US$ 0.1336 · 163 s · tanda US$ 2.8094
+  [escaleta] compuerta del pool: verde {'datos': 227, 'citas_verificadas': 52, 'elegibles_humano': 15, 'eventos_con_fecha': 62}
+  [escaleta v2] intento 1: 12 bloqueante(s) ['beat 2: dato_central «P13, P80: LIZ ENTRA AL SUPERMERCADO CON SU ESPOSO, ALFREDO VALLOVERA.» no existe en el pool (o no es D/T/Q)', 'a_pantalla D42 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D192 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D196 también está en un beat: lo que va a pantalla no lo dice la voz'] · 41 reparación(es) · 17 a métricas
+PARADA (B2): Parada: tope antes de «m01a_escaleta v2 intento 2»: US$ 2.809 + peor caso 0.242 > 3.00
+tanda US$ 2.8094
