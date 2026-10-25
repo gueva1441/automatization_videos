@@ -1,6 +1,6 @@
 # F22d_REPORT — escaleta sin columna por defecto, guion con Opus 5.5 por defecto · Kyshtym
 
-2026-10-24 · rama `f11-guion-v4` sobre `ee54850` · **US$ 0.7736 de 1.50** · sin merge · **PARADA**.
+2026-10-24 · rama `f11-guion-v4` sobre `ee54850` · **US$ 0.7736 de 1.50** en la primera corrida (§0–§4); con la adenda de Fable (§5), **US$ 1.721 de 3.00** · sin merge · **PARADA**.
 
 ## 0. En corto
 - **Código (decisión del analista), cero cambios de prompts** (md5 de los cuatro sistemas iguales a F22):
@@ -119,6 +119,29 @@ Riesgos que el contrato no cubre:
 
 Costo F22d: escaleta US$ 0.297 · guion US$ 0.4766 · guion_fable US$ 0.9474 · total US$ 1.721 de 3.00 (1.50 en la primera corrida).
 
-## 6. Veredicto del revisor-handoff sobre la adenda (íntegro)
+## 6. Veredicto del revisor-handoff sobre la adenda (íntegro; su primera observación, el encabezado con 1.50, ya está corregida arriba)
 
-REVISOR_PENDIENTE
+VEREDICTO: CUMPLE CON OBSERVACIONES
+
+| # | requisito | estado | evidencia |
+|---|---|---|---|
+| 1 | Misma escaleta que el guion de Opus | OK | La corrida de Fable leyó `escaleta_kyshtym_f22d.json` (run_fable.log: "[escaleta] ya existe: se usa"). El archivo está versionado y sin modificar (git no lo marca; md5 126e87db…). Se escribió a las 21:10, antes de los dos guiones. Las filas de Opus y Fable en `tabla_f22d.md` son idénticas (14 beats, 44 ids, 1.71 apoyos, misma promesa y cierre). |
+| 2 | Mismo prompt (md5) | OK | `md5sum` da 0faf6924… para `prompt_kyshtym_f22d_guion.txt` y para `..._fable.txt`. Los dos JSON tienen sistema 743e4f0a… y usuario 3a353e7e…. Los dos son `version f22-1` (v5.2). |
+| 3 | max_tokens 32000 | OK | `guion_kyshtym_f22d_fable.json` registra `max_tokens` 32000. El runner lo fija con `f22c.MAX_OUT["claude-fable-5-1"] = 32000` y `make_call` lo inyecta en el cuerpo (f22c_corridas.py:98). |
+| 4 | Effort high | OK | El JSON registra `esfuerzo` high. `guion_v4.ESFUERZO["claude-fable-5-1"]` es "high" y `make_call` pasa "high". |
+| 5 | Precio de Fable 5.1 = 10 / 50 | OK | `claude_helpers.PRICES["claude-fable-5-1"] = (10.0, 50.0)`. Coincide con la tabla pública que me indicaste. |
+| 6 | Costo recalculado con los tokens | OK | 11 655 × 10/1e6 = 0.11655, más 16 616 × 50/1e6 = 0.83080, da 0.94735, que redondea a 0.9474 (costos_f22d.json y run_fable.log). Opus: 0.04662 + 0.42994 = 0.4766. Escaleta: 0.1547 + 0.1424 = 0.297. |
+| 7 | Total ≤ 3.00 | OK | 0.297 + 0.4766 + 0.9474 = 1.721 (costos_f22d.json `usd_total`). El freno previo del runner usa `TOPE = 3.00` y descuenta lo ya gastado. |
+| 8 | Archivo `NARRACION_kyshtym_f22d_fable.md` | OK | Existe (10 905 bytes, 101 líneas). Encabezado: claude-fable-5-1 high, v5.2, md5 743e4f0a / 3a353e7e, US$ 0.9474. |
+| 9 | Misma tabla (beats, ids, apoyos, promesa y cierre, palabras, bloqueantes, citas, personas por cap) | OK | `tabla_f22d.md` tiene la fila de Fable en las cuatro secciones. Regenerada con `f22d_tabla.py`: igual salvo una línea en blanco final. |
+| 10 | Cifras del reporte = archivos | OK | 1 579 palabras, 12.8 min, 0 bloqueantes, 10 citas, 9 personas, cierre pregunta: coinciden en el JSON, el .md y la tabla. En Nadezhda Kutepova ya figura en el cap 5 y Gaev ya no figura en el cap 6, como dice el reporte. `cero_cardal.py` da "cero Cardal". Tests: 11 passed. |
+| 11 | Afirmaciones del código (§5) | OK | `fase1_5 --modelo` y `MODELOS`/`CLAUDE` incluyen Fable. El default sigue siendo Opus. `claude_helpers.py` no envía `thinking` ni `fallbacks`. Una sola llamada: `make_call` aborta si ya facturó un POST. Prompts sin cambios. |
+
+Fuera de alcance: ninguno de esta tanda. Los archivos modificados son `claude_helpers.py`, `fase1_5.py`, `script_engine/guion_v4.py`, `lab/ESTADO_SESION.md` y `lab/hyperframes/f22d/*`; `diag_234_cap4.py` y `gfx_profiles/*` quedaron fuera, como indicaste. Hay archivos sin trackear en el repo, pero no son de esta adenda.
+
+Observaciones:
+- `F22d_REPORT.md` §0–§4 todavía dice "US$ 0.7736 de 1.50" (líneas 3, 48, 70 y 88). La §5 actualiza el tope a 3.00 y el total a 1.721, así que el encabezado del reporte contradice a la adenda. Es histórico, pero conviene que Omar no lo lea como el estado final.
+- Con la API sin tool de verificación no pude confirmar los tokens contra la factura de Anthropic. Los tokens salen de `usage` registrado por el cost_tracker.
+- Fable salió 116 palabras más corto que Opus (1 579 contra 1 695). El cap 2 queda en 109 palabras contra 174 de Opus. No viola el contrato; lo dejo anotado como diferencia.
+
+Riesgos que el contrato no cubre: (1) el precio 10/50 sale solo de la tabla pública que Omar indicó; no hay verificación contra factura real. (2) `ESTADO_SESION.md` refleja la adenda, pero no hay commit, así que todo vive en el working tree. (3) El freno de peor caso usa len/3 como estimación de tokens de entrada; es aproximado.
