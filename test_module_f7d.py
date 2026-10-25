@@ -25,20 +25,19 @@ def _pool(datos: int, citas_ver: int, elegibles: int, eventos: int) -> dict:
 
 
 GREEN = _pool(160, 9, 2, 12)
-YELLOW = _pool(90, 5, 1, 6)          # todo ≥ la mitad (75, 4, 1, 5), algo por debajo del verde
-RED = _pool(200, 2, 0, 3)            # sin testigos, sin humano, sin cronología
+YELLOW = _pool(90, 5, 1, 6)          # algo por debajo del verde
+RED = _pool(30, 2, 0, 3)             # F23 §1.2: rojo solo sin con qué contar (acá, datos < 40)
 
 
 def test_three_colors():
     assert pg.evaluate(GREEN)["color"] == pg.GREEN and pg.evaluate(GREEN)["faltan"] == []
     y = pg.evaluate(YELLOW)
-    assert y["color"] == pg.YELLOW and y["target_words"] == 1200 and y["max_beats"] == 8
+    # F23 §1.2: el amarillo ya no acorta (target_words de siempre, sin tope de beats)
+    assert y["color"] == pg.YELLOW and y["target_words"] == 1500 and y["max_beats"] is None
     assert {f["metrica"] for f in y["faltan"]} == {"datos", "citas_verificadas", "elegibles_humano", "eventos_con_fecha"}
     r = pg.evaluate(RED)
-    assert r["color"] == pg.RED
-    assert set(r["motivos"]) == {pg.CHECKS["citas_verificadas"][1], pg.CHECKS["elegibles_humano"][1],
-                                 pg.CHECKS["eventos_con_fecha"][1]}
-    assert r["metricas"]["eventos_con_fecha"] == 3            # «2005-09» no es una fecha completa
+    assert r["color"] == pg.RED and r["motivos"] == [pg.ROJO["datos"][1]]
+    assert r["metricas"]["eventos_con_fecha"] == 4            # F23 §1.1: «2005-09» (de mes) cuenta
 
 
 def test_orleans_pool_is_green():
@@ -50,7 +49,7 @@ def test_orleans_pool_is_green():
 def test_report_and_red_raises(tmp_path):
     with pytest.raises(pg.PoolGateRed) as e:
         pg.check(RED, "t-red", tmp_path)
-    assert "sin testigos" in str(e.value)
+    assert "no hay con qué contar" in str(e.value)
     md = (tmp_path / "POOL_GATE.md").read_text(encoding="utf-8")
     assert "ROJO" in md and "vuelve al inbox" in md
     g = pg.check(YELLOW, "t-y", tmp_path / "y")
@@ -59,9 +58,9 @@ def test_report_and_red_raises(tmp_path):
 
 def test_thresholds_come_from_video_length(monkeypatch):
     from script_engine import video_length as vl
-    monkeypatch.setitem(vl.DEFAULTS, "gate_datos", 1000)
+    monkeypatch.setitem(vl.DEFAULTS, "gate_rojo_datos", 1000)
     monkeypatch.setattr(vl, "get", lambda k: vl.DEFAULTS[k])
-    assert pg.evaluate(GREEN)["color"] == pg.RED                 # 160 < la mitad de 1000
+    assert pg.evaluate(GREEN)["color"] == pg.RED                 # 160 < el piso rojo de 1000
 
 
 def test_escaleta_gate_red_spends_nothing_yellow_shortens(tmp_path, monkeypatch):
@@ -76,8 +75,8 @@ def test_escaleta_gate_red_spends_nothing_yellow_shortens(tmp_path, monkeypatch)
     t = {"id": "t-y", "evidence_pool": YELLOW}
     g = me.pool_gate_profile(t, YELLOW)
     assert g["color"] == pg.YELLOW
-    assert abs(sum(t["_largo"]["cap_words"].values()) - 1200) <= 7 and t["_largo"]["max_beats"] == 8
-    assert "Entre 7 y 8 beats" in me.build_prompt(t, YELLOW)
+    assert "_largo" not in t                                       # F23 §1.2: el amarillo ya no acorta
+    assert f"Entre 7 y {me.MAX_BEATS} beats" in me.build_prompt(t, YELLOW)
     old = {k: v for k, v in GREEN.items() if k != "_research_v3"}      # pool viejo: sin compuerta
     assert me.pool_gate_profile({"id": "t-old"}, old) is None
     assert f"Entre 7 y {me.MAX_BEATS} beats" in me.build_prompt({"id": "t-old"}, old)       # F8b: tope 14
@@ -130,7 +129,7 @@ def test_red_seed_stays_in_inbox_with_reason(monkeypatch, tmp_path):
     out = tr.research_topics(video_type="long")
     seeds = json.loads(inbox.read_text(encoding="utf-8"))["seeds"]
     assert out == [] and len(seeds) == 1
-    assert seeds[0]["pool_gate"]["color"] == "rojo" and "sin testigos" in " ".join(seeds[0]["pool_gate"]["motivos"])
+    assert seeds[0]["pool_gate"]["color"] == "rojo" and "no hay con qué contar" in " ".join(seeds[0]["pool_gate"]["motivos"])
 
 
 def test_pool_to_blocks_feeds_4a_4e():

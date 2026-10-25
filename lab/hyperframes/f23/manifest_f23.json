@@ -1,0 +1,422 @@
+{
+ "generado": "2026-10-24",
+ "place_re": "\\bKyshtym\\ disaster\\b|\\bMayak\\ accident\\b|\\bChelyabinsk\\-65\\ accident\\b|\\bSouthern\\ Urals\\ nuclear\\ disaster\\b|\\bUrals\\ Nuclear\\ Accident\\b|\\bPA\\ Mayak\\ disaster\\b|(?<!\\w)Кыштымская\\ авария(?!\\w)|(?<!\\w)Маяк(?!\\w)|(?<!\\w)Производственное\\ объединение\\ «Маяк»(?!\\w)|(?<!\\w)Челябинск\\-65(?!\\w)|(?<!\\w)ПО\\ «Маяк»(?!\\w)|(?<!\\w)Восточно\\-Уральский\\ радиоактивный\\ след(?!\\w)|(?<!\\w)Уральская\\ ядерная\\ авария(?!\\w)",
+ "max_doc_chars": 300000,
+ "documentos": [
+  {
+   "id": "F01",
+   "slug": "pravo_2008-F01",
+   "url": "https://pravo.ru/news/view/5760/",
+   "titulo": "Прокуратура Калининского района Челябинской области предъявила иски в защиту пострадавших от аварии на ПО \"Маяк\"",
+   "tipo": "prensa_posterior",
+   "anio": 2008,
+   "prioridad": 1,
+   "por_que": "Informa sobre acciones judiciales concretas iniciadas por el estado en nombre de las víctimas para exigir compensaciones.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://pravo.ru/news/view/5760/",
+     "status": 200,
+     "bytes": 103175
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://pravo.ru/news/view/5760/",
+   "archivo": "pravo_2008-F01.html",
+   "txt": "pravo_2008-F01.txt",
+   "bytes": 103175,
+   "caracteres": 1318,
+   "caracteres_total": 1318,
+   "recorte": null,
+   "sha1": "515b6d816e1b10527fe13055a259e0d41a2522da",
+   "idioma": "ru",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Прокуратура предъявила десятки исков к комбинату \"Маяк\"",
+    "tipo": "fallo_judicial",
+    "anio": 2008
+   },
+   "autor": null
+  },
+  {
+   "id": "F02",
+   "slug": "youtube_2021-F02",
+   "url": "https://www.youtube.com/watch?v=dk60WPSmFBQ&vl=ru",
+   "titulo": "Кыштымская авария. Жизнь в радиоактивной зоне",
+   "tipo": "documental",
+   "anio": 2021,
+   "prioridad": 1,
+   "por_que": "Presenta testimonios directos y detallados de supervivientes de aldeas no reubicadas, mostrando el impacto humano a largo plazo.",
+   "ok": false,
+   "estado": "sin_texto",
+   "intentos": [],
+   "motivo": "video o tienda: no hay texto que bajar"
+  },
+  {
+   "id": "F03",
+   "slug": "archive74_2012_55_anos_desde_la_tragedia-F03",
+   "url": "https://archive74.ru/55-let-so-dnya-tragedii-na-khimicheskom-kombinate-mayak",
+   "titulo": "55 años desde la tragedia en el complejo químico de Mayak",
+   "tipo": "informe_oficial",
+   "anio": 2012,
+   "prioridad": 1,
+   "por_que": "Documento o artículo conmemorativo de un archivo oficial sobre el 55 aniversario de la tragedia de Mayak.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://archive74.ru/55-let-so-dnya-tragedii-na-khimicheskom-kombinate-mayak",
+     "status": 200,
+     "bytes": 42949,
+     "nota": "portada corta con PDF enlazado: https://archive74.ru/sites/default/files/sites/default/files/reglament_priema_dokumentov_v_gu_ogacho.pdf"
+    },
+    {
+     "via": "pdf_enlazado",
+     "url": "https://archive74.ru/sites/default/files/sites/default/files/reglament_priema_dokumentov_v_gu_ogacho.pdf",
+     "status": 200,
+     "bytes": 746773,
+     "error": "PDF enlazado que no nombra el evento en sus primeros 20000 caracteres: descartado"
+    },
+    {
+     "via": "wayback",
+     "error": "API: RuntimeError: HTTP 429 de la API de disponibilidad"
+    }
+   ],
+   "ok": false,
+   "estado": "error",
+   "motivo": "API: RuntimeError: HTTP 429 de la API de disponibilidad"
+  },
+  {
+   "id": "F04",
+   "slug": "juryst_decision_judicial_relacionada_con_el-F04",
+   "url": "http://www.juryst.ru/gjs_sud_reshenia_9.html",
+   "titulo": "Определение судебной коллегии по гражданским делам Челябинского областного суда от 24 ноября 2011 года",
+   "tipo": "fallo_judicial",
+   "anio": 2011,
+   "prioridad": 1,
+   "por_que": "Posible fallo judicial relacionado con el desastre o sus repercusiones legales.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "http://www.juryst.ru/gjs_sud_reshenia_9.html",
+     "status": 200,
+     "bytes": 43713
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "http://www.juryst.ru/gjs_sud_reshenia_9.html",
+   "archivo": "juryst_decision_judicial_relacionada_con_el-F04.html",
+   "txt": "juryst_decision_judicial_relacionada_con_el-F04.txt",
+   "bytes": 43713,
+   "caracteres": 20277,
+   "caracteres_total": 20277,
+   "recorte": null,
+   "sha1": "6c7538bd86fe0606c4b8b78a43e6e3e692e0f54f",
+   "idioma": "ru",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Decisión judicial relacionada con el desastre de Kyshtym/Mayak",
+    "tipo": "fallo_judicial",
+    "anio": null
+   },
+   "autor": "Челябинский областной суд"
+  },
+  {
+   "id": "F05",
+   "slug": "wikipedia_2023-F05",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9A%D1%8B%D1%88%D1%82%D1%8B%D0%BC%D1%81%D0%BA%D0%B0%D1%8F_%D0%B0%D0%B2%D0%B0%D1%80%D0%B8%D1%8F",
+   "titulo": "Кыштымская авария",
+   "tipo": "academico",
+   "anio": 2023,
+   "prioridad": 2,
+   "por_que": "Recopila y cita numerosas fuentes, incluyendo la nota de prensa original del periódico 'Chelyabinsky Rabochy' sobre la 'aurora boreal'.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://ru.wikipedia.org/wiki/%D0%9A%D1%8B%D1%88%D1%82%D1%8B%D0%BC%D1%81%D0%BA%D0%B0%D1%8F_%D0%B0%D0%B2%D0%B0%D1%80%D0%B8%D1%8F",
+     "status": 200,
+     "bytes": 526992
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://ru.wikipedia.org/wiki/%D0%9A%D1%8B%D1%88%D1%82%D1%8B%D0%BC%D1%81%D0%BA%D0%B0%D1%8F_%D0%B0%D0%B2%D0%B0%D1%80%D0%B8%D1%8F",
+   "archivo": "wikipedia_2023-F05.html",
+   "txt": "wikipedia_2023-F05.txt",
+   "bytes": 526992,
+   "caracteres": 59482,
+   "caracteres_total": 59482,
+   "recorte": null,
+   "sha1": "fd4b967c9792c34cbaed3eb61830d037655b9c22",
+   "idioma": "ru",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Кыштымская авария - Википедия",
+    "tipo": "academico",
+    "anio": 2023
+   },
+   "autor": "Wikipedia"
+  },
+  {
+   "id": "F06",
+   "slug": "svoboda_2011_articulo_en_radio_free_europe-F06",
+   "url": "https://www.svoboda.org/a/24197682.html",
+   "titulo": "Последствия аварии на комбинате \"Маяк\"",
+   "tipo": "prensa_posterior",
+   "anio": 2011,
+   "prioridad": 2,
+   "por_que": "Artículo de una organización de noticias cubriendo el desastre nuclear de Kyshtym.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://www.svoboda.org/a/24197682.html",
+     "status": 200,
+     "bytes": 115422
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://www.svoboda.org/a/24197682.html",
+   "archivo": "svoboda_2011_articulo_en_radio_free_europe-F06.html",
+   "txt": "svoboda_2011_articulo_en_radio_free_europe-F06.txt",
+   "bytes": 115422,
+   "caracteres": 17650,
+   "caracteres_total": 17650,
+   "recorte": null,
+   "sha1": "68cd4408f1d6f379102b01562847a9320a5f4c5a",
+   "idioma": "ru",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Artículo en Radio Free Europe/Radio Liberty sobre el desastre de Kyshtym",
+    "tipo": "prensa_posterior",
+    "anio": 2011
+   },
+   "autor": "Радио Свобода"
+  },
+  {
+   "id": "F07",
+   "slug": "meduza_2021_en_el_pueblo_de_los-F07",
+   "url": "https://meduza.io/feature/2021/10/12/v-uralskom-poselke-idet-vystavka-o-kyshtymskoy-yadernoy-katastrofe-ustupayuschey-po-posledstviyam-tolko-chernobylyu-i-fukusime",
+   "titulo": "В уральском поселке идет выставка о Кыштымской ядерной катастрофе, уступающей только Чернобылю и Фукусиме",
+   "tipo": "prensa_posterior",
+   "anio": 2021,
+   "prioridad": 2,
+   "por_que": "Artículo de noticias sobre una exposición reciente relacionada con el desastre de Kyshtym.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://meduza.io/feature/2021/10/12/v-uralskom-poselke-idet-vystavka-o-kyshtymskoy-yadernoy-katastrofe-ustupayuschey-po-posledstviyam-tolko-chernobylyu-i-fukusime",
+     "status": 200,
+     "bytes": 734753
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://meduza.io/feature/2021/10/12/v-uralskom-poselke-idet-vystavka-o-kyshtymskoy-yadernoy-katastrofe-ustupayuschey-po-posledstviyam-tolko-chernobylyu-i-fukusime",
+   "archivo": "meduza_2021_en_el_pueblo_de_los-F07.html",
+   "txt": "meduza_2021_en_el_pueblo_de_los-F07.txt",
+   "bytes": 734753,
+   "caracteres": 10350,
+   "caracteres_total": 10350,
+   "recorte": null,
+   "sha1": "661942dd561aee844d9575b5fc2b47287ca42562",
+   "idioma": "ru",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "En el pueblo de los Urales se lleva a cabo una exposición sobre la catástrofe nuclear de Kyshtym",
+    "tipo": "prensa_posterior",
+    "anio": 2021
+   },
+   "autor": "Антон Хитров"
+  },
+  {
+   "id": "F08",
+   "slug": "pravosoznanie_articulo_de_pravosoznanie_org_sobre-F08",
+   "url": "http://pravosoznanie.org/2302/",
+   "titulo": "Очередная победа в суде: Долг государства будет возвращен",
+   "tipo": "prensa_posterior",
+   "anio": null,
+   "prioridad": 2,
+   "por_que": "Artículo o análisis sobre las implicaciones legales o éticas del desastre de Kyshtym.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "http://pravosoznanie.org/2302/",
+     "status": 200,
+     "bytes": 30087
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "http://pravosoznanie.org/2302/",
+   "archivo": "pravosoznanie_articulo_de_pravosoznanie_org_sobre-F08.html",
+   "txt": "pravosoznanie_articulo_de_pravosoznanie_org_sobre-F08.txt",
+   "bytes": 30087,
+   "caracteres": 2603,
+   "caracteres_total": 2603,
+   "recorte": null,
+   "sha1": "d0c6a402aece82fb13eae6aa48379030321b4776",
+   "idioma": "ru",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Artículo de pravosoznanie.org sobre el desastre de Kyshtym/Mayak",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": "Гражданское общество"
+  },
+  {
+   "id": "F09",
+   "slug": "ozersk74_2018-F09",
+   "url": "https://ozersk74.ru/news/city/390487.php",
+   "titulo": "Взрыв на \"Маяке\": это было \"северное сияние\"",
+   "tipo": "prensa_posterior",
+   "anio": 2018,
+   "prioridad": 3,
+   "por_que": "Artículo de un medio local de Ozersk (la ciudad cerrada donde está Mayak) que cita directamente la nota del periódico de 1957.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://ozersk74.ru/news/city/390487.php",
+     "status": 200,
+     "bytes": 179417
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://ozersk74.ru/news/city/390487.php",
+   "archivo": "ozersk74_2018-F09.html",
+   "txt": "ozersk74_2018-F09.txt",
+   "bytes": 179417,
+   "caracteres": 21454,
+   "caracteres_total": 21454,
+   "recorte": null,
+   "sha1": "073a9e33c46599ffb89d441f41cb2c191f8620b2",
+   "idioma": "ru",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Взрыв на 'Маяке': это было 'северное сияние'",
+    "tipo": "prensa_posterior",
+    "anio": 2018
+   },
+   "autor": "tass.ru"
+  },
+  {
+   "id": "F10",
+   "slug": "wikipedia_kyshtym_disaster_wikipedia-F10",
+   "url": "https://en.wikipedia.org/wiki/Kyshtym_disaster",
+   "titulo": "Kyshtym disaster",
+   "tipo": "academico",
+   "anio": null,
+   "prioridad": 3,
+   "por_que": "Artículo enciclopédico que proporciona una visión general y enlaces a otras fuentes.",
+   "descargado": "2026-10-24",
+   "intentos": [
+    {
+     "via": "original",
+     "url": "https://en.wikipedia.org/wiki/Kyshtym_disaster",
+     "status": 200,
+     "bytes": 322851
+    }
+   ],
+   "ok": true,
+   "estado": "ok",
+   "via": "original",
+   "url_descarga": "https://en.wikipedia.org/wiki/Kyshtym_disaster",
+   "archivo": "wikipedia_kyshtym_disaster_wikipedia-F10.html",
+   "txt": "wikipedia_kyshtym_disaster_wikipedia-F10.txt",
+   "bytes": 322851,
+   "caracteres": 22332,
+   "caracteres_total": 22332,
+   "recorte": null,
+   "sha1": "600273f8f13e26877d42bc1593e7f5e7143f298a",
+   "idioma": "en",
+   "nombra_evento": true,
+   "ficha_busqueda": {
+    "titulo": "Kyshtym disaster - Wikipedia",
+    "tipo": "academico",
+    "anio": null
+   },
+   "autor": "Wikipedia"
+  }
+ ],
+ "_fichas": {
+  "hash": "0c625a46850f04eb",
+  "raw": {
+   "documentos": [
+    {
+     "id": "F01",
+     "titulo": "Прокуратура Калининского района Челябинской области предъявила иски в защиту пострадавших от аварии на ПО \"Маяк\"",
+     "autor": "",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    },
+    {
+     "id": "F04",
+     "titulo": "Определение судебной коллегии по гражданским делам Челябинского областного суда от 24 ноября 2011 года",
+     "autor": "Челябинский областной суд",
+     "tipo": "fallo_judicial",
+     "anio": 2011
+    },
+    {
+     "id": "F05",
+     "titulo": "Кыштымская авария",
+     "autor": "Wikipedia",
+     "tipo": "academico",
+     "anio": 0
+    },
+    {
+     "id": "F06",
+     "titulo": "Последствия аварии на комбинате \"Маяк\"",
+     "autor": "Радио Свобода",
+     "tipo": "prensa_posterior",
+     "anio": 2011
+    },
+    {
+     "id": "F07",
+     "titulo": "В уральском поселке идет выставка о Кыштымской ядерной катастрофе, уступающей только Чернобылю и Фукусиме",
+     "autor": "Антон Хитров",
+     "tipo": "prensa_posterior",
+     "anio": 2021
+    },
+    {
+     "id": "F08",
+     "titulo": "Очередная победа в суде: Долг государства будет возвращен",
+     "autor": "Гражданское общество",
+     "tipo": "prensa_posterior",
+     "anio": 0
+    },
+    {
+     "id": "F09",
+     "titulo": "Взрыв на \"Маяке\": это было \"северное сияние\"",
+     "autor": "tass.ru",
+     "tipo": "prensa_posterior",
+     "anio": 2018
+    },
+    {
+     "id": "F10",
+     "titulo": "Kyshtym disaster",
+     "autor": "Wikipedia",
+     "tipo": "academico",
+     "anio": 0
+    }
+   ]
+  }
+ }
+}

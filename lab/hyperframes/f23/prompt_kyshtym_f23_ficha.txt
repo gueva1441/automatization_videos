@@ -1,0 +1,629 @@
+===== SISTEMA (md5 070b75dff58aecfa407fac3d62020ce4) =====
+<rol>Sos el documentalista de Misterios Sepultados, un canal de documentales de historia oscura en YouTube. Antes de que el guionista escriba, depurás el research de un caso real y armás su ficha: la única fuente de la escaleta y del guion. Lo que no está en la ficha no existe para ellos.</rol>
+<tarea>
+Leés el pool de research completo (cada ítem con su id, y cada evidencia con su documento y su posición) y devolvés la ficha del caso:
+- personas: un nombre canónico por persona, su rol, las variantes del nombre que encontraste y sus ids. Si dos fuentes dan nombres distintos para la misma persona, no elegís: la persona va también a contradicciones. Las instituciones que deciden en el caso (un ministerio, una empresa, una dirección) van también en personas, con su rol institucional, para que la escaleta pueda nombrarlas.
+- cronologia: los eventos en orden, con la fecha que el pool tenga (año, mes o día) y la hora si la hay, tal como están en el pool, y sus ids.
+- historia: antes de listar hechos, decidís qué historia hay en este caso. Devolvés:
+  - humanos_candidatos (2 a 4): personas con arco, es decir, que entran en el caso en un estado, les pasa algo y salen en otro. Para cada una: nombre canónico, rol, en una oración qué le pasa (entra → sufre → sale), qué ids la sostienen y cuántas citas verificadas tiene. Una persona sin cita verificada puede ser candidata, pero lo decís.
+  - giros (3 a 6): los momentos en que la historia cambia de dirección (una orden, un aviso que no llega, una cifra que aparece, una negación oficial). Cada uno con sus ids y en qué orden pasan.
+  - pico: el peor momento, el que todo lo anterior prepara. Uno solo, con sus ids y por qué es el pico.
+  - pregunta_final: la pregunta que el caso deja abierta y que ningún documento cierra, con los ids que la sostienen.
+- escenas (6 a 15): momentos concretos que se pueden ver. Cada escena en una o dos oraciones: dónde, quién, qué está pasando, y lo que un testigo o documento dice que se veía, se oía, se olía o se tocaba. Solo con lo que los ids permiten. Una escena sin ningún detalle sensorial en los datos no es escena: es hecho, y va a hechos.
+- hechos: entre 40 y 80 según lo que el pool dé (nivel 1 entre 10 y 20); con un pool chico, menos hechos buenos valen más que relleno. Cada hecho lleva un campo nivel: 1 = sostiene la historia (sin él no se entiende el caso), 2 = apoyo (da contexto o escala). Además, cada hecho lleva el campo sirve_para: gancho, contexto, escalada, giro, pico, consecuencia o cierre.
+
+Los ejemplos que siguen son de un caso que no es este (una estación de radio y faro en una isla, en los años sesenta). Copiá la forma, no el contenido: los ids van como D##, Q##, T## y ## es el número que tenga el id en ESTE pool.
+
+Ejemplo de humano candidato:
+{"nombre": "Elvira Soto", "rol": "telegrafista de la estación", "arco": "entra como empleada nueva el invierno del temporal, manda los telegramas pidiendo el barco y recibe las respuestas sin firma, sostiene la radio con las baterías del faro la noche en que se apaga el generador, y sale siendo la única que guardó el libro de telegramas", "ids": ["D##", "Q##", "T##"], "citas_verificadas": 3}
+
+Ejemplo de giro:
+{"orden": 2, "que_cambia": "La Dirección responde al primer pedido de barco con «mantener servicio»: la estación no se evacúa", "ids": ["T##", "Q##"]}
+
+Ejemplo de escena:
+{"donde": "Sala de radio de la estación, la noche en que se apaga el generador", "quien": "Elvira Soto, Raúl Bascuñán, las tres familias", "que_pasa": "el generador se apaga y Elvira sigue transmitiendo con las baterías del faro", "sentidos": "olor a querosén; ventanas tapadas con mantas; el ruido del generador que tose dos veces y el silencio después; una vela", "ids": ["T##", "D##", "Q##"]}
+
+Ejemplo de hecho nivel 1:
+{"texto": "El recuento de la comisión da dos muertos; las familias declaran tres.", "nivel": 1, "sirve_para": "consecuencia", "ids": ["D##", "D##"]}
+- hechos: entre 40 y 80 hechos útiles para contar la historia, cada uno en una oración limpia, con sus ids de origen. Sin interpretación.
+- cifras: una cifra por conteo (muertos, heridos, evacuados, personas adentro…), con su fuente y las otras versiones. Cada cifra con su unidad (personas, metros, grados, años, la moneda del caso…): nunca un número sin qué cuenta.
+- citas: las mejores 10 a 25, con autor, rol, estado de verificación y el texto. Si hay un error evidente de transcripción, lo corregís en «texto» y dejás el texto del pool en «original»; si no corregís nada, «original» va vacío. Si «texto» no está en español, «traduccion» lleva la cita en español.
+- cronologia: si la hora o la fecha no coincide en 2 o más fuentes, «aproximada» va en true.
+- decisiones, versiones y contradicciones: cada conflicto entre fuentes lo resolvés con estos criterios, que valen para cualquier caso:
+  1. Error de extracción (lo que dice el ítem del pool no coincide con lo que dice su pasaje): gana el pasaje.
+  2. Variantes de un nombre: gana la forma del documento oficial o judicial; si no hay, la que más fuentes repiten.
+  3. Conteos (muertos, heridos, personas): gana la cifra oficial; si no hay, la que más fuentes repiten. Las otras van en otras_versiones (el guion podrá decir «otras fuentes hablan de…»).
+  4. Hechos disputados (quién dio una orden, si un aviso llegó a tiempo): no se resuelven. Van a «versiones», cada versión con su fuente, para que el guion las cuente como versiones.
+  5. Horas y fechas: gana la que coincide en 2 o más fuentes; si ninguna coincide, se marca aproximada.
+  Lo que resolvés con los criterios 1, 2, 3 o 5 va a «decisiones»: el tema, el número de criterio, la decisión en una oración, los ids que la sostienen y las otras versiones (cada una con su doc_id y su offset). Lo del criterio 4 va a «versiones». Lo que no cae en ningún criterio va a «contradicciones», con las versiones lado a lado, y no se resuelve. En las tres secciones, cada versión lleva su doc_id y su offset tal como están en la evidencia.
+- personas_descartadas: personas que el research descartó (están en <descartados_del_research>) pero que la historia necesita, con su rol, el motivo por el que hacen falta y los ids del pool que las nombran.
+- descartados: lo que dejás afuera por dudoso o fuera del caso, con el motivo en una línea.
+En el pool, una evidencia que ya apareció en otro ítem va como «(= arriba)»: es el mismo pasaje del mismo documento.
+Cada cifra, hora, fecha y cita que escribas tiene que estar en el texto de los ids que citás. No agregás nada que no esté en el pool.
+</tarea>
+
+===== USUARIO (md5 a9909b1b66af93f27d6dcb04812d6827) =====
+<caso>Kyshtym Mayak: El Desastre Nuclear Abandonado De La URSS</caso>
+
+<pool>
+<personajes n="23">
+[P01] Arkady Aleksandrovich Kazutov · Mecánico jefe, supervisor de la construcción de los contenedores
+    F05@3600: «Работы по строительству ёмкостей выполнялись под руководством главного механика Аркадия Александровича Казутова (1914—1994)»
+[P02] V. A. Saprykin · Ingeniero jefe de construcción de Mayak
+    F05@3725: «главным инженером строительства «Маяка» в то время был В. А. Сапрыкин.»
+[P04] Zhores Medvedev · Científico-biólogo que informó por primera vez del accidente en Occidente
+    F05@39885: «в 1976 году учёный-биолог Жорес Медведев сделал первое краткое сообщение об аварии на Урале в английском журнале «New Scientist»»
+    F09@11170: «Первым, кто попытался рассказать о случившемся на "Маяке", был диссидент физик-ядерщик Жорес Медведев.»
+    F10@11342: «But it was only eighteen years later, in 1976, that Soviet dissident Zhores Medvedev made the nature and extent of the disaster known to the world.»
+[P05] L. A. Buldakov · Vicedirector del Instituto de Biofísica y académico de la AN de la URSS
+    F05@42144: «заместитель директора Института биофизики академик АН СССР Л. А. Булдаков заявлял: «В течение трёх лет постоянно, систематически мы следили за здоровьем людей. Не удалось, к счастью, зафиксировать ни одной формы лучевой болезни[56]».»
+[P06] Vladimir Slivyak · Copresidente de la organización "Ekozashchita".
+    F06@751: «Рассказывает сопредседатель организации "Экозащита" Владимир Сливяк.»
+[P07] Lidia Popova · Directora del centro de ecología nuclear y política energética de la Unión Socio-ecológica.
+    F06@1740: «Слово - директору центра ядерной экологии и энергетической политики Социально-экологического союза Лидии Поповой.»
+[P08] Anna Ilyina · Abogada, presidenta de la organización de derechos humanos "Derecho a la Vida".
+    F06@3770: «Рассказвает председатель Челябинской правозащитной организации "Право на жизнь", юрист Анна Ильина.»
+[P09] Denis · Niño víctima de la radiación, nacido con patología ósea grave.
+    F06@3883: «В моей практике есть судебный процесс: мальчик Денис родился с тяжелой костной патологией: без ножки, без пальчиков рук.»
+[P10] Timur · Joven de 20 años víctima de la radiación, con una enfermedad grave.
+    F06@5293: «Это - дело Тимура, который вырос, ему 20 лет. У него заболевание, связанное с радиацией, есть заключение Межведомственной экспертной комиссии.»
+[P12] Vyatkin · Presidente del tribunal regional que anuló las sentencias a favor de las víctimas.
+    F06@9204: «В дальнейшем областное управление социальной защиты подало жалобу в областной суд, и господин Вяткин - председатель областного суда - вынес протест.»
+[P13] Sergey Mitrokhin · Diputado de la Duma Estatal de la facción "Yabloko".
+    F06@14314: «Прокомментировать ситуацию я попросила депутата Государственной Думы от фракции "Яблоко" Сергея Митрохина.»
+[P14] Pavel Otdelnov · Artista que creó la exposición "Звенящий след"
+    F07@722: «Экспозицию в Снежинске создал художник Павел Отдельнов, который с помощью своих картин и найденных на месте катастрофы артефактов... рассказывает историю этого места.»
+[P18] Galina Chanova · Víctima del accidente en PO «Mayak» y demandante
+    F08@57: «На минувшей неделе суд Калининского района признал долг государства перед Галиной Чановой пострадавшей от аварии на ПО «Маяк».»
+[P19] Alexey Babin · Abogado y jefe de área en «Sociedad Civil»
+    F08@2217: «Первое судебное решение мы попросили прокомментировать руководителя данного направления «Гражданского общества» юриста Алексея Бабина»
+[P20] Yefim Slavsky · Ministro de Industria Media de la URSS · variantes: E.P. Slavsky
+    F09@2090: «В докладе комиссии Ефима Славского, тогдашнего министра средней промышленности СССР, о причинах аварии 57 года, который долгое время был под грифом "совершенно секретно", сказано, что "причиной аварии стало нарушение режима охлаждения хранилищ банки №14.»
+    F10@9956: «In a memo addressed to the Central Committee of the CPSU, Industry Minister E.P. Slavsky wrote: "Investigating the causes of the accident on the spot, the commission believes that the main culprits of this incident are the head of the radiochemical plant and the chief engineer of this plant»
+[P21] Mikhail Demyanovich · Director de la planta química Mayak · variantes: M. A. Demyanovich
+    F09@2558: «Главным виновником аварии объявили директора химкомбината "Маяк" Михаила Демьяновича, который в момент взрыва был в Москве. Его сняли с должности и перевели на другое место работы с понижением.»
+    F10@10743: «The director of the plant M. A. Demyanovich took all the blame for the accident, for which he was relieved of his duties as director.»
+[P22] Anatoly Vasilievich Dubrovsky · Liquidador, electricista
+    F09@3027: «рассказывает один из первых ликвидаторов, Анатолий Васильевич Дубровский.»
+[P23] Mikhail Kuleshov · Liquidador, ajustador
+    F09@7081: «О взрыве на комбинате, слесарь 6-го разряда отдела главного механика завода 25 Михаил Кулешов узнал от руководства, когда приехал на работу во вторую смену.»
+[P24] Lyudmila Smirnova · Hija de un liquidador
+    F09@8820: «Людмила Смирнова родилась уже после той аварии, в 1961 году, в Челябинск-65, это прежнее название Челябинска-40, и прожила там до своего 18-летия.»
+[P25] Faik Smirnov · Liquidador, padre de Lyudmila Smirnova
+    F09@9320: «Отец Людмилы был одним из тех, кто помогал справляться с последствиями аварии на "Маяке". Он сгорел от радиации буквально за две недели... О том, что происходило на комбинате, Фаик (так звали отца Людмилы Смирновой), не говорил даже семье.»
+[P27] Periódico 'Chelyabinsky Rabochy' · Periódico
+    F05@37755: «В прошлое воскресенье вечером… многие челябинцы наблюдали особое свечение звёздного неба. Это довольно редкое в наших широтах свечение имело все признаки полярного сияния.»
+[P28] V. I. Shevchenko · Miembro de la Cámara Pública, liquidador de 1957, veterano de la PA 'Mayak' y Minatom
+    F05@42522: «Позднее, непонятно почему, авария была растиражирована в СМИ как «Кыштымская авария». В Кыштыме по этому случаю даже недавно был установлен обелиск, хотя этот город к данному событию не имеет никакого отношения.»
+[P29] Chelyabinsky Rabochy · Periódico local
+    F09@10845: «Многие челябинцы наблюдали особое свечение звездного неба. Это довольно редкое в наших широтах свечение имело все признаки полярного сияния. Интенсивное красное, временами переходящее в слабо-розовое и светло-голубое свечение вначале охватывало значительную часть юго-западной и северо-восточной пове»
+</personajes>
+<cronologia n="56">
+[T01] Se construye un sanatorio para chekistas diseñado por Georgy Golubev en la orilla del lago Sungul. · fecha 1930 · hora None · lugar Lago Sungul
+    F07@1348: «В 1930-х это был санаторий чекистов. Трехэтажный корпус на берегу озера Сунгуль проектировал свердловский конструктивист Георгий Голубев.»
+[T02] Durante la guerra, el edificio del sanatorio fue convertido en un hospital. · fecha 1941 · hora None · lugar Lago Sungul
+    F07@1486: «Во время войны здание переделали в госпиталь.»
+[T03] Comienza la construcción apresurada de la planta de Mayak. · fecha 1945 · hora None · lugar Mayak
+    F10@2549: «The Mayak plant was built in haste between 1945 and 1948.»
+[T04] El Gobierno de la URSS emitió un decreto para la construcción de la planta n.º 817 en la región de Cheliábinsk. · fecha 1945-04-09 · hora None · lugar Челябинская область
+    F05@1830: «9 апреля 1945 года Правительством СССР было принято постановление о строительстве завода № 817 для производства атомной бомбы в Челябинской области[10].»
+[T05] Comienza a operar el Laboratorio "B" en un antiguo sanatorio, reclutando especialistas principalmente entre prisioneros de guerra y reclusos. · fecha 1947 · hora None · lugar Lago Sungul
+    F07@1782: «Дом на берегу Сунгуля стал общежитием лаборатории «Б» — специалистов туда набирали главным образом из военнопленных и заключенных. Лаборатория работала восемь лет — с 1947-го по 1955-й.»
+[T06] Comienza la producción de plutonio-238 en la planta Mayak. · fecha 1948 · hora None · lugar Маяк
+    F06@682: «С 1948 по 1992 год на "Маяке" было произведено 3 тонны плутония-238.»
+    F10@2549: (= arriba)
+[T07] El primer reactor nuclear industrial de Eurasia, "A-1", alcanzó su capacidad de diseño. · fecha 1948-06 · hora None · lugar None
+    F05@1983: «В июне 1948 года первый в Евразии промышленный ядерный реактор «А-1» достиг проектной мощности.»
+[T08] Comienza el vertido de residuos radiactivos en el río Techa, que duraría hasta 1956. · fecha 1949 · hora None · lugar река Теча
+    F06@1536: «В реку Теча с 1949 по 1956 год было сброшено большое количество высоко и средне-активных жидких радиоактивных отходов.»
+[T09] Se puso en marcha la planta radioquímica para la separación y procesamiento de plutonio. · fecha 1949-01 · hora None · lugar None
+    F05@2079: «В январе 1949 года запущен радиохимический завод по выделению и переработке плутония.»
+[T10] Se puso en marcha la planta químico-metalúrgica para la producción de la carga nuclear. · fecha 1949-02 · hora None · lugar None
+    F05@2165: «В феврале 1949 был запущен химико-металлургический завод по производству ядерного заряда.»
+[T11] La planta "Mayak" comenzó a verter residuos de alta actividad en el río Techa. · fecha 1950 · hora None · lugar Río Techa
+    F07@2100: «Когда в 1950-х «Маяк» стал сбрасывать в реку Теча высокоактивные отходы, тысячи людей продолжали брать из нее воду.»
+[T12] Se empieza a verter residuos líquidos de alta actividad en el lago Karachay. · fecha 1951-11 · hora None · lugar озеро Карачай
+    F06@1655: «После ноября 1951 года высоко-активные жидкие отходы начали сливать в озеро Карачай.»
+[T13] Se prohíbe el uso del agua del río Techa para beber. · fecha 1953 · hora None · lugar река Теча
+    F06@3032: «С 1953 года было запрещено использовать речную воду в качестве питьевой.»
+[T14] Se añadió una instalación de almacenamiento para residuos nucleares líquidos en la planta de Mayak. · fecha 1953 · hora None · lugar Mayak
+    F10@3347: «A storage facility for liquid nuclear waste was added around 1953.»
+[T15] El Laboratorio "B" deja de funcionar después de ocho años de operación. · fecha 1955 · hora None · lugar Lago Sungul
+    F07@1913: «Лаборатория работала восемь лет — с 1947-го по 1955-й.»
+[T16] Ocurre un accidente en la asociación de producción "Mayak", que provoca contaminación radiactiva. · fecha 1957 · hora None · lugar ПО "Маяк"
+    F04@2494: «Является эвакуированной из населенного пункта Курманово, подвергнувшегося загрязнению вследствие аварии в 1957 году на производственном объединении "Маяк".»
+    F07@607: «В 1957 году в Озерске произошла радиационная авария, которая по последствиям уступила только Чернобылю и Фукусиме.»
+[T17] Ocurrió una de las mayores catástrofes de origen humano en la historia de la URSS en el complejo nuclear Mayak. · fecha 1957 · hora None · lugar Южном Урале
+    F01@1124: «В 1957 году на ядерном комбинате "Маяк", построенном в оборонных целях на Южном Урале, произошла одна из крупнейших техногенных катастроф в истории СССР, от которой пострадали сотни тысяч людей.»
+[T18] Niños de internados fueron utilizados para limpiar la cosecha contaminada y demoler edificios en las áreas afectadas. · fecha 1957 · hora None · lugar None
+    F06@8800: «Это были интернатовские дети, которых привозили на загрязненную территорию в 1957 году для уборки этого загрязненного урожая, для ликвидации строений.»
+[T19] Comenzó el llenado del tanque n.º 14 con residuos de la producción radiactiva, proceso que duró hasta el 10 de abril de 1957. · fecha 1957-03-09 · hora None · lugar None
+    F05@5894: «Заполнение банки № 14 отходами радиоактивного производства происходило с 9 марта по 10 апреля 1957 года, было залито 256 м3»
+[T20] Ocurrió la explosión del tanque N°14 del complejo "S-3" en la planta química "Mayak". · fecha 1957-09-29 · hora 16:22 · lugar Челябинск-40
+    F05@9889: «29 сентября 1957 года (воскресенье), 16:22 по местному времени. Произошёл взрыв банки № 14 комплекса «С-3».»
+    F06@7538: «29 сентября 1957 года на "Маяке" произошел взрыв емкости с радиоактивными отходами.»
+    F09@170: «29 сентября 1957 года... Взрыв прогремел в половине пятого вечера.»
+    F10@4274: «On 29 September 1957, Sunday, 4:22 pm, an explosion occurred within stainless steel containers located in a concrete canyon 8.2 m (27 feet) deep used to store high-level waste.»
+[T21] Las masas de aire del área de la planta química se movían hacia el pueblo de Bagaryak y la ciudad de Kamensk-Uralsky. · fecha 1957-09-29 · hora 19:20 · lugar None
+    F05@10001: «19:20. Воздушные массы из района химкомбината двигались в направлении села Багаряк и города Каменск-Уральский Свердловской области.»
+[T22] La nube radiactiva alcanzó el territorio de la región de Tiumén. · fecha 1957-09-29 · hora 22:00 · lugar Тюменская область
+    F05@10137: «22:00 или 00:00 30 сентября. Радиоактивное облако достигло территории Тюменской области.»
+[T23] Se observó un extraño resplandor rosado y azul claro en el cielo, que inicialmente cubría gran parte del suroeste y noreste del horizonte. · fecha 1957-09-29 · hora 23:00 · lugar None
+    F05@10230: «Около 23:00 было замечено[откуда?] странное свечение в небе; основными цветами этого свечения были розовый и светло-голубой.»
+[T24] Comienzan las primeras tareas de limpieza, con la participación de trabajadores de la planta como Anatoly Dubrovsky y Mikhail Kuleshov, militares y prisioneros. · fecha 1957-09-30 · hora None · lugar Planta química Mayak
+    F09@3265: «Уже на следующий день, это был понедельник 30 сентября, Анатолий Васильевич как обычно отправился на работу.»
+[T25] El proceso de formación de la traza radiactiva se completó en su totalidad. · fecha 1957-09-30 · hora 03:00 · lugar None
+    F05@10522: «30 сентября, 03:00. Полностью завершён процесс формирования радиоактивного следа (без учёта последующей миграции).»
+[T26] Diez días después de la explosión, comienza la evacuación de más de 10.000 personas de las zonas contaminadas. · fecha 1957-10 · hora None · lugar None
+    F06@8044: «Через 10 дней после аварии было эвакуировано более 10 000 человек.»
+[T27] La brigada de Mikhail Kuleshov comienza los trabajos de liquidación, trabajando desde las 19:00 hasta la 1:00. · fecha 1957-10 · hora None · lugar Planta química Mayak
+    F09@7911: «Наша бригада приступила к ликвидации в октябре. Работали с 19 часов до часу ночи.»
+[T28] Llegó de Moscú una comisión del Ministerio de Construcción de Maquinaria Mediana, encabezada por el ministro E. P. Slavsky. · fecha 1957-10-02 · hora None · lugar None
+    F05@14355: «2 октября 1957 года, на третий день после аварии, из Москвы прибыла комиссия, созданная Министерством среднего машиностроения, во главе с министром Е. П. Славским.»
+[T29] El periódico "Chelyabinsky Rabochy" publicó una nota titulada "Aurora Boreal en los Urales del Sur" para explicar la misteriosa luz en el cielo nocturno tras el accidente. · fecha 1957-10-06 · hora None · lugar None
+    F07@2216: «6 октября 1957 года — через несколько дней после аварии в Озерске — в газете «Челябинский рабочий» вышла заметка «Полярное сияние на Южном Урале»: так читателям объясняли загадочный свет на ночном небе.»
+    F09@10671: «Лишь спустя неделю после взрыва, 6 октября 1957 года, в местной газете "Челябинский рабочий" написали про взрыв. Правда, столб радиоактивной пыли выдали за северное сияние.»
+[T30] Comienza la evacuación de unas 10.000 personas de la zona afectada, sin explicar los motivos. · fecha 1957-10-06 · hora None · lugar None
+    F10@9041: «A week later, on 6 October 1957, an operation for evacuating around 10,000 people from the affected area started, still without giving an explanation of the reasons for evacuation.»
+[T31] Se creó una comisión técnica especial de 11 personas para establecer las causas de la explosión. · fecha 1957-10-11 · hora None · lugar None
+    F05@10724: «11 октября 1957 года была создана специальная техническая комиссия по установлению причин взрыва. В её состав вошли 11 человек»
+[T32] Se determinaron las dimensiones de las consecuencias: una zona de contaminación de 20-40 km de ancho y hasta 300 km de largo. · fecha 1958 · hora None · lugar None
+    F05@8686: «Масштабы последствий были определены в начале 1958 года — радиоактивному заражению подверглась довольно узкая зона шириной 20—40 км и протяжённостью до 300 км»
+[T33] Se dejan sin cultivar 106.000 hectáreas de tierra fértil en la región de Cheliábinsk debido a la contaminación. · fecha 1958 · hora None · lugar Челябинская область
+    F06@8229: «В 1958 году в Челябинской области пришлось оставить необработанными 106 000 гектаров плодородной земли.»
+[T34] Comienzan los trabajos de restauración de la planta. · fecha 1958 · hora None · lugar Planta química Mayak
+    F09@8124: «К восстановительным работам комбината приступили в 1958 году. Как говорит Кулешов, условия работы были не самые приятные: все помещения были затоплены водой.»
+[T35] Comienzan a aparecer en la prensa occidental informes vagos de un "accidente catastrófico" en la Unión Soviética. · fecha 1958-04-13 · hora None · lugar None
+    F10@11067: «Vague reports of a "catastrophic accident" causing "a radioactive fallout over the Soviet and many neighboring states" began appearing in the Western press between 13 and 14 April 1958»
+[T36] Un tractor protegido con plomo retira la tierra contaminada donde los electricistas habían trabajado el año anterior. · fecha 1958-06 · hora None · lugar Planta química Mayak
+    F09@6877: «Уже летом 58 года на том месте, где электрики выдергивали кустарник, работал трактор, но полностью защищенный свинцом. Он срезал зараженную землю, а вместо нее привозил новый чистый грунт.»
+[T37] El gobierno de la URSS decidió crear una zona de protección sanitaria en la parte contaminada del EURT (Traza Radiactiva de los Urales Orientales). · fecha 1959 · hora None · lugar None
+    F05@31148: «в 1959 году правительство СССР приняло решение об образовании на этой части ВУРСа санитарно-защитной зоны с особым режимом.»
+[T38] El periódico vienés Die Presse publica los primeros detalles sobre el accidente nuclear soviético. · fecha 1959-03-18 · hora None · lugar None
+    F10@11257: «the first details emerged in the Viennese paper Die Presse on 18 March 1959.»
+[T39] Durante la primavera, el lago Karachay se seca parcialmente y el viento dispersa polvo radiactivo, causando una nueva catástrofe. · fecha 1967 · hora None · lugar озеро Карачай
+    F06@10582: «Третья катастрофа случилась весной 1967 года, когда часть озера Карачай высохла.»
+[T40] El fondo del lago Karachay, donde "Mayak" almacenaba residuos de actividad media, quedó al descubierto y el viento esparció los residuos por decenas de pueblos y aldeas. · fecha 1967 · hora None · lugar Lago Karachay
+    F07@2596: «В 1967 году обнажилось дно озера Карачай, где «Маяк» хранил среднеактивные отходы — их разнесло ветром на десятки сел и деревень.»
+[T41] El viento dispersó polvo con estroncio-90, cesio-137 y cerio-144 desde las orillas secas del lago Karachay, contaminando adicionalmente un área de 1660 km². · fecha 1967-04 · hora None · lugar озеро Карачай
+    F05@29521: «В апреле 1967 года в результате разноса ветром пыли, содержащей стронций-90, цезий-137, церий-144, с оголившихся береговых участков озера Карачай была дополнительно заражена начальная часть ВУРС»
+[T42] Se estableció la Reserva Natural de los Urales Orientales en el territorio de la zona de protección sanitaria. · fecha 1968 · hora None · lugar None
+    F05@31697: «В 1968 году на этой территории создан Восточно-Уральский заповедник.»
+    F10@13019: «The Soviet government in 1968 disguised the EURT area by creating the East Ural Nature Reserve, which prohibited any unauthorised access to the affected area.»
+[T43] El físico disidente Zhores Medvedev informa a periodistas extranjeros sobre la explosión en los Urales, pero las autoridades soviéticas niegan la información. · fecha 1970 · hora None · lugar None
+    F09@11273: «В 70-е годы прошлого века он выступил перед иностранными журналистами и рассказал о взрыве на Урале. Поднялся шум, но советские власти отрицали эту информацию.»
+[T44] El disidente soviético Zhores Medvedev da a conocer al mundo la naturaleza y el alcance del desastre. · fecha 1976 · hora None · lugar None
+    F10@11342: (= arriba)
+[T45] La URSS reconoció públicamente el accidente de 1957 solo en los últimos años de la perestroika. · fecha 1985 · hora None · lugar None
+    F07@2530: «СССР публично признал аварию только в последние годы перестройки.»
+[T46] El gobierno soviético comienza a desclasificar gradualmente documentos relacionados con el incidente en Mayak. · fecha 1989 · hora None · lugar None
+    F10@12832: «Starting in 1989, several years after the Chernobyl disaster, the Soviet government gradually declassified documents pertaining to the incident at Mayak.»
+[T47] La ciudad cerrada de Cheliábinsk-40 (Ozersk) cambia de nombre a Cheliábinsk-65. · fecha 1990 · hora None · lugar Озерск
+    F06@604: «До 1990 года город был известен как Челябинск-40, а затем - как Челябинск-65.»
+[T48] Las autoridades de la región de Cheliábinsk deciden evacuar a la población de Muslyumovo, pero la medida no se lleva a cabo. · fecha 1993 · hora None · lugar Муслюмово
+    F06@3600: «В 1993 году власти Челябинской области приняли решение об эвакуации населения Муслюмово, однако, из-за экономических проблем это решение так и не было воплощено в жизнь.»
+[T49] A N.N.D. se le emite un certificado que confirma su estatus como persona afectada por el accidente de Mayak. · fecha 1994-09-22 · hora None · lugar None
+    F04@11859: «22 сентября 1994 года ей выдано удостоверение серии У N 004286.»
+[T50] Galina Chanova comenzó a recibir compensaciones por el daño causado a su salud. · fecha 1997 · hora None · lugar None
+    F08@501: «Только в 1997 году она начала получать компенсации за причиненный ее здоровью вред.»
+[T51] Fue el último año en que se indexó el importe de la indemnización a las víctimas del accidente de Mayak. · fecha 2001 · hora None · lugar None
+    F01@1067: «Однако с 2001 года размер компенсации не индексировался.»
+[T52] La compensación para alimentos ascendía a 287 rublos mensuales y la de salud a 131,30 rublos anuales. · fecha 2007 · hora None · lugar None
+    F08@815: «К 2007 эти цифры немного возросли: на питание стали давать 287 рублей ежемесячно, а на поправку здоровья 131 рубль 30 копеек в год.»
+[T53] Empleados de la fiscalía organizaron la presentación de demandas judiciales para la indexación de la compensación mensual a las víctimas del accidente de Mayak. · fecha 2008 · hora None · lugar None
+    F01@379: «В этом году сотрудниками ведомства была организована работа по предъявлению в суд исков об индексации, причитающейся по закону ежемесячной компенсации пострадавшим в результате аварии на "Маяке".»
+[T54] La demandante N.N.D. presenta una solicitud para ser reconocida como necesitada de mejores condiciones de vivienda. · fecha 2011-05-10 · hora None · lugar None
+    F04@3643: «Н.Н.Д. обратилась с заявлением о признании ее нуждающейся в улучшении жилищных условий 10 мая 2011 года, то есть после 1 января 2005 года»
+[T55] El Tribunal del Distrito de Traktorozavodsky de Cheliábinsk emite una resolución sobre la demanda de N.N.D. · fecha 2011-09-28 · hora None · lugar г. Челябинск
+    F04@348: «кассационной жалобе администрации Тракторозаводского района г. Челябинска на решение Тракторозаводского районного суда г. Челябинска от 28 сентября 2011 года»
+[T56] El colegio judicial de asuntos civiles del Tribunal Regional de Cheliábinsk revisa el caso en una sesión judicial abierta. · fecha 2011-11-24 · hora None · lugar г. Челябинск
+    F04@238: «рассмотрела в открытом судебном заседании в зале суда в г. Челябинске 24 ноября 2011 года гражданское дело по кассационной жалобе»
+</cronologia>
+<datos n="154">
+[D01] La familia de la demandante tiene derecho a un subsidio para la compra de una vivienda con una superficie de 90 m², a razón de 18 m² por cada miembro de la familia. · tipo magnitud · valor None · fecha None
+    F04@2146: «предоставить ей на семью из пяти человек субсидию на приобретение жилья в соответствии с расчетной нормой в размере 90 кв.м, по 18 кв.м на каждого члена семьи, выдав жилищный сертификат в порядке очередности.»
+[D02] La demandante N.N.D. fue evacuada del pueblo de Kurmanovo, que fue contaminado como resultado del accidente de 1957 en la asociación de producción Mayak. · tipo nombre · valor None · fecha None
+    F04@2494: (= arriba)
+    F04@2494: (= arriba)
+[D03] La familia de N.N.D., compuesta por 5 personas, vive en un apartamento de una habitación con una superficie total de 36,3 m². · tipo magnitud · valor None · fecha None
+    F04@2650: «Проживает с семьей из пяти человек в однокомнатной квартире по адресу: г. Челябинск, ***, общей площадью 36,3 кв.м, семья обеспечена жилой площадью ниже установленной учетной нормы.»
+[D04] La Ley Federal N° 175-FZ del 26 de noviembre de 1998 regula la protección social de los ciudadanos afectados por el accidente de 1957 en Mayak y los vertidos en el río Techa. · tipo nombre · valor None · fecha None
+    F04@7555: «ст.6 Федерального закона от 26.11.1998 г. N 175-ФЗ "О социальной защите граждан Российской Федерации, подвергшихся воздействию радиации вследствие аварии в 1957 году на производственном объединении "Маяк" и сбросов радиоактивных отходов в Реку Теча"»
+[D05] La contaminación radiactiva también fue causada por vertidos de residuos radiactivos en el río Techa. · tipo lugar · valor None · fecha None
+    F04@7806: «гражданам, эвакуированным (переселенным), а также добровольно уехавшим из населенных пунктов, подвергшихся радиоактивному Загрязнению вследствие аварии в 1957 году на производственном объединении "Маяк" и сбросов радиоактивных отходов в реку Теча»
+[D06] A N.N.D. se le emitió un certificado serie У N° 004286 el 22 de septiembre de 1994 que confirma su estatus de víctima. · tipo nombre · valor None · fecha 1994-09-22
+    F04@11859: (= arriba)
+[D07] A N.N.D. se le denegó la inscripción como necesitada de vivienda porque presentó su solicitud después del 1 de marzo de 2005. · tipo fecha · valor None · fecha 2005-03-01
+    F04@12617: «Н.Н.Д. было отказано в постановке ее на учет в качестве нуждающейся в жилом помещении в включением в список граждан-получателей жилищного сертификата по причине того, что она обратилась с заявлением после 01 марта 2005 года»
+[D08] En la ciudad de Cheliábinsk, la norma de superficie de vivienda por persona es de 10 metros cuadrados de superficie total. · tipo magnitud · valor None · fecha None
+    F04@15682: «Решением Челябинской городской Думы от 25.10.2005г. N 7/9 на территории муниципального образования "Город Челябинск" установлена учетная норма площади жилого помещения в размере 10 квадратных метров общей площади на одного человека.»
+[D09] La fiscalía del distrito Kalininsky de la región de Chelyabinsk presentó 86 demandas por un total de aproximadamente 1 millón de rublos en nombre de las víctimas del accidente de 1957 en la Asociación de Producción Mayak. · tipo cifra · valor 86 · fecha None
+    F01@0: «Прокуратура Калининского района Челябинской области, действуя в интересах граждан, пострадавших от воздействия радиационного загрязнения после аварии на предприятии "Производственное объединение "Маяк" в 1957 году, предъявила в суды области 86 исков на общую сумму около одного миллиона рублей.»
+[D10] El importe total de las demandas presentadas por la fiscalía ascendió a aproximadamente 1 millón de rublos. · tipo magnitud · valor None · fecha None
+    F01@215: «предъявила в суды области 86 исков на общую сумму около одного миллиона рублей.»
+[D11] En la actualidad, casi todas las demandas presentadas por la fiscalía han sido examinadas y aprobadas por el tribunal. · tipo cita · valor None · fecha None
+    F01@295: «В настоящее время практически все иски прокурора судом рассмотрены и удовлетворены.»
+[D12] Un total de 115 personas afectadas por la radiación residen en el distrito de Kalininsky. · tipo cifra · valor 115 · fecha None
+    F01@575: «Всего на территории Калининского района проживает 115 человек, пострадавших от облучения. В большинстве своем это пенсионеры и инвалиды.»
+[D13] El nombre de una ley federal es "Sobre la protección social de los ciudadanos de la Federación Rusa expuestos a la radiación como consecuencia del accidente en la PA 'Mayak' y los vertidos de residuos radiactivos en el río Techa". · tipo nombre · valor None · fecha None
+    F01@712: «Согласно федеральному закону "О социальной защите граждан РФ, подвергшихся воздействию радиации вследствие аварии на ПО "Маяк" и сбросов радиоактивных отходов в реку Теча"»
+[D14] Según una ley federal, los ciudadanos que recibieron una dosis de radiación acumulada efectiva superior a 7 rem tienen derecho a una compensación monetaria mensual. · tipo magnitud · valor None · fecha None
+    F01@884: «гражданам, подвергшимся радиоактивному загрязнению и получившим накопленную эффективную дозу облучения свыше 7 бэр, установлена ежемесячная денежная компенсация в размере 100 рублей.»
+[D15] La compensación monetaria mensual para las víctimas se fijó en 100 rublos. · tipo magnitud · valor None · fecha None
+    F01@884: (= arriba)
+[D16] El importe de la compensación para las víctimas no se indexaba desde 2001. · tipo fecha · valor 2001 · fecha 2001
+    F01@1067: (= arriba)
+[D17] El accidente de 1957 en el complejo nuclear Mayak afectó a cientos de miles de personas. · tipo cifra · valor None · fecha None
+    F01@1124: (= arriba)
+[D18] La explosión en la planta química Mayak fue una emergencia radiológica de origen tecnológico. · tipo nombre · valor None · fecha None
+    F05@739: «Кышты́мская авария (или кыштымская катастрофа[3][4][5], или радиационная авария на ПО «Маяк» 1957 г.[6]) — одна из первых в СССР[7][8] радиационная чрезвычайная ситуация техногенного характера (взрывной выброс радиоактивных веществ)»
+[D19] La explosión fue consecuencia de una violación del régimen de refrigeración de un contenedor de almacenamiento de residuos radiactivos. · tipo magnitud · valor None · fecha None
+    F05@1077: «Взрыв стал следствием нарушения режима охлаждения ёмкости хранения радиоактивных отходов[9].»
+[D20] El accidente corresponde al nivel 6 de 7 en la Escala Internacional de Sucesos Nucleares y Radiológicos de la AIEA. · tipo magnitud · valor 6 · fecha None
+    F05@1170: «Авария относится к тяжёлой, по современной международной классификации радиационных инцидентов и аварий МАГАТЭ соответствует 6-му уровню из 7 возможных, с последствиями, повлёкшими необходимость применения мер радиационной защиты населения в локальном масштабе[6].»
+[D21] El nombre de "accidente de Kyshtym" se debe a que Kyshtym era la ciudad más cercana a Ozyorsk que figuraba en los mapas públicos. · tipo lugar · valor None · fecha None
+    F05@1668: «поэтому авария и получила название «кыштымской» по ближайшему к Озёрску городу Кыштым, обозначенному на картах.»
+[D22] Entre 1949 y 1951, los vertidos radiactivos se realizaron en el río Techa, contaminándolo significativamente. · tipo lugar · valor None · fecha 1949-1951
+    F05@2700: «Так, в 1949—1951 годах сбросы производились в реку Теча, значительно её радиоактивно загрязнив.»
+[D23] Parte de los residuos líquidos radiactivos comenzaron a verterse en el lago sin desagüe Karachay. · tipo lugar · valor None · fecha None
+    F05@2847: «часть жидких отходов начали сливать не в реку, а в бессточное озеро Карачай, впоследствии законсервированное ввиду угрозы широкомасштабного радиационного загрязнения»
+[D24] Los trabajos de construcción de los contenedores de residuos estuvieron bajo la dirección del mecánico jefe Arkady Aleksandrovich Kazutov. · tipo nombre · valor None · fecha None
+    F05@3600: (= arriba)
+[D25] El ingeniero jefe de la construcción de Mayak en ese momento era V. A. Saprykin. · tipo nombre · valor None · fecha None
+    F05@3725: (= arriba)
+[D26] Los contenedores de residuos eran cilindros de acero inoxidable dentro de una envoltura de hormigón. · tipo magnitud · valor None · fecha None
+    F05@3796: «Сами ёмкости представляют собой цилиндры из нержавеющей стали в бетонной рубашке[18].»
+[D27] El contenedor que explotó tenía un volumen de 300 m³ y contenía entre 70 y 80 toneladas de residuos altamente radiactivos ya secos. · tipo magnitud · valor None · fecha None
+    F05@6156: «произошёл взрыв ёмкости объёмом 300 м3, где содержалось около 70—80 тонн к тому времени высохших высокорадиоактивных отходов»
+[D28] Los residuos contenían isótopos de estroncio-90, cesio-137, cerio-144, circonio-95, niobio-95 y rutenio-106. · tipo nombre · valor None · fecha None
+    F05@6314: «жидких отходов: изотопы стронций-90, цезий-137, церий-144, цирконий-95, ниобий-95, рутений-106)[19].»
+[D29] La potencia de la explosión se estimó entre 25 y 29 toneladas de TNT según la comisión de 1957, y entre 8 y 170 toneladas según estimaciones modernas. · tipo magnitud · valor None · fecha None
+    F05@7456: «мощность взрыва составила 25—29 т в тротиловом эквиваленте (ТНТ), современные оценки на основе анализа степени разрушения на ближней территории площадки дают от 8 до 170 т[21].»
+[D30] La explosión destruyó completamente el contenedor número 14, creando un cráter de unos 10 metros de profundidad y 20 metros de diámetro. · tipo magnitud · valor None · fecha None
+    F05@7633: «Взрывом была полностью разрушена ёмкость № 14, на её месте образовалась воронка глубиной около 10 м и диаметром около 20 м»
+[D31] Se liberaron a la atmósfera unos 20 millones de curios de sustancias radiactivas. · tipo magnitud · valor None · fecha None
+    F05@8152: «В атмосферу из разрушенной ёмкости было выброшено около 20 млн кюри радиоактивных веществ в виде крупнодисперсных аэрозолей, газов и механических взвесей.»
+[D32] La nube radiactiva se elevó a una altura estimada de hasta 1100 metros. · tipo magnitud · valor None · fecha None
+    F05@8407: «по современным оценкам высота подъёма продуктов взрыва могла достигнуть 1100 м.»
+[D33] Aproximadamente el 90% de las emisiones se depositaron en el área industrial, y el resto en las regiones de Cheliábinsk, Sverdlovsk y Tiumén. · tipo lugar · valor None · fecha None
+    F05@8487: «Около 90 % выброса осели на промышленной площадке, остальное — в прилегающем районе на территории Челябинской, Свердловской и Тюменской областей»
+[D34] En el área con una densidad de contaminación de más de 2 Ci/km² vivían más de 10.000 personas. · tipo cifra · valor None · fecha None
+    F05@8974: «На территории с плотностью радиоактивного загрязнения свыше 2 Ки/км² проживало более 10 000 человек»
+[D35] La versión oficial establece que la causa de la explosión fue la ignición de sales secas de nitratos y acetatos de sodio a partir de una chispa accidental. · tipo magnitud · valor None · fecha None
+    F05@12050: «От случайной искры произошло воспламенение и взрыв смеси солей, мощность произошедшего взрыва оценивается по воронке и разрушениям в 70—100 тонн тринитротолуола[25].»
+[D36] Una versión alternativa sugiere que se añadió por error una solución de oxalato de plutonio a un tanque con una solución caliente de nitrato de plutonio, causando una reacción que provocó la explosión. · tipo magnitud · valor None · fecha None
+    F05@12255: «Другая версия гласит, что в бак-испаритель с горячим раствором нитрата плутония по ошибке добавили раствор оксалата плутония.»
+[D37] Un área de 23.000 km² con 270.000 habitantes en 217 localidades de tres óblasts (Cheliábinsk, Sverdlovsk y Tiumén) resultó contaminada. · tipo magnitud · valor None · fecha None
+    F05@13318: «территория площадью 23 000 км² с населением 270 000 человек в 217 населённых пунктах трёх областей: Челябинской, Свердловской и Тюменской.»
+[D38] Se retiraron 106.000 hectáreas de tierras agrícolas y forestales de la circulación. · tipo magnitud · valor None · fecha None
+    F05@17027: «Были исключены из оборота 106 000 гектаров сельскохозяйственных (54 % из них) и лесных угодий.»
+[D39] 1.007 miembros del personal de las tropas internas del Ministerio del Interior de la URSS estuvieron expuestos a la radiación. · tipo cifra · valor None · fecha None
+    F05@17613: «При аварии подверглось воздействию радиации 1007 человек личного состава внутренних войск МВД СССР, осуществлявших охрану объектов атомной промышленности»
+[D40] 12 militares que recibieron una exposición superior a 50 roentgens fueron hospitalizados. · tipo cifra · valor 12 · fecha None
+    F05@17768: «из них 12 военнослужащих, получивших облучение свыше 50 рентген, были госпитализированы»
+[D41] 63 militares que recibieron una exposición de 10 a 50 roentgens fueron puestos bajo observación médica constante. · tipo cifra · valor 63 · fecha None
+    F05@17857: «а 63 военнослужащих, получивших облучение от 10 до 50 рентген, помещены под постоянное медицинское наблюдение[19][30].»
+[D42] Entre 1957 y 1960, fueron reasentados y enterrados 23 asentamientos. · tipo cifra · valor 23 · fecha 1957-1960
+    F05@18087: «В ходе ликвидации последствий аварий в 1957—1960 годах были отселены и захоронены следующие 23 населённых пункта[10][31]:»
+[D43] Entre 7 y 10 días después de la explosión, se decidió reasentar a los residentes de localidades en un radio de hasta 22 km, un total de 1.383 personas. · tipo cifra · valor None · fecha None
+    F05@23695: «Через 7-10 суток после взрыва было принято решение об отселении жителей населённых пунктов в радиусе до 22 км: Бердениш, Сатлыкова, Галикаева, Русская Караболка с общим числом жителей 1383 человека[19].»
+[D44] Los residentes evacuados en la primera fase ya habían recibido una dosis equivalente de 52 ber. · tipo magnitud · valor None · fecha None
+    F05@24229: «К тому времени эти жители уже получили эквивалентную дозу облучения в 52 бэр.»
+[D45] En total, 12.763 personas de 23 asentamientos fueron reasentadas por etapas. · tipo cifra · valor None · fecha None
+    F05@25464: «Всего таким образом поэтапно было отселено 12 763 человека из 23 населённых пунктов.»
+[D46] A finales de 1959 se creó una zona de protección sanitaria de unos 700 km². · tipo magnitud · valor None · fecha 1959
+    F05@27409: «В конце 1959 года на территории, ограниченной изолинией с уровнем первоначального заражения в 4 Ки/км² по стронцию-90 (около 700 км²) была создана санитарно-защитная зона»
+[D47] En 1968, en el lugar de la zona de protección sanitaria se creó la Reserva Estatal de los Urales Orientales. · tipo nombre · valor None · fecha 1968
+    F05@30205: «С 1968 года на месте санитарно-защитной зоны образован Восточно-Уральский государственный заповедник.»
+[D48] La máxima dosis efectiva de radiación, 1 Sv, la recibieron niños de 2 a 7 años que fueron reasentados en los primeros 7-14 días. · tipo magnitud · valor None · fecha None
+    F05@36425: «максимальная эффективная доза облучения, равная 1 Зв, была получена детьми, которым на момент аварии было 2—7 лет и которые были отселены в первые 7—14 дней»
+[D49] La incidencia de cáncer en el pueblo no evacuado de Tatarskaya Karabolka es de cinco a seis veces mayor que la media nacional. · tipo magnitud · valor None · fecha None
+    F05@36656: «Заболеваемость раком в неотселённой деревне Татарская Караболка в пять-шесть раз выше, чем в среднем по стране[47].»
+[D50] El primer informe sobre el accidente en el extranjero apareció el 13 de abril de 1958 en el periódico de Copenhague "Berlingske Tidende". · tipo fecha · valor None · fecha 1958-04-13
+    F05@39289: «Впервые об аварии в СССР сообщила 13 апреля 1958 года копенгагенская газета «Берлингске Туденде[англ.]».»
+[D51] En 1976, el científico Zhores Medvedev publicó el primer breve informe sobre el accidente en la revista inglesa "New Scientist". · tipo nombre · valor None · fecha 1976
+    F05@39871: «Спустя 20 лет в 1976 году учёный-биолог Жорес Медведев сделал первое краткое сообщение об аварии на Урале в английском журнале «New Scientist»»
+[D52] En la Unión Soviética, el hecho de la explosión en la planta química Mayak se confirmó por primera vez en julio de 1989. · tipo fecha · valor None · fecha 1989-07
+    F05@41178: «В Советском Союзе факт взрыва на химкомбинате «Маяк» впервые подтвердили в июле 1989 года на сессии Верховного Совета СССР.»
+[D53] Entre 1948 y 1992, la planta de Mayak produjo 3 toneladas de plutonio-238. · tipo magnitud · valor None · fecha 1948-1992
+    F06@682: (= arriba)
+[D54] La explosión de 1957 en Mayak es considerada el segundo mayor accidente nuclear en la Unión Soviética, después de Chernóbil. · tipo cita · valor None · fecha None
+    F06@1392: «Эта авария стоит если не наравне с Чернобыльской, то является второй по величине ядерной аварией, произошедшей в Советском Союзе.»
+[D55] Entre 1949 y 1956, se vertieron grandes cantidades de residuos radiactivos líquidos de alta y media actividad en el río Techa. · tipo magnitud · valor None · fecha 1949-1956
+    F06@1536: (= arriba)
+[D56] A partir de noviembre de 1951, los residuos líquidos de alta actividad comenzaron a ser vertidos en el lago Karachay. · tipo fecha · valor None · fecha 1951-11
+    F06@1655: (= arriba)
+[D57] La explosión de un contenedor con residuos de alta actividad en 1957 creó la llamada "Huella Radiactiva del Este de los Urales" (VURS). · tipo nombre · valor None · fecha 1957
+    F06@2220: «В 1957 году произошел взрыв контейнера с высоко-активными отходами, который и создал так называемый "Восточно-уральский радиоактивный след" - ВУРС.»
+[D58] En el área de la Huella Radiactiva del Este de los Urales se desalojaron pueblos y ahora funciona un laboratorio que estudia el efecto de la radiación en la naturaleza. · tipo lugar · valor None · fecha None
+    F06@2368: «Там деревни были выселены, на этом месте никакой хозяйственной деятельности не ведется, там просто работает лаборатория, которая изучает - как там природа реагирует на радиацию.»
+[D59] En total, se vertieron 76 millones de metros cúbicos de residuos radiactivos en el río Techa. · tipo magnitud · valor None · fecha None
+    F06@2722: «Всего в реку Теча было сброшено 76 миллионов кубометров радиоактивных отходов, содержащих смеси стронция, цезия, ниобия и рутения.»
+[D60] Aproximadamente el 25% de la actividad radiactiva vertida en el río Techa provenía de los isótopos estroncio-90 y cesio-137. · tipo magnitud · valor None · fecha None
+    F06@2853: «Около 25 процентов активности давали изотопы стронций-90 и цезий-137.»
+[D61] 28.000 personas recibieron dosis significativas de radiación debido a la contaminación del río Techa. · tipo cifra · valor None · fecha None
+    F06@2923: «Загрязнение вдоль реки Теча было настолько большим, что 28 000 человек получили значительные дозы облучения.»
+[D62] Desde 1953, se prohibió el uso del agua del río Techa como agua potable. · tipo fecha · valor 1953 · fecha 1953
+    F06@3032: (= arriba)
+[D63] Fueron evacuadas 7.500 personas de las localidades situadas a lo largo del río Techa. · tipo cifra · valor None · fecha None
+    F06@3105: «Из населенных пунктов, расположенных по течению Течи, было эвакуировано семь с половиной тысяч человек.»
+[D64] La población más afectada por la contaminación del río Techa fue la del pueblo de Metlino, con 1.200 personas. · tipo cifra · valor None · fecha None
+    F06@3209: «Наиболее пострадало население поселка Метлино - 1 200 человек.»
+[D65] La población del pueblo de Muslyumovo, que no fue evacuada, recibió la mayor dosis de radiación. · tipo lugar · valor None · fecha None
+    F06@3272: «Самую большую дозу радиации получило население поселка Муслюмово, который не был эвакуирован.»
+[D66] La población de Muslyumovo pasó de 4.000 personas en 1949 a 2.500 en la actualidad. · tipo cifra · valor None · fecha 1949
+    F06@3366: «В 1949 году там проживало 4 000 человек, сейчас - 2 500.»
+[D67] Después de 1950, los residentes de Muslyumovo fueron sometidos a exámenes forzados de sangre y médula ósea, cuyos resultados fueron secretos hasta 1992. · tipo fecha · valor None · fecha 1992
+    F06@3423: «Жители Муслюмово после 1950 года были подвергнуты принудительному обследованию крови и костного мозга, до 1992 года результаты этих исследований являлись секретной информацией.»
+[D68] En 1993, las autoridades de la región de Cheliábinsk decidieron evacuar a la población de Muslyumovo, pero la decisión no se implementó por problemas económicos. · tipo fecha · valor 1993 · fecha 1993
+    F06@3600: (= arriba)
+[D69] La explosión del 29 de septiembre de 1957 en Mayak tuvo una potencia equivalente a 75 toneladas de explosivos. · tipo magnitud · valor None · fecha 1957-09-29
+    F06@7538: «29 сентября 1957 года на "Маяке" произошел взрыв емкости с радиоактивными отходами. Мощность соответствовала взрыву 75 тонн взрывчатки.»
+[D70] La explosión de 1957 contaminó tierras en las regiones de Cheliábinsk, Sverdlovsk y Tiumén. · tipo lugar · valor None · fecha 1957
+    F06@7674: «Радиационно-загрязненными оказались земли Челябинской, Свердловской и Тюменской областей.»
+[D71] Un área de 23.000 kilómetros cuadrados, donde vivían 270.000 personas, fue contaminada por el accidente de 1957. · tipo magnitud · valor None · fecha 1957
+    F06@7764: «На площади 23 000 квадратных километров тогда проживало 270 000 человек.»
+[D72] Después del accidente de 1957, murieron alrededor de 200 personas. · tipo cifra · valor 200 · fecha 1957
+    F06@7932: «После аварии все больницы и клиники Челябинской области были заполнены пострадавшими. Около 200 человек умерло.»
+[D73] Diez días después del accidente de 1957, se evacuó a más de 10.000 personas. · tipo cifra · valor None · fecha 1957
+    F06@8044: (= arriba)
+[D74] El accidente de 1957 fue clasificado como de nivel 6 (grave) en la Escala Internacional de Sucesos Nucleares. · tipo magnitud · valor None · fecha 1957
+    F06@8111: «Аварию оценили как тяжелую - шестой степени в соответствии с Международной шкалой событий на ядерно-опасных объектах.»
+[D75] En 1958, se tuvieron que dejar sin cultivar 106.000 hectáreas de tierra fértil en la región de Cheliábinsk. · tipo magnitud · valor None · fecha 1958
+    F06@8229: (= arriba)
+[D76] Cerca de 250.000 personas resultaron afectadas por el accidente en la planta Mayak y sus industrias asociadas. · tipo cifra · valor None · fecha None
+    F06@8333: «От аварии на комбинате "Маяк" и его сопутствующих производств пострадало огромное количество людей - около 250 000 человек.»
+[D77] Niños de internados fueron llevados en 1957 a los territorios contaminados para recoger la cosecha y demoler edificios. · tipo cifra · valor None · fecha 1957
+    F06@8800: (= arriba)
+[D78] Las sentencias que otorgaban beneficios a los liquidadores fueron anuladas con el argumento de "preservar el presupuesto federal". · tipo cita · valor None · fecha None
+    F06@9381: «Самое интересное, что основным доводом было: "в целях сохранения федерального бюджета".»
+[D79] En la primavera de 1967, parte del lago Karachay se secó, exponiendo unas 5 hectáreas de su lecho. · tipo magnitud · valor None · fecha 1967
+    F06@10582: «Третья катастрофа случилась весной 1967 года, когда часть озера Карачай высохла. В результате оголилось около пяти гектаров дна.»
+[D80] En 1967, fuertes vientos esparcieron polvo radiactivo del lecho seco del lago Karachay, contaminando más de 1.800 kilómetros cuadrados. · tipo magnitud · valor None · fecha 1967
+    F06@10711: «Начавшиеся сильные ветры разнесли радиоактивную пыль, и более 1 800 квадратных километров было загрязнено цезием-137 и стронцием-90.»
+[D81] Como resultado de tres accidentes y las emisiones de la planta, se contaminaron casi 27.000 kilómetros cuadrados. · tipo magnitud · valor None · fecha None
+    F06@10977: «Всего в результате этих трех аварий и производственных выбросов было загрязнено почти 27 000 квадратных километров.»
+[D82] Cerca de medio millón de personas fueron expuestas a una radiación elevada, de las cuales 18.000 fueron evacuadas. · tipo cifra · valor None · fecha None
+    F06@11093: «Около полмиллиона человек подверглись повышенному облучению, из них 18 000 были эвакуированы.»
+[D83] La familia de Denis recibió una compensación de 50.000 rublos por daño moral. · tipo magnitud · valor None · fecha None
+    F06@12006: «То, что мы выиграли этот судебный процесс и они получили в результате 50 000 рублей компенсации, это позволило им купить однокомнатную квартиру.»
+[D84] El tribunal reconoció al Estado como el demandado apropiado en el caso de Timur. · tipo nombre · valor None · fecha None
+    F06@13214: «Что касается Тимура, то на последнем судебном заседании было принято решение - признать надлежащим ответчиком государство.»
+[D85] Aproximadamente 10.000 personas siguen viviendo en la zona contaminada por la radiactividad. · tipo cifra · valor None · fecha None
+    F06@16128: «До сих пор примерно 10 000 человек живут в зоне, зараженной радиоактивностью.»
+[D86] Pueblos como Muslyumovo, Tatarskaya Karabolka y Musakaevo se encuentran en una situación crítica debido a la contaminación. · tipo lugar · valor None · fecha None
+    F06@16206: «Есть населенные пункты, находящиеся просто в критическом состоянии. Это села Муслюмово, Татарская Караболка, Мусакаево и другие.»
+[D87] Minatom planea construir la central nuclear del sur de los Urales cerca de los lagos contaminados de Mayak. · tipo nombre · valor None · fecha None
+    F06@16848: «В частности - рядом с зараженными озерами, озерами, куда сегодня сливают слабые и средне-активные отходы, Минатом планирует строительство Южно-уральской станции.»
+[D88] En 50 años, la planta Mayak produjo alrededor de 500.000 toneladas de residuos radiactivos sólidos. · tipo magnitud · valor None · fecha None
+    F06@17118: «Всего за 50 лет на комбинате "Маяк" было произведено около 500 000 тонн твердых радиоактивных отходов.»
+[D89] La exposición "Звенящий след" (Rastro Sonoro) se lleva a cabo en Sokol, una parte de la ciudad cerrada de Snezhinsk. · tipo lugar · valor Sokol · fecha None
+    F07@421: «Выставка «Звенящий след» проходит в Соколе, части закрытого города Снежинска — единственной, куда можно попасть без пропуска.»
+[D90] La catástrofe nuclear de Kyshtym solo es superada en sus consecuencias por Chernóbil y Fukushima. · tipo magnitud · valor None · fecha None
+    F07@607: (= arriba)
+[D91] La exposición del artista Pavel Otdelnov cuenta la historia del lugar utilizando pinturas y artefactos encontrados, como dosímetros personales y mapas en los que no figuraba Ozersk. · tipo cita · valor None · fecha None
+    F07@722: «Экспозицию в Снежинске создал художник Павел Отдельнов, который с помощью своих картин и найденных на месте катастрофы артефактов (от личных дозиметров до карт, на которых не было Озерска) рассказывает историю этого места.»
+[D92] Según los medios locales, el fondo de radiación en Sokol hoy en día no excede la norma. · tipo magnitud · valor None · fecha None
+    F07@945: «Критик Антон Хитров побывал в Соколе, где, по утверждению местных СМИ, радиационный фон сегодня не превышает норму, и рассказывает об одном из самых впечатляющих проектов биеннале.»
+[D93] El proyecto del artista Pavel Otdelnov trata sobre las consecuencias sociales de los accidentes en la planta nuclear "Mayak" de 1950 a 1967. · tipo fecha · valor None · fecha None
+    F07@1155: «проект художника Павла Отдельнова разворачивается в бывшем общежитии секретной лаборатории «Б» и рассказывает о социальных последствиях аварий на атомном предприятии «Маяк» с 1950 по 1967 год.»
+[D94] A 40 kilómetros del edificio de la exposición se instaló el primer reactor nuclear de Europa, A-1. · tipo magnitud · valor 40 kilómetros · fecha None
+    F07@1604: «В сорока километрах от трехэтажного здания заложили первый в Европе ядерный реактор А-1 — вокруг со временем выросло производственное объединение «Маяк» и закрытый город Озерск.»
+[D95] El Laboratorio "B" funcionó durante ocho años, de 1947 a 1955. · tipo magnitud · valor ocho años · fecha 1947-1955
+    F07@1913: (= arriba)
+[D96] Una de las tareas del Laboratorio "B" era estudiar cómo la radiación afecta a los organismos vivos. · tipo cita · valor None · fecha None
+    F07@1968: «Среди ее задач было изучить, как радиация влияет на живые организмы.»
+[D97] A los liquidadores de la llamada catástrofe de Kyshtym les tocó reasentar 23 aldeas de la zona del rastro radiactivo. · tipo cifra · valor 23 · fecha None
+    F07@2419: «Ликвидаторам так называемой Кыштымской катастрофы пришлось переселить из зоны радиоактивного следа 23 деревни.»
+[D98] La exposición gratuita en el pueblo de Sokol estará abierta hasta finales de octubre. · tipo fecha · valor finales de octubre · fecha None
+    F07@3452: «Бесплатная выставка проработает в поселке Сокол до конца октября.»
+[D99] Pavel Otdelnov planea reemplazar sus pinturas con fotocopias para convertir la exposición en permanente durante el invierno, ya que el edificio no tiene calefacción. · tipo cita · valor None · fecha None
+    F07@3518: «В общежитии не топят, поэтому на зиму картины автора там оставлять нельзя — Отдельнов планирует заменить их фотокопиями и превратить экспозицию в постоянную.»
+[D100] El tribunal de distrito de Kalininsky reconoció la deuda del estado con Galina Chanova, víctima de un accidente en la Asociación de Producción «Mayak». · tipo nombre · valor None · fecha None
+    F08@57: (= arriba)
+[D101] En dos meses de trabajo, se han presentado más de 400 demandas de este tipo por parte de los abogados de «Sociedad Civil» en interés de los «mayakovitas». · tipo cifra · valor 400 · fecha None
+    F08@299: «За два месяца работы специализированных приемных «Гражданского общества» таких исков подано более четырехсот.»
+[D102] Galina Prokopyevna fue evacuada del territorio contaminado inmediatamente después del accidente en «Mayak». · tipo nombre · valor None · fecha None
+    F08@409: «Галина Прокопьевна была эвакуирована с зараженной территории сразу после аварии на «Маяке».»
+[D103] Galina Chanova comenzó a recibir compensación por el daño a su salud en 1997. · tipo fecha · valor 1997 · fecha 1997
+    F08@501: (= arriba)
+[D104] En 1997, la compensación para alimentos era de 167 rublos al mes. · tipo cifra · valor None · fecha 1997
+    F08@697: «В 1997 году компенсация на продукты питания составляла 167 рублей в месяц, а на оздоровление давали 83,5 рубля в год.»
+[D105] En 1997, la compensación para la recuperación de la salud era de 83,5 rublos al año. · tipo cifra · valor None · fecha 1997
+    F08@697: (= arriba)
+[D106] Para 2007, la compensación mensual para alimentos aumentó a 287 rublos. · tipo cifra · valor None · fecha 2007
+    F08@815: (= arriba)
+[D107] Para 2007, la compensación anual para la recuperación de la salud aumentó a 131 rublos y 30 kopeks. · tipo cifra · valor None · fecha 2007
+    F08@815: (= arriba)
+[D108] Según los abogados de «Sociedad Civil», en 10 años el Estado no le pagó a Galina Prokopyevna alrededor de 150.000 rublos. · tipo cifra · valor None · fecha None
+    F08@1302: «По их мнению, с учетом роста цен за 10 лет государство не доплатило Галине Прокопьевне около 150 тысяч рублей.»
+[D109] El tribunal le otorgó a Galina Prokopyevna una indemnización de aproximadamente 60.000 rublos. · tipo cifra · valor None · fecha None
+    F08@1612: «По решению суда Галине Прокопьевне из казны обязаны выплатить около 60 тысяч рублей.»
+[D110] La primera avería nuclear en la URSS ocurrió el 29 de septiembre de 1957. · tipo fecha · valor None · fecha 1957-09-29
+    F09@170: «29 сентября 1957 года в СССР произошла первая ядерная авария. И только спустя 30 лет страна узнала о случившемся.»
+    F10@489: «The Kyshtym disaster (Russian: Кыштымская авария), sometimes referred to as the Mayak disaster or Ozyorsk disaster in newer sources, was a radioactive contamination accident that occurred on 29 September 1957 at Mayak»
+[D111] El contenedor de residuos radiactivos era llamado "банка" (frasco) por los trabajadores. · tipo nombre · valor банка · fecha None
+    F09@695: «На воздух взлетела "банка", так рабочие называли емкость с радиоактивными отходами.»
+[D112] La nube radiactiva del accidente de Mayak cubrió parte de las provincias de Cheliábinsk, Sverdlovsk y Tiumén. · tipo lugar · valor provincias de Cheliábinsk, Sverdlovsk y Tiumén · fecha None
+    F09@779: «В результате взрыва на "Маяке" радиационное облако накрыло часть Челябинской, Свердловской и Тюменской областей.»
+[D113] La superficie total de la contaminación fue de 23.000 km², con una población de unas 270.000 personas. · tipo magnitud · valor 23.000 km² · fecha None
+    F09@892: «Общая площадь заражения составила 23 тыс. кв. км с населением около 270 тыс. человек.»
+[D114] La ciudad de Cheliábinsk-40 (actual Ozersk) no resultó afectada. · tipo lugar · valor None · fecha None
+    F09@978: «Сам Челябинск-40 (ныне это Озерск — прим. ТАСС) не пострадал, 90% радиоактивных веществ выпало на территории химкомбината, остальная часть рассеялась дальше.»
+[D115] El 90% de las sustancias radiactivas cayeron en el territorio de la planta química. · tipo cifra · valor 90% · fecha None
+    F09@978: (= arriba)
+[D116] Una semana después de la explosión, 23 aldeas fueron liquidadas en un plazo de 14 días. · tipo cifra · valor 23 · fecha None
+    F09@1136: «Спустя неделю, в течение 14 дней, 23 деревни ликвидировали, все строения сровняли с землей, около 12 тыс. человек переселили на новые места, а их имущество и скот сожгли.»
+[D117] Alrededor de 12.000 personas fueron reasentadas, y sus propiedades y ganado fueron quemados. · tipo cifra · valor None · fecha None
+    F09@1228: «около 12 тыс. человек переселили на новые места, а их имущество и скот сожгли.»
+[D118] El día después del accidente se intensificaron las medidas de seguridad en Cheliábinsk-40: se lavaron las carreteras, se repavimentó el asfalto y se instalaron dosímetros en lugares públicos. · tipo cifra · valor None · fecha None
+    F09@1525: «И лишь на следующий день, когда в городе были усилены меры безопасности: мыли дороги, перекладывали асфальт, устанавливали дозиметры во всех общественных местах...»
+[D119] La causa del accidente fue una violación del régimen de refrigeración del tanque de almacenamiento n.º 14. · tipo nombre · valor tanque de almacenamiento n.º 14 · fecha None
+    F09@2090: «в докладе комиссии Ефима Славского... сказано, что "причиной аварии стало нарушение режима охлаждения хранилищ банки №14.»
+[D120] La explosión fue de tipo térmico, no atómico, por lo que no se inició una reacción en cadena. · tipo cifra · valor None · fecha None
+    F09@2410: «Взрыв, как докажут потом эксперты, был не атомным, а тепловым, и поэтому не началась цепная реакция.»
+[D121] Mikhail Demyanovich, director de la planta química Mayak, fue declarado principal culpable del accidente. · tipo nombre · valor Mikhail Demyanovich · fecha None
+    F09@2558: (= arriba)
+[D122] La emisión de sustancias radiactivas en Mayak en 1957 se estima en 20 millones de curios, en comparación con los 50 millones de curios de Chernóbil. · tipo magnitud · valor 20 millones de curios · fecha None
+    F09@2777: «По оценкам специалистов, выброс радиационных веществ на ядерном комбинате "Маяк" в 1957 году оценивается в 20 млн кюри, в Чернобыле — 50 млн кюри.»
+[D123] A seis electricistas, incluido Anatoly Dubrovsky, se les entregaron monos de goma, cuatro máscaras de gas y dos respiradores tipo "pétalo". · tipo cifra · valor None · fecha None
+    F09@3873: «Им выдали резиновые комбинезоны и четыре противогаза, оставшимся двум выдали респираторы "лепестки", похожие на медицинские маски.»
+[D124] Durante su trabajo junto a la fuente, los electricistas recibieron cinco veces la norma diaria de irradiación. · tipo magnitud · valor cinco veces la norma diaria · fecha None
+    F09@6403: «За время работы у фонтана электрики получили пять дневных норм облучения.»
+[D125] Para ser incluido en la lista de liquidadores del accidente, se necesitaba recibir 100 microroentgens. · tipo magnitud · valor 100 microroentgens · fecha None
+    F09@6566: «По словам Дубровского, в то время, чтобы быть записанным в список ликвидаторов аварии, надо было получить 100 микрорентген.»
+[D126] Los medidores de radiación de la época se llamaban "fotocasetes". · tipo nombre · valor fotocasetes · fecha None
+    F09@6690: «Но им, шестерым электрикам, фотокассеты, так раньше называли приборы для измерения уровня радиации, не дали, поэтому в список участников ликвидации аварии на "Маяке" они попали не сразу.»
+[D127] En el verano de 1958, un tractor completamente protegido con plomo trabajó en el lugar donde los electricistas habían arrancado los arbustos. · tipo fecha · valor None · fecha 1958-06
+    F09@6877: «Уже летом 58 года на том месте, где электрики выдергивали кустарник, работал трактор, но полностью защищенный свинцом.»
+[D128] Mikhail Kuleshov recubrió con plomo la cabina de un tractor S-80. · tipo nombre · valor S-80 · fecha None
+    F09@7343: «Кулешов "освинцовывал" кабину трактора С-80, обкладывал им пол и стены.»
+[D129] El tractor blindado con plomo se movía a una velocidad de 2 km por hora. · tipo magnitud · valor None · fecha None
+    F09@7602: «скорость освинцованного трактора составляла 2 км в час. Разведчик вышел из кабины, произвел замеры и обратно в кабину. На все это у нас ушло около двух часов»
+[D130] Más tarde, también se protegió un tanque T-34. · tipo nombre · valor T-34 · fecha None
+    F09@7781: «Позже таким же способом и в кратчайшие сроки слесари "обезопасили" танк Т-34, и отправились на нем в цех, где и произошел взрыв.»
+[D131] Las causas de muerte reales no se indicaban, en su lugar se escribía distonía vegetativo-vascular de segundo grado o cáncer. · tipo cita · valor None · fecha None
+    F09@10330: «Настоящую причину смерти никто никогда не писал, ставили — вегетососудистую дистонию второй степени или рак.»
+[D132] El 6 de octubre de 1957, el periódico local "Chelyabinsky Rabochy" describió el pilar de polvo radiactivo como una aurora boreal. · tipo nombre · valor Chelyabinsky Rabochy · fecha None
+    F09@10671: (= arriba)
+[D133] El disidente y físico nuclear Zhores Medvedev fue el primero en intentar hablar sobre el suceso en la década de 1970. · tipo nombre · valor Zhores Medvedev · fecha None
+    F09@11170: «Первым, кто попытался рассказать о случившемся на "Маяке", был диссидент физик-ядерщик Жорес Медведев. В 70-е годы прошлого века он выступил перед иностранными журналистами и рассказал о взрыве на Урале.»
+[D134] A los trabajadores de Mayak no se les permitió tomar vacaciones durante aproximadamente un año y medio después del accidente. · tipo magnitud · valor un año y medio · fecha None
+    F09@11564: «город был закрытый, работников "Маяка" не отпускали в отпуск около полутора лет, а ликвидаторы подписывали бумаги о неразглашении.»
+[D135] La Unión Soviética no reconoció la avería nuclear de Mayak hasta 30 años después, en 1989. · tipo fecha · valor 1989 · fecha None
+    F09@11695: «И только в 89 году, в самый разгар перестройки, СССР признал очевидный факт — 29 сентября 1957 года на химкомбинате "Маяк" прогремел взрыв.»
+[D136] El artículo afirma que 23 pueblos fueron reasentados en 14 días, pero un comentarista, hijo de un residente de Yugo-Konyovo, afirma que el proceso se prolongó durante medio año. · tipo contradiccion · valor None · fecha None
+    F09@19738: «Это ложь чистой воды, людей начали принудительно переселять далеко не сразу, всё это затянулось на полгода. За это время было много случаев мародёрства и воровства. ... Мой отец жил в селе Юго-Конёво.»
+[D137] El accidente fue clasificado como nivel 6 en la Escala Internacional de Sucesos Nucleares (INES). · tipo cifra · valor 6 · fecha None
+    F10@1413: «It is the only disaster classified as Level 6 on the International Nuclear Event Scale (INES).»
+[D138] Al menos 22 aldeas fueron expuestas a la radiación del desastre, afectando a una población total de alrededor de 10.000 personas que fueron evacuadas. · tipo cifra · valor 22 · fecha None
+    F10@1765: «At least 22 villages were exposed to radiation from the Kyshtym disaster, with a total population of around 10,000 people evacuated.»
+[D139] El desastre esparció partículas calientes sobre más de 52.000 kilómetros cuadrados, donde vivían al menos 270.000 personas. · tipo magnitud · valor None · fecha None
+    F10@2005: «The disaster spread hot particles over more than 52,000 square kilometres (20,000 sq mi), where at least 270,000 people lived.»
+[D140] El desastre fue nombrado en honor a Kyshtym, la ciudad conocida más cercana, ya que Chelyabinsk-40 no aparecía en los mapas. · tipo nombre · valor Kyshtym · fecha None
+    F10@2136: «Since Chelyabinsk-40 (later renamed Chelyabinsk-65 until 1994) was not marked on maps, the disaster was named after Kyshtym, the nearest known town.»
+[D141] La explosión fue causada por el fallo del sistema de refrigeración de un tanque que contenía entre 70 y 80 toneladas de residuos radiactivos líquidos. · tipo magnitud · valor None · fecha None
+    F10@4560: «The explosion was caused because the cooling system in one of the tanks at Mayak, containing about 70–80 tons of liquid radioactive waste, failed and was not repaired.»
+[D142] Se estimó que la explosión tuvo una fuerza de al menos 70 toneladas de TNT. · tipo magnitud · valor None · fecha None
+    F10@4889: «The explosion was estimated to have had a force of at least 70 tons of TNT.»
+[D143] La explosión levantó una losa de concreto de 160 toneladas. · tipo magnitud · valor None · fecha None
+    F10@4969: «The explosion lifted a concrete slab weighing 160 tons, and a brick wall was destroyed in a building located 200 meters (660 ft) from the explosion site.»
+[D144] No se reportaron víctimas inmediatas como resultado de la explosión. · tipo cifra · valor None · fecha None
+    F10@5438: «There were no immediate reported casualties as a result of the explosion.»
+[D145] El alcance y la naturaleza del desastre fueron ocultados tanto interna como externamente. · tipo cita · valor None · fecha None
+    F10@6806: «The scope and nature of the disaster were covered up both internally and abroad.»
+[D146] La explosión liberó un estimado de 20 MCi (740 PBq) de radioactividad. · tipo magnitud · valor 20 MCi · fecha None
+    F10@7034: «The disaster is estimated to have released 20 MCi (740 PBq) of radioactivity.»
+[D147] Una pluma radiactiva que contenía 2 MCi (74 PBq) de radionúclidos se extendió por cientos de kilómetros. · tipo magnitud · valor 2 MCi · fecha None
+    F10@7112: «Most of this contamination settled out near the site of the accident and contributed to the pollution of the Techa River, but a plume containing 2 MCi (74 PBq) of radionuclides spread out over hundreds of kilometers.»
+[D148] El área terrestre expuesta a la contaminación radiactiva fue denominada "Rastro Radiactivo del Este de los Urales" (EURT). · tipo nombre · valor None · fecha None
+    F10@7915: «The land area thus exposed to radioactive contamination was termed the "East Ural Radioactive Trace" (EURT).»
+[D149] Antes del accidente de 1957, se vertieron grandes cantidades de residuos en el río Techa, contaminándolo gravemente. · tipo cita · valor None · fecha None
+    F10@8083: «Before the 1957 accident, much of the waste was dumped into the Techa River, which severely contaminated it and the residents of dozens of riverside villages such as Muslyumovo»
+[D150] La aldea de Berdyanish, con 421 habitantes, fue evacuada entre 7 y 17 días después del accidente, recibiendo una dosis efectiva media de 520 mSv. · tipo cifra · valor 421 · fecha None
+    F10@9331: «| Berdyanish | 421 | 7–17 | 520 |»
+[D151] La aldea de Krivosheino fue evacuada 670 días después del accidente. · tipo magnitud · valor 670 días · fecha None
+    F10@9775: «| Krivosheino | 372 | 670 | |»
+[D152] Se diagnosticaron 66 casos de síndrome de radiación crónico. · tipo cifra · valor 66 · fecha None
+    F10@12387: «The area closest to the accident produced 66 diagnosed cases of chronic radiation syndrome, providing the bulk of the data about this condition.»
+[D153] La CIA supo del accidente de Mayak de 1957 desde 1959, pero lo mantuvo en secreto para evitar consecuencias adversas para la incipiente industria nuclear estadounidense. · tipo cita · valor None · fecha 1959
+    F10@12675: «the CIA had known of the 1957 Mayak accident since 1959, but kept it secret to prevent adverse consequences for the fledgling American nuclear industry.»
+[D154] El gobierno soviético ocultó el área del EURT creando la Reserva Natural de los Urales Orientales en 1968. · tipo cita · valor None · fecha 1968
+    F10@13019: (= arriba)
+</datos>
+<citas n="24">
+[Q01] CITA «¿Quién sabe qué fuerza se necesita para destruir esto?» — A. A. Kazutov (Mecánico jefe de la construcción de las instalaciones de almacenamiento) · verificada · fecha None
+    F05@5016: «Василий Андреевич над шуткой посмеялся, а потом задумчиво и, как мне показалось, с лёгкой тревогой произнёс: — Кто знает, какая сила нужна, чтобы разрушить это? — А. А. Казутов[18]»
+[Q02] CITA «El domingo pasado por la noche... muchos habitantes de Cheliábinsk observaron un resplandor especial en el cielo estrellado. Este resplandor, bastante raro en nuestras latitudes, tenía todas las características de una aurora boreal.» — Periódico 'Chelyabinsky Rabochy' (Periódico) · verificada · fecha 1957-10-06
+    F05@37755: (= arriba)
+[Q03] CITA «Durante tres años, de forma constante y sistemática, seguimos la salud de las personas. Afortunadamente, no se registró ni un solo caso de enfermedad por radiación.» — L. A. Buldakov (Vicedirector del Instituto de Biofísica, académico de la Academia de Ciencias de la URSS) · verificada · fecha 1989-07-18
+    F05@42095: «на слушаниях Верховного Совета 18 июля 1989 года заместитель директора Института биофизики академик АН СССР Л. А. Булдаков заявлял: «В течение трёх лет постоянно, систематически мы следили за здоровьем людей. Не удалось, к счастью, зафиксировать ни одной формы лучевой болезни[56]».»
+[Q04] CITA «Más tarde, no se sabe por qué, el accidente fue difundido en los medios como el «accidente de Kyshtym». En Kyshtym incluso se instaló recientemente un obelisco por este motivo, aunque esta ciudad no tiene ninguna relación con el suceso.» — V. I. Shevchenko (Miembro de la Cámara Pública, liquidador de 1957, veterano de la PA 'Mayak' y Minatom) · verificada · fecha None
+    F05@42522: (= arriba)
+[Q05] CITA «La cuarta o quinta generación —esta es mi opinión personal, pero los médicos probablemente me la confirmarían— simplemente no será viable.» — Anna Ilyina (Presidenta de la organización de derechos humanos de Cheliábinsk "Derecho a la Vida", abogada.) · verificada · fecha None
+    F06@392: «Четвертое-пятое поколение - это мое личное мнение, но медики, наверное, меня подтвердят, - они просто нежизнеспособны.»
+[Q06] CITA «Allí hay un gran número de víctimas, principalmente como consecuencia del accidente de 1957, cuando explotó un contenedor con residuos radiactivos líquidos y, como resultado, un territorio a una distancia bastante grande alrededor de la planta quedó contaminado.» — Vladimir Slivyak (Copresidente de la organización "Ekozashchita".) · verificada · fecha None
+    F06@837: «Там большое количество пострадавших, в основном - это следствие аварии 1957 года, когда взорвалась емкость с жидкими радиоактивными отходами, и в результате этого на достаточно большом расстоянии вокруг комбината была загрязнена территория.»
+[Q07] CITA «En realidad, fue simplemente un crimen ecológico. Cuando vertieron residuos de alta actividad en el Techa, contaminaron los lodos durante las crecidas del río en primavera y, durante las inundaciones, contaminaron también la llanura de inundación.» — Lidia Popova (Directora del centro de ecología nuclear y política energética de la Unión Socio-ecológica.) · verificada · fecha None
+    F06@1868: «На самом деле это было просто экологическое преступление. Когда в Течу сливали высоко-активные отходы, загрязнили илы при разливах реки весной, а во время половодья загрязнили и пойму.»
+[Q08] CITA «El examen genético demostró que, sí, el nacimiento de un niño enfermo está relacionado con la exposición a la radiación y con cambios en la genética de la madre.» — Anna Ilyina (Presidenta de la organización de derechos humanos de Cheliábinsk "Derecho a la Vida", abogada.) · verificada · fecha None
+    F06@4736: «Генетическая экспертиза показала, что - да, рождение больного ребенка связано с воздействием радиации и изменением в генетике матери.»
+[Q09] CITA «"La muerte de este niño pesará sobre su conciencia".» — Anna Ilyina (Presidenta de la organización de derechos humanos de Cheliábinsk "Derecho a la Vida", abogada.) · verificada · fecha None
+    F06@6115: «нам приходится идти в облздрав и говорить: "Смерть этого ребенка будет на вашей совести".»
+[Q10] CITA «Sí, esta Masha estuvo en este territorio. Sí, yo era el responsable.» — Agrónomo (Responsable de la cosecha en 1957.) · verificada · fecha None
+    F06@10035: «он говорил: "Да, вот эта Маша была на этой территории. Да, я был ответственным".»
+[Q11] CITA «El gobierno debe presentar a la Duma Estatal propuestas para modificar el presupuesto estatal y asignar fondos para estos fines: la compensación por los daños causados a las víctimas de esta catástrofe.» — Sergey Mitrokhin (Diputado de la Duma Estatal de la facción "Yabloko".) · verificada · fecha None
+    F06@14438: «Правительство должно войти в Государственную Думу с предложениями по изменению государственного бюджета и выделению средств на эти цели - цели компенсации ущерба, нанесенного жертвам этой катастрофы.»
+[Q12] CITA «De hecho, Minatom se ha convertido en un departamento completamente incontrolado, un estado dentro del estado, que dicta sus exigencias a los órganos políticos del poder en Rusia y logra que se cumplan.» — Sergey Mitrokhin (Diputado de la Duma Estatal de la facción "Yabloko".) · verificada · fecha None
+    F06@17238: «По сути дела, Минатом превратился в полностью бесконтрольное ведомство, государство в государстве, которое диктует политическим органам власти в России свои требования и добивается их выполнения.»
+[Q13] CITA «La palabra 'sonar' en el lenguaje de los trabajadores atómicos significa la señal acústica con la que un contador Geiger alerta de un fondo de radiación elevado. La huella del siglo XX atómico sigue sonando hasta hoy.» — Pavel Otdelnov (Artista de la exposición "Звенящий след") · verificada_parcial · fecha None
+    F07@3227: ««Слово „звенеть“ на языке атомщиков означает звуковой сигнал, которым счетчик Гейгера оповещает о повышенном радиационном фоне, — пишет художник в экспликации к выставке. — След атомного ХХ века остается звенящим до сих пор».»
+[Q14] CITA «Estoy muy contenta incluso con esta decisión del tribunal. Si no fuera por los abogados de «Sociedad Civil», que calcularon cuánto me debía el Estado y redactaron correctamente la demanda, difícilmente el tribunal se habría puesto de mi lado. En cuanto me entreguen la resolución judicial, iré a «Sociedad Civil» con bombones y champán.» — Galina Chanova (Víctima del accidente de Mayak) · verificada · fecha None
+    F08@1832: ««Я очень рада и такому решению суда. Если бы не юристы «Гражданского общества», которые подсчитали, сколько мне не доплатило государство и грамотно составили исковое заявление, то суд вряд ли бы был на моей стороне. Как только мне выдадут на руки решение суда, приду в «Гражданское общество» с конфет»
+[Q15] CITA «Los funcionarios de protección social pueden apelar esta decisión en un plazo de 10 días desde su redacción. Seguiremos de cerca cómo los ciudadanos ejercen en los tribunales su derecho a la indexación de los pagos. E intentaremos ayudar a todos los que nos contacten.» — Alexey Babin (Abogado, jefe de área en «Sociedad Civil») · verificada · fecha None
+    F08@2353: ««Чиновники соцзащиты могут обжаловать это решение в течение 10 дней после его изготовления. Мы будем внимательно следить за тем, как граждане реализуют в суде свое право на индексацию выплат. И будем стараться помочь всем обратившимся».»
+[Q16] CITA «Ese día estaba viendo una película con mis camaradas en "Derevyashka", nuestro club local. Y en un momento oímos un fuerte estruendo, incluso el edificio empezó a temblar. Pero no le dimos mucha importancia.» — Anatoly Vasilievich Dubrovsky (Uno de los primeros liquidadores) · verificada_parcial · fecha None
+    F09@2949: «В тот день я с товарищами смотрел кино в "Деревяшке", это наш местный клуб, — рассказывает один из первых ликвидаторов, Анатолий Васильевич Дубровский. — И в какой-то момент мы услышали сильный грохот, даже здание начало трясти.»
+[Q17] CITA «Teníamos que coger herramientas -palas, palanquetas, picos- y arrancar los arbustos que crecían junto a la pequeña fuente. No nos dieron ninguna instrucción ni nos explicaron cómo comportarnos. Sólo nos dijeron que no nos quitáramos las máscaras antigás ni los 'pétalos'.» — Anatoly Vasilievich Dubrovsky (Uno de los primeros liquidadores) · verificada · fecha None
+    F09@4186: «Нам надо было прихватить инструменты — лопаты, ломы, кирки — и выкопать кустарники, которые росли вдоль фонтанчика. При этом никакого инструктажа, и как себя вести, никто нам не объяснил. Сказали лишь, чтоб противогазы и "лепестки" не снимали»
+[Q18] CITA «A los 20-30 minutos llegó un camión de bomberos y empezó a lavarnos con agua fría de una manguera, el chorro era muy fuerte. Fui el último en lavarme. Aguanté el lavado por la espalda, pero cuando el chorro empezó a golpear mi pecho, fue tan doloroso que pedí que pararan. Había estado trabajando sin el 'pétalo'...» — Anatoly Vasilievich Dubrovsky (Uno de los primeros liquidadores) · verificada · fecha None
+    F09@5120: «Через 20–30 минут к нам приехала пожарная машина и начала нас обмывать холодной водой из брандспойта, напор был очень сильный. Я мылся последним. Мытье со спины я еще вытерпел, а вот когда струя начала бить в грудь, было так больно, что я просил прекратить все. Я же работал без "лепестка"…»
+[Q19] CITA «Ya al día siguiente, el S-80, todo cubierto de plomo, fue a hacer un reconocimiento al epicentro de la explosión. Desde el edificio con la gran chimenea hasta el epicentro había unos 500 metros, pero la velocidad del tractor aplomado era de 2 km por hora. El explorador salió de la cabina, tomó mediciones y volvió a la cabina. Todo esto nos llevó unas dos horas.» — Mikhail Kuleshov (Ajustador de 6º grado, liquidador) · verificada · fecha None
+    F09@7468: «Уже на следующий день С-80 весь в свинце поехал на разведку в очаг взрыва. От здания с большой трубой до очага — около 500 метров, но скорость освинцованного трактора составляла 2 км в час.»
+[Q20] CITA «Una vez, Mikhalsky caminaba en la oscuridad por los tablones que habíamos puesto y se ensució la cabeza. Intentamos lavársela con todo, con champús y productos químicos fuertes, pero no lo conseguimos. Incluso la peluquera se negó a cortarle el pelo. Un amigo le ayudó: lo afeitó al cero. Incluso hubo veces que alguien se caía de los tablones a esa agua contaminada.» — Mikhail Kuleshov (Ajustador de 6º grado, liquidador) · verificada_parcial · fecha None
+    F09@8443: «Однажды Михальский шел в темноте по доскам, которые мы проложили, испачкал себе голову. Чем только мы не отмывали ее, и шампунями и сильными химикатами, но так и не отмыли, — рассказывает Кулешов. — Даже парикмахер отказалась стричь его.»
+[Q21] CITA «No se hablaba de aquel accidente en la ciudad, como tampoco se solía hablar de muchos otros incidentes que ocurrían en aquella época no sólo en la ciudad, sino también en otros lugares de la Unión Soviética. Y ocurrieron varios incidentes, aunque tampoco se hable de ello ahora.» — Lyudmila Smirnova (Hija de un liquidador) · verificada · fecha None
+    F09@8968: «О той аварии в городе не говорили, как не принято было говорить и о многих других инцидентах, случавшихся в то время там не только в городе, но и в других местах Советского Союза. А различные происшествия были, хоть об этом не говорят и сейчас»
+[Q22] CITA «Muchos habitantes de Cheliábinsk observaron un resplandor especial en el cielo estrellado. Este resplandor, bastante raro en nuestras latitudes, tenía todas las características de una aurora polar. Un resplandor rojo intenso, que a veces pasaba a un rosa pálido y a un azul claro, cubría al principio una parte considerable de la superficie suroeste y noreste del firmamento.» — Chelyabinsky Rabochy (Periódico local) · verificada · fecha 1957-10-06
+    F09@10845: (= arriba)
+[Q23] CITA «Esto es una mentira descarada, la gente no fue reubicada a la fuerza de inmediato, todo se prolongó durante medio año. Durante ese tiempo hubo muchos casos de saqueo y robo. Las propiedades fueron quemadas, destruidas, el ganado fue sacrificado. Prácticamente no se compensó nada, no se tuvo en cuenta nada, solo una pequeña ayuda. La gente empezaba a vivir desde cero en los nuevos lugares. Mi padre vivía en el pueblo de Yugo-Konyovo.» — Dmitry (Hijo de un residente de una aldea evacuada) · verificada · fecha None
+    F09@19738: «Это ложь чистой воды, людей начали принудительно переселять далеко не сразу, всё это затянулось на полгода. За это время было много случаев мародёрства и воровства. Имущество сжигали, уничтожали, скот резали.»
+[Q24] CITA «Investigando las causas del accidente en el lugar, la comisión cree que los principales culpables de este incidente son el jefe de la planta radioquímica y el ingeniero jefe de esta planta, quienes cometieron una grave violación de las regulaciones tecnológicas para la operación del almacenamiento de soluciones radiactivas» — E.P. Slavsky (Ministro de Industria) · verificada · fecha None
+    F10@9956: (= arriba)
+</citas>
+<lugares n="14">
+[L01] Курманово · Pueblo evacuado debido a la contaminación radiactiva
+    F04@2494: (= arriba)
+[L02] г. Челябинск · Ciudad de residencia de la demandante y lugar del proceso judicial
+    F04@2650: «Проживает с семьей из пяти человек в однокомнатной квартире по адресу: г. Челябинск»
+[L03] ПО "Маяк" · Lugar del accidente nuclear de 1957
+    F04@7657: «подвергшихся воздействию радиации вследствие аварии в 1957 году на производственном объединении "Маяк"»
+[L04] Прокуратура Калининского района Челябинской области · Organismo que presentó demandas en nombre de las víctimas
+    F01@0: «Прокуратура Калининского района Челябинской области, действуя в интересах граждан, пострадавших от воздействия радиационного загрязнения после аварии на предприятии "Производственное объединение "Маяк" в 1957 году»
+    F01@575: «Всего на территории Калининского района проживает 115 человек, пострадавших от облучения.»
+[L05] Производственное объединение "Маяк" · Lugar del accidente nuclear de 1957
+    F01@83: «пострадавших от воздействия радиационного загрязнения после аварии на предприятии "Производственное объединение "Маяк" в 1957 году»
+[L06] реку Теча · Río donde se vertieron residuos radiactivos
+    F01@841: «сбросов радиоактивных отходов в реку Теча»
+[L07] Южном Урале · Ubicación del complejo nuclear "Маяк"
+    F01@1136: «на ядерном комбинате "Маяк", построенном в оборонных целях на Южном Урале»
+[L08] СССР · País donde ocurrió la catástrofe
+    F01@1211: «произошла одна из крупнейших техногенных катастроф в истории СССР, от которой пострадали сотни тысяч людей.»
+[L09] Mayak · Planta de reprocesamiento de plutonio para armas nucleares
+    F10@701: «Mayak, a plutonium reprocessing production plant for nuclear weapons located in the closed city of Chelyabinsk-40 (now Ozyorsk) in Chelyabinsk Oblast, Russia in the Soviet Union.»
+[L10] Chelyabinsk-40 · Ciudad cerrada donde se ubicaba la planta de Mayak
+    F10@781: «the closed city of Chelyabinsk-40 (now Ozyorsk) in Chelyabinsk Oblast, Russia in the Soviet Union.»
+[L11] Ozyorsk · Nombre actual de la ciudad cerrada Chelyabinsk-40
+    F10@781: (= arriba)
+[L12] Eastern Ural Radioactive Trace (EURT) · Área de tierra contaminada por la explosión
+    F10@963: «contaminating thousands of square kilometers of land, now known as the Eastern Ural Radioactive Trace (EURT).»
+[L13] Kyshtym · Pueblo más cercano a la planta que dio nombre al desastre
+    F10@2223: «the disaster was named after Kyshtym, the nearest known town.»
+[L14] East Ural Nature Reserve · Reserva natural creada para ocultar y prohibir el acceso al área contaminada (EURT)
+    F10@13019: (= arriba)
+</lugares>
+<descartados_del_research n="10">
+  N.N.D. (F04): no es una persona con nombre propio
+  E. P. Slavsky (F05): el apellido no está en el documento
+  Alexei Lipatnikov (F07): el apellido no está en el documento
+  Gyorgy (F10): cita_literal no está en el documento
+  V. V. Fomin (F05): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Profesor Pishchalnikov (F06): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Anton Khitrov (F07): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Georgy Golubev (F07): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Vladimir Seleznev (F07): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+  Lev Tumerman (F10): el research no le atribuye ninguna acción (un nombre entra solo si hace algo)
+</descartados_del_research>
+</pool>
+
+<tarea>Con el pool de arriba, armá la ficha del caso: personas, personas_descartadas, cronologia, historia, escenas (6–15), hechos (40–80, con nivel y sirve_para), cifras (con unidad), citas (10–25), decisiones (con su criterio), versiones, contradicciones (las que ningún criterio resuelve) y descartados. Devolvé el JSON del esquema.</tarea>

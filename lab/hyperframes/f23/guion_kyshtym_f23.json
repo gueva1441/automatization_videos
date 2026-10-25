@@ -1,0 +1,405 @@
+{
+ "tema": "kyshtym",
+ "modelo": "claude-fable-5-1",
+ "esfuerzo": "high",
+ "version": "f23-1",
+ "max_tokens": 21000,
+ "prompt_md5": {
+  "sistema": "8ca9aa494e3a0b9b4a99f60e6006c5f8",
+  "usuario": "61755eacb9a20816e783594de5b51a78"
+ },
+ "nota_b": null,
+ "prompt_version": "f23-1",
+ "parrafos": [
+  {
+   "beat": 1,
+   "cap": 1,
+   "texto": "Una sala a oscuras, un haz de luz que cruza el aire hasta la pantalla. Lo que pasó esa noche se va a poder esconder durante años; lo que no se va a poder borrar es a los que lo oyeron. Entre los que miran está Anatoly Vasilievich Dubrovsky, electricista. Y entonces el ruido. «Y en un momento oímos un fuerte estruendo; incluso el edificio empezó a temblar», contó uno de los que estaban sentados en esa sala. Las paredes vibran. El haz de luz sigue cruzando el aire. Nadie sabe todavía qué fue eso. Cheliábinsk-40, septiembre de mil novecientos cincuenta y siete. Antes de ese estruendo, Dubrovsky tenía un oficio.",
+   "ids_usados": []
+  },
+  {
+   "beat": 2,
+   "cap": 2,
+   "texto": "Dubrovsky es electricista de Mayak. En enero de mil novecientos cuarenta y nueve se puso en marcha la planta radioquímica: ahí se separa y se procesa el plutonio. Es un recinto cerrado, con muros, con portones. Adentro hay una fuente pequeña y, alrededor de la fuente, arbustos. Un día van a entregarle a su grupo cuatro máscaras antigás y lo van a mandar a esa fuente. Pero eso es después. Fuera del recinto había un río.",
+   "ids_usados": [
+    "T09"
+   ]
+  },
+  {
+   "beat": 3,
+   "cap": 3,
+   "texto": "El Techa pasa cerca de la planta y sigue hacia los pueblos de la orilla. Desde mil novecientos cuarenta y nueve, antes de cualquier explosión, Mayak vierte en ese río residuos radiactivos líquidos. Siete años seguidos. Río abajo, miles de personas siguen tomando esa agua mientras los residuos de alta actividad bajan con la corriente. Dubrovsky está del otro lado del muro, en el complejo. Lo que no va al río se guarda adentro, en tanques. La siguiente barrera necesitaba refrigeración.",
+   "ids_usados": []
+  },
+  {
+   "beat": 4,
+   "cap": 4,
+   "texto": "Los tanques son cilindros de acero inoxidable metidos dentro de una envoltura de hormigón. Lo que hay adentro necesita frío permanente, y para eso hay un circuito de refrigeración que rodea cada cilindro. En uno de esos tanques, el régimen de refrigeración se altera. Eso dice el informe de la comisión; eso dice la mayoría de las versiones. Hay otra: que alguien agregó por error una solución de oxalato de plutonio a un tanque donde había nitrato de plutonio caliente, y que la reacción hizo el resto. Cuánta fuerza tuvo lo que vino después, nadie lo dice igual: hay quien habla de unas pocas decenas de toneladas de TNT y hay quien pasa de las cien. En lo que coinciden es en el frío que faltó. La barrera que debía contenerlos estaba por ceder.",
+   "ids_usados": []
+  },
+  {
+   "beat": 5,
+   "cap": 5,
+   "texto": "Dentro del hormigón, el acero se calienta. El frío no llega. El tanque revienta. No es una explosión atómica: es térmica, no hay reacción en cadena. Pero la losa de hormigón que cubría el tanque se levanta y se va de su lugar, y donde estaba el cilindro queda un cráter de unos diez metros de profundidad. Lo que había adentro sube con la explosión: cerca de veinte millones de curios de actividad radiactiva. Afuera. La nube se mueve y alcanza partes de las regiones de Cheliábinsk, Sverdlovsk y Tiumén. Ese es el estruendo que Dubrovsky oyó en la sala a oscuras. Al día siguiente, el treinta de septiembre, va a trabajar. Lo que esperaba a Dubrovsky no era trabajo de electricista.",
+   "ids_usados": [
+    "D30",
+    "D31",
+    "T24"
+   ]
+  },
+  {
+   "beat": 6,
+   "cap": 6,
+   "texto": "El treinta de septiembre de mil novecientos cincuenta y siete, Cheliábinsk-40 amanece con agua corriendo sobre las carreteras. Las lavan a chorro. En algunos tramos levantan el asfalto y ponen asfalto nuevo. En los lugares públicos aparecen dosímetros, aparatos para medir lo que no se ve ni se huele. Nadie murió en la explosión; no hubo víctimas inmediatas. Es la única cuenta sobre la que nadie discute. El agua corría por las calles. A los electricistas les dieron otra tarea.",
+   "ids_usados": [
+    "D118"
+   ]
+  },
+  {
+   "beat": 7,
+   "cap": 6,
+   "texto": "A Dubrovsky y a su grupo los mandan a la fuente pequeña, la de los arbustos. Tienen que llevar palas, palanquetas y picos y arrancar los arbustos que crecen alrededor. Les entregan las cuatro máscaras antigás y los «pétalos». «No nos dieron ninguna instrucción ni nos explicaron cómo comportarnos», dijo Dubrovsky. Solo les dijeron que no se quitaran las máscaras ni los «pétalos». Cavan entre los arbustos, sobre esa tierra, con las palas y los picos.",
+   "ids_usados": []
+  },
+  {
+   "beat": 7,
+   "cap": 6,
+   "texto": "Cuando terminan, a los veinte o treinta minutos, llega un camión de bomberos. Los lavan con una manguera, con agua fría, con mucha presión. Dubrovsky es el último de la fila. Aguanta el chorro en la espalda. «Cuando el chorro empezó a golpearme el pecho me dolió tanto que pedí que pararan», dijo. Había trabajado sin el «pétalo». Fuera de la planta, el resplandor iba a recibir otro nombre.",
+   "ids_usados": []
+  },
+  {
+   "beat": 8,
+   "cap": 6,
+   "texto": "El Chelyabinsky Rabochy publica una nota sobre el cielo. Dice que el domingo pasado por la noche muchos habitantes de Cheliábinsk vieron un brillo rojo que después pasó a rosa pálido y a azul claro. «Este resplandor, bastante raro en nuestras latitudes, tenía todas las características de una aurora polar», escribe el periódico. Una aurora polar. Eso es lo que hubo en el cielo, según el diario.",
+   "ids_usados": [
+    "Q02"
+   ]
+  },
+  {
+   "beat": 8,
+   "cap": 6,
+   "texto": "En la planta, los trabajadores no salen de vacaciones durante alrededor de un año y medio. Los liquidadores firman compromisos de confidencialidad. Lyudmila Smirnova lo recuerda así: «En la ciudad no se hablaba de aquel accidente». Como no se hablaba, dice, de tantos otros incidentes que pasaban entonces ahí y en otros lugares de la Unión Soviética, y de los que tampoco se habla ahora. Había una explicación para el cielo. Faltaba saber cuándo se sacó a la gente.",
+   "ids_usados": [
+    "D134"
+   ]
+  },
+  {
+   "beat": 9,
+   "cap": 6,
+   "texto": "Hay dos calendarios. En uno, los pueblos bajo la nube se vacían enseguida. En el otro, no. Un hombre llamado Dmitry llama a lo primero una mentira descarada: «el traslado forzoso de la gente no empezó de inmediato y todo se prolongó durante medio año». En ese medio año, cuenta, hubo saqueos y robos. Las pertenencias se quemaban. El ganado se sacrificaba. Localidades desalojadas, construcciones destruidas, bienes quemados. Dentro de los expedientes quedaba otra disputa: a quién se culpaba.",
+   "ids_usados": []
+  },
+  {
+   "beat": 10,
+   "cap": 6,
+   "texto": "El dos de octubre de mil novecientos cincuenta y siete llega desde Moscú una comisión del Ministerio de construcción de Maquinaria Mediana. La encabeza Slavsky. El once de octubre se crea otra, una comisión técnica especial, para establecer las causas de la explosión. De ahí salen papeles. En uno, el director de Mayak es destituido. En otro, un memorando del ministerio, se nombran otros cargos. Un papel. Otro papel. No se tocan. Nombrar responsables no resolvía cómo reconocer a los afectados.",
+   "ids_usados": [
+    "T28",
+    "T31"
+   ]
+  },
+  {
+   "beat": 11,
+   "cap": 6,
+   "texto": "Vladimir Slivyak lo dice sin rodeos: «Allí hay un gran número de afectados, principalmente a consecuencia del accidente de 1957». Un documento habla de seguimiento sanitario de la población. Otro, de otra mano, cuenta diagnósticos. No cuentan a las mismas personas ni los mismos años, y no hay una línea que una un cuadro con el otro. Para seguir el rastro del secreto, hay que volver a las primeras filtraciones.",
+   "ids_usados": []
+  },
+  {
+   "beat": 12,
+   "cap": 7,
+   "texto": "El secreto se filtra antes de que alguien lo confirme. Periódicos fuera de la Unión Soviética cuentan la explosión; uno de ellos publica detalles. Son noticias sueltas, sin respuesta del lado de adentro. En la década de mil novecientos setenta, un físico nuclear y disidente, Zhores Medvedev, es el primero que intenta hablar del suceso. Lo que se filtraba por goteo se vuelve noticia en el mundo. El reconocimiento soviético llega más tarde que todo eso. Reconocer la explosión dejaba pendiente otra firma: la de las reparaciones.",
+   "ids_usados": [
+    "D133"
+   ]
+  },
+  {
+   "beat": 13,
+   "cap": 7,
+   "texto": "La fiscalía presenta ochenta y seis demandas. Para quienes acumularon más de siete rem de dosis efectiva hay una compensación mensual: cien rublos. Desde dos mil uno, esa cifra no se indexa. Galina Chanova empezó a cobrar compensaciones por el daño a su salud en mil novecientos noventa y siete. Reclamó lo que el estado había dejado de pagarle; el tribunal le concedió menos de lo que pedía. «Estoy muy contenta incluso con esta decisión del tribunal», dijo Chanova, y agradeció a los abogados que calcularon la deuda y redactaron la demanda.",
+   "ids_usados": [
+    "D09",
+    "Q14"
+   ]
+  },
+  {
+   "beat": 13,
+   "cap": 7,
+   "texto": "En otro expediente hay una persona que figura solo por sus iniciales. Vive en una habitación. Pidió; la administración dijo que no; un tribunal revisó esa negativa. Hasta ahí llega el expediente. En Muslyumovo, la evacuación se aprobó en mil novecientos noventa y tres. No se hizo: problemas económicos. Para Dubrovsky, incluso entrar en una lista había sido una espera.",
+   "ids_usados": []
+  },
+  {
+   "beat": 14,
+   "cap": 7,
+   "texto": "En el verano de mil novecientos cincuenta y ocho, un tractor protegido con plomo trabaja junto a la fuente pequeña. Retira capa tras capa de tierra del lugar donde, meses antes, seis electricistas arrancaron arbustos con palas y picos. Ninguno de los seis tuvo dosímetro personal. Por eso tardaron en entrar en la lista de liquidadores. La máquina lleva plomo. Ellos llevaban una máscara, y Dubrovsky ni siquiera el «pétalo». ¿Qué reparación efectiva alcanzó a Dubrovsky después de aquella demora?",
+   "ids_usados": []
+  }
+ ],
+ "bloqueantes": [],
+ "costo": {
+  "etapa": "guion",
+  "usd": 0.8745,
+  "segundos": 178.8,
+  "llamadas": [
+   {
+    "servicio": "Anthropic claude-fable-5-1",
+    "desc": "guion_v4 guionista",
+    "in": 11631,
+    "out": 15163,
+    "thinking": 0,
+    "usd": 0.8745
+   }
+  ]
+ },
+ "metricas": {
+  "duras_v3": [
+   "cap 1: cap 1 (hook): primera oración tiene 15 palabras (máx 12): \"Una sala a oscuras, un haz de luz que cruza el aire hasta la pantalla.\"",
+   "cap 1: usaste 0 de los datos asignados (mínimo 1); faltan literales o sin declarar en datos_usados: [Q16] «Ese día estaba viendo una película con mis camaradas en \"Derevyashka\", nuestro club local. / Ese día estaba viendo una película con mis camaradas en \"Derevyashka\", nuestro club local. Y en un momento oímos un fuerte estruendo, incluso el edificio empezó a temblar. Pero no le dimos mucha importancia.»",
+   "cap 1: comillas solo para las citas del pool (la frase del research va sin comillas): «Y en un momento oímos un fuerte estruendo; incluso el edific…»",
+   "cap 2: 76 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 2: usaste 1 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [D123] «A seis electricistas, incluido Anatoly Dubrovsky, »",
+   "cap 2: el cierre tiene que anticipar el dato concreto del cap 3: «Entre 1949 y 1956, se vertieron grandes cantidades de residuos radiactivos líquidos de alt» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 3: 81 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 3: usaste 0 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [D55] «Entre 1949 y 1956, se vertieron grandes cantidades»; [T11] «1950»",
+   "cap 4: 134 palabras: el mínimo del cap es 204 (objetivo 240); contá más hechos del beat con escenas, no adjetivos",
+   "cap 4: usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D19] «La explosión fue consecuencia de una violación del»; [D119] «tanque de almacenamiento n.º 14»; [D26] «Los contenedores de residuos eran cilindros de ace»; [D35] «La versión oficial establece que la causa de la ex»; [D36] «Una versión alternativa sugiere que se añadió por »",
+   "cap 4: el cierre tiene que anticipar el dato concreto del cap 5: «La explosión destruyó completamente el contenedor número 14, creando un cráter de unos 10 » (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 5: 122 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+   "cap 5: el cierre tiene que anticipar el dato concreto del cap 6: «El día después del accidente se intensificaron las medidas de seguridad en Cheliábinsk-40:» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 6: 602 palabras: el máximo del cap es 289 (objetivo 251)",
+   "cap 6: comillas solo para las citas del pool (la frase del research va sin comillas): «Cuando el chorro empezó a golpearme el pecho me dolió tanto …»; «En la ciudad no se hablaba de aquel accidente…»; «el traslado forzoso de la gente no empezó de inmediato y tod…»; «Allí hay un gran número de afectados, principalmente a conse…»",
+   "cap 6: fechas: contaste [T31] sin su fecha (11 de octubre): «El once de octubre se crea otra, una comisión técnica especial, para e…»",
+   "cap 6: el cierre tiene que anticipar el dato concreto del cap 7: «El disidente y físico nuclear Zhores Medvedev fue el primero en intentar hablar sobre el s» (nombralo o dejalo incompleto; nada de retórica genérica)",
+   "cap 7: 319 palabras: el máximo del cap es 161 (objetivo 140)",
+   "beat 4: ninguna frase de 6 palabras o menos",
+   "beat 5: 1 frase(s) de más de 30 palabras (31)",
+   "beat 12: ninguna frase de 6 palabras o menos",
+   "gancho: falta el ancla de lugar y fecha (una frase corta con el lugar y el año: «Mayak Production Association, 1948.») antes de la segunda cita",
+   "cap 3: repite frases de caps anteriores («cuarenta y nueve»; «mil novecientos cuarenta»; «novecientos cuarenta y»): decilo de otra forma o no lo repitas",
+   "cap 6: repite frases de caps anteriores («cincuenta y siete»; «cuatro mascaras antigas»; «mascaras antigas y»; «mil novecientos cincuenta» y 2 más): decilo de otra forma o no lo repitas",
+   "cap 7: repite frases de caps anteriores («la fuente pequena»; «mil novecientos cincuenta»; «novecientos cincuenta y»): decilo de otra forma o no lo repitas",
+   "beat 1 (párrafo 1): 10 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 3 (párrafo 3): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 4 (párrafo 4): 8 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 7 (párrafo 7): 6 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 7 (párrafo 8): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 9 (párrafo 11): 9 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 11 (párrafo 13): 5 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 13 (párrafo 16): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)",
+   "beat 14 (párrafo 17): 7 frases sin ningún dato del pool: es relleno (un párrafo lleva al menos un id, o es una transición de ≤ 2 frases)"
+  ],
+  "blandas_v3": [
+   "cap 1: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D10] «1»; [D48] «1 / 2 / 7 años / 7 / 14 días»; [D94] «40»; [D118] «40»",
+   "cap 1: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 1: 0.89 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 2: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D10] «1»; [D48] «1 / 2 / 7 años / 7 / 14 días»",
+   "cap 2: densidad 1.32 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 2: 0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 3: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D14] «7»; [D43] «7 / 10 días / 22 / 1.383»; [D48] «1 / 2 / 7 años / 7 / 14 días»; [T08] «1949»",
+   "cap 3: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 4: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D10] «1»; [D15] «100»; [D48] «1 / 2 / 7 años / 7 / 14 días»; [D125] «100»",
+   "cap 4: densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 4: 4.48 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — inoxidable, frío, permanente, caliente, hizo",
+   "cap 5: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D08] «10 metros»; [D10] «1»; [D48] «1 / 2 / 7 años / 7 / 14 días»; [D107] «131 / 30»; [D122] «20 millones»",
+   "cap 5: 4.1 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — frío, losa, radiactiva, oscuras, siguiente",
+   "cap 6: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D10] «1»; [D34] «2 / 10.000»; [D48] «1 / 2 / 7 años / 7 / 14 días»; [D94] «40»; [D107] «131 / 30»; [D129] «2»; [D146] «20»; [D147] «2»",
+   "cap 6: la cita «El domingo pasado por la noche... muchos…» va entre comillas y con su autor (Periódico 'Chelyabinsky Rabochy') al lado",
+   "cap 6: densidad 0.83 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 6: 1.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "cap 7: estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D10] «1»; [D14] «7»; [D15] «100»; [D20] «6»; [D43] «7 / 10 días / 22 / 1.383»; [D48] «1 / 2 / 7 años / 7 / 14 días»; [D74] «6»; [D125] «100»",
+   "cap 7: la cita «Estoy muy contenta incluso con esta deci…» va entre comillas y con su autor (Galina Chanova) al lado",
+   "cap 7: densidad 0.63 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+   "cap 7: 1.57 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno",
+   "beat 2: 76 palabras (objetivo 250 ±15 %)",
+   "beat 3: 81 palabras (objetivo 250 ±15 %)",
+   "beat 4: 134 palabras (objetivo 240 ±15 %)",
+   "beat 5: 122 palabras (objetivo 250 ±15 %)",
+   "beat 6: 81 palabras (objetivo 35 ±15 %)",
+   "beat 7: 145 palabras (objetivo 58 ±15 %)",
+   "beat 8: 146 palabras (objetivo 46 ±15 %)",
+   "beat 9: 79 palabras (objetivo 40 ±15 %)",
+   "beat 10: 81 palabras (objetivo 37 ±15 %)",
+   "beat 11: 70 palabras (objetivo 35 ±15 %)",
+   "beat 12: 87 palabras (objetivo 46 ±15 %)",
+   "beat 13: 152 palabras (objetivo 64 ±15 %)",
+   "beat 14: 80 palabras (objetivo 30 ±15 %)"
+  ],
+  "puntaje": 34,
+  "palabras": 1446,
+  "palabras_por_cap": {
+   "1": [
+    112,
+    110
+   ],
+   "2": [
+    76,
+    250
+   ],
+   "3": [
+    81,
+    250
+   ],
+   "4": [
+    134,
+    240
+   ],
+   "5": [
+    122,
+    250
+   ],
+   "6": [
+    602,
+    251
+   ],
+   "7": [
+    319,
+    140
+   ]
+  },
+  "citas": 8,
+  "humano_caps": [
+   1,
+   2,
+   3,
+   5,
+   6,
+   7
+  ],
+  "cierre": "pregunta",
+  "ecos": [],
+  "antagonista_tipo": "institucion",
+  "antagonista_caps": [
+   2,
+   3,
+   6
+  ],
+  "fechas_literales_por_cap": {
+   "1": 0,
+   "2": 0,
+   "3": 0,
+   "4": 0,
+   "5": 0,
+   "6": 0,
+   "7": 0
+  },
+  "por_cap": {
+   "1": {
+    "palabras": 112,
+    "duras": [
+     "cap 1 (hook): primera oración tiene 15 palabras (máx 12): \"Una sala a oscuras, un haz de luz que cruza el aire hasta la pantalla.\"",
+     "usaste 0 de los datos asignados (mínimo 1); faltan literales o sin declarar en datos_usados: [Q16] «Ese día estaba viendo una película con mis camaradas en \"Derevyashka\", nuestro club local. / Ese día estaba viendo una película con mis camaradas en \"Derevyashka\", nuestro club local. Y en un momento oímos un fuerte estruendo, incluso el edificio empezó a temblar. Pero no le dimos mucha importancia.»",
+     "comillas solo para las citas del pool (la frase del research va sin comillas): «Y en un momento oímos un fuerte estruendo; incluso el edific…»"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D10] «1»; [D48] «1 / 2 / 7 años / 7 / 14 días»; [D94] «40»; [D118] «40»",
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "0.89 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 1,
+    "objetivo": 110
+   },
+   "2": {
+    "palabras": 76,
+    "duras": [
+     "76 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 1 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [D123] «A seis electricistas, incluido Anatoly Dubrovsky, »",
+     "el cierre tiene que anticipar el dato concreto del cap 3: «Entre 1949 y 1956, se vertieron grandes cantidades de residuos radiactivos líquidos de alt» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D10] «1»; [D48] «1 / 2 / 7 años / 7 / 14 días»",
+     "densidad 1.32 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "0.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 2,
+    "objetivo": 250
+   },
+   "3": {
+    "palabras": 81,
+    "duras": [
+     "81 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 0 de los datos asignados (mínimo 2); faltan literales o sin declarar en datos_usados: [D55] «Entre 1949 y 1956, se vertieron grandes cantidades»; [T11] «1950»"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D14] «7»; [D43] «7 / 10 días / 22 / 1.383»; [D48] «1 / 2 / 7 años / 7 / 14 días»; [T08] «1949»",
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción"
+    ],
+    "puntaje": 2,
+    "objetivo": 250
+   },
+   "4": {
+    "palabras": 134,
+    "duras": [
+     "134 palabras: el mínimo del cap es 204 (objetivo 240); contá más hechos del beat con escenas, no adjetivos",
+     "usaste 0 de los datos asignados (mínimo 3); faltan literales o sin declarar en datos_usados: [D19] «La explosión fue consecuencia de una violación del»; [D119] «tanque de almacenamiento n.º 14»; [D26] «Los contenedores de residuos eran cilindros de ace»; [D35] «La versión oficial establece que la causa de la ex»; [D36] «Una versión alternativa sugiere que se añadió por »",
+     "el cierre tiene que anticipar el dato concreto del cap 5: «La explosión destruyó completamente el contenedor número 14, creando un cráter de unos 10 » (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D10] «1»; [D15] «100»; [D48] «1 / 2 / 7 años / 7 / 14 días»; [D125] «100»",
+     "densidad 0.0 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "4.48 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — inoxidable, frío, permanente, caliente, hizo"
+    ],
+    "puntaje": -1,
+    "objetivo": 240
+   },
+   "5": {
+    "palabras": 122,
+    "duras": [
+     "122 palabras: el mínimo del cap es 212 (objetivo 250); contá más hechos del beat con escenas, no adjetivos",
+     "el cierre tiene que anticipar el dato concreto del cap 6: «El día después del accidente se intensificaron las medidas de seguridad en Cheliábinsk-40:» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D08] «10 metros»; [D10] «1»; [D48] «1 / 2 / 7 años / 7 / 14 días»; [D107] «131 / 30»; [D122] «20 millones»",
+     "4.1 adjetivos/100 palabras (máximo 4.0): sacá adjetivos — frío, losa, radiactiva, oscuras, siguiente"
+    ],
+    "puntaje": 8,
+    "objetivo": 250
+   },
+   "6": {
+    "palabras": 602,
+    "duras": [
+     "602 palabras: el máximo del cap es 289 (objetivo 251)",
+     "comillas solo para las citas del pool (la frase del research va sin comillas): «Cuando el chorro empezó a golpearme el pecho me dolió tanto …»; «En la ciudad no se hablaba de aquel accidente…»; «el traslado forzoso de la gente no empezó de inmediato y tod…»; «Allí hay un gran número de afectados, principalmente a conse…»",
+     "fechas: contaste [T31] sin su fecha (11 de octubre): «El once de octubre se crea otra, una comisión técnica especial, para e…»",
+     "el cierre tiene que anticipar el dato concreto del cap 7: «El disidente y físico nuclear Zhores Medvedev fue el primero en intentar hablar sobre el s» (nombralo o dejalo incompleto; nada de retórica genérica)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D10] «1»; [D34] «2 / 10.000»; [D48] «1 / 2 / 7 años / 7 / 14 días»; [D94] «40»; [D107] «131 / 30»; [D129] «2»; [D146] «20»; [D147] «2»",
+     "la cita «El domingo pasado por la noche... muchos…» va entre comillas y con su autor (Periódico 'Chelyabinsky Rabochy') al lado",
+     "densidad 0.83 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "1.0 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 14,
+    "objetivo": 251
+   },
+   "7": {
+    "palabras": 319,
+    "duras": [
+     "319 palabras: el máximo del cap es 161 (objetivo 140)"
+    ],
+    "blandas": [
+     "estos datos del pool suenan en tu narración pero no están en datos_usados (si los contaste, declaralos; si es un choque de cifras —una ruta 10 no son los niños de 10 años—, no): [D10] «1»; [D14] «7»; [D15] «100»; [D20] «6»; [D43] «7 / 10 días / 22 / 1.383»; [D48] «1 / 2 / 7 años / 7 / 14 días»; [D74] «6»; [D125] «100»",
+     "la cita «Estoy muy contenta incluso con esta deci…» va entre comillas y con su autor (Galina Chanova) al lado",
+     "densidad 0.63 datos/100 palabras (mínimo 2.0): más datos literales del pool, menos descripción",
+     "1.57 adjetivos/100 palabras (mínimo 2.0): se lee como un acta; sumá 2 o 3 calificativos concretos atados a los hechos (cómo era el lugar, la luz, el frío o el calor), sin relleno"
+    ],
+    "puntaje": 8,
+    "objetivo": 140
+   }
+  },
+  "ids_por_parrafo": {
+   "antes": 4.41,
+   "despues": 0.71
+  }
+ },
+ "repeticion_por_cap": {
+  "1": 0.0,
+  "2": 0.0,
+  "3": 0.0,
+  "4": 0.0,
+  "5": 0.0,
+  "6": 0.9,
+  "7": 0.7
+ },
+ "minutos": 11.8,
+ "error_metricas_corrida": "ValueError: min() arg is an empty sequence",
+ "nota": "metricas recalculadas sin API tras el arreglo de m05.cap_review (F23); bloqueantes y párrafos son los de la corrida"
+}

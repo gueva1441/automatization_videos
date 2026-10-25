@@ -847,8 +847,11 @@ def canonize_figures(sk: dict, pool: dict) -> list[str]:
     variante, suma la oficial y queda marcado (`contradiccion_cifras`) — ahí el narrador cuenta las dos."""
     notes: list[str] = []
     chs = sorted(sk.get("chapters") or [], key=lambda c: c["chapter_number"])
+    its = ev.items(pool)
     for g in pool.get("cifras_canonicas") or []:
-        var = {v["id"]: v for v in g["variantes"]}
+        # F23 §1.3: una variante con rango («entre 200 y 10.000») es un valor válido, no otra cifra del conteo
+        var = {v["id"]: v for v in g["variantes"]
+               if not ev.es_rango(ev.text_of(its.get(v["id"]) or {}) or str(v.get("valor") or ""))}
         contra = next((c for c in chs if any(var.get(i, {}).get("estatus") == "medios"
                                              for i in c.get("evidence_ids") or [])), None)
         placed = any(g["oficial"] in (c.get("evidence_ids") or []) for c in chs if c is not contra)
@@ -941,13 +944,7 @@ def assign_screen_ids(sk: dict, pool: dict) -> list[str]:
             free = sorted((i for i in cands if i not in used and _score(i, c) >= 0), key=late, reverse=True)
             if free:
                 c["pantalla_ids"].append(free[0])
-                continue
-            # sin libres: se le pasa uno de un cap que tiene 2 (el que mejor encaja acá)
-            donors = [(i, x) for x in chs if len(x["pantalla_ids"]) > 1 for i in x["pantalla_ids"] if _score(i, c) >= 0]
-            if donors:
-                i, x = max(donors, key=lambda t: late(t[0]))
-                x["pantalla_ids"].remove(i)
-                c["pantalla_ids"].append(i)
+            # F23 §1.2: sin libres, ese cap no tiene pantalla (antes se le «robaba» uno a un cap con 2)
     return [f"cap {c['chapter_number']}: pantalla {c['pantalla_ids']}" for c in chs if c["pantalla_ids"]]
 
 

@@ -48,6 +48,7 @@ def test_prompts_sin_cambios():
 
     def m(s: str) -> str:
         return hashlib.md5(s.encode("utf-8")).hexdigest()
-    assert [m(fc.system()), m(mc.SYSTEM), m(me.SYSTEM_V2), m(g4.system())] == [
+    # F23: ficha v2.2 y guion v5.3 en test_module_f23; acá, los de F22 con su versión
+    assert [m(fc.system("f22-1")), m(mc.SYSTEM), m(me.SYSTEM_V2), m(g4.system("f22-1"))] == [
         "7d3599dc6e4123a3bb883fc15a541e71", "f294cf6b1220983903ce339f5b21cb27", "22cfd68b7cee4734e95bb3ee27bb96b2",
         "743e4f0a7ff9e58d86762bbd43679952"]                                     # F22e: escaleta 22cfd68b

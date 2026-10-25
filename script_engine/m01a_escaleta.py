@@ -323,7 +323,7 @@ def count_variants(pool: dict) -> list[dict]:
     for g in count_groups(pool):
         c = g["canon"]
         others = {x for x in g["nums"] if re.sub(r"[,.]", "", x) != re.sub(r"[,.]", "", c["num"])}
-        var = [d["id"] for d in pool.get("datos") or [] if d["id"] != c["id"]
+        var = [d["id"] for d in pool.get("datos") or [] if d["id"] != c["id"] and not ev.es_rango(d["texto"])  # F23
                and any(re.search(rf"(?<![\d,.]){re.escape(x)}(?![\d,.])", d["texto"]) for x in others)]
         out.append({"canon": c["id"], "num": c["num"], "unit": c["unit"], "variantes": var,
                     "otras": sorted(others, key=lambda x: -len(x))})
@@ -817,8 +817,30 @@ def validate(raw: dict, pool: dict, *, final: bool = False, context: str = "",
 #  Caps, pool plan y persistencia
 # ═══════════════════════════════════════════════════════════════
 
+# F23 §1.3: la función de los beats → el narrative_intent del cap (los nombres del catálogo de m01a_skeleton)
+INTENT_DE_FUNCION = {"gancho": "hook", "planteo": "setup", "escalada": "rising_tension", "giro": "rising_tension",
+                     "pico": "shock", "respiro": "consequences", "consecuencia": "consequences",
+                     "revelacion": "resolution", "cierre": "outro"}
+
+
+def intent_de_cap(esc: dict, n: int) -> str:
+    """F23 §1.3: el `narrative_intent` del cap `n` sale de la función de sus beats (si mezcla, manda el beat de mayor
+    intensidad; empate, el primero). El cap 1 es siempre `hook` y el 7 siempre `outro`. Sin beats en el cap, el de
+    `DEFAULT_INTENT_BY_CAP` (el camino viejo)."""
+    if n == 1:
+        return "hook"
+    if n == 7:
+        return "outro"
+    bs = [b for b in esc.get("beats") or [] if b.get("cap") == n]
+    if not bs:
+        return DEFAULT_INTENT_BY_CAP[n]
+    top = max(bs, key=lambda b: (int(b.get("intensidad") or 0), -bs.index(b)))
+    return INTENT_DE_FUNCION.get(str(top.get("funcion") or ""), DEFAULT_INTENT_BY_CAP[n])
+
+
 def caps_view(esc: dict) -> dict:
-    """Vista skeleton (chapters con evidence_ids) para heredar canonize_figures / assign_screen_ids."""
+    """Vista skeleton (chapters con evidence_ids) para heredar canonize_figures / assign_screen_ids.
+    F23 §1.3: `narrative_intent` = `intent_de_cap` (la función de los beats), no el fijo por número de cap."""
     chs = []
     for c in CHAPTER_SCHEMA:
         n = c["chapter_number"]
@@ -826,7 +848,7 @@ def caps_view(esc: dict) -> dict:
         ids = [i for b in bs for i in [b["dato_central"]] + b["datos_apoyo"]]
         nxt = next((b for b in esc["beats"] if b["cap"] == n + 1), None)
         chs.append({**c, "evidence_ids": ids, "cliffhanger": nxt["dato_central"] if nxt else "",
-                    "narrative_intent": DEFAULT_INTENT_BY_CAP[n]})
+                    "narrative_intent": intent_de_cap(esc, n)})
     return {"chapters": chs}
 
 
@@ -972,17 +994,14 @@ def _persist(topic_id: str, esc: dict) -> Path:
 def pool_gate_profile(topic: dict, pool: dict, *, persist: bool = True, log: list[str] | None = None) -> dict | None:
     """F7d (HANDOFF_F7 §9.2): la compuerta del pool antes de la escaleta, solo para pools de research v3
     (`_research_v3`; los pools viejos siguen igual). Escribe POOL_GATE.md en los pasos del topic. Rojo → PoolGateRed
-    (no se gasta en guion). Amarillo → `topic["_largo"]`: palabras por cap escaladas a `target_words` del amarillo y
-    hasta `gate_yellow_max_beats` beats. Devuelve el gate (o None)."""
+    (no se gasta en guion). F23 §1.2: el amarillo es un aviso, ya no acorta (antes, `topic["_largo"]` con las palabras
+    del amarillo y hasta `gate_yellow_max_beats` beats). Devuelve el gate (o None)."""
     if not pool.get("_research_v3"):
         return None
     from researcher_steps import pool_gate as pg
     topic_id = topic.get("id") or topic.get("topic_id")
     gate = pg.check(pool, topic_id, STEPS_DIR / topic_id if persist else None)
-    if gate["color"] == pg.YELLOW:
-        k = gate["target_words"] / max(1, sum(CAP_WORDS.values()))
-        topic["_largo"] = {"cap_words": {n: round(w * k) for n, w in CAP_WORDS.items()},
-                           "max_beats": gate["max_beats"], "min_beats_dev_cap": _vl("gate_yellow_min_beats_dev_cap")}
+    # F23 §1.2: el amarillo ya no acorta el video (antes: `topic["_largo"]` con 1,200 palabras y 7–8 beats)
     if log is not None:
         log.append(f"  [escaleta] compuerta del pool: {gate['color']} {gate['metricas']}"
                    + (f" · {gate['motivos']}" if gate["motivos"] else ""))

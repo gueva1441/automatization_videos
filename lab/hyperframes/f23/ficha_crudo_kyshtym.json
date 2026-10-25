@@ -1,0 +1,3767 @@
+{
+ "personas": [
+  {
+   "nombre": "Arkady Aleksandrovich Kazutov",
+   "rol": "Mecánico jefe que dirigió la construcción de los contenedores de residuos.",
+   "variantes": [
+    "Аркадий Александрович Казутов",
+    "A. A. Kazutov",
+    "А. А. Казутов"
+   ],
+   "ids": [
+    "P01",
+    "D24",
+    "Q01"
+   ]
+  },
+  {
+   "nombre": "V. A. Saprykin",
+   "rol": "Ingeniero jefe de la construcción de Mayak.",
+   "variantes": [
+    "В. А. Сапрыкин"
+   ],
+   "ids": [
+    "P02",
+    "D25"
+   ]
+  },
+  {
+   "nombre": "Zhores Medvedev",
+   "rol": "Científico y disidente que difundió el desastre en Occidente; las fuentes discrepan sobre su especialidad.",
+   "variantes": [
+    "Жорес Медведев"
+   ],
+   "ids": [
+    "P04",
+    "D51",
+    "D133",
+    "T44"
+   ]
+  },
+  {
+   "nombre": "L. A. Buldakov",
+   "rol": "Vicedirector del Instituto de Biofísica y académico que declaró sobre el seguimiento sanitario ante el Sóviet Supremo.",
+   "variantes": [
+    "Л. А. Булдаков"
+   ],
+   "ids": [
+    "P05",
+    "Q03"
+   ]
+  },
+  {
+   "nombre": "Vladimir Slivyak",
+   "rol": "Copresidente de Ekozashchita y comentarista sobre las víctimas de Mayak.",
+   "variantes": [
+    "Владимир Сливяк"
+   ],
+   "ids": [
+    "P06",
+    "Q06"
+   ]
+  },
+  {
+   "nombre": "Lidia Popova",
+   "rol": "Directora del centro de ecología nuclear y política energética de la Unión Socioecológica.",
+   "variantes": [
+    "Лидия Попова",
+    "Лидии Поповой"
+   ],
+   "ids": [
+    "P07",
+    "Q07"
+   ]
+  },
+  {
+   "nombre": "Anna Ilyina",
+   "rol": "Abogada y presidenta de Derecho a la Vida; representa a afectados en reclamaciones judiciales.",
+   "variantes": [
+    "Анна Ильина"
+   ],
+   "ids": [
+    "P08",
+    "Q08",
+    "Q09",
+    "D83",
+    "D84"
+   ]
+  },
+  {
+   "nombre": "Denis",
+   "rol": "Niño con una grave patología ósea cuya familia obtuvo una compensación judicial; el vínculo médico con la radiación aparece relatado por su abogada.",
+   "variantes": [
+    "Денис"
+   ],
+   "ids": [
+    "P09",
+    "Q08",
+    "D83"
+   ]
+  },
+  {
+   "nombre": "Timur",
+   "rol": "Joven cuyo caso cuenta, según el pasaje, con una conclusión de una comisión experta sobre su enfermedad relacionada con la radiación.",
+   "variantes": [
+    "Тимур"
+   ],
+   "ids": [
+    "P10",
+    "D84"
+   ]
+  },
+  {
+   "nombre": "Vyatkin",
+   "rol": "Presidente del tribunal regional que formuló una protesta contra sentencias favorables a afectados.",
+   "variantes": [
+    "Вяткин"
+   ],
+   "ids": [
+    "P12",
+    "D78"
+   ]
+  },
+  {
+   "nombre": "Sergey Mitrokhin",
+   "rol": "Diputado de la Duma Estatal por Yabloko que reclama fondos para indemnizaciones.",
+   "variantes": [
+    "Сергей Митрохин"
+   ],
+   "ids": [
+    "P13",
+    "Q11",
+    "Q12"
+   ]
+  },
+  {
+   "nombre": "Pavel Otdelnov",
+   "rol": "Artista de la exposición Звенящий след sobre las consecuencias sociales de Mayak.",
+   "variantes": [
+    "Павел Отдельнов"
+   ],
+   "ids": [
+    "P14",
+    "D91",
+    "D93",
+    "Q13"
+   ]
+  },
+  {
+   "nombre": "Galina Chanova",
+   "rol": "Evacuada de territorio contaminado y demandante por compensaciones insuficientemente actualizadas.",
+   "variantes": [
+    "Галина Чанова",
+    "Galina Prokopyevna",
+    "Галина Прокопьевна"
+   ],
+   "ids": [
+    "P18",
+    "D100",
+    "D102",
+    "D103",
+    "D108",
+    "D109",
+    "Q14"
+   ]
+  },
+  {
+   "nombre": "Alexey Babin",
+   "rol": "Abogado y responsable de un área de Sociedad Civil que comenta la sentencia de Galina Chanova.",
+   "variantes": [
+    "Алексей Бабин",
+    "Алексея Бабина"
+   ],
+   "ids": [
+    "P19",
+    "Q15"
+   ]
+  },
+  {
+   "nombre": "Yefim Slavsky",
+   "rol": "Ministro soviético de Construcción de Maquinaria Mediana; encabezó la comisión llegada tras el accidente.",
+   "variantes": [
+    "Ефим Славский",
+    "Ефима Славского",
+    "Е. П. Славский",
+    "E. P. Slavsky",
+    "E.P. Slavsky"
+   ],
+   "ids": [
+    "P20",
+    "T28",
+    "D119",
+    "Q24"
+   ]
+  },
+  {
+   "nombre": "Mikhail Demyanovich",
+   "rol": "Director de Mayak destituido tras ser responsabilizado por el accidente.",
+   "variantes": [
+    "Михаил Демьянович",
+    "Михаила Демьяновича",
+    "M. A. Demyanovich"
+   ],
+   "ids": [
+    "P21",
+    "D121"
+   ]
+  },
+  {
+   "nombre": "Anatoly Vasilievich Dubrovsky",
+   "rol": "Electricista y uno de los primeros liquidadores; testigo de la explosión y de la descontaminación posterior.",
+   "variantes": [
+    "Анатолий Васильевич Дубровский",
+    "Anatoly Dubrovsky"
+   ],
+   "ids": [
+    "P22",
+    "T24",
+    "D123",
+    "D124",
+    "D126",
+    "Q16",
+    "Q17",
+    "Q18"
+   ]
+  },
+  {
+   "nombre": "Mikhail Kuleshov",
+   "rol": "Ajustador y liquidador que recubrió vehículos con plomo y participó en los trabajos posteriores.",
+   "variantes": [
+    "Михаил Кулешов",
+    "Кулешов"
+   ],
+   "ids": [
+    "P23",
+    "T27",
+    "T34",
+    "D128",
+    "D129",
+    "D130",
+    "Q19",
+    "Q20"
+   ]
+  },
+  {
+   "nombre": "Lyudmila Smirnova",
+   "rol": "Hija de un liquidador; relata el silencio sobre el accidente en la ciudad y en su familia.",
+   "variantes": [
+    "Людмила Смирнова"
+   ],
+   "ids": [
+    "P24",
+    "P25",
+    "Q21"
+   ]
+  },
+  {
+   "nombre": "Faik",
+   "rol": "Padre de Lyudmila Smirnova y participante en la respuesta al accidente; el pasaje no proporciona su apellido.",
+   "variantes": [
+    "Фаик",
+    "Faik Smirnov — forma del encabezado del research, no confirmada por el pasaje"
+   ],
+   "ids": [
+    "P25"
+   ]
+  },
+  {
+   "nombre": "V. I. Shevchenko",
+   "rol": "Liquidador, veterano de Mayak y Minatom y miembro de la Cámara Pública; cuestiona la denominación del accidente.",
+   "variantes": [
+    "В. И. Шевченко"
+   ],
+   "ids": [
+    "P28",
+    "Q04"
+   ]
+  },
+  {
+   "nombre": "N.N.D.",
+   "rol": "Demandante anonimizada, evacuada de Kurmanovo, que reclama acceso a una solución habitacional.",
+   "variantes": [
+    "Н.Н.Д.",
+    "N. N. D."
+   ],
+   "ids": [
+    "D01",
+    "D02",
+    "D03",
+    "D06",
+    "D07",
+    "T49",
+    "T54",
+    "T55",
+    "T56"
+   ]
+  },
+  {
+   "nombre": "Georgy Golubev",
+   "rol": "Arquitecto del edificio del lago Sungul que después albergó dependencias del Laboratorio B.",
+   "variantes": [
+    "Георгий Голубев"
+   ],
+   "ids": [
+    "T01"
+   ]
+  },
+  {
+   "nombre": "Agrónomo no identificado",
+   "rol": "Responsable de una cosecha que, según el testimonio reproducido, confirmó la presencia de una niña en el territorio contaminado.",
+   "variantes": [
+    "Agrónomo"
+   ],
+   "ids": [
+    "Q10"
+   ]
+  },
+  {
+   "nombre": "Masha",
+   "rol": "Niña mencionada por el agrónomo al reconocer su presencia en el territorio contaminado.",
+   "variantes": [
+    "Маша"
+   ],
+   "ids": [
+    "Q10"
+   ]
+  },
+  {
+   "nombre": "Mikhalsky",
+   "rol": "Trabajador cuya cabeza contaminada no pudieron limpiar durante las labores relatadas por Kuleshov.",
+   "variantes": [
+    "Михальский"
+   ],
+   "ids": [
+    "Q20"
+   ]
+  },
+  {
+   "nombre": "Dmitry",
+   "rol": "Comentarista identificado así por el pool; cuestiona la rapidez del reasentamiento y se presenta como hijo de un residente de Yugo-Konyovo.",
+   "variantes": [
+    "Dmitry"
+   ],
+   "ids": [
+    "Q23",
+    "D136"
+   ]
+  },
+  {
+   "nombre": "Chelyabinsky Rabochy",
+   "rol": "Periódico que publicó la explicación del resplandor como una aurora polar.",
+   "variantes": [
+    "Periódico 'Chelyabinsky Rabochy'",
+    "Челябинский рабочий"
+   ],
+   "ids": [
+    "P27",
+    "P29",
+    "T29",
+    "Q02",
+    "Q22"
+   ]
+  },
+  {
+   "nombre": "Gobierno de la URSS",
+   "rol": "Ordenó la construcción de la planta y decidió establecer una zona de protección sanitaria.",
+   "variantes": [
+    "Правительство СССР",
+    "Soviet government"
+   ],
+   "ids": [
+    "T04",
+    "T37",
+    "T42",
+    "T46"
+   ]
+  },
+  {
+   "nombre": "Mayak",
+   "rol": "Complejo industrial nuclear productor y procesador de plutonio, responsable del almacenamiento de residuos donde ocurrió la explosión.",
+   "variantes": [
+    "Маяк",
+    "ПО «Маяк»",
+    "Производственное объединение «Маяк»",
+    "Planta n.º 817"
+   ],
+   "ids": [
+    "L03",
+    "L05",
+    "L09",
+    "T04",
+    "D19",
+    "D119"
+   ]
+  },
+  {
+   "nombre": "Ministerio de Construcción de Maquinaria Mediana de la URSS",
+   "rol": "Organismo que creó la comisión encabezada por Slavsky.",
+   "variantes": [
+    "Министерство среднего машиностроения",
+    "Ministerio de Industria Media"
+   ],
+   "ids": [
+    "T28",
+    "P20"
+   ]
+  },
+  {
+   "nombre": "Comisión encabezada por Slavsky",
+   "rol": "Investigó las causas del accidente y formuló atribuciones de responsabilidad.",
+   "variantes": [
+    "комиссия Ефима Славского",
+    "the commission"
+   ],
+   "ids": [
+    "T28",
+    "D119",
+    "Q24"
+   ]
+  },
+  {
+   "nombre": "Comisión técnica especial sobre la explosión",
+   "rol": "Órgano creado para determinar las causas de la explosión.",
+   "variantes": [
+    "специальная техническая комиссия"
+   ],
+   "ids": [
+    "T31"
+   ]
+  },
+  {
+   "nombre": "Minatom",
+   "rol": "Organismo nuclear ruso al que se atribuyen proyectos en la región y cuya autonomía cuestiona Mitrokhin.",
+   "variantes": [
+    "Минатом"
+   ],
+   "ids": [
+    "D87",
+    "Q12"
+   ]
+  },
+  {
+   "nombre": "Autoridades de la región de Cheliábinsk",
+   "rol": "Decidieron evacuar Muslyumovo, medida que el pasaje afirma que no se ejecutó.",
+   "variantes": [
+    "власти Челябинской области"
+   ],
+   "ids": [
+    "T48",
+    "D68"
+   ]
+  },
+  {
+   "nombre": "Fiscalía del distrito Kalininsky de la región de Cheliábinsk",
+   "rol": "Presentó demandas de actualización de compensaciones en nombre de afectados.",
+   "variantes": [
+    "Прокуратура Калининского района Челябинской области"
+   ],
+   "ids": [
+    "L04",
+    "D09",
+    "D11",
+    "T53"
+   ]
+  },
+  {
+   "nombre": "Tribunal del distrito Kalininsky",
+   "rol": "Reconoció una deuda estatal con Galina Chanova.",
+   "variantes": [
+    "суд Калининского района"
+   ],
+   "ids": [
+    "P18",
+    "D100",
+    "D109"
+   ]
+  },
+  {
+   "nombre": "Sociedad Civil",
+   "rol": "Organización cuyos abogados prepararon demandas de afectados y calcularon la reclamación de Galina Chanova.",
+   "variantes": [
+    "Гражданское общество"
+   ],
+   "ids": [
+    "P19",
+    "D101",
+    "D108",
+    "Q14",
+    "Q15"
+   ]
+  },
+  {
+   "nombre": "Administración del distrito Traktorozavodsky de Cheliábinsk",
+   "rol": "Parte recurrente en el litigio habitacional de N.N.D.",
+   "variantes": [
+    "администрация Тракторозаводского района г. Челябинска"
+   ],
+   "ids": [
+    "T55"
+   ]
+  },
+  {
+   "nombre": "Tribunal del distrito Traktorozavodsky de Cheliábinsk",
+   "rol": "Dictó la resolución recurrida en el caso habitacional de N.N.D.",
+   "variantes": [
+    "Тракторозаводский районный суд г. Челябинска"
+   ],
+   "ids": [
+    "T55",
+    "D01"
+   ]
+  },
+  {
+   "nombre": "Tribunal Regional de Cheliábinsk",
+   "rol": "Revisó el litigio de N.N.D.; otro pasaje atribuye a su presidente una protesta contra sentencias favorables a afectados.",
+   "variantes": [
+    "Челябинский областной суд",
+    "областной суд"
+   ],
+   "ids": [
+    "T56",
+    "P12"
+   ]
+  },
+  {
+   "nombre": "Dirección regional de Protección Social",
+   "rol": "Presentó una queja contra sentencias favorables a afectados, según el testimonio del pool.",
+   "variantes": [
+    "областное управление социальной защиты"
+   ],
+   "ids": [
+    "P12"
+   ]
+  },
+  {
+   "nombre": "Duma municipal de Cheliábinsk",
+   "rol": "Estableció la norma municipal de superficie habitacional por persona.",
+   "variantes": [
+    "Челябинская городская Дума"
+   ],
+   "ids": [
+    "D08"
+   ]
+  },
+  {
+   "nombre": "Comisión Experta Interdepartamental",
+   "rol": "Emitió, según el pasaje sobre Timur, una conclusión sobre su enfermedad relacionada con la radiación.",
+   "variantes": [
+    "Межведомственная экспертная комиссия"
+   ],
+   "ids": [
+    "P10"
+   ]
+  },
+  {
+   "nombre": "Duma Estatal",
+   "rol": "Órgano al que Mitrokhin pide que el Gobierno presente modificaciones presupuestarias para indemnizar a las víctimas.",
+   "variantes": [
+    "Государственная Дума"
+   ],
+   "ids": [
+    "P13",
+    "Q11"
+   ]
+  }
+ ],
+ "cronologia": [
+  {
+   "fecha": "Década de 1930",
+   "hora": "",
+   "evento": "El edificio del lago Sungul fue un sanatorio para chekistas proyectado por Georgy Golubev.",
+   "aproximada": false,
+   "ids": [
+    "T01"
+   ]
+  },
+  {
+   "fecha": "Durante la guerra",
+   "hora": "",
+   "evento": "El antiguo sanatorio fue convertido en hospital; el pasaje no da un año concreto.",
+   "aproximada": false,
+   "ids": [
+    "T02"
+   ]
+  },
+  {
+   "fecha": "1945-04-09",
+   "hora": "",
+   "evento": "El Gobierno soviético aprobó la construcción de la planta n.º 817 para producir la bomba atómica en la región de Cheliábinsk.",
+   "aproximada": false,
+   "ids": [
+    "T04"
+   ]
+  },
+  {
+   "fecha": "1945–1948",
+   "hora": "",
+   "evento": "Mayak fue construido apresuradamente.",
+   "aproximada": false,
+   "ids": [
+    "T03"
+   ]
+  },
+  {
+   "fecha": "1947",
+   "hora": "",
+   "evento": "Comenzó a funcionar el Laboratorio B; sus especialistas se reclutaban principalmente entre prisioneros de guerra y reclusos.",
+   "aproximada": false,
+   "ids": [
+    "T05"
+   ]
+  },
+  {
+   "fecha": "1948-06",
+   "hora": "",
+   "evento": "El reactor industrial A-1 alcanzó su potencia de diseño.",
+   "aproximada": false,
+   "ids": [
+    "T07"
+   ]
+  },
+  {
+   "fecha": "1949-01",
+   "hora": "",
+   "evento": "Se puso en marcha la planta radioquímica de separación y procesamiento de plutonio.",
+   "aproximada": false,
+   "ids": [
+    "T09"
+   ]
+  },
+  {
+   "fecha": "1949-02",
+   "hora": "",
+   "evento": "Comenzó a operar la planta químico-metalúrgica para producir la carga nuclear.",
+   "aproximada": false,
+   "ids": [
+    "T10"
+   ]
+  },
+  {
+   "fecha": "1949–1956",
+   "hora": "",
+   "evento": "F06 sitúa en este período los vertidos de residuos líquidos de alta y media actividad en el Techa; F05 menciona vertidos en 1949–1951 sin establecer que fueran los únicos.",
+   "aproximada": false,
+   "ids": [
+    "T08",
+    "D22",
+    "D55"
+   ]
+  },
+  {
+   "fecha": "Después de noviembre de 1951",
+   "hora": "",
+   "evento": "Comenzaron los vertidos de residuos líquidos de alta actividad en el lago Karachay.",
+   "aproximada": false,
+   "ids": [
+    "T12",
+    "D56"
+   ]
+  },
+  {
+   "fecha": "1953",
+   "hora": "",
+   "evento": "Se prohibió utilizar el agua del Techa para beber.",
+   "aproximada": false,
+   "ids": [
+    "T13",
+    "D62"
+   ]
+  },
+  {
+   "fecha": "Alrededor de 1953",
+   "hora": "",
+   "evento": "Se añadió una instalación de almacenamiento de residuos nucleares líquidos.",
+   "aproximada": true,
+   "ids": [
+    "T14"
+   ]
+  },
+  {
+   "fecha": "1955",
+   "hora": "",
+   "evento": "Finalizó la actividad del Laboratorio B.",
+   "aproximada": false,
+   "ids": [
+    "T15"
+   ]
+  },
+  {
+   "fecha": "1957-03-09 a 1957-04-10",
+   "hora": "",
+   "evento": "Se llenó el tanque n.º 14 con residuos radiactivos.",
+   "aproximada": false,
+   "ids": [
+    "T19"
+   ]
+  },
+  {
+   "fecha": "1957-09-29",
+   "hora": "16:22, hora local; F09 lo sitúa a las 16:30",
+   "evento": "Explotó el tanque n.º 14 del complejo S-3 de Mayak.",
+   "aproximada": true,
+   "ids": [
+    "T20"
+   ]
+  },
+  {
+   "fecha": "1957-09-29",
+   "hora": "19:20",
+   "evento": "Las masas de aire procedentes de la planta se desplazaban hacia Bagaryak y Kamensk-Uralsky.",
+   "aproximada": false,
+   "ids": [
+    "T21"
+   ]
+  },
+  {
+   "fecha": "1957-09-29 a 1957-09-30",
+   "hora": "22:00 o 00:00 del 30 de septiembre",
+   "evento": "La nube radiactiva alcanzó la región de Tiumén; el propio pasaje ofrece dos horarios.",
+   "aproximada": true,
+   "ids": [
+    "T22"
+   ]
+  },
+  {
+   "fecha": "1957-09-29",
+   "hora": "Alrededor de las 23:00",
+   "evento": "F05 refiere un resplandor rosado y azul claro, aunque el pasaje incluye una advertencia de falta de procedencia.",
+   "aproximada": true,
+   "ids": [
+    "T23"
+   ]
+  },
+  {
+   "fecha": "1957-09-30",
+   "hora": "",
+   "evento": "Dubrovsky acudió al trabajo al día siguiente del accidente; en la ciudad se lavaban carreteras, se cambiaba asfalto y se instalaban dosímetros.",
+   "aproximada": false,
+   "ids": [
+    "T24",
+    "D118"
+   ]
+  },
+  {
+   "fecha": "1957-09-30",
+   "hora": "03:00",
+   "evento": "Según F05, quedó completada la formación inicial de la traza radiactiva, sin contar su migración posterior.",
+   "aproximada": false,
+   "ids": [
+    "T25"
+   ]
+  },
+  {
+   "fecha": "1957",
+   "hora": "",
+   "evento": "Según F06, niños de internados fueron llevados a zonas contaminadas para recoger cosechas y demoler construcciones; no se precisa el día.",
+   "aproximada": false,
+   "ids": [
+    "T18",
+    "D77"
+   ]
+  },
+  {
+   "fecha": "1957-10-02",
+   "hora": "",
+   "evento": "Llegó desde Moscú una comisión del Ministerio de Construcción de Maquinaria Mediana encabezada por Slavsky.",
+   "aproximada": false,
+   "ids": [
+    "T28"
+   ]
+  },
+  {
+   "fecha": "1957-10",
+   "hora": "",
+   "evento": "Comenzó la evacuación: F10 fecha su inicio el 6 de octubre y F06 la sitúa diez días después del accidente.",
+   "aproximada": true,
+   "ids": [
+    "T26",
+    "T30",
+    "D43"
+   ]
+  },
+  {
+   "fecha": "1957-10-06",
+   "hora": "",
+   "evento": "Chelyabinsky Rabochy publicó la nota sobre una supuesta aurora polar en los Urales del Sur.",
+   "aproximada": false,
+   "ids": [
+    "T29",
+    "Q02",
+    "D132"
+   ]
+  },
+  {
+   "fecha": "1957-10",
+   "hora": "De 19:00 a 01:00",
+   "evento": "La brigada de Kuleshov comenzó a participar en la liquidación.",
+   "aproximada": false,
+   "ids": [
+    "T27"
+   ]
+  },
+  {
+   "fecha": "1957-10-11",
+   "hora": "",
+   "evento": "Se creó una comisión técnica especial para establecer las causas de la explosión.",
+   "aproximada": false,
+   "ids": [
+    "T31"
+   ]
+  },
+  {
+   "fecha": "1957–1960",
+   "hora": "",
+   "evento": "F05 sitúa en este período el desalojo y enterramiento de los asentamientos afectados; otras fuentes describen plazos distintos.",
+   "aproximada": true,
+   "ids": [
+    "D42",
+    "D116",
+    "D136"
+   ]
+  },
+  {
+   "fecha": "Comienzos de 1958",
+   "hora": "",
+   "evento": "Se determinaron las dimensiones de una franja contaminada de 20–40 kilómetros de ancho y hasta 300 kilómetros de largo.",
+   "aproximada": false,
+   "ids": [
+    "T32"
+   ]
+  },
+  {
+   "fecha": "1958",
+   "hora": "",
+   "evento": "Comenzaron los trabajos de restauración de la planta; Kuleshov describe los locales inundados.",
+   "aproximada": false,
+   "ids": [
+    "T34"
+   ]
+  },
+  {
+   "fecha": "1958",
+   "hora": "",
+   "evento": "F06 informa de tierras fértiles que quedaron sin cultivar en la región de Cheliábinsk.",
+   "aproximada": false,
+   "ids": [
+    "T33"
+   ]
+  },
+  {
+   "fecha": "1958-04-13",
+   "hora": "",
+   "evento": "Berlingske Tidende informó sobre el accidente; F10 sitúa noticias vagas en la prensa occidental entre el 13 y el 14 de abril.",
+   "aproximada": false,
+   "ids": [
+    "D50",
+    "T35"
+   ]
+  },
+  {
+   "fecha": "Verano de 1958",
+   "hora": "",
+   "evento": "Un tractor protegido con plomo retiraba tierra del lugar donde antes habían arrancado arbustos los electricistas.",
+   "aproximada": false,
+   "ids": [
+    "T36",
+    "D127"
+   ]
+  },
+  {
+   "fecha": "1959-03-18",
+   "hora": "",
+   "evento": "Según F10, Die Presse publicó detalles del accidente.",
+   "aproximada": false,
+   "ids": [
+    "T38"
+   ]
+  },
+  {
+   "fecha": "Finales de 1959",
+   "hora": "",
+   "evento": "Se creó una zona de protección sanitaria en parte del territorio contaminado.",
+   "aproximada": false,
+   "ids": [
+    "D46",
+    "T37"
+   ]
+  },
+  {
+   "fecha": "1967-04",
+   "hora": "",
+   "evento": "El viento dispersó polvo radiactivo desde sectores expuestos del lago Karachay; otras fuentes sitúan el episodio en la primavera de ese año.",
+   "aproximada": false,
+   "ids": [
+    "T39",
+    "T40",
+    "T41"
+   ]
+  },
+  {
+   "fecha": "1968",
+   "hora": "",
+   "evento": "Se estableció la Reserva de los Urales Orientales sobre la zona de protección sanitaria.",
+   "aproximada": false,
+   "ids": [
+    "T42",
+    "D47"
+   ]
+  },
+  {
+   "fecha": "Década de 1970",
+   "hora": "",
+   "evento": "F09 sitúa en esta década una intervención de Medvedev ante periodistas extranjeros, seguida de una negación soviética.",
+   "aproximada": false,
+   "ids": [
+    "T43",
+    "D133"
+   ]
+  },
+  {
+   "fecha": "1976",
+   "hora": "",
+   "evento": "Medvedev publicó un informe sobre el accidente en New Scientist y difundió su alcance internacionalmente.",
+   "aproximada": false,
+   "ids": [
+    "D51",
+    "T44"
+   ]
+  },
+  {
+   "fecha": "1989-07",
+   "hora": "",
+   "evento": "Según F05, el accidente fue confirmado por primera vez en la URSS durante una sesión del Sóviet Supremo.",
+   "aproximada": false,
+   "ids": [
+    "D52",
+    "D135"
+   ]
+  },
+  {
+   "fecha": "1989-07-18",
+   "hora": "",
+   "evento": "Buldakov declaró ante el Sóviet Supremo que no habían registrado formas de enfermedad por radiación durante su seguimiento.",
+   "aproximada": false,
+   "ids": [
+    "Q03"
+   ]
+  },
+  {
+   "fecha": "Desde 1989",
+   "hora": "",
+   "evento": "El Gobierno soviético comenzó a desclasificar gradualmente documentos sobre Mayak.",
+   "aproximada": false,
+   "ids": [
+    "T46"
+   ]
+  },
+  {
+   "fecha": "1993",
+   "hora": "",
+   "evento": "Las autoridades regionales decidieron evacuar Muslyumovo, pero, según F06, la decisión no se ejecutó por problemas económicos.",
+   "aproximada": false,
+   "ids": [
+    "T48",
+    "D68"
+   ]
+  },
+  {
+   "fecha": "1994-09-22",
+   "hora": "",
+   "evento": "N.N.D. recibió un certificado de su condición de afectada.",
+   "aproximada": false,
+   "ids": [
+    "T49",
+    "D06"
+   ]
+  },
+  {
+   "fecha": "1997",
+   "hora": "",
+   "evento": "Galina Chanova comenzó a percibir compensaciones por el daño a su salud.",
+   "aproximada": false,
+   "ids": [
+    "T50",
+    "D103"
+   ]
+  },
+  {
+   "fecha": "Desde 2001",
+   "hora": "",
+   "evento": "F01 señala que la cuantía de la compensación que describe no se había indexado.",
+   "aproximada": false,
+   "ids": [
+    "T51",
+    "D16"
+   ]
+  },
+  {
+   "fecha": "2007",
+   "hora": "",
+   "evento": "F08 informa de los importes que había alcanzado la compensación de Galina para alimentos y recuperación de la salud.",
+   "aproximada": false,
+   "ids": [
+    "T52",
+    "D106",
+    "D107"
+   ]
+  },
+  {
+   "fecha": "2011-05-10",
+   "hora": "",
+   "evento": "N.N.D. solicitó ser reconocida como necesitada de mejores condiciones de vivienda.",
+   "aproximada": false,
+   "ids": [
+    "T54"
+   ]
+  },
+  {
+   "fecha": "2011-09-28",
+   "hora": "",
+   "evento": "El Tribunal del distrito Traktorozavodsky dictó la resolución después recurrida en el caso de N.N.D.",
+   "aproximada": false,
+   "ids": [
+    "T55"
+   ]
+  },
+  {
+   "fecha": "2011-11-24",
+   "hora": "",
+   "evento": "El Tribunal Regional de Cheliábinsk revisó el asunto en audiencia pública.",
+   "aproximada": false,
+   "ids": [
+    "T56"
+   ]
+  }
+ ],
+ "historia": {
+  "humanos_candidatos": [
+   {
+    "nombre": "Anatoly Vasilievich Dubrovsky",
+    "rol": "Electricista convertido en liquidador.",
+    "arco": "Está viendo una película cuando oye la explosión → al volver al trabajo arranca arbustos sin instrucciones y soporta una descontaminación dolorosa → su incorporación al registro de liquidadores se demora porque no le habían entregado un dosímetro.",
+    "ids": [
+     "Q16",
+     "Q17",
+     "Q18",
+     "D124",
+     "D126"
+    ],
+    "citas_verificadas": 2
+   },
+   {
+    "nombre": "Mikhail Kuleshov",
+    "rol": "Ajustador convertido en liquidador y testigo de los trabajos de restauración.",
+    "arco": "Se entera del accidente al llegar a su turno → reviste vehículos con plomo y trabaja en la liquidación → participa después en la restauración de locales inundados y conserva el relato de compañeros contaminados.",
+    "ids": [
+     "P23",
+     "D128",
+     "D129",
+     "D130",
+     "T27",
+     "T34",
+     "Q19",
+     "Q20"
+    ],
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "Galina Chanova",
+    "rol": "Evacuada y demandante por compensaciones.",
+    "arco": "Es evacuada del territorio contaminado → comienza a cobrar compensaciones que sus abogados consideran insuficientemente actualizadas → obtiene una sentencia por una cantidad menor que la reclamada y expresa satisfacción con ese resultado.",
+    "ids": [
+     "D102",
+     "D103",
+     "D108",
+     "D109",
+     "Q14"
+    ],
+    "citas_verificadas": 1
+   },
+   {
+    "nombre": "N.N.D.",
+    "rol": "Evacuada de Kurmanovo y demandante anonimizada.",
+    "arco": "Sale de un pueblo contaminado y recibe reconocimiento como afectada → vive con su familia en una vivienda insuficiente y encuentra una negativa administrativa → su reclamación llega a revisión judicial, sin que los pasajes aportados permitan fijar el desenlace definitivo; no tiene citas verificadas.",
+    "ids": [
+     "D02",
+     "D03",
+     "D06",
+     "D07",
+     "T54",
+     "T55",
+     "T56"
+    ],
+    "citas_verificadas": 0
+   }
+  ],
+  "giros": [
+   {
+    "orden": 1,
+    "que_cambia": "La producción secreta deja una contaminación anterior al accidente: se vierten residuos en el Techa mientras la población continúa utilizando su agua.",
+    "ids": [
+     "T04",
+     "D55",
+     "T11",
+     "D62"
+    ]
+   },
+   {
+    "orden": 2,
+    "que_cambia": "Falla la refrigeración del almacenamiento y la explosión convierte los residuos concentrados en una contaminación que sale del recinto industrial.",
+    "ids": [
+     "D19",
+     "D119",
+     "T20",
+     "D31",
+     "D112"
+    ]
+   },
+   {
+    "orden": 3,
+    "que_cambia": "Los trabajadores pasan a ser liquidadores: Dubrovsky recibe herramientas y protección, pero no instrucciones ni un dosímetro personal.",
+    "ids": [
+     "D123",
+     "Q17",
+     "D126"
+    ]
+   },
+   {
+    "orden": 4,
+    "que_cambia": "La respuesta pública no identifica la catástrofe: el periódico explica el resplandor como una aurora mientras la evacuación comienza con un calendario discutido.",
+    "ids": [
+     "T29",
+     "Q02",
+     "T26",
+     "T30"
+    ]
+   },
+   {
+    "orden": 5,
+    "que_cambia": "La existencia del desastre atraviesa el secreto: Medvedev publica en Occidente y la URSS termina confirmando la explosión.",
+    "ids": [
+     "D51",
+     "D52",
+     "D135"
+    ]
+   },
+   {
+    "orden": 6,
+    "que_cambia": "El conflicto pasa de reconocer el accidente a reparar sus consecuencias: las víctimas reclaman actualizaciones monetarias y acceso a vivienda ante los tribunales.",
+    "ids": [
+     "D09",
+     "D16",
+     "D108",
+     "D109",
+     "D07",
+     "T56"
+    ]
+   }
+  ],
+  "pico": {
+   "que": "La explosión del tanque n.º 14 y la liberación masiva de sustancias radiactivas.",
+   "por_que": "Es el momento en que el fallo del almacenamiento destruye el contenedor y transforma un problema industrial localizado en una nube que alcanza territorios habitados; prepara la exposición de los liquidadores, los desalojos y las reclamaciones posteriores, sin que el pool permita establecer un balance mortal definitivo.",
+   "ids": [
+    "T20",
+    "D19",
+    "D30",
+    "D31",
+    "D112",
+    "D113",
+    "D72",
+    "D144"
+   ]
+  },
+  "pregunta_final": {
+   "pregunta": "¿Qué reparación efectiva alcanzó finalmente a quienes fueron evacuados o siguieron viviendo en territorio contaminado, si las fuentes todavía describen compensaciones judicializadas, obstáculos de vivienda y una evacuación aprobada pero no ejecutada?",
+   "ids": [
+    "D68",
+    "D85",
+    "D16",
+    "D108",
+    "D109",
+    "D07",
+    "T56"
+   ]
+  }
+ },
+ "escenas": [
+  {
+   "donde": "Club local Derevyashka, durante la explosión.",
+   "quien": "Anatoly Dubrovsky y sus compañeros.",
+   "que_pasa": "Están viendo una película cuando oyen un gran estruendo y el edificio empieza a temblar.",
+   "sentidos": "El sonido del estallido y la vibración del edificio son los detalles que aporta el testigo; el pasaje no describe la película ni la reacción posterior.",
+   "ids": [
+    "Q16"
+   ]
+  },
+  {
+   "donde": "Almacenamiento de residuos de Mayak.",
+   "quien": "El tanque n.º 14; no se identifica un observador presencial de esta imagen.",
+   "que_pasa": "La explosión destruye el contenedor y levanta una losa de hormigón, según las descripciones documentales.",
+   "sentidos": "Un cráter donde estaba el tanque y una losa de hormigón desplazada por la explosión.",
+   "ids": [
+    "D30",
+    "D143"
+   ]
+  },
+  {
+   "donde": "Calles y lugares públicos de Cheliábinsk-40, al día siguiente.",
+   "quien": "Personal no identificado encargado de las medidas de seguridad.",
+   "que_pasa": "Se lavan las carreteras, se cambia el asfalto y se colocan dosímetros en espacios públicos.",
+   "sentidos": "Agua sobre las carreteras, pavimento intervenido y aparatos de medición instalados; no se añade una reacción de los vecinos.",
+   "ids": [
+    "D118"
+   ]
+  },
+  {
+   "donde": "Junto a una pequeña fuente en la planta.",
+   "quien": "Dubrovsky y el grupo de electricistas.",
+   "que_pasa": "Arrancan arbustos con palas, palanquetas y picos, después de recibir monos de goma y protección respiratoria.",
+   "sentidos": "Los monos de goma, las máscaras antigás y los respiradores tipo pétalo; las herramientas y los arbustos junto a la fuente.",
+   "ids": [
+    "D123",
+    "Q17"
+   ]
+  },
+  {
+   "donde": "Lugar de descontaminación del grupo de electricistas.",
+   "quien": "Dubrovsky, sus compañeros y personal llegado en un camión de bomberos.",
+   "que_pasa": "Los lavan con una manguera; Dubrovsky, que había trabajado sin su respirador, pide que detengan el chorro cuando le golpea el pecho.",
+   "sentidos": "Agua fría, presión muy fuerte y dolor en el pecho, descritos por Dubrovsky.",
+   "ids": [
+    "Q18"
+   ]
+  },
+  {
+   "donde": "Trayecto hacia el foco de la explosión.",
+   "quien": "Kuleshov y el personal de reconocimiento.",
+   "que_pasa": "Un tractor S-80 revestido de plomo avanza lentamente; el explorador sale de la cabina, mide y vuelve a entrar.",
+   "sentidos": "Suelo y paredes de la cabina recubiertos de plomo, el edificio con una gran chimenea y el movimiento lento del tractor.",
+   "ids": [
+    "D128",
+    "Q19",
+    "D129"
+   ]
+  },
+  {
+   "donde": "Locales de la planta durante la restauración.",
+   "quien": "Kuleshov y sus compañeros.",
+   "que_pasa": "Trabajan en espacios inundados; Mikhalsky se ensucia la cabeza al caminar en la oscuridad por los tablones y no consiguen limpiársela.",
+   "sentidos": "Agua en los locales, oscuridad, tablones, champús y productos químicos fuertes; la peluquera se niega a cortarle el pelo.",
+   "ids": [
+    "T34",
+    "Q20"
+   ]
+  },
+  {
+   "donde": "Asentamientos desalojados del territorio contaminado.",
+   "quien": "Habitantes reasentados y personal no identificado.",
+   "que_pasa": "F09 describe edificios arrasados y bienes y ganado quemados, sin que quede resuelto el plazo en que ocurrió.",
+   "sentidos": "Construcciones niveladas y pertenencias destruidas por el fuego; no se inventan conversaciones ni reacciones familiares.",
+   "ids": [
+    "D116",
+    "D117"
+   ]
+  },
+  {
+   "donde": "Cielo de Cheliábinsk, descrito después en el periódico local.",
+   "quien": "Habitantes citados por Chelyabinsky Rabochy.",
+   "que_pasa": "El periódico relata un resplandor nocturno y lo presenta como una aurora polar.",
+   "sentidos": "Un brillo rojo intenso que pasa a rosa pálido y azul claro; se conserva como descripción publicada, no como explicación física verificada.",
+   "ids": [
+    "Q22",
+    "T29"
+   ]
+  },
+  {
+   "donde": "Lugar donde habían trabajado los electricistas, en el verano siguiente.",
+   "quien": "Operador no identificado de un tractor protegido con plomo.",
+   "que_pasa": "El tractor retira suelo contaminado y se aporta tierra limpia en su reemplazo.",
+   "sentidos": "La protección de plomo de la máquina y la retirada y sustitución de capas de tierra.",
+   "ids": [
+    "T36"
+   ]
+  },
+  {
+   "donde": "Lago Karachay, durante la primavera de 1967.",
+   "quien": "No se identifica un testigo individual.",
+   "que_pasa": "Parte del fondo queda expuesta y los vientos dispersan polvo radiactivo hacia poblaciones de la región.",
+   "sentidos": "Lecho seco al descubierto y polvo levantado por el viento, tal como describen los documentos.",
+   "ids": [
+    "T39",
+    "T40",
+    "D79",
+    "D80"
+   ]
+  },
+  {
+   "donde": "Vivienda de N.N.D. en Cheliábinsk.",
+   "quien": "N.N.D. y su familia.",
+   "que_pasa": "El expediente sitúa a toda la familia en un apartamento de una sola habitación y superficie insuficiente según la norma municipal.",
+   "sentidos": "La única habitación y el espacio reducido son datos físicos del expediente; no se agregan muebles, sonidos ni condiciones de higiene.",
+   "ids": [
+    "D03",
+    "D08"
+   ]
+  },
+  {
+   "donde": "Exposición Звенящий след, en Sokol.",
+   "quien": "Pavel Otdelnov como autor de la exposición.",
+   "que_pasa": "Sus pinturas y objetos encontrados reconstruyen la historia del lugar en el antiguo edificio vinculado al Laboratorio B.",
+   "sentidos": "Dosímetros personales y mapas sin Ozersk; el documento también indica que el edificio carece de calefacción.",
+   "ids": [
+    "D89",
+    "D91",
+    "D93",
+    "D99"
+   ]
+  }
+ ],
+ "hechos": [
+  {
+   "texto": "Mayak era una instalación de procesamiento de plutonio para armas nucleares situada en la ciudad cerrada de Cheliábinsk-40.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "L09",
+    "L10"
+   ]
+  },
+  {
+   "texto": "El Gobierno soviético aprobó la construcción de la planta n.º 817 el 9 de abril de 1945.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T04"
+   ]
+  },
+  {
+   "texto": "La planta fue construida apresuradamente entre 1945 y 1948.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T03"
+   ]
+  },
+  {
+   "texto": "El reactor A-1 alcanzó su potencia de diseño en junio de 1948.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T07"
+   ]
+  },
+  {
+   "texto": "La planta radioquímica de separación y procesamiento de plutonio comenzó a operar en enero de 1949.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T09"
+   ]
+  },
+  {
+   "texto": "La planta químico-metalúrgica para producir la carga nuclear comenzó a operar en febrero de 1949.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T10"
+   ]
+  },
+  {
+   "texto": "Antes de la explosión ya se vertían residuos radiactivos líquidos en el río Techa.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "D22",
+    "D55",
+    "D149"
+   ]
+  },
+  {
+   "texto": "Después de noviembre de 1951 comenzaron a verterse residuos líquidos de alta actividad en el lago Karachay.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T12",
+    "D56"
+   ]
+  },
+  {
+   "texto": "Desde 1953 estaba prohibido utilizar el agua del Techa como agua potable.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D62"
+   ]
+  },
+  {
+   "texto": "F07 afirma que miles de personas continuaron tomando agua del Techa cuando Mayak vertía residuos de alta actividad en la década de 1950.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T11"
+   ]
+  },
+  {
+   "texto": "F06 cifra en 76 millones de metros cúbicos los residuos radiactivos vertidos en el Techa.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D59"
+   ]
+  },
+  {
+   "texto": "F06 atribuye dosis significativas de radiación a 28.000 personas por la contaminación del Techa.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D61"
+   ]
+  },
+  {
+   "texto": "F06 informa de la evacuación de 7.500 personas de localidades situadas a lo largo del Techa.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D63"
+   ]
+  },
+  {
+   "texto": "Los contenedores de residuos eran cilindros de acero inoxidable dentro de una envoltura de hormigón.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "D26"
+   ]
+  },
+  {
+   "texto": "Entre el 9 de marzo y el 10 de abril de 1957 se introdujeron 256 metros cúbicos de residuos en el tanque n.º 14.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T19"
+   ]
+  },
+  {
+   "texto": "La alteración del régimen de refrigeración del tanque aparece identificada como causa del accidente tanto en F05 como en el informe de comisión citado por F09.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "D19",
+    "D119"
+   ]
+  },
+  {
+   "texto": "El tanque n.º 14 explotó el 29 de septiembre de 1957 a las 16:22 según dos fuentes, mientras otra sitúa el estallido a las 16:30.",
+   "nivel": 1,
+   "sirve_para": "pico",
+   "ids": [
+    "T20"
+   ]
+  },
+  {
+   "texto": "F09 describe una explosión térmica y no atómica, sin inicio de una reacción en cadena.",
+   "nivel": 1,
+   "sirve_para": "contexto",
+   "ids": [
+    "D120"
+   ]
+  },
+  {
+   "texto": "La explosión destruyó el tanque n.º 14 y dejó un cráter de unos 10 metros de profundidad y 20 metros de diámetro.",
+   "nivel": 2,
+   "sirve_para": "pico",
+   "ids": [
+    "D30"
+   ]
+  },
+  {
+   "texto": "F10 afirma que la explosión levantó una losa de hormigón de 160 toneladas.",
+   "nivel": 2,
+   "sirve_para": "pico",
+   "ids": [
+    "D143"
+   ]
+  },
+  {
+   "texto": "Las fuentes coinciden en una liberación estimada de unos 20 millones de curios de sustancias radiactivas.",
+   "nivel": 1,
+   "sirve_para": "pico",
+   "ids": [
+    "D31",
+    "D122",
+    "D146"
+   ]
+  },
+  {
+   "texto": "Aproximadamente el 90 % de la emisión se depositó en el recinto industrial, según F05 y F09.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D33",
+    "D115"
+   ]
+  },
+  {
+   "texto": "La nube radiactiva alcanzó partes de las regiones de Cheliábinsk, Sverdlovsk y Tiumén.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "D70",
+    "D112"
+   ]
+  },
+  {
+   "texto": "F05, F06 y F09 describen una superficie contaminada de 23.000 kilómetros cuadrados, mientras F10 habla de partículas calientes sobre más de 52.000 kilómetros cuadrados.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D37",
+    "D71",
+    "D113",
+    "D139"
+   ]
+  },
+  {
+   "texto": "Las fuentes sitúan alrededor de 270.000 personas en el territorio alcanzado, sin que esa cifra sea un recuento de enfermos o muertos.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D37",
+    "D71",
+    "D113",
+    "D139"
+   ]
+  },
+  {
+   "texto": "El 6 de octubre de 1957 el periódico local publicó una explicación del resplandor nocturno como aurora polar.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T29",
+    "D132",
+    "Q02"
+   ]
+  },
+  {
+   "texto": "Al día siguiente del accidente se lavaron carreteras, se cambió asfalto y se instalaron dosímetros en lugares públicos de Cheliábinsk-40.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D118"
+   ]
+  },
+  {
+   "texto": "Al grupo de electricistas de Dubrovsky le entregaron monos de goma, cuatro máscaras antigás y dos respiradores tipo pétalo.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D123"
+   ]
+  },
+  {
+   "texto": "Dubrovsky relata que les ordenaron arrancar arbustos sin instrucciones de trabajo, salvo no quitarse la protección respiratoria.",
+   "nivel": 1,
+   "sirve_para": "escalada",
+   "ids": [
+    "Q17"
+   ]
+  },
+  {
+   "texto": "Dubrovsky recuerda una descontaminación con agua fría a presión que le produjo dolor en el pecho.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "Q18"
+   ]
+  },
+  {
+   "texto": "F09 afirma que los electricistas recibieron cinco normas diarias de irradiación durante el trabajo junto a la fuente.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D124"
+   ]
+  },
+  {
+   "texto": "La falta de dosímetros personales demoró la inclusión de los seis electricistas en la lista de liquidadores, según el relato de F09.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D126"
+   ]
+  },
+  {
+   "texto": "Kuleshov recubrió con plomo el suelo y las paredes de la cabina de un tractor S-80.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D128"
+   ]
+  },
+  {
+   "texto": "El reconocimiento con el tractor revestido de plomo se realizó a 2 kilómetros por hora e incluyó salidas de la cabina para medir la radiación.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "Q19",
+    "D129"
+   ]
+  },
+  {
+   "texto": "Los ajustadores protegieron después un tanque T-34 para dirigirse al taller donde había ocurrido la explosión.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "D130"
+   ]
+  },
+  {
+   "texto": "La brigada de Kuleshov comenzó la liquidación en octubre y trabajaba de 19:00 a 01:00.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T27"
+   ]
+  },
+  {
+   "texto": "Los trabajos de restauración comenzaron en 1958 con los locales inundados, según Kuleshov.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T34"
+   ]
+  },
+  {
+   "texto": "Kuleshov relata que no consiguieron limpiar la cabeza contaminada de Mikhalsky ni con champús ni con productos químicos fuertes.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "Q20"
+   ]
+  },
+  {
+   "texto": "F06 afirma que niños de internados fueron utilizados en 1957 para recoger cosechas contaminadas y demoler construcciones.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D77"
+   ]
+  },
+  {
+   "texto": "El 2 de octubre de 1957 llegó una comisión ministerial encabezada por Slavsky.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "T28"
+   ]
+  },
+  {
+   "texto": "Mikhail Demyanovich fue responsabilizado y destituido como director de Mayak, según F09 y F10.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "P21",
+    "D121"
+   ]
+  },
+  {
+   "texto": "El 11 de octubre de 1957 se creó una comisión técnica de 11 integrantes para investigar la explosión.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "T31"
+   ]
+  },
+  {
+   "texto": "Las fuentes no coinciden en el inicio de la evacuación ni en la duración total del reasentamiento.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "T26",
+    "T30",
+    "D42",
+    "D116",
+    "D136"
+   ]
+  },
+  {
+   "texto": "F05 afirma que los residentes incluidos en la primera decisión de desalojo ya habían recibido una dosis equivalente de 52 rem.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D43",
+    "D44"
+   ]
+  },
+  {
+   "texto": "El reasentamiento de 23 localidades es el recuento repetido por F05, F07 y F09.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D42",
+    "D97",
+    "D116"
+   ]
+  },
+  {
+   "texto": "F09 describe la destrucción de las construcciones y la quema de bienes y ganado de los asentamientos desalojados.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D116",
+    "D117"
+   ]
+  },
+  {
+   "texto": "F05 informa de 1.007 miembros de las tropas internas del Ministerio del Interior expuestos a la radiación.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D39"
+   ]
+  },
+  {
+   "texto": "Doce militares expuestos a más de 50 roentgens fueron hospitalizados, según F05.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D40"
+   ]
+  },
+  {
+   "texto": "Otros 63 militares expuestos a entre 10 y 50 roentgens quedaron bajo observación médica constante, según F05.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D41"
+   ]
+  },
+  {
+   "texto": "F05 sitúa una dosis efectiva máxima de 1 sievert entre niños que tenían entre 2 y 7 años y fueron reasentados en los primeros 7–14 días.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D48"
+   ]
+  },
+  {
+   "texto": "F06 habla de alrededor de 200 muertos después del accidente, pero el pool no aporta un balance oficial de mortalidad ni delimita el período de ese recuento.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D72"
+   ]
+  },
+  {
+   "texto": "Buldakov declaró que no habían registrado formas de enfermedad por radiación, mientras F10 menciona 66 diagnósticos de síndrome de radiación crónico sin permitir equiparar las cohortes.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "Q03",
+    "D152"
+   ]
+  },
+  {
+   "texto": "F06 habla de 106.000 hectáreas fértiles sin cultivar en 1958, mientras F05 describe esa misma extensión como tierras agrícolas y forestales retiradas del uso.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D75",
+    "D38"
+   ]
+  },
+  {
+   "texto": "A finales de 1959 se creó una zona de protección sanitaria de unos 700 kilómetros cuadrados.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D46"
+   ]
+  },
+  {
+   "texto": "En la primavera de 1967 el viento volvió a dispersar contaminación desde sectores secos del lago Karachay.",
+   "nivel": 2,
+   "sirve_para": "escalada",
+   "ids": [
+    "T39",
+    "T40",
+    "T41",
+    "D80"
+   ]
+  },
+  {
+   "texto": "La Reserva de los Urales Orientales se estableció en 1968 sobre el territorio de la zona de protección sanitaria.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D47",
+    "T42"
+   ]
+  },
+  {
+   "texto": "La prensa de Copenhague informó del accidente en abril de 1958 y Die Presse publicó detalles en marzo de 1959.",
+   "nivel": 2,
+   "sirve_para": "giro",
+   "ids": [
+    "D50",
+    "T38"
+   ]
+  },
+  {
+   "texto": "Medvedev publicó en New Scientist un informe sobre el accidente en 1976.",
+   "nivel": 1,
+   "sirve_para": "giro",
+   "ids": [
+    "D51"
+   ]
+  },
+  {
+   "texto": "F05 fecha la primera confirmación soviética del accidente en julio de 1989.",
+   "nivel": 1,
+   "sirve_para": "cierre",
+   "ids": [
+    "D52"
+   ]
+  },
+  {
+   "texto": "F09 afirma que los trabajadores no pudieron salir de vacaciones durante aproximadamente un año y medio y que los liquidadores firmaron compromisos de confidencialidad.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D134"
+   ]
+  },
+  {
+   "texto": "F06 afirma que los resultados de los exámenes forzados de sangre y médula ósea de habitantes de Muslyumovo permanecieron secretos hasta 1992.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D67"
+   ]
+  },
+  {
+   "texto": "La evacuación de Muslyumovo aprobada en 1993 no se ejecutó por problemas económicos, según F06.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D68"
+   ]
+  },
+  {
+   "texto": "Galina Chanova comenzó a cobrar compensaciones por el daño a su salud en 1997.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D103"
+   ]
+  },
+  {
+   "texto": "F08 sitúa las compensaciones de 1997 en 167 rublos mensuales para alimentos y 83,5 rublos anuales para recuperación de la salud.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D104",
+    "D105"
+   ]
+  },
+  {
+   "texto": "Para 2007 F08 sitúa esos pagos en 287 rublos mensuales para alimentos y 131,30 rublos anuales para recuperación de la salud.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D106",
+    "D107"
+   ]
+  },
+  {
+   "texto": "Los abogados calcularon unos 150.000 rublos adeudados a Galina, mientras la sentencia ordenó pagar alrededor de 60.000 rublos.",
+   "nivel": 1,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D108",
+    "D109"
+   ]
+  },
+  {
+   "texto": "La fiscalía presentó 86 demandas por un total aproximado de un millón de rublos en nombre de afectados.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D09",
+    "D10"
+   ]
+  },
+  {
+   "texto": "F01 describe una compensación mensual de 100 rublos para quienes superaban 7 rem de dosis efectiva acumulada y señala que su cuantía no se indexaba desde 2001.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D14",
+    "D15",
+    "D16"
+   ]
+  },
+  {
+   "texto": "N.N.D., evacuada de Kurmanovo, vivía con una familia de cinco personas en una vivienda de una habitación y 36,3 metros cuadrados.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D02",
+    "D03"
+   ]
+  },
+  {
+   "texto": "El expediente de N.N.D. recoge una negativa de inscripción habitacional basada en que presentó su solicitud después del 1 de marzo de 2005.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D07"
+   ]
+  },
+  {
+   "texto": "El litigio habitacional de N.N.D. fue revisado por el Tribunal Regional de Cheliábinsk el 24 de noviembre de 2011.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "T56"
+   ]
+  },
+  {
+   "texto": "La familia de Denis recibió 50.000 rublos de compensación y, según el relato de su abogada, pudo comprar una vivienda de una habitación.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D83"
+   ]
+  },
+  {
+   "texto": "En el caso de Timur se decidió reconocer al Estado como demandado adecuado.",
+   "nivel": 2,
+   "sirve_para": "consecuencia",
+   "ids": [
+    "D84"
+   ]
+  },
+  {
+   "texto": "F06 afirma que unas 10.000 personas seguían viviendo en zona contaminada al momento de esa fuente, cuya fecha no consta en el pasaje.",
+   "nivel": 1,
+   "sirve_para": "cierre",
+   "ids": [
+    "D85"
+   ]
+  },
+  {
+   "texto": "La exposición de Otdelnov reúne dosímetros personales y mapas en los que no figuraba Ozersk.",
+   "nivel": 2,
+   "sirve_para": "cierre",
+   "ids": [
+    "D91"
+   ]
+  },
+  {
+   "texto": "El edificio del lago Sungul fue sanatorio, hospital y alojamiento del Laboratorio B, que funcionó entre 1947 y 1955.",
+   "nivel": 2,
+   "sirve_para": "contexto",
+   "ids": [
+    "T01",
+    "T02",
+    "T05",
+    "D95"
+   ]
+  }
+ ],
+ "cifras": [
+  {
+   "que": "Clasificación del accidente",
+   "valor": "6",
+   "unidad": "nivel INES, sobre 7 posibles",
+   "fuente": "F05 y F06; F10 coincide en el nivel.",
+   "ids": [
+    "D20",
+    "D74",
+    "D137"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Residuos vertidos en el Techa",
+   "valor": "76.000.000",
+   "unidad": "metros cúbicos de residuos",
+   "fuente": "F06.",
+   "ids": [
+    "D59"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personas con dosis significativas por la contaminación del Techa",
+   "valor": "28.000",
+   "unidad": "personas",
+   "fuente": "F06.",
+   "ids": [
+    "D61"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Evacuados por la contaminación del Techa",
+   "valor": "7.500",
+   "unidad": "personas",
+   "fuente": "F06; no confundir con la evacuación posterior a la explosión.",
+   "ids": [
+    "D63"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Volumen introducido en el tanque n.º 14",
+   "valor": "256",
+   "unidad": "metros cúbicos de residuos",
+   "fuente": "F05.",
+   "ids": [
+    "T19"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Capacidad del tanque que explotó",
+   "valor": "300",
+   "unidad": "metros cúbicos",
+   "fuente": "F05.",
+   "ids": [
+    "D27"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Masa de residuos en el tanque",
+   "valor": "70–80",
+   "unidad": "toneladas de residuos",
+   "fuente": "F05; los describe secos al momento del accidente.",
+   "ids": [
+    "D27"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "70–80",
+     "unidad": "toneladas de residuos líquidos",
+     "fuente": "F10; coincide la masa, no el estado descrito.",
+     "ids": [
+      "D141"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Potencia estimada de la explosión",
+   "valor": "Sin una estimación única adoptada",
+   "unidad": "toneladas equivalentes de TNT",
+   "fuente": "Las magnitudes y sus métodos no quedan conciliados.",
+   "ids": [
+    "D29",
+    "D35",
+    "D142"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "25–29",
+     "unidad": "toneladas equivalentes de TNT",
+     "fuente": "F05@7456.",
+     "ids": [
+      "D29"
+     ]
+    },
+    {
+     "valor": "8–170",
+     "unidad": "toneladas equivalentes de TNT",
+     "fuente": "Estimaciones modernas mencionadas en F05@7456.",
+     "ids": [
+      "D29"
+     ]
+    },
+    {
+     "valor": "70–100",
+     "unidad": "toneladas equivalentes de TNT",
+     "fuente": "F05@12050.",
+     "ids": [
+      "D35"
+     ]
+    },
+    {
+     "valor": "Al menos 70",
+     "unidad": "toneladas equivalentes de TNT",
+     "fuente": "F10.",
+     "ids": [
+      "D142"
+     ]
+    },
+    {
+     "valor": "75",
+     "unidad": "toneladas de explosivos, sin precisar TNT en el pasaje",
+     "fuente": "F06.",
+     "ids": [
+      "D69"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Profundidad del cráter",
+   "valor": "Alrededor de 10",
+   "unidad": "metros",
+   "fuente": "F05.",
+   "ids": [
+    "D30"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Diámetro del cráter",
+   "valor": "Alrededor de 20",
+   "unidad": "metros",
+   "fuente": "F05.",
+   "ids": [
+    "D30"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Masa de la losa levantada por la explosión",
+   "valor": "160",
+   "unidad": "toneladas de hormigón",
+   "fuente": "F10.",
+   "ids": [
+    "D143"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Actividad radiactiva liberada",
+   "valor": "Alrededor de 20.000.000",
+   "unidad": "curios",
+   "fuente": "Coincidencia entre F05, F09 y F10.",
+   "ids": [
+    "D31",
+    "D122",
+    "D146"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Emisión depositada en el recinto industrial",
+   "valor": "Alrededor de 90",
+   "unidad": "por ciento de la emisión",
+   "fuente": "F05 y F09.",
+   "ids": [
+    "D33",
+    "D115"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Actividad de la pluma extendida a distancia",
+   "valor": "2",
+   "unidad": "megacurios",
+   "fuente": "F10; es parte de la emisión total, no una estimación alternativa de ella.",
+   "ids": [
+    "D147"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Altura estimada de los productos de la explosión",
+   "valor": "Hasta 1.100",
+   "unidad": "metros",
+   "fuente": "Estimaciones modernas mencionadas por F05.",
+   "ids": [
+    "D32"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Superficie alcanzada por la contaminación",
+   "valor": "23.000",
+   "unidad": "kilómetros cuadrados",
+   "fuente": "F05, F06 y F09; cifra descriptiva repetida, no conciliada con la de F10.",
+   "ids": [
+    "D37",
+    "D71",
+    "D113"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Más de 52.000",
+     "unidad": "kilómetros cuadrados con dispersión de partículas calientes",
+     "fuente": "F10; el pool no permite determinar si utiliza otro umbral territorial.",
+     "ids": [
+      "D139"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Población del territorio alcanzado",
+   "valor": "Alrededor de 270.000",
+   "unidad": "personas residentes",
+   "fuente": "Coincidencia entre F05, F06 y F09; no equivale a diagnósticos.",
+   "ids": [
+    "D37",
+    "D71",
+    "D113"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Al menos 270.000",
+     "unidad": "personas residentes",
+     "fuente": "F10.",
+     "ids": [
+      "D139"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Localidades dentro del territorio descrito por F05",
+   "valor": "217",
+   "unidad": "localidades",
+   "fuente": "F05; no es el número de localidades reasentadas.",
+   "ids": [
+    "D37"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Evacuados o reasentados por el accidente",
+   "valor": "Alrededor de 10.000",
+   "unidad": "personas",
+   "fuente": "Recuento aproximado repetido en F06 y F10; los cortes temporales no están homologados.",
+   "ids": [
+    "D73",
+    "D138",
+    "T30"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Más de 10.000",
+     "unidad": "personas",
+     "fuente": "Formulación de F06 para la evacuación situada diez días después del accidente.",
+     "ids": [
+      "D73"
+     ]
+    },
+    {
+     "valor": "Alrededor de 12.000",
+     "unidad": "personas",
+     "fuente": "F09.",
+     "ids": [
+      "D117"
+     ]
+    },
+    {
+     "valor": "12.763",
+     "unidad": "personas reasentadas por etapas",
+     "fuente": "F05; cifra acumulada que no se declara oficial en el pasaje.",
+     "ids": [
+      "D45"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Localidades reasentadas",
+   "valor": "23",
+   "unidad": "localidades",
+   "fuente": "Recuento repetido por F05, F07 y F09.",
+   "ids": [
+    "D42",
+    "D97",
+    "D116"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "Al menos 22",
+     "unidad": "aldeas expuestas a radiación",
+     "fuente": "F10; es una cota mínima y su formulación no es idéntica al recuento de reasentamientos.",
+     "ids": [
+      "D138"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Habitantes incluidos en la primera decisión de desalojo descrita por F05",
+   "valor": "1.383",
+   "unidad": "personas",
+   "fuente": "F05.",
+   "ids": [
+    "D43"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Dosis equivalente atribuida a esos habitantes",
+   "valor": "52",
+   "unidad": "rem",
+   "fuente": "F05; el pasaje emplea бэр.",
+   "ids": [
+    "D44"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Máxima dosis efectiva descrita entre niños reasentados",
+   "valor": "1",
+   "unidad": "sievert",
+   "fuente": "F05; niños de 2–7 años reasentados en los primeros 7–14 días.",
+   "ids": [
+    "D48"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Militares de tropas internas expuestos",
+   "valor": "1.007",
+   "unidad": "personas",
+   "fuente": "F05.",
+   "ids": [
+    "D39"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Militares hospitalizados",
+   "valor": "12",
+   "unidad": "personas",
+   "fuente": "F05; habían recibido más de 50 roentgens.",
+   "ids": [
+    "D40"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Militares bajo observación constante",
+   "valor": "63",
+   "unidad": "personas",
+   "fuente": "F05; habían recibido entre 10 y 50 roentgens.",
+   "ids": [
+    "D41"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Muertes posteriores al accidente mencionadas por una fuente",
+   "valor": "Alrededor de 200",
+   "unidad": "personas fallecidas",
+   "fuente": "F06; sin período delimitado ni balance oficial aportado.",
+   "ids": [
+    "D72"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Diagnósticos de síndrome de radiación crónico",
+   "valor": "66",
+   "unidad": "casos diagnosticados",
+   "fuente": "F10; no permite identificar la cohorte con la seguida por Buldakov.",
+   "ids": [
+    "D152"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Electricistas sin dosímetro personal en el relato de Dubrovsky",
+   "valor": "6",
+   "unidad": "personas",
+   "fuente": "F09.",
+   "ids": [
+    "D126"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Máscaras antigás entregadas al grupo",
+   "valor": "4",
+   "unidad": "máscaras antigás",
+   "fuente": "F09.",
+   "ids": [
+    "D123"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Respiradores tipo pétalo entregados al grupo",
+   "valor": "2",
+   "unidad": "respiradores",
+   "fuente": "F09.",
+   "ids": [
+    "D123"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Irradiación atribuida al trabajo de los electricistas junto a la fuente",
+   "valor": "5",
+   "unidad": "normas diarias de irradiación, sin conversión dosimétrica aportada",
+   "fuente": "F09.",
+   "ids": [
+    "D124"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Velocidad del tractor protegido con plomo",
+   "valor": "2",
+   "unidad": "kilómetros por hora",
+   "fuente": "F09.",
+   "ids": [
+    "Q19",
+    "D129"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Tierras retiradas del uso",
+   "valor": "106.000",
+   "unidad": "hectáreas",
+   "fuente": "F05, que incluye tierras agrícolas y forestales.",
+   "ids": [
+    "D38"
+   ],
+   "otras_versiones": [
+    {
+     "valor": "106.000",
+     "unidad": "hectáreas de tierra fértil sin cultivar",
+     "fuente": "F06; misma magnitud con una composición territorial diferente.",
+     "ids": [
+      "D75"
+     ]
+    }
+   ]
+  },
+  {
+   "que": "Zona de protección sanitaria creada a finales de 1959",
+   "valor": "Alrededor de 700",
+   "unidad": "kilómetros cuadrados",
+   "fuente": "F05.",
+   "ids": [
+    "D46"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Lecho del Karachay expuesto en 1967",
+   "valor": "Alrededor de 5",
+   "unidad": "hectáreas",
+   "fuente": "F06.",
+   "ids": [
+    "D79"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Superficie contaminada por la dispersión desde Karachay en 1967",
+   "valor": "Más de 1.800",
+   "unidad": "kilómetros cuadrados",
+   "fuente": "F06; la cifra alternativa del encabezado T41 no aparece en su pasaje.",
+   "ids": [
+    "D80"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Personas que seguían viviendo en zona contaminada al momento de F06",
+   "valor": "Aproximadamente 10.000",
+   "unidad": "personas",
+   "fuente": "F06, sin fecha del documento disponible en el pasaje.",
+   "ids": [
+    "D85"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Demandas presentadas por la fiscalía",
+   "valor": "86",
+   "unidad": "demandas",
+   "fuente": "F01.",
+   "ids": [
+    "D09"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Importe conjunto reclamado por la fiscalía",
+   "valor": "Alrededor de 1.000.000",
+   "unidad": "rublos",
+   "fuente": "F01.",
+   "ids": [
+    "D09",
+    "D10"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Afectados residentes en el distrito Kalininsky",
+   "valor": "115",
+   "unidad": "personas",
+   "fuente": "F01.",
+   "ids": [
+    "D12"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Compensación mensual descrita por F01",
+   "valor": "100",
+   "unidad": "rublos por mes",
+   "fuente": "F01; para el supuesto legal de dosis acumulada superior a 7 rem.",
+   "ids": [
+    "D14",
+    "D15"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Compensación alimentaria de Galina en 1997",
+   "valor": "167",
+   "unidad": "rublos por mes",
+   "fuente": "F08; prestación distinta de la descrita por F01.",
+   "ids": [
+    "D104"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Compensación para recuperación de la salud de Galina en 1997",
+   "valor": "83,5",
+   "unidad": "rublos por año",
+   "fuente": "F08.",
+   "ids": [
+    "D105"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Compensación alimentaria de Galina en 2007",
+   "valor": "287",
+   "unidad": "rublos por mes",
+   "fuente": "F08.",
+   "ids": [
+    "D106"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Compensación para recuperación de la salud de Galina en 2007",
+   "valor": "131,30",
+   "unidad": "rublos por año",
+   "fuente": "F08.",
+   "ids": [
+    "D107"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Deuda calculada por los abogados de Galina",
+   "valor": "Alrededor de 150.000",
+   "unidad": "rublos reclamados",
+   "fuente": "F08; no equivale a lo concedido por el tribunal.",
+   "ids": [
+    "D108"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Cantidad concedida judicialmente a Galina",
+   "valor": "Alrededor de 60.000",
+   "unidad": "rublos",
+   "fuente": "F08.",
+   "ids": [
+    "D109"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Compensación obtenida por la familia de Denis",
+   "valor": "50.000",
+   "unidad": "rublos",
+   "fuente": "F06.",
+   "ids": [
+    "D83"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Integrantes de la familia de N.N.D.",
+   "valor": "5",
+   "unidad": "personas",
+   "fuente": "Expediente judicial F04.",
+   "ids": [
+    "D03"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Superficie de la vivienda de N.N.D.",
+   "valor": "36,3",
+   "unidad": "metros cuadrados",
+   "fuente": "Expediente judicial F04.",
+   "ids": [
+    "D03"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Superficie utilizada en el cálculo de la solución habitacional de N.N.D.",
+   "valor": "90",
+   "unidad": "metros cuadrados para la familia",
+   "fuente": "F04; el fragmento no basta para reconstruir por sí solo el desenlace definitivo del litigio.",
+   "ids": [
+    "D01"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Norma de cálculo del subsidio habitacional citado",
+   "valor": "18",
+   "unidad": "metros cuadrados por integrante",
+   "fuente": "F04.",
+   "ids": [
+    "D01"
+   ],
+   "otras_versiones": []
+  },
+  {
+   "que": "Norma municipal de superficie para registro habitacional",
+   "valor": "10",
+   "unidad": "metros cuadrados de superficie total por persona",
+   "fuente": "F04, que cita la decisión de la Duma municipal; no es la misma norma que la del subsidio.",
+   "ids": [
+    "D08"
+   ],
+   "otras_versiones": []
+  }
+ ],
+ "citas": [
+  {
+   "autor": "Chelyabinsky Rabochy",
+   "rol": "Periódico local.",
+   "verificacion": "verificada; fragmento presente en F05.",
+   "texto": "В прошлое воскресенье вечером… многие челябинцы наблюдали особое свечение звёздного неба. Это довольно редкое в наших широтах свечение имело все признаки полярного сияния.",
+   "original": "",
+   "traduccion": "El domingo pasado por la noche… muchos habitantes de Cheliábinsk observaron un resplandor especial en el cielo estrellado. Este resplandor, bastante raro en nuestras latitudes, tenía todas las características de una aurora polar.",
+   "ids": [
+    "Q02"
+   ]
+  },
+  {
+   "autor": "L. A. Buldakov",
+   "rol": "Vicedirector del Instituto de Biofísica, ante el Sóviet Supremo.",
+   "verificacion": "verificada como declaración; no verifica por sí sola la ausencia de enfermedad.",
+   "texto": "В течение трёх лет постоянно, систематически мы следили за здоровьем людей. Не удалось, к счастью, зафиксировать ни одной формы лучевой болезни",
+   "original": "",
+   "traduccion": "Durante tres años seguimos de manera constante y sistemática la salud de las personas. Afortunadamente, no conseguimos registrar ninguna forma de enfermedad por radiación.",
+   "ids": [
+    "Q03"
+   ]
+  },
+  {
+   "autor": "Vladimir Slivyak",
+   "rol": "Copresidente de Ekozashchita.",
+   "verificacion": "verificada.",
+   "texto": "Там большое количество пострадавших, в основном - это следствие аварии 1957 года, когда взорвалась емкость с жидкими радиоактивными отходами, и в результате этого на достаточно большом расстоянии вокруг комбината была загрязнена территория.",
+   "original": "",
+   "traduccion": "Allí hay un gran número de afectados, principalmente a consecuencia del accidente de 1957, cuando explotó un contenedor con residuos radiactivos líquidos y quedó contaminado un territorio a una distancia considerable alrededor de la planta.",
+   "ids": [
+    "Q06"
+   ]
+  },
+  {
+   "autor": "Lidia Popova",
+   "rol": "Directora del centro de ecología nuclear y política energética de la Unión Socioecológica.",
+   "verificacion": "verificada como valoración y explicación de la entrevistada.",
+   "texto": "На самом деле это было просто экологическое преступление. Когда в Течу сливали высоко-активные отходы, загрязнили илы при разливах реки весной, а во время половодья загрязнили и пойму.",
+   "original": "",
+   "traduccion": "En realidad, fue simplemente un crimen ecológico. Al verter residuos de alta actividad en el Techa contaminaron los lodos durante los desbordamientos de primavera y, durante la crecida, también la llanura de inundación.",
+   "ids": [
+    "Q07"
+   ]
+  },
+  {
+   "autor": "Agrónomo no identificado",
+   "rol": "Responsable que reconoce la presencia de una niña en el territorio contaminado.",
+   "verificacion": "verificada como cita de segundo grado reproducida por la fuente; no hay declaración original del agrónomo.",
+   "texto": "Да, вот эта Маша была на этой территории. Да, я был ответственным",
+   "original": "",
+   "traduccion": "Sí, esta Masha estuvo en ese territorio. Sí, yo era el responsable.",
+   "ids": [
+    "Q10"
+   ]
+  },
+  {
+   "autor": "Sergey Mitrokhin",
+   "rol": "Diputado de la Duma Estatal por Yabloko.",
+   "verificacion": "verificada.",
+   "texto": "Правительство должно войти в Государственную Думу с предложениями по изменению государственного бюджета и выделению средств на эти цели - цели компенсации ущерба, нанесенного жертвам этой катастрофы.",
+   "original": "",
+   "traduccion": "El Gobierno debe presentar a la Duma Estatal propuestas para modificar el presupuesto y asignar fondos a la indemnización de los daños sufridos por las víctimas de esta catástrofe.",
+   "ids": [
+    "Q11"
+   ]
+  },
+  {
+   "autor": "Pavel Otdelnov",
+   "rol": "Artista, en el texto explicativo de su exposición.",
+   "verificacion": "verificada_parcial en el pool; el pasaje aportado contiene las dos frases reproducidas.",
+   "texto": "Слово „звенеть“ на языке атомщиков означает звуковой сигнал, которым счетчик Гейгера оповещает о повышенном радиационном фоне. След атомного ХХ века остается звенящим до сих пор.",
+   "original": "",
+   "traduccion": "La palabra «sonar», en el lenguaje de los trabajadores nucleares, significa la señal acústica con la que un contador Geiger avisa de un fondo de radiación elevado. La huella del siglo XX atómico sigue sonando hasta hoy.",
+   "ids": [
+    "Q13"
+   ]
+  },
+  {
+   "autor": "Galina Chanova",
+   "rol": "Evacuada y demandante.",
+   "verificacion": "verificada para este fragmento; se omite el cierre que el pasaje deja truncado.",
+   "texto": "Я очень рада и такому решению суда. Если бы не юристы «Гражданского общества», которые подсчитали, сколько мне не доплатило государство и грамотно составили исковое заявление, то суд вряд ли бы был на моей стороне.",
+   "original": "",
+   "traduccion": "Estoy muy contenta incluso con esta decisión del tribunal. Si no fuera por los abogados de Sociedad Civil, que calcularon cuánto había dejado de pagarme el Estado y redactaron correctamente la demanda, difícilmente el tribunal se habría puesto de mi lado.",
+   "ids": [
+    "Q14"
+   ]
+  },
+  {
+   "autor": "Alexey Babin",
+   "rol": "Abogado de Sociedad Civil.",
+   "verificacion": "verificada.",
+   "texto": "Чиновники соцзащиты могут обжаловать это решение в течение 10 дней после его изготовления. Мы будем внимательно следить за тем, как граждане реализуют в суде свое право на индексацию выплат. И будем стараться помочь всем обратившимся.",
+   "original": "",
+   "traduccion": "Los funcionarios de protección social pueden recurrir esta decisión durante los diez días posteriores a su redacción. Seguiremos de cerca cómo los ciudadanos ejercen ante los tribunales su derecho a la actualización de los pagos. E intentaremos ayudar a todos los que acudan a nosotros.",
+   "ids": [
+    "Q15"
+   ]
+  },
+  {
+   "autor": "Anatoly Vasilievich Dubrovsky",
+   "rol": "Electricista y liquidador.",
+   "verificacion": "verificada_parcial en el pool; se reproduce únicamente la frase presente, sin el añadido sobre no darle importancia.",
+   "texto": "И в какой-то момент мы услышали сильный грохот, даже здание начало трясти.",
+   "original": "",
+   "traduccion": "Y en un momento oímos un fuerte estruendo; incluso el edificio empezó a temblar.",
+   "ids": [
+    "Q16"
+   ]
+  },
+  {
+   "autor": "Anatoly Vasilievich Dubrovsky",
+   "rol": "Electricista y liquidador.",
+   "verificacion": "verificada.",
+   "texto": "Нам надо было прихватить инструменты — лопаты, ломы, кирки — и выкопать кустарники, которые росли вдоль фонтанчика. При этом никакого инструктажа, и как себя вести, никто нам не объяснил. Сказали лишь, чтоб противогазы и \"лепестки\" не снимали",
+   "original": "",
+   "traduccion": "Teníamos que llevar herramientas —palas, palanquetas y picos— y arrancar los arbustos que crecían junto a la pequeña fuente. No nos dieron ninguna instrucción ni nos explicaron cómo comportarnos. Solo dijeron que no nos quitáramos las máscaras antigás ni los «pétalos».",
+   "ids": [
+    "Q17"
+   ]
+  },
+  {
+   "autor": "Anatoly Vasilievich Dubrovsky",
+   "rol": "Electricista y liquidador.",
+   "verificacion": "verificada.",
+   "texto": "Через 20–30 минут к нам приехала пожарная машина и начала нас обмывать холодной водой из брандспойта, напор был очень сильный. Я мылся последним. Мытье со спины я еще вытерпел, а вот когда струя начала бить в грудь, было так больно, что я просил прекратить все. Я же работал без \"лепестка\"…",
+   "original": "",
+   "traduccion": "A los veinte o treinta minutos llegó un camión de bomberos y empezaron a lavarnos con agua fría de una manguera; la presión era muy fuerte. Yo fui el último. Aguanté el lavado de la espalda, pero cuando el chorro empezó a golpearme el pecho me dolió tanto que pedí que pararan. Había trabajado sin el «pétalo»…",
+   "ids": [
+    "Q18"
+   ]
+  },
+  {
+   "autor": "Mikhail Kuleshov",
+   "rol": "Ajustador y liquidador.",
+   "verificacion": "verificada mediante los pasajes complementarios de Q19 y D129.",
+   "texto": "Уже на следующий день С-80 весь в свинце поехал на разведку в очаг взрыва. От здания с большой трубой до очага — около 500 метров, но скорость освинцованного трактора составляла 2 км в час. Разведчик вышел из кабины, произвел замеры и обратно в кабину. На все это у нас ушло около двух часов",
+   "original": "",
+   "traduccion": "Ya al día siguiente el S-80, todo revestido de plomo, fue a reconocer el foco de la explosión. Desde el edificio con la gran chimenea hasta el foco había unos quinientos metros, pero el tractor revestido de plomo avanzaba a dos kilómetros por hora. El explorador salió de la cabina, tomó medidas y volvió a entrar. Todo aquello nos llevó unas dos horas.",
+   "ids": [
+    "Q19",
+    "D129"
+   ]
+  },
+  {
+   "autor": "Mikhail Kuleshov",
+   "rol": "Ajustador y liquidador.",
+   "verificacion": "verificada_parcial; solo se reproduce el tramo presente, sin el afeitado ni las caídas al agua del texto ampliado del ítem.",
+   "texto": "Однажды Михальский шел в темноте по доскам, которые мы проложили, испачкал себе голову. Чем только мы не отмывали ее, и шампунями и сильными химикатами, но так и не отмыли. Даже парикмахер отказалась стричь его.",
+   "original": "",
+   "traduccion": "Una vez Mikhalsky caminaba en la oscuridad por los tablones que habíamos colocado y se ensució la cabeza. Intentamos limpiársela con todo, con champús y productos químicos fuertes, pero no lo conseguimos. Incluso la peluquera se negó a cortarle el pelo.",
+   "ids": [
+    "Q20"
+   ]
+  },
+  {
+   "autor": "Lyudmila Smirnova",
+   "rol": "Hija de un liquidador.",
+   "verificacion": "verificada.",
+   "texto": "О той аварии в городе не говорили, как не принято было говорить и о многих других инцидентах, случавшихся в то время там не только в городе, но и в других местах Советского Союза. А различные происшествия были, хоть об этом не говорят и сейчас",
+   "original": "",
+   "traduccion": "En la ciudad no se hablaba de aquel accidente, como tampoco se acostumbraba hablar de muchos otros incidentes que ocurrían entonces allí y en otros lugares de la Unión Soviética. Y hubo distintos incidentes, aunque tampoco se hable de ellos ahora.",
+   "ids": [
+    "Q21"
+   ]
+  },
+  {
+   "autor": "Dmitry",
+   "rol": "Comentarista; según el pool, hijo de un residente de Yugo-Konyovo.",
+   "verificacion": "verificada como comentario publicado, no como prueba independiente del calendario; se reproduce solo el pasaje disponible.",
+   "texto": "Это ложь чистой воды, людей начали принудительно переселять далеко не сразу, всё это затянулось на полгода. За это время было много случаев мародёрства и воровства. Имущество сжигали, уничтожали, скот резали.",
+   "original": "",
+   "traduccion": "Eso es una mentira descarada: el traslado forzoso de la gente no empezó de inmediato y todo se prolongó durante medio año. En ese tiempo hubo muchos casos de saqueo y robo. Quemaban y destruían las pertenencias y sacrificaban el ganado.",
+   "ids": [
+    "Q23"
+   ]
+  },
+  {
+   "autor": "E. P. Slavsky",
+   "rol": "Ministro, en un memorando citado por F10.",
+   "verificacion": "el pool la marca verificada, pero el pasaje disponible solo permite reproducir este fragmento; no se dispone del memorando original.",
+   "texto": "Investigating the causes of the accident on the spot, the commission believes that the main culprits of this incident are the head of the radiochemical plant and the chief engineer of this plant",
+   "original": "",
+   "traduccion": "Tras investigar las causas del accidente sobre el terreno, la comisión considera que los principales culpables de este incidente son el jefe de la planta radioquímica y el ingeniero jefe de esa planta.",
+   "ids": [
+    "Q24"
+   ]
+  }
+ ],
+ "contradicciones": [
+  {
+   "tema": "Especialidad científica de Zhores Medvedev.",
+   "versiones": [
+    {
+     "dice": "Lo identifica como científico-biólogo.",
+     "doc_id": "F05",
+     "offset": 39885,
+     "ids": [
+      "P04"
+     ]
+    },
+    {
+     "dice": "Lo identifica como disidente y físico nuclear.",
+     "doc_id": "F09",
+     "offset": 11170,
+     "ids": [
+      "P04",
+      "D133"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Quién pronuncia la pregunta atribuida a Kazutov en Q01.",
+   "versiones": [
+    {
+     "dice": "El encabezado del ítem atribuye la pregunta a A. A. Kazutov y el pasaje termina con esa firma.",
+     "doc_id": "F05",
+     "offset": 5016,
+     "ids": [
+      "Q01"
+     ]
+    },
+    {
+     "dice": "La narración del mismo pasaje dice que quien pronuncia la pregunta es Vasily Andreevich; no basta para identificarlo ni para equipararlo con Kazutov.",
+     "doc_id": "F05",
+     "offset": 5016,
+     "ids": [
+      "Q01"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Superficie territorial alcanzada; no se homologan umbrales ni métodos.",
+   "versiones": [
+    {
+     "dice": "Describe 23.000 kilómetros cuadrados con 270.000 habitantes.",
+     "doc_id": "F05",
+     "offset": 13318,
+     "ids": [
+      "D37"
+     ]
+    },
+    {
+     "dice": "Describe 23.000 kilómetros cuadrados con 270.000 habitantes.",
+     "doc_id": "F06",
+     "offset": 7764,
+     "ids": [
+      "D71"
+     ]
+    },
+    {
+     "dice": "Describe 23.000 kilómetros cuadrados con unos 270.000 habitantes.",
+     "doc_id": "F09",
+     "offset": 892,
+     "ids": [
+      "D113"
+     ]
+    },
+    {
+     "dice": "Habla de partículas calientes dispersadas sobre más de 52.000 kilómetros cuadrados.",
+     "doc_id": "F10",
+     "offset": 2005,
+     "ids": [
+      "D139"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Potencia física estimada de la explosión; no es un conteo de personas resoluble por el criterio de cifra oficial.",
+   "versiones": [
+    {
+     "dice": "Presenta 25–29 toneladas equivalentes de TNT y estimaciones modernas de 8–170 toneladas.",
+     "doc_id": "F05",
+     "offset": 7456,
+     "ids": [
+      "D29"
+     ]
+    },
+    {
+     "dice": "Estima 70–100 toneladas de trinitrotolueno a partir del cráter y los daños.",
+     "doc_id": "F05",
+     "offset": 12050,
+     "ids": [
+      "D35"
+     ]
+    },
+    {
+     "dice": "Habla de una potencia equivalente a 75 toneladas de explosivos, sin precisar TNT.",
+     "doc_id": "F06",
+     "offset": 7538,
+     "ids": [
+      "D69"
+     ]
+    },
+    {
+     "dice": "Estima al menos 70 toneladas de TNT.",
+     "doc_id": "F10",
+     "offset": 4889,
+     "ids": [
+      "D142"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Composición de las 106.000 hectáreas retiradas del uso.",
+   "versiones": [
+    {
+     "dice": "Incluye tierras agrícolas y forestales, con un 54 % agrícola.",
+     "doc_id": "F05",
+     "offset": 17027,
+     "ids": [
+      "D38"
+     ]
+    },
+    {
+     "dice": "Describe 106.000 hectáreas de tierra fértil que quedaron sin cultivar en 1958.",
+     "doc_id": "F06",
+     "offset": 8229,
+     "ids": [
+      "D75"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Cronología de los nombres Cheliábinsk-40 y Cheliábinsk-65.",
+   "versiones": [
+    {
+     "dice": "Afirma que hasta 1990 se conocía como Cheliábinsk-40 y después como Cheliábinsk-65.",
+     "doc_id": "F06",
+     "offset": 604,
+     "ids": [
+      "T47"
+     ]
+    },
+    {
+     "dice": "Sitúa el nacimiento de Lyudmila en 1961 en Cheliábinsk-65 y presenta ese nombre como anterior a Cheliábinsk-40.",
+     "doc_id": "F09",
+     "offset": 8820,
+     "ids": [
+      "P24"
+     ]
+    },
+    {
+     "dice": "Indica que Cheliábinsk-40 fue renombrada después Cheliábinsk-65 y que ese nombre se mantuvo hasta 1994, sin precisar aquí cuándo empezó.",
+     "doc_id": "F10",
+     "offset": 2136,
+     "ids": [
+      "D140"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha de corte administrativa en el litigio habitacional de N.N.D.; los pasajes no explican la relación entre ambas fechas.",
+   "versiones": [
+    {
+     "dice": "Al describir la solicitud del 10 de mayo de 2011, subraya que fue posterior al 1 de enero de 2005.",
+     "doc_id": "F04",
+     "offset": 3643,
+     "ids": [
+      "T54"
+     ]
+    },
+    {
+     "dice": "Recoge una negativa de inscripción porque la solicitud fue posterior al 1 de marzo de 2005.",
+     "doc_id": "F04",
+     "offset": 12617,
+     "ids": [
+      "D07"
+     ]
+    }
+   ]
+  }
+ ],
+ "decisiones": [
+  {
+   "tema": "Fecha del sanatorio del lago Sungul.",
+   "criterio": 1,
+   "decision": "Se conserva «década de 1930» y no el año puntual del encabezado.",
+   "ids": [
+    "T01"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado asigna 1930, pero el pasaje dice «В 1930-х».",
+     "doc_id": "F07",
+     "offset": 1348,
+     "ids": [
+      "T01"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Conversión del sanatorio en hospital.",
+   "criterio": 1,
+   "decision": "Se conserva «durante la guerra» sin adjudicar un año concreto.",
+   "ids": [
+    "T02"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado asigna 1941, pero el pasaje solo dice que ocurrió durante la guerra.",
+     "doc_id": "F07",
+     "offset": 1486,
+     "ids": [
+      "T02"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha de los vertidos descritos por F07.",
+   "criterio": 1,
+   "decision": "T11 se utiliza para la década de 1950 y no como prueba de un inicio exacto en 1950.",
+   "ids": [
+    "T11"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado fija 1950; el pasaje dice «в 1950-х».",
+     "doc_id": "F07",
+     "offset": 2100,
+     "ids": [
+      "T11"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Inicio de los vertidos al Karachay.",
+   "criterio": 1,
+   "decision": "Se conserva «después de noviembre de 1951», que es la relación temporal expresada por el pasaje.",
+   "ids": [
+    "T12",
+    "D56"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado reduce el inicio a noviembre de 1951, mientras el pasaje dice «После ноября 1951 года».",
+     "doc_id": "F06",
+     "offset": 1655,
+     "ids": [
+      "T12",
+      "D56"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Hora de la explosión.",
+   "criterio": 5,
+   "decision": "Se adopta 16:22 por coincidencia de F05 y F10, pero se marca aproximada porque F09 da otra hora.",
+   "ids": [
+    "T20"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Sitúa el estallido a las cuatro y media de la tarde.",
+     "doc_id": "F09",
+     "offset": 170,
+     "ids": [
+      "T20"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Llegada de la nube a Tiumén.",
+   "criterio": 1,
+   "decision": "Se mantienen las dos alternativas del pasaje, con fecha y hora aproximadas, en vez de fijar solamente las 22:00.",
+   "ids": [
+    "T22"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado fija el 29 de septiembre a las 22:00, pero el pasaje ofrece «22:00 или 00:00 30 сентября».",
+     "doc_id": "F05",
+     "offset": 10137,
+     "ids": [
+      "T22"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Inicio de la evacuación.",
+   "criterio": 5,
+   "decision": "Se utiliza octubre de 1957 como ubicación general y se marca el inicio como aproximado, sin convertir una de las fechas en certeza.",
+   "ids": [
+    "T26",
+    "T30",
+    "D43"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Sitúa la evacuación de más de 10.000 personas diez días después del accidente.",
+     "doc_id": "F06",
+     "offset": 8044,
+     "ids": [
+      "T26",
+      "D73"
+     ]
+    },
+    {
+     "dice": "Fecha el comienzo de la operación el 6 de octubre de 1957.",
+     "doc_id": "F10",
+     "offset": 9041,
+     "ids": [
+      "T30"
+     ]
+    },
+    {
+     "dice": "Fecha una decisión de desalojo, no necesariamente su ejecución completa, entre siete y diez días después de la explosión.",
+     "doc_id": "F05",
+     "offset": 23695,
+     "ids": [
+      "D43"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Cifra principal de evacuados.",
+   "criterio": 3,
+   "decision": "Sin un balance oficial identificado en los pasajes, se utiliza alrededor de 10.000 por repetición entre F06 y F10 y se preservan los recuentos acumulados distintos.",
+   "ids": [
+    "D73",
+    "D138",
+    "T30"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Da alrededor de 12.000 personas reasentadas.",
+     "doc_id": "F09",
+     "offset": 1228,
+     "ids": [
+      "D117"
+     ]
+    },
+    {
+     "dice": "Da un total de 12.763 personas reasentadas por etapas.",
+     "doc_id": "F05",
+     "offset": 25464,
+     "ids": [
+      "D45"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Número de localidades reasentadas.",
+   "criterio": 3,
+   "decision": "Se adopta 23 por repetición en F05, F07 y F09; «al menos 22» se conserva como una formulación mínima de exposición, no como una refutación exacta.",
+   "ids": [
+    "D42",
+    "D97",
+    "D116"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Menciona al menos 22 aldeas expuestas y alrededor de 10.000 evacuados.",
+     "doc_id": "F10",
+     "offset": 1765,
+     "ids": [
+      "D138"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Fecha del tractor en el lugar de los arbustos.",
+   "criterio": 1,
+   "decision": "Se conserva verano de 1958 y se elimina el mes específico que no está en el pasaje.",
+   "ids": [
+    "T36",
+    "D127"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Los encabezados asignan junio de 1958, pero el texto dice «летом 58 года».",
+     "doc_id": "F09",
+     "offset": 6877,
+     "ids": [
+      "T36",
+      "D127"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Intervención de Medvedev ante periodistas.",
+   "criterio": 1,
+   "decision": "Se conserva década de 1970 y no el año 1970 como fecha puntual.",
+   "ids": [
+    "T43",
+    "D133"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado fecha la intervención en 1970; el pasaje dice «В 70-е годы».",
+     "doc_id": "F09",
+     "offset": 11273,
+     "ids": [
+      "T43"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Reconocimiento soviético del accidente.",
+   "criterio": 1,
+   "decision": "Se descarta 1985 como fecha extraída de T45 porque el pasaje solo habla de los últimos años de la perestroika; julio de 1989 procede de otro pasaje explícito.",
+   "ids": [
+    "T45",
+    "D52",
+    "D135"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado asigna 1985, mientras el pasaje no da ese año.",
+     "doc_id": "F07",
+     "offset": 2530,
+     "ids": [
+      "T45"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Año de la campaña judicial de la fiscalía.",
+   "criterio": 1,
+   "decision": "No se fecha la campaña en 2008: el pasaje aportado solo dice «este año» y no trae fecha documental.",
+   "ids": [
+    "T53",
+    "D09"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado asigna 2008, pero la evidencia comienza «В этом году».",
+     "doc_id": "F01",
+     "offset": 379,
+     "ids": [
+      "T53"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Superficie adicional contaminada en 1967 según T41.",
+   "criterio": 1,
+   "decision": "No se utiliza la cifra de 1.660 kilómetros cuadrados porque no aparece en el pasaje aportado para T41.",
+   "ids": [
+    "T41"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado agrega 1.660 kilómetros cuadrados; el pasaje describe dispersión de polvo en abril de 1967 sin esa superficie.",
+     "doc_id": "F05",
+     "offset": 29521,
+     "ids": [
+      "T41"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Detalles agregados a las citas truncadas.",
+   "criterio": 1,
+   "decision": "Solo se reproducen los fragmentos visibles o completados por otro pasaje del pool, sin trasladar a la ficha las ampliaciones no demostradas.",
+   "ids": [
+    "Q14",
+    "Q16",
+    "Q19",
+    "D129",
+    "Q20",
+    "Q23",
+    "Q24"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Q14 anuncia bombones y champán, pero la evidencia se corta en «конфет».",
+     "doc_id": "F08",
+     "offset": 1832,
+     "ids": [
+      "Q14"
+     ]
+    },
+    {
+     "dice": "Q16 agrega que no dieron importancia al estruendo; esa frase no está en el pasaje.",
+     "doc_id": "F09",
+     "offset": 2949,
+     "ids": [
+      "Q16"
+     ]
+    },
+    {
+     "dice": "Q20 agrega un afeitado y caídas al agua; el pasaje termina con la negativa de la peluquera.",
+     "doc_id": "F09",
+     "offset": 8443,
+     "ids": [
+      "Q20"
+     ]
+    },
+    {
+     "dice": "Q23 amplía el comentario con detalles sobre compensación y recomienzo que no figuran en este pasaje.",
+     "doc_id": "F09",
+     "offset": 19738,
+     "ids": [
+      "Q23"
+     ]
+    },
+    {
+     "dice": "Q24 añade una infracción de reglamentos después del tramo visible sobre los responsables.",
+     "doc_id": "F10",
+     "offset": 9956,
+     "ids": [
+      "Q24"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Apellido del padre de Lyudmila.",
+   "criterio": 1,
+   "decision": "Se utiliza Faik sin apellido porque la evidencia lo identifica así y no confirma la forma completa del encabezado.",
+   "ids": [
+    "P25"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "El encabezado propone Faik Smirnov, mientras el pasaje solo da «Фаик».",
+     "doc_id": "F09",
+     "offset": 9320,
+     "ids": [
+      "P25"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Normalización del nombre del periódico.",
+   "criterio": 2,
+   "decision": "P27 y P29 se reúnen como una sola entidad, Chelyabinsky Rabochy, conservando la denominación rusa.",
+   "ids": [
+    "P27",
+    "P29",
+    "T29"
+   ],
+   "otras_versiones": [
+    {
+     "dice": "Figura como Periódico 'Chelyabinsky Rabochy'.",
+     "doc_id": "F05",
+     "offset": 37755,
+     "ids": [
+      "P27"
+     ]
+    },
+    {
+     "dice": "Figura como Chelyabinsky Rabochy y en otros pasajes como «Челябинский рабочий».",
+     "doc_id": "F09",
+     "offset": 10845,
+     "ids": [
+      "P29",
+      "Q22"
+     ]
+    }
+   ]
+  }
+ ],
+ "versiones": [
+  {
+   "tema": "Mecanismo preciso de la explosión y estado de los residuos.",
+   "versiones": [
+    {
+     "dice": "Atribuye el accidente a una alteración de la refrigeración del almacenamiento.",
+     "doc_id": "F05",
+     "offset": 1077,
+     "ids": [
+      "D19"
+     ]
+    },
+    {
+     "dice": "Describe entre 70 y 80 toneladas de residuos ya secos.",
+     "doc_id": "F05",
+     "offset": 6156,
+     "ids": [
+      "D27"
+     ]
+    },
+    {
+     "dice": "Describe la ignición y explosión de una mezcla de sales por una chispa accidental, sin aportar en este fragmento la composición detallada del encabezado.",
+     "doc_id": "F05",
+     "offset": 12050,
+     "ids": [
+      "D35"
+     ]
+    },
+    {
+     "dice": "Presenta como alternativa la adición por error de oxalato de plutonio a una solución caliente de nitrato de plutonio.",
+     "doc_id": "F05",
+     "offset": 12255,
+     "ids": [
+      "D36"
+     ]
+    },
+    {
+     "dice": "Describe un tanque con residuos líquidos cuyo sistema de refrigeración falló y no fue reparado.",
+     "doc_id": "F10",
+     "offset": 4560,
+     "ids": [
+      "D141"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Atribución de responsabilidad administrativa.",
+   "versiones": [
+    {
+     "dice": "Afirma que el director de Mayak, Mikhail Demyanovich, fue declarado principal culpable y destituido, aunque se encontraba en Moscú durante la explosión.",
+     "doc_id": "F09",
+     "offset": 2558,
+     "ids": [
+      "P21",
+      "D121"
+     ]
+    },
+    {
+     "dice": "Afirma que Demyanovich asumió toda la culpa y fue relevado de la dirección.",
+     "doc_id": "F10",
+     "offset": 10743,
+     "ids": [
+      "P21"
+     ]
+    },
+    {
+     "dice": "El memorando atribuido a Slavsky identifica como principales culpables al jefe y al ingeniero jefe de la planta radioquímica; el pasaje no permite equiparar automáticamente esos cargos con el director de todo Mayak.",
+     "doc_id": "F10",
+     "offset": 9956,
+     "ids": [
+      "Q24"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Duración y ejecución del reasentamiento.",
+   "versiones": [
+    {
+     "dice": "Sitúa el desalojo y enterramiento de localidades entre 1957 y 1960.",
+     "doc_id": "F05",
+     "offset": 18087,
+     "ids": [
+      "D42"
+     ]
+    },
+    {
+     "dice": "Afirma que una semana después del accidente se liquidaron 23 aldeas en un plazo de catorce días.",
+     "doc_id": "F09",
+     "offset": 1136,
+     "ids": [
+      "D116"
+     ]
+    },
+    {
+     "dice": "Un comentarista rechaza esa rapidez y dice que el proceso se prolongó durante medio año; su testimonio no se equipara a un registro administrativo.",
+     "doc_id": "F09",
+     "offset": 19738,
+     "ids": [
+      "D136",
+      "Q23"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Reconocimiento de enfermedad por radiación.",
+   "versiones": [
+    {
+     "dice": "Buldakov declara que no consiguieron registrar ninguna forma de enfermedad por radiación durante tres años de seguimiento.",
+     "doc_id": "F05",
+     "offset": 42095,
+     "ids": [
+      "Q03"
+     ]
+    },
+    {
+     "dice": "Afirma que se diagnosticaron 66 casos de síndrome de radiación crónico en la zona más próxima al accidente; no identifica aquí a los pacientes ni el período de diagnóstico.",
+     "doc_id": "F10",
+     "offset": 12387,
+     "ids": [
+      "D152"
+     ]
+    }
+   ]
+  },
+  {
+   "tema": "Mortalidad y alcance temporal de los recuentos.",
+   "versiones": [
+    {
+     "dice": "Afirma que murieron alrededor de 200 personas después del accidente, sin delimitar período ni presentar un balance oficial.",
+     "doc_id": "F06",
+     "offset": 7932,
+     "ids": [
+      "D72"
+     ]
+    },
+    {
+     "dice": "Afirma que no se comunicaron víctimas inmediatas como resultado de la explosión; no equivale a afirmar que no hubo muertes posteriores.",
+     "doc_id": "F10",
+     "offset": 5438,
+     "ids": [
+      "D144"
+     ]
+    },
+    {
+     "dice": "El relato sobre el padre de Lyudmila dice que murió por radiación en dos semanas, pero el fragmento no aporta fecha de muerte ni expediente médico.",
+     "doc_id": "F09",
+     "offset": 9320,
+     "ids": [
+      "P25"
+     ]
+    },
+    {
+     "dice": "F09 afirma que no se consignaban las causas reales de muerte, pero el pasaje no aporta certificados individuales.",
+     "doc_id": "F09",
+     "offset": 10330,
+     "ids": [
+      "D131"
+     ]
+    }
+   ]
+  }
+ ],
+ "personas_descartadas": [
+  {
+   "nombre": "N.N.D.",
+   "rol": "Evacuada de Kurmanovo y demandante por vivienda.",
+   "motivo": "Su anonimización no elimina su acción ni su arco: permite seguir una consecuencia habitacional documentada hasta la revisión judicial.",
+   "ids": [
+    "D02",
+    "D03",
+    "D06",
+    "D07",
+    "T54",
+    "T55",
+    "T56"
+   ]
+  },
+  {
+   "nombre": "Yefim Slavsky / E. P. Slavsky",
+   "rol": "Ministro y responsable de la comisión llegada tras el accidente.",
+   "motivo": "El descarte por ausencia del apellido es incorrecto: los pasajes lo nombran y documentan su intervención en la investigación.",
+   "ids": [
+    "T28",
+    "P20",
+    "D119",
+    "Q24"
+   ]
+  },
+  {
+   "nombre": "Georgy Golubev",
+   "rol": "Arquitecto del antiguo sanatorio del lago Sungul.",
+   "motivo": "El pasaje sí le atribuye una acción, proyectar el edificio que permite vincular el Laboratorio B con el espacio posterior de memoria.",
+   "ids": [
+    "T01",
+    "T05",
+    "D93"
+   ]
+  }
+ ],
+ "descartados": [
+  {
+   "que": "Q01 como frase inequívocamente pronunciada por Kazutov.",
+   "motivo": "El pasaje distingue entre la firma de Kazutov y un hablante llamado Vasily Andreevich; se conserva el conflicto, no la atribución para guion.",
+   "ids": [
+    "Q01"
+   ]
+  },
+  {
+   "que": "Predicción de inviabilidad de generaciones futuras.",
+   "motivo": "Q05 la presenta expresamente como opinión personal y no aporta evidencia médica que permita convertirla en pronóstico factual.",
+   "ids": [
+    "Q05"
+   ]
+  },
+  {
+   "que": "Producción de plutonio-238 como dato técnico central.",
+   "motivo": "T06 y D53 dependen de un solo pasaje para el isótopo y el total producido, sin contraste dentro del pool; no es necesario para explicar el accidente.",
+   "ids": [
+    "T06",
+    "D53"
+   ]
+  },
+  {
+   "que": "Afirmación de que fue la primera avería nuclear de la URSS.",
+   "motivo": "El pool no aporta una comparación histórica que sostenga ese superlativo y F05 utiliza la formulación más limitada «una de las primeras».",
+   "ids": [
+    "D110",
+    "D18"
+   ]
+  },
+  {
+   "que": "Clasificaciones periodísticas como segundo o tercer peor desastre nuclear.",
+   "motivo": "No se explicita una métrica compartida para comparar consecuencias; se conserva el nivel INES, que sí está identificado.",
+   "ids": [
+    "D54",
+    "D90",
+    "D137"
+   ]
+  },
+  {
+   "que": "Causalidad genética del caso de Denis presentada como conclusión médica independiente.",
+   "motivo": "La fuente es la declaración de su abogada sobre una pericia que no se incorpora al pool; puede atribuirse a ella, no afirmarse como examen revisado.",
+   "ids": [
+    "P09",
+    "Q08"
+   ]
+  },
+  {
+   "que": "Motivación atribuida al secreto de la CIA.",
+   "motivo": "La acusación depende de un pasaje secundario sin documento de la CIA ni prueba de la motivación y abre una línea ajena al núcleo documentado.",
+   "ids": [
+    "D153"
+   ]
+  },
+  {
+   "que": "Afirmación de que la reserva se creó exclusivamente para encubrir el accidente.",
+   "motivo": "La creación y la restricción de acceso están documentadas en el pool, pero la intención encubridora no viene acompañada de la decisión original.",
+   "ids": [
+    "D154",
+    "T42"
+   ]
+  },
+  {
+   "que": "Valores de las filas de Berdyanish y Krivosheino como población, dosis y días de demora.",
+   "motivo": "Los pasajes son filas de tabla sin encabezados; no permiten verificar las unidades ni el significado de cada columna.",
+   "ids": [
+    "D150",
+    "D151"
+   ]
+  },
+  {
+   "que": "Umbral de 100 microroentgens para reconocer liquidadores como norma jurídica comprobada.",
+   "motivo": "Solo aparece como recuerdo atribuido a Dubrovsky y no se aporta el reglamento ni el contexto temporal de la medición.",
+   "ids": [
+    "D125"
+   ]
+  },
+  {
+   "que": "Participación de prisioneros y de todos los grupos enumerados en T24 en la primera jornada de limpieza.",
+   "motivo": "El pasaje de T24 solo confirma que Dubrovsky acudió al trabajo al día siguiente; no sostiene toda la enumeración del encabezado.",
+   "ids": [
+    "T24"
+   ]
+  },
+  {
+   "que": "Detalle químico completo del encabezado D35.",
+   "motivo": "Su evidencia menciona una mezcla de sales y una chispa, pero no contiene la enumeración de nitratos y acetatos de sodio.",
+   "ids": [
+    "D35"
+   ]
+  },
+  {
+   "que": "Cifra de afectados de unas 250.000 personas como sustituto de los 270.000 residentes del territorio alcanzado.",
+   "motivo": "Los pasajes cuentan categorías distintas y uno incluye industrias asociadas; no deben fusionarse en un único recuento.",
+   "ids": [
+    "D76",
+    "D37",
+    "D71"
+   ]
+  },
+  {
+   "que": "Medio millón de expuestos y 18.000 evacuados como balance exclusivo del accidente de 1957.",
+   "motivo": "F06 los presenta después de agregar tres episodios y emisiones de producción; no son un balance aislado de la explosión.",
+   "ids": [
+    "D81",
+    "D82"
+   ]
+  },
+  {
+   "que": "Aumento de cáncer en Tatarskaya Karabolka como tasa epidemiológica comprobada.",
+   "motivo": "El pasaje no aporta estudio, período, población de comparación ni metodología para la razón que enuncia.",
+   "ids": [
+    "D49"
+   ]
+  },
+  {
+   "que": "Oferta cultural, cierre de octubre y normalidad radiológica actual de Sokol.",
+   "motivo": "La fecha de la oferta no está anclada a un año y la normalidad se atribuye a medios locales, no a mediciones incorporadas.",
+   "ids": [
+    "D92",
+    "D98"
+   ]
+  },
+  {
+   "que": "Planes de nuevas instalaciones y volumen general de residuos de Mayak.",
+   "motivo": "Son líneas industriales laterales que no ayudan a depurar el accidente ni la reparación documentada y carecen de fecha documental en los pasajes.",
+   "ids": [
+    "D87",
+    "D88"
+   ]
+  },
+  {
+   "que": "Alexei Lipatnikov, Gyorgy, V. V. Fomin, profesor Pishchalnikov, Vladimir Seleznev y Lev Tumerman.",
+   "motivo": "Los descartes del research no aportan para ellos una acción o cita utilizable respaldada por los ítems del pool; no se reconstruyen biografías.",
+   "ids": []
+  },
+  {
+   "que": "Anton Khitrov como protagonista.",
+   "motivo": "D92 solo documenta su visita crítica a la exposición; no ofrece un arco necesario para la historia del accidente.",
+   "ids": [
+    "D92"
+   ]
+  }
+ ]
+}

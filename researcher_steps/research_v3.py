@@ -42,9 +42,10 @@ TIPOS_FUENTE = ("informe_oficial", "fallo_judicial", "prensa_epoca", "prensa_pos
 MIN_FUENTES, MAX_FUENTES = 8, 20
 MAX_DESCARGAS_OK = 10                    # F20: por idioma del research (10 por cada uno), no en total
 MAX_DOC_CHARS = 300_000
-MIN_DOC_CHARS = 3_000                    # menos que esto: página vacía, paywall, resumen o portada de un libro
+MIN_DOC_CHARS = 800                      # F23 (antes 3_000): menos que esto, página vacía o paywall (un decreto
+                                         # o un recorte corto valen)
 NO_TEXT_SITES = ("youtube.com", "youtu.be", "vimeo.com", "amazon.com", "books.google.com")  # sin texto que leer
-EVENT_CHECK_CHARS = 5_000
+EVENT_CHECK_CHARS = 20_000               # F23 (antes 5_000): un informe oficial tiene diez páginas de portada
 TIMEOUT_S = 20
 USER_AGENT = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
               "Chrome/124.0 Safari/537.36 automatization_videos-research/0.7 (documental; 1 request por URL)")
@@ -100,8 +101,16 @@ def grounding_urls(chunks: list[dict[str, str]], resolve: Callable[[str], str | 
 #  R1 — descubrimiento de fuentes
 # ═══════════════════════════════════════════════════════════════
 
+def idiomas_txt(seed: dict) -> str:
+    """F23 §1.4: los idiomas del research del perfil («ruso, inglés y español»); sin `idiomas_research`, lo de antes
+    (inglés y el idioma del lugar)."""
+    xs = [str(x).strip() for x in seed.get("idiomas_research") or [] if str(x).strip()]
+    if not xs:
+        return f"INGLÉS y en {seed.get('lugar_idioma') or 'el idioma del lugar donde ocurrió el evento'}"
+    return xs[0] if len(xs) == 1 else ", ".join(xs[:-1]) + " y " + xs[-1]
+
+
 def build_discovery_prompt(seed: dict, foco: str, pistas: list[str] | None = None) -> str:
-    lugar = seed.get("lugar_idioma") or "el idioma del lugar donde ocurrió el evento"
     pistas_txt = ""
     if pistas:
         pistas_txt = ("\nDOCUMENTOS QUE SABEMOS QUE EXISTEN (buscá la página o el PDF de cada uno; si no lo encontrás, "
@@ -111,10 +120,11 @@ def build_discovery_prompt(seed: dict, foco: str, pistas: list[str] | None = Non
 TEMA: "{seed['seed_title']}"
 FOCO DE ESTA BÚSQUEDA: {foco}
 
-Buscá con Google en INGLÉS y en {lugar}. Quiero las páginas o PDFs PRIMARIOS donde está la información:
-informe oficial o de ONG (texto completo), fallo o expediente judicial, prensa local de los días del evento,
+Buscá con Google en {idiomas_txt(seed)}. Quiero las páginas o PDFs PRIMARIOS donde está la información:
+informe oficial o de ONG (texto completo), fallo o expediente judicial, prensa local de la época del evento,
 prensa de aniversario o seguimiento, documental o transcripción, libro o capítulo, historia oral o testimonios,
-FOIA o archivo. Preferí el documento original sobre una nota que lo resume.
+archivos desclasificados o solicitudes de acceso a la información. Preferí el documento original sobre una nota que
+lo resume.
 {pistas_txt}
 REGLAS:
 - Cada URL tiene que ser una página que viste en la búsqueda. Nunca inventes ni completes una URL.
@@ -128,8 +138,9 @@ Respondé SOLO un JSON, sin markdown:
 DISCOVERY_FOCOS = (
     "informes completos (oficiales y de ONG) e historia oral: testimonios con nombre de las personas que estuvieron "
     "ahí, cartas, declaraciones juradas.",
-    "fallos, demandas y expedientes judiciales; cartas e informes del gobierno (PDF); FOIA y archivos.",
-    "prensa local y de agencias de los días del evento (la primera semana), con testigos y horas.",
+    "fallos, demandas y expedientes judiciales; cartas e informes del gobierno (PDF); archivos desclasificados o "
+    "solicitudes de acceso a la información.",
+    "prensa local y de agencias de la época del evento, con testigos y horas.",
     "prensa de aniversario y seguimiento, documentales o transcripciones, libros o capítulos, trabajos académicos.",
 )
 # páginas de listado (categorías, etiquetas, búsquedas): no son documentos
@@ -192,8 +203,7 @@ def search_flash(prompt: str) -> tuple[str, list[dict[str, str]]]:
 def build_alt_prompt(seed: dict, foco: str) -> str:
     """F8b: query corta para Flash + búsqueda, con las palabras clave del seed en el idioma local."""
     names = [n for n in seed.get("nombres_lugar") or [] if n] or [seed["seed_title"]]
-    lugar = seed.get("lugar_idioma") or "el idioma del lugar"
-    return f"""Buscá en Google, en {lugar} y en inglés, con estas palabras clave: {" · ".join(f'"{n}"' for n in names[:6])}.
+    return f"""Buscá en Google, en {idiomas_txt(seed)}, con estas palabras clave: {" · ".join(f'"{n}"' for n in names[:6])}.
 Qué busco: {foco}
 Listá SOLO páginas que aparezcan en los resultados de la búsqueda (nunca inventes ni completes una URL), entre 5 y 12.
 Respondé SOLO un JSON, sin markdown:
@@ -449,16 +459,37 @@ def _ascii(s: str) -> str:
 #  R2 — descarga y texto
 # ═══════════════════════════════════════════════════════════════
 
+# F23 §1.4: 25 palabras vacías por idioma (es/en/fr/it como antes, más de/pt); el alfabeto manda primero
 _STOP = {
-    "en": {"the", "and", "of", "to", "was", "were", "in", "that", "with", "they", "for"},
-    "es": {"el", "la", "de", "que", "los", "las", "en", "y", "fue", "con", "por"},
-    "fr": {"le", "la", "les", "des", "et", "est", "dans", "une", "que", "pour"},
-    "it": {"il", "di", "che", "della", "delle", "degli", "sono", "nel", "gli", "anche", "questo"},   # F8 (Vajont)
+    "en": {"the", "and", "of", "to", "was", "were", "in", "that", "with", "they", "for", "is", "on", "as", "by", "at",
+           "from", "had", "his", "her", "which", "have", "this", "be", "not"},
+    "es": {"el", "la", "de", "que", "los", "las", "en", "y", "fue", "con", "por", "del", "se", "una", "para", "como",
+           "más", "pero", "sus", "le", "ya", "o", "este", "sí", "porque"},
+    "fr": {"le", "la", "les", "des", "et", "est", "dans", "une", "que", "pour", "du", "qui", "pas", "sur", "au", "avec",
+           "il", "elle", "ce", "été", "sont", "par", "ont", "mais", "leur"},
+    "it": {"il", "di", "che", "della", "delle", "degli", "sono", "nel", "gli", "anche", "questo", "una", "per", "con",
+           "non", "alla", "dei", "lo", "si", "era", "come", "più", "ma", "dalla", "nella"},   # F8 (Vajont)
+    "de": {"der", "die", "und", "das", "nicht", "ist", "mit", "den", "von", "zu", "ein", "eine", "auf", "dem", "des",
+           "sich", "wurde", "auch", "es", "im", "für", "als", "wie", "aber", "nach"},
+    "pt": {"o", "os", "da", "do", "das", "dos", "não", "uma", "um", "em", "com", "para", "foi", "ao", "na", "no",
+           "mais", "pelo", "pela", "também", "seu", "sua", "como", "mas", "são"},
 }
+_ALFABETOS = {"CYRILLIC": "ru", "GREEK": "el", "ARABIC": "ar", "HEBREW": "he", "CJK": "cjk", "HIRAGANA": "cjk",
+              "KATAKANA": "cjk", "HANGUL": "cjk"}
 
 
 def detect_lang(text: str) -> str:
-    toks = re.findall(r"[a-záéíóúñèàç]+", text[:20000].lower())
+    """F23 §1.4: por alfabeto primero (cirílico → ru, griego → el, árabe → ar, hebreo → he, CJK → cjk); en latín, por
+    las palabras vacías de es/en/fr/it/de/pt. «?» si nada alcanza."""
+    import unicodedata
+    letras = [c for c in text[:20000] if c.isalpha()]
+    if letras:
+        nombres = [unicodedata.name(c, "?").split()[0] for c in letras]
+        otros = [n for n in nombres if n != "LATIN"]
+        if len(otros) > len(letras) / 2:
+            top = max(set(otros), key=otros.count)
+            return _ALFABETOS.get(top, top.lower())
+    toks = re.findall(r"[^\W\d_]+", text[:20000].lower())
     score = {k: sum(1 for t in toks if t in v) for k, v in _STOP.items()}
     best = max(score, key=score.get)
     return best if score[best] else "?"
@@ -556,7 +587,10 @@ def dehyphenate(t: str) -> str:
     return re.sub(r"(?<=[A-Za-z][.,;:])\d{1,3}(?=\s|[A-Z$“\"])|(?<=[A-Za-z”’)])\d{1,3}(?=\s|[A-Z$“\"])", "", t)
 
 
-_TAIL_HEAD = re.compile(r"^\s*(end ?notes|notes|appendix|appendices|references|bibliography|sources|footnotes)\b.{0,40}$",
+# F23 §1.4: también «notas», «bibliografía», «referencias», «note», «bibliografia», «anmerkungen», «literatur»,
+# «примечания», «литература»
+_TAIL_HEAD = re.compile(r"^\s*(end ?notes|notes|appendix|appendices|references|bibliography|sources|footnotes|notas|"
+                        r"bibliograf[ií]a|referencias|note|anmerkungen|literatur|примечания|литература)(?![^\W\d_]).{0,40}$",
                         re.I | re.M)
 
 
@@ -597,10 +631,30 @@ def names_event(text: str, place_re: str, titulo: str = "") -> bool:
     return bool(re.search(place_re, titulo or "", re.I) or re.search(place_re, text[:EVENT_CHECK_CHARS], re.I))
 
 
+_LANG_CODES = {"ruso": "ru", "russian": "ru", "inglés": "en", "ingles": "en", "english": "en", "español": "es",
+               "espanol": "es", "castellano": "es", "spanish": "es", "italiano": "it", "italian": "it", "francés": "fr",
+               "frances": "fr", "french": "fr", "alemán": "de", "aleman": "de", "german": "de", "portugués": "pt",
+               "portugues": "pt", "portuguese": "pt", "ucraniano": "uk", "polaco": "pl", "japonés": "ja", "chino": "zh",
+               "griego": "el", "árabe": "ar", "hebreo": "he", "guaraní": "gn"}
+ACCEPT_LANGUAGE = "en,es;q=0.8"                 # F23 §1.4: `set_idiomas` lo arma con `idiomas_research` del perfil
+
+
+def set_idiomas(idiomas: list[str] | None) -> None:
+    """F23 §1.4: Accept-Language de las descargas con los idiomas del research («ru,en;q=0.8,es;q=0.6»)."""
+    global ACCEPT_LANGUAGE
+    codes = []
+    for x in idiomas or []:
+        c = _LANG_CODES.get(str(x).strip().split()[0].lower().strip(",") if str(x).strip() else "")
+        if c and c not in codes:
+            codes.append(c)
+    ACCEPT_LANGUAGE = (",".join([codes[0]] + [f"{c};q={max(0.1, 0.8 - 0.2 * k):.1f}" for k, c in enumerate(codes[1:])])
+                       if codes else "en,es;q=0.8")
+
+
 def _http_get(url: str) -> tuple[int, bytes, str, str]:
     """(status, contenido, content-type, url final). Un solo request, sin reintentos."""
     import requests
-    r = requests.get(url, headers={"User-Agent": USER_AGENT, "Accept-Language": "en,es;q=0.8"}, timeout=TIMEOUT_S,
+    r = requests.get(url, headers={"User-Agent": USER_AGENT, "Accept-Language": ACCEPT_LANGUAGE}, timeout=TIMEOUT_S,
                      allow_redirects=True)
     return r.status_code, r.content, r.headers.get("content-type", ""), r.url
 
@@ -1008,7 +1062,8 @@ REGLAS:
    su unidad; sin adjetivos que el documento no use.
 4. datos.tipo: magnitud (dimensiones, niveles, duración), cifra (conteos), fecha, nombre, lugar, cita, contradiccion
    (dos versiones del mismo hecho en el documento). `valor`: la cifra o el nombre tal como está en `texto`.
-5. Cronología: fecha AAAA-MM-DD (AAAA-MM si no hay día); `hora` HH:MM (24 h) SOLO si el texto la da; `lugar` si lo dice.
+5. Cronología: fecha AAAA-MM-DD (AAAA-MM si no hay día; AAAA si el texto solo da el año); `hora` HH:MM (24 h) SOLO
+   si el texto la da; `lugar` si lo dice.
 6. Citas: palabras que alguien dijo o escribió, entre comillas o en declaración atribuida. `texto_original` exacto;
    `texto_es` traducción natural y fiel (igual al original si ya está en español). `autor`: el nombre como lo da el
    texto; si es anónimo, la descripción que da el texto (por ejemplo, el rol: «una vecina», «un operario»). NUNCA
@@ -1017,7 +1072,7 @@ REGLAS:
    `testigo` = true si quien habla estuvo en el lugar de los hechos o los vivió ({_roles(seed, "roles_testigo")});
    false para quien habla desde afuera. `lugar`: dónde estaba quien habla.
 7. Personajes: personas con nombre propio que hacen algo o declaran en el texto (no organizaciones). `testigo` como en
-   6; `fechas_presente`: los días AAAA-MM-DD en que el texto la ubica en el lugar; `antagonista` = true si el texto le
+   6; `fechas_presente`: las fechas (AAAA-MM-DD, AAAA-MM o AAAA) en que el texto la ubica en el lugar; `antagonista` = true si el texto le
    atribuye decisiones que causaron el daño ({_roles(seed, "roles_antagonista")}). `nombre_en_documento`: el nombre
    exactamente como aparece en ESTE texto, en su alfabeto; vacío si el texto no lo nombra.
 
@@ -1048,6 +1103,7 @@ def chunk_text(text: str, size: int = CHUNK_CHARS, overlap: int = CHUNK_OVERLAP)
 FOCUS_MIN_CHARS = 50_000
 FOCUS_DENSITY = 1 / 20_000               # menos de 1 mención del lugar/evento cada 20 k caracteres: documento de otra cosa
 FOCUS_WINDOW = 4_000
+FOCUS_SOLO_METRICA = True                # F23 §1.2: la densidad baja se anota (antes: se leían solo las ventanas)
 
 
 def focus_text(text: str, place_re: str | None) -> tuple[str, str | None]:
@@ -1058,6 +1114,9 @@ def focus_text(text: str, place_re: str | None) -> tuple[str, str | None]:
     hits = [m.start() for m in re.finditer(place_re, text, re.I)]
     if len(hits) >= len(text) * FOCUS_DENSITY:
         return text, None
+    if FOCUS_SOLO_METRICA:                       # F23 §1.2: se anota, no se recorta
+        return text, (f"densidad baja: {len(hits)} menciones del lugar/evento en {len(text):,} caracteres (métrica; "
+                      "el documento se lee entero)")
     spans: list[list[int]] = []
     for h in hits:
         a, b = max(0, h - FOCUS_WINDOW), min(len(text), h + FOCUS_WINDOW)
@@ -1110,8 +1169,9 @@ def validate_doc_items(raw: dict, doc: dict, dt: DocText, log: list[str]) -> dic
                 if not re.match(r"^\d{4}(-\d{2}){0,2}$", f):
                     _drop(kind, it, f"fecha «{f}» no es AAAA-MM-DD")
                     continue
-                years = set(re.findall(r"\b(?:19|20)\d\d\b", lit))
-                if years and f[:4] not in years:            # «On August 10, 2001» fechado 2005-08-10
+                years = set(re.findall(r"\b(?:1[0-9]{3}|20\d\d)\b", lit))
+                # F23 §1.1: solo si el año de la fecha difiere en más de 1 de todos los de la cita
+                if years and all(abs(int(y) - int(f[:4])) > 1 for y in years):   # «On August 10, 2001» fechado 2005
                     _drop(kind, it, f"fecha {f} no coincide con el año de la cita literal ({', '.join(sorted(years))})")
                     continue
                 h = _str(it.get("hora"))
@@ -1144,7 +1204,7 @@ def validate_doc_items(raw: dict, doc: dict, dt: DocText, log: list[str]) -> dic
                 if not any(nombres.menciona(dt.text, x) for x in nombres.partes(n) + nombres.partes(ned)):
                     _drop(kind, it, "el apellido no está en el documento")
                     continue
-                fp = [x for x in (it.get("fechas_presente") or []) if re.match(r"^\d{4}-\d{2}-\d{2}$", str(x))]
+                fp = [x for x in (it.get("fechas_presente") or []) if re.match(r"^\d{4}(-\d{2}){0,2}$", str(x))]
                 item = {"nombre": n, "nombre_en_documento": ned, "rol": _str(it.get("rol")) or None,
                         "antagonista": bool(it.get("antagonista")),
                         "testigo": bool(it.get("testigo")), "fechas_presente": fp, "lugar": _str(it.get("lugar")) or None}
@@ -1221,6 +1281,16 @@ def extract_document(seed: dict, doc: dict, text: str, *, call: Callable[..., di
 # ═══════════════════════════════════════════════════════════════
 
 OFFICIAL_TIPOS = ("fallo_judicial", "informe_oficial", "foia")
+OFICIAL_POR_DEFECTO = ("academico", "libro")    # F23 §1.2: si el pool no tiene ningún documento de OFFICIAL_TIPOS
+
+
+def tipos_oficiales(docs: list[dict]) -> tuple[tuple[str, ...], bool]:
+    """F23 §1.2: (tipos que cuentan como oficiales, ¿es el de por defecto?). Con algún documento de OFFICIAL_TIPOS, esos;
+    si no, académico o libro (el de mejor rango gana por `_doc_rank`) y la cifra lleva `oficial_por_defecto: true`
+    (la voz dice «según <fuente>»)."""
+    if any((d.get("tipo") or "") in OFFICIAL_TIPOS for d in docs):
+        return OFFICIAL_TIPOS, False
+    return OFICIAL_POR_DEFECTO, True
 KINDS = ("datos", "cronologia", "lugares", "citas", "personajes")
 _PREFIX = {"datos": "D", "cronologia": "T", "lugares": "L", "citas": "Q", "personajes": "P"}
 
@@ -1238,17 +1308,19 @@ def _nums(t: str) -> frozenset[str]:
 _TITLES_BASE = nombres.TRATAMIENTOS_BASE                  # F21: alias
 _TITLES = nombres.tratamientos()                          # F21: alias (se actualiza en set_vocabulario)
 _COUNT_BASE = ("personas", "víctimas", "victimas")
+COUNT_MIN = 10                            # F23 §1.2 (antes 1000): Ycuá tiene ~400 muertos; un asilo, decenas
 _VOC: dict[str, list[str]] = {"roles_testigo": [], "roles_antagonista": [], "sustantivos_conteo": [],
                               "lugares_excluidos": []}
 
 
 def _count_re(nouns: list[str]) -> re.Pattern:
     ns = sorted({n.strip().lower() for n in [*nouns, *_COUNT_BASE] if n and n.strip()}, key=len, reverse=True)
-    return re.compile(r"(?<![\d,.])(\d{1,3}(?:[,.]\d{3})+|\d{4,})\s+(?:[a-záéíóúñ]+\s+){0,2}?"
+    # F23: con el piso en 10, «10 700» (miles con espacio) no se lee como 700: nada de dígito + espacio antes
+    return re.compile(r"(?<![\d,.])(?<!\d\s)(\d{1,3}(?:[,.]\d{3})+|\d{2,})\s+(?:[a-záéíóúñ]+\s+){0,2}?"
                       rf"({'|'.join(re.escape(n) for n in ns)})\b", re.I)
 
 
-_CASO: dict[str, Any] = {"lugar": "", "anio": 0}
+_CASO: dict[str, Any] = {"lugar": "", "anio": 0, "anio_inicio": None, "anio_fin": None, "tipo_evento": None}
 
 
 def vocabulario() -> dict[str, list[str]]:
@@ -1268,7 +1340,8 @@ def set_vocabulario(perfil: dict | None) -> None:
     Sin perfil (o sin esos campos), solo la base genérica."""
     global _TITLES, _COUNT_OF
     perfil = perfil or {}
-    _CASO.update(lugar=str(perfil.get("lugar_principal") or "").strip(), anio=int(perfil.get("anio_evento") or 0))
+    _CASO.update(lugar=str(perfil.get("lugar_principal") or "").strip(), anio=int(perfil.get("anio_evento") or 0),
+                 **tiempo_del_perfil(perfil))                # F23: anio_inicio, anio_fin, tipo_evento
     for k in _VOC:
         _VOC[k] = _formas(perfil.get(k)) if k != "lugares_excluidos" else [str(x) for x in perfil.get(k) or []]
     roles = _VOC["roles_testigo"] + _VOC["roles_antagonista"]
@@ -1316,32 +1389,19 @@ def same_fact(kind: str, a: dict, b: dict) -> bool:
 
 
 ITEM_YEARS = 20
-# F8b: lo que puede estar lejos del evento sin ser de OTRA historia: el juicio, la consecuencia, el aniversario (después)
-# y los antecedentes del lugar (antes). Español, inglés e italiano.
-LATE_OK = re.compile(r"\b(juicio|proceso|sentencia|condena\w*|fallo|tribunal|apelaci\w+|casaci\w+|absuel\w+|demanda\w*|"
-                     r"indemniza\w+|aniversario|homenaje|memorial|monumento|conmemora\w+|reabr\w+|investigaci\w+|"
-                     r"trial|verdict|sentenced|convict\w*|acquitt\w*|court|appeal|lawsuit|settlement|compensation|"
-                     r"anniversary|memorial|commemorat\w+|processo|sentenza|condann\w+|assolt\w+|risarciment\w+|"
-                     r"anniversario|commemorazion\w+|cerimonia|legislatura|inquiry|commission|comisi[oó]n|commissione)\b",
-                     re.I)
-EARLY_OK = re.compile(r"\b(constru\w+|fund\w+|inaugur\w+|habilit\w+|proyect\w+|built|founded|opened|construct\w+|"
-                      r"designed|costru\w+|progett\w+|inaugurat\w+|concession\w*|concesi[oó]n)\b", re.I)
 
 
 def contamination(item: dict, event_year: int) -> str | None:
-    """Motivo por el que un ítem es de OTRO tiempo; None si vale. F8b: la antigüedad se mide POR ÍTEM (su `fecha`
-    contra el año del evento, ±ITEM_YEARS); después del margen valen el juicio, la consecuencia y el aniversario; antes,
-    los antecedentes del lugar (construcción, fundación, habilitación)."""
+    """Motivo por el que un ítem es de OTRO tiempo; None si vale. F23 §1.1: solo se descarta por año un ítem ANTERIOR a
+    `anio_inicio − ITEM_YEARS` (`event_year` = el inicio del caso). Nada posterior se descarta por año: los juicios,
+    las desclasificaciones y los reclamos son parte del caso. Lo de otro lugar lo sigue filtrando `place_re`."""
     f = _str(item.get("fecha"))
     m = re.match(r"^(\d{4})", f)
     if not m:
         return None
     y = int(m.group(1))
-    text = " ".join(_str(item.get(k)) for k in ("texto", "evento", "cita_literal", "tipo"))
-    if y > event_year + ITEM_YEARS and not LATE_OK.search(text):
-        return f"fecha {f} > evento + {ITEM_YEARS} años ({event_year + ITEM_YEARS}) y no es juicio/consecuencia/aniversario"
-    if y < event_year - ITEM_YEARS and not EARLY_OK.search(text):
-        return f"fecha {f} < evento − {ITEM_YEARS} años ({event_year - ITEM_YEARS}) y no es un antecedente del lugar"
+    if y < event_year - ITEM_YEARS:
+        return f"fecha {f} < inicio del caso − {ITEM_YEARS} años ({event_year - ITEM_YEARS})"
     return None
 
 
@@ -1356,7 +1416,9 @@ def doc_contamination(doc: dict, event_year: int) -> str | None:
 def _doc_rank(doc: dict) -> tuple:
     t = doc.get("tipo") or ""
     off = OFFICIAL_TIPOS.index(t) if t in OFFICIAL_TIPOS else len(OFFICIAL_TIPOS)
-    return (off, not domain(doc.get("url") or "").endswith(".gov"), doc.get("prioridad") or 3, doc.get("id") or "")
+    dom = domain(doc.get("url") or "")
+    gob = bool(re.search(r"(^|\.)(gov|gob|gouv|gc|go)\.", dom) or dom.endswith(".gov"))   # F23 §1.4: no solo .gov
+    return (off, not gob, doc.get("prioridad") or 3, doc.get("id") or "")
 
 
 def merge_docs(per_doc: dict[str, dict[str, list[dict]]], docs: list[dict], *, event_year: int,
@@ -1432,7 +1494,7 @@ def add_quote_authors(pool: dict[str, Any], log: list[str]) -> None:
         log.append(f"  [R4] autores de cita sumados como personajes: {added}")
 
 
-def person_stats(pool: dict[str, Any], event_year: int | None = None) -> None:
+def person_stats(pool: dict[str, Any], event_year: int | None = None, anio_fin: int | None = None) -> None:
     """`n_citas` (citas suyas), `n_datos` (datos y eventos que lo nombran) y `elegible_humano`.
     F20: elegible = no antagonista (ni con un rol de `roles_antagonista` del perfil) y (una cita propia verificada, o
     nombrado en ≥ 3 ítems: citas + datos + eventos). La presencia en el año del evento ya no excluye: queda como dato
@@ -1450,8 +1512,10 @@ def person_stats(pool: dict[str, Any], event_year: int | None = None) -> None:
         own_verified = any((q.get("verificacion") or {}).get("estado") == "verificada"
                            and same_person(q.get("autor") or "", p["nombre"]) for q in pool["citas"])
         # presencia real: un evento del año que lo nombra (o en su párrafo), o su propio testimonio verificado
-        p["presente_en_evento"] = bool(event_year is None or said or any(str(d).startswith(str(event_year))
-                                                                         for d in days))
+        # F23 §1.1: «el evento» es el rango [anio_inicio, anio_fin] del perfil
+        fin = anio_fin or event_year
+        p["presente_en_evento"] = bool(event_year is None or said or any(
+            re.match(r"\d{4}", str(d)) and event_year <= int(str(d)[:4]) <= fin for d in days))
         # su rol ES uno de los que deciden: el rol empieza con él («Sheriff de Orleans», «Dueño del supermercado»), no
         # solo lo nombra («Oficial del sheriff», «Hijo del dueño»)
         rol = re.sub(r"^(el|la|los|las|the|ex|former)\s+", "", str(p.get("rol") or "").strip(), flags=re.I)
@@ -1503,7 +1567,7 @@ def count_value(texto: str) -> tuple[str, int] | None:
 
 
 def canonical_v3(pool: dict[str, Any], docs: list[dict], log: list[str]) -> None:
-    """Cifras del mismo conteo (≥ 1000, mismo sustantivo, la mayor ≤ CANON_RATIO × la menor) entre documentos: la de
+    """Cifras del mismo conteo (≥ COUNT_MIN, mismo sustantivo, la mayor ≤ CANON_RATIO × la menor) entre documentos: la de
     la fuente más oficial (fallo > informe oficial .gov > informe) es la canónica; las otras, «estimación de <fuente>»."""
     meta = {d["id"]: d for d in docs}
 
@@ -1514,7 +1578,8 @@ def canonical_v3(pool: dict[str, Any], docs: list[dict], log: list[str]) -> None
 
     def _topic(d: dict) -> set:
         return {w for w in _content_set(d["texto"]) if not w[:1].isdigit()}
-    cands = [d for d in pool["datos"] if (_val(d) or 0) >= 1000]
+    cands = [d for d in pool["datos"] if (_val(d) or 0) >= COUNT_MIN]
+    oficiales, por_defecto = tipos_oficiales(docs)
     # el mismo conteo = cifras cercanas (la mayor ≤ CANON_RATIO × la menor) Y el mismo asunto (≥ CANON_TOPIC de las
     # palabras en común con el primero del grupo): con cientos de datos, la cercanía sola junta capacidad y población
     groups: list[list[dict]] = []
@@ -1528,7 +1593,7 @@ def canonical_v3(pool: dict[str, Any], docs: list[dict], log: list[str]) -> None
             continue
         g.sort(key=lambda d: _doc_rank(meta.get(d["doc_id"], {"id": d["doc_id"]})))
         o = g[0]
-        if (meta.get(o["doc_id"]) or {}).get("tipo") not in OFFICIAL_TIPOS:
+        if (meta.get(o["doc_id"]) or {}).get("tipo") not in oficiales:
             continue
         o["estatus"] = "oficial"
         var, seen = [], {_val(o)}
@@ -1540,7 +1605,7 @@ def canonical_v3(pool: dict[str, Any], docs: list[dict], log: list[str]) -> None
             var.append({"id": d["id"], "valor": fmt_count(_val(d)), "estatus": d["estatus"]})
         if var:
             out.append({"oficial": o["id"], "valor": fmt_count(_val(o)), "fuente": o["doc_id"],
-                        "variantes": var})
+                        "variantes": var, **({"oficial_por_defecto": True} if por_defecto else {})})
     pool["cifras_canonicas"] = out
     if out:
         log.append(f"  [R4] cifras canónicas: {[(c['valor'], c['fuente'], [v['valor'] for v in c['variantes']]) for c in out]}")
@@ -1621,6 +1686,7 @@ def verify_pool(pool: dict[str, Any], texts: dict[str, DocText], docs: list[dict
 
 
 def build_pool(per_doc: dict[str, dict], docs: list[dict], texts: dict[str, DocText], *, event_year: int,
+               anio_fin: int | None = None,
                geocode_cache: Path | None = None, fetch: Callable | None = None,
                log: list[str] | None = None, subject_re: str | None = None) -> dict[str, Any]:
     """R4 + R5: merge, contaminación, autores de cita, acción, presencia, estadísticas de personajes, cifras canónicas,
@@ -1638,7 +1704,7 @@ def build_pool(per_doc: dict[str, dict], docs: list[dict], texts: dict[str, DocT
     acting_filter(pool, ["\n".join(es_texts)], log)
     pool["personajes"] = sorted(pool["personajes"] + testigos, key=lambda p: int(p["id"][1:]))
     presence_v3(pool, texts, log)                         # F7c: por párrafo (antes: evidence_pool.presence)
-    person_stats(pool, event_year)
+    person_stats(pool, event_year, anio_fin)
     canonical_v3(pool, docs, log)
     pop = population_canon(pool, docs, subject_re, log)   # F7c: la población, primero (F21: sujeto del perfil)
     if pop:
@@ -1648,9 +1714,9 @@ def build_pool(per_doc: dict[str, dict], docs: list[dict], texts: dict[str, DocT
         texts_es = [d["texto"] for d in pool["datos"]] + [c["evento"] for c in pool["cronologia"]]
         geocode(pool["lugares"], geocode_cache, fetch=fetch, log=log, anchor=anchor_place(pool["lugares"], texts_es))
     verify_pool(pool, texts, docs, log)
-    person_stats(pool, event_year)                        # F7c: otra vez, ya con las citas verificadas
+    person_stats(pool, event_year, anio_fin)              # F7c: otra vez, ya con las citas verificadas
     add_fragments(pool)                                   # F7c-2: lo que la voz cita literal (≤ 25 palabras)
-    pool["digest"] = build_digest(pool, docs, event_year=event_year)   # F7c: lo que lee la escaleta
+    pool["digest"] = build_digest(pool, docs, event_year=event_year, anio_fin=anio_fin)   # F7c: lo que lee la escaleta
     pool["_research_v3"] = {"prompt_r1": PROMPT_VERSION_R1, "prompt_r3": PROMPT_VERSION_R3,
                             "documentos": [{k: d.get(k) for k in ("id", "titulo", "tipo", "anio", "url", "txt",
                                                                   "caracteres", "idioma")} for d in docs]}
@@ -1767,7 +1833,7 @@ POP_BAND = (0.6, 1.4)                    # el conteo total: dentro de 0.6–1.4 
 def population_canon(pool: dict[str, Any], docs: list[dict], subject_re: str | None = None,
                      log: list[str] | None = None) -> dict[str, Any] | None:
     """La cifra de POBLACIÓN del lugar del video con TODAS sus variantes y su fuente (6,295 / 6,375 / 6,500 / 8,000…):
-    datos con un conteo ≥ 1000 de personas (`count_value`) que nombran al sujeto (`subject_re`), no hablan de otro
+    datos con un conteo ≥ COUNT_MIN de personas (`count_value`) que nombran al sujeto (`subject_re`), no hablan de otro
     lugar (Hunt, el paso elevado, un edificio) y caen en POP_BAND × la mediana (fuera los subconjuntos: los 2,000 presos
     del DOC, los 1,300 evacuados que escribieron). Oficial = la de un documento informe_oficial / fallo_judicial / foia,
     primero la que se atribuye al sheriff o a registros oficiales; si no hay, `oficial: None` y `sin_oficial: true`
@@ -1778,7 +1844,7 @@ def population_canon(pool: dict[str, Any], docs: list[dict], subject_re: str | N
     for d in pool.get("datos") or []:
         cv = count_value(d["texto"])
         about = (subject_re and re.search(subject_re, d["texto"], re.I)) or says.search(d["texto"])
-        if not cv or cv[1] < 1000 or not about or (other and other.search(d["texto"])):
+        if not cv or cv[1] < COUNT_MIN or not about or (other and other.search(d["texto"])):
             continue
         m = meta.get(d["doc_id"]) or {}
         rows.append({"id": d["id"], "valor": fmt_count(cv[1]), "n": cv[1], "doc_id": d["doc_id"],
@@ -1790,7 +1856,8 @@ def population_canon(pool: dict[str, Any], docs: list[dict], subject_re: str | N
         rows = [r for r in rows if POP_BAND[0] * med <= r["n"] <= POP_BAND[1] * med]
     if len({r["n"] for r in rows}) < 2:
         return None
-    of = sorted([r for r in rows if r["tipo_doc"] in OFFICIAL_TIPOS],
+    oficiales, por_defecto = tipos_oficiales(docs)
+    of = sorted([r for r in rows if r["tipo_doc"] in oficiales],
                 key=lambda r: (not r["atribuida_oficial"], _doc_rank(meta.get(r["doc_id"], {"id": r["doc_id"]}))))
     o = of[0] if of else None
     var = []
@@ -1804,7 +1871,7 @@ def population_canon(pool: dict[str, Any], docs: list[dict], subject_re: str | N
         d["estatus"] = "oficial" if o and (r["id"] == o["id"] or r["n"] == o["n"]) else f"según {r['fuente']}"[:140]
     g = {"tipo": "poblacion", "oficial": o["id"] if o else None, "valor": o["valor"] if o else None,
          "fuente": o["doc_id"] if o else None, "fuente_titulo": o["fuente"] if o else None, "sin_oficial": o is None,
-         "variantes": var}
+         "variantes": var, **({"oficial_por_defecto": True} if o and por_defecto else {})}
     if log is not None:
         log.append(f"  [R4] población: oficial {g['valor']} ({g['fuente']}) · variantes "
                    f"{[(v['valor'], v['id']) for v in var]}" if o else
@@ -1856,7 +1923,8 @@ def _d_line(it: dict, kind: str) -> str:
     return f"  [{it['id']}] DATO: {it['texto']}{v}{n}"
 
 
-def build_digest(pool: dict[str, Any], docs: list[dict], *, event_year: int) -> dict[str, Any]:
+def build_digest(pool: dict[str, Any], docs: list[dict], *, event_year: int, anio_fin: int | None = None
+                 ) -> dict[str, Any]:
     """`pool["digest"]` (aditivo): la sección del pool que lee la escaleta cuando el pool es grande. Con ids reales del
     pool (la escaleta y sus validadores siguen usando el pool entero):
       personas    las elegibles como humano, completas (rol, testigo, verificado, en qué eventos estuvo, sus datos), y
@@ -1910,7 +1978,9 @@ def build_digest(pool: dict[str, Any], docs: list[dict], *, event_year: int) -> 
         ids += [x for x in [g.get("oficial")] + [v["id"] for v in g["variantes"]] if x]
     L += ["", "CRONOLOGÍA (con hora, y los días del evento más confirmados):"]
     con = [c for c in pool["cronologia"] if c.get("hora")]
-    sin = sorted([c for c in pool["cronologia"] if not c.get("hora") and str(c["fecha"]).startswith(str(event_year))],
+    fin = anio_fin or event_year                         # F23 §1.1: los días del caso = su rango de años
+    sin = sorted([c for c in pool["cronologia"] if not c.get("hora") and re.match(r"\d{4}", str(c["fecha"]))
+                  and event_year <= int(str(c["fecha"])[:4]) <= fin],
                  key=lambda c: (-(c.get("n_fuentes") or 1), c["id"]))[:DIGEST_CRONO_SIN_HORA]
     for c in sorted(con + sin, key=lambda c: (c["fecha"], c.get("hora") or "")):
         L.append(_d_line(c, "cronologia"))
@@ -1983,8 +2053,35 @@ def add_fragments(pool: dict[str, Any]) -> None:
 PROFILE_SCHEMA: dict[str, Any] = {"type": "OBJECT", "properties": {
     "anio_evento": {"type": "INTEGER"}, "lugar_principal": {"type": "STRING"},
     "nombres_lugar": {"type": "ARRAY", "items": {"type": "STRING"}}, "idioma_local": {"type": "STRING"},
-    "nombres_locales": {"type": "ARRAY", "items": {"type": "STRING"}}},
-    "required": ["anio_evento", "nombres_lugar", "idioma_local"]}
+    "nombres_locales": {"type": "ARRAY", "items": {"type": "STRING"}},
+    # F23 §1.1 / §1.4: el tiempo del caso y si tiene cobertura internacional en inglés
+    "anio_inicio": {"type": "INTEGER"}, "anio_fin": {"type": "INTEGER"},
+    "tipo_evento": {"type": "STRING", "enum": ["puntual", "prolongado"]},
+    "cobertura_ingles": {"type": "BOOLEAN"}},
+    "required": ["anio_evento", "nombres_lugar", "idioma_local", "anio_inicio", "anio_fin", "tipo_evento",
+                 "cobertura_ingles"]}
+
+
+def idiomas_research(idioma_local: str, cobertura_ingles: bool) -> list[str]:
+    """F23 §1.4: el idioma local siempre; inglés solo con cobertura internacional en inglés; español siempre al final
+    (es el idioma del pool)."""
+    local = re.split(r"[(;,]", str(idioma_local or ""))[0].strip().lower()
+    out = [x for x in [local, "inglés" if cobertura_ingles else "", "español"] if x]
+    out = ["inglés" if x in ("ingles", "english") else "español" if x in ("espanol", "castellano", "spanish") else x
+           for x in out]
+    return list(dict.fromkeys(out[:-1] if out[-1] == "español" and "español" in out[:-1] else out))
+
+
+def tiempo_del_perfil(perfil: dict | None) -> dict[str, Any]:
+    """F23 §1.1: {anio_inicio, anio_fin, tipo_evento} del perfil. Un perfil viejo (solo `anio_evento`): inicio = fin =
+    `anio_evento`, tipo None."""
+    perfil = perfil or {}
+    ini = int(perfil.get("anio_inicio") or perfil.get("anio_evento") or 0) or None
+    fin = int(perfil.get("anio_fin") or 0) or ini
+    if ini and fin and fin < ini:
+        fin = ini
+    tipo = perfil.get("tipo_evento") if perfil.get("tipo_evento") in ("puntual", "prolongado") else None
+    return {"anio_inicio": ini, "anio_fin": fin, "tipo_evento": tipo}
 
 
 # cada término: la forma en español y, aparte, sus formas en los otros idiomas (el modelo, con una lista de strings,
@@ -2058,11 +2155,20 @@ Devolvé el año en que ocurrió el evento central, el lugar principal y de 3 a 
 inglés o en el idioma del lugar nombraría el lugar o el evento (nombre oficial, sigla, nombre corto, nombre del evento),
 y el idioma local (el idioma del lugar del caso).
 En `nombres_locales`, de 3 a 8 formas del lugar y del evento escritas en el alfabeto del idioma local, tal como las
-escribe un documento en ese idioma (nombre oficial, sigla, nombre corto, nombre del evento).""",
+escribe un documento en ese idioma (nombre oficial, sigla, nombre corto, nombre del evento).
+En `anio_inicio` y `anio_fin`, el primer y el último año del caso (iguales si todo pasa en un día); en `tipo_evento`,
+«puntual» si el hecho central ocurre en un día o en pocos días, o «prolongado» si dura meses o años. En
+`cobertura_ingles`, true si el caso tuvo cobertura internacional en inglés (prensa, informes o libros en inglés).""",
                response_schema=PROFILE_SCHEMA, description="research v3 perfil del seed") or {}
     names = [str(n).strip() for n in raw.get("nombres_lugar") or [] if len(str(n).strip()) >= 3]
     locales = [str(n).strip() for n in raw.get("nombres_locales") or [] if len(str(n).strip()) >= 3]
-    return {"anio_evento": int(raw.get("anio_evento") or 0), "lugar_principal": raw.get("lugar_principal") or "",
+    t = tiempo_del_perfil({"anio_inicio": raw.get("anio_inicio") or raw.get("anio_evento"),
+                           "anio_fin": raw.get("anio_fin"), "tipo_evento": raw.get("tipo_evento")})
+    return {"anio_evento": t["anio_inicio"] or int(raw.get("anio_evento") or 0),    # F23: = anio_inicio (compatibilidad)
+            "anio_inicio": t["anio_inicio"], "anio_fin": t["anio_fin"], "tipo_evento": t["tipo_evento"],
+            "cobertura_ingles": bool(raw.get("cobertura_ingles")),
+            "idiomas_research": idiomas_research(raw.get("idioma_local") or "", bool(raw.get("cobertura_ingles"))),
+            "lugar_principal": raw.get("lugar_principal") or "",
             "idioma_local": raw.get("idioma_local") or "", "nombres_lugar": names, "nombres_locales": locales,
             "place_re": place_regex(names, locales, seed["seed_title"][:30])}
 
@@ -2109,7 +2215,9 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
     prof = json.loads(pf.read_text(encoding="utf-8")) if pf.exists() else seed_profile(seed)
     pf.write_text(json.dumps(prof, ensure_ascii=False, indent=1), encoding="utf-8")
     s2 = {**seed, "lugar_idioma": seed.get("idioma_local") or prof.get("idioma_local") or None,  # F8: el del seed manda
-          "nombres_lugar": prof.get("nombres_lugar") or []}                                       # F8b: R1 alternativo
+          "nombres_lugar": prof.get("nombres_lugar") or [],                                       # F8b: R1 alternativo
+          "idiomas_research": prof.get("idiomas_research") or []}                                 # F23 §1.4
+    set_idiomas(prof.get("idiomas_research"))
     r1 = discover_sources(s2, cache=steps_dir / "_r1_cache.json", log=log)
     (steps_dir / "fuentes.json").write_text(json.dumps(r1, ensure_ascii=False, indent=1), encoding="utf-8")
     if "roles_testigo" not in prof:                 # F20: el vocabulario del caso, con el seed y las fuentes de R1
@@ -2123,7 +2231,10 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
     (src / "manifest.json").write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
     docs = [d for d in man["documentos"] if d.get("ok")]
     texts, per_doc = {}, {}
-    year = prof.get("anio_evento") or date.today().year
+    tiempo = tiempo_del_perfil(prof)                     # F23 §1.1: sin año en el perfil, error (no el año actual)
+    if not tiempo["anio_inicio"]:
+        raise ValueError(f"el perfil de {topic_id} no tiene año del caso (anio_inicio/anio_evento)")
+    year = tiempo["anio_inicio"]
     for d in docs:
         texts[d["id"]] = DocText(d["id"], (src / d["txt"]).read_text(encoding="utf-8"))
         if doc_contamination(d, year):
@@ -2136,8 +2247,9 @@ def run_seed(seed: dict, topic_id: str, steps_dir: Path, *, log: list[str] | Non
             log.append(f"  [R3] {d['id']}: extracción fallida en {len(fail)} parte(s): el pool sigue sin ellas")
     if any(d.get("extraccion_fallida") for d in docs):
         (src / "manifest.json").write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
-    pool = build_pool(per_doc, docs, texts, event_year=year, geocode_cache=DATA_DIR / "geocode_cache.json", log=log,
-                      subject_re=subject_re_del_perfil(prof))
+    pool = build_pool(per_doc, docs, texts, event_year=year, anio_fin=tiempo["anio_fin"],
+                      geocode_cache=DATA_DIR / "geocode_cache.json", log=log, subject_re=subject_re_del_perfil(prof))
+    pool["_tiempo"] = tiempo                             # F23: lo lee la compuerta (eventos con fecha según el tipo)
     (steps_dir / "00_pool_v3.json").write_text(json.dumps(pool, ensure_ascii=False, indent=1), encoding="utf-8")
     g = None
     if gate:

@@ -137,6 +137,7 @@ def strip_tags_keep(par: str) -> str:
 def caps_tts(esc: dict, parrafos: list[dict], caps: list[dict], *, slowly_dev: bool = False) -> list[dict]:
     """`narration_tts` para cada cap de `caps` (m01b_guionista.caps_text), con la intensidad de cada párrafo desde su
     beat y el pico desde la escaleta. In place; devuelve `caps`."""
+    from script_engine.m01a_escaleta import intent_de_cap as _intent_de_cap
     from script_engine.m01a_skeleton import DEFAULT_INTENT_BY_CAP
     beats = {b["n"]: b for b in esc.get("beats") or []}
     pico = int((esc.get("pico") or {}).get("beat") or 0)
@@ -146,7 +147,11 @@ def caps_tts(esc: dict, parrafos: list[dict], caps: list[dict], *, slowly_dev: b
         inten = [int((beats.get(p["beat"]) or {}).get("intensidad") or 0) for p in ps]
         pico_par = next((i for i, p in enumerate(ps) if p["beat"] == pico), None)
         # el pico se marca en el PRIMER párrafo de su beat
-        intent = c.get("narrative_intent") or DEFAULT_INTENT_BY_CAP.get(n)
+        # F23 §1.3: el intent real del cap = el que sale de la función de sus beats (`m01a_escaleta.intent_de_cap`, lo
+        # mismo que va al skeleton); sin beats, el guardado en la escaleta o el fijo por número de cap
+        ec = next((x for x in esc.get("caps") or [] if x.get("chapter_number") == n), {})
+        intent = c.get("narrative_intent") or (_intent_de_cap(esc, n) if any(b.get("cap") == n for b in beats.values())
+                                               else ec.get("narrative_intent") or DEFAULT_INTENT_BY_CAP.get(n))
         c["narration_tts"], c["tts_tags"] = tag_cap(c["narration"], intent=intent, intensities=inten,
                                                     pico_par=pico_par, slowly_dev=slowly_dev)
     return caps

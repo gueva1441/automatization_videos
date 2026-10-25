@@ -68,7 +68,8 @@ def test_particion_en_frontera_de_parrafo_y_pico_intacto():
     esc = _esc()
     ps = _parrafos(esc, n_per_beat=6)                       # caps de desarrollo con ≈ 2,800 caracteres: se pasan
     lo, hi = md.len_range("development")
-    assert hi == int(2000 * 1.15)
+    from script_engine.video_length import char_band
+    assert hi == int(char_band("development")[1] * 1.15)             # F23: la banda sale de video_length (antes 2000)
     out, notes = md.rebalance(esc, ps)
     assert all(p["texto"] == DEV.strip() for p in out)   # nunca se corta un párrafo por la mitad
     pico = [p for p in out if p["beat"] == 9]

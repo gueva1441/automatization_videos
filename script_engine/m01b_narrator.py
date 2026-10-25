@@ -54,10 +54,12 @@ from script_engine import evidence as ev
 
 STEPS_DIR: Path = DATA_DIR / "scripts" / "_steps"
 
-# Largos por rol (chars)
-LEN_HOOK = (300, 800)
-LEN_DEVELOPMENT = (800, 2000)
-LEN_OUTRO = (400, 1100)
+# Largos por rol (chars). F23 §1.2: derivados de video_length (palabras × 6; antes, fijos: 300–800 / 800–2000 /
+# 400–1100)
+from script_engine.video_length import char_band as _char_band  # noqa: E402
+LEN_HOOK = _char_band("hook")
+LEN_DEVELOPMENT = _char_band("development")
+LEN_OUTRO = _char_band("reveal_outro")
 
 # Chat 51: margen del techo INSTRUIDO al outro en el reintento del lado largo (deja aire para
 # que el modelo no apunte al techo exacto y se pase por poco). NO cambia la banda del validador.

@@ -1,0 +1,26 @@
+[23:06:26] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f23-ficha
+[23:11:44] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f23-ficha � Costo total: $0.3343
+  [ficha] US$ 0.3343 · 318 s · tanda US$ 1.5504
+[ficha] crudo {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 13, 'contradicciones': 7, 'decisiones': 17, 'versiones': 5, 'personas': 45, 'personas_descartadas': 3, 'cifras': 54, 'cronologia': 49, 'hechos': 76, 'citas': 17, 'descartados': 19}
+[ficha] final {'humanos_candidatos': 4, 'giros': 6, 'pico': 1, 'pregunta_final': 1, 'escenas': 12, 'contradicciones': 7, 'decisiones': 16, 'versiones': 5, 'personas': 45, 'personas_descartadas': 3, 'cifras': 49, 'cronologia': 46, 'hechos': 74, 'citas': 16, 'descartados': 32} · sacados 14
+[23:11:44] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f23-escaleta
+[23:18:52] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f23-escaleta � Costo total: $0.3222
+  [escaleta] US$ 0.3222 · 428 s · tanda US$ 1.8726
+  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}
+  [escaleta v2] intento 1: 26 bloqueante(s) ['beat 2: dato_central «P22: DUBROVSKY ERA ELECTRICISTA ANTES DE CONVERTIRSE EN LIQUIDADOR. PRESENTARLO POR SU OFICIO, NO POR SU CONDICIÓN POSTERIOR.» no existe en el pool (o no es D/T/Q)', 'a_pantalla T04 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T03 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D62 también está en un beat: lo que va a pantalla no lo dice la voz'] · 67 reparación(es) · 14 a métricas
+  [escaleta v2] intento 2: 0 bloqueante(s) [] · 56 reparación(es) · 14 a métricas
+[escaleta] 14 beats · f22-2 · intents ['hook', 'setup', 'rising_tension', 'rising_tension', 'shock', 'consequences', 'outro']
+[23:18:52] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f18-kyshtym-mayak-f23-guion
+[23:21:51] INFO     | viral_pipeline | [cost_tracker] Video f18-kyshtym-mayak-f23-guion � Costo total: $0.8745
+  [guion] US$ 0.8745 · 179 s · tanda US$ 2.7471
+Traceback (most recent call last):
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f23\f23_corridas.py", line 401, in <module>
+    main()
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f23\f23_corridas.py", line 393, in main
+    etapas[e]()
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f23\f23_corridas.py", line 377, in etapa_guion
+    narracion_md("K", esc, res, ficha, topic, modelo=modelo, version=version, tema="Kyshtym", fase="F23",
+  File "C:\CLAUDE_PROJECTS\automatization_videos\lab\hyperframes\f22b\f22b_corridas.py", line 177, in narracion
+    L = [f"# Narraci�n {tema} � {fase} `{tag}` ({modelo} high, guion {VERSION_NOMBRE[version]} `{version}`)", "",
+                                                                      ~~~~~~~~~~~~~~^^^^^^^^^
+KeyError: 'f23-1'

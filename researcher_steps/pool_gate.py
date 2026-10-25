@@ -1,11 +1,15 @@
 """
 researcher_steps/pool_gate.py — F7d (HANDOFF_F7 §9.2): compuerta del pool, el semáforo entre research y guion.
 
-Puntaje determinista sobre el evidence_pool de research v3, antes de escaleta, guion e imágenes:
-    verde     datos ≥ 150 · citas verificadas ≥ 8 · humanos elegibles ≥ 2 · eventos con fecha ≥ 10 → 12 min, normal
-    amarillo  todo ≥ la mitad de cada umbral → target_words 1,200 (≈ 10 min), escaleta de 7–8 beats, aviso en el reporte
-              (el handoff dice 6–8 beats; el contrato de 7 caps con ≥ 1 beat cada uno pone el piso en 7)
-    rojo      algo por debajo de la mitad → el topic vuelve al inbox con el motivo y no se gasta en guion ni imágenes
+Puntaje determinista sobre el evidence_pool de research v3, antes de escaleta, guion e imágenes.
+F23 §1.2 (los umbrales de Orleans pasan a medida):
+    rojo      solo si no hay con qué contar: datos < 40 · personas con nombre < 2 · eventos con fecha < 3 → el topic
+              vuelve al inbox con el motivo
+    amarillo  alguna de las cuatro medidas de siempre (datos 150 · citas verificadas 8 · elegibles 2 · eventos con fecha
+              10) por debajo de su umbral: se muestran todas con su valor. Ya NO acorta el video (12 min, 7–14 beats)
+    verde     las cuatro por encima
+F23 §1.1: un evento cuenta «con fecha» si la tiene de mes o de día (AAAA-MM o AAAA-MM-DD); de año solo (AAAA), si el
+caso es `prolongado` (`pool["_tiempo"]`, o el perfil cargado en research_v3).
 Umbrales en script_engine/video_length.py (DEFAULTS, `config.long_video` los pisa). Reporte POOL_GATE.md por topic.
 """
 from __future__ import annotations
@@ -22,8 +26,28 @@ CHECKS = {
     "datos": ("gate_datos", "pocas fuentes bajadas (pocos datos leídos de documentos)"),
     "citas_verificadas": ("gate_citas_verificadas", "sin testigos (pocas citas verificadas literal)"),
     "elegibles_humano": ("gate_elegibles", "sin humano que seguir (pocos testigos elegibles)"),
-    "eventos_con_fecha": ("gate_eventos_fecha", "sin cronología (pocos eventos con fecha completa)"),
+    "eventos_con_fecha": ("gate_eventos_fecha", "sin cronología (pocos eventos con fecha)"),
 }
+# F23 §1.2: métrica → (clave del piso rojo, motivo)
+ROJO = {
+    "datos": ("gate_rojo_datos", "no hay con qué contar: casi no hay datos leídos de documentos"),
+    "personas_con_nombre": ("gate_rojo_personas", "no hay con qué contar: menos de dos personas con nombre"),
+    "eventos_con_fecha": ("gate_rojo_eventos", "no hay con qué contar: casi no hay eventos con fecha"),
+}
+
+
+def _tipo_evento(pool: dict[str, Any]) -> str | None:
+    t = (pool.get("_tiempo") or {}).get("tipo_evento")
+    if t:
+        return t
+    from researcher_steps.research_v3 import caso
+    return caso().get("tipo_evento")
+
+
+def con_fecha(fecha: Any, tipo_evento: str | None) -> bool:
+    """F23 §1.1: fecha de mes o de día; de año solo, si el caso es prolongado."""
+    f = str(fecha or "")
+    return bool(re.fullmatch(r"\d{4}-\d{2}(-\d{2})?", f) or (tipo_evento == "prolongado" and re.fullmatch(r"\d{4}", f)))
 
 
 class PoolGateRed(RuntimeError):
@@ -35,50 +59,54 @@ class PoolGateRed(RuntimeError):
 
 
 def measure(pool: dict[str, Any]) -> dict[str, int]:
+    from script_engine import nombres
+    tipo = _tipo_evento(pool)
     return {
         "datos": len(pool.get("datos") or []),
         "citas_verificadas": sum(1 for q in pool.get("citas") or []
                                  if (q.get("verificacion") or {}).get("estado") == "verificada"),
         "elegibles_humano": sum(1 for p in pool.get("personajes") or [] if p.get("elegible_humano")),
-        "eventos_con_fecha": sum(1 for c in pool.get("cronologia") or []
-                                 if re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(c.get("fecha") or ""))),
+        "eventos_con_fecha": sum(1 for c in pool.get("cronologia") or [] if con_fecha(c.get("fecha"), tipo)),
+        "personas_con_nombre": sum(1 for p in pool.get("personajes") or []
+                                   if nombres.es_persona(p.get("nombre") or "", mononimo_ok=True)),
     }
 
 
 def evaluate(pool: dict[str, Any]) -> dict[str, Any]:
-    """{"color", "metricas", "umbrales", "faltan": [{metrica, valor, umbral, motivo}], "motivos", "target_words",
-    "max_beats"}. Verde si todo llega al umbral; amarillo si todo llega a la mitad; rojo si no."""
+    """{"color", "metricas", "umbrales", "pisos_rojo", "faltan": [{metrica, valor, umbral, motivo}], "motivos",
+    "target_words", "max_beats"}. F23 §1.2: rojo si falta con qué contar (pisos de `ROJO`); amarillo si alguna de las
+    cuatro medidas está bajo su umbral; verde si no. `target_words` es siempre el de siempre y `max_beats` None (el
+    amarillo ya no acorta)."""
     from script_engine.video_length import get
     m = measure(pool)
-    half = get("gate_yellow_pct") / 100
     th = {k: get(key) for k, (key, _) in CHECKS.items()}
+    pisos = {k: get(key) for k, (key, _) in ROJO.items()}
     below = [k for k in CHECKS if m[k] < th[k]]
-    red = [k for k in CHECKS if m[k] < half * th[k]]
+    red = [k for k in ROJO if m[k] < pisos[k]]
     color = RED if red else YELLOW if below else GREEN
-    faltan = [{"metrica": k, "valor": m[k], "umbral": th[k], "motivo": CHECKS[k][1],
-               "rojo": k in red} for k in below]
-    return {"color": color, "metricas": m, "umbrales": th, "faltan": faltan,
+    faltan = [{"metrica": k, "valor": m[k], "umbral": th[k], "motivo": CHECKS[k][1], "rojo": False} for k in below]
+    faltan += [{"metrica": k, "valor": m[k], "umbral": pisos[k], "motivo": ROJO[k][1], "rojo": True} for k in red]
+    return {"color": color, "metricas": m, "umbrales": th, "pisos_rojo": pisos, "faltan": faltan,
             "motivos": [f["motivo"] for f in faltan if f["rojo"]] if red else [f["motivo"] for f in faltan],
-            "target_words": get("gate_yellow_target_words") if color == YELLOW else get("target_words"),
-            "max_beats": get("gate_yellow_max_beats") if color == YELLOW else None}
+            "target_words": get("target_words"), "max_beats": None}
 
 
 def report(gate: dict[str, Any], topic_id: str) -> str:
     icon = {GREEN: "🟢", YELLOW: "🟡", RED: "🔴"}[gate["color"]]
     L = [f"# POOL_GATE — `{topic_id}`", "", f"**{icon} {gate['color'].upper()}** · {date.today().isoformat()}", "",
-         "| métrica | valor | umbral (verde) | mitad (amarillo) |", "|---|---|---|---|"]
-    from script_engine.video_length import get
-    half = get("gate_yellow_pct") / 100
+         "| métrica | valor | umbral (verde) | piso (rojo) |", "|---|---|---|---|"]
+    pisos = gate.get("pisos_rojo") or {}
     for k, v in gate["metricas"].items():
-        t = gate["umbrales"][k]
-        mark = "✔" if v >= t else ("~" if v >= half * t else "✖")
-        L.append(f"| {k} | {v} {mark} | {t} | {half * t:g} |")
+        t = gate["umbrales"].get(k)
+        r = pisos.get(k)
+        mark = "✖" if r is not None and v < r else ("✔" if t is None or v >= t else "~")
+        L.append(f"| {k} | {v} {mark} | {t if t is not None else '—'} | {r if r is not None else '—'} |")
     L.append("")
     if gate["color"] == GREEN:
         L.append("Tubería normal: 12 min (≈ 1,500 palabras).")
     elif gate["color"] == YELLOW:
-        L.append(f"**Aviso:** guion corto — `target_words` {gate['target_words']} (≈ 10 min) y escaleta de 7–"
-                 f"{gate['max_beats']} beats. Falta: " + "; ".join(gate["motivos"]) + ".")
+        L.append("**Aviso** (el video no se acorta: 12 min, escaleta de 7–14 beats). Bajo su umbral: "
+                 + "; ".join(gate["motivos"]) + ".")
     else:
         L.append("**El topic vuelve al inbox** (no se gasta en guion ni imágenes). Motivo: " + "; ".join(gate["motivos"])
                  + ".")

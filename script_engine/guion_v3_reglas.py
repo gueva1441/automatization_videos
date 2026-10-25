@@ -45,7 +45,7 @@ def quotes_per_paragraph(parrafos: list[dict]) -> list[str]:
 # ── gancho ────────────────────────────────────────────────────────────────────
 
 _DATE = re.compile(r"\b(\d{1,2} de (?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|"
-                   r"noviembre|diciembre)|(?:19|20)\d\d)\b", re.I)
+                   r"noviembre|diciembre)|(?:1[0-9]{3}|20\d\d))\b", re.I)
 
 
 def hook_problems(cap1: str, later_quotes: list[str], pool: dict[str, Any] | None = None) -> list[str]:
@@ -198,49 +198,28 @@ def review_v3(caps: list[dict], parrafos: list[dict], pool: dict[str, Any], esc:
 
 MESES = "enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre"
 DATE_RE = re.compile(rf"\b(?:\d{{1,2}}|primero)\s+de\s+(?:{MESES})(?:\s+de\s+(\d{{4}}))?\b", re.I)
-DATE_MAX_PER_CAP = 1
-# lo que reemplaza una fecha ya dicha (el chequeo de «dato literal» de m05 lo acepta para un evento con fecha)
+DATE_MAX_PER_CAP = 1                 # F23 §1.1: métrica («fechas literales por cap»), ya no es un problema
+# lo que reemplaza una fecha ya dicha (el chequeo de «dato literal» de m05 lo acepta para un evento con fecha, solo si
+# el caso es puntual). F23: + «ese año», «ese invierno», «esa primavera», «ese mes»
 DATE_PARAPHRASE = re.compile(r"\b(?:ese|aquel|aquél) (?:domingo|lunes|martes|miércoles|jueves|viernes|sábado|día|"
-                             r"mediodía|mismo día)\b|\besa (?:mañana|tarde|noche|madrugada)\b", re.I)
+                             r"mediodía|mismo día|año|invierno|mes)\b|\besa (?:mañana|tarde|noche|madrugada|"
+                             r"primavera)\b", re.I)
 
 
-def replace_repeated_dates(parrafos: list[dict], day: str = "1 de agosto", year: str | None = None
-                           ) -> tuple[list[dict], list[str]]:
-    """F10 (Omar): la primera aparición del día del evento (con o sin año) se queda; las siguientes pasan a «ese
-    domingo» («el 1 de agosto» → «ese domingo», «del 1 de agosto» → «de ese domingo»). Determinista; devuelve
-    (párrafos, cambios). `day` = «1 de agosto»; `year` = «2004» (opcional)."""
-    tail = rf"(?:\s+de\s+{year})?" if year else r"(?:\s+de\s+\d{4})?"
-    pat = re.compile(rf"\b(?:(?P<art>[Ee]l|[Dd]el)\s+)?{re.escape(day)}{tail}\b")
-    seen, out, changes = False, [], []
+# F23 §1.1: `replace_repeated_dates` (con el día de la semana fijo) se borró; la buena es
+# `guion_v4.replace_repeated_dates`.
 
-    def _rep(m: re.Match) -> str:
-        nonlocal seen
-        if not seen:
-            seen = True
-            return m.group(0)
-        art = m.group("art") or ""
-        if art.lower() == "del":
-            new = "de ese domingo"
-        else:
-            new = "ese domingo"
-        if art[:1].isupper() or (not art and m.start() == 0):
-            new = new[0].upper() + new[1:]
-        changes.append(f"«{m.group(0)}» → «{new}»")
-        return new
-    for p in parrafos:
-        out.append({**p, "texto": pat.sub(_rep, p["texto"])})
-    return out, changes
+
+def fechas_literales_por_cap(caps: list[dict]) -> dict[int, int]:
+    """F23 §1.1 (métrica): cuántas fechas literales («14 de marzo», con o sin año) dice cada cap."""
+    return {c["chapter_number"]: len(DATE_RE.findall(c.get("narration") or "")) for c in caps}
 
 
 def date_problems(caps: list[dict]) -> list[str]:
-    """F10 (Omar): una fecha literal como máximo por cap, y la fecha completa (con año) de un día una sola vez en el
-    video; después, «ese domingo», «esa noche»."""
+    """F10 (Omar): la fecha completa (con año) de un día una sola vez en el video. F23 §1.1: el tope de una fecha
+    literal por cap (DATE_MAX_PER_CAP) pasó a métrica (`fechas_literales_por_cap`)."""
     out, seen = [], {}
     for c in caps:
-        ds = [m.group(0) for m in DATE_RE.finditer(c.get("narration") or "")]
-        if len(ds) > DATE_MAX_PER_CAP:
-            out.append(f"cap {c['chapter_number']}: {len(ds)} fechas literales ({', '.join(ds)}; máximo "
-                       f"{DATE_MAX_PER_CAP} por cap): después de la primera, «ese día», «esa noche», «esa mañana»")
         for m in DATE_RE.finditer(c.get("narration") or ""):
             if m.group(1):
                 k = ev.norm(m.group(0))
@@ -482,7 +461,7 @@ def trailer_problems(text: str) -> list[str]:
 # ── 6. ancla de lugar y fecha en el gancho ────────────────────────────────────
 
 ANCHOR_MAX_WORDS = 10
-_YEAR = re.compile(r"\b(?:19|20)\d\d\b")
+_YEAR = re.compile(r"\b(?:1[0-9]{3}|20\d\d)\b")
 
 
 def _place_tokens(pool: dict[str, Any]) -> set[str]:

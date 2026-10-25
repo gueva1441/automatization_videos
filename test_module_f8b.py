@@ -20,12 +20,14 @@ def test_documentos_de_2014_a_2023_sobre_1963_entran():
 
 def test_antiguedad_por_item_con_excepciones():
     assert r3.contamination({"fecha": "1963-10-09", "texto": "la ola"}, 1963) is None
-    assert r3.contamination({"fecha": "2014-05-01", "texto": "una mostra fotografica a Roma"}, 1963)
+    # F23 §1.1: sin listas de palabras por idioma; nada posterior se descarta por año; antes de inicio − 20, todo
+    assert r3.contamination({"fecha": "2014-05-01", "texto": "una mostra fotografica a Roma"}, 1963) is None
     assert r3.contamination({"fecha": "1997-03-25", "texto": "La sentenza della Cassazione"}, 1963) is None
     assert r3.contamination({"fecha": "2013-10-09", "evento": "Cerimonia per il 50° anniversario"}, 1963) is None
     assert r3.contamination({"fecha": "1930-01-01", "texto": "un hecho cualquiera"}, 1963)
-    assert r3.contamination({"fecha": "1929-01-01", "texto": "La SADE ottiene la concessione"}, 1963) is None
-    assert r3.contamination({"fecha": "2026-03-01"}, 2005).startswith("fecha 2026")      # Orleans: igual que antes
+    assert r3.contamination({"fecha": "1929-01-01", "texto": "La SADE ottiene la concessione"}, 1963)
+    assert r3.contamination({"fecha": "1943-01-01", "texto": "La SADE ottiene la concessione"}, 1963) is None
+    assert r3.contamination({"fecha": "2026-03-01"}, 2005) is None
 
 
 def test_merge_con_documentos_retrospectivos():

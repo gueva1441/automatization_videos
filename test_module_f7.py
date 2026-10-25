@@ -276,7 +276,14 @@ def test_focus_text_low_density():
     text = ("Other prisons in Texas and Ohio were inspected. " * 2000) + " Orleans Parish Prison was flooded. " + \
            ("More unrelated cases. " * 2000)
     out, why = r3.focus_text(text, PLACE)
-    assert why and len(out) < 9000 and "Orleans Parish Prison was flooded" in out
+    # F23 §1.2: la densidad baja se anota (métrica); el documento se lee entero
+    assert why and "densidad baja" in why and out == text
+    r3.FOCUS_SOLO_METRICA = False                                  # el recorte de antes sigue disponible
+    try:
+        out, why = r3.focus_text(text, PLACE)
+        assert why and len(out) < 9000 and "Orleans Parish Prison was flooded" in out
+    finally:
+        r3.FOCUS_SOLO_METRICA = True
     dense = "Orleans Parish Prison. " * 4000
     assert r3.focus_text(dense, PLACE) == (dense, None)
 
@@ -297,8 +304,10 @@ def test_merge_dedupes_between_docs_and_drops_contamination():
 
 
 def test_contamination_by_item_date():
-    assert r3.contamination({"fecha": "2026-03-01"}, 2005).startswith("fecha 2026")
+    # F23 §1.1: nada posterior se descarta por año; antes de inicio − 20, sí
+    assert r3.contamination({"fecha": "2026-03-01"}, 2005) is None
     assert r3.contamination({"fecha": "2025-08-29"}, 2005) is None
+    assert r3.contamination({"fecha": "1980"}, 2005).startswith("fecha 1980")
     assert r3.doc_contamination({"nombra_evento": False}, 2005)
     assert r3.doc_contamination({"nombra_evento": True, "anio": 2031}, 2005) is None   # F8b: el año del documento ya no cuenta
 
@@ -408,7 +417,10 @@ def test_people_names_and_eligibility(voc_orleans):
 def test_count_value_takes_the_number_next_to_the_noun(voc_orleans):
     assert r3.count_value("La cárcel tenía 6,375 presos el 29 de agosto de 2005.") == ("6,375", 6375)
     assert r3.count_value("En junio había 6,295 reclusos; el promedio fue 5,919 reclusos.") is None   # dos: rango
-    assert r3.count_value("En 1974 había 800 presos; en 2004, 6,500 presos.") == ("6,500", 6500)   # < 1000 no cuenta
+    # F23 §1.2: el piso es 10 (antes 1000): «800 presos» también es un conteo → dos conteos, no hay canónica
+    assert r3.count_value("En 1974 había 800 presos; en 2004, 6,500 presos.") is None
+    assert r3.count_value("En 2004 había 6,500 presos.") == ("6,500", 6500)
+    assert r3.count_value("Murieron 327 personas.") == ("327", 327)
     assert r3.count_value("La capacidad era de 8,000 camas.") is None
 
 

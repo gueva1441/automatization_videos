@@ -74,17 +74,18 @@ def test_md5_de_los_archivos_del_handoff(name, md5):
 
 
 def test_los_cuatro_sistemas_byte_identicos_al_handoff():
-    assert fc.system() == fc.SYSTEM_F22_1 == _sistema("PROMPT_FICHA_v2_1.md")
+    # F23: la ficha v2.1 y el guion v5.2 quedan con su versión (f22-1); los de hoy, en test_module_f23
+    assert fc.system("f22-1") == fc.SYSTEM_F22_1 == _sistema("PROMPT_FICHA_v2_1.md")
     assert mc.SYSTEM == _sistema("PROMPT_COLUMNA_v1_1.md")
     assert me.SYSTEM_V2 == _sistema("PROMPT_ESCALETA_v2_1.md")
-    assert g4.system() == g4.SYSTEM_V5_2 == _sistema("PROMPT_GUIONISTA_v5_2.md")
-    assert [_md5(x) for x in (fc.system(), mc.SYSTEM, me.SYSTEM_V2, g4.system())] == [
+    assert g4.system("f22-1") == g4.SYSTEM_V5_2 == _sistema("PROMPT_GUIONISTA_v5_2.md")
+    assert [_md5(x) for x in (fc.system("f22-1"), mc.SYSTEM, me.SYSTEM_V2, g4.system("f22-1"))] == [
         "7d3599dc6e4123a3bb883fc15a541e71", "f294cf6b1220983903ce339f5b21cb27", "22cfd68b7cee4734e95bb3ee27bb96b2",
         "743e4f0a7ff9e58d86762bbd43679952"]                                     # F22e: escaleta 22cfd68b
     assert _md5(me.SYSTEM_V2_F22_1) == "7ea18a6aa1ca91c5ad0dfb7cc9b239a8"     # la v2.1 de F22, con su versión
     for s in (fc.system(), mc.SYSTEM, me.SYSTEM_V2, g4.system()):
         assert "## SISTEMA" not in s and "Para CC" not in s and s.startswith("<rol>")
-    assert (fc.PROMPT_VERSION, mc.PROMPT_VERSION, g4.PROMPT_VERSION) == ("f22-1",) * 3
+    assert (fc.PROMPT_VERSION_F22, mc.PROMPT_VERSION, g4.PROMPT_VERSION_V5_2) == ("f22-1",) * 3
     assert (me.PROMPT_VERSION_V2, me.PROMPT_VERSION_COLUMNA, me.PROMPT_VERSION_V2_F22) == ("f22-2", "f22-2", "f22-1")
 
 
@@ -107,7 +108,7 @@ def test_los_viejos_quedan_con_su_version():
     assert _md5(mc.SYSTEM_F17_1) == "1408569c5c9de22ec406a10ba0cd9b13"
     assert _md5(me.SYSTEM_V2_F16_1) == "49ed74d941def064cdda077212629ff1"
     assert _md5(g4.system("f15b-1")) == "cdce609abea95ee36d0eb4f44d74dda8"
-    assert g4.system("f15-1") == g4.SYSTEM_V5 and g4.VERSIONES_V5 == ("f22-1", "f15b-1", "f15-1")
+    assert g4.system("f15-1") == g4.SYSTEM_V5 and g4.VERSIONES_V5 == ("f23-1", "f22-1", "f15b-1", "f15-1")
 
 
 def test_escaleta_v1_byte_identica():
@@ -168,16 +169,19 @@ def test_ancla_modelo_con_el_lugar_y_el_anio_del_seed():
 
 
 def test_fechas_ese_dia():
+    # F23 §1.1: dos fechas en un cap ya no son un problema (métrica); el mensaje ya no tiene «ese domingo»
     caps = [{"chapter_number": 2, "narration": "El 1 de agosto pasó. El 2 de agosto, otra cosa."}]
-    p = gr.date_problems(caps)
-    assert p and "«ese día»" in p[0] and "domingo" not in p[0]
+    assert gr.date_problems(caps) == [] and gr.fechas_literales_por_cap(caps) == {2: 2}
+    src = (ROOT / "script_engine" / "guion_v3_reglas.py").read_text(encoding="utf-8")
+    assert "«ese domingo»" not in src
 
 
 def test_dorado_v3_solo_cambian_los_mensajes_de_f22(tmp_path, monkeypatch):
     import test_module_f11 as t11
     digest, out = t11._run_v3(tmp_path, monkeypatch)
     assert digest == t11.V3_GOLDEN
-    pares = [("una ruta 10 no son los niños de 10 años", "«Interestatal 10» no son los niños de 10 años"),
+    pares = t11.BANDAS_F23 + [                                # F23: primero las notas de largo de m01d
+             ("una ruta 10 no son los niños de 10 años", "«Interestatal 10» no son los niños de 10 años"),
              ("(una frase corta con el lugar y el año) antes de la segunda cita",
               "(una frase corta con la ciudad y el año: «Nueva Orleans, agosto de 2005.») antes de la segunda cita"),
              ("(cómo era el lugar, la luz, el frío o el calor)", "(cómo era el agua, la celda, el calor)"),
@@ -390,9 +394,11 @@ def test_ficha_institucion_en_personas_pasa_el_chequeo():
 
 def _kyshtym():
     d = STEPS / "f18-kyshtym-mayak"
-    if not (d / "00_pool_v3.json").exists():
+    pf = d / "00_pool_v3_f22.json"                       # F23 rehízo el pool: el de F22 quedó como respaldo
+    pf = pf if pf.exists() else d / "00_pool_v3.json"
+    if not pf.exists():
         pytest.skip("sin el pool de Kyshtym en _steps")
-    pool = json.loads((d / "00_pool_v3.json").read_text(encoding="utf-8"))
+    pool = json.loads(pf.read_text(encoding="utf-8"))
     docs = pool["_research_v3"]["documentos"]
     f13 = next(x for x in docs if x["id"] == "F13")
     if not (d / "fuentes" / f13["txt"]).exists():

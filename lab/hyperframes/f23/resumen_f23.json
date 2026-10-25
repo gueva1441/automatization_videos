@@ -1,0 +1,726 @@
+{
+ "compuerta": {
+  "f22_guardada": {
+   "color": "verde",
+   "metricas": {
+    "datos": 208,
+    "citas_verificadas": 20,
+    "elegibles_humano": 4,
+    "eventos_con_fecha": 22
+   },
+   "motivos": []
+  },
+  "f22_con_f23": {
+   "color": "verde",
+   "metricas": {
+    "datos": 208,
+    "citas_verificadas": 18,
+    "elegibles_humano": 7,
+    "eventos_con_fecha": 35,
+    "personas_con_nombre": 13
+   }
+  },
+  "f23": {
+   "color": "verde",
+   "metricas": {
+    "datos": 154,
+    "citas_verificadas": 21,
+    "elegibles_humano": 16,
+    "eventos_con_fecha": 56,
+    "personas_con_nombre": 23
+   },
+   "motivos": []
+  }
+ },
+ "F22d": {
+  "palabras": 1579,
+  "minutos": 12.8,
+  "bloqueantes": 0,
+  "bloqueantes_lista": [],
+  "prompt_version": "f22-1",
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "Mayak",
+   "nombre": "Mayak",
+   "por_que": "Es la institución operadora del almacenamiento donde se concentra el peligro. El conflicto sigue la gestión de sus residuos, las deficiencias desatendidas que describe F16 y las consecuencias para sus trabajadores y familias. No se inventa un directivo que ordenara ignorar las averías. El silencio público se atribuye a las autoridades soviéticas; las negativas sobre prestaciones, a los interlocutores que identifica cada testimonio.",
+   "variantes": [
+    "ПО «Маяк»",
+    "Химкомбинат «Маяк»",
+    "Mayak chemical plant",
+    "Государственный химический завод имени Д.И. Менделеева",
+    "ГХЗ",
+    "комбинат 817"
+   ]
+  },
+  "antagonista_tipo": "institucion",
+  "antagonista_caps": [
+   1,
+   2,
+   3,
+   5,
+   7
+  ],
+  "humano": "Nadezhda Kutepova",
+  "personas_total": [
+   "Josef Stalin",
+   "Lev Nikolaevich Gaev",
+   "Lev Tumerman",
+   "Lyubov Ladeyshchikova",
+   "Nadezhda Ivanovna Kozlova",
+   "Nadezhda Kutepova",
+   "Planeta de las Esperanzas",
+   "V. D. Kamynin",
+   "Zhores Medvedev"
+  ],
+  "escenas_usadas": [
+   1,
+   2,
+   3,
+   4,
+   7,
+   8,
+   9,
+   10
+  ],
+  "trailer_gancho": [],
+  "citas": 10
+ },
+ "F23": {
+  "palabras": 1446,
+  "minutos": 11.8,
+  "bloqueantes": 0,
+  "bloqueantes_lista": [],
+  "prompt_version": "f23-1",
+  "antagonista": {
+   "tipo": "institucion",
+   "id": "L09",
+   "nombre": "Mayak",
+   "por_que": "Es la institución responsable del almacenamiento y del trabajo al que se incorpora Dubrovsky. La narración concentra el conflicto en sus decisiones operativas y en la protección insuficientemente documentada de sus trabajadores, sin inventar quién impartió cada orden. Las responsabilidades ministeriales, las atribuciones de culpa y los mecanismos de silencio se distinguen de esa responsabilidad institucional.",
+   "variantes": [
+    "Маяк",
+    "ПО «Маяк»",
+    "Производственное объединение «Маяк»",
+    "Planta n.º 817"
+   ]
+  },
+  "antagonista_tipo": "institucion",
+  "antagonista_caps": [
+   2,
+   3,
+   6
+  ],
+  "humano": "Anatoly Vasilievich Dubrovsky",
+  "personas_total": [
+   "Anatoly Vasilievich Dubrovsky",
+   "Chelyabinsky Rabochy",
+   "Galina Chanova",
+   "Lyudmila Smirnova",
+   "Vladimir Slivyak",
+   "Zhores Medvedev"
+  ],
+  "escenas_usadas": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   8,
+   9,
+   11
+  ],
+  "trailer_gancho": [],
+  "citas": 8
+ },
+ "por_cap": {
+  "1": {
+   "F22d": {
+    "palabras": 215,
+    "personas": [
+     "Nadezhda Kutepova"
+    ],
+    "citas": 2,
+    "bloqueantes": 0,
+    "escenas": [
+     3
+    ],
+    "fechas": 0,
+    "intent": "hook",
+    "intent_escaleta": "hook"
+   },
+   "F23": {
+    "palabras": 111,
+    "personas": [
+     "Anatoly Vasilievich Dubrovsky"
+    ],
+    "citas": 1,
+    "bloqueantes": 0,
+    "escenas": [
+     1
+    ],
+    "fechas": 0,
+    "intent": "hook",
+    "intent_escaleta": "hook"
+   }
+  },
+  "2": {
+   "F22d": {
+    "palabras": 109,
+    "personas": [
+     "Josef Stalin",
+     "Nadezhda Ivanovna Kozlova"
+    ],
+    "citas": 0,
+    "bloqueantes": 0,
+    "escenas": [],
+    "fechas": 0,
+    "intent": "setup",
+    "intent_escaleta": "setup"
+   },
+   "F23": {
+    "palabras": 76,
+    "personas": [
+     "Anatoly Vasilievich Dubrovsky"
+    ],
+    "citas": 0,
+    "bloqueantes": 0,
+    "escenas": [
+     4
+    ],
+    "fechas": 0,
+    "intent": "setup",
+    "intent_escaleta": "setup"
+   }
+  },
+  "3": {
+   "F22d": {
+    "palabras": 237,
+    "personas": [
+     "Lyubov Ladeyshchikova"
+    ],
+    "citas": 2,
+    "bloqueantes": 0,
+    "escenas": [
+     1
+    ],
+    "fechas": 0,
+    "intent": "rising_tension",
+    "intent_escaleta": "rising_tension"
+   },
+   "F23": {
+    "palabras": 81,
+    "personas": [
+     "Anatoly Vasilievich Dubrovsky"
+    ],
+    "citas": 0,
+    "bloqueantes": 0,
+    "escenas": [],
+    "fechas": 0,
+    "intent": "rising_tension",
+    "intent_escaleta": "rising_tension"
+   }
+  },
+  "4": {
+   "F22d": {
+    "palabras": 186,
+    "personas": [],
+    "citas": 0,
+    "bloqueantes": 0,
+    "escenas": [
+     2
+    ],
+    "fechas": 0,
+    "intent": "rising_tension",
+    "intent_escaleta": "shock"
+   },
+   "F23": {
+    "palabras": 134,
+    "personas": [],
+    "citas": 0,
+    "bloqueantes": 0,
+    "escenas": [],
+    "fechas": 0,
+    "intent": "rising_tension",
+    "intent_escaleta": "rising_tension"
+   }
+  },
+  "5": {
+   "F22d": {
+    "palabras": 251,
+    "personas": [
+     "Lev Nikolaevich Gaev",
+     "Nadezhda Kutepova"
+    ],
+    "citas": 1,
+    "bloqueantes": 0,
+    "escenas": [
+     4,
+     7
+    ],
+    "fechas": 0,
+    "intent": "shock",
+    "intent_escaleta": "consequences"
+   },
+   "F23": {
+    "palabras": 122,
+    "personas": [
+     "Anatoly Vasilievich Dubrovsky"
+    ],
+    "citas": 0,
+    "bloqueantes": 0,
+    "escenas": [
+     2
+    ],
+    "fechas": 0,
+    "intent": "shock",
+    "intent_escaleta": "shock"
+   }
+  },
+  "6": {
+   "F22d": {
+    "palabras": 416,
+    "personas": [
+     "Lev Tumerman",
+     "Zhores Medvedev"
+    ],
+    "citas": 3,
+    "bloqueantes": 0,
+    "escenas": [
+     8,
+     9,
+     10
+    ],
+    "fechas": 0,
+    "intent": "rising_tension",
+    "intent_escaleta": "resolution"
+   },
+   "F23": {
+    "palabras": 601,
+    "personas": [
+     "Anatoly Vasilievich Dubrovsky",
+     "Chelyabinsky Rabochy",
+     "Lyudmila Smirnova",
+     "Vladimir Slivyak"
+    ],
+    "citas": 6,
+    "bloqueantes": 0,
+    "escenas": [
+     3,
+     5,
+     8
+    ],
+    "fechas": 0,
+    "intent": "consequences",
+    "intent_escaleta": "consequences"
+   }
+  },
+  "7": {
+   "F22d": {
+    "palabras": 162,
+    "personas": [
+     "Nadezhda Kutepova",
+     "Planeta de las Esperanzas",
+     "V. D. Kamynin"
+    ],
+    "citas": 2,
+    "bloqueantes": 0,
+    "escenas": [],
+    "fechas": 0,
+    "intent": "outro",
+    "intent_escaleta": "outro"
+   },
+   "F23": {
+    "palabras": 319,
+    "personas": [
+     "Anatoly Vasilievich Dubrovsky",
+     "Galina Chanova",
+     "Zhores Medvedev"
+    ],
+    "citas": 1,
+    "bloqueantes": 0,
+    "escenas": [
+     9,
+     11
+    ],
+    "fechas": 0,
+    "intent": "outro",
+    "intent_escaleta": "outro"
+   }
+  }
+ },
+ "costos": {
+  "etapas": [
+   {
+    "etapa": "perfiles",
+    "usd": 0.0034,
+    "segundos": 6.5,
+    "llamadas": [
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "research v3 perfil del seed",
+      "in": 267,
+      "out": 128,
+      "thinking": 537,
+      "usd": 0.0017
+     },
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "research v3 perfil del seed",
+      "in": 263,
+      "out": 156,
+      "thinking": 465,
+      "usd": 0.0016
+     }
+    ],
+    "perfiles": {
+     "ba6c3cac-f7r3": {
+      "anio_evento": 2005,
+      "anio_inicio": 2005,
+      "anio_fin": 2005,
+      "tipo_evento": "puntual",
+      "cobertura_ingles": true,
+      "idiomas_research": [
+       "inglés",
+       "español"
+      ]
+     },
+     "f8s1-ycua-bolanos": {
+      "anio_evento": 2004,
+      "anio_inicio": 2004,
+      "anio_fin": 2004,
+      "tipo_evento": "puntual",
+      "cobertura_ingles": true,
+      "idiomas_research": [
+       "español",
+       "inglés"
+      ]
+     }
+    }
+   },
+   {
+    "etapa": "research",
+    "usd": 1.2127,
+    "segundos": 1301.0,
+    "llamadas": [
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "research v3 perfil del seed",
+      "in": 238,
+      "out": 201,
+      "thinking": 2815,
+      "usd": 0.0076
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 347,
+      "out": 2068,
+      "thinking": 1384,
+      "usd": 0.035
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 384,
+      "out": 1960,
+      "thinking": 710,
+      "usd": 0.0272
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 384,
+      "out": 1590,
+      "thinking": 374,
+      "usd": 0.0201
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 384,
+      "out": 2211,
+      "thinking": 734,
+      "usd": 0.0299
+     },
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "R1 descubrimiento (Flash)",
+      "in": 216,
+      "out": 3858,
+      "thinking": 4493,
+      "usd": 0.0209
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 345,
+      "out": 1856,
+      "thinking": 666,
+      "usd": 0.0257
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 382,
+      "out": 2163,
+      "thinking": 934,
+      "usd": 0.0314
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 382,
+      "out": 2398,
+      "thinking": 522,
+      "usd": 0.0297
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 382,
+      "out": 3713,
+      "thinking": 1228,
+      "usd": 0.0499
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 333,
+      "out": 2481,
+      "thinking": 1434,
+      "usd": 0.0396
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 370,
+      "out": 2355,
+      "thinking": 898,
+      "usd": 0.033
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 370,
+      "out": 2301,
+      "thinking": 416,
+      "usd": 0.0276
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 370,
+      "out": 1719,
+      "thinking": 3071,
+      "usd": 0.0484
+     },
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "R1 descubrimiento (Flash)",
+      "in": 202,
+      "out": 3351,
+      "thinking": 5298,
+      "usd": 0.0217
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 335,
+      "out": 2136,
+      "thinking": 766,
+      "usd": 0.0294
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 372,
+      "out": 2244,
+      "thinking": 642,
+      "usd": 0.0293
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 372,
+      "out": 2179,
+      "thinking": 530,
+      "usd": 0.0276
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R1 descubrimiento",
+      "in": 372,
+      "out": 2050,
+      "thinking": 477,
+      "usd": 0.0257
+     },
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "R1 descubrimiento (Flash)",
+      "in": 204,
+      "out": 3545,
+      "thinking": 8009,
+      "usd": 0.0289
+     },
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "R1 fichas del grounding",
+      "in": 3143,
+      "out": 1191,
+      "thinking": 3308,
+      "usd": 0.0122
+     },
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "research v3 vocabulario del caso",
+      "in": 690,
+      "out": 655,
+      "thinking": 3392,
+      "usd": 0.0103
+     },
+     {
+      "servicio": "Gemini 2.5 Flash",
+      "desc": "R2 fichas desde el texto",
+      "in": 5698,
+      "out": 370,
+      "thinking": 2602,
+      "usd": 0.0091
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F01 1/1",
+      "in": 1275,
+      "out": 1978,
+      "thinking": 1516,
+      "usd": 0.0365
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F04 1/1",
+      "in": 6221,
+      "out": 2367,
+      "thinking": 1679,
+      "usd": 0.0482
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F05 1/1",
+      "in": 19891,
+      "out": 8658,
+      "thinking": 1632,
+      "usd": 0.1278
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F06 1/1",
+      "in": 5694,
+      "out": 8745,
+      "thinking": 1527,
+      "usd": 0.1098
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F07 1/1",
+      "in": 3913,
+      "out": 3592,
+      "thinking": 1496,
+      "usd": 0.0558
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F08 1/1",
+      "in": 1628,
+      "out": 2394,
+      "thinking": 1427,
+      "usd": 0.0402
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F09 1/1",
+      "in": 7612,
+      "out": 8000,
+      "thinking": 1520,
+      "usd": 0.1047
+     },
+     {
+      "servicio": "Gemini 2.5 Pro",
+      "desc": "R3 F10 1/1",
+      "in": 7441,
+      "out": 4409,
+      "thinking": 1589,
+      "usd": 0.0693
+     }
+    ],
+    "color": "verde",
+    "error": null
+   },
+   {
+    "etapa": "ficha",
+    "usd": 0.3343,
+    "segundos": 318.1,
+    "llamadas": [
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "ficha_caso",
+      "in": 27398,
+      "out": 23340,
+      "thinking": 4612,
+      "usd": 0.3343
+     }
+    ],
+    "prompt_md5": {
+     "sistema": "070b75dff58aecfa407fac3d62020ce4",
+     "usuario": "a9909b1b66af93f27d6dcb04812d6827"
+    }
+   },
+   {
+    "etapa": "escaleta",
+    "usd": 0.3222,
+    "segundos": 427.6,
+    "llamadas": [
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "m01a_escaleta v2 intento 1",
+      "in": 15650,
+      "out": 6860,
+      "thinking": 6145,
+      "usd": 0.1613
+     },
+     {
+      "servicio": "OpenAI gpt-6.1-sol",
+      "desc": "m01a_escaleta v2 intento 2",
+      "in": 16342,
+      "out": 6672,
+      "thinking": 6146,
+      "usd": 0.1609
+     }
+    ],
+    "error": null,
+    "log": [
+     "  [escaleta] compuerta del pool: verde {'datos': 154, 'citas_verificadas': 21, 'elegibles_humano': 16, 'eventos_con_fecha': 56, 'personas_con_nombre': 23}",
+     "  [escaleta v2] intento 1: 26 bloqueante(s) ['beat 2: dato_central «P22: DUBROVSKY ERA ELECTRICISTA ANTES DE CONVERTIRSE EN LIQUIDADOR. PRESENTARLO POR SU OFICIO, NO POR SU CONDICIÓN POSTERIOR.» no existe en el pool (o no es D/T/Q)', 'a_pantalla T04 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla T03 también está en un beat: lo que va a pantalla no lo dice la voz', 'a_pantalla D62 también está en un beat: lo que va a pantalla no lo dice la voz'] · 67 reparación(es) · 14 a métricas",
+     "  [escaleta v2] intento 2: 0 bloqueante(s) [] · 56 reparación(es) · 14 a métricas"
+    ],
+    "prompt_md5_intento1": {
+     "sistema": "22cfd68b7cee4734e95bb3ee27bb96b2",
+     "usuario": "12c4dd52b3ba345a0453f7d0024692e4"
+    }
+   },
+   {
+    "etapa": "guion",
+    "usd": 0.8745,
+    "segundos": 178.8,
+    "llamadas": [
+     {
+      "servicio": "Anthropic claude-fable-5-1",
+      "desc": "guion_v4 guionista",
+      "in": 11631,
+      "out": 15163,
+      "thinking": 0,
+      "usd": 0.8745
+     }
+    ]
+   }
+  ],
+  "usd_total": 2.7471
+ }
+}

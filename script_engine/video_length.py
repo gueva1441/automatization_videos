@@ -27,11 +27,27 @@ DEFAULTS = {
     "gate_citas_verificadas": 8,
     "gate_elegibles": 2,
     "gate_eventos_fecha": 10,
-    "gate_yellow_pct": 50,         # amarillo: todo ≥ la mitad de cada umbral
-    "gate_yellow_target_words": 1200,
-    "gate_yellow_max_beats": 8,
-    "gate_yellow_min_beats_dev_cap": 1,  # amarillo: 7–8 beats no alcanzan para 2 por cap de desarrollo
+    "gate_yellow_pct": 50,         # F23: ya no decide el color (queda para el reporte)
+    "gate_yellow_target_words": 1200,    # F23: informativo (el amarillo ya no acorta el video)
+    "gate_yellow_max_beats": 8,          # F23: informativo (la escaleta sigue en 7–14)
+    "gate_yellow_min_beats_dev_cap": 1,
+    # F23 §1.2: rojo solo si no hay con qué contar
+    "gate_rojo_datos": 40,
+    "gate_rojo_personas": 2,
+    "gate_rojo_eventos": 3,
 }
+
+
+CHARS_POR_PALABRA = 6                     # F23 §1.2: las bandas de caracteres por rol salen de las palabras
+BANDA_CHARS = (0.5, 1.3)                  # del centro (palabras × 6): los rangos de antes quedaban en 0.45–1.33
+
+
+def char_band(role: str) -> tuple[int, int]:
+    """F23 §1.2: (mínimo, máximo) de caracteres de un cap por rol, derivados de las palabras de `video_length`
+    (hook_words / dev_words / outro_words × CHARS_POR_PALABRA × BANDA_CHARS)."""
+    words = get("hook_words") if role == "hook" else get("outro_words") if role == "reveal_outro" else get("dev_words")
+    c = words * CHARS_POR_PALABRA
+    return round(c * BANDA_CHARS[0]), round(c * BANDA_CHARS[1])
 
 
 def get(name: str) -> int:

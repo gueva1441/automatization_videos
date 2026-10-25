@@ -20,8 +20,10 @@ F22 = ROOT / "lab" / "hyperframes" / "f22"
 
 
 def _kyshtym():
-    need = [STEPS / "00_pool_v3.json", STEPS / "ficha_caso.json", STEPS / "01a_escaleta_f22.json",
-            F22 / "guion_kyshtym_f22.json"]
+    def f22(nombre: str, respaldo: str) -> Path:           # F23 rehízo pool y ficha: los de F22 quedaron como respaldo
+        return STEPS / respaldo if (STEPS / respaldo).exists() else STEPS / nombre
+    need = [f22("00_pool_v3.json", "00_pool_v3_f22.json"), f22("ficha_caso.json", "ficha_caso_f22.json"),
+            STEPS / "01a_escaleta_f22.json", F22 / "guion_kyshtym_f22.json"]
     if not all(p.exists() for p in need):
         pytest.skip("sin los datos de Kyshtym F22")
     pool, ficha, esc, g = (json.loads(p.read_text(encoding="utf-8")) for p in need)

@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-24 (F22e: Fable 5.1 por defecto en el guion v4; escaleta v2.1 f22-2 con la promesa «imagen o pregunta»; cero corridas) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-24 (F23: tiempo del caso, umbrales a métrica, intent desde la escaleta, idiomas del caso; Kyshtym desde la semilla hasta el guion, US$ 2.75) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,13 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F23 — Familias D + G + H + I: el tiempo del caso, umbrales a métrica, intent desde la escaleta, idiomas — HECHO, **PARADA** (el analista lee el guion y el diff; si Kyshtym da ≥ 8, F24)
+- Sobre `2dcc428`. Reporte `lab/hyperframes/f23/F23_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), `compara_f23.html` (F22d | F23 por cap).
+- Perfil: `anio_inicio/anio_fin/tipo_evento/cobertura_ingles/idiomas_research`. Kyshtym: **1948–1967 prolongado**, [ruso, inglés, español]; Orleans 2005 puntual; Ycuá 2004 puntual (a esos dos solo se les sumaron los campos nuevos; respaldo `_perfil_f22.json`).
+- Contaminación solo si año < inicio − 20 (Kyshtym: 0 descartes; F22: 36). Compuerta: rojo solo con datos < 40 / personas < 2 / eventos < 3; amarillo informativo. Prompts: ficha v2.2 `f23-1` (bloque md5 `070b75df…`), guion v5.3 `f23-1` (`8ca9aa49…`); escaleta y columna sin cambio. Intent por cap = `m01a_escaleta.intent_de_cap`.
+- Kyshtym desde la semilla: compuerta verde (154 · 21 · 16 · 56 · 23) → ficha v2.2 → escaleta f22-2 sin columna (2 intentos) → guion Fable v5.3 1,446 palabras, 0 bloqueantes, 8 citas. Sin Osetrov/Komarov/Serov (la R1 nueva no trajo su documento); el cap 6 tiene 601 palabras y los caps 2–4, 76–134.
+- En `_steps/f18-kyshtym-mayak`: pool/perfil/ficha nuevos; respaldos `00_pool_v3_f22.json`, `_perfil_f22.json`, `ficha_caso_f22.json`, `_f22/`. Arreglo en `m05.cap_review` (min vacío). Suite amplia 845 verdes + las 5 previas. Sin merge.
 
 ## F22e — Fable 5.1 por defecto en el guion · promesa en la escaleta — HECHO, **PARADA**
 - Sobre `f56c018`, cero corridas. Reporte `lab/hyperframes/f22e/F22e_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES).

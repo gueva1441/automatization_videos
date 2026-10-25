@@ -68,7 +68,7 @@ def _numbers(s: str) -> list[str]:
     out = []
     for m in _NUM_UNIT.finditer(s):
         tok = m.group(0)
-        if re.fullmatch(r"(19|20)\d\d", tok):
+        if re.fullmatch(r"(1[0-9]{3}|20\d\d)", tok):
             continue
         nxt = re.match(r"\s+([a-záéíóúñ]+)", s[m.end():])
         unit = nxt.group(1) if nxt and nxt.group(1) in {"pies", "metros", "metro", "pie", "millones", "dólares",
@@ -197,14 +197,25 @@ def format_pool(pool: dict[str, Any] | None, ids: list[str] | None = None) -> st
     return "\n".join(out) if out else "(sin evidence_pool)"
 
 
+# F23 §1.3: un valor con rango («entre 70 y 80 toneladas», «200 a 10.000 personas») es UN valor, no otra cifra
+RANGO = re.compile(r"\bentre\s+\d[\d.,]*\s+(?:[a-záéíóúñ]+\s+)?y\s+\d|\b\d[\d.,]*\s*(?:a|al|hasta|–|—|-)\s*\d[\d.,]*"
+                   r"\s+[a-záéíóúñ]", re.I)
+
+
+def es_rango(texto: str | None) -> bool:
+    return bool(RANGO.search(str(texto or "")))
+
+
 def is_hard(it: dict[str, Any]) -> bool:
     """Dato DURO (cuenta para densidad y repetición): cifra, magnitud, fecha con día o contradicción con anchor;
-    eventos de la cronología con día; citas. Un nombre, un lugar o un año suelto no son «el dato»."""
+    eventos de la cronología con fecha; citas. Un nombre o un lugar no son «el dato».
+    F23 §1.1: un evento de la cronología cuenta con la granularidad que tenga (día, mes o año): su anchor es la fecha
+    dicha así («14 de marzo», «marzo de 1957», «1957»; `spoken_date`), y con eso se lo «usa» (`used_in`)."""
     k = it.get("_kind")
     if k == "citas":
         return True
     if k == "cronologia":
-        return bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(it.get("fecha") or "")))
+        return bool(re.fullmatch(r"\d{4}(-\d{2}){0,2}", str(it.get("fecha") or "")))
     if k == "datos":
         return it.get("tipo") in ("cifra", "magnitud", "fecha", "contradiccion") and bool(anchors(it))
     return False
@@ -241,7 +252,7 @@ def repeats_in_cap(text: str, ids: list[str], pool: dict[str, Any] | None) -> li
         if not it or it["_kind"] in ("personajes", "lugares"):
             continue
         for a in anchors(it) + signature_phrases(it):
-            if it["_kind"] == "citas" or re.fullmatch(r"(19|20)\d\d", a):
+            if it["_kind"] == "citas" or re.fullmatch(r"(1[0-9]{3}|20\d\d)", a):
                 continue
             n = count_in(a, text)
             key = norm(a)
@@ -284,7 +295,7 @@ def _figures(s: str) -> set[str]:
     out = set()
     for m in re.finditer(r"\$?\d[\d.,]*\d%?|\$?\d%?", t):
         tok = m.group(0)
-        if re.fullmatch(r"(19|20)\d\d", tok):
+        if re.fullmatch(r"(1[0-9]{3}|20\d\d)", tok):
             continue
         out.add(tok.replace("$", "").replace(",", "").rstrip("."))
     return out

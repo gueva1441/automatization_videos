@@ -1,0 +1,53 @@
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: sin grounding (de memoria) → reintento
+  [R1] foco 1: Pro sin grounding tras 3 reintentos → Flash con búsqueda
+  [R1] foco 1: 12 fichas del modelo, 0 URLs en el grounding
+  [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 2: sin grounding (de memoria) → reintento
+  [R1] foco 2: 12 fichas del modelo, 13 URLs en el grounding
+  [R1] foco 3: sin grounding (de memoria) → reintento
+  [R1] foco 3: sin grounding (de memoria) → reintento
+  [R1] foco 3: sin grounding (de memoria) → reintento
+  [R1] foco 3: Pro sin grounding tras 3 reintentos → Flash con búsqueda
+  [R1] foco 3: 10 fichas del modelo, 0 URLs en el grounding
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: sin grounding (de memoria) → reintento
+  [R1] foco 4: Pro sin grounding tras 3 reintentos → Flash con búsqueda
+  [R1] foco 4: 12 fichas del modelo, 0 URLs en el grounding
+  [R1] focos con grounding: 1 por Pro, 0 por Flash, 3 sin grounding (de 4)
+  [R1] 13 URLs reales: 4 con ficha del modelo, 6 con ficha de Flash, 2 fuera (no relevantes o listados) · 42 fichas del modelo sin URL del grounding
+  [R2] F01 pravo_2008-F01: OK (original) 1318 caracteres
+  [R2] F03 archive74_2012_55_anos_desde_la_tragedia-F03: PDF enlazado descartado (no nombra el evento): https://archive74.ru/sites/default/files/sites/default/files/reglament_priema_dokumentov_v_gu_ogacho.pdf
+  [R2] F03 archive74_2012_55_anos_desde_la_tragedia-F03: FALLÓ — API: RuntimeError: HTTP 429 de la API de disponibilidad
+  [R2] F04 juryst_decision_judicial_relacionada_con_el-F04: OK (original) 20277 caracteres
+  [R2] F05 wikipedia_2023-F05: OK (original) 59482 caracteres
+  [R2] F06 svoboda_2011_articulo_en_radio_free_europe-F06: OK (original) 17650 caracteres
+  [R2] F07 meduza_2021_en_el_pueblo_de_los-F07: OK (original) 10350 caracteres
+  [R2] F08 pravosoznanie_articulo_de_pravosoznanie_org_sobre-F08: OK (original) 2603 caracteres
+  [R2] F09 ozersk74_2018-F09: OK (original) 21454 caracteres
+  [R2] F10 wikipedia_kyshtym_disaster_wikipedia-F10: OK (original) 22332 caracteres
+  [R2] 8 documentos OK ({'ru': 7, 'en': 1}) de 10 intentados
+  [R2] ficha F01: prensa_posterior 2008 «Прокуратура Калининского района Челябинской области предъяви»
+  [R2] ficha F04: fallo_judicial 2011 «Определение судебной коллегии по гражданским делам Челябинск»
+  [R2] ficha F05: academico 2023 «Кыштымская авария»
+  [R2] ficha F06: prensa_posterior 2011 «Последствия аварии на комбинате "Маяк"»
+  [R2] ficha F07: prensa_posterior 2021 «В уральском поселке идет выставка о Кыштымской ядерной катас»
+  [R2] ficha F08: prensa_posterior None «Очередная победа в суде: Долг государства будет возвращен»
+  [R2] ficha F09: prensa_posterior 2018 «Взрыв на "Маяке": это было "северное сияние"»
+  [R2] ficha F10: academico None «Kyshtym disaster»
+  [R3] F01: 18 ítems con cita literal, 1 descartados
+  [R3] F04: 17 ítems con cita literal, 3 descartados
+  [R3] F05: 60 ítems con cita literal, 15 descartados
+  [R3] F06: 63 ítems con cita literal, 16 descartados
+  [R3] F07: 25 ítems con cita literal, 10 descartados
+  [R3] F08: 16 ítems con cita literal, 3 descartados
+  [R3] F09: 49 ítems con cita literal, 9 descartados
+  [R3] F10: 40 ítems con cita literal, 4 descartados
+  [R4] merge: datos 154 · cronologia 56 · lugares 14 · citas 24 · personajes 26 · 9 ítems con ≥ 2 documentos · 61 descartados
+  [R4] autores de cita sumados como personajes: ["Periódico 'Chelyabinsky Rabochy'", 'V. I. Shevchenko', 'Chelyabinsky Rabochy']
+  [4a·pool] personajes sin acción, fuera: ['V. V. Fomin', 'Profesor Pishchalnikov', 'Anton Khitrov', 'Georgy Golubev', 'Vladimir Seleznev', 'Lev Tumerman']
+  [R4] presencia por párrafo: 26 vínculos persona-evento (13 personas con alguno)
+  [R5] citas: {'verificada': 21, 'verificada_parcial': 3, 'sin_verificar': 0}

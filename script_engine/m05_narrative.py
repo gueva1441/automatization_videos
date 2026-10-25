@@ -124,8 +124,12 @@ def _dated_said(text: str, it: dict[str, Any]) -> bool:
 
 def _date_paraphrased(text: str, it: dict[str, Any]) -> bool:
     """F10 (Omar: una fecha literal por cap; «el candado acepta la paráfrasis»): un evento con fecha también cuenta si
-    la oración lo dice con «ese domingo», «esa noche»… y comparte una palabra de contenido con el evento."""
+    la oración lo dice con «ese domingo», «esa noche»… y comparte una palabra de contenido con el evento.
+    F23 §1.1: solo si el caso es puntual (un caso prolongado dice cada fecha); sin perfil, como antes."""
+    from researcher_steps.research_v3 import caso
     from script_engine.guion_v3_reglas import DATE_PARAPHRASE
+    if caso().get("tipo_evento") == "prolongado":
+        return False
     words = ev._content(ev.text_of(it))
     for s in ev._sentences(text):
         if DATE_PARAPHRASE.search(s) and (not words or words & ev._content(s)):
@@ -471,11 +475,20 @@ def date_problems(text: str, pool: dict[str, Any] | None, ids: list[str], year: 
     its = ev.items(pool)
     evs = [its[i] for i in dict.fromkeys(ids) if i in its and (its[i]["_kind"] == "cronologia"
                                                               or its[i].get("tipo") == "fecha") and ev.item_date(its[i])]
+    from researcher_steps.research_v3 import caso
+    # F23 §1.1: sin año a mano, el inicio del caso del perfil (antes, «2000»)
     year = year or next((ev.item_date(e)[:4] for e in evs), None) or next(
-        (str(c.get("fecha"))[:4] for c in (pool or {}).get("cronologia") or [] if c.get("fecha")), "2000")
+        (str(c.get("fecha"))[:4] for c in (pool or {}).get("cronologia") or [] if c.get("fecha")),
+        str(caso().get("anio_inicio") or "") or None)
     out, cur = [], None
     for s in sentences(text):
+        # F23 §1.1: una fecha sin año toma el de la fecha anterior más cercana que lo dijo (la cronología cruza años)
+        dichos = [m.group(3) for m in ev._DATE_TXT.finditer(s) if m.group(3)]
+        if not dichos and cur:
+            year = cur[:4]
         ds = list(dict.fromkeys(ev.spoken_dates(s, year)))
+        if dichos:
+            year = dichos[-1]
         if len(ds) >= 2:
             out.append(f"dos fechas en una oración ({', '.join(ev.spoken_date(d) or d for d in ds)}): «{s[:70]}…»")
         eff = ds[-1] if ds else cur
@@ -607,10 +620,13 @@ def cap_review(text: str, *, cap: int, pool: dict[str, Any], skeleton: dict[str,
             named, role = names_with_role(text, p)
             if not named or not role:
                 soft.append(f"nombrá a {p['nombre']} por nombre y apellido y con su cargo ({p.get('rol')}) la primera vez")
-    crono = sorted((i for i in used if its[i]["_kind"] == "cronologia"), key=lambda i: its[i]["fecha"])
+    # F23 §1.1: con la cronología de mes/año como dato duro, un evento asignado puede no tener su anchor literal en el
+    # texto; el orden se mide solo con los que lo tienen (antes, `min` de una lista vacía)
+    at = {i: [m.start() for a in ev.anchors(its[i]) for m in re.finditer(re.escape(ev.norm(a)), ev.norm(text))]
+          for i in used if its[i]["_kind"] == "cronologia"}
+    crono = sorted((i for i, p in at.items() if p), key=lambda i: its[i]["fecha"])
     if len(crono) >= 2:
-        pos = [min(m.start() for a in ev.anchors(its[i]) for m in re.finditer(re.escape(ev.norm(a)), ev.norm(text)))
-               for i in crono]
+        pos = [min(at[i]) for i in crono]
         if pos != sorted(pos):
             soft.append("narrá los eventos en orden de fecha y decí las fechas: "
                         + " → ".join(f"{ev.spoken_date(its[i]['fecha'])}" for i in crono))
