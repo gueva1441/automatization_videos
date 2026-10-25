@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-25 (F26 nocturno: A, C, D, E hechas; B en PARADA en m03; reporte con el veredicto del revisor) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-25 (F27: A y B hechas — el video de Vajont está en disco, sin publicar; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -11,6 +11,13 @@
   - md5 de ch02 `--only-cap` sin `--gfx` = `38e5ba14…` (último: `lab/hyperframes/f4e/corrida/onlycap_ch02_nogfx_f4e.log`);
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F27 — Que salga Vajont + tres cortes en la reparación — HECHO, **PARADA** (Omar mira el video)
+- Sobre `26c0065`. Handoff `lab/hyperframes/f27/HANDOFF_F27_vajont_sale.md`. Reporte `lab/hyperframes/f27/F27_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES).
+- **VIDEO:** `output/f8s3-vajont/f8s3-vajont_final_gfx.mp4` — 1009.1 s (16.8 min), 2560×1440, 606 MB, gfx en los 7 caps, música curada. **No publicado** (fase3 no se corrió). Hoja de contactos `lab/hyperframes/f27/b/hoja_contactos_vajont.jpg`.
+- **A** (`b181889`, 0 API): `gemini_helpers` (respuesta sin texto = fallo de parseo; `finish_reason`/`block_reason` en log y dump); m03 `_fluidify_item` atrapa el `ValueError` por imagen y, si los 3 intentos vuelven vacíos, la imagen sigue con los slots sin tejer (**backstop nuevo: el revisor lo marca como lógica más allá del `except`; Omar tiene que aceptarlo**); reparación (e) quita el nombre y deja la oración (`guion_v4.PEDIDO_E`); editor m01c fuera de `reparar` (`fase1_5 --editor`); `PALABRAS_POR_SEG` 2.4. Suite 888 verdes + 5 previas.
+- **B** (`6a65ccb`): m03 en el 1.er intento; cap 1 con 37 respuestas vacías de Flash `PROHIBITED_CONTENT` → 3 imágenes (#3–#5 del gancho) por el backstop, **para que Omar las mire** (`b/cap1_backstop_3_4_5.jpg`; la #5 es un primer plano de cara). 92 imágenes (0 re-hechuras), 2 Veo, render 128 min (Firefox cerrado con cierre normal, RAM 17.9 GB). Gemini US$ 1.62 de 4, fal 3.70, Claude 0; foto madre GPT ×2 sin medir.
+- Para revisar en el video: un rótulo gfx con inglés mal formado (≈ 4:00, cap 3) y un cap flux con «anchor matching falló — fallback uniforme».
 
 ## F26 — Nocturno: escaleta f26-1, primer video (Vajont), workers, hooks, ficha de Opus con forma — HECHO salvo B (**PARADA en m03**), **PARADA final**
 - Sobre `c80e601`. Handoff `lab/hyperframes/f26/HANDOFF_F26_nocturno.md`. Reporte `lab/hyperframes/f26/F26_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES). Total US$ 10.80: Claude 7.97 (A 5.66 de 8, E 2.32 de 4), Gemini 2.42 de 5, ElevenLabs 0.41, imágenes 0.
