@@ -2945,7 +2945,8 @@ def main() -> int:
                         help="F28: libx264 en vez de NVENC (desde F28 NVENC es el default)")
     parser.add_argument("--hw-encode", action="store_true",
                         help="F2 §3.3: NVENC (h264_nvenc p5 cq19) en el pase de segmento y en la mezcla de música. "
-                             "Default off (libx264). El concat con transiciones (transition_applier) no cambia.")
+                             "Desde F28 es el default (no hace falta pasarla; --sw-encode vuelve a libx264). El concat con "
+                             "transiciones (transition_applier) no cambia.")
     parser.add_argument("--legacy-concat", action="store_true",
                         help="F2b §4: concat con xfade encadenado que re-encodea TODO el video (comportamiento previo). "
                              "Default: concat por ventanas (solo ±1 s alrededor de cada frontera) y música como audio solo.")

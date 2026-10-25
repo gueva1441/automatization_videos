@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-25 (F28 parte A: 30 pistas de la paleta medidas y escuchadas; PARADA: el analista elige las 12) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-25 (F28 B y C cerradas: paleta en producción, v2 de Vajont con música nueva, NVENC y 6 workers por defecto, gfx en paralelo descartado; PARADA) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -12,11 +12,12 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
 
-## F28 — Paleta musical (parte A) — HECHO, **PARADA** (el analista elige las 12, 2 por intent; B y C van con un prompt nuevo)
-- Sobre `4e18e8a`. Handoff `lab/hyperframes/f28/HANDOFF_F28_paleta_musical.md`. Reporte `lab/hyperframes/f28/F28A_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES), hoja `PALETA_espectros.jpg`, medidas `PALETA_medidas.json`, tabla `a/TABLA_PALETA.md`.
-- Código: `m07.plan_composicion` / `fijar_plan` / `generar_con_plan` (composition_plan, endpoint detailed; reglas fijas: D minor, NEGATIVE_GLOBAL_STYLES, sin fade, última = primera, 3–5 secciones); `music_config.SONIDO_DEL_CANAL` (literal), `PALETA_INTENTS`. Suite 893 verdes + 5 previas.
-- 30 pistas de 180 s (+1 de prueba) en `audio_library/_paleta_f28/` (fuera de git; no pasaron a la librería). ElevenLabs US$ 13.95 (precio publicado US$ 0.15/min: la llave no tiene `user_read` y la respuesta no trae costo — **Omar confirma en el panel**); el plan admite **2 pedidos a la vez** (8 cayeron con 429 con 3). Gemini US$ 0.86 de 3.
-- Hallazgos: con las reglas literales no queda ninguna (las 30 entran/salen con fade de 0–10 / 4–18 s pese al plan: recortable); sin esa regla: hook 5 · setup 2 · rising 1 · shock 2 · consequences 3 · outro 1. Tonalidad: 10 «D major» (ambigüedad de Krumhansl en drones). Gemini: 14 notas 10 (drone puro), 12 con melodía; pone «setup» en 28 de 30.
+## F28 — Paleta musical (A, B, C) — HECHO, **PARADA** (Omar escucha la v2 de Vajont)
+- Sobre `4e18e8a`. Handoff `lab/hyperframes/f28/HANDOFF_F28_paleta_musical.md`. Reportes `F28A_REPORT.md` (parte A) y `F28_REPORT.md` (B y C; revisor íntegro: CUMPLE CON OBSERVACIONES). Elección del analista: `ELECCION_F28_12_pistas.md`.
+- **A** (`22582d7`): 30 pistas generadas, medidas y escuchadas por Gemini (`audio_library/_paleta_f28/`, fuera de git). ElevenLabs US$ 13.95 (precio publicado; Omar confirma en el panel), el plan admite 2 pedidos a la vez.
+- **B** (`e3fd23a`): las 12 elegidas en `audio_library/<intent>_f28_<a|b>.mp3` (recortadas de fade, 157–174 s, loop con acrossfade de 3 s, nivel = efectivo de la curated del intent); **curated en `audio_library/_retiradas/`**. m07: con la paleta el matcher elige entre las 2 sin umbral y nunca genera. `script_engine/music_intensity.py`: mapa silencio/fondo/sube/golpe por cap, aplicado como envolvente en fase2b (si hay escaleta). **Vajont v2: `output/f8s3-vajont/f8s3-vajont_final_gfx_v2.mp4`** (solo audio, 37 s de mezcla; con música +0.2 LU sobre la voz; ch04/ch05 +0.6/+0.8 por los «sube»). Sin escuchar.
+- **C** (`8e35b25`): **NVENC por defecto** (`--sw-encode` para libx264; **el candado md5 de ch02 sin gfx se mide ahora con `--sw-encode`**), clips con 6 workers. **gfx en paralelo DESCARTADO** (`GFX_PARALELO = 1`): con 3, 4 de 7 caps cayeron a base_clip por el timeout de 900 s y la RAM libre bajó a 1.4 GB; con 2, el gfx de cada cap tardó 1.4–1.6×; Omar canceló la 2.ª corrida. **Re-render completo NO medido.** Restos fuera de git: `output/_bak_f8s3-vajont-f28c_run1/`, `output/f8s3-vajont-f28c/` (copia del topic).
+- Suite amplia 909 verdes + 5 previas. Abierto: escuchar la v2; `test_module_40_volumen_por_track.py` (smoke manual) busca las curated en `audio_library/`; con NVENC el mp4 pesa ~2.7× más; el timeout de 900 s del gfx está al borde en fila.
 
 ## F27 — Que salga Vajont + tres cortes en la reparación — HECHO, **PARADA** (Omar mira el video)
 - Sobre `26c0065`. Handoff `lab/hyperframes/f27/HANDOFF_F27_vajont_sale.md`. Reporte `lab/hyperframes/f27/F27_REPORT.md` (revisor íntegro: CUMPLE CON OBSERVACIONES).
