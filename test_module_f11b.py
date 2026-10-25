@@ -167,7 +167,7 @@ def test_toda_la_cadena_v4_usa_el_call_del_modelo(monkeypatch):
             return {"parrafos": [{"beat": p["beat"], "texto": p["texto"]} for p in _parrafos(esc) if p["cap"] != 3]}
         return {"texto": "", "parrafos": []}
     g = g4.write(TOPIC, esc, call=call, log=[])
-    g4.reparar(TOPIC, esc, g["parrafos"], call=call, log=[])
+    g4.reparar(TOPIC, esc, g["parrafos"], call=call, log=[], editor=True)   # F27: editor solo con editor=True
     assert descs[0] == "guion_v4 guionista" and "m01d regenerate_cap 3" in descs and "guion_v4 editor" in descs
 
 

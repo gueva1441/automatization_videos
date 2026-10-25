@@ -1,6 +1,7 @@
 # gemini_helpers.py
 
 import json
+import threading
 import time
 from google import genai
 from google.genai import types
@@ -40,9 +41,43 @@ class _JsonParseError(ValueError):
     args[0] = (raw_text, text_post_clean, JSONDecodeError)."""
 
 
+# F27 §A.1: el motivo de la última respuesta sin texto (finish_reason / block_reason), por hilo (m03 teje en hilos)
+_ULTIMA = threading.local()
+
+
+def _motivo(resp) -> str:
+    """finish_reason del primer candidato y block_reason del prompt, si vienen."""
+    partes = []
+    try:
+        cands = getattr(resp, "candidates", None) or []
+        fr = getattr(cands[0], "finish_reason", None) if cands else None
+        partes.append(f"finish_reason={getattr(fr, 'name', fr)}")
+    except Exception:  # noqa: BLE001
+        partes.append("finish_reason=?")
+    pf = getattr(resp, "prompt_feedback", None)
+    br = getattr(pf, "block_reason", None) if pf is not None else None
+    if br is not None:
+        partes.append(f"block_reason={getattr(br, 'name', br)}")
+    return ", ".join(partes)
+
+
+def _texto(resp, description: str | None = None):
+    """El .text de la respuesta. F27 §A.1: si viene vacío, anota el motivo (log + dump del fallo final)."""
+    t = resp.text
+    if not (t or "").strip():
+        _ULTIMA.motivo = _motivo(resp)
+        print(f"[gemini] respuesta vacía ({_ULTIMA.motivo}){f' en {description}' if description else ''}")
+    else:
+        _ULTIMA.motivo = None
+    return t
+
+
 def _try_json_parse(raw_text: str) -> dict:
     """Igual que el viejo _safe_json_parse PERO sin dump: lanza _JsonParseError en falla.
-    Tolera markdown fences / texto extra recortando al objeto/array más externo."""
+    Tolera markdown fences / texto extra recortando al objeto/array más externo.
+    F27 §A.1: una respuesta sin texto (None o vacía) es un fallo de parseo más (se re-llama), no un AttributeError."""
+    if raw_text is None or not raw_text.strip():
+        raise _JsonParseError(("", "", json.JSONDecodeError("respuesta vacía", "", 0)))
     text = raw_text.strip()
 
     # Tolerar tanto objetos {...} como arrays [...] como output principal.
@@ -69,7 +104,7 @@ def _try_json_parse(raw_text: str) -> dict:
         raise _JsonParseError((raw_text, text, e))
 
 
-def _dump_invalid_json(raw_text: str, text: str, e: "json.JSONDecodeError") -> str:
+def _dump_invalid_json(raw_text: str, text: str, e: "json.JSONDecodeError", motivo: str | None = None) -> str:
     """Escribe el dump a data/_debug/ y devuelve el sufijo ' | Dump completo: <path>'
     (cuerpo idéntico al except viejo — preserva el diagnóstico en disco)."""
     from datetime import datetime
@@ -86,6 +121,7 @@ def _dump_invalid_json(raw_text: str, text: str, e: "json.JSONDecodeError") -> s
         f"Error pos: line {e.lineno} col {e.colno} (char {e.pos})\n"
         f"raw_text length: {len(raw_text)} chars\n"
         f"text post-clean length: {len(text)} chars\n"
+        + (f"motivo de la respuesta vacía: {motivo}\n" if motivo else "") +
         f"\n=== RAW_TEXT (input crudo de Gemini) ===\n{raw_text}\n"
         f"\n=== TEXT POST-CLEAN (lo que se intentó parsear) ===\n{text}\n"
     )
@@ -112,10 +148,11 @@ def _parse_with_retry(get_text_fn) -> dict:
                 print(f"[gemini] JSON inválido (intento {attempt}/{PARSE_MAX_ATTEMPTS}) "
                       f"char {_e.pos}: {_e.msg} — re-llamando")
     raw_text, text, e = last
-    dump_msg = _dump_invalid_json(raw_text, text, e)
+    motivo = getattr(_ULTIMA, "motivo", None) if not raw_text else None
+    dump_msg = _dump_invalid_json(raw_text, text, e, motivo)
     raise ValueError(
         f"Gemini devolvió JSON inválido en char {e.pos} "
-        f"(line {e.lineno} col {e.colno}): {e.msg}.{dump_msg}"
+        f"(line {e.lineno} col {e.colno}): {e.msg}{f' ({motivo})' if motivo else ''}.{dump_msg}"
     )
 
 
@@ -154,7 +191,7 @@ def call_flash_json(prompt: str, system_instruction: str | None = None,
         ))
         # HANDOFF_133: trackear cada generación REAL (incluye re-llamadas por parseo).
         cost_tracker.track_gemini_response(resp, _cfg.gemini_model, description or "call_flash_json")
-        return resp.text
+        return _texto(resp, description)
     return _parse_with_retry(_get_text)
 
 
@@ -192,7 +229,7 @@ def call_pro_json(prompt: str, system_instruction: str | None = None,
         ))
         # HANDOFF_133: trackear cada generación REAL (incluye re-llamadas por parseo).
         cost_tracker.track_gemini_response(resp, _cfg.gemini_model_research, description or "call_pro_json")
-        return resp.text
+        return _texto(resp, description)
     return _parse_with_retry(_get_text)
 
 
@@ -215,7 +252,7 @@ def call_model_json(prompt: str, *, model: str, system_instruction: str | None =
             config=types.GenerateContentConfig(**config_kwargs),
         ))
         cost_tracker.track_gemini_response(resp, model, description or "call_model_json")
-        return resp.text
+        return _texto(resp, description)
     return _parse_with_retry(_get_text)
 
 

@@ -111,7 +111,7 @@ def test_sin_m01c_con_cero_bloqueantes():
     assert g4.bloqueantes(TOPIC, esc, ps) == []
     calls: list = []
     log: list[str] = []
-    r = g4.reparar(TOPIC, esc, ps, call=_fake(calls), log=log)
+    r = g4.reparar(TOPIC, esc, ps, call=_fake(calls), log=log, editor=True)   # F27: el camino viejo, con editor=True
     assert calls == [] and r["pasos"]["editor"] == []
     assert [p["texto"] for p in r["parrafos"]] == [p["texto"] for p in ps]
     assert any("sin pasada del editor m01c" in x for x in log)
@@ -122,5 +122,5 @@ def test_con_bloqueantes_la_ronda_sigue_igual():
     ps = _parrafos(esc)
     ps[0]["texto"] += " Murieron 412 personas."
     calls: list = []
-    g4.reparar(TOPIC, esc, ps, call=_fake(calls))
+    g4.reparar(TOPIC, esc, ps, call=_fake(calls), editor=True)   # F27: el camino viejo, con editor=True
     assert calls == ["guion_v4 editar frase", "guion_v4 editor"]       # edición de oración + editor m01c

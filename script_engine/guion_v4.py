@@ -932,7 +932,7 @@ def datos_recibidos(esc: dict, pool: dict, ficha: dict | None = None, largo: str
     return "\n".join(_ID_DATO.sub(" ", ln) for ln in sec.splitlines() if _ID_DATO.search(ln))
 
 
-PALABRAS_POR_SEG = 2.05             # F7c-2: 12 min ≈ 1,500 palabras (medido en v2 F5d)
+PALABRAS_POR_SEG = 2.4              # F27: medido en Vajont F26 (2,355 palabras → 980.8 s); antes 2.05 (F7c-2)
 
 
 def largo_txt(palabras: int) -> str:
@@ -1014,13 +1014,20 @@ def _structural_caps(bl: list[dict]) -> dict[int, list[str]]:
     return out
 
 
+PEDIDO_E = ("La cita va SIN el nombre: reemplazá el nombre por su rol como viene en los datos (un operario, un testigo, "
+            "un ingeniero) o por «alguien que estuvo ahí». No saques la oración.")   # F27 §A.2
+
+
 def edit_sentences(p: dict, problems: list[dict], *, call: Callable[..., dict]) -> tuple[str, str]:
     """Edición sobre las oraciones con bloqueante (patrón de m01d.cut_phrases): sacar o corregir esas frases, nada
     más. Devuelve (texto nuevo o el mismo, motivo si no se aceptó)."""
     from script_engine.m01c_editor import lexical_guard
-    lines = "\n".join(f"- «{x['frase']}» → {x['motivo']}" for x in problems)
-    raw = call(f"""En este párrafo de un documental hay frases con un problema. Sacá esas frases o corregilas para que el
-problema desaparezca, con las palabras que ya tienen. No toques nada más del párrafo; no agregues datos, cifras,
+    # F27 §A.2: con el motivo (e) (cita sin verificar con nombre) se quita el nombre y la oración se queda
+    lines = "\n".join(f"- «{x['frase']}» → {x['motivo']}" + (f" {PEDIDO_E}" if x.get("codigo") == "e" else "")
+                      for x in problems)
+    pedido = (PEDIDO_E if all(x.get("codigo") == "e" for x in problems) else
+              "Sacá esas frases o corregilas para que el\nproblema desaparezca, con las palabras que ya tienen.")
+    raw = call(f"""En este párrafo de un documental hay frases con un problema. {pedido} No toques nada más del párrafo; no agregues datos, cifras,
 nombres, adjetivos ni citas.
 
 FRASES CON PROBLEMA:
@@ -1123,9 +1130,12 @@ def editor_pass(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[
 
 
 def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[..., dict] | None = None,
-            log: list[str] | None = None, largo: str = "abierto", ficha: dict | None = None) -> dict[str, Any]:
+            log: list[str] | None = None, largo: str = "abierto", ficha: dict | None = None,
+            editor: bool = False) -> dict[str, Any]:
     """UNA ronda de reparación. Nunca vuelve a llamar al guionista completo. Devuelve los párrafos finales, los
-    bloqueantes antes/después y lo que hizo cada paso."""
+    bloqueantes antes/después y lo que hizo cada paso.
+    F27 §A.3: el editor m01c sale del camino v4 (se llevaba la promesa del gancho); `editor=True` (`fase1_5 --editor`)
+    lo vuelve a correr como antes (solo si el crudo trae bloqueantes), para leer."""
     from script_engine import m01d_particion as md
     log = log if log is not None else []
     if call is None:
@@ -1170,7 +1180,9 @@ def reparar(topic: dict, esc: dict, parrafos: list[dict], *, call: Callable[...,
     ps, pasos["fechas"] = replace_repeated_dates(ps, event_date(esc, pool), caso().get("tipo_evento"))   # F23
     ps = with_ids(ps, pool, esc)
     # una pasada del editor m01c; F11c §1.3: solo si el crudo trae bloqueantes (con 0 se saltea)
-    if bl0:
+    if not editor:
+        log.append("  [editor v4] fuera del camino desde F27")
+    elif bl0:
         ps, pasos["editor"] = editor_pass(topic, esc, ps, call=call, log=log, largo=largo, ficha=ficha)
     else:
         log.append("  [editor v4] crudo con 0 bloqueantes: sin pasada del editor m01c")

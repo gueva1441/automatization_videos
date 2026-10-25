@@ -704,14 +704,21 @@ def _fluidify_item(slots: dict, locked: list[dict], profile, label: str,
     best_score: int | None = None
     best_missing: list[str] = []
     best_spanish: list[str] = []
+    sin_respuesta = 0
     for attempt in range(1, max_attempts + 1):
         # HANDOFF_134b: el fluidificador es TAREA MECÁNICA (tejer slots ya decididos en prosa)
         # → Flash + thinking_budget=0. Antes Pro con ~82% thinking (medido) = plata quemada.
         # A/B aprobado por Omar. Los re-tejidos (leakage 134) y retries de Guarda 1 heredan
         # este caller → también Flash+tb0. Slots (razonamiento) siguen en Pro, aparte.
-        out = call_flash_json(user, system_instruction=FLUIDIFICADOR_SYSTEM,
-                              response_schema=_FLUIDIFICADOR_SCHEMA,
-                              thinking_budget=0, description="m03:fluidificador")
+        try:
+            out = call_flash_json(user, system_instruction=FLUIDIFICADOR_SYSTEM,
+                                  response_schema=_FLUIDIFICADOR_SCHEMA,
+                                  thinking_budget=0, description="m03:fluidificador")
+        except ValueError as e:   # F27 §A.1: Flash sin respuesta utilizable (vacía/bloqueada) = intento perdido
+            sin_respuesta += 1
+            print(f"  ⚠ [m03] {label}: el fluidificador no devolvió texto (intento {attempt}/{max_attempts}): "
+                  f"{str(e)[:200]}")
+            out = None
         prose = (out or {}).get("prose", "") if isinstance(out, dict) else ""
         prose = re.sub(r"\s+", " ", prose).strip()
         missing, spanish = _post_check_locked(prose, locked)
@@ -735,6 +742,15 @@ def _fluidify_item(slots: dict, locked: list[dict], profile, label: str,
               f"cifras no embebidas: {best_missing or '-'}; unidades ES residuales: "
               f"{best_spanish or '-'}. Prosa aceptada SIN esas cifras (run sigue).")
         return best_prose
+    # F27 §A.1 BACKSTOP: Flash no contestó en NINGÚN intento → la imagen sigue con los slots en el orden del perfil,
+    # sin tejer (después pasan la regla 3, las reglas F8 —que sacan la frase— y el rango, como cualquier prosa).
+    if sin_respuesta == max_attempts:
+        crudo = ". ".join(str(slots.get(k) or "").strip().rstrip(".") for k in profile.formula
+                          if k in SEEDREAM_SLOT_KEYS and str(slots.get(k) or "").strip())
+        if crudo:
+            print(f"  ⚠ [m03] {label}: fluidificador SIN RESPUESTA en {max_attempts} intentos — la imagen sigue con "
+                  f"los slots sin tejer (backstop, run sigue).")
+            return re.sub(r"\s+", " ", crudo + ".").strip()
     # Ningún intento devolvió prosa utilizable → fallo legítimo (no hay qué degradar).
     raise VisualValidationError(
         f"{label}: fluidificador no devolvió prosa utilizable en {max_attempts} intentos "

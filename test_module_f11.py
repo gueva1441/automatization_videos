@@ -257,7 +257,7 @@ def test_reparacion_una_sola_ronda_sin_volver_al_guionista():
         if kw.get("description") == "guion_v4 editor":
             return {"parrafos": [], "cambios": []}
         raise AssertionError(kw.get("description"))
-    r = g4.reparar(TOPIC, esc, ps, call=fake)
+    r = g4.reparar(TOPIC, esc, ps, call=fake, editor=True)   # F27: el editor m01c, solo con editor=True
     assert "guion_v4 guionista" not in calls
     assert calls.count("m01d regenerate_cap 3") == 1                   # 1 intento, sin segunda ronda
     assert calls.count("guion_v4 editar frase") == 1 and calls[-1] == "guion_v4 editor"

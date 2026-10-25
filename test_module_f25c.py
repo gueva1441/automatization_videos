@@ -86,7 +86,7 @@ def test_generate_escaleta_v2_sin_call_usa_call_escaleta(monkeypatch, tmp_path):
 
 def test_largo_2200_y_el_tope_es_metrica():
     assert vl.DEFAULTS["max_words"] == 2200
-    assert g4.largo_txt(2047) == "largo: 2047 palabras ≈ 16.6 min"
+    assert g4.largo_txt(2047) == "largo: 2047 palabras ≈ 14.2 min"   # F27: 2.4 palabras/s
     assert g4.largo_txt(2300).endswith("(más que el tope de 2200)") or vl.get("max_words") != 2200
     src = Path(g4.__file__).read_text(encoding="utf-8")
     assert "el tope es {_len('max_words')}" not in src.split("def bloqueantes", 1)[1].split("\ndef ", 1)[0]
