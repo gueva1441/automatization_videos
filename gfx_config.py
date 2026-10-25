@@ -212,6 +212,8 @@ VALID_CALLOUT_KINDS: frozenset[str] = frozenset({"year", "figure", "name", "plac
 
 @dataclass(frozen=True)
 class GfxRules:
+    realizador: bool = True                  # F29 §A: con escaleta, el gfx obedece a los beats (gfx_realizador)
+    gap_fill: bool = False                   # F29 §A.4: rellenar huecos con bloques (por hueco, no por relato) → apagado
     interrupt_min_sec: float = 25.0          # pattern interrupt: un bloque cada 25–35 s
     interrupt_max_sec: float = 35.0
     accent_hex: str = "#c8102e"              # F2 §0b.9: acento ÚNICO del canal (subrayado, sello, línea, kicker)

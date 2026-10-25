@@ -254,7 +254,9 @@ def criticize(plan: dict[str, Any], *, base: Path, words: list[dict], time_offse
         n_drawn += drawn
         voz = voice_at(words, b["t"], time_offset)
         v = judge(img, b["desc"], voz, cache=cache, fewshot=fs, call=call, drawn=snaps[tf] if drawn else None)
-        keep = v["veredicto"] in ("suma", "error") or bool(b.get("reserved"))   # F5f: un reservado no cede ante el crítico
+        # F5f: un reservado no cede ante el crítico. F29 §A.8: «repite» corta siempre y la cita pierde la reserva
+        keep = v["veredicto"] in ("suma", "error") or (bool(b.get("reserved")) and v["veredicto"] != "repite"
+                                                          and b["kind"] != "cita")
         rows.append({"t": round(b["t"], 3), "t_frame": tf, "dur": b["dur"], "bloque": b["kind"], "texto": b["text"],
                      "veredicto": v["veredicto"], "motivo": v["motivo"], "pasa": keep, "voz": voz,
                      **({"reservado": True} if b.get("reserved") else {}),

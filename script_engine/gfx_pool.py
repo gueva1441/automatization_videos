@@ -523,6 +523,13 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
     own = set(own_ids) | reserved                                       # F5d: los de pantalla son del cap
     used = used_ids_before(work_dir, n)
     cands = cap_candidates(pool, skel, n, used)
+    ventanas: dict[str, tuple[float, float]] = {}
+    real = ctx.get("realizador")
+    if real:                                    # F29 §A.3: los candidatos salen de los beats del cap (y su ventana)
+        from script_engine.gfx_realizador import TOPE_CAP, para_pool
+        cands, reserved, ventanas = para_pool(real)
+        own_ids = list(cands)
+        own = set(cands)
     sents = sentences(words, time_offset)
     year = _default_year(pool, own_ids)
     told = narrated_dates(sents, year)
@@ -533,7 +540,7 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
     blocks = _busy_blocks(plan)
     rows, items, placed = [], [], []
     q = plan_pool_quote(plan, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, busy=blocks,
-                        cands=list(dict.fromkeys(list(reserved) + own_ids)), used=used, log=log)
+                        cands=list(dict.fromkeys(list(reserved) + own_ids)), used=used, log=log, ventanas=ventanas)
     if q:
         rows.append(q)
         if plan.get("quote_card"):
@@ -541,7 +548,7 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
     water_used = _water_used(work_dir, n)
     gap = gfx_rules.archive_min_gap_sec
     for i in cands:
-        if len(plan["archive_clippings"]) >= gfx_rules.archive_max_per_cap:
+        if len(plan["archive_clippings"]) >= (TOPE_CAP if real else gfx_rules.archive_max_per_cap):
             break
         it = its[i]
         if plan.get("quote_card") and plan["quote_card"].get("pool_id") == i:
@@ -554,7 +561,10 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
             continue
         when = ev.item_date(it, year)
         allowed = [d is None or when is None or when <= d for d in told]   # S2: nunca un hecho posterior a la voz
-        s = _sentence_for(it, sents, i in own, allowed, reserved=i in reserved)
+        if i in ventanas:                       # F29 §A.3: solo dentro de la ventana de su beat
+            w0, w1 = ventanas[i]
+            allowed = [ok and w0 - 0.3 <= st["t0"] <= w1 for ok, st in zip(allowed, sents)]
+        s = _sentence_for(it, sents, i in own, allowed, reserved=i in reserved or i in ventanas)
         if s is None:
             later = when and _sentence_for(it, sents, i in own) is not None
             rows.append({"id": i, "bloque": "recorte", "ahora": None,
@@ -574,6 +584,11 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
                          "motivo": "ninguna cláusula completa (≤ 12 palabras, métrica) suma a la voz con fuente o fecha"})
             continue
         a = max(sc.start + 0.5, s["t0"] - 0.3)
+        if i in ventanas:                       # F29 §A.3: arranca dentro de la ventana; puede cruzar el corte de escena
+            w0, w1 = ventanas[i]
+            a = max(w0, s["t0"] - 0.3)
+            sc = type("Ventana", (), {"start": w0, "end": w1 + gfx_rules.archive_min_sec,
+                                      "idx": sc.idx, "quiet_side": getattr(sc, "quiet_side", "right")})()
         # F5e: si choca, se corre dentro de la escena (de a 0.5 s) antes de rendirse. F5f: con aire entre recortes; un
         # reservado desplaza lo blando y solo cede ante título, pregunta y nivel de agua
         gap_busy = [(x["a"] - gap, x["b"] + gap) for x in blocks if x["kind"] == "recorte"]
@@ -664,7 +679,7 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
     for c in plan.get("callouts") or []:
         if c.get("pool_id"):
             calls_out.append(c)
-    for i in cands:
+    for i in ([] if real else cands):           # F29: con el realizador, nada de «la cifra donde la voz la dice»
         it = its[i]
         if it["_kind"] != "datos" or it.get("tipo") not in ("cifra", "magnitud") or any(
                 x.get("pool_id") == i for x in plan["archive_clippings"]):
@@ -732,7 +747,7 @@ def _spoken_at(text: str, words: list[dict], time_offset: float) -> tuple[float,
 
 def plan_pool_quote(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict], scenes: list[Any],
                     time_offset: float, busy: list[dict[str, Any]], cands: list[str], used: set[str],
-                    log: list[str]) -> dict[str, Any] | None:
+                    log: list[str], ventanas: dict[str, tuple[float, float]] | None = None) -> dict[str, Any] | None:
     """F5f: bloque `quote_card` (in place): la primera cita del cap (reservados y propios) que no salió antes, entera y
     LITERAL (≤ quote_max_words) con su autor; 4–5 s desde que la voz la dice (si no la dice, desde su oración), sobre
     la foto oscurecida. Prioridad de reservado: desplaza sellos, datos, contador y zoom; cede ante título, pregunta y
@@ -767,6 +782,8 @@ def plan_pool_quote(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[di
                 fail = {"id": i, "bloque": "cita", "ahora": None, "motivo": "la voz no habla de esto en el cap"}
                 continue
             said = (float(s["t0"]), float(s["t1"]))
+        if ventanas and i in ventanas and not (ventanas[i][0] - 0.3 <= said[0] <= ventanas[i][1]):
+            said = (ventanas[i][0] + 0.5, ventanas[i][1])        # F29 §A.3: la cita va en la ventana de su beat
         length = max(gfx_rules.quote_min_sec, min(gfx_rules.quote_dur, said[1] - said[0]))
         hard = [(x["a"], x["b"]) for x in busy if x["kind"] in HARD_KINDS + ("recorte",)]
         win = type("W", (), {"start": said[0], "end": said[0] + 3.0 + length})()  # se corre hasta 3 s, no más

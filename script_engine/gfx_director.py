@@ -110,7 +110,8 @@ def load_chapter_context(video_id: str, chplan: Any) -> dict[str, Any]:
             if it.get("fuente"):
                 sources[f"pool.fuente_corta.{k}"] = short_source(it["fuente"])
     return {
-        "video_id": video_id, "chapter_number": n, "script_chapter": chapter, "narration_all": narration_all,
+        "video_id": video_id, "topic_id": topic_id, "chapter_number": n, "script_chapter": chapter,
+        "narration_all": narration_all,
         "facts": facts, "skeleton": skeleton_ch, "canonical": canonical, "sources": sources,
         "eligible": eligible, "era_window": era,
         "fact_source": fact_sources(facts, src_list), "next_sources": next_sources,
@@ -776,7 +777,8 @@ def resolve_plan(plan: dict[str, Any], *, ctx: dict[str, Any], words: list[dict]
 
     # F2 §1: hueco > interrupt_max_sec → el VALIDADOR rellena (callout con fact elegible dicho en el
     # tramo; si no hay, punch_in en la palabra de más énfasis). gap_warning queda como MÉTRICA.
-    fill_gaps(out, busy, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
+    if gfx_rules.gap_fill:                                   # F29 §A.4: apagado por defecto
+        fill_gaps(out, busy, ctx=ctx, words=words, scenes=scenes, time_offset=time_offset, log=log)
     if not out["archive_clippings"] and gfx_rules.archive_max_per_cap > 0:
         convert_callout_to_archive(out, busy, _place_archive, ctx=ctx, scenes=scenes, log=log, skip=_shares_counter)
     mark_icon_callouts(out, log)                             # F2b §3: hasta 3 énfasis llevan su ícono

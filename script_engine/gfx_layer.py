@@ -267,6 +267,29 @@ def extend_base(base: Path, pause: float, fps: int) -> None:
     os.replace(tmp, base)
 
 
+def _realizador(ctx: dict[str, Any], words: list[dict], time_offset: float, work_dir: Path, cap: str,
+                log: list[str]) -> dict[str, Any] | None:
+    """F29 §A: con `01a_escaleta.json` del topic, el gfx obedece a los beats (ventanas, candidatos, topes). Sin
+    escaleta, el camino de siempre (con aviso)."""
+    if not gfx_rules.realizador:
+        return None
+    from config import DATA_DIR
+    from script_engine import gfx_realizador as gr
+    carga = gr.cargar(ctx.get("topic_id") or ctx["video_id"], DATA_DIR / "scripts" / "_steps")
+    if carga is None:
+        log.append("  realizador: sin escaleta (o sin narración por beat) → camino de siempre")
+        return None
+    usados: set[str] = set()
+    if ctx.get("pool"):
+        from script_engine.gfx_pool import used_ids_before
+        usados = used_ids_before(work_dir, ctx["chapter_number"])
+    real = gr.preparar(ctx["chapter_number"], carga, ctx.get("pool"), words, time_offset, work_dir, cap, usados)
+    ctx["realizador"] = real
+    log.append(f"  realizador: beats {[(b['n'], b['funcion'], b['t0'], b['t1']) for b in real['beats']]} · candidatos "
+               f"{[(c['id'], c['beat'], 'OBL' if c['obligatorio'] else ('dicho' if c['ya_dicho'] else 'nuevo')) for c in real['candidatos']]}")
+    return real
+
+
 def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Path, cap: str, clip_dur: float,
                      log: list[str]) -> float:
     """F3: pregunta de cierre generada (gfx_question, Flash + validador) al FINAL del cap, durante una pausa de
@@ -275,6 +298,22 @@ def closing_question(resolved: dict[str, Any], ctx: dict[str, Any], work_dir: Pa
         return 0.0
     from script_engine.gfx_director import question_keyword
     from script_engine.gfx_question import question_for
+    real = ctx.get("realizador")
+    if real:                                    # F29 §A.6: la pregunta es el `cierre` del último beat, literal
+        from script_engine.gfx_realizador import pregunta_cierre
+        txt = pregunta_cierre(real)
+        if txt:
+            pause = float(gfx_rules.question_pause_sec)
+            resolved["chapter_question"] = {"text": txt, "start": round(clip_dur, 3), "duration": round(pause, 3),
+                                            "keyword": question_keyword(txt), "generated": True, "pause": pause,
+                                            "fuente": "escaleta (cierre del último beat)"}
+            bh = float(gfx_rules.black_hold_sec)
+            resolved["black_hold"] = {"start": round(clip_dur + pause, 3), "duration": round(bh, 3)} if bh > 0 else None
+            (work_dir / f"gfx_pause_{cap}.json").write_text(json.dumps({"pause": pause + bh, "text": txt},
+                                                                       ensure_ascii=False), encoding="utf-8")
+            log.append(f"  pregunta de cierre (cierre del beat {real['beats'][-1]['n']}): {txt!r}")
+            return pause + bh
+        log.append("  pregunta de cierre: el último beat no trae `cierre` → gfx_question")
     cliff = None
     if ctx.get("pool"):                         # F5 §2: la pregunta anticipa el cliffhanger del skeleton
         from script_engine import evidence as _ev
@@ -493,6 +532,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         raw_words, words = remapped_words(plan)
         from script_engine.gfx_director import load_chapter_context, resolve_plan, select_gfx_plan
         ctx = load_chapter_context(video_id, plan)
+        real = _realizador(ctx, words, time_offset, work_dir, cap, log) if gfx_plan_override is None else None
         scenes = build_scenes(plan, ctx["script_chapter"], raw_words, clip_dur, time_offset)
         scenes = assign_quiet_sides(snap_cuts(scenes, project / "public" / "base.mp4", fps), project / "public" / "base.mp4")
         log.append(f"  escenas: {len(scenes)} ({', '.join(f'{s.start:.2f}{s.rank}' for s in scenes)})")
@@ -727,6 +767,9 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         if gfx_plan_override is None and ctx.get("pool"):           # F5f: el reservado desplaza; cede ante pocos
             from script_engine.gfx_pool import enforce_reserved
             enforce_reserved(resolved, log)
+        if real:                                                      # F29 §A: lo que no obedece a los beats, fuera
+            from script_engine.gfx_realizador import finalizar
+            finalizar(resolved, real, log)
         if gfx_plan_override is None and gfx_rules.visual_critic:     # F4e 6b: crítico visual antes del render
             from script_engine.gfx_critic import criticize
             snap_proj = None
@@ -737,6 +780,10 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             resolved["critico"] = criticize(resolved, base=project / "public" / "base.mp4", words=words,
                                             time_offset=time_offset, work_dir=work_dir, cap=cap, log=log,
                                             project=snap_proj)
+        if real:                                                      # F29 §A.4: el pico tiene su bloque grande
+            from script_engine.gfx_realizador import garantizar_pico
+            garantizar_pico(resolved, real, ctx.get("pool"), log,
+                            side=getattr(scenes[-1], "quiet_side", "right") if scenes else "right")
         log.append(f"  plan: {json.dumps(resolved, ensure_ascii=False)}")
         log.append(f"  lock rechazados: {len(rejected)} {json.dumps(rejected, ensure_ascii=False)}")
         (work_dir / f"gfx_plan_{cap}.resolved.json").write_text(
