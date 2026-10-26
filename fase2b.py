@@ -3034,6 +3034,9 @@ def main() -> int:
     parser.add_argument("--rotulista-modelo", type=str, default=None, metavar="MODELO",
                         help="F29b: modelo del rotulista (default gfx_rules.rotulista_modelo = claude-sonnet-5-5; "
                              "p. ej. claude-fable-5-1). Solo cuenta con gfx_rules.rotulista prendido.")
+    parser.add_argument("--forma-variante", type=str, default=None, metavar="V,S,R",
+                        help="F31: variantes de forma para comparar (no son default): V1|V2|V3 entrada/salida de ficha y "
+                             "recorte, S1|S2|S3 tamaño del sello (+P = con placa), R1|R2 tamaño del reloj; p. ej. V2,S2P,R2.")
     parser.add_argument("--limit", type=int, default=None,
                         help="Solo en modo batch: tope de videos a procesar en esta corrida.")
     parser.add_argument("--force", action="store_true",
@@ -3055,6 +3058,9 @@ def main() -> int:
     if args.rotulista_modelo:                   # F29b §A.2
         from gfx_config import gfx_rules as _gr
         object.__setattr__(_gr, "rotulista_modelo", args.rotulista_modelo)   # GfxRules es frozen
+    if args.forma_variante:                     # F31: solo para comparar; sin el flag, todo como hoy
+        from gfx_config import gfx_rules as _gr
+        object.__setattr__(_gr, "forma_variante", args.forma_variante)
 
     if FFMPEG is None or FFPROBE is None:
         print(f"❌ No se encontró ffmpeg/ffprobe (winget Gyan.FFmpeg).")

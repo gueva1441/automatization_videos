@@ -1,0 +1,356 @@
+{
+ "_metodo": "Por bloque y variante, en el mismo segmento:\n    - texto = píxeles del color del texto en su zona (blanco del dato de la ficha; rojo del acento en el kicker y el sello);\n    - contraste WCAG = luminancia relativa media del texto contra la de su fondo inmediato (el recuadro del texto menos el\n      texto), en el cuadro con más texto;\n    - cuadros de entrada = del primer cuadro con ≥ 5 % del texto (descontado el piso de ese color en el fondo, los 0.25 s\n      antes del bloque) al primero con ≥ 95 %; salida = del último con ≥ 95 % al\n      último con ≥ 5 %;\n    - alto de letra a 360 px = alto de mayúscula de Anton (métrica de la fuente) × cuerpo × 360 / 2560.",
+ "_alto_mayuscula_em": 0.86,
+ "V1_S2P_R2": [
+  {
+   "bloque": "sello «fisura» · sello",
+   "contraste_wcag": 1.7,
+   "cuadros_entrada": 1,
+   "cuadros_salida": 2,
+   "pixeles_texto": 15626,
+   "cuerpo_px_2560": 168,
+   "alto_mayuscula_px_360": 20.3,
+   "pasa_4_5": false
+  },
+  {
+   "bloque": "ficha D128 · ficha título",
+   "contraste_wcag": 5.99,
+   "cuadros_entrada": 5,
+   "cuadros_salida": 3,
+   "pixeles_texto": 13851,
+   "cuerpo_px_2560": 133,
+   "alto_mayuscula_px_360": 16.1,
+   "pasa_4_5": true
+  },
+  {
+   "bloque": "ficha D128 · ficha kicker",
+   "contraste_wcag": 1.19,
+   "cuadros_entrada": 5,
+   "cuadros_salida": 5,
+   "pixeles_texto": 5232,
+   "cuerpo_px_2560": 45,
+   "alto_mayuscula_px_360": 5.4,
+   "pasa_4_5": false
+  }
+ ],
+ "V2_S2P_R2": [
+  {
+   "bloque": "sello «fisura» · sello",
+   "contraste_wcag": 1.7,
+   "cuadros_entrada": 1,
+   "cuadros_salida": 2,
+   "pixeles_texto": 15626,
+   "cuerpo_px_2560": 168,
+   "alto_mayuscula_px_360": 20.3,
+   "pasa_4_5": false
+  },
+  {
+   "bloque": "ficha D128 · ficha título",
+   "contraste_wcag": 5.99,
+   "cuadros_entrada": 3,
+   "cuadros_salida": 4,
+   "pixeles_texto": 13873,
+   "cuerpo_px_2560": 133,
+   "alto_mayuscula_px_360": 16.1,
+   "pasa_4_5": true
+  },
+  {
+   "bloque": "ficha D128 · ficha kicker",
+   "contraste_wcag": 1.19,
+   "cuadros_entrada": 7,
+   "cuadros_salida": 6,
+   "pixeles_texto": 5233,
+   "cuerpo_px_2560": 45,
+   "alto_mayuscula_px_360": 5.4,
+   "pasa_4_5": false
+  }
+ ],
+ "V3_S2P_R2": [
+  {
+   "bloque": "sello «fisura» · sello",
+   "contraste_wcag": 1.7,
+   "cuadros_entrada": 1,
+   "cuadros_salida": 2,
+   "pixeles_texto": 15626,
+   "cuerpo_px_2560": 168,
+   "alto_mayuscula_px_360": 20.3,
+   "pasa_4_5": false
+  },
+  {
+   "bloque": "ficha D128 · ficha título",
+   "contraste_wcag": 6.01,
+   "cuadros_entrada": 2,
+   "cuadros_salida": 3,
+   "pixeles_texto": 13862,
+   "cuerpo_px_2560": 133,
+   "alto_mayuscula_px_360": 16.1,
+   "pasa_4_5": true
+  },
+  {
+   "bloque": "ficha D128 · ficha kicker",
+   "contraste_wcag": 1.2,
+   "cuadros_entrada": 5,
+   "cuadros_salida": 5,
+   "pixeles_texto": 5236,
+   "cuerpo_px_2560": 45,
+   "alto_mayuscula_px_360": 5.4,
+   "pasa_4_5": false
+  }
+ ],
+ "V2_S1_R2": [
+  {
+   "bloque": "sello «fisura» · sello",
+   "contraste_wcag": 1.37,
+   "cuadros_entrada": 1,
+   "cuadros_salida": 3,
+   "pixeles_texto": 3880,
+   "cuerpo_px_2560": 84,
+   "alto_mayuscula_px_360": 10.2,
+   "pasa_4_5": false
+  },
+  {
+   "bloque": "ficha D128 · ficha título",
+   "contraste_wcag": 5.99,
+   "cuadros_entrada": 3,
+   "cuadros_salida": 4,
+   "pixeles_texto": 13873,
+   "cuerpo_px_2560": 133,
+   "alto_mayuscula_px_360": 16.1,
+   "pasa_4_5": true
+  },
+  {
+   "bloque": "ficha D128 · ficha kicker",
+   "contraste_wcag": 1.19,
+   "cuadros_entrada": 7,
+   "cuadros_salida": 6,
+   "pixeles_texto": 5233,
+   "cuerpo_px_2560": 45,
+   "alto_mayuscula_px_360": 5.4,
+   "pasa_4_5": false
+  }
+ ],
+ "V2_S1P_R2": [
+  {
+   "bloque": "sello «fisura» · sello",
+   "contraste_wcag": 1.54,
+   "cuadros_entrada": 1,
+   "cuadros_salida": 4,
+   "pixeles_texto": 3784,
+   "cuerpo_px_2560": 84,
+   "alto_mayuscula_px_360": 10.2,
+   "pasa_4_5": false
+  },
+  {
+   "bloque": "ficha D128 · ficha título",
+   "contraste_wcag": 5.99,
+   "cuadros_entrada": 3,
+   "cuadros_salida": 4,
+   "pixeles_texto": 13873,
+   "cuerpo_px_2560": 133,
+   "alto_mayuscula_px_360": 16.1,
+   "pasa_4_5": true
+  },
+  {
+   "bloque": "ficha D128 · ficha kicker",
+   "contraste_wcag": 1.19,
+   "cuadros_entrada": 7,
+   "cuadros_salida": 6,
+   "pixeles_texto": 5233,
+   "cuerpo_px_2560": 45,
+   "alto_mayuscula_px_360": 5.4,
+   "pasa_4_5": false
+  }
+ ],
+ "V2_S2_R2": [
+  {
+   "bloque": "sello «fisura» · sello",
+   "contraste_wcag": 1.37,
+   "cuadros_entrada": 1,
+   "cuadros_salida": 2,
+   "pixeles_texto": 15761,
+   "cuerpo_px_2560": 168,
+   "alto_mayuscula_px_360": 20.3,
+   "pasa_4_5": false
+  },
+  {
+   "bloque": "ficha D128 · ficha título",
+   "contraste_wcag": 5.99,
+   "cuadros_entrada": 3,
+   "cuadros_salida": 4,
+   "pixeles_texto": 13873,
+   "cuerpo_px_2560": 133,
+   "alto_mayuscula_px_360": 16.1,
+   "pasa_4_5": true
+  },
+  {
+   "bloque": "ficha D128 · ficha kicker",
+   "contraste_wcag": 1.19,
+   "cuadros_entrada": 7,
+   "cuadros_salida": 6,
+   "pixeles_texto": 5233,
+   "cuerpo_px_2560": 45,
+   "alto_mayuscula_px_360": 5.4,
+   "pasa_4_5": false
+  }
+ ],
+ "V2_S2P_R2_b": [
+  {
+   "bloque": "sello «fisura» · sello",
+   "contraste_wcag": 1.7,
+   "cuadros_entrada": 1,
+   "cuadros_salida": 2,
+   "pixeles_texto": 15626,
+   "cuerpo_px_2560": 168,
+   "alto_mayuscula_px_360": 20.3,
+   "pasa_4_5": false
+  },
+  {
+   "bloque": "ficha D128 · ficha título",
+   "contraste_wcag": 5.99,
+   "cuadros_entrada": 3,
+   "cuadros_salida": 4,
+   "pixeles_texto": 13873,
+   "cuerpo_px_2560": 133,
+   "alto_mayuscula_px_360": 16.1,
+   "pasa_4_5": true
+  },
+  {
+   "bloque": "ficha D128 · ficha kicker",
+   "contraste_wcag": 1.19,
+   "cuadros_entrada": 7,
+   "cuadros_salida": 6,
+   "pixeles_texto": 5233,
+   "cuerpo_px_2560": 45,
+   "alto_mayuscula_px_360": 5.4,
+   "pasa_4_5": false
+  }
+ ],
+ "V2_S3_R2": [
+  {
+   "bloque": "sello «fisura» · sello",
+   "contraste_wcag": 1.13,
+   "cuadros_entrada": 0,
+   "cuadros_salida": 1,
+   "pixeles_texto": 35540,
+   "cuerpo_px_2560": 252,
+   "alto_mayuscula_px_360": 30.5,
+   "pasa_4_5": false
+  },
+  {
+   "bloque": "ficha D128 · ficha título",
+   "contraste_wcag": 5.99,
+   "cuadros_entrada": 3,
+   "cuadros_salida": 4,
+   "pixeles_texto": 13873,
+   "cuerpo_px_2560": 133,
+   "alto_mayuscula_px_360": 16.1,
+   "pasa_4_5": true
+  },
+  {
+   "bloque": "ficha D128 · ficha kicker",
+   "contraste_wcag": 1.19,
+   "cuadros_entrada": 7,
+   "cuadros_salida": 6,
+   "pixeles_texto": 5233,
+   "cuerpo_px_2560": 45,
+   "alto_mayuscula_px_360": 5.4,
+   "pasa_4_5": false
+  }
+ ],
+ "V2_S3P_R2": [
+  {
+   "bloque": "sello «fisura» · sello",
+   "contraste_wcag": 1.53,
+   "cuadros_entrada": 0,
+   "cuadros_salida": 1,
+   "pixeles_texto": 35468,
+   "cuerpo_px_2560": 252,
+   "alto_mayuscula_px_360": 30.5,
+   "pasa_4_5": false
+  },
+  {
+   "bloque": "ficha D128 · ficha título",
+   "contraste_wcag": 5.99,
+   "cuadros_entrada": 3,
+   "cuadros_salida": 4,
+   "pixeles_texto": 13873,
+   "cuerpo_px_2560": 133,
+   "alto_mayuscula_px_360": 16.1,
+   "pasa_4_5": true
+  },
+  {
+   "bloque": "ficha D128 · ficha kicker",
+   "contraste_wcag": 1.19,
+   "cuadros_entrada": 7,
+   "cuadros_salida": 6,
+   "pixeles_texto": 5233,
+   "cuerpo_px_2560": 45,
+   "alto_mayuscula_px_360": 5.4,
+   "pasa_4_5": false
+  }
+ ],
+ "V2_S2P_R1": [
+  {
+   "bloque": "sello «fisura» · sello",
+   "contraste_wcag": 1.7,
+   "cuadros_entrada": 1,
+   "cuadros_salida": 2,
+   "pixeles_texto": 15626,
+   "cuerpo_px_2560": 168,
+   "alto_mayuscula_px_360": 20.3,
+   "pasa_4_5": false
+  },
+  {
+   "bloque": "ficha D128 · ficha título",
+   "contraste_wcag": 5.99,
+   "cuadros_entrada": 3,
+   "cuadros_salida": 4,
+   "pixeles_texto": 13873,
+   "cuerpo_px_2560": 133,
+   "alto_mayuscula_px_360": 16.1,
+   "pasa_4_5": true
+  },
+  {
+   "bloque": "ficha D128 · ficha kicker",
+   "contraste_wcag": 1.19,
+   "cuadros_entrada": 7,
+   "cuadros_salida": 6,
+   "pixeles_texto": 5233,
+   "cuerpo_px_2560": 45,
+   "alto_mayuscula_px_360": 5.4,
+   "pasa_4_5": false
+  }
+ ],
+ "V2_S2P_R2_c": [
+  {
+   "bloque": "sello «fisura» · sello",
+   "contraste_wcag": 1.7,
+   "cuadros_entrada": 1,
+   "cuadros_salida": 2,
+   "pixeles_texto": 15626,
+   "cuerpo_px_2560": 168,
+   "alto_mayuscula_px_360": 20.3,
+   "pasa_4_5": false
+  },
+  {
+   "bloque": "ficha D128 · ficha título",
+   "contraste_wcag": 5.99,
+   "cuadros_entrada": 3,
+   "cuadros_salida": 4,
+   "pixeles_texto": 13873,
+   "cuerpo_px_2560": 133,
+   "alto_mayuscula_px_360": 16.1,
+   "pasa_4_5": true
+  },
+  {
+   "bloque": "ficha D128 · ficha kicker",
+   "contraste_wcag": 1.19,
+   "cuadros_entrada": 7,
+   "cuadros_salida": 6,
+   "pixeles_texto": 5233,
+   "cuerpo_px_2560": 45,
+   "alto_mayuscula_px_360": 5.4,
+   "pasa_4_5": false
+  }
+ ]
+}

@@ -357,6 +357,28 @@ def quote_card_html(qc: dict[str, Any], width: int, height: int, duration: float
     return html_, init, js
 
 
+def forma(eje: str) -> str | None:
+    """F31: la variante de forma que pide `--forma-variante` para un eje (V = entrada/salida de ficha y recorte, S =
+    sello, R = reloj), o None = como hoy. Sin el flag nada cambia (ningún default se toca)."""
+    for x in str(gfx_rules.forma_variante or "").split(","):
+        x = x.strip().upper()
+        if x[:1] == eje:
+            return x
+    return None
+
+
+def _forma_v_js(sel: str, st: float, dur: float, v: str) -> tuple[list[str], list[str]]:
+    """F31 V2/V3: el bloque entra y sale entero. V2 = fundido simple, con la duración del fundido del title card
+    (title_fade_out) en los dos sentidos; V3 = el mismo fundido + desplazamiento vertical del alto de la raya del title
+    card (#tc-line), con las curvas del title card (power4.out al entrar, power2.in al salir)."""
+    fo = gfx_rules.title_fade_out
+    dy = tc_metrics()["line_h"] if v == "V3" else 0
+    e_in, e_out = ("power4.out", "power2.in") if dy else ("none", "none")
+    return ([f'      gsap.set("{sel}", {{ opacity: 0, y: {dy} }});'],
+            [f'      tl.to("{sel}", {{ opacity: 1, y: 0, duration: {fo}, ease: "{e_in}" }}, {st:.3f})'
+             f'.to("{sel}", {{ opacity: 0, y: {-dy}, duration: {fo}, ease: "{e_out}" }}, {st + dur - fo:.3f});'])
+
+
 def ficha_html(fid: str, c: dict[str, Any], st: float, dur: float, width: int) -> tuple[str, list[str], list[str]]:
     """F29c §A.5: la ficha del rotulista con el componente del title card: kicker = etiqueta, título = dato. Misma
     posición, tamaño, raya, wipe de entrada y fundido de salida (gfx_rules.title_fade_out); sin #tc-dim (no oscurece
@@ -368,6 +390,10 @@ def ficha_html(fid: str, c: dict[str, Any], st: float, dur: float, width: int) -
         dim_html="", tid=fid, start=f"{st:.3f}", duration=f"{dur:.3f}", line_style=line_style,
         kicker=_esc(str(c.get("kicker", "")).upper()), title=_esc(c["text"]))
     fo = gfx_rules.title_fade_out
+    v = forma("V")
+    if v in ("V2", "V3"):                                       # F31: la ficha entra y sale entera
+        f_init, f_js = _forma_v_js(f"#{fid}", st, dur, v)
+        return html_, f_init, f_js
     init = [f'      gsap.set("#{fid}-title span", {{ yPercent: 110 }}); gsap.set("#{fid}-line", {{ scaleX: 0 }});'
             f' gsap.set("#{fid}-kicker", {{ opacity: 0 }});']
     js = [f'      tl.to("#{fid}-kicker", {{ opacity: 1, duration: .3 }}, {st + .05:.3f})'
@@ -381,9 +407,10 @@ def time_ticker_html(tk: dict[str, Any], duration: float) -> tuple[str, list[str
     """Reloj de esquina (arriba a la izquierda, Anton S): "29 AGO · 23:40". Avanza entre las dos horas de los datos
     si las hay; si no, la fecha quieta."""
     st, d = tk["start"], min(tk["duration"], max(0.5, duration - tk["start"]))
+    tk_px = tc_metrics()["kicker_px"] if forma("R") == "R2" else 64     # F31 R2: al tamaño del kicker del title card
     head = f'{tk["day"]} {tk["month"]}'
     html_ = (f'      <div id="tk" class="clip" data-start="{st:.3f}" data-duration="{d:.3f}" '
-             f'style="position:absolute;{"right" if tk.get("side") == "right" else "left"}:150px;top:64px;z-index:23;color:#f2efe6;font:400 64px/1 &quot;{gfx_rules.figure_font}&quot;,'
+             f'style="position:absolute;{"right" if tk.get("side") == "right" else "left"}:150px;top:64px;z-index:23;color:#f2efe6;font:400 {tk_px}px/1 &quot;{gfx_rules.figure_font}&quot;,'
              f'sans-serif;letter-spacing:.08em;text-shadow:{gfx_rules.callout_shadow};font-variant-numeric:tabular-nums">'
              f'<span style="display:inline-block;overflow:hidden;vertical-align:bottom"><span id="tk-d" style="display:inline-block">'
              f'{_esc(head)}</span></span> <span style="color:{gfx_rules.accent_hex}">·</span> <span id="tk-t">{_esc(tk.get("tail", ""))}</span></div>')
@@ -962,11 +989,16 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
         if e.get("stamp") and e.get("word"):
             sd = gfx_rules.emphasis_stamp_sec
             side = "right:8%" if e.get("side", "right") == "right" else "left:8%"
+            # F31: S1/S2/S3 = el sello de hoy ×1/×2/×3 (cuerpo, borde y aire); con P lleva la placa rgba(10,10,10,.35)
+            # que ya usa (sin P, sin placa). Sin el flag, como hoy.
+            fs = forma("S")
+            k = {"S2": 2, "S3": 3}.get((fs or "S1")[:2], 1)
+            placa = "background:rgba(10,10,10,.35);" if fs is None or fs.endswith("P") else ""
             overlays.append(f'      <div id="em{i}" class="clip" data-start="{st:.3f}" data-duration="{sd:.3f}" '
                             f'style="position:absolute;top:44%;{side};z-index:6">'
-                            f'<span class="em-text" style="display:inline-block;font:400 {gfx_rules.emphasis_stamp_px}px/1 '
+                            f'<span class="em-text" style="display:inline-block;font:400 {gfx_rules.emphasis_stamp_px * k}px/1 '
                             f'&quot;{gfx_rules.figure_font}&quot;,sans-serif;text-transform:uppercase;color:{gfx_rules.accent_hex};'
-                            f'border:7px solid {gfx_rules.accent_hex};padding:8px 26px 4px;background:rgba(10,10,10,.35);'
+                            f'border:{7 * k}px solid {gfx_rules.accent_hex};padding:{8 * k}px {26 * k}px {4 * k}px;{placa}'
                             f'white-space:nowrap">{_esc(e["word"])}</span></div>')
             a_init, a_js = _anim_in_js(f"#em{i} .em-text", "stamp", st + 0.05)
             init += a_init
@@ -1045,6 +1077,7 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
                 init.append('      gsap.set("#cu-num", { display: "inline-block", transformOrigin: "50% 60%" });')
 
     # ── archive_clipping (F2: hasta 2, 6 s, lado opuesto al sujeto, cuerpo ≥ 52 px, tipografía por década)
+    forma_v = forma("V") if forma("V") in ("V2", "V3") else None     # F31
     for i, ar in enumerate(archive_list(plan)):
         a0 = ar["start"]
         a1 = min(a0 + ar["duration"], duration)
@@ -1059,8 +1092,14 @@ def write_project(plan: dict[str, Any], scenes: list[GfxScene], project: Path, *
             kicker=_esc(ar.get("kicker", "")),
             icon_html=(f'          <div class="ar-ico">{card_icon_html(f"ari{i}", ar.get("icon"), round(gfx_rules.archive_scale * 150), dark=True)}</div>\n'
                        if ar.get("icon") and card_icon_html(f"ari{i}", ar.get("icon"), 10) else ""),
-            headline=chars_html(ar["headline"]) if gfx_rules.anim_archive_head == "cascade" else _esc(ar["headline"]),
+            headline=chars_html(ar["headline"]) if gfx_rules.anim_archive_head == "cascade" and not forma_v
+            else _esc(ar["headline"]),
             body_block=(f'          <div class="ar-body">{_esc(ar["body"])}</div>\n' if ar.get("body") else "")))
+        if forma_v:                                            # F31 V2/V3: el recorte (ya inclinado) entra y sale entero
+            v_init, v_js = _forma_v_js(f"#ar{i}-paper", a0, a1 - a0, forma_v)
+            init += [f'      gsap.set("#ar{i}-paper", {{ rotation: -2.5 }});'] + v_init
+            js += v_js
+            continue
         init.append(f'      gsap.set("#ar{i}-paper", {{ opacity: 0, y: -40, rotation: -6 }});')
         if gfx_rules.anim_archive_head == "cascade":
             h_init, h_js = _anim_in_js(f"#ar{i} .ar-head", "cascade", a0 + .35)
