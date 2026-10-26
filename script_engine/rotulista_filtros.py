@@ -10,7 +10,7 @@ import re
 from typing import Any
 
 from script_engine import evidence as ev
-from script_engine.rotulista_colocar import LECTURA_CPS, caracteres, despues_del_corte, tiempos
+from script_engine.rotulista_colocar import LECTURA_CPS, caben, caracteres, despues_del_corte, tiempos
 from script_engine.voz_utils import (_PARTICULAS, _analiza, _fmt, _palabra_en, _raiz_en, beat_de_oracion, munon,
                                      nombre_inicial, nombres, numero_en, numeros, oraciones, palabras_de_contenido)
 
@@ -21,27 +21,45 @@ CON_ETIQUETA = ("cifra", "hecho", "documento", "persona")
 
 # ═══════════════════════ coherencia de cifras (§A.4) ═══════════════════════
 
-def contradicciones(bloque: str, voz: list[str]) -> list[str]:
+LOCALES = ("nivel", "altura")             # F36 §B.5: una cota o una altura se compara solo con su vecindad
+PALABRAS_LOCALES = ("cota", "nivel", "altura")
+
+
+def _palabras_mag(texto: str) -> set[str]:
+    """F36 §B.5: qué cota, nivel o altura nombra el texto (la palabra, no la magnitud: «cota» no es «nivel del mar»)."""
+    return {w for t in re.findall(r"[^\W\d_]+", ev.norm(texto or "")) for w in PALABRAS_LOCALES if t.startswith(w)}
+
+
+def contradicciones(bloque: str, voz: list[str], cerca: list[str] | None = None) -> list[str]:
     """§A.4: cada cifra del bloque con unidad contra las cifras de la voz de todo el video. Lectura declarada de «misma
     unidad o misma magnitud nombrada en la oración»: la cifra de la voz se compara si (1) tiene la misma unidad y la
     oración nombra la misma magnitud que el bloque («setecientos metros sobre el nivel del mar» contra «Nivel del
     embalse: 720 m»); o (2) no tiene unidad pero viene después de la magnitud del bloque en su oración («la cota
     autorizada fue de setecientos quince»). La misma unidad sola no alcanza («ola de veinte metros» no es la cota; la
     oferta de ENEL en liras no es la condena a Montedison), y una diferencia («15 metros por encima de la cota») no se
-    compara con la cota."""
+    compara con la cota. F36 §B.5: con `cerca` (la oración ancla y sus vecinas), una cota o una altura (magnitud nivel
+    o altura) solo contradice a OTRA de la misma palabra (cota con cota, nivel con nivel, altura con altura) en esas
+    oraciones: los niveles anteriores del relato no cuentan («COTA AUTORIZADA 715 m» contra «el embalse estaba a 650 m»
+    de 1960 o «no pasar de los setecientos metros sobre el nivel del mar», la vecina). Lectura declarada (F36_REPORT).
+    Los muertos se siguen comparando con todo el video."""
     nb, mb = _analiza(bloque)
     mags_b = {m for m, _ in mb}
     out = []
+    fuentes = [(s, None) for s in voz] if cerca is None else [(s, False) for s in voz] + [(s, True) for s in cerca]
     for v, u, _ in nb:
         if u is None or u == "diferencia":
             continue
-        for s in voz:
+        for s, local in fuentes:
             ns, ms = _analiza(s)
             mags_s = {m for m, _ in ms}
             for w, uw, p in ns:
-                misma = (uw == u and bool(mags_b & mags_s)) or \
-                        (uw is None and any(m in mags_b and q < p for m, q in ms))
-                if misma and abs(w - v) > 1e-9:
+                comunes = ((mags_b & mags_s) if uw == u else set()) | \
+                          ({m for m, q in ms if m in mags_b and q < p} if uw is None else set())
+                if local is not None and comunes and (comunes <= set(LOCALES)) != local:
+                    continue                       # la cota contra la vecindad; lo demás contra todo el video
+                if local and not (_palabras_mag(bloque) & _palabras_mag(s)):
+                    continue
+                if comunes and abs(w - v) > 1e-9:
                     out.append(f"{_fmt(v)} {u} vs {_fmt(w)}{' ' + uw if uw else ''} («{s.strip()[:70]}»)")
     return list(dict.fromkeys(out))
 
@@ -145,6 +163,8 @@ def candado(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str 
             return "la cita no es literal del texto fuente"
         return None
     ancla = ctx["s"]["texto"]
+    if x.get("gancho"):                # F36 §B.7: para el gancho (pool del video), lo que la voz dice en cualquier cap
+        ancla = " ".join(ctx["voz_video"])
 
     def en_ancla(n: str) -> bool:      # F34 §A.2.1: lo que la voz dice en la oración ancla cuenta como presente
         return numero_en(n, ancla) if numeros(n) else _palabra_en(n, ancla)
@@ -207,13 +227,17 @@ def lectura(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str 
         if otro is not None:
             t0, t1, movido_corte = otro
             sin_t = None
-    ctx.update(t0=t0, t1=t1, chars=chars, movido_corte=movido_corte)
+    cab = ctx["sents"][si].get("caben")
+    ctx.update(t0=t0, t1=t1, chars=chars, movido_corte=movido_corte,
+               max_chars=cab if cab is not None else caben(sents, si, escenas))      # F36 §B.8
     return sin_t
 
 
 def coherencia(b: dict[str, Any], ent: dict[str, Any], ctx: dict[str, Any]) -> str | None:
     """§A.4 coherencia con la voz de todo el video."""
-    contra = contradicciones(f"{ctx['et'] or ''} {ctx['txt']}", ctx["voz_video"])
+    si, sents = ctx["si"], ctx["sents"]
+    contra = contradicciones(f"{ctx['et'] or ''} {ctx['txt']}", ctx["voz_video"],
+                             cerca=[ss["texto"] for ss in sents[max(0, si - 1):si + 2]])     # F36 §B.5
     return ("contradice la voz: " + "; ".join(contra[:3])) if contra else None
 
 
@@ -221,17 +245,20 @@ A_PANTALLA_POR_BEAT = 2       # §0 (voto del analista, aplicado): 2 `a_pantalla
 
 
 def finalizar(validos: list[dict[str, Any]], pico_beat: Any) -> tuple[list[dict], list[dict]]:
-    """§A.1: por beat queda 1 (`a_pantalla` primero, después `rank`, después la oración); el mismo dato una sola vez.
+    """§A.1: por beat queda 1 (`a_pantalla` primero, después `rank`, F36 §B.6 después el dato con cifra o fecha —en
+    dígitos o en letras, `numeros` del dato—, después la oración); el mismo dato una sola vez.
     F32 §B.5 (§0): un beat puede tener 2 si los dos son `a_pantalla` (las escenas distintas las pone escena_final: la
-    segunda ficha espera a otra escena del beat o no va); en el beat pico solo `a_pantalla`. Devuelve (los que quedan,
+    segunda ficha espera a otra escena del beat o no va); en el beat pico solo `a_pantalla`, salvo que el pico sea el
+    gancho (DECISIONES 14:28: «el gancho no es pico a efectos del texto», F36 §B.7). Devuelve (los que quedan,
     en orden de t0; los que salen por cantidad)."""
     keep, rech, vistos, por_beat = [], [], set(), {}
-    for b in sorted(validos, key=lambda b: (not b["a_pantalla"], b["rank"], b["sentence_idx"])):
+    for b in sorted(validos, key=lambda b: (not b["a_pantalla"], b["rank"], not numeros(b["pantalla"]),
+                                            b["sentence_idx"])):        # F36 §B.6: con cifra o fecha antes
         ya = por_beat.get(b["beat"]) or []
         dos = b["a_pantalla"] and len(ya) < A_PANTALLA_POR_BEAT and all(k["a_pantalla"] for k in ya)
         motivo = ("el mismo dato dos veces" if b["pool_id"] in vistos else
                   f"beat pico ({b['beat']}): solo `a_pantalla`" if pico_beat is not None and b["beat"] == pico_beat
-                  and not b["a_pantalla"] else
+                  and not b["a_pantalla"] and b.get("funcion") != "gancho" else
                   f"un texto por beat: el beat {b['beat']} ya tiene {', '.join(k['pool_id'] for k in ya)}" if ya and not dos
                   else None)
         if motivo:
@@ -298,7 +325,7 @@ def validar(resp: Any, ent: dict[str, Any], words: list[dict], time_offset: floa
                        "pantalla": txt, "etiqueta": et, "a_pantalla": x["a_pantalla"], "por_que": x["por_que"],
                        "caracteres": chars, "lectura_s": round(chars / LECTURA_CPS, 2),
                        "movido": None,                 # F32 §B.5: un `a_pantalla` puede ir en el beat pico (ya no se mueve)
-                       "movido_corte": ctx["movido_corte"], "forzado": ctx["forzado"]})
+                       "movido_corte": ctx["movido_corte"], "forzado": ctx["forzado"], "max_chars": ctx["max_chars"]})
     keep, rech_c = cantidad(ok, pk_beat)
     rech += rech_c
     salen = {b["pool_id"]: b for b in keep}

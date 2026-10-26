@@ -69,6 +69,44 @@ def caracteres(tipo: str, etiqueta: str | None, texto: str, autor: str = "") -> 
     return len(etiqueta or "") + len(texto) + (len(autor) if tipo == "cita" else 0)
 
 
+def caben(sents: list[dict], si: int, escenas: list[Any] | None) -> int | None:
+    """F36 §B.8 (y C.2): cuántos caracteres caben en un bloque anclado a la oración `si` = segundos desde su inicio
+    hasta el próximo corte de escena × 15 cps (derivado: la lectura de §A.2). En un cap de una sola escena, hasta el
+    fin de la oración siguiente. Sin escenas, None."""
+    if not escenas or not 0 <= si < len(sents):
+        return None
+    t0 = float(sents[si]["t0"])
+    if len(escenas) == 1:
+        fin = float(sents[min(si + 1, len(sents) - 1)]["t1"])
+    else:
+        fin = float(_escena_de(escenas, t0).end)
+    return max(0, int((fin - t0) * LECTURA_CPS))
+
+
+def hasta_el_corte(plan: dict[str, Any], scenes: list[Any], fps: float, log: list[str]) -> list[dict[str, Any]]:
+    """F36 §B.4: el agua y el reloj no cruzan el corte de la escena donde arrancan: duración = min(la que traen,
+    corte − inicio − 1 cuadro) (derivado). Corre después de escena_final (que puede mover el reloj)."""
+    from script_engine.gfx_project import scene_at
+    filas: list[dict[str, Any]] = []
+    if not scenes:
+        return filas
+    for campo in ("water_level", "time_ticker"):
+        b = plan.get(campo)
+        if not b or "start" not in b:
+            continue
+        a = float(b["start"])
+        sc = scene_at(scenes, a)
+        tope = round(float(sc.end) - a - 1.0 / float(fps), 3)
+        if float(b.get("duration") or 0.0) > tope:
+            filas.append({"bloque": campo, "t0": a, "accion": "acortado", "regla": "corte",
+                          "motivo": f"{float(b['duration']):.2f} → {tope:.2f} s: la escena {sc.idx} corta en "
+                                    f"{float(sc.end):.2f} s"})
+            b["duration"] = tope
+    plan.setdefault("rotulista", {})["corte"] = filas
+    log.append(f"  agua y reloj contra el corte: {[(f['bloque'], f['motivo']) for f in filas] or 'nada que acortar'}")
+    return filas
+
+
 # ═══════════════════════ colocar ═══════════════════════
 
 KIND_FICHA = {"cifra": "figure", "persona": "name", "hecho": "fact"}

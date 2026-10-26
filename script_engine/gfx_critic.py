@@ -249,14 +249,16 @@ def snapshots(project: Path, times: list[float], out_dir: Path, log: list[str] |
 def criticize(plan: dict[str, Any], *, base: Path, words: list[dict], time_offset: float, work_dir: Path, cap: str,
               log: list[str], call: Callable[[Path, str], dict] | None = None,
               fewshot: list[dict[str, Any]] | None = None, project: Path | None = None,
-              snaps: dict[float, Path] | None = None, excluir_rotulista: bool = False) -> list[dict[str, Any]]:
+              snaps: dict[float, Path] | None = None, excluir_rotulista: bool = False,
+              excluir_solo_forma: bool = False) -> list[dict[str, Any]]:
     """Juzga cada bloque y saca del plan (in place) los que no «suman». Devuelve una fila por bloque.
     G1: con `project` (proyecto HyperFrames del cap ya escrito con este plan), el cuadro es el snapshot del bloque
     dibujado en t + 1 s; `snaps` permite pasarlos ya sacados (tests)."""
     fs = load_fewshot() if fewshot is None else fewshot
     cache = Path(work_dir) / f"gfx_critic_{cap}.json"
     rows, gone = [], []
-    bl = [b for b in blocks(plan) if not (excluir_rotulista and b.get("rotulista"))]   # F29b: esos, criticize_rotulista
+    bl = [b for b in blocks(plan) if not (excluir_rotulista and b.get("rotulista"))   # F29b: esos, criticize_rotulista
+          and not (excluir_solo_forma and b.get("solo_forma"))]          # F36 §B.2: esos, estorba (antes del reparto)
     t_of = {id(b): frame_t(b) for b in bl}
     if snaps is None and project is not None:
         snaps = snapshots(project, list(t_of.values()), Path(work_dir) / f"gfx_critic_{cap}_snap", log)
@@ -447,6 +449,53 @@ def criticize_rotulista(plan: dict[str, Any], *, base: Path, words: list[dict], 
             del plan[field][idx]
     log.append(f"  crítico rotulista: {sum(r['pasa'] for r in rows)}/{len(rows)} bloques pasan")
     return rows
+
+
+def estorba(kind: str, obj: dict[str, Any], *, base: Path, words: list[dict], time_offset: float, work_dir: Path,
+            cap: str, log: list[str], call: Callable[..., dict] | None = None) -> dict[str, Any]:
+    """F36 §B.2: al sello de clima y al agua de la voz el crítico solo les pregunta si estorban (tapan un rostro o lo que
+    está en la imagen); «repite» y «no aporta» no aplican. Sin prompt nuevo: es el pedido del crítico del rotulista
+    (`build_prompt_rot`, con `aporta` vacío) y de sus tres respuestas solo cuenta la (3). Corre sobre el CANDIDATO,
+    antes del reparto (un sello que no pasa no ocupa su beat ni su escena), sobre la foto sola. Devuelve la fila
+    {t, t_frame, dur, bloque, texto, veredicto («estorba» / «no estorba» / «error»), motivo, pasa, voz, mira}. Sin
+    veredicto, pasa (como siempre). Caché en gfx_critic_rot_<cap>.json por (cap, bloque, segundo, descripción, voz)."""
+    cache = Path(work_dir) / f"gfx_critic_rot_{cap}.json"
+    try:
+        data = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
+    except (OSError, ValueError):
+        data = {}
+    t = float(obj["start"])
+    dur = float(obj.get("duration") or 2.5)
+    desc = describe(kind, obj)
+    tf = frame_t({"t": t, "dur": dur})
+    voz = voice_vecinas(words, obj.get("sentence_idx"), t, time_offset)
+    prompt = build_prompt_rot(desc, voz, "", "")
+    ident = clave_identidad("estorba", cap, kind, round(t, 2), desc, voz, PROMPT_VERSION_ROT)
+    texto = obj.get("word") if kind == "sello" else f"{obj.get('value_text')} {obj.get('unit', '')}".strip()
+    if ident in data:
+        v = {**data[ident], "cache": True}
+    else:
+        try:
+            img = frame_at(base, tf, Path(work_dir) / f"gfx_critic_{cap}" / f"estorba_{kind}_{tf:07.2f}.jpg")
+            raw = (call or _gemini_rot)(Path(img), prompt)
+            v = {"estorba": raw.get("estorba"), "motivo_3": str(raw.get("motivo_3") or "")[:160]}
+            if isinstance(v["estorba"], bool):
+                data[ident] = v
+                cache.parent.mkdir(parents=True, exist_ok=True)
+                cache.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+            else:
+                v = {"error": f"respuesta inválida: {json.dumps(raw, ensure_ascii=False)[:80]}"}
+        except Exception as e:  # noqa: BLE001 — sin veredicto el bloque queda (como el crítico de siempre)
+            v = {"error": f"{type(e).__name__}: {str(e)[:100]}"}
+        v["cache"] = False
+    pasa = v.get("error") is not None or v.get("estorba") is not True
+    ver = "error" if v.get("error") else "estorba" if v.get("estorba") else "no estorba"
+    row = {"t": round(t, 3), "t_frame": tf, "dur": dur, "bloque": kind, "texto": texto, "veredicto": ver,
+           "motivo": v.get("error") or v.get("motivo_3") or "", "pasa": pasa, "voz": voz, "mira": "foto sola",
+           "pregunta": "¿estorba?"}
+    log.append(f"  crítico (¿estorba?): {t:6.1f}s {KIND_LABEL[kind]:<13} «{texto}» → {ver.upper()} — {row['motivo']}"
+               + (" (caché)" if v.get("cache") else ""))
+    return row
 
 
 def _fmt_t(t: float) -> str:

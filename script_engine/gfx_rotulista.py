@@ -50,15 +50,15 @@ from script_engine.voz_utils import (_analiza, _ARTPREP, beat_de_oracion, _DIFER
                                      nombre_inicial, nombres, _num_en, _num_tok, numero_en, numeros, _NUMW, oraciones,
                                      _palabra_en, palabras, palabras_de_contenido, _PARTICULAS, _raiz_en, _toks,
                                      _UNIDAD_1, _UNIDAD_2, _valor, _w2n, _W2N, _W2N_LOCK)
-from script_engine.rotulista_filtros import (A_PANTALLA_POR_BEAT, anclaje, candado, cantidad, coherencia, CON_ETIQUETA,
+from script_engine.rotulista_filtros import (A_PANTALLA_POR_BEAT, LOCALES, anclaje, candado, cantidad, coherencia, CON_ETIQUETA,
                                              contradicciones, _DOC, FICHA, finalizar, forma, gancho_dicho, lectura,
                                              lo_que_pide, no_dicho, ORDEN, pide_documento, regla, spoiler, TIPOS,
                                              validar)
-from script_engine.rotulista_colocar import (animacion_de_cifra, aplicar_ediciones, CAMPOS_EDITABLES, caracteres,
+from script_engine.rotulista_colocar import (caben, hasta_el_corte, animacion_de_cifra, aplicar_ediciones, CAMPOS_EDITABLES, caracteres,
                                              colocar, _cubre, despues_del_corte, EDICIONES, ediciones_de, _escena_de,
                                              escena_final, guardar_ediciones, KIND_FICHA, LECTURA_CPS, lupa_de_detalles,
                                              mover_a_escena, tiempos, UNIDAD_CONTADOR, unidades)
-from script_engine.rotulista_llm import (A1_SYSTEM, A1_USER, _deshacer, EFFORT_DEFAULT, _EN_VUELO, entrada, gastado,
+from script_engine.rotulista_llm import (pasados_de_largo, A1_SYSTEM, A1_USER, _deshacer, EFFORT_DEFAULT, _EN_VUELO, entrada, gastado,
                                          _HUECOS, items_cap, items_gancho, _ledger, LINEA_B7, llamar, _LOCK,
                                          MODELO_DEFAULT,
                                          OUT_TOKENS_PEOR, _post_con_registro, primer_json, prompt_md5, prompt_user,
@@ -66,7 +66,7 @@ from script_engine.rotulista_llm import (A1_SYSTEM, A1_USER, _deshacer, EFFORT_D
                                          ROTULISTA_SYSTEM, ROTULISTA_SYSTEM_F29C, ROTULISTA_SYSTEM_F32, ROTULISTA_USER,
                                          ROTULISTA_USER_F32, _solo_el_json, _tipo_id, TopeRotulista, voz_del_video,
                                          voz_previa, ya_mostrado)
-from script_engine.clima import (elegir_clima, _gemini_clima, palabra_clima, peak_word, prompt_clima,
+from script_engine.clima import (usadas_antes, elegir_clima, _gemini_clima, palabra_clima, peak_word, prompt_clima,
                                  SELLO_CLIMA_PROMPT, _sello_queda, sellos_por_tema, TEMA_DE_MOOD, vocabulario_clima)
 from script_engine.voz_datos import (_agua_de, agua_de_voz, AGUA_ETIQUETAS, _entero, fechas_completas, _MES_RE,
                                      pico_cap, pico_plan, _raices, reloj_de_voz, tarjeta_inicial)

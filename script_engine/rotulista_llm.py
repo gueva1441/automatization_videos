@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from script_engine import evidence as ev
+from script_engine.rotulista_colocar import caracteres
 from script_engine.rotulista_filtros import validar
 from script_engine.voz_datos import pico_cap
 from script_engine.voz_utils import beat_de_oracion, numero_en, oraciones, palabras
@@ -329,6 +330,28 @@ def _reintento(user: str, errores: list[str]) -> str:
         "\n".join(f"- {e}" for e in errores)
 
 
+def pasados_de_largo(resp: Any, ent: dict[str, Any]) -> list[str]:
+    """F36 §B.8: los bloques de la respuesta cuya etiqueta + dato pasan de lo que cabe en su oración (`caben` de la
+    entrada; sin `caben`, nada), con el número, para el reintento."""
+    its = {x["id"]: x for x in ent.get("items") or []}
+    sents = ent.get("oraciones") or []
+    out = []
+    for b in (resp or {}).get("bloques") or [] if isinstance(resp, dict) else []:
+        if not isinstance(b, dict):
+            continue
+        try:
+            si = int(b.get("sentence_idx"))
+        except (TypeError, ValueError):
+            continue
+        cab = sents[si].get("caben") if 0 <= si < len(sents) else None
+        x = its.get(str(b.get("pool_id") or "")) or {}
+        n = caracteres(str(b.get("tipo") or ""), b.get("etiqueta"), str(b.get("texto") or ""), x.get("autor") or "")
+        if cab is not None and n > cab:
+            out.append(f"{b.get('pool_id')} en la oración [{si}] «{b.get('texto')}»: etiqueta + dato tienen {n} "
+                       f"caracteres y en esa oración caben {cab}")
+    return out
+
+
 def llamar(ent: dict[str, Any], words: list[dict], time_offset: float, work_dir: Path, cap_id: str, *,
            modelo: str | None = None, effort: str | None = None, tope: float = 2.0,
            call: Callable[..., dict] | None = None, log: list[str] | None = None) -> dict[str, Any]:
@@ -390,6 +413,10 @@ def llamar(ent: dict[str, Any], words: list[dict], time_offset: float, work_dir:
                         for r in de_contenido]
         no_propuestos = [i for i in val["faltan"]
                          if not any(r["pool_id"] == i and r["regla"] in ("cantidad", "lectura") for r in val["rechazos"])]
+        largos = pasados_de_largo(resp, ent)             # F36 §B.8: el reintento le dice el número
+        if largos and not usados["forma"]:
+            usados["forma"] = True
+            errores += largos
         if (no_propuestos or val["incompletos"]) and not usados["a_pantalla"]:
             usados["a_pantalla"] = True
             pq = {x["id"]: x["por_que"] for x in ent["items"]}

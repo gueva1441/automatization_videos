@@ -246,8 +246,11 @@ def eventos_cap(c: dict[str, Any], *, title_dur: float, dip_frames: int, fps: in
 
     # costura (negro → title → voz)
     v0 = c["primera_palabra"] + c["pre_pad"]
+    tj0 = plan.get("tarjeta_inicial") if c["is_first"] else None
     if c["is_first"]:
-        txt = (f"intro {intro:.1f} s (primer cuadro congelado, sin voz) → title card {title_dur:.1f} s desde 0.0 s → "
+        cuadro = (f"tarjeta «{tj0['texto']}» sobre negro, sin voz" if tj0 and tj0.get("texto") and not tj0.get("falta")
+                  else "primer cuadro congelado, sin voz")         # F36 §B.9: la tarjeta reemplaza la intro
+        txt = (f"intro {intro:.1f} s ({cuadro}) → title card {title_dur:.1f} s desde 0.0 s → "
                f"voz a {v0:.2f} s del cap (+{intro + v0:.2f} s del mp4)")
     else:
         bh = c.get("black_hold_prev") or {}
@@ -513,7 +516,8 @@ def chequeos(caps: list[dict[str, Any]], *, title_dur: float, fps: int, mezcla: 
         for e in c["eventos"]:
             if e["queda"] and e["tipo"] in TEXTOS + ("nivel de agua",):
                 n += 1
-                con = contradicciones(f"{e.get('etiqueta') or ''} {e.get('texto') or ''}", voz_video)
+                con = contradicciones(f"{e.get('etiqueta') or ''} {e.get('texto') or ''}", voz_video,   # F36 §B.5
+                                      cerca=[x for x in (e.get("voz_prev"), e.get("voz_ancla"), e.get("voz_next")) if x])
                 if con:
                     ok = False
                     lineas.append(f"✗ {c['cap']} {mmss(e['t_mp4'])} «{e['texto']}»: " + "; ".join(con[:2]))

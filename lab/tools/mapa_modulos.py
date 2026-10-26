@@ -27,7 +27,8 @@ M: dict[str, tuple[str, str, str, str, str]] = {
     "fase2b": ("El armador final: junta imagen, voz, subtítulos y música de cada capítulo en un segmento y los pega en "
                "el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla. "
                "Desde F34, con `--gfx` la música de cada cap arranca con su title card (pieza = segmento, después de "
-               "la intro) y la mezcla de previsualización mide dónde arranca.",
+               "la intro) y la mezcla de previsualización mide dónde arranca. Desde F36, si el plan de ch01 trae la "
+               "tarjeta fecha-hora, el mp4 arranca con 3 s de negro con la tarjeta en lugar de la intro congelada.",
                "assets del topic (imágenes/clips), voz por cap + tiempos, sync map, música", "`*_final(_gfx).mp4`; o "
                "GUION_PANTALLA + mezcla", "previo a F1 (inicial)", "vivo"),
     "gfx_config": ("El tablero de perillas de la capa gráfica: duraciones, tamaños, colores y qué reglas están "
@@ -54,7 +55,8 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                      "plan crudo y resuelto, contexto, eventos de sfx", "F1",
                      "vivo (sus textos los reemplaza el rotulista; sus sellos, el catálogo)"),
     "gfx_realizador": ("Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede "
-                       "mostrar cada uno, la pregunta de cierre del último beat y los topes.",
+                       "mostrar cada uno, la pregunta de cierre del último beat y los topes (desde F36 no borra el "
+                       "contador del rotulista).",
                        "escaleta + narración por beat + pool", "`gfx_beats_chNN.json`, candidatos, filas de lo quitado",
                        "F29", "vivo"),
     "gfx_rotulista": ("La fachada del rotulista (desde F36 partido en cinco): prepara la entrada de cada cap y corre "
@@ -75,7 +77,8 @@ M: dict[str, tuple[str, str, str, str, str]] = {
                           "escena» (por oración en caps de una sola escena).", "bloques validados + escenas",
                           "bloques en el plan, filas de lo movido o cortado", "F36 (código de F29b)", "vivo"),
     "clima": ("Los sellos de clima: en cada oración busca el momento de más peso y le pone una palabra del vocabulario "
-              "del perfil (hoy la elige Gemini Flash), nunca la que dice la voz; uno por beat, nunca sobre un texto.",
+              "del perfil (hoy la elige Gemini Flash), nunca la que dice la voz ni una que ya salió en el video; el "
+              "crítico lo mira antes del reparto; uno por beat, nunca sobre un texto.",
               "oraciones + léxico de moods + vocabulario `sellos_clima`", "sellos en el plan, filas de lo cortado",
               "F36 (código de F32/F34)", "vivo"),
     "voz_datos": ("Lo que sale de la voz y la escaleta sin modelo: el pico del cap, el reloj cuando la voz dice una "
@@ -84,8 +87,9 @@ M: dict[str, tuple[str, str, str, str, str]] = {
     "voz_utils": ("La utilería de la voz: lee cifras en dígitos y en letras, nombres propios, cifras con su unidad, y "
                   "parte la voz en oraciones con cada palabra numerada.", "texto / palabras con tiempos",
                   "cifras, nombres, oraciones", "F36 (código de F29b)", "vivo"),
-    "gfx_critic": ("El editor de último momento: Gemini mira la foto (y en el render el bloque dibujado) y saca lo que "
-                   "repite la voz, no aporta o tapa algo (al sello de clima y al agua de la voz solo los saca si tapan).", "plan + "
+    "gfx_critic": ("El editor: Gemini mira la foto y saca lo que repite la voz, no aporta o tapa algo. Desde F36 juzga "
+                   "los candidatos ANTES del reparto (lo que saca no ocupa lugar) y al sello de clima y al agua de la "
+                   "voz solo les pregunta si estorban.", "plan + "
                    "cuadros del video + voz", "plan sin lo que no pasa + "
                    "veredictos", "F4e", "vivo"),
     "gfx_project": ("El dibujante: convierte el plan en la página HTML que HyperFrames renderiza (title card, ficha, "

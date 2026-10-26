@@ -105,7 +105,9 @@ def palabra_clima(resp: str, lista: list[str], oraciones3: list[str]) -> tuple[s
 
 def sellos_por_tema(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any], words: list[dict],
                     time_offset: float, moods: dict[str, dict], log: list[str], *, work_dir: Path | None = None,
-                    cap: str = "", call: Callable[[str], str] | None = None) -> list[dict[str, Any]]:
+                    cap: str = "", call: Callable[[str], str] | None = None,
+                    juez: Callable[[dict], dict] | None = None, usadas_video: set[str] | None = None
+                    ) -> list[dict[str, Any]]:
     """F32 §B.6 → F34 §A.4: los sellos. Los momentos candidatos son los de siempre (en cada oración, la palabra de mayor
     peso de un mood del catálogo, gfx_peak.peak_word, y la palabra del pico), pero el sello ya no dice esa palabra: dice
     una palabra de CLIMA del vocabulario `sellos_clima` del perfil, elegida por Gemini Flash con el prompt literal de
@@ -113,7 +115,11 @@ def sellos_por_tema(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any]
     `sellos_clima` en el perfil, no hay sellos. El filtro (información > clima, §A.3.1): un sello por beat (el reloj, el
     agua y la lupa ya no le cuentan: el sello va en otra oración del beat), nunca en una escena (u oración, en un cap de
     una sola escena) donde hay texto, title card, reloj, agua, lupa u otro sello, y nunca cruzando su corte. Los sellos
-    del director (por léxico) salen. Corre después de escena_final."""
+    del director (por léxico) salen. Corre después de escena_final.
+    F36 §B.2: con `juez` (gfx_critic.estorba), el crítico juzga cada candidato que ya tiene palabra ANTES del reparto: el
+    que estorba no ocupa beat ni escena; sus filas quedan en `plan["critico_sellos"]`. §B.3: `usadas_video` = las
+    palabras de los sellos de los caps anteriores (`usadas_antes`); una palabra que ya salió en el video o en el cap se
+    vuelve a pedir una vez con la lista sin las usadas; si tampoco, ese candidato no lleva sello."""
     from gfx_config import gfx_rules
     from script_engine.gfx_peak import sentences
     from script_engine.gfx_project import scene_at
@@ -191,39 +197,65 @@ def sellos_por_tema(plan: dict[str, Any], scenes: list[Any], ent: dict[str, Any]
     dur = round(float(gfx_rules.mood_dur), 3)
     anim: dict[int, str] = {}
     usadas: set[str] = set()
+    antes = set(usadas_video or ())
+    cache = (Path(work_dir) / f"sellos_clima_{cap}.json") if work_dir else None
+    criticos: list[dict[str, Any]] = []
     for c in sorted(cands, key=lambda c: (c["beat"], not c["pico"], -c["weight"], c["t"])):
         sc = scene_at(scenes, c["t"])
         u = scene_at(us, c["t"])
         tema = TEMA_DE_MOOD.get(str(c["category"]), c["category"])
-        hay = sorted({q for x in (_cubre(us, c["t"], c["t"] + dur) if por_oracion else [u]) for q in ocupa.get(x.idx) or []})
+        # F36 §B.2/§B.3: primero lo que hace al sello (vocabulario, que no cruce el corte, la palabra, que no se repita
+        # en el video, el crítico); recién después el reparto (uno por beat, nunca sobre otra cosa). Un sello que no
+        # pasa no ocupa su beat ni su escena.
         motivo = ("sin vocabulario `sellos_clima` en el perfil" if not lista else
-                  f"un sello por beat: el beat {c['beat']} ya tiene {anim[c['beat']]}" if c["beat"] in anim else
-                  f"{'la oración' if por_oracion else 'la escena'} {u.idx} ya tiene {', '.join(hay)}" if hay else
                   f"cruza el corte de la escena {sc.idx} ({sc.end:.2f} s)" if c["t"] + dur > sc.end + 1e-6 else None)
-        palabra, quien = None, "catálogo"
+        palabra, quien, regla = None, "catálogo", "tema"
         if motivo is None:
             quien = "clima"
             palabra, motivo = palabra_clima(c.get("respuesta", ""), lista, tres[c["t"]])
-            if palabra and palabra in usadas:
-                palabra, motivo = None, f"«{palabra}» ya salió en el cap"
+        if palabra and palabra in antes | usadas:          # §B.3: se pide otra de la lista, una vez
+            donde = "el video" if palabra in antes else "el cap"
+            resto = [w for w in lista if w not in antes | usadas]
+            r2 = elegir_clima([prompt_clima(resto, *tres[c["t"]], c["funcion"])], cache, call)[0] if resto else ""
+            c["respuesta_2"] = r2
+            p2, m2 = palabra_clima(r2, resto, tres[c["t"]]) if resto else (None, "no quedan palabras sin usar")
+            palabra, motivo = (p2, None) if p2 else (None, f"«{palabra}» ya salió en {donde} y la segunda respuesta no "
+                                                           f"da otra ({m2})")
+        base: dict[str, Any] = {}
+        if motivo is None:
+            m = moods.get(str(c["category"])) or {}
+            base = dict(c["em"]) if c["pico"] else {
+                "category": c["category"], "layer": m.get("layer"), "icon": None,
+                "icon_anim": m.get("icon_anim") or "stamp", "side": getattr(sc, "quiet_side", "right") or "right",
+                "stamp": gfx_rules.emphasis_stamp, "weight": c["weight"], **({"sfx": m["sfx"]} if m.get("sfx") else {})}
+            base.update({"word": palabra, "start": c["t"], "duration": dur, "por_tema": True, "clima": True,
+                         "tema": tema, "palabra_voz": c["word"]})
+            base.pop("icon", None)
+            if juez is not None:                           # §B.2: el crítico, antes del reparto, solo «¿estorba?»
+                row = juez({**base, "sentence_idx": c["k"]})
+                criticos.append(row)
+                if not row["pasa"]:
+                    quien, regla = "crítico", "crítico"
+                    motivo = f"«{palabra}» estorba: {row['motivo']} (mira {row['mira']})"
+        if motivo is None:
+            hay = sorted({q for x in (_cubre(us, c["t"], c["t"] + dur) if por_oracion else [u])
+                          for q in ocupa.get(x.idx) or []})
+            quien = "catálogo"
+            motivo = (f"un sello por beat: el beat {c['beat']} ya tiene {anim[c['beat']]}" if c["beat"] in anim else
+                      f"{'la oración' if por_oracion else 'la escena'} {u.idx} ya tiene {', '.join(hay)}" if hay
+                      else None)
         if motivo:
-            filas.append({"bloque": "emphasis", "texto": c["word"], "t": c["t"], "accion": "fuera", "regla": "tema",
+            filas.append({"bloque": "emphasis", "texto": c["word"], "t": c["t"], "accion": "fuera", "regla": regla,
                           "quien": quien,
                           "motivo": f"sello {'del pico' if c['pico'] else 'de ' + str(tema)} «{c['word']}»: {motivo}",
-                          **({"respuesta": c.get("respuesta")} if c.get("respuesta") else {})})
+                          **({"respuesta": c.get("respuesta")} if c.get("respuesta") else {}),
+                          **({"respuesta_2": c["respuesta_2"]} if c.get("respuesta_2") is not None else {})})
             continue
-        m = moods.get(str(c["category"])) or {}
-        base = dict(c["em"]) if c["pico"] else {
-            "category": c["category"], "layer": m.get("layer"), "icon": None, "icon_anim": m.get("icon_anim") or "stamp",
-            "side": getattr(sc, "quiet_side", "right") or "right", "stamp": gfx_rules.emphasis_stamp,
-            "weight": c["weight"], **({"sfx": m["sfx"]} if m.get("sfx") else {})}
-        base.update({"word": palabra, "start": c["t"], "duration": dur, "por_tema": True, "clima": True,
-                     "tema": tema, "palabra_voz": c["word"]})
-        base.pop("icon", None)
         plan["emphasis"].append(base)
         anim[c["beat"]] = f"el sello «{palabra}»"
         usadas.add(palabra)
         marca(c["t"], dur, "sello")
+    plan["critico_sellos"] = criticos
     plan["emphasis"].sort(key=lambda e: e["start"])
     plan["sellos_tema"] = filas
     log.append(f"  sellos de clima: {[(e['word'], e.get('palabra_voz')) for e in plan['emphasis']]} · "
@@ -243,3 +275,19 @@ def peak_word(peak: dict[str, Any], words: list[dict], moods: dict[str, dict], *
     if not hits:
         return None
     return max(hits, key=lambda h: (h["weight"], h["category"] != block_category, -f.get(h["word"], 0), -h["i"]))
+
+
+def usadas_antes(work_dir: Path, cap_number: int) -> set[str]:
+    """F36 §B.3: las palabras de los sellos de clima de los caps anteriores (sus planes resueltos en el work_dir: el
+    plan corre en fila, ch01 → ch07)."""
+    out: set[str] = set()
+    for f in sorted(Path(work_dir).glob("gfx_plan_ch*.resolved.json")):
+        m = re.fullmatch(r"gfx_plan_ch(\d+)\.resolved\.json", f.name)
+        if not m or int(m.group(1)) >= cap_number:
+            continue
+        try:
+            plan = json.loads(f.read_text(encoding="utf-8")).get("plan") or {}
+        except (OSError, ValueError):
+            continue
+        out |= {str(e.get("word")) for e in plan.get("emphasis") or [] if e.get("clima") and e.get("word")}
+    return out

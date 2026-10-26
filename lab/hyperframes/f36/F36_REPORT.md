@@ -149,3 +149,122 @@ Siempre «salió» quiere decir que el guion cumple la columna DEBERÍA. En toda
 **El guion cumple 0 de las 15 líneas, y ninguna se resolvió antes de lo previsto.** Los totales que coinciden (4 relojes, 2 aguas, 6 punches, tarjeta en el plan) ya coincidían en F34 y no dependen de estas líneas. Por parte, B debería cerrar 1, 2, 3, 5, 6, 7, 9, 10, 11 y 15. Las líneas 4, 8, 12 y 14 quedan para C. La 13 no la arregla ninguna parte.
 
 **PARADA A:** diff vacío → se sigue a B (autorizado: «Seguir a la parte siguiente solo si la verificación de la anterior cierra»).
+
+---
+
+## Parte B — los bugs, con el caso real de cada uno como test (commit B)
+
+### Qué se hizo, por punto
+| punto | dónde | qué cambia | test (caso real) |
+|---|---|---|---|
+| B.1 | `gfx_realizador.finalizar` | el `count_up` del rotulista (`rotulista: True`) queda; solo sale el del director (cifra que dice la voz); la fila de un contador quitado dice su valor (`value_text`), no la palabra del ancla | D128 «1.910 personas» / «Guglielmo» |
+| B.2 | `gfx_layer` (`_escena`, `_criticar_antes`, `_juez_sello`), `clima.sellos_por_tema(juez=)`, `gfx_critic.estorba` | orden nuevo con rotulista: crítico de los textos del rotulista y del agua de la voz → `escena_final` (una por escena) → agua y reloj contra el corte → sellos: vocabulario, corte, palabra, no repetir, **crítico**, y recién ahí «un sello por beat» y «nunca sobre otra cosa» → realizador → el crítico de siempre para lo que queda (hoy nada en el camino con rotulista). Lo que el crítico saca no ocupa beat ni escena | ch02 beat 3 (AVISO que ocupaba el beat), ch02 CALMA (tinte) |
+| B.2 | `gfx_critic.estorba` | al sello de clima y al agua de la voz el crítico solo les pregunta si estorban. **Sin prompt nuevo**: es el pedido del crítico del rotulista (`build_prompt_rot`, `aporta` vacío) y de sus tres respuestas solo cuenta la (3) «¿El bloque estorba: tapa un rostro o un texto que está en la imagen?». Lectura declarada: el handoff dice «tapa un rostro o zona clara»; la pregunta existente dice «un rostro o un texto»; escribir «zona clara» sería un prompt nuevo, y el pedido de Omar solo permite los literales de C.2 y C.3 | CALMA: (1) y (2) en «no» por el tinte → pasa; (3) «sí» → sale |
+| B.3 | `clima.sellos_por_tema(usadas_video=)`, `clima.usadas_antes` | una palabra que ya salió en el video (los planes de los caps anteriores, que corren en fila) **o en el cap** se pide otra vez a Gemini, una vez, con la lista sin las usadas (mismo prompt literal de F34 A.4, otra lista); si tampoco hay, ese momento queda sin sello | AMENAZA ×4 |
+| B.4 | `rotulista_colocar.hasta_el_corte` (después de `escena_final`) | agua y reloj: duración = min(la que traen, corte − inicio − 1 cuadro) | agua ch04 4.50 → 3.94 s; reloj ch07 12 → 9.03 s |
+| B.5 | `rotulista_filtros.contradicciones(cerca=)` (filtro `coherencia` y chequeo del guion) | una cota, un nivel o una altura solo contradice a **otra de la misma palabra** (cota con cota, nivel con nivel) en la oración ancla o una vecina; los muertos se siguen comparando con todo el video. Lectura declarada: el 700 m de Vajont está en la oración **vecina** («no pasar de los setecientos metros sobre el nivel del mar»); con «misma magnitud» = nivel/cota juntos seguía dando ✗; el handoff dice «una cota/altura solo contradice a otra» → la palabra | 715 vs 650/700 → sin ✗ |
+| B.6 | `rotulista_filtros.finalizar` | desempate: `a_pantalla` → `rank` → dato con cifra o fecha (`numeros` del dato, en dígitos o en letras) → oración | D49 gana a D71 |
+| B.7 | `rotulista_filtros.candado` y `finalizar` | en el gancho el candado acepta números y nombres que la voz dice en cualquier cap. **Además** el beat pico del gancho no corta los textos que no son `a_pantalla`: DECISIONES 14:28 («el gancho no es pico a efectos del texto») no estaba aplicado en `finalizar` (lo tapaba el candado: con B.7 D195 pasaba el candado y caía por «beat pico (1): solo a_pantalla») | D195 con «1963» |
+| B.8 | `rotulista_colocar.caben`, `rotulista_filtros.lectura`, `rotulista_llm.pasados_de_largo` | cada bloque validado lleva `max_chars` (segundos hasta el corte × 15; en caps de una escena, hasta el fin de la oración siguiente) y, si la entrada trae `caben`, el reintento dice «etiqueta + dato tienen N caracteres y en esa oración caben M». Lectura declarada: «el JSON de salida lleva `max_chars`» se lee como la salida validada del rotulista, no como un campo nuevo del formato del prompt (eso sería un cambio de prompt fuera de C.2/C.3). En B no cambia nada en Vajont: la entrada todavía no trae `caben` (llega en C.2) y el rotulista sale de caché | Q50 147 contra 75 |
+| B.9 | `fase2b` (`_intro_de`, `_filtro_tarjeta`, `_pad_tarjeta`, las dos mezclas finales, `_grafo_musica`, `_mezcla_preview`, el guion), `gfx_guion` | con `tarjeta_inicial` completa en el plan de ch01 (y `--gfx`), la intro es `title_dur` (3 s, identidad F3) de negro con la tarjeta dibujada como el título del title card sin kicker (Anton al `title_px`, color y raya de acento del CSS común, todo de `tc_metrics`/identidad); sin tarjeta, los 2.5 s de siempre. `intro_s` = 3.0, todo +0.5 s; la música de ch01 se mide en la mezcla | con y sin tarjeta, tarjeta incompleta, sin `--gfx`, clip de 90 cuadros 2560×1440 |
+
+- Tests: `test_module_f36.py` +11 (B.1, B.2 ×2, B.3, B.4, B.5, B.6, B.7 ×2, B.8, B.9). Dos tests viejos cambian porque fijaban lo que B corrige: `test_module_f29c_rotulista.py::test_coherencia_720…` (720 m contra cotas de **otras** partes del video ya no contradice; con un nivel en la oración vecina sí) y `test_module_f34.py::test_a4_…` (los dos sellos repetidos se vuelven a pedir: 5 pedidos en vez de 3).
+- **Ninguna constante nueva.** Los números de B: `1 cuadro` = 1/fps (derivado), `15 cps` (`LECTURA_CPS`, estándar), `title_dur` 3 s (identidad F3), medidas de la tarjeta = `tc_metrics()` y CSS del title card (identidad F3; `TC_LEFT + 4` es el `left: 184px` de `.tc-line`).
+
+### Verificación
+- `fase2b f8s3-vajont-f30 --plan-only --rotulista --rotulista-tope 0.97` dos veces: la primera (725 s, Gemini US$ 0.1256: crítico «¿estorba?» de 58 candidatos, crítico del rotulista para D128 y D195, re-pedidos de sellos) mostró que D195 caía por «beat pico» → arreglo de B.7 (gancho no es pico) → segunda corrida 249 s, Gemini US$ 0.0001 (caché), Claude US$ 0 (`b/plan_only.log`). Guion en `b/GUION_PANTALLA.md/.json`.
+- md5 ch02 sin gfx `38e5ba14e3d24fd20f9297c9e1dfee24` · suite rápida 58 · suite amplia **1036 + las 5 previas** (`b/`).
+- Firefox cerrado, RAM 13.6–16 GB libres antes de las corridas (la de B con 13.6 GB antes del md5: por debajo de los 14 GB de la regla; el md5 dio igual).
+- Chequeos del guion: ✓ dos bloques en una escena, ✓ cruza corte, ✓ lectura, ✓ **cifra que contradice la voz** (antes ✗ 715 m), ✓ costuras, ✓ gancho no vacío, ✓ **inicio de música 7/7 con 0 cuadros** (ch01: title card 3.000 s · música medida 3.000 s), ✓ tarjeta; ✗ a_pantalla 4/5 (Q50, es de C); ✗ inicio de voz ch07 sin rampa (ya estaba en F32/F34).
+
+### Salida de B: lo que queda en pantalla (t_mp4; todo +0.5 s por la tarjeta)
+- ch01: **tarjeta «9 OCT 1963 · 22:39» 0:00 (3 s, reemplaza la intro)** · **ficha D195 «LONGARONE, 1963 · 1.269 de 1.328 habitantes murieron» 22.3** · sello PÁNICO 40.4 · reloj 9 OCT · 1963 76.5.
+- ch02: recorte D117 129.2 · sello AMENAZA 155.4 · sello AVISO 176.3.
+- ch03: agua OLA 20 m 251.2 · sello INMINENTE 267.2 · sello ALARMA 351.0. Sin texto (D49 ganó el beat pero como lupa visión no lo encuentra; D71 ya había perdido).
+- ch04: reloj 4 NOV · 1960 391.1 · ficha T39 424.0 · sello COLAPSO 447.7 · **agua COTA AUTORIZADA 715 m 464.6, dur 3.94**.
+- ch05: sello RABIA 532.4 · reloj 9 OCT · 1963 597.0 (**dur 1.88**: la escena 9 corta a los 89.43 s) · sello CALMA 660.6.
+- ch06: sello SILENCIO 756.5 · **contador D128 «MUERTOS EN EL DESASTRE · 1.910 personas» 813.2** · ficha D192 822.7.
+- ch07: reloj 20 FEB · 1968 944.1 (**dur 9.03**) · ficha D245 994.7. Sin sello (el AMENAZA ya no sale).
+
+### B — simulador contra DEBERÍA
+#### Guion de Vajont de F36-B contra el contrato (tabla «DEBERÍA por línea» de F34) — agente `simulador`, íntegro
+
+**Cumple 6 de 15 líneas: 1, 5, 7, 11, 12 y 15.** Otras dos quedan en parte (3 y 9). De las 10 que B debía cerrar (1, 2, 3, 5, 6, 7, 9, 10, 11 y 15) se cerraron 5.
+
+Salvo aviso, el t_mp4 que cito es el del contrato (el de F34 B). El de este guion es ese más 0.5 s.
+
+Cómo lo medí:
+- Leí `lab/hyperframes/f36/b/GUION_PANTALLA.json`.
+- Crucé cada línea con `gfx_plan_chNN.resolved.json` (`sellos_tema`, `critico`, `critico_rotulista`, `rotulista.filas`) y con `sellos_clima_chNN.json`.
+- Los `rotulista_chNN.raw.json` son de F34 (15:39–15:41, caché del modelo). La corrida de B solo regeneró lo que depende de las reglas.
+- No toqué archivos ni corrí `fase2b`.
+
+#### 1. Totales
+
+Texto: eventos con `queda: true` de tipo ficha, recorte, cita, lupa, persona o contador. Sello: solo los sellos con `queda: true`.
+
+| Concepto | Esperado (DEBERÍA) | Salió con la lista | ¿Sí/no? |
+|---|---|---|---|
+| Textos | 9: D195 o D118, D117, D49, T39, Q50, D128, D192, T85, D245 | 6: D195, D117, T39, D128 (contador), D192, D245. Faltan D49, Q50 y T85. D71 ya no sobra. | **No** (6 de 9; F34 tenía 5 con D71 de más) |
+| Sellos | 9: PÁNICO · CALMA + AMENAZA · AVISO · AMENAZA · INMINENTE · COLAPSO + SILENCIO · MEMORIA | 9: PÁNICO (ch01), AMENAZA y AVISO (ch02), INMINENTE y ALARMA (ch03), COLAPSO (ch04), RABIA y CALMA (ch05), SILENCIO (ch06) | **No** en el contenido (ver abajo) |
+| Relojes | 4 | 4: ch01 8.32 s, ch04 4.43 s, ch05 1.88 s, ch07 9.03 s | Sí |
+| Tarjeta | 1, y que se dibuje | 1 a 0.0 s con 3.0 s de duración, y `intro_s` = 3.0 | **Sí, ahora también en pantalla** |
+| Aguas | 2 | 2: ch03 «OLA 20 m» y ch04 «COTA AUTORIZADA 715 m» (3.94 s) | Sí |
+| Punches | 6 | 6: ch02, ch03, ch04, ch05, ch06 y ch07 | Sí |
+
+**Sellos.**
+- Coinciden 7 de las 9 palabras: PÁNICO, CALMA, AMENAZA, AVISO, INMINENTE, COLAPSO y SILENCIO.
+- Faltan MEMORIA y la segunda AMENAZA. Sobran ALARMA (ch03, 351.0) y RABIA (ch05, 532.4).
+- Con el cap correcto coinciden solo 3: PÁNICO en ch01, AMENAZA en ch02 y SILENCIO en ch06.
+- El contrato pide AMENAZA dos veces (ch02 y ch04), y B.3 prohíbe repetir una palabra en todo el video. Con B.3 activo la segunda AMENAZA no puede salir nunca.
+
+**Chequeos del propio guion.**
+- «bloque que cruza un corte» pasó de ✗ en F34 a ✓.
+- «cifra que contradice la voz» pasó de ✗ en F34 a ✓.
+- Siguen en ✗ «a_pantalla» (4 de 5, Q50) e «inicio de voz» de ch07. El de ch07 ya estaba en F34.
+
+#### 2. Las 15 líneas
+
+| # | cap · t_mp4 | DEBERÍA (resumido) | ¿Salió? | Qué salió y por qué (regla y motivo de la data bruta) | Parte que la arregla (§0.3) | ¿Lo previsto para B? |
+|---|---|---|---|---|---|---|
+| 1 | ch01 · 18.8 | Ficha D195 «LONGARONE · 1.269 de 1.328 habitantes murieron», sin año en la etiqueta. | **Sí** (con un matiz) | La ficha queda a 22.3 s (cap 19.3, oración 2, palabra «Longarone,») con 4.14 s. El crítico dio sí, sí, no estorba. El candado ya no la corta: B.7 acepta el 1963 que la voz dice en el reloj de 76.5 s. Matiz: la etiqueta sigue siendo «LONGARONE, 1963» y no «LONGARONE». El 18.8 de F34 parece ser el inicio de la oración y la ficha ahora se coloca en la palabra ancla. | B.7 | **Sí** |
+| 2 | ch02 · 162.3 | CALMA queda en la escena 6. | **No** | El sello de 162.78 (palabra «vida») sigue cortado por el crítico. Ya no es por el tinte: ahora dice «CALMA estorba: el sello grande a media altura a la derecha tapa rostros de las personas sentadas en la cafetería y la Vespa». B.2 hizo lo previsto (solo pregunta «¿estorba?»), pero la respuesta es un estorbo físico por la posición del sello. | B.2 | **No.** El §0.3 suponía que el tinte era lo único que lo cortaba. |
+| 3 | ch02 · 211.1 | AMENAZA en la escena 10 (primer AMENAZA del video). | **En parte** | AMENAZA entra en ch02, pero en **155.42** (escena 5, beat 2, palabra «colgados»), no en 211.1. En el beat 3 queda **AVISO a 176.34** (escena 7): ahora pasa el crítico («no estorba»). Por eso el «deslizamiento» de 211.56 (AMENAZA) cae con «un sello por beat: el beat 3 ya tiene el sello AVISO», y esta vez es legítimo. | B.2 | **No** del todo. La causa es que B.2 cambió la pregunta y AVISO ya no cae. Así AVISO queda en ch02, que no estaba en el contrato, y AMENAZA se va al beat 2. |
+| 4 | ch03 · 266.7 | Sello AVISO. | **No** | Sale INMINENTE a 267.16. `sellos_clima_ch03` no tiene AVISO en ninguna respuesta (AMENAZA ×2, INMINENTE ×2, ALARMA ×4, NINGUNA). AMENAZA ya salió en ch02, se la volvió a pedir una vez y devolvió INMINENTE. Además AVISO ya está usado en ch02. | C.3 | Sí (no se esperaba) |
+| 5 | ch03 · 316.2 | Ficha D71 fuera. | **Sí** | D71 cortado por «un texto por beat: el beat 5 ya tiene D49». Ganó D49 por el desempate de cifra. | B.6 | **Sí** |
+| 6 | ch03 · 348.9 | Lupa o ficha D49 «ANCHO DE LA FISURA · Más de 1 metro» en la escena 11. | **No** | D49 ganó el desempate, pero cae en otro filtro: `rotulista (zona)`, «visión no encuentra “Más de 1 metro de ancho” en la escena 12». Con el desempate resuelto, D49 llegó por primera vez a `colocar` (`rotulista_colocar.py`), que pide a la visión ubicarla en la imagen. La lupa quedó en la palabra «fisura» (oración 17, cap 115.74 s), que es el arranque de la escena 12 y no de la 11. En F34 nunca llegaba a esa etapa. | B.6 | **No.** El desempate cumplió, pero apareció un filtro que el contrato no preveía. El contrato aceptaba «lupa/ficha», y el modelo eligió `lupa`, que es la que exige visión. |
+| 7 | ch04 · 464.1 | Misma agua, duración 3.9 s. | **Sí** | «COTA AUTORIZADA 715 m» con duración **3.94**: termina en 468.50 y el corte es 468.53, o sea corte − 1 cuadro. «bloque que cruza un corte» pasó a ✓. La contradicción 715 vs 650/700 también desapareció (B.5). | B.4 | **Sí** |
+| 8 | ch05 · 527.2 | Recorte Q50 de unos 75 caracteres y 5.0 s. | **No** | Mismo recorte largo (147 caracteres piden 9.8 s y hay 5.0 s hasta el corte en 30.8 s), cortado por `rotulista (lectura)`. La data bruta es la de F34, porque el prompt no cambió. | B.8 + C.2 | Sí (no se esperaba) |
+| 9 | ch05 · 531.95 | Sin sello sobre el recorte. | **En parte** | AMENAZA ya no sale («ya salió en el video»), pero en el mismo instante queda **RABIA a 532.45** (escena 2, beat 8, «no estorba»), y es otro sello en el lugar que el contrato quería vacío. «Nunca sobre un texto» no aplica porque Q50 está muerto (línea 8). | B.2, que en el §0.3 ya se condicionaba a «con Q50 vivo» | **No.** La línea depende de la 8, que es de C. El §0.3 la marcó como cerrada en B. |
+| 10 | ch06 · 710.1 | Sello COLAPSO en la escena 2. | **No** | En ch06 no hay sello en 710.59. Gemini devolvió COLAPSO ×4, pero las cuatro respuestas caen por «COLAPSO ya salió en el video»: ch04 lo había tomado a 447.74 (el lugar de la AMENAZA del contrato). La segunda petición dio NINGUNA. El INMINENTE que ocupaba el beat ya no existe. | B.2 | **No.** B.2 sí limpió el beat, pero B.3 reparte las palabras por orden de cap y ch04 tomó COLAPSO antes. |
+| 11 | ch06 · 812.7 | D128 «MUERTOS, RECUENTO OFICIAL · 1.910 personas» en la escena 13. | **Sí** | Un `contador` «MUERTOS EN EL DESASTRE · **1.910 personas**» a 813.2, escena 13, duración 3.7 s, crítico sí, sí, no estorba. El realizador ya no lo borra y el texto es el valor, no «Guglielmo». D192 sigue a 822.73 en la escena 14. Sale como contador y no como ficha: es el mismo dato. | B.1 | **Sí** |
+| 12 | ch07 · 897.6 | AMENAZA fuera. | **Sí** | El sello de 898.15 cae por «AMENAZA ya salió en el video», con segunda respuesta NINGUNA. ch07 queda sin ningún sello. | B.3 + C.3 | **Antes de lo previsto.** Lo cerró B.3, porque AMENAZA ya estaba usada en ch02. |
+| 13 | ch07 · 943.6 | Reloj con duración 4 s y ficha T85 a 949.9. | **No** | T85 sigue cortada por «beat pico (12): solo a_pantalla». El reloj «20 FEB · 1968» queda a 944.07 con **9.03 s**: termina en 953.10 y el corte es 953.13 (antes 12 s, B.4). | ninguna (regla de Omar) | **Sí** (no se esperaba) |
+| 14 | ch07 · 1025.7 | Sello MEMORIA en la escena 13. | **No** | MEMORIA llegó antes de lo previsto: el sello de 1013.65 («ola») recibió MEMORIA tras repetir RABIA, y el crítico lo pasó («no estorba»). Pero lo corta el catálogo con «la escena 13 ya tiene ficha», que es la excepción que el contrato marca «Omar decide». Además el sello quedó en 1013.6 y no en 1025.7. El de 1023.85 («inundación») pidió SILENCIO, repetido, y la segunda respuesta fue NINGUNA. | B.3 + C.3 | **Sí** (no se esperaba), pero por otra causa: la palabra ya llega, lo que lo frena es la regla «una cosa por escena». |
+| 15 | 0:00 | La tarjeta reemplaza la intro (3 s). | **Sí** | La tarjeta «9 OCT 1963 · 22:39» está a 0.0 s con 3.0 s. `intro_s` = 3.0 y la costura dice «intro 3.0 s (tarjeta sobre negro, sin voz) → title card». La música de ch01 mide `title_card_s` 3.0 con desvío 0 cuadros. | B.9 | **Sí** |
+
+**Fuera del contrato pero visible en este guion.**
+- ch05 pasa de un reloj de 12 s a uno de 1.88 s, porque la escena termina antes. Sigue contando como reloj.
+- SILENCIO está en el beat 10 (756.5) y no en el 11 (799.0 en F34). Con eso, el «fango» de 799.5 cae por «SILENCIO ya salió en el cap».
+- ALARMA en ch03 (351.0) ahora pasa el crítico y no estaba en el contrato.
+- ALARMA y RABIA son los dos sellos sobrantes.
+
+#### 3. Resumen
+
+**Cumple 6 de 15 (1, 5, 7, 11, 12 y 15) y dos en parte (3 y 9).** De las 10 que B debía cerrar, se cerraron 1, 5, 7, 11 y 15.
+
+- **Antes de lo previsto:** la 12 (C.3) la cerró B.3 porque AMENAZA ya estaba usada. La 14 no cierra, pero MEMORIA ya llega (previsto para C).
+- **Como se esperaba, sin cerrar:** 4, 8 y 13.
+- **B debía cerrar y no cerró** (2, 3, 6, 9 y 10):
+  - **2:** el crítico, ahora solo con «¿estorba?», igual la corta porque el sello tapa rostros y la Vespa.
+  - **3:** B.2 dejó pasar AVISO en ch02, así que ocupa el beat 3 y AMENAZA se va al beat 2.
+  - **6:** D49 ganó el desempate (B.6), pero la visión no encuentra el texto en la escena 12 y lo corta por zona.
+  - **9:** el sello AMENAZA se fue, pero RABIA lo reemplazó, y la regla «nunca sobre un texto» necesita Q50 vivo (línea 8, C).
+  - **10:** B.3 reparte las palabras por orden de cap: COLAPSO la tomó ch04 y ch06 quedó sin ella.
+- **Contradicción del contrato:** pide AMENAZA ×2 y B.3 no repite palabras, así que los 9 sellos solo pueden cerrar con otra palabra en el segundo lugar.
+
+### Lectura de CC sobre B (sin tocar nada más)
+- Las cinco líneas que B debía cerrar y no cerró no son fallas de los arreglos: cada arreglo hizo lo pedido (los tests con el caso real pasan) y al sacar el obstáculo apareció el siguiente. CALMA (2) cae ahora por una razón válida para la regla nueva (tapa rostros); la línea 3 cambió porque AVISO ya no cae; la 6 destapa un bug nuevo («un bloque que cae al colocar ya ocupó su beat»); la 9 depende de Q50 (C); la 10 sale de B.3 contra un contrato que pide AMENAZA ×2.
+- **Contradicción del contrato con B.3** (la marca el simulador): la tabla DEBERÍA pide AMENAZA dos veces (ch02 y ch04) y B.3 prohíbe repetir una palabra en todo el video. Decide Omar.
+
+**PARADA B:** md5, suites y tests cierran → se sigue a C (el guion no exige diff vacío en B).

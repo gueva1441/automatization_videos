@@ -1,0 +1,96 @@
+........................................................................ [  6%]
+........................................................................ [ 13%]
+........................................................................ [ 20%]
+........................................................................ [ 27%]
+........................................................................ [ 34%]
+........................................................................ [ 41%]
+........................................................................ [ 48%]
+........................................................................ [ 55%]
+........................................................................ [ 62%]
+........................................................................ [ 69%]
+........................................................................ [ 76%]
+........................................................................ [ 82%]
+........................................................................ [ 89%]
+.......................................................................F [ 96%]
+FF......FF.......................                                        [100%]
+================================== FAILURES ===================================
+_______________________ test_tone_blocks_tienen_pausas ________________________
+
+    def test_tone_blocks_tienen_pausas():
+        for intent, txt in TONE_INSTRUCTIONS_BY_INTENT.items():
+>           assert "PAUSAS" in txt, f"{intent}: falta guia de PAUSAS"
+E           AssertionError: hook: falta guia de PAUSAS
+E           assert 'PAUSAS' in 'Frases cortas y tensas. Promesa explícita. NO contexto largo. Densidad alta.'
+
+test_module_01b_pauses.py:18: AssertionError
+__________________________ test_hook_abre_con_pausa ___________________________
+
+    def test_hook_abre_con_pausa():
+        h = TONE_INSTRUCTIONS_BY_INTENT["hook"]
+>       assert "..." in h and "ANTES" in h, "hook no instruye abrir con '...' ANTES"
+E       AssertionError: hook no instruye abrir con '...' ANTES
+E       assert ('...' in 'Frases cortas y tensas. Promesa explícita. NO contexto largo. Densidad alta.')
+
+test_module_01b_pauses.py:24: AssertionError
+________________________ test_prose_rules_regla_pausas ________________________
+
+    def test_prose_rules_regla_pausas():
+>       assert "PAUSAS" in PROSE_RULES and "..." in PROSE_RULES
+E       assert ('PAUSAS' in 'REGLAS DE PROSA (todas inviolables):\n1. IDIOMA: español neutro. Sin anglicismos sin traducir.\n   ✗ MAL: "telescoped...interno. La narración final va directo a TTS y los tags se\n   leen literal como "F cero ocho" — destruyendo el audio.')
+
+test_module_01b_pauses.py:28: AssertionError
+___________________________ test_c_guarda_de_minimo ___________________________
+
+    def test_c_guarda_de_minimo():
+        """Aunque haya gaps apretados, NO baja del mínimo."""
+        # 4 items, todos apretados; min_count=4 → no debe fusionar ninguno.
+        words = _words(("a", 0.0), ("b", 0.3), ("c", 0.6), ("d", 0.9))
+        plan = _flux_plan("a", "b", "c", "d")
+        out, dropped = m._reconcile_anchor_timing(plan, "flux", words, min_count=4, cap_number=1)
+        assert dropped == 0
+        assert len(out["anchors"]) == 4
+        # min_count=3 → fusiona hasta quedar exactamente en 3, no menos.
+        plan2 = _flux_plan("a", "b", "c", "d")
+        out2, dropped2 = m._reconcile_anchor_timing(plan2, "flux", words, min_count=3, cap_number=1)
+>       assert len(out2["anchors"]) == 3
+E       AssertionError: assert 4 == 3
+E        +  where 4 = len([{'anchor': 'a', 'pos': 0, 'end': 1}, {'anchor': 'b', 'pos': 1, 'end': 2}, {'anchor': 'c', 'pos': 2, 'end': 3}, {'anchor': 'd', 'pos': 3, 'end': 4}])
+
+test_module_m03_merge_timing.py:88: AssertionError
+---------------------------- Captured stdout call -----------------------------
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+  [03][audit] cap 1: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+____________________ test_c_veo_path_y_veo_anchor_intacto _____________________
+
+    def test_c_veo_path_y_veo_anchor_intacto():
+        """La fusión corre también para veo (supplementals); el veo_anchor NO se toca."""
+        words = _words(("uno", 0.0), ("dos", 0.4), ("tres", 5.0), ("cuatro", 10.0),
+                       ("cinco", 15.0))
+        plan = _veo_plan("uno", "dos", "tres", "cuatro", "cinco")
+        out, dropped = m._reconcile_anchor_timing(plan, "veo", words, min_count=4, cap_number=7)
+>       assert dropped == 1                                  # 'dos' (gap 0.4) fuera
+        ^^^^^^^^^^^^^^^^^^^
+E       assert 0 == 1
+
+test_module_m03_merge_timing.py:98: AssertionError
+---------------------------- Captured stdout call -----------------------------
+  [03][audit] cap 7: matcher anchor→tiempo no resolvió (anchor sin match o starts no crecientes) — sin reconciliación temporal
+============================== warnings summary ===============================
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:83: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    luma = list(im.convert("L").getdata())
+
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+test_module_f8b.py::test_grade_baja_saturacion_y_no_recorta_negros
+  C:\CLAUDE_PROJECTS\automatization_videos\script_engine\image_grade.py:85: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+    s = [sv for sv, lv in zip(hsv.getdata(band=1), luma) if lv > 24] or [0]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED test_module_01b_pauses.py::test_tone_blocks_tienen_pausas - AssertionE...
+FAILED test_module_01b_pauses.py::test_hook_abre_con_pausa - AssertionError: ...
+FAILED test_module_01b_pauses.py::test_prose_rules_regla_pausas - assert ('PA...
+FAILED test_module_m03_merge_timing.py::test_c_guarda_de_minimo - AssertionEr...
+FAILED test_module_m03_merge_timing.py::test_c_veo_path_y_veo_anchor_intacto
+5 failed, 1036 passed, 4 warnings in 92.65s (0:01:32)

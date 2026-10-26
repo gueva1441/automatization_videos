@@ -1714,12 +1714,65 @@ def _classify_uncalibrated_tracks(
     return uncal_generated, uncal_reused
 
 
+def _intro_de(plans: list[Any], work_dir: Path, gfx: bool) -> tuple[float, dict | None]:
+    """F36 §B.9: (segundos de intro del mp4, tarjeta). Con --gfx y `tarjeta_inicial` completa en el plan resuelto del
+    primer cap, la tarjeta fecha-hora REEMPLAZA la intro: title_dur (identidad F3) de negro con la tarjeta y después la
+    primera imagen. Sin tarjeta (o sin --gfx), INITIAL_SILENCE_SEC con el primer cuadro congelado, como siempre."""
+    if not gfx:
+        return INITIAL_SILENCE_SEC, None
+    first = next((x for x in plans if getattr(x, "is_first", False)), None)
+    f = work_dir / f"gfx_plan_{first.chapter_id}.resolved.json" if first is not None else None
+    try:
+        tj = (json.loads(f.read_text(encoding="utf-8")).get("plan") or {}).get("tarjeta_inicial") \
+            if f is not None and f.exists() else None
+    except (OSError, ValueError):
+        tj = None
+    if tj and tj.get("texto") and not tj.get("falta"):
+        from gfx_config import gfx_rules as _gr
+        return float(_gr.title_dur), tj
+    return INITIAL_SILENCE_SEC, None
+
+
+def _ff_ruta(x: Path) -> str:
+    """Una ruta dentro de un filtro de ffmpeg (Windows: barras y «:» escapados)."""
+    return str(Path(x).resolve()).replace("\\", "/").replace(":", "\\:")
+
+
+def _filtro_tarjeta(tj: dict, work_dir: Path) -> str:
+    """F36 §B.9: la tarjeta como el title card sin kicker (identidad F3, `gfx_project.tc_metrics` y el CSS común): el
+    texto en Anton al tamaño y lugar del título, color del título, y la raya de acento debajo. Filtros de ffmpeg sobre
+    un cuadro negro del tamaño del video (el lienzo del title card es el del video)."""
+    from gfx_config import GFX_FONTS_DIR, gfx_rules as _gr
+    from script_engine.gfx_project import TC_LEFT, tc_metrics
+    m = tc_metrics()
+    txt = work_dir / "_tarjeta.txt"
+    txt.write_text(str(tj["texto"]).upper(), encoding="utf-8")
+    return (f"drawtext=fontfile='{_ff_ruta(GFX_FONTS_DIR / 'Anton-Regular.ttf')}':textfile='{_ff_ruta(txt)}':"
+            f"fontsize={m['title_px']}:fontcolor=0xf4f1ea:x={TC_LEFT}:y={m['title_top']},"   # identidad F3: .tc-title
+            f"drawbox=x={TC_LEFT + 4}:y={m['line_top']}:w={m['line_w']}:h={m['line_h']}:"      # identidad F3: .tc-line
+            f"color=0x{_gr.accent_hex.lstrip('#')}:t=fill")
+
+
+def _pad_tarjeta(tj: dict, work_dir: Path, out: Path, seconds: float, fps: int, width: int, height: int) -> Path:
+    """F36 §B.9: el clip de la intro con la tarjeta (negro + tarjeta, `seconds`), con el encoder de los segmentos (se
+    pega adelante por copia, como el padding de siempre)."""
+    n = int(round(seconds * fps))
+    r = _run_cmd([FFMPEG, "-v", "error", "-y", "-f", "lavfi", "-i", f"color=c=black:s={width}x{height}:r={fps}",
+                  "-vf", _filtro_tarjeta(tj, work_dir), "-frames:v", str(n), *_venc(), "-pix_fmt", "yuv420p",
+                  "-r", str(fps), "-an", "-f", "mpegts", str(out)], timeout=300)
+    if r.returncode != 0:
+        raise RuntimeError(f"tarjeta de la intro falló: {r.stderr[-300:]}")
+    return out
+
+
 def _mix_music_into_video(
     video_path: Path,
     music_path: Path,
     sync_map: dict,
     output_path: Path,
     music_floor_path: Path | None = None,
+    intro_sec: float = INITIAL_SILENCE_SEC,
+    tarjeta: dict | None = None,
 ) -> Path:
     """
     Mezcla música con ducking sidechain sobre la narración del video.
@@ -1764,7 +1817,10 @@ def _mix_music_into_video(
     duck_attack_ms = float(mixing.get("duck_attack_ms", 80))
     duck_release_ms = float(mixing.get("duck_release_ms", 200))
 
-    pad_sec = INITIAL_SILENCE_SEC   # CHAT 32
+    pad_sec = intro_sec   # CHAT 32 · F36 §B.9: con tarjeta, title_dur (_intro_de)
+    v_pad = (f"[0:v]tpad=start_duration={pad_sec}:start_mode=clone[v_pad];" if not tarjeta else
+             f"[0:v]tpad=start_duration={pad_sec}:start_mode=add:color=black,"
+             f"{_filtro_tarjeta(tarjeta, Path(output_path).parent)}:enable='lt(t,{pad_sec})'[v_pad];")
 
     print(f"     mixing params: vol={music_volume}, floor={music_volume_floor}, "
           f"thr={duck_threshold}, ratio={duck_ratio}, "
@@ -1783,7 +1839,7 @@ def _mix_music_into_video(
         #   rama-floor:     volume(music_volume_floor) (SIN ducking) → [music_floor]
         # amix(narr_main, music_ducked, music_floor) → [mixed]
         filter_complex = (
-            f"[0:v]tpad=start_duration={pad_sec}:start_mode=clone[v_pad];"
+            f"{v_pad}"
             f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
             f"[1:a]aresample=44100,asplit=2[music_a][music_b];"
             f"[music_a]volume={music_volume}[music_lvl];"
@@ -1825,7 +1881,7 @@ def _mix_music_into_video(
         print(f"     CHAT 39: volumen POR CAP (música pre-atenuada en 2 WAVs, "
               f"sidechain intacto)")
         filter_complex = (
-            f"[0:v]tpad=start_duration={pad_sec}:start_mode=clone[v_pad];"
+            f"{v_pad}"
             f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
             f"[1:a]aresample=44100[music_ducked_src];"
             f"[music_ducked_src][narr_sc]sidechaincompress="
@@ -1864,8 +1920,8 @@ def _mix_music_into_video(
     return output_path
 
 
-def _grafo_musica(audio_wav: Path, music_path: Path, mixing: dict, music_floor_path: Path | None
-                  ) -> tuple[str, list[str]]:
+def _grafo_musica(audio_wav: Path, music_path: Path, mixing: dict, music_floor_path: Path | None,
+                  intro_sec: float = INITIAL_SILENCE_SEC) -> tuple[str, list[str]]:
     """F2b §4 (F32 §A.4: también la mezcla de previsualización): (grafo, entradas) de la mezcla de la narración con la
     música — padding inicial + sidechain + piso; la salida es [mixed]."""
     music_volume = float(mixing.get("music_volume", 0.25))
@@ -1874,7 +1930,7 @@ def _grafo_musica(audio_wav: Path, music_path: Path, mixing: dict, music_floor_p
     duck_ratio = float(mixing.get("duck_ratio", 8))
     duck_attack_ms = float(mixing.get("duck_attack_ms", 80))
     duck_release_ms = float(mixing.get("duck_release_ms", 200))
-    pad_ms = int(INITIAL_SILENCE_SEC * 1000)
+    pad_ms = int(intro_sec * 1000)                     # F36 §B.9: la intro (2.5 s, o title_dur con la tarjeta)
     if music_floor_path is None:
         graph = (f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
                  f"[1:a]aresample=44100,asplit=2[music_a][music_b];"
@@ -1899,6 +1955,8 @@ def _mix_music_audio_only(
     sync_map: dict,
     output_path: Path,
     music_floor_path: Path | None = None,
+    intro_sec: float = INITIAL_SILENCE_SEC,
+    tarjeta: dict | None = None,
 ) -> Path:
     """F2b §4: la misma mezcla que _mix_music_into_video (padding inicial + sidechain + piso), pero SIN
     re-encodear el video: la música se mezcla como AUDIO solo y el video se remuxea con `-c:v copy`.
@@ -1916,7 +1974,7 @@ def _mix_music_audio_only(
     duck_ratio = float(mixing.get("duck_ratio", 8))
     duck_attack_ms = float(mixing.get("duck_attack_ms", 80))
     duck_release_ms = float(mixing.get("duck_release_ms", 200))
-    pad_sec = INITIAL_SILENCE_SEC
+    pad_sec = intro_sec                                # F36 §B.9
     fps = pipeline.fps
     print(f"     mixing params: vol={music_volume}, floor={music_volume_floor}, thr={duck_threshold}, "
           f"ratio={duck_ratio}, atk={duck_attack_ms}ms, rel={duck_release_ms}ms, init_silence={pad_sec}s "
@@ -1925,15 +1983,17 @@ def _mix_music_audio_only(
     # 1. padding inicial: primer frame clonado pad_sec (mismo encoder que los segmentos → concat por copia válido)
     pad_ts = work_dir / "_pad.ts"
     n_pad = int(round(pad_sec * fps))
+    if tarjeta:                                        # F36 §B.9: negro con la tarjeta fecha-hora
+        _pad_tarjeta(tarjeta, work_dir, pad_ts, pad_sec, fps, pipeline.video_width, pipeline.video_height)
     r = _run_cmd([FFMPEG, "-v", "error", "-y", "-i", str(video_ts), "-vf",
                   f"trim=end_frame=1,setpts=PTS-STARTPTS,tpad=stop_mode=clone:stop={n_pad - 1}",
                   "-frames:v", str(n_pad), *_venc(), "-pix_fmt", "yuv420p", "-r", str(fps), "-an",
-                  "-f", "mpegts", str(pad_ts)], timeout=300)
-    if r.returncode != 0:
+                  "-f", "mpegts", str(pad_ts)], timeout=300) if not tarjeta else None
+    if r is not None and r.returncode != 0:
         raise RuntimeError(f"padding inicial falló: {r.stderr[-300:]}")
 
     # 2. audio: el mismo grafo de antes sin la rama de video
-    graph, inputs = _grafo_musica(audio_wav, music_path, mixing, music_floor_path)
+    graph, inputs = _grafo_musica(audio_wav, music_path, mixing, music_floor_path, intro_sec)
     mixed = work_dir / "_mixed_audio.m4a"
     r = _run_cmd([FFMPEG, "-v", "error", "-y", *inputs, "-filter_complex", graph, "-map", "[mixed]",
                   "-c:a", "aac", "-b:a", "192k", str(mixed)], timeout=900)
@@ -2655,9 +2715,10 @@ def _mezcla_preview(plans: list[Any], work_dir: Path, video_id: str, segs: dict[
                     sync_map: dict) -> dict[str, Any]:
     """F32 §A.4: voz + sfx por cap (el mismo grafo del segmento), unidos sin solapar (como el corte a negro con --gfx),
     y la música con el mismo camino del render (pausas, intensidad, pre-roll, sidechain y piso) → mezcla_preview.wav.
-    Solo audio: segundos de ffmpeg."""
+    Solo audio: segundos de ffmpeg. F36 §B.9: la intro es la del render (con la tarjeta, title_dur)."""
     assert FFMPEG is not None
     t0 = time.time()
+    intro, _ = _intro_de(plans, work_dir, True)
     partes: list[Path] = []
     for p in plans:
         sg = segs[p.chapter_id]
@@ -2701,7 +2762,7 @@ def _mezcla_preview(plans: list[Any], work_dir: Path, video_id: str, segs: dict[
     musica: list[dict[str, Any]] = []
     if music_map is None:
         r = _run_cmd([FFMPEG, "-v", "error", "-y", "-i", str(narr), "-af",
-                      f"adelay={int(INITIAL_SILENCE_SEC * 1000)}|{int(INITIAL_SILENCE_SEC * 1000)}", "-c:a", "pcm_s16le",
+                      f"adelay={int(intro * 1000)}|{int(intro * 1000)}", "-c:a", "pcm_s16le",
                       str(mix)], timeout=300)
     else:
         ducked, floor = _resolve_music_volumes(plans, mixing, music_map)
@@ -2713,15 +2774,15 @@ def _mezcla_preview(plans: list[Any], work_dir: Path, video_id: str, segs: dict[
                                            crossfade_sec=MUSIC_CROSSFADE_SEC, piece_volumes=ducked,
                                            output_filename="_preview_music_ducked.wav", extra_sec=pauses,
                                            intensidad=intensidad, pre_sec=prerolls, segmentos=seg_dur,
-                                           intro_sec=INITIAL_SILENCE_SEC, conservar_piezas=True)
-        musica = _medir_inicio_musica(plans, md, work_dir, seg_dur, INITIAL_SILENCE_SEC, MUSIC_CROSSFADE_SEC,
+                                           intro_sec=intro, conservar_piezas=True)
+        musica = _medir_inicio_musica(plans, md, work_dir, seg_dur, intro, MUSIC_CROSSFADE_SEC,
                                       pipeline.fps)
         mf = _build_continuous_music_track(plans=plans, music_map=music_map, work_dir=work_dir,
                                            crossfade_sec=MUSIC_CROSSFADE_SEC, piece_volumes=floor,
                                            output_filename="_preview_music_floor.wav", extra_sec=pauses,
                                            intensidad=intensidad, pre_sec=prerolls, segmentos=seg_dur,
-                                           intro_sec=INITIAL_SILENCE_SEC)
-        graph, inputs = _grafo_musica(narr, md, mixing, mf)
+                                           intro_sec=intro)
+        graph, inputs = _grafo_musica(narr, md, mixing, mf, intro)
         r = _run_cmd([FFMPEG, "-v", "error", "-y", *inputs, "-filter_complex", graph, "-map", "[mixed]",
                       "-c:a", "pcm_s16le", str(mix)], timeout=900)
         md.unlink(missing_ok=True)
@@ -2730,7 +2791,7 @@ def _mezcla_preview(plans: list[Any], work_dir: Path, video_id: str, segs: dict[
         raise RuntimeError(f"mezcla de previsualización: {r.stderr[-300:]}")
     import math
     thr = float(mixing.get("duck_threshold", 0.03))
-    return {"mezcla": str(mix), "narracion": str(narr), "intro": INITIAL_SILENCE_SEC,
+    return {"mezcla": str(mix), "narracion": str(narr), "intro": intro,
             "umbral_db": round(20 * math.log10(thr), 2), "umbral_de": f"duck_threshold {thr} del sync map",
             "segundos": round(time.time() - t0, 1), "duracion_s": round(_get_duration(mix), 3), "musica": musica}
 
@@ -2832,7 +2893,7 @@ def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | N
     from script_engine import evidence as _ev
     from gfx_config import gfx_rules as _gr
     sm = {c["id"]: c for c in sync_map.get("chapters", [])}
-    caps_in, off, voz_video = [], INITIAL_SILENCE_SEC, []
+    caps_in, off, voz_video = [], mezcla["intro"], []          # F36 §B.9: la intro (con tarjeta, title_dur)
     for plan in plans:
         cap = plan.chapter_id
         res = json.loads((work_dir / f"gfx_plan_{cap}.resolved.json").read_text(encoding="utf-8"))
@@ -2868,7 +2929,7 @@ def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | N
             por[k] = por.get(k, 0.0) + float(e.total_cost)
         costos.update({f"{k}_usd": round(v, 4) for k, v in por.items()})
     g = gg.armar(caps_in, title_dur=float(_gr.title_dur), dip_frames=int(_gr.dip_frames), fps=fps,
-                 intro=INITIAL_SILENCE_SEC, mezcla=mezcla, voz_video=voz_video, topic=video_id,
+                 intro=mezcla["intro"], mezcla=mezcla, voz_video=voz_video, topic=video_id,
                  extra={"costos": costos, "tiempos_s": {**tiempos, "total": round(time.time() - t_inicio, 1)}})
     md, js = gg.escribir(g, OUTPUT_DIR / video_id)
     print(f"\n  📝 guion de pantalla: {md}\n                       {js}")
@@ -3224,6 +3285,7 @@ def _assemble_one_video(
         from gfx_config import gfx_rules as _gr_pr                         # F30b §B.3: pre-roll del title card
         prerolls = ({p.chapter_id: _pre_roll_de(p, True) for p in plans}
                     if gfx and _gr_pr.title_pre_roll else None)
+        intro_s, tarjeta = _intro_de(plans, work_dir, gfx)                 # F36 §B.9: la tarjeta reemplaza la intro
         seg_dur = None                                                     # F34 §A.7.2: música alineada (solo --gfx)
         if gfx:
             try:
@@ -3246,7 +3308,7 @@ def _assemble_one_video(
             intensidad=intensidad,
             pre_sec=prerolls,
             segmentos=seg_dur,
-            intro_sec=INITIAL_SILENCE_SEC if seg_dur else 0.0,
+            intro_sec=intro_s if seg_dur else 0.0,
         )
         music_floor_path = _build_continuous_music_track(
             plans=plans,
@@ -3259,7 +3321,7 @@ def _assemble_one_video(
             intensidad=intensidad,
             pre_sec=prerolls,
             segmentos=seg_dur,
-            intro_sec=INITIAL_SILENCE_SEC if seg_dur else 0.0,
+            intro_sec=intro_s if seg_dur else 0.0,
         )
 
         # Mezclar con sidechain (paso B). Output: filename canónico final_path.
@@ -3270,7 +3332,8 @@ def _assemble_one_video(
         if windowed:   # F2b §4: audio solo + remux con -c:v copy (el video no se re-encodea)
             try:
                 _mix_music_audio_only(work_dir=work_dir, music_path=music_ducked_path, sync_map=sync_map,
-                                      output_path=final_path, music_floor_path=music_floor_path)
+                                      output_path=final_path, music_floor_path=music_floor_path,
+                                      intro_sec=intro_s, tarjeta=tarjeta)
             except Exception as e:  # noqa: BLE001 — cae a la mezcla clásica (re-encode)
                 print(f"     ⚠ mezcla audio-solo falló ({type(e).__name__}: {str(e)[:200]}) → mezcla clásica")
                 windowed = False
@@ -3281,6 +3344,8 @@ def _assemble_one_video(
                 sync_map=sync_map,
                 output_path=final_path,
                 music_floor_path=music_floor_path,
+                intro_sec=intro_s,
+                tarjeta=tarjeta,
             )
         print(f"     ⏱ música: {time.time() - t_mix:.0f}s ({'audio solo + remux' if windowed else 're-encode'})")
 

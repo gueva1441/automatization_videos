@@ -22,13 +22,13 @@
   {
    "modulo": "gfx_critic",
    "archivo": "script_engine/gfx_critic.py",
-   "sticker": "El editor de último momento: Gemini mira la foto (y en el render el bloque dibujado) y saca lo que repite la voz, no aporta o tapa algo (al sello de clima y al agua de la voz solo los saca si tapan).",
+   "sticker": "El editor: Gemini mira la foto y saca lo que repite la voz, no aporta o tapa algo. Desde F36 juzga los candidatos ANTES del reparto (lo que saca no ocupa lugar) y al sello de clima y al agua de la voz solo les pregunta si estorban.",
    "recibe": "plan + cuadros del video + voz",
    "entrega": "plan sin lo que no pasa + veredictos",
    "lo_llama": [
     "script_engine/gfx_layer.py"
    ],
-   "tests": 6,
+   "tests": 7,
    "lab": 2,
    "tanda": "F4e",
    "nacio": "39e37ac 2026-10-20 feat(gfx-f4e): crítico visual antes del render (suma/repite/estorba), hoja de contactos por cap y marca de esquina apagad",
@@ -221,6 +221,7 @@
    "recibe": "plan resuelto + escenas",
    "entrega": "proyecto HyperFrames (index.html, CSS)",
    "lo_llama": [
+    "fase2b.py",
     "gfx_lab_server.py",
     "script_engine/clima.py",
     "script_engine/gfx_director.py",
@@ -259,7 +260,7 @@
   {
    "modulo": "gfx_realizador",
    "archivo": "script_engine/gfx_realizador.py",
-   "sticker": "Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede mostrar cada uno, la pregunta de cierre del último beat y los topes.",
+   "sticker": "Hace que la pantalla obedezca a la escaleta: ventanas de tiempo de cada beat, qué datos puede mostrar cada uno, la pregunta de cierre del último beat y los topes (desde F36 no borra el contador del rotulista).",
    "recibe": "escaleta + narración por beat + pool",
    "entrega": "`gfx_beats_chNN.json`, candidatos, filas de lo quitado",
    "lo_llama": [
@@ -269,7 +270,7 @@
     "script_engine/rotulista_llm.py",
     "script_engine/voz_datos.py"
    ],
-   "tests": 3,
+   "tests": 4,
    "lab": 1,
    "tanda": "F29",
    "nacio": "2fcd603 2026-10-25 feat(f29a): el gfx obedece a la escaleta — script_engine/gfx_realizador (ventanas por beat en la voz → gfx_beats_chNN.jso",
@@ -481,7 +482,7 @@
    "tests": 1,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
-   "nacio": "(sin commit)",
+   "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
    "doc": "script_engine/rotulista_llm.py — F36 §A: el pedido al modelo del rotulista (movido de gfx_rotulista sin cambios): el prompt literal (`ROTULISTA_SYSTEM`/`ROTULISTA_USER`, `PROMPT_VERSION`, los de F29c/F32 para la historia), la entrada de un cap (`entrada`: oraciones, beats, ítems del cap y del gancho, lo ya mostrado, el pico), el texto del pedido (`prompt_user`) y la llamada (`llamar`: caché por pedido, ledger de costos, tope con las llamadas en vuelo, reintento)."
   },
@@ -499,7 +500,7 @@
    "tests": 1,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
-   "nacio": "(sin commit)",
+   "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
    "doc": "script_engine/rotulista_filtros.py — F36 §A: todo lo que corta un bloque del rotulista (movido de gfx_rotulista). `validar` corre por bloque los filtros de `ORDEN`, en ese orden, y el primero que devuelve un motivo lo saca con su regla; al final `cantidad` (= `finalizar`) deja uno por beat. Además `contradicciones` (§A.4), `pide_documento` y `lo_que_pide`."
   },
@@ -512,29 +513,31 @@
    "lo_llama": [
     "script_engine/clima.py",
     "script_engine/gfx_rotulista.py",
-    "script_engine/rotulista_filtros.py"
+    "script_engine/rotulista_filtros.py",
+    "script_engine/rotulista_llm.py"
    ],
    "tests": 1,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
-   "nacio": "(sin commit)",
+   "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
    "doc": "script_engine/rotulista_colocar.py — F36 §A: dónde y cuánto va cada bloque del rotulista (movido de gfx_rotulista sin cambios). `tiempos` y `despues_del_corte` (§A.2: fin de la oración ancla, lectura caracteres ÷ 15, nunca después del corte), `colocar` (cifra/hecho/persona → ficha, documento → recorte, cita, lupa; la cifra como agua o contador con `animacion_de_cifra`), las ediciones a mano (`fase2b --plan-edit`: `aplicar_ediciones`, `guardar_ediciones`, `mover_a_escena`), la caja de la lupa y la escena (`unidades`, `escena_final`: una cosa por escena u oración)."
   },
   {
    "modulo": "clima",
    "archivo": "script_engine/clima.py",
-   "sticker": "Los sellos de clima: en cada oración busca el momento de más peso y le pone una palabra del vocabulario del perfil (hoy la elige Gemini Flash), nunca la que dice la voz; uno por beat, nunca sobre un texto.",
+   "sticker": "Los sellos de clima: en cada oración busca el momento de más peso y le pone una palabra del vocabulario del perfil (hoy la elige Gemini Flash), nunca la que dice la voz ni una que ya salió en el video; el crítico lo mira antes del reparto; uno por beat, nunca sobre un texto.",
    "recibe": "oraciones + léxico de moods + vocabulario `sellos_clima`",
    "entrega": "sellos en el plan, filas de lo cortado",
    "lo_llama": [
+    "script_engine/gfx_layer.py",
     "script_engine/gfx_peak.py",
     "script_engine/gfx_rotulista.py"
    ],
    "tests": 2,
    "lab": 0,
    "tanda": "F36 (código de F32/F34)",
-   "nacio": "(sin commit)",
+   "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
    "doc": "script_engine/clima.py — F36 §A: los sellos de clima (movido de gfx_rotulista sin cambios; `peak_word` viene de gfx_peak). Los momentos candidatos (la palabra de más peso de un mood en cada oración y la del pico), la palabra de clima del vocabulario `sellos_clima` del perfil (hoy la elige Gemini Flash con `SELLO_CLIMA_PROMPT`) y el reparto (`sellos_por_tema`: un sello por beat, nunca sobre un texto ni cruzando el corte)."
   },
@@ -551,7 +554,7 @@
    "tests": 1,
    "lab": 0,
    "tanda": "F36 (código de F34)",
-   "nacio": "(sin commit)",
+   "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
    "doc": "script_engine/voz_datos.py — F36 §A: lo que sale de la voz y de la escaleta sin pasar por el modelo (movido de gfx_rotulista sin cambios): el pico del cap (`pico_cap`, `pico_plan`), las fechas completas que dice la voz y su reloj (`fechas_completas`, `reloj_de_voz`), el nivel de agua desde la voz (`agua_de_voz`) y la tarjeta fecha-hora del inicio (`tarjeta_inicial`)."
   },
@@ -572,7 +575,7 @@
    "tests": 1,
    "lab": 0,
    "tanda": "F36 (código de F29b)",
-   "nacio": "(sin commit)",
+   "nacio": "4a2c6fb 2026-10-26 feat(f36-a): gfx_rotulista partido en cinco módulos sin cambiar comportamiento — rotulista_llm (prompt, entrada, llamada)",
    "estado": "vivo",
    "doc": "script_engine/voz_utils.py — F36 §A: la utilería de la voz que usan varios módulos de la capa de texto (movida de gfx_rotulista sin cambios): cifras en dígitos y en letras (`numeros`, `numero_en`), nombres propios (`nombres`, `nombre_inicial`), muñones, palabras de contenido, el analizador de cifras con unidad y magnitud (`_analiza`, lo usan la coherencia, el contador y el agua) y las oraciones de la voz con cada palabra numerada (`oraciones`, `beat_de_oracion`). Va aparte porque la usan rotulista_llm, rotulista_filtros, rotulista_colocar, clima y voz_datos (decisión de F36 A)."
   },
@@ -607,7 +610,7 @@
     "script_engine/rotulista_colocar.py",
     "script_engine/voz_datos.py"
    ],
-   "tests": 17,
+   "tests": 18,
    "lab": 5,
    "tanda": "F1",
    "nacio": "39e301f 2026-10-18 feat(gfx): capa gráfica HyperFrames (--gfx) + modo --only-cap, cues, debug, calibración",
@@ -617,7 +620,7 @@
   {
    "modulo": "fase2b",
    "archivo": "fase2b.py",
-   "sticker": "El armador final: junta imagen, voz, subtítulos y música de cada capítulo en un segmento y los pega en el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla. Desde F34, con `--gfx` la música de cada cap arranca con su title card (pieza = segmento, después de la intro) y la mezcla de previsualización mide dónde arranca.",
+   "sticker": "El armador final: junta imagen, voz, subtítulos y música de cada capítulo en un segmento y los pega en el video. Con `--gfx` le pone encima la capa gráfica; con `--plan-only` solo escribe el guion de pantalla. Desde F34, con `--gfx` la música de cada cap arranca con su title card (pieza = segmento, después de la intro) y la mezcla de previsualización mide dónde arranca. Desde F36, si el plan de ch01 trae la tarjeta fecha-hora, el mp4 arranca con 3 s de negro con la tarjeta en lugar de la intro congelada.",
    "recibe": "assets del topic (imágenes/clips), voz por cap + tiempos, sync map, música",
    "entrega": "`*_final(_gfx).mp4`; o GUION_PANTALLA + mezcla",
    "lo_llama": [
@@ -626,7 +629,7 @@
     "diag_236_pacing_ba6c.py",
     "gfx_lab_server.py"
    ],
-   "tests": 22,
+   "tests": 23,
    "lab": 16,
    "tanda": "previo a F1 (inicial)",
    "nacio": "e33f84a 2026-05-28 Initial commit: automatization_videos pipeline (post chat 32)",
@@ -1157,6 +1160,13 @@
    ]
   },
   {
+   "de": "fase2b",
+   "a": "gfx_project",
+   "donde": [
+    "en _filtro_tarjeta"
+   ]
+  },
+  {
    "de": "gfx_lab_server",
    "a": "gfx_project",
    "donde": [
@@ -1213,6 +1223,7 @@
    "de": "rotulista_colocar",
    "a": "gfx_project",
    "donde": [
+    "en hasta_el_corte",
     "en animacion_de_cifra",
     "en colocar",
     "en _cubre",
@@ -1546,6 +1557,20 @@
    ]
   },
   {
+   "de": "rotulista_llm",
+   "a": "rotulista_colocar",
+   "donde": [
+    "arriba"
+   ]
+  },
+  {
+   "de": "gfx_layer",
+   "a": "clima",
+   "donde": [
+    "en apply_gfx"
+   ]
+  },
+  {
    "de": "gfx_peak",
    "a": "clima",
    "donde": [
@@ -1620,6 +1645,8 @@
    "a": "gfx_config",
    "donde": [
     "en _pre_roll_de",
+    "en _intro_de",
+    "en _filtro_tarjeta",
     "en _segment_hash",
     "en _resolve_gfx_quality",
     "en _solo_plan",

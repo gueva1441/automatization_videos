@@ -205,7 +205,8 @@ def test_a4_un_sello_por_beat_sin_repetir_palabra_y_sin_vocabulario_no_hay(monke
     llamadas: list[str] = []
     plan: dict = {"emphasis": []}
     gro.sellos_por_tema(plan, scenes, ent, words, 0.0, moods, [], call=lambda p: llamadas.append(p) or "SILENCIO")
-    assert [e["word"] for e in plan["emphasis"]] == ["SILENCIO"] and len(llamadas) == 3
+    # F36 §B.3: las dos palabras repetidas se vuelven a pedir una vez (3 pedidos + 2 segundos pedidos)
+    assert [e["word"] for e in plan["emphasis"]] == ["SILENCIO"] and len(llamadas) == 5
     mot = [f["motivo"] for f in plan["sellos_tema"]]
     assert any("ya salió en el cap" in m for m in mot) or any("un sello por beat" in m for m in mot)
     from script_engine import clima                  # F36 §A: sellos_por_tema vive en clima (gro lo re-exporta)

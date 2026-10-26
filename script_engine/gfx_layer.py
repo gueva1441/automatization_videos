@@ -897,7 +897,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         def _criticar() -> None:
             if not (gfx_plan_override is None and gfx_rules.visual_critic):   # F4e 6b: crítico visual antes del render
                 return
-            from script_engine.gfx_critic import blocks as _cblocks, criticize, criticize_rotulista, frame_t, snapshots
+            from script_engine.gfx_critic import blocks as _cblocks, criticize, frame_t, snapshots
             snap_proj = None
             if gfx_rules.critic_snapshot and not plan_only:           # G1: el crítico mira el bloque dibujado
                 write_project(resolved, scenes, project, duration=clip_dur, width=width, height=height, fps=fps,
@@ -908,20 +908,53 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                                                 time_offset=time_offset, work_dir=work_dir, cap=cap, log=log,
                                                 project=snap_proj)
                 return
-            snaps = snapshots(snap_proj, [frame_t(b) for b in _cblocks(resolved)], Path(work_dir) / f"gfx_critic_{cap}_snap",
-                              log) if snap_proj else {}
-            resolved["critico"] = criticize(resolved, base=project / "public" / "base.mp4", words=words,
-                                            time_offset=time_offset, work_dir=work_dir, cap=cap, log=log,
-                                            snaps=snaps, excluir_rotulista=True)
+            # F36 §B.2: los textos del rotulista, el agua de la voz y los sellos de clima ya los juzgó el crítico antes
+            # del reparto (_criticar_antes, sellos_por_tema); acá queda lo demás
+            resto = [frame_t(b) for b in _cblocks(resolved) if not b.get("rotulista") and not b.get("solo_forma")]
+            snaps = snapshots(snap_proj, resto, Path(work_dir) / f"gfx_critic_{cap}_snap", log) if snap_proj and resto else {}
+            resolved["critico"] = list(resolved.pop("critico_previo", None) or []) + criticize(
+                resolved, base=project / "public" / "base.mp4", words=words, time_offset=time_offset, work_dir=work_dir,
+                cap=cap, log=log, snaps=snaps, excluir_rotulista=True, excluir_solo_forma=True)
+
+        def _criticar_antes() -> None:
+            """F36 §B.2: el crítico sobre los candidatos, antes del reparto (escena_final, sellos): los textos del
+            rotulista (sus tres preguntas, sobre la foto sola: todavía no hay nada dibujado) y el agua de la voz (solo
+            «¿estorba?»). Lo que no pasa no ocupa escena."""
+            resolved["critico_previo"] = []
+            if not (gfx_plan_override is None and gfx_rules.visual_critic):
+                return
+            from script_engine.gfx_critic import criticize_rotulista, estorba
             resolved["critico_rotulista"] = criticize_rotulista(resolved, base=project / "public" / "base.mp4",
                                                                 words=words, time_offset=time_offset, work_dir=work_dir,
-                                                                cap=cap, log=log, snaps=snaps)
+                                                                cap=cap, log=log)
+            wl = resolved.get("water_level")
+            if wl and wl.get("de_voz"):
+                row = estorba("nivel_agua", wl, base=project / "public" / "base.mp4", words=words,
+                              time_offset=time_offset, work_dir=work_dir, cap=cap, log=log)
+                resolved["critico_previo"].append(row)
+                if not row["pasa"]:
+                    resolved["water_level"] = None
+
+        def _juez_sello(em: dict) -> dict:
+            from script_engine.gfx_critic import estorba
+            return estorba("sello", em, base=project / "public" / "base.mp4", words=words, time_offset=time_offset,
+                           work_dir=work_dir, cap=cap, log=log)
+
+        def _escena() -> None:
+            """F36: crítico de los candidatos → una cosa por escena → agua y reloj contra el corte → sellos (con su
+            crítico, antes de su reparto)."""
+            from script_engine.clima import usadas_antes
+            _criticar_antes()
+            gro.escena_final(resolved, scenes, ent_rot, log)
+            gro.hasta_el_corte(resolved, scenes, fps, log)
+            critico = gfx_plan_override is None and gfx_rules.visual_critic
+            gro.sellos_por_tema(resolved, scenes, ent_rot, words, time_offset, ctx.get("moods") or _moods_activos(),
+                                log, work_dir=work_dir, cap=cap, juez=_juez_sello if critico else None,
+                                usadas_video=usadas_antes(work_dir, ctx["chapter_number"]))
+            resolved["critico_previo"] += [r for r in resolved.pop("critico_sellos", None) or [] if r["pasa"]]
         from script_engine.gfx_realizador import cerrar        # F29: finalizar → crítico → pico · F29b: … → pico → crítico
         cerrar(resolved, real, ctx.get("pool"), log, criticar=_criticar, rotulista=rot_on,
-               escena=(lambda: (gro.escena_final(resolved, scenes, ent_rot, log),
-                                gro.sellos_por_tema(resolved, scenes, ent_rot, words, time_offset,
-                                                    ctx.get("moods") or _moods_activos(), log, work_dir=work_dir,
-                                                    cap=cap))) if rot_on else None,
+               escena=_escena if rot_on else None,
                garantizar=gfx_rules.garantizar_pico and not rot_on,
                side=getattr(scenes[-1], "quiet_side", "right") if scenes else "right")
         if real and gfx_plan_override is None and gfx_rules.identity_rules:   # F30b §A: transiciones por relato

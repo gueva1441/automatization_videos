@@ -218,7 +218,8 @@ def finalizar(plan: dict[str, Any], real: dict[str, Any], log: list[str]) -> lis
     filas: list[dict[str, Any]] = []
 
     def fuera(k: str, b: dict, motivo: str) -> None:
-        filas.append({"bloque": k, "texto": b.get("headline") or b.get("text") or b.get("word") or b.get("value_text"),
+        txt = (b.get("value_text") if k == "count_up" else None) or             b.get("headline") or b.get("text") or b.get("word") or b.get("value_text")   # F36 §B.1: el contador es su valor
+        filas.append({"bloque": k, "texto": txt,
                       "t": b.get("start"), "pool_id": b.get("pool_id"), "accion": "fuera", "motivo": motivo})
 
     # F29b: con el rotulista, los bloques de texto ya pasaron su anclaje, sus ventanas, su duración y sus topes (A.4):
@@ -247,7 +248,7 @@ def finalizar(plan: dict[str, Any], real: dict[str, Any], log: list[str]) -> lis
             plan["quote_card"] = None
         else:
             q["beat"] = c["beat"]
-    if plan.get("count_up"):
+    if plan.get("count_up") and not plan["count_up"].get("rotulista"):   # F36 §B.1: el del rotulista (no dicho) queda
         fuera("count_up", plan["count_up"], "contador de una cifra que dice la voz (repite el subtítulo)")
         plan["count_up"] = None
     # 2. sellos: solo el del pico, sin ícono figurativo. F32 §B.6: con el rotulista, también los del tema de su oración

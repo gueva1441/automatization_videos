@@ -190,6 +190,13 @@ def test_coherencia_720_contra_700_y_715_de_la_voz_del_video():
     ent, words = _ent([(0, "El agua seguía subiendo en el embalse."), (10, "Nadie miraba.")],
                       [{"id": "T50", "texto": "El embalse llegó a 720 metros, cinco por encima de la cota autorizada."}],
                       voz_video=voz)
+    # F36 §B.5: las cotas de la voz están en otras oraciones del video (niveles de otro momento): ya no contradicen
+    v = gro.validar({"bloques": [_b(0, "cifra", "720 m", "T50", "Nivel del embalse")]}, ent, words)
+    assert v["bloques"] and not v["rechazos"]
+    # con otro nivel en la oración vecina, sí (cota con cota, nivel con nivel)
+    ent, words = _ent([(0, "El agua seguía subiendo en el embalse."), (10, voz[0])],
+                      [{"id": "T50", "texto": "El embalse llegó a 720 metros, cinco por encima de la cota autorizada."}],
+                      voz_video=voz)
     v = gro.validar({"bloques": [_b(0, "cifra", "720 m", "T50", "Nivel del embalse")]}, ent, words)
     assert not v["bloques"] and v["rechazos"][0]["regla"] == "coherencia"
     assert "contradice la voz" in v["rechazos"][0]["motivo"]
