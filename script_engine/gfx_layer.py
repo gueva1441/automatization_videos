@@ -453,6 +453,19 @@ def _contact_sheet(resolved: dict[str, Any], out: Path, work_dir: Path, cap: str
         log.append(f"  hoja de contactos: falló ({type(e).__name__}: {str(e)[:100]})")
 
 
+def escenas_a_disco(work_dir: Path, cap: str, scenes: list[GfxScene], *, clip_dur: float, time_offset: float,
+                    pre_roll: float, pause: float) -> Path:
+    """F32 §A: las escenas finales del cap y su duración (base + pausa de cierre) → gfx_escenas_<cap>.json (el guion de
+    pantalla las lee: escena de cada evento, cortes, tiempo del cap en el mp4)."""
+    f = Path(work_dir) / f"gfx_escenas_{cap}.json"
+    f.write_text(json.dumps({"cap": cap, "clip_dur": round(float(clip_dur), 3), "time_offset": round(float(time_offset), 3),
+                             "pre_roll": round(float(pre_roll), 3), "pausa": round(float(pause), 3),
+                             "escenas": [{"idx": s.idx, "start": s.start, "end": s.end, "rank": s.rank,
+                                          "quiet_side": s.quiet_side, "safe": bool(s.safe)} for s in scenes]},
+                            ensure_ascii=False, indent=1), encoding="utf-8")
+    return f
+
+
 def remapped_words(chplan: Any) -> tuple[list[dict], list[dict]]:
     """(raw normalizados, remapeados a texto original legible) — misma ruta que los subs de fase2b."""
     raw = json.loads(Path(chplan.timestamps_path).read_text(encoding="utf-8")) if chplan.timestamps_path else []
@@ -511,7 +524,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
               reuse: bool = False, time_offset: float = 0.0,
               gfx_plan_override: dict[str, Any] | None = None, debug: bool = False,
               sparse: bool = False, safe_scenes: dict[int, dict[str, Any]] | None = None,
-              plan_only: bool = False, pre_roll: float = 0.0) -> Path:
+              plan_only: bool = False, pre_roll: float = 0.0, reencoded: bool = False) -> Path:
     """Aplica la capa gráfica al base_clip de un cap. Devuelve chXX_gfx.mp4 o base_clip (fallback).
 
     Args:
@@ -525,7 +538,11 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         pre_roll: F30b §B.3, los segundos de title card sin voz que fase2b le agregó adelante al base (ya incluidos
             en time_offset): corren el corte del Veo de arranque y el pedido del rotulista los imprime sin ellos.
         plan_only: F5 §3 — director + candado + crítico + cues, SIN HyperFrames ni render (simulación). Devuelve
-            base_clip; deja gfx_plan_<cap>.resolved.json, gfx_sfx y gfx_cues en work_dir.
+            base_clip; deja gfx_plan_<cap>.resolved.json, gfx_sfx y gfx_cues en work_dir. F32 §A: sin `hyperframes
+            doctor` y sin re-codificar el base para la pausa de cierre (la duración se suma); `gfx_escenas_<cap>.json`
+            (escenas y duración del cap) lo lee el guion de pantalla (gfx_guion).
+        reencoded: F32 §A — el base -g30 ya está en gfx_<cap>/public/base.mp4 (fase2b --plan-only lo re-codifica de
+            los 7 caps en paralelo antes de planear en fila): no se vuelve a re-codificar.
     """
     cap = plan.chapter_id
     out = work_dir / f"{cap}_gfx.mp4"
@@ -545,13 +562,15 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
     project = work_dir / f"gfx_{cap}"
     try:
         q = clamp_quality(quality or gfx_render.quality)
-        _doctor_once(log)
+        if not plan_only:                                     # F32 §A: el guion de pantalla no usa el navegador
+            _doctor_once(log)
 
         ts = time.time()
         project.mkdir(parents=True, exist_ok=True)
-        _reencode(Path(base_clip), project / "public" / "base.mp4", fps)
+        if not (reencoded and (project / "public" / "base.mp4").exists()):
+            _reencode(Path(base_clip), project / "public" / "base.mp4", fps)
         clip_dur = _ffprobe_duration(project / "public" / "base.mp4")
-        _step("1 reencode -g30", ts)
+        _step("1 reencode -g30" + (" (ya hecho)" if reencoded else ""), ts)
 
         # paso 2: grade CSS dentro de la composición (desvío D4 medido: pasada media-treatment = 6.29× tiempo real)
         log.append(f"  2 grade: CSS intensidad {gfx_rules.css_grade_intensity}")
@@ -563,12 +582,16 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         real = _realizador(ctx, words, time_offset, work_dir, cap, log) if gfx_plan_override is None else None
         rot_on = bool(real) and gfx_rules.rotulista and bool(ctx.get("pool"))   # F29b §A: el rotulista escribe el texto
         rot = ent_rot = None
+        edits: list[dict] = []
         if rot_on:
             from script_engine import gfx_rotulista as gro
             ent_rot = gro.entrada(ctx["chapter_number"], real, ctx["escaleta"], ctx.get("pool"), words, time_offset,
                                   voz_video=gro.voz_del_video(ctx), pre_roll=pre_roll)
             rot = gro.llamar(ent_rot, words, time_offset, work_dir, cap, modelo=gfx_rules.rotulista_modelo,
                              effort=gfx_rules.rotulista_effort, tope=gfx_rules.rotulista_tope_usd, log=log)
+            edits = gro.ediciones_de(work_dir, cap)                     # F32 §A.5: cambios a mano (fase2b --plan-edit)
+            if edits:
+                rot = gro.aplicar_ediciones(rot, edits, ent_rot, log)
         scenes = build_scenes(plan, ctx["script_chapter"], raw_words, clip_dur, time_offset, pre_roll=pre_roll)
         scenes = assign_quiet_sides(snap_cuts(scenes, project / "public" / "base.mp4", fps), project / "public" / "base.mp4")
         log.append(f"  escenas: {len(scenes)} ({', '.join(f'{s.start:.2f}{s.rank}' for s in scenes)})")
@@ -616,8 +639,9 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
             if intensity:
                 log.append(f"  intensidad: pico frase {gi.peak_sentence(intensity)} · cargas "
                            f"{[(c['word'], c['categoria'], c['peso']) for c in intensity['cargas']]}")
-                gi.record_proposals(intensity, moods_all, video_id=video_id, profile_path=profile_path(active_profile_name()),
-                                    log=log)
+                if not plan_only:                               # F5 J41: las simulaciones no proponen léxico
+                    gi.record_proposals(intensity, moods_all, video_id=video_id,
+                                        profile_path=profile_path(active_profile_name()), log=log)
         if gfx_plan_override is not None:
             resolved = gfx_plan_override
             rejected: list[dict] = []
@@ -648,6 +672,8 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
                     used_before=_used(work_dir, ctx["chapter_number"]),
                     lupa_box=gro.lupa_de_detalles(details, lambda si, d: _gvr.verify_crop(scene_img[si], d, _vcr))
                     if details else None, zoom_dur=gfx_rules.zoom_dur, log=log, words=words, time_offset=time_offset)
+                if edits:                                            # F32 §A.5: «escena» = arranca en el corte de la escena k
+                    gro.mover_a_escena(resolved, edits, scenes, ent_rot, log)
                 resolved, rej_r = lock(resolved, ctx["sources"], chapter_number=ctx["chapter_number"],
                                        question_sources=ctx.get("next_sources"))
                 rejected += rej_r
@@ -798,8 +824,11 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         else:
             pause = float((resolved.get("chapter_question") or {}).get("pause") or 0.0)
         if pause > 0:
-            extend_base(project / "public" / "base.mp4", pause, fps)
-            clip_dur = _ffprobe_duration(project / "public" / "base.mp4")
+            if plan_only:                                     # F32 §A: sin re-codificar; la duración se suma
+                clip_dur = round(clip_dur + pause, 3)
+            else:
+                extend_base(project / "public" / "base.mp4", pause, fps)
+                clip_dur = _ffprobe_duration(project / "public" / "base.mp4")
             scenes[-1].end = round(clip_dur, 3)
         z = resolved.get("evidence_zoom")
         if gfx_plan_override is None and z and z.get("box"):        # G3: la caja final del zoom se confirma por visión
@@ -865,6 +894,7 @@ def apply_gfx(base_clip: Path, plan: Any, video_id: str, work_dir: Path, *,
         sfx = sfx_events(resolved, words, time_offset, sfx_for, log)
         (work_dir / f"gfx_sfx_{cap}.json").write_text(json.dumps(sfx, ensure_ascii=False, indent=1), encoding="utf-8")
         log.append(f"  sfx: {len(sfx)} eventos ({', '.join(e['block'] for e in sfx)})")
+        escenas_a_disco(work_dir, cap, scenes, clip_dur=clip_dur, time_offset=time_offset, pre_roll=pre_roll, pause=pause)
         _step("3-4 plan + lock", ts)
 
         if plan_only:                                          # F5 §3: simulación sin render

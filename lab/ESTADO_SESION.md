@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-26 (tanda F29b A → F30 A–D → F29b B hecha; Omar aceptó F30 como está; **PARADA**) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-26 (F32 en curso: A hecho) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -12,6 +12,10 @@
   - 364 tests verdes en las suites de guion y gfx. Las 3 fallas de `test_module_01b_pauses.py` son previas a F5.
   - F29: suite amplia = 921 verdes + 5 previas.
   - F16: suite amplia (`test_module_f[0-9]*`, `gfx_*`, `01a*`, `01b*`, `m03_*`, fase2b reassemble/hwencode, concat, transition) = 650 verdes + 5 previas; `test_module_f11.py::test_v3_byte_identico` verde.
+
+## F32 — El guion de pantalla (pedido de Omar, 2026-10-26) — EN CURSO (A → B → C, sin render)
+- Handoff `lab/hyperframes/f32/HANDOFF_F32_guion_de_pantalla.md`. Base `0253672`. Tres commits (A, B, C), uno por parte (Omar; el handoff pedía uno por arreglo en B). **Esta tanda no renderiza.**
+- **A HECHO** (commit A): `fase2b --plan-only` (director + rotulista + reglas + crítico, sin navegador ni render; implica `--gfx --reuse-visuals`; el -g30 de los 7 caps en paralelo, el plan en fila) → `output/<id>/GUION_PANTALLA.md/.json` (`script_engine/gfx_guion.py`: eventos en el tiempo del mp4, ✂ lo cortado con quién y por qué, resumen por beat, 8 chequeos) + `_fase2b_work/mezcla_preview.wav` (voz + música + sfx con el grafo del render). `fase2b --plan-edit archivo.json` (ediciones en `_fase2b_work/plan_edits.json`; el rotulista sale de caché). Vajont en estado v5: 161 s de pared, US$ 0 Claude, línea de base en `lab/hyperframes/f32/a/GUION_PANTALLA_A.*`. **Hallazgo B.1:** la voz de v5 no pierde el ataque (es el mp3 corrido 3.000 s exactos); la «rampa» de v3b era el golpe del title card (sfx a 0.05 s) encima de la voz.
 
 ## 👀 Para Omar al despertar (tanda nocturna F29c → F30b → F31) — mirar en este orden
 1. **`output/f8s3-vajont-f30/f8s3-vajont_final_gfx_v4.mp4`** — Vajont con el rotulista por beat (F29c): solo 2 textos en todo el video (ch06 13:01 «1.910 personas», ch07 15:38 «Dos habían muerto y uno se suicidó.»).

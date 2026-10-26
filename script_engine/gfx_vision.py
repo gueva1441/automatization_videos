@@ -19,9 +19,24 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import threading
 import unicodedata
 from pathlib import Path
 from typing import Any, Callable
+
+_CACHE_LOCK = threading.Lock()      # F32 §A: el -g30 y los planes pueden correr en hilos; la caché es compartida
+
+
+def _guardar(cache: Path, key: str, value: Any) -> None:
+    """Suma una entrada a la caché (relee bajo el candado: otro hilo pudo escribir otra entrada mientras tanto)."""
+    with _CACHE_LOCK:
+        try:
+            data = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
+        except (OSError, ValueError):
+            data = {}
+        data[key] = value
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
 
 TIPOS = ("rostro", "manos", "persona", "objeto", "texto", "textura")
 PRIORITY = {"rostro": 0, "manos": 0, "persona": 1, "objeto": 2, "texto": 3, "textura": 4}
@@ -108,14 +123,10 @@ def photo_details(img: Path, cache: Path, call: Callable[[Path], dict] | None = 
     try:
         raw = (call or _vision_call)(img)
     except Exception as e:  # noqa: BLE001 — se anota y no se reintenta en cada render: la escena queda sin detalles
-        data[h] = {"imagen": Path(img).name, "detalles": [], "error": f"{type(e).__name__}: {str(e)[:120]}"}
-        cache.parent.mkdir(parents=True, exist_ok=True)
-        cache.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+        _guardar(cache, h, {"imagen": Path(img).name, "detalles": [], "error": f"{type(e).__name__}: {str(e)[:120]}"})
         return None
     det = validate(raw)
-    data[h] = {"imagen": Path(img).name, "detalles": det}
-    cache.parent.mkdir(parents=True, exist_ok=True)
-    cache.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+    _guardar(cache, h, {"imagen": Path(img).name, "detalles": det})
     return det
 
 
@@ -235,9 +246,7 @@ def verify_crop(img: Path, d: dict[str, Any], cache: Path, call: Callable[..., d
             ok = bool(call(buf.getvalue(), d))
     except Exception:  # noqa: BLE001 — sin confirmación no hay zoom (conservador)
         return False
-    data[key] = ok
-    cache.parent.mkdir(parents=True, exist_ok=True)
-    cache.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+    _guardar(cache, key, ok)
     return ok
 
 

@@ -941,6 +941,14 @@ def _visual_con_pre_roll(base_clip: Path, pre_roll: float, out: Path, fps: int) 
     return out
 
 
+def _pre_roll_de(plan: Any, gfx_enabled: bool) -> float:
+    """F30b §B.3: los segundos de title card sin voz con que arranca el cap (solo con --gfx)."""
+    if not gfx_enabled:
+        return 0.0
+    from gfx_config import gfx_rules as _gr_pre
+    return float(_gr_pre.title_dur) if _gr_pre.title_pre_roll else 0.0
+
+
 def _build_chapter_segment(
     plan: ChapterPlan, segment_path: Path, work_dir: Path,
     *, hook_text: str | None, no_subs: bool, video_width: int,
@@ -973,10 +981,7 @@ def _build_chapter_segment(
     apply_hook = is_first and bool(hook_text)
     # F30b §B.3: con --gfx el cap arranca con su title card sin voz durante title_dur (pre-roll): voz, subtítulos,
     # sfx y plan gfx se corren title_dur completos; el visual base gana title_dur adelante (su primer cuadro).
-    pre_roll = 0.0
-    if gfx_enabled:
-        from gfx_config import gfx_rules as _gr_pre
-        pre_roll = float(_gr_pre.title_dur) if _gr_pre.title_pre_roll else 0.0
+    pre_roll = _pre_roll_de(plan, gfx_enabled)
     pre_pad = (HOOK_DURATION if apply_hook else 0.0) + pre_roll
 
     # ─── Visual base (clip MP4 sin audio) ───
@@ -1819,6 +1824,35 @@ def _mix_music_into_video(
     return output_path
 
 
+def _grafo_musica(audio_wav: Path, music_path: Path, mixing: dict, music_floor_path: Path | None
+                  ) -> tuple[str, list[str]]:
+    """F2b §4 (F32 §A.4: también la mezcla de previsualización): (grafo, entradas) de la mezcla de la narración con la
+    música — padding inicial + sidechain + piso; la salida es [mixed]."""
+    music_volume = float(mixing.get("music_volume", 0.25))
+    music_volume_floor = float(mixing.get("music_volume_floor", 0.0))
+    duck_threshold = float(mixing.get("duck_threshold", 0.03))
+    duck_ratio = float(mixing.get("duck_ratio", 8))
+    duck_attack_ms = float(mixing.get("duck_attack_ms", 80))
+    duck_release_ms = float(mixing.get("duck_release_ms", 200))
+    pad_ms = int(INITIAL_SILENCE_SEC * 1000)
+    if music_floor_path is None:
+        graph = (f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
+                 f"[1:a]aresample=44100,asplit=2[music_a][music_b];"
+                 f"[music_a]volume={music_volume}[music_lvl];"
+                 f"[music_lvl][narr_sc]sidechaincompress=threshold={duck_threshold}:ratio={duck_ratio}:"
+                 f"attack={duck_attack_ms}:release={duck_release_ms}[music_ducked];"
+                 f"[music_b]volume={music_volume_floor}[music_floor];"
+                 f"[narr_main][music_ducked][music_floor]amix=inputs=3:duration=longest:dropout_transition=0:normalize=0[mixed]")
+        return graph, ["-i", str(audio_wav), "-i", str(music_path)]
+    graph = (f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
+             f"[1:a]aresample=44100[music_ducked_src];"
+             f"[music_ducked_src][narr_sc]sidechaincompress=threshold={duck_threshold}:ratio={duck_ratio}:"
+             f"attack={duck_attack_ms}:release={duck_release_ms}[music_ducked];"
+             f"[2:a]aresample=44100[music_floor];"
+             f"[narr_main][music_ducked][music_floor]amix=inputs=3:duration=longest:dropout_transition=0:normalize=0[mixed]")
+    return graph, ["-i", str(audio_wav), "-i", str(music_path), "-i", str(music_floor_path)]
+
+
 def _mix_music_audio_only(
     work_dir: Path,
     music_path: Path,
@@ -1843,7 +1877,6 @@ def _mix_music_audio_only(
     duck_attack_ms = float(mixing.get("duck_attack_ms", 80))
     duck_release_ms = float(mixing.get("duck_release_ms", 200))
     pad_sec = INITIAL_SILENCE_SEC
-    pad_ms = int(pad_sec * 1000)
     fps = pipeline.fps
     print(f"     mixing params: vol={music_volume}, floor={music_volume_floor}, thr={duck_threshold}, "
           f"ratio={duck_ratio}, atk={duck_attack_ms}ms, rel={duck_release_ms}ms, init_silence={pad_sec}s "
@@ -1860,23 +1893,7 @@ def _mix_music_audio_only(
         raise RuntimeError(f"padding inicial falló: {r.stderr[-300:]}")
 
     # 2. audio: el mismo grafo de antes sin la rama de video
-    if music_floor_path is None:
-        graph = (f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
-                 f"[1:a]aresample=44100,asplit=2[music_a][music_b];"
-                 f"[music_a]volume={music_volume}[music_lvl];"
-                 f"[music_lvl][narr_sc]sidechaincompress=threshold={duck_threshold}:ratio={duck_ratio}:"
-                 f"attack={duck_attack_ms}:release={duck_release_ms}[music_ducked];"
-                 f"[music_b]volume={music_volume_floor}[music_floor];"
-                 f"[narr_main][music_ducked][music_floor]amix=inputs=3:duration=longest:dropout_transition=0:normalize=0[mixed]")
-        inputs = ["-i", str(audio_wav), "-i", str(music_path)]
-    else:
-        graph = (f"[0:a]adelay={pad_ms}|{pad_ms},aresample=44100,asplit=2[narr_main][narr_sc];"
-                 f"[1:a]aresample=44100[music_ducked_src];"
-                 f"[music_ducked_src][narr_sc]sidechaincompress=threshold={duck_threshold}:ratio={duck_ratio}:"
-                 f"attack={duck_attack_ms}:release={duck_release_ms}[music_ducked];"
-                 f"[2:a]aresample=44100[music_floor];"
-                 f"[narr_main][music_ducked][music_floor]amix=inputs=3:duration=longest:dropout_transition=0:normalize=0[mixed]")
-        inputs = ["-i", str(audio_wav), "-i", str(music_path), "-i", str(music_floor_path)]
+    graph, inputs = _grafo_musica(audio_wav, music_path, mixing, music_floor_path)
     mixed = work_dir / "_mixed_audio.m4a"
     r = _run_cmd([FFMPEG, "-v", "error", "-y", *inputs, "-filter_complex", graph, "-map", "[mixed]",
                   "-c:a", "aac", "-b:a", "192k", str(mixed)], timeout=900)
@@ -2568,6 +2585,208 @@ def _segmentos_en_paralelo(plans: list[Any], *, work_dir: Path, manifest: dict, 
     return [res[i] for i, _ in todos], reused, 0
 
 
+# ═══════════════════════════════════════════════════════════════
+#  F32 §A: --plan-only = el guion de pantalla (sin navegador, sin render)
+# ═══════════════════════════════════════════════════════════════
+
+def _visual_base_existente(plan: Any, work_dir: Path) -> Path | None:
+    """El visual base ya cocido de un cap (el que --reuse-visuals reusa); None si no está (el guion no cuece DepthFlow)."""
+    if plan.engine == "flux":
+        p = work_dir / f"{plan.chapter_id}_flux_visual.mp4"
+    elif plan.engine == "veo" and plan.supplemental_paths:
+        p = work_dir / f"{plan.chapter_id}_hybrid_visual.mp4"
+    else:
+        p = Path(plan.asset_paths[0]) if plan.asset_paths else None
+    return p if p is not None and p.exists() else None
+
+
+def _segmento_de_cap(plan: Any, work_dir: Path, pre_pad: float) -> dict[str, float]:
+    """Lo que el segmento del cap va a durar (las mismas cuentas de _build_chapter_segment): max(audio + pre-pad, clip
+    gfx = base + pausa de cierre), en cuadros enteros (el `-t` del segmento sale redondeado hacia arriba a la grilla)."""
+    import math
+    esc = json.loads((work_dir / f"gfx_escenas_{plan.chapter_id}.json").read_text(encoding="utf-8"))
+    clip = float(esc["clip_dur"])
+    fps = pipeline.fps
+    seg = math.ceil(round(max(plan.audio_duration + pre_pad, clip) * fps, 3) - 1e-3) / fps
+    return {"clip_dur": clip, "seg_dur": round(seg, 3), "pre_pad": pre_pad, "pre_roll": float(esc.get("pre_roll") or 0.0)}
+
+
+def _mezcla_preview(plans: list[Any], work_dir: Path, video_id: str, segs: dict[str, dict[str, float]],
+                    sync_map: dict) -> dict[str, Any]:
+    """F32 §A.4: voz + sfx por cap (el mismo grafo del segmento), unidos sin solapar (como el corte a negro con --gfx),
+    y la música con el mismo camino del render (pausas, intensidad, pre-roll, sidechain y piso) → mezcla_preview.wav.
+    Solo audio: segundos de ffmpeg."""
+    assert FFMPEG is not None
+    t0 = time.time()
+    partes: list[Path] = []
+    for p in plans:
+        sg = segs[p.chapter_id]
+        af = []
+        if sg["pre_pad"] > 0:
+            ms = int(sg["pre_pad"] * 1000)
+            af.append(f"adelay={ms}|{ms}")
+        if sg["clip_dur"] > p.audio_duration + sg["pre_pad"]:
+            af.append(f"apad=pad_dur={sg['clip_dur'] - (p.audio_duration + sg['pre_pad']):.3f}")
+        sfx_json = work_dir / f"gfx_sfx_{p.chapter_id}.json"
+        try:
+            sfx = [e for e in json.loads(sfx_json.read_text(encoding="utf-8")) if Path(e["file"]).exists()] \
+                if sfx_json.exists() else []
+        except (OSError, ValueError, KeyError):
+            sfx = []
+        out = work_dir / f"_preview_{p.chapter_id}.wav"
+        cmd = [FFMPEG, "-v", "error", "-y", "-i", str(p.audio_path)] + sum((["-i", str(e["file"])] for e in sfx), [])
+        voice = ",".join(af) if af else "anull"
+        graph = [f"[0:a]{voice}[v0]"]
+        for k, e in enumerate(sfx):
+            ms = int(round(float(e["t"]) * 1000))
+            graph.append(f"[{k + 1}:a]aformat=channel_layouts=stereo,adelay={ms}|{ms},volume={float(e['gain_db']):.1f}dB[s{k}]")
+        graph.append(f"[v0]{''.join(f'[s{k}]' for k in range(len(sfx)))}amix=inputs={len(sfx) + 1}:duration=first:"
+                     f"normalize=0,apad=whole_dur={sg['seg_dur']:.3f}[aout]")   # el audio del segmento llega a su video
+        r = _run_cmd(cmd + ["-filter_complex", ";".join(graph), "-map", "[aout]", "-t", f"{sg['seg_dur']:.3f}",
+                            "-ar", "44100", "-ac", "2", "-c:a", "pcm_s16le", str(out)], timeout=300)
+        if r.returncode != 0:
+            raise RuntimeError(f"previsualización de {p.chapter_id}: {r.stderr[-300:]}")
+        partes.append(out)
+    narr = work_dir / "_preview_narracion.wav"
+    cmd = [FFMPEG, "-v", "error", "-y"] + sum((["-i", str(x)] for x in partes), [])
+    r = _run_cmd(cmd + ["-filter_complex", "".join(f"[{i}:a]" for i in range(len(partes))) +
+                        f"concat=n={len(partes)}:v=0:a=1[a]", "-map", "[a]", "-c:a", "pcm_s16le", str(narr)], timeout=300)
+    if r.returncode != 0:
+        raise RuntimeError(f"previsualización (unión): {r.stderr[-300:]}")
+    for x in partes:
+        x.unlink(missing_ok=True)
+    mix = work_dir / "mezcla_preview.wav"
+    mixing = sync_map.get("mixing", {})
+    music_map = _load_music_map(video_id)
+    if music_map is None:
+        r = _run_cmd([FFMPEG, "-v", "error", "-y", "-i", str(narr), "-af",
+                      f"adelay={int(INITIAL_SILENCE_SEC * 1000)}|{int(INITIAL_SILENCE_SEC * 1000)}", "-c:a", "pcm_s16le",
+                      str(mix)], timeout=300)
+    else:
+        ducked, floor = _resolve_music_volumes(plans, mixing, music_map)
+        pauses = _gfx_pauses(plans, work_dir)
+        intensidad = _mapa_intensidad(video_id, plans, pauses)
+        prerolls = {p.chapter_id: segs[p.chapter_id]["pre_roll"] for p in plans}
+        md = _build_continuous_music_track(plans=plans, music_map=music_map, work_dir=work_dir,
+                                           crossfade_sec=MUSIC_CROSSFADE_SEC, piece_volumes=ducked,
+                                           output_filename="_preview_music_ducked.wav", extra_sec=pauses,
+                                           intensidad=intensidad, pre_sec=prerolls)
+        mf = _build_continuous_music_track(plans=plans, music_map=music_map, work_dir=work_dir,
+                                           crossfade_sec=MUSIC_CROSSFADE_SEC, piece_volumes=floor,
+                                           output_filename="_preview_music_floor.wav", extra_sec=pauses,
+                                           intensidad=intensidad, pre_sec=prerolls)
+        graph, inputs = _grafo_musica(narr, md, mixing, mf)
+        r = _run_cmd([FFMPEG, "-v", "error", "-y", *inputs, "-filter_complex", graph, "-map", "[mixed]",
+                      "-c:a", "pcm_s16le", str(mix)], timeout=900)
+        md.unlink(missing_ok=True)
+        mf.unlink(missing_ok=True)
+    if r.returncode != 0:
+        raise RuntimeError(f"mezcla de previsualización: {r.stderr[-300:]}")
+    import math
+    thr = float(mixing.get("duck_threshold", 0.03))
+    return {"mezcla": str(mix), "narracion": str(narr), "intro": INITIAL_SILENCE_SEC,
+            "umbral_db": round(20 * math.log10(thr), 2), "umbral_de": f"duck_threshold {thr} del sync map",
+            "segundos": round(time.time() - t0, 1), "duracion_s": round(_get_duration(mix), 3)}
+
+
+def _solo_plan(plans: list[Any], video_id: str, work_dir: Path, *, hook: str | None, sync_map: dict,
+               safe_by_cap: dict[str, dict[int, dict[str, Any]]], t_inicio: float, rot_usd_antes: float) -> int:
+    """F32 §A: director + rotulista + reglas + crítico de los caps (sin navegador ni render) → GUION_PANTALLA.md/.json
+    en output/<id>/ + mezcla_preview.wav en _fase2b_work. El -g30 de los caps va en paralelo; el plan, en fila (cada
+    cap mira lo que ya mostraron los anteriores)."""
+    from concurrent.futures import ThreadPoolExecutor
+    from script_engine.gfx_layer import _reencode, apply_gfx, remapped_words
+    from script_engine import gfx_guion as gg
+    fps = pipeline.fps
+    tiempos: dict[str, float] = {}
+    bases: dict[str, Path] = {}
+
+    def preparar(plan: Any) -> tuple[str, Path]:
+        base = _visual_base_existente(plan, work_dir)
+        if base is None:
+            raise RuntimeError(f"{plan.chapter_id}: falta el visual base (el guion no cuece DepthFlow: correr el render "
+                               f"una vez o fase2b sin --plan-only)")
+        pre_roll = _pre_roll_de(plan, True)
+        if pre_roll > 0:
+            base = _visual_con_pre_roll(base, pre_roll, work_dir / f"{plan.chapter_id}_visual_preroll.mp4", fps)
+        _reencode(base, work_dir / f"gfx_{plan.chapter_id}" / "public" / "base.mp4", fps)
+        return plan.chapter_id, base
+
+    t = time.time()
+    with ThreadPoolExecutor(max_workers=len(plans)) as ex:            # workers al máximo: un cap por hilo
+        for cap, base in ex.map(preparar, plans):
+            bases[cap] = base
+    tiempos["base_g30_paralelo"] = round(time.time() - t, 1)
+    print(f"  🎞  base -g30 de {len(plans)} caps en paralelo: {tiempos['base_g30_paralelo']:.0f}s")
+    segs: dict[str, dict[str, float]] = {}
+    t = time.time()
+    for plan in plans:
+        pre_roll = _pre_roll_de(plan, True)
+        pre_pad = (HOOK_DURATION if (plan.is_first and hook) else 0.0) + pre_roll
+        tc = time.time()
+        apply_gfx(bases[plan.chapter_id], plan, video_id, work_dir, width=pipeline.video_width,
+                  height=pipeline.video_height, fps=fps, time_offset=pre_pad,
+                  safe_scenes=_safe_scenes_for(plan, _visual_base_existente(plan, work_dir), safe_by_cap.get(plan.chapter_id, {})),
+                  pre_roll=pre_roll, plan_only=True, reencoded=True)
+        segs[plan.chapter_id] = _segmento_de_cap(plan, work_dir, pre_pad)
+        print(f"     ✓ {plan.chapter_id} plan {time.time() - tc:.0f}s · segmento {segs[plan.chapter_id]['seg_dur']:.2f}s")
+    tiempos["plan_en_fila"] = round(time.time() - t, 1)
+    mezcla = _mezcla_preview(plans, work_dir, video_id, segs, sync_map)
+    tiempos["mezcla"] = mezcla["segundos"]
+    print(f"  🔊 mezcla de previsualización: {mezcla['mezcla']} ({mezcla['duracion_s']:.1f}s, {mezcla['segundos']:.0f}s)")
+    # el guion
+    from script_engine.gfx_director import load_chapter_context
+    from script_engine.gfx_peak import sentences
+    from script_engine.gfx_rotulista import voz_del_video
+    from script_engine import evidence as _ev
+    from gfx_config import gfx_rules as _gr
+    sm = {c["id"]: c for c in sync_map.get("chapters", [])}
+    caps_in, off, voz_video = [], INITIAL_SILENCE_SEC, []
+    for plan in plans:
+        cap = plan.chapter_id
+        res = json.loads((work_dir / f"gfx_plan_{cap}.resolved.json").read_text(encoding="utf-8"))
+        esc = json.loads((work_dir / f"gfx_escenas_{cap}.json").read_text(encoding="utf-8"))
+        bf = work_dir / f"gfx_beats_{cap}.json"
+        beats = json.loads(bf.read_text(encoding="utf-8")).get("beats") or [] if bf.exists() else []
+        raw, words = remapped_words(plan)
+        ctx = load_chapter_context(video_id, plan)
+        if not voz_video:
+            voz_video = voz_del_video(ctx)
+        esc_full = ctx.get("escaleta") or {}
+        if not esc_full:
+            from config import DATA_DIR
+            fe = DATA_DIR / "scripts" / "_steps" / str(ctx.get("topic_id") or video_id) / "01a_escaleta.json"
+            esc_full = json.loads(fe.read_text(encoding="utf-8")) if fe.exists() else {}
+        n = int(ctx["chapter_number"])
+        sg = segs[cap]
+        caps_in.append({"cap": cap, "n": n, "titulo": (res["plan"].get("title_card") or {}).get("title"),
+                        "plan": res["plan"], "rejected": res.get("rejected") or [], "escenas": esc["escenas"],
+                        "beats": beats, "sents": sentences(words, sg["pre_pad"]), "raw": raw, "offset": round(off, 3),
+                        "seg_dur": sg["seg_dur"], "pre_pad": sg["pre_pad"], "pre_roll": sg["pre_roll"],
+                        "primera_palabra": float(raw[0]["start"]) if raw else 0.0,
+                        "tts_text": (sm.get(cap) or {}).get("tts_text") or "", "is_first": plan.is_first,
+                        "audio": str(plan.audio_path), "pool_items": _ev.items(ctx["pool"]) if ctx.get("pool") else {},
+                        "a_pantalla": [str(a.get("id")) for a in esc_full.get("a_pantalla") or [] if int(a.get("cap") or 0) == n]})
+        off += sg["seg_dur"]
+    from script_engine.gfx_rotulista import gastado
+    costos = {"claude_rotulista_usd": round(gastado(work_dir) - rot_usd_antes, 4)}
+    if cost_tracker.current_video is not None:                      # Gemini (crítico, visión) y Claude, por servicio
+        por: dict[str, float] = {}
+        for e in cost_tracker.current_video.entries:
+            k = "claude" if str(e.service).startswith("Anthropic") else "gemini" if "emini" in str(e.service) else "otro"
+            por[k] = por.get(k, 0.0) + float(e.total_cost)
+        costos.update({f"{k}_usd": round(v, 4) for k, v in por.items()})
+    g = gg.armar(caps_in, title_dur=float(_gr.title_dur), dip_frames=int(_gr.dip_frames), fps=fps,
+                 intro=INITIAL_SILENCE_SEC, mezcla=mezcla, voz_video=voz_video, topic=video_id,
+                 extra={"costos": costos, "tiempos_s": {**tiempos, "total": round(time.time() - t_inicio, 1)}})
+    md, js = gg.escribir(g, OUTPUT_DIR / video_id)
+    print(f"\n  📝 guion de pantalla: {md}\n                       {js}")
+    for ch in g["chequeos"]:
+        print(f"     {'✓' if ch['ok'] else '✗'} {ch['nombre']}")
+    print(f"  ⏱  --plan-only {time.time() - t_inicio:.0f}s · rotulista US$ {costos['claude_rotulista_usd']:.4f}")
+    return 0
+
+
 def _assemble_one_video(
     video_id: str, *,
     hook: str | None,
@@ -2583,6 +2802,7 @@ def _assemble_one_video(
     gfx_sparse: bool = False,
     reassemble: bool = False,
     safe_router: bool = True,
+    plan_only: bool = False,
 ) -> tuple[int, Path | None]:
     """
     Ensambla un único video. Retorna (returncode, final_path | None).
@@ -2636,6 +2856,7 @@ def _assemble_one_video(
         print(f"\n  🧪 DRY RUN — nada se ejecutó.\n")
         return 0, None
 
+    t_inicio = time.time()
     # ─── cost_tracker (Gemini Flash del flow_director) ───
     if cost_tracker.current_video is None:
         cost_tracker.start_video(video_id=video_id)
@@ -2735,7 +2956,10 @@ def _assemble_one_video(
         safe_by_cap, risk_counts = _route_safe(plans, video_id, per_image_by_cap)
         print(f"  🛡  safe-router: riesgo low={risk_counts['low']} mid={risk_counts['mid']} high={risk_counts['high']} "
               f"→ movimiento seguro en {sum(len(v) for v in safe_by_cap.values())} imagen(es)")
+    rot_usd_antes = 0.0
     if gfx:
+        from script_engine.gfx_rotulista import gastado as _gastado
+        rot_usd_antes = _gastado(work_dir)
         # F1b: director de gráficos de los caps en paralelo antes del loop (cache por cap)
         from script_engine.gfx_layer import prefetch_plans
         _pre = prefetch_plans([p for p in plans if not only_cap or p.chapter_id == only_cap], video_id, work_dir)
@@ -2748,6 +2972,17 @@ def _assemble_one_video(
                                  {p.chapter_id: (HOOK_DURATION if (p.is_first and hook) else 0.0) for p in _ps},
                                  modelo=_gr.rotulista_modelo, effort=_gr.rotulista_effort, tope=_gr.rotulista_tope_usd)
             print(f"  ✍  rotulista prefetch ({_gr.rotulista_modelo}): {_rot}")
+    if plan_only:                                                       # F32 §A: el guion de pantalla, sin render
+        try:
+            rc = _solo_plan([p for p in plans if not only_cap or p.chapter_id == only_cap], video_id, work_dir,
+                            hook=hook, sync_map=sync_map, safe_by_cap=safe_by_cap, t_inicio=t_inicio,
+                            rot_usd_antes=rot_usd_antes)
+        except Exception as e:  # noqa: BLE001
+            print(f"     ❌ --plan-only: {type(e).__name__}: {e}")
+            rc = 2
+        if started_tracker:
+            cost_tracker.end_video()
+        return rc, None
     paralelo = gfx and not only_cap and GFX_PARALELO > 1                # F28 §C.2 (apagado: GFX_PARALELO = 1)
     if paralelo:
         segments, reused_caps, rc = _segmentos_en_paralelo(
@@ -2896,7 +3131,7 @@ def _assemble_one_video(
             print(f"     pausas de cierre (gfx): {pauses}")
         intensidad = _mapa_intensidad(video_id, plans, pauses)            # F28 §B.2
         from gfx_config import gfx_rules as _gr_pr                         # F30b §B.3: pre-roll del title card
-        prerolls = ({p.chapter_id: float(_gr_pr.title_dur) for p in plans}
+        prerolls = ({p.chapter_id: _pre_roll_de(p, True) for p in plans}
                     if gfx and _gr_pr.title_pre_roll else None)
         if intensidad:
             print(f"     mapa de intensidad: " + " · ".join(
@@ -3037,6 +3272,14 @@ def main() -> int:
     parser.add_argument("--forma-variante", type=str, default=None, metavar="V,S,R",
                         help="F31: variantes de forma para comparar (no son default): V1|V2|V3 entrada/salida de ficha y "
                              "recorte, S1|S2|S3 tamaño del sello (+P = con placa), R1|R2 tamaño del reloj; p. ej. V2,S2P,R2.")
+    parser.add_argument("--plan-only", action="store_true",
+                        help="F32 §A: el guion de pantalla sin render (director, rotulista, reglas y crítico; sin navegador) "
+                             "→ output/<id>/GUION_PANTALLA.md/.json + _fase2b_work/mezcla_preview.wav. Implica --gfx y "
+                             "--reuse-visuals (los visuales base tienen que estar cocidos).")
+    parser.add_argument("--plan-edit", type=str, default=None, metavar="ARCHIVO.json",
+                        help="F32 §A.5: suma las ediciones del archivo ({\"ediciones\": [{cap, pool_id, texto|etiqueta|"
+                             "word_idx|sentence_idx|escena|borrar|agregar}]}) a _fase2b_work/plan_edits.json y regenera el "
+                             "guion (implica --plan-only; el rotulista sale de caché).")
     parser.add_argument("--limit", type=int, default=None,
                         help="Solo en modo batch: tope de videos a procesar en esta corrida.")
     parser.add_argument("--force", action="store_true",
@@ -3065,6 +3308,18 @@ def main() -> int:
     if FFMPEG is None or FFPROBE is None:
         print(f"❌ No se encontró ffmpeg/ffprobe (winget Gyan.FFmpeg).")
         return 1
+    if args.plan_edit:                          # F32 §A.5: las ediciones quedan en el work_dir del video
+        if not args.video_id:
+            print("❌ --plan-edit necesita el video_id")
+            return 1
+        from script_engine.gfx_rotulista import guardar_ediciones
+        nuevas = json.loads(Path(args.plan_edit).read_text(encoding="utf-8")).get("ediciones") or []
+        f = guardar_ediciones(OUTPUT_DIR / args.video_id / "_fase2b_work", nuevas)
+        print(f"  ✎ {len(nuevas)} edición(es) → {f}")
+        args.plan_only = True
+    if args.plan_only:                          # F32 §A: el guion de pantalla usa los visuales ya cocidos
+        args.gfx = True
+        args.reuse_visuals = True
 
     # ─── Determinar lista de videos a procesar ───
     if args.video_id:
@@ -3117,9 +3372,12 @@ def main() -> int:
             gfx_sparse=args.gfx_sparse,
             reassemble=args.reassemble_from_segments,
             safe_router=not args.no_safe_router,
+            plan_only=args.plan_only and mode == "single",
         )
 
-        if rc == 0 and final_path is not None and not args.dry_run:
+        if rc == 0 and final_path is None and args.plan_only:
+            success.append(vid)
+        elif rc == 0 and final_path is not None and not args.dry_run:
             # Marcar como video_generated en DB
             target_topic_id = tid or vid
             ok = mark_as_generated(
@@ -3146,7 +3404,7 @@ def main() -> int:
         print(f"  ❌ Fallidos:")
         for vid, rc in failed:
             print(f"     - {vid} (rc={rc})")
-    if success and not args.dry_run:
+    if success and not args.dry_run and not args.plan_only:
         print(f"  ▶ Siguiente paso (empaquetar para publicar):")
         for vid, tid in targets:
             if vid in success:

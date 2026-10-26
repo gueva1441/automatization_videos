@@ -905,7 +905,7 @@ def colocar(plan: dict[str, Any], res: dict[str, Any], ent: dict[str, Any], *, s
         meta = {"pool_id": pid, "rotulista": True, "beat": b["beat"], "sentence_idx": b["sentence_idx"],
                 "word_idx": b["word_idx"], "aporta": b.get("aporta"), "tipo_rotulista": b["tipo"],
                 "a_pantalla": b["a_pantalla"], "por_que": b.get("por_que") or "", "t1": b["t1"],
-                "lectura_s": b["lectura_s"], "movido": b.get("movido")}
+                "lectura_s": b["lectura_s"], "movido": b.get("movido"), **({"editado": True} if b.get("editado") else {})}
         fila = {"pool_id": pid, "tipo": b["tipo"], "etiqueta": b["etiqueta"], "texto": b["pantalla"],
                 "sentence_idx": b["sentence_idx"], "word_idx": b["word_idx"], "palabra": b.get("palabra"), "t0": t0,
                 "t1": b["t1"], "aporta": b.get("aporta"), "beat": b["beat"], "a_pantalla": b["a_pantalla"],
@@ -951,6 +951,106 @@ def colocar(plan: dict[str, Any], res: dict[str, Any], ent: dict[str, Any], *, s
     log.append(f"  rotulista: colocados {[(f['pool_id'], f['tipo'], f['texto']) for f in filas if f['accion'] == 'colocado']}"
                f" · fuera {[(f.get('pool_id'), f.get('regla'), f.get('motivo')) for f in filas if f['accion'] == 'fuera']}")
     return filas
+
+
+# ═══════════════════════ ediciones a mano (F32 §A.5: fase2b --plan-edit) ═══════════════════════
+
+EDICIONES = "plan_edits.json"
+CAMPOS_EDITABLES = ("texto", "etiqueta", "word_idx", "sentence_idx", "tipo", "aporta")
+
+
+def ediciones_de(work_dir: Path, cap_id: str) -> list[dict[str, Any]]:
+    """Las ediciones guardadas para un cap (`_fase2b_work/plan_edits.json`, en el orden en que se pidieron)."""
+    f = Path(work_dir) / EDICIONES
+    try:
+        data = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
+    except (OSError, ValueError):
+        return []
+    return [e for e in data.get("ediciones") or [] if str(e.get("cap")) == cap_id]
+
+
+def guardar_ediciones(work_dir: Path, nuevas: list[dict[str, Any]]) -> Path:
+    """Suma ediciones a las guardadas (las nuevas van después: si tocan lo mismo, ganan)."""
+    f = Path(work_dir) / EDICIONES
+    try:
+        data = json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
+    except (OSError, ValueError):
+        data = {}
+    data["ediciones"] = list(data.get("ediciones") or []) + list(nuevas)
+    f.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
+    return f
+
+
+def aplicar_ediciones(res: dict[str, Any], edits: list[dict[str, Any]], ent: dict[str, Any], log: list[str]
+                      ) -> dict[str, Any]:
+    """Las ediciones sobre la respuesta del rotulista (una copia: la caché no se toca): cambiar `texto`, `etiqueta`,
+    `word_idx`, `sentence_idx`, `tipo` o `aporta` de un bloque (por `pool_id`), `borrar` un bloque o `agregar` uno de un
+    ítem del pool. Después, el bloque editado pasa por todas las reglas (validar, colocar, escena, crítico) como
+    cualquier otro; el crítico vuelve a mirar solo lo editado (su caché es por identidad del bloque)."""
+    import copy
+    out = copy.deepcopy(res)
+    fin = out.get("final") if isinstance(out.get("final"), dict) else {"bloques": []}
+    bl = [b for b in fin.get("bloques") or [] if isinstance(b, dict)]
+    for e in edits:
+        pid = str(e.get("pool_id") or (e.get("agregar") or {}).get("pool_id") or "")
+        if e.get("agregar"):
+            nb = {**e["agregar"], "rank": int(e["agregar"].get("rank") or 1), "editado": True}
+            nb.setdefault("aporta", "(edición a mano)")
+            bl.append(nb)
+            log.append(f"  edición: agrega {pid} en la oración [{nb.get('sentence_idx')}]")
+            continue
+        if e.get("borrar"):
+            antes = len(bl)
+            bl = [b for b in bl if str(b.get("pool_id")) != pid]
+            log.append(f"  edición: borra {pid} ({antes - len(bl)} bloque(s))")
+            continue
+        hit = [b for b in bl if str(b.get("pool_id")) == pid]
+        if not hit:
+            log.append(f"  edición: {pid} no está en la respuesta del rotulista (nada que cambiar)")
+            continue
+        for b in hit:
+            for k in CAMPOS_EDITABLES:
+                if k in e:
+                    b[k] = e[k]
+            b["editado"] = True
+        cambios = [k for k in CAMPOS_EDITABLES if k in e]
+        if cambios:
+            log.append(f"  edición: {pid} cambia {cambios}")
+    fin["bloques"] = bl
+    out["final"] = fin
+    out["validacion"] = None
+    return out
+
+
+def mover_a_escena(plan: dict[str, Any], edits: list[dict[str, Any]], scenes: list[Any], ent: dict[str, Any],
+                   log: list[str]) -> None:
+    """«escena»: el bloque (por `pool_id`) arranca en el primer cuadro de la escena k; su fin se recalcula con §A.2."""
+    por_idx = {s.idx: s for s in scenes}
+    for e in edits:
+        if "escena" not in e:
+            continue
+        pid, sc = str(e.get("pool_id")), por_idx.get(int(e["escena"]))
+        if sc is None:
+            log.append(f"  edición: escena {e['escena']} no existe ({pid})")
+            continue
+        for campo in ("callouts", "archive_clippings", "quote_card", "water_level", "count_up"):
+            bs = plan.get(campo)
+            for b in (bs if isinstance(bs, list) else [bs] if bs else []):
+                if str(b.get("pool_id")) != pid:
+                    continue
+                sents = ent["oraciones"]
+                si = next((s["idx"] for s in sents if s["t0"] <= sc.start <= s["t1"]),
+                          next((s["idx"] for s in sents if s["t0"] >= sc.start), len(sents) - 1))
+                chars = caracteres(b.get("tipo_rotulista", ""), b.get("kicker") or b.get("etiqueta"),
+                                   str(b.get("text") or b.get("headline") or b.get("value_text") or ""),
+                                   str(b.get("author") or ""))
+                t1, sin_t = tiempos(sents, si, round(sc.start, 3), chars, scenes)
+                b["start"], b["t1"], b["duration"] = round(sc.start, 3), t1, round(t1 - sc.start, 3)
+                b["editado"] = True
+                if "scene_idx" in b:
+                    b["scene_idx"] = sc.idx
+                log.append(f"  edición: {pid} arranca en la escena {sc.idx} ({sc.start:.2f} s)"
+                           + (f" — {sin_t}" if sin_t else ""))
 
 
 def lupa_de_detalles(details: dict[int, list[dict]], verify: Callable[[int, dict], bool]
