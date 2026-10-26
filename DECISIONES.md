@@ -62,6 +62,9 @@ Formato: `fecha · decisión · motivo/contexto · estado (vigente / aplicada en
 4. **Sesión Omar + analista:** clasificar los 66 números sin origen → `gfx_config` lee DECISIONES.
 5. Forma (F31b), subtítulos, sfx, Kyshtym en seco.
 
+- 2026-10-26 17:58 · **«Una por escena» pasa a «nunca al mismo tiempo»:** dos bloques (texto, sello, reloj, agua) no se solapan ni se tocan; la escena deja de ser la unidad (nació con escenas de ~10 s; Veo trae escenas de 40–100 s). Sin número nuevo. Reemplaza a «nunca dos en la misma escena» (02:52) · Omar · F36 C.
+- 2026-10-26 17:58 · **Pico: solo `a_pantalla`, salvo que el beat pico no tenga ningún `a_pantalla`**; entonces el rotulista puede poner un texto no marcado (el pico sin texto es peor). Precisa la decisión 14:22 · Omar · F36 C.
+
 ## Transiciones y costura
 - 2026-10-25 21:48 · **Cada transición con razón nombrable; si no hay razón, corte.** Lupa → corte; pico → `zoom_punch` (reemplaza al flash); cambio de beat o salto de fecha → fundido 20 f (identidad F3); cierre de cap → dip 10 f (identidad); entre caps negro → title card → voz; `whip_pan_flash` fuera · aplicada F30b.
 - 2026-10-26 11:02 · A Omar le gustó el zoom-punch (4:05 de v5) · las demás se notan poco (esperado) · vigente.
