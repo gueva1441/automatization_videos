@@ -1,6 +1,6 @@
 # ESTADO_SESION — dónde estamos (leer ANTES de programar)
 
-Última actualización: 2026-10-26 (F36 en curso: A y B hechas; sigue C) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
+Última actualización: 2026-10-26 (F36: A y B hechas, **PARADA antes de C** esperando respuesta sobre dos cambios de prompt) · CC lo actualiza en cada hito (commit, reporte, decisión de Omar).
 
 ## Proyecto activo
 - Repo: `C:\CLAUDE_PROJECTS\automatization_videos` · rama activa **`f11-guion-v4`** (desde `b8ff4ef`, en `f10-integracion-v3`). `f10-integracion-v3` termina en `fccecd0` (docs del freno de Omar). Historia vieja: f6-guion-v3 sale de `45c052c` (tip de `f5-guion-v2`, que sale de `39e37ac`).
@@ -18,6 +18,7 @@
 - **Paso 0 HECHO:** `DECISIONES.md` tal cual (`74a309f`).
 - **A HECHO** (commit A): `gfx_rotulista` partido en `rotulista_llm`, `rotulista_filtros` (`ORDEN` de filtros, el de F34: lectura antes que coherencia), `rotulista_colocar`, `clima` (+ `peak_word` de gfx_peak), `voz_datos`, `voz_utils` (parsers de español y oraciones); `gfx_rotulista` = fachada. Guion de Vajont regenerado (caché, US$ 0): **diff vacío** contra F34. md5 ch02 `38e5ba14…`, rápida 58, amplia 1025 + 5 previas. Simulador: 0/15 líneas (esperado). Mapa 43 módulos, 14 muertos.
 - **B HECHO** (commit B): contador del rotulista queda (B.1), crítico antes del reparto y «¿estorba?» para sellos de clima y agua sin prompt nuevo (B.2), sello que ya salió en el video se repide una vez (B.3), agua y reloj hasta el corte − 1 cuadro (B.4), cota con cota en la vecindad (B.5), desempate con cifra (B.6), candado del gancho con la voz del video y el gancho no es pico para textos (B.7, DECISIONES 14:28), `max_chars` y reintento con el número (B.8, sin prompt), tarjeta reemplaza la intro: 3 s, todo +0.5 s, música 0 cuadros (B.9). Simulador: 6/15 (1, 5, 7, 11, 12, 15) + 2 en parte; B debía 10, cerró 5 (2 CALMA tapa rostros, 3 AVISO ya no cae, 6 D49 lupa sin visión, 9 depende de Q50, 10 COLAPSO tomado por ch04). Contrato pide AMENAZA ×2 contra B.3. Gemini US$ 0.1257. md5 `38e5ba14…`, rápida 58, amplia 1036 + 5 previas. RAM 13.6 GB antes del md5 de B (bajo la regla; el verificador ahora frena).
+- **PARADA antes de C** (`F36_REPORT.md`, última sección): el pedido de Omar solo autoriza los literales de C.2 y C.3; C.1 trae otra frase literal y C.4 (`tipo: "agua"`) necesita texto nuevo en el prompt. Pregunta enviada a la sesión que lanzó la tanda; sin respuesta, no se llama a Sonnet.
 
 ## F34 — Reglas de pantalla corregidas (pedido de Omar, 2026-10-26) — HECHA, **PARADA** (sin render, sin aprobar)
 - Handoff `lab/hyperframes/f34/HANDOFF_F34_reglas_de_pantalla.md`. Base `fc889c9`. Un commit por parte.

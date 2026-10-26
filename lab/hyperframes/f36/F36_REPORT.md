@@ -268,3 +268,26 @@ Texto: eventos con `queda: true` de tipo ficha, recorte, cita, lupa, persona o c
 - **Contradicción del contrato con B.3** (la marca el simulador): la tabla DEBERÍA pide AMENAZA dos veces (ch02 y ch04) y B.3 prohíbe repetir una palabra en todo el video. Decide Omar.
 
 **PARADA B:** md5, suites y tests cierran → se sigue a C (el guion no exige diff vacío en B).
+
+---
+
+## PARADA antes de C — dos cambios de prompt que el pedido de Omar no autoriza
+El pedido de Omar dice «Prompts: solo los cambios literales de C.2 y C.3». El handoff pide dos cambios más al prompt del
+rotulista, y C llama a Sonnet (cada vuelta cuesta), así que CC frena antes de C y pregunta (a la sesión que lanzó la
+tanda, 2026-10-26):
+1. **C.1:** la instrucción literal nueva para `ROTULISTA_USER` («Los datos marcados con tu beat son los que la escaleta
+   cuenta ahí; los demás son el resto del archivo del caso: usalos si suman más que los del beat y no adelantan nada
+   que la narración cuente después.»). Sin ella, el pool completo puede ir igual en la entrada (con
+   `beats_que_lo_cuentan`), pero sin la instrucción.
+2. **C.4:** «el agua la propone el modelo como `tipo: "agua"`» y `agua_de_voz` deja de correr. Para que Sonnet proponga
+   ese tipo hay que agregar «agua» a los tipos del prompt, y el handoff no da ese texto literal. Sin él y sin
+   `agua_de_voz`, las dos aguas de Vajont (OLA 20 m, COTA 715 m) se pierden: son cifras que dice la voz y el filtro «no
+   dicho» las corta.
+Alternativa que CC puede hacer sin tocar más prompt: C sin la frase de C.1 y con `agua_de_voz` vivo (solo sin
+`AGUA_ETIQUETAS`: la etiqueta, tomada de la oración).
+
+Lo que C ya sabe que necesita (sin decidir nada): con C.3 el rotulista elige el sello «sin repetir en el video (lista de
+usadas)», así que el prefetch de los 7 caps tiene que pasar de paralelo a fila (cada cap necesita las palabras que el
+modelo eligió en los anteriores); y C.2 necesita los cortes de escena en la entrada, que hoy se arma antes de tener
+escenas (se toman de `build_scenes` sin el ajuste fino de `snap_cuts`, iguales en el prefetch y en el plan, para que la
+caché del modelo no se rompa).
