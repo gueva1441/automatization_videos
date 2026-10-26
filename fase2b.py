@@ -3288,6 +3288,10 @@ def main() -> int:
                         help="F32 §A.5: suma las ediciones del archivo ({\"ediciones\": [{cap, pool_id, texto|etiqueta|"
                              "word_idx|sentence_idx|escena|borrar|agregar}]}) a _fase2b_work/plan_edits.json y regenera el "
                              "guion (implica --plan-only; el rotulista sale de caché).")
+    parser.add_argument("--aprobar-guion", type=str, default=None, metavar='"QUIÉN FECHA"',
+                        help="F33 §B: escribe `aprobado: {por, fecha, md5_planes}` en output/<id>/GUION_PANTALLA.json (la "
+                             "compuerta del render: el hook guard_render no deja pasar `--gfx` sin eso). CC lo corre solo "
+                             "cuando el prompt de Omar dice «aprobado». No ensambla nada.")
     parser.add_argument("--limit", type=int, default=None,
                         help="Solo en modo batch: tope de videos a procesar en esta corrida.")
     parser.add_argument("--force", action="store_true",
@@ -3316,6 +3320,20 @@ def main() -> int:
     if FFMPEG is None or FFPROBE is None:
         print(f"❌ No se encontró ffmpeg/ffprobe (winget Gyan.FFmpeg).")
         return 1
+    if args.aprobar_guion:                      # F33 §B: la aprobación del guion de pantalla (no ensambla)
+        if not args.video_id:
+            print("❌ --aprobar-guion necesita el video_id")
+            return 1
+        from script_engine.aprobacion import aprobar
+        partes = args.aprobar_guion.split()
+        por, fecha = (" ".join(partes[:-1]), partes[-1]) if len(partes) > 1 else (args.aprobar_guion, None)
+        try:
+            ap = aprobar(OUTPUT_DIR / args.video_id, por, fecha)
+        except RuntimeError as e:
+            print(f"❌ --aprobar-guion: {e}")
+            return 1
+        print(f"  ✔ guion de {args.video_id} aprobado por {ap['por']} ({ap['fecha']}) · md5 de los planes {ap['md5_planes']}")
+        return 0
     if args.plan_edit:                          # F32 §A.5: las ediciones quedan en el work_dir del video
         if not args.video_id:
             print("❌ --plan-edit necesita el video_id")

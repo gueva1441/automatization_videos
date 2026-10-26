@@ -1,0 +1,14 @@
+$ python fase2b.py f8s3-vajont-f30 --gfx --dry-run
+guard_render: sin guion aprobado no hay render — el guion de f8s3-vajont-f30 no está aprobado (Omar lo aprueba; CC corre `fase2b f8s3-vajont-f30 --aprobar-guion "Omar <fecha>"` solo si su prompt dice «aprobado»)
+→ exit 2
+
+$ python fase2b.py f8s3-vajont-f30 --keep-segments --reuse-visuals --gfx --gfx-sparse --gfx-quality looks --rotulista
+guard_render: sin guion aprobado no hay render — el guion de f8s3-vajont-f30 no está aprobado (Omar lo aprueba; CC corre `fase2b f8s3-vajont-f30 --aprobar-guion "Omar <fecha>"` solo si su prompt dice «aprobado»)
+→ exit 2
+
+$ python fase2b.py f8s3-vajont-f30 --plan-only --rotulista
+→ exit 0
+
+$ python fase2b.py ba6c3cac-a091-41c0-8dad-afd2f4364747 --only-cap ch02 --reuse-visuals --sw-encode
+→ exit 0
+

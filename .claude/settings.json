@@ -6,7 +6,8 @@
         "hooks": [
           {"type": "command", "command": "python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard_git.py\"", "timeout": 30},
           {"type": "command", "command": "python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/suite_rapida.py\"", "timeout": 180},
-          {"type": "command", "command": "python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/tope_tanda.py\"", "timeout": 30}
+          {"type": "command", "command": "python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/tope_tanda.py\"", "timeout": 30},
+          {"type": "command", "command": "python -I \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard_render.py\"", "timeout": 30}
         ]
       }
     ],
