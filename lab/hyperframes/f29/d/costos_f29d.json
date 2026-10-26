@@ -1,0 +1,19 @@
+{
+ "llamadas": [
+  {
+   "in": 503,
+   "out": 45,
+   "stop": "end_turn",
+   "usd": 0.00146,
+   "segundos": 1.2
+  },
+  {
+   "in": 463,
+   "out": 45,
+   "stop": "end_turn",
+   "usd": 0.00138,
+   "segundos": 2.4
+  }
+ ],
+ "usd": 0.00284
+}

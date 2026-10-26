@@ -398,6 +398,9 @@ def _free_slot(a: float, sc: Any, dur: float, busy: list[tuple[float, float]], l
     return None
 
 
+# F29 §D: el `call` del paso de forma de los recortes (Flash elige la cláusula); None = Gemini Flash, como siempre
+FORMA_CALL: Callable[..., dict] | None = None
+
 HARD_KINDS = ("title_card", "chapter_question", "water_level")   # F5f: lo único ante lo que cede un reservado
 
 
@@ -648,6 +651,8 @@ def plan_pool_documents(plan: dict[str, Any], *, ctx: dict[str, Any], words: lis
         except (OSError, ValueError):
             raw = None
         if raw is None:
+            if call is None and FORMA_CALL is not None:     # F29 §D: otro modelo en el mismo paso, mismo prompt
+                call = FORMA_CALL
             if call is None:
                 from gemini_helpers import call_flash_json as call
             try:

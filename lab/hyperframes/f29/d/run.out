@@ -1,0 +1,87 @@
+[19:36:38] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s3-vajont-f29d
+[19:48:36] INFO     | viral_pipeline | [video_assembler] \u2713 [gfx] ch05 OK en 718s (disperso)
+[19:49:08] INFO     | viral_pipeline | [cost_tracker] Video f8s3-vajont-f29d � Costo total: $0.0017
+
+  🎬 Modo: SINGLE · 1 video(s) a procesar
+
+════════════════════════════════════════════════════════════
+  🎬 FASE 2B — f8s3-vajont-f29d
+════════════════════════════════════════════════════════════
+  🪝 hook:     (ninguno)
+  📝 subs:     ON (karaoke)
+  🎨 gfx:      ON (HyperFrames, looks)
+  📊 capítulos: 7
+  ⏱  duración total estimada: 980.8s (16.3 min)
+
+  Plan por capítulo:
+    [ch01] engine=veo  | audio= 94.8s | 1 clip     | subs+ts
+    [ch02] engine=flux | audio=130.0s | 13 img(s)  | subs+ts
+    [ch03] engine=flux | audio=126.4s | 13 img(s)  | subs+ts
+    [ch04] engine=flux | audio=118.7s | 11 img(s)  | subs+ts
+    [ch05] engine=flux | audio=166.0s | 15 img(s)  | subs+ts
+    [ch06] engine=flux | audio=164.7s | 16 img(s)  | subs+ts
+    [ch07] engine=veo  | audio=180.2s | 1 clip     | subs+ts
+
+  ♻  reuse-visuals: salteando flow_director (clips ya horneados)
+  🛡  safe-router: riesgo low=68 mid=0 high=0 → movimiento seguro en 0 imagen(es)
+  🎨 gfx_director prefetch: ch05 0s
+
+  🔧 [5/7] ch05 (flux)...
+  [fase2b] ch05 reuse-visuals: ch05_flux_visual.mp4 (sin DepthFlow)
+     ✓ ch05_segment_only.mp4 — 170.1s
+
+  ✅ --only-cap ch05: C:\CLAUDE_PROJECTS\automatization_videos\output\f8s3-vajont-f29d\_fase2b_work\ch05_segment_only.mp4
+
+════════════════════════════════════════════════════════════
+  ✅ FASE 2B BATCH TERMINADA
+════════════════════════════════════════════════════════════
+  Procesados OK: 1/1
+  ▶ Siguiente paso (empaquetar para publicar):
+       python fase3.py f8s3-vajont-f29d
+════════════════════════════════════════════════════════════
+
+[ch05] {'rc': 0, 'segundos': 749.2, 'gemini_usd': 0.0002}
+[19:49:08] INFO     | viral_pipeline | [cost_tracker] Tracking de costos iniciado para video: f8s3-vajont-f29d
+[20:01:27] INFO     | viral_pipeline | [video_assembler] \u2713 [gfx] ch06 OK en 739s (disperso)
+[20:01:57] INFO     | viral_pipeline | [cost_tracker] Video f8s3-vajont-f29d � Costo total: $0.0016
+
+  🎬 Modo: SINGLE · 1 video(s) a procesar
+
+════════════════════════════════════════════════════════════
+  🎬 FASE 2B — f8s3-vajont-f29d
+════════════════════════════════════════════════════════════
+  🪝 hook:     (ninguno)
+  📝 subs:     ON (karaoke)
+  🎨 gfx:      ON (HyperFrames, looks)
+  📊 capítulos: 7
+  ⏱  duración total estimada: 980.8s (16.3 min)
+
+  Plan por capítulo:
+    [ch01] engine=veo  | audio= 94.8s | 1 clip     | subs+ts
+    [ch02] engine=flux | audio=130.0s | 13 img(s)  | subs+ts
+    [ch03] engine=flux | audio=126.4s | 13 img(s)  | subs+ts
+    [ch04] engine=flux | audio=118.7s | 11 img(s)  | subs+ts
+    [ch05] engine=flux | audio=166.0s | 15 img(s)  | subs+ts
+    [ch06] engine=flux | audio=164.7s | 16 img(s)  | subs+ts
+    [ch07] engine=veo  | audio=180.2s | 1 clip     | subs+ts
+
+  ♻  reuse-visuals: salteando flow_director (clips ya horneados)
+  🛡  safe-router: riesgo low=68 mid=0 high=0 → movimiento seguro en 0 imagen(es)
+  🎨 gfx_director prefetch: ch06 0s
+
+  🔧 [6/7] ch06 (flux)...
+  [fase2b] ch06 reuse-visuals: ch06_flux_visual.mp4 (sin DepthFlow)
+     ✓ ch06_segment_only.mp4 — 168.8s
+
+  ✅ --only-cap ch06: C:\CLAUDE_PROJECTS\automatization_videos\output\f8s3-vajont-f29d\_fase2b_work\ch06_segment_only.mp4
+
+════════════════════════════════════════════════════════════
+  ✅ FASE 2B BATCH TERMINADA
+════════════════════════════════════════════════════════════
+  Procesados OK: 1/1
+  ▶ Siguiente paso (empaquetar para publicar):
+       python fase3.py f8s3-vajont-f29d
+════════════════════════════════════════════════════════════
+
+[ch06] {'rc': 0, 'segundos': 769.4, 'gemini_usd': 0.0002}
+Claude US$ 0.00284 · {'ch05': {'rc': 0, 'segundos': 749.2, 'gemini_usd': 0.0002}, 'ch06': {'rc': 0, 'segundos': 769.4, 'gemini_usd': 0.0002}}

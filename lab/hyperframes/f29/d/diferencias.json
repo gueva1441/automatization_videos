@@ -1,0 +1,116 @@
+{
+ "ch05": {
+  "flash": [
+   {
+    "t": 9.1,
+    "tipo": "recorte",
+    "dur": 4.7,
+    "texto": "Las poblaciones de Erto y Casso están viviendo en continua aprensión",
+    "pool_id": "Q50",
+    "beat": 8
+   },
+   {
+    "t": 151.0,
+    "tipo": "recorte",
+    "dur": 3.7,
+    "texto": "El jefe de obras cierra la jornada laboral",
+    "pool_id": "T64",
+    "beat": 9
+   },
+   {
+    "t": 162.8,
+    "tipo": "rótulo",
+    "dur": 3.3,
+    "texto": "El director Alberico Biadene envía una carta",
+    "pool_id": "T61",
+    "beat": 9
+   }
+  ],
+  "sonnet": [
+   {
+    "t": 9.1,
+    "tipo": "recorte",
+    "dur": 4.7,
+    "texto": "Las poblaciones de Erto y Casso están viviendo en continua aprensión",
+    "pool_id": "Q50",
+    "beat": 8
+   },
+   {
+    "t": 151.0,
+    "tipo": "recorte",
+    "dur": 3.7,
+    "texto": "El jefe de obras cierra la jornada laboral",
+    "pool_id": "T64",
+    "beat": 9
+   },
+   {
+    "t": 162.8,
+    "tipo": "rótulo",
+    "dur": 3.3,
+    "texto": "El director Alberico Biadene envía una carta",
+    "pool_id": "T61",
+    "beat": 9
+   }
+  ],
+  "solo_flash": [],
+  "solo_sonnet": [],
+  "mismo_id_otro_texto": []
+ },
+ "ch06": {
+  "flash": [
+   {
+    "t": 29.1,
+    "tipo": "recorte",
+    "dur": 5.0,
+    "texto": "Una ola enorme pasó por encima de la presa y devastó Longarone",
+    "pool_id": "T58",
+    "beat": 10
+   },
+   {
+    "t": 105.2,
+    "tipo": "rótulo",
+    "dur": 6.3,
+    "texto": "Una sección masiva del Monte Toc se desprendió y se estrelló contra el embalse de Vajont.",
+    "pool_id": "T57",
+    "beat": 10
+   },
+   {
+    "t": 114.2,
+    "tipo": "recorte",
+    "dur": 3.0,
+    "texto": "En el desastre murieron 1.910 personas",
+    "pool_id": "D128",
+    "beat": 11
+   }
+  ],
+  "sonnet": [
+   {
+    "t": 29.1,
+    "tipo": "recorte",
+    "dur": 5.0,
+    "texto": "Una ola enorme pasó por encima de la presa y devastó Longarone",
+    "pool_id": "T58",
+    "beat": 10
+   },
+   {
+    "t": 105.2,
+    "tipo": "rótulo",
+    "dur": 6.3,
+    "texto": "Una sección masiva del Monte Toc se desprendió y se estrelló contra el embalse de Vajont.",
+    "pool_id": "T57",
+    "beat": 10
+   },
+   {
+    "t": 114.2,
+    "tipo": "recorte",
+    "dur": 3.0,
+    "texto": "En el desastre murieron 1.910 personas",
+    "pool_id": "D128",
+    "beat": 11
+   }
+  ],
+  "solo_flash": [],
+  "solo_sonnet": [],
+  "mismo_id_otro_texto": []
+ }
+}
